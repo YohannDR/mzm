@@ -10,6 +10,7 @@ SECTIONS {
     iwram (NOLOAD) : ALIGN(4) {
         . = 0x03007e60; sp_sys = .;
         . = 0x03007fa0; sp_irq = .;
+        . = 0x03007ffc; intr_vector = .;
     }
 
     rom : ALIGN(2) {
