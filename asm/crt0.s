@@ -3,7 +3,6 @@
 
     arm_func_start _start
 _start:
-interrupt_setup:
     mov r0, #PSR_IRQ_MODE
     msr cpsr_fc, r0
     ldr sp, sp_irq

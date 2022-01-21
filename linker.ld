@@ -9,7 +9,7 @@ SECTIONS {
     iwram (NOLOAD) : ALIGN(4) {}
 
     rom : ALIGN(2) {
-        asm/blob_0x00000000-0x000000c0.o(.text);
+        asm/romheader.o(.text);
         asm/crt0.o(.text);
         asm/blob_0x00000104-0x00800000.o(.text);
     } >rom
