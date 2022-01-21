@@ -6,7 +6,11 @@ MEMORY {
 
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {}
-    iwram (NOLOAD) : ALIGN(4) {}
+
+    iwram (NOLOAD) : ALIGN(4) {
+        . = 0x03007e60; sp_sys = .;
+        . = 0x03007fa0; sp_irq = .;
+    }
 
     rom : ALIGN(2) {
         asm/romheader.o(.text);
