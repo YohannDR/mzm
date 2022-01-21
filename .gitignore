@@ -1,1 +1,6 @@
 *.gba
+*.elf
+*.dump
+*.o
+*.map
+*.bin
