@@ -1,5 +1,5 @@
-    .include "asm/macros.s"
     .include "asm/constants.s"
+    .include "asm/macros.s"
 
     arm_func_start _start
 _start:
