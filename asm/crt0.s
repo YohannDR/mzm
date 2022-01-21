@@ -12,7 +12,7 @@ _start:
     ldr r1, intr_vector_ptr
     add r0, pc, #0x20 @ intr_main
     str r0, [r1]
-    ldr r1, main_loop_ptr
+    ldr r1, main_ptr
     mov lr, pc
     bx r1
     b _start
@@ -21,4 +21,4 @@ _start:
 sp_sys_ptr: .4byte sp_sys
 sp_irq_ptr: .4byte sp_irq
 intr_vector_ptr: .4byte intr_vector
-main_loop_ptr: .4byte 0x0800023d
+main_ptr: .4byte 0x0800023d @ TODO: main

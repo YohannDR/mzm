@@ -33,7 +33,8 @@ ASFLAGS = -mcpu=arm7tdmi
 ASM =                                                                          \
 	asm/romheader.s                                                            \
 	asm/crt0.s                                                                 \
-	asm/blob_0x00000104-0x00800000.s
+	asm/intr_main.s                                                            \
+	asm/blob_0x0000023c-0x00800000.s
 
 OBJ = $(ASM:.s=.o) $(BLOBS)
 
