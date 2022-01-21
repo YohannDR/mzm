@@ -5,6 +5,12 @@ ELF = $(TARGET:.gba=.elf)
 MAP = $(TARGET:.gba=.map)
 DUMPS = $(TARGET:.gba=.dump) $(BASEROM:.gba=.dump)
 
+# ROM header
+GAME_TITLE = ZEROMISSIONE
+GAME_CODE= BMXE
+MAKER_CODE = 01
+GAME_REVISION = 00
+
 # Binaries
 TOOLCHAIN ?= arm-none-eabi-
 AS = $(TOOLCHAIN)as
@@ -13,16 +19,19 @@ OBJCOPY = $(TOOLCHAIN)objcopy
 OBJDUMP = $(TOOLCHAIN)objdump
 
 DIFF = diff -u
+HOSTCC = cc
 RM = rm -f
 SHA1SUM = sha1sum
 TAIL = tail
+
+GBAFIX = tools/gbafix/gbafix
 
 # Flags
 ASFLAGS = -mcpu=arm7tdmi
 
 # Objects
 ASM =                                                                          \
-	asm/blob_0x00000000-0x000000c0.s                                           \
+	asm/romheader.s                                                            \
 	asm/crt0.s                                                                 \
 	asm/blob_0x00000104-0x00800000.s
 
@@ -62,6 +71,8 @@ clean:
 	$Q$(RM) $(DUMPS)
 	$(MSG) RM $(OBJ)
 	$Q$(RM) $(OBJ)
+	$(MSG) RM $(GBAFIX)
+	$Q$(RM) $(GBAFIX)
 
 .PHONY: help
 help:
@@ -77,10 +88,11 @@ help:
 	@echo '  V=1: enable verbose output'
 
 
-$(TARGET): $(ELF)
+$(TARGET): $(ELF) $(GBAFIX)
 	$(MSG) OBJCOPY $@
 	$Q$(OBJCOPY) -O binary --gap-fill 0xff --pad-to 0x08800000 $< $@
-	# TODO: gbafix
+	$(MSG) GBAFIX $@
+	$Q$(GBAFIX) $@ -t$(GAME_TITLE) -c$(GAME_CODE) -m$(MAKER_CODE) -r$(GAME_REVISION)
 
 $(ELF): $(OBJ) linker.ld
 	$(MSG) LD $@
@@ -93,3 +105,7 @@ $(ELF): $(OBJ) linker.ld
 %.o: %.s
 	$(MSG) AS $@
 	$Q$(AS) $(ASFLAGS) $< -o $@
+
+tools/%: tools/%.c
+	$(MSG) HOSTCC $@
+	$Q$(HOSTCC) $< $(CFLAGS) $(CPPFLAGS) -o $@
