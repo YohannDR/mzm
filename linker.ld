@@ -22,7 +22,9 @@ SECTIONS {
         asm/intr_main.o(.text);
         asm/blob_0x0000023c-0x00000968.o(.text);
         asm/update_input.o(.text);
-        asm/blob_0x000009a0-0x00800000.o(.text);
+        asm/blob_0x000009a0-0x00005190.o(.text);
+        asm/syscalls.o(.text);
+        asm/blob_0x000051d4-0x00800000.o(.text);
     } >rom
 
     /DISCARD/ : {

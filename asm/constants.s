@@ -49,3 +49,47 @@
     .set KEY_RTRIGGER, 1 << 8
     .set KEY_LTRIGGER, 1 << 9
     .set KEY_MASK,     0x3ff
+
+    .set SYSCALL_SoftReset,            0
+    .set SYSCALL_RegisterRamReset,     1
+    .set SYSCALL_Halt,                 2
+    .set SYSCALL_Stop,                 3
+    .set SYSCALL_IntrWait,             4
+    .set SYSCALL_VBlankIntrWait,       5
+    .set SYSCALL_Div,                  6
+    .set SYSCALL_DivArm,               7
+    .set SYSCALL_Sqrt,                 8
+    .set SYSCALL_ArcTan,               9
+    .set SYSCALL_ArcTan2,              10
+    .set SYSCALL_CPUSet,               11
+    .set SYSCALL_CPUSetFast,           12
+    .set SYSCALL_BiosChecksum,         13
+    .set SYSCALL_BgAffineSet,          14
+    .set SYSCALL_ObjAffineSet,         15
+    .set SYSCALL_BitUnPack,            16
+    .set SYSCALL_LZ77UnCompWRAM,       17
+    .set SYSCALL_LZ77UnCompVRAM,       18
+    .set SYSCALL_HuffUnComp,           19
+    .set SYSCALL_LRUnCompWRAM,         20
+    .set SYSCALL_LRUnCompVRAM,         21
+    .set SYSCALL_Diff8bitUnFilterWRAM, 22
+    .set SYSCALL_Diff8bitUnFilterVRAM, 23
+    .set SYSCALL_Diff16bitUnFilter,    24
+    .set SYSCALL_SoundBiasChange,      25
+    .set SYSCALL_SoundDriverInit,      26
+    .set SYSCALL_SoundDriverMode,      27
+    .set SYSCALL_SoundDriverMain,      28
+    .set SYSCALL_SoundDriverVSync,     29
+    .set SYSCALL_SoundChannelClear,    30
+    .set SYSCALL_MIDIKey2Freq,         31
+    .set SYSCALL_MusicPlayerOpen,      32
+    .set SYSCALL_MusicPlayerStart,     33
+    .set SYSCALL_MusicPlayerStop,      34
+    .set SYSCALL_MusicPlayerContinue,  35
+    .set SYSCALL_MusicPlayerFadeOut,   36
+    .set SYSCALL_MultiBoot,            37
+    .set SYSCALL_HardReset,            38
+    .set SYSCALL_CustomHalt,           39
+    .set SYSCALL_SoundDriverVSyncOff,  40
+    .set SYSCALL_SoundDriverVSyncOn,   41
+    .set SYSCALL_GetJumpList,          42

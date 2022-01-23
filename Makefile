@@ -36,7 +36,9 @@ ASM =                                                                          \
 	asm/intr_main.s                                                            \
 	asm/blob_0x0000023c-0x00000968.s                                           \
 	asm/update_input.s                                                         \
-	asm/blob_0x000009a0-0x00800000.s
+	asm/blob_0x000009a0-0x00005190.s                                           \
+	asm/syscalls.s                                                             \
+	asm/blob_0x000051d4-0x00800000.s
 
 OBJ = $(ASM:.s=.o) $(BLOBS)
 
@@ -97,7 +99,7 @@ $(TARGET): $(ELF) $(GBAFIX)
 	$(MSG) GBAFIX $@
 	$Q$(GBAFIX) $@ -t$(GAME_TITLE) -c$(GAME_CODE) -m$(MAKER_CODE) -r$(GAME_REVISION)
 
-$(ELF): $(OBJ) linker.ld
+$(ELF) $(MAP): $(OBJ) linker.ld
 	$(MSG) LD $@
 	$Q$(LD) $(LDFLAGS) -n -T linker.ld -Map=$(MAP) -o $@ $(OBJ)
 
