@@ -12,9 +12,16 @@
 
     .set REG_BASE,              0x04000000
     .set REG_SOUNDCNT_X_OFFSET, 0x00000084
+    .set REG_KEY_INPUT_OFFSET,  0x00000130
     .set REG_IE_OFFSET,         0x00000200
     .set REG_IF_OFFSET,         0x00000202
     .set REG_IME_OFFSET,        0x00000208
+
+    .set REG_SOUNDCNT_X, (REG_BASE + REG_SOUNDCNT_X_OFFSET)
+    .set REG_KEY_INPUT,  (REG_BASE + REG_KEY_INPUT_OFFSET)
+    .set REG_IE,         (REG_BASE + REG_IE_OFFSET)
+    .set REG_IF,         (REG_BASE + REG_IF_OFFSET)
+    .set REG_IME,        (REG_BASE + REG_IME_OFFSET)
 
     .set INTR_FLAG_VBLANK,  1 << 0
     .set INTR_FLAG_HBLANK,  1 << 1
@@ -30,3 +37,15 @@
     .set INTR_FLAG_DMA3,    1 << 11
     .set INTR_FLAG_KEYPAD,  1 << 12
     .set INTR_FLAG_GAMEPAK, 1 << 13
+
+    .set KEY_A,        1 << 0
+    .set KEY_B,        1 << 1
+    .set KEY_SELECT,   1 << 2
+    .set KEY_START,    1 << 3
+    .set KEY_RIGHT,    1 << 4
+    .set KEY_LEFT,     1 << 5
+    .set KEY_UP,       1 << 6
+    .set KEY_DOWN,     1 << 7
+    .set KEY_RTRIGGER, 1 << 8
+    .set KEY_LTRIGGER, 1 << 9
+    .set KEY_MASK,     0x3ff

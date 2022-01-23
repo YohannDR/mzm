@@ -8,6 +8,9 @@ SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {}
 
     iwram (NOLOAD) : ALIGN(4) {
+        . = 0x0300137c; button_input = .;
+        . = 0x0300137e; button_input_old = .;
+        . = 0x03001380; buttons_changed = .;
         . = 0x03007e60; sp_sys = .;
         . = 0x03007fa0; sp_irq = .;
         . = 0x03007ffc; intr_vector = .;
@@ -17,7 +20,9 @@ SECTIONS {
         asm/romheader.o(.text);
         asm/crt0.o(.text);
         asm/intr_main.o(.text);
-        asm/blob_0x0000023c-0x00800000.o(.text);
+        asm/blob_0x0000023c-0x00000968.o(.text);
+        asm/update_input.o(.text);
+        asm/blob_0x000009a0-0x00800000.o(.text);
     } >rom
 
     /DISCARD/ : {

@@ -2,7 +2,7 @@
     .include "asm/macros.s"
 
     arm_func_start intr_main
-intr_main:
+intr_main: @ 0x08000104
     mov r3, #REG_BASE
     add r3, r3, #REG_IE_OFFSET
     ldr r2, [r3]

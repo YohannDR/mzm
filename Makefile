@@ -34,7 +34,9 @@ ASM =                                                                          \
 	asm/romheader.s                                                            \
 	asm/crt0.s                                                                 \
 	asm/intr_main.s                                                            \
-	asm/blob_0x0000023c-0x00800000.s
+	asm/blob_0x0000023c-0x00000968.s                                           \
+	asm/update_input.s                                                         \
+	asm/blob_0x000009a0-0x00800000.s
 
 OBJ = $(ASM:.s=.o) $(BLOBS)
 
@@ -101,7 +103,7 @@ $(ELF): $(OBJ) linker.ld
 
 %.dump: %.gba
 	$(MSG) OBJDUMP $@
-	$Q$(OBJDUMP) -D -bbinary -marm7tdmi $< | $(TAIL) -n+3 > $@
+	$Q$(OBJDUMP) -D -bbinary -marm7tdmi -Mforce-thumb $< | $(TAIL) -n+3 > $@
 
 %.o: %.s
 	$(MSG) AS $@

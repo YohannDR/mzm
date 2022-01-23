@@ -2,7 +2,7 @@
     .include "asm/macros.s"
 
     arm_func_start _start
-_start:
+_start: @ 0x080000c0
     mov r0, #PSR_IRQ_MODE
     msr cpsr_fc, r0
     ldr sp, sp_irq_ptr
