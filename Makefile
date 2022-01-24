@@ -73,11 +73,11 @@ diff: $(DUMPS)
 clean:
 	$(MSG) RM $(TARGET)
 	$Q$(RM) $(TARGET) $(ELF) $(MAP)
-	$(MSG) RM $(DUMPS)
+	$(MSG) RM *.dump
 	$Q$(RM) $(DUMPS)
-	$(MSG) RM $(OBJ)
+	$(MSG) RM *.o
 	$Q$(RM) $(OBJ)
-	$(MSG) RM $(CSRC:.c=.s)
+	$(MSG) RM src/*.s
 	$Q$(RM) $(CSRC:.c=.s)
 	$(MSG) RM $(GBAFIX)
 	$Q$(RM) $(GBAFIX)
