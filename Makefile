@@ -1,3 +1,6 @@
+# Disable built-in rules
+.SUFFIXES:
+
 TARGET = mzm_us.gba
 BASEROM = baserom_us.gba
 SHA1FILE = mzm.sha1
@@ -14,9 +17,12 @@ GAME_REVISION = 00
 # Binaries
 TOOLCHAIN ?= arm-none-eabi-
 AS = $(TOOLCHAIN)as
+CPP = $(TOOLCHAIN)cpp
 LD = $(TOOLCHAIN)ld
 OBJCOPY = $(TOOLCHAIN)objcopy
 OBJDUMP = $(TOOLCHAIN)objdump
+
+CC = agbcc
 
 DIFF = diff -u
 HOSTCC = cc
@@ -28,21 +34,26 @@ GBAFIX = tools/gbafix/gbafix
 
 # Flags
 ASFLAGS = -mcpu=arm7tdmi
+CFLAGS = -O2 -mthumb-interwork
+CPPFLAGS = -nostdinc
 
 # Objects
-ASM =                                                                          \
+CSRC =
+
+.PRECIOUS: $(CSRC:.c=.s)
+ASMSRC = $(CSRC:.c=.s)                                                         \
 	asm/romheader.s                                                            \
 	asm/crt0.s                                                                 \
 	asm/intr_main.s                                                            \
 	asm/blob_0x0000023c-0x000007d0.s                                           \
 	asm/check_softreset.s                                                      \
 	asm/blob_0x00000804-0x00000968.s                                           \
-	asm/update_input.s                                                         \
+	asm/update_input.s														   \
 	asm/blob_0x000009a0-0x00005190.s                                           \
 	asm/syscalls.s                                                             \
 	asm/blob_0x000051d4-0x00800000.s
 
-OBJ = $(ASM:.s=.o) $(BLOBS)
+OBJ = $(ASMSRC:.s=.o) $(BLOBS)
 
 # Enable verbose output
 ifeq ($(V),1)
@@ -78,6 +89,8 @@ clean:
 	$Q$(RM) $(DUMPS)
 	$(MSG) RM $(OBJ)
 	$Q$(RM) $(OBJ)
+	$(MSG) RM $(CSRC:.c=.s)
+	$Q$(RM) $(CSRC:.c=.s)
 	$(MSG) RM $(GBAFIX)
 	$Q$(RM) $(GBAFIX)
 
@@ -113,6 +126,10 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 	$(MSG) AS $@
 	$Q$(AS) $(ASFLAGS) $< -o $@
 
+%.s: %.c
+	$(MSG) CC $@
+	$Q$(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS)
+
 tools/%: tools/%.c
 	$(MSG) HOSTCC $@
-	$Q$(HOSTCC) $< $(CFLAGS) $(CPPFLAGS) -o $@
+	$Q$(HOSTCC) $< $(HOSTCFLAGS) $(HOSTCPPFLAGS) -o $@
