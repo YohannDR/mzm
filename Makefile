@@ -47,7 +47,7 @@ ASMSRC = $(CSRC:.c=.s)                                                         \
 	asm/intr_main.s                                                            \
 	asm/main.s                                                                 \
 	asm/init_game.s                                                            \
-	asm/unk_080007c4.s                                                         \
+	asm/sub_080007c4.s                                                         \
 	asm/check_softreset.s                                                      \
 	asm/blob_0x00000804-0x00000968.s                                           \
 	asm/update_input.s                                                         \

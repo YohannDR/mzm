@@ -24,7 +24,7 @@ SECTIONS {
         asm/intr_main.o(.text);
         asm/main.o(.text);
         asm/init_game.o(.text);
-        asm/unk_080007c4.o(.text);
+        asm/sub_080007c4.o(.text);
         asm/check_softreset.o(.text);
         asm/blob_0x00000804-0x00000968.o(.text);
         asm/update_input.o(.text);
