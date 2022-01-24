@@ -104,7 +104,7 @@ $(TARGET): $(ELF) $(GBAFIX)
 
 $(ELF) $(MAP): $(OBJ) linker.ld
 	$(MSG) LD $@
-	$Q$(LD) $(LDFLAGS) -n -T linker.ld -Map=$(MAP) -o $@ $(OBJ)
+	$Q$(LD) $(LDFLAGS) -n -T linker.ld -Map=$(MAP) -o $@
 
 %.dump: %.gba
 	$(MSG) OBJDUMP $@
@@ -116,7 +116,7 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 
 %.s: %.c
 	$(MSG) CC $@
-	$Q$(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS)
+	$Q$(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
 
 tools/%: tools/%.c
 	$(MSG) HOSTCC $@

@@ -10,11 +10,13 @@ SECTIONS {
     iwram (NOLOAD) : ALIGN(4) {
         . = 0x03000043; softreset_disabled = .;
         . = 0x03000c70; game_mode = .;
+        . = 0x03000c7c; intr_code = .;
         . = 0x0300137c; button_input = .;
         . = 0x0300137e; button_input_old = .;
         . = 0x03001380; buttons_changed = .;
         . = 0x03007e60; sp_sys = .;
         . = 0x03007fa0; sp_irq = .;
+        . = 0x03007ffc; intr_code_ptr = .;
         . = 0x03007ffc; intr_vector = .;
     }
 
@@ -30,7 +32,10 @@ SECTIONS {
         asm/blob_0x0000090c-0x00000968.o(.text);
         asm/update_input.o(.text);
         asm/clear_ram.o(.text);
-        asm/blob_0x000009e8-0x00005190.o(.text);
+        src/load_intr_code.o(.text);
+        asm/blob_0x00000a18-0x000031e4.o(.text);
+        asm/dma_transfer.o(.text);
+        asm/blob_0x000032b4-0x00005190.o(.text);
         asm/syscalls.o(.text);
         asm/blob_0x000051d4-0x00800000.o(.text);
     } >rom
