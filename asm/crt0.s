@@ -21,4 +21,4 @@ _start: @ 0x080000c0
 sp_sys_ptr: .4byte sp_sys
 sp_irq_ptr: .4byte sp_irq
 intr_vector_ptr: .4byte intr_vector
-main_ptr: .4byte 0x0800023d @ TODO: main
+main_ptr: .4byte main
