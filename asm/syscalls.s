@@ -1,5 +1,5 @@
-    .include "asm/macros.s"
-    .include "asm/constants.s"
+    .include "asm/macros.inc"
+    .include "asm/constants.inc"
 
     thumb_func_start cpufastset
 cpufastset: @ 0x08005190

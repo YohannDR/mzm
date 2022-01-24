@@ -1,4 +1,4 @@
-    .include "asm/macros.s"
+    .include "asm/macros.inc"
 
     thumb_func_start init_game
 init_game: @ 0x080006a0

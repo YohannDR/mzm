@@ -1,4 +1,4 @@
-    .include "asm/macros.s"
+    .include "asm/macros.inc"
 
     thumb_func_start main
 main: @ 0x0800023c

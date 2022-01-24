@@ -1,5 +1,5 @@
-    .include "asm/constants.s"
-    .include "asm/macros.s"
+    .include "asm/constants.inc"
+    .include "asm/macros.inc"
 
     @ void update_input(void)
     @ reads the keyboard input

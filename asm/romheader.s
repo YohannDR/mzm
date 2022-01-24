@@ -1,4 +1,4 @@
-    .include "asm/macros.s"
+    .include "asm/macros.inc"
 
     arm_func_start start_code
 start_code:

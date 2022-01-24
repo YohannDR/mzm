@@ -26,9 +26,11 @@ SECTIONS {
         asm/init_game.o(.text);
         asm/sub_080007c4.o(.text);
         asm/check_softreset.o(.text);
-        asm/blob_0x00000804-0x00000968.o(.text);
+        asm/softreset.o(.text);
+        asm/blob_0x0000090c-0x00000968.o(.text);
         asm/update_input.o(.text);
-        asm/blob_0x000009a0-0x00005190.o(.text);
+        asm/clear_ram.o(.text);
+        asm/blob_0x000009e8-0x00005190.o(.text);
         asm/syscalls.o(.text);
         asm/blob_0x000051d4-0x00800000.o(.text);
     } >rom

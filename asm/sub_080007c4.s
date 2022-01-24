@@ -1,4 +1,4 @@
-    .include "asm/macros.s"
+    .include "asm/macros.inc"
 
     @ possibly VBlank during a softreset
     thumb_func_start sub_080007c4
