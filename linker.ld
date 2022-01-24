@@ -8,6 +8,8 @@ SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {}
 
     iwram (NOLOAD) : ALIGN(4) {
+        . = 0x03000043; softreset_disabled = .;
+        . = 0x03000c70; game_mode = .;
         . = 0x0300137c; button_input = .;
         . = 0x0300137e; button_input_old = .;
         . = 0x03001380; buttons_changed = .;
@@ -20,7 +22,9 @@ SECTIONS {
         asm/romheader.o(.text);
         asm/crt0.o(.text);
         asm/intr_main.o(.text);
-        asm/blob_0x0000023c-0x00000968.o(.text);
+        asm/blob_0x0000023c-0x000007d0.o(.text);
+        asm/check_softreset.o(.text);
+        asm/blob_0x00000804-0x00000968.o(.text);
         asm/update_input.o(.text);
         asm/blob_0x000009a0-0x00005190.o(.text);
         asm/syscalls.o(.text);

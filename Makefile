@@ -34,7 +34,9 @@ ASM =                                                                          \
 	asm/romheader.s                                                            \
 	asm/crt0.s                                                                 \
 	asm/intr_main.s                                                            \
-	asm/blob_0x0000023c-0x00000968.s                                           \
+	asm/blob_0x0000023c-0x000007d0.s                                           \
+	asm/check_softreset.s                                                      \
+	asm/blob_0x00000804-0x00000968.s                                           \
 	asm/update_input.s                                                         \
 	asm/blob_0x000009a0-0x00005190.s                                           \
 	asm/syscalls.s                                                             \

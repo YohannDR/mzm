@@ -93,3 +93,21 @@
     .set SYSCALL_SoundDriverVSyncOff,  40
     .set SYSCALL_SoundDriverVSyncOn,   41
     .set SYSCALL_GetJumpList,          42
+
+    .set GAMEMODE_SOFTRESET,       0x00
+    .set GAMEMODE_INTRO,           0x01
+    .set GAMEMODE_TITLE,           0x02
+    .set GAMEMODE_FILESELECT,      0x03
+    .set GAMEMODE_INGAME,          0x04
+    .set GAMEMODE_MAP_SCREEN,      0x05
+    .set GAMEMODE_GAMEOVER,        0x06
+    .set GAMEMODE_CHOZODIA_ESCAPE, 0x07
+    .set GAMEMODE_CREDITS,         0x08
+    .set GAMEMODE_TOURIAN_ESCAPE,  0x09
+    .set GAMEMODE_CUTSCENE,        0x0a
+    .set GAMEMODE_DEMO,            0x0b
+    .set GAMEMODE_GALLERY,         0x0c
+    .set GAMEMODE_FUSION_GALLERY,  0x0d
+    .set GAMEMODE_START_SOFTRESET, 0x0e @ probably
+    .set GAMEMODE_ERASE_SRAM,      0x0f
+    .set GAMEMODE_DEBUG_MENU,      0x10
