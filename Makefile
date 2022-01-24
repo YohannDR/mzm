@@ -38,26 +38,10 @@ CFLAGS = -O2 -mthumb-interwork
 CPPFLAGS = -nostdinc
 
 # Objects
-CSRC =
-
+CSRC = $(wildcard src/*.c)
 .PRECIOUS: $(CSRC:.c=.s)
-ASMSRC = $(CSRC:.c=.s)                                                         \
-	asm/romheader.s                                                            \
-	asm/crt0.s                                                                 \
-	asm/intr_main.s                                                            \
-	asm/main.s                                                                 \
-	asm/init_game.s                                                            \
-	asm/sub_080007c4.s                                                         \
-	asm/check_softreset.s                                                      \
-	asm/softreset.s                                                            \
-	asm/blob_0x0000090c-0x00000968.s                                           \
-	asm/update_input.s                                                         \
-	asm/clear_ram.s                                                            \
-	asm/blob_0x000009e8-0x00005190.s                                           \
-	asm/syscalls.s                                                             \
-	asm/blob_0x000051d4-0x00800000.s
-
-OBJ = $(ASMSRC:.s=.o) $(BLOBS)
+ASMSRC = $(CSRC:.c=.s) $(wildcard asm/*.s)
+OBJ = $(ASMSRC:.s=.o)
 
 # Enable verbose output
 ifeq ($(V),1)
