@@ -31,11 +31,12 @@ SECTIONS {
         asm/softreset.o(.text);
         asm/blob_0x0000090c-0x00000968.o(.text);
         asm/update_input.o(.text);
-        asm/clear_ram.o(.text);
+        src/clear_ram.o(.text);
         src/load_intr_code.o(.text);
         asm/blob_0x00000a18-0x000031e4.o(.text);
         asm/dma_transfer.o(.text);
-        asm/blob_0x000032b4-0x00005190.o(.text);
+        asm/bit_fill.o(.text);
+        asm/blob_0x00003380-0x00005190.o(.text);
         asm/syscalls.o(.text);
         asm/blob_0x000051d4-0x00800000.o(.text);
     } >rom
