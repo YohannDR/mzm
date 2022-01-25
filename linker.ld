@@ -33,7 +33,9 @@ SECTIONS {
         asm/update_input.o(.text);
         src/clear_ram.o(.text);
         src/load_intr_code.o(.text);
-        asm/blob_0x00000a18-0x000031e4.o(.text);
+        asm/blob_0x00000a18-0x00002564.o(.text);
+        asm/init_sound.o(.text);
+        asm/blob_0x000027f8-0x000031e4.o(.text);
         asm/dma_transfer.o(.text);
         asm/bit_fill.o(.text);
         asm/blob_0x00003380-0x00005190.o(.text);
