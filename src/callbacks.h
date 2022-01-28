@@ -5,6 +5,12 @@
 
 typedef void (*callback_t)(void);
 
+extern callback_t vblank_callback;
+extern callback_t hblank_callback;
+extern callback_t vcount_callback;
+extern callback_t serial_callback;
+extern callback_t timer3_callback;
+
 void call_vblank_callback(void);
 void set_vblank_callback(callback_t callback);
 void call_hblank_callback(void);
