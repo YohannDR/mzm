@@ -5,17 +5,41 @@ MEMORY {
 }
 
 SECTIONS {
-    ewram (NOLOAD) : ALIGN(4) {}
+    ewram (NOLOAD) : ALIGN(4) {
+        . = 0x02037e00; events_triggered = .;
+    }
 
     iwram (NOLOAD) : ALIGN(4) {
         . = 0x03000043; softreset_disabled = .;
+        . = 0x03000054; current_area = .;
+        . = 0x03000055; current_room = .;
+        . = 0x0300006C; effect_y_position = .;
+        . = 0x03000078; spriteset = .;
+        . = 0x0300007A; spriteset_entry_used = .;
+        . = 0x030000BC; current_room_entry = .;
+        . = 0x030000F8; waiting_space_pirates_position = .;
+        . = 0x030001A8; alarm_timer = .;
+        . = 0x030001AC; sprite_data = .;
+        . = 0x030006EC; spriteset_sprite_id = .;
+        . = 0x030006FB; spriteset_sprite_gfx_slots = .;
+        . = 0x03000734; parasite_related = .;
+        . = 0x03000770; sprite_debris = .;
+        . = 0x030007F0; previous_vertical_collision_check = .;
+        . = 0x030007F3; sprite_draw_order = .;
+        . = 0x03000BF0; pause_screen_flag = .;
+        . = 0x03000B1D; is_current_file_existing = .;
         . = 0x03000c70; game_mode = .;
+        . = 0x03000c72; game_mode_sub1 = .;
+        . = 0x03000c74; game_mode_sub2 = .;
+        . = 0x03000c75; game_mode_sub3 = .;
         . = 0x03000c76; cleared_every_frame = .;
         . = 0x03000c78; vblank_request_flag = .;
         . = 0x03000c7c; intr_code = .;
         . = 0x0300137c; button_input = .;
         . = 0x0300137e; button_input_old = .;
         . = 0x03001380; buttons_changed = .;
+        . = 0x030013B8; bg1_x_position = .;
+        . = 0x030013BA; bg1_y_position = .;
         . = 0x03001cec; vblank_callback = .;
         . = 0x03001cf0; hblank_callback = .;
         . = 0x03001cf4; vcount_callback = .;

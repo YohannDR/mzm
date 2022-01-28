@@ -11,4 +11,9 @@ typedef   signed short i16;
 typedef unsigned int   u32;
 typedef   signed int   i32;
 
+struct raw_coords_x {
+    u16 x;
+    u16 y;
+};
+
 #endif /* TYPES_H */
