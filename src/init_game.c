@@ -1,4 +1,5 @@
 #include "callbacks.h"
+#include "funcs.h"
 #include "game_modes.h"
 #include "gba_display.h"
 #include "gba_dma.h"
@@ -9,13 +10,6 @@
 #include "globals.h"
 #include "io.h"
 #include "types.h"
-
-void clear_ram();
-void load_intr_code();
-void sub_080007c4();
-void read_sram();
-void init_sound();
-void update_input();
 
 void init_game(void) {
     write16(REG_DISPCNT, DCNT_BLANK);
