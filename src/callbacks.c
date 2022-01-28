@@ -2,6 +2,7 @@
 
 #include "gba_interrupt.h"
 #include "globals.h"
+#include "io.h"
 #include "music.h"
 
 void call_vblank_callback(void) {
@@ -9,8 +10,8 @@ void call_vblank_callback(void) {
         vblank_callback();
     }
 
-    REG_IF |= IF_VBLANK;
-    vblank_request_flag = TRUE;
+    writeh(REG_IF, readh(REG_IF) | IF_VBLANK);
+    vblank_request_flag = 1;
     unk_03007ff8 |= 0x01;
 
     if (!cleared_every_frame) {
@@ -30,7 +31,7 @@ void call_hblank_callback(void) {
         hblank_callback();
     }
 
-    REG_IF |= IF_HBLANK;
+    writeh(REG_IF, readh(REG_IF) | IF_HBLANK);
 }
 
 void set_hblank_callback(callback_t callback) {
@@ -44,8 +45,8 @@ void call_vcount_callback(void) {
     if (vcount_callback) {
         vcount_callback();
     }
-
-    REG_IF |= IF_VCOUNT;
+    
+    writeh(REG_IF, readh(REG_IF) | IF_VCOUNT);
 }
 
 void set_vcount_callback(callback_t callback) {
@@ -60,7 +61,7 @@ void call_serial_callback(void) {
         serial_callback();
     }
 
-    REG_IF |= IF_SERIAL;
+    writeh(REG_IF, readh(REG_IF) | IF_SERIAL);
 }
 
 void set_serial_callback(callback_t callback) {
@@ -75,7 +76,7 @@ void call_timer3_callback(void) {
         timer3_callback();
     }
 
-    REG_IF |= IF_TIMER3;
+    writeh(REG_IF, readh(REG_IF) | IF_TIMER3);
 }
 
 void set_timer3_callback(callback_t callback) {

@@ -4,8 +4,9 @@
 #include "callbacks.h"
 #include "types.h"
 
+extern u8 debug_flag;
+extern u8 stereo_enabled;
 extern u8 softreset_disabled;
-extern u16 game_mode;
 extern u16 button_input;
 extern u16 button_input_old;
 extern u16 buttons_changed;

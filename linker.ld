@@ -8,8 +8,12 @@ SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {}
 
     iwram (NOLOAD) : ALIGN(4) {
+        . = 0x03000000; debug_flag = .;
+        . = 0x03000004; stereo_enabled = .;
         . = 0x03000043; softreset_disabled = .;
         . = 0x03000c70; game_mode = .;
+        . = 0x03000c72; game_submode1 = .;
+        . = 0x03000c74; game_submode2 = .;
         . = 0x03000c76; cleared_every_frame = .;
         . = 0x03000c78; vblank_request_flag = .;
         . = 0x03000c7c; intr_code = .;
@@ -33,7 +37,7 @@ SECTIONS {
         asm/crt0.o(.text);
         asm/intr_main.o(.text);
         asm/main.o(.text);
-        asm/init_game.o(.text);
+        src/init_game.o(.text);
         asm/sub_080007c4.o(.text);
         asm/check_softreset.o(.text);
         asm/softreset.o(.text);
@@ -52,7 +56,9 @@ SECTIONS {
         asm/unk_08004d48.o(.text);
         asm/blob_0x00004e10-0x00005190.o(.text);
         asm/syscalls.o(.text);
-        asm/blob_0x000051d4-0x0008abf8.o(.text);
+        asm/blob_0x000051d4-0x0007329c.o(.text);
+        asm/read_sram.o(.text);
+        asm/blob_0x00073300-0x0008abf8.o(.text);
         asm/libgcc.o(.text);
         asm/blob_0x0008ac34-0x00800000.o(.text);
     } >rom

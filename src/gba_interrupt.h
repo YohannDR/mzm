@@ -4,9 +4,9 @@
 #include "gba_memory.h"
 #include "types.h"
 
-#define REG_IME (*(u16 *)(REG_BASE + 0x208))
-#define REG_IE (*(u16 *)(REG_BASE + 0x200))
-#define REG_IF (*(u16 *)(REG_BASE + 0x202))
+#define REG_IME (REG_BASE + 0x208)
+#define REG_IE (REG_BASE + 0x200)
+#define REG_IF (REG_BASE + 0x202)
 
 enum interrupt_flags {
     IF_VBLANK  = 1 << 0,
