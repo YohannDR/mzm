@@ -16,7 +16,7 @@ void init_game(void) {
 
     clear_ram();
     load_intr_code();
-    set_vblank_callback(sub_080007c4);
+    set_vblank_callback(softreset_vblank_callback);
     read_sram();
     init_sound();
 
