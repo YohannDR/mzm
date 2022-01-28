@@ -35,7 +35,7 @@ GBAFIX = tools/gbafix/gbafix
 # Flags
 ASFLAGS = -mcpu=arm7tdmi
 CFLAGS = -O2 -mthumb-interwork -fhex-asm
-CPPFLAGS = -nostdinc
+CPPFLAGS = -nostdinc -Isrc/
 
 # Objects
 CSRC = $(wildcard src/*.c)

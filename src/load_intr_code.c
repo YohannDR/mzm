@@ -1,4 +1,5 @@
-#include "gba_dma.h"
+#include "funcs.h"
+#include "gba.h"
 #include "globals.h"
 #include "interrupts.h"
 

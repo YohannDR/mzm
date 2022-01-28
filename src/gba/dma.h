@@ -1,7 +1,7 @@
 #ifndef GBA_DMA_H
 #define GBA_DMA_H
 
-#include "gba_memory.h"
+#include "gba/memory.h"
 #include "types.h"
 
 #define REG_DMA0 (REG_BASE + 0x080)
@@ -64,7 +64,5 @@ enum dma_flags {
     DMA_INTR_ENABLE   = 1 << 14,
     DMA_ENABLE        = 1 << 15,
 };
-
-void dma_transfer(int dma_channel, void *src, void *dst, u32 len, u8 bit_size);
 
 #endif /* GBA_DMA_H */

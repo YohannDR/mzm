@@ -1,6 +1,6 @@
 #include "callbacks.h"
 
-#include "gba_interrupt.h"
+#include "gba.h"
 #include "globals.h"
 #include "io.h"
 #include "music.h"

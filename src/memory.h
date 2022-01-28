@@ -1,7 +1,7 @@
 #ifndef MEMORY_H
 #define MEMORY_H
 
-#include "gba_dma.h"
+#include "gba.h"
 #include "types.h"
 
 void clear_ram(void);
