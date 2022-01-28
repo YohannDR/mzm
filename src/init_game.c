@@ -18,9 +18,9 @@ void init_sound();
 void update_input();
 
 void init_game(void) {
-    writeh(REG_DISPCNT, DCNT_BLANK);
-    writeh(REG_IME, 0);
-    writeh(REG_DISPSTAT, 0);
+    write16(REG_DISPCNT, DCNT_BLANK);
+    write16(REG_IME, 0);
+    write16(REG_DISPSTAT, 0);
 
     dma_fill32(3, 0, IWRAM_BASE, 0x40000);
     dma_fill32(3, 0, EWRAM_BASE, 0x7e00);
@@ -31,9 +31,9 @@ void init_game(void) {
     read_sram();
     init_sound();
 
-    writeh(REG_IE, IF_VBLANK | IF_DMA2 | IF_GAMEPAK);
-    writeh(REG_DISPSTAT, DSTAT_IF_VBLANK);
-    writeh(
+    write16(REG_IE, IF_VBLANK | IF_DMA2 | IF_GAMEPAK);
+    write16(REG_DISPSTAT, DSTAT_IF_VBLANK);
+    write16(
         REG_WAITCNT,
         WAIT_SRAM_4CYCLES
             | WAIT_BANK0_3CYCLES | WAIT_BANK0_SUBSEQUENT_1CYCLE
@@ -64,6 +64,6 @@ void init_game(void) {
     softreset_disabled = 0;
     stereo_enabled = 0;
 
-    writeh(REG_IF, 0xffff);
-    writeh(REG_IME, 1);
+    write16(REG_IF, 0xffff);
+    write16(REG_IME, 1);
 }

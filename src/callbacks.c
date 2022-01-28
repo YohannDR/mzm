@@ -10,7 +10,7 @@ void call_vblank_callback(void) {
         vblank_callback();
     }
 
-    writeh(REG_IF, readh(REG_IF) | IF_VBLANK);
+    write16(REG_IF, read16(REG_IF) | IF_VBLANK);
     vblank_request_flag = 1;
     unk_03007ff8 |= 0x01;
 
@@ -31,7 +31,7 @@ void call_hblank_callback(void) {
         hblank_callback();
     }
 
-    writeh(REG_IF, readh(REG_IF) | IF_HBLANK);
+    write16(REG_IF, read16(REG_IF) | IF_HBLANK);
 }
 
 void set_hblank_callback(callback_t callback) {
@@ -46,7 +46,7 @@ void call_vcount_callback(void) {
         vcount_callback();
     }
     
-    writeh(REG_IF, readh(REG_IF) | IF_VCOUNT);
+    write16(REG_IF, read16(REG_IF) | IF_VCOUNT);
 }
 
 void set_vcount_callback(callback_t callback) {
@@ -61,7 +61,7 @@ void call_serial_callback(void) {
         serial_callback();
     }
 
-    writeh(REG_IF, readh(REG_IF) | IF_SERIAL);
+    write16(REG_IF, read16(REG_IF) | IF_SERIAL);
 }
 
 void set_serial_callback(callback_t callback) {
@@ -76,7 +76,7 @@ void call_timer3_callback(void) {
         timer3_callback();
     }
 
-    writeh(REG_IF, readh(REG_IF) | IF_TIMER3);
+    write16(REG_IF, read16(REG_IF) | IF_TIMER3);
 }
 
 void set_timer3_callback(callback_t callback) {
