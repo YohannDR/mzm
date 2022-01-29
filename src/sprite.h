@@ -360,7 +360,7 @@ struct __attribute__ ((packed)) enemy_room_data {
     u8 y_position;
     u8 x_position;
     u8 spriteset_slot;
-}
+};
 
 struct sprite_data {
     enum sprite_status status;
