@@ -39,7 +39,7 @@ SECTIONS {
         asm/main.o(.text);
         src/init_game.o(.text);
         asm/softreset_vblank_callback.o(.text);
-        asm/check_softreset.o(.text);
+        src/check_softreset.o(.text);
         asm/softreset.o(.text);
         asm/blob_0x0000090c-0x00000968.o(.text);
         asm/update_input.o(.text);

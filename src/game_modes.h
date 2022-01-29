@@ -23,8 +23,8 @@ enum game_mode {
     GM_DEBUG_MENU,
 };
 
-extern u16 game_mode;
-extern u16 game_submode1;
-extern u8 game_submode2;
+extern i16 game_mode;
+extern i16 game_submode1;
+extern i8 game_submode2;
 
 #endif /* GAME_MODE_H */
