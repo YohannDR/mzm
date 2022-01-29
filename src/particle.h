@@ -47,8 +47,8 @@ enum __attribute__ ((packed)) particle_effect_id {
     PE_MAIN_BOSS_DEATH = 0x27,
     PE_FREEZING_SPRITE_WITH_ICE = 0x28,
     PE_FREEZING_SPRITE_WITH_CHARGED_ICE = 0x29,
-    PE_HTTING_SOMETHING_WITH_BASE = 0x2A,
-    PE_HTTING_SOMETHING_WITH_LONG = 0x2B,
+    PE_HTTING_SOMETHING_WITH_BASE_BEAM = 0x2A,
+    PE_HTTING_SOMETHING_WITH_LONG_BEAM = 0x2B,
     PE_HTTING_SOMETHING_WITH_ICE_BEAM = 0x2C,
     PE_HTTING_SOMETHING_WITH_WAVE_BEAM = 0x2D,
     PE_HTTING_SOMETHING_WITH_PLASMA_BEAM = 0x2E,
@@ -68,13 +68,23 @@ enum __attribute__ ((packed)) particle_effect_id {
     PE_ESCAPE = 0x3C,
 };
 
+enum __attribute__ ((packed)) particle_status {
+    PARTICLE_STATUS_NONE = 0x0,
+    PARTICLE_STATUS_EXISTS = 0x1,
+    PARTICLE_STATUS_ONSCREEN = 0x2,
+    PARTICLE_STATUS_EXPLOSION = 0x4,
+    PARTICLE_STATUS_UNKNOWN = 0x8,
+    PARTICLE_STATUS_UNKNOWN2 = 0x20,
+    PARTICLE_STATUS_XFLIP = 0x80,
+};
+
 struct particle_effect {
-    u8 status;
-    u8 anim_frame_counter;
+    enum particle_status status;
+    u8 anim_duration_counter;
     enum particle_effect_id effect;
     u8 stage;
     u8 frame_counter;
-    u16 anim_state;
+    u16 curr_anim_frame;
     u16 y_position;
     u16 x_position;
 };
@@ -83,7 +93,7 @@ void particle_check_on_screen(struct particle_effect* ptr);
 void particle_draw(struct particle_effect* ptr);
 void particle_process_all(void);
 void particle_set(u16 y_position, u16 x_position, enum particle_effect_id effect);
-u32 particle_update_animation(struct particle_effect* ptr, struct frame_data* oam_ptr);
+u8 particle_update_animation(struct particle_effect* ptr, struct frame_data* oam_ptr);
 void particle_set_current_oam_frame_pointer(struct particle_effect* ptr, struct frame_data* oam_ptr);
 void particle_sprite_splash_water_small(struct particle_effect* ptr);
 void particle_sprite_splash_water_big(struct particle_effect* ptr);
@@ -96,6 +106,58 @@ void particle_sprite_splash_acid_big(struct particle_effect* ptr);
 void particle_sprite_splash_acid_huge(struct particle_effect* ptr);
 void particle_shooting_beam_left(struct particle_effect* ptr);
 void particle_shooting_beam_right(struct particle_effect* ptr);
-void particle_
+void particle_shooting_beam_diag_up_left(struct particle_effect* ptr);
+void particle_shooting_beam_diag_up_right(struct particle_effect* ptr);
+void particle_shooting_beam_diag_down_left(struct particle_effect* ptr);
+void particle_shooting_beam_diag_down_right(struct particle_effect* ptr);
+void particle_shooting_beam_up_left(struct particle_effect* ptr);
+void particle_shooting_beam_up_right(struct particle_effect* ptr);
+void particle_shooting_beam_down_left(struct particle_effect* ptr);
+void particle_shooting_beam_down_right(struct particle_effect* ptr);
+void particle_bomb(struct particle_effect* ptr);
+void particle_missile_trail(struct particle_effect* ptr);
+void particle_super_missile_trail(struct particle_effect* ptr);
+void particle_beam_trailing_right(struct particle_effect* ptr);
+void particle_beam_trailing_left(struct particle_effect* ptr);
+void particle_charged_long_beam_trailing(struct particle_effect* ptr);
+void particle_charged_ice_beam_trailing(struct particle_effect* ptr);
+void particle_charged_wave_beam_trail(struct particle_effect* ptr);
+void particle_charged_plasma_beam_trail(struct particle_effect* ptr);
+void particle_charged_full_beam_trail(struct particle_effect* ptr);
+void particle_charged_pistol_trail(struct particle_effect* ptr);
+void particle_sprite_explosion_huge(struct particle_effect* ptr);
+void particle_sprite_explosion_small(struct particle_effect* ptr);
+void particle_sprite_explosion_medium(struct particle_effect* ptr);
+void particle_sprite_explosion_big(struct particle_effect* ptr);
+void particle_sprite_explosion_single_then_big(struct particle_effect* ptr);
+void particle_screw_attack_destroyed(struct particle_effect* ptr);
+void particle_shinespark_destroyed(struct particle_effect* ptr);
+void particle_sudo_screw_destroyed(struct particle_effect* ptr);
+void particle_speedbooster_destroyed(struct particle_effect* ptr);
+void particle_main_boss_death(struct particle_effect* ptr);
+void particle_freezing_sprite_with_ice(struct particle_effect* ptr);
+void particle_freezing_sprite_with_charged_ice(struct particle_effect* ptr);
+void particle_hitting_something_with_base_beam(struct particle_effect* ptr);
+void particle_hitting_something_with_long_beam(struct particle_effect* ptr);
+void particle_hitting_something_with_ice_beam(struct particle_effect* ptr);
+void particle_hitting_something_with_wave_beam(struct particle_effect* ptr);
+void particle_hitting_something_with_full_beam_no_plasma(struct particle_effect* ptr);
+void particle_hitting_something_with_plasma_beam(struct particle_effect* ptr);
+void particle_hitting_something_with_full_beam(struct particle_effect* ptr);
+void particle_hitting_something_invicible(struct particle_effect* ptr);
+void particle_hitting_something_with_missile(struct particle_effect* ptr);
+void particle_hitting_something_with_super_missile(struct particle_effect* ptr);
+void particle_small_dust(struct particle_effect* ptr);
+void particle_medium_dust(struct particle_effect* ptr);
+void particle_two_medium_dust(struct particle_effect* ptr);
+void particle_second_small_dust(struct particle_effect* ptr);
+void particle_second_medium_dust(struct particle_effect* ptr);
+void particle_second_two_medium_dust(struct particle_effect* ptr);
+void particle_play_begin_to_charge_sound(void);
+void particle_play_shooting_charged_beam_sound(void);
+void particle_play_beam_fully_charged_sound(void);
+void particle_charging_beam(struct particle_effect* ptr);
+void particle_escape(struct particle_effect* ptr);
+void particle_samus_reflecion(struct particle_effect* ptr);
 
 #endif /* PARTICLE_H */
