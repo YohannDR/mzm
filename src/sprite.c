@@ -33,46 +33,56 @@ void sprite_draw_all_2(void)
 void sprite_draw_all(void)
 {
     struct sprite_data* ptr;
+    enum sprite_status status_flag;
+    enum sprite_status status_check;
     u8* draw_order;
     u8* g_draw_order;
-    u8 ram_slot;
+    u32 ram_slot;
     int i;
-    u8 unk;
-    u8 unk2;
+    u32 unk;
+    i32 unk2;
+    u8 zero;
 
+    status_flag = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN;
+    status_check = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN;
     sprite_debris_draw_all();
     ptr = sprite_data;
+    zero = 0x0;
     g_draw_order = sprite_draw_order;
     draw_order = &sprite_data[0].draw_order;
     //ram_slot = 0x17;
 
-    for (i = 0x17; -0x1 < i; i--)
+    for (i = 0x17; i >= 0x0; i--)
     {
-        if (((ptr->status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN)) && (*g_draw_order < 0x9))
+        if ((ptr->status & status_flag) == status_check && *draw_order < 0x9)
             *g_draw_order = *draw_order;
         else
-            *g_draw_order = 0x0;
+            *g_draw_order = zero;
         g_draw_order += 0x1;
         draw_order += 0x38;
-        ptr += 0x38;
+        ptr++;
     }
     
     unk = 0x1;
-    while (unk2 < 0x9)
+    
+    do
     {
         ram_slot = 0x0;
         ptr = sprite_data;
         unk2 = unk + 0x1;
 
-        while (ptr < sprite_data + 24)
+        do
         {
             if (sprite_draw_order[ram_slot] == unk)
+            {
                 sprite_draw(ptr, ram_slot);
-            ram_slot += 0x1;
-            ptr += 0x1;
-        }
+
+            }
+            ram_slot++;
+            ptr++;
+        } while ((u32)ptr < 0x30006ec);
         unk = unk2;
-    }
+    } while (unk2 < 0x9);
 }
 
 void sprite_draw_all_3(void)
