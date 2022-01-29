@@ -6,6 +6,9 @@
 #include "sprite_debris.h"
 #include "sprite.h"
 #include "room.h"
+#include "particle.h"
+#include "oam.h"
+#include "screen_shake.h"
 
 // EWRAM
 
@@ -17,10 +20,17 @@ extern u8 softreset_disabled;
 extern u8 current_area;
 extern u8 current_room;
 extern u16 effect_y_position;
+extern u8 screen_shake_x_related;
+extern u8 screen_shake_y_related;
+extern u16 screen_shake_related;
 extern u8 spriteset;
 extern u8 spriteset_entry_used;
 extern struct room_entry current_room_entry;
+extern struct background_positions background_positions;
 extern struct raw_coords_x waiting_space_pirates_position;
+extern struct screen_shake screen_shake_y;
+extern struct screen_shake screen_shake_x;
+extern u8 unk_0x30001A0;
 extern u16 alarm_timer;
 extern struct sprite_data sprite_data[24];
 extern enum s_sprite_id spriteset_sprite_id[15];
@@ -29,6 +39,8 @@ extern u8 parasite_related;
 extern struct sprite_debris sprite_debris[8];
 extern u8 previous_vertical_collision_check;
 extern u8 sprite_draw_order[24];
+extern struct particle_effect particle_effects[16];
+extern struct oam_frame* curr_particle_oam_frame_ptr;
 extern i8 pause_screen_flag; // TODO enum
 extern i8 is_current_file_existing;
 extern u16 game_mode;
@@ -41,13 +53,21 @@ extern u16 intr_code[0x100];
 extern u16 button_input;
 extern u16 button_input_old;
 extern u16 buttons_changed;
+extern u16 bg0_x_position;
+extern u16 bg0_y_position;
 extern u16 bg1_x_position;
 extern u16 bg1_y_position;
+extern u16 bg2_x_position;
+extern u16 bg2_y_position;
+extern u16 bg3_x_position;
+extern u16 bg3_y_position;
 extern callback_t vblank_callback;
 extern callback_t hblank_callback;
 extern callback_t vcount_callback;
 extern callback_t serial_callback;
 extern callback_t timer3_callback;
+extern struct bg3_movement bg3_movement;
+extern struct bg0_movement bg0_movement;
 
 extern void *sp_sys;
 extern void *sp_irq;

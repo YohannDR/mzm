@@ -20,6 +20,12 @@ enum __attribute__ ((packed)) room_effect {
     EFFECT_BG2_GRADIENT = 0xB
 };
 
+enum __attribute__ ((packed)) bg0_movement_type {
+    BG0_MOVEMENT_NONE = 0x0,
+    BG0_MOVEMENT_WATER_CLOUDS = 0x1,
+    BG0_MOVEMENT_SNOWFLAKES = 0x4
+};
+
 struct room_entry {
     u8 tileset;
     u8 bg0_prop;
@@ -71,6 +77,29 @@ struct room_entry_rom {
     enum room_effect effect;
     u8 effect_y;
     u16 music_track;
+};
+
+struct background_positions {
+    struct raw_coords_x bg[4];
+    struct raw_coords_x door_transition;
+};
+
+struct bg0_movement {
+    enum bg0_movement_type type;
+    u8 y_offset;
+    u16 unused;
+    u16 x_offset;
+    u16 snowflakes_related;
+};
+
+struct bg3_movement {
+    struct sub1 {
+        u8 direction;
+        u8 counter;
+    } sub1;
+    struct sub2 {
+        u16 x_offset;
+    } sub2;
 };
 
 void room_load(void);
