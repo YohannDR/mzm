@@ -6,7 +6,7 @@ BASEROM = baserom_us.gba
 SHA1FILE = mzm.sha1
 ELF = $(TARGET:.gba=.elf)
 MAP = $(TARGET:.gba=.map)
-DUMPS = $(TARGET:.gba=.dump) $(BASEROM:.gba=.dump)
+DUMPS = $(BASEROM:.gba=.dump) $(TARGET:.gba=.dump)
 
 # ROM header
 GAME_TITLE = ZEROMISSIONE
