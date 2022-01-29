@@ -53,7 +53,7 @@ SECTIONS {
         asm/dma_transfer.o(.text);
         asm/bit_fill.o(.text);
         asm/blob_0x00003380-0x00004d48.o(.text);
-        asm/unk_08004d48.o(.text);
+        asm/sub_08004d48.o(.text);
         asm/blob_0x00004e10-0x00005190.o(.text);
         asm/syscalls.o(.text);
         asm/blob_0x000051d4-0x0007329c.o(.text);

@@ -15,7 +15,7 @@ void call_vblank_callback(void) {
     unk_03007ff8 |= 0x01;
 
     if (!cleared_every_frame) {
-        unk_08004d48();
+        sub_08004d48();
     }
 }
 
