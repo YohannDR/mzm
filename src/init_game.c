@@ -4,6 +4,7 @@
 #include "gba.h"
 #include "globals.h"
 #include "io.h"
+#include "softreset.h"
 #include "types.h"
 
 void init_game(void) {
