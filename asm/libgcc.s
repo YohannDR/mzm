@@ -1,5 +1,7 @@
     .include "asm/macros.inc"
 
+    .syntax unified
+
     thumb_func_start _call_via_r0
 _call_via_r0:
     bx r0

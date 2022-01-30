@@ -1,6 +1,8 @@
     .include "asm/constants.inc"
     .include "asm/macros.inc"
 
+    .syntax unified
+
     arm_func_start _start
 _start: @ 0x080000c0
     mov r0, #PSR_IRQ_MODE

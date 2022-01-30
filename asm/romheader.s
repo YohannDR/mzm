@@ -1,5 +1,7 @@
     .include "asm/macros.inc"
 
+    .syntax unified
+
     arm_func_start start_code
 start_code:
     b _start
