@@ -75,6 +75,7 @@ enum __attribute__ ((packed)) particle_status {
     PARTICLE_STATUS_EXPLOSION = 0x4,
     PARTICLE_STATUS_UNKNOWN = 0x8,
     PARTICLE_STATUS_UNKNOWN2 = 0x20,
+    PARTICLE_STATUS_UNKNOWN3 = 0x40,
     PARTICLE_STATUS_XFLIP = 0x80,
 };
 

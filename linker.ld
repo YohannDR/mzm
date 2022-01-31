@@ -10,6 +10,8 @@ SECTIONS {
     }
 
     iwram (NOLOAD) : ALIGN(4) {
+        . = 0x0300002B; samus_on_top_backgrounds = .;
+        . = 0x0300002C; difficulty = .;
         . = 0x03000043; softreset_disabled = .;
         . = 0x03000054; current_area = .;
         . = 0x03000055; current_room = .;
@@ -29,10 +31,14 @@ SECTIONS {
         . = 0x030001AC; sprite_data = .;
         . = 0x030006EC; spriteset_sprite_id = .;
         . = 0x030006FB; spriteset_sprite_gfx_slots = .;
+        . = 0x0300070C; sub_sprite_data1 = .;
+        . = 0x03000720; sub_sprite_data2 = .;
         . = 0x03000734; parasite_related = .;
+        . = 0x03000738; current_sprite = .;
         . = 0x03000770; sprite_debris = .;
         . = 0x030007F0; previous_vertical_collision_check = .;
         . = 0x030007F3; sprite_draw_order = .;
+        . = 0x0300083C; sprite_rng = .;
         . = 0x03000840; particle_effects = .;
         . = 0x03000918; curr_particle_oam_frame_ptr = .;
         . = 0x03000BF0; pause_screen_flag = .;
@@ -42,11 +48,14 @@ SECTIONS {
         . = 0x03000c74; game_mode_sub2 = .;
         . = 0x03000c75; game_mode_sub3 = .;
         . = 0x03000c76; cleared_every_frame = .;
+        . = 0x03000c77; eight_bit_frame_counter = .;
         . = 0x03000c78; vblank_request_flag = .;
         . = 0x03000c7c; intr_code = .;
+        . = 0x03000E7C; oam_data = .;
         . = 0x0300137c; button_input = .;
         . = 0x0300137e; button_input_old = .;
         . = 0x03001380; buttons_changed = .;
+        . = 0x03001382; next_oam_slot = .;
         . = 0x030013B4; bg0_x_position = .;
         . = 0x030013B6; bg0_y_position = .;
         . = 0x030013B8; bg1_x_position = .;
@@ -55,6 +64,8 @@ SECTIONS {
         . = 0x030013BE; bg2_y_position = .;
         . = 0x030013C0; bg3_x_position = .;
         . = 0x030013C2; bg3_y_position = .;
+        . = 0x03001530; equipment = .;
+        . = 0x03001606; prevent_movement_timer = .;
         . = 0x03001cec; vblank_callback = .;
         . = 0x03001cf0; hblank_callback = .;
         . = 0x03001cf4; vcount_callback = .;

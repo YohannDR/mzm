@@ -17,7 +17,6 @@ struct sprite_debris {
     u8 undefined;
 };
 
-// sprite_debris_random(u8 cloud_type, u8 number, u16 y_position, u16 x_position); offset 10d68
 void sprite_debris_set_splash(u16 old_y, u16 y_position, u16 x_position);
 void sprite_debris_process(struct sprite_debris* ptr);
 void sprite_debris_process_all(void);

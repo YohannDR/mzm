@@ -16,12 +16,11 @@ void room_load_tileset(void)
 
 void room_load_entry(void)
 {
-    struct room_entry_rom* entry_ptr;
     struct room_entry_rom entry;
     u16 effect_y;
 
-    entry_ptr = entry_pointers[current_area];
-    copy_bytes(&entry, entry_ptr + current_room, 0x3C);
+    copy_bytes(&entry, entry_pointers[current_area] + current_room, sizeof(struct room_entry_rom));
+
     current_room_entry.tileset = entry.tileset;
     current_room_entry.bg0_prop = entry.bg0_prop;
     current_room_entry.bg1_prop = entry.bg1_prop;

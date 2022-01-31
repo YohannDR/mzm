@@ -102,17 +102,20 @@ void sprite_check_on_screen(struct sprite_data* ptr)
     u16 bg1Y;
     u16 x_pos;
 
-    bg1Y = bg1_y_position;
-    bg1X = bg1_x_position;
     if ((ptr->properties & SP_MESSAGE_BANNER) == 0x0)
     {
+        bg1Y = bg1_y_position;
+        bg1X = bg1_x_position;
         x_pos = ptr->x_position;
         y_pos = ptr->y_position + 0x200;
+
+        
+
         if (
+            (bg1_y_position + 0x200 + ptr->draw_distance_bottom_offset * -0x4 < (ptr->y_position + 0x200)) &&
+            (y_pos < bg1_y_position + 0x200 + ptr->draw_distance_top_offset * 0x4 + 0x280) &&
             (bg1_x_position + 0x200 + ptr->draw_distance_horizontal_offset * -0x4 < x_pos + 0x200) &&
-            (x_pos + 0x200 < bg1_x_position + 0x200 + ptr->draw_distance_horizontal_offset * 0x4 + 0x3C0) &&
-            (bg1_y_position + 0x200 + ptr->draw_distance_bottom_offset * -0x4 < y_pos) &&
-            (y_pos < bg1_y_position + 0x200 + ptr->draw_distance_top_offset * 0x4 + 0x280)
+            (x_pos + 0x200 < bg1_x_position + 0x200 + ptr->draw_distance_horizontal_offset * 0x4 + 0x3C0)
         )
             ptr->status |= SPRITE_STATUS_ONSCREEN;
         else
@@ -166,33 +169,28 @@ void sprite_load_pal(enum p_sprite_id sprite_id, u8 gfx_row, u32 len)
 
 void sprite_clear_data(void)
 {
-    struct sprite_data* s_ptr;
+    /*struct sprite_data* s_ptr;
     struct sprite_debris* sd_ptr;
-    i32 count;
-    i32 limit;
-    u8 exists;
+    i32 i;
 
     s_ptr = sprite_data;
-    count = 0x17;
+    i = 0x17;
 
-    while (count >= 0x0)
+    while (i >= 0)
     {
         s_ptr->status = 0x0;
         s_ptr->standing_on_sprite = FALSE;
         s_ptr->room_slot = 0xFF;
-        
         s_ptr++;
-        count--;
+        i--;
     }
 
-    limit = 0x3000770; // sprite_debris array
-    exists = FALSE;
-    sd_ptr = (struct sprite_debris*)(limit + 0x70);
-    while ((i32)sd_ptr >= limit)
+    sd_ptr = sprite_debris + 7;
+    while (sd_ptr >= sprite_debris)
     {
-        sd_ptr->exists = exists;
+        sd_ptr->exists = FALSE;
         sd_ptr--;
-    }
+    }*/
 }
 
 void sprite_load_room_sprites(void)
