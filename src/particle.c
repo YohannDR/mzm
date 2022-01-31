@@ -9,7 +9,7 @@ void particle_check_on_screen(struct particle_effect* ptr)
 
 void particle_draw(struct particle_effect* ptr)
 {
-
+    
 }
 
 void particle_process_all(void)

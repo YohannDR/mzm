@@ -15,7 +15,7 @@ enum __attribute__ ((packed)) sprite_status {
     SPRITE_STATUS_XFLIP = 0x40,
     SPRITE_STATUS_YFLIP = 0x80,
     SPRITE_STATUS_FACING_DOWN = 0x100,
-    SPRITE_STATUS_FACING_UP = 0x200,
+    SPRITE_STATUS_FACING_RIGHT = 0x200,
     SPRITE_STATUS_UNKNOWN2 = 0x400,
     SPRITE_STATUS_SAMUS_COLLIDING = 0x800,
     SPRITE_STATUS_SAMUS_ON_TOP = 0x1000,
@@ -360,6 +360,22 @@ struct __attribute__ ((packed)) enemy_room_data {
     u8 y_position;
     u8 x_position;
     u8 spriteset_slot;
+};
+
+struct sub_sprite_data {
+    struct frame_data* oam_pointer;
+    u16 curr_anim_frame;
+    u16 y_position;
+    u16 x_position;
+    u16 health;
+    u8 anim_duration_counter;
+    u8 maybe_status;
+    u8 timer;
+    u8 unknown;
+    u8 maybe_room_slot;
+    u8 maybe_ram_slot;
+    u8 unknown2;
+    u8 unknown3;
 };
 
 struct sprite_data {

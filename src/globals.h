@@ -9,6 +9,7 @@
 #include "particle.h"
 #include "oam.h"
 #include "screen_shake.h"
+#include "samus.h"
 
 // EWRAM
 
@@ -34,6 +35,8 @@ extern u16 frame_counter_16bit;
 extern u8 stereo_enabled;
 extern u32 curr_demo; /* XXX: type */
 extern u8 reset_game;
+extern u8 samus_on_top_backgrounds;
+extern u8 difficulty;
 extern u8 softreset_disabled;
 extern u8 current_area;
 extern u8 current_room;
@@ -54,10 +57,14 @@ extern u16 alarm_timer;
 extern struct sprite_data sprite_data[24];
 extern enum s_sprite_id spriteset_sprite_id[15];
 extern u8 spriteset_sprite_gfx_slots[15];
+extern struct sub_sprite_data sub_sprite_data1;
+extern struct sub_sprite_data sub_sprite_data2;
 extern u8 parasite_related;
+extern struct sprite_data current_sprite;
 extern struct sprite_debris sprite_debris[8];
 extern u8 previous_vertical_collision_check;
 extern u8 sprite_draw_order[24];
+extern u8 sprite_rng;
 extern struct particle_effect particle_effects[16];
 extern struct oam_frame* curr_particle_oam_frame_ptr;
 extern i8 pause_screen_flag; // TODO enum
@@ -67,11 +74,14 @@ extern i16 game_mode_sub1;
 extern i8 game_mode_sub2;
 extern i8 game_mode_sub3;
 extern i8 cleared_every_frame;
+extern u8 eight_bit_frame_counter;
 extern u16 vblank_request_flag;
 extern u16 intr_code[0x100];
+extern struct raw_oam_data oam_data[160];
 extern u16 button_input;
 extern u16 button_input_old;
 extern u16 buttons_changed;
+extern u8 next_oam_slot;
 extern u16 bg0_x_position;
 extern u16 bg0_y_position;
 extern u16 bg1_x_position;
@@ -81,6 +91,8 @@ extern u16 bg2_y_position;
 extern u16 bg3_x_position;
 extern u16 bg3_y_position;
 extern u8 unk_030013d2;
+extern struct equipment equipment;
+extern u16 prevent_movement_timer;
 extern callback_t vblank_callback;
 extern callback_t hblank_callback;
 extern callback_t vcount_callback;
