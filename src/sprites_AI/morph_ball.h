@@ -1,6 +1,8 @@
 #ifndef MORPH_BALL_AI_H
 #define MORPH_BALL_AI_H
 
+#include "../types.h"
+
 void morph_ball_init(void);
 void morph_ball_get(void);
 void morph_ball_flash_anim(void);

@@ -417,7 +417,16 @@ void sprite_util_random_debris(u8 cloud_type, u8 number, u16 y_position, u16 x_p
 
 enum p_sprite_id sprite_util_get_ammo_drop(u8 rng)
 {
-
+    if (equipment.current_energy == equipment.max_energy)
+    {
+        if ((rng & 0x1) != 0x0 && equipment.max_missiles > equipment.current_missiles)
+            return PSPRITE_MISSILE_DROP;
+        if ((rng & 0x2) != 0x0 && equipment.max_super_missiles > equipment.current_super_missiles)
+            return PSPRITE_SUPER_MISSILE_DROP;
+        if ((rng & 0x4) != 0x0 && equipment.max_power_bombs > equipment.current_power_bombs)
+            return PSPRITE_POWER_BOMB_DROP;
+    }
+    return PSPRITE_UNUSED0;
 }
 
 enum p_sprite_id sprite_util_determine_enemy_drop(void)
