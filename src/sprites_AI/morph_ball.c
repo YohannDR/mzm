@@ -6,7 +6,7 @@
 void morph_ball_init(void)
 {
     u8 check;
-
+    
     check = (equipment.suit_misc & SMF_MORPH_BALL);
 
     if (check != 0x0)

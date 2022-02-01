@@ -356,10 +356,34 @@ enum __attribute__ ((packed)) sprite_properties {
     SP_SECONDARY_SPRITE = 0x80
 };
 
+enum __attribute__ ((packed)) sprite_weakness_flags {
+    WEAKNESS_NONE = 0x0,
+    WEAKNESS_CHARGE_BEAM_PISTOL = 0x1,
+    WEAKNESS_BEAM_BOMBS = 0x2,
+    WEAKNESS_SUPER_MISSILES = 0x4,
+    WEAKNESS_MISSILES = 0x8,
+    WEAKNESS_POWER_BOMB = 0x10,
+    WEAKNESS_SPEEDBOOSTER_SCREW_ATTACK = 0x20,
+    WEAKNESS_CAN_BE_FROZEN = 0x40,
+    WEAKNESS_LIMIT = 0xFFFF
+};
+
 struct __attribute__ ((packed)) enemy_room_data {
     u8 y_position;
     u8 x_position;
     u8 spriteset_slot;
+};
+
+struct __attribute__ ((packed)) sprite_stat {
+    u16 spawn_health;
+    u16 damage;
+    enum sprite_weakness_flags weakness;
+    u16 no_drop_prop;
+    u16 small_health_prob;
+    u16 large_health_prob;
+    u16 missile_prob;
+    u16 super_missile_prob;
+    u16 power_bomb_prob;
 };
 
 struct sub_sprite_data {
