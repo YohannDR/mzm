@@ -64,7 +64,11 @@ SECTIONS {
         . = 0x030013BE; bg2_y_position = .;
         . = 0x030013C0; bg3_x_position = .;
         . = 0x030013C2; bg3_y_position = .;
+        . = 0x030013D4; samus_data = .;
+        . = 0x030013F4; samus_data_copy = .;
+        . = 0x03001414; samus_weapon_info = .;
         . = 0x03001530; equipment = .;
+        . = 0x03001588; samus_physics = .;
         . = 0x03001606; prevent_movement_timer = .;
         . = 0x03001cec; vblank_callback = .;
         . = 0x03001cf0; hblank_callback = .;
