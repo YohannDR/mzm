@@ -197,22 +197,83 @@ u8 sprite_util_refill_power_bombs(void)
 
 u8 sprite_util_check_crouching_or_morphed(void)
 {
+    switch (samus_data.pose)
+    {
+        case SPOSE_CROUCHING:
+        case SPOSE_TURNING_AROUND_AND_CROUCHING:
+        case SPOSE_SHOOTING_AND_CROUCHING:
+        case SPOSE_MORPHING:
+        case SPOSE_MORPH_BALL:
+        case SPOSE_ROLLING:
+        case SPOSE_UNMORPHING:
+        case SPOSE_MORPH_BALL_MIDAIR:
+        case SPOSE_GETTING_HURT_IN_MORPH_BALL:
+        case SPOSE_CROUCHING_TO_CRAWL:
+        case SPOSE_CRAWLING_STOPPED:
+        case SPOSE_STARTING_TO_CRAWL:
+        case SPOSE_CRAWLING:
+        case SPOSE_UNCROUCHING_FROM_CRAWLING:
+        case SPOSE_TURNING_AROUND_WHILE_CRAWLING:
+        case SPOSE_SHOOTING_WHILE_CRAWLING:
+        case SPOSE_CROUCHING_SUITLESS:
+            return TRUE;
+    }
 
+    return FALSE;
 }
 
 u8 sprite_util_check_crouching_or_crawling(void)
 {
+    switch (samus_data.pose)
+    {
+        case SPOSE_CROUCHING:
+        case SPOSE_TURNING_AROUND_AND_CROUCHING:
+        case SPOSE_SHOOTING_AND_CROUCHING:
+        case SPOSE_CROUCHING_TO_CRAWL:
+        case SPOSE_CRAWLING_STOPPED:
+        case SPOSE_STARTING_TO_CRAWL:
+        case SPOSE_CRAWLING:
+        case SPOSE_UNCROUCHING_FROM_CRAWLING:
+        case SPOSE_TURNING_AROUND_WHILE_CRAWLING:
+        case SPOSE_SHOOTING_WHILE_CRAWLING:
+        case SPOSE_CROUCHING_SUITLESS:
+            return TRUE;
+    }
 
+    return FALSE;
 }
 
 u8 sprite_util_check_morphed(void)
 {
+    switch (samus_data.pose)
+    {
+        case SPOSE_MORPHING:
+        case SPOSE_MORPH_BALL:
+        case SPOSE_ROLLING:
+        case SPOSE_UNMORPHING:
+        case SPOSE_MORPH_BALL_MIDAIR:
+        case SPOSE_GETTING_HURT_IN_MORPH_BALL:
+            return TRUE;
+    }
 
+    return FALSE;
 }
 
 u8 sprite_util_check_stop_sprites_pose(void)
 {
-
+    if (prevent_movement_timer == 0x0)
+    {
+        switch (samus_data.pose)
+        {
+            case SPOSE_USING_AN_ELEVATOR:
+            case SPOSE_FACING_THE_FOREGROUND:
+                return TRUE;
+        }
+    }
+    else
+        return TRUE;
+    
+    return FALSE;
 }
 
 enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struct sprite_data* sprite_ptr, struct samus_data* samus_ptr)
@@ -222,12 +283,29 @@ enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struc
 
 u8 sprite_util_check_pulling_self_up(void)
 {
+    switch (samus_data.pose)
+    {
+        case SPOSE_PULLING_YOURSELF_UP_FROM_HANGING:
+        case SPOSE_PULLING_YOURSELF_FORWARD_FROM_HANGING:
+        case SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL:
+           return TRUE;
+    }
 
+    return FALSE;
 }
 
 u8 sprite_util_check_on_zipline(void)
 {
+    switch (samus_data.pose)
+    {
+        case SPOSE_ON_ZIPLINE:
+        case SPOSE_SHOOTING_ON_ZIPLINE:
+        case SPOSE_TURNING_ON_ZIPLINE:
+        case SPOSE_MORPH_BALL_ON_ZIPLINE:
+           return TRUE;
+    }
 
+    return FALSE;
 }
 
 u8 sprite_util_count_primary_sprites(enum p_sprite_id sprite_id)
