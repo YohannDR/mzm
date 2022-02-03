@@ -177,7 +177,30 @@ void sprite_util_unfreeze_secondary_sprites(enum s_sprite_id sprite_id, u8 ram_s
 
 u8 sprite_util_refill_energy(void)
 {
+    /*u16 increment;
+    u16 max;
+    u32 energy;
+    
+    energy = equipment.current_energy;
+    max = equipment.max_energy;
 
+    if (energy < max)
+    {
+        increment = (u16)((equipment.max_energy - equipment.current_energy) >> 0x5);
+        if (increment == 0x0)
+            increment = 0x1;
+        else if (0xA < increment)
+            increment = 0xB;
+        
+        energy = equipment.current_energy;
+        equipment.current_energy = (energy + increment);
+        if ((u16)(increment + energy) > equipment.max_energy)
+            equipment.current_energy = equipment.max_energy;
+        
+        return TRUE;
+    }
+    else
+        return FALSE;*/
 }
 
 u8 sprite_util_refill_missile(void)
