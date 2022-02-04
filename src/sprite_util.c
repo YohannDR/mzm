@@ -205,17 +205,86 @@ u8 sprite_util_refill_energy(void)
 
 u8 sprite_util_refill_missile(void)
 {
+    u16 increment;
+    u16 max;
+    u32 energy;
+    
+    energy = equipment.current_missiles;
+    max = equipment.max_missiles;
 
+    if (energy < max)
+    {
+        increment = (u16)((equipment.max_missiles - equipment.current_missiles) >> 0x5);
+        if (increment == 0x0)
+            increment = 0x1;
+        else if (0x5 < increment)
+            increment = 0x6;
+        
+        energy = equipment.current_missiles;
+        equipment.current_missiles = (energy + increment);
+        if ((u16)(increment + energy) > equipment.max_missiles)
+            equipment.current_missiles = equipment.max_missiles;
+        
+        return TRUE;
+    }
+    else
+        return FALSE;
 }
 
 u8 sprite_util_refull_super_missiles(void)
 {
+    u16 increment;
+    u16 max;
+    u32 energy;
+    
+    energy = equipment.current_super_missiles;
+    max = equipment.max_super_missiles;
 
+    if (energy < max)
+    {
+        increment = (u16)((equipment.max_super_missiles - equipment.current_super_missiles) >> 0x5);
+        if (increment == 0x0)
+            increment = 0x1;
+        else if (0x3 < increment)
+            increment = 0x4;
+        
+        energy = equipment.current_super_missiles;
+        equipment.current_super_missiles = (energy + increment);
+        if ((u16)(increment + energy) > equipment.max_super_missiles)
+            equipment.current_super_missiles = equipment.max_super_missiles;
+        
+        return TRUE;
+    }
+    else
+        return FALSE;
 }
 
 u8 sprite_util_refill_power_bombs(void)
 {
+    u16 increment;
+    u16 max;
+    u32 energy;
+    
+    energy = equipment.current_power_bombs;
+    max = equipment.max_power_bombs;
 
+    if (energy < max)
+    {
+        increment = (u16)((equipment.max_power_bombs - equipment.current_power_bombs) >> 0x5);
+        if (increment == 0x0)
+            increment = 0x1;
+        else if (0x3 < increment)
+            increment = 0x4;
+        
+        energy = equipment.current_power_bombs;
+        equipment.current_power_bombs = (energy + increment);
+        if ((u16)(increment + energy) > equipment.max_power_bombs)
+            equipment.current_power_bombs = equipment.max_power_bombs;
+        
+        return TRUE;
+    }
+    else
+        return FALSE;
 }
 
 u8 sprite_util_check_crouching_or_morphed(void)
