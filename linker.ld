@@ -10,8 +10,10 @@ SECTIONS {
     }
 
     iwram (NOLOAD) : ALIGN(4) {
+        . = 0x03000029; bg_fading = .;
         . = 0x0300002B; samus_on_top_backgrounds = .;
         . = 0x0300002C; difficulty = .;
+        . = 0x0300003D; disable_scrolling = .;
         . = 0x03000043; softreset_disabled = .;
         . = 0x03000054; current_area = .;
         . = 0x03000055; current_room = .;
@@ -67,6 +69,7 @@ SECTIONS {
         . = 0x030013D4; samus_data = .;
         . = 0x030013F4; samus_data_copy = .;
         . = 0x03001414; samus_weapon_info = .;
+        . = 0x03001528; screw_attack_animation = .;
         . = 0x03001530; equipment = .;
         . = 0x03001588; samus_physics = .;
         . = 0x03001606; prevent_movement_timer = .;

@@ -17,8 +17,10 @@ extern u32 events_triggered[8];
 
 // IWRAM
 
+extern u8 bg_fading;
 extern u8 samus_on_top_backgrounds;
 extern u8 difficulty;
+extern u8 disable_scrolling;
 extern u8 softreset_disabled;
 extern u8 current_area;
 extern u8 current_room;
@@ -74,6 +76,7 @@ extern u16 bg3_y_position;
 extern struct samus_data samus_data;
 extern struct samus_data samus_data_copy;
 extern struct weapon_info samus_weapon_info;
+extern struct screw_attack_animation screw_attack_animation;
 extern struct equipment equipment;
 extern struct samus_physics samus_physics;
 extern u16 prevent_movement_timer;
