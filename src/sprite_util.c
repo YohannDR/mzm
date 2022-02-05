@@ -2,6 +2,7 @@
 #include "globals.h"
 #include "sprite_debris.h"
 #include "particle.h"
+#include "samus.h"
 
 void sprite_util_current_sprite_fall(void)
 {
@@ -127,9 +128,38 @@ u8 sprite_util_check_samus_near_sprite_front_behind(u16 y_range, u8 x_range_fron
 
 }
 
-u8 sprite_util_samus_standing_on_sprite(struct sprite_data* ptr)
+void sprite_util_samus_standing_on_sprite(struct sprite_data* ptr)
 {
+    u8 standing;
 
+    if ((ptr->status & SPRITE_STATUS_SAMUS_ON_TOP) != 0x0)
+    {
+        if (samus_data.standing_status != STANDING_ENEMY)
+        {
+            if (samus_data.standing_status == STANDING_MIDAIR)
+                samus_set_pose(SPOSE_LANDING_REQUEST);
+            samus_data.standing_status = STANDING_ENEMY;
+        }
+        ptr->status &= ~SPRITE_STATUS_SAMUS_ON_TOP;
+        return;
+    }
+
+    standing = ptr->standing_on_sprite;
+    if (standing != 0x1)
+    {            
+        if (standing == 0x2)
+        {
+            ptr->standing_on_sprite = TRUE;
+            if (samus_data_copy.y_position <= samus_data.y_position)
+                samus_data.y_position = ptr->y_position + ptr->hitbox_top_offset + 0x1;
+        }
+    }
+    else
+    {
+        ptr->standing_on_sprite = FALSE;
+        if (samus_data.standing_status == STANDING_ENEMY)
+            samus_data.standing_status = STANDING_MIDAIR;
+    }
 }
 
 void sprite_util_update_freeze_timer(void)
@@ -150,17 +180,43 @@ void sprite_util_update_freeze_timer(void)
         current_sprite.palette_row = current_sprite.maybe_absolute_palette_row;*/
 }
 
-void sprite_util_update_secondary_sprite_freeze_timer(enum s_sprite_id sprite_id, u8 ram_slot)
-{
-
-}
-
 void sprite_util_unfreeze_anim_eay(void)
 {
+    u8 freeze_timer;
 
+    current_sprite.freeze_timer--;
+
+    freeze_timer = current_sprite.freeze_timer;
+    if (freeze_timer == 0x0)
+        current_sprite.anim_duration_counter--;
+    if (freeze_timer < 0x5B && (freeze_timer & 0x1) == 0x0)
+    {
+        if ((freeze_timer & 0x2) != 0x0)
+            current_sprite.palette_row = 0xF - (current_sprite.spriteset_gfx_slot + current_sprite.frozen_palette_row_offset);
+        else
+            current_sprite.palette_row = current_sprite.maybe_absolute_palette_row;
+    }
 }
 
 void sprite_util_metroid_unfreeze_anim(void)
+{
+    u8 freeze_timer;
+
+    current_sprite.freeze_timer -= 0x2;
+
+    freeze_timer = current_sprite.freeze_timer;
+    if (freeze_timer == 0x0)
+        current_sprite.anim_duration_counter--;
+    if (freeze_timer < 0x79 && (freeze_timer & 0x2) == 0x0)
+    {
+        if ((freeze_timer & 0x4) != 0x0)
+            current_sprite.palette_row = 0xF - (current_sprite.spriteset_gfx_slot + current_sprite.frozen_palette_row_offset);
+        else
+            current_sprite.palette_row = current_sprite.maybe_absolute_palette_row;
+    }
+}
+
+void sprite_util_update_secondary_sprite_freeze_timer_of_current(enum s_sprite_id sprite_id, u8 ram_slot)
 {
 
 }
