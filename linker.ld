@@ -10,6 +10,7 @@ SECTIONS {
     }
 
     iwram (NOLOAD) : ALIGN(4) {
+        . = 0x03000029; bg_fading = .;
         . = 0x0000002B; samus_on_top_backgrounds = .;
         . = 0x0000002C; difficulty = .;
         . = 0x00000043; softreset_disabled = .;

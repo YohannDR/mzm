@@ -218,17 +218,57 @@ void sprite_util_metroid_unfreeze_anim(void)
 
 void sprite_util_update_secondary_sprite_freeze_timer_of_current(enum s_sprite_id sprite_id, u8 ram_slot)
 {
+    u8 count;
 
+    if (current_sprite.freeze_timer != 0x0)
+    {
+        count = 0x0;
+        while (count < 0x18)
+        {
+            if ((sprite_data[count].status & SPRITE_STATUS_EXISTS) != 0x0
+                && (sprite_data[count].properties & SP_SECONDARY_SPRITE) != 0x0
+                && sprite_data[count].sprite_id == sprite_id
+                && sprite_data[count].primary_sprite_ram_slot == ram_slot
+                && sprite_data[count].freeze_timer < current_sprite.freeze_timer
+                && (sprite_data[count].properties & SP_MAYBE_DESTROYED) == 0x0)
+            {
+                sprite_data[count].freeze_timer = current_sprite.freeze_timer;
+                sprite_data[count].palette_row = 0xF - (sprite_data[count].spriteset_gfx_slot + sprite_data[count].frozen_palette_row_offset);
+            }
+            count++;
+        }
+    }
 }
 
 void sprite_util_update_primary_sprite_freeze_timer_of_current(void)
 {
-
+    if (current_sprite.freeze_timer != 0) {
+        u8 count = current_sprite.primary_sprite_ram_slot;
+        if (sprite_data[count].freeze_timer < current_sprite.freeze_timer && (sprite_data[count].properties & SP_MAYBE_DESTROYED) == 0)
+        {
+            sprite_data[count].freeze_timer = current_sprite.freeze_timer;
+            sprite_data[count].palette_row = 0xf - (sprite_data[count].spriteset_gfx_slot + sprite_data[count].frozen_palette_row_offset);
+        } 
+    }
 }
 
 void sprite_util_unfreeze_secondary_sprites(enum s_sprite_id sprite_id, u8 ram_slot)
 {
-
+    u8 count = 0;
+    do
+    {
+        if ((sprite_data[count].status & SPRITE_STATUS_EXISTS) != 0x0
+            && (sprite_data[count].properties & SP_SECONDARY_SPRITE) != 0x0
+            && sprite_data[count].sprite_id == sprite_id
+            && sprite_data[count].primary_sprite_ram_slot == ram_slot
+            && sprite_data[count].freeze_timer != 0x0)
+        {
+            sprite_data[count].freeze_timer = 0x0;
+            sprite_data[count].palette_row = 0x0;
+        }
+        count++;
+    }
+    while (count < 0x18);
 }
 
 u8 sprite_util_refill_energy(void)

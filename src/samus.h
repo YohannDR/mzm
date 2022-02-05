@@ -185,7 +185,8 @@ enum __attribute__ ((packed)) slope_type {
     SLOPE_STEEP = 0x1,
     SLOPE_SLIGHT = 0x2,
     SLOPE_LEFT = 0x10,
-    SLOPE_RIGHT = 0x20
+    SLOPE_RIGHT = 0x20,
+    SLOPE_LIMIT = 0xFFFF
 };
 
 struct samus_data {
@@ -227,7 +228,9 @@ struct samus_physics {
     i16 hitbox_left_offset;
     i16 hitbox_right_offset;
     i16 hitbox_top_offset;
-    u32 undefined2;
+    u16 undefined3;
+    u16 undefined4;
+    u8 undefined5;
     u8 slowed_by_liquid;
     u8 has_new_projectile;
     i16 x_acceleration;
@@ -248,6 +251,13 @@ struct samus_hazard_damage {
     u8 damage_timer;
     u16 unknown;
     u8 palette_timer;
+};
+
+struct screw_attack_animation {
+    u8 screw_attacking;
+    u8 anim_duration_counter;
+    u8 curr_anim_frame;
+    u32 unknown;
 };
 
 enum __attribute__ ((packed)) ground_effect_wanted {
@@ -276,13 +286,13 @@ enum samus_pose samus_check_collisions(struct samus_data* data_ptr, struct samus
 void samus_check_set_environmental_effect(struct samus_data* data_ptr, u8 default_offset, enum ground_effect_wanted request);
 void samus_update_environmental_effect(struct samus_data* data_ptr);
 void samus_update_jump_velocity(struct samus_data* data_ptr, struct samus_data* copy_ptr, struct weapon_info* weapon_ptr);
-void samus_set_landing_pose(struct samus_data* data_ptr, struct samus_data* copy_ptr);
+void samus_set_landing_pose(struct samus_data* data_ptr, struct samus_data* copy_ptr, struct weapon_info* weapon_ptr);
 void samus_change_to_hurt_pose(struct samus_data* data_ptr, struct samus_data* copy_ptr, struct weapon_info* weapon_ptr);
 void samus_change_to_knockback_pose(struct samus_data* data_ptr, struct samus_data* copy_ptr, struct weapon_info* weapon_ptr);
 void samus_turn_around_arm_cannon_start_shinespark(struct samus_data* data_ptr, struct samus_data* copy_ptr, struct weapon_info* weapon_ptr);
 void samus_set_pose(enum samus_pose pose);
-void samus_copy_data(void);
-void samus_update_physics(void);
+void samus_copy_data(struct samus_data* data_ptr);
+void samus_update_physics(struct samus_data* data_ptr);
 i16 samus_change_velocity_on_slope(struct samus_data* data_ptr);
 void samus_copy_palette(u16* src, i32 offset, i32 nbr_colors);
 void samus_update(void);
@@ -378,7 +388,7 @@ enum samus_pose samus_uncrouching_suitless_gfx(struct samus_data* data_ptr);
 enum samus_pose samus_facing_the_background(struct samus_data* data_ptr);
 enum samus_pose samus_turning_from_facing_the_background_gfx(struct samus_data* data_ptr);
 enum samus_pose samus_turning_to_enter_escape_ship_gfx(struct samus_data* data_ptr);
-enum samus_pose samus_excute_pose_subroutine(struct samus_data* data_ptr);
+enum samus_pose samus_execute_pose_subroutine(struct samus_data* data_ptr);
 void samus_update_velocity_position(struct samus_data* data_ptr);
 void samus_update_graphics_oam(struct samus_data* data_ptr, u8 direction);
 void samus_update_animation_timer_palette(struct samus_data* data_ptr);
