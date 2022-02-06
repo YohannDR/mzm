@@ -10,9 +10,10 @@ SECTIONS {
     }
 
     iwram (NOLOAD) : ALIGN(4) {
-        . = 0x03000029; bg_fading = .;
+        . = 0x00000029; bg_fading = .;
         . = 0x0000002B; samus_on_top_backgrounds = .;
         . = 0x0000002C; difficulty = .;
+        . = 0x0000003D; disable_scrolling = .;
         . = 0x00000043; softreset_disabled = .;
         . = 0x00000054; current_area = .;
         . = 0x00000055; current_room = .;
@@ -27,6 +28,7 @@ SECTIONS {
         . = 0x000000F8; waiting_space_pirates_position = .;
         . = 0x00000110; screen_shake_y = .;
         . = 0x00000114; screen_shake_x = .;
+        . = 0x00000130; current_power_bomb = .;
         . = 0x000001A0; unk_030001A0 = .;
         . = 0x000001A8; alarm_timer = .;
         . = 0x000001AC; sprite_data = .;
@@ -42,6 +44,9 @@ SECTIONS {
         . = 0x0000083C; sprite_rng = .;
         . = 0x00000840; particle_effects = .;
         . = 0x00000918; curr_particle_oam_frame_ptr = .;
+        . = 0x00000A2C; projectile_data = .;
+        . = 0x00000BEC; arm_cannon_y = .;
+        . = 0x00000BEE; arm_cannon_x = .;
         . = 0x00000BF0; pause_screen_flag = .;
         . = 0x00000B1D; is_current_file_existing = .;
         . = 0x00000c70; game_mode = .;
@@ -66,13 +71,20 @@ SECTIONS {
         . = 0x000013C0; bg3_x_position = .;
         . = 0x000013C2; bg3_y_position = .;
         . = 0x000013d2; unk_030013d2 = .;
+        . = 0x000013D4; samus_data = .;
+        . = 0x000013F4; samus_data_copy = .;
+        . = 0x00001414; samus_weapon_info = .;
+        . = 0x00001528; screw_attack_animation = .;
         . = 0x00001530; equipment = .;
+        . = 0x00001588; samus_physics = .;
         . = 0x00001606; prevent_movement_timer = .;
+        . = 0x0000168C; button_assignments = .;
         . = 0x00001cec; vblank_callback = .;
         . = 0x00001cf0; hblank_callback = .;
         . = 0x00001cf4; vcount_callback = .;
         . = 0x00001cf8; serial_callback = .;
         . = 0x00001cfc; timer3_callback = .;
+        . = 0x000052E0; samus_palette = .;
         . = 0x000054EC; bg3_movement = .;
         . = 0x000054F4; bg0_movement = .;
         . = 0x00007e60; sp_sys = .;

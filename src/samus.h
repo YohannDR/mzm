@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "oam.h"
+#include "projectile.h"
 
 enum __attribute__ ((packed)) beam_bombs_flags {
     BBF_NONE = 0x0,
@@ -57,28 +58,18 @@ enum __attribute__ ((packed)) diagonal_aim {
     DIAG_AIM_DOWN = 0x2
 };
 
-enum __attribute__ ((packed)) new_projectile {
-    NEW_PROJ_NONE = 0x0,
-    NEW_PROJ_BEAM = 0x1,
-    NEW_PROJ_MISSILE = 0x2,
-    NEW_PROJ_SUPER_MISSILE = 0x3,
-    NEW_PROJ_BOMB = 0x4,
-    NEW_PROJ_POWER_BOMB = 0x5,
-    NEW_PROJ_CHARGED_BEAM = 0x6
-};
-
 enum __attribute__ ((packed)) weapon_highlighted {
     WH_NONE = 0x0,
     WH_MISSILE = 0x1,
     WH_SUPER_MISSILE = 0x2,
-    WH_POWER_BOBM = 0x3
+    WH_POWER_BOMB = 0x4
 };
 
 struct weapon_info {
     enum diagonal_aim diagonal_aim;
-    enum new_projectile new_projectile;
+    enum projectile new_projectile;
     enum weapon_highlighted weapon_highlighted;
-    enum weapon_highlighted weapon_selected;
+    u8 missiles_selected;
     u8 cooldown;
     u8 charge_counter;
     u8 beam_release_palette_timer;
@@ -222,8 +213,8 @@ enum __attribute__ ((packed)) direction_moving {
 struct samus_physics {
     struct oam_frame* oam_frame_pointers[18];
     u16 undefined;
-    i16 arm_cannon_x_position_offset;
-    i16 arm_cannon_y_position_offset;
+    u16 arm_cannon_x_position_offset;
+    u16 arm_cannon_y_position_offset;
     enum direction_moving moving_direction;
     i16 hitbox_left_offset;
     i16 hitbox_right_offset;
@@ -299,7 +290,7 @@ void samus_update(void);
 void samus_update_physics_hitbox_position(void);
 void samus_call_gfx_functions(void);
 void samus_call_check_low_health(void);
-void samus_call_update_arm_cannon_position_offset(void);
+void samus_call_update_arm_cannon_oam(void);
 void samus_bounce_bomb(u8 direction);
 void samus_aim_cannon(struct samus_data* data_ptr);
 u8 samus_fire_beam_missile(struct samus_data* data_ptr, struct weapon_info* weapon_ptr, struct equipment* equipment_ptr);
