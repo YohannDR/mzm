@@ -28,6 +28,7 @@ SECTIONS {
         . = 0x030000F8; waiting_space_pirates_position = .;
         . = 0x03000110; screen_shake_y = .;
         . = 0x03000114; screen_shake_x = .;
+        . = 0x03000130; current_power_bomb = .;
         . = 0x030001A0; unk_030001A0 = .;
         . = 0x030001A8; alarm_timer = .;
         . = 0x030001AC; sprite_data = .;
@@ -43,6 +44,9 @@ SECTIONS {
         . = 0x0300083C; sprite_rng = .;
         . = 0x03000840; particle_effects = .;
         . = 0x03000918; curr_particle_oam_frame_ptr = .;
+        . = 0x03000A2C; projectile_data = .;
+        . = 0x03000BEC; arm_cannon_y = .;
+        . = 0x03000BEE; arm_cannon_x = .;
         . = 0x03000BF0; pause_screen_flag = .;
         . = 0x03000B1D; is_current_file_existing = .;
         . = 0x03000c70; game_mode = .;
@@ -73,11 +77,13 @@ SECTIONS {
         . = 0x03001530; equipment = .;
         . = 0x03001588; samus_physics = .;
         . = 0x03001606; prevent_movement_timer = .;
+        . = 0x0300168C; button_assignments = .;
         . = 0x03001cec; vblank_callback = .;
         . = 0x03001cf0; hblank_callback = .;
         . = 0x03001cf4; vcount_callback = .;
         . = 0x03001cf8; serial_callback = .;
         . = 0x03001cfc; timer3_callback = .;
+        . = 0x030052E0; samus_palette = .;
         . = 0x030054EC; bg3_movement = .;
         . = 0x030054F4; bg0_movement = .;
         . = 0x03007e60; sp_sys = .;

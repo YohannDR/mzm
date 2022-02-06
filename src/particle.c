@@ -9,7 +9,73 @@ void particle_check_on_screen(struct particle_effect* ptr)
 
 void particle_draw(struct particle_effect* ptr)
 {
-    
+    /*u8 next_slot;
+    u8 new_next_slot;
+    u16 part_count;
+    struct raw_oam_data* frame_data_ptr;
+    struct raw_oam_data* curr_oam_data;
+    struct oam_frame* oam_frame_ptr;
+    enum particle_status status;
+    u16 y_pos;
+    u16 x_pos;
+    u16 priority;
+
+    next_slot = next_oam_slot;
+    part_count = curr_particle_oam_frame_ptr->part_count;
+    if (part_count + next_oam_slot < 0x80)
+    {
+        frame_data_ptr = oam_data + next_slot;
+        status = ptr->status;
+        if ((status & PARTICLE_STATUS_UNKNOWN3) != 0x0)
+        {
+            y_pos = ptr->y_position;
+            x_pos = ptr->x_position;
+        }
+        else
+        {
+            y_pos = (ptr->y_position >> 0x2) - (bg1_y_position >> 0x2);
+            x_pos = (ptr->x_position >> 0x2) - (bg1_x_position >> 0x2);
+        }
+
+        if ((status & PARTICLE_STATUS_LOW_PRIORITY) != 0x0)
+        {
+            priority = 0x2;
+            if (samus_on_top_backgrounds != FALSE)
+                priority = 0x1;
+        }
+        else
+            priority = 0x0;
+
+        new_next_slot = curr_particle_oam_frame_ptr->part_count + next_oam_slot;
+        
+        if (part_count != 0x0)
+        {
+            curr_oam_data = oam_data + next_slot;
+            oam_frame_ptr = curr_particle_oam_frame_ptr;
+            do {
+                frame_data_ptr->part1 = oam_frame_ptr->data[0].oam0;
+                (u8)curr_oam_data->part1 = (u8)frame_data_ptr->part1 + y_pos;
+
+                frame_data_ptr->part2 = oam_frame_ptr->data[0].oam1;
+                curr_oam_data->part2 = curr_oam_data->part2 & 0xFE00 | frame_data_ptr->part2 + x_pos & 0x1FF;
+
+                frame_data_ptr->part3 = oam_frame_ptr->data[0].oam2;
+                (u8)(curr_oam_data->part3 + 1) = (u8)(curr_oam_data->part3 + 1) & 0xF3 | (u8)(priority << 0x2);
+
+                if ((status & PARTICLE_STATUS_XFLIP) != 0x0)
+                {
+                    (u8)(curr_oam_data->part2 + 1) = (u8)(curr_oam_data->part2 + 1) & 0xEF | (((u8)(curr_oam_data->part2 + 1) << 0x1B) >> 0x1F ^ 0x1) << 0x4;
+                    curr_oam_data->part2 = curr_oam_data->part2 & 0xFE00 | x_pos - (oam_frame_ptr->data[1] + array_2b0c94[((u8)(curr_oam_data->part2 + 1) >> 0x6) + ((u8)(curr_oam_data->part1 + 1) >> 0x6) * 0x4] * 0x8) & 0x1FF;
+                }
+
+                frame_data_ptr++;
+                curr_oam_data++;
+                part_count--;
+            } while (part_count != 0x0);
+        }
+
+        next_oam_slot = new_next_slot;
+    }*/
 }
 
 void particle_process_all(void)
@@ -141,7 +207,7 @@ void particle_sprite_splash_water_small(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -159,7 +225,7 @@ void particle_sprite_splash_water_big(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -177,13 +243,12 @@ void particle_sprite_splash_water_huge(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
 void particle_sprite_splash_lava_small(struct particle_effect* ptr)
 {
-
     u8 ended;
 
     ptr->frame_counter++;
@@ -196,7 +261,7 @@ void particle_sprite_splash_lava_small(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -214,7 +279,7 @@ void particle_sprite_splash_lava_big(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -232,7 +297,7 @@ void particle_sprite_splash_lava_huge(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -250,7 +315,7 @@ void particle_sprite_splash_acid_small(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -268,7 +333,7 @@ void particle_sprite_splash_acid_big(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -286,7 +351,7 @@ void particle_sprite_splash_acid_huge(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -303,7 +368,7 @@ void particle_shooting_beam_left(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -320,7 +385,7 @@ void particle_shooting_beam_right(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_UNKNOWN2);
+        ptr->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_LOW_PRIORITY);
     }
 }
 
@@ -337,7 +402,7 @@ void particle_shooting_beam_diag_up_left(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -354,7 +419,7 @@ void particle_shooting_beam_diag_up_right(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_UNKNOWN2);
+        ptr->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_LOW_PRIORITY);
     }
 }
 
@@ -371,7 +436,7 @@ void particle_shooting_beam_diag_down_left(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -388,7 +453,7 @@ void particle_shooting_beam_diag_down_right(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_UNKNOWN2);
+        ptr->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_LOW_PRIORITY);
     }
 }
 
@@ -405,7 +470,7 @@ void particle_shooting_beam_up_left(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -422,7 +487,7 @@ void particle_shooting_beam_up_right(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_UNKNOWN2);
+        ptr->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_LOW_PRIORITY);
     }
 }
 
@@ -439,7 +504,7 @@ void particle_shooting_beam_down_left(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -456,7 +521,7 @@ void particle_shooting_beam_down_right(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_UNKNOWN2);
+        ptr->status |= (PARTICLE_STATUS_XFLIP | PARTICLE_STATUS_LOW_PRIORITY);
     }
 }
 
@@ -492,7 +557,7 @@ void particle_missile_trail(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -509,7 +574,7 @@ void particle_super_missile_trail(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -530,7 +595,7 @@ void particle_beam_trailing_right(struct particle_effect* ptr)
             return;
         }
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -551,7 +616,7 @@ void particle_beam_trailing_left(struct particle_effect* ptr)
             return;
         }
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -1093,7 +1158,7 @@ void particle_second_small_dust(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -1110,7 +1175,7 @@ void particle_second_medium_dust(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 
@@ -1127,7 +1192,7 @@ void particle_second_two_medium_dust(struct particle_effect* ptr)
         if (ptr->stage != 0x0)
             return;
         ptr->stage++;
-        ptr->status |= PARTICLE_STATUS_UNKNOWN2;
+        ptr->status |= PARTICLE_STATUS_LOW_PRIORITY;
     }
 }
 

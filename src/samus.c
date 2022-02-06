@@ -149,7 +149,7 @@ void samus_change_to_hurt_pose(struct samus_data* data_ptr, struct samus_data* c
     data_ptr->invincibility_timer = 0x30;
     data_ptr->shinespark_timer = 0x0;
     data_ptr->standing_status = STANDING_MIDAIR;
-    weapon_ptr->new_projectile = NEW_PROJ_NONE;
+    weapon_ptr->PROJECTILEectile = PROJECTILE_NONE;
     weapon_ptr->beam_release_palette_timer = 0x0;
 }
 
@@ -195,7 +195,7 @@ void samus_change_to_knockback_pose(struct samus_data* data_ptr, struct samus_da
     data_ptr->arm_cannon_direction = copy_ptr->arm_cannon_direction;
     data_ptr->shinespark_timer = 0x0;
     data_ptr->standing_status = STANDING_MIDAIR;
-    weapon_ptr->new_projectile = NEW_PROJ_NONE;
+    weapon_ptr->PROJECTILEectile = PROJECTILE_NONE;
     weapon_ptr->beam_release_palette_timer = 0x0;
 }
 
@@ -345,7 +345,7 @@ void samus_call_check_low_health(void)
 
 }
 
-void samus_call_update_arm_cannon_position_offset(void)
+void samus_call_update_arm_cannon_oam(void)
 {
 
 }
@@ -372,7 +372,87 @@ u8 samus_fire_check_fully_charged_pistol(struct samus_data* data_ptr, struct wea
 
 void samus_spawn_new_projectile(struct samus_data* data_ptr, struct weapon_info* weapon_ptr, struct equipment* equipment_ptr)
 {
+    struct samus_physics* pPhysics;
 
+    pPhysics = &samus_physics;
+
+    pPhysics->has_PROJECTILEectile = 0x0;
+
+    if (equipment_ptr->suit_type == SUIT_SUITLESS)
+    {
+        switch (data_ptr->pose)
+        {
+            case SPOSE_FACING_THE_FOREGROUND:
+            case SPOSE_SAVING_LOADING_GAME:
+            case SPOSE_DOWNLOADING_MAP_DATA:
+            case SPOSE_DYING:
+            case SPOSE_FACING_THE_BACKGROUND_SUITLESS:
+                weapon_ptr->charge_counter = 0x0;
+                break;
+
+            default:
+                pPhysics->has_PROJECTILEectile = samus_fire_check_fully_charged_pistol(data_ptr, weapon_ptr);
+                break;
+
+            case SPOSE_GETTING_HURT:
+            case SPOSE_GETTING_KNOCKED_BACK:
+                weapon_ptr->charge_counter = 0x0;
+                break;
+        }
+    }
+    else
+    {
+        switch (data_ptr->pose)
+        {
+            case SPOSE_RUNNING:
+            case SPOSE_STANDING:
+            case SPOSE_TURNING_AROUND:
+            case SPOSE_SHOOTING:
+            case SPOSE_CROUCHING:
+            case SPOSE_TURNING_AROUND_AND_CROUCHING:
+            case SPOSE_SHOOTING_AND_CROUCHING:
+            case SPOSE_MIDAIR:
+            case SPOSE_TURNING_AROUND_MIDAIR:
+            case SPOSE_LANDING:
+            case SPOSE_STARTING_SPIN_JUMP:
+            case SPOSE_SPINNING:
+            case SPOSE_SPACE_JUMPING:
+            case SPOSE_SCREW_ATTACKING:
+            case SPOSE_HANGING_ON_LEDGE:
+            case SPOSE_HIDING_ARM_CANNON_WHILE_HANGING:
+            case SPOSE_AIMING_WHILE_HANGING:
+            case SPOSE_ON_ZIPLINE:
+            case SPOSE_SHOOTING_ON_ZIPLINE:
+                pPhysics->has_PROJECTILEectile = samus_fire_beam_missile(data_ptr, weapon_ptr, equipment_ptr);
+                break;
+
+            case SPOSE_MORPH_BALL:
+            case SPOSE_ROLLING:
+            case SPOSE_MORPH_BALL_MIDAIR:
+            case SPOSE_MORPH_BALL_ON_ZIPLINE:
+                if ((buttons_changed & INPUT_B) != 0x0 && weapon_ptr->cooldown == 0x0 && (equipment_ptr->beam_bombs_activation & BBF_BOMBS) != 0x0)
+                {
+                    if ((weapon_ptr->weapon_highlighted & WH_POWER_BOMB) != 0x0)
+                        weapon_ptr->PROJECTILEectile = PROJECTILE_POWER_BOMB;
+                    else
+                        weapon_ptr->PROJECTILEectile = PROJECTILE_BOMB;
+                }
+            case SPOSE_MORPHING:
+                if (0x3F < weapon_ptr->charge_counter)
+                    weapon_ptr->PROJECTILEectile = PROJECTILE_CHARGED_BEAM;
+                weapon_ptr->charge_counter = 0x0;
+                break;
+            
+            case SPOSE_USING_AN_ELEVATOR:
+            case SPOSE_SAVING_LOADING_GAME:
+            case SPOSE_DOWNLOADING_MAP_DATA:
+            case SPOSE_TURNING_AROUND_TO_DOWNLOAD_MAP_DATA:
+            case SPOSE_DYING:
+            case SPOSE_IN_ESCAPE_SHIP:
+            case SPOSE_TURNING_TO_ENTER_ESCAPE_SHIP:
+                weapon_ptr->charge_counter = 0x0;
+        }
+    }
 }
 
 u8 samus_check_a_pressed(struct samus_data* data_ptr)
@@ -390,7 +470,104 @@ u8 samus_check_a_pressed(struct samus_data* data_ptr)
 
 void samus_set_highlighted_weapon(struct samus_data* data_ptr, struct weapon_info* weapon_ptr, struct equipment* equipment_ptr)
 {
+    /*enum weapon_highlighted weapon_high;
 
+    weapon_high = WH_NONE;
+    if (equipment_ptr->current_super_missiles == 0x0)
+        weapon_ptr->missiles_selected = weapon_high;
+    else if (equipment_ptr->current_missiles == 0x0)
+        weapon_ptr->missiles_selected = TRUE;
+    else if ((buttons_changed & INPUT_SELECT) != 0x0)
+    {
+        weapon_ptr->missiles_selected ^= 0x1;
+        play_sound1(0x85);
+    }
+
+    switch (data_ptr->pose)
+    {
+        case SPOSE_MORPH_BALL:
+        case SPOSE_ROLLING:
+        case SPOSE_MORPH_BALL_MIDAIR:
+        case SPOSE_GETTING_HURT_IN_MORPH_BALL:
+        case SPOSE_GETTING_KNOCKED_BACK_IN_MORPH_BALL:
+            if ((button_input & button_assignements.arm_missiles) == 0x0 || equipment_ptr->current_power_bombs != 0x0)
+            {
+                weapon_high = WH_POWER_BOMB;
+                if (weapon_ptr->weapon_highlighted == WH_NONE)
+                {
+                    weapon_ptr->charge_counter = 0x0;
+                    play_sound1(0x84);
+                }
+            }
+            else
+            {
+                if (weapon_high != WH_NONE)
+                {
+                    if (weapon_ptr->weapon_highlighted == WH_NONE)
+                    {
+                        weapon_ptr->charge_counter = 0x0;
+                        play_sound1(0x84);
+                    }
+                }
+            }
+            break;
+        
+        default:
+            if ((button_input & button_assignements.arm_missiles) != 0x0)
+            {
+                if (weapon_ptr->missiles_selected == TRUE)
+                {
+                    if (equipment_ptr->current_missiles != 0x0)
+                    {
+                        weapon_high = WH_MISSILE;
+                        if (weapon_ptr->weapon_highlighted == WH_NONE)
+                        {
+                            weapon_ptr->charge_counter = 0x0;
+                            play_sound1(0x84);
+                        }
+                    }
+                }
+                else
+                {
+                    weapon_high = WH_SUPER_MISSILE;
+                    if (equipment_ptr->current_missiles != 0x0)
+                    {
+                        weapon_high = WH_MISSILE;
+                        if (weapon_ptr->weapon_highlighted == WH_NONE)
+                        {
+                            weapon_ptr->charge_counter = 0x0;
+                            play_sound1(0x84);
+                        }
+                    }
+                }
+            }
+            break;
+
+        case SPOSE_HANGING_ON_LEDGE:
+        case SPOSE_USING_AN_ELEVATOR:
+        case SPOSE_FACING_THE_FOREGROUND:
+        case SPOSE_TURNING_FROM_FACING_THE_FOREGROUND:
+        case SPOSE_GRABBED_BY_CHOZO_STATUE:
+        case SPOSE_DELAY_BEFORE_SHINESPARKING:
+        case SPOSE_SHINESPARKING:
+        case SPOSE_SHINESPARK_COLLISION:
+        case SPOSE_DELAY_AFTER_SHINESPARKING:
+        case SPOSE_DELAY_BEFORE_BALLSPARKING:
+        case SPOSE_BALLSPARKING:
+        case SPOSE_BALLSPARK_COLLISION:
+        case SPOSE_SAVING_LOADING_GAME:
+            if (weapon_ptr->weapon_highlighted != WH_NONE)
+            {
+                if (weapon_ptr->weapon_highlighted == WH_NONE)
+                {
+                    weapon_ptr->charge_counter = 0x0;
+                    play_sound1(0x84);
+                }
+            }
+
+    }
+
+    weapon_ptr->weapon_highlighted = weapon_high;*/
 }
 
 void samus_set_spinning_pose(struct samus_data* data_ptr, struct equipment* equipment_ptr)
@@ -418,7 +595,9 @@ void samus_set_spinning_pose(struct samus_data* data_ptr, struct equipment* equi
         case SPOSE_SPACE_JUMPING:
             suit_misc = equipment_ptr->suit_misc_activation;
             flag = suit_misc & SMF_SCREW_ATTACK;
-            if (flag == 0x0)
+            if (flag != 0x0)
+                data_ptr->pose = SPOSE_SCREW_ATTACKING;
+            else
             {
                 if ((suit_misc & SMF_SPACE_JUMP) != 0x0 && samus_physics.slowed_by_liquid == FALSE)
                     break;
@@ -428,22 +607,22 @@ void samus_set_spinning_pose(struct samus_data* data_ptr, struct equipment* equi
             break;
 
         case SPOSE_SCREW_ATTACKING:
-            if (samus_physics.slowed_by_liquid == FALSE)
+            if (samus_physics.slowed_by_liquid != FALSE)
+            {
+                data_ptr->pose = SPOSE_SPINNING;
+                data_ptr->curr_anim_frame = 0x0;
+            }
+            else
             {
                 suit_misc = equipment_ptr->suit_misc_activation;
                 if ((suit_misc & SMF_SCREW_ATTACK) == 0x0)
                 {
-                    if ((suit_misc & SPOSE_SPACE_JUMPING) == 0x0)
-                        data_ptr->pose = SPOSE_SPINNING;
-                    else
+                    if ((suit_misc & SMF_SPACE_JUMP) != 0x0)
                         data_ptr->pose = SPOSE_SPACE_JUMPING;
-                        data_ptr->curr_anim_frame = 0x0;
+                    else
+                        data_ptr->pose = SPOSE_SPINNING;
+                    data_ptr->curr_anim_frame = 0x0;
                 }
-            }
-            else
-            {
-                data_ptr->pose = SPOSE_SPINNING;
-                data_ptr->curr_anim_frame = 0x0;
             }
             screw_attack_animation.screw_attacking = FALSE;
     }*/
@@ -461,7 +640,34 @@ u8 samus_hazard_damage(struct samus_data* data_ptr, struct equipment* equipment_
 
 void samus_check_shinesparking(struct samus_data* data_ptr)
 {
+    /*enum samus_pose pose;
 
+    pose = data_ptr->pose;
+
+    switch (pose)
+    {
+        case SPOSE_SHINESPARKING:
+            data_ptr->speedboosting_shinesparking = TRUE;
+            break;
+        case SPOSE_BALLSPARKING:
+            data_ptr->speedboosting_shinesparking = TRUE;
+            break;
+        default:
+            if (data_ptr->x_velocity + 0x9F < 0x13F) break;
+            if (data_ptr->speedboosting_shinesparking != FALSE) return;
+            if (pose != SPOSE_SKIDDING)
+            {
+                data_ptr->speedboosting_shinesparking = TRUE;
+                play_sound1(0x8B);
+            }
+            break;
+
+        case SPOSE_DYING:
+            data_ptr->speedboosting_shinesparking = FALSE;
+    }
+
+    if (data_ptr->speedboosting_shinesparking == FALSE)
+        play_sound2(0x8B);*/
 }
 
 enum samus_pose samus_inactivity(struct samus_data* data_ptr)

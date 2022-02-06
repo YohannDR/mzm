@@ -10,6 +10,8 @@
 #include "oam.h"
 #include "screen_shake.h"
 #include "samus.h"
+#include "gba_input.h"
+#include "projectile.h"
 
 // EWRAM
 
@@ -35,6 +37,7 @@ extern struct background_positions background_positions;
 extern struct raw_coords_x waiting_space_pirates_position;
 extern struct screen_shake screen_shake_y;
 extern struct screen_shake screen_shake_x;
+extern struct power_bomb current_power_bomb;
 extern u8 unk_0x30001A0;
 extern u16 alarm_timer;
 extern struct sprite_data sprite_data[24];
@@ -50,6 +53,9 @@ extern u8 sprite_draw_order[24];
 extern u8 sprite_rng;
 extern struct particle_effect particle_effects[16];
 extern struct oam_frame* curr_particle_oam_frame_ptr;
+extern struct projectile_data projectile_data[16];
+extern u16 arm_cannon_y;
+extern u16 arm_cannon_x;
 extern i8 pause_screen_flag; // TODO enum
 extern i8 is_current_file_existing;
 extern u16 game_mode;
@@ -80,11 +86,13 @@ extern struct screw_attack_animation screw_attack_animation;
 extern struct equipment equipment;
 extern struct samus_physics samus_physics;
 extern u16 prevent_movement_timer;
+extern struct button_assignements button_assignements;
 extern callback_t vblank_callback;
 extern callback_t hblank_callback;
 extern callback_t vcount_callback;
 extern callback_t serial_callback;
 extern callback_t timer3_callback;
+extern u16 samus_palette[32];
 extern struct bg3_movement bg3_movement;
 extern struct bg0_movement bg0_movement;
 

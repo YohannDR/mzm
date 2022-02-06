@@ -25,10 +25,14 @@ struct oam_part {
 };
 
 struct raw_oam_data {
-    struct oam_part part1;
+    /*struct oam_part part1;
     struct oam_part part2;
     struct oam_part part3;
-    struct oam_part part4;
+    struct oam_part part4;*/
+    u16 part1;
+    u16 part2;
+    u16 part3;
+    u16 part4;
 };
 
 #endif /* OAM_H */

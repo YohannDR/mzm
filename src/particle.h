@@ -64,7 +64,7 @@ enum __attribute__ ((packed)) particle_effect_id {
     PE_SECOND_MEDIUM_DUST = 0x38,
     PE_SECOND_TWO_MEDIUM_DUST = 0x39,
     PE_SAMUS_REFLECTION = 0x3A,
-    PE_CHARCHING_BEAM = 0x3B,
+    PE_CHARGING_BEAM = 0x3B,
     PE_ESCAPE = 0x3C,
 };
 
@@ -74,7 +74,7 @@ enum __attribute__ ((packed)) particle_status {
     PARTICLE_STATUS_ONSCREEN = 0x2,
     PARTICLE_STATUS_EXPLOSION = 0x4,
     PARTICLE_STATUS_UNKNOWN = 0x8,
-    PARTICLE_STATUS_UNKNOWN2 = 0x20,
+    PARTICLE_STATUS_LOW_PRIORITY = 0x20,
     PARTICLE_STATUS_UNKNOWN3 = 0x40,
     PARTICLE_STATUS_XFLIP = 0x80,
 };

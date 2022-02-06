@@ -16,4 +16,9 @@ struct raw_coords_x {
     u16 y;
 };
 
+struct raw_coords_y {
+    u16 y;
+    u16 x;
+};
+
 #endif /* TYPES_H */
