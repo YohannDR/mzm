@@ -84,6 +84,7 @@ extern struct samus_data samus_data_copy;
 extern struct weapon_info samus_weapon_info;
 extern struct screw_attack_animation screw_attack_animation;
 extern struct equipment equipment;
+extern struct hazard_damage samus_hazard_damage;
 extern struct samus_physics samus_physics;
 extern u16 prevent_movement_timer;
 extern struct button_assignements button_assignements;
