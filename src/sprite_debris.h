@@ -18,9 +18,9 @@ struct sprite_debris {
 };
 
 void sprite_debris_set_splash(u16 old_y, u16 y_position, u16 x_position);
-void sprite_debris_process(struct sprite_debris* ptr);
+void sprite_debris_process(struct sprite_debris* pDebris);
 void sprite_debris_process_all(void);
-void sprite_debris_draw(struct sprite_debris* ptr);
+void sprite_debris_draw(struct sprite_debris* pDebris);
 void sprite_debris_draw_all(void);
 void sprite_debris_init(u8 cloud_type, u8 debris_type, u16 y_position, u16 x_position);
 

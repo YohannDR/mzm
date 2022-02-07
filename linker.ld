@@ -76,6 +76,7 @@ SECTIONS {
         . = 0x00001414; samus_weapon_info = .;
         . = 0x00001528; screw_attack_animation = .;
         . = 0x00001530; equipment = .;
+        . = 0x00001530; samus_hazard_damage = .;
         . = 0x00001588; samus_physics = .;
         . = 0x00001606; prevent_movement_timer = .;
         . = 0x0000168C; button_assignments = .;
