@@ -17,12 +17,14 @@ SECTIONS {
         . = 0x03000043; softreset_disabled = .;
         . = 0x03000054; current_area = .;
         . = 0x03000055; current_room = .;
+        . = 0x03000056; last_door_used = .;
         . = 0x0300006C; effect_y_position = .;
         . = 0x03000071; screen_shake_x_related = .;
         . = 0x03000073; screen_shake_y_related = .;
         . = 0x03000074; screen_shake_related = .;
         . = 0x03000078; spriteset = .;
         . = 0x0300007A; spriteset_entry_used = .;
+        . = 0x0300009C; bg_pointers_and_dimensions = .;
         . = 0x030000BC; current_room_entry = .;
         . = 0x030000E4; background_positions = .;
         . = 0x030000F8; waiting_space_pirates_position = .;
@@ -30,6 +32,7 @@ SECTIONS {
         . = 0x03000114; screen_shake_x = .;
         . = 0x03000118; current_scrolls = .;
         . = 0x03000130; current_power_bomb = .;
+        . = 0x03000144; screen_position_and_velocity = .;
         . = 0x030001A0; unk_030001A0 = .;
         . = 0x030001A8; alarm_timer = .;
         . = 0x030001AC; sprite_data = .;
@@ -88,8 +91,12 @@ SECTIONS {
         . = 0x03001cf8; serial_callback = .;
         . = 0x03001cfc; timer3_callback = .;
         . = 0x030052E0; samus_palette = .;
+        . = 0x0300545C; hatch_data = .;
+        . = 0x030054E0; door_position_start = .;
         . = 0x030054EC; bg3_movement = .;
         . = 0x030054F4; bg0_movement = .;
+        . = 0x0300550C; samus_door_position_offset = .;
+        . = 0x03005708; current_room_scroll_data_pointer = .;
         . = 0x03007e60; sp_sys = .;
         . = 0x03007fa0; sp_irq = .;
         . = 0x03007ff8; unk_03007ff8 = .;

@@ -13,6 +13,8 @@
 #include "gba_input.h"
 #include "projectile.h"
 #include "scroll.h"
+#include "connection.h"
+#include "background.h"
 
 // EWRAM
 
@@ -25,14 +27,16 @@ extern u8 samus_on_top_backgrounds;
 extern u8 difficulty;
 extern u8 disable_scrolling;
 extern u8 softreset_disabled;
-extern u8 current_area;
+extern enum area current_area;
 extern u8 current_room;
+extern u8 last_door_used;
 extern u16 effect_y_position;
 extern u8 screen_shake_x_related;
 extern u8 screen_shake_y_related;
 extern u16 screen_shake_related;
 extern u8 spriteset;
 extern u8 spriteset_entry_used;
+extern struct background_pointers_and_dimensions bg_pointers_and_dimensions;
 extern struct room_entry current_room_entry;
 extern struct background_positions background_positions;
 extern struct raw_coords_x waiting_space_pirates_position;
@@ -40,6 +44,7 @@ extern struct screen_shake screen_shake_y;
 extern struct screen_shake screen_shake_x;
 extern struct current_scrolls current_scrolls;
 extern struct power_bomb current_power_bomb;
+extern struct screen_position_and_velocity screen_position_and_velocity;
 extern u8 unk_0x30001A0;
 extern u16 alarm_timer;
 extern struct sprite_data sprite_data[24];
@@ -98,8 +103,12 @@ extern callback_t vcount_callback;
 extern callback_t serial_callback;
 extern callback_t timer3_callback;
 extern u16 samus_palette[32];
+extern struct hatch_data hatch_data[16];
+extern struct raw_coords_x door_position_start;
 extern struct bg3_movement bg3_movement;
 extern struct bg0_movement bg0_movement;
+extern i16 samus_door_position_offset;
+extern struct scroll_data* current_room_scroll_data_pointer;
 
 extern void *sp_sys;
 extern void *sp_irq;
