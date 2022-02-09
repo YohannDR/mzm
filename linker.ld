@@ -28,6 +28,7 @@ SECTIONS {
         . = 0x030000F8; waiting_space_pirates_position = .;
         . = 0x03000110; screen_shake_y = .;
         . = 0x03000114; screen_shake_x = .;
+        . = 0x03000118; current_scrolls = .;
         . = 0x03000130; current_power_bomb = .;
         . = 0x030001A0; unk_030001A0 = .;
         . = 0x030001A8; alarm_timer = .;
@@ -77,6 +78,8 @@ SECTIONS {
         . = 0x03001530; equipment = .;
         . = 0x03001530; samus_hazard_damage = .;
         . = 0x03001588; samus_physics = .;
+        . = 0x03001600; previous_x_position = .;
+        . = 0x03001602; previous_y_position = .;
         . = 0x03001606; prevent_movement_timer = .;
         . = 0x0300168C; button_assignments = .;
         . = 0x03001cec; vblank_callback = .;

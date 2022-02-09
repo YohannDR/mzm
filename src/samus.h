@@ -170,6 +170,8 @@ enum __attribute__ ((packed)) samus_direction {
     DIRECTION_NONE = 0x0,
     DIRECTION_RIGHT = 0x10,
     DIRECTION_LEFT = 0x20,
+    DIRECTION_UP = 0x40,
+    DIRECTION_DOWN = 0x80,
     DIRECTION_LIMIT = 0xFFFF
 };
 
@@ -194,9 +196,9 @@ struct samus_data {
     u8 shinespark_timer;
     u8 unmroph_palette_timer;
     u8 speedbooster_timer;
-    u16 last_wall_touched_midair;
+    enum samus_direction last_wall_touched_midair;
     enum samus_direction direction;
-    u16 unknown;
+    u16 elevator_direction;
     u16 x_position;
     u16 y_position;
     i16 x_velocity;
@@ -370,14 +372,14 @@ enum samus_pose samus_getting_hurt(struct samus_data* pData);
 enum samus_pose samus_getting_hurt_gfx(struct samus_data* pData);
 enum samus_pose samus_getting_knocked_back(struct samus_data* pData);
 enum samus_pose samus_dying(struct samus_data* pData);
-enum samus_pose samus_getting_knocked_back_gfx(struct samus_data* pData);
+enum samus_pose samus_crouching_to_crawl_gfx(struct samus_data* pData);
 enum samus_pose samus_crawling_stopped(struct samus_data* pData);
-enum samus_pose samus_getting_knocked_back_in_morphball_gfx(struct samus_data* pData);
+enum samus_pose samus_starting_to_crawl_gfx(struct samus_data* pData);
 enum samus_pose samus_crawling(struct samus_data* pData);
 enum samus_pose samus_dying_gfx(struct samus_data* pData);
 enum samus_pose samus_turning_around_while_crawling(struct samus_data* pData);
 enum samus_pose samus_crawling_gfx(struct samus_data* pData);
-enum samus_pose samus_uncrouching_suitless_gfx(struct samus_data* pData);
+enum samus_pose samus_grabbing_a_ledge_suitless_gfx(struct samus_data* pData);
 enum samus_pose samus_facing_the_background(struct samus_data* pData);
 enum samus_pose samus_turning_from_facing_the_background_gfx(struct samus_data* pData);
 enum samus_pose samus_turning_to_enter_escape_ship_gfx(struct samus_data* pData);

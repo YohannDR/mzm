@@ -444,12 +444,12 @@ struct sprite_data {
 };
 
 void sprite_update(void);
-void sprite_update_animation(struct sprite_data* ptr);
+void sprite_update_animation(struct sprite_data* pSprite);
 void sprite_draw_all_2(void);
 void sprite_draw_all(void);
 void sprite_draw_all_3(void);
-void sprite_draw(struct sprite_data* ptr, u32 slot);
-void sprite_check_on_screen(struct sprite_data* ptr);
+void sprite_draw(struct sprite_data* pSprite, u32 slot);
+void sprite_check_on_screen(struct sprite_data* pSprite);
 void sprite_load_all_data(void);
 void sprite_load_spriteset(void);
 void sprite_load_gfx(enum p_sprite_id sprite_id, u8 gfx_row);
