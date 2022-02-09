@@ -42,7 +42,7 @@ struct room_entry {
     u8 map_y;
     enum room_effect effect;
     u16 effect_y;
-    enum event effect_clone;
+    enum room_effect effect_clone;
     u16 music_track;
     u8 bg0_size;
     u8 bg3_size;

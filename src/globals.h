@@ -12,6 +12,7 @@
 #include "samus.h"
 #include "gba/keys.h"
 #include "projectile.h"
+#include "scroll.h"
 
 // EWRAM
 
@@ -56,6 +57,7 @@ extern struct background_positions background_positions;
 extern struct raw_coords_x waiting_space_pirates_position;
 extern struct screen_shake screen_shake_y;
 extern struct screen_shake screen_shake_x;
+extern struct current_scrolls current_scrolls;
 extern struct power_bomb current_power_bomb;
 extern u8 unk_0x30001A0;
 extern u16 alarm_timer;
@@ -106,6 +108,8 @@ extern struct screw_attack_animation screw_attack_animation;
 extern struct equipment equipment;
 extern struct hazard_damage samus_hazard_damage;
 extern struct samus_physics samus_physics;
+extern u16 previous_x_position;
+extern u16 previous_y_position;
 extern u16 prevent_movement_timer;
 extern struct button_assignements button_assignements;
 extern callback_t vblank_callback;
