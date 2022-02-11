@@ -32,7 +32,8 @@ void sprite_draw_all_2(void)
 
 void sprite_draw_all(void)
 {
-    struct sprite_data* pSprite;
+    /*struct sprite_data* pSprite1;
+    struct sprite_data* pSprite2;
     enum sprite_status status_flag;
     enum sprite_status status_check;
     u8* draw_order;
@@ -46,7 +47,7 @@ void sprite_draw_all(void)
     status_flag = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN;
     status_check = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN;
     sprite_debris_draw_all();
-    pSprite = sprite_data;
+    pSprite1 = sprite_data;
     zero = 0x0;
     g_draw_order = sprite_draw_order;
     draw_order = &sprite_data[0].draw_order;
@@ -54,13 +55,13 @@ void sprite_draw_all(void)
 
     for (i = 0x17; i >= 0x0; i--)
     {
-        if ((pSprite->status & status_flag) == status_check && *draw_order < 0x9)
+        if ((pSprite1->status & status_flag) == status_check && *draw_order < 0x9)
             *g_draw_order = *draw_order;
         else
             *g_draw_order = zero;
         g_draw_order += 0x1;
         draw_order += 0x38;
-        pSprite++;
+        pSprite1++;
     }
     
     unk = 0x1;
@@ -68,21 +69,20 @@ void sprite_draw_all(void)
     do
     {
         ram_slot = 0x0;
-        pSprite = sprite_data;
+        pSprite2 = sprite_data;
         unk2 = unk + 0x1;
 
-        do
+        while (pSprite2 < sprite_data + 24)
         {
             if (sprite_draw_order[ram_slot] == unk)
             {
-                sprite_draw(pSprite, ram_slot);
-
+                sprite_draw(pSprite2, ram_slot);
             }
             ram_slot++;
-            pSprite++;
-        } while ((u32)pSprite < 0x30006ec);
+            pSprite2++;
+        }
         unk = unk2;
-    } while (unk2 < 0x9);
+    } while (unk2 < 0x9);*/
 }
 
 void sprite_draw_all_3(void)
@@ -97,7 +97,7 @@ void sprite_draw(struct sprite_data* pSprite, u32 slot)
 
 void sprite_check_on_screen(struct sprite_data* pSprite)
 {
-    u16 y_pos;
+    /*u16 y_pos;
     u16 bg1X;
     u16 bg1Y;
     u16 x_pos;
@@ -133,7 +133,7 @@ void sprite_check_on_screen(struct sprite_data* pSprite)
                     pSprite->status = 0x0;
             }
         }
-    } 
+    }*/
 }
 
 void sprite_load_all_data(void)
@@ -169,28 +169,7 @@ void sprite_load_pal(enum p_sprite_id sprite_id, u8 gfx_row, u32 len)
 
 void sprite_clear_data(void)
 {
-    /*struct sprite_data* s_pSprite;
-    struct sprite_debris* sd_pSprite;
-    i32 i;
 
-    s_pSprite = sprite_data;
-    i = 0x17;
-
-    while (i >= 0)
-    {
-        s_pSprite->status = 0x0;
-        s_pSprite->standing_on_sprite = FALSE;
-        s_pSprite->room_slot = 0xFF;
-        s_pSprite++;
-        i--;
-    }
-
-    sd_pSprite = sprite_debris + 7;
-    while (sd_pSprite >= sprite_debris)
-    {
-        sd_pSprite->exists = FALSE;
-        sd_pSprite--;
-    }*/
 }
 
 void sprite_load_room_sprites(void)
@@ -215,11 +194,10 @@ void sprite_load_room_sprites(void)
 
 void sprite_init_primary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 room_slot)
 {
-    struct sprite_data* pSprite;
+    /*struct sprite_data* pSprite;
     u8 ram_slot;
     u8 slot;
-    u8 unk;
-    enum s_sprite_id id;
+    u32 sprite_id;
 
     ram_slot = 0x0;
     pSprite = sprite_data;
@@ -229,22 +207,23 @@ void sprite_init_primary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 r
         if ((pSprite->status & SPRITE_STATUS_EXISTS) == 0x0)
         {
             pSprite->status = SPRITE_STATUS_EXISTS;
-            slot = spriteset_slot & 0x7F;
-            if (slot < 0x11)
+            spriteset_slot &= 0x7F;
+            if (spriteset_slot >= 0x11)
             {
-                pSprite->spriteset_gfx_slot = 0x0;
-                id = slot - 0x1;
+                slot = ((((spriteset_slot - 0x1) << 0x18) & 0xF000000) >> 0x18);
+                pSprite->spriteset_gfx_slot = spriteset_sprite_gfx_slots[slot];
+                sprite_id = spriteset_sprite_id[slot];
             }
             else
             {
-                unk = (slot - 0x1 & 0xf);
-                pSprite->spriteset_gfx_slot = spriteset_sprite_gfx_slots[unk];
-                id = spriteset_sprite_id[unk];
+                pSprite->spriteset_gfx_slot = 0x0;
+                sprite_id = slot - 0x1;
             }
-            pSprite->sprite_id = id;
+
+            pSprite->sprite_id = sprite_id;
             pSprite->properties = 0x0;
-            pSprite->y_position = y_position * 0x40 + 0x40;
-            pSprite->x_position = x_position * 0x40 + 0x20;
+            pSprite->y_position = (y_position << 0x6) + 0x40;
+            pSprite->x_position = (x_position << 0x6) + 0x20;
             pSprite->room_slot = room_slot;
             pSprite->bg_priority = 0x2;
             pSprite->draw_order = 0x4;
@@ -255,14 +234,15 @@ void sprite_init_primary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 r
             pSprite->frozen_palette_row_offset = 0x0;
             pSprite->maybe_absolute_palette_row = 0x0;
             pSprite->ignore_samus_collision_timer = 0x1;
-            pSprite->primary_sprite_ram_slot = slot;
+            pSprite->primary_sprite_ram_slot = ram_slot;
             pSprite->freeze_timer = 0x0;
             pSprite->standing_on_sprite = FALSE;
-            return;
+            return; 
         }
+
         ram_slot++;
         pSprite++;
-    }
+    }*/
 }
 
 u8 sprite_spawn_secondary(enum s_sprite_id sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, enum sprite_status status_to_add)

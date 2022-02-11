@@ -60,18 +60,22 @@ void enemy_drop_init(void)
 void enemy_drop_get(void)
 {
     enum sprite_status status;
-    u8 timer;
+    struct sprite_data* pSprite;
+    u32 timer;
 
-    if (current_sprite.ignore_samus_collision_timer != 0x0)
+    pSprite = &current_sprite;
+    if (pSpriteignore_samus_collision_timer != 0x0)
     {
-        if (current_sprite.ignore_samus_collision_timer < 0x2)
-            status = current_sprite.status & ~SPRITE_STATUS_NOT_DRAWN;        
+        if (pSprite->ignore_samus_collision_timer < 0x2)
+            status = pSprite->status & ~SPRITE_STATUS_NOT_DRAWN;
+        else
+            return;
     }
     else
     {
-        if ((current_sprite.status & SPRITE_STATUS_SAMUS_COLLIDING) != 0x0)
+        if ((pSprite->status & SPRITE_STATUS_SAMUS_COLLIDING) != 0x0)
         {
-            switch (current_sprite.samus_collision)
+            switch (pSprite->samus_collision)
             {
                 case SSC_SMALL_ENERGY_DROP:
                     equipment.current_energy += 0x5;
@@ -120,16 +124,24 @@ void enemy_drop_get(void)
         }
         else
         {
-            if (((u8)current_sprite.maybe_x_position_spawn & 0x1) != 0x0)
+            if (((u8)pSprite->maybe_x_position_spawn & 0x1) != 0x0)
             {
-                current_sprite.maybe_y_position_spawn--;
-                timer = (u8)current_sprite.maybe_y_position_spawn;
-                if (timer != 0x0 && timer < 0x50)
-                    status = current_sprite.status ^ SPRITE_STATUS_NOT_DRAWN;
+                pSprite->maybe_y_position_spawn--;
+                timer = (u8)pSprite->maybe_y_position_spawn;
+                status = timer;
+                if (timer != 0x0)
+                {
+                    if (timer < 0x50)
+                        status = pSprite->status ^ SPRITE_STATUS_NOT_DRAWN;
+                    else
+                        return;
+                }
             }
+            else
+                return;
         }
     }
-    current_sprite.status = status;
+    pSprite->status = status;
 }
 
 void enemy_drop(void)

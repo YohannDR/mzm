@@ -3,10 +3,34 @@
 #include "sprite_debris.h"
 #include "particle.h"
 #include "samus.h"
+#include "location_text.h"
 
 void sprite_util_init_location_text(void)
 {
-    
+    u8 gfx_slot;
+
+    gfx_slot = location_text_get_gfx_slot();
+    if (gfx_slot < 0x8)
+    {
+        sprite_data[0x0].status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN | SPRITE_STATUS_UNKNOWN3;
+        sprite_data[0x0].properties = SP_MESSAGE_BANNER;
+        sprite_data[0x0].spriteset_gfx_slot = gfx_slot;
+        sprite_data[0x0].sprite_id = PSPRITE_AREA_BANNER;
+        sprite_data[0x0].y_position = samus_data.y_position;
+        sprite_data[0x0].x_position = samus_data.x_position;
+        sprite_data[0x0].bg_priority = 0x0;
+        sprite_data[0x0].draw_order = 0x1;
+        sprite_data[0x0].pose = 0x0;
+        sprite_data[0x0].health = 0x0;
+        sprite_data[0x0].invicibility_stun_flash_timer = 0x0;
+        sprite_data[0x0].palette_row = 0x0;
+        sprite_data[0x0].frozen_palette_row_offset = 0x0;
+        sprite_data[0x0].maybe_absolute_palette_row = 0x0;
+        sprite_data[0x0].ignore_samus_collision_timer = 0x1;
+        sprite_data[0x0].primary_sprite_ram_slot = 0x0;
+        sprite_data[0x0].freeze_timer = 0x0;
+        sprite_data[0x0].standing_on_sprite = FALSE;
+    }
 }
 
 void unk_e514(u16 x_position, u16 y_position)
@@ -196,17 +220,48 @@ u8 sprite_util_make_sprite_face_samus_rotation(u8 oam_rotation, u16 samus_y, u16
 
 u8 sprite_util_check_end_current_sprite_anim(void)
 {
+    u8 adc;
+    u16 curr_anim;
 
+    adc = current_sprite.anim_duration_counter;
+    curr_anim = current_sprite.curr_anim_frame;
+    adc = (u8)(adc + 0x1);
+
+    if ((u8)current_sprite.oam_pointer[curr_anim].timer < adc && (u8)current_sprite.oam_pointer[(u16)(curr_anim + 0x1)].timer == 0x0)
+        return TRUE;
+    else
+        return FALSE;
 }
 
 u8 sprite_util_check_near_end_current_sprite_anim(void)
 {
+    /*u32 adc;
+    u16 curr_anim;
+    
+    adc = current_sprite.anim_duration_counter;
+    curr_anim = current_sprite.curr_anim_frame;
+    adc = ((adc << 0x18) + 0x2000000) >> 0x18;
 
+    if ((u8)current_sprite.oam_pointer[curr_anim].timer < adc &&
+    (u8)current_sprite.oam_pointer[(u16)(curr_anim + 0x1)].timer == 0x0)
+        return TRUE;
+    else
+        return FALSE;*/
 }
 
 u8 sprite_util_check_end_sprite_anim(u8 ram_slot)
 {
+    u8 adc;
+    u16 curr_anim;
 
+    adc = sprite_data[ram_slot].anim_duration_counter;
+    curr_anim = sprite_data[ram_slot].curr_anim_frame;
+    adc = (u8)(adc + 0x1);
+
+    if ((u8)sprite_data[ram_slot].oam_pointer[curr_anim].timer < adc && (u8)sprite_data[ram_slot].oam_pointer[(u16)(curr_anim + 0x1)].timer == 0x0)
+        return TRUE;
+    else
+        return FALSE;
 }
 
 u8 sprite_util_check_near_end_sprite_anim(u8 ram_slot)
@@ -216,7 +271,17 @@ u8 sprite_util_check_near_end_sprite_anim(u8 ram_slot)
 
 u8 sprite_util_check_end_sub_sprite1_anim(void)
 {
+    u8 adc;
+    u16 curr_anim;
 
+    adc = sub_sprite_data1.anim_duration_counter;
+    curr_anim = sub_sprite_data1.curr_anim_frame;
+    adc = (u8)(adc + 0x1);
+
+    if ((u8)sub_sprite_data1.oam_pointer[curr_anim].timer < adc && (u8)sub_sprite_data1.oam_pointer[(u16)(curr_anim + 0x1)].timer == 0x0)
+        return TRUE;
+    else
+        return FALSE;
 }
 
 u8 sprite_util_check_near_end_sub_sprite1_anim(void)
@@ -226,12 +291,32 @@ u8 sprite_util_check_near_end_sub_sprite1_anim(void)
 
 u8 sprite_util_check_end_sub_sprite2_anim(void)
 {
+    u8 adc;
+    u16 curr_anim;
 
+    adc = sub_sprite_data2.anim_duration_counter;
+    curr_anim = sub_sprite_data2.curr_anim_frame;
+    adc = (u8)(adc + 0x1);
+
+    if ((u8)sub_sprite_data2.oam_pointer[curr_anim].timer < adc && (u8)sub_sprite_data2.oam_pointer[(u16)(curr_anim + 0x1)].timer == 0x0)
+        return TRUE;
+    else
+        return FALSE;
 }
 
 u8 sprite_util_check_end_sub_sprite_anim(struct sub_sprite_data* pSub)
 {
+    u8 adc;
+    u16 curr_anim;
 
+    adc = pSub->anim_duration_counter;
+    curr_anim = pSub->curr_anim_frame;
+    adc = (u8)(adc + 0x1);
+
+    if ((u8)pSub->oam_pointer[curr_anim].timer < adc && (u8)pSub->oam_pointer[(u16)(curr_anim + 0x1)].timer == 0x0)
+        return TRUE;
+    else
+        return FALSE;
 }
 
 u8 sprite_util_check_near_end_sub_sprite_anim(struct sub_sprite_data* pSub)
@@ -436,23 +521,18 @@ void sprite_util_unfreeze_secondary_sprites(enum s_sprite_id sprite_id, u8 ram_s
 u8 sprite_util_refill_energy(void)
 {
     /*u16 increment;
-    u16 max;
-    u32 energy;
-    
-    energy = equipment.current_energy;
-    max = equipment.max_energy;
 
-    if (energy < max)
+    if (equipment.max_energy > equipment.current_energy)
     {
-        increment = (u16)((equipment.max_energy - equipment.current_energy) >> 0x5);
+        increment = (u16)(equipment.max_energy - equipment.current_energy);
+        increment >>= 0x5;
         if (increment == 0x0)
             increment = 0x1;
         else if (0xA < increment)
             increment = 0xB;
         
-        energy = equipment.current_energy;
-        equipment.current_energy = (energy + increment);
-        if ((u16)(increment + energy) > equipment.max_energy)
+        equipment.current_energy += increment;
+        if ((u16)equipment.current_energy > equipment.max_energy)
             equipment.current_energy = equipment.max_energy;
         
         return TRUE;
@@ -628,7 +708,7 @@ u8 sprite_util_check_stop_sprites_pose(void)
 
 enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struct sprite_data* pSprite, struct samus_data* pData)
 {
-    enum damage_contact_type dct;
+    /*enum damage_contact_type dct;
     struct sprite_stat* pStats;
     enum sprite_properties* pProps;
     struct equipment* pEquipment;
@@ -690,7 +770,7 @@ enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struc
             damage = 0x2;
             bbf = equipment.beam_bombs_activation;
             if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
-                damage = 3;
+                damage = 0x3;
             if ((equipment.beam_bombs_activation & BBF_ICE_BEAM) != 0x0)
                 damage = (u16)(damage + 0x1);
             if ((equipment.beam_bombs_activation & BBF_WAVE_BEAM) != 0x0)
@@ -741,7 +821,7 @@ enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struc
         dct = DCT_NONE;
     }
 
-    return dct;
+    return dct;*/
 }
 
 u8 sprite_util_check_pulling_self_up(void)

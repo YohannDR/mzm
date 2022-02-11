@@ -49,14 +49,15 @@ i32 screen_shake_update_vertical(void)
 
     zero = 0x0;
     screen_shake_y_related = zero;
-    if (screen_shake_y.timer == 0x0) return 0x0;
+    if (screen_shake_y.timer == 0x0)
+        return 0x0;
     else
     {
         screen_shake_y.timer--;
         if (screen_shake_y.loop_counter < 0x2)
         {
             screen_shake_y.loop_counter++;
-            offset = 0x0;
+            return 0x0;
         }
         else
         {
@@ -66,7 +67,7 @@ i32 screen_shake_update_vertical(void)
             if (screen_shake_y.unknown2 != 0x0)
             {
                 unk = 0x2;
-                unk = (-(unk2) | unk2) >> 0x1F & unk;
+                unk = (-(unk2) | unk2) >> 0x1F & 0x2;
             }
             screen_shake_y.unknown2 ^= 0x1;
             if (screen_shake_y.timer < 0x10)
