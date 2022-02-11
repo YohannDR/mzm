@@ -14,7 +14,7 @@
 #include "projectile.h"
 #include "scroll.h"
 #include "connection.h"
-#include "background.h"
+#include "bg_clip.h"
 
 // EWRAM
 

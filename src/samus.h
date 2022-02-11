@@ -237,7 +237,7 @@ struct samus_physics {
     i16 midair_x_velocity_cap;
     i16 midair_morphed_x_velocity_cap;
     i16 unknown;
-    i16 unknown2;
+    i16 height_offset;
     i16 unknown3;
     i16 unknown4;
 };
