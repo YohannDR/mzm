@@ -1,9 +1,8 @@
-#include "unused_sprites.h"
-#include "../globals.h"
+#include "sprites_AI/unused_sprites.h"
+#include "globals.h"
 
 void unused_sprites(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
     if (current_sprite.pose == 0x0)
     {
         current_sprite.pose = 0x1;
@@ -19,4 +18,5 @@ void unused_sprites(void)
         current_sprite.oam_pointer = unused_sprites_oam_data;
         current_sprite.bg_priority = 0x1;
     }
+    current_sprite.ignore_samus_collision_timer = 0x1;
 }

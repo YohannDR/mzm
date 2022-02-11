@@ -47,7 +47,6 @@ enum __attribute__ ((packed)) projectile_type {
     PROJ_TYPE_BOMB = 0xE,
     PROJ_TYPE_POWER_BOMB = 0xF
 };
-
 struct projectile_data {
     enum projectile_status status;
     struct frame_data* oam_pointer;
@@ -65,7 +64,6 @@ struct projectile_data {
     i16 hitbox_left_offset;
     i16 hitbox_right_offset;
 };
-
 struct power_bomb {
     u8 animation_state;
     u8 stage;

@@ -26,5 +26,7 @@ enum location_text location_text_get_norfair(void);
 enum location_text location_text_get_ridley(void);
 enum location_text location_text_get_chozodia(void);
 enum location_text location_text_get_tourian(void);
+u8 location_text_load_area_banner_gfx(void);
+u8 location_text_get_gfx_slot(void);
 
 #endif /* LOCATION_TEXT_H */

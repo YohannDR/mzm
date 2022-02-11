@@ -26,7 +26,7 @@ void particle_draw(struct particle_effect* ptr)
     {
         frame_data_ptr = oam_data + next_slot;
         status = ptr->status;
-        if ((status & PARTICLE_STATUS_UNKNOWN3) != 0x0)
+        if ((status & PARTICLE_STATUS_ABSOLUTE_POSITION) != 0x0)
         {
             y_pos = ptr->y_position;
             x_pos = ptr->x_position;
