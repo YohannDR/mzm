@@ -374,7 +374,7 @@ struct __attribute__ ((packed)) enemy_room_data {
     u8 spriteset_slot;
 };
 
-struct __attribute__ ((packed)) sprite_stat {
+struct sprite_stat {
     u16 spawn_health;
     u16 damage;
     enum sprite_weakness_flags weakness;

@@ -1,5 +1,6 @@
 #include "connection.h"
 #include "globals.h"
+#include "bg_clip.h"
 
 void connection_opening_hatch_related(void)
 {
@@ -8,7 +9,63 @@ void connection_opening_hatch_related(void)
 
 void connection_update_hatch_animation(u8 dont_set_raw, u8 hatch)
 {
+    /*u32 value;
+    u32 bg_block;
+    u32 clip_block;
+    i32 direction_flag;
 
+    direction_flag = hatch_data[hatch].direction << 0x1B;
+    bg_block = 0x411;
+    if (direction_flag < 0x0)
+        bg_block = 0x416;
+
+    direction_flag = (hatch_data[hatch].direction << 0x1C >> 0x1D) - 0x1;
+    if ((hatch_data[hatch].status & 0x3) == 0x3)
+    {
+        direction_flag = (0x2 - direction_flag);
+        if (direction_flag < 0x0)
+        {
+            direction_flag = 0x0;
+            bg_block = hatch_clipdata_block_values_3602c8[hatch_data[hatch].type] - (direction_flag >> 0x1F);
+            clip_block = direction_flag;
+            if (hatch_data[hatch].type == HATCH_NONE)
+                clip_block = direction_flag + 0x80;
+        }
+        else if (hatch_data[hatch].type != HATCH_NONE)
+        {
+            direction_flag += 0x40;
+            clip_block = direction_flag;
+            if (hatch_data[hatch].type == HATCH_NONE)
+                clip_block = direction_flag + 0x80;
+        }
+    }
+    else
+    {
+        clip_block = direction_flag;
+        if (hatch_data[hatch].type == HATCH_NONE)
+            clip_block = direction_flag + 0x80;
+    }
+
+    value = bg_block + clip_block;
+    if (dont_set_raw != FALSE)
+    {
+        bg_clip_set_bg1_block_value(value, hatch_data[hatch].y_position, hatch_data[hatch].x_position);
+        bg_clip_set_bg1_block_value(value + 0x10, hatch_data[hatch].y_position + 0x1, hatch_data[hatch].x_position);
+        bg_clip_set_bg1_block_value(value + 0x20, hatch_data[hatch].y_position + 0x2, hatch_data[hatch].x_position);
+        bg_clip_set_bg1_block_value(value + 0x30, hatch_data[hatch].y_position + 0x3, hatch_data[hatch].x_position);
+    }
+    else
+    {
+        bg_clip_set_raw_bg1_block_value(value, hatch_data[hatch].y_position, hatch_data[hatch].x_position);
+        bg_clip_set_raw_bg1_block_value(value + 0x10, hatch_data[hatch].y_position + 0x1, hatch_data[hatch].x_position);
+        bg_clip_set_raw_bg1_block_value(value + 0x20, hatch_data[hatch].y_position + 0x2, hatch_data[hatch].x_position);
+        bg_clip_set_raw_bg1_block_value(value + 0x30, hatch_data[hatch].y_position + 0x3, hatch_data[hatch].x_position);
+    }
+    
+    bg_clip_set_clipdata_block_value((u16)value, hatch_data[hatch].y_position, hatch_data[hatch].x_position);
+    bg_clip_set_clipdata_block_value((u16)value + 0x10, hatch_data[hatch].y_position + 0x1, hatch_data[hatch].x_position);
+    bg_clip_set_clipdata_block_value((u16)value + 0x20, hatch_data[hatch].y_position + 0x2, hatch_data[hatch].x_position);
+    bg_clip_set_clipdata_block_value((u16)value + 0x30, hatch_data[hatch].y_position + 0x3, hatch_data[hatch].x_position);*/
 }
 
 void unk_5EA54(u8 hatch)
@@ -23,7 +80,7 @@ void unk_5eb18(u8 hatch, enum hatch_type type)
 
 u8 connection_check_enter_door(u16 y_position, u16 x_position)
 {
-    u8* pSrc;
+    /*u8* pSrc;
     struct hatch_data* pData;
     enum area* pCurrArea;
     struct door* pCurr;
@@ -99,7 +156,7 @@ u8 connection_check_enter_door(u16 y_position, u16 x_position)
         }
 
         return door_found;
-    }
+    }*/
 }
 
 u8 connection_check_area_connection(u16 y_position, u16 x_position)

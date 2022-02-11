@@ -3,6 +3,7 @@
 #include "screen_shake.h"
 #include "globals.h"
 #include "event.h"
+#include "bg_clip.h"
 
 void room_load(void)
 {
@@ -16,7 +17,7 @@ void room_load_tileset(void)
 
 void room_load_entry(void)
 {
-    struct room_entry_rom entry;
+    /*struct room_entry_rom entry;
     u16 effect_y;
 
     copy_bytes(&entry, entry_pointers[current_area] + current_room, sizeof(struct room_entry_rom));
@@ -83,7 +84,7 @@ void room_load_entry(void)
     {
         current_room_entry.bg3_from_bottom_flag = 0x1;
         bg0_movement.type = BG0_MOVEMENT_WATER_CLOUDS;
-    }
+    }*/
 }
 
 void room_load_backgrounds(void)
@@ -94,7 +95,7 @@ void room_load_backgrounds(void)
 void room_remove_never_reform_blocks_and_collected_tanks(void)
 {
 	// remove_never_reform_blocks();
-	// remove_collected_tanks();
+	bg_clip_remove_collected_tanks();
 }
 
 void room_reset(void)
