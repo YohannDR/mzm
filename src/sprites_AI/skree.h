@@ -1,7 +1,7 @@
 #ifndef SKREE_AI_H
 #define SKREE_AI_H
 
-#include "types.h"
+#include "../types.h"
 
 void skree_init(void);
 void skree_gfx_init(void);
