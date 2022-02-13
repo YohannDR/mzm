@@ -1,7 +1,7 @@
 #include "skree.h"
-#include "sprite_debris.h"
-#include "sprite_util.h"
-#include "globals.h"
+#include "../sprite_debris.h"
+#include "../sprite_util.h"
+#include "../globals.h"
 
 void skree_init(void)
 {
