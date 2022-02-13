@@ -46,6 +46,7 @@ SECTIONS {
         . = 0x00000738; current_sprite = .;
         . = 0x00000770; sprite_debris = .;
         . = 0x000007F0; previous_vertical_collision_check = .;
+        . = 0x000007F1; previous_collision_check = .;
         . = 0x000007F3; sprite_draw_order = .;
         . = 0x0000083C; sprite_rng = .;
         . = 0x00000840; particle_effects = .;
@@ -80,7 +81,7 @@ SECTIONS {
         . = 0x000013D4; samus_data = .;
         . = 0x000013F4; samus_data_copy = .;
         . = 0x00001414; samus_weapon_info = .;
-        . = 0x00001528; screw_attack_animation = .;
+        . = 0x00001528; screw_speed_animation = .;
         . = 0x00001530; equipment = .;
         . = 0x00001530; samus_hazard_damage = .;
         . = 0x00001588; samus_physics = .;

@@ -91,7 +91,7 @@ enum __attribute__ ((packed)) samus_pose {
     SPOSE_SPINNING = 0xC,
     SPOSE_STARTING_WALL_JUMP = 0xD,
     SPOSE_SPACE_JUMPING = 0xE,
-    SPOSE_SCREW_ATTACKING = 0xF,
+    SPOSE_flag = 0xF,
     SPOSE_MORPHING = 0x10,
     SPOSE_MORPH_BALL = 0x11,
     SPOSE_ROLLING = 0x12,
@@ -242,8 +242,8 @@ struct samus_physics {
     i16 unknown4;
 };
 
-struct screw_attack_animation {
-    u8 screw_attacking;
+struct screw_speed_animation {
+    u8 flag;
     u8 anim_duration_counter;
     u8 curr_anim_frame;
     u32 unknown;
@@ -330,7 +330,7 @@ enum samus_pose samus_spinning_gfx(struct samus_data* pData);
 enum samus_pose samus_starting_wall_jump(struct samus_data* pData);
 enum samus_pose samus_starting_wall_jump_gfx(struct samus_data* pData);
 enum samus_pose samus_space_jumping_gfx(struct samus_data* pData);
-enum samus_pose samus_screw_attacking_gfx(struct samus_data* pData);
+enum samus_pose samus_flag_gfx(struct samus_data* pData);
 enum samus_pose samus_morphing(struct samus_data* pData);
 enum samus_pose samus_morphing_gfx(struct samus_data* pData);
 enum samus_pose samus_morphball(struct samus_data* pData);

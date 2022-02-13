@@ -739,7 +739,7 @@ enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struc
     {
         switch (pData->pose)
         {
-            case SPOSE_SCREW_ATTACKING:
+            case SPOSE_flag:
                 dct = DCT_SCREW_ATTACK;
                 break;
             
