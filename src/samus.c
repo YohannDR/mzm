@@ -264,11 +264,11 @@ void samus_set_pose(enum samus_pose pose)
 void samus_copy_data(struct samus_data* pData)
 {
     struct samus_data* data;
-    struct screw_attack_animation* screw;
+    struct screw_speed_animation* screw;
     struct samus_data* data_copy;
 
     data = &samus_data;
-    screw = &screw_attack_animation;
+    screw = &screw_speed_animation;
     data_copy = &samus_data_copy;
 
     *data_copy = *data;
@@ -291,7 +291,7 @@ void samus_copy_data(struct samus_data* pData)
     data->curr_anim_frame = 0x0;
 
     if (data->shinespark_timer != 0xB4)
-        screw->screw_attacking = FALSE;
+        screw->flag = FALSE;
 
     screw->anim_duration_counter = 0x0;
     screw->curr_anim_frame = 0x0;
@@ -388,7 +388,7 @@ void samus_aim_cannon(struct samus_data* pData)
             case SPOSE_LANDING:
             case SPOSE_STARTING_SPIN_JUMP:
             case SPOSE_SPACE_JUMPING:
-            case SPOSE_SCREW_ATTACKING:
+            case SPOSE_flag:
             case SPOSE_AIMING_WHILE_HANGING:
             case SPOSE_UNCROUCHING_SUITLESS:
             case SPOSE_CROUCHING_SUITLESS:
@@ -476,7 +476,7 @@ void samus_aim_cannon(struct samus_data* pData)
         case SPOSE_STARTING_SPIN_JUMP:
         case SPOSE_SPINNING:
         case SPOSE_SPACE_JUMPING:
-        case SPOSE_SCREW_ATTACKING:
+        case SPOSE_flag:
         case SPOSE_AIMING_WHILE_HANGING:
             if ((button_input & INPUT_UP) != 0x0)
             {
@@ -690,7 +690,7 @@ void samus_check_new_projectile(struct samus_data* pData, struct weapon_info* pW
             case SPOSE_STARTING_SPIN_JUMP:
             case SPOSE_SPINNING:
             case SPOSE_SPACE_JUMPING:
-            case SPOSE_SCREW_ATTACKING:
+            case SPOSE_flag:
             case SPOSE_HANGING_ON_LEDGE:
             case SPOSE_HIDING_ARM_CANNON_WHILE_HANGING:
             case SPOSE_AIMING_WHILE_HANGING:
@@ -862,14 +862,14 @@ void samus_set_spinning_pose(struct samus_data* pData, struct equipment* pEquipm
                 pData->pose = SPOSE_SPACE_JUMPING;
                 break;
             }
-            pData->pose = SPOSE_SCREW_ATTACKING;
+            pData->pose = SPOSE_flag;
             break;
 
         case SPOSE_SPACE_JUMPING:
             suit_misc = pEquipment->suit_misc_activation;
             flag = suit_misc & SMF_SCREW_ATTACK;
             if (flag != 0x0)
-                pData->pose = SPOSE_SCREW_ATTACKING;
+                pData->pose = SPOSE_flag;
             else
             {
                 if ((suit_misc & SMF_SPACE_JUMP) != 0x0 && samus_physics.slowed_by_liquid == FALSE)
@@ -879,7 +879,7 @@ void samus_set_spinning_pose(struct samus_data* pData, struct equipment* pEquipm
             }
             break;
 
-        case SPOSE_SCREW_ATTACKING:
+        case SPOSE_flag:
             if (samus_physics.slowed_by_liquid != FALSE)
             {
                 pData->pose = SPOSE_SPINNING;
@@ -897,7 +897,7 @@ void samus_set_spinning_pose(struct samus_data* pData, struct equipment* pEquipm
                     pData->curr_anim_frame = 0x0;
                 }
             }
-            screw_attack_animation.screw_attacking = FALSE;
+            screw_speed_animation.flag = FALSE;
     }*/
 }
 
@@ -1263,7 +1263,7 @@ enum samus_pose samus_skidding(struct samus_data* pData)
         if ((button_input & (INPUT_RIGHT | INPUT_LEFT | INPUT_UP | INPUT_DOWN)) == INPUT_DOWN)
         {
             pData->shinespark_timer = 0xB4;
-            screw_attack_animation.screw_attacking = 0x8;
+            screw_speed_animation.flag = 0x8;
             if (equipment.suit_type == SUIT_SUITLESS)
                 return SPOSE_CROUCHING_SUITLESS;
             else
@@ -1529,7 +1529,7 @@ enum samus_pose samus_space_jumping_gfx(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_screw_attacking_gfx(struct samus_data* pData)
+enum samus_pose samus_flag_gfx(struct samus_data* pData)
 {
 
 }
@@ -1632,7 +1632,7 @@ enum samus_pose samus_morphball(struct samus_data* pData)
             {
                 pData->shinespark_timer = 0xB4;
                 pData->speedbooster_timer = 0x0;
-                screw_attack_animation.screw_attacking = 0x8;
+                screw_speed_animation.flag = 0x8;
             }
         }
     }
