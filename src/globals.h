@@ -22,6 +22,7 @@ extern u32 events_triggered[8];
 
 // IWRAM
 
+extern u16 sixteen_bit_frame_counter;
 extern u8 bg_fading;
 extern u8 samus_on_top_backgrounds;
 extern u8 difficulty;
@@ -39,7 +40,8 @@ extern u8 spriteset;
 extern u8 spriteset_entry_used;
 extern struct background_pointers_and_dimensions bg_pointers_and_dimensions;
 extern struct room_entry current_room_entry;
-extern u16 current_affecting_hazard;
+extern u16 current_affecting_clipdata; //
+extern u16 current_affecting_hazard; // TODO Struct
 extern struct background_positions background_positions;
 extern struct raw_coords_x waiting_space_pirates_position;
 extern struct screen_shake screen_shake_y;

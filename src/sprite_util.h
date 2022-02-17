@@ -100,7 +100,7 @@ enum p_sprite_id sprite_util_get_ammo_drop(u8 rng);
 enum p_sprite_id sprite_util_determine_enemy_drop(void);
 void sprite_util_sprite_death(enum death_type death_type, u16 y_position, u16 x_position, u8 play_sound, enum particle_effect_id effect);
 u8 sprite_util_is_sprite_stunned(void);
-u8 sprite_util_is_screen_on_screen_and_screen_shake(void);
+u8 sprite_util_is_sprite_on_screen_and_screen_shake(void);
 void sprite_util_maybe_update_sub_sprite1_timer(void);
 void sprite_util_update_sub_sprite1_anim(void);
 void sprite_util_sync_current_sprite_position_with_sub_sprite1_position(void);
@@ -112,8 +112,8 @@ void sprite_util_sync_current_sprite_position_with_sub_sprite_position(struct su
 void unk_11520(struct sub_sprite_data* pSub);
 u8 sprite_util_security_gate_samus_collision(void);
 void sprite_util_set_splash_effect(u16 y_position, u16 x_position, enum splash_size size);
-u8 sprite_util_check_out_of_room_effect(u16 old_y, u16 y_positoin, u16 x_position, enum splash_size size);
-u8 sprite_util_check_in_room_effect(u16 old_y, u16 y_positoin, u16 x_position, enum splash_size size);
+u8 sprite_util_check_out_of_room_effect(u16 old_y, u16 y_position, u16 x_position, enum splash_size size);
+u8 sprite_util_check_in_room_effect(u16 old_y, u16 y_position, u16 x_position, enum splash_size size);
 u16 sprite_util_get_final_completion_percentage(void);
 
 #endif /* SPRITE_UTIL_H */

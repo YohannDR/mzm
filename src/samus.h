@@ -91,7 +91,7 @@ enum __attribute__ ((packed)) samus_pose {
     SPOSE_SPINNING = 0xC,
     SPOSE_STARTING_WALL_JUMP = 0xD,
     SPOSE_SPACE_JUMPING = 0xE,
-    SPOSE_flag = 0xF,
+    SPOSE_SCREW_ATTACKING = 0xF,
     SPOSE_MORPHING = 0x10,
     SPOSE_MORPH_BALL = 0x11,
     SPOSE_ROLLING = 0x12,

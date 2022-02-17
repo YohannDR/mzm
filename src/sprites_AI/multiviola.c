@@ -14,7 +14,7 @@ void multiviola_init(void)
     current_sprite.oam_pointer = multiviola_oam_2d0520;
     current_sprite.anim_duration_counter = 0x0;
     current_sprite.curr_anim_frame = current_sprite.primary_sprite_ram_slot << 0x1;
-    current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id].spawn_health;
+    current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0];
     current_sprite.samus_collision = SSC_HURTS_SAMUS;
     sprite_util_make_sprite_face_samus_x_flip();
     current_sprite.pose = 0x9;
@@ -51,14 +51,14 @@ void multiviola_move(void)
         }
     }
 
-    if ((current_sprite.status & SPRITE_STATUS_UNKNOWN2) != 0x0)
+    if ((current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL) != 0x0)
     {
         sprite_util_check_collision_at_position(current_sprite.hitbox_top_offset + current_sprite.y_position, current_sprite.x_position);
         if (previous_collision_check == 0x0)
             current_sprite.y_position -= y_movement;
         else
         {
-            current_sprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
             is_bouncing++;
         }
     }
@@ -69,7 +69,7 @@ void multiviola_move(void)
             current_sprite.y_position += y_movement;
         else
         {
-            current_sprite.status |= SPRITE_STATUS_UNKNOWN2;
+            current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
             is_bouncing++;
         }
     }

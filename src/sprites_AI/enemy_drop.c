@@ -6,7 +6,7 @@
 void enemy_drop_init(void)
 {
     current_sprite.ignore_samus_collision_timer = 0x14;
-    current_sprite.status |= SPRITE_STATUS_UNKNOWN2;
+    current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
     current_sprite.pose = 0x9;
     current_sprite.maybe_y_position_spawn = 0xC8;
     current_sprite.maybe_x_position_spawn = 0x0;
@@ -32,7 +32,7 @@ void enemy_drop_init(void)
             current_sprite.oam_pointer = missile_drop_oam;
             current_sprite.samus_collision = SSC_MISSILE_DROP;
             break;
-        case PSPRITE_LARGE_ENERGY:
+        case PSPRITE_LARGE_ENERGY_DROP:
             current_sprite.oam_pointer = large_energy_oam;
             current_sprite.samus_collision = SSC_LARGE_ENERGY_DROP;
             break;
