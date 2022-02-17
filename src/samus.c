@@ -388,7 +388,7 @@ void samus_aim_cannon(struct samus_data* pData)
             case SPOSE_LANDING:
             case SPOSE_STARTING_SPIN_JUMP:
             case SPOSE_SPACE_JUMPING:
-            case SPOSE_flag:
+            case SPOSE_SCREW_ATTACKING:
             case SPOSE_AIMING_WHILE_HANGING:
             case SPOSE_UNCROUCHING_SUITLESS:
             case SPOSE_CROUCHING_SUITLESS:
@@ -476,7 +476,7 @@ void samus_aim_cannon(struct samus_data* pData)
         case SPOSE_STARTING_SPIN_JUMP:
         case SPOSE_SPINNING:
         case SPOSE_SPACE_JUMPING:
-        case SPOSE_flag:
+        case SPOSE_SCREW_ATTACKING:
         case SPOSE_AIMING_WHILE_HANGING:
             if ((button_input & INPUT_UP) != 0x0)
             {
@@ -690,7 +690,7 @@ void samus_check_new_projectile(struct samus_data* pData, struct weapon_info* pW
             case SPOSE_STARTING_SPIN_JUMP:
             case SPOSE_SPINNING:
             case SPOSE_SPACE_JUMPING:
-            case SPOSE_flag:
+            case SPOSE_SCREW_ATTACKING:
             case SPOSE_HANGING_ON_LEDGE:
             case SPOSE_HIDING_ARM_CANNON_WHILE_HANGING:
             case SPOSE_AIMING_WHILE_HANGING:
@@ -862,14 +862,14 @@ void samus_set_spinning_pose(struct samus_data* pData, struct equipment* pEquipm
                 pData->pose = SPOSE_SPACE_JUMPING;
                 break;
             }
-            pData->pose = SPOSE_flag;
+            pData->pose = SPOSE_SCREW_ATTACKING;
             break;
 
         case SPOSE_SPACE_JUMPING:
             suit_misc = pEquipment->suit_misc_activation;
             flag = suit_misc & SMF_SCREW_ATTACK;
             if (flag != 0x0)
-                pData->pose = SPOSE_flag;
+                pData->pose = SPOSE_SCREW_ATTACKING;
             else
             {
                 if ((suit_misc & SMF_SPACE_JUMP) != 0x0 && samus_physics.slowed_by_liquid == FALSE)
@@ -879,7 +879,7 @@ void samus_set_spinning_pose(struct samus_data* pData, struct equipment* pEquipm
             }
             break;
 
-        case SPOSE_flag:
+        case SPOSE_SCREW_ATTACKING:
             if (samus_physics.slowed_by_liquid != FALSE)
             {
                 pData->pose = SPOSE_SPINNING;

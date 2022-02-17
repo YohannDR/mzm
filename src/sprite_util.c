@@ -47,7 +47,7 @@ u8 sprite_util_take_damage_from_sprite(u8 kb_flag, struct sprite_data* pSprite, 
 {
     /*u32 damage;
     u32 dmg_reduction;
-    struct sprite_stat* pStats;
+    u16** pStats;
     struct equipment* pEquipment;
     u16 sprite_dmg;
 
@@ -56,7 +56,7 @@ u8 sprite_util_take_damage_from_sprite(u8 kb_flag, struct sprite_data* pSprite, 
     else if ((pSprite->properties & SP_SECONDARY_SPRITE) == 0x0)
         pStats = primary_sprite_stats_2b0d68;
 
-    sprite_dmg = pStats[pSprite->sprite_id].damage * dmg_mulitplier;
+    sprite_dmg = pStats[pSprite->sprite_id][0x1] * dmg_mulitplier;
     damage = (u16)sprite_dmg;
 
     pEquipment = &equipment;
@@ -709,7 +709,6 @@ u8 sprite_util_check_stop_sprites_pose(void)
 enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struct sprite_data* pSprite, struct samus_data* pData)
 {
     /*enum damage_contact_type dct;
-    struct sprite_stat* pStats;
     enum sprite_properties* pProps;
     struct equipment* pEquipment;
     enum sprite_weakness_flags weakness;
@@ -739,7 +738,7 @@ enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struc
     {
         switch (pData->pose)
         {
-            case SPOSE_flag:
+            case SPOSE_SCREW_ATTACKING:
                 dct = DCT_SCREW_ATTACK;
                 break;
             
@@ -756,12 +755,11 @@ enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struc
         }
     }
 
-    if ((pSprite->properties & SP_SECONDARY_SPRITE) != 0x0)
-        pStats = secondary_sprite_stats_2b1be4;
+    if (pSprite->properties & SP_SECONDARY_SPRITE)
+        weakness = secondary_sprite_stats_2b1be4[pSprite->sprite_id][0x2];
     else if ((pSprite->properties & SP_SECONDARY_SPRITE) == 0x0)
-        pStats = primary_sprite_stats_2b0d68;
+        weakness = primary_sprite_stats_2b0d68[pSprite->sprite_id][0x2];
 
-    weakness = (&pStats[pSprite->sprite_id])->weakness;
     if (dct >= DCT_SUDO_SCREW)
     {
         if ((weakness & (WEAKNESS_CHARGE_BEAM_PISTOL | WEAKNESS_BEAM_BOMBS)) != 0x0)
@@ -816,8 +814,8 @@ enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struc
             return dct;
         }
 
-        if ((pSprite->invicibility_stun_flash_timer & 0x7F) < 0x3)
-            pSprite->invicibility_stun_flash_timer = pSprite->ignore_samus_collision_timer & 0x80 | 0x3;
+        if ((pSprite->invicibility_stun_flash_timer & 0x7F) > 0x3) // help
+            pSprite->invicibility_stun_flash_timer = pSprite->invicibility_stun_flash_timer & 0x80 | 0x3;
         dct = DCT_NONE;
     }
 
@@ -1054,7 +1052,139 @@ enum p_sprite_id sprite_util_get_ammo_drop(u8 rng)
 
 enum p_sprite_id sprite_util_determine_enemy_drop(void)
 {
+    /*u16 small_health_prob;
+    u16 large_health_prob;
+    u16 missile_prob;
+    u16 super_missile_prob;
+    u16 power_bomb_drop;
+    u16 non_power_bomb_drop;
+    u16 non_drop;
+    u32 is_full;
+    u16 rng;
+    u16 sprite_id;
+    enum p_sprite_id drop;
 
+    drop = 0x0;
+    is_full = FALSE;
+    if (equipment.current_energy == equipment.max_energy)
+        is_full = TRUE;
+    rng = (sprite_rng * 0x100 + sixteen_bit_frame_counter + eight_bit_frame_counter) & 0x3FF;
+    if (rng == 0x0)
+        rng = 0x1;
+
+    sprite_id = current_sprite.sprite_id;
+    if (current_sprite.properties & SP_SECONDARY_SPRITE)
+    {
+        small_health_prob = secondary_sprite_stats_2b1be4[sprite_id][0x4];
+        large_health_prob = secondary_sprite_stats_2b1be4[sprite_id][0x5];
+        missile_prob = secondary_sprite_stats_2b1be4[sprite_id][0x6];
+        super_missile_prob = secondary_sprite_stats_2b1be4[sprite_id][0x7];
+        power_bomb_drop = secondary_sprite_stats_2b1be4[sprite_id][0x8];
+    }
+    else
+    {
+        small_health_prob = primary_sprite_stats_2b0d68[sprite_id][0x4];
+        large_health_prob = primary_sprite_stats_2b0d68[sprite_id][0x5];
+        missile_prob = primary_sprite_stats_2b0d68[sprite_id][0x6];
+        super_missile_prob = primary_sprite_stats_2b0d68[sprite_id][0x7];
+        power_bomb_drop = primary_sprite_stats_2b0d68[sprite_id][0x8];
+    }
+
+    if (power_bomb_drop != 0x0)
+    {
+        non_power_bomb_drop = 0x400 - power_bomb_drop;
+        if (rng < 0x401 && non_power_bomb_drop < rng)
+        {
+            if (equipment.current_power_bombs < equipment.max_power_bombs)
+                drop = PSPRITE_POWER_BOMB_DROP;
+            else if (is_full)
+                drop = PSPRITE_LARGE_ENERGY_DROP;
+            else if (equipment.max_power_bombs == 0x0)
+                drop = PSPRITE_SMALL_ENERGY_DROP;
+            else
+                drop = PSPRITE_POWER_BOMB_DROP;
+
+            return drop;
+        }
+    }
+    else
+        non_power_bomb_drop = 0x400;
+
+    if (super_missile_prob != 0x0)
+    {
+        non_drop = non_power_bomb_drop - super_missile_prob;
+        if (rng <= non_power_bomb_drop)
+        {
+            non_power_bomb_drop = non_drop;
+            if (non_drop < rng)
+            {
+                if (equipment.max_super_missiles <= equipment.current_super_missiles)
+                {
+                    if (is_full)
+                        drop = PSPRITE_LARGE_ENERGY_DROP;
+                    else if (equipment.max_super_missiles == 0x0)
+                        drop = PSPRITE_SMALL_ENERGY_DROP;
+                }
+                else
+                    drop = PSPRITE_SUPER_MISSILE_DROP;
+
+                return drop;
+            }
+        }
+    }
+
+    if (missile_prob != 0x0)
+    {
+        non_drop = non_power_bomb_drop - missile_prob;
+        if (rng <= non_power_bomb_drop)
+        {
+            non_power_bomb_drop = non_drop;
+            if (non_drop < rng)
+            {
+                if (equipment.max_missiles < equipment.current_missiles)
+                    drop = PSPRITE_MISSILE_DROP;
+                else if (is_full)
+                    drop = PSPRITE_LARGE_ENERGY_DROP;
+                else if (equipment.max_missiles == 0x0)
+                    drop = PSPRITE_SMALL_ENERGY_DROP;
+                else
+                    drop = PSPRITE_MISSILE_DROP;
+
+                return drop;
+            }
+        }
+    }
+
+    if (large_health_prob != 0x0)
+    {
+        non_drop = non_power_bomb_drop - large_health_prob;
+        if (rng <= non_power_bomb_drop)
+        {
+            non_power_bomb_drop = non_drop;
+            if (non_drop < rng)
+            {
+                if (is_full)
+                    drop = PSPRITE_LARGE_ENERGY_DROP;
+                else if (equipment.max_missiles <= equipment.current_missiles)
+                    drop = PSPRITE_LARGE_ENERGY_DROP;
+                else
+                    drop = PSPRITE_MISSILE_DROP;
+                
+                return drop;
+            }
+        }
+    }
+
+    if (small_health_prob == 0x0)
+        drop = 0x0;
+    else if (non_power_bomb_drop < rng)
+        drop = 0x0;
+    else if (rng <= (u16)(non_power_bomb_drop - small_health_prob))
+        drop = 0x0;
+    else
+        drop = PSPRITE_SMALL_ENERGY_DROP;
+
+    return drop;*/
 }
 
 void sprite_util_sprite_death(enum death_type death_type, u16 y_position, u16 x_position, u8 play_sound, enum particle_effect_id effect)
@@ -1182,7 +1312,7 @@ u8 sprite_util_is_sprite_stunned(void)
     return is_stunned;
 }
 
-u8 sprite_util_is_screen_on_screen_and_screen_shake(void)
+u8 sprite_util_is_sprite_on_screen_and_screen_shake(void)
 {
     if ((current_sprite.status & SPRITE_STATUS_ONSCREEN) != 0x0 && (screen_shake_y.timer != 0x0 || screen_shake_x.timer != 0x0))
         return TRUE;
@@ -1284,12 +1414,12 @@ void sprite_util_set_splash_effect(u16 y_position, u16 x_position, enum splash_s
 
 }
 
-u8 sprite_util_check_out_of_room_effect(u16 old_y, u16 y_positoin, u16 x_position, enum splash_size size)
+u8 sprite_util_check_out_of_room_effect(u16 old_y, u16 y_position, u16 x_position, enum splash_size size)
 {
 
 }
 
-u8 sprite_util_check_in_room_effect(u16 old_y, u16 y_positoin, u16 x_position, enum splash_size size)
+u8 sprite_util_check_in_room_effect(u16 old_y, u16 y_position, u16 x_position, enum splash_size size)
 {
 
 }

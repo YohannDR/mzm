@@ -42,7 +42,7 @@ void hive_init(void)
         current_sprite.anim_duration_counter = 0x0;
         current_sprite.curr_anim_frame = event_check;
         current_sprite.draw_order = 0x5;
-        current_sprite.health = primary_sprite_stats[current_sprite.sprite_id].spawn_health;
+        current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0];
         current_sprite.pose = 0x9;
         current_sprite.timer1 = 0x0;
         
@@ -86,7 +86,7 @@ void hive_phase1(void)
     if ((u8)hive_count_mellows() < 0x4)
         sprite_spawn_primary(PSPRITE_MELLOW, current_sprite.room_slot, current_sprite.spriteset_gfx_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
     
-    if (current_sprite.health < primary_sprite_stats[current_sprite.sprite_id].spawn_health >> 0x1)
+    if (current_sprite.health < primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0] >> 0x1)
     {
         current_sprite.frozen_palette_row_offset = 0x2;
         current_sprite.oam_pointer = hive_oam_phase2;
@@ -103,7 +103,7 @@ void hive_phase2(void)
     if ((u8)hive_count_mellows() < 0x4)
         sprite_spawn_primary(PSPRITE_MELLOW, current_sprite.room_slot, current_sprite.spriteset_gfx_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
     
-    if (current_sprite.health < primary_sprite_stats[current_sprite.sprite_id].spawn_health >> 0x2)
+    if (current_sprite.health < primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0] >> 0x2)
     {
         current_sprite.frozen_palette_row_offset = 0x2;
         current_sprite.oam_pointer = hive_oam_phase3;
@@ -332,7 +332,7 @@ void hive_mellow_swarm(void)
             current_sprite.status = 0x0;
         else
         {
-            current_sprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN2);
+            current_sprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_ON_VERTICAL_WALL);
             current_sprite.hitbox_top_offset = -0x4;
             current_sprite.hitbox_bottom_offset = 0x4;
             current_sprite.hitbox_left_offset = -0x4;

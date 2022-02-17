@@ -452,7 +452,7 @@ void projectile_draw(struct projectile_data* pProj)
 
 void projectile_check_despawn(struct projectile_data* pProj)
 {
-    u16 x_pos;
+    /*u16 x_pos;
     u16 y_pos;
     u16 draw_distance;
 
@@ -486,7 +486,7 @@ void projectile_check_despawn(struct projectile_data* pProj)
         if (y_pos < 0x301 && x_pos < 0x281) return;
 
         pProj->status = 0x0;
-    }
+    }*/
 }
 
 void projectile_load_graphics(void)
@@ -622,7 +622,10 @@ void projectile_check_hit_sprite(void)
 
 enum sprite_weakness_flags projectile_get_sprite_weakness(struct sprite_data* pSprite)
 {
-
+    if (pSprite->properties & SP_SECONDARY_SPRITE)
+        return primary_sprite_stats_2b0d68[pSprite->sprite_id][0x2];
+    else
+        return secondary_sprite_stats_2b1be4[pSprite->sprite_id][0x2];
 }
 
 u8 projectile_ice_beam_deal_damage(struct sprite_data* pSprite, u16 damage)

@@ -31,7 +31,7 @@ void charge_beam_init(void)
         current_sprite.health = 0x1;
         current_sprite.array_offset = 0x0;
         current_sprite.pose = 0xA;
-        current_sprite.status = status | SPRITE_STATUS_UNKNOWN2;
+        current_sprite.status = status | SPRITE_STATUS_ON_VERTICAL_WALL;
         current_sprite.draw_order = 0x2;
     }
 }
@@ -53,7 +53,7 @@ void charge_beam_gfx_init(void)
     current_sprite.oam_pointer = charge_beam_oam_visible;
     current_sprite.anim_duration_counter = 0x0;
     current_sprite.curr_anim_frame = 0x0;
-    current_sprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+    current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
     current_sprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
     current_sprite.array_offset = 0x0;
 }

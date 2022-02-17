@@ -64,7 +64,7 @@ void geruta_init(void)
     current_sprite.oam_pointer = geruta_oam_2d1400;
     current_sprite.anim_duration_counter = 0x0;
     current_sprite.curr_anim_frame = 0x0;
-    current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id].spawn_health;
+    current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0];
     current_sprite.samus_collision = SSC_HURTS_SAMUS;
     current_sprite.y_position -= 0xC;
     current_sprite.pose = 0x8;

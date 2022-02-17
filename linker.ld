@@ -10,6 +10,7 @@ SECTIONS {
     }
 
     iwram (NOLOAD) : ALIGN(4) {
+        . = 0x00000002; frame_counter_16bit = .;
         . = 0x00000029; bg_fading = .;
         . = 0x0000002B; samus_on_top_backgrounds = .;
         . = 0x0000002C; difficulty = .;
@@ -27,6 +28,7 @@ SECTIONS {
         . = 0x0000007A; spriteset_entry_used = .;
         . = 0x0000009C; bg_pointers_and_dimensions = .;
         . = 0x000000BC; current_room_entry = .;
+        . = 0x000000DC; current_affecting_clipdata = .;
         . = 0x000000DE; current_affecting_hazard = .;
         . = 0x000000E4; background_positions = .;
         . = 0x000000F8; waiting_space_pirates_position = .;
