@@ -1,8 +1,8 @@
 #include "hive.h"
-#include "../globals.h"
 #include "../particle.h"
 #include "../event.h"
 #include "../sprite_util.h"
+#include "../globals.h"
 
 void hive_spawn_particle(void)
 {
@@ -38,7 +38,7 @@ void hive_init(void)
         current_sprite.hitbox_right_offset = 0x30;
         current_sprite.samus_collision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
         current_sprite.frozen_palette_row_offset = 0x1;
-        current_sprite.oam_pointer = hive_oam;
+        current_sprite.oam_pointer = hive_oam_2da8ec;
         current_sprite.anim_duration_counter = 0x0;
         current_sprite.curr_anim_frame = event_check;
         current_sprite.draw_order = 0x5;
@@ -64,18 +64,18 @@ u8 hive_count_mellows(void)
     u8 count;
     u8 room_slot;
     enum sprite_samus_collision collision;
-    struct sprite_data* ptr;
+    struct sprite_data* pSprite;
 
     count = 0x0;
     collision = SSC_MELLOW;
     room_slot = current_sprite.room_slot;
-    ptr = sprite_data;
+    pSprite = sprite_data;
 
-    while (ptr < sprite_data + 24)
+    while (pSprite < sprite_data + 24)
     {
-        if ((ptr->status & SPRITE_STATUS_EXISTS) != 0x0 && ptr->samus_collision == collision && ptr->room_slot == room_slot)
+        if ((pSprite->status & SPRITE_STATUS_EXISTS) != 0x0 && pSprite->samus_collision == collision && pSprite->room_slot == room_slot)
             count++;
-        ptr++;
+        pSprite++;
     }
 
     return count;
@@ -89,7 +89,7 @@ void hive_phase1(void)
     if (current_sprite.health < primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0] >> 0x1)
     {
         current_sprite.frozen_palette_row_offset = 0x2;
-        current_sprite.oam_pointer = hive_oam_phase2;
+        current_sprite.oam_pointer = hive_oam_2da9a4;
         current_sprite.anim_duration_counter = 0x0;
         current_sprite.curr_anim_frame = 0x0;
         current_sprite.pose = 0x23;
@@ -105,8 +105,8 @@ void hive_phase2(void)
     
     if (current_sprite.health < primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0] >> 0x2)
     {
-        current_sprite.frozen_palette_row_offset = 0x2;
-        current_sprite.oam_pointer = hive_oam_phase3;
+        current_sprite.frozen_palette_row_offset = 0x3;
+        current_sprite.oam_pointer = hive_oam_2daa04;
         current_sprite.anim_duration_counter = 0x0;
         current_sprite.curr_anim_frame = 0x0;
         current_sprite.pose = 0x25;
@@ -127,18 +127,18 @@ void hive_dying(void)
     u8 room_slot;
     u8 pose;
     enum sprite_samus_collision collision;
-    struct sprite_data* ptr;
+    struct sprite_data* pSprite;
     enum p_sprite_id hive_id;
 
     count = 0x0;
     hive_id = PSPRITE_HIVE;
-    ptr = sprite_data;
+    pSprite = sprite_data;
 
-    while (ptr < sprite_data + 24)
+    while (pSprite < sprite_data + 24)
     {
-        if ((ptr->status & SPRITE_STATUS_EXISTS) != 0x0 && (ptr->properties & SP_SECONDARY_SPRITE) == 0x0 && ptr->sprite_id == hive_id && ptr->health != 0x0)
+        if ((pSprite->status & SPRITE_STATUS_EXISTS) != 0x0 && (pSprite->properties & SP_SECONDARY_SPRITE) == 0x0 && pSprite->sprite_id == hive_id && pSprite->health != 0x0)
             count++;
-        ptr++;
+        pSprite++;
     }
 
     if (count == 0x0)
@@ -147,16 +147,16 @@ void hive_dying(void)
     pose = 0x9;
     room_slot = current_sprite.room_slot;
     collision = SSC_MELLOW;
-    ptr = sprite_data;
+    pSprite = sprite_data;
 
-    while (ptr < sprite_data + 24)
+    while (pSprite < sprite_data + 24)
     {
-        if ((ptr->status & SPRITE_STATUS_EXISTS) != 0x0 && ptr->samus_collision == collision && ptr->room_slot == room_slot && ptr->pose == pose)
+        if ((pSprite->status & SPRITE_STATUS_EXISTS) != 0x0 && pSprite->samus_collision == collision && pSprite->room_slot == room_slot && pSprite->pose == pose)
         {
-            ptr->pose = 0x25;
-            ptr->properties |= SP_PROJECTILE;
+            pSprite->pose = 0x25;
+            pSprite->properties |= SP_PROJECTILE;
         }
-        ptr++;
+        pSprite++;
     }
 
     if (current_sprite.pose < 0x63 && current_sprite.timer1 != 0x0)
@@ -164,8 +164,8 @@ void hive_dying(void)
     else
     {
         current_sprite.pose = 0x67;
-        current_sprite.oam_pointer = hive_oam_dying;
-        current_sprite.anim_duration_counter = current_sprite.timer1;
+        current_sprite.oam_pointer = hive_oam_2daa6c;
+        current_sprite.anim_duration_counter = 0x0;
         current_sprite.curr_anim_frame = 0x0;
         current_sprite.samus_collision = SSC_NONE;
         unk_2b20(0x161);
@@ -206,27 +206,101 @@ void hive_roots_move(void)
     current_sprite.x_position = sprite_data[ram_slot].x_position;
 }
 
-void hive_mellow_init(struct sprite_data* ptr)
+void hive_mellow_init(struct sprite_data* pSprite)
+{
+    if (event_function(EVENT_ACTION_CHECKING, EVENT_THREE_HIVES_DESTROYED))
+        pSprite->status = 0x0;
+    else
+    {
+        pSprite->status &= ~SPRITE_STATUS_NOT_DRAWN;
+        pSprite->draw_distance_top_offset = 0x8;
+        pSprite->draw_distance_bottom_offset = 0x8;
+        pSprite->draw_distance_horizontal_offset = 0xC;
+        pSprite->hitbox_top_offset = -0xC;
+        pSprite->hitbox_bottom_offset = 0xC;
+        pSprite->hitbox_left_offset = -0x20;
+        pSprite->hitbox_right_offset = 0x20;
+        pSprite->anim_duration_counter = 0x0;
+        pSprite->curr_anim_frame = 0x0;
+        pSprite->samus_collision = SSC_MELLOW;
+        pSprite->health = primary_sprite_stats_2b0d68[pSprite->sprite_id][0x0];
+        if (pSprite->room_slot != 0x88)
+        {
+            pSprite->oam_pointer = mellow_oam_2da88c;
+            pSprite->pose = 0x9;
+            pSprite->array_offset = sprite_rng << 0x2;
+            if (sprite_rng & 0x1)
+                pSprite->maybe_variable = 0x14;
+            else
+                pSprite->maybe_variable = 0x3C;
+            
+            if (pSprite->x_position & 0x1)
+                pSprite->draw_order = 0x3;
+            else
+                pSprite->draw_order = 0x6;
+        }
+        else
+        {
+            pSprite->oam_pointer = mellow_oam_2da8bc;
+            pSprite->bg_priority = io_registers_backup.bg2cnt & 0x3;
+            pSprite->draw_order = 0x3;
+            pSprite->timer2 = 0x0;
+            pSprite->maybe_variable = 0x1;
+            pSprite->timer1 = 0x0;
+            pSprite->array_offset = 0x1;
+            pSprite->maybe_x_position_spawn = sprite_rng & 0x3;
+            pSprite->pose = 0x23;
+            pSprite->oam_scaling = 0x20;
+            sprite_util_make_sprite_face_samus_direction();
+            if (pSprite->y_position > samus_data.y_position + samus_physics.draw_distance_top_offset)
+                pSprite->status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+            else
+                pSprite->status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+        }
+    }
+}
+
+void hive_mellow_idle_anim(struct sprite_data* pSprite)
 {
 
 }
 
-void hive_mellow_idle_anim(struct sprite_data* ptr)
+void hive_mellow_fleeing(struct sprite_data* pSprite)
 {
+    u8 rng;
+    u16 movement;
 
+    rng = sprite_rng >> 0x2;
+    movement = rng + 0x8;
+    if (pSprite->maybe_variable < 0x28)
+        pSprite->x_position -= -movement;
+    else
+        pSprite->x_position -= movement;
+
+    movement = rng + 0x4;
+    if (pSprite->array_offset < 0x20)
+        pSprite->y_position -= -movement;
+    else
+        pSprite->y_position -= movement;
 }
 
-void hive_mellow_fleeing(struct sprite_data* ptr)
+void hive_mellow_samus_detected(struct sprite_data* pSprite)
 {
-
+    pSprite->timer2 = 0x0;
+    pSprite->maybe_variable = 0x1;
+    pSprite->timer1 = 0x0;
+    pSprite->array_offset = 0x1;
+    pSprite->maybe_x_position_spawn = 0x0;
+    pSprite->pose = 0x23;
+    pSprite->oam_scaling = 0x20;
+    sprite_util_make_sprite_face_samus_direction();
+    if (pSprite->y_position > samus_data.y_position + samus_physics.draw_distance_top_offset)
+        pSprite->status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+    else
+        pSprite->status |= SPRITE_STATUS_ON_VERTICAL_WALL;
 }
 
-void hive_mellow_samus_detected(struct sprite_data* ptr)
-{
-
-}
-
-void hive_mellow_move(struct sprite_data* ptr)
+void hive_mellow_move(struct sprite_data* pSprite)
 {
 
 }
@@ -269,49 +343,81 @@ void hive(void)
 
 void hive_roots(void)
 {
+    u8 ram_slot;
+    struct sprite_data* pSprite;
 
+    ram_slot = current_sprite.primary_sprite_ram_slot;
+    current_sprite.ignore_samus_collision_timer = 0x1;
+    pSprite = sprite_data + ram_slot;
+    if (pSprite->sprite_id == PSPRITE_HIVE)
+    {
+        current_sprite.palette_row = pSprite->palette_row;
+        if (pSprite->health < primary_sprite_stats_2b0d68[pSprite->sprite_id][0x0] >> 0x1 && pSprite->freeze_timer == 0x0)
+            current_sprite.status = 0x0;
+        else
+        {
+            if (pSprite->status == 0x0)
+                current_sprite.status = 0x0;
+            else
+            {
+                if (current_sprite.freeze_timer != 0x0)
+                    sprite_util_update_freeze_timer();
+                else
+                {
+                    if (current_sprite.pose == 0x0)
+                        hive_roots_init();
+                    hive_roots_move();
+                }
+            }
+        }
+    }
+    else
+        current_sprite.status = 0x0;
 }
 
 void hive_mellow(void)
 {
-    if ((current_sprite.properties & SP_UNKNOWN) != 0x0)
+    struct sprite_data* pSprite;
+
+    pSprite = &current_sprite;
+
+    if ((pSprite->properties & SP_UNKNOWN) != 0x0)
     {
-        current_sprite.properties &= (SP_ALWAYS_ACTIVE | SP_PROJECTILE | SP_SOLID_FOR_PROJECTILES | SP_MAYBE_DESTROYED | SP_MESSAGE_BANNER | SP_IMMUNE_TO_PROJECTILES | SP_SECONDARY_SPRITE);
-        if ((current_sprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
+        pSprite->properties &= 0xFD;
+        if ((pSprite->status & SPRITE_STATUS_ONSCREEN) != 0x0)
             unk_2b20(0x15F);
     }
     
-    if (current_sprite.freeze_timer != 0x0)
+    if (pSprite->freeze_timer != 0x0)
         sprite_util_update_freeze_timer();
     else
     {
-        if (0x9 < (current_sprite.invicibility_stun_flash_timer & 0x7F) && current_sprite.pose < 0x62)
+        if (0x9 < (pSprite->invicibility_stun_flash_timer & 0x7F) && pSprite->pose < 0x62)
         {
-            if (current_sprite.anim_duration_counter == 0x0)
+            if (pSprite->anim_duration_counter == 0x0)
                 return;
-            current_sprite.anim_duration_counter--;
+            pSprite->anim_duration_counter--;
         }
         else
         {
-            switch (current_sprite.pose)
+            switch (pSprite->pose)
             {
                 case 0x0:
-                    hive_mellow_init(&current_sprite);
+                    hive_mellow_init(pSprite);
                     break;
                 case 0x9:
-                    hive_mellow_idle_anim(&current_sprite);
+                    hive_mellow_idle_anim(pSprite);
                     break;
                 case 0x22:
-                    hive_mellow_samus_detected(&current_sprite);
-                    break;
+                    hive_mellow_samus_detected(pSprite);
                 case 0x23:
-                    mellow_move(&current_sprite);
+                    mellow_move(pSprite);
                     break;
                 case 0x25:
-                    mellow_fleeing(&current_sprite);
+                    mellow_fleeing(pSprite);
                     break;
                 default:
-                    sprite_util_sprite_death(0x0, current_sprite.y_position, current_sprite.x_position, TRUE, PE_SPRITE_EXPLOSION_SMALL);
+                    sprite_util_sprite_death(0x0, pSprite->y_position, pSprite->x_position, TRUE, PE_SPRITE_EXPLOSION_SMALL);
             }
         }
     }
@@ -320,19 +426,20 @@ void hive_mellow(void)
 void hive_mellow_swarm(void)
 {
     u8 count;
-    i16 rng;
-    struct sprite_data* ptr;
+    struct sprite_data* pSprite;
+    enum sprite_samus_collision collision;
+    u16 x_pos;
+    u16 y_pos;
 
     count = 0x0;
-
     current_sprite.ignore_samus_collision_timer = 0x1;
     if (current_sprite.pose == 0x0)
     {
-        if (event_function(EVENT_ACTION_CHECKING, EVENT_THREE_HIVES_DESTROYED) != 0x0)
+        if (event_function(EVENT_ACTION_CHECKING, EVENT_THREE_HIVES_DESTROYED))
             current_sprite.status = 0x0;
         else
         {
-            current_sprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_ON_VERTICAL_WALL);
+            current_sprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
             current_sprite.hitbox_top_offset = -0x4;
             current_sprite.hitbox_bottom_offset = 0x4;
             current_sprite.hitbox_left_offset = -0x4;
@@ -340,35 +447,36 @@ void hive_mellow_swarm(void)
             current_sprite.draw_distance_top_offset = 0x1;
             current_sprite.draw_distance_bottom_offset = 0x1;
             current_sprite.draw_distance_horizontal_offset = 0x1;
-            current_sprite.oam_pointer = mellow_swarm_oam;
+            current_sprite.samus_collision = SSC_NONE;
+            current_sprite.oam_pointer = mellow_oam_2da88c;
             current_sprite.curr_anim_frame = 0x0;
             current_sprite.anim_duration_counter = 0x0;
             current_sprite.pose = 0x9;
-
-            // TODO if
-
+            if (0x78 < (samus_data.x_position >> 0x2) -( bg1_x_position >> 0x2))
+                current_sprite.status |= SPRITE_STATUS_XFLIP;
             current_sprite.maybe_y_position_spawn = 0xF0;
+
             if (current_sprite.sprite_id == PSPRITE_MELLOW_SWARM_HEALTH_BASED)
             {
-                if (equipment.current_energy < 0x190)
-                {
-                    if (equipment.current_energy < 0x12C)
-                    {
-                        if (equipment.current_energy < 0xC8)
-                        {
-                            if (equipment.current_energy < 0x64)
-                                current_sprite.maybe_variable = 0x3;
-                            else
-                                current_sprite.maybe_variable = 0x6;
-                        }
-                        else
-                            current_sprite.maybe_variable = 0x9;
-                    }
-                    else
-                        current_sprite.maybe_variable = 0xC;
-                }
-                else
+                if (equipment.current_energy >= 0x190)
                     current_sprite.maybe_variable = 0xF;
+                else
+                {
+                    if (equipment.current_energy >= 0x12C)
+                        current_sprite.maybe_variable = 0xC;
+                    else
+                    {
+                        if (equipment.current_energy >= 0xC8)
+                            current_sprite.maybe_variable = 0x9;
+                        else
+                        {
+                            if (equipment.current_energy >= 0x64)
+                                current_sprite.maybe_variable = 0x6;
+                            else
+                                current_sprite.maybe_variable = 0x3;
+                        }
+                    }
+                }
             }
             else
                 current_sprite.maybe_variable = 0x5;
@@ -376,42 +484,43 @@ void hive_mellow_swarm(void)
     }
     else
     {
-        if ((current_sprite.status & SPRITE_STATUS_UNKNOWN) == 0x0 || current_sprite.maybe_y_position_spawn == 0x0)
+        if (current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL && current_sprite.maybe_y_position_spawn != 0x0)
+            current_sprite.maybe_y_position_spawn--;
+        else
         {
-            ptr = sprite_data;
-            while (ptr < sprite_data + 24)
+            collision = SSC_MELLOW;
+            pSprite = sprite_data;
+            while (pSprite < sprite_data + 24)
             {
-                if ((ptr->status & SPRITE_STATUS_EXISTS) != 0x0 && ptr->samus_collision == SSC_MELLOW)
+                if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samus_collision == collision)
                     count++;
-                ptr++;
+                pSprite++;
             }
 
-            if ((current_sprite.status & SPRITE_STATUS_UNKNOWN) == 0x0)
+            if ((current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL) == 0x0)
             {
-                if (current_sprite.maybe_variable <= count)
+                if (count >= current_sprite.maybe_variable)
                 {
-                    current_sprite.status |= SPRITE_STATUS_UNKNOWN;
-                    current_sprite.ignore_samus_collision_timer = 0x0;
+                    current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
                     return;
                 }
             }
             else
             {
-                if (0x13 < count)
-                {
-                    current_sprite.ignore_samus_collision_timer = 0x1;
+                if (count <= 0x13)
+                    current_sprite.maybe_y_position_spawn = 0xF0;
+                else
                     return;
-                }
-                current_sprite.maybe_y_position_spawn = 0xF0;
             }
 
-            if ((current_sprite.status & SPRITE_STATUS_XFLIP) == 0x0)
-                rng = sprite_rng * -0x20;
-            else 
-                rng = sprite_rng * 0x20;
-
-            // TODO if
-            sprite_spawn_primary(PSPRITE_MELLOW, 0x88, current_sprite.spriteset_gfx_slot, bg1_y_position - (sprite_rng * 0x2 + 0x10), current_sprite.x_positin, 0x0);
+            if (current_sprite.status & SPRITE_STATUS_XFLIP)
+                x_pos = samus_data.x_position + (sprite_rng * 0x20);
+            else
+                x_pos = samus_data.x_position + (sprite_rng * -0x20);
+            if (x_pos & 0x8000)
+                x_pos = 0x0;
+            y_pos = (u16)(bg1_y_position - ((sprite_rng * 0x2) + 0x10));
+            sprite_spawn_primary(PSPRITE_MELLOW, 0x88, current_sprite.spriteset_gfx_slot, y_pos, x_pos, 0x0);
         }
     }
 }

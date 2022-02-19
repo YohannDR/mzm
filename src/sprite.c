@@ -1,6 +1,7 @@
 #include "sprite.h"
-#include "globals.h"
 #include "sprite_debris.h"
+#include "sprite_util.h"
+#include "globals.h"
 
 void sprite_update(void)
 {
@@ -145,7 +146,7 @@ void sprite_load_all_data(void)
         sprite_clear_data();
         sprite_load_spriteset();
         //unk_53a18();
-        //init_location_text();
+        sprite_util_init_location_text();
         sprite_load_room_sprites();
         //spawn_waiting_pirates();
         parasite_related = 0x0;

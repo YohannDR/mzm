@@ -15,7 +15,7 @@ void enemy_drop_init(void)
     current_sprite.draw_distance_top_offset = 0x8;
     current_sprite.draw_distance_bottom_offset = 0x8;
     current_sprite.draw_distance_horizontal_offset = 0x8;
-    // current_sprite.bg_priority = (u8)io_registers_backup.bg2_cnt & 0x3; TODO : io registers struct
+    current_sprite.bg_priority = (u8)io_registers_backup.bg2_cnt & 0x3
     current_sprite.draw_order = 0x1;
 
     switch (current_sprite.sprite_id)

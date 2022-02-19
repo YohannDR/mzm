@@ -15,6 +15,7 @@
 #include "scroll.h"
 #include "connection.h"
 #include "bg_clip.h"
+#include "io.h"
 
 // EWRAM
 
@@ -37,9 +38,9 @@ enum pause_screen_flags {
 
 extern u8 debug_flag;
 extern u16 frame_counter_16bit;
+extern u16 written_to_dispcnt;
 extern u8 stereo_enabled;
 extern u32 curr_demo; /* XXX: type */
-extern u8 reset_game;
 extern u8 bg_fading;
 extern u8 samus_on_top_backgrounds;
 extern u8 difficulty;
@@ -53,9 +54,10 @@ extern u16 effect_y_position;
 extern u8 screen_shake_x_related;
 extern u8 screen_shake_y_related;
 extern u16 screen_shake_related;
+extern u16 dispcnt_backup;
 extern u8 spriteset;
 extern u8 spriteset_entry_used;
-extern i8 curr_cutscene;
+extern struct io_registers_backup io_registers_backup;
 extern struct background_pointers_and_dimensions bg_pointers_and_dimensions;
 extern struct room_entry current_room_entry;
 extern u16 current_affecting_clipdata; //
