@@ -154,7 +154,9 @@ enum __attribute__ ((packed)) standing_status {
     STANDING_GROUND = 0x0,
     STANDING_ENEMY = 0x1,
     STANDING_MIDAIR = 0x2,
-    STANDING_NOT_IN_CONTROL = 0x3
+    STANDING_NOT_IN_CONTROL = 0x3,
+    STANDING_FORCED_POSE = 0x4,
+    STANDING_HANGING = 0x5
 };
 
 enum __attribute__ ((packed)) arm_cannon_direction {
@@ -208,10 +210,16 @@ struct samus_data {
     u8 curr_anim_frame;
 };
 
-enum __attribute__ ((packed)) direction_moving {
-    DMOVING_NONE = 0x0,
-    DMOVING_LEFT = 0x1,
-    DMOVING_RIGHT = 0x2
+enum __attribute__ ((packed)) h_direction_moving {
+    HDMOVING_NONE = 0x0,
+    HDMOVING_LEFT = 0x1,
+    HDMOVING_RIGHT = 0x2
+};
+
+enum __attribute__ ((packed)) v_direction_moving {
+    VDMOVING_NONE = 0x0,
+    VDMOVING_UP = 0x1,
+    VDMOVING_DOWN = 0x2
 };
 
 struct samus_physics {
@@ -219,13 +227,16 @@ struct samus_physics {
     u16 undefined;
     u16 arm_cannon_x_position_offset;
     u16 arm_cannon_y_position_offset;
-    enum direction_moving moving_direction;
+    enum h_direction_moving horizontal_moving_direction;
+    enum v_direction_moving vertical_moving_direction;
     i16 hitbox_left_offset;
     i16 hitbox_right_offset;
     i16 hitbox_top_offset;
-    u16 undefined3;
-    u16 undefined4;
-    u8 undefined5;
+    enum standing_status standing_status;
+    u8 hitbox_array_offset;
+    u8 touching_side_block;
+    u8 touching_top_block;
+    u8 undefined4;
     u8 slowed_by_liquid;
     u8 has_new_projectile;
     i16 x_acceleration;
@@ -236,10 +247,10 @@ struct samus_physics {
     i16 midair_x_acceleration;
     i16 midair_x_velocity_cap;
     i16 midair_morphed_x_velocity_cap;
-    i16 unknown;
-    i16 height_offset;
-    i16 unknown3;
-    i16 unknown4;
+    i16 draw_distance_left_offset;
+    i16 draw_distance_top_offset;
+    i16 draw_distance_right_offset;
+    i16 draw_distance_bottom_offset;
 };
 
 struct screw_speed_animation {
@@ -272,9 +283,9 @@ u8 unk_5604(struct samus_data* pData, struct samus_physics* pPhysics, u16 x_posi
 u8 unk_56B8(struct samus_data* pData, struct samus_physics* pPhysics, u16 x_position, u16* next_x_position);
 u8 unk_5794(struct samus_data* pData, i16 x_offset);
 u8 unk_57EC(struct samus_data* pData, i16 unk);
-enum samus_pose unk_58A0(struct samus_data* pData, struct samus_physics* pPhysics);
+enum samus_pose samus_check_walking_sides_collision(struct samus_data* pData, struct samus_physics* pPhysics);
 enum samus_pose unk_5AD8(struct samus_data* pData, struct samus_physics* pPhysics);
-enum samus_pose unk_5B8C(struct samus_data* pData, struct samus_physics* pPhysics);
+enum samus_pose samus_check_standing_on_ground_collision(struct samus_data* pData, struct samus_physics* pPhysics);
 enum samus_pose samus_check_landing_collision(struct samus_data* pData, struct samus_physics* pPhysics);
 enum samus_pose samus_check_top_collision(struct samus_data* pData, struct samus_physics* pPhysics);
 enum samus_pose samus_check_collisions(struct samus_data* pData, struct samus_physics* pPhysics);
@@ -388,7 +399,7 @@ void samus_update_velocity_position(struct samus_data* pData);
 void samus_update_graphics_oam(struct samus_data* pData, u8 direction);
 void samus_update_animation_timer_palette(struct samus_data* pData);
 void samus_check_play_low_health_sound(void);
-void samus_gfx_related(struct samus_data* pData, struct samus_physics* pPhysics);
+void samus_update_draw_distance_and_standing_status(struct samus_data* pData, struct samus_physics* pPhysics);
 void samus_update_arm_cannon_oam(u8 direction);
 void samus_init(void);
 void samus_draw(void);

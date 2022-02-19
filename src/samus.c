@@ -31,7 +31,7 @@ u8 unk_57EC(struct samus_data* pData, i16 unk)
 
 }
 
-enum samus_pose unk_58A0(struct samus_data* pData, struct samus_physics* pPhysics)
+enum samus_pose samus_check_walking_sides_collision(struct samus_data* pData, struct samus_physics* pPhysics)
 {
 
 }
@@ -41,7 +41,7 @@ enum samus_pose unk_5AD8(struct samus_data* pData, struct samus_physics* pPhysic
 
 }
 
-enum samus_pose unk_5B8C(struct samus_data* pData, struct samus_physics* pPhysics)
+enum samus_pose samus_check_standing_on_ground_collision(struct samus_data* pData, struct samus_physics* pPhysics)
 {
 
 }
@@ -2340,7 +2340,7 @@ void samus_check_play_low_health_sound(void)
         play_sound1(0x82);
 }
 
-void samus_gfx_related(struct samus_data* pData, struct samus_physics* pPhysics)
+void samus_update_draw_distance_and_standing_status(struct samus_data* pData, struct samus_physics* pPhysics)
 {
 
 }

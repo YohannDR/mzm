@@ -15,6 +15,7 @@
 #include "scroll.h"
 #include "connection.h"
 #include "bg_clip.h"
+#include "io.h"
 
 // EWRAM
 
@@ -23,6 +24,7 @@ extern u32 events_triggered[8];
 // IWRAM
 
 extern u16 sixteen_bit_frame_counter;
+extern u16 written_to_dispcnt;
 extern u8 bg_fading;
 extern u8 samus_on_top_backgrounds;
 extern u8 difficulty;
@@ -36,8 +38,10 @@ extern u16 effect_y_position;
 extern u8 screen_shake_x_related;
 extern u8 screen_shake_y_related;
 extern u16 screen_shake_related;
+extern u16 dispcnt_backup;
 extern u8 spriteset;
 extern u8 spriteset_entry_used;
+extern struct io_registers_backup io_registers_backup;
 extern struct background_pointers_and_dimensions bg_pointers_and_dimensions;
 extern struct room_entry current_room_entry;
 extern u16 current_affecting_clipdata; //

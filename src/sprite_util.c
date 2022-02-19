@@ -203,12 +203,12 @@ void sprite_util_make_sprite_face_away_samus_direction(void)
         current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
 }
 
-void unk_f978(u8 unk)
+void unk_f978(i16 movement)
 {
 
 }
 
-void unk_f9e7(u8 unk)
+void unk_f9e7(i16 movement)
 {
 
 }
@@ -336,7 +336,7 @@ enum near_sprite_left_right sprite_util_check_samus_near_sprite_left_right(u16 y
 
     result = NSLR_OUT_OF_RANGE;
     pData = &samus_data;
-    samus_y = (samus_physics.height_offset / 0x2) + pData->y_position;
+    samus_y = (samus_physics.draw_distance_top_offset / 0x2) + pData->y_position;
     samus_x = pData->x_position;
     sprite_y = current_sprite.y_position;
     sprite_x = current_sprite.x_position;
@@ -1060,7 +1060,7 @@ enum p_sprite_id sprite_util_determine_enemy_drop(void)
     u16 non_power_bomb_drop;
     u16 non_drop;
     u32 is_full;
-    u16 rng;
+    u32 rng;
     u16 sprite_id;
     enum p_sprite_id drop;
 
@@ -1068,7 +1068,10 @@ enum p_sprite_id sprite_util_determine_enemy_drop(void)
     is_full = FALSE;
     if (equipment.current_energy == equipment.max_energy)
         is_full = TRUE;
-    rng = (sprite_rng * 0x100 + sixteen_bit_frame_counter + eight_bit_frame_counter) & 0x3FF;
+
+    rng = sprite_rng;
+    rng *= 0x100;
+    rng = (u16)(rng + (eight_bit_frame_counter + sixteen_bit_frame_counter) << 0x6) >> 0x6;
     if (rng == 0x0)
         rng = 0x1;
 
@@ -1093,97 +1096,107 @@ enum p_sprite_id sprite_util_determine_enemy_drop(void)
     if (power_bomb_drop != 0x0)
     {
         non_power_bomb_drop = 0x400 - power_bomb_drop;
-        if (rng < 0x401 && non_power_bomb_drop < rng)
+        if (rng < 0x401 && rng > non_power_bomb_drop)
         {
-            if (equipment.current_power_bombs < equipment.max_power_bombs)
-                drop = PSPRITE_POWER_BOMB_DROP;
-            else if (is_full)
-                drop = PSPRITE_LARGE_ENERGY_DROP;
-            else if (equipment.max_power_bombs == 0x0)
-                drop = PSPRITE_SMALL_ENERGY_DROP;
-            else
-                drop = PSPRITE_POWER_BOMB_DROP;
-
-            return drop;
-        }
-    }
-    else
-        non_power_bomb_drop = 0x400;
-
-    if (super_missile_prob != 0x0)
-    {
-        non_drop = non_power_bomb_drop - super_missile_prob;
-        if (rng <= non_power_bomb_drop)
-        {
-            non_power_bomb_drop = non_drop;
-            if (non_drop < rng)
+            if (equipment.max_power_bombs <= equipment.current_power_bombs)
             {
-                if (equipment.max_super_missiles <= equipment.current_super_missiles)
+                if (!is_full)
                 {
-                    if (is_full)
-                        drop = PSPRITE_LARGE_ENERGY_DROP;
-                    else if (equipment.max_super_missiles == 0x0)
+                    if (equipment.max_power_bombs != 0x0)
+                        drop = PSPRITE_POWER_BOMB_DROP;
+                    else
                         drop = PSPRITE_SMALL_ENERGY_DROP;
                 }
                 else
-                    drop = PSPRITE_SUPER_MISSILE_DROP;
-
-                return drop;
+                    drop = PSPRITE_LARGE_ENERGY_DROP;
             }
+            else
+                drop = PSPRITE_POWER_BOMB_DROP;
         }
     }
-
-    if (missile_prob != 0x0)
-    {
-        non_drop = non_power_bomb_drop - missile_prob;
-        if (rng <= non_power_bomb_drop)
-        {
-            non_power_bomb_drop = non_drop;
-            if (non_drop < rng)
-            {
-                if (equipment.max_missiles < equipment.current_missiles)
-                    drop = PSPRITE_MISSILE_DROP;
-                else if (is_full)
-                    drop = PSPRITE_LARGE_ENERGY_DROP;
-                else if (equipment.max_missiles == 0x0)
-                    drop = PSPRITE_SMALL_ENERGY_DROP;
-                else
-                    drop = PSPRITE_MISSILE_DROP;
-
-                return drop;
-            }
-        }
-    }
-
-    if (large_health_prob != 0x0)
-    {
-        non_drop = non_power_bomb_drop - large_health_prob;
-        if (rng <= non_power_bomb_drop)
-        {
-            non_power_bomb_drop = non_drop;
-            if (non_drop < rng)
-            {
-                if (is_full)
-                    drop = PSPRITE_LARGE_ENERGY_DROP;
-                else if (equipment.max_missiles <= equipment.current_missiles)
-                    drop = PSPRITE_LARGE_ENERGY_DROP;
-                else
-                    drop = PSPRITE_MISSILE_DROP;
-                
-                return drop;
-            }
-        }
-    }
-
-    if (small_health_prob == 0x0)
-        drop = 0x0;
-    else if (non_power_bomb_drop < rng)
-        drop = 0x0;
-    else if (rng <= (u16)(non_power_bomb_drop - small_health_prob))
-        drop = 0x0;
     else
-        drop = PSPRITE_SMALL_ENERGY_DROP;
-
+    {
+        non_power_bomb_drop = 0x400;
+        if (super_missile_prob != 0x0)
+        {
+            non_drop = non_power_bomb_drop - super_missile_prob;
+            if (rng <= non_power_bomb_drop)
+            {
+                non_power_bomb_drop = non_drop;
+                if (non_drop < rng)
+                {
+                    if (equipment.max_super_missiles <= equipment.current_super_missiles)
+                    {
+                        if (is_full)
+                            drop = PSPRITE_LARGE_ENERGY_DROP;
+                        else if (equipment.max_super_missiles == 0x0)
+                            drop = PSPRITE_SMALL_ENERGY_DROP;
+                    }
+                    else
+                        drop = PSPRITE_SUPER_MISSILE_DROP;
+                }
+            }
+        }
+        else if (missile_prob != 0x0)
+        {
+            non_drop = non_power_bomb_drop - missile_prob;
+            if (rng <= non_power_bomb_drop)
+            {
+                non_power_bomb_drop = non_drop;
+                if (non_drop < rng)
+                {
+                    if (equipment.max_missiles <= equipment.current_missiles)
+                    {
+                        if (!is_full)
+                        {
+                            if (equipment.max_missiles != 0x0)
+                                drop = PSPRITE_MISSILE_DROP;
+                            else
+                                drop = PSPRITE_SMALL_ENERGY_DROP;
+                        }
+                        else
+                            drop = PSPRITE_LARGE_ENERGY_DROP;
+                    }
+                    else
+                        drop = PSPRITE_MISSILE_DROP;
+                }
+            }
+        }
+        else if (large_health_prob != 0x0)
+        {
+            non_drop = non_power_bomb_drop - large_health_prob;
+            if (rng <= non_power_bomb_drop)
+            {
+                non_power_bomb_drop = non_drop;
+                if (non_drop < rng)
+                {
+                    if (is_full)
+                        drop = PSPRITE_LARGE_ENERGY_DROP;
+                    else if (equipment.max_missiles <= equipment.current_missiles)
+                        drop = PSPRITE_LARGE_ENERGY_DROP;
+                    else
+                        drop = PSPRITE_MISSILE_DROP;
+                }
+            }
+        }
+        else if (small_health_prob != 0x0)
+        {
+            non_drop = non_power_bomb_drop - small_health_prob;
+            if (non_power_bomb_drop >= rng && rng > non_drop)
+            {
+                if (!is_full)
+                {
+                    if (equipment.max_missiles <= equipment.current_missiles)
+                        drop = 0x0;
+                    else
+                        drop = PSPRITE_MISSILE_DROP;
+                }
+                else
+                    drop = PSPRITE_SMALL_ENERGY_DROP;
+            }
+        }
+    }
+   
     return drop;*/
 }
 
@@ -1404,9 +1417,41 @@ void unk_11520(struct sub_sprite_data* pSub)
 
 }
 
-u8 sprite_util_security_gate_samus_collision(void)
+u8 sprite_check_colliding_with_samus_drawing(void)
 {
+    u16 sprite_y;
+    u16 sprite_x;
+    u16 samus_y;
+    u16 samus_x;
+    u16 o1_top;
+    u16 o1_bottom;
+    u16 o1_left;
+    u16 o1_right;
+    u16 o2_top;
+    u16 o2_bottom;
+    u16 o2_left;
+    u16 o2_right;
 
+    sprite_y = current_sprite.y_position;
+    sprite_x = current_sprite.x_position;
+
+    o1_top = sprite_y + current_sprite.hitbox_top_offset;
+    o1_bottom = sprite_y + current_sprite.hitbox_bottom_offset;
+    o1_left = sprite_x + current_sprite.hitbox_left_offset;
+    o1_right = sprite_x + current_sprite.hitbox_right_offset;
+
+    samus_y = samus_data.y_position;
+    samus_x = samus_data.x_position;
+
+    o2_top = samus_physics.draw_distance_top_offset + samus_data.y_position;
+    o2_bottom = samus_data.y_position + samus_physics.draw_distance_bottom_offset;
+    o2_left = samus_physics.draw_distance_left_offset + samus_data.x_position;
+    o2_right = samus_data.x_position + samus_physics.draw_distance_right_offset;
+
+    if (sprite_util_check_objects_touching(o1_top, o1_bottom, o1_left, o1_right, o2_top, o2_bottom, o2_left, o2_right))
+        return TRUE;
+    else
+        return FALSE;
 }
 
 void sprite_util_set_splash_effect(u16 y_position, u16 x_position, enum splash_size size)
@@ -1416,12 +1461,32 @@ void sprite_util_set_splash_effect(u16 y_position, u16 x_position, enum splash_s
 
 u8 sprite_util_check_out_of_room_effect(u16 old_y, u16 y_position, u16 x_position, enum splash_size size)
 {
-
+    if (old_y > effect_y_position && y_position <= effect_y_position)
+    {
+        if (size != SPLASH_NONE)
+        {
+            sprite_util_check_collision_at_position_no_global((u16)(y_position + 0x40), x_position);
+            sprite_util_set_splash_effect(y_position, x_position, size);
+        }
+        return TRUE;
+    }
+    else
+        return FALSE;
 }
 
 u8 sprite_util_check_in_room_effect(u16 old_y, u16 y_position, u16 x_position, enum splash_size size)
 {
-
+    if (old_y < effect_y_position && y_position >= effect_y_position)
+    {
+        if (size != SPLASH_NONE)
+        {
+            sprite_util_check_collision_at_position_no_global(y_position, x_position);
+            sprite_util_set_splash_effect(y_position, x_position, size);
+        }
+        return TRUE;
+    }
+    else
+        return FALSE;
 }
 
 u16 sprite_util_get_final_completion_percentage(void)
