@@ -16,6 +16,7 @@
 #include "connection.h"
 #include "bg_clip.h"
 #include "io.h"
+#include "escape.h"
 
 // EWRAM
 
@@ -85,6 +86,10 @@ extern u8 sprite_draw_order[24];
 extern u8 sprite_rng;
 extern struct particle_effect particle_effects[16];
 extern struct oam_frame* curr_particle_oam_frame_ptr;
+extern enum escape_status current_escape_status;
+extern u8 escape_timer_counter;
+extern struct escape_digits escape_timer_digits;
+extern struct oam_frame particle_escape_oam_frames[25];
 extern struct projectile_data projectile_data[16];
 extern u16 arm_cannon_y;
 extern u16 arm_cannon_x;
