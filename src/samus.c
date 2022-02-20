@@ -208,10 +208,10 @@ void samus_set_pose(enum samus_pose pose)
 {
     struct weapon_info* pWeapon;
     struct samus_data* pData;
-    struct samus_data* pData_copy;
+    struct samus_data* pCopy;
 
     pData = &samus_data;
-    pData_copy = &samus_data_copy;
+    pCopy = &samus_data_copy;
     pWeapon = &samus_weapon_info;
 
     if ((u32)(pose * 0x1000000 + 0x7000000) >> 0x18 < 0x2)
@@ -219,10 +219,10 @@ void samus_set_pose(enum samus_pose pose)
 
     samus_copy_data(pData);
 
-    if (pData_copy->arm_cannon_direction == ACD_NONE)
-        pData_copy->arm_cannon_direction = ACD_FORWARD;
+    if (pCopy->arm_cannon_direction == ACD_NONE)
+        pCopy->arm_cannon_direction = ACD_FORWARD;
 
-    switch (pData_copy->pose)
+    switch (pCopy->pose)
     {
         case SPOSE_DELAY_BEFORE_SHINESPARKING:
             if (pose == SPOSE_SHINESPARKING) break;
@@ -244,21 +244,21 @@ void samus_set_pose(enum samus_pose pose)
     switch (pose)
     {
         case SPOSE_UPDATE_JUMP_VELOCITY_REQUEST:
-            samus_update_jump_velocity(pData, pData_copy, pWeapon);
+            samus_update_jump_velocity(pData, pCopy, pWeapon);
             return;
         case SPOSE_LANDING_REQUEST:
-            samus_set_landing_pose(pData, pData_copy, pWeapon);
+            samus_set_landing_pose(pData, pCopy, pWeapon);
             return;
         case SPOSE_HURT_REQUEST:
-            samus_change_to_hurt_pose(pData, pData_copy, pWeapon);
+            samus_change_to_hurt_pose(pData, pCopy, pWeapon);
             return;
         case SPOSE_KNOCKBACK_REQUEST:
-            samus_change_to_knockback_pose(pData, pData_copy, pWeapon);
+            samus_change_to_knockback_pose(pData, pCopy, pWeapon);
             return;
     }
 
     pData->pose = pose;
-    samus_turn_around_arm_cannon_start_shinespark(pData, pData_copy, pWeapon);
+    samus_turn_around_arm_cannon_start_shinespark(pData, pCopy, pWeapon);
 }
 
 void samus_copy_data(struct samus_data* pData)
@@ -330,9 +330,44 @@ void samus_update(void)
     samus_update_velocity_position(pData);
 }
 
-void samus_update_physics_hitbox_position(void)
+void samus_update_hitbox_moving_direction(void)
 {
+    struct samus_data* pData;
+    struct samus_physics* pPhysics;
+    enum h_direction_moving* pDirection;
 
+    pData = &samus_data;
+    pPhysics = &samus_physics;
+
+    pPhysics->touching_side_block = FALSE;
+    pPhysics->touching_top_block = FALSE;
+    pPhysics->unknown = 0x0;
+    pDirection = &pPhysics->horizontal_moving_direction;
+    *pDirection = HDMOVING_NONE;
+    pPhysics->vertical_moving_direction = VDMOVING_NONE;
+    
+    if (pData->x_position > previous_x_position)
+        *pDirection = HDMOVING_RIGHT;
+    else if (pData->x_position < previous_x_position)
+        *pDirection = HDMOVING_LEFT;
+
+    if (unk_03004fc9 == 0x0)
+    {
+        if (pData->y_position > previous_y_position)
+            pPhysics->vertical_moving_direction = VDMOVING_DOWN;
+        else if (pData->y_position < previous_y_position)
+            pPhysics->vertical_moving_direction = VDMOVING_UP;
+    }
+
+    pPhysics->standing_status = samus_visual_data_239464[pData->pose][0x2];
+    pPhysics->hitbox_left_offset = samus_hitbox_data_23a554[pPhysics->hitbox_array_offset][0x0];
+    pPhysics->hitbox_right_offset = samus_hitbox_data_23a554[pPhysics->hitbox_array_offset][0x1];
+    pPhysics->hitbox_top_offset = samus_hitbox_data_23a554[pPhysics->hitbox_array_offset][0x2];
+    if (pPhysics->standing_status == STANDING_NOT_IN_CONTROL)
+        pPhysics->vertical_moving_direction = VDMOVING_DOWN;
+
+    samus_check_collisions(pData, pPhysics);
+    samus_update_draw_distance_and_standing_status(pData, pPhysics);
 }
 
 void samus_call_gfx_functions(void)
@@ -366,16 +401,41 @@ void samus_call_update_arm_cannon_oam(void)
 
 void samus_bounce_bomb(u8 direction)
 {
+    /*u8 can_bounce;
 
+    if (samus_physics.slowed_by_liquid)
+        return;
+
+    can_bounce = FALSE;
+    if ((direction & 0x7F) > 0x9)
+    {
+        switch (samus_data.pose)
+        {
+            case SPOSE_MORPH_BALL_MIDAIR:
+                if (samus_data.y_velocity <= 0x0 && (direction & 0x80) == 0x0)
+                    can_bounce = TRUE;
+            
+            default:
+                if (!can_bounce)
+                    return;
+
+            case SPOSE_ROLLING:
+            case SPOSE_MORPHING:
+            case SPOSE_MORPH_BALL:
+                samus_data.forced_movement = direction & 0x7F;
+                samus_set_pose(SPOSE_UPDATE_JUMP_VELOCITY_REQUEST);
+        }
+    }*/
 }
 
 void samus_aim_cannon(struct samus_data* pData)
 {
-    struct weapon_info* pWeapon;
+    /*struct weapon_info* pWeapon;
+    enum input_flag direction;
 
     pWeapon = &samus_weapon_info;
 
-    if ((button_input & button_assignements.diagonal_aim) != 0x0)
+    if (button_input & button_assignements.diagonal_aim)
     {
         switch (pData->pose)
         {
@@ -392,12 +452,12 @@ void samus_aim_cannon(struct samus_data* pData)
             case SPOSE_AIMING_WHILE_HANGING:
             case SPOSE_UNCROUCHING_SUITLESS:
             case SPOSE_CROUCHING_SUITLESS:
-                if ((button_input & INPUT_DOWN) != 0x0)
+                if (button_input & INPUT_DOWN)
                 {
                     pData->arm_cannon_direction = ACD_DIAGONALLY_DOWN;
                     pWeapon->diagonal_aim = DIAG_AIM_DOWN;
                 }
-                else if (DIAG_AIM_UP < pWeapon->diagonal_aim && (button_input & INPUT_UP) != 0x0)
+                else if (DIAG_AIM_UP >= pWeapon->diagonal_aim || button_input & INPUT_UP)
                 {
                     pData->arm_cannon_direction = ACD_DIAGONALLY_UP;
                     pWeapon->diagonal_aim = DIAG_AIM_UP;
@@ -417,36 +477,24 @@ void samus_aim_cannon(struct samus_data* pData)
     switch (pData->pose)
     {
         case SPOSE_RUNNING:
-            if ((button_input & INPUT_UP) != 0x0)
+            if (button_input & INPUT_UP)
                 pData->arm_cannon_direction = ACD_DIAGONALLY_UP;
             else
             {
-                if ((button_input & INPUT_DOWN) != 0x0)
+                direction = button_input & INPUT_DOWN;
+                if (direction)
                     pData->arm_cannon_direction = ACD_DIAGONALLY_DOWN;
                 else
                 {
                     if (pData->arm_cannon_direction < ACD_NONE)
-                        pData->arm_cannon_direction = button_input & INPUT_DOWN;
+                        pData->arm_cannon_direction = direction;
                 }
             }
 
-            if (equipment.suit_type == SUIT_SUITLESS)
-            {
+            if (equipment.suit_type == SUIT_SUITLESS || pData->arm_cannon_direction != ACD_NONE || (pWeapon->weapon_highlighted == WH_NONE && pWeapon->charge_counter == 0x0))
                 pWeapon->diagonal_aim = DIAG_AIM_NONE;
-                return;
-            }
-
-            if (pData->arm_cannon_direction != ACD_NONE)
-            {
-                pWeapon->diagonal_aim = DIAG_AIM_NONE;
-                return;
-            }
-
-            if (pWeapon->weapon_highlighted == WH_NONE && pWeapon->charge_counter == 0x0)
-            {
-                pWeapon->diagonal_aim = DIAG_AIM_NONE;
-                return;
-            }
+            else
+                pData->arm_cannon_direction = ACD_FORWARD;
 
             break;
         
@@ -454,14 +502,8 @@ void samus_aim_cannon(struct samus_data* pData)
         case SPOSE_SHOOTING:
         case SPOSE_LANDING:
         case SPOSE_UNCROUCHING_SUITLESS:
-            if (pData->speedbooster_timer == 0x0 && (button_input & INPUT_UP) != 0x0)
-            {
-                pData->arm_cannon_direction = ACD_UP;
-                pWeapon->diagonal_aim = DIAG_AIM_NONE;
-            }
-            break;
-
-        default:
+            if (pData->speedbooster_timer == 0x0 && button_input & INPUT_UP)
+                    pData->arm_cannon_direction = ACD_UP;
             pWeapon->diagonal_aim = DIAG_AIM_NONE;
             break;
 
@@ -478,51 +520,42 @@ void samus_aim_cannon(struct samus_data* pData)
         case SPOSE_SPACE_JUMPING:
         case SPOSE_SCREW_ATTACKING:
         case SPOSE_AIMING_WHILE_HANGING:
-            if ((button_input & INPUT_UP) != 0x0)
+            if (button_input & INPUT_UP)
             {
-                if ((pData->direction & button_input) != 0x0)
-                {
-                    pData->arm_cannon_direction = button_input & INPUT_DOWN;
-                    pWeapon->diagonal_aim = DIAG_AIM_NONE;
-                }
+                if (pData->direction & button_input)
+                    pData->arm_cannon_direction = ACD_DIAGONALLY_UP;
                 else
-                {
                     pData->arm_cannon_direction = ACD_UP;
-                    pWeapon->diagonal_aim = DIAG_AIM_NONE;
-                }
             }
             else
             {
-                if ((button_input & INPUT_DOWN) != 0x0)
+                direction = button_input & INPUT_DOWN;
+                if (direction)
                 {
-                    if ((pData->direction & button_input) != 0x0)
+                    if ((pData->direction & button_input) == 0x0)
                         pData->arm_cannon_direction = ACD_DIAGONALLY_DOWN;
                     else
                         pData->arm_cannon_direction = ACD_DOWN;
-                    pWeapon->diagonal_aim = DIAG_AIM_NONE;
                 }
                 else
                 {
-                    if ((pData->direction & button_input) != 0x0)
-                    {
-                        pData->arm_cannon_direction = button_input & INPUT_DOWN;
-                        pWeapon->diagonal_aim = DIAG_AIM_NONE;
-                    }
-                    else if (pData->arm_cannon_direction - 0x3 < 0x2)
-                        pWeapon->diagonal_aim = DIAG_AIM_NONE;
+                    if (pData->arm_cannon_direction & button_input)
+                        pData->arm_cannon_direction = direction;
                     else
                     {
-                        pData->arm_cannon_direction = ACD_FORWARD;
-                        pWeapon->diagonal_aim = DIAG_AIM_NONE;
+                        if ((u8)(pData->arm_cannon_direction - 0x3) > 0x2)
+                            pData->arm_cannon_direction = pData->direction;
                     }
                 }
             }
+            pWeapon->diagonal_aim = DIAG_AIM_NONE;
             break;
 
         case SPOSE_ON_ZIPLINE:
-            if ((button_input & INPUT_DOWN) != 0x0)
+            direction = button_input & INPUT_DOWN;
+            if (direction)
             {
-                if ((pData->direction & button_input) != 0x0)
+                if (pData->direction & button_input)
                     pData->arm_cannon_direction = ACD_DIAGONALLY_DOWN;
                 else
                     pData->arm_cannon_direction = ACD_DOWN;
@@ -530,15 +563,18 @@ void samus_aim_cannon(struct samus_data* pData)
             }
             else
             {
-                if ((pData->direction & button_input) == 0x0 && pData->arm_cannon_direction == ACD_DOWN)
+                if ((pData->direction & button_input) == 0x0 && pData->arm_cannon_direction != ACD_DOWN)
                     pWeapon->diagonal_aim = DIAG_AIM_NONE;
                 else
                 {
-                    pData->arm_cannon_direction = button_input & INPUT_DOWN;
+                    pData->arm_cannon_direction = direction;
                     pWeapon->diagonal_aim = DIAG_AIM_NONE;
                 }
             }
-    }
+        default:
+            pWeapon->diagonal_aim = DIAG_AIM_NONE;
+            break;
+    }*/
 }
 
 u8 samus_fire_beam_missile(struct samus_data* pData, struct weapon_info* pWeapon, struct equipment* pEquipment)
@@ -845,7 +881,6 @@ void samus_set_highlighted_weapon(struct samus_data* pData, struct weapon_info* 
 
 void samus_set_spinning_pose(struct samus_data* pData, struct equipment* pEquipment)
 {
-    /*enum suit_misc_flags suit_misc;
     u8 flag;
 
     switch (pData->pose)
@@ -854,25 +889,22 @@ void samus_set_spinning_pose(struct samus_data* pData, struct equipment* pEquipm
             if (samus_physics.slowed_by_liquid != FALSE)
                 break;
 
-            suit_misc = pEquipment->suit_misc_activation;
-            if ((suit_misc & SMF_SCREW_ATTACK) == 0x0)
+            if ((pEquipment->suit_misc_activation & SMF_SCREW_ATTACK) == 0x0)
             {
-                if ((suit_misc & SMF_SPACE_JUMP) == 0x0)
-                    break;
-                pData->pose = SPOSE_SPACE_JUMPING;
+                if (pEquipment->suit_misc_activation & SMF_SPACE_JUMP)
+                    pData->pose = SPOSE_SPACE_JUMPING;
                 break;
             }
             pData->pose = SPOSE_SCREW_ATTACKING;
             break;
 
         case SPOSE_SPACE_JUMPING:
-            suit_misc = pEquipment->suit_misc_activation;
-            flag = suit_misc & SMF_SCREW_ATTACK;
+            flag = pEquipment->suit_misc_activation & SMF_SCREW_ATTACK;
             if (flag != 0x0)
                 pData->pose = SPOSE_SCREW_ATTACKING;
             else
             {
-                if ((suit_misc & SMF_SPACE_JUMP) != 0x0 && samus_physics.slowed_by_liquid == FALSE)
+                if (pEquipment->suit_misc_activation & SMF_SPACE_JUMP && !samus_physics.slowed_by_liquid)
                     break;
                 pData->pose = SPOSE_SPINNING;
                 pData->curr_anim_frame = flag;
@@ -887,10 +919,9 @@ void samus_set_spinning_pose(struct samus_data* pData, struct equipment* pEquipm
             }
             else
             {
-                suit_misc = pEquipment->suit_misc_activation;
-                if ((suit_misc & SMF_SCREW_ATTACK) == 0x0)
+                if ((pEquipment->suit_misc_activation & SMF_SCREW_ATTACK) == 0x0)
                 {
-                    if ((suit_misc & SMF_SPACE_JUMP) != 0x0)
+                    if (pEquipment->suit_misc_activation & SMF_SPACE_JUMP)
                         pData->pose = SPOSE_SPACE_JUMPING;
                     else
                         pData->pose = SPOSE_SPINNING;
@@ -898,7 +929,7 @@ void samus_set_spinning_pose(struct samus_data* pData, struct equipment* pEquipm
                 }
             }
             screw_speed_animation.flag = FALSE;
-    }*/
+    }
 }
 
 void samus_apply_x_acceleration(i16 acceleration, i16 velocity, struct samus_data* pData)
@@ -906,7 +937,7 @@ void samus_apply_x_acceleration(i16 acceleration, i16 velocity, struct samus_dat
 
 }
 
-u8 samus_take_hazard_damage(struct samus_data* pData, struct equipment* pEquipment*, struct samus_hazard_damage* pHazard)
+u8 samus_take_hazard_damage(struct samus_data* pData, struct equipment* pEquipment, struct samus_hazard_damage* pHazard)
 {
 
 }
@@ -926,14 +957,22 @@ void samus_check_shinesparking(struct samus_data* pData)
             pData->speedboosting_shinesparking = TRUE;
             break;
         default:
-            if (pData->x_velocity + 0x9F < 0x13F) break;
-            if (pData->speedboosting_shinesparking != FALSE) return;
-            if (pose != SPOSE_SKIDDING)
+            if ((u16)(pData->x_velocity + 0x9F) >= 0x13F)
             {
-                pData->speedboosting_shinesparking = TRUE;
-                play_sound1(0x8B);
+                if (pData->speedboosting_shinesparking != FALSE) return;
+                if (pose != SPOSE_SKIDDING)
+                {
+                    pData->speedboosting_shinesparking = TRUE;
+                    play_sound1(0x8B);
+                }
+                break;
             }
-            break;
+            else
+            {
+                if (pData->speedboosting_shinesparking == FALSE)
+                    play_sound2(0x8B);
+                return;
+            }
 
         case SPOSE_DYING:
             pData->speedboosting_shinesparking = FALSE;

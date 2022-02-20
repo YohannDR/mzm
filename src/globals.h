@@ -128,6 +128,7 @@ extern callback_t hblank_callback;
 extern callback_t vcount_callback;
 extern callback_t serial_callback;
 extern callback_t timer3_callback;
+extern u8 unk_03004fc9;
 extern u16 samus_palette[32];
 extern struct hatch_data hatch_data[16];
 extern struct raw_coords_x door_position_start;

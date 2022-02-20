@@ -113,7 +113,7 @@ void projectile_start_tumbling_missile(struct sprite_data* pSprite, struct proje
 void projectile_kraid_start_tumbling_missile(struct projectile_data* pProj, enum projectile_type type);
 void projectile_missile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage);
 void projectile_super_missile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage);
-void projectile_bomb_hit_sprite(struct sprite_data* pSprite);
+void projectile_bomb_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position);
 void projectile_process_normal_beam(struct projectile_data* pProj);
 void projectile_process_long_beam(struct projectile_data* pProj);
 void projectile_process_ice_beam(struct projectile_data* pProj);
