@@ -303,7 +303,7 @@ void samus_update(void);
 void samus_update_hitbox_moving_direction(void);
 void samus_call_gfx_functions(void);
 void samus_call_check_low_health(void);
-void samus_call_update_arm_cannon_oam(void);
+void samus_call_update_arm_cannon_position_offset(void);
 void samus_bounce_bomb(u8 direction);
 void samus_aim_cannon(struct samus_data* pData);
 u8 samus_fire_beam_missile(struct samus_data* pData, struct weapon_info* pWeapon, struct equipment* pEquipment);
@@ -398,7 +398,7 @@ void samus_update_graphics_oam(struct samus_data* pData, u8 direction);
 void samus_update_animation_timer_palette(struct samus_data* pData);
 void samus_check_play_low_health_sound(void);
 void samus_update_draw_distance_and_standing_status(struct samus_data* pData, struct samus_physics* pPhysics);
-void samus_update_arm_cannon_oam(u8 direction);
+void samus_update_arm_cannon_position_offset(u8 direction);
 void samus_init(void);
 void samus_draw(void);
 

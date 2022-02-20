@@ -56,6 +56,10 @@ SECTIONS {
         . = 0x0300083C; sprite_rng = .;
         . = 0x03000840; particle_effects = .;
         . = 0x03000918; curr_particle_oam_frame_ptr = .;
+        . = 0x0300095C; current_escape_status = .;
+        . = 0x0300095D; escape_timer_counter = .;
+        . = 0x0300095E; escape_timer_digits = .;
+        . = 0x0300095E; particle_escape_oam_frames = .;
         . = 0x03000A2C; projectile_data = .;
         . = 0x03000BEC; arm_cannon_y = .;
         . = 0x03000BEE; arm_cannon_x = .;

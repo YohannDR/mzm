@@ -394,7 +394,7 @@ void samus_call_check_low_health(void)
     samus_check_play_low_health_sound();
 }
 
-void samus_call_update_arm_cannon_oam(void)
+void samus_call_update_arm_cannon_position_offset(void)
 {
 
 }
@@ -2384,7 +2384,7 @@ void samus_update_draw_distance_and_standing_status(struct samus_data* pData, st
 
 }
 
-void samus_update_arm_cannon_oam(u8 direction)
+void samus_update_arm_cannon_position_offset(u8 direction)
 {
 
 }

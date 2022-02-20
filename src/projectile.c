@@ -123,7 +123,7 @@ void projectile_update(void)
 
     if (game_mode_sub1 != 0x2) return;
 
-    samus_call_update_arm_cannon_oam();
+    samus_call_update_arm_cannon_position_offset();
 
     arm_cannon_y = ((samus_data.y_position >> 0x2) + samus_physics.arm_cannon_y_position_offset) * 0x4;
     arm_cannon_x = ((samus_data.x_position >> 0x2) + samus_physics.arm_cannon_x_position_offset) * 0x4;
@@ -514,7 +514,7 @@ void projectile_call_load_graphics_and_clear_projectiles(void)
 
 void projectile_move(struct projectile_data* pProj, u8 distance)
 {
-    i16 x_velocity;
+    /*i16 x_velocity;
     i32 x_velocity_;
     
     switch (pProj->direction)
@@ -563,7 +563,7 @@ void projectile_move(struct projectile_data* pProj, u8 distance)
     {
         if (x_velocity < 0x0)
             pProj->x_position += x_velocity_;
-    }
+    }*/
 }
 
 u8 projectile_collision_related(u16 y_position, u16 x_position)
@@ -586,24 +586,24 @@ void projectile_set_trail(struct projectile_data* pProj, enum particle_effect_id
     if ((eight_bit_frame_counter & delay) != 0x0)
         return;
 
-    offset = 0x20;    
+    offset = 0x20;
     y_pos = pProj->y_position;
     x_pos = pProj->x_position;
 
     switch (pProj->direction)
     {
-        case ACD_DOWN:
+        case ACD_UP:
             y_pos += 0x20;
             break;
-
-        case ACD_UP:
+        
+        case ACD_DOWN:
             y_pos -= 0x20;
             break;
-        
+
         case ACD_DIAGONALLY_UP:
             status = PROJ_STATUS_XFLIP;
             y_pos += 0x18;
-            if ((pProj->status & status) != 0x0)
+            if (pProj->status & status)
                 x_pos -= 0x18;
             else
                 x_pos += 0x18;
@@ -612,14 +612,14 @@ void projectile_set_trail(struct projectile_data* pProj, enum particle_effect_id
         case ACD_DIAGONALLY_DOWN:
             status = PROJ_STATUS_XFLIP;
             y_pos -= 0x18;
-            if ((pProj->status & status) != 0x0)
+            if (pProj->status & status)
                 x_pos -= 0x18;
             else
                 x_pos += 0x18;
             break;
 
         default:
-            if ((pProj->status & PROJ_STATUS_XFLIP) != 0x0)
+            if (pProj->status & PROJ_STATUS_XFLIP)
                 x_pos -= offset;
             else
                 x_pos += offset;
@@ -667,10 +667,12 @@ void projectile_check_hit_block(struct projectile_data* pProj, u8 affecting_acti
 
 void projectile_check_hit_sprite(void)
 {
-    struct equipment* pEquipment;
+    /*struct equipment* pEquipment;
     struct sprite_data* pSprite;
     struct sprite_data* pSprite_next;
     struct projectile_data* pProj;
+    enum sprite_status status;
+    enum projectile_status status_proj;
     u16 proj_y;
     u16 proj_x;
     u16 proj_top;
@@ -685,22 +687,23 @@ void projectile_check_hit_sprite(void)
     u16 sprite_right;
     u8 count;
     u8 draw_order;
-    u8 draw_order_next;
+    u32 draw_order_next;
 
     pEquipment = &equipment;
 
-    if (pProj->animation_state != 0x0 && equipment.max_power_bombs != 0x0)
+    if (current_power_bomb.animation_state != 0x0 && pEquipment->max_power_bombs != 0x0)
     {
-        proj_y = pProj->y_position;
-        proj_x = pProj->x_position;
-        proj_top = proj_y + pProj->hitbox_top_offset;
-        proj_bottom = proj_y + pProj->hitbox_bottom_offset;
-        proj_left = proj_x + pProj->hitbox_left_offset;
-        proj_right = proj_x + pProj->hitbox_right_offset;
+        proj_y = current_power_bomb.y_position;
+        proj_x = current_power_bomb.x_position;
+        proj_top = proj_y + current_power_bomb.hitbox_top_offset;
+        proj_bottom = proj_y + current_power_bomb.hitbox_bottom_offset;
+        proj_left = proj_x + current_power_bomb.hitbox_left_offset;
+        proj_right = proj_x + current_power_bomb.hitbox_right_offset;
+        status = (SPRITE_STATUS_EXISTS | SPRITE_STATUS_UNKNOWN3);
         pSprite = sprite_data;
         while (pSprite < sprite_data + 24)
         {
-            if ((pSprite->status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_UNKNOWN3)) == SPRITE_STATUS_EXISTS && pSprite->health != 0x0 && (pSprite->invicibility_stun_flash_timer & 0x80) == 0x0)
+            if ((pSprite->status & status) == SPRITE_STATUS_EXISTS && pSprite->health != 0x0 && (pSprite->invicibility_stun_flash_timer & 0x80) == 0x0)
             {
                 sprite_y = pSprite->y_position;
                 sprite_x = pSprite->x_position;
@@ -710,16 +713,17 @@ void projectile_check_hit_sprite(void)
                 sprite_right = sprite_x + pSprite->hitbox_right_offset;
                 if (sprite_util_check_objects_touching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
                     projectile_power_bomb_deal_damage(pSprite);
-                pSprite++;
             }
+            pSprite++;
         }
     }
 
+    status = (SPRITE_STATUS_EXISTS | SPRITE_STATUS_UNKNOWN3);
     count = 0x0;
     pSprite = sprite_data;
     while (pSprite < sprite_data + 24)
     {
-        if ((pSprite->status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_UNKNOWN3)) == SPRITE_STATUS_EXISTS && pSprite->health != 0x0)
+        if ((pSprite->status & status) == SPRITE_STATUS_EXISTS && pSprite->health != 0x0)
             sprite_draw_order[count] = pSprite->draw_order;
         else
             sprite_draw_order[count] = 0x0;
@@ -730,8 +734,8 @@ void projectile_check_hit_sprite(void)
     draw_order = 0x1;
     do {
         count = 0x0;
-        draw_order_next = draw_order + 0x1;
         pSprite = sprite_data;
+        draw_order_next = draw_order + 0x1;
 
         while (pSprite < sprite_data + 24)
         {
@@ -746,10 +750,11 @@ void projectile_check_hit_sprite(void)
                 sprite_left = sprite_y + pSprite->hitbox_left_offset;
                 sprite_right = sprite_y + pSprite->hitbox_right_offset;
 
+                status_proj = PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
                 pProj = projectile_data;
                 while (pProj < projectile_data + 16)
                 {
-                    if ((pProj->status & (PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT)) == (PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT))
+                    if ((pProj->status & status_proj) == status_proj)
                     {
                         proj_y = pProj->y_position;
                         proj_x = pProj->x_position;
@@ -767,7 +772,7 @@ void projectile_check_hit_sprite(void)
                                     break;
 
                                 case PROJ_TYPE_LONG_BEAM:
-                                    projectile_hit_sprite(pSprite, proj_y, proj_x, 0x2, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+                                    projectile_hit_sprite(pSprite, proj_y, proj_x, 0x3, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
                                     pProj->status = 0x0;
                                     break;
 
@@ -798,6 +803,40 @@ void projectile_check_hit_sprite(void)
                                     break;
 
                                 case PROJ_TYPE_PLASMA_BEAM:
+                                    if (pEquipment->beam_bombs_activation & BBF_LONG_BEAM)
+                                    {
+                                        if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
+                                        {
+                                            if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
+                                                projectile_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x6, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                            else
+                                                projectile_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x5, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                        }
+                                        else
+                                        {
+                                            if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
+                                                projectile_hit_sprite(pSprite, proj_y, proj_x, 0x5, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                            else
+                                                projectile_hit_sprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
+                                        {
+                                            if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
+                                                projectile_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x5, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                            else
+                                                projectile_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                        }
+                                        else
+                                        {
+                                            if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
+                                                projectile_hit_sprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                            else
+                                                projectile_hit_sprite(pSprite, proj_y, proj_x, 0x3, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                        }
+                                    }
                                     break;
 
                                 case PROJ_TYPE_PISTOL:
@@ -817,12 +856,66 @@ void projectile_check_hit_sprite(void)
                                     break;
 
                                 case PROJ_TYPE_CHARGED_ICE_BEAM:
+                                    if (pEquipment->beam_bombs_activation & BBF_LONG_BEAM)
+                                        projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+                                    else
+                                        projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+                                    pProj->status = 0x0;
                                     break;
 
                                 case PROJ_TYPE_CHARGED_WAVE_BEAM:
+                                    if (pEquipment->beam_bombs_activation & BBF_LONG_BEAM)
+                                    {
+                                        if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
+                                            projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x14, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
+                                        else
+                                            projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
+                                    }
+                                    else
+                                    {
+                                        if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
+                                            projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
+                                        else
+                                            projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
+                                    }
+                                    pProj->status = 0x0;
                                     break;
 
                                 case PROJ_TYPE_CHARGED_PLASMA_BEAM:
+                                    if (pEquipment->beam_bombs_activation & BBF_LONG_BEAM)
+                                    {
+                                        if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
+                                        {
+                                            if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
+                                                projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x18, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                            else
+                                                projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x14, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                        }
+                                        else
+                                        {
+                                            if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
+                                                projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0x14, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                            else
+                                                projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
+                                        {
+                                            if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
+                                                projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x14, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                            else
+                                                projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                        }
+                                        else
+                                        {
+                                            if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
+                                                projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                            else
+                                                projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                        }
+                                    }
                                     break;
 
                                 case PROJ_TYPE_CHARGED_PISTOL:
@@ -861,7 +954,7 @@ void projectile_check_hit_sprite(void)
             pSprite = pSprite_next;
         }
         draw_order = draw_order_next;
-    } while (draw_order >= 0x10)
+    } while (draw_order <= 0x10);*/
 }
 
 enum sprite_weakness_flags projectile_get_sprite_weakness(struct sprite_data* pSprite)
