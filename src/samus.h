@@ -236,7 +236,7 @@ struct samus_physics {
     u8 hitbox_array_offset;
     u8 touching_side_block;
     u8 touching_top_block;
-    u8 undefined4;
+    u8 unknown;
     u8 slowed_by_liquid;
     u8 has_new_projectile;
     i16 x_acceleration;
@@ -252,14 +252,12 @@ struct samus_physics {
     i16 draw_distance_right_offset;
     i16 draw_distance_bottom_offset;
 };
-
 struct screw_speed_animation {
     u8 flag;
     u8 anim_duration_counter;
     u8 curr_anim_frame;
     u32 unknown;
 };
-
 struct hazard_damage {
     u8 timer;
     u16 unknown;
@@ -302,7 +300,7 @@ void samus_update_physics(struct samus_data* pData);
 i16 samus_change_velocity_on_slope(struct samus_data* pData);
 void samus_copy_palette(u16* src, i32 offset, i32 nbr_colors);
 void samus_update(void);
-void samus_update_physics_hitbox_position(void);
+void samus_update_hitbox_moving_direction(void);
 void samus_call_gfx_functions(void);
 void samus_call_check_low_health(void);
 void samus_call_update_arm_cannon_oam(void);
@@ -315,7 +313,7 @@ u8 samus_check_a_pressed(struct samus_data* pData);
 void samus_set_highlighted_weapon(struct samus_data* pData, struct weapon_info* pWeapon, struct equipment* pEquipment);
 void samus_set_spinning_pose(struct samus_data* pData, struct equipment* pEquipment);
 void samus_apply_x_acceleration(i16 acceleration, i16 velocity, struct samus_data* pData);
-u8 samus_take_hazard_damage(struct samus_data* pData, struct equipment* pEquipment*, struct hazard_damage* pHazard);
+u8 samus_take_hazard_damage(struct samus_data* pData, struct equipment* pEquipment, struct hazard_damage* pHazard);
 void samus_check_shinesparking(struct samus_data* pData);
 enum samus_pose samus_inactivity(struct samus_data* pData);
 u8 unk_847C(struct samus_data* pData, u8 unk);

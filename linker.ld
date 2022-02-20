@@ -98,6 +98,7 @@ SECTIONS {
         . = 0x03001cf4; vcount_callback = .;
         . = 0x03001cf8; serial_callback = .;
         . = 0x03001cfc; timer3_callback = .;
+        . = 0x03004fc9; unk_03004fc9 = .;
         . = 0x030052E0; samus_palette = .;
         . = 0x0300545C; hatch_data = .;
         . = 0x030054E0; door_position_start = .;
