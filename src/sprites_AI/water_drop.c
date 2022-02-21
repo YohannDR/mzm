@@ -30,8 +30,8 @@ void water_drop(void)
             current_sprite.draw_distance_horizontal_offset = 0x8;
             current_sprite.curr_anim_frame = 0x0;
             current_sprite.oam_pointer = water_drop_oam_data_33bc54;
-            current_sprite.maybe_y_position_spawn = current_sprite.y_position;
-            current_sprite.maybe_x_position_spawn = current_sprite.x_position;
+            current_sprite.y_position_spawn = current_sprite.y_position;
+            current_sprite.x_position_spawn = current_sprite.x_position;
             current_sprite.status |= SPRITE_STATUS_NOT_DRAWN;
             current_sprite.pose = 0x11;
             current_sprite.timer1 = sprite_rng << 0x3;
@@ -110,12 +110,12 @@ void water_drop(void)
                 current_sprite.anim_duration_counter = 0x0;
                 current_sprite.pose = 0x9;
                 current_sprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-                current_sprite.y_position = current_sprite.maybe_y_position_spawn;
-                current_sprite.x_position = current_sprite.maybe_x_position_spawn;
+                current_sprite.y_position = current_sprite.y_position_spawn;
+                current_sprite.x_position = current_sprite.x_position_spawn;
                 if ((sprite_rng & 0x1) != 0x0)
-                    current_sprite.x_position = current_sprite.maybe_x_position_spawn + ((i32)(sprite_rng + 0x1) / 0x2);
+                    current_sprite.x_position = current_sprite.x_position_spawn + ((i32)(sprite_rng + 0x1) / 0x2);
                 else
-                    current_sprite.x_position = current_sprite.maybe_x_position_spawn - ((i32)(sprite_rng + 0x1) / 0x2);
+                    current_sprite.x_position = current_sprite.x_position_spawn - ((i32)(sprite_rng + 0x1) / 0x2);
             }
     }
 }

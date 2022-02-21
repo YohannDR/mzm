@@ -8,8 +8,8 @@ void enemy_drop_init(void)
     current_sprite.ignore_samus_collision_timer = 0x14;
     current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
     current_sprite.pose = 0x9;
-    current_sprite.maybe_y_position_spawn = 0xC8;
-    current_sprite.maybe_x_position_spawn = 0x0;
+    current_sprite.y_position_spawn = 0xC8;
+    current_sprite.x_position_spawn = 0x0;
     current_sprite.anim_duration_counter = 0x0;
     current_sprite.curr_anim_frame = 0x0;
     current_sprite.draw_distance_top_offset = 0x8;
@@ -124,10 +124,10 @@ void enemy_drop_get(void)
         }
         else
         {
-            if (((u8)pSprite->maybe_x_position_spawn & 0x1) != 0x0)
+            if (((u8)pSprite->x_position_spawn & 0x1) != 0x0)
             {
-                pSprite->maybe_y_position_spawn--;
-                timer = (u8)pSprite->maybe_y_position_spawn;
+                pSprite->y_position_spawn--;
+                timer = (u8)pSprite->y_position_spawn;
                 status = timer;
                 if (timer != 0x0)
                 {
@@ -154,5 +154,5 @@ void enemy_drop(void)
         case 0x9:
             enemy_drop_get();
     }
-    current_sprite.maybe_x_position_spawn++;
+    current_sprite.x_position_spawn++;
 }

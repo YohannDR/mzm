@@ -407,8 +407,8 @@ struct sprite_data {
     enum sprite_status status;
     u16 y_position;
     u16 x_position;
-    u16 maybe_y_position_spawn;
-    u16 maybe_x_position_spawn;
+    u16 y_position_spawn;
+    u16 x_position_spawn;
     i16 hitbox_top_offset;
     i16 hitbox_bottom_offset;
     i16 hitbox_left_offset;

@@ -248,7 +248,7 @@ void hive_mellow_init(struct sprite_data* pSprite)
             pSprite->maybe_variable = 0x1;
             pSprite->timer1 = 0x0;
             pSprite->array_offset = 0x1;
-            pSprite->maybe_x_position_spawn = sprite_rng & 0x3;
+            pSprite->x_position_spawn = sprite_rng & 0x3;
             pSprite->pose = 0x23;
             pSprite->oam_scaling = 0x20;
             sprite_util_make_sprite_face_samus_direction();
@@ -290,7 +290,7 @@ void hive_mellow_samus_detected(struct sprite_data* pSprite)
     pSprite->maybe_variable = 0x1;
     pSprite->timer1 = 0x0;
     pSprite->array_offset = 0x1;
-    pSprite->maybe_x_position_spawn = 0x0;
+    pSprite->x_position_spawn = 0x0;
     pSprite->pose = 0x23;
     pSprite->oam_scaling = 0x20;
     sprite_util_make_sprite_face_samus_direction();
@@ -383,7 +383,7 @@ void hive_mellow(void)
 
     if ((pSprite->properties & SP_UNKNOWN) != 0x0)
     {
-        pSprite->properties &= 0xFD;
+        pSprite->properties &= ~SP_UNKNOWN;
         if ((pSprite->status & SPRITE_STATUS_ONSCREEN) != 0x0)
             unk_2b20(0x15F);
     }
@@ -454,7 +454,7 @@ void hive_mellow_swarm(void)
             current_sprite.pose = 0x9;
             if (0x78 < (samus_data.x_position >> 0x2) -( bg1_x_position >> 0x2))
                 current_sprite.status |= SPRITE_STATUS_XFLIP;
-            current_sprite.maybe_y_position_spawn = 0xF0;
+            current_sprite.y_position_spawn = 0xF0;
 
             if (current_sprite.sprite_id == PSPRITE_MELLOW_SWARM_HEALTH_BASED)
             {
@@ -484,8 +484,8 @@ void hive_mellow_swarm(void)
     }
     else
     {
-        if (current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL && current_sprite.maybe_y_position_spawn != 0x0)
-            current_sprite.maybe_y_position_spawn--;
+        if (current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL && current_sprite.y_position_spawn != 0x0)
+            current_sprite.y_position_spawn--;
         else
         {
             collision = SSC_MELLOW;
@@ -508,7 +508,7 @@ void hive_mellow_swarm(void)
             else
             {
                 if (count <= 0x13)
-                    current_sprite.maybe_y_position_spawn = 0xF0;
+                    current_sprite.y_position_spawn = 0xF0;
                 else
                     return;
             }

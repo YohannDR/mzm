@@ -11,6 +11,12 @@ enum __attribute__ ((packed)) near_sprite_left_right {
     NSLR_RIGHT = 0x8
 };
 
+enum __attribute__ ((packed)) near_sprite_above_below {
+    NSAB_OUT_OF_RANGE = 0x0,
+    NSAB_ABOVE = 0x1,
+    NSAB_BELOW = 0x2
+};
+
 enum __attribute__ ((packed)) damage_contact_type {
     DCT_NONE = 0x0,
     DCT_SHINESPARK = 0x1,
