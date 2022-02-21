@@ -220,7 +220,7 @@ void skree(void)
 {
     if ((current_sprite.properties & SP_UNKNOWN) != 0x0)
     {
-        current_sprite.properties &= 0xFD;
+        current_sprite.properties &= ~SP_UNKNOWN;
         if ((current_sprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
             unk_2b20(0x143);
     }

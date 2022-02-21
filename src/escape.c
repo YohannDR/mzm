@@ -34,7 +34,16 @@ u8 escape_check_has_escaped(void)
 
 void escape_update_oam(void)
 {
+    u16 increment;
 
+    increment = 0x33C0;
+
+    particle_escape_oam_frames[24] = escape_timer_digits.hundredths + increment;
+    particle_escape_oam_frames[21] = escape_timer_digits.tenths + increment;
+    particle_escape_oam_frames[15] = escape_timer_digits.seconds_ones + increment;
+    particle_escape_oam_frames[12] = escape_timer_digits.seconds_tens + increment;
+    particle_escape_oam_frames[6] = escape_timer_digits.minutes_ones + increment;
+    particle_escape_oam_frames[3] = escape_timer_digits.minutes_tens + increment;
 }
 
 void unk_53a18(void)

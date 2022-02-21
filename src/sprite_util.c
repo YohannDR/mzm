@@ -365,7 +365,7 @@ enum near_sprite_left_right sprite_util_check_samus_near_sprite_left_right(u16 y
     return result;*/
 }
 
-u8 sprite_util_check_samus_near_sprite_above_below(u16 y_range, u16 x_range)
+enum near_sprite_above_below sprite_util_check_samus_near_sprite_above_below(u16 y_range, u16 x_range)
 {
 
 }

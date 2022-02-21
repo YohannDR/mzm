@@ -73,7 +73,7 @@ extern struct oam_frame* curr_particle_oam_frame_ptr;
 extern enum escape_status current_escape_status;
 extern u8 escape_timer_counter;
 extern struct escape_digits escape_timer_digits;
-extern struct oam_frame particle_escape_oam_frames[25];
+extern u16 particle_escape_oam_frames[25];
 extern struct projectile_data projectile_data[16];
 extern u16 arm_cannon_y;
 extern u16 arm_cannon_x;
