@@ -17,6 +17,7 @@ SECTIONS {
         . = 0x0000002C; difficulty = .;
         . = 0x0000003D; disable_scrolling = .;
         . = 0x00000043; softreset_disabled = .;
+        . = 0x00000049; disable_pause = .;
         . = 0x00000054; current_area = .;
         . = 0x00000055; current_room = .;
         . = 0x00000056; last_door_used = .;

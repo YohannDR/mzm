@@ -47,6 +47,7 @@ extern u8 samus_on_top_backgrounds;
 extern u8 difficulty;
 extern u8 disable_scrolling;
 extern u8 softreset_disabled;
+extern u8 disable_pause;
 extern enum area current_area;
 extern u8 current_room;
 extern u8 last_door_used;
