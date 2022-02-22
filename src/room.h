@@ -5,7 +5,7 @@
 #include "sprite.h"
 #include "event.h"
 
-enum __attribute__ ((packed)) room_effect {
+enum __attribute__((packed)) room_effect {
     EFFECT_NONE = 0x0,
     EFFECT_WATER = 0x1,
     EFFECT_STRONG_LAVA = 0x2,
@@ -20,7 +20,7 @@ enum __attribute__ ((packed)) room_effect {
     EFFECT_BG2_GRADIENT = 0xB
 };
 
-enum __attribute__ ((packed)) bg0_movement_type {
+enum __attribute__((packed)) bg0_movement_type {
     BG0_MOVEMENT_NONE = 0x0,
     BG0_MOVEMENT_WATER_CLOUDS = 0x1,
     BG0_MOVEMENT_SNOWFLAKES = 0x4

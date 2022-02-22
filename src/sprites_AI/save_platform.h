@@ -26,7 +26,7 @@ void save_platform_top_check_retracting_ended(void);
 void save_platform_top_check_tube_anim_spawn_ended(void);
 void save_platform_top_spawn_big_light(void);
 void save_platform_top_check_tube_anim_ended(void);
-void save_platform_top_check_tubeanim_despawn_ended(void);
+void save_platform_top_check_tube_anim_despawn_ended(void);
 void save_platform_top_check_tube_around_anim_ended(void);
 void save_platform_top_tube_down_up_anim(void);
 void save_platform(void);
