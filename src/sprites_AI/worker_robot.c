@@ -1,4 +1,7 @@
 #include "worker_robot.h"
+#include "../projectile.h"
+#include "../particle.h"
+#include "../oam.h"
 #include "../sprite_util.h"
 #include "../globals.h"
 
@@ -89,17 +92,121 @@ void worker_robot_sleeping_detect_projectile(void)
 
 void worker_robot_standing_gfx_init(void)
 {
-
+    current_sprite.pose = 0x13;
+    current_sprite.oam_pointer = worker_robot_oam_2e7c0c;
+    current_sprite.curr_anim_frame = 0x0;
+    current_sprite.anim_duration_counter = 0x0;
+    if (current_sprite.status & SPRITE_STATUS_ONSCREEN)
+        unk_2b20(0x26F);
 }
 
 void worker_robot_check_standing_anim_ended(void)
 {
-
+    if (sprite_util_check_near_end_current_sprite_anim())
+        current_sprite.pose = 0xE;
 }
 
 void worker_robot_walking_detect_projectile(void)
 {
+    u8 on_side;
+    struct projectile_data* pProj;
+    enum projectile_type type;
+    struct frame_data* pOam;
+    u16 sprite_y;
+    u16 sprite_x;
+    u16 sprite_top;
+    u16 sprite_bottom;
+    u16 sprite_left;
+    u16 sprite_right;
+    u16 proj_y;
+    u16 proj_x;
+    u16 proj_top;
+    u16 proj_bottom;
+    u16 proj_left;
+    u16 proj_right;
 
+    on_side = FALSE;
+    sprite_y = current_sprite.y_position;
+    sprite_x = current_sprite.x_position;
+    sprite_top = sprite_y + current_sprite.hitbox_top_offset;
+    sprite_bottom = sprite_y + current_sprite.hitbox_bottom_offset;
+    sprite_left = sprite_x + current_sprite.hitbox_left_offset;
+    sprite_right = sprite_x + current_sprite.hitbox_right_offset;
+    pProj = projectile_data;
+
+    while (pProj < projectile_data + 16)
+    {
+        if ((pProj->status & (PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT)) == (PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT))
+        {
+            type = pProj->type;
+            if ((u8)(type - 0xC) < 0x2)
+            {
+                proj_y = pProj->y_position;
+                proj_x = pProj->x_position;
+                proj_top = proj_y + pProj->hitbox_top_offset;
+                proj_bottom = proj_y + pProj->hitbox_bottom_offset;
+                proj_left = proj_x + pProj->hitbox_left_offset;
+                proj_right = proj_y + pProj->hitbox_right_offset;
+
+                if (sprite_util_check_objects_touching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
+                {
+                    if (pProj->direction == ACD_FORWARD || ((u8)(pProj->direction - 0x1) < 0x2 && proj_y > sprite_top && proj_y < sprite_bottom))
+                        on_side++;
+                    
+                    if (on_side)
+                    {
+                        if (pProj->status & PROJ_STATUS_XFLIP)
+                        {
+                            proj_x = sprite_left;
+                            current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                            if (current_sprite.status & SPRITE_STATUS_XFLIP)
+                            {
+                                if (current_sprite.oam_pointer != worker_robot_oam_2e7ae4)
+                                    current_sprite.oam_pointer = worker_robot_oam_2e7ae4;
+                            }
+                            else
+                            {
+                                if (current_sprite.oam_pointer != worker_robot_oam_2e7b2c)
+                                    current_sprite.oam_pointer = worker_robot_oam_2e7b2c;
+                            }
+                        }
+                        else
+                        {
+                            proj_x = sprite_right;
+                            current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                            if (current_sprite.status & SPRITE_STATUS_XFLIP)
+                            {
+                                if (current_sprite.oam_pointer != worker_robot_oam_2e7ae4)
+                                    current_sprite.oam_pointer = worker_robot_oam_2e7ae4;
+                            }
+                            else
+                            {
+                                if (current_sprite.oam_pointer != worker_robot_oam_2e7b2c)
+                                    current_sprite.oam_pointer = worker_robot_oam_2e7b2c;
+                            }
+                        }
+                        current_sprite.anim_duration_counter = 0x0;
+                    }
+
+                    if (type == PROJ_TYPE_SUPER_MISSILE)
+                    {
+                        particle_set(proj_y, proj_x, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
+                        if (on_side)
+                            current_sprite.timer2 = 0x3C;
+                    }
+                    else
+                    {
+                        particle_set(proj_y, proj_x, PE_HITTING_SOMETHING_WITH_MISSILE);
+                        if (on_side)
+                            current_sprite.timer2 = 0x1E;
+                    }
+                    pProj->status = 0x0;
+                    return;
+                }
+            }
+        }
+        pProj++;
+    }
 }
 
 void worker_robot_waking_up_gfx_init(void)
