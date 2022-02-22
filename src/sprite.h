@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-enum __attribute__ ((packed)) sprite_status {
+enum __attribute__((packed)) sprite_status {
     SPRITE_STATUS_NONE = 0x0,
     SPRITE_STATUS_EXISTS = 0x1,
     SPRITE_STATUS_ONSCREEN = 0x2,
@@ -23,7 +23,7 @@ enum __attribute__ ((packed)) sprite_status {
     SPRITE_STATUS_UNKNOWN3 = 0x8000
 };
 
-enum __attribute__ ((packed)) p_sprite_id {
+enum __attribute__((packed)) p_sprite_id {
     PSPRITE_UNUSED0 = 0x0,
     PSPRITE_UNUSED1 = 0x1,
     PSPRITE_UNUSED2 = 0x3,
@@ -232,7 +232,7 @@ enum __attribute__ ((packed)) p_sprite_id {
     PSPRITE_RINKA_MOTHER_BRAIN6 = 0xCD
 };
 
-enum __attribute__ ((packed)) s_sprite_id {
+enum __attribute__((packed)) s_sprite_id {
     SSPRITE_CHOZO_BALL = 0x0,
     SSPRITE_CHOZO_STATUE_BODY = 0x1,
     SSPRITE_CHOZO_STATUE_REFILL = 0x2,
@@ -312,7 +312,7 @@ enum __attribute__ ((packed)) s_sprite_id {
     SSPRITE_MOTHER_BRAIN_GLASS_BREAKING = 0x4C
 };
 
-enum __attribute__ ((packed)) sprite_samus_collision {
+enum __attribute__((packed)) sprite_samus_collision {
     SSC_NONE = 0x0,
     SSC_SOLID = 0x1,
     SSC_ESCAPE_SHIP = 0x2,
@@ -345,7 +345,7 @@ enum __attribute__ ((packed)) sprite_samus_collision {
     SSC_MULTIPLE_LARGE_ENERGY_DROP = 0x24
 };
 
-enum __attribute__ ((packed)) sprite_properties {
+enum __attribute__((packed)) sprite_properties {
     SP_NONE = 0x0,
     SP_ALWAYS_ACTIVE = 0x1,
     SP_UNKNOWN = 0x2,
@@ -357,7 +357,7 @@ enum __attribute__ ((packed)) sprite_properties {
     SP_SECONDARY_SPRITE = 0x80
 };
 
-enum __attribute__ ((packed)) sprite_weakness_flags {
+enum __attribute__((packed)) sprite_weakness_flags {
     WEAKNESS_NONE = 0x0,
     WEAKNESS_CHARGE_BEAM_PISTOL = 0x1,
     WEAKNESS_BEAM_BOMBS = 0x2,
@@ -369,7 +369,7 @@ enum __attribute__ ((packed)) sprite_weakness_flags {
     WEAKNESS_LIMIT = 0xFFFF
 };
 
-struct __attribute__ ((packed)) enemy_room_data {
+struct __attribute__((packed)) enemy_room_data {
     u8 y_position;
     u8 x_position;
     u8 spriteset_slot;

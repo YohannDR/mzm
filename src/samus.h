@@ -5,7 +5,7 @@
 #include "oam.h"
 #include "projectile.h"
 
-enum __attribute__ ((packed)) beam_bombs_flags {
+enum __attribute__((packed)) beam_bombs_flags {
     BBF_NONE = 0x0,
     BBF_LONG_BEAM = 0x1,
     BBF_ICE_BEAM = 0x2,
@@ -15,7 +15,7 @@ enum __attribute__ ((packed)) beam_bombs_flags {
     BBF_BOMBS = 0x80
 };
 
-enum __attribute__ ((packed)) suit_misc_flags {
+enum __attribute__((packed)) suit_misc_flags {
     SMF_NONE = 0x0,
     SMF_HIGH_JUMP = 0x1,
     SMF_SPEED_BOOSTER = 0x2,
@@ -27,7 +27,7 @@ enum __attribute__ ((packed)) suit_misc_flags {
     SMF_POWER_GRIP = 0x80
 };
 
-enum __attribute__ ((packed)) suit_type {
+enum __attribute__((packed)) suit_type {
     SUIT_NORMAL = 0x0,
     SUIT_FULLY_POWERED = 0x1,
     SUIT_SUITLESS = 0x2
@@ -52,13 +52,13 @@ struct equipment {
     u8 grabbed_by_metroid;
 };
 
-enum __attribute__ ((packed)) diagonal_aim {
+enum __attribute__((packed)) diagonal_aim {
     DIAG_AIM_NONE = 0x0,
     DIAG_AIM_UP = 0x1,
     DIAG_AIM_DOWN = 0x2
 };
 
-enum __attribute__ ((packed)) weapon_highlighted {
+enum __attribute__((packed)) weapon_highlighted {
     WH_NONE = 0x0,
     WH_MISSILE = 0x1,
     WH_SUPER_MISSILE = 0x2,
@@ -75,7 +75,7 @@ struct weapon_info {
     u8 beam_release_palette_timer;
 };
 
-enum __attribute__ ((packed)) samus_pose {
+enum __attribute__((packed)) samus_pose {
     SPOSE_RUNNING = 0x0,
     SPOSE_STANDING = 0x1,
     SPOSE_TURNING_AROUND = 0x2,
@@ -150,7 +150,7 @@ enum __attribute__ ((packed)) samus_pose {
     SPOSE_NONE = 0xFF
 };
 
-enum __attribute__ ((packed)) standing_status {
+enum __attribute__((packed)) standing_status {
     STANDING_GROUND = 0x0,
     STANDING_ENEMY = 0x1,
     STANDING_MIDAIR = 0x2,
@@ -159,7 +159,7 @@ enum __attribute__ ((packed)) standing_status {
     STANDING_HANGING = 0x5
 };
 
-enum __attribute__ ((packed)) arm_cannon_direction {
+enum __attribute__((packed)) arm_cannon_direction {
     ACD_FORWARD = 0x0,
     ACD_DIAGONALLY_UP = 0x1,
     ACD_DIAGONALLY_DOWN = 0x2,
@@ -168,7 +168,7 @@ enum __attribute__ ((packed)) arm_cannon_direction {
     ACD_NONE = 0x5
 };
 
-enum __attribute__ ((packed)) samus_direction {
+enum __attribute__((packed)) samus_direction {
     DIRECTION_NONE = 0x0,
     DIRECTION_RIGHT = 0x10,
     DIRECTION_LEFT = 0x20,
@@ -177,7 +177,7 @@ enum __attribute__ ((packed)) samus_direction {
     DIRECTION_LIMIT = 0xFFFF
 };
 
-enum __attribute__ ((packed)) slope_type {
+enum __attribute__((packed)) slope_type {
     SLOPE_NONE = 0x0,
     SLOPE_STEEP = 0x1,
     SLOPE_SLIGHT = 0x2,
@@ -210,13 +210,13 @@ struct samus_data {
     u8 curr_anim_frame;
 };
 
-enum __attribute__ ((packed)) h_direction_moving {
+enum __attribute__((packed)) h_direction_moving {
     HDMOVING_NONE = 0x0,
     HDMOVING_LEFT = 0x1,
     HDMOVING_RIGHT = 0x2
 };
 
-enum __attribute__ ((packed)) v_direction_moving {
+enum __attribute__((packed)) v_direction_moving {
     VDMOVING_NONE = 0x0,
     VDMOVING_UP = 0x1,
     VDMOVING_DOWN = 0x2
@@ -264,7 +264,7 @@ struct hazard_damage {
     u8 palette_timer;
 };
 
-enum __attribute__ ((packed)) ground_effect_wanted {
+enum __attribute__((packed)) ground_effect_wanted {
     WANTING_RUNNING_EFFECT = 0x0,
     WANTING_RUNNING_EFFECT_ = 0x1,
     WANTING_LANDING_EFFECT = 0x2,

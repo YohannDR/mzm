@@ -1,4 +1,5 @@
 #include "map_station.h"
+#include "../sprite.h"
 #include "../sprite_util.h"
 #include "../samus.h"
 #include "../globals.h"
@@ -127,7 +128,7 @@ void map_station_spawn_message(void)
                 room_slot = 0x23;
         }
 
-        current_sprite.timer2 = sprite_util_spawn_primary(PSPRITE_ITEM_BANNER, room_slot, 0x6, current_sprite.y_position, current_sprite.x_position, 0x0);
+        current_sprite.timer2 = sprite_spawn_primary(PSPRITE_ITEM_BANNER, room_slot, 0x6, current_sprite.y_position, current_sprite.x_position, 0x0);
         current_sprite.hitbox_top_offset = -0x40;
         current_sprite.pose = 0x29;
         samus_data.curr_anim_frame = 0x0;
