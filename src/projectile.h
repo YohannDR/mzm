@@ -21,12 +21,12 @@ enum __attribute__((packed)) projectile_status {
     PROJ_STATUS_NONE = 0x0,
     PROJ_STATUS_EXISTS = 0x1,
     PROJ_STATUS_ON_SCREEN = 0x2,
-    PROJ_STATUS_UNKNOWN = 0x4,
+    PROJ_STATUS_NOT_DRAWN = 0x4,
     PROJ_STATUS_HIGH_PRIORITY = 0x8,
     PROJ_STATUS_CAN_AFFECT_ENVIRONMENT = 0x10,
     PROJ_STATUS_YFLIP = 0x20,
     PROJ_STATUS_XFLIP = 0x40,
-    PROJ_STATUS_UNKNOWN2 = 0x80
+    PROJ_STATUS_UNKNOWN = 0x80
 };
 
 enum __attribute__((packed)) projectile_type {

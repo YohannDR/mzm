@@ -6,13 +6,10 @@
 
 void power_grip(void)
 {
-    u8 check;
-
     switch (current_sprite.pose)
     {
         case 0x0:
-            check = (equipment.suit_misc & SMF_POWER_GRIP);
-            if (check != 0x0)
+            if (equipment.suit_misc & SMF_POWER_GRIP)
                 current_sprite.status = 0x0;
             else
             {
@@ -23,14 +20,14 @@ void power_grip(void)
                 current_sprite.hitbox_bottom_offset = 0x1C;
                 current_sprite.hitbox_left_offset = -0x1C;
                 current_sprite.hitbox_right_offset = 0x1C;
-                current_sprite.oam_pointer = power_grip_oam;
+                current_sprite.oam_pointer = power_grip_oam_2b310c;
                 current_sprite.anim_duration_counter = 0x0;
-                current_sprite.curr_anim_frame = check;
+                current_sprite.curr_anim_frame = 0x0;
                 current_sprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
                 current_sprite.health = 0x1;
                 current_sprite.y_position -= 0x40;
                 current_sprite.pose = 0x9;
-                sprite_spawn_secondary(SSPRITE_POWER_GRIP_GLOW, current_sprite.room_slot, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, check);
+                sprite_spawn_secondary(SSPRITE_POWER_GRIP_GLOW, current_sprite.room_slot, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
             }
             break;
 

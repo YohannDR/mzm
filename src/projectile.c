@@ -84,9 +84,9 @@ u8 projectile_init(enum projectile_type type, u16 y_position, u16 x_position)
         pData = &samus_data;
         if ((pProj->status & PROJ_STATUS_EXISTS) == 0x0)
         {
-            status = (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_UNKNOWN | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT);
+            status = (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT);
             if (PROJ_TYPE_SUPER_MISSILE < type)
-                status = (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_UNKNOWN);
+                status = (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN);
             if ((pData->direction & DIRECTION_RIGHT) != 0x0)
                 status |= PROJ_STATUS_XFLIP;
 
@@ -470,7 +470,7 @@ void projectile_check_despawn(struct projectile_data* pProj)
         pProj->status |= PROJ_STATUS_ON_SCREEN;
     else
     {
-        pProj->status &= (PROJ_STATUS_EXISTS | PROJ_STATUS_UNKNOWN | PROJ_STATUS_HIGH_PRIORITY | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT | PROJ_STATUS_YFLIP | PROJ_STATUS_XFLIP | PROJ_STATUS_UNKNOWN2);
+        pProj->status &= (PROJ_STATUS_EXISTS | PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_HIGH_PRIORITY | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT | PROJ_STATUS_YFLIP | PROJ_STATUS_XFLIP | PROJ_STATUS_UNKNOWN);
         if (PROJ_TYPE_SUPER_MISSILE < pProj->type) return;
 
         draw_distance = samus_data.y_position - 0x48;

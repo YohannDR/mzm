@@ -5,11 +5,7 @@
 
 void morph_ball_init(void)
 {
-    u8 check;
-    
-    check = (equipment.suit_misc & SMF_MORPH_BALL);
-
-    if (check != 0x0)
+    if (equipment.suit_misc & SMF_MORPH_BALL)
         current_sprite.status = 0x0;
     else
     {
@@ -21,15 +17,15 @@ void morph_ball_init(void)
         current_sprite.draw_distance_top_offset = 0x8;
         current_sprite.draw_distance_bottom_offset = 0x8;
         current_sprite.draw_distance_horizontal_offset = 0x8;
-        current_sprite.oam_pointer = morph_ball_oam;
+        current_sprite.oam_pointer = morph_ball_oam_2b2ba8;
         current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = check;
+        current_sprite.curr_anim_frame = 0x0;
         current_sprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
         current_sprite.health = 0x1;
         current_sprite.y_position -= 0x20;
         current_sprite.pose = 0x9;
         current_sprite.draw_order = 0x3;
-        sprite_spawn_secondary(SSPRITE_MORPH_BALL_OUTSIDE, current_sprite.room_slot, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, check);
+        sprite_spawn_secondary(SSPRITE_MORPH_BALL_OUTSIDE, current_sprite.room_slot, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
     }
 }
 
@@ -65,7 +61,7 @@ void morph_ball_outside_init(void)
     current_sprite.draw_distance_top_offset = 0x8;
     current_sprite.draw_distance_bottom_offset = 0x8;
     current_sprite.draw_distance_horizontal_offset = 0x8;
-    current_sprite.oam_pointer = morph_ball_glow_oam;
+    current_sprite.oam_pointer = morph_ball_outside_oam_2b2bd0;
     current_sprite.anim_duration_counter = 0x0;
     current_sprite.curr_anim_frame = 0x0;
     current_sprite.samus_collision = SSC_NONE;
