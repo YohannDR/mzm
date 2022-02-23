@@ -17,6 +17,7 @@
 #include "bg_clip.h"
 #include "io.h"
 #include "escape.h"
+#include "clipdata.h"
 
 // EWRAM
 
@@ -50,8 +51,7 @@ extern i8 door_unlock_timer;
 extern struct io_registers_backup io_registers_backup;
 extern struct background_pointers_and_dimensions bg_pointers_and_dimensions;
 extern struct room_entry current_room_entry;
-extern u16 current_affecting_clipdata; //
-extern u16 current_affecting_hazard; // TODO Struct
+extern struct current_affecting_clipdata current_affecting_clipdata;
 extern struct background_positions background_positions;
 extern struct raw_coords_x waiting_space_pirates_position;
 extern struct screen_shake screen_shake_y;

@@ -427,7 +427,7 @@ void sprite_util_update_freeze_timer(void)
         current_sprite.palette_row = current_sprite.maybe_absolute_palette_row;*/
 }
 
-void sprite_util_unfreeze_anim_eay(void)
+void sprite_util_unfreeze_anim_easy(void)
 {
     u8 freeze_timer;
 

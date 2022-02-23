@@ -51,7 +51,7 @@ void water_drop(void)
 
         case 0x1F:
             block = sprite_util_check_vertical_collision_at_position_slopes(current_sprite.y_position, current_sprite.x_position);
-            if (current_affecting_hazard == 0x1)
+            if (current_affecting_clipdata.hazard == HAZARD_TYPE_WATER)
             {
                 if (effect_y_position != 0x0)
                 {

@@ -259,8 +259,8 @@ struct screw_speed_animation {
     u32 unknown;
 };
 struct hazard_damage {
-    u8 timer;
-    u16 unknown;
+    u8 damage_timer;
+    u16 knockback_timer;
     u8 palette_timer;
 };
 
