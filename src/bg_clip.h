@@ -1,5 +1,5 @@
-#ifndef BACKGROUND_H
-#define BACKGROUND_H
+#ifndef BG_CLIP_H
+#define BG_CLIP_H
 
 #include "types.h"
 
@@ -32,4 +32,4 @@ void bg_clip_set_item_as_collected(u8 x_position, u8 y_position, u8 type);
 void bg_clip_remove_collected_tanks(void);
 void bg_clip_call_mother_brain_update_glass(u8 stage);
 
-#endif /* BACKGROUND_H */
+#endif /* BG_CLIP_H */

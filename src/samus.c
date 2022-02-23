@@ -1,4 +1,6 @@
 #include "samus.h"
+#include "sprite.h"
+#include "clipdata.h"
 #include "globals.h"
 
 void samus_check_screw_speedbooster_affecting_environment(struct samus_data* pData, struct samus_physics* pPhysics)
@@ -685,7 +687,7 @@ void samus_check_new_projectile(struct samus_data* pData, struct weapon_info* pW
 
     pPhysics = &samus_physics;
 
-    pPhysics->has_PROJECTILEectile = 0x0;
+    pPhysics->has_new_projectile = 0x0;
 
     if (pEquipment->suit_type == SUIT_SUITLESS)
     {
@@ -937,9 +939,62 @@ void samus_apply_x_acceleration(i16 acceleration, i16 velocity, struct samus_dat
 
 }
 
-u8 samus_take_hazard_damage(struct samus_data* pData, struct equipment* pEquipment, struct samus_hazard_damage* pHazard)
+u8 samus_take_hazard_damage(struct samus_data* pData, struct equipment* pEquipment, struct hazard_damage* pHazard)
 {
+    enum hazard_type hazard;
+    u16 y_position;
+    u8 damaged;
+    u8 knockedback;
+    u8 damage_type;
 
+    switch (pData->pose)
+    {
+        case SPOSE_GRABBED_BY_CHOZO_STATUE:
+        case SPOSE_DYING:
+            return FALSE;
+            break;
+
+        case SPOSE_HANGING_ON_LEDGE:
+        case SPOSE_TURNING_TO_AIM_WHILE_HANGING:
+        case SPOSE_HIDING_ARM_CANNON_WHILE_HANGING:
+        case SPOSE_AIMING_WHILE_HANGING:
+        case SPOSE_SHOOTING_WHILE_HANGING:
+        case SPOSE_PULLING_YOURSELF_UP_FROM_HANGING:
+        case SPOSE_PULLING_YOURSELF_FORWARD_FROM_HANGING:
+        case SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL:
+            y_position = pData->y_position - 0x10;
+            break;
+
+        default:
+            y_position = pData->y_position;
+    }
+
+    pHazard->damage_timer++;
+    damaged = FALSE;
+    knockedback = FALSE;
+    damage_type = 0x0;
+    hazard = clipdata_check_hazard_at_position(y_position, pData->x_position);
+
+    if (pEquipment->suit_misc_activation & SMF_GRAVITY_SUIT)
+    {
+        if (hazard == HAZARD_TYPE_ACID)
+        {
+            damaged = TRUE;
+            if (pHazard->damage_timer > 0x4)
+                damage_type = 0x1;
+        }
+    }
+    else
+    {
+        if (pEquipment->suit_misc_activation & SMF_VARIA_SUIT)
+        {
+
+        }
+        else
+        {
+            
+        }
+    }
 }
 
 void samus_check_shinesparking(struct samus_data* pData)

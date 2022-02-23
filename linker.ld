@@ -37,7 +37,6 @@ SECTIONS {
         . = 0x0000009C; bg_pointers_and_dimensions = .;
         . = 0x000000BC; current_room_entry = .;
         . = 0x000000DC; current_affecting_clipdata = .;
-        . = 0x000000DE; current_affecting_hazard = .;
         . = 0x000000E4; background_positions = .;
         . = 0x000000F8; waiting_space_pirates_position = .;
         . = 0x00000110; screen_shake_y = .;

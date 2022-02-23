@@ -10,7 +10,7 @@ void metroid_check_bouncing_on_metroid(u16 movement);
 u8 metroid_check_samus_grabbed(void);
 void metroid_play_sound(void);
 void metroid_init(void);
-void metroid_gfx_init(void);
+void metroid_check_spawn(void);
 void metroid_spawning(void);
 void metroid_spawned_gfx_init(void);
 void metroid_movement(void);

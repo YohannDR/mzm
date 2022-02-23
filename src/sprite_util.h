@@ -75,7 +75,7 @@ u8 sprite_util_check_samus_near_sprite_above_below(u16 y_range, u16 x_range);
 u8 sprite_util_check_samus_near_sprite_front_behind(u16 y_range, u16 x_range_front, u16 x_range_behind);
 void sprite_util_samus_standing_on_sprite(struct sprite_data* pSprite);
 void sprite_util_update_freeze_timer(void);
-void sprite_util_unfreeze_anim_eay(void);
+void sprite_util_unfreeze_anim_easy(void);
 void sprite_util_metroid_unfreeze_anim(void);
 void sprite_util_update_secondary_sprite_freeze_timer_of_current(enum s_sprite_id sprite_id, u8 ram_slot);
 void sprite_util_update_primary_sprite_freeze_timer_of_current(void);
