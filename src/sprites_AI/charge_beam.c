@@ -8,10 +8,8 @@ void charge_beam_init(void)
 {
     u8 check;
     enum sprite_status status;
-    
-    check = equipment.beam_bombs & BBF_CHARGE_BEAM;
 
-    if (check != 0x0)
+    if (equipment.beam_bombs & BBF_CHARGE_BEAM)
         current_sprite.status = 0x0;
     else
     {
@@ -24,9 +22,9 @@ void charge_beam_init(void)
         current_sprite.draw_distance_top_offset = 0x20;
         current_sprite.draw_distance_bottom_offset = 0x20;
         current_sprite.draw_distance_horizontal_offset = 0x20;
-        current_sprite.oam_pointer = charge_beam_oam;
+        current_sprite.oam_pointer = charge_beam_oam_2b3920;
         current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = check;
+        current_sprite.curr_anim_frame = 0x0;
         current_sprite.samus_collision = SSC_NONE;
         current_sprite.health = 0x1;
         current_sprite.array_offset = 0x0;
@@ -50,7 +48,7 @@ void charge_beam_gfx_init(void)
 {
     current_sprite.ignore_samus_collision_timer = 0x1;
     current_sprite.pose = 0x9;
-    current_sprite.oam_pointer = charge_beam_oam_visible;
+    current_sprite.oam_pointer = charge_beam_oam_2b38f8;
     current_sprite.anim_duration_counter = 0x0;
     current_sprite.curr_anim_frame = 0x0;
     current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
@@ -64,13 +62,13 @@ void charge_beam_get(void)
     u8 array_offset;
 
     array_offset = current_sprite.array_offset;
-    y_offset = charge_beam_y_offsets[array_offset];
+    y_offset = i16_array_2b31ac[array_offset];
     if (y_offset == 0x7FFF)
     {
-        y_offset = charge_beam_y_offsets[0x0];
+        y_offset = i16_array_2b31ac[0x0];
         array_offset = 0x0;
     }
-    current_sprite.array_offset = array_offset + 1;
+    current_sprite.array_offset = array_offset + 0x1;
     current_sprite.y_position += y_offset;
     if ((current_sprite.status & SPRITE_STATUS_SAMUS_COLLIDING) != 0x0)
     {

@@ -211,17 +211,34 @@ void worker_robot_walking_detect_projectile(void)
 
 void worker_robot_waking_up_gfx_init(void)
 {
-
+    current_sprite.pose = 0xF;
+    current_sprite.oam_pointer = worker_robot_oam_2e7b74;
+    current_sprite.curr_anim_frame = 0x0;
+    current_sprite.anim_duration_counter = 0x0;
+    current_sprite.timer1 = 0x1E;
+    current_sprite.timer2 = 0x0;
+    current_sprite.hitbox_top_offset = -0x84;
 }
 
 void worker_robot_check_projectile(void)
 {
-
+    worker_robot_walking_detect_projectile();
+    if (current_sprite.timer2 != 0x0)
+        current_sprite.pose = 0x9;
+    else
+    {
+        current_sprite.timer1--;
+        if (current_sprite.timer1 == 0x0)
+            current_sprite.pose = 0x8;
+    }
 }
 
 void worker_robot_walk_gfx_init(void)
 {
-
+    current_sprite.pose = 0x9;
+    current_sprite.oam_pointer = worker_robot_oam_2e7ae4;
+    current_sprite.curr_anim_frame = 0x0;
+    current_sprite.anim_duration_counter = 0x0;
 }
 
 void worker_robot_move(void)
@@ -231,27 +248,56 @@ void worker_robot_move(void)
 
 void worker_robot_back_to_sleep_gfx_init(void)
 {
-
+    current_sprite.pose = 0xB;
+    current_sprite.oam_pointer = worker_robot_oam_2e7b84;
+    current_sprite.curr_anim_frame = 0x0;
+    current_sprite.anim_duration_counter = 0x0;
+    if (current_sprite.status & SPRITE_STATUS_ONSCREEN)
+        unk_2b20(0x270);
 }
 
 void worker_robot_check_back_to_sleep_anim_ended(void)
 {
-
+    if (sprite_util_check_end_current_sprite_anim())
+    {
+        current_sprite.pose = 0xC;
+        current_sprite.oam_pointer = worker_robot_oam_2e7bdc;
+        current_sprite.anim_duration_counter = 0x0;
+        current_sprite.curr_anim_frame = 0x0;
+        current_sprite.hitbox_top_offset = -0x74;
+    }
 }
 
 void worker_robot_turning_around(void)
 {
+    if (sprite_util_check_end_current_sprite_anim())
+    {
+        if (current_sprite.status & SPRITE_STATUS_XFLIP)
+            current_sprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_RIGHT);
+        else
+            current_sprite.status |= (SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_RIGHT);
 
+        current_sprite.pose = 0xD;
+        current_sprite.oam_pointer = worker_robot_oam_2e7bf4;
+        current_sprite.anim_duration_counter = 0x0;
+        current_sprite.curr_anim_frame = 0x0;
+    }
 }
 
 void worker_robot_check_turning_around_anim_ended(void)
 {
-
+    if (sprite_util_check_near_end_current_sprite_anim())
+        current_sprite.pose = 0x10;
 }
 
 void worker_robot_falling_gfx_init(void)
 {
-
+    current_sprite.pose = 0x1F;
+    current_sprite.array_offset = 0x0;
+    current_sprite.timer2 = 0x0;
+    current_sprite.oam_pointer = worker_robot_oam_2e7ae4;
+    current_sprite.anim_duration_counter = 0x0;
+    current_sprite.curr_anim_frame = 0x0;
 }
 
 void worker_robot_falling(void)
@@ -261,15 +307,64 @@ void worker_robot_falling(void)
 
 void worker_robot_falling_sleep_gfx_init(void)
 {
-
+    current_sprite.pose = 0x21;
+    current_sprite.array_offset = 0x0;
+    current_sprite.timer2 = 0x0;
 }
 
-void worker_robot_falling_speed(void)
+void worker_robot_falling_sleep(void)
 {
 
 }
 
 void worker_robot(void)
 {
-
+    switch (current_sprite.pose)
+    {
+        case 0x0:
+            worker_robot_init();
+        case 0x10:
+            worker_robot_gfx_init();
+        case 0x11:
+            worker_robot_sleeping_detect_projectile();
+            break;
+        case 0x12:
+            worker_robot_standing_gfx_init();
+        case 0x13:
+            worker_robot_check_standing_anim_ended();
+            break;
+        case 0xE:
+            worker_robot_waking_up_gfx_init();
+        case 0xF:
+            worker_robot_check_projectile();
+            break;
+        case 0x8:
+            worker_robot_walk_gfx_init();
+        case 0x9:
+            worker_robot_move();
+            break;
+        case 0xA:
+            worker_robot_back_to_sleep_gfx_init();
+        case 0xB:
+            worker_robot_check_back_to_sleep_anim_ended();
+            break;
+        case 0xC:
+            worker_robot_turning_around();
+        case 0xD:
+            worker_robot_check_turning_around_anim_ended();
+            break;
+        case 0x1E:
+            worker_robot_falling_gfx_init();
+        case 0x1F:
+            worker_robot_falling();
+            break;
+        case 0x20:
+            worker_robot_falling_sleep_gfx_init();
+            break;
+        case 0x21:
+            worker_robot_falling_sleep();
+            break;
+        default:
+            sprite_util_sprite_death(DEATH_NORMAL, current_sprite.y_position - 0x46, current_sprite.x_position, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+    }
 }
