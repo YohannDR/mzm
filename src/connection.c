@@ -107,9 +107,9 @@ u8 connection_check_enter_door(u16 y_position, u16 x_position)
 
         while (count < 0x10)
         {
-            if (*pSrc != array_345868[0x7])
+            if (*pSrc != u8_array_345868[0x7])
             {
-                pCurr = area_door_pointers_75faa8[*pCurrArea] + *pSrc;
+                pCurr = door_pointer_array_75faa8[*pCurrArea] + *pSrc;
                 if (DOOR_AREA_CONNECTION < (pCurr->type & 0xF) && pCurr->x_start <= x_position && x_position <= pCurr->x_end && pCurr->y_start <= y_position && y_position <= pCurr->y_end)
                 {
                     door_position_start.x = 0x0;
@@ -142,7 +142,7 @@ u8 connection_check_enter_door(u16 y_position, u16 x_position)
                         hatch_data[offset].direction = direction | 0xE;
 
                     last_door = *pLastDoor;
-                    pAreaDoors = area_door_pointers_75faa8[*pCurrArea];
+                    pAreaDoors = door_pointer_array_75faa8[*pCurrArea];
                     connection_check_play_cutscene_during_transition(*pCurrArea, (u8)(pAreaDoors[last_door].source_room + 0x1));
                     check_play_room_music_track(*pCurrArea, pAreaDoors[last_door].source_room);
                     door_found = TRUE;
@@ -166,7 +166,31 @@ u8 connection_check_area_connection(u16 y_position, u16 x_position)
 
 void connection_process_door_type(enum door_type type)
 {
+    u8 transition;
 
+    transition = 0x6;
+
+    switch (type & 0xF)
+    {
+        case DOOR_REMOVE_MOTHER_SHIP:
+            use_mother_ship_doors = FALSE;
+            break;
+
+        case DOOR_SET_MOTHER_SHIP:
+            use_mother_ship_doors = TRUE;
+            break;
+
+        default:
+            which_bg_position_is_written_to_bg30fs = 0x4;
+            if (!skip_door_transition)
+                transition = 0x4;
+
+        case DOOR_NO_HATCH:
+        case DOOR_AREA_CONNECTION:
+            break;
+    }
+
+    background_fading_start(transition);
 }
 
 u8 connection_find_event_based_door(u8 source_room)

@@ -21,7 +21,7 @@ void worker_robot_check_turning_around_anim_ended(void);
 void worker_robot_falling_gfx_init(void);
 void worker_robot_falling(void);
 void worker_robot_falling_sleep_gfx_init(void);
-void worker_robot_falling_speed(void);
+void worker_robot_falling_sleep(void);
 void worker_robot(void);
 
 #endif /* WORKER_ROBOT_AI_H */
