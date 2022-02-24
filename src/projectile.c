@@ -662,7 +662,25 @@ void projectile_move_tumbling(struct projectile_data* pProj)
 
 void projectile_check_hit_block(struct projectile_data* pProj, enum current_clipdata_affecting_action ccaa, enum particle_effect_id effect)
 {
+    u16 proj_y;
+    u16 proj_x;
 
+    current_clipdata_affecting_action = ccaa;
+    proj_y = pProj->y_position;
+    proj_x = pProj->x_position;
+    if (pProj->direction == ACD_FORWARD)
+    {
+        if (pProj->status & PROJ_STATUS_XFLIP)
+            proj_x -= 0x8;
+        else
+            proj_x += 0x8;
+    }
+
+    if (projectile_collision_related(proj_y, proj_x))
+    {
+        pProj->status = 0x0;
+        particle_set(pProj->y_position, pProj->x_position, effect);
+    }
 }
 
 void projectile_check_hit_sprite(void)
@@ -1311,9 +1329,139 @@ void projectile_check_samus_bomb_bounce(struct projectile_data* pProj)
 
 }
 
+/**
+* 51ff8 | 1f8
+* Subroutine for the bomb projectile, further detail is commented in the function
+
+* @param pProj Projectile Data Pointer to the concerned bomb
+*/
 void projectile_process_bomb(struct projectile_data* pProj)
 {
+    u32 timer;
 
+    /*
+    Movement Stage :
+      0x0 = Initialization
+      0x1,0x5 = Check first timer ended (bomb spinning at normal speed)
+      0x2,0x6 = Check second timer ended (bomb spinning fast)
+      0x3 = Bomb exploding
+      0x4 = Bomb placed on launcher (set in morph_ball_launcher::morph_ball_launcher_detect_bomb)
+      0x7 = Bomb exploding on launcher
+    */
+    switch (pProj->movement_stage)
+    {
+        case 0x0:
+            pProj->oam_pointer = bomb_oam_326d40; // Bomb spinning at normal speed
+            pProj->anim_duration_counter = 0x0;
+            pProj->curr_anim_frame = 0x0;
+            pProj->draw_distance_offset = 0x20;
+            pProj->hitbox_top_offset = -0x3C;
+            pProj->hitbox_bottom_offset = 0x30;
+            pProj->hitbox_left_offset = -0x30;
+            pProj->hitbox_right_offset = 0x30;
+            pProj->status &= ~(PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_XFLIP); // Clear Not Drawn and X Flip status, X Flip is cleared to make it always face the same way, cancelling the automatic X Flip if samus is facing right
+            pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+            pProj->timer = 0x10; // Timer before the bomb starts spinning faster
+            pProj->movement_stage++;
+            play_sound1(0xFE); // Placing bomb sound
+            break;
+
+        case 0x3: // Bomb Exploding
+            timer = pProj->timer - 0x1;
+            pProj->timer = timer;
+            
+            if (pProj->timer != 0x0)
+            {
+                // /!\ u8 cast missing in asm
+                if (timer == 0xF)
+                {
+                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+                    clipdata_related(pProj->y_position - 0x8, pProj->x_position); // Block center
+                    projectile_check_samus_bomb_bounce(pProj); // Checks if samus can bounce
+                    pProj->status &= ~PROJ_STATUS_CAN_AFFECT_ENVIRONMENT; // Clear Can Affect Environement status
+                }
+                else if (timer == 0xE)
+                {
+                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+                    clipdata_related(pProj->y_position + 0x38, pProj->x_position); // Block bottom middle
+                }
+                else if (timer == 0xD)
+                {
+                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+                    clipdata_related(pProj->y_position - 0x8, pProj->x_position + 0x30); // Block right middle
+                }
+                else if (timer == 0xC)
+                {
+                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+                    clipdata_related(pProj->y_position - 0x8, pProj->x_position - 0x30); // Block left middle
+                }
+                else if (timer == 0xB)
+                {
+                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+                    clipdata_related(pProj->y_position + 0x38, pProj->x_position + 0x24); // Block right bottom
+                }
+                else if (timer == 0xA)
+                {
+                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+                    clipdata_related(pProj->y_position + 0x38, pProj->x_position - 0x24); // Block left bottom
+                }
+                else if (timer == 0x9)
+                {
+                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+                    clipdata_related(pProj->y_position - 0x48, pProj->x_position); // Block top middle
+                }
+                else if (timer == 0x8)
+                {
+                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+                    clipdata_related(pProj->y_position - 0x48, pProj->x_position + 0x24); // Block right top
+                }
+                else if (timer == 0x7)
+                {
+                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+                    clipdata_related(pProj->y_position - 0x48, pProj->x_position - 0x24); // Block left top
+                }
+            }
+            else
+                pProj->status = 0x0;
+            break;
+
+        case 0x4:
+            pProj->oam_pointer = bomb_oam_326d40; // Bomb spinning at normal speed
+            pProj->anim_duration_counter = 0x0;
+            pProj->curr_anim_frame = 0x0;
+            pProj->timer = 0x10;
+            pProj->movement_stage++;
+            break;
+
+        case 0x1:
+        case 0x5:
+            pProj->timer--;
+            if (pProj->timer == 0x0)
+            {
+                pProj->oam_pointer = bomb_oam_326d68; // Bomb spinning fast
+                pProj->anim_duration_counter = 0x0;
+                pProj->curr_anim_frame = 0x0;
+                pProj->timer = 0x10;
+                pProj->movement_stage++;
+            }
+            break;
+
+        case 0x2:
+        case 0x6:
+            pProj->timer--;
+            if (pProj->timer == 0x0)
+            {
+                pProj->timer = 0x10;
+                pProj->movement_stage++;
+                pProj->status |= (PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT);
+                particle_set(pProj->y_position - 0x10, pProj->x_position, PE_BOMB);
+            }
+            break;
+
+        case 0x7:
+            projectile_morphball_launcher_launch_samus(pProj); // Calls the launching samus handler
+            pProj->status = 0x0;
+    }
 }
 
 void projectile_process_empty(struct projectile_data* pProj)
