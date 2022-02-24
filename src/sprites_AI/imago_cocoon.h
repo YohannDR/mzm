@@ -30,7 +30,7 @@ void imago_cocoon_spore_spawning(void);
 void imago_cocoon_spore_move(void);
 void imago_cocoon_spore_exploding_gfx_init(void);
 void imago_cocoon_spore_check_exploding_anim_ended(void);
-void winged_ripper_imago_collision(void);
+u8 winged_ripper_imago_collision(void);
 void winged_ripper_init(void);
 void winged_ripper_gfx_init(void);
 void winged_ripper_move(void);
