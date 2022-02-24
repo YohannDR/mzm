@@ -660,7 +660,7 @@ void projectile_move_tumbling(struct projectile_data* pProj)
     }
 }
 
-void projectile_check_hit_block(struct projectile_data* pProj, u8 affecting_action, enum particle_effect_id effect)
+void projectile_check_hit_block(struct projectile_data* pProj, enum current_clipdata_affecting_action ccaa, enum particle_effect_id effect)
 {
 
 }

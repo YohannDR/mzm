@@ -5,6 +5,7 @@
 #include "oam.h"
 #include "particle.h"
 #include "sprite.h"
+#include "clipdata.h"
 #include "samus.h"
 
 enum __attribute__((packed)) projectile {
@@ -96,7 +97,7 @@ u8 projectile_collision_related(u16 y_position, u16 x_position);
 u8 projectile_collision_related2(struct projectile_data* pProj);
 void projectile_set_trail(struct projectile_data* pProj, enum particle_effect_id effect, u8 delay);
 void projectile_move_tumbling(struct projectile_data* pProj);
-void projectile_check_hit_block(struct projectile_data* pProj, u8 affecting_action, enum particle_effect_id effect);
+void projectile_check_hit_block(struct projectile_data* pProj, enum current_clipdata_affecting_action ccaa, enum particle_effect_id effect);
 void projectile_check_hit_sprite(void);
 enum sprite_weakness_flags projectile_get_sprite_weakness(struct sprite_data* pSprite);
 u8 projectile_ice_beam_deal_damage(struct sprite_data* pSprite, u16 damage);
