@@ -2,10 +2,23 @@
 #define CLIPDATA_H
 
 enum __attribute__((packed)) current_clipdata_affecting_action {
+    CCAA_NONE = 0x0,
+    CCAA_REMOVE_SOLID = 0x1,
+    CCAA_MAYBE_MAKE_SOLID = 0x2,
+    CCAA_UNKNOWN = 0x3,
+    CCAA_MAKE_SOLID = 0x4,
+    CCAA_BEAM = 0x7,
+    CCAA_BOMB_PISTOL = 0x8,
+    CCAA_MISSILE = 0x9,
+    CCAA_SUPER_MISSILE = 0xA,
+    CCAA_POWER_BOMB = 0xB,
+    CCAA_SPEEDBOOSTER = 0xC,
+    CCAA_SPEEDBOOSTER2 = 0xD,
+    CCAA_SCREW_ATTACK = 0xE,
+    CCAA_BOMB_CHAIN_RELATED = 0xF
+};
 
-}
-
-enum __attribute__((packed)) very_special_clipdata {
+enum __attribute__((packed)) movement_clipdata {
     VERYS_CLIPDATA_NONE = 0x0,
     VERYS_CLIPDATA_ELEVATOR_DOWN_BLOCK = 0x1,
     VERYS_CLIPDATA_ELEVATOR_UP_BLOCK = 0x2,
@@ -36,7 +49,7 @@ enum __attribute__((packed)) ground_effect_clipdata {
 };
 
 struct current_affecting_clipdata {
-    enum very_special_clipdata very_special;
+    enum movement_clipdata movement;
     enum hazard_type hazard;
 };
 

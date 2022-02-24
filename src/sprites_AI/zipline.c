@@ -15,12 +15,12 @@ void zipline_check_colliding(void)
     if (current_sprite.pose == 0x0)
     {
         sprite_util_check_collision_at_position(y_position, x_position + 0x2C);
-        if (current_affecting_clipdata.very_special == VERYS_CLIPDATA_STOP_ENEMY_BLOCK_SOLID)
+        if (current_affecting_clipdata.movement == VERYS_CLIPDATA_STOP_ENEMY_BLOCK_SOLID)
             current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
         else
         {
             sprite_util_check_collision_at_position(y_position, x_position - 0x2C);
-            if (current_affecting_clipdata.very_special == VERYS_CLIPDATA_STOP_ENEMY_BLOCK_SOLID)
+            if (current_affecting_clipdata.movement == VERYS_CLIPDATA_STOP_ENEMY_BLOCK_SOLID)
                 current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
         }
     }

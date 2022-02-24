@@ -46,6 +46,7 @@ extern u8 screen_shake_y_related;
 extern u16 screen_shake_related;
 extern u16 dispcnt_backup;
 extern u8 spriteset;
+extern enum current_clipdata_affecting_action current_clipdata_affecting_action;
 extern u8 spriteset_entry_used;
 extern i8 door_unlock_timer;
 extern struct io_registers_backup io_registers_backup;

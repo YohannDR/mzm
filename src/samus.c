@@ -941,11 +941,13 @@ void samus_apply_x_acceleration(i16 acceleration, i16 velocity, struct samus_dat
 
 u8 samus_take_hazard_damage(struct samus_data* pData, struct equipment* pEquipment, struct hazard_damage* pHazard)
 {
-    enum hazard_type hazard;
+    u32 hazard;
     u16 y_position;
     u8 damaged;
-    u8 knockedback;
+    u8 knocked_back;
     u8 damage_type;
+    u16 kb_timer;
+    u32 palette_timer;
 
     switch (pData->pose)
     {
@@ -971,9 +973,9 @@ u8 samus_take_hazard_damage(struct samus_data* pData, struct equipment* pEquipme
 
     pHazard->damage_timer++;
     damaged = FALSE;
-    knockedback = FALSE;
+    knocked_back = FALSE;
     damage_type = 0x0;
-    hazard = clipdata_check_hazard_at_position(y_position, pData->x_position);
+    hazard = clipdata_check_hazard_at_position(y_position, pData->x_position) & 0xFF;
 
     if (pEquipment->suit_misc_activation & SMF_GRAVITY_SUIT)
     {
@@ -988,13 +990,92 @@ u8 samus_take_hazard_damage(struct samus_data* pData, struct equipment* pEquipme
     {
         if (pEquipment->suit_misc_activation & SMF_VARIA_SUIT)
         {
-
+            if (hazard == HAZARD_TYPE_ACID)
+            {
+                damaged = TRUE;
+                if (pHazard->damage_timer > 0x1)
+                    damage_type = 0x1;
+            }
+            else if (hazard == HAZARD_TYPE_STRONG_LAVA)
+            {
+                damaged = TRUE;
+                if (pHazard->damage_timer > 0x4)
+                    damage_type = 0x1;
+            }
         }
         else
         {
-            
+            if (hazard == HAZARD_TYPE_ACID)
+            {
+                damaged = TRUE;
+                damage_type = 0x1;
+            }
+            else if (hazard == HAZARD_TYPE_SNOWFLAKES_KNOCKBACK)
+            {
+                damaged = TRUE;
+                if (pHazard->damage_timer > 0x3)
+                    damage_type = 0xF;
+                kb_timer = pHazard->knockback_timer = pHazard->knockback_timer + 0x1;
+                if (kb_timer >= 0x57)
+                {
+                    pHazard->knockback_timer = 0x0;
+                    knocked_back = TRUE;
+                }
+            }
+            else if (hazard == HAZARD_TYPE_STRONG_LAVA)
+            {
+                damaged = TRUE;
+                if (pHazard->damage_timer > 0x2)
+                    damage_type = 0x1;
+            }
+            else if (hazard == HAZARD_TYPE_WEAK_LAVA)
+            {
+                damaged = TRUE;
+                if (pHazard->damage_timer > 0x7)
+                    damage_type = 0x1;
+            }
+            else if (hazard == HAZARD_TYPE_HEAT || hazard == HAZARD_TYPE_COLD)
+            {
+                damaged = TRUE;
+                if (pHazard->damage_timer > 0x5)
+                    damage_type = 0xF;
+            }
         }
     }
+
+    if (!damaged)
+    {
+        pHazard->damage_timer = 0x0;
+        pHazard->knockback_timer = 0x0;
+        pHazard->palette_timer = 0x0;
+    }
+    else
+    {
+        pHazard->palette_timer++;
+        switch (pHazard->palette_timer - 0x1)
+        {
+            case 0x1:
+            case 0x21:
+                if (hazard == HAZARD_TYPE_ACID || hazard == HAZARD_TYPE_STRONG_LAVA || hazard == HAZARD_TYPE_WEAK_LAVA)
+                    play_sound1(0x7E);
+                break;
+            
+            case 0x40:
+                pHazard->palette_timer = 0x0;
+        }
+
+        if (damage_type != 0x0)
+        {
+            pEquipment->current_energy--;
+            pHazard->damage_timer = 0x0;
+        }
+        if (damage_type == 0xF)
+            play_sound1(0x7F);
+    }
+
+    if (pEquipment->current_energy == 0x0 || knocked_back)
+        return TRUE;
+    return FALSE;
 }
 
 void samus_check_shinesparking(struct samus_data* pData)

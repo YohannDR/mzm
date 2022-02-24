@@ -31,6 +31,7 @@ SECTIONS {
         . = 0x03000074; screen_shake_related = .;
         . = 0x03000074; dispcnt_backup = .;
         . = 0x03000078; spriteset = .;
+        . = 0x03000079; current_clipdata_affecting_action = .;
         . = 0x0300007A; spriteset_entry_used = .;
         . = 0x0300007B; door_ulock_timer = .;
         . = 0x03000088; io_registers_backup = .;
