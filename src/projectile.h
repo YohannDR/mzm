@@ -111,7 +111,7 @@ void projectile_freeze_sprite(struct sprite_data* pSprite, u8 freeze_timer);
 void projectile_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, enum particle_effect_id effect);
 void projectile_charged_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, enum particle_effect_id effect);
 void projectile_start_tumbling_missile(struct sprite_data* pSprite, struct projectile_data* pProj, enum projectile_type type);
-void projectile_kraid_start_tumbling_missile(struct projectile_data* pProj, enum projectile_type type);
+void projectile_start_tumbling_missile_current_sprite(struct projectile_data* pProj, enum projectile_type type);
 void projectile_missile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage);
 void projectile_super_missile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage);
 void projectile_bomb_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position);
