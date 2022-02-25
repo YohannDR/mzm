@@ -4,7 +4,7 @@
 #include "gba_memory.h"
 #define REG_KEYINPUT *(u16 *)(REG_BASE + 0x130)
 
-enum __attribute__((packed)) input_flag {
+enum /*__attribute__((packed))*/ input_flag {
     INPUT_NONE = 0x0,
     INPUT_A = 0x1,
     INPUT_B = 0x2,

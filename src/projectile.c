@@ -1,5 +1,7 @@
 #include "projectile.h"
+#include "sprite.h"
 #include "sprite_util.h"
+#include "power_bomb_explosion.h"
 #include "globals.h"
 
 void projectile_set_beam_particle_effect(void)
@@ -975,14 +977,28 @@ void projectile_check_hit_sprite(void)
     } while (draw_order <= 0x10);*/
 }
 
+/**
+ * 50370 | 30 | 
+ * Gets the weakness for the sprite given in parameter
+ * 
+ * @param pSprite The sprite concerned
+ * @return The weakness of the sprite
+ */
 enum sprite_weakness_flags projectile_get_sprite_weakness(struct sprite_data* pSprite)
 {
-    if (pSprite->properties & SP_SECONDARY_SPRITE)
-        return primary_sprite_stats_2b0d68[pSprite->sprite_id][0x2];
+    if (pSprite->properties & SP_SECONDARY_SPRITE) // Check wheter secondary or primary
+        return primary_sprite_stats_2b0d68[pSprite->sprite_id][0x2]; // Offset 2 is weakness
     else
         return secondary_sprite_stats_2b1be4[pSprite->sprite_id][0x2];
 }
 
+/**
+ * 503a0 | 84 | Handles the ice beam dealing damage to a sprite
+ * 
+ * @param pSprite The sprite concerned
+ * @param damage Damage to inflict
+ * @return The freeze timer
+ */
 u8 projectile_ice_beam_deal_damage(struct sprite_data* pSprite, u16 damage)
 {
     u8 freeze_timer;
@@ -1013,9 +1029,17 @@ u8 projectile_ice_beam_deal_damage(struct sprite_data* pSprite, u16 damage)
     return freeze_timer;
 }
 
+/**
+ * 50424 | 88 | 
+ * Handles a projectile dealing damage to a sprite
+ * 
+ * @param pSprite Sprite Data Pointer to the sprite concerned
+ * @param damage Damage to inflict 
+ * @return 1 if dead, 0 otherwise
+ */
 u8 projectile_deal_damage(struct sprite_data* pSprite, u16 damage)
 {
-    /*u8 is_dead;
+    u8 is_dead;
 
     is_dead = FALSE;
     if (pSprite->health > damage)
@@ -1026,42 +1050,116 @@ u8 projectile_deal_damage(struct sprite_data* pSprite, u16 damage)
         pSprite->properties |= SP_MAYBE_DESTROYED;
         pSprite->freeze_timer = 0x0;
         pSprite->palette_row = 0x0;
-        if (pSprite->standing_on_sprite != FALSE && samus_data.standing_status == STANDING_ENEMY)
+        if (pSprite->standing_on_sprite && samus_data.standing_status == STANDING_ENEMY)
         {
             samus_data.standing_status = STANDING_MIDAIR;
             pSprite->standing_on_sprite = FALSE;
         }
         pSprite->pose = 0x62;
         pSprite->ignore_samus_collision_timer = 0x1;
-        is_dead = TRUE;
+        is_dead++;
     }
 
-    pSprite->invicibility_stun_flash_timer = pSprite->invicibility_stun_flash_timer & 0x80 | 0x11;
+    pSprite->invicibility_stun_flash_timer &= 0x80; 
+    pSprite->invicibility_stun_flash_timer |= 0x11;
     pSprite->properties |= SP_UNKNOWN;
-    return is_dead;*/
+    return is_dead;
 }
 
+/**
+ * 504ac | 20 | Handles a projectile hitting a sprite immune to projectiles
+ * 
+ * @param pSprite Sprite Data Pointer to the sprite concerned 
+ * @return The parameter
+ */
 struct sprite_data* projectile_hit_sprite_immune_to_projectiles(struct sprite_data* pSprite)
 {
-    /*u8 isft;
+    u8 isft;
 
-    isft = pSprite->invicibility_stun_flash_timer;
-    if ((isft & 0x7F) < 0x2)
-        pSprite->invicibility_stun_flash_timer = isft & 0x80 | 0x2;
-
-    return pSprite;*/
+    isft = 0x2; // Needed to force a bcs
+    if ((pSprite->invicibility_stun_flash_timer & 0x7F) < isft)
+    {
+        pSprite->invicibility_stun_flash_timer &= 0x80;
+        pSprite->invicibility_stun_flash_timer |= 0x2;
+    } // Return is implicit
 }
 
+/**
+ * 504cc | 20 | Handles a projectile hitting a solid sprite
+ * 
+ * @param pSprite Sprite Data Pointer to the sprite concerned
+ * @return The parameter
+ */
 struct sprite_data* projectile_hit_solid_sprite(struct sprite_data* pSprite)
 {
+    u8 isft;
 
+    isft = 0x3; // Needed to force a bcs
+    if ((pSprite->invicibility_stun_flash_timer & 0x7F) < isft)
+    {
+        pSprite->invicibility_stun_flash_timer &= 0x80;
+        pSprite->invicibility_stun_flash_timer |= 0x3;
+    } // Return is implicit
 }
 
+/**
+ * 504ec | c0 | Handles a power bomb dealing damage to a sprite
+ * 
+ * @param pSprite Sprite Data Pointer to the sprite concerned 
+ */
 void projectile_power_bomb_deal_damage(struct sprite_data* pSprite)
 {
+    u8 isft;
 
+    if (pSprite->properties & SP_IMMUNE_TO_PROJECTILES)
+        projectile_hit_sprite_immune_to_projectiles(pSprite);
+    else
+    {
+        if (pSprite->properties & SP_SOLID_FOR_PROJECTILES)
+            projectile_hit_solid_sprite(pSprite);
+        else
+        {
+            if (projectile_get_sprite_weakness(pSprite) & WEAKNESS_POWER_BOMB)
+            {
+                if (pSprite->health > 0x32)
+                    pSprite->health -= 0x32;
+                else
+                {
+                    pSprite->health = 0x0;
+                    pSprite->properties |= SP_MAYBE_DESTROYED;
+                    pSprite->freeze_timer = 0x0;
+                    pSprite->palette_row = 0x0;
+                    if (pSprite->standing_on_sprite && samus_data.standing_status == STANDING_ENEMY)
+                    {
+                        samus_data.standing_status = STANDING_MIDAIR;
+                        pSprite->standing_on_sprite = FALSE;
+                    }
+                    pSprite->pose = 0x62;
+                    pSprite->ignore_samus_collision_timer = 0x1;
+                }
+                isft = 0x11;
+            }
+            else
+                isft = 0x3;
+
+            if ((pSprite->invicibility_stun_flash_timer & 0x7F) < isft)
+                pSprite->invicibility_stun_flash_timer = isft | 0x80;
+            else
+                pSprite->invicibility_stun_flash_timer |= 0x80;
+            pSprite->properties |= SP_UNKNOWN;
+        }
+    }
 }
 
+/**
+ * 505ac | a8 | Handles a projectile dealing damage to a sprite
+ * 
+ * @param pSprite Sprite Data Pointer to the concerned sprite
+ * @param y_position Y Position of the projectile
+ * @param x_position X Position of the projectile
+ * @param damage Damage inflicted
+ * @param effect Particle effect to play
+ */
 void projectile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, enum particle_effect_id effect)
 {
     enum sprite_weakness_flags weakness;
@@ -1095,6 +1193,16 @@ void projectile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_po
     }
 }
 
+/**
+ * 50654 | a8 | 
+ * Handles a charged beam (without ice) dealing damage to a sprite
+ * 
+ * @param pSprite Sprite Data Pointer to the sprite concerned
+ * @param y_position Y Position of the projectile
+ * @param x_position X Position of the projectile
+ * @param damage Damage inflicted
+ * @param effect Particle effect to play
+ */
 void projectile_non_ice_charged_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, enum particle_effect_id effect)
 {
     enum sprite_weakness_flags weakness;
@@ -1128,6 +1236,13 @@ void projectile_non_ice_charged_hit_sprite(struct sprite_data* pSprite, u16 y_po
     }
 }
 
+/**
+ * 506fc | 28 | 
+ * Freezes the sprite with the parameters
+ * 
+ * @param pSprite Sprite Data Pointer to the sprite concerned
+ * @param freeze_timer Freeze timer to apply
+ */
 void projectile_freeze_sprite(struct sprite_data* pSprite, u8 freeze_timer)
 {
     pProj->freeze_timer = freeze_timer;
@@ -1218,39 +1333,396 @@ void projectile_bomb_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16
     }
 }
 
+/**
+ * 50b64 | f8 | Subroutine for the normal beam projectile, further detail is commented in the function
+ * 
+ * @param pProj Projectile Data Pointer to the concerned normal beam
+ */
 void projectile_process_normal_beam(struct projectile_data* pProj)
 {
+    /*
+    Movement Stage :
+      0x0 = Initialization
+      0x1 = Spawn
+      0x2 = Moving
+    */
+    if (pProj->movement_stage == 0x2)
+    {
+        current_clipdata_affecting_action = CCAA_BEAM;
+        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            return;
+        }
+        else
+        {
+            projectile_move(pProj, 0x14);
+        }
+    }
+    else if (pProj->movement_stage == 0x1)
+    {
+        current_clipdata_affecting_action = CCAA_BEAM;
+        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            return;
+        }
+        else
+        {
+            pProj->movement_stage++;
+            projectile_move(pProj, 0x10);
+        }
+    }
+    else
+    {
+        switch (pProj->direction) // Set OAM/Flip depending on direction
+        {
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                pProj->oam_pointer = beam_oam_327aa8;
+                break;
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                pProj->oam_pointer = beam_oam_327ac0;
+                break;
+            default:
+            case ACD_FORWARD:
+                pProj->oam_pointer = beam_oam_327a90;
+        }
 
+        pProj->draw_distance_offset = 0x40;
+        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+        pProj->anim_duration_counter = 0x0;
+        pProj->curr_anim_frame = 0x0;
+        pProj->hitbox_top_offset = -0x8;
+        pProj->hitbox_bottom_offset = 0x8;
+        pProj->hitbox_left_offset = -0x8;
+        pProj->hitbox_right_offset = 0x8;
+        pProj->movement_stage = 0x1;
+        projectile_check_hit_block(pProj, CCAA_BEAM, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+    }
+
+    pProj->timer++;
+    if (pProj->timer > 0xC) // Check if projectile should be killed when going further enough
+        pProj->status = 0x0;
 }
 
+/**
+ * 50c5c | ec | Subroutine for the long beam projectile, further detail is commented in the function
+ * 
+ * @param pProj Projectile Data Pointer to the concerned long beam
+ */
 void projectile_process_long_beam(struct projectile_data* pProj)
 {
+    /*
+    Movement Stage :
+      0x0 = Initialization
+      0x1 = Spawn
+      0x2 = Moving
+    */
+   if (pProj->movement_stage == 0x2)
+   {
+       current_clipdata_affecting_action = CCAA_BEAM;
+       if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+       {
+           pProj->status = 0x0;
+           particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+       }
+       else
+       {
+           projectile_move(pProj, 0x18);
+           pProj->timer++;
+       }
+   }
+   else if (pProj->movement_stage == 0x1)
+   {
+       current_clipdata_affecting_action = CCAA_BEAM;
+       if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+       {
+           pProj->status = 0x0;
+           particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+       }
+       else
+       {
+           pProj->movement_stage++;
+           projectile_move(pProj, 0x10);
+           pProj->timer++;
+       }
+   }
+   else
+   {
+       switch (pProj->direction) // Set OAM/Flip depending on direction
+       {
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                pProj->oam_pointer = beam_oam_328460;
+                break;
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                pProj->oam_pointer = beam_oam_328478;
+                break;
+            default:
+            case ACD_FORWARD:
+                pProj->oam_pointer = beam_oam_328448;
+       }
 
+       pProj->draw_distance_offset = 0x40;
+       pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+       pProj->anim_duration_counter = 0x0;
+       pProj->curr_anim_frame = 0x0;
+       pProj->hitbox_top_offset = -0xC;
+       pProj->hitbox_bottom_offset = 0xC;
+       pProj->hitbox_left_offset = -0xC;
+       pProj->hitbox_right_offset = 0xC;
+       pProj->movement_stage = 0x1;
+       projectile_check_hit_block(pProj, CCAA_BEAM, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+       pProj->timer++;
+   }
 }
 
+/**
+ * 50d48 | 124 | Subroutine for the ice beam projectile, further detail is commented in the function
+ * 
+ * @param pProj Projectile Data Pointer to the concerned ice beam
+ */
 void projectile_process_ice_beam(struct projectile_data* pProj)
 {
+    /*
+    Movement Stage :
+      0x0 = Initialization
+      0x1 = Spawn
+      0x2 = Moving
+    */
+    if (pProj->movement_stage == 0x2)
+    {
+        current_clipdata_affecting_action = CCAA_BEAM;
+        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+            return;
+        }
+        else
+        {
+            projectile_move(pProj, 0x1A);
+            if (pProj->status & PROJ_STATUS_XFLIP)
+                projectile_set_trail(pProj, PE_BEAM_TRAILING_LEFT, 0x3);
+            else
+                projectile_set_trail(pProj, PE_BEAM_TRAILING_RIGHT, 0x3);
+        }
+    }
+    else if (pProj->movement_stage == 0x1)
+    {
+        current_clipdata_affecting_action = CCAA_BEAM;
+        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+            return;
+        }
+        else
+        {
+            pProj->movement_stage++;
+            projectile_move(pProj, 0x10);
+        }
+    }
+    else
+    {
+        switch (pProj->direction) // Set OAM/Flip depending on direction
+        {
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                pProj->oam_pointer = beam_oam_328e44;
+                break;
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                pProj->oam_pointer = beam_oam_328e5c;
+                break;
+            default:
+            case ACD_FORWARD:
+                pProj->oam_pointer = beam_oam_328e2c;
+        }
 
+        pProj->draw_distance_offset = 0x40;
+        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+        pProj->anim_duration_counter = 0x0;
+        pProj->curr_anim_frame = 0x0;
+        pProj->hitbox_top_offset = -0x14;
+        pProj->hitbox_bottom_offset = 0x14;
+        pProj->hitbox_left_offset = -0x14;
+        pProj->hitbox_right_offset = 0x14;
+        pProj->movement_stage = 0x1;
+        projectile_check_hit_block(pProj, CCAA_BEAM, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+    }
+
+    pProj->timer++;
+    if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) == 0x0 && pProj->timer > 0xC)
+        pProj->status = 0x0;
 }
 
-void projectile_check_wave_beam_hitting_blocks(struct projectile_data* pProj)
+u32 projectile_check_wave_beam_hitting_blocks(struct projectile_data* pProj)
 {
 
 }
 
-u32 projectile_process_wave_beam(struct projectile_data* pProj)
+/**
+ * 51068 | 130 | Subroutine for the wave beam projectile, further detail is commented in the function
+ * 
+ * @param pProj Projectile Data Pointer to the concerned wave beam
+ */
+void projectile_process_wave_beam(struct projectile_data* pProj)
 {
+    projectile_check_wave_beam_hitting_blocks(pProj); // Check collision
+    if (pProj->movement_stage == 0x2)
+    {
+        projectile_move(pProj, 0x1C);
+        if (equipment.beam_bombs_activation & BBF_ICE_BEAM)
+        {
+            if (pProj->status & PROJ_STATUS_XFLIP)
+                projectile_set_trail(pProj, PE_BEAM_TRAILING_LEFT, 0x3);
+            else
+                projectile_set_trail(pProj, PE_BEAM_TRAILING_RIGHT, 0x3);
+        }
+    }
+    else if (pProj->movement_stage == 0x1)
+    {
+        pProj->movement_stage++;
+        projectile_move(pProj, 0x10);
+    }
+    else
+    {
+        switch (pProj->direction) // Set OAM/Flip/Hitbox depending on direction
+        {
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                pProj->oam_pointer = beam_oam_329cac;
+                pProj->hitbox_top_offset = -0x10;
+                pProj->hitbox_bottom_offset = 0x40;
+                pProj->hitbox_left_offset = -0x28;
+                pProj->hitbox_right_offset = 0x28;
+                break;
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                pProj->oam_pointer = beam_oam_329cec;
+                pProj->hitbox_top_offset = -0x14;
+                pProj->hitbox_bottom_offset = 0x14;
+                pProj->hitbox_left_offset = -0x40;
+                pProj->hitbox_right_offset = 0x40;
+                break;
+            default:
+            case ACD_FORWARD:
+                pProj->oam_pointer = beam_oam_329c6c;
+                pProj->hitbox_top_offset = -0x40;
+                pProj->hitbox_bottom_offset = 0x40;
+                pProj->hitbox_left_offset = -0x14;
+                pProj->hitbox_right_offset = 0x14;
+        }
 
+        pProj->draw_distance_offset = 0xA0;
+        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+        pProj->anim_duration_counter = 0x0;
+        pProj->curr_anim_frame = 0x0;
+        pProj->movement_stage = 0x1;
+    }
+
+    pProj->timer++;
+    if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) == 0x0 && pProj->timer > 0xC) // Check despawn
+        pProj->status = 0x0;
 }
 
+/**
+ * 51198 | 1bc | Subroutine for the plasma beam projectile, further detail is commented in the function
+ * 
+ * @param pProj Projectile Data Pointer to the concerned plasma beam
+ */
 void projectile_process_plasma_beam(struct projectile_data* pProj)
 {
-
+    
 }
 
+/**
+* 51354 | ec | Subroutine for the pistol projectile, further detail is commented in the function
+*
+* @param pProj Projectile Data Pointer to the concerned pistol
+*/
 void projectile_process_pistol(struct projectile_data* pProj)
 {
+    /*
+    Movement Stage :
+      0x0 = Initialization
+      0x1 = Spawn
+      0x2 = Moving
+    */
+    if (pProj->movement_stage == 0x2)
+    {
+        current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+        }
+        else
+        {
+            projectile_move(pProj, 0x16);
+            pProj->timer++;
+        }
+    }
+    else if (pProj->movement_stage == 0x1)
+    {
+        current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+        }
+        else
+        {
+            pProj->movement_stage++;
+            projectile_move(pProj, 0x10);
+            pProj->timer++;
+        }
+    }
+    else
+    {
+        switch (pProj->direction) // Set OAM/Flip depending on direction
+        {           
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                pProj->oam_pointer = pistol_oam_32b948;
+                break;
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                pProj->oam_pointer = pistol_oam_32b960;
+                break;
+            default:
+            case ACD_FORWARD:
+                pProj->oam_pointer = pistol_oam_32b930;
+        }
 
+        pProj->draw_distance_offset = 0x40;
+        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+        pProj->anim_duration_counter = 0x0;
+        pProj->curr_anim_frame = 0x0;
+        pProj->hitbox_top_offset = -0x4;
+        pProj->hitbox_bottom_offset = 0x4;
+        pProj->hitbox_left_offset = -0x4;
+        pProj->hitbox_right_offset = 0x4;
+        pProj->movement_stage = 0x1;
+        projectile_check_hit_block(pProj, CCAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+        pProj->timer++;
+    }
 }
 
 void projectile_process_charged_normal_beam(struct projectile_data* pProj)
@@ -1278,9 +1750,80 @@ void projectile_process_charged_plasma_beam(struct projectile_data* pProj)
 
 }
 
+/**
+ * 51a7c | f8 | Subroutine for the charged pistol projectile, further detail is commented in the function
+ * 
+ * @param pProj Projectile Data Pointer to the concerned charged pistol
+ */
 void projectile_process_charged_pistol(struct projectile_data* pProj)
 {
+    /*
+    Movement Stage :
+      0x0 = Initialization
+      0x1 = Spawn
+      0x2 = Moving
+    */
+    if (pProj->movement_stage == 0x2)
+    {
+        current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+        }
+        else
+        {
+            projectile_move(pProj, 0x16);
+            projectile_set_trail(pProj, PE_CHARGED_PISTOL_TRAIL, 0x7);
+            pProj->timer++;
+        }
+    }
+    else if (pProj->movement_stage == 0x1)
+    {
+        current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
+        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+        }
+        else
+        {
+            pProj->movement_stage++;
+            projectile_move(pProj, 0x10);
+            pProj->timer++;
+        }
+    }
+    else
+    {
+        switch (pProj->direction) // Set OAM/Flip depending on direction
+        {           
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                pProj->oam_pointer = charged_pistol_oam_32b990;
+                break;
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                pProj->oam_pointer = charged_pistol_oam_32b9a8;
+                break;
+            default:
+            case ACD_FORWARD:
+                pProj->oam_pointer = charged_pistol_oam_32b978;
+        }
 
+        pProj->draw_distance_offset = 0x80;
+        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+        pProj->anim_duration_counter = 0x0;
+        pProj->curr_anim_frame = 0x0;
+        pProj->hitbox_top_offset = -0xC;
+        pProj->hitbox_bottom_offset = 0xC;
+        pProj->hitbox_left_offset = -0xC;
+        pProj->hitbox_right_offset = 0xC;
+        pProj->movement_stage = 0x1;
+        projectile_check_hit_block(pProj, CCAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+        pProj->timer++;
+    }
 }
 
 void projectile_decrement_missile_counter(struct projectile_data* pProj)
@@ -1296,9 +1839,84 @@ void projectile_decrement_missile_counter(struct projectile_data* pProj)
     pProj->status &= 0xFB;
 }
 
+/**
+* 51bac | 118 | Subroutine for the missile projectile, further detail is commented in the function
+* @param pProj Projectile Data Pointer to the concerned missile
+*/
 void projectile_process_missile(struct projectile_data* pProj)
 {
+    /*
+    Movement Stage :
+      0x0 = Initialization
+      0x1 = Spawn
+      0x2 = Moving
+      0x7 = Tumbling
+    */
+    if (pProj->movement_stage == 0x2)
+    {
+        current_clipdata_affecting_action = CCAA_MISSILE;
+        if (projectile_collision_related2(pProj) == 0x0) // Check for collision
+        {
+            projectile_move(pProj, pProj->timer + 0x8);
+            if (pProj->timer < 0xC)
+                pProj->timer++;
+            projectile_set_trail(pProj, PE_MISSILE_TRAIL, 0x7);
+        }
+        else
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_MISSILE);
+        }
+    }
+    else if (pProj->movement_stage == 0x1)
+    {
+        current_clipdata_affecting_action = CCAA_MISSILE;
+        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_MISSILE);
+        }
+        else
+        {
+            pProj->movement_stage++;
+            projectile_move(pProj, 0x30);
+        }
+    }
+    else if (pProj->movement_stage == 0x0)
+    {
+        switch (pProj->direction) // Set OAM/Flip depending on direction
+        {
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                pProj->oam_pointer = missile_oam_326f58;
+                break;
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                pProj->oam_pointer = missile_oam_326f70;
+                break;
+            default:
+            case ACD_FORWARD:
+                pProj->oam_pointer = missile_oam_326f40;
+        }
 
+        projectile_decrement_missile_counter(pProj);
+        pProj->anim_duration_counter = 0x0;
+        pProj->curr_anim_frame = 0x0;
+        pProj->hitbox_top_offset = -0x8;
+        pProj->hitbox_bottom_offset = 0x8;
+        pProj->hitbox_left_offset = -0x8;
+        pProj->hitbox_right_offset = 0x8;
+        pProj->movement_stage++;
+        projectile_check_hit_block(pProj, CCAA_MISSILE, PE_HITTING_SOMETHING_WITH_MISSILE);
+    }
+    else // When tumbling
+    {
+        if (pProj->status & PROJ_STATUS_NOT_DRAWN)
+            projectile_decrement_missile_counter(pProj); // Not sure why this is here ?
+        projectile_move_tumbling(pProj);
+    }
 }
 
 void projectile_decrement_super_missile(struct projectile_data* pProj)
@@ -1316,12 +1934,124 @@ void projectile_decrement_super_missile(struct projectile_data* pProj)
 
 void projectile_process_super_missile(struct projectile_data* pProj)
 {
+    /*
+    Movement Stage :
+      0x0 = Initialization
+      0x1 = Spawn
+      0x2 = Moving
+      0x7 = Tumbling
+    */
+    if (pProj->movement_stage == 0x2)
+    {
+        current_clipdata_affecting_action = CCAA_SUPER_MISSILE;
+        if (projectile_collision_related2(pProj) == 0x0) // Check for collision
+        {
+            projectile_move(pProj, pProj->timer + 0xC);
+            if (pProj->timer < 0x10)
+                pProj->timer++;
+            projectile_set_trail(pProj, PE_SUPER_MISSILE_TRAIL, 0x3);
+        }
+        else
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
+        }
+    }
+    else if (pProj->movement_stage == 0x1)
+    {
+        current_clipdata_affecting_action = CCAA_SUPER_MISSILE;
+        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
+        }
+        else
+        {
+            pProj->movement_stage++;
+            projectile_move(pProj, 0x30);
+        }
+    }
+    else if (pProj->movement_stage == 0x0)
+    {
+        switch (pProj->direction) // Set OAM/Flip depending on direction
+        {
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                pProj->oam_pointer = super_missile_oam_326fa0;
+                break;
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                pProj->oam_pointer = super_missile_oam_326fb8;
+                break;
+            default:
+            case ACD_FORWARD:
+                pProj->oam_pointer = super_missile_oam_326f88;
+        }
 
+        projectile_decrement_super_missile(pProj);
+        pProj->anim_duration_counter = 0x0;
+        pProj->curr_anim_frame = 0x0;
+        pProj->hitbox_top_offset = -0xC;
+        pProj->hitbox_bottom_offset = 0xC;
+        pProj->hitbox_left_offset = -0xC;
+        pProj->hitbox_right_offset = 0xC;
+        pProj->movement_stage++;
+        projectile_check_hit_block(pProj, CCAA_SUPER_MISSILE, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
+    }
+    else // When tumbling
+    {
+        if (pProj->status & PROJ_STATUS_NOT_DRAWN)
+            projectile_decrement_super_missile(pProj); // Not sure why this is here ?
+        projectile_move_tumbling(pProj);
+    }
 }
 
+/**
+ * 51e14 | b8 | Checks if samus is in place to be launched by the morph ball launcher, if yes sets pose to Delay before ballsparking 
+ * 
+ * @param pProj Projectile Data Pointer to the concerned bomb
+ */
 void projectile_morphball_launcher_launch_samus(struct projectile_data* pProj)
 {
+    u16 samus_y;
+    u16 samus_x;
+    u16 samus_top;
+    u16 samus_bottom;
+    u16 samus_left;
+    u16 samus_right;
+    u16 proj_y;
+    u16 proj_x;
+    u16 proj_top;
+    u16 proj_bottom;
+    u16 proj_left;
+    u16 proj_right;
 
+    samus_y = samus_data.y_position;
+    samus_x = samus_data.x_position;
+    samus_top = samus_y + samus_physics.draw_distance_top_offset;
+    samus_bottom = samus_y + samus_physics.draw_distance_bottom_offset;
+    samus_left = samus_x + samus_physics.draw_distance_left_offset;
+    samus_right = samus_x + samus_physics.draw_distance_right_offset;
+
+    proj_y = pProj->y_position;
+    proj_x = pProj->x_position;
+    proj_top = proj_y + pProj->hitbox_top_offset;
+    proj_bottom = proj_y + pProj->hitbox_bottom_offset;
+    proj_left = proj_x + pProj->hitbox_left_offset;
+    proj_right = proj_x + pProj->hitbox_right_offset;
+
+    if (sprite_util_check_objects_touching(samus_top, samus_bottom, samus_left, samus_right, proj_top, proj_bottom, proj_left, proj_right) && samus_data.invincibility_timer != 0x0)
+    {
+        switch (samus_data.pose)
+        {
+            case SPOSE_ROLLING:
+            case SPOSE_MORPH_BALL:
+                samus_data.forced_movement = 0xF0;
+                samus_set_pose(SPOSE_DELAY_BEFORE_BALLSPARKING);
+        }
+    }
 }
 
 void projectile_check_samus_bomb_bounce(struct projectile_data* pProj)
@@ -1330,9 +2060,8 @@ void projectile_check_samus_bomb_bounce(struct projectile_data* pProj)
 }
 
 /**
-* 51ff8 | 1f8
-* Subroutine for the bomb projectile, further detail is commented in the function
-
+* 51ff8 | 1f8 | Subroutine for the bomb projectile, further detail is commented in the function
+*
 * @param pProj Projectile Data Pointer to the concerned bomb
 */
 void projectile_process_bomb(struct projectile_data* pProj)
@@ -1464,12 +2193,86 @@ void projectile_process_bomb(struct projectile_data* pProj)
     }
 }
 
+/**
+ * 521f0 | 4 | Empty function, purpose unknown (most likely a cancelled projectile)
+ * 
+ * @param pProj Projectile Data Pointer
+ */
 void projectile_process_empty(struct projectile_data* pProj)
 {
     return;
 }
 
+/**
+* 521f4 | 114 | Subroutine for the power bomb projectile, further detail is commented in the function
+* @param pProj Projectile Data Pointer to the concerned power bomb
+*/
 void projectile_process_power_bomb(struct projectile_data* pProj)
 {
+    /*
+    Movement Stage :
+      0x0 = Initialization
+      0x1 = Check first timer ended (power bomb spinning at normal speed)
+      0x2 = Check second timer ended and starts the explosion (power bomb spinning fast)
+    */
+    struct sprite_data* pSprite;
+    enum sprite_status status;
+    u8 isft;
 
+    switch (pProj->movement_stage)
+    {
+        case 0x0:
+            if (equipment.current_power_bombs != 0x0)
+            {
+                equipment.current_power_bombs--;
+                if (equipment.current_power_bombs == 0x0)
+                    samus_weapon_info.weapon_highlighted ^= WH_POWER_BOMB;
+            }
+            pProj->oam_pointer = power_bomb_oam_326d90;
+            pProj->anim_duration_counter = 0x0;
+            pProj->curr_anim_frame = 0x0;
+            pProj->draw_distance_offset = 0x20;
+            pProj->hitbox_top_offset = -0x10;
+            pProj->hitbox_bottom_offset = 0x10;
+            pProj->hitbox_left_offset = -0x10;
+            pProj->hitbox_right_offset = 0x10;
+            pProj->status &= ~(PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_XFLIP);
+            pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+            pProj->timer = 0x36;
+            pProj->movement_stage++;
+
+            pSprite = sprite_data;
+            while (pSprite < sprite_data + 24)
+            {
+                if (pSprite->status & SPRITE_STATUS_EXISTS)
+                    pSprite->invicibility_stun_flash_timer &= 0x7F;
+                pSprite++;
+            }
+            play_sound1(0x100);
+            current_power_bomb.power_bomb_placed = TRUE;
+            break;
+
+        case 0x1:
+            pProj->timer--;
+            if (pProj->timer == 0x0)
+            {
+                pProj->oam_pointer = power_bomb_oam_326db0;
+                pProj->anim_duration_counter = 0x0;
+                pProj->curr_anim_frame = 0x0;
+                pProj->timer = 0x28;
+                pProj->movement_stage++;
+            }
+            break;
+
+        case 0x2:
+            if (game_mode_sub1 == 0x2)
+            {
+                pProj->timer--;
+                if (pProj->timer == 0x0)
+                {
+                    power_bomb_explosion_start(pProj->x_position, pProj->y_position, 0x0);
+                    pProj->status = 0x0;
+                }
+            }
+    }
 }

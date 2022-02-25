@@ -8,7 +8,7 @@
 #include "clipdata.h"
 #include "samus.h"
 
-enum __attribute__((packed)) projectile {
+enum /*__attribute__((packed))*/ projectile {
     PROJECTILE_NONE = 0x0,
     PROJECTILE_BEAM = 0x1,
     PROJECTILE_MISSILE = 0x2,
@@ -18,7 +18,7 @@ enum __attribute__((packed)) projectile {
     PROJECTILE_CHARGED_BEAM = 0x6
 };
 
-enum __attribute__((packed)) projectile_status {
+enum /*__attribute__((packed))*/ projectile_status {
     PROJ_STATUS_NONE = 0x0,
     PROJ_STATUS_EXISTS = 0x1,
     PROJ_STATUS_ON_SCREEN = 0x2,
@@ -30,7 +30,7 @@ enum __attribute__((packed)) projectile_status {
     PROJ_STATUS_UNKNOWN = 0x80
 };
 
-enum __attribute__((packed)) projectile_type {
+enum /*__attribute__((packed))*/ projectile_type {
     PROJ_TYPE_BEAM = 0x0,
     PROJ_TYPE_LONG_BEAM = 0x1,
     PROJ_TYPE_ICE_BEAM = 0x2,
@@ -118,8 +118,8 @@ void projectile_bomb_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16
 void projectile_process_normal_beam(struct projectile_data* pProj);
 void projectile_process_long_beam(struct projectile_data* pProj);
 void projectile_process_ice_beam(struct projectile_data* pProj);
-void projectile_check_wave_beam_hitting_blocks(struct projectile_data* pProj);
-u32 projectile_process_wave_beam(struct projectile_data* pProj);
+u32 projectile_check_wave_beam_hitting_blocks(struct projectile_data* pProj);
+void projectile_process_wave_beam(struct projectile_data* pProj);
 void projectile_process_plasma_beam(struct projectile_data* pProj);
 void projectile_process_pistol(struct projectile_data* pProj);
 void projectile_process_charged_normal_beam(struct projectile_data* pProj);

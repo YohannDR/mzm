@@ -292,3 +292,8 @@ void room_maybe_update_horizontal_tilemap(u8 unk)
 {
 
 }
+
+void room_check_dma3_ended(void)
+{
+    
+}

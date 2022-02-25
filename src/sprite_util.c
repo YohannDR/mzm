@@ -706,15 +706,24 @@ u8 sprite_util_check_stop_sprites_pose(void)
     return FALSE;
 }
 
+/**
+ * 104f8 | 1b0 | 
+ * Handles a sprite taking damage from a contact with samus
+ * 
+ * @param pSprite Sprite Data Pointer to the sprite concerned
+ * @param pData Samus Data Pointer
+ * @return The damage contact type
+ */
 enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struct sprite_data* pSprite, struct samus_data* pData)
 {
-    /*enum damage_contact_type dct;
+    enum damage_contact_type dct;
     enum sprite_properties* pProps;
     struct equipment* pEquipment;
     enum sprite_weakness_flags weakness;
     enum beam_bombs_flags bbf;
     u32 damage;
     u8 is_dead;
+    u8 isft;
 
     dct = DCT_NONE;
     if (equipment.suit_type == SUIT_SUITLESS)
@@ -814,12 +823,13 @@ enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struc
             return dct;
         }
 
-        if ((pSprite->invicibility_stun_flash_timer & 0x7F) > 0x3) // help
+        isft = 0x3;
+        if ((pSprite->invicibility_stun_flash_timer & 0x7F) < isft)
             pSprite->invicibility_stun_flash_timer = pSprite->invicibility_stun_flash_timer & 0x80 | 0x3;
         dct = DCT_NONE;
     }
 
-    return dct;*/
+    return dct;
 }
 
 u8 sprite_util_check_pulling_self_up(void)
