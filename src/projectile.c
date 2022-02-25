@@ -572,6 +572,14 @@ u8 projectile_collision_related2(struct projectile_data* pProj)
 
 }
 
+/**
+ * 4fc38 | a8 | 
+ * Sets a trail for the projectile using the effect in parameter 
+ * 
+ * @param pProj Projectile Data Pointer to the projectile concerned
+ * @param effect Particle effect to play
+ * @param delay Delay between each particle
+ */
 void projectile_set_trail(struct projectile_data* pProj, enum particle_effect_id effect, u8 delay)
 {
     /*u16 x_pos;
@@ -579,7 +587,7 @@ void projectile_set_trail(struct projectile_data* pProj, enum particle_effect_id
     u16 offset;
     enum projectile_status status;
 
-    if ((eight_bit_frame_counter & delay) != 0x0)
+    if (eight_bit_frame_counter & delay)
         return;
 
     offset = 0x20;
@@ -597,7 +605,7 @@ void projectile_set_trail(struct projectile_data* pProj, enum particle_effect_id
             break;
 
         case ACD_DIAGONALLY_UP:
-            status = PROJ_STATUS_XFLIP;
+            status = PROJ_STATUS_XFLIP; // /!\ Wrong registers
             y_pos += 0x18;
             if (pProj->status & status)
                 x_pos -= 0x18;
@@ -606,7 +614,7 @@ void projectile_set_trail(struct projectile_data* pProj, enum particle_effect_id
             break;
 
         case ACD_DIAGONALLY_DOWN:
-            status = PROJ_STATUS_XFLIP;
+            status = PROJ_STATUS_XFLIP; // /!\ Wrong registers
             y_pos -= 0x18;
             if (pProj->status & status)
                 x_pos -= 0x18;
@@ -619,28 +627,31 @@ void projectile_set_trail(struct projectile_data* pProj, enum particle_effect_id
                 x_pos -= offset;
             else
                 x_pos += offset;
-    }
+    }*/
 
-    particle_set(y_pos, x_pos, effect);*/
+    particle_set(y_pos, x_pos, effect);
 }
 
+/**
+ * 4fce0 | 68 | 
+ * Handles a projectile moving when tumbling
+ * 
+ * @param pProj Projectile Data Pointer to the concerned projectile
+ */
 void projectile_move_tumbling(struct projectile_data* pProj)
 {
     u8 timer;
     i16 movement;
     u32 new_pos;
-    enum projectile_status status;
 
-    status = pProj->status & PROJ_STATUS_ON_SCREEN;
-
-    if (status == 0x0)
-        pProj->status = status;
+    if ((pProj->status & PROJ_STATUS_ON_SCREEN) == 0x0)
+        pProj->status = 0x0;
     else
     {
         timer = pProj->timer;
-        movement = tumbling_missiles_speed[timer];
+        movement = i16_array_326ca8[timer];
         if (movement == 0x7FFF)
-            new_pos = tumbling_missiles_speed[timer - 1] + pProj->y_position;
+            new_pos = i16_array_326ca8[timer - 1] + pProj->y_position;
         else
         {
             pProj->timer = timer + 1;
@@ -648,7 +659,7 @@ void projectile_move_tumbling(struct projectile_data* pProj)
         }
         pProj->y_position = new_pos;
 
-        if ((pProj->status & PROJ_STATUS_XFLIP) != 0x0)
+        if (pProj->status & PROJ_STATUS_XFLIP)
             new_pos = pProj->x_position + 0x4;
         else
             new_pos = pProj->x_position - 0x4;
@@ -1254,14 +1265,69 @@ void projectile_charged_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16
 
 }
 
+/**
+ * 50914 | 60 | 
+ * Sets the projectile to a tumbling state (reserved for missile and super missile)
+ * 
+ * @param pSprite Sprite Data Pointer to the concerned sprite
+ * @param pProj Projectile Data Pointer to the concerned projectile
+ * @param type The type of the projectile
+ */
 void projectile_start_tumbling_missile(struct sprite_data* pSprite, struct projectile_data* pProj, enum projectile_type type)
 {
+    pProj->movement_stage = 0x7; // Tumbling
+    pProj->timer = 0x0;
+    pProj->status &= ~PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
+    pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+    pProj->anim_duration_counter = 0x0;
+    pProj->curr_anim_frame = 0x0;
+    if (pProj->x_position > pSprite->x_position)
+        pProj->status |= PROJ_STATUS_XFLIP;
+    else
+        pProj->status &= ~PROJ_STATUS_XFLIP;
 
+    if (type == PROJ_TYPE_SUPER_MISSILE)
+    {
+        pProj->oam_pointer = super_missile_oam_327018; // Spinning/tumbling
+        play_sound2(0xFC);
+    }
+    else
+    {
+        pProj->oam_pointer = missile_oam_326fd0; // Spinning/tumbling
+        play_sound2(0xF9);
+    }
 }
 
-void projectile_kraid_start_tumbling_missile(struct projectile_data* pProj, enum projectile_type type)
-{
+/**
+ * 50974 | 68 | 
+ * Sets the projectile to a tumbling state (reserved for missile and super missile, uses the current sprite)
+ * 
+ * @param pProj Projectile Data Pointer to the concerned projectile
+ * @param type The type of the projectile
+ */
+void projectile_start_tumbling_missile_current_sprite(struct projectile_data* pProj, enum projectile_type type)
+{    
+    pProj->movement_stage = 0x7; // Tumbling
+    pProj->timer = 0x0;
+    pProj->status &= ~PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
+    pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+    pProj->anim_duration_counter = 0x0;
+    pProj->curr_anim_frame = 0x0;
+    if (pProj->x_position > current_sprite.x_position)
+        pProj->status |= PROJ_STATUS_XFLIP;
+    else
+        pProj->status &= ~PROJ_STATUS_XFLIP;
 
+    if (type == PROJ_TYPE_SUPER_MISSILE)
+    {
+        pProj->oam_pointer = super_missile_oam_327018; // Spinning/tumbling
+        play_sound2(0xFC);
+    }
+    else
+    {
+        pProj->oam_pointer = missile_oam_326fd0; // Spinning/tumbling
+        play_sound2(0xF9);
+    }
 }
 
 void projectile_missile_hit_sprite(struct sprite_data* pSprite, struct projectile_data* pProj , u16 y_position, u16 x_position)
@@ -1641,7 +1707,108 @@ void projectile_process_wave_beam(struct projectile_data* pProj)
  */
 void projectile_process_plasma_beam(struct projectile_data* pProj)
 {
-    
+    u8 has_wave;
+
+    has_wave = equipment.beam_bombs_activation & BBF_WAVE_BEAM;
+    if (!has_wave)
+    {
+        current_clipdata_affecting_action = CCAA_BEAM;
+        if (projectile_collision_related2(pProj) != 0x0)
+        {
+            pProj->status = 0x0;
+            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+            return;
+        }
+        else
+            projectile_check_wave_beam_hitting_blocks(pProj);
+    }
+
+    if (pProj->movement_stage == 0x2)
+    {
+        projectile_move(pProj, 0x20);
+        if (equipment.beam_bombs_activation & BBF_ICE_BEAM)
+        {
+            if (pProj->status & PROJ_STATUS_XFLIP)
+                projectile_set_trail(pProj, PE_BEAM_TRAILING_LEFT, 0x3);
+            else
+                projectile_set_trail(pProj, PE_BEAM_TRAILING_RIGHT, 0x3);
+        }
+    }
+    else if (pProj->movement_stage == 0x1)
+    {
+        pProj->movement_stage++;
+        projectile_move(pProj, 0x10);
+    }
+    else
+    {
+        switch (pProj->direction)
+        {
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                if (has_wave)
+                {
+                    pProj->oam_pointer = beam_oam_32ae38;
+                    pProj->hitbox_top_offset = -0x10;
+                    pProj->hitbox_bottom_offset = 0x40;
+                    pProj->hitbox_left_offset = -0x30;
+                    pProj->hitbox_right_offset = 0x30;
+                }
+                else
+                    pProj->oam_pointer = beam_oam_32ad38;
+                break;
+
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                if (has_wave)
+                {
+                    pProj->oam_pointer = beam_oam_32ae78;
+                    pProj->hitbox_top_offset = -0x20;
+                    pProj->hitbox_bottom_offset = 0x20;
+                    pProj->hitbox_left_offset = -0x40;
+                    pProj->hitbox_right_offset = 0x40;
+                }
+                else
+                    pProj->oam_pointer = beam_oam_32ad50;
+                break;
+
+            case ACD_FORWARD:
+                if (has_wave)
+                {
+                    pProj->oam_pointer = beam_oam_32adf8;
+                    pProj->hitbox_top_offset = -0x40;
+                    pProj->hitbox_bottom_offset = 0x40;
+                    pProj->hitbox_left_offset = -0x20;
+                    pProj->hitbox_right_offset = 0x20;
+                }
+                else
+                    pProj->oam_pointer = beam_oam_32ad20;
+        }
+
+        if (has_wave)
+        {
+            pProj->draw_distance_offset = 0xA0;
+            pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+        }
+        else
+        {
+            pProj->draw_distance_offset = 0x50;
+            pProj->hitbox_top_offset = -0x14;
+            pProj->hitbox_bottom_offset = 0x14;
+            pProj->hitbox_left_offset = -0x14;
+            pProj->hitbox_right_offset = 0x14;
+        }
+
+        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+        pProj->anim_duration_counter = 0x0;
+        pProj->curr_anim_frame = 0x0;
+        pProj->movement_stage = 0x1;
+    }
+
+    pProj->timer++;
+    if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) == 0x0 && pProj->timer > 0xC)
+        pProj->status = 0x0;
 }
 
 /**
