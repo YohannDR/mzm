@@ -3,14 +3,14 @@
 
 #include "types.h"
 
-enum /*__attribute__((packed))*/ event_action {
+enum __attribute__((packed)) event_action {
     EVENT_ACTION_CLEARING = 0x0,
     EVENT_ACTION_SETTING = 0x1,
     EVENT_ACTION_TOGGLING = 0x2,
     EVENT_ACTION_CHECKING = 0x3
 };
 
-enum /*__attribute__((packed))*/ event {
+enum __attribute__((packed)) event {
     EVENT_NONE = 0x0,
     EVENT_EASY = 0x1,
     EVENT_HARD = 0x2,

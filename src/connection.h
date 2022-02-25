@@ -4,7 +4,7 @@
 #include "types.h"
 #include "event.h"
 
-enum /*__attribute__((packed))*/ area {
+enum __attribute__((packed)) area {
     AREA_BRINSTAR = 0x0,
     AREA_KRAID = 0x1,
     AREA_NORFAIR = 0x2,
@@ -16,7 +16,7 @@ enum /*__attribute__((packed))*/ area {
     AREA_NONE = 0xFF
 };
 
-enum /*__attribute__((packed))*/ door_type {
+enum __attribute__((packed)) door_type {
     DOOR_NONE = 0x0,
     DOOR_AREA_CONNECTION = 0x1,
     DOOR_NO_HATCH = 0x2,
@@ -28,7 +28,7 @@ enum /*__attribute__((packed))*/ door_type {
     DOOR_DISPLAYS_ROOM_LOCATION = 0x40
 };
 
-enum /*__attribute__((packed))*/ hatch_type {
+enum __attribute__((packed)) hatch_type {
     HATCH_NONE = 0x0,
     HATCH_UNUSED = 0x1,
     HATCH_NORMAL = 0x2,
@@ -83,7 +83,7 @@ struct hatch_data {
     u8 source_door;
 };
 
-enum /*__attribute__((packed))*/ hatch_action {
+enum __attribute__((packed)) hatch_action {
     HATCH_ACTION_CHECKING_OPENED = 0x0,
     HATCH_ACTION_SETTING_SOURCE_AND_DESTINATION = 0x1,
     HATCH_ACTION_SETTING_SOURCE = 0x2

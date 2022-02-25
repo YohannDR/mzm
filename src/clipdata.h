@@ -1,7 +1,7 @@
 #ifndef CLIPDATA_H
 #define CLIPDATA_H
 
-enum /*__attribute__((packed))*/ current_clipdata_affecting_action {
+enum __attribute__((packed)) current_clipdata_affecting_action {
     CCAA_NONE = 0x0,
     CCAA_REMOVE_SOLID = 0x1,
     CCAA_MAYBE_MAKE_SOLID = 0x2,
@@ -18,7 +18,7 @@ enum /*__attribute__((packed))*/ current_clipdata_affecting_action {
     CCAA_BOMB_CHAIN_RELATED = 0xF
 };
 
-enum /*__attribute__((packed))*/ movement_clipdata {
+enum __attribute__((packed)) movement_clipdata {
     VERYS_CLIPDATA_NONE = 0x0,
     VERYS_CLIPDATA_ELEVATOR_DOWN_BLOCK = 0x1,
     VERYS_CLIPDATA_ELEVATOR_UP_BLOCK = 0x2,
@@ -28,7 +28,7 @@ enum /*__attribute__((packed))*/ movement_clipdata {
     VERYS_CLIPDATA_SPACE_PIRATE_WALLJUMP_POINT = 0x9
 };
 
-enum /*__attribute__((packed))*/ hazard_type {
+enum __attribute__((packed)) hazard_type {
     HAZARD_TYPE_NONE = 0x0,
     HAZARD_TYPE_WATER = 0x1,
     HAZARD_TYPE_STRONG_LAVA = 0x2,
@@ -39,7 +39,7 @@ enum /*__attribute__((packed))*/ hazard_type {
     HAZARD_TYPE_COLD = 0x7
 };
 
-enum /*__attribute__((packed))*/ ground_effect_clipdata {
+enum __attribute__((packed)) ground_effect_clipdata {
     GROUND_EFFECT_NONE = 0x0,
     GROUND_EFFECT_WET_GROUND = 0x1,
     GROUND_EFFECT_DUSTY_GROUND = 0x2,

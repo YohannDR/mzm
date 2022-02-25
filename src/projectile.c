@@ -75,21 +75,17 @@ u8 projectile_check_number_of_projectiles(enum projectile_type type, u8 limit)
 u8 projectile_init(enum projectile_type type, u16 y_position, u16 x_position)
 {
     /*struct projectile_data* pProj;
-    struct samus_data* pData;
     enum projectile_status status;
-    enum projectile_status check;
 
     pProj = projectile_data;
-
-    while (pProj < projectile_data + 16)
+    while (pProj < projectile_data + 24)
     {
-        pData = &samus_data;
         if ((pProj->status & PROJ_STATUS_EXISTS) == 0x0)
         {
-            status = (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT);
-            if (PROJ_TYPE_SUPER_MISSILE < type)
-                status = (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN);
-            if ((pData->direction & DIRECTION_RIGHT) != 0x0)
+            status = PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
+            if (type > PROJ_TYPE_SUPER_MISSILE)
+                status = PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN;
+            if (samus_data.direction & DIRECTION_RIGHT)
                 status |= PROJ_STATUS_XFLIP;
 
             pProj->status = status;
@@ -102,13 +98,11 @@ u8 projectile_init(enum projectile_type type, u16 y_position, u16 x_position)
             pProj->hitbox_right_offset = 0x1;
             pProj->movement_stage = 0x0;
             pProj->timer = 0x0;
-            pProj->direction = pData->arm_cannon_direction;
+            pProj->direction = samus_data.arm_cannon_direction;
             return TRUE;
         }
-
         pProj++;
     }
-
     return FALSE;*/
 }
 
