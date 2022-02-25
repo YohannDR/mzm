@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-enum __attribute__((packed)) particle_effect_id {
+enum /*__attribute__((packed))*/ particle_effect_id {
     PE_SPRITE_SPLASH_WAER_SMALL = 0x0,
     PE_SPRITE_SPLASH_WATER_BIG = 0x1,
     PE_SPRITE_SPLASH_WATER_HUGE = 0x2,
@@ -68,7 +68,7 @@ enum __attribute__((packed)) particle_effect_id {
     PE_ESCAPE = 0x3C,
 };
 
-enum __attribute__((packed)) particle_status {
+enum /*__attribute__((packed))*/ particle_status {
     PARTICLE_STATUS_NONE = 0x0,
     PARTICLE_STATUS_EXISTS = 0x1,
     PARTICLE_STATUS_ONSCREEN = 0x2,

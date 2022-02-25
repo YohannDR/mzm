@@ -16,7 +16,7 @@ struct current_scrolls {
     struct scroll second;
 };
 
-struct __attribute__((packed)) scroll_data {
+struct /*__attribute__((packed))*/ scroll_data {
     u8 room;
     u8 id;
     u8 data[8];
