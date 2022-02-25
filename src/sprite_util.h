@@ -5,19 +5,19 @@
 #include "types.h"
 #include "particle.h"
 
-enum /*__attribute__((packed))*/ near_sprite_left_right {
+enum __attribute__((packed)) near_sprite_left_right {
     NSLR_OUT_OF_RANGE = 0x0,
     NSLR_LEFT = 0x4,
     NSLR_RIGHT = 0x8
 };
 
-enum /*__attribute__((packed))*/ near_sprite_above_below {
+enum __attribute__((packed)) near_sprite_above_below {
     NSAB_OUT_OF_RANGE = 0x0,
     NSAB_ABOVE = 0x1,
     NSAB_BELOW = 0x2
 };
 
-enum /*__attribute__((packed))*/ damage_contact_type {
+enum __attribute__((packed)) damage_contact_type {
     DCT_NONE = 0x0,
     DCT_SHINESPARK = 0x1,
     DCT_SPEEDBOOSTER = 0x2,
@@ -25,13 +25,13 @@ enum /*__attribute__((packed))*/ damage_contact_type {
     DCT_SUDO_SCREW = 0x4,
 };
 
-enum /*__attribute__((packed))*/ death_type {
+enum __attribute__((packed)) death_type {
     DEATH_NORMAL = 0x0,
     DEATH_RESPAWNING = 0x1,
     DEATH_NO_DEATH_OR_RESPAWNING_ALREADY_HAS_DROP = 0x2,
 };
 
-enum /*__attribute__((packed))*/ splash_size {
+enum __attribute__((packed)) splash_size {
     SPLASH_NONE = 0x0,
     SPLASH_SMALL = 0x1,
     SPLASH_BIG = 0x2,
