@@ -137,6 +137,14 @@ void particle_process_all(void)
     }
 }
 
+/**
+ * 540ec | a0 | 
+ * Sets a new particle with the given parameters
+ * 
+ * @param y_position Y Position
+ * @param x_position X Position
+ * @param effect Particle effect ID
+ */
 void particle_set(u16 y_position, u16 x_position, enum particle_effect_id effect)
 {
 

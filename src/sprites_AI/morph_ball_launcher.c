@@ -3,22 +3,22 @@
 #include "../projectile.h"
 #include "../globals.h"
 
-void morph_ball_launcher_change_ccaa(enum current_clipdata_affecting_action ccaa)
+void morph_ball_launcher_change_ccaa(enum current_clipdata_affecting_action caa)
 {
     u16 sprite_y;
     u16 sprite_x;
     
     sprite_y = current_sprite.y_position;
     sprite_x = current_sprite.x_position;
-    current_clipdata_affecting_action = ccaa;
+    current_clipdata_affecting_action = caa;
     clipdata_related(sprite_y, sprite_x + 0x40);
-    current_clipdata_affecting_action = ccaa;
+    current_clipdata_affecting_action = caa;
     clipdata_related(sprite_y + 0x40, sprite_x + 0x40);
-    current_clipdata_affecting_action = ccaa;
+    current_clipdata_affecting_action = caa;
     clipdata_related(sprite_y, sprite_x - 0x40);
-    current_clipdata_affecting_action = ccaa;
+    current_clipdata_affecting_action = caa;
     clipdata_related(sprite_y + 0x40, sprite_x - 0x40);
-    current_clipdata_affecting_action = ccaa;
+    current_clipdata_affecting_action = caa;
     clipdata_related(sprite_y + 0x40, sprite_x);
 }
 
@@ -136,45 +136,5 @@ void morph_ball_launcher(void)
 
 void morph_ball_launcher_back(void)
 {
-    switch (current_sprite.pose)
-    {
-        case 0x0:
-            current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
-            current_sprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            current_sprite.samus_collision = SSC_NONE;
-            current_sprite.curr_anim_frame = 0x0;
-            current_sprite.anim_duration_counter = 0x0;
-            current_sprite.hitbox_top_offset = 0x0;
-            current_sprite.hitbox_bottom_offset = 0x0;
-            current_sprite.hitbox_left_offset = 0x0;
-            current_sprite.hitbox_right_offset = 0x0;
-            if (current_sprite.room_slot == 0x0)
-            {
-                current_sprite.oam_pointer = morph_ball_launcher_back_oam_2de168;
-                current_sprite.draw_distance_top_offset = 0x8;
-                current_sprite.draw_distance_bottom_offset = 0x10;
-                current_sprite.draw_distance_horizontal_offset = 0x10;
-                current_sprite.bg_priority = ((io_registers_backup.bg2cnt & 0x3) + 0x1) & 0x3;
-                current_sprite.draw_order = 0xC;
-                current_sprite.pose = 0x61;
-            }
-            else if (current_sprite.room_slot == 0x1)
-            {
-                current_sprite.oam_pointer = morph_ball_launcher_back_oam_2de178;
-                current_sprite.draw_distance_top_offset = 0x18;
-                current_sprite.draw_distance_bottom_offset = 0x18;
-                current_sprite.draw_distance_horizontal_offset = 0x18;
-                current_sprite.bg_priority = io_registers_backup.bg2cnt & 0x3;
-                current_sprite.draw_order = 0x1;
-                current_sprite.pose = 0xB;
-                current_sprite.timer1 = 0x3C;
-            }
-            else
-                current_sprite.status = 0x0;
-            break;
-        case 0xB:
-            current_sprite.timer1--;
-            if (current_sprite.timer1 == 0x0)
-                current_sprite.status = 0x0;
-    }
+
 }

@@ -375,18 +375,6 @@ struct __attribute__((packed)) enemy_room_data {
     u8 spriteset_slot;
 };
 
-struct sprite_stat {
-    u16 spawn_health;
-    u16 damage;
-    enum sprite_weakness_flags weakness;
-    u16 no_drop_prop;
-    u16 small_health_prob;
-    u16 large_health_prob;
-    u16 missile_prob;
-    u16 super_missile_prob;
-    u16 power_bomb_prob;
-};
-
 struct sub_sprite_data {
     struct frame_data* oam_pointer;
     u16 curr_anim_frame;

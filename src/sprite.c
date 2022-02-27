@@ -246,6 +246,19 @@ void sprite_init_primary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 r
     }*/
 }
 
+/**
+ * e258 | c4 | 
+ * Spawns a new secondary sprite with the given parameters
+ * 
+ * @param sprite_id The ID of the sprite to spawn
+ * @param room_slot The room slot
+ * @param gfx_slot The sprite graphics slot (usually the same as the primary sprite)
+ * @param ram_slot The RAM slot of the secondary sprite's parent
+ * @param y_position Y Position
+ * @param x_position X Position
+ * @param status_to_add Additionnal status flags (default are Exists, On Screen and Not Drawn)
+ * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
+ */
 u8 sprite_spawn_secondary(enum s_sprite_id sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, enum sprite_status status_to_add)
 {
     u8 new_ram_slot;
@@ -290,6 +303,18 @@ u8 sprite_spawn_secondary(enum s_sprite_id sprite_id, u8 room_slot, u8 gfx_slot,
     return 0xFF;
 }
 
+/**
+ * e31c | b8 | 
+ * Spawns a new primary sprite with the given parameters
+ * 
+ * @param sprite_id The ID of the sprite to spawn
+ * @param room_slot The room slot
+ * @param gfx_slot The sprite graphics slot
+ * @param y_position Y Position
+ * @param x_position X Position
+ * @param status_to_add Additionnal status flags (default are Exists, On Screen and Not Drawn)
+ * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
+ */
 u8 sprite_spawn_primary(enum p_sprite_id sprite_id, u8 room_slot, u8 gfx_slot, u16 y_position, u16 x_position, enum sprite_status status_to_add)
 {
     u8 new_ram_slot;
@@ -334,6 +359,19 @@ u8 sprite_spawn_primary(enum p_sprite_id sprite_id, u8 room_slot, u8 gfx_slot, u
     return 0xFF;
 }
 
+/**
+ * e31c | b8 | 
+ * Spawns a new primary sprite with the given parameters (used only for the drops and the followers sprite)
+ * 
+ * @param sprite_id The ID of the sprite to spawn
+ * @param room_slot The room slot
+ * @param gfx_slot The sprite graphics slot
+ * @param ram_slot The RAM slot of the sprite's parent
+ * @param y_position Y Position
+ * @param x_position X Position
+ * @param status_to_add Additionnal status flags (default are Exists, On Screen and Not Drawn)
+ * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
+ */
 u8 sprite_spawn_drop_followers(enum p_sprite_id sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, enum sprite_status status_to_add)
 {
     u8 new_ram_slot;
@@ -371,8 +409,8 @@ u8 sprite_spawn_drop_followers(enum p_sprite_id sprite_id, u8 room_slot, u8 gfx_
             return new_ram_slot;
         }
 
-        new_ram_slot += 0x1;
-        pSprite += 0x1;
+        new_ram_slot++;
+        pSprite++;
     }
 
     return 0xFF;
