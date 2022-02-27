@@ -151,7 +151,7 @@ void samus_change_to_hurt_pose(struct samus_data* pData, struct samus_data* pCop
     pData->invincibility_timer = 0x30;
     pData->shinespark_timer = 0x0;
     pData->standing_status = STANDING_MIDAIR;
-    pWeapon->PROJECTILEectile = PROJECTILE_NONE;
+    pWeapon->new_projectile = PROJECTILE_NONE;
     pWeapon->beam_release_palette_timer = 0x0;
 }
 
@@ -197,7 +197,7 @@ void samus_change_to_knockback_pose(struct samus_data* pData, struct samus_data*
     pData->arm_cannon_direction = pCopy->arm_cannon_direction;
     pData->shinespark_timer = 0x0;
     pData->standing_status = STANDING_MIDAIR;
-    pWeapon->PROJECTILEectile = PROJECTILE_NONE;
+    pWeapon->new_projectile = PROJECTILE_NONE;
     pWeapon->beam_release_palette_timer = 0x0;
 }
 
