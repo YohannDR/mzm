@@ -109,7 +109,92 @@ u8 sprite_util_check_objects_touching(u16 o1_top, u16 o1_bottom, u16 o1_left, u1
 
 void sprite_util_samus_and_sprite_collision(void)
 {
+    struct samus_data* pData;
+    struct sprite_data* pSprite;
+    u16 samus_y;
+    u16 samus_x;
+    u16 previous_x;
+    u16 samus_top;
+    u16 samus_bottom;
+    u16 samus_left;
+    u16 samus_right;
+    u16 sprite_y;
+    u16 sprite_x;
+    u16 sprite_top;
+    u16 sprite_bottom;
+    u16 sprite_left;
+    u16 sprite_right;
+    u8 isct;
 
+    pData = &samus_data;
+    samus_y = pData->y_position;
+    samus_x = pData->x_position;
+    previous_x = previous_x_position;
+    samus_top = samus_y + samus_physics.draw_distance_top_offset;
+    samus_bottom = samus_y + samus_physics.draw_distance_bottom_offset;
+    samus_left = samus_x + samus_physics.draw_distance_left_offset;
+    samus_right = samus_x + samus_physics.draw_distance_right_offset;
+
+    if (pData->pose == SPOSE_BALLSPARKING)
+    {
+        switch (samus_data.forced_movement)
+        {
+            case 0x0:
+                samus_left -= 0x20;
+                samus_right += 0x20;
+                break;
+            case 0x1:
+                samus_top -= 0x20;
+                samus_bottom += 0x20;
+                break;
+            default:
+                samus_left -= 0x18;
+                samus_right += 0x18;
+                samus_top -= 0x18;
+                samus_bottom += 0x18;
+        }
+    }
+    else if (pData->pose == SPOSE_SHINESPARKING && pData->forced_movement == 0x0)
+    {
+        samus_left -= 0x20;
+        samus_right += 0x20;
+    }
+
+    pSprite = sprite_data;
+
+    while (pSprite < sprite_data + 24)
+    {
+        if ((pSprite->status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN))
+        {
+            isct = pSprite->ignore_samus_collision_timer;
+            if (isct == 0x0)
+            {
+                sprite_y = pSprite->y_position;
+                sprite_x = pSprite->x_position;
+                sprite_top = sprite_y + pSprite->hitbox_top_offset;
+                sprite_bottom = sprite_y + pSprite->hitbox_bottom_offset;
+                sprite_left = sprite_x + pSprite->hitbox_left_offset;
+                sprite_right = sprite_x + pSprite->hitbox_right_offset;
+                if (sprite_util_check_objects_touching(samus_top, samus_bottom, samus_left, samus_right, sprite_top, sprite_bottom, sprite_left, sprite_right))
+                {
+                    collision_related = isct;
+                    // Weird calcul ?
+                    if (pSprite->freeze_timer == 0x0)
+                    {
+                        switch (pSprite->samus_collision)
+                        {
+                            case SSC_SOLID:
+                                break;
+                        }
+
+                        if (collision_related != 0x0)
+                            break;
+                    }
+                }
+            }
+        }
+        pSprite++;
+    }
 }
 
 u16 sprite_util_check_vertical_collision_at_position(u16 y_position, u16 x_position)
@@ -1464,9 +1549,46 @@ u8 sprite_check_colliding_with_samus_drawing(void)
         return FALSE;
 }
 
+/**
+ * 11620 | ac | 
+ * Sets a sprite splash particle effect depending on the parameters and the current hazard
+ * 
+ * @param y_position Y Position
+ * @param x_position X Position
+ * @param size Splash Size
+ */
 void sprite_util_set_splash_effect(u16 y_position, u16 x_position, enum splash_size size)
 {
+    switch (current_affecting_clipdata.hazard) // Switch on current hazard
+    {
+        case HAZARD_TYPE_WATER:
+            if (size == SPLASH_SMALL)
+                particle_set(y_position, x_position, PE_SPRITE_SPLASH_WATER_SMALL);
+            else if (size == SPLASH_BIG)
+                particle_set(y_position, x_position, PE_SPRITE_SPLASH_WATER_BIG);
+            else
+                particle_set(y_position, x_position, PE_SPRITE_SPLASH_WATER_HUGE);
+            break;
 
+        case HAZARD_TYPE_WEAK_LAVA:
+        case HAZARD_TYPE_STRONG_LAVA:
+            if (size == SPLASH_SMALL)
+                particle_set(y_position, x_position, PE_SPRITE_SPLASH_LAVA_SMALL);
+            else if (size == SPLASH_BIG)
+                particle_set(y_position, x_position, PE_SPRITE_SPLASH_LAVA_BIG);
+            else
+                particle_set(y_position, x_position, PE_SPRITE_SPLASH_LAVA_HUGE);
+            break;
+        
+        case HAZARD_TYPE_ACID:            
+            if (size == SPLASH_SMALL)
+                particle_set(y_position, x_position, PE_SPRITE_SPLASH_ACID_SMALL);
+            else if (size == SPLASH_BIG)
+                particle_set(y_position, x_position, PE_SPRITE_SPLASH_ACID_BIG);
+            else
+                particle_set(y_position, x_position, PE_SPRITE_SPLASH_ACID_HUGE);
+            break;
+    }
 }
 
 u8 sprite_util_check_out_of_room_effect(u16 old_y, u16 y_position, u16 x_position, enum splash_size size)

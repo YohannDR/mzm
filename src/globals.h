@@ -88,6 +88,7 @@ extern struct sprite_data current_sprite;
 extern struct sprite_debris sprite_debris[8];
 extern u8 previous_vertical_collision_check;
 extern u8 previous_collision_check;
+extern u8 collision_related;
 extern u8 sprite_draw_order[24];
 extern u8 sprite_rng;
 extern struct particle_effect particle_effects[16];

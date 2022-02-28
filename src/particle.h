@@ -5,7 +5,7 @@
 #include "oam.h"
 
 enum __attribute__((packed)) particle_effect_id {
-    PE_SPRITE_SPLASH_WAER_SMALL = 0x0,
+    PE_SPRITE_SPLASH_WATER_SMALL = 0x0,
     PE_SPRITE_SPLASH_WATER_BIG = 0x1,
     PE_SPRITE_SPLASH_WATER_HUGE = 0x2,
     PE_SPRITE_SPLASH_LAVA_SMALL = 0x3,
