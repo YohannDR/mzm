@@ -57,6 +57,7 @@ SECTIONS {
         . = 0x03000770; sprite_debris = .;
         . = 0x030007F0; previous_vertical_collision_check = .;
         . = 0x030007F1; previous_collision_check = .;
+        . = 0x030007F1; collision_related = .;
         . = 0x030007F3; sprite_draw_order = .;
         . = 0x0300083C; sprite_rng = .;
         . = 0x03000840; particle_effects = .;

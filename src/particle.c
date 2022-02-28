@@ -79,6 +79,10 @@ void particle_draw(struct particle_effect* pParticle)
     }*/
 }
 
+/**
+ * 53fd8 | 114 | Processes all the particle effects (calls subroutine and calls the draw function)
+ * 
+ */
 void particle_process_all(void)
 {
     struct particle_effect* pParticle;
@@ -89,9 +93,9 @@ void particle_process_all(void)
         pParticle = particle_effects;
         while (pParticle < particle_effects + 16)
         {
-            if ((pParticle->status & PARTICLE_STATUS_EXISTS) != 0x0 && pParticle->effect == PE_ESCAPE)
+            if (pParticle->status & PARTICLE_STATUS_EXISTS && pParticle->effect == PE_ESCAPE) // Probably a priority system
             {
-                bx_r1(pParticle, func_array[pParticle->effect]);
+                (*pVoid_pParticle_array_75f9b4[pParticle->effect])(pParticle); // Call subroutine
                 if ((pParticle->status & PARTICLE_STATUS_EXISTS) != 0x0)
                     particle_draw(pParticle);
             } 
@@ -105,7 +109,7 @@ void particle_process_all(void)
         {
             if ((pParticle->status & (PARTICLE_STATUS_EXISTS | PARTICLE_STATUS_EXPLOSION)) == (PARTICLE_STATUS_EXISTS | PARTICLE_STATUS_EXPLOSION))
             {
-                bx_r1(pParticle, func_array[pParticle->effect]);
+                (*pVoid_pParticle_array_75f9b4[pParticle->effect])(pParticle); // Call subroutine
                 if ((pParticle->status & PARTICLE_STATUS_EXISTS) != 0x0)
                 {
                     particle_check_on_screen(pParticle);
@@ -122,8 +126,8 @@ void particle_process_all(void)
         {
             if ((pParticle->status & (PARTICLE_STATUS_EXISTS | PARTICLE_STATUS_EXPLOSION)) == PARTICLE_STATUS_EXISTS)
             {
-                bx_r1(pParticle, func_array[pParticle->effect]);
-                if ((pParticle->status & PARTICLE_STATUS_EXISTS) != 0x0)
+                (*pVoid_pParticle_array_75f9b4[pParticle->effect])(pParticle); // Call subroutine
+                if (pParticle->status & PARTICLE_STATUS_EXISTS)
                 {
                     particle_check_on_screen(pParticle);
                     status = (pParticle->status & (PARTICLE_STATUS_ONSCREEN | PARTICLE_STATUS_NOT_DRAWN));
