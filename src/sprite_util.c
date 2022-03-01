@@ -1,9 +1,10 @@
 #include "sprite_util.h"
-#include "globals.h"
 #include "sprite_debris.h"
 #include "particle.h"
 #include "samus.h"
 #include "location_text.h"
+#include "sprites_AI/parasite.h"
+#include "globals.h"
 
 void sprite_util_init_location_text(void)
 {
@@ -33,12 +34,12 @@ void sprite_util_init_location_text(void)
     }
 }
 
-void unk_e514(u16 x_position, u16 y_position)
+void unk_e514(u16 y_position, u16 x_position)
 {
 
 }
 
-void unk_e5e4(u16 x_position, u16 y_position)
+void unk_e5a4(u16 y_position, u16 x_position)
 {
 
 }
@@ -125,8 +126,13 @@ void sprite_util_samus_and_sprite_collision(void)
     u16 sprite_left;
     u16 sprite_right;
     u8 isct;
+    u8 unk;
+    u8* pTimer;
+    u8 dmg_multiplier;
+    u8 invincibility;
 
     pData = &samus_data;
+    dmg_multiplier = 0x0;
     samus_y = pData->y_position;
     samus_x = pData->x_position;
     previous_x = previous_x_position;
@@ -167,6 +173,7 @@ void sprite_util_samus_and_sprite_collision(void)
         if ((pSprite->status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN))
         {
             isct = pSprite->ignore_samus_collision_timer;
+            pTimer = &pSprite->ignore_samus_collision_timer;
             if (isct == 0x0)
             {
                 sprite_y = pSprite->y_position;
@@ -183,8 +190,352 @@ void sprite_util_samus_and_sprite_collision(void)
                     {
                         switch (pSprite->samus_collision)
                         {
+                            case SSC_IMAGO_EGG:
+                                pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
+                                collision_related = 0x1;
                             case SSC_SOLID:
+                                if (!sprite_util_check_pulling_self_up() && sprite_util_sprite_take_damage_from_samus_contact(pSprite, pData) == DCT_NONE)
+                                {
+                                    if (samus_y - 0x18 < sprite_top)
+                                    {
+                                        sprite_util_check_collision_at_position(sprite_top + samus_physics.draw_distance_top_offset + 0x1, samus_x);
+                                        if (previous_collision_check == 0x0 && pData->y_velocity < 0x0)
+                                        {
+                                            pData->y_position = sprite_top + 0x1;
+                                            pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
+                                            pSprite->standing_on_sprite = 0x2;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (samus_top + 0x10 > sprite_bottom)
+                                        {
+                                            sprite_util_check_collision_at_position(sprite_bottom - samus_physics.draw_distance_top_offset, samus_x);
+                                            if (previous_collision_check == 0x0)
+                                            {
+                                                pData->y_position = sprite_bottom - samus_physics.draw_distance_top_offset;
+                                                if (pData->y_velocity > 0x0 && equipment.current_energy != 0x0)
+                                                    pData->y_velocity = 0x0;
+                                            }
+                                        }
+                                        else if (samus_x < sprite_left || samus_x > sprite_right)
+                                        {
+                                            if (unk & 0x4)
+                                                unk_e514(samus_y, sprite_left);
+                                            else
+                                                unk_e5a4(samus_y, sprite_right);
+                                        }
+                                    }
+                                }
                                 break;
+
+                            case SSC_ESCAPE_SHIP:
+                                if (!sprite_util_check_pulling_self_up() && sprite_util_sprite_take_damage_from_samus_contact(pSprite, pData) == DCT_NONE && samus_x - 0x18 < sprite_top)
+                                {
+                                    sprite_util_check_collision_at_position(sprite_top + samus_physics.draw_distance_top_offset + 0x1, sprite_y);
+                                    if (previous_collision_check == 0x0 && pData->y_velocity < 0x1)
+                                    {
+                                        pData->y_position = sprite_top + 0x1;
+                                        pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
+                                        pSprite->standing_on_sprite = 0x2;
+                                    }
+                                }
+                                break;
+
+                            case 0x3:
+                                if (sprite_util_sprite_take_damage_from_samus_contact(pSprite, pData) == DCT_NONE)
+                                {
+                                    if (samus_y - 0x18 < sprite_top)
+                                    {
+                                        if (!sprite_util_check_pulling_self_up() && pData->invincibility_timer < 0x27)
+                                        {
+                                            sprite_util_check_collision_at_position(sprite_top + samus_physics.draw_distance_top_offset + 0x1, samus_x);
+                                            if (previous_collision_check == 0x0 && pData->y_velocity < 0x10)
+                                            {
+                                                pData->y_position = sprite_top + 0x1;
+                                                pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
+                                                pSprite->standing_on_sprite = 0x2;
+                                            }
+                                        }
+                                    }   
+                                    else
+                                    {
+                                        if (pData->invincibility_timer == 0x0 && sprite_util_take_damage_from_sprite(TRUE, pSprite, 0x1))
+                                        {
+                                            if (unk & 0x4)
+                                                pData->x_velocity = -0x40;
+                                            else
+                                                pData->x_velocity = 0x40;
+                                        }
+                                        *pTimer = 0xF;
+                                        collision_related = 0x1;
+                                    }
+                                }
+                                break;
+
+                            case SSC_KRAID_SPIKE:
+                                if (samus_x > sprite_right)
+                                {
+                                    if (pData->invincibility_timer == 0x0 && sprite_util_take_damage_from_sprite(TRUE, pSprite, 0x1))
+                                    {
+                                        if (unk & 0x4)
+                                            pData->x_velocity = -0x40;
+                                        else
+                                            pData->x_velocity = 0x40;
+                                    }
+                                    *pTimer = 0xF;
+                                    collision_related = 0x1;
+                                }
+                                else
+                                {
+                                    if (samus_y - 0x18 <= sprite_top && !sprite_util_check_pulling_self_up() && pData->invincibility_timer < 0x25)
+                                    {
+                                        sprite_util_check_collision_at_position(sprite_top + samus_physics.draw_distance_top_offset + 0x1, samus_x);
+                                        if (previous_collision_check == 0x0 && pData->y_velocity < 0x0)
+                                        {
+                                            pData->y_position = sprite_top + 0x1;
+                                            pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
+                                            pSprite->standing_on_sprite = 0x2;
+                                        }
+                                    }
+                                }
+                                break;
+
+                            case SSC_ABILITY_LASER_SEARCHLIGHT:
+                            case SSC_SMALL_ENERGY_DROP:
+                            case SSC_LARGE_ENERGY_DROP:
+                            case SSC_MISSILE_DROP:
+                            case SSC_SUPER_MISSILE_DROP:
+                            case SSC_POWER_BOMB_DROP:
+                                pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
+                                break;
+
+                            case SSC_ACID_WORM_MOUTH:
+                                break;
+
+                            case SSC_ACID_WORM:
+                                break;
+
+                            case SSC_SPACE_PIRATE_LASER:
+                            case SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT:
+                                pSprite->pose = 0x42; // Set destroyed pose
+                            case SSC_MELLOW:
+                            case SSC_HURTS_SAMUS:
+                                if (sprite_util_sprite_take_damage_from_samus_contact(pSprite, pData) == DCT_NONE)
+                                {
+                                    if (pData->invincibility_timer == 0x0 && sprite_util_take_damage_from_sprite(TRUE, pSprite, 0x1))
+                                    {
+                                        if (unk & 0x4)
+                                            pData->x_velocity = -0x40;
+                                        else
+                                            pData->x_position = 0x40;
+                                    }
+                                    *pTimer = 0xF;
+                                    collision_related = 0x1;
+                                }
+                                break;
+
+                            case 0xF:
+                                break;
+                            case 0xE:
+                                //
+                            case SSC_IMAGO_STINGER:
+                                if (sprite_util_sprite_take_damage_from_samus_contact(pSprite, pData) == DCT_NONE)
+                                {
+                                    if (pData->invincibility_timer == 0x0 && sprite_util_take_damage_from_sprite(TRUE, pSprite, 0x1))
+                                    {
+                                        if (unk & 0x4)
+                                            pData->x_velocity = -0x80;
+                                        else
+                                            pData->x_velocity = 0x80;
+                                    }
+                                    *pTimer = 0xF;
+                                    collision_related = 0x1;
+                                }
+                                break;
+
+                            case SSC_ATOMIC_DISCHARGE:
+                                break;
+
+                            case SSC_SPACE_PIRATE:
+                                break;
+                    
+                            case 0x9:
+                                pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
+                                if (pData->invincibility_timer < 0x8)
+                                {
+                                    sprite_util_take_damage_from_sprite(FALSE, pSprite, 0x1);
+                                    if (equipment.current_energy != 0x0)
+                                        pData->invincibility_timer = 0x8;
+                                }
+                                *pTimer = 0xF;
+                                break;
+
+                            case 0x10:
+                                pSprite->pose = 0x42;
+                            case 0x11:
+                                sprite_util_take_damage_from_sprite(FALSE, pSprite, 0x1);
+                                *pTimer = 0xF;
+                                if (pData->invincibility_timer == 0x0)
+                                    pData->invincibility_timer = 0x0;
+                                collision_related = 0x1;
+                                break;
+
+                            case SSC_ZIPLINE:
+                                if (unk & 0x2)
+                                {
+                                    switch (pData->pose)
+                                    {
+                                        case SPOSE_MIDAIR:
+                                        case SPOSE_SPINNING:
+                                            pData->y_position = pSprite->y_position + 0xA8;
+                                            pData->x_position = pSprite->x_position;
+                                            previous_y_position = pData->y_position;
+                                            previous_x_position = pData->x_position;
+                                            samus_set_pose(SPOSE_ON_ZIPLINE);
+                                            pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
+                                            break;
+
+                                        case SPOSE_BALLSPARKING:
+                                            play_sound2(0x8F);
+                                        case SPOSE_MORPH_BALL_MIDAIR:
+                                            pData->y_position = pSprite->y_position + 0x3C;
+                                            pData->x_position = pSprite->x_position;
+                                            previous_y_position = pData->y_position;
+                                            previous_x_position = pData->x_position;
+                                            samus_set_pose(SPOSE_MORPH_BALL_ON_ZIPLINE);
+                                            pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
+                                            break;
+                                    }
+                                    *pTimer = 0xF;
+                                    collision_related = 0x1;
+                                }
+                                break;
+
+                            case SSC_ZEBETITE:
+                                if (sprite_util_sprite_take_damage_from_samus_contact(pSprite, pData) == DCT_NONE)
+                                {
+                                    if (unk & 0x4)
+                                        unk_e514(samus_y, sprite_left);
+                                    else
+                                        unk_e5a4(samus_y, sprite_right);
+                                }
+                                break;
+
+                            case SSC_HURTS_SAMUS_NO_PASS_THROUGH:
+                                if (sprite_util_sprite_take_damage_from_samus_contact(pSprite, pData) == DCT_NONE)
+                                {
+                                    if (unk & 0x4)
+                                        unk_e514(samus_y, sprite_left);
+                                    else
+                                        unk_e5a4(samus_y, sprite_right);
+
+                                    if (pData->invincibility_timer == 0x0)
+                                    {
+                                        if (sprite_util_take_damage_from_sprite(TRUE, pSprite, 0x1) && previous_collision_check == 0x0)
+                                        {
+                                            if (unk & 0x4)
+                                                pData->x_velocity = -0x40;
+                                            else
+                                                pData->x_velocity = 0x40;
+                                        }
+                                        collision_related = 0x1;
+                                    }
+                                }
+                                break;
+
+                            case SSC_KRAID:
+                                if (sprite_util_sprite_take_damage_from_samus_contact(pSprite, pData) == DCT_NONE)
+                                {
+                                    if (unk & 0x4)
+                                        unk_e514(samus_y, sprite_left);
+                                    else
+                                        unk_e5a4(samus_y, sprite_right);
+
+                                    if (pData->invincibility_timer == 0x0)
+                                    {
+                                        if (sprite_util_take_damage_from_sprite(TRUE, pSprite, 0x1) && previous_collision_check == 0x0)
+                                        {
+                                            if (unk & 0x4)
+                                                pData->x_velocity = -0x40;
+                                            else
+                                                pData->x_velocity = 0x40;
+                                        }
+                                    }
+                                    else if (previous_collision_check == 0x0)
+                                    {
+                                        sprite_util_check_collision_at_position(samus_y + samus_physics.draw_distance_top_offset + 0x1, samus_x);
+                                        if (previous_collision_check == 0x0)
+                                        {
+                                            samus_set_pose(SPOSE_KNOCKBACK_REQUEST);
+                                            if (unk & 0x4)
+                                                pData->x_velocity = -0x40;
+                                            else
+                                                pData->x_velocity = 0x40;
+                                        }
+                                    }
+                                    collision_related = 0x1;
+                                }
+                                break;
+
+                            case SSC_KNOCKS_BACK_SAMUS:
+                                if (sprite_util_sprite_take_damage_from_samus_contact(pSprite, pData) == DCT_NONE)
+                                {
+                                    samus_set_pose(SPOSE_KNOCKBACK_REQUEST);
+                                    if (unk & 0x4)
+                                        pData->x_velocity = -0x20;
+                                    else
+                                        pData->x_position = 0x20;
+                                }
+                                collision_related = 0x1;
+                                break;
+
+                            case SSC_BUG:
+                                pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
+                                if (pData->invincibility_timer == 0x0 && (equipment.suit_misc_activation & (SMF_VARIA_SUIT & SMF_GRAVITY_SUIT)) == 0x0)
+                                {
+                                    if (parasite_count() && sprite_util_take_damage_from_sprite(FALSE, pSprite, dmg_multiplier >> 0x2))
+                                    {
+                                        pData->invincibility_timer = 0x10;
+                                        unk_2b20(0x80);
+                                        sub_sprite_data1.timer++;
+                                        if ((sub_sprite_data1.timer & 0x3) == 0x0)
+                                            play_sound1(0x7C);
+                                    }
+                                }
+                                *pTimer = 0xF;
+                                break;
+
+                            case SSC_METROID:
+                                if (samus_y > sprite_y + 0x20)
+                                    pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
+                                if (pData->invincibility_timer == 0x0 && sprite_util_take_damage_from_sprite(FALSE, pSprite, 0x1))
+                                {
+                                    if (equipment.suit_misc_activation & (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT) == 0x0)
+                                        pData->invincibility_timer = 0x2;
+                                    else if ((equipment.suit_misc_activation & (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT)) == (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT))
+                                        pData->invincibility_timer = 0x8;
+                                    else
+                                        pData->invincibility_timer = 0x4;
+                                }
+                                break;
+
+                            case SSC_RIDLEY_CLAW:
+                                break;
+
+                            case SSC_MECHA_RIDLEY:
+                                dmg_multiplier = 0x1;
+                                if (sprite_util_get_final_completion_percentage() == 0x64)
+                                    dmg_multiplier = 0x2;
+                                if (sprite_util_take_damage_from_sprite(TRUE, pSprite, dmg_multiplier))
+                                    pData->x_velocity = -0x80;
+                                *pTimer = 0xF;
+                                collision_related = 0x1;
+
+                            case 0x8:
+                            default:
+                                *pTimer = 0xF;
+                                collision_related = 0x1;
                         }
 
                         if (collision_related != 0x0)
@@ -194,6 +545,13 @@ void sprite_util_samus_and_sprite_collision(void)
             }
         }
         pSprite++;
+    }
+
+    pSprite = sprite_data;
+    while (pSprite < sprite_data + 24)
+    {
+        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->ignore_samus_collision_timer != 0x0)
+            pSprite->ignore_samus_collision_timer--;
     }
 }
 

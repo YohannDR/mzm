@@ -39,8 +39,8 @@ enum __attribute__((packed)) splash_size {
 };
 
 void sprite_util_init_location_text(void);
-void unk_e514(u16 x_position, u16 y_position);
-void unk_e5e4(u16 x_position, u16 y_position);
+void unk_e514(u16 y_position, u16 x_position);
+void unk_e5a4(u16 y_position, u16 x_position);
 u8 sprite_util_take_damage_from_sprite(u8 kb_flag, struct sprite_data* pSprite, u16 dmg_mulitplier);
 u8 sprite_util_check_objects_touching(u16 o1_top, u16 o1_bottom, u16 o1_left, u16 o1_right, u16 o2_top, u16 o2_bottom, u16 o2_left, u16 o2_right);
 void sprite_util_samus_and_sprite_collision(void);
