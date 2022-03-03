@@ -24,7 +24,7 @@ OBJDUMP = $(TOOLCHAIN)objdump
 
 CC = agbcc
 
-DIFF = diff -u
+DIFF = diff -y
 HOSTCC = cc
 RM = rm -f
 SHA1SUM = sha1sum
