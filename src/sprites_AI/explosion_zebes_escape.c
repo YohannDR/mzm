@@ -31,7 +31,7 @@ void explosion_zebes_escape(void)
         current_sprite.curr_anim_frame = 0x0;
         current_sprite.pose = 0x9;
         current_sprite.array_offset = 0x7;
-        current_sprite.maybe_variable = 0x0;
+        current_sprite.work_variable = 0x0;
         current_sprite.y_position_spawn = current_sprite.y_position;
         current_sprite.x_position_spawn = current_sprite.x_position;
         return;
@@ -43,8 +43,8 @@ void explosion_zebes_escape(void)
     rng_ = rng & 0x3;
     array_offset = current_sprite.array_offset;
     current_sprite.array_offset++;
-    variable = current_sprite.maybe_variable;
-    current_sprite.maybe_variable++;
+    variable = current_sprite.work_variable;
+    current_sprite.work_variable++;
 
     y_position = current_sprite.y_position_spawn;
     if (samus_data.y_position < (current_sprite.y_position_spawn - 0xA0))

@@ -423,7 +423,7 @@ struct sprite_data {
     u8 invicibility_stun_flash_timer;
     u8 timer1;
     u8 timer2;
-    u8 maybe_variable;
+    u8 work_variable;
     u8 array_offset;
     u8 freeze_timer;
     u8 standing_on_sprite;

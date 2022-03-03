@@ -89,19 +89,19 @@ void imago_cocoon_change_two_blocking_ccaa(enum current_clipdata_affecting_actio
  */
 void imago_cocoon_change_oam_scaling(u16 limit, u16 value)
 {
-    if (current_sprite.maybe_variable != 0x0) // Check growing/shrinking
+    if (current_sprite.work_variable != 0x0) // Check growing/shrinking
     {
         if (current_sprite.oam_scaling > (0x100 - limit))
             current_sprite.oam_scaling -= value;
         else
-            current_sprite.maybe_variable = 0x0; // Set growing
+            current_sprite.work_variable = 0x0; // Set growing
     }
     else
     {
         if (current_sprite.oam_scaling < (limit + 0x100))
             current_sprite.oam_scaling += value;
         else
-            current_sprite.maybe_variable = 0x1; // Set shrinking
+            current_sprite.work_variable = 0x1; // Set shrinking
     }
 }
 

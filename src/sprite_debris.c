@@ -87,6 +87,14 @@ void sprite_debris_draw_all(void)
     }
 }
 
+/**
+ * 11e48 | 90 | Initializes a sprite debris at the given parameters
+ * 
+ * @param cloud_type Unused
+ * @param debris_type Type of the debris
+ * @param y_position Y Position
+ * @param x_position X Position
+ */
 void sprite_debris_init(u8 cloud_type, u8 debris_type, u16 y_position, u16 x_position)
 {
 

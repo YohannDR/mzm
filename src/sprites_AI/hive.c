@@ -230,9 +230,9 @@ void hive_mellow_init(struct sprite_data* pSprite)
             pSprite->pose = 0x9;
             pSprite->array_offset = sprite_rng << 0x2;
             if (sprite_rng & 0x1)
-                pSprite->maybe_variable = 0x14;
+                pSprite->work_variable = 0x14;
             else
-                pSprite->maybe_variable = 0x3C;
+                pSprite->work_variable = 0x3C;
             
             if (pSprite->x_position & 0x1)
                 pSprite->draw_order = 0x3;
@@ -245,7 +245,7 @@ void hive_mellow_init(struct sprite_data* pSprite)
             pSprite->bg_priority = io_registers_backup.bg2cnt & 0x3;
             pSprite->draw_order = 0x3;
             pSprite->timer2 = 0x0;
-            pSprite->maybe_variable = 0x1;
+            pSprite->work_variable = 0x1;
             pSprite->timer1 = 0x0;
             pSprite->array_offset = 0x1;
             pSprite->x_position_spawn = sprite_rng & 0x3;
@@ -272,7 +272,7 @@ void hive_mellow_fleeing(struct sprite_data* pSprite)
 
     rng = sprite_rng >> 0x2;
     movement = rng + 0x8;
-    if (pSprite->maybe_variable < 0x28)
+    if (pSprite->work_variable < 0x28)
         pSprite->x_position -= -movement;
     else
         pSprite->x_position -= movement;
@@ -287,7 +287,7 @@ void hive_mellow_fleeing(struct sprite_data* pSprite)
 void hive_mellow_samus_detected(struct sprite_data* pSprite)
 {
     pSprite->timer2 = 0x0;
-    pSprite->maybe_variable = 0x1;
+    pSprite->work_variable = 0x1;
     pSprite->timer1 = 0x0;
     pSprite->array_offset = 0x1;
     pSprite->x_position_spawn = 0x0;
@@ -459,27 +459,27 @@ void hive_mellow_swarm(void)
             if (current_sprite.sprite_id == PSPRITE_MELLOW_SWARM_HEALTH_BASED)
             {
                 if (equipment.current_energy >= 0x190)
-                    current_sprite.maybe_variable = 0xF;
+                    current_sprite.work_variable = 0xF;
                 else
                 {
                     if (equipment.current_energy >= 0x12C)
-                        current_sprite.maybe_variable = 0xC;
+                        current_sprite.work_variable = 0xC;
                     else
                     {
                         if (equipment.current_energy >= 0xC8)
-                            current_sprite.maybe_variable = 0x9;
+                            current_sprite.work_variable = 0x9;
                         else
                         {
                             if (equipment.current_energy >= 0x64)
-                                current_sprite.maybe_variable = 0x6;
+                                current_sprite.work_variable = 0x6;
                             else
-                                current_sprite.maybe_variable = 0x3;
+                                current_sprite.work_variable = 0x3;
                         }
                     }
                 }
             }
             else
-                current_sprite.maybe_variable = 0x5;
+                current_sprite.work_variable = 0x5;
         }
     }
     else
@@ -499,7 +499,7 @@ void hive_mellow_swarm(void)
 
             if ((current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL) == 0x0)
             {
-                if (count >= current_sprite.maybe_variable)
+                if (count >= current_sprite.work_variable)
                 {
                     current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
                     return;

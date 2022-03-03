@@ -48,16 +48,14 @@ u8 sprite_util_take_damage_from_sprite(u8 kb_flag, struct sprite_data* pSprite, 
 {
     /*u32 damage;
     u32 dmg_reduction;
-    u16** pStats;
     struct equipment* pEquipment;
     u16 sprite_dmg;
 
     if ((pSprite->properties & SP_SECONDARY_SPRITE) != 0x0)
-        pStats = secondary_sprite_stats_2b1be4;
+        sprite_dmg = secondary_sprite_stats_2b1be4[pSprite->sprite_id][0x1] * dmg_mulitplier;
     else if ((pSprite->properties & SP_SECONDARY_SPRITE) == 0x0)
-        pStats = primary_sprite_stats_2b0d68;
+        sprite_dmg = primary_sprite_stats_2b0d68[pSprite->sprite_id][0x1] * dmg_mulitplier;
 
-    sprite_dmg = pStats[pSprite->sprite_id][0x1] * dmg_mulitplier;
     damage = (u16)sprite_dmg;
 
     pEquipment = &equipment;
@@ -68,12 +66,12 @@ u8 sprite_util_take_damage_from_sprite(u8 kb_flag, struct sprite_data* pSprite, 
         if ((pEquipment->suit_misc_activation & SMF_GRAVITY_SUIT) != 0x0)
         {
             dmg_reduction = damage * 0x7;
-            damage = (u16)divide_signed(dmg_reduction, 0xA);
+            damage = (u16)(dmg_reduction / 0xA);
         }
         else if ((pEquipment->suit_misc_activation & SMF_VARIA_SUIT) != 0x0)
         {
             dmg_reduction = damage << 0x3;
-            damage = (u16)divide_signed(dmg_reduction, 0xA);
+            damage = (u16)(dmg_reduction / 0xA);
         }
     }
 
@@ -88,7 +86,7 @@ u8 sprite_util_take_damage_from_sprite(u8 kb_flag, struct sprite_data* pSprite, 
     if (pEquipment->current_energy > damage)
     {
         pEquipment->current_energy -= damage;
-        if (kb_flag != FALSE)
+        if (kb_flag)
             samus_set_pose(SPOSE_HURT_REQUEST);
         return TRUE;
     }
@@ -1789,15 +1787,17 @@ u8 sprite_util_is_sprite_on_screen_and_screen_shake(void)
 void sprite_util_maybe_update_sub_sprite1_timer(void)
 {
     /*u8 adc;
-    u16 curr_anim_frame;
-    u8 curr_anim;
-
+    u32 caf;
+    u8 timer;
+    
     sub_sprite_data1.timer = 0x0;
     adc = (u8)(sub_sprite_data1.anim_duration_counter + 0x1);
-    curr_anim_frame = sub_sprite_data1.curr_anim_frame;
-
-    if ((u8)sub_sprite_data1.oam_pointer[curr_anim_frame].timer < adc)
-        sub_sprite_data1.timer = (char)curr_anim_frame + 0x1;*/
+    caf = sub_sprite_data1.curr_anim_frame;
+    if ((u8)sub_sprite_data1.oam_pointer[caf].timer < adc)
+    {
+        timer = caf + 0x1;
+        sub_sprite_data1.timer = timer;
+    }*/
 }
 
 void sprite_util_update_sub_sprite1_anim(void)
@@ -1949,6 +1949,16 @@ void sprite_util_set_splash_effect(u16 y_position, u16 x_position, enum splash_s
     }
 }
 
+/**
+ * 116cc | 4c | 
+ * Checks if the sprite is out of the current room effect, if yes sets a splash effect
+ * 
+ * @param old_y Old Y position, before movement
+ * @param y_position Current Y position
+ * @param x_position Current X position
+ * @param size Size of the splash
+ * @return 1 if out of effect, 0 otherwise 
+ */
 u8 sprite_util_check_out_of_room_effect(u16 old_y, u16 y_position, u16 x_position, enum splash_size size)
 {
     if (old_y > effect_y_position && y_position <= effect_y_position)
@@ -1964,6 +1974,16 @@ u8 sprite_util_check_out_of_room_effect(u16 old_y, u16 y_position, u16 x_positio
         return FALSE;
 }
 
+/**
+ * 11718 | 4c | 
+ * Checks if the sprite is in the current room effect, if yes sets a splash effect
+ * 
+ * @param old_y Old Y position, before movement
+ * @param y_position Current Y position
+ * @param x_position Current X position
+ * @param size Size of the splash
+ * @return 1 if in the effect, 0 otherwise 
+ */
 u8 sprite_util_check_in_room_effect(u16 old_y, u16 y_position, u16 x_position, enum splash_size size)
 {
     if (old_y < effect_y_position && y_position >= effect_y_position)
