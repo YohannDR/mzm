@@ -3,13 +3,13 @@
 
     .syntax unified
 
-    thumb_func_start cpufastset
-cpufastset: @ 0x08005190
+    thumb_func_start cpu_fast_set
+cpu_fast_set: @ 0x08005190
     swi SYSCALL_CPUSetFast
     bx lr
 
-    thumb_func_start cpuset
-cpuset: @ 0x08005194
+    thumb_func_start cpu_set
+cpu_set: @ 0x08005194
     swi SYSCALL_CPUSet
     bx lr
 

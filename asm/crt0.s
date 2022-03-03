@@ -14,7 +14,7 @@ _start: @ 0x080000c0
     ldr r1, intr_vector_ptr
     add r0, pc, #0x20 @ intr_main
     str r0, [r1]
-    ldr r1, main_ptr
+    ldr r1, agbmain_ptr
     mov lr, pc
     bx r1
     b _start
@@ -23,4 +23,4 @@ _start: @ 0x080000c0
 sp_sys_ptr: .4byte sp_sys
 sp_irq_ptr: .4byte sp_irq
 intr_vector_ptr: .4byte intr_vector
-main_ptr: .4byte main
+agbmain_ptr: .4byte agbmain

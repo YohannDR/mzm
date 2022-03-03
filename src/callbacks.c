@@ -56,18 +56,18 @@ void set_vcount_callback(callback_t callback) {
     }
 }
 
-void call_serial_callback(void) {
-    if (serial_callback) {
-        serial_callback();
+void call_serial_comm_callback(void) {
+    if (serial_comm_callback) {
+        serial_comm_callback();
     }
 
     write16(REG_IF, read16(REG_IF) | IF_SERIAL);
 }
 
-void set_serial_callback(callback_t callback) {
-    serial_callback = callback;
+void set_serial_comm_callback(callback_t callback) {
+    serial_comm_callback = callback;
     if (!callback) {
-        serial_callback = empty_callback;
+        serial_comm_callback = empty_callback;
     }
 }
 

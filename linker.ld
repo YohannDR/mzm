@@ -23,7 +23,7 @@ SECTIONS {
         . = 0x00001cec; vblank_callback = .;
         . = 0x00001cf0; hblank_callback = .;
         . = 0x00001cf4; vcount_callback = .;
-        . = 0x00001cf8; serial_callback = .;
+        . = 0x00001cf8; serial_comm_callback = .;
         . = 0x00001cfc; timer3_callback = .;
         . = 0x00007e60; sp_sys = .;
         . = 0x00007fa0; sp_irq = .;
@@ -36,30 +36,20 @@ SECTIONS {
         asm/romheader.o(.text);
         asm/crt0.o(.text);
         asm/intr_main.o(.text);
-        asm/main.o(.text);
+        asm/agbmain.o(.text);
         src/init_game.o(.text);
         src/softreset.o(.text);
-        asm/softreset.o(.text);
-        asm/blob_0x0000090c-0x00000968.o(.text);
-        asm/update_input.o(.text);
+        asm/disasm_0x08000804.o(.text);
         src/clear_ram.o(.text);
         src/load_intr_code.o(.text);
-        asm/blob_0x00000a18-0x00000a98.o(.text);
+        asm/disasm_0x08000a18.o(.text);
         src/callbacks.o(.text);
-        asm/blob_0x00000c04-0x00002564.o(.text);
-        asm/init_sound.o(.text);
-        asm/blob_0x000027f8-0x000031e4.o(.text);
-        asm/dma_transfer.o(.text);
-        asm/bit_fill.o(.text);
-        asm/blob_0x00003380-0x00004d48.o(.text);
-        asm/sub_08004d48.o(.text);
-        asm/blob_0x00004e10-0x00005190.o(.text);
+        asm/disasm_0x08000c04.o(.text);
         asm/syscalls.o(.text);
-        asm/blob_0x000051d4-0x0007329c.o(.text);
-        asm/read_sram.o(.text);
-        asm/blob_0x00073300-0x0008abf8.o(.text);
+        asm/disasm_0x080051d4.o(.text);
         asm/libgcc.o(.text);
-        asm/blob_0x0008ac34-0x00800000.o(.text);
+        asm/disasm_0x0808af18.o(.text);
+        asm/data_0x0808c71c.o(.text);
     } >rom
 
     /DISCARD/ : {
