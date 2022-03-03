@@ -51,7 +51,7 @@ void skree_start_going_down(void)
     current_sprite.anim_duration_counter = 0x0;
     current_sprite.curr_anim_frame = 0x0;
     current_sprite.array_offset = 0x0;
-    current_sprite.maybe_variable = 0x0;
+    current_sprite.work_variable = 0x0;
     current_sprite.pose = 0x35;
 
     if (current_sprite.x_position > samus_data.x_position)
@@ -81,7 +81,7 @@ void skree_go_down(void)
     }
     else
     {
-        x_movement = current_sprite.maybe_variable >> 0x2;
+        x_movement = current_sprite.work_variable >> 0x2;
         array_offset = current_sprite.array_offset;
         y_movement = skree_falling_speed_2cca7c[array_offset];
         if (y_movement == 0x7FFF)
@@ -111,7 +111,7 @@ void skree_go_down(void)
         }
 
         if (x_movement < 0x10)
-            current_sprite.maybe_variable++;
+            current_sprite.work_variable++;
     }
 }
 

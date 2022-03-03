@@ -36,7 +36,7 @@ u8 sova_check_colliding_with_air(void)
     }
     else
     {
-        if (current_sprite.maybe_variable != 0x0)
+        if (current_sprite.work_variable != 0x0)
         {
             sprite_util_check_collision_at_position(current_sprite.y_position - 0x4, current_sprite.x_position - 0x20);
             if (previous_collision_check != 0x0)
@@ -86,7 +86,7 @@ void sova_hitbox_update(void)
     }
     else
     {
-        if (current_sprite.maybe_variable != 0x0)
+        if (current_sprite.work_variable != 0x0)
         {
             current_sprite.hitbox_top_offset = -0x4;
             current_sprite.hitbox_bottom_offset = 0x34;
@@ -112,7 +112,7 @@ void sova_gfx_update(void)
     }
     else
     {
-        if (current_sprite.maybe_variable != 0x0)
+        if (current_sprite.work_variable != 0x0)
             current_sprite.oam_pointer = sova_oam_2cfcb0;
         else
             current_sprite.oam_pointer = sova_oam_2cfb98;
@@ -128,7 +128,7 @@ void sova_gfx_update(void)
 
 void sova_init(void)
 {
-    current_sprite.maybe_variable = 0x0;
+    current_sprite.work_variable = 0x0;
     current_sprite.pose = 0x9;
     sprite_util_choose_random_x_direction();
     sprite_util_check_collision_at_position(current_sprite.y_position, current_sprite.x_position);
@@ -141,7 +141,7 @@ void sova_init(void)
         {
             status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
             current_sprite.y_position -= 0x40;
-            current_sprite.maybe_variable = 0x1;
+            current_sprite.work_variable = 0x1;
         }
         else
         {
@@ -235,7 +235,7 @@ void sova_move(void)
 
     if (sprite_util_is_screen_on_screen_and_screen_shake())
     {
-        if (current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL || current_sprite.maybe_variable)
+        if (current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL || current_sprite.work_variable)
             current_sprite.pose = 0x1E;
         return;
     }
@@ -365,7 +365,7 @@ void sova_move(void)
         }
     }
 
-    if (current_sprite.maybe_variable)
+    if (current_sprite.work_variable)
     {
         if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
@@ -648,7 +648,7 @@ void sova_turning_around(void)
     
     current_sprite.pose = 0x9;
     current_sprite.status &= ~SPRITE_STATUS_FACING_DOWN;
-    current_sprite.maybe_variable = 0x0;
+    current_sprite.work_variable = 0x0;
 
     switch (current_sprite.timer2)
     {
@@ -733,7 +733,7 @@ void sova_turning_around(void)
                 current_sprite.status &= ~SPRITE_STATUS_XFLIP;
 
             current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
-            current_sprite.maybe_variable = 0x1;
+            current_sprite.work_variable = 0x1;
             break;
 
         case 0x7:
@@ -747,7 +747,7 @@ void sova_turning_around(void)
                 current_sprite.status &= ~SPRITE_STATUS_XFLIP;
             
             current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
-            current_sprite.maybe_variable = 0x1;
+            current_sprite.work_variable = 0x1;
             break;
 
         default:
@@ -791,12 +791,12 @@ void sova_start_falling(void)
         else
             current_sprite.x_position += 0x20;
     }
-    else if (current_sprite.maybe_variable != 0x0)
+    else if (current_sprite.work_variable != 0x0)
         current_sprite.y_position += 0x28;
 
     current_sprite.pose = 0x1F;
     current_sprite.array_offset = 0x0;
-    current_sprite.maybe_variable = 0x0;
+    current_sprite.work_variable = 0x0;
     status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_ON_VERTICAL_WALL);
     sova_hitbox_update();
     current_sprite.oam_pointer = sova_oam_falling_2cfd68;
@@ -854,7 +854,7 @@ void sova_death(void)
     }
     else
     {
-        if (current_sprite.maybe_variable != 0x0)
+        if (current_sprite.work_variable != 0x0)
             y_position += 0x28;
         else
             y_position -= 0x28;

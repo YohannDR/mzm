@@ -36,14 +36,14 @@ void save_platform_init(void)
     current_sprite.hitbox_left_offset = -0x4;
     current_sprite.hitbox_right_offset = 0x4;
     if (alarm_timer != 0x0)
-        current_sprite.maybe_variable = 0x1;
+        current_sprite.work_variable = 0x1;
     else
-        current_sprite.maybe_variable = 0x0;
+        current_sprite.work_variable = 0x0;
     current_sprite.anim_duration_counter = 0x0;
     current_sprite.curr_anim_frame = 0x0;
     current_sprite.timer1 = 0xA;
 
-    if (current_sprite.maybe_variable || escape_determine_timer() != ESCAPE_NONE)
+    if (current_sprite.work_variable || escape_determine_timer() != ESCAPE_NONE)
     {
         current_sprite.oam_pointer = save_platform_oam_2d4df4;
         current_sprite.pose = 0x51;

@@ -25,8 +25,8 @@ void reo_init(void)
 void reo_rng(void)
 {
     current_sprite.pose = 0x9;
-    current_sprite.maybe_variable = (sprite_rng << 0x1A) >> 0x18;
-    current_sprite.array_offset = current_sprite.maybe_variable;
+    current_sprite.work_variable = (sprite_rng << 0x1A) >> 0x18;
+    current_sprite.array_offset = current_sprite.work_variable;
 }
 
 void reo_samus_detection(void)
@@ -44,14 +44,14 @@ void reo_samus_detection(void)
     current_sprite.array_offset = offset + 0x1;
     current_sprite.y_position += movement;
     
-    offset = current_sprite.maybe_variable;
+    offset = current_sprite.work_variable;
     movement = reo_idle_anim_x_position_offsets[offset];
     if (movement == 0x7FFF)
     {
         movement = reo_idle_anim_x_position_offsets[0x0];
         offset = 0x0;
     }
-    current_sprite.maybe_variable = offset + 0x1;
+    current_sprite.work_variable = offset + 0x1;
     current_sprite.x_position += movement;
 
     if (sprite_util_check_samus_near_sprite_left_right(0x200, 0x1C0) != NSLR_OUT_OF_RANGE)

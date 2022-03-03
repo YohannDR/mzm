@@ -182,7 +182,7 @@ void metroid_init(void)
         current_sprite.samus_collision = SSC_NONE;
         sprite_util_make_sprite_face_samus_direction();
         current_sprite.pose = 0x1;
-        current_sprite.maybe_variable = 0x0;
+        current_sprite.work_variable = 0x0;
         current_sprite.array_offset = 0x0;
         current_sprite.draw_order = 0xC;
 
@@ -214,7 +214,7 @@ void metroid_spawned_gfx_init(void)
 {
     current_sprite.pose = 0x9;
     current_sprite.timer2 = 0x0;
-    current_sprite.maybe_variable = 0x1;
+    current_sprite.work_variable = 0x1;
     current_sprite.timer1 = 0x0;
     current_sprite.array_offset = 0x1;
     current_sprite.oam_pointer = metroid_oam_2edc20;
