@@ -68,7 +68,7 @@ u32 midikey2freq(struct wavedata *wd, u8 mk, u8 fp);
 int multiboot(void *mbp); /* TODO: proper struct */
 void soundbias_0(void);
 void soundbias_200(void);
-u16 sqrt(u32 number);
+u16 Sqrt(u32 number);
 void vblankintrwait(void);
 
 #endif /* SYSCALLS_H */

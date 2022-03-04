@@ -13,7 +13,7 @@ void call_LZ77_uncomp_wram(void *src, void *dst) {
 void maybe_test_divarm_sqrt(void) {
     divarm_div(1, 1);
     divarm_mod(1, 1);
-    sqrt(2);
+    Sqrt(2);
 }
 
 void call_soundbias(void) {

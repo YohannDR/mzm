@@ -57,8 +57,8 @@ soundbias_200: @ 0x080051c0
     swi SYSCALL_SoundBiasChange
     bx lr
 
-    thumb_func_start sqrt
-sqrt: @ 0x080051c8
+    thumb_func_start Sqrt
+Sqrt: @ 0x080051c8
     swi SYSCALL_Sqrt
     bx lr
 
