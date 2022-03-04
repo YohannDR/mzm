@@ -5,6 +5,7 @@
 
 extern u8 debug_flag;
 extern u8 stereo_enabled;
+extern u8 reset_game;
 extern u8 softreset_disabled;
 extern u16 button_input;
 extern u16 button_input_old;

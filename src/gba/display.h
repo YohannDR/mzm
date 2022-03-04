@@ -5,6 +5,12 @@
 
 #define REG_DISPCNT (REG_BASE + 0x000)
 #define REG_DISPSTAT (REG_BASE + 0x004)
+#define REG_BLDCNT (REG_BASE + 0x050)
+#define REG_BLDALPHA (REG_BASE + 0x052)
+#define REG_BLDY (REG_BASE + 0x054)
+
+#define PLTT_BASE 0x05000000
+#define PLTT_BG ((vu16 *)(PLTT_BASE + 0x00))
 
 enum display_mode {
     /* Bits 0-2 */

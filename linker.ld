@@ -10,6 +10,7 @@ SECTIONS {
     iwram (NOLOAD) : ALIGN(4) {
         . = 0x00000000; debug_flag = .;
         . = 0x00000004; stereo_enabled = .;
+        . = 0x0000003c; reset_game = .;
         . = 0x00000043; softreset_disabled = .;
         . = 0x00000c70; game_mode = .;
         . = 0x00000c72; game_submode1 = .;
@@ -39,7 +40,7 @@ SECTIONS {
         asm/agbmain.o(.text);
         src/init_game.o(.text);
         src/softreset.o(.text);
-        asm/disasm_0x08000804.o(.text);
+        asm/disasm_0x0800090c.o(.text);
         src/clear_ram.o(.text);
         src/load_intr_code.o(.text);
         asm/disasm_0x08000a18.o(.text);

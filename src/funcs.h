@@ -10,4 +10,7 @@ void load_intr_code(void);
 void read_sram(void);
 void update_input(void);
 
+void sub_080033dc(void);
+void sub_0805d034(void);
+
 #endif /* FUNCS_H */
