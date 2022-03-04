@@ -1,3 +1,5 @@
+#include "init_game.h"
+
 #include "callbacks.h"
 #include "funcs.h"
 #include "game_modes.h"
