@@ -18,7 +18,7 @@ enum game_mode {
     GM_DEMO,
     GM_GALLERY,
     GM_FUSION_GALLERY,
-    GM_START_SOFTRESET, // probably
+    GM_START_SOFTRESET, /* probably */
     GM_ERASE_SRAM,
     GM_DEBUG_MENU,
 };
