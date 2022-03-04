@@ -41,6 +41,7 @@ SECTIONS {
         src/init_game.o(.text);
         src/softreset.o(.text);
         asm/disasm_0x0800090c.o(.text);
+        src/update_input.o(.text);
         src/clear_ram.o(.text);
         src/load_intr_code.o(.text);
         asm/disasm_0x08000a18.o(.text);

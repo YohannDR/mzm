@@ -18,6 +18,7 @@ enum keys {
     KEY_DOWN   = 1 << 7,
     KEY_R      = 1 << 8,
     KEY_L      = 1 << 9,
+    KEY_MASK   = 0x3ff,
 };
 
 #endif /* GBA_KEYS_H */
