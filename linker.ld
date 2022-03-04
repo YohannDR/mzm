@@ -40,7 +40,7 @@ SECTIONS {
         asm/agbmain.o(.text);
         src/init_game.o(.text);
         src/softreset.o(.text);
-        asm/disasm_0x0800090c.o(.text);
+        src/syscall_wrappers.o(.text);
         src/update_input.o(.text);
         src/clear_ram.o(.text);
         src/load_intr_code.o(.text);
