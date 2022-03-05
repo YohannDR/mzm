@@ -45,7 +45,7 @@ void call_vcount_callback(void) {
     if (vcount_callback) {
         vcount_callback();
     }
-    
+
     write16(REG_IF, read16(REG_IF) | IF_VCOUNT);
 }
 
