@@ -1,6 +1,7 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+#include "callbacks.h"
 #include "types.h"
 
 extern u8 debug_flag;
@@ -12,7 +13,7 @@ extern u16 button_input_old;
 extern u16 buttons_changed;
 extern void *sp_sys;
 extern void *sp_irq;
-extern void *intr_vector; /* TODO: proper type */
+extern callback_t intr_vector[13];
 extern u16 intr_code[0x100];
 extern u16 (*intr_code_ptr)[0x100];
 extern i8 cleared_every_frame;
