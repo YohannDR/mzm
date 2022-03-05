@@ -9,13 +9,18 @@ SECTIONS {
 
     iwram (NOLOAD) : ALIGN(4) {
         . = 0x00000000; debug_flag = .;
+        . = 0x00000002; frame_counter_16bit = .;
         . = 0x00000004; stereo_enabled = .;
         . = 0x0000003c; reset_game = .;
         . = 0x00000043; softreset_disabled = .;
+        . = 0x0000007d; curr_cutscene = .;
+        . = 0x00000bf0; pause_screen_flag = .;
         . = 0x00000c70; game_mode = .;
         . = 0x00000c72; game_submode1 = .;
         . = 0x00000c74; game_submode2 = .;
+        . = 0x00000c75; game_submode3 = .;
         . = 0x00000c76; cleared_every_frame = .;
+        . = 0x00000c77; frame_counter_8bit = .;
         . = 0x00000c78; vblank_request_flag = .;
         . = 0x00000c7c; intr_code = .;
         . = 0x0000137c; button_input = .;
