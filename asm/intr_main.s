@@ -10,7 +10,7 @@ intr_main: @ 0x08000104
     ldr r2, [r3]
     ldrh r1, [r3, (REG_IME_OFFSET - REG_IE_OFFSET)] @ Interrupt Master Enable
     mrs r0, spsr
-    stmfd sp!, {r0-r3, lr}
+    push {r0-r3, lr}
     mov r0, 1
     strh r0, [r3, (REG_IME_OFFSET - REG_IE_OFFSET)] @ Interrupt Master Enable
     and r1, r2, r2, lsr 16
@@ -73,12 +73,17 @@ interrupt_found:
     stmdb sp!, {lr}
     add lr, pc, 0x0 @ lbl_0800020C
     bx r0
-
 lbl_0800020C:
-    .byte 0x00, 0x40, 0xBD, 0xE8
-    .byte 0x00, 0x30, 0x0F, 0xE1, 0xDF, 0x30, 0xC3, 0xE3, 0x92, 0x30, 0x83, 0xE3, 0x03, 0xF0, 0x29, 0xE1
-    .byte 0x0F, 0x40, 0xBD, 0xE8, 0xB0, 0x20, 0xC3, 0xE1, 0xB8, 0x10, 0xC3, 0xE1, 0x00, 0xF0, 0x69, 0xE1
-    .byte 0x1E, 0xFF, 0x2F, 0xE1
+    ldmfd sp!, {lr}
+    mrs r3, cpsr_fc
+    bic r3, r3, (PSR_I_BIT | PSR_F_BIT | PSR_MODE_MASK)
+    orr r3, r3, (PSR_I_BIT | PSR_IRQ_MODE)
+    msr cpsr_fc, r3
+    pop {r0-r3, lr}
+    strh r2, [r3]
+    strh r1, [r3, (REG_IME_OFFSET - REG_IE_OFFSET)]
+    msr spsr_fc, r0
+    bx lr
 
 @ pool
 lbl_08000234: .4byte 0x000024C0
