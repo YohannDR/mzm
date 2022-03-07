@@ -1,5 +1,5 @@
-#ifndef GBA_MEMORY_H
-#define GBA_MEMORY_H
+#ifndef gba/memory_H
+#define gba/memory_H
 
 #define IWRAM_BASE (void *)0x02000000
 #define IWRAM_SIZE (32 * 0x400)
@@ -21,4 +21,4 @@
 #define ROM_BASE (void *)0x08000000
 #define ROM_SIZE (32 * 0x100000)
 
-#endif /* GBA_MEMORY_H */
+#endif /* gba/memory_H */

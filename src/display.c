@@ -1,6 +1,6 @@
-#include "io.h"
+#include "display.h"
 #include "globals.h"
-#include "gba_memory.h"
+#include "gba/memory.h"
 
 void unk_57a24(void)
 {
