@@ -6,7 +6,7 @@ BASEROM = baserom_us.gba
 SHA1FILE = mzm.sha1
 ELF = $(TARGET:.gba=.elf)
 MAP = $(TARGET:.gba=.map)
-DUMPS = $(TARGET:.gba=.dump) $(BASEROM:.gba=.dump)
+DUMPS = $(BASEROM:.gba=.dump) $(TARGET:.gba=.dump)
 
 # ROM header
 GAME_TITLE = ZEROMISSIONE
@@ -34,8 +34,8 @@ GBAFIX = tools/gbafix/gbafix
 
 # Flags
 ASFLAGS = -mcpu=arm7tdmi
-CFLAGS = -O2 -mthumb-interwork
-CPPFLAGS = -nostdinc
+CFLAGS = -O2 -mthumb-interwork -fhex-asm
+CPPFLAGS = -nostdinc -Isrc/
 
 # Objects
 CSRC = $(wildcard src/*.c)

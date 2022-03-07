@@ -1,7 +1,8 @@
 #include "callbacks.h"
 
-#include "gba_interrupt.h"
+#include "gba.h"
 #include "globals.h"
+#include "io.h"
 #include "music.h"
 
 void call_vblank_callback(void) {
@@ -9,12 +10,12 @@ void call_vblank_callback(void) {
         vblank_callback();
     }
 
-    REG_IF |= IF_VBLANK;
-    vblank_request_flag = TRUE;
+    write16(REG_IF, read16(REG_IF) | IF_VBLANK);
+    vblank_request_flag = 1;
     unk_03007ff8 |= 0x01;
 
     if (!cleared_every_frame) {
-        unk_08004d48();
+        sub_08004d48();
     }
 }
 
@@ -30,7 +31,7 @@ void call_hblank_callback(void) {
         hblank_callback();
     }
 
-    REG_IF |= IF_HBLANK;
+    write16(REG_IF, read16(REG_IF) | IF_HBLANK);
 }
 
 void set_hblank_callback(callback_t callback) {
@@ -45,7 +46,7 @@ void call_vcount_callback(void) {
         vcount_callback();
     }
 
-    REG_IF |= IF_VCOUNT;
+    write16(REG_IF, read16(REG_IF) | IF_VCOUNT);
 }
 
 void set_vcount_callback(callback_t callback) {
@@ -55,18 +56,18 @@ void set_vcount_callback(callback_t callback) {
     }
 }
 
-void call_serial_callback(void) {
-    if (serial_callback) {
-        serial_callback();
+void call_serial_comm_callback(void) {
+    if (serial_comm_callback) {
+        serial_comm_callback();
     }
 
-    REG_IF |= IF_SERIAL;
+    write16(REG_IF, read16(REG_IF) | IF_SERIAL);
 }
 
-void set_serial_callback(callback_t callback) {
-    serial_callback = callback;
+void set_serial_comm_callback(callback_t callback) {
+    serial_comm_callback = callback;
     if (!callback) {
-        serial_callback = empty_callback;
+        serial_comm_callback = empty_callback;
     }
 }
 
@@ -75,7 +76,7 @@ void call_timer3_callback(void) {
         timer3_callback();
     }
 
-    REG_IF |= IF_TIMER3;
+    write16(REG_IF, read16(REG_IF) | IF_TIMER3);
 }
 
 void set_timer3_callback(callback_t callback) {

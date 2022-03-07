@@ -25,7 +25,9 @@ extern u32 events_triggered[8];
 
 // IWRAM
 
+extern u8 debug_flag;
 extern u16 sixteen_bit_frame_counter;
+extern u8 stereo_enabled;
 extern u16 written_to_dispcnt;
 extern u8 bg_fading;
 extern u8 which_bg_position_is_written_to_bg30fs;
@@ -34,6 +36,7 @@ extern u8 difficulty;
 extern u8 use_mother_ship_doors;
 extern u8 disable_scrolling;
 extern u8 skip_door_transition;
+extern u8 reset_game;
 extern u8 softreset_disabled;
 extern u8 disable_pause;
 extern enum area current_area;
@@ -136,11 +139,10 @@ extern void *sp_sys;
 extern void *sp_irq;
 extern u16 unk_03007ff8;
 extern u16 (*intr_code_ptr)[0x100];
-extern void *intr_vector; // TODO: proper type
+extern callback_t intr_vector[13];
 
 
 // IO
 
 extern struct dma reg_dma[4];
-
 #endif /* GLOBALS_H */

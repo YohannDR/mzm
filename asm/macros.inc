@@ -12,6 +12,12 @@
     .type \name, %function
     .endm
 
+    .macro non_word_aligned_thumb_func_start name
+    .global \name
+    .thumb
+    .type \name, %function
+    .endm
+
     .macro baserom_blob start end
     .incbin "baserom_us.gba", \start, (\end - \start)
     .endm

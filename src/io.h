@@ -3,21 +3,12 @@
 
 #include "types.h"
 
-struct io_registers_backup {
-    u16 dispcnt_non_gameplay;
-    u16 bldcnt_non_gameplay;
-    u16 bldalpha_non_gameplay;
-    u8 winin_h_non_gameplay;
-    u8 winout_l_non_gameplay;
-    u16 bg0cnt_write_only;
-    u16 bg1cnt;
-    u16 bg2cnt;
-    u16 bg3cnt;
-    u16 bg0cnt;
-};
+#define write32(addr, val) (*(vu32 *)addr) = (val)
+#define write16(addr, val) (*(vu16 *)addr) = (val)
+#define write8(addr, val) (*(vu8  *)addr) = (val)
 
-void unk_57a24(void);
-void unk_57af8(void);
-void io_update_dispcnt(u8 operation, u16 value);
+#define read32(addr) (*(vu32 *)addr)
+#define read16(addr) (*(vu16 *)addr)
+#define read8(addr) (*(vu8  *)addr)
 
 #endif /* IO_H */
