@@ -1,7 +1,7 @@
 #ifndef GBA_INPUT_H
 #define GBA_INPUT_H
 
-#include "gba_memory.h"
+#include "gba/memory.h"
 #define REG_KEYINPUT *(u16 *)(REG_BASE + 0x130)
 
 enum __attribute__((packed)) input_flag {
