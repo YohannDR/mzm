@@ -1,6 +1,8 @@
 #include "sprite.h"
 #include "sprite_debris.h"
 #include "sprite_util.h"
+#include "syscalls.h"
+#include "gba/memory.h"
 #include "globals.h"
 
 void sprite_update(void)

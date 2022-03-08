@@ -93,13 +93,9 @@ struct bg0_movement {
 };
 
 struct bg3_movement {
-    struct sub1 {
-        u8 direction;
-        u8 counter;
-    } sub1;
-    struct sub2 {
-        u16 x_offset;
-    } sub2;
+    u8 direction;
+    u8 counter;
+    u16 x_offset;
 };
 
 void room_load(void);
@@ -118,6 +114,6 @@ void room_update(void);
 void room_update_backgrounds_position(void);
 void room_maybe_update_vertical_tilemap(u8 unk);
 void room_maybe_update_horizontal_tilemap(u8 unk);
-vodi room_check_dma3_ended(void);
+void room_check_dma3_ended(void);
 
 #endif /* ROOM_H */

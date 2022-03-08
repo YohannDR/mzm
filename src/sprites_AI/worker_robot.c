@@ -84,7 +84,7 @@ void worker_robot_gfx_init(void)
 
 void worker_robot_sleeping_detect_projectile(void)
 {
-    if (sprite_util_check_collision_at_position_no_global(current_sprite.y_position, current_sprite.x_position) == 0x0)
+    if (sprite_util_get_collision_at_position(current_sprite.y_position, current_sprite.x_position) == 0x0)
         current_sprite.pose = 0x20;
     else if (current_sprite.invicibility_stun_flash_timer & 0x7F)
         current_sprite.pose = 0x12;

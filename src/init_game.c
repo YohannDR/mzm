@@ -4,10 +4,10 @@
 #include "funcs.h"
 #include "game_modes.h"
 #include "gba.h"
-#include "globals.h"
 #include "io.h"
 #include "softreset.h"
 #include "types.h"
+#include "globals.h"
 
 void init_game(void) {
     write16(REG_DISPCNT, DCNT_BLANK);
@@ -34,8 +34,8 @@ void init_game(void) {
             | WAIT_GAMEPACK_CGB
     );
 
-    game_submode1 = 0;
-    game_submode2 = 0;
+    game_mode_sub1 = 0;
+    game_mode_sub2 = 0;
     debug_flag = 0;
     button_input = KEY_NONE;
     button_input_old = KEY_NONE;

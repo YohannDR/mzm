@@ -1,7 +1,7 @@
 #include "location_text.h"
-#include "globals.h"
 #include "sprite.h"
 #include "gba/dma.h"
+#include "globals.h"
 
 enum location_text location_text_get_brinstar(void)
 {
@@ -271,7 +271,7 @@ u8 location_text_get_gfx_slot(void)
                 gfx_slot = location_text_load_area_banner_gfx();
                 draw_location_text(lt, gfx_slot);
                 if (lt < LT_SAVE_ROOM)
-                    dma_set(3, array_2f7db4, array_5000300 + gfx_slot * 0x20, 0x80000010);
+                    dma_set(3, array_2f7db4, array_5000300[gfx_slot], 0x80000010);
             }
         }
     }

@@ -5,6 +5,10 @@
 #include "event.h"
 #include "bg_clip.h"
 
+/*const struct bg3_movement empty_bg3_movement = {
+    0x0, 0x0, 0x0
+};*/
+
 void room_load(void)
 {
 
@@ -15,13 +19,18 @@ void room_load_tileset(void)
 
 }
 
+/**
+ * 56404 | 168 | Load the current room entry
+ * 
+ */
 void room_load_entry(void)
 {
     /*struct room_entry_rom entry;
     u16 effect_y;
 
-    copy_bytes(&entry, entry_pointers[current_area] + current_room, sizeof(struct room_entry_rom));
+    entry = entry_pointers[current_area][current_room]; // memcpy at compilation
 
+    // Fill basic dat
     current_room_entry.tileset = entry.tileset;
     current_room_entry.bg0_prop = entry.bg0_prop;
     current_room_entry.bg1_prop = entry.bg1_prop;
@@ -34,25 +43,36 @@ void room_load_entry(void)
     current_room_entry.effect = entry.effect;
     current_room_entry.music_track = entry.music_track;
 
-    if (entry.effect_y != 0xFF)
-        effect_y = entry.effect_y << 0x6;
+    // Check for room effect
+    effect_y = entry.effect_y;
+    if (effect_y != 0xFF)
+        current_room_entry.effect_y = effect_y << 0x6;
     else
-        effect_y = 0xFFFF;
+        current_room_entry.effect_y = 0xFFFF;
 
-    current_room_entry.effect_y = effect_y;
+    // current_room_entry.effect_y = effect_y;
     spriteset_entry_used = 0x0;
+    // Set events
     current_room_entry.first_spriteset_event = entry.first_spriteset_event;
     current_room_entry.second_spriteset_event = entry.second_spriteset_event;
-    if (entry.second_spriteset_event != EVENT_NONE && event_function(EVENT_ACTION_CHECKING, current_room_entry.second_spriteset_event) != 0x0)
+    // Check for second spriteset
+    if (entry.second_spriteset_event != EVENT_NONE && event_function(EVENT_ACTION_CHECKING, current_room_entry.second_spriteset_event))
     {
         current_room_entry.enemy_room_data = entry.second_sprite_data_ptr;
         spriteset = entry.second_spriteset;
         spriteset_entry_used = 0x2;
     }
+    // Check for first spriteset
     if (current_room_entry.first_spriteset_event != EVENT_NONE && spriteset_entry_used == 0x0)
     {
-        if (spriteset_entry_used != 0x0) goto skip_check;
-        if (event_function(EVENT_ACTION_CHECKING, current_room_entry.first_spriteset_event) != 0x0)
+        if (spriteset_entry_used != 0x0)
+        {
+            current_room_entry.scrolls_flag = 0x2;
+            current_room_entry.effect_clone = EFFECT_NONE;
+            current_room_entry.bg0_size = 0x0;
+            current_room_entry.bg3_size = 0x0;
+        }
+        else if (event_function(EVENT_ACTION_CHECKING, current_room_entry.first_spriteset_event))
         {
             current_room_entry.enemy_room_data = entry.first_sprite_data_ptr;
             spriteset = entry.first_spriteset;
@@ -65,8 +85,6 @@ void room_load_entry(void)
         current_room_entry.enemy_room_data = entry.default_sprite_data_ptr;
         spriteset = entry.default_spriteset;
     }
-
-    skip_check:
 
     current_room_entry.scrolls_flag = 0x2;
     current_room_entry.effect_clone = EFFECT_NONE;

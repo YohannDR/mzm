@@ -1,6 +1,8 @@
 #ifndef LOCATION_TEXT_H
 #define LOCATION_TEXT_H
 
+#include "types.h"
+
 enum location_text {
     LT_BRINSTAR = 0x0,
     LT_KRAID = 0x1,
