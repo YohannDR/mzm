@@ -6,20 +6,20 @@ u8 geruta_y_movement(u16 movement)
 {
     if (current_sprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
-        if (sprite_util_check_collision_at_position_no_global(current_sprite.y_position + 0x40, current_sprite.x_position) == 0x11 ||
-            sprite_util_check_collision_at_position_no_global(current_sprite.y_position + 0x40, current_sprite.x_position - 0x30) == 0x11 ||
-            sprite_util_check_collision_at_position_no_global(current_sprite.y_position + 0x40, current_sprite.x_position + 0x30) == 0x11)
+        if (sprite_util_get_collision_at_position(current_sprite.y_position + 0x40, current_sprite.x_position) == 0x11 ||
+            sprite_util_get_collision_at_position(current_sprite.y_position + 0x40, current_sprite.x_position - 0x30) == 0x11 ||
+            sprite_util_get_collision_at_position(current_sprite.y_position + 0x40, current_sprite.x_position + 0x30) == 0x11)
             return TRUE;
         current_sprite.y_position += movement;
     }
     else
     {
-        if (sprite_util_check_collision_at_position_no_global(current_sprite.y_position - 0x28, current_sprite.x_position - 0x30) == 0x11 &&
-            sprite_util_check_collision_at_position_no_global(current_sprite.y_position - 0x28, current_sprite.x_position - 0x70) == 0x11)
+        if (sprite_util_get_collision_at_position(current_sprite.y_position - 0x28, current_sprite.x_position - 0x30) == 0x11 &&
+            sprite_util_get_collision_at_position(current_sprite.y_position - 0x28, current_sprite.x_position - 0x70) == 0x11)
             return TRUE;
 
-        if (sprite_util_check_collision_at_position_no_global(current_sprite.y_position - 0x28, current_sprite.x_position + 0x30) == 0x11 &&
-            sprite_util_check_collision_at_position_no_global(current_sprite.y_position - 0x28, current_sprite.x_position + 0x70) == 0x11)
+        if (sprite_util_get_collision_at_position(current_sprite.y_position - 0x28, current_sprite.x_position + 0x30) == 0x11 &&
+            sprite_util_get_collision_at_position(current_sprite.y_position - 0x28, current_sprite.x_position + 0x70) == 0x11)
             return TRUE;
 
         current_sprite.y_position -= movement;
@@ -36,13 +36,13 @@ u8 geruta_x_movement(u16 movement)
 
     if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (sprite_util_check_collision_at_position_no_global(current_sprite.y_position - 0x20, current_sprite.x_position + 0x40) == 0x11 || sprite_util_check_collision_at_position_no_global(current_sprite.y_position + 0x20, current_sprite.x_position + 0x40) == 0x11)
+        if (sprite_util_get_collision_at_position(current_sprite.y_position - 0x20, current_sprite.x_position + 0x40) == 0x11 || sprite_util_get_collision_at_position(current_sprite.y_position + 0x20, current_sprite.x_position + 0x40) == 0x11)
             return TRUE;
         current_sprite.x_position += movement;
     }
     else
     {
-        if (sprite_util_check_collision_at_position_no_global(current_sprite.y_position - 0x20, current_sprite.x_position - 0x40) == 0x11 || sprite_util_check_collision_at_position_no_global(current_sprite.y_position + 0x20, current_sprite.x_position - 0x40) == 0x11)
+        if (sprite_util_get_collision_at_position(current_sprite.y_position - 0x20, current_sprite.x_position - 0x40) == 0x11 || sprite_util_get_collision_at_position(current_sprite.y_position + 0x20, current_sprite.x_position - 0x40) == 0x11)
             return TRUE;
         current_sprite.x_position -= movement_;
     }
@@ -82,7 +82,7 @@ void geruta_detect_samus(void)
 {
     enum near_sprite_left_right nslr;
 
-    if (sprite_util_check_collision_at_position_no_global(current_sprite.y_position - 0x40, current_sprite.x_position - 0x30) != 0x11 && sprite_util_check_collision_at_position_no_global(current_sprite.y_position - 0x40, current_sprite.x_position + 0x30) != 0x11)
+    if (sprite_util_get_collision_at_position(current_sprite.y_position - 0x40, current_sprite.x_position - 0x30) != 0x11 && sprite_util_get_collision_at_position(current_sprite.y_position - 0x40, current_sprite.x_position + 0x30) != 0x11)
         sprite_util_make_sprite_face_samus_direction();
     else
     {

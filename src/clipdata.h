@@ -1,6 +1,8 @@
 #ifndef CLIPDATA_H
 #define CLIPDATA_H
 
+#include "types.h"
+
 enum __attribute__((packed)) current_clipdata_affecting_action {
     CCAA_NONE = 0x0,
     CCAA_REMOVE_SOLID = 0x1,

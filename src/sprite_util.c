@@ -578,7 +578,7 @@ void sprite_util_check_collision_at_position(u16 y_position, u16 x_position)
 
 }
 
-u8 sprite_util_check_collision_at_position_no_global(u16 y_position, u16 x_position)
+u8 sprite_util_get_collision_at_position(u16 y_position, u16 x_position)
 {
 
 }
@@ -1965,7 +1965,7 @@ u8 sprite_util_check_out_of_room_effect(u16 old_y, u16 y_position, u16 x_positio
     {
         if (size != SPLASH_NONE)
         {
-            sprite_util_check_collision_at_position_no_global((u16)(y_position + 0x40), x_position);
+            sprite_util_get_collision_at_position((u16)(y_position + 0x40), x_position);
             sprite_util_set_splash_effect(y_position, x_position, size);
         }
         return TRUE;
@@ -1990,7 +1990,7 @@ u8 sprite_util_check_in_room_effect(u16 old_y, u16 y_position, u16 x_position, e
     {
         if (size != SPLASH_NONE)
         {
-            sprite_util_check_collision_at_position_no_global(y_position, x_position);
+            sprite_util_get_collision_at_position(y_position, x_position);
             sprite_util_set_splash_effect(y_position, x_position, size);
         }
         return TRUE;

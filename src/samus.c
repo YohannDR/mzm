@@ -454,12 +454,12 @@ void samus_aim_cannon(struct samus_data* pData)
             case SPOSE_AIMING_WHILE_HANGING:
             case SPOSE_UNCROUCHING_SUITLESS:
             case SPOSE_CROUCHING_SUITLESS:
-                if (button_input & INPUT_DOWN)
+                if (button_input & KEY_DOWN)
                 {
                     pData->arm_cannon_direction = ACD_DIAGONALLY_DOWN;
                     pWeapon->diagonal_aim = DIAG_AIM_DOWN;
                 }
-                else if (DIAG_AIM_UP >= pWeapon->diagonal_aim || button_input & INPUT_UP)
+                else if (DIAG_AIM_UP >= pWeapon->diagonal_aim || button_input & KEY_UP)
                 {
                     pData->arm_cannon_direction = ACD_DIAGONALLY_UP;
                     pWeapon->diagonal_aim = DIAG_AIM_UP;
@@ -479,11 +479,11 @@ void samus_aim_cannon(struct samus_data* pData)
     switch (pData->pose)
     {
         case SPOSE_RUNNING:
-            if (button_input & INPUT_UP)
+            if (button_input & KEY_UP)
                 pData->arm_cannon_direction = ACD_DIAGONALLY_UP;
             else
             {
-                direction = button_input & INPUT_DOWN;
+                direction = button_input & KEY_DOWN;
                 if (direction)
                     pData->arm_cannon_direction = ACD_DIAGONALLY_DOWN;
                 else
@@ -504,7 +504,7 @@ void samus_aim_cannon(struct samus_data* pData)
         case SPOSE_SHOOTING:
         case SPOSE_LANDING:
         case SPOSE_UNCROUCHING_SUITLESS:
-            if (pData->speedbooster_timer == 0x0 && button_input & INPUT_UP)
+            if (pData->speedbooster_timer == 0x0 && button_input & KEY_UP)
                     pData->arm_cannon_direction = ACD_UP;
             pWeapon->diagonal_aim = DIAG_AIM_NONE;
             break;
@@ -522,7 +522,7 @@ void samus_aim_cannon(struct samus_data* pData)
         case SPOSE_SPACE_JUMPING:
         case SPOSE_SCREW_ATTACKING:
         case SPOSE_AIMING_WHILE_HANGING:
-            if (button_input & INPUT_UP)
+            if (button_input & KEY_UP)
             {
                 if (pData->direction & button_input)
                     pData->arm_cannon_direction = ACD_DIAGONALLY_UP;
@@ -531,7 +531,7 @@ void samus_aim_cannon(struct samus_data* pData)
             }
             else
             {
-                direction = button_input & INPUT_DOWN;
+                direction = button_input & KEY_DOWN;
                 if (direction)
                 {
                     if ((pData->direction & button_input) == 0x0)
@@ -554,7 +554,7 @@ void samus_aim_cannon(struct samus_data* pData)
             break;
 
         case SPOSE_ON_ZIPLINE:
-            direction = button_input & INPUT_DOWN;
+            direction = button_input & KEY_DOWN;
             if (direction)
             {
                 if (pData->direction & button_input)
@@ -585,7 +585,7 @@ u8 samus_fire_beam_missile(struct samus_data* pData, struct weapon_info* pWeapon
     enum projectile new_proj;
 
     has_proj = FALSE;
-    if (pWeapon->cooldown == 0x0 && pWeapon->new_projectile == PROJECTILE_NONE && (buttons_changed & INPUT_B) != 0x0)
+    if (pWeapon->cooldown == 0x0 && pWeapon->new_projectile == PROJECTILE_NONE && (buttons_changed & KEY_B) != 0x0)
     {
         if ((pWeapon->weapon_highlighted & WH_MISSILE) != 0x0)
             pWeapon->new_projectile = PROJECTILE_MISSILE;
@@ -605,7 +605,7 @@ u8 samus_fire_beam_missile(struct samus_data* pData, struct weapon_info* pWeapon
 
     if (pWeapon->weapon_highlighted == WH_NONE)
     {
-        if ((button_input & INPUT_B) != 0x0)
+        if ((button_input & KEY_B) != 0x0)
         {
             if ((pEquipment->beam_bombs_activation & BBF_CHARGE_BEAM) == 0x0)
                 pWeapon->charge_counter = 0x0;
@@ -660,7 +660,7 @@ u8 samus_fire_check_fully_charged_pistol(struct samus_data* pData, struct weapon
     else
         pWeapon->charge_counter = 0x70;
 
-    if (pWeapon->cooldown == 0x0 && pWeapon->new_projectile == PROJECTILE_NONE && (buttons_changed & INPUT_B) != 0x0)
+    if (pWeapon->cooldown == 0x0 && pWeapon->new_projectile == PROJECTILE_NONE && (buttons_changed & KEY_B) != 0x0)
     {
         if (pWeapon->charge_counter >= 0x70)
         {
@@ -741,7 +741,7 @@ void samus_check_new_projectile(struct samus_data* pData, struct weapon_info* pW
             case SPOSE_ROLLING:
             case SPOSE_MORPH_BALL_MIDAIR:
             case SPOSE_MORPH_BALL_ON_ZIPLINE:
-                if ((buttons_changed & INPUT_B) != 0x0 && pWeapon->cooldown == 0x0 && (pEquipment->beam_bombs_activation & BBF_BOMBS) != 0x0)
+                if ((buttons_changed & KEY_B) != 0x0 && pWeapon->cooldown == 0x0 && (pEquipment->beam_bombs_activation & BBF_BOMBS) != 0x0)
                 {
                     if ((pWeapon->weapon_highlighted & WH_POWER_BOMB) != 0x0)
                         pWeapon->new_projectile = PROJECTILE_POWER_BOMB;
@@ -771,7 +771,7 @@ u8 samus_check_a_pressed(struct samus_data* pData)
     u8 return_value;
     
     return_value = 0x0;
-    if ((buttons_changed & INPUT_A) != 0x0)
+    if ((buttons_changed & KEY_A) != 0x0)
     {
         pData->forced_movement = 0x1;
         return_value = 0x1;
@@ -788,7 +788,7 @@ void samus_set_highlighted_weapon(struct samus_data* pData, struct weapon_info* 
         pWeapon->missiles_selected = weapon_high;
     else if (pEquipment->current_missiles == 0x0)
         pWeapon->missiles_selected = TRUE;
-    else if ((buttons_changed & INPUT_SELECT) != 0x0)
+    else if ((buttons_changed & KEY_SELECT) != 0x0)
     {
         pWeapon->missiles_selected ^= 0x1;
         play_sound1(0x85);
@@ -1133,7 +1133,7 @@ enum samus_pose samus_running(struct samus_data* pData)
     /*enum samus_pose new_pose;
     i32 x_velocity;
 
-    if ((buttons_changed & INPUT_A) != 0x0)
+    if ((buttons_changed & KEY_A) != 0x0)
     {
         pData->forced_movement = 0x1;
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -1204,7 +1204,7 @@ enum samus_pose samus_turning_around(struct samus_data* pData)
 {
     enum samus_pose new_pose;
 
-    if ((button_input & (INPUT_RIGHT | INPUT_LEFT)) == 0x0 && (buttons_changed & INPUT_A) != 0x0 && pData->shinespark_timer != 0x0 && unk_57EC(pData, (i16)((u16)array_23a558[0x2] - 0x20)) << 0x18 == 0x0)
+    if ((button_input & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (buttons_changed & KEY_A) != 0x0 && pData->shinespark_timer != 0x0 && unk_57EC(pData, (i16)((u16)array_23a558[0x2] - 0x20)) << 0x18 == 0x0)
     {
         pData->y_position -= 0x20;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
@@ -1215,7 +1215,7 @@ enum samus_pose samus_turning_around(struct samus_data* pData)
             return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
         else
         {
-            if ((buttons_changed & INPUT_DOWN) != 0x0 && (samus_weapon_info.diagonal_aim == DIAG_AIM_NONE || pData->arm_cannon_direction == ACD_DIAGONALLY_DOWN))
+            if ((buttons_changed & KEY_DOWN) != 0x0 && (samus_weapon_info.diagonal_aim == DIAG_AIM_NONE || pData->arm_cannon_direction == ACD_DIAGONALLY_DOWN))
             {
                 pData->pose = SPOSE_TURNING_AROUND_AND_CROUCHING;
                 if (equipment.suit_type != SUIT_SUITLESS)
@@ -1273,7 +1273,7 @@ enum samus_pose samus_crouching(struct samus_data* pData)
     enum input_flag* input;
     u32 timer;
 
-    if ((button_input & (INPUT_RIGHT | INPUT_LEFT)) == 0x0 && (buttons_changed & INPUT_A) != 0x0 && pData->shinespark_timer != 0x0 && unk_57EC(pData, (i16)((u16)array_23a554[0x2] - 0x20)) << 0x18 == 0x0)
+    if ((button_input & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (buttons_changed & KEY_A) != 0x0 && pData->shinespark_timer != 0x0 && unk_57EC(pData, (i16)((u16)array_23a554[0x2] - 0x20)) << 0x18 == 0x0)
     {
         pData->y_position -= 0x20;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
@@ -1292,7 +1292,7 @@ enum samus_pose samus_crouching(struct samus_data* pData)
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
     }
 
-    if ((buttons_changed & INPUT_UP) == 0x0 || (unk & 0x6) != 0x0 || samus_weapon_info.diagonal_aim == DIAG_AIM_NONE || pData->arm_cannon_direction == ACD_DIAGONALLY_UP)
+    if ((buttons_changed & KEY_UP) == 0x0 || (unk & 0x6) != 0x0 || samus_weapon_info.diagonal_aim == DIAG_AIM_NONE || pData->arm_cannon_direction == ACD_DIAGONALLY_UP)
     {
         if (unk == 0x1 || unk == 0x8)
             pData->x_position = x_position;
@@ -1305,7 +1305,7 @@ enum samus_pose samus_crouching(struct samus_data* pData)
     }
     else
     {
-        if ((buttons_changed & INPUT_DOWN) != 0x0 && (equipment.suit_misc_activation & SMF_MORPH_BALL) != 0x0 && (samus_weapon_info.diagonal_aim == DIAG_AIM_NONE || pData->arm_cannon_direction == ACD_DIAGONALLY_DOWN))
+        if ((buttons_changed & KEY_DOWN) != 0x0 && (equipment.suit_misc_activation & SMF_MORPH_BALL) != 0x0 && (samus_weapon_info.diagonal_aim == DIAG_AIM_NONE || pData->arm_cannon_direction == ACD_DIAGONALLY_DOWN))
         {
             play_sound1(0x77);
             return SPOSE_MORPHING;
@@ -1352,7 +1352,7 @@ enum samus_pose samus_turning_around_and_crouching(struct samus_data* pData)
     u8 unk;
     u16 x_position;
 
-    if ((button_input & (INPUT_RIGHT | INPUT_LEFT)) == 0x0 && (buttons_changed & INPUT_A) != 0x0 && pData->shinespark_timer != 0x0 && unk_57EC(pData, (i16)((u16)array_23a554[0x2] - 0x20)) << 0x18 == 0x0)
+    if ((button_input & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (buttons_changed & KEY_A) != 0x0 && pData->shinespark_timer != 0x0 && unk_57EC(pData, (i16)((u16)array_23a554[0x2] - 0x20)) << 0x18 == 0x0)
     {
         pData->y_position -= 0x20;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
@@ -1373,7 +1373,7 @@ enum samus_pose samus_turning_around_and_crouching(struct samus_data* pData)
         }
         else
         {
-            if ((buttons_changed & INPUT_UP) != 0x0 && (unk & 0x6) == 0x0 && (samus_weapon_info.diagonal_aim == 0x0 || pData->arm_cannon_direction == ACD_DIAGONALLY_UP))
+            if ((buttons_changed & KEY_UP) != 0x0 && (unk & 0x6) == 0x0 && (samus_weapon_info.diagonal_aim == 0x0 || pData->arm_cannon_direction == ACD_DIAGONALLY_UP))
             {
                 if (unk == 0x1 || unk == 0x8)
                     pData->x_position = x_position;
@@ -1425,7 +1425,7 @@ enum samus_pose samus_skidding(struct samus_data* pData)
 {
     i32 velocity;
 
-    if ((buttons_changed & INPUT_A) != 0x0)
+    if ((buttons_changed & KEY_A) != 0x0)
     {
         pData->forced_movement = 0x1;
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -1435,7 +1435,7 @@ enum samus_pose samus_skidding(struct samus_data* pData)
         return SPOSE_RUNNING;
     else
     {
-        if ((button_input & (INPUT_RIGHT | INPUT_LEFT | INPUT_UP | INPUT_DOWN)) == INPUT_DOWN)
+        if ((button_input & (KEY_RIGHT | KEY_LEFT | KEY_UP | KEY_DOWN)) == KEY_DOWN)
         {
             pData->shinespark_timer = 0xB4;
             screw_speed_animation.flag = 0x8;
@@ -1493,12 +1493,12 @@ enum samus_pose samus_midair_gfx(struct samus_data* pData)
 
 enum samus_pose samus_turning_around_midair(struct samus_data* pData)
 {
-    if ((buttons_changed & INPUT_A) != 0x0)
+    if ((buttons_changed & KEY_A) != 0x0)
     {
         if (pData->shinespark_timer != 0x0)
             return SPOSE_DELAY_BEFORE_SHINESPARKING;
 
-        if ((button_input & (INPUT_UP | INPUT_DOWN)) == 0x0)
+        if ((button_input & (KEY_UP | KEY_DOWN)) == 0x0)
         {
             pData->pose = SPOSE_SPINNING;
             pData->direction ^= (DIRECTION_RIGHT | DIRECTION_LEFT);
@@ -1516,7 +1516,7 @@ enum samus_pose samus_turning_around_midair(struct samus_data* pData)
     }
     else
     {
-        if ((button_input & INPUT_A) == 0x0 && 0x0 < pData->y_velocity)
+        if ((button_input & KEY_A) == 0x0 && 0x0 < pData->y_velocity)
             pData->y_velocity = 0x0;
         return SPOSE_NONE;
     }
@@ -1563,7 +1563,7 @@ enum samus_pose samus_spinning(struct samus_data* pData)
     }
     else
     {
-        if ((button_input & (INPUT_RIGHT | INPUT_LEFT)) == 0x0 && (button_input & (INPUT_UP | INPUT_DOWN)) != 0x0)
+        if ((button_input & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (button_input & (KEY_UP | KEY_DOWN)) != 0x0)
         {
             pData->forced_movement = 0x2;
             return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -1574,7 +1574,7 @@ enum samus_pose samus_spinning(struct samus_data* pData)
             acceleration = samus_physics.midair_x_acceleration;
             if ((equipment.suit_misc_activation & SMF_SPACE_JUMP) != 0x0 && samus_physics.slowed_by_liquid == FALSE)
             {
-                if ((buttons_changed & INPUT_A) != 0x0 && pData->y_velocity <= -0x40)
+                if ((buttons_changed & KEY_A) != 0x0 && pData->y_velocity <= -0x40)
                 {
                     if ((equipment.suit_misc_activation & SMF_HIGH_JUMP) != 0x0)
                         pData->y_velocity = 0xE8;
@@ -1591,7 +1591,7 @@ enum samus_pose samus_spinning(struct samus_data* pData)
                     pData->walljump_timer--;
                     if ((pData->direction & pData->last_wall_touched_midair) != 0x0)
                     {
-                        if ((buttons_changed & INPUT_A) != 0x0)
+                        if ((buttons_changed & KEY_A) != 0x0)
                         {
                             
                             if ((pData->last_wall_touched_midair & DIRECTION_RIGHT) != 0x0)
@@ -1620,7 +1620,7 @@ enum samus_pose samus_spinning(struct samus_data* pData)
             else
                 samus_apply_x_acceleration(acceleration, samus_physics.midair_x_velocity_cap, pData);
 
-            if ((button_input & INPUT_A) == 0x0 && 0x0 < pData->y_velocity)
+            if ((button_input & KEY_A) == 0x0 && 0x0 < pData->y_velocity)
                 pData->y_velocity = 0x0;
 
             return SPOSE_NONE;
@@ -1660,8 +1660,8 @@ enum samus_pose samus_starting_wall_jump(struct samus_data* pData)
     }
     else 
     {
-        input = button_input & (INPUT_RIGHT | INPUT_LEFT);
-        if (input == 0x0 && (button_input & (INPUT_UP | INPUT_DOWN)) != 0x0)
+        input = button_input & (KEY_RIGHT | KEY_LEFT);
+        if (input == 0x0 && (button_input & (KEY_UP | KEY_DOWN)) != 0x0)
         {
             pData->forced_movement = input;
             return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -1711,7 +1711,7 @@ enum samus_pose samus_flag_gfx(struct samus_data* pData)
 
 enum samus_pose samus_morphing(struct samus_data* pData)
 {
-    if ((buttons_changed & INPUT_UP) != 0x0)
+    if ((buttons_changed & KEY_UP) != 0x0)
         pData->pose = SPOSE_UNMORPHING;
 
     return SPOSE_NONE;
@@ -1743,7 +1743,7 @@ enum samus_pose samus_morphball(struct samus_data* pData)
         pData->forced_movement = forced_movement + 0x1;
     else
     {
-        if ((buttons_changed & INPUT_A) != 0x0 && (equipment.suit_misc_activation & SMF_HIGH_JUMP) != 0x0 & pData->shinespark_timer != 0x0 && unk_57EC(pData, (i16)((u16)array_23a554[0x5] - 0x40)) << 0x18 == 0x0)
+        if ((buttons_changed & KEY_A) != 0x0 && (equipment.suit_misc_activation & SMF_HIGH_JUMP) != 0x0 & pData->shinespark_timer != 0x0 && unk_57EC(pData, (i16)((u16)array_23a554[0x5] - 0x40)) << 0x18 == 0x0)
         {
             pData->y_position -= 0x20;
             return SPOSE_DELAY_BEFORE_BALLSPARKING;
@@ -1760,13 +1760,13 @@ enum samus_pose samus_morphball(struct samus_data* pData)
             pData->forced_movement = 0x0;
         }
 
-        if ((button_input & (INPUT_RIGHT | INPUT_LEFT)) != 0x0)
+        if ((button_input & (KEY_RIGHT | KEY_LEFT)) != 0x0)
         {
-            pData->direction = button_input & (INPUT_RIGHT | INPUT_LEFT);
+            pData->direction = button_input & (KEY_RIGHT | KEY_LEFT);
             return SPOSE_ROLLING;
         }
 
-        if ((buttons_changed & INPUT_UP) != 0x0)
+        if ((buttons_changed & KEY_UP) != 0x0)
         {
             forced_movement = unk_57EC(pData, array_23a554[0x2]);
             if (forced_movement == 0x1)
@@ -1803,7 +1803,7 @@ enum samus_pose samus_morphball(struct samus_data* pData)
         if (pData->speedbooster_timer != 0x0)
         {
             pData->speedbooster_timer--;
-            if ((button_input & (INPUT_RIGHT | INPUT_LEFT | INPUT_UP | INPUT_DOWN)) == INPUT_DOWN)
+            if ((button_input & (KEY_RIGHT | KEY_LEFT | KEY_UP | KEY_DOWN)) == KEY_DOWN)
             {
                 pData->shinespark_timer = 0xB4;
                 pData->speedbooster_timer = 0x0;
@@ -1819,14 +1819,14 @@ enum samus_pose samus_rolling(struct samus_data* pData)
 {
     /*i32 velocity;
 
-    if ((buttons_changed & INPUT_A) != 0x0 && (equipment.suit_misc_activation & SMF_HIGH_JUMP) != 0x0)
+    if ((buttons_changed & KEY_A) != 0x0 && (equipment.suit_misc_activation & SMF_HIGH_JUMP) != 0x0)
     {
         pData->forced_movement = 0x1;
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
     }
     else
     {
-        if (unk_57EC(pData, array_23a554[0x2]) << 0x18 == 0x0 && (buttons_changed & INPUT_UP) != 0x0)
+        if (unk_57EC(pData, array_23a554[0x2]) << 0x18 == 0x0 && (buttons_changed & KEY_UP) != 0x0)
         {
             if (samus_physics.slowed_by_liquid != FALSE)
                 play_sound1(0x78);
@@ -1879,12 +1879,12 @@ enum samus_pose samus_unmorphing(struct samus_data* pData)
     unk = unk_57EC(pData, array_23a554[0x2]);
     if (unk == 0x0)
     {
-        if ((buttons_changed & INPUT_A) != 0x0)
+        if ((buttons_changed & KEY_A) != 0x0)
         {
             pData->forced_movement = 0x1;
             return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
         }
-        if ((buttons_changed & INPUT_DOWN) == 0x0)
+        if ((buttons_changed & KEY_DOWN) == 0x0)
             return SPOSE_NONE;
     }
     pData->pose = SPOSE_MORPHING;
@@ -1908,7 +1908,7 @@ enum samus_pose samus_morphball_midair(struct samus_data* pData)
 {
     /*enum input_flag direction;
 
-    if ((buttons_changed & INPUT_UP) != 0x0 && unk_57EC(pData, array_23a554[0x2]) << 0x18 == 0x0)
+    if ((buttons_changed & KEY_UP) != 0x0 && unk_57EC(pData, array_23a554[0x2]) << 0x18 == 0x0)
     {
         if (samus_physics.slowed_by_liquid == TRUE)
             play_sound1(0x78);
@@ -1921,7 +1921,7 @@ enum samus_pose samus_morphball_midair(struct samus_data* pData)
 
     if (pData->forced_movement == 0x0)
     {
-        if ((button_input & INPUT_A) == 0x0 && 0x0 < pData->y_velocity)
+        if ((button_input & KEY_A) == 0x0 && 0x0 < pData->y_velocity)
             pData->y_velocity = 0x0;
     }
     else
@@ -2081,7 +2081,7 @@ enum samus_pose samus_facing_the_foreground(struct samus_data* pData)
 {
     enum input_flag direction;
 
-    direction = button_input & (INPUT_RIGHT | INPUT_LEFT);
+    direction = button_input & (KEY_RIGHT | KEY_LEFT);
 
     if (direction != 0x0 && pData->last_wall_touched_midair == 0x0)
     {
@@ -2182,7 +2182,7 @@ enum samus_pose samus_on_zipline(struct samus_data* pData)
 {
     enum input_flag* input;
 
-    if ((buttons_changed & INPUT_A) != 0x0)
+    if ((buttons_changed & KEY_A) != 0x0)
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
     else if (samus_physics.has_new_projectile != 0x0)
         return SPOSE_SHOOTING_ON_ZIPLINE;
@@ -2215,11 +2215,11 @@ enum samus_pose samus_morphball_on_zipline(struct samus_data* pData)
 {
     enum input_flag direction;
 
-    if ((buttons_changed & INPUT_A) != 0x0)
+    if ((buttons_changed & KEY_A) != 0x0)
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
     else
     {
-        direction = button_input & (INPUT_RIGHT | INPUT_LEFT);
+        direction = button_input & (KEY_RIGHT | KEY_LEFT);
         if (direction != 0x0)
             pData->direction = direction;
         return SPOSE_NONE;
@@ -2405,7 +2405,7 @@ enum samus_pose samus_facing_the_background(struct samus_data* pData)
 {
     enum input_flag direction;
 
-    direction = (button_input & (INPUT_RIGHT | INPUT_LEFT));
+    direction = (button_input & (KEY_RIGHT | KEY_LEFT));
     if (direction != 0x0 && pData->last_wall_touched_midair == 0x0)
     {
         pData->direction = direction;

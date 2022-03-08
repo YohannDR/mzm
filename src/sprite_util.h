@@ -49,7 +49,7 @@ u16 sprite_util_check_vertical_collision_at_position_slopes(u16 y_position, u16 
 void unk_f594(void);
 void unk_f608(void);
 void sprite_util_check_collision_at_position(u16 y_position, u16 x_position);
-u8 sprite_util_check_collision_at_position_no_global(u16 y_position, u16 x_position);
+u8 sprite_util_get_collision_at_position(u16 y_position, u16 x_position);
 void sprite_util_current_sprite_fall(void);
 void sprite_util_choose_random_x_flip(void);
 void sprite_util_choose_random_x_direction(void);
