@@ -68,7 +68,56 @@ void sprite_debris_process_all(void)
 
 void sprite_debris_draw(struct sprite_debris* pDebris)
 {
+    u8 count;
+    u8 oam_slot;
+    u8 priority;
+    u8 part_count;
+    u16 y_position;
+    u16 x_position;
+    u16 bg_y;
+    u16 bg_x;
+    struct oam_frame* pFrame;
+    struct raw_oam_data* pData;
 
+    y_position = pDebris->y_position;
+    if (bg1_y_position + 0xC0 > y_position + 0x100 || bg1_y_position + 0x3C0 < y_position + 0x100)
+        pDebris->exists = FALSE;
+    else
+    {
+        oam_slot = next_oam_slot;
+        pFrame = pDebris->oam_pointer[pDebris->curr_anim_frame].oam_frame_ptr;
+        part_count = (u8)pFrame->part_count;
+        if (part_count + oam_slot < 0x80)
+        {
+            pData = oam_data + oam_slot;
+            x_position = pDebris->x_position;
+            bg_y = bg1_y_position >> 0x2;
+            bg_x = bg1_x_position >> 0x2;
+            priority = 0x2;
+            if (samus_on_top_backgrounds)
+                priority = 0x1;
+            
+            if (part_count != 0x0)
+            {
+                for (count = 0x0; count < part_count; count++)
+                {
+                    // Set Raw Data and increment source data
+                    pData->data[0x0] = pFrame->data[0x0];
+                    pData->data[0x1] = pFrame->data[0x1];
+                    pData->data[0x2] = pFrame->data[0x2];
+                    pFrame++;
+
+                    // Update data
+                    *(u8*)&pData->data[0x0] = *(u8*)&pData->data[0x0] + ((y_position >> 0x2) - (bg_y));
+                    pData->data[0x1] = pData->data[0x1] | 0xFE00 + ((x_position >> 0x2) - bg_x) & 0x1FF;
+                    (((u8*)&pData->data[0x2])[0x1]) = (((u8*)&pData->data[0x2])[0x1]) & -0xD | (priority << 0x2);
+
+                    (u32)pData += 0x4;
+                }
+            }
+            next_oam_slot = (oam_slot + part_count); // Update Next OAM Slot
+        }
+    }
 }
 
 void sprite_debris_draw_all(void)
