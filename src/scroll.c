@@ -2,7 +2,7 @@
 #include "globals.h"
 #include "bg_clip.h"
 
-void scroll_process(struct raw_coords_x pCoords)
+void scroll_process(struct raw_coords_x* pCoords)
 {
     u32 screen_x;
     u32 screen_y;

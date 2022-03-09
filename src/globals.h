@@ -89,7 +89,7 @@ extern u16 arm_cannon_y;
 extern u16 arm_cannon_x;
 extern i8 pause_screen_flag; // TODO enum
 extern i8 is_current_file_existing;
-extern u16 game_mode;
+extern u16 game_mode_main;
 extern i16 game_mode_sub1;
 extern i8 game_mode_sub2;
 extern i8 game_mode_sub3;

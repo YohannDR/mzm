@@ -409,7 +409,7 @@ void projectile_update(void)
     {
         if ((pProj->status & PROJ_STATUS_EXISTS) != 0x0)
         {
-            bx_r1(pProj, process_projectile_functions_pointers[pProj->type]);
+            (*process_projectile_functions_pointers[pProj->type])(pProj);
             projectile_update_animation(pProj);
             projectile_check_despawn(pProj);
         }
@@ -627,9 +627,9 @@ void projectile_set_trail(struct projectile_data* pProj, enum particle_effect_id
                 x_pos -= offset;
             else
                 x_pos += offset;
-    }*/
+    }
 
-    particle_set(y_pos, x_pos, effect);
+    particle_set(y_pos, x_pos, effect);*/
 }
 
 /**
@@ -1250,8 +1250,8 @@ void projectile_non_ice_charged_hit_sprite(struct sprite_data* pSprite, u16 y_po
  */
 void projectile_freeze_sprite(struct sprite_data* pSprite, u8 freeze_timer)
 {
-    pProj->freeze_timer = freeze_timer;
-    pProj->palette_row = 0xF - (pProj->spriteset_gfx_slot + pProj->frozen_palette_row_offset);
+    pSprite->freeze_timer = freeze_timer;
+    pSprite->palette_row = 0xF - (pSprite->spriteset_gfx_slot + pSprite->frozen_palette_row_offset);
     unk_2b20(0x140);
 }
 
@@ -1330,7 +1330,7 @@ void projectile_start_tumbling_missile_current_sprite(struct projectile_data* pP
     }
 }
 
-void projectile_missile_hit_sprite(struct sprite_data* pSprite, struct projectile_data* pProj , u16 y_position, u16 x_position)
+void projectile_missile_hit_sprite(struct sprite_data* pSprite, struct projectile_data* pProj, u16 y_position, u16 x_position)
 {
     /*if (pSprite->properties & SP_SOLID_FOR_PROJECTILES)
     {
@@ -1366,7 +1366,7 @@ void projectile_missile_hit_sprite(struct sprite_data* pSprite, struct projectil
     }*/
 }
 
-void projectile_super_missile_hit_sprite(struct sprite_data* pSprite, struct projectile_data* pProj , u16 y_position, u16 x_position)
+void projectile_super_missile_hit_sprite(struct sprite_data* pSprite, struct projectile_data* pProj, u16 y_position, u16 x_position)
 {
 
 }
@@ -1442,16 +1442,16 @@ void projectile_process_normal_beam(struct projectile_data* pProj)
             case ACD_DIAGONALLY_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_DIAGONALLY_UP:
-                pProj->oam_pointer = beam_oam_327aa8;
+                pProj->oam_pointer = normal_beam_oam_diagonal;
                 break;
             case ACD_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_UP:
-                pProj->oam_pointer = beam_oam_327ac0;
+                pProj->oam_pointer = normal_beam_oam_up_down;
                 break;
             default:
             case ACD_FORWARD:
-                pProj->oam_pointer = beam_oam_327a90;
+                pProj->oam_pointer = normal_beam_oam_forward;
         }
 
         pProj->draw_distance_offset = 0x40;
@@ -1520,16 +1520,16 @@ void projectile_process_long_beam(struct projectile_data* pProj)
             case ACD_DIAGONALLY_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_DIAGONALLY_UP:
-                pProj->oam_pointer = beam_oam_328460;
+                pProj->oam_pointer = long_beam_oam_diagonal;
                 break;
             case ACD_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_UP:
-                pProj->oam_pointer = beam_oam_328478;
+                pProj->oam_pointer = long_beam_oam_up_down;
                 break;
             default:
             case ACD_FORWARD:
-                pProj->oam_pointer = beam_oam_328448;
+                pProj->oam_pointer = long_beam_oam_forward;
        }
 
        pProj->draw_distance_offset = 0x40;
@@ -1599,16 +1599,16 @@ void projectile_process_ice_beam(struct projectile_data* pProj)
             case ACD_DIAGONALLY_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_DIAGONALLY_UP:
-                pProj->oam_pointer = beam_oam_328e44;
+                pProj->oam_pointer = ice_beam_oam_diagonal;
                 break;
             case ACD_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_UP:
-                pProj->oam_pointer = beam_oam_328e5c;
+                pProj->oam_pointer = ice_beam_oam_up_down;
                 break;
             default:
             case ACD_FORWARD:
-                pProj->oam_pointer = beam_oam_328e2c;
+                pProj->oam_pointer = ice_beam_oam_forward;
         }
 
         pProj->draw_distance_offset = 0x40;

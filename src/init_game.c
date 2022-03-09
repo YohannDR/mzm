@@ -44,9 +44,9 @@ void init_game(void) {
     update_input();
 
     if (buttons_changed == (KEY_L | KEY_R)) {
-        game_mode = GM_ERASE_SRAM;
+        game_mode_main = GM_ERASE_SRAM;
     } else {
-        game_mode = GM_SOFTRESET;
+        game_mode_main = GM_SOFTRESET;
     }
 
     button_input = 0;

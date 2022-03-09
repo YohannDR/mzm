@@ -14,7 +14,7 @@ void softreset_vblank_callback(void) {
 }
 
 void check_softreset(void) {
-    if (game_mode == GM_START_SOFTRESET) {
+    if (game_mode_main == GM_START_SOFTRESET) {
         return;
     }
 
@@ -23,7 +23,7 @@ void check_softreset(void) {
     }
 
     if ((button_input & SOFTRESET_KEYS) == SOFTRESET_KEYS) {
-        game_mode = GM_START_SOFTRESET;
+        game_mode_main = GM_START_SOFTRESET;
     }
 }
 
@@ -51,7 +51,7 @@ void softreset(void) {
     write16(REG_IE, IF_VBLANK | IF_DMA2 | IF_GAMEPAK);
     write16(REG_DISPSTAT, DSTAT_IF_VBLANK);
 
-    game_mode = GM_INTRO;
+    game_mode_main = GM_INTRO;
     game_mode_sub1 = 0;
     game_mode_sub2 = 0;
     reset_game = 0;

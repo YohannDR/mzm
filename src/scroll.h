@@ -29,7 +29,7 @@ struct screen_position_and_velocity {
     i8 y_velocity;
 };
 
-void scroll_process(struct raw_coords_x pCoords);
+void scroll_process(struct raw_coords_x* pCoords);
 void scroll_screen(u16 screen_x, u16 screen_y);
 i32 scroll_process_x(struct scroll* pScroll, struct raw_coords_x* pCoords);
 i32 scroll_process_y(struct scroll* pScroll, struct raw_coords_x* pCoords);
