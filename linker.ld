@@ -11,9 +11,11 @@ SECTIONS {
         . = 0x00000000; debug_flag = .;
         . = 0x00000002; frame_counter_16bit = .;
         . = 0x00000004; stereo_enabled = .;
+        . = 0x00000038; curr_demo = .;
         . = 0x0000003c; reset_game = .;
         . = 0x00000043; softreset_disabled = .;
         . = 0x0000007d; curr_cutscene = .;
+        . = 0x0000007e; unk_0300007e = .;
         . = 0x00000bf0; pause_screen_flag = .;
         . = 0x00000c70; game_mode = .;
         . = 0x00000c72; game_submode1 = .;
@@ -26,6 +28,7 @@ SECTIONS {
         . = 0x0000137c; button_input = .;
         . = 0x0000137e; button_input_old = .;
         . = 0x00001380; buttons_changed = .;
+        . = 0x000013d2; unk_030013d2 = .;
         . = 0x00001cec; vblank_callback = .;
         . = 0x00001cf0; hblank_callback = .;
         . = 0x00001cf4; vcount_callback = .;
@@ -42,7 +45,7 @@ SECTIONS {
         asm/romheader.o(.text);
         asm/crt0.o(.text);
         asm/intr_main.o(.text);
-        asm/agbmain.o(.text);
+        src/agbmain.o(.text);
         src/init_game.o(.text);
         src/softreset.o(.text);
         src/syscall_wrappers.o(.text);
