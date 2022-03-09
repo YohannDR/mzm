@@ -108,7 +108,7 @@ u8 sprite_util_check_objects_touching(u16 o1_top, u16 o1_bottom, u16 o1_left, u1
 
 void sprite_util_samus_and_sprite_collision(void)
 {
-    struct samus_data* pData;
+    /*struct samus_data* pData;
     struct sprite_data* pSprite;
     u16 samus_y;
     u16 samus_x;
@@ -550,7 +550,7 @@ void sprite_util_samus_and_sprite_collision(void)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->ignore_samus_collision_timer != 0x0)
             pSprite->ignore_samus_collision_timer--;
-    }
+    }*/
 }
 
 u16 sprite_util_check_vertical_collision_at_position(u16 y_position, u16 x_position)

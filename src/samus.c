@@ -2479,9 +2479,9 @@ enum samus_pose samus_execute_pose_subroutine(struct samus_data* pData)
 
         samus_set_spinning_pose(pData, pEquipment);
         samus_spawn_new_projectile(pData, pWeapon, pEquipment);
-        pose = bx_r1(pData, samus_pose_functions_pointers[pData->pose]);
+        (*samus_pose_functions_pointers[pData->pose])(pData);
         if (pose == SPOSE_NONE)
-            pose = bx_r1(pData, samus_pose_gfx_functions_pointers[pData->pose]);
+            (*samus_pose_gfx_functions_pointers[pData->pose])(pData);
         samus_check_shinesparking(pData);
     }
 

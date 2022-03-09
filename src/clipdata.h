@@ -58,7 +58,7 @@ struct current_affecting_clipdata {
 };
 
 struct collision_data {
-
+    
 };
 
 void clipdate_setup_code(void);
