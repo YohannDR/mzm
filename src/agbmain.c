@@ -10,7 +10,7 @@ void agbmain(void) {
     init_game();
 
     while (
-        cleared_every_frame = 0,
+        unk_03000c76 = 0,
         sub_08004d48(),
         !reset_game
     ) {
@@ -218,7 +218,7 @@ void agbmain(void) {
         }
 
         vblank_request_flag &= 0xfffe;
-        cleared_every_frame = 1;
+        unk_03000c76 = 1;
 
         do {
             SYSCALL(2); /* SYS_Halt */

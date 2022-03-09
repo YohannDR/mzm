@@ -35,7 +35,7 @@ extern void *sp_irq;
 extern callback_t intr_vector[13];
 extern u16 intr_code[0x100];
 extern u16 (*intr_code_ptr)[0x100];
-extern i8 cleared_every_frame;
+extern i8 unk_03000c76;
 extern u8 frame_counter_8bit;
 extern vu16 vblank_request_flag;
 extern u16 unk_03007ff8;

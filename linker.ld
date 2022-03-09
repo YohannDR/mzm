@@ -21,7 +21,7 @@ SECTIONS {
         . = 0x00000c72; game_submode1 = .;
         . = 0x00000c74; game_submode2 = .;
         . = 0x00000c75; game_submode3 = .;
-        . = 0x00000c76; cleared_every_frame = .;
+        . = 0x00000c76; unk_03000c76 = .;
         . = 0x00000c77; frame_counter_8bit = .;
         . = 0x00000c78; vblank_request_flag = .;
         . = 0x00000c7c; intr_code = .;

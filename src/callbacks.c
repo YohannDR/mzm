@@ -14,7 +14,7 @@ void call_vblank_callback(void) {
     vblank_request_flag = 1;
     unk_03007ff8 |= 0x01;
 
-    if (!cleared_every_frame) {
+    if (!unk_03000c76) {
         sub_08004d48();
     }
 }
