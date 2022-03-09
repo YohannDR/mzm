@@ -35,7 +35,7 @@ void init_game(void) {
     );
 
     game_submode1 = 0;
-    game_submode2 = 0;
+    next_game_mode = 0;
     debug_flag = 0;
     button_input = KEY_NONE;
     button_input_old = KEY_NONE;

@@ -37,9 +37,9 @@ void agbmain(void) {
 
         case GM_TITLE:
             if (titlescreen_main()) {
-                if (game_submode2 == 1) {
+                if (next_game_mode == 1) {
                     game_mode = GM_FILESELECT;
-                } else if (game_submode2 == 2) {
+                } else if (next_game_mode == 2) {
                     start_new_demo();
                     game_mode = GM_DEMO;
                 } else {
@@ -47,26 +47,26 @@ void agbmain(void) {
                 }
                 game_submode1 = 0;
                 pause_screen_flag = 0;
-                game_submode2 = 0;
+                next_game_mode = 0;
             }
             break;
 
         case GM_FILESELECT:
             if (fileselect_main()) {
-                if (game_submode2 == 1) {
+                if (next_game_mode == 1) {
                     game_mode = GM_INGAME;
-                } else if (game_submode2 == 2) {
+                } else if (next_game_mode == 2) {
                     game_mode = GM_INGAME;
-                } else if (game_submode2 == 4) {
+                } else if (next_game_mode == 4) {
                     game_mode = GM_FUSION_GALLERY;
-                } else if (game_submode2 == 5) {
+                } else if (next_game_mode == 5) {
                     game_mode = GM_GALLERY;
                 } else {
                     game_mode = GM_INTRO;
                 }
                 game_submode1 = 0;
-                game_submode3 = 0;
-                game_submode2 = 0;
+                unk_03000c75 = 0;
+                next_game_mode = 0;
             }
             break;
 
@@ -91,20 +91,20 @@ void agbmain(void) {
         case GM_MAP_SCREEN:
             if (map_screen_main()) {
                 i8 psf;
-                game_mode = game_submode2;
-                game_submode2 = 0;
+                game_mode = next_game_mode;
+                next_game_mode = 0;
 
                 psf = pause_screen_flag - 1;
                 switch (psf) {
                 case PAUSE_SCREEN_UNKNOWN_1 - 1:
-                    game_submode3 = 0;
+                    unk_03000c75 = 0;
                     /* FALLTHROUGH */
                 case PAUSE_SCREEN_SUITLESS_ITEMS - 1:
                     pause_screen_flag = PAUSE_SCREEN_NONE;
                     break;
                 case PAUSE_SCREEN_UNKNOWN_9 - 1:
                     pause_screen_flag = PAUSE_SCREEN_NONE;
-                    game_submode2 = 1;
+                    next_game_mode = 1;
                     break;
 
                 case PAUSE_SCREEN_PAUSE_OR_CUTSCENE - 1:
@@ -121,9 +121,9 @@ void agbmain(void) {
 
         case GM_GAMEOVER:
             if (gameover_main()) {
-                game_mode = game_submode2;
+                game_mode = next_game_mode;
                 game_submode1 = 0;
-                game_submode2 = 0;
+                next_game_mode = 0;
             }
             break;
 
@@ -144,7 +144,7 @@ void agbmain(void) {
         case GM_TOURIAN_ESCAPE:
             if (tourian_escape_main()) {
                 game_submode1 = 0;
-                game_mode = game_submode2;
+                game_mode = next_game_mode;
             }
             break;
 
@@ -166,11 +166,11 @@ void agbmain(void) {
                 i8 psf = pause_screen_flag;
                 if (psf == PAUSE_SCREEN_PAUSE_OR_CUTSCENE) {
                     pause_screen_flag = PAUSE_SCREEN_NONE;
-                    game_submode3 = 0;
+                    unk_03000c75 = 0;
                     game_submode1 = 0;
                     if (unk_030013d2 == 0) {
-                        game_mode = game_submode2;
-                        game_submode2 = (curr_demo << 4) >> 0x1c; /* XXX: probably struct */
+                        game_mode = next_game_mode;
+                        next_game_mode = (curr_demo << 4) >> 0x1c; /* XXX: probably struct */
                     } else {
                         start_new_demo();
                         game_mode = GM_DEMO;
@@ -201,13 +201,13 @@ void agbmain(void) {
 
         case GM_ERASE_SRAM:
             if (erase_sram_main()) {
-                if (game_submode2 == 1) {
+                if (next_game_mode == 1) {
                     reset_game = 1;
                 } else {
                     game_mode = GM_SOFTRESET;
                 }
                 game_submode1 = 0;
-                game_submode2 = 0;
+                next_game_mode = 0;
             }
             break;
 

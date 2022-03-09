@@ -53,7 +53,7 @@ void softreset(void) {
 
     game_mode = GM_INTRO;
     game_submode1 = 0;
-    game_submode2 = 0;
+    next_game_mode = 0;
     reset_game = 0;
     stereo_enabled = 0;
     button_input = KEY_NONE;

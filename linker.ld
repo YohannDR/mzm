@@ -19,8 +19,8 @@ SECTIONS {
         . = 0x00000bf0; pause_screen_flag = .;
         . = 0x00000c70; game_mode = .;
         . = 0x00000c72; game_submode1 = .;
-        . = 0x00000c74; game_submode2 = .;
-        . = 0x00000c75; game_submode3 = .;
+        . = 0x00000c74; next_game_mode = .;
+        . = 0x00000c75; unk_03000c75 = .;
         . = 0x00000c76; unk_03000c76 = .;
         . = 0x00000c77; frame_counter_8bit = .;
         . = 0x00000c78; vblank_request_flag = .;
