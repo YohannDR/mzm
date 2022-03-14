@@ -296,9 +296,9 @@ void scroll_bg3_related(void)
 
 void scroll_auto_bg3(void)
 {
-    if (bg3_movement.sub1.direction == 0x1 && (bg3_movement.sub1.counter & 0x7) == 0x0)
-        bg3_movement.sub2.x_offset++;
-    bg3_movement.sub1.counter++;
+    if (bg3_movement.direction == 0x1 && (bg3_movement.counter & 0x7) == 0x0)
+        bg3_movement.x_offset++;
+    bg3_movement.counter++;
 }
 
 void scroll_bg2(void)
