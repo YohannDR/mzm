@@ -395,7 +395,7 @@ enum samus_pose samus_turning_to_enter_escape_ship_gfx(struct samus_data* pData)
 enum samus_pose samus_execute_pose_subroutine(struct samus_data* pData);
 void samus_update_velocity_position(struct samus_data* pData);
 void samus_update_graphics_oam(struct samus_data* pData, u8 direction);
-void samus_update_animation_timer_palette(struct samus_data* pData);
+void samus_update_palette(struct samus_data* pData);
 void samus_check_play_low_health_sound(void);
 void samus_update_draw_distance_and_standing_status(struct samus_data* pData, struct samus_physics* pPhysics);
 void samus_update_arm_cannon_position_offset(u8 direction);

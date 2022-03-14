@@ -10,6 +10,11 @@ void sprite_update(void)
 
 }
 
+/**
+ * d32c | 40 | Updates the animation related info of a sprite
+ * 
+ * @param pSprite Sprite Data Pointer to the concerned sprite
+ */
 void sprite_update_animation(struct sprite_data* pSprite)
 {
     u32 adc;
@@ -18,11 +23,11 @@ void sprite_update_animation(struct sprite_data* pSprite)
     {
         adc = pSprite->anim_duration_counter + 0x1;
         pSprite->anim_duration_counter = adc;
-        if ((u8)pSprite->oam_pointer[pSprite->curr_anim_frame].timer < (u8)adc)
+        if (pSprite->oam_pointer[pSprite->curr_anim_frame].timer < (u8)adc)
         {
             pSprite->anim_duration_counter = 0x1;
             pSprite->curr_anim_frame++;
-            if ((u8)pSprite->oam_pointer[pSprite->curr_anim_frame].timer == 0x0)
+            if (pSprite->oam_pointer[pSprite->curr_anim_frame].timer == 0x0)
                 pSprite->curr_anim_frame = 0x0;
         }
     }

@@ -68,7 +68,7 @@ void sprite_debris_process_all(void)
 
 void sprite_debris_draw(struct sprite_debris* pDebris)
 {
-    u8 count;
+    /*u8 count;
     u8 oam_slot;
     u8 priority;
     u8 part_count;
@@ -117,7 +117,7 @@ void sprite_debris_draw(struct sprite_debris* pDebris)
             }
             next_oam_slot = (oam_slot + part_count); // Update Next OAM Slot
         }
-    }
+    }*/
 }
 
 void sprite_debris_draw_all(void)
