@@ -587,7 +587,7 @@ void projectile_set_trail(struct projectile_data* pProj, enum particle_effect_id
     u16 offset;
     enum projectile_status status;
 
-    if (eight_bit_frame_counter & delay)
+    if (frame_counter_8bit & delay)
         return;
 
     offset = 0x20;

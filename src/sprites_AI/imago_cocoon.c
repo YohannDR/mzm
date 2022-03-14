@@ -143,7 +143,7 @@ void imago_cocoon_falling_before_blocks(void)
     u32 rng;
     u8 timer;
 
-    if ((eight_bit_frame_counter & 0x1F) == 0x0)
+    if ((frame_counter_8bit & 0x1F) == 0x0)
         imago_cocoon_change_oam_scaling(0x1, 0x1);
 
     if (sub_sprite_data1.curr_anim_frame > 0x7)

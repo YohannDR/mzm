@@ -2519,7 +2519,7 @@ void samus_check_play_low_health_sound(void)
     pData = &samus_data;
     pEquipment = &equipment;
 
-    if (pEquipment->low_health != FALSE && pData->pose != SPOSE_DYING && prevent_movement_timer == 0x0 && (eight_bit_frame_counter & 0xF) == 0x0)
+    if (pEquipment->low_health != FALSE && pData->pose != SPOSE_DYING && prevent_movement_timer == 0x0 && (frame_counter_8bit & 0xF) == 0x0)
         play_sound1(0x82);
 }
 

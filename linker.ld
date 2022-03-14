@@ -19,6 +19,7 @@ SECTIONS {
         . = 0x0000002B; samus_on_top_backgrounds = .;
         . = 0x0000002C; difficulty = .;
         . = 0x0000002D; use_mother_ship_doors = .;
+        . = 0x0000003c; reset_game = .;
         . = 0x0000003D; disable_scrolling = .;
         . = 0x00000042; skip_door_transition = .;
         . = 0x00000043; softreset_disabled = .;
@@ -36,6 +37,8 @@ SECTIONS {
         . = 0x00000079; current_clipdata_affecting_action = .;
         . = 0x0000007A; spriteset_entry_used = .;
         . = 0x0000007B; door_ulock_timer = .;
+        . = 0x0000007d; curr_cutscene = .;
+        . = 0x0000007e; unk_0300007e = .;
         . = 0x00000088; io_registers_backup = .;
         . = 0x0000009C; bg_pointers_and_dimensions = .;
         . = 0x000000BC; current_room_entry = .;
@@ -77,8 +80,8 @@ SECTIONS {
         . = 0x00000c72; game_mode_sub1 = .;
         . = 0x00000c74; game_mode_sub2 = .;
         . = 0x00000c75; game_mode_sub3 = .;
-        . = 0x00000c76; cleared_every_frame = .;
-        . = 0x00000c77; eight_bit_frame_counter = .;
+        . = 0x00000c76; unk_03000c76 = .;
+        . = 0x00000c77; frame_counter_8bit = .;
         . = 0x00000c78; vblank_request_flag = .;
         . = 0x00000c7c; intr_code = .;
         . = 0x00000E7C; oam_data = .;

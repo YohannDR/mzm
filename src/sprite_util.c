@@ -854,7 +854,7 @@ void sprite_util_update_freeze_timer(void)
 {
     /*u8 freeze_timer;
 
-    if ((eight_bit_frame_counter & 0x1) != 0x0)
+    if ((frame_counter_8bit & 0x1) != 0x0)
         current_sprite.freeze_timer--;
 
     freeze_timer = current_sprite.freeze_timer;
@@ -1454,13 +1454,13 @@ void sprite_util_random_debris(u8 cloud_type, u8 number, u16 y_position, u16 x_p
     switch (number)
     {
         case 0x1:
-            if ((eight_bit_frame_counter & 0x1) == 0x0)
+            if ((frame_counter_8bit & 0x1) == 0x0)
                 sprite_debris_init(cloud_type, 0x1, y_position + 0x8, x_position - 0x8);
             else
                 sprite_debris_init(cloud_type, 0x2, y_position - 0x8, x_position + 0x8);
             break;
         case 0x2:
-            if ((eight_bit_frame_counter & 0x1) == 0x0)
+            if ((frame_counter_8bit & 0x1) == 0x0)
             {
                 sprite_debris_init(cloud_type, 0x1, y_position - 0x8, x_position - 0x8);
                 sprite_debris_init(cloud_type, 0x3, y_position, x_position + 0x8);
@@ -1472,7 +1472,7 @@ void sprite_util_random_debris(u8 cloud_type, u8 number, u16 y_position, u16 x_p
             }
             break;
         case 0x3:
-            if ((eight_bit_frame_counter & 0x1) == 0x0)
+            if ((frame_counter_8bit & 0x1) == 0x0)
             {
                 sprite_debris_init(cloud_type, 0x2, y_position - 0x10, x_position + 0x8);
                 sprite_debris_init(cloud_type, 0x3, y_position + 0x8, x_position + 0x8);
@@ -1522,7 +1522,7 @@ enum p_sprite_id sprite_util_determine_enemy_drop(void)
 
     rng = sprite_rng;
     rng *= 0x100;
-    rng = (u16)(rng + (eight_bit_frame_counter + sixteen_bit_frame_counter) << 0x6) >> 0x6;
+    rng = (u16)(rng + (frame_counter_8bit + sixteen_bit_frame_counter) << 0x6) >> 0x6;
     if (rng == 0x0)
         rng = 0x1;
 
