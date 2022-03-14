@@ -263,40 +263,45 @@ void samus_set_pose(enum samus_pose pose)
     samus_turn_around_arm_cannon_start_shinespark(pData, pCopy, pWeapon);
 }
 
-void samus_copy_data(struct samus_data* pData)
+/**
+ * 75bc | 60 | Copies samus data to the samus data copy and resets samus data 
+ * 
+ * @param pData_ Samus Data Pointer (unused)
+ */
+void samus_copy_data(struct samus_data* pData_)
 {
-    struct samus_data* data;
-    struct screw_speed_animation* screw;
-    struct samus_data* data_copy;
+    struct samus_data* pData;
+    struct screw_speed_animation* pScrew;
+    struct samus_data* pCopy;
 
-    data = &samus_data;
-    screw = &screw_speed_animation;
-    data_copy = &samus_data_copy;
+    pData = &samus_data;
+    pScrew = &screw_speed_animation;
+    pCopy = &samus_data_copy;
 
-    *data_copy = *data;
-    if (data->turning != FALSE)
+    *pCopy = *pData;
+    if (pData->turning != FALSE)
     {
-        data->direction ^= (DIRECTION_LEFT | DIRECTION_RIGHT);
-        data->turning = FALSE;
+        pData->direction ^= (DIRECTION_LEFT | DIRECTION_RIGHT);
+        pData->turning = FALSE;
     }
 
-    data->arm_cannon_direction = ACD_FORWARD;
-    data->forced_movement = 0x0;
-    data->speedboosting_shinesparking = FALSE;
-    data->walljump_timer = 0x0;
-    data->speedbooster_timer = 0x0;
-    data->last_wall_touched_midair = 0x0;
-    data->unknown = 0x0;
-    data->x_velocity = 0x0;
-    data->y_velocity = 0x0;
-    data->anim_duration_counter = 0x0;
-    data->curr_anim_frame = 0x0;
+    pData->arm_cannon_direction = ACD_FORWARD;
+    pData->forced_movement = 0x0;
+    pData->speedboosting_shinesparking = FALSE;
+    pData->walljump_timer = 0x0;
+    pData->speedbooster_timer = 0x0;
+    pData->last_wall_touched_midair = 0x0;
+    pData->elevator_direction = 0x0;
+    pData->x_velocity = 0x0;
+    pData->y_velocity = 0x0;
+    pData->anim_duration_counter = 0x0;
+    pData->curr_anim_frame = 0x0;
 
-    if (data->shinespark_timer != 0xB4)
-        screw->flag = FALSE;
+    if (pData->shinespark_timer != 0xB4)
+        pScrew->flag = FALSE;
 
-    screw->anim_duration_counter = 0x0;
-    screw->curr_anim_frame = 0x0;
+    pScrew->anim_duration_counter = 0x0;
+    pScrew->curr_anim_frame = 0x0;
 }
 
 void samus_update_physics(struct samus_data* pData)
@@ -388,7 +393,7 @@ void samus_call_gfx_functions(void)
         direction = 0x1;
     
     samus_update_graphics_oam(pData, direction);
-    samus_update_animation_timer_palette(pData);*/
+    samus_update_palette(pData);*/
 }
 
 void samus_call_check_low_health(void)
@@ -398,7 +403,10 @@ void samus_call_check_low_health(void)
 
 void samus_call_update_arm_cannon_position_offset(void)
 {
-
+    if (samus_data.direction & DIRECTION_RIGHT)
+        samus_update_arm_cannon_position_offset(TRUE);
+    else
+        samus_update_arm_cannon_position_offset(FALSE);
 }
 
 void samus_bounce_bomb(u8 direction)
@@ -2498,7 +2506,7 @@ void samus_update_graphics_oam(struct samus_data* pData, u8 direction)
 
 }
 
-void samus_update_animation_timer_palette(struct samus_data* pData)
+void samus_update_palette(struct samus_data* pData)
 {
 
 }
