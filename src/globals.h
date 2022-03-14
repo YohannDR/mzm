@@ -153,11 +153,9 @@ extern void *sp_sys;
 extern void *sp_irq;
 extern u16 unk_03007ff8;
 extern u16 (*intr_code_ptr)[0x100];
-extern void *intr_vector; // TODO: proper type
-
+extern callback_t intr_vector[13];
 
 // IO
 
 extern struct dma reg_dma[4];
-
 #endif /* GLOBALS_H */

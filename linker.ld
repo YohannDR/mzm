@@ -10,7 +10,9 @@ SECTIONS {
     }
 
     iwram (NOLOAD) : ALIGN(4) {
+        . = 0x00000000; debug_flag = .;
         . = 0x00000002; frame_counter_16bit = .;
+        . = 0x00000004; stereo_enabled = .;
         . = 0x0000000A; written_to_dispcnt = .;
         . = 0x00000029; bg_fading = .;
         . = 0x0000002A; which_bg_position_is_written_to_bg30fs = .;
