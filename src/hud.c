@@ -56,12 +56,16 @@ void hud_draw_suitless(void)
 
 }
 
+/**
+ * 53930 | 38 | Main function that draws the HUD
+ * 
+ */
 void hud_draw(void)
 {
     hud_draw_energy(0x0);
     hud_draw_missiles(FALSE);
     hud_draw_power_bomb(FALSE);
-    hud_draw_super_missile_digits(FALSE);
+    hud_draw_super_missiles(FALSE);
     hud_draw_highlight();
     if (equipment.suit_type == SUIT_SUITLESS)
         hud_draw_suitless();

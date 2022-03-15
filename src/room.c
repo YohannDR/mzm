@@ -286,7 +286,7 @@ void room_update_backgrounds_position(void)
         background_positions.bg[0].y = ((bg0_y_position >> 0x2) + bg0_movement.snowflakes_related & 0x1FF) + x_offset;
     }
 
-    new_bg3_x = (bg3_x_position >> 0x2) + bg3_movement.sub2.x_offset & 0x1FF;
+    new_bg3_x = (bg3_x_position >> 0x2) + bg3_movement.x_offset & 0x1FF;
     new_bg3_y = bg3_y_position >> 0x2 & 0x1FF;
 
     if ((screen_shake_related & 0x800) != 0x0)

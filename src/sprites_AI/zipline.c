@@ -85,7 +85,7 @@ u8 zipline_moving(void)
 
 void zipline_gfx_update(void)
 {
-    enum sprite_status status;
+    u16 status;
     u32 check;
 
     status = current_sprite.status & SPRITE_STATUS_SAMUS_COLLIDING;

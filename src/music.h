@@ -1,6 +1,6 @@
 #ifndef MUSIC_H
 #define MUSIC_H
 
-void udpate_audio(void);
+void update_audio(void);
 
 #endif /* MUSIC_H */

@@ -71,7 +71,7 @@ void bg_clip_finish_collecting_tank(void)
 void bg_clip_finish_collecting_ability(void)
 {
     bg_clip_set_item_as_collected(samus_data.x_position >> 0x6, samus_data.y_position >> 0x6, 0x80);
-    update_minimap_square_for_collected_items((u8)(samus_data.x_position >> 0x6), (u8)(samus_data.y_position >> 0x6))
+    update_minimap_square_for_collected_items((u8)(samus_data.x_position >> 0x6), (u8)(samus_data.y_position >> 0x6));
 }
 
 void bg_clip_check_grabbing_crumble_block(u8 false)

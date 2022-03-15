@@ -80,7 +80,7 @@ void geruta_gfx_init(void)
 
 void geruta_detect_samus(void)
 {
-    enum near_sprite_left_right nslr;
+    u8 nslr;
 
     if (sprite_util_get_collision_at_position(current_sprite.y_position - 0x40, current_sprite.x_position - 0x30) != 0x11 && sprite_util_get_collision_at_position(current_sprite.y_position - 0x40, current_sprite.x_position + 0x30) != 0x11)
         sprite_util_make_sprite_face_samus_direction();

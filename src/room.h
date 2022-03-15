@@ -5,26 +5,22 @@
 #include "sprite.h"
 #include "event.h"
 
-enum __attribute__((packed)) room_effect {
-    EFFECT_NONE = 0x0,
-    EFFECT_WATER = 0x1,
-    EFFECT_STRONG_LAVA = 0x2,
-    EFFECT_WEAK_LAVA = 0x3,
-    EFFECT_STRONG_LAVA_HEAT_HAZE = 0x4,
-    EFFECT_ACID = 0x5,
-    EFFECT_SNOWFLAKES_COLD_KNOCKBACK = 0x6,
-    EFFECT_SNOWFLAKES_COLD = 0x7,
-    EFFECT_HEAT_BG3_HAZE = 0x8,
-    EFFECT_HEAT_BG2_BG3_HAZE = 0x9,
-    EFFECT_BG3_GRADIENT = 0xA,
-    EFFECT_BG2_GRADIENT = 0xB
-};
+#define EFFECT_NONE 0x0
+#define EFFECT_WATER 0x1
+#define EFFECT_STRONG_LAVA 0x2
+#define EFFECT_WEAK_LAVA 0x3
+#define EFFECT_STRONG_LAVA_HEAT_HAZE 0x4
+#define EFFECT_ACID 0x5
+#define EFFECT_SNOWFLAKES_COLD_KNOCKBACK 0x6
+#define EFFECT_SNOWFLAKES_COLD 0x7
+#define EFFECT_HEAT_BG3_HAZE 0x8
+#define EFFECT_HEAT_BG2_BG3_HAZE 0x9
+#define EFFECT_BG3_GRADIENT 0xA
+#define EFFECT_BG2_GRADIENT 0xB
 
-enum __attribute__((packed)) bg0_movement_type {
-    BG0_MOVEMENT_NONE = 0x0,
-    BG0_MOVEMENT_WATER_CLOUDS = 0x1,
-    BG0_MOVEMENT_SNOWFLAKES = 0x4
-};
+#define BG0_MOVEMENT_NONE 0x0
+#define BG0_MOVEMENT_WATER_CLOUDS 0x1
+#define BG0_MOVEMENT_SNOWFLAKES 0x4
 
 struct room_entry {
     u8 tileset;
@@ -36,13 +32,13 @@ struct room_entry {
     u8 bg3_scrolling;
     u8 transparency;
     struct enemy_room_data* enemy_room_data;
-    enum event first_spriteset_event;
-    enum event second_spriteset_event;
+    u8 first_spriteset_event;
+    u8 second_spriteset_event;
     u8 map_x;
     u8 map_y;
-    enum room_effect effect;
+    u8 effect;
     u16 effect_y;
-    enum room_effect effect_clone;
+    u8 effect_clone;
     u16 music_track;
     u8 bg0_size;
     u8 bg3_size;
@@ -66,15 +62,15 @@ struct room_entry_rom {
     u8 transparency;
     struct enemy_room_data* default_sprite_data_ptr;
     u8 default_spriteset;
-    enum event first_spriteset_event;
+    u8 first_spriteset_event;
     struct enemy_room_data* first_sprite_data_ptr;
     u8 first_spriteset;
-    enum event second_spriteset_event;
+    u8 second_spriteset_event;
     struct enemy_room_data* second_sprite_data_ptr;
     u8 second_spriteset;
     u8 map_x;
     u8 map_y;
-    enum room_effect effect;
+    u8 effect;
     u8 effect_y;
     u16 music_track;
 };
@@ -85,7 +81,7 @@ struct background_positions {
 };
 
 struct bg0_movement {
-    enum bg0_movement_type type;
+    u8 type;
     u8 y_offset;
     u16 unused;
     u16 x_offset;
@@ -95,6 +91,7 @@ struct bg0_movement {
 struct bg3_movement {
     u8 direction;
     u8 counter;
+    u8 undefined; // Needed for correct alignement
     u16 x_offset;
 };
 

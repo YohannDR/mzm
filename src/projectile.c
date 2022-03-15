@@ -6,7 +6,7 @@
 
 void projectile_set_beam_particle_effect(void)
 {
-    /*enum particle_effect_id effect;
+    /*u8 effect;
     u16 x_pos;
     u16 y_pos;
     u8 right;
@@ -51,7 +51,7 @@ void projectile_set_beam_particle_effect(void)
     particle_set(y_pos, x_pos, effect);*/
 }
 
-u8 projectile_check_number_of_projectiles(enum projectile_type type, u8 limit)
+u8 projectile_check_number_of_projectiles(u8 type, u8 limit)
 {
     u8 count;
     struct projectile_data* pProj;
@@ -72,10 +72,10 @@ u8 projectile_check_number_of_projectiles(enum projectile_type type, u8 limit)
     return TRUE;
 }
 
-u8 projectile_init(enum projectile_type type, u16 y_position, u16 x_position)
+u8 projectile_init(u8 type, u16 y_position, u16 x_position)
 {
     /*struct projectile_data* pProj;
-    enum projectile_status status;
+    u8 status;
 
     pProj = projectile_data;
     while (pProj < projectile_data + 24)
@@ -112,8 +112,8 @@ void projectile_update(void)
     i32 count;
     struct particle_effect* pEffect;
     struct projectile_data* pProj;
-    enum projectile_type type;
-    enum beam_bombs_flags flag;
+    u8 type;
+    u16 flag;
     u16 sound;
     u8 proj_limit;
 
@@ -580,12 +580,12 @@ u8 projectile_collision_related2(struct projectile_data* pProj)
  * @param effect Particle effect to play
  * @param delay Delay between each particle
  */
-void projectile_set_trail(struct projectile_data* pProj, enum particle_effect_id effect, u8 delay)
+void projectile_set_trail(struct projectile_data* pProj, u8 effect, u8 delay)
 {
     /*u16 x_pos;
     u16 y_pos;
     u16 offset;
-    enum projectile_status status;
+    u8 status;
 
     if (frame_counter_8bit & delay)
         return;
@@ -667,7 +667,7 @@ void projectile_move_tumbling(struct projectile_data* pProj)
     }
 }
 
-void projectile_check_hit_block(struct projectile_data* pProj, enum current_clipdata_affecting_action ccaa, enum particle_effect_id effect)
+void projectile_check_hit_block(struct projectile_data* pProj, u8 ccaa, u8 effect)
 {
     u16 proj_y;
     u16 proj_x;
@@ -696,8 +696,8 @@ void projectile_check_hit_sprite(void)
     struct sprite_data* pSprite;
     struct sprite_data* pSprite_next;
     struct projectile_data* pProj;
-    enum sprite_status status;
-    enum projectile_status status_proj;
+    u16 status;
+    u8 status_proj;
     u16 proj_y;
     u16 proj_x;
     u16 proj_top;
@@ -989,7 +989,7 @@ void projectile_check_hit_sprite(void)
  * @param pSprite The sprite concerned
  * @return The weakness of the sprite
  */
-enum sprite_weakness_flags projectile_get_sprite_weakness(struct sprite_data* pSprite)
+u16 projectile_get_sprite_weakness(struct sprite_data* pSprite)
 {
     if (pSprite->properties & SP_SECONDARY_SPRITE) // Check wheter secondary or primary
         return primary_sprite_stats_2b0d68[pSprite->sprite_id][0x2]; // Offset 2 is weakness
@@ -1165,9 +1165,9 @@ void projectile_power_bomb_deal_damage(struct sprite_data* pSprite)
  * @param damage Damage inflicted
  * @param effect Particle effect to play
  */
-void projectile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, enum particle_effect_id effect)
+void projectile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
 {
-    enum sprite_weakness_flags weakness;
+    u16 weakness;
 
     if ((pSprite->properties & SP_SOLID_FOR_PROJECTILES) != 0x0)
     {
@@ -1208,9 +1208,9 @@ void projectile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_po
  * @param damage Damage inflicted
  * @param effect Particle effect to play
  */
-void projectile_non_ice_charged_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, enum particle_effect_id effect)
+void projectile_non_ice_charged_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
 {
-    enum sprite_weakness_flags weakness;
+    u16 weakness;
 
     if ((pSprite->properties & SP_SOLID_FOR_PROJECTILES) != 0x0)
     {
@@ -1255,12 +1255,12 @@ void projectile_freeze_sprite(struct sprite_data* pSprite, u8 freeze_timer)
     unk_2b20(0x140);
 }
 
-void projectile_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, enum particle_effect_id effect)
+void projectile_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
 {
 
 }
 
-void projectile_charged_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, enum particle_effect_id effect)
+void projectile_charged_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
 {
 
 }
@@ -1273,7 +1273,7 @@ void projectile_charged_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16
  * @param pProj Projectile Data Pointer to the concerned projectile
  * @param type The type of the projectile
  */
-void projectile_start_tumbling_missile(struct sprite_data* pSprite, struct projectile_data* pProj, enum projectile_type type)
+void projectile_start_tumbling_missile(struct sprite_data* pSprite, struct projectile_data* pProj, u8 type)
 {
     pProj->movement_stage = 0x7; // Tumbling
     pProj->timer = 0x0;
@@ -1305,7 +1305,7 @@ void projectile_start_tumbling_missile(struct sprite_data* pSprite, struct proje
  * @param pProj Projectile Data Pointer to the concerned projectile
  * @param type The type of the projectile
  */
-void projectile_start_tumbling_missile_current_sprite(struct projectile_data* pProj, enum projectile_type type)
+void projectile_start_tumbling_missile_current_sprite(struct projectile_data* pProj, u8 type)
 {    
     pProj->movement_stage = 0x7; // Tumbling
     pProj->timer = 0x0;
@@ -2377,7 +2377,7 @@ void projectile_process_power_bomb(struct projectile_data* pProj)
       0x2 = Check second timer ended and starts the explosion (power bomb spinning fast)
     */
     struct sprite_data* pSprite;
-    enum sprite_status status;
+    u16 status;
     u8 isft;
 
     switch (pProj->movement_stage)

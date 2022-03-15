@@ -16,7 +16,7 @@ void particle_draw(struct particle_effect* pParticle)
     struct raw_oam_data* frame_data_pParticle;
     struct raw_oam_data* curr_oam_data;
     struct oam_frame* oam_frame_ptr;
-    enum particle_status status;
+    u8 status;
     u16 y_pos;
     u16 x_pos;
     u16 priority;
@@ -86,7 +86,7 @@ void particle_draw(struct particle_effect* pParticle)
 void particle_process_all(void)
 {
     struct particle_effect* pParticle;
-    enum particle_status status;
+    u8 status;
 
     if (game_mode_sub1 != 0x2 && (game_mode_sub1 == 0x1 || game_mode_sub1 == 0x3))
     {
@@ -149,7 +149,7 @@ void particle_process_all(void)
  * @param x_position X Position
  * @param effect Particle effect ID
  */
-void particle_set(u16 y_position, u16 x_position, enum particle_effect_id effect)
+void particle_set(u16 y_position, u16 x_position, u8 effect)
 {
 
 }
@@ -1187,7 +1187,7 @@ void particle_second_two_medium_dust(struct particle_effect* pParticle)
 
 void particle_play_begin_to_charge_sound(void)
 {
-    enum beam_bombs_flags bbf;
+    u16 bbf;
 
     bbf = equipment.beam_bombs_activation;
 
@@ -1229,7 +1229,7 @@ void particle_play_begin_to_charge_sound(void)
 
 void particle_play_shooting_charged_beam_sound(void)
 {
-    enum beam_bombs_flags bbf;
+    u16 bbf;
 
     bbf = equipment.beam_bombs_activation;
 
@@ -1271,7 +1271,7 @@ void particle_play_shooting_charged_beam_sound(void)
 
 void particle_play_beam_fully_charged_sound(void)
 {
-    enum beam_bombs_flags bbf;
+    u16 bbf;
 
     bbf = equipment.beam_bombs_activation;
 

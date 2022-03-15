@@ -4,8 +4,8 @@
 #include "../types.h"
 #include "../clipdata.h"
 
-void deorem_change_left_ccaa(enum current_clipdata_affecting_action caa);
-void deorem_change_right_ccaa(enum current_clipdata_affecting_action caa);
+void deorem_change_left_ccaa(u8 caa);
+void deorem_change_right_ccaa(u8 caa);
 void deorem_20d90(u8 unk, u16 unk2);
 void deorem_random_sprite_debris(u8 rng);
 void deorem_sprite_debris_spawn(u16 y_position, u16 x_position, u8 timer);

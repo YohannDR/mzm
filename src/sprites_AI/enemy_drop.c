@@ -59,7 +59,7 @@ void enemy_drop_init(void)
 
 void enemy_drop_get(void)
 {
-    enum sprite_status status;
+    u16 status;
     struct sprite_data* pSprite;
     u32 timer;
 

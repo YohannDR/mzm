@@ -17,7 +17,7 @@ void imago_cocoon_update_position_and_anim(void)
  * 
  * @param caa Clipdata Affecting Action to apply
  */
-void imago_cocoon_change_one_ccaa(enum current_clipdata_affecting_action caa)
+void imago_cocoon_change_one_ccaa(u8 caa)
 {
     u32 y_position;
     u16 x_position;
@@ -35,7 +35,7 @@ void imago_cocoon_change_one_ccaa(enum current_clipdata_affecting_action caa)
  * 
  * @param caa Clipdata Affecting Action to apply
  */
-void imago_cocoon_change_two_middle_ccaa(enum current_clipdata_affecting_action caa)
+void imago_cocoon_change_two_middle_ccaa(u8 caa)
 {
     u32 y_position;
     u32 y_position_;
@@ -53,7 +53,7 @@ void imago_cocoon_change_two_middle_ccaa(enum current_clipdata_affecting_action 
     particle_set(y_position, x_position - 0x48, PE_SPRITE_EXPLOSION_HUGE);
 }
 
-void imago_cocoon_change_two_around_ccaa(enum current_clipdata_affecting_action caa)
+void imago_cocoon_change_two_around_ccaa(u8 caa)
 {
     
 }
@@ -63,7 +63,7 @@ void imago_cocoon_change_two_around_ccaa(enum current_clipdata_affecting_action 
  * 
  * @param caa Clipdata Affecting Action to apply
  */
-void imago_cocoon_change_two_blocking_ccaa(enum current_clipdata_affecting_action caa)
+void imago_cocoon_change_two_blocking_ccaa(u8 caa)
 {
     u32 y_position;
     u32 y_position_;
@@ -294,7 +294,7 @@ void imago_cocoon_vine_spawn_spore(void)
     u8 slot;
     u8 ram_slot;
     u8 gfx_slot;
-    enum sprite_status status;
+    u16 status;
     u16 y_position;
     u16 x_position;
 

@@ -9,7 +9,7 @@
  * @param event Event concerned
  * @return 1 if the event is set, 0 otherwise
  */
-u32 event_function(enum event_action action, enum event event)
+u32 event_function(u8_action action, u8 event)
 {
     u32* pEvent;
     u32 previous;

@@ -6,12 +6,12 @@
 #include "../sprite.h"
 #include "../globals.h"
 
-void deorem_change_left_ccaa(enum current_clipdata_affecting_action caa)
+void deorem_change_left_ccaa(u8 caa)
 {
 
 }
 
-void deorem_change_right_ccaa(enum current_clipdata_affecting_action caa)
+void deorem_change_right_ccaa(u8 caa)
 {
 
 }

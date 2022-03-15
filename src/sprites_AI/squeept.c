@@ -53,7 +53,7 @@ void squeept_reset(void)
 void squeept_detect_samus(void)
 {
     u32 timer;
-    enum near_sprite_above_below nsab;
+    u8 nsab;
 
     timer = current_sprite.timer1;
     if (timer != 0x0)

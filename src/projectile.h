@@ -8,55 +8,49 @@
 #include "clipdata.h"
 #include "samus.h"
 
-enum __attribute__((packed)) projectile {
-    PROJECTILE_NONE = 0x0,
-    PROJECTILE_BEAM = 0x1,
-    PROJECTILE_MISSILE = 0x2,
-    PROJECTILE_SUPER_MISSILE = 0x3,
-    PROJECTILE_BOMB = 0x4,
-    PROJECTILE_POWER_BOMB = 0x5,
-    PROJECTILE_CHARGED_BEAM = 0x6
-};
+#define PROJECTILE_NONE 0x0
+#define PROJECTILE_BEAM 0x1
+#define PROJECTILE_MISSILE 0x2
+#define PROJECTILE_SUPER_MISSILE 0x3
+#define PROJECTILE_BOMB 0x4
+#define PROJECTILE_POWER_BOMB 0x5
+#define PROJECTILE_CHARGED_BEAM 0x6
 
-enum __attribute__((packed)) projectile_status {
-    PROJ_STATUS_NONE = 0x0,
-    PROJ_STATUS_EXISTS = 0x1,
-    PROJ_STATUS_ON_SCREEN = 0x2,
-    PROJ_STATUS_NOT_DRAWN = 0x4,
-    PROJ_STATUS_HIGH_PRIORITY = 0x8,
-    PROJ_STATUS_CAN_AFFECT_ENVIRONMENT = 0x10,
-    PROJ_STATUS_YFLIP = 0x20,
-    PROJ_STATUS_XFLIP = 0x40,
-    PROJ_STATUS_UNKNOWN = 0x80
-};
+#define PROJ_STATUS_NONE 0x0
+#define PROJ_STATUS_EXISTS 0x1
+#define PROJ_STATUS_ON_SCREEN 0x2
+#define PROJ_STATUS_NOT_DRAWN 0x4
+#define PROJ_STATUS_HIGH_PRIORITY 0x8
+#define PROJ_STATUS_CAN_AFFECT_ENVIRONMENT 0x10
+#define PROJ_STATUS_YFLIP 0x20
+#define PROJ_STATUS_XFLIP 0x40
+#define PROJ_STATUS_UNKNOWN 0x80
 
-enum __attribute__((packed)) projectile_type {
-    PROJ_TYPE_BEAM = 0x0,
-    PROJ_TYPE_LONG_BEAM = 0x1,
-    PROJ_TYPE_ICE_BEAM = 0x2,
-    PROJ_TYPE_WAVE_BEAM = 0x3,
-    PROJ_TYPE_PLASMA_BEAM = 0x4,
-    PROJ_TYPE_PISTOL = 0x5,
-    PROJ_TYPE_CHARGED_BEAM = 0x6,
-    PROJ_TYPE_CHARGED_LONG_BEAM = 0x7,
-    PROJ_TYPE_CHARGED_ICE_BEAM = 0x8,
-    PROJ_TYPE_CHARGED_WAVE_BEAM = 0x9,
-    PROJ_TYPE_CHARGED_PLASMA_BEAM = 0xA,
-    PROJ_TYPE_CHARGED_PISTOL = 0xB,
-    PROJ_TYPE_MISSILE = 0xC,
-    PROJ_TYPE_SUPER_MISSILE = 0xD,
-    PROJ_TYPE_BOMB = 0xE,
-    PROJ_TYPE_POWER_BOMB = 0xF
-};
+#define PROJ_TYPE_BEAM 0x0
+#define PROJ_TYPE_LONG_BEAM 0x1
+#define PROJ_TYPE_ICE_BEAM 0x2
+#define PROJ_TYPE_WAVE_BEAM 0x3
+#define PROJ_TYPE_PLASMA_BEAM 0x4
+#define PROJ_TYPE_PISTOL 0x5
+#define PROJ_TYPE_CHARGED_BEAM 0x6
+#define PROJ_TYPE_CHARGED_LONG_BEAM 0x7
+#define PROJ_TYPE_CHARGED_ICE_BEAM 0x8
+#define PROJ_TYPE_CHARGED_WAVE_BEAM 0x9
+#define PROJ_TYPE_CHARGED_PLASMA_BEAM 0xA
+#define PROJ_TYPE_CHARGED_PISTOL 0xB
+#define PROJ_TYPE_MISSILE 0xC
+#define PROJ_TYPE_SUPER_MISSILE 0xD
+#define PROJ_TYPE_BOMB 0xE
+#define PROJ_TYPE_POWER_BOMB 0xF
 struct projectile_data {
-    enum projectile_status status;
+    u8 status;
     struct frame_data* oam_pointer;
     u16 y_position;
     u16 x_position;
     u16 curr_anim_frame;
     u8 anim_duration_counter;
-    enum projectile_type type;
-    enum arm_cannon_direction direction;
+    u8 type;
+    u8 direction;
     u8 movement_stage;
     u8 draw_distance_offset;
     u8 timer;
@@ -82,8 +76,8 @@ struct power_bomb {
 };
 
 void projectile_set_beam_particle_effect(void);
-u8 projectile_check_number_of_projectiles(enum projectile_type type, u8 limit);
-u8 projectile_init(enum projectile_type type, u16 y_position, u16 x_position);
+u8 projectile_check_number_of_projectiles(u8 type, u8 limit);
+u8 projectile_init(u8 type, u16 y_position, u16 x_position);
 void projectile_update(void);
 void projectile_update_animation(struct projectile_data* pProj);
 void projectile_draw_all_status_false(void);
@@ -95,23 +89,23 @@ void projectile_call_load_graphics_and_clear_projectiles(void);
 void projectile_move(struct projectile_data* pProj, u8 distance);
 u8 projectile_collision_related(u16 y_position, u16 x_position);
 u8 projectile_collision_related2(struct projectile_data* pProj);
-void projectile_set_trail(struct projectile_data* pProj, enum particle_effect_id effect, u8 delay);
+void projectile_set_trail(struct projectile_data* pProj, u8 effect, u8 delay);
 void projectile_move_tumbling(struct projectile_data* pProj);
-void projectile_check_hit_block(struct projectile_data* pProj, enum current_clipdata_affecting_action ccaa, enum particle_effect_id effect);
+void projectile_check_hit_block(struct projectile_data* pProj, u8 ccaa, u8 effect);
 void projectile_check_hit_sprite(void);
-enum sprite_weakness_flags projectile_get_sprite_weakness(struct sprite_data* pSprite);
+u16 projectile_get_sprite_weakness(struct sprite_data* pSprite);
 u8 projectile_ice_beam_deal_damage(struct sprite_data* pSprite, u16 damage);
 u8 projectile_deal_damage(struct sprite_data* pSprite, u16 damage);
 struct sprite_data* projectile_hit_sprite_immune_to_projectiles(struct sprite_data* pSprite);
 struct sprite_data* projectile_hit_solid_sprite(struct sprite_data* pSprite);
 void projectile_power_bomb_deal_damage(struct sprite_data* pSprite);
-void projectile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, enum particle_effect_id effect);
-void projectile_non_ice_charged_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, enum particle_effect_id effect);
+void projectile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
+void projectile_non_ice_charged_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
 void projectile_freeze_sprite(struct sprite_data* pSprite, u8 freeze_timer);
-void projectile_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, enum particle_effect_id effect);
-void projectile_charged_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, enum particle_effect_id effect);
-void projectile_start_tumbling_missile(struct sprite_data* pSprite, struct projectile_data* pProj, enum projectile_type type);
-void projectile_start_tumbling_missile_current_sprite(struct projectile_data* pProj, enum projectile_type type);
+void projectile_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
+void projectile_charged_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
+void projectile_start_tumbling_missile(struct sprite_data* pSprite, struct projectile_data* pProj, u8 type);
+void projectile_start_tumbling_missile_current_sprite(struct projectile_data* pProj, u8 type);
 void projectile_missile_hit_sprite(struct sprite_data* pSprite, struct projectile_data* pProj, u16 y_position, u16 x_position);
 void projectile_missile_hit_sprite(struct sprite_data* pSprite, struct projectile_data* pProj, u16 y_position, u16 x_position);
 void projectile_bomb_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position);

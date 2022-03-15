@@ -3,7 +3,7 @@
 #include "../projectile.h"
 #include "../globals.h"
 
-void morph_ball_launcher_change_ccaa(enum current_clipdata_affecting_action caa)
+void morph_ball_launcher_change_ccaa(u8 caa)
 {
     u16 sprite_y;
     u16 sprite_x;

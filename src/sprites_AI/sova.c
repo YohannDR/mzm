@@ -548,7 +548,7 @@ void sova_move(void)
 
 void sova_turning_around_gfx_update(void)
 {
-    enum sprite_status status;
+    u16 status;
 
     status = SPRITE_STATUS_NONE;
     current_sprite.pose = 0xB;

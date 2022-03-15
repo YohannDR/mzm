@@ -108,8 +108,8 @@ void scroll_update_current(struct raw_coords_x* pCoords)
     x_pos = pCoords->x >> 0x6;
     y_pos = (u16)(pCoords->y - 0x1 >> 0x6);
 
-    id = current_room_scroll_data_pointer->id;
-    pData = current_room_scroll_data_pointer->data;
+    id = current_room_scroll_data_pointer[0x1]; // ID
+    pData = current_room_scroll_data_pointer + 0x2;
 
     if (id != 0x0)
     {

@@ -3,9 +3,9 @@
 #include "gba/dma.h"
 #include "globals.h"
 
-enum location_text location_text_get_brinstar(void)
+u8 location_text_get_brinstar(void)
 {
-    enum location_text lt;
+    u8 lt;
 
     lt = LT_INVALID;
     switch (current_room)
@@ -24,9 +24,9 @@ enum location_text location_text_get_brinstar(void)
     return lt;
 }
 
-enum location_text location_text_get_kraid(void)
+u8 location_text_get_kraid(void)
 {
-    enum location_text lt;
+    u8 lt;
 
     lt = LT_INVALID;
     switch (current_room)
@@ -47,9 +47,9 @@ enum location_text location_text_get_kraid(void)
     return lt;
 }
 
-enum location_text location_text_get_crateria(void)
+u8 location_text_get_crateria(void)
 {
-    enum location_text lt;
+    u8 lt;
 
     lt = LT_INVALID;
     switch (current_room)
@@ -73,9 +73,9 @@ enum location_text location_text_get_crateria(void)
     return lt;
 }
 
-enum location_text location_text_get_norfair(void)
+u8 location_text_get_norfair(void)
 {
-    enum location_text lt;
+    u8 lt;
 
     lt = LT_INVALID;
     switch(current_room)
@@ -99,9 +99,9 @@ enum location_text location_text_get_norfair(void)
     return lt;
 }
 
-enum location_text location_text_get_ridley(void)
+u8 location_text_get_ridley(void)
 {
-    enum location_text lt;
+    u8 lt;
 
     lt = LT_INVALID;
     switch(current_room)
@@ -122,9 +122,9 @@ enum location_text location_text_get_ridley(void)
     return lt;
 }
 
-enum location_text location_text_get_chozodia(void)
+u8 location_text_get_chozodia(void)
 {
-    enum location_text lt;
+    u8 lt;
 
     lt = LT_INVALID;
     switch(current_room)
@@ -149,9 +149,9 @@ enum location_text location_text_get_chozodia(void)
     return lt;
 }
 
-enum location_text location_text_get_tourian(void)
+u8 location_text_get_tourian(void)
 {
-    enum location_text lt;
+    u8 lt;
 
     lt = LT_INVALID;
     switch(current_room)
@@ -207,7 +207,7 @@ u8 location_text_load_area_banner_gfx(void)
 u8 location_text_get_gfx_slot(void)
 {
     u8 gfx_slot;
-    enum location_text lt;
+    u8 lt;
 
     lt = LT_INVALID;
     gfx_slot = 0xFF;

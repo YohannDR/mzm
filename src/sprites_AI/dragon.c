@@ -54,7 +54,7 @@ void dragon_gfx_init(void)
 
 void dragon_go_up(void)
 {
-    /*enum near_sprite_left_right nslr;
+    /*u8 nslr;
     u16 x_position;
     u16 y_position;
 

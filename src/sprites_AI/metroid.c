@@ -61,7 +61,7 @@ u8 metroid_bomb_detection(void)
     u16 proj_left;
     u16 proj_right;
     u8 count;
-    enum projectile_status status;
+    u8 status;
     struct projectile_data* pProj;
 
     sprite_y = current_sprite.y_position;
@@ -265,10 +265,10 @@ void metroid_death(void)
     u8 rng;
     u16 y_position;
     u16 x_position;
-    enum p_sprite_id metroid_id;
-    enum p_sprite_id frozen_id;
-    enum sprite_status exists;
-    enum sprite_properties secondary;
+    u8 metroid_id;
+    u8 frozen_id;
+    u16 exists;
+    u8 secondary;
     u8 pose;
 
     rng = sprite_rng;

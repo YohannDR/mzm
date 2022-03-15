@@ -3,7 +3,7 @@
 #include "../particle.h"
 #include "../globals.h"
 
-void security_gate_change_ccaa(enum current_clipdata_affecting_action caa)
+void security_gate_change_ccaa(u8 caa)
 {
 
 }

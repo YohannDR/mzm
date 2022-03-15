@@ -73,7 +73,7 @@ void unk_5EA54(u8 hatch)
 
 }
 
-void unk_5eb18(u8 hatch, enum hatch_type type)
+void unk_5eb18(u8 hatch, u8 type)
 {
 
 }
@@ -82,7 +82,7 @@ u8 connection_check_enter_door(u16 y_position, u16 x_position)
 {
     /*u8* pSrc;
     struct hatch_data* pData;
-    enum area* pCurrArea;
+    u8* pCurrArea;
     struct door* pCurr;
     struct door* pAreaDoors;
     u8* pLastDoor;
@@ -164,7 +164,7 @@ u8 connection_check_area_connection(u16 y_position, u16 x_position)
 
 }
 
-void connection_process_door_type(enum door_type type)
+void connection_process_door_type(u8 type)
 {
     u8 transition;
 
@@ -198,7 +198,7 @@ u8 connection_find_event_based_door(u8 source_room)
 
 }
 
-u8 connection_set_hatch_as_opened(enum hatch_action action, u8 hatch)
+u8 connection_set_hatch_as_opened(u8 action, u8 hatch)
 {
 
 }
@@ -233,7 +233,7 @@ void connection_check_hatch_lock_events(void)
 
 }
 
-void connection_check_play_cutscene_during_transition(enum area area, u8 dst_door)
+void connection_check_play_cutscene_during_transition(u8 area, u8 dst_door)
 {
 
 }

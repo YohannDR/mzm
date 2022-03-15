@@ -5,10 +5,10 @@
 #include "../clipdata.h"
 
 void imago_cocoon_update_position_and_anim(void);
-void imago_cocoon_change_one_ccaa(enum current_clipdata_affecting_action caa);
-void imago_cocoon_change_two_middle_ccaa(enum current_clipdata_affecting_action caa);
-void imago_cocoon_change_two_around_ccaa(enum current_clipdata_affecting_action caa);
-void imago_cocoon_change_two_blocking_ccaa(enum current_clipdata_affecting_action caa);
+void imago_cocoon_change_one_ccaa(u8 caa);
+void imago_cocoon_change_two_middle_ccaa(u8 caa);
+void imago_cocoon_change_two_around_ccaa(u8 caa);
+void imago_cocoon_change_two_blocking_ccaa(u8 caa);
 void imago_cocoon_change_oam_scaling(u16 limit, u16 value);
 void imago_cocoon_init(void);
 void imago_cocoon_falling_movement(void);

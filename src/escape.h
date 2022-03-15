@@ -3,17 +3,13 @@
 
 #include "types.h"
 
-enum __attribute__((packed)) escape {
-    ESCAPE_NONE = 0x0,
-    ESCAPE_MOTHER_BRAIN = 0x1,
-    ESCAPE_MECHA_RIDLEY = 0x2
-};
+#define ESCAPE_NONE 0x0
+#define ESCAPE_MOTHER_BRAIN 0x1
+#define ESCAPE_MECHA_RIDLEY 0x2
 
-enum __attribute__((packed)) escape_status {
-    ESCAPE_STATUS_NONE = 0x0,
-    ESCAPE_STATUS_HAPPENNING = 0x1,
-    ESCAPE_STATUS_FAILED = 0x2
-};
+#define ESCAPE_STATUS_NONE 0x0
+#define ESCAPE_STATUS_HAPPENNING 0x1
+#define ESCAPE_STATUS_FAILED 0x2
 
 struct __attribute__((packed)) escape_digits {
     u8 hundredths;
@@ -24,7 +20,7 @@ struct __attribute__((packed)) escape_digits {
     u8 minutes_tens;
 };
 
-enum escape escape_determine_timer(void);
+u8 escape_determine_timer(void);
 u8 escape_check_has_escaped(void);
 void escape_update_oam(void);
 void unk_53a18(void);

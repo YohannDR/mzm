@@ -2,7 +2,7 @@
 #include "event.h"
 #include "globals.h"
 
-enum escape escape_determine_timer(void)
+u8 escape_determine_timer(void)
 {
     if (!event_function(EVENT_ACTION_CHECKING, EVENT_ESCAPED_ZEBES))
     {
@@ -58,7 +58,7 @@ void escape_start(void)
 
 void escape_set_timer(void)
 {
-    enum escape escape;
+    u8 escape;
 
     escape = escape_determine_timer();
     escape_timer_counter = 0xFF;

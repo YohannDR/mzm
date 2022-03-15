@@ -3,7 +3,6 @@
 #include "particle.h"
 #include "samus.h"
 #include "location_text.h"
-#include "sprites_AI/parasite.h"
 #include "globals.h"
 
 void sprite_util_init_location_text(void)
@@ -765,10 +764,10 @@ u8 sprite_util_check_near_end_sub_sprite_anim(struct sub_sprite_data* pSub)
 
 }
 
-enum near_sprite_left_right sprite_util_check_samus_near_sprite_left_right(u16 y_range, u16 x_range)
+u8 sprite_util_check_samus_near_sprite_left_right(u16 y_range, u16 x_range)
 {
     /*struct samus_data* pData;
-    enum near_sprite_left_right result;
+    u8 result;
     u16 samus_y;
     u16 samus_x;
     u16 sprite_y;
@@ -806,7 +805,7 @@ enum near_sprite_left_right sprite_util_check_samus_near_sprite_left_right(u16 y
     return result;*/
 }
 
-enum near_sprite_above_below sprite_util_check_samus_near_sprite_above_below(u16 y_range, u16 x_range)
+u8 sprite_util_check_samus_near_sprite_above_below(u16 y_range, u16 x_range)
 {
 
 }
@@ -904,7 +903,7 @@ void sprite_util_metroid_unfreeze_anim(void)
     }
 }
 
-void sprite_util_update_secondary_sprite_freeze_timer_of_current(enum s_sprite_id sprite_id, u8 ram_slot)
+void sprite_util_update_secondary_sprite_freeze_timer_of_current(u8 sprite_id, u8 ram_slot)
 {
     u8 count;
 
@@ -940,7 +939,7 @@ void sprite_util_update_primary_sprite_freeze_timer_of_current(void)
     }
 }
 
-void sprite_util_unfreeze_secondary_sprites(enum s_sprite_id sprite_id, u8 ram_slot)
+void sprite_util_unfreeze_secondary_sprites(u8 sprite_id, u8 ram_slot)
 {
     u8 count = 0;
     do
@@ -1155,13 +1154,13 @@ u8 sprite_util_check_stop_sprites_pose(void)
  * @param pData Samus Data Pointer
  * @return The damage contact type
  */
-enum damage_contact_type sprite_util_sprite_take_damage_from_samus_contact(struct sprite_data* pSprite, struct samus_data* pData)
+u8 sprite_util_sprite_take_damage_from_samus_contact(struct sprite_data* pSprite, struct samus_data* pData)
 {
-    enum damage_contact_type dct;
-    enum sprite_properties* pProps;
+    u8 dct;
+    u8* pProps;
     struct equipment* pEquipment;
-    enum sprite_weakness_flags weakness;
-    enum beam_bombs_flags bbf;
+    u16 weakness;
+    u16 bbf;
     u32 damage;
     u8 is_dead;
     u8 isft;
@@ -1300,7 +1299,7 @@ u8 sprite_util_check_on_zipline(void)
     return FALSE;
 }
 
-u8 sprite_util_count_primary_sprites(enum p_sprite_id sprite_id)
+u8 sprite_util_count_primary_sprites(u8 sprite_id)
 {
     u8 count;
     struct sprite_data* pSprite;
@@ -1318,7 +1317,7 @@ u8 sprite_util_count_primary_sprites(enum p_sprite_id sprite_id)
     return count;
 }
 
-u8 sprite_util_count_secondary_sprites_with_current_sprite_ram_slot(enum s_sprite_id sprite_id)
+u8 sprite_util_count_secondary_sprites_with_current_sprite_ram_slot(u8 sprite_id)
 {
     u8 count;
     u8 ram_slot;
@@ -1338,7 +1337,7 @@ u8 sprite_util_count_secondary_sprites_with_current_sprite_ram_slot(enum s_sprit
     return count;
 }
 
-u8 sprite_util_count_secondary_sprites_with_current_sprite_ram_slot(enum p_sprite_id sprite_id)
+u8 sprite_util_count_secondary_sprites_with_current_sprite_ram_slot(u8 sprite_id)
 {
     u8 count;
     u8 ram_slot;
@@ -1358,7 +1357,7 @@ u8 sprite_util_count_secondary_sprites_with_current_sprite_ram_slot(enum p_sprit
     return count;
 }
 
-u8 sprite_util_find_primary(enum p_sprite_id sprite_id)
+u8 sprite_util_find_primary(u8 sprite_id)
 {
     u8 ram_slot;
     struct sprite_data* pSprite;
@@ -1377,7 +1376,7 @@ u8 sprite_util_find_primary(enum p_sprite_id sprite_id)
     return 0xFF;
 }
 
-u8 sprite_util_find_secondary_with_room_slot(enum s_sprite_id sprite_id, u8 room_slot)
+u8 sprite_util_find_secondary_with_room_slot(u8 sprite_id, u8 room_slot)
 {
     u8 ram_slot;
     struct sprite_data* pSprite;
@@ -1400,7 +1399,7 @@ u8 sprite_util_check_has_drop(void)
 {
     u8 ram_slot;
     struct sprite_data* pSprite;
-    enum sprite_samus_collision collision;
+    u8collision;
 
     ram_slot = current_sprite.primary_sprite_ram_slot;
     collision = SSC_ABILITY_LASER_SEARCHLIGHT;
@@ -1487,7 +1486,7 @@ void sprite_util_random_debris(u8 cloud_type, u8 number, u16 y_position, u16 x_p
     }
 }
 
-enum p_sprite_id sprite_util_get_ammo_drop(u8 rng)
+u8 sprite_util_get_ammo_drop(u8 rng)
 {
     if (equipment.current_energy == equipment.max_energy)
     {
@@ -1501,7 +1500,7 @@ enum p_sprite_id sprite_util_get_ammo_drop(u8 rng)
     return PSPRITE_UNUSED0;
 }
 
-enum p_sprite_id sprite_util_determine_enemy_drop(void)
+u8 sprite_util_determine_enemy_drop(void)
 {
     /*u16 small_health_prob;
     u16 large_health_prob;
@@ -1513,7 +1512,7 @@ enum p_sprite_id sprite_util_determine_enemy_drop(void)
     u32 is_full;
     u32 rng;
     u16 sprite_id;
-    enum p_sprite_id drop;
+    u8 drop;
 
     drop = 0x0;
     is_full = FALSE;
@@ -1651,9 +1650,9 @@ enum p_sprite_id sprite_util_determine_enemy_drop(void)
     return drop;*/
 }
 
-void sprite_util_sprite_death(enum death_type death_type, u16 y_position, u16 x_position, u8 play_sound, enum particle_effect_id effect)
+void sprite_util_sprite_death(u8 death_type, u16 y_position, u16 x_position, u8 play_sound, u8 effect)
 {
-    enum p_sprite_id drop;
+    u8 drop;
 
     switch (current_sprite.pose)
     {
@@ -1915,7 +1914,7 @@ u8 sprite_check_colliding_with_samus_drawing(void)
  * @param x_position X Position
  * @param size Splash Size
  */
-void sprite_util_set_splash_effect(u16 y_position, u16 x_position, enum splash_size size)
+void sprite_util_set_splash_effect(u16 y_position, u16 x_position, u8 size)
 {
     switch (current_affecting_clipdata.hazard) // Switch on current hazard
     {
@@ -1959,7 +1958,7 @@ void sprite_util_set_splash_effect(u16 y_position, u16 x_position, enum splash_s
  * @param size Size of the splash
  * @return 1 if out of effect, 0 otherwise 
  */
-u8 sprite_util_check_out_of_room_effect(u16 old_y, u16 y_position, u16 x_position, enum splash_size size)
+u8 sprite_util_check_out_of_room_effect(u16 old_y, u16 y_position, u16 x_position, u8 size)
 {
     if (old_y > effect_y_position && y_position <= effect_y_position)
     {
@@ -1984,7 +1983,7 @@ u8 sprite_util_check_out_of_room_effect(u16 old_y, u16 y_position, u16 x_positio
  * @param size Size of the splash
  * @return 1 if in the effect, 0 otherwise 
  */
-u8 sprite_util_check_in_room_effect(u16 old_y, u16 y_position, u16 x_position, enum splash_size size)
+u8 sprite_util_check_in_room_effect(u16 old_y, u16 y_position, u16 x_position, u8 size)
 {
     if (old_y < effect_y_position && y_position >= effect_y_position)
     {

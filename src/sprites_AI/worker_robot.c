@@ -110,7 +110,7 @@ void worker_robot_walking_detect_projectile(void)
 {
     u8 on_side;
     struct projectile_data* pProj;
-    enum projectile_type type;
+    u8 type;
     struct frame_data* pOam;
     u16 sprite_y;
     u16 sprite_x;

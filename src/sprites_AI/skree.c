@@ -121,7 +121,7 @@ void skree_crash_ground(void)
     u16 x_position;
     u8 gfx_slot;
     u8 ram_slot;
-    enum s_sprite_id sprite_id;
+    u8 sprite_id;
 
     y_position = current_sprite.y_position;
     x_position = current_sprite.x_position;
@@ -163,7 +163,7 @@ void skree_crash_ground(void)
 
 void skree_explosion_init(void)
 {
-    enum sprite_status status;
+    u16 status;
 
     status = current_sprite.status & ~SPRITE_STATUS_NOT_DRAWN | (SPRITE_STATUS_UNKNOWN3 | SPRITE_STATUS_NONE);
     current_sprite.properties |= SP_PROJECTILE;

@@ -7,7 +7,7 @@
 void charge_beam_init(void)
 {
     u8 check;
-    enum sprite_status status;
+    u16 status;
 
     if (equipment.beam_bombs & BBF_CHARGE_BEAM)
         current_sprite.status = 0x0;

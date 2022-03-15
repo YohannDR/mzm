@@ -63,7 +63,7 @@ u8 hive_count_mellows(void)
 {
     u8 count;
     u8 room_slot;
-    enum sprite_samus_collision collision;
+    u8collision;
     struct sprite_data* pSprite;
 
     count = 0x0;
@@ -126,9 +126,9 @@ void hive_dying(void)
     u8 count;
     u8 room_slot;
     u8 pose;
-    enum sprite_samus_collision collision;
+    u8collision;
     struct sprite_data* pSprite;
-    enum p_sprite_id hive_id;
+    u8 hive_id;
 
     count = 0x0;
     hive_id = PSPRITE_HIVE;
@@ -427,7 +427,7 @@ void hive_mellow_swarm(void)
 {
     u8 count;
     struct sprite_data* pSprite;
-    enum sprite_samus_collision collision;
+    u8collision;
     u16 x_pos;
     u16 y_pos;
 

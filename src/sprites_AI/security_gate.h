@@ -4,7 +4,7 @@
 #include "../types.h"
 #include "../clipdata.h"
 
-void security_gate_change_ccaa(enum current_clipdata_affecting_action caa);
+void security_gate_change_ccaa(u8 caa);
 void security_gate_open(void);
 void security_gate_start_closing(void);
 void security_gate_default_open_init(void);

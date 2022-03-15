@@ -11,7 +11,7 @@ struct oam_data {
 
 struct oam_frame {
     u16 part_count;
-    struct oam_data data[0]; // "dynamic array" -> [part_count]
+    u16 data[0]; // "dynamic array" -> [part_count]
 };
 
 struct frame_data {

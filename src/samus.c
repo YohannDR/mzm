@@ -8,7 +8,7 @@ void samus_check_screw_speedbooster_affecting_environment(struct samus_data* pDa
     
 }
 
-u8 samus_slope_related(u16 x_position, u16 y_position, u16* next_x_position, u16* next_y_position, enum slope_type* next_slope_type)
+u8 samus_slope_related(u16 x_position, u16 y_position, u16* next_x_position, u16* next_y_position, u16* next_slope_type)
 {
 
 }
@@ -33,37 +33,37 @@ u8 unk_57EC(struct samus_data* pData, i16 unk)
 
 }
 
-enum samus_pose samus_check_walking_sides_collision(struct samus_data* pData, struct samus_physics* pPhysics)
+u8 samus_check_walking_sides_collision(struct samus_data* pData, struct samus_physics* pPhysics)
 {
 
 }
 
-enum samus_pose unk_5AD8(struct samus_data* pData, struct samus_physics* pPhysics)
+u8 unk_5AD8(struct samus_data* pData, struct samus_physics* pPhysics)
 {
 
 }
 
-enum samus_pose samus_check_standing_on_ground_collision(struct samus_data* pData, struct samus_physics* pPhysics)
+u8 samus_check_standing_on_ground_collision(struct samus_data* pData, struct samus_physics* pPhysics)
 {
 
 }
 
-enum samus_pose samus_check_landing_collision(struct samus_data* pData, struct samus_physics* pPhysics)
+u8 samus_check_landing_collision(struct samus_data* pData, struct samus_physics* pPhysics)
 {
 
 }
 
-enum samus_pose samus_check_top_collision(struct samus_data* pData, struct samus_physics* pPhysics)
+u8 samus_check_top_collision(struct samus_data* pData, struct samus_physics* pPhysics)
 {
 
 }
 
-enum samus_pose samus_check_collisions(struct samus_data* pData, struct samus_physics* pPhysics)
+u8 samus_check_collisions(struct samus_data* pData, struct samus_physics* pPhysics)
 {
 
 }
 
-void samus_check_set_environmental_effect(struct samus_data* pData, u8 default_offset, enum ground_effect_wanted request)
+void samus_check_set_environmental_effect(struct samus_data* pData, u8 default_offset, u8 request)
 {
 
 }
@@ -206,7 +206,7 @@ void samus_turn_around_arm_cannon_start_shinespark(struct samus_data* pData, str
 
 }
 
-void samus_set_pose(enum samus_pose pose)
+void samus_set_pose(u8 pose)
 {
     struct weapon_info* pWeapon;
     struct samus_data* pData;
@@ -321,7 +321,7 @@ void samus_copy_palette(u16* src, i32 offset, i32 nbr_colors)
 
 void samus_update(void)
 {
-    enum samus_pose new_pose;
+    u8 new_pose;
     struct samus_data* pData;
 
     pData = &samus_data;
@@ -341,7 +341,7 @@ void samus_update_hitbox_moving_direction(void)
 {
     struct samus_data* pData;
     struct samus_physics* pPhysics;
-    enum h_direction_moving* pDirection;
+    u8* pDirection;
 
     pData = &samus_data;
     pPhysics = &samus_physics;
@@ -441,7 +441,7 @@ void samus_bounce_bomb(u8 direction)
 void samus_aim_cannon(struct samus_data* pData)
 {
     /*struct weapon_info* pWeapon;
-    enum input_flag direction;
+    u16 direction;
 
     pWeapon = &samus_weapon_info;
 
@@ -590,7 +590,7 @@ void samus_aim_cannon(struct samus_data* pData)
 u8 samus_fire_beam_missile(struct samus_data* pData, struct weapon_info* pWeapon, struct equipment* pEquipment)
 {
     /*u8 has_proj;
-    enum projectile new_proj;
+    u8 new_proj;
 
     has_proj = FALSE;
     if (pWeapon->cooldown == 0x0 && pWeapon->new_projectile == PROJECTILE_NONE && (buttons_changed & KEY_B) != 0x0)
@@ -789,7 +789,7 @@ u8 samus_check_a_pressed(struct samus_data* pData)
 
 void samus_set_highlighted_weapon(struct samus_data* pData, struct weapon_info* pWeapon, struct equipment* pEquipment)
 {
-    /*enum weapon_highlighted weapon_high;
+    /*u8 weapon_high;
 
     weapon_high = WH_NONE;
     if (pEquipment->current_super_missiles == 0x0)
@@ -1088,7 +1088,7 @@ u8 samus_take_hazard_damage(struct samus_data* pData, struct equipment* pEquipme
 
 void samus_check_shinesparking(struct samus_data* pData)
 {
-    /*enum samus_pose pose;
+    /*u8 pose;
 
     pose = pData->pose;
 
@@ -1126,7 +1126,7 @@ void samus_check_shinesparking(struct samus_data* pData)
         play_sound2(0x8B);*/
 }
 
-enum samus_pose samus_inactivity(struct samus_data* pData)
+u8 samus_inactivity(struct samus_data* pData)
 {
     return SPOSE_NONE;
 }
@@ -1136,9 +1136,9 @@ u8 unk_847C(struct samus_data* pData, u8 unk)
 
 }
 
-enum samus_pose samus_running(struct samus_data* pData)
+u8 samus_running(struct samus_data* pData)
 {
-    /*enum samus_pose new_pose;
+    /*u8 new_pose;
     i32 x_velocity;
 
     if ((buttons_changed & KEY_A) != 0x0)
@@ -1187,17 +1187,17 @@ enum samus_pose samus_running(struct samus_data* pData)
     }*/
 }
 
-enum samus_pose samus_running_gfx(struct samus_data* pData)
+u8 samus_running_gfx(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_standing(struct samus_data* pData)
+u8 samus_standing(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_standing_gfx(struct samus_data* pData)
+u8 samus_standing_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1208,9 +1208,9 @@ enum samus_pose samus_standing_gfx(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_turning_around(struct samus_data* pData)
+u8 samus_turning_around(struct samus_data* pData)
 {
-    enum samus_pose new_pose;
+    u8 new_pose;
 
     if ((button_input & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (buttons_changed & KEY_A) != 0x0 && pData->shinespark_timer != 0x0 && unk_57EC(pData, (i16)((u16)array_23a558[0x2] - 0x20)) << 0x18 == 0x0)
     {
@@ -1242,10 +1242,10 @@ enum samus_pose samus_turning_around(struct samus_data* pData)
     }
 }
 
-enum samus_pose samus_turning_around_gfx(struct samus_data* pData)
+u8 samus_turning_around_gfx(struct samus_data* pData)
 {
     u8 unk;
-    enum input_flag* input;
+    u16* input;
 
     unk = unk_847C(pData, FALSE);
     if (unk == 0x2)
@@ -1262,7 +1262,7 @@ enum samus_pose samus_turning_around_gfx(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_shooting_gfx(struct samus_data* pData)
+u8 samus_shooting_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1273,12 +1273,12 @@ enum samus_pose samus_shooting_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_crouching(struct samus_data* pData)
+u8 samus_crouching(struct samus_data* pData)
 {
     /*u8 unk;
     u16 x_position;
     struct weapon_info* pWeapon;
-    enum input_flag* input;
+    u16* input;
     u32 timer;
 
     if ((button_input & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (buttons_changed & KEY_A) != 0x0 && pData->shinespark_timer != 0x0 && unk_57EC(pData, (i16)((u16)array_23a554[0x2] - 0x20)) << 0x18 == 0x0)
@@ -1355,7 +1355,7 @@ enum samus_pose samus_crouching(struct samus_data* pData)
     }*/
 }
 
-enum samus_pose samus_turning_around_and_crouching(struct samus_data* pData)
+u8 samus_turning_around_and_crouching(struct samus_data* pData)
 {
     u8 unk;
     u16 x_position;
@@ -1402,7 +1402,7 @@ enum samus_pose samus_turning_around_and_crouching(struct samus_data* pData)
     }
 }
 
-enum samus_pose samus_turning_around_and_crouching_gfx(struct samus_data* pData)
+u8 samus_turning_around_and_crouching_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1418,7 +1418,7 @@ enum samus_pose samus_turning_around_and_crouching_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_shooting_and_crouching_gfx(struct samus_data* pData)
+u8 samus_shooting_and_crouching_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1429,7 +1429,7 @@ enum samus_pose samus_shooting_and_crouching_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_skidding(struct samus_data* pData)
+u8 samus_skidding(struct samus_data* pData)
 {
     i32 velocity;
 
@@ -1472,12 +1472,12 @@ enum samus_pose samus_skidding(struct samus_data* pData)
     }
 }
 
-enum samus_pose samus_midair(struct samus_data* pData)
+u8 samus_midair(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_midair_gfx(struct samus_data* pData)
+u8 samus_midair_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1499,7 +1499,7 @@ enum samus_pose samus_midair_gfx(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_turning_around_midair(struct samus_data* pData)
+u8 samus_turning_around_midair(struct samus_data* pData)
 {
     if ((buttons_changed & KEY_A) != 0x0)
     {
@@ -1530,7 +1530,7 @@ enum samus_pose samus_turning_around_midair(struct samus_data* pData)
     }
 }
 
-enum samus_pose samus_turning_around_midair_gfx(struct samus_data* pData)
+u8 samus_turning_around_midair_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1544,7 +1544,7 @@ enum samus_pose samus_turning_around_midair_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_starting_spin_jump_gfx(struct samus_data* pData)
+u8 samus_starting_spin_jump_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1558,11 +1558,11 @@ enum samus_pose samus_starting_spin_jump_gfx(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_spinning(struct samus_data* pData)
+u8 samus_spinning(struct samus_data* pData)
 {
     /*i32 acceleration;
-    enum samus_direction direction;
-    enum input_flag* input;
+    u16 direction;
+    u16* input;
 
     if (samus_physics.has_new_projectile != 0x0)
     {
@@ -1636,7 +1636,7 @@ enum samus_pose samus_spinning(struct samus_data* pData)
     }*/
 }
 
-enum samus_pose samus_spinning_gfx(struct samus_data* pData)
+u8 samus_spinning_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1657,9 +1657,9 @@ enum samus_pose samus_spinning_gfx(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_starting_wall_jump(struct samus_data* pData)
+u8 samus_starting_wall_jump(struct samus_data* pData)
 {
-    enum input_flag input;
+    u16 input;
 
     if (samus_physics.has_new_projectile != 0x0)
     {
@@ -1679,7 +1679,7 @@ enum samus_pose samus_starting_wall_jump(struct samus_data* pData)
     }
 }
 
-enum samus_pose samus_starting_wall_jump_gfx(struct samus_data* pData)
+u8 samus_starting_wall_jump_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1693,7 +1693,7 @@ enum samus_pose samus_starting_wall_jump_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_space_jumping_gfx(struct samus_data* pData)
+u8 samus_space_jumping_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1712,12 +1712,12 @@ enum samus_pose samus_space_jumping_gfx(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_flag_gfx(struct samus_data* pData)
+u8 samus_flag_gfx(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_morphing(struct samus_data* pData)
+u8 samus_morphing(struct samus_data* pData)
 {
     if ((buttons_changed & KEY_UP) != 0x0)
         pData->pose = SPOSE_UNMORPHING;
@@ -1725,7 +1725,7 @@ enum samus_pose samus_morphing(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_morphing_gfx(struct samus_data* pData)
+u8 samus_morphing_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1736,7 +1736,7 @@ enum samus_pose samus_morphing_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_morphball(struct samus_data* pData)
+u8 samus_morphball(struct samus_data* pData)
 {
     /*u8 forced_movement;
 
@@ -1823,7 +1823,7 @@ enum samus_pose samus_morphball(struct samus_data* pData)
     return SPOSE_NONE;*/
 }
 
-enum samus_pose samus_rolling(struct samus_data* pData)
+u8 samus_rolling(struct samus_data* pData)
 {
     /*i32 velocity;
 
@@ -1867,7 +1867,7 @@ enum samus_pose samus_rolling(struct samus_data* pData)
     }*/
 }
 
-enum samus_pose samus_rolling_gfx(struct samus_data* pData)
+u8 samus_rolling_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1880,7 +1880,7 @@ enum samus_pose samus_rolling_gfx(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_unmorphing(struct samus_data* pData)
+u8 samus_unmorphing(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1899,7 +1899,7 @@ enum samus_pose samus_unmorphing(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_unmorphing_gfx(struct samus_data* pData)
+u8 samus_unmorphing_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1912,9 +1912,9 @@ enum samus_pose samus_unmorphing_gfx(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_morphball_midair(struct samus_data* pData)
+u8 samus_morphball_midair(struct samus_data* pData)
 {
-    /*enum input_flag direction;
+    /*u16 direction;
 
     if ((buttons_changed & KEY_UP) != 0x0 && unk_57EC(pData, array_23a554[0x2]) << 0x18 == 0x0)
     {
@@ -1951,12 +1951,12 @@ enum samus_pose samus_morphball_midair(struct samus_data* pData)
     return SPOSE_NONE;*/
 }
 
-enum samus_pose samus_hanging_on_ledge(struct samus_data* pData)
+u8 samus_hanging_on_ledge(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_hanging_on_ledge_gfx(struct samus_data* pData)
+u8 samus_hanging_on_ledge_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1967,12 +1967,12 @@ enum samus_pose samus_hanging_on_ledge_gfx(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_turning_to_aim_while_hanging(struct samus_data* pData)
+u8 samus_turning_to_aim_while_hanging(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_turning_to_aim_while_hanging_gfx(struct samus_data* pData)
+u8 samus_turning_to_aim_while_hanging_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1983,7 +1983,7 @@ enum samus_pose samus_turning_to_aim_while_hanging_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_hiding_arm_cannon_while_hanging_gfx(struct samus_data* pData)
+u8 samus_hiding_arm_cannon_while_hanging_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -1997,12 +1997,12 @@ enum samus_pose samus_hiding_arm_cannon_while_hanging_gfx(struct samus_data* pDa
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_aiming_while_hanging(struct samus_data* pData)
+u8 samus_aiming_while_hanging(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_pulling_self_up(struct samus_data* pData)
+u8 samus_pulling_self_up(struct samus_data* pData)
 {
     u16 offset;
 
@@ -2014,7 +2014,7 @@ enum samus_pose samus_pulling_self_up(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_pulling_self_up_gfx(struct samus_data* pData)
+u8 samus_pulling_self_up_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2028,7 +2028,7 @@ enum samus_pose samus_pulling_self_up_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_pulling_self_forward(struct samus_data* pData)
+u8 samus_pulling_self_forward(struct samus_data* pData)
 {
     if ((pData->direction & DIRECTION_RIGHT) != 0x0)
         pData->x_position += 0x4;
@@ -2038,7 +2038,7 @@ enum samus_pose samus_pulling_self_forward(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_pulling_self_forward_gfx(struct samus_data* pData)
+u8 samus_pulling_self_forward_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2055,7 +2055,7 @@ enum samus_pose samus_pulling_self_forward_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_pulling_self_into_morphball_tunnel_gfx(struct samus_data* pData)
+u8 samus_pulling_self_into_morphball_tunnel_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2075,19 +2075,19 @@ enum samus_pose samus_pulling_self_into_morphball_tunnel_gfx(struct samus_data* 
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_using_an_elevator(struct samus_data* pData)
+u8 samus_using_an_elevator(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_using_an_elevator_gfx(struct samus_data* pData)
+u8 samus_using_an_elevator_gfx(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_facing_the_foreground(struct samus_data* pData)
+u8 samus_facing_the_foreground(struct samus_data* pData)
 {
-    enum input_flag direction;
+    u16 direction;
 
     direction = button_input & (KEY_RIGHT | KEY_LEFT);
 
@@ -2100,7 +2100,7 @@ enum samus_pose samus_facing_the_foreground(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_turning_from_facing_foreground_gfx(struct samus_data* pData)
+u8 samus_turning_from_facing_foreground_gfx(struct samus_data* pData)
 {
     if (pData->anim_duration_counter >= 0x2)
     {
@@ -2117,10 +2117,10 @@ enum samus_pose samus_turning_from_facing_foreground_gfx(struct samus_data* pDat
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_delay_before_shinesparking_gfx(struct samus_data* pData)
+u8 samus_delay_before_shinesparking_gfx(struct samus_data* pData)
 {
     u8 unk;
-    enum input_flag* input;
+    u16* input;
 
     unk = unk_847C(pData, FALSE);
     if (unk == 0x2)
@@ -2134,17 +2134,17 @@ enum samus_pose samus_delay_before_shinesparking_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_shinesparking(struct samus_data* pData)
+u8 samus_shinesparking(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_shinesparking_gfx(struct samus_data* pData)
+u8 samus_shinesparking_gfx(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_shinespark_collision_gfx(struct samus_data* pData)
+u8 samus_shinespark_collision_gfx(struct samus_data* pData)
 {
     if (pData->anim_duration_counter >= 0x11)
         return SPOSE_DELAY_AFTER_SHINESPARKING;
@@ -2152,7 +2152,7 @@ enum samus_pose samus_shinespark_collision_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_delay_after_shinesparking_gfx(struct samus_data* pData)
+u8 samus_delay_after_shinesparking_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2163,22 +2163,22 @@ enum samus_pose samus_delay_after_shinesparking_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_delay_before_ballsparking(struct samus_data* pData)
+u8 samus_delay_before_ballsparking(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_delay_before_ballsparking_gfx(struct samus_data* pData)
+u8 samus_delay_before_ballsparking_gfx(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_ballsparking_gfx(struct samus_data* pData)
+u8 samus_ballsparking_gfx(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_ballspark_collision_gfx(struct samus_data* pData)
+u8 samus_ballspark_collision_gfx(struct samus_data* pData)
 {
     if (pData->anim_duration_counter >= 0x11)
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -2186,9 +2186,9 @@ enum samus_pose samus_ballspark_collision_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_on_zipline(struct samus_data* pData)
+u8 samus_on_zipline(struct samus_data* pData)
 {
-    enum input_flag* input;
+    u16* input;
 
     if ((buttons_changed & KEY_A) != 0x0)
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -2208,7 +2208,7 @@ enum samus_pose samus_on_zipline(struct samus_data* pData)
     }
 }
 
-enum samus_pose samus_shooting_on_zipline_gfx(struct samus_data* pData)
+u8 samus_shooting_on_zipline_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2219,9 +2219,9 @@ enum samus_pose samus_shooting_on_zipline_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_morphball_on_zipline(struct samus_data* pData)
+u8 samus_morphball_on_zipline(struct samus_data* pData)
 {
-    enum input_flag direction;
+    u16 direction;
 
     if ((buttons_changed & KEY_A) != 0x0)
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -2234,7 +2234,7 @@ enum samus_pose samus_morphball_on_zipline(struct samus_data* pData)
     }
 }
 
-enum samus_pose samus_saving_loading_game(struct samus_data* pData)
+u8 samus_saving_loading_game(struct samus_data* pData)
 {
     if (pData->speedbooster_timer != 0x0)
     {
@@ -2245,7 +2245,7 @@ enum samus_pose samus_saving_loading_game(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_turning_around_to_download_map_data_gfx(struct samus_data* pData)
+u8 samus_turning_around_to_download_map_data_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2256,12 +2256,12 @@ enum samus_pose samus_turning_around_to_download_map_data_gfx(struct samus_data*
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_getting_hurt(struct samus_data* pData)
+u8 samus_getting_hurt(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_getting_hurt_gfx(struct samus_data* pData)
+u8 samus_getting_hurt_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2272,7 +2272,7 @@ enum samus_pose samus_getting_hurt_gfx(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_getting_knocked_back(struct samus_data* pData)
+u8 samus_getting_knocked_back(struct samus_data* pData)
 {
     if (pData->speedbooster_timer >= 0xD)
     {
@@ -2288,12 +2288,12 @@ enum samus_pose samus_getting_knocked_back(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_dying(struct samus_data* pData)
+u8 samus_dying(struct samus_data* pData)
 {
 
 }
 
-enum samus_pose samus_crouching_to_crawl_gfx(struct samus_data* pData)
+u8 samus_crouching_to_crawl_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2311,7 +2311,7 @@ enum samus_pose samus_crouching_to_crawl_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_crawling_stopped(struct samus_data* pData)
+u8 samus_crawling_stopped(struct samus_data* pData)
 {
     pData->x_velocity = 0x0;
     if (unk_57EC(pData, array_23a554[0x2]) << 0x18 == 0x0)
@@ -2326,7 +2326,7 @@ enum samus_pose samus_crawling_stopped(struct samus_data* pData)
         return SPOSE_TURNING_AROUND_WHILE_CRAWLING;
 }
 
-enum samus_pose samus_starting_to_crawl_gfx(struct samus_data* pData)
+u8 samus_starting_to_crawl_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2337,7 +2337,7 @@ enum samus_pose samus_starting_to_crawl_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_crawling(struct samus_data* pData)
+u8 samus_crawling(struct samus_data* pData)
 {
     if (unk_5794(pData, array_23a554[0x2]) << 0x18 == 0x0)
         return SPOSE_UNCROUCHING_FROM_CRAWLING;
@@ -2363,7 +2363,7 @@ enum samus_pose samus_crawling(struct samus_data* pData)
     }
 }
 
-enum samus_pose samus_dying_gfx(struct samus_data* pData)
+u8 samus_dying_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2379,7 +2379,7 @@ enum samus_pose samus_dying_gfx(struct samus_data* pData)
     return SPOSE_NONE;
 }
 
-enum samus_pose samus_turning_around_while_crawling(struct samus_data* pData)
+u8 samus_turning_around_while_crawling(struct samus_data* pData)
 {
     if (samus_physics.has_new_projectile != 0x0)
         return SPOSE_SHOOTING_WHILE_CRAWLING;
@@ -2387,7 +2387,7 @@ enum samus_pose samus_turning_around_while_crawling(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_crawling_gfx(struct samus_data* pData)
+u8 samus_crawling_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2398,7 +2398,7 @@ enum samus_pose samus_crawling_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_grabbing_a_ledge_suitless_gfx(struct samus_data* pData)
+u8 samus_grabbing_a_ledge_suitless_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2409,9 +2409,9 @@ enum samus_pose samus_grabbing_a_ledge_suitless_gfx(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_facing_the_background(struct samus_data* pData)
+u8 samus_facing_the_background(struct samus_data* pData)
 {
-    enum input_flag direction;
+    u16 direction;
 
     direction = (button_input & (KEY_RIGHT | KEY_LEFT));
     if (direction != 0x0 && pData->last_wall_touched_midair == 0x0)
@@ -2423,10 +2423,10 @@ enum samus_pose samus_facing_the_background(struct samus_data* pData)
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_turning_from_facing_the_background_gfx(struct samus_data* pData)
+u8 samus_turning_from_facing_the_background_gfx(struct samus_data* pData)
 {
     u8 unk;
-    enum input_flag* input;
+    u16* input;
 
     unk = unk_847C(pData, FALSE);
     if (unk == 0x2)
@@ -2445,7 +2445,7 @@ enum samus_pose samus_turning_from_facing_the_background_gfx(struct samus_data* 
         return SPOSE_NONE;
 }
 
-enum samus_pose samus_turning_to_enter_escape_ship_gfx(struct samus_data* pData)
+u8 samus_turning_to_enter_escape_ship_gfx(struct samus_data* pData)
 {
     u8 unk;
 
@@ -2456,9 +2456,9 @@ enum samus_pose samus_turning_to_enter_escape_ship_gfx(struct samus_data* pData)
         return SP_NONE;
 }
 
-enum samus_pose samus_execute_pose_subroutine(struct samus_data* pData)
+u8 samus_execute_pose_subroutine(struct samus_data* pData)
 {
-    enum samus_pose pose;
+    u8 pose;
     u8 timer;
     struct weapon_info* pWeapon;
     struct equipment* pEquipment;

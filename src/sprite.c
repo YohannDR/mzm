@@ -42,8 +42,8 @@ void sprite_draw_all(void)
 {
     /*struct sprite_data* pSprite1;
     struct sprite_data* pSprite2;
-    enum sprite_status status_flag;
-    enum sprite_status status_check;
+    u16 status_flag;
+    u16 status_check;
     u8* draw_order;
     u8* g_draw_order;
     u32 ram_slot;
@@ -165,12 +165,12 @@ void sprite_load_spriteset(void)
 
 }
 
-void sprite_load_gfx(enum p_sprite_id sprite_id, u8 gfx_row)
+void sprite_load_gfx(u8 sprite_id, u8 gfx_row)
 {
 
 }
 
-void sprite_load_pal(enum p_sprite_id sprite_id, u8 gfx_row, u32 len)
+void sprite_load_pal(u8 sprite_id, u8 gfx_row, u32 len)
 {
     
 }
@@ -266,11 +266,11 @@ void sprite_init_primary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 r
  * @param status_to_add Additionnal status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
  */
-u8 sprite_spawn_secondary(enum s_sprite_id sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, enum sprite_status status_to_add)
+u8 sprite_spawn_secondary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, u16 status_to_add)
 {
     u8 new_ram_slot;
     struct sprite_data* pSprite;
-    enum sprite_status status;
+    u16 status;
 
     new_ram_slot = 0x0;
     pSprite = sprite_data;
@@ -282,7 +282,7 @@ u8 sprite_spawn_secondary(enum s_sprite_id sprite_id, u8 room_slot, u8 gfx_slot,
         {
             pSprite->status = status_to_add | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
             pSprite->properties = SP_SECONDARY_SPRITE;
-            pSprite->spriteset_gfx_row = gfx_slot;
+            pSprite->spriteset_gfx_slot = gfx_slot;
             pSprite->sprite_id = sprite_id;
             pSprite->y_position = y_position;
             pSprite->x_position = x_position;
@@ -322,11 +322,11 @@ u8 sprite_spawn_secondary(enum s_sprite_id sprite_id, u8 room_slot, u8 gfx_slot,
  * @param status_to_add Additionnal status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
  */
-u8 sprite_spawn_primary(enum p_sprite_id sprite_id, u8 room_slot, u8 gfx_slot, u16 y_position, u16 x_position, enum sprite_status status_to_add)
+u8 sprite_spawn_primary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u16 y_position, u16 x_position, u16 status_to_add)
 {
     u8 new_ram_slot;
     struct sprite_data* pSprite;
-    enum sprite_status status;
+    u16 status;
 
     new_ram_slot = 0x0;
     pSprite = sprite_data;
@@ -379,11 +379,11 @@ u8 sprite_spawn_primary(enum p_sprite_id sprite_id, u8 room_slot, u8 gfx_slot, u
  * @param status_to_add Additionnal status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
  */
-u8 sprite_spawn_drop_followers(enum p_sprite_id sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, enum sprite_status status_to_add)
+u8 sprite_spawn_drop_followers(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, u16 status_to_add)
 {
     u8 new_ram_slot;
     struct sprite_data* pSprite;
-    enum sprite_status status;
+    u16 status;
 
     new_ram_slot = 0x0;
     pSprite = sprite_data;
@@ -395,7 +395,7 @@ u8 sprite_spawn_drop_followers(enum p_sprite_id sprite_id, u8 room_slot, u8 gfx_
         {
             pSprite->status = status_to_add | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
             pSprite->properties = 0x0;
-            pSprite->spriteset_gfx_row = gfx_slot;
+            pSprite->spriteset_gfx_slot = gfx_slot;
             pSprite->sprite_id = sprite_id;
             pSprite->y_position = y_position;
             pSprite->x_position = x_position;
