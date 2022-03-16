@@ -329,7 +329,14 @@
             "Size": 4
         }
     ],
-    "projectile_data.c": [{
+    "normal_beam_data.c": [{
+            "Name": "normal_beam_gfx",
+            "Offset": 3305896,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 2048
+        },
+        {
             "Name": "normal_beam_oam_forward",
             "Offset": 3308176,
             "Type": "OAM",
@@ -398,6 +405,14 @@
             "Type": "OAM",
             "IsArray": 0,
             "Size": 5
+        }
+    ],
+    "long_beam_data.c": [{
+            "Name": "long_normal_beam_gfx",
+            "Offset": 3308368,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 2048
         },
         {
             "Name": "long_beam_oam_forward",
@@ -442,6 +457,21 @@
             "Size": 3
         },
         {
+            "Name": "particle_charged_long_beam_trail_oam",
+            "Offset": 3310808,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        }
+    ],
+    "ice_beam_data.c": [{
+            "Name": "ice_beam_gfx",
+            "Offset": 3310848,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 2048
+        },
+        {
             "Name": "ice_beam_oam_forward",
             "Offset": 3313196,
             "Type": "OAM",
@@ -468,6 +498,48 @@
             "Type": "OAM",
             "IsArray": 0,
             "Size": 3
+        },
+        {
+            "Name": "ice_beam_oam_unused2",
+            "Offset": 3313292,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "ice_beam_oam_unused3",
+            "Offset": 3313316,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "charged_ice_beam_oam_forward",
+            "Offset": 3313340,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "charged_ice_beam_oam_diagonal",
+            "Offset": 3313364,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "charged_ice_beam_oam_up_down",
+            "Offset": 3313388,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "particle_charged_ice_beam_trail_oam",
+            "Offset": 3313412,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
         }
     ]
 }

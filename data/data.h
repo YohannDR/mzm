@@ -200,8 +200,9 @@ struct frame_data skree_oam_8[5];
 struct frame_data skree_oam_9[4];
 struct frame_data skree_oam_10[4];
 
-/* projectile_data.c */
+/* normal_beam_data.c */
 
+u8 normal_beam_gfx[2048];
 struct oam_frame normal_beam_oam_forward1;
 struct oam_frame normal_beam_oam_forward2;
 struct oam_frame normal_beam_oam_diagonal1;
@@ -224,6 +225,20 @@ struct oam_frame normal_beam_oam_unused41;
 struct oam_frame normal_beam_oam_unused42;
 struct oam_frame normal_beam_oam_unused43;
 struct oam_frame normal_beam_oam_unused44;
+struct frame_data normal_beam_oam_forward[3];
+struct frame_data normal_beam_oam_diagonal[3];
+struct frame_data normal_beam_oam_up_down[3];
+struct frame_data normal_beam_oam_unused1[3];
+struct frame_data normal_beam_oam_unused2[3];
+struct frame_data normal_beam_oam_unused3[3];
+struct frame_data charged_normal_beam_oam_forward[3];
+struct frame_data charged_normal_beam_oam_diagonal[3];
+struct frame_data charged_normal_beam_oam_up_down[3];
+struct frame_data normal_beam_oam_unused4[5];
+
+/* long_beam_data.c */
+
+u8 long_normal_beam_gfx[2048];
 struct oam_frame long_beam_oam_forward1;
 struct oam_frame long_beam_oam_forward2;
 struct oam_frame long_beam_oam_diagonal1;
@@ -236,6 +251,21 @@ struct oam_frame charged_long_beam_oam_diagonal1;
 struct oam_frame charged_long_beam_oam_diagonal2;
 struct oam_frame charged_long_beam_oam_up_down1;
 struct oam_frame charged_long_beam_oam_up_down2;
+struct oam_frame particle_charged_long_beam_trail_oam1;
+struct oam_frame particle_charged_long_beam_trail_oam2;
+struct oam_frame particle_charged_long_beam_trail_oam3;
+struct oam_frame particle_charged_long_beam_trail_oam4;
+struct frame_data long_beam_oam_forward[3];
+struct frame_data long_beam_oam_diagonal[3];
+struct frame_data long_beam_oam_up_down[3];
+struct frame_data charged_long_beam_oam_forward[3];
+struct frame_data charged_long_beam_oam_diagonal[3];
+struct frame_data charged_long_beam_oam_up_down[3];
+struct frame_data particle_charged_long_beam_trail_oam[5];
+
+/* ice_beam_data.c */
+
+u8 ice_beam_gfx[2048];
 struct oam_frame ice_beam_oam_forward1;
 struct oam_frame ice_beam_oam_forward2;
 struct oam_frame ice_beam_oam_diagonal1;
@@ -244,25 +274,30 @@ struct oam_frame ice_beam_oam_up_down1;
 struct oam_frame ice_beam_oam_up_down2;
 struct oam_frame ice_beam_oam_unused11;
 struct oam_frame ice_beam_oam_unused12;
-struct frame_data normal_beam_oam_forward[3];
-struct frame_data normal_beam_oam_diagonal[3];
-struct frame_data normal_beam_oam_up_down[3];
-struct frame_data normal_beam_oam_unused1[3];
-struct frame_data normal_beam_oam_unused2[3];
-struct frame_data normal_beam_oam_unused3[3];
-struct frame_data charged_normal_beam_oam_forward[3];
-struct frame_data charged_normal_beam_oam_diagonal[3];
-struct frame_data charged_normal_beam_oam_up_down[3];
-struct frame_data normal_beam_oam_unused4[5];
-struct frame_data long_beam_oam_forward[3];
-struct frame_data long_beam_oam_diagonal[3];
-struct frame_data long_beam_oam_up_down[3];
-struct frame_data charged_long_beam_oam_forward[3];
-struct frame_data charged_long_beam_oam_diagonal[3];
-struct frame_data charged_long_beam_oam_up_down[3];
+struct oam_frame ice_beam_oam_unused21;
+struct oam_frame ice_beam_oam_unused22;
+struct oam_frame ice_beam_oam_unused31;
+struct oam_frame ice_beam_oam_unused32;
+struct oam_frame charged_ice_beam_oam_forward1;
+struct oam_frame charged_ice_beam_oam_forward2;
+struct oam_frame charged_ice_beam_oam_diagonal1;
+struct oam_frame charged_ice_beam_oam_diagonal2;
+struct oam_frame charged_ice_beam_oam_up_down1;
+struct oam_frame charged_ice_beam_oam_up_down2;
+struct oam_frame particle_charged_ice_beam_trail_oam1;
+struct oam_frame particle_charged_ice_beam_trail_oam2;
+struct oam_frame particle_charged_ice_beam_trail_oam3;
+struct oam_frame particle_charged_ice_beam_trail_oam4;
+struct oam_frame particle_charged_ice_beam_trail_oam5;
 struct frame_data ice_beam_oam_forward[3];
 struct frame_data ice_beam_oam_diagonal[3];
 struct frame_data ice_beam_oam_up_down[3];
 struct frame_data ice_beam_oam_unused1[3];
+struct frame_data ice_beam_oam_unused2[3];
+struct frame_data ice_beam_oam_unused3[3];
+struct frame_data charged_ice_beam_oam_forward[3];
+struct frame_data charged_ice_beam_oam_diagonal[3];
+struct frame_data charged_ice_beam_oam_up_down[3];
+struct frame_data particle_charged_ice_beam_trail_oam[5];
 
 #endif /* DATA_H */
