@@ -133,13 +133,13 @@ void sova_init(void)
     sprite_util_choose_random_x_direction();
     sprite_util_check_collision_at_position(current_sprite.y_position, current_sprite.x_position);
     if (previous_collision_check & 0xF0)
-        status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+        current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
     else
     {
         sprite_util_check_collision_at_position(current_sprite.y_position - 0x44, current_sprite.x_position);
         if (previous_collision_check & 0xF0)
         {
-            status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+            current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
             current_sprite.y_position -= 0x40;
             current_sprite.work_variable = 0x1;
         }
@@ -148,7 +148,7 @@ void sova_init(void)
             sprite_util_check_collision_at_position(current_sprite.y_position - 0x20, current_sprite.x_position - 0x24);
             if (previous_collision_check & 0xF0)
             {
-                status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+                current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
                 current_sprite.y_position -= 0x20;
                 current_sprite.x_position -= 0x20;
             }
@@ -157,13 +157,13 @@ void sova_init(void)
                 sprite_util_check_collision_at_position(current_sprite.y_position - 0x20, current_sprite.x_position + 0x20);
                 if ((previous_collision_check & 0xF0) == 0x0)
                 {
-                    current_sprite.status = previous_collision_check & 0xF0;
+                    current_sprite.current_sprite.status = previous_collision_check & 0xF0;
                     return;
                 }
                 else
                 {
-                    status |= SPRITE_STATUS_ON_VERTICAL_WALL;
-                    status |= SPRITE_STATUS_XFLIP;                    
+                    current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+                    current_sprite.status |= SPRITE_STATUS_XFLIP;                    
                     current_sprite.y_position -= 0x20;
                     current_sprite.x_position += 0x20;
                 }
@@ -171,12 +171,12 @@ void sova_init(void)
         }
     }
 
-    if (!(current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL))
+    if (!(current_sprite.current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL))
     {
-        if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
-            status |= SPRITE_STATUS_XFLIP;
+        if (current_sprite.current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
+            current_sprite.status |= SPRITE_STATUS_XFLIP;
         else
-            status &= ~SPRITE_STATUS_XFLIP;
+            current_sprite.status &= ~SPRITE_STATUS_XFLIP;
     }
 
     current_sprite.samus_collision = SSC_HURTS_SAMUS;
@@ -485,7 +485,7 @@ void sova_move(void)
                         current_sprite.status |= SPRITE_STATUS_XFLIP;
                     }
 
-                    speed = divide_signed(speed << 0x1, 0x3);
+                    speed = (speed << 0x1) / 0x3;
                     current_sprite.x_position += speed;
 
                     if (turning)
@@ -530,7 +530,7 @@ void sova_move(void)
                         current_sprite.curr_anim_frame = 0x0;
                         current_sprite.status &= ~SPRITE_STATUS_XFLIP;
                     }
-                    speed = divide_signed(speed << 0x1, 0x3);
+                    speed = (speed << 0x1) / 0x3;
                     current_sprite.x_position -= speed;
 
                     if (turning)

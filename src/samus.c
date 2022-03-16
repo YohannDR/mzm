@@ -403,10 +403,10 @@ void samus_call_check_low_health(void)
 
 void samus_call_update_arm_cannon_position_offset(void)
 {
-    if (samus_data.direction & DIRECTION_RIGHT)
+    /*if (samus_data.direction & DIRECTION_RIGHT)
         samus_update_arm_cannon_position_offset(TRUE);
     else
-        samus_update_arm_cannon_position_offset(FALSE);
+        samus_update_arm_cannon_position_offset(FALSE);*/
 }
 
 void samus_bounce_bomb(u8 direction)

@@ -3,6 +3,7 @@
 #include "sprite_util.h"
 #include "power_bomb_explosion.h"
 #include "globals.h"
+#include "../data/data.h"
 
 void projectile_set_beam_particle_effect(void)
 {
@@ -524,7 +525,7 @@ void projectile_move(struct projectile_data* pProj, u8 distance)
             return;
 
         case ACD_DIAGONALLY_UP:
-            distance = divide_signed(distance * 0x7, 0xA);
+            distance = (distance * 0x7) / 0xA;
             pProj->y_position -= distance;
             if (pProj->status & PROJ_STATUS_XFLIP)
                 pProj->x_position += distance;
@@ -533,7 +534,7 @@ void projectile_move(struct projectile_data* pProj, u8 distance)
             break;
 
         case ACD_DIAGONALLY_DOWN:
-            distance = divide_signed(distance * 0x7, 0xA);
+            distance = (distance * 0x7) / 0xA;
             pProj->y_position += distance;
             if (pProj->status & PROJ_STATUS_XFLIP)
                 pProj->x_position += distance;

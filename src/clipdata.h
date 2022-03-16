@@ -48,7 +48,10 @@ struct current_affecting_clipdata {
 };
 
 struct collision_data {
-    
+    u32 clipdata_type;
+    i32 x_position;
+    i32 y_position;
+    i32 unk;
 };
 
 void clipdate_setup_code(void);
