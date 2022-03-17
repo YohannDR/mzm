@@ -8,12 +8,18 @@
 
 i16 sine_y_values[320];
 u8 random_number_table[256];
+
+/* blob_0x808ca9c_0x82b0d67 */
+
 u8 blob_0x808ca9c_0x82b0d67[2245324];
 
 /* sprite_stats.c */
 
 u16 primary_sprite_stats[206][9];
 u16 secondary_sprite_stats[77][9];
+
+/* blob_0x82b214e_0x82b25c7 */
+
 u8 blob_0x82b214e_0x82b25c7[1146];
 
 /* enemy_drop.c */
@@ -299,5 +305,268 @@ struct frame_data charged_ice_beam_oam_forward[3];
 struct frame_data charged_ice_beam_oam_diagonal[3];
 struct frame_data charged_ice_beam_oam_up_down[3];
 struct frame_data particle_charged_ice_beam_trail_oam[5];
+
+/* wave_beam_data.c */
+
+u8 wave_beam_gfx[2048];
+struct oam_frame wave_beam_oam_forward1;
+struct oam_frame wave_beam_oam_forward2;
+struct oam_frame wave_beam_oam_forward3;
+struct oam_frame wave_beam_oam_forward4;
+struct oam_frame wave_beam_oam_forward5;
+struct oam_frame wave_beam_oam_forward6;
+struct oam_frame wave_beam_oam_forward7;
+struct oam_frame wave_beam_oam_diagonal1;
+struct oam_frame wave_beam_oam_diagonal2;
+struct oam_frame wave_beam_oam_diagonal3;
+struct oam_frame wave_beam_oam_diagonal4;
+struct oam_frame wave_beam_oam_diagonal5;
+struct oam_frame wave_beam_oam_diagonal6;
+struct oam_frame wave_beam_oam_diagonal7;
+struct oam_frame wave_beam_oam_up_down1;
+struct oam_frame wave_beam_oam_up_down2;
+struct oam_frame wave_beam_oam_up_down3;
+struct oam_frame wave_beam_oam_up_down4;
+struct oam_frame wave_beam_oam_up_down5;
+struct oam_frame wave_beam_oam_up_down6;
+struct oam_frame wave_beam_oam_up_down7;
+struct oam_frame wave_beam_oam_unused11;
+struct oam_frame wave_beam_oam_unused12;
+struct oam_frame wave_beam_oam_unused13;
+struct oam_frame wave_beam_oam_unused14;
+struct oam_frame wave_beam_oam_unused15;
+struct oam_frame wave_beam_oam_unused16;
+struct oam_frame wave_beam_oam_unused17;
+struct oam_frame wave_beam_oam_unused21;
+struct oam_frame wave_beam_oam_unused22;
+struct oam_frame wave_beam_oam_unused23;
+struct oam_frame wave_beam_oam_unused24;
+struct oam_frame wave_beam_oam_unused25;
+struct oam_frame wave_beam_oam_unused26;
+struct oam_frame wave_beam_oam_unused27;
+struct oam_frame wave_beam_oam_unused31;
+struct oam_frame wave_beam_oam_unused32;
+struct oam_frame wave_beam_oam_unused33;
+struct oam_frame wave_beam_oam_unused34;
+struct oam_frame wave_beam_oam_unused35;
+struct oam_frame wave_beam_oam_unused36;
+struct oam_frame wave_beam_oam_unused37;
+struct oam_frame charged_wave_beam_oam_forward1;
+struct oam_frame charged_wave_beam_oam_forward2;
+struct oam_frame charged_wave_beam_oam_forward3;
+struct oam_frame charged_wave_beam_oam_forward4;
+struct oam_frame charged_wave_beam_oam_forward5;
+struct oam_frame charged_wave_beam_oam_forward6;
+struct oam_frame charged_wave_beam_oam_forward7;
+struct oam_frame charged_wave_beam_oam_diagonal1;
+struct oam_frame charged_wave_beam_oam_diagonal2;
+struct oam_frame charged_wave_beam_oam_diagonal3;
+struct oam_frame charged_wave_beam_oam_diagonal4;
+struct oam_frame charged_wave_beam_oam_diagonal5;
+struct oam_frame charged_wave_beam_oam_diagonal6;
+struct oam_frame charged_wave_beam_oam_diagonal7;
+struct oam_frame charged_wave_beam_oam_up_down1;
+struct oam_frame charged_wave_beam_oam_up_down2;
+struct oam_frame charged_wave_beam_oam_up_down3;
+struct oam_frame charged_wave_beam_oam_up_down4;
+struct oam_frame charged_wave_beam_oam_up_down5;
+struct oam_frame charged_wave_beam_oam_up_down6;
+struct oam_frame charged_wave_beam_oam_up_down7;
+struct oam_frame particle_charged_wave_beam_trail_oam1;
+struct oam_frame particle_charged_wave_beam_trail_oam2;
+struct oam_frame particle_charged_wave_beam_trail_oam3;
+struct oam_frame particle_charged_wave_beam_trail_oam4;
+struct frame_data wave_beam_oam_forward[8];
+struct frame_data wave_beam_oam_diagonal[8];
+struct frame_data wave_beam_oam_up_down[8];
+struct frame_data wave_beam_oam_unused1[8];
+struct frame_data wave_beam_oam_unused2[8];
+struct frame_data wave_beam_oam_unused3[8];
+struct frame_data charged_wave_beam_oam_forward[8];
+struct frame_data charged_wave_beam_oam_diagonal[8];
+struct frame_data charged_wave_beam_oam_up_down[8];
+struct frame_data particle_charged_wave_beam_trail_oam[5];
+
+/* plasma_beam_data.c */
+
+u8 plasma_beam_gfx[2048];
+struct oam_frame plasma_beam_no_wave_oam_forward1;
+struct oam_frame plasma_beam_no_wave_oam_forward2;
+struct oam_frame plasma_beam_no_wave_oam_diagonal1;
+struct oam_frame plasma_beam_no_wave_oam_diagonal2;
+struct oam_frame plasma_beam_no_wave_oam_up_down1;
+struct oam_frame plasma_beam_no_wave_oam_up_down2;
+struct oam_frame plasma_beam_no_wave_oam_unused11;
+struct oam_frame plasma_beam_no_wave_oam_unused12;
+struct oam_frame plasma_beam_no_wave_oam_unused21;
+struct oam_frame plasma_beam_no_wave_oam_unused22;
+struct oam_frame plasma_beam_no_wave_oam_unused31;
+struct oam_frame plasma_beam_no_wave_oam_unused32;
+struct oam_frame charged_plasma_beam_no_wave_oam_forward1;
+struct oam_frame charged_plasma_beam_no_wave_oam_forward2;
+struct oam_frame charged_plasma_beam_no_wave_oam_diagonal1;
+struct oam_frame charged_plasma_beam_no_wave_oam_diagonal2;
+struct oam_frame charged_plasma_beam_no_wave_oam_up_down1;
+struct oam_frame charged_plasma_beam_no_wave_oam_up_down2;
+struct oam_frame plasma_beam_wave_oam_forward1;
+struct oam_frame plasma_beam_wave_oam_forward2;
+struct oam_frame plasma_beam_wave_oam_forward3;
+struct oam_frame plasma_beam_wave_oam_forward4;
+struct oam_frame plasma_beam_wave_oam_forward5;
+struct oam_frame plasma_beam_wave_oam_forward6;
+struct oam_frame plasma_beam_wave_oam_forward7;
+struct oam_frame plasma_beam_wave_oam_diagonal1;
+struct oam_frame plasma_beam_wave_oam_diagonal2;
+struct oam_frame plasma_beam_wave_oam_diagonal3;
+struct oam_frame plasma_beam_wave_oam_diagonal4;
+struct oam_frame plasma_beam_wave_oam_diagonal5;
+struct oam_frame plasma_beam_wave_oam_diagonal6;
+struct oam_frame plasma_beam_wave_oam_diagonal7;
+struct oam_frame plasama_beam_wave_oam_up_down1;
+struct oam_frame plasama_beam_wave_oam_up_down2;
+struct oam_frame plasama_beam_wave_oam_up_down3;
+struct oam_frame plasama_beam_wave_oam_up_down4;
+struct oam_frame plasama_beam_wave_oam_up_down5;
+struct oam_frame plasama_beam_wave_oam_up_down6;
+struct oam_frame plasama_beam_wave_oam_up_down7;
+struct oam_frame plasma_beam_wave_oam_unused11;
+struct oam_frame plasma_beam_wave_oam_unused12;
+struct oam_frame plasma_beam_wave_oam_unused13;
+struct oam_frame plasma_beam_wave_oam_unused14;
+struct oam_frame plasma_beam_wave_oam_unused15;
+struct oam_frame plasma_beam_wave_oam_unused21;
+struct oam_frame plasma_beam_wave_oam_unused22;
+struct oam_frame plasma_beam_wave_oam_unused23;
+struct oam_frame plasma_beam_wave_oam_unused24;
+struct oam_frame plasma_beam_wave_oam_unused25;
+struct oam_frame plasma_beam_wave_oam_unused31;
+struct oam_frame plasma_beam_wave_oam_unused32;
+struct oam_frame plasma_beam_wave_oam_unused33;
+struct oam_frame plasma_beam_wave_oam_unused34;
+struct oam_frame plasma_beam_wave_oam_unused35;
+struct oam_frame charged_plasma_beam_wave_oam_forward1;
+struct oam_frame charged_plasma_beam_wave_oam_forward2;
+struct oam_frame charged_plasma_beam_wave_oam_forward3;
+struct oam_frame charged_plasma_beam_wave_oam_forward4;
+struct oam_frame charged_plasma_beam_wave_oam_forward5;
+struct oam_frame charged_plasma_beam_wave_oam_forward6;
+struct oam_frame charged_plasma_beam_wave_oam_forward7;
+struct oam_frame charged_plasma_beam_wave_oam_diagonal1;
+struct oam_frame charged_plasma_beam_wave_oam_diagonal2;
+struct oam_frame charged_plasma_beam_wave_oam_diagonal3;
+struct oam_frame charged_plasma_beam_wave_oam_diagonal4;
+struct oam_frame charged_plasma_beam_wave_oam_diagonal5;
+struct oam_frame charged_plasma_beam_wave_oam_diagonal6;
+struct oam_frame charged_plasma_beam_wave_oam_diagonal7;
+struct oam_frame charged_plasma_beam_wave_oam_up_down1;
+struct oam_frame charged_plasma_beam_wave_oam_up_down2;
+struct oam_frame charged_plasma_beam_wave_oam_up_down3;
+struct oam_frame charged_plasma_beam_wave_oam_up_down4;
+struct oam_frame charged_plasma_beam_wave_oam_up_down5;
+struct oam_frame charged_plasma_beam_wave_oam_up_down6;
+struct oam_frame charged_plasma_beam_wave_oam_up_down7;
+struct oam_frame particle_charged_plasma_beam_trail_oam1;
+struct oam_frame particle_charged_plasma_beam_trail_oam2;
+struct oam_frame particle_charged_plasma_beam_trail_oam3;
+struct oam_frame particle_charged_plasma_beam_trail_oam4;
+struct oam_frame particle_charged_full_beam_trail_oam1;
+struct oam_frame particle_charged_full_beam_trail_oam2;
+struct oam_frame particle_charged_full_beam_trail_oam3;
+struct oam_frame particle_charged_full_beam_trail_oam4;
+struct oam_frame particle_charged_full_beam_trail_oam5;
+struct oam_frame particle_charged_full_beam_trail_oam6;
+struct oam_frame particle_charged_full_beam_trail_oam7;
+struct oam_frame particle_charged_full_beam_trail_oam8;
+struct frame_data plasma_beam_no_wave_oam_forward[3];
+struct frame_data plasma_beam_no_wave_oam_diagonal[3];
+struct frame_data plasma_beam_no_wave_oam_up_down[3];
+struct frame_data plasma_beam_no_wave_oam_unused1[3];
+struct frame_data plasma_beam_no_wave_oam_unused2[3];
+struct frame_data plasma_beam_no_wave_oam_unused3[3];
+struct frame_data charged_plasma_beam_no_wave_oam_forward[3];
+struct frame_data charged_plasma_beam_no_wave_oam_diagonal[3];
+struct frame_data charged_plasma_beam_no_wave_oam_up_down[3];
+struct frame_data plasma_beam_wave_oam_forward[8];
+struct frame_data plasma_beam_wave_oam_diagonal[8];
+struct frame_data plasama_beam_wave_oam_up_down[8];
+struct frame_data plasma_beam_wave_oam_unused1[6];
+struct frame_data plasma_beam_wave_oam_unused2[6];
+struct frame_data plasma_beam_wave_oam_unused3[6];
+struct frame_data charged_plasma_beam_wave_oam_forward[8];
+struct frame_data charged_plasma_beam_wave_oam_diagonal[8];
+struct frame_data charged_plasma_beam_wave_oam_up_down[8];
+struct frame_data particle_charged_plasma_beam_trail_oam[5];
+struct frame_data particle_charged_full_beam_trail_oam[9];
+
+/* pistol_data.c */
+
+u8 pistol_gfx[2048];
+struct oam_frame pistol_oam_forward1;
+struct oam_frame pistol_oam_forward2;
+struct oam_frame pistol_oam_diagonal1;
+struct oam_frame pistol_oam_diagonal2;
+struct oam_frame pistol_oam_up_down1;
+struct oam_frame pistol_oam_up_down2;
+struct oam_frame charged_pistol_oam_forward1;
+struct oam_frame charged_pistol_oam_forward2;
+struct oam_frame charged_pistol_oam_diagonal1;
+struct oam_frame charged_pistol_oam_diagonal2;
+struct oam_frame charged_pistol_oam_up_down1;
+struct oam_frame charged_pistol_oam_up_down2;
+struct oam_frame particle_charged_pistol_trail1;
+struct oam_frame particle_charged_pistol_trail2;
+struct oam_frame particle_charged_pistol_trail3;
+struct oam_frame particle_charged_pistol_trail4;
+struct frame_data pistol_oam_forward[3];
+struct frame_data pistol_oam_diagonal[3];
+struct frame_data pistol_oam_up_down[3];
+struct frame_data charged_pistol_oam_forward[3];
+struct frame_data charged_pistol_oam_diagonal[3];
+struct frame_data charged_pistol_oam_up_down[3];
+struct frame_data particle_charged_pistol_trail[5];
+
+/* blob_0x832b9e8_0x832ba07.c */
+
+u8 blob_0x832b9e8_0x832ba07[32];
+
+/* common_sprite_data.c */
+
+u16 common_sprites_pal[96];
+u8 common_sprites_gfx[14336];
+
+/* hud_data.c */
+
+u8 missile_digits_gfx[2304];
+u8 power_bomb_digits_gfx[2304];
+u8 missile_hud_inactive_gfx[64];
+u8 missile_hud_selected_gfx[64];
+u8 missile_hud_active_gfx[64];
+u8 missile_hud_refill1_gfx[64];
+u8 missile_hud_refill2_gfx[64];
+u8 missile_hud_refill3_gfx[64];
+u8 super_missile_hud_inactive_gfx[64];
+u8 super_missile_hud_selected_gfx[64];
+u8 super_missile_hud_active_gfx[64];
+u8 super_missile_hud_refill1_gfx[64];
+u8 super_missile_hud_refill2_gfx[64];
+u8 super_missile_hud_refill3_gfx[64];
+u8 power_bomb_hud_inactive_gfx[64];
+u8 power_bomb_hud_selected_gfx[64];
+u8 power_bomb_hud_active_gfx[64];
+u8 power_bomb_hud_refill1_gfx[64];
+u8 power_bomb_hud_refill2_gfx[64];
+u8 power_bomb_hud_refill3_gfx[64];
+u8 energy_digits_tens_gfx[10][32];
+u8 energy_digits_ones_gfx[10][32];
+u8 energy_digits_refill1_tens_gfx[10][32];
+u8 energy_digits_refill1_ones_gfx[10][32];
+u8 energy_digits_refill2_tens_gfx[10][32];
+u8 energy_digits_refill2_ones_gfx[10][32];
+u8 energy_digits_refill3_tens_gfx[10][32];
+u8 energy_digits_refill3_ones_gfx[10][32];
+
+/* blob_0x83313e8_0x87fffff.c */
+
+u8 blob_0x83362a8_0x87fffff[5041176];
 
 #endif /* DATA_H */

@@ -6,7 +6,7 @@ void hud_update_oam(void)
 
 }
 
-void hud_update_energy_tanks(void* dst, void* normal_src, void* refill_src, u8 nbr_tanks, u8 refill_stage)
+void hud_update_energy_tanks(u8* dst, u8* normal_src, u8* refill_src, u8 nbr_tanks, u8 refill_stage)
 {
 
 }

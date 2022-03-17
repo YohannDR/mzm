@@ -148,6 +148,26 @@ SECTIONS {
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
         asm/data_0x0808c71c.o(.text);
+        data/generic_data.o(.text);
+        data/blob_0x808ca9c_0x82b0d67.o(.text);
+        data/sprite_stats.o(.text);
+        data/blob_0x82b214e_0x82b25c7.o(.text);
+        data/enemy_drop_data.o(.text);
+        data/unused_sprites_data.o(.text);
+        data/morph_ball_data.o(.text);
+        data/power_grip_data.o(.text);
+        data/skree_data.o(.text);
+        data/blob_0x82cd604_0x83271a7.o(.text);
+        data/normal_beam_data.o(.text);
+        data/long_beam_data.o(.text);
+        data/ice_beam_data.o(.text);
+        data/wave_beam_data.o(.text);
+        data/plasma_beam_data.o(.text);
+        data/pistol_data.o(.text);
+        data/blob_0x832b9e8_0x832ba07.o(.text);
+        data/common_sprite_data.o(.text);
+        data/hud_data.o(.text);
+        data/blob_0x83313e8_0x87fffff.o(.text);
     } >rom
 
     /DISCARD/ : {

@@ -12,38 +12,38 @@
             "Type": "u8",
             "IsArray": 1,
             "Size": 256
-        },
-        {
+        }
+    ],
+    "blob_0x808ca9c_0x82b0d67.c": [{
             "Name": "blob_0x808ca9c_0x82b0d67",
             "Offset": 576156,
             "Type": "u8",
             "IsArray": 1,
             "Size": 2245324
-        }
-    ],
+    }],
     "sprite_stats.c": [{
             "Name": "primary_sprite_stats",
             "Offset": 2821480,
             "Type": "u16",
             "IsArray": 2,
-            "Size": 52745
+            "Size": 13500425
         },
         {
             "Name": "secondary_sprite_stats",
             "Offset": 2825188,
             "Type": "u16",
             "IsArray": 2,
-            "Size": 19721
-        },
-        {
+            "Size": 5046281
+        }
+    ],
+    "blob_0x82b214e_0x82b25c7.c": [{
             "Name": "blob_0x82b214e_0x82b25c7",
             "Offset": 2826574,
             "Type": "u8",
             "IsArray": 1,
             "Size": 1146
-        }
-    ],
-    "enemy_drop.c": [{
+    }],
+    "enemy_drop_data.c": [{
             "Name": "small_energy_drop_oam",
             "Offset": 2828072,
             "Type": "OAM",
@@ -329,6 +329,13 @@
             "Size": 4
         }
     ],
+    "blob_0x82cd604_0x83271a7.c": [{
+            "Name": "blob_0x82cd604_0x83271a7",
+            "Offset": 2938372,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 367524
+    }],
     "normal_beam_data.c": [{
             "Name": "normal_beam_gfx",
             "Offset": 3305896,
@@ -541,5 +548,515 @@
             "IsArray": 0,
             "Size": 5
         }
-    ]
+    ],
+    "wave_beam_data.c": [{
+            "Name": "wave_beam_gfx",
+            "Offset": 3313460,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 2048
+        },
+        {
+            "Name": "wave_beam_oam_forward",
+            "Offset": 3316844,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "wave_beam_oam_diagonal",
+            "Offset": 3316908,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "wave_beam_oam_up_down",
+            "Offset": 3316972,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "wave_beam_oam_unused1",
+            "Offset": 3317036,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "wave_beam_oam_unused2",
+            "Offset": 3317100,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "wave_beam_oam_unused3",
+            "Offset": 3317164,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "charged_wave_beam_oam_forward",
+            "Offset": 3317228,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "charged_wave_beam_oam_diagonal",
+            "Offset": 3317292,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "charged_wave_beam_oam_up_down",
+            "Offset": 3317356,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "particle_charged_wave_beam_trail_oam",
+            "Offset": 3317420,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        }
+    ],
+    "plasma_beam_data.c": [{
+            "Name": "plasma_beam_gfx",
+            "Offset": 3317460,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 2048
+        },
+        {
+            "Name": "plasma_beam_no_wave_oam_forward",
+            "Offset": 3321120,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "plasma_beam_no_wave_oam_diagonal",
+            "Offset": 3321144,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "plasma_beam_no_wave_oam_up_down",
+            "Offset": 3321168,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "plasma_beam_no_wave_oam_unused1",
+            "Offset": 3321192,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "plasma_beam_no_wave_oam_unused2",
+            "Offset": 3321216,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "plasma_beam_no_wave_oam_unused3",
+            "Offset": 3321240,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "charged_plasma_beam_no_wave_oam_forward",
+            "Offset": 3321264,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "charged_plasma_beam_no_wave_oam_diagonal",
+            "Offset": 3321288,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "charged_plasma_beam_no_wave_oam_up_down",
+            "Offset": 3321312,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "plasma_beam_wave_oam_forward",
+            "Offset": 3321336,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "plasma_beam_wave_oam_diagonal",
+            "Offset": 3321400,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "plasama_beam_wave_oam_up_down",
+            "Offset": 3321464,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "plasma_beam_wave_oam_unused1",
+            "Offset": 3321528,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 6
+        },
+        {
+            "Name": "plasma_beam_wave_oam_unused2",
+            "Offset": 3321576,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 6
+        },
+        {
+            "Name": "plasma_beam_wave_oam_unused3",
+            "Offset": 3321624,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 6
+        },
+        {
+            "Name": "charged_plasma_beam_wave_oam_forward",
+            "Offset": 3321672,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "charged_plasma_beam_wave_oam_diagonal",
+            "Offset": 3321736,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "charged_plasma_beam_wave_oam_up_down",
+            "Offset": 3321800,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "particle_charged_plasma_beam_trail_oam",
+            "Offset": 3321864,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        },
+        {
+            "Name": "particle_charged_full_beam_trail_oam",
+            "Offset": 3321904,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 9
+        }
+    ],
+    "pistol_data.c": [{
+            "Name": "pistol_gfx",
+            "Offset": 3321976,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 2048
+        },
+        {
+            "Name": "pistol_oam_forward",
+            "Offset": 3324208,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "pistol_oam_diagonal",
+            "Offset": 3324232,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "pistol_oam_up_down",
+            "Offset": 3324256,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "charged_pistol_oam_forward",
+            "Offset": 3324280,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "charged_pistol_oam_diagonal",
+            "Offset": 3324304,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "charged_pistol_oam_up_down",
+            "Offset": 3324328,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "particle_charged_pistol_trail",
+            "Offset": 3324352,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        }
+    ],
+    "blob_0x832b9e8_0x832ba07.c": [{
+            "Name": "blob_0x832b9e8_0x832ba07",
+            "Offset": 3324392,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 32
+        }
+    ],
+    "common_sprite_data.c": [{
+            "Name": "common_sprites_pal",
+            "Offset": 3324424,
+            "Type": "u16",
+            "IsArray": 1,
+            "Size": 96
+        },
+        {
+            "Name": "common_sprites_gfx",
+            "Offset": 3324616,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 14336
+        }
+    ],
+    "hud_data.c": [{
+            "Name": "missile_digits_gfx",
+            "Offset": 3338952,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 2304
+        },
+        {
+            "Name": "power_bomb_digits_gfx",
+            "Offset": 3341256,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 2304
+        },
+        {
+            "Name": "missile_hud_inactive_gfx",
+            "Offset": 3343560,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "missile_hud_selected_gfx",
+            "Offset": 3343624,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "missile_hud_active_gfx",
+            "Offset": 3343688,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "missile_hud_refill1_gfx",
+            "Offset": 3343752,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "missile_hud_refill2_gfx",
+            "Offset": 3343816,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "missile_hud_refill3_gfx",
+            "Offset": 3343880,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "super_missile_hud_inactive_gfx",
+            "Offset": 3343944,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "super_missile_hud_selected_gfx",
+            "Offset": 3344008,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "super_missile_hud_active_gfx",
+            "Offset": 3344072,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "super_missile_hud_refill1_gfx",
+            "Offset": 3344136,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "super_missile_hud_refill2_gfx",
+            "Offset": 3344200,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "super_missile_hud_refill3_gfx",
+            "Offset": 3344264,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "power_bomb_hud_inactive_gfx",
+            "Offset": 3344328,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "power_bomb_hud_selected_gfx",
+            "Offset": 3344392,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "power_bomb_hud_active_gfx",
+            "Offset": 3344456,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "power_bomb_hud_refill1_gfx",
+            "Offset": 3344520,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "power_bomb_hud_refill2_gfx",
+            "Offset": 3344584,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "power_bomb_hud_refill3_gfx",
+            "Offset": 3344648,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "energy_digits_tens_gfx",
+            "Offset": 3344712,
+            "Type": "u8",
+            "IsArray": 2,
+            "Size": 655392
+        },
+        {
+            "Name": "energy_digits_ones_gfx",
+            "Offset": 3345032,
+            "Type": "u8",
+            "IsArray": 2,
+            "Size": 655392
+        },
+        {
+            "Name": "energy_digits_refill1_tens_gfx",
+            "Offset": 3345352,
+            "Type": "u8",
+            "IsArray": 2,
+            "Size": 655392
+        },
+        {
+            "Name": "energy_digits_refill1_ones_gfx",
+            "Offset": 3345672,
+            "Type": "u8",
+            "IsArray": 2,
+            "Size": 655392
+        },
+        {
+            "Name": "energy_digits_refill2_tens_gfx",
+            "Offset": 3345992,
+            "Type": "u8",
+            "IsArray": 2,
+            "Size": 655392
+        },
+        {
+            "Name": "energy_digits_refill2_ones_gfx",
+            "Offset": 3346312,
+            "Type": "u8",
+            "IsArray": 2,
+            "Size": 655392
+        },
+        {
+            "Name": "energy_digits_refill3_tens_gfx",
+            "Offset": 3346632,
+            "Type": "u8",
+            "IsArray": 2,
+            "Size": 655392
+        },
+        {
+            "Name": "energy_digits_refill3_ones_gfx",
+            "Offset": 3346952,
+            "Type": "u8",
+            "IsArray": 2,
+            "Size": 655392
+        }
+    ],
+    "blob_0x83313e8_0x87fffff.c": [{
+            "Name": "blob_0x83362a8_0x87fffff",
+            "Offset": 3347432,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 5041176
+    }]
 }
