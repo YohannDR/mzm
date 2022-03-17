@@ -420,7 +420,7 @@ void imago_cocoon_spore_init(void)
     current_sprite.samus_collision = SSC_NONE;
     current_sprite.draw_order = 0x3;
     current_sprite.bg_priority = io_registers_backup.bg2cnt & 0x3;
-    current_sprite.health = secondary_sprite_stats_2b1be4[current_sprite.sprite_id][0x0];
+    current_sprite.health = secondary_sprite_stats[current_sprite.sprite_id][0x0];
     current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
     current_sprite.ignore_samus_collision_timer = 0x1;
     imago_cocoon_spore_sync_position();
@@ -571,7 +571,7 @@ void winged_ripper_init(void)
     current_sprite.anim_duration_counter = 0x0;
     current_sprite.curr_anim_frame = 0x0;
     current_sprite.samus_collision = SSC_HURTS_SAMUS;
-    current_sprite.health = secondary_sprite_stats_2b1be4[current_sprite.sprite_id][0x0];
+    current_sprite.health = secondary_sprite_stats[current_sprite.sprite_id][0x0];
     current_sprite.draw_order = 0x8;
     current_sprite.pose = 0x8;
     current_sprite.oam_scaling = 0xC0;

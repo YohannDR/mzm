@@ -9,7 +9,7 @@
 i16 sine_y_values[320];
 u8 random_number_table[256];
 
-/* blob_0x808ca9c_0x82b0d67 */
+/* blob_0x808ca9c_0x82b0d67.c */
 
 u8 blob_0x808ca9c_0x82b0d67[2245324];
 
@@ -18,11 +18,11 @@ u8 blob_0x808ca9c_0x82b0d67[2245324];
 u16 primary_sprite_stats[206][9];
 u16 secondary_sprite_stats[77][9];
 
-/* blob_0x82b214e_0x82b25c7 */
+/* blob_0x82b214e_0x82b25c7.c */
 
 u8 blob_0x82b214e_0x82b25c7[1146];
 
-/* enemy_drop.c */
+/* enemy_drop_data.c */
 
 struct oam_frame small_energy_drop_oam1;
 struct oam_frame small_energy_drop_oam2;
@@ -205,6 +205,103 @@ struct frame_data skree_oam_7[5];
 struct frame_data skree_oam_8[5];
 struct frame_data skree_oam_9[4];
 struct frame_data skree_oam_10[4];
+
+/* blob_0x82cd604_0x82f7db3.c */
+
+u8 blob_0x82cd604_0x82f7db3[174000];
+
+/* area_banner_data.c */
+
+u16 area_banner_location_text_pal[16];
+
+/* blob_0x82f7dd4_0x8326ca7.c */
+
+u8 blob_0x82f7dd4_0x8326ca7[192212];
+
+/* tumbling_missile_speed_data.c */
+
+i16 tumbling_missile_speed[48];
+
+/* bomb_data.c */
+
+struct oam_frame bomb_oam_normal1;
+struct oam_frame bomb_oam_normal2;
+struct oam_frame bomb_oam_normal3;
+struct oam_frame bomb_oam_normal4;
+struct oam_frame bomb_oam_fast1;
+struct oam_frame bomb_oam_fast2;
+struct oam_frame bomb_oam_fast3;
+struct oam_frame bomb_oam_fast4;
+struct oam_frame power_bomb_oam_normal1;
+struct oam_frame power_bomb_oam_normal2;
+struct oam_frame power_bomb_oam_normal3;
+struct oam_frame power_bomb_oam_fast1;
+struct oam_frame power_bomb_oam_fast2;
+struct oam_frame power_bomb_oam_fast3;
+struct frame_data bomb_oam_normal[5];
+struct frame_data bomb_oam_fast[5];
+struct frame_data power_bomb_oam_normal[4];
+struct frame_data power_bomb_oam_fast[4];
+
+/* missiles_data.c */
+
+struct oam_frame missile_oam_forward1;
+struct oam_frame missile_oam_forward2;
+struct oam_frame missile_oam_diagonal1;
+struct oam_frame missile_oam_diagonal2;
+struct oam_frame missile_oam_up_down1;
+struct oam_frame missile_oam_up_down2;
+struct oam_frame super_missile_oam_forward1;
+struct oam_frame super_missile_oam_forward2;
+struct oam_frame super_missile_oam_diagonal1;
+struct oam_frame super_missile_oam_diagonal2;
+struct oam_frame super_missile_oam_up_down1;
+struct oam_frame super_missile_oam_up_down2;
+struct oam_frame missile_tumbling_oam1;
+struct oam_frame missile_tumbling_oam2;
+struct oam_frame missile_tumbling_oam3;
+struct oam_frame missile_tumbling_oam4;
+struct oam_frame missile_tumbling_oam5;
+struct oam_frame missile_tumbling_oam6;
+struct oam_frame missile_tumbling_oam7;
+struct oam_frame missile_tumbling_oam8;
+struct oam_frame super_missile_tumbling_oam1;
+struct oam_frame super_missile_tumbling_oam2;
+struct oam_frame super_missile_tumbling_oam3;
+struct oam_frame super_missile_tumbling_oam4;
+struct oam_frame super_missile_tumbling_oam5;
+struct oam_frame super_missile_tumbling_oam6;
+struct oam_frame super_missile_tumbling_oam7;
+struct oam_frame super_missile_tumbling_oam8;
+struct oam_frame particle_missile_trail_oam1;
+struct oam_frame particle_missile_trail_oam2;
+struct oam_frame particle_missile_trail_oam3;
+struct oam_frame particle_missile_trail_oam4;
+struct oam_frame particle_missile_trail_oam5;
+struct oam_frame particle_missile_trail_oam6;
+struct oam_frame particle_missile_trail_oam7;
+struct oam_frame particle_super_missile_trail_oam1;
+struct oam_frame particle_super_missile_trail_oam2;
+struct oam_frame particle_super_missile_trail_oam3;
+struct oam_frame particle_super_missile_trail_oam4;
+struct oam_frame particle_super_missile_trail_oam5;
+struct oam_frame particle_super_missile_trail_oam6;
+struct oam_frame particle_super_missile_trail_oam7;
+struct oam_frame particle_super_missile_trail_oam8;
+struct frame_data missile_oam_forward[3];
+struct frame_data missile_oam_diagonal[3];
+struct frame_data missile_oam_up_down[3];
+struct frame_data super_missile_oam_forward[3];
+struct frame_data super_missile_oam_diagonal[3];
+struct frame_data super_missile_oam_up_down[3];
+struct frame_data missile_tumbling_oam[9];
+struct frame_data super_missile_tumbling_oam[9];
+struct frame_data particle_missile_trail_oam[8];
+struct frame_data particle_super_missile_trail_oam[9];
+
+/* beam_palette_data.c */
+
+u16 beam_pal[96];
 
 /* normal_beam_data.c */
 
@@ -422,13 +519,13 @@ struct oam_frame plasma_beam_wave_oam_diagonal4;
 struct oam_frame plasma_beam_wave_oam_diagonal5;
 struct oam_frame plasma_beam_wave_oam_diagonal6;
 struct oam_frame plasma_beam_wave_oam_diagonal7;
-struct oam_frame plasama_beam_wave_oam_up_down1;
-struct oam_frame plasama_beam_wave_oam_up_down2;
-struct oam_frame plasama_beam_wave_oam_up_down3;
-struct oam_frame plasama_beam_wave_oam_up_down4;
-struct oam_frame plasama_beam_wave_oam_up_down5;
-struct oam_frame plasama_beam_wave_oam_up_down6;
-struct oam_frame plasama_beam_wave_oam_up_down7;
+struct oam_frame plasma_beam_wave_oam_up_down1;
+struct oam_frame plasma_beam_wave_oam_up_down2;
+struct oam_frame plasma_beam_wave_oam_up_down3;
+struct oam_frame plasma_beam_wave_oam_up_down4;
+struct oam_frame plasma_beam_wave_oam_up_down5;
+struct oam_frame plasma_beam_wave_oam_up_down6;
+struct oam_frame plasma_beam_wave_oam_up_down7;
 struct oam_frame plasma_beam_wave_oam_unused11;
 struct oam_frame plasma_beam_wave_oam_unused12;
 struct oam_frame plasma_beam_wave_oam_unused13;
@@ -488,7 +585,7 @@ struct frame_data charged_plasma_beam_no_wave_oam_diagonal[3];
 struct frame_data charged_plasma_beam_no_wave_oam_up_down[3];
 struct frame_data plasma_beam_wave_oam_forward[8];
 struct frame_data plasma_beam_wave_oam_diagonal[8];
-struct frame_data plasama_beam_wave_oam_up_down[8];
+struct frame_data plasma_beam_wave_oam_up_down[8];
 struct frame_data plasma_beam_wave_oam_unused1[6];
 struct frame_data plasma_beam_wave_oam_unused2[6];
 struct frame_data plasma_beam_wave_oam_unused3[6];
@@ -513,17 +610,17 @@ struct oam_frame charged_pistol_oam_diagonal1;
 struct oam_frame charged_pistol_oam_diagonal2;
 struct oam_frame charged_pistol_oam_up_down1;
 struct oam_frame charged_pistol_oam_up_down2;
-struct oam_frame particle_charged_pistol_trail1;
-struct oam_frame particle_charged_pistol_trail2;
-struct oam_frame particle_charged_pistol_trail3;
-struct oam_frame particle_charged_pistol_trail4;
+struct oam_frame particle_charged_pistol_trail_oam1;
+struct oam_frame particle_charged_pistol_trail_oam2;
+struct oam_frame particle_charged_pistol_trail_oam3;
+struct oam_frame particle_charged_pistol_trail_oam4;
 struct frame_data pistol_oam_forward[3];
 struct frame_data pistol_oam_diagonal[3];
 struct frame_data pistol_oam_up_down[3];
 struct frame_data charged_pistol_oam_forward[3];
 struct frame_data charged_pistol_oam_diagonal[3];
 struct frame_data charged_pistol_oam_up_down[3];
-struct frame_data particle_charged_pistol_trail[5];
+struct frame_data particle_charged_pistol_trail_oam[5];
 
 /* blob_0x832b9e8_0x832ba07.c */
 
@@ -565,8 +662,104 @@ u8 energy_digits_refill2_ones_gfx[10][32];
 u8 energy_digits_refill3_tens_gfx[10][32];
 u8 energy_digits_refill3_ones_gfx[10][32];
 
-/* blob_0x83313e8_0x87fffff.c */
+/* blob_0x8331348_0x833cbdf.c */
 
-u8 blob_0x83362a8_0x87fffff[5041176];
+u8 blob_0x8331348_0x833cbdf[47255];
+
+/* particle_splash_data.c */
+
+struct oam_frame particle_sprite_splash_water_big_oam1;
+struct oam_frame particle_sprite_splash_water_big_oam2;
+struct oam_frame particle_sprite_splash_water_big_oam3;
+struct oam_frame particle_sprite_splash_water_big_oam4;
+struct oam_frame particle_sprite_splash_water_big_oam5;
+struct oam_frame particle_sprite_splash_water_big_oam6;
+struct oam_frame particle_sprite_splash_water_big_oam7;
+struct oam_frame particle_sprite_splash_water_big_oam8;
+struct oam_frame particle_sprite_splash_water_big_oam9;
+struct oam_frame particle_sprite_splash_water_huge_oam1;
+struct oam_frame particle_sprite_splash_water_huge_oam2;
+struct oam_frame particle_sprite_splash_water_huge_oam3;
+struct oam_frame particle_sprite_splash_water_huge_oam4;
+struct oam_frame particle_sprite_splash_water_huge_oam5;
+struct oam_frame particle_sprite_splash_water_huge_oam6;
+struct oam_frame particle_sprite_splash_water_huge_oam7;
+struct oam_frame particle_sprite_splash_water_huge_oam8;
+struct oam_frame particle_sprite_splash_water_huge_oam9;
+struct oam_frame particle_sprite_splash_water_small_oam1;
+struct oam_frame particle_sprite_splash_water_small_oam2;
+struct oam_frame particle_sprite_splash_water_small_oam3;
+struct oam_frame particle_sprite_splash_water_small_oam4;
+struct oam_frame particle_sprite_splash_water_small_oam5;
+struct oam_frame particle_sprite_splash_water_small_oam6;
+struct oam_frame particle_sprite_splash_lava_big_oam1;
+struct oam_frame particle_sprite_splash_lava_big_oam2;
+struct oam_frame particle_sprite_splash_lava_big_oam3;
+struct oam_frame particle_sprite_splash_lava_big_oam4;
+struct oam_frame particle_sprite_splash_lava_big_oam5;
+struct oam_frame particle_sprite_splash_lava_big_oam6;
+struct oam_frame particle_sprite_splash_lava_big_oam7;
+struct oam_frame particle_sprite_splash_lava_big_oam8;
+struct oam_frame particle_sprite_splash_lava_big_oam9;
+struct oam_frame particle_sprite_splash_lava_huge_oam1;
+struct oam_frame particle_sprite_splash_lava_huge_oam2;
+struct oam_frame particle_sprite_splash_lava_huge_oam3;
+struct oam_frame particle_sprite_splash_lava_huge_oam4;
+struct oam_frame particle_sprite_splash_lava_huge_oam5;
+struct oam_frame particle_sprite_splash_lava_huge_oam6;
+struct oam_frame particle_sprite_splash_lava_huge_oam7;
+struct oam_frame particle_sprite_splash_lava_huge_oam8;
+struct oam_frame particle_sprite_splash_lava_huge_oam9;
+struct oam_frame particle_sprite_splash_lava_small_oam1;
+struct oam_frame particle_sprite_splash_lava_small_oam2;
+struct oam_frame particle_sprite_splash_lava_small_oam3;
+struct oam_frame particle_sprite_splash_lava_small_oam4;
+struct oam_frame particle_sprite_splash_lava_small_oam5;
+struct oam_frame particle_sprite_splash_lava_small_oam6;
+struct oam_frame particle_sprite_splash_acid_big_oam1;
+struct oam_frame particle_sprite_splash_acid_big_oam2;
+struct oam_frame particle_sprite_splash_acid_big_oam3;
+struct oam_frame particle_sprite_splash_acid_big_oam4;
+struct oam_frame particle_sprite_splash_acid_big_oam5;
+struct oam_frame particle_sprite_splash_acid_big_oam6;
+struct oam_frame particle_sprite_splash_acid_big_oam7;
+struct oam_frame particle_sprite_splash_acid_big_oam8;
+struct oam_frame particle_sprite_splash_acid_big_oam9;
+struct oam_frame particle_sprite_splash_acid_huge_oam1;
+struct oam_frame particle_sprite_splash_acid_huge_oam2;
+struct oam_frame particle_sprite_splash_acid_huge_oam3;
+struct oam_frame particle_sprite_splash_acid_huge_oam4;
+struct oam_frame particle_sprite_splash_acid_huge_oam5;
+struct oam_frame particle_sprite_splash_acid_huge_oam6;
+struct oam_frame particle_sprite_splash_acid_huge_oam7;
+struct oam_frame particle_sprite_splash_acid_huge_oam8;
+struct oam_frame particle_sprite_splash_acid_huge_oam9;
+struct oam_frame particle_sprite_splash_acid_small_oam1;
+struct oam_frame particle_sprite_splash_acid_small_oam2;
+struct oam_frame particle_sprite_splash_acid_small_oam3;
+struct oam_frame particle_sprite_splash_acid_small_oam4;
+struct oam_frame particle_sprite_splash_acid_small_oam5;
+struct oam_frame particle_sprite_splash_acid_small_oam6;
+struct frame_data particle_sprite_splash_water_big_oam[10];
+struct frame_data particle_sprite_splash_water_huge_oam[10];
+struct frame_data particle_sprite_splash_water_small_oam[7];
+struct frame_data particle_sprite_splash_lava_big_oam[10];
+struct frame_data particle_sprite_splash_lava_huge_oam[10];
+struct frame_data particle_sprite_splash_lava_small_oam[7];
+struct frame_data particle_sprite_splash_acid_big_oam[10];
+struct frame_data particle_sprite_splash_acid_huge_oam[10];
+struct frame_data particle_sprite_splash_acid_small_oam[7];
+
+/* blob_0x833d75c_0x8345cc8.c */
+
+u8 blob_0x83d75c_0x8345cc8[34156];
+
+/* bldalpha_data.c */
+
+u16 bldalpha_values_for_clipdata[11];
+
+/* blob_0x8345cde_0x87fffff.c */
+
+u8 blob_0x8345cde_0x87fffff[4956961];
 
 #endif /* DATA_H */

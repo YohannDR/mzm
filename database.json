@@ -15,11 +15,11 @@
         }
     ],
     "blob_0x808ca9c_0x82b0d67.c": [{
-            "Name": "blob_0x808ca9c_0x82b0d67",
-            "Offset": 576156,
-            "Type": "u8",
-            "IsArray": 1,
-            "Size": 2245324
+        "Name": "blob_0x808ca9c_0x82b0d67",
+        "Offset": 576156,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 2245324
     }],
     "sprite_stats.c": [{
             "Name": "primary_sprite_stats",
@@ -37,11 +37,11 @@
         }
     ],
     "blob_0x82b214e_0x82b25c7.c": [{
-            "Name": "blob_0x82b214e_0x82b25c7",
-            "Offset": 2826574,
-            "Type": "u8",
-            "IsArray": 1,
-            "Size": 1146
+        "Name": "blob_0x82b214e_0x82b25c7",
+        "Offset": 2826574,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 1146
     }],
     "enemy_drop_data.c": [{
             "Name": "small_energy_drop_oam",
@@ -329,12 +329,140 @@
             "Size": 4
         }
     ],
-    "blob_0x82cd604_0x83271a7.c": [{
-            "Name": "blob_0x82cd604_0x83271a7",
-            "Offset": 2938372,
-            "Type": "u8",
-            "IsArray": 1,
-            "Size": 367524
+    "blob_0x82cd604_0x82f7db3.c": [{
+        "Name": "blob_0x82cd604_0x82f7db3",
+        "Offset": 2938372,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 174000
+    }],
+    "area_banner_data.c": [{
+        "Name": "area_banner_location_text_pal",
+        "Offset": 3112372,
+        "Type": "u16",
+        "IsArray": 1,
+        "Size": 16
+    }],
+    "blob_0x82f7dd4_0x8326ca7.c": [{
+        "Name": "blob_0x82f7dd4_0x8326ca7",
+        "Offset": 3112404,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 192212
+    }],
+    "tumbling_missile_speed_data.c": [{
+        "Name": "tumbling_missile_speed",
+        "Offset": 3304616,
+        "Type": "i16",
+        "IsArray": 1,
+        "Size": 48
+    }],
+    "bomb_data.c": [{
+            "Name": "bomb_oam_normal",
+            "Offset": 3304768,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        },
+        {
+            "Name": "bomb_oam_fast",
+            "Offset": 3304808,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        },
+        {
+            "Name": "power_bomb_oam_normal",
+            "Offset": 3304848,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 4
+        },
+        {
+            "Name": "power_bomb_oam_fast",
+            "Offset": 3304880,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 4
+        }
+    ],
+    "missiles_data.c": [{
+            "Name": "missile_oam_forward",
+            "Offset": 3305280,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "missile_oam_diagonal",
+            "Offset": 3305304,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "missile_oam_up_down",
+            "Offset": 3305328,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "super_missile_oam_forward",
+            "Offset": 3305352,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "super_missile_oam_diagonal",
+            "Offset": 3305376,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "super_missile_oam_up_down",
+            "Offset": 3305400,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        },
+        {
+            "Name": "missile_tumbling_oam",
+            "Offset": 3305424,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 9
+        },
+        {
+            "Name": "super_missile_tumbling_oam",
+            "Offset": 3305496,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 9
+        },
+        {
+            "Name": "particle_missile_trail_oam",
+            "Offset": 3305568,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "particle_super_missile_trail_oam",
+            "Offset": 3305632,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 9
+        }
+    ],
+    "beam_palette_data.c": [{
+        "Name": "beam_pal",
+        "Offset": 3305704,
+        "Type": "u16",
+        "IsArray": 1,
+        "Size": 96
     }],
     "normal_beam_data.c": [{
             "Name": "normal_beam_gfx",
@@ -712,7 +840,7 @@
             "Size": 8
         },
         {
-            "Name": "plasama_beam_wave_oam_up_down",
+            "Name": "plasma_beam_wave_oam_up_down",
             "Offset": 3321464,
             "Type": "OAM",
             "IsArray": 0,
@@ -825,7 +953,7 @@
             "Size": 3
         },
         {
-            "Name": "particle_charged_pistol_trail",
+            "Name": "particle_charged_pistol_trail_oam",
             "Offset": 3324352,
             "Type": "OAM",
             "IsArray": 0,
@@ -833,13 +961,12 @@
         }
     ],
     "blob_0x832b9e8_0x832ba07.c": [{
-            "Name": "blob_0x832b9e8_0x832ba07",
-            "Offset": 3324392,
-            "Type": "u8",
-            "IsArray": 1,
-            "Size": 32
-        }
-    ],
+        "Name": "blob_0x832b9e8_0x832ba07",
+        "Offset": 3324392,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 32
+    }],
     "common_sprite_data.c": [{
             "Name": "common_sprites_pal",
             "Offset": 3324424,
@@ -1052,11 +1179,96 @@
             "Size": 655392
         }
     ],
-    "blob_0x83313e8_0x87fffff.c": [{
-            "Name": "blob_0x83362a8_0x87fffff",
-            "Offset": 3347432,
-            "Type": "u8",
-            "IsArray": 1,
-            "Size": 5041176
+    "blob_0x8331348_0x833cbdf.c": [{
+        "Name": "blob_0x8331348_0x833cbdf",
+        "Offset": 3347272,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 47255
+    }],
+    "particle_splash_data.c": [{
+            "Name": "particle_sprite_splash_water_big_oam",
+            "Offset": 3396876,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 10
+        },
+        {
+            "Name": "particle_sprite_splash_water_huge_oam",
+            "Offset": 3396956,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 10
+        },
+        {
+            "Name": "particle_sprite_splash_water_small_oam",
+            "Offset": 3397036,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 7
+        },
+        {
+            "Name": "particle_sprite_splash_lava_big_oam",
+            "Offset": 3397092,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 10
+        },
+        {
+            "Name": "particle_sprite_splash_lava_huge_oam",
+            "Offset": 3397172,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 10
+        },
+        {
+            "Name": "particle_sprite_splash_lava_small_oam",
+            "Offset": 3397252,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 7
+        },
+        {
+            "Name": "particle_sprite_splash_acid_big_oam",
+            "Offset": 3397308,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 10
+        },
+        {
+            "Name": "particle_sprite_splash_acid_huge_oam",
+            "Offset": 3397388,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 10
+        },
+        {
+            "Name": "particle_sprite_splash_acid_small_oam",
+            "Offset": 3397468,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 7
+        }
+    ],
+    "blob_0x833d75c_0x8345cc8.c": [{
+        "Name": "blob_0x83d75c_0x8345cc8",
+        "Offset": 3397468,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 34156
+    }],
+    "bldalpha_data.c": [{
+        "Name": "bldalpha_values_for_clipdata",
+        "Offset": 3431624,
+        "Type": "u16",
+        "IsArray": 1,
+        "Size": 11
+    }],
+    "blob_0x8345cde_0x87fffff.c": [{
+        "Name": "blob_0x8345cde_0x87fffff",
+        "Offset": 3431646,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 4956961
     }]
 }

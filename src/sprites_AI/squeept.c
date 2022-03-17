@@ -37,7 +37,7 @@ void squeept_init(void)
     current_sprite.hitbox_left_offset = -0x20;
     current_sprite.hitbox_right_offset = 0x20;
     current_sprite.samus_collision = SSC_HURTS_SAMUS;
-    current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0];
+    current_sprite.health = primary_sprite_stats[current_sprite.sprite_id][0x0];
     current_sprite.y_position += 0x4;
     current_sprite.y_position_spawn = current_sprite.y_position;
 }

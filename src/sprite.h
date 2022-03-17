@@ -402,7 +402,7 @@ struct sprite_data {
     u8 draw_order;
     u8 primary_sprite_ram_slot;
     u8 pose;
-    u8samus_collision;
+    u8 samus_collision;
     u8 ignore_samus_collision_timer;
     u8 draw_distance_top_offset;
     u8 draw_distance_bottom_offset;

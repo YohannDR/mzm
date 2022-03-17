@@ -13,7 +13,7 @@ void zebbo_init(void)
     current_sprite.draw_distance_bottom_offset = 0x8;
     current_sprite.draw_distance_horizontal_offset = 0x10;
     current_sprite.timer2 = 0x1;
-    current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0];
+    current_sprite.health = primary_sprite_stats[current_sprite.sprite_id][0x0];
     current_sprite.y_position -= 0x20;
     current_sprite.x_position += 0x20;
     current_sprite.y_position_spawn = current_sprite.y_position;
@@ -76,7 +76,7 @@ void zebbo_respawning(void)
         current_sprite.x_position = current_sprite.x_position_spawn;
         zebbo_gfx_init();
         current_sprite.timer2 = 0x3C;
-        current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0];
+        current_sprite.health = primary_sprite_stats[current_sprite.sprite_id][0x0];
         current_sprite.invicibility_stun_flash_timer = 0x0;
         current_sprite.palette_row = 0x0;
         current_sprite.frozen_palette_row_offset = 0x0;

@@ -42,7 +42,7 @@ void hive_init(void)
         current_sprite.anim_duration_counter = 0x0;
         current_sprite.curr_anim_frame = event_check;
         current_sprite.draw_order = 0x5;
-        current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0];
+        current_sprite.health = primary_sprite_stats[current_sprite.sprite_id][0x0];
         current_sprite.pose = 0x9;
         current_sprite.timer1 = 0x0;
         
@@ -63,7 +63,7 @@ u8 hive_count_mellows(void)
 {
     u8 count;
     u8 room_slot;
-    u8collision;
+    u8 collision;
     struct sprite_data* pSprite;
 
     count = 0x0;
@@ -86,7 +86,7 @@ void hive_phase1(void)
     if ((u8)hive_count_mellows() < 0x4)
         sprite_spawn_primary(PSPRITE_MELLOW, current_sprite.room_slot, current_sprite.spriteset_gfx_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
     
-    if (current_sprite.health < primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0] >> 0x1)
+    if (current_sprite.health < primary_sprite_stats[current_sprite.sprite_id][0x0] >> 0x1)
     {
         current_sprite.frozen_palette_row_offset = 0x2;
         current_sprite.oam_pointer = hive_oam_2da9a4;
@@ -103,7 +103,7 @@ void hive_phase2(void)
     if ((u8)hive_count_mellows() < 0x4)
         sprite_spawn_primary(PSPRITE_MELLOW, current_sprite.room_slot, current_sprite.spriteset_gfx_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
     
-    if (current_sprite.health < primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0] >> 0x2)
+    if (current_sprite.health < primary_sprite_stats[current_sprite.sprite_id][0x0] >> 0x2)
     {
         current_sprite.frozen_palette_row_offset = 0x3;
         current_sprite.oam_pointer = hive_oam_2daa04;
@@ -126,7 +126,7 @@ void hive_dying(void)
     u8 count;
     u8 room_slot;
     u8 pose;
-    u8collision;
+    u8 collision;
     struct sprite_data* pSprite;
     u8 hive_id;
 
@@ -223,7 +223,7 @@ void hive_mellow_init(struct sprite_data* pSprite)
         pSprite->anim_duration_counter = 0x0;
         pSprite->curr_anim_frame = 0x0;
         pSprite->samus_collision = SSC_MELLOW;
-        pSprite->health = primary_sprite_stats_2b0d68[pSprite->sprite_id][0x0];
+        pSprite->health = primary_sprite_stats[pSprite->sprite_id][0x0];
         if (pSprite->room_slot != 0x88)
         {
             pSprite->oam_pointer = mellow_oam_2da88c;
@@ -352,7 +352,7 @@ void hive_roots(void)
     if (pSprite->sprite_id == PSPRITE_HIVE)
     {
         current_sprite.palette_row = pSprite->palette_row;
-        if (pSprite->health < primary_sprite_stats_2b0d68[pSprite->sprite_id][0x0] >> 0x1 && pSprite->freeze_timer == 0x0)
+        if (pSprite->health < primary_sprite_stats[pSprite->sprite_id][0x0] >> 0x1 && pSprite->freeze_timer == 0x0)
             current_sprite.status = 0x0;
         else
         {
@@ -427,7 +427,7 @@ void hive_mellow_swarm(void)
 {
     u8 count;
     struct sprite_data* pSprite;
-    u8collision;
+    u8 collision;
     u16 x_pos;
     u16 y_pos;
 

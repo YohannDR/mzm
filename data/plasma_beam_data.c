@@ -2344,14 +2344,14 @@ struct oam_frame plasma_beam_wave_oam_diagonal7 = {
     }
 };
 
-struct oam_frame plasama_beam_wave_oam_up_down1 = {
+struct oam_frame plasma_beam_wave_oam_up_down1 = {
     0x1,
     {
         { 0x80F8, 0x41FC, 0x2083 },
     }
 };
 
-struct oam_frame plasama_beam_wave_oam_up_down2 = {
+struct oam_frame plasma_beam_wave_oam_up_down2 = {
     0x3,
     {
         { 0x80F8, 0x4000, 0x2083 },
@@ -2360,7 +2360,7 @@ struct oam_frame plasama_beam_wave_oam_up_down2 = {
     }
 };
 
-struct oam_frame plasama_beam_wave_oam_up_down3 = {
+struct oam_frame plasma_beam_wave_oam_up_down3 = {
     0x4,
     {
         { 0x80F8, 0x4004, 0x2083 },
@@ -2370,7 +2370,7 @@ struct oam_frame plasama_beam_wave_oam_up_down3 = {
     }
 };
 
-struct oam_frame plasama_beam_wave_oam_up_down4 = {
+struct oam_frame plasma_beam_wave_oam_up_down4 = {
     0x3,
     {
         { 0x80F8, 0x4008, 0x2083 },
@@ -2379,7 +2379,7 @@ struct oam_frame plasama_beam_wave_oam_up_down4 = {
     }
 };
 
-struct oam_frame plasama_beam_wave_oam_up_down5 = {
+struct oam_frame plasma_beam_wave_oam_up_down5 = {
     0x5,
     {
         { 0x80F8, 0x4005, 0x2083 },
@@ -2390,7 +2390,7 @@ struct oam_frame plasama_beam_wave_oam_up_down5 = {
     }
 };
 
-struct oam_frame plasama_beam_wave_oam_up_down6 = {
+struct oam_frame plasma_beam_wave_oam_up_down6 = {
     0x4,
     {
         { 0x80F8, 0x4000, 0x2083 },
@@ -2400,7 +2400,7 @@ struct oam_frame plasama_beam_wave_oam_up_down6 = {
     }
 };
 
-struct oam_frame plasama_beam_wave_oam_up_down7 = {
+struct oam_frame plasma_beam_wave_oam_up_down7 = {
     0x3,
     {
         { 0x80F8, 0x41FC, 0x2083 },
@@ -2991,20 +2991,20 @@ struct frame_data plasma_beam_wave_oam_diagonal[8] = {
     0x1,
 };
 
-struct frame_data plasama_beam_wave_oam_up_down[8] = {
-    &plasama_beam_wave_oam_up_down1,
+struct frame_data plasma_beam_wave_oam_up_down[8] = {
+    &plasma_beam_wave_oam_up_down1,
     0x3,
-    &plasama_beam_wave_oam_up_down2,
+    &plasma_beam_wave_oam_up_down2,
     0x2,
-    &plasama_beam_wave_oam_up_down3,
+    &plasma_beam_wave_oam_up_down3,
     0x2,
-    &plasama_beam_wave_oam_up_down4,
+    &plasma_beam_wave_oam_up_down4,
     0x1,
-    &plasama_beam_wave_oam_up_down5,
+    &plasma_beam_wave_oam_up_down5,
     0x1,
-    &plasama_beam_wave_oam_up_down6,
+    &plasma_beam_wave_oam_up_down6,
     0x1,
-    &plasama_beam_wave_oam_up_down7,
+    &plasma_beam_wave_oam_up_down7,
     0x1,
 };
 

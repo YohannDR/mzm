@@ -156,8 +156,15 @@ SECTIONS {
         data/unused_sprites_data.o(.text);
         data/morph_ball_data.o(.text);
         data/power_grip_data.o(.text);
+        data/charge_beam_data.o(.text);
         data/skree_data.o(.text);
-        data/blob_0x82cd604_0x83271a7.o(.text);
+        data/blob_0x82cd604_0x82f7db3.o(.text);
+        data/area_banner_data.o(.text);
+        data/blob_0x82f7dd4_0x8326ca7.o(.text);
+        data/tumbling_missile_speed_data.o(.text);
+        data/bomb_data.o(.text);
+        data/missiles_data.o(.text);
+        data/beam_palette_data.o(.text);
         data/normal_beam_data.o(.text);
         data/long_beam_data.o(.text);
         data/ice_beam_data.o(.text);
@@ -167,7 +174,11 @@ SECTIONS {
         data/blob_0x832b9e8_0x832ba07.o(.text);
         data/common_sprite_data.o(.text);
         data/hud_data.o(.text);
-        data/blob_0x83313e8_0x87fffff.o(.text);
+        data/blob_0x8331348_0x833cbdf.o(.text);
+        data/particle_splash_data.o(.text);
+        data/blob_0x833d75c_0x8345cc8.o(.text);
+        data/bldalpha_data.o(.text);
+        data/blob_0x8345cde_0x87fffff.o(.text);
     } >rom
 
     /DISCARD/ : {

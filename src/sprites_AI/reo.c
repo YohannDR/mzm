@@ -14,7 +14,7 @@ void reo_init(void)
     current_sprite.oam_pointer = reo_oam_2ce214;
     current_sprite.anim_duration_counter = 0x0;
     current_sprite.curr_anim_frame = 0x0;
-    current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0];
+    current_sprite.health = primary_sprite_stats[current_sprite.sprite_id][0x0];
     current_sprite.samus_collision = SSC_HURTS_SAMUS;
     sprite_util_choose_random_x_direction();
     if (0x8 < sprite_rng)

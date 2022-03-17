@@ -2144,28 +2144,28 @@ struct oam_frame charged_pistol_oam_up_down2 = {
     }
 };
 
-struct oam_frame particle_charged_pistol_trail1 = {
+struct oam_frame particle_charged_pistol_trail_oam1 = {
     0x1,
     {
         { 0xFC, 0x1FC, 0x20CE },
     }
 };
 
-struct oam_frame particle_charged_pistol_trail2 = {
+struct oam_frame particle_charged_pistol_trail_oam2 = {
     0x1,
     {
         { 0xFC, 0x1FC, 0x20CF },
     }
 };
 
-struct oam_frame particle_charged_pistol_trail3 = {
+struct oam_frame particle_charged_pistol_trail_oam3 = {
     0x1,
     {
         { 0xFC, 0x1FC, 0x20EE },
     }
 };
 
-struct oam_frame particle_charged_pistol_trail4 = {
+struct oam_frame particle_charged_pistol_trail_oam4 = {
     0x1,
     {
         { 0xFC, 0x1FC, 0x20EF },
@@ -2214,14 +2214,14 @@ struct frame_data charged_pistol_oam_up_down[3] = {
     0x2,
 };
 
-struct frame_data particle_charged_pistol_trail[5] = {
-    &particle_charged_pistol_trail1,
+struct frame_data particle_charged_pistol_trail_oam[5] = {
+    &particle_charged_pistol_trail_oam1,
     0x4,
-    &particle_charged_pistol_trail2,
+    &particle_charged_pistol_trail_oam2,
     0x4,
-    &particle_charged_pistol_trail3,
+    &particle_charged_pistol_trail_oam3,
     0x4,
-    &particle_charged_pistol_trail4,
+    &particle_charged_pistol_trail_oam4,
     0x4,
 };
 

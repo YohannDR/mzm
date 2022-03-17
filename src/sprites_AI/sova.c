@@ -182,7 +182,7 @@ void sova_init(void)
     current_sprite.samus_collision = SSC_HURTS_SAMUS;
     sova_gfx_update();
     sova_hitbox_update();
-    current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0];
+    current_sprite.health = primary_sprite_stats[current_sprite.sprite_id][0x0];
     current_sprite.draw_distance_top_offset = 0x10;
     current_sprite.draw_distance_bottom_offset = 0x10;
     current_sprite.draw_distance_horizontal_offset = 0x10;

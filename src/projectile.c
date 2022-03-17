@@ -650,9 +650,9 @@ void projectile_move_tumbling(struct projectile_data* pProj)
     else
     {
         timer = pProj->timer;
-        movement = i16_array_326ca8[timer];
+        movement = tumbling_missile_speed[timer];
         if (movement == 0x7FFF)
-            new_pos = i16_array_326ca8[timer - 1] + pProj->y_position;
+            new_pos = tumbling_missile_speed[timer - 1] + pProj->y_position;
         else
         {
             pProj->timer = timer + 1;
@@ -993,9 +993,9 @@ void projectile_check_hit_sprite(void)
 u16 projectile_get_sprite_weakness(struct sprite_data* pSprite)
 {
     if (pSprite->properties & SP_SECONDARY_SPRITE) // Check wheter secondary or primary
-        return primary_sprite_stats_2b0d68[pSprite->sprite_id][0x2]; // Offset 2 is weakness
+        return primary_sprite_stats[pSprite->sprite_id][0x2]; // Offset 2 is weakness
     else
-        return secondary_sprite_stats_2b1be4[pSprite->sprite_id][0x2];
+        return secondary_sprite_stats[pSprite->sprite_id][0x2];
 }
 
 /**
@@ -1289,12 +1289,12 @@ void projectile_start_tumbling_missile(struct sprite_data* pSprite, struct proje
 
     if (type == PROJ_TYPE_SUPER_MISSILE)
     {
-        pProj->oam_pointer = super_missile_oam_327018; // Spinning/tumbling
+        pProj->oam_pointer = super_missile_tumbling_oam; // Spinning/tumbling
         play_sound2(0xFC);
     }
     else
     {
-        pProj->oam_pointer = missile_oam_326fd0; // Spinning/tumbling
+        pProj->oam_pointer = missile_tumbling_oam; // Spinning/tumbling
         play_sound2(0xF9);
     }
 }
@@ -1321,12 +1321,12 @@ void projectile_start_tumbling_missile_current_sprite(struct projectile_data* pP
 
     if (type == PROJ_TYPE_SUPER_MISSILE)
     {
-        pProj->oam_pointer = super_missile_oam_327018; // Spinning/tumbling
+        pProj->oam_pointer = super_missile_tumbling_oam; // Spinning/tumbling
         play_sound2(0xFC);
     }
     else
     {
-        pProj->oam_pointer = missile_oam_326fd0; // Spinning/tumbling
+        pProj->oam_pointer = missile_tumbling_oam; // Spinning/tumbling
         play_sound2(0xF9);
     }
 }
@@ -1665,7 +1665,7 @@ void projectile_process_wave_beam(struct projectile_data* pProj)
             case ACD_DIAGONALLY_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_DIAGONALLY_UP:
-                pProj->oam_pointer = beam_oam_329cac;
+                pProj->oam_pointer = wave_beam_oam_diagonal;
                 pProj->hitbox_top_offset = -0x10;
                 pProj->hitbox_bottom_offset = 0x40;
                 pProj->hitbox_left_offset = -0x28;
@@ -1674,7 +1674,7 @@ void projectile_process_wave_beam(struct projectile_data* pProj)
             case ACD_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_UP:
-                pProj->oam_pointer = beam_oam_329cec;
+                pProj->oam_pointer = wave_beam_oam_up_down;
                 pProj->hitbox_top_offset = -0x14;
                 pProj->hitbox_bottom_offset = 0x14;
                 pProj->hitbox_left_offset = -0x40;
@@ -1682,7 +1682,7 @@ void projectile_process_wave_beam(struct projectile_data* pProj)
                 break;
             default:
             case ACD_FORWARD:
-                pProj->oam_pointer = beam_oam_329c6c;
+                pProj->oam_pointer = wave_beam_oam_forward;
                 pProj->hitbox_top_offset = -0x40;
                 pProj->hitbox_bottom_offset = 0x40;
                 pProj->hitbox_left_offset = -0x14;
@@ -1749,14 +1749,14 @@ void projectile_process_plasma_beam(struct projectile_data* pProj)
             case ACD_DIAGONALLY_UP:
                 if (has_wave)
                 {
-                    pProj->oam_pointer = beam_oam_32ae38;
+                    pProj->oam_pointer = plasma_beam_wave_oam_diagonal;
                     pProj->hitbox_top_offset = -0x10;
                     pProj->hitbox_bottom_offset = 0x40;
                     pProj->hitbox_left_offset = -0x30;
                     pProj->hitbox_right_offset = 0x30;
                 }
                 else
-                    pProj->oam_pointer = beam_oam_32ad38;
+                    pProj->oam_pointer = plasma_beam_no_wave_oam_diagonal;
                 break;
 
             case ACD_DOWN:
@@ -1764,27 +1764,27 @@ void projectile_process_plasma_beam(struct projectile_data* pProj)
             case ACD_UP:
                 if (has_wave)
                 {
-                    pProj->oam_pointer = beam_oam_32ae78;
+                    pProj->oam_pointer = plasma_beam_wave_oam_up_down;
                     pProj->hitbox_top_offset = -0x20;
                     pProj->hitbox_bottom_offset = 0x20;
                     pProj->hitbox_left_offset = -0x40;
                     pProj->hitbox_right_offset = 0x40;
                 }
                 else
-                    pProj->oam_pointer = beam_oam_32ad50;
+                    pProj->oam_pointer = plasma_beam_no_wave_oam_up_down;
                 break;
 
             case ACD_FORWARD:
                 if (has_wave)
                 {
-                    pProj->oam_pointer = beam_oam_32adf8;
+                    pProj->oam_pointer = plasma_beam_wave_oam_forward;
                     pProj->hitbox_top_offset = -0x40;
                     pProj->hitbox_bottom_offset = 0x40;
                     pProj->hitbox_left_offset = -0x20;
                     pProj->hitbox_right_offset = 0x20;
                 }
                 else
-                    pProj->oam_pointer = beam_oam_32ad20;
+                    pProj->oam_pointer = plasma_beam_no_wave_oam_forward;
         }
 
         if (has_wave)
@@ -1861,16 +1861,16 @@ void projectile_process_pistol(struct projectile_data* pProj)
             case ACD_DIAGONALLY_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_DIAGONALLY_UP:
-                pProj->oam_pointer = pistol_oam_32b948;
+                pProj->oam_pointer = pistol_oam_diagonal;
                 break;
             case ACD_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_UP:
-                pProj->oam_pointer = pistol_oam_32b960;
+                pProj->oam_pointer = pistol_oam_up_down;
                 break;
             default:
             case ACD_FORWARD:
-                pProj->oam_pointer = pistol_oam_32b930;
+                pProj->oam_pointer = pistol_oam_forward;
         }
 
         pProj->draw_distance_offset = 0x40;
@@ -1962,16 +1962,16 @@ void projectile_process_charged_pistol(struct projectile_data* pProj)
             case ACD_DIAGONALLY_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_DIAGONALLY_UP:
-                pProj->oam_pointer = charged_pistol_oam_32b990;
+                pProj->oam_pointer = charged_pistol_oam_diagonal;
                 break;
             case ACD_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_UP:
-                pProj->oam_pointer = charged_pistol_oam_32b9a8;
+                pProj->oam_pointer = charged_pistol_oam_up_down;
                 break;
             default:
             case ACD_FORWARD:
-                pProj->oam_pointer = charged_pistol_oam_32b978;
+                pProj->oam_pointer = charged_pistol_oam_forward;
         }
 
         pProj->draw_distance_offset = 0x80;
@@ -2051,16 +2051,16 @@ void projectile_process_missile(struct projectile_data* pProj)
             case ACD_DIAGONALLY_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_DIAGONALLY_UP:
-                pProj->oam_pointer = missile_oam_326f58;
+                pProj->oam_pointer = missile_oam_diagonal;
                 break;
             case ACD_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_UP:
-                pProj->oam_pointer = missile_oam_326f70;
+                pProj->oam_pointer = missile_oam_up_down;
                 break;
             default:
             case ACD_FORWARD:
-                pProj->oam_pointer = missile_oam_326f40;
+                pProj->oam_pointer = missile_oam_forward;
         }
 
         projectile_decrement_missile_counter(pProj);
@@ -2140,16 +2140,16 @@ void projectile_process_super_missile(struct projectile_data* pProj)
             case ACD_DIAGONALLY_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_DIAGONALLY_UP:
-                pProj->oam_pointer = super_missile_oam_326fa0;
+                pProj->oam_pointer = super_missile_oam_diagonal;
                 break;
             case ACD_DOWN:
                 pProj->status |= PROJ_STATUS_YFLIP;
             case ACD_UP:
-                pProj->oam_pointer = super_missile_oam_326fb8;
+                pProj->oam_pointer = super_missile_oam_up_down;
                 break;
             default:
             case ACD_FORWARD:
-                pProj->oam_pointer = super_missile_oam_326f88;
+                pProj->oam_pointer = super_missile_oam_forward;
         }
 
         projectile_decrement_super_missile(pProj);
@@ -2242,7 +2242,7 @@ void projectile_process_bomb(struct projectile_data* pProj)
     switch (pProj->movement_stage)
     {
         case 0x0:
-            pProj->oam_pointer = bomb_oam_326d40; // Bomb spinning at normal speed
+            pProj->oam_pointer = bomb_oam_normal; // Bomb spinning at normal speed
             pProj->anim_duration_counter = 0x0;
             pProj->curr_anim_frame = 0x0;
             pProj->draw_distance_offset = 0x20;
@@ -2317,7 +2317,7 @@ void projectile_process_bomb(struct projectile_data* pProj)
             break;
 
         case 0x4:
-            pProj->oam_pointer = bomb_oam_326d40; // Bomb spinning at normal speed
+            pProj->oam_pointer = bomb_oam_normal; // Bomb spinning at normal speed
             pProj->anim_duration_counter = 0x0;
             pProj->curr_anim_frame = 0x0;
             pProj->timer = 0x10;
@@ -2329,7 +2329,7 @@ void projectile_process_bomb(struct projectile_data* pProj)
             pProj->timer--;
             if (pProj->timer == 0x0)
             {
-                pProj->oam_pointer = bomb_oam_326d68; // Bomb spinning fast
+                pProj->oam_pointer = bomb_oam_fast; // Bomb spinning fast
                 pProj->anim_duration_counter = 0x0;
                 pProj->curr_anim_frame = 0x0;
                 pProj->timer = 0x10;
@@ -2390,7 +2390,7 @@ void projectile_process_power_bomb(struct projectile_data* pProj)
                 if (equipment.current_power_bombs == 0x0)
                     samus_weapon_info.weapon_highlighted ^= WH_POWER_BOMB;
             }
-            pProj->oam_pointer = power_bomb_oam_326d90;
+            pProj->oam_pointer = power_bomb_oam_normal;
             pProj->anim_duration_counter = 0x0;
             pProj->curr_anim_frame = 0x0;
             pProj->draw_distance_offset = 0x20;
@@ -2418,7 +2418,7 @@ void projectile_process_power_bomb(struct projectile_data* pProj)
             pProj->timer--;
             if (pProj->timer == 0x0)
             {
-                pProj->oam_pointer = power_bomb_oam_326db0;
+                pProj->oam_pointer = power_bomb_oam_fast;
                 pProj->anim_duration_counter = 0x0;
                 pProj->curr_anim_frame = 0x0;
                 pProj->timer = 0x28;

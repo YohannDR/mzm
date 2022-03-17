@@ -177,7 +177,7 @@ void metroid_init(void)
         current_sprite.oam_pointer = metroid_oam_2edd20;
         current_sprite.anim_duration_counter = 0x0;
         current_sprite.curr_anim_frame = 0x0;
-        current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0];
+        current_sprite.health = primary_sprite_stats[current_sprite.sprite_id][0x0];
         current_sprite.y_position_spawn = current_sprite.health;
         current_sprite.samus_collision = SSC_NONE;
         sprite_util_make_sprite_face_samus_direction();

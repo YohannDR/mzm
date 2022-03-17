@@ -67,7 +67,7 @@ void worker_robot_init(void)
     current_sprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     current_sprite.timer2 = 0x0;
     current_sprite.samus_collision = SSC_SOLID;
-    current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0];
+    current_sprite.health = primary_sprite_stats[current_sprite.sprite_id][0x0];
     sprite_util_make_sprite_face_away_samus_x_flip();
     if (current_sprite.status & SPRITE_STATUS_XFLIP)
         current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;

@@ -37,7 +37,7 @@ void dragon_init(void)
     current_sprite.anim_duration_counter = 0x0;
     current_sprite.curr_anim_frame = 0x0;
     current_sprite.samus_collision = SSC_HURTS_SAMUS;
-    current_sprite.health = primary_sprite_stats_2b0d68[current_sprite.sprite_id][0x0];
+    current_sprite.health = primary_sprite_stats[current_sprite.sprite_id][0x0];
     sprite_util_make_sprite_face_samus_x_flip();
     current_sprite.pose = 0x8;
     current_sprite.y_position_spawn = current_sprite.y_position;
@@ -189,7 +189,7 @@ void dragon_fireball_init(void)
     current_sprite.samus_collision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
     current_sprite.draw_order = 0x3;
     current_sprite.bg_priority = io_registers_backup.bg2cnt & 0x3;
-    current_sprite.health = secondary_sprite_stats_2b1be4[current_sprite.sprite_id][0x0];
+    current_sprite.health = secondary_sprite_stats[current_sprite.sprite_id][0x0];
     
     if (current_sprite.status & SPRITE_STATUS_XFLIP)
     {

@@ -3,6 +3,7 @@
 #include "particle.h"
 #include "samus.h"
 #include "location_text.h"
+#include "../data/data.h"
 #include "globals.h"
 
 void sprite_util_init_location_text(void)
@@ -51,9 +52,9 @@ u8 sprite_util_take_damage_from_sprite(u8 kb_flag, struct sprite_data* pSprite, 
     u16 sprite_dmg;
 
     if ((pSprite->properties & SP_SECONDARY_SPRITE) != 0x0)
-        sprite_dmg = secondary_sprite_stats_2b1be4[pSprite->sprite_id][0x1] * dmg_mulitplier;
+        sprite_dmg = secondary_sprite_stats[pSprite->sprite_id][0x1] * dmg_mulitplier;
     else if ((pSprite->properties & SP_SECONDARY_SPRITE) == 0x0)
-        sprite_dmg = primary_sprite_stats_2b0d68[pSprite->sprite_id][0x1] * dmg_mulitplier;
+        sprite_dmg = primary_sprite_stats[pSprite->sprite_id][0x1] * dmg_mulitplier;
 
     damage = (u16)sprite_dmg;
 
@@ -1205,9 +1206,9 @@ u8 sprite_util_sprite_take_damage_from_samus_contact(struct sprite_data* pSprite
     }
 
     if (pSprite->properties & SP_SECONDARY_SPRITE)
-        weakness = secondary_sprite_stats_2b1be4[pSprite->sprite_id][0x2];
+        weakness = secondary_sprite_stats[pSprite->sprite_id][0x2];
     else if ((pSprite->properties & SP_SECONDARY_SPRITE) == 0x0)
-        weakness = primary_sprite_stats_2b0d68[pSprite->sprite_id][0x2];
+        weakness = primary_sprite_stats[pSprite->sprite_id][0x2];
 
     if (dct >= DCT_SUDO_SCREW)
     {
@@ -1399,7 +1400,7 @@ u8 sprite_util_check_has_drop(void)
 {
     u8 ram_slot;
     struct sprite_data* pSprite;
-    u8collision;
+    u8 collision;
 
     ram_slot = current_sprite.primary_sprite_ram_slot;
     collision = SSC_ABILITY_LASER_SEARCHLIGHT;
@@ -1528,19 +1529,19 @@ u8 sprite_util_determine_enemy_drop(void)
     sprite_id = current_sprite.sprite_id;
     if (current_sprite.properties & SP_SECONDARY_SPRITE)
     {
-        small_health_prob = secondary_sprite_stats_2b1be4[sprite_id][0x4];
-        large_health_prob = secondary_sprite_stats_2b1be4[sprite_id][0x5];
-        missile_prob = secondary_sprite_stats_2b1be4[sprite_id][0x6];
-        super_missile_prob = secondary_sprite_stats_2b1be4[sprite_id][0x7];
-        power_bomb_drop = secondary_sprite_stats_2b1be4[sprite_id][0x8];
+        small_health_prob = secondary_sprite_stats[sprite_id][0x4];
+        large_health_prob = secondary_sprite_stats[sprite_id][0x5];
+        missile_prob = secondary_sprite_stats[sprite_id][0x6];
+        super_missile_prob = secondary_sprite_stats[sprite_id][0x7];
+        power_bomb_drop = secondary_sprite_stats[sprite_id][0x8];
     }
     else
     {
-        small_health_prob = primary_sprite_stats_2b0d68[sprite_id][0x4];
-        large_health_prob = primary_sprite_stats_2b0d68[sprite_id][0x5];
-        missile_prob = primary_sprite_stats_2b0d68[sprite_id][0x6];
-        super_missile_prob = primary_sprite_stats_2b0d68[sprite_id][0x7];
-        power_bomb_drop = primary_sprite_stats_2b0d68[sprite_id][0x8];
+        small_health_prob = primary_sprite_stats[sprite_id][0x4];
+        large_health_prob = primary_sprite_stats[sprite_id][0x5];
+        missile_prob = primary_sprite_stats[sprite_id][0x6];
+        super_missile_prob = primary_sprite_stats[sprite_id][0x7];
+        power_bomb_drop = primary_sprite_stats[sprite_id][0x8];
     }
 
     if (power_bomb_drop != 0x0)

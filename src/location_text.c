@@ -1,6 +1,7 @@
 #include "location_text.h"
 #include "sprite.h"
-#include "gba/dma.h"
+#include "gba.h"
+#include "../data/data.h"
 #include "globals.h"
 
 u8 location_text_get_brinstar(void)
@@ -204,6 +205,12 @@ u8 location_text_load_area_banner_gfx(void)
     return gfx_slot;*/
 }
 
+/**
+ * 124dc | 10c | 
+ * Gets the current area location text number and returns the GFX slot for it, also does some part of the area banner sprite setup 
+ * 
+ * @return The GFX Slot 
+ */
 u8 location_text_get_gfx_slot(void)
 {
     u8 gfx_slot;
@@ -271,7 +278,7 @@ u8 location_text_get_gfx_slot(void)
                 gfx_slot = location_text_load_area_banner_gfx();
                 draw_location_text(lt, gfx_slot);
                 if (lt < LT_SAVE_ROOM)
-                    dma_set(3, array_2f7db4, array_5000300[gfx_slot], 0x80000010);
+                    dma_set(3, area_banner_location_text_pal, (VRAM_BASE + 0x300) + (gfx_slot * 0x20), 0x80000010);
             }
         }
     }

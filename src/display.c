@@ -12,11 +12,18 @@ void unk_57af8(void)
 
 }
 
+/**
+ * 57bd8 | 74 | 
+ * Updates the DISPCNT (Display Control) register
+ * 
+ * @param operation Operation (0 = Remove, 1 = Add)
+ * @param value Value to apply
+ */
 void io_update_dispcnt(u8 operation, u16 value)
 {
     if (value != 0x0)
     {
-        written_to_dispcnt = *(u16*)REG_BASE;
+        written_to_dispcnt = read16(REG_BASE);
         if (operation)
             dispcnt_backup = io_registers_backup.dispcnt_non_gameplay | value;
         else

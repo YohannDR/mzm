@@ -166,7 +166,7 @@ u8 connection_check_area_connection(u16 y_position, u16 x_position)
 
 void connection_process_door_type(u8 type)
 {
-    u8 transition;
+    /*8 transition;
 
     transition = 0x6;
 
@@ -190,7 +190,7 @@ void connection_process_door_type(u8 type)
             break;
     }
 
-    background_fading_start(transition);
+    background_fading_start(transition);*/
 }
 
 u8 connection_find_event_based_door(u8 source_room)

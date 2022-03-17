@@ -1,5 +1,6 @@
 #include "bg_clip.h"
 #include "globals.h"
+#include "../data/data.h"
 
 void bg_clip_mother_brain_update_glass(u8 unk, u16 unk2, u16 unk3, u16 unk4)
 {
@@ -38,7 +39,7 @@ u16 bg_clip_get_new_bldalpha_value(u16 clip)
 
     offset = (u16)(clip - 0x44);
     if (offset < 0xB)
-        return bldalpha_values_for_clipdata_345cc8[offset];
+        return bldalpha_values_for_clipdata[offset];
     else
     {
         bldalpha = 0x0;

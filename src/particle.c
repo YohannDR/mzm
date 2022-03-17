@@ -1,6 +1,7 @@
 #include "particle.h"
 #include "escape.h"
 #include "screen_shake.h"
+#include "../data/data.h"
 #include "globals.h"
 
 void particle_check_on_screen(struct particle_effect* pParticle)
@@ -154,7 +155,7 @@ void particle_set(u16 y_position, u16 x_position, u8 effect)
 
 }
 
-u8 particle_update_animation(struct particle_effect* pParticle, struct frame_data* oam_pParticle)
+u8 particle_update_animation(struct particle_effect* pParticle, struct frame_data* pOam)
 {
     u8 ended;
     u32 adc;
@@ -162,18 +163,18 @@ u8 particle_update_animation(struct particle_effect* pParticle, struct frame_dat
     ended = 0x0;
     adc = pParticle->anim_duration_counter + 0x1;
     pParticle->anim_duration_counter = adc;
-    if ((u8)oam_pParticle[pParticle->curr_anim_frame].timer <= (u8)adc)
+    if ((u8)pOam[pParticle->curr_anim_frame].timer <= (u8)adc)
     {
         pParticle->anim_duration_counter = 0x0;
         pParticle->curr_anim_frame++;
-        if ((u8)oam_pParticle[pParticle->curr_anim_frame].timer == 0x0)
+        if ((u8)pOam[pParticle->curr_anim_frame].timer == 0x0)
         {
             pParticle->curr_anim_frame = 0x0;
             ended = 0x1;
         }
     }
 
-    curr_particle_oam_frame_ptr = oam_pParticle[pParticle->curr_anim_frame].oam_frame_ptr;
+    curr_particle_oam_frame_ptr = pOam[pParticle->curr_anim_frame].oam_frame_ptr;
     return ended;
 }
 
@@ -187,7 +188,7 @@ void particle_sprite_splash_water_small(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_33d5ac);
+    ended = particle_update_animation(pParticle, particle_sprite_splash_water_small_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -205,7 +206,7 @@ void particle_sprite_splash_water_big(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_33d50c);
+    ended = particle_update_animation(pParticle, particle_sprite_splash_water_big_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -223,7 +224,7 @@ void particle_sprite_splash_water_huge(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_33d55c);
+    ended = particle_update_animation(pParticle, particle_sprite_splash_water_huge_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -241,7 +242,7 @@ void particle_sprite_splash_lava_small(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_33d684);
+    ended = particle_update_animation(pParticle, particle_sprite_splash_lava_small_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -259,7 +260,7 @@ void particle_sprite_splash_lava_big(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_33d5e4);
+    ended = particle_update_animation(pParticle, particle_sprite_splash_lava_big_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -277,7 +278,7 @@ void particle_sprite_splash_lava_huge(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_33d634);
+    ended = particle_update_animation(pParticle, particle_sprite_splash_lava_huge_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -538,7 +539,7 @@ void particle_missile_trail(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_327060);
+    ended = particle_update_animation(pParticle, particle_missile_trail_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -553,9 +554,9 @@ void particle_missile_trail(struct particle_effect* pParticle)
 void particle_super_missile_trail(struct particle_effect* pParticle)
 {
     u8 ended;
-
+    
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_3270a0);
+    ended = particle_update_animation(pParticle, particle_super_missile_trail_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -614,7 +615,7 @@ void particle_charged_long_beam_trailing(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_3284d8);
+    ended = particle_update_animation(pParticle, particle_charged_long_beam_trail_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -629,7 +630,7 @@ void particle_charged_ice_beam_trailing(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_328f04);
+    ended = particle_update_animation(pParticle, particle_charged_ice_beam_trail_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -644,7 +645,7 @@ void particle_charged_wave_beam_trail(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_329eac);
+    ended = particle_update_animation(pParticle, particle_charged_wave_beam_trail_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -659,7 +660,7 @@ void particle_charged_plasma_beam_trail(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_32b008);
+    ended = particle_update_animation(pParticle, particle_charged_plasma_beam_trail_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -674,7 +675,7 @@ void particle_charged_full_beam_trail(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_32b030);
+    ended = particle_update_animation(pParticle, particle_charged_full_beam_trail_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
@@ -689,7 +690,7 @@ void particle_charged_pistol_trail(struct particle_effect* pParticle)
     u8 ended;
 
     pParticle->frame_counter++;
-    ended = particle_update_animation(pParticle, particle_oam_32b9c0);
+    ended = particle_update_animation(pParticle, particle_charged_pistol_trail_oam);
     if (ended != 0x0)
         pParticle->status = 0x0;
     else
