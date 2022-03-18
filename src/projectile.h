@@ -44,7 +44,7 @@
 #define PROJ_TYPE_POWER_BOMB 0xF
 struct projectile_data {
     u8 status;
-    struct frame_data* oam_pointer;
+    struct FrameData* oam_pointer;
     u16 y_position;
     u16 x_position;
     u16 curr_anim_frame;

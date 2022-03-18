@@ -364,7 +364,7 @@ struct __attribute__((packed)) enemy_room_data {
 };
 
 struct sub_sprite_data {
-    struct frame_data* oam_pointer;
+    struct FrameData* oam_pointer;
     u16 curr_anim_frame;
     u16 y_position;
     u16 x_position;
@@ -392,7 +392,7 @@ struct sprite_data {
     u16 oam_scaling;
     u16 health;
     u16 curr_anim_frame;
-    struct frame_data* oam_pointer;
+    struct FrameData* oam_pointer;
     u8 anim_duration_counter;
     u8 sprite_id;
     u8 room_slot;

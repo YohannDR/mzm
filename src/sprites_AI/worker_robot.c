@@ -111,7 +111,7 @@ void worker_robot_walking_detect_projectile(void)
     u8 on_side;
     struct projectile_data* pProj;
     u8 type;
-    struct frame_data* pOam;
+    struct FrameData* pOam;
     u16 sprite_y;
     u16 sprite_x;
     u16 sprite_top;

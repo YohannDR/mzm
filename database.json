@@ -1179,12 +1179,273 @@
             "Size": 655392
         }
     ],
-    "blob_0x8331348_0x833cbdf.c": [{
-        "Name": "blob_0x8331348_0x833cbdf",
+    "blob_0x8331348_0x8339aa7.c": [{
+        "Name": "blob_0x8331348_0x8339aa7",
         "Offset": 3347272,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 47255
+        "Size": 34656
+    }],
+    "particle_beam_data.c": [{
+            "Name": "particle_shooting_beam_left_right_oam",
+            "Offset": 3382500,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        },
+        {
+            "Name": "particle_shooting_beam_diagonally_up_oam",
+            "Offset": 3382540,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        },
+        {
+            "Name": "particle_shooting_beam_diagonally_down_oam",
+            "Offset": 3382580,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        },
+        {
+            "Name": "particle_shooting_beam_up_oam",
+            "Offset": 3382620,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        },
+        {
+            "Name": "particle_shooting_beam_down_oam",
+            "Offset": 3382660,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        },
+        {
+            "Name": "particle_bomb_oam",
+            "Offset": 3382700,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 7
+        },
+        {
+            "Name": "particle_beam_trailing_oam",
+            "Offset": 3382756,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 6
+        },
+        {
+            "Name": "particle_charging_beam_oam_begin",
+            "Offset": 3382804,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 23
+        },
+        {
+            "Name": "particle_charging_beam_oam_charged",
+            "Offset": 3382988,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 3
+        }
+    ],
+    "particle_misc_data.c": [{
+            "Name": "particle_hitting_something_with_base_beam_oam",
+            "Offset": 3388556,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        },
+        {
+            "Name": "particle_hitting_something_with_long_beam_oam",
+            "Offset": 3388596,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 5
+        },
+        {
+            "Name": "particle_hitting_something_with_ice_beam_oam",
+            "Offset": 3388636,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 6
+        },
+        {
+            "Name": "particle_hitting_something_with_wave_beam_full_beam_no_plasma_oam",
+            "Offset": 3388684,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 7
+        },
+        {
+            "Name": "particle_hitting_something_with_plasma_beam_full_beam_oam",
+            "Offset": 3388740,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "particle_hitting_something_invincible_oam",
+            "Offset": 3388804,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 6
+        },
+        {
+            "Name": "particle_hitting_something_with_missile_oam",
+            "Offset": 3388852,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "particle_hitting_something_with_super_missile_oam",
+            "Offset": 3388916,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "particle_sprite_explosion_huge_oam",
+            "Offset": 3388980,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 14
+        },
+        {
+            "Name": "particle_small_dust_oam",
+            "Offset": 3389092,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 7
+        },
+        {
+            "Name": "particle_medium_dust_oam",
+            "Offset": 3389148,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 10
+        },
+        {
+            "Name": "particle_two_medium_dust_oam",
+            "Offset": 3389228,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 11
+        },
+        {
+            "Name": "particle_sprite_explosion_small_oam",
+            "Offset": 3389316,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 12
+        },
+        {
+            "Name": "particle_sprite_explosion_medium_oam",
+            "Offset": 3389412,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 18
+        },
+        {
+            "Name": "particle_sprite_explosion_big_oam",
+            "Offset": 3389556,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 18
+        },
+        {
+            "Name": "particle_sprite_explosion_single_then_big_oam",
+            "Offset": 3389700,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 17
+        },
+        {
+            "Name": "particle_screw_attack_destroyed_oam",
+            "Offset": 3389836,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 9
+        },
+        {
+            "Name": "particle_shinespark_destroyed_oam",
+            "Offset": 3389908,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 11
+        },
+        {
+            "Name": "particle_sudo_screw_destroyed_oam",
+            "Offset": 3389996,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 9
+        },
+        {
+            "Name": "particle_speedbooster_destroyed_oam",
+            "Offset": 3390068,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 9
+        },
+        {
+            "Name": "particle_freezing_sprite_with_ice_oam",
+            "Offset": 3390140,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 17
+        },
+        {
+            "Name": "particle_freezing_sprite_with_charged_ice_oam",
+            "Offset": 3390276,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 16
+        },
+        {
+            "Name": "particle_main_boss_death_oam",
+            "Offset": 3390404,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 18
+        },
+        {
+            "Name": "water_drop_oam",
+            "Offset": 3390548,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 8
+        },
+        {
+            "Name": "water_drop_oam_falling",
+            "Offset": 3390612,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 2
+        },
+        {
+            "Name": "water_drop_oam_splashing",
+            "Offset": 3390628,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 6
+        },
+        {
+            "Name": "sprite_debris_oam",
+            "Offset": 3390676,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 12
+        }
+    ],
+    "blob_0x833bd34_0x833cbdf.c": [{
+        "Name": "blob_0x833bd34_0x833cbdf",
+        "Offset": 3390772,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 3756
     }],
     "particle_splash_data.c": [{
             "Name": "particle_sprite_splash_water_big_oam",

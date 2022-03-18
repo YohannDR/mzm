@@ -76,7 +76,7 @@ void sprite_debris_draw(struct sprite_debris* pDebris)
     u16 x_position;
     u16 bg_y;
     u16 bg_x;
-    struct oam_frame* pFrame;
+    struct OamFrame* pFrame;
     struct raw_oam_data* pData;
 
     y_position = pDebris->y_position;

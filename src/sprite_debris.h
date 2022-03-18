@@ -5,7 +5,7 @@
 #include "oam.h"
 
 struct sprite_debris {
-    struct frame_data* oam_pointer;
+    struct FrameData* oam_pointer;
     u16 curr_anim_frame;
     u16 y_position;
     u16 x_position;

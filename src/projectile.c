@@ -111,7 +111,7 @@ void projectile_update(void)
 {
     /*u8 checks;
     i32 count;
-    struct particle_effect* pEffect;
+    struct ParticleEffect* pEffect;
     struct projectile_data* pProj;
     u8 type;
     u16 flag;

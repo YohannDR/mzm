@@ -197,7 +197,7 @@ struct samus_data {
 #define VDMOVING_DOWN 0x2
 
 struct samus_physics {
-    struct oam_frame* oam_frame_pointers[18];
+    struct OamFrame* oam_frame_pointers[18];
     u16 undefined;
     u16 arm_cannon_x_position_offset;
     u16 arm_cannon_y_position_offset;
