@@ -7,3 +7,4 @@
 *.o
 *.map
 *.bin
+data/*.c
