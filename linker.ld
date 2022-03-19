@@ -72,10 +72,10 @@ SECTIONS {
         . = 0x0000095E; escape_timer_digits = .;
         . = 0x0000095E; particle_escape_oam_frames = .;
         . = 0x00000A2C; projectile_data = .;
+        . = 0x00000B1D; is_current_file_existing = .;
         . = 0x00000BEC; arm_cannon_y = .;
         . = 0x00000BEE; arm_cannon_x = .;
         . = 0x00000BF0; pause_screen_flag = .;
-        . = 0x00000B1D; is_current_file_existing = .;
         . = 0x00000c70; game_mode_main = .;
         . = 0x00000c72; game_mode_sub1 = .;
         . = 0x00000c74; game_mode_sub2 = .;
