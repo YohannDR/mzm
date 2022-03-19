@@ -1339,7 +1339,7 @@ u8 sprite_util_count_secondary_sprites_with_current_sprite_ram_slot(u8 sprite_id
     return count;
 }
 
-u8 sprite_util_count_secondary_sprites_with_current_sprite_ram_slot(u8 sprite_id)
+u8 sprite_util_count_primary_sprites_with_current_sprite_ram_slot(u8 sprite_id)
 {
     u8 count;
     u8 ram_slot;
