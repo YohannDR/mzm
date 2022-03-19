@@ -27,4 +27,6 @@ struct raw_coords_y {
     u16 x;
 };
 
+typedef void (*Func_t)(void);
+
 #endif /* TYPES_H */

@@ -3,6 +3,101 @@
 
 #include "../src/oam.h"
 #include "../src/types.h"
+#include "../src/samus.h"
+#include "../src/sprites_AI/charge_beam.h"
+#include "../src/sprites_AI/deorem.h"
+#include "../src/sprites_AI/dragon.h"
+#include "../src/sprites_AI/elevator_pad.h"
+#include "../src/sprites_AI/enemy_drop.h"
+#include "../src/sprites_AI/explosion_zebes_escape.h"
+#include "../src/sprites_AI/geruta.h"
+#include "../src/sprites_AI/hive.h"
+#include "../src/sprites_AI/imago_cocoon.h"
+#include "../src/sprites_AI/map_station.h"
+#include "../src/sprites_AI/metroid.h"
+#include "../src/sprites_AI/item_banner.h"
+#include "../src/sprites_AI/zoomer.h"
+#include "../src/sprites_AI/zeela.h"
+#include "../src/sprites_AI/ripper.h"
+#include "../src/sprites_AI/zeb.h"
+#include "../src/sprites_AI/skree.h"
+#include "../src/sprites_AI/morph_ball.h"
+#include "../src/sprites_AI/chozo_statue.h"
+#include "../src/sprites_AI/sova.h"
+#include "../src/sprites_AI/multiviola.h"
+#include "../src/sprites_AI/squeept.h"
+#include "../src/sprites_AI/zipline_button.h"
+#include "../src/sprites_AI/reo.h"
+#include "../src/sprites_AI/gunship.h"
+#include "../src/sprites_AI/skultera.h"
+#include "../src/sprites_AI/dessgeega.h"
+#include "../src/sprites_AI/waver.h"
+#include "../src/sprites_AI/mellow.h"
+#include "../src/sprites_AI/power_grîp.h"
+#include "../src/sprites_AI/imago_larva.h"
+#include "../src/sprites_AI/morph_ball_launcher.h"
+#include "../src/sprites_AI/space_pirate.h"
+#include "../src/sprites_AI/gamet.h"
+#include "../src/sprites_AI/unknown_item_chozo_statue.h"
+#include "../src/sprites_AI/zebbo.h"
+#include "../src/sprites_AI/worker_robor.h"
+#include "../src/sprites_AI/parasite_multiple.h"
+#include "../src/sprites_AI/parasite.h"
+#include "../src/sprites_AI/piston.h"
+#include "../src/sprites_AI/ridley.h"
+#include "../src/sprites_AI/security_gate_default_close.h"
+#include "../src/sprites_AI/zipline_generator.h"
+#include "../src/sprites_AI/polyp.h"
+#include "../src/sprites_AI/rinka.h"
+#include "../src/sprites_AI/viola.h"
+#include "../src/sprites_AI/geron_norfair.h"
+#include "../src/sprites_AI/holtz.h"
+#include "../src/sprites_AI/gekitai_machine.h"
+#include "../src/sprites_AI/ruins_test.h"
+#include "../src/sprites_AI/save_platform.h"
+#include "../src/sprites_AI/kraid.h"
+#include "../src/sprites_AI/imago_cocoon_after_fight.h"
+#include "../src/sprites_AI/ripper2.h"
+#include "../src/sprites_AI/mella.h"
+#include "../src/sprites_AI/atomic.h"
+#include "../src/sprites_AI/area_banner.h"
+#include "../src/sprites_AI/mother_brain.h"
+#include "../src/sprites_AI/fake_power_bomb_trigger.h"
+#include "../src/sprites_AI/acid_worm.h"
+#include "../src/sprites_AI/escape_ship.h"
+#include "../src/sprites_AI/sidehopper.h"
+#include "../src/sprites_AI/geega.h"
+#include "../src/sprites_AI/rinka_mother_brain.h"
+#include "../src/sprites_AI/zebetite.h"
+#include "../src/sprites_AI/cannon.h"
+#include "../src/sprites_AI/zipline.h"
+#include "../src/sprites_AI/imago_larva_right_side.h"
+#include "../src/sprites_AI/tangle_vine.h"
+#include "../src/sprites_AI/mellow_swarm.h"
+#include "../src/sprites_AI/imago.h"
+#include "../src/sprites_AI/crocomire.h"
+#include "../src/sprites_AI/imago_larva.h"
+#include "../src/sprites_AI/geron.h"
+#include "../src/sprites_AI/glass_tube.h"
+#include "../src/sprites_AI/save_platform_chozodia.h"
+#include "../src/sprites_AI/baristute.h"
+#include "../src/sprites_AI/elevator_statue.h"
+#include "../src/sprites_AI/rising_chozo_pillar.h"
+#include "../src/sprites_AI/security_laser.h"
+#include "../src/sprites_AI/kraid_statue.h"
+#include "../src/sprites_AI/ridley_statue.h"
+#include "../src/sprites_AI/searchlight_eye.h"
+#include "../src/sprites_AI/steam.h"
+#include "../src/sprites_AI/unkown_item_block.h"
+#include "../src/sprites_AI/gadora.h"
+#include "../src/sprites_AI/primary_sprite_B3.h"
+#include "../src/sprites_AI/space_pirate_carrying_power_bomb.h"
+#include "../src/sprites_AI/water_drop.h"
+#include "../src/sprites_AI/falling_chozo_pillar.h"
+#include "../src/sprites_AI/mecha_ridley.h"
+#include "../src/sprites_AI/escape_gate.h"
+#include "../src/sprites_AI/black_space_pirate.h"
+#include "../src/sprites_AI/escape_ship_pirate.h"
 
 /* generic_data.c */
 
@@ -1127,8 +1222,21 @@ u8 blob_0x83d75c_0x8345cc8[34156];
 
 u16 bldalpha_values_for_clipdata[11];
 
-/* blob_0x8345cde_0x87fffff.c */
+/* blob_0x8345cde_0x875e6a7.c */
 
-u8 blob_0x8345cde_0x87fffff[4956961];
+u8 blob_0x8345cde_0x875e6a7[4295113];
+
+/* samus_pointers_data.c */
+
+SamusFunc_t samus_pose_functions_pointers[67];
+SamusFunc_t samus_pose_gfx_functions_pointers[67];
+
+/* sprite_pointers.c */
+
+Func_t primary_sprite_ai_pointers[206];
+
+/* blob_0x875e8c0_0x87fffff.c */
+
+u8 blob_0x875e8c0_0x87fffff[661311];
 
 #endif /* DATA_H */

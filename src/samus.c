@@ -30,7 +30,7 @@ u8 unk_5794(struct SamusData* pData, i16 x_offset)
 
 }
 
-u8 unk_57EC(struct SamusData* pData, i16 unk)
+u8 unk_57EC(struct SamusData* pData, i16 hitbox)
 {
 
 }
@@ -65,9 +65,196 @@ u8 samus_check_collisions(struct SamusData* pData, struct SamusPhysics* pPhysics
 
 }
 
-void samus_check_set_environmental_effect(struct SamusData* pData, u8 default_offset, u8 request)
+/**
+ * 6214 | 3dc | 
+ * Checks if an environment effect for samus can/should spawn and spawns it
+ * 
+ * @param pData Samus Data Pointer
+ * @param default_offset Default offset in the global array (0 means auto)
+ * @param request Environmental effect requested
+ */
+void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_offset, u32 request)
 {
+    /*struct SamusPhysics* pPhysics;
+    struct EnvironmentalEffect* pEnv;
+    u8 offset;
+    u8 effect;
+    u8 found;
+    u8 can_spawn;
+    u8 ground_clip;
+    u16 x_position;
+    u16 y_position;
 
+    pPhysics = &samus_physics;
+    found = FALSE;
+    can_spawn = TRUE;
+
+    if (default_offset == 0x0)
+    {
+        offset = 0x0;
+        pEnv = samus_environmental_effects + offset;
+        while (pEnv->type != ENV_EFFECT_NONE)
+        {
+            offset++;
+            if (offset > 0x2)
+            {
+                can_spawn--;
+                break;
+            }
+            pEnv = samus_environmental_effects + offset;
+        }
+        if (offset < 0x2)
+            can_spawn--;
+    }
+    else
+        offset = default_offset;
+
+    switch (request)
+    {
+        case WANTING_RUNNING_EFFECT:
+        case WANTING_RUNNING_EFFECT_:
+            if (pData->direction & DIRECTION_RIGHT)
+                x_position = pData->x_position + 0x4;
+            else
+                x_position = pData->x_position - 0x4;
+            ground_clip = clipdata_check_ground_effect(pData->y_position + 0x1, x_position);
+            if (ground_clip == GROUND_EFFECT_WET_GROUND)
+            {
+                effect = ENV_EFFECT_RUNNING_ON_WET_GROUND;
+                found++;
+                if (request == WANTING_RUNNING_EFFECT)
+                {
+                    if (equipment.suit_type == SUIT_SUITLESS)
+                        sound_play1(0xA1);
+                    else
+                        sound_play1(0x68);
+                }
+                else
+                {                    
+                    if (equipment.suit_type == SUIT_SUITLESS)
+                        sound_play1(0xA2);
+                    else
+                        sound_play1(0x69);
+                }
+            }
+            else if (ground_clip == GROUND_EFFECT_VERY_DUSTY_GROUND)
+            {
+                effect = ENV_EFFECT_RUNNING_ON_DUSTY_GROUND;
+                found++;
+                if (request != WANTING_RUNNING_EFFECT)
+                    sound_play1(0x67);
+                else
+                    sound_play1(0x66);
+            }
+            else if (ground_clip == GROUND_EFFECT_VERY_DUSTY_GROUND)
+            {
+                effect = ENV_EFFECT_RUNNING_ON_VERY_DUSTY_GROUND;
+                found++;
+                if (request != WANTING_RUNNING_EFFECT)
+                    sound_play1(0x67);
+                else
+                    sound_play1(0x66);
+            }
+            y_position = pData->y_position;
+            break;
+
+        case WANTING_LANDING_EFFECT:
+            ground_clip = clipdata_check_ground_effect(pData->y_position + 0x1, pData->x_position);
+            if (ground_clip == GROUND_EFFECT_WET_GROUND)
+            {
+                effect = ENV_EFFECT_LANDING_ON_WET_GROUND;
+                found++;
+                if (equipment.suit_type == SUIT_SUITLESS)
+                    sound_play1(0xA3);
+                else
+                    sound_play1(0x74);
+            }
+            else if (ground_clip == GROUND_EFFECT_BUBBLY_GROUND)
+            {
+                effect = ENV_EFFECT_LANDING_ON_BUBBLY_GROUND;
+                found++;
+            }
+            else if (ground_clip == GROUND_EFFECT_DUSTY_GROUND)
+            {
+                effect = ENV_EFFECT_LANDING_ON_DUSTY_GROUND;
+                found++;
+                sound_play1(0x73);
+            }
+            else if (ground_clip == GROUND_EFFECT_VERY_DUSTY_GROUND)
+            {
+                effect = ENV_EFFECT_LANDING_ON_VERY_DUSTY_GROUND;
+                found++;
+                sound_play1(0x73);
+            }
+            else
+            {
+                if (pPhysics->slowed_by_liquid)
+                    sound_play1(0x95);
+                else if (samus_data_copy.last_wall_touched_midair != 0x0)
+                    sound_play1(0x72);
+                else if (equipment.suit_type != SUIT_SUITLESS)
+                    sound_play1(0x71);
+                else
+                    sound_play1(0x99);
+            }
+            x_position = pData->x_position;
+            y_position = pData->y_position;
+            break;
+
+        case WANTING_GOING_OUT_OF_LIQUID_EFFECT:
+        case WANTING_RUNNING_OUT_OF_LIQUID_EFFECT:
+            break;
+
+        case WANTING_BREATHING_BUBBLES:
+            if (pData->standing_status != STANDING_MIDAIR)
+            {
+                effect = ENV_EFFECT_BREATHING_BUBBLES;
+                found++;
+                if (pData->direction & DIRECTION_RIGHT)
+                    x_position = pData->x_position + 0xC;
+                else
+                    x_position = pData->x_position - 0xC;
+                y_position = pPhysics->draw_distance_top_offset + pData->y_position + 0x10;
+            }
+            sound_play1(0x91);
+            break;
+
+        case WANTING_SKIDDING_EFFECT:
+            ground_clip = clipdata_check_ground_effect(pData->y_position + 0x1, pData->x_position);
+            if (ground_clip == GROUND_EFFECT_WET_GROUND)
+            {
+                effect = ENV_EFFECT_SKIDDING_ON_WET_GROUND;
+                found++;
+            }
+            else if ((ground_clip - 0x2) < 0x2)
+            {
+                effect = ENV_EFFECT_SKIDDING_ON_DUSTY_GROUND;
+                found++;
+            }
+            x_position = pData->x_position;
+            y_position = pData->y_position;
+            break;
+
+        case WANTING_RUNNING_ON_WET_GROUND:
+            ground_clip = clipdata_check_ground_effect(pData->y_position + 0x1, pData->x_position);
+            if (ground_clip == GROUND_EFFECT_WET_GROUND)
+            {
+                effect = ENV_EFFECT_RUNNING_ON_WET_GROUND;
+                x_position = pData->x_position;
+                y_position = pData->y_position;
+                found++;
+            }
+            break;
+    }
+
+    if (found & can_spawn)
+    {
+        samus_environmental_effects[offset].type = effect;
+        samus_environmental_effects[offset].curr_animation_frame = 0x0;
+        samus_environmental_effects[offset].anim_duration_counter = 0x0;
+        samus_environmental_effects[offset].x_position = x_position;
+        samus_environmental_effects[offset].y_position = y_position;
+    }*/
 }
 
 void samus_update_environmental_effect(struct SamusData* pData)
@@ -75,17 +262,126 @@ void samus_update_environmental_effect(struct SamusData* pData)
 
 }
 
-void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy, struct weapon_info* pWeapon)
+void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
 
 }
 
-void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, struct weapon_info* pWeapon)
+void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
+    u8 unk;
 
+    pCopy->last_wall_touched_midair = 0x0;
+    switch (pCopy->pose)
+    {
+        case SPOSE_MIDAIR:
+            unk = unk_57EC(pData, samus_hitbox_data[0x0][0x2]);
+            if (unk)
+                pData->pose = SPOSE_CROUCHING;
+            else
+            {
+                if (pCopy->x_velocity == 0x0)
+                    pData->pose = SPOSE_LANDING;
+                else
+                {
+                    if (!pCopy->speedboosting_shinesparking)
+                        pData->pose = SPOSE_STANDING;
+                    else
+                    {
+                        pData->pose = SPOSE_RUNNING;
+                        pData->speedboosting_shinesparking = TRUE;
+                    }
+                }
+            }
+            break;
+
+        case SPOSE_MORPH_BALL_MIDAIR:
+            pCopy->last_wall_touched_midair++;
+            if (button_input & KEY_A && equipment.suit_misc_activation & SMF_HIGH_JUMP)
+            {
+                unk = unk_57EC(pData, samus_hitbox_data[0x0][0x2]);
+                if ((unk & 0x6) == 0x0)
+                    pData->forced_movement = 0x14;
+            }
+            else
+            {
+                if (pCopy->y_velocity < -0xC0 && !samus_physics.slowed_by_liquid)
+                {
+                    if (clipdata_check_ground_effect((u16)(pData->y_position + 0x1), pData->x_position) != GROUND_EFFECT_VERY_DUSTY_GROUND)
+                    {
+                        pData->forced_movement = 0x1;
+                        pData->y_velocity = 0x32;
+                        break;
+                    }
+                }
+            }
+
+        case SPOSE_GETTING_HURT_IN_MORPH_BALL:
+        case SPOSE_GETTING_KNOCKED_BACK_IN_MORPH_BALL:
+            pData->pose = SPOSE_MORPH_BALL;
+            break;
+
+        case SPOSE_SHINESPARKING:
+        case SPOSE_BALLSPARKING:
+            if (button_input & pData->direction)
+            {
+                if (pData->direction & DIRECTION_RIGHT)
+                    pData->x_velocity = 0xA0;
+                else
+                    pData->x_velocity = -0xA0;
+
+                if (pCopy->pose == SPOSE_SHINESPARKING)
+                    pData->pose = SPOSE_RUNNING;
+                else
+                {
+                    pData->pose = SPOSE_ROLLING;
+                    pData->shinespark_timer = 0x6;
+                }
+                pData->speedboosting_shinesparking = TRUE;
+                pData->speedbooster_timer = 0xA0;
+                sound_play1(0x8B);
+            }
+            else
+            {
+                screen_shake_start_horizontal(0x1E, 0x1);
+                if (pCopy->pose == SPOSE_SHINESPARKING)
+                    pData->pose = SPOSE_SHINESPARK_COLLISION;
+                else
+                    pData->pose = SPOSE_BALLSPARK_COLLISION;
+                pData->forced_movement = pCopy->forced_movement;
+                pData->curr_anim_frame = 0x1;
+                sound_play1(0x90);
+            }
+            break;
+
+        default:
+            if (unk_57EC(pData, samus_hitbox_data[0x0][0x2]))
+                pData->pose = SPOSE_CROUCHING;
+            else if (pCopy->x_velocity == 0x0)
+                pData->pose = SPOSE_LANDING;
+            else
+                pData->pose = SPOSE_STANDING;
+    }
+
+    pData->arm_cannon_direction = pCopy->arm_cannon_direction;
+
+    switch (pData->pose)
+    {
+        case SPOSE_LANDING:
+            if (samus_physics.has_new_projectile != 0x0)
+                pData->curr_anim_frame = 0x1;
+        case SPOSE_RUNNING:
+            if ((u8)pData->arm_cannon_direction == ACD_UP)
+                pData->arm_cannon_direction = ACD_DIAGONALLY_UP;
+        case SPOSE_STANDING:
+            if ((u8)(pData->arm_cannon_direction - 0x0) == ACD_DOWN)
+                pData->arm_cannon_direction == ACD_DIAGONALLY_DOWN;
+    }
+
+    samus_check_set_environmental_effect(pData, 0x0, WANTING_LANDING_EFFECT);
 }
 
-void samus_change_to_hurt_pose(struct SamusData* pData, struct SamusData* pCopy, struct weapon_info* pWeapon)
+void samus_change_to_hurt_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
     i16 new_x_velo; 
     i16 new_y_velo; 
@@ -157,7 +453,7 @@ void samus_change_to_hurt_pose(struct SamusData* pData, struct SamusData* pCopy,
     pWeapon->beam_release_palette_timer = 0x0;
 }
 
-void samus_change_to_knockback_pose(struct SamusData* pData, struct SamusData* pCopy, struct weapon_info* pWeapon)
+void samus_change_to_knockback_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
     u8 y_pos_related;
 
@@ -203,14 +499,14 @@ void samus_change_to_knockback_pose(struct SamusData* pData, struct SamusData* p
     pWeapon->beam_release_palette_timer = 0x0;
 }
 
-void samus_turn_around_arm_cannon_start_shinespark(struct SamusData* pData, struct SamusData* pCopy, struct weapon_info* pWeapon)
+void samus_turn_around_arm_cannon_start_shinespark(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
 
 }
 
 void samus_set_pose(u8 pose)
 {
-    struct weapon_info* pWeapon;
+    struct WeaponInfo* pWeapon;
     struct SamusData* pData;
     struct SamusData* pCopy;
 
@@ -405,10 +701,14 @@ void samus_call_check_low_health(void)
 
 void samus_call_update_arm_cannon_position_offset(void)
 {
-    /*if (samus_data.direction & DIRECTION_RIGHT)
-        samus_update_arm_cannon_position_offset(TRUE);
-    else
-        samus_update_arm_cannon_position_offset(FALSE);*/
+    u8 flag;
+    u8 direction;
+
+    flag = samus_data.direction & DIRECTION_RIGHT;
+    direction = TRUE;
+    if (flag)
+        direction = FALSE;
+    samus_update_arm_cannon_position_offset(direction);
 }
 
 void samus_bounce_bomb(u8 direction)
@@ -442,7 +742,7 @@ void samus_bounce_bomb(u8 direction)
 
 void samus_aim_cannon(struct SamusData* pData)
 {
-    /*struct weapon_info* pWeapon;
+    /*struct WeaponInfo* pWeapon;
     u16 direction;
 
     pWeapon = &samus_weapon_info;
@@ -589,7 +889,7 @@ void samus_aim_cannon(struct SamusData* pData)
     }*/
 }
 
-u8 samus_fire_beam_missile(struct SamusData* pData, struct weapon_info* pWeapon, struct equipment* pEquipment)
+u8 samus_fire_beam_missile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct equipment* pEquipment)
 {
     /*u8 has_proj;
     u8 new_proj;
@@ -659,7 +959,7 @@ u8 samus_fire_beam_missile(struct SamusData* pData, struct weapon_info* pWeapon,
     return has_proj;*/
 }
 
-u8 samus_fire_check_fully_charged_pistol(struct SamusData* pData, struct weapon_info* pWeapon)
+u8 samus_fire_check_fully_charged_pistol(struct SamusData* pData, struct WeaponInfo* pWeapon)
 {
     u8 new_proj;
 
@@ -691,7 +991,7 @@ u8 samus_fire_check_fully_charged_pistol(struct SamusData* pData, struct weapon_
     return new_proj;
 }
 
-void samus_check_new_projectile(struct SamusData* pData, struct weapon_info* pWeapon, struct equipment* pEquipment)
+void samus_check_new_projectile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct equipment* pEquipment)
 {
     struct SamusPhysics* pPhysics;
 
@@ -789,7 +1089,7 @@ u8 samus_check_a_pressed(struct SamusData* pData)
     return return_value;
 }
 
-void samus_set_highlighted_weapon(struct SamusData* pData, struct weapon_info* pWeapon, struct equipment* pEquipment)
+void samus_set_highlighted_weapon(struct SamusData* pData, struct WeaponInfo* pWeapon, struct equipment* pEquipment)
 {
     /*u8 weapon_high;
 
@@ -1279,7 +1579,7 @@ u8 samus_crouching(struct SamusData* pData)
 {
     /*u8 unk;
     u16 x_position;
-    struct weapon_info* pWeapon;
+    struct WeaponInfo* pWeapon;
     u16* input;
     u32 timer;
 
@@ -1714,7 +2014,7 @@ u8 samus_space_jumping_gfx(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_flag_gfx(struct SamusData* pData)
+u8 samus_screw_attacking_gfx(struct SamusData* pData)
 {
 
 }
@@ -2460,9 +2760,9 @@ u8 samus_turning_to_enter_escape_ship_gfx(struct SamusData* pData)
 
 u8 samus_execute_pose_subroutine(struct SamusData* pData)
 {
-    /*u8 pose;
+    u8 pose;
     u8 timer;
-    struct weapon_info* pWeapon;
+    struct WeaponInfo* pWeapon;
     struct equipment* pEquipment;
     struct HazardDamage* pHazard;
 
@@ -2495,7 +2795,7 @@ u8 samus_execute_pose_subroutine(struct SamusData* pData)
         samus_check_shinesparking(pData);
     }
 
-    return pose;*/
+    return pose;
 }
 
 void samus_update_velocity_position(struct SamusData* pData)

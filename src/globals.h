@@ -129,10 +129,11 @@ extern u16 bg3_y_position;
 extern u8 unk_030013d2;
 extern struct SamusData samus_data;
 extern struct SamusData samus_data_copy;
-extern struct weapon_info samus_weapon_info;
+extern struct WeaponInfo samus_weapon_info;
 extern struct ScrewSpeedAnimation screw_speed_animation;
 extern struct equipment equipment;
 extern struct HazardDamage samus_hazard_damage;
+extern struct EnvironmentalEffect samus_environmental_effects[5];
 extern struct SamusPhysics samus_physics;
 extern u16 previous_x_position;
 extern u16 previous_y_position;
@@ -151,7 +152,7 @@ extern void *sp_sys;
 extern void *sp_irq;
 extern u16 unk_03007ff8;
 extern u16 (*intr_code_ptr)[0x100];
-extern callback_t intr_vector[13];
+extern Func_t intr_vector[13];
 
 // IO
 

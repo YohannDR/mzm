@@ -55,7 +55,7 @@ struct equipment {
 #define WH_SUPER_MISSILE 0x2
 #define WH_POWER_BOMB 0x4
 
-struct weapon_info {
+struct WeaponInfo {
     u8 diagonal_aim;
     u8 new_projectile;
     u8 weapon_highlighted;
@@ -226,17 +226,50 @@ struct SamusPhysics {
     i16 draw_distance_right_offset;
     i16 draw_distance_bottom_offset;
 };
+
 struct ScrewSpeedAnimation {
     u8 flag;
     u8 anim_duration_counter;
     u8 curr_anim_frame;
     u32 unknown;
 };
+
 struct HazardDamage {
     u8 damage_timer;
+    u8 undefined; // Needed for correct alignment
     u16 knockback_timer;
     u8 palette_timer;
 };
+
+struct EnvironmentalEffect {
+    u8 type;
+    u8 anim_duration_counter;
+    u8 curr_animation_frame;
+    u8 breathing_timer;
+    u16 x_position;
+    u16 y_position;
+    struct OamFrame* pOAMFrame;
+};
+
+#define ENV_EFFECT_NONE 0x0
+#define ENV_EFFECT_RUNNING_ON_WET_GROUND 0x1
+#define ENV_EFFECT_RUNNING_ON_DUSTY_GROUND 0x2
+#define ENV_EFFECT_RUNNING_ON_VERY_DUSTY_GROUND 0x3
+#define ENV_EFFECT_GOING_OUT_OF_WATER 0x4
+#define ENV_EFFECT_RUNNING_INTO_WATER 0x5
+#define ENV_EFFECT_GOING_OUT_OF_LAVA 0x6
+#define ENV_EFFECT_RUNNING_INTO_LAVA 0x7
+#define ENV_EFFECT_GOING_OUT_OF_ACID 0x8
+#define ENV_EFFECT_RUNNING_INTO_ACID 0x9
+#define ENV_EFFECT_TAKING_DAMAGE_IN_LAVA 0xA
+#define ENV_EFFECT_TAKING_DAMAGE_IN_ACID 0xB
+#define ENV_EFFECT_LANDING_ON_WET_GROUND 0xC
+#define ENV_EFFECT_LANDING_ON_BUBBLY_GROUND 0xD
+#define ENV_EFFECT_LANDING_ON_DUSTY_GROUND 0xE
+#define ENV_EFFECT_LANDING_ON_VERY_DUSTY_GROUND 0xF
+#define ENV_EFFECT_SKIDDING_ON_WET_GROUND 0x10
+#define ENV_EFFECT_SKIDDING_ON_DUSTY_GROUND 0x11
+#define ENV_EFFECT_BREATHING_BUBBLES 0x12
 
 #define WANTING_RUNNING_EFFECT 0x0
 #define WANTING_RUNNING_EFFECT_ 0x1
@@ -254,20 +287,20 @@ u8 samus_slope_related(u16 x_position, u16 y_position, u16* next_x_position, u16
 u8 unk_5604(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* next_x_position);
 u8 unk_56B8(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* next_x_position);
 u8 unk_5794(struct SamusData* pData, i16 x_offset);
-u8 unk_57EC(struct SamusData* pData, i16 unk);
+u8 unk_57EC(struct SamusData* pData, i16 hitbox);
 u8 samus_check_walking_sides_collision(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 unk_5AD8(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 samus_check_standing_on_ground_collision(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 samus_check_landing_collision(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 samus_check_top_collision(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 samus_check_collisions(struct SamusData* pData, struct SamusPhysics* pPhysics);
-void samus_check_set_environmental_effect(struct SamusData* pData, u8 default_offset, u8 request);
+void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_offset, u32 request);
 void samus_update_environmental_effect(struct SamusData* pData);
-void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy, struct weapon_info* pWeapon);
-void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, struct weapon_info* pWeapon);
-void samus_change_to_hurt_pose(struct SamusData* pData, struct SamusData* pCopy, struct weapon_info* pWeapon);
-void samus_change_to_knockback_pose(struct SamusData* pData, struct SamusData* pCopy, struct weapon_info* pWeapon);
-void samus_turn_around_arm_cannon_start_shinespark(struct SamusData* pData, struct SamusData* pCopy, struct weapon_info* pWeapon);
+void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);
+void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);
+void samus_change_to_hurt_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);
+void samus_change_to_knockback_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);
+void samus_turn_around_arm_cannon_start_shinespark(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);
 void samus_set_pose(u8 pose);
 void samus_copy_data(struct SamusData* pData);
 void samus_update_physics(struct SamusData* pData);
@@ -280,11 +313,11 @@ void samus_call_check_low_health(void);
 void samus_call_update_arm_cannon_position_offset(void);
 void samus_bounce_bomb(u8 direction);
 void samus_aim_cannon(struct SamusData* pData);
-u8 samus_fire_beam_missile(struct SamusData* pData, struct weapon_info* pWeapon, struct equipment* pEquipment);
-u8 samus_fire_check_fully_charged_pistol(struct SamusData* pData, struct weapon_info* pWeapon);
-void samus_check_new_projectile(struct SamusData* pData, struct weapon_info* pWeapon, struct equipment* pEquipment);
+u8 samus_fire_beam_missile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct equipment* pEquipment);
+u8 samus_fire_check_fully_charged_pistol(struct SamusData* pData, struct WeaponInfo* pWeapon);
+void samus_check_new_projectile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct equipment* pEquipment);
 u8 samus_check_a_pressed(struct SamusData* pData);
-void samus_set_highlighted_weapon(struct SamusData* pData, struct weapon_info* pWeapon, struct equipment* pEquipment);
+void samus_set_highlighted_weapon(struct SamusData* pData, struct WeaponInfo* pWeapon, struct equipment* pEquipment);
 void samus_set_spinning_pose(struct SamusData* pData, struct equipment* pEquipment);
 void samus_apply_x_acceleration(i16 acceleration, i16 velocity, struct SamusData* pData);
 u8 samus_take_hazard_damage(struct SamusData* pData, struct equipment* pEquipment, struct HazardDamage* pHazard);
@@ -313,7 +346,7 @@ u8 samus_spinning_gfx(struct SamusData* pData);
 u8 samus_starting_wall_jump(struct SamusData* pData);
 u8 samus_starting_wall_jump_gfx(struct SamusData* pData);
 u8 samus_space_jumping_gfx(struct SamusData* pData);
-u8 samus_flag_gfx(struct SamusData* pData);
+u8 samus_screw_attacking_gfx(struct SamusData* pData);
 u8 samus_morphing(struct SamusData* pData);
 u8 samus_morphing_gfx(struct SamusData* pData);
 u8 samus_morphball(struct SamusData* pData);

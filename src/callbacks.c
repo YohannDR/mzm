@@ -19,7 +19,7 @@ void call_vblank_callback(void) {
     }
 }
 
-void set_vblank_callback(callback_t callback) {
+void set_vblank_callback(Func_t callback) {
     vblank_callback = callback;
     if (!callback) {
         vblank_callback = empty_callback;
@@ -34,7 +34,7 @@ void call_hblank_callback(void) {
     write16(REG_IF, read16(REG_IF) | IF_HBLANK);
 }
 
-void set_hblank_callback(callback_t callback) {
+void set_hblank_callback(Func_t callback) {
     hblank_callback = callback;
     if (!callback) {
         hblank_callback = empty_callback;
@@ -49,7 +49,7 @@ void call_vcount_callback(void) {
     write16(REG_IF, read16(REG_IF) | IF_VCOUNT);
 }
 
-void set_vcount_callback(callback_t callback) {
+void set_vcount_callback(Func_t callback) {
     vcount_callback = callback;
     if (!callback) {
         vcount_callback = empty_callback;
@@ -64,7 +64,7 @@ void call_serial_comm_callback(void) {
     write16(REG_IF, read16(REG_IF) | IF_SERIAL);
 }
 
-void set_serial_comm_callback(callback_t callback) {
+void set_serial_comm_callback(Func_t callback) {
     serial_comm_callback = callback;
     if (!callback) {
         serial_comm_callback = empty_callback;
@@ -79,7 +79,7 @@ void call_timer3_callback(void) {
     write16(REG_IF, read16(REG_IF) | IF_TIMER3);
 }
 
-void set_timer3_callback(callback_t callback) {
+void set_timer3_callback(Func_t callback) {
     timer3_callback = callback;
     if (!callback) {
         timer3_callback = empty_callback;

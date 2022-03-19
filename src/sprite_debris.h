@@ -14,7 +14,6 @@ struct SpriteDebris {
     u8 debris_type;
     u8 falling_timer;
     u8 array_offset;
-    u8 undefined;
 };
 
 void sprite_debris_set_splash(u16 old_y, u16 y_position, u16 x_position);

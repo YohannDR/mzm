@@ -105,6 +105,7 @@ SECTIONS {
         . = 0x00001528; screw_speed_animation = .;
         . = 0x00001530; equipment = .;
         . = 0x00001530; samus_hazard_damage = .;
+        . = 0x0000154C; samus_environmental_effects = .;
         . = 0x00001588; samus_physics = .;
         . = 0x00001600; previous_x_position = .;
         . = 0x00001602; previous_y_position = .;

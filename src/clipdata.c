@@ -36,7 +36,7 @@ u8 clidpata_check_cant_use_elevator(void)
 
 }
 
-u8 clipdata_check_effect(u16 y_position, u16 x_position)
+u8 clipdata_check_ground_effect(u16 y_position, u16 x_position)
 {
 
 }
