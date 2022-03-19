@@ -19,6 +19,7 @@ SECTIONS {
         . = 0x0000002B; samus_on_top_backgrounds = .;
         . = 0x0000002C; difficulty = .;
         . = 0x0000002D; use_mother_ship_doors = .;
+        . = 0x00000038; curr_demo = .;
         . = 0x0000003c; reset_game = .;
         . = 0x0000003D; disable_scrolling = .;
         . = 0x00000042; skip_door_transition = .;
@@ -112,7 +113,7 @@ SECTIONS {
         . = 0x00001cec; vblank_callback = .;
         . = 0x00001cf0; hblank_callback = .;
         . = 0x00001cf4; vcount_callback = .;
-        . = 0x00001cf8; serial_callback = .;
+        . = 0x00001cf8; serial_comm_callback = .;
         . = 0x00001cfc; timer3_callback = .;
         . = 0x00004fc9; unk_03004fc9 = .;
         . = 0x000052E0; samus_palette = .;

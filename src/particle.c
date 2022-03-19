@@ -1573,7 +1573,7 @@ void particle_escape(struct ParticleEffect* pParticle)
     }
 
     escape_update_oam();
-    curr_particle_oam_frame_ptr = particle_escape_oam_frames;
+    curr_particle_oam_frame_ptr = (struct OamFrame*)particle_escape_oam_frames;
 }
 
 /**
