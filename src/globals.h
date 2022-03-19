@@ -111,7 +111,7 @@ extern i8 game_mode_sub2;
 extern i8 game_mode_sub3;
 extern i8 unk_03000c76;
 extern u8 frame_counter_8bit;
-extern u16 vblank_request_flag;
+extern vu16 vblank_request_flag;
 extern u16 intr_code[0x100];
 extern struct RawOamData oam_data[160];
 extern u16 button_input;

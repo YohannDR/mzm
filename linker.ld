@@ -7,7 +7,7 @@ MEMORY {
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
         . = 0x02037e00; events_triggered = .;
-    }
+    } >ewram
 
     iwram (NOLOAD) : ALIGN(4) {
         . = 0x00000000; debug_flag = .;
@@ -128,7 +128,7 @@ SECTIONS {
         . = 0x00007ff8; unk_03007ff8 = .;
         . = 0x00007ffc; intr_code_ptr = .;
         . = 0x00007ffc; intr_vector = .;
-    }
+    } >iwram
 
     rom : ALIGN(2) {
         asm/romheader.o(.text);
