@@ -6,7 +6,7 @@ MEMORY {
 
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
-        . = 0x02037e00; events_triggered = .;
+        . = 0x00037e00; events_triggered = .;
     } >ewram
 
     iwram (NOLOAD) : ALIGN(4) {
