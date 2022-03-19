@@ -25,7 +25,7 @@ void room_load_tileset(void)
  */
 void room_load_entry(void)
 {
-    /*struct room_entry_rom entry;
+    /*struct RoomEntryROM* entry;
     u16 effect_y;
 
     entry = entry_pointers[current_area][current_room]; // memcpy at compilation
@@ -58,7 +58,7 @@ void room_load_entry(void)
     // Check for second spriteset
     if (entry.second_spriteset_event != EVENT_NONE && event_function(EVENT_ACTION_CHECKING, current_room_entry.second_spriteset_event))
     {
-        current_room_entry.enemy_room_data = entry.second_sprite_data_ptr;
+        current_room_entry.enemy_room_data = entry.pSecondSpriteData;
         spriteset = entry.second_spriteset;
         spriteset_entry_used = 0x2;
     }
@@ -74,7 +74,7 @@ void room_load_entry(void)
         }
         else if (event_function(EVENT_ACTION_CHECKING, current_room_entry.first_spriteset_event))
         {
-            current_room_entry.enemy_room_data = entry.first_sprite_data_ptr;
+            current_room_entry.enemy_room_data = entry.pFirstSpriteData;
             spriteset = entry.first_spriteset;
             spriteset_entry_used = 0x1;
         }
@@ -82,7 +82,7 @@ void room_load_entry(void)
 
     if (spriteset_entry_used == 0x0)
     {
-        current_room_entry.enemy_room_data = entry.default_sprite_data_ptr;
+        current_room_entry.enemy_room_data = entry.pDefaultSpriteData;
         spriteset = entry.default_spriteset;
     }
 

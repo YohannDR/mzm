@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-struct screen_shake {
+struct ScreenShake {
     u8 timer;
     u8 loop_counter;
     u8 unknown; // intensity ?

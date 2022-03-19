@@ -14,12 +14,62 @@
             "Size": 256
         }
     ],
-    "blob_0x808ca9c_0x82b0d67.c": [{
-        "Name": "blob_0x808ca9c_0x82b0d67",
+    "blob_0x808ca9c_0x8239463.c": [{
+        "Name": "blob_0x808ca9c_0x8239463",
         "Offset": 576156,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 2245324
+        "Size": 1755591
+    }],
+    "samus_visual_data.c": [{
+        "Name": "samus_visual_data",
+        "Offset": 2331748,
+        "Type": "u8",
+        "IsArray": 2,
+        "Size": 4456451
+    }],
+    "blob_0x8239530_0x823a533.c": [{
+        "Name": "blob_0x8239530_0x823a533",
+        "Offset": 576156,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 4099
+    }],
+    "samus_hitbox_draw_data.c": [{
+            "Name": "samus_draw_distance_offsets",
+            "Offset": 2336052,
+            "Type": "u16",
+            "IsArray": 2,
+            "Size": 262148
+        },
+        {
+            "Name": "samus_hitbox_data",
+            "Offset": 2336084,
+            "Type": "i16",
+            "IsArray": 2,
+            "Size": 262147
+        },
+        {
+            "Name": "samus_environmental_effects_oam_pointers",
+            "Offset": 2336108,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 72
+        },
+        {
+            "Name": "samus_pulling_self_up_velocity",
+            "Offset": 2336180,
+            "Type": "u16",
+            "IsArray": 1,
+            "Size": 4
+        }
+    ],
+    "blob_0x823a5bc_0x82b0d67.c": [{
+        "Name": "blob_0x823a5bc_0x82b0d67",
+        "Offset": 2336108,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 485291
     }],
     "sprite_stats.c": [{
             "Name": "primary_sprite_stats",

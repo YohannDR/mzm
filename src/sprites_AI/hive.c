@@ -64,7 +64,7 @@ u8 hive_count_mellows(void)
     u8 count;
     u8 room_slot;
     u8 collision;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
 
     count = 0x0;
     collision = SSC_MELLOW;
@@ -127,7 +127,7 @@ void hive_dying(void)
     u8 room_slot;
     u8 pose;
     u8 collision;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
     u8 hive_id;
 
     count = 0x0;
@@ -206,7 +206,7 @@ void hive_roots_move(void)
     current_sprite.x_position = sprite_data[ram_slot].x_position;
 }
 
-void hive_mellow_init(struct sprite_data* pSprite)
+void hive_mellow_init(struct SpriteData* pSprite)
 {
     if (event_function(EVENT_ACTION_CHECKING, EVENT_THREE_HIVES_DESTROYED))
         pSprite->status = 0x0;
@@ -260,12 +260,12 @@ void hive_mellow_init(struct sprite_data* pSprite)
     }
 }
 
-void hive_mellow_idle_anim(struct sprite_data* pSprite)
+void hive_mellow_idle_anim(struct SpriteData* pSprite)
 {
 
 }
 
-void hive_mellow_fleeing(struct sprite_data* pSprite)
+void hive_mellow_fleeing(struct SpriteData* pSprite)
 {
     u8 rng;
     u16 movement;
@@ -284,7 +284,7 @@ void hive_mellow_fleeing(struct sprite_data* pSprite)
         pSprite->y_position -= movement;
 }
 
-void hive_mellow_samus_detected(struct sprite_data* pSprite)
+void hive_mellow_samus_detected(struct SpriteData* pSprite)
 {
     pSprite->timer2 = 0x0;
     pSprite->work_variable = 0x1;
@@ -300,7 +300,7 @@ void hive_mellow_samus_detected(struct sprite_data* pSprite)
         pSprite->status |= SPRITE_STATUS_ON_VERTICAL_WALL;
 }
 
-void hive_mellow_move(struct sprite_data* pSprite)
+void hive_mellow_move(struct SpriteData* pSprite)
 {
 
 }
@@ -344,7 +344,7 @@ void hive(void)
 void hive_roots(void)
 {
     u8 ram_slot;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
 
     ram_slot = current_sprite.primary_sprite_ram_slot;
     current_sprite.ignore_samus_collision_timer = 0x1;
@@ -377,7 +377,7 @@ void hive_roots(void)
 
 void hive_mellow(void)
 {
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
 
     pSprite = &current_sprite;
 
@@ -426,7 +426,7 @@ void hive_mellow(void)
 void hive_mellow_swarm(void)
 {
     u8 count;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
     u8 collision;
     u16 x_pos;
     u16 y_pos;

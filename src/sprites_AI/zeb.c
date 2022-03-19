@@ -64,7 +64,7 @@ void zeb_check_spawn(void)
                     current_sprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
                     sprite_util_make_sprite_face_samus_x_flip();
                     if (current_sprite.status & SPRITE_STATUS_ONSCREEN)
-                        play_sound1(0x144);
+                        sound_play1(0x144);
                 }
             }
         }
@@ -151,7 +151,7 @@ void zeb_move(void)
             current_sprite.x_position -= 0xC;
         }
         if ((current_sprite.timer2 & 0xF) == 0x0 && current_sprite.status & SPRITE_STATUS_ONSCREEN)
-            play_sound1(0x145);
+            sound_play1(0x145);
     }
 }
 

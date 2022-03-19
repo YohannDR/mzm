@@ -14,12 +14,12 @@ struct OamFrame {
     u16 data[0]; // "dynamic array" -> [part_count]
 };
 
-struct FrameDataa {
+struct FrameData {
     struct OamFrame* oam_frame_ptr;
     u8 timer;
 };
 
-struct raw_oam_data {
+struct RawOamData {
     u16 data[4];
 };
 

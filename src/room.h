@@ -22,7 +22,7 @@
 #define BG0_MOVEMENT_WATER_CLOUDS 0x1
 #define BG0_MOVEMENT_SNOWFLAKES 0x4
 
-struct room_entry {
+struct RoomEntry {
     u8 tileset;
     u8 bg0_prop;
     u8 bg1_prop;
@@ -31,7 +31,7 @@ struct room_entry {
     u8 scrolls_flag;
     u8 bg3_scrolling;
     u8 transparency;
-    struct enemy_room_data* enemy_room_data;
+    struct EnemyRoomData* enemy_room_data;
     u8 first_spriteset_event;
     u8 second_spriteset_event;
     u8 map_x;
@@ -47,7 +47,7 @@ struct room_entry {
     u8 animated_palette;
 };
 
-struct room_entry_rom {
+struct RoomEntryROM {
     u8 tileset;
     u8 bg0_prop;
     u8 bg1_prop;
@@ -60,13 +60,13 @@ struct room_entry_rom {
     void* bg3_ptr;
     u8 bg3_scrolling;
     u8 transparency;
-    struct enemy_room_data* default_sprite_data_ptr;
+    struct EnemyRoomData* pDefaultSpriteData;
     u8 default_spriteset;
     u8 first_spriteset_event;
-    struct enemy_room_data* first_sprite_data_ptr;
+    struct EnemyRoomData* pFirstSpriteData;
     u8 first_spriteset;
     u8 second_spriteset_event;
-    struct enemy_room_data* second_sprite_data_ptr;
+    struct EnemyRoomData* pSecondSpriteData;
     u8 second_spriteset;
     u8 map_x;
     u8 map_y;
@@ -75,12 +75,12 @@ struct room_entry_rom {
     u16 music_track;
 };
 
-struct background_positions {
-    struct raw_coords_x bg[4];
-    struct raw_coords_x door_transition;
+struct BackgroundPositions {
+    struct RawCoordsX bg[4];
+    struct RawCoordsX door_transition;
 };
 
-struct bg0_movement {
+struct BG0Movement {
     u8 type;
     u8 y_offset;
     u16 unused;
@@ -88,7 +88,7 @@ struct bg0_movement {
     u16 snowflakes_related;
 };
 
-struct bg3_movement {
+struct BG3Movement {
     u8 direction;
     u8 counter;
     u8 undefined; // Needed for correct alignement

@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-struct sprite_debris {
+struct SpriteDebris {
     struct FrameData* oam_pointer;
     u16 curr_anim_frame;
     u16 y_position;
@@ -18,9 +18,9 @@ struct sprite_debris {
 };
 
 void sprite_debris_set_splash(u16 old_y, u16 y_position, u16 x_position);
-void sprite_debris_process(struct sprite_debris* pDebris);
+void sprite_debris_process(struct SpriteDebris* pDebris);
 void sprite_debris_process_all(void);
-void sprite_debris_draw(struct sprite_debris* pDebris);
+void sprite_debris_draw(struct SpriteDebris* pDebris);
 void sprite_debris_draw_all(void);
 void sprite_debris_init(u8 cloud_type, u8 debris_type, u16 y_position, u16 x_position);
 

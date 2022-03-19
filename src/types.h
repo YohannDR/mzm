@@ -17,7 +17,7 @@ typedef volatile   signed short vi16;
 typedef volatile unsigned int   vu32;
 typedef volatile   signed int   vi32;
 
-struct raw_coords_x {
+struct RawCoordsX {
     u16 x;
     u16 y;
 };

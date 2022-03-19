@@ -2,25 +2,25 @@
 #include "globals.h"
 #include "bg_clip.h"
 
-void scroll_process(struct raw_coords_x* pCoords)
+void scroll_process(struct RawCoordsX* pCoords)
 {
     u32 screen_x;
     u32 screen_y;
     u32 new_position;
-    struct scroll* pScroll;
+    struct Scroll* pScroll;
 
     scroll_update_current(pCoords);
     screen_x = screen_position_and_velocity.x_position;
     screen_y = screen_position_and_velocity.y_position;
 
-    pScroll = &current_scrolls.first;
+    pScroll = current_scrolls;
     if (pScroll->within != FALSE)
     {
         screen_x = scroll_process_x(pScroll, pCoords);
         screen_y = scroll_process_y(pScroll, pCoords);
     }
 
-    pScroll = &current_scrolls.second;
+    pScroll = current_scrolls + 1;
     if (pScroll->within != FALSE)
     {
         new_position = scroll_process_x(pScroll, pCoords);
@@ -37,7 +37,7 @@ void scroll_screen(u16 screen_x, u16 screen_y)
 
 }
 
-i32 scroll_process_x(struct scroll* pScroll, struct raw_coords_x* pCoords)
+i32 scroll_process_x(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
     i32 x_pos;
     i32 x_start;
@@ -53,7 +53,7 @@ i32 scroll_process_x(struct scroll* pScroll, struct raw_coords_x* pCoords)
         return pScroll->x_end - 0x3C0;
 }
 
-i32 scroll_process_y(struct scroll* pScroll, struct raw_coords_x* pCoords)
+i32 scroll_process_y(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
     i32 y_pos;
     i32 y_start;
@@ -86,10 +86,10 @@ void scroll_load(void)
 
 }
 
-void scroll_update_current(struct raw_coords_x* pCoords)
+void scroll_update_current(struct RawCoordsX* pCoords)
 {
-    /*struct scroll* pScroll;
-    struct scroll* pScrollLimit;
+    /*struct Scroll* pScroll;
+    struct Scroll* pScrollLimit;
     struct background_pointers_and_dimensions* pBG;
     u8* pData;
     u16 x_pos;
@@ -192,23 +192,23 @@ void scroll_process_general(void)
 
 }
 
-void scroll_with_no_scrolls(struct raw_coords_x* pCoords)
+void scroll_with_no_scrolls(struct RawCoordsX* pCoords)
 {
     scroll_with_no_scrolls_x(pCoords);
     scroll_with_no_scrolls_y(pCoords);
 }
 
-void scroll_with_no_scrolls_y(struct raw_coords_x* pCoords)
+void scroll_with_no_scrolls_y(struct RawCoordsX* pCoords)
 {
 
 }
 
-void scroll_with_no_scrolls_x(struct raw_coords_x* pCoords)
+void scroll_with_no_scrolls_x(struct RawCoordsX* pCoords)
 {
 
 }
 
-void scroll_update_effect_and_haze_position(struct raw_coords_x* pCoords)
+void scroll_update_effect_and_haze_position(struct RawCoordsX* pCoords)
 {
 
 }
@@ -306,7 +306,7 @@ void scroll_bg2(void)
 
 }
 
-void scroll_maybe_scroll_bg1_related(struct raw_coords_x* pCoords)
+void scroll_maybe_scroll_bg1_related(struct RawCoordsX* pCoords)
 {
 
 }

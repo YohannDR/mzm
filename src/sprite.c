@@ -15,7 +15,7 @@ void sprite_update(void)
  * 
  * @param pSprite Sprite Data Pointer to the concerned sprite
  */
-void sprite_update_animation(struct sprite_data* pSprite)
+void sprite_update_animation(struct SpriteData* pSprite)
 {
     u32 adc;
 
@@ -40,8 +40,8 @@ void sprite_draw_all_2(void)
 
 void sprite_draw_all(void)
 {
-    /*struct sprite_data* pSprite1;
-    struct sprite_data* pSprite2;
+    /*struct SpriteData* pSprite1;
+    struct SpriteData* pSprite2;
     u16 status_flag;
     u16 status_check;
     u8* draw_order;
@@ -98,12 +98,12 @@ void sprite_draw_all_3(void)
 
 }
 
-void sprite_draw(struct sprite_data* pSprite, u32 slot)
+void sprite_draw(struct SpriteData* pSprite, u32 slot)
 {
     
 }
 
-void sprite_check_on_screen(struct sprite_data* pSprite)
+void sprite_check_on_screen(struct SpriteData* pSprite)
 {
     /*u16 y_pos;
     u16 bg1X;
@@ -202,7 +202,7 @@ void sprite_load_room_sprites(void)
 
 void sprite_init_primary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 room_slot)
 {
-    /*struct sprite_data* pSprite;
+    /*struct SpriteData* pSprite;
     u8 ram_slot;
     u8 slot;
     u32 sprite_id;
@@ -269,7 +269,7 @@ void sprite_init_primary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 r
 u8 sprite_spawn_secondary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, u16 status_to_add)
 {
     u8 new_ram_slot;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
     u16 status;
 
     new_ram_slot = 0x0;
@@ -325,7 +325,7 @@ u8 sprite_spawn_secondary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, 
 u8 sprite_spawn_primary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u16 y_position, u16 x_position, u16 status_to_add)
 {
     u8 new_ram_slot;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
     u16 status;
 
     new_ram_slot = 0x0;
@@ -382,7 +382,7 @@ u8 sprite_spawn_primary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u16 y_position,
 u8 sprite_spawn_drop_followers(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, u16 status_to_add)
 {
     u8 new_ram_slot;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
     u16 status;
 
     new_ram_slot = 0x0;

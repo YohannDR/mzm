@@ -270,7 +270,7 @@ void zipline_update(void)
     if (current_sprite.health == 0x2)
     {
         if ((current_sprite.timer1 & 0xF) == 0x0)
-            play_sound1(0x110);
+            sound_play1(0x110);
         current_sprite.timer1++;
         if (zipline_moving() << 0x18)
         {
@@ -349,7 +349,7 @@ void zipline_button_idle(void)
     {
         sprite_data[slot].health = 0x2;
         moving = TRUE;
-        play_sound1(0x111);
+        sound_play1(0x111);
     }
     else if (sprite_data[slot].health == 0x2)
         moving = TRUE;

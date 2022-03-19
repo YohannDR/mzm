@@ -3,6 +3,7 @@
 #include "particle.h"
 #include "samus.h"
 #include "location_text.h"
+#include "music.h"
 #include "../data/data.h"
 #include "globals.h"
 
@@ -44,7 +45,7 @@ void unk_e5a4(u16 y_position, u16 x_position)
 
 }
 
-u8 sprite_util_take_damage_from_sprite(u8 kb_flag, struct sprite_data* pSprite, u16 dmg_mulitplier)
+u8 sprite_util_take_damage_from_sprite(u8 kb_flag, struct SpriteData* pSprite, u16 dmg_mulitplier)
 {
     /*u32 damage;
     u32 dmg_reduction;
@@ -108,8 +109,8 @@ u8 sprite_util_check_objects_touching(u16 o1_top, u16 o1_bottom, u16 o1_left, u1
 
 void sprite_util_samus_and_sprite_collision(void)
 {
-    /*struct samus_data* pData;
-    struct sprite_data* pSprite;
+    /*struct SamusData* pData;
+    struct SpriteData* pSprite;
     u16 samus_y;
     u16 samus_x;
     u16 previous_x;
@@ -395,7 +396,7 @@ void sprite_util_samus_and_sprite_collision(void)
                                             break;
 
                                         case SPOSE_BALLSPARKING:
-                                            play_sound2(0x8F);
+                                            sound_play2(0x8F);
                                         case SPOSE_MORPH_BALL_MIDAIR:
                                             pData->y_position = pSprite->y_position + 0x3C;
                                             pData->x_position = pSprite->x_position;
@@ -498,7 +499,7 @@ void sprite_util_samus_and_sprite_collision(void)
                                         unk_2b20(0x80);
                                         sub_sprite_data1.timer++;
                                         if ((sub_sprite_data1.timer & 0x3) == 0x0)
-                                            play_sound1(0x7C);
+                                            sound_play1(0x7C);
                                     }
                                 }
                                 *pTimer = 0xF;
@@ -745,7 +746,7 @@ u8 sprite_util_check_end_sub_sprite2_anim(void)
         return FALSE;
 }
 
-u8 sprite_util_check_end_sub_sprite_anim(struct sub_sprite_data* pSub)
+u8 sprite_util_check_end_sub_sprite_anim(struct SubSpriteData* pSub)
 {
     u8 adc;
     u16 curr_anim;
@@ -760,14 +761,14 @@ u8 sprite_util_check_end_sub_sprite_anim(struct sub_sprite_data* pSub)
         return FALSE;
 }
 
-u8 sprite_util_check_near_end_sub_sprite_anim(struct sub_sprite_data* pSub)
+u8 sprite_util_check_near_end_sub_sprite_anim(struct SubSpriteData* pSub)
 {
 
 }
 
 u8 sprite_util_check_samus_near_sprite_left_right(u16 y_range, u16 x_range)
 {
-    /*struct samus_data* pData;
+    /*struct SamusData* pData;
     u8 result;
     u16 samus_y;
     u16 samus_x;
@@ -816,7 +817,7 @@ u8 sprite_util_check_samus_near_sprite_front_behind(u16 y_range, u16 x_range_fro
 
 }
 
-void sprite_util_samus_standing_on_sprite(struct sprite_data* pSprite)
+void sprite_util_samus_standing_on_sprite(struct SpriteData* pSprite)
 {
     u8 standing;
 
@@ -1155,7 +1156,7 @@ u8 sprite_util_check_stop_sprites_pose(void)
  * @param pData Samus Data Pointer
  * @return The damage contact type
  */
-u8 sprite_util_sprite_take_damage_from_samus_contact(struct sprite_data* pSprite, struct samus_data* pData)
+u8 sprite_util_sprite_take_damage_from_samus_contact(struct SpriteData* pSprite, struct SamusData* pData)
 {
     u8 dct;
     u8* pProps;
@@ -1303,7 +1304,7 @@ u8 sprite_util_check_on_zipline(void)
 u8 sprite_util_count_primary_sprites(u8 sprite_id)
 {
     u8 count;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
 
     count = 0x0;
     pSprite = sprite_data;
@@ -1322,7 +1323,7 @@ u8 sprite_util_count_secondary_sprites_with_current_sprite_ram_slot(u8 sprite_id
 {
     u8 count;
     u8 ram_slot;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
 
     count = 0x0;
     ram_slot = current_sprite.primary_sprite_ram_slot;
@@ -1342,7 +1343,7 @@ u8 sprite_util_count_secondary_sprites_with_current_sprite_ram_slot(u8 sprite_id
 {
     u8 count;
     u8 ram_slot;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
 
     count = 0x0;
     ram_slot = current_sprite.primary_sprite_ram_slot;
@@ -1361,7 +1362,7 @@ u8 sprite_util_count_secondary_sprites_with_current_sprite_ram_slot(u8 sprite_id
 u8 sprite_util_find_primary(u8 sprite_id)
 {
     u8 ram_slot;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
 
     ram_slot = 0x0;
     pSprite = sprite_data;
@@ -1380,7 +1381,7 @@ u8 sprite_util_find_primary(u8 sprite_id)
 u8 sprite_util_find_secondary_with_room_slot(u8 sprite_id, u8 room_slot)
 {
     u8 ram_slot;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
 
     ram_slot = 0x0;
     pSprite = sprite_data;
@@ -1399,7 +1400,7 @@ u8 sprite_util_find_secondary_with_room_slot(u8 sprite_id, u8 room_slot)
 u8 sprite_util_check_has_drop(void)
 {
     u8 ram_slot;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
     u8 collision;
 
     ram_slot = current_sprite.primary_sprite_ram_slot;
@@ -1419,7 +1420,7 @@ u8 sprite_util_check_has_drop(void)
 u8 sprite_util_count_drops(void)
 {
     u8 count;
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
 
     count = 0x0;
     pSprite = sprite_data;
@@ -1444,7 +1445,7 @@ void sprite_util_maybe_ridley_fireball_move(u16 sprite_y, u16 samus_x, u8 y_spee
 
 }
 
-void sprite_util_update_stun_timer(struct sprite_data* pSprite)
+void sprite_util_update_stun_timer(struct SpriteData* pSprite)
 {
 
 }
@@ -1660,29 +1661,29 @@ void sprite_util_sprite_death(u8 death_type, u16 y_position, u16 x_position, u8 
         case 0x63:
             particle_set(y_position, x_position, PE_SHINESPARK_DESTROYED);
             sprite_util_random_debris(0x0, 0x3, y_position, x_position);
-            play_sound1(0x131);
+            sound_play1(0x131);
             break;
         case 0x64:
             particle_set(y_position, x_position, PE_SPEEDBOOSTER_DESTROYED);
             sprite_util_random_debris(0x0, 0x3, y_position, x_position);
-            play_sound1(0x133);
+            sound_play1(0x133);
             break;
         case 0x65:
             particle_set(y_position, x_position, PE_SCREW_ATTACK_DESTROYED);
             sprite_util_random_debris(0x0, 0x3, y_position, x_position);
-            play_sound1(0x130);
+            sound_play1(0x130);
             break;
         case 0x66:
             particle_set(y_position, x_position, PE_SUDO_SCREW_DESTROYED);
             sprite_util_random_debris(0x0, 0x3, y_position, x_position);
-            play_sound1(0x132);
+            sound_play1(0x132);
             break;
         default:
             if (effect == PE_SPRITE_EXPLOSION_SMALL)
             {
                 particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_SMALL);
                 if (play_sound != FALSE)
-                    play_sound1(0x12C);
+                    sound_play1(0x12C);
             }
             else
             {
@@ -1690,7 +1691,7 @@ void sprite_util_sprite_death(u8 death_type, u16 y_position, u16 x_position, u8 
                 {
                     particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_MEDIUM);
                     if (play_sound != FALSE)
-                        play_sound1(0x12D);
+                        sound_play1(0x12D);
                 }
                 else
                 {
@@ -1698,7 +1699,7 @@ void sprite_util_sprite_death(u8 death_type, u16 y_position, u16 x_position, u8 
                     {
                         particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_BIG);
                         if (play_sound != FALSE)
-                            play_sound1(0x12E);
+                            sound_play1(0x12E);
                     }
                     else
                     {
@@ -1706,7 +1707,7 @@ void sprite_util_sprite_death(u8 death_type, u16 y_position, u16 x_position, u8 
                         {
                             particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
                             if (play_sound != FALSE)
-                                play_sound1(0x12F);
+                                sound_play1(0x12F);
                         }
                         else
                         {
@@ -1845,7 +1846,7 @@ void unk_1144c(void)
 
 }
 
-void sprite_util_update_sub_sprite_anim(struct sub_sprite_data* pSub)
+void sprite_util_update_sub_sprite_anim(struct SubSpriteData* pSub)
 {
     u32 adc;
 
@@ -1860,12 +1861,12 @@ void sprite_util_update_sub_sprite_anim(struct sub_sprite_data* pSub)
     }
 }
 
-void sprite_util_sync_current_sprite_position_with_sub_sprite_position(struct sub_sprite_data* pSub)
+void sprite_util_sync_current_sprite_position_with_sub_sprite_position(struct SubSpriteData* pSub)
 {
 
 }
 
-void unk_11520(struct sub_sprite_data* pSub)
+void unk_11520(struct SubSpriteData* pSub)
 {
 
 }

@@ -357,13 +357,13 @@
 #define WEAKNESS_CAN_BE_FROZEN 0x40
 #define WEAKNESS_LIMIT 0xFFFF
 
-struct __attribute__((packed)) enemy_room_data {
+struct __attribute__((packed)) EnemyRoomData {
     u8 y_position;
     u8 x_position;
     u8 spriteset_slot;
 };
 
-struct sub_sprite_data {
+struct SubSpriteData {
     struct FrameData* oam_pointer;
     u16 curr_anim_frame;
     u16 y_position;
@@ -379,7 +379,7 @@ struct sub_sprite_data {
     u8 unknown3;
 };
 
-struct sprite_data {
+struct SpriteData {
     u16 status;
     u16 y_position;
     u16 x_position;
@@ -421,12 +421,12 @@ struct sprite_data {
 };
 
 void sprite_update(void);
-void sprite_update_animation(struct sprite_data* pSprite);
+void sprite_update_animation(struct SpriteData* pSprite);
 void sprite_draw_all_2(void);
 void sprite_draw_all(void);
 void sprite_draw_all_3(void);
-void sprite_draw(struct sprite_data* pSprite, u32 slot);
-void sprite_check_on_screen(struct sprite_data* pSprite);
+void sprite_draw(struct SpriteData* pSprite, u32 slot);
+void sprite_check_on_screen(struct SpriteData* pSprite);
 void sprite_load_all_data(void);
 void sprite_load_spriteset(void);
 void sprite_load_gfx(u8 sprite_id, u8 gfx_row);

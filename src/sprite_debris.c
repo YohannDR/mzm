@@ -1,6 +1,6 @@
 #include "sprite_debris.h"
-#include "globals.h"
 #include "sprite_util.h"
+#include "globals.h"
 
 void sprite_debris_set_splash(u16 old_y, u16 y_position, u16 x_position)
 {
@@ -8,7 +8,7 @@ void sprite_debris_set_splash(u16 old_y, u16 y_position, u16 x_position)
         sprite_util_set_splash_effect(y_position, x_position, SPLASH_SMALL);
 }
 
-void sprite_debris_process(struct sprite_debris* pDebris)
+void sprite_debris_process(struct SpriteDebris* pDebris)
 {
     u32 falling_timer;
     u8 array_offset;
@@ -36,7 +36,7 @@ void sprite_debris_process(struct sprite_debris* pDebris)
 
 void sprite_debris_process_all(void)
 {
-    struct sprite_debris* pDebris;
+    struct SpriteDebris* pDebris;
     u32 adc;
     u32 timer;
 
@@ -66,7 +66,7 @@ void sprite_debris_process_all(void)
     }
 }
 
-void sprite_debris_draw(struct sprite_debris* pDebris)
+void sprite_debris_draw(struct SpriteDebris* pDebris)
 {
     /*u8 count;
     u8 oam_slot;
@@ -77,7 +77,7 @@ void sprite_debris_draw(struct sprite_debris* pDebris)
     u16 bg_y;
     u16 bg_x;
     struct OamFrame* pFrame;
-    struct raw_oam_data* pData;
+    struct RawOamData* pData;
 
     y_position = pDebris->y_position;
     if (bg1_y_position + 0xC0 > y_position + 0x100 || bg1_y_position + 0x3C0 < y_position + 0x100)
@@ -122,7 +122,7 @@ void sprite_debris_draw(struct sprite_debris* pDebris)
 
 void sprite_debris_draw_all(void)
 {
-    struct sprite_debris* pDebris;
+    struct SpriteDebris* pDebris;
 
     if (game_mode_sub1 == 0x2)
     {

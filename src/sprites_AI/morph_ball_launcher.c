@@ -45,7 +45,7 @@ void morph_ball_launcher_init(void)
 
 void morph_ball_launcher_detect_bomb(void)
 {
-    struct projectile_data* pProj;
+    struct ProjectileData* pProj;
     u8 has_bomb;
     u8 count;
     u16 sprite_y;

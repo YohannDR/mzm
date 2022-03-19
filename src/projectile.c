@@ -2,8 +2,9 @@
 #include "sprite.h"
 #include "sprite_util.h"
 #include "power_bomb_explosion.h"
-#include "globals.h"
+#include "music.h"
 #include "../data/data.h"
+#include "globals.h"
 
 void projectile_set_beam_particle_effect(void)
 {
@@ -55,7 +56,7 @@ void projectile_set_beam_particle_effect(void)
 u8 projectile_check_number_of_projectiles(u8 type, u8 limit)
 {
     u8 count;
-    struct projectile_data* pProj;
+    struct ProjectileData* pProj;
 
     count = 0x0;
     pProj = projectile_data;
@@ -75,7 +76,7 @@ u8 projectile_check_number_of_projectiles(u8 type, u8 limit)
 
 u8 projectile_init(u8 type, u16 y_position, u16 x_position)
 {
-    /*struct projectile_data* pProj;
+    /*struct ProjectileData* pProj;
     u8 status;
 
     pProj = projectile_data;
@@ -112,7 +113,7 @@ void projectile_update(void)
     /*u8 checks;
     i32 count;
     struct ParticleEffect* pEffect;
-    struct projectile_data* pProj;
+    struct ProjectileData* pProj;
     u8 type;
     u16 flag;
     u16 sound;
@@ -154,7 +155,7 @@ void projectile_update(void)
                     samus_weapon_info.cooldown = 0x7;
                     projectile_set_beam_particle_effect();
                     samus_weapon_info.beam_release_palette_timer = 0x4;
-                    play_sound1(0xA0);
+                    sound_play1(0xA0);
                 }
             }
             else
@@ -251,7 +252,7 @@ void projectile_update(void)
                     samus_weapon_info.cooldown = 0x7;
                     projectile_set_beam_particle_effect();
                     samus_weapon_info.beam_release_palette_timer = 0x4;
-                    play_sound1(sound);
+                    sound_play1(sound);
                 }
             }
             samus_weapon_info.new_projectile = PROJECTILE_NONE;
@@ -265,7 +266,7 @@ void projectile_update(void)
                     samus_weapon_info.cooldown = 0x7;
                     projectile_set_beam_particle_effect();
                     samus_weapon_info.beam_release_palette_timer = 0x4;
-                    play_sound1(0x9F);
+                    sound_play1(0x9F);
                 }
             }
             else
@@ -362,7 +363,7 @@ void projectile_update(void)
                     samus_weapon_info.cooldown = 0x7;
                     projectile_set_beam_particle_effect();
                     samus_weapon_info.beam_release_palette_timer = 0x4;
-                    play_sound1(sound);
+                    sound_play1(sound);
                 }
             }
             samus_weapon_info.new_projectile = PROJECTILE_NONE;
@@ -372,8 +373,8 @@ void projectile_update(void)
             if (projectile_check_number_of_projectiles(PROJ_TYPE_MISSILE, 0x4) << 0x18 != FALSE && projectile_init(PROJ_TYPE_MISSILE, arm_cannon_y, arm_cannon_x) << 0x18 != FALSE)
             {
                 samus_weapon_info.cooldown = 0x9;
-                play_sound1(0xF8);
-                play_sound1(0xF9);
+                sound_play1(0xF8);
+                sound_play1(0xF9);
             }
             samus_weapon_info.new_projectile = PROJECTILE_NONE;
             break;
@@ -382,8 +383,8 @@ void projectile_update(void)
             if (projectile_check_number_of_projectiles(PROJ_TYPE_SUPER_MISSILE, 0x4) << 0x18 != FALSE && projectile_init(PROJ_TYPE_SUPER_MISSILE, arm_cannon_y, arm_cannon_x) << 0x18 != FALSE)
             {
                 samus_weapon_info.cooldown = 0xB;
-                play_sound1(0xFB);
-                play_sound1(0xFC);
+                sound_play1(0xFB);
+                sound_play1(0xFC);
             }
             samus_weapon_info.new_projectile = PROJECTILE_NONE;
             break;
@@ -418,7 +419,7 @@ void projectile_update(void)
     }*/
 }
 
-void projectile_update_animation(struct projectile_data* pProj)
+void projectile_update_animation(struct ProjectileData* pProj)
 {
     u32 adc;
 
@@ -443,12 +444,12 @@ void projectile_draw_all_status_true(void)
 
 }
 
-void projectile_draw(struct projectile_data* pProj)
+void projectile_draw(struct ProjectileData* pProj)
 {
 
 }
 
-void projectile_check_despawn(struct projectile_data* pProj)
+void projectile_check_despawn(struct ProjectileData* pProj)
 {
     /*u16 x_pos;
     u16 y_pos;
@@ -494,7 +495,7 @@ void projectile_load_graphics(void)
 
 void projectile_call_load_graphics_and_clear_projectiles(void)
 {
-    struct projectile_data* pProj;
+    struct ProjectileData* pProj;
 
     projectile_load_graphics();
 
@@ -509,7 +510,7 @@ void projectile_call_load_graphics_and_clear_projectiles(void)
     }
 }
 
-void projectile_move(struct projectile_data* pProj, u8 distance)
+void projectile_move(struct ProjectileData* pProj, u8 distance)
 {
     /*i16 x_velocity;
     i32 x_velocity_;
@@ -568,7 +569,7 @@ u8 projectile_collision_related(u16 y_position, u16 x_position)
 
 }
 
-u8 projectile_collision_related2(struct projectile_data* pProj)
+u8 projectile_collision_related2(struct ProjectileData* pProj)
 {
 
 }
@@ -581,7 +582,7 @@ u8 projectile_collision_related2(struct projectile_data* pProj)
  * @param effect Particle effect to play
  * @param delay Delay between each particle
  */
-void projectile_set_trail(struct projectile_data* pProj, u8 effect, u8 delay)
+void projectile_set_trail(struct ProjectileData* pProj, u8 effect, u8 delay)
 {
     /*u16 x_pos;
     u16 y_pos;
@@ -639,7 +640,7 @@ void projectile_set_trail(struct projectile_data* pProj, u8 effect, u8 delay)
  * 
  * @param pProj Projectile Data Pointer to the concerned projectile
  */
-void projectile_move_tumbling(struct projectile_data* pProj)
+void projectile_move_tumbling(struct ProjectileData* pProj)
 {
     u8 timer;
     i16 movement;
@@ -668,7 +669,7 @@ void projectile_move_tumbling(struct projectile_data* pProj)
     }
 }
 
-void projectile_check_hit_block(struct projectile_data* pProj, u8 ccaa, u8 effect)
+void projectile_check_hit_block(struct ProjectileData* pProj, u8 ccaa, u8 effect)
 {
     u16 proj_y;
     u16 proj_x;
@@ -694,9 +695,9 @@ void projectile_check_hit_block(struct projectile_data* pProj, u8 ccaa, u8 effec
 void projectile_check_hit_sprite(void)
 {
     /*struct equipment* pEquipment;
-    struct sprite_data* pSprite;
-    struct sprite_data* pSprite_next;
-    struct projectile_data* pProj;
+    struct SpriteData* pSprite;
+    struct SpriteData* pSprite_next;
+    struct ProjectileData* pProj;
     u16 status;
     u8 status_proj;
     u16 proj_y;
@@ -990,7 +991,7 @@ void projectile_check_hit_sprite(void)
  * @param pSprite The sprite concerned
  * @return The weakness of the sprite
  */
-u16 projectile_get_sprite_weakness(struct sprite_data* pSprite)
+u16 projectile_get_sprite_weakness(struct SpriteData* pSprite)
 {
     if (pSprite->properties & SP_SECONDARY_SPRITE) // Check wheter secondary or primary
         return primary_sprite_stats[pSprite->sprite_id][0x2]; // Offset 2 is weakness
@@ -1005,7 +1006,7 @@ u16 projectile_get_sprite_weakness(struct sprite_data* pSprite)
  * @param damage Damage to inflict
  * @return The freeze timer
  */
-u8 projectile_ice_beam_deal_damage(struct sprite_data* pSprite, u16 damage)
+u8 projectile_ice_beam_deal_damage(struct SpriteData* pSprite, u16 damage)
 {
     u8 freeze_timer;
 
@@ -1043,7 +1044,7 @@ u8 projectile_ice_beam_deal_damage(struct sprite_data* pSprite, u16 damage)
  * @param damage Damage to inflict 
  * @return 1 if dead, 0 otherwise
  */
-u8 projectile_deal_damage(struct sprite_data* pSprite, u16 damage)
+u8 projectile_deal_damage(struct SpriteData* pSprite, u16 damage)
 {
     u8 is_dead;
 
@@ -1078,7 +1079,7 @@ u8 projectile_deal_damage(struct sprite_data* pSprite, u16 damage)
  * @param pSprite Sprite Data Pointer to the sprite concerned 
  * @return The parameter
  */
-struct sprite_data* projectile_hit_sprite_immune_to_projectiles(struct sprite_data* pSprite)
+struct SpriteData* projectile_hit_sprite_immune_to_projectiles(struct SpriteData* pSprite)
 {
     u8 isft;
 
@@ -1096,7 +1097,7 @@ struct sprite_data* projectile_hit_sprite_immune_to_projectiles(struct sprite_da
  * @param pSprite Sprite Data Pointer to the sprite concerned
  * @return The parameter
  */
-struct sprite_data* projectile_hit_solid_sprite(struct sprite_data* pSprite)
+struct SpriteData* projectile_hit_solid_sprite(struct SpriteData* pSprite)
 {
     u8 isft;
 
@@ -1113,7 +1114,7 @@ struct sprite_data* projectile_hit_solid_sprite(struct sprite_data* pSprite)
  * 
  * @param pSprite Sprite Data Pointer to the sprite concerned 
  */
-void projectile_power_bomb_deal_damage(struct sprite_data* pSprite)
+void projectile_power_bomb_deal_damage(struct SpriteData* pSprite)
 {
     u8 isft;
 
@@ -1166,7 +1167,7 @@ void projectile_power_bomb_deal_damage(struct sprite_data* pSprite)
  * @param damage Damage inflicted
  * @param effect Particle effect to play
  */
-void projectile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
+void projectile_hit_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
 {
     u16 weakness;
 
@@ -1209,7 +1210,7 @@ void projectile_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_po
  * @param damage Damage inflicted
  * @param effect Particle effect to play
  */
-void projectile_non_ice_charged_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
+void projectile_non_ice_charged_hit_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
 {
     u16 weakness;
 
@@ -1249,19 +1250,19 @@ void projectile_non_ice_charged_hit_sprite(struct sprite_data* pSprite, u16 y_po
  * @param pSprite Sprite Data Pointer to the sprite concerned
  * @param freeze_timer Freeze timer to apply
  */
-void projectile_freeze_sprite(struct sprite_data* pSprite, u8 freeze_timer)
+void projectile_freeze_sprite(struct SpriteData* pSprite, u8 freeze_timer)
 {
     pSprite->freeze_timer = freeze_timer;
     pSprite->palette_row = 0xF - (pSprite->spriteset_gfx_slot + pSprite->frozen_palette_row_offset);
     unk_2b20(0x140);
 }
 
-void projectile_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
+void projectile_ice_beam_hitting_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
 {
 
 }
 
-void projectile_charged_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
+void projectile_charged_ice_beam_hitting_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
 {
 
 }
@@ -1274,7 +1275,7 @@ void projectile_charged_ice_beam_hitting_sprite(struct sprite_data* pSprite, u16
  * @param pProj Projectile Data Pointer to the concerned projectile
  * @param type The type of the projectile
  */
-void projectile_start_tumbling_missile(struct sprite_data* pSprite, struct projectile_data* pProj, u8 type)
+void projectile_start_tumbling_missile(struct SpriteData* pSprite, struct ProjectileData* pProj, u8 type)
 {
     pProj->movement_stage = 0x7; // Tumbling
     pProj->timer = 0x0;
@@ -1290,12 +1291,12 @@ void projectile_start_tumbling_missile(struct sprite_data* pSprite, struct proje
     if (type == PROJ_TYPE_SUPER_MISSILE)
     {
         pProj->oam_pointer = super_missile_tumbling_oam; // Spinning/tumbling
-        play_sound2(0xFC);
+        sound_play2(0xFC);
     }
     else
     {
         pProj->oam_pointer = missile_tumbling_oam; // Spinning/tumbling
-        play_sound2(0xF9);
+        sound_play2(0xF9);
     }
 }
 
@@ -1306,7 +1307,7 @@ void projectile_start_tumbling_missile(struct sprite_data* pSprite, struct proje
  * @param pProj Projectile Data Pointer to the concerned projectile
  * @param type The type of the projectile
  */
-void projectile_start_tumbling_missile_current_sprite(struct projectile_data* pProj, u8 type)
+void projectile_start_tumbling_missile_current_sprite(struct ProjectileData* pProj, u8 type)
 {    
     pProj->movement_stage = 0x7; // Tumbling
     pProj->timer = 0x0;
@@ -1322,16 +1323,16 @@ void projectile_start_tumbling_missile_current_sprite(struct projectile_data* pP
     if (type == PROJ_TYPE_SUPER_MISSILE)
     {
         pProj->oam_pointer = super_missile_tumbling_oam; // Spinning/tumbling
-        play_sound2(0xFC);
+        sound_play2(0xFC);
     }
     else
     {
         pProj->oam_pointer = missile_tumbling_oam; // Spinning/tumbling
-        play_sound2(0xF9);
+        sound_play2(0xF9);
     }
 }
 
-void projectile_missile_hit_sprite(struct sprite_data* pSprite, struct projectile_data* pProj, u16 y_position, u16 x_position)
+void projectile_missile_hit_sprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 y_position, u16 x_position)
 {
     /*if (pSprite->properties & SP_SOLID_FOR_PROJECTILES)
     {
@@ -1367,12 +1368,12 @@ void projectile_missile_hit_sprite(struct sprite_data* pSprite, struct projectil
     }*/
 }
 
-void projectile_super_missile_hit_sprite(struct sprite_data* pSprite, struct projectile_data* pProj, u16 y_position, u16 x_position)
+void projectile_super_missile_hit_sprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 y_position, u16 x_position)
 {
 
 }
 
-void projectile_bomb_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16 x_position)
+void projectile_bomb_hit_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position)
 {
     if ((pSprite->properties & SP_IMMUNE_TO_PROJECTILES) != 0x0)
     {
@@ -1399,7 +1400,7 @@ void projectile_bomb_hit_sprite(struct sprite_data* pSprite, u16 y_position, u16
  * 
  * @param pProj Projectile Data Pointer to the concerned normal beam
  */
-void projectile_process_normal_beam(struct projectile_data* pProj)
+void projectile_process_normal_beam(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -1477,7 +1478,7 @@ void projectile_process_normal_beam(struct projectile_data* pProj)
  * 
  * @param pProj Projectile Data Pointer to the concerned long beam
  */
-void projectile_process_long_beam(struct projectile_data* pProj)
+void projectile_process_long_beam(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -1552,7 +1553,7 @@ void projectile_process_long_beam(struct projectile_data* pProj)
  * 
  * @param pProj Projectile Data Pointer to the concerned ice beam
  */
-void projectile_process_ice_beam(struct projectile_data* pProj)
+void projectile_process_ice_beam(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -1629,7 +1630,7 @@ void projectile_process_ice_beam(struct projectile_data* pProj)
         pProj->status = 0x0;
 }
 
-u32 projectile_check_wave_beam_hitting_blocks(struct projectile_data* pProj)
+u32 projectile_check_wave_beam_hitting_blocks(struct ProjectileData* pProj)
 {
 
 }
@@ -1639,7 +1640,7 @@ u32 projectile_check_wave_beam_hitting_blocks(struct projectile_data* pProj)
  * 
  * @param pProj Projectile Data Pointer to the concerned wave beam
  */
-void projectile_process_wave_beam(struct projectile_data* pProj)
+void projectile_process_wave_beam(struct ProjectileData* pProj)
 {
     projectile_check_wave_beam_hitting_blocks(pProj); // Check collision
     if (pProj->movement_stage == 0x2)
@@ -1706,7 +1707,7 @@ void projectile_process_wave_beam(struct projectile_data* pProj)
  * 
  * @param pProj Projectile Data Pointer to the concerned plasma beam
  */
-void projectile_process_plasma_beam(struct projectile_data* pProj)
+void projectile_process_plasma_beam(struct ProjectileData* pProj)
 {
     u8 has_wave;
 
@@ -1817,7 +1818,7 @@ void projectile_process_plasma_beam(struct projectile_data* pProj)
 *
 * @param pProj Projectile Data Pointer to the concerned pistol
 */
-void projectile_process_pistol(struct projectile_data* pProj)
+void projectile_process_pistol(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -1887,27 +1888,27 @@ void projectile_process_pistol(struct projectile_data* pProj)
     }
 }
 
-void projectile_process_charged_normal_beam(struct projectile_data* pProj)
+void projectile_process_charged_normal_beam(struct ProjectileData* pProj)
 {
 
 }
 
-void projectile_process_charged_long_beam(struct projectile_data* pProj)
+void projectile_process_charged_long_beam(struct ProjectileData* pProj)
 {
 
 }
 
-void projectile_process_charged_ice_beam(struct projectile_data* pProj)
+void projectile_process_charged_ice_beam(struct ProjectileData* pProj)
 {
 
 }
 
-void projectile_process_charged_wave_beam(struct projectile_data* pProj)
+void projectile_process_charged_wave_beam(struct ProjectileData* pProj)
 {
 
 }
 
-void projectile_process_charged_plasma_beam(struct projectile_data* pProj)
+void projectile_process_charged_plasma_beam(struct ProjectileData* pProj)
 {
 
 }
@@ -1917,7 +1918,7 @@ void projectile_process_charged_plasma_beam(struct projectile_data* pProj)
  * 
  * @param pProj Projectile Data Pointer to the concerned charged pistol
  */
-void projectile_process_charged_pistol(struct projectile_data* pProj)
+void projectile_process_charged_pistol(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -1988,7 +1989,7 @@ void projectile_process_charged_pistol(struct projectile_data* pProj)
     }
 }
 
-void projectile_decrement_missile_counter(struct projectile_data* pProj)
+void projectile_decrement_missile_counter(struct ProjectileData* pProj)
 {
     if (equipment.current_missiles != 0x0)
     {
@@ -2005,7 +2006,7 @@ void projectile_decrement_missile_counter(struct projectile_data* pProj)
 * 51bac | 118 | Subroutine for the missile projectile, further detail is commented in the function
 * @param pProj Projectile Data Pointer to the concerned missile
 */
-void projectile_process_missile(struct projectile_data* pProj)
+void projectile_process_missile(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -2081,7 +2082,7 @@ void projectile_process_missile(struct projectile_data* pProj)
     }
 }
 
-void projectile_decrement_super_missile(struct projectile_data* pProj)
+void projectile_decrement_super_missile(struct ProjectileData* pProj)
 {
     if (equipment.current_super_missiles != 0x0)
     {
@@ -2094,7 +2095,7 @@ void projectile_decrement_super_missile(struct projectile_data* pProj)
     pProj->status &= 0xFB;
 }
 
-void projectile_process_super_missile(struct projectile_data* pProj)
+void projectile_process_super_missile(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -2175,7 +2176,7 @@ void projectile_process_super_missile(struct projectile_data* pProj)
  * 
  * @param pProj Projectile Data Pointer to the concerned bomb
  */
-void projectile_morphball_launcher_launch_samus(struct projectile_data* pProj)
+void projectile_morphball_launcher_check_launch_samus(struct ProjectileData* pProj)
 {
     u16 samus_y;
     u16 samus_x;
@@ -2216,7 +2217,7 @@ void projectile_morphball_launcher_launch_samus(struct projectile_data* pProj)
     }
 }
 
-void projectile_check_samus_bomb_bounce(struct projectile_data* pProj)
+void projectile_check_samus_bomb_bounce(struct ProjectileData* pProj)
 {
 
 }
@@ -2226,7 +2227,7 @@ void projectile_check_samus_bomb_bounce(struct projectile_data* pProj)
 *
 * @param pProj Projectile Data Pointer to the concerned bomb
 */
-void projectile_process_bomb(struct projectile_data* pProj)
+void projectile_process_bomb(struct ProjectileData* pProj)
 {
     u32 timer;
 
@@ -2254,7 +2255,7 @@ void projectile_process_bomb(struct projectile_data* pProj)
             pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
             pProj->timer = 0x10; // Timer before the bomb starts spinning faster
             pProj->movement_stage++;
-            play_sound1(0xFE); // Placing bomb sound
+            sound_play1(0xFE); // Placing bomb sound
             break;
 
         case 0x3: // Bomb Exploding
@@ -2350,7 +2351,7 @@ void projectile_process_bomb(struct projectile_data* pProj)
             break;
 
         case 0x7:
-            projectile_morphball_launcher_launch_samus(pProj); // Calls the launching samus handler
+            projectile_morphball_launcher_check_launch_samus(pProj); // Calls the launching samus handler
             pProj->status = 0x0;
     }
 }
@@ -2360,7 +2361,7 @@ void projectile_process_bomb(struct projectile_data* pProj)
  * 
  * @param pProj Projectile Data Pointer
  */
-void projectile_process_empty(struct projectile_data* pProj)
+void projectile_process_empty(struct ProjectileData* pProj)
 {
     return;
 }
@@ -2369,7 +2370,7 @@ void projectile_process_empty(struct projectile_data* pProj)
 * 521f4 | 114 | Subroutine for the power bomb projectile, further detail is commented in the function
 * @param pProj Projectile Data Pointer to the concerned power bomb
 */
-void projectile_process_power_bomb(struct projectile_data* pProj)
+void projectile_process_power_bomb(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -2377,7 +2378,7 @@ void projectile_process_power_bomb(struct projectile_data* pProj)
       0x1 = Check first timer ended (power bomb spinning at normal speed)
       0x2 = Check second timer ended and starts the explosion (power bomb spinning fast)
     */
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
     u16 status;
     u8 isft;
 
@@ -2410,7 +2411,7 @@ void projectile_process_power_bomb(struct projectile_data* pProj)
                     pSprite->invicibility_stun_flash_timer &= 0x7F;
                 pSprite++;
             }
-            play_sound1(0x100);
+            sound_play1(0x100);
             current_power_bomb.power_bomb_placed = TRUE;
             break;
 

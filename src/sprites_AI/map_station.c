@@ -65,7 +65,7 @@ void map_station_samus_detection(void)
             samus_set_pose(SPOSE_TURNING_AROUND_TO_DOWNLOAD_MAP_DATA);
         else
             samus_set_pose(SPOSE_DOWNLOADING_MAP_DATA);
-        play_sound1(0x123);
+        sound_play1(0x123);
     }
 }
 
@@ -163,7 +163,7 @@ void map_station_retraction(void)
     current_sprite.curr_anim_frame = 0x0;
     current_sprite.anim_duration_counter = 0x0;
     samus_set_pose(SPOSE_STANDING);
-    play_sound1(0x124);
+    sound_play1(0x124);
 }
 
 void map_station(void)

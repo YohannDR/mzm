@@ -16,7 +16,7 @@ u32 clipdata_related(u16 y_position, u16 x_position)
 
 }
 
-u32 unk_57f7c(struct collision_data* pCollision)
+u32 unk_57f7c(struct CollisionData* pCollision)
 {
 
 }

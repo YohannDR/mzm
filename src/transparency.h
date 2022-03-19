@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-struct bldalpha_data {
+struct BldalphaData {
     u16 maybe_bldcnt;
     u8 unk;
     u8 eva;
@@ -13,7 +13,7 @@ struct bldalpha_data {
     u8 fading_related;
 };
 
-struct bldcnt_data {
+struct BldcntData {
     u16 unk;
     u8 unk2;
     u8 unk3;
@@ -31,8 +31,8 @@ void unk_55b24(u8 eva, u8 evb, u8 unk, u8 fading_related);
 void unk_55b9c(u8 unk, u8 unk2, u8 unk3);
 void transparency_update_bldalpha(u8 eva, u8 evb, u8 unk, u8 fading_related);
 void transparency_apply_new_effects(void);
-void transparency_apply_new_bldalpha(struct bldalpha_data* pBldalpha);
-void transparency_apply_new_bldcnt(struct bldcnt_data* pBldcnt);
+void transparency_apply_new_bldalpha(struct BldalphaData* pBldalpha);
+void transparency_apply_new_bldcnt(struct BldcntData* pBldcnt);
 void unk_55e60(void);
 void unk_55f68(void);
 

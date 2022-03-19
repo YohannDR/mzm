@@ -88,7 +88,8 @@ i32 screen_shake_update_horizontal(void)
 
     zero = 0x0;
     screen_shake_x_related = zero;
-    if (screen_shake_x.timer == 0x0) return 0x0;
+    if (screen_shake_x.timer == 0x0)
+    return 0x0;
     else
     {
         screen_shake_x.timer--;

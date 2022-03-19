@@ -42,12 +42,12 @@
 #define GROUND_EFFECT_UNKNOWN 0x4
 #define GROUND_EFFECT_BUBBLY_GROUND 0x5
 
-struct current_affecting_clipdata {
+struct CurrentAffectingClip {
     u16 movement;
     u16 hazard;
 };
 
-struct collision_data {
+struct CollisionData {
     u32 clipdata_type;
     i32 x_position;
     i32 y_position;
@@ -57,7 +57,7 @@ struct collision_data {
 void clipdate_setup_code(void);
 u32 unk_57df8(u16 y_position, u16 x_position);
 u32 clipdata_related(u16 y_position, u16 x_position);
-u32 unk_57f7c(struct collision_data* pCollision);
+u32 unk_57f7c(struct CollisionData* pCollision);
 u16 clipdata_check_hazard_at_position(u16 y_position, u16 x_position);
 u16 clipdate_check_current_affecting_hazard_and_very_special_clidpata(u16 y_position, u16 tile_y, u16 tile_x, u8 unk);
 u8 clidpata_check_cant_use_elevator(void);

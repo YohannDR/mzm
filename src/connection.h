@@ -37,7 +37,7 @@
 #define HATCH_ACTION_SETTING_SOURCE_AND_DESTINATION 0x1
 #define HATCH_ACTION_SETTING_SOURCE 0x2
 
-struct door {
+struct Door {
     u8 type;
     u8 source_room;
     u8 x_start;
@@ -49,20 +49,20 @@ struct door {
     i8 y_exit;
 };
 
-struct area_connection {
+struct __attribute__((packed)) AreaConnection {
     u8 source_area;
     u8 source_door;
     u8 destination_area;
 };
 
-struct event_based_connection {
+struct EventBasedConnection {
     u8 source_area;
     u8 source_door;
     u8 event;
     u8 destination_door;
 };
 
-struct hatch_lock_event {
+struct HatchLockEvent {
     u8 destination_room;
     u8 event;
     u8 is_before;
@@ -70,7 +70,7 @@ struct hatch_lock_event {
     u8 unknown;
 };
 
-struct hatch_data {
+struct HatchData {
     u8 direction;
     u8 status;
     u8 hits;

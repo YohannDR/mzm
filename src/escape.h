@@ -11,7 +11,7 @@
 #define ESCAPE_STATUS_HAPPENNING 0x1
 #define ESCAPE_STATUS_FAILED 0x2
 
-struct __attribute__((packed)) escape_digits {
+struct __attribute__((packed)) EscapeDigits {
     u8 hundredths;
     u8 tenths;
     u8 seconds_ones;

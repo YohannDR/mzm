@@ -3,8 +3,8 @@
 
 #include "types.h"
 
-struct background_pointers_and_dimensions {
-    struct sub_bg_ptr {
+struct BackgroundPointersAndDimensions {
+    struct SubBGPtr {
         u16* decompressed;
         u16 width;
         u16 height;

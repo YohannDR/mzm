@@ -70,12 +70,12 @@ void transparency_apply_new_effects(void)
 
 }
 
-void transparency_apply_new_bldalpha(struct bldalpha_data* pBldalpha)
+void transparency_apply_new_bldalpha(struct BldalphaData* pBldalpha)
 {
 
 }
 
-void transparency_apply_new_bldcnt(struct bldcnt_data* pBldcnt)
+void transparency_apply_new_bldcnt(struct BldcntData* pBldcnt)
 {
 
 }

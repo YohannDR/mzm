@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-struct io_registers_backup {
+struct IORegistersBackup {
     u16 dispcnt_non_gameplay;
     u16 bldcnt_non_gameplay;
     u16 bldalpha_non_gameplay;

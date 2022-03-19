@@ -109,7 +109,7 @@ void worker_robot_check_standing_anim_ended(void)
 void worker_robot_walking_detect_projectile(void)
 {
     u8 on_side;
-    struct projectile_data* pProj;
+    struct ProjectileData* pProj;
     u8 type;
     struct FrameData* pOam;
     u16 sprite_y;

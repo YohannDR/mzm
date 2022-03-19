@@ -9,9 +9,28 @@
 i16 sine_y_values[320];
 u8 random_number_table[256];
 
-/* blob_0x808ca9c_0x82b0d67.c */
+/* blob_0x808ca9c_0x8239463.c */
 
-u8 blob_0x808ca9c_0x82b0d67[2245324];
+u8 blob_0x808ca9c_0x8239463[1755591];
+
+/* samus_visual_data.c */
+
+u8 samus_visual_data[68][3];
+
+/* blob_0x8239530_0x823a533.c */
+
+u8 blob_0x8239530_0x823a533[4099];
+
+/* samus_hitbox_draw_data.c */
+
+u16 samus_draw_distance_offsets[4][4];
+i16 samus_hitbox_data[4][3];
+u8 samus_environmental_effects_oam_pointers[72];
+u16 samus_pulling_self_up_velocity[4];
+
+/* blob_0x823a5bc_0x82b0d67.c */
+
+u8 blob_0x823a5bc_0x82b0d67[485291];
 
 /* sprite_stats.c */
 

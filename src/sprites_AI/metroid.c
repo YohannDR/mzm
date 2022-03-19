@@ -62,7 +62,7 @@ u8 metroid_bomb_detection(void)
     u16 proj_right;
     u8 count;
     u8 status;
-    struct projectile_data* pProj;
+    struct ProjectileData* pProj;
 
     sprite_y = current_sprite.y_position;
     sprite_x = current_sprite.x_position;
@@ -260,7 +260,7 @@ void metroid_samus_grabbed(void)
 
 void metroid_death(void)
 {
-    struct sprite_data* pSprite;
+    struct SpriteData* pSprite;
     u8 is_metroid_alive;
     u8 rng;
     u16 y_position;
