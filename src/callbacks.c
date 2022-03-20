@@ -5,7 +5,9 @@
 #include "io.h"
 #include "music.h"
 
-void call_vblank_callback(void) {
+void
+call_vblank_callback(void)
+{
     if (vblank_callback) {
         vblank_callback();
     }
@@ -19,14 +21,18 @@ void call_vblank_callback(void) {
     }
 }
 
-void set_vblank_callback(callback_t callback) {
+void
+set_vblank_callback(callback_t callback)
+{
     vblank_callback = callback;
     if (!callback) {
         vblank_callback = empty_callback;
     }
 }
 
-void call_hblank_callback(void) {
+void
+call_hblank_callback(void)
+{
     if (hblank_callback) {
         hblank_callback();
     }
@@ -34,14 +40,18 @@ void call_hblank_callback(void) {
     write16(REG_IF, read16(REG_IF) | IF_HBLANK);
 }
 
-void set_hblank_callback(callback_t callback) {
+void
+set_hblank_callback(callback_t callback)
+{
     hblank_callback = callback;
     if (!callback) {
         hblank_callback = empty_callback;
     }
 }
 
-void call_vcount_callback(void) {
+void
+call_vcount_callback(void)
+{
     if (vcount_callback) {
         vcount_callback();
     }
@@ -49,14 +59,18 @@ void call_vcount_callback(void) {
     write16(REG_IF, read16(REG_IF) | IF_VCOUNT);
 }
 
-void set_vcount_callback(callback_t callback) {
+void
+set_vcount_callback(callback_t callback)
+{
     vcount_callback = callback;
     if (!callback) {
         vcount_callback = empty_callback;
     }
 }
 
-void call_serial_comm_callback(void) {
+void
+call_serial_comm_callback(void)
+{
     if (serial_comm_callback) {
         serial_comm_callback();
     }
@@ -64,14 +78,18 @@ void call_serial_comm_callback(void) {
     write16(REG_IF, read16(REG_IF) | IF_SERIAL);
 }
 
-void set_serial_comm_callback(callback_t callback) {
+void
+set_serial_comm_callback(callback_t callback)
+{
     serial_comm_callback = callback;
     if (!callback) {
         serial_comm_callback = empty_callback;
     }
 }
 
-void call_timer3_callback(void) {
+void
+call_timer3_callback(void)
+{
     if (timer3_callback) {
         timer3_callback();
     }
@@ -79,13 +97,17 @@ void call_timer3_callback(void) {
     write16(REG_IF, read16(REG_IF) | IF_TIMER3);
 }
 
-void set_timer3_callback(callback_t callback) {
+void
+set_timer3_callback(callback_t callback)
+{
     timer3_callback = callback;
     if (!callback) {
         timer3_callback = empty_callback;
     }
 }
 
-void empty_callback(void) {
+void
+empty_callback(void)
+{
     return;
 }
