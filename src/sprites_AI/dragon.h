@@ -17,7 +17,7 @@ void dragon_fireball_init(void);
 void dragon_fireball_move(void);
 void dragon_fireball_exploding_gfx_init(void);
 void dragon_fireball_check_exploding_anim_ended(void);
-void dragon_void(void);
+void dragon(void);
 void dragon_fireball(void);
 
 #endif /* DRAGON_AI_H */

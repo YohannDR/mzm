@@ -270,7 +270,7 @@ void dragon_fireball_check_exploding_anim_ended(void)
         current_sprite.status = 0x0;
 }
 
-void dragon_void(void)
+void dragon(void)
 {
     if (current_sprite.properties & SP_UNKNOWN)
     {

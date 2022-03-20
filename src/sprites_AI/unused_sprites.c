@@ -1,5 +1,6 @@
-#include "sprites_AI/unused_sprites.h"
-#include "globals.h"
+#include "unused_sprites.h"
+#include "../../data/data.h"
+#include "../globals.h"
 
 void unused_sprites(void)
 {
@@ -15,7 +16,7 @@ void unused_sprites(void)
         current_sprite.hitbox_right_offset = 0x10;
         current_sprite.anim_duration_counter = 0x0;
         current_sprite.curr_anim_frame = 0x0;
-        current_sprite.oam_pointer = unused_sprites_oam_data;
+        current_sprite.oam_pointer = unused_sprites_oam;
         current_sprite.bg_priority = 0x1;
     }
     current_sprite.ignore_samus_collision_timer = 0x1;

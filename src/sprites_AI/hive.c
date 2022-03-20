@@ -2,6 +2,7 @@
 #include "../particle.h"
 #include "../event.h"
 #include "../sprite_util.h"
+#include "../../data/data.h"
 #include "../globals.h"
 
 void hive_spawn_particle(void)
@@ -206,7 +207,7 @@ void hive_roots_move(void)
     current_sprite.x_position = sprite_data[ram_slot].x_position;
 }
 
-void hive_mellow_init(struct SpriteData* pSprite)
+void mellow_init(struct SpriteData* pSprite)
 {
     if (event_function(EVENT_ACTION_CHECKING, EVENT_THREE_HIVES_DESTROYED))
         pSprite->status = 0x0;
@@ -260,12 +261,12 @@ void hive_mellow_init(struct SpriteData* pSprite)
     }
 }
 
-void hive_mellow_idle_anim(struct SpriteData* pSprite)
+void mellow_idle_anim(struct SpriteData* pSprite)
 {
 
 }
 
-void hive_mellow_fleeing(struct SpriteData* pSprite)
+void mellow_fleeing(struct SpriteData* pSprite)
 {
     u8 rng;
     u16 movement;
@@ -284,7 +285,7 @@ void hive_mellow_fleeing(struct SpriteData* pSprite)
         pSprite->y_position -= movement;
 }
 
-void hive_mellow_samus_detected(struct SpriteData* pSprite)
+void mellow_samus_detected(struct SpriteData* pSprite)
 {
     pSprite->timer2 = 0x0;
     pSprite->work_variable = 0x1;
@@ -300,7 +301,7 @@ void hive_mellow_samus_detected(struct SpriteData* pSprite)
         pSprite->status |= SPRITE_STATUS_ON_VERTICAL_WALL;
 }
 
-void hive_mellow_move(struct SpriteData* pSprite)
+void mellow_move(struct SpriteData* pSprite)
 {
 
 }
@@ -375,7 +376,7 @@ void hive_roots(void)
         current_sprite.status = 0x0;
 }
 
-void hive_mellow(void)
+void mellow(void)
 {
     struct SpriteData* pSprite;
 
@@ -403,13 +404,13 @@ void hive_mellow(void)
             switch (pSprite->pose)
             {
                 case 0x0:
-                    hive_mellow_init(pSprite);
+                    mellow_init(pSprite);
                     break;
                 case 0x9:
-                    hive_mellow_idle_anim(pSprite);
+                    mellow_idle_anim(pSprite);
                     break;
                 case 0x22:
-                    hive_mellow_samus_detected(pSprite);
+                    mellow_samus_detected(pSprite);
                 case 0x23:
                     mellow_move(pSprite);
                     break;
@@ -423,7 +424,7 @@ void hive_mellow(void)
     }
 }
 
-void hive_mellow_swarm(void)
+void mellow_swarm(void)
 {
     u8 count;
     struct SpriteData* pSprite;
