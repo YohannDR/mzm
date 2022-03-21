@@ -2,12 +2,146 @@
 #include "sprite_debris.h"
 #include "sprite_util.h"
 #include "syscalls.h"
-#include "gba/memory.h"
+#include "sprites_AI/space_pirate.h"
+#include "gba.h"
+#include "../data/data.h"
 #include "globals.h"
 
+/**
+ * cf00 | 42c | Main routine that updates all the sprites
+ * 
+ */
 void sprite_update(void)
 {
+    u16 rng;
+    u8 fc8;
+    u8 count;
+    struct SpriteData* pCurrent;;
 
+    pCurrent = &current_sprite;
+    fc8 = frame_counter_8bit;
+    rng = (frame_counter_16bit >> 0x4);
+
+    if (game_mode_sub1 == 0x2)
+    {
+        sprite_debris_process_all();
+        if (!sprite_util_check_stop_sprites_pose())
+        {
+            sprite_util_samus_and_sprite_collision();
+            count = 0x0;
+            do
+            {
+                if (sprite_data[count].status & SPRITE_STATUS_EXISTS)
+                {
+                    dma_set(3, &sprite_data[count], &current_sprite, 0x8000001c); // Transfer sprite to current
+                    sprite_rng = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
+                    sprite_util_update_stun_timer(pCurrent);
+                    if (pCurrent->properties & SP_SECONDARY_SPRITE) // Call AI
+                        secondary_sprite_ai_pointers[pCurrent->sprite_id]();
+                    else
+                        primary_sprite_ai_pointers[pCurrent->sprite_id]();
+                    if (pCurrent->status & SPRITE_STATUS_EXISTS)
+                    {
+                        sprite_util_samus_standing_on_sprite(pCurrent);
+                        sprite_update_animation(pCurrent);
+                        sprite_check_on_screen(pCurrent);
+                    }
+                    dma_set(3, &current_sprite, &sprite_data[count], 0x8000001c); // Transfer current back to array
+                }
+                count++;
+            } while (count < 0x18);
+            return;
+        }
+        else
+        {
+            count = 0x0;
+            do 
+            {
+                if (sprite_data[count].status & SPRITE_STATUS_EXISTS)
+                {
+                    if (sprite_data[count].pose == 0x0 || sprite_data[count].properties & SP_ALWAYS_ACTIVE)
+                    {
+                        dma_set(3, &sprite_data[count], &current_sprite, 0x8000001c);
+                        sprite_rng = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
+                        sprite_util_update_stun_timer(pCurrent);
+                        if (pCurrent->properties & SP_SECONDARY_SPRITE) // Call AI
+                            secondary_sprite_ai_pointers[pCurrent->sprite_id]();
+                        else
+                            primary_sprite_ai_pointers[pCurrent->sprite_id]();
+
+                        if (pCurrent->status & SPRITE_STATUS_EXISTS)
+                        {
+                            sprite_util_samus_standing_on_sprite(pCurrent);
+                            sprite_update_animation(pCurrent);
+                            sprite_check_on_screen(pCurrent);
+                        }
+                        dma_set(3, &current_sprite, &sprite_data[count], 0x8000001c);
+                    }
+                    else
+                    {
+                        dma_set(3, &sprite_data[count], &current_sprite, 0x8000001c);
+                        sprite_check_on_screen(pCurrent);
+                        dma_set(3, &current_sprite, &sprite_data[count], 0x8000001c);
+                    }
+                }
+                count++;
+            } while (count < 0x18);
+            return;
+        }
+    }
+    else if (game_mode_sub1 == 0x6)
+    {
+        count = 0x0;
+        do
+        {
+            if (sprite_data[count].status & SPRITE_STATUS_EXISTS)
+            {
+                dma_set(3, &sprite_data[count], &current_sprite, 0x8000001c);
+                sprite_rng = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
+                sprite_util_update_stun_timer(pCurrent);
+                if (pCurrent->properties & SP_SECONDARY_SPRITE)
+                    secondary_sprite_ai_pointers[pCurrent->sprite_id]();
+                else
+                    primary_sprite_ai_pointers[pCurrent->sprite_id]();
+
+                if (pCurrent->status & SPRITE_STATUS_EXISTS)
+                {
+                    sprite_util_samus_standing_on_sprite(pCurrent);
+                    sprite_update_animation(pCurrent);
+                    sprite_check_on_screen(pCurrent);
+                }
+                dma_set(3, &current_sprite, &sprite_data[count], 0x8000001c);
+            }
+            count++;
+        } while (count < 0x18);
+        decrement_chozodia_alarm();
+        if (parasite_related != 0x0)
+            parasite_related--;
+    }
+    else
+    {
+        count = 0x0;
+        do
+        {
+            if (sprite_data[count].status & SPRITE_STATUS_EXISTS)
+            {
+                dma_set(3, &sprite_data[count], &current_sprite, 0x8000001c);
+                sprite_rng = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
+                
+                if (pCurrent->pose == 0x0)
+                {
+                    if (pCurrent->properties & SP_SECONDARY_SPRITE)
+                        secondary_sprite_ai_pointers[pCurrent->sprite_id]();
+                    else
+                        primary_sprite_ai_pointers[pCurrent->sprite_id]();
+                }
+                if (pCurrent->status & SPRITE_STATUS_EXISTS)
+                    sprite_check_on_screen(pCurrent);
+                dma_set(3, &current_sprite, &sprite_data[count], 0x8000001c);
+            }
+            count++;
+        } while (count < 0x18);
+    }
 }
 
 /**

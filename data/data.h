@@ -119,12 +119,16 @@ i16 samus_hitbox_data[4][3];
 u8 samus_environmental_effects_oam_pointers[72];
 u16 samus_pulling_self_up_velocity[4];
 
-/* blob_0x823a5bc_0x82b0d67.c */
+/* blob_0x823a5bc_0x82b0cab.c */
 
-u8 blob_0x823a5bc_0x82b0d67[485291];
+u8 blob_0x823a5bc_0x82b0cab[485103];
 
 /* sprite_stats.c */
 
+u8 random_number_table_0_F[56];
+i16 dessgeega_sidehopper_in_block_y_velocity[16];
+i16 sprites_failling_speed[40];
+i16 worker_robot_sleeping_falling_speed[10];
 u16 primary_sprite_stats[206][9];
 u16 secondary_sprite_stats[77][9];
 

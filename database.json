@@ -30,7 +30,7 @@
     }],
     "blob_0x8239530_0x823a533.c": [{
         "Name": "blob_0x8239530_0x823a533",
-        "Offset": 576156,
+        "Offset": 2331952,
         "Type": "u8",
         "IsArray": 1,
         "Size": 4099
@@ -64,14 +64,43 @@
             "Size": 4
         }
     ],
-    "blob_0x823a5bc_0x82b0d67.c": [{
-        "Name": "blob_0x823a5bc_0x82b0d67",
+    "blob_0x823a5bc_0x82b0cab.c": [{
+        "Name": "blob_0x823a5bc_0x82b0cab",
         "Offset": 2336108,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 485291
+        "Size": 485103
     }],
-    "sprite_stats.c": [{
+    "sprite_stats.c": [
+        {
+            "Name": "random_number_table_0_F",
+            "Offset": 2821292,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 56
+        },
+        {
+            "Name": "dessgeega_sidehopper_in_block_y_velocity",
+            "Offset": 2821348,
+            "Type": "i16",
+            "IsArray": 1,
+            "Size": 16
+        },
+        {
+            "Name": "sprites_failling_speed",
+            "Offset": 2821380,
+            "Type": "i16",
+            "IsArray": 1,
+            "Size": 40
+        },
+        {
+            "Name": "worker_robot_sleeping_falling_speed",
+            "Offset": 2821460,
+            "Type": "i16",
+            "IsArray": 1,
+            "Size": 10
+        },
+        {
             "Name": "primary_sprite_stats",
             "Offset": 2821480,
             "Type": "u16",
