@@ -14,11 +14,11 @@
 
 enum display_mode {
     /* Bits 0-2 */
-    DCNT_MODE_1  = 1,
-    DCNT_MODE_2  = 2,
-    DCNT_MODE_3  = 3,
-    DCNT_MODE_4  = 4,
-    DCNT_MODE_5  = 5,
+    DCNT_MODE_1 = 1,
+    DCNT_MODE_2 = 2,
+    DCNT_MODE_3 = 3,
+    DCNT_MODE_4 = 4,
+    DCNT_MODE_5 = 5,
 
     DCNT_CGB     = 1 << 3,
     DCNT_PAGE    = 1 << 4,
@@ -26,14 +26,14 @@ enum display_mode {
     DCNT_OBJ_1D  = 1 << 6,
     DCNT_BLANK   = 1 << 7,
 
-    DCNT_BG0     = 1 << 8,
-    DCNT_BG1     = 1 << 9,
-    DCNT_BG2     = 1 << 10,
-    DCNT_BG3     = 1 << 11,
-    DCNT_OBJ     = 1 << 12,
-    DCNT_WIN0    = 1 << 13,
-    DCNT_WIN1    = 1 << 14,
-    DCNT_WINOBJ  = 1 << 15,
+    DCNT_BG0    = 1 << 8,
+    DCNT_BG1    = 1 << 9,
+    DCNT_BG2    = 1 << 10,
+    DCNT_BG3    = 1 << 11,
+    DCNT_OBJ    = 1 << 12,
+    DCNT_WIN0   = 1 << 13,
+    DCNT_WIN1   = 1 << 14,
+    DCNT_WINOBJ = 1 << 15,
 };
 
 enum display_status {
