@@ -27,7 +27,7 @@ void sprite_util_init_location_text(void)
         sprite_data[0x0].invicibility_stun_flash_timer = 0x0;
         sprite_data[0x0].palette_row = 0x0;
         sprite_data[0x0].frozen_palette_row_offset = 0x0;
-        sprite_data[0x0].maybe_absolute_palette_row = 0x0;
+        sprite_data[0x0].absolute_palette_row = 0x0;
         sprite_data[0x0].ignore_samus_collision_timer = 0x1;
         sprite_data[0x0].primary_sprite_ram_slot = 0x0;
         sprite_data[0x0].freeze_timer = 0x0;
@@ -866,7 +866,7 @@ void sprite_util_update_freeze_timer(void)
     if (freeze_timer < 0x2E && (freeze_timer & 0x1) != 0x0)
         current_sprite.palette_row = 0xF - (current_sprite.spriteset_gfx_slot + current_sprite.frozen_palette_row_offset);
     else
-        current_sprite.palette_row = current_sprite.maybe_absolute_palette_row;*/
+        current_sprite.palette_row = current_sprite.absolute_palette_row;*/
 }
 
 void sprite_util_unfreeze_anim_easy(void)
@@ -883,7 +883,7 @@ void sprite_util_unfreeze_anim_easy(void)
         if ((freeze_timer & 0x2) != 0x0)
             current_sprite.palette_row = 0xF - (current_sprite.spriteset_gfx_slot + current_sprite.frozen_palette_row_offset);
         else
-            current_sprite.palette_row = current_sprite.maybe_absolute_palette_row;
+            current_sprite.palette_row = current_sprite.absolute_palette_row;
     }
 }
 
@@ -901,7 +901,7 @@ void sprite_util_metroid_unfreeze_anim(void)
         if ((freeze_timer & 0x4) != 0x0)
             current_sprite.palette_row = 0xF - (current_sprite.spriteset_gfx_slot + current_sprite.frozen_palette_row_offset);
         else
-            current_sprite.palette_row = current_sprite.maybe_absolute_palette_row;
+            current_sprite.palette_row = current_sprite.absolute_palette_row;
     }
 }
 
@@ -1742,7 +1742,7 @@ void sprite_util_sprite_death(u8 death_type, u16 y_position, u16 x_position, u8 
             current_sprite.invicibility_stun_flash_timer = 0x0;
             current_sprite.palette_row = 0x0;
             current_sprite.frozen_palette_row_offset = 0x0;
-            current_sprite.maybe_absolute_palette_row = 0x0;
+            current_sprite.absolute_palette_row = 0x0;
             current_sprite.ignore_samus_collision_timer = 0x1;
             current_sprite.freeze_timer = 0x0;
         }

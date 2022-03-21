@@ -188,7 +188,7 @@ void sova_init(void)
     current_sprite.draw_distance_horizontal_offset = 0x10;
     if (current_sprite.sprite_id == PSPRITE_SOVA_ORANGE)
     {
-        current_sprite.maybe_absolute_palette_row = 0x1;
+        current_sprite.absolute_palette_row = 0x1;
         current_sprite.palette_row = 0x1;
     }
 }

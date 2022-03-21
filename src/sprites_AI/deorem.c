@@ -500,7 +500,7 @@ void deorem_eye(void)
                 sprite_data[ram_slot].curr_anim_frame = 0x0;
                 sprite_data[ram_slot].hitbox_bottom_offset = 0x40;
                 if (current_sprite.health < 0x15)
-                    sprite_data[ram_slot].maybe_absolute_palette_row = 0x2;
+                    sprite_data[ram_slot].absolute_palette_row = 0x2;
                 current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
                 sound_play1(0x19A);
             }

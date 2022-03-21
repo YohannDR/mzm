@@ -13,14 +13,14 @@
  */
 void sprite_update(void)
 {
-    u16 rng;
+    /*u16 rng;
     u8 fc8;
     u8 count;
-    struct SpriteData* pCurrent;;
+    struct SpriteData* pCurrent;
 
     pCurrent = &current_sprite;
     fc8 = frame_counter_8bit;
-    rng = (frame_counter_16bit >> 0x4);
+    rng = (frame_counter_16bit >> 0x4); // Incorrect stack
 
     if (game_mode_sub1 == 0x2)
     {
@@ -61,7 +61,7 @@ void sprite_update(void)
                 {
                     if (sprite_data[count].pose == 0x0 || sprite_data[count].properties & SP_ALWAYS_ACTIVE)
                     {
-                        dma_set(3, &sprite_data[count], &current_sprite, 0x8000001c);
+                        dma_set(3, &sprite_data[count], &current_sprite, 0x8000001c); // Incorrect ldr
                         sprite_rng = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
                         sprite_util_update_stun_timer(pCurrent);
                         if (pCurrent->properties & SP_SECONDARY_SPRITE) // Call AI
@@ -141,7 +141,7 @@ void sprite_update(void)
             }
             count++;
         } while (count < 0x18);
-    }
+    }*/
 }
 
 /**
@@ -374,7 +374,7 @@ void sprite_init_primary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 r
             pSprite->invicibility_stun_flash_timer = 0x0;
             pSprite->palette_row = 0x0;
             pSprite->frozen_palette_row_offset = 0x0;
-            pSprite->maybe_absolute_palette_row = 0x0;
+            pSprite->absolute_palette_row = 0x0;
             pSprite->ignore_samus_collision_timer = 0x1;
             pSprite->primary_sprite_ram_slot = ram_slot;
             pSprite->freeze_timer = 0x0;
@@ -428,7 +428,7 @@ u8 sprite_spawn_secondary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, 
             pSprite->invicibility_stun_flash_timer = 0x0;
             pSprite->palette_row = 0x0;
             pSprite->frozen_palette_row_offset = 0x0;
-            pSprite->maybe_absolute_palette_row = 0x0;
+            pSprite->absolute_palette_row = 0x0;
             pSprite->ignore_samus_collision_timer = 0x1;
             pSprite->primary_sprite_ram_slot = ram_slot;
             pSprite->freeze_timer = 0x0;
@@ -454,7 +454,7 @@ u8 sprite_spawn_secondary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, 
  * @param y_position Y Position
  * @param x_position X Position
  * @param status_to_add Additionnal status flags (default are Exists, On Screen and Not Drawn)
- * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
+ * @return The assigned RAM slot of the spawned sprite, 0xFF if the sprite couldn't spawn
  */
 u8 sprite_spawn_primary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u16 y_position, u16 x_position, u16 status_to_add)
 {
@@ -484,7 +484,7 @@ u8 sprite_spawn_primary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u16 y_position,
             pSprite->invicibility_stun_flash_timer = 0x0;
             pSprite->palette_row = 0x0;
             pSprite->frozen_palette_row_offset = 0x0;
-            pSprite->maybe_absolute_palette_row = 0x0;
+            pSprite->absolute_palette_row = 0x0;
             pSprite->ignore_samus_collision_timer = 0x1;
             pSprite->primary_sprite_ram_slot = new_ram_slot;
             pSprite->freeze_timer = 0x0;
@@ -541,7 +541,7 @@ u8 sprite_spawn_drop_followers(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_s
             pSprite->invicibility_stun_flash_timer = 0x0;
             pSprite->palette_row = 0x0;
             pSprite->frozen_palette_row_offset = 0x0;
-            pSprite->maybe_absolute_palette_row = 0x0;
+            pSprite->absolute_palette_row = 0x0;
             pSprite->ignore_samus_collision_timer = 0x1;
             pSprite->primary_sprite_ram_slot = ram_slot;
             pSprite->freeze_timer = 0x0;

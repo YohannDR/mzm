@@ -951,7 +951,7 @@ void projectile_check_hit_sprite(void)
                                         pSprite->standing_on_sprite = FALSE;
                                         pSprite->freeze_timer = 0x3C;
                                         pSprite->palette_row = 0x1;
-                                        pSprite->maybe_absolute_palette_row = 0x1;
+                                        pSprite->absolute_palette_row = 0x1;
                                         particle_set(proj_y, proj_x, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
                                     }
                                     else

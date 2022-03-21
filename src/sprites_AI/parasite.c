@@ -1,10 +1,36 @@
 #include "parasite.h"
+#include "../sprite.h"
 #include "../../data/data.h"
 #include "../globals.h"
 
+/**
+ * 2fef0 | 54 | Counts the number of bugs that are on pose 0x43, used to know if samus should take damage
+ * 
+ * @return 1 if count greater than 3, 0 otherwise
+ */
 u8 parasite_count(void)
 {
+    struct SpriteData* pSprite;
+    u8 count;
 
+    count = 0x0;
+    pSprite = sprite_data;
+
+    while (pSprite < sprite_data + 24)
+    {
+        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samus_collision == SSC_BUG)
+        {
+            if (pSprite->pose == 0x43)
+                count++;
+
+            if (count > 0x3)
+                return TRUE;
+        }
+
+        pSprite++;
+    }
+
+    return FALSE;
 }
 
 void parasite_init(struct SpriteData* pSprite)

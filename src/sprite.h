@@ -417,7 +417,7 @@ struct SpriteData {
     u8 standing_on_sprite;
     u8 properties;
     u8 frozen_palette_row_offset;
-    u8 maybe_absolute_palette_row;
+    u8 absolute_palette_row;
 };
 
 void sprite_update(void);

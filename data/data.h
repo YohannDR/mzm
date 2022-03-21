@@ -328,9 +328,29 @@ u8 blob_0x82cd604_0x82f7db3[174000];
 
 u16 area_banner_location_text_pal[16];
 
-/* blob_0x82f7dd4_0x8326ca7.c */
+/* blob_0x82f7dd4_0x82fd107.c */
 
-u8 blob_0x82f7dd4_0x8326ca7[192212];
+u8 blob_0x82f7dd4_0x82fd107[21299];
+
+/* geron_data.c */
+
+struct OamFrame geron_norfair_oam1;
+struct OamFrame geron_norfair_oam2;
+struct OamFrame geron_norfair_oam3;
+struct OamFrame geron_norfair_oam4;
+struct OamFrame geron_norfair_oam5;
+struct OamFrame geron_norfair_oam6;
+struct OamFrame geron_norfair_oam7;
+struct OamFrame geron_norfair_oam8;
+struct OamFrame geron_norfair_oam9;
+struct OamFrame geron_norfair_oam10;
+u8 geron_gfx[612];
+u16 geron_pal[16];
+struct FrameData geron_norfair_oam[11];
+
+/* blob_0x82fd79c_0x8326ca7.c */
+
+u8 blob_0x82fd79c_0x8326ca7[169227];
 
 /* tumbling_missile_speed_data.c */
 

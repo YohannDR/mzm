@@ -422,12 +422,41 @@
         "IsArray": 1,
         "Size": 16
     }],
-    "blob_0x82f7dd4_0x8326ca7.c": [{
-        "Name": "blob_0x82f7dd4_0x8326ca7",
+    "blob_0x82f7dd4_0x82fd107.c": [{
+        "Name": "blob_0x82f7dd4_0x82fd107",
         "Offset": 3112404,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 192212
+        "Size": 21299
+    }],
+    "geron_data.c": [{
+            "Name": "geron_norfair_oam",
+            "Offset": 3134656,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 11
+        },
+        {
+            "Name": "geron_gfx",
+            "Offset": 3134744,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 612
+        },
+        {
+            "Name": "geron_pal",
+            "Offset": 3135356,
+            "Type": "u16",
+            "IsArray": 1,
+            "Size": 16
+        }
+    ],
+    "blob_0x82fd79c_0x8326ca7.c": [{
+        "Name": "blob_0x82fd79c_0x8326ca7",
+        "Offset": 3135388,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 169227
     }],
     "tumbling_missile_speed_data.c": [{
         "Name": "tumbling_missile_speed",

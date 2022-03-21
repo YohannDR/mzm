@@ -111,7 +111,7 @@ void zeb_reset(void)
     current_sprite.invicibility_stun_flash_timer = 0x0;
     current_sprite.palette_row = 0x0;
     current_sprite.frozen_palette_row_offset = 0x0;
-    current_sprite.maybe_absolute_palette_row = 0x0;
+    current_sprite.absolute_palette_row = 0x0;
     current_sprite.ignore_samus_collision_timer = 0x1;
     current_sprite.freeze_timer = 0x0;
 }
