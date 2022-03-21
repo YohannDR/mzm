@@ -1,0 +1,11 @@
+task:
+  container:
+    image: archlinux:base-devel
+
+  matrix:
+    - name: Format
+      install_script:
+        - sudo pacman --noconfirm -Syu clang git
+      test_script:
+        - find src -type f -name '*.[ch]' -print | xargs -d '\n' clang-format -i
+        - git diff --exit-code
