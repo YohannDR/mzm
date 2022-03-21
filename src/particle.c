@@ -650,7 +650,7 @@ void particle_beam_trailing_left(struct ParticleEffect* pParticle)
  * 
  * @param pParticle Particle Effect Pointer to the concerned particle
  */
-void particle_charged_long_beam_trailing(struct ParticleEffect* pParticle)
+void particle_charged_long_beam_trail(struct ParticleEffect* pParticle)
 {
     pParticle->frame_counter++;
     if (particle_update_animation(pParticle, particle_charged_long_beam_trail_oam))
@@ -668,7 +668,7 @@ void particle_charged_long_beam_trailing(struct ParticleEffect* pParticle)
  * 
  * @param pParticle Particle Effect Pointer to the concerned particle
  */
-void particle_charged_ice_beam_trailing(struct ParticleEffect* pParticle)
+void particle_charged_ice_beam_trail(struct ParticleEffect* pParticle)
 {
     pParticle->frame_counter++;
     if (particle_update_animation(pParticle, particle_charged_ice_beam_trail_oam))
@@ -1147,7 +1147,7 @@ void particle_hitting_something_with_full_beam(struct ParticleEffect* pParticle)
  * 
  * @param pParticle Particle Effect Pointer to the concerned particle
  */
-void particle_hitting_something_invicible(struct ParticleEffect* pParticle)
+void particle_hitting_something_invincible(struct ParticleEffect* pParticle)
 {
     pParticle->frame_counter++;
     if (particle_update_animation(pParticle, particle_hitting_something_invincible_oam))

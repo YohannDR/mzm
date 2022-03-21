@@ -1,5 +1,6 @@
 #include "glass_tube.h"
 #include "../sprite_util.h"
+#include "../clipdata.h"
 #include "../particle.h"
 #include "../screen_shake.h"
 #include "../music.h"
@@ -9,7 +10,59 @@
 
 void glass_tube_change_ccaa(void)
 {
+    /*u16 y_position;
+    u16 x_position;
+    u8 caa;
 
+    y_position = current_sprite.y_position - 0x20;
+    x_position = current_sprite.x_position;
+
+    caa = CCAA_REMOVE_SOLID;
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position - 0x40, x_position);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position - 0x40);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position - 0x80);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position - 0xC0);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position - 0x100);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position - 0x140);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position + 0x40);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position + 0x80);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position + 0xC0);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position + 0x100);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position + 0x140);
+    y_position += 0x140;
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position - 0x40, x_position);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position - 0x40);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position - 0x80);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position - 0xC0);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position - 0x100);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position - 0x140);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position + 0x40);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position + 0x80);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position + 0xC0);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position + 0x100);
+    current_clipdata_affecting_action = caa;
+    clipdata_related(y_position, x_position + 0x140);*/
 }
 
 /**

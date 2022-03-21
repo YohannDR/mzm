@@ -76,6 +76,8 @@ struct PowerBomb {
     u8 also_always_zero;
 };
 
+typedef (*ProjFunc_T)(struct ProjectileData*);
+
 void projectile_set_beam_particle_effect(void);
 u8 projectile_check_number_of_projectiles(u8 type, u8 limit);
 u8 projectile_init(u8 type, u16 y_position, u16 x_position);

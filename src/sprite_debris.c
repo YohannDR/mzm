@@ -129,7 +129,7 @@ void sprite_debris_draw_all(void)
         pDebris = sprite_debris;
         while (pDebris < sprite_debris + 0x8)
         {
-            if (pDebris->exists != FALSE && pDebris->falling_timer != 0x0)
+            if (pDebris->exists && pDebris->falling_timer != 0x0)
                 sprite_debris_draw(pDebris);
             pDebris++;
         }

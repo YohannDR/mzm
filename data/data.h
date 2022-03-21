@@ -4,6 +4,8 @@
 #include "../src/oam.h"
 #include "../src/types.h"
 #include "../src/samus.h"
+#include "../src/particle.h"
+#include "../src/projectile.h"
 #include "../src/sprites_AI/unused_sprites.h"
 #include "../src/sprites_AI/charge_beam.h"
 #include "../src/sprites_AI/deorem.h"
@@ -102,7 +104,7 @@ u8 random_number_table[256];
 
 /* blob_0x808ca9c_0x8239463.c */
 
-u8 blob_0x808ca9c_0x8239463[1755591];
+u8 blob_0x808ca9c_0x8239463[1755592];
 
 /* samus_visual_data.c */
 
@@ -110,7 +112,7 @@ u8 samus_visual_data[68][3];
 
 /* blob_0x8239530_0x823a533.c */
 
-u8 blob_0x8239530_0x823a533[4099];
+u8 blob_0x8239530_0x823a533[4100];
 
 /* samus_hitbox_draw_data.c */
 
@@ -121,7 +123,7 @@ u16 samus_pulling_self_up_velocity[4];
 
 /* blob_0x823a5bc_0x82b0cab.c */
 
-u8 blob_0x823a5bc_0x82b0cab[485103];
+u8 blob_0x823a5bc_0x82b0cab[485104];
 
 /* sprite_stats.c */
 
@@ -178,9 +180,9 @@ struct FrameData multiple_large_energy_drop_slot2_oam[5];
 struct OamFrame unused_sprites_oam1;
 struct OamFrame unused_sprites_oam2;
 struct OamFrame unused_sprites_oam4;
+struct FrameData unused_sprites_oam[5];
 u8 unused_sprites_gfx[24];
 u16 unused_sprites_pal[16];
-struct FrameData unused_sprites_oam[5];
 
 /* morph_ball_data.c */
 
@@ -330,7 +332,7 @@ u16 area_banner_location_text_pal[16];
 
 /* blob_0x82f7dd4_0x82fd107.c */
 
-u8 blob_0x82f7dd4_0x82fd107[21299];
+u8 blob_0x82f7dd4_0x82fd107[21300];
 
 /* geron_data.c */
 
@@ -344,13 +346,57 @@ struct OamFrame geron_norfair_oam7;
 struct OamFrame geron_norfair_oam8;
 struct OamFrame geron_norfair_oam9;
 struct OamFrame geron_norfair_oam10;
+struct FrameData geron_norfair_oam[11];
 u8 geron_gfx[612];
 u16 geron_pal[16];
-struct FrameData geron_norfair_oam[11];
 
-/* blob_0x82fd79c_0x8326ca7.c */
+/* blob_0x82fd79c_0x830d55b.c */
 
-u8 blob_0x82fd79c_0x8326ca7[169227];
+u8 blob_0x82fd79c_0x830d55b[64960];
+
+/* glass_tube_data.c */
+
+struct OamFrame glass_tube_oam1;
+struct OamFrame glass_tube_oam_cracking1;
+struct OamFrame glass_tube_oam_cracking2;
+struct OamFrame glass_tube_oam_cracking3;
+struct OamFrame glass_tube_oam_cracking4;
+struct OamFrame glass_tube_oam_cracking5;
+struct OamFrame glass_tube_oam_cracking6;
+struct OamFrame glass_tube_oam_cracking7;
+struct OamFrame glass_tube_oam_cracking8;
+struct OamFrame glass_tube_oam_cracking9;
+struct OamFrame glass_tube_oam_cracking10;
+struct OamFrame glass_tube_oam_cracking11;
+struct OamFrame glass_tube_oam_breaking1;
+struct OamFrame glass_tube_oam_breaking2;
+struct OamFrame glass_tube_oam_breaking3;
+struct OamFrame glass_tube_oam_breaking4;
+struct OamFrame glass_tube_oam_breaking5;
+struct OamFrame glass_tube_oam_breaking6;
+struct OamFrame glass_tube_oam_breaking7;
+struct OamFrame glass_tube_oam_breaking8;
+struct OamFrame glass_tube_oam_breaking9;
+struct OamFrame glass_tube_oam_breaking10;
+struct OamFrame glass_tube_oam_breaking11;
+struct OamFrame glass_tube_oam_breaking12;
+struct OamFrame glass_tube_oam_breaking13;
+struct OamFrame glass_tube_oam_breaking14;
+struct OamFrame glass_tube_oam_breaking15;
+struct OamFrame glass_tube_oam_breaking16;
+struct OamFrame glass_tube_oam_breaking17;
+struct OamFrame glass_tube_oam_breaking18;
+struct OamFrame glass_tube_oam_broken1;
+struct FrameData glass_tube_oam[2];
+struct FrameData glass_tube_oam_cracking[12];
+struct FrameData glass_tube_oam_breaking[19];
+struct FrameData glass_tube_oam_broken[2];
+u8 glass_tube_gfx[2208];
+u16 glass_tube_pal[64];
+
+/* blob_0x830df94_0x8326ca7.c */
+
+u8 blob_0x830df94_0x8326ca7[101652];
 
 /* tumbling_missile_speed_data.c */
 
@@ -1257,10 +1303,22 @@ Func_t primary_sprite_ai_pointers[206];
 
 /* blob_0x875ebf8_0x875f1e7.c */
 
-u8 blob_0x875ebf8_0x875f1e7[1519];
+u8 blob_0x875ebf8_0x875f1e7[1520];
 
 /* secondary_sprites_pointers.c */
 
 Func_t secondary_sprite_ai_pointers[77];
+
+/* blob_0x875f31c_0x875f973.c */
+
+u8 blob_0x875f31c_0x875f973[16234];
+
+/* projectile_pointers.c */
+
+ProjFunc_T process_projectile_functions_pointers[16];
+
+/* particle_pointers.c */
+
+ParticleFunc_T process_particle_functions_pointer[61];
 
 #endif /* DATA_H */

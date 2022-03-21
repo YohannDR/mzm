@@ -19,7 +19,7 @@
         "Offset": 576156,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 1755591
+        "Size": 1755592
     }],
     "samus_visual_data.c": [{
         "Name": "samus_visual_data",
@@ -33,7 +33,7 @@
         "Offset": 2331952,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 4099
+        "Size": 4100
     }],
     "samus_hitbox_draw_data.c": [{
             "Name": "samus_draw_distance_offsets",
@@ -69,10 +69,9 @@
         "Offset": 2336108,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 485103
+        "Size": 485104
     }],
-    "sprite_stats.c": [
-        {
+    "sprite_stats.c": [{
             "Name": "random_number_table_0_F",
             "Offset": 2821292,
             "Type": "u8",
@@ -427,7 +426,7 @@
         "Offset": 3112404,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 21299
+        "Size": 21300
     }],
     "geron_data.c": [{
             "Name": "geron_norfair_oam",
@@ -451,12 +450,62 @@
             "Size": 16
         }
     ],
-    "blob_0x82fd79c_0x8326ca7.c": [{
-        "Name": "blob_0x82fd79c_0x8326ca7",
+    "blob_0x82fd79c_0x830d55b.c": [{
+        "Name": "blob_0x82fd79c_0x830d55b",
         "Offset": 3135388,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 169227
+        "Size": 64960
+    }],
+    "glass_tube_data.c": [{
+            "Name": "glass_tube_oam",
+            "Offset": 3200348,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 2
+        },
+        {
+            "Name": "glass_tube_oam_cracking",
+            "Offset": 3200364,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 12
+        },
+        {
+            "Name": "glass_tube_oam_breaking",
+            "Offset": 3200460,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 19
+        },
+        {
+            "Name": "glass_tube_oam_broken",
+            "Offset": 3200612,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 2
+        },
+        {
+            "Name": "glass_tube_gfx",
+            "Offset": 3200628,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 2208
+        },
+        {
+            "Name": "glass_tube_pal",
+            "Offset": 3202836,
+            "Type": "u16",
+            "IsArray": 1,
+            "Size": 64
+        }
+    ],
+    "blob_0x830df94_0x8326ca7.c": [{
+        "Name": "blob_0x830df94_0x8326ca7",
+        "Offset": 3202964,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 101652
     }],
     "tumbling_missile_speed_data.c": [{
         "Name": "tumbling_missile_speed",
@@ -2015,7 +2064,7 @@
         "Offset": 7727296,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 1519
+        "Size": 1520
     }],
     "secondary_sprites_pointers.c": [{
         "Name": "secondary_sprite_ai_pointers",
@@ -2102,6 +2151,110 @@
             "mother_brain_beam",
             "mother_brain_block",
             "mother_brain_glass_breaking"
+        ]
+    }],
+    "blob_0x875f31c_0x875f973.c": [{
+        "Name": "blob_0x875f31c_0x875f973",
+        "Offset": 7729948,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 16234
+    }],
+    "projectile_pointers.c": [{
+        "Name": "process_projectile_functions_pointers",
+        "Offset": 7731572,
+        "Type": "Pointer",
+        "pType": "ProjFunc_T",
+        "IsArray": 1,
+        "Size": 16,
+        "Pointers": [
+            "projectile_process_normal_beam",
+            "projectile_process_long_beam",
+            "projectile_process_ice_beam",
+            "projectile_process_wave_beam",
+            "projectile_process_plasma_beam",
+            "projectile_process_pistol",
+            "projectile_process_charged_normal_beam",
+            "projectile_process_charged_long_beam",
+            "projectile_process_charged_ice_beam",
+            "projectile_process_charged_wave_beam",
+            "projectile_process_charged_plasma_beam",
+            "projectile_process_charged_pistol",
+            "projectile_process_missile",
+            "projectile_process_super_missile",
+            "projectile_process_bomb",
+            "projectile_process_power_bomb"
+        ]
+    }],
+    "particle_pointers.c": [{
+        "Name": "process_particle_functions_pointer",
+        "Offset": 7731640,
+        "Type": "Pointer",
+        "pType": "ParticleFunc_T",
+        "IsArray": 1,
+        "Size": 61,
+        "Pointers": [
+            "particle_sprite_splash_water_small",
+            "particle_sprite_splash_water_big",
+            "particle_sprite_splash_water_huge",
+            "particle_sprite_splash_lava_small",
+            "particle_sprite_splash_lava_big",
+            "particle_sprite_splash_lava_huge",
+            "particle_sprite_splash_acid_small",
+            "particle_sprite_splash_acid_big",
+            "particle_sprite_splash_acid_huge",
+            "particle_shooting_beam_left",
+            "particle_shooting_beam_diag_up_left",
+            "particle_shooting_beam_diag_down_left",
+            "particle_shooting_beam_up_left",
+            "particle_shooting_beam_down_left",
+            "particle_shooting_beam_right",
+            "particle_shooting_beam_diag_up_right",
+            "particle_shooting_beam_diag_down_right",
+            "particle_shooting_beam_up_right",
+            "particle_shooting_beam_down_right",
+            "particle_bomb",
+            "particle_missile_trail",
+            "particle_super_missile_trail",
+            "particle_beam_trailing_right",
+            "particle_beam_trailing_left",
+            "particle_charged_long_beam_trail",
+            "particle_charged_ice_beam_trail",
+            "particle_charged_wave_beam_trail",
+            "particle_charged_plasma_beam_trail",
+            "particle_charged_full_beam_trail",
+            "particle_charged_pistol_trail",
+            "particle_sprite_explosion_huge",
+            "particle_sprite_explosion_small",
+            "particle_sprite_explosion_medium",
+            "particle_sprite_explosion_big",
+            "particle_sprite_explosion_single_then_big",
+            "particle_screw_attack_destroyed",
+            "particle_shinespark_destroyed",
+            "particle_sudo_screw_destroyed",
+            "particle_speedbooster_destroyed",
+            "particle_main_boss_death",
+            "particle_freezing_sprite_with_ice",
+            "particle_freezing_sprite_with_charged_ice",
+            "particle_hitting_something_with_base_beam",
+            "particle_hitting_something_with_long_beam",
+            "particle_hitting_something_with_ice_beam",
+            "particle_hitting_something_with_wave_beam",
+            "particle_hitting_something_with_plasma_beam",
+            "particle_hitting_something_invincible",
+            "particle_hitting_something_with_missile",
+            "particle_hitting_something_with_super_missile",
+            "particle_hitting_something_with_full_beam_no_plasma",
+            "particle_hitting_something_with_full_beam",
+            "particle_small_dust",
+            "particle_medium_dust",
+            "particle_two_medium_dust",
+            "particle_second_small_dust",
+            "particle_second_medium_dust",
+            "particle_second_two_medium_dust",
+            "particle_samus_reflection",
+            "particle_charging_beam",
+            "particle_escape"
         ]
     }]
 }

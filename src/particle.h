@@ -87,7 +87,7 @@ struct ParticleEffect {
     u16 x_position;
 };
 
-typedef void (*particle_t)(struct ParticleEffect*);
+typedef void (*ParticleFunc_T)(struct ParticleEffect*);
 
 void particle_check_on_screen(struct ParticleEffect* pParticle);
 void particle_draw(struct ParticleEffect* pParticle);
@@ -119,8 +119,8 @@ void particle_missile_trail(struct ParticleEffect* pParticle);
 void particle_super_missile_trail(struct ParticleEffect* pParticle);
 void particle_beam_trailing_right(struct ParticleEffect* pParticle);
 void particle_beam_trailing_left(struct ParticleEffect* pParticle);
-void particle_charged_long_beam_trailing(struct ParticleEffect* pParticle);
-void particle_charged_ice_beam_trailing(struct ParticleEffect* pParticle);
+void particle_charged_long_beam_trail(struct ParticleEffect* pParticle);
+void particle_charged_ice_beam_trail(struct ParticleEffect* pParticle);
 void particle_charged_wave_beam_trail(struct ParticleEffect* pParticle);
 void particle_charged_plasma_beam_trail(struct ParticleEffect* pParticle);
 void particle_charged_full_beam_trail(struct ParticleEffect* pParticle);
@@ -144,7 +144,7 @@ void particle_hitting_something_with_wave_beam(struct ParticleEffect* pParticle)
 void particle_hitting_something_with_full_beam_no_plasma(struct ParticleEffect* pParticle);
 void particle_hitting_something_with_plasma_beam(struct ParticleEffect* pParticle);
 void particle_hitting_something_with_full_beam(struct ParticleEffect* pParticle);
-void particle_hitting_something_invicible(struct ParticleEffect* pParticle);
+void particle_hitting_something_invincible(struct ParticleEffect* pParticle);
 void particle_hitting_something_with_missile(struct ParticleEffect* pParticle);
 void particle_hitting_something_with_super_missile(struct ParticleEffect* pParticle);
 void particle_small_dust(struct ParticleEffect* pParticle);

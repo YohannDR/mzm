@@ -411,7 +411,7 @@ void projectile_update(void)
     {
         if ((pProj->status & PROJ_STATUS_EXISTS) != 0x0)
         {
-            (*process_projectile_functions_pointers[pProj->type])(pProj);
+            process_projectile_functions_pointers[pProj->type](pProj);
             projectile_update_animation(pProj);
             projectile_check_despawn(pProj);
         }
