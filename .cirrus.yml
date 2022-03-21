@@ -3,6 +3,23 @@ task:
     image: archlinux:base-devel
 
   matrix:
+    - name: Check
+      only_if: ${GITHUB_USER} != "" && ${GITHUB_PAT} != "" && ${BASEROM_REPO} != ""
+      env:
+        PATH: ../agbcc:${PATH}
+      install_script:
+        - sudo pacman --noconfirm -Syu git arm-none-eabi-binutils
+      build_agbcc_script:
+        - git clone https://github.com/pret/agbcc ../agbcc
+        - ( cd ../agbcc && ./build.sh )
+      get_baseroms_script:
+        - git clone https://${GITHUB_USER}:${GITHUB_PAT}@github.com/${BASEROM_REPO}.git ../baseroms
+        - cp ../baseroms/* .
+      build_script:
+        - make CPP=cpp -j
+      check_script:
+        - make check
+
     - name: Format
       install_script:
         - sudo pacman --noconfirm -Syu clang git
