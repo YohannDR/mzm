@@ -25,9 +25,11 @@ SECTIONS {
         . = 0x00000c77; frame_counter_8bit = .;
         . = 0x00000c78; vblank_request_flag = .;
         . = 0x00000c7c; intr_code = .;
+        . = 0x00000e7c; oam_data = .;
         . = 0x0000137c; button_input = .;
         . = 0x0000137e; button_input_old = .;
         . = 0x00001380; buttons_changed = .;
+        . = 0x00001382; next_oam_slot = .;
         . = 0x000013d2; unk_030013d2 = .;
         . = 0x00001cec; vblank_callback = .;
         . = 0x00001cf0; hblank_callback = .;
@@ -50,9 +52,8 @@ SECTIONS {
         src/softreset.o(.text);
         src/syscall_wrappers.o(.text);
         src/update_input.o(.text);
-        src/clear_ram.o(.text);
-        src/load_intr_code.o(.text);
-        asm/disasm_0x08000a18.o(.text);
+        src/init_helpers.o(.text);
+        asm/disasm_0x08000a4c.o(.text);
         src/callbacks.o(.text);
         asm/disasm_0x08000c04.o(.text);
         asm/syscalls.o(.text);
