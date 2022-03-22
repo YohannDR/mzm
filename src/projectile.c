@@ -1,5 +1,6 @@
 #include "projectile.h"
 #include "sprite.h"
+#include "clipdata.h"
 #include "sprite_util.h"
 #include "power_bomb_explosion.h"
 #include "music.h"
@@ -564,9 +565,16 @@ void projectile_move(struct ProjectileData* pProj, u8 distance)
     }*/
 }
 
-u8 projectile_collision_related(u16 y_position, u16 x_position)
+u8 projectile_check_hitting_solid_block(u16 y_position, u16 x_position)
 {
+    u32 collision;
+    
+    collision = clipdata_related(y_position, x_position);
 
+    if (collision & 0x1000000)
+        return TRUE;
+    else
+        return FALSE;
 }
 
 u8 projectile_collision_related2(struct ProjectileData* pProj)
@@ -685,7 +693,7 @@ void projectile_check_hit_block(struct ProjectileData* pProj, u8 ccaa, u8 effect
             proj_x += 0x8;
     }
 
-    if (projectile_collision_related(proj_y, proj_x))
+    if (projectile_check_hitting_solid_block(proj_y, proj_x))
     {
         pProj->status = 0x0;
         particle_set(pProj->y_position, pProj->x_position, effect);

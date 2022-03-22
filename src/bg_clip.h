@@ -14,6 +14,11 @@ struct BackgroundPointersAndDimensions {
     u16 clipdata_height;
 };
 
+struct BG2Movement {
+    i16 x_offset;
+    i16 y_offset;
+};
+
 void bg_clip_mother_brain_update_glass(u8 unk, u16 unk2, u16 unk3, u16 unk4);
 void bg_clip_set_bg1_block_value(u16 value, u16 y_position, u16 x_position);
 void bg_clip_set_raw_bg1_block_value(u16 value, u16 y_position, u16 x_position);

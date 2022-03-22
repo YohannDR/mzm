@@ -1,4 +1,5 @@
 #include "sprite.h"
+#include "escape.h"
 #include "sprite_debris.h"
 #include "sprite_util.h"
 #include "syscalls.h"
@@ -286,10 +287,10 @@ void sprite_load_all_data(void)
             alarm_timer = 0x0;
         sprite_clear_data();
         sprite_load_spriteset();
-        //unk_53a18();
+        unk_53a18();
         sprite_util_init_location_text();
         sprite_load_room_sprites();
-        //spawn_waiting_pirates();
+        spawn_waiting_pirates();
         parasite_related = 0x0;
     }
 }

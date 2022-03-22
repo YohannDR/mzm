@@ -90,7 +90,7 @@ void projectile_check_despawn(struct ProjectileData* pProj);
 void projectile_load_graphics(void);
 void projectile_call_load_graphics_and_clear_projectiles(void);
 void projectile_move(struct ProjectileData* pProj, u8 distance);
-u8 projectile_collision_related(u16 y_position, u16 x_position);
+u8 projectile_check_hitting_solid_block(u16 y_position, u16 x_position);
 u8 projectile_collision_related2(struct ProjectileData* pProj);
 void projectile_set_trail(struct ProjectileData* pProj, u8 effect, u8 delay);
 void projectile_move_tumbling(struct ProjectileData* pProj);

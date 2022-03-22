@@ -500,12 +500,70 @@
             "Size": 64
         }
     ],
-    "blob_0x830df94_0x8326ca7.c": [{
-        "Name": "blob_0x830df94_0x8326ca7",
+    "blob_0x830df94_0x8312b97.c": [{
+        "Name": "blob_0x830df94_0x8312b97",
         "Offset": 3202964,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 101652
+        "Size": 19460
+    }],
+    "rising_chozo_pillar_data.c": [
+        {
+            "Name": "rising_chozo_pillar_gfx",
+            "Offset": 3222424,
+            "Type": "u8",
+            "IsArray": 1,
+            "Size": 2684
+        },
+        {
+            "Name": "rising_chozo_pillar_pal",
+            "Offset": 3225108,
+            "Type": "u16",
+            "IsArray": 1,
+            "Size": 64
+        },
+        {
+            "Name": "chozo_pillar_platform_oam_spawning",
+            "Offset": 3226188,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 25
+        },
+        {
+            "Name": "chozo_pillar_platform_slot1_oam_spawned",
+            "Offset": 3226412,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 2
+        },
+        {
+            "Name": "chozo_pillar_platform_slot1_oam_spawning",
+            "Offset": 3226428,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 28
+        },
+        {
+            "Name": "chozo_pillar_platform_oam_spawned",
+            "Offset": 3226652,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 2
+        },
+        {
+            "Name": "chozo_pillar_platform_shadow_oam",
+            "Offset": 3226668,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 4
+        }
+    ],
+    "blob_0x8313c4c_0x8326ca7.c": [{
+        "Name": "blob_0x8313c4c_0x8326ca7",
+        "Offset": 3226700,
+        "Type": "u8",
+        "IsArray": 1,
+        "Size": 77915
     }],
     "tumbling_missile_speed_data.c": [{
         "Name": "tumbling_missile_speed",

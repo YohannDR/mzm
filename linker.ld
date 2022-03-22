@@ -46,6 +46,7 @@ SECTIONS {
         . = 0x000000DC; current_affecting_clipdata = .;
         . = 0x000000E4; background_positions = .;
         . = 0x000000F8; waiting_space_pirates_position = .;
+        . = 0x000000FC; bg2_movement = .;
         . = 0x00000110; screen_shake_y = .;
         . = 0x00000114; screen_shake_x = .;
         . = 0x00000118; current_scrolls = .;

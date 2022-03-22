@@ -38,6 +38,12 @@ enum pause_screen_flags {
     PAUSE_SCREEN_UNKNOWN_9,
 };
 
+enum difficulty {
+    DIFF_EASY = 0x0,
+    DIFF_NORMAL = 0x1,
+    DIFF_HARD = 0x2
+};
+
 extern u8 debug_flag;
 extern u16 frame_counter_16bit;
 extern u16 written_to_dispcnt;
@@ -74,6 +80,7 @@ extern struct RoomEntry current_room_entry;
 extern struct CurrentAffectingClip current_affecting_clipdata;
 extern struct BackgroundPositions background_positions;
 extern struct RawCoordsX waiting_space_pirates_position;
+extern struct BG2Movement bg2_movement;
 extern struct ScreenShake screen_shake_y;
 extern struct ScreenShake screen_shake_x;
 extern struct Scroll current_scrolls[2];

@@ -675,23 +675,28 @@ void samus_update_hitbox_moving_direction(void)
     samus_update_draw_distance_and_standing_status(pData, pPhysics);
 }
 
+/**
+ * 78e0 | 3c | Calls functions related to updating samus' graphics
+ * 
+ */
 void samus_call_gfx_functions(void)
 {
-    /*struct SamusData* pData;
+    struct SamusData* pData;
     u8 direction;
+    u16 flag;
 
     pData = &samus_data;
 
     if (game_mode_sub1 == 0x2)
         samus_update_environmental_effect(pData);
 
-    if ((pData->direction & DIRECTION_RIGHT) == 0x0)
-        direction = 0x0;
-    else
-        direction = 0x1;
+    flag = pData->direction & DIRECTION_RIGHT;
+    direction = TRUE;
+    if (flag)
+        direction = FALSE;
     
     samus_update_graphics_oam(pData, direction);
-    samus_update_palette(pData);*/
+    samus_update_palette(pData);
 }
 
 void samus_call_check_low_health(void)

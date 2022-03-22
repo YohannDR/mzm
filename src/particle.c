@@ -99,7 +99,57 @@ void particle_process_all(void)
  */
 void particle_set(u16 y_position, u16 x_position, u8 effect)
 {
+    struct ParticleEffect* pParticle;
+    struct ParticleEffect* pLowPart;
+    u8 full;
+    u8 counter;
+    u8 prev_counter;
+    u8 low_find;
 
+    full = FALSE;
+    pParticle = particle_effects;
+
+    while (pParticle < particle_effects + 16 && pParticle->status)
+    {
+        pParticle++;
+    }
+    if (pParticle == particle_effects + 16)
+        full = TRUE;
+
+    if (!full)
+    {
+        low_find = FALSE;
+        pParticle = particle_effects;
+        pLowPart = particle_effects;
+        while (pParticle < particle_effects + 16)
+        {
+            counter = 0x0;
+            if (pParticle->effect < PE_CHARGING_BEAM)
+                counter = pParticle->frame_counter;
+
+            if (prev_counter < counter)
+            {
+                pLowPart = pParticle;
+                prev_counter = counter;
+                low_find++;
+            }
+
+            pParticle++;
+        }
+        if (!low_find)
+            return;
+        else
+            pParticle = pLowPart;
+    }
+
+    pParticle->status = PARTICLE_STATUS_EXISTS;
+    pParticle->y_position = y_position;
+    pParticle->x_position = x_position;
+    pParticle->curr_anim_frame = 0x0;
+    pParticle->anim_duration_counter = 0x0;
+    pParticle->effect = effect;
+    pParticle->stage = 0x0;
+    pParticle->frame_counter = 0x0;
 }
 
 /**

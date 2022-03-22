@@ -394,9 +394,80 @@ struct FrameData glass_tube_oam_broken[2];
 u8 glass_tube_gfx[2208];
 u16 glass_tube_pal[64];
 
-/* blob_0x830df94_0x8326ca7.c */
+/* blob_0x830df94_0x8312b97.c */
 
-u8 blob_0x830df94_0x8326ca7[101652];
+u8 blob_0x830df94_0x8312b97[19460];
+
+/* rising_chozo_pillar_data.c */
+
+u8 rising_chozo_pillar_gfx[2684];
+u16 rising_chozo_pillar_pal[64];
+struct OamFrame chozo_pillar_platform_oam_spawning1;
+struct OamFrame chozo_pillar_platform_oam_spawning2;
+struct OamFrame chozo_pillar_platform_oam_spawning3;
+struct OamFrame chozo_pillar_platform_oam_spawning4;
+struct OamFrame chozo_pillar_platform_oam_spawning5;
+struct OamFrame chozo_pillar_platform_oam_spawning6;
+struct OamFrame chozo_pillar_platform_oam_spawning7;
+struct OamFrame chozo_pillar_platform_oam_spawning8;
+struct OamFrame chozo_pillar_platform_oam_spawning9;
+struct OamFrame chozo_pillar_platform_oam_spawning10;
+struct OamFrame chozo_pillar_platform_oam_spawning11;
+struct OamFrame chozo_pillar_platform_oam_spawning12;
+struct OamFrame chozo_pillar_platform_oam_spawning13;
+struct OamFrame chozo_pillar_platform_oam_spawning14;
+struct OamFrame chozo_pillar_platform_oam_spawning15;
+struct OamFrame chozo_pillar_platform_oam_spawning16;
+struct OamFrame chozo_pillar_platform_oam_spawning17;
+struct OamFrame chozo_pillar_platform_oam_spawning18;
+struct OamFrame chozo_pillar_platform_oam_spawning19;
+struct OamFrame chozo_pillar_platform_oam_spawning20;
+struct OamFrame chozo_pillar_platform_oam_spawning21;
+struct OamFrame chozo_pillar_platform_oam_spawning22;
+struct OamFrame chozo_pillar_platform_oam_spawning23;
+struct OamFrame chozo_pillar_platform_oam_spawning24;
+struct OamFrame chozo_pillar_platform_oam_spawning25;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawned1;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning1;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning2;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning3;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning4;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning5;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning6;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning7;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning8;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning9;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning10;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning11;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning12;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning13;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning14;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning15;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning16;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning17;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning18;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning19;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning20;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning21;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning22;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning23;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning24;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning25;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning26;
+struct OamFrame chozo_pillar_platform_slot1_oam_spawning27;
+struct OamFrame chozo_pillar_platform_oam_spawned1;
+struct OamFrame chozo_pillar_platform_shadow_oam1;
+struct OamFrame chozo_pillar_platform_shadow_oam2;
+struct OamFrame chozo_pillar_platform_shadow_oam3;
+struct FrameData chozo_pillar_platform_oam_spawning[25];
+struct FrameData chozo_pillar_platform_slot1_oam_spawned[2];
+struct FrameData chozo_pillar_platform_slot1_oam_spawning[28];
+struct FrameData chozo_pillar_platform_oam_spawned[2];
+struct FrameData chozo_pillar_platform_shadow_oam[4];
+
+/* blob_0x8313c4c_0x8326ca7.c */
+
+u8 blob_0x8313c4c_0x8326ca7[77915];
 
 /* tumbling_missile_speed_data.c */
 

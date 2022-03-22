@@ -3,6 +3,7 @@
 #include "particle.h"
 #include "samus.h"
 #include "location_text.h"
+#include "clipdata.h"
 #include "music.h"
 #include "../data/data.h"
 #include "globals.h"
@@ -45,58 +46,55 @@ void unk_e5a4(u16 y_position, u16 x_position)
 
 }
 
+/**
+ * e634 | c4 | 
+ * Calculates and applies the damage samus takes from a sprite
+ * 
+ * @param kb_flag 1 if getting knocked back, 0 otherwise
+ * @param pSprite Sprite Data Pointer to the sprite hurting samus
+ * @param dmg_mulitplier Damage Multiplier
+ * @return 1 if alive, 0 otherwise
+ */
 u8 sprite_util_take_damage_from_sprite(u8 kb_flag, struct SpriteData* pSprite, u16 dmg_mulitplier)
 {
-    /*u32 damage;
-    u32 dmg_reduction;
-    struct equipment* pEquipment;
-    u16 sprite_dmg;
+    u16 damage;
+    u16 flags;
 
-    if ((pSprite->properties & SP_SECONDARY_SPRITE) != 0x0)
-        sprite_dmg = secondary_sprite_stats[pSprite->sprite_id][0x1] * dmg_mulitplier;
-    else if ((pSprite->properties & SP_SECONDARY_SPRITE) == 0x0)
-        sprite_dmg = primary_sprite_stats[pSprite->sprite_id][0x1] * dmg_mulitplier;
-
-    damage = (u16)sprite_dmg;
-
-    pEquipment = &equipment;
-    if ((pEquipment->suit_misc_activation & (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT)) == (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT))
-        damage = sprite_dmg >> 0x11;
+    if (pSprite->properties & SP_SECONDARY_SPRITE)
+        damage = secondary_sprite_stats[pSprite->sprite_id][0x1]; // Get Damage
     else
-    {
-        if ((pEquipment->suit_misc_activation & SMF_GRAVITY_SUIT) != 0x0)
-        {
-            dmg_reduction = damage * 0x7;
-            damage = (u16)(dmg_reduction / 0xA);
-        }
-        else if ((pEquipment->suit_misc_activation & SMF_VARIA_SUIT) != 0x0)
-        {
-            dmg_reduction = damage << 0x3;
-            damage = (u16)(dmg_reduction / 0xA);
-        }
-    }
+        damage = primary_sprite_stats[pSprite->sprite_id][0x1]; // Get Damage
+    damage *= dmg_mulitplier; // Apply multiplier
 
-    if (difficulty == 0x0)
-        damage >>= 0x1;
-    else if (difficulty == 0x2)
-        damage = (u16)(damage << 0x1);
+    flags = equipment.suit_misc_activation;
+    if ((flags & (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT)) == (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT))
+        damage /= 0x2;
+    else if (flags & SMF_GRAVITY_SUIT)
+        damage = (damage * 0x7) / 0xA;
+    else if (flags & SMF_VARIA_SUIT)
+        damage = (damage * 0x8) / 0xA;
+
+    if (difficulty == DIFF_EASY)
+        damage /= 0x2;
+    else if (difficulty == DIFF_HARD)
+        damage *= 0x2;
 
     if (damage == 0x0)
         damage = 0x1;
 
-    if (pEquipment->current_energy > damage)
+    if (equipment.current_energy > damage)
     {
-        pEquipment->current_energy -= damage;
+        equipment.current_energy -= damage;
         if (kb_flag)
             samus_set_pose(SPOSE_HURT_REQUEST);
         return TRUE;
     }
     else
     {
-        pEquipment->current_energy = 0x0;
+        equipment.current_energy = 0x0;
         samus_set_pose(SPOSE_HURT_REQUEST);
         return FALSE;
-    }*/
+    }
 }
 
 u8 sprite_util_check_objects_touching(u16 o1_top, u16 o1_bottom, u16 o1_left, u16 o1_right, u16 o2_top, u16 o2_bottom, u16 o2_left, u16 o2_right)
@@ -574,9 +572,46 @@ void unk_f608(void)
 
 }
 
+/**
+ * f688 | 98 | 
+ * Checks the collision at the given parameters and updates the previous_collision_check global variable
+ * 
+ * @param y_position Y Position
+ * @param x_position X Position
+ */
 void sprite_util_check_collision_at_position(u16 y_position, u16 x_position)
 {
+    u32 collision;
 
+    collision = clipdata_related(y_position, x_position);
+    if (collision & 0x1000000)
+        previous_collision_check = COLLISION_SOLID;
+    else
+        previous_collision_check = COLLISION_AIR;
+    
+    switch (collision & 0xFF)
+    {
+        case 0x3:
+            previous_collision_check = COLLISION_STEEP_RIGHT_FLOOR_SLOPE;
+            break;
+        case 0x6:
+            previous_collision_check = COLLISION_SLIGHT_RIGHT_FLOOR_SLOPE;
+            break;
+        case 0x7:
+            previous_collision_check = COLLISION_SLIGHT_RIGHT_FLOOR_SLOPE;
+            break;
+        case 0x2:
+            previous_collision_check = COLLISION_STEEP_LEFT_FLOOR_SLOPE;
+            break;
+        case 0x5:
+            previous_collision_check = COLLISION_SLIGHT_LEFT_FLOOR_SLOPE;
+            break;
+        case 0x4:
+            previous_collision_check = COLLISION_SLIGHT_LEFT_FLOOR_SLOPE;
+            break;
+        case 0xC:
+            previous_collision_check = COLLISION_PASS_THROUGH_BOTTOM;
+    }
 }
 
 u8 sprite_util_get_collision_at_position(u16 y_position, u16 x_position)
@@ -589,30 +624,46 @@ void sprite_util_current_sprite_fall(void)
 
 }
 
+/**
+ * f80c | 38 | Chooses a random X flip for the current sprite
+ * 
+ */
 void sprite_util_choose_random_x_flip(void)
 {
-    if ((sprite_rng & 0x1) != 0x0)
+    if (sprite_rng & 0x1)
         current_sprite.status &= ~SPRITE_STATUS_XFLIP;
     else
         current_sprite.status |= SPRITE_STATUS_XFLIP;
 }
 
+/**
+ * f844 | 3C | Chooses a random X direction for the current sprite
+ * 
+ */
 void sprite_util_choose_random_x_direction(void)
 {
-    if ((sprite_rng & 0x1) != 0x0)
+    if (sprite_rng & 0x1)
         current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
     else
         current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
 }
 
+/**
+ * f880 | 38 | Chooses a random X direction for the current sprite using its room slot
+ * 
+ */
 void sprite_util_choose_random_x_direction_room_slot(u8 room_slot)
 {
-    if ((current_sprite.room_slot & 0x1) != 0x0)
+    if (current_sprite.room_slot & 0x1)
         current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
     else
         current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
 }
 
+/**
+ * f8b0 | 30 | Makes the sprite face samus using X flip
+ * 
+ */
 void sprite_util_make_sprite_face_samus_x_flip(void)
 {
     if (current_sprite.x_position > samus_data.x_position)
@@ -621,6 +672,10 @@ void sprite_util_make_sprite_face_samus_x_flip(void)
         current_sprite.status |= SPRITE_STATUS_XFLIP;
 }
 
+/**
+ * f8e0 | 30 | Makes the sprite face samus using X direction
+ * 
+ */
 void sprite_util_make_sprite_face_samus_direction(void)
 {
     if (current_sprite.x_position > samus_data.x_position)
@@ -629,6 +684,10 @@ void sprite_util_make_sprite_face_samus_direction(void)
         current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
 }
 
+/**
+ * f914 | 30 | Makes the sprite face away from samus using X flip
+ * 
+ */
 void sprite_util_make_sprite_face_away_samus_x_flip(void)
 {
     if (current_sprite.x_position > samus_data.x_position)
@@ -637,6 +696,10 @@ void sprite_util_make_sprite_face_away_samus_x_flip(void)
         current_sprite.status &= ~SPRITE_STATUS_XFLIP;
 }
 
+/**
+ * f944 | 34 | Makes the sprite face away from samus using X direction
+ * 
+ */
 void sprite_util_make_sprite_face_away_samus_direction(void)
 {
     if (current_sprite.x_position > samus_data.x_position)
@@ -817,11 +880,17 @@ u8 sprite_util_check_samus_near_sprite_front_behind(u16 y_range, u16 x_range_fro
 
 }
 
+/**
+ * ff60 | 88 | 
+ * Handles samus standing on a sprite
+ * 
+ * @param pSprite Sprite Data Pointer to the concerned sprite
+ */
 void sprite_util_samus_standing_on_sprite(struct SpriteData* pSprite)
 {
     u8 standing;
 
-    if ((pSprite->status & SPRITE_STATUS_SAMUS_ON_TOP) != 0x0)
+    if (pSprite->status & SPRITE_STATUS_SAMUS_ON_TOP)
     {
         if (samus_data.standing_status != STANDING_ENEMY)
         {
@@ -851,22 +920,28 @@ void sprite_util_samus_standing_on_sprite(struct SpriteData* pSprite)
     }
 }
 
+/**
+ * ffe8 | 64 | Updates the freeze timer of the current sprite
+ * 
+ */
 void sprite_util_update_freeze_timer(void)
 {
-    /*u8 freeze_timer;
+    u8 timer;
 
-    if ((frame_counter_8bit & 0x1) != 0x0)
+    if (frame_counter_8bit & 0x1)
         current_sprite.freeze_timer--;
 
-    freeze_timer = current_sprite.freeze_timer;
-
-    if (freeze_timer == 0x0)
+    timer = current_sprite.freeze_timer;
+    if (!timer)
         current_sprite.anim_duration_counter--;
-    
-    if (freeze_timer < 0x2E && (freeze_timer & 0x1) != 0x0)
-        current_sprite.palette_row = 0xF - (current_sprite.spriteset_gfx_slot + current_sprite.frozen_palette_row_offset);
-    else
-        current_sprite.palette_row = current_sprite.absolute_palette_row;*/
+
+    if (timer < 0x2E)
+    {
+        if (timer & 0x1)
+            current_sprite.palette_row = 0xF - (current_sprite.spriteset_gfx_slot + current_sprite.frozen_palette_row_offset);
+        else
+            current_sprite.palette_row = current_sprite.absolute_palette_row;
+    }
 }
 
 void sprite_util_unfreeze_anim_easy(void)
@@ -1445,11 +1520,49 @@ void sprite_util_maybe_ridley_fireball_move(u16 sprite_y, u16 samus_x, u8 y_spee
 
 }
 
+/**
+ * 10cf0 | 78 | 
+ * Updates the stun timer of the sprite
+ * 
+ * @param pSprite Sprite Data Pointer to the concerned sprite
+ */
 void sprite_util_update_stun_timer(struct SpriteData* pSprite)
 {
+    u8 isft;
 
+    if (pSprite->invicibility_stun_flash_timer & 0x7F)
+    {
+        isft = pSprite->invicibility_stun_flash_timer = pSprite->invicibility_stun_flash_timer - 0x1;
+        if (!(isft & 0x3))
+        {
+            if (isft & 0x4)
+            {
+                if (pSprite->health != 0x0)
+                    pSprite->palette_row = 0xE - (pSprite->spriteset_gfx_slot + pSprite->frozen_palette_row_offset);
+            }
+            else
+            {
+                if (pSprite->health != 0x0)
+                {
+                    if (pSprite->freeze_timer != 0x0)
+                        pSprite->palette_row = 0xF - (pSprite->spriteset_gfx_slot + pSprite->frozen_palette_row_offset);
+                    else
+                        pSprite->palette_row = pSprite->absolute_palette_row;
+                }
+            }
+        }
+    }
 }
 
+/**
+ * 10d68 | 126 | 
+ * Spawns a set of random sprite debris depending on the parameters
+ * 
+ * @param cloud_type Cloud Type
+ * @param number Number Of Debris to spawn
+ * @param y_position Y Position
+ * @param x_position X Position
+ */
 void sprite_util_random_debris(u8 cloud_type, u8 number, u16 y_position, u16 x_position)
 {
     switch (number)
@@ -1652,13 +1765,23 @@ u8 sprite_util_determine_enemy_drop(void)
     return drop;*/
 }
 
+/**
+ * 11084 | 1fc | 
+ * Handles the death of a sprite, replaces it with a drop if necessary
+ * 
+ * @param death_type Death Type (0 spawns a drop)
+ * @param y_position Y Position
+ * @param x_position X Position
+ * @param play_sound Play Sound flag
+ * @param effect Particle Effect if not killed by damage contact
+ */
 void sprite_util_sprite_death(u8 death_type, u16 y_position, u16 x_position, u8 play_sound, u8 effect)
 {
     u8 drop;
 
     switch (current_sprite.pose)
     {
-        case 0x63:
+        case 0x63: // Check for damage contact
             particle_set(y_position, x_position, PE_SHINESPARK_DESTROYED);
             sprite_util_random_debris(0x0, 0x3, y_position, x_position);
             sound_play1(0x131);
@@ -1678,45 +1801,33 @@ void sprite_util_sprite_death(u8 death_type, u16 y_position, u16 x_position, u8 
             sprite_util_random_debris(0x0, 0x3, y_position, x_position);
             sound_play1(0x132);
             break;
-        default:
+        default: // Check play sprite explosion effects
             if (effect == PE_SPRITE_EXPLOSION_SMALL)
             {
                 particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_SMALL);
                 if (play_sound != FALSE)
                     sound_play1(0x12C);
             }
-            else
+            else if (effect == PE_SPRITE_EXPLOSION_MEDIUM)
             {
-                if (effect == PE_SPRITE_EXPLOSION_MEDIUM)
-                {
-                    particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_MEDIUM);
-                    if (play_sound != FALSE)
-                        sound_play1(0x12D);
-                }
-                else
-                {
-                    if (effect == PE_SPRITE_EXPLOSION_BIG)
-                    {
-                        particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_BIG);
-                        if (play_sound != FALSE)
-                            sound_play1(0x12E);
-                    }
-                    else
-                    {
-                        if (effect == PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG)
-                        {
-                            particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
-                            if (play_sound != FALSE)
-                                sound_play1(0x12F);
-                        }
-                        else
-                        {
-                            if ((u8)(effect - 0x27) < 0x3)
-                                particle_set(y_position, x_position, effect);
-                        }
-                    }
-                }
+                particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_MEDIUM);
+                if (play_sound != FALSE)
+                    sound_play1(0x12D);
             }
+            else if (effect == PE_SPRITE_EXPLOSION_BIG)
+            {
+                particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_BIG);
+                if (play_sound != FALSE)
+                    sound_play1(0x12E);
+            }
+            else if (effect == PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG)
+            {
+                particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+                if (play_sound != FALSE)
+                    sound_play1(0x12F);
+            }
+            else if ((u8)(effect - 0x27) < 0x3) // Default behavior
+                particle_set(y_position, x_position, effect);
     }
 
     drop = sprite_util_determine_enemy_drop();
@@ -1729,6 +1840,7 @@ void sprite_util_sprite_death(u8 death_type, u16 y_position, u16 x_position, u8 
         }
         else
         {
+            // Init data for drop
             current_sprite.status = (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
             current_sprite.properties = 0x0;
             current_sprite.spriteset_gfx_slot = 0x0;
@@ -1754,6 +1866,12 @@ void sprite_util_sprite_death(u8 death_type, u16 y_position, u16 x_position, u8 
     }
 }
 
+/**
+ * 11280 | 48 | 
+ * Checks if the current sprite is stunned
+ * 
+ * @return 1 if stunned, 0 otherwise
+ */
 u8 sprite_util_is_sprite_stunned(void)
 {
     u8 is_stunned;
@@ -1777,9 +1895,15 @@ u8 sprite_util_is_sprite_stunned(void)
     return is_stunned;
 }
 
+/**
+ * 112c8 | 38 | 
+ * Checks if a sprite is on screen with a screen shake occuring
+ * 
+ * @return 1 if conditions met, 0 otherwise
+ */
 u8 sprite_util_is_sprite_on_screen_and_screen_shake(void)
 {
-    if ((current_sprite.status & SPRITE_STATUS_ONSCREEN) != 0x0 && (screen_shake_y.timer != 0x0 || screen_shake_x.timer != 0x0))
+    if (current_sprite.status & SPRITE_STATUS_ONSCREEN && (screen_shake_y.timer != 0x0 || screen_shake_x.timer != 0x0))
         return TRUE;
     else
         return FALSE;
@@ -1821,7 +1945,7 @@ void sprite_util_sync_current_sprite_position_with_sub_sprite1_position(void)
 
 }
 
-void unk_113b0(void)
+void sprite_util_sync_current_sprite_position_with_sub_sprite_data1_position_and_oam(void)
 {
 
 }
@@ -1841,7 +1965,7 @@ void sprite_util_update_sub_sprite2_anim(void)
     }
 }
 
-void unk_1144c(void)
+void sprite_util_sync_current_sprite_position_with_sub_sprite_data2_position_and_oam(void)
 {
 
 }
@@ -1866,7 +1990,7 @@ void sprite_util_sync_current_sprite_position_with_sub_sprite_position(struct Su
 
 }
 
-void unk_11520(struct SubSpriteData* pSub)
+void sprite_util_sync_current_sprite_position_with_sub_sprite_data_position_and_oam(struct SubSpriteData* pSub)
 {
 
 }
@@ -1877,32 +2001,32 @@ u8 sprite_check_colliding_with_samus_drawing(void)
     u16 sprite_x;
     u16 samus_y;
     u16 samus_x;
-    u16 o1_top;
-    u16 o1_bottom;
-    u16 o1_left;
-    u16 o1_right;
-    u16 o2_top;
-    u16 o2_bottom;
-    u16 o2_left;
-    u16 o2_right;
+    u16 sprite_top;
+    u16 sprite_bottom;
+    u16 sprite_left;
+    u16 sprite_right;
+    u16 samus_top;
+    u16 samus_bottom;
+    u16 samus_left;
+    u16 samus_right;
 
     sprite_y = current_sprite.y_position;
     sprite_x = current_sprite.x_position;
 
-    o1_top = sprite_y + current_sprite.hitbox_top_offset;
-    o1_bottom = sprite_y + current_sprite.hitbox_bottom_offset;
-    o1_left = sprite_x + current_sprite.hitbox_left_offset;
-    o1_right = sprite_x + current_sprite.hitbox_right_offset;
+    sprite_top = sprite_y + current_sprite.hitbox_top_offset;
+    sprite_bottom = sprite_y + current_sprite.hitbox_bottom_offset;
+    sprite_left = sprite_x + current_sprite.hitbox_left_offset;
+    sprite_right = sprite_x + current_sprite.hitbox_right_offset;
 
     samus_y = samus_data.y_position;
     samus_x = samus_data.x_position;
 
-    o2_top = samus_physics.draw_distance_top_offset + samus_data.y_position;
-    o2_bottom = samus_data.y_position + samus_physics.draw_distance_bottom_offset;
-    o2_left = samus_physics.draw_distance_left_offset + samus_data.x_position;
-    o2_right = samus_data.x_position + samus_physics.draw_distance_right_offset;
+    samus_top = samus_physics.draw_distance_top_offset + samus_data.y_position;
+    samus_bottom = samus_data.y_position + samus_physics.draw_distance_bottom_offset;
+    samus_left = samus_physics.draw_distance_left_offset + samus_data.x_position;
+    samus_right = samus_data.x_position + samus_physics.draw_distance_right_offset;
 
-    if (sprite_util_check_objects_touching(o1_top, o1_bottom, o1_left, o1_right, o2_top, o2_bottom, o2_left, o2_right))
+    if (sprite_util_check_objects_touching(sprite_top, sprite_bottom, sprite_left, sprite_right, samus_top, samus_bottom, samus_left, samus_right))
         return TRUE;
     else
         return FALSE;
