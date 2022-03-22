@@ -115,8 +115,8 @@ void rising_chozo_pillar_spawn_two_platforms(u16 y_position, u16 x_position, u8 
     clipdata_related(y_position - 0x7c0, x_position);
     current_clipdata_affecting_action = caa;
     clipdata_related(y_position - 0x7c0, x_position + 0x40);
-    sprite_spawn_primary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x1C0, x_position + 0x20, 0x0);
-    sprite_spawn_primary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x7c0, x_position + 0x20, 0x0);
+    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x1C0, x_position + 0x20, 0x0);
+    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x7c0, x_position + 0x20, 0x0);
 }
 
 /**

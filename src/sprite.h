@@ -343,7 +343,7 @@
 #define SP_PROJECTILE 0x4
 #define SP_SOLID_FOR_PROJECTILES 0x8
 #define SP_MAYBE_DESTROYED 0x10
-#define SP_MESSAGE_BANNER 0x20
+#define SP_ABSOLUTE_POSITION 0x20
 #define SP_IMMUNE_TO_PROJECTILES 0x40
 #define SP_SECONDARY_SPRITE 0x80
 
@@ -430,7 +430,7 @@ void sprite_check_on_screen(struct SpriteData* pSprite);
 void sprite_load_all_data(void);
 void sprite_load_spriteset(void);
 void sprite_load_gfx(u8 sprite_id, u8 gfx_row);
-void sprite_load_pal(u8 sprite_id, u8 gfx_row, u32 len);
+void sprite_load_pal(u8 sprite_id, u8 pal_row, u8 len);
 void sprite_clear_data(void);
 void sprite_load_room_sprites(void);
 void sprite_init_primary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 room_slot);

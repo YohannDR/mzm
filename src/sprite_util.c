@@ -5,6 +5,8 @@
 #include "location_text.h"
 #include "clipdata.h"
 #include "music.h"
+#include "sprites_AI/parasite.h"
+#include "sprites_AI/ridley.h"
 #include "../data/data.h"
 #include "globals.h"
 
@@ -16,7 +18,7 @@ void sprite_util_init_location_text(void)
     if (gfx_slot < 0x8)
     {
         sprite_data[0x0].status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN | SPRITE_STATUS_UNKNOWN3;
-        sprite_data[0x0].properties = SP_MESSAGE_BANNER;
+        sprite_data[0x0].properties = SP_ABSOLUTE_POSITION;
         sprite_data[0x0].spriteset_gfx_slot = gfx_slot;
         sprite_data[0x0].sprite_id = PSPRITE_AREA_BANNER;
         sprite_data[0x0].y_position = samus_data.y_position;
@@ -107,7 +109,7 @@ u8 sprite_util_check_objects_touching(u16 o1_top, u16 o1_bottom, u16 o1_left, u1
 
 void sprite_util_samus_and_sprite_collision(void)
 {
-    /*struct SamusData* pData;
+    struct SamusData* pData;
     struct SpriteData* pSprite;
     u16 samus_y;
     u16 samus_x;
@@ -518,6 +520,21 @@ void sprite_util_samus_and_sprite_collision(void)
                                 break;
 
                             case SSC_RIDLEY_CLAW:
+                                if (!unk && ridley_check_grabbing(sprite_y, sprite_x))
+                                {
+                                    pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
+                                    pSprite->samus_collision = SSC_NONE;
+                                    collision_related = 0x1;
+                                    samus_set_pose(SPOSE_MIDAIR);
+                                    sound_play1(0x1E3);
+                                }
+                                else 
+                                {
+                                    if (pData->invincibility_timer == 0x0 && sprite_util_sprite_take_damage_from_samus_contact(pSprite, pData) == DCT_NONE)
+                                        sprite_util_take_damage_from_sprite(TRUE, pSprite, 0x1);
+                                    *pTimer = 0xF;
+                                    collision_related = 0x1;
+                                }
                                 break;
 
                             case SSC_MECHA_RIDLEY:
@@ -549,7 +566,7 @@ void sprite_util_samus_and_sprite_collision(void)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->ignore_samus_collision_timer != 0x0)
             pSprite->ignore_samus_collision_timer--;
-    }*/
+    }
 }
 
 u16 sprite_util_check_vertical_collision_at_position(u16 y_position, u16 x_position)

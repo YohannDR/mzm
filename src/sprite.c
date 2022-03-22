@@ -235,44 +235,54 @@ void sprite_draw_all_3(void)
 
 void sprite_draw(struct SpriteData* pSprite, u32 slot)
 {
-    
+
 }
 
 void sprite_check_on_screen(struct SpriteData* pSprite)
 {
-    /*u16 y_pos;
-    u16 bg1X;
-    u16 bg1Y;
-    u16 x_pos;
+    // /!\ Maths hell wtf
+    /*u16 bg_y;
+    u16 bg_x;
+    u16 sprite_y;
+    u16 sprite_x;
+    u16 y_offset;
+    u16 x_offset;
+    u16 bg_x_offset;
+    u16 bg_y_offset;
+    u16 screen_top;
+    u16 screen_bottom;
+    u16 screen_right;
+    u16 screen_left;
 
-    if ((pSprite->properties & SP_MESSAGE_BANNER) == 0x0)
+    if (!(pSprite->properties & SP_ABSOLUTE_POSITION))
     {
-        bg1Y = bg1_y_position;
-        bg1X = bg1_x_position;
-        x_pos = pSprite->x_position;
-        y_pos = pSprite->y_position + 0x200;
+        bg_y = bg1_y_position;
+        bg_x = bg1_x_position;
+        sprite_y = pSprite->y_position;
+        sprite_x = pSprite->x_position;
+        y_offset = sprite_y + 0x200;
+        x_offset = sprite_x + 0x200;
+        screen_bottom = bg_y - (pSprite->draw_distance_bottom_offset * 0x4) + 0x200;
+        screen_top = bg_y + 0x200 + (pSprite->draw_distance_top_offset * 0x4 + 0x280);
+        screen_left = bg_x - (pSprite->draw_distance_horizontal_offset * 0x4) + 0x200;
+        screen_right = bg_x + 0x200;
+        screen_right += (pSprite->draw_distance_horizontal_offset * 0x4 + 0x3C0);
 
-        
-
-        if (
-            (bg1_y_position + 0x200 + pSprite->draw_distance_bottom_offset * -0x4 < (pSprite->y_position + 0x200)) &&
-            (y_pos < bg1_y_position + 0x200 + pSprite->draw_distance_top_offset * 0x4 + 0x280) &&
-            (bg1_x_position + 0x200 + pSprite->draw_distance_horizontal_offset * -0x4 < x_pos + 0x200) &&
-            (x_pos + 0x200 < bg1_x_position + 0x200 + pSprite->draw_distance_horizontal_offset * 0x4 + 0x3C0)
-        )
+        if (screen_left < x_offset && x_offset < screen_right && screen_bottom < y_offset && y_offset < screen_top)
             pSprite->status |= SPRITE_STATUS_ONSCREEN;
         else
         {
             pSprite->status &= ~SPRITE_STATUS_ONSCREEN;
-            if ((pSprite->properties & SP_PROJECTILE) != 0x0)
+            if (pSprite->properties & SP_PROJECTILE)
             {
-                y_pos = pSprite->y_position + 0x280;
-                if (
-                    (x_pos + 0x280 <= bg1X + 0x40) ||
-                    (bg1X + 0x880 <= x_pos + 0x280) ||
-                    (y_pos <= bg1Y + 0x40) ||
-                    (bg1Y + 0x740 <= y_pos)
-                )
+                x_offset = sprite_x + 0x280;
+                y_offset = sprite_y + 0x280;
+                screen_left = bg_x + 0x40;
+                screen_right = bg_x + 0x880;
+                screen_bottom = bg_y + 0x40;
+                screen_top = bg_y + 0x740;
+
+                if (screen_left >= x_offset || x_offset >= screen_right || y_offset < screen_bottom || screen_top < y_offset)
                     pSprite->status = 0x0;
             }
         }
@@ -281,9 +291,9 @@ void sprite_check_on_screen(struct SpriteData* pSprite)
 
 void sprite_load_all_data(void)
 {
-    if (pause_screen_flag == 0x0)
+    if (pause_screen_flag == PAUSE_SCREEN_NONE)
     {
-        if (game_mode_sub3 == 0x0 && is_current_file_existing == FALSE)
+        if (game_mode_sub3 == 0x0 && !is_current_file_existing)
             alarm_timer = 0x0;
         sprite_clear_data();
         sprite_load_spriteset();
@@ -300,14 +310,32 @@ void sprite_load_spriteset(void)
 
 }
 
+/**
+ * e084 | 2c | 
+ * Loads the graphics in VRAM for a new sprite
+ * 
+ * @param sprite_id Sprite ID
+ * @param gfx_row Spriteset Graphics Row
+ */
 void sprite_load_gfx(u8 sprite_id, u8 gfx_row)
 {
-
+    sprite_id -= 0x10;
+    LZ77_uncomp_vram(sprites_gfx_pointers[sprite_id], VRAM_BASE + 0x14000 + (gfx_row * 0x800));
 }
 
-void sprite_load_pal(u8 sprite_id, u8 gfx_row, u32 len)
+/**
+ * e0b0 | 40 | 
+ * Loads the palette in PALRAM for a new sprite
+ * 
+ * @param sprite_id Sprite ID
+ * @param pal_row Palette Row
+ * @param len Lenght (in rows)
+ */
+void sprite_load_pal(u8 sprite_id, u8 pal_row, u8 len)
 {
-    
+    sprite_id -= 0x10;
+
+    dma_set(3, sprites_pal_pointers[sprite_id], PALRAM_BASE + 0x300 + (gfx_row * 0x20), DMA_ENABLE | len << 0x4);
 }
 
 void sprite_clear_data(void)
