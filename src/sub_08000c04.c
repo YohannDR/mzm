@@ -1,5 +1,3 @@
-#include "types.h" // TODO: file.h
-
 #include "funcs.h"
 #include "gba.h"
 #include "globals.h"
