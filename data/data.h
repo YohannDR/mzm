@@ -134,9 +134,21 @@ i16 worker_robot_sleeping_falling_speed[10];
 u16 primary_sprite_stats[206][9];
 u16 secondary_sprite_stats[77][9];
 
-/* blob_0x82b214e_0x82b25c7.c */
+/* blob_0x82b214e_0x82b2523.c */
 
-u8 blob_0x82b214e_0x82b25c7[1146];
+u8 blob_0x82b214e_0x82b2523[982];
+
+/* sprite_debris_data.c */
+
+i16 debris_bouncing_velocity[9];
+i16 debris_11_velocity[9];
+i16 debris_12_velocity[9];
+i16 debris_13_velocity[9];
+i16 debris_4_velocity[9];
+i16 debris_5_velocity[9];
+i16 debris_6_velocity[9];
+i16 debris_7_velocity[9];
+i16 debris_8_velocity[9];
 
 /* enemy_drop_data.c */
 

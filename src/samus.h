@@ -197,8 +197,26 @@ struct SamusData {
 #define VDMOVING_DOWN 0x2
 
 struct SamusPhysics {
-    struct OamFrame* oam_frame_pointers[18];
-    u16 undefined;
+    struct OamFrame* body_oam;
+    u8* shoulders_gfx;
+    u16 unk_dma1;
+    u8* torso_gfx;
+    u16 unk_dma2;
+    u8* legs_gfx;
+    u16 unk_dma3;
+    u8* body_lower_half_gfx;
+    u16 unk_dma4;
+    u16 unk;
+    struct OamFrame* arm_cannon_oam;
+    u8* arm_cannon_upper_gfx;
+    u16 unk_dma5;
+    u8* arm_cannon_lower_gfx;
+    u16 unk_dma6;
+    struct OamFrame* screw_speed_oam;
+    u8* screw_speed_effects_gfx;
+    u16 unk_dma7;
+    u8* screw_shinespark_gfx;
+    u16 unk_dma8;
     u16 arm_cannon_x_position_offset;
     u16 arm_cannon_y_position_offset;
     u8 horizontal_moving_direction;

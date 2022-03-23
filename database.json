@@ -114,13 +114,77 @@
             "Size": 5046281
         }
     ],
-    "blob_0x82b214e_0x82b25c7.c": [{
-        "Name": "blob_0x82b214e_0x82b25c7",
+    "blob_0x82b214e_0x82b2523.c": [{
+        "Name": "blob_0x82b214e_0x82b2523",
         "Offset": 2826574,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 1146
+        "Size": 982
     }],
+    "sprite_debris_data.c": [{
+            "Name": "debris_bouncing_velocity",
+            "Offset": 2827556,
+            "Type": "i16",
+            "IsArray": 1,
+            "Size": 9
+        },
+        {
+            "Name": "debris_11_velocity",
+            "Offset": 2827574,
+            "Type": "i16",
+            "IsArray": 1,
+            "Size": 9
+        },
+        {
+            "Name": "debris_12_velocity",
+            "Offset": 2827592,
+            "Type": "i16",
+            "IsArray": 1,
+            "Size": 9
+        },
+        {
+            "Name": "debris_13_velocity",
+            "Offset": 2827610,
+            "Type": "i16",
+            "IsArray": 1,
+            "Size": 9
+        },
+        {
+            "Name": "debris_4_velocity",
+            "Offset": 2827628,
+            "Type": "i16",
+            "IsArray": 1,
+            "Size": 9
+        },
+        {
+            "Name": "debris_5_velocity",
+            "Offset": 2827646,
+            "Type": "i16",
+            "IsArray": 1,
+            "Size": 9
+        },
+        {
+            "Name": "debris_6_velocity",
+            "Offset": 2827664,
+            "Type": "i16",
+            "IsArray": 1,
+            "Size": 9
+        },
+        {
+            "Name": "debris_7_velocity",
+            "Offset": 2827682,
+            "Type": "i16",
+            "IsArray": 1,
+            "Size": 9
+        },
+        {
+            "Name": "debris_8_velocity",
+            "Offset": 2827700,
+            "Type": "i16",
+            "IsArray": 1,
+            "Size": 9
+        }
+    ],
     "enemy_drop_data.c": [{
             "Name": "small_energy_drop_oam",
             "Offset": 2828072,
@@ -507,8 +571,7 @@
         "IsArray": 1,
         "Size": 19460
     }],
-    "rising_chozo_pillar_data.c": [
-        {
+    "rising_chozo_pillar_data.c": [{
             "Name": "rising_chozo_pillar_gfx",
             "Offset": 3222424,
             "Type": "u8",
