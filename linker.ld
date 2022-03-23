@@ -53,7 +53,7 @@ SECTIONS {
         src/syscall_wrappers.o(.text);
         src/update_input.o(.text);
         src/init_helpers.o(.text);
-        asm/disasm_0x08000a4c.o(.text);
+        src/fixed_point.o(.text);
         src/callbacks.o(.text);
         asm/disasm_0x08000c04.o(.text);
         asm/syscalls.o(.text);
