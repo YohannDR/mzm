@@ -12,7 +12,7 @@ struct SpriteDebris {
     u8 anim_duration_counter;
     u8 exists;
     u8 debris_type;
-    u8 falling_timer;
+    u8 frame_counter;
     u8 array_offset;
 };
 
