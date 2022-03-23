@@ -5,7 +5,9 @@ MEMORY {
 }
 
 SECTIONS {
-    ewram (NOLOAD) : ALIGN(4) {} >ewram
+    ewram (NOLOAD) : ALIGN(4) {
+        . = 0x00038000; unk_02038000 = .;
+    } >ewram
 
     iwram (NOLOAD) : ALIGN(4) {
         . = 0x00000000; debug_flag = .;
@@ -17,6 +19,7 @@ SECTIONS {
         . = 0x0000007d; curr_cutscene = .;
         . = 0x0000007e; unk_0300007e = .;
         . = 0x00000bf0; pause_screen_flag = .;
+        . = 0x00000c1c; unk_03000c1c = .;
         . = 0x00000c70; game_mode = .;
         . = 0x00000c72; game_submode1 = .;
         . = 0x00000c74; next_game_mode = .;
@@ -55,7 +58,8 @@ SECTIONS {
         src/init_helpers.o(.text);
         src/fixed_point.o(.text);
         src/callbacks.o(.text);
-        asm/disasm_0x08000c04.o(.text);
+        src/sub_08000c04.o(.text);
+        asm/disasm_0x08000c48.o(.text);
         asm/syscalls.o(.text);
         asm/disasm_0x080051d4.o(.text);
         asm/libgcc.o(.text);

@@ -2,39 +2,6 @@
 
     .syntax unified
 
-    thumb_func_start sub_08000c04
-sub_08000c04: @ 0x08000c04
-    push {r4, r5, lr}
-    sub sp, #4
-    ldr r1, lbl_08000c3c @ =0x0000ffff
-    ldr r4, lbl_08000c40 @ =0x02038000
-    movs r5, #0x80
-    lsls r5, r5, #8
-    movs r0, #0x10
-    str r0, [sp]
-    movs r0, #3
-    adds r2, r4, #0
-    adds r3, r5, #0
-    bl bit_fill
-    ldr r0, lbl_08000c44 @ =0x03000c1c
-    ldrb r0, [r0]
-    cmp r0, #0
-    bne lbl_08000c32
-    movs r1, #0xe0
-    lsls r1, r1, #0x14
-    adds r0, r4, #0
-    adds r2, r5, #0
-    bl sub_08005330
-lbl_08000c32:
-    add sp, #4
-    pop {r4, r5}
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_08000c3c: .4byte 0x0000ffff
-lbl_08000c40: .4byte 0x02038000
-lbl_08000c44: .4byte 0x03000c1c
-
     thumb_func_start sub_08000c48
 sub_08000c48: @ 0x08000c48
     push {r4, r5, r6, r7, lr}

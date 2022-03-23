@@ -21,4 +21,7 @@
 #define ROM_BASE (void *)0x08000000
 #define ROM_SIZE (32 * 0x100000)
 
+#define SRAM_BASE (void *)0x0e000000
+#define SRAM_SIZE (32 * 0x400)
+
 #endif /* GBA_MEMORY_H */
