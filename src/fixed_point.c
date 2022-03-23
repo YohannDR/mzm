@@ -1,7 +1,7 @@
 #include "fixed_point.h"
 
 i16
-multiply_decimal(i16 a, i16 b)
+fix_mul(i16 a, i16 b)
 {
     i32 res;
 
@@ -16,7 +16,7 @@ multiply_decimal(i16 a, i16 b)
 }
 
 i16
-div_signed_multiply_unused(i16 a, i16 b)
+fix_div(i16 a, i16 b)
 {
     // XXX: super ugly sign extension
     i32 a32 = a << 0x10;
@@ -27,7 +27,7 @@ div_signed_multiply_unused(i16 a, i16 b)
 }
 
 i16
-div_10000_by(i16 a)
+fix_inverse(i16 a)
 {
     return 0x10000 / a;
 }
