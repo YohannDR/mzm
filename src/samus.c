@@ -2826,13 +2826,23 @@ void samus_check_play_low_health_sound(void)
     pData = &samus_data;
     pEquipment = &equipment;
 
-    if (pEquipment->low_health != FALSE && pData->pose != SPOSE_DYING && prevent_movement_timer == 0x0 && (frame_counter_8bit & 0xF) == 0x0)
+    if (pEquipment->low_health && pData->pose != SPOSE_DYING && prevent_movement_timer == 0x0 && !(frame_counter_8bit & 0xF))
         sound_play1(0x82);
 }
 
 void samus_update_draw_distance_and_standing_status(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
-
+    u8 offset;
+    u8 standing;
+    
+    offset = samus_visual_data[pData->pose][0x0];
+    pPhysics->draw_distance_left_offset = samus_draw_distance_offsets[offset][0x0];
+    pPhysics->draw_distance_top_offset = samus_draw_distance_offsets[offset][0x1];
+    pPhysics->draw_distance_right_offset = samus_draw_distance_offsets[offset][0x2];
+    pPhysics->draw_distance_bottom_offset = samus_draw_distance_offsets[offset][0x3];
+    standing = samus_visual_data[pData->pose][0x2];
+    if (pData->standing_status != STANDING_ENEMY)
+        pData->standing_status = standing;
 }
 
 void samus_update_arm_cannon_position_offset(u8 direction)

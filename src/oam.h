@@ -19,8 +19,11 @@ struct FrameData {
     u8 timer;
 };
 
-struct RawOamData {
+struct raw_oam_data {
     u16 data[4];
+    /*u16 part2;
+    u16 part3;
+    u16 part4;*/
 };
 
 #endif /* OAM_H */
