@@ -349,23 +349,22 @@ void sprite_debris_draw_all(void)
 void sprite_debris_init(u8 cloud_type, u8 debris_type, u16 y_position, u16 x_position)
 {
     struct SpriteDebris* pDebris;
-    u8 not_full;
     u8 counter;
     u8 counter_d;
     u8 prev_counter;
     u8 count;
 
-    not_full = FALSE;
+    counter = FALSE;
     for (pDebris = sprite_debris; pDebris < sprite_debris + 8; pDebris++)
     {
         if (!pDebris->exists)
         {
-            not_full = TRUE;
+            counter = TRUE;
             break;
         }
     }
 
-    if (!not_full)
+    if (!counter)
     {
         prev_counter = 0xFF;
         count = 0x0;

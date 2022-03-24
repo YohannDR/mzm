@@ -91,7 +91,7 @@ void particle_process_all(void)
 
 /**
  * 540ec | a0 | 
- * Sets a new particle with the given parameters
+ * Sets a new particle effect with the given parameters
  * 
  * @param y_position Y Position
  * @param x_position X Position
@@ -100,46 +100,41 @@ void particle_process_all(void)
 void particle_set(u16 y_position, u16 x_position, u8 effect)
 {
     struct ParticleEffect* pParticle;
-    struct ParticleEffect* pLowPart;
-    u8 full;
+    struct ParticleEffect* pLow;
     u8 counter;
-    u8 prev_counter;
-    u8 low_find;
+    u8 counter_d;
+    u8 count;
 
-    full = FALSE;
-    pParticle = particle_effects;
-
-    while (pParticle < particle_effects + 16 && pParticle->status)
+    counter = FALSE;
+    for (pParticle = particle_effects; pParticle < particle_effects + 16; pParticle++)
     {
-        pParticle++;
-    }
-    if (pParticle == particle_effects + 16)
-        full = TRUE;
-
-    if (!full)
-    {
-        low_find = FALSE;
-        pParticle = particle_effects;
-        pLowPart = particle_effects;
-        while (pParticle < particle_effects + 16)
+        if (!pParticle->status)
         {
-            counter = 0x0;
-            if (pParticle->effect < PE_CHARGING_BEAM)
-                counter = pParticle->frame_counter;
-
-            if (prev_counter < counter)
-            {
-                pLowPart = pParticle;
-                prev_counter = counter;
-                low_find++;
-            }
-
-            pParticle++;
+            counter = TRUE;
+            break;
         }
-        if (!low_find)
+    }
+
+    if (!counter)
+    {
+        count = 0x0;
+        for (pParticle = pLow = particle_effects; pParticle < particle_effects + 16; pParticle++)
+        {
+            if (pParticle->effect < PE_CHARGING_BEAM)
+                counter_d = pParticle->frame_counter;
+            else
+                counter_d = 0x0;
+            if (counter < counter_d)
+            {
+                counter = counter_d;
+                pLow = pParticle;
+                count++;
+            }
+        }
+        if (count == 0x0)
             return;
         else
-            pParticle = pLowPart;
+            pParticle = pLow;
     }
 
     pParticle->status = PARTICLE_STATUS_EXISTS;

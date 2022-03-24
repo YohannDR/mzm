@@ -1054,20 +1054,30 @@ void sprite_util_unfreeze_secondary_sprites(u8 sprite_id, u8 ram_slot)
 
 u8 sprite_util_refill_energy(void)
 {
-    /*u16 increment;
 
-    if (equipment.max_energy > equipment.current_energy)
+}
+
+u8 sprite_util_refill_missile(void)
+{
+    /*u16 increment;
+    u16 max;
+    u16 current;
+
+    current = equipment.current_missiles;
+    max = equipment.max_missiles;
+
+    if (current < max)
     {
-        increment = (u16)(equipment.max_energy - equipment.current_energy);
-        increment >>= 0x5;
+        increment = (u16)((equipment.max_missiles - equipment.current_missiles));
+        increment >>= 5;
         if (increment == 0x0)
             increment = 0x1;
-        else if (0xA < increment)
-            increment = 0xB;
+        else if (0x5 < increment)
+            increment = 0x6;
         
-        equipment.current_energy += increment;
-        if ((u16)equipment.current_energy > equipment.max_energy)
-            equipment.current_energy = equipment.max_energy;
+        equipment.current_missiles += increment;
+        if ((u16)(increment + equipment.current_missiles) > equipment.max_missiles)
+            equipment.current_missiles = equipment.max_missiles;
         
         return TRUE;
     }
@@ -1075,88 +1085,14 @@ u8 sprite_util_refill_energy(void)
         return FALSE;*/
 }
 
-u8 sprite_util_refill_missile(void)
-{
-    u16 increment;
-    u16 max;
-    u32 energy;
-    
-    energy = equipment.current_missiles;
-    max = equipment.max_missiles;
-
-    if (energy < max)
-    {
-        increment = (u16)((equipment.max_missiles - equipment.current_missiles) >> 0x5);
-        if (increment == 0x0)
-            increment = 0x1;
-        else if (0x5 < increment)
-            increment = 0x6;
-        
-        energy = equipment.current_missiles;
-        equipment.current_missiles = (energy + increment);
-        if ((u16)(increment + energy) > equipment.max_missiles)
-            equipment.current_missiles = equipment.max_missiles;
-        
-        return TRUE;
-    }
-    else
-        return FALSE;
-}
-
 u8 sprite_util_refull_super_missiles(void)
 {
-    u16 increment;
-    u16 max;
-    u32 energy;
-    
-    energy = equipment.current_super_missiles;
-    max = equipment.max_super_missiles;
 
-    if (energy < max)
-    {
-        increment = (u16)((equipment.max_super_missiles - equipment.current_super_missiles) >> 0x5);
-        if (increment == 0x0)
-            increment = 0x1;
-        else if (0x3 < increment)
-            increment = 0x4;
-        
-        energy = equipment.current_super_missiles;
-        equipment.current_super_missiles = (energy + increment);
-        if ((u16)(increment + energy) > equipment.max_super_missiles)
-            equipment.current_super_missiles = equipment.max_super_missiles;
-        
-        return TRUE;
-    }
-    else
-        return FALSE;
 }
 
 u8 sprite_util_refill_power_bombs(void)
 {
-    u16 increment;
-    u16 max;
-    u32 energy;
-    
-    energy = equipment.current_power_bombs;
-    max = equipment.max_power_bombs;
 
-    if (energy < max)
-    {
-        increment = (u16)((equipment.max_power_bombs - equipment.current_power_bombs) >> 0x5);
-        if (increment == 0x0)
-            increment = 0x1;
-        else if (0x3 < increment)
-            increment = 0x4;
-        
-        energy = equipment.current_power_bombs;
-        equipment.current_power_bombs = (energy + increment);
-        if ((u16)(increment + energy) > equipment.max_power_bombs)
-            equipment.current_power_bombs = equipment.max_power_bombs;
-        
-        return TRUE;
-    }
-    else
-        return FALSE;
 }
 
 u8 sprite_util_check_crouching_or_morphed(void)
@@ -1926,20 +1862,25 @@ u8 sprite_util_is_sprite_on_screen_and_screen_shake(void)
         return FALSE;
 }
 
+/**
+ * 11300 | 30 | Updates the sub sprite data 1 timer field (used by chozo statues for the echo when sitting)
+ * 
+ */
 void sprite_util_maybe_update_sub_sprite1_timer(void)
 {
-    /*u8 adc;
     u32 caf;
+    u32 adc;
     u8 timer;
-    
+
     sub_sprite_data1.timer = 0x0;
     adc = (u8)(sub_sprite_data1.anim_duration_counter + 0x1);
     caf = sub_sprite_data1.curr_anim_frame;
-    if ((u8)sub_sprite_data1.oam_pointer[caf].timer < adc)
+
+    if (sub_sprite_data1.oam_pointer[caf].timer < adc)
     {
-        timer = caf + 0x1;
-        sub_sprite_data1.timer = timer;
-    }*/
+        timer = (u8)caf;
+        sub_sprite_data1.timer = timer + 0x1;
+    }
 }
 
 void sprite_util_update_sub_sprite1_anim(void)
@@ -1957,6 +1898,10 @@ void sprite_util_update_sub_sprite1_anim(void)
     }
 }
 
+/**
+ * 1136c | 44 | Updates the current sprite position with the sub sprite data 1 position and the X/Y position of its OAM data
+ * 
+ */
 void sprite_util_sync_current_sprite_position_with_sub_sprite1_position(void)
 {
 
