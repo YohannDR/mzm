@@ -73,6 +73,7 @@ SECTIONS {
         . = 0x0000095D; escape_timer_counter = .;
         . = 0x0000095E; escape_timer_digits = .;
         . = 0x0000095E; particle_escape_oam_frames = .;
+        . = 0x0000095E; particle_samus_reflection_oam_frames = .;
         . = 0x00000A2C; projectile_data = .;
         . = 0x00000B1D; is_current_file_existing = .;
         . = 0x00000BEC; arm_cannon_y = .;

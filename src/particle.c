@@ -13,9 +13,31 @@
  */
 void particle_check_on_screen(struct ParticleEffect* pParticle)
 {
-    
-}
+    /*u16 bgY_offset;
+    u16 y_offset;
+    u16 bgX_offset;
+    u16 x_offset;
 
+    if (pParticle->status & PARTICLE_STATUS_ABSOLUTE_POSITION)
+        pParticle->status |= PARTICLE_STATUS_ONSCREEN;
+    else
+    {
+        bgY_offset = bg1_y_position + 0x200;
+        y_offset = pParticle->y_position + 0x200;
+        bgX_offset = bg1_x_position + 0x200;
+        x_offset = pParticle->x_position + 0x200;
+
+        if (x_offset >= bgX_offset && bgX_offset >= x_offset && y_offset >= bgY_offset && bgY_offset >= y_offset)
+            pParticle->status |= PARTICLE_STATUS_ONSCREEN;
+        else
+        {
+            if (pParticle->status & PARTICLE_STATUS_SPECIAL_EFFECT)
+                pParticle->status &= ~PARTICLE_STATUS_ONSCREEN;
+            else
+                pParticle->status |= PARTICLE_STATUS_ONSCREEN;
+        }
+    }*/
+}
 /**
  * 53e68 | 170 | 
  * Draws a particle effect
@@ -1629,5 +1651,44 @@ void particle_escape(struct ParticleEffect* pParticle)
  */
 void particle_samus_reflection(struct ParticleEffect* pParticle)
 {
+    u16 part_count;
+    u16 count;
+    u16* pSrc;
+    u16* pDst;
 
+    if (pParticle->stage == 0x0)
+    {
+        pParticle->stage = 0x1;
+        pParticle->status |= (PARTICLE_STATUS_SPECIAL_EFFECT | PARTICLE_STATUS_LOW_PRIORITY | PARTICLE_STATUS_XFLIP);
+    }
+
+    part_count = samus_physics.body_oam->part_count;
+    if (part_count > 0x18)
+        part_count = 0x18;
+    particle_samus_reflection_oam_frames[0x0] = part_count;
+
+    part_count = pDst[0x0] * 0x3;
+    count = 0x0;
+    pDst = particle_samus_reflection_oam_frames;
+    pSrc = (u16*)samus_physics.body_oam;
+
+    while (count < part_count)
+    {
+        *pDst++ = *pSrc++;
+        count++;
+    }    
+
+    curr_particle_oam_frame_ptr = (struct OamFrame*)particle_samus_reflection_oam_frames;
+
+    pParticle->y_position = sub_sprite_data1.y_position + 0x5C;
+    pParticle->x_position = sub_sprite_data1.x_position;
+
+    if (sub_sprite_data1.maybe_status == 0x0)
+        pParticle->status &= ~PARTICLE_STATUS_NOT_DRAWN;
+    else
+    {
+        pParticle->status |= PARTICLE_STATUS_NOT_DRAWN;
+        if (sub_sprite_data1.unknown == 0x0)
+            pParticle->status = 0x0;
+    }
 }

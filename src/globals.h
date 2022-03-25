@@ -107,6 +107,7 @@ extern u8 current_escape_status;
 extern u8 escape_timer_counter;
 extern struct EscapeDigits escape_timer_digits;
 extern u16 particle_escape_oam_frames[25];
+extern u16 particle_samus_reflection_oam_frames[73];
 extern struct ProjectileData projectile_data[16];
 extern i8 is_current_file_existing;
 extern u16 arm_cannon_y;
