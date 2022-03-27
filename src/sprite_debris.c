@@ -280,15 +280,13 @@ void sprite_debris_draw(struct SpriteDebris* pDebris)
     u8 count;
     u16 part1;
     u16 part2;
+    i32 bg_offset;
+    i32 pos_offset;
 
-    i32 temp, temp2, temp3;
-    struct RawOamData temp4;
+    bg_offset = bg1_y_position + 0xC0;
+    pos_offset = pDebris->y_position + 0x100;
 
-    temp = bg1_y_position + 0xC0;
-    temp2 = pDebris->y_position + 0x100;
-    temp3 = bg1_y_position + 0x3C0;
-
-    if ((temp > temp2) || (bg1_y_position + 0x3C0 < temp2)) {
+    if ((bg_offset > pos_offset) || (bg1_y_position + 0x3C0 < pos_offset)) {
         pDebris->exists = FALSE;
     }
     else
@@ -318,8 +316,7 @@ void sprite_debris_draw(struct SpriteDebris* pDebris)
 
                 curr_slot = slot + count;
                 oam_data[curr_slot].data[0x0].valueB[0x0] = part1 + y_position; // Update y position
-                oam_data[curr_slot].data[0x0].valueU[0x1] = ((((x_position + part2) & 0x1FF) |
-                        (-0x200 & oam_data[curr_slot].data[0x0].valueU[0x1]))); // Clear Y Pos
+                oam_data[curr_slot].data[0x0].valueU[0x1] = (part2 + x_position) & 0x1FF | oam_data[curr_slot].data[0x0].valueU[0x1] & -0x200;
                 oam_data[curr_slot].data[0x1].valueB[0x1] = ((priority << 0x2) | (oam_data[curr_slot].data[0x1].valueB[0x1] & -0xD));
 
                 pDst += 0x2; // Jump over part 4
@@ -331,7 +328,7 @@ void sprite_debris_draw(struct SpriteDebris* pDebris)
 }
 
 /**
- * 11e04 | 44 | Loops and the sprite debris and calls the draw function
+ * 11e04 | 44 | Loops on the sprite debris and calls the draw function
  * 
  */
 void sprite_debris_draw_all(void)
