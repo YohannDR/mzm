@@ -269,51 +269,63 @@ void sprite_debris_process_all(void)
  */
 void sprite_debris_draw(struct SpriteDebris* pDebris)
 {
-    u16* pFrame;
-    struct raw_oam_data* pDst;
+    u16* pSrc;
+    u8 slot;
+    u32 curr_slot;
     u16 y_position;
     u16 x_position;
     u8 priority;
-    u16 bg_y;
-    u16 bg_x;
-    u8 next_slot;
+    u16* pDst;
     u8 part_count;
-    u8 slot;
-    u8 i;
+    u8 count;
+    u16 part1;
+    u16 part2;
 
-    bg_y = bg1_y_position;
-    y_position = pDebris->y_position;
-    if (y_position < bg_y + 0xC0 || bg_y + 0x3C0 < y_position)
+    i32 temp, temp2, temp3;
+    struct RawOamData temp4;
+
+    temp = bg1_y_position + 0xC0;
+    temp2 = pDebris->y_position + 0x100;
+    temp3 = bg1_y_position + 0x3C0;
+
+    if ((temp > temp2) || (bg1_y_position + 0x3C0 < temp2)) {
         pDebris->exists = FALSE;
+    }
     else
     {
-        next_slot = next_oam_slot;
-        pFrame = (u16*)pDebris->oam_pointer[pDebris->curr_anim_frame].oam_frame_ptr;
-        part_count = (u8)*pFrame++;
-        if (part_count + next_slot < 0x80)
+        slot = next_oam_slot;
+        pSrc = (u16*)pDebris->oam_pointer[pDebris->curr_anim_frame].oam_frame_ptr;
+        part_count = *pSrc++;
+        if (part_count + slot < 0x80)
         {
-            pDst = oam_data;
-            pDst += next_slot * 4;
-            x_position = pDebris->x_position;
-            bg_x = bg1_x_position >> 0x2;
-            bg_y = bg1_y_position >> 0x2;
-            priority = 0x2;
+            pDst = (u16*)(oam_data + slot);
+            x_position = (pDebris->x_position >> 0x2) - (bg1_x_position >> 0x2);
+            y_position = (pDebris->y_position >> 0x2) - (bg1_y_position >> 0x2);
             if (samus_on_top_backgrounds)
                 priority = 0x1;
-            
-            for (i = 0; i < part_count; i++)
-            {
-                *pDst->data.dataU = *pFrame++;
-                *pDst = *pFrame++;
-                *pDst = *pFrame++;
-                slot = next_slot + i;
-                *(u8*)(&oam_data[slot * 4]) += (y_position >> 0x2) - bg_y;
-                oam_data[slot * 4 + 1] = oam_data[slot * 4 + 1] & 0xFE00 | (oam_data[slot * 4 + 1] + (x_position >> 0x2) - bg_x) & 0x1FF;
-                ((u8*)(&oam_data[slot * 4 + 2]))[0x1] = ((u8*)(&oam_data[slot * 4 + 2]))[0x1] & 0xF3 | priority << 0x2;
-                pDst += 0x2;
-            }
+            else
+                priority = 0x2;
 
-            next_oam_slot = next_slot + part_count;
+            count = 0x0;
+
+            while (count < part_count)
+            {
+                part1 = *pSrc++;
+                *pDst++ = part1;
+                part2 = *pSrc++;
+                *pDst++ = part2;
+                *pDst = *pSrc++; // Copy source and save part 1 and 2
+
+                curr_slot = slot + count;
+                oam_data[curr_slot].data[0x0].valueB[0x0] = part1 + y_position; // Update y position
+                oam_data[curr_slot].data[0x0].valueU[0x1] = ((((x_position + part2) & 0x1FF) |
+                        (-0x200 & oam_data[curr_slot].data[0x0].valueU[0x1]))); // Clear Y Pos
+                oam_data[curr_slot].data[0x1].valueB[0x1] = ((priority << 0x2) | (oam_data[curr_slot].data[0x1].valueB[0x1] & -0xD));
+
+                pDst += 0x2; // Jump over part 4
+                count++;
+            }
+            next_oam_slot = part_count + slot; // update next slot
         }
     }
 }

@@ -22,7 +22,7 @@ struct RawCoordsX {
     u16 y;
 };
 
-struct raw_coords_y {
+struct RawCoordsY {
     u16 y;
     u16 x;
 };

@@ -3,24 +3,22 @@
 
 #include "types.h"
 
-struct oam_data {
-    u16 oam0;
-    u16 oam1;
-    u16 oam2;
-};
-
 struct OamFrame {
     u16 part_count;
     u16 data[0]; // "dynamic array" -> [part_count]
 };
 
 struct FrameData {
-    struct OamFrame* oam_frame_ptr;
+    u16* oam_frame_ptr;
     u8 timer;
 };
 
-struct raw_oam_data {
-    u16 data[4];
+struct RawOamData {
+    union SplittedI16
+    {
+        i16 valueU[2];
+        i8 valueB[4];
+    } data[2];
     /*u16 part2;
     u16 part3;
     u16 part4;*/

@@ -262,9 +262,189 @@ void samus_update_environmental_effect(struct SamusData* pData)
 
 }
 
+/**
+ * 6950 | 2dc | 
+ * Updates the jump velocity of samus depending on the previous pose
+ * 
+ * @param pData Samus Data Pointer
+ * @param pCopy Samus Data Copy Pointer
+ * @param pWeapon Samus Weapon Info Pointer
+ */
 void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
+    struct Equipment* pEquipment;
 
+    pEquipment = &equipment;
+    pData->x_velocity = pCopy->x_velocity;
+    pData->arm_cannon_direction = pCopy->arm_cannon_direction;
+    pData->speedboosting_shinesparking = pCopy->speedboosting_shinesparking;
+    switch (pCopy->pose)
+    {
+        case SPOSE_RUNNING:
+            if (pCopy->forced_movement != 0x1)
+                pData->pose = SPOSE_MIDAIR;
+            else
+            {
+                pData->pose = SPOSE_STARTING_SPIN_JUMP;
+                if (pEquipment->suit_type == SUIT_SUITLESS)
+                    pData->y_velocity = 0xD4;
+                else if (pEquipment->suit_misc_activation & SMF_HIGH_JUMP)
+                    pData->y_velocity = 0xE8;
+                else
+                    pData->y_velocity = 0xC0;
+            }
+            break;
+
+        case SPOSE_STARTING_SPIN_JUMP:
+        case SPOSE_SPINNING:
+        case SPOSE_SPACE_JUMPING:
+        case SPOSE_SCREW_ATTACKING:
+            pData->pose = SPOSE_MIDAIR;
+            pData->x_velocity = 0x0;
+            if (pCopy->forced_movement == 0x2)
+                pData->y_velocity = pCopy->y_velocity;
+
+            if (unk_57EC(pData, samus_hitbox_data[0x0][0x2]) << 0x18)
+                pData->y_position += 0x20;
+            break;
+
+        case SPOSE_STARTING_WALL_JUMP:
+            if (pCopy->forced_movement == 0x0)
+                pData->pose = SPOSE_MIDAIR;
+            else
+            {
+                pData->pose = SPOSE_SPINNING;
+                if (pCopy->forced_movement == 0x1)
+                {
+                    if (pEquipment->suit_misc_activation & SMF_HIGH_JUMP)
+                        pData->y_velocity = 0xE8;
+                    else
+                        pData->y_velocity = 0xC0;
+                }
+                if (samus_physics.slowed_by_liquid)
+                {
+                    pData->y_velocity = 0x74;
+                    sound_play1(0x95);
+                }
+                else
+                {
+                    if (equipment.suit_type != SUIT_SUITLESS)
+                        sound_play1(0x76);
+                    else
+                        sound_play1(0x9A);
+                }
+            }
+            break;
+
+        case SPOSE_MORPH_BALL_MIDAIR:
+            if (pCopy->forced_movement == 0xA)
+            {
+                pData->direction = DIRECTION_RIGHT;
+                pData->x_velocity = 0x30;
+                pData->y_velocity = 0xA4;
+                pData->forced_movement = 0x1;
+            }
+            else if (pCopy->forced_movement == 0xB)
+            {
+                pData->x_velocity = 0x0;
+                pData->y_velocity = 0xA4;
+                pData->forced_movement = 0x1;
+            }
+            else if (pCopy->forced_movement == 0xC)
+            {
+                pData->direction = DIRECTION_LEFT;
+                pData->x_velocity = -0x30;
+                pData->y_velocity = 0xA4;
+                pData->forced_movement = 0x1;
+            }
+            break;
+
+        case SPOSE_MORPH_BALL:
+        case SPOSE_ROLLING:
+            pData->curr_anim_frame = pCopy->curr_anim_frame;
+            pData->anim_duration_counter = pCopy->anim_duration_counter;
+        case SPOSE_MORPHING:
+            if (pCopy->forced_movement == 0xA)
+            {
+                pData->direction = DIRECTION_RIGHT;
+                pData->x_velocity = 0x30;
+                pData->y_velocity = 0xA4;
+                pData->forced_movement = 0x1;
+            }
+            else if (pCopy->forced_movement == 0xB)
+            {
+                pData->x_velocity = 0x0;
+                pData->y_velocity = 0xA4;
+                pData->forced_movement = 0x1;
+            }
+            else if (pCopy->forced_movement == 0xC)
+            {
+                pData->direction = DIRECTION_LEFT;
+                pData->x_velocity = -0x30;
+                pData->y_velocity = 0xA4;
+                pData->forced_movement = 0x1;
+            }
+            else
+            {
+                pData->x_velocity >>= 0x1;
+                if (pCopy->forced_movement == 0x1)
+                    pData->y_velocity = 0xD4;
+            }
+        case SPOSE_DELAY_BEFORE_BALLSPARKING:
+        case SPOSE_BALLSPARK_COLLISION:
+        case SPOSE_MORPH_BALL_ON_ZIPLINE:
+            pData->pose = SPOSE_MORPH_BALL_MIDAIR;
+            break;
+
+        case SPOSE_CROUCHING:
+        case SPOSE_TURNING_AROUND_AND_CROUCHING:
+        case SPOSE_SHOOTING_AND_CROUCHING:
+            if (unk_57EC(pData, samus_hitbox_data[0x0][0x2]) << 0x18)
+                pData->y_position += 0x20;
+        default:
+            pData->pose = SPOSE_MIDAIR;
+            if (pCopy->forced_movement == 0x1)
+            {
+                if (button_input & (KEY_RIGHT | KEY_LEFT))
+                    pData->pose = SPOSE_STARTING_SPIN_JUMP;
+                else
+                    pData->pose = SPOSE_MIDAIR;
+
+                if (pEquipment->suit_type == SUIT_SUITLESS)
+                    pData->y_velocity = 0xD4;
+                else if (pEquipment->suit_misc_activation & SMF_HIGH_JUMP)
+                    pData->y_velocity = 0xE8;
+                else
+                    pData->y_velocity = 0xC0;
+            }
+            else if (pCopy->forced_movement == 0x2)
+                pData->y_velocity = pCopy->y_velocity;
+    }
+
+    if (pCopy->forced_movement == 0x1)
+    {
+        if (pData->pose == SPOSE_MIDAIR)
+        {
+            if (!samus_physics.slowed_by_liquid)
+            {
+                if (pData->y_velocity == 0xC0)
+                    sound_play1(0x6E);
+                else if (pData->y_velocity == 0xE8)
+                    sound_play1(0x6F);
+                else if (pData->y_velocity == 0xD4)
+                    sound_play1(0x9D);
+            }
+            else
+                sound_play1(0x94);
+        }
+        else if (pData->pose == SPOSE_MORPH_BALL_MIDAIR)
+        {
+            if (samus_physics.slowed_by_liquid)
+                sound_play1(0x94);
+            else
+                sound_play1(0x70);
+        }
+    }
 }
 
 void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
@@ -894,7 +1074,7 @@ void samus_aim_cannon(struct SamusData* pData)
     }*/
 }
 
-u8 samus_fire_beam_missile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct equipment* pEquipment)
+u8 samus_fire_beam_missile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment)
 {
     /*u8 has_proj;
     u8 new_proj;
@@ -996,7 +1176,7 @@ u8 samus_fire_check_fully_charged_pistol(struct SamusData* pData, struct WeaponI
     return new_proj;
 }
 
-void samus_check_new_projectile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct equipment* pEquipment)
+void samus_check_new_projectile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment)
 {
     struct SamusPhysics* pPhysics;
 
@@ -1094,7 +1274,7 @@ u8 samus_check_a_pressed(struct SamusData* pData)
     return return_value;
 }
 
-void samus_set_highlighted_weapon(struct SamusData* pData, struct WeaponInfo* pWeapon, struct equipment* pEquipment)
+void samus_set_highlighted_weapon(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment)
 {
     /*u8 weapon_high;
 
@@ -1196,7 +1376,7 @@ void samus_set_highlighted_weapon(struct SamusData* pData, struct WeaponInfo* pW
     pWeapon->weapon_highlighted = weapon_high;*/
 }
 
-void samus_set_spinning_pose(struct SamusData* pData, struct equipment* pEquipment)
+void samus_set_spinning_pose(struct SamusData* pData, struct Equipment* pEquipment)
 {
     u8 flag;
 
@@ -1254,7 +1434,7 @@ void samus_apply_x_acceleration(i16 acceleration, i16 velocity, struct SamusData
 
 }
 
-u8 samus_take_hazard_damage(struct SamusData* pData, struct equipment* pEquipment, struct HazardDamage* pHazard)
+u8 samus_take_hazard_damage(struct SamusData* pData, struct Equipment* pEquipment, struct HazardDamage* pHazard)
 {
     u32 hazard;
     u16 y_position;
@@ -2768,7 +2948,7 @@ u8 samus_execute_pose_subroutine(struct SamusData* pData)
     u8 pose;
     u8 timer;
     struct WeaponInfo* pWeapon;
-    struct equipment* pEquipment;
+    struct Equipment* pEquipment;
     struct HazardDamage* pHazard;
 
     pWeapon = &samus_weapon_info;
@@ -2821,7 +3001,7 @@ void samus_update_palette(struct SamusData* pData)
 void samus_check_play_low_health_sound(void)
 {
     struct SamusData* pData;
-    struct equipment* pEquipment;
+    struct Equipment* pEquipment;
 
     pData = &samus_data;
     pEquipment = &equipment;

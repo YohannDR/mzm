@@ -27,7 +27,7 @@
 #define SUIT_FULLY_POWERED 0x1
 #define SUIT_SUITLESS 0x2
 
-struct equipment {
+struct Equipment {
     u16 max_energy;
     u16 max_missiles;
     u8 max_super_missiles;
@@ -331,14 +331,14 @@ void samus_call_check_low_health(void);
 void samus_call_update_arm_cannon_position_offset(void);
 void samus_bounce_bomb(u8 direction);
 void samus_aim_cannon(struct SamusData* pData);
-u8 samus_fire_beam_missile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct equipment* pEquipment);
+u8 samus_fire_beam_missile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment);
 u8 samus_fire_check_fully_charged_pistol(struct SamusData* pData, struct WeaponInfo* pWeapon);
-void samus_check_new_projectile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct equipment* pEquipment);
+void samus_check_new_projectile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment);
 u8 samus_check_a_pressed(struct SamusData* pData);
-void samus_set_highlighted_weapon(struct SamusData* pData, struct WeaponInfo* pWeapon, struct equipment* pEquipment);
-void samus_set_spinning_pose(struct SamusData* pData, struct equipment* pEquipment);
+void samus_set_highlighted_weapon(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment);
+void samus_set_spinning_pose(struct SamusData* pData, struct Equipment* pEquipment);
 void samus_apply_x_acceleration(i16 acceleration, i16 velocity, struct SamusData* pData);
-u8 samus_take_hazard_damage(struct SamusData* pData, struct equipment* pEquipment, struct HazardDamage* pHazard);
+u8 samus_take_hazard_damage(struct SamusData* pData, struct Equipment* pEquipment, struct HazardDamage* pHazard);
 void samus_check_shinesparking(struct SamusData* pData);
 u8 samus_inactivity(struct SamusData* pData);
 u8 unk_847C(struct SamusData* pData, u8 unk);

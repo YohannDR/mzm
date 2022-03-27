@@ -46,7 +46,51 @@ void particle_check_on_screen(struct ParticleEffect* pParticle)
  */
 void particle_draw(struct ParticleEffect* pParticle)
 {
+    u16 part_count;
+    u16* pSrc;
+    struct RawOamData* pDst;
+    u8 slot;
+    u16 y_position;
+    u16 x_position;
+    u8 status;
+    u8 priority;
 
+    slot = next_oam_slot;
+    pSrc = curr_particle_oam_frame_ptr;
+    part_count = *pSrc++;
+    if (part_count + slot < 0x80) // Checks within bounds
+    {
+        pDst = oam_data + slot;
+        status = pParticle->status;
+        if (status & PARTICLE_STATUS_ABSOLUTE_POSITION)
+        {
+            y_position = pParticle->y_position;
+            x_position = pParticle->x_position;
+        }
+        else
+        {
+            y_position = (pParticle->y_position >> 0x2) - (bg1_y_position >> 0x2);
+            x_position = (pParticle->x_position >> 0x2) - (bg1_x_position >> 0x2);
+        }
+
+        if (status & PARTICLE_STATUS_LOW_PRIORITY)
+        {
+            if (samus_on_top_backgrounds)
+                priority = 0x1;
+            else
+                priority = 0x2;
+        }
+        else
+            priority = 0x0;
+
+        status &= PARTICLE_STATUS_XFLIP;
+
+        do {
+            pDst->data->valueU = *pSrc++;
+
+
+        } while (part_count != 0x0);
+    }
 }
 
 /**
@@ -1640,12 +1684,12 @@ void particle_escape(struct ParticleEffect* pParticle)
     }
 
     escape_update_oam();
-    curr_particle_oam_frame_ptr = (struct OamFrame*)particle_escape_oam_frames;
+    curr_particle_oam_frame_ptr = particle_escape_oam_frames;
 }
 
 /**
- * 55208 | a8 | 
- * Subroutine for the samus reflection particle effect /!\ NO CODE
+ * 552b0 | a8 | 
+ * Subroutine for the samus reflection particle effect
  * 
  * @param pParticle Particle Effect Pointer to the concerned particle
  */
@@ -1659,36 +1703,36 @@ void particle_samus_reflection(struct ParticleEffect* pParticle)
     if (pParticle->stage == 0x0)
     {
         pParticle->stage = 0x1;
-        pParticle->status |= (PARTICLE_STATUS_SPECIAL_EFFECT | PARTICLE_STATUS_LOW_PRIORITY | PARTICLE_STATUS_XFLIP);
+        pParticle->status |= (PARTICLE_STATUS_SPECIAL_EFFECT | PARTICLE_STATUS_LOW_PRIORITY | PARTICLE_STATUS_XFLIP); // Init status
     }
 
-    part_count = samus_physics.body_oam->part_count;
-    if (part_count > 0x18)
-        part_count = 0x18;
-    particle_samus_reflection_oam_frames[0x0] = part_count;
-
-    part_count = pDst[0x0] * 0x3;
-    count = 0x0;
-    pDst = particle_samus_reflection_oam_frames;
     pSrc = (u16*)samus_physics.body_oam;
+    part_count = *pSrc++;
+    pDst = particle_samus_reflection_oam_frames;
+    if (part_count > 0x18) // Check within bounds
+        part_count = 0x18;
+    *pDst++ = part_count;
+
+    part_count *= 0x3; // Correct number for the loop
+    count = 0x0;
 
     while (count < part_count)
     {
-        *pDst++ = *pSrc++;
+        *pDst++ = *pSrc++; // Copy
         count++;
-    }    
+    }
 
-    curr_particle_oam_frame_ptr = (struct OamFrame*)particle_samus_reflection_oam_frames;
+    curr_particle_oam_frame_ptr = particle_samus_reflection_oam_frames; // Set for draw
 
     pParticle->y_position = sub_sprite_data1.y_position + 0x5C;
     pParticle->x_position = sub_sprite_data1.x_position;
 
-    if (sub_sprite_data1.maybe_status == 0x0)
+    if (sub_sprite_data1.maybe_status == 0x0) // Probably checks for shootable symbol state
         pParticle->status &= ~PARTICLE_STATUS_NOT_DRAWN;
     else
     {
         pParticle->status |= PARTICLE_STATUS_NOT_DRAWN;
-        if (sub_sprite_data1.unknown == 0x0)
+        if (sub_sprite_data1.unknown == 0x1)
             pParticle->status = 0x0;
     }
 }

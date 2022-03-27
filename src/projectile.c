@@ -702,7 +702,7 @@ void projectile_check_hit_block(struct ProjectileData* pProj, u8 ccaa, u8 effect
 
 void projectile_check_hit_sprite(void)
 {
-    /*struct equipment* pEquipment;
+    /*struct Equipment* pEquipment;
     struct SpriteData* pSprite;
     struct SpriteData* pSprite_next;
     struct ProjectileData* pProj;

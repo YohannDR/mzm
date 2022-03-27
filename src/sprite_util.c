@@ -1188,7 +1188,7 @@ u8 sprite_util_sprite_take_damage_from_samus_contact(struct SpriteData* pSprite,
 {
     u8 dct;
     u8* pProps;
-    struct equipment* pEquipment;
+    struct Equipment* pEquipment;
     u16 weakness;
     u16 bbf;
     u32 damage;

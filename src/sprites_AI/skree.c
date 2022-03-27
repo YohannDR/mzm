@@ -181,7 +181,7 @@ void skree_explosion_init(void)
     current_sprite.draw_order = 0x3;
     current_sprite.bg_priority = io_registers_backup.bg2cnt & 0x3;
     current_sprite.y_position += 0x28;
-    current_sprite.status = (status | SPRITE_STATUS_UNKNOWN4 | SPRITE_STATUS_ROTATION_SCALING);
+    current_sprite.status = (status | SPRITE_STATUS_DOUBLE_SIZE | SPRITE_STATUS_ROTATION_SCALING);
     current_sprite.oam_scaling = 0x100;
     current_sprite.oam_rotation = 0x0;
 
