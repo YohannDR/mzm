@@ -8,13 +8,17 @@
 
 #define SOFTRESET_KEYS (KEY_A | KEY_B | KEY_START | KEY_SELECT)
 
-void softreset_vblank_callback(void) {
+void
+softreset_vblank_callback(void)
+{
     /* probably left over from some debugging code */
     volatile char c = 0;
 }
 
-void check_softreset(void) {
-    if (game_mode_main == GM_START_SOFTRESET) {
+void
+check_softreset(void)
+{
+    if (game_mode == GM_START_SOFTRESET) {
         return;
     }
 
@@ -27,7 +31,9 @@ void check_softreset(void) {
     }
 }
 
-void softreset(void) {
+void
+softreset(void)
+{
     sub_0805d034();
     sub_080033dc();
 
@@ -51,14 +57,14 @@ void softreset(void) {
     write16(REG_IE, IF_VBLANK | IF_DMA2 | IF_GAMEPAK);
     write16(REG_DISPSTAT, DSTAT_IF_VBLANK);
 
-    game_mode_main = GM_INTRO;
-    game_mode_sub1 = 0;
-    game_mode_sub2 = 0;
-    reset_game = 0;
-    stereo_enabled = 0;
-    button_input = KEY_NONE;
+    game_mode        = GM_INTRO;
+    game_submode1    = 0;
+    next_game_mode   = 0;
+    reset_game       = 0;
+    stereo_enabled   = 0;
+    button_input     = KEY_NONE;
     button_input_old = KEY_NONE;
-    buttons_changed = KEY_NONE;
+    buttons_changed  = KEY_NONE;
 
     write16(REG_IF, 0xffff);
     write16(REG_IME, 1);

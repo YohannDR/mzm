@@ -9,7 +9,9 @@
 #include "types.h"
 #include "globals.h"
 
-void init_game(void) {
+void
+init_game(void)
+{
     write16(REG_DISPCNT, DCNT_BLANK);
     write16(REG_IME, 0);
     write16(REG_DISPSTAT, 0);
@@ -27,19 +29,17 @@ void init_game(void) {
     write16(REG_DISPSTAT, DSTAT_IF_VBLANK);
     write16(
         REG_WAITCNT,
-        WAIT_SRAM_4CYCLES
-            | WAIT_BANK0_3CYCLES | WAIT_BANK0_SUBSEQUENT_1CYCLE
+        WAIT_SRAM_4CYCLES | WAIT_BANK0_3CYCLES | WAIT_BANK0_SUBSEQUENT_1CYCLE
             | WAIT_BANK1_3CYCLES | WAIT_BANK1_SUBSEQUENT_1CYCLE
             | WAIT_BANK2_3CYCLES | WAIT_BANK2_SUBSEQUENT_1CYCLE
-            | WAIT_GAMEPACK_CGB
-    );
+            | WAIT_GAMEPACK_CGB);
 
-    game_mode_sub1 = 0;
-    game_mode_sub2 = 0;
-    debug_flag = 0;
-    button_input = KEY_NONE;
+    game_submode1    = 0;
+    next_game_mode   = 0;
+    debug_flag       = 0;
+    button_input     = KEY_NONE;
     button_input_old = KEY_NONE;
-    buttons_changed = KEY_NONE;
+    buttons_changed  = KEY_NONE;
 
     update_input();
 
@@ -49,12 +49,12 @@ void init_game(void) {
         game_mode_main = GM_SOFTRESET;
     }
 
-    button_input = 0;
+    button_input     = 0;
     button_input_old = 0;
-    buttons_changed = 0;
+    buttons_changed  = 0;
 
     softreset_disabled = 0;
-    stereo_enabled = 0;
+    stereo_enabled     = 0;
 
     write16(REG_IF, 0xffff);
     write16(REG_IME, 1);

@@ -5,7 +5,9 @@
 #include "io.h"
 #include "music.h"
 
-void call_vblank_callback(void) {
+void
+call_vblank_callback(void)
+{
     if (vblank_callback) {
         vblank_callback();
     }
@@ -26,7 +28,9 @@ void set_vblank_callback(Func_t callback) {
     }
 }
 
-void call_hblank_callback(void) {
+void
+call_hblank_callback(void)
+{
     if (hblank_callback) {
         hblank_callback();
     }
@@ -41,7 +45,9 @@ void set_hblank_callback(Func_t callback) {
     }
 }
 
-void call_vcount_callback(void) {
+void
+call_vcount_callback(void)
+{
     if (vcount_callback) {
         vcount_callback();
     }
@@ -56,7 +62,9 @@ void set_vcount_callback(Func_t callback) {
     }
 }
 
-void call_serial_comm_callback(void) {
+void
+call_serial_comm_callback(void)
+{
     if (serial_comm_callback) {
         serial_comm_callback();
     }
@@ -71,7 +79,9 @@ void set_serial_comm_callback(Func_t callback) {
     }
 }
 
-void call_timer3_callback(void) {
+void
+call_timer3_callback(void)
+{
     if (timer3_callback) {
         timer3_callback();
     }
@@ -86,6 +96,8 @@ void set_timer3_callback(Func_t callback) {
     }
 }
 
-void empty_callback(void) {
+void
+empty_callback(void)
+{
     return;
 }

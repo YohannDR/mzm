@@ -10,36 +10,38 @@
 #define REG_DMA3 (REG_BASE + 0x0d4)
 
 #define dma_set(channel, src, dst, cnt)                                        \
-{                                                                              \
-    vu32 *dma_ = (vu32 *)REG_DMA##channel;                                     \
-    dma_[0] = (vu32)src;                                                       \
-    dma_[1] = (vu32)dst;                                                       \
-    dma_[2] = (vu32)cnt;                                                       \
-    dma_[2];                                                                   \
-}
+    {                                                                          \
+        vu32 *dma_ = (vu32 *)REG_DMA##channel;                                 \
+        dma_[0]    = (vu32)src;                                                \
+        dma_[1]    = (vu32)dst;                                                \
+        dma_[2]    = (vu32)cnt;                                                \
+        dma_[2];                                                               \
+    }
 
 #define dma_fill(channel, val, dst, size, bit)                                 \
-{                                                                              \
-    vu##bit dma_tmp_ = (vu##bit)val;                                           \
-    dma_set(                                                                   \
-        channel,                                                               \
-        &dma_tmp_,                                                             \
-        dst,                                                                   \
-        (DMA_ENABLE | DMA_START_NOW | DMA_##bit##BIT                           \
-         | DMA_SRC_FIXED | DMA_DEST_INC) << 16                                 \
-            | ((size)/(bit/8))                                                 \
-    );                                                                         \
-}
+    {                                                                          \
+        vu##bit dma_tmp_ = (vu##bit)val;                                       \
+        dma_set(                                                               \
+            channel,                                                           \
+            &dma_tmp_,                                                         \
+            dst,                                                               \
+            (DMA_ENABLE | DMA_START_NOW | DMA_##bit##BIT | DMA_SRC_FIXED       \
+             | DMA_DEST_INC)                                                   \
+                    << 16                                                      \
+                | ((size) / (bit / 8)));                                       \
+    }
 
-#define dma_fill16(channel, value, dest, size) dma_fill(channel, value, dest, size, 16)
-#define dma_fill32(channel, value, dest, size) dma_fill(channel, value, dest, size, 32)
+#define dma_fill16(channel, value, dest, size)                                 \
+    dma_fill(channel, value, dest, size, 16)
+#define dma_fill32(channel, value, dest, size)                                 \
+    dma_fill(channel, value, dest, size, 32)
 
 #define dma_clear(channel, dest, size, bit)                                    \
-{                                                                              \
-    vu##bit *dma_dest_ = (vu##bit *)(dest);                                    \
-    u32 dma_size_ = size;                                                      \
-    dma_fill##bit(channel, 0, dma_dest_, dma_size_);                           \
-}
+    {                                                                          \
+        vu##bit *dma_dest_ = (vu##bit *)(dest);                                \
+        u32 dma_size_      = size;                                             \
+        dma_fill##bit(channel, 0, dma_dest_, dma_size_);                       \
+    }
 
 #define dma_clear16(channel, dest, size) dma_clear(channel, dest, size, 16)
 #define dma_clear32(channel, dest, size) dma_clear(channel, dest, size, 32)

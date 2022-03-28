@@ -21,4 +21,8 @@ enum game_mode {
     GM_DEBUG_MENU,
 };
 
+extern i16 game_mode;
+extern i16 game_submode1;
+extern i8 next_game_mode;
+
 #endif /* GAME_MODE_H */

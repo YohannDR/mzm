@@ -7,6 +7,7 @@ MEMORY {
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
         . = 0x00037e00; events_triggered = .;
+        . = 0x00038000; unk_02038000 = .;
     } >ewram
 
     iwram (NOLOAD) : ALIGN(4) {
@@ -78,11 +79,12 @@ SECTIONS {
         . = 0x00000B1D; is_current_file_existing = .;
         . = 0x00000BEC; arm_cannon_y = .;
         . = 0x00000BEE; arm_cannon_x = .;
-        . = 0x00000BF0; pause_screen_flag = .;
-        . = 0x00000c70; game_mode_main = .;
-        . = 0x00000c72; game_mode_sub1 = .;
-        . = 0x00000c74; game_mode_sub2 = .;
-        . = 0x00000c75; game_mode_sub3 = .;
+        . = 0x00000bf0; pause_screen_flag = .;
+        . = 0x00000c1c; unk_03000c1c = .;
+        . = 0x00000c70; game_mode = .;
+        . = 0x00000c72; game_submode1 = .;
+        . = 0x00000c74; next_game_mode = .;
+        . = 0x00000c75; unk_03000c75 = .;
         . = 0x00000c76; unk_03000c76 = .;
         . = 0x00000c77; frame_counter_8bit = .;
         . = 0x00000c78; vblank_request_flag = .;
@@ -142,11 +144,11 @@ SECTIONS {
         src/softreset.o(.text);
         src/syscall_wrappers.o(.text);
         src/update_input.o(.text);
-        src/clear_ram.o(.text);
-        src/load_intr_code.o(.text);
-        asm/disasm_0x08000a18.o(.text);
+        src/init_helpers.o(.text);
+        src/fixed_point.o(.text);
         src/callbacks.o(.text);
-        asm/disasm_0x08000c04.o(.text);
+        src/sub_08000c04.o(.text);
+        asm/disasm_0x08000c48.o(.text);
         asm/syscalls.o(.text);
         asm/disasm_0x080051d4.o(.text);
         asm/libgcc.o(.text);

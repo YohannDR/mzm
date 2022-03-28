@@ -43,6 +43,7 @@ enum difficulty {
     DIFF_NORMAL = 0x1,
     DIFF_HARD = 0x2
 };
+extern i32 unk_02038000; /* XXX: type */
 
 extern u8 debug_flag;
 extern u16 frame_counter_16bit;
@@ -122,6 +123,8 @@ extern u8 frame_counter_8bit;
 extern vu16 vblank_request_flag;
 extern u16 intr_code[0x100];
 extern struct RawOamData oam_data[160];
+extern u8 pause_screen_flag;
+extern u8 unk_03000c1c;
 extern u16 button_input;
 extern u16 button_input_old;
 extern u16 buttons_changed;
@@ -158,9 +161,14 @@ extern u8* current_room_scroll_data_pointer;
 
 extern void *sp_sys;
 extern void *sp_irq;
+extern callback_t intr_vector[13];
+extern u16 (*intr_code_ptr)[0x100];
+extern i8 unk_03000c75;
+extern i8 unk_03000c76;
+extern u8 frame_counter_8bit;
+extern vu16 vblank_request_flag;
 extern u16 unk_03007ff8;
 extern u16 (*intr_code_ptr)[0x100];
-extern Func_t intr_vector[13];
 
 // IO
 
