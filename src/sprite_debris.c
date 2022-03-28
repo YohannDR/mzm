@@ -294,7 +294,7 @@ void sprite_debris_draw(struct SpriteDebris* pDebris)
     else
     {
         slot = next_oam_slot;
-        pSrc = (u16*)pDebris->oam_pointer[pDebris->curr_anim_frame].oam_frame_ptr;
+        pSrc = pDebris->oam_pointer[pDebris->curr_anim_frame].oam_frame_ptr;
         part_count = *pSrc++;
         if (part_count + slot < 0x80)
         {
