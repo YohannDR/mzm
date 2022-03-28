@@ -8,3 +8,6 @@
 *.o
 *.map
 *.bin
+
+data/*.c
+.vscode
