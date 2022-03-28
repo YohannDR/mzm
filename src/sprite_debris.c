@@ -282,6 +282,8 @@ void sprite_debris_draw(struct SpriteDebris* pDebris)
     u16 part2;
     i32 bg_offset;
     i32 pos_offset;
+    i32 oam_x;
+    i32 mask;
 
     bg_offset = bg1_y_position + 0xC0;
     pos_offset = pDebris->y_position + 0x100;
@@ -316,7 +318,10 @@ void sprite_debris_draw(struct SpriteDebris* pDebris)
 
                 curr_slot = slot + count;
                 oam_data[curr_slot].data[0x0].valueB[0x0] = part1 + y_position; // Update y position
-                oam_data[curr_slot].data[0x0].valueU[0x1] = (part2 + x_position) & 0x1FF | oam_data[curr_slot].data[0x0].valueU[0x1] & -0x200;
+                oam_x = (part2 + x_position);
+                mask = 0x1FF;
+                oam_x &= mask;
+                oam_data[curr_slot].data[0x0].valueU[0x1] = oam_data[curr_slot].data[0x0].valueU[0x1] & -(mask + 0x1) | oam_x;
                 oam_data[curr_slot].data[0x1].valueB[0x1] = ((priority << 0x2) | (oam_data[curr_slot].data[0x1].valueB[0x1] & -0xD));
 
                 pDst += 0x2; // Jump over part 4
