@@ -123,7 +123,6 @@ extern struct SamusPhysics samus_physics;
 extern u16 previous_x_position;
 extern u16 previous_y_position;
 extern u16 prevent_movement_timer;
-extern struct button_assignements button_assignements;
 extern u8 unk_03004fc9;
 extern u16 samus_palette[32];
 extern i16 samus_door_position_offset;
