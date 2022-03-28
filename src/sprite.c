@@ -320,7 +320,7 @@ void sprite_load_spriteset(void)
 void sprite_load_gfx(u8 sprite_id, u8 gfx_row)
 {
     sprite_id -= 0x10;
-    LZ77_uncomp_vram(sprites_gfx_pointers[sprite_id], VRAM_BASE + 0x14000 + (gfx_row * 0x800));
+    // LZ77_uncomp_vram(sprites_gfx_pointers[sprite_id], VRAM_BASE + 0x14000 + (gfx_row * 0x800));
 }
 
 /**
@@ -335,7 +335,7 @@ void sprite_load_pal(u8 sprite_id, u8 pal_row, u8 len)
 {
     sprite_id -= 0x10;
 
-    dma_set(3, sprites_pal_pointers[sprite_id], PALRAM_BASE + 0x300 + (gfx_row * 0x20), DMA_ENABLE | len << 0x4);
+    // dma_set(3, sprites_pal_pointers[sprite_id], PALRAM_BASE + 0x300 + (gfx_row * 0x20), DMA_ENABLE | len << 0x4);
 }
 
 void sprite_clear_data(void)

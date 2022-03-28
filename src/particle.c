@@ -86,7 +86,7 @@ void particle_draw(struct ParticleEffect* pParticle)
         status &= PARTICLE_STATUS_XFLIP;
 
         do {
-            pDst->data->valueU = *pSrc++;
+            // pDst->data->valueU = *pSrc++;
 
 
         } while (part_count != 0x0);

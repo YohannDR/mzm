@@ -161,7 +161,7 @@ extern u8* current_room_scroll_data_pointer;
 
 extern void *sp_sys;
 extern void *sp_irq;
-extern callback_t intr_vector[13];
+extern Func_t intr_vector[13];
 extern u16 (*intr_code_ptr)[0x100];
 extern i8 unk_03000c75;
 extern i8 unk_03000c76;

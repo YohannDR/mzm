@@ -14,14 +14,14 @@ void scroll_process(struct RawCoordsX* pCoords)
     screen_y = screen_position_and_velocity.y_position;
 
     pScroll = current_scrolls;
-    if (pScroll->within != FALSE)
+    if (pScroll->within)
     {
         screen_x = scroll_process_x(pScroll, pCoords);
         screen_y = scroll_process_y(pScroll, pCoords);
     }
 
     pScroll = current_scrolls + 1;
-    if (pScroll->within != FALSE)
+    if (pScroll->within)
     {
         new_position = scroll_process_x(pScroll, pCoords);
         screen_x = (i32)(screen_x + new_position) >> 0x1;
