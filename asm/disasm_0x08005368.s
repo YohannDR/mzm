@@ -23967,7 +23967,7 @@ lbl_08010d8e:
     adds r3, #8
     adds r0, r7, #0
     movs r1, #2
-    bl init_sprite_debris
+    bl sprite_debris_init
     b lbl_08010e88
     .align 2, 0
 lbl_08010dac: .4byte 0x03000c77
@@ -23978,7 +23978,7 @@ lbl_08010db0:
     subs r3, #8
     adds r0, r7, #0
     movs r1, #1
-    bl init_sprite_debris
+    bl sprite_debris_init
     b lbl_08010e88
 lbl_08010dc2:
     ldr r0, lbl_08010df0 @ =0x03000c77
@@ -23993,14 +23993,14 @@ lbl_08010dc2:
     adds r3, #8
     adds r0, r7, #0
     movs r1, #2
-    bl init_sprite_debris
+    bl sprite_debris_init
     adds r2, r5, #0
     adds r2, #8
     adds r3, r6, #0
     subs r3, #8
     adds r0, r7, #0
     movs r1, #4
-    bl init_sprite_debris
+    bl sprite_debris_init
     b lbl_08010e88
     .align 2, 0
 lbl_08010df0: .4byte 0x03000c77
@@ -24011,13 +24011,13 @@ lbl_08010df4:
     subs r3, #8
     adds r0, r7, #0
     movs r1, #1
-    bl init_sprite_debris
+    bl sprite_debris_init
     adds r3, r6, #0
     adds r3, #8
     adds r0, r7, #0
     movs r1, #3
     adds r2, r5, #0
-    bl init_sprite_debris
+    bl sprite_debris_init
     b lbl_08010e88
 lbl_08010e14:
     ldr r0, lbl_08010e54 @ =0x03000c77
@@ -24033,20 +24033,20 @@ lbl_08010e14:
     adds r0, r7, #0
     movs r1, #1
     adds r3, r4, #0
-    bl init_sprite_debris
+    bl sprite_debris_init
     adds r2, r5, #0
     subs r2, #0x10
     adds r3, r6, #0
     adds r3, #8
     adds r0, r7, #0
     movs r1, #3
-    bl init_sprite_debris
+    bl sprite_debris_init
     adds r2, r5, #0
     adds r2, #8
     adds r0, r7, #0
     movs r1, #4
     adds r3, r4, #0
-    bl init_sprite_debris
+    bl sprite_debris_init
     b lbl_08010e88
     .align 2, 0
 lbl_08010e54: .4byte 0x03000c77
@@ -24058,20 +24058,20 @@ lbl_08010e58:
     adds r0, r7, #0
     movs r1, #2
     adds r3, r4, #0
-    bl init_sprite_debris
+    bl sprite_debris_init
     adds r2, r5, #0
     adds r2, #8
     adds r0, r7, #0
     movs r1, #3
     adds r3, r4, #0
-    bl init_sprite_debris
+    bl sprite_debris_init
     adds r2, r5, #0
     adds r2, #0x10
     adds r3, r6, #0
     subs r3, #8
     adds r0, r7, #0
     movs r1, #4
-    bl init_sprite_debris
+    bl sprite_debris_init
 lbl_08010e88:
     pop {r4, r5, r6, r7}
     pop {r0}
