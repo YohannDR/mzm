@@ -87,7 +87,6 @@ extern u16 particle_samus_reflection_oam_frames[73];
 extern i8 is_current_file_existing;
 extern u16 arm_cannon_y;
 extern u16 arm_cannon_x;
-extern i8 pause_screen_flag;
 extern i16 game_mode_main;
 extern i16 game_mode_sub1;
 extern i8 game_mode_sub2;
