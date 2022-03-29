@@ -160,7 +160,11 @@ SECTIONS {
         asm/disasm_0x08011ed8.o(.text);
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
-        data/data_0x0808c71c.o(.text);
+        data/blob_0x808c71c_0x82b2523.o(.text);
+        data/sprite_debris_data..o(.text);
+        data/blob_0x82b25c8_0x8339ee3.o(.text);
+        data/particle_misc_data.o(.text);
+        data/blob_0x833bd34_0x87fffff.o(.text);
     } >rom
 
     /DISCARD/ : {

@@ -54,6 +54,9 @@ else
 	MSG = @echo " "
 endif
 
+.PHONY: extract
+extract:
+	$(MSG) MZM-Extractor -a
 
 .PHONY: all
 all: $(TARGET)
@@ -94,11 +97,11 @@ help:
 	@echo '  dump: dump the ROMs'
 	@echo '  diff: compare the ROM with the original'
 	@echo '  clean: remove the ROM and intermediate files'
+	@echo '  extract: extract data as files using the MZM-Extractor (https://github.com/YohannDR/MZM-Extractor)'
 	@echo '  help: show this message'
 	@echo ''
 	@echo 'Flags:'
 	@echo '  V=1: enable verbose output'
-
 
 $(TARGET): $(ELF) $(GBAFIX)
 	$(MSG) OBJCOPY $@
