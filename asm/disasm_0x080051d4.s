@@ -18722,7 +18722,7 @@ sub_0800e514: @ 0x0800e514
     ldrsh r1, [r7, r0]
     adds r1, r4, r1
     adds r0, r5, #0
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldr r6, lbl_0800e598 @ =0x030007f1
     ldrb r2, [r6]
     mov r8, r2
@@ -18733,7 +18733,7 @@ sub_0800e514: @ 0x0800e514
     movs r2, #0
     ldrsh r1, [r7, r2]
     adds r1, r4, r1
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldrb r0, [r6]
     cmp r0, #0
     beq lbl_0800e56a
@@ -18792,7 +18792,7 @@ sub_0800e5a4: @ 0x0800e5a4
     ldrsh r1, [r7, r0]
     adds r1, r4, r1
     adds r0, r5, #0
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldr r6, lbl_0800e628 @ =0x030007f1
     ldrb r2, [r6]
     mov r8, r2
@@ -18803,7 +18803,7 @@ sub_0800e5a4: @ 0x0800e5a4
     movs r2, #0
     ldrsh r1, [r7, r2]
     adds r1, r4, r1
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldrb r0, [r6]
     cmp r0, #0
     beq lbl_0800e5fa
@@ -19251,7 +19251,7 @@ lbl_0800e936:
     adds r0, #1
     adds r0, r5, r0
     ldr r1, [sp, #0x18]
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldr r0, lbl_0800e988 @ =0x030007f1
     ldrb r0, [r0]
     cmp r0, #0
@@ -19293,7 +19293,7 @@ lbl_0800e98c:
     mov r1, sb
     subs r0, r1, r0
     ldr r1, [sp, #0x18]
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldr r0, lbl_0800e9e0 @ =0x030007f1
     ldrb r1, [r0]
     cmp r1, #0
@@ -19426,7 +19426,7 @@ lbl_0800eae2:
     adds r0, #1
     adds r0, r5, r0
     ldr r1, [sp, #0x18]
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldr r0, lbl_0800eb38 @ =0x030007f1
     ldrb r0, [r0]
     cmp r0, #0
@@ -19469,7 +19469,7 @@ lbl_0800eb3c:
     mov r2, sb
     subs r0, r2, r0
     ldr r1, [sp, #0x18]
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldr r0, lbl_0800eb88 @ =0x030007f1
     ldrb r1, [r0]
     cmp r1, #0
@@ -19536,7 +19536,7 @@ lbl_0800ebc2:
     adds r0, #1
     adds r0, r5, r0
     ldr r1, [sp, #0x18]
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldr r0, lbl_0800ec08 @ =0x030007f1
     ldrb r0, [r0]
     cmp r0, #0
@@ -19595,7 +19595,7 @@ lbl_0800ec36:
     adds r0, #1
     adds r0, r5, r0
     ldr r1, [sp, #0x18]
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldr r0, lbl_0800ec7c @ =0x030007f1
     ldrb r0, [r0]
     cmp r0, #0
@@ -19711,7 +19711,7 @@ lbl_0800ed14:
     adds r0, #1
     adds r0, r5, r0
     ldr r1, [sp, #0x18]
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldr r0, lbl_0800ed58 @ =0x030007f1
     ldrb r0, [r0]
     cmp r0, #0
@@ -20254,7 +20254,7 @@ lbl_0800f11a:
     ldr r2, [sp, #0x14]
     adds r0, r2, r0
     ldr r1, [sp, #0x18]
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldrb r0, [r5]
     cmp r0, #0
     beq lbl_0800f136
@@ -20543,8 +20543,8 @@ lbl_0800f354: .4byte 0x030007f2
 lbl_0800f358: .4byte 0x030006ec
 lbl_0800f35c: .4byte 0x030001ac
 
-    thumb_func_start check_vertical_collision_at_pos
-check_vertical_collision_at_pos: @ 0x0800f360
+    thumb_func_start sprite_util_check_vertical_collision_at_position
+sprite_util_check_vertical_collision_at_position: @ 0x0800f360
     push {r4, r5, lr}
     lsls r0, r0, #0x10
     lsrs r4, r0, #0x10
@@ -20684,8 +20684,8 @@ lbl_0800f470:
     .align 2, 0
 lbl_0800f478: .4byte 0x0000ffc0
 
-    thumb_func_start check_vertical_collision_at_pos_slopes
-check_vertical_collision_at_pos_slopes: @ 0x0800f47c
+    thumb_func_start sprite_util_sprite_util_check_vertical_collision_at_positionition_slopes
+sprite_util_sprite_util_check_vertical_collision_at_positionition_slopes: @ 0x0800f47c
     push {r4, r5, lr}
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10
@@ -20839,7 +20839,7 @@ sub_0800f594: @ 0x0800f594
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     adds r1, r4, #0
-    bl check_vertical_collision_at_pos
+    bl sprite_util_check_vertical_collision_at_position
     adds r2, r0, #0
     ldr r6, lbl_0800f604 @ =0x030007f0
     ldrb r1, [r6]
@@ -20850,7 +20850,7 @@ sub_0800f594: @ 0x0800f594
     bhi lbl_0800f5ee
     adds r0, r5, #0
     adds r1, r4, #0
-    bl check_vertical_collision_at_pos
+    bl sprite_util_check_vertical_collision_at_position
     adds r2, r0, #0
     ldrb r1, [r6]
     mov r0, r8
@@ -20862,7 +20862,7 @@ sub_0800f594: @ 0x0800f594
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     mov r1, sl
-    bl check_vertical_collision_at_pos
+    bl sprite_util_check_vertical_collision_at_position
     adds r2, r0, #0
     ldrb r0, [r6]
     cmp r0, #0
@@ -20901,7 +20901,7 @@ sub_0800f608: @ 0x0800f608
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     adds r1, r4, #0
-    bl check_vertical_collision_at_pos
+    bl sprite_util_check_vertical_collision_at_position
     adds r2, r0, #0
     ldr r7, lbl_0800f684 @ =0x030007f0
     ldrb r1, [r7]
@@ -20912,7 +20912,7 @@ sub_0800f608: @ 0x0800f608
     bhi lbl_0800f66a
     adds r0, r5, #0
     adds r1, r4, #0
-    bl check_vertical_collision_at_pos
+    bl sprite_util_check_vertical_collision_at_position
     adds r2, r0, #0
     ldrb r1, [r7]
     mov r0, r8
@@ -20924,7 +20924,7 @@ sub_0800f608: @ 0x0800f608
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     mov r1, sl
-    bl check_vertical_collision_at_pos
+    bl sprite_util_check_vertical_collision_at_position
     adds r2, r0, #0
     ldrb r0, [r7]
     cmp r0, #0
@@ -20945,8 +20945,8 @@ lbl_0800f670:
 lbl_0800f680: .4byte 0x03000738
 lbl_0800f684: .4byte 0x030007f0
 
-    thumb_func_start check_collision_at_pos
-check_collision_at_pos: @ 0x0800f688
+    thumb_func_start sprite_util_check_collision_at_position
+sprite_util_check_collision_at_position: @ 0x0800f688
     push {lr}
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
@@ -21022,8 +21022,8 @@ lbl_0800f71c:
     pop {r0}
     bx r0
 
-    thumb_func_start check_collision_at_pos_noglobal
-check_collision_at_pos_noglobal: @ 0x0800f720
+    thumb_func_start sprite_util_check_collision_at_position_noglobal
+sprite_util_check_collision_at_position_noglobal: @ 0x0800f720
     push {lr}
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
@@ -21088,7 +21088,7 @@ current_sprite_falling_unused: @ 0x0800f79c
     ldr r4, lbl_0800f7c0 @ =0x03000738
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
-    bl check_vertical_collision_at_pos_slopes
+    bl sprite_util_sprite_util_check_vertical_collision_at_positionition_slopes
     adds r1, r0, #0
     ldr r0, lbl_0800f7c4 @ =0x030007f0
     ldrb r0, [r0]
@@ -21348,7 +21348,7 @@ sub_0800f978: @ 0x0800f978
     ldr r4, lbl_0800f9a0 @ =0x03000738
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldrh r1, [r4]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -21405,7 +21405,7 @@ sub_0800f9e4: @ 0x0800f9e4
     ldr r4, lbl_0800fa14 @ =0x03000738
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
-    bl check_collision_at_pos
+    bl sprite_util_check_collision_at_position
     ldrh r1, [r4]
     movs r0, #0x40
     ands r0, r1
@@ -25431,7 +25431,7 @@ sprite_check_out_of_room_effect: @ 0x080116cc
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     adds r1, r6, #0
-    bl check_collision_at_pos_noglobal
+    bl sprite_util_check_collision_at_position_noglobal
     adds r0, r4, #0
     adds r1, r6, #0
     adds r2, r5, #0
@@ -25469,7 +25469,7 @@ sprite_check_in_room_effect: @ 0x08011718
     beq lbl_0801174c
     adds r0, r4, #0
     adds r1, r6, #0
-    bl check_collision_at_pos_noglobal
+    bl sprite_util_check_collision_at_position_noglobal
     adds r0, r4, #0
     adds r1, r6, #0
     adds r2, r5, #0

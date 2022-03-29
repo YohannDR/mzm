@@ -236,7 +236,7 @@ void sprite_debris_process_all(void)
     u32 adc;
     u32 timer;
 
-    if (game_mode_sub1 == 0x2)
+    if (game_submode1 == 0x2)
     {
         pDebris = sprite_debris;
         while (pDebris < sprite_debris + 0x8)
@@ -340,7 +340,7 @@ void sprite_debris_draw_all(void)
 {
     struct SpriteDebris* pDebris;
 
-    if (game_mode_sub1 == 0x2)
+    if (game_submode1 == 0x2)
     {
         pDebris = sprite_debris;
         while (pDebris < sprite_debris + 0x8)
