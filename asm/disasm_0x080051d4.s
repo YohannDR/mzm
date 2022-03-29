@@ -15920,7 +15920,7 @@ update_sprites: @ 0x0800cf00
     beq lbl_0800cf28
     b lbl_0800d138
 lbl_0800cf28:
-    bl call_process_sprite_debris
+    bl sprite_debris_process_all
     bl check_stop_sprites_pose
     cmp r0, #0
     bne lbl_0800d028
@@ -16542,7 +16542,7 @@ call_draw_sprite: @ 0x0800d430
     sub sp, #8
     movs r7, #0x17
     movs r6, #3
-    bl call_draw_sprite_debris
+    bl sprite_debris_draw_all
     ldr r0, lbl_0800d45c @ =0x030001ac
     movs r4, #0
     ldr r1, lbl_0800d460 @ =0x030007f3
