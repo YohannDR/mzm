@@ -1,10 +1,10 @@
 #include "funcs.h"
 #include "types.h"
 
-void *
+u8 *
 sub_08005330(u8 *src, u8 *dest, u32 size)
 {
-    void *unk;
+    u8 *unk;
     u8 i;
 
     for (i = 0; i < 3; ++i) {

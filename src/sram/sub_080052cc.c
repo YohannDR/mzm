@@ -3,7 +3,7 @@
 #include "io.h"
 #include "types.h"
 
-void *
+u8 *
 sub_080052cc(u8 *src, u8 *dest, u32 size)
 {
     u16 code[0x60];
