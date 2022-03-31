@@ -2,7 +2,7 @@
 #include "types.h"
 
 void *
-sub_08005330(void *src, void *dest, u32 size)
+sub_08005330(u8 *src, u8 *dest, u32 size)
 {
     void *unk;
     u8 i;

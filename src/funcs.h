@@ -25,9 +25,10 @@ int erase_sram_main(void);
 
 void sub_080033dc(void);
 void sub_08004d48();
-void sub_0800525c(void *src, void *dest, u32 size);
-void *sub_080052cc(void *src, void *dest, u32 size);
-void *sub_08005330(void *src, void *dest, u32 size);
+void sub_0800525c(u8 *src, u8 *dest, u32 size);
+void *sub_0800529c(u8 *src, u8 *dest, u32 size);
+void *sub_080052cc(u8 *src, u8 *dest, u32 size);
+void *sub_08005330(u8 *src, u8 *dest, u32 size);
 void sub_0805d034(void);
 int sub_0807ef9c();
 

@@ -17,7 +17,7 @@ enum pause_screen_flags {
     PAUSE_SCREEN_UNKNOWN_9,
 };
 
-extern i32 unk_02038000; /* XXX: type */
+extern u8 unk_02038000[];
 
 extern u8 debug_flag;
 extern u16 frame_counter_16bit;
