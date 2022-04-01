@@ -5584,7 +5584,7 @@ lbl_08003570:
     adds r1, r4, #0
     movs r2, #0x34
     str r3, [sp, #8]
-    bl copy_bytes
+    bl memcpy
     ldr r3, [sp, #8]
     adds r0, r3, #1
     lsls r0, r0, #0x18
@@ -5726,7 +5726,7 @@ lbl_08003674:
     adds r1, #4
     adds r0, r4, #0
     movs r2, #0x34
-    bl copy_bytes
+    bl memcpy
     mov r0, sb
     adds r0, #1
     lsls r0, r0, #0x18
@@ -7113,7 +7113,7 @@ lbl_08004100:
     adds r1, r4, #0
     movs r2, #0x34
     str r3, [sp]
-    bl copy_bytes
+    bl memcpy
     adds r0, r7, #1
     lsls r0, r0, #0x18
     lsrs r7, r0, #0x18
@@ -7202,7 +7202,7 @@ lbl_080041a2:
     adds r1, #4
     adds r0, r4, #0
     movs r2, #0x34
-    bl copy_bytes
+    bl memcpy
     adds r0, r6, #1
     lsls r0, r0, #0x18
     lsrs r6, r0, #0x18
