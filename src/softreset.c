@@ -5,6 +5,7 @@
 #include "game_modes.h"
 #include "gba.h"
 #include "globals.h"
+#include "init_helpers.h"
 
 #define SOFTRESET_KEYS (KEY_A | KEY_B | KEY_START | KEY_SELECT)
 
