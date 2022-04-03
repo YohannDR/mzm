@@ -100,7 +100,7 @@ lbl_08000d10:
     ldr r5, lbl_08000d5c @ =0x08754bcc
     ldr r1, [r5]
     movs r2, #0x40
-    bl sub_08005330
+    bl sram_write_checked
     adds r4, r0, #0
     cmp r4, #0
     beq lbl_08000d36
@@ -113,7 +113,7 @@ lbl_08000d36:
     ldr r2, lbl_08000d54 @ =0x00006d40
     adds r1, r1, r2
     movs r2, #0x40
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000d4c: .4byte 0x040000d4
@@ -129,7 +129,7 @@ lbl_08000d60:
     ldr r1, [r1]
     adds r1, #0x40
     movs r2, #0x40
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000d74: .4byte 0x08754bc8
@@ -143,7 +143,7 @@ lbl_08000d7c:
     ldr r1, [r1]
     adds r1, r1, r2
     movs r2, #0x40
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000d94: .4byte 0x08754bc8
@@ -168,7 +168,7 @@ lbl_08000da0:
     adds r1, r1, r2
     movs r2, #0x91
     lsls r2, r2, #5
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000dcc: .4byte 0x08754bc8
@@ -194,7 +194,7 @@ lbl_08000dd8:
     adds r1, r1, r2
     movs r2, #0x91
     lsls r2, r2, #5
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000e04: .4byte 0x08754bc8
@@ -211,7 +211,7 @@ lbl_08000e14:
     ldr r1, [r1]
     adds r1, r1, r2
     movs r2, #0x40
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000e2c: .4byte 0x08754bc8
@@ -225,7 +225,7 @@ lbl_08000e34:
     ldr r1, [r1]
     adds r1, r1, r2
     movs r2, #0x40
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000e4c: .4byte 0x08754bc8
@@ -241,7 +241,7 @@ lbl_08000e58:
     ldr r1, [r1]
     adds r1, r1, r2
     movs r2, #0x40
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000e70: .4byte 0x08754bc8
@@ -255,7 +255,7 @@ lbl_08000e78:
     ldr r1, [r1]
     adds r1, r1, r2
     movs r2, #0x40
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000e90: .4byte 0x08754bc8
@@ -272,7 +272,7 @@ lbl_08000e9c:
     adds r1, r1, r2
     movs r2, #0x80
     lsls r2, r2, #1
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000eb8: .4byte 0x08754bc8
@@ -288,7 +288,7 @@ lbl_08000ec0:
     adds r1, r1, r2
     movs r2, #0x80
     lsls r2, r2, #1
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000edc: .4byte 0x08754bc8
@@ -305,7 +305,7 @@ lbl_08000ee4:
     movs r7, #0x80
     lsls r7, r7, #2
     adds r2, r7, #0
-    bl sub_08005330
+    bl sram_write_checked
     adds r4, r0, #0
     cmp r4, #0
     bne lbl_08000faa
@@ -316,7 +316,7 @@ lbl_08000ee4:
     ldr r1, [r5]
     adds r1, r1, r2
     adds r2, r7, #0
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000f18: .4byte 0x08754bc8
@@ -325,7 +325,7 @@ lbl_08000f20:
     ldr r0, lbl_08000f2c @ =0x0203ff70
     ldr r1, lbl_08000f30 @ =0x0e007f70
     movs r2, #0x10
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000f2c: .4byte 0x0203ff70
@@ -335,7 +335,7 @@ lbl_08000f34:
     ldr r1, lbl_08000f48 @ =0x0e007800
     movs r2, #0xa0
     lsls r2, r2, #2
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_08000fa8
     .align 2, 0
 lbl_08000f44: .4byte 0x0203f800
@@ -346,7 +346,7 @@ lbl_08000f4c:
     ldr r1, lbl_08000f5c @ =0x02038000
     movs r2, #0x80
     lsls r2, r2, #8
-    bl sub_080051f8
+    bl sram_write_unchecked
     b lbl_08000faa
     .align 2, 0
 lbl_08000f5c: .4byte 0x02038000
@@ -369,7 +369,7 @@ lbl_08000f60:
     adds r1, r1, r2
     movs r2, #0x91
     lsls r2, r2, #5
-    bl sub_080051f8
+    bl sram_write_unchecked
     b lbl_08000faa
     .align 2, 0
 lbl_08000f8c: .4byte 0x08754bcc
@@ -382,7 +382,7 @@ lbl_08000f98:
     ldr r1, [r1]
     movs r2, #0x80
     lsls r2, r2, #8
-    bl sub_080052cc
+    bl sram_check
 lbl_08000fa8:
     adds r4, r0, #0
 lbl_08000faa:
@@ -470,7 +470,7 @@ lbl_0800103c:
     adds r1, r1, r2
     adds r1, r1, r4
     adds r2, r5, #0
-    bl sub_08005330
+    bl sram_write_checked
     b lbl_0800108e
     .align 2, 0
 lbl_08001054: .4byte 0x08754bc8
@@ -497,7 +497,7 @@ lbl_08001064:
     adds r1, r1, r2
     adds r1, r1, r4
     adds r2, r5, #0
-    bl sub_080051f8
+    bl sram_write_unchecked
 lbl_0800108e:
     movs r2, #0
     adds r1, r4, r5

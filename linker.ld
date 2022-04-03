@@ -61,12 +61,7 @@ SECTIONS {
         src/sub_08000c04.o(.text);
         asm/disasm_0x08000c48.o(.text);
         asm/syscalls.o(.text);
-        src/sram/sub_080051d4.o(.text);
-        src/sram/sub_080051f8.o(.text);
-        src/sram/sub_0800525c.o(.text);
-        src/sram/sub_0800529c.o(.text);
-        src/sram/sub_080052cc.o(.text);
-        src/sram/sub_08005330.o(.text);
+        src/sram/sram.o(.text);
         asm/disasm_0x08005368.o(.text);
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
