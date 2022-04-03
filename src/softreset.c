@@ -13,7 +13,7 @@ void
 softreset_vblank_callback(void)
 {
     /* probably left over from some debugging code */
-    volatile char c = 0;
+    volatile u8 c = 0;
 }
 
 void
