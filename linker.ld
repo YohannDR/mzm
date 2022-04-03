@@ -39,6 +39,7 @@ SECTIONS {
         . = 0x00001cf4; vcount_callback = .;
         . = 0x00001cf8; serial_comm_callback = .;
         . = 0x00001cfc; timer3_callback = .;
+        . = 0x00001d00; unk_03001d00 = .;
         . = 0x00007e60; sp_sys = .;
         . = 0x00007fa0; sp_irq = .;
         . = 0x00007ff8; unk_03007ff8 = .;
