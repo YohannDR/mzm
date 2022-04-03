@@ -9,6 +9,7 @@ void load_intr_code(void);
 void read_sram(void);
 void update_input(void);
 void start_new_demo(void);
+int softreset_main(void);
 int ingame_main(void);
 int intro_main(void);
 int titlescreen_main(void);
@@ -26,6 +27,5 @@ int erase_sram_main(void);
 void sub_080033dc(void);
 void sub_08004d48();
 void sub_0805d034(void);
-int sub_0807ef9c();
 
 #endif /* FUNCS_H */
