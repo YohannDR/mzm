@@ -660,7 +660,7 @@ lbl_080011b4:
     bne lbl_080011ba
     b lbl_08001430
 lbl_080011ba:
-    ldr r6, lbl_08001204 @ =0x03002924
+    ldr r6, lbl_08001204 @ =sound_data
     mov r0, sl
     adds r1, r0, r6
     ldr r0, lbl_08001208 @ =0xfffff400
@@ -696,7 +696,7 @@ lbl_080011f2:
     str r1, [sp, #4]
     b lbl_080013da
     .align 2, 0
-lbl_08001204: .4byte 0x03002924
+lbl_08001204: .4byte sound_data
 lbl_08001208: .4byte 0xfffff400
 lbl_0800120c: .4byte 0x030041e8
 lbl_08001210: .4byte 0xfffff3dc
@@ -960,7 +960,7 @@ lbl_080013f4:
     bhs lbl_080013fc
     b lbl_08001214
 lbl_080013fc:
-    ldr r4, lbl_0800144c @ =0x03002924
+    ldr r4, lbl_0800144c @ =sound_data
     mov r0, sl
     adds r1, r0, r4
     ldr r0, lbl_08001450 @ =0xfffff400
@@ -997,7 +997,7 @@ lbl_08001430:
 lbl_08001440: .4byte music_info
 lbl_08001444: .4byte 0x03003b8c
 lbl_08001448: .4byte 0x04000006
-lbl_0800144c: .4byte 0x03002924
+lbl_0800144c: .4byte sound_data
 lbl_08001450: .4byte 0xfffff400
 lbl_08001454: .4byte 0x03004290
 
@@ -3897,7 +3897,7 @@ sub_080028f4: @ 0x080028f4
     movs r0, #0
     mov sl, r0
     str r0, [sp]
-    ldr r6, lbl_080029e8 @ =0x03002924
+    ldr r6, lbl_080029e8 @ =sound_data
     ldr r2, lbl_080029ec @ =0x01000300
     mov r0, sp
     adds r1, r6, #0
@@ -3992,7 +3992,7 @@ lbl_080029d8: .4byte 0x040000c4
 lbl_080029dc: .4byte 0x84400004
 lbl_080029e0: .4byte 0x040000c6
 lbl_080029e4: .4byte 0x040000d2
-lbl_080029e8: .4byte 0x03002924
+lbl_080029e8: .4byte sound_data
 lbl_080029ec: .4byte 0x01000300
 lbl_080029f0: .4byte 0xfffff3dc
 lbl_080029f4: .4byte 0x0808cc60
