@@ -532,7 +532,7 @@ sub_080010c4: @ 0x080010c4
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #8
-    ldr r0, lbl_08001134 @ =unk_03001d00
+    ldr r0, lbl_08001134 @ =music_info
     ldrb r1, [r0, #9]
     str r1, [sp]
     adds r2, r0, #0
@@ -586,7 +586,7 @@ lbl_0800112e:
     strb r0, [r2, #0x11]
     b lbl_080011b4
     .align 2, 0
-lbl_08001134: .4byte unk_03001d00
+lbl_08001134: .4byte music_info
 lbl_08001138: .4byte 0x04000006
 lbl_0800113c:
     ldrb r0, [r2, #0x11]
@@ -910,7 +910,7 @@ lbl_0800139a:
     strb r5, [r4, #0x10]
     lsls r1, r5, #0x10
     asrs r1, r1, #0x10
-    ldr r2, lbl_08001440 @ =unk_03001d00
+    ldr r2, lbl_08001440 @ =music_info
     ldrb r0, [r2, #6]
     adds r0, #1
     muls r1, r0, r1
@@ -940,7 +940,7 @@ lbl_080013d4:
     lsls r0, r1, #0x10
     lsrs r2, r0, #0x10
 lbl_080013da:
-    ldr r0, lbl_08001440 @ =unk_03001d00
+    ldr r0, lbl_08001440 @ =music_info
     ldrb r0, [r0, #5]
     cmp r2, r0
     bhs lbl_080013fc
@@ -994,7 +994,7 @@ lbl_08001430:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08001440: .4byte unk_03001d00
+lbl_08001440: .4byte music_info
 lbl_08001444: .4byte 0x03003b8c
 lbl_08001448: .4byte 0x04000006
 lbl_0800144c: .4byte 0x03002924
@@ -2148,7 +2148,7 @@ lbl_08001c98:
     ldrb r2, [r5, #0x18]
     bl midikey2freq
     str r0, [r4, #0x1c]
-    ldr r1, lbl_08001cb4 @ =unk_03001d00
+    ldr r1, lbl_08001cb4 @ =music_info
     ldrh r2, [r1, #0x12]
     cmp r0, r2
     bne lbl_08001cb8
@@ -2156,7 +2156,7 @@ lbl_08001c98:
     lsls r0, r0, #7
     b lbl_08001cbe
     .align 2, 0
-lbl_08001cb4: .4byte unk_03001d00
+lbl_08001cb4: .4byte music_info
 lbl_08001cb8:
     ldr r1, [r1, #0x18]
     bl sub_08004abc
@@ -2295,7 +2295,7 @@ lbl_08001d9e:
     ldrb r2, [r5, #0x18]
     bl midikey2freq
     str r0, [r4, #0x1c]
-    ldr r1, lbl_08001dbc @ =unk_03001d00
+    ldr r1, lbl_08001dbc @ =music_info
     ldrh r2, [r1, #0x12]
     cmp r0, r2
     bne lbl_08001dc0
@@ -2303,7 +2303,7 @@ lbl_08001d9e:
     lsls r0, r0, #7
     b lbl_08001dc6
     .align 2, 0
-lbl_08001dbc: .4byte unk_03001d00
+lbl_08001dbc: .4byte music_info
 lbl_08001dc0:
     ldr r1, [r1, #0x18]
     bl sub_08004abc
@@ -2387,13 +2387,13 @@ sub_08001e2c: @ 0x08001e2c
     str r3, [sp]
     b lbl_08001e66
 lbl_08001e4c:
-    ldr r2, lbl_08001e58 @ =unk_03001d00
+    ldr r2, lbl_08001e58 @ =music_info
     ldr r3, lbl_08001e5c @ =0x00001824
     adds r0, r2, r3
     adds r6, r1, r0
     b lbl_08001f14
     .align 2, 0
-lbl_08001e58: .4byte unk_03001d00
+lbl_08001e58: .4byte music_info
 lbl_08001e5c: .4byte 0x00001824
 lbl_08001e60:
     lsls r0, r0, #0x18
@@ -2406,11 +2406,11 @@ lbl_08001e66:
     mov r8, r0
     movs r6, #0
     movs r2, #0
-    ldr r1, lbl_08001eb8 @ =unk_03001d00
+    ldr r1, lbl_08001eb8 @ =music_info
     ldrb r1, [r1, #5]
     cmp r6, r1
     bhs lbl_08001f10
-    ldr r4, lbl_08001eb8 @ =unk_03001d00
+    ldr r4, lbl_08001eb8 @ =music_info
     movs r3, #0x34
     mov ip, r3
     ldr r0, lbl_08001ebc @ =0x0000184c
@@ -2443,7 +2443,7 @@ lbl_08001eaa:
     mov r8, r1
     b lbl_08001eee
     .align 2, 0
-lbl_08001eb8: .4byte unk_03001d00
+lbl_08001eb8: .4byte music_info
 lbl_08001ebc: .4byte 0x0000184c
 lbl_08001ec0: .4byte 0x00001824
 lbl_08001ec4:
@@ -2453,7 +2453,7 @@ lbl_08001ec4:
 lbl_08001eca:
     mov r3, ip
     muls r3, r2, r3
-    ldr r1, lbl_08001f30 @ =unk_03001d00
+    ldr r1, lbl_08001f30 @ =music_info
     adds r0, r3, r1
     ldr r1, lbl_08001f34 @ =0x00001826
     adds r0, r0, r1
@@ -2506,7 +2506,7 @@ lbl_08001f1e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08001f30: .4byte unk_03001d00
+lbl_08001f30: .4byte music_info
 lbl_08001f34: .4byte 0x00001826
 lbl_08001f38: .4byte 0x03003524
 
@@ -3438,7 +3438,7 @@ init_sound: @ 0x08002564
     mov r7, r8
     push {r7}
     sub sp, #4
-    ldr r5, lbl_0800276c @ =unk_03001d00
+    ldr r5, lbl_0800276c @ =music_info
     ldrb r4, [r5, #1]
     cmp r4, #0
     beq lbl_08002576
@@ -3612,7 +3612,7 @@ lbl_080026b6:
     mov r0, r8
     bl sub_080027f8
     movs r3, #0
-    ldr r2, lbl_0800276c @ =unk_03001d00
+    ldr r2, lbl_0800276c @ =music_info
     ldrb r0, [r2, #5]
     cmp r3, r0
     bhs lbl_080026f6
@@ -3643,7 +3643,7 @@ lbl_080026d8:
     blo lbl_080026d8
 lbl_080026f6:
     movs r3, #0
-    ldr r1, lbl_0800276c @ =unk_03001d00
+    ldr r1, lbl_0800276c @ =music_info
     mov r8, r1
     ldr r2, lbl_080027c4 @ =0x00000009
     mov ip, r2
@@ -3706,7 +3706,7 @@ lbl_08002760:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0800276c: .4byte unk_03001d00
+lbl_0800276c: .4byte music_info
 lbl_08002770: .4byte 0x04000200
 lbl_08002774: .4byte 0x04000084
 lbl_08002778: .4byte 0x04000082
@@ -3746,7 +3746,7 @@ lbl_080027f4: .4byte 0x81000004
 sub_080027f8: @ 0x080027f8
     push {r4, r5, r6, r7, lr}
     adds r4, r0, #0
-    ldr r0, lbl_080028a8 @ =unk_03001d00
+    ldr r0, lbl_080028a8 @ =music_info
     ldrb r1, [r0, #1]
     adds r2, r0, #0
     cmp r1, #0
@@ -3800,7 +3800,7 @@ lbl_08002856:
     ands r0, r4
     cmp r0, #0
     beq lbl_0800286e
-    ldr r1, lbl_080028a8 @ =unk_03001d00
+    ldr r1, lbl_080028a8 @ =music_info
     lsrs r0, r0, #0x10
     strb r0, [r1, #7]
     cmp r0, #0
@@ -3838,7 +3838,7 @@ lbl_08002886:
     movs r1, #1
     b lbl_080028d4
     .align 2, 0
-lbl_080028a8: .4byte unk_03001d00
+lbl_080028a8: .4byte music_info
 lbl_080028ac: .4byte 0x00001824
 lbl_080028b0: .4byte 0x04000089
 lbl_080028b4: .4byte 0x04000082
@@ -3860,7 +3860,7 @@ lbl_080028d4:
     orrs r0, r1
     strh r0, [r2]
 lbl_080028d8:
-    ldr r1, lbl_080028f0 @ =unk_03001d00
+    ldr r1, lbl_080028f0 @ =music_info
     movs r0, #0
     strb r0, [r1, #1]
 lbl_080028de:
@@ -3871,7 +3871,7 @@ lbl_080028de:
 lbl_080028e4: .4byte 0x04000082
 lbl_080028e8: .4byte 0x0000fffe
 lbl_080028ec: .4byte 0x00003302
-lbl_080028f0: .4byte unk_03001d00
+lbl_080028f0: .4byte music_info
 
     thumb_func_start sub_080028f4
 sub_080028f4: @ 0x080028f4
