@@ -61,6 +61,8 @@ SECTIONS {
         src/callbacks.o(.text);
         src/sub_08000c04.o(.text);
         asm/disasm_0x08000c48.o(.text);
+        src/play_sound.o(.text);
+        asm/disasm_0x08002a38.o(.text);
         asm/syscalls.o(.text);
         src/sram/sram.o(.text);
         asm/disasm_0x08005368.o(.text);
