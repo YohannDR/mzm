@@ -2,26 +2,6 @@
 
     .syntax unified
 
-    thumb_func_start sub_08002a38
-sub_08002a38: @ 0x08002a38
-    push {lr}
-    adds r2, r0, #0
-    ldrb r1, [r2, #0x1e]
-    movs r3, #1
-    adds r0, r3, #0
-    ands r0, r1
-    cmp r0, #0
-    bne lbl_08002a54
-    ldrb r1, [r2]
-    movs r0, #2
-    ands r0, r1
-    cmp r0, #0
-    beq lbl_08002a54
-    strb r3, [r2]
-lbl_08002a54:
-    pop {r0}
-    bx r0
-
     thumb_func_start sub_08002a58
 sub_08002a58: @ 0x08002a58
     push {r4, r5, lr}
