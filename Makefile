@@ -38,10 +38,10 @@ CFLAGS = -O2 -mthumb-interwork -fhex-asm
 CPPFLAGS = -nostdinc -Isrc/
 
 # Objects
-CSRC = $(wildcard src/*.c) $(wildcard src/sram/*.c)
+CSRC = $(wildcard src/*.c) $(wildcard src/sram/*.c) $(wildcard data/*.c)
 .PRECIOUS: $(CSRC:.c=.s)
 ASMSRC = $(CSRC:.c=.s) $(wildcard asm/*.s)
-OBJ = $(ASMSRC:.s=.o)
+OBJ = $(ASMSRC:.s=.o) 
 
 # Enable verbose output
 ifeq ($(V),1)
