@@ -54,12 +54,12 @@ else
 	MSG = @echo " "
 endif
 
+.PHONY: all
+all: $(TARGET)
+
 .PHONY: extract
 extract:
 	$(MSG) MZM-Extractor -a
-
-.PHONY: all
-all: $(TARGET)
 
 .PHONY: check
 check: all
