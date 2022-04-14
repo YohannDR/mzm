@@ -15699,7 +15699,7 @@ update_sprites: @ 0x0800cf00
     beq lbl_0800cf28
     b lbl_0800d138
 lbl_0800cf28:
-    bl call_process_sprite_debris
+    bl sprite_debris_process_all
     bl check_stop_sprites_pose
     cmp r0, #0
     bne lbl_0800d028
@@ -16321,7 +16321,7 @@ call_draw_sprite: @ 0x0800d430
     sub sp, #8
     movs r7, #0x17
     movs r6, #3
-    bl call_draw_sprite_debris
+    bl sprite_debris_draw_all
     ldr r0, lbl_0800d45c @ =0x030001ac
     movs r4, #0
     ldr r1, lbl_0800d460 @ =0x030007f3
@@ -20463,8 +20463,8 @@ lbl_0800f470:
     .align 2, 0
 lbl_0800f478: .4byte 0x0000ffc0
 
-    thumb_func_start check_vertical_collision_at_pos_slopes
-check_vertical_collision_at_pos_slopes: @ 0x0800f47c
+    thumb_func_start sprite_util_check_vertical_collision_at_position_slopes
+sprite_util_check_vertical_collision_at_position_slopes: @ 0x0800f47c
     push {r4, r5, lr}
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10
@@ -20801,8 +20801,8 @@ lbl_0800f71c:
     pop {r0}
     bx r0
 
-    thumb_func_start check_collision_at_pos_noglobal
-check_collision_at_pos_noglobal: @ 0x0800f720
+    thumb_func_start sprite_util_get_collision_at_position
+sprite_util_get_collision_at_position: @ 0x0800f720
     push {lr}
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
@@ -20867,7 +20867,7 @@ current_sprite_falling_unused: @ 0x0800f79c
     ldr r4, lbl_0800f7c0 @ =0x03000738
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
-    bl check_vertical_collision_at_pos_slopes
+    bl sprite_util_check_vertical_collision_at_position_slopes
     adds r1, r0, #0
     ldr r0, lbl_0800f7c4 @ =0x030007f0
     ldrb r0, [r0]
@@ -23967,7 +23967,7 @@ lbl_08010d8e:
     adds r3, #8
     adds r0, r7, #0
     movs r1, #2
-    bl init_sprite_debris
+    bl sprite_debris_init
     b lbl_08010e88
     .align 2, 0
 lbl_08010dac: .4byte 0x03000c77
@@ -23978,7 +23978,7 @@ lbl_08010db0:
     subs r3, #8
     adds r0, r7, #0
     movs r1, #1
-    bl init_sprite_debris
+    bl sprite_debris_init
     b lbl_08010e88
 lbl_08010dc2:
     ldr r0, lbl_08010df0 @ =0x03000c77
@@ -23993,14 +23993,14 @@ lbl_08010dc2:
     adds r3, #8
     adds r0, r7, #0
     movs r1, #2
-    bl init_sprite_debris
+    bl sprite_debris_init
     adds r2, r5, #0
     adds r2, #8
     adds r3, r6, #0
     subs r3, #8
     adds r0, r7, #0
     movs r1, #4
-    bl init_sprite_debris
+    bl sprite_debris_init
     b lbl_08010e88
     .align 2, 0
 lbl_08010df0: .4byte 0x03000c77
@@ -24011,13 +24011,13 @@ lbl_08010df4:
     subs r3, #8
     adds r0, r7, #0
     movs r1, #1
-    bl init_sprite_debris
+    bl sprite_debris_init
     adds r3, r6, #0
     adds r3, #8
     adds r0, r7, #0
     movs r1, #3
     adds r2, r5, #0
-    bl init_sprite_debris
+    bl sprite_debris_init
     b lbl_08010e88
 lbl_08010e14:
     ldr r0, lbl_08010e54 @ =0x03000c77
@@ -24033,20 +24033,20 @@ lbl_08010e14:
     adds r0, r7, #0
     movs r1, #1
     adds r3, r4, #0
-    bl init_sprite_debris
+    bl sprite_debris_init
     adds r2, r5, #0
     subs r2, #0x10
     adds r3, r6, #0
     adds r3, #8
     adds r0, r7, #0
     movs r1, #3
-    bl init_sprite_debris
+    bl sprite_debris_init
     adds r2, r5, #0
     adds r2, #8
     adds r0, r7, #0
     movs r1, #4
     adds r3, r4, #0
-    bl init_sprite_debris
+    bl sprite_debris_init
     b lbl_08010e88
     .align 2, 0
 lbl_08010e54: .4byte 0x03000c77
@@ -24058,20 +24058,20 @@ lbl_08010e58:
     adds r0, r7, #0
     movs r1, #2
     adds r3, r4, #0
-    bl init_sprite_debris
+    bl sprite_debris_init
     adds r2, r5, #0
     adds r2, #8
     adds r0, r7, #0
     movs r1, #3
     adds r3, r4, #0
-    bl init_sprite_debris
+    bl sprite_debris_init
     adds r2, r5, #0
     adds r2, #0x10
     adds r3, r6, #0
     subs r3, #8
     adds r0, r7, #0
     movs r1, #4
-    bl init_sprite_debris
+    bl sprite_debris_init
 lbl_08010e88:
     pop {r4, r5, r6, r7}
     pop {r0}
@@ -25096,8 +25096,8 @@ lbl_08011612:
     pop {r1}
     bx r1
 
-    thumb_func_start set_sprite_splash_effect
-set_sprite_splash_effect: @ 0x08011620
+    thumb_func_start sprite_util_set_splash_effect
+sprite_util_set_splash_effect: @ 0x08011620
     push {r4, r5, r6, lr}
     lsls r0, r0, #0x10
     lsrs r3, r0, #0x10
@@ -25210,11 +25210,11 @@ sprite_check_out_of_room_effect: @ 0x080116cc
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     adds r1, r6, #0
-    bl check_collision_at_pos_noglobal
+    bl sprite_util_get_collision_at_position
     adds r0, r4, #0
     adds r1, r6, #0
     adds r2, r5, #0
-    bl set_sprite_splash_effect
+    bl sprite_util_set_splash_effect
 lbl_08011706:
     movs r0, #1
     b lbl_08011712
@@ -25248,11 +25248,11 @@ sprite_check_in_room_effect: @ 0x08011718
     beq lbl_0801174c
     adds r0, r4, #0
     adds r1, r6, #0
-    bl check_collision_at_pos_noglobal
+    bl sprite_util_get_collision_at_position
     adds r0, r4, #0
     adds r1, r6, #0
     adds r2, r5, #0
-    bl set_sprite_splash_effect
+    bl sprite_util_set_splash_effect
 lbl_0801174c:
     movs r0, #1
     b lbl_08011756
@@ -25307,7 +25307,7 @@ set_debris_splash_effect: @ 0x08011788
     adds r0, r3, #0
     adds r1, r2, #0
     movs r2, #1
-    bl set_sprite_splash_effect
+    bl sprite_util_set_splash_effect
 lbl_080117ac:
     pop {r0}
     bx r0
