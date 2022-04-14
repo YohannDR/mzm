@@ -156,15 +156,13 @@ SECTIONS {
         asm/disasm_0x08002a58.o(.text);
         asm/syscalls.o(.text);
         asm/disasm_0x080051d4.o(.text);
+        src/sram/sram.o(.text);
+        asm/disasm_0x08005368.o(.text);
         src/sprite_debris.o(.text);
         asm/disasm_0x08011ed8.o(.text);
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
-        data/blob_0x808c71c_0x82b2523.o(.text);
-        data/sprite_debris_data..o(.text);
-        data/blob_0x82b25c8_0x8339ee3.o(.text);
-        data/particle_misc_data.o(.text);
-        data/blob_0x833bd34_0x87fffff.o(.text);
+        asm/data_0x0808c71c.o(.text);
     } >rom
 
     /DISCARD/ : {
