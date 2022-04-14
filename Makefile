@@ -38,7 +38,7 @@ CFLAGS = -O2 -mthumb-interwork -fhex-asm
 CPPFLAGS = -nostdinc -Isrc/
 
 # Objects
-CSRC = $(wildcard src/*.c)
+CSRC = $(wildcard src/*.c) $(wildcard src/sram/*.c)
 .PRECIOUS: $(CSRC:.c=.s)
 ASMSRC = $(CSRC:.c=.s) $(wildcard asm/*.s)
 OBJ = $(ASMSRC:.s=.o)
@@ -77,7 +77,7 @@ clean:
 	$Q$(RM) $(DUMPS)
 	$(MSG) RM \*.o
 	$Q$(RM) $(OBJ)
-	$(MSG) RM src/\*.s
+	$(MSG) RM src/\*\*/\*.s
 	$Q$(RM) $(CSRC:.c=.s)
 	$(MSG) RM $(GBAFIX)
 	$Q$(RM) $(GBAFIX)
@@ -117,6 +117,9 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 %.s: %.c
 	$(MSG) CC $@
 	$Q$(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
+
+src/sram/%.s: CFLAGS = -O1 -mthumb-interwork -fhex-asm
+src/sram/%.s: src/sram/%.c
 
 tools/%: tools/%.c
 	$(MSG) HOSTCC $@

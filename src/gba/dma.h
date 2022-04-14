@@ -46,25 +46,23 @@
 #define dma_clear16(channel, dest, size) dma_clear(channel, dest, size, 16)
 #define dma_clear32(channel, dest, size) dma_clear(channel, dest, size, 32)
 
-enum dma_flags {
-    DMA_DEST_INC      = 0x0000,
-    DMA_DEST_DEC      = 1 << 5,
-    DMA_DEST_FIXED    = 1 << 6,
-    DMA_DEST_RELOAD   = 1 << 5 | 1 << 6,
-    DMA_SRC_INC       = 0x0000,
-    DMA_SRC_DEC       = 1 << 7,
-    DMA_SRC_FIXED     = 1 << 8,
-    DMA_REPEAT        = 1 << 9,
-    DMA_16BIT         = 0x0000,
-    DMA_32BIT         = 1 << 10,
-    DMA_DREQ_ON       = 1 << 11,
-    DMA_START_NOW     = 0x0000,
-    DMA_START_VBLANK  = 1 << 12,
-    DMA_START_HBLANK  = 1 << 13,
-    DMA_START_SPECIAL = 1 << 12 | 1 << 13,
-    DMA_START_MASK    = 1 << 12 | 1 << 13,
-    DMA_INTR_ENABLE   = 1 << 14,
-    DMA_ENABLE        = 1 << 15,
-};
+#define DMA_DEST_INC 0x0000
+#define DMA_DEST_DEC (1 << 5)
+#define DMA_DEST_FIXED (1 << 6)
+#define DMA_DEST_RELOAD (1 << 5 | 1 << 6)
+#define DMA_SRC_INC 0x0000
+#define DMA_SRC_DEC (1 << 7)
+#define DMA_SRC_FIXED (1 << 8)
+#define DMA_REPEAT (1 << 9)
+#define DMA_16BIT 0x0000
+#define DMA_32BIT (1 << 10)
+#define DMA_DREQ_ON (1 << 11)
+#define DMA_START_NOW 0x0000
+#define DMA_START_VBLANK (1 << 12)
+#define DMA_START_HBLANK (1 << 13)
+#define DMA_START_SPECIAL (1 << 12 | 1 << 13)
+#define DMA_START_MASK (1 << 12 | 1 << 13)
+#define DMA_INTR_ENABLE (1 << 14)
+#define DMA_ENABLE (1 << 15)
 
 #endif /* GBA_DMA_H */

@@ -32,7 +32,8 @@ enum difficulty {
     DIFF_NORMAL = 0x1,
     DIFF_HARD = 0x2
 };
-extern i32 unk_02038000; /* XXX: type */
+
+extern u8 unk_02038000[];
 
 extern u8 debug_flag;
 extern u16 frame_counter_16bit;
