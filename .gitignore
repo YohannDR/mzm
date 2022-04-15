@@ -7,5 +7,10 @@
 *.map
 *.bin
 
+*.exe
+*.dll
+*.deps.json
+*.runtimeconfig.json
+
 data/*.c
 .vscode
