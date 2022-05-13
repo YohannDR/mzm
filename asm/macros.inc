@@ -19,5 +19,5 @@
     .endm
 
     .macro baserom_blob start end
-    .incbin "baserom_us.gba", \start, (\end - \start)
+    .incbin "mzm_us_baserom.gba", \start, (\end - \start)
     .endm

@@ -2,7 +2,7 @@
 .SUFFIXES:
 
 TARGET = mzm_us.gba
-BASEROM = baserom_us.gba
+BASEROM = mzm_us_baserom.gba
 SHA1FILE = mzm.sha1
 ELF = $(TARGET:.gba=.elf)
 MAP = $(TARGET:.gba=.map)
