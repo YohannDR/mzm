@@ -17,7 +17,3 @@
     .thumb
     .type \name, %function
     .endm
-
-    .macro baserom_blob start end
-    .incbin "mzm_us_baserom.gba", \start, (\end - \start)
-    .endm

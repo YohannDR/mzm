@@ -1,4 +1,6 @@
 /src/**/*.s
+/data/*
+!/data/data.txt
 
 *.gba
 *.elf

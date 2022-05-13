@@ -70,7 +70,7 @@ SECTIONS {
         asm/disasm_0x08005368.o(.text);
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
-        asm/data_0x0808c71c.o(.text);
+        data/data_0x0808c71c.o(.text);
     } >rom
 
     /DISCARD/ : {

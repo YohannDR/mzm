@@ -26,6 +26,7 @@ CC = agbcc
 
 DIFF = diff -u
 HOSTCC = cc
+MKDIR = mkdir -p
 RM = rm -f
 SHA1SUM = sha1sum
 TAIL = tail
@@ -40,7 +41,8 @@ CPPFLAGS = -nostdinc -Isrc/
 # Objects
 CSRC = $(wildcard src/*.c) $(wildcard src/sram/*.c)
 .PRECIOUS: $(CSRC:.c=.s)
-ASMSRC = $(CSRC:.c=.s) $(wildcard asm/*.s)
+DATA = data/data_0x0808c71c.s
+ASMSRC = $(CSRC:.c=.s) $(wildcard asm/*.s) $(DATA)
 OBJ = $(ASMSRC:.s=.o)
 
 # Enable verbose output
@@ -77,6 +79,8 @@ clean:
 	$Q$(RM) $(DUMPS)
 	$(MSG) RM \*.o
 	$Q$(RM) $(OBJ)
+	$(MSG) RM data/*.s
+	$Q$(RM) $(DATA)
 	$(MSG) RM src/\*\*/\*.s
 	$Q$(RM) $(CSRC:.c=.s)
 	$(MSG) RM $(GBAFIX)
@@ -117,6 +121,10 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 %.s: %.c
 	$(MSG) CC $@
 	$Q$(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
+
+data/data_0x0808c71c.s: data/data.txt
+	$(MSG) EXTRACT $@
+	$Q./tools/gen_data.pl 0x0808c71c 0x08800000 $(BASEROM) <$< >$@
 
 src/sram/%.s: CFLAGS = -O1 -mthumb-interwork -fhex-asm
 src/sram/%.s: src/sram/%.c
