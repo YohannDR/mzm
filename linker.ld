@@ -41,6 +41,8 @@ SECTIONS {
         . = 0x00001cfc; timer3_callback = .;
         . = 0x00001d00; music_info = .;
         . = 0x00002924; sound_data = .;
+        . = 0x000058e0; src/libgcc/fp-bit-base.o(.bss);
+        . = 0x000058f8; src/libgcc/float.o(.bss);
         . = 0x00007e60; sp_sys = .;
         . = 0x00007fa0; sp_irq = .;
         . = 0x00007ff8; unk_03007ff8 = .;
@@ -70,6 +72,10 @@ SECTIONS {
         asm/disasm_0x08005368.o(.text);
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
+        src/libgcc/fp-bit-base.o(.text);
+        src/libgcc/float.o(.text);
+        src/libgcc/libgcc.o(.text);
+        asm/disasm_0x0808c6bc.o(.text);
         data/data_0x0808c71c.o(.text);
     } >rom
 

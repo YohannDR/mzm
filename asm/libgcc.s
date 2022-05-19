@@ -178,12 +178,12 @@ sub_0808accc: @ 0x0808accc
     adds r4, r0, #0
     ldr r3, lbl_0808acec @ =0x00000000
     ldr r2, lbl_0808ace8 @ =0x41e00000
-    bl sub_0808ba4c
+    bl __gedf2
     cmp r0, #0
     bge lbl_0808acf0
     adds r1, r5, #0
     adds r0, r4, #0
-    bl sub_0808bbac
+    bl __fixdfsi
     b lbl_0808ad06
     .align 2, 0
 lbl_0808ace8: .4byte 0x41e00000
@@ -193,8 +193,8 @@ lbl_0808acf0:
     ldr r2, lbl_0808ad08 @ =0xc1e00000
     adds r1, r5, #0
     adds r0, r4, #0
-    bl sub_0808b3a4
-    bl sub_0808bbac
+    bl __adddf3
+    bl __fixdfsi
     movs r1, #0x80
     lsls r1, r1, #0x18
     adds r0, r0, r1
