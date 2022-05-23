@@ -75,7 +75,6 @@ SECTIONS {
         src/libgcc/fp-bit-base.o(.text);
         src/libgcc/float.o(.text);
         src/libgcc/libgcc.o(.text);
-        asm/disasm_0x0808c6bc.o(.text);
         data/data_0x0808c71c.o(.text);
     } >rom
 

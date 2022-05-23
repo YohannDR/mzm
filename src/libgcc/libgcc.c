@@ -153,3 +153,63 @@ __negdi2 (DItype u)
 #undef unsigned
 #undef float
 #undef double
+
+typedef unsigned long size_t;
+
+/* Nonzero if either X or Y is not aligned on a "long" boundary.  */
+#define UNALIGNED(X, Y) \
+  (((long)X & (sizeof (long) - 1)) | ((long)Y & (sizeof (long) - 1)))
+
+/* How many bytes are copied each iteration of the 4X unrolled loop.  */
+#define BIGBLOCKSIZE    (sizeof (long) << 2)
+
+/* How many bytes are copied each iteration of the word copy loop.  */
+#define LITTLEBLOCKSIZE (sizeof (long))
+
+/* Threshhold for punting to the byte copier.  */
+#define TOO_SMALL(LEN)  ((LEN) < BIGBLOCKSIZE)
+
+void *
+memcpy (void *dest, const void *src, size_t len0)
+{
+  char *cdest = dest;
+  const char *csrc = src;
+  long *aligned_dest;
+  const long *aligned_src;
+
+  int len = len0;
+
+  /* If the size is small, or either SRC or DST is unaligned,
+     then punt into the byte copy loop.  This should be rare.  */
+  if (!TOO_SMALL(len) && !UNALIGNED (csrc, cdest))
+    {
+      aligned_dest = (long*)cdest;
+      aligned_src = (long*)csrc;
+
+      /* Copy 4X long words at a time if possible.  */
+      while (len >= BIGBLOCKSIZE)
+	{
+	  *aligned_dest++ = *aligned_src++;
+	  *aligned_dest++ = *aligned_src++;
+	  *aligned_dest++ = *aligned_src++;
+	  *aligned_dest++ = *aligned_src++;
+	  len -= BIGBLOCKSIZE;
+	}
+
+      /* Copy one long word at a time if possible.  */
+      while (len >= LITTLEBLOCKSIZE)
+	{
+	  *aligned_dest++ = *aligned_src++;
+	  len -= LITTLEBLOCKSIZE;
+	}
+
+      /* Pick up any residual with a byte copier.  */
+      cdest = (char*)aligned_dest;
+      csrc = (char*)aligned_src;
+    }
+
+  while (len--)
+    *cdest++ = *csrc++;
+
+  return dest;
+}
