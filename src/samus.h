@@ -298,6 +298,11 @@ struct EnvironmentalEffect {
 #define WANTING_SKIDDING_EFFECT 0x6
 #define WANTING_RUNNING_ON_WET_GROUND 0x7
 
+#define DESTRUCTING_ACTION_NONE 0X0
+#define DESTRUCTING_ACTION_SPEED 0x1
+#define DESTRUCTING_ACTION_SCREW 0x2
+#define DESTRUCTING_ACTION_SPEED_SCREW 0x3
+
 typedef u8 (*SamusFunc_t)(struct SamusData*);
 
 void samus_check_screw_speedbooster_affecting_environment(struct SamusData* pData, struct SamusPhysics* pPhysics);

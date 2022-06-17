@@ -5,14 +5,179 @@
 #include "../data/data.h"
 #include "globals.h"
 
+unknown_sized_int samus_apply_screw_speedbooster_damage_to_environment(u16 x_position, u16 y_position, unknown_sized_int action);
+
 void samus_check_screw_speedbooster_affecting_environment(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
+    u8 unk_bool;
+    u16 left_hitbox, right_hitbox, top_hitbox;
+    u16 hitbox_top_offset;
+    u16 y_pos;
+    u16 action;
+
+    action = DESTRUCTING_ACTION_NONE;
+    if ((pData->pose == SPOSE_SCREW_ATTACKING) ||
+        ((pData->pose == SPOSE_STARTING_SPIN_JUMP &&
+        ((equipment.suit_misc_activation & SMF_SCREW_ATTACK) != 0x0))))
+    {
+        action = DESTRUCTING_ACTION_SCREW;
+    }
+    if (pData->speedboosting_shinesparking)
+    {
+        action += DESTRUCTING_ACTION_SPEED;
+    }
     
+    if (action != DESTRUCTING_ACTION_NONE)
+    {
+#ifndef NONMATCHING
+        register u16 tmp_y_pos asm("r3");
+        register u16 tmp_top_hitbox asm("r0");
+#endif // NONMATCHING
+
+        left_hitbox = pData->x_position + pPhysics->hitbox_left_offset;
+        right_hitbox = pData->x_position + pPhysics->hitbox_right_offset;
+
+        hitbox_top_offset = pPhysics->hitbox_top_offset;
+#ifndef NONMATCHING
+        tmp_y_pos = pData->y_position;
+        tmp_top_hitbox = tmp_y_pos + hitbox_top_offset;
+        top_hitbox = tmp_top_hitbox;
+#else // NONMATCHING
+        top_hitbox = pData->y_position + hitbox_top_offset;
+#endif // NONMATCHING
+
+        y_pos = (u16)pData->y_position;
+        unk_bool = hitbox_top_offset << 0x10 < -0x400000;
+
+        samus_apply_screw_speedbooster_damage_to_environment(left_hitbox,  top_hitbox,  action);
+        samus_apply_screw_speedbooster_damage_to_environment(right_hitbox,  top_hitbox,  action);
+        if (pPhysics->horizontal_moving_direction == HDMOVING_RIGHT)
+        {
+            if (unk_bool)
+            {
+            samus_apply_screw_speedbooster_damage_to_environment(right_hitbox,  top_hitbox + 0x40,  action);
+            }
+            samus_apply_screw_speedbooster_damage_to_environment(right_hitbox,  y_pos,  action);
+        }
+        else
+        {
+            if (unk_bool)
+            {
+                samus_apply_screw_speedbooster_damage_to_environment(left_hitbox,  top_hitbox + 0x40,  action);
+            }
+            samus_apply_screw_speedbooster_damage_to_environment(left_hitbox,  y_pos,  action);
+        }
+        if (pPhysics->standing_status == STANDING_GROUND)
+        {
+            y_pos = y_pos + 1;
+            action = 4;
+        }
+        samus_apply_screw_speedbooster_damage_to_environment(left_hitbox, y_pos, action);
+        samus_apply_screw_speedbooster_damage_to_environment(right_hitbox, y_pos, action);
+    }
 }
 
 u8 samus_slope_related(u16 x_position, u16 y_position, u16* next_x_position, u16* next_y_position, u16* next_slope_type)
 {
+    u32 clipdata;
+    u16 slope_type;
+    u16 next_x_pos, next_y_pos;
+    u8 collision;
 
+    u32 x_slope_offset;
+    u16 x_begin;
+
+#ifndef NONMATCHING
+    register vu16* x_ptr asm("r2");
+    register i32 x_begin__ asm("r1");
+    register i32 mask_FFC0 asm("r3");
+    register i32 tmp_next_x_pos asm("r1");
+#else
+    i32 x_begin__;
+    i32 mask_FFC0;
+    i32 tmp_next_x_pos;
+#endif // NONMATCHING
+
+    clipdata = process_clipdata_for_samus(y_position, x_position);
+    collision = (-(clipdata & 0x1000000) >> 0x1F);
+
+    switch (clipdata & 0xFF)
+    {
+        case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
+            next_y_pos = ((y_position & 0xFFC0) + 0x3F) - (x_position & 0x3F);
+            next_x_pos = ((x_position & 0xFFC0) + 0x3F) - (y_position & 0x3F);
+
+            slope_type = SLOPE_STEEP | SLOPE_LEFT;
+            break;
+
+        case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
+            next_y_pos = ((y_position & 0xFFC0) + 0x3F) - ((x_position & 0x3F) / 2);
+            x_begin = x_position & 0xFFC0;
+
+            x_slope_offset = (y_position & 0x3F) * 2 - 0x7E;
+            tmp_next_x_pos = x_begin - x_slope_offset;
+            next_x_pos = tmp_next_x_pos;
+
+            slope_type = SLOPE_SLIGHT | SLOPE_LEFT;
+            break;
+
+        case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
+            next_y_pos = ((y_position & 0xFFC0) + 0x1F) - ((x_position & 0x3F) / 2);
+            x_begin = x_position & 0xFFC0;
+
+            x_slope_offset = (y_position & 0x3F) * 2 - 0x3E;
+            tmp_next_x_pos = x_begin - x_slope_offset;
+            next_x_pos = tmp_next_x_pos;
+
+            slope_type = SLOPE_SLIGHT | SLOPE_LEFT;
+            break;
+
+        case CLIPDATA_TYPE_LEFT_STEEP_FLOOR_SLOPE:
+            next_y_pos = (y_position & 0xFFC0) | (x_position & 0x3F);
+            next_x_pos = (x_position & 0xFFC0) | (y_position & 0x3F);
+
+            slope_type = SLOPE_STEEP | SLOPE_RIGHT;
+            break;
+
+        case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
+            mask_FFC0 = 0xFFC0;
+            next_y_pos = (y_position & mask_FFC0) | ((x_position & 0x3F) / 2 + 0x1F);
+            x_begin__ = x_position & mask_FFC0;
+
+            x_slope_offset = (y_position & 0x3F) * 2 + 0xFFC1;
+            next_x_pos = x_begin__ +  x_slope_offset;
+
+            slope_type = SLOPE_SLIGHT | SLOPE_RIGHT;
+            break;
+
+        case CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE:
+            mask_FFC0 = 0xFFC0;
+            next_y_pos = (y_position & mask_FFC0) | ((x_position & 0x3F) / 2);
+            x_begin__ = x_position & mask_FFC0;
+
+            x_slope_offset = (y_position & 0x3F) * 2;
+            next_x_pos = x_begin__ + x_slope_offset;
+
+            slope_type = SLOPE_SLIGHT | SLOPE_RIGHT;
+            break;
+
+        case CLIPDATA_TYPE_PASS_THROUGH_BOTTOM:
+            collision = COLLISION_PASS_THROUGH_BOTTOM;
+        default:
+            next_y_pos = y_position & 0xFFC0;
+            next_x_pos = x_position & 0xFFC0;
+            slope_type = SLOPE_NONE;
+    }
+    *next_y_position = next_y_pos;
+#ifndef NONMATCHING
+    x_ptr = next_x_position;
+    *x_ptr =
+#else // NONMATCHING
+    *pX_position =
+#endif // NONMATCHING
+        next_x_pos;
+    *next_slope_type = slope_type;
+    return collision;
 }
 
 u8 samus_check_top_side_collision_midair(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* next_x_position)
