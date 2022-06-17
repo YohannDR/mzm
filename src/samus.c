@@ -15,7 +15,7 @@ u8 samus_slope_related(u16 x_position, u16 y_position, u16* next_x_position, u16
 
 }
 
-u8 unk_5604(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* next_x_position)
+u8 samus_check_top_side_collision_midair(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* next_x_position)
 {
 
 }
@@ -25,7 +25,7 @@ u8 unk_56B8(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_positi
 
 }
 
-u8 unk_5794(struct SamusData* pData, i16 x_offset)
+u8 samus_check_walking_on_slope(struct SamusData* pData, i16 x_offset)
 {
 
 }
