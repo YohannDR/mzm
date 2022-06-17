@@ -6,7 +6,7 @@ void clipdate_setup_code(void)
 
 }
 
-u32 unk_57df8(u16 y_position, u16 x_position)
+u32 process_clipdata_for_samus(u16 y_position, u16 x_position)
 {
 
 }

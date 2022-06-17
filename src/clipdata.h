@@ -50,6 +50,20 @@
 #define GROUND_EFFECT_UNKNOWN 0x4
 #define GROUND_EFFECT_BUBBLY_GROUND 0x5
 
+#define CLIPDATA_TYPE_AIR 0x0
+#define CLIPDATA_TYPE_SOLID 0x1
+#define CLIPDATA_TYPE_LEFT_STEEP_FLOOR_SLOPE 0x2
+#define CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE 0x3
+#define CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE 0x4
+#define CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE 0x5
+#define CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE 0x6
+#define CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE 0x7
+#define CLIPDATA_TYPE_ENEMY_ONLY 0x8
+#define CLIPDATA_TYPE_STOP_ENEMY 0x9
+#define CLIPDATA_TYPE_TANK 0xA
+#define CLIPDATA_TYPE_DOOR 0xB
+#define CLIPDATA_TYPE_PASS_THROUGH_BOTTOM 0xC
+
 struct CurrentAffectingClip {
     u16 movement;
     u16 hazard;
@@ -63,7 +77,7 @@ struct CollisionData {
 };
 
 void clipdate_setup_code(void);
-u32 unk_57df8(u16 y_position, u16 x_position);
+u32 process_clipdata_for_samus(u16 y_position, u16 x_position);
 u32 clipdata_related(u16 y_position, u16 x_position);
 u32 unk_57f7c(struct CollisionData* pCollision);
 u16 clipdata_check_hazard_at_position(u16 y_position, u16 x_position);
