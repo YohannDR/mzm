@@ -789,7 +789,33 @@ void samus_update_physics(struct SamusData* pData)
 
 i16 samus_change_velocity_on_slope(struct SamusData* pData)
 {
+    i32 velocity, decreased_velocity;
 
+    velocity = (i32)pData->x_velocity;
+    if (pData->direction & pData->current_slope)
+    {
+        if (pData->current_slope & SLOPE_STEEP)
+        {
+            decreased_velocity = velocity * 3 / 5;
+        }
+        else
+        {
+            decreased_velocity = velocity * 4 / 5;
+        }
+        velocity = (i16)decreased_velocity;
+    }
+    else
+    {
+        if (velocity > 0xA0)
+        {
+            velocity = 0xA0;
+        }
+        else if (velocity < -0xA0)
+        {
+            velocity = -0xA0;
+        }
+    }
+    return velocity;
 }
 
 void samus_copy_palette(u16* src, i32 offset, i32 nbr_colors)
