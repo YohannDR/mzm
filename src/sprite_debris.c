@@ -51,7 +51,7 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
             if (pDebris->frame_counter < 0x9)
                 return;
         case 0x11:
-            new_pos = debris_11_velocity[offset];;
+            new_pos = debris_11_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position -= 0x1;
             block_top = sprite_util_check_vertical_collision_at_position_slopes(pDebris->y_position, pDebris->x_position);

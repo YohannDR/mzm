@@ -168,8 +168,4 @@ SECTIONS {
         data/particle_misc_data.o(.text);
         data/blob_0x833bd34_0x87fffff.o(.text);
     } >rom
-
-    /DISCARD/ : {
-        *(*);
-    }
 }
