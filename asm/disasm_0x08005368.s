@@ -25288,28 +25288,3 @@ get_final_completion_percentage: @ 0x0801175c
     pop {r4, r5}
     pop {r1}
     bx r1
-
-    thumb_func_start set_debris_splash_effect
-set_debris_splash_effect: @ 0x08011788
-    push {lr}
-    lsls r0, r0, #0x10
-    lsrs r0, r0, #0x10
-    lsls r1, r1, #0x10
-    lsrs r3, r1, #0x10
-    lsls r2, r2, #0x10
-    lsrs r2, r2, #0x10
-    ldr r1, lbl_080117b0 @ =0x0300006c
-    ldrh r1, [r1]
-    cmp r0, r1
-    bhs lbl_080117ac
-    cmp r3, r1
-    blo lbl_080117ac
-    adds r0, r3, #0
-    adds r1, r2, #0
-    movs r2, #1
-    bl sprite_util_set_splash_effect
-lbl_080117ac:
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_080117b0: .4byte 0x0300006c
