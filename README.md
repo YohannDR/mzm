@@ -12,6 +12,8 @@ This produces the following ROMs:
 
 - [agbcc](https://github.com/pret/agbcc) (make sure it's in your PATH!)
 - `binutils-arm-none-eabi`
+- `dotnet`
+- [MZM-Extractor](https://github.com/YohannDR/MZM-Extractor)
 - `baserom_us.gba` (`sha1: 5de8536afe1f0078ee6fe1089f890e8c7aa0a6e8`)
 
 ## Build
