@@ -39,20 +39,20 @@ sram_write_unchecked: @ 0x080051f8
     movs r1, #3
     orrs r0, r1
     strh r0, [r2]
-    ldr r3, lbl_0800522c @ =sub_080051d4
+    ldr r3, lbl_0800522c @ =sram_write_unchecked_internal
     movs r0, #1
     bics r3, r0
     mov r2, sp
-    ldr r0, lbl_08005230 @ =sub_080051f8
-    ldr r1, lbl_0800522c @ =sub_080051d4
+    ldr r0, lbl_08005230 @ =sram_write_unchecked
+    ldr r1, lbl_0800522c @ =sram_write_unchecked_internal
     subs r0, r0, r1
     lsls r0, r0, #0xf
     b lbl_08005240
     .align 2, 0
 lbl_08005224: .4byte 0x04000204
 lbl_08005228: .4byte 0x0000fffc
-lbl_0800522c: .4byte sub_080051d4
-lbl_08005230: .4byte sub_080051f8
+lbl_0800522c: .4byte sram_write_unchecked_internal
+lbl_08005230: .4byte sram_write_unchecked
 lbl_08005234:
     ldrh r0, [r3]
     strh r0, [r2]
@@ -155,20 +155,20 @@ sram_check: @ 0x080052cc
     movs r1, #3
     orrs r0, r1
     strh r0, [r2]
-    ldr r3, lbl_08005300 @ =sub_0800529c
+    ldr r3, lbl_08005300 @ =sram_check_internal
     movs r0, #1
     bics r3, r0
     mov r2, sp
-    ldr r0, lbl_08005304 @ =sub_080052cc
-    ldr r1, lbl_08005300 @ =sub_0800529c
+    ldr r0, lbl_08005304 @ =sram_check
+    ldr r1, lbl_08005300 @ =sram_check_internal
     subs r0, r0, r1
     lsls r0, r0, #0xf
     b lbl_08005314
     .align 2, 0
 lbl_080052f8: .4byte 0x04000204
 lbl_080052fc: .4byte 0x0000fffc
-lbl_08005300: .4byte sub_0800529c
-lbl_08005304: .4byte sub_080052cc
+lbl_08005300: .4byte sram_check_internal
+lbl_08005304: .4byte sram_check
 lbl_08005308:
     ldrh r0, [r3]
     strh r0, [r2]
@@ -209,11 +209,11 @@ lbl_08005342:
     adds r0, r6, #0
     adds r1, r5, #0
     adds r2, r4, #0
-    bl sub_0800525c
+    bl sram_write
     adds r0, r6, #0
     adds r1, r5, #0
     adds r2, r4, #0
-    bl sub_080052cc
+    bl sram_check
     adds r3, r0, #0
     cmp r3, #0
     bne lbl_0800533c
