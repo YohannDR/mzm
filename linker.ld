@@ -155,7 +155,7 @@ SECTIONS {
         src/sub_08002a38.o(.text);
         asm/disasm_0x08002a58.o(.text);
         asm/syscalls.o(.text);
-        src/sram/sram.o(.text);
+        asm/disasm_0x080051d4.o(.text);
         asm/disasm_0x08005368.o(.text);
         src/sprite_debris.o(.text);
         asm/disasm_0x08011ed8.o(.text);
