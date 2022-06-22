@@ -1,31 +1,10 @@
 ﻿{
-    "blob_0x808c71c_0x82320d3.c": [{
-        "Name": "blob_0x808c71c_0x82320d3",
+    "blob_0x808c71c_0x82b2523.c": [{
+        "Name": "blob_0x808c71c_0x82b2523",
         "Offset": 575260,
         "Type": "u8",
         "IsArray": 1,
-        "Size": 1726904
-    }],
-    "sram_data.c": [{
-        "Name": "sram_code_pointers",
-        "Offset": 2302164,
-        "Type": "Pointer",
-        "pType": "void*",
-        "IsArray": 1,
-        "Size": 4,
-        "Pointers": [
-            "sram_write_unchecked_internal",
-            "sram_write_unchecked",
-            "sram_check_internal",
-            "sram_check"
-        ]
-    }],
-    "blob_0x82320e4_0x82b2523.c": [{
-        "Name": "blob_0x82320e4_0x82b2523",
-        "Offset": 2302180,
-        "Type": "u8",
-        "IsArray": 1,
-        "Size": 525376
+        "Size": 2252296
     }],
     "sprite_debris_data.c": [{
             "Name": "debris_bouncing_velocity",
