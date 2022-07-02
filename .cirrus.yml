@@ -9,6 +9,7 @@ task:
         - git clone https://${GITHUB_USER}:${GITHUB_PAT}@github.com/${BASEROM_REPO}.git /tmp/baseroms
         - cp /tmp/baseroms/* .
       build_script:
+        - make extract
         - make CPP=cpp -j
       test_script:
         - make check

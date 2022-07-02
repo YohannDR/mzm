@@ -87,6 +87,8 @@ clean:
 	$Q$(RM) $(CSRC:.c=.s)
 	$(MSG) RM $(GBAFIX)
 	$Q$(RM) $(GBAFIX)
+	$(MSG) RM data/
+	$Q$(RM) -r data	
 
 .PHONY: help
 help:
