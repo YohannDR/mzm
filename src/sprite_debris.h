@@ -2,6 +2,7 @@
 #define SPRITE_DEBRIS_H
 
 #include "types.h"
+#include "clipdata.h"
 #include "oam.h"
 
 struct SpriteDebris {

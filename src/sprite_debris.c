@@ -1,6 +1,7 @@
 #include "sprite_debris.h"
 #include "sprite_util.h"
-#include "data/data.h"
+#include "game_modes.h"
+#include "../data/data.h"
 #include "globals.h"
 
 /**
@@ -50,7 +51,7 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
             if (pDebris->frame_counter < 0x9)
                 return;
         case 0x11:
-            new_pos = debris_11_velocity[offset];;
+            new_pos = debris_11_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position -= 0x1;
             block_top = sprite_util_check_vertical_collision_at_position_slopes(pDebris->y_position, pDebris->x_position);
@@ -236,7 +237,7 @@ void sprite_debris_process_all(void)
     u32 adc;
     u32 timer;
 
-    if (game_mode_sub1 == 0x2)
+    if (game_submode1 == 0x2)
     {
         pDebris = sprite_debris;
         while (pDebris < sprite_debris + 0x8)
@@ -340,7 +341,7 @@ void sprite_debris_draw_all(void)
 {
     struct SpriteDebris* pDebris;
 
-    if (game_mode_sub1 == 0x2)
+    if (game_submode1 == 0x2)
     {
         pDebris = sprite_debris;
         while (pDebris < sprite_debris + 0x8)

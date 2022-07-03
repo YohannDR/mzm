@@ -4,7 +4,6 @@
 #include "sprite.h"
 #include "samus.h"
 #include "types.h"
-#include "particle.h"
 
 #define NSLR_OUT_OF_RANGE 0x0
 #define NSLR_LEFT 0x4
@@ -35,12 +34,12 @@ void unk_e5a4(u16 y_position, u16 x_position);
 u8 sprite_util_take_damage_from_sprite(u8 kb_flag, struct SpriteData* pSprite, u16 dmg_mulitplier);
 u8 sprite_util_check_objects_touching(u16 o1_top, u16 o1_bottom, u16 o1_left, u16 o1_right, u16 o2_top, u16 o2_bottom, u16 o2_left, u16 o2_right);
 void sprite_util_samus_and_sprite_collision(void);
-u16 sprite_util_check_vertical_collision_at_position(u16 y_position, u16 x_position);
-u16 sprite_util_check_vertical_collision_at_position_slopes(u16 y_position, u16 x_position);
+u32 sprite_util_check_vertical_collision_at_position(u16 y_position, u16 x_position);
+u32 sprite_util_check_vertical_collision_at_position_slopes(u16 y_position, u16 x_position);
 void unk_f594(void);
 void unk_f608(void);
 void sprite_util_check_collision_at_position(u16 y_position, u16 x_position);
-u8 sprite_util_get_collision_at_position(u16 y_position, u16 x_position);
+u32 sprite_util_get_collision_at_position(u16 y_position, u16 x_position);
 void sprite_util_current_sprite_fall(void);
 void sprite_util_choose_random_x_flip(void);
 void sprite_util_choose_random_x_direction(void);

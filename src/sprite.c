@@ -293,7 +293,7 @@ void sprite_load_all_data(void)
 {
     if (pause_screen_flag == PAUSE_SCREEN_NONE)
     {
-        if (game_mode_sub3 == 0x0 && !is_current_file_existing)
+        if (game_mode_sub3 == 0x0 && !is_loading_file)
             alarm_timer = 0x0;
         sprite_clear_data();
         sprite_load_spriteset();

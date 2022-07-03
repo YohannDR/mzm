@@ -20,7 +20,7 @@ agbmain(void)
 
         switch (game_mode_main) {
         case GM_SOFTRESET:
-            if (sub_0807ef9c()) {
+            if (softreset_main()) {
                 game_mode     = GM_INTRO;
                 game_submode1 = 0;
             }

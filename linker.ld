@@ -76,7 +76,7 @@ SECTIONS {
         . = 0x0000095E; particle_escape_oam_frames = .;
         . = 0x0000095E; particle_samus_reflection_oam_frames = .;
         . = 0x00000A2C; projectile_data = .;
-        . = 0x00000B1D; is_current_file_existing = .;
+        . = 0x00000B1D; is_loading_file = .;
         . = 0x00000BEC; arm_cannon_y = .;
         . = 0x00000BEE; arm_cannon_x = .;
         . = 0x00000bf0; pause_screen_flag = .;
@@ -120,6 +120,8 @@ SECTIONS {
         . = 0x00001cf4; vcount_callback = .;
         . = 0x00001cf8; serial_comm_callback = .;
         . = 0x00001cfc; timer3_callback = .;
+        . = 0x00001d00; music_info = .;
+        . = 0x00002924; sound_data = .;
         . = 0x00004fc9; unk_03004fc9 = .;
         . = 0x000052E0; samus_palette = .;
         . = 0x0000545C; hatch_data = .;
@@ -149,14 +151,20 @@ SECTIONS {
         src/callbacks.o(.text);
         src/sub_08000c04.o(.text);
         asm/disasm_0x08000c48.o(.text);
+        src/play_sound.o(.text);
+        src/sub_08002a38.o(.text);
+        asm/disasm_0x08002a58.o(.text);
         asm/syscalls.o(.text);
         asm/disasm_0x080051d4.o(.text);
+        asm/disasm_0x08005368.o(.text);
+        src/sprite_debris.o(.text);
+        asm/disasm_0x08011ed8.o(.text);
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
-        asm/data_0x0808c71c.o(.text);
+        data/blob_0x808c71c_0x82b2523.o(.text);
+        data/sprite_debris_data.o(.text);
+        data/blob_0x82b25c8_0x8339ee3.o(.text);
+        data/particle_misc_data.o(.text);
+        data/blob_0x833bd34_0x87fffff.o(.text);
     } >rom
-
-    /DISCARD/ : {
-        *(*);
-    }
 }

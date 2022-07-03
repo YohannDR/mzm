@@ -3,13 +3,13 @@
 
 #include "types.h"
 
-void clear_ram(void);
 void dma_transfer(int dma_channel, void *src, void *dst, u32 len, u8 bit_size);
 void init_sound(void);
 void load_intr_code(void);
 void read_sram(void);
 void update_input(void);
 void start_new_demo(void);
+int softreset_main(void);
 int ingame_main(void);
 int intro_main(void);
 int titlescreen_main(void);
@@ -25,9 +25,9 @@ int fusion_gallery_main(void);
 int erase_sram_main(void);
 
 void sub_080033dc(void);
+void sub_08003fac(u16 id, u32 unk); /* TODO: unk type */
+void sub_08004014(u16 id, u32 unk); /* TODO: unk type */
 void sub_08004d48();
-void sub_08005330(void *addr, void *base, u32 size); /* XXX: size's type */
 void sub_0805d034(void);
-int sub_0807ef9c();
 
 #endif /* FUNCS_H */

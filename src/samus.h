@@ -3,7 +3,6 @@
 
 #include "types.h"
 #include "oam.h"
-#include "projectile.h"
 
 #define BBF_NONE 0x0
 #define BBF_LONG_BEAM 0x1

@@ -43,7 +43,8 @@ enum difficulty {
     DIFF_NORMAL = 0x1,
     DIFF_HARD = 0x2
 };
-extern i32 unk_02038000; /* XXX: type */
+
+extern u8 unk_02038000[];
 
 extern u8 debug_flag;
 extern u16 frame_counter_16bit;
@@ -110,7 +111,7 @@ extern struct EscapeDigits escape_timer_digits;
 extern u16 particle_escape_oam_frames[25];
 extern u16 particle_samus_reflection_oam_frames[73];
 extern struct ProjectileData projectile_data[16];
-extern i8 is_current_file_existing;
+extern i8 is_loading_file;
 extern u16 arm_cannon_y;
 extern u16 arm_cannon_x;
 extern i8 pause_screen_flag;
