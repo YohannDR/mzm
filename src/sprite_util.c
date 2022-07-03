@@ -499,7 +499,7 @@ void sprite_util_samus_and_sprite_collision(void)
                                         unk_2b20(0x80);
                                         sub_sprite_data1.timer++;
                                         if ((sub_sprite_data1.timer & 0x3) == 0x0)
-                                            sound_play1(0x7C);
+                                            sound_play(0x7C);
                                     }
                                 }
                                 *pTimer = 0xF;
@@ -526,7 +526,7 @@ void sprite_util_samus_and_sprite_collision(void)
                                     pSprite->samus_collision = SSC_NONE;
                                     collision_related = 0x1;
                                     samus_set_pose(SPOSE_MIDAIR);
-                                    sound_play1(0x1E3);
+                                    sound_play(0x1E3);
                                 }
                                 else 
                                 {
@@ -1737,47 +1737,47 @@ void sprite_util_sprite_death(u8 death_type, u16 y_position, u16 x_position, u8 
         case 0x63: // Check for damage contact
             particle_set(y_position, x_position, PE_SHINESPARK_DESTROYED);
             sprite_util_random_debris(0x0, 0x3, y_position, x_position);
-            sound_play1(0x131);
+            sound_play(0x131);
             break;
         case 0x64:
             particle_set(y_position, x_position, PE_SPEEDBOOSTER_DESTROYED);
             sprite_util_random_debris(0x0, 0x3, y_position, x_position);
-            sound_play1(0x133);
+            sound_play(0x133);
             break;
         case 0x65:
             particle_set(y_position, x_position, PE_SCREW_ATTACK_DESTROYED);
             sprite_util_random_debris(0x0, 0x3, y_position, x_position);
-            sound_play1(0x130);
+            sound_play(0x130);
             break;
         case 0x66:
             particle_set(y_position, x_position, PE_SUDO_SCREW_DESTROYED);
             sprite_util_random_debris(0x0, 0x3, y_position, x_position);
-            sound_play1(0x132);
+            sound_play(0x132);
             break;
         default: // Check play sprite explosion effects
             if (effect == PE_SPRITE_EXPLOSION_SMALL)
             {
                 particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_SMALL);
                 if (play_sound != FALSE)
-                    sound_play1(0x12C);
+                    sound_play(0x12C);
             }
             else if (effect == PE_SPRITE_EXPLOSION_MEDIUM)
             {
                 particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_MEDIUM);
                 if (play_sound != FALSE)
-                    sound_play1(0x12D);
+                    sound_play(0x12D);
             }
             else if (effect == PE_SPRITE_EXPLOSION_BIG)
             {
                 particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_BIG);
                 if (play_sound != FALSE)
-                    sound_play1(0x12E);
+                    sound_play(0x12E);
             }
             else if (effect == PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG)
             {
                 particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
                 if (play_sound != FALSE)
-                    sound_play1(0x12F);
+                    sound_play(0x12F);
             }
             else if ((u8)(effect - 0x27) < 0x3) // Default behavior
                 particle_set(y_position, x_position, effect);

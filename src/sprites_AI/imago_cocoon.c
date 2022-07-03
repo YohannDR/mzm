@@ -158,7 +158,7 @@ void imago_cocoon_falling_before_blocks(void)
             current_sprite.pose = 0x23;
             current_sprite.timer1 = 0x0;
             screen_shake_start_vertical(0x28, 0x81);
-            sound_play1(0x1A4);
+            sound_play(0x1A4);
         }
     }
     else
@@ -438,7 +438,7 @@ void imago_cocoon_spore_before_spawning(void)
     else
     {
         if (current_sprite.room_slot == 0x0 && current_sprite.status & SPRITE_STATUS_ONSCREEN && current_sprite.curr_anim_frame == 0x0 && current_sprite.anim_duration_counter == 0x1)
-            sound_play1(0x1A0);
+            sound_play(0x1A0);
 
         if (sprite_util_check_end_current_sprite_anim())
         {
@@ -473,7 +473,7 @@ void imago_cocoon_spore_spawning(void)
             current_sprite.samus_collision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
             current_sprite.pose = 0x25;
             if (current_sprite.room_slot == 0x0 && current_sprite.status & SPRITE_STATUS_ONSCREEN)
-                sound_play1(0x1A1);
+                sound_play(0x1A1);
         }
     }
 }
@@ -822,7 +822,7 @@ void imago_cocoon_after_fight(void)
         {
             case 0x1:
             case 0x4:
-                sound_play1(0x212);
+                sound_play(0x212);
         }
     }
 }

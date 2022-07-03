@@ -18,6 +18,7 @@
 #include "io.h"
 #include "escape.h"
 #include "clipdata.h"
+#include "input.h"
 
 // EWRAM
 
@@ -150,15 +151,17 @@ extern struct SamusPhysics samus_physics;
 extern u16 previous_x_position;
 extern u16 previous_y_position;
 extern u16 prevent_movement_timer;
-extern struct button_assignements button_assignements;
+extern struct ButtonAssignments button_assignements;
 extern u8 unk_03004fc9;
 extern u16 samus_palette[32];
+extern struct TilemapAndClipPointers tilemap_and_clip_pointers;
 extern struct HatchData hatch_data[16];
 extern struct RawCoordsX door_position_start;
 extern struct BG3Movement bg3_movement;
 extern struct BG0Movement bg0_movement;
 extern i16 samus_door_position_offset;
 extern u8* current_room_scroll_data_pointer;
+extern ClipFunc_T clipdata_code_pointer;
 
 extern void *sp_sys;
 extern void *sp_irq;

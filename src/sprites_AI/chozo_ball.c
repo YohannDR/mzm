@@ -117,7 +117,7 @@ void chozo_ball_revealing(void)
     current_sprite.palette_row = current_sprite.absolute_palette_row;
     current_sprite.invicibility_stun_flash_timer &= 0x80;
     chozo_ball_revealing_set_oam_pointer(sprite_data[current_sprite.primary_sprite_ram_slot].sprite_id);
-    sound_play1(0x11D);
+    sound_play(0x11D);
 }
 
 /**

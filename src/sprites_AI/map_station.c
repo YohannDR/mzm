@@ -61,11 +61,11 @@ void map_station_samus_detection(void)
         if (samus_data.invincibility_timer != 0x0)
             samus_data.invincibility_timer = 0x0;
 
-        if (samus_data.direction & DIRECTION_RIGHT)
+        if (samus_data.direction & KEY_RIGHT)
             samus_set_pose(SPOSE_TURNING_AROUND_TO_DOWNLOAD_MAP_DATA);
         else
             samus_set_pose(SPOSE_DOWNLOADING_MAP_DATA);
-        sound_play1(0x123);
+        sound_play(0x123);
     }
 }
 
@@ -78,7 +78,7 @@ void map_station_check_samus_grabbed_anim_ended(void)
         current_sprite.anim_duration_counter = 0x0;
         current_sprite.pose = 0x25;
         current_sprite.timer1 = 0x46;
-        samus_data.speedbooster_timer = 0x0;
+        samus_data.timer = 0x0;
     }
 }
 
@@ -132,7 +132,7 @@ void map_station_spawn_message(void)
         current_sprite.hitbox_top_offset = -0x40;
         current_sprite.pose = 0x29;
         samus_data.curr_anim_frame = 0x0;
-        samus_data.speedbooster_timer = 0x1;
+        samus_data.timer = 0x1;
         call_sound_function(0x123, 0xA);
     }
 }
@@ -163,7 +163,7 @@ void map_station_retraction(void)
     current_sprite.curr_anim_frame = 0x0;
     current_sprite.anim_duration_counter = 0x0;
     samus_set_pose(SPOSE_STANDING);
-    sound_play1(0x124);
+    sound_play(0x124);
 }
 
 void map_station(void)

@@ -108,7 +108,7 @@ void geruta_go_down_gfx_init(void)
     current_sprite.curr_anim_frame = 0x0;
     current_sprite.oam_pointer = geruta_oam_2d1418;
     if ((current_sprite.status & SPRITE_STATUS_ONSCREEN))
-        sound_play1(0x150);
+        sound_play(0x150);
 }
 
 void geruta_check_warning_ended(void)

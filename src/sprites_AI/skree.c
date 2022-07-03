@@ -60,7 +60,7 @@ void skree_start_going_down(void)
         current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
 
     if ((current_sprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
-        sound_play1(0x141);
+        sound_play(0x141);
 }
 
 void skree_go_down(void)
@@ -77,7 +77,7 @@ void skree_go_down(void)
         current_sprite.pose = 0x37;
         current_sprite.timer1 = 0x0;
         if ((current_sprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
-            sound_play1(0x142);
+            sound_play(0x142);
     }
     else
     {
@@ -157,7 +157,7 @@ void skree_crash_ground(void)
             sprite_spawn_secondary(sprite_id, 0x1, gfx_slot, ram_slot, y_position + 0x8, x_position + 0xC, SPRITE_STATUS_XFLIP);
             current_sprite.status = 0x0;
             particle_set(y_position + 0x24, x_position, PE_SPRITE_EXPLOSION_HUGE);
-            sound_play1(0x134);
+            sound_play(0x134);
     }
 }
 

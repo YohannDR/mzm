@@ -81,42 +81,42 @@ void enemy_drop_get(void)
                     equipment.current_energy += 0x5;
                     if (equipment.current_energy > equipment.max_energy)
                         equipment.current_energy = equipment.max_energy;
-                    sound_play1(0x86);
+                    sound_play(0x86);
                     break;
 
                 case SSC_LARGE_ENERGY_DROP:
                     equipment.current_energy += 0x14;
                     if (equipment.current_energy > equipment.max_energy)
                         equipment.current_energy = equipment.max_energy;
-                    sound_play1(0x87);
+                    sound_play(0x87);
                     break;
 
                 case SSC_MISSILE_DROP:
                     equipment.current_missiles += 0x2;
                     if (equipment.current_missiles > equipment.max_missiles)
                         equipment.current_missiles = equipment.max_missiles;
-                    sound_play1(0x88);
+                    sound_play(0x88);
                     break;
 
                 case SSC_SUPER_MISSILE_DROP:
                     equipment.current_super_missiles += 0x2;
                     if (equipment.current_super_missiles > equipment.max_super_missiles)
                         equipment.current_super_missiles = equipment.max_super_missiles;
-                    sound_play1(0x89);
+                    sound_play(0x89);
                     break;
 
                 case SSC_POWER_BOMB_DROP:
                     equipment.current_power_bombs += 0x1;
                     if (equipment.current_power_bombs > equipment.max_power_bombs)
                         equipment.current_power_bombs = equipment.max_power_bombs;
-                    sound_play1(0x8A);
+                    sound_play(0x8A);
                     break;
 
                 case SSC_MULTIPLE_LARGE_ENERGY_DROP:
                     equipment.current_energy += 0x3C;
                     if (equipment.current_energy > equipment.max_energy)
                         equipment.current_energy = equipment.max_energy;
-                    sound_play1(0x87);
+                    sound_play(0x87);
                     break;
             }
             current_sprite.status = 0x0;

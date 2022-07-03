@@ -103,7 +103,7 @@ void squeept_go_down(void)
     }
 
     if (sprite_util_check_in_room_effect(old_y, current_sprite.y_position, current_sprite.x_position, SPLASH_BIG) && current_sprite.status & SPRITE_STATUS_ONSCREEN)
-        sound_play1(0x156);
+        sound_play(0x156);
 
     if (current_sprite.y_position_spawn < current_sprite.y_position)
     {

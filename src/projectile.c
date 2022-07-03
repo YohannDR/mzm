@@ -16,7 +16,7 @@ void projectile_set_beam_particle_effect(void)
 
     y_pos = arm_cannon_y;
     x_pos = arm_cannon_x;
-    right = samus_data.direction & DIRECTION_RIGHT;
+    right = samus_data.direction & KEY_RIGHT;
 
     switch (samus_data.arm_cannon_direction)
     {
@@ -88,7 +88,7 @@ u8 projectile_init(u8 type, u16 y_position, u16 x_position)
             status = PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
             if (type > PROJ_TYPE_SUPER_MISSILE)
                 status = PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN;
-            if (samus_data.direction & DIRECTION_RIGHT)
+            if (samus_data.direction & KEY_RIGHT)
                 status |= PROJ_STATUS_XFLIP;
 
             pProj->status = status;
@@ -156,7 +156,7 @@ void projectile_update(void)
                     samus_weapon_info.cooldown = 0x7;
                     projectile_set_beam_particle_effect();
                     samus_weapon_info.beam_release_palette_timer = 0x4;
-                    sound_play1(0xA0);
+                    sound_play(0xA0);
                 }
             }
             else
@@ -253,7 +253,7 @@ void projectile_update(void)
                     samus_weapon_info.cooldown = 0x7;
                     projectile_set_beam_particle_effect();
                     samus_weapon_info.beam_release_palette_timer = 0x4;
-                    sound_play1(sound);
+                    sound_play(sound);
                 }
             }
             samus_weapon_info.new_projectile = PROJECTILE_NONE;
@@ -267,7 +267,7 @@ void projectile_update(void)
                     samus_weapon_info.cooldown = 0x7;
                     projectile_set_beam_particle_effect();
                     samus_weapon_info.beam_release_palette_timer = 0x4;
-                    sound_play1(0x9F);
+                    sound_play(0x9F);
                 }
             }
             else
@@ -364,7 +364,7 @@ void projectile_update(void)
                     samus_weapon_info.cooldown = 0x7;
                     projectile_set_beam_particle_effect();
                     samus_weapon_info.beam_release_palette_timer = 0x4;
-                    sound_play1(sound);
+                    sound_play(sound);
                 }
             }
             samus_weapon_info.new_projectile = PROJECTILE_NONE;
@@ -374,8 +374,8 @@ void projectile_update(void)
             if (projectile_check_number_of_projectiles(PROJ_TYPE_MISSILE, 0x4) << 0x18 != FALSE && projectile_init(PROJ_TYPE_MISSILE, arm_cannon_y, arm_cannon_x) << 0x18 != FALSE)
             {
                 samus_weapon_info.cooldown = 0x9;
-                sound_play1(0xF8);
-                sound_play1(0xF9);
+                sound_play(0xF8);
+                sound_play(0xF9);
             }
             samus_weapon_info.new_projectile = PROJECTILE_NONE;
             break;
@@ -384,8 +384,8 @@ void projectile_update(void)
             if (projectile_check_number_of_projectiles(PROJ_TYPE_SUPER_MISSILE, 0x4) << 0x18 != FALSE && projectile_init(PROJ_TYPE_SUPER_MISSILE, arm_cannon_y, arm_cannon_x) << 0x18 != FALSE)
             {
                 samus_weapon_info.cooldown = 0xB;
-                sound_play1(0xFB);
-                sound_play1(0xFC);
+                sound_play(0xFB);
+                sound_play(0xFC);
             }
             samus_weapon_info.new_projectile = PROJECTILE_NONE;
             break;
@@ -2263,7 +2263,7 @@ void projectile_process_bomb(struct ProjectileData* pProj)
             pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
             pProj->timer = 0x10; // Timer before the bomb starts spinning faster
             pProj->movement_stage++;
-            sound_play1(0xFE); // Placing bomb sound
+            sound_play(0xFE); // Placing bomb sound
             break;
 
         case 0x3: // Bomb Exploding
@@ -2419,7 +2419,7 @@ void projectile_process_power_bomb(struct ProjectileData* pProj)
                     pSprite->invicibility_stun_flash_timer &= 0x7F;
                 pSprite++;
             }
-            sound_play1(0x100);
+            sound_play(0x100);
             current_power_bomb.power_bomb_placed = TRUE;
             break;
 

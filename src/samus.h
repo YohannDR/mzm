@@ -35,10 +35,10 @@ struct Equipment {
     u16 current_missiles;
     u8 current_super_missiles;
     u8 current_power_bombs;
-    u16 beam_bombs;
-    u16 beam_bombs_activation;
-    u16 suit_misc;
-    u16 suit_misc_activation;
+    u8 beam_bombs;
+    u8 beam_bombs_activation;
+    u8 suit_misc;
+    u8 suit_misc_activation;
     u8 downloaded_map_status;
     u8 low_health;
     u8 suit_type;
@@ -143,6 +143,7 @@ struct WeaponInfo {
 #define STANDING_NOT_IN_CONTROL 0x3
 #define STANDING_FORCED_POSE 0x4
 #define STANDING_HANGING 0x5
+#define STANDING_INVALID 0xFF
 
 #define ACD_FORWARD 0x0
 #define ACD_DIAGONALLY_UP 0x1
@@ -150,12 +151,6 @@ struct WeaponInfo {
 #define ACD_UP 0x3
 #define ACD_DOWN 0x4
 #define ACD_NONE 0x5
-
-#define DIRECTION_NONE 0x0
-#define DIRECTION_RIGHT 0x10
-#define DIRECTION_LEFT 0x20
-#define DIRECTION_UP 0x40
-#define DIRECTION_DOWN 0x80
 
 #define SLOPE_NONE 0x0
 #define SLOPE_STEEP 0x1
@@ -173,8 +168,8 @@ struct SamusData {
     u8 invincibility_timer;
     u8 walljump_timer;
     u8 shinespark_timer;
-    u8 unmroph_palette_timer;
-    u8 speedbooster_timer;
+    u8 unmorph_palette_timer;
+    u8 timer;
     u16 last_wall_touched_midair;
     u16 direction;
     u16 elevator_direction;
@@ -297,20 +292,32 @@ struct EnvironmentalEffect {
 #define WANTING_SKIDDING_EFFECT 0x6
 #define WANTING_RUNNING_ON_WET_GROUND 0x7
 
+#define SAMUS_ANIM_STATE_NONE 0x0
+#define SAMUS_ANIM_STATE_SUB_ENDED 0x1
+#define SAMUS_ANIM_STATE_ENDED 0x2
+
+// Probably not 100% true
+#define SAMUS_COLLISION_DETECTION_NONE 0x0
+#define SAMUS_COLLISION_DETECTION_LEFT_MOST 0x1
+#define SAMUS_COLLISION_DETECTION_MIDDLE_LEFT 0x2
+#define SAMUS_COLLISION_DETECTION_MIDDLE_RIGHT 0x4
+#define SAMUS_COLLISION_DETECTION_RIGHT_MOST 0x8
+#define SAMUS_COLLISION_DETECTION_SLOPE 0x80
+
 typedef u8 (*SamusFunc_t)(struct SamusData*);
 
 void samus_check_screw_speedbooster_affecting_environment(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 samus_slope_related(u16 x_position, u16 y_position, u16* next_x_position, u16* next_y_position, u16* next_slope_type);
 u8 unk_5604(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* next_x_position);
-u8 unk_56B8(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* next_x_position);
-u8 unk_5794(struct SamusData* pData, i16 x_offset);
-u8 unk_57EC(struct SamusData* pData, i16 hitbox);
+u8 samus_check_top_side_collision_midair(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* next_x_position);
+u8 samus_check_walking_on_slope(struct SamusData* pData, i16 x_offset);
+u8 samus_check_collision_above(struct SamusData* pData, i16 hitbox);
 u8 samus_check_walking_sides_collision(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 unk_5AD8(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 samus_check_standing_on_ground_collision(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 samus_check_landing_collision(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 samus_check_top_collision(struct SamusData* pData, struct SamusPhysics* pPhysics);
-u8 samus_check_collisions(struct SamusData* pData, struct SamusPhysics* pPhysics);
+void samus_check_collisions(struct SamusData* pData, struct SamusPhysics* pPhysics);
 void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_offset, u32 request);
 void samus_update_environmental_effect(struct SamusData* pData);
 void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);
@@ -340,7 +347,7 @@ void samus_apply_x_acceleration(i16 acceleration, i16 velocity, struct SamusData
 u8 samus_take_hazard_damage(struct SamusData* pData, struct Equipment* pEquipment, struct HazardDamage* pHazard);
 void samus_check_shinesparking(struct SamusData* pData);
 u8 samus_inactivity(struct SamusData* pData);
-u8 unk_847C(struct SamusData* pData, u8 unk);
+u8 samus_update_animation(struct SamusData* pData, u8 unk);
 u8 samus_running(struct SamusData* pData);
 u8 samus_running_gfx(struct SamusData* pData);
 u8 samus_standing(struct SamusData* pData);

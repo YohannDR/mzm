@@ -124,12 +124,14 @@ SECTIONS {
         . = 0x00002924; sound_data = .;
         . = 0x00004fc9; unk_03004fc9 = .;
         . = 0x000052E0; samus_palette = .;
+        . = 0x00005450; tilemap_and_clip_pointers = .;
         . = 0x0000545C; hatch_data = .;
         . = 0x000054E0; door_position_start = .;
         . = 0x000054EC; bg3_movement = .;
         . = 0x000054F4; bg0_movement = .;
         . = 0x0000550C; samus_door_position_offset = .;
         . = 0x00005708; current_room_scroll_data_pointer = .;
+        . = 0x00005704; clipdata_code_pointer = .;
         . = 0x00007e60; sp_sys = .;
         . = 0x00007fa0; sp_irq = .;
         . = 0x00007ff8; unk_03007ff8 = .;
