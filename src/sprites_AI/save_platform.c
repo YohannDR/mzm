@@ -48,7 +48,7 @@ void save_platform_init(void)
         current_sprite.oam_pointer = save_platform_oam_2d4df4;
         current_sprite.pose = 0x51;
     }
-    else if (is_current_file_existing)
+    else if (is_loading_file)
     {
         sprite_spawn_secondary(SSPRITE_SAVE_PLATFORM_TOP, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
         current_sprite.oam_pointer = save_platform_oam_2d4dc4;
@@ -77,7 +77,7 @@ void save_platform_samus_detection(void)
             current_sprite.oam_pointer = save_platform_oam_2d4d34;
             current_sprite.anim_duration_counter = 0x0;
             current_sprite.curr_anim_frame = 0x0;
-            sound_play1(0x112);
+            sound_play(0x112);
         }
     }
     else
@@ -110,7 +110,7 @@ void save_platform_second_samus_detection(void)
             if (samus_data.invincibility_timer != 0x0)
                 samus_data.invincibility_timer = 0x0;
             samus_set_pose(SPOSE_TURNING_FROM_FACING_THE_FOREGROUND);
-            samus_data.speedbooster_timer = 0x1;
+            samus_data.timer = 0x1;
             disable_pause = TRUE;
         }
     }
@@ -120,7 +120,7 @@ void save_platform_second_samus_detection(void)
         current_sprite.oam_pointer = save_platform_oam_2d4dd4;
         current_sprite.anim_duration_counter = 0x0;
         current_sprite.curr_anim_frame = 0x0;
-        sound_play1(0x113);
+        sound_play(0x113);
     }
 }
 
@@ -159,7 +159,7 @@ void save_platform_samus_detection_out(void)
         current_sprite.oam_pointer = save_platform_oam_2d4dd4;
         current_sprite.anim_duration_counter = 0x0;
         current_sprite.curr_anim_frame = 0x0;
-        sound_play1(0x113);
+        sound_play(0x113);
     }
 }
 
@@ -187,7 +187,7 @@ void save_platform_spawn_sprites(void)
                 sprite_spawn_secondary(SSPRITE_SAVE_PLATFORM_TOP, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
                 sprite_data[current_sprite.array_offset].pose = 0x44;
                 samus_data.invincibility_timer = 0x0;
-                sound_play1(0x114);
+                sound_play(0x114);
             }
             else
             {
@@ -357,8 +357,8 @@ void save_platform_top_retract_gfx_init(void)
     current_sprite.anim_duration_counter = 0x0;
     current_sprite.curr_anim_frame = 0x0;
     current_sprite.pose = 0x47;
-    samus_data.speedbooster_timer = 0x1;
-    sound_play1(0x115);
+    samus_data.timer = 0x1;
+    sound_play(0x115);
 }
 
 void save_platform_top_check_retracting_ended(void)

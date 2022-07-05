@@ -18,6 +18,7 @@
 #include "io.h"
 #include "escape.h"
 #include "clipdata.h"
+#include "input.h"
 
 // EWRAM
 
@@ -43,7 +44,8 @@ enum difficulty {
     DIFF_NORMAL = 0x1,
     DIFF_HARD = 0x2
 };
-extern i32 unk_02038000; /* XXX: type */
+
+extern u8 unk_02038000[];
 
 extern u8 debug_flag;
 extern u16 frame_counter_16bit;
@@ -110,7 +112,7 @@ extern struct EscapeDigits escape_timer_digits;
 extern u16 particle_escape_oam_frames[25];
 extern u16 particle_samus_reflection_oam_frames[73];
 extern struct ProjectileData projectile_data[16];
-extern i8 is_current_file_existing;
+extern i8 is_loading_file;
 extern u16 arm_cannon_y;
 extern u16 arm_cannon_x;
 extern i8 pause_screen_flag;
@@ -149,15 +151,17 @@ extern struct SamusPhysics samus_physics;
 extern u16 previous_x_position;
 extern u16 previous_y_position;
 extern u16 prevent_movement_timer;
-extern struct button_assignements button_assignements;
+extern struct ButtonAssignments button_assignements;
 extern u8 unk_03004fc9;
 extern u16 samus_palette[32];
+extern struct TilemapAndClipPointers tilemap_and_clip_pointers;
 extern struct HatchData hatch_data[16];
 extern struct RawCoordsX door_position_start;
 extern struct BG3Movement bg3_movement;
 extern struct BG0Movement bg0_movement;
 extern i16 samus_door_position_offset;
 extern u8* current_room_scroll_data_pointer;
+extern ClipFunc_T clipdata_code_pointer;
 
 extern void *sp_sys;
 extern void *sp_irq;

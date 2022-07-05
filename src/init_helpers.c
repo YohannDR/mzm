@@ -20,11 +20,9 @@ load_intr_code(void)
     intr_code_ptr = &intr_code;
 }
 
-void
-reset_free_oam(void)
-{
+void reset_free_oam(void) {
     i32 i;
-    u16 *oam = oam_data;
+    u16 *oam = (u16*)oam_data;
     oam += next_oam_slot * 4;
     for (i = next_oam_slot; i < 0x80; ++oam, ++i) {
         *oam++ = 0xff;

@@ -71,17 +71,27 @@ struct CurrentAffectingClip {
 
 struct CollisionData {
     u32 clipdata_type;
-    i32 x_position;
-    i32 y_position;
+    u32 sub_pixel_x;
+    u32 sub_pixel_y;
     i32 unk;
+    u16 tile_x;
+    u16 tile_y;
 };
+
+struct TilemapAndClipPointers {
+    u16* tilemap;
+    u8* clip_collisions;
+    u16* clip_behaviors;
+};
+
+typedef u32 (*ClipFunc_T)(struct CollisionData*);
 
 void clipdate_setup_code(void);
 u32 process_clipdata_for_samus(u16 y_position, u16 x_position);
 u32 clipdata_related(u16 y_position, u16 x_position);
 u32 unk_57f7c(struct CollisionData* pCollision);
-u16 clipdata_check_hazard_at_position(u16 y_position, u16 x_position);
-u16 clipdate_check_current_affecting_hazard_and_very_special_clidpata(u16 y_position, u16 tile_y, u16 tile_x, u8 unk);
+struct CurrentAffectingClip clipdata_check_current_affecting_at_position(u16 y_position, u16 x_position);
+struct CurrentAffectingClip clipdate_check_current_affecting_hazard_and_very_special_clidpata(u16 y_position, u16 tile_y, u16 tile_x, u8 unk);
 u8 clidpata_check_cant_use_elevator(void);
 u8 clipdata_check_ground_effect(u16 y_position, u16 x_position);
 

@@ -1715,7 +1715,14 @@
             "Offset": 3390676,
             "Type": "OAM",
             "IsArray": 0,
-            "Size": 12
+            "Size": 5
+        },
+        {
+            "Name": "sprite_debris_oam_unused",
+            "Offset": 3390716,
+            "Type": "OAM",
+            "IsArray": 0,
+            "Size": 7
         }
     ],
     "blob_0x833bd34_0x833cbdf.c": [{

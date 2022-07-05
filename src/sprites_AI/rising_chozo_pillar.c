@@ -184,7 +184,7 @@ void rising_chozo_pillar(void)
             {
                 current_sprite.pose = 0x9;
                 current_sprite.oam_scaling = 0x2C0;
-                sound_play1(0x125);
+                sound_play(0x125);
             }
             break;
         case 0x9:
@@ -266,7 +266,7 @@ void chozo_pillar_platform(void)
                     current_sprite.oam_pointer = chozo_pillar_platform_slot1_oam_spawning;
                 else
                     current_sprite.oam_pointer = chozo_pillar_platform_oam_spawning;
-                sound_play1(0x126);
+                sound_play(0x126);
             }
             break;
 

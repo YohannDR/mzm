@@ -662,7 +662,7 @@ void particle_bomb(struct ParticleEffect* pParticle)
         {
             pParticle->stage++;
             pParticle->status |= PARTICLE_STATUS_EXPLOSION;
-            sound_play1(0xFF);
+            sound_play(0xFF);
         }
     }
 }
@@ -1121,7 +1121,7 @@ void particle_hitting_something_with_base_beam(struct ParticleEffect* pParticle)
         if (pParticle->stage == 0x0)
         {
             pParticle->stage++;
-            sound_play1(0x102);
+            sound_play(0x102);
         }
     }
 }
@@ -1142,7 +1142,7 @@ void particle_hitting_something_with_long_beam(struct ParticleEffect* pParticle)
         if (pParticle->stage == 0x0)
         {
             pParticle->stage++;
-            sound_play1(0x103);
+            sound_play(0x103);
         }
     }
 }
@@ -1163,7 +1163,7 @@ void particle_hitting_something_with_ice_beam(struct ParticleEffect* pParticle)
         if (pParticle->stage == 0x0)
         {
             pParticle->stage++;
-            sound_play1(0x104);
+            sound_play(0x104);
         }
     }
 }
@@ -1184,7 +1184,7 @@ void particle_hitting_something_with_wave_beam(struct ParticleEffect* pParticle)
         if (pParticle->stage == 0x0)
         {
             pParticle->stage++;
-            sound_play1(0x105);
+            sound_play(0x105);
         }
     }
 }
@@ -1205,7 +1205,7 @@ void particle_hitting_something_with_full_beam_no_plasma(struct ParticleEffect* 
         if (pParticle->stage == 0x0)
         {
             pParticle->stage++;
-            sound_play1(0x104);
+            sound_play(0x104);
         }
     }
 }
@@ -1226,7 +1226,7 @@ void particle_hitting_something_with_plasma_beam(struct ParticleEffect* pParticl
         if (pParticle->stage == 0x0)
         {
             pParticle->stage++;
-            sound_play1(0x106);
+            sound_play(0x106);
         }
     }
 }
@@ -1247,7 +1247,7 @@ void particle_hitting_something_with_full_beam(struct ParticleEffect* pParticle)
         if (pParticle->stage == 0x0)
         {
             pParticle->stage++;
-            sound_play1(0x104);
+            sound_play(0x104);
         }
     }
 }
@@ -1268,7 +1268,7 @@ void particle_hitting_something_invincible(struct ParticleEffect* pParticle)
         if (pParticle->stage == 0x0)
         {
             pParticle->stage++;
-            sound_play1(0x107);
+            sound_play(0x107);
         }
     }
 }
@@ -1289,8 +1289,8 @@ void particle_hitting_something_with_missile(struct ParticleEffect* pParticle)
         if (pParticle->stage == 0x0)
         {
             pParticle->stage++;
-            sound_play1(0xF9);
-            sound_play1(0xFA);
+            sound_play(0xF9);
+            sound_play(0xFA);
         }
     }
 }
@@ -1311,8 +1311,8 @@ void particle_hitting_something_with_super_missile(struct ParticleEffect* pParti
         if (pParticle->stage == 0x0)
         {
             pParticle->stage++;
-            sound_play1(0xFC);
-            sound_play1(0xFD);
+            sound_play(0xFC);
+            sound_play(0xFD);
             screen_shake_start_horizontal(0xA, 0x81);
             screen_shake_start_vertical(0xA, 0x81);
         }
@@ -1446,34 +1446,34 @@ void particle_play_begin_to_charge_sound(void)
     if (equipment.beam_bombs_activation & BBF_ICE_BEAM)
     {
         if (equipment.beam_bombs_activation & BBF_LONG_BEAM)
-            sound_play1(0xE6);
+            sound_play(0xE6);
         else
-            sound_play1(0xE4);
+            sound_play(0xE4);
     }
     else
     {
         if (equipment.beam_bombs_activation & BBF_PLASMA_BEAM)
         {
             if (equipment.beam_bombs_activation & BBF_LONG_BEAM)
-                sound_play1(0xE2);
+                sound_play(0xE2);
             else
-                sound_play1(0xE0);
+                sound_play(0xE0);
         }
         else
         {
             if (equipment.beam_bombs_activation & BBF_WAVE_BEAM)
             {
                 if (equipment.beam_bombs_activation & BBF_LONG_BEAM)
-                    sound_play1(0xDE);
+                    sound_play(0xDE);
                 else
-                    sound_play1(0xDC);
+                    sound_play(0xDC);
             }
             else
             {
                 if (bbf & BBF_LONG_BEAM)
-                    sound_play1(0xDA);
+                    sound_play(0xDA);
                 else
-                    sound_play1(0xD8);
+                    sound_play(0xD8);
             }
         }
     }
@@ -1538,34 +1538,34 @@ void particle_play_beam_fully_charged_sound(void)
     if (equipment.beam_bombs_activation & BBF_ICE_BEAM)
     {
         if (equipment.beam_bombs_activation & BBF_LONG_BEAM)
-            sound_play1(0xE7);
+            sound_play(0xE7);
         else
-            sound_play1(0xE5);
+            sound_play(0xE5);
     }
     else
     {
         if (equipment.beam_bombs_activation & BBF_PLASMA_BEAM)
         {
             if (equipment.beam_bombs_activation & BBF_LONG_BEAM)
-                sound_play1(0xE3);
+                sound_play(0xE3);
             else
-                sound_play1(0xE1);
+                sound_play(0xE1);
         }
         else
         {
             if (equipment.beam_bombs_activation & BBF_WAVE_BEAM)
             {
                 if (equipment.beam_bombs_activation & BBF_LONG_BEAM)
-                    sound_play1(0xDF);
+                    sound_play(0xDF);
                 else
-                    sound_play1(0xDD);
+                    sound_play(0xDD);
             }
             else
             {
                 if (bbf & BBF_LONG_BEAM)
-                    sound_play1(0xDB);
+                    sound_play(0xDB);
                 else
-                    sound_play1(0xD9);
+                    sound_play(0xD9);
             }
         }
     }

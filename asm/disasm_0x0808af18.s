@@ -3387,8 +3387,8 @@ lbl_0808c6b2:
     pop {r4, pc}
     .align 2, 0
 
-    thumb_func_start copy_bytes
-copy_bytes: @ 0x0808c6bc
+    thumb_func_start memcpy
+memcpy: @ 0x0808c6bc
     push {r4, r5, lr}
     adds r5, r0, #0
     adds r4, r5, #0
@@ -3443,3 +3443,4 @@ lbl_0808c716:
     adds r0, r5, #0
     pop {r4, r5, pc}
     .align 2, 0
+    

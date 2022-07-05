@@ -203,7 +203,7 @@ void dragon_fireball_init(void)
     current_sprite.status |= SPRITE_STATUS_YFLIP;
     current_sprite.oam_scaling = 0x100;
     current_sprite.array_offset = 0x0;
-    sound_play1(0x14C);
+    sound_play(0x14C);
 }
 
 void dragon_fireball_move(void)

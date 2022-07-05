@@ -95,7 +95,7 @@ void glass_tube_init(void)
     }
 
     if (!event_function(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
-        sound_play1(0x122);
+        sound_play(0x122);
 }
 
 /**
@@ -154,7 +154,7 @@ void glass_tube_delay_before_breaking(void)
         current_sprite.oam_pointer = glass_tube_oam_cracking;
         current_sprite.anim_duration_counter = 0x0;
         current_sprite.curr_anim_frame = 0x0;
-        sound_play1(0x27A);
+        sound_play(0x27A);
     }
 }
 

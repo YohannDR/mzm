@@ -145,7 +145,7 @@ void deorem_spawn_going_up(void)
         sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0x7, gfx_slot, ram_slot, y_position, x_position, 0x0);
         sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0x6, gfx_slot, ram_slot, y_position, x_position, 0x0);
         screen_shake_start_vertical(0x28, 0x81);
-        sound_play1(0x193);
+        sound_play(0x193);
     }
 }
 
@@ -502,7 +502,7 @@ void deorem_eye(void)
                 if (current_sprite.health < 0x15)
                     sprite_data[ram_slot].absolute_palette_row = 0x2;
                 current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
-                sound_play1(0x19A);
+                sound_play(0x19A);
             }
         }
     }

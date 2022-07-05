@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-struct button_assignements {
+struct ButtonAssignments {
     u16 arm_missiles;
     u16 diagonal_aim;
     u16 swap_missiles;

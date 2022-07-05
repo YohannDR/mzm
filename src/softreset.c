@@ -5,6 +5,7 @@
 #include "game_modes.h"
 #include "gba.h"
 #include "globals.h"
+#include "init_helpers.h"
 
 #define SOFTRESET_KEYS (KEY_A | KEY_B | KEY_START | KEY_SELECT)
 
@@ -12,7 +13,7 @@ void
 softreset_vblank_callback(void)
 {
     /* probably left over from some debugging code */
-    volatile char c = 0;
+    volatile u8 c = 0;
 }
 
 void

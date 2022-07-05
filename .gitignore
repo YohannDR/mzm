@@ -1,5 +1,6 @@
-/src/*.s
-/.vscode
+/src/**/*.s
+/data/*
+!/data/data.txt
 
 *.gba
 *.elf
@@ -7,4 +8,11 @@
 *.o
 *.map
 *.bin
+
+*.exe
+*.dll
+*.deps.json
+*.runtimeconfig.json
+
 data/*.c
+.vscode
