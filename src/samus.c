@@ -119,7 +119,7 @@ void samus_check_collisions(struct SamusData* pData, struct SamusPhysics* pPhysi
                 case SPOSE_SCREW_ATTACKING:
                     clip = clipdata_check_current_affecting_at_position(pData->y_position - 0x60, pData->x_position + offset);
                     // Checks if can grab block
-                    if (!(block_prevent & 0x1000000) && block_grabbing & 0x1000000 && clip.movement != MOVEMENT_CLIPDATA_NON_POWER_GRIP && !(block_unk & 0x1000000))
+                    if (!(block_prevent & 0x1000000) && block_grabbing & 0x1000000 && clip.movement != CLIPDATA_MOVEMENT_NON_POWER_GRIP && !(block_unk & 0x1000000))
                     {
                         if (equipment.suit_type == SUIT_SUITLESS)
                         {

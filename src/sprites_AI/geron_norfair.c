@@ -37,7 +37,7 @@ void geron_norfair(void)
             current_sprite.oam_pointer = geron_norfair_oam;
             y_position = current_sprite.y_position - 0x20;
             x_position = current_sprite.x_position;
-            caa = CCAA_MAKE_SOLID;
+            caa = CCAA_MAKE_SOLID3
             current_clipdata_affecting_action = caa;
             clipdata_process(y_position, x_position);
             current_clipdata_affecting_action = caa;

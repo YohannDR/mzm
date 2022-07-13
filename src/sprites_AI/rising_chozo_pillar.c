@@ -148,7 +148,7 @@ void rising_chozo_pillar(void)
     u16 x_position;
     u16 x_pos;
 
-    caa = CCAA_MAYBE_MAKE_SOLID;
+    caa = CCAA_MAKE_SOLID1;
     y_position = current_sprite.y_position - 0x20;
     x_position = current_sprite.x_position;
 
