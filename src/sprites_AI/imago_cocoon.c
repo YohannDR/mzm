@@ -26,7 +26,7 @@ void imago_cocoon_change_one_ccaa(u8 caa)
     x_position = sub_sprite_data1.x_position;
     current_clipdata_affecting_action = caa;
     y_position -= 0x20;
-    clipdata_related(y_position, x_position);
+    clipdata_process(y_position, x_position);
     particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
 }
 
@@ -45,9 +45,9 @@ void imago_cocoon_change_two_middle_ccaa(u8 caa)
     x_position = sub_sprite_data1.x_position;
     current_clipdata_affecting_action = caa;
     y_position_ = y_position - 0x20,
-    clipdata_related(y_position_, x_position + 0x40);
+    clipdata_process(y_position_, x_position + 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position_, x_position - 0x40);
+    clipdata_process(y_position_, x_position - 0x40);
 
     particle_set(y_position, x_position + 0x48, PE_SPRITE_EXPLOSION_HUGE);
     particle_set(y_position, x_position - 0x48, PE_SPRITE_EXPLOSION_HUGE);
@@ -74,10 +74,10 @@ void imago_cocoon_change_two_blocking_ccaa(u8 caa)
     current_clipdata_affecting_action = caa;
     y_position_ = y_position + 0x20;
     x_position += 0x240;
-    clipdata_related(y_position_, x_position);
+    clipdata_process(y_position_, x_position);
     current_clipdata_affecting_action = caa;
     y_position += 0x60;
-    clipdata_related(y_position, x_position);
+    clipdata_process(y_position, x_position);
 }
 
 /**

@@ -600,7 +600,7 @@ void sprite_util_check_collision_at_position(u16 y_position, u16 x_position)
 {
     u32 collision;
 
-    collision = clipdata_related(y_position, x_position);
+    collision = clipdata_process(y_position, x_position);
     if (collision & 0x1000000)
         previous_collision_check = COLLISION_SOLID;
     else

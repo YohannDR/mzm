@@ -39,11 +39,11 @@ void geron_norfair(void)
             x_position = current_sprite.x_position;
             caa = CCAA_MAKE_SOLID;
             current_clipdata_affecting_action = caa;
-            clipdata_related(y_position, x_position);
+            clipdata_process(y_position, x_position);
             current_clipdata_affecting_action = caa;
-            clipdata_related(y_position - 0x40, x_position);
+            clipdata_process(y_position - 0x40, x_position);
             current_clipdata_affecting_action = caa;
-            clipdata_related(y_position - 0x80, x_position);
+            clipdata_process(y_position - 0x80, x_position);
         }
     }
 }

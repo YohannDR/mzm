@@ -99,15 +99,15 @@ void samus_check_collisions(struct SamusData* pData, struct SamusPhysics* pPhysi
             offset = -0x1F;
 
         // Block right above
-        block_prevent = process_clipdata_for_samus(pData->y_position + 0x20, pData->x_position);
+        block_prevent = clipdata_process_for_samus(pData->y_position + 0x20, pData->x_position);
         if (block_prevent == 0x0)
         {
             // Block below samus
-            block_prevent = process_clipdata_for_samus(pData->y_position - 0xA0, pData->x_position);
+            block_prevent = clipdata_process_for_samus(pData->y_position - 0xA0, pData->x_position);
             // Block that samus will try to grab
-            block_grabbing = process_clipdata_for_samus(pData->y_position - 0x68, pData->x_position + offset);
+            block_grabbing = clipdata_process_for_samus(pData->y_position - 0x68, pData->x_position + offset);
             // Not sure what this block is
-            block_unk = process_clipdata_for_samus(pData->y_position - 0x80, pData->x_position + offset);
+            block_unk = clipdata_process_for_samus(pData->y_position - 0x80, pData->x_position + offset);
 
             switch (pData->pose)
             {
@@ -2095,7 +2095,7 @@ u8 samus_spinning(struct SamusData* pData)
                             else
                                 acceleration = 0x28;
                             
-                            if ((process_clipdata_for_samus(pData->y_position, (u16)(pData->x_position + acceleration)) & 0x1000000) != 0x0)
+                            if ((clipdata_process_for_samus(pData->y_position, (u16)(pData->x_position + acceleration)) & 0x1000000) != 0x0)
                             {
                                 pData->direction = pData->last_wall_touched_midair;
                                 return SPOSE_STARTING_WALL_JUMP;
@@ -2463,8 +2463,8 @@ u8 samus_hanging_on_ledge(struct SamusData* pData)
         x_position = pData->x_position - 0x20;
 
     // Check blocks above samus, and with solid flag
-    block_above_offset = process_clipdata_for_samus(pData->y_position - 0xD0, x_position) & 0x1000000;
-    block_above = process_clipdata_for_samus(pData->y_position - 0xD0, pData->x_position) & 0x1000000;
+    block_above_offset = clipdata_process_for_samus(pData->y_position - 0xD0, x_position) & 0x1000000;
+    block_above = clipdata_process_for_samus(pData->y_position - 0xD0, pData->x_position) & 0x1000000;
 
     if (buttons_changed & KEY_A)
     {

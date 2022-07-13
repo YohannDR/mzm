@@ -569,7 +569,7 @@ u8 projectile_check_hitting_solid_block(u16 y_position, u16 x_position)
 {
     u32 collision;
     
-    collision = clipdata_related(y_position, x_position);
+    collision = clipdata_process(y_position, x_position);
 
     if (collision & 0x1000000)
         return TRUE;
@@ -2276,49 +2276,49 @@ void projectile_process_bomb(struct ProjectileData* pProj)
                 if (timer == 0xF)
                 {
                     current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_related(pProj->y_position - 0x8, pProj->x_position); // Block center
+                    clipdata_process(pProj->y_position - 0x8, pProj->x_position); // Block center
                     projectile_check_samus_bomb_bounce(pProj); // Checks if samus can bounce
                     pProj->status &= ~PROJ_STATUS_CAN_AFFECT_ENVIRONMENT; // Clear Can Affect Environement status
                 }
                 else if (timer == 0xE)
                 {
                     current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_related(pProj->y_position + 0x38, pProj->x_position); // Block bottom middle
+                    clipdata_process(pProj->y_position + 0x38, pProj->x_position); // Block bottom middle
                 }
                 else if (timer == 0xD)
                 {
                     current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_related(pProj->y_position - 0x8, pProj->x_position + 0x30); // Block right middle
+                    clipdata_process(pProj->y_position - 0x8, pProj->x_position + 0x30); // Block right middle
                 }
                 else if (timer == 0xC)
                 {
                     current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_related(pProj->y_position - 0x8, pProj->x_position - 0x30); // Block left middle
+                    clipdata_process(pProj->y_position - 0x8, pProj->x_position - 0x30); // Block left middle
                 }
                 else if (timer == 0xB)
                 {
                     current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_related(pProj->y_position + 0x38, pProj->x_position + 0x24); // Block right bottom
+                    clipdata_process(pProj->y_position + 0x38, pProj->x_position + 0x24); // Block right bottom
                 }
                 else if (timer == 0xA)
                 {
                     current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_related(pProj->y_position + 0x38, pProj->x_position - 0x24); // Block left bottom
+                    clipdata_process(pProj->y_position + 0x38, pProj->x_position - 0x24); // Block left bottom
                 }
                 else if (timer == 0x9)
                 {
                     current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_related(pProj->y_position - 0x48, pProj->x_position); // Block top middle
+                    clipdata_process(pProj->y_position - 0x48, pProj->x_position); // Block top middle
                 }
                 else if (timer == 0x8)
                 {
                     current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_related(pProj->y_position - 0x48, pProj->x_position + 0x24); // Block right top
+                    clipdata_process(pProj->y_position - 0x48, pProj->x_position + 0x24); // Block right top
                 }
                 else if (timer == 0x7)
                 {
                     current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_related(pProj->y_position - 0x48, pProj->x_position - 0x24); // Block left top
+                    clipdata_process(pProj->y_position - 0x48, pProj->x_position - 0x24); // Block left top
                 }
             }
             else

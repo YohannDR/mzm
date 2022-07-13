@@ -11,15 +11,15 @@ void morph_ball_launcher_change_ccaa(u8 caa)
     sprite_y = current_sprite.y_position;
     sprite_x = current_sprite.x_position;
     current_clipdata_affecting_action = caa;
-    clipdata_related(sprite_y, sprite_x + 0x40);
+    clipdata_process(sprite_y, sprite_x + 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(sprite_y + 0x40, sprite_x + 0x40);
+    clipdata_process(sprite_y + 0x40, sprite_x + 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(sprite_y, sprite_x - 0x40);
+    clipdata_process(sprite_y, sprite_x - 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(sprite_y + 0x40, sprite_x - 0x40);
+    clipdata_process(sprite_y + 0x40, sprite_x - 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(sprite_y + 0x40, sprite_x);
+    clipdata_process(sprite_y + 0x40, sprite_x);
 }
 
 void morph_ball_launcher_init(void)

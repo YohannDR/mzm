@@ -50,16 +50,35 @@
 #define GROUND_EFFECT_UNKNOWN 0x4
 #define GROUND_EFFECT_BUBBLY_GROUND 0x5
 
+#define CLIPDATA_ACTOR_SAMUS 0x0
+#define CLIPDATA_ACTOR_NON_SPRITE 0x1
+#define CLIPDATA_ACTOR_SPRITE 0x2
+
+#define CLIPDATA_TYPE_AIR 0x0
+#define CLIPDATA_TYPE_SOLID 0x1
+#define CLIPDATA_TYPE_LEFT_STEEP_FLOOR_SLOPE 0x2
+#define CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE 0x3
+#define CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE 0x4
+#define CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE 0x5
+#define CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE 0x6
+#define CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE 0x7
+#define CLIPDATA_TYPE_ENEMY_ONLY 0x8
+#define CLIPDATA_TYPE_STOP_ENEMY 0x9
+#define CLIPDATA_TYPE_TANK 0xA
+#define CLIPDATA_TYPE_DOOR 0xB
+#define CLIPDATA_TYPE_PASS_THROUGH_BOTTOM 0xC
+#define CLIPDATA_TYPE_SOLID_FLAG 0x1000000
+
 struct CurrentAffectingClip {
     u16 movement;
     u16 hazard;
 };
 
 struct CollisionData {
-    u32 clipdata_type;
-    u32 sub_pixel_x;
-    u32 sub_pixel_y;
-    i32 unk;
+    i32 clipdata_type;
+    i32 sub_pixel_x;
+    i32 sub_pixel_y;
+    i32 actor_type;
     u16 tile_x;
     u16 tile_y;
 };
@@ -73,12 +92,12 @@ struct TilemapAndClipPointers {
 typedef u32 (*ClipFunc_T)(struct CollisionData*);
 
 void clipdate_setup_code(void);
-u32 process_clipdata_for_samus(u16 y_position, u16 x_position);
-u32 clipdata_related(u16 y_position, u16 x_position);
-u32 unk_57f7c(struct CollisionData* pCollision);
+u32 clipdata_process_for_samus(u16 y_position, u16 x_position);
+u32 clipdata_process(u16 y_position, u16 x_position);
+u32 clipdata_convert_to_collision(struct CollisionData* pCollision);
 struct CurrentAffectingClip clipdata_check_current_affecting_at_position(u16 y_position, u16 x_position);
-struct CurrentAffectingClip clipdate_check_current_affecting_hazard_and_very_special_clidpata(u16 y_position, u16 tile_y, u16 tile_x, u8 unk);
+struct CurrentAffectingClip clipdata_check_current_affecting_hazard_and_very_special_clidpata(u16 y_position, u16 tile_y, u16 tile_x, u8 unk);
 u8 clidpata_check_cant_use_elevator(void);
-u8 clipdata_check_ground_effect(u16 y_position, u16 x_position);
+u32 clipdata_check_ground_effect(u16 y_position, u16 x_position);
 
 #endif /* CLIPDATA_H */
