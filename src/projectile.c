@@ -1299,12 +1299,12 @@ void projectile_start_tumbling_missile(struct SpriteData* pSprite, struct Projec
     if (type == PROJ_TYPE_SUPER_MISSILE)
     {
         pProj->oam_pointer = super_missile_tumbling_oam; // Spinning/tumbling
-        sound_play2(0xFC);
+        sound_stop(0xFC);
     }
     else
     {
         pProj->oam_pointer = missile_tumbling_oam; // Spinning/tumbling
-        sound_play2(0xF9);
+        sound_stop(0xF9);
     }
 }
 
@@ -1331,12 +1331,12 @@ void projectile_start_tumbling_missile_current_sprite(struct ProjectileData* pPr
     if (type == PROJ_TYPE_SUPER_MISSILE)
     {
         pProj->oam_pointer = super_missile_tumbling_oam; // Spinning/tumbling
-        sound_play2(0xFC);
+        sound_stop(0xFC);
     }
     else
     {
         pProj->oam_pointer = missile_tumbling_oam; // Spinning/tumbling
-        sound_play2(0xF9);
+        sound_stop(0xF9);
     }
 }
 

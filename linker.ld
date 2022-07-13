@@ -26,6 +26,7 @@ SECTIONS {
         . = 0x00000042; skip_door_transition = .;
         . = 0x00000043; softreset_disabled = .;
         . = 0x00000049; disable_pause = .;
+        . = 0x00000049; hide_hud = .;
         . = 0x00000054; current_area = .;
         . = 0x00000055; current_room = .;
         . = 0x00000056; last_door_used = .;

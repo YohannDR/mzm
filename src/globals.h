@@ -62,6 +62,7 @@ extern u8 disable_scrolling;
 extern u8 skip_door_transition;
 extern u8 softreset_disabled;
 extern u8 disable_pause;
+extern u8 hide_hud;
 extern u8 current_area;
 extern u8 current_room;
 extern u8 last_door_used;

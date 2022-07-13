@@ -396,7 +396,7 @@ void sprite_util_samus_and_sprite_collision(void)
                                             break;
 
                                         case SPOSE_BALLSPARKING:
-                                            sound_play2(0x8F);
+                                            sound_stop(0x8F);
                                         case SPOSE_MORPH_BALL_MIDAIR:
                                             pData->y_position = pSprite->y_position + 0x3C;
                                             pData->x_position = pSprite->x_position;
@@ -1904,7 +1904,12 @@ void sprite_util_update_sub_sprite1_anim(void)
  */
 void sprite_util_sync_current_sprite_position_with_sub_sprite1_position(void)
 {
+    u16* pOam;
 
+    pOam = sub_sprite_data1.oam_pointer[sub_sprite_data1.curr_anim_frame].oam_frame_ptr;
+
+    current_sprite.y_position = sub_sprite_data1.y_position + pOam[current_sprite.room_slot * 0x3 + 0x1];
+    current_sprite.x_position = sub_sprite_data1.x_position + pOam[current_sprite.room_slot * 0x3 + 0x2];
 }
 
 void sprite_util_sync_current_sprite_position_with_sub_sprite_data1_position_and_oam(void)
@@ -1947,9 +1952,19 @@ void sprite_util_update_sub_sprite_anim(struct SubSpriteData* pSub)
     }
 }
 
+/**
+ * @brief 114e4 | 3c | Updates the current sprite position with the sub sprite data in parameter position and the X/Y position of its OAM data
+ * 
+ * @param pSub Sub Sprite Data Pointer
+ */
 void sprite_util_sync_current_sprite_position_with_sub_sprite_position(struct SubSpriteData* pSub)
 {
+    u16* pOam;
 
+    pOam = pSub->oam_pointer[pSub->curr_anim_frame].oam_frame_ptr;
+
+    current_sprite.y_position = pSub->y_position + pOam[current_sprite.room_slot * 0x3 + 0x1];
+    current_sprite.x_position = pSub->x_position + pOam[current_sprite.room_slot * 0x3 + 0x2];
 }
 
 void sprite_util_sync_current_sprite_position_with_sub_sprite_data_position_and_oam(struct SubSpriteData* pSub)

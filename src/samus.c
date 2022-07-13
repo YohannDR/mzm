@@ -132,7 +132,7 @@ void samus_check_collisions(struct SamusData* pData, struct SamusPhysics* pPhysi
                             if (pPhysics->slowed_by_liquid)
                                 sound_play(0x95); // Underwater grip
                             else
-                                sound_play2(0x7A); // Normal grip
+                                sound_stop(0x7A); // Normal grip
                         }
                     }
             }
@@ -186,35 +186,32 @@ void samus_check_collisions(struct SamusData* pData, struct SamusPhysics* pPhysi
  */
 void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_offset, u32 request)
 {
-    /*struct SamusPhysics* pPhysics;
-    struct EnvironmentalEffect* pEnv;
-    u8 offset;
-    u8 effect;
     u8 found;
     u8 can_spawn;
-    u8 ground_clip;
+    u8 offset;
     u16 x_position;
     u16 y_position;
+    u32 ground_clip;
+    u8 effect;
+    u32 current_liquid;
+    u32 previous_liquid;
+    u16 previous_pos;
+    u16 liquid_check_pos;
+    struct SamusPhysics* pPhysics;
 
     pPhysics = &samus_physics;
+
     found = FALSE;
     can_spawn = TRUE;
 
     if (default_offset == 0x0)
     {
-        offset = 0x0;
-        pEnv = samus_environmental_effects + offset;
-        while (pEnv->type != ENV_EFFECT_NONE)
+        for (offset = 0; offset < 0x3; offset++)
         {
-            offset++;
-            if (offset > 0x2)
-            {
-                can_spawn--;
+            if (samus_environmental_effects[offset].type == ENV_EFFECT_NONE)
                 break;
-            }
-            pEnv = samus_environmental_effects + offset;
         }
-        if (offset < 0x2)
+        if (offset > 0x2)
             can_spawn--;
     }
     else
@@ -228,7 +225,9 @@ void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_o
                 x_position = pData->x_position + 0x4;
             else
                 x_position = pData->x_position - 0x4;
+
             ground_clip = clipdata_check_ground_effect(pData->y_position + 0x1, x_position);
+
             if (ground_clip == GROUND_EFFECT_WET_GROUND)
             {
                 effect = ENV_EFFECT_RUNNING_ON_WET_GROUND;
@@ -236,35 +235,36 @@ void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_o
                 if (request == WANTING_RUNNING_EFFECT)
                 {
                     if (equipment.suit_type == SUIT_SUITLESS)
-                        sound_play(0xA1);
+                        sound_play(0xA1); // Suitless wet ground
                     else
-                        sound_play(0x68);
+                        sound_play(0x68); // Wet footsteps
                 }
                 else
-                {                    
+                {
                     if (equipment.suit_type == SUIT_SUITLESS)
-                        sound_play(0xA2);
+                        sound_play(0xA2); // Suitless wet ground 2
                     else
-                        sound_play(0x69);
+                        sound_play(0x69); // Wet footsteps 2
                 }
             }
-            else if (ground_clip == GROUND_EFFECT_VERY_DUSTY_GROUND)
+            else if (ground_clip == GROUND_EFFECT_DUSTY_GROUND)
             {
                 effect = ENV_EFFECT_RUNNING_ON_DUSTY_GROUND;
                 found++;
-                if (request != WANTING_RUNNING_EFFECT)
-                    sound_play(0x67);
+
+                if (request == WANTING_RUNNING_EFFECT)
+                    sound_play(0x66); // Dusty footstep
                 else
-                    sound_play(0x66);
+                    sound_play(0x67); // Dusty footstep 2
             }
             else if (ground_clip == GROUND_EFFECT_VERY_DUSTY_GROUND)
             {
                 effect = ENV_EFFECT_RUNNING_ON_VERY_DUSTY_GROUND;
                 found++;
-                if (request != WANTING_RUNNING_EFFECT)
-                    sound_play(0x67);
+                if (request == WANTING_RUNNING_EFFECT)
+                    sound_play(0x66); // Dusty footstep
                 else
-                    sound_play(0x66);
+                    sound_play(0x67); // Dusty footstep 2
             }
             y_position = pData->y_position;
             break;
@@ -276,9 +276,9 @@ void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_o
                 effect = ENV_EFFECT_LANDING_ON_WET_GROUND;
                 found++;
                 if (equipment.suit_type == SUIT_SUITLESS)
-                    sound_play(0xA3);
+                    sound_play(0xA3); // Suitless landing on wet ground
                 else
-                    sound_play(0x74);
+                    sound_play(0x74); // Landing on wet ground
             }
             else if (ground_clip == GROUND_EFFECT_BUBBLY_GROUND)
             {
@@ -289,31 +289,103 @@ void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_o
             {
                 effect = ENV_EFFECT_LANDING_ON_DUSTY_GROUND;
                 found++;
-                sound_play(0x73);
+                sound_play(0x73); // Landing on dusty ground
             }
             else if (ground_clip == GROUND_EFFECT_VERY_DUSTY_GROUND)
             {
                 effect = ENV_EFFECT_LANDING_ON_VERY_DUSTY_GROUND;
                 found++;
-                sound_play(0x73);
+                sound_play(0x73); // Landing on dusty ground
             }
             else
             {
                 if (pPhysics->slowed_by_liquid)
-                    sound_play(0x95);
-                else if (samus_data_copy.last_wall_touched_midair != 0x0)
-                    sound_play(0x72);
+                    sound_play(0x95); // Suitless landing/ledge grip underwater
+                else if (samus_data_copy.last_wall_touched_midair != KEY_NONE)
+                    sound_play(0x72); // Morphball drop bounce 2?
                 else if (equipment.suit_type != SUIT_SUITLESS)
-                    sound_play(0x71);
+                    sound_play(0x71); // Landing
                 else
-                    sound_play(0x99);
+                    sound_play(0x99); // Suitless landing
             }
+
             x_position = pData->x_position;
             y_position = pData->y_position;
             break;
 
         case WANTING_GOING_OUT_OF_LIQUID_EFFECT:
         case WANTING_RUNNING_OUT_OF_LIQUID_EFFECT:
+            liquid_check_pos = pData->y_position;
+            previous_pos = previous_y_position;
+            if (effect == WANTING_GOING_OUT_OF_LIQUID_EFFECT)
+            {
+                liquid_check_pos -= 0x10;
+                previous_pos -= 0x10;
+            }
+
+            current_liquid = clipdata_check_current_affecting_at_position(liquid_check_pos, pData->x_position) & 0xFF;
+            previous_liquid = clipdata_check_current_affecting_at_position(previous_pos, pData->x_position) & 0xFF;
+
+            if (liquid_check_pos < previous_pos)
+            {
+                if (current_liquid != HAZARD_TYPE_WATER && previous_liquid == HAZARD_TYPE_WATER)
+                {
+                    effect = ENV_EFFECT_GOING_OUT_OF_WATER;
+                    found++;
+                }
+                else if (current_liquid != HAZARD_TYPE_STRONG_LAVA && previous_liquid == HAZARD_TYPE_STRONG_LAVA)
+                {
+                    effect = ENV_EFFECT_GOING_OUT_OF_LAVA;
+                    found++;
+                }
+                else if (current_liquid != HAZARD_TYPE_WEAK_LAVA && previous_liquid == HAZARD_TYPE_WEAK_LAVA)
+                {
+                    effect = ENV_EFFECT_GOING_OUT_OF_LAVA;
+                    found++;
+                }
+                else if (current_liquid != HAZARD_TYPE_ACID && previous_liquid == HAZARD_TYPE_ACID)
+                {
+                    effect = ENV_EFFECT_GOING_OUT_OF_LAVA;
+                    found++;
+                }
+            }
+            else
+            {
+                if (current_liquid == HAZARD_TYPE_WATER && previous_liquid != HAZARD_TYPE_WATER)
+                {
+                    effect = ENV_EFFECT_GOING_OUT_OF_WATER;
+                    found++;
+                }
+                else if (current_liquid == HAZARD_TYPE_STRONG_LAVA && previous_liquid != HAZARD_TYPE_STRONG_LAVA)
+                {
+                    effect = ENV_EFFECT_GOING_OUT_OF_LAVA;
+                    found++;
+                }
+                else if (current_liquid == HAZARD_TYPE_WEAK_LAVA && previous_liquid != HAZARD_TYPE_WEAK_LAVA)
+                {
+                    effect = ENV_EFFECT_GOING_OUT_OF_LAVA;
+                    found++;
+                }
+                else if (current_liquid == HAZARD_TYPE_ACID && previous_liquid != HAZARD_TYPE_ACID)
+                {
+                    effect = ENV_EFFECT_GOING_OUT_OF_LAVA;
+                    found++;
+                }
+            }
+
+            if (request == WANTING_RUNNING_OUT_OF_LIQUID_EFFECT)
+                effect++;
+
+            x_position = pData->x_position;
+            if (effect_y_position != 0x0)
+                y_position = effect_y_position;
+            else
+            {
+                if (previous_pos <= liquid_check_pos)
+                    y_position = pData->y_position & 0xFFC0;
+                else
+                    y_position = previous_y_position & 0xFFC0;
+            }
             break;
 
         case WANTING_BREATHING_BUBBLES:
@@ -325,9 +397,10 @@ void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_o
                     x_position = pData->x_position + 0xC;
                 else
                     x_position = pData->x_position - 0xC;
-                y_position = pPhysics->draw_distance_top_offset + pData->y_position + 0x10;
+
+                y_position = samus_physics.draw_distance_top_offset + pData->y_position + 0x10;
+                sound_play(0x91); // Breathing bubbles
             }
-            sound_play(0x91);
             break;
 
         case WANTING_SKIDDING_EFFECT:
@@ -337,7 +410,7 @@ void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_o
                 effect = ENV_EFFECT_SKIDDING_ON_WET_GROUND;
                 found++;
             }
-            else if ((ground_clip - 0x2) < 0x2)
+            else if (ground_clip - 0x2 < 0x2) // Both dusty and very dusty
             {
                 effect = ENV_EFFECT_SKIDDING_ON_DUSTY_GROUND;
                 found++;
@@ -365,7 +438,7 @@ void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_o
         samus_environmental_effects[offset].anim_duration_counter = 0x0;
         samus_environmental_effects[offset].x_position = x_position;
         samus_environmental_effects[offset].y_position = y_position;
-    }*/
+    }
 }
 
 void samus_update_environmental_effect(struct SamusData* pData)
@@ -383,7 +456,9 @@ void samus_update_environmental_effect(struct SamusData* pData)
  */
 void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
-    struct Equipment* pEquipment;
+    // https://decomp.me/scratch/QoKBU
+
+    /*struct Equipment* pEquipment;
 
     pEquipment = &equipment;
     pData->x_velocity = pCopy->x_velocity;
@@ -555,7 +630,7 @@ void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy
             else
                 sound_play(0x70);
         }
-    }
+    }*/
 }
 
 void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
@@ -837,11 +912,11 @@ void samus_set_pose(u8 pose)
             break;
         case SPOSE_DELAY_BEFORE_BALLSPARKING:
             if (pose != SPOSE_BALLSPARKING)
-                sound_play2(0x8F);
+                sound_stop(0x8F);
             break;
         case SPOSE_BALLSPARKING:
             if (pose != SPOSE_BALLSPARK_COLLISION)
-                sound_play2(0x8F);
+                sound_stop(0x8F);
     }
 
     switch (pose)
@@ -1602,7 +1677,7 @@ void samus_check_shinesparking(struct SamusData* pData)
             else
             {
                 if (pData->speedboosting_shinesparking == FALSE)
-                    sound_play2(0x8B);
+                    sound_stop(0x8B);
                 return;
             }
 
@@ -1611,7 +1686,7 @@ void samus_check_shinesparking(struct SamusData* pData)
     }
 
     if (pData->speedboosting_shinesparking == FALSE)
-        sound_play2(0x8B);*/
+        sound_stop(0x8B);*/
 }
 
 u8 samus_inactivity(struct SamusData* pData)
