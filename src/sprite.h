@@ -4,6 +4,25 @@
 #include "types.h"
 #include "oam.h"
 
+// Globals
+
+extern u16 gAlarmTimer;
+extern struct SpriteData gSpriteData[24];
+extern u8 gSpritesetSpritesID[15];
+extern u8 gSpritesetGFXSlots[15];
+extern struct SubSpriteData gSubSpriteData1;
+extern struct SubSpriteData gSubSpriteData2;
+extern u8 gParasiteRelated;
+extern struct SpriteData gCurrentSprite;
+extern struct SpriteDebris gSpriteDebris[8];
+extern u8 gPreviousVerticalCollisionCheck;
+extern u8 gPreviousCollisionCheck;
+extern u8 gCollisionRelated;
+extern u8 gSpriteDrawOrder[24];
+extern u8 gSpriteRNG;
+
+// Defines
+
 #define SPRITE_STATUS_NONE 0x0
 #define SPRITE_STATUS_EXISTS 0x1
 #define SPRITE_STATUS_ONSCREEN 0x2
@@ -358,6 +377,8 @@
 #define WEAKNESS_CAN_BE_FROZEN 0x40
 #define WEAKNESS_LIMIT 0xFFFF
 
+// Structs
+
 struct __attribute__((packed)) EnemyRoomData {
     u8 y_position;
     u8 x_position;
@@ -420,6 +441,8 @@ struct SpriteData {
     u8 frozen_palette_row_offset;
     u8 absolute_palette_row;
 };
+
+// Functions
 
 void sprite_update(void);
 void sprite_update_animation(struct SpriteData* pSprite);

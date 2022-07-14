@@ -1,7 +1,7 @@
 #ifndef GAME_MODE_H
 #define GAME_MODE_H
 
-enum game_mode {
+enum gMainGameMode{
     GM_SOFTRESET,
     GM_INTRO,
     GM_TITLE,
@@ -21,8 +21,9 @@ enum game_mode {
     GM_DEBUG_MENU,
 };
 
-extern i16 game_mode;
-extern i16 game_submode1;
-extern i8 next_game_mode;
+extern i16 gMainGameMode;
+extern i16 gGameModeSub1;
+extern i8 gGameModeSub2;
+extern i8 gGameModeSub3;
 
 #endif /* GAME_MODE_H */

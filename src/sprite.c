@@ -20,10 +20,10 @@ void sprite_update(void)
     struct SpriteData* pCurrent;
 
     pCurrent = &current_sprite;
-    fc8 = frame_counter_8bit;
-    rng = (frame_counter_16bit >> 0x4); // Incorrect stack
+    fc8 = gFrameCounter8Bit;
+    rng = (gFrameCounter16Bit >> 0x4); // Incorrect stack
 
-    if (game_mode_sub1 == 0x2)
+    if (gGameModeSub1 == 0x2)
     {
         sprite_debris_process_all();
         if (!sprite_util_check_stop_sprites_pose())
@@ -32,10 +32,10 @@ void sprite_update(void)
             count = 0x0;
             do
             {
-                if (sprite_data[count].status & SPRITE_STATUS_EXISTS)
+                if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
                 {
-                    dma_set(3, &sprite_data[count], &current_sprite, 0x8000001c); // Transfer sprite to current
-                    sprite_rng = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
+                    dma_set(3, &gSpriteData[count], &current_sprite, 0x8000001c); // Transfer sprite to current
+                    gSpriteRNG = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
                     sprite_util_update_stun_timer(pCurrent);
                     if (pCurrent->properties & SP_SECONDARY_SPRITE) // Call AI
                         secondary_sprite_ai_pointers[pCurrent->sprite_id]();
@@ -47,7 +47,7 @@ void sprite_update(void)
                         sprite_update_animation(pCurrent);
                         sprite_check_on_screen(pCurrent);
                     }
-                    dma_set(3, &current_sprite, &sprite_data[count], 0x8000001c); // Transfer current back to array
+                    dma_set(3, &current_sprite, &gSpriteData[count], 0x8000001c); // Transfer current back to array
                 }
                 count++;
             } while (count < 0x18);
@@ -58,12 +58,12 @@ void sprite_update(void)
             count = 0x0;
             do 
             {
-                if (sprite_data[count].status & SPRITE_STATUS_EXISTS)
+                if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
                 {
-                    if (sprite_data[count].pose == 0x0 || sprite_data[count].properties & SP_ALWAYS_ACTIVE)
+                    if (gSpriteData[count].pose == 0x0 || gSpriteData[count].properties & SP_ALWAYS_ACTIVE)
                     {
-                        dma_set(3, &sprite_data[count], &current_sprite, 0x8000001c); // Incorrect ldr
-                        sprite_rng = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
+                        dma_set(3, &gSpriteData[count], &current_sprite, 0x8000001c); // Incorrect ldr
+                        gSpriteRNG = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
                         sprite_util_update_stun_timer(pCurrent);
                         if (pCurrent->properties & SP_SECONDARY_SPRITE) // Call AI
                             secondary_sprite_ai_pointers[pCurrent->sprite_id]();
@@ -76,13 +76,13 @@ void sprite_update(void)
                             sprite_update_animation(pCurrent);
                             sprite_check_on_screen(pCurrent);
                         }
-                        dma_set(3, &current_sprite, &sprite_data[count], 0x8000001c);
+                        dma_set(3, &current_sprite, &gSpriteData[count], 0x8000001c);
                     }
                     else
                     {
-                        dma_set(3, &sprite_data[count], &current_sprite, 0x8000001c);
+                        dma_set(3, &gSpriteData[count], &current_sprite, 0x8000001c);
                         sprite_check_on_screen(pCurrent);
-                        dma_set(3, &current_sprite, &sprite_data[count], 0x8000001c);
+                        dma_set(3, &current_sprite, &gSpriteData[count], 0x8000001c);
                     }
                 }
                 count++;
@@ -90,15 +90,15 @@ void sprite_update(void)
             return;
         }
     }
-    else if (game_mode_sub1 == 0x6)
+    else if (gGameModeSub1 == 0x6)
     {
         count = 0x0;
         do
         {
-            if (sprite_data[count].status & SPRITE_STATUS_EXISTS)
+            if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
             {
-                dma_set(3, &sprite_data[count], &current_sprite, 0x8000001c);
-                sprite_rng = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
+                dma_set(3, &gSpriteData[count], &current_sprite, 0x8000001c);
+                gSpriteRNG = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
                 sprite_util_update_stun_timer(pCurrent);
                 if (pCurrent->properties & SP_SECONDARY_SPRITE)
                     secondary_sprite_ai_pointers[pCurrent->sprite_id]();
@@ -111,23 +111,23 @@ void sprite_update(void)
                     sprite_update_animation(pCurrent);
                     sprite_check_on_screen(pCurrent);
                 }
-                dma_set(3, &current_sprite, &sprite_data[count], 0x8000001c);
+                dma_set(3, &current_sprite, &gSpriteData[count], 0x8000001c);
             }
             count++;
         } while (count < 0x18);
         decrement_chozodia_alarm();
-        if (parasite_related != 0x0)
-            parasite_related--;
+        if (gParasiteRelated != 0x0)
+            gParasiteRelated--;
     }
     else
     {
         count = 0x0;
         do
         {
-            if (sprite_data[count].status & SPRITE_STATUS_EXISTS)
+            if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
             {
-                dma_set(3, &sprite_data[count], &current_sprite, 0x8000001c);
-                sprite_rng = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
+                dma_set(3, &gSpriteData[count], &current_sprite, 0x8000001c);
+                gSpriteRNG = random_number_table_0_F[(fc8 + count + rng + pCurrent->x_position + pCurrent->y_position) & 0x1F];
                 
                 if (pCurrent->pose == 0x0)
                 {
@@ -138,7 +138,7 @@ void sprite_update(void)
                 }
                 if (pCurrent->status & SPRITE_STATUS_EXISTS)
                     sprite_check_on_screen(pCurrent);
-                dma_set(3, &current_sprite, &sprite_data[count], 0x8000001c);
+                dma_set(3, &current_sprite, &gSpriteData[count], 0x8000001c);
             }
             count++;
         } while (count < 0x18);
@@ -190,10 +190,10 @@ void sprite_draw_all(void)
     status_flag = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN;
     status_check = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN;
     sprite_debris_draw_all();
-    pSprite1 = sprite_data;
+    pSprite1 = gSpriteData;
     zero = 0x0;
-    g_draw_order = sprite_draw_order;
-    draw_order = &sprite_data[0].draw_order;
+    g_draw_order = gSpriteDrawOrder;
+    draw_order = &gSpriteData[0].draw_order;
     //ram_slot = 0x17;
 
     for (i = 0x17; i >= 0x0; i--)
@@ -212,12 +212,12 @@ void sprite_draw_all(void)
     do
     {
         ram_slot = 0x0;
-        pSprite2 = sprite_data;
+        pSprite2 = gSpriteData;
         unk2 = unk + 0x1;
 
-        while (pSprite2 < sprite_data + 24)
+        while (pSprite2 < gSpriteData + 24)
         {
-            if (sprite_draw_order[ram_slot] == unk)
+            if (gSpriteDrawOrder[ram_slot] == unk)
             {
                 sprite_draw(pSprite2, ram_slot);
             }
@@ -256,8 +256,8 @@ void sprite_check_on_screen(struct SpriteData* pSprite)
 
     if (!(pSprite->properties & SP_ABSOLUTE_POSITION))
     {
-        bg_y = bg1_y_position;
-        bg_x = bg1_x_position;
+        bg_y = gBG1YPosition;
+        bg_x = gBG1XPosition;
         sprite_y = pSprite->y_position;
         sprite_x = pSprite->x_position;
         y_offset = sprite_y + 0x200;
@@ -291,17 +291,17 @@ void sprite_check_on_screen(struct SpriteData* pSprite)
 
 void sprite_load_all_data(void)
 {
-    if (pause_screen_flag == PAUSE_SCREEN_NONE)
+    if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
     {
-        if (game_mode_sub3 == 0x0 && !is_loading_file)
-            alarm_timer = 0x0;
+        if (gGameModeSub3 == 0x0 && !gIsLoadingFile)
+            gAlarmTimer = 0x0;
         sprite_clear_data();
         sprite_load_spriteset();
-        unk_53a18();
+        EscapeCheckReloadGraphics();
         sprite_util_init_location_text();
         sprite_load_room_sprites();
         spawn_waiting_pirates();
-        parasite_related = 0x0;
+        gParasiteRelated = 0x0;
     }
 }
 
@@ -350,15 +350,15 @@ void sprite_load_room_sprites(void)
     u8 x_pos;
 
     room_slot = 0x0;
-    y_pos = (current_room_entry.enemy_room_data)->y_position;
+    y_pos = (gCurrentRoomEntry.enemy_room_data)->y_position;
     if (y_pos == 0xFF) return;
     while (1)
     {
-        x_pos = current_room_entry.enemy_room_data[room_slot].x_position;
-        sprite_init_primary(current_room_entry.enemy_room_data[room_slot].spriteset_slot, y_pos, x_pos, room_slot);
+        x_pos = gCurrentRoomEntry.enemy_room_data[room_slot].x_position;
+        sprite_init_primary(gCurrentRoomEntry.enemy_room_data[room_slot].spriteset_slot, y_pos, x_pos, room_slot);
         room_slot++;
         if (room_slot > 0x17) return;
-        y_pos = current_room_entry.enemy_room_data[room_slot].y_position;
+        y_pos = gCurrentRoomEntry.enemy_room_data[room_slot].y_position;
         if (y_pos == 0xFF) return;
     }
 }
@@ -371,9 +371,9 @@ void sprite_init_primary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 r
     u32 sprite_id;
 
     ram_slot = 0x0;
-    pSprite = sprite_data;
+    pSprite = gSpriteData;
 
-    while (pSprite < sprite_data + 24)
+    while (pSprite < gSpriteData + 24)
     {
         if ((pSprite->status & SPRITE_STATUS_EXISTS) == 0x0)
         {
@@ -382,8 +382,8 @@ void sprite_init_primary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 r
             if (spriteset_slot >= 0x11)
             {
                 slot = ((((spriteset_slot - 0x1) << 0x18) & 0xF000000) >> 0x18);
-                pSprite->spriteset_gfx_slot = spriteset_sprite_gfx_slots[slot];
-                sprite_id = spriteset_sprite_id[slot];
+                pSprite->spriteset_gfx_slot = gSpritesetGFXSlots[slot];
+                sprite_id = gSpritesetSpritesID[slot];
             }
             else
             {
@@ -436,9 +436,9 @@ u8 sprite_spawn_secondary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, 
     u16 status;
 
     new_ram_slot = 0x0;
-    pSprite = sprite_data;
+    pSprite = gSpriteData;
 
-    while (pSprite < sprite_data + 24)
+    while (pSprite < gSpriteData + 24)
     {
         status = pSprite->status & SPRITE_STATUS_EXISTS;
         if (status == 0x0)
@@ -492,9 +492,9 @@ u8 sprite_spawn_primary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u16 y_position,
     u16 status;
 
     new_ram_slot = 0x0;
-    pSprite = sprite_data;
+    pSprite = gSpriteData;
 
-    while (pSprite < sprite_data + 24)
+    while (pSprite < gSpriteData + 24)
     {
         status = pSprite->status & SPRITE_STATUS_EXISTS;
         if (status == 0x0)
@@ -549,9 +549,9 @@ u8 sprite_spawn_drop_followers(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_s
     u16 status;
 
     new_ram_slot = 0x0;
-    pSprite = sprite_data;
+    pSprite = gSpriteData;
 
-    while (pSprite < sprite_data + 24)
+    while (pSprite < gSpriteData + 24)
     {
         status = pSprite->status & SPRITE_STATUS_EXISTS;
         if (status == 0x0)

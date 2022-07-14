@@ -7,56 +7,56 @@ u8 sova_check_colliding_with_air(void)
     u8 colliding;
 
     colliding = FALSE;
-    if (current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
+    if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
-        if (current_sprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
-            sprite_util_check_collision_at_position(current_sprite.y_position - 0x20, current_sprite.x_position);
-            if (previous_collision_check != 0x0)
+            sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position);
+            if (gPreviousCollisionCheck != 0x0)
                 colliding = FALSE;
             else
             {
-                sprite_util_check_collision_at_position(current_sprite.y_position + 0x20, current_sprite.x_position);
-                if (previous_collision_check == 0x0)
+                sprite_util_check_collision_at_position(gCurrentSprite.y_position + 0x20, gCurrentSprite.x_position);
+                if (gPreviousCollisionCheck == 0x0)
                     colliding = TRUE;
             }
         }
         else
         {
-            sprite_util_check_collision_at_position(current_sprite.y_position - 0x20, current_sprite.x_position - 0x4);
-            if (previous_collision_check != 0x0)
+            sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position - 0x4);
+            if (gPreviousCollisionCheck != 0x0)
                 colliding = FALSE;
             else
             {                
-                sprite_util_check_collision_at_position(current_sprite.y_position + 0x20, current_sprite.x_position - 0x4);
-                if (previous_collision_check == 0x0)
+                sprite_util_check_collision_at_position(gCurrentSprite.y_position + 0x20, gCurrentSprite.x_position - 0x4);
+                if (gPreviousCollisionCheck == 0x0)
                     colliding = TRUE;
             }
         }
     }
     else
     {
-        if (current_sprite.work_variable != 0x0)
+        if (gCurrentSprite.work_variable != 0x0)
         {
-            sprite_util_check_collision_at_position(current_sprite.y_position - 0x4, current_sprite.x_position - 0x20);
-            if (previous_collision_check != 0x0)
+            sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position - 0x20);
+            if (gPreviousCollisionCheck != 0x0)
                 colliding = FALSE;
             else
             {
-                sprite_util_check_collision_at_position(current_sprite.y_position - 0x4, current_sprite.x_position + 0x20);
-                if (previous_collision_check == 0x0)
+                sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position + 0x20);
+                if (gPreviousCollisionCheck == 0x0)
                     colliding = TRUE;
             }
         }
         else
         {
-            sprite_util_check_collision_at_position(current_sprite.y_position, current_sprite.x_position - 0x20);
-            if (previous_collision_check != 0x0)
+            sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position - 0x20);
+            if (gPreviousCollisionCheck != 0x0)
                 colliding = FALSE;
             else
             {
-                sprite_util_check_collision_at_position(current_sprite.y_position, current_sprite.x_position + 0x20);
-                if (previous_collision_check == 0x0)
+                sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position + 0x20);
+                if (gPreviousCollisionCheck == 0x0)
                     colliding = TRUE;
             }
         }
@@ -67,136 +67,136 @@ u8 sova_check_colliding_with_air(void)
 
 void sova_hitbox_update(void)
 {
-    if (current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
+    if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
-        if (current_sprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
-            current_sprite.hitbox_top_offset = -0x1C;
-            current_sprite.hitbox_bottom_offset = 0x1C;
-            current_sprite.hitbox_left_offset = -0x34;
-            current_sprite.hitbox_right_offset = 0x4;
+            gCurrentSprite.hitbox_top_offset = -0x1C;
+            gCurrentSprite.hitbox_bottom_offset = 0x1C;
+            gCurrentSprite.hitbox_left_offset = -0x34;
+            gCurrentSprite.hitbox_right_offset = 0x4;
         }
         else
         {
-            current_sprite.hitbox_top_offset = -0x1C;
-            current_sprite.hitbox_bottom_offset = 0x1C;
-            current_sprite.hitbox_left_offset = -0x4;
-            current_sprite.hitbox_right_offset = 0x34;
+            gCurrentSprite.hitbox_top_offset = -0x1C;
+            gCurrentSprite.hitbox_bottom_offset = 0x1C;
+            gCurrentSprite.hitbox_left_offset = -0x4;
+            gCurrentSprite.hitbox_right_offset = 0x34;
         }
     }
     else
     {
-        if (current_sprite.work_variable != 0x0)
+        if (gCurrentSprite.work_variable != 0x0)
         {
-            current_sprite.hitbox_top_offset = -0x4;
-            current_sprite.hitbox_bottom_offset = 0x34;
+            gCurrentSprite.hitbox_top_offset = -0x4;
+            gCurrentSprite.hitbox_bottom_offset = 0x34;
         }
         else
         {
-            current_sprite.hitbox_top_offset = -0x34;
-            current_sprite.hitbox_bottom_offset = 0x4;
+            gCurrentSprite.hitbox_top_offset = -0x34;
+            gCurrentSprite.hitbox_bottom_offset = 0x4;
         }
-        current_sprite.hitbox_left_offset = -0x1C;
-        current_sprite.hitbox_right_offset = 0x1C;
+        gCurrentSprite.hitbox_left_offset = -0x1C;
+        gCurrentSprite.hitbox_right_offset = 0x1C;
     }
 }
 
 void sova_gfx_update(void)
 {
-    if (current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
+    if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
-        if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
-            current_sprite.oam_pointer = sova_oam_2cfc78;
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+            gCurrentSprite.oam_pointer = sova_oam_2cfc78;
         else
-            current_sprite.oam_pointer = sova_oam_2cfc40;
+            gCurrentSprite.oam_pointer = sova_oam_2cfc40;
     }
     else
     {
-        if (current_sprite.work_variable != 0x0)
-            current_sprite.oam_pointer = sova_oam_2cfcb0;
+        if (gCurrentSprite.work_variable != 0x0)
+            gCurrentSprite.oam_pointer = sova_oam_2cfcb0;
         else
-            current_sprite.oam_pointer = sova_oam_2cfb98;
-        if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
+            gCurrentSprite.oam_pointer = sova_oam_2cfb98;
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             status |= SPRITE_STATUS_XFLIP;
         else
             status &= ~SPRITE_STATUS_XFLIP;
     }
 
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
 }
 
 void sova_init(void)
 {
-    current_sprite.work_variable = 0x0;
-    current_sprite.pose = 0x9;
+    gCurrentSprite.work_variable = 0x0;
+    gCurrentSprite.pose = 0x9;
     sprite_util_choose_random_x_direction();
-    sprite_util_check_collision_at_position(current_sprite.y_position, current_sprite.x_position);
-    if (previous_collision_check & 0xF0)
-        current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+    sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position);
+    if (gPreviousCollisionCheck & 0xF0)
+        gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
     else
     {
-        sprite_util_check_collision_at_position(current_sprite.y_position - 0x44, current_sprite.x_position);
-        if (previous_collision_check & 0xF0)
+        sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x44, gCurrentSprite.x_position);
+        if (gPreviousCollisionCheck & 0xF0)
         {
-            current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
-            current_sprite.y_position -= 0x40;
-            current_sprite.work_variable = 0x1;
+            gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+            gCurrentSprite.y_position -= 0x40;
+            gCurrentSprite.work_variable = 0x1;
         }
         else
         {
-            sprite_util_check_collision_at_position(current_sprite.y_position - 0x20, current_sprite.x_position - 0x24);
-            if (previous_collision_check & 0xF0)
+            sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position - 0x24);
+            if (gPreviousCollisionCheck & 0xF0)
             {
-                current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
-                current_sprite.y_position -= 0x20;
-                current_sprite.x_position -= 0x20;
+                gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+                gCurrentSprite.y_position -= 0x20;
+                gCurrentSprite.x_position -= 0x20;
             }
             else
             {
-                sprite_util_check_collision_at_position(current_sprite.y_position - 0x20, current_sprite.x_position + 0x20);
-                if ((previous_collision_check & 0xF0) == 0x0)
+                sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position + 0x20);
+                if ((gPreviousCollisionCheck & 0xF0) == 0x0)
                 {
-                    current_sprite.current_sprite.status = previous_collision_check & 0xF0;
+                    gCurrentSprite.gCurrentSprite.status = gPreviousCollisionCheck & 0xF0;
                     return;
                 }
                 else
                 {
-                    current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
-                    current_sprite.status |= SPRITE_STATUS_XFLIP;                    
-                    current_sprite.y_position -= 0x20;
-                    current_sprite.x_position += 0x20;
+                    gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+                    gCurrentSprite.status |= SPRITE_STATUS_XFLIP;                    
+                    gCurrentSprite.y_position -= 0x20;
+                    gCurrentSprite.x_position += 0x20;
                 }
             }
         }
     }
 
-    if (!(current_sprite.current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL))
+    if (!(gCurrentSprite.gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL))
     {
-        if (current_sprite.current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
-            current_sprite.status |= SPRITE_STATUS_XFLIP;
+        if (gCurrentSprite.gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
         else
-            current_sprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
     }
 
-    current_sprite.samus_collision = SSC_HURTS_SAMUS;
+    gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
     sova_gfx_update();
     sova_hitbox_update();
-    current_sprite.health = primary_sprite_stats[current_sprite.sprite_id][0x0];
-    current_sprite.draw_distance_top_offset = 0x10;
-    current_sprite.draw_distance_bottom_offset = 0x10;
-    current_sprite.draw_distance_horizontal_offset = 0x10;
-    if (current_sprite.sprite_id == PSPRITE_SOVA_ORANGE)
+    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
+    gCurrentSprite.draw_distance_top_offset = 0x10;
+    gCurrentSprite.draw_distance_bottom_offset = 0x10;
+    gCurrentSprite.draw_distance_horizontal_offset = 0x10;
+    if (gCurrentSprite.sprite_id == PSPRITE_SOVA_ORANGE)
     {
-        current_sprite.absolute_palette_row = 0x1;
-        current_sprite.palette_row = 0x1;
+        gCurrentSprite.absolute_palette_row = 0x1;
+        gCurrentSprite.palette_row = 0x1;
     }
 }
 
 void sova_gfx_init(void)
 {
     sova_gfx_update();
-    current_sprite.pose = 0x9;
+    gCurrentSprite.pose = 0x9;
 }
 
 void sova_move(void)
@@ -204,7 +204,7 @@ void sova_move(void)
     u16 speed;
     u8 turning;
 
-    switch (current_sprite.curr_anim_frame)
+    switch (gCurrentSprite.curr_anim_frame)
     {
         case 0x2:
             speed = 0x1;
@@ -222,326 +222,326 @@ void sova_move(void)
             speed = 0x0;
     }
 
-    if (current_sprite.sprite_id == PSPRITE_SOVA_ORANGE && speed)
+    if (gCurrentSprite.sprite_id == PSPRITE_SOVA_ORANGE && speed)
         speed++;
 
     turning = FALSE;
 
     if (sova_check_colliding_with_air() << 0x18)
     {
-        current_sprite.pose = 0x1E;
+        gCurrentSprite.pose = 0x1E;
         return;
     }
 
     if (sprite_util_is_screen_on_screen_and_screen_shake())
     {
-        if (current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL || current_sprite.work_variable)
-            current_sprite.pose = 0x1E;
+        if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL || gCurrentSprite.work_variable)
+            gCurrentSprite.pose = 0x1E;
         return;
     }
 
-    if (current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
+    if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
-        if (current_sprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
-            if (current_sprite..status & SPRITE_STATUS_FACING_RIGHT)
+            if (gCurrentSprite..status & SPRITE_STATUS_FACING_RIGHT)
             {
-                sprite_util_check_collision_at_position(current_sprite.y_position, current_sprite.x_position);
-                if ((previous_collision_check & 0xF0) == 0x0)
-                    current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position);
+                if ((gPreviousCollisionCheck & 0xF0) == 0x0)
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                 else
                 {
-                    sprite_util_check_collision_at_position(current_sprite.y_position + 0x1C, current_sprite.x_position - 0x4);
-                    if (previous_collision_check != 0x11)
+                    sprite_util_check_collision_at_position(gCurrentSprite.y_position + 0x1C, gCurrentSprite.x_position - 0x4);
+                    if (gPreviousCollisionCheck != 0x11)
                     {
-                        current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                        gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        current_sprite.timer2 = 0x5;
+                        gCurrentSprite.timer2 = 0x5;
                     }
                     else
-                        current_sprite.y_position += speed;
+                        gCurrentSprite.y_position += speed;
                     
                     if (turning)
-                        current_sprite.pose = 0xA;
+                        gCurrentSprite.pose = 0xA;
                     return;
                 }
             }
             else
             {
-                sprite_util_check_collision_at_position(current_sprite.y_position - 0x4, current_sprite.x_position);
-                if ((previous_collision_check & 0xF0) == 0x0)
-                    current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position);
+                if ((gPreviousCollisionCheck & 0xF0) == 0x0)
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                 else
                 {
-                    sprite_util_check_collision_at_position(current_sprite.y_position - 0x1C, current_sprite.x_position - 0x4);
-                    if (previous_collision_check != 0x11)
-                        current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                    sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x1C, gCurrentSprite.x_position - 0x4);
+                    if (gPreviousCollisionCheck != 0x11)
+                        gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                     else
                     {
-                        current_sprite.y_position -= speed;
+                        gCurrentSprite.y_position -= speed;
                         if (turning)
-                            current_sprite.pose = 0xA;
+                            gCurrentSprite.pose = 0xA;
                         return;
                     }
 
                     if (turning)
-                        current_sprite.pose = 0xA;
+                        gCurrentSprite.pose = 0xA;
                     return;
                 }
             }
 
             turning = TRUE;
-            current_sprite.timer2 = 0x7;
+            gCurrentSprite.timer2 = 0x7;
             if (turning)
-                current_sprite.pose = 0xA;
+                gCurrentSprite.pose = 0xA;
             return;
         }
         else
         {
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                sprite_util_check_collision_at_position(current_sprite.y_position, current_sprite.x_position - 0x4);
-                if ((previous_collision_check & 0xF0) == 0x0)
-                    current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position - 0x4);
+                if ((gPreviousCollisionCheck & 0xF0) == 0x0)
+                    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                 else
                 {
-                    sprite_util_check_collision_at_position(current_sprite.y_position + 0x1C, current_sprite.x_position);
-                    if (previous_collision_check != 0x11)
+                    sprite_util_check_collision_at_position(gCurrentSprite.y_position + 0x1C, gCurrentSprite.x_position);
+                    if (gPreviousCollisionCheck != 0x11)
                     {
-                        current_sprite.y_position += speed;
+                        gCurrentSprite.y_position += speed;
                         if (turning)
-                            current_sprite.pose = 0xA;
+                            gCurrentSprite.pose = 0xA;
                         return;
                     }
                     else
                     {
-                        current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                        gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        current_sprite.timer2 = 0x4;
+                        gCurrentSprite.timer2 = 0x4;
                         if (turning)
-                            current_sprite.pose = 0xA;
+                            gCurrentSprite.pose = 0xA;
                         return;
                     }
                 }
             }
             else
             {
-                sprite_util_check_collision_at_position(current_sprite.y_position - 0x4, current_sprite.x_position - 0x4);
-                if ((previous_collision_check & 0xF0) == 0x0)
+                sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position - 0x4);
+                if ((gPreviousCollisionCheck & 0xF0) == 0x0)
                 {
-                    current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    current_sprite.timer2 = 0x4;
+                    gCurrentSprite.timer2 = 0x4;
                     if (turning)
-                        current_sprite.pose = 0xA;
+                        gCurrentSprite.pose = 0xA;
                     return;
                 }
                 else
                 {
-                    sprite_util_check_collision_at_position(current_sprite.y_position, current_sprite.x_position - 0x4);
-                    if (previous_collision_check != 0x11)
+                    sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position - 0x4);
+                    if (gPreviousCollisionCheck != 0x11)
                     {
-                        current_sprite.y_position -= speed;
+                        gCurrentSprite.y_position -= speed;
                         if (turning)
-                            current_sprite.pose = 0xA;
+                            gCurrentSprite.pose = 0xA;
                         return;
                     }
                     else
                     {
-                        current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                        gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        current_sprite.timer2 = 0x4;
+                        gCurrentSprite.timer2 = 0x4;
                         if (turning)
-                            current_sprite.pose = 0xA;
+                            gCurrentSprite.pose = 0xA;
                         return;
                     }
                 }
             }
             turning = TRUE;
-            current_sprite.timer2 = 0x6;
+            gCurrentSprite.timer2 = 0x6;
             if (turning)
-                current_sprite.pose = 0xA;
+                gCurrentSprite.pose = 0xA;
             return;
         }
     }
 
-    if (current_sprite.work_variable)
+    if (gCurrentSprite.work_variable)
     {
-        if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
-            sprite_util_check_collision_at_position(current_sprite.y_position - 0x4, current_sprite.x_position);
-            if ((previous_collision_check & 0xF) == 0x0)
-                current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+            sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position);
+            if ((gPreviousCollisionCheck & 0xF) == 0x0)
+                gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
             else
             {
-                sprite_util_check_collision_at_position(current_sprite.y_position, current_sprite.x_position + 0x1C);
-                if (previous_collision_check != 0x11)
+                sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position + 0x1C);
+                if (gPreviousCollisionCheck != 0x11)
                 {
-                    current_sprite.x_position += speed;
+                    gCurrentSprite.x_position += speed;
                     if (turning)
-                        current_sprite.pose = 0xA;
+                        gCurrentSprite.pose = 0xA;
                     return;
                 }
                 else
                 {
-                    current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    current_sprite.timer2 = 0x3;
+                    gCurrentSprite.timer2 = 0x3;
                     if (turning)
-                        current_sprite.pose = 0xA;
+                        gCurrentSprite.pose = 0xA;
                     return;
                 }
             }
         }
         else
         {
-            sprite_util_check_collision_at_position(current_sprite.y_position - 0x4, current_sprite.x_position - 0x4);
-            if ((previous_collision_check & 0xF) == 0x0)
+            sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position - 0x4);
+            if ((gPreviousCollisionCheck & 0xF) == 0x0)
             {
-                current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                 turning = TRUE;
-                current_sprite.timer2 = 0x3;
+                gCurrentSprite.timer2 = 0x3;
                 if (turning)
-                    current_sprite.pose = 0xA;
+                    gCurrentSprite.pose = 0xA;
                 return;
             }
             else
             {
-                sprite_util_check_collision_at_position(current_sprite.y_position, current_sprite.x_position - 0x1C);
-                if (previous_collision_check != 0x11)
+                sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position - 0x1C);
+                if (gPreviousCollisionCheck != 0x11)
                 {
-                    current_sprite.x_position -= speed;
+                    gCurrentSprite.x_position -= speed;
                     if (turning)
-                        current_sprite.pose = 0xA;
+                        gCurrentSprite.pose = 0xA;
                     return;
                 }
                 else
-                    current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
             }
         }
 
         turning = TRUE;
-        current_sprite.timer2 = 0x2;
+        gCurrentSprite.timer2 = 0x2;
         if (turning)
-            current_sprite.pose = 0xA;
+            gCurrentSprite.pose = 0xA;
         return;
     }
     else
     {
         unk_f594();
-        if (previous_vertical_collision_check == 0x0 || previous_vertical_collision_check & 0xF0)
+        if (gPreviousVerticalCollisionCheck == 0x0 || gPreviousVerticalCollisionCheck & 0xF0)
         {
-            if (current_sprite.oam_pointer != sova_oam_2cfb98)
+            if (gCurrentSprite.oam_pointer != sova_oam_2cfb98)
             {
-                current_sprite.oam_pointer = sova_oam_2cfb98;
-                current_sprite.anim_duration_counter = 0x0;
-                current_sprite.curr_anim_frame = 0x0;
-                if (current_sprite.status & SPRITE_STATUS_FACING_DOWN)
-                    current_sprite.status |= SPRITE_STATUS_XFLIP;
+                gCurrentSprite.oam_pointer = sova_oam_2cfb98;
+                gCurrentSprite.anim_duration_counter = 0x0;
+                gCurrentSprite.curr_anim_frame = 0x0;
+                if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+                    gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
                 else
-                    current_sprite.status &= ~SPRITE_STATUS_XFLIP;
+                    gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
             }
 
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                sprite_util_check_collision_at_position(current_sprite.y_position, current_sprite.x_position);
-                if (previous_collision_check == 0x0)
+                sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position);
+                if (gPreviousCollisionCheck == 0x0)
                 {
-                    current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    current_sprite.timer2 = 0x0;
+                    gCurrentSprite.timer2 = 0x0;
                     if (turning)
-                        current_sprite.pose = 0xA;
+                        gCurrentSprite.pose = 0xA;
                     return;
                 }
                 else
                 {
-                    sprite_util_check_collision_at_position(current_sprite.y_position - 0x4, current_sprite.x_position + 0x1C);
-                    if (previous_collision_check != 0x11)
+                    sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position + 0x1C);
+                    if (gPreviousCollisionCheck != 0x11)
                     {
-                        current_sprite.x_position += speed;
+                        gCurrentSprite.x_position += speed;
                         if (turning)
-                            current_sprite.pose = 0xA;
+                            gCurrentSprite.pose = 0xA;
                         return;
                     }
-                    current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                 }
             }
 
             turning = TRUE;
-            current_sprite.timer2 = 0x1;
+            gCurrentSprite.timer2 = 0x1;
         }
         else
         {
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                if (previous_vertical_collision_check == 0x2 || previous_vertical_collision_check == 0x4)
+                if (gPreviousVerticalCollisionCheck == 0x2 || gPreviousVerticalCollisionCheck == 0x4)
                 {
-                    if (current_sprite.oam_pointer != sova_oam_2cfbd0)
+                    if (gCurrentSprite.oam_pointer != sova_oam_2cfbd0)
                     {
-                        current_sprite.oam_pointer = sova_oam_2cfbd0;
-                        current_sprite.anim_duration_counter = 0x0;
-                        current_sprite.curr_anim_frame = 0x0;
-                        current_sprite.status |= SPRITE_STATUS_XFLIP;
+                        gCurrentSprite.oam_pointer = sova_oam_2cfbd0;
+                        gCurrentSprite.anim_duration_counter = 0x0;
+                        gCurrentSprite.curr_anim_frame = 0x0;
+                        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
                     }
 
                     speed = (speed << 0x1) / 0x3;
-                    current_sprite.x_position += speed;
+                    gCurrentSprite.x_position += speed;
 
                     if (turning)
-                        current_sprite.pose = 0xA;
+                        gCurrentSprite.pose = 0xA;
                     return;
                 }
                 else
                 {
-                    if (current_sprite.oam_pointer != sova_oam_2cfc08)
+                    if (gCurrentSprite.oam_pointer != sova_oam_2cfc08)
                     {
-                        current_sprite.oam_pointer = sova_oam_2cfc08;
-                        current_sprite.anim_duration_counter = 0x0;
-                        current_sprite.curr_anim_frame = 0x0;
-                        current_sprite.status |= SPRITE_STATUS_XFLIP;
+                        gCurrentSprite.oam_pointer = sova_oam_2cfc08;
+                        gCurrentSprite.anim_duration_counter = 0x0;
+                        gCurrentSprite.curr_anim_frame = 0x0;
+                        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
                     }
-                    current_sprite.x_position += speed;
+                    gCurrentSprite.x_position += speed;
 
                     if (turning)
-                        current_sprite.pose = 0xA;
+                        gCurrentSprite.pose = 0xA;
                     return;
                 }
             }
             else
             {
-                if (previous_vertical_collision_check == 0x3 || previous_vertical_collision_check == 0x5)
+                if (gPreviousVerticalCollisionCheck == 0x3 || gPreviousVerticalCollisionCheck == 0x5)
                 {
-                    if (current_sprite.oam_pointer != sova_oam_2cfc08)
+                    if (gCurrentSprite.oam_pointer != sova_oam_2cfc08)
                     {
-                        current_sprite.oam_pointer = sova_oam_2cfc08;
-                        current_sprite.anim_duration_counter = 0x0;
-                        current_sprite.curr_anim_frame = 0x0;
-                        current_sprite.status &= ~SPRITE_STATUS_XFLIP;
+                        gCurrentSprite.oam_pointer = sova_oam_2cfc08;
+                        gCurrentSprite.anim_duration_counter = 0x0;
+                        gCurrentSprite.curr_anim_frame = 0x0;
+                        gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
                     }
-                    current_sprite.x_position -= speed;
+                    gCurrentSprite.x_position -= speed;
                 }
                 else
                 {
-                    if (current_sprite.oam_pointer != sova_oam_2cfbd0)
+                    if (gCurrentSprite.oam_pointer != sova_oam_2cfbd0)
                     {
-                        current_sprite.oam_pointer = sova_oam_2cfbd0;
-                        current_sprite.anim_duration_counter = 0x0;
-                        current_sprite.curr_anim_frame = 0x0;
-                        current_sprite.status &= ~SPRITE_STATUS_XFLIP;
+                        gCurrentSprite.oam_pointer = sova_oam_2cfbd0;
+                        gCurrentSprite.anim_duration_counter = 0x0;
+                        gCurrentSprite.curr_anim_frame = 0x0;
+                        gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
                     }
                     speed = (speed << 0x1) / 0x3;
-                    current_sprite.x_position -= speed;
+                    gCurrentSprite.x_position -= speed;
 
                     if (turning)
-                        current_sprite.pose = 0xA;
+                        gCurrentSprite.pose = 0xA;
                     return;
                 }
             }
         }
 
         if (turning)
-            current_sprite.pose = 0xA;
+            gCurrentSprite.pose = 0xA;
         return;
     }
 }
@@ -551,94 +551,94 @@ void sova_turning_around_gfx_update(void)
     u16 status;
 
     status = SPRITE_STATUS_NONE;
-    current_sprite.pose = 0xB;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
+    gCurrentSprite.pose = 0xB;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
 
-    switch (current_sprite.timer2)
+    switch (gCurrentSprite.timer2)
     {
         case 0x0:
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
-                current_sprite.oam_pointer = sova_oam_2cfce8;
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.oam_pointer = sova_oam_2cfce8;
             else
-                current_sprite.oam_pointer = sova_oam_2cfd28;
+                gCurrentSprite.oam_pointer = sova_oam_2cfd28;
 
             status &= ~SPRITE_STATUS_XFLIP;
             status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
 
         case 0x1:
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
-                current_sprite.oam_pointer = sova_oam_2cfce8;
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.oam_pointer = sova_oam_2cfce8;
             else
-                current_sprite.oam_pointer = sova_oam_2cfd28;
+                gCurrentSprite.oam_pointer = sova_oam_2cfd28;
 
             status |= SPRITE_STATUS_XFLIP;
             status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
 
         case 0x2:
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
-                current_sprite.oam_pointer = sova_oam_2cfd28;
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.oam_pointer = sova_oam_2cfd28;
             else
-                current_sprite.oam_pointer = sova_oam_2cfce8;
+                gCurrentSprite.oam_pointer = sova_oam_2cfce8;
 
-            current_sprite.status &= ~SPRITE_STATUS_XFLIP;
-            current_sprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             return;
 
         case 0x3:
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
-                current_sprite.oam_pointer = sova_oam_2cfd28;
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.oam_pointer = sova_oam_2cfd28;
             else
-                current_sprite.oam_pointer = sova_oam_2cfce8;
+                gCurrentSprite.oam_pointer = sova_oam_2cfce8;
 
-            current_sprite.status |= SPRITE_STATUS_XFLIP;
-            current_sprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             return;
 
         case 0x4:
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
-                current_sprite.oam_pointer = sova_oam_2cfd48;
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.oam_pointer = sova_oam_2cfd48;
             else
-                current_sprite.oam_pointer = sova_oam_2cfd08;
+                gCurrentSprite.oam_pointer = sova_oam_2cfd08;
             
             status &= ~SPRITE_STATUS_XFLIP;
             status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
 
         case 0x5:
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
-                current_sprite.oam_pointer = sova_oam_2cfd08;
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.oam_pointer = sova_oam_2cfd08;
             else
-                current_sprite.oam_pointer = sova_oam_2cfd48;
+                gCurrentSprite.oam_pointer = sova_oam_2cfd48;
 
             status |= SPRITE_STATUS_XFLIP;
             status &= ~SPRITE_STATUS_FACING_DOWN;
             break;
 
         case 0x6:
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
-                current_sprite.oam_pointer = sova_oam_2cfd48;
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.oam_pointer = sova_oam_2cfd48;
             else
-                current_sprite.oam_pointer = sova_oam_2cfd08;
+                gCurrentSprite.oam_pointer = sova_oam_2cfd08;
 
-            current_sprite.status &= ~SPRITE_STATUS_XFLIP;
-            current_sprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             return;
 
         case 0x7:
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
-                current_sprite.oam_pointer = sova_oam_2cfd08;
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.oam_pointer = sova_oam_2cfd08;
             else
-                current_sprite.oam_pointer = sova_oam_2cfd48;
+                gCurrentSprite.oam_pointer = sova_oam_2cfd48;
             
-            current_sprite.status |= SPRITE_STATUS_XFLIP;
-            current_sprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             return;
     }
 
-    current_sprite.status = status;
+    gCurrentSprite.status = status;
 }
 
 void sova_turning_around(void)
@@ -646,112 +646,112 @@ void sova_turning_around(void)
     if (!sprite_util_check_end_current_sprite_anim())
         return;
     
-    current_sprite.pose = 0x9;
-    current_sprite.status &= ~SPRITE_STATUS_FACING_DOWN;
-    current_sprite.work_variable = 0x0;
+    gCurrentSprite.pose = 0x9;
+    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
+    gCurrentSprite.work_variable = 0x0;
 
-    switch (current_sprite.timer2)
+    switch (gCurrentSprite.timer2)
     {
         case 0x0:
-            if ((current_sprite.status & SPRITE_STATUS_FACING_RIGHT) == 0x0)
+            if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT) == 0x0)
             {
-                current_sprite.y_position -= 0x18;
-                current_sprite.x_position &= 0xFFC0;
+                gCurrentSprite.y_position -= 0x18;
+                gCurrentSprite.x_position &= 0xFFC0;
             }
-            current_sprite.status &= ~SPRITE_STATUS_XFLIP;
-            current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
             break;
 
         case 0x1:
-            if ((current_sprite.status & SPRITE_STATUS_FACING_RIGHT) == 0x0)
+            if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT) == 0x0)
             {
-                current_sprite.y_position -= 0x1C;
-                current_sprite.x_position = (current_sprite.x_position & 0xFFC0) + 0x40;
+                gCurrentSprite.y_position -= 0x1C;
+                gCurrentSprite.x_position = (gCurrentSprite.x_position & 0xFFC0) + 0x40;
             }
-            current_sprite.status |= SPRITE_STATUS_XFLIP;
-            current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
             break;
 
         case 0x2:
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                current_sprite.y_position += 0x18;
-                current_sprite.x_position &= 0xFFC0;
+                gCurrentSprite.y_position += 0x18;
+                gCurrentSprite.x_position &= 0xFFC0;
             }
-            current_sprite.status &= ~SPRITE_STATUS_XFLIP;
-            current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
             break;
 
         case 0x3:
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                current_sprite.y_position += 0x1C;
-                current_sprite.x_position = (current_sprite.x_position & 0xFFC0) + 0x40;
+                gCurrentSprite.y_position += 0x1C;
+                gCurrentSprite.x_position = (gCurrentSprite.x_position & 0xFFC0) + 0x40;
             }
-            current_sprite.status |= SPRITE_STATUS_XFLIP;
-            current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
             break;
 
         case 0x4:
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                current_sprite.x_position += 0x1C;
-                current_sprite.y_position = (current_sprite.y_position & 0xFFC0) + 0x40;
-                current_sprite.status |= SPRITE_STATUS_XFLIP;
+                gCurrentSprite.x_position += 0x1C;
+                gCurrentSprite.y_position = (gCurrentSprite.y_position & 0xFFC0) + 0x40;
+                gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             }
             else
             {
-                current_sprite.y_position &= 0xFFC0;
-                current_sprite.status & ~(SPRITE_STATUS_XFLIP);
+                gCurrentSprite.y_position &= 0xFFC0;
+                gCurrentSprite.status & ~(SPRITE_STATUS_XFLIP);
             }
-            current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+            gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
             break;
 
         case 0x5:
-            if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                current_sprite.y_position &= 0xFFC0;
-                current_sprite.status & ~(SPRITE_STATUS_XFLIP);
+                gCurrentSprite.y_position &= 0xFFC0;
+                gCurrentSprite.status & ~(SPRITE_STATUS_XFLIP);
             }
             else
             {
-                current_sprite.x_position -= 0x1C;
-                current_sprite.y_position = (current_sprite.y_position & 0xFFC0) + 0x40;
-                current_sprite.status |= SPRITE_STATUS_XFLIP;
+                gCurrentSprite.x_position -= 0x1C;
+                gCurrentSprite.y_position = (gCurrentSprite.y_position & 0xFFC0) + 0x40;
+                gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             }
-            current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+            gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
             break;
 
         case 0x6:
-            if ((current_sprite.status & SPRITE_STATUS_FACING_DOWN) == 0x0)
+            if ((gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN) == 0x0)
             {
-                current_sprite.y_position &= 0xFFC0;
-                current_sprite.x_position += 0x18;
-                current_sprite.status |= SPRITE_STATUS_XFLIP;
+                gCurrentSprite.y_position &= 0xFFC0;
+                gCurrentSprite.x_position += 0x18;
+                gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             }
             else
-                current_sprite.status &= ~SPRITE_STATUS_XFLIP;
+                gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
 
-            current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
-            current_sprite.work_variable = 0x1;
+            gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+            gCurrentSprite.work_variable = 0x1;
             break;
 
         case 0x7:
-            if ((current_sprite.status & SPRITE_STATUS_FACING_RIGHT) == 0x0)
+            if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT) == 0x0)
             {
-                current_sprite.y_position &= 0xFFC0;
-                current_sprite.x_position -= 0x1C;
-                current_sprite.status |= SPRITE_STATUS_XFLIP;
+                gCurrentSprite.y_position &= 0xFFC0;
+                gCurrentSprite.x_position -= 0x1C;
+                gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             }
             else
-                current_sprite.status &= ~SPRITE_STATUS_XFLIP;
+                gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
             
-            current_sprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
-            current_sprite.work_variable = 0x1;
+            gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+            gCurrentSprite.work_variable = 0x1;
             break;
 
         default:
-            current_sprite.status = 0x0;
+            gCurrentSprite.status = 0x0;
     }
 
     sova_gfx_update();
@@ -760,12 +760,12 @@ void sova_turning_around(void)
 
 void sova_back_on_ground(void)
 {
-    current_sprite.pose = 0xF;
-    current_sprite.oam_pointer = sova_oam_falling_2cfd68;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
+    gCurrentSprite.pose = 0xF;
+    gCurrentSprite.oam_pointer = sova_oam_falling_2cfd68;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
     sprite_util_choose_random_x_flip();
-    if (current_sprite.status & SPRITE_STATUS_FACING_RIGHT)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         status |= SPRITE_STATUS_XFLIP;
     else
         status &= ~SPRITE_STATUS_XFLIP;
@@ -774,34 +774,34 @@ void sova_back_on_ground(void)
 void sova_check_back_on_ground_anim_ended(void)
 {
     if (sova_check_colliding_with_air() << 0x18 != 0x0)
-        current_sprite.pose = 0x1E;
+        gCurrentSprite.pose = 0x1E;
     else
     {
         if (sprite_util_check_near_end_current_sprite_anim())
-            current_sprite.pose = 0x8;
+            gCurrentSprite.pose = 0x8;
     }
 }
 
 void sova_start_falling(void)
 {
-    if (current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
+    if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
-        if (current_sprite.status & SPRITE_STATUS_XFLIP)
-            current_sprite.x_position -= 0x20;
+        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            gCurrentSprite.x_position -= 0x20;
         else
-            current_sprite.x_position += 0x20;
+            gCurrentSprite.x_position += 0x20;
     }
-    else if (current_sprite.work_variable != 0x0)
-        current_sprite.y_position += 0x28;
+    else if (gCurrentSprite.work_variable != 0x0)
+        gCurrentSprite.y_position += 0x28;
 
-    current_sprite.pose = 0x1F;
-    current_sprite.array_offset = 0x0;
-    current_sprite.work_variable = 0x0;
+    gCurrentSprite.pose = 0x1F;
+    gCurrentSprite.array_offset = 0x0;
+    gCurrentSprite.work_variable = 0x0;
     status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_ON_VERTICAL_WALL);
     sova_hitbox_update();
-    current_sprite.oam_pointer = sova_oam_falling_2cfd68;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
+    gCurrentSprite.oam_pointer = sova_oam_falling_2cfd68;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
 }
 
 void sova_falling(void)
@@ -812,8 +812,8 @@ void sova_falling(void)
     u32 new_y;
     u32 block;
 
-    old_y = current_sprite.y_position;
-    offset = current_sprite.array_offset;
+    old_y = gCurrentSprite.y_position;
+    offset = gCurrentSprite.array_offset;
     movement = sprites_falling_speed_2b0d04[offset];
     if (movement == 0x7FFF)
     {
@@ -822,19 +822,19 @@ void sova_falling(void)
     }
     else
     {
-        current_sprite.array_offset++;
-        new_y = current_sprite.y_position + movement;
+        gCurrentSprite.array_offset++;
+        new_y = gCurrentSprite.y_position + movement;
     }
 
-    current_sprite.y_position = new_y;
-    block = sprite_util_check_vertical_collision_at_position_slopes(current_sprite.y_position, current_sprite.x_position);
-    if (previous_vertical_collision_check)
+    gCurrentSprite.y_position = new_y;
+    block = sprite_util_check_vertical_collision_at_position_slopes(gCurrentSprite.y_position, gCurrentSprite.x_position);
+    if (gPreviousVerticalCollisionCheck)
     {
-        current_sprite.y_position = block;
+        gCurrentSprite.y_position = block;
         sova_back_on_ground();
     }
     else
-        sprite_util_check_in_room_effect(old_y, current_sprite.y_position, current_sprite.x_position, SPLASH_BIG);
+        sprite_util_check_in_room_effect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_BIG);
 }
 
 void sova_death(void)
@@ -842,19 +842,19 @@ void sova_death(void)
     u16 y_position;
     u16 x_position;
 
-    y_position = current_sprite.y_position;
-    x_position = current_sprite.x_position;
+    y_position = gCurrentSprite.y_position;
+    x_position = gCurrentSprite.x_position;
 
-    if (current_sprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
+    if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
-        if (current_sprite.status & SPRITE_STATUS_XFLIP)
+        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             x_position -= 0x28;
         else
             x_position += 0x28;
     }
     else
     {
-        if (current_sprite.work_variable != 0x0)
+        if (gCurrentSprite.work_variable != 0x0)
             y_position += 0x28;
         else
             y_position -= 0x28;
@@ -865,20 +865,20 @@ void sova_death(void)
 
 void sova(void)
 {
-    if (current_sprite.properties & SP_UNKNOWN)
+    if (gCurrentSprite.properties & SP_UNKNOWN)
     {
-        current_sprite.properties &= ~SP_UNKNOWN;
-        if (current_sprite.status & SPRITE_STATUS_ONSCREEN)
+        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             unk_2b20(0x154);
     }
 
-    if (current_sprite.freeze_timer != 0x0)
+    if (gCurrentSprite.freeze_timer != 0x0)
         sprite_util_update_freeze_timer();
     else
     {
         if (!sprite_util_is_sprite_stunned())
         {
-            switch (current_sprite.pose)
+            switch (gCurrentSprite.pose)
             {
                 case 0x0:
                     sova_init();

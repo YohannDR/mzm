@@ -1,7 +1,14 @@
 #include "fixed_point.h"
 
+/**
+ * @brief a4c | 1c | Fixed point multiplication
+ * 
+ * @param a A
+ * @param b B
+ * @return i16 Result
+ */
 i16
-fix_mul(i16 a, i16 b)
+FixedMultiplication(i16 a, i16 b)
 {
     i32 x   = a;
     i32 y   = b;
@@ -11,8 +18,15 @@ fix_mul(i16 a, i16 b)
     return res;
 }
 
+/**
+ * @brief a68 | 18 | Fixed point division
+ * 
+ * @param a A
+ * @param b B
+ * @return i16 Result
+ */
 i16
-fix_div(i16 a, i16 b)
+FixedDivision(i16 a, i16 b)
 {
     i32 x = a;
     i32 y = b;
@@ -20,8 +34,14 @@ fix_div(i16 a, i16 b)
     return (x << 8) / y;
 }
 
+/**
+ * @brief a80 | 18 | Fixed point inversion
+ * 
+ * @param a A
+ * @return i16 Result
+ */
 i16
-fix_inverse(i16 a)
+FixedInverse(i16 a)
 {
     return 0x10000 / a;
 }

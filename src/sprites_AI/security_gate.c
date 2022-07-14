@@ -14,11 +14,11 @@ void security_gate_change_ccaa(u8 caa)
  */
 void security_gate_open(void)
 {
-    current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
-    current_sprite.oam_pointer = security_gate_oam_2e6bb8;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.pose = 0x27;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.oam_pointer = security_gate_oam_2e6bb8;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.pose = 0x27;
     security_gate_change_ccaa(CCAA_REMOVE_SOLID); // Remove collision
     unk_2b20(0x225);
 }
@@ -29,11 +29,11 @@ void security_gate_open(void)
  */
 void security_gate_start_closing(void)
 {
-    current_sprite.status &= ~SPRITE_STATUS_UNKNOWN3;
-    current_sprite.oam_pointer = security_gate_oam_2e6b08;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.pose = 0x23;
+    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.oam_pointer = security_gate_oam_2e6b08;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.pose = 0x23;
     unk_2b20(0x109);
 }
 
@@ -43,33 +43,33 @@ void security_gate_start_closing(void)
  */
 void security_gate_default_open_init(void)
 {
-    if (alarm_timer != 0x0) // Check if should be closed or open
+    if (gAlarmTimer != 0x0) // Check if should be closed or open
     {
-        current_sprite.oam_pointer = security_gate_oam_2e6b98;
-        current_sprite.pose = 0x25;
-        current_sprite.timer1 = 0x1;
+        gCurrentSprite.oam_pointer = security_gate_oam_2e6b98;
+        gCurrentSprite.pose = 0x25;
+        gCurrentSprite.timer1 = 0x1;
         security_gate_change_ccaa(CCAA_MAKE_SOLID3); // Set collision
     }
     else
     {
-        current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
-        current_sprite.oam_pointer = security_gate_oam_2e6af8;
-        current_sprite.pose = 0x9;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.oam_pointer = security_gate_oam_2e6af8;
+        gCurrentSprite.pose = 0x9;
     }
 
-    current_sprite.hitbox_top_offset = -0x100;
-    current_sprite.hitbox_bottom_offset = 0x0;
-    current_sprite.hitbox_left_offset = -0x18;
-    current_sprite.hitbox_right_offset = 0x18;
-    current_sprite.draw_distance_top_offset = 0x40;
-    current_sprite.draw_distance_bottom_offset = 0x8;
-    current_sprite.draw_distance_horizontal_offset = 0x8;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.samus_collision = SSC_NONE;
-    current_sprite.health = 0x1;
-    current_sprite.draw_order = 0x3;
-    current_sprite.properties |= SP_IMMUNE_TO_PROJECTILES;
+    gCurrentSprite.hitbox_top_offset = -0x100;
+    gCurrentSprite.hitbox_bottom_offset = 0x0;
+    gCurrentSprite.hitbox_left_offset = -0x18;
+    gCurrentSprite.hitbox_right_offset = 0x18;
+    gCurrentSprite.draw_distance_top_offset = 0x40;
+    gCurrentSprite.draw_distance_bottom_offset = 0x8;
+    gCurrentSprite.draw_distance_horizontal_offset = 0x8;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.samus_collision = SSC_NONE;
+    gCurrentSprite.health = 0x1;
+    gCurrentSprite.draw_order = 0x3;
+    gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
 }
 
 /**
@@ -78,7 +78,7 @@ void security_gate_default_open_init(void)
  */
 void security_gate_default_open_check_alarm(void)
 {
-    if (alarm_timer != 0x0)
+    if (gAlarmTimer != 0x0)
         security_gate_start_closing();
 }
 
@@ -90,12 +90,12 @@ void security_gate_check_closing_anim_ended(void)
 {
     if (sprite_util_check_end_current_sprite_anim())
     {
-        current_sprite.oam_pointer = security_gate_oam_2e6b98;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        current_sprite.pose = 0x25;
-        current_sprite.timer1 = 0x0;
-        current_sprite.array_offset = 0x0;
+        gCurrentSprite.oam_pointer = security_gate_oam_2e6b98;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.pose = 0x25;
+        gCurrentSprite.timer1 = 0x0;
+        gCurrentSprite.array_offset = 0x0;
     }
 }
 
@@ -105,20 +105,20 @@ void security_gate_check_closing_anim_ended(void)
  */
 void security_gate_default_open_open_after_alarm(void)
 {
-    if (current_sprite.timer1 == 0x0 && !sprite_check_colliding_with_samus_drawing()) // ?
+    if (gCurrentSprite.timer1 == 0x0 && !sprite_check_colliding_with_samus_drawing()) // ?
     {
         security_gate_change_ccaa(CCAA_MAKE_SOLID3);
-        current_sprite.timer1++;
+        gCurrentSprite.timer1++;
     }
 
-    if (alarm_timer == 0x0)
+    if (gAlarmTimer == 0x0)
     {
-        current_sprite.array_offset++;
-        if (current_sprite.array_offset > 0x28)
+        gCurrentSprite.array_offset++;
+        if (gCurrentSprite.array_offset > 0x28)
             security_gate_open();
     }
     else
-        current_sprite.array_offset = 0x0;
+        gCurrentSprite.array_offset = 0x0;
 }
 
 /**
@@ -129,10 +129,10 @@ void security_gate_check_opening_anim_ended(void)
 {
     if (sprite_util_check_end_current_sprite_anim())
     {
-        current_sprite.oam_pointer = security_gate_oam_2e6af8;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        current_sprite.pose = 0x9;
+        gCurrentSprite.oam_pointer = security_gate_oam_2e6af8;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.pose = 0x9;
     }
 }
 
@@ -146,9 +146,9 @@ void security_gate_death(void)
     u16 x_position;
 
     security_gate_change_ccaa(CCAA_REMOVE_SOLID);
-    y_position = current_sprite.y_position - 0x40;
-    x_position = current_sprite.x_position;
-    particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
+    y_position = gCurrentSprite.y_position - 0x40;
+    x_position = gCurrentSprite.x_position;
+    ParticleSet(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
     sprite_util_sprite_death(DEATH_NORMAL, y_position - 0x60, x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);
 }
 
@@ -158,33 +158,33 @@ void security_gate_death(void)
  */
 void security_gate_default_closed_init(void)
 {
-    if (alarm_timer != 0x0)
+    if (gAlarmTimer != 0x0)
     {
-        current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
-        current_sprite.oam_pointer = security_gate_oam_2e6af8;
-        current_sprite.pose = 0x9;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.oam_pointer = security_gate_oam_2e6af8;
+        gCurrentSprite.pose = 0x9;
     }
     else
     {
-        current_sprite.oam_pointer = security_gate_oam_2e6b98;
-        current_sprite.pose = 0x25;
-        current_sprite.timer1 = 0x1;
+        gCurrentSprite.oam_pointer = security_gate_oam_2e6b98;
+        gCurrentSprite.pose = 0x25;
+        gCurrentSprite.timer1 = 0x1;
         security_gate_change_ccaa(CCAA_MAKE_SOLID3);
     }
 
-    current_sprite.hitbox_top_offset = -0x100;
-    current_sprite.hitbox_bottom_offset = 0x0;
-    current_sprite.hitbox_left_offset = -0x18;
-    current_sprite.hitbox_right_offset = 0x18;
-    current_sprite.draw_distance_top_offset = 0x40;
-    current_sprite.draw_distance_bottom_offset = 0x8;
-    current_sprite.draw_distance_horizontal_offset = 0x8;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.samus_collision = SSC_NONE;
-    current_sprite.health = 0x1;
-    current_sprite.draw_order = 0x3;
-    current_sprite.properties |= SP_IMMUNE_TO_PROJECTILES;
+    gCurrentSprite.hitbox_top_offset = -0x100;
+    gCurrentSprite.hitbox_bottom_offset = 0x0;
+    gCurrentSprite.hitbox_left_offset = -0x18;
+    gCurrentSprite.hitbox_right_offset = 0x18;
+    gCurrentSprite.draw_distance_top_offset = 0x40;
+    gCurrentSprite.draw_distance_bottom_offset = 0x8;
+    gCurrentSprite.draw_distance_horizontal_offset = 0x8;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.samus_collision = SSC_NONE;
+    gCurrentSprite.health = 0x1;
+    gCurrentSprite.draw_order = 0x3;
+    gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
 }
 
 /**
@@ -193,7 +193,7 @@ void security_gate_default_closed_init(void)
  */
 void security_gate_default_closed_check_alarm(void)
 {
-    if (alarm_timer == 0x0)
+    if (gAlarmTimer == 0x0)
         security_gate_start_closing();
 }
 
@@ -203,13 +203,13 @@ void security_gate_default_closed_check_alarm(void)
  */
 void security_gate_default_closed_close_after_alarm(void)
 {
-    if (current_sprite.timer1 == 0x0 && !sprite_check_colliding_with_samus_drawing())
+    if (gCurrentSprite.timer1 == 0x0 && !sprite_check_colliding_with_samus_drawing())
     {
         security_gate_change_ccaa(CCAA_MAKE_SOLID3);
-        current_sprite.timer1++;
+        gCurrentSprite.timer1++;
     }
 
-    if (alarm_timer != 0x0)
+    if (gAlarmTimer != 0x0)
         security_gate_open();
 }
 
@@ -219,8 +219,8 @@ void security_gate_default_closed_close_after_alarm(void)
  */
 void security_gate_default_open(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
-    switch (current_sprite.pose)
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             security_gate_default_open_init();
@@ -248,8 +248,8 @@ void security_gate_default_open(void)
  */
 void security_gate_default_closed(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
-    switch (current_sprite.pose)
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             security_gate_default_closed_init();

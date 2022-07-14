@@ -14,9 +14,9 @@ u8 parasite_count(void)
     u8 count;
 
     count = 0x0;
-    pSprite = sprite_data;
+    pSprite = gSpriteData;
 
-    while (pSprite < sprite_data + 24)
+    while (pSprite < gSpriteData + 24)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samus_collision == SSC_BUG)
         {

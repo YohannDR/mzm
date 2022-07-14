@@ -1,7 +1,7 @@
 #include "clipdata.h"
 #include "globals.h"
 
-void clipdate_setup_code(void)
+void ClipdataSetupCode(void)
 {
 
 }
@@ -13,7 +13,7 @@ void clipdate_setup_code(void)
  * @param x_position X position (in sub-pixels)
  * @return u32 Clipdata type (including solid flag)
  */
-u32 clipdata_process_for_samus(u16 y_position, u16 x_position)
+u32 ClipdataProcessForSamus(u16 y_position, u16 x_position)
 {
     struct CollisionData collision;
     u32 result;
@@ -22,19 +22,19 @@ u32 clipdata_process_for_samus(u16 y_position, u16 x_position)
     collision.tile_y = y_position >> 0x6;
     collision.tile_x = x_position >> 0x6;
 
-    if (collision.tile_x >= bg_pointers_and_dimensions.clipdata_width)
+    if (collision.tile_x >= gBGPointersAndDimensions.clipdata_width)
         result = CLIPDATA_TYPE_SOLID_FLAG | CLIPDATA_TYPE_SOLID;
     else
     {        
-        if (collision.tile_y < bg_pointers_and_dimensions.clipdata_height)
+        if (collision.tile_y < gBGPointersAndDimensions.clipdata_height)
         {
             // Get clip type at position
-            collision.clipdata_type = tilemap_and_clip_pointers.clip_collisions[bg_pointers_and_dimensions.clipdata_decompressed[bg_pointers_and_dimensions.clipdata_width * collision.tile_y + collision.tile_x]];
+            collision.clipdata_type = gTilemapAndClipPointers.clip_collisions[gBGPointersAndDimensions.clipdata_decompressed[gBGPointersAndDimensions.clipdata_width * collision.tile_y + collision.tile_x]];
             // Get sub pixel
             collision.sub_pixel_y = y_position & 0x3F;
             collision.sub_pixel_x = x_position & 0x3F;
             collision.actor_type = CLIPDATA_ACTOR_SAMUS;
-            result = clipdata_code_pointer(&collision);
+            result = gClipdataCodePointer(&collision);
         }
         else
             result = CLIPDATA_TYPE_AIR;
@@ -50,7 +50,7 @@ u32 clipdata_process_for_samus(u16 y_position, u16 x_position)
  * @param x_position X Position (subpixels)
  * @return u32 Clipdata type (including solid flag)
  */
-u32 clipdata_process(u16 y_position, u16 x_position)
+u32 ClipdataProcess(u16 y_position, u16 x_position)
 {
     struct CollisionData collision;
     u32 clipdata;
@@ -59,48 +59,48 @@ u32 clipdata_process(u16 y_position, u16 x_position)
     collision.tile_x = x_position >> 6;
 
     // Check in bounds
-    if (collision.tile_x >= bg_pointers_and_dimensions.clipdata_width || collision.tile_y >= bg_pointers_and_dimensions.clipdata_height)
+    if (collision.tile_x >= gBGPointersAndDimensions.clipdata_width || collision.tile_y >= gBGPointersAndDimensions.clipdata_height)
     {
         // Clear if out of bounds
-        current_affecting_clipdata.movement = CLIPDATA_MOVEMENT_NONE;
-        current_affecting_clipdata.hazard = HAZARD_TYPE_NONE;
-        current_clipdata_affecting_action = CCAA_NONE;
+        gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
+        gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
+        gCurrentClipdataAffectingAction = CCAA_NONE;
         return CLIPDATA_TYPE_AIR;
     }
     else
     {
-        if (current_clipdata_affecting_action == CCAA_NONE)
+        if (gCurrentClipdataAffectingAction == CCAA_NONE)
         {
             // No CCAA, then update current affecting
             collision.actor_type = CLIPDATA_ACTOR_SPRITE;
-            current_affecting_clipdata.movement = CLIPDATA_MOVEMENT_NONE;
-            current_affecting_clipdata.hazard = HAZARD_TYPE_NONE;
-            clipdata_update_current_affecting(y_position, collision.tile_y, collision.tile_x, 0x2);
+            gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
+            gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
+            ClipdataUpdateCurrentAffecting(y_position, collision.tile_y, collision.tile_x, 0x2);
         }
-        else if (current_clipdata_affecting_action >= CCAA_UNUSED)
+        else if (gCurrentClipdataAffectingAction >= CCAA_UNUSED)
         {
             // "Destructing" CCAA (projectiles, samus, bomb chain), then it's a non sprite
             collision.actor_type = CLIPDATA_ACTOR_NON_SPRITE;
-            if (current_clipdata_affecting_action == CCAA_UNUSED)
-                current_clipdata_affecting_action = CCAA_NONE;
+            if (gCurrentClipdataAffectingAction == CCAA_UNUSED)
+                gCurrentClipdataAffectingAction = CCAA_NONE;
         }
         else
             collision.actor_type = CLIPDATA_ACTOR_SPRITE;
 
         // Get clip at position
-        clipdata = bg_pointers_and_dimensions.clipdata_decompressed[collision.tile_y * bg_pointers_and_dimensions.clipdata_width + collision.tile_x];
-        if (current_clipdata_affecting_action != CCAA_NONE)
+        clipdata = gBGPointersAndDimensions.clipdata_decompressed[collision.tile_y * gBGPointersAndDimensions.clipdata_width + collision.tile_x];
+        if (gCurrentClipdataAffectingAction != CCAA_NONE)
         {
             // Apply CCAA if not none
-            block_apply_ccaa(collision.tile_y, collision.tile_x, clipdata);
-            current_clipdata_affecting_action = CCAA_NONE;
+            BlockApplyCCAA(collision.tile_y, collision.tile_x, clipdata);
+            gCurrentClipdataAffectingAction = CCAA_NONE;
         }
 
         // Get type and sub pixel, then call clipdata code
-        collision.clipdata_type = tilemap_and_clip_pointers.clip_collisions[clipdata];
+        collision.clipdata_type = gTilemapAndClipPointers.clip_collisions[clipdata];
         collision.sub_pixel_y = y_position & 0x3F;
         collision.sub_pixel_x = x_position & 0x3F;
-        return clipdata = clipdata_code_pointer(&collision);
+        return clipdata = gClipdataCodePointer(&collision);
     }
 }
 
@@ -110,7 +110,7 @@ u32 clipdata_process(u16 y_position, u16 x_position)
  * @param pCollision Pointer to a collision data structure
  * @return u32 Clipdata type (including solid flag)
  */
-u32 clipdata_convert_to_collision(struct CollisionData* pCollision)
+u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
 {
     u32 result;
 
@@ -245,34 +245,66 @@ u32 clipdata_convert_to_collision(struct CollisionData* pCollision)
  * @param x_position X Position (subpixels)
  * @return i32 Current affecting clipdata, first 16 bits are hazard, last 16 bits are movement
  */
-i32 clipdata_check_current_affecting_at_position(u16 y_position, u16 x_position)
+i32 ClipdataCheckCurrentAffectingAtPosition(u16 y_position, u16 x_position)
 {
     u16 tile_y;
     u16 tile_x;
 
-    current_affecting_clipdata.movement = CLIPDATA_MOVEMENT_NONE;
-    current_affecting_clipdata.hazard = HAZARD_TYPE_NONE;
+    gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
+    gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
 
     tile_y = y_position >> 0x6;
     tile_x = x_position >> 0x6;
 
-    if (tile_y >= bg_pointers_and_dimensions.clipdata_height || tile_x >= bg_pointers_and_dimensions.clipdata_width)
+    if (tile_y >= gBGPointersAndDimensions.clipdata_height || tile_x >= gBGPointersAndDimensions.clipdata_width)
         return 0x0;
     else
-        return clipdata_update_current_affecting(y_position, tile_y, tile_x, 0x0);
+        return ClipdataUpdateCurrentAffecting(y_position, tile_y, tile_x, 0x0);
 }
 
-i32 clipdata_update_current_affecting(u16 y_position, u16 tile_y, u16 tile_x, u8 unk)
+i32 ClipdataUpdateCurrentAffecting(u16 y_position, u16 tile_y, u16 tile_x, u8 unk)
 {
 
 }
 
-u8 clidpata_check_cant_use_elevator(void)
+u8 ClipdataCheckCantUseElevator(void)
 {
 
 }
 
-i32 clipdata_check_ground_effect(u16 y_position, u16 x_position)
+/**
+ * @brief 58260 | 64 | Gets the ground effect clipdata at the position
+ * 
+ * @param y_position Y Position (subpixels)
+ * @param x_position X Position (subpixels)
+ * @return i32 Ground Effect Clipdata
+ */
+i32 ClipdataCheckGroundEffect(u16 y_position, u16 x_position)
 {
+    // https://decomp.me/scratch/PlWs7
 
+    /*i16 tile_y;
+    i16 tile_x;
+    u32 clipdata;
+
+    tile_y = y_position >> 0x6; /!\ Swapped instructions for some reason
+    tile_x = x_position >> 0x6;
+
+    if (tile_y >= gBGPointersAndDimensions.clipdata_height || tile_x >= gBGPointersAndDimensions.clipdata_width)
+        return GROUND_EFFECT_NONE;
+    else
+    {
+        clipdata = gBGPointersAndDimensions.clipdata_decompressed[tile_y * gBGPointersAndDimensions.clipdata_width + tile_x];
+        if (clipdata & 0x400)
+            clipdata = 0x0;
+        else
+            clipdata = gTilemapAndClipPointers.clip_behaviors[clipdata];
+
+        if ((clipdata - 0x50) < 0x5)
+            clipdata = GroundEffectClipdataValues[clipdata - 0x50];
+        else
+            clipdata = GROUND_EFFECT_NONE;
+
+        return clipdata;
+    }*/
 }

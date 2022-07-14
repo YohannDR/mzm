@@ -52,49 +52,49 @@ void rising_chozo_pillar_random_particles(u16 y_position, u16 x_position, u8 rng
     switch (rng)
     {
         case 0x1:
-            particle_set(y_position, x_position - 0x28, PE_TWO_MEDIUM_DUST);
+            ParticleSet(y_position, x_position - 0x28, PE_TWO_MEDIUM_DUST);
             break;
         case 0x10:
-            particle_set(y_position, x_position + 0x3C, PE_SECOND_MEDIUM_DUST);
+            ParticleSet(y_position, x_position + 0x3C, PE_SECOND_MEDIUM_DUST);
             break;
         case 0x21:
-            particle_set(y_position, x_position - 0x3C, PE_SECOND_MEDIUM_DUST);
+            ParticleSet(y_position, x_position - 0x3C, PE_SECOND_MEDIUM_DUST);
             break;
         case 0x32:
-            particle_set(y_position, x_position + 0x14, PE_MEDIUM_DUST);
+            ParticleSet(y_position, x_position + 0x14, PE_MEDIUM_DUST);
             break;
         case 0x42:
-            particle_set(y_position, x_position - 0x50, PE_TWO_MEDIUM_DUST);
+            ParticleSet(y_position, x_position - 0x50, PE_TWO_MEDIUM_DUST);
             break;
         case 0x54:
-            particle_set(y_position, x_position + 0x50, PE_SECOND_MEDIUM_DUST);
-            particle_set(y_position, x_position, PE_SECOND_TWO_MEDIUM_DUST);
+            ParticleSet(y_position, x_position + 0x50, PE_SECOND_MEDIUM_DUST);
+            ParticleSet(y_position, x_position, PE_SECOND_TWO_MEDIUM_DUST);
             break;
         case 0x64:
-            particle_set(y_position, x_position - 0x14, PE_SECOND_TWO_MEDIUM_DUST);
+            ParticleSet(y_position, x_position - 0x14, PE_SECOND_TWO_MEDIUM_DUST);
             break;
         case 0x6E:
-            particle_set(y_position, x_position + 0x28, PE_MEDIUM_DUST);
+            ParticleSet(y_position, x_position + 0x28, PE_MEDIUM_DUST);
     }
 }
 
 void rising_chozo_pillar_spawn_three_platforms(u16 y_position, u16 x_position, u8 caa)
 {
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position - 0xC0, x_position + 0xC0);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position - 0xC0, x_position + 0x100);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position - 0x2C0, x_position + 0xC0);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position - 0x2C0, x_position + 0x100);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position - 0x4C0, x_position + 0xC0);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position - 0x4C0, x_position - 0x100);
-    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0xC0, x_position + 0xE0, 0x0);
-    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x2C0, x_position + 0xE0, 0x0);
-    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x4C0, x_position + 0xE0, 0x0);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position - 0xC0, x_position + 0xC0);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position - 0xC0, x_position + 0x100);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position - 0x2C0, x_position + 0xC0);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position - 0x2C0, x_position + 0x100);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position - 0x4C0, x_position + 0xC0);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position - 0x4C0, x_position - 0x100);
+    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0xC0, x_position + 0xE0, 0x0);
+    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x2C0, x_position + 0xE0, 0x0);
+    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x4C0, x_position + 0xE0, 0x0);
 }
 
 /**
@@ -107,16 +107,16 @@ void rising_chozo_pillar_spawn_three_platforms(u16 y_position, u16 x_position, u
  */
 void rising_chozo_pillar_spawn_two_platforms(u16 y_position, u16 x_position, u8 caa)
 {
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position - 0x1C0, x_position);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position - 0x1C0, x_position + 0x40);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position - 0x7c0, x_position);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position - 0x7c0, x_position + 0x40);
-    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x1C0, x_position + 0x20, 0x0);
-    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x7c0, x_position + 0x20, 0x0);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position - 0x1C0, x_position);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position - 0x1C0, x_position + 0x40);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position - 0x7c0, x_position);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position - 0x7c0, x_position + 0x40);
+    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x1C0, x_position + 0x20, 0x0);
+    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x7c0, x_position + 0x20, 0x0);
 }
 
 /**
@@ -129,11 +129,11 @@ void rising_chozo_pillar_spawn_two_platforms(u16 y_position, u16 x_position, u8 
  */
 void rising_chozo_pillar_spawn_one_platform(u16 y_position, u16 x_position, u8 caa)
 {
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position - 0x3C0, x_position + 0x180);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position - 0x3C0, x_position + 0x1C0);
-    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x3C0, x_position + 0x1A0, 0x0);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position - 0x3C0, x_position + 0x180);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position - 0x3C0, x_position + 0x1C0);
+    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x3C0, x_position + 0x1A0, 0x0);
 }
 
 /**
@@ -149,78 +149,78 @@ void rising_chozo_pillar(void)
     u16 x_pos;
 
     caa = CCAA_MAKE_SOLID1;
-    y_position = current_sprite.y_position - 0x20;
-    x_position = current_sprite.x_position;
+    y_position = gCurrentSprite.y_position - 0x20;
+    x_position = gCurrentSprite.x_position;
 
-    switch (current_sprite.pose)
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
-            if (event_function(EVENT_ACTION_CHECKING, EVENT_CHOZO_PILLAR_FULLY_EXTENDED))
+            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_CHOZO_PILLAR_FULLY_EXTENDED))
             {
                 rising_chozo_pillar_spawn_three_platforms(y_position, x_position, caa);
                 rising_chozo_pillar_spawn_two_platforms(y_position, x_position, caa);
                 rising_chozo_pillar_spawn_one_platforms(y_position, x_position, caa);
-                current_sprite.status = 0x0;
+                gCurrentSprite.status = 0x0;
             }
             else
             {
-                current_sprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
-                current_sprite.samus_collision = SSC_NONE;
-                current_sprite.draw_distance_top_offset = 0x1;
-                current_sprite.draw_distance_bottom_offset = 0x1;
-                current_sprite.draw_distance_horizontal_offset = 0x1;
-                current_sprite.hitbox_top_offset = 0x0;
-                current_sprite.hitbox_bottom_offset = 0x0;
-                current_sprite.hitbox_left_offset = 0x0;
-                current_sprite.hitbox_right_offset = 0x0;
-                current_sprite.oam_pointer = large_energy_drop_oam;
-                current_sprite.anim_duration_counter = 0x0;
-                current_sprite.curr_anim_frame = 0x0;
-                current_sprite.pose = 0x8;
+                gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
+                gCurrentSprite.samus_collision = SSC_NONE;
+                gCurrentSprite.draw_distance_top_offset = 0x1;
+                gCurrentSprite.draw_distance_bottom_offset = 0x1;
+                gCurrentSprite.draw_distance_horizontal_offset = 0x1;
+                gCurrentSprite.hitbox_top_offset = 0x0;
+                gCurrentSprite.hitbox_bottom_offset = 0x0;
+                gCurrentSprite.hitbox_left_offset = 0x0;
+                gCurrentSprite.hitbox_right_offset = 0x0;
+                gCurrentSprite.oam_pointer = large_energy_drop_oam;
+                gCurrentSprite.anim_duration_counter = 0x0;
+                gCurrentSprite.curr_anim_frame = 0x0;
+                gCurrentSprite.pose = 0x8;
             }
             break;
         case 0x8:
-            if (event_function(EVENT_ACTION_CHECKING, EVENT_POWER_GRIP_OBTAINED))
+            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_POWER_GRIP_OBTAINED))
             {
-                current_sprite.pose = 0x9;
-                current_sprite.oam_scaling = 0x2C0;
-                sound_play(0x125);
+                gCurrentSprite.pose = 0x9;
+                gCurrentSprite.oam_scaling = 0x2C0;
+                SoundPlay(0x125);
             }
             break;
         case 0x9:
-            if ((current_sprite.oam_scaling & 0x1F) == 0x0)
+            if ((gCurrentSprite.oam_scaling & 0x1F) == 0x0)
                 screen_shake_start_vertical(0x1E, 0x81);
-            current_sprite.oam_scaling--;
-            if (current_sprite.oam_scaling != 0x0)
-                bg2_movement.y_offset += 0x2;
+            gCurrentSprite.oam_scaling--;
+            if (gCurrentSprite.oam_scaling != 0x0)
+                gBG2Movement.y_offset += 0x2;
             else
             {
-                current_sprite.pose = 0x22;
-                sound_call_func(0x125, 0xA);
+                gCurrentSprite.pose = 0x22;
+                SoundFade(0x125, 0xA);
             }
             y_pos = y_position + 0x20;
             x_pos = x_position + 0xE0;
-            rising_chozo_pillar_random_sprite_debris(y_pos, x_pos, current_sprite.oam_scaling & 0xF);
-            rising_chozo_pillar_random_particles(y_pos, x_pos, current_sprite.oam_scaling & 0x7F);
+            rising_chozo_pillar_random_sprite_debris(y_pos, x_pos, gCurrentSprite.oam_scaling & 0xF);
+            rising_chozo_pillar_random_particles(y_pos, x_pos, gCurrentSprite.oam_scaling & 0x7F);
             break;
         case 0x22:
-            current_sprite.pose = 0x23;
+            gCurrentSprite.pose = 0x23;
             rising_chozo_pillar_spawn_three_platforms(y_position, x_position, caa);
             break;
         case 0x23:
-            current_sprite.pose = 0x24;
+            gCurrentSprite.pose = 0x24;
             rising_chozo_pillar_spawn_two_platforms(y_position, x_position, caa);
             break;
         case 0x24:
-            current_sprite.pose = 0x25;
+            gCurrentSprite.pose = 0x25;
             rising_chozo_pillar_spawn_one_platform(y_position, x_position, caa);
             break;
         case 0x25:
-            current_sprite.pose = 0x26;
+            gCurrentSprite.pose = 0x26;
             break;
         case 0x26:
-            event_function(EVENT_ACTION_SETTING, EVENT_CHOZO_PILLAR_FULLY_EXTENDED);
-            current_sprite.status = 0x0;
+            EventFunction(EVENT_ACTION_SETTING, EVENT_CHOZO_PILLAR_FULLY_EXTENDED);
+            gCurrentSprite.status = 0x0;
     }
 }
 
@@ -230,61 +230,61 @@ void rising_chozo_pillar(void)
  */
 void chozo_pillar_platform(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
 
-    switch (current_sprite.pose)
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
-            current_sprite.y_position += 0x4;
-            current_sprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
-            current_sprite.samus_collision = SSC_NONE;
-            current_sprite.draw_distance_top_offset = 0x8;
-            current_sprite.draw_distance_bottom_offset = 0x10;
-            current_sprite.draw_distance_horizontal_offset = 0x10;
-            current_sprite.hitbox_top_offset = 0x0;
-            current_sprite.hitbox_bottom_offset = 0x0;
-            current_sprite.hitbox_left_offset = 0x0;
-            current_sprite.hitbox_right_offset = 0x0;
-            current_sprite.anim_duration_counter = 0x0;
-            current_sprite.curr_anim_frame = 0x0;
-            if (event_function(EVENT_ACTION_CHECKING, EVENT_CHOZO_PILLAR_FULLY_EXTENDED))
+            gCurrentSprite.y_position += 0x4;
+            gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.samus_collision = SSC_NONE;
+            gCurrentSprite.draw_distance_top_offset = 0x8;
+            gCurrentSprite.draw_distance_bottom_offset = 0x10;
+            gCurrentSprite.draw_distance_horizontal_offset = 0x10;
+            gCurrentSprite.hitbox_top_offset = 0x0;
+            gCurrentSprite.hitbox_bottom_offset = 0x0;
+            gCurrentSprite.hitbox_left_offset = 0x0;
+            gCurrentSprite.hitbox_right_offset = 0x0;
+            gCurrentSprite.anim_duration_counter = 0x0;
+            gCurrentSprite.curr_anim_frame = 0x0;
+            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_CHOZO_PILLAR_FULLY_EXTENDED))
             {
-                current_sprite.pose = 0x9;
-                if (current_sprite.room_slot != 0x0)
+                gCurrentSprite.pose = 0x9;
+                if (gCurrentSprite.room_slot != 0x0)
                 {
-                    current_sprite.oam_pointer = chozo_pillar_platform_oam_spawned;
-                    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM_SHADOW, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
+                    gCurrentSprite.oam_pointer = chozo_pillar_platform_oam_spawned;
+                    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM_SHADOW, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
                 }
                 else
-                    current_sprite.oam_pointer = chozo_pillar_platform_slot1_oam_spawned;
+                    gCurrentSprite.oam_pointer = chozo_pillar_platform_slot1_oam_spawned;
             }
             else
             {
-                current_sprite.pose = 0x8;
-                if (current_sprite.room_slot != 0x0)
-                    current_sprite.oam_pointer = chozo_pillar_platform_slot1_oam_spawning;
+                gCurrentSprite.pose = 0x8;
+                if (gCurrentSprite.room_slot != 0x0)
+                    gCurrentSprite.oam_pointer = chozo_pillar_platform_slot1_oam_spawning;
                 else
-                    current_sprite.oam_pointer = chozo_pillar_platform_oam_spawning;
-                sound_play(0x126);
+                    gCurrentSprite.oam_pointer = chozo_pillar_platform_oam_spawning;
+                SoundPlay(0x126);
             }
             break;
 
         case 0x8:
             if (sprite_util_check_end_current_sprite_anim())
             {
-                current_sprite.pose = 0x9;
-                current_sprite.anim_duration_counter = 0x0;
-                current_sprite.curr_anim_frame = 0x0;
-                if (current_sprite.room_slot != 0x0)
-                    current_sprite.oam_pointer = chozo_pillar_platform_slot1_oam_spawned;
+                gCurrentSprite.pose = 0x9;
+                gCurrentSprite.anim_duration_counter = 0x0;
+                gCurrentSprite.curr_anim_frame = 0x0;
+                if (gCurrentSprite.room_slot != 0x0)
+                    gCurrentSprite.oam_pointer = chozo_pillar_platform_slot1_oam_spawned;
                 else
-                    current_sprite.oam_pointer = chozo_pillar_platform_oam_spawned;
+                    gCurrentSprite.oam_pointer = chozo_pillar_platform_oam_spawned;
             }
             else
             {
-                if (current_sprite.room_slot != 0x0 && current_sprite.curr_anim_frame == 0x15 && current_sprite.anim_duration_counter == 0x1)
-                    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM_SHADOW, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
+                if (gCurrentSprite.room_slot != 0x0 && gCurrentSprite.curr_anim_frame == 0x15 && gCurrentSprite.anim_duration_counter == 0x1)
+                    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM_SHADOW, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
             }
     }
 }
@@ -295,24 +295,24 @@ void chozo_pillar_platform(void)
  */
 void chozo_pillar_platform_shadow(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
 
-    if (current_sprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0x0)
     {
-        current_sprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-        current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
-        current_sprite.samus_collision = SSC_NONE;
-        current_sprite.draw_distance_top_offset = 0x0;
-        current_sprite.draw_distance_bottom_offset = 0x10;
-        current_sprite.draw_distance_horizontal_offset = 0x10;
-        current_sprite.hitbox_top_offset = 0x0;
-        current_sprite.hitbox_bottom_offset = 0x0;
-        current_sprite.hitbox_left_offset = 0x0;
-        current_sprite.hitbox_right_offset = 0x0;
-        current_sprite.pose = 0x8;
-        current_sprite.oam_pointer = chozo_pillar_platform_shadow_oam;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        current_sprite.draw_order = 0xC;
+        gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.samus_collision = SSC_NONE;
+        gCurrentSprite.draw_distance_top_offset = 0x0;
+        gCurrentSprite.draw_distance_bottom_offset = 0x10;
+        gCurrentSprite.draw_distance_horizontal_offset = 0x10;
+        gCurrentSprite.hitbox_top_offset = 0x0;
+        gCurrentSprite.hitbox_bottom_offset = 0x0;
+        gCurrentSprite.hitbox_left_offset = 0x0;
+        gCurrentSprite.hitbox_right_offset = 0x0;
+        gCurrentSprite.pose = 0x8;
+        gCurrentSprite.oam_pointer = chozo_pillar_platform_shadow_oam;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.draw_order = 0xC;
     }
 }

@@ -4,5 +4,5 @@
 
 void gekitai_machine(void)
 {
-    current_sprite.status = 0x0;
+    gCurrentSprite.status = 0x0;
 }

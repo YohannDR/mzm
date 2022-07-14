@@ -19,22 +19,22 @@ struct BG2Movement {
     i16 y_offset;
 };
 
-void bg_clip_mother_brain_update_glass(u8 bg, u16 value, u16 y_position, u16 x_position);
-void bg_clip_set_bg1_block_value(u16 value, u16 y_position, u16 x_position);
-void bg_clip_set_raw_bg1_block_value(u16 value, u16 y_position, u16 x_position);
-void bg_clip_set_clipdata_block_value(u16 value, u16 y_position, u16 x_position);
-void bg_clip_check_touching_special_clipdata(void);
-void bg_clip_apply_clipdata_changing_transparency(void);
-u16 bg_clip_get_new_bldalpha_value(u16 clip);
-void bg_clip_check_walking_on_crumble_block(void);
-void bg_clip_check_touching_transition_on_elevator(void);
-void bg_clip_check_touching_transition_or_tank(void);
-void bg_clip_finish_collecting_tank(void);
-void bg_clip_finish_collecting_ability(void);
-void bg_clip_check_grabbing_crumble_block(u8 false);
-u8 bg_clip_check_opening_hatch(u16 x_position, u16 y_position);
-void bg_clip_set_item_as_collected(u8 x_position, u8 y_position, u8 type);
-void bg_clip_remove_collected_tanks(void);
-void bg_clip_call_mother_brain_update_glass(u8 stage);
+void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 y_position, u16 x_position);
+void BGClipSetBG1BlockValue(u16 value, u16 y_position, u16 x_position);
+void BGClipSetRawBG1BlockValue(u16 value, u16 y_position, u16 x_position);
+void BGClipSetClipdataBlockValue(u16 value, u16 y_position, u16 x_position);
+void BGClipCheckTouchingSpecialClipdata(void);
+void BGClipApplyClipdataChangingTransparency(void);
+u16 BGClipGetNewBLDALPHAValue(u16 clip);
+void BGClipCheckWalkingOnCrumbleBlock(void);
+void BGClipCheckTouchingTransitionOnElevator(void);
+void BGClipCheckTouchingTransitionOrTank(void);
+void BGClipFinishCollectingTank(void);
+void BGClipFinishCollectingAbility(void);
+void BGClipCheckGrabbingCrumnbleBlock(u8 false);
+u8 BGClipCheckOpeningHatch(u16 x_position, u16 y_position);
+void BGClipSetItemAsCollected(u8 x_position, u8 y_position, u8 type);
+void BGClipRemoveCollectedTanks(void);
+void BGClipCallMotherBrainUpdateGlass(u8 stage);
 
 #endif /* BG_CLIP_H */

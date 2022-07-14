@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "event.h"
+#include "music.h"
 
 #define AREA_BRINSTAR 0x0
 #define AREA_KRAID 0x1
@@ -36,6 +37,18 @@
 #define HATCH_ACTION_CHECKING_OPENED 0x0
 #define HATCH_ACTION_SETTING_SOURCE_AND_DESTINATION 0x1
 #define HATCH_ACTION_SETTING_SOURCE 0x2
+
+#define ELEVATOR_ROUTE_NONE 0x0
+#define ELEVATOR_ROUTE_CRATERIA_TO_BRINSTAR 0x1
+#define ELEVATOR_ROUTE_BRINSTAR_TO_NORFAIR 0x2
+#define ELEVATOR_ROUTE_BRINSTAR_TO_KRAID 0x3
+#define ELEVATOR_ROUTE_NORFAIR_TO_RIDLEY 0x4
+#define ELEVATOR_ROUTE_BRINSTAR_TO_TOURIAN 0x5
+#define ELEVATOR_ROUTE_CRATERIA_TO_TOURIAN 0x6
+#define ELEVATOR_ROUTE_CRATERIA_TO_NORFAIR 0x7
+
+#define ELEVATOR_DIRECTION_DOWN 0x1
+#define ELEVATOR_DIRECTION_UP -0x1
 
 struct Door {
     u8 type;
@@ -81,22 +94,28 @@ struct HatchData {
     u8 source_door;
 };
 
-void connection_opening_hatch_related(void);
-void connection_update_hatch_animation(u8 dont_set_raw, u8 hatch);
-void unk_5EA54(u8 hatch);
-void unk_5eb18(u8 hatch, u8 type);
-u8 connection_check_enter_door(u16 y_position, u16 x_position);
-u8 connection_check_area_connection(u16 y_position, u16 x_position);
-void connection_process_door_type(u8 type);
-u8 connection_find_event_based_door(u8 source_door);
-u8 connection_set_hatch_as_opened(u8 action, u8 hatch);
-void connection_check_unlock_doors(void);
-void connection_maybe_hatch_animation_related(u8 maybe_direction, u8 hatch, u8 maybe_status);
-void connection_lock_hatches(u8 is_event);
-void connection_load_doors(void);
-void connection_lock_hatches_with_timer(void);
-void connection_check_hatch_lock_events(void);
-void connection_check_play_cutscene_during_transition(u8 area, u8 dst_door);
-void connection_check_play_cutscene_during_elevator(void);
+struct LastElevatorUsed {
+    u16 unused;
+    u8 route;
+    i8 direction;
+};
+
+void ConnectionUpdateOpeningClosingHatches(void);
+void ConnectionUpdateHatchAnimation(u8 dont_set_raw, u8 hatch);
+void ConnectionHatchFlashingAnimation(u8 hatch);
+void ConnectionOverrideOpenedHatch(u8 hatch, u8 type);
+u8 ConnectionCheckEnterDoor(u16 y_position, u16 x_position);
+u8 ConnectionCheckAreaConnection(u16 y_position, u16 x_position);
+void ConnectionProcessDoorType(u8 type);
+u8 ConnectionFindEventBasedDoor(u8 source_door);
+u8 ConnectionSetHatchAsOpened(u8 action, u8 hatch);
+void ConnectionCheckUnlockDoors(void);
+void ConnectionStartLockAnimation(u8 maybe_direction, u8 hatch, u8 maybe_status);
+void ConnectionLockHatches(u8 is_event);
+void ConnectionLoadDoors(void);
+void ConnectionLockHatchesWithTimer(void);
+void ConnectionCheckHatchLockEvents(void);
+void ConnectionCheckPlayCutsceneDuringTransition(u8 area, u8 dst_door);
+void ConnectionCheckPlayCutsceneDuringElevator(void);
 
 #endif /* CONNECTION_H */

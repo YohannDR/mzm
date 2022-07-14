@@ -5,56 +5,56 @@
 
 void enemy_drop_init(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x14;
-    current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
-    current_sprite.pose = 0x9;
-    current_sprite.y_position_spawn = 0xC8;
-    current_sprite.x_position_spawn = 0x0;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.draw_distance_top_offset = 0x8;
-    current_sprite.draw_distance_bottom_offset = 0x8;
-    current_sprite.draw_distance_horizontal_offset = 0x8;
-    current_sprite.bg_priority = (u8)io_registers_backup.bg2_cnt & 0x3
-    current_sprite.draw_order = 0x1;
+    gCurrentSprite.ignore_samus_collision_timer = 0x14;
+    gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+    gCurrentSprite.pose = 0x9;
+    gCurrentSprite.y_position_spawn = 0xC8;
+    gCurrentSprite.x_position_spawn = 0x0;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.draw_distance_top_offset = 0x8;
+    gCurrentSprite.draw_distance_bottom_offset = 0x8;
+    gCurrentSprite.draw_distance_horizontal_offset = 0x8;
+    gCurrentSprite.bg_priority = (u8)gIORegistersBackup.bg2_cnt & 0x3
+    gCurrentSprite.draw_order = 0x1;
 
-    switch (current_sprite.sprite_id)
+    switch (gCurrentSprite.sprite_id)
     {
         case PSPRITE_POWER_BOMB_DROP:
-            current_sprite.oam_pointer = power_bomb_drop_oam;
-            current_sprite.samus_collision = SSC_POWER_BOMB_DROP;
+            gCurrentSprite.oam_pointer = power_bomb_drop_oam;
+            gCurrentSprite.samus_collision = SSC_POWER_BOMB_DROP;
             break;
         case PSPRITE_SUPER_MISSILE_DROP:
-            current_sprite.oam_pointer = super_missile_drop_oam;
-            current_sprite.samus_collision = SSC_SUPER_MISSILE_DROP;
+            gCurrentSprite.oam_pointer = super_missile_drop_oam;
+            gCurrentSprite.samus_collision = SSC_SUPER_MISSILE_DROP;
             break;
         case PSPRITE_MISSILE_DROP:
-            current_sprite.oam_pointer = missile_drop_oam;
-            current_sprite.samus_collision = SSC_MISSILE_DROP;
+            gCurrentSprite.oam_pointer = missile_drop_oam;
+            gCurrentSprite.samus_collision = SSC_MISSILE_DROP;
             break;
         case PSPRITE_LARGE_ENERGY_DROP:
-            current_sprite.oam_pointer = large_energy_oam;
-            current_sprite.samus_collision = SSC_LARGE_ENERGY_DROP;
+            gCurrentSprite.oam_pointer = large_energy_oam;
+            gCurrentSprite.samus_collision = SSC_LARGE_ENERGY_DROP;
             break;
         case PSPRITE_MULTIPLE_LARGE_ENERGY:
-            if (current_sprite.room_slot == 0x1)
-                current_sprite.oam_pointer = multiple_large_energy_oam1;
-            else if (current_sprite.room_slot == 0x2)
-                current_sprite.oam_pointer = multiple_large_energy_oam2;
+            if (gCurrentSprite.room_slot == 0x1)
+                gCurrentSprite.oam_pointer = multiple_large_energy_oam1;
+            else if (gCurrentSprite.room_slot == 0x2)
+                gCurrentSprite.oam_pointer = multiple_large_energy_oam2;
             else
-                current_sprite.oam_pointer = multiple_large_energy_oam3;
+                gCurrentSprite.oam_pointer = multiple_large_energy_oam3;
 
-            current_sprite.samus_collision = SSC_MULTIPLE_LARGE_ENERGY_DROP;
+            gCurrentSprite.samus_collision = SSC_MULTIPLE_LARGE_ENERGY_DROP;
             break;
         default:
-            current_sprite.oam_pointer = small_energy_oam;
-            current_sprite.samus_collision = SSC_SMALL_ENERGY_DROP;
+            gCurrentSprite.oam_pointer = small_energy_oam;
+            gCurrentSprite.samus_collision = SSC_SMALL_ENERGY_DROP;
     }
 
-    current_sprite.hitbox_top_offset = -0x24;
-    current_sprite.hitbox_bottom_offset = 0x24;
-    current_sprite.hitbox_left_offset = -0x20;
-    current_sprite.hitbox_right_offset = 0x20;
+    gCurrentSprite.hitbox_top_offset = -0x24;
+    gCurrentSprite.hitbox_bottom_offset = 0x24;
+    gCurrentSprite.hitbox_left_offset = -0x20;
+    gCurrentSprite.hitbox_right_offset = 0x20;
 }
 
 void enemy_drop_get(void)
@@ -78,48 +78,48 @@ void enemy_drop_get(void)
             switch (pSprite->samus_collision)
             {
                 case SSC_SMALL_ENERGY_DROP:
-                    equipment.current_energy += 0x5;
-                    if (equipment.current_energy > equipment.max_energy)
-                        equipment.current_energy = equipment.max_energy;
-                    sound_play(0x86);
+                    gEquipment.current_energy += 0x5;
+                    if (gEquipment.current_energy > gEquipment.max_energy)
+                        gEquipment.current_energy = gEquipment.max_energy;
+                    SoundPlay(0x86);
                     break;
 
                 case SSC_LARGE_ENERGY_DROP:
-                    equipment.current_energy += 0x14;
-                    if (equipment.current_energy > equipment.max_energy)
-                        equipment.current_energy = equipment.max_energy;
-                    sound_play(0x87);
+                    gEquipment.current_energy += 0x14;
+                    if (gEquipment.current_energy > gEquipment.max_energy)
+                        gEquipment.current_energy = gEquipment.max_energy;
+                    SoundPlay(0x87);
                     break;
 
                 case SSC_MISSILE_DROP:
-                    equipment.current_missiles += 0x2;
-                    if (equipment.current_missiles > equipment.max_missiles)
-                        equipment.current_missiles = equipment.max_missiles;
-                    sound_play(0x88);
+                    gEquipment.current_missiles += 0x2;
+                    if (gEquipment.current_missiles > gEquipment.max_missiles)
+                        gEquipment.current_missiles = gEquipment.max_missiles;
+                    SoundPlay(0x88);
                     break;
 
                 case SSC_SUPER_MISSILE_DROP:
-                    equipment.current_super_missiles += 0x2;
-                    if (equipment.current_super_missiles > equipment.max_super_missiles)
-                        equipment.current_super_missiles = equipment.max_super_missiles;
-                    sound_play(0x89);
+                    gEquipment.current_super_missiles += 0x2;
+                    if (gEquipment.current_super_missiles > gEquipment.max_super_missiles)
+                        gEquipment.current_super_missiles = gEquipment.max_super_missiles;
+                    SoundPlay(0x89);
                     break;
 
                 case SSC_POWER_BOMB_DROP:
-                    equipment.current_power_bombs += 0x1;
-                    if (equipment.current_power_bombs > equipment.max_power_bombs)
-                        equipment.current_power_bombs = equipment.max_power_bombs;
-                    sound_play(0x8A);
+                    gEquipment.gCurrentPowerBombs += 0x1;
+                    if (gEquipment.gCurrentPowerBombs > gEquipment.max_power_bombs)
+                        gEquipment.gCurrentPowerBombs = gEquipment.max_power_bombs;
+                    SoundPlay(0x8A);
                     break;
 
                 case SSC_MULTIPLE_LARGE_ENERGY_DROP:
-                    equipment.current_energy += 0x3C;
-                    if (equipment.current_energy > equipment.max_energy)
-                        equipment.current_energy = equipment.max_energy;
-                    sound_play(0x87);
+                    gEquipment.current_energy += 0x3C;
+                    if (gEquipment.current_energy > gEquipment.max_energy)
+                        gEquipment.current_energy = gEquipment.max_energy;
+                    SoundPlay(0x87);
                     break;
             }
-            current_sprite.status = 0x0;
+            gCurrentSprite.status = 0x0;
             return;
         }
         else
@@ -146,7 +146,7 @@ void enemy_drop_get(void)
 
 void enemy_drop(void)
 {
-    switch (current_sprite.pose)
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             enemy_drop_init();
@@ -154,5 +154,5 @@ void enemy_drop(void)
         case 0x9:
             enemy_drop_get();
     }
-    current_sprite.x_position_spawn++;
+    gCurrentSprite.x_position_spawn++;
 }

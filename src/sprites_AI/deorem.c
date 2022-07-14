@@ -72,24 +72,24 @@ void deorem_spawn_charge_beam(u16 y_position, u16 x_position)
 {
     u8 gfx_slot;
 
-    gfx_slot = current_sprite.spriteset_gfx_slot;
+    gfx_slot = gCurrentSprite.spriteset_gfx_slot;
     sprite_spawn_primary(PSPRITE_CHARGE_BEAM, 0x0, gfx_slot, y_position, x_position, 0x0);
     sprite_load_gfx(PSPRITE_CHARGE_BEAM, gfx_slot);
     sprite_load_pal(PSPRITE_CHARGE_BEAM, gfx_slot, 0x1);
 }
 
 /**
- * 210d4 | 3c | Sets the timer for how long the eye stays open depending on the difficulty
+ * 210d4 | 3c | Sets the timer for how long the eye stays open depending on the gDifficulty
  * 
  */
 void deorem_set_eye_opening_timer(void)
 {
-    if (difficulty == 0x0)
-        current_sprite.timer1 = 0x78; // Easy
-    else if (difficulty == 0x2)
-        current_sprite.timer1 = 0x28; // Hard
+    if (gDifficulty == 0x0)
+        gCurrentSprite.timer1 = 0x78; // Easy
+    else if (gDifficulty == 0x2)
+        gCurrentSprite.timer1 = 0x28; // Hard
     else
-        current_sprite.timer1 = 0x50; // Normal
+        gCurrentSprite.timer1 = 0x50; // Normal
 }
 
 /**
@@ -98,8 +98,8 @@ void deorem_set_eye_opening_timer(void)
  */
 void deorem_call_spawn_charge_beam(void)
 {
-    deorem_spawn_charge_beam(current_sprite.y_position + 0xB0, current_sprite.x_position + 0x1A0);
-    current_sprite.status = 0x0;
+    deorem_spawn_charge_beam(gCurrentSprite.y_position + 0xB0, gCurrentSprite.x_position + 0x1A0);
+    gCurrentSprite.status = 0x0;
 }
 
 void deorem_init(void)
@@ -128,16 +128,16 @@ void deorem_spawn_going_up(void)
     u8 ram_slot;
     u16 x_position;
 
-    current_sprite.timer1--;
-    if (current_sprite.timer1 == 0x0)
+    gCurrentSprite.timer1--;
+    if (gCurrentSprite.timer1 == 0x0)
     {
-        current_sprite.pose = 0x23;
-        current_sprite.timer1 = 0x32;
-        current_sprite.y_position = current_sprite.y_position_spawn + 0x31C;
-        gfx_slot = current_sprite.spriteset_gfx_slot;
-        ram_slot = current_sprite.primary_sprite_ram_slot;
-        y_position = current_sprite.y_position;
-        x_position = current_sprite.x_position;
+        gCurrentSprite.pose = 0x23;
+        gCurrentSprite.timer1 = 0x32;
+        gCurrentSprite.y_position = gCurrentSprite.y_position_spawn + 0x31C;
+        gfx_slot = gCurrentSprite.spriteset_gfx_slot;
+        ram_slot = gCurrentSprite.primary_sprite_ram_slot;
+        y_position = gCurrentSprite.y_position;
+        x_position = gCurrentSprite.x_position;
         sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0xB, gfx_slot, ram_slot, y_position, x_position, 0x0);
         sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0xA, gfx_slot, ram_slot, y_position, x_position, 0x0);
         sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0x9, gfx_slot, ram_slot, y_position, x_position, 0x0);
@@ -145,7 +145,7 @@ void deorem_spawn_going_up(void)
         sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0x7, gfx_slot, ram_slot, y_position, x_position, 0x0);
         sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0x6, gfx_slot, ram_slot, y_position, x_position, 0x0);
         screen_shake_start_vertical(0x28, 0x81);
-        sound_play(0x193);
+        SoundPlay(0x193);
     }
 }
 
@@ -169,30 +169,30 @@ void deorem_spawn_head_body(void)
     u8 segment_C_slot;
     u8 eye_slot;
 
-    if ((current_sprite.timer1 & 0x1F) == 0x0)
-        deorem_random_sprite_debris(current_sprite.timer1);
+    if ((gCurrentSprite.timer1 & 0x1F) == 0x0)
+        deorem_random_sprite_debris(gCurrentSprite.timer1);
 
-    current_sprite.timer1--;
-    if (current_sprite.timer1 == 0x0)
+    gCurrentSprite.timer1--;
+    if (gCurrentSprite.timer1 == 0x0)
     {
-        current_sprite.pose = 0x25;
-        current_sprite.y_position = current_sprite.y_position_spawn;
-        current_sprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-        current_sprite.timer1 = 0xB;
-        gfx_slot = current_sprite.spriteset_gfx_slot;
-        ram_slot = current_sprite.primary_sprite_ram_slot;
-        y_position = current_sprite.y_position;
-        x_position = current_sprite.x_position;
+        gCurrentSprite.pose = 0x25;
+        gCurrentSprite.y_position = gCurrentSprite.y_position_spawn;
+        gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+        gCurrentSprite.timer1 = 0xB;
+        gfx_slot = gCurrentSprite.spriteset_gfx_slot;
+        ram_slot = gCurrentSprite.primary_sprite_ram_slot;
+        y_position = gCurrentSprite.y_position;
+        x_position = gCurrentSprite.x_position;
         segment_E_slot = sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0xE, gfx_slot, ram_slot, y_position, x_position, 0x0);
         segment_D_slot = sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0xD, gfx_slot, ram_slot, y_position, x_position, 0x0);
         segment_C_slot = sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0xC, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        sprite_data[segment_D_slot].timer1 = segment_C_slot;
-        sprite_data[segment_E_slot].timer1 = segment_D_slot;
+        gSpriteData[segment_D_slot].timer1 = segment_C_slot;
+        gSpriteData[segment_E_slot].timer1 = segment_D_slot;
         eye_slot = sprite_spawn_secondary(SSPRITE_DEOREM_EYE, 0x0, gfx_slot, ram_slot, y_position - 0x1C, x_position - 0x4, 0x0);
         if (eye_slot == 0xFF)
-            current_sprite.status = 0x0;
+            gCurrentSprite.status = 0x0;
         else
-            current_sprite.array_offset = eye_slot;
+            gCurrentSprite.array_offset = eye_slot;
     }
 }
 
@@ -237,10 +237,10 @@ void deorem_dying_going_down(void)
  */
 void deorem_death(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
-    current_sprite.timer1--;
-    if (current_sprite.timer1 == 0x0)
-        sprite_util_sprite_death(DEATH_NORMAL, current_sprite.y_position, current_sprite.x_position + 0x40, FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.timer1--;
+    if (gCurrentSprite.timer1 == 0x0)
+        sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position + 0x40, FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
 }
 
 void deorem_check_leaving_ceiling_anim_ended(void)
@@ -360,7 +360,7 @@ void deorem_eye_init(void)
 
 void deorem_eye_set_pose9(void)
 {
-    current_sprite.pose = 0x9;
+    gCurrentSprite.pose = 0x9;
 }
 
 void deorem_eye_move(void)
@@ -409,7 +409,7 @@ void deorem_thorn_movement(void)
  */
 void deorem(void)
 {
-    switch (current_sprite.pose)
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             deorem_init();
@@ -485,29 +485,29 @@ void deorem_eye(void)
     u8 ram_slot;
     u8 isft;
 
-    current_sprite.ignore_samus_collision_timer = 0x1;
-    if (current_sprite.pose < 0x68)
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    if (gCurrentSprite.pose < 0x68)
     {
-        ram_slot = current_sprite.primary_sprite_ram_slot;
-        isft = current_sprite.invicibility_stun_flash_timer & 0x7F;
-        if (isft && sprite_data[ram_slot].pose < 0x62)
+        ram_slot = gCurrentSprite.primary_sprite_ram_slot;
+        isft = gCurrentSprite.invicibility_stun_flash_timer & 0x7F;
+        if (isft && gSpriteData[ram_slot].pose < 0x62)
         {
-            sprite_data[ram_slot].invicibility_stun_flash_timer = current_sprite.invicibility_stun_flash_timer;
+            gSpriteData[ram_slot].invicibility_stun_flash_timer = gCurrentSprite.invicibility_stun_flash_timer;
             if (isft == 0x10)
             {
-                sprite_data[ram_slot].oam_pointer = deorem_oam_2d7a84;
-                sprite_data[ram_slot].anim_duration_counter = 0x0;
-                sprite_data[ram_slot].curr_anim_frame = 0x0;
-                sprite_data[ram_slot].hitbox_bottom_offset = 0x40;
-                if (current_sprite.health < 0x15)
-                    sprite_data[ram_slot].absolute_palette_row = 0x2;
-                current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
-                sound_play(0x19A);
+                gSpriteData[ram_slot].oam_pointer = deorem_oam_2d7a84;
+                gSpriteData[ram_slot].anim_duration_counter = 0x0;
+                gSpriteData[ram_slot].curr_anim_frame = 0x0;
+                gSpriteData[ram_slot].hitbox_bottom_offset = 0x40;
+                if (gCurrentSprite.health < 0x15)
+                    gSpriteData[ram_slot].absolute_palette_row = 0x2;
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+                SoundPlay(0x19A);
             }
         }
     }
 
-    switch (current_sprite.pose)
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             deorem_eye_init();
@@ -534,7 +534,7 @@ void deorem_eye(void)
  */
 void deorem_thorn(void)
 {
-    switch (current_sprite.pose)
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             deorem_init();
@@ -545,6 +545,6 @@ void deorem_thorn(void)
             deorem_thorn_movement();
             break;
         default:
-            sprite_util_sprite_death(DEATH_NORMAL, current_sprite.y_position, current_sprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+            sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
     }
 }

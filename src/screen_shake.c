@@ -3,41 +3,41 @@
 
 u8 screen_shake_start_vertical(u8 duration, u8 unk)
 {
-    if (duration != 0x0 && duration > screen_shake_y.timer)
+    if (duration != 0x0 && duration > gScreenShakeY.timer)
     {
-        screen_shake_y.timer = duration;
-        screen_shake_y.loop_counter = 0x0;
-        screen_shake_y.unknown = unk;
-        screen_shake_y.unknown2 = 0x0;
-        screen_shake_y_related = 0x0;
+        gScreenShakeY.timer = duration;
+        gScreenShakeY.loop_counter = 0x0;
+        gScreenShakeY.unknown = unk;
+        gScreenShakeY.unknown2 = 0x0;
+        gScreenShakeYRelated = 0x0;
     }
-    return screen_shake_y.timer;
+    return gScreenShakeY.timer;
 }
 
 u8 screen_shake_start_horizontal(u8 duration, u8 unk)
 {
-    if (duration != 0x0 && duration > screen_shake_x.timer)
+    if (duration != 0x0 && duration > gScreenShakeX.timer)
     {
-        screen_shake_x.timer = duration;
-        screen_shake_x.loop_counter = 0x0;
-        screen_shake_x.unknown = unk;
-        screen_shake_x.unknown2 = 0x0;
-        screen_shake_x_related = 0x0;
+        gScreenShakeX.timer = duration;
+        gScreenShakeX.loop_counter = 0x0;
+        gScreenShakeX.unknown = unk;
+        gScreenShakeX.unknown2 = 0x0;
+        gScreenShakeXRelated = 0x0;
     }
-    return screen_shake_x.timer;
+    return gScreenShakeX.timer;
 }
 
 u8 screen_shake_start_horizontal_unused(u8 duration)
 {
-    if (duration != 0x0 && duration > screen_shake_x.timer)
+    if (duration != 0x0 && duration > gScreenShakeX.timer)
     {
-        screen_shake_x.timer = duration;
-        screen_shake_x.loop_counter = 0x0;
-        screen_shake_x.unknown = 0x0;
-        screen_shake_x.unknown2 = 0x0;
-        screen_shake_x_related = 0x0;
+        gScreenShakeX.timer = duration;
+        gScreenShakeX.loop_counter = 0x0;
+        gScreenShakeX.unknown = 0x0;
+        gScreenShakeX.unknown2 = 0x0;
+        gScreenShakeXRelated = 0x0;
     }
-    return screen_shake_x.timer;
+    return gScreenShakeX.timer;
 }
 
 i32 screen_shake_update_vertical(void)
@@ -48,31 +48,31 @@ i32 screen_shake_update_vertical(void)
     u8 zero;
 
     zero = 0x0;
-    screen_shake_y_related = zero;
-    if (screen_shake_y.timer == 0x0)
+    gScreenShakeYRelated = zero;
+    if (gScreenShakeY.timer == 0x0)
         return 0x0;
     else
     {
-        screen_shake_y.timer--;
-        if (screen_shake_y.loop_counter < 0x2)
+        gScreenShakeY.timer--;
+        if (gScreenShakeY.loop_counter < 0x2)
         {
-            screen_shake_y.loop_counter++;
+            gScreenShakeY.loop_counter++;
             return 0x0;
         }
         else
         {
-            screen_shake_y.loop_counter = zero;
-            unk2 = screen_shake_y.unknown & 0x7F;
+            gScreenShakeY.loop_counter = zero;
+            unk2 = gScreenShakeY.unknown & 0x7F;
             unk = -0x2;
-            if (screen_shake_y.unknown2 != 0x0)
+            if (gScreenShakeY.unknown2 != 0x0)
             {
                 unk = 0x2;
                 unk = (-(unk2) | unk2) >> 0x1F & 0x2;
             }
-            screen_shake_y.unknown2 ^= 0x1;
-            if (screen_shake_y.timer < 0x10)
+            gScreenShakeY.unknown2 ^= 0x1;
+            if (gScreenShakeY.timer < 0x10)
                 unk >>= 0x1;
-            screen_shake_y_related = (u8)unk;
+            gScreenShakeYRelated = (u8)unk;
             offset = unk;
         }
     }
@@ -87,31 +87,31 @@ i32 screen_shake_update_horizontal(void)
     u8 zero;
 
     zero = 0x0;
-    screen_shake_x_related = zero;
-    if (screen_shake_x.timer == 0x0)
+    gScreenShakeXRelated = zero;
+    if (gScreenShakeX.timer == 0x0)
     return 0x0;
     else
     {
-        screen_shake_x.timer--;
-        if (screen_shake_x.loop_counter < 0x2)
+        gScreenShakeX.timer--;
+        if (gScreenShakeX.loop_counter < 0x2)
         {
-            screen_shake_x.loop_counter++;
+            gScreenShakeX.loop_counter++;
             offset = 0x0;
         }
         else
         {
-            screen_shake_x.loop_counter = zero;
-            unk2 = screen_shake_x.unknown & 0x7F;
+            gScreenShakeX.loop_counter = zero;
+            unk2 = gScreenShakeX.unknown & 0x7F;
             unk = -0x2;
-            if (screen_shake_x.unknown2 != 0x0)
+            if (gScreenShakeX.unknown2 != 0x0)
             {
                 unk = 0x2;
                 unk = (-(unk2) | unk2) >> 0x1F & unk;
             }
-            screen_shake_x.unknown2 ^= 0x1;
-            if (screen_shake_x.timer < 0x10)
+            gScreenShakeX.unknown2 ^= 0x1;
+            if (gScreenShakeX.timer < 0x10)
                 unk >>= 0x1;
-            screen_shake_x_related = (u8)unk;
+            gScreenShakeXRelated = (u8)unk;
             offset = unk;
         }
     }

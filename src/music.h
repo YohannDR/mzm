@@ -3,10 +3,9 @@
 
 #include "types.h"
 
-void sound_play(u16 sound);
-void sound_stop(u16 sound);
-void sound_call_func(u16 sound, u8 action);
-void update_audio(void);
-void sound_fade(u16 sound, u16 timer);
+void SoundPlay(u16 sound);
+void SoundStop(u16 sound);
+void SoundUpdateAudio(void);
+void SoundFade(u16 sound, u16 timer);
 
 #endif /* MUSIC_H */

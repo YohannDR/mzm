@@ -7,18 +7,18 @@
 #include "../data/data.h"
 #include "globals.h"
 
-void projectile_set_beam_particle_effect(void)
+void ProjectileSetBeamParticleEffect(void)
 {
     /*u8 effect;
     u16 x_pos;
     u16 y_pos;
     u8 right;
 
-    y_pos = arm_cannon_y;
-    x_pos = arm_cannon_x;
-    right = samus_data.direction & KEY_RIGHT;
+    y_pos = gArmCannonY;
+    x_pos = gArmCannonX;
+    right = gSamusData.direction & KEY_RIGHT;
 
-    switch (samus_data.arm_cannon_direction)
+    switch (gSamusData.arm_cannon_direction)
     {
         case ACD_DIAGONALLY_DOWN:
             effect = PE_SHOOTING_BEAM_DIAG_DOWN_LEFT;
@@ -51,18 +51,18 @@ void projectile_set_beam_particle_effect(void)
             break;
     }
 
-    particle_set(y_pos, x_pos, effect);*/
+    ParticleSet(y_pos, x_pos, effect);*/
 }
 
-u8 projectile_check_number_of_projectiles(u8 type, u8 limit)
+u8 ProjectileCheckNumberOfProjectiles(u8 type, u8 limit)
 {
     u8 count;
     struct ProjectileData* pProj;
 
     count = 0x0;
-    pProj = projectile_data;
+    pProj = gProjectileData;
 
-    while (pProj < projectile_data + 16)
+    while (pProj < gProjectileData + 16)
     {
         if ((pProj->status & PROJ_STATUS_EXISTS) != 0x0 && pProj->type == type)
         {
@@ -75,20 +75,20 @@ u8 projectile_check_number_of_projectiles(u8 type, u8 limit)
     return TRUE;
 }
 
-u8 projectile_init(u8 type, u16 y_position, u16 x_position)
+u8 ProjectileInit(u8 type, u16 y_position, u16 x_position)
 {
     /*struct ProjectileData* pProj;
     u8 status;
 
-    pProj = projectile_data;
-    while (pProj < projectile_data + 24)
+    pProj = gProjectileData;
+    while (pProj < gProjectileData + 24)
     {
         if ((pProj->status & PROJ_STATUS_EXISTS) == 0x0)
         {
             status = PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
             if (type > PROJ_TYPE_SUPER_MISSILE)
                 status = PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_NOT_DRAWN;
-            if (samus_data.direction & KEY_RIGHT)
+            if (gSamusData.direction & KEY_RIGHT)
                 status |= PROJ_STATUS_XFLIP;
 
             pProj->status = status;
@@ -101,7 +101,7 @@ u8 projectile_init(u8 type, u16 y_position, u16 x_position)
             pProj->hitbox_right_offset = 0x1;
             pProj->movement_stage = 0x0;
             pProj->timer = 0x0;
-            pProj->direction = samus_data.arm_cannon_direction;
+            pProj->direction = gSamusData.arm_cannon_direction;
             return TRUE;
         }
         pProj++;
@@ -109,7 +109,7 @@ u8 projectile_init(u8 type, u16 y_position, u16 x_position)
     return FALSE;*/
 }
 
-void projectile_update(void)
+void ProjectileUpdate(void)
 {
     /*u8 checks;
     i32 count;
@@ -120,18 +120,18 @@ void projectile_update(void)
     u16 sound;
     u8 proj_limit;
 
-    if (game_mode_sub1 != 0x2) return;
+    if (gGameModeSub1 != 0x2) return;
 
     samus_call_update_arm_cannon_position_offset();
 
-    arm_cannon_y = ((samus_data.y_position >> 0x2) + samus_physics.arm_cannon_y_position_offset) * 0x4;
-    arm_cannon_x = ((samus_data.x_position >> 0x2) + samus_physics.arm_cannon_x_position_offset) * 0x4;
+    gArmCannonY = ((gSamusData.y_position >> 0x2) + gSamusPhysics.gArmCannonY_position_offset) * 0x4;
+    gArmCannonX = ((gSamusData.x_position >> 0x2) + gSamusPhysics.gArmCannonX_position_offset) * 0x4;
 
-    if (samus_weapon_info.charge_counter == 0x10 && equipment.suit_type != SUIT_SUITLESS)
+    if (gSamusWeaponInfo.charge_counter == 0x10 && gEquipment.suit_type != SUIT_SUITLESS)
     {
         checks = FALSE;
         count = 0x0;
-        pEffect = particle_effects;
+        pEffect = pParticleEffects;
         do {
             if ((pEffect->status & PARTICLE_STATUS_EXISTS) != 0x0 && pEffect->effect == PE_CHARGING_BEAM)
             {
@@ -143,40 +143,40 @@ void projectile_update(void)
         } while (count < 0x10);
 
         if (!checks)
-            particle_set(arm_cannon_y, arm_cannon_x, PE_CHARGING_BEAM);
+            ParticleSet(gArmCannonY, gArmCannonX, PE_CHARGING_BEAM);
     }
 
-    switch (samus_weapon_info.new_projectile)
+    switch (gSamusWeaponInfo.new_projectile)
     {
         case PROJECTILE_CHARGED_BEAM:
-            if (equipment.suit_type == SUIT_SUITLESS)
+            if (gEquipment.suit_type == SUIT_SUITLESS)
             {
-                if (projectile_check_number_of_projectiles(PROJ_TYPE_CHARGED_PISTOL, 0x2) << 0x18 != FALSE && projectile_init(PROJ_TYPE_CHARGED_PISTOL, arm_cannon_y, arm_cannon_x) << 0x18 != FALSE)
+                if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_CHARGED_PISTOL, 0x2) << 0x18 != FALSE && ProjectileInit(PROJ_TYPE_CHARGED_PISTOL, gArmCannonY, gArmCannonX) << 0x18 != FALSE)
                 {
-                    samus_weapon_info.cooldown = 0x7;
-                    projectile_set_beam_particle_effect();
-                    samus_weapon_info.beam_release_palette_timer = 0x4;
-                    sound_play(0xA0);
+                    gSamusWeaponInfo.cooldown = 0x7;
+                    ProjectileSetBeamParticleEffect();
+                    gSamusWeaponInfo.beam_release_palette_timer = 0x4;
+                    SoundPlay(0xA0);
                 }
             }
             else
             {
-                flag = equipment.beam_bombs_activation;
-                if ((equipment.beam_bombs_activation & BBF_PLASMA_BEAM) != 0x0)
+                flag = gEquipment.beam_bombs_activation;
+                if ((gEquipment.beam_bombs_activation & BBF_PLASMA_BEAM) != 0x0)
                 {
                     type = PROJ_TYPE_CHARGED_PLASMA_BEAM;
-                    if ((equipment.beam_bombs_activation & BBF_WAVE_BEAM) != 0x0)
+                    if ((gEquipment.beam_bombs_activation & BBF_WAVE_BEAM) != 0x0)
                     {
-                        if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
+                        if ((gEquipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
                         {
-                            flag = equipment.beam_bombs_activation & BBF_ICE_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_ICE_BEAM;
                             sound = 0xF5;
                             if (flag != 0x0)
                                 sound = 0xF7;
                         }
                         else
                         {
-                            flag = equipment.beam_bombs_activation & BBF_ICE_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_ICE_BEAM;
                             sound = 0xF4;
                             if (flag != 0x0)
                                 sound = 0xF6;
@@ -184,16 +184,16 @@ void projectile_update(void)
                     }
                     else
                     {
-                        if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
+                        if ((gEquipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
                         {
-                            flag = equipment.beam_bombs_activation & BBF_ICE_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_ICE_BEAM;
                             sound = 0xF1;
                             if (flag != 0x0)
                                 sound = 0xF3;
                         }
                         else
                         {
-                            flag = equipment.beam_bombs_activation & BBF_ICE_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_ICE_BEAM;
                             sound = 0xF0;
                             if (flag != 0x0)
                                 sound = 0xF2;
@@ -202,19 +202,19 @@ void projectile_update(void)
                 }
                 else
                 {
-                    if ((equipment.beam_bombs_activation & BBF_WAVE_BEAM) != 0x0)
+                    if ((gEquipment.beam_bombs_activation & BBF_WAVE_BEAM) != 0x0)
                     {
                         type = PROJ_TYPE_CHARGED_WAVE_BEAM;
-                        if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
+                        if ((gEquipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
                         {
-                            flag = equipment.beam_bombs_activation & BBF_ICE_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_ICE_BEAM;
                             sound = 0xED;
                             if (flag != 0x0)
                                 sound = 0xEF;
                         }
                         else
                         {
-                            flag = equipment.beam_bombs_activation & BBF_ICE_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_ICE_BEAM;
                             sound = 0xEC;
                             if (flag != 0x0)
                                 sound = 0xEE;
@@ -222,17 +222,17 @@ void projectile_update(void)
                     }
                     else
                     {
-                        if ((equipment.beam_bombs_activation & BBF_ICE_BEAM) != 0x0)
+                        if ((gEquipment.beam_bombs_activation & BBF_ICE_BEAM) != 0x0)
                         {
                             type = PROJ_TYPE_CHARGED_ICE_BEAM;                            
-                            flag = equipment.beam_bombs_activation & BBF_LONG_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_LONG_BEAM;
                             sound = 0xEA;
                             if (flag != 0x0)
                                 sound = 0xEB;
                         }
                         else
                         {
-                            flag = equipment.beam_bombs_activation & BBF_LONG_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_LONG_BEAM;
                             if (flag != 0x0)
                             {
                                 type = PROJ_TYPE_CHARGED_LONG_BEAM;
@@ -248,46 +248,46 @@ void projectile_update(void)
                 }
                 proj_limit = 0x2;
 
-                if (projectile_check_number_of_projectiles(type, proj_limit) << 0x18 != FALSE && projectile_init(type, arm_cannon_y, arm_cannon_x) << 0x18 != FALSE)
+                if (ProjectileCheckNumberOfProjectiles(type, proj_limit) << 0x18 != FALSE && ProjectileInit(type, gArmCannonY, gArmCannonX) << 0x18 != FALSE)
                 {
-                    samus_weapon_info.cooldown = 0x7;
-                    projectile_set_beam_particle_effect();
-                    samus_weapon_info.beam_release_palette_timer = 0x4;
-                    sound_play(sound);
+                    gSamusWeaponInfo.cooldown = 0x7;
+                    ProjectileSetBeamParticleEffect();
+                    gSamusWeaponInfo.beam_release_palette_timer = 0x4;
+                    SoundPlay(sound);
                 }
             }
-            samus_weapon_info.new_projectile = PROJECTILE_NONE;
+            gSamusWeaponInfo.new_projectile = PROJECTILE_NONE;
             break;
         
         case PROJECTILE_BEAM:
-            if (equipment.suit_type == SUIT_SUITLESS)
+            if (gEquipment.suit_type == SUIT_SUITLESS)
             {
-                if (projectile_check_number_of_projectiles(PROJ_TYPE_PISTOL, 0x2) << 0x18 != FALSE && projectile_init(PROJ_TYPE_PISTOL, arm_cannon_y, arm_cannon_x) << 0x18 != FALSE)
+                if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_PISTOL, 0x2) << 0x18 != FALSE && ProjectileInit(PROJ_TYPE_PISTOL, gArmCannonY, gArmCannonX) << 0x18 != FALSE)
                 {
-                    samus_weapon_info.cooldown = 0x7;
-                    projectile_set_beam_particle_effect();
-                    samus_weapon_info.beam_release_palette_timer = 0x4;
-                    sound_play(0x9F);
+                    gSamusWeaponInfo.cooldown = 0x7;
+                    ProjectileSetBeamParticleEffect();
+                    gSamusWeaponInfo.beam_release_palette_timer = 0x4;
+                    SoundPlay(0x9F);
                 }
             }
             else
             {
-                flag = equipment.beam_bombs_activation;
-                if ((equipment.beam_bombs_activation & BBF_PLASMA_BEAM) != 0x0)
+                flag = gEquipment.beam_bombs_activation;
+                if ((gEquipment.beam_bombs_activation & BBF_PLASMA_BEAM) != 0x0)
                 {
                     type = PROJ_TYPE_PLASMA_BEAM;
-                    if ((equipment.beam_bombs_activation & BBF_WAVE_BEAM) != 0x0)
+                    if ((gEquipment.beam_bombs_activation & BBF_WAVE_BEAM) != 0x0)
                     {
-                        if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
+                        if ((gEquipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
                         {
-                            flag = equipment.beam_bombs_activation & BBF_ICE_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_ICE_BEAM;
                             sound = 0xD5;
                             if (flag != 0x0)
                                 sound = 0xD7;
                         }
                         else
                         {
-                            flag = equipment.beam_bombs_activation & BBF_ICE_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_ICE_BEAM;
                             sound = 0xD4;
                             if (flag != 0x0)
                                 sound = 0xD6;
@@ -295,16 +295,16 @@ void projectile_update(void)
                     }
                     else
                     {
-                        if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
+                        if ((gEquipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
                         {
-                            flag = equipment.beam_bombs_activation & BBF_ICE_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_ICE_BEAM;
                             sound = 0xD1;
                             if (flag != 0x0)
                                 sound = 0xD3;
                         }
                         else
                         {
-                            flag = equipment.beam_bombs_activation & BBF_ICE_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_ICE_BEAM;
                             sound = 0xD0;
                             if (flag != 0x0)
                                 sound = 0xD2;
@@ -313,19 +313,19 @@ void projectile_update(void)
                 }
                 else
                 {
-                    if ((equipment.beam_bombs_activation & BBF_WAVE_BEAM) != 0x0)
+                    if ((gEquipment.beam_bombs_activation & BBF_WAVE_BEAM) != 0x0)
                     {
                         type = PROJ_TYPE_WAVE_BEAM;
-                        if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
+                        if ((gEquipment.beam_bombs_activation & BBF_LONG_BEAM) != 0x0)
                         {
-                            flag = equipment.beam_bombs_activation & BBF_ICE_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_ICE_BEAM;
                             sound = 0xCD;
                             if (flag != 0x0)
                                 sound = 0xCF;
                         }
                         else
                         {
-                            flag = equipment.beam_bombs_activation & BBF_ICE_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_ICE_BEAM;
                             sound = 0xCC;
                             if (flag != 0x0)
                                 sound = 0xCE;
@@ -333,17 +333,17 @@ void projectile_update(void)
                     }
                     else
                     {
-                        if ((equipment.beam_bombs_activation & BBF_ICE_BEAM) != 0x0)
+                        if ((gEquipment.beam_bombs_activation & BBF_ICE_BEAM) != 0x0)
                         {
                             type = PROJ_TYPE_ICE_BEAM;
-                            flag = equipment.beam_bombs_activation & BBF_LONG_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_LONG_BEAM;
                             sound = 0xCA;
                             if (flag != 0x0)
                                 sound = 0xCB;
                         }
                         else
                         {
-                            flag = equipment.beam_bombs_activation & BBF_LONG_BEAM;
+                            flag = gEquipment.beam_bombs_activation & BBF_LONG_BEAM;
                             if (flag != 0x0)
                             {
                                 type = PROJ_TYPE_LONG_BEAM;
@@ -359,68 +359,68 @@ void projectile_update(void)
                 }
                 proj_limit = 0x6;
 
-                if (projectile_check_number_of_projectiles(type, proj_limit) << 0x18 != FALSE && projectile_init(type, arm_cannon_y, arm_cannon_x) << 0x18 != FALSE)
+                if (ProjectileCheckNumberOfProjectiles(type, proj_limit) << 0x18 != FALSE && ProjectileInit(type, gArmCannonY, gArmCannonX) << 0x18 != FALSE)
                 {
-                    samus_weapon_info.cooldown = 0x7;
-                    projectile_set_beam_particle_effect();
-                    samus_weapon_info.beam_release_palette_timer = 0x4;
-                    sound_play(sound);
+                    gSamusWeaponInfo.cooldown = 0x7;
+                    ProjectileSetBeamParticleEffect();
+                    gSamusWeaponInfo.beam_release_palette_timer = 0x4;
+                    SoundPlay(sound);
                 }
             }
-            samus_weapon_info.new_projectile = PROJECTILE_NONE;
+            gSamusWeaponInfo.new_projectile = PROJECTILE_NONE;
             break;
 
         case PROJECTILE_MISSILE:
-            if (projectile_check_number_of_projectiles(PROJ_TYPE_MISSILE, 0x4) << 0x18 != FALSE && projectile_init(PROJ_TYPE_MISSILE, arm_cannon_y, arm_cannon_x) << 0x18 != FALSE)
+            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_MISSILE, 0x4) << 0x18 != FALSE && ProjectileInit(PROJ_TYPE_MISSILE, gArmCannonY, gArmCannonX) << 0x18 != FALSE)
             {
-                samus_weapon_info.cooldown = 0x9;
-                sound_play(0xF8);
-                sound_play(0xF9);
+                gSamusWeaponInfo.cooldown = 0x9;
+                SoundPlay(0xF8);
+                SoundPlay(0xF9);
             }
-            samus_weapon_info.new_projectile = PROJECTILE_NONE;
+            gSamusWeaponInfo.new_projectile = PROJECTILE_NONE;
             break;
         
         case PROJECTILE_SUPER_MISSILE:
-            if (projectile_check_number_of_projectiles(PROJ_TYPE_SUPER_MISSILE, 0x4) << 0x18 != FALSE && projectile_init(PROJ_TYPE_SUPER_MISSILE, arm_cannon_y, arm_cannon_x) << 0x18 != FALSE)
+            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_SUPER_MISSILE, 0x4) << 0x18 != FALSE && ProjectileInit(PROJ_TYPE_SUPER_MISSILE, gArmCannonY, gArmCannonX) << 0x18 != FALSE)
             {
-                samus_weapon_info.cooldown = 0xB;
-                sound_play(0xFB);
-                sound_play(0xFC);
+                gSamusWeaponInfo.cooldown = 0xB;
+                SoundPlay(0xFB);
+                SoundPlay(0xFC);
             }
-            samus_weapon_info.new_projectile = PROJECTILE_NONE;
+            gSamusWeaponInfo.new_projectile = PROJECTILE_NONE;
             break;
 
         case PROJECTILE_BOMB:
-            if (projectile_check_number_of_projectiles(PROJ_TYPE_BOMB, 0x4) << 0x18 != FALSE && projectile_init(PROJ_TYPE_BOMB, samus_data.y_position, samus_data.x_position) << 0x18 != FALSE)
-                samus_weapon_info.cooldown = 0x7;
-            samus_weapon_info.new_projectile = PROJECTILE_NONE;
+            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_BOMB, 0x4) << 0x18 != FALSE && ProjectileInit(PROJ_TYPE_BOMB, gSamusData.y_position, gSamusData.x_position) << 0x18 != FALSE)
+                gSamusWeaponInfo.cooldown = 0x7;
+            gSamusWeaponInfo.new_projectile = PROJECTILE_NONE;
             break;
 
         case PROJECTILE_POWER_BOMB:
-            if (projectile_check_number_of_projectiles(PROJ_TYPE_POWER_BOMB, 0x1) << 0x18 != FALSE && pProj->animation_state == 0x0 && projectile_init(PROJ_TYPE_POWER_BOMB, samus_data.y_position, samus_data.x_position) << 0x18 != FALSE)
-                samus_weapon_info.cooldown = 0x5;
-            samus_weapon_info.new_projectile = PROJECTILE_NONE;
+            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_POWER_BOMB, 0x1) << 0x18 != FALSE && pProj->animation_state == 0x0 && ProjectileInit(PROJ_TYPE_POWER_BOMB, gSamusData.y_position, gSamusData.x_position) << 0x18 != FALSE)
+                gSamusWeaponInfo.cooldown = 0x5;
+            gSamusWeaponInfo.new_projectile = PROJECTILE_NONE;
 
         default:
             break;
     }
 
-    projectile_check_hit_sprite();
+    ProjectileCheckHittingSprite();
 
-    pProj = projectile_data;
-    while (pProj < projectile_data + 16)
+    pProj = gProjectileData;
+    while (pProj < gProjectileData + 16)
     {
         if ((pProj->status & PROJ_STATUS_EXISTS) != 0x0)
         {
             process_projectile_functions_pointers[pProj->type](pProj);
-            projectile_update_animation(pProj);
-            projectile_check_despawn(pProj);
+            ProjectileUpdateAnimation(pProj);
+            ProjectileCheckDespawn(pProj);
         }
         pProj++;
     }*/
 }
 
-void projectile_update_animation(struct ProjectileData* pProj)
+void ProjectileUpdateAnimation(struct ProjectileData* pProj)
 {
     u32 adc;
 
@@ -435,22 +435,22 @@ void projectile_update_animation(struct ProjectileData* pProj)
     }
 }
 
-void projectile_draw_all_status_false(void)
+void ProjectileDrawAllStatusFalse(void)
 {
 
 }
 
-void projectile_draw_all_status_true(void)
+void ProjectileDrawAllStatusTrue(void)
 {
 
 }
 
-void projectile_draw(struct ProjectileData* pProj)
+void ProjectileDraw(struct ProjectileData* pProj)
 {
 
 }
 
-void projectile_check_despawn(struct ProjectileData* pProj)
+void ProjectileCheckDespawn(struct ProjectileData* pProj)
 {
     /*u16 x_pos;
     u16 y_pos;
@@ -462,26 +462,26 @@ void projectile_check_despawn(struct ProjectileData* pProj)
     x_pos = pProj->x_position;
     draw_distance = pProj->draw_distance_offset;
 
-    if ((bg1_x_position + 0x100) - draw_distance < x_pos + 0x100 &&
-        (x_pos + 0x100 < bg1_x_position + 0x100 + draw_distance + 0x3C0) &&
-        ((bg1_y_position + 0x100) - draw_distance < y_pos + 0x100) &&
-        (y_pos + 0x100 < bg1_y_position + 0x100 + draw_distance + 0x280))
+    if ((gBG1XPosition + 0x100) - draw_distance < x_pos + 0x100 &&
+        (x_pos + 0x100 < gBG1XPosition + 0x100 + draw_distance + 0x3C0) &&
+        ((gBG1YPosition + 0x100) - draw_distance < y_pos + 0x100) &&
+        (y_pos + 0x100 < gBG1YPosition + 0x100 + draw_distance + 0x280))
         pProj->status |= PROJ_STATUS_ON_SCREEN;
     else
     {
         pProj->status &= (PROJ_STATUS_EXISTS | PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_HIGH_PRIORITY | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT | PROJ_STATUS_YFLIP | PROJ_STATUS_XFLIP | PROJ_STATUS_UNKNOWN);
         if (PROJ_TYPE_SUPER_MISSILE < pProj->type) return;
 
-        draw_distance = samus_data.y_position - 0x48;
+        draw_distance = gSamusData.y_position - 0x48;
         if (draw_distance < y_pos)
             y_pos -= draw_distance;
         else
             y_pos = draw_distance - y_pos;
         
-        if (samus_data.x_position < x_pos)
-            x_pos -= samus_data.x_position;
+        if (gSamusData.x_position < x_pos)
+            x_pos -= gSamusData.x_position;
         else
-            x_pos = samus_data.x_position - x_pos;
+            x_pos = gSamusData.x_position - x_pos;
         
         if (y_pos < 0x301 && x_pos < 0x281) return;
 
@@ -489,21 +489,21 @@ void projectile_check_despawn(struct ProjectileData* pProj)
     }*/
 }
 
-void projectile_load_graphics(void)
+void ProjectileLoadGraphics(void)
 {
 
 }
 
-void projectile_call_load_graphics_and_clear_projectiles(void)
+void ProjectileCallLoadGraphicsAndClearProjectiles(void)
 {
     struct ProjectileData* pProj;
 
-    projectile_load_graphics();
+    ProjectileLoadGraphics();
 
-    if (pause_screen_flag == 0x0)
+    if (gPauseScreenFlag == 0x0)
     {
-        pProj = projectile_data;
-        while (pProj < projectile_data + 16)
+        pProj = gProjectileData;
+        while (pProj < gProjectileData + 16)
         {
             pProj->status = 0x0;
             pProj++;
@@ -511,7 +511,7 @@ void projectile_call_load_graphics_and_clear_projectiles(void)
     }
 }
 
-void projectile_move(struct ProjectileData* pProj, u8 distance)
+void ProjectileMove(struct ProjectileData* pProj, u8 distance)
 {
     /*i16 x_velocity;
     i32 x_velocity_;
@@ -551,7 +551,7 @@ void projectile_move(struct ProjectileData* pProj, u8 distance)
                 pProj->x_position -= distance;
     }
 
-    x_velocity = (u16)samus_data.x_velocity;
+    x_velocity = (u16)gSamusData.x_velocity;
     x_velocity_ = x_velocity >> 0x3;
     if (pProj->status & PROJ_STATUS_XFLIP)
     {
@@ -565,19 +565,19 @@ void projectile_move(struct ProjectileData* pProj, u8 distance)
     }*/
 }
 
-u8 projectile_check_hitting_solid_block(u16 y_position, u16 x_position)
+u8 ProjectileCheckHittingSolidBlock(u16 y_position, u16 x_position)
 {
     u32 collision;
     
-    collision = clipdata_process(y_position, x_position);
+    collision = ClipdataProcess(y_position, x_position);
 
-    if (collision & 0x1000000)
+    if (collision & CLIPDATA_TYPE_SOLID_FLAG)
         return TRUE;
     else
         return FALSE;
 }
 
-u8 projectile_collision_related2(struct ProjectileData* pProj)
+u8 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
 {
 
 }
@@ -590,14 +590,14 @@ u8 projectile_collision_related2(struct ProjectileData* pProj)
  * @param effect Particle effect to play
  * @param delay Delay between each particle
  */
-void projectile_set_trail(struct ProjectileData* pProj, u8 effect, u8 delay)
+void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
 {
     /*u16 x_pos;
     u16 y_pos;
     u16 offset;
     u8 status;
 
-    if (frame_counter_8bit & delay)
+    if (gFrameCounter8Bit & delay)
         return;
 
     offset = 0x20;
@@ -639,7 +639,7 @@ void projectile_set_trail(struct ProjectileData* pProj, u8 effect, u8 delay)
                 x_pos += offset;
     }
 
-    particle_set(y_pos, x_pos, effect);*/
+    ParticleSet(y_pos, x_pos, effect);*/
 }
 
 /**
@@ -648,7 +648,7 @@ void projectile_set_trail(struct ProjectileData* pProj, u8 effect, u8 delay)
  * 
  * @param pProj Projectile Data Pointer to the concerned projectile
  */
-void projectile_move_tumbling(struct ProjectileData* pProj)
+void ProjectileMoveTumbling(struct ProjectileData* pProj)
 {
     u8 timer;
     i16 movement;
@@ -677,12 +677,12 @@ void projectile_move_tumbling(struct ProjectileData* pProj)
     }
 }
 
-void projectile_check_hit_block(struct ProjectileData* pProj, u8 ccaa, u8 effect)
+void ProjectileCheckHitBlock(struct ProjectileData* pProj, u8 ccaa, u8 effect)
 {
     u16 proj_y;
     u16 proj_x;
 
-    current_clipdata_affecting_action = ccaa;
+    gCurrentClipdataAffectingAction = ccaa;
     proj_y = pProj->y_position;
     proj_x = pProj->x_position;
     if (pProj->direction == ACD_FORWARD)
@@ -693,14 +693,14 @@ void projectile_check_hit_block(struct ProjectileData* pProj, u8 ccaa, u8 effect
             proj_x += 0x8;
     }
 
-    if (projectile_check_hitting_solid_block(proj_y, proj_x))
+    if (ProjectileCheckHittingSolidBlock(proj_y, proj_x))
     {
         pProj->status = 0x0;
-        particle_set(pProj->y_position, pProj->x_position, effect);
+        ParticleSet(pProj->y_position, pProj->x_position, effect);
     }
 }
 
-void projectile_check_hit_sprite(void)
+void ProjectileCheckHittingSprite(void)
 {
     /*struct Equipment* pEquipment;
     struct SpriteData* pSprite;
@@ -724,19 +724,19 @@ void projectile_check_hit_sprite(void)
     u8 draw_order;
     u32 draw_order_next;
 
-    pEquipment = &equipment;
+    pEquipment = &gEquipment;
 
-    if (current_power_bomb.animation_state != 0x0 && pEquipment->max_power_bombs != 0x0)
+    if (gCurrentPowerBomb.animation_state != 0x0 && pEquipment->max_power_bombs != 0x0)
     {
-        proj_y = current_power_bomb.y_position;
-        proj_x = current_power_bomb.x_position;
-        proj_top = proj_y + current_power_bomb.hitbox_top_offset;
-        proj_bottom = proj_y + current_power_bomb.hitbox_bottom_offset;
-        proj_left = proj_x + current_power_bomb.hitbox_left_offset;
-        proj_right = proj_x + current_power_bomb.hitbox_right_offset;
+        proj_y = gCurrentPowerBomb.y_position;
+        proj_x = gCurrentPowerBomb.x_position;
+        proj_top = proj_y + gCurrentPowerBomb.hitbox_top_offset;
+        proj_bottom = proj_y + gCurrentPowerBomb.hitbox_bottom_offset;
+        proj_left = proj_x + gCurrentPowerBomb.hitbox_left_offset;
+        proj_right = proj_x + gCurrentPowerBomb.hitbox_right_offset;
         status = (SPRITE_STATUS_EXISTS | SPRITE_STATUS_UNKNOWN3);
-        pSprite = sprite_data;
-        while (pSprite < sprite_data + 24)
+        pSprite = gSpriteData;
+        while (pSprite < gSpriteData + 24)
         {
             if ((pSprite->status & status) == SPRITE_STATUS_EXISTS && pSprite->health != 0x0 && (pSprite->invicibility_stun_flash_timer & 0x80) == 0x0)
             {
@@ -747,7 +747,7 @@ void projectile_check_hit_sprite(void)
                 sprite_left = sprite_x + pSprite->hitbox_left_offset;
                 sprite_right = sprite_x + pSprite->hitbox_right_offset;
                 if (sprite_util_check_objects_touching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
-                    projectile_power_bomb_deal_damage(pSprite);
+                    ProjectilePowerBombDealDamage(pSprite);
             }
             pSprite++;
         }
@@ -755,13 +755,13 @@ void projectile_check_hit_sprite(void)
 
     status = (SPRITE_STATUS_EXISTS | SPRITE_STATUS_UNKNOWN3);
     count = 0x0;
-    pSprite = sprite_data;
-    while (pSprite < sprite_data + 24)
+    pSprite = gSpriteData;
+    while (pSprite < gSpriteData + 24)
     {
         if ((pSprite->status & status) == SPRITE_STATUS_EXISTS && pSprite->health != 0x0)
-            sprite_draw_order[count] = pSprite->draw_order;
+            gSpriteDrawOrder[count] = pSprite->draw_order;
         else
-            sprite_draw_order[count] = 0x0;
+            gSpriteDrawOrder[count] = 0x0;
         count++;
         pSprite++;
     }
@@ -769,14 +769,14 @@ void projectile_check_hit_sprite(void)
     draw_order = 0x1;
     do {
         count = 0x0;
-        pSprite = sprite_data;
+        pSprite = gSpriteData;
         draw_order_next = draw_order + 0x1;
 
-        while (pSprite < sprite_data + 24)
+        while (pSprite < gSpriteData + 24)
         {
             pSprite_next = pSprite + 0x1;
 
-            if (sprite_draw_order[count] == draw_order)
+            if (gSpriteDrawOrder[count] == draw_order)
             {
                 sprite_y = pSprite->y_position;
                 sprite_x = pSprite->x_position;
@@ -786,8 +786,8 @@ void projectile_check_hit_sprite(void)
                 sprite_right = sprite_y + pSprite->hitbox_right_offset;
 
                 status_proj = PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
-                pProj = projectile_data;
-                while (pProj < projectile_data + 16)
+                pProj = gProjectileData;
+                while (pProj < gProjectileData + 16)
                 {
                     if ((pProj->status & status_proj) == status_proj)
                     {
@@ -802,20 +802,20 @@ void projectile_check_hit_sprite(void)
                             switch (pProj->type)
                             {
                                 case PROJ_TYPE_BEAM:
-                                    projectile_hit_sprite(pSprite, proj_y, proj_x, 0x2, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+                                    ProjectileHitSprite(pSprite, proj_y, proj_x, 0x2, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
                                     pProj->status = 0x0;
                                     break;
 
                                 case PROJ_TYPE_LONG_BEAM:
-                                    projectile_hit_sprite(pSprite, proj_y, proj_x, 0x3, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+                                    ProjectileHitSprite(pSprite, proj_y, proj_x, 0x3, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
                                     pProj->status = 0x0;
                                     break;
 
                                 case PROJ_TYPE_ICE_BEAM:
                                     if (pEquipment->beam_bombs_activation & BBF_LONG_BEAM)
-                                        projectile_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+                                        ProjectileIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
                                     else
-                                        projectile_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x3, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+                                        ProjectileIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x3, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
                                     pProj->status = 0x0;
                                     break;
 
@@ -823,16 +823,16 @@ void projectile_check_hit_sprite(void)
                                     if (pEquipment->beam_bombs_activation & BBF_LONG_BEAM)
                                     {
                                         if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
-                                            projectile_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x5, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
+                                            ProjectileIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x5, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
                                         else
-                                            projectile_hit_sprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
+                                            ProjectileHitSprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
                                     }
                                     else
                                     {
                                         if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
-                                            projectile_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
+                                            ProjectileIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
                                         else
-                                            projectile_hit_sprite(pSprite, proj_y, proj_x, 0x3, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
+                                            ProjectileHitSprite(pSprite, proj_y, proj_x, 0x3, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
                                     }
                                     pProj->status = 0x0;
                                     break;
@@ -843,16 +843,16 @@ void projectile_check_hit_sprite(void)
                                         if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
                                         {
                                             if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
-                                                projectile_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x6, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                                ProjectileIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x6, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                             else
-                                                projectile_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x5, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                                ProjectileIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x5, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                         }
                                         else
                                         {
                                             if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
-                                                projectile_hit_sprite(pSprite, proj_y, proj_x, 0x5, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                                ProjectileHitSprite(pSprite, proj_y, proj_x, 0x5, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                             else
-                                                projectile_hit_sprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                                ProjectileHitSprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                         }
                                     }
                                     else
@@ -860,41 +860,41 @@ void projectile_check_hit_sprite(void)
                                         if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
                                         {
                                             if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
-                                                projectile_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x5, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                                ProjectileIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x5, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                             else
-                                                projectile_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                                ProjectileIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                         }
                                         else
                                         {
                                             if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
-                                                projectile_hit_sprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                                ProjectileHitSprite(pSprite, proj_y, proj_x, 0x4, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                             else
-                                                projectile_hit_sprite(pSprite, proj_y, proj_x, 0x3, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                                ProjectileHitSprite(pSprite, proj_y, proj_x, 0x3, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                         }
                                     }
                                     break;
 
                                 case PROJ_TYPE_PISTOL:
-                                    projectile_hit_sprite_immune_to_projectiles(pSprite);
-                                    particle_set(proj_y, proj_x, PE_HITTING_SOMETHING_INVINCIBLE);
+                                    ProjectileHitSpriteImmuneToProjectiles(pSprite);
+                                    ParticleSet(proj_y, proj_x, PE_HITTING_SOMETHING_INVINCIBLE);
                                     pProj->status = 0x0;
                                     break;
 
                                 case PROJ_TYPE_CHARGED_BEAM:
-                                    projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0x8, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+                                    ProjectileNonIceChargedHitSprite(pSprite, proj_y, proj_x, 0x8, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
                                     pProj->status = 0x0;
                                     break;
 
                                 case PROJ_TYPE_CHARGED_LONG_BEAM:
-                                    projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+                                    ProjectileNonIceChargedHitSprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
                                     pProj->status = 0x0;
                                     break;
 
                                 case PROJ_TYPE_CHARGED_ICE_BEAM:
                                     if (pEquipment->beam_bombs_activation & BBF_LONG_BEAM)
-                                        projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+                                        ProjectileChargedIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
                                     else
-                                        projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+                                        ProjectileChargedIceBeamHittingSprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
                                     pProj->status = 0x0;
                                     break;
 
@@ -902,16 +902,16 @@ void projectile_check_hit_sprite(void)
                                     if (pEquipment->beam_bombs_activation & BBF_LONG_BEAM)
                                     {
                                         if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
-                                            projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x14, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
+                                            ProjectileChargedIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x14, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
                                         else
-                                            projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
+                                            ProjectileNonIceChargedHitSprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
                                     }
                                     else
                                     {
                                         if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
-                                            projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
+                                            ProjectileChargedIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
                                         else
-                                            projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
+                                            ProjectileNonIceChargedHitSprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
                                     }
                                     pProj->status = 0x0;
                                     break;
@@ -922,16 +922,16 @@ void projectile_check_hit_sprite(void)
                                         if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
                                         {
                                             if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
-                                                projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x18, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                                ProjectileChargedIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x18, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                             else
-                                                projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x14, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                                ProjectileChargedIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x14, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                         }
                                         else
                                         {
                                             if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
-                                                projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0x14, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                                ProjectileNonIceChargedHitSprite(pSprite, proj_y, proj_x, 0x14, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                             else
-                                                projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                                ProjectileNonIceChargedHitSprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                         }
                                     }
                                     else
@@ -939,16 +939,16 @@ void projectile_check_hit_sprite(void)
                                         if (pEquipment->beam_bombs_activation & BBF_ICE_BEAM)
                                         {
                                             if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
-                                                projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0x14, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                                ProjectileChargedIceBeamHittingSprite(pSprite, proj_y, proj_x, 0x14, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                             else
-                                                projectile_charged_ice_beam_hitting_sprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                                                ProjectileChargedIceBeamHittingSprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                         }
                                         else
                                         {
                                             if (pEquipment->beam_bombs_activation & BBF_WAVE_BEAM)
-                                                projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                                ProjectileNonIceChargedHitSprite(pSprite, proj_y, proj_x, 0x10, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                             else
-                                                projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                                                ProjectileNonIceChargedHitSprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                         }
                                     }
                                     break;
@@ -960,23 +960,23 @@ void projectile_check_hit_sprite(void)
                                         pSprite->freeze_timer = 0x3C;
                                         pSprite->palette_row = 0x1;
                                         pSprite->absolute_palette_row = 0x1;
-                                        particle_set(proj_y, proj_x, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+                                        ParticleSet(proj_y, proj_x, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
                                     }
                                     else
-                                        projectile_non_ice_charged_hit_sprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+                                        ProjectileNonIceChargedHitSprite(pSprite, proj_y, proj_x, 0xC, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
                                     pProj->status = 0x0;
                                     break;
 
                                 case PROJ_TYPE_MISSILE:
-                                    projectile_missile_hit_sprite(pSprite, pProj, proj_y, proj_x);
+                                    ProjectileMissileHitSprite(pSprite, pProj, proj_y, proj_x);
                                     break;
 
                                 case PROJ_TYPE_SUPER_MISSILE:
-                                    projectile_super_missile_hit_sprite(pSprite, pProj, proj_y, proj_x);
+                                    ProjectileSuperMissileHitSprite(pSprite, pProj, proj_y, proj_x);
                                     break;
 
                                 case PROJ_TYPE_BOMB:
-                                    projectile_bomb_hit_sprite(pSprite, proj_y, proj_x);
+                                    ProjectileBombMissileHitSprite(pSprite, proj_y, proj_x);
                             }
                         }
                     }
@@ -999,7 +999,7 @@ void projectile_check_hit_sprite(void)
  * @param pSprite The sprite concerned
  * @return The weakness of the sprite
  */
-u16 projectile_get_sprite_weakness(struct SpriteData* pSprite)
+u16 ProjectileGetSpriteWeakness(struct SpriteData* pSprite)
 {
     if (pSprite->properties & SP_SECONDARY_SPRITE) // Check wheter secondary or primary
         return primary_sprite_stats[pSprite->sprite_id][0x2]; // Offset 2 is weakness
@@ -1014,7 +1014,7 @@ u16 projectile_get_sprite_weakness(struct SpriteData* pSprite)
  * @param damage Damage to inflict
  * @return The freeze timer
  */
-u8 projectile_ice_beam_deal_damage(struct SpriteData* pSprite, u16 damage)
+u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage)
 {
     u8 freeze_timer;
 
@@ -1030,9 +1030,9 @@ u8 projectile_ice_beam_deal_damage(struct SpriteData* pSprite, u16 damage)
         pSprite->properties |= SP_MAYBE_DESTROYED;
         pSprite->freeze_timer = 0x0;
         pSprite->palette_row = 0x0;
-        if (pSprite->standing_on_sprite != FALSE && samus_data.standing_status == STANDING_ENEMY)
+        if (pSprite->standing_on_sprite != FALSE && gSamusData.standing_status == STANDING_ENEMY)
         {
-            samus_data.standing_status = STANDING_MIDAIR;
+            gSamusData.standing_status = STANDING_MIDAIR;
             pSprite->standing_on_sprite = FALSE;
         }
         pSprite->pose = 0x62;
@@ -1052,7 +1052,7 @@ u8 projectile_ice_beam_deal_damage(struct SpriteData* pSprite, u16 damage)
  * @param damage Damage to inflict 
  * @return 1 if dead, 0 otherwise
  */
-u8 projectile_deal_damage(struct SpriteData* pSprite, u16 damage)
+u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
 {
     u8 is_dead;
 
@@ -1065,9 +1065,9 @@ u8 projectile_deal_damage(struct SpriteData* pSprite, u16 damage)
         pSprite->properties |= SP_MAYBE_DESTROYED;
         pSprite->freeze_timer = 0x0;
         pSprite->palette_row = 0x0;
-        if (pSprite->standing_on_sprite && samus_data.standing_status == STANDING_ENEMY)
+        if (pSprite->standing_on_sprite && gSamusData.standing_status == STANDING_ENEMY)
         {
-            samus_data.standing_status = STANDING_MIDAIR;
+            gSamusData.standing_status = STANDING_MIDAIR;
             pSprite->standing_on_sprite = FALSE;
         }
         pSprite->pose = 0x62;
@@ -1087,7 +1087,7 @@ u8 projectile_deal_damage(struct SpriteData* pSprite, u16 damage)
  * @param pSprite Sprite Data Pointer to the sprite concerned 
  * @return The parameter
  */
-struct SpriteData* projectile_hit_sprite_immune_to_projectiles(struct SpriteData* pSprite)
+struct SpriteData* ProjectileHitSpriteImmuneToProjectiles(struct SpriteData* pSprite)
 {
     u8 isft;
 
@@ -1105,7 +1105,7 @@ struct SpriteData* projectile_hit_sprite_immune_to_projectiles(struct SpriteData
  * @param pSprite Sprite Data Pointer to the sprite concerned
  * @return The parameter
  */
-struct SpriteData* projectile_hit_solid_sprite(struct SpriteData* pSprite)
+struct SpriteData* ProjectileHitSolidSprite(struct SpriteData* pSprite)
 {
     u8 isft;
 
@@ -1122,19 +1122,19 @@ struct SpriteData* projectile_hit_solid_sprite(struct SpriteData* pSprite)
  * 
  * @param pSprite Sprite Data Pointer to the sprite concerned 
  */
-void projectile_power_bomb_deal_damage(struct SpriteData* pSprite)
+void ProjectilePowerBombDealDamage(struct SpriteData* pSprite)
 {
     u8 isft;
 
     if (pSprite->properties & SP_IMMUNE_TO_PROJECTILES)
-        projectile_hit_sprite_immune_to_projectiles(pSprite);
+        ProjectileHitSpriteImmuneToProjectiles(pSprite);
     else
     {
         if (pSprite->properties & SP_SOLID_FOR_PROJECTILES)
-            projectile_hit_solid_sprite(pSprite);
+            ProjectileHitSolidSprite(pSprite);
         else
         {
-            if (projectile_get_sprite_weakness(pSprite) & WEAKNESS_POWER_BOMB)
+            if (ProjectileGetSpriteWeakness(pSprite) & WEAKNESS_POWER_BOMB)
             {
                 if (pSprite->health > 0x32)
                     pSprite->health -= 0x32;
@@ -1144,9 +1144,9 @@ void projectile_power_bomb_deal_damage(struct SpriteData* pSprite)
                     pSprite->properties |= SP_MAYBE_DESTROYED;
                     pSprite->freeze_timer = 0x0;
                     pSprite->palette_row = 0x0;
-                    if (pSprite->standing_on_sprite && samus_data.standing_status == STANDING_ENEMY)
+                    if (pSprite->standing_on_sprite && gSamusData.standing_status == STANDING_ENEMY)
                     {
-                        samus_data.standing_status = STANDING_MIDAIR;
+                        gSamusData.standing_status = STANDING_MIDAIR;
                         pSprite->standing_on_sprite = FALSE;
                     }
                     pSprite->pose = 0x62;
@@ -1175,34 +1175,34 @@ void projectile_power_bomb_deal_damage(struct SpriteData* pSprite)
  * @param damage Damage inflicted
  * @param effect Particle effect to play
  */
-void projectile_hit_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
+void ProjectileHitSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
 {
     u16 weakness;
 
     if ((pSprite->properties & SP_SOLID_FOR_PROJECTILES) != 0x0)
     {
-        projectile_hit_solid_sprite(pSprite);
-        particle_set(y_position, x_position, effect);
+        ProjectileHitSolidSprite(pSprite);
+        ParticleSet(y_position, x_position, effect);
     }
     else
     {
         if ((pSprite->properties & SP_IMMUNE_TO_PROJECTILES) != 0x0)
         {
-            projectile_hit_sprite_immune_to_projectiles(pSprite);
-            particle_set(y_position, x_position, PE_HITTING_SOMETHING_INVINCIBLE);
+            ProjectileHitSpriteImmuneToProjectiles(pSprite);
+            ParticleSet(y_position, x_position, PE_HITTING_SOMETHING_INVINCIBLE);
         }
         else
         {
-            weakness = projectile_get_sprite_weakness(pSprite);
+            weakness = ProjectileGetSpriteWeakness(pSprite);
             if ((weakness & WEAKNESS_BEAM_BOMBS) != 0x0)
             {
-                projectile_deal_damage(pSprite, damage);
-                particle_set(y_position, x_position, effect);
+                ProjectileDealDamage(pSprite, damage);
+                ParticleSet(y_position, x_position, effect);
             }
             else
             {
-                projectile_hit_solid_sprite(pSprite);
-                particle_set(y_position, x_position, PE_HITTING_SOMETHING_INVINCIBLE);
+                ProjectileHitSolidSprite(pSprite);
+                ParticleSet(y_position, x_position, PE_HITTING_SOMETHING_INVINCIBLE);
             }
         }
     }
@@ -1218,34 +1218,34 @@ void projectile_hit_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_pos
  * @param damage Damage inflicted
  * @param effect Particle effect to play
  */
-void projectile_non_ice_charged_hit_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
+void ProjectileNonIceChargedHitSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
 {
     u16 weakness;
 
     if ((pSprite->properties & SP_SOLID_FOR_PROJECTILES) != 0x0)
     {
-        projectile_hit_solid_sprite(pSprite);
-        particle_set(y_position, x_position, effect);
+        ProjectileHitSolidSprite(pSprite);
+        ParticleSet(y_position, x_position, effect);
     }
     else
     {
         if ((pSprite->properties & SP_IMMUNE_TO_PROJECTILES) != 0x0)
         {
-            projectile_hit_sprite_immune_to_projectiles(pSprite);
-            particle_set(y_position, x_position, PE_HITTING_SOMETHING_INVINCIBLE);
+            ProjectileHitSpriteImmuneToProjectiles(pSprite);
+            ParticleSet(y_position, x_position, PE_HITTING_SOMETHING_INVINCIBLE);
         }
         else
         {
-            weakness = projectile_get_sprite_weakness(pSprite);
+            weakness = ProjectileGetSpriteWeakness(pSprite);
             if ((weakness & (WEAKNESS_CHARGE_BEAM_PISTOL | WEAKNESS_BEAM_BOMBS)) != 0x0)
             {
-                projectile_deal_damage(pSprite, damage);
-                particle_set(y_position, x_position, effect);
+                ProjectileDealDamage(pSprite, damage);
+                ParticleSet(y_position, x_position, effect);
             }
             else
             {
-                projectile_hit_solid_sprite(pSprite);
-                particle_set(y_position, x_position, PE_HITTING_SOMETHING_INVINCIBLE);
+                ProjectileHitSolidSprite(pSprite);
+                ParticleSet(y_position, x_position, PE_HITTING_SOMETHING_INVINCIBLE);
             }
         }
     }
@@ -1258,19 +1258,19 @@ void projectile_non_ice_charged_hit_sprite(struct SpriteData* pSprite, u16 y_pos
  * @param pSprite Sprite Data Pointer to the sprite concerned
  * @param freeze_timer Freeze timer to apply
  */
-void projectile_freeze_sprite(struct SpriteData* pSprite, u8 freeze_timer)
+void ProjectileFreezeSprite(struct SpriteData* pSprite, u8 freeze_timer)
 {
     pSprite->freeze_timer = freeze_timer;
     pSprite->palette_row = 0xF - (pSprite->spriteset_gfx_slot + pSprite->frozen_palette_row_offset);
     unk_2b20(0x140);
 }
 
-void projectile_ice_beam_hitting_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
+void ProjectileIceBeamHittingSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
 {
 
 }
 
-void projectile_charged_ice_beam_hitting_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
+void ProjectileChargedIceBeamHittingSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect)
 {
 
 }
@@ -1283,7 +1283,7 @@ void projectile_charged_ice_beam_hitting_sprite(struct SpriteData* pSprite, u16 
  * @param pProj Projectile Data Pointer to the concerned projectile
  * @param type The type of the projectile
  */
-void projectile_start_tumbling_missile(struct SpriteData* pSprite, struct ProjectileData* pProj, u8 type)
+void ProjectileStartTumblingMissile(struct SpriteData* pSprite, struct ProjectileData* pProj, u8 type)
 {
     pProj->movement_stage = 0x7; // Tumbling
     pProj->timer = 0x0;
@@ -1299,12 +1299,12 @@ void projectile_start_tumbling_missile(struct SpriteData* pSprite, struct Projec
     if (type == PROJ_TYPE_SUPER_MISSILE)
     {
         pProj->oam_pointer = super_missile_tumbling_oam; // Spinning/tumbling
-        sound_stop(0xFC);
+        SoundStop(0xFC);
     }
     else
     {
         pProj->oam_pointer = missile_tumbling_oam; // Spinning/tumbling
-        sound_stop(0xF9);
+        SoundStop(0xF9);
     }
 }
 
@@ -1315,7 +1315,7 @@ void projectile_start_tumbling_missile(struct SpriteData* pSprite, struct Projec
  * @param pProj Projectile Data Pointer to the concerned projectile
  * @param type The type of the projectile
  */
-void projectile_start_tumbling_missile_current_sprite(struct ProjectileData* pProj, u8 type)
+void ProjectileStartTumblingMissileCurrentSprite(struct ProjectileData* pProj, u8 type)
 {    
     pProj->movement_stage = 0x7; // Tumbling
     pProj->timer = 0x0;
@@ -1323,7 +1323,7 @@ void projectile_start_tumbling_missile_current_sprite(struct ProjectileData* pPr
     pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
     pProj->anim_duration_counter = 0x0;
     pProj->curr_anim_frame = 0x0;
-    if (pProj->x_position > current_sprite.x_position)
+    if (pProj->x_position > gCurrentSprite.x_position)
         pProj->status |= PROJ_STATUS_XFLIP;
     else
         pProj->status &= ~PROJ_STATUS_XFLIP;
@@ -1331,74 +1331,74 @@ void projectile_start_tumbling_missile_current_sprite(struct ProjectileData* pPr
     if (type == PROJ_TYPE_SUPER_MISSILE)
     {
         pProj->oam_pointer = super_missile_tumbling_oam; // Spinning/tumbling
-        sound_stop(0xFC);
+        SoundStop(0xFC);
     }
     else
     {
         pProj->oam_pointer = missile_tumbling_oam; // Spinning/tumbling
-        sound_stop(0xF9);
+        SoundStop(0xF9);
     }
 }
 
-void projectile_missile_hit_sprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 y_position, u16 x_position)
+void ProjectileMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 y_position, u16 x_position)
 {
     /*if (pSprite->properties & SP_SOLID_FOR_PROJECTILES)
     {
-        projectile_hit_solid_sprite(pSprite);
-        particle_set(y_position, x_position, PE_HITTING_SOMETHING_WITH_MISSILE);
+        ProjectileHitSolidSprite(pSprite);
+        ParticleSet(y_position, x_position, PE_HITTING_SOMETHING_WITH_MISSILE);
         if (pProj->movement_stage == 0x0)
-            projectile_decrement_missile_counter(pProj);
+            ProjectileDecrementMissileCounter(pProj);
         pProj->status = 0x0;
         return;
     }
     else
     {
         if (pSprite->properties & SP_IMMUNE_TO_PROJECTILES)
-            projectile_hit_sprite_immune_to_projectiles(pSprite);
+            ProjectileHitSpriteImmuneToProjectiles(pSprite);
         else
         {
-            if (projectile_get_sprite_weakness(pSprite) & WEAKNESS_MISSILES)
+            if (ProjectileGetSpriteWeakness(pSprite) & WEAKNESS_MISSILES)
             {
-                projectile_deal_damage(pSprite, 0x14);
-                particle_set(y_position, x_position, PE_HITTING_SOMETHING_WITH_MISSILE);
+                ProjectileDealDamage(pSprite, 0x14);
+                ParticleSet(y_position, x_position, PE_HITTING_SOMETHING_WITH_MISSILE);
                 if (pProj->movement_stage == 0x0)
-                    projectile_decrement_missile_counter(pProj);
+                    ProjectileDecrementMissileCounter(pProj);
                 pProj->status = 0x0;
                 return;
             }
             else
             {
-                projectile_hit_solid_sprite(pSprite);
+                ProjectileHitSolidSprite(pSprite);
             }
         }
-        particle_set(y_position, x_position, PE_HITTING_SOMETHING_INVINCIBLE);
-        projectile_start_tumbling_missile(pSprite, pProj, PROJ_TYPE_MISSILE);
+        ParticleSet(y_position, x_position, PE_HITTING_SOMETHING_INVINCIBLE);
+        ProjectileStartTumblingMissile(pSprite, pProj, PROJ_TYPE_MISSILE);
     }*/
 }
 
-void projectile_super_missile_hit_sprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 y_position, u16 x_position)
+void ProjectileSuperMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 y_position, u16 x_position)
 {
 
 }
 
-void projectile_bomb_hit_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position)
+void ProjectileBombMissileHitSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position)
 {
     if ((pSprite->properties & SP_IMMUNE_TO_PROJECTILES) != 0x0)
     {
-        projectile_hit_sprite_immune_to_projectiles(pSprite);
+        ProjectileHitSpriteImmuneToProjectiles(pSprite);
     }
     else
     {
         if ((pSprite->properties & SP_SOLID_FOR_PROJECTILES) != 0x0)
         {
-            projectile_hit_solid_sprite(pSprite);
+            ProjectileHitSolidSprite(pSprite);
         }
         else
         {
-            if ((projectile_get_sprite_weakness(pSprite) & WEAKNESS_BEAM_BOMBS) != 0x0)
-                projectile_deal_damage(pSprite, 0x8);
+            if ((ProjectileGetSpriteWeakness(pSprite) & WEAKNESS_BEAM_BOMBS) != 0x0)
+                ProjectileDealDamage(pSprite, 0x8);
             else
-                projectile_hit_solid_sprite(pSprite);
+                ProjectileHitSolidSprite(pSprite);
         }
     }
 }
@@ -1408,7 +1408,7 @@ void projectile_bomb_hit_sprite(struct SpriteData* pSprite, u16 y_position, u16 
  * 
  * @param pProj Projectile Data Pointer to the concerned normal beam
  */
-void projectile_process_normal_beam(struct ProjectileData* pProj)
+void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -1418,31 +1418,31 @@ void projectile_process_normal_beam(struct ProjectileData* pProj)
     */
     if (pProj->movement_stage == 0x2)
     {
-        current_clipdata_affecting_action = CCAA_BEAM;
-        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        gCurrentClipdataAffectingAction = CCAA_BEAM;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
             return;
         }
         else
         {
-            projectile_move(pProj, 0x14);
+            ProjectileMove(pProj, 0x14);
         }
     }
     else if (pProj->movement_stage == 0x1)
     {
-        current_clipdata_affecting_action = CCAA_BEAM;
-        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        gCurrentClipdataAffectingAction = CCAA_BEAM;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
             return;
         }
         else
         {
             pProj->movement_stage++;
-            projectile_move(pProj, 0x10);
+            ProjectileMove(pProj, 0x10);
         }
     }
     else
@@ -1473,7 +1473,7 @@ void projectile_process_normal_beam(struct ProjectileData* pProj)
         pProj->hitbox_left_offset = -0x8;
         pProj->hitbox_right_offset = 0x8;
         pProj->movement_stage = 0x1;
-        projectile_check_hit_block(pProj, CCAA_BEAM, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+        ProjectileCheckHitBlock(pProj, CCAA_BEAM, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
     }
 
     pProj->timer++;
@@ -1486,7 +1486,7 @@ void projectile_process_normal_beam(struct ProjectileData* pProj)
  * 
  * @param pProj Projectile Data Pointer to the concerned long beam
  */
-void projectile_process_long_beam(struct ProjectileData* pProj)
+void ProjectileProcessLongBeam(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -1496,30 +1496,30 @@ void projectile_process_long_beam(struct ProjectileData* pProj)
     */
    if (pProj->movement_stage == 0x2)
    {
-       current_clipdata_affecting_action = CCAA_BEAM;
-       if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+       gCurrentClipdataAffectingAction = CCAA_BEAM;
+       if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
        {
            pProj->status = 0x0;
-           particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+           ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
        }
        else
        {
-           projectile_move(pProj, 0x18);
+           ProjectileMove(pProj, 0x18);
            pProj->timer++;
        }
    }
    else if (pProj->movement_stage == 0x1)
    {
-       current_clipdata_affecting_action = CCAA_BEAM;
-       if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+       gCurrentClipdataAffectingAction = CCAA_BEAM;
+       if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
        {
            pProj->status = 0x0;
-           particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+           ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
        }
        else
        {
            pProj->movement_stage++;
-           projectile_move(pProj, 0x10);
+           ProjectileMove(pProj, 0x10);
            pProj->timer++;
        }
    }
@@ -1551,7 +1551,7 @@ void projectile_process_long_beam(struct ProjectileData* pProj)
        pProj->hitbox_left_offset = -0xC;
        pProj->hitbox_right_offset = 0xC;
        pProj->movement_stage = 0x1;
-       projectile_check_hit_block(pProj, CCAA_BEAM, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+       ProjectileCheckHitBlock(pProj, CCAA_BEAM, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
        pProj->timer++;
    }
 }
@@ -1561,7 +1561,7 @@ void projectile_process_long_beam(struct ProjectileData* pProj)
  * 
  * @param pProj Projectile Data Pointer to the concerned ice beam
  */
-void projectile_process_ice_beam(struct ProjectileData* pProj)
+void ProjectileProcessIceBeam(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -1571,35 +1571,35 @@ void projectile_process_ice_beam(struct ProjectileData* pProj)
     */
     if (pProj->movement_stage == 0x2)
     {
-        current_clipdata_affecting_action = CCAA_BEAM;
-        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        gCurrentClipdataAffectingAction = CCAA_BEAM;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
             return;
         }
         else
         {
-            projectile_move(pProj, 0x1A);
+            ProjectileMove(pProj, 0x1A);
             if (pProj->status & PROJ_STATUS_XFLIP)
-                projectile_set_trail(pProj, PE_BEAM_TRAILING_LEFT, 0x3);
+                ProjectileSetTrail(pProj, PE_BEAM_TRAILING_LEFT, 0x3);
             else
-                projectile_set_trail(pProj, PE_BEAM_TRAILING_RIGHT, 0x3);
+                ProjectileSetTrail(pProj, PE_BEAM_TRAILING_RIGHT, 0x3);
         }
     }
     else if (pProj->movement_stage == 0x1)
     {
-        current_clipdata_affecting_action = CCAA_BEAM;
-        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        gCurrentClipdataAffectingAction = CCAA_BEAM;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
             return;
         }
         else
         {
             pProj->movement_stage++;
-            projectile_move(pProj, 0x10);
+            ProjectileMove(pProj, 0x10);
         }
     }
     else
@@ -1630,15 +1630,15 @@ void projectile_process_ice_beam(struct ProjectileData* pProj)
         pProj->hitbox_left_offset = -0x14;
         pProj->hitbox_right_offset = 0x14;
         pProj->movement_stage = 0x1;
-        projectile_check_hit_block(pProj, CCAA_BEAM, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+        ProjectileCheckHitBlock(pProj, CCAA_BEAM, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
     }
 
     pProj->timer++;
-    if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) == 0x0 && pProj->timer > 0xC)
+    if ((gEquipment.beam_bombs_activation & BBF_LONG_BEAM) == 0x0 && pProj->timer > 0xC)
         pProj->status = 0x0;
 }
 
-u32 projectile_check_wave_beam_hitting_blocks(struct ProjectileData* pProj)
+u32 ProjectileCheckWaveBeamHittingBlocks(struct ProjectileData* pProj)
 {
 
 }
@@ -1648,24 +1648,24 @@ u32 projectile_check_wave_beam_hitting_blocks(struct ProjectileData* pProj)
  * 
  * @param pProj Projectile Data Pointer to the concerned wave beam
  */
-void projectile_process_wave_beam(struct ProjectileData* pProj)
+void ProjectileProcessWaveBeam(struct ProjectileData* pProj)
 {
-    projectile_check_wave_beam_hitting_blocks(pProj); // Check collision
+    ProjectileCheckWaveBeamHittingBlocks(pProj); // Check collision
     if (pProj->movement_stage == 0x2)
     {
-        projectile_move(pProj, 0x1C);
-        if (equipment.beam_bombs_activation & BBF_ICE_BEAM)
+        ProjectileMove(pProj, 0x1C);
+        if (gEquipment.beam_bombs_activation & BBF_ICE_BEAM)
         {
             if (pProj->status & PROJ_STATUS_XFLIP)
-                projectile_set_trail(pProj, PE_BEAM_TRAILING_LEFT, 0x3);
+                ProjectileSetTrail(pProj, PE_BEAM_TRAILING_LEFT, 0x3);
             else
-                projectile_set_trail(pProj, PE_BEAM_TRAILING_RIGHT, 0x3);
+                ProjectileSetTrail(pProj, PE_BEAM_TRAILING_RIGHT, 0x3);
         }
     }
     else if (pProj->movement_stage == 0x1)
     {
         pProj->movement_stage++;
-        projectile_move(pProj, 0x10);
+        ProjectileMove(pProj, 0x10);
     }
     else
     {
@@ -1706,7 +1706,7 @@ void projectile_process_wave_beam(struct ProjectileData* pProj)
     }
 
     pProj->timer++;
-    if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) == 0x0 && pProj->timer > 0xC) // Check despawn
+    if ((gEquipment.beam_bombs_activation & BBF_LONG_BEAM) == 0x0 && pProj->timer > 0xC) // Check despawn
         pProj->status = 0x0;
 }
 
@@ -1715,39 +1715,39 @@ void projectile_process_wave_beam(struct ProjectileData* pProj)
  * 
  * @param pProj Projectile Data Pointer to the concerned plasma beam
  */
-void projectile_process_plasma_beam(struct ProjectileData* pProj)
+void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
 {
     u8 has_wave;
 
-    has_wave = equipment.beam_bombs_activation & BBF_WAVE_BEAM;
+    has_wave = gEquipment.beam_bombs_activation & BBF_WAVE_BEAM;
     if (!has_wave)
     {
-        current_clipdata_affecting_action = CCAA_BEAM;
-        if (projectile_collision_related2(pProj) != 0x0)
+        gCurrentClipdataAffectingAction = CCAA_BEAM;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0)
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
             return;
         }
         else
-            projectile_check_wave_beam_hitting_blocks(pProj);
+            ProjectileCheckWaveBeamHittingBlocks(pProj);
     }
 
     if (pProj->movement_stage == 0x2)
     {
-        projectile_move(pProj, 0x20);
-        if (equipment.beam_bombs_activation & BBF_ICE_BEAM)
+        ProjectileMove(pProj, 0x20);
+        if (gEquipment.beam_bombs_activation & BBF_ICE_BEAM)
         {
             if (pProj->status & PROJ_STATUS_XFLIP)
-                projectile_set_trail(pProj, PE_BEAM_TRAILING_LEFT, 0x3);
+                ProjectileSetTrail(pProj, PE_BEAM_TRAILING_LEFT, 0x3);
             else
-                projectile_set_trail(pProj, PE_BEAM_TRAILING_RIGHT, 0x3);
+                ProjectileSetTrail(pProj, PE_BEAM_TRAILING_RIGHT, 0x3);
         }
     }
     else if (pProj->movement_stage == 0x1)
     {
         pProj->movement_stage++;
-        projectile_move(pProj, 0x10);
+        ProjectileMove(pProj, 0x10);
     }
     else
     {
@@ -1817,7 +1817,7 @@ void projectile_process_plasma_beam(struct ProjectileData* pProj)
     }
 
     pProj->timer++;
-    if ((equipment.beam_bombs_activation & BBF_LONG_BEAM) == 0x0 && pProj->timer > 0xC)
+    if ((gEquipment.beam_bombs_activation & BBF_LONG_BEAM) == 0x0 && pProj->timer > 0xC)
         pProj->status = 0x0;
 }
 
@@ -1826,7 +1826,7 @@ void projectile_process_plasma_beam(struct ProjectileData* pProj)
 *
 * @param pProj Projectile Data Pointer to the concerned pistol
 */
-void projectile_process_pistol(struct ProjectileData* pProj)
+void ProjectileProcessPistol(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -1836,30 +1836,30 @@ void projectile_process_pistol(struct ProjectileData* pProj)
     */
     if (pProj->movement_stage == 0x2)
     {
-        current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
         }
         else
         {
-            projectile_move(pProj, 0x16);
+            ProjectileMove(pProj, 0x16);
             pProj->timer++;
         }
     }
     else if (pProj->movement_stage == 0x1)
     {
-        current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
         }
         else
         {
             pProj->movement_stage++;
-            projectile_move(pProj, 0x10);
+            ProjectileMove(pProj, 0x10);
             pProj->timer++;
         }
     }
@@ -1891,32 +1891,32 @@ void projectile_process_pistol(struct ProjectileData* pProj)
         pProj->hitbox_left_offset = -0x4;
         pProj->hitbox_right_offset = 0x4;
         pProj->movement_stage = 0x1;
-        projectile_check_hit_block(pProj, CCAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+        ProjectileCheckHitBlock(pProj, CCAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
         pProj->timer++;
     }
 }
 
-void projectile_process_charged_normal_beam(struct ProjectileData* pProj)
+void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
 {
 
 }
 
-void projectile_process_charged_long_beam(struct ProjectileData* pProj)
+void ProjectileProcessChargedLongBeam(struct ProjectileData* pProj)
 {
 
 }
 
-void projectile_process_charged_ice_beam(struct ProjectileData* pProj)
+void ProjectileProcessChargedIceBeam(struct ProjectileData* pProj)
 {
 
 }
 
-void projectile_process_charged_wave_beam(struct ProjectileData* pProj)
+void ProjectileProcessChargedWaveBeam(struct ProjectileData* pProj)
 {
 
 }
 
-void projectile_process_charged_plasma_beam(struct ProjectileData* pProj)
+void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj)
 {
 
 }
@@ -1926,7 +1926,7 @@ void projectile_process_charged_plasma_beam(struct ProjectileData* pProj)
  * 
  * @param pProj Projectile Data Pointer to the concerned charged pistol
  */
-void projectile_process_charged_pistol(struct ProjectileData* pProj)
+void ProjectileProcessChargedPistol(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -1936,31 +1936,31 @@ void projectile_process_charged_pistol(struct ProjectileData* pProj)
     */
     if (pProj->movement_stage == 0x2)
     {
-        current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
         }
         else
         {
-            projectile_move(pProj, 0x16);
-            projectile_set_trail(pProj, PE_CHARGED_PISTOL_TRAIL, 0x7);
+            ProjectileMove(pProj, 0x16);
+            ProjectileSetTrail(pProj, PE_CHARGED_PISTOL_TRAIL, 0x7);
             pProj->timer++;
         }
     }
     else if (pProj->movement_stage == 0x1)
     {
-        current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
         }
         else
         {
             pProj->movement_stage++;
-            projectile_move(pProj, 0x10);
+            ProjectileMove(pProj, 0x10);
             pProj->timer++;
         }
     }
@@ -1992,18 +1992,18 @@ void projectile_process_charged_pistol(struct ProjectileData* pProj)
         pProj->hitbox_left_offset = -0xC;
         pProj->hitbox_right_offset = 0xC;
         pProj->movement_stage = 0x1;
-        projectile_check_hit_block(pProj, CCAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+        ProjectileCheckHitBlock(pProj, CCAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
         pProj->timer++;
     }
 }
 
-void projectile_decrement_missile_counter(struct ProjectileData* pProj)
+void ProjectileDecrementMissileCounter(struct ProjectileData* pProj)
 {
-    if (equipment.current_missiles != 0x0)
+    if (gEquipment.current_missiles != 0x0)
     {
-        equipment.current_missiles--;
-        if (equipment.current_missiles == 0x0)
-            samus_weapon_info.weapon_highlighted ^= WH_MISSILE;
+        gEquipment.current_missiles--;
+        if (gEquipment.current_missiles == 0x0)
+            gSamusWeaponInfo.weapon_highlighted ^= WH_MISSILE;
     }
 
     pProj->draw_distance_offset = 0x40;
@@ -2014,7 +2014,7 @@ void projectile_decrement_missile_counter(struct ProjectileData* pProj)
 * 51bac | 118 | Subroutine for the missile projectile, further detail is commented in the function
 * @param pProj Projectile Data Pointer to the concerned missile
 */
-void projectile_process_missile(struct ProjectileData* pProj)
+void ProjectileProcessMissile(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -2025,32 +2025,32 @@ void projectile_process_missile(struct ProjectileData* pProj)
     */
     if (pProj->movement_stage == 0x2)
     {
-        current_clipdata_affecting_action = CCAA_MISSILE;
-        if (projectile_collision_related2(pProj) == 0x0) // Check for collision
+        gCurrentClipdataAffectingAction = CCAA_MISSILE;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) == 0x0) // Check for collision
         {
-            projectile_move(pProj, pProj->timer + 0x8);
+            ProjectileMove(pProj, pProj->timer + 0x8);
             if (pProj->timer < 0xC)
                 pProj->timer++;
-            projectile_set_trail(pProj, PE_MISSILE_TRAIL, 0x7);
+            ProjectileSetTrail(pProj, PE_MISSILE_TRAIL, 0x7);
         }
         else
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_MISSILE);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_MISSILE);
         }
     }
     else if (pProj->movement_stage == 0x1)
     {
-        current_clipdata_affecting_action = CCAA_MISSILE;
-        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        gCurrentClipdataAffectingAction = CCAA_MISSILE;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_MISSILE);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_MISSILE);
         }
         else
         {
             pProj->movement_stage++;
-            projectile_move(pProj, 0x30);
+            ProjectileMove(pProj, 0x30);
         }
     }
     else if (pProj->movement_stage == 0x0)
@@ -2072,7 +2072,7 @@ void projectile_process_missile(struct ProjectileData* pProj)
                 pProj->oam_pointer = missile_oam_forward;
         }
 
-        projectile_decrement_missile_counter(pProj);
+        ProjectileDecrementMissileCounter(pProj);
         pProj->anim_duration_counter = 0x0;
         pProj->curr_anim_frame = 0x0;
         pProj->hitbox_top_offset = -0x8;
@@ -2080,30 +2080,30 @@ void projectile_process_missile(struct ProjectileData* pProj)
         pProj->hitbox_left_offset = -0x8;
         pProj->hitbox_right_offset = 0x8;
         pProj->movement_stage++;
-        projectile_check_hit_block(pProj, CCAA_MISSILE, PE_HITTING_SOMETHING_WITH_MISSILE);
+        ProjectileCheckHitBlock(pProj, CCAA_MISSILE, PE_HITTING_SOMETHING_WITH_MISSILE);
     }
     else // When tumbling
     {
         if (pProj->status & PROJ_STATUS_NOT_DRAWN)
-            projectile_decrement_missile_counter(pProj); // Not sure why this is here ?
-        projectile_move_tumbling(pProj);
+            ProjectileDecrementMissileCounter(pProj); // Not sure why this is here ?
+        ProjectileMoveTumbling(pProj);
     }
 }
 
-void projectile_decrement_super_missile(struct ProjectileData* pProj)
+void ProjectileDecrementSuperMissileCounter(struct ProjectileData* pProj)
 {
-    if (equipment.current_super_missiles != 0x0)
+    if (gEquipment.current_super_missiles != 0x0)
     {
-        equipment.current_super_missiles--;
-        if (equipment.current_super_missiles == 0x0)
-            samus_weapon_info.weapon_highlighted ^= WH_SUPER_MISSILE;
+        gEquipment.current_super_missiles--;
+        if (gEquipment.current_super_missiles == 0x0)
+            gSamusWeaponInfo.weapon_highlighted ^= WH_SUPER_MISSILE;
     }
 
     pProj->draw_distance_offset = 0x40;
     pProj->status &= 0xFB;
 }
 
-void projectile_process_super_missile(struct ProjectileData* pProj)
+void ProjectileProcessSuperMissile(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -2114,32 +2114,32 @@ void projectile_process_super_missile(struct ProjectileData* pProj)
     */
     if (pProj->movement_stage == 0x2)
     {
-        current_clipdata_affecting_action = CCAA_SUPER_MISSILE;
-        if (projectile_collision_related2(pProj) == 0x0) // Check for collision
+        gCurrentClipdataAffectingAction = CCAA_SUPER_MISSILE;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) == 0x0) // Check for collision
         {
-            projectile_move(pProj, pProj->timer + 0xC);
+            ProjectileMove(pProj, pProj->timer + 0xC);
             if (pProj->timer < 0x10)
                 pProj->timer++;
-            projectile_set_trail(pProj, PE_SUPER_MISSILE_TRAIL, 0x3);
+            ProjectileSetTrail(pProj, PE_SUPER_MISSILE_TRAIL, 0x3);
         }
         else
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
         }
     }
     else if (pProj->movement_stage == 0x1)
     {
-        current_clipdata_affecting_action = CCAA_SUPER_MISSILE;
-        if (projectile_collision_related2(pProj) != 0x0) // Check for collision
+        gCurrentClipdataAffectingAction = CCAA_SUPER_MISSILE;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            particle_set(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
+            ParticleSet(pProj->y_position, pProj->x_position, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
         }
         else
         {
             pProj->movement_stage++;
-            projectile_move(pProj, 0x30);
+            ProjectileMove(pProj, 0x30);
         }
     }
     else if (pProj->movement_stage == 0x0)
@@ -2161,7 +2161,7 @@ void projectile_process_super_missile(struct ProjectileData* pProj)
                 pProj->oam_pointer = super_missile_oam_forward;
         }
 
-        projectile_decrement_super_missile(pProj);
+        ProjectileDecrementSuperMissileCounter(pProj);
         pProj->anim_duration_counter = 0x0;
         pProj->curr_anim_frame = 0x0;
         pProj->hitbox_top_offset = -0xC;
@@ -2169,13 +2169,13 @@ void projectile_process_super_missile(struct ProjectileData* pProj)
         pProj->hitbox_left_offset = -0xC;
         pProj->hitbox_right_offset = 0xC;
         pProj->movement_stage++;
-        projectile_check_hit_block(pProj, CCAA_SUPER_MISSILE, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
+        ProjectileCheckHitBlock(pProj, CCAA_SUPER_MISSILE, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
     }
     else // When tumbling
     {
         if (pProj->status & PROJ_STATUS_NOT_DRAWN)
-            projectile_decrement_super_missile(pProj); // Not sure why this is here ?
-        projectile_move_tumbling(pProj);
+            ProjectileDecrementSuperMissileCounter(pProj); // Not sure why this is here ?
+        ProjectileMoveTumbling(pProj);
     }
 }
 
@@ -2184,7 +2184,7 @@ void projectile_process_super_missile(struct ProjectileData* pProj)
  * 
  * @param pProj Projectile Data Pointer to the concerned bomb
  */
-void projectile_morphball_launcher_check_launch_samus(struct ProjectileData* pProj)
+void ProjectileMorphballLauncherCheckLaunchSamus(struct ProjectileData* pProj)
 {
     u16 samus_y;
     u16 samus_x;
@@ -2199,12 +2199,12 @@ void projectile_morphball_launcher_check_launch_samus(struct ProjectileData* pPr
     u16 proj_left;
     u16 proj_right;
 
-    samus_y = samus_data.y_position;
-    samus_x = samus_data.x_position;
-    samus_top = samus_y + samus_physics.draw_distance_top_offset;
-    samus_bottom = samus_y + samus_physics.draw_distance_bottom_offset;
-    samus_left = samus_x + samus_physics.draw_distance_left_offset;
-    samus_right = samus_x + samus_physics.draw_distance_right_offset;
+    samus_y = gSamusData.y_position;
+    samus_x = gSamusData.x_position;
+    samus_top = samus_y + gSamusPhysics.draw_distance_top_offset;
+    samus_bottom = samus_y + gSamusPhysics.draw_distance_bottom_offset;
+    samus_left = samus_x + gSamusPhysics.draw_distance_left_offset;
+    samus_right = samus_x + gSamusPhysics.draw_distance_right_offset;
 
     proj_y = pProj->y_position;
     proj_x = pProj->x_position;
@@ -2213,19 +2213,19 @@ void projectile_morphball_launcher_check_launch_samus(struct ProjectileData* pPr
     proj_left = proj_x + pProj->hitbox_left_offset;
     proj_right = proj_x + pProj->hitbox_right_offset;
 
-    if (sprite_util_check_objects_touching(samus_top, samus_bottom, samus_left, samus_right, proj_top, proj_bottom, proj_left, proj_right) && samus_data.invincibility_timer != 0x0)
+    if (sprite_util_check_objects_touching(samus_top, samus_bottom, samus_left, samus_right, proj_top, proj_bottom, proj_left, proj_right) && gSamusData.invincibility_timer != 0x0)
     {
-        switch (samus_data.pose)
+        switch (gSamusData.pose)
         {
             case SPOSE_ROLLING:
             case SPOSE_MORPH_BALL:
-                samus_data.forced_movement = 0xF0;
+                gSamusData.forced_movement = 0xF0;
                 samus_set_pose(SPOSE_DELAY_BEFORE_BALLSPARKING);
         }
     }
 }
 
-void projectile_check_samus_bomb_bounce(struct ProjectileData* pProj)
+void ProjectileCheckSamusBombBounce(struct ProjectileData* pProj)
 {
 
 }
@@ -2235,7 +2235,7 @@ void projectile_check_samus_bomb_bounce(struct ProjectileData* pProj)
 *
 * @param pProj Projectile Data Pointer to the concerned bomb
 */
-void projectile_process_bomb(struct ProjectileData* pProj)
+void ProjectileProcessBomb(struct ProjectileData* pProj)
 {
     u32 timer;
 
@@ -2263,7 +2263,7 @@ void projectile_process_bomb(struct ProjectileData* pProj)
             pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
             pProj->timer = 0x10; // Timer before the bomb starts spinning faster
             pProj->movement_stage++;
-            sound_play(0xFE); // Placing bomb sound
+            SoundPlay(0xFE); // Placing bomb sound
             break;
 
         case 0x3: // Bomb Exploding
@@ -2275,50 +2275,50 @@ void projectile_process_bomb(struct ProjectileData* pProj)
                 // /!\ u8 cast missing in asm
                 if (timer == 0xF)
                 {
-                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_process(pProj->y_position - 0x8, pProj->x_position); // Block center
-                    projectile_check_samus_bomb_bounce(pProj); // Checks if samus can bounce
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    ClipdataProcess(pProj->y_position - 0x8, pProj->x_position); // Block center
+                    ProjectileCheckSamusBombBounce(pProj); // Checks if samus can bounce
                     pProj->status &= ~PROJ_STATUS_CAN_AFFECT_ENVIRONMENT; // Clear Can Affect Environement status
                 }
                 else if (timer == 0xE)
                 {
-                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_process(pProj->y_position + 0x38, pProj->x_position); // Block bottom middle
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    ClipdataProcess(pProj->y_position + 0x38, pProj->x_position); // Block bottom middle
                 }
                 else if (timer == 0xD)
                 {
-                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_process(pProj->y_position - 0x8, pProj->x_position + 0x30); // Block right middle
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    ClipdataProcess(pProj->y_position - 0x8, pProj->x_position + 0x30); // Block right middle
                 }
                 else if (timer == 0xC)
                 {
-                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_process(pProj->y_position - 0x8, pProj->x_position - 0x30); // Block left middle
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    ClipdataProcess(pProj->y_position - 0x8, pProj->x_position - 0x30); // Block left middle
                 }
                 else if (timer == 0xB)
                 {
-                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_process(pProj->y_position + 0x38, pProj->x_position + 0x24); // Block right bottom
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    ClipdataProcess(pProj->y_position + 0x38, pProj->x_position + 0x24); // Block right bottom
                 }
                 else if (timer == 0xA)
                 {
-                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_process(pProj->y_position + 0x38, pProj->x_position - 0x24); // Block left bottom
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    ClipdataProcess(pProj->y_position + 0x38, pProj->x_position - 0x24); // Block left bottom
                 }
                 else if (timer == 0x9)
                 {
-                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_process(pProj->y_position - 0x48, pProj->x_position); // Block top middle
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    ClipdataProcess(pProj->y_position - 0x48, pProj->x_position); // Block top middle
                 }
                 else if (timer == 0x8)
                 {
-                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_process(pProj->y_position - 0x48, pProj->x_position + 0x24); // Block right top
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    ClipdataProcess(pProj->y_position - 0x48, pProj->x_position + 0x24); // Block right top
                 }
                 else if (timer == 0x7)
                 {
-                    current_clipdata_affecting_action = CCAA_BOMB_PISTOL;
-                    clipdata_process(pProj->y_position - 0x48, pProj->x_position - 0x24); // Block left top
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    ClipdataProcess(pProj->y_position - 0x48, pProj->x_position - 0x24); // Block left top
                 }
             }
             else
@@ -2354,12 +2354,12 @@ void projectile_process_bomb(struct ProjectileData* pProj)
                 pProj->timer = 0x10;
                 pProj->movement_stage++;
                 pProj->status |= (PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT);
-                particle_set(pProj->y_position - 0x10, pProj->x_position, PE_BOMB);
+                ParticleSet(pProj->y_position - 0x10, pProj->x_position, PE_BOMB);
             }
             break;
 
         case 0x7:
-            projectile_morphball_launcher_check_launch_samus(pProj); // Calls the launching samus handler
+            ProjectileMorphballLauncherCheckLaunchSamus(pProj); // Calls the launching samus handler
             pProj->status = 0x0;
     }
 }
@@ -2369,7 +2369,7 @@ void projectile_process_bomb(struct ProjectileData* pProj)
  * 
  * @param pProj Projectile Data Pointer
  */
-void projectile_process_empty(struct ProjectileData* pProj)
+void ProjectileProcess_Empty(struct ProjectileData* pProj)
 {
     return;
 }
@@ -2378,7 +2378,7 @@ void projectile_process_empty(struct ProjectileData* pProj)
 * 521f4 | 114 | Subroutine for the power bomb projectile, further detail is commented in the function
 * @param pProj Projectile Data Pointer to the concerned power bomb
 */
-void projectile_process_power_bomb(struct ProjectileData* pProj)
+void ProjectileProcessPowerBomb(struct ProjectileData* pProj)
 {
     /*
     Movement Stage :
@@ -2393,11 +2393,11 @@ void projectile_process_power_bomb(struct ProjectileData* pProj)
     switch (pProj->movement_stage)
     {
         case 0x0:
-            if (equipment.current_power_bombs != 0x0)
+            if (gEquipment.gCurrentPowerBombs != 0x0)
             {
-                equipment.current_power_bombs--;
-                if (equipment.current_power_bombs == 0x0)
-                    samus_weapon_info.weapon_highlighted ^= WH_POWER_BOMB;
+                gEquipment.gCurrentPowerBombs--;
+                if (gEquipment.gCurrentPowerBombs == 0x0)
+                    gSamusWeaponInfo.weapon_highlighted ^= WH_POWER_BOMB;
             }
             pProj->oam_pointer = power_bomb_oam_normal;
             pProj->anim_duration_counter = 0x0;
@@ -2412,15 +2412,15 @@ void projectile_process_power_bomb(struct ProjectileData* pProj)
             pProj->timer = 0x36;
             pProj->movement_stage++;
 
-            pSprite = sprite_data;
-            while (pSprite < sprite_data + 24)
+            pSprite = gSpriteData;
+            while (pSprite < gSpriteData + 24)
             {
                 if (pSprite->status & SPRITE_STATUS_EXISTS)
                     pSprite->invicibility_stun_flash_timer &= 0x7F;
                 pSprite++;
             }
-            sound_play(0x100);
-            current_power_bomb.power_bomb_placed = TRUE;
+            SoundPlay(0x100);
+            gCurrentPowerBomb.power_bomb_placed = TRUE;
             break;
 
         case 0x1:
@@ -2436,12 +2436,12 @@ void projectile_process_power_bomb(struct ProjectileData* pProj)
             break;
 
         case 0x2:
-            if (game_mode_sub1 == 0x2)
+            if (gGameModeSub1 == 0x2)
             {
                 pProj->timer--;
                 if (pProj->timer == 0x0)
                 {
-                    power_bomb_explosion_start(pProj->x_position, pProj->y_position, 0x0);
+                    PowerBombExplosionStart(pProj->x_position, pProj->y_position, 0x0);
                     pProj->status = 0x0;
                 }
             }

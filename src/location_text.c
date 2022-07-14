@@ -9,12 +9,12 @@
  * 
  * @return u8 Location text
  */
-u8 location_text_get_brinstar(void)
+u8 LocationTextGetBrinstar(void)
 {
     u8 lt;
 
     lt = LT_INVALID;
-    switch (current_room)
+    switch (gCurrentRoom)
     {
         case 0x0: // Spawn room
         case 0x8: // Elevator to kraid room
@@ -37,12 +37,12 @@ u8 location_text_get_brinstar(void)
  * 
  * @return u8 Location text
  */
-u8 location_text_get_kraid(void)
+u8 LocationTextGetKraid(void)
 {
     u8 lt;
 
     lt = LT_INVALID;
-    switch (current_room)
+    switch (gCurrentRoom)
     {
         case 0x0: // Main shaft/elevator to brinstar room
             lt = LT_KRAID;
@@ -65,12 +65,12 @@ u8 location_text_get_kraid(void)
  * 
  * @return u8 Location text
  */
-u8 location_text_get_crateria(void)
+u8 LocationTextGetCrateria(void)
 {
     u8 lt;
 
     lt = LT_INVALID;
-    switch (current_room)
+    switch (gCurrentRoom)
     {
         case 0x3: // Elevator to brinstar room
         case 0x4: // Elevator to tourian (escape) room
@@ -96,12 +96,12 @@ u8 location_text_get_crateria(void)
  * 
  * @return u8 Location text
  */
-u8 location_text_get_norfair(void)
+u8 LocationTextGetNorfair(void)
 {
     u8 lt;
 
     lt = LT_INVALID;
-    switch(current_room)
+    switch(gCurrentRoom)
     {
         case 0x24: // Save room 1
         case 0x27: // Save room 2
@@ -127,12 +127,12 @@ u8 location_text_get_norfair(void)
  * 
  * @return u8 Location text
  */
-u8 location_text_get_ridley(void)
+u8 LocationTextGetRidley(void)
 {
     u8 lt;
 
     lt = LT_INVALID;
-    switch(current_room)
+    switch(gCurrentRoom)
     {
         case 0x1: // Save room 1
         case 0x14: // Save room 2
@@ -155,12 +155,12 @@ u8 location_text_get_ridley(void)
  * 
  * @return u8 Location text
  */
-u8 location_text_get_chozodia(void)
+u8 LocationTextGetChozodia(void)
 {
     u8 lt;
 
     lt = LT_INVALID;
-    switch(current_room)
+    switch(gCurrentRoom)
     {        
         case 0x0: // Suitless spawn room
         case 0x22: // Crateria passage with missile tank room
@@ -187,12 +187,12 @@ u8 location_text_get_chozodia(void)
  * 
  * @return u8 Location text
  */
-u8 location_text_get_tourian(void)
+u8 LocationTextGetTourian(void)
 {
     u8 lt;
 
     lt = LT_INVALID;
-    switch(current_room)
+    switch(gCurrentRoom)
     {
         case 0x6: // Save room 1
         case 0xB: // Save room 2
@@ -212,7 +212,7 @@ u8 location_text_get_tourian(void)
  * 
  * @return u8 GFX Slot
  */
-u8 location_text_load_area_banner_gfx(void)
+u8 LocationTextLoadAreaBannerGFX(void)
 {
     u8 count;
     u8 gfx_slot;
@@ -222,10 +222,10 @@ u8 location_text_load_area_banner_gfx(void)
     // Loop through sprites to try and find if an area banner is in the spriteset
     for (count = 0x0; count < 0xF; count++)
     {
-        if (spriteset_sprite_id[count] == PSPRITE_AREA_BANNER)
+        if (gSpritesetSpritesID[count] == PSPRITE_AREA_BANNER)
         {
             // Found area banner, load the gfx slot
-            gfx_slot = spriteset_sprite_gfx_slots[count];
+            gfx_slot = gSpritesetGFXSlots[count];
             break;
         }
     }
@@ -248,7 +248,7 @@ u8 location_text_load_area_banner_gfx(void)
  * 
  * @return The GFX Slot 
  */
-u8 location_text_get_gfx_slot(void)
+u8 LocationTextGetGFXSlot(void)
 {
     u8 gfx_slot;
     u8 lt;
@@ -256,7 +256,7 @@ u8 location_text_get_gfx_slot(void)
     lt = LT_INVALID;
     gfx_slot = 0xFF;
 
-    switch (spriteset)
+    switch (gSpriteset)
     {
         case 0x21: // Normal save platform spriteset
         case 0x3B: // Chozodia save platform spriteset
@@ -272,52 +272,52 @@ u8 location_text_get_gfx_slot(void)
     if (lt != LT_INVALID)
     {
         // Location text found with spriteset
-        sprite_data[0x0].room_slot = lt;
-        gfx_slot = location_text_load_area_banner_gfx();
+        gSpriteData[0x0].room_slot = lt;
+        gfx_slot = LocationTextLoadAreaBannerGFX();
         // Draw location text
         draw_location_text(lt, gfx_slot);
     }
     else
     {
         // Bit 6 of last door properties
-        if (display_location_text)
+        if (gDisplayLocationText)
         {
             // Get location text for current area
-            switch (current_area)
+            switch (gCurrentArea)
             {
                 case AREA_BRINSTAR:
-                    lt = location_text_get_brinstar();
+                    lt = LocationTextGetBrinstar();
                     break;
 
                 case AREA_KRAID:
-                    lt = location_text_get_kraid();
+                    lt = LocationTextGetKraid();
                     break;
 
                 case AREA_CRATERIA:
-                    lt = location_text_get_crateria();
+                    lt = LocationTextGetCrateria();
                     break;
 
                 case AREA_NORFAIR:
-                    lt = location_text_get_norfair();
+                    lt = LocationTextGetNorfair();
                     break;
 
                 case AREA_RIDLEY:
-                    lt = location_text_get_ridley();
+                    lt = LocationTextGetRidley();
                     break;
 
                 case AREA_CHOZODIA:
-                    lt = location_text_get_chozodia();
+                    lt = LocationTextGetChozodia();
                     break;
 
                 case AREA_TOURIAN:
-                    lt = location_text_get_tourian();
+                    lt = LocationTextGetTourian();
             }
 
             if (lt != LT_INVALID)
             {
                 // If found
-                sprite_data[0x0].room_slot = lt;
-                gfx_slot = location_text_load_area_banner_gfx();
+                gSpriteData[0x0].room_slot = lt;
+                gfx_slot = LocationTextLoadAreaBannerGFX();
                 // Draw location text
                 draw_location_text(lt, gfx_slot);
                 // Load different palette for some reason

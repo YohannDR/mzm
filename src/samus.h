@@ -4,6 +4,26 @@
 #include "types.h"
 #include "oam.h"
 
+// Globals
+
+extern struct SamusData gSamusData;
+extern struct SamusData gSamusDataCopy;
+extern struct WeaponInfo gSamusWeaponInfo;
+extern struct SamusEcho gSamusEcho;
+extern struct ScrewSpeedAnimation gScrewSpeedAnimation;
+extern struct Equipment gEquipment;
+extern struct HazardDamage gSamusHazardDamage;
+extern struct EnvironmentalEffect gSamusEnvirnmentalEffects[5];
+extern struct SamusPhysics gSamusPhysics;
+extern u16 gPreviousXPosition;
+extern u16 gPreviousYPosition;
+extern u16 gPreventMovementTimer;
+
+extern u16 gSamusPalette[32];
+extern i16 gSamusDoorPositionOffset;
+
+// Defines
+
 #define BBF_NONE 0x0
 #define BBF_LONG_BEAM 0x1
 #define BBF_ICE_BEAM 0x2
@@ -26,25 +46,6 @@
 #define SUIT_FULLY_POWERED 0x1
 #define SUIT_SUITLESS 0x2
 
-struct Equipment {
-    u16 max_energy;
-    u16 max_missiles;
-    u8 max_super_missiles;
-    u8 max_power_bombs;
-    u16 current_energy;
-    u16 current_missiles;
-    u8 current_super_missiles;
-    u8 current_power_bombs;
-    u8 beam_bombs;
-    u8 beam_bombs_activation;
-    u8 suit_misc;
-    u8 suit_misc_activation;
-    u8 downloaded_map_status;
-    u8 low_health;
-    u8 suit_type;
-    u8 grabbed_by_metroid;
-};
-
 #define DIAG_AIM_NONE 0x0
 #define DIAG_AIM_UP 0x1
 #define DIAG_AIM_DOWN 0x2
@@ -53,16 +54,6 @@ struct Equipment {
 #define WH_MISSILE 0x1
 #define WH_SUPER_MISSILE 0x2
 #define WH_POWER_BOMB 0x4
-
-struct WeaponInfo {
-    u8 diagonal_aim;
-    u8 new_projectile;
-    u8 weapon_highlighted;
-    u8 missiles_selected;
-    u8 cooldown;
-    u8 charge_counter;
-    u8 beam_release_palette_timer;
-};
 
 #define SPOSE_RUNNING 0x0
 #define SPOSE_STANDING 0x1
@@ -158,6 +149,104 @@ struct WeaponInfo {
 #define SLOPE_LEFT 0x10
 #define SLOPE_RIGHT 0x20
 
+#define HDMOVING_NONE 0x0
+#define HDMOVING_LEFT 0x1
+#define HDMOVING_RIGHT 0x2
+
+#define VDMOVING_NONE 0x0
+#define VDMOVING_UP 0x1
+#define VDMOVING_DOWN 0x2
+
+#define ENV_EFFECT_NONE 0x0
+#define ENV_EFFECT_RUNNING_ON_WET_GROUND 0x1
+#define ENV_EFFECT_RUNNING_ON_DUSTY_GROUND 0x2
+#define ENV_EFFECT_RUNNING_ON_VERY_DUSTY_GROUND 0x3
+#define ENV_EFFECT_GOING_OUT_OF_WATER 0x4
+#define ENV_EFFECT_RUNNING_INTO_WATER 0x5
+#define ENV_EFFECT_GOING_OUT_OF_LAVA 0x6
+#define ENV_EFFECT_RUNNING_INTO_LAVA 0x7
+#define ENV_EFFECT_GOING_OUT_OF_ACID 0x8
+#define ENV_EFFECT_RUNNING_INTO_ACID 0x9
+#define ENV_EFFECT_TAKING_DAMAGE_IN_LAVA 0xA
+#define ENV_EFFECT_TAKING_DAMAGE_IN_ACID 0xB
+#define ENV_EFFECT_LANDING_ON_WET_GROUND 0xC
+#define ENV_EFFECT_LANDING_ON_BUBBLY_GROUND 0xD
+#define ENV_EFFECT_LANDING_ON_DUSTY_GROUND 0xE
+#define ENV_EFFECT_LANDING_ON_VERY_DUSTY_GROUND 0xF
+#define ENV_EFFECT_SKIDDING_ON_WET_GROUND 0x10
+#define ENV_EFFECT_SKIDDING_ON_DUSTY_GROUND 0x11
+#define ENV_EFFECT_BREATHING_BUBBLES 0x12
+
+#define WANTING_RUNNING_EFFECT 0x0
+#define WANTING_RUNNING_EFFECT_ 0x1
+#define WANTING_LANDING_EFFECT 0x2
+#define WANTING_GOING_OUT_OF_LIQUID_EFFECT 0x3
+#define WANTING_RUNNING_OUT_OF_LIQUID_EFFECT 0x4
+#define WANTING_BREATHING_BUBBLES 0x5
+#define WANTING_SKIDDING_EFFECT 0x6
+#define WANTING_RUNNING_ON_WET_GROUND 0x7
+
+#define DESTRUCTING_ACTION_NONE 0X0
+#define DESTRUCTING_ACTION_SPEED 0x1
+#define DESTRUCTING_ACTION_SCREW 0x2
+#define DESTRUCTING_ACTION_SPEED_SCREW 0x3
+
+#define SAMUS_ANIM_STATE_NONE 0x0
+#define SAMUS_ANIM_STATE_SUB_ENDED 0x1
+#define SAMUS_ANIM_STATE_ENDED 0x2
+
+// Probably not 100% true
+#define SAMUS_COLLISION_DETECTION_NONE 0x0
+#define SAMUS_COLLISION_DETECTION_LEFT_MOST 0x1
+#define SAMUS_COLLISION_DETECTION_MIDDLE_LEFT 0x2
+#define SAMUS_COLLISION_DETECTION_MIDDLE_RIGHT 0x4
+#define SAMUS_COLLISION_DETECTION_RIGHT_MOST 0x8
+#define SAMUS_COLLISION_DETECTION_SLOPE 0x80
+
+#define FORCED_MOVEMENT_UPWARDS_SHINESPARK 0x0
+#define FORCED_MOVEMENT_SIDEWARDS_SHINESPARK 0x1
+#define FORCED_MOVEMENT_CROUCHING_ARM_CANNON_UP 0x1
+#define FORCED_MOVEMENT_DIAGONAL_SHINESPARK 0x2
+#define FORCED_MOVEMENT_LAUNCHED_BY_CANNON 0xF0
+
+#define SCREW_SPEED_FLAG_NONE 0x0
+#define SCREW_SPEED_FLAG_SHINESPARKING 0x1
+#define SCREW_SPEED_FLAG_SPEEDBOOSTING 0x1
+#define SCREW_SPEED_FLAG_SCREW_ATTACKING 0x1
+#define SCREW_SPEED_FLAG_STORING_SHINESPARK 0x8
+
+// Structs
+
+struct Equipment {
+    u16 max_energy;
+    u16 max_missiles;
+    u8 max_super_missiles;
+    u8 max_power_bombs;
+    u16 current_energy;
+    u16 current_missiles;
+    u8 current_super_missiles;
+    u8 gCurrentPowerBombs;
+    u8 beam_bombs;
+    u8 beam_bombs_activation;
+    u8 suit_misc;
+    u8 suit_misc_activation;
+    u8 downloaded_map_status;
+    u8 low_health;
+    u8 suit_type;
+    u8 grabbed_by_metroid;
+};
+
+
+struct WeaponInfo {
+    u8 diagonal_aim;
+    u8 new_projectile;
+    u8 weapon_highlighted;
+    u8 missiles_selected;
+    u8 cooldown;
+    u8 charge_counter;
+    u8 beam_release_palette_timer;
+};
+
 struct SamusData {
     u8 pose;
     u8 standing_status;
@@ -182,14 +271,6 @@ struct SamusData {
     u8 curr_anim_frame;
 };
 
-#define HDMOVING_NONE 0x0
-#define HDMOVING_LEFT 0x1
-#define HDMOVING_RIGHT 0x2
-
-#define VDMOVING_NONE 0x0
-#define VDMOVING_UP 0x1
-#define VDMOVING_DOWN 0x2
-
 struct SamusPhysics {
     struct OamFrame* body_oam;
     u8* shoulders_gfx;
@@ -211,8 +292,8 @@ struct SamusPhysics {
     u16 unk_dma7;
     u8* screw_shinespark_gfx;
     u16 unk_dma8;
-    u16 arm_cannon_x_position_offset;
-    u16 arm_cannon_y_position_offset;
+    u16 gArmCannonX_position_offset;
+    u16 gArmCannonY_position_offset;
     u8 horizontal_moving_direction;
     u8 vertical_moving_direction;
     i16 hitbox_left_offset;
@@ -274,63 +355,7 @@ struct SamusEcho {
     u8 unknown;
 };
 
-#define ENV_EFFECT_NONE 0x0
-#define ENV_EFFECT_RUNNING_ON_WET_GROUND 0x1
-#define ENV_EFFECT_RUNNING_ON_DUSTY_GROUND 0x2
-#define ENV_EFFECT_RUNNING_ON_VERY_DUSTY_GROUND 0x3
-#define ENV_EFFECT_GOING_OUT_OF_WATER 0x4
-#define ENV_EFFECT_RUNNING_INTO_WATER 0x5
-#define ENV_EFFECT_GOING_OUT_OF_LAVA 0x6
-#define ENV_EFFECT_RUNNING_INTO_LAVA 0x7
-#define ENV_EFFECT_GOING_OUT_OF_ACID 0x8
-#define ENV_EFFECT_RUNNING_INTO_ACID 0x9
-#define ENV_EFFECT_TAKING_DAMAGE_IN_LAVA 0xA
-#define ENV_EFFECT_TAKING_DAMAGE_IN_ACID 0xB
-#define ENV_EFFECT_LANDING_ON_WET_GROUND 0xC
-#define ENV_EFFECT_LANDING_ON_BUBBLY_GROUND 0xD
-#define ENV_EFFECT_LANDING_ON_DUSTY_GROUND 0xE
-#define ENV_EFFECT_LANDING_ON_VERY_DUSTY_GROUND 0xF
-#define ENV_EFFECT_SKIDDING_ON_WET_GROUND 0x10
-#define ENV_EFFECT_SKIDDING_ON_DUSTY_GROUND 0x11
-#define ENV_EFFECT_BREATHING_BUBBLES 0x12
 
-#define WANTING_RUNNING_EFFECT 0x0
-#define WANTING_RUNNING_EFFECT_ 0x1
-#define WANTING_LANDING_EFFECT 0x2
-#define WANTING_GOING_OUT_OF_LIQUID_EFFECT 0x3
-#define WANTING_RUNNING_OUT_OF_LIQUID_EFFECT 0x4
-#define WANTING_BREATHING_BUBBLES 0x5
-#define WANTING_SKIDDING_EFFECT 0x6
-#define WANTING_RUNNING_ON_WET_GROUND 0x7
-
-#define DESTRUCTING_ACTION_NONE 0X0
-#define DESTRUCTING_ACTION_SPEED 0x1
-#define DESTRUCTING_ACTION_SCREW 0x2
-#define DESTRUCTING_ACTION_SPEED_SCREW 0x3
-
-#define SAMUS_ANIM_STATE_NONE 0x0
-#define SAMUS_ANIM_STATE_SUB_ENDED 0x1
-#define SAMUS_ANIM_STATE_ENDED 0x2
-
-// Probably not 100% true
-#define SAMUS_COLLISION_DETECTION_NONE 0x0
-#define SAMUS_COLLISION_DETECTION_LEFT_MOST 0x1
-#define SAMUS_COLLISION_DETECTION_MIDDLE_LEFT 0x2
-#define SAMUS_COLLISION_DETECTION_MIDDLE_RIGHT 0x4
-#define SAMUS_COLLISION_DETECTION_RIGHT_MOST 0x8
-#define SAMUS_COLLISION_DETECTION_SLOPE 0x80
-
-#define FORCED_MOVEMENT_UPWARDS_SHINESPARK 0x0
-#define FORCED_MOVEMENT_SIDEWARDS_SHINESPARK 0x1
-#define FORCED_MOVEMENT_CROUCHING_ARM_CANNON_UP 0x1
-#define FORCED_MOVEMENT_DIAGONAL_SHINESPARK 0x2
-#define FORCED_MOVEMENT_LAUNCHED_BY_CANNON 0xF0
-
-#define SCREW_SPEED_FLAG_NONE 0x0
-#define SCREW_SPEED_FLAG_SHINESPARKING 0x1
-#define SCREW_SPEED_FLAG_SPEEDBOOSTING 0x1
-#define SCREW_SPEED_FLAG_SCREW_ATTACKING 0x1
-#define SCREW_SPEED_FLAG_STORING_SHINESPARK 0x8
 
 typedef u8 (*SamusFunc_t)(struct SamusData*);
 

@@ -5,7 +5,7 @@
 
 void dma_transfer(int dma_channel, void *src, void *dst, u32 len, u8 bit_size);
 void init_sound(void);
-void load_intr_code(void);
+void LoadInterruptCode(void);
 void read_sram(void);
 void update_input(void);
 void start_new_demo(void);

@@ -4,6 +4,15 @@
 #include "types.h"
 #include "oam.h"
 
+// Globals
+
+extern struct ParticleEffect pParticleEffects[16];
+extern u16* gCurrentParticleEffectOAMFramePointer;
+extern u16 gParticleEscapeOAMFrames[25];
+extern u16 gParticleSamusReflectionOAMFrames[73];
+
+// Defines
+
 #define PE_SPRITE_SPLASH_WATER_SMALL 0x0
 #define PE_SPRITE_SPLASH_WATER_BIG 0x1
 #define PE_SPRITE_SPLASH_WATER_HUGE 0x2
@@ -76,6 +85,8 @@
 #define PARTICLE_STATUS_ABSOLUTE_POSITION 0x40
 #define PARTICLE_STATUS_XFLIP 0x80
 
+// Structs
+
 struct ParticleEffect {
     u8 status;
     u8 anim_duration_counter;
@@ -87,77 +98,81 @@ struct ParticleEffect {
     u16 x_position;
 };
 
+// Typedefs
+
 typedef void (*ParticleFunc_T)(struct ParticleEffect*);
 
-void particle_check_on_screen(struct ParticleEffect* pParticle);
-void particle_draw(struct ParticleEffect* pParticle);
-void particle_process_all(void);
-void particle_set(u16 y_position, u16 x_position, u8 effect);
-u8 particle_update_animation(struct ParticleEffect* pParticle, struct FrameData* pOam);
-void particle_set_current_oam_frame_pointer(struct ParticleEffect* pParticle, struct FrameData* pOam);
-void particle_sprite_splash_water_small(struct ParticleEffect* pParticle);
-void particle_sprite_splash_water_big(struct ParticleEffect* pParticle);
-void particle_sprite_splash_water_huge(struct ParticleEffect* pParticle);
-void particle_sprite_splash_lava_small(struct ParticleEffect* pParticle);
-void particle_sprite_splash_lava_big(struct ParticleEffect* pParticle);
-void particle_sprite_splash_lava_huge(struct ParticleEffect* pParticle);
-void particle_sprite_splash_acid_small(struct ParticleEffect* pParticle);
-void particle_sprite_splash_acid_big(struct ParticleEffect* pParticle);
-void particle_sprite_splash_acid_huge(struct ParticleEffect* pParticle);
-void particle_shooting_beam_left(struct ParticleEffect* pParticle);
-void particle_shooting_beam_right(struct ParticleEffect* pParticle);
-void particle_shooting_beam_diag_up_left(struct ParticleEffect* pParticle);
-void particle_shooting_beam_diag_up_right(struct ParticleEffect* pParticle);
-void particle_shooting_beam_diag_down_left(struct ParticleEffect* pParticle);
-void particle_shooting_beam_diag_down_right(struct ParticleEffect* pParticle);
-void particle_shooting_beam_up_left(struct ParticleEffect* pParticle);
-void particle_shooting_beam_up_right(struct ParticleEffect* pParticle);
-void particle_shooting_beam_down_left(struct ParticleEffect* pParticle);
-void particle_shooting_beam_down_right(struct ParticleEffect* pParticle);
-void particle_bomb(struct ParticleEffect* pParticle);
-void particle_missile_trail(struct ParticleEffect* pParticle);
-void particle_super_missile_trail(struct ParticleEffect* pParticle);
-void particle_beam_trailing_right(struct ParticleEffect* pParticle);
-void particle_beam_trailing_left(struct ParticleEffect* pParticle);
-void particle_charged_long_beam_trail(struct ParticleEffect* pParticle);
-void particle_charged_ice_beam_trail(struct ParticleEffect* pParticle);
-void particle_charged_wave_beam_trail(struct ParticleEffect* pParticle);
-void particle_charged_plasma_beam_trail(struct ParticleEffect* pParticle);
-void particle_charged_full_beam_trail(struct ParticleEffect* pParticle);
-void particle_charged_pistol_trail(struct ParticleEffect* pParticle);
-void particle_sprite_explosion_huge(struct ParticleEffect* pParticle);
-void particle_sprite_explosion_small(struct ParticleEffect* pParticle);
-void particle_sprite_explosion_medium(struct ParticleEffect* pParticle);
-void particle_sprite_explosion_big(struct ParticleEffect* pParticle);
-void particle_sprite_explosion_single_then_big(struct ParticleEffect* pParticle);
-void particle_screw_attack_destroyed(struct ParticleEffect* pParticle);
-void particle_shinespark_destroyed(struct ParticleEffect* pParticle);
-void particle_sudo_screw_destroyed(struct ParticleEffect* pParticle);
-void particle_speedbooster_destroyed(struct ParticleEffect* pParticle);
-void particle_main_boss_death(struct ParticleEffect* pParticle);
-void particle_freezing_sprite_with_ice(struct ParticleEffect* pParticle);
-void particle_freezing_sprite_with_charged_ice(struct ParticleEffect* pParticle);
-void particle_hitting_something_with_base_beam(struct ParticleEffect* pParticle);
-void particle_hitting_something_with_long_beam(struct ParticleEffect* pParticle);
-void particle_hitting_something_with_ice_beam(struct ParticleEffect* pParticle);
-void particle_hitting_something_with_wave_beam(struct ParticleEffect* pParticle);
-void particle_hitting_something_with_full_beam_no_plasma(struct ParticleEffect* pParticle);
-void particle_hitting_something_with_plasma_beam(struct ParticleEffect* pParticle);
-void particle_hitting_something_with_full_beam(struct ParticleEffect* pParticle);
-void particle_hitting_something_invincible(struct ParticleEffect* pParticle);
-void particle_hitting_something_with_missile(struct ParticleEffect* pParticle);
-void particle_hitting_something_with_super_missile(struct ParticleEffect* pParticle);
-void particle_small_dust(struct ParticleEffect* pParticle);
-void particle_medium_dust(struct ParticleEffect* pParticle);
-void particle_two_medium_dust(struct ParticleEffect* pParticle);
-void particle_second_small_dust(struct ParticleEffect* pParticle);
-void particle_second_medium_dust(struct ParticleEffect* pParticle);
-void particle_second_two_medium_dust(struct ParticleEffect* pParticle);
-void particle_play_begin_to_charge_sound(void);
-void particle_play_shooting_charged_beam_sound(void);
-void particle_play_beam_fully_charged_sound(void);
-void particle_charging_beam(struct ParticleEffect* pParticle);
-void particle_escape(struct ParticleEffect* pParticle);
-void particle_samus_reflection(struct ParticleEffect* pParticle);
+// Functions
+
+void ParticleCheckOnScreen(struct ParticleEffect* pParticle);
+void ParticleDraw(struct ParticleEffect* pParticle);
+void ParticleProcessAll(void);
+void ParticleSet(u16 y_position, u16 x_position, u8 effect);
+u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, struct FrameData* pOam);
+void ParticleSetCurrentOAMFramePointer(struct ParticleEffect* pParticle, struct FrameData* pOam);
+void ParticleSpriteSplashSmall(struct ParticleEffect* pParticle);
+void ParticleSpriteSplashWaterBig(struct ParticleEffect* pParticle);
+void ParticleSpriteSplashWaterHuge(struct ParticleEffect* pParticle);
+void ParticleSpriteSplashLavaSmall(struct ParticleEffect* pParticle);
+void ParticleSpriteSplashLavaBig(struct ParticleEffect* pParticle);
+void ParticleSpriteSplashLavaHuge(struct ParticleEffect* pParticle);
+void ParticleSpriteSplashAcidSmall(struct ParticleEffect* pParticle);
+void ParticleSpriteSplashAcidBig(struct ParticleEffect* pParticle);
+void ParticleSpriteSplashAcidHuge(struct ParticleEffect* pParticle);
+void ParticleShootingBeamLeft(struct ParticleEffect* pParticle);
+void ParticleShootingBeamRight(struct ParticleEffect* pParticle);
+void ParticleShootingBeamDiagUpLeft(struct ParticleEffect* pParticle);
+void ParticleShootingBeamDiagUpRight(struct ParticleEffect* pParticle);
+void ParticleShootingBeamDiagDownLeft(struct ParticleEffect* pParticle);
+void ParticleShootingBeamDiagDownRight(struct ParticleEffect* pParticle);
+void ParticleShootingBeamDownLeft(struct ParticleEffect* pParticle);
+void ParticleShootingBeamDownRight(struct ParticleEffect* pParticle);
+void ParticleShootingBeamDownLeft(struct ParticleEffect* pParticle);
+void ParticleShootingBeamDownRight(struct ParticleEffect* pParticle);
+void ParticleBomb(struct ParticleEffect* pParticle);
+void ParticleMissileTrail(struct ParticleEffect* pParticle);
+void ParticleSuperMissileTrail(struct ParticleEffect* pParticle);
+void ParticleBeamTrailingRight(struct ParticleEffect* pParticle);
+void ParticleBeamTrailingLeft(struct ParticleEffect* pParticle);
+void ParticleChargedLongBeamTrail(struct ParticleEffect* pParticle);
+void ParticleChargedIceBeamTrail(struct ParticleEffect* pParticle);
+void ParticleChargedWaveBeamTrail(struct ParticleEffect* pParticle);
+void ParticleChargedPlasmaBeamTrail(struct ParticleEffect* pParticle);
+void ParticleChargedFullBeamTrail(struct ParticleEffect* pParticle);
+void ParticleChargedPistolTrail(struct ParticleEffect* pParticle);
+void ParticleSpriteExplosionHuge(struct ParticleEffect* pParticle);
+void ParticleSpriteExplosionSmall(struct ParticleEffect* pParticle);
+void ParticleSpriteExplosionMedium(struct ParticleEffect* pParticle);
+void ParticleSpriteExplosionBig(struct ParticleEffect* pParticle);
+void ParticleSpriteExplosionSingleThenBig(struct ParticleEffect* pParticle);
+void ParticleScrewAttackDestroyed(struct ParticleEffect* pParticle);
+void ParticleShinesparkDestroyed(struct ParticleEffect* pParticle);
+void ParticleSudoScrewDestroyed(struct ParticleEffect* pParticle);
+void ParticleSpeedboosterDestroyed(struct ParticleEffect* pParticle);
+void ParticleMainBossDeath(struct ParticleEffect* pParticle);
+void ParticleFreezingSpriteWithIce(struct ParticleEffect* pParticle);
+void ParticleFreezingSpriteWithChargedIce(struct ParticleEffect* pParticle);
+void ParticleHittingSomethingWithBaseBeam(struct ParticleEffect* pParticle);
+void ParticleHittingSomethingWithLongBeam(struct ParticleEffect* pParticle);
+void ParticleHittingSomethingWithIceBeam(struct ParticleEffect* pParticle);
+void ParticleHittingSomethingWithWaveBeam(struct ParticleEffect* pParticle);
+void ParticleHittingSomethingWithFullBeamNoPlasma(struct ParticleEffect* pParticle);
+void ParticleHittingSomethingWithPlasmaBeam(struct ParticleEffect* pParticle);
+void ParticleHittingSomethingWithFullBeam(struct ParticleEffect* pParticle);
+void ParticleHittingSomethingInvincible(struct ParticleEffect* pParticle);
+void ParticleHittingSomethingWithMissile(struct ParticleEffect* pParticle);
+void ParticleHittingSomethingWithSuperMissile(struct ParticleEffect* pParticle);
+void ParticleSmallDust(struct ParticleEffect* pParticle);
+void ParticleMediumDust(struct ParticleEffect* pParticle);
+void ParticleTwoMediumDust(struct ParticleEffect* pParticle);
+void ParticleSecondSmallDust(struct ParticleEffect* pParticle);
+void ParticleSecondMediumDust(struct ParticleEffect* pParticle);
+void ParticleSecondTwoMediumDust(struct ParticleEffect* pParticle);
+void ParticlePlayBeginToChargeSound(void);
+void ParticleStopBeginToChargeSound(void);
+void ParticlePlayBeamFullChargedSound(void);
+void ParticleChargingBeam(struct ParticleEffect* pParticle);
+void ParticleEscape(struct ParticleEffect* pParticle);
+void ParticleSamusReflection(struct ParticleEffect* pParticle);
 
 #endif /* PARTICLE_H */

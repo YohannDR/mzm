@@ -8,6 +8,13 @@
 #include "clipdata.h"
 #include "samus.h"
 
+// Globals
+
+extern struct ProjectileData gProjectileData[16];
+extern u16 gArmCannonY;
+extern u16 gArmCannonX;
+
+
 #define PROJECTILE_NONE 0x0
 #define PROJECTILE_BEAM 0x1
 #define PROJECTILE_MISSILE 0x2
@@ -72,67 +79,67 @@ struct PowerBomb {
     i16 hitbox_top_offset;
     i16 hitbox_bottom_offset;
     u8 power_bomb_placed;
-    u8 always_zero;
+    u8 owner;
     u8 also_always_zero;
 };
 
 typedef (*ProjFunc_T)(struct ProjectileData*);
 
-void projectile_set_beam_particle_effect(void);
-u8 projectile_check_number_of_projectiles(u8 type, u8 limit);
-u8 projectile_init(u8 type, u16 y_position, u16 x_position);
-void projectile_update(void);
-void projectile_update_animation(struct ProjectileData* pProj);
-void projectile_draw_all_status_false(void);
-void projectile_draw_all_status_true(void);
-void projectile_draw(struct ProjectileData* pProj);
-void projectile_check_despawn(struct ProjectileData* pProj);
-void projectile_load_graphics(void);
-void projectile_call_load_graphics_and_clear_projectiles(void);
-void projectile_move(struct ProjectileData* pProj, u8 distance);
-u8 projectile_check_hitting_solid_block(u16 y_position, u16 x_position);
-u8 projectile_collision_related2(struct ProjectileData* pProj);
-void projectile_set_trail(struct ProjectileData* pProj, u8 effect, u8 delay);
-void projectile_move_tumbling(struct ProjectileData* pProj);
-void projectile_check_hit_block(struct ProjectileData* pProj, u8 ccaa, u8 effect);
-void projectile_check_hit_sprite(void);
-u16 projectile_get_sprite_weakness(struct SpriteData* pSprite);
-u8 projectile_ice_beam_deal_damage(struct SpriteData* pSprite, u16 damage);
-u8 projectile_deal_damage(struct SpriteData* pSprite, u16 damage);
-struct SpriteData* projectile_hit_sprite_immune_to_projectiles(struct SpriteData* pSprite);
-struct SpriteData* projectile_hit_solid_sprite(struct SpriteData* pSprite);
-void projectile_power_bomb_deal_damage(struct SpriteData* pSprite);
-void projectile_hit_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
-void projectile_non_ice_charged_hit_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
-void projectile_freeze_sprite(struct SpriteData* pSprite, u8 freeze_timer);
-void projectile_ice_beam_hitting_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
-void projectile_charged_ice_beam_hitting_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
-void projectile_start_tumbling_missile(struct SpriteData* pSprite, struct ProjectileData* pProj, u8 type);
-void projectile_start_tumbling_missile_current_sprite(struct ProjectileData* pProj, u8 type);
-void projectile_missile_hit_sprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 y_position, u16 x_position);
-void projectile_missile_hit_sprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 y_position, u16 x_position);
-void projectile_bomb_hit_sprite(struct SpriteData* pSprite, u16 y_position, u16 x_position);
-void projectile_process_normal_beam(struct ProjectileData* pProj);
-void projectile_process_long_beam(struct ProjectileData* pProj);
-void projectile_process_ice_beam(struct ProjectileData* pProj);
-u32 projectile_check_wave_beam_hitting_blocks(struct ProjectileData* pProj);
-void projectile_process_wave_beam(struct ProjectileData* pProj);
-void projectile_process_plasma_beam(struct ProjectileData* pProj);
-void projectile_process_pistol(struct ProjectileData* pProj);
-void projectile_process_charged_normal_beam(struct ProjectileData* pProj);
-void projectile_process_charged_long_beam(struct ProjectileData* pProj);
-void projectile_process_charged_ice_beam(struct ProjectileData* pProj);
-void projectile_process_charged_wave_beam(struct ProjectileData* pProj);
-void projectile_process_charged_plasma_beam(struct ProjectileData* pProj);
-void projectile_process_charged_pistol(struct ProjectileData* pProj);
-void projectile_decrement_missile_counter(struct ProjectileData* pProj);
-void projectile_process_missile(struct ProjectileData* pProj);
-void projectile_decrement_super_missile(struct ProjectileData* pProj);
-void projectile_process_super_missile(struct ProjectileData* pProj);
-void projectile_morphball_launcher_check_launch_samus(struct ProjectileData* pProj);
-void projectile_check_samus_bomb_bounce(struct ProjectileData* pProj);
-void projectile_process_bomb(struct ProjectileData* pProj);
-void projectile_process_empty(struct ProjectileData* pProj);
-void projectile_process_power_bomb(struct ProjectileData* pProj);
+void ProjectileSetBeamParticleEffect(void);
+u8 ProjectileCheckNumberOfProjectiles(u8 type, u8 limit);
+u8 ProjectileInit(u8 type, u16 y_position, u16 x_position);
+void ProjectileUpdate(void);
+void ProjectileUpdateAnimation(struct ProjectileData* pProj);
+void ProjectileDrawAllStatusFalse(void);
+void ProjectileDrawAllStatusTrue(void);
+void ProjectileDraw(struct ProjectileData* pProj);
+void ProjectileCheckDespawn(struct ProjectileData* pProj);
+void ProjectileLoadGraphics(void);
+void ProjectileCallLoadGraphicsAndClearProjectiles(void);
+void ProjectileMove(struct ProjectileData* pProj, u8 distance);
+u8 ProjectileCheckHittingSolidBlock(u16 y_position, u16 x_position);
+u8 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj);
+void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay);
+void ProjectileMoveTumbling(struct ProjectileData* pProj);
+void ProjectileCheckHitBlock(struct ProjectileData* pProj, u8 ccaa, u8 effect);
+void ProjectileCheckHittingSprite(void);
+u16 ProjectileGetSpriteWeakness(struct SpriteData* pSprite);
+u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage);
+u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage);
+struct SpriteData* ProjectileHitSpriteImmuneToProjectiles(struct SpriteData* pSprite);
+struct SpriteData* ProjectileHitSolidSprite(struct SpriteData* pSprite);
+void ProjectilePowerBombDealDamage(struct SpriteData* pSprite);
+void ProjectileHitSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
+void ProjectileNonIceChargedHitSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
+void ProjectileFreezeSprite(struct SpriteData* pSprite, u8 freeze_timer);
+void ProjectileIceBeamHittingSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
+void ProjectileChargedIceBeamHittingSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
+void ProjectileStartTumblingMissile(struct SpriteData* pSprite, struct ProjectileData* pProj, u8 type);
+void ProjectileStartTumblingMissileCurrentSprite(struct ProjectileData* pProj, u8 type);
+void ProjectileMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 y_position, u16 x_position);
+void ProjectileSuperMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 y_position, u16 x_position);
+void ProjectileBombMissileHitSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position);
+void ProjectileProcessNormalBeam(struct ProjectileData* pProj);
+void ProjectileProcessLongBeam(struct ProjectileData* pProj);
+void ProjectileProcessIceBeam(struct ProjectileData* pProj);
+u32 ProjectileCheckWaveBeamHittingBlocks(struct ProjectileData* pProj);
+void ProjectileProcessWaveBeam(struct ProjectileData* pProj);
+void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj);
+void ProjectileProcessPistol(struct ProjectileData* pProj);
+void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj);
+void ProjectileProcessChargedLongBeam(struct ProjectileData* pProj);
+void ProjectileProcessChargedIceBeam(struct ProjectileData* pProj);
+void ProjectileProcessChargedWaveBeam(struct ProjectileData* pProj);
+void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj);
+void ProjectileProcessChargedPistol(struct ProjectileData* pProj);
+void ProjectileDecrementMissileCounter(struct ProjectileData* pProj);
+void ProjectileProcessMissile(struct ProjectileData* pProj);
+void ProjectileDecrementSuperMissileCounter(struct ProjectileData* pProj);
+void ProjectileProcessSuperMissile(struct ProjectileData* pProj);
+void ProjectileMorphballLauncherCheckLaunchSamus(struct ProjectileData* pProj);
+void ProjectileCheckSamusBombBounce(struct ProjectileData* pProj);
+void ProjectileProcessBomb(struct ProjectileData* pProj);
+void ProjectileProcess_Empty(struct ProjectileData* pProj);
+void ProjectileProcessPowerBomb(struct ProjectileData* pProj);
 
 #endif /* PROJECTILE_H */

@@ -10,17 +10,17 @@ void scroll_process(struct RawCoordsX* pCoords)
     struct Scroll* pScroll;
 
     scroll_update_current(pCoords);
-    screen_x = screen_position_and_velocity.x_position;
-    screen_y = screen_position_and_velocity.y_position;
+    screen_x = gPositionAndVelocity.x_position;
+    screen_y = gPositionAndVelocity.y_position;
 
-    pScroll = current_scrolls;
+    pScroll = gCurrentScrolls;
     if (pScroll->within)
     {
         screen_x = scroll_process_x(pScroll, pCoords);
         screen_y = scroll_process_y(pScroll, pCoords);
     }
 
-    pScroll = current_scrolls + 1;
+    pScroll = gCurrentScrolls + 1;
     if (pScroll->within)
     {
         new_position = scroll_process_x(pScroll, pCoords);
@@ -100,7 +100,7 @@ void scroll_update_current(struct RawCoordsX* pCoords)
     i32 clip_limit;
     i32 bound_limit;
 
-    pScroll = &current_scrolls.first;
+    pScroll = &gCurrentScrolls.first;
     pScrollLimit = pScroll;
     pScroll->within = FALSE;
     pScroll[0x1].within = FALSE;
@@ -108,12 +108,12 @@ void scroll_update_current(struct RawCoordsX* pCoords)
     x_pos = pCoords->x >> 0x6;
     y_pos = (u16)(pCoords->y - 0x1 >> 0x6);
 
-    id = current_room_scroll_data_pointer[0x1]; // ID
-    pData = current_room_scroll_data_pointer + 0x2;
+    id = gCurrentRoomScrollDataPointer[0x1]; // ID
+    pData = gCurrentRoomScrollDataPointer + 0x2;
 
     if (id != 0x0)
     {
-        pBG = &bg_pointers_and_dimensions;
+        pBG = &gBGPointersAndDimensions;
         while (id != 0x0)
         {
             if (pScroll == (pScrollLimit + 2))
@@ -134,7 +134,7 @@ void scroll_update_current(struct RawCoordsX* pCoords)
             }
             else
             {
-                if (samus_data.pose == SPOSE_USING_AN_ELEVATOR && pData[0x7] != 0xFF && (u8)(pData[0x6] - 0x2) < 0x2)
+                if (gSamusData.pose == SPOSE_USING_AN_ELEVATOR && pData[0x7] != 0xFF && (u8)(pData[0x6] - 0x2) < 0x2)
                     bounds[pData[0x6]] = 0x7;
             }
 
@@ -226,7 +226,7 @@ u32 scroll_get_bg3_scroll(void)
     y_scroll = 0x0;
     x_scroll = 0x0;
 
-    switch (current_room_entry.bg3_scrolling)
+    switch (gCurrentRoomEntry.bg3_scrolling)
     {
         case 0x0:
             break;
@@ -287,18 +287,18 @@ void scroll_bg3_related(void)
     x_scroll = scroll_get_bg3_scroll();
     x_scroll &= 0xFF;
     if (x_scroll == 0x0)
-        bg3_x_position = 0x0;
+        gBG3XPosition = 0x0;
     else if (x_scroll == 0x2)
-        bg3_x_position = (bg1_x_position - 0x80) >> 0x1;
+        gBG3XPosition = (gBG1XPosition - 0x80) >> 0x1;
     else if (x_scroll == 0x3)
-        bg3_x_position = (bg1_x_position - 0x80) >> 0x2;
+        gBG3XPosition = (gBG1XPosition - 0x80) >> 0x2;
 }
 
 void scroll_auto_bg3(void)
 {
-    if (bg3_movement.direction == 0x1 && (bg3_movement.counter & 0x7) == 0x0)
-        bg3_movement.x_offset++;
-    bg3_movement.counter++;
+    if (gBG3Movement.direction == 0x1 && (gBG3Movement.counter & 0x7) == 0x0)
+        gBG3Movement.x_offset++;
+    gBG3Movement.counter++;
 }
 
 void scroll_bg2(void)

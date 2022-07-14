@@ -2,86 +2,86 @@
 #include "globals.h"
 #include "bg_clip.h"
 
-void connection_opening_hatch_related(void)
+void ConnectionUpdateOpeningClosingHatches(void)
 {
 
 }
 
-void connection_update_hatch_animation(u8 dont_set_raw, u8 hatch)
+void ConnectionUpdateHatchAnimation(u8 dont_set_raw, u8 hatch)
 {
     /*u32 value;
     u32 bg_block;
     u32 clip_block;
     i32 direction_flag;
 
-    direction_flag = hatch_data[hatch].direction << 0x1B;
+    direction_flag = gHatchData[hatch].direction << 0x1B;
     bg_block = 0x411;
     if (direction_flag < 0x0)
         bg_block = 0x416;
 
-    direction_flag = (hatch_data[hatch].direction << 0x1C >> 0x1D) - 0x1;
-    if ((hatch_data[hatch].status & 0x3) == 0x3)
+    direction_flag = (gHatchData[hatch].direction << 0x1C >> 0x1D) - 0x1;
+    if ((gHatchData[hatch].status & 0x3) == 0x3)
     {
         direction_flag = (0x2 - direction_flag);
         if (direction_flag < 0x0)
         {
             direction_flag = 0x0;
-            bg_block = hatch_clipdata_block_values_3602c8[hatch_data[hatch].type] - (direction_flag >> 0x1F);
+            bg_block = hatch_clipdata_block_values_3602c8[gHatchData[hatch].type] - (direction_flag >> 0x1F);
             clip_block = direction_flag;
-            if (hatch_data[hatch].type == HATCH_NONE)
+            if (gHatchData[hatch].type == HATCH_NONE)
                 clip_block = direction_flag + 0x80;
         }
-        else if (hatch_data[hatch].type != HATCH_NONE)
+        else if (gHatchData[hatch].type != HATCH_NONE)
         {
             direction_flag += 0x40;
             clip_block = direction_flag;
-            if (hatch_data[hatch].type == HATCH_NONE)
+            if (gHatchData[hatch].type == HATCH_NONE)
                 clip_block = direction_flag + 0x80;
         }
     }
     else
     {
         clip_block = direction_flag;
-        if (hatch_data[hatch].type == HATCH_NONE)
+        if (gHatchData[hatch].type == HATCH_NONE)
             clip_block = direction_flag + 0x80;
     }
 
     value = bg_block + clip_block;
     if (dont_set_raw != FALSE)
     {
-        bg_clip_set_bg1_block_value(value, hatch_data[hatch].y_position, hatch_data[hatch].x_position);
-        bg_clip_set_bg1_block_value(value + 0x10, hatch_data[hatch].y_position + 0x1, hatch_data[hatch].x_position);
-        bg_clip_set_bg1_block_value(value + 0x20, hatch_data[hatch].y_position + 0x2, hatch_data[hatch].x_position);
-        bg_clip_set_bg1_block_value(value + 0x30, hatch_data[hatch].y_position + 0x3, hatch_data[hatch].x_position);
+        BGClipSetBG1BlockValue(value, gHatchData[hatch].y_position, gHatchData[hatch].x_position);
+        BGClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].y_position + 0x1, gHatchData[hatch].x_position);
+        BGClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].y_position + 0x2, gHatchData[hatch].x_position);
+        BGClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].y_position + 0x3, gHatchData[hatch].x_position);
     }
     else
     {
-        bg_clip_set_raw_bg1_block_value(value, hatch_data[hatch].y_position, hatch_data[hatch].x_position);
-        bg_clip_set_raw_bg1_block_value(value + 0x10, hatch_data[hatch].y_position + 0x1, hatch_data[hatch].x_position);
-        bg_clip_set_raw_bg1_block_value(value + 0x20, hatch_data[hatch].y_position + 0x2, hatch_data[hatch].x_position);
-        bg_clip_set_raw_bg1_block_value(value + 0x30, hatch_data[hatch].y_position + 0x3, hatch_data[hatch].x_position);
+        BGClipSetRawBG1BlockValue(value, gHatchData[hatch].y_position, gHatchData[hatch].x_position);
+        BGClipSetRawBG1BlockValue(value + 0x10, gHatchData[hatch].y_position + 0x1, gHatchData[hatch].x_position);
+        BGClipSetRawBG1BlockValue(value + 0x20, gHatchData[hatch].y_position + 0x2, gHatchData[hatch].x_position);
+        BGClipSetRawBG1BlockValue(value + 0x30, gHatchData[hatch].y_position + 0x3, gHatchData[hatch].x_position);
     }
     
-    bg_clip_set_clipdata_block_value((u16)value, hatch_data[hatch].y_position, hatch_data[hatch].x_position);
-    bg_clip_set_clipdata_block_value((u16)value + 0x10, hatch_data[hatch].y_position + 0x1, hatch_data[hatch].x_position);
-    bg_clip_set_clipdata_block_value((u16)value + 0x20, hatch_data[hatch].y_position + 0x2, hatch_data[hatch].x_position);
-    bg_clip_set_clipdata_block_value((u16)value + 0x30, hatch_data[hatch].y_position + 0x3, hatch_data[hatch].x_position);*/
+    BGClipSetClipdataBlockValue((u16)value, gHatchData[hatch].y_position, gHatchData[hatch].x_position);
+    BGClipSetClipdataBlockValue((u16)value + 0x10, gHatchData[hatch].y_position + 0x1, gHatchData[hatch].x_position);
+    BGClipSetClipdataBlockValue((u16)value + 0x20, gHatchData[hatch].y_position + 0x2, gHatchData[hatch].x_position);
+    BGClipSetClipdataBlockValue((u16)value + 0x30, gHatchData[hatch].y_position + 0x3, gHatchData[hatch].x_position);*/
 }
 
-void unk_5EA54(u8 hatch)
+void ConnectionHatchFlashingAnimation(u8 hatch)
 {
 
 }
 
-void unk_5eb18(u8 hatch, u8 type)
+void ConnectionOverrideOpenedHatch(u8 hatch, u8 type)
 {
 
 }
 
-u8 connection_check_enter_door(u16 y_position, u16 x_position)
+u8 ConnectionCheckEnterDoor(u16 y_position, u16 x_position)
 {
     /*u8* pSrc;
-    struct hatch_data* pData;
+    struct gHatchData* pData;
     u8* pCurrArea;
     struct door* pCurr;
     struct door* pAreaDoors;
@@ -93,17 +93,17 @@ u8 connection_check_enter_door(u16 y_position, u16 x_position)
     u8 door_found;
     i32 count;
 
-    if (game_mode_sub1 != 0x2)
+    if (gGameModeSub1 != 0x2)
         return FALSE;
     else
     {
         door_found = FALSE;
         count = 0x0;
-        pData = hatch_data;
-        pCurrArea = &current_area;
+        pData = gHatchData;
+        pCurrArea = &gCurrentArea;
         pSrc = &pData[0x0].source_door;
         offset = 0x0;
-        pLastDoor = &last_door_used;
+        pLastDoor = &gLastDoorUsed;
 
         while (count < 0x10)
         {
@@ -112,12 +112,12 @@ u8 connection_check_enter_door(u16 y_position, u16 x_position)
                 pCurr = door_pointer_array_75faa8[*pCurrArea] + *pSrc;
                 if (DOOR_AREA_CONNECTION < (pCurr->type & 0xF) && pCurr->x_start <= x_position && x_position <= pCurr->x_end && pCurr->y_start <= y_position && y_position <= pCurr->y_end)
                 {
-                    door_position_start.x = 0x0;
-                    door_position_start.y = 0x0;
+                    gDoorPositionStart.x = 0x0;
+                    gDoorPositionStart.y = 0x0;
 
                     if ((pCurr->type & DOOR_LOAD_EVENT_BASED_ROOM) != 0x0)
                     {
-                        event_door = connection_find_event_based_door(*pSrc);
+                        event_door = ConnectionFindEventBasedDoor(*pSrc);
                         if (event_door == 0xFF)
                             *pLastDoor = pCurr->destination_door;
                         else
@@ -128,22 +128,22 @@ u8 connection_check_enter_door(u16 y_position, u16 x_position)
 
                     if (DOOR_NO_HATCH < (pCurr->type & 0xF))
                     {
-                        if (pCurr->x_start > (bg1_x_position >> 0x6) + 0x8)
-                            door_position_start.x = 0x1;
-                        door_position_start.y = pCurr->y_start;
+                        if (pCurr->x_start > (gBG1XPosition >> 0x6) + 0x8)
+                            gDoorPositionStart.x = 0x1;
+                        gDoorPositionStart.y = pCurr->y_start;
                     }
 
-                    samus_door_position_offset = ((pCurr->y_end + 0x1) * 0x40 - samus_data.y_position) - 0x1;
-                    connection_process_door_type(pCurr->type);
-                    game_mode_sub1 = 0x3;
+                    gSamusDoorPositionOffset = ((pCurr->y_end + 0x1) * 0x40 - gSamusData.y_position) - 0x1;
+                    ConnectionProcessDoorType(pCurr->type);
+                    gGameModeSub1 = 0x3;
 
-                    direction = hatch_data[offset].direction;
-                    if ((direction & 0x1) != 0x0 && (hatch_data[offset].status & 0x3) == 0x1)
-                        hatch_data[offset].direction = direction | 0xE;
+                    direction = gHatchData[offset].direction;
+                    if ((direction & 0x1) != 0x0 && (gHatchData[offset].status & 0x3) == 0x1)
+                        gHatchData[offset].direction = direction | 0xE;
 
                     last_door = *pLastDoor;
                     pAreaDoors = door_pointer_array_75faa8[*pCurrArea];
-                    connection_check_play_cutscene_during_transition(*pCurrArea, (u8)(pAreaDoors[last_door].source_room + 0x1));
+                    ConnectionCheckPlayCutsceneDuringTransition(*pCurrArea, (u8)(pAreaDoors[last_door].source_room + 0x1));
                     check_play_room_music_track(*pCurrArea, pAreaDoors[last_door].source_room);
                     door_found = TRUE;
                     break;
@@ -159,12 +159,12 @@ u8 connection_check_enter_door(u16 y_position, u16 x_position)
     }*/
 }
 
-u8 connection_check_area_connection(u16 y_position, u16 x_position)
+u8 ConnectionCheckAreaConnection(u16 y_position, u16 x_position)
 {
 
 }
 
-void connection_process_door_type(u8 type)
+void ConnectionProcessDoorType(u8 type)
 {
     /*8 transition;
 
@@ -173,16 +173,16 @@ void connection_process_door_type(u8 type)
     switch (type & 0xF)
     {
         case DOOR_REMOVE_MOTHER_SHIP:
-            use_mother_ship_doors = FALSE;
+            gUseMotherShip = FALSE;
             break;
 
         case DOOR_SET_MOTHER_SHIP:
-            use_mother_ship_doors = TRUE;
+            gUseMotherShip = TRUE;
             break;
 
         default:
-            which_bg_position_is_written_to_bg30fs = 0x4;
-            if (!skip_door_transition)
+            gWhichBGPositionIsWrittenToBG3OFS = 0x4;
+            if (!gSkipDoorTransition)
                 transition = 0x4;
 
         case DOOR_NO_HATCH:
@@ -193,52 +193,105 @@ void connection_process_door_type(u8 type)
     background_fading_start(transition);*/
 }
 
-u8 connection_find_event_based_door(u8 source_room)
+u8 ConnectionFindEventBasedDoor(u8 source_room)
 {
 
 }
 
-u8 connection_set_hatch_as_opened(u8 action, u8 hatch)
+u8 ConnectionSetHatchAsOpened(u8 action, u8 hatch)
 {
 
 }
 
-void connection_check_unlock_doors(void)
+void ConnectionCheckUnlockDoors(void)
 {
 
 }
 
-void connection_maybe_hatch_animation_related(u8 maybe_direction, u8 hatch, u8 maybe_status)
+void ConnectionStartLockAnimation(u8 maybe_direction, u8 hatch, u8 maybe_status)
 {
 
 }
 
-void connection_lock_hatches(u8 is_event)
+void ConnectionLockHatches(u8 is_event)
 {
 
 }
 
-void connection_load_doors(void)
+void ConnectionLoadDoors(void)
 {
 
 }
 
-void connection_lock_hatches_with_timer(void)
+void ConnectionLockHatchesWithTimer(void)
 {
 
 }
 
-void connection_check_hatch_lock_events(void)
+void ConnectionCheckHatchLockEvents(void)
 {
 
 }
 
-void connection_check_play_cutscene_during_transition(u8 area, u8 dst_door)
+void ConnectionCheckPlayCutsceneDuringTransition(u8 area, u8 dst_door)
 {
 
 }
 
-void connection_check_play_cutscene_during_elevator(void)
+/**
+ * @brief 5f7fc | f8 | Checks if a cutscene should play during an door transition on an elevator
+ * 
+ */
+void ConnectionCheckPlayCutsceneDuringElevator(void)
 {
+    switch (gLastElevatorUsed.route)
+    {
+        case ELEVATOR_ROUTE_BRINSTAR_TO_NORFAIR:
+            if (gLastElevatorUsed.direction == ELEVATOR_DIRECTION_DOWN && !EventFunction(EVENT_ACTION_CHECKING, EVENT_ENTER_NORFAIR_DEMO_PLAYED))
+            {
+                gCurrentCutscene = CUTSCENE_MOTHER_BRAIN_CLOSE_UP;
 
+                start_special_background_fading(0x2);
+                SoundFade(0x10E, 0xA);
+                fade_music(0xA);
+            }
+            break;
+
+        case ELEVATOR_ROUTE_BRINSTAR_TO_KRAID:
+            if (gLastElevatorUsed.direction == ELEVATOR_DIRECTION_UP && EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_KILLED) && !EventFunction(EVENT_ACTION_CHECKING, EVENT_EXIT_KRAID_DEMO_PLAYED))
+            {
+                gCurrentCutscene = CUTSCENE_RIDLEY_IN_SPACE;
+
+                start_special_background_fading(0x2);
+                SoundFade(0x10E, 0xA);
+                fade_music(0xA);
+            }
+            break;
+
+        case ELEVATOR_ROUTE_NORFAIR_TO_RIDLEY:
+            if (gLastElevatorUsed.direction == ELEVATOR_DIRECTION_DOWN && !EventFunction(EVENT_ACTION_CHECKING, EVENT_ENTER_RIDLEY_DEMO_PLAYED))
+            {
+                gCurrentCutscene = CUTSCENE_RIDLEY_LANDING;
+
+                start_special_background_fading(0x2);
+                SoundFade(0x10E, 0xA);
+                fade_music(0xA);
+            }
+            break;
+
+        case ELEVATOR_ROUTE_BRINSTAR_TO_TOURIAN:
+            if (gLastElevatorUsed.direction == ELEVATOR_DIRECTION_DOWN && !EventFunction(EVENT_ACTION_CHECKING, EVENT_ENTER_TOURIAN_DEMO_PLAYED))
+            {
+                gCurrentCutscene = CUTSCENE_ENTER_TOURIAN;
+
+                start_special_background_fading(0x2);
+                SoundFade(0x10E, 0xA);
+                fade_music(0xA);
+            }
+            break;
+
+        case ELEVATOR_ROUTE_NONE:
+        case ELEVATOR_ROUTE_CRATERIA_TO_BRINSTAR:
+            return;
+    }
 }

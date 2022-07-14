@@ -6,98 +6,98 @@
 #include "music.h"
 
 void
-call_vblank_callback(void)
+CallbackCallVblank(void)
 {
-    if (vblank_callback) {
-        vblank_callback();
+    if (gVBlankCallback) {
+        gVBlankCallback();
     }
 
     write16(REG_IF, read16(REG_IF) | IF_VBLANK);
-    vblank_request_flag = 1;
+    gVBlankRequestFlag = 1;
     unk_03007ff8 |= 0x01;
 
-    if (!unk_03000c76) {
+    if (!gClearedEveryFrame) {
         sub_08004d48();
     }
 }
 
-void set_vblank_callback(Func_t callback) {
-    vblank_callback = callback;
+void CallbackSetVBlank(Func_t callback) {
+    gVBlankCallback = callback;
     if (!callback) {
-        vblank_callback = empty_callback;
+        gVBlankCallback = Callback_Empty;
     }
 }
 
 void
-call_hblank_callback(void)
+CallbackCallHBlank(void)
 {
-    if (hblank_callback) {
-        hblank_callback();
+    if (gHBlankCallback) {
+        gHBlankCallback();
     }
 
     write16(REG_IF, read16(REG_IF) | IF_HBLANK);
 }
 
-void set_hblank_callback(Func_t callback) {
-    hblank_callback = callback;
+void CallbackSetHBlank(Func_t callback) {
+    gHBlankCallback = callback;
     if (!callback) {
-        hblank_callback = empty_callback;
+        gHBlankCallback = Callback_Empty;
     }
 }
 
 void
-call_vcount_callback(void)
+CallbackCallVCount(void)
 {
-    if (vcount_callback) {
-        vcount_callback();
+    if (gVCountCallback) {
+        gVCountCallback();
     }
 
     write16(REG_IF, read16(REG_IF) | IF_VCOUNT);
 }
 
-void set_vcount_callback(Func_t callback) {
-    vcount_callback = callback;
+void CallbackSetVCount(Func_t callback) {
+    gVCountCallback = callback;
     if (!callback) {
-        vcount_callback = empty_callback;
+        gVCountCallback = Callback_Empty;
     }
 }
 
 void
-call_serial_comm_callback(void)
+CallbackCallSerialCommunication(void)
 {
-    if (serial_comm_callback) {
-        serial_comm_callback();
+    if (gSerialCommunicationCallback) {
+        gSerialCommunicationCallback();
     }
 
     write16(REG_IF, read16(REG_IF) | IF_SERIAL);
 }
 
-void set_serial_comm_callback(Func_t callback) {
-    serial_comm_callback = callback;
+void CallbackSetSerialCommunication(Func_t callback) {
+    gSerialCommunicationCallback = callback;
     if (!callback) {
-        serial_comm_callback = empty_callback;
+        gSerialCommunicationCallback = Callback_Empty;
     }
 }
 
 void
-call_timer3_callback(void)
+CallbackCallTimer3(void)
 {
-    if (timer3_callback) {
-        timer3_callback();
+    if (gTimer3Callback) {
+        gTimer3Callback();
     }
 
     write16(REG_IF, read16(REG_IF) | IF_TIMER3);
 }
 
-void set_timer3_callback(Func_t callback) {
-    timer3_callback = callback;
+void CallbackSetTimer3(Func_t callback) {
+    gTimer3Callback = callback;
     if (!callback) {
-        timer3_callback = empty_callback;
+        gTimer3Callback = Callback_Empty;
     }
 }
 
 void
-empty_callback(void)
+Callback_Empty(void)
 {
     return;
 }

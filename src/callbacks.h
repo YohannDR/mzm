@@ -3,22 +3,22 @@
 
 #include "types.h"
 
-extern Func_t vblank_callback;
-extern Func_t hblank_callback;
-extern Func_t vcount_callback;
-extern Func_t serial_comm_callback;
-extern Func_t timer3_callback;
+extern Func_t gVBlankCallback;
+extern Func_t gHBlankCallback;
+extern Func_t gVCountCallback;
+extern Func_t gSerialCommunicationCallback;
+extern Func_t gTimer3Callback;
 
-void call_vblank_callback(void);
-void set_vblank_callback(Func_t callback);
-void call_hblank_callback(void);
-void set_hblank_callback(Func_t callback);
-void call_vcount_callback(void);
-void set_vcount_callback(Func_t callback);
-void call_serial_comm_callback(void);
-void set_serial_comm_callback(Func_t callback);
-void call_timer3_callback(void);
-void set_timer3_callback(Func_t callback);
-void empty_callback(void);
+void CallbackCallVblank(void);
+void CallbackSetVBlank(Func_t callback);
+void CallbackCallHBlank(void);
+void CallbackSetHBlank(Func_t callback);
+void CallbackCallVCount(void);
+void CallbackSetVCount(Func_t callback);
+void CallbackCallSerialCommunication(void);
+void CallbackSetSerialCommunication(Func_t callback);
+void CallbackCallTimer3(void);
+void CallbackSetTimer3(Func_t callback);
+void Callback_Empty(void);
 
 #endif /* CALLBACKS_H */

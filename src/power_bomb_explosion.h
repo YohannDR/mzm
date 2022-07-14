@@ -3,11 +3,11 @@
 
 #include "types.h"
 
-void power_bomb_explosion_process(void);
-void power_bomb_explosion(void);
-void power_bomb_explosion_start(u16 x_position, u16 y_position, u8 zero);
-void power_bomb_explosion_set_0x12_to_0(void);
-void power_bomb_explosion_begin(void);
-void power_bomb_explosion_end(void);
+void PowerBombExplosionProcess(void);
+void PowerBombExplosion(void);
+void PowerBombExplosionStart(u16 x_position, u16 y_position, u8 zero);
+void PowerBombExplosionSet0x12To0(void);
+void PowerBombExplosionBegin(void);
+void PowerBombExplosionEnd(void);
 
 #endif /* POWER_BOMB_EXPLOSION_H */

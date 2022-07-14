@@ -13,10 +13,10 @@ u8 save_platform_detect_samus(void)
     i32 sprite_x;
 
     colliding = FALSE;
-    samus_y = samus_data.y_position;
-    samus_x = samus_data.x_position;
-    sprite_y = current_sprite.y_position;
-    sprite_x = current_sprite.x_position;
+    samus_y = gSamusData.y_position;
+    samus_x = gSamusData.x_position;
+    sprite_y = gCurrentSprite.y_position;
+    sprite_x = gCurrentSprite.x_position;
 
     if (samus_y == (sprite_y - 0x41) && (sprite_x - 0x40) < samus_x && (sprite_x + 0x40) > samus_x)
         colliding = TRUE;
@@ -25,43 +25,43 @@ u8 save_platform_detect_samus(void)
 
 void save_platform_init(void)
 {
-    current_sprite.properties |= SP_ALWAYS_ACTIVE;
-    current_sprite.y_position_spawn = 0x0;
-    current_sprite.samus_collision = SSC_NONE;
-    current_sprite.draw_distance_top_offset = 0x10;
-    current_sprite.draw_distance_bottom_offset = 0x10;
-    current_sprite.draw_distance_horizontal_offset = 0x28;
-    current_sprite.hitbox_top_offset = -0x4;
-    current_sprite.hitbox_bottom_offset = 0x4;
-    current_sprite.hitbox_left_offset = -0x4;
-    current_sprite.hitbox_right_offset = 0x4;
-    if (alarm_timer != 0x0)
-        current_sprite.work_variable = 0x1;
+    gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
+    gCurrentSprite.y_position_spawn = 0x0;
+    gCurrentSprite.samus_collision = SSC_NONE;
+    gCurrentSprite.draw_distance_top_offset = 0x10;
+    gCurrentSprite.draw_distance_bottom_offset = 0x10;
+    gCurrentSprite.draw_distance_horizontal_offset = 0x28;
+    gCurrentSprite.hitbox_top_offset = -0x4;
+    gCurrentSprite.hitbox_bottom_offset = 0x4;
+    gCurrentSprite.hitbox_left_offset = -0x4;
+    gCurrentSprite.hitbox_right_offset = 0x4;
+    if (gAlarmTimer != 0x0)
+        gCurrentSprite.work_variable = 0x1;
     else
-        current_sprite.work_variable = 0x0;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.timer1 = 0xA;
+        gCurrentSprite.work_variable = 0x0;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.timer1 = 0xA;
 
-    if (current_sprite.work_variable || escape_determine_timer() != ESCAPE_NONE)
+    if (gCurrentSprite.work_variable || EscapeDetermineTimer() != ESCAPE_NONE)
     {
-        current_sprite.oam_pointer = save_platform_oam_2d4df4;
-        current_sprite.pose = 0x51;
+        gCurrentSprite.oam_pointer = save_platform_oam_2d4df4;
+        gCurrentSprite.pose = 0x51;
     }
-    else if (is_loading_file)
+    else if (gIsLoadingFile)
     {
-        sprite_spawn_secondary(SSPRITE_SAVE_PLATFORM_TOP, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
-        current_sprite.oam_pointer = save_platform_oam_2d4dc4;
-        current_sprite.pose = 0x28;
-        current_sprite.y_position_spawn = 0x154;
+        sprite_spawn_secondary(SSPRITE_SAVE_PLATFORM_TOP, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        gCurrentSprite.oam_pointer = save_platform_oam_2d4dc4;
+        gCurrentSprite.pose = 0x28;
+        gCurrentSprite.y_position_spawn = 0x154;
     }
     else
     {
-        current_sprite.oam_pointer = save_platform_oam_2d4cfc;
-        current_sprite.pose = 0x9;
+        gCurrentSprite.oam_pointer = save_platform_oam_2d4cfc;
+        gCurrentSprite.pose = 0x9;
     }
 
-    current_sprite.array_offset = sprite_spawn_secondary(SSPRITE_SAVE_PLATFORM_TOP, 0x3, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position - 0x200, current_sprite.x_position, 0x0);
+    gCurrentSprite.array_offset = sprite_spawn_secondary(SSPRITE_SAVE_PLATFORM_TOP, 0x3, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position - 0x200, gCurrentSprite.x_position, 0x0);
 }
 
 void save_platform_samus_detection(void)
@@ -70,28 +70,28 @@ void save_platform_samus_detection(void)
 
     if (save_platform_detect_samus() << 0x18 && !sprite_util_check_crouching_or_morphed())
     {
-        timer = current_sprite.timer1 = current_sprite.timer1 - 0x1;
+        timer = gCurrentSprite.timer1 = gCurrentSprite.timer1 - 0x1;
         if (timer == 0x0)
         {
-            current_sprite.pose = 0x23;
-            current_sprite.oam_pointer = save_platform_oam_2d4d34;
-            current_sprite.anim_duration_counter = 0x0;
-            current_sprite.curr_anim_frame = 0x0;
-            sound_play(0x112);
+            gCurrentSprite.pose = 0x23;
+            gCurrentSprite.oam_pointer = save_platform_oam_2d4d34;
+            gCurrentSprite.anim_duration_counter = 0x0;
+            gCurrentSprite.curr_anim_frame = 0x0;
+            SoundPlay(0x112);
         }
     }
     else
-        current_sprite.timer1 = 0xA;
+        gCurrentSprite.timer1 = 0xA;
 }
 
 void save_platform_check_opening_anim_ended(void)
 {
     if (sprite_util_check_end_current_sprite_anim())
     {
-        current_sprite.pose = 0x25;
-        current_sprite.oam_pointer = save_platform_oam_2d4d54;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
+        gCurrentSprite.pose = 0x25;
+        gCurrentSprite.oam_pointer = save_platform_oam_2d4d54;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
     }
 }
 
@@ -104,23 +104,23 @@ void save_platform_second_samus_detection(void)
     {
         if (!sprite_util_check_crouching_or_morphed())
         {
-            current_sprite.pose = 0x42;
-            current_sprite.timer1 = 0x4;
-            samus_data.x_position = current_sprite.x_position;
-            if (samus_data.invincibility_timer != 0x0)
-                samus_data.invincibility_timer = 0x0;
+            gCurrentSprite.pose = 0x42;
+            gCurrentSprite.timer1 = 0x4;
+            gSamusData.x_position = gCurrentSprite.x_position;
+            if (gSamusData.invincibility_timer != 0x0)
+                gSamusData.invincibility_timer = 0x0;
             samus_set_pose(SPOSE_TURNING_FROM_FACING_THE_FOREGROUND);
-            samus_data.timer = 0x1;
-            disable_pause = TRUE;
+            gSamusData.timer = 0x1;
+            gDisablePause = TRUE;
         }
     }
     else
     {
-        current_sprite.pose = 0x27;
-        current_sprite.oam_pointer = save_platform_oam_2d4dd4;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        sound_play(0x113);
+        gCurrentSprite.pose = 0x27;
+        gCurrentSprite.oam_pointer = save_platform_oam_2d4dd4;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        SoundPlay(0x113);
     }
 }
 
@@ -128,23 +128,23 @@ void save_platform_check_closing_anim_ended(void)
 {
     if (sprite_util_check_end_current_sprite_anim())
     {
-        current_sprite.pose = 0x9;
-        current_sprite.oam_pointer = save_platform_oam_2d4cfc;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        current_sprite.timer1 = 0xA;
+        gCurrentSprite.pose = 0x9;
+        gCurrentSprite.oam_pointer = save_platform_oam_2d4cfc;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.timer1 = 0xA;
     }
 }
 
 void save_platform_release_samus(void)
 {
-    if (current_sprite.y_position_spawn != 0x0)
-        current_sprite.y_position_spawn--;
+    if (gCurrentSprite.y_position_spawn != 0x0)
+        gCurrentSprite.y_position_spawn--;
     else
     {
-        current_sprite.pose = 0x29;
+        gCurrentSprite.pose = 0x29;
         samus_set_pose(SPOSE_FACING_THE_FOREGROUND);
-        disable_pause = FALSE;
+        gDisablePause = FALSE;
     }
 }
 
@@ -155,11 +155,11 @@ void save_platform_samus_detection_out(void)
     colliding = save_platform_detect_samus();
     if (!colliding)
     {
-        current_sprite.pose = 0x27;
-        current_sprite.oam_pointer = save_platform_oam_2d4dd4;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        sound_play(0x113);
+        gCurrentSprite.pose = 0x27;
+        gCurrentSprite.oam_pointer = save_platform_oam_2d4dd4;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        SoundPlay(0x113);
     }
 }
 
@@ -167,32 +167,32 @@ void save_platform_spawn_sprites(void)
 {
     u8 offset;
 
-    if (current_sprite.timer1 != 0x0)
+    if (gCurrentSprite.timer1 != 0x0)
     {
-        current_sprite.timer1--;
-        if (current_sprite.timer1 == 0x0)
-            current_sprite.timer2 = sprite_spawn_primary(PSPRITE_ITEM_BANNER, 0x16, 0x6, current_sprite.y_position, current_sprite.x_position, 0x0);
+        gCurrentSprite.timer1--;
+        if (gCurrentSprite.timer1 == 0x0)
+            gCurrentSprite.timer2 = sprite_spawn_primary(PSPRITE_ITEM_BANNER, 0x16, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     }
     else
     {
-        offset = current_sprite.timer2;
-        if (sprite_data[offset].pose == 0x25)
+        offset = gCurrentSprite.timer2;
+        if (gSpriteData[offset].pose == 0x25)
         {
-            if (sprite_data[offset].timer2 == 0x1)
+            if (gSpriteData[offset].timer2 == 0x1)
             {
-                current_sprite.oam_pointer = save_platform_oam_2d4d8c;
-                current_sprite.anim_duration_counter = 0x0;
-                current_sprite.curr_anim_frame = 0x0;
-                current_sprite.pose = 0x43;
-                sprite_spawn_secondary(SSPRITE_SAVE_PLATFORM_TOP, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
-                sprite_data[current_sprite.array_offset].pose = 0x44;
-                samus_data.invincibility_timer = 0x0;
-                sound_play(0x114);
+                gCurrentSprite.oam_pointer = save_platform_oam_2d4d8c;
+                gCurrentSprite.anim_duration_counter = 0x0;
+                gCurrentSprite.curr_anim_frame = 0x0;
+                gCurrentSprite.pose = 0x43;
+                sprite_spawn_secondary(SSPRITE_SAVE_PLATFORM_TOP, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+                gSpriteData[gCurrentSprite.array_offset].pose = 0x44;
+                gSamusData.invincibility_timer = 0x0;
+                SoundPlay(0x114);
             }
             else
             {
-                current_sprite.pose = 0x4B;
-                current_sprite.timer1 = 0xA;
+                gCurrentSprite.pose = 0x4B;
+                gCurrentSprite.timer1 = 0xA;
             }
         }
     }
@@ -202,39 +202,39 @@ void save_platform_flashing_anim(void)
 {
     u8 offset;
 
-    offset = current_sprite.array_offset;
-    if (current_sprite.curr_anim_frame & 0x1)
+    offset = gCurrentSprite.array_offset;
+    if (gCurrentSprite.curr_anim_frame & 0x1)
     {
-        current_sprite.palette_row = 0x0;
-        sprite_data[offset].palette_row = current_sprite.palette_row;
+        gCurrentSprite.palette_row = 0x0;
+        gSpriteData[offset].palette_row = gCurrentSprite.palette_row;
     }
     else
     {
-        current_sprite.palette_row = 0x2;
-        sprite_data[offset].palette_row = current_sprite.palette_row;
+        gCurrentSprite.palette_row = 0x2;
+        gSpriteData[offset].palette_row = gCurrentSprite.palette_row;
     }
 }
 
 void save_platform_flashing_anim_end(void)
 {
-    current_sprite.oam_pointer = save_platform_oam_2d4dc4;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.pose = 0x47;
-    current_sprite.timer1 = 0x3C;
-    current_sprite.palette_row = 0x0;
-    sprite_data[current_sprite.array_offset].palette_row = 0x0;
+    gCurrentSprite.oam_pointer = save_platform_oam_2d4dc4;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.pose = 0x47;
+    gCurrentSprite.timer1 = 0x3C;
+    gCurrentSprite.palette_row = 0x0;
+    gSpriteData[gCurrentSprite.array_offset].palette_row = 0x0;
 }
 
 void save_platform_text_timer(void)
 {
     u8 timer;
 
-    timer = current_sprite.timer1 = current_sprite.timer1 - 0x1;
+    timer = gCurrentSprite.timer1 = gCurrentSprite.timer1 - 0x1;
     if (timer == 0x0)
     {
-        current_sprite.pose = 0x49;
-        current_sprite.timer2 = sprite_spawn_primary(PSPRITE_ITEM_BANNER, 0x17, 0x6, current_sprite.y_position, current_sprite.x_position, 0x0);
+        gCurrentSprite.pose = 0x49;
+        gCurrentSprite.timer2 = sprite_spawn_primary(PSPRITE_ITEM_BANNER, 0x17, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     }
 }
 
@@ -242,88 +242,88 @@ void save_platform_check_message_banner_out(void)
 {
     u8 offset;
 
-    offset = current_sprite.timer2;
-    if (sprite_data[offset].pose == 0x25)
+    offset = gCurrentSprite.timer2;
+    if (gSpriteData[offset].pose == 0x25)
     {
-        current_sprite.pose = 0x4B;
-        current_sprite.timer1 = 0xA;
+        gCurrentSprite.pose = 0x4B;
+        gCurrentSprite.timer1 = 0xA;
     }
 }
 
 void save_platform_message_banner_disappearing_timer(void)
 {
-    current_sprite.timer1--;
-    if (current_sprite.timer1 == 0x0)
-        current_sprite.pose = 0x28;
+    gCurrentSprite.timer1--;
+    if (gCurrentSprite.timer1 == 0x0)
+        gCurrentSprite.pose = 0x28;
 }
 
 void save_platform_top_init(void)
 {
     u8 offset;
 
-    offset = current_sprite.primary_sprite_ram_slot;
-    current_sprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    current_sprite.properties |= SP_ALWAYS_ACTIVE;
-    current_sprite.samus_collision = SSC_NONE;
-    current_sprite.hitbox_top_offset = -0x4;
-    current_sprite.hitbox_bottom_offset = 0x4;
-    current_sprite.hitbox_left_offset = -0x4;
-    current_sprite.hitbox_right_offset = 0x4;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
+    offset = gCurrentSprite.primary_sprite_ram_slot;
+    gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+    gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
+    gCurrentSprite.samus_collision = SSC_NONE;
+    gCurrentSprite.hitbox_top_offset = -0x4;
+    gCurrentSprite.hitbox_bottom_offset = 0x4;
+    gCurrentSprite.hitbox_left_offset = -0x4;
+    gCurrentSprite.hitbox_right_offset = 0x4;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
 
-    switch (current_sprite.room_slot)
+    switch (gCurrentSprite.room_slot)
     {
         case 0x0:
-            current_sprite.draw_distance_top_offset = 0x50;
-            current_sprite.draw_distance_bottom_offset = 0x0;
-            current_sprite.draw_distance_horizontal_offset = 0x18;
-            if (sprite_data[offset].pose == 0x28)
+            gCurrentSprite.draw_distance_top_offset = 0x50;
+            gCurrentSprite.draw_distance_bottom_offset = 0x0;
+            gCurrentSprite.draw_distance_horizontal_offset = 0x18;
+            if (gSpriteData[offset].pose == 0x28)
             {
-                current_sprite.oam_pointer = save_platform_top_oam_2d5024;
-                current_sprite.y_position_spawn = 0x136;
-                current_sprite.pose = 0x25;
+                gCurrentSprite.oam_pointer = save_platform_top_oam_2d5024;
+                gCurrentSprite.y_position_spawn = 0x136;
+                gCurrentSprite.pose = 0x25;
             }
             else
             {
-                current_sprite.oam_pointer = save_platform_top_oam_2d4e84;
-                current_sprite.pose = 0x9;
+                gCurrentSprite.oam_pointer = save_platform_top_oam_2d4e84;
+                gCurrentSprite.pose = 0x9;
             }
             break;
 
         case 0x1:
-            current_sprite.draw_order = 0xC;
-            current_sprite.oam_pointer = save_platform_top_oam_2d4fbc;
-            current_sprite.draw_distance_top_offset = 0x50;
-            current_sprite.draw_distance_bottom_offset = 0x0;
-            current_sprite.draw_distance_horizontal_offset = 0x18;
-            current_sprite.pose = 0x29;
+            gCurrentSprite.draw_order = 0xC;
+            gCurrentSprite.oam_pointer = save_platform_top_oam_2d4fbc;
+            gCurrentSprite.draw_distance_top_offset = 0x50;
+            gCurrentSprite.draw_distance_bottom_offset = 0x0;
+            gCurrentSprite.draw_distance_horizontal_offset = 0x18;
+            gCurrentSprite.pose = 0x29;
             break;
 
         case 0x2:
-            current_sprite.draw_order = 0x5;
-            current_sprite.oam_pointer = save_platform_top_oam_2d50ec;
-            current_sprite.draw_distance_top_offset = 0x8;
-            current_sprite.draw_distance_bottom_offset = 0x0;
-            current_sprite.draw_distance_horizontal_offset = 0x18;
-            current_sprite.pose = 0x2B;
-            current_sprite.timer1 = 0x60;
+            gCurrentSprite.draw_order = 0x5;
+            gCurrentSprite.oam_pointer = save_platform_top_oam_2d50ec;
+            gCurrentSprite.draw_distance_top_offset = 0x8;
+            gCurrentSprite.draw_distance_bottom_offset = 0x0;
+            gCurrentSprite.draw_distance_horizontal_offset = 0x18;
+            gCurrentSprite.pose = 0x2B;
+            gCurrentSprite.timer1 = 0x60;
             break;
 
         case 0x3:
-            current_sprite.draw_order = 0x3;
-            current_sprite.draw_distance_top_offset = 0x20;
-            current_sprite.draw_distance_bottom_offset = 0x40;
-            current_sprite.draw_distance_horizontal_offset = 0x20;
-            current_sprite.pose = 0x43;
-            if (sprite_data[offset].pose == 0x28)
-                current_sprite.oam_pointer = save_platform_top_oam_2d4e44;
+            gCurrentSprite.draw_order = 0x3;
+            gCurrentSprite.draw_distance_top_offset = 0x20;
+            gCurrentSprite.draw_distance_bottom_offset = 0x40;
+            gCurrentSprite.draw_distance_horizontal_offset = 0x20;
+            gCurrentSprite.pose = 0x43;
+            if (gSpriteData[offset].pose == 0x28)
+                gCurrentSprite.oam_pointer = save_platform_top_oam_2d4e44;
             else
-                current_sprite.oam_pointer = save_platform_top_oam_2d4e04;
+                gCurrentSprite.oam_pointer = save_platform_top_oam_2d4e04;
             break;
 
         default:
-            current_sprite.status = 0x0;
+            gCurrentSprite.status = 0x0;
     }
 }
 
@@ -334,41 +334,41 @@ void save_platform_top_empty(void)
 
 void save_platform_top_extend_gfx_init(void)
 {
-    current_sprite.oam_pointer = save_platform_top_oam_2d4e14;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.pose = 0x45;
+    gCurrentSprite.oam_pointer = save_platform_top_oam_2d4e14;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.pose = 0x45;
 }
 
 void save_platform_top_check_extending_ended(void)
 {
     if (sprite_util_check_end_sprite_anim())
     {
-        current_sprite.pose = 0x43;
-        current_sprite.oam_pointer = save_platform_top_oam_2d4e44;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
+        gCurrentSprite.pose = 0x43;
+        gCurrentSprite.oam_pointer = save_platform_top_oam_2d4e44;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
     }
 }
 
 void save_platform_top_retract_gfx_init(void)
 {
-    current_sprite.oam_pointer = save_platform_top_oam_2d4e54;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.pose = 0x47;
-    samus_data.timer = 0x1;
-    sound_play(0x115);
+    gCurrentSprite.oam_pointer = save_platform_top_oam_2d4e54;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.pose = 0x47;
+    gSamusData.timer = 0x1;
+    SoundPlay(0x115);
 }
 
 void save_platform_top_check_retracting_ended(void)
 {
     if (sprite_util_check_end_current_sprite_anim())
     {
-        current_sprite.pose = 0x43;
-        current_sprite.oam_pointer = save_platform_top_oam_2d4e04;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
+        gCurrentSprite.pose = 0x43;
+        gCurrentSprite.oam_pointer = save_platform_top_oam_2d4e04;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
     }
 }
 
@@ -376,11 +376,11 @@ void save_platform_top_check_tube_anim_spawn_ended(void)
 {
     if (sprite_util_check_end_current_sprite_anim())
     {
-        current_sprite.pose = 0x23;
-        current_sprite.oam_pointer = save_platform_top_oam_2d5024;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        current_sprite.timer2 = sprite_spawn_secondary(SSPRITE_SAVE_PLATFORM_TOP, 0x1, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
+        gCurrentSprite.pose = 0x23;
+        gCurrentSprite.oam_pointer = save_platform_top_oam_2d5024;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.timer2 = sprite_spawn_secondary(SSPRITE_SAVE_PLATFORM_TOP, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     }
 }
 
@@ -388,24 +388,24 @@ void save_platform_top_spawn_big_light(void)
 {
     u8 offset;
 
-    offset = current_sprite.timer2;
-    if (sprite_data[offset].status == 0x0)
+    offset = gCurrentSprite.timer2;
+    if (gSpriteData[offset].status == 0x0)
     {
-        current_sprite.pose = 0x25;
-        current_sprite.y_position_spawn = 0x78;
-        sprite_spawn_secondary(SSPRITE_SAVE_PLATFORM_TOP, 0x2, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
+        gCurrentSprite.pose = 0x25;
+        gCurrentSprite.y_position_spawn = 0x78;
+        sprite_spawn_secondary(SSPRITE_SAVE_PLATFORM_TOP, 0x2, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     }
 }
 
 void save_platform_top_check_tube_anim_ended(void)
 {
-    current_sprite.y_position_spawn--;
-    if (current_sprite.y_position_spawn == 0x0)
+    gCurrentSprite.y_position_spawn--;
+    if (gCurrentSprite.y_position_spawn == 0x0)
     {
-        current_sprite.pose = 0x27;
-        current_sprite.oam_pointer = save_platform_top_oam_2d5064;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
+        gCurrentSprite.pose = 0x27;
+        gCurrentSprite.oam_pointer = save_platform_top_oam_2d5064;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
     }
 }
 
@@ -413,32 +413,32 @@ void save_platform_top_check_tube_anim_despawn_ended(void)
 {
     if (sprite_util_check_end_current_sprite_anim())
     {
-        current_sprite.status = 0x0;
-        sprite_data[sprite_data[current_sprite.primary_sprite_ram_slot].array_offset].pose = 0x46;
+        gCurrentSprite.status = 0x0;
+        gSpriteData[gSpriteData[gCurrentSprite.primary_sprite_ram_slot].array_offset].pose = 0x46;
     }
 }
 
 void save_platform_top_check_tube_around_anim_ended(void)
 {
     if (sprite_util_check_end_current_sprite_anim())
-        current_sprite.status = 0x0;
+        gCurrentSprite.status = 0x0;
 }
 
 void save_platform_top_tube_down_up_anim(void)
 {
-    current_sprite.y_position -= 0x4;
-    current_sprite.timer1--;
-    if (current_sprite.timer1 == 0x0)
+    gCurrentSprite.y_position -= 0x4;
+    gCurrentSprite.timer1--;
+    if (gCurrentSprite.timer1 == 0x0)
     {
-        sprite_data[current_sprite.primary_sprite_ram_slot].pose = 0x45;
-        current_sprite.status = 0x0;
+        gSpriteData[gCurrentSprite.primary_sprite_ram_slot].pose = 0x45;
+        gCurrentSprite.status = 0x0;
     }
 }
 
 void save_platform(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
-    switch (current_sprite.pose)
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             save_platform_init();
@@ -483,8 +483,8 @@ void save_platform(void)
 
 void save_platform_top(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
-    switch (current_sprite.pose)
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             save_platform_top_init();

@@ -8,7 +8,7 @@ void
 update_input(void)
 {
     u16 keys         = KEY_MASK & ~read16(REG_KEY_INPUT);
-    buttons_changed  = keys & ~button_input_old;
-    button_input     = keys;
-    button_input_old = keys;
+    gChangedInput  = keys & ~gPreviousButtonInput;
+    gButtonInput     = keys;
+    gPreviousButtonInput = keys;
 }

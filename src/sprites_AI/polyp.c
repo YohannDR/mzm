@@ -37,7 +37,7 @@ void polyp_check_retracting_anim_ended(void)
 
 }
 
-void polyp_projectile_init(void)
+void polyp_ProjectileInit(void)
 {
 
 }
@@ -47,7 +47,7 @@ void polyp_projectile_spawn(void)
 
 }
 
-void polyp_projectile_move(void)
+void polyp_ProjectileMove(void)
 {
 
 }

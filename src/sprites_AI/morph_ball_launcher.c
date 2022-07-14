@@ -8,38 +8,38 @@ void morph_ball_launcher_change_ccaa(u8 caa)
     u16 sprite_y;
     u16 sprite_x;
     
-    sprite_y = current_sprite.y_position;
-    sprite_x = current_sprite.x_position;
-    current_clipdata_affecting_action = caa;
-    clipdata_process(sprite_y, sprite_x + 0x40);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(sprite_y + 0x40, sprite_x + 0x40);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(sprite_y, sprite_x - 0x40);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(sprite_y + 0x40, sprite_x - 0x40);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(sprite_y + 0x40, sprite_x);
+    sprite_y = gCurrentSprite.y_position;
+    sprite_x = gCurrentSprite.x_position;
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(sprite_y, sprite_x + 0x40);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(sprite_y + 0x40, sprite_x + 0x40);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(sprite_y, sprite_x - 0x40);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(sprite_y + 0x40, sprite_x - 0x40);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(sprite_y + 0x40, sprite_x);
 }
 
 void morph_ball_launcher_init(void)
 {
-    current_sprite.y_position -= 0x20;
-    current_sprite.hitbox_top_offset = 0x0;
-    current_sprite.hitbox_bottom_offset = 0x0;
-    current_sprite.hitbox_left_offset = 0x0;
-    current_sprite.hitbox_right_offset = 0x0;
-    current_sprite.draw_distance_top_offset = 0x8;
-    current_sprite.draw_distance_bottom_offset = 0x20;
-    current_sprite.draw_distance_horizontal_offset = 0x20;
-    current_sprite.samus_collision = SSC_NONE;
-    current_sprite.oam_pointer = morph_ball_launcher_oam_2de0f8;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.pose = 0x9;
-    current_sprite.bg_priority = ((io_registers_backup.bg2cnt & 0x3) + 0x1) & 0x3;
-    current_sprite.draw_order = 0x2;
-    sprite_spawn_secondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
+    gCurrentSprite.y_position -= 0x20;
+    gCurrentSprite.hitbox_top_offset = 0x0;
+    gCurrentSprite.hitbox_bottom_offset = 0x0;
+    gCurrentSprite.hitbox_left_offset = 0x0;
+    gCurrentSprite.hitbox_right_offset = 0x0;
+    gCurrentSprite.draw_distance_top_offset = 0x8;
+    gCurrentSprite.draw_distance_bottom_offset = 0x20;
+    gCurrentSprite.draw_distance_horizontal_offset = 0x20;
+    gCurrentSprite.samus_collision = SSC_NONE;
+    gCurrentSprite.oam_pointer = morph_ball_launcher_oam_2de0f8;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.pose = 0x9;
+    gCurrentSprite.bg_priority = ((gIORegistersBackup.bg2cnt & 0x3) + 0x1) & 0x3;
+    gCurrentSprite.draw_order = 0x2;
+    sprite_spawn_secondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     morph_ball_launcher_change_ccaa(CCAA_MAKE_SOLID3);
 }
 
@@ -54,13 +54,13 @@ void morph_ball_launcher_detect_bomb(void)
     u16 proj_x;
 
     has_bomb = FALSE;
-    sprite_y = current_sprite.y_position + 0x20;
-    sprite_x = current_sprite.x_position;
+    sprite_y = gCurrentSprite.y_position + 0x20;
+    sprite_x = gCurrentSprite.x_position;
     count = 0x0;
 
     while (count <= 0xF)
     {
-        pProj = projectile_data + count;
+        pProj = gProjectileData + count;
 
         if (pProj->status & PROJ_STATUS_EXISTS && pProj->type == PROJ_TYPE_BOMB && pProj->movement_stage == 0x1)
         {
@@ -79,46 +79,46 @@ void morph_ball_launcher_detect_bomb(void)
 
     if (has_bomb)
     {
-        current_sprite.pose = 0xB;
-        current_sprite.timer1 = 0x20;
+        gCurrentSprite.pose = 0xB;
+        gCurrentSprite.timer1 = 0x20;
     }
 }
 
 void morph_ball_launcher_bomb_timer(void)
 {
-    current_sprite.timer1--;
-    if (current_sprite.timer1 == 0x0)
+    gCurrentSprite.timer1--;
+    if (gCurrentSprite.timer1 == 0x0)
     {
-        current_sprite.oam_pointer = morph_ball_launcher_oam_2de120;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        current_sprite.pose = 0xC;
-        current_sprite.timer1 = 0x3C;
-        current_sprite.timer2 = 0x0;
+        gCurrentSprite.oam_pointer = morph_ball_launcher_oam_2de120;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.pose = 0xC;
+        gCurrentSprite.timer1 = 0x3C;
+        gCurrentSprite.timer2 = 0x0;
     }
 }
 
 void morph_ball_launcher_launch_samus_anim(void)
 {
-    if (current_sprite.timer2 == 0x0 && samus_data.pose == SPOSE_DELAY_BEFORE_BALLSPARKING)
+    if (gCurrentSprite.timer2 == 0x0 && gSamusData.pose == SPOSE_DELAY_BEFORE_BALLSPARKING)
     {
-        sprite_spawn_secondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x1, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, samus_data.y_position - 0x10, samus_data.x_position, 0x0);
-        current_sprite.timer2 = 0x1;
+        sprite_spawn_secondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gSamusData.y_position - 0x10, gSamusData.x_position, 0x0);
+        gCurrentSprite.timer2 = 0x1;
     }
-    current_sprite.timer1--;
-    if (current_sprite.timer1 == 0x0)
+    gCurrentSprite.timer1--;
+    if (gCurrentSprite.timer1 == 0x0)
     {
-        current_sprite.oam_pointer = morph_ball_launcher_oam_2de0f8;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        current_sprite.pose = 0x9;
+        gCurrentSprite.oam_pointer = morph_ball_launcher_oam_2de0f8;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.pose = 0x9;
     }
 }
 
 void morph_ball_launcher(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
-    switch (current_sprite.pose)
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             morph_ball_launcher_init();

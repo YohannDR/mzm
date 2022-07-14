@@ -296,8 +296,8 @@ lbl_08002c72:
 lbl_08002c78: .4byte 0x00000009
 lbl_08002c7c: .4byte 0x0808f254
 
-    thumb_func_start sound_fade
-sound_fade: @ 0x08002c80
+    thumb_func_start SoundFade
+SoundFade: @ 0x08002c80
     push {lr}
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10

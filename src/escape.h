@@ -3,6 +3,14 @@
 
 #include "types.h"
 
+// Globals
+
+extern u8 gCurrentEscapeStatus;
+extern u8 gEscapeTimerCounter;
+extern struct EscapeDigits gEscapeTimerDigits;
+
+// Defines
+
 #define ESCAPE_NONE 0x0
 #define ESCAPE_MOTHER_BRAIN 0x1
 #define ESCAPE_MECHA_RIDLEY 0x2
@@ -10,6 +18,8 @@
 #define ESCAPE_STATUS_NONE 0x0
 #define ESCAPE_STATUS_HAPPENNING 0x1
 #define ESCAPE_STATUS_FAILED 0x2
+
+// Structs
 
 struct __attribute__((packed)) EscapeDigits {
     u8 hundredths;
@@ -20,12 +30,14 @@ struct __attribute__((packed)) EscapeDigits {
     u8 minutes_tens;
 };
 
-u8 escape_determine_timer(void);
-u8 escape_check_has_escaped(void);
-void escape_update_oam(void);
-void unk_53a18(void);
-void escape_start(void);
-void escape_set_timer(void);
-void escape_update_timer(void);
+// Functions
+
+u8 EscapeDetermineTimer(void);
+u8 EscapeCheckHasEscaped(void);
+void EscapeUpdateOAM(void);
+void EscapeCheckReloadGraphics(void);
+void EscapeStart(void);
+void EscapeSetTimer(void);
+void EscaepUpdateTimer(void);
 
 #endif /* ESCAPE_H */

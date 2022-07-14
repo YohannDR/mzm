@@ -18,9 +18,9 @@
 #define EFFECT_BG3_GRADIENT 0xA
 #define EFFECT_BG2_GRADIENT 0xB
 
-#define BG0_MOVEMENT_NONE 0x0
-#define BG0_MOVEMENT_WATER_CLOUDS 0x1
-#define BG0_MOVEMENT_SNOWFLAKES 0x4
+#define gBG0Movement_NONE 0x0
+#define gBG0Movement_WATER_CLOUDS 0x1
+#define gBG0Movement_SNOWFLAKES 0x4
 
 struct RoomEntry {
     u8 tileset;
@@ -95,22 +95,22 @@ struct BG3Movement {
     u16 x_offset;
 };
 
-void room_load(void);
-void room_load_tileset(void);
-void room_load_entry(void);
-void room_load_backgrounds(void);
-void room_remove_never_reform_blocks_and_collected_tanks(void);
-void room_reset(void);
-void room_set_background_scrolling(void);
-void room_maybe_set_initial_tilemap(u8 bg_number);
-u8 room_rle_decompress(u8 mode, u8* src, u8* dst);
-void room_unk56e28(void);
-void room_maybe_check_update_animated_graphics_palette(void);
-void room_unk56ef4(void);
+void RoomLoad(void);
+void RoomLoadTileset(void);
+void RoomLoadEntry(void);
+void RoomLoadBackgrounds(void);
+void RoomRemoveNeverReformBlocksAndCollectedTanks(void);
+void RoomReset(void);
+void RoomSetBackgroundScrolling(void);
+void RoomSetInitialTilemap(u8 bg_number);
+u8 RoomRLEDecompress(u8 mode, u8* src, u8* dst);
+void RoomUpdateGFXInfo(void);
+void RoomUpdateAnimatedGraphicsAndPalettes(void);
+void RoomUpdateHatchFlashingAnimation(void);
 void room_update(void);
-void room_update_backgrounds_position(void);
-void room_maybe_update_vertical_tilemap(u8 unk);
-void room_maybe_update_horizontal_tilemap(u8 unk);
-void room_check_dma3_ended(void);
+void RoomUpdateBackgroundsPosition(void);
+void RoomUpdateVerticalTilemap(i8 offset);
+void RoomUpdateHorizontalTilemap(i8 offset);
+void RoomCheckDMA3Ended(void);
 
 #endif /* ROOM_H */

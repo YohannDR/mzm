@@ -88,6 +88,6 @@
 #define EVENT_BOMBATE 0x4D
 #define EVENT_END_UNUSED 0x4E
 
-u32 event_function(u8 action, u8 event);
+u32 EventFunction(u8 action, u8 event);
 
 #endif /* EVENT_H */

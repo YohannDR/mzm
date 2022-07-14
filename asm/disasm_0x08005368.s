@@ -9223,7 +9223,7 @@ lbl_08009b90:
     movs r0, #0x87
     lsls r0, r0, #1
     movs r1, #0xa
-    bl sound_fade
+    bl SoundFade
 lbl_08009ba6:
     movs r0, #0xff
     pop {r4, r5, r6}
@@ -14637,7 +14637,7 @@ lbl_0800c642:
     bne lbl_0800c664
     bl samus_graphics_update
     bl draw_samus
-    bl reset_free_oam
+    bl ResetFreeOAM
     bl update_room_info
     b lbl_0800c6de
     .align 2, 0
@@ -14682,7 +14682,7 @@ lbl_0800c6b4:
 lbl_0800c6c0:
     bl sub_0800d4bc
     bl call_draw_projectile8_bit_true
-    bl reset_free_oam
+    bl ResetFreeOAM
     bl update_room_info
     ldr r0, lbl_0800c6f4 @ =0x03000c72
     movs r1, #0
@@ -14721,13 +14721,13 @@ lbl_0800c714:
     bne lbl_0800c724
 lbl_0800c718:
     ldr r0, lbl_0800c720 @ =ingame_load_vblank_callback
-    bl set_vblank_callback
+    bl CallbackSetVBlank
     b lbl_0800c72a
     .align 2, 0
 lbl_0800c720: .4byte ingame_load_vblank_callback
 lbl_0800c724:
     ldr r0, lbl_0800c730 @ =ingame_vblank_callback
-    bl set_vblank_callback
+    bl CallbackSetVBlank
 lbl_0800c72a:
     pop {r0}
     bx r0
@@ -15296,7 +15296,7 @@ init_and_load_generics: @ 0x0800cbac
     movs r0, #1
     strh r0, [r3]
     ldr r0, lbl_0800cd7c @ =0x0800cba1
-    bl set_vblank_callback
+    bl CallbackSetVBlank
     ldr r0, lbl_0800cd80 @ =0x03000c75
     ldrb r0, [r0]
     lsls r0, r0, #0x18
@@ -15310,7 +15310,7 @@ init_and_load_generics: @ 0x0800cbac
     cmp r0, #0
     beq lbl_0800cbfa
 lbl_0800cbf2:
-    bl clear_ram
+    bl ClearGFXRAM
     bl load_common_sprites_gfx
 lbl_0800cbfa:
     ldr r4, lbl_0800cd88 @ =0x030013ae
@@ -15410,7 +15410,7 @@ lbl_0800ccb2:
     cmp r0, #0x8b
     bls lbl_0800ccb2
     bl reset_hud
-    bl load_sprite_data
+    bl load_gSpriteData
     bl call_load_beam_graphics_and_clear_projectiles
     ldr r7, lbl_0800cd90 @ =0x03000bf0
     movs r0, #0
@@ -15481,7 +15481,7 @@ lbl_0800cd4a:
     strb r0, [r4]
     strb r0, [r6]
     adds r0, r5, #0
-    bl set_vblank_callback
+    bl CallbackSetVBlank
     add sp, #4
     pop {r4, r5, r6, r7}
     pop {r0}
@@ -16836,12 +16836,12 @@ lbl_0800d7f8:
     lsls r4, r4, #0x10
     asrs r4, r4, #0x10
     adds r0, r4, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     adds r0, r6, #0
-    bl fix_mul
+    bl FixedMultiplication
     ldr r6, lbl_0800d87c @ =0x03000e7c
     mov r8, r6
     ldr r2, [sp]
@@ -16854,12 +16854,12 @@ lbl_0800d7f8:
     movs r0, #0
     ldrsh r5, [r5, r0]
     adds r0, r4, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     adds r0, r5, #0
-    bl fix_mul
+    bl FixedMultiplication
     ldr r1, [sp]
     lsls r2, r1, #2
     adds r1, r2, #1
@@ -16890,12 +16890,12 @@ lbl_0800d880:
     mov sb, r2
     asrs r6, r2, #0x10
     adds r0, r6, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     adds r0, r5, #0
-    bl fix_mul
+    bl FixedMultiplication
     ldr r3, lbl_0800d938 @ =0x03000e7c
     mov r8, r3
     ldr r2, [sp]
@@ -16908,12 +16908,12 @@ lbl_0800d880:
     movs r0, #0
     ldrsh r4, [r4, r0]
     adds r0, r6, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     adds r0, r4, #0
-    bl fix_mul
+    bl FixedMultiplication
     ldr r1, [sp]
     lsls r2, r1, #2
     adds r1, r2, #1
@@ -16932,12 +16932,12 @@ lbl_0800d8e2:
     asrs r4, r4, #0x10
     asrs r5, r2, #0x10
     adds r0, r5, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     adds r0, r4, #0
-    bl fix_mul
+    bl FixedMultiplication
     ldr r6, lbl_0800d938 @ =0x03000e7c
     adds r1, r7, #2
     lsls r1, r1, #3
@@ -16949,12 +16949,12 @@ lbl_0800d8e2:
     movs r1, #0
     ldrsh r4, [r0, r1]
     adds r0, r5, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     adds r0, r4, #0
-    bl fix_mul
+    bl FixedMultiplication
     adds r1, r7, #3
     lsls r1, r1, #3
     adds r1, r1, r6
@@ -17331,12 +17331,12 @@ lbl_0800dbf4:
     lsls r0, r1, #0x10
     asrs r7, r0, #0x10
     adds r0, r7, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     adds r0, r4, #0
-    bl fix_mul
+    bl FixedMultiplication
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     mov sl, r0
@@ -17349,12 +17349,12 @@ lbl_0800dbf4:
     ldrsh r3, [r0, r4]
     mov r8, r3
     adds r0, r7, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     mov r0, r8
-    bl fix_mul
+    bl FixedMultiplication
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     mov sb, r0
@@ -17362,12 +17362,12 @@ lbl_0800dbf4:
     cmp r0, #0
     beq lbl_0800dd10
     adds r0, r7, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     mov r0, r8
-    bl fix_mul
+    bl FixedMultiplication
     ldr r5, lbl_0800dcec @ =0x03000e7c
     ldr r2, lbl_0800dcf0 @ =0x00000386
     adds r1, r5, r2
@@ -17375,12 +17375,12 @@ lbl_0800dbf4:
     movs r3, #0
     ldrsh r6, [r6, r3]
     adds r0, r7, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     adds r0, r6, #0
-    bl fix_mul
+    bl FixedMultiplication
     ldr r4, lbl_0800dcf4 @ =0x0000038e
     adds r1, r5, r4
     strh r0, [r1]
@@ -17397,22 +17397,22 @@ lbl_0800dbf4:
     lsls r4, r4, #0x10
     asrs r4, r4, #0x10
     adds r0, r4, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     mov r0, r8
-    bl fix_mul
+    bl FixedMultiplication
     ldr r2, lbl_0800dd00 @ =0x000003a6
     adds r1, r5, r2
     strh r0, [r1]
     adds r0, r4, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     adds r0, r6, #0
-    bl fix_mul
+    bl FixedMultiplication
     ldr r3, lbl_0800dd04 @ =0x000003ae
     adds r1, r5, r3
     strh r0, [r1]
@@ -17436,12 +17436,12 @@ lbl_0800dd08: .4byte 0x000003b6
 lbl_0800dd0c: .4byte 0x000003be
 lbl_0800dd10:
     adds r0, r7, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     mov r0, r8
-    bl fix_mul
+    bl FixedMultiplication
     ldr r5, lbl_0800ddb0 @ =0x03000e7c
     ldr r2, lbl_0800ddb4 @ =0x000003c6
     adds r1, r5, r2
@@ -17449,12 +17449,12 @@ lbl_0800dd10:
     movs r3, #0
     ldrsh r6, [r6, r3]
     adds r0, r7, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     adds r0, r6, #0
-    bl fix_mul
+    bl FixedMultiplication
     ldr r4, lbl_0800ddb8 @ =0x000003ce
     adds r1, r5, r4
     strh r0, [r1]
@@ -17471,22 +17471,22 @@ lbl_0800dd10:
     lsls r4, r4, #0x10
     asrs r4, r4, #0x10
     adds r0, r4, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     mov r0, r8
-    bl fix_mul
+    bl FixedMultiplication
     ldr r2, lbl_0800ddc4 @ =0x000003e6
     adds r1, r5, r2
     strh r0, [r1]
     adds r0, r4, #0
-    bl fix_inverse
+    bl FixedInverse
     adds r1, r0, #0
     lsls r1, r1, #0x10
     asrs r1, r1, #0x10
     adds r0, r6, #0
-    bl fix_mul
+    bl FixedMultiplication
     ldr r3, lbl_0800ddc8 @ =0x000003ee
     adds r1, r5, r3
     strh r0, [r1]
@@ -17692,8 +17692,8 @@ lbl_0800df0c:
 lbl_0800df1c: .4byte 0x0000fffd
 lbl_0800df20: .4byte 0xfffffdc0
 
-    thumb_func_start load_sprite_data
-load_sprite_data: @ 0x0800df24
+    thumb_func_start load_gSpriteData
+load_gSpriteData: @ 0x0800df24
     push {lr}
     ldr r0, lbl_0800df70 @ =0x03000bf0
     ldrb r0, [r0]
@@ -17715,7 +17715,7 @@ load_sprite_data: @ 0x0800df24
     ldr r0, lbl_0800df7c @ =0x030001a8
     strh r1, [r0]
 lbl_0800df4c:
-    bl clear_sprite_data
+    bl clear_gSpriteData
     bl load_spriteset
     bl sub_08053a18
     bl init_location_text
@@ -17915,8 +17915,8 @@ lbl_0800e0e4: .4byte 0x040000d4
 lbl_0800e0e8: .4byte 0x0875eef0
 lbl_0800e0ec: .4byte 0x05000300
 
-    thumb_func_start clear_sprite_data
-clear_sprite_data: @ 0x0800e0f0
+    thumb_func_start clear_gSpriteData
+clear_gSpriteData: @ 0x0800e0f0
     push {r4, r5, r6, lr}
     ldr r0, lbl_0800e12c @ =0x030001ac
     movs r6, #0
@@ -21599,8 +21599,8 @@ lbl_0800fcca:
     pop {r1}
     bx r1
 
-    thumb_func_start check_end_of_subsprite_data1_anim
-check_end_of_subsprite_data1_anim: @ 0x0800fcd0
+    thumb_func_start check_end_of_subgSpriteData1_anim
+check_end_of_subgSpriteData1_anim: @ 0x0800fcd0
     push {lr}
     ldr r0, lbl_0800fcfc @ =0x0300070c
     ldrb r1, [r0, #0xc]
@@ -21632,8 +21632,8 @@ lbl_0800fd02:
     bx r1
     .align 2, 0
 
-    thumb_func_start check_near_end_of_subsprite_data1_anim
-check_near_end_of_subsprite_data1_anim: @ 0x0800fd08
+    thumb_func_start check_near_end_of_subgSpriteData1_anim
+check_near_end_of_subgSpriteData1_anim: @ 0x0800fd08
     push {lr}
     ldr r0, lbl_0800fd38 @ =0x0300070c
     ldrb r1, [r0, #0xc]
@@ -21673,8 +21673,8 @@ sub_0800fd44: @ 0x0800fd44
     ldr r0, lbl_0800fd70 @ =0x03000720
     ldrb r1, [r0, #0xc]
 
-    non_word_aligned_thumb_func_start check_end_of_subsprite_data2_anim
-check_end_of_subsprite_data2_anim: @ 0x0800fd4a
+    non_word_aligned_thumb_func_start check_end_of_subgSpriteData2_anim
+check_end_of_subgSpriteData2_anim: @ 0x0800fd4a
     ldrh r2, [r0, #4]
     adds r1, #1
     lsls r1, r1, #0x18
@@ -22865,7 +22865,7 @@ lbl_080105de:
     lsls r0, r1, #0x12
     lsrs r1, r0, #0x10
     adds r0, r4, #0
-    bl projectile_deal_damage
+    bl ProjectileDealDamage
     lsls r0, r0, #0x18
     lsrs r1, r0, #0x18
     cmp r1, #0

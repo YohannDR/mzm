@@ -19,14 +19,14 @@
 #define LT_STARSHIP 0xD
 #define LT_INVALID 0xFF
 
-u8 location_text_get_brinstar(void);
-u8 location_text_get_kraid(void);
-u8 location_text_get_crateria(void);
-u8 location_text_get_norfair(void);
-u8 location_text_get_ridley(void);
-u8 location_text_get_chozodia(void);
-u8 location_text_get_tourian(void);
-u8 location_text_load_area_banner_gfx(void);
-u8 location_text_get_gfx_slot(void);
+u8 LocationTextGetBrinstar(void);
+u8 LocationTextGetKraid(void);
+u8 LocationTextGetCrateria(void);
+u8 LocationTextGetNorfair(void);
+u8 LocationTextGetRidley(void);
+u8 LocationTextGetChozodia(void);
+u8 LocationTextGetTourian(void);
+u8 LocationTextLoadAreaBannerGFX(void);
+u8 LocationTextGetGFXSlot(void);
 
 #endif /* LOCATION_TEXT_H */

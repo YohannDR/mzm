@@ -16,8 +16,8 @@ struct IORegistersBackup {
     u16 bg0cnt;
 };
 
-void unk_57a24(void);
-void unk_57af8(void);
-void io_update_dispcnt(u8 operation, u16 value);
+void IOWriteRegisters(void);
+void IOWriteRegistersDuringTransition(void);
+void IOUpdateDISPCNT(u8 operation, u16 value);
 
 #endif /* DISPLAY_H */

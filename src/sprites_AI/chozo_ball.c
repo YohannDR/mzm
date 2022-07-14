@@ -53,7 +53,7 @@ void chozo_ball_spawn_item_banner(u8 sprite_id)
             break;
     }
 
-    sprite_spawn_primary(PSPRITE_ITEM_BANNER, text, 0x6, current_sprite.y_position, current_sprite.x_position, 0x0);
+    sprite_spawn_primary(PSPRITE_ITEM_BANNER, text, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
 }
 
 void chozo_ball_set_oam_pointer(u8 sprite_id)
@@ -77,20 +77,20 @@ void chozo_ball_revealed_set_oam_pointer(u8 sprite_id)
  */
 void chozo_ball_init(void)
 {
-    current_sprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    current_sprite.hitbox_top_offset = -0x1C;
-    current_sprite.hitbox_bottom_offset = 0x1C;
-    current_sprite.hitbox_left_offset = -0x1C;
-    current_sprite.hitbox_right_offset = 0x1C;
-    current_sprite.draw_distance_top_offset = 0xC;
-    current_sprite.draw_distance_bottom_offset = 0xC;
-    current_sprite.draw_distance_horizontal_offset = 0xC;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.samus_collision = SSC_SOLID;
-    current_sprite.health = 0x1;
-    current_sprite.pose = 0x8;
-    chozo_ball_set_oam_pointer(sprite_data[current_sprite.primary_sprite_ram_slot].sprite_id);
+    gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+    gCurrentSprite.hitbox_top_offset = -0x1C;
+    gCurrentSprite.hitbox_bottom_offset = 0x1C;
+    gCurrentSprite.hitbox_left_offset = -0x1C;
+    gCurrentSprite.hitbox_right_offset = 0x1C;
+    gCurrentSprite.draw_distance_top_offset = 0xC;
+    gCurrentSprite.draw_distance_bottom_offset = 0xC;
+    gCurrentSprite.draw_distance_horizontal_offset = 0xC;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.samus_collision = SSC_SOLID;
+    gCurrentSprite.health = 0x1;
+    gCurrentSprite.pose = 0x8;
+    chozo_ball_set_oam_pointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
 }
 
 /**
@@ -108,16 +108,16 @@ void chozo_ball_empty(void)
  */
 void chozo_ball_revealing(void)
 {
-    current_sprite.properties |= SP_IMMUNE_TO_PROJECTILES;
-    current_sprite.health = 0x1;
-    current_sprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
-    current_sprite.pose = 0x67;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.palette_row = current_sprite.absolute_palette_row;
-    current_sprite.invicibility_stun_flash_timer &= 0x80;
-    chozo_ball_revealing_set_oam_pointer(sprite_data[current_sprite.primary_sprite_ram_slot].sprite_id);
-    sound_play(0x11D);
+    gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
+    gCurrentSprite.health = 0x1;
+    gCurrentSprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
+    gCurrentSprite.pose = 0x67;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.palette_row = gCurrentSprite.absolute_palette_row;
+    gCurrentSprite.invicibility_stun_flash_timer &= 0x80;
+    chozo_ball_revealing_set_oam_pointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
+    SoundPlay(0x11D);
 }
 
 /**
@@ -128,10 +128,10 @@ void chozo_ball_check_revealing_anim_ended(void)
 {
     if (sprite_util_check_end_current_sprite_anim())
     {
-        current_sprite.pose = 0x9;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        chozo_ball_revealed_set_oam_pointer(sprite_data[current_sprite.primary_sprite_ram_slot].sprite_id);
+        gCurrentSprite.pose = 0x9;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        chozo_ball_revealed_set_oam_pointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
     }
 }
 
@@ -143,14 +143,14 @@ void chozo_ball_register_item(void)
 {
     u8 sprite_id;
 
-    if (current_sprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
+    if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
-        prevent_movement_timer = 0x3E8;
-        current_sprite.properties |= SP_ALWAYS_ACTIVE;
-        current_sprite.ignore_samus_collision_timer = 0x1;
-        current_sprite.pose = 0x23;
-        current_sprite.timer1 = 0x0;
-        sprite_id = sprite_data[current_sprite.primary_sprite_ram_slot].sprite_id;
+        gPreventMovementTimer = 0x3E8;
+        gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
+        gCurrentSprite.ignore_samus_collision_timer = 0x1;
+        gCurrentSprite.pose = 0x23;
+        gCurrentSprite.timer1 = 0x0;
+        sprite_id = gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id;
         chozo_statue_register_item(sprite_id);
         chozo_ball_spawn_item_banner(sprite_id);
     }
@@ -162,13 +162,13 @@ void chozo_ball_register_item(void)
  */
 void chozo_ball_flash_animation(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
 
-    if (!(current_sprite.timer1 & 0x1))
-        current_sprite.status ^= SPRITE_STATUS_NOT_DRAWN;
+    if (!(gCurrentSprite.timer1 & 0x1))
+        gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
         
-    if (prevent_movement_timer < 0x3E7)
-        current_sprite.status = 0x0;
+    if (gPreventMovementTimer < 0x3E7)
+        gCurrentSprite.status = 0x0;
 }
 
 /**
@@ -177,7 +177,7 @@ void chozo_ball_flash_animation(void)
  */
 void chozo_ball(void)
 {
-    switch (current_sprite.pose)
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             chozo_ball_init();

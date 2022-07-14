@@ -3,17 +3,17 @@
 
 #include "types.h"
 
-void hud_update_oam(void);
-void hud_update_energy_tanks(u8* dst, u8* normal_src, u8* refill_src, u8 nbr_tanks, u8 refill_stage);
-void hud_draw_energy(u8 file_number);
-void hud_draw_missile_digits(u16 hundreds_place, u16 tens_place, u16 ones_place, u16 highlight_status);
-void hud_draw_super_missile_digits(u16 tens_place, u16 ones_place, u16 highlight_status);
-void hud_draw_power_bomb_digits(u16 tens_place, u16 ones_place, u16 highlight_status);
-void hud_draw_missiles(u8 update_highlight);
-void hud_draw_power_bomb(u8 update_highlight);
-void hud_draw_super_missiles(u8 update_highlight);
-void hud_draw_highlight(void);
-void hud_draw_suitless(void);
-void hud_draw(void);
+void HUDUpdateOAM(void);
+void HUDUpdateEnergyTanks(u8* dst, u8* normal_src, u8* refill_src, u8 nbr_tanks, u8 refill_stage);
+void HUDDrawEnergy(u8 file_number);
+void HUDDrawMissileDigits(u16 hundreds_place, u16 tens_place, u16 ones_place, u16 highlight_status);
+void HUDDrawSuperMissileDigits(u16 tens_place, u16 ones_place, u16 highlight_status);
+void HUDDrawPowerBombDigits(u16 tens_place, u16 ones_place, u16 highlight_status);
+void HUDDrawMissiles(u8 update_highlight);
+void HUDDrawPowerBomb(u8 update_highlight);
+void HUDDrawSuperMissiles(u8 update_highlight);
+void HUDDrawHighlight(void);
+void HUDDrawSuitless(void);
+void HUDDraw(void);
 
 #endif /* HUD_H */

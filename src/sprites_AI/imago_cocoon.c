@@ -22,12 +22,12 @@ void imago_cocoon_change_one_ccaa(u8 caa)
     u32 y_position;
     u16 x_position;
 
-    y_position = (u16)(current_sprite.y_position_spawn + 0x2C0);
-    x_position = sub_sprite_data1.x_position;
-    current_clipdata_affecting_action = caa;
+    y_position = (u16)(gCurrentSprite.y_position_spawn + 0x2C0);
+    x_position = gSubSpriteData1.x_position;
+    gCurrentClipdataAffectingAction = caa;
     y_position -= 0x20;
-    clipdata_process(y_position, x_position);
-    particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
+    ClipdataProcess(y_position, x_position);
+    ParticleSet(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
 }
 
 /**
@@ -41,16 +41,16 @@ void imago_cocoon_change_two_middle_ccaa(u8 caa)
     u32 y_position_;
     u16 x_position;
 
-    y_position = (u16)(current_sprite.y_position_spawn + 0x2C0);
-    x_position = sub_sprite_data1.x_position;
-    current_clipdata_affecting_action = caa;
+    y_position = (u16)(gCurrentSprite.y_position_spawn + 0x2C0);
+    x_position = gSubSpriteData1.x_position;
+    gCurrentClipdataAffectingAction = caa;
     y_position_ = y_position - 0x20,
-    clipdata_process(y_position_, x_position + 0x40);
-    current_clipdata_affecting_action = caa;
-    clipdata_process(y_position_, x_position - 0x40);
+    ClipdataProcess(y_position_, x_position + 0x40);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(y_position_, x_position - 0x40);
 
-    particle_set(y_position, x_position + 0x48, PE_SPRITE_EXPLOSION_HUGE);
-    particle_set(y_position, x_position - 0x48, PE_SPRITE_EXPLOSION_HUGE);
+    ParticleSet(y_position, x_position + 0x48, PE_SPRITE_EXPLOSION_HUGE);
+    ParticleSet(y_position, x_position - 0x48, PE_SPRITE_EXPLOSION_HUGE);
 }
 
 void imago_cocoon_change_two_around_ccaa(u8 caa)
@@ -69,15 +69,15 @@ void imago_cocoon_change_two_blocking_ccaa(u8 caa)
     u32 y_position_;
     u32 x_position;
 
-    y_position = (u16)(current_sprite.y_position_spawn + 0x340);
-    x_position = sub_sprite_data1.x_position;
-    current_clipdata_affecting_action = caa;
+    y_position = (u16)(gCurrentSprite.y_position_spawn + 0x340);
+    x_position = gSubSpriteData1.x_position;
+    gCurrentClipdataAffectingAction = caa;
     y_position_ = y_position + 0x20;
     x_position += 0x240;
-    clipdata_process(y_position_, x_position);
-    current_clipdata_affecting_action = caa;
+    ClipdataProcess(y_position_, x_position);
+    gCurrentClipdataAffectingAction = caa;
     y_position += 0x60;
-    clipdata_process(y_position, x_position);
+    ClipdataProcess(y_position, x_position);
 }
 
 /**
@@ -89,19 +89,19 @@ void imago_cocoon_change_two_blocking_ccaa(u8 caa)
  */
 void imago_cocoon_change_oam_scaling(u16 limit, u16 value)
 {
-    if (current_sprite.work_variable != 0x0) // Check growing/shrinking
+    if (gCurrentSprite.work_variable != 0x0) // Check growing/shrinking
     {
-        if (current_sprite.oam_scaling > (0x100 - limit))
-            current_sprite.oam_scaling -= value;
+        if (gCurrentSprite.oam_scaling > (0x100 - limit))
+            gCurrentSprite.oam_scaling -= value;
         else
-            current_sprite.work_variable = 0x0; // Set growing
+            gCurrentSprite.work_variable = 0x0; // Set growing
     }
     else
     {
-        if (current_sprite.oam_scaling < (limit + 0x100))
-            current_sprite.oam_scaling += value;
+        if (gCurrentSprite.oam_scaling < (limit + 0x100))
+            gCurrentSprite.oam_scaling += value;
         else
-            current_sprite.work_variable = 0x1; // Set shrinking
+            gCurrentSprite.work_variable = 0x1; // Set shrinking
     }
 }
 
@@ -118,11 +118,11 @@ void imago_cocoon_falling_movement(void)
 {
     u32 increment;
 
-    if (current_sprite.array_offset < 0x30)
-        current_sprite.array_offset++;
+    if (gCurrentSprite.array_offset < 0x30)
+        gCurrentSprite.array_offset++;
 
-    increment = (current_sprite.array_offset >> 0x2) + 0x8;
-    sub_sprite_data1.y_position += increment;
+    increment = (gCurrentSprite.array_offset >> 0x2) + 0x8;
+    gSubSpriteData1.y_position += increment;
 }
 
 void imago_cocoon_main_loop(void)
@@ -143,33 +143,33 @@ void imago_cocoon_falling_before_blocks(void)
     u32 rng;
     u8 timer;
 
-    if ((frame_counter_8bit & 0x1F) == 0x0)
+    if ((gFrameCounter8Bit & 0x1F) == 0x0)
         imago_cocoon_change_oam_scaling(0x1, 0x1);
 
-    if (sub_sprite_data1.curr_anim_frame > 0x7)
+    if (gSubSpriteData1.curr_anim_frame > 0x7)
     {
         imago_cocoon_falling_movement();
-        y_position = sub_sprite_data1.y_position + 0x180;
-        x_position = sub_sprite_data1.x_position;
+        y_position = gSubSpriteData1.y_position + 0x180;
+        x_position = gSubSpriteData1.x_position;
         sprite_util_check_collision_at_position(y_position, x_position);
-        if (previous_collision_check & 0xF0) // Check for solid collision
+        if (gPreviousCollisionCheck & 0xF0) // Check for solid collision
         {
             imago_cocoon_change_one_ccaa(CCAA_REMOVE_SOLID); // Remove middile block
-            current_sprite.pose = 0x23;
-            current_sprite.timer1 = 0x0;
+            gCurrentSprite.pose = 0x23;
+            gCurrentSprite.timer1 = 0x0;
             screen_shake_start_vertical(0x28, 0x81);
-            sound_play(0x1A4);
+            SoundPlay(0x1A4);
         }
     }
     else
     {
-        if (sub_sprite_data1.curr_anim_frame == 0x7 && sub_sprite_data1.anim_duration_counter == 0x6)
-            sprite_spawn_secondary(SSPRITE_IMAGO_CEILING_VINE, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, sub_sprite_data1.y_position, sub_sprite_data1.x_position, 0x0);
+        if (gSubSpriteData1.curr_anim_frame == 0x7 && gSubSpriteData1.anim_duration_counter == 0x6)
+            sprite_spawn_secondary(SSPRITE_IMAGO_CEILING_VINE, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gSubSpriteData1.y_position, gSubSpriteData1.x_position, 0x0);
 
-        y_position = bg1_y_position - 0x40;
-        x_position = sub_sprite_data1.x_position;
-        rng = sprite_rng;
-        timer = current_sprite.timer1 = current_sprite.timer1 + 0x1;
+        y_position = gBG1YPosition - 0x40;
+        x_position = gSubSpriteData1.x_position;
+        rng = gSpriteRNG;
+        timer = gCurrentSprite.timer1 = gCurrentSprite.timer1 + 0x1;
         if ((timer & 0x1F) == 0x0)
         {
             if (timer & 0x20)
@@ -186,7 +186,7 @@ void imago_cocoon_falling_before_blocks(void)
             }
         }
         
-        if (sub_sprite_data1.curr_anim_frame > 0x3 && (timer & 0x1) == 0x0)
+        if (gSubSpriteData1.curr_anim_frame > 0x3 && (timer & 0x1) == 0x0)
         {
             if (rng > 0x8)
             {
@@ -221,14 +221,14 @@ void imago_cocoon_falling_after_blocks(void)
  */
 void imago_cocoon_unlock_passage(void)
 {
-    if (current_sprite.status & SPRITE_STATUS_ONSCREEN)
+    if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
     {
-        current_sprite.timer1--;
-        if (current_sprite.timer1 == 0x0)
+        gCurrentSprite.timer1--;
+        if (gCurrentSprite.timer1 == 0x0)
         {
-            current_sprite.pose = 0x27;
+            gCurrentSprite.pose = 0x27;
             imago_cocoon_change_two_blocking_ccaa(CCAA_REMOVE_SOLID); // Remove blocking collision
-            door_unlock_timer = -0x3C;
+            gDoorUnlockTimer = -0x3C;
             music_play(0xB, 0x0); // Boss killed
         }
     }
@@ -258,10 +258,10 @@ void imago_cocoon_vine_death(void)
     u16 y_position;
     u16 x_position;
 
-    y_position = current_sprite.y_position;
-    x_position = current_sprite.x_position;
+    y_position = gCurrentSprite.y_position;
+    x_position = gCurrentSprite.x_position;
 
-    switch (current_sprite.room_slot)
+    switch (gCurrentSprite.room_slot)
     {
         case 0x1:
             break;
@@ -275,14 +275,14 @@ void imago_cocoon_vine_death(void)
             y_position += 0x10;
             break;
         default:
-            current_sprite.status = 0x0;
+            gCurrentSprite.status = 0x0;
             return;
     }
 
-    particle_set(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
-    if (sub_sprite_data1.health != 0x0)
-        sub_sprite_data1.health--; // Health = number of vines alive so when a vine dies it gets decremented
-    current_sprite.status = 0x0;
+    ParticleSet(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
+    if (gSubSpriteData1.health != 0x0)
+        gSubSpriteData1.health--; // Health = number of vines alive so when a vine dies it gets decremented
+    gCurrentSprite.status = 0x0;
 }
 
 /**
@@ -298,40 +298,40 @@ void imago_cocoon_vine_spawn_spore(void)
     u16 y_position;
     u16 x_position;
 
-    slot = current_sprite.primary_sprite_ram_slot;
+    slot = gCurrentSprite.primary_sprite_ram_slot;
 
-    if (sprite_data[slot].pose == 0x25)
+    if (gSpriteData[slot].pose == 0x25)
     {
-        y_position = current_sprite.y_position;
-        if (current_sprite.room_slot == 0x0)
-            x_position = current_sprite.x_position + 0x40;
+        y_position = gCurrentSprite.y_position;
+        if (gCurrentSprite.room_slot == 0x0)
+            x_position = gCurrentSprite.x_position + 0x40;
         else
-            x_position = current_sprite.x_position - 0x40;
-        particle_set(y_position - 0x64, x_position, PE_TWO_MEDIUM_DUST);
-        current_sprite.status = 0x0;
+            x_position = gCurrentSprite.x_position - 0x40;
+        ParticleSet(y_position - 0x64, x_position, PE_TWO_MEDIUM_DUST);
+        gCurrentSprite.status = 0x0;
     }
-    else if (sub_sprite_data1.health != 0x0 && current_sprite.room_slot == 0x0)
+    else if (gSubSpriteData1.health != 0x0 && gCurrentSprite.room_slot == 0x0)
     {
-        current_sprite.y_position_spawn++;
-        if ((current_sprite.y_position_spawn & 0xFF) == 0x0)
+        gCurrentSprite.y_position_spawn++;
+        if ((gCurrentSprite.y_position_spawn & 0xFF) == 0x0)
         {
-            if (current_sprite.y_position_spawn & 0x100)
+            if (gCurrentSprite.y_position_spawn & 0x100)
             {
                 // Spore on the left
-                y_position = current_sprite.y_position - 0x60;
-                x_position = current_sprite.x_position - 0x46;
+                y_position = gCurrentSprite.y_position - 0x60;
+                x_position = gCurrentSprite.x_position - 0x46;
                 status = SPRITE_STATUS_NONE;
             }
             else
             {
                 // Spore on the right
-                y_position = current_sprite.y_position - 0x90;
-                x_position = current_sprite.x_position + 0x64;
+                y_position = gCurrentSprite.y_position - 0x90;
+                x_position = gCurrentSprite.x_position + 0x64;
                 status = SPRITE_STATUS_XFLIP;
             }
 
-            gfx_slot = current_sprite.spriteset_gfx_slot;
-            ram_slot = current_sprite.timer2;
+            gfx_slot = gCurrentSprite.spriteset_gfx_slot;
+            ram_slot = gCurrentSprite.timer2;
             sprite_spawn_secondary(SSPRITE_IMAGO_COCOON_SPORE, 0x0, gfx_slot, ram_slot, y_position, x_position, status);
             sprite_spawn_secondary(SSPRITE_IMAGO_COCOON_SPORE, 0x1, gfx_slot, ram_slot, y_position, x_position, status);
             sprite_spawn_secondary(SSPRITE_IMAGO_COCOON_SPORE, 0x2, gfx_slot, ram_slot, y_position, x_position, status);
@@ -350,12 +350,12 @@ void imago_cocoon_vine_spawn_spore(void)
  */
 void imago_cocoon_vine_hanging_death(void)
 {
-    if (sub_sprite_data1.health == 0x0 && sub_sprite_data1.curr_anim_frame > 0x7)
+    if (gSubSpriteData1.health == 0x0 && gSubSpriteData1.curr_anim_frame > 0x7)
     {
-        current_sprite.ignore_samus_collision_timer = 0x1;
-        current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
-        current_sprite.samus_collision = SSC_NONE;
-        current_sprite.pose = 0x43;
+        gCurrentSprite.ignore_samus_collision_timer = 0x1;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.samus_collision = SSC_NONE;
+        gCurrentSprite.pose = 0x43;
     }
 }
 
@@ -367,12 +367,12 @@ void imago_cocoon_vine_hanging_death_anim(void)
 {
     u8 slot;
 
-    current_sprite.ignore_samus_collision_timer = 0x1;
-    slot = current_sprite.primary_sprite_ram_slot;
-    if (sprite_data[slot].pose == 0x25)
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    slot = gCurrentSprite.primary_sprite_ram_slot;
+    if (gSpriteData[slot].pose == 0x25)
     {
-        particle_set(current_sprite.y_position + 0xA0, current_sprite.x_position, PE_SPRITE_EXPLOSION_HUGE);
-        current_sprite.status = 0x0;
+        ParticleSet(gCurrentSprite.y_position + 0xA0, gCurrentSprite.x_position, PE_SPRITE_EXPLOSION_HUGE);
+        gCurrentSprite.status = 0x0;
     }
 }
 
@@ -384,16 +384,16 @@ void imago_cocoon_spore_sync_position(void)
 {
     u8 slot;
 
-    slot = current_sprite.primary_sprite_ram_slot;
-    if (current_sprite.status & SPRITE_STATUS_XFLIP)
+    slot = gCurrentSprite.primary_sprite_ram_slot;
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        current_sprite.y_position = sprite_data[slot].y_position - 0x90;
-        current_sprite.x_position = sprite_data[slot].x_position + 0x64;
+        gCurrentSprite.y_position = gSpriteData[slot].y_position - 0x90;
+        gCurrentSprite.x_position = gSpriteData[slot].x_position + 0x64;
     }
     else
     {
-        current_sprite.y_position = sprite_data[slot].y_position - 0x60;
-        current_sprite.x_position = sprite_data[slot].x_position + 0x46;
+        gCurrentSprite.y_position = gSpriteData[slot].y_position - 0x60;
+        gCurrentSprite.x_position = gSpriteData[slot].x_position + 0x46;
     }
 }
 
@@ -403,26 +403,26 @@ void imago_cocoon_spore_sync_position(void)
  */
 void imago_cocoon_spore_init(void)
 {
-    if (current_sprite.room_slot == 0x0)
-        current_sprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+    if (gCurrentSprite.room_slot == 0x0)
+        gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-    current_sprite.draw_distance_top_offset = 0xC;
-    current_sprite.draw_distance_bottom_offset = 0xC;
-    current_sprite.draw_distance_horizontal_offset = 0xC;
-    current_sprite.hitbox_top_offset = -0x8;
-    current_sprite.hitbox_bottom_offset = 0x8;
-    current_sprite.hitbox_left_offset = -0x8;
-    current_sprite.hitbox_right_offset = 0x5;
-    current_sprite.oam_pointer = imago_cocoon_spore_oam_2e0bd0;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.pose = 0x9;
-    current_sprite.samus_collision = SSC_NONE;
-    current_sprite.draw_order = 0x3;
-    current_sprite.bg_priority = io_registers_backup.bg2cnt & 0x3;
-    current_sprite.health = secondary_sprite_stats[current_sprite.sprite_id][0x0];
-    current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
-    current_sprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.draw_distance_top_offset = 0xC;
+    gCurrentSprite.draw_distance_bottom_offset = 0xC;
+    gCurrentSprite.draw_distance_horizontal_offset = 0xC;
+    gCurrentSprite.hitbox_top_offset = -0x8;
+    gCurrentSprite.hitbox_bottom_offset = 0x8;
+    gCurrentSprite.hitbox_left_offset = -0x8;
+    gCurrentSprite.hitbox_right_offset = 0x5;
+    gCurrentSprite.oam_pointer = imago_cocoon_spore_oam_2e0bd0;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.pose = 0x9;
+    gCurrentSprite.samus_collision = SSC_NONE;
+    gCurrentSprite.draw_order = 0x3;
+    gCurrentSprite.bg_priority = gIORegistersBackup.bg2cnt & 0x3;
+    gCurrentSprite.health = secondary_sprite_stats[gCurrentSprite.sprite_id][0x0];
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
     imago_cocoon_spore_sync_position();
 }
 
@@ -433,20 +433,20 @@ void imago_cocoon_spore_init(void)
 void imago_cocoon_spore_before_spawning(void)
 {
     imago_cocoon_spore_sync_position();
-    if (sub_sprite_data1.health == 0x0)
-        current_sprite.pose = 0x42; // If imago cocoon is dead, kill the spores
+    if (gSubSpriteData1.health == 0x0)
+        gCurrentSprite.pose = 0x42; // If imago cocoon is dead, kill the spores
     else
     {
-        if (current_sprite.room_slot == 0x0 && current_sprite.status & SPRITE_STATUS_ONSCREEN && current_sprite.curr_anim_frame == 0x0 && current_sprite.anim_duration_counter == 0x1)
-            sound_play(0x1A0);
+        if (gCurrentSprite.room_slot == 0x0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && gCurrentSprite.curr_anim_frame == 0x0 && gCurrentSprite.anim_duration_counter == 0x1)
+            SoundPlay(0x1A0);
 
         if (sprite_util_check_end_current_sprite_anim())
         {
-            current_sprite.oam_pointer = imago_cocoon_spore_oam_2e0bf8;
-            current_sprite.anim_duration_counter = 0x0;
-            current_sprite.curr_anim_frame = 0x0;
-            current_sprite.pose = 0x23;
-            current_sprite.timer1 = 0x3C;
+            gCurrentSprite.oam_pointer = imago_cocoon_spore_oam_2e0bf8;
+            gCurrentSprite.anim_duration_counter = 0x0;
+            gCurrentSprite.curr_anim_frame = 0x0;
+            gCurrentSprite.pose = 0x23;
+            gCurrentSprite.timer1 = 0x3C;
         }
     }
 }
@@ -458,22 +458,22 @@ void imago_cocoon_spore_before_spawning(void)
 void imago_cocoon_spore_spawning(void)
 {
     imago_cocoon_spore_sync_position();
-    if (sub_sprite_data1.health == 0x0)
-        current_sprite.pose = 0x42; // If imago cocoon is dead, kill the spores
+    if (gSubSpriteData1.health == 0x0)
+        gCurrentSprite.pose = 0x42; // If imago cocoon is dead, kill the spores
     else
     {
-        current_sprite.timer1--;
-        if (current_sprite.timer1 == 0x0)
+        gCurrentSprite.timer1--;
+        if (gCurrentSprite.timer1 == 0x0)
         {
-            current_sprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
-            current_sprite.oam_pointer = imago_cocoon_spore_oam_2e0c18;
-            current_sprite.anim_duration_counter = 0x0;
-            current_sprite.curr_anim_frame = 0x0;
-            current_sprite.properties |= SP_PROJECTILE;
-            current_sprite.samus_collision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
-            current_sprite.pose = 0x25;
-            if (current_sprite.room_slot == 0x0 && current_sprite.status & SPRITE_STATUS_ONSCREEN)
-                sound_play(0x1A1);
+            gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
+            gCurrentSprite.oam_pointer = imago_cocoon_spore_oam_2e0c18;
+            gCurrentSprite.anim_duration_counter = 0x0;
+            gCurrentSprite.curr_anim_frame = 0x0;
+            gCurrentSprite.properties |= SP_PROJECTILE;
+            gCurrentSprite.samus_collision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
+            gCurrentSprite.pose = 0x25;
+            if (gCurrentSprite.room_slot == 0x0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+                SoundPlay(0x1A1);
         }
     }
 }
@@ -489,12 +489,12 @@ void imago_cocoon_spore_move(void)
  */
 void imago_cocoon_spore_exploding_gfx_init(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
-    current_sprite.oam_pointer = imago_cocoon_spore_oam_2e0c38;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.pose = 0x43;
-    current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.oam_pointer = imago_cocoon_spore_oam_2e0c38;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.pose = 0x43;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
 }
 
 /**
@@ -503,9 +503,9 @@ void imago_cocoon_spore_exploding_gfx_init(void)
  */
 void imago_cocoon_spore_check_exploding_anim_ended(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
     if (sprite_util_check_end_current_sprite_anim())
-        current_sprite.status = 0x0;
+        gCurrentSprite.status = 0x0;
 }
 
 // 27edc | c4 | Checks if the winged ripper and imago are colliding (only if imago is falling), sets the winged ripper to a killed pose if yes
@@ -529,15 +529,15 @@ u8 winged_ripper_imago_collision(void)
     u16 imago_right;
 
     colliding = FALSE;
-    pSprite = sprite_data + current_sprite.primary_sprite_ram_slot;
+    pSprite = gSpriteData + gCurrentSprite.primary_sprite_ram_slot;
     if (pSprite->pose == 0x9 && pSprite->array_offset > 0x10)
     {
-        sprite_y = current_sprite.y_position;
-        sprite_x = current_sprite.x_position;
-        sprite_top = sprite_y + current_sprite.hitbox_top_offset;
-        sprite_bottom = sprite_y + current_sprite.hitbox_bottom_offset;
-        sprite_left = sprite_x + current_sprite.hitbox_left_offset;
-        sprite_right = sprite_x + current_sprite.hitbox_right_offset;
+        sprite_y = gCurrentSprite.y_position;
+        sprite_x = gCurrentSprite.x_position;
+        sprite_top = sprite_y + gCurrentSprite.hitbox_top_offset;
+        sprite_bottom = sprite_y + gCurrentSprite.hitbox_bottom_offset;
+        sprite_left = sprite_x + gCurrentSprite.hitbox_left_offset;
+        sprite_right = sprite_x + gCurrentSprite.hitbox_right_offset;
         
         imago_y = pSprite->y_position;
         imago_x = pSprite->x_position;
@@ -548,7 +548,7 @@ u8 winged_ripper_imago_collision(void)
 
         if (sprite_util_check_objects_touching(sprite_top, sprite_bottom, sprite_left, sprite_right, imago_top, imago_bottom, imago_left, imago_right))
         {
-            current_sprite.pose = 0x62;
+            gCurrentSprite.pose = 0x62;
             colliding = TRUE;
         }
     }
@@ -559,34 +559,34 @@ u8 winged_ripper_imago_collision(void)
 // 27fa0 | a0 | Initializes a winged ripper sprite  
 void winged_ripper_init(void)
 {
-    current_sprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    current_sprite.hitbox_top_offset = -0x20;
-    current_sprite.hitbox_bottom_offset = 0x4;
-    current_sprite.hitbox_left_offset = -0x20;
-    current_sprite.hitbox_right_offset = 0x20;
-    current_sprite.draw_distance_top_offset = 0xC;
-    current_sprite.draw_distance_bottom_offset = 0x8;
-    current_sprite.draw_distance_horizontal_offset = 0x10,
-    current_sprite.oam_pointer = winged_ripper_oam_2e0c60;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.samus_collision = SSC_HURTS_SAMUS;
-    current_sprite.health = secondary_sprite_stats[current_sprite.sprite_id][0x0];
-    current_sprite.draw_order = 0x8;
-    current_sprite.pose = 0x8;
-    current_sprite.oam_scaling = 0xC0;
-    current_sprite.timer2 = 0x80;
-    current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
-    current_sprite.array_offset = 0x0;
-    current_sprite.frozen_palette_row_offset = 0x4;
+    gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+    gCurrentSprite.hitbox_top_offset = -0x20;
+    gCurrentSprite.hitbox_bottom_offset = 0x4;
+    gCurrentSprite.hitbox_left_offset = -0x20;
+    gCurrentSprite.hitbox_right_offset = 0x20;
+    gCurrentSprite.draw_distance_top_offset = 0xC;
+    gCurrentSprite.draw_distance_bottom_offset = 0x8;
+    gCurrentSprite.draw_distance_horizontal_offset = 0x10,
+    gCurrentSprite.oam_pointer = winged_ripper_oam_2e0c60;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
+    gCurrentSprite.health = secondary_sprite_stats[gCurrentSprite.sprite_id][0x0];
+    gCurrentSprite.draw_order = 0x8;
+    gCurrentSprite.pose = 0x8;
+    gCurrentSprite.oam_scaling = 0xC0;
+    gCurrentSprite.timer2 = 0x80;
+    gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+    gCurrentSprite.array_offset = 0x0;
+    gCurrentSprite.frozen_palette_row_offset = 0x4;
 }
 
 void winged_ripper_gfx_init(void)
 {
-    current_sprite.pose = 0x9;
-    current_sprite.oam_pointer = winged_ripper_oam_2e0c60;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.anim_duration_counter = 0x0;
+    gCurrentSprite.pose = 0x9;
+    gCurrentSprite.oam_pointer = winged_ripper_oam_2e0c60;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.anim_duration_counter = 0x0;
 }
 
 void winged_ripper_move(void)
@@ -596,18 +596,18 @@ void winged_ripper_move(void)
 
 void winged_ripper_death(void)
 {
-    if (current_sprite.standing_on_sprite)
+    if (gCurrentSprite.standing_on_sprite)
     {
-        if (samus_data.standing_status == STANDING_ENEMY)
-            samus_data.standing_status = STANDING_MIDAIR;
-        current_sprite.standing_on_sprite = FALSE;
+        if (gSamusData.standing_status == STANDING_ENEMY)
+            gSamusData.standing_status = STANDING_MIDAIR;
+        gCurrentSprite.standing_on_sprite = FALSE;
     }
-    sprite_util_sprite_death(DEATH_NORMAL, current_sprite.y_position + 0x8, current_sprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+    sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position + 0x8, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
 }
 
 void imago_cocoon(void)
 {
-    switch (current_sprite.pose)
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             imago_cocoon_init();
@@ -628,7 +628,7 @@ void imago_cocoon(void)
             imago_cocoon_in_ground_anim();
     }
 
-    if (current_sprite.pose > 0x24)
+    if (gCurrentSprite.pose > 0x24)
         sprite_util_sync_current_sprite_position_with_sub_sprite1_position();
     else
         imago_cocoon_update_position_and_anim();
@@ -636,7 +636,7 @@ void imago_cocoon(void)
 
 void imago_cocoon_vine(void)
 {
-    switch (current_sprite.pose)
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             imago_cocoon_vine_init();
@@ -656,7 +656,7 @@ void imago_cocoon_vine(void)
             imago_cocoon_vine_hanging_death_anim();
     }
 
-    if (current_sprite.pose == 0x67)
+    if (gCurrentSprite.pose == 0x67)
         sprite_util_sync_current_sprite_position_with_sub_sprite1_position();
     else
         imago_cocoon_update_position_and_anim();
@@ -664,7 +664,7 @@ void imago_cocoon_vine(void)
 
 void imago_cocoon_spore(void)
 {
-    switch (current_sprite.pose)
+    switch (gCurrentSprite.pose)
     {
         case 0x0:
             imago_cocoon_spore_init();
@@ -685,15 +685,15 @@ void imago_cocoon_spore(void)
             imago_cocoon_spore_check_exploding_anim_ended();
             break;
         default:
-            sprite_util_sprite_death(DEATH_NORMAL, current_sprite.y_position, current_sprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
-            if (current_sprite.status & SPRITE_STATUS_EXISTS && sprite_util_count_drops() > 0x1)
-                current_sprite.status = 0x0; // Anti lag measure
+            sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+            if (gCurrentSprite.status & SPRITE_STATUS_EXISTS && sprite_util_count_drops() > 0x1)
+                gCurrentSprite.status = 0x0; // Anti lag measure
     }
 }
 
 void winged_ripper(void)
 {
-    if (current_sprite.freeze_timer != 0x0)
+    if (gCurrentSprite.freeze_timer != 0x0)
     {
         sprite_util_unfreeze_anim_easy();
         if (!(winged_ripper_imago_collision() << 0x18))
@@ -701,7 +701,7 @@ void winged_ripper(void)
     }
     if (!sprite_util_is_sprite_stunned())
     {
-        switch (current_sprite.pose)
+        switch (gCurrentSprite.pose)
         {
             case 0x0:
                 winged_ripper_init();
@@ -715,114 +715,114 @@ void winged_ripper(void)
                 winged_ripper_death();
         }
 
-        current_sprite.array_offset++;
+        gCurrentSprite.array_offset++;
     }
 }
 
 void defeated_imago_cocoon(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
-    if (current_sprite.pose == 0x0)
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    if (gCurrentSprite.pose == 0x0)
     {
-        current_sprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-        current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
-        current_sprite.draw_distance_top_offset = 0xC;
-        current_sprite.draw_distance_bottom_offset = 0x28;
-        current_sprite.draw_distance_horizontal_offset = 0x30;
-        current_sprite.hitbox_top_offset = -0x4;
-        current_sprite.hitbox_bottom_offset = 0x4;
-        current_sprite.hitbox_left_offset = -0x4;
-        current_sprite.hitbox_right_offset = 0x4;
-        current_sprite.oam_pointer = imago_cocoon_oam_2e0d00;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        current_sprite.samus_collision = SSC_NONE;
-        current_sprite.pose = 0x9;
-        current_sprite.frozen_palette_row_offset = 0x5;
+        gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.draw_distance_top_offset = 0xC;
+        gCurrentSprite.draw_distance_bottom_offset = 0x28;
+        gCurrentSprite.draw_distance_horizontal_offset = 0x30;
+        gCurrentSprite.hitbox_top_offset = -0x4;
+        gCurrentSprite.hitbox_bottom_offset = 0x4;
+        gCurrentSprite.hitbox_left_offset = -0x4;
+        gCurrentSprite.hitbox_right_offset = 0x4;
+        gCurrentSprite.oam_pointer = imago_cocoon_oam_2e0d00;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.samus_collision = SSC_NONE;
+        gCurrentSprite.pose = 0x9;
+        gCurrentSprite.frozen_palette_row_offset = 0x5;
     }
 }
 
 void imago_ceiling_vine(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
-    if (current_sprite.pose == 0x0)
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    if (gCurrentSprite.pose == 0x0)
     {
-        current_sprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-        current_sprite.status |= SPRITE_STATUS_UNKNOWN3;
-        current_sprite.draw_distance_top_offset = 0xC;
-        current_sprite.draw_distance_bottom_offset = 0x28;
-        current_sprite.draw_distance_horizontal_offset = 0x30;
-        current_sprite.hitbox_top_offset = -0x4;
-        current_sprite.hitbox_bottom_offset = 0x4;
-        current_sprite.hitbox_left_offset = -0x4;
-        current_sprite.hitbox_right_offset = 0x4;
-        current_sprite.oam_pointer = imago_ceiling_vine_oam_2e0a28;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        current_sprite.samus_collision = SSC_NONE;
-        current_sprite.draw_order = 0x5;
-        current_sprite.pose = 0x9;
-        current_sprite.frozen_palette_row_offset = 0x5;
+        gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.draw_distance_top_offset = 0xC;
+        gCurrentSprite.draw_distance_bottom_offset = 0x28;
+        gCurrentSprite.draw_distance_horizontal_offset = 0x30;
+        gCurrentSprite.hitbox_top_offset = -0x4;
+        gCurrentSprite.hitbox_bottom_offset = 0x4;
+        gCurrentSprite.hitbox_left_offset = -0x4;
+        gCurrentSprite.hitbox_right_offset = 0x4;
+        gCurrentSprite.oam_pointer = imago_ceiling_vine_oam_2e0a28;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.samus_collision = SSC_NONE;
+        gCurrentSprite.draw_order = 0x5;
+        gCurrentSprite.pose = 0x9;
+        gCurrentSprite.frozen_palette_row_offset = 0x5;
     }
 }
 
 void event_trigger_discovered_imago_passage(void)
 {
-    if (current_sprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0x0)
     {
-        if (event_function(EVENT_ACTION_CHECKING, EVENT_IMAGO_TUNNEL_DISCOVERED))
+        if (EventFunction(EVENT_ACTION_CHECKING, EVENT_IMAGO_TUNNEL_DISCOVERED))
         {
-            current_sprite.status = 0x0;
+            gCurrentSprite.status = 0x0;
             return;
         }
-        current_sprite.status |= SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3;
-        current_sprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
-        current_sprite.draw_distance_top_offset = 0x10;
-        current_sprite.draw_distance_bottom_offset = 0x0;
-        current_sprite.draw_distance_horizontal_offset = 0x8;
-        current_sprite.hitbox_top_offset = -0x40;
-        current_sprite.hitbox_bottom_offset = 0x0;
-        current_sprite.hitbox_left_offset = -0x20;
-        current_sprite.hitbox_right_offset = 0x20;
-        current_sprite.pose = 0x8;
-        current_sprite.oam_pointer = large_energy_oam_2b2750;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
+        gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
+        gCurrentSprite.draw_distance_top_offset = 0x10;
+        gCurrentSprite.draw_distance_bottom_offset = 0x0;
+        gCurrentSprite.draw_distance_horizontal_offset = 0x8;
+        gCurrentSprite.hitbox_top_offset = -0x40;
+        gCurrentSprite.hitbox_bottom_offset = 0x0;
+        gCurrentSprite.hitbox_left_offset = -0x20;
+        gCurrentSprite.hitbox_right_offset = 0x20;
+        gCurrentSprite.pose = 0x8;
+        gCurrentSprite.oam_pointer = large_energy_oam_2b2750;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
     }
 
-    if (current_sprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
+    if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
-        current_sprite.status = 0x0;
-        event_function(EVENT_ACTION_SETTING, EVENT_IMAGO_TUNNEL_DISCOVERED);
+        gCurrentSprite.status = 0x0;
+        EventFunction(EVENT_ACTION_SETTING, EVENT_IMAGO_TUNNEL_DISCOVERED);
     }
 }
 
 void imago_cocoon_after_fight(void)
 {
-    current_sprite.ignore_samus_collision_timer = 0x1;
-    if (current_sprite.pose == 0x0)
+    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    if (gCurrentSprite.pose == 0x0)
     {
-        current_sprite.draw_distance_top_offset = 0x30;
-        current_sprite.draw_distance_bottom_offset = 0x10;
-        current_sprite.draw_distance_horizontal_offset = 0x20;
-        current_sprite.hitbox_top_offset = -0x4;
-        current_sprite.hitbox_bottom_offset = 0x4;
-        current_sprite.hitbox_left_offset = -0x4;
-        current_sprite.hitbox_right_offset = 0x4;
-        current_sprite.oam_pointer = imago_cocoon_oam_2e0d00;
-        current_sprite.anim_duration_counter = 0x0;
-        current_sprite.curr_anim_frame = 0x0;
-        current_sprite.samus_collision = SSC_NONE;
-        current_sprite.pose = 0x9;
+        gCurrentSprite.draw_distance_top_offset = 0x30;
+        gCurrentSprite.draw_distance_bottom_offset = 0x10;
+        gCurrentSprite.draw_distance_horizontal_offset = 0x20;
+        gCurrentSprite.hitbox_top_offset = -0x4;
+        gCurrentSprite.hitbox_bottom_offset = 0x4;
+        gCurrentSprite.hitbox_left_offset = -0x4;
+        gCurrentSprite.hitbox_right_offset = 0x4;
+        gCurrentSprite.oam_pointer = imago_cocoon_oam_2e0d00;
+        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.samus_collision = SSC_NONE;
+        gCurrentSprite.pose = 0x9;
     }
 
-    if (current_sprite.anim_duration_counter == 0x1)
+    if (gCurrentSprite.anim_duration_counter == 0x1)
     {
-        switch (current_sprite.curr_anim_frame)
+        switch (gCurrentSprite.curr_anim_frame)
         {
             case 0x1:
             case 0x4:
-                sound_play(0x212);
+                SoundPlay(0x212);
         }
     }
 }

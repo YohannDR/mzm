@@ -4,29 +4,29 @@
 
 void reo_init(void)
 {
-    current_sprite.draw_distance_top_offset = 0x18;
-    current_sprite.draw_distance_bottom_offset = 0x18;
-    current_sprite.draw_distance_horizontal_offset = 0x18;
-    current_sprite.hitbox_top_offset = -0x20;
-    current_sprite.hitbox_bottom_offset = 0x20;
-    current_sprite.hitbox_left_offset = -0x38;
-    current_sprite.hitbox_right_offset = 0x38;
-    current_sprite.oam_pointer = reo_oam_2ce214;
-    current_sprite.anim_duration_counter = 0x0;
-    current_sprite.curr_anim_frame = 0x0;
-    current_sprite.health = primary_sprite_stats[current_sprite.sprite_id][0x0];
-    current_sprite.samus_collision = SSC_HURTS_SAMUS;
+    gCurrentSprite.draw_distance_top_offset = 0x18;
+    gCurrentSprite.draw_distance_bottom_offset = 0x18;
+    gCurrentSprite.draw_distance_horizontal_offset = 0x18;
+    gCurrentSprite.hitbox_top_offset = -0x20;
+    gCurrentSprite.hitbox_bottom_offset = 0x20;
+    gCurrentSprite.hitbox_left_offset = -0x38;
+    gCurrentSprite.hitbox_right_offset = 0x38;
+    gCurrentSprite.oam_pointer = reo_oam_2ce214;
+    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
+    gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
     sprite_util_choose_random_x_direction();
-    if (0x8 < sprite_rng)
-        current_sprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
-    current_sprite.pose = 0x8;
+    if (0x8 < gSpriteRNG)
+        gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+    gCurrentSprite.pose = 0x8;
 }
 
 void reo_rng(void)
 {
-    current_sprite.pose = 0x9;
-    current_sprite.work_variable = (sprite_rng << 0x1A) >> 0x18;
-    current_sprite.array_offset = current_sprite.work_variable;
+    gCurrentSprite.pose = 0x9;
+    gCurrentSprite.work_variable = (gSpriteRNG << 0x1A) >> 0x18;
+    gCurrentSprite.array_offset = gCurrentSprite.work_variable;
 }
 
 void reo_samus_detection(void)
@@ -34,28 +34,28 @@ void reo_samus_detection(void)
     i16 movement;
     u8 offset;
 
-    offset = current_sprite.array_offset;
+    offset = gCurrentSprite.array_offset;
     movement = reo_idle_anim_y_position_offsets[offset];
     if (movement == 0x7FFF)
     {
         movement = reo_idle_anim_y_position_offsets[0x0];
         offset = 0x0;
     }
-    current_sprite.array_offset = offset + 0x1;
-    current_sprite.y_position += movement;
+    gCurrentSprite.array_offset = offset + 0x1;
+    gCurrentSprite.y_position += movement;
     
-    offset = current_sprite.work_variable;
+    offset = gCurrentSprite.work_variable;
     movement = reo_idle_anim_x_position_offsets[offset];
     if (movement == 0x7FFF)
     {
         movement = reo_idle_anim_x_position_offsets[0x0];
         offset = 0x0;
     }
-    current_sprite.work_variable = offset + 0x1;
-    current_sprite.x_position += movement;
+    gCurrentSprite.work_variable = offset + 0x1;
+    gCurrentSprite.x_position += movement;
 
     if (sprite_util_check_samus_near_sprite_left_right(0x200, 0x1C0) != NSLR_OUT_OF_RANGE)
-        current_sprite.pose = 0x22;
+        gCurrentSprite.pose = 0x22;
 }
 
 void reo_samus_detected(void)
@@ -70,20 +70,20 @@ void reo_move(void)
 
 void reo(void)
 {
-    if (current_sprite.properties & SP_UNKNOWN)
+    if (gCurrentSprite.properties & SP_UNKNOWN)
     {
-        current_sprite.properties &= ~SP_UNKNOWN;
-        if (current_sprite.status & SPRITE_STATUS_ONSCREEN)
+        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             unk_2b20(0x159);
     }
 
-    if (current_sprite.freeze_timer != 0x0)
+    if (gCurrentSprite.freeze_timer != 0x0)
         sprite_util_update_freeze_timer();
     else
     {
         if (!sprite_util_is_sprite_stunned())
         {
-            switch (current_sprite.pose)
+            switch (gCurrentSprite.pose)
             {
                 case 0x0:
                     reo_init();
@@ -100,7 +100,7 @@ void reo(void)
                     reo_move();
                     break;
                 default:
-                    sprite_util_sprite_death(DEATH_NORMAL, current_sprite.y_position, current_sprite.x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);
+                    sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);
             }
         }
     }
