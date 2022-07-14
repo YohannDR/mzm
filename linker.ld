@@ -107,6 +107,7 @@ SECTIONS {
         . = 0x000013D4; samus_data = .;
         . = 0x000013F4; samus_data_copy = .;
         . = 0x00001414; samus_weapon_info = .;
+        . = 0x0000141C; samus_echo = .;
         . = 0x00001528; screw_speed_animation = .;
         . = 0x00001530; equipment = .;
         . = 0x00001530; samus_hazard_damage = .;
