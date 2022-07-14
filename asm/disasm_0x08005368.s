@@ -9223,7 +9223,7 @@ lbl_08009b90:
     movs r0, #0x87
     lsls r0, r0, #1
     movs r1, #0xa
-    bl sub_08002c80
+    bl sound_fade
 lbl_08009ba6:
     movs r0, #0xff
     pop {r4, r5, r6}

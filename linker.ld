@@ -30,7 +30,7 @@ SECTIONS {
         . = 0x00000054; current_area = .;
         . = 0x00000055; current_room = .;
         . = 0x00000056; last_door_used = .;
-        . = 0x00000058; bit_six_of_last_door_properties = .;
+        . = 0x00000058; display_location_text = .;
         . = 0x0000006C; effect_y_position = .;
         . = 0x00000071; screen_shake_x_related = .;
         . = 0x00000073; screen_shake_y_related = .;

@@ -49,31 +49,31 @@ void samus_check_screw_speedbooster_affecting_environment(struct SamusData* pDat
         y_pos = (u16)pData->y_position;
         unk_bool = hitbox_top_offset << 0x10 < -0x400000;
 
-        samus_apply_screw_speedbooster_damage_to_environment(left_hitbox,  top_hitbox,  action);
-        samus_apply_screw_speedbooster_damage_to_environment(right_hitbox,  top_hitbox,  action);
+        block_samus_apply_screw_speedbooster_damage_to_environment(left_hitbox,  top_hitbox,  action);
+        block_samus_apply_screw_speedbooster_damage_to_environment(right_hitbox,  top_hitbox,  action);
         if (pPhysics->horizontal_moving_direction == HDMOVING_RIGHT)
         {
             if (unk_bool)
             {
-            samus_apply_screw_speedbooster_damage_to_environment(right_hitbox,  top_hitbox + 0x40,  action);
+                block_samus_apply_screw_speedbooster_damage_to_environment(right_hitbox,  top_hitbox + 0x40,  action);
             }
-            samus_apply_screw_speedbooster_damage_to_environment(right_hitbox,  y_pos,  action);
+            block_samus_apply_screw_speedbooster_damage_to_environment(right_hitbox,  y_pos,  action);
         }
         else
         {
             if (unk_bool)
             {
-                samus_apply_screw_speedbooster_damage_to_environment(left_hitbox,  top_hitbox + 0x40,  action);
+                block_samus_apply_screw_speedbooster_damage_to_environment(left_hitbox,  top_hitbox + 0x40,  action);
             }
-            samus_apply_screw_speedbooster_damage_to_environment(left_hitbox,  y_pos,  action);
+            block_samus_apply_screw_speedbooster_damage_to_environment(left_hitbox,  y_pos,  action);
         }
         if (pPhysics->standing_status == STANDING_GROUND)
         {
             y_pos = y_pos + 1;
             action = 4;
         }
-        samus_apply_screw_speedbooster_damage_to_environment(left_hitbox, y_pos, action);
-        samus_apply_screw_speedbooster_damage_to_environment(right_hitbox, y_pos, action);
+        block_samus_apply_screw_speedbooster_damage_to_environment(left_hitbox, y_pos, action);
+        block_samus_apply_screw_speedbooster_damage_to_environment(right_hitbox, y_pos, action);
     }
 }
 
@@ -1173,6 +1173,8 @@ void samus_change_to_knockback_pose(struct SamusData* pData, struct SamusData* p
  */
 void samus_check_carry_from_copy(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
+    // https://decomp.me/scratch/1VwJS
+
     switch (pData->pose)
     {
         case SPOSE_RUNNING:
@@ -3252,7 +3254,7 @@ u8 samus_pulling_self_into_morphball_tunnel_gfx(struct SamusData* pData)
 
 u8 samus_using_an_elevator(struct SamusData* pData)
 {
-
+    // https://decomp.me/scratch/ZYuqG
 }
 
 u8 samus_using_an_elevator_gfx(struct SamusData* pData)

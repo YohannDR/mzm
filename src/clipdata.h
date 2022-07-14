@@ -99,9 +99,9 @@ void clipdate_setup_code(void);
 u32 clipdata_process_for_samus(u16 y_position, u16 x_position);
 u32 clipdata_process(u16 y_position, u16 x_position);
 u32 clipdata_convert_to_collision(struct CollisionData* pCollision);
-u32 clipdata_check_current_affecting_at_position(u16 y_position, u16 x_position);
-u32 clipdata_update_current_affecting(u16 y_position, u16 tile_y, u16 tile_x, u8 unk);
+i32 clipdata_check_current_affecting_at_position(u16 y_position, u16 x_position);
+i32 clipdata_update_current_affecting(u16 y_position, u16 tile_y, u16 tile_x, u8 unk);
 u8 clidpata_check_cant_use_elevator(void);
-u32 clipdata_check_ground_effect(u16 y_position, u16 x_position);
+i32 clipdata_check_ground_effect(u16 y_position, u16 x_position);
 
 #endif /* CLIPDATA_H */

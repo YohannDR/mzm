@@ -91,7 +91,7 @@ u32 clipdata_process(u16 y_position, u16 x_position)
         clipdata = bg_pointers_and_dimensions.clipdata_decompressed[collision.tile_y * bg_pointers_and_dimensions.clipdata_width + collision.tile_x];
         if (current_clipdata_affecting_action != CCAA_NONE)
         {
-            // Apply CCAA if none
+            // Apply CCAA if not none
             block_apply_ccaa(collision.tile_y, collision.tile_x, clipdata);
             current_clipdata_affecting_action = CCAA_NONE;
         }
@@ -243,9 +243,9 @@ u32 clipdata_convert_to_collision(struct CollisionData* pCollision)
  * 
  * @param y_position Y Position (subpixels)
  * @param x_position X Position (subpixels)
- * @return u32 Current affecting clipdata, first 16 bits are hazard, last 16 bits are movement
+ * @return i32 Current affecting clipdata, first 16 bits are hazard, last 16 bits are movement
  */
-u32 clipdata_check_current_affecting_at_position(u16 y_position, u16 x_position)
+i32 clipdata_check_current_affecting_at_position(u16 y_position, u16 x_position)
 {
     u16 tile_y;
     u16 tile_x;
@@ -262,7 +262,7 @@ u32 clipdata_check_current_affecting_at_position(u16 y_position, u16 x_position)
         return clipdata_update_current_affecting(y_position, tile_y, tile_x, 0x0);
 }
 
-u32 clipdata_update_current_affecting(u16 y_position, u16 tile_y, u16 tile_x, u8 unk)
+i32 clipdata_update_current_affecting(u16 y_position, u16 tile_y, u16 tile_x, u8 unk)
 {
 
 }
@@ -272,7 +272,7 @@ u8 clidpata_check_cant_use_elevator(void)
 
 }
 
-u32 clipdata_check_ground_effect(u16 y_position, u16 x_position)
+i32 clipdata_check_ground_effect(u16 y_position, u16 x_position)
 {
 
 }

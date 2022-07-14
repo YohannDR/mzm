@@ -66,7 +66,7 @@ extern u8 hide_hud;
 extern u8 current_area;
 extern u8 current_room;
 extern u8 last_door_used;
-extern u8 bit_six_of_last_door_properties;
+extern u8 display_location_text;
 extern u16 effect_y_position;
 extern u8 screen_shake_x_related;
 extern u8 screen_shake_y_related;
