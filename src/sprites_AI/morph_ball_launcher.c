@@ -11,15 +11,15 @@ void morph_ball_launcher_change_ccaa(u8 caa)
     sprite_y = current_sprite.y_position;
     sprite_x = current_sprite.x_position;
     current_clipdata_affecting_action = caa;
-    clipdata_related(sprite_y, sprite_x + 0x40);
+    clipdata_process(sprite_y, sprite_x + 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(sprite_y + 0x40, sprite_x + 0x40);
+    clipdata_process(sprite_y + 0x40, sprite_x + 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(sprite_y, sprite_x - 0x40);
+    clipdata_process(sprite_y, sprite_x - 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(sprite_y + 0x40, sprite_x - 0x40);
+    clipdata_process(sprite_y + 0x40, sprite_x - 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(sprite_y + 0x40, sprite_x);
+    clipdata_process(sprite_y + 0x40, sprite_x);
 }
 
 void morph_ball_launcher_init(void)
@@ -40,7 +40,7 @@ void morph_ball_launcher_init(void)
     current_sprite.bg_priority = ((io_registers_backup.bg2cnt & 0x3) + 0x1) & 0x3;
     current_sprite.draw_order = 0x2;
     sprite_spawn_secondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, current_sprite.y_position, current_sprite.x_position, 0x0);
-    morph_ball_launcher_change_ccaa(CCAA_MAKE_SOLID);
+    morph_ball_launcher_change_ccaa(CCAA_MAKE_SOLID3);
 }
 
 void morph_ball_launcher_detect_bomb(void)

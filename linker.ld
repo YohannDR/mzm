@@ -26,6 +26,7 @@ SECTIONS {
         . = 0x00000042; skip_door_transition = .;
         . = 0x00000043; softreset_disabled = .;
         . = 0x00000049; disable_pause = .;
+        . = 0x00000049; hide_hud = .;
         . = 0x00000054; current_area = .;
         . = 0x00000055; current_room = .;
         . = 0x00000056; last_door_used = .;
@@ -106,6 +107,7 @@ SECTIONS {
         . = 0x000013D4; samus_data = .;
         . = 0x000013F4; samus_data_copy = .;
         . = 0x00001414; samus_weapon_info = .;
+        . = 0x0000141C; samus_echo = .;
         . = 0x00001528; screw_speed_animation = .;
         . = 0x00001530; equipment = .;
         . = 0x00001530; samus_hazard_damage = .;

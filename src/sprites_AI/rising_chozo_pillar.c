@@ -81,17 +81,17 @@ void rising_chozo_pillar_random_particles(u16 y_position, u16 x_position, u8 rng
 void rising_chozo_pillar_spawn_three_platforms(u16 y_position, u16 x_position, u8 caa)
 {
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0xC0, x_position + 0xC0);
+    clipdata_process(y_position - 0xC0, x_position + 0xC0);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0xC0, x_position + 0x100);
+    clipdata_process(y_position - 0xC0, x_position + 0x100);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0x2C0, x_position + 0xC0);
+    clipdata_process(y_position - 0x2C0, x_position + 0xC0);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0x2C0, x_position + 0x100);
+    clipdata_process(y_position - 0x2C0, x_position + 0x100);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0x4C0, x_position + 0xC0);
+    clipdata_process(y_position - 0x4C0, x_position + 0xC0);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0x4C0, x_position - 0x100);
+    clipdata_process(y_position - 0x4C0, x_position - 0x100);
     sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0xC0, x_position + 0xE0, 0x0);
     sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x2C0, x_position + 0xE0, 0x0);
     sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x4C0, x_position + 0xE0, 0x0);
@@ -108,13 +108,13 @@ void rising_chozo_pillar_spawn_three_platforms(u16 y_position, u16 x_position, u
 void rising_chozo_pillar_spawn_two_platforms(u16 y_position, u16 x_position, u8 caa)
 {
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0x1C0, x_position);
+    clipdata_process(y_position - 0x1C0, x_position);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0x1C0, x_position + 0x40);
+    clipdata_process(y_position - 0x1C0, x_position + 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0x7c0, x_position);
+    clipdata_process(y_position - 0x7c0, x_position);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0x7c0, x_position + 0x40);
+    clipdata_process(y_position - 0x7c0, x_position + 0x40);
     sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x1C0, x_position + 0x20, 0x0);
     sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x7c0, x_position + 0x20, 0x0);
 }
@@ -130,9 +130,9 @@ void rising_chozo_pillar_spawn_two_platforms(u16 y_position, u16 x_position, u8 
 void rising_chozo_pillar_spawn_one_platform(u16 y_position, u16 x_position, u8 caa)
 {
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0x3C0, x_position + 0x180);
+    clipdata_process(y_position - 0x3C0, x_position + 0x180);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0x3C0, x_position + 0x1C0);
+    clipdata_process(y_position - 0x3C0, x_position + 0x1C0);
     sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, current_sprite.spriteset_gfx_slot, current_sprite.primary_sprite_ram_slot, y_position - 0x3C0, x_position + 0x1A0, 0x0);
 }
 
@@ -148,7 +148,7 @@ void rising_chozo_pillar(void)
     u16 x_position;
     u16 x_pos;
 
-    caa = CCAA_MAYBE_MAKE_SOLID;
+    caa = CCAA_MAKE_SOLID1;
     y_position = current_sprite.y_position - 0x20;
     x_position = current_sprite.x_position;
 

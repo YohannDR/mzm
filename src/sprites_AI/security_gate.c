@@ -48,7 +48,7 @@ void security_gate_default_open_init(void)
         current_sprite.oam_pointer = security_gate_oam_2e6b98;
         current_sprite.pose = 0x25;
         current_sprite.timer1 = 0x1;
-        security_gate_change_ccaa(CCAA_MAKE_SOLID); // Set collision
+        security_gate_change_ccaa(CCAA_MAKE_SOLID3); // Set collision
     }
     else
     {
@@ -107,7 +107,7 @@ void security_gate_default_open_open_after_alarm(void)
 {
     if (current_sprite.timer1 == 0x0 && !sprite_check_colliding_with_samus_drawing()) // ?
     {
-        security_gate_change_ccaa(CCAA_MAKE_SOLID);
+        security_gate_change_ccaa(CCAA_MAKE_SOLID3);
         current_sprite.timer1++;
     }
 
@@ -169,7 +169,7 @@ void security_gate_default_closed_init(void)
         current_sprite.oam_pointer = security_gate_oam_2e6b98;
         current_sprite.pose = 0x25;
         current_sprite.timer1 = 0x1;
-        security_gate_change_ccaa(CCAA_MAKE_SOLID);
+        security_gate_change_ccaa(CCAA_MAKE_SOLID3);
     }
 
     current_sprite.hitbox_top_offset = -0x100;
@@ -205,7 +205,7 @@ void security_gate_default_closed_close_after_alarm(void)
 {
     if (current_sprite.timer1 == 0x0 && !sprite_check_colliding_with_samus_drawing())
     {
-        security_gate_change_ccaa(CCAA_MAKE_SOLID);
+        security_gate_change_ccaa(CCAA_MAKE_SOLID3);
         current_sprite.timer1++;
     }
 

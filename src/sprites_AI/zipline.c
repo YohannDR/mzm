@@ -15,12 +15,12 @@ void zipline_check_colliding(void)
     if (current_sprite.pose == 0x0)
     {
         sprite_util_check_collision_at_position(y_position, x_position + 0x2C);
-        if (current_affecting_clipdata.movement == MOVEMENT_CLIPDATA_STOP_ENEMY_BLOCK_SOLID)
+        if (current_affecting_clipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
             current_sprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
         else
         {
             sprite_util_check_collision_at_position(y_position, x_position - 0x2C);
-            if (current_affecting_clipdata.movement == MOVEMENT_CLIPDATA_STOP_ENEMY_BLOCK_SOLID)
+            if (current_affecting_clipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
                 current_sprite.status |= SPRITE_STATUS_FACING_RIGHT;
         }
     }
@@ -50,7 +50,7 @@ u8 zipline_moving(void)
         velocity = 0x10;
 
     zipline_check_colliding();
-    if (current_affecting_clipdata.hazard == MOVEMENT_CLIPDATA_STOP_ENEMY_BLOCK_SOLID)
+    if (current_affecting_clipdata.hazard == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
     {
         releasing++;
         current_sprite.x_position = (current_sprite.x_position & 0xFFC0) + 0x20;

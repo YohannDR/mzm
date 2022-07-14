@@ -1492,34 +1492,34 @@ void particle_play_shooting_charged_beam_sound(void)
     if (equipment.beam_bombs_activation & BBF_ICE_BEAM)
     {
         if (equipment.beam_bombs_activation & BBF_LONG_BEAM)
-            sound_play2(0xE6);
+            sound_stop(0xE6);
         else
-            sound_play2(0xE4);
+            sound_stop(0xE4);
     }
     else
     {
         if (equipment.beam_bombs_activation & BBF_PLASMA_BEAM)
         {
             if (equipment.beam_bombs_activation & BBF_LONG_BEAM)
-                sound_play2(0xE2);
+                sound_stop(0xE2);
             else
-                sound_play2(0xE0);
+                sound_stop(0xE0);
         }
         else
         {
             if (equipment.beam_bombs_activation & BBF_WAVE_BEAM)
             {
                 if (equipment.beam_bombs_activation & BBF_LONG_BEAM)
-                    sound_play2(0xDE);
+                    sound_stop(0xDE);
                 else
-                    sound_play2(0xDC);
+                    sound_stop(0xDC);
             }
             else
             {
                 if (bbf & BBF_LONG_BEAM)
-                    sound_play2(0xDA);
+                    sound_stop(0xDA);
                 else
-                    sound_play2(0xD8);
+                    sound_stop(0xD8);
             }
         }
     }

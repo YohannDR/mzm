@@ -19,50 +19,50 @@ void glass_tube_change_ccaa(void)
 
     caa = CCAA_REMOVE_SOLID;
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0x40, x_position);
+    clipdata_process(y_position - 0x40, x_position);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position - 0x40);
+    clipdata_process(y_position, x_position - 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position - 0x80);
+    clipdata_process(y_position, x_position - 0x80);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position - 0xC0);
+    clipdata_process(y_position, x_position - 0xC0);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position - 0x100);
+    clipdata_process(y_position, x_position - 0x100);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position - 0x140);
+    clipdata_process(y_position, x_position - 0x140);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position + 0x40);
+    clipdata_process(y_position, x_position + 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position + 0x80);
+    clipdata_process(y_position, x_position + 0x80);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position + 0xC0);
+    clipdata_process(y_position, x_position + 0xC0);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position + 0x100);
+    clipdata_process(y_position, x_position + 0x100);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position + 0x140);
+    clipdata_process(y_position, x_position + 0x140);
     y_position += 0x140;
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position - 0x40, x_position);
+    clipdata_process(y_position - 0x40, x_position);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position - 0x40);
+    clipdata_process(y_position, x_position - 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position - 0x80);
+    clipdata_process(y_position, x_position - 0x80);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position - 0xC0);
+    clipdata_process(y_position, x_position - 0xC0);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position - 0x100);
+    clipdata_process(y_position, x_position - 0x100);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position - 0x140);
+    clipdata_process(y_position, x_position - 0x140);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position + 0x40);
+    clipdata_process(y_position, x_position + 0x40);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position + 0x80);
+    clipdata_process(y_position, x_position + 0x80);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position + 0xC0);
+    clipdata_process(y_position, x_position + 0xC0);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position + 0x100);
+    clipdata_process(y_position, x_position + 0x100);
     current_clipdata_affecting_action = caa;
-    clipdata_related(y_position, x_position + 0x140);*/
+    clipdata_process(y_position, x_position + 0x140);*/
 }
 
 /**

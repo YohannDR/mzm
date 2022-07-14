@@ -260,7 +260,18 @@ struct EnvironmentalEffect {
     u8 breathing_timer;
     u16 x_position;
     u16 y_position;
-    struct OamFrame* pOAMFrame;
+    struct OamFrame* pOamFrame;
+};
+
+struct SamusEcho {
+    u8 active;
+    u8 timer;
+    u8 position;
+    u8 distance;
+    u16 previous_64_x_positions[64];
+    u16 previous_64_y_positions[64];
+    u16 previous_position_counter;
+    u8 unknown;
 };
 
 #define ENV_EFFECT_NONE 0x0
@@ -309,13 +320,25 @@ struct EnvironmentalEffect {
 #define SAMUS_COLLISION_DETECTION_RIGHT_MOST 0x8
 #define SAMUS_COLLISION_DETECTION_SLOPE 0x80
 
+#define FORCED_MOVEMENT_UPWARDS_SHINESPARK 0x0
+#define FORCED_MOVEMENT_SIDEWARDS_SHINESPARK 0x1
+#define FORCED_MOVEMENT_CROUCHING_ARM_CANNON_UP 0x1
+#define FORCED_MOVEMENT_DIAGONAL_SHINESPARK 0x2
+#define FORCED_MOVEMENT_LAUNCHED_BY_CANNON 0xF0
+
+#define SCREW_SPEED_FLAG_NONE 0x0
+#define SCREW_SPEED_FLAG_SHINESPARKING 0x1
+#define SCREW_SPEED_FLAG_SPEEDBOOSTING 0x1
+#define SCREW_SPEED_FLAG_SCREW_ATTACKING 0x1
+#define SCREW_SPEED_FLAG_STORING_SHINESPARK 0x8
+
 typedef u8 (*SamusFunc_t)(struct SamusData*);
 
 void samus_check_screw_speedbooster_affecting_environment(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 samus_slope_related(u16 x_position, u16 y_position, u16* next_x_position, u16* next_y_position, u16* next_slope_type);
 u8 unk_5604(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* next_x_position);
-u8 samus_check_top_side_collision_midair(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* next_x_position);
-u8 samus_check_walking_on_slope(struct SamusData* pData, i16 x_offset);
+u8 samus_check_top_side_collision_midair(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* pPosition);
+u8 samus_check_walking_on_slope(struct SamusData* pData, u16 x_position);
 u8 samus_check_collision_above(struct SamusData* pData, i16 hitbox);
 u8 samus_check_walking_sides_collision(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 unk_5AD8(struct SamusData* pData, struct SamusPhysics* pPhysics);
@@ -329,7 +352,7 @@ void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy
 void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);
 void samus_change_to_hurt_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);
 void samus_change_to_knockback_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);
-void samus_turn_around_arm_cannon_start_shinespark(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);
+void samus_check_carry_from_copy(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);
 void samus_set_pose(u8 pose);
 void samus_copy_data(struct SamusData* pData);
 void samus_update_physics(struct SamusData* pData);
