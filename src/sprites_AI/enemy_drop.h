@@ -3,8 +3,8 @@
 
 #include "../types.h"
 
-void enemy_drop_init(void);
-void enemy_drop_get(void);
-void enemy_drop(void);
+void EnemyDropInit(void);
+void EnemyDropGet(void);
+void EnemyDrop(void);
 
 #endif /* ENEMY_DROP_AI_H */

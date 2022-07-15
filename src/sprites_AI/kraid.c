@@ -2,192 +2,197 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void kraid_mouth_determine_spike_position(void)
+void KraidMouthDetermineSpikePosition(void)
 {
     
 }
 
-void kraid_check_projectiles_colliding_with_belly(void)
+void KraidCheckProjectilesCollidingWithBelly(void)
 {
     
 }
 
-void kraid_open_close_routine_and_projectile_collision(void)
+void KraidOpenCloseRoutineAndProjectileCollision(void)
 {
     
 }
 
-void kraid_random_sprite_debris_on_ceiling(u8 rng)
+void KraidRandomSpriteDebrisOnCeiling(u8 rng)
 {
     
 }
 
-void kraid_mouth_hitbox_change1_unused(void)
+void KraidMouthHitboxChange_1Unused(void)
 {
     
 }
 
-void kraid_mouth_update_arm_idling_hitbox(void)
+void KraidMonthUpdateArmIdlingHitbox(void)
 {
     
 }
 
-void kraid_mouth_update_arm_attacking_hitbox(void)
+void KraidMonthUpdateArmAttackingHitbox(void)
 {
     
 }
 
-void kraid_mouth_hitbox_change2_unused(void)
+void KraidMouthHitboxChange_2Unused(void)
 {
     
 }
 
-void kraid_mouth_update_left_arm_idling_hitbox(void)
+void KraidMouthUpdateLeftArmIdlingHitbox(void)
 {
     
 }
 
-void kraid_mouth_maybe_update_arm_dying_hitbox(void)
+void KraidMouthUpdateArmDyingHitbox(void)
 {
     
 }
 
-void kraid_mouth_update_left_arm_attacking_hitbox(void)
+void KraidMouthUpdateLeftArmAttackingHitbox(void)
 {
     
 }
 
-void kraid_BG2_horizontal_movement_related_maybe_perhaps(u8 movement)
+void KraidMoveBG2ToRight(u8 movement)
 {
     
 }
 
-void kraid_init(void)
+void KraidMoveBG2ToLeft(u8 movement)
+{
+
+}
+
+void KraidInit(void)
 {
     
 }
 
-u8 kraid_is_fully_up(void)
+u8 KraidIsFullyUp(void)
 {
     return 0;
 }
 
-void kraid_go_up(void)
+void KraidGoUp(void)
 {
     
 }
 
-void kraid_check_fully_up(void)
+void KraidCheckFullyUp(void)
 {
     
 }
 
-u8 kraid_move_feet(void)
+u8 KraidMoveFeet(void)
 {
     return 0;
 }
 
-void kraid_feet_movement_same_direction_as_position_update(void)
+void KraidMoveFeetToSameDirectionAsPosition(void)
 {
     
 }
 
-void kraid_move_feet_to_opposite_direction_as_position(void)
+void KraidMoveFeetToOppositeDirectionAsPosition(void)
 {
     
 }
 
-void kraid_feet_movement_opposite_direction_as_position_update(void)
+void KraidFeetMovementOppositeDirectionAsPositionUpdate(void)
 {
     
 }
 
-void kraid_end_two_steps(void)
+void KraidEndTwoSteps(void)
 {
     
 }
 
-void kraid_before_start_moving_feet_same_direction_as_position(void)
+void KraidBeforeStartMovingFeetSameDirectionAsPosition(void)
 {
     
 }
 
-void kraid_after_moving_feet_same_direction_as_position(void)
+void KraidAfterMovingFeetSameDirectionAsPosition(void)
 {
     
 }
 
-void kraid_before_start_start_moving_feet_opposite_direction_as_position(void)
+void KraidBeforeStartMovingFeetOppositeDirectionAsPosition(void)
 {
     
 }
 
-void kraid_prevent_samus_going_through(void)
+void KraidPreventSamusGoingThrough(void)
 {
     
 }
 
-void kraid_death(void)
+void KraidDeath(void)
 {
     
 }
 
-void kraid_dying(void)
+void KraidDying(void)
 {
     
 }
 
-void kraid_before_death(void)
+void KraidBeforeDeath(void)
 {
     
 }
 
-void kraid_mouth_init(void)
+void KraidMouthInit(void)
 {
     
 }
 
-void kraid_mouth_throw_nails(void)
+void KraidMouthThrowNails(void)
 {
     
 }
 
-void kraid_mouth_check_samus_near(void)
+void KraidMouthCheckSamusNear(void)
 {
     
 }
 
-void kraid_mouth_call_kraid_check_projectiles_colliding_with_belly(void)
+void KraidMouthCallKraidCheckProjectilesCollidingWithBelly(void)
 {
     
 }
 
-void kraid_mouth_check_should_spawn_spikes(void)
+void KraidMouthCheckShouldSpawnSpikes(void)
 {
     
 }
 
-void kraid_mouth_spawn_spike(void)
+void KraidMouthSpawnSpike(void)
 {
     
 }
 
-void kraid_mouth_despawn_secondary_sprites(void)
+void KraidMouthDespawnSecondarySprites(void)
 {
     
 }
 
-void kraid_mouth_arm_movement_dying(void)
+void KraidMouthArmMovementDying(void)
 {
     
 }
 
-void kraid_mouth_arm_movement_dying_stationary(void)
+void KraidMouthArmMovementDyingStationary(void)
 {
     
 }
 
-void kraid_nail_movement(void)
+void KraidNailMovement(void)
 {
     
 }
@@ -197,17 +202,17 @@ void kraid(void)
     
 }
 
-void kraid_mouth(void)
+void KraidMouth(void)
 {
     
 }
 
-void kraid_spike(void)
+void KraidSpike(void)
 {
     
 }
 
-void kraid_nail(void)
+void KraidNail(void)
 {
     
 }

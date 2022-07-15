@@ -3,9 +3,9 @@
 
 #include "../types.h"
 
-void cannon_fire_bullet(void);
-void cannon_check_surroundings(void);
-void cannon(void);
-void cannon_bullet(void);
+void CannonFireBullet(void);
+void CannonCheckSurroundings(void);
+void Cannon(void);
+void CannonBullet(void);
 
 #endif /* CANNON_AI_H */

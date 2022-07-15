@@ -2,7 +2,7 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void unused_sprites(void)
+void UnusedSprites(void)
 {
     if (gCurrentSprite.pose == 0x0)
     {

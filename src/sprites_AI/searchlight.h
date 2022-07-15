@@ -3,6 +3,6 @@
 
 #include "../types.h"
 
-void searchlight(void);
+void Searchlight(void);
 
 #endif /* SEARCHLIGHT_AI_H */

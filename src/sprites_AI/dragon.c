@@ -2,7 +2,7 @@
 #include "../sprite_util.h"
 #include "../globals.h"
 
-void dragon_y_movement(void)
+void DragonYMovement(void)
 {
     u16 old_y;
     u16 y_spawn;
@@ -24,7 +24,7 @@ void dragon_y_movement(void)
     }
 }
 
-void dragon_init(void)
+void DragonInit(void)
 {
     gCurrentSprite.hitbox_top_offset = -0x40;
     gCurrentSprite.hitbox_bottom_offset = 0x50;
@@ -43,7 +43,7 @@ void dragon_init(void)
     gCurrentSprite.y_position_spawn = gCurrentSprite.y_position;
 }
 
-void dragon_gfx_init(void)
+void DragonGFXInit(void)
 {
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.oam_pointer = dragon_oam_2d5ad8;
@@ -52,7 +52,7 @@ void dragon_gfx_init(void)
     gCurrentSprite.timer1 = 0x64;
 }
 
-void dragon_go_up(void)
+void DragonGoUp(void)
 {
     /*u8 nslr;
     u16 x_position;
@@ -61,7 +61,7 @@ void dragon_go_up(void)
     if (gCurrentSprite.timer1 != 0x0)
         gCurrentSprite.timer1--;
 
-    dragon_y_movement();
+    DragonYMovement();
     gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
     if (gSamusData.y_position <= gCurrentSprite.y_position)
     {
@@ -102,7 +102,7 @@ void dragon_go_up(void)
     }*/
 }
 
-void dragon_turning_turning_around_gfx_init(void)
+void DragonTurningAroundGFXInit(void)
 {
     gCurrentSprite.pose = 0xB;
     gCurrentSprite.oam_pointer = dragon_oam_2d5b28;
@@ -110,9 +110,9 @@ void dragon_turning_turning_around_gfx_init(void)
     gCurrentSprite.anim_duration_counter = 0x0;
 }
 
-void dragon_check_turning_around_first_half_anim_ended(void)
+void DragonCheckTurningAroundFirstHalfAnimEnded(void)
 {
-    dragon_y_movement();
+    DragonYMovement();
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0xC;
@@ -123,14 +123,14 @@ void dragon_check_turning_around_first_half_anim_ended(void)
     }
 }
 
-void dragon_check_turning_around_second_half_anim_ended(void)
+void DragonCheckTurningAroundSecondHalfAnimEnded(void)
 {
-    dragon_y_movement();
+    DragonYMovement();
     if (SpriteUtillCheckEndCurrentSpriteAnim())
         gCurrentSprite.pose = 0x34;
 }
 
-void dragon_spitting_gfx_init(void)
+void DragonSpittingGFXInit(void)
 {
     gCurrentSprite.pose = 0x35;
     gCurrentSprite.oam_pointer = dragon_oam_2d5af8;
@@ -139,9 +139,9 @@ void dragon_spitting_gfx_init(void)
     gCurrentSprite.timer1 = 0x1E;
 }
 
-void dragon_spitting_anim(void)
+void DragonSpittingAnim(void)
 {
-    dragon_y_movement();
+    DragonYMovement();
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
     {
@@ -153,7 +153,7 @@ void dragon_spitting_anim(void)
     }
 }
 
-void dragon_spawn_fireball(void)
+void DragonSpawnFireball(void)
 {
     u16 y_position;
     u16 x_position;
@@ -161,7 +161,7 @@ void dragon_spawn_fireball(void)
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
     {
-        dragon_gfx_init();
+        DragonGFXInit();
         y_position = gCurrentSprite.y_position - 0x48;
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             x_position = gCurrentSprite.x_position + 0x28;
@@ -171,7 +171,7 @@ void dragon_spawn_fireball(void)
     }
 }
 
-void dragon_fireball_init(void)
+void DragonFireballInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.properties |= SP_PROJECTILE;
@@ -206,7 +206,7 @@ void dragon_fireball_init(void)
     SoundPlay(0x14C);
 }
 
-void dragon_fireball_move(void)
+void DragonFireballMove(void)
 {
     /*u16 x_speed;
     u16 old_y;
@@ -252,7 +252,7 @@ void dragon_fireball_move(void)
     }*/
 }
 
-void dragon_fireball_exploding_gfx_init(void)
+void DragonFireballExplodingGFXInit(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     gCurrentSprite.oam_pointer = dragon_fireball_oam_2d5b78;
@@ -263,18 +263,18 @@ void dragon_fireball_exploding_gfx_init(void)
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
 }
 
-void dragon_fireball_check_exploding_anim_ended(void)
+void DragonFireballCheckExplodingAnimEnded(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     if (SpriteUtillCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0x0;
 }
 
-void dragon(void)
+void Dragon(void)
 {
-    if (gCurrentSprite.properties & SP_UNKNOWN)
+    if (gCurrentSprite.properties & SP_DAMAGED)
     {
-        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             unk_2b20(0x14D);
     }
@@ -288,28 +288,28 @@ void dragon(void)
             switch (gCurrentSprite.pose)
             {
                 case 0x0:
-                    dragon_init();
+                    DragonInit();
                     break;
                 case 0x8:
-                    ddragon_gfx_init();
+                    dDragonGFXInit();
                 case 0x9:
-                    dragon_go_up();
+                    DragonGoUp();
                     break;
                 case 0xA:
-                    dragon_turning_turning_around_gfx_init();
+                    DragonTurningAroundGFXInit();
                 case 0xB:
-                    dragon_check_turning_around_first_half_anim_ended();
+                    DragonCheckTurningAroundFirstHalfAnimEnded();
                     break;
                 case 0xC:
-                    dragon_check_turning_around_second_half_anim_ended();
+                    DragonCheckTurningAroundSecondHalfAnimEnded();
                     break;
                 case 0x34:
-                    dragon_spitting_gfx_init();
+                    DragonSpittingGFXInit();
                 case 0x35:
-                    dragon_spitting_anim();
+                    DragonSpittingAnim();
                     break;
                 case 0x37:
-                    dragon_spawn_fireball();
+                    DragonSpawnFireball();
                     break;
                 default:
                     SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);
@@ -318,20 +318,20 @@ void dragon(void)
     }
 }
 
-void dragon_fireball(void)
+void DragonFireball(void)
 {
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            dragon_fireball_init();
+            DragonFireballInit();
         case 0x9:
-            dragon_fireball_move();
+            DragonFireballMove();
             break;
         case 0x42:
-            dragon_fireball_exploding_gfx_init();
+            DragonFireballExplodingGFXInit();
             break;
         case 0x43:
-            dragon_fireball_check_exploding_anim_ended();
+            DragonFireballCheckExplodingAnimEnded();
             break;
         default:
             SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_SMALL);

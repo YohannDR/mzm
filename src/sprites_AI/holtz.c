@@ -2,62 +2,62 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-u8 holtz_y_movement(u16 movement)
+u8 HotlzYMovement(u16 movement)
 {
 
 }
 
-u8 holtz_x_movement(u16 movement)
+u8 HotlzXMovement(u16 movement)
 {
 
 }
 
-void holtz_init(void)
+void HoltzInit(void)
 {
 
 }
 
-void holtz_gfx_init(void)
+void HoltzGFXInit(void)
 {
 
 }
 
-void holtz_samus_detection(void)
+void HoltzSamusDetection(void)
 {
 
 }
 
-void holtz_warning_gfx_init(void)
+void HoltzWarningGFXInit(void)
 {
 
 }
 
-void holtz_check_warning_anim_ended(void)
+void HoltzCheckWarningAnimEnded(void)
 {
 
 }
 
-void holtz_going_down_move(void)
+void HoltzGoingDownMove(void)
 {
 
 }
 
-void holtz_sliding_move(void)
+void HoltzSlidingMove(void)
 {
 
 }
 
-void holtz_going_up_move(void)
+void HoltzGoingToMove(void)
 {
 
 }
 
-void holtz_back_to_ceiling(void)
+void HoltzBackToCeiling(void)
 {
 
 }
 
-void holtz(void)
+void Holtz(void)
 {
 
 }

@@ -3,6 +3,6 @@
 
 #include "../types.h"
 
-void geron(void);
+void Geron(void);
 
 #endif /* GERON_AI_H */

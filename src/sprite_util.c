@@ -493,7 +493,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                                 pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
                                 if (pData->invincibility_timer == 0x0 && (gEquipment.suit_misc_activation & (SMF_VARIA_SUIT & SMF_GRAVITY_SUIT)) == 0x0)
                                 {
-                                    if (parasite_count() && SpriteUtilTakeDamageFromSprite(FALSE, pSprite, dmg_multiplier >> 0x2))
+                                    if (ParasiteCount() && SpriteUtilTakeDamageFromSprite(FALSE, pSprite, dmg_multiplier >> 0x2))
                                     {
                                         pData->invincibility_timer = 0x10;
                                         unk_2b20(0x80);
@@ -520,7 +520,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                                 break;
 
                             case SSC_RIDLEY_CLAW:
-                                if (!unk && ridley_check_grabbing(sprite_y, sprite_x))
+                                if (!unk && RidleyCheckGrabbing(sprite_y, sprite_x))
                                 {
                                     pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
                                     pSprite->samus_collision = SSC_NONE;
@@ -1289,7 +1289,7 @@ u8 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struct
 
             pSprite->ignore_samus_collision_timer = 0x1;
             pSprite->invicibility_stun_flash_timer = pSprite->invicibility_stun_flash_timer & 0x80 | 0x11;
-            pSprite->properties |= SP_UNKNOWN;
+            pSprite->properties |= SP_DAMAGED;
             return dct;
         }
 

@@ -279,15 +279,15 @@ extern u8 gSpriteRNG;
 #define SSPRITE_KRAID_SPIKE 0x1C
 #define SSPRITE_KRAID_NAIL 0x1D
 #define SSPRITE_ZIPLINE_BUTTON_INITIALIZE_MORPH_SYMBOL 0x1E
-#define SSPRITE_ATOMIC_ELECTRICITY 0x1F
+#define SSPRITE_AtomicElectricity 0x1F
 #define SSPRITE_MOTHER_BRAIN_EYE 0x20
 #define SSPRITE_RIDLEY_FIREBALL 0x21
 #define SSPRITE_UNKNOWN_ITEM_CHOZO_STATUE_BODY 0x22
 #define SSPRITE_UNKNOWN_ITEM_CHOZO_STATUE_REFILL 0x23
 #define SSPRITE_MORPH_BALL_LAUNCHER_BACK 0x24
-#define SSPRITE_ACID_WORM_BODY 0x25
-#define SSPRITE_ACID_WORM_SPIT 0x26
-#define SSPRITE_CANNON_BULLET 0x27
+#define SSPRITE_AcidWormBody 0x25
+#define SSPRITE_AcidWormSpit 0x26
+#define SSPRITE_CannonBullet 0x27
 #define SSPRITE_CROCOMIRE_BODY 0x28
 #define SSPRITE_IMAGO_BODY 0x29
 #define SSPRITE_DEFEATED_IMAGO_COCOON 0x2A
@@ -359,7 +359,7 @@ extern u8 gSpriteRNG;
 
 #define SP_NONE 0x0
 #define SP_ALWAYS_ACTIVE 0x1
-#define SP_UNKNOWN 0x2
+#define SP_DAMAGED 0x2
 #define SP_PROJECTILE 0x4
 #define SP_SOLID_FOR_PROJECTILES 0x8
 #define SP_MAYBE_DESTROYED 0x10
@@ -432,8 +432,8 @@ struct SpriteData {
     u8 oam_rotation;
     u8 invicibility_stun_flash_timer;
     u8 timer1;
-    u8 timer2;
-    u8 work_variable;
+    u8 workVariable;
+    u8 workVariable2;
     u8 array_offset;
     u8 freeze_timer;
     u8 standing_on_sprite;

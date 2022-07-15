@@ -3,117 +3,117 @@
 #include "../globals.h"
 
 
-void gunship_flicker_flames(void)
+void GunshipFlickerFlames(void)
 {
 
 }
 
-void gunship_porthole_flames(void)
+void GunshipPortholeFlames(void)
 {
 
 }
 
-u8 gunship_check_samus_enter(void)
+u8 GunshipCheckSamusEnter(void)
 {
 
 }
 
-void gunship_init(void)
+void GunshipInit(void)
 {
 
 }
 
-void gunship_game_start_move(void)
+void GunshipGameStartMove(void)
 {
 
 }
 
-void gunship_samus_enter(void)
+void GunshipSamusEnter(void)
 {
 
 }
 
-void gunship_samus_entering(void)
+void GunshipSamusEntering(void)
 {
 
 }
 
-void gunship_refill(void)
+void GunshipRefill(void)
 {
 
 }
 
-void gunship_after_refill(void)
+void GunshipAfterRefill(void)
 {
 
 }
 
-void gunship_after_save(void)
+void GunshipAfterSave(void)
 {
 
 }
 
-void gunship_saving(void)
+void GunshipSave(void)
 {
 
 }
 
-void gunship_samus_leave(void)
+void GunshipSamusLeave(void)
 {
 
 }
 
-void gunship_samus_leaving(void)
+void GunshipSamusLeaving(void)
 {
 
 }
 
-void gunship_release_samus(void)
+void GunshipReleaseSamus(void)
 {
 
 }
 
-void gunship_reset(void)
+void GunshipReset(void)
 {
 
 }
 
-void gunship_check_samus_on_top_after_leaving(void)
+void GunshipCheckSamusOnTopAfterLeaving(void)
 {
 
 }
 
-void gunship_escape_zebes(void)
+void GunshipEscapeZebes(void)
 {
 
 }
 
-void gunship_samus_entering_when_escaping(void)
+void GunshipSamusEnteringWhenEscaping(void)
 {
 
 }
 
-void gunship_spawn_flames_escape(void)
+void GunshipSpawnFlamesEscape(void)
 {
 
 }
 
-void gunship_taking_off(void)
+void GunshipTakingOff(void)
 {
 
 }
 
-void gunship_flying(void)
+void GunshipFlying(void)
 {
 
 }
 
-void gunship_part_init(void)
+void GunshipPartInit(void)
 {
 
 }
 
-void gunship_part_flames_flying_gfx_init(void)
+void GunshipPartFlamesFlyingGFXInit(void)
 {
 
 }
@@ -128,7 +128,7 @@ void unk_459ac(void)
 
 }
 
-void gunship_part_check_landing_ended(void)
+void GunshipPartCheckLandingEnded(void)
 {
 
 }
@@ -138,37 +138,37 @@ void unk_45a40(void)
 
 }
 
-void gunship_part_entry_sides(void)
+void GunshipPartEntrySides(void)
 {
 
 }
 
-void gunship_part_entry_sides_close(void)
+void GunshipPartEntrySidesClose(void)
 {
 
 }
 
-void gunship_part_entry_top(void)
+void GunshipPartEntryTop(void)
 {
 
 }
 
-void gunship_part_entry_top_close(void)
+void GunshipPartEntryTopClose(void)
 {
 
 }
 
-void gunship_partcheck_spawn_platform(void)
+void GunshipPartCheckSpawnPlatform(void)
 {
 
 }
 
-void gunship_spawn_platform(void)
+void GunshipSpawnPlatform(void)
 {
 
 }
 
-void gunship_part_despawn_platform(void)
+void GunshipPartDespawnPlatform(void)
 {
 
 }
@@ -178,12 +178,12 @@ void unk_45dfc(void)
 
 }
 
-void gunship(void)
+void Gunship(void)
 {
 
 }
 
-void gunship_part(void)
+void GunshipPart(void)
 {
 
 }

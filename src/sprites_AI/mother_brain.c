@@ -3,107 +3,107 @@
 #include "../sprite.h"
 #include "../globals.h"
 
-void mother_brain_sync_sub_sprite_position(void)
+void MotherBrainSyncSubSpritesPosition(void)
 {
 
 }
 
-void mother_brain_palette_switching(void)
+void MotherBrainUpdatePalette(void)
 {
 
 }
 
-void mother_brain_init(void)
+void MotherBrainInit(void)
 {
 
 }
 
-void mother_brain_start(void)
+void MotherBrainStart(void)
 {
 
 }
 
-void mother_brain_main_loop(void)
+void MotherBrainMainLoop(void)
 {
 
 }
 
-void mother_brain_death(void)
+void MotherBrainDeath(void)
 {
 
 }
 
-void mother_brain_start_escape(void)
+void MotherBrainStartEscape(void)
 {
 
 }
 
-void mother_brain_eye_init(void)
+void MotherBrainEyeInit(void)
 {
 
 }
 
-void mother_brain_eye_hitbox_init(void)
+void MotherBrainEyeHitboxInit(void)
 {
 
 }
 
-void mother_brain_eye_empty(void)
+void MotherBrainEye_Empty(void)
 {
 
 }
 
-void mother_brain_spawn_block(void)
+void MotherBrainSpawnBlock(void)
 {
 
 }
 
-void unk_3d3a4(void)
+void MotherBrainEyeGlassStage1(void)
 {
 
 }
 
-void unk_3d3e4(void)
+void MotherBrainEyeGlassStage2(void)
 {
 
 }
 
-void unk_3d420(void)
+void MotherBrainEyeGlassStage3(void)
 {
 
 }
 
-void mother_brain_eye_isft(void)
+void MotherBrainEyeISFT(void)
 {
 
 }
 
-void mother_brain_eye_spawn_glass_breaking(void)
+void MotherBrainEyeSpawnGlassBreaking(void)
 {
 
 }
 
-void mother_brain(void)
+void MotherBrain(void)
 {
 
 }
 
-void mother_brain_eye(void)
+void MotherBrainEye(void)
 {
 
 }
 
-void mother_brain_beam(void)
+void MotherBrainBeam(void)
 {
 
 }
 
-void mother_brain_block(void)
+void MotherBrainBlock(void)
 {
 
 }
 
-void mother_brain_glass_breaking(void)
+void MotherBrainGlassBreaking(void)
 {
 
 }

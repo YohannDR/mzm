@@ -3,12 +3,12 @@
 
 #include "../types.h"
 
-void zebbo_init(void);
-void zebbo_gfx_init(void);
-void zebbo_spawn(void);
-void zebbo_going_up(void);
-void zebbo_respawning(void);
-void zebbo_move(void);
-void zebbo(void);
+void ZebboInit(void);
+void ZebboGFXInit(void);
+void ZebbosSpawn(void);
+void ZebooGoingUp(void);
+void ZebboRespawning(void);
+void ZebboMove(void);
+void Zebbo(void);
 
 #endif /* ZEBBO_AI_H */

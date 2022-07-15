@@ -16048,7 +16048,7 @@ lbl_0800d20a:
     cmp r7, #0x17
     bls lbl_0800d14c
 lbl_0800d214:
-    bl decrement_chozodia_alarm
+    bl DecrementChozodiaAlarm
     ldr r1, lbl_0800d238 @ =0x03000734
     ldrb r0, [r1]
     cmp r0, #0
@@ -20193,7 +20193,7 @@ lbl_0800f25a:
     beq lbl_0800f29c
     ldr r0, [sp, #0x30]
     ldr r1, [sp, #0x34]
-    bl ridley_check_grabbing
+    bl RidleyCheckGrabbing
     cmp r0, #0
     beq lbl_0800f29c
     ldrh r1, [r6]
@@ -23350,8 +23350,8 @@ lbl_08010936:
     .align 2, 0
 lbl_08010940: .4byte 0x030001ac
 
-    thumb_func_start mecha_ridley_missile_move
-mecha_ridley_missile_move: @ 0x08010944
+    thumb_func_start MechaRidleyMissile_move
+MechaRidleyMissile_move: @ 0x08010944
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

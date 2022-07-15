@@ -2,122 +2,122 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void imago_larva_sync_sub_sprites(struct SubSpriteData* pSub)
+void ImagoLarvaSyncSubSprites(struct SubSpriteData* pSub)
 {
 
 }
 
-void imago_larva_belly_flashing(void)
+void ImagoLarvaBellyFlashing(void)
 {
 
 }
 
-void imago_larva_init(struct SubSpriteData* pSub)
+void ImagoLarvaInit(struct SubSpriteData* pSub)
 {
 
 }
 
-void imago_larva_detect_samus(struct SubSpriteData* pSub)
+void ImagoLarvaDetectSamus(struct SubSpriteData* pSub)
 {
 
 }
 
-void imago_larva_hitting_wall_gfx_init(struct SubSpriteData* pSub)
+void ImagoLarvaHittingWallGFXInit(struct SubSpriteData* pSub)
 {
 
 }
 
-void imago_larva_call_belly_flashing(void)
+void ImagoLarvaCallBellyFlashing(void)
 {
 
 }
 
-void imago_larva_getting_hit(struct SubSpriteData* pSub)
+void ImagoLarvaGettingHit(struct SubSpriteData* pSub)
 {
 
 }
 
-void imago_larva_retreating(struct SubSpriteData* pSub)
+void ImagoLarvaRetreating(struct SubSpriteData* pSub)
 {
 
 }
 
-void imago_larva_retreat_gfx_init(struct SubSpriteData* pSub)
+void ImagoLarvaRetreatGFXInit(struct SubSpriteData* pSub)
 {
 
 }
 
-void imago_larva_attacking(struct SubSpriteData* pSub)
+void ImagoLarvaAttacking(struct SubSpriteData* pSub)
 {
 
 }
 
-void imago_larva_taking_damage_gfx_init(struct SubSpriteData* pSub)
+void ImagoLarvaTakingDamageGFXInit(struct SubSpriteData* pSub)
 {
 
 }
 
-void imago_larva_taking_damage_anim_ended(void)
+void ImagoLarvaCheckTakingDamageAnimEnded(void)
 {
 
 }
 
-void imago_larva_before_dying(struct SubSpriteData* pSub)
+void ImagoLarvaBeforeDying(struct SubSpriteData* pSub)
 {
 
 }
 
-void imago_larva_check_dying_anim_ended(void)
+void ImagoLarvaCheckDyingAnimEnded(void)
 {
 
 }
 
-void imago_larva_dead(void)
+void ImagoLarvaDead(void)
 {
 
 }
 
-void imago_larva_outside_init(void)
+void ImagoLarvaOutsideInit(void)
 {
 
 }
 
-void imago_larva_outside_retracting(struct SubSpriteData* pSub)
+void ImagoLarvaOutsideRetracting(struct SubSpriteData* pSub)
 {
 
 }
 
-void imago_larva_outside_attacking(struct SubSpriteData* pSub)
+void ImagoLarvaOutsideAttacking(struct SubSpriteData* pSub)
 {
 
 }
 
-void imago_larva_outside_remove_orbs(void)
+void ImagoLarvaOutsideRemoveOrbs(void)
 {
 
 }
 
-void imago_larva_outside_attacking_anim(void)
+void ImagoLarvaOutsideAttackingAnim(void)
 {
 
 }
 
-void imago_larva_outside_check_attacking_anim_ended(void)
+void ImagoLarvaOutsideCheckAttackingAnimEnded(void)
 {
 
 }
 
-void imago_larva_outside_dead(void)
+void ImagoLarvaOutsideDead(void)
 {
 
 }
 
-void imago_larva(void)
+void ImagoLarva(void)
 {
 
 }
 
-void imago_larva_outside(void)
+void ImagoLarvaOutside(void)
 {
 
 }

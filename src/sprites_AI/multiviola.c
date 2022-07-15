@@ -2,7 +2,7 @@
 #include "../sprite_util.h"
 #include "../globals.h"
 
-void multiviola_init(void)
+void MultiviolaInit(void)
 {
     gCurrentSprite.draw_distance_top_offset = 0x20;
     gCurrentSprite.draw_distance_bottom_offset = 0xC;
@@ -20,7 +20,7 @@ void multiviola_init(void)
     gCurrentSprite.pose = 0x9;
 }
 
-void multiviola_move(void)
+void MultiviolaMove(void)
 {
     u8 is_bouncing;
     u16 y_movement;
@@ -78,21 +78,21 @@ void multiviola_move(void)
         unk_2b20(0x152);
 }
 
-void multiviola_unused_empty1(void)
+void MultivioaUnused_Empty1(void)
 {
     return;
 }
 
-void multiviola_unused_empty2(void)
+void MultivioaUnused_Empty2(void)
 {
     return;
 }
 
-void multiviola(void)
+void Multiviola(void)
 {
-    if ((gCurrentSprite.properties & SP_UNKNOWN) != 0x0)
+    if ((gCurrentSprite.properties & SP_DAMAGED) != 0x0)
     {
-        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        gCurrentSprite.properties &= ~SP_DAMAGED;
         if ((gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
             unk_2b20(0x153);
     }
@@ -112,16 +112,16 @@ void multiviola(void)
                     SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);
                     break;
                 case 0x0:
-                    multiviola_init();
+                    MultiviolaInit();
                     break;
                 case 0x9:
-                    multiviola_move();
+                    MultiviolaMove();
             }
         }
     }
 }
 
-void multiviola_unused(void)
+void MultiviolaUnused(void)
 {
     return;
 }

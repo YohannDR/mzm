@@ -3,11 +3,11 @@
 
 #include "../types.h"
 
-void reo_init(void);
-void reo_rng(void);
-void reo_samus_detection(void);
-void reo_samus_detected(void);
-void reo_move(void);
-void reo(void);
+void ReoInit(void);
+void ReoRNG(void);
+void ReoSamusDetection(void);
+void ReoSamusDetected(void);
+void ReoMove(void);
+void Reo(void);
 
 #endif /* REO_AI_H */

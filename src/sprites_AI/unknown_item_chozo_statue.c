@@ -2,167 +2,167 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void unknown_item_chozo_statue_sync_body_position(void)
+void UnknownItemChozoStatueSyncBodyPosition(void)
 {
 
 }
 
-void unknown_item_chozo_statue_register_item(void)
+void UnknownItemChozoStatueRegisterItem(void)
 {
 
 }
 
-void unknown_item_chozo_statue_hint_flashing_unused(void)
+void UnknownItemChozoStatueHintFlashing_Unused(void)
 {
 
 }
 
-void unknown_item_chozo_statue_end_hint_unused(void)
+void UnknownItemChozoStatueEndHint_Unused(void)
 {
 
 }
 
-void unknown_item_chozo_statue_hint_sit_unused(void)
+void UnknownItemChozoStatueHintSit_Unused(void)
 {
 
 }
 
-void unknown_item_chozo_statue_hint_sit_finish_unused(void)
+void UnknownItemChozoStatueHintSitFinish_Unused(void)
 {
 
 }
 
-void unknown_item_chozo_statue_check_collect_item(void)
+void UnknownItemChozoStatueCheckCollectItem(void)
 {
 
 }
 
-void unknown_item_chozo_statue_check_item_banner_spawned(void)
+void UnknownItemChozoStatueCheckItemBannerSpawned(void)
 {
 
 }
 
-void unknown_item_chozo_statue_spawn_refill(void)
+void UnknownItemChozoStatueSpawnRefill(void)
 {
 
 }
 
-void unknown_item_chozo_statue_refill_flashing_anim(void)
+void UnknownItemChozoStatueRefillFlashingAnim(void)
 {
 
 }
 
-void unknown_item_chozo_statue_refill_end(void)
+void UnknownItemChozoStatueRefillEnd(void)
 {
 
 }
 
-void unknown_item_chozo_statue_replay_room_music(void)
+void UnknownItemChozoStatueReplayRoomMusic(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_init(void)
+void UnknownItemChozoStatueBodyInit(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_hand_refill_anim(void)
+void UnknownItemChozoStatueBodyHandRefillAnim(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_grab_samus(void)
+void UnknownItemChozoStatueBodyGrabSamus(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_sync_samus_position(void)
+void UnknownItemChozoStatueBodySyncSamus(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_sync_samus_position_while_sitting(void)
+void UnknownItemChozoStatueBodySyncSamusPositionWhileSitting(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_sync_samus_position_after_sitting(void)
+void UnknownItemChozoStatueBodySyncSamusPositionAfterSitting(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_detect_samus(void)
+void UnknownItemChozoStatueBodyDetectSamus(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_refill(void)
+void UnknownItemChozoStatueBodyRefill(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_empty(void)
+void UnknownItemChozoStatueBodyEmpty(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_end_refill(void)
+void UnknownItemChozoStatueBodyEndRefill(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_release_samus(void)
+void UnknownItemChozoStatueBodyReleaseSamus(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_innit_hint_gfx_unused(void)
+void UnknownItemChozoStatueBodyInitHintGFX_Unused(void)
 {
 
 }
 
-void unknown_item_chozo_statue_check_eye_opened_hint_unused(void)
+void UnknownItemChozoStatueBodyCheckEyeOpenedHint_Unused(void)
 {
 
 }
 
-void unknown_item_chozo_statue_item_after_banner(void)
+void UnknownItemChozoStatueItemAfterBanner(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_check_eye_closed_refill(void)
+void UnknownItemChozoStatueBodyCheckEyeClosedRefill(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body_set_sitting_pose(void)
+void UnknownItemChozoStatueBodySetSittingPose(void)
 {
 
 }
 
-void unknown_item_chozo_statue(void)
+void UnknownItemChozoStatue(void)
 {
 
 }
 
-void unknown_item_chozo_statue_body(void)
+void UnknownItemChozoStatueBody(void)
 {
 
 }
 
-void unknown_item_chozo_statue_refill(void)
+void UnknownItemChozoStatueRefill(void)
 {
 
 }
 
-void chozo_statue_hint_change_ccaa(u8 caa1, u8 caa2)
+void ChozoStatueHintChangeCCAA(u8 caa1, u8 caa2)
 {
 
 }
 
-void chozo_statue_sitting_change_ccaa(u8 caa1)
+void ChozoStatueSittingChangeCCAA(u8 caa1)
 {
     
 }

@@ -3,7 +3,7 @@
 #include "../sprite_util.h"
 #include "../globals.h"
 
-void skree_init(void)
+void SkreeInit(void)
 {
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
     gCurrentSprite.draw_distance_top_offset = 0x0;
@@ -17,7 +17,7 @@ void skree_init(void)
     gCurrentSprite.y_position -= 0x40;
 }
 
-void skree_gfx_init(void)
+void SkreeGFXInit(void)
 {
     gCurrentSprite.oam_pointer = skree_oam_2cd474;
     gCurrentSprite.anim_duration_counter = 0x0;
@@ -25,13 +25,13 @@ void skree_gfx_init(void)
     gCurrentSprite.pose = 0x9;
 }
 
-void skree_detect_samus(void)
+void SkreeDetectSamus(void)
 {
     if (gSamusData.y_position > gCurrentSprite.y_position && gSamusData.y_position - gCurrentSprite.y_position < 0x284 && (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) != 0x0 && gSamusData.x_position > gCurrentSprite.x_position - 0x96 && gSamusData.x_position < gCurrentSprite.x_position + 0x96)
         gCurrentSprite.pose = 0x22;
 }
 
-void skree_spin_gfx_init(void)
+void SkreeSpinGFXInit(void)
 {
     gCurrentSprite.oam_pointer = skree_oam_spinning_2cd49c;
     gCurrentSprite.anim_duration_counter = 0x0;
@@ -39,19 +39,19 @@ void skree_spin_gfx_init(void)
     gCurrentSprite.pose = 0x23;
 }
 
-void skree_check_spin_ended(void)
+void SkreeCheckSpinAnimEnded(void)
 {
     if (SpriteUtilCheckNearEndCurrentSpriteAnim())
         gCurrentSprite.pose = 0x34;
 }
 
-void skree_start_going_down(void)
+void SkreeStartGoingDown(void)
 {
     gCurrentSprite.oam_pointer = skree_going_down_2cd4cc;
     gCurrentSprite.anim_duration_counter = 0x0;
     gCurrentSprite.curr_anim_frame = 0x0;
     gCurrentSprite.array_offset = 0x0;
-    gCurrentSprite.work_variable = 0x0;
+    gCurrentSprite.workVariable2 = 0x0;
     gCurrentSprite.pose = 0x35;
 
     if (gCurrentSprite.x_position > gSamusData.x_position)
@@ -63,7 +63,7 @@ void skree_start_going_down(void)
         SoundPlay(0x141);
 }
 
-void skree_go_down(void)
+void SkreeGoDown(void)
 {
     u32 block;
     u32 x_movement;
@@ -81,7 +81,7 @@ void skree_go_down(void)
     }
     else
     {
-        x_movement = gCurrentSprite.work_variable >> 0x2;
+        x_movement = gCurrentSprite.workVariable2 >> 0x2;
         array_offset = gCurrentSprite.array_offset;
         y_movement = skree_falling_speed_2cca7c[array_offset];
         if (y_movement == 0x7FFF)
@@ -111,11 +111,11 @@ void skree_go_down(void)
         }
 
         if (x_movement < 0x10)
-            gCurrentSprite.work_variable++;
+            gCurrentSprite.workVariable2++;
     }
 }
 
-void skree_crash_ground(void)
+void SkreeCrashGround(void)
 {
     u16 y_position;
     u16 x_position;
@@ -161,7 +161,7 @@ void skree_crash_ground(void)
     }
 }
 
-void skree_explosion_init(void)
+void SkreeExplosionInit(void)
 {
     u16 status;
 
@@ -191,7 +191,7 @@ void skree_explosion_init(void)
         gCurrentSprite.oam_pointer = skree_explosion_oam_going_up_2cd5e4;
 }
 
-void skree_explosion_move(void)
+void SkreeExplosionMove(void)
 {
     if (gCurrentSprite.curr_anim_frame > 0x1)
         gCurrentSprite.ignore_samus_collision_timer = 0x1;
@@ -216,11 +216,11 @@ void skree_explosion_move(void)
         gCurrentSprite.status = 0x0;
 }
 
-void skree(void)
+void Skree(void)
 {
-    if ((gCurrentSprite.properties & SP_UNKNOWN) != 0x0)
+    if ((gCurrentSprite.properties & SP_DAMAGED) != 0x0)
     {
-        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        gCurrentSprite.properties &= ~SP_DAMAGED;
         if ((gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
             unk_2b20(0x143);
     }
@@ -234,24 +234,24 @@ void skree(void)
             switch (gCurrentSprite.pose)
             {
                 case 0x0:
-                    skree_init();
+                    SkreeInit();
                 case 0x8:
-                    skree_gfx_init();
+                    SkreeGFXInit();
                 case 0x9:
-                    skree_detect_samus();
+                    SkreeDetectSamus();
                     break;
                 case 0x22:
-                    skree_spin_gfx_init();
+                    SkreeSpinGFXInit();
                 case 0x23:
-                    skree_check_spin_ended();
+                    SkreeCheckSpinAnimEnded();
                     break;
                 case 0x34:
-                    skree_start_going_down();
+                    SkreeStartGoingDown();
                 case 0x35:
-                    skree_go_down();
+                    SkreeGoDown();
                     break;
                 case 0x37:
-                    skree_crash_ground();
+                    SkreeCrashGround();
                     break;
                 default:
                     SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position + 0x34, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
@@ -260,14 +260,14 @@ void skree(void)
     }
 }
 
-void skree_explosion(void)
+void SkreeExplosion(void)
 {
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            skree_explosion_init();
+            SkreeExplosionInit();
 
         case 0x9:
-            skree_explosion_move();
+            SkreeExplosionMove();
     }
 }

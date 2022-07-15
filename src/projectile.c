@@ -1040,7 +1040,7 @@ u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage)
     }
 
     pSprite->invicibility_stun_flash_timer = pSprite->invicibility_stun_flash_timer & 0x80 | 0x11;
-    pSprite->properties |= SP_UNKNOWN;
+    pSprite->properties |= SP_DAMAGED;
     return freeze_timer;
 }
 
@@ -1077,7 +1077,7 @@ u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
 
     pSprite->invicibility_stun_flash_timer &= 0x80; 
     pSprite->invicibility_stun_flash_timer |= 0x11;
-    pSprite->properties |= SP_UNKNOWN;
+    pSprite->properties |= SP_DAMAGED;
     return is_dead;
 }
 
@@ -1161,7 +1161,7 @@ void ProjectilePowerBombDealDamage(struct SpriteData* pSprite)
                 pSprite->invicibility_stun_flash_timer = isft | 0x80;
             else
                 pSprite->invicibility_stun_flash_timer |= 0x80;
-            pSprite->properties |= SP_UNKNOWN;
+            pSprite->properties |= SP_DAMAGED;
         }
     }
 }
@@ -2245,7 +2245,7 @@ void ProjectileProcessBomb(struct ProjectileData* pProj)
       0x1,0x5 = Check first timer ended (bomb spinning at normal speed)
       0x2,0x6 = Check second timer ended (bomb spinning fast)
       0x3 = Bomb exploding
-      0x4 = Bomb placed on launcher (set in morph_ball_launcher::morph_ball_launcher_detect_bomb)
+      0x4 = Bomb placed on launcher (set in morph_ball_launcher::MorphBallLauncherDetectBomb)
       0x7 = Bomb exploding on launcher
     */
     switch (pProj->movement_stage)

@@ -3,6 +3,6 @@
 
 #include "../types.h"
 
-void zebetite(void);
+void Zebetite(void);
 
 #endif /* ZEBETITE_AI_H */

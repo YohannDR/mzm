@@ -3,7 +3,7 @@
 #include "../particle.h"
 #include "../globals.h"
 
-void security_gate_change_ccaa(u8 caa)
+void SecurityGateChangeCCAA(u8 caa)
 {
 
 }
@@ -12,14 +12,14 @@ void security_gate_change_ccaa(u8 caa)
  * 2eb48 | 40 | Opens the gate
  * 
  */
-void security_gate_open(void)
+void SecurityGateOpen(void)
 {
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
     gCurrentSprite.oam_pointer = security_gate_oam_2e6bb8;
     gCurrentSprite.anim_duration_counter = 0x0;
     gCurrentSprite.curr_anim_frame = 0x0;
     gCurrentSprite.pose = 0x27;
-    security_gate_change_ccaa(CCAA_REMOVE_SOLID); // Remove collision
+    SecurityGateChangeCCAA(CCAA_REMOVE_SOLID); // Remove collision
     unk_2b20(0x225);
 }
 
@@ -27,7 +27,7 @@ void security_gate_open(void)
  * 2eb88 | 38 | Starts the closing of the gate
  * 
  */
-void security_gate_start_closing(void)
+void SecurityGateStartClosing(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
     gCurrentSprite.oam_pointer = security_gate_oam_2e6b08;
@@ -41,14 +41,14 @@ void security_gate_start_closing(void)
  * 2ebc0 | a8 | Initializes a security gate default open sprite
  * 
  */
-void security_gate_default_open_init(void)
+void SecurityGateDefaultOpenInit(void)
 {
     if (gAlarmTimer != 0x0) // Check if should be closed or open
     {
         gCurrentSprite.oam_pointer = security_gate_oam_2e6b98;
         gCurrentSprite.pose = 0x25;
         gCurrentSprite.timer1 = 0x1;
-        security_gate_change_ccaa(CCAA_MAKE_SOLID3); // Set collision
+        SecurityGateChangeCCAA(CCAA_MAKE_SOLID3); // Set collision
     }
     else
     {
@@ -76,17 +76,17 @@ void security_gate_default_open_init(void)
  * 2ec68 | 18 | Checks if the alarm timer is different than 0, if yes closes the gate
  * 
  */
-void security_gate_default_open_check_alarm(void)
+void SecurityGateDefaultOpenCheckAlarm(void)
 {
     if (gAlarmTimer != 0x0)
-        security_gate_start_closing();
+        SecurityGateStartClosing();
 }
 
 /**
  * 2ec80 | 38 | Checks if the closing animation has ended
  * 
  */
-void security_gate_check_closing_anim_ended(void)
+void SecurityGateCheckClosingAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -103,11 +103,11 @@ void security_gate_check_closing_anim_ended(void)
  * 2ecb8 | 60 | Called after the alarm is done, opens the gate if necessary
  * 
  */
-void security_gate_default_open_open_after_alarm(void)
+void SecurityGateDefaultOpenOpenAfterAlarm(void)
 {
     if (gCurrentSprite.timer1 == 0x0 && !SpriteCheckCollidingWithSamusDrawing()) // ?
     {
-        security_gate_change_ccaa(CCAA_MAKE_SOLID3);
+        SecurityGateChangeCCAA(CCAA_MAKE_SOLID3);
         gCurrentSprite.timer1++;
     }
 
@@ -115,7 +115,7 @@ void security_gate_default_open_open_after_alarm(void)
     {
         gCurrentSprite.array_offset++;
         if (gCurrentSprite.array_offset > 0x28)
-            security_gate_open();
+            SecurityGateOpen();
     }
     else
         gCurrentSprite.array_offset = 0x0;
@@ -125,7 +125,7 @@ void security_gate_default_open_open_after_alarm(void)
  * 2ed18 | 28 | Checks if the opening animation has ended
  * 
  */
-void security_gate_check_opening_anim_ended(void)
+void SecurityGateCheckOpeningAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -140,12 +140,12 @@ void security_gate_check_opening_anim_ended(void)
  * 2ed40 | 40 | Handles the death of the security gate, unused
  * 
  */
-void security_gate_death(void)
+void SecurityGateDeath(void)
 {
     u16 y_position;
     u16 x_position;
 
-    security_gate_change_ccaa(CCAA_REMOVE_SOLID);
+    SecurityGateChangeCCAA(CCAA_REMOVE_SOLID);
     y_position = gCurrentSprite.y_position - 0x40;
     x_position = gCurrentSprite.x_position;
     ParticleSet(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
@@ -156,7 +156,7 @@ void security_gate_death(void)
  * 2ed80 | a4 | Initializes a security gate default closed sprite
  * 
  */
-void security_gate_default_closed_init(void)
+void SecurityGateDefaultClosedInit(void)
 {
     if (gAlarmTimer != 0x0)
     {
@@ -169,7 +169,7 @@ void security_gate_default_closed_init(void)
         gCurrentSprite.oam_pointer = security_gate_oam_2e6b98;
         gCurrentSprite.pose = 0x25;
         gCurrentSprite.timer1 = 0x1;
-        security_gate_change_ccaa(CCAA_MAKE_SOLID3);
+        SecurityGateChangeCCAA(CCAA_MAKE_SOLID3);
     }
 
     gCurrentSprite.hitbox_top_offset = -0x100;
@@ -191,54 +191,54 @@ void security_gate_default_closed_init(void)
  * 2ee24 | 18 | Checks if the alarm timer is 0, if yes closes the gate
  * 
  */
-void security_gate_default_closed_check_alarm(void)
+void SecurityGateDefaultClosedCheckAlarm(void)
 {
     if (gAlarmTimer == 0x0)
-        security_gate_start_closing();
+        SecurityGateStartClosing();
 }
 
 /**
- * 2ee3c | 3c | Checks if the alarm timer isn't 0, if yes calls security_gate_open
+ * 2ee3c | 3c | Checks if the alarm timer isn't 0, if yes calls SecurityGateOpen
  * 
  */
-void security_gate_default_closed_close_after_alarm(void)
+void SecurityGateDefaultClosedCloseAfterAlarm(void)
 {
     if (gCurrentSprite.timer1 == 0x0 && !SpriteCheckCollidingWithSamusDrawing())
     {
-        security_gate_change_ccaa(CCAA_MAKE_SOLID3);
+        SecurityGateChangeCCAA(CCAA_MAKE_SOLID3);
         gCurrentSprite.timer1++;
     }
 
     if (gAlarmTimer != 0x0)
-        security_gate_open();
+        SecurityGateOpen();
 }
 
 /**
  * 2ee78 | f0 | Security Gate Default Open AI
  * 
  */
-void security_gate_default_open(void)
+void SecurityGateDefaultOpen(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            security_gate_default_open_init();
+            SecurityGateDefaultOpenInit();
             break;
         case 0x9:
-            security_gate_default_open_check_alarm();
+            SecurityGateDefaultOpenCheckAlarm();
             break;
         case 0x23:
-            security_gate_check_closing_anim_ended();
+            SecurityGateCheckClosingAnimEnded();
             break;
         case 0x25:
-            security_gate_default_open_open_after_alarm();
+            SecurityGateDefaultOpenOpenAfterAlarm();
             break;
         case 0x27:
-            security_gate_check_opening_anim_ended();
+            SecurityGateCheckOpeningAnimEnded();
             break;
         default:
-            security_gate_death();
+            SecurityGateDeath();
     }
 }
 
@@ -246,27 +246,27 @@ void security_gate_default_open(void)
  * 2ef68 | f0 | Security Gate Default Closed AI
  * 
  */
-void security_gate_default_closed(void)
+void SecurityGateDefaultClosed(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            security_gate_default_closed_init();
+            SecurityGateDefaultClosedInit();
             break;
         case 0x9:
-            security_gate_default_closed_check_alarm();
+            SecurityGateDefaultClosedCheckAlarm();
             break;
         case 0x23:
-            security_gate_check_closing_anim_ended();
+            SecurityGateCheckClosingAnimEnded();
             break;
         case 0x25:
-            security_gate_default_closed_close_after_alarm();
+            SecurityGateDefaultClosedCloseAfterAlarm();
             break;
         case 0x27:
-            security_gate_check_opening_anim_ended();
+            SecurityGateCheckOpeningAnimEnded();
             break;
         default:
-            security_gate_death();
+            SecurityGateDeath();
     }
 }

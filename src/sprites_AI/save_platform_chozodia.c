@@ -5,157 +5,157 @@
 #include "../globals.h"
 
 
-void save_platform_chozodia_init(void)
+void SavePlatformChozodiaInit(void)
 {
 
 }
 
-void save_platform_chozodia_samus_detection(void)
+void SavePlatformChozodiaSamusDetection(void)
 {
 
 }
 
-void save_platform_chozodia_check_opening_anim_ended(void)
+void SavePlatformChozodiaCheckOpeningAnimEnded(void)
 {
 
 }
 
-void save_platform_chozodia_second_samus_detection(void)
+void SavePlatformChozodiaSecondSamusDetection(void)
 {
 
 }
 
-void save_platform_chozodia_check_closing_anim_ended(void)
+void SavePlatformChozodiaCheckClosingAnimEnded(void)
 {
 
 }
 
-void save_platform_chozodia_release_samus(void)
+void SavePlatformChozodiaReleaseSamus(void)
 {
 
 }
 
-void save_platform_chozodia_samus_detection_out(void)
+void SavePlatformChozodiaSamusDetectionOut(void)
 {
 
 }
 
-void save_platform_chozodia_check_refill(void)
+void SavePlatformChozodiaCheckRefill(void)
 {
 
 }
 
-void save_platform_chozodia_refill(void)
+void SavePlatformChozodiaRefill(void)
 {
 
 }
 
-void save_platform_chozodia_after_refill(void)
+void SavePlatformChozodiaAfterRefill(void)
 {
 
 }
 
-void save_platform_chozodia_save_input(void)
+void SavePlatformChozodiaSaveInput(void)
 {
 
 }
 
-void save_platform_chozodia_flashing_anim(void)
+void SavePlatformChozodiaFlashingAnim(void)
 {
 
 }
 
-void save_platform_chozodia_flashing_anim_end(void)
+void SavePlatformChozodiaFlashingAnimEnd(void)
 {
 
 }
 
-void save_platform_chozodia_text_timer(void)
+void SavePlatformChozodiaTextTimer(void)
 {
 
 }
 
-void save_platform_chozodia_check_message_banner_out(void)
+void SavePlatformChozodiaCheckMessageBannerOut(void)
 {
 
 }
 
-void save_platform_chozodia_message_banner_disappearing_timer(void)
+void SavePlatformChozodiaMessageBannerDisappearingTimer(void)
 {
 
 }
 
-void save_platform_top_chozodia_init(void)
+void SavePlatformTopChozodiaInit(void)
 {
 
 }
 
-void save_platform_top_chozodia_check_refill_anim_ended(void)
+void SavePlatformTopChozodiaCheckRefillAnimEnded(void)
 {
 
 }
 
-void save_platform_top_chozodia_empty(void)
+void SavePlatformTopChozodia_Empty(void)
 {
 
 }
 
-void save_platform_top_chozodia_extend_gfx_init(void)
+void SavePlatformTopChozodiaExtendGFXInit(void)
 {
 
 }
 
-void save_platform_top_chozodia_check_extending_anim_ended(void)
+void SavePlatformTopChozodiaCheckExtendingAnimEnded(void)
 {
 
 }
 
-void save_platform_top_chozodia_retracting_gfx_init(void)
+void SavePlatformTopChozodiaRetractingGFXInit(void)
 {
 
 }
 
-void save_platform_top_chozodia_check_retracting_anim_ended(void)
+void SavePlatformTopChozodiaCheckRetractingAnimEnded(void)
 {
 
 }
 
-void save_platform_top_chozodia_check_tube_anim_spawn_ended(void)
+void SavePlatformTopChozodiaCheckTubeAnimSpawnEnded(void)
 {
 
 }
 
-void save_platform_top_chozodia_check_spawn_big_light(void)
+void SavePlatformTopChozodiaCheckSpawnBigLight(void)
 {
 
 }
 
-void save_platform_top_chozodia_check_tube_anim_ended(void)
+void SavePlatformTopChozodiaCheckTubeAnimEnded(void)
 {
 
 }
 
-void save_platform_top_chozodia_check_tube_despawning_anim_ended(void)
+void SavePlatformTopChozodiaCheckTubeDespawningAnimEnded(void)
 {
 
 }
 
-void save_platform_top_chozodia_check_tube_around_anim_ended(void)
+void SavePlatformTopChozodiaCheckTubeAroundAnimEnded(void)
 {
 
 }
 
-void save_station_top_chozodia_check_tube_around_anim_ended(void)
+void SavePlatformTopChozodiaTubeDownUpAnim(void)
 {
 
 }
 
-void save_platform_chozodia(void)
+void SavePlatformChozodia(void)
 {
 
 }
 
-void save_platform_top_chozodia(void)
+void SavePlatformTopChozodia(void)
 {
 
 }

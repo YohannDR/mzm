@@ -2,42 +2,42 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void disable_chozodia_alarm(void)
+void DisableChozodiaAlarm(void)
 {
 
 }
 
-void decrement_chozodia_alarm(void)
+void DecrementChozodiaAlarm(void)
 {
 
 }
 
-void spawn_waiting_pirates(void)
+void SpawnWaitingPirates(void)
 {
 
 }
 
-void space_pirate_turning_around(void)
+void SpacePirateTurningAround(void)
 {
 
 }
 
-void space_pirate_samus_detection(void)
+void SpacePirateSamusDetection(void)
 {
 
 }
 
-void space_pirate_check_colliding_with_laser(void)
+void SpacePirateCheckCollidingWithLaser(void)
 {
 
 }
 
-void space_pirate_fire_laser_ground(void)
+void SpacePirateFireLaserGround(void)
 {
 
 }
 
-void space_pirate_fire_laser_wall(void)
+void SpacePirateFireLaserWall(void)
 {
 
 }
@@ -52,7 +52,7 @@ void unk_29940(void)
 
 }
 
-u8 space_pirate_check_samus_in_shooting_range(void)
+u8 SpacePirateCheckSamusInShootingRange(void)
 {
     return 0;
 }
@@ -67,17 +67,17 @@ void unk_29c94(void)
 
 }
 
-u8 space_pirate_maybe_climbing_new_pose(void)
+u8 SpacePirateMaybeSetNewClimbingPose(void)
 {
     return 0;
 }
 
-void space_pirate_maybe_walkjing(void)
+void SpacePirateMaybeWalking(void)
 {
 
 }
 
-void space_pirate_init(void)
+void SpacePirateInit(void)
 {
 
 }
@@ -107,17 +107,17 @@ void unk_2a7c0(void)
 
 }
 
-void space_pirate_running_turning_around(void)
+void SpacePirateRunningTurningAround(void)
 {
 
 }
 
-void space_pirate_alert_animation(void)
+void SpacePirateAlertAnimation(void)
 {
 
 }
 
-void space_pirate_idle_anim(void)
+void SpacePirateIdleAnim(void)
 {
 
 }
@@ -152,7 +152,7 @@ void unk_2ab34(void)
 
 }
 
-void space_pirate_check_turning_anim_ended(void)
+void SpacePirateCheckTurningAnimEnded(void)
 {
 
 }
@@ -242,7 +242,7 @@ void unk_2b6c8(void)
 
 }
 
-void space_pirate_climbing(void)
+void SpacePirateClimbing(void)
 {
 
 }
@@ -372,7 +372,7 @@ void unk_2c2f0(void)
 
 }
 
-void space_pirate_death(u8 playSound)
+void SpacePirateDeath(u8 playSound)
 {
 
 }
@@ -387,32 +387,32 @@ void unk_2c3e8(void)
 
 }
 
-void space_pirate_laser_init(void)
+void SpacePirateLaserInit(void)
 {
 
 }
 
-void space_pirate_laser_exploding(void)
+void SpacePirateLaserExploding(void)
 {
 
 }
 
-void space_pirate_laser_check_exploding_anim_ended(void)
+void SpacePirateLaserCheckExplodingAnimEnded(void)
 {
 
 }
 
-void space_pirate_laser_move(void)
+void SpacePirateLaserMove(void)
 {
 
 }
 
-void space_pirate(void)
+void SpacePirate(void)
 {
 
 }
 
-void space_pirate_laser(void)
+void SpacePirateLaser(void)
 {
 
 }

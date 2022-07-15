@@ -2,82 +2,82 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void elevator_statue_change_two_ground_ccaa(u8 caa)
+void ElevatorStatueChangeTwoGroundCCAA(u8 caa)
 {
 
 }
 
-void kraid_elevator_statue_change_ccaa(u8 caa)
+void KraidElevatorStatueChangeCAA(u8 caa)
 {
 
 }
 
-void kraid_elevator_statue_after_fall(void)
+void KraidElevatorStatueAfterFall(void)
 {
 
 }
 
-void kraid_elevator_statue_init(void)
+void KraidElevatorStatueInit(void)
 {
 
 }
 
-void kraid_elevator_statue_check_should_fall(void)
+void KraidElevatorStatueCheckShouldFall(void)
 {
 
 }
 
-void kraid_elevator_statue_timer_before_falling(void)
+void KraidElevatorStatueDelayBeforeFalling(void)
 {
 
 }
 
-void kraid_elevator_statue_falling(void)
+void KraidElevatorStatueFalling(void)
 {
 
 }
 
-void ridley_elevator_statue_change_ccaa(u8 caa)
+void RidleyElevatorStatueChangeCCAA(u8 caa)
 {
 
 }
 
-void ridley_elevator_statue_after_fall(void)
+void RidleyElevatorStatueAfterFall(void)
 {
 
 }
 
-void ridley_elevator_statue_init(void)
+void RidleyElevatorStatueInit(void)
 {
 
 }
 
-void ridley_elevator_statue_check_should_fall(void)
+void RidleyElevatorStatueCheckShouldFall(void)
 {
 
 }
 
-void ridley_elevator_statue_timer_before_falling(void)
+void RidleyElevatorStatueDelayBeforeFalling(void)
 {
 
 }
 
-void ridley_elevator_statue_falling(void)
+void RidleyElevatorStatueFalling(void)
 {
 
 }
 
-void kraid_elevator_statue(void)
+void KraidElevatorStatue(void)
 {
 
 }
 
-void ridley_elevator_statue(void)
+void RidleyElevatorStatue(void)
 {
 
 }
 
-void elevator_statue_debris(void)
+void ElevatorStatueDebris(void)
 {
 
 }

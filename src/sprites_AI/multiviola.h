@@ -3,11 +3,11 @@
 
 #include "../types.h"
 
-void multiviola_init(void);
-void multiviola_move(void);
-void multiviola_unused_empty1(void);
-void multiviola_unused_empty2(void);
-void multiviola(void);
-void multiviola_unused(void);
+void MultiviolaInit(void);
+void MultiviolaMove(void);
+void MultivioaUnused_Empty1(void);
+void MultivioaUnused_Empty2(void);
+void Multiviola(void);
+void MultiviolaUnused(void);
 
 #endif /* MULTIVIOLA_AI_H */

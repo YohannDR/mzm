@@ -17,7 +17,7 @@
  * @param x_position X Position 
  * @param rng Set of debris to use
  */
-void rising_chozo_pillar_random_sprite_debris(u16 y_position, u16 x_position, u8 rng)
+void RiingChozoPillarRandomSpriteDebris(u16 y_position, u16 x_position, u8 rng)
 {
     switch (rng)
     {
@@ -47,7 +47,7 @@ void rising_chozo_pillar_random_sprite_debris(u16 y_position, u16 x_position, u8
  * @param x_position X Position 
  * @param rng Set of particles to use
  */
-void rising_chozo_pillar_random_particles(u16 y_position, u16 x_position, u8 rng)
+void RiingChozoPillarRandomParticles(u16 y_position, u16 x_position, u8 rng)
 {
     switch (rng)
     {
@@ -78,7 +78,7 @@ void rising_chozo_pillar_random_particles(u16 y_position, u16 x_position, u8 rng
     }
 }
 
-void rising_chozo_pillar_spawn_three_platforms(u16 y_position, u16 x_position, u8 caa)
+void RiingChozoPillarSpawnThreePlatforms(u16 y_position, u16 x_position, u8 caa)
 {
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(y_position - 0xC0, x_position + 0xC0);
@@ -105,7 +105,7 @@ void rising_chozo_pillar_spawn_three_platforms(u16 y_position, u16 x_position, u
  * @param x_position X Position
  * @param caa Clipdata Affecting Action
  */
-void rising_chozo_pillar_spawn_two_platforms(u16 y_position, u16 x_position, u8 caa)
+void RiingChozoPillarSpawnTwoPlatforms(u16 y_position, u16 x_position, u8 caa)
 {
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(y_position - 0x1C0, x_position);
@@ -127,7 +127,7 @@ void rising_chozo_pillar_spawn_two_platforms(u16 y_position, u16 x_position, u8 
  * @param x_position X Position
  * @param caa Clipdata Affecting Action
  */
-void rising_chozo_pillar_spawn_one_platform(u16 y_position, u16 x_position, u8 caa)
+void RisingChozoPillarSpawnOnePlatform(u16 y_position, u16 x_position, u8 caa)
 {
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(y_position - 0x3C0, x_position + 0x180);
@@ -140,7 +140,7 @@ void rising_chozo_pillar_spawn_one_platform(u16 y_position, u16 x_position, u8 c
  * 488a4 | 248 | Rising Chozo Pillar AI
  * 
  */
-void rising_chozo_pillar(void)
+void RisingChozoPillar(void)
 {
     u8 caa;
     u16 y_position;
@@ -157,9 +157,9 @@ void rising_chozo_pillar(void)
         case 0x0:
             if (EventFunction(EVENT_ACTION_CHECKING, EVENT_CHOZO_PILLAR_FULLY_EXTENDED))
             {
-                rising_chozo_pillar_spawn_three_platforms(y_position, x_position, caa);
-                rising_chozo_pillar_spawn_two_platforms(y_position, x_position, caa);
-                rising_chozo_pillar_spawn_one_platforms(y_position, x_position, caa);
+                RiingChozoPillarSpawnThreePlatforms(y_position, x_position, caa);
+                RiingChozoPillarSpawnTwoPlatforms(y_position, x_position, caa);
+                RiingChozoPillarSpawnOnePlatform(y_position, x_position, caa);
                 gCurrentSprite.status = 0x0;
             }
             else
@@ -200,20 +200,20 @@ void rising_chozo_pillar(void)
             }
             y_pos = y_position + 0x20;
             x_pos = x_position + 0xE0;
-            rising_chozo_pillar_random_sprite_debris(y_pos, x_pos, gCurrentSprite.oam_scaling & 0xF);
-            rising_chozo_pillar_random_particles(y_pos, x_pos, gCurrentSprite.oam_scaling & 0x7F);
+            RiingChozoPillarRandomSpriteDebris(y_pos, x_pos, gCurrentSprite.oam_scaling & 0xF);
+            RiingChozoPillarRandomParticles(y_pos, x_pos, gCurrentSprite.oam_scaling & 0x7F);
             break;
         case 0x22:
             gCurrentSprite.pose = 0x23;
-            rising_chozo_pillar_spawn_three_platforms(y_position, x_position, caa);
+            RiingChozoPillarSpawnThreePlatforms(y_position, x_position, caa);
             break;
         case 0x23:
             gCurrentSprite.pose = 0x24;
-            rising_chozo_pillar_spawn_two_platforms(y_position, x_position, caa);
+            RiingChozoPillarSpawnTwoPlatforms(y_position, x_position, caa);
             break;
         case 0x24:
             gCurrentSprite.pose = 0x25;
-            rising_chozo_pillar_spawn_one_platform(y_position, x_position, caa);
+            RisingChozoPillarSpawnOnePlatform(y_position, x_position, caa);
             break;
         case 0x25:
             gCurrentSprite.pose = 0x26;
@@ -228,7 +228,7 @@ void rising_chozo_pillar(void)
  * 48aec | 124 | Chozo Pillar Platform AI 
  * 
  */
-void chozo_pillar_platform(void)
+void ChozoPillarPlatform(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
 
@@ -293,7 +293,7 @@ void chozo_pillar_platform(void)
  * 48c10 | 6c | Chozo Pillar Platform Shadow AI
  * 
  */
-void chozo_pillar_platform_shadow(void)
+void ChozoPillarPlatformShadow(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
 
@@ -310,7 +310,7 @@ void chozo_pillar_platform_shadow(void)
         gCurrentSprite.hitbox_left_offset = 0x0;
         gCurrentSprite.hitbox_right_offset = 0x0;
         gCurrentSprite.pose = 0x8;
-        gCurrentSprite.oam_pointer = chozo_pillar_platform_shadow_oam;
+        gCurrentSprite.oam_pointer = ChozoPillarPlatformShadow_oam;
         gCurrentSprite.anim_duration_counter = 0x0;
         gCurrentSprite.curr_anim_frame = 0x0;
         gCurrentSprite.draw_order = 0xC;

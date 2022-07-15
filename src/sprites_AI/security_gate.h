@@ -4,19 +4,19 @@
 #include "../types.h"
 #include "../clipdata.h"
 
-void security_gate_change_ccaa(u8 caa);
-void security_gate_open(void);
-void security_gate_start_closing(void);
-void security_gate_default_open_init(void);
-void security_gate_default_open_check_alarm(void);
-void security_gate_check_closing_anim_ended(void);
-void security_gate_default_open_open_after_alarm(void);
-void security_gate_check_opening_anim_ended(void);
-void security_gate_death(void);
-void security_gate_default_closed_init(void);
-void security_gate_default_closed_check_alarm(void);
-void security_gate_default_closed_close_after_alarm(void);
-void security_gate_default_open(void);
-void security_gate_default_closed(void);
+void SecurityGateChangeCCAA(u8 caa);
+void SecurityGateOpen(void);
+void SecurityGateStartClosing(void);
+void SecurityGateDefaultOpenInit(void);
+void SecurityGateDefaultOpenCheckAlarm(void);
+void SecurityGateCheckClosingAnimEnded(void);
+void SecurityGateDefaultOpenOpenAfterAlarm(void);
+void SecurityGateCheckOpeningAnimEnded(void);
+void SecurityGateDeath(void);
+void SecurityGateDefaultClosedInit(void);
+void SecurityGateDefaultClosedCheckAlarm(void);
+void SecurityGateDefaultClosedCloseAfterAlarm(void);
+void SecurityGateDefaultOpen(void);
+void SecurityGateDefaultClosed(void);
 
 #endif /* SECURITY_GATE_AI_H */

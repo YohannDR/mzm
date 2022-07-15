@@ -6,22 +6,22 @@
 #include "../sprite.h"
 #include "../globals.h"
 
-void deorem_change_left_ccaa(u8 caa)
+void DeoremChangeLeftCCAA(u8 caa)
 {
 
 }
 
-void deorem_change_right_ccaa(u8 caa)
+void DeoremChangeRightCCAA(u8 caa)
 {
 
 }
 
-void deorem_20d90(u8 unk, u16 unk2)
+void DeoremMoveDiagonaly(u8 velocity, u16 dstPosition)
 {
 
 }
 
-void deorem_random_sprite_debris(u8 rng)
+void DeoremRandomSpriteDebris(u8 rng)
 {
 
 }
@@ -34,7 +34,7 @@ void deorem_random_sprite_debris(u8 rng)
  * @param x_position X Position
  * @param timer Timer (determines which set to spawn)
  */
-void deorem_sprite_debris_spawn(u16 y_position, u16 x_position, u8 timer)
+void DeoremSpriteDebrisSpawn(u16 y_position, u16 x_position, u8 timer)
 {
     switch (timer)
     {
@@ -56,7 +56,7 @@ void deorem_sprite_debris_spawn(u16 y_position, u16 x_position, u8 timer)
     }
 }
 
-u8 deorem_check_leaving(u8 ram_slot)
+u8 DeoremCheckLeaving(u8 ram_slot)
 {
 
 }
@@ -68,7 +68,7 @@ u8 deorem_check_leaving(u8 ram_slot)
  * @param y_position Y Position
  * @param x_position X Position
  */
-void deorem_spawn_charge_beam(u16 y_position, u16 x_position)
+void DeoremSpawnChargeBeam(u16 y_position, u16 x_position)
 {
     u8 gfx_slot;
 
@@ -82,7 +82,7 @@ void deorem_spawn_charge_beam(u16 y_position, u16 x_position)
  * 210d4 | 3c | Sets the timer for how long the eye stays open depending on the gDifficulty
  * 
  */
-void deorem_set_eye_opening_timer(void)
+void DeoremSetEyeOpeningTimer(void)
 {
     if (gDifficulty == 0x0)
         gCurrentSprite.timer1 = 0x78; // Easy
@@ -93,35 +93,35 @@ void deorem_set_eye_opening_timer(void)
 }
 
 /**
- * 21110 | 2c | Calls the charge beam spawn handler, used when deorem is already dead but the charge beam hasn't been picked up
+ * 21110 | 2c | Calls the charge beam spawn handler, used when Deorem is already dead but the charge beam hasn't been picked up
  * 
  */
-void deorem_call_spawn_charge_beam(void)
+void DeoremCallSpawnChargeBeam(void)
 {
-    deorem_spawn_charge_beam(gCurrentSprite.y_position + 0xB0, gCurrentSprite.x_position + 0x1A0);
+    DeoremSpawnChargeBeam(gCurrentSprite.y_position + 0xB0, gCurrentSprite.x_position + 0x1A0);
     gCurrentSprite.status = 0x0;
 }
 
-void deorem_init(void)
+void DeoremInit(void)
 {
 
 }
 
-void deorem_spawn_going_down(void)
+void DeoremSpawnGoingDown(void)
 {
 
 }
 
-void deorem_spawn_going_down_anim(void)
+void DeoremSpawnGoingDownAnim(void)
 {
 
 }
 
 /**
- * 21510 | d0 | Called when imago goes up when spawning, spawns 6 deorem segments
+ * 21510 | d0 | Called when imago goes up when spawning, spawns 6 Deorem segments
  * 
  */
-void deorem_spawn_going_up(void)
+void DeoremSpawnGoingUp(void)
 {
     u16 y_position;
     u8 gfx_slot;
@@ -149,7 +149,7 @@ void deorem_spawn_going_up(void)
     }
 }
 
-void deorem_spawn_going_up_anim(void)
+void DeoremSpawnGoingUpAnim(void)
 {
 
 }
@@ -158,7 +158,7 @@ void deorem_spawn_going_up_anim(void)
  * 216c0 | 117 | Spawns the hidden part of the body (above the head) and the eye
  * 
  */
-void deorem_spawn_head_body(void)
+void DeoremSpawnHeadBody(void)
 {
     u8 gfx_slot;
     u8 ram_slot;
@@ -170,7 +170,7 @@ void deorem_spawn_head_body(void)
     u8 eye_slot;
 
     if ((gCurrentSprite.timer1 & 0x1F) == 0x0)
-        deorem_random_sprite_debris(gCurrentSprite.timer1);
+        DeoremRandomSpriteDebris(gCurrentSprite.timer1);
 
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
@@ -196,37 +196,37 @@ void deorem_spawn_head_body(void)
     }
 }
 
-void deorem_after_spawn(void)
+void DeoremAfterSpawn(void)
 {
 
 }
 
-void deorem_main_loop(void)
+void DeoremMainLoop(void)
 {
 
 }
 
-void deorem_retracting(void)
+void DeoremRetracting(void)
 {
 
 }
 
-void deorem_throwing_thorns(void)
+void DeoremThrowingThorns(void)
 {
 
 }
 
-void deorem_after_thorns(void)
+void DeoremAfterThorns(void)
 {
 
 }
 
-void deorem_dying(void)
+void DeoremDying(void)
 {
 
 }
 
-void deorem_dying_going_down(void)
+void DeoremDyingGoingDown(void)
 {
 
 }
@@ -235,7 +235,7 @@ void deorem_dying_going_down(void)
  * 21e74 | 38 | Calls Sprite Death
  * 
  */
-void deorem_death(void)
+void DeoremDeath(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     gCurrentSprite.timer1--;
@@ -243,162 +243,162 @@ void deorem_death(void)
         SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position + 0x40, FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
 }
 
-void deorem_check_leaving_ceiling_anim_ended(void)
+void DeoremCheckLeavingCeilingAnimEnded(void)
 {
 
 }
 
-void deorem_leaving(void)
+void DeoremLeaving(void)
 {
 
 }
 
-void deorem_leaving_anim(void)
+void DeoremLeavingAnim(void)
 {
 
 }
 
-void deorem_leaving_in_ground_debris(void)
+void DeoremLeavingInGroundDebris(void)
 {
 
 }
 
-void deorem_segment_init(void)
+void DeoremSegmentInit(void)
 {
 
 }
 
-void deorem_segment_spawn_going_down(void)
+void DeoremSegmentSpawnGoingDown(void)
 {
 
 }
 
-void deorem_segment_spawn_going_down_after(void)
+void DeoremSegmentSpawnGoingDownAfter(void)
 {
 
 }
 
-void deorem_segment_spawn_going_up(void)
+void DeoremSegmentSpawnGoingUp(void)
 {
 
 }
 
-void deorem_segment_spawn_going_up_after(void)
+void DeoremSegmentSpawnGoingUpAfter(void)
 {
 
 }
 
-void deorem_segment_right_idle_anim(void)
+void DeoremSegmentRightIdleAnim(void)
 {
 
 }
 
-void deorem_segment_left_idle_anim(void)
+void DeoremSegmentLeftIdleAnim(void)
 {
 
 }
 
-void deorem_segment_going_down(void)
+void DeoremSegmentGoingDown(void)
 {
 
 }
 
-void deorem_segment_going_up(void)
+void DeoremSegmentGoingUp(void)
 {
 
 }
 
-void deorem_segment_above_head_movement(void)
+void DeoremSegmentAboveHeadMovement(void)
 {
 
 }
 
-void deorem_segment_left_leaving(void)
+void DeoremSegmentLeftLeaving(void)
 {
 
 }
 
-void deorem_segment_left_leaving_end(void)
+void DeoremSegmentLeftLeavingEnd(void)
 {
 
 }
 
-void deorem_segment_middle_leaving_end(void)
+void DeoremSegmentMiddleLeavingEnd(void)
 {
 
 }
 
-void deorem_segment_middle_leaving(void)
+void DeoremSegmentMiddleLeaving(void)
 {
 
 }
 
-void deorem_segment_right_leaving(void)
+void DeoremSegmentRighLeaving(void)
 {
 
 }
 
-void deorem_segment_right_leaving_end(void)
+void DeoremSegmentRighLeavingEnd(void)
 {
 
 }
 
-void deorem_segment_set_timer_dying(void)
+void DeoremSegmentSetTimerDying(void)
 {
 
 }
 
-void deorem_segment_dying(void)
+void DeoremSegmentDying(void)
 {
 
 }
 
-void deorem_eye_init(void)
+void DeoremEyeInit(void)
 {
 
 }
 
-void deorem_eye_set_pose9(void)
+void DeoremEyeSetPose9(void)
 {
     gCurrentSprite.pose = 0x9;
 }
 
-void deorem_eye_move(void)
+void DeoremEyeMove(void)
 {
 
 }
 
-void deorem_eye_230d4(void)
+void DeoremEyeMainLoop(void)
 {
 
 }
 
-void deorem_eye_dying_gfx_init(void)
+void DeoremEyeDyingGFXInit(void)
 {
 
 }
 
-void deorem_eye_dying_spinning_anim(void)
+void DeoremEyeDyingSpinningAnim(void)
 {
 
 }
 
-void deorem_eye_dying_moving_anim(void)
+void DeoremEyeDyingMovingAnim(void)
 {
 
 }
 
-void deorem_thorn_init(void)
+void DeoremThornInit(void)
 {
 
 }
 
-void deorem_thorn_spawning(void)
+void DeoremThornSpawning(void)
 {
 
 }
 
-void deorem_thorn_movement(void)
+void DeoremThornMovement(void)
 {
 
 }
@@ -407,71 +407,71 @@ void deorem_thorn_movement(void)
  * 23520 | 238 | Deorem AI
  * 
  */
-void deorem(void)
+void Deorem(void)
 {
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            deorem_init();
+            DeoremInit();
             break;
         case 0x8:
-            deorem_spawn_going_down();
+            DeoremSpawnGoingDown();
             break;
         case 0x9:
-            deorem_spawn_going_down_anim();
+            DeoremSpawnGoingDownAnim();
             break;
         case 0x22:
-            deorem_spawn_going_up();
+            DeoremSpawnGoingUp();
             break;
         case 0x23:
-            deorem_spawn_going_up_anim();
+            DeoremSpawnGoingUpAnim();
             break;
         case 0x24:
-            deorem_spawn_head_body();
+            DeoremSpawnHeadBody();
             break;
         case 0x25:
-            deorem_after_spawn();
+            DeoremAfterSpawn();
             break;
         case 0x26:
-            deorem_main_loop();
+            DeoremMainLoop();
             break;
         case 0x27:
-            deorem_retracting();
+            DeoremRetracting();
             break;
         case 0x28:
         case 0x29:
-            deorem_throwing_thorns();
+            DeoremThrowingThorns();
             break;
         case 0xA:
-            deorem_after_thorns();
+            DeoremAfterThorns();
             break;
         case 0x62:
-            deorem_dying();
+            DeoremDying();
             break;
         case 0x67:
-            deorem_dying_going_down();
+            DeoremDyingGoingDown();
             break;
         case 0x68:
-            deorem_death();
+            DeoremDeath();
             break;
         case 0x42:
-            deorem_check_leaving_ceiling_anim_ended();
+            DeoremCheckLeavingCeilingAnimEnded();
             break;
         case 0x43:
-            deorem_leaving();
+            DeoremLeaving();
             break;
         case 0x44:
-            deorem_leaving_anim();
+            DeoremLeavingAnim();
             break;
         case 0x45:
-            deorem_leaving_in_ground_debris();
+            DeoremLeavingInGroundDebris();
             break;
         case 0x60:
-            deorem_call_spawn_charge_beam();
+            DeoremCallSpawnChargeBeam();
     }
 }
 
-void deorem_segment(void)
+void DeoremSegment(void)
 {
 
 }
@@ -480,7 +480,7 @@ void deorem_segment(void)
  * 23a20 | e0 | Deorem Eye
  * 
  */
-void deorem_eye(void)
+void DeoremEye(void)
 {
     u8 ram_slot;
     u8 isft;
@@ -510,21 +510,21 @@ void deorem_eye(void)
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            deorem_eye_init();
+            DeoremEyeInit();
             break;
         case 0x8:
-            deorem_eye_set_pose9();
+            DeoremEyeSetPose9();
             break;
         case 0x9:
-            deorem_eye_230d4();
+            DeoremEyeMainLoop();
             break;
         case 0x62:
-            deorem_eye_dying_gfx_init();
+            DeoremEyeDyingGFXInit();
         case 0x67:
-            deorem_eye_dying_spinning_anim();
+            DeoremEyeDyingSpinningAnim();
             break;
         case 0x68:
-            deorem_eye_dying_moving_anim();
+            DeoremEyeDyingMovingAnim();
     }
 }
 
@@ -532,17 +532,17 @@ void deorem_eye(void)
  * 23b00 | 4c | Deorem Thorn AI
  * 
  */
-void deorem_thorn(void)
+void DeoremThorn(void)
 {
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            deorem_init();
+            DeoremThornInit();
         case 0x9:
-            deorem_thorn_spawning();
+            DeoremThornSpawning();
             break;
         case 0x23:
-            deorem_thorn_movement();
+            DeoremThornMovement();
             break;
         default:
             SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);

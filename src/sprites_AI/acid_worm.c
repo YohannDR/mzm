@@ -2,187 +2,187 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void acid_worm_sync_head_position(void)
+void AcidWormSyncHeadPosition(void)
 {
 
 }
 
-void acid_worm_random_x_movement(void)
+void AcidWormRandoXMovement(void)
 {
 
 }
 
-void acid_worm_change_two_ground_ccaa(u8 caa, u16 y_position, u16 x_position)
+void AcidWormChangeTwoGroundCCAA(u8 caa, u16 y_position, u16 x_position)
 {
 
 }
 
-void acid_worm_change_big_block_down_ccaa(u8 caa)
+void AcidWormChangeBigBlockDownCCAA(u8 caa)
 {
 
 }
 
-void acid_worm_change_big_block_middle_ccaa(u8 caa)
+void AcidWormChangeBigBlockDownCCAA(u8 caa)
 {
 
 }
 
-void acid_worm_change_big_block_top_ccaa(u8 caa)
+void AcidWormChangeBigBlockTopCCAA(u8 caa)
 {
 
 }
 
-void acid_worm_play_sound(void)
+void AcidWormPlaySound(void)
 {
 
 }
 
-u8 acid_worm_colliding_with_samus_when_extending(void)
+u8 AcidWormCollidingWithSamusWhenExtending(void)
 {
 
 }
 
-void acid_worm_init(void)
+void AcidWormInit(void)
 {
 
 }
 
-void acid_worm_check_samus_on_zipline(void)
+void AcidWormCheckSamusOnZipline(void)
 {
 
 }
 
-void acid_worm_spawn_start(void)
+void AcidWormSpawnStart(void)
 {
 
 }
 
-void acid_worm_spawn_extending(void)
+void AcidWormSpawnExtending(void)
 {
 
 }
 
-void acid_worm_spawn_staying_on_top(void)
+void AcidWormSpawnStayingOnTop(void)
 {
 
 }
 
-void acid_worm_spawn_retracting(void)
+void AcidWormSpawnRetracting(void)
 {
 
 }
 
-void acid_worm_gfx_init(void)
+void AcidWormGFXInit(void)
 {
 
 }
 
-void acid_worm_idle(void)
+void AcidWormIdle(void)
 {
 
 }
 
-void acid_worm_check_warning_anim_ended(void)
+void AcidWormCheckWarningAnimEnded(void)
 {
 
 }
 
-void acid_worm_extend(void)
+void AcidWormExtend(void)
 {
 
 }
 
-void acid_worm_hooked_to_block(void)
+void AcidWormHookedToBlock(void)
 {
 
 }
 
-void acid_worm_retracting(void)
+void AcidWormRetracting(void)
 {
 
 }
 
-void acid_worm_raise_acid(void)
+void AcidWormRaiseAcid(void)
 {
 
 }
 
-void acid_worm_acid_go_down(void)
+void AcidWormAcidGoDown(void)
 {
 
 }
 
-void acid_worm_death_gfx_init(void)
+void AcidWormDeathGFXInit(void)
 {
 
 }
 
-void acid_worm_death_flashing_anim(void)
+void AcidWormDeathFlashingAnim(void)
 {
 
 }
 
-void acid_worm_dying(void)
+void AcidWormDying(void)
 {
 
 }
 
-void acid_worm_body_init(void)
+void AcidWormBodyInit(void)
 {
 
 }
 
-void acid_worm_body_move(void)
+void AcidWormBodyMove(void)
 {
 
 }
 
-void acid_worm_body_main_loop(void)
+void AcidWormBodyMainLoop(void)
 {
 
 }
 
-void acid_worm_body_death(void)
+void AcidWormBodyDeath(void)
 {
 
 }
 
-void acid_worm_spit_init(void)
+void AcidWormSpitInit(void)
 {
 
 }
 
-void acid_worm_spit_move(void)
+void AcidWormSpitMove(void)
 {
 
 }
 
-void acid_worm_spit_exploding_gfx_init(void)
+void AcidWormSpitExplodingGFXInit(void)
 {
 
 }
 
-void acid_worm_spit_check_exploding_anim_ended(void)
+void AcidWormSpitCheckExplodingAnimEnded(void)
 {
 
 }
 
-void acid_worm_spit_check_exploding_on_acid_anim_ended(void)
+void AcidWormSpitCheckExplodingOnAcidAnimEnded(void)
 {
 
 }
 
-void acid_worm(void)
+void AcidWorm(void)
 {
 
 }
 
-void acid_worm_body(void)
+void AcidWormBody(void)
 {
 
 }
 
-void acid_worm_spit(void)
+void AcidWormSpit(void)
 {
 
 }

@@ -3,6 +3,6 @@
 
 #include "types.h"
 
-void explosion_zebes_escape(void);
+void ExplosionZebesEscape(void);
 
 #endif /* EXPLOSION_ZEBES_ESCAPE_AI_H */

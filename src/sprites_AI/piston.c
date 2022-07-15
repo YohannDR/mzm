@@ -2,57 +2,57 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void piston_change_four_ccaa(u8 caa)
+void PistonChangeFourCCAA(u8 caa)
 {
 
 }
 
-void piston_change_one_below_ccaa(u8 caa)
+void PistonChangeOneBelowCCAA(u8 caa)
 {
 
 }
 
-void piston_change_one_upper_ccaa(u8 caa)
+void PistonChangeOneUpperCCAA(u8 caa)
 {
 
 }
 
-u8 piston_samus_collision_bugged(void)
+u8 PistonSamusCollision_Bugged(void)
 {
 
 }
 
-u8 piston_check_samus_in(void)
+u8 PistonCheckSamusIn(void)
 {
 
 }
 
-void piston_init(void)
+void PistonInit(void)
 {
 
 }
 
-void piston_gfx_init(void)
+void PistonGFXInit(void)
 {
 
 }
 
-void piston_check_projectile(void)
+void PistonCheckProjectile(void)
 {
 
 }
 
-void piston_move(void)
+void PistonMove(void)
 {
 
 }
 
-void piston_after_moving(void)
+void PistonAfterMoving(void)
 {
 
 }
 
-void piston(void)
+void Piston(void)
 {
 
 }

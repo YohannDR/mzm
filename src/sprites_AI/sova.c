@@ -2,7 +2,7 @@
 #include "../sprite_util.h"
 #include "../globals.h"
 
-u8 sova_check_colliding_with_air(void)
+u8 SovaCheckCollidingWithAir(void)
 {
     u8 colliding;
 
@@ -36,7 +36,7 @@ u8 sova_check_colliding_with_air(void)
     }
     else
     {
-        if (gCurrentSprite.work_variable != 0x0)
+        if (gCurrentSprite.workVariable2 != 0x0)
         {
             SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position - 0x20);
             if (gPreviousCollisionCheck != 0x0)
@@ -65,7 +65,7 @@ u8 sova_check_colliding_with_air(void)
     return colliding;
 }
 
-void sova_hitbox_update(void)
+void SovaHitboxUpdate(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
@@ -86,7 +86,7 @@ void sova_hitbox_update(void)
     }
     else
     {
-        if (gCurrentSprite.work_variable != 0x0)
+        if (gCurrentSprite.workVariable2 != 0x0)
         {
             gCurrentSprite.hitbox_top_offset = -0x4;
             gCurrentSprite.hitbox_bottom_offset = 0x34;
@@ -101,7 +101,7 @@ void sova_hitbox_update(void)
     }
 }
 
-void sova_gfx_update(void)
+void SovaGFXUpdate(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
@@ -112,7 +112,7 @@ void sova_gfx_update(void)
     }
     else
     {
-        if (gCurrentSprite.work_variable != 0x0)
+        if (gCurrentSprite.workVariable2 != 0x0)
             gCurrentSprite.oam_pointer = sova_oam_2cfcb0;
         else
             gCurrentSprite.oam_pointer = sova_oam_2cfb98;
@@ -126,9 +126,9 @@ void sova_gfx_update(void)
     gCurrentSprite.curr_anim_frame = 0x0;
 }
 
-void sova_init(void)
+void SovaInit(void)
 {
-    gCurrentSprite.work_variable = 0x0;
+    gCurrentSprite.workVariable2 = 0x0;
     gCurrentSprite.pose = 0x9;
     SpriteUtilChooseRandomXDirection();
     SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position);
@@ -141,7 +141,7 @@ void sova_init(void)
         {
             gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
             gCurrentSprite.y_position -= 0x40;
-            gCurrentSprite.work_variable = 0x1;
+            gCurrentSprite.workVariable2 = 0x1;
         }
         else
         {
@@ -180,8 +180,8 @@ void sova_init(void)
     }
 
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
-    sova_gfx_update();
-    sova_hitbox_update();
+    SovaGFXUpdate();
+    SovaHitboxUpdate();
     gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
     gCurrentSprite.draw_distance_top_offset = 0x10;
     gCurrentSprite.draw_distance_bottom_offset = 0x10;
@@ -193,13 +193,13 @@ void sova_init(void)
     }
 }
 
-void sova_gfx_init(void)
+void SovaInit(void)
 {
-    sova_gfx_update();
+    SovaGFXUpdate();
     gCurrentSprite.pose = 0x9;
 }
 
-void sova_move(void)
+void SovaMove(void)
 {
     u16 speed;
     u8 turning;
@@ -227,7 +227,7 @@ void sova_move(void)
 
     turning = FALSE;
 
-    if (sova_check_colliding_with_air() << 0x18)
+    if (SovaCheckCollidingWithAir() << 0x18)
     {
         gCurrentSprite.pose = 0x1E;
         return;
@@ -235,7 +235,7 @@ void sova_move(void)
 
     if (sprite_util_is_screen_on_screen_and_screen_shake())
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL || gCurrentSprite.work_variable)
+        if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL || gCurrentSprite.workVariable2)
             gCurrentSprite.pose = 0x1E;
         return;
     }
@@ -256,7 +256,7 @@ void sova_move(void)
                     {
                         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.timer2 = 0x5;
+                        gCurrentSprite.workVariable = 0x5;
                     }
                     else
                         gCurrentSprite.y_position += speed;
@@ -291,7 +291,7 @@ void sova_move(void)
             }
 
             turning = TRUE;
-            gCurrentSprite.timer2 = 0x7;
+            gCurrentSprite.workVariable = 0x7;
             if (turning)
                 gCurrentSprite.pose = 0xA;
             return;
@@ -317,7 +317,7 @@ void sova_move(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.timer2 = 0x4;
+                        gCurrentSprite.workVariable = 0x4;
                         if (turning)
                             gCurrentSprite.pose = 0xA;
                         return;
@@ -331,7 +331,7 @@ void sova_move(void)
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.timer2 = 0x4;
+                    gCurrentSprite.workVariable = 0x4;
                     if (turning)
                         gCurrentSprite.pose = 0xA;
                     return;
@@ -350,7 +350,7 @@ void sova_move(void)
                     {
                         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                         turning = TRUE;
-                        gCurrentSprite.timer2 = 0x4;
+                        gCurrentSprite.workVariable = 0x4;
                         if (turning)
                             gCurrentSprite.pose = 0xA;
                         return;
@@ -358,14 +358,14 @@ void sova_move(void)
                 }
             }
             turning = TRUE;
-            gCurrentSprite.timer2 = 0x6;
+            gCurrentSprite.workVariable = 0x6;
             if (turning)
                 gCurrentSprite.pose = 0xA;
             return;
         }
     }
 
-    if (gCurrentSprite.work_variable)
+    if (gCurrentSprite.workVariable2)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
@@ -386,7 +386,7 @@ void sova_move(void)
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.timer2 = 0x3;
+                    gCurrentSprite.workVariable = 0x3;
                     if (turning)
                         gCurrentSprite.pose = 0xA;
                     return;
@@ -400,7 +400,7 @@ void sova_move(void)
             {
                 gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                 turning = TRUE;
-                gCurrentSprite.timer2 = 0x3;
+                gCurrentSprite.workVariable = 0x3;
                 if (turning)
                     gCurrentSprite.pose = 0xA;
                 return;
@@ -421,7 +421,7 @@ void sova_move(void)
         }
 
         turning = TRUE;
-        gCurrentSprite.timer2 = 0x2;
+        gCurrentSprite.workVariable = 0x2;
         if (turning)
             gCurrentSprite.pose = 0xA;
         return;
@@ -449,7 +449,7 @@ void sova_move(void)
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                     turning = TRUE;
-                    gCurrentSprite.timer2 = 0x0;
+                    gCurrentSprite.workVariable = 0x0;
                     if (turning)
                         gCurrentSprite.pose = 0xA;
                     return;
@@ -469,7 +469,7 @@ void sova_move(void)
             }
 
             turning = TRUE;
-            gCurrentSprite.timer2 = 0x1;
+            gCurrentSprite.workVariable = 0x1;
         }
         else
         {
@@ -546,7 +546,7 @@ void sova_move(void)
     }
 }
 
-void sova_turning_around_gfx_update(void)
+void SovaTurningAroundGFXUpdate(void)
 {
     u16 status;
 
@@ -555,7 +555,7 @@ void sova_turning_around_gfx_update(void)
     gCurrentSprite.anim_duration_counter = 0x0;
     gCurrentSprite.curr_anim_frame = 0x0;
 
-    switch (gCurrentSprite.timer2)
+    switch (gCurrentSprite.workVariable)
     {
         case 0x0:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -641,16 +641,16 @@ void sova_turning_around_gfx_update(void)
     gCurrentSprite.status = status;
 }
 
-void sova_turning_around(void)
+void SovaTurningAround(void)
 {
     if (!SpriteUtillCheckEndCurrentSpriteAnim())
         return;
     
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
-    gCurrentSprite.work_variable = 0x0;
+    gCurrentSprite.workVariable2 = 0x0;
 
-    switch (gCurrentSprite.timer2)
+    switch (gCurrentSprite.workVariable)
     {
         case 0x0:
             if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT) == 0x0)
@@ -733,7 +733,7 @@ void sova_turning_around(void)
                 gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
 
             gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
-            gCurrentSprite.work_variable = 0x1;
+            gCurrentSprite.workVariable2 = 0x1;
             break;
 
         case 0x7:
@@ -747,18 +747,18 @@ void sova_turning_around(void)
                 gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
             
             gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
-            gCurrentSprite.work_variable = 0x1;
+            gCurrentSprite.workVariable2 = 0x1;
             break;
 
         default:
             gCurrentSprite.status = 0x0;
     }
 
-    sova_gfx_update();
-    sova_hitbox_update();
+    SovaGFXUpdate();
+    SovaHitboxUpdate();
 }
 
-void sova_back_on_ground(void)
+void SovaBackOnGround(void)
 {
     gCurrentSprite.pose = 0xF;
     gCurrentSprite.oam_pointer = sova_oam_falling_2cfd68;
@@ -771,9 +771,9 @@ void sova_back_on_ground(void)
         status &= ~SPRITE_STATUS_XFLIP;
 }
 
-void sova_check_back_on_ground_anim_ended(void)
+void SovaCheckBackOnGroundAnimEnded(void)
 {
-    if (sova_check_colliding_with_air() << 0x18 != 0x0)
+    if (SovaCheckCollidingWithAir() << 0x18 != 0x0)
         gCurrentSprite.pose = 0x1E;
     else
     {
@@ -782,7 +782,7 @@ void sova_check_back_on_ground_anim_ended(void)
     }
 }
 
-void sova_start_falling(void)
+void SovaStartFalling(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
@@ -791,20 +791,20 @@ void sova_start_falling(void)
         else
             gCurrentSprite.x_position += 0x20;
     }
-    else if (gCurrentSprite.work_variable != 0x0)
+    else if (gCurrentSprite.workVariable2 != 0x0)
         gCurrentSprite.y_position += 0x28;
 
     gCurrentSprite.pose = 0x1F;
     gCurrentSprite.array_offset = 0x0;
-    gCurrentSprite.work_variable = 0x0;
+    gCurrentSprite.workVariable2 = 0x0;
     status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_ON_VERTICAL_WALL);
-    sova_hitbox_update();
+    SovaHitboxUpdate();
     gCurrentSprite.oam_pointer = sova_oam_falling_2cfd68;
     gCurrentSprite.anim_duration_counter = 0x0;
     gCurrentSprite.curr_anim_frame = 0x0;
 }
 
-void sova_falling(void)
+void SovaFalling(void)
 {
     u16 old_y;
     i16 movement;
@@ -831,13 +831,13 @@ void sova_falling(void)
     if (gPreviousVerticalCollisionCheck)
     {
         gCurrentSprite.y_position = block;
-        sova_back_on_ground();
+        SovaBackOnGround();
     }
     else
         SpriteUtilCheckInRoomEffect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_BIG);
 }
 
-void sova_death(void)
+void SovaDeath(void)
 {
     u16 y_position;
     u16 x_position;
@@ -854,7 +854,7 @@ void sova_death(void)
     }
     else
     {
-        if (gCurrentSprite.work_variable != 0x0)
+        if (gCurrentSprite.workVariable2 != 0x0)
             y_position += 0x28;
         else
             y_position -= 0x28;
@@ -863,11 +863,11 @@ void sova_death(void)
     SpriteUtilSpriteDeath(DEATH_NORMAL, y_position, x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
 }
 
-void sova(void)
+void Sova(void)
 {
-    if (gCurrentSprite.properties & SP_UNKNOWN)
+    if (gCurrentSprite.properties & SP_DAMAGED)
     {
-        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             unk_2b20(0x154);
     }
@@ -881,30 +881,30 @@ void sova(void)
             switch (gCurrentSprite.pose)
             {
                 case 0x0:
-                    sova_init();
+                    SovaInit();
                     break;
                 case 0x8:
-                    sova_gfx_init();
+                    SovaInit();
                 case 0x9:
-                    sova_move();
+                    SovaMove();
                     break;
                 case 0xA:
-                    sova_turning_around_gfx_update();
+                    SovaTurningAroundGFXUpdate();
                 case 0xB:
-                    sova_turning_around();
+                    SovaTurningAround();
                     break;
                 case 0xE:
-                    sova_back_on_ground();
+                    SovaBackOnGround();
                 case 0xF:
-                    sova_check_back_on_ground_anim_ended();
+                    SovaCheckBackOnGroundAnimEnded();
                     break;
                 case 0x1E:
-                    sova_start_falling();
+                    SovaStartFalling();
                 case 0x1F:
-                    sova_falling();
+                    SovaFalling();
                     break;
                 default:
-                    sova_death();
+                    SovaDeath();
             }
         }
     }

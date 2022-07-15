@@ -3,7 +3,7 @@
 
 #include "../types.h"
 
-void chozo_statue_echo(u8 stage);
-void chozo_statue_movement(void);
+void ChozoStatueEcho(u8 stage);
+void ChozoStatueMovement(void);
 
 #endif /* CHOZO_STATUE_MOVEMENT_AI_H */

@@ -3,6 +3,6 @@
 
 #include "../types.h"
 
-void imago_larva_right_side(void);
+void ImagoLarvaRightSide(void);
 
 #endif /* IMAGO_LARVA_RIGHT_SIDE_AI_H */

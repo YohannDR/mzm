@@ -2,22 +2,22 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void cannon_fire_bullet(void)
+void CannonFireBullet(void)
 {
 
 }
 
-void cannon_check_surroundings(void)
+void CannonCheckSurroundings(void)
 {
 
 }
 
-void cannon(void)
+void Cannon(void)
 {
 
 }
 
-void cannon_bullet(void)
+void CannonBullet(void)
 {
 
 }

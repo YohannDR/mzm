@@ -8,7 +8,7 @@
  * 
  * @return 1 if count greater than 3, 0 otherwise
  */
-u8 parasite_count(void)
+u8 ParasiteCount(void)
 {
     struct SpriteData* pSprite;
     u8 count;
@@ -33,147 +33,147 @@ u8 parasite_count(void)
     return FALSE;
 }
 
-void parasite_init(struct SpriteData* pSprite)
+void ParasiteInit(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_grab_samus(struct SpriteData* pSprite)
+void ParasiteGrabSamus(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_samus_grabbed(struct SpriteData* pSprite)
+void ParasiteSamusGrabbed(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_expulsed_gfx_init(struct SpriteData* pSprite)
+void ParasiteExpulsedGFXInit(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_expulsed(struct SpriteData* pSprite)
+void ParasiteExpulsed(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_expulsed_after_grabbing_object(struct SpriteData* pSprite)
+void ParasiteExpulsedAfterGrabbingObject(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_falling(struct SpriteData* pSprite)
+void ParasiteFalling(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_jumping(struct SpriteData* pSprite)
+void ParasiteJumping(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_multiple_jumping(struct SpriteData* pSprite)
+void ParasiteMultipleJumping(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_jumping_second_part(struct SpriteData* pSprite)
+void ParasiteJumpingSecondPart(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_multiple_jumping_second_part(struct SpriteData* pSprite)
+void ParasiteMultipleJumpingSecondPart(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_crouching_gfx_init(struct SpriteData* pSprite)
+void ParasiteCrouchingGFXInit(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_walking(struct SpriteData* pSprite)
+void ParasiteWalking(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_multiple_walking(struct SpriteData* pSprite)
+void ParasiteMultipleWalking(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_uncrouching_gfx_init(struct SpriteData* pSprite)
+void ParasiteUncrouchingGFXInit(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_check_turning_around_anim_ended(struct SpriteData* pSprite)
+void ParasiteCheckTurningAroundAnimEnded(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_check_turning_around_anim_near_ended(struct SpriteData* pSprite)
+void ParasiteCheckTurningAroundAnimNearEnded(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_landing_gfx_init(struct SpriteData* pSprite)
+void ParasiteLandingGFXInit(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_landing(struct SpriteData* pSprite)
+void ParasiteLanding(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_normal_falling_init(struct SpriteData* pSprite)
+void ParasiteNormalFallingInit(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_normal_falling(struct SpriteData* pSprite)
+void ParasiteNormalFalling(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_dying_gfx_init(struct SpriteData* pSprite)
+void ParasiteDyingGFXInit(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_check_dying_anim_ended(struct SpriteData* pSprite)
+void ParasiteCheckDyingAnimEnded(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_check_event(struct SpriteData* pSprite)
+void ParasiteCheckEvent(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_grab_geron(struct SpriteData* pSprite)
+void ParasiteGrabGeron(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_geron_grabbed(struct SpriteData* pSprite)
+void ParasiteGeronGrabbed(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_bomb_collision(struct SpriteData* pSprite)
+void ParasiteBombCollision(struct SpriteData* pSprite)
 {
 
 }
 
-void parasite_multiple(void)
+void ParasiteMultiple(void)
 {
 
 }
 
-void parasite(void)
+void Parasite(void)
 {
 
 }

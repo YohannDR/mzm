@@ -5,7 +5,7 @@
 #include "../sprite_util.h"
 #include "../globals.h"
 
-u8 worker_robot_check_samus_in_front(void)
+u8 WorkerRobotCheckSamusInFront(void)
 {
     u16 sprite_y;
     u16 sprite_x;
@@ -52,7 +52,7 @@ u8 worker_robot_check_samus_in_front(void)
     return FALSE;
 }
 
-void worker_robot_init(void)
+void WorkerRobotInit(void)
 {
     gCurrentSprite.hitbox_top_offset = -0x74;
     gCurrentSprite.hitbox_bottom_offset = 0x0;
@@ -65,7 +65,7 @@ void worker_robot_init(void)
     gCurrentSprite.anim_duration_counter = 0x0;
     gCurrentSprite.curr_anim_frame = 0x0;
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
-    gCurrentSprite.timer2 = 0x0;
+    gCurrentSprite.workVariable = 0x0;
     gCurrentSprite.samus_collision = SSC_SOLID;
     gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
     SpriteUtilMakeSpriteFaceAwawFromSamusXFlip();
@@ -74,7 +74,7 @@ void worker_robot_init(void)
     gCurrentSprite.pose = 0x11;
 }
 
-void worker_robot_gfx_init(void)
+void WorkerRobotGFXInit(void)
 {
     gCurrentSprite.pose = 0x11;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7bcc;
@@ -82,7 +82,7 @@ void worker_robot_gfx_init(void)
     gCurrentSprite.anim_duration_counter = 0x0;
 }
 
-void worker_robot_sleeping_detect_projectile(void)
+void WorkerRobotSleepingDetectProjectile(void)
 {
     if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position) == 0x0)
         gCurrentSprite.pose = 0x20;
@@ -90,7 +90,7 @@ void worker_robot_sleeping_detect_projectile(void)
         gCurrentSprite.pose = 0x12;
 }
 
-void worker_robot_standing_gfx_init(void)
+void WorkerRobotStandingGFXInit(void)
 {
     gCurrentSprite.pose = 0x13;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7c0c;
@@ -100,13 +100,13 @@ void worker_robot_standing_gfx_init(void)
         unk_2b20(0x26F);
 }
 
-void worker_robot_check_standing_anim_ended(void)
+void WorkerRobotCheckStandingAnimEnded(void)
 {
     if (SpriteUtilCheckNearEndCurrentSpriteAnim())
         gCurrentSprite.pose = 0xE;
 }
 
-void worker_robot_walking_detect_projectile(void)
+void WorkerRobotWalkingDetectProjectile(void)
 {
     u8 on_side;
     struct ProjectileData* pProj;
@@ -192,13 +192,13 @@ void worker_robot_walking_detect_projectile(void)
                     {
                         ParticleSet(proj_y, proj_x, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
                         if (on_side)
-                            gCurrentSprite.timer2 = 0x3C;
+                            gCurrentSprite.workVariable = 0x3C;
                     }
                     else
                     {
                         ParticleSet(proj_y, proj_x, PE_HITTING_SOMETHING_WITH_MISSILE);
                         if (on_side)
-                            gCurrentSprite.timer2 = 0x1E;
+                            gCurrentSprite.workVariable = 0x1E;
                     }
                     pProj->status = 0x0;
                     return;
@@ -209,21 +209,21 @@ void worker_robot_walking_detect_projectile(void)
     }
 }
 
-void worker_robot_waking_up_gfx_init(void)
+void WorkerRobotWakingUpGFXInit(void)
 {
     gCurrentSprite.pose = 0xF;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7b74;
     gCurrentSprite.curr_anim_frame = 0x0;
     gCurrentSprite.anim_duration_counter = 0x0;
     gCurrentSprite.timer1 = 0x1E;
-    gCurrentSprite.timer2 = 0x0;
+    gCurrentSprite.workVariable = 0x0;
     gCurrentSprite.hitbox_top_offset = -0x84;
 }
 
-void worker_robot_check_projectile(void)
+void WorkerRobotCheckProjectile(void)
 {
-    worker_robot_walking_detect_projectile();
-    if (gCurrentSprite.timer2 != 0x0)
+    WorkerRobotWalkingDetectProjectile();
+    if (gCurrentSprite.workVariable != 0x0)
         gCurrentSprite.pose = 0x9;
     else
     {
@@ -233,7 +233,7 @@ void worker_robot_check_projectile(void)
     }
 }
 
-void worker_robot_walk_gfx_init(void)
+void WorkerRobotWalkGFXInit(void)
 {
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7ae4;
@@ -241,12 +241,12 @@ void worker_robot_walk_gfx_init(void)
     gCurrentSprite.anim_duration_counter = 0x0;
 }
 
-void worker_robot_move(void)
+void WorkerRobotMove(void)
 {
 
 }
 
-void worker_robot_back_to_sleep_gfx_init(void)
+void WorkerRobotBackToSleepGFXInit(void)
 {
     gCurrentSprite.pose = 0xB;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7b84;
@@ -256,7 +256,7 @@ void worker_robot_back_to_sleep_gfx_init(void)
         unk_2b20(0x270);
 }
 
-void worker_robot_check_back_to_sleep_anim_ended(void)
+void WorkerRobotCheckBackToSleepAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -268,7 +268,7 @@ void worker_robot_check_back_to_sleep_anim_ended(void)
     }
 }
 
-void worker_robot_turning_around(void)
+void WorkerRobotTurningAround(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -284,85 +284,85 @@ void worker_robot_turning_around(void)
     }
 }
 
-void worker_robot_check_turning_around_anim_ended(void)
+void WorkerRobotCheckTurningAroundAnimEnded(void)
 {
     if (SpriteUtilCheckNearEndCurrentSpriteAnim())
         gCurrentSprite.pose = 0x10;
 }
 
-void worker_robot_falling_gfx_init(void)
+void WorkerRobotFallingGFXInit(void)
 {
     gCurrentSprite.pose = 0x1F;
     gCurrentSprite.array_offset = 0x0;
-    gCurrentSprite.timer2 = 0x0;
+    gCurrentSprite.workVariable = 0x0;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7ae4;
     gCurrentSprite.anim_duration_counter = 0x0;
     gCurrentSprite.curr_anim_frame = 0x0;
 }
 
-void worker_robot_falling(void)
+void WorkerRobotFalling(void)
 {
 
 }
 
-void worker_robot_falling_sleep_gfx_init(void)
+void WorkerRobotFallingSleepGFXInit(void)
 {
     gCurrentSprite.pose = 0x21;
     gCurrentSprite.array_offset = 0x0;
-    gCurrentSprite.timer2 = 0x0;
+    gCurrentSprite.workVariable = 0x0;
 }
 
-void worker_robot_falling_sleep(void)
+void WorkerRobotFallingSleep(void)
 {
 
 }
 
-void worker_robot(void)
+void WorkerRobot(void)
 {
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            worker_robot_init();
+            WorkerRobotInit();
         case 0x10:
-            worker_robot_gfx_init();
+            WorkerRobotGFXInit();
         case 0x11:
-            worker_robot_sleeping_detect_projectile();
+            WorkerRobotSleepingDetectProjectile();
             break;
         case 0x12:
-            worker_robot_standing_gfx_init();
+            WorkerRobotStandingGFXInit();
         case 0x13:
-            worker_robot_check_standing_anim_ended();
+            WorkerRobotCheckStandingAnimEnded();
             break;
         case 0xE:
-            worker_robot_waking_up_gfx_init();
+            WorkerRobotWakingUpGFXInit();
         case 0xF:
-            worker_robot_check_projectile();
+            WorkerRobotCheckProjectile();
             break;
         case 0x8:
-            worker_robot_walk_gfx_init();
+            WorkerRobotWalkGFXInit();
         case 0x9:
-            worker_robot_move();
+            WorkerRobotMove();
             break;
         case 0xA:
-            worker_robot_back_to_sleep_gfx_init();
+            WorkerRobotBackToSleepGFXInit();
         case 0xB:
-            worker_robot_check_back_to_sleep_anim_ended();
+            WorkerRobotCheckBackToSleepAnimEnded();
             break;
         case 0xC:
-            worker_robot_turning_around();
+            WorkerRobotTurningAround();
         case 0xD:
-            worker_robot_check_turning_around_anim_ended();
+            WorkerRobotCheckTurningAroundAnimEnded();
             break;
         case 0x1E:
-            worker_robot_falling_gfx_init();
+            WorkerRobotFallingGFXInit();
         case 0x1F:
-            worker_robot_falling();
+            WorkerRobotFalling();
             break;
         case 0x20:
-            worker_robot_falling_sleep_gfx_init();
+            WorkerRobotFallingSleepGFXInit();
             break;
         case 0x21:
-            worker_robot_falling_sleep();
+            WorkerRobotFallingSleep();
             break;
         default:
             SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position - 0x46, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);

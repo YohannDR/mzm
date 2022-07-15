@@ -2,37 +2,37 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void gamet_init(void)
+void GametInit(void)
 {
 
 }
 
-void gamet_gfx_init(void)
+void GametGFXInit(void)
 {
 
 }
 
-void gamet_spawn(void)
+void GametSpawn(void)
 {
 
 }
 
-void gamet_going_up(void)
+void GametGoingUp(void)
 {
 
 }
 
-void gamet_respawning(void)
+void GametRespawning(void)
 {
 
 }
 
-void gamet_move(void)
+void GametMove(void)
 {
 
 }
 
-void gamet(void)
+void Gamet(void)
 {
 
 }

@@ -5,7 +5,7 @@
 #include "../sprite_util.h"
 #include "../globals.h"
 
-u8 metroid_check_air_collision(u16 y_position, u16 x_position)
+u8 MetroidCheckAirCollision(u16 y_position, u16 x_position)
 {
     u8 colliding;
 
@@ -41,12 +41,12 @@ u8 metroid_check_air_collision(u16 y_position, u16 x_position)
     return colliding;
 }
 
-void metroid_move(u16 samus_y, u16 samus_x, u8 speed_y, u8 speed_x, u8 speed_divisor)
+void MetroidMove(u16 samus_y, u16 samus_x, u8 speed_y, u8 speed_x, u8 speed_divisor)
 {
 
 }
 
-u8 metroid_bomb_detection(void)
+u8 MetroidBombDetection(void)
 {
     u16 sprite_y;
     u16 sprite_x;
@@ -94,12 +94,12 @@ u8 metroid_bomb_detection(void)
     return FALSE;
 }
 
-void metroid_check_bouncing_on_metroid(u16 movement)
+void MetroidCheckBouncingOnMetroid(u16 movement)
 {
 
 }
 
-u8 metroid_check_samus_grabbed(void)
+u8 MetroidCheckSamusGrabbed(void)
 {
     u8 count;
 
@@ -113,13 +113,13 @@ u8 metroid_check_samus_grabbed(void)
     return FALSE;
 }
 
-void metroid_play_sound(void)
+void MetroidPlaySound(void)
 {
     if (gCurrentSprite.curr_anim_frame == 0x0 && gCurrentSprite.anim_duration_counter == 0x1 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         unk_2b20(0x170);
 }
 
-void metroid_init(void)
+void MetroidInit(void)
 {
     u8 metroid_state;
     u8 slot;
@@ -182,7 +182,7 @@ void metroid_init(void)
         gCurrentSprite.samus_collision = SSC_NONE;
         SpriteUtilMakeSpriteFaceSamusDirection();
         gCurrentSprite.pose = 0x1;
-        gCurrentSprite.work_variable = 0x0;
+        gCurrentSprite.workVariable2 = 0x0;
         gCurrentSprite.array_offset = 0x0;
         gCurrentSprite.draw_order = 0xC;
 
@@ -193,7 +193,7 @@ void metroid_init(void)
     }
 }
 
-void metroid_check_spawn(void)
+void MetroidCheckSpawn(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
     {
@@ -205,16 +205,16 @@ void metroid_check_spawn(void)
     }
 }
 
-void metroid_spawning(void)
+void MetroidSpawning(void)
 {
 
 }
 
-void metroid_spawned_gfx_init(void)
+void MetroidSpawnedGFXInit(void)
 {
     gCurrentSprite.pose = 0x9;
-    gCurrentSprite.timer2 = 0x0;
-    gCurrentSprite.work_variable = 0x1;
+    gCurrentSprite.workVariable = 0x0;
+    gCurrentSprite.workVariable2 = 0x1;
     gCurrentSprite.timer1 = 0x0;
     gCurrentSprite.array_offset = 0x1;
     gCurrentSprite.oam_pointer = metroid_oam_2edc20;
@@ -222,12 +222,12 @@ void metroid_spawned_gfx_init(void)
     gCurrentSprite.curr_anim_frame = 0x0;
 }
 
-void metroid_movement(void)
+void MetroidMovement(void)
 {
-    metroid_play_sound();
+    MetroidPlaySound();
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
-        if (metroid_check_samus_grabbed() << 0x18)
+        if (MetroidCheckSamusGrabbed() << 0x18)
             gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
         else
         {
@@ -236,29 +236,29 @@ void metroid_movement(void)
             return;
         }
     }
-    metroid_check_bouncing_on_metroid(0x1);
-    metroid_move((u16)(gSamusData.y_position + gSamusPhysics.draw_distance_top_offset), gSamusData.x_position, 0x1E, 0x28, 0x2);
+    MetroidCheckBouncingOnMetroid(0x1);
+    MetroidMove((u16)(gSamusData.y_position + gSamusPhysics.draw_distance_top_offset), gSamusData.x_position, 0x1E, 0x28, 0x2);
 }
 
-void metroid_grab_samus_gfx_init(void)
+void MetroidGrabSamusGFXInit(void)
 {
     gCurrentSprite.pose = 0x43;
     gCurrentSprite.oam_pointer = metroid_oam_2edca8;
     gCurrentSprite.anim_duration_counter = 0x0;
     gCurrentSprite.curr_anim_frame = 0x0;
     gCurrentSprite.timer1 = 0x4;
-    gCurrentSprite.timer2 = 0x4;
+    gCurrentSprite.workVariable = 0x4;
     gCurrentSprite.frozen_palette_row_offset = 0x4;
     gCurrentSprite.oam_rotation = 0x0;
     gEquipment.grabbed_by_metroid = TRUE;
 }
 
-void metroid_samus_grabbed(void)
+void MetroidSamusGrabbed(void)
 {
 
 }
 
-void metroid_death(void)
+void MetroidDeath(void)
 {
     struct SpriteData* pSprite;
     u8 is_metroid_alive;
@@ -330,11 +330,11 @@ void metroid_death(void)
     }
 }
 
-void metroid(void)
+void Metroid(void)
 {
-    if (gCurrentSprite.properties & SP_UNKNOWN)
+    if (gCurrentSprite.properties & SP_DAMAGED)
     {
-        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             unk_2b20(0x172);
     }
@@ -358,7 +358,7 @@ void metroid(void)
         gCurrentSprite.hitbox_bottom_offset = 0x28;
         gCurrentSprite.hitbox_left_offset = -0x40;
         gCurrentSprite.hitbox_right_offset = 0x40;
-        metroid_check_bouncing_on_metroid(0x1);
+        MetroidCheckBouncingOnMetroid(0x1);
         if (gDifficulty == 0x0)
             SpriteUtilUnfreezeAnimEasy();
         else
@@ -381,33 +381,33 @@ void metroid(void)
         switch (gCurrentSprite.pose)
         {
             case 0x0:
-                metroid_init();
+                MetroidInit();
                 break;
             case 0x1:
-                metroid_check_spawn();
+                MetroidCheckSpawn();
                 break;
             case 0x2:
-                metroid_spawning();
+                MetroidSpawning();
                 break;
             case 0x8:
-                metroid_spawned_gfx_init();
+                MetroidSpawnedGFXInit();
             case 0x9:
-                metroid_movement();
+                MetroidMovement();
                 break;
             case 0x42:
-                metroid_grab_samus_gfx_init();
+                MetroidGrabSamusGFXInit();
             case 0x43:
-                metroid_samus_grabbed();
+                MetroidSamusGrabbed();
                 break;
             case 0x62:
-                metroid_death();
+                MetroidDeath();
         }
 
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
     }
 }
 
-void metroid_shell(void)
+void MetroidShell(void)
 {
     u8 slot;
     u8 rng;
@@ -458,7 +458,7 @@ void metroid_shell(void)
     }
 }
 
-void metroid_door_lock(void)
+void MetroidDoorLock(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     if (gCurrentSprite.pose == 0x0)

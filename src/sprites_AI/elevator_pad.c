@@ -1,8 +1,8 @@
-#include "elevator_pad.h"
+#include "ElevatorPad.h"
 #include "../samus.h"
 #include "../globals.h"
 
-void elevator_pad(void)
+void ElevatorPad(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     if (gCurrentSprite.pose == 0x0)

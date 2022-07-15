@@ -2,32 +2,32 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void zipline_generator_change_ccaa(u8 caa)
+void ZiplineGeneratorChangeCCAA(u8 caa)
 {
 
 }
 
-void zipline_generator_init(void)
+void ZiplineGeneratorInit(void)
 {
 
 }
 
-void zipline_generator_detect_samus(void)
+void ZiplineGeneratorDetectSamus(void)
 {
 
 }
 
-void zipline_generator_activating(void)
+void ZiplineGeneratorActivating(void)
 {
 
 }
 
-void zipline_generator(void)
+void ZiplineGenerator(void)
 {
 
 }
 
-void zipline_generator_part(void)
+void ZiplineGeneratorPart(void)
 {
 
 }

@@ -2,22 +2,22 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void ruins_test_calculate_delay(u8 delay)
+void RuinsTestCalculateDelay(u8 delay)
 {
 
 }
 
-void ruins_test_change_ccaa(u8 action)
+void RuinsTestChangeCCAA(u8 action)
 {
 
 }
 
-void ruins_test_move_to_position(u16 maybe_y_target, u16 maybe_x_target, u16 y_position, u16 x_position, u8 scaling, u8 speed)
+void RuinsTestMoveToPosition(u16 yTarget, u16 xTarget, u16 yPosition, u16 xPosition, u8 speedMultiplier, u8 speed)
 {
 
 }
 
-u8 ruins_test_projectile_collision(void)
+u8 RuinsTestProjectileCollision(void)
 {
     return 0;
 }
@@ -32,7 +32,7 @@ void unk_38d70(void)
 
 }
 
-u8 ruins_test_check_samus_hurting(void)
+u8 RuinsTestCheckSamusHurting(void)
 {
     return 0;
 }
@@ -42,22 +42,22 @@ void unk_38e28(void)
 
 }
 
-void ruins_test_ghost_move(u8 rng)
+void RuinsTestGhostMove(u8 rng)
 {
 
 }
 
-void ruins_test_init(void)
+void RuinsTestInit(void)
 {
 
 }
 
-void ruins_test_spawning_anim(void)
+void RuinsTestSpawningAnim(void)
 {
 
 }
 
-void ruins_test_spawn_reflection_start(void)
+void RuinsTestSpawnReflectionStart(void)
 {
 
 }
@@ -67,7 +67,7 @@ void unk_39194(void)
 
 }
 
-void ruins_test_check_samus_not_facing_background(void)
+void RuinsTestCheckSamusNotFacingBackground(void)
 {
 
 }
@@ -77,57 +77,57 @@ void unk_391f0(void)
 
 }
 
-void ruins_test_spawn_ghost(void)
+void RuinsTestSpawnGhost(void)
 {
 
 }
 
-void ruins_test_after_ghost_spawn(void)
+void RuinsTestAfterGhostSpawn(void)
 {
 
 }
 
-void ruins_test_ghost_maybe_move_second_phase(void)
+void RuinsTestGhostMaybeMoveSecondPhase(void)
 {
 
 }
 
-void ruins_test_maybe_move_second_phase(void)
+void RuinsTestMaybeMoveSecondPhase(void)
 {
 
 }
 
-void ruins_test_move_ghost_to_center(void)
+void RuinsTestMoveGhostToCenter(void)
 {
 
 }
 
-void ruins_test_maybe_check_all_symbols_in_place(void)
+void RuinsTestCheckAllSymbolsInPlace(void)
 {
 
 }
 
-void ruins_test_reflection_end(void)
+void RuinsTestReflectionEnd(void)
 {
 
 }
 
-void ruins_test_ghost_init(void)
+void RuinsTestGhostInit(void)
 {
 
 }
 
-void ruins_test_ghost_spawn(void)
+void RuinsTestGhostSpawn(void)
 {
 
 }
 
-void ruins_test_ghost_sync_position(void)
+void RuinsTestGhostSyncPosition(void)
 {
 
 }
 
-void ruins_test_ghost_despawn(void)
+void RuinsTestGhostDespawn(void)
 {
 
 }
@@ -137,12 +137,12 @@ void unk_39a40(void)
 
 }
 
-void ruins_test_ghost_after_first_symbol(void)
+void RuinsTestGhostAfterFirstSymbol(void)
 {
 
 }
 
-void ruins_test_ghost_after_fight(void)
+void RuinsTestGhostAfterFight(void)
 {
 
 }
@@ -157,52 +157,52 @@ void unk_39e3c(void)
 
 }
 
-void ruins_test(void)
+void RuinsTest(void)
 {
 
 }
 
-void ruins_test_symbol(void)
+void RuinsTestSymbol(void)
 {
 
 }
 
-void ruins_test_samus_reflection_start(void)
+void RuinsTestSamusReflectionStart(void)
 {
 
 }
 
-void ruins_test_reflection_cover(void)
+void RuinsTestReflectionCover(void)
 {
 
 }
 
-void ruins_test_ghost_outline(void)
+void RuinsTestGhostOutline(void)
 {
 
 }
 
-void ruins_test_shootable_symbol(void)
+void RuinsTestShootableSymbol(void)
 {
 
 }
 
-void ruins_test_ghost(void)
+void RuinsTestGhost(void)
 {
 
 }
 
-void ruins_test_samus_reflection_end(void)
+void RuinsTestSamusReflectionEnd(void)
 {
 
 }
 
-void ruins_test_lightning_init(void)
+void RuinsTestLightningInit(void)
 {
 
 }
 
-void ruins_test_lightning(void)
+void RuinsTestLightning(void)
 {
 
 }

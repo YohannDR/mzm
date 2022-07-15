@@ -3,7 +3,7 @@
 
 #include "../types.h"
 
-void water_drop_init(void);
-void water_drop(void);
+void WaterDropInit(void);
+void WaterDrop(void);
 
 #endif /* WATER_DROP_AI_H */

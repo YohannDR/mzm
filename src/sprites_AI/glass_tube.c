@@ -8,7 +8,7 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void glass_tube_change_ccaa(void)
+void GlassTubeChangeCCAA(void)
 {
     /*u16 y_position;
     u16 x_position;
@@ -69,7 +69,7 @@ void glass_tube_change_ccaa(void)
  * 463dc | 90 | Initialize a glass tube sprite
  * 
  */
-void glass_tube_init(void)
+void GlassTubeInit(void)
 {
     gCurrentSprite.draw_distance_top_offset = 0x30;
     gCurrentSprite.draw_distance_bottom_offset = 0x30;
@@ -86,7 +86,7 @@ void glass_tube_init(void)
     {
         gCurrentSprite.oam_pointer = glass_tube_oam_broken;
         gCurrentSprite.pose = 0xF;
-        glass_tube_change_ccaa();
+        GlassTubeChangeCCAA();
     }
     else
     {
@@ -102,7 +102,7 @@ void glass_tube_init(void)
  * 4646c | c0 | Checks for collision between a power bomb and the glass tube
  * 
  */
-void glass_tube_check_power_bomb_collision(void)
+void GlassTubeCheckPowerBombCollision(void)
 {
     u16 bomb_y;
     u16 bomb_x;
@@ -145,7 +145,7 @@ void glass_tube_check_power_bomb_collision(void)
 /**
  * 4652c | 3c | Delay before the glass tube starts cracking
 */
-void glass_tube_delay_before_breaking(void)
+void GlassTubeDelayBeforeBreaking(void)
 {
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
@@ -162,7 +162,7 @@ void glass_tube_delay_before_breaking(void)
  * 46568 | 8c | Checks if the cracking animation ended, spawn dust particles and starts a global screen shake
  * 
  */
-void glass_tube_check_cracking_anim_ended(void)
+void GlassTubeCheckCrackingAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -170,7 +170,7 @@ void glass_tube_check_cracking_anim_ended(void)
         gCurrentSprite.oam_pointer = glass_tube_oam_breaking;
         gCurrentSprite.anim_duration_counter = 0x0;
         gCurrentSprite.curr_anim_frame = 0x0;
-        glass_tube_change_ccaa();
+        GlassTubeChangeCCAA();
         ParticleSet(gCurrentSprite.y_position - 0x1E, gCurrentSprite.x_position - 0x12C, PE_MEDIUM_DUST);
         ParticleSet(gCurrentSprite.y_position + 0xA0, gCurrentSprite.x_position - 0x140, PE_TWO_MEDIUM_DUST);
         ParticleSet(gCurrentSprite.y_position - 0x1E, gCurrentSprite.x_position + 0x12C, PE_MEDIUM_DUST);
@@ -184,7 +184,7 @@ void glass_tube_check_cracking_anim_ended(void)
  * 46568 | 8c | Checks if the breaking animation ended
  * 
  */
-void glass_tube_check_breaking_anim_ended(void)
+void GlassTubeCheckBreakingAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -199,24 +199,24 @@ void glass_tube_check_breaking_anim_ended(void)
  * 46620 | e8 | Glass Tube AI
  * 
  */
-void glass_tube(void)
+void GlassTube(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            glass_tube_init();
+            GlassTubeInit();
             break;
         case 0x9:
-            glass_tube_check_power_bomb_collision();
+            GlassTubeCheckPowerBombCollision();
             break;
         case 0x23:
-            glass_tube_delay_before_breaking();
+            GlassTubeDelayBeforeBreaking();
             break;
         case 0x25:
-            glass_tube_check_cracking_anim_ended();
+            GlassTubeCheckCrackingAnimEnded();
             break;
         case 0x27:
-            glass_tube_check_breaking_anim_ended();
+            GlassTubeCheckBreakingAnimEnded();
     }
 }

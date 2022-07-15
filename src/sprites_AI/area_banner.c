@@ -2,32 +2,32 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void area_banner_init(void)
+void AreaBannerInit(void)
 {
 
 }
 
-void area_banner_spawn(void)
+void AreaBannerSpawn(void)
 {
 
 }
 
-void area_banner_check_scrolling_up_anim_ended(void)
+void AreaBannerCheckScrollingUpAnimEnded(void)
 {
 
 }
 
-void area_banner_static(void)
+void AreaBannerStatic(void)
 {
 
 }
 
-void area_banner_check_removing_anim_ended(void)
+void AreaBannerCheckRemovingAnimEnded(void)
 {
 
 }
 
-void area_banner(void)
+void AreaBanner(void)
 {
 
 }

@@ -3,13 +3,13 @@
 
 #include "../types.h"
 
-void viola_init(void);
-void viola_move_right(void);
-void viola_move_left(void);
-void viola_move_down(void);
-void viola_move_up(void);
-void viola_start_falling(void);
-void viola_falling(void);
-void viola(void);
+void ViolaInit(void);
+void ViolaMoveRight(void);
+void ViolaMoveLeft(void);
+void ViolaMoveDown(void);
+void ViolaMoveUp(void);
+void ViolaStartFalling(void);
+void ViolaFalling(void);
+void Viola(void);
 
 #endif /* VIOLA_AI_H */

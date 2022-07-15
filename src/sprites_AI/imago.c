@@ -2,152 +2,152 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void imago_sync_sub_sprites(void)
+void ImagoSyncSubSprites(void)
 {
 
 }
 
-void imago_shoot_needles(void)
+void ImagoShootNeedles(void)
 {
 
 }
 
-void imago_core_flashing_anim(void)
+void ImagoCoreFlashingAnim(void)
 {
 
 }
 
-void imago_set_sides_hitbox(void)
+void ImagoSetSidesHtibox(void)
 {
 
 }
 
-void imago_init(void)
+void ImagoInit(void)
 {
 
 }
 
-void imago_fade_music(void)
+void ImagoFadeMusic(void)
 {
 
 }
 
-void imago_start_music(void)
+void ImagoStartMusic(void)
 {
 
 }
 
-void imago_coming_down(void)
+void ImagoComingDown(void)
 {
 
 }
 
-void imago_coming_down_move(void)
+void ImagoComingDownMove(void)
 {
 
 }
 
-void imago_move(void)
+void ImagoMove(void)
 {
 
 }
 
-void imago_going_up(void)
+void ImagoGoingUp(void)
 {
 
 }
 
-void imago_attacking_gfx_init(void)
+void ImagoAttackingGFXInit(void)
 {
 
 }
 
-void imago_attacking_going_down(void)
+void ImagoAttackingGoingDown(void)
 {
 
 }
 
-void imago_attacking_going_up(void)
+void ImagoAttackingGoingUp(void)
 {
 
 }
 
-void imago_spawn_damaged_stinger(void)
+void ImagoSpawnDamagedStinger(void)
 {
 
 }
 
-void imago_check_samus_at_super_missile(void)
+void ImagoCheckSamusAtSuperMissile(void)
 {
 
 }
 
-void imago_charge_through_wall(void)
+void ImagoChargeThroughWall(void)
 {
 
 }
 
-void imago_destroy_wall(void)
+void ImagoDestroyWall(void)
 {
 
 }
 
-void imago_dying(void)
+void ImagoDying(void)
 {
 
 }
 
-void imago_set_event(void)
+void ImagoSetEvent(void)
 {
 
 }
 
-void imago_body_set_sides_hitbox(void)
+void ImagoBodySetSidesHitbox(void)
 {
 
 }
 
-void imago_body_init(void)
+void ImagoBodyInit(void)
 {
 
 }
 
-void imago_body_before_spawn(void)
+void ImagoBodyBeforeSpawn(void)
 {
 
 }
 
-void imago_body_update_palete(void)
+void ImagoBodyUpdatePalette(void)
 {
 
 }
 
-void imago_body_sync_palette(void)
+void ImagoBodySyncPalette(void)
 {
 
 }
 
-void imago(void)
+void Imago(void)
 {
 
 }
 
-void imago_body(void)
+void ImagoBody(void)
 {
 
 }
 
-void imago_needle(void)
+void ImagoNeedle(void)
 {
 
 }
 
-void imago_damaged_stinger(void)
+void ImagoDamagedStinger(void)
 {
 
 }
 
-void imago_egg(void)
+void ImagoEgg(void)
 {
 
 }

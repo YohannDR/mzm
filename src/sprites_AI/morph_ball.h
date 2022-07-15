@@ -3,12 +3,12 @@
 
 #include "../types.h"
 
-void morph_ball_init(void);
-void morph_ball_get(void);
-void morph_ball_flash_anim(void);
-void morph_ball_outside_init(void);
-void morph_ball_outside_flash_anim(void);
-void morph_ball(void);
-void morph_ball_outside(void);
+void MorphBallInit(void);
+void MorphBallGet(void);
+void MorphBallFlashAnim(void);
+void MorphBallOutsideInit(void);
+void MorphBallOutsideFlashAnim(void);
+void MorphBall(void);
+void MorphBallOutside(void);
 
 #endif /* MORPH_BALL_AI_H */

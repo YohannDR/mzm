@@ -2,62 +2,62 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void gadora_init(void)
+void GadoraInit(void)
 {
 
 }
 
-void gadora_gfx_init(void)
+void GadoraGFXInit(void)
 {
 
 }
 
-void gadora_samus_detection(void)
+void GadoraSamusDetection(void)
 {
 
 }
 
-void gadora_check_before_opening_eye_anim_ended(void)
+void GadoraCheckBeforeOpeningEyeAnimEnded(void)
 {
 
 }
 
-void gadora_check_opening_eye_anim_ended(void)
+void GadoraCheckBeforeOpeningEyeAnimEnded(void)
 {
 
 }
 
-void gadora_eye_opened(void)
+void GadoraEyeOpened(void)
 {
 
 }
 
-void gadora_check_closing_eye_anim_near_ended(void)
+void GadoraCheckClosingEyeAnimNearEnded(void)
 {
 
 }
 
-void gadora_death_gfx_init(void)
+void GadoraDeathGFXInit(void)
 {
 
 }
 
-void gadora_death(void)
+void GadoraDeath(void)
 {
 
 }
 
-void gadora(void)
+void Gadora(void)
 {
 
 }
 
-void gadora_eye(void)
+void GadoraEye(void)
 {
 
 }
 
-void gadora_beam(void)
+void GadoraBeam(void)
 {
 
 }

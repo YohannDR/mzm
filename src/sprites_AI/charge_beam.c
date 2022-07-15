@@ -1,10 +1,10 @@
-#include "power_grip.h"
+#include "PowerGrip.h"
 #include "../sprite_util.h"
 #include "../sprite.h"
 #include "../globals.h"
 #include "../event.h"
 
-void charge_beam_init(void)
+void ChargeBeamInit(void)
 {
     u8 check;
     u16 status;
@@ -34,17 +34,17 @@ void charge_beam_init(void)
     }
 }
 
-void charge_beam_spawn_glow(void)
+void ChargeBeamSpawnGlow(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     if (SpriteUtilCheckNearEndCurrentSpriteAnim() != 0x0)
     {
         gCurrentSprite.pose = 0xB;
-        gCurrentSprite.timer2 = SpriteSpawnSecondary(SSPRITE_CHARGE_BEAM_GLOW, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        gCurrentSprite.workVariable = SpriteSpawnSecondary(SSPRITE_CHARGE_BEAM_GLOW, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     }
 }
 
-void charge_beam_gfx_init(void)
+void ChargeBeamGFXInit(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     gCurrentSprite.pose = 0x9;
@@ -56,7 +56,7 @@ void charge_beam_gfx_init(void)
     gCurrentSprite.array_offset = 0x0;
 }
 
-void charge_beam_get(void)
+void ChargeBeamGet(void)
 {
     i16 y_offset;
     u8 array_offset;
@@ -72,8 +72,8 @@ void charge_beam_get(void)
     gCurrentSprite.y_position += y_offset;
     if ((gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING) != 0x0)
     {
-        if (gCurrentSprite.timer2 < 0x18)
-            gSpriteData[gCurrentSprite.timer2].status = 0x0;
+        if (gCurrentSprite.workVariable < 0x18)
+            gSpriteData[gCurrentSprite.workVariable].status = 0x0;
         gPreventMovementTimer = 0x3E8;
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
         gCurrentSprite.ignore_samus_collision_timer = 0x2;
@@ -87,17 +87,17 @@ void charge_beam_get(void)
     }
 }
 
-void charge_beam_flashing_anim(void)
+void ChargeBeamFlashingAnim(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
-    gCurrentSprite.animation_duration_counter--;
+    gCurrentSprite.anim_duration_counter;
     if ((gCurrentSprite.timer1 & 0x1) == 0x0)
         gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
     if (gPreventMovementTimer < 0x3E7)
         gCurrentSprite.status = 0x0;
 }
 
-void charge_beam_glow_init(void)
+void ChargeBeamGlowInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.draw_order = 0x3;
@@ -115,7 +115,7 @@ void charge_beam_glow_init(void)
     gCurrentSprite.pose = 0x9;
 }
 
-void charge_beam_glow_movement(void)
+void ChargeBeamGlowMovement(void)
 {
     u8 ram_slot;
 
@@ -124,34 +124,34 @@ void charge_beam_glow_movement(void)
     gCurrentSprite.y_position = gSpriteData[ram_slot].y_position;
 }
 
-void charge_beam(void)
+void ChargeBeam(void)
 {
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            charge_beam_init();
+            ChargeBeamInit();
             break;
         case 0xA:
-            charge_beam_spawn_glow();
+            ChargeBeamSpawnGlow();
             break;
         case 0xB:
-            charge_beam_gfx_init();
+            ChargeBeamGFXInit();
             break;
         case 0x9:
-            charge_beam_get();
+            ChargeBeamGet();
             break;
         case 0x23:
-            charge_beam_flashing_anim();
+            ChargeBeamFlashingAnim();
     }
 }
 
-void charge_beam_glow(void)
+void ChargeBeamGlow(void)
 {
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            charge_beam_glow_init();
+            ChargeBeamGlowInit();
         case 0x9:
-            charge_beam_glow_movement();
+            ChargeBeamGlowMovement();
     }
 }

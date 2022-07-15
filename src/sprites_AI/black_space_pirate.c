@@ -4,47 +4,52 @@
 #include "../globals.h"
 
 
-void black_space_pirate_hit_by_projectile(void)
+void BlackSpacePirateHitByProjectile(void)
 {
 
 }
 
-void black_space_pirate_colliding_with_laser(void)
+void BlackSpacePirateCollidingWithLaser(void)
 {
 
 }
 
-void black_space_pirate_init(void)
+void BlackSpacePirateInit(void)
 {
 
 }
 
-void black_space_pirate_check_offscreen(void)
+void BlackSpacePirateCheckOnScreen(void)
 {
 
 }
 
-void black_space_pirate_before_shooting_gfx_init(void)
+void BlackSpacePirateShootingTimer(void)
 {
 
 }
 
-void black_space_pirate_determine_shooting_direction(void)
+void BlackSpacePirateBeforeShootingGFXInit(void)
 {
 
 }
 
-void black_space_pirate_jumping(void)
+void BlackSpacePirateDetermineShootingDirection(void)
 {
 
 }
 
-void black_space_pirate_move(void)
+void BlackSpacePirateJumping(void)
 {
 
 }
 
-void black_space_pirate_death(u8 playSound)
+void BlackSpacePirateMove(void)
+{
+
+}
+
+void BlackSpacePirateDeath(u8 playSound)
 {
 
 }
@@ -59,7 +64,7 @@ void unk_2d7dc(void)
 
 }
 
-void black_space_pirate(void)
+void BlackSpacePirate(void)
 {
 
 }

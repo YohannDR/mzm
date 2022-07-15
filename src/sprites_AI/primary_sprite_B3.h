@@ -2,7 +2,8 @@
 #define PRIMARY_SPRITE_B3_AI_H
 
 #include "../types.h"
+#include "../transparency.h"
 
-void primary_sprite_B3(void);
+void PrimarySpriteB3(void);
 
 #endif /* PRIMARY_SPRITE_B3_AI_H */

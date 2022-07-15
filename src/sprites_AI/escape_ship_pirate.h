@@ -3,9 +3,9 @@
 
 #include "../types.h"
 
-void escape_ship_space_pirate_init(void);
-void escape_ship_space_pirate_init2(void);
-void escape_ship_space_pirate_detect_samus(void);
-void escape_ship_space_pirate(void)
+void EscapeShipSpacePirateInit(void);
+void EscapeShipSpacePirateInit2(void);
+void EscapeShipSpacePirateDetectSamus(void);
+void EscapeShipSpacePirate(void);
 
 #endif /* ESCAPE_SHIP_SPACE_PIRATE_AI_H */

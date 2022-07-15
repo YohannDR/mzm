@@ -3,12 +3,12 @@
 
 #include "../types.h"
 
-void ripper_init(void);
-void ripper_gfx_init(void);
-void ripper_move(void);
-void ripper_turn_around_gfx_init(void);
-void ripper_turn_around_begin(void);
-void ripper_check_turned_around(void);
-void ripper(void);
+void RipperInit(void);
+void RipperGFXInit(void);
+void RipperMove(void);
+void RipperTurnAroundGFXInit(void);
+void RipperTurnAroundBegin(void);
+void RipperCheckTurnedAround(void);
+void Ripper(void);
 
 #endif /* RIPPER_AI_H */

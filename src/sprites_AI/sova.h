@@ -3,19 +3,19 @@
 
 #include "../types.h"
 
-u8 sova_check_colliding_with_air(void);
-void sova_hitbox_update(void);
-void sova_gfx_update(void);
-void sova_init(void);
-void sova_gfx_init(void);
-void sova_move(void);
-void sova_turning_around_gfx_update(void);
-void sova_turning_around(void);
-void sova_back_on_ground(void);
-void sova_check_back_on_ground_anim_ended(void);
-void sova_start_falling(void);
-void sova_falling(void);
-void sova_death(void);
-void sova(void);
+u8 SovaCheckCollidingWithAir(void);
+void SovaHitboxUpdate(void);
+void SovaGFXUpdate(void);
+void SovaInit(void);
+void SovaInit(void);
+void SovaMove(void);
+void SovaTurningAroundGFXUpdate(void);
+void SovaTurningAround(void);
+void SovaBackOnGround(void);
+void SovaCheckBackOnGroundAnimEnded(void);
+void SovaStartFalling(void);
+void SovaFalling(void);
+void SovaDeath(void);
+void Sova(void);
 
 #endif /* SOVA_AI_H */

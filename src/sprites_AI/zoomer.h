@@ -3,20 +3,20 @@
 
 #include "../types.h"
 
-u8 zoomer_check_colliding_with_air(void);
-void zoomer_collision_init(void);
-void zoomer_gfx_init(void);
-void zoomer_normal_direction_gfx_init(void);
-void zoomer_init(void);
-void zoomer_call_gfx_init(void);
-void zoomer_move(void);
-void zoomer_gfx_rotation_update(void);
-void zoomer_turning(void);
-void zoomer_unused(void);
-void zoomer_back_on_ground(void);
-void zoomer_start_falling(void);
-void zoomer_falling(void);
-void zoomer_death(void);
-void zoomer(void);
+u8 ZoomerCheckCollidingWithAir(void);
+void ZoomerCollisionInit(void);
+void ZoomerGFXInit(void);
+void ZoomerNormalDirectionGFXInit(void);
+void ZoomerInit(void);
+void ZoomerCallGFXInit(void);
+void ZoomerMove(void);
+void ZoomerGFXRotationUpdate(void);
+void ZoomerTurning(void);
+void Zoomer_Unused(void);
+void ZoomerBackOnGround(void);
+void ZoomerStartFalling(void);
+void ZoomerFalling(void);
+void ZoomerDeath(void);
+void Zoomer(void);
 
 #endif   /* ZOMMER_AI_H */

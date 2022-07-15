@@ -1,10 +1,10 @@
-#include "power_grip.h"
+#include "PowerGrip.h"
 #include "../sprite_util.h"
 #include "../sprite.h"
 #include "../globals.h"
 #include "../event.h"
 
-void power_grip(void)
+void PowerGrip(void)
 {
     switch (gCurrentSprite.pose)
     {
@@ -20,7 +20,7 @@ void power_grip(void)
                 gCurrentSprite.hitbox_bottom_offset = 0x1C;
                 gCurrentSprite.hitbox_left_offset = -0x1C;
                 gCurrentSprite.hitbox_right_offset = 0x1C;
-                gCurrentSprite.oam_pointer = power_grip_oam_2b310c;
+                gCurrentSprite.oam_pointer = PowerGrip_oam_2b310c;
                 gCurrentSprite.anim_duration_counter = 0x0;
                 gCurrentSprite.curr_anim_frame = 0x0;
                 gCurrentSprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
@@ -54,7 +54,7 @@ void power_grip(void)
     }
 }
 
-void power_grip_glow(void)
+void PowerGrip_glow(void)
 {
     switch (gCurrentSprite.pose)
     {
@@ -67,7 +67,7 @@ void power_grip_glow(void)
             gCurrentSprite.hitbox_bottom_offset = 0x0;
             gCurrentSprite.hitbox_left_offset = 0x0;
             gCurrentSprite.hitbox_right_offset = 0x0;
-            gCurrentSprite.oam_pointer = power_grip_glow_oam;
+            gCurrentSprite.oam_pointer = PowerGrip_glow_oam;
             gCurrentSprite.anim_duration_counter = 0x0;
             gCurrentSprite.curr_anim_frame = 0x0;
             gCurrentSprite.samus_collision = SSC_NONE;

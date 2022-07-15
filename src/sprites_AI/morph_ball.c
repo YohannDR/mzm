@@ -3,7 +3,7 @@
 #include "../sprite.h"
 #include "../globals.h"
 
-void morph_ball_init(void)
+void MorphBallInit(void)
 {
     if (gEquipment.suit_misc & SMF_MORPH_BALL)
         gCurrentSprite.status = 0x0;
@@ -29,7 +29,7 @@ void morph_ball_init(void)
     }
 }
 
-void morph_ball_get(void)
+void MorphBallGet(void)
 {
     if ((gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING) != 0x0)
     {
@@ -43,7 +43,7 @@ void morph_ball_get(void)
     }
 }
 
-void morph_ball_flash_anim(void)
+void MorphBallFlashAnim(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     if ((gCurrentSprite.timer1 & 0x1) == 0x0)
@@ -52,7 +52,7 @@ void morph_ball_flash_anim(void)
         gCurrentSprite.status = 0x0;
 }
 
-void morph_ball_outside_init(void)
+void MorphBallOutsideInit(void)
 {
     gCurrentSprite.hitbox_top_offset = -0x4;
     gCurrentSprite.hitbox_bottom_offset = 0x4;
@@ -69,7 +69,7 @@ void morph_ball_outside_init(void)
     gCurrentSprite.pose = 0x9;
 }
 
-void morph_ball_outside_flash_anim(void)
+void MorphBallOutsideFlashAnim(void)
 {
     u8 ram_slot;
 
@@ -80,30 +80,30 @@ void morph_ball_outside_flash_anim(void)
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
 }
 
-void morph_ball(void)
+void MorphBall(void)
 {
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            morph_ball_init();
+            MorphBallInit();
             break;
         case 0x9:
-            morph_ball_get();
+            MorphBallGet();
             break;
         case 0x23:
-            morph_ball_flash_anim();
+            MorphBallFlashAnim();
     }
 }
 
-void morph_ball_outside(void)
+void MorphBallOutside(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            morph_ball_outside_init();
+            MorphBallOutsideInit();
         case 0x9:
-            morph_ball_outside_flash_anim();
+            MorphBallOutsideFlashAnim();
     }
 }

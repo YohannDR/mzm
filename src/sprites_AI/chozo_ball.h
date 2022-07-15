@@ -3,16 +3,16 @@
 
 #include "../types.h"
 
-void chozo_ball_spawn_item_banner(u8 sprite_id);
-void chozo_ball_set_oam_pointer(u8 sprite_id);
-void chozo_ball_revealing_set_oam_pointer(u8 sprite_id);
-void chozo_ball_revealed_set_oam_pointer(u8 sprite_id);
-void chozo_ball_init(void);
-void chozo_ball_empty(void);
-void chozo_ball_revealing(void);
-void chozo_ball_check_revealing_anim_ended(void);
-void chozo_ball_register_item(void);
-void chozo_ball_flash_animation(void);
-void chozo_ball(void);
+void ChozoBallSpawnItemBanner(u8 sprite_id);
+void ChozoBallSetOAMPointer(u8 sprite_id);
+void ChozoBallRevealingSetOAMPointer(u8 sprite_id);
+void ChozoBallRevealedSetOAMPointer(u8 sprite_id);
+void ChozoBallInit(void);
+void ChozoBallEmpty(void);
+void ChozoBallRevealing(void);
+void ChozoBallCheckRevealingAnimEnded(void);
+void ChozoBallRegisterItem(void);
+void ChozoBallFlashAnimation(void);
+void ChozoBall(void);
 
 #endif /* CHOZO_BALL_AI_H */

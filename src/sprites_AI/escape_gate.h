@@ -3,7 +3,7 @@
 
 #include "../types.h"
 
-void escape_gate_change_ccaa(u8 caa);
-void escape_gate(void);
+void EscapeGateChangeCCAA(u8 caa);
+void EscapeGate(void);
 
 #endif /* ESCAPE_GATE_AI_H */

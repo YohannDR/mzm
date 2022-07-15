@@ -2,47 +2,47 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void skultera_set_sides_hitbox(void)
+void SkulteraSetSidesHitbox(void)
 {
 
 }
 
-u8 skultera_x_movement(u16 movement)
+u8 SkulteraXMovement(u16 movement)
 {
 
 }
 
-void skultera_init(void)
+void SkulteraInit(void)
 {
 
 }
 
-void skultera_gfx_init(void)
+void SkulteraGFXInit(void)
 {
 
 }
 
-void skultera_moving(void)
+void SkulteraMoving(void)
 {
 
 }
 
-void skultera_chasing_samus_gfx_init(void)
+void SkulteraChasingSamusGFXInit(void)
 {
 
 }
 
-void skultera_chasing_samus(void)
+void SkulteraChasingSamus(void)
 {
 
 }
 
-void skultera_turning_around_gfx_init(void)
+void SkulteraTurningAroundGFXInit(void)
 {
 
 }
 
-void skultera_check_turning_around_anim_ended(void)
+void SkulteraCheckTurningAroundAnimEnded(void)
 {
 
 }

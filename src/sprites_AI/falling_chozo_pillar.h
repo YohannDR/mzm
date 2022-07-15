@@ -3,6 +3,6 @@
 
 #include "../types.h"
 
-void falling_chozo_pillar(void);
+void FallingChozoPillar(void);
 
 #endif /* FALLING_CHOZO_PILLAR_AI_H */

@@ -12,7 +12,7 @@
  * 
  * @param sprite_id Chozo statue sprite ID
  */
-void chozo_ball_spawn_item_banner(u8 sprite_id)
+void ChozoBallSpawnItemBanner(u8 sprite_id)
 {
     u8 text;
 
@@ -56,17 +56,17 @@ void chozo_ball_spawn_item_banner(u8 sprite_id)
     SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
 }
 
-void chozo_ball_set_oam_pointer(u8 sprite_id)
+void ChozoBallSetOAMPointer(u8 sprite_id)
 {
 
 }
 
-void chozo_ball_revealing_set_oam_pointer(u8 sprite_id)
+void ChozoBallRevealingSetOAMPointer(u8 sprite_id)
 {
 
 }
 
-void chozo_ball_revealed_set_oam_pointer(u8 sprite_id)
+void ChozoBallRevealedSetOAMPointer(u8 sprite_id)
 {
 
 }
@@ -75,7 +75,7 @@ void chozo_ball_revealed_set_oam_pointer(u8 sprite_id)
  * 16470 | 74 | Initializes a chozo ball sprite
  * 
  */
-void chozo_ball_init(void)
+void ChozoBallInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.hitbox_top_offset = -0x1C;
@@ -90,23 +90,23 @@ void chozo_ball_init(void)
     gCurrentSprite.samus_collision = SSC_SOLID;
     gCurrentSprite.health = 0x1;
     gCurrentSprite.pose = 0x8;
-    chozo_ball_set_oam_pointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
+    ChozoBallSetOAMPointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
 }
 
 /**
  * 164e4 | 4 | Empty function
  * 
  */
-void chozo_ball_empty(void)
+void ChozoBallEmpty(void)
 {
     return;
 }
 
 /**
- * 164e8 | 70 | Called before the chozo ball reveals, calls chozo_ball_revealing_set_oam_pointer and updates the sprite data
+ * 164e8 | 70 | Called before the chozo ball reveals, calls ChozoBallRevealingSetOAMPointer and updates the sprite data
  * 
  */
-void chozo_ball_revealing(void)
+void ChozoBallRevealing(void)
 {
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     gCurrentSprite.health = 0x1;
@@ -116,30 +116,30 @@ void chozo_ball_revealing(void)
     gCurrentSprite.curr_anim_frame = 0x0;
     gCurrentSprite.palette_row = gCurrentSprite.absolute_palette_row;
     gCurrentSprite.invicibility_stun_flash_timer &= 0x80;
-    chozo_ball_revealing_set_oam_pointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
+    ChozoBallRevealingSetOAMPointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
     SoundPlay(0x11D);
 }
 
 /**
- * 16558 | 3c | Checks if the revealing animation has ended, calls chozo_ball_revealed_set_oam_pointer
+ * 16558 | 3c | Checks if the revealing animation has ended, calls ChozoBallRevealedSetOAMPointer
  * 
  */
-void chozo_ball_check_revealing_anim_ended(void)
+void ChozoBallCheckRevealingAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.anim_duration_counter = 0x0;
         gCurrentSprite.curr_anim_frame = 0x0;
-        chozo_ball_revealed_set_oam_pointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
+        ChozoBallRevealedSetOAMPointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
     }
 }
 
 /**
- * 16594 | 1c | Registers the item grabbed and calls chozo_ball_spawn_item_banner
+ * 16594 | 1c | Registers the item grabbed and calls ChozoBallSpawnItemBanner
  * 
  */
-void chozo_ball_register_item(void)
+void ChozoBallRegisterItem(void)
 {
     u8 sprite_id;
 
@@ -151,8 +151,8 @@ void chozo_ball_register_item(void)
         gCurrentSprite.pose = 0x23;
         gCurrentSprite.timer1 = 0x0;
         sprite_id = gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id;
-        chozo_statue_register_item(sprite_id);
-        chozo_ball_spawn_item_banner(sprite_id);
+        ChozoStatueRegisterItem(sprite_id);
+        ChozoBallSpawnItemBanner(sprite_id);
     }
 }
 
@@ -160,7 +160,7 @@ void chozo_ball_register_item(void)
  * 16600 | 3c | Handles the flashing animation when the item gets grabbed 
  * 
  */
-void chozo_ball_flash_animation(void)
+void ChozoBallFlashAnimation(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
 
@@ -175,26 +175,26 @@ void chozo_ball_flash_animation(void)
  * 1663c | 58 | Chozo ball AI
  * 
  */
-void chozo_ball(void)
+void ChozoBall(void)
 {
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            chozo_ball_init();
+            ChozoBallInit();
             break;
         case 0x8:
-            chozo_ball_empty();
+            ChozoBallEmpty();
             break;
         case 0x67:
-            chozo_ball_check_revealing_anim_ended();
+            ChozoBallCheckRevealingAnimEnded();
             break;
         case 0x9:
-            chozo_ball_register_item();
+            ChozoBallRegisterItem();
             break;
         case 0x23:
-            chozo_ball_flash_animation();
+            ChozoBallFlashAnimation();
             break;
         default:
-            chozo_ball_revealing();
+            ChozoBallRevealing();
     }
 }

@@ -1,14 +1,14 @@
-#include "chozo_statue_movement.h"
+#include "ChozoStatueMovement.h"
 
 #include "../../data/data.h"
 #include "../globals.h"
 
-void chozo_statue_echo(u8 stage)
+void ChozoStatueEcho(u8 stage)
 {
 
 }
 
-void chozo_statue_movement(void)
+void ChozoStatueMovement(void)
 {
 
 }

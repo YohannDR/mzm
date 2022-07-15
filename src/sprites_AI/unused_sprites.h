@@ -3,6 +3,6 @@
 
 #include "../types.h"
 
-void unused_sprites(void);
+void UnusedSprites(void);
 
 #endif /* UNUSED_SPRITES_AI_H */

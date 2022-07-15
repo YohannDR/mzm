@@ -1,9 +1,9 @@
-#include "ripper2.h"
+#include "Ripper2.h"
 #include "../sprite_util.h"
 #include "../../data/data.h"
 #include "../globals.h"
 
-void ripper2_init(void)
+void Ripper2Init(void)
 {
     gCurrentSprite.hitbox_top_offset = -0x24;
     gCurrentSprite.hitbox_bottom_offset = 0x8;
@@ -22,7 +22,7 @@ void ripper2_init(void)
     gCurrentSprite.pose = 0x8;
 }
 
-void ripper2_gfx_init(void)
+void Ripper2GFXInit(void)
 {
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.oam_pointer = ripper2_oam_2cc458;
@@ -30,7 +30,7 @@ void ripper2_gfx_init(void)
     gCurrentSprite.anim_duration_counter = 0x0;
 }
 
-void ripper2_move(void)
+void Ripper2Move(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
@@ -50,7 +50,7 @@ void ripper2_move(void)
     }
 }
 
-void ripper2_turn_around_gfx_init(void)
+void Ripper2TurnAroundGFXInit(void)
 {
     gCurrentSprite.pose = 0xB;
     gCurrentSprite.oam_pointer = ripper2_oam_2cc480;
@@ -60,7 +60,7 @@ void ripper2_turn_around_gfx_init(void)
         unk_2b20(0x267);
 }
 
-void ripper2_turn_around_begin(void)
+void Ripper2TurnAroundBegin(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -72,17 +72,17 @@ void ripper2_turn_around_begin(void)
     }
 }
 
-void ripper2_check_turned_around(void)
+void Ripper2CheckTurnedAround(void)
 {
     if (SpriteUtilCheckNearEndCurrentSpriteAnim())
         gCurrentSprite.pose = 0x8;
 }
 
-void ripper2(void)
+void Ripper2(void)
 {
-    if (gCurrentSprite.properties & SP_UNKNOWN)
+    if (gCurrentSprite.properties & SP_DAMAGED)
     {
-        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             unk_2b20(0x268);
     }
@@ -96,20 +96,20 @@ void ripper2(void)
             switch (gCurrentSprite.pose)
             {
                 case 0x0:
-                    ripper2_init();
+                    Ripper2Init();
                     break;
                 case 0x8:
-                    ripper2_gfx_init();
+                    Ripper2GFXInit();
                 case 0x9:
-                    ripper2_move();
+                    Ripper2Move();
                     break;
                 case 0xA:
-                    ripper2_turn_around_gfx_init();
+                    Ripper2TurnAroundGFXInit();
                 case 0xB:
-                    ripper2_turn_around_begin();
+                    Ripper2TurnAroundBegin();
                     break;
                 case 0xC:
-                    ripper2_check_turned_around();
+                    Ripper2CheckTurnedAround();
                     break;
                 default:
                     SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position - 0x18, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);

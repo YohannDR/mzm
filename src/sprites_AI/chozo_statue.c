@@ -2,177 +2,177 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void chozo_statue_sync_body_position(void)
+void ChozoStatueSyncBodyPosition(void)
 {
 
 }
 
-void chozo_statue_register_item(u8 id)
+void ChozoStatueRegisterItem(u8 id)
 {
 
 }
 
-void chozo_statue_set_direction(void)
+void ChozoStatueSetDirection(void)
 {
 
 }
 
-u8 chozo_statue_check_item_collected(u8 id)
+u8 ChozoStatueCheckItemCollected(u8 id)
 {
 
 }
 
-void chozo_statue_init(void)
+void ChozoStatueInit(void)
 {
 
 }
 
-void chozo_statue_call_register_item(void)
+void ChozoStatueCallRegisterItem(void)
 {
 
 }
 
-void chozo_statue_hint_flashing(void)
+void ChozoStatueHintFlashing(void)
 {
 
 }
 
-void chozo_statue_end_hint(void)
+void ChozoStatueEndHint(void)
 {
 
 }
 
-void chozo_statue_hint_sit(void)
+void ChozoStatueHintSit(void)
 {
 
 }
 
-void chozo_statue_hint_sit_finish(void)
+void ChozoStatueHintSitFinish(void)
 {
 
 }
 
-void chozo_statue_check_collect_item(void)
+void ChozoStatueCheckCollectItem(void)
 {
 
 }
 
-void chozo_statue_item_before_banner(void)
+void ChozoStatueItemBeforeBanner(void)
 {
 
 }
 
-void chozo_statue_spawn_refill(void)
+void ChozoStatueSpawnRefill(void)
 {
 
 }
 
-void chozo_statue_refill_flashing_anim(void)
+void ChozoStatueRefillFlashingAnim(void)
 {
 
 }
 
-void chozo_statue_refill_end(void)
+void ChozoStatueRefillEnd(void)
 {
 
 }
 
-void chozo_statue_replay_room_music(void)
+void ChozoStatueReplayRoomMusic(void)
 {
 
 }
 
-void chozo_statue_body_init(void)
+void ChozoStatueBodyInit(void)
 {
 
 }
 
-void chozo_statue_body_hand_refill_anim(void)
+void ChozoStatueBodyHandRefillAnim(void)
 {
 
 }
 
-void chozo_statue_body_grab_samus(void)
+void ChozoStatueBodyGrabSamus(void)
 {
 
 }
 
-void chozo_statue_body_sync_samus_position(void)
+void ChozoStatueBodySyncSamusPosition(void)
 {
 
 }
 
-void chozo_statue_body_sync_samus_position_while_sitting(void)
+void ChozoStatueBodySyncSamusPositionWhileSitting(void)
 {
 
 }
 
-void chozo_statue_body_sync_samus_position_after_sitting(void)
+void ChozoStatueBodySyncSamusPositionAfterSitting(void)
 {
 
 }
 
-void chozo_statue_body_detect_samus(void)
+void ChozoStatueBodyDetectSamus(void)
 {
 
 }
 
-void chozo_statue_body_refill(void)
+void ChozoStatueBodyRefill(void)
 {
 
 }
 
-void chozo_statue_body_empty(void)
+void ChozoStatueBody_Empty(void)
 {
 
 }
 
-void chozo_statue_body_end_refill(void)
+void ChozoStatueBodyEndRefill(void)
 {
 
 }
 
-void chozo_statue_body_release_samus(void)
+void ChozoStatueBodyReleaseSamus(void)
 {
 
 }
 
-void chozo_statue_body_init_hint_gfx(void)
+void ChozoStatueBodyInitHintGFX(void)
 {
 
 }
 
-void chozo_statue_body_check_eye_opened_hint(void)
+void ChozoStatueBodyCheckEyeOpenedHint(void)
 {
 
 }
 
-void chozo_statue_item_after_banner(void)
+void ChozoStatueItemAfterBanner(void)
 {
 
 }
 
-void chozo_statue_body_check_eye_closed_refill(void)
+void ChozoStatueBodyCheckEyeClosedRefill(void)
 {
 
 }
 
-void chozo_statue_body_set_sitting_pose(void)
+void ChozoStatueBodySetSittingPose(void)
 {
 
 }
 
-void chozo_statue(void)
+void ChozoStatue(void)
 {
 
 }
 
-void chozo_statue_body(void)
+void ChozoStatueBody(void)
 {
 
 }
 
-void chozo_statue_refill(void)
+void ChozoStatueRefill(void)
 {
 
 }

@@ -3,21 +3,21 @@
 
 #include "../types.h"
 
-void elevator_statue_change_two_ground_ccaa(u8 caa);
-void kraid_elevator_statue_change_ccaa(u8 caa);
-void kraid_elevator_statue_after_fall(void);
-void kraid_elevator_statue_init(void);
-void kraid_elevator_statue_check_should_fall(void);
-void kraid_elevator_statue_timer_before_falling(void);
-void kraid_elevator_statue_falling(void);
-void ridley_elevator_statue_change_ccaa(u8 caa);
-void ridley_elevator_statue_after_fall(void);
-void ridley_elevator_statue_init(void);
-void ridley_elevator_statue_check_should_fall(void);
-void ridley_elevator_statue_timer_before_falling(void);
-void ridley_elevator_statue_falling(void);
-void kraid_elevator_statue(void);
-void ridley_elevator_statue(void);
-void elevator_statue_debris(void);
+void ElevatorStatueChangeTwoGroundCCAA(u8 caa);
+void KraidElevatorStatueChangeCAA(u8 caa);
+void KraidElevatorStatueAfterFall(void);
+void KraidElevatorStatueInit(void);
+void KraidElevatorStatueCheckShouldFall(void);
+void KraidElevatorStatueDelayBeforeFalling(void);
+void KraidElevatorStatueFalling(void);
+void RidleyElevatorStatueChangeCCAA(u8 caa);
+void RidleyElevatorStatueAfterFall(void);
+void RidleyElevatorStatueInit(void);
+void RidleyElevatorStatueCheckShouldFall(void);
+void RidleyElevatorStatueDelayBeforeFalling(void);
+void RidleyElevatorStatueFalling(void);
+void KraidElevatorStatue(void);
+void RidleyElevatorStatue(void);
+void ElevatorStatueDebris(void);
 
 #endif /* ELEVATOR_STATUE_AI_H */

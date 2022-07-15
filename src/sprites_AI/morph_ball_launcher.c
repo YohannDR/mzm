@@ -3,7 +3,7 @@
 #include "../projectile.h"
 #include "../globals.h"
 
-void morph_ball_launcher_change_ccaa(u8 caa)
+void MorphBallLauncherChangeCCAA(u8 caa)
 {
     u16 sprite_y;
     u16 sprite_x;
@@ -22,7 +22,7 @@ void morph_ball_launcher_change_ccaa(u8 caa)
     ClipdataProcess(sprite_y + 0x40, sprite_x);
 }
 
-void morph_ball_launcher_init(void)
+void MorphBallLauncherInit(void)
 {
     gCurrentSprite.y_position -= 0x20;
     gCurrentSprite.hitbox_top_offset = 0x0;
@@ -40,10 +40,10 @@ void morph_ball_launcher_init(void)
     gCurrentSprite.bg_priority = ((gIORegistersBackup.bg2cnt & 0x3) + 0x1) & 0x3;
     gCurrentSprite.draw_order = 0x2;
     SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
-    morph_ball_launcher_change_ccaa(CCAA_MAKE_SOLID3);
+    MorphBallLauncherChangeCCAA(CCAA_MAKE_SOLID3);
 }
 
-void morph_ball_launcher_detect_bomb(void)
+void MorphBallLauncherDetectBomb(void)
 {
     struct ProjectileData* pProj;
     u8 has_bomb;
@@ -84,7 +84,7 @@ void morph_ball_launcher_detect_bomb(void)
     }
 }
 
-void morph_ball_launcher_bomb_timer(void)
+void MorphBallLauncherBombTimer(void)
 {
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
@@ -94,16 +94,16 @@ void morph_ball_launcher_bomb_timer(void)
         gCurrentSprite.curr_anim_frame = 0x0;
         gCurrentSprite.pose = 0xC;
         gCurrentSprite.timer1 = 0x3C;
-        gCurrentSprite.timer2 = 0x0;
+        gCurrentSprite.workVariable = 0x0;
     }
 }
 
-void morph_ball_launcher_launch_samus_anim(void)
+void MorphBallLauncherLaunchSamusAnim(void)
 {
-    if (gCurrentSprite.timer2 == 0x0 && gSamusData.pose == SPOSE_DELAY_BEFORE_BALLSPARKING)
+    if (gCurrentSprite.workVariable == 0x0 && gSamusData.pose == SPOSE_DELAY_BEFORE_BALLSPARKING)
     {
         SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gSamusData.y_position - 0x10, gSamusData.x_position, 0x0);
-        gCurrentSprite.timer2 = 0x1;
+        gCurrentSprite.workVariable = 0x1;
     }
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
@@ -115,26 +115,26 @@ void morph_ball_launcher_launch_samus_anim(void)
     }
 }
 
-void morph_ball_launcher(void)
+void MorphBallLauncher(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            morph_ball_launcher_init();
+            MorphBallLauncherInit();
             break;
         case 0x9:
-            morph_ball_launcher_detect_bomb();
+            MorphBallLauncherDetectBomb();
             break;
         case 0xB:
-            morph_ball_launcher_bomb_timer();
+            MorphBallLauncherBombTimer();
             break;
         case 0xC:
-            morph_ball_launcher_launch_samus_anim();
+            MorphBallLauncherLaunchSamusAnim();
     }
 }
 
-void morph_ball_launcher_back(void)
+void MorphBallLauncherBack(void)
 {
 
 }

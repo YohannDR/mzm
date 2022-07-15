@@ -3,8 +3,8 @@
 
 #include "../types.h"
 
-void waver_init(void);
-void waver_move(void);
-void waver(void);
+void WaverInit(void);
+void WaverMove(void);
+void Waver(void);
 
 #endif /* WAVER_AI_H */

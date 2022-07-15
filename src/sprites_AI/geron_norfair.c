@@ -1,4 +1,4 @@
-#include "geron_norfair.h"
+#include "GeronNorfair.h"
 #include "../clipdata.h"
 #include "../event.h"
 #include "../../data/data.h"
@@ -8,7 +8,7 @@
  * 40178 | b8 | Geron Norfair AI
  * 
  */
-void geron_norfair(void)
+void GeronNorfair(void)
 {
     u8 caa;
     u16 y_position;
@@ -34,7 +34,7 @@ void geron_norfair(void)
             gCurrentSprite.samus_collision = SSC_NONE;
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.health = 0x1;
-            gCurrentSprite.oam_pointer = geron_norfair_oam;
+            gCurrentSprite.oam_pointer = GeronNorfair_oam;
             y_position = gCurrentSprite.y_position - 0x20;
             x_position = gCurrentSprite.x_position;
             caa = CCAA_MAKE_SOLID3

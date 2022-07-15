@@ -2969,12 +2969,12 @@ u8 SamusRolling(struct SamusData* pData)
 
 u8 SamusRollingGFX(struct SamusData* pData)
 {
-    u8 aimState;
+    u8 animState;
 
-    aimState = SamusUpdateAnimation(pData, FALSE);
-    if (aimState == SAMUS_ANIM_STATE_ENDED)
+    animState = SamusUpdateAnimation(pData, FALSE);
+    if (animState == SAMUS_ANIM_STATE_ENDED)
         pData->curr_anim_frame = 0x0;
-    else if (aimState == SAMUS_ANIM_STATE_SUB_ENDED && (pData->curr_anim_frame == 0x1 || pData->curr_anim_frame == 0x5))
+    else if (animState == SAMUS_ANIM_STATE_SUB_ENDED && (pData->curr_anim_frame == 0x1 || pData->curr_anim_frame == 0x5))
         SamusCheckSetEnvironmentalEffect(pData, 0x0, WANTING_RUNNING_ON_WET_GROUND);
 
     return SPOSE_NONE;

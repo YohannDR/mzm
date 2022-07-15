@@ -2,77 +2,77 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void boss_statue_vertical_lign_change_ccaa(u8 caa)
+void BossStatueVerticalLignChangeCCAA(u8 caa)
 {
 
 }
 
-void boss_statue_horizontal_lign_three_change_ccaa(u8 caa)
+void BossStatueHorizontalLignThreeChangeCCAA(u8 caa)
 {
 
 }
 
-void boss_statue_horizontal_lign_height_change_ccaa(u8 caa)
+void BossStatueHorizontalLignHeightChangeCCAA(u8 caa)
 {
 
 }
 
-void kraid_statue_after_open(void)
+void KraidStatueAfterOpen(void)
 {
 
 }
 
-void kraid_statue_init(void)
+void KraidStatueInit(void)
 {
 
 }
 
-void kraid_statue_check_background_locked(void)
+void KraidStatueCheckBackgroundLocked(void)
 {
 
 }
 
-void kraid_statue_opening(void)
+void KraidStatueOpening(void)
 {
 
 }
 
-void ridley_statue_change_three_ccaa(u8 caa)
+void RidleyStatueChangeThreeCCAA(u8 caa)
 {
 
 }
 
-void ridley_statue_change_four_ccaa(u8 caa)
+void RidleyStatueChangeFourCCAA(u8 caa)
 {
 
 }
 
-void ridley_statue_after_open(void)
+void RidleyStatueAfterOpen(void)
 {
 
 }
 
-void ridley_statue_init(void)
+void RidleyStatueInit(void)
 {
 
 }
 
-void ridley_statue_check_background_locked(void)
+void RidleyStatueCheckBackgroundLocked(void)
 {
 
 }
 
-void ridley_statue_opening(void)
+void RidleyStatueOpening(void)
 {
 
 }
 
-void kraid_statue(void)
+void KraidStatue(void)
 {
 
 }
 
-void ridley_statue(void)
+void RidleyStatue(void)
 {
 
 }

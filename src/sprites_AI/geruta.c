@@ -2,7 +2,7 @@
 #include "../sprite_util.h"
 #include "../globals.h"
 
-u8 geruta_y_movement(u16 movement)
+u8 GerutaYMovement(u16 movement)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
@@ -28,7 +28,7 @@ u8 geruta_y_movement(u16 movement)
     return FALSE;
 }
 
-u8 geruta_x_movement(u16 movement)
+u8 GerutaXMovement(u16 movement)
 {
     register u16 movement_;
 
@@ -50,7 +50,7 @@ u8 geruta_x_movement(u16 movement)
     return FALSE;
 }
 
-void geruta_init(void)
+void GerutaInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     SpriteUtilMakeSpriteFaceSamusDirection();
@@ -70,7 +70,7 @@ void geruta_init(void)
     gCurrentSprite.pose = 0x8;
 }
 
-void geruta_gfx_init(void)
+void GerutaGFXInit(void)
 {
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.anim_duration_counter = 0x0;
@@ -78,7 +78,7 @@ void geruta_gfx_init(void)
     gCurrentSprite.oam_pointer = geruta_oam_2d1400;
 }
 
-void geruta_detect_samus(void)
+void GerutaDetectSamus(void)
 {
     u8 nslr;
 
@@ -101,7 +101,7 @@ void geruta_detect_samus(void)
     gCurrentSprite.pose = 0x32;
 }
 
-void geruta_go_down_gfx_init(void)
+void GerutaGoDownGFXInit(void)
 {
     gCurrentSprite.pose = 0x33;
     gCurrentSprite.anim_duration_counter = 0x0;
@@ -111,7 +111,7 @@ void geruta_go_down_gfx_init(void)
         SoundPlay(0x150);
 }
 
-void geruta_check_warning_ended(void)
+void GerutaCheckWarningEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -122,7 +122,7 @@ void geruta_check_warning_ended(void)
     }
 }
 
-void geruta_check_going_down_anim_ended(void)
+void GerutaCheckGoingDownAnimEnded(void)
 {
     if (SpriteUtilCheckEndSpriteAnim())
     {
@@ -137,13 +137,13 @@ void geruta_check_going_down_anim_ended(void)
     }
 }
 
-void geruta_going_down(void)
+void GerutaGoingDown(void)
 {
     u16 old_y;
 
     old_y = gCurrentSprite.y_position;
-    geruta_x_movement(0x4);
-    if (geruta_y_movement(0xC) << 0x18)
+    GerutaXMovement(0x4);
+    if (GerutaYMovement(0xC) << 0x18)
     {
         gCurrentSprite.pose = 0x39;
         gCurrentSprite.anim_duration_counter = 0x0;
@@ -154,7 +154,7 @@ void geruta_going_down(void)
     SpriteUtilCheckInRoomEffect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_BIG);
 }
 
-void geruta_check_bouncing_anim_ended(void)
+void GerutaCheckBouncingAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -168,10 +168,10 @@ void geruta_check_bouncing_anim_ended(void)
     }
 }
 
-void geruta_going_up(void)
+void GerutaGoingUp(void)
 {
-    geruta_x_movement(0x4);
-    if (geruta_y_movement(0xC) << 0x18)
+    GerutaXMovement(0x4);
+    if (GerutaYMovement(0xC) << 0x18)
     {
         gCurrentSprite.y_position = (gCurrentSprite.y_position & 0xFFC0);
         gCurrentSprite.y_position  += 0x34;
@@ -182,17 +182,17 @@ void geruta_going_up(void)
     }
 }
 
-void geruta_check_reset_anim_ended(void)
+void GerutaCheckResetAnimEnded(void)
 {
     if (SpriteUtilCheckNearEndSpriteAnim())
         gCurrentSprite.pose = 0x8;
 }
 
-void geruta(void)
+void Geruta(void)
 {
-    if ((gCurrentSprite.properties & SP_UNKNOWN) != 0x0)
+    if ((gCurrentSprite.properties & SP_DAMAGED) != 0x0)
     {
-        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        gCurrentSprite.properties &= ~SP_DAMAGED;
         if ((gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
             unk_2b20(0x151);
     }
@@ -206,32 +206,32 @@ void geruta(void)
             switch (gCurrentSprite.pose)
             {
                 case 0x0:
-                    geruta_init();
+                    GerutaInit();
                     break;
                 case 0x8:
-                    geruta_gfx_init();
+                    GerutaGFXInit();
                 case 0x9:
-                    geruta_detect_samus();
+                    GerutaDetectSamus();
                     break;
                 case 0x32:
-                    geruta_go_down_gfx_init();
+                    GerutaGoDownGFXInit();
                 case 0x33:
-                    geruta_check_warning_ended();
+                    GerutaCheckWarningEnded();
                     break;
                 case 0x35:
-                    geruta_check_going_down_anim_ended();
+                    GerutaCheckGoingDownAnimEnded();
                     break;
                 case 0x37:
-                    geruta_going_down();
+                    GerutaGoingDown();
                     break;
                 case 0x39:
-                    geruta_check_bouncing_anim_ended();
+                    GerutaCheckBouncingAnimEnded();
                     break;
                 case 0x3B:
-                    geruta_going_up();
+                    GerutaGoingUp();
                     break;
                 case 0x3D:
-                    geruta_check_reset_anim_ended();
+                    GerutaCheckResetAnimEnded();
                     break;
 
                 default:

@@ -1,7 +1,7 @@
 #ifndef STEAM_AI_H
 #define STEAM_AI_H
 
-void steam(void);
-void steam_diagonal(void);
+void Steam(void);
+void SteamDiagonal(void);
 
 #endif /* STEAM_AI_H */

@@ -1,8 +1,8 @@
-#include "water_drop.h"
+#include "WaterDrop.h"
 #include "../sprite_util.h"
 #include "../globals.h"
 
-void water_drop_init(void)
+void WaterDropInit(void)
 {
     gCurrentSprite.hitbox_top_offset = -0x4;
     gCurrentSprite.hitbox_bottom_offset = 0x4;
@@ -13,7 +13,7 @@ void water_drop_init(void)
     gCurrentSprite.anim_duration_counter = 0x0;
 }
 
-void water_drop(void)
+void WaterDrop(void)
 {
     u16 offset;
     u32 block;
@@ -23,13 +23,13 @@ void water_drop(void)
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            water_drop_init();
+            WaterDropInit();
             gCurrentSprite.y_position -= 0x40;
             gCurrentSprite.draw_distance_top_offset = 0x8;
             gCurrentSprite.draw_distance_bottom_offset = 0x8;
             gCurrentSprite.draw_distance_horizontal_offset = 0x8;
             gCurrentSprite.curr_anim_frame = 0x0;
-            gCurrentSprite.oam_pointer = water_drop_oam_data_33bc54;
+            gCurrentSprite.oam_pointer = WaterDrop_oam_data_33bc54;
             gCurrentSprite.y_position_spawn = gCurrentSprite.y_position;
             gCurrentSprite.x_position_spawn = gCurrentSprite.x_position;
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
@@ -40,10 +40,10 @@ void water_drop(void)
         case 0x9:
             if (SpriteUtillCheckEndCurrentSpriteAnim() != FALSE)
             {
-                gCurrentSprite.oam_pointer = water_drop_oam_falling_33bc94;
+                gCurrentSprite.oam_pointer = WaterDrop_oam_falling_33bc94;
                 gCurrentSprite.curr_anim_frame = 0x0;
                 gCurrentSprite.anim_duration_counter = 0x0;
-                gCurrentSprite.timer2 = 0x0;
+                gCurrentSprite.workVariable = 0x0;
                 gCurrentSprite.array_offset = 0x0;
                 gCurrentSprite.pose = 0x1F;
             }
@@ -56,7 +56,7 @@ void water_drop(void)
                 if (gEffectYPosition != 0x0)
                 {
                     gCurrentSprite.y_position = gEffectYPosition;
-                    gCurrentSprite.timer2 = 0x1;
+                    gCurrentSprite.workVariable = 0x1;
                 }
                 else
                     gCurrentSprite.y_position = block;
@@ -84,13 +84,13 @@ void water_drop(void)
             break;
 
         case 0xE:
-            gCurrentSprite.oam_pointer = water_drop_oam_splashing_33bca4;
+            gCurrentSprite.oam_pointer = WaterDrop_oam_splashing_33bca4;
             gCurrentSprite.curr_anim_frame = 0x0;
             gCurrentSprite.anim_duration_counter = 0x0;
             gCurrentSprite.pose = 0xF;
 
         case 0xF:
-            if (gCurrentSprite.timer2 != 0x0)
+            if (gCurrentSprite.workVariable != 0x0)
                 gCurrentSprite.y_position = gEffectYPosition;
 
             if (SpriteUtillCheckEndCurrentSpriteAnim() != FALSE)
@@ -105,7 +105,7 @@ void water_drop(void)
             gCurrentSprite.timer1--;
             if ((u8)gCurrentSprite.timer1 == 0x0)
             {
-                gCurrentSprite.oam_pointer = water_drop_oam_data_33bc54;
+                gCurrentSprite.oam_pointer = WaterDrop_oam_data_33bc54;
                 gCurrentSprite.curr_anim_frame = 0x0;
                 gCurrentSprite.anim_duration_counter = 0x0;
                 gCurrentSprite.pose = 0x9;

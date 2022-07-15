@@ -3,18 +3,18 @@
 
 #include "../types.h"
 
-void zipline_check_colliding(void);
-u8 zipline_moving(void);
-void zipline_gfx_update(void);
-void zipline_init(void);
-void zipline_update(void);
-void zipline_button_init(void);
-void zipline_button_activated_gfx_init(void);
-void zipline_button_spawn(void);
-void zipline_button_check_ziplines_activated(void);
-void zipline_button_idle(void);
-void zipline_button_zipline_moving(void);
-void zipline(void);
-void zipline_button(void);
+void ZiplineCheckColliding(void);
+u8 ZiplineMoving(void);
+void ZiplineGFXUpdate(void);
+void ZiplineInit(void);
+void ZiplineMoving(void);
+void ZiplineButtonInit(void);
+void ZiplineButtonActivatedGFXInit(void);
+void ZiplineButtonSpawn(void);
+void ZiplineButtonCheckZiplinesActivated(void);
+void ZiplineButtonIdle(void);
+void ZiplineButtonZiplineMoving(void);
+void Zipline"void);
+void ZiplineButton(void);
 
 #endif /* ZIPLINE_AI_H */

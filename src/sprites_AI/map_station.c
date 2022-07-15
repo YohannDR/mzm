@@ -4,7 +4,7 @@
 #include "../samus.h"
 #include "../globals.h"
 
-void map_station_init(void)
+void MapStationInit(void)
 {
     gCurrentSprite.y_position += 0x80;
     gCurrentSprite.draw_distance_top_offset = 0x80;
@@ -39,7 +39,7 @@ void map_station_init(void)
     }
 }
 
-void map_station_samus_detection(void)
+void MapStationSamusDetection(void)
 {
     i32 samus_y;
     i32 samus_x;
@@ -69,7 +69,7 @@ void map_station_samus_detection(void)
     }
 }
 
-void map_station_check_samus_grabbed_anim_ended(void)
+void MapStationCheckSamusGrabbedAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -82,7 +82,7 @@ void map_station_check_samus_grabbed_anim_ended(void)
     }
 }
 
-void map_station_downloading_anim(void)
+void MapStationDownloadingAnim(void)
 {
     u32 timer;
 
@@ -100,9 +100,9 @@ void map_station_downloading_anim(void)
         gPauseScreenFlag = 0x5;
 }
 
-void map_station_spawn_message(void)
+void MapStationSpawnMessage(void)
 {
-    u8 room_slot;
+    u8 text;
 
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
@@ -110,25 +110,25 @@ void map_station_spawn_message(void)
         switch (gCurrentArea)
         {
             case AREA_BRINSTAR:
-                room_slot = 0x1B;
+                text = 0x1B;
                 break;
             case AREA_KRAID:
-                room_slot = 0x1C;
+                text = 0x1C;
                 break;
             case AREA_NORFAIR:
-                room_slot = 0x1D;
+                text = 0x1D;
                 break;
             case AREA_RIDLEY:
-                room_slot = 0x1E;
+                text = 0x1E;
                 break;
             case AREA_CHOZODIA:
-                room_slot = 0x1F;
+                text = 0x1F;
                 break;
             default:
-                room_slot = 0x23;
+                text = 0x23;
         }
 
-        gCurrentSprite.timer2 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, room_slot, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
         gCurrentSprite.hitbox_top_offset = -0x40;
         gCurrentSprite.pose = 0x29;
         gSamusData.curr_anim_frame = 0x0;
@@ -137,11 +137,11 @@ void map_station_spawn_message(void)
     }
 }
 
-void map_station_after_download(void)
+void MapStationAfterDownload(void)
 {
     u8 slot;
 
-    slot = gCurrentSprite.timer2;
+    slot = gCurrentSprite.workVariable;
     if (gSpriteData[slot].pose == 0x25)
     {
         gCurrentSprite.pose = 0x2B;
@@ -149,14 +149,14 @@ void map_station_after_download(void)
     }
 }
 
-void map_station_before_retraction(void)
+void MapStationBeforeRetraction(void)
 {
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
         gCurrentSprite.pose = 0x2D;
 }
 
-void map_station_retraction(void)
+void MapStationRetraction(void)
 {
     gCurrentSprite.pose = 0x2F;
     gCurrentSprite.oam_pointer = map_station_oam_2d3788;
@@ -166,38 +166,38 @@ void map_station_retraction(void)
     SoundPlay(0x124);
 }
 
-void map_station(void)
+void MapStation(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            map_station_init();
+            MapStationInit();
             break;
         case 0x9:
-            map_station_samus_detection();
+            MapStationSamusDetection();
             break;
         case 0x23:
-            map_station_check_samus_grabbed_anim_ended();
+            MapStationCheckSamusGrabbedAnimEnded();
             break;
         case 0x25:
-            map_station_downloading_anim();
+            MapStationDownloadingAnim();
             break;
         case 0x27:
-            map_station_spawn_message();
+            MapStationSpawnMessage();
             break;
         case 0x29:
-            map_station_after_download();
+            MapStationAfterDownload();
             break;
         case 0x2B:
-            map_station_before_retraction();
+            MapStationBeforeRetraction();
             break;
         case 0x2D:
-            map_station_retraction();
+            MapStationRetraction();
     }
 }
 
-void map_station_screen(void)
+void MapStationScreen(void)
 {
 
 }

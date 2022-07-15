@@ -2,12 +2,12 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void escape_gate_change_ccaa(u8 caa)
+void EscapeGateChangeCCAA(u8 caa)
 {
 
 }
 
-void escape_gate(void)
+void EscapeGate(void)
 {
 
 }

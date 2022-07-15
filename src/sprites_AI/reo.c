@@ -2,7 +2,7 @@
 #include "../sprite_util.h"
 #include "../globals.h"
 
-void reo_init(void)
+void ReoInit(void)
 {
     gCurrentSprite.draw_distance_top_offset = 0x18;
     gCurrentSprite.draw_distance_bottom_offset = 0x18;
@@ -22,14 +22,14 @@ void reo_init(void)
     gCurrentSprite.pose = 0x8;
 }
 
-void reo_rng(void)
+void ReoRNG(void)
 {
     gCurrentSprite.pose = 0x9;
-    gCurrentSprite.work_variable = (gSpriteRNG << 0x1A) >> 0x18;
-    gCurrentSprite.array_offset = gCurrentSprite.work_variable;
+    gCurrentSprite.workVariable2 = (gSpriteRNG << 0x1A) >> 0x18;
+    gCurrentSprite.array_offset = gCurrentSprite.workVariable2;
 }
 
-void reo_samus_detection(void)
+void ReoSamusDetection(void)
 {
     i16 movement;
     u8 offset;
@@ -44,35 +44,35 @@ void reo_samus_detection(void)
     gCurrentSprite.array_offset = offset + 0x1;
     gCurrentSprite.y_position += movement;
     
-    offset = gCurrentSprite.work_variable;
+    offset = gCurrentSprite.workVariable2;
     movement = reo_idle_anim_x_position_offsets[offset];
     if (movement == 0x7FFF)
     {
         movement = reo_idle_anim_x_position_offsets[0x0];
         offset = 0x0;
     }
-    gCurrentSprite.work_variable = offset + 0x1;
+    gCurrentSprite.workVariable2 = offset + 0x1;
     gCurrentSprite.x_position += movement;
 
     if (SpriteUtilCheckSamusNearSpriteLeftRight(0x200, 0x1C0) != NSLR_OUT_OF_RANGE)
         gCurrentSprite.pose = 0x22;
 }
 
-void reo_samus_detected(void)
+void ReoSamusDetected(void)
 {
 
 }
 
-void reo_move(void)
+void ReoMove(void)
 {
 
 }
 
-void reo(void)
+void Reo(void)
 {
-    if (gCurrentSprite.properties & SP_UNKNOWN)
+    if (gCurrentSprite.properties & SP_DAMAGED)
     {
-        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             unk_2b20(0x159);
     }
@@ -86,18 +86,18 @@ void reo(void)
             switch (gCurrentSprite.pose)
             {
                 case 0x0:
-                    reo_init();
+                    ReoInit();
                     break;
                 case 0x8:
-                    reo_rng();
+                    ReoRNG();
                     break;
                 case 0x9:
-                    reo_samus_detection();
+                    ReoSamusDetection();
                     break;
                 case 0x22:
-                    reo_samus_detected();
+                    ReoSamusDetected();
                 case 0x23:
-                    reo_move();
+                    ReoMove();
                     break;
                 default:
                     SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);

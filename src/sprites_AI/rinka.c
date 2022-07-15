@@ -2,52 +2,52 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void rinka_init(void)
+void RinkaInit(void)
 {
 
 }
 
-void rinka_gfx_init(void)
+void RinkaGFXInit(void)
 {
 
 }
 
-void rinka_respawn(void)
+void RinkaRespawn(void)
 {
 
 }
 
-void rinka_spawning(void)
+void RinkaSpawning(void)
 {
 
 }
 
-void rinka_move(void)
+void RinkaMove(void)
 {
 
 }
 
-void rinka_mother_brain_gfx_init(void)
+void RinkaMotherBrainGFXInit(void)
 {
 
 }
 
-void rinka_mother_brain_respawn(void)
+void RinkaMotherBrainRespawn(void)
 {
 
 }
 
-void rinka_mother_brain_move(void)
+void RinkaMotherBrainMove(void)
 {
 
 }
 
-void rinka(void)
+void Rinka(void)
 {
 
 }
 
-void rinka_mother_brain(void)
+void RinkaMotherBrain(void)
 {
 
 }

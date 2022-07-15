@@ -4,12 +4,12 @@
 #include "../types.h"
 #include "../clipdata.h"
 
-void morph_ball_launcher_change_ccaa(u8 caa);
-void morph_ball_launcher_init(void);
-void morph_ball_launcher_detect_bomb(void);
-void morph_ball_launcher_bomb_timer(void);
-void morph_ball_launcher_launch_samus_anim(void);
-void morph_ball_launcher(void);
-void morph_ball_launcher_back(void);
+void MorphBallLauncherChangeCCAA(u8 caa);
+void MorphBallLauncherInit(void);
+void MorphBallLauncherDetectBomb(void);
+void MorphBallLauncherBombTimer(void);
+void MorphBallLauncherLaunchSamusAnim(void);
+void MorphBallLauncher(void);
+void MorphBallLauncherBack(void);
 
 #endif /* MORPH_BALL_LAUNCHER_AI_H */

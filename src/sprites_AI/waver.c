@@ -2,7 +2,7 @@
 #include "../sprite_util.h"
 #include "../globals.h"
 
-void waver_init(void)
+void WaverInit(void)
 {
     gCurrentSprite.draw_distance_top_offset = 0x10;
     gCurrentSprite.draw_distance_bottom_offset = 0x10;
@@ -20,7 +20,7 @@ void waver_init(void)
     gCurrentSprite.pose = 0x9;
 }
 
-void waver_move(void)
+void WaverMove(void)
 {
     u16 speed;
 
@@ -60,11 +60,11 @@ void waver_move(void)
     }
 }
 
-void waver(void)
+void Waver(void)
 {
-    if (gCurrentSprite.properties & SP_UNKNOWN)
+    if (gCurrentSprite.properties & SP_DAMAGED)
     {
-        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             unk_2b20(0x177);
     }
@@ -81,10 +81,10 @@ void waver(void)
                     SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
                     break;
                 case 0x0:
-                    waver_init();
+                    WaverInit();
                     break;
                 case 0x9:
-                    waver_move();
+                    WaverMove();
             }
         }
     }

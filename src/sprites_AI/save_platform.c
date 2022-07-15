@@ -4,7 +4,7 @@
 #include "../samus.h"
 #include "../globals.h"
 
-u8 save_platform_detect_samus(void)
+u8 SavePlatformDetectSamus(void)
 {
     u8 colliding;
     i32 samus_y;
@@ -23,7 +23,7 @@ u8 save_platform_detect_samus(void)
     return colliding;
 }
 
-void save_platform_init(void)
+void SavePlatformInit(void)
 {
     gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
     gCurrentSprite.y_position_spawn = 0x0;
@@ -36,14 +36,14 @@ void save_platform_init(void)
     gCurrentSprite.hitbox_left_offset = -0x4;
     gCurrentSprite.hitbox_right_offset = 0x4;
     if (gAlarmTimer != 0x0)
-        gCurrentSprite.work_variable = 0x1;
+        gCurrentSprite.workVariable2 = 0x1;
     else
-        gCurrentSprite.work_variable = 0x0;
+        gCurrentSprite.workVariable2 = 0x0;
     gCurrentSprite.anim_duration_counter = 0x0;
     gCurrentSprite.curr_anim_frame = 0x0;
     gCurrentSprite.timer1 = 0xA;
 
-    if (gCurrentSprite.work_variable || EscapeDetermineTimer() != ESCAPE_NONE)
+    if (gCurrentSprite.workVariable2 || EscapeDetermineTimer() != ESCAPE_NONE)
     {
         gCurrentSprite.oam_pointer = save_platform_oam_2d4df4;
         gCurrentSprite.pose = 0x51;
@@ -64,11 +64,11 @@ void save_platform_init(void)
     gCurrentSprite.array_offset = SpriteSpawnSecondary(SSPRITE_SAVE_PLATFORM_TOP, 0x3, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position - 0x200, gCurrentSprite.x_position, 0x0);
 }
 
-void save_platform_samus_detection(void)
+void SavePlatformSamusDetection(void)
 {
     u8 timer;
 
-    if (save_platform_detect_samus() << 0x18 && !SpriteUtilCheckCrouchinOrMorphed())
+    if (SavePlatformDetectSamus() << 0x18 && !SpriteUtilCheckCrouchinOrMorphed())
     {
         timer = gCurrentSprite.timer1 = gCurrentSprite.timer1 - 0x1;
         if (timer == 0x0)
@@ -84,7 +84,7 @@ void save_platform_samus_detection(void)
         gCurrentSprite.timer1 = 0xA;
 }
 
-void save_platform_check_opening_anim_ended(void)
+void SavePlatformCheckOpeningAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -95,11 +95,11 @@ void save_platform_check_opening_anim_ended(void)
     }
 }
 
-void save_platform_second_samus_detection(void)
+void SavePlatformSecondSamusDetection(void)
 {
     u8 colliding;
 
-    colliding = save_platform_detect_samus();
+    colliding = SavePlatformDetectSamus();
     if (colliding)
     {
         if (!SpriteUtilCheckCrouchinOrMorphed())
@@ -124,7 +124,7 @@ void save_platform_second_samus_detection(void)
     }
 }
 
-void save_platform_check_closing_anim_ended(void)
+void SavePlatformCheckClosingAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -136,7 +136,7 @@ void save_platform_check_closing_anim_ended(void)
     }
 }
 
-void save_platform_release_samus(void)
+void SavePlatformReleaseSamus(void)
 {
     if (gCurrentSprite.y_position_spawn != 0x0)
         gCurrentSprite.y_position_spawn--;
@@ -148,11 +148,11 @@ void save_platform_release_samus(void)
     }
 }
 
-void save_platform_samus_detection_out(void)
+void SavePlatformSamusDetectionOut(void)
 {
     u8 colliding;
 
-    colliding = save_platform_detect_samus();
+    colliding = SavePlatformDetectSamus();
     if (!colliding)
     {
         gCurrentSprite.pose = 0x27;
@@ -163,7 +163,7 @@ void save_platform_samus_detection_out(void)
     }
 }
 
-void save_platform_spawn_sprites(void)
+void SavePlatformSpawnSprites(void)
 {
     u8 offset;
 
@@ -171,14 +171,14 @@ void save_platform_spawn_sprites(void)
     {
         gCurrentSprite.timer1--;
         if (gCurrentSprite.timer1 == 0x0)
-            gCurrentSprite.timer2 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, 0x16, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+            gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, 0x16, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     }
     else
     {
-        offset = gCurrentSprite.timer2;
+        offset = gCurrentSprite.workVariable;
         if (gSpriteData[offset].pose == 0x25)
         {
-            if (gSpriteData[offset].timer2 == 0x1)
+            if (gSpriteData[offset].workVariable == 0x1)
             {
                 gCurrentSprite.oam_pointer = save_platform_oam_2d4d8c;
                 gCurrentSprite.anim_duration_counter = 0x0;
@@ -198,7 +198,7 @@ void save_platform_spawn_sprites(void)
     }
 }
 
-void save_platform_flashing_anim(void)
+void SavePlatformFlashingAnim(void)
 {
     u8 offset;
 
@@ -215,7 +215,7 @@ void save_platform_flashing_anim(void)
     }
 }
 
-void save_platform_flashing_anim_end(void)
+void SavePlatformFlashingAnimEnd(void)
 {
     gCurrentSprite.oam_pointer = save_platform_oam_2d4dc4;
     gCurrentSprite.anim_duration_counter = 0x0;
@@ -226,7 +226,7 @@ void save_platform_flashing_anim_end(void)
     gSpriteData[gCurrentSprite.array_offset].palette_row = 0x0;
 }
 
-void save_platform_text_timer(void)
+void SavePlatformTextTimer(void)
 {
     u8 timer;
 
@@ -234,15 +234,15 @@ void save_platform_text_timer(void)
     if (timer == 0x0)
     {
         gCurrentSprite.pose = 0x49;
-        gCurrentSprite.timer2 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, 0x17, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, 0x17, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     }
 }
 
-void save_platform_check_message_banner_out(void)
+void SavePlatformCheckMessageBannerOut(void)
 {
     u8 offset;
 
-    offset = gCurrentSprite.timer2;
+    offset = gCurrentSprite.workVariable;
     if (gSpriteData[offset].pose == 0x25)
     {
         gCurrentSprite.pose = 0x4B;
@@ -250,14 +250,14 @@ void save_platform_check_message_banner_out(void)
     }
 }
 
-void save_platform_message_banner_disappearing_timer(void)
+void SavePlatformMessageBannerDisappearingTimer(void)
 {
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
         gCurrentSprite.pose = 0x28;
 }
 
-void save_platform_top_init(void)
+void SavePlatformTopInit(void)
 {
     u8 offset;
 
@@ -327,12 +327,12 @@ void save_platform_top_init(void)
     }
 }
 
-void save_platform_top_empty(void)
+void SavePlatformTop_Empty(void)
 {
     return;
 }
 
-void save_platform_top_extend_gfx_init(void)
+void SavePlatformTopExtendGFXInit(void)
 {
     gCurrentSprite.oam_pointer = save_platform_top_oam_2d4e14;
     gCurrentSprite.anim_duration_counter = 0x0;
@@ -340,7 +340,7 @@ void save_platform_top_extend_gfx_init(void)
     gCurrentSprite.pose = 0x45;
 }
 
-void save_platform_top_check_extending_ended(void)
+void SavePlatformTopCheckExtendingEnded(void)
 {
     if (SpriteUtilCheckEndSpriteAnim())
     {
@@ -351,7 +351,7 @@ void save_platform_top_check_extending_ended(void)
     }
 }
 
-void save_platform_top_retract_gfx_init(void)
+void SavePlatformTopRetractGFXInit(void)
 {
     gCurrentSprite.oam_pointer = save_platform_top_oam_2d4e54;
     gCurrentSprite.anim_duration_counter = 0x0;
@@ -361,7 +361,7 @@ void save_platform_top_retract_gfx_init(void)
     SoundPlay(0x115);
 }
 
-void save_platform_top_check_retracting_ended(void)
+void SavePlatformTopCheckRetractingAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -372,7 +372,7 @@ void save_platform_top_check_retracting_ended(void)
     }
 }
 
-void save_platform_top_check_tube_anim_spawn_ended(void)
+void SavePlatformTopCheckTubeAnimSpawnEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -380,15 +380,15 @@ void save_platform_top_check_tube_anim_spawn_ended(void)
         gCurrentSprite.oam_pointer = save_platform_top_oam_2d5024;
         gCurrentSprite.anim_duration_counter = 0x0;
         gCurrentSprite.curr_anim_frame = 0x0;
-        gCurrentSprite.timer2 = SpriteSpawnSecondary(SSPRITE_SAVE_PLATFORM_TOP, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        gCurrentSprite.workVariable = SpriteSpawnSecondary(SSPRITE_SAVE_PLATFORM_TOP, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     }
 }
 
-void save_platform_top_spawn_big_light(void)
+void SavePlatformTopSpawnBigLight(void)
 {
     u8 offset;
 
-    offset = gCurrentSprite.timer2;
+    offset = gCurrentSprite.workVariable;
     if (gSpriteData[offset].status == 0x0)
     {
         gCurrentSprite.pose = 0x25;
@@ -397,7 +397,7 @@ void save_platform_top_spawn_big_light(void)
     }
 }
 
-void save_platform_top_check_tube_anim_ended(void)
+void SavePlatformTopCheckTubeAnimEnded(void)
 {
     gCurrentSprite.y_position_spawn--;
     if (gCurrentSprite.y_position_spawn == 0x0)
@@ -409,7 +409,7 @@ void save_platform_top_check_tube_anim_ended(void)
     }
 }
 
-void save_platform_top_check_tube_anim_despawn_ended(void)
+void SavePlatformTopCheckTubeAnimDespawnEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
@@ -418,13 +418,13 @@ void save_platform_top_check_tube_anim_despawn_ended(void)
     }
 }
 
-void save_platform_top_check_tube_around_anim_ended(void)
+void SavePlatformTopCheckTubeAroundAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0x0;
 }
 
-void save_platform_top_tube_down_up_anim(void)
+void SavePlatformTopTubeDownUpAnim(void)
 {
     gCurrentSprite.y_position -= 0x4;
     gCurrentSprite.timer1--;
@@ -435,91 +435,91 @@ void save_platform_top_tube_down_up_anim(void)
     }
 }
 
-void save_platform(void)
+void SavePlatform(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            save_platform_init();
+            SavePlatformInit();
             break;
         case 0x9:
-            save_platform_samus_detection();
+            SavePlatformSamusDetection();
             break;
         case 0x23:
-            save_platform_check_opening_anim_ended();
+            SavePlatformCheckOpeningAnimEnded();
             break;
         case 0x25:
-            save_platform_second_samus_detection();
+            SavePlatformSecondSamusDetection();
             break;
         case 0x27:
-            save_platform_check_closing_anim_ended();
+            SavePlatformCheckClosingAnimEnded();
             break;
         case 0x28:
-            save_platform_release_samus();
+            SavePlatformReleaseSamus();
             break;
         case 0x29:
-            save_platform_samus_detection_out();
+            SavePlatformSamusDetectionOut();
             break;
         case 0x42:
-            save_platform_spawn_sprites();
+            SavePlatformSpawnSprites();
             break;
         case 0x43:
-            save_platform_flashing_anim();
+            SavePlatformFlashingAnim();
             break;
         case 0x45:
-            save_platform_flashing_anim_end();
+            SavePlatformFlashingAnimEnd();
             break;
         case 0x47:
-            save_platform_text_timer();
+            SavePlatformTextTimer();
             break;
         case 0x49:
-            save_platform_check_message_banner_out();
+            SavePlatformCheckMessageBannerOut();
             break;
         case 0x4B:
-            save_platform_message_banner_disappearing_timer();
+            SavePlatformMessageBannerDisappearingTimer();
     }
 }
 
-void save_platform_top(void)
+void SavePlatformTop(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            save_platform_top_init();
+            SavePlatformTopInit();
             break;
         case 0x9:
-            save_platform_top_check_tube_anim_spawn_ended();
+            SavePlatformTopCheckTubeAnimSpawnEnded();
             break;
         case 0x23:
-            save_platform_top_spawn_big_light();
+            SavePlatformTopSpawnBigLight();
             break;
         case 0x25:
-            save_platform_top_check_tube_anim_ended();
+            SavePlatformTopCheckTubeAnimEnded();
             break;
         case 0x27:
-            save_platform_top_check_tube_anim_despawn_ended();
+            SavePlatformTopCheckTubeAnimDespawnEnded();
             break;
         case 0x29:
-            save_platform_top_check_tube_around_anim_ended();
+            SavePlatformTopCheckTubeAroundAnimEnded();
             break;
         case 0x2B:
-            save_platform_top_tube_down_up_anim();
+            SavePlatformTopTubeDownUpAnim();
             break;
         case 0x43:
-            save_platform_top_empty();
+            SavePlatformTop_Empty();
             break;
         case 0x44:
-            save_platform_top_extend_gfx_init();
+            SavePlatformTopExtendGFXInit();
             break;
         case 0x45:
-            save_platform_top_check_extending_ended();
+            SavePlatformTopCheckExtendingEnded();
             break;
         case 0x46:
-            save_platform_top_retract_gfx_init();
+            SavePlatformTopRetractGFXInit();
             break;
         case 0x47:
-            save_platform_top_check_retracting_ended();
+            SavePlatformTopCheckRetractingAnimEnded();
     }
 }

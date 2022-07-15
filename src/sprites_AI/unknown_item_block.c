@@ -2,17 +2,17 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void unknown_item_block_change_ccaa(u8 caa)
+void UnkownItemBlockChangeCCAA(u8 caa)
 {
 
 }
 
-void unknown_item_block(void)
+void UnkownItemBlock(void)
 {
 
 }
 
-void unknown_item_block_light(void)
+void UnkownItemBlockLight(void)
 {
 
 }

@@ -3,7 +3,7 @@
 #include "../sprite.h"
 #include "../globals.h"
 
-void zebbo_init(void)
+void ZebboInit(void)
 {
     gCurrentSprite.hitbox_top_offset = -0x18;
     gCurrentSprite.hitbox_bottom_offset = 0x18;
@@ -12,7 +12,7 @@ void zebbo_init(void)
     gCurrentSprite.draw_distance_top_offset = 0x8;
     gCurrentSprite.draw_distance_bottom_offset = 0x8;
     gCurrentSprite.draw_distance_horizontal_offset = 0x10;
-    gCurrentSprite.timer2 = 0x1;
+    gCurrentSprite.workVariable = 0x1;
     gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
     gCurrentSprite.y_position -= 0x20;
     gCurrentSprite.x_position += 0x20;
@@ -20,7 +20,7 @@ void zebbo_init(void)
     gCurrentSprite.x_position_spawn = gCurrentSprite.x_position;
 }
 
-void zebbo_gfx_init(void)
+void ZebboGFXInit(void)
 {
     gCurrentSprite.samus_collision = SSC_NONE;
     gCurrentSprite.pose = 0x9;
@@ -31,12 +31,12 @@ void zebbo_gfx_init(void)
     gCurrentSprite.bg_priority = 0x2;
 }
 
-void zebbo_spawn(void)
+void ZebbosSpawn(void)
 {
 
 }
 
-void zebbo_going_up(void)
+void ZebooGoingUp(void)
 {
     u16 y_position;
 
@@ -66,7 +66,7 @@ void zebbo_going_up(void)
     }
 }
 
-void zebbo_respawning(void)
+void ZebboRespawning(void)
 {
     if (gCurrentSprite.sprite_id == PSPRITE_ZEBBO_GREEN_FOLLOWER)
         gCurrentSprite.status = 0x0;
@@ -74,8 +74,8 @@ void zebbo_respawning(void)
     {
         gCurrentSprite.y_position = gCurrentSprite.y_position_spawn;
         gCurrentSprite.x_position = gCurrentSprite.x_position_spawn;
-        zebbo_gfx_init();
-        gCurrentSprite.timer2 = 0x3C;
+        ZebboGFXInit();
+        gCurrentSprite.workVariable = 0x3C;
         gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
         gCurrentSprite.invicibility_stun_flash_timer = 0x0;
         gCurrentSprite.palette_row = 0x0;
@@ -86,16 +86,16 @@ void zebbo_respawning(void)
     }
 }
 
-void zebbo_move(void)
+void ZebboMove(void)
 {
 
 }
 
-void zebbo(void)
+void Zebbo(void)
 {
-    if (gCurrentSprite.properties & SP_UNKNOWN)
+    if (gCurrentSprite.properties & SP_DAMAGED)
     {
-        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             unk_2b20(0x164);
     }
@@ -109,21 +109,21 @@ void zebbo(void)
             switch (gCurrentSprite.pose)
             {
                 case 0x0:
-                    zebbo_init();
+                    ZebboInit();
                 case 0x8:
-                    zebbo_gfx_init();
+                    ZebboGFXInit();
                 case 0x9:
-                    zebbo_spawn();
+                    ZebbosSpawn();
                     break;
                 case 0x23:
-                    zebbo_going_up();
+                    ZebooGoingUp();
                     break;
                 case 0x25:
-                    zebbo_move();
+                    ZebboMove();
                     break;
                 default:
                     SpriteUtilSpriteDeath(DEATH_RESPAWNING, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
-                    zebbo_respawning();
+                    ZebboRespawning();
             }
         }
     }

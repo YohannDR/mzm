@@ -2,102 +2,102 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-u8 dessgeega_check_samus_near_left_right(void)
+u8 DessgeegaCheckSamusNearLeftRight(void)
 {
 
 }
 
-void dessgeega_init(void)
+void DessgeegaInit(void)
 {
 
 }
 
-void dessgeega_jumping_gfx_init(void)
+void DessgeegaJumpingGFXInit(void)
 {
 
 }
 
-void dessgeega_before_jumping(void)
+void DessgeegaBeforeJumping(void)
 {
 
 }
 
-void dessgeega_before_landing(void)
+void DessgeegaBeforeLanding(void)
 {
 
 }
 
-void dessgeega_check_samus_in_range(void)
+void DessgeegaCheckSamusInRange(void)
 {
 
 }
 
-void dessgeega_bouncing_gfx_init(void)
+void DessgeegaBouncingGFXInit(void)
 {
 
 }
 
-void dessgeega_check_bouncing(void)
+void DessgeegaCheckBouncing(void)
 {
 
 }
 
-void dessgeega_check_before_jumping_ceiling_anim_ended(void)
+void DessgeegaCheckBeforeJumpingCeilingAnimEnded(void)
 {
 
 }
 
-void dessgeega_move_ground(void)
+void DessgeegaMoveGround(void)
 {
 
 }
 
-void dessgeega_move_ceiling(void)
+void DessgeegaMoveCeiling(void)
 {
 
 }
 
-void dessgeega_check_landing_anim_ended(void)
+void DessgeegaCheckLandingAnimEnded(void)
 {
 
 }
 
-void dessgeega_jumping_ground_into_block(void)
+void DessgeegaJumpingGroundIntoBlock(void)
 {
 
 }
 
-void dessgeega_jumping_ceiling_into_block(void)
+void DessgeegaJumpingCeilingIntoBlock(void)
 {
 
 }
 
-void dessgeega_ground_idle_anim(void)
+void DessgeegaGroundIdleAnim(void)
 {
 
 }
 
-void dessgeega_ceiling_idle_anim(void)
+void DessgeegaCeilingdleAnim(void)
 {
 
 }
 
-void dessgeega_death(void)
+void DessgeegaDeath(void)
 {
 
 }
 
-void dessgeega_long_beam_detect_samus(void)
+void DessgeegaLongBeamDetectSamus(void)
 {
 
 }
 
-void dessgeega_long_beam_spawning(void)
+void DessgeegaLongBeamSpawning(void)
 {
 
 }
 
-void dessgeega(void)
+void Dessgeega(void)
 {
 
 }

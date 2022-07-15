@@ -115,7 +115,7 @@ void sprite_update(void)
             }
             count++;
         } while (count < 0x18);
-        decrement_chozodia_alarm();
+        DecrementChozodiaAlarm();
         if (gParasiteRelated != 0x0)
             gParasiteRelated--;
     }
@@ -300,7 +300,7 @@ void SpriteLoadAllData(void)
         EscapeCheckReloadGraphics();
         SpriteUtilInitLocationText();
         SpriteLoadRoomSprites();
-        spawn_waiting_pirates();
+        SpawnWaitingPirates();
         gParasiteRelated = 0x0;
     }
 }

@@ -2,32 +2,32 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void security_laser_init(void)
+void SecurityLaserInit(void)
 {
 
 }
 
-void security_laser_samus_collision(void)
+void SecurityLaserSamusCollision(void)
 {
 
 }
 
-void security_laser_check_despawn_anim_ended(void)
+void SecurityLaserCheckDespawnAnimEnded(void)
 {
 
 }
 
-void security_laser_set_alarm(void)
+void SecurityLaserSetAlarm(void)
 {
 
 }
 
-void security_laser_unused(void)
+void SecurityLaser_Unused(void)
 {
 
 }
 
-void security_laser(void)
+void SecurityLaster(void)
 {
 
 }

@@ -3,14 +3,14 @@
 
 #include "../types.h"
 
-void charge_beam_init(void);
-void charge_beam_spawn_glow(void);
-void charge_beam_gfx_init(void);
-void charge_beam_get(void);
-void charge_beam_flashing_anim(void);
-void charge_beam_glow_init(void);
-void charge_beam_glow_movement(void);
-void charge_beam(void);
-void charge_beam_glow(void);
+void ChargeBeamInit(void);
+void ChargeBeamSpawnGlow(void);
+void ChargeBeamGFXInit(void);
+void ChargeBeamGet(void);
+void ChargeBeamFlashingAnim(void);
+void ChargeBeamGlowInit(void);
+void ChargeBeamGlowMovement(void);
+void ChargeBeam(void);
+void ChargeBeamGlow(void);
 
 #endif /* POWER_GRIP_AI_H */

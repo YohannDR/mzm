@@ -3,6 +3,6 @@
 
 #include "../types.h"
 
-void elevator_pad(void);
+void ElevatorPad(void);
 
 #endif /* ELEVATOR_PAD_AI_H */

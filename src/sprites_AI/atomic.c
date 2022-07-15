@@ -3,92 +3,92 @@
 #include "../globals.h"
 
 
-void unk_3b944(void)
+void AtomicSmoothMovement(void)
 {
 
 }
 
-void atomic_check_samus_position(void)
+void AtomicUpdateDirectionToFleeSamus(void)
 {
 
 }
 
-void atomic_shoot_electricity(void)
+void AtomicShootElectricity(void)
 {
 
 }
 
-void atomic_init(void)
+void AtomicInit(void)
 {
 
 }
 
-void atomic_gfx_init(void)
+void AtomicGFXInit(void)
 {
 
 }
 
-void atomic_idle_animation(void)
+void AtomicIdleAnimation(void)
 {
 
 }
 
-void atomic_move(void)
+void AtomicMove(void)
 {
 
 }
 
-void atomic_move_back_to_idle(void)
+void AtomicMaybeMoveBackToIdle(void)
 {
 
 }
 
-void unk_3c0e8(void)
+void AtomicChasingSamusInit(void)
 {
 
 }
 
-void unk_3c118(void)
+void AtomicChaseSamus(void)
 {
 
 }
 
-u8 atomic_electricity_check_atomic_alive(u8 slot)
+u8 AtomicElectricityCheckAtomicAlive(u8 slot)
 {
     return 0;
 }
 
-void atomic_electricity_init(void)
+void AtomicElectriciytInit(void)
 {
 
 }
 
-void atomic_electricity_spawn(void)
+void AtomicElectricitySpawn(void)
 {
 
 }
 
-void atomic_electricity_move(void)
+void AtomicElectricityMove(void)
 {
 
 }
 
-void atomic_electricity_exploding(void)
+void AtomicElectricityExploding(void)
 {
 
 }
 
-void atomic_electricity_check_on_ground_anim_ended(void)
+void AtomicElectricityCheckOnGroundAnimEnded(void)
 {
 
 }
 
-void atomic(void)
+void Atomic(void)
 {
 
 }
 
-void atomic_electricity(void)
+void AtomicElectricity(void)
 {
 
 }

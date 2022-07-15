@@ -2,12 +2,12 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void steam(void)
+void Steam(void)
 {
 
 }
 
-void steam_diagonal(void)
+void SteamDiagonal(void)
 {
 
 }

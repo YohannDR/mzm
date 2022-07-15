@@ -2,37 +2,37 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void item_banner_init(void)
+void ItemBannerInit(void)
 {
 
 }
 
-void item_banner_gfx_init(void)
+void ItemBannerGFXInit(void)
 {
 
 }
 
-void item_banner_pop_up(void)
+void ItemBannerPopUp(void)
 {
 
 }
 
-void item_banner_static(void)
+void ItemBannerStatic(void)
 {
 
 }
 
-void item_banner_removal(void)
+void ItemBannerRemoval(void)
 {
 
 }
 
-void item_banner_removal_animation(void)
+void ItemBannerRemovalAnimation(void)
 {
 
 }
 
-void item_banner(void)
+void ItemBanner(void)
 {
 
 }

@@ -2,7 +2,7 @@
 #include "../sprite_util.h"
 #include "../globals.h"
 
-void squeept_gfx_reset(void)
+void SqueeptGFXReset(void)
 {
     gCurrentSprite.hitbox_top_offset = -0x2C;
     gCurrentSprite.hitbox_bottom_offset = 0x20;
@@ -11,7 +11,7 @@ void squeept_gfx_reset(void)
     gCurrentSprite.curr_anim_frame = 0x0;
 }
 
-void squeept_turning_around_gfx_init(void)
+void SqueeptTurningAroundGFXInit(void)
 {
     gCurrentSprite.hitbox_top_offset = -0x20;
     gCurrentSprite.hitbox_bottom_offset = 0x20;
@@ -20,7 +20,7 @@ void squeept_turning_around_gfx_init(void)
     gCurrentSprite.curr_anim_frame = 0x0;
 }
 
-void squeept_going_down_gfx_init(void)
+void SqueeptGoingDownGFXInit(void)
 {
     gCurrentSprite.hitbox_top_offset = 0x0;
     gCurrentSprite.hitbox_bottom_offset = 0x28;
@@ -29,7 +29,7 @@ void squeept_going_down_gfx_init(void)
     gCurrentSprite.curr_anim_frame = 0x0;
 }
 
-void squeept_init(void)
+void SqueeptInit(void)
 {
     gCurrentSprite.draw_distance_top_offset = 0x14;
     gCurrentSprite.draw_distance_bottom_offset = 0x14;
@@ -42,15 +42,15 @@ void squeept_init(void)
     gCurrentSprite.y_position_spawn = gCurrentSprite.y_position;
 }
 
-void squeept_reset(void)
+void SqueeptReset(void)
 {
     gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.pose = 0xF;
-    squeept_gfx_reset();
+    SqueeptGFXReset();
     gCurrentSprite.timer1 = 0x1E;
 }
 
-void squeept_detect_samus(void)
+void SqueeptDetectSamus(void)
 {
     u32 timer;
     u8 nsab;
@@ -70,22 +70,22 @@ void squeept_detect_samus(void)
     }
 }
 
-void squeept_go_up(void)
+void SqueeptGoUp(void)
 {
 
 }
 
-void squeept_turn_around(void)
+void SqueeptTurnAround(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
-        squeept_going_down_gfx_init();
+        SqueeptGoingDownGFXInit();
         gCurrentSprite.pose = 0x39;
         gCurrentSprite.array_offset = 0x0;
     }
 }
 
-void squeept_go_down(void)
+void SqueeptGoDown(void)
 {
     u16 old_y;
     u8 offset;
@@ -108,15 +108,15 @@ void squeept_go_down(void)
     if (gCurrentSprite.y_position_spawn < gCurrentSprite.y_position)
     {
         gCurrentSprite.y_position = gCurrentSprite.y_position_spawn;
-        squeept_reset();
+        SqueeptReset();
     }
 }
 
-void squeept(void)
+void Squeept(void)
 {
-    if (gCurrentSprite.properties & SP_UNKNOWN)
+    if (gCurrentSprite.properties & SP_DAMAGED)
     {
-        gCurrentSprite.properties &= ~SP_UNKNOWN;
+        gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             unk_2b20(0x157);
     }
@@ -130,20 +130,20 @@ void squeept(void)
             switch (gCurrentSprite.pose)
             {
                 case 0x0:
-                    squeept_init();
+                    SqueeptInit();
                 case 0xE:
-                    squeept_reset();
+                    SqueeptReset();
                 case 0xF:
-                    squeept_detect_samus();
+                    SqueeptDetectSamus();
                     break;
                 case 0x35:
-                    squeept_go_up();
+                    SqueeptGoUp();
                     break;
                 case 0x37:
-                    squeept_turn_around();
+                    SqueeptTurnAround();
                     break;
                 case 0x39:
-                    squeept_go_down();
+                    SqueeptGoDown();
                     break;
                 default:
                     SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);

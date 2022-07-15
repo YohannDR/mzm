@@ -2,82 +2,82 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-u8 baristute_check_samus_near_left_right(void)
+u8 BaristuteCheckSamusInRange(void)
 {
     
 }
 
-void baristute_init(void)
+void BaristuteInit(void)
 {
     
 }
 
-void baristute_jumping_gfx_init(void)
+void BaristuteJumpingGFXInit(void)
 {
     
 }
 
-void baristute_check_before_jumping_anim_ended(void)
+void BaristuteCheckBeforeJumpingAnimEnded(void)
 {
     
 }
 
-void baristute_jumping(void)
+void BaristuteJumping(void)
 {
     
 }
 
-void baristute_landing_gfx_init(void)
+void BaristuteLandingGFXInit(void)
 {
     
 }
 
-void baristute_check_landing_anim_near_ended(void)
+void BaristuteCheckLandingAnimNearEnded(void)
 {
     
 }
 
-void baristute_gfx_init(void)
+void BaristuteGFXInit(void)
 {
     
 }
 
-void baristute_idle(void)
+void BaristuteIdle(void)
 {
     
 }
 
-void baristute_walking_gfx_init(void)
+void BaristuteWalkingGFXInit(void)
 {
     
 }
 
-void baristute_play_walking_sound(void)
+void BaristutePlayWalkingSound(void)
 {
     
 }
 
-void baristute_walking(void)
+void BaristuteWalking(void)
 {
     
 }
 
-void baristute_bouncing_gfx_init(void)
+void BaristuteBouncingGFXInit(void)
 {
     
 }
 
-void baristute_bouncing(void)
+void BaristuteBouncing(void)
 {
     
 }
 
-void baristute_death(void)
+void BaristuteDeath(void)
 {
     
 }
 
-void baristute(void)
+void Baristute(void)
 {
     
 }

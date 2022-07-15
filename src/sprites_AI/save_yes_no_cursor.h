@@ -3,6 +3,6 @@
 
 #include "../types.h"
 
-void save_yes_no_cursor(void);
+void SaveYesNoCursor(void);
 
 #endif /* SAVE_YES_NO_CURSOR_AI_H */

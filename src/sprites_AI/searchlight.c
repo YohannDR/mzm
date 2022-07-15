@@ -2,7 +2,7 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void searchlight(void)
+void Searchlight(void)
 {
     
 }

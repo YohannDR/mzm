@@ -2,42 +2,42 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void viola_init(void)
+void ViolaInit(void)
 {
 
 }
 
-void viola_move_right(void)
+void ViolaMoveRight(void)
 {
 
 }
 
-void viola_move_left(void)
+void ViolaMoveLeft(void)
 {
 
 }
 
-void viola_move_down(void)
+void ViolaMoveDown(void)
 {
 
 }
 
-void viola_move_up(void)
+void ViolaMoveUp(void)
 {
 
 }
 
-void viola_start_falling(void)
+void ViolaStartFalling(void)
 {
 
 }
 
-void viola_falling(void)
+void ViolaFalling(void)
 {
 
 }
 
-void viola(void)
+void Viola(void)
 {
 
 }

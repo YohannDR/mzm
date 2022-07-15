@@ -2,62 +2,62 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void searchlight_eye_init(void)
+void SearchlightEyeInit(void)
 {
 
 }
 
-void searchlight_eye_move(void)
+void SearchlightEyeMove(void)
 {
 
 }
 
-void searchlight_eye_check_alarm(void)
+void SearchlightEyeCheckAlarm(void)
 {
 
 }
 
-void searchlight_eye_check_alerted_anim_ended(void)
+void SearchlightEyeCheckAlertedAnimEnded(void)
 {
 
 }
 
-void searchlight_eye_check_should_shot(void)
+void SearchlightEyeCheckShouldShot(void)
 {
 
 }
 
-void searchlight_eye_shoot(void)
+void SearchlightEyeShoot(void)
 {
 
 }
 
-void searchlight_eye_beam_init(void)
+void SearchlightEyeBeamInit(void)
 {
 
 }
 
-void searchlight_eye_beam_detect_samus(void)
+void SearchlightEyeBeamDetectSamus(void)
 {
 
 }
 
-void searchlight_eye_beam_disappear(void)
+void SearchlightEyeBeamDisappear(void)
 {
 
 }
 
-void searchlight_eye(void)
+void SearchlightEye(void)
 {
 
 }
 
-void searchlight_eye_beam(void)
+void SearchlightEyeBeam(void)
 {
 
 }
 
-void searchlight_eye_projectile(void)
+void SearchlightEyeProjectile(void)
 {
 
 }

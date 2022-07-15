@@ -2,37 +2,37 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void crocomire_sync_sub_sprites(void)
+void CrocomireSyncSubSprites(void)
 {
 
 }
 
-void crocomire_init(void)
+void CrocomireInit(void)
 {
 
 }
 
-void crocomire_gfx_init(void)
+void CrocomireGFXInit(void)
 {
 
 }
 
-void crocomire_empty(void)
+void CrocomireEmpty(void)
 {
 
 }
 
-void crocomire_body_init(void)
+void CrocomireBodyInit(void)
 {
 
 }
 
-void crocomire(void)
+void Crocomire(void)
 {
 
 }
 
-void crocomire_body(void)
+void CrocomireBody(void)
 {
 
 }

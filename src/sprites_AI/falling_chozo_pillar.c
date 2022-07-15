@@ -1,8 +1,8 @@
-#include "falling_chozo_pillar.h"
+#include "FallingChozoPillar.h"
 #include "../../data/data.h"
 #include "../globals.h"
 
-void falling_chozo_pillar(void)
+void FallingChozoPillar(void)
 {
     
 }

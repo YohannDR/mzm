@@ -22,77 +22,77 @@ void unk_31c0c(void)
 
 }
 
-void ridley_maybe_check_dead(void)
+void RidleyMaybeCheckDead(void)
 {
 
 }
 
-u8 ridley_check_grabbing(u16 y_position, u16 x_position)
-{
-    return 0;
-}
-
-void ridley_samus_grabbed(u8 ram_slot)
-{
-
-}
-
-void ridley_maybe_hitting_tail(void)
-{
-
-}
-
-u8 ridley_tail_attacks_x_move(u16 movement)
+u8 RidleyCheckGrabbing(u16 y_position, u16 x_position)
 {
     return 0;
 }
 
-void ridley_tail_attacks_y_move(u16 movement)
+void RidleySamusGrabbed(u8 ram_slot)
 {
 
 }
 
-void ridley_spawn_fireballs_start(u8 room_slot)
+void RidleyMaybeHittingTail(void)
 {
 
 }
 
-void ridley_check_spawn(void)
+u8 RidleyTailAttacksXMove(u16 movement)
+{
+    return 0;
+}
+
+void RidleyTailAttacksYMove(u16 movement)
 {
 
 }
 
-void ridley_play_cutscene(void)
+void RidleySpawnFireballsStart(u8 room_slot)
 {
 
 }
 
-void ridley_spawning(void)
+void RidleyCheckSpawn(void)
 {
 
 }
 
-void ridley_flying_gfx_init(void)
+void RidleyPlayCutscene(void)
 {
 
 }
 
-void ridley_maybe_determine_new_attack(void)
+void RidleySpawning(void)
 {
 
 }
 
-void ridley_turning_around_gfx_init(void)
+void RidleyFlyingGFXInit(void)
 {
 
 }
 
-void ridley_check_turning_around_anim_near_ended(void)
+void RidleyMaybeDetermineNewAttack(void)
 {
 
 }
 
-void ridley_check_turning_around_second_part_anim_ended(void)
+void RidleyTurningAroundGFXInit(void)
+{
+
+}
+
+void RidleyCheckTurningAroundAnimNearGFXInit(void)
+{
+
+}
+
+void RidleyCheckTurningAroundSecondAnimGFXInit(void)
 {
 
 }
@@ -112,7 +112,7 @@ void unk_3383c(void)
 
 }
 
-void ridley_empty(void)
+void Ridley_Empty(void)
 {
 
 }
@@ -122,17 +122,17 @@ void unk_338b8(void)
 
 }
 
-void ridley_big_fireballs_attack(void)
+void RidleyBigFireballsAttack(void)
 {
 
 }
 
-void ridley_dying(void)
+void RidleyDying(void)
 {
 
 }
 
-void ridley_body_init(void)
+void RidleyBodyInit(void)
 {
 
 }
@@ -157,12 +157,12 @@ void unk_33f48(void)
 
 }
 
-void ridley_tail_dead(void)
+void RidleyTailDead(void)
 {
 
 }
 
-void ridley_tail_init(void)
+void RidleyTailInit(void)
 {
 
 }
@@ -217,22 +217,22 @@ void unk_346c0(void)
 
 }
 
-void ridley_fireballs_init(void)
+void RidleyFireballInit(void)
 {
 
 }
 
-void ridley_fireball_small_move(void)
+void RidleyFireballSmallMove(void)
 {
 
 }
 
-void ridley_fireball_big_move(void)
+void RidleyFireballBigMove(void)
 {
 
 }
 
-void ridley_fireball_medium_move(void)
+void RidleyFireballMediumMove(void)
 {
 
 }
@@ -252,17 +252,22 @@ void unk_349fc(void)
 
 }
 
-void ridley(void)
+void Ridley(void)
 {
 
 }
 
-void ridley_tail(void)
+void RidleyTail(void)
 {
 
 }
 
-void ridley_fireball(void)
+void RidleyBody(void)
+{
+
+}
+
+void RidleyFireball(void)
 {
 
 }

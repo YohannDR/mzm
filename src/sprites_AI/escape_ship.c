@@ -2,37 +2,37 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-void escape_ship_part_update_palette(u8 unk)
+void EscapeShipPartUpdatePalette(u8 delay)
 {
 
 }
 
-void escape_ship_set_ignore_samus(void)
+void EscapeShipSetIgnoreSamus(void)
 {
 
 }
 
-void escape_ship_set_pirate_draw_order(void)
+void EscapeShipSetPirateDrawOrder(void)
 {
 
 }
 
-void escape_ship_pirate_collision(void)
+void EscapeShipPirateCollision(void)
 {
 
 }
 
-void escape_ship_check_colliding_with_laser(void)
+void EscapeShipCheckCollidingWithLaser(void)
 {
 
 }
 
-void escape_ship(void)
+void EscapeShip(void)
 {
 
 }
 
-void escape_ship_part(void)
+void EscapeShipPart(void)
 {
 
 }

@@ -3,7 +3,7 @@
 #include "../globals.h"
 #include "../oam.h"
 
-void enemy_drop_init(void)
+void EnemyDropInit(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x14;
     gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
@@ -57,7 +57,7 @@ void enemy_drop_init(void)
     gCurrentSprite.hitbox_right_offset = 0x20;
 }
 
-void enemy_drop_get(void)
+void EnemyDropGet(void)
 {
     u16 status;
     struct SpriteData* pSprite;
@@ -144,15 +144,15 @@ void enemy_drop_get(void)
     pSprite->status = status;
 }
 
-void enemy_drop(void)
+void EnemyDrop(void)
 {
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            enemy_drop_init();
+            EnemyDropInit();
             break;
         case 0x9:
-            enemy_drop_get();
+            EnemyDropGet();
     }
     gCurrentSprite.x_position_spawn++;
 }

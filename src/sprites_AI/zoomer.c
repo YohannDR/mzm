@@ -2,77 +2,77 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-u8 zoomer_check_colliding_with_air(void)
+u8 ZoomerCheckCollidingWithAir(void)
 {
 
 }
 
-void zoomer_collision_init(void)
+void ZoomerCollisionInit(void)
 {
 
 }
 
-void zoomer_gfx_init(void)
+void ZoomerGFXInit(void)
 {
 
 }
 
-void zoomer_normal_direction_gfx_init(void)
+void ZoomerNormalDirectionGFXInit(void)
 {
 
 }
 
-void zoomer_init(void)
+void ZoomerInit(void)
 {
 
 }
 
-void zoomer_call_gfx_init(void)
+void ZoomerCallGFXInit(void)
 {
 
 }
 
-void zoomer_move(void)
+void ZoomerMove(void)
 {
 
 }
 
-void zoomer_gfx_rotation_update(void)
+void ZoomerGFXRotationUpdate(void)
 {
 
 }
 
-void zoomer_turning(void)
+void ZoomerTurning(void)
 {
 
 }
 
-void zoomer_unused(void)
+void Zoomer_Unused(void)
 {
 
 }
 
-void zoomer_back_on_ground(void)
+void ZoomerBackOnGround(void)
 {
 
 }
 
-void zoomer_start_falling(void)
+void ZoomerStartFalling(void)
 {
 
 }
 
-void zoomer_falling(void)
+void ZoomerFalling(void)
 {
 
 }
 
-void zoomer_death(void)
+void ZoomerDeath(void)
 {
 
 }
 
-void zoomer(void)
+void Zoomer(void)
 {
 
 }

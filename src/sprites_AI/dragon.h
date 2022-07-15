@@ -3,21 +3,21 @@
 
 #include "../types.h"
 
-void dragon_y_movement(void);
-void dragon_init(void);
-void dragon_gfx_init(void);
-void dragon_go_up(void);
-void dragon_turning_turning_around_gfx_init(void);
-void dragon_check_turning_around_first_half_anim_ended(void);
-void dragon_check_turning_around_second_half_anim_ended(void);
-void dragon_spitting_gfx_init(void);
-void dragon_spitting_anim(void);
-void dragon_spawn_fireball(void);
-void dragon_fireball_init(void);
-void dragon_fireball_move(void);
-void dragon_fireball_exploding_gfx_init(void);
-void dragon_fireball_check_exploding_anim_ended(void);
-void dragon(void);
-void dragon_fireball(void);
+void DragonYMovement(void);
+void DragonInit(void);
+void DragonGFXInit(void);
+void DragonGoUp(void);
+void DragonTurningAroundGFXInit(void);
+void DragonCheckTurningAroundFirstHalfAnimEnded(void);
+void DragonCheckTurningAroundSecondHalfAnimEnded(void);
+void DragonSpittingGFXInit(void);
+void DragonSpittingAnim(void);
+void DragonSpawnFireball(void);
+void DragonFireballInit(void);
+void DragonFireballMove(void);
+void DragonFireballExplodingGFXInit(void);
+void DragonFireballCheckExplodingAnimEnded(void);
+void Dragon(void);
+void DragonFireball(void);
 
 #endif /* DRAGON_AI_H */

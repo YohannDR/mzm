@@ -4,7 +4,7 @@
 #include "sprite_debris.h"
 #include "globals.h"
 
-void explosion_zebes_escape(void)
+void ExplosionZebesEscape(void)
 {
     u32 rng;
     u32 rng_;
@@ -31,7 +31,7 @@ void explosion_zebes_escape(void)
         gCurrentSprite.curr_anim_frame = 0x0;
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.array_offset = 0x7;
-        gCurrentSprite.work_variable = 0x0;
+        gCurrentSprite.workVariable2 = 0x0;
         gCurrentSprite.y_position_spawn = gCurrentSprite.y_position;
         gCurrentSprite.x_position_spawn = gCurrentSprite.x_position;
         return;
@@ -43,8 +43,8 @@ void explosion_zebes_escape(void)
     rng_ = rng & 0x3;
     array_offset = gCurrentSprite.array_offset;
     gCurrentSprite.array_offset++;
-    variable = gCurrentSprite.work_variable;
-    gCurrentSprite.work_variable++;
+    variable = gCurrentSprite.workVariable2;
+    gCurrentSprite.workVariable2++;
 
     y_position = gCurrentSprite.y_position_spawn;
     if (gSamusData.y_position < (gCurrentSprite.y_position_spawn - 0xA0))
