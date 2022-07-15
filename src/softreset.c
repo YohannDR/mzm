@@ -10,14 +10,14 @@
 #define SOFTRESET_KEYS (KEY_A | KEY_B | KEY_START | KEY_SELECT)
 
 void
-softreCallbackSetVBlank(void)
+SoftresetVBlankCallback(void)
 {
     /* probably left over from some debugging code */
     volatile u8 c = 0;
 }
 
 void
-check_softreset(void)
+SoftresetCheck(void)
 {
     if (gMainGameMode== GM_START_SOFTRESET) {
         return;
@@ -33,7 +33,7 @@ check_softreset(void)
 }
 
 void
-softreset(void)
+Softreset(void)
 {
     sub_0805d034();
     sub_080033dc();
@@ -51,7 +51,7 @@ softreset(void)
 
     ClearGFXRAM();
     LoadInterruptCode();
-    CallbackSetVBlank(softreCallbackSetVBlank);
+    CallbackSetVBlank(SoftresetVBlankCallback);
     read_sram();
     init_sound();
 

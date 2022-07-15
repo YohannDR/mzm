@@ -1,12 +1,12 @@
 #include "transparency.h"
 #include "globals.h"
 
-void transparency_set_room_effects_and_transparency(void)
+void TransparencySetRoomEffectsTransparency(void)
 {
 
 }
 
-u16 transparency_get_bg_size_flag(u8 size)
+u16 TransparencyGetBGSizeFlag(u8 size)
 {
     u16 flag;
 
@@ -30,7 +30,7 @@ u16 transparency_get_bg_size_flag(u8 size)
     return flag;
 }
 
-u16 transparency_check_is_dark_room(void)
+u16 TransparencyCheckIsDarkRoom(void)
 {
     u16 flag;
 
@@ -40,42 +40,42 @@ u16 transparency_check_is_dark_room(void)
     return flag;
 }
 
-void transparency_update_bldcnt(u8 action, u16 value)
+void TransparencyUpdateBLDCNT(u8 action, u16 value)
 {
 
 }
 
-void unk_55adc(u8 unk, u8 unk2, u8 unk3)
+void TransparencySpriteUpdateBLDY(u8 value, u8 delay, u8 intensity)
 {
 
 }
 
-void unk_55b24(u8 eva, u8 evb, u8 unk, u8 fading_related)
+void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, u8 delay, u8 intensity)
 {
 
 }
 
-void unk_55b9c(u8 unk, u8 unk2, u8 unk3)
+void TransparencyUpdateBLDY(u8 value, u8 delay, u8 intensity)
 {
 
 }
 
-void transparency_update_bldalpha(u8 eva, u8 evb, u8 unk, u8 fading_related)
+void TransprencyUpdateBLDALPHA(u8 eva, u8 evb, u8 unk, u8 fading_related)
 {
 
 }
 
-void transparency_apply_new_effects(void)
+void TransprencyApplyNewEffects(void)
 {
 
 }
 
-void transparency_apply_new_bldalpha(struct BldalphaData* pBldalpha)
+void TransprencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
 {
 
 }
 
-void transparency_apply_new_bldcnt(struct BldcntData* pBldcnt)
+void TransprencyApplyNewBLDY(struct BldyData* pBldy)
 {
 
 }

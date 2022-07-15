@@ -445,21 +445,21 @@ struct SpriteData {
 // Functions
 
 void sprite_update(void);
-void sprite_update_animation(struct SpriteData* pSprite);
-void sprite_draw_all_2(void);
-void sprite_draw_all(void);
-void sprite_draw_all_3(void);
-void sprite_draw(struct SpriteData* pSprite, u32 slot);
-void sprite_check_on_screen(struct SpriteData* pSprite);
-void sprite_load_all_data(void);
-void sprite_load_spriteset(void);
-void sprite_load_gfx(u8 sprite_id, u8 gfx_row);
-void sprite_load_pal(u8 sprite_id, u8 pal_row, u8 len);
-void sprite_clear_data(void);
-void sprite_load_room_sprites(void);
-void sprite_init_primary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 room_slot);
-u8 sprite_spawn_secondary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, u16 status_to_add);
-u8 sprite_spawn_primary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u16 y_position, u16 x_position, u16 status_to_add);
-u8 sprite_spawn_drop_followers(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, u16 status_to_add);
+void SpriteUpdateAnimation(struct SpriteData* pSprite);
+void SpriteDrawAll_2(void);
+void SpriteDrawAll(void);
+void SpriteDrawAll_3(void);
+void SpriteDraw(struct SpriteData* pSprite, u32 slot);
+void SpriteCheckOnScreen(struct SpriteData* pSprite);
+void SpriteLoadAllData(void);
+void SpriteLoadSpriteset(void);
+void SpriteLoadGFX(u8 sprite_id, u8 gfx_row);
+void SpriteLoadPAL(u8 sprite_id, u8 pal_row, u8 len);
+void SpriteClearData(void);
+void SpriteLoadRoomSprites(void);
+void SpriteInitPrimary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 room_slot);
+u8 SpriteSpawnSecondary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, u16 status_to_add);
+u8 SpriteSpawnPrimary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u16 y_position, u16 x_position, u16 status_to_add);
+u8 SpriteSpawnDropFollowers(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, u16 status_to_add);
 
 #endif /* SPRITE_H */

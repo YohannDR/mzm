@@ -12,8 +12,8 @@ agbmain(void)
     InitializeGame();
 
     while (gClearedEveryFrame = 0, sub_08004d48(), !gResetGame) {
-        update_input();
-        check_softreset();
+        UpdateInput();
+        SoftresetCheck();
 
         ++gFrameCounter8Bit;
         ++gFrameCounter16Bit;
@@ -192,7 +192,7 @@ agbmain(void)
             break;
 
         case GM_START_SOFTRESET:
-            softreset();
+            Softreset();
             break;
 
         case GM_ERASE_SRAM:

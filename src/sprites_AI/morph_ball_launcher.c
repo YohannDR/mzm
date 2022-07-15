@@ -39,7 +39,7 @@ void morph_ball_launcher_init(void)
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.bg_priority = ((gIORegistersBackup.bg2cnt & 0x3) + 0x1) & 0x3;
     gCurrentSprite.draw_order = 0x2;
-    sprite_spawn_secondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+    SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     morph_ball_launcher_change_ccaa(CCAA_MAKE_SOLID3);
 }
 
@@ -102,7 +102,7 @@ void morph_ball_launcher_launch_samus_anim(void)
 {
     if (gCurrentSprite.timer2 == 0x0 && gSamusData.pose == SPOSE_DELAY_BEFORE_BALLSPARKING)
     {
-        sprite_spawn_secondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gSamusData.y_position - 0x10, gSamusData.x_position, 0x0);
+        SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gSamusData.y_position - 0x10, gSamusData.x_position, 0x0);
         gCurrentSprite.timer2 = 0x1;
     }
     gCurrentSprite.timer1--;

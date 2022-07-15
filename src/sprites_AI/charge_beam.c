@@ -37,10 +37,10 @@ void charge_beam_init(void)
 void charge_beam_spawn_glow(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
-    if (sprite_util_check_near_end_current_sprite_anim() != 0x0)
+    if (SpriteUtilCheckNearEndCurrentSpriteAnim() != 0x0)
     {
         gCurrentSprite.pose = 0xB;
-        gCurrentSprite.timer2 = sprite_spawn_secondary(SSPRITE_CHARGE_BEAM_GLOW, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        gCurrentSprite.timer2 = SpriteSpawnSecondary(SSPRITE_CHARGE_BEAM_GLOW, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     }
 }
 
@@ -83,7 +83,7 @@ void charge_beam_get(void)
         gCurrentSprite.curr_anim_frame = 0x0;
         gEquipment.beam_bombs |= BBF_CHARGE_BEAM;
         EventFunction(EVENT_ACTION_SETTING, EVENT_CHARGE_BEAM_OBTAINED);
-        sprite_spawn_primary(PSPRITE_ITEM_BANNER, 0x9, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, 0x9, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     }
 }
 

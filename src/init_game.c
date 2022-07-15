@@ -21,7 +21,7 @@ InitializeGame(void)
 
     ClearGFXRAM();
     LoadInterruptCode();
-    CallbackSetVBlank(softreCallbackSetVBlank);
+    CallbackSetVBlank(SoftresetVBlankCallback);
     read_sram();
     init_sound();
 
@@ -41,7 +41,7 @@ InitializeGame(void)
     gPreviousButtonInput = KEY_NONE;
     gChangedInput  = KEY_NONE;
 
-    update_input();
+    UpdateInput();
 
     if (gChangedInput == (KEY_L | KEY_R)) {
         gMainGameMode = GM_ERASE_SRAM;

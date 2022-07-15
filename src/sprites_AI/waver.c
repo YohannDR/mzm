@@ -16,7 +16,7 @@ void waver_init(void)
     gCurrentSprite.curr_anim_frame = 0x0;
     gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
-    sprite_util_make_sprite_face_samus_x_flip();
+    SpriteUtilMakeSpriteFaceSamusXFlip();
     gCurrentSprite.pose = 0x9;
 }
 
@@ -27,7 +27,7 @@ void waver_move(void)
     speed = 0x2;
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.hitbox_right_offset + gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.hitbox_right_offset + gCurrentSprite.x_position);
         if (gPreviousCollisionCheck == 0x0)
             gCurrentSprite.x_position += 0x4;
         else
@@ -35,7 +35,7 @@ void waver_move(void)
     }
     else
     {
-        sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.hitbox_left_offset + gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.hitbox_left_offset + gCurrentSprite.x_position);
         if (gPreviousCollisionCheck == 0x0)
             gCurrentSprite.x_position -= 0x4;
         else
@@ -44,7 +44,7 @@ void waver_move(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
-        sprite_util_check_collision_at_position(gCurrentSprite.hitbox_top_offset + gCurrentSprite.y_position, gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitbox_top_offset + gCurrentSprite.y_position, gCurrentSprite.x_position);
         if (gPreviousCollisionCheck == 0x0)
             gCurrentSprite.y_position -= speed;
         else
@@ -52,7 +52,7 @@ void waver_move(void)
     }
     else
     {
-        sprite_util_check_collision_at_position(gCurrentSprite.hitbox_bottom_offset + gCurrentSprite.y_position, gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitbox_bottom_offset + gCurrentSprite.y_position, gCurrentSprite.x_position);
         if (gPreviousCollisionCheck == 0x0)
             gCurrentSprite.y_position += speed;
         else
@@ -70,15 +70,15 @@ void waver(void)
     }
 
     if (gCurrentSprite.freeze_timer != 0x0)
-        sprite_util_update_freeze_timer();
+        SpriteUtilUpdateFreezeTimer();
     else
     {
-        if (!sprite_util_is_sprite_stunned())
+        if (!SpriteUtilIsSpriteStunned())
         {
             switch (gCurrentSprite.pose)
             {
                 default:
-                    sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
                     break;
                 case 0x0:
                     waver_init();

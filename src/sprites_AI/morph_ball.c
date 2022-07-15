@@ -25,7 +25,7 @@ void morph_ball_init(void)
         gCurrentSprite.y_position -= 0x20;
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.draw_order = 0x3;
-        sprite_spawn_secondary(SSPRITE_MORPH_BALL_OUTSIDE, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        SpriteSpawnSecondary(SSPRITE_MORPH_BALL_OUTSIDE, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     }
 }
 
@@ -39,7 +39,7 @@ void morph_ball_get(void)
         gCurrentSprite.pose = 0x23;
         gCurrentSprite.timer1 = 0x0;
         gEquipment.suit_misc |= SMF_MORPH_BALL;
-        sprite_spawn_primary(PSPRITE_ITEM_BANNER, 0x10, 0xC, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, 0x10, 0xC, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     }
 }
 

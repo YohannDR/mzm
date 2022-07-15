@@ -263,8 +263,8 @@ void RoomUpdateBackgroundsPosition(void)
     u16 new_bg3_x;
     u16 new_bg3_y;
 
-    y_offset = screen_shake_update_vertical();
-    x_offset = screen_shake_update_horizontal();
+    y_offset = ScreenShakeUpdateVertical();
+    x_offset = ScreenShakeUpdateHorizontal();
 
     x_pos_shift = gBG1XPosition >> 0x2 & 0x1FF;
     y_pos_shift = gBG1YPosition >> 0x2 & 0x1FF;

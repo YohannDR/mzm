@@ -14,13 +14,13 @@ void dragon_y_movement(void)
     {
         if ((i32)(y_spawn - 0x7F) < gCurrentSprite.y_position)
             gCurrentSprite.y_position -= 0x2;
-        sprite_util_check_out_of_room_effect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_SMALL);
+        SpriteUtilCheckOutOfRoomEffect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_SMALL);
     }
     else
     {
         if ((i32)(y_spawn - 0x2) > gCurrentSprite.y_position)
             gCurrentSprite.y_position += 0x2;
-        sprite_util_check_in_room_effect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_SMALL);
+        SpriteUtilCheckInRoomEffect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_SMALL);
     }
 }
 
@@ -38,7 +38,7 @@ void dragon_init(void)
     gCurrentSprite.curr_anim_frame = 0x0;
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
-    sprite_util_make_sprite_face_samus_x_flip();
+    SpriteUtilMakeSpriteFaceSamusXFlip();
     gCurrentSprite.pose = 0x8;
     gCurrentSprite.y_position_spawn = gCurrentSprite.y_position;
 }
@@ -65,7 +65,7 @@ void dragon_go_up(void)
     gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
     if (gSamusData.y_position <= gCurrentSprite.y_position)
     {
-        nslr = sprite_util_check_samus_near_sprite_left_right(0x180, 0x180);
+        nslr = SpriteUtilCheckSamusNearSpriteLeftRight(0x180, 0x180);
         if (nslr != NSLR_OUT_OF_RANGE)
             gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
         
@@ -77,7 +77,7 @@ void dragon_go_up(void)
                 {
                     y_position = gCurrentSprite.y_position - 0x88;
                     x_position = gCurrentSprite.x_position + 0x48;
-                    sprite_util_check_collision_at_position(y_position, x_position);
+                    SpriteUtilCheckCollisionAtPosition(y_position, x_position);
                     if (gPreviousCollisionCheck == 0x0)
                         gCurrentSprite.pose = 0x34;
                 }
@@ -93,7 +93,7 @@ void dragon_go_up(void)
                 {
                     y_position = gCurrentSprite.y_position - 0x88;
                     x_position = gCurrentSprite.x_position - 0x48;
-                    sprite_util_check_collision_at_position(y_position, x_position);
+                    SpriteUtilCheckCollisionAtPosition(y_position, x_position);
                     if (gPreviousCollisionCheck == 0x0)
                         gCurrentSprite.pose = 0x34;
                 }
@@ -113,7 +113,7 @@ void dragon_turning_turning_around_gfx_init(void)
 void dragon_check_turning_around_first_half_anim_ended(void)
 {
     dragon_y_movement();
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0xC;
         gCurrentSprite.oam_pointer = dragon_oam_2d5b40;
@@ -126,7 +126,7 @@ void dragon_check_turning_around_first_half_anim_ended(void)
 void dragon_check_turning_around_second_half_anim_ended(void)
 {
     dragon_y_movement();
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
         gCurrentSprite.pose = 0x34;
 }
 
@@ -167,7 +167,7 @@ void dragon_spawn_fireball(void)
             x_position = gCurrentSprite.x_position + 0x28;
         else
             x_position = gCurrentSprite.x_position - 0x28;
-        sprite_spawn_secondary(SSPRITE_DRAGON_FIREBALL, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position, x_position, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
+        SpriteSpawnSecondary(SSPRITE_DRAGON_FIREBALL, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position, x_position, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
     }
 }
 
@@ -242,11 +242,11 @@ void dragon_fireball_move(void)
         gCurrentSprite.oam_rotation = -rotation;
     }
 
-    if (sprite_util_check_in_room_effect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_NONE))
+    if (SpriteUtilCheckInRoomEffect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_NONE))
         gCurrentSprite.pose = 0x42;
     else
     {
-        sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position);
         if (gPreviousCollisionCheck & 0xF0)
             gCurrentSprite.pose = 0x42;
     }*/
@@ -266,7 +266,7 @@ void dragon_fireball_exploding_gfx_init(void)
 void dragon_fireball_check_exploding_anim_ended(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0x0;
 }
 
@@ -280,10 +280,10 @@ void dragon(void)
     }
 
     if (gCurrentSprite.freeze_timer != 0x0)
-        sprite_util_update_freeze_timer();
+        SpriteUtilUpdateFreezeTimer();
     else
     {
-        if (!sprite_util_is_sprite_stunned())
+        if (!SpriteUtilIsSpriteStunned())
         {
             switch (gCurrentSprite.pose)
             {
@@ -312,7 +312,7 @@ void dragon(void)
                     dragon_spawn_fireball();
                     break;
                 default:
-                    sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);
+                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);
             }
         }
     }
@@ -334,6 +334,6 @@ void dragon_fireball(void)
             dragon_fireball_check_exploding_anim_ended();
             break;
         default:
-            sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_SMALL);
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_SMALL);
     }
 }

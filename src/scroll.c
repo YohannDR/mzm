@@ -2,42 +2,42 @@
 #include "globals.h"
 #include "bg_clip.h"
 
-void scroll_process(struct RawCoordsX* pCoords)
+void ScrollProcess(struct RawCoordsX* pCoords)
 {
     u32 screen_x;
     u32 screen_y;
     u32 new_position;
     struct Scroll* pScroll;
 
-    scroll_update_current(pCoords);
+    ScrollUpdateCurrent(pCoords);
     screen_x = gPositionAndVelocity.x_position;
     screen_y = gPositionAndVelocity.y_position;
 
     pScroll = gCurrentScrolls;
     if (pScroll->within)
     {
-        screen_x = scroll_process_x(pScroll, pCoords);
-        screen_y = scroll_process_y(pScroll, pCoords);
+        screen_x = ScrollProcessX(pScroll, pCoords);
+        screen_y = ScrollProcessY(pScroll, pCoords);
     }
 
     pScroll = gCurrentScrolls + 1;
     if (pScroll->within)
     {
-        new_position = scroll_process_x(pScroll, pCoords);
+        new_position = ScrollProcessX(pScroll, pCoords);
         screen_x = (i32)(screen_x + new_position) >> 0x1;
-        new_position = scroll_process_y(pScroll, pCoords);
+        new_position = ScrollProcessY(pScroll, pCoords);
         screen_y = (i32)(screen_y + new_position) >> 0x1;
     }
 
-    scroll_screen((u16)screen_x, (u16)screen_y);
+    ScrollScreen((u16)screen_x, (u16)screen_y);
 }
 
-void scroll_screen(u16 screen_x, u16 screen_y)
+void ScrollScreen(u16 screen_x, u16 screen_y)
 {
 
 }
 
-i32 scroll_process_x(struct Scroll* pScroll, struct RawCoordsX* pCoords)
+i32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
     i32 x_pos;
     i32 x_start;
@@ -53,7 +53,7 @@ i32 scroll_process_x(struct Scroll* pScroll, struct RawCoordsX* pCoords)
         return pScroll->x_end - 0x3C0;
 }
 
-i32 scroll_process_y(struct Scroll* pScroll, struct RawCoordsX* pCoords)
+i32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
     i32 y_pos;
     i32 y_start;
@@ -81,12 +81,12 @@ i32 scroll_process_y(struct Scroll* pScroll, struct RawCoordsX* pCoords)
         return pScroll->y_end - 0x280;
 }
 
-void scroll_load(void)
+void ScrollLoad(void)
 {
 
 }
 
-void scroll_update_current(struct RawCoordsX* pCoords)
+void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 {
     /*struct Scroll* pScroll;
     struct Scroll* pScrollLimit;
@@ -187,38 +187,38 @@ void scroll_update_current(struct RawCoordsX* pCoords)
     }*/
 }
 
-void scroll_process_general(void)
+void ScrollProcessGeneral(void)
 {
 
 }
 
-void scroll_with_no_scrolls(struct RawCoordsX* pCoords)
+void ScrollWithNoScrolls(struct RawCoordsX* pCoords)
 {
-    scroll_with_no_scrolls_x(pCoords);
-    scroll_with_no_scrolls_y(pCoords);
+    ScrollWithNoScrollsX(pCoords);
+    ScrollWithNoScrollsY(pCoords);
 }
 
-void scroll_with_no_scrolls_y(struct RawCoordsX* pCoords)
-{
-
-}
-
-void scroll_with_no_scrolls_x(struct RawCoordsX* pCoords)
+void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
 {
 
 }
 
-void scroll_update_effect_and_haze_position(struct RawCoordsX* pCoords)
+void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
 {
 
 }
 
-void scroll_auto_bg0(void)
+void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
 {
 
 }
 
-u32 scroll_get_bg3_scroll(void)
+void ScrollAutoBG0(void)
+{
+
+}
+
+u32 ScrollGetBG3Scroll(void)
 {
     u32 x_scroll;
     u32 y_scroll;
@@ -275,16 +275,16 @@ u32 scroll_get_bg3_scroll(void)
     return y_scroll << 0x10 | x_scroll;
 }
 
-void scroll_bg3(void)
+void ScrollBG3(void)
 {
 
 }
 
-void scroll_bg3_related(void)
+void ScrollBG3Related(void)
 {
     u32 x_scroll;
 
-    x_scroll = scroll_get_bg3_scroll();
+    x_scroll = ScrollGetBG3Scroll();
     x_scroll &= 0xFF;
     if (x_scroll == 0x0)
         gBG3XPosition = 0x0;
@@ -294,19 +294,19 @@ void scroll_bg3_related(void)
         gBG3XPosition = (gBG1XPosition - 0x80) >> 0x2;
 }
 
-void scroll_auto_bg3(void)
+void ScrollAutoBG3(void)
 {
     if (gBG3Movement.direction == 0x1 && (gBG3Movement.counter & 0x7) == 0x0)
         gBG3Movement.x_offset++;
     gBG3Movement.counter++;
 }
 
-void scroll_bg2(void)
+void ScrollBG2(void)
 {
 
 }
 
-void scroll_maybe_scroll_bg1_related(struct RawCoordsX* pCoords)
+void ScrollMaybeScrollBG1Related(struct RawCoordsX* pCoords)
 {
 
 }

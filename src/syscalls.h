@@ -58,17 +58,17 @@ struct wavedata {
     /* i8 data[size+1]; */
 };
 
-void cpu_fast_set(void *src, void *dst, u16 size);
-void cpu_set(void *src, void *dst, u16 size);
-i32 divarm_div(i32 number, i32 denom);
-i32 divarm_mod(i32 denom, i32 number);
-void LZ77_uncomp_vram(void *src, void *dst);
-void LZ77_uncomp_wram(void *src, void *dst);
-u32 midikey2freq(struct wavedata *wd, u8 mk, u8 fp);
-int multiboot(void *mbp); /* TODO: proper struct */
-void soundbias_0(void);
-void soundbias_200(void);
+void CPUFastSet(void *src, void *dst, u16 size);
+void CPUSet(void *src, void *dst, u16 size);
+i32 DivarmDiv(i32 number, i32 denom);
+i32 DivarmMod(i32 denom, i32 number);
+void LZ77UncompVRAM(void *src, void *dst);
+void LZ77UncompWRAM(void *src, void *dst);
+u32 Midikey2Freq(struct wavedata *wd, u8 mk, u8 fp);
+int Multiboot(void *mbp); /* TODO: proper struct */
+void SoundBias0(void);
+void SoundBias200(void);
 u16 Sqrt(u32 number);
-void vblankintrwait(void);
+void VBlankIntrWait(void);
 
 #endif /* SYSCALLS_H */

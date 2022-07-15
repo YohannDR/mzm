@@ -1185,8 +1185,8 @@ lbl_08005c42:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_check_landing_collision
-samus_check_landing_collision: @ 0x08005c4c
+    thumb_func_start SamusCheckLandingCollision
+SamusCheckLandingCollision: @ 0x08005c4c
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -1432,8 +1432,8 @@ lbl_08005e08:
     .align 2, 0
 lbl_08005e18: .4byte 0x0000ffc0
 
-    thumb_func_start samus_check_top_collision
-samus_check_top_collision: @ 0x08005e1c
+    thumb_func_start SamusCheckTopCollision
+SamusCheckTopCollision: @ 0x08005e1c
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
@@ -1582,8 +1582,8 @@ lbl_08005f26:
     .align 2, 0
 lbl_08005f34: .4byte 0x0000ffc0
 
-    thumb_func_start samus_check_collisions
-samus_check_collisions: @ 0x08005f38
+    thumb_func_start SamusCheckCollisions
+SamusCheckCollisions: @ 0x08005f38
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -1610,14 +1610,14 @@ lbl_08005f54:
     bne lbl_08005f72
     adds r0, r5, #0
     mov r1, sb
-    bl samus_check_top_collision
+    bl SamusCheckTopCollision
     b lbl_08005fc6
 lbl_08005f72:
     cmp r0, #2
     bne lbl_08005f80
     adds r0, r5, #0
     mov r1, sb
-    bl samus_check_landing_collision
+    bl SamusCheckLandingCollision
     b lbl_08005fc6
 lbl_08005f80:
     mov r0, sb
@@ -1630,7 +1630,7 @@ lbl_08005f80:
     bne lbl_08005f9a
     adds r0, r5, #0
     mov r1, sb
-    bl samus_check_landing_collision
+    bl SamusCheckLandingCollision
     b lbl_08005fc6
 lbl_08005f9a:
     adds r0, r5, #0
@@ -1898,7 +1898,7 @@ lbl_080061f8:
     cmp r2, #0xff
     beq lbl_08006204
     mov r0, sl
-    bl samus_set_pose
+    bl SamusSetPose
 lbl_08006204:
     add sp, #4
     pop {r3, r4, r5}
@@ -2808,8 +2808,8 @@ lbl_08006940:
     pop {r0}
     bx r0
 
-    thumb_func_start samus_update_jump_velocity
-samus_update_jump_velocity: @ 0x08006950
+    thumb_func_start SamusUpdateJumpVelocity
+SamusUpdateJumpVelocity: @ 0x08006950
     push {r4, r5, r6, lr}
     adds r4, r0, #0
     adds r5, r1, #0
@@ -3158,8 +3158,8 @@ lbl_08006c26:
     pop {r0}
     bx r0
 
-    thumb_func_start samus_set_landing_pose
-samus_set_landing_pose: @ 0x08006c2c
+    thumb_func_start SamusSetLandingPose
+SamusSetLandingPose: @ 0x08006c2c
     push {r4, r5, lr}
     adds r4, r0, #0
     adds r5, r1, #0
@@ -4144,8 +4144,8 @@ lbl_080074e2:
     pop {r0}
     bx r0
 
-    thumb_func_start samus_set_pose
-samus_set_pose: @ 0x080074e8
+    thumb_func_start SamusSetPose
+SamusSetPose: @ 0x080074e8
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x18
     ldr r5, lbl_08007524 @ =0x030013d4
@@ -4162,7 +4162,7 @@ samus_set_pose: @ 0x080074e8
     strb r0, [r5, #3]
 lbl_08007504:
     adds r0, r5, #0
-    bl samus_copy_data
+    bl SamusCopyData
     ldrb r0, [r6, #2]
     cmp r0, #5
     bne lbl_08007514
@@ -4225,40 +4225,40 @@ lbl_08007570:
     adds r0, r5, #0
     adds r1, r6, #0
     adds r2, r7, #0
-    bl samus_update_jump_velocity
+    bl SamusUpdateJumpVelocity
     b lbl_080075b4
 lbl_08007584:
     adds r0, r5, #0
     adds r1, r6, #0
     adds r2, r7, #0
-    bl samus_set_landing_pose
+    bl SamusSetLandingPose
     b lbl_080075b4
 lbl_08007590:
     adds r0, r5, #0
     adds r1, r6, #0
     adds r2, r7, #0
-    bl samus_set_hurt_pose
+    bl SamusChangeToHurtPose
     b lbl_080075b4
 lbl_0800759c:
     adds r0, r5, #0
     adds r1, r6, #0
     adds r2, r7, #0
-    bl samus_set_knockback_pose
+    bl SamusChangeToKnockbackPose
     b lbl_080075b4
 lbl_080075a8:
     strb r4, [r5]
     adds r0, r5, #0
     adds r1, r6, #0
     adds r2, r7, #0
-    bl samus_turn_around_arm_cannon
+    bl SamusCheckCarrayFromCopy
 lbl_080075b4:
     pop {r4, r5, r6, r7}
     pop {r0}
     bx r0
     .align 2, 0
 
-    thumb_func_start samus_copy_data
-samus_copy_data: @ 0x080075bc
+    thumb_func_start SamusCopyData
+SamusCopyData: @ 0x080075bc
     push {r4, r5, r6, lr}
     ldr r2, lbl_08007610 @ =0x030013d4
     ldr r3, lbl_08007614 @ =0x03001528
@@ -4308,8 +4308,8 @@ lbl_08007610: .4byte 0x030013d4
 lbl_08007614: .4byte 0x03001528
 lbl_08007618: .4byte 0x030013f4
 
-    thumb_func_start samus_update_physics
-samus_update_physics: @ 0x0800761c
+    thumb_func_start SamusUpdatePhysics
+SamusUpdatePhysics: @ 0x0800761c
     push {r4, r5, r6, r7, lr}
     ldr r6, lbl_08007644 @ =0x030013d4
     ldr r7, lbl_08007648 @ =0x03001530
@@ -4450,8 +4450,8 @@ lbl_08007724:
     bx r0
     .align 2, 0
 
-    thumb_func_start samus_change_velocity_on_slope
-samus_change_velocity_on_slope: @ 0x0800772c
+    thumb_func_start SamusChangeVelocityOnSlope
+SamusChangeVelocityOnSlope: @ 0x0800772c
     push {lr}
     movs r1, #0x16
     ldrsh r2, [r0, r1]
@@ -4491,8 +4491,8 @@ lbl_0800776a:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_copy_palette
-samus_copy_palette: @ 0x08007770
+    thumb_func_start SamusCopyPalette
+SamusCopyPalette: @ 0x08007770
     push {r4, lr}
     adds r4, r0, #0
     adds r3, r1, #0
@@ -4532,14 +4532,14 @@ samus_update: @ 0x0800779c
     strb r0, [r4, #0x1c]
 lbl_080077b0:
     adds r0, r4, #0
-    bl samus_update_physics
+    bl SamusUpdatePhysics
     adds r0, r4, #0
     bl samus_execute_pose
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
     cmp r0, #0xff
     beq lbl_080077c8
-    bl samus_set_pose
+    bl SamusSetPose
 lbl_080077c8:
     ldr r1, lbl_080077e4 @ =0x03001588
     adds r0, r4, #0
@@ -4669,7 +4669,7 @@ lbl_0800785c:
 lbl_080078c2:
     adds r0, r5, #0
     adds r1, r4, #0
-    bl samus_check_collisions
+    bl SamusCheckCollisions
     adds r0, r5, #0
     adds r1, r4, #0
     bl sub_0800b8a8
@@ -4701,7 +4701,7 @@ lbl_080078f4:
     movs r1, #0
 lbl_08007902:
     adds r0, r4, #0
-    bl samus_update_graphics_oam
+    bl SamusUpdateGraphicsOAM
     adds r0, r4, #0
     bl samus_update_anim_timers_and_palette
     pop {r4}
@@ -4779,7 +4779,7 @@ lbl_08007988:
     ands r0, r2
     strb r0, [r1, #4]
     movs r0, #0xfe
-    bl samus_set_pose
+    bl SamusSetPose
 lbl_08007996:
     pop {r4}
     pop {r0}
@@ -5119,8 +5119,8 @@ lbl_08007cf0:
     bx r0
     .align 2, 0
 
-    thumb_func_start samus_fire_beam_missile
-samus_fire_beam_missile: @ 0x08007cf8
+    thumb_func_start SamusCheckFireBeamMissile
+SamusCheckFireBeamMissile: @ 0x08007cf8
     push {r4, r5, r6, r7, lr}
     adds r7, r0, #0
     adds r3, r1, #0
@@ -5289,8 +5289,8 @@ lbl_08007e18:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_check_new_projectile
-samus_check_new_projectile: @ 0x08007e20
+    thumb_func_start SamusCheckNewProjectile
+SamusCheckNewProjectile: @ 0x08007e20
     push {r4, r5, lr}
     adds r4, r0, #0
     adds r3, r1, #0
@@ -5437,7 +5437,7 @@ lbl_08007ef4: @ jump table
 lbl_08008000:
     adds r0, r4, #0
     adds r1, r3, #0
-    bl samus_fire_beam_missile
+    bl SamusCheckFireBeamMissile
 lbl_08008008:
     adds r1, r5, #0
     adds r1, #0x5c
@@ -5507,8 +5507,8 @@ lbl_08008074:
     .align 2, 0
 lbl_0800807c: .4byte 0x03001380
 
-    thumb_func_start samus_set_highlighted_weapon
-samus_set_highlighted_weapon: @ 0x08008080
+    thumb_func_start SamusSetHighlightedWeapon
+SamusSetHighlightedWeapon: @ 0x08008080
     push {r4, r5, r6, r7, lr}
     adds r7, r0, #0
     adds r4, r1, #0
@@ -5640,8 +5640,8 @@ lbl_080081b8:
     pop {r0}
     bx r0
 
-    thumb_func_start samus_set_spinning_pose
-samus_set_spinning_pose: @ 0x080081c0
+    thumb_func_start SamusSetSpinningPose
+SamusSetSpinningPose: @ 0x080081c0
     push {lr}
     adds r2, r0, #0
     ldrb r0, [r2]
@@ -6041,8 +6041,8 @@ lbl_08008470:
     bx r0
     .align 2, 0
 
-    thumb_func_start samus_inactivity
-samus_inactivity: @ 0x08008478
+    thumb_func_start SamusInactivity
+SamusInactivity: @ 0x08008478
     movs r0, #0xff
     bx lr
 
@@ -6102,8 +6102,8 @@ lbl_080084d6:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_running
-samus_running: @ 0x080084dc
+    thumb_func_start SamusRunning
+SamusRunning: @ 0x080084dc
     push {r4, r5, lr}
     adds r4, r0, #0
     ldr r0, lbl_080084f4 @ =0x03001380
@@ -6217,8 +6217,8 @@ lbl_080085aa:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_running_gfx
-samus_running_gfx: @ 0x080085b0
+    thumb_func_start SamusRunningGFX
+SamusRunningGFX: @ 0x080085b0
     push {r4, r5, lr}
     adds r2, r0, #0
     ldr r5, lbl_080085c8 @ =0x03001528
@@ -6538,8 +6538,8 @@ lbl_08008816:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_standing_gfx
-samus_standing_gfx: @ 0x0800881c
+    thumb_func_start SamusStandingGFX
+SamusStandingGFX: @ 0x0800881c
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -6693,8 +6693,8 @@ lbl_0800893a:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_shooting_gfx
-samus_shooting_gfx: @ 0x08008940
+    thumb_func_start SamusShootingGFX
+SamusShootingGFX: @ 0x08008940
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -6711,8 +6711,8 @@ lbl_08008956:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_crouching
-samus_crouching: @ 0x0800895c
+    thumb_func_start SamusCrouching
+SamusCrouching: @ 0x0800895c
     push {r4, r5, r6, r7, lr}
     adds r4, r0, #0
     ldr r0, lbl_080089a0 @ =0x0300137c
@@ -7111,8 +7111,8 @@ lbl_08008c4a:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_shooting_and_crouching_gfx
-samus_shooting_and_crouching_gfx: @ 0x08008c50
+    thumb_func_start SamusShootingAndCrouchingGFX
+SamusShootingAndCrouchingGFX: @ 0x08008c50
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -7129,8 +7129,8 @@ lbl_08008c66:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_skidding
-samus_skidding: @ 0x08008c6c
+    thumb_func_start SamusSkidding
+SamusSkidding: @ 0x08008c6c
     push {lr}
     adds r2, r0, #0
     ldr r0, lbl_08008c84 @ =0x03001380
@@ -7207,8 +7207,8 @@ lbl_08008cf2:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_midair
-samus_midair: @ 0x08008cf8
+    thumb_func_start SamusMidAir
+SamusMidAir: @ 0x08008cf8
     push {r4, r5, r6, lr}
     adds r4, r0, #0
     ldr r2, lbl_08008d24 @ =0x03001380
@@ -7342,8 +7342,8 @@ lbl_08008dec:
     .align 2, 0
 lbl_08008df4: .4byte 0x0300137c
 
-    thumb_func_start samus_midair_gfx
-samus_midair_gfx: @ 0x08008df8
+    thumb_func_start SamusMidAirGFX
+SamusMidAirGFX: @ 0x08008df8
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0x18
@@ -7902,8 +7902,8 @@ lbl_08009204: .4byte 0x03001588
 lbl_08009208: .4byte 0x03001528
 lbl_0800920c: .4byte 0x08289084
 
-    thumb_func_start samus_morphing
-samus_morphing: @ 0x08009210
+    thumb_func_start SamusMorphing
+SamusMorphing: @ 0x08009210
     push {lr}
     adds r2, r0, #0
     ldr r0, lbl_0800922c @ =0x03001380
@@ -7921,8 +7921,8 @@ lbl_08009224:
     .align 2, 0
 lbl_0800922c: .4byte 0x03001380
 
-    thumb_func_start samus_morphing_gfx
-samus_morphing_gfx: @ 0x08009230
+    thumb_func_start SamusMorphingGFX
+SamusMorphingGFX: @ 0x08009230
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -7939,8 +7939,8 @@ lbl_08009246:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_morphball
-samus_morphball: @ 0x0800924c
+    thumb_func_start SamusMorphball
+SamusMorphball: @ 0x0800924c
     push {r4, r5, lr}
     adds r4, r0, #0
     ldrb r0, [r4, #4]
@@ -8123,8 +8123,8 @@ lbl_080093ac:
 lbl_080093b4: .4byte 0x0300137c
 lbl_080093b8: .4byte 0x03001528
 
-    thumb_func_start samus_rolling
-samus_rolling: @ 0x080093bc
+    thumb_func_start SamusRolling
+SamusRolling: @ 0x080093bc
     push {r4, lr}
     adds r4, r0, #0
     ldr r0, lbl_080093e4 @ =0x03001380
@@ -8227,8 +8227,8 @@ lbl_08009482:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_rolling_gfx
-samus_rolling_gfx: @ 0x08009488
+    thumb_func_start SamusRollingGFX
+SamusRollingGFX: @ 0x08009488
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -8259,8 +8259,8 @@ lbl_080094b8:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_unmorphing
-samus_unmorphing: @ 0x080094c0
+    thumb_func_start SamusUnmorphing
+SamusUnmorphing: @ 0x080094c0
     push {r4, lr}
     adds r4, r0, #0
     ldr r0, lbl_080094ec @ =0x0823a554
@@ -8299,8 +8299,8 @@ lbl_08009502:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_unmorphing_gfx
-samus_unmorphing_gfx: @ 0x08009508
+    thumb_func_start SamusUnmorphingGFX
+SamusUnmorphingGFX: @ 0x08009508
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -8321,8 +8321,8 @@ lbl_08009524:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_morphball_midair
-samus_morphball_midair: @ 0x0800952c
+    thumb_func_start SamusMorphballMidAir
+SamusMorphballMidAir: @ 0x0800952c
     push {r4, lr}
     adds r4, r0, #0
     ldr r0, lbl_08009560 @ =0x03001380
@@ -8435,8 +8435,8 @@ lbl_080095fc:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_hanging_on_ledge
-samus_hanging_on_ledge: @ 0x08009604
+    thumb_func_start SamusHangingOnLedge
+SamusHangingOnLedge: @ 0x08009604
     push {r4, r5, r6, lr}
     adds r5, r0, #0
     ldr r0, lbl_08009618 @ =0x03000114
@@ -8632,8 +8632,8 @@ lbl_0800976a:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_hanging_on_ledge_gfx
-samus_hanging_on_ledge_gfx: @ 0x08009770
+    thumb_func_start SamusHangingOnLedgeGFX
+SamusHangingOnLedgeGFX: @ 0x08009770
     push {r4, lr}
     adds r4, r0, #0
     ldr r0, lbl_08009794 @ =0x03001588
@@ -8655,8 +8655,8 @@ lbl_0800978c:
     .align 2, 0
 lbl_08009794: .4byte 0x03001588
 
-    thumb_func_start samus_turning_to_aim_while_hanging
-samus_turning_to_aim_while_hanging: @ 0x08009798
+    thumb_func_start SamusTurningToAimWhileHanging
+SamusTurningToAimWhileHanging: @ 0x08009798
     push {r4, r5, r6, lr}
     adds r5, r0, #0
     ldr r0, lbl_080097a8 @ =0x03000114
@@ -8762,8 +8762,8 @@ lbl_0800985a:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_turning_to_aim_while_hanging_gfx
-samus_turning_to_aim_while_hanging_gfx: @ 0x08009860
+    thumb_func_start SamusTurningToAimWhileHangingGFX
+SamusTurningToAimWhileHangingGFX: @ 0x08009860
     push {lr}
     ldr r1, lbl_08009878 @ =0x03001588
     adds r1, #0x5b
@@ -8812,8 +8812,8 @@ lbl_080098ae:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_aiming_while_hanging
-samus_aiming_while_hanging: @ 0x080098b4
+    thumb_func_start SamusAimingWhileHanging
+SamusAimingWhileHanging: @ 0x080098b4
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
@@ -9305,8 +9305,8 @@ lbl_08009c26:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_turning_from_facing_foreground_gfx
-samus_turning_from_facing_foreground_gfx: @ 0x08009c2c
+    thumb_func_start SamusTurningFromFacningForegroundGFX
+SamusTurningFromFacningForegroundGFX: @ 0x08009c2c
     push {lr}
     adds r1, r0, #0
     ldrb r0, [r1, #0x1c]
@@ -9374,8 +9374,8 @@ lbl_08009c9a:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_shinesparking
-samus_shinesparking: @ 0x08009ca0
+    thumb_func_start SamusShinesparking
+SamusShinesparking: @ 0x08009ca0
     push {r4, r5, r6, lr}
     sub sp, #0xc
     adds r4, r0, #0
@@ -9472,8 +9472,8 @@ lbl_08009d48:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_shinesparking_gfx
-samus_shinesparking_gfx: @ 0x08009d50
+    thumb_func_start SamusShinesparkingGFX
+SamusShinesparkingGFX: @ 0x08009d50
     push {r4, lr}
     adds r1, r0, #0
     ldrb r0, [r1, #4]
@@ -9675,8 +9675,8 @@ lbl_08009eac:
 lbl_08009eb4: .4byte 0x03001528
 lbl_08009eb8: .4byte 0x08288f28
 
-    thumb_func_start samus_ballsparking_gfx
-samus_ballsparking_gfx: @ 0x08009ebc
+    thumb_func_start SamusBallsparkingGFX
+SamusBallsparkingGFX: @ 0x08009ebc
     push {r4, lr}
     adds r2, r0, #0
     ldr r1, lbl_08009f2c @ =0x08238b74
@@ -9755,8 +9755,8 @@ lbl_08009f46:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_on_zipline
-samus_on_zipline: @ 0x08009f4c
+    thumb_func_start SamusOnZipline
+SamusOnZipline: @ 0x08009f4c
     push {lr}
     adds r3, r0, #0
     ldr r0, lbl_08009f60 @ =0x03001380
@@ -9822,8 +9822,8 @@ lbl_08009fba:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_morphball_on_zipline
-samus_morphball_on_zipline: @ 0x08009fc0
+    thumb_func_start SamusMorphballOnZipline
+SamusMorphballOnZipline: @ 0x08009fc0
     push {lr}
     adds r2, r0, #0
     ldr r0, lbl_08009fd4 @ =0x03001380
@@ -9852,8 +9852,8 @@ lbl_08009fe8:
     .align 2, 0
 lbl_08009fec: .4byte 0x0300137c
 
-    thumb_func_start samus_saving_loading_game
-samus_saving_loading_game: @ 0x08009ff0
+    thumb_func_start SamusSavingLoadingGame
+SamusSavingLoadingGame: @ 0x08009ff0
     push {lr}
     adds r1, r0, #0
     ldrb r0, [r1, #0xa]
@@ -9886,8 +9886,8 @@ lbl_0800a01e:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_getting_hurt
-samus_getting_hurt: @ 0x0800a024
+    thumb_func_start SamusGettingHurt
+SamusGettingHurt: @ 0x0800a024
     push {lr}
     adds r2, r0, #0
     movs r3, #0
@@ -9945,8 +9945,8 @@ lbl_0800a086:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_getting_hurt_gfx
-samus_getting_hurt_gfx: @ 0x0800a08c
+    thumb_func_start SamusGettingHurtGFX
+SamusGettingHurtGFX: @ 0x0800a08c
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -9964,8 +9964,8 @@ lbl_0800a0a4:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_getting_knocked_back
-samus_getting_knocked_back: @ 0x0800a0ac
+    thumb_func_start SamusGettingKnockedBack
+SamusGettingKnockedBack: @ 0x0800a0ac
     push {lr}
     adds r2, r0, #0
     ldrb r0, [r2, #0xa]
@@ -9995,8 +9995,8 @@ lbl_0800a0d6:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_dying
-samus_dying: @ 0x0800a0dc
+    thumb_func_start SamusDying
+SamusDying: @ 0x0800a0dc
     push {r4, r5, r6, lr}
     adds r4, r0, #0
     ldrh r0, [r4, #0xc]
@@ -10144,8 +10144,8 @@ lbl_0800a1d8:
 lbl_0800a1e0: .4byte 0x03000c70
 lbl_0800a1e4: .4byte 0x03000c72
 
-    thumb_func_start samus_crouching_to_crawl_gfx
-samus_crouching_to_crawl_gfx: @ 0x0800a1e8
+    thumb_func_start SamusCrouchingToCrawlGFX
+SamusCrouchingToCrawlGFX: @ 0x0800a1e8
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -10176,8 +10176,8 @@ lbl_0800a216:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_crawling_stopped
-samus_crawling_stopped: @ 0x0800a21c
+    thumb_func_start SamusCrawlingStopped
+SamusCrawlingStopped: @ 0x0800a21c
     push {r4, lr}
     adds r4, r0, #0
     movs r0, #0
@@ -10232,8 +10232,8 @@ lbl_0800a27c:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_starting_to_crawl_gfx
-samus_starting_to_crawl_gfx: @ 0x0800a284
+    thumb_func_start SamusStartingToCrawlGFX
+SamusStartingToCrawlGFX: @ 0x0800a284
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -10250,8 +10250,8 @@ lbl_0800a29a:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_crawling
-samus_crawling: @ 0x0800a2a0
+    thumb_func_start SamusCrawling
+SamusCrawling: @ 0x0800a2a0
     push {r4, lr}
     adds r4, r0, #0
     ldr r0, lbl_0800a2bc @ =0x0823a554
@@ -10312,8 +10312,8 @@ lbl_0800a30e:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_dying_gfx
-samus_dying_gfx: @ 0x0800a314
+    thumb_func_start SamusDyingGFX
+SamusDyingGFX: @ 0x0800a314
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -10350,8 +10350,8 @@ lbl_0800a350:
     pop {r1}
     bx r1
 
-    thumb_func_start samus_turning_around_crawling
-samus_turning_around_crawling: @ 0x0800a358
+    thumb_func_start SamusTurningAround_crawling
+SamusTurningAround_crawling: @ 0x0800a358
     push {lr}
     ldr r0, lbl_0800a368 @ =0x03001588
     adds r0, #0x5c
@@ -10369,8 +10369,8 @@ lbl_0800a36e:
     bx r1
     .align 2, 0
 
-    thumb_func_start samus_crawling_gfx
-samus_crawling_gfx: @ 0x0800a374
+    thumb_func_start SamusCrawlingGFX
+SamusCrawlingGFX: @ 0x0800a374
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -10546,15 +10546,15 @@ lbl_0800a49c:
     adds r0, r5, #0
     adds r1, r6, #0
     adds r2, r4, #0
-    bl samus_set_highlighted_weapon
+    bl SamusSetHighlightedWeapon
 lbl_0800a4ac:
     adds r0, r5, #0
     adds r1, r4, #0
-    bl samus_set_spinning_pose
+    bl SamusSetSpinningPose
     adds r0, r5, #0
     adds r1, r6, #0
     adds r2, r4, #0
-    bl samus_check_new_projectile
+    bl SamusCheckNewProjectile
     ldr r1, lbl_0800a4f8 @ =0x0875e6a8
     ldrb r0, [r5]
     lsls r0, r0, #2
@@ -10718,7 +10718,7 @@ lbl_0800a646:
     cmp r0, #0
     bne lbl_0800a676
     adds r0, r4, #0
-    bl samus_change_velocity_on_slope
+    bl SamusChangeVelocityOnSlope
     lsls r0, r0, #0x10
     asrs r2, r0, #0x13
     ldrb r0, [r4]
@@ -10750,8 +10750,8 @@ lbl_0800a67c:
     pop {r0}
     bx r0
 
-    thumb_func_start samus_update_graphics_oam
-samus_update_graphics_oam: @ 0x0800a688
+    thumb_func_start SamusUpdateGraphicsOAM
+SamusUpdateGraphicsOAM: @ 0x0800a688
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -12622,7 +12622,7 @@ lbl_0800b624:
     adds r0, r4, #0
     movs r1, #0
     movs r2, #0x10
-    bl samus_copy_palette
+    bl SamusCopyPalette
     ldrb r0, [r5, #7]
     cmp r0, #0
     bne lbl_0800b698
@@ -12729,7 +12729,7 @@ lbl_0800b702:
     adds r0, r4, #0
     movs r1, #0
     movs r2, #0x10
-    bl samus_copy_palette
+    bl SamusCopyPalette
     b lbl_0800b7d6
     .align 2, 0
 lbl_0800b710: .4byte 0x03001544
@@ -12756,7 +12756,7 @@ lbl_0800b732:
     adds r0, r4, #0
     movs r1, #0
     movs r2, #0x10
-    bl samus_copy_palette
+    bl SamusCopyPalette
     mov r4, r8
     adds r4, #0x40
     b lbl_0800b7d6
@@ -12772,7 +12772,7 @@ lbl_0800b756:
     adds r0, r4, #0
     movs r1, #0
     movs r2, #0x10
-    bl samus_copy_palette
+    bl SamusCopyPalette
     mov r4, r8
     adds r4, #0x40
     b lbl_0800b7d6
@@ -12833,14 +12833,14 @@ lbl_0800b7c8:
     adds r0, r4, #0
     movs r1, #0
     movs r2, #0x10
-    bl samus_copy_palette
+    bl SamusCopyPalette
     mov r4, r8
     adds r4, #0x20
 lbl_0800b7d6:
     adds r0, r4, #0
     movs r1, #0x10
     movs r2, #0x10
-    bl samus_copy_palette
+    bl SamusCopyPalette
     b lbl_0800b858
 lbl_0800b7e2:
     mov r4, r8
@@ -12903,7 +12903,7 @@ lbl_0800b84e:
     adds r0, r4, #0
     movs r1, #0
     movs r2, #0x20
-    bl samus_copy_palette
+    bl SamusCopyPalette
 lbl_0800b858:
     add sp, #8
     pop {r3, r4, r5}
@@ -15699,7 +15699,7 @@ update_sprites: @ 0x0800cf00
     beq lbl_0800cf28
     b lbl_0800d138
 lbl_0800cf28:
-    bl sprite_debris_process_all
+    bl SpriteDebrisProcessAll
     bl check_stop_sprites_pose
     cmp r0, #0
     bne lbl_0800d028
@@ -16321,7 +16321,7 @@ call_draw_sprite: @ 0x0800d430
     sub sp, #8
     movs r7, #0x17
     movs r6, #3
-    bl sprite_debris_draw_all
+    bl SpriteDebrisDrawAll
     ldr r0, lbl_0800d45c @ =0x030001ac
     movs r4, #0
     ldr r1, lbl_0800d460 @ =0x030007f3
@@ -17802,7 +17802,7 @@ lbl_0800dfd6:
     lsls r1, r6, #0xb
     ldr r2, lbl_0800e074 @ =0x06014000
     adds r1, r1, r2
-    bl LZ77_uncomp_vram
+    bl LZ77UncompVRAM
     ldr r0, [r4]
     ldrb r2, [r0, #1]
     ldrb r1, [r0, #2]
@@ -17875,7 +17875,7 @@ load_sprite_graphics: @ 0x0800e084
     lsrs r1, r1, #0xd
     ldr r2, lbl_0800e0ac @ =0x06014000
     adds r1, r1, r2
-    bl LZ77_uncomp_vram
+    bl LZ77UncompVRAM
     pop {r0}
     bx r0
     .align 2, 0
@@ -18501,7 +18501,7 @@ sub_0800e514: @ 0x0800e514
     ldrsh r1, [r7, r0]
     adds r1, r4, r1
     adds r0, r5, #0
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldr r6, lbl_0800e598 @ =0x030007f1
     ldrb r2, [r6]
     mov r8, r2
@@ -18512,7 +18512,7 @@ sub_0800e514: @ 0x0800e514
     movs r2, #0
     ldrsh r1, [r7, r2]
     adds r1, r4, r1
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldrb r0, [r6]
     cmp r0, #0
     beq lbl_0800e56a
@@ -18571,7 +18571,7 @@ sub_0800e5a4: @ 0x0800e5a4
     ldrsh r1, [r7, r0]
     adds r1, r4, r1
     adds r0, r5, #0
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldr r6, lbl_0800e628 @ =0x030007f1
     ldrb r2, [r6]
     mov r8, r2
@@ -18582,7 +18582,7 @@ sub_0800e5a4: @ 0x0800e5a4
     movs r2, #0
     ldrsh r1, [r7, r2]
     adds r1, r4, r1
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldrb r0, [r6]
     cmp r0, #0
     beq lbl_0800e5fa
@@ -18710,7 +18710,7 @@ lbl_0800e6ce:
     cmp r7, #0
     beq lbl_0800e6e2
     movs r0, #0xfa
-    bl samus_set_pose
+    bl SamusSetPose
 lbl_0800e6e2:
     movs r0, #1
     b lbl_0800e6f2
@@ -18718,7 +18718,7 @@ lbl_0800e6e6:
     movs r0, #0
     strh r0, [r6, #6]
     movs r0, #0xfa
-    bl samus_set_pose
+    bl SamusSetPose
     movs r0, #0
 lbl_0800e6f2:
     pop {r4, r5, r6, r7}
@@ -19016,7 +19016,7 @@ lbl_0800e924:
     cmp r0, #0
     beq lbl_0800e936
     movs r0, #0xfe
-    bl samus_set_pose
+    bl SamusSetPose
     bl lbl_0800f300
 lbl_0800e936:
     ldr r0, [sp, #0x14]
@@ -19030,7 +19030,7 @@ lbl_0800e936:
     adds r0, #1
     adds r0, r5, r0
     ldr r1, [sp, #0x18]
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldr r0, lbl_0800e988 @ =0x030007f1
     ldrb r0, [r0]
     cmp r0, #0
@@ -19072,7 +19072,7 @@ lbl_0800e98c:
     mov r1, sb
     subs r0, r1, r0
     ldr r1, [sp, #0x18]
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldr r0, lbl_0800e9e0 @ =0x030007f1
     ldrb r1, [r0]
     cmp r1, #0
@@ -19205,7 +19205,7 @@ lbl_0800eae2:
     adds r0, #1
     adds r0, r5, r0
     ldr r1, [sp, #0x18]
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldr r0, lbl_0800eb38 @ =0x030007f1
     ldrb r0, [r0]
     cmp r0, #0
@@ -19248,7 +19248,7 @@ lbl_0800eb3c:
     mov r2, sb
     subs r0, r2, r0
     ldr r1, [sp, #0x18]
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldr r0, lbl_0800eb88 @ =0x030007f1
     ldrb r1, [r0]
     cmp r1, #0
@@ -19315,7 +19315,7 @@ lbl_0800ebc2:
     adds r0, #1
     adds r0, r5, r0
     ldr r1, [sp, #0x18]
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldr r0, lbl_0800ec08 @ =0x030007f1
     ldrb r0, [r0]
     cmp r0, #0
@@ -19374,7 +19374,7 @@ lbl_0800ec36:
     adds r0, #1
     adds r0, r5, r0
     ldr r1, [sp, #0x18]
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldr r0, lbl_0800ec7c @ =0x030007f1
     ldrb r0, [r0]
     cmp r0, #0
@@ -19490,7 +19490,7 @@ lbl_0800ed14:
     adds r0, #1
     adds r0, r5, r0
     ldr r1, [sp, #0x18]
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldr r0, lbl_0800ed58 @ =0x030007f1
     ldrb r0, [r0]
     cmp r0, #0
@@ -19873,7 +19873,7 @@ lbl_0800efde:
     strh r2, [r0]
     movs r0, #0x2b
 lbl_0800eff4:
-    bl samus_set_pose
+    bl SamusSetPose
     ldrh r1, [r6]
     movs r2, #0x80
     lsls r2, r2, #4
@@ -20033,14 +20033,14 @@ lbl_0800f11a:
     ldr r2, [sp, #0x14]
     adds r0, r2, r0
     ldr r1, [sp, #0x18]
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldrb r0, [r5]
     cmp r0, #0
     beq lbl_0800f136
     b lbl_0800f2fa
 lbl_0800f136:
     movs r0, #0xf9
-    bl samus_set_pose
+    bl SamusSetPose
     movs r0, #4
     ands r4, r0
     cmp r4, #0
@@ -20068,7 +20068,7 @@ lbl_0800f160:
     b lbl_0800f300
 lbl_0800f16e:
     movs r0, #0xf9
-    bl samus_set_pose
+    bl SamusSetPose
     movs r0, #4
     ands r4, r0
     cmp r4, #0
@@ -20209,7 +20209,7 @@ lbl_0800f25a:
     movs r0, #1
     strb r0, [r1]
     movs r0, #8
-    bl samus_set_pose
+    bl SamusSetPose
     ldr r0, lbl_0800f298 @ =0x000001e3
     bl play_sound1
     b lbl_0800f300
@@ -20322,8 +20322,8 @@ lbl_0800f354: .4byte 0x030007f2
 lbl_0800f358: .4byte 0x030006ec
 lbl_0800f35c: .4byte 0x030001ac
 
-    thumb_func_start sprite_util_check_vertical_collision_at_position
-sprite_util_check_vertical_collision_at_position: @ 0x0800f360
+    thumb_func_start SpriteUtilCheckVerticalCollisionAtPosition
+SpriteUtilCheckVerticalCollisionAtPosition: @ 0x0800f360
     push {r4, r5, lr}
     lsls r0, r0, #0x10
     lsrs r4, r0, #0x10
@@ -20463,8 +20463,8 @@ lbl_0800f470:
     .align 2, 0
 lbl_0800f478: .4byte 0x0000ffc0
 
-    thumb_func_start sprite_util_check_vertical_collision_at_position_slopes
-sprite_util_check_vertical_collision_at_position_slopes: @ 0x0800f47c
+    thumb_func_start SpriteUtilCheckVerticalCollisionAtPosition_slopes
+SpriteUtilCheckVerticalCollisionAtPosition_slopes: @ 0x0800f47c
     push {r4, r5, lr}
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10
@@ -20618,7 +20618,7 @@ sub_0800f594: @ 0x0800f594
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     adds r1, r4, #0
-    bl sprite_util_check_vertical_collision_at_position
+    bl SpriteUtilCheckVerticalCollisionAtPosition
     adds r2, r0, #0
     ldr r6, lbl_0800f604 @ =0x030007f0
     ldrb r1, [r6]
@@ -20629,7 +20629,7 @@ sub_0800f594: @ 0x0800f594
     bhi lbl_0800f5ee
     adds r0, r5, #0
     adds r1, r4, #0
-    bl sprite_util_check_vertical_collision_at_position
+    bl SpriteUtilCheckVerticalCollisionAtPosition
     adds r2, r0, #0
     ldrb r1, [r6]
     mov r0, r8
@@ -20641,7 +20641,7 @@ sub_0800f594: @ 0x0800f594
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     mov r1, sl
-    bl sprite_util_check_vertical_collision_at_position
+    bl SpriteUtilCheckVerticalCollisionAtPosition
     adds r2, r0, #0
     ldrb r0, [r6]
     cmp r0, #0
@@ -20680,7 +20680,7 @@ sub_0800f608: @ 0x0800f608
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     adds r1, r4, #0
-    bl sprite_util_check_vertical_collision_at_position
+    bl SpriteUtilCheckVerticalCollisionAtPosition
     adds r2, r0, #0
     ldr r7, lbl_0800f684 @ =0x030007f0
     ldrb r1, [r7]
@@ -20691,7 +20691,7 @@ sub_0800f608: @ 0x0800f608
     bhi lbl_0800f66a
     adds r0, r5, #0
     adds r1, r4, #0
-    bl sprite_util_check_vertical_collision_at_position
+    bl SpriteUtilCheckVerticalCollisionAtPosition
     adds r2, r0, #0
     ldrb r1, [r7]
     mov r0, r8
@@ -20703,7 +20703,7 @@ sub_0800f608: @ 0x0800f608
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     mov r1, sl
-    bl sprite_util_check_vertical_collision_at_position
+    bl SpriteUtilCheckVerticalCollisionAtPosition
     adds r2, r0, #0
     ldrb r0, [r7]
     cmp r0, #0
@@ -20724,8 +20724,8 @@ lbl_0800f670:
 lbl_0800f680: .4byte 0x03000738
 lbl_0800f684: .4byte 0x030007f0
 
-    thumb_func_start sprite_util_check_collision_at_position
-sprite_util_check_collision_at_position: @ 0x0800f688
+    thumb_func_start SpriteUtilCheckCollisionAtPosition
+SpriteUtilCheckCollisionAtPosition: @ 0x0800f688
     push {lr}
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
@@ -20801,8 +20801,8 @@ lbl_0800f71c:
     pop {r0}
     bx r0
 
-    thumb_func_start sprite_util_get_collision_at_position
-sprite_util_get_collision_at_position: @ 0x0800f720
+    thumb_func_start SpriteUtilGetCollisionAtPosition
+SpriteUtilGetCollisionAtPosition: @ 0x0800f720
     push {lr}
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
@@ -20867,7 +20867,7 @@ current_sprite_falling_unused: @ 0x0800f79c
     ldr r4, lbl_0800f7c0 @ =0x03000738
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
-    bl sprite_util_check_vertical_collision_at_position_slopes
+    bl SpriteUtilCheckVerticalCollisionAtPosition_slopes
     adds r1, r0, #0
     ldr r0, lbl_0800f7c4 @ =0x030007f0
     ldrb r0, [r0]
@@ -21127,7 +21127,7 @@ sub_0800f978: @ 0x0800f978
     ldr r4, lbl_0800f9a0 @ =0x03000738
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldrh r1, [r4]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -21184,7 +21184,7 @@ sub_0800f9e4: @ 0x0800f9e4
     ldr r4, lbl_0800fa14 @ =0x03000738
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
-    bl sprite_util_check_collision_at_position
+    bl SpriteUtilCheckCollisionAtPosition
     ldrh r1, [r4]
     movs r0, #0x40
     ands r0, r1
@@ -21999,7 +21999,7 @@ samus_standing_on_sprite: @ 0x0800ff60
     cmp r0, #2
     bne lbl_0800ff86
     movs r0, #0xfd
-    bl samus_set_pose
+    bl SamusSetPose
 lbl_0800ff86:
     movs r0, #1
     strb r0, [r5, #1]
@@ -23967,7 +23967,7 @@ lbl_08010d8e:
     adds r3, #8
     adds r0, r7, #0
     movs r1, #2
-    bl sprite_debris_init
+    bl SpriteDebrisInit
     b lbl_08010e88
     .align 2, 0
 lbl_08010dac: .4byte 0x03000c77
@@ -23978,7 +23978,7 @@ lbl_08010db0:
     subs r3, #8
     adds r0, r7, #0
     movs r1, #1
-    bl sprite_debris_init
+    bl SpriteDebrisInit
     b lbl_08010e88
 lbl_08010dc2:
     ldr r0, lbl_08010df0 @ =0x03000c77
@@ -23993,14 +23993,14 @@ lbl_08010dc2:
     adds r3, #8
     adds r0, r7, #0
     movs r1, #2
-    bl sprite_debris_init
+    bl SpriteDebrisInit
     adds r2, r5, #0
     adds r2, #8
     adds r3, r6, #0
     subs r3, #8
     adds r0, r7, #0
     movs r1, #4
-    bl sprite_debris_init
+    bl SpriteDebrisInit
     b lbl_08010e88
     .align 2, 0
 lbl_08010df0: .4byte 0x03000c77
@@ -24011,13 +24011,13 @@ lbl_08010df4:
     subs r3, #8
     adds r0, r7, #0
     movs r1, #1
-    bl sprite_debris_init
+    bl SpriteDebrisInit
     adds r3, r6, #0
     adds r3, #8
     adds r0, r7, #0
     movs r1, #3
     adds r2, r5, #0
-    bl sprite_debris_init
+    bl SpriteDebrisInit
     b lbl_08010e88
 lbl_08010e14:
     ldr r0, lbl_08010e54 @ =0x03000c77
@@ -24033,20 +24033,20 @@ lbl_08010e14:
     adds r0, r7, #0
     movs r1, #1
     adds r3, r4, #0
-    bl sprite_debris_init
+    bl SpriteDebrisInit
     adds r2, r5, #0
     subs r2, #0x10
     adds r3, r6, #0
     adds r3, #8
     adds r0, r7, #0
     movs r1, #3
-    bl sprite_debris_init
+    bl SpriteDebrisInit
     adds r2, r5, #0
     adds r2, #8
     adds r0, r7, #0
     movs r1, #4
     adds r3, r4, #0
-    bl sprite_debris_init
+    bl SpriteDebrisInit
     b lbl_08010e88
     .align 2, 0
 lbl_08010e54: .4byte 0x03000c77
@@ -24058,20 +24058,20 @@ lbl_08010e58:
     adds r0, r7, #0
     movs r1, #2
     adds r3, r4, #0
-    bl sprite_debris_init
+    bl SpriteDebrisInit
     adds r2, r5, #0
     adds r2, #8
     adds r0, r7, #0
     movs r1, #3
     adds r3, r4, #0
-    bl sprite_debris_init
+    bl SpriteDebrisInit
     adds r2, r5, #0
     adds r2, #0x10
     adds r3, r6, #0
     subs r3, #8
     adds r0, r7, #0
     movs r1, #4
-    bl sprite_debris_init
+    bl SpriteDebrisInit
 lbl_08010e88:
     pop {r4, r5, r6, r7}
     pop {r0}
@@ -25096,8 +25096,8 @@ lbl_08011612:
     pop {r1}
     bx r1
 
-    thumb_func_start sprite_util_set_splash_effect
-sprite_util_set_splash_effect: @ 0x08011620
+    thumb_func_start SpriteUtilSetSplashEffect
+SpriteUtilSetSplashEffect: @ 0x08011620
     push {r4, r5, r6, lr}
     lsls r0, r0, #0x10
     lsrs r3, r0, #0x10
@@ -25210,11 +25210,11 @@ sprite_check_out_of_room_effect: @ 0x080116cc
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     adds r1, r6, #0
-    bl sprite_util_get_collision_at_position
+    bl SpriteUtilGetCollisionAtPosition
     adds r0, r4, #0
     adds r1, r6, #0
     adds r2, r5, #0
-    bl sprite_util_set_splash_effect
+    bl SpriteUtilSetSplashEffect
 lbl_08011706:
     movs r0, #1
     b lbl_08011712
@@ -25248,11 +25248,11 @@ sprite_check_in_room_effect: @ 0x08011718
     beq lbl_0801174c
     adds r0, r4, #0
     adds r1, r6, #0
-    bl sprite_util_get_collision_at_position
+    bl SpriteUtilGetCollisionAtPosition
     adds r0, r4, #0
     adds r1, r6, #0
     adds r2, r5, #0
-    bl sprite_util_set_splash_effect
+    bl SpriteUtilSetSplashEffect
 lbl_0801174c:
     movs r0, #1
     b lbl_08011756

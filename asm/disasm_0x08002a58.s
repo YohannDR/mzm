@@ -1371,7 +1371,7 @@ sub_080033dc: @ 0x080033dc
     adds r1, r5, r0
     ldr r2, lbl_08003450 @ =0x05000300
     mov r0, sp
-    bl cpu_set
+    bl CPUSet
     ldr r0, lbl_08003454 @ =0x04000084
     strb r4, [r0]
     strb r4, [r5, #1]
@@ -1415,7 +1415,7 @@ sub_08003458: @ 0x08003458
     adds r1, r5, r0
     ldr r2, lbl_080034a8 @ =0x05000300
     mov r0, sp
-    bl cpu_set
+    bl CPUSet
     strb r4, [r5, #1]
 lbl_08003490:
     add sp, #4
@@ -4257,7 +4257,7 @@ lbl_08005008:
     movs r1, #0
 lbl_0800500a:
     ldrb r2, [r5, #0x18]
-    bl midikey2freq
+    bl Midikey2Freq
     ldr r1, lbl_0800502c @ =music_info
     ldrh r2, [r1, #0x12]
     cmp r0, r2

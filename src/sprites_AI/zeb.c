@@ -38,7 +38,7 @@ void zeb_check_spawn(void)
     u16 sprite_y;
     i32 offset;
 
-    if (!sprite_util_check_has_drop())
+    if (!SpriteUtilCheckHasDrops())
     {
         if (gCurrentSprite.timer2 != 0x0)
             gCurrentSprite.timer2--;
@@ -56,13 +56,13 @@ void zeb_check_spawn(void)
                 else
                     offset = sprite_x - samus_x;
                 
-                if (offset > 0x24 && sprite_util_check_samus_near_sprite_above_below(0x140, 0x140) == NSAB_ABOVE)
+                if (offset > 0x24 && SpriteUtilCheckSamusNearSpriteAboveBelow(0x140, 0x140) == NSAB_ABOVE)
                 {
                     gCurrentSprite.oam_scaling = gSamusData.y_position;
                     gCurrentSprite.pose = 0x23;
                     gCurrentSprite.timer1 = 0x2;
                     gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
-                    sprite_util_make_sprite_face_samus_x_flip();
+                    SpriteUtilMakeSpriteFaceSamusXFlip();
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                         SoundPlay(0x144);
                 }
@@ -165,10 +165,10 @@ void zeb(void)
     }
 
     if (gCurrentSprite.freeze_timer != 0x0)
-        sprite_util_update_freeze_timer();
+        SpriteUtilUpdateFreezeTimer();
     else
     {
-        if (!sprite_util_is_sprite_stunned())
+        if (!SpriteUtilIsSpriteStunned())
         {
             switch (gCurrentSprite.pose)
             {
@@ -186,7 +186,7 @@ void zeb(void)
                     zeb_move();
                     break;
                 default:
-                    sprite_util_sprite_death(DEATH_RESPAWNING, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteUtilSpriteDeath(DEATH_RESPAWNING, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
                     zeb_reset();
             }
         }

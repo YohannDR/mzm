@@ -133,7 +133,7 @@ void glass_tube_check_power_bomb_collision(void)
         sprite_left = gCurrentSprite.hitbox_left_offset + sprite_x;
         sprite_right = gCurrentSprite.hitbox_right_offset + sprite_x;
 
-        if (sprite_util_check_objects_touching(sprite_top, sprite_bottom, sprite_left, sprite_right, bomb_top, bomb_bottom, bomb_left, bomb_right))
+        if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, bomb_top, bomb_bottom, bomb_left, bomb_right))
         {
             gCurrentSprite.pose = 0x23;
             gCurrentSprite.timer1 = 0x78;
@@ -164,7 +164,7 @@ void glass_tube_delay_before_breaking(void)
  */
 void glass_tube_check_cracking_anim_ended(void)
 {
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x27;
         gCurrentSprite.oam_pointer = glass_tube_oam_breaking;
@@ -175,8 +175,8 @@ void glass_tube_check_cracking_anim_ended(void)
         ParticleSet(gCurrentSprite.y_position + 0xA0, gCurrentSprite.x_position - 0x140, PE_TWO_MEDIUM_DUST);
         ParticleSet(gCurrentSprite.y_position - 0x1E, gCurrentSprite.x_position + 0x12C, PE_MEDIUM_DUST);
         ParticleSet(gCurrentSprite.y_position + 0xA0, gCurrentSprite.x_position + 0x140, PE_TWO_MEDIUM_DUST);
-        screen_shake_start_vertical(0x1E, 0x81);
-        screen_shake_start_horizontal(0x1E, 0x81);
+        ScreenShakeStartVertical(0x1E, 0x81);
+        ScreenShakeStartHorizontal(0x1E, 0x81);
     }
 }
 
@@ -186,7 +186,7 @@ void glass_tube_check_cracking_anim_ended(void)
  */
 void glass_tube_check_breaking_anim_ended(void)
 {
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0xF;
         gCurrentSprite.oam_pointer = glass_tube_oam_broken;

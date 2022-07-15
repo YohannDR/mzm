@@ -12,10 +12,10 @@
  * @param y_position Current Y Position
  * @param x_position X Position
  */
-void sprite_debris_set_splash(u16 old_y, u16 y_position, u16 x_position)
+void SpriteDebrisSetSplash(u16 old_y, u16 y_position, u16 x_position)
 {
     if (old_y < gEffectYPosition && y_position >= gEffectYPosition)
-        sprite_util_set_splash_effect(y_position, x_position, SPLASH_SMALL);
+        SpriteUtilSetSplashEffect(y_position, x_position, SPLASH_SMALL);
 }
 
 /**
@@ -24,7 +24,7 @@ void sprite_debris_set_splash(u16 old_y, u16 y_position, u16 x_position)
  * 
  * @param pDebris Sprite Debris Pointer to the concerned debris
  */
-void sprite_debris_process(struct SpriteDebris* pDebris)
+void SpriteDebrisProcess(struct SpriteDebris* pDebris)
 {
     u32 offset;
     u16 old_y;
@@ -54,7 +54,7 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
             new_pos = debris_11_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position -= 0x1;
-            block_top = sprite_util_check_vertical_collision_at_position_slopes(pDebris->y_position, pDebris->x_position);
+            block_top = SpriteUtilCheckVerticalCollisionAtPosition_slopes(pDebris->y_position, pDebris->x_position);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 pDebris->y_position = block_top;
@@ -62,15 +62,15 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
                 pDebris->array_offset = 0x0;
             }
             else
-                sprite_debris_set_splash(old_y, pDebris->y_position, pDebris->x_position);
+                SpriteDebrisSetSplash(old_y, pDebris->y_position, pDebris->x_position);
             break;
 
         case 0x81:
             new_pos = debris_bouncing_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position--;
-            if (sprite_util_get_collision_at_position(pDebris->y_position, pDebris->x_position) == COLLISION_AIR)
-                sprite_debris_set_splash(old_y, pDebris->y_position, pDebris->x_position);
+            if (SpriteUtilGetCollisionAtPosition(pDebris->y_position, pDebris->x_position) == COLLISION_AIR)
+                SpriteDebrisSetSplash(old_y, pDebris->y_position, pDebris->x_position);
             break;
 
         case 0x2:
@@ -80,7 +80,7 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
             new_pos = debris_12_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position++;
-            block_top = sprite_util_check_vertical_collision_at_position_slopes(pDebris->y_position, pDebris->x_position);
+            block_top = SpriteUtilCheckVerticalCollisionAtPosition_slopes(pDebris->y_position, pDebris->x_position);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 pDebris->y_position = block_top;
@@ -88,15 +88,15 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
                 pDebris->array_offset = 0x0;
             }
             else
-                sprite_debris_set_splash(old_y, pDebris->y_position, pDebris->x_position);
+                SpriteDebrisSetSplash(old_y, pDebris->y_position, pDebris->x_position);
             break;
 
         case 0x82:
             new_pos = debris_bouncing_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position++;
-            if (sprite_util_get_collision_at_position(pDebris->y_position, pDebris->x_position) == COLLISION_AIR)
-                sprite_debris_set_splash(old_y, pDebris->y_position, pDebris->x_position);
+            if (SpriteUtilGetCollisionAtPosition(pDebris->y_position, pDebris->x_position) == COLLISION_AIR)
+                SpriteDebrisSetSplash(old_y, pDebris->y_position, pDebris->x_position);
             break;
 
         case 0x3:
@@ -106,7 +106,7 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
             new_pos = debris_13_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position += 0x2;
-            block_top = sprite_util_check_vertical_collision_at_position_slopes(pDebris->y_position, pDebris->x_position);
+            block_top = SpriteUtilCheckVerticalCollisionAtPosition_slopes(pDebris->y_position, pDebris->x_position);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 pDebris->y_position = block_top;
@@ -114,22 +114,22 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
                 pDebris->array_offset = 0x0;
             }
             else
-                sprite_debris_set_splash(old_y, pDebris->y_position, pDebris->x_position);
+                SpriteDebrisSetSplash(old_y, pDebris->y_position, pDebris->x_position);
             break;
 
         case 0x83:
             new_pos = debris_bouncing_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position += 0x2;
-            if (sprite_util_get_collision_at_position(pDebris->y_position, pDebris->x_position) == COLLISION_AIR)
-                sprite_debris_set_splash(old_y, pDebris->y_position, pDebris->x_position);
+            if (SpriteUtilGetCollisionAtPosition(pDebris->y_position, pDebris->x_position) == COLLISION_AIR)
+                SpriteDebrisSetSplash(old_y, pDebris->y_position, pDebris->x_position);
             break;
 
         case 0x4:
             new_pos = debris_4_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position -= 0x2;
-            block_top = sprite_util_check_vertical_collision_at_position_slopes(pDebris->y_position, pDebris->x_position);
+            block_top = SpriteUtilCheckVerticalCollisionAtPosition_slopes(pDebris->y_position, pDebris->x_position);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 pDebris->y_position = block_top;
@@ -137,22 +137,22 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
                 pDebris->array_offset = 0x0;
             }
             else
-                sprite_debris_set_splash(old_y, pDebris->y_position, pDebris->x_position);
+                SpriteDebrisSetSplash(old_y, pDebris->y_position, pDebris->x_position);
             break;
 
         case 0x84:
             new_pos = debris_bouncing_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position -= 0x2;
-            if (sprite_util_get_collision_at_position(pDebris->y_position, pDebris->x_position) == COLLISION_AIR)
-                sprite_debris_set_splash(old_y, pDebris->y_position, pDebris->x_position);
+            if (SpriteUtilGetCollisionAtPosition(pDebris->y_position, pDebris->x_position) == COLLISION_AIR)
+                SpriteDebrisSetSplash(old_y, pDebris->y_position, pDebris->x_position);
             break;
 
         case 0x5:
             new_pos = debris_5_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position--;
-            block_top = sprite_util_check_vertical_collision_at_position_slopes(pDebris->y_position, pDebris->x_position);
+            block_top = SpriteUtilCheckVerticalCollisionAtPosition_slopes(pDebris->y_position, pDebris->x_position);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 if (pDebris->frame_counter > 0x13)
@@ -163,14 +163,14 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
                 }
             }
             else
-                sprite_debris_set_splash(old_y, pDebris->y_position, pDebris->x_position);
+                SpriteDebrisSetSplash(old_y, pDebris->y_position, pDebris->x_position);
             break;
 
         case 0x6:
             new_pos = debris_6_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position++;
-            block_top = sprite_util_check_vertical_collision_at_position_slopes(pDebris->y_position, pDebris->x_position);
+            block_top = SpriteUtilCheckVerticalCollisionAtPosition_slopes(pDebris->y_position, pDebris->x_position);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 if (pDebris->frame_counter > 0x13)
@@ -181,14 +181,14 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
                 }
             }
             else
-                sprite_debris_set_splash(old_y, pDebris->y_position, pDebris->x_position);
+                SpriteDebrisSetSplash(old_y, pDebris->y_position, pDebris->x_position);
             break;
 
         case 0x7:
             new_pos = debris_7_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position++;
-            block_top = sprite_util_check_vertical_collision_at_position_slopes(pDebris->y_position, pDebris->x_position);
+            block_top = SpriteUtilCheckVerticalCollisionAtPosition_slopes(pDebris->y_position, pDebris->x_position);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 if (pDebris->frame_counter > 0x13)
@@ -199,14 +199,14 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
                 }
             }
             else
-                sprite_debris_set_splash(old_y, pDebris->y_position, pDebris->x_position);
+                SpriteDebrisSetSplash(old_y, pDebris->y_position, pDebris->x_position);
             break;
 
         case 0x8:
             new_pos = debris_8_velocity[offset];
             pDebris->y_position += new_pos;
             pDebris->x_position--;
-            block_top = sprite_util_check_vertical_collision_at_position_slopes(pDebris->y_position, pDebris->x_position);
+            block_top = SpriteUtilCheckVerticalCollisionAtPosition_slopes(pDebris->y_position, pDebris->x_position);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             {
                 if (pDebris->frame_counter > 0x13)
@@ -217,7 +217,7 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
                 }
             }
             else
-                sprite_debris_set_splash(old_y, pDebris->y_position, pDebris->x_position);
+                SpriteDebrisSetSplash(old_y, pDebris->y_position, pDebris->x_position);
             break;
 
         default:
@@ -228,10 +228,10 @@ void sprite_debris_process(struct SpriteDebris* pDebris)
 }
 
 /**
- * 11c88 | 6c | Loops on all the sprite debris and cells sprite_debris_process, also updates the animation
+ * 11c88 | 6c | Loops on all the sprite debris and cells SpriteDebrisProcess, also updates the animation
  * 
  */
-void sprite_debris_process_all(void)
+void SpriteDebrisProcessAll(void)
 {
     struct SpriteDebris* pDebris;
     u32 adc;
@@ -244,7 +244,7 @@ void sprite_debris_process_all(void)
         {
             if (pDebris->exists)
             {
-                sprite_debris_process(pDebris);
+                SpriteDebrisProcess(pDebris);
                 adc = pDebris->anim_duration_counter + 0x1;
                 pDebris->anim_duration_counter = adc;
                 timer = pDebris->oam_pointer[pDebris->curr_anim_frame].timer;
@@ -268,7 +268,7 @@ void sprite_debris_process_all(void)
  * 
  * @param pDebris Sprite Debris Pointer to the concerned debris
  */
-void sprite_debris_draw(struct SpriteDebris* pDebris)
+void SpriteDebrisDraw(struct SpriteDebris* pDebris)
 {
     u16* pSrc;
     u8 slot;
@@ -337,7 +337,7 @@ void sprite_debris_draw(struct SpriteDebris* pDebris)
  * 11e04 | 44 | Loops on the sprite debris and calls the draw function
  * 
  */
-void sprite_debris_draw_all(void)
+void SpriteDebrisDrawAll(void)
 {
     struct SpriteDebris* pDebris;
 
@@ -347,7 +347,7 @@ void sprite_debris_draw_all(void)
         while (pDebris < gSpriteDebris + 0x8)
         {
             if (pDebris->exists && pDebris->frame_counter != 0x0)
-                sprite_debris_draw(pDebris);
+                SpriteDebrisDraw(pDebris);
             pDebris++;
         }
     }
@@ -361,7 +361,7 @@ void sprite_debris_draw_all(void)
  * @param y_position Y Position
  * @param x_position X Position
  */
-void sprite_debris_init(u8 cloud_type, u8 debris_type, u16 y_position, u16 x_position)
+void SpriteDebrisInit(u8 cloud_type, u8 debris_type, u16 y_position, u16 x_position)
 {
     struct SpriteDebris* pDebris;
     u8 counter;

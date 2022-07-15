@@ -88,7 +88,7 @@ void security_gate_default_open_check_alarm(void)
  */
 void security_gate_check_closing_anim_ended(void)
 {
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.oam_pointer = security_gate_oam_2e6b98;
         gCurrentSprite.anim_duration_counter = 0x0;
@@ -105,7 +105,7 @@ void security_gate_check_closing_anim_ended(void)
  */
 void security_gate_default_open_open_after_alarm(void)
 {
-    if (gCurrentSprite.timer1 == 0x0 && !sprite_check_colliding_with_samus_drawing()) // ?
+    if (gCurrentSprite.timer1 == 0x0 && !SpriteCheckCollidingWithSamusDrawing()) // ?
     {
         security_gate_change_ccaa(CCAA_MAKE_SOLID3);
         gCurrentSprite.timer1++;
@@ -127,7 +127,7 @@ void security_gate_default_open_open_after_alarm(void)
  */
 void security_gate_check_opening_anim_ended(void)
 {
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.oam_pointer = security_gate_oam_2e6af8;
         gCurrentSprite.anim_duration_counter = 0x0;
@@ -149,7 +149,7 @@ void security_gate_death(void)
     y_position = gCurrentSprite.y_position - 0x40;
     x_position = gCurrentSprite.x_position;
     ParticleSet(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
-    sprite_util_sprite_death(DEATH_NORMAL, y_position - 0x60, x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);
+    SpriteUtilSpriteDeath(DEATH_NORMAL, y_position - 0x60, x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);
 }
 
 /**
@@ -203,7 +203,7 @@ void security_gate_default_closed_check_alarm(void)
  */
 void security_gate_default_closed_close_after_alarm(void)
 {
-    if (gCurrentSprite.timer1 == 0x0 && !sprite_check_colliding_with_samus_drawing())
+    if (gCurrentSprite.timer1 == 0x0 && !SpriteCheckCollidingWithSamusDrawing())
     {
         security_gate_change_ccaa(CCAA_MAKE_SOLID3);
         gCurrentSprite.timer1++;

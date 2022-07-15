@@ -52,11 +52,11 @@ void hive_init(void)
         gfx_slot = gCurrentSprite.spriteset_gfx_slot;
         room_slot = gCurrentSprite.room_slot;
         
-        sprite_spawn_secondary(SSPRITE_HIVE_ROOTS, room_slot, gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position, x_position, 0x0);
-        sprite_spawn_primary(PSPRITE_MELLOW, room_slot, gfx_slot, y_position + 0x40, x_position - 0x1F, 0x0);
-        sprite_spawn_primary(PSPRITE_MELLOW, room_slot, gfx_slot, y_position + 0x20, x_position + 0x10, 0x0);
-        sprite_spawn_primary(PSPRITE_MELLOW, room_slot, gfx_slot, y_position - 0x48, x_position - 0x10, 0x0);
-        sprite_spawn_primary(PSPRITE_MELLOW, room_slot, gfx_slot, y_position - 0x60, x_position + 0x1F, 0x0);
+        SpriteSpawnSecondary(SSPRITE_HIVE_ROOTS, room_slot, gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position, x_position, 0x0);
+        SpriteSpawnPrimary(PSPRITE_MELLOW, room_slot, gfx_slot, y_position + 0x40, x_position - 0x1F, 0x0);
+        SpriteSpawnPrimary(PSPRITE_MELLOW, room_slot, gfx_slot, y_position + 0x20, x_position + 0x10, 0x0);
+        SpriteSpawnPrimary(PSPRITE_MELLOW, room_slot, gfx_slot, y_position - 0x48, x_position - 0x10, 0x0);
+        SpriteSpawnPrimary(PSPRITE_MELLOW, room_slot, gfx_slot, y_position - 0x60, x_position + 0x1F, 0x0);
     }
 }
 
@@ -85,7 +85,7 @@ u8 hive_count_mellows(void)
 void hive_phase1(void)
 {
     if ((u8)hive_count_mellows() < 0x4)
-        sprite_spawn_primary(PSPRITE_MELLOW, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     
     if (gCurrentSprite.health < primary_sprite_stats[gCurrentSprite.sprite_id][0x0] >> 0x1)
     {
@@ -102,7 +102,7 @@ void hive_phase1(void)
 void hive_phase2(void)
 {
     if ((u8)hive_count_mellows() < 0x4)
-        sprite_spawn_primary(PSPRITE_MELLOW, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
     
     if (gCurrentSprite.health < primary_sprite_stats[gCurrentSprite.sprite_id][0x0] >> 0x2)
     {
@@ -119,7 +119,7 @@ void hive_phase2(void)
 void hive_phase3(void)
 {
     if ((u8)hive_count_mellows() < 0x4)
-        sprite_spawn_primary(PSPRITE_MELLOW, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
 }
 
 void hive_dying(void)
@@ -161,7 +161,7 @@ void hive_dying(void)
     }
 
     if (gCurrentSprite.pose < 0x63 && gCurrentSprite.timer1 != 0x0)
-        sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position + 0x48, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+        SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position + 0x48, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
     else
     {
         gCurrentSprite.pose = 0x67;
@@ -252,7 +252,7 @@ void mellow_init(struct SpriteData* pSprite)
             pSprite->x_position_spawn = gSpriteRNG & 0x3;
             pSprite->pose = 0x23;
             pSprite->oam_scaling = 0x20;
-            sprite_util_make_sprite_face_samus_direction();
+            SpriteUtilMakeSpriteFaceSamusDirection();
             if (pSprite->y_position > gSamusData.y_position + gSamusPhysics.draw_distance_top_offset)
                 pSprite->status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
             else
@@ -294,7 +294,7 @@ void mellow_samus_detected(struct SpriteData* pSprite)
     pSprite->x_position_spawn = 0x0;
     pSprite->pose = 0x23;
     pSprite->oam_scaling = 0x20;
-    sprite_util_make_sprite_face_samus_direction();
+    SpriteUtilMakeSpriteFaceSamusDirection();
     if (pSprite->y_position > gSamusData.y_position + gSamusPhysics.draw_distance_top_offset)
         pSprite->status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
     else
@@ -310,13 +310,13 @@ void hive(void)
 {
     if (gCurrentSprite.freeze_timer != 0x0)
     {
-        sprite_util_update_freeze_timer();
-        sprite_util_unfreeze_secondary_sprites(SSPRITE_HIVE_ROOTS, gCurrentSprite.primary_sprite_ram_slot);
+        SpriteUtilUpdateFreezeTimer();
+        SpriteUtilUnfreezeSecondarySprites(SSPRITE_HIVE_ROOTS, gCurrentSprite.primary_sprite_ram_slot);
         gCurrentSprite.timer1 = gCurrentSprite.freeze_timer;
     }
     else
     {
-        if (sprite_util_is_sprite_stunned() == FALSE)
+        if (SpriteUtilIsSpriteStunned() == FALSE)
         {
             switch (gCurrentSprite.pose)
             {
@@ -362,7 +362,7 @@ void hive_roots(void)
             else
             {
                 if (gCurrentSprite.freeze_timer != 0x0)
-                    sprite_util_update_freeze_timer();
+                    SpriteUtilUpdateFreezeTimer();
                 else
                 {
                     if (gCurrentSprite.pose == 0x0)
@@ -390,7 +390,7 @@ void mellow(void)
     }
     
     if (pSprite->freeze_timer != 0x0)
-        sprite_util_update_freeze_timer();
+        SpriteUtilUpdateFreezeTimer();
     else
     {
         if (0x9 < (pSprite->invicibility_stun_flash_timer & 0x7F) && pSprite->pose < 0x62)
@@ -418,7 +418,7 @@ void mellow(void)
                     mellow_fleeing(pSprite);
                     break;
                 default:
-                    sprite_util_sprite_death(0x0, pSprite->y_position, pSprite->x_position, TRUE, PE_SPRITE_EXPLOSION_SMALL);
+                    SpriteUtilSpriteDeath(0x0, pSprite->y_position, pSprite->x_position, TRUE, PE_SPRITE_EXPLOSION_SMALL);
             }
         }
     }
@@ -521,7 +521,7 @@ void mellow_swarm(void)
             if (x_pos & 0x8000)
                 x_pos = 0x0;
             y_pos = (u16)(gBG1YPosition - ((gSpriteRNG * 0x2) + 0x10));
-            sprite_spawn_primary(PSPRITE_MELLOW, 0x88, gCurrentSprite.spriteset_gfx_slot, y_pos, x_pos, 0x0);
+            SpriteSpawnPrimary(PSPRITE_MELLOW, 0x88, gCurrentSprite.spriteset_gfx_slot, y_pos, x_pos, 0x0);
         }
     }
 }

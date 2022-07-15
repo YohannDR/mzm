@@ -1,7 +1,7 @@
 #include "screen_shake.h"
 #include "globals.h"
 
-u8 screen_shake_start_vertical(u8 duration, u8 unk)
+u8 ScreenShakeStartVertical(u8 duration, u8 unk)
 {
     if (duration != 0x0 && duration > gScreenShakeY.timer)
     {
@@ -14,7 +14,7 @@ u8 screen_shake_start_vertical(u8 duration, u8 unk)
     return gScreenShakeY.timer;
 }
 
-u8 screen_shake_start_horizontal(u8 duration, u8 unk)
+u8 ScreenShakeStartHorizontal(u8 duration, u8 unk)
 {
     if (duration != 0x0 && duration > gScreenShakeX.timer)
     {
@@ -27,7 +27,7 @@ u8 screen_shake_start_horizontal(u8 duration, u8 unk)
     return gScreenShakeX.timer;
 }
 
-u8 screen_shake_start_horizontal_unused(u8 duration)
+u8 ScreenShakeStartHorizontal_Unused(u8 duration)
 {
     if (duration != 0x0 && duration > gScreenShakeX.timer)
     {
@@ -40,7 +40,7 @@ u8 screen_shake_start_horizontal_unused(u8 duration)
     return gScreenShakeX.timer;
 }
 
-i32 screen_shake_update_vertical(void)
+i32 ScreenShakeUpdateVertical(void)
 {
     i32 offset;
     i32 unk;
@@ -79,7 +79,7 @@ i32 screen_shake_update_vertical(void)
     return offset;
 }
 
-i32 screen_shake_update_horizontal(void)
+i32 ScreenShakeUpdateHorizontal(void)
 {
     i32 offset;
     i32 unk;

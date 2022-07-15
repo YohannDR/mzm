@@ -101,10 +101,10 @@ void zebbo(void)
     }
 
     if (gCurrentSprite.freeze_timer != 0x0)
-        sprite_util_update_freeze_timer();
+        SpriteUtilUpdateFreezeTimer();
     else
     {
-        if (!sprite_util_is_sprite_stunned())
+        if (!SpriteUtilIsSpriteStunned())
         {
             switch (gCurrentSprite.pose)
             {
@@ -122,7 +122,7 @@ void zebbo(void)
                     zebbo_move();
                     break;
                 default:
-                    sprite_util_sprite_death(DEATH_RESPAWNING, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteUtilSpriteDeath(DEATH_RESPAWNING, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
                     zebbo_respawning();
             }
         }

@@ -14,12 +14,12 @@ void zipline_check_colliding(void)
 
     if (gCurrentSprite.pose == 0x0)
     {
-        sprite_util_check_collision_at_position(y_position, x_position + 0x2C);
+        SpriteUtilCheckCollisionAtPosition(y_position, x_position + 0x2C);
         if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
         else
         {
-            sprite_util_check_collision_at_position(y_position, x_position - 0x2C);
+            SpriteUtilCheckCollisionAtPosition(y_position, x_position - 0x2C);
             if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
                 gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
         }
@@ -27,9 +27,9 @@ void zipline_check_colliding(void)
     else
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-            sprite_util_check_collision_at_position(y_position, x_position + 0x2C);
+            SpriteUtilCheckCollisionAtPosition(y_position, x_position + 0x2C);
         else
-            sprite_util_check_collision_at_position(y_position, x_position - 0x2C);
+            SpriteUtilCheckCollisionAtPosition(y_position, x_position - 0x2C);
     }
 }
 
@@ -77,7 +77,7 @@ u8 zipline_moving(void)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
         gCurrentSprite.ignore_samus_collision_timer = 0xF;
-        samus_set_pose(SPOSE_UPDATE_JUMP_VELOCITY_REQUEST);
+        SamusSetPose(SPOSE_UPDATE_JUMP_VELOCITY_REQUEST);
     }
 
     return releasing;
@@ -104,7 +104,7 @@ void zipline_gfx_update(void)
                     break;
 
                 case 0x1:
-                    if (sprite_util_check_end_current_sprite_anim())
+                    if (SpriteUtillCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_2ce9d0;
                         gCurrentSprite.anim_duration_counter = 0x0;
@@ -115,7 +115,7 @@ void zipline_gfx_update(void)
                     break;
 
                 case 0x3:
-                    if (sprite_util_check_end_current_sprite_anim())
+                    if (SpriteUtillCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_2ce9d0;
                         gCurrentSprite.anim_duration_counter = 0x0;
@@ -146,7 +146,7 @@ void zipline_gfx_update(void)
 
                 case 0x1:
                 case 0x3:
-                    if (sprite_util_check_end_current_sprite_anim())
+                    if (SpriteUtillCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_2cd948;
                         gCurrentSprite.anim_duration_counter = check;
@@ -181,7 +181,7 @@ void zipline_gfx_update(void)
 
                 case 0x1:
                 case 0x3:
-                    if (sprite_util_check_end_current_sprite_anim())
+                    if (SpriteUtillCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_activated_2ce978;
                         gCurrentSprite.curr_anim_frame = check;
@@ -211,7 +211,7 @@ void zipline_gfx_update(void)
 
                 case 0x1:
                 case 0x3:
-                    if (sprite_util_check_end_current_sprite_anim())
+                    if (SpriteUtillCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_deactivated_2ce918;
                         gCurrentSprite.anim_duration_counter = check;
@@ -260,7 +260,7 @@ void zipline_init(void)
 
 void zipline_update(void)
 {
-    if (!sprite_util_check_on_zipline() && gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
+    if (!SpriteUtilCheckOnZipline() && gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
         gCurrentSprite.ignore_samus_collision_timer = 0xF;
@@ -319,7 +319,7 @@ void zipline_button_spawn(void)
 {
     u8 slot;
 
-    slot = sprite_util_find_primary(PSPRITE_ZIPLINE);
+    slot = SpriteUtilFindPrimary(PSPRITE_ZIPLINE);
     if (slot == 0xFF)
         gCurrentSprite.status = 0x0;
     else

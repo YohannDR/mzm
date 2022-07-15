@@ -53,7 +53,7 @@ void chozo_ball_spawn_item_banner(u8 sprite_id)
             break;
     }
 
-    sprite_spawn_primary(PSPRITE_ITEM_BANNER, text, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
 }
 
 void chozo_ball_set_oam_pointer(u8 sprite_id)
@@ -126,7 +126,7 @@ void chozo_ball_revealing(void)
  */
 void chozo_ball_check_revealing_anim_ended(void)
 {
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.anim_duration_counter = 0x0;

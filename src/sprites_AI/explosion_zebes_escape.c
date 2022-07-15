@@ -91,8 +91,8 @@ void explosion_zebes_escape(void)
         }
         else
         {
-            screen_shake_start_vertical(0xA, 0x81);
-            screen_shake_start_horizontal(0xA, 0x81);
+            ScreenShakeStartVertical(0xA, 0x81);
+            ScreenShakeStartHorizontal(0xA, 0x81);
             if (rng >= 0xC)
             {
                 if ((rng & 0x1) != 0x0)
@@ -122,13 +122,13 @@ void explosion_zebes_escape(void)
     {
         if ((variable & 0x20) != 0x0)
         {
-            sprite_debris_init(0x0, 0x5, y_position, x_position - (rng * 0x10) - 0x78);
-            sprite_debris_init(0x0, 0x8, y_position, x_position + (rng * 0x8) - 0x190);
+            SpriteDebrisInit(0x0, 0x5, y_position, x_position - (rng * 0x10) - 0x78);
+            SpriteDebrisInit(0x0, 0x8, y_position, x_position + (rng * 0x8) - 0x190);
         }
         else
         {
-            sprite_debris_init(0x0, 0x7, y_position, x_position - (rng * 0x10) - 0x78);
-            sprite_debris_init(0x0, 0x5, y_position, x_position + (rng * 0x8) - 0x12C);
+            SpriteDebrisInit(0x0, 0x7, y_position, x_position - (rng * 0x10) - 0x78);
+            SpriteDebrisInit(0x0, 0x5, y_position, x_position + (rng * 0x8) - 0x12C);
         }
     }
 
@@ -136,13 +136,13 @@ void explosion_zebes_escape(void)
     {
         if (rng >= 0x8)
         {
-            sprite_debris_init(0x0, 0x8, y_position, x_position + (rng * 0x20) - 0x1C2);
-            sprite_debris_init(0x0, 0x6, y_position, x_position - (rng * 0x20) - 0x24E);
+            SpriteDebrisInit(0x0, 0x8, y_position, x_position + (rng * 0x20) - 0x1C2);
+            SpriteDebrisInit(0x0, 0x6, y_position, x_position - (rng * 0x20) - 0x24E);
         }
         else
         {
-            sprite_debris_init(0x0, 0x6, y_position, x_position - (rng * 0x20) - 0x17C);
-            sprite_debris_init(0x0, 0x8, y_position, x_position + (rng * 0x8) - 0x278);
+            SpriteDebrisInit(0x0, 0x6, y_position, x_position - (rng * 0x20) - 0x17C);
+            SpriteDebrisInit(0x0, 0x8, y_position, x_position + (rng * 0x8) - 0x278);
         }
     }
 }

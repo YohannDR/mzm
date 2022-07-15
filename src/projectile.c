@@ -122,7 +122,7 @@ void ProjectileUpdate(void)
 
     if (gGameModeSub1 != 0x2) return;
 
-    samus_call_update_arm_cannon_position_offset();
+    SamusCallUpdateArmCannonPositionOffset();
 
     gArmCannonY = ((gSamusData.y_position >> 0x2) + gSamusPhysics.gArmCannonY_position_offset) * 0x4;
     gArmCannonX = ((gSamusData.x_position >> 0x2) + gSamusPhysics.gArmCannonX_position_offset) * 0x4;
@@ -746,7 +746,7 @@ void ProjectileCheckHittingSprite(void)
                 sprite_bottom = sprite_y + pSprite->hitbox_bottom_offset;
                 sprite_left = sprite_x + pSprite->hitbox_left_offset;
                 sprite_right = sprite_x + pSprite->hitbox_right_offset;
-                if (sprite_util_check_objects_touching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
+                if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
                     ProjectilePowerBombDealDamage(pSprite);
             }
             pSprite++;
@@ -797,7 +797,7 @@ void ProjectileCheckHittingSprite(void)
                         proj_bottom = proj_y + pProj->hitbox_bottom_offset;
                         proj_left = proj_x + pProj->hitbox_left_offset;
                         proj_right = proj_x + pProj->hitbox_right_offset;
-                        if (sprite_util_check_objects_touching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
+                        if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
                         {
                             switch (pProj->type)
                             {
@@ -2213,14 +2213,14 @@ void ProjectileMorphballLauncherCheckLaunchSamus(struct ProjectileData* pProj)
     proj_left = proj_x + pProj->hitbox_left_offset;
     proj_right = proj_x + pProj->hitbox_right_offset;
 
-    if (sprite_util_check_objects_touching(samus_top, samus_bottom, samus_left, samus_right, proj_top, proj_bottom, proj_left, proj_right) && gSamusData.invincibility_timer != 0x0)
+    if (SpriteUtilCheckObjectsTouching(samus_top, samus_bottom, samus_left, samus_right, proj_top, proj_bottom, proj_left, proj_right) && gSamusData.invincibility_timer != 0x0)
     {
         switch (gSamusData.pose)
         {
             case SPOSE_ROLLING:
             case SPOSE_MORPH_BALL:
                 gSamusData.forced_movement = 0xF0;
-                samus_set_pose(SPOSE_DELAY_BEFORE_BALLSPARKING);
+                SamusSetPose(SPOSE_DELAY_BEFORE_BALLSPARKING);
         }
     }
 }

@@ -11,24 +11,24 @@ u8 sova_check_colliding_with_air(void)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
-            sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position);
             if (gPreviousCollisionCheck != 0x0)
                 colliding = FALSE;
             else
             {
-                sprite_util_check_collision_at_position(gCurrentSprite.y_position + 0x20, gCurrentSprite.x_position);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position + 0x20, gCurrentSprite.x_position);
                 if (gPreviousCollisionCheck == 0x0)
                     colliding = TRUE;
             }
         }
         else
         {
-            sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position - 0x4);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position - 0x4);
             if (gPreviousCollisionCheck != 0x0)
                 colliding = FALSE;
             else
             {                
-                sprite_util_check_collision_at_position(gCurrentSprite.y_position + 0x20, gCurrentSprite.x_position - 0x4);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position + 0x20, gCurrentSprite.x_position - 0x4);
                 if (gPreviousCollisionCheck == 0x0)
                     colliding = TRUE;
             }
@@ -38,24 +38,24 @@ u8 sova_check_colliding_with_air(void)
     {
         if (gCurrentSprite.work_variable != 0x0)
         {
-            sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position - 0x20);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position - 0x20);
             if (gPreviousCollisionCheck != 0x0)
                 colliding = FALSE;
             else
             {
-                sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position + 0x20);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position + 0x20);
                 if (gPreviousCollisionCheck == 0x0)
                     colliding = TRUE;
             }
         }
         else
         {
-            sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position - 0x20);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position - 0x20);
             if (gPreviousCollisionCheck != 0x0)
                 colliding = FALSE;
             else
             {
-                sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position + 0x20);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position + 0x20);
                 if (gPreviousCollisionCheck == 0x0)
                     colliding = TRUE;
             }
@@ -130,13 +130,13 @@ void sova_init(void)
 {
     gCurrentSprite.work_variable = 0x0;
     gCurrentSprite.pose = 0x9;
-    sprite_util_choose_random_x_direction();
-    sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position);
+    SpriteUtilChooseRandomXDirection();
+    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position);
     if (gPreviousCollisionCheck & 0xF0)
         gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
     else
     {
-        sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x44, gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x44, gCurrentSprite.x_position);
         if (gPreviousCollisionCheck & 0xF0)
         {
             gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
@@ -145,7 +145,7 @@ void sova_init(void)
         }
         else
         {
-            sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position - 0x24);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position - 0x24);
             if (gPreviousCollisionCheck & 0xF0)
             {
                 gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
@@ -154,7 +154,7 @@ void sova_init(void)
             }
             else
             {
-                sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position + 0x20);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position + 0x20);
                 if ((gPreviousCollisionCheck & 0xF0) == 0x0)
                 {
                     gCurrentSprite.gCurrentSprite.status = gPreviousCollisionCheck & 0xF0;
@@ -246,12 +246,12 @@ void sova_move(void)
         {
             if (gCurrentSprite..status & SPRITE_STATUS_FACING_RIGHT)
             {
-                sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position);
                 if ((gPreviousCollisionCheck & 0xF0) == 0x0)
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                 else
                 {
-                    sprite_util_check_collision_at_position(gCurrentSprite.y_position + 0x1C, gCurrentSprite.x_position - 0x4);
+                    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position + 0x1C, gCurrentSprite.x_position - 0x4);
                     if (gPreviousCollisionCheck != 0x11)
                     {
                         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -268,12 +268,12 @@ void sova_move(void)
             }
             else
             {
-                sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position);
                 if ((gPreviousCollisionCheck & 0xF0) == 0x0)
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                 else
                 {
-                    sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x1C, gCurrentSprite.x_position - 0x4);
+                    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x1C, gCurrentSprite.x_position - 0x4);
                     if (gPreviousCollisionCheck != 0x11)
                         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                     else
@@ -300,12 +300,12 @@ void sova_move(void)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position - 0x4);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position - 0x4);
                 if ((gPreviousCollisionCheck & 0xF0) == 0x0)
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                 else
                 {
-                    sprite_util_check_collision_at_position(gCurrentSprite.y_position + 0x1C, gCurrentSprite.x_position);
+                    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position + 0x1C, gCurrentSprite.x_position);
                     if (gPreviousCollisionCheck != 0x11)
                     {
                         gCurrentSprite.y_position += speed;
@@ -326,7 +326,7 @@ void sova_move(void)
             }
             else
             {
-                sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position - 0x4);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position - 0x4);
                 if ((gPreviousCollisionCheck & 0xF0) == 0x0)
                 {
                     gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -338,7 +338,7 @@ void sova_move(void)
                 }
                 else
                 {
-                    sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position - 0x4);
+                    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position - 0x4);
                     if (gPreviousCollisionCheck != 0x11)
                     {
                         gCurrentSprite.y_position -= speed;
@@ -369,12 +369,12 @@ void sova_move(void)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
-            sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position);
             if ((gPreviousCollisionCheck & 0xF) == 0x0)
                 gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
             else
             {
-                sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position + 0x1C);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position + 0x1C);
                 if (gPreviousCollisionCheck != 0x11)
                 {
                     gCurrentSprite.x_position += speed;
@@ -395,7 +395,7 @@ void sova_move(void)
         }
         else
         {
-            sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position - 0x4);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position - 0x4);
             if ((gPreviousCollisionCheck & 0xF) == 0x0)
             {
                 gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -407,7 +407,7 @@ void sova_move(void)
             }
             else
             {
-                sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position - 0x1C);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position - 0x1C);
                 if (gPreviousCollisionCheck != 0x11)
                 {
                     gCurrentSprite.x_position -= speed;
@@ -444,7 +444,7 @@ void sova_move(void)
 
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                sprite_util_check_collision_at_position(gCurrentSprite.y_position, gCurrentSprite.x_position);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position);
                 if (gPreviousCollisionCheck == 0x0)
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
@@ -456,7 +456,7 @@ void sova_move(void)
                 }
                 else
                 {
-                    sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position + 0x1C);
+                    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x4, gCurrentSprite.x_position + 0x1C);
                     if (gPreviousCollisionCheck != 0x11)
                     {
                         gCurrentSprite.x_position += speed;
@@ -643,7 +643,7 @@ void sova_turning_around_gfx_update(void)
 
 void sova_turning_around(void)
 {
-    if (!sprite_util_check_end_current_sprite_anim())
+    if (!SpriteUtillCheckEndCurrentSpriteAnim())
         return;
     
     gCurrentSprite.pose = 0x9;
@@ -764,7 +764,7 @@ void sova_back_on_ground(void)
     gCurrentSprite.oam_pointer = sova_oam_falling_2cfd68;
     gCurrentSprite.anim_duration_counter = 0x0;
     gCurrentSprite.curr_anim_frame = 0x0;
-    sprite_util_choose_random_x_flip();
+    SpriteUtilChooseRandomXFlip();
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         status |= SPRITE_STATUS_XFLIP;
     else
@@ -777,7 +777,7 @@ void sova_check_back_on_ground_anim_ended(void)
         gCurrentSprite.pose = 0x1E;
     else
     {
-        if (sprite_util_check_near_end_current_sprite_anim())
+        if (SpriteUtilCheckNearEndCurrentSpriteAnim())
             gCurrentSprite.pose = 0x8;
     }
 }
@@ -827,14 +827,14 @@ void sova_falling(void)
     }
 
     gCurrentSprite.y_position = new_y;
-    block = sprite_util_check_vertical_collision_at_position_slopes(gCurrentSprite.y_position, gCurrentSprite.x_position);
+    block = SpriteUtilCheckVerticalCollisionAtPosition_slopes(gCurrentSprite.y_position, gCurrentSprite.x_position);
     if (gPreviousVerticalCollisionCheck)
     {
         gCurrentSprite.y_position = block;
         sova_back_on_ground();
     }
     else
-        sprite_util_check_in_room_effect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_BIG);
+        SpriteUtilCheckInRoomEffect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_BIG);
 }
 
 void sova_death(void)
@@ -860,7 +860,7 @@ void sova_death(void)
             y_position -= 0x28;
     }
 
-    sprite_util_sprite_death(DEATH_NORMAL, y_position, x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+    SpriteUtilSpriteDeath(DEATH_NORMAL, y_position, x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
 }
 
 void sova(void)
@@ -873,10 +873,10 @@ void sova(void)
     }
 
     if (gCurrentSprite.freeze_timer != 0x0)
-        sprite_util_update_freeze_timer();
+        SpriteUtilUpdateFreezeTimer();
     else
     {
-        if (!sprite_util_is_sprite_stunned())
+        if (!SpriteUtilIsSpriteStunned())
         {
             switch (gCurrentSprite.pose)
             {

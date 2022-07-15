@@ -41,7 +41,7 @@ void skree_spin_gfx_init(void)
 
 void skree_check_spin_ended(void)
 {
-    if (sprite_util_check_near_end_current_sprite_anim())
+    if (SpriteUtilCheckNearEndCurrentSpriteAnim())
         gCurrentSprite.pose = 0x34;
 }
 
@@ -70,7 +70,7 @@ void skree_go_down(void)
     u32 y_movement;
     u32 array_offset;
 
-    block = sprite_util_check_vertical_collision_at_position_slopes(gCurrentSprite.hitbox_bottom_offset + gCurrentSprite.y_position, gCurrentSprite.x_position);
+    block = SpriteUtilCheckVerticalCollisionAtPosition_slopes(gCurrentSprite.hitbox_bottom_offset + gCurrentSprite.y_position, gCurrentSprite.x_position);
     if (gPreviousVerticalCollisionCheck != 0x0)
     {
         gCurrentSprite.y_position = block - gCurrentSprite.hitbox_bottom_offset;
@@ -97,14 +97,14 @@ void skree_go_down(void)
 
         if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT) != 0x0)
         {
-            sprite_util_check_collision_at_position(gCurrentSprite.y_position + 0x40, gCurrentSprite.x_position + 0x20);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position + 0x40, gCurrentSprite.x_position + 0x20);
             if (gPreviousCollisionCheck == 0x11)
                 return;
             gCurrentSprite.x_position += x_movement;
         }
         else
         {
-            sprite_util_check_collision_at_position(gCurrentSprite.y_position + 0x40, gCurrentSprite.x_position - 0x20);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position + 0x40, gCurrentSprite.x_position - 0x20);
             if (gPreviousCollisionCheck == 0x11)
                 return;
             gCurrentSprite.x_position -= x_movement;
@@ -132,10 +132,10 @@ void skree_crash_ground(void)
     {
         case 0x1:
             y_position += 0x48;
-            sprite_debris_init(0x0, 0x11, y_position - 0x10, x_position);
-            sprite_debris_init(0x0, 0x12, y_position, x_position + 0xC);
-            sprite_debris_init(0x0, 0x13, y_position - 0x2A, x_position + 0x14);
-            sprite_debris_init(0x0, 0x4, y_position - 0x18, x_position - 0x1E);
+            SpriteDebrisInit(0x0, 0x11, y_position - 0x10, x_position);
+            SpriteDebrisInit(0x0, 0x12, y_position, x_position + 0xC);
+            SpriteDebrisInit(0x0, 0x13, y_position - 0x2A, x_position + 0x14);
+            SpriteDebrisInit(0x0, 0x4, y_position - 0x18, x_position - 0x1E);
             break;
 
         case 0x28:
@@ -151,10 +151,10 @@ void skree_crash_ground(void)
             else
                 sprite_id = SSPRITE_SKREE_EXPLOSION;
             
-            sprite_spawn_secondary(sprite_id, 0x0, gfx_slot, ram_slot, y_position - 0x8, x_position, 0x0);
-            sprite_spawn_secondary(sprite_id, 0x0, gfx_slot, ram_slot, y_position - 0x8, x_position, SPRITE_STATUS_XFLIP);
-            sprite_spawn_secondary(sprite_id, 0x1, gfx_slot, ram_slot, y_position + 0x8, x_position - 0xC, 0x0);
-            sprite_spawn_secondary(sprite_id, 0x1, gfx_slot, ram_slot, y_position + 0x8, x_position + 0xC, SPRITE_STATUS_XFLIP);
+            SpriteSpawnSecondary(sprite_id, 0x0, gfx_slot, ram_slot, y_position - 0x8, x_position, 0x0);
+            SpriteSpawnSecondary(sprite_id, 0x0, gfx_slot, ram_slot, y_position - 0x8, x_position, SPRITE_STATUS_XFLIP);
+            SpriteSpawnSecondary(sprite_id, 0x1, gfx_slot, ram_slot, y_position + 0x8, x_position - 0xC, 0x0);
+            SpriteSpawnSecondary(sprite_id, 0x1, gfx_slot, ram_slot, y_position + 0x8, x_position + 0xC, SPRITE_STATUS_XFLIP);
             gCurrentSprite.status = 0x0;
             ParticleSet(y_position + 0x24, x_position, PE_SPRITE_EXPLOSION_HUGE);
             SoundPlay(0x134);
@@ -212,7 +212,7 @@ void skree_explosion_move(void)
     else
         gCurrentSprite.y_position -= 0x4;
 
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0x0;
 }
 
@@ -226,10 +226,10 @@ void skree(void)
     }
 
     if (gCurrentSprite.freeze_timer != 0x0)
-        sprite_util_update_freeze_timer();
+        SpriteUtilUpdateFreezeTimer();
     else
     {
-        if (!sprite_util_is_sprite_stunned())
+        if (!SpriteUtilIsSpriteStunned())
         {
             switch (gCurrentSprite.pose)
             {
@@ -254,7 +254,7 @@ void skree(void)
                     skree_crash_ground();
                     break;
                 default:
-                    sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position + 0x34, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position + 0x34, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
             }
         }
     }

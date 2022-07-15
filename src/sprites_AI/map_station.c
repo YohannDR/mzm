@@ -51,7 +51,7 @@ void map_station_samus_detection(void)
     sprite_y = (u16)(gCurrentSprite.y_position + 0x80);
     sprite_x = (u16)(gCurrentSprite.x_position + 0x60);
 
-    if (!sprite_util_check_crouching_or_morphed() && samus_y == sprite_y - 0x1 && sprite_x - 0x40 < samus_x && sprite_x + 0x40 > samus_x)
+    if (!SpriteUtilCheckCrouchinOrMorphed() && samus_y == sprite_y - 0x1 && sprite_x - 0x40 < samus_x && sprite_x + 0x40 > samus_x)
     {
         gCurrentSprite.oam_pointer = map_station_oam_2d3708;
         gCurrentSprite.curr_anim_frame = 0x0;
@@ -62,16 +62,16 @@ void map_station_samus_detection(void)
             gSamusData.invincibility_timer = 0x0;
 
         if (gSamusData.direction & KEY_RIGHT)
-            samus_set_pose(SPOSE_TURNING_AROUND_TO_DOWNLOAD_MAP_DATA);
+            SamusSetPose(SPOSE_TURNING_AROUND_TO_DOWNLOAD_MAP_DATA);
         else
-            samus_set_pose(SPOSE_DOWNLOADING_MAP_DATA);
+            SamusSetPose(SPOSE_DOWNLOADING_MAP_DATA);
         SoundPlay(0x123);
     }
 }
 
 void map_station_check_samus_grabbed_anim_ended(void)
 {
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.oam_pointer = map_station_oam_2d3758;
         gCurrentSprite.curr_anim_frame = 0x0;
@@ -128,7 +128,7 @@ void map_station_spawn_message(void)
                 room_slot = 0x23;
         }
 
-        gCurrentSprite.timer2 = sprite_spawn_primary(PSPRITE_ITEM_BANNER, room_slot, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        gCurrentSprite.timer2 = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, room_slot, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
         gCurrentSprite.hitbox_top_offset = -0x40;
         gCurrentSprite.pose = 0x29;
         gSamusData.curr_anim_frame = 0x0;
@@ -162,7 +162,7 @@ void map_station_retraction(void)
     gCurrentSprite.oam_pointer = map_station_oam_2d3788;
     gCurrentSprite.curr_anim_frame = 0x0;
     gCurrentSprite.anim_duration_counter = 0x0;
-    samus_set_pose(SPOSE_STANDING);
+    SamusSetPose(SPOSE_STANDING);
     SoundPlay(0x124);
 }
 

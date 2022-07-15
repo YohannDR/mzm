@@ -10,10 +10,10 @@ struct ScreenShake {
     u8 unknown2;
 };
 
-u8 screen_shake_start_vertical(u8 duration, u8 unk);
-u8 screen_shake_start_horizontal(u8 duration, u8 unk);
-u8 screen_shake_start_horizontal_unused(u8 duration);
-i32 screen_shake_update_vertical(void);
-i32 screen_shake_update_horizontal(void);
+u8 ScreenShakeStartVertical(u8 duration, u8 unk);
+u8 ScreenShakeStartHorizontal(u8 duration, u8 unk);
+u8 ScreenShakeStartHorizontal_Unused(u8 duration);
+i32 ScreenShakeUpdateVertical(void);
+i32 ScreenShakeUpdateHorizontal(void);
 
 #endif /* SCREEN_SHAKE_H */

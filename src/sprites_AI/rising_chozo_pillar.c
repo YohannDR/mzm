@@ -22,20 +22,20 @@ void rising_chozo_pillar_random_sprite_debris(u16 y_position, u16 x_position, u8
     switch (rng)
     {
         case 0x1:
-            sprite_debris_init(0x0, 0x11, y_position - 0x28, x_position);
-            sprite_debris_init(0x0, 0x12, y_position - 0x10, x_position + 0x46);
+            SpriteDebrisInit(0x0, 0x11, y_position - 0x28, x_position);
+            SpriteDebrisInit(0x0, 0x12, y_position - 0x10, x_position + 0x46);
             break;
         case 0x3:
-            sprite_debris_init(0x0, 0x13, y_position - 0x14, x_position - 0x5C);
-            sprite_debris_init(0x0, 0x4, y_position - 0xA, x_position + 0x1E);
+            SpriteDebrisInit(0x0, 0x13, y_position - 0x14, x_position - 0x5C);
+            SpriteDebrisInit(0x0, 0x4, y_position - 0xA, x_position + 0x1E);
             break;
         case 0x7:
-            sprite_debris_init(0x0, 0x11, y_position - 0x8, x_position - 0x32);
-            sprite_debris_init(0x0, 0x12, y_position - 0x34, x_position + 0x78);
+            SpriteDebrisInit(0x0, 0x11, y_position - 0x8, x_position - 0x32);
+            SpriteDebrisInit(0x0, 0x12, y_position - 0x34, x_position + 0x78);
             break;
         case 0xC:
-            sprite_debris_init(0x0, 0x13, y_position - 0x20, x_position + 0x1E);
-            sprite_debris_init(0x0, 0x4, y_position - 0x4, x_position - 0x6E);
+            SpriteDebrisInit(0x0, 0x13, y_position - 0x20, x_position + 0x1E);
+            SpriteDebrisInit(0x0, 0x4, y_position - 0x4, x_position - 0x6E);
     }
 }
 
@@ -92,9 +92,9 @@ void rising_chozo_pillar_spawn_three_platforms(u16 y_position, u16 x_position, u
     ClipdataProcess(y_position - 0x4C0, x_position + 0xC0);
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(y_position - 0x4C0, x_position - 0x100);
-    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0xC0, x_position + 0xE0, 0x0);
-    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x2C0, x_position + 0xE0, 0x0);
-    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x4C0, x_position + 0xE0, 0x0);
+    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0xC0, x_position + 0xE0, 0x0);
+    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x2C0, x_position + 0xE0, 0x0);
+    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x4C0, x_position + 0xE0, 0x0);
 }
 
 /**
@@ -115,8 +115,8 @@ void rising_chozo_pillar_spawn_two_platforms(u16 y_position, u16 x_position, u8 
     ClipdataProcess(y_position - 0x7c0, x_position);
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(y_position - 0x7c0, x_position + 0x40);
-    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x1C0, x_position + 0x20, 0x0);
-    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x7c0, x_position + 0x20, 0x0);
+    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x1C0, x_position + 0x20, 0x0);
+    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x7c0, x_position + 0x20, 0x0);
 }
 
 /**
@@ -133,7 +133,7 @@ void rising_chozo_pillar_spawn_one_platform(u16 y_position, u16 x_position, u8 c
     ClipdataProcess(y_position - 0x3C0, x_position + 0x180);
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(y_position - 0x3C0, x_position + 0x1C0);
-    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x3C0, x_position + 0x1A0, 0x0);
+    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, y_position - 0x3C0, x_position + 0x1A0, 0x0);
 }
 
 /**
@@ -189,7 +189,7 @@ void rising_chozo_pillar(void)
             break;
         case 0x9:
             if ((gCurrentSprite.oam_scaling & 0x1F) == 0x0)
-                screen_shake_start_vertical(0x1E, 0x81);
+                ScreenShakeStartVertical(0x1E, 0x81);
             gCurrentSprite.oam_scaling--;
             if (gCurrentSprite.oam_scaling != 0x0)
                 gBG2Movement.y_offset += 0x2;
@@ -254,7 +254,7 @@ void chozo_pillar_platform(void)
                 if (gCurrentSprite.room_slot != 0x0)
                 {
                     gCurrentSprite.oam_pointer = chozo_pillar_platform_oam_spawned;
-                    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM_SHADOW, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+                    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM_SHADOW, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
                 }
                 else
                     gCurrentSprite.oam_pointer = chozo_pillar_platform_slot1_oam_spawned;
@@ -271,7 +271,7 @@ void chozo_pillar_platform(void)
             break;
 
         case 0x8:
-            if (sprite_util_check_end_current_sprite_anim())
+            if (SpriteUtillCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.pose = 0x9;
                 gCurrentSprite.anim_duration_counter = 0x0;
@@ -284,7 +284,7 @@ void chozo_pillar_platform(void)
             else
             {
                 if (gCurrentSprite.room_slot != 0x0 && gCurrentSprite.curr_anim_frame == 0x15 && gCurrentSprite.anim_duration_counter == 0x1)
-                    sprite_spawn_secondary(SSPRITE_CHOZO_PILLAR_PLATFORM_SHADOW, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+                    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM_SHADOW, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
             }
     }
 }

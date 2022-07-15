@@ -18,23 +18,23 @@ struct ScreenPositionAndVelocity {
     i8 y_velocity;
 };
 
-void scroll_process(struct RawCoordsX* pCoords);
-void scroll_screen(u16 screen_x, u16 screen_y);
-i32 scroll_process_x(struct Scroll* pScroll, struct RawCoordsX* pCoords);
-i32 scroll_process_y(struct Scroll* pScroll, struct RawCoordsX* pCoords);
-void scroll_load(void);
-void scroll_update_current(struct RawCoordsX* pCoords);
-void scroll_process_general(void);
-void scroll_with_no_scrolls(struct RawCoordsX* pCoords);
-void scroll_with_no_scrolls_y(struct RawCoordsX* pCoords);
-void scroll_with_no_scrolls_x(struct RawCoordsX* pCoords);
-void scroll_update_effect_and_haze_position(struct RawCoordsX* pCoords);
-void scroll_auto_bg0(void);
-u32 scroll_get_bg3_scroll(void);
-void scroll_bg3(void);
-void scroll_bg3_related(void);
-void scroll_auto_bg3(void);
-void scroll_bg2(void);
-void scroll_maybe_scroll_bg1_related(struct RawCoordsX* pCoords);
+void ScrollProcess(struct RawCoordsX* pCoords);
+void ScrollScreen(u16 screen_x, u16 screen_y);
+i32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords);
+i32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords);
+void ScrollLoad(void);
+void ScrollUpdateCurrent(struct RawCoordsX* pCoords);
+void ScrollProcessGeneral(void);
+void ScrollWithNoScrolls(struct RawCoordsX* pCoords);
+void ScrollWithNoScrollsY(struct RawCoordsX* pCoords);
+void ScrollWithNoScrollsX(struct RawCoordsX* pCoords);
+void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords);
+void ScrollAutoBG0(void);
+u32 ScrollGetBG3Scroll(void);
+void ScrollBG3(void);
+void ScrollBG3Related(void);
+void ScrollAutoBG3(void);
+void ScrollBG2(void);
+void ScrollMaybeScrollBG1Related(struct RawCoordsX* pCoords);
 
 #endif /* SCROLL_H */

@@ -18,7 +18,7 @@ void ripper2_init(void)
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
     gCurrentSprite.y_position -= 0x8;
-    sprite_util_choose_random_x_flip();
+    SpriteUtilChooseRandomXFlip();
     gCurrentSprite.pose = 0x8;
 }
 
@@ -34,7 +34,7 @@ void ripper2_move(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x10, gCurrentSprite.x_position + 0x2C);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x10, gCurrentSprite.x_position + 0x2C);
         if (gPreviousCollisionCheck != 0x11)
             gCurrentSprite.x_position += 0x8;
         else
@@ -42,7 +42,7 @@ void ripper2_move(void)
     }
     else
     {
-        sprite_util_check_collision_at_position(gCurrentSprite.y_position - 0x10, gCurrentSprite.x_position - 0x2C);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x10, gCurrentSprite.x_position - 0x2C);
         if (gPreviousCollisionCheck == 0x11)
             gCurrentSprite.pose = 0xA;
         else
@@ -62,7 +62,7 @@ void ripper2_turn_around_gfx_init(void)
 
 void ripper2_turn_around_begin(void)
 {
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
         gCurrentSprite.pose = 0xC;
@@ -74,7 +74,7 @@ void ripper2_turn_around_begin(void)
 
 void ripper2_check_turned_around(void)
 {
-    if (sprite_util_check_near_end_current_sprite_anim())
+    if (SpriteUtilCheckNearEndCurrentSpriteAnim())
         gCurrentSprite.pose = 0x8;
 }
 
@@ -88,10 +88,10 @@ void ripper2(void)
     }
 
     if (gCurrentSprite.freeze_timer != 0x0)
-        sprite_util_update_freeze_timer();
+        SpriteUtilUpdateFreezeTimer();
     else
     {
-        if (!sprite_util_is_sprite_stunned())
+        if (!SpriteUtilIsSpriteStunned())
         {
             switch (gCurrentSprite.pose)
             {
@@ -112,7 +112,7 @@ void ripper2(void)
                     ripper2_check_turned_around();
                     break;
                 default:
-                    sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position - 0x18, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position - 0x18, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
             }
         }
     }

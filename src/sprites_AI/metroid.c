@@ -12,10 +12,10 @@ u8 metroid_check_air_collision(u16 y_position, u16 x_position)
     colliding = FALSE;
     if (gSamusPhysics.horizontal_moving_direction == HDMOVING_RIGHT)
     {
-        sprite_util_check_collision_at_position(y_position - 0x30, x_position + 0x3C);
+        SpriteUtilCheckCollisionAtPosition(y_position - 0x30, x_position + 0x3C);
         if (gPreviousCollisionCheck == 0x0)
         {
-            sprite_util_check_collision_at_position(y_position + 0x10, x_position + 0x3C);
+            SpriteUtilCheckCollisionAtPosition(y_position + 0x10, x_position + 0x3C);
             if (gPreviousCollisionCheck != 0x0)
                 colliding = TRUE;
         }
@@ -26,10 +26,10 @@ u8 metroid_check_air_collision(u16 y_position, u16 x_position)
     {
         if (gSamusPhysics.horizontal_moving_direction == HDMOVING_LEFT)
         {
-            sprite_util_check_collision_at_position(y_position - 0x30, x_position - 0x3C);
+            SpriteUtilCheckCollisionAtPosition(y_position - 0x30, x_position - 0x3C);
             if (gPreviousCollisionCheck == 0x0)
             {
-                sprite_util_check_collision_at_position(y_position + 0x10, x_position - 0x3C);
+                SpriteUtilCheckCollisionAtPosition(y_position + 0x10, x_position - 0x3C);
                 if (gPreviousCollisionCheck != 0x0)
                     colliding = TRUE;
             }
@@ -85,7 +85,7 @@ u8 metroid_bomb_detection(void)
             proj_left = proj_x + pProj->hitbox_left_offset;
             proj_right = proj_x + pProj->hitbox_right_offset;
 
-            if (sprite_util_check_objects_touching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
+            if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
                 return TRUE;
         }
         count++;
@@ -180,13 +180,13 @@ void metroid_init(void)
         gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
         gCurrentSprite.y_position_spawn = gCurrentSprite.health;
         gCurrentSprite.samus_collision = SSC_NONE;
-        sprite_util_make_sprite_face_samus_direction();
+        SpriteUtilMakeSpriteFaceSamusDirection();
         gCurrentSprite.pose = 0x1;
         gCurrentSprite.work_variable = 0x0;
         gCurrentSprite.array_offset = 0x0;
         gCurrentSprite.draw_order = 0xC;
 
-        slot = sprite_spawn_secondary(SSPRITE_METROID_SHELL, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        slot = SpriteSpawnSecondary(SSPRITE_METROID_SHELL, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
         if (slot == 0xFF)
             gCurrentSprite.status = 0x0;
         gCurrentSprite.palette_row = 0x3;
@@ -279,7 +279,7 @@ void metroid_death(void)
     else 
         y_position -= rng;
 
-    sprite_util_sprite_death(DEATH_NORMAL, y_position, x_position + 0x24, TRUE, PE_FREEZING_SPRITE_WITH_CHARGED_ICE);
+    SpriteUtilSpriteDeath(DEATH_NORMAL, y_position, x_position + 0x24, TRUE, PE_FREEZING_SPRITE_WITH_CHARGED_ICE);
 
     metroid_id = PSPRITE_METROID;
     frozen_id = PSPRITE_FROZEN_METROID;
@@ -360,9 +360,9 @@ void metroid(void)
         gCurrentSprite.hitbox_right_offset = 0x40;
         metroid_check_bouncing_on_metroid(0x1);
         if (gDifficulty == 0x0)
-            sprite_util_unfreeze_anim_easy();
+            SpriteUtilUnfreezeAnimEasy();
         else
-            sprite_util_metroid_unfreeze_anim();
+            SpriteUtilMetroidUnfreezeAnim();
         gCurrentSprite.sprite_id = PSPRITE_FROZEN_METROID;
     }
     else 
@@ -429,7 +429,7 @@ void metroid_shell(void)
 
         gCurrentSprite.sprite_id = PSPRITE_METROID;
         gCurrentSprite.properties &= ~SP_SECONDARY_SPRITE;
-        sprite_util_sprite_death(DEATH_NORMAL, y_position, x_position - 0x24, TRUE, PE_FREEZING_SPRITE_WITH_CHARGED_ICE);
+        SpriteUtilSpriteDeath(DEATH_NORMAL, y_position, x_position - 0x24, TRUE, PE_FREEZING_SPRITE_WITH_CHARGED_ICE);
     }
     else
     {
@@ -477,14 +477,14 @@ void metroid_door_lock(void)
         gCurrentSprite.anim_duration_counter = 0x0;
         gCurrentSprite.curr_anim_frame = 0x0;
 
-        if (sprite_util_count_primary_sprites(PSPRITE_METROID) != 0x0)
+        if (SpriteUtilCountPrimarySprites(PSPRITE_METROID) != 0x0)
             gDoorUnlockTimer = 0x1;
         else
             gCurrentSprite.status = 0x0;
     }
     else
     {
-        if (sprite_util_count_primary_sprites(PSPRITE_METROID) == 0x0 && sprite_util_count_primary_sprites(PSPRITE_FROZEN_METROID) == 0x0)
+        if (SpriteUtilCountPrimarySprites(PSPRITE_METROID) == 0x0 && SpriteUtilCountPrimarySprites(PSPRITE_FROZEN_METROID) == 0x0)
         {
             gCurrentSprite.status = 0x0;
             gDoorUnlockTimer = -0x14;

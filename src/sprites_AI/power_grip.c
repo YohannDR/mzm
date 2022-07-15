@@ -27,7 +27,7 @@ void power_grip(void)
                 gCurrentSprite.health = 0x1;
                 gCurrentSprite.y_position -= 0x40;
                 gCurrentSprite.pose = 0x9;
-                sprite_spawn_secondary(SSPRITE_POWER_GRIP_GLOW, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+                SpriteSpawnSecondary(SSPRITE_POWER_GRIP_GLOW, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
             }
             break;
 
@@ -41,7 +41,7 @@ void power_grip(void)
                 gCurrentSprite.timer1 = 0x0;
                 gEquipment.suit_misc |= SMF_POWER_GRIP;
                 EventFunction(EVENT_ACTION_SETTING, EVENT_POWER_GRIP_OBTAINED);
-                sprite_spawn_primary(PSPRITE_ITEM_BANNER, 0x15,0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+                SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, 0x15,0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
             }
             break;
 

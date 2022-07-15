@@ -6,20 +6,20 @@ u8 geruta_y_movement(u16 movement)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
-        if (sprite_util_get_collision_at_position(gCurrentSprite.y_position + 0x40, gCurrentSprite.x_position) == 0x11 ||
-            sprite_util_get_collision_at_position(gCurrentSprite.y_position + 0x40, gCurrentSprite.x_position - 0x30) == 0x11 ||
-            sprite_util_get_collision_at_position(gCurrentSprite.y_position + 0x40, gCurrentSprite.x_position + 0x30) == 0x11)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position + 0x40, gCurrentSprite.x_position) == 0x11 ||
+            SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position + 0x40, gCurrentSprite.x_position - 0x30) == 0x11 ||
+            SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position + 0x40, gCurrentSprite.x_position + 0x30) == 0x11)
             return TRUE;
         gCurrentSprite.y_position += movement;
     }
     else
     {
-        if (sprite_util_get_collision_at_position(gCurrentSprite.y_position - 0x28, gCurrentSprite.x_position - 0x30) == 0x11 &&
-            sprite_util_get_collision_at_position(gCurrentSprite.y_position - 0x28, gCurrentSprite.x_position - 0x70) == 0x11)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position - 0x28, gCurrentSprite.x_position - 0x30) == 0x11 &&
+            SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position - 0x28, gCurrentSprite.x_position - 0x70) == 0x11)
             return TRUE;
 
-        if (sprite_util_get_collision_at_position(gCurrentSprite.y_position - 0x28, gCurrentSprite.x_position + 0x30) == 0x11 &&
-            sprite_util_get_collision_at_position(gCurrentSprite.y_position - 0x28, gCurrentSprite.x_position + 0x70) == 0x11)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position - 0x28, gCurrentSprite.x_position + 0x30) == 0x11 &&
+            SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position - 0x28, gCurrentSprite.x_position + 0x70) == 0x11)
             return TRUE;
 
         gCurrentSprite.y_position -= movement;
@@ -36,13 +36,13 @@ u8 geruta_x_movement(u16 movement)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (sprite_util_get_collision_at_position(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position + 0x40) == 0x11 || sprite_util_get_collision_at_position(gCurrentSprite.y_position + 0x20, gCurrentSprite.x_position + 0x40) == 0x11)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position + 0x40) == 0x11 || SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position + 0x20, gCurrentSprite.x_position + 0x40) == 0x11)
             return TRUE;
         gCurrentSprite.x_position += movement;
     }
     else
     {
-        if (sprite_util_get_collision_at_position(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position - 0x40) == 0x11 || sprite_util_get_collision_at_position(gCurrentSprite.y_position + 0x20, gCurrentSprite.x_position - 0x40) == 0x11)
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position - 0x20, gCurrentSprite.x_position - 0x40) == 0x11 || SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position + 0x20, gCurrentSprite.x_position - 0x40) == 0x11)
             return TRUE;
         gCurrentSprite.x_position -= movement_;
     }
@@ -53,7 +53,7 @@ u8 geruta_x_movement(u16 movement)
 void geruta_init(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    sprite_util_make_sprite_face_samus_direction();
+    SpriteUtilMakeSpriteFaceSamusDirection();
     gCurrentSprite.draw_distance_top_offset = 0x18;
     gCurrentSprite.draw_distance_bottom_offset = 0x18;
     gCurrentSprite.draw_distance_horizontal_offset = 0x18;
@@ -82,13 +82,13 @@ void geruta_detect_samus(void)
 {
     u8 nslr;
 
-    if (sprite_util_get_collision_at_position(gCurrentSprite.y_position - 0x40, gCurrentSprite.x_position - 0x30) != 0x11 && sprite_util_get_collision_at_position(gCurrentSprite.y_position - 0x40, gCurrentSprite.x_position + 0x30) != 0x11)
-        sprite_util_make_sprite_face_samus_direction();
+    if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position - 0x40, gCurrentSprite.x_position - 0x30) != 0x11 && SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position - 0x40, gCurrentSprite.x_position + 0x30) != 0x11)
+        SpriteUtilMakeSpriteFaceSamusDirection();
     else
     {
         if ((gSamusData.y_position - 0x48) >= gCurrentSprite.y_position)
         {
-            nslr = sprite_util_check_samus_near_sprite_left_right(0x140, 0x140);
+            nslr = SpriteUtilCheckSamusNearSpriteLeftRight(0x140, 0x140);
             if (nslr != NSLR_RIGHT && nslr != NSLR_LEFT)
                 return;
             gCurrentSprite.pose = 0x32;
@@ -113,7 +113,7 @@ void geruta_go_down_gfx_init(void)
 
 void geruta_check_warning_ended(void)
 {
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x35;
         gCurrentSprite.anim_duration_counter = 0x0;
@@ -124,14 +124,14 @@ void geruta_check_warning_ended(void)
 
 void geruta_check_going_down_anim_ended(void)
 {
-    if (sprite_util_check_end_sprite_anim())
+    if (SpriteUtilCheckEndSpriteAnim())
     {
         gCurrentSprite.pose = 0x37;
         gCurrentSprite.anim_duration_counter = 0x0;
         gCurrentSprite.curr_anim_frame = 0x0;
         gCurrentSprite.oam_pointer = geruta_oam_2d1460;
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
-        sprite_util_make_sprite_face_samus_direction();
+        SpriteUtilMakeSpriteFaceSamusDirection();
         if ((gCurrentSprite.status & SPRITE_STATUS_ONSCREEN))
             unk_2b20(0x14E);
     }
@@ -151,12 +151,12 @@ void geruta_going_down(void)
         gCurrentSprite.oam_pointer = geruta_oam_2d1488;
     }
 
-    sprite_util_check_in_room_effect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_BIG);
+    SpriteUtilCheckInRoomEffect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_BIG);
 }
 
 void geruta_check_bouncing_anim_ended(void)
 {
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x3B;
         gCurrentSprite.anim_duration_counter = 0x0;
@@ -184,7 +184,7 @@ void geruta_going_up(void)
 
 void geruta_check_reset_anim_ended(void)
 {
-    if (sprite_util_check_near_end_sprite_anim())
+    if (SpriteUtilCheckNearEndSpriteAnim())
         gCurrentSprite.pose = 0x8;
 }
 
@@ -198,10 +198,10 @@ void geruta(void)
     }
 
     if (gCurrentSprite.freeze_timer != 0x0)
-        sprite_util_update_freeze_timer();
+        SpriteUtilUpdateFreezeTimer();
     else
     {
-        if (!sprite_util_is_sprite_stunned())
+        if (!SpriteUtilIsSpriteStunned())
         {
             switch (gCurrentSprite.pose)
             {
@@ -235,7 +235,7 @@ void geruta(void)
                     break;
 
                 default:
-                    sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
             }
         }
     }

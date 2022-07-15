@@ -1313,8 +1313,8 @@ void ParticleHittingSomethingWithSuperMissile(struct ParticleEffect* pParticle)
             pParticle->stage++;
             SoundPlay(0xFC);
             SoundPlay(0xFD);
-            screen_shake_start_horizontal(0xA, 0x81);
-            screen_shake_start_vertical(0xA, 0x81);
+            ScreenShakeStartHorizontal(0xA, 0x81);
+            ScreenShakeStartVertical(0xA, 0x81);
         }
     }
 }

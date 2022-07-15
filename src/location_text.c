@@ -235,8 +235,8 @@ u8 LocationTextLoadAreaBannerGFX(void)
     {
         // Use 7 as default and load GFX/PAL
         gfx_slot = 0x7;
-        sprite_load_gfx(PSPRITE_AREA_BANNER, 0x7);
-        sprite_load_pal(PSPRITE_AREA_BANNER, 0x7, 0x1);
+        SpriteLoadGFX(PSPRITE_AREA_BANNER, 0x7);
+        SpriteLoadPAL(PSPRITE_AREA_BANNER, 0x7, 0x1);
     }
 
     return gfx_slot;

@@ -5,9 +5,7 @@
 #include "../data/data.h"
 #include "globals.h"
 
-unknown_sized_int samus_apply_screw_speedbooster_damage_to_environment(u16 x_position, u16 y_position, unknown_sized_int action);
-
-void samus_check_screw_speedbooster_affecting_environment(struct SamusData* pData, struct SamusPhysics* pPhysics)
+void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
     u8 unk_bool;
     u16 left_hitbox, right_hitbox, top_hitbox;
@@ -77,7 +75,7 @@ void samus_check_screw_speedbooster_affecting_environment(struct SamusData* pDat
     }
 }
 
-u8 samus_slope_related(u16 x_position, u16 y_position, u16* next_x_position, u16* next_y_position, u16* next_slope_type)
+u8 SamusSlopeRelated(u16 x_position, u16 y_position, u16* next_x_position, u16* next_y_position, u16* next_slope_type)
 {
     u32 clipdata;
     u16 slope_type;
@@ -194,7 +192,7 @@ u8 unk_5604(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_positi
  * @param pPosition Pointer To X Position
  * @return u8 Collision result
  */
-u8 samus_check_top_side_collision_midair(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* pPosition)
+u8 SamusCheckTopSideCollisionMidAir(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 x_position, u16* pPosition)
 {
     u8 result;
     i32 clip;
@@ -273,7 +271,7 @@ u8 samus_check_top_side_collision_midair(struct SamusData* pData, struct SamusPh
  * @param x_position X Position
  * @return u8 Collision result
  */
-u8 samus_check_walking_on_slope(struct SamusData* pData, u16 x_position)
+u8 SamusCheckWalkingOnSlope(struct SamusData* pData, u16 x_position)
 {
     u8 result;
     i32 clip;
@@ -318,12 +316,12 @@ u8 samus_check_walking_on_slope(struct SamusData* pData, u16 x_position)
     return result;
 }
 
-u8 samus_check_collision_above(struct SamusData* pData, i16 hitbox)
+u8 SamusCheckCollisionAbove(struct SamusData* pData, i16 hitbox)
 {
 
 }
 
-u8 samus_check_walking_sides_collision(struct SamusData* pData, struct SamusPhysics* pPhysics)
+u8 SamusCheckWalkingSidesCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
 
 }
@@ -333,22 +331,22 @@ u8 unk_5AD8(struct SamusData* pData, struct SamusPhysics* pPhysics)
 
 }
 
-u8 samus_check_standing_on_ground_collision(struct SamusData* pData, struct SamusPhysics* pPhysics)
+u8 SamusCheckStandingOnGroundCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
 
 }
 
-u8 samus_check_landing_collision(struct SamusData* pData, struct SamusPhysics* pPhysics)
+u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
 
 }
 
-u8 samus_check_top_collision(struct SamusData* pData, struct SamusPhysics* pPhysics)
+u8 SamusCheckTopCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
 
 }
 
-void samus_check_collisions(struct SamusData* pData, struct SamusPhysics* pPhysics)
+void SamusCheckCollisions(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
     /*u8 new_pose;
     i16 offset;
@@ -360,20 +358,20 @@ void samus_check_collisions(struct SamusData* pData, struct SamusPhysics* pPhysi
     if (pPhysics->standing_status > STANDING_NOT_IN_CONTROL)
         return;
 
-    samus_check_screw_speedbooster_affecting_environment(pData, pPhysics);
+    SamusCheckScrewSpeedboosterAffectingEnvironment(pData, pPhysics);
 
     new_pose = SPOSE_NONE;
     if (pPhysics->vertical_moving_direction == VDMOVING_UP)
-        new_pose = samus_check_top_collision(pData, pPhysics);
+        new_pose = SamusCheckTopCollision(pData, pPhysics);
     else if (pPhysics->vertical_moving_direction == VDMOVING_DOWN)
-        new_pose = samus_check_landing_collision(pData, pPhysics);
+        new_pose = SamusCheckLandingCollision(pData, pPhysics);
     else if (pPhysics->horizontal_moving_direction == HDMOVING_NONE && pPhysics->standing_status == STANDING_GROUND)
-        new_pose = samus_check_standing_on_ground_collision(pData, pPhysics);
+        new_pose = SamusCheckStandingOnGroundCollision(pData, pPhysics);
     else if (pPhysics->standing_status == STANDING_MIDAIR)
-        new_pose = samus_check_landing_collision(pData, pPhysics);
+        new_pose = SamusCheckLandingCollision(pData, pPhysics);
     else
     {
-        new_pose = samus_check_walking_sides_collision(pData, pPhysics);
+        new_pose = SamusCheckWalkingSidesCollision(pData, pPhysics);
         if (new_pose == SPOSE_NONE)
             new_pose = unk_5AD8(pData, pPhysics);
     }
@@ -460,7 +458,7 @@ void samus_check_collisions(struct SamusData* pData, struct SamusPhysics* pPhysi
             pData->y_position++;
 
         if (new_pose != SPOSE_NONE)
-            samus_set_pose(new_pose);
+            SamusSetPose(new_pose);
     }*/
 }
 
@@ -472,7 +470,7 @@ void samus_check_collisions(struct SamusData* pData, struct SamusPhysics* pPhysi
  * @param default_offset Default offset in the global array (0 means auto)
  * @param request Environmental effect requested
  */
-void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_offset, u32 request)
+void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 default_offset, u32 request)
 {
     u8 found;
     u8 can_spawn;
@@ -730,7 +728,7 @@ void samus_check_set_environmental_effect(struct SamusData* pData, u32 default_o
     }
 }
 
-void samus_update_environmental_effect(struct SamusData* pData)
+void SamusUpdateEnvironmentalEffect(struct SamusData* pData)
 {
 
 }
@@ -743,7 +741,7 @@ void samus_update_environmental_effect(struct SamusData* pData)
  * @param pCopy Samus Data Copy Pointer
  * @param pWeapon Samus Weapon Info Pointer
  */
-void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
+void SamusUpdateJumpVelocity(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
     /*struct Equipment* pEquipment;
 
@@ -777,7 +775,7 @@ void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy
             if (pCopy->forced_movement == 0x2)
                 pData->y_velocity = pCopy->y_velocity;
 
-            if (samus_check_collision_above(pData, samus_hitbox_data[0x0][0x2]) << 0x18)
+            if (SamusCheckCollisionAbove(pData, samus_hitbox_data[0x0][0x2]) << 0x18)
                 pData->y_position += 0x20;
             break;
 
@@ -872,7 +870,7 @@ void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy
         case SPOSE_CROUCHING:
         case SPOSE_TURNING_AROUND_AND_CROUCHING:
         case SPOSE_SHOOTING_AND_CROUCHING:
-            if (samus_check_collision_above(pData, samus_hitbox_data[0x0][0x2]) << 0x18)
+            if (SamusCheckCollisionAbove(pData, samus_hitbox_data[0x0][0x2]) << 0x18)
                 pData->y_position += 0x20;
         default:
             pData->pose = SPOSE_MIDAIR;
@@ -920,7 +918,7 @@ void samus_update_jump_velocity(struct SamusData* pData, struct SamusData* pCopy
     }*/
 }
 
-void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
+void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
     /*u8 collision;
     
@@ -929,7 +927,7 @@ void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, st
     switch (pCopy->pose)
     {
         case SPOSE_MIDAIR:
-            collision = samus_check_collision_above(pData, samus_hitbox_data[0][2]);
+            collision = SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]);
             if (collision)
                 pData->pose = SPOSE_CROUCHING;
             else
@@ -955,7 +953,7 @@ void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, st
             if (gButtonInput & KEY_A && gEquipment.suit_misc_activation & SMF_HIGH_JUMP)
             {
                 // /!\ Invalid cast
-                collision = samus_check_collision_above(pData, samus_hitbox_data[0][2]);
+                collision = SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]);
                 collision &= SAMUS_COLLISION_DETECTION_MIDDLE_LEFT | SAMUS_COLLISION_DETECTION_MIDDLE_RIGHT;
                 if (!(collision))
                     pData->forced_movement = 0x14;
@@ -999,7 +997,7 @@ void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, st
             }
             else
             {
-                screen_shake_start_horizontal(0x1E, 0x1);
+                ScreenShakeStartHorizontal(0x1E, 0x1);
                 if (pCopy->pose == SPOSE_SHINESPARKING)
                     pData->pose = SPOSE_SHINESPARK_COLLISION;
                 else
@@ -1012,7 +1010,7 @@ void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, st
             break;
 
         default:
-            collision = samus_check_collision_above(pData, samus_hitbox_data[0][2]);
+            collision = SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]);
             if (collision)
                 pData->pose = SPOSE_CROUCHING;
             else if (pCopy->x_velocity == 0x0)
@@ -1043,10 +1041,10 @@ void samus_set_landing_pose(struct SamusData* pData, struct SamusData* pCopy, st
     }
 
 
-    samus_check_set_environmental_effect(pData, 0x0, WANTING_LANDING_EFFECT);*/
+    SamusCheckSetEnvironmentalEffect(pData, 0x0, WANTING_LANDING_EFFECT);*/
 }
 
-void samus_change_to_hurt_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
+void SamusChangeToHurtPose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
     i16 new_x_velo; 
     i16 new_y_velo; 
@@ -1080,7 +1078,7 @@ void samus_change_to_hurt_pose(struct SamusData* pData, struct SamusData* pCopy,
                 break;
 
             default:
-                y_pos_related = samus_check_collision_above(pData, samus_hitbox_data[0x0][0x2]);
+                y_pos_related = SamusCheckCollisionAbove(pData, samus_hitbox_data[0x0][0x2]);
                 pData->pose = SPOSE_GETTING_HURT;
         }
 
@@ -1118,7 +1116,7 @@ void samus_change_to_hurt_pose(struct SamusData* pData, struct SamusData* pCopy,
     pWeapon->beam_release_palette_timer = 0x0;
 }
 
-void samus_change_to_knockback_pose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
+void SamusChangeToKnockbackPose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
     u8 y_pos_related;
 
@@ -1146,7 +1144,7 @@ void samus_change_to_knockback_pose(struct SamusData* pData, struct SamusData* p
             break;
 
         default:
-            y_pos_related = samus_check_collision_above(pData, samus_hitbox_data[0x0][0x2]);
+            y_pos_related = SamusCheckCollisionAbove(pData, samus_hitbox_data[0x0][0x2]);
             pData->pose = SPOSE_GETTING_KNOCKED_BACK;
     }
     
@@ -1171,7 +1169,7 @@ void samus_change_to_knockback_pose(struct SamusData* pData, struct SamusData* p
  * @param pCopy Samus Data Copy Pointer
  * @param pWeapon Samus Weapon Info Pointer
  */
-void samus_check_carry_from_copy(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
+void SamusCheckCarryFromCopy(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
     // https://decomp.me/scratch/1VwJS
 
@@ -1218,7 +1216,7 @@ void samus_check_carry_from_copy(struct SamusData* pData, struct SamusData* pCop
         case SPOSE_SKIDDING:
             pData->x_velocity = pCopy->x_velocity;
             pWeapon->diagonal_aim = DIAG_AIM_NONE;
-            samus_check_set_environmental_effect(pData, 0x0, WANTING_SKIDDING_EFFECT);
+            SamusCheckSetEnvironmentalEffect(pData, 0x0, WANTING_SKIDDING_EFFECT);
             SoundPlay(0x8C); // Skidding
             break;
 
@@ -1387,7 +1385,7 @@ void samus_check_carry_from_copy(struct SamusData* pData, struct SamusData* pCop
     }
 }
 
-void samus_set_pose(u8 pose)
+void SamusSetPose(u8 pose)
 {
     struct WeaponInfo* pWeapon;
     struct SamusData* pData;
@@ -1397,10 +1395,10 @@ void samus_set_pose(u8 pose)
     pCopy = &gSamusDataCopy;
     pWeapon = &gSamusWeaponInfo;
 
-    if ((u32)(pose * 0x1000000 + 0x7000000) >> 0x18 < 0x2)
+    if ((u8)(pose + 0x7) < 0x2)
         pData->turning = FALSE;
 
-    samus_copy_data(pData);
+    SamusCopyData(pData);
 
     if (pCopy->arm_cannon_direction == ACD_NONE)
         pCopy->arm_cannon_direction = ACD_FORWARD;
@@ -1408,40 +1406,48 @@ void samus_set_pose(u8 pose)
     switch (pCopy->pose)
     {
         case SPOSE_DELAY_BEFORE_SHINESPARKING:
-            if (pose == SPOSE_SHINESPARKING) break;
-            play_sound(0x8E);
+            if (pose != SPOSE_SHINESPARKING)
+                play_sound(0x8E);
             break;
+        
         case SPOSE_SHINESPARKING:
-            if (pose == SPOSE_SHINESPARK_COLLISION) break;
-            play_sound(0x8E);
+            if (pose != SPOSE_SHINESPARK_COLLISION)
+                play_sound(0x8E);
             break;
+        
         case SPOSE_DELAY_BEFORE_BALLSPARKING:
             if (pose != SPOSE_BALLSPARKING)
                 SoundStop(0x8F);
             break;
+        
         case SPOSE_BALLSPARKING:
             if (pose != SPOSE_BALLSPARK_COLLISION)
                 SoundStop(0x8F);
+            break;
     }
 
     switch (pose)
     {
         case SPOSE_UPDATE_JUMP_VELOCITY_REQUEST:
-            samus_update_jump_velocity(pData, pCopy, pWeapon);
-            return;
+            SamusUpdateJumpVelocity(pData, pCopy, pWeapon);
+            break;
+        
         case SPOSE_LANDING_REQUEST:
-            samus_set_landing_pose(pData, pCopy, pWeapon);
-            return;
+            SamusSetLandingPose(pData, pCopy, pWeapon);
+            break;
+        
         case SPOSE_HURT_REQUEST:
-            samus_change_to_hurt_pose(pData, pCopy, pWeapon);
-            return;
+            SamusChangeToHurtPose(pData, pCopy, pWeapon);
+            break;
+        
         case SPOSE_KNOCKBACK_REQUEST:
-            samus_change_to_knockback_pose(pData, pCopy, pWeapon);
-            return;
-    }
+            SamusChangeToKnockbackPose(pData, pCopy, pWeapon);
+            break;
 
-    pData->pose = pose;
-    samus_check_carry_from_copy(pData, pCopy, pWeapon);
+        default:
+            pData->pose = pose;
+            SamusCheckCarryFromCopy(pData, pCopy, pWeapon);
+    }
 }
 
 /**
@@ -1449,7 +1455,7 @@ void samus_set_pose(u8 pose)
  * 
  * @param pData_ Samus Data Pointer (unused)
  */
-void samus_copy_data(struct SamusData* pData_)
+void SamusCopyData(struct SamusData* pData_)
 {
     struct SamusData* pData;
     struct ScrewSpeedAnimation* pScrew;
@@ -1485,12 +1491,12 @@ void samus_copy_data(struct SamusData* pData_)
     pScrew->curr_anim_frame = 0x0;
 }
 
-void samus_update_physics(struct SamusData* pData)
+void SamusUpdatePhysics(struct SamusData* pData)
 {
 
 }
 
-i16 samus_change_velocity_on_slope(struct SamusData* pData)
+i16 SamusChangeVelocityOnSlope(struct SamusData* pData)
 {
     i32 velocity, decreased_velocity;
 
@@ -1521,7 +1527,7 @@ i16 samus_change_velocity_on_slope(struct SamusData* pData)
     return velocity;
 }
 
-void samus_copy_palette(u16* src, i32 offset, i32 nbr_colors)
+void SamusCopyPalette(u16* src, i32 offset, i32 nbr_colors)
 {
     /*u16* pPalette;
     u32 size;
@@ -1538,7 +1544,7 @@ void samus_copy_palette(u16* src, i32 offset, i32 nbr_colors)
     }*/
 }
 
-void samus_update(void)
+void SamusUpdate(void)
 {
     u8 new_pose;
     struct SamusData* pData;
@@ -1548,15 +1554,15 @@ void samus_update(void)
     if (0x1 < gGameModeSub1)
         pData->anim_duration_counter++;
     
-    samus_update_physics(pData);
-    new_pose = samus_execute_pose_subroutine(pData);
+    SamusUpdatePhysics(pData);
+    new_pose = SamusExecutePoseSubroutine(pData);
     if (new_pose != SPOSE_NONE)
-        samus_set_pose(new_pose);
-    samus_update_draw_distance_and_standing_status(pData, &gSamusPhysics);
-    samus_update_velocity_position(pData);
+        SamusSetPose(new_pose);
+    SamusUpdateDrawDistanceAndStandingStatus(pData, &gSamusPhysics);
+    SamusUpdateVelocityPosition(pData);
 }
 
-void samus_update_hitbox_moving_direction(void)
+void SamusUpdateHitboxMovingDirection(void)
 {
     struct SamusData* pData;
     struct SamusPhysics* pPhysics;
@@ -1592,15 +1598,15 @@ void samus_update_hitbox_moving_direction(void)
     if (pPhysics->standing_status == STANDING_NOT_IN_CONTROL)
         pPhysics->vertical_moving_direction = VDMOVING_DOWN;
 
-    samus_check_collisions(pData, pPhysics);
-    samus_update_draw_distance_and_standing_status(pData, pPhysics);
+    SamusCheckCollisions(pData, pPhysics);
+    SamusUpdateDrawDistanceAndStandingStatus(pData, pPhysics);
 }
 
 /**
  * 78e0 | 3c | Calls functions related to updating samus' graphics
  * 
  */
-void samus_call_gfx_functions(void)
+void SamusCallGFXFunctions(void)
 {
     struct SamusData* pData;
     u8 direction;
@@ -1609,23 +1615,23 @@ void samus_call_gfx_functions(void)
     pData = &gSamusData;
 
     if (gGameModeSub1 == 0x2)
-        samus_update_environmental_effect(pData);
+        SamusUpdateEnvironmentalEffect(pData);
 
     flag = pData->direction & KEY_RIGHT;
     direction = TRUE;
     if (flag)
         direction = FALSE;
     
-    samus_update_graphics_oam(pData, direction);
-    samus_update_palette(pData);
+    SamusUpdateGraphicsOAM(pData, direction);
+    SamusUpdatePalette(pData);
 }
 
-void samus_call_check_low_health(void)
+void SamusCallCheckLowHealth(void)
 {
-    samus_check_play_low_health_sound();
+    SamusCheckPlayLowHealthSound();
 }
 
-void samus_call_update_arm_cannon_position_offset(void)
+void SamusCallUpdateArmCannonPositionOffset(void)
 {
     u8 flag;
     u8 direction;
@@ -1634,10 +1640,10 @@ void samus_call_update_arm_cannon_position_offset(void)
     direction = TRUE;
     if (flag)
         direction = FALSE;
-    samus_update_arm_cannon_position_offset(direction);
+    SamusUpdateArmCannonPositionOffset(direction);
 }
 
-void samus_bounce_bomb(u8 direction)
+void SamusBombBounce(u8 direction)
 {
     /*u8 can_bounce;
 
@@ -1661,12 +1667,12 @@ void samus_bounce_bomb(u8 direction)
             case SPOSE_MORPHING:
             case SPOSE_MORPH_BALL:
                 gSamusData.forced_movement = direction & 0x7F;
-                samus_set_pose(SPOSE_UPDATE_JUMP_VELOCITY_REQUEST);
+                SamusSetPose(SPOSE_UPDATE_JUMP_VELOCITY_REQUEST);
         }
     }*/
 }
 
-void samus_aim_cannon(struct SamusData* pData)
+void SamusAimCannon(struct SamusData* pData)
 {
     /*struct WeaponInfo* pWeapon;
     u16 direction;
@@ -1815,7 +1821,7 @@ void samus_aim_cannon(struct SamusData* pData)
     }*/
 }
 
-u8 samus_fire_beam_missile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment)
+u8 SamusCheckFireBeamMissile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment)
 {
     /*u8 has_proj;
     u8 new_proj;
@@ -1885,7 +1891,7 @@ u8 samus_fire_beam_missile(struct SamusData* pData, struct WeaponInfo* pWeapon, 
     return has_proj;*/
 }
 
-u8 samus_fire_check_fully_charged_pistol(struct SamusData* pData, struct WeaponInfo* pWeapon)
+u8 SamusCheckFirePistol(struct SamusData* pData, struct WeaponInfo* pWeapon)
 {
     u8 new_proj;
 
@@ -1917,7 +1923,7 @@ u8 samus_fire_check_fully_charged_pistol(struct SamusData* pData, struct WeaponI
     return new_proj;
 }
 
-void samus_check_new_projectile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment)
+void SamusCheckNewProjectile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment)
 {
     struct SamusPhysics* pPhysics;
 
@@ -1938,7 +1944,7 @@ void samus_check_new_projectile(struct SamusData* pData, struct WeaponInfo* pWea
                 break;
 
             default:
-                pPhysics->has_new_projectile = samus_fire_check_fully_charged_pistol(pData, pWeapon);
+                pPhysics->has_new_projectile = SamusCheckFirePistol(pData, pWeapon);
                 break;
 
             case SPOSE_GETTING_HURT:
@@ -1970,7 +1976,7 @@ void samus_check_new_projectile(struct SamusData* pData, struct WeaponInfo* pWea
             case SPOSE_AIMING_WHILE_HANGING:
             case SPOSE_ON_ZIPLINE:
             case SPOSE_SHOOTING_ON_ZIPLINE:
-                pPhysics->has_new_projectile = samus_fire_beam_missile(pData, pWeapon, pEquipment);
+                pPhysics->has_new_projectile = SamusCheckFireBeamMissile(pData, pWeapon, pEquipment);
                 break;
 
             case SPOSE_MORPH_BALL:
@@ -2002,7 +2008,7 @@ void samus_check_new_projectile(struct SamusData* pData, struct WeaponInfo* pWea
     }
 }
 
-u8 samus_check_a_pressed(struct SamusData* pData)
+u8 SamusCheckAButtonPressed(struct SamusData* pData)
 {
     u8 return_value;
     
@@ -2015,7 +2021,7 @@ u8 samus_check_a_pressed(struct SamusData* pData)
     return return_value;
 }
 
-void samus_set_highlighted_weapon(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment)
+void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment)
 {
     /*u8 weapon_high;
 
@@ -2117,7 +2123,7 @@ void samus_set_highlighted_weapon(struct SamusData* pData, struct WeaponInfo* pW
     pWeapon->weapon_highlighted = weapon_high;*/
 }
 
-void samus_set_spinning_pose(struct SamusData* pData, struct Equipment* pEquipment)
+void SamusSetSpinningPose(struct SamusData* pData, struct Equipment* pEquipment)
 {
     u8 flag;
 
@@ -2170,17 +2176,17 @@ void samus_set_spinning_pose(struct SamusData* pData, struct Equipment* pEquipme
     }
 }
 
-void samus_apply_x_acceleration(i16 acceleration, i16 velocity, struct SamusData* pData)
+void SamusApplyXAcceleration(i16 acceleration, i16 velocity, struct SamusData* pData)
 {
 
 }
 
-u8 samus_take_hazard_damage(struct SamusData* pData, struct Equipment* pEquipment, struct HazardDamage* pHazard)
+u8 SamusTakeHazardDamage(struct SamusData* pData, struct Equipment* pEquipment, struct HazardDamage* pHazard)
 {
 
 }
 
-void samus_check_shinesparking(struct SamusData* pData)
+void SamusCheckShinesparking(struct SamusData* pData)
 {
     /*u8 pose;
 
@@ -2220,17 +2226,17 @@ void samus_check_shinesparking(struct SamusData* pData)
         SoundStop(0x8B);*/
 }
 
-u8 samus_inactivity(struct SamusData* pData)
+u8 SamusInactivity(struct SamusData* pData)
 {
     return SPOSE_NONE;
 }
 
-u8 samus_update_animation(struct SamusData* pData, u8 unk)
+u8 SamusUpdateAnimation(struct SamusData* pData, u8 slowed)
 {
 
 }
 
-u8 samus_running(struct SamusData* pData)
+u8 SamusRunning(struct SamusData* pData)
 {
     /*u8 new_pose;
     i32 x_velocity;
@@ -2264,8 +2270,8 @@ u8 samus_running(struct SamusData* pData)
 
     if ((gButtonInput & pData->direction) != 0x0)
     {
-        samus_apply_x_acceleration(gSamusPhysics.x_acceleration, x_velocity, pData);
-        samus_aim_cannon(pData);
+        SamusApplyXAcceleration(gSamusPhysics.x_acceleration, x_velocity, pData);
+        SamusAimCannon(pData);
         return SPOSE_NONE;
     }
     else
@@ -2281,39 +2287,39 @@ u8 samus_running(struct SamusData* pData)
     }*/
 }
 
-u8 samus_running_gfx(struct SamusData* pData)
+u8 SamusRunningGFX(struct SamusData* pData)
 {
 
 }
 
-u8 samus_standing(struct SamusData* pData)
+u8 SamusStanding(struct SamusData* pData)
 {
 
 }
 
-u8 samus_standing_gfx(struct SamusData* pData)
+u8 SamusStandingGFX(struct SamusData* pData)
 {
-    u8 unk;
+    u8 animState;
 
-    unk = samus_update_animation(pData, FALSE);
-    if (unk == 0x2)
+    animState = SamusUpdateAnimation(pData, FALSE);
+    if (animState == SAMUS_ANIM_STATE_ENDED)
         pData->curr_anim_frame = 0x0;
 
     return SPOSE_NONE;
 }
 
-u8 samus_turning_around(struct SamusData* pData)
+u8 SamusTurningAround(struct SamusData* pData)
 {
     u8 new_pose;
 
-    if ((gButtonInput & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (gChangedInput & KEY_A) != 0x0 && pData->shinespark_timer != 0x0 && samus_check_collision_above(pData, (i16)((u16)samus_hitbox_data[0x0][0x2] - 0x20)) << 0x18 == 0x0)
+    if ((gButtonInput & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (gChangedInput & KEY_A) != 0x0 && pData->shinespark_timer != 0x0 && SamusCheckCollisionAbove(pData, (i16)((u16)samus_hitbox_data[0x0][0x2] - 0x20)) << 0x18 == 0x0)
     {
         pData->y_position -= 0x20;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
     }
     else
     {
-        if (samus_check_a_pressed(pData) << 0x18 != FALSE)
+        if (SamusCheckAButtonPressed(pData) << 0x18 != FALSE)
             return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
         else
         {
@@ -2336,12 +2342,12 @@ u8 samus_turning_around(struct SamusData* pData)
     }
 }
 
-u8 samus_turning_around_gfx(struct SamusData* pData)
+u8 SamusTurningAroundGFX(struct SamusData* pData)
 {
     u8 unk;
     u16* input;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
     {
         input = &gButtonInput;
@@ -2360,14 +2366,14 @@ u8 samus_shooting_gfx(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
         return SPOSE_STANDING;
     else
         return SPOSE_NONE;
 }
 
-u8 samus_crouching(struct SamusData* pData)
+u8 SamusCrouching(struct SamusData* pData)
 {
     /*u8 unk;
     u16 x_position;
@@ -2375,19 +2381,19 @@ u8 samus_crouching(struct SamusData* pData)
     u16* input;
     u32 timer;
 
-    if ((gButtonInput & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (gChangedInput & KEY_A) != 0x0 && pData->shinespark_timer != 0x0 && samus_check_collision_above(pData, (i16)((u16)array_23a554[0x2] - 0x20)) << 0x18 == 0x0)
+    if ((gButtonInput & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (gChangedInput & KEY_A) != 0x0 && pData->shinespark_timer != 0x0 && SamusCheckCollisionAbove(pData, (i16)((u16)array_23a554[0x2] - 0x20)) << 0x18 == 0x0)
     {
         pData->y_position -= 0x20;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
     }
 
-    unk = samus_check_collision_above(pData, array_23a554[0x2]);
+    unk = SamusCheckCollisionAbove(pData, array_23a554[0x2]);
     if (unk == 0x1)
         x_position = (pData->x_position & 0xFFC0) - (u16)array_23a554[0];
     else if (unk == 0x8)
         x_position = (pData->x_position & 0xFFC0) - (u16)array_23a554[0] + 0x3F;
 
-    if (samus_check_a_pressed(pData) << 0x18 != FALSE && (unk & 0x6) == 0x0)
+    if (SamusCheckAButtonPressed(pData) << 0x18 != FALSE && (unk & 0x6) == 0x0)
     {
         if (unk == 0x1 || unk == 0x8)
             pData->x_position = x_position;
@@ -2413,7 +2419,7 @@ u8 samus_crouching(struct SamusData* pData)
             return SPOSE_MORPHING;
         }
 
-        samus_aim_cannon(pData);
+        SamusAimCannon(pData);
         if (pData->arm_cannon_direction == ACD_UP)
             pData->arm_cannon_direction = ACD_FORWARD;
 
@@ -2449,25 +2455,25 @@ u8 samus_crouching(struct SamusData* pData)
     }*/
 }
 
-u8 samus_turning_around_and_crouching(struct SamusData* pData)
+u8 SamusTurningAroundAndCrouching(struct SamusData* pData)
 {
     u8 unk;
     u16 x_position;
 
-    if ((gButtonInput & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (gChangedInput & KEY_A) != 0x0 && pData->shinespark_timer != 0x0 && samus_check_collision_above(pData, (i16)((u16)samus_hitbox_data[0x0][0x2] - 0x20)) << 0x18 == 0x0)
+    if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A && pData->shinespark_timer != 0x0 && SamusCheckCollisionAbove(pData, (i16)((u16)samus_hitbox_data[0x0][0x2] - 0x20)) << 0x18 == 0x0)
     {
         pData->y_position -= 0x20;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
     }
     else
     {
-        unk = samus_check_collision_above(pData, samus_hitbox_data[0x0][0x2]);
+        unk = SamusCheckCollisionAbove(pData, samus_hitbox_data[0x0][0x2]);
         if (unk == 0x1)
             x_position = (pData->x_position & 0xFFC0) - (u16)samus_hitbox_data[0x0][0x0];
         else if (unk == 0x8)
             x_position = (pData->x_position & 0xFFC0) - (u16)samus_hitbox_data[0x0][0x0] + 0x3F;
 
-        if (samus_check_a_pressed(pData) << 0x18 != FALSE && (unk & 0x6) == 0x0)
+        if (SamusCheckAButtonPressed(pData) << 0x18 != FALSE && (unk & 0x6) == 0x0)
         {
             if (unk == 0x1 || unk == 0x8)
                 pData->x_position = x_position;
@@ -2496,12 +2502,12 @@ u8 samus_turning_around_and_crouching(struct SamusData* pData)
     }
 }
 
-u8 samus_turning_around_and_crouching_gfx(struct SamusData* pData)
+u8 SamusTurningAroundAndCrouchingGFX(struct SamusData* pData)
 {
-    u8 unk;
+    u8 animState;
 
-    unk = samus_update_animation(pData, FALSE);
-    if (unk == 0x2)
+    animState = SamusUpdateAnimation(pData, FALSE);
+    if (animState == SAMUS_ANIM_STATE_ENDED)
     {
         if (gEquipment.suit_type == SUIT_SUITLESS)
             return SPOSE_CROUCHING_SUITLESS;
@@ -2512,18 +2518,18 @@ u8 samus_turning_around_and_crouching_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_shooting_and_crouching_gfx(struct SamusData* pData)
+u8 SamusShootingAndCrouchingGFX(struct SamusData* pData)
 {
-    u8 unk;
+    u8 animState;
 
-    unk = samus_update_animation(pData, FALSE);
-    if (unk == 0x2)
+    animState = SamusUpdateAnimation(pData, FALSE);
+    if (animState == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_CROUCHING;
     else
         return SPOSE_NONE;
 }
 
-u8 samus_skidding(struct SamusData* pData)
+u8 SamusSkidding(struct SamusData* pData)
 {
     i32 velocity;
 
@@ -2566,12 +2572,12 @@ u8 samus_skidding(struct SamusData* pData)
     }
 }
 
-u8 samus_midair(struct SamusData* pData)
+u8 SamusMidAir(struct SamusData* pData)
 {
 
 }
 
-u8 samus_midair_gfx(struct SamusData* pData)
+u8 SamusMidAirGFX(struct SamusData* pData)
 {
     u8 unk;
 
@@ -2586,21 +2592,21 @@ u8 samus_midair_gfx(struct SamusData* pData)
             pData->curr_anim_frame = 0x2;
     }
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
         pData->curr_anim_frame = 0x4;
 
     return SPOSE_NONE;
 }
 
-u8 samus_turning_around_midair(struct SamusData* pData)
+u8 SamusTurningAroundMidAir(struct SamusData* pData)
 {
-    if ((gChangedInput & KEY_A) != 0x0)
+    if (gChangedInput & KEY_A)
     {
         if (pData->shinespark_timer != 0x0)
             return SPOSE_DELAY_BEFORE_SHINESPARKING;
 
-        if ((gButtonInput & (KEY_UP | KEY_DOWN)) == 0x0)
+        if (!(gButtonInput & (KEY_UP | KEY_DOWN)))
         {
             pData->pose = SPOSE_SPINNING;
             pData->direction ^= (KEY_RIGHT | KEY_LEFT);
@@ -2618,18 +2624,18 @@ u8 samus_turning_around_midair(struct SamusData* pData)
     }
     else
     {
-        if ((gButtonInput & KEY_A) == 0x0 && 0x0 < pData->y_velocity)
+        if (!(gButtonInput & KEY_A) && 0x0 < pData->y_velocity)
             pData->y_velocity = 0x0;
         return SPOSE_NONE;
     }
 }
 
-u8 samus_turning_around_midair_gfx(struct SamusData* pData)
+u8 SamusTurningAroundMidAirGFX(struct SamusData* pData)
 {
-    u8 unk;
+    u8 animState;
 
-    unk = samus_update_animation(pData, FALSE);
-    if (unk == 0x2)
+    animState = SamusUpdateAnimation(pData, FALSE);
+    if (animState == SAMUS_ANIM_STATE_ENDED)
     {
         pData->forced_movement = 0x2;
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -2638,12 +2644,12 @@ u8 samus_turning_around_midair_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_starting_spin_jump_gfx(struct SamusData* pData)
+u8 SamusStartingSpinJumpGFX(struct SamusData* pData)
 {
-    u8 unk;
+    u8 animState;
 
-    unk = samus_update_animation(pData, FALSE);
-    if (unk == 0x2)
+    animState = SamusUpdateAnimation(pData, FALSE);
+    if (animState == SAMUS_ANIM_STATE_ENDED)
     {
         pData->pose = SPOSE_SPINNING;
         pData->curr_anim_frame = 0x0;
@@ -2652,7 +2658,7 @@ u8 samus_starting_spin_jump_gfx(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_spinning(struct SamusData* pData)
+u8 SamusSpinning(struct SamusData* pData)
 {
     /*i32 acceleration;
     u16 direction;
@@ -2672,7 +2678,7 @@ u8 samus_spinning(struct SamusData* pData)
         }
         else
         {
-            samus_aim_cannon(pData);
+            SamusAimCannon(pData);
             acceleration = gSamusPhysics.midair_x_acceleration;
             if ((gEquipment.suit_misc_activation & SMF_SPACE_JUMP) != 0x0 && gSamusPhysics.slowed_by_liquid == FALSE)
             {
@@ -2720,7 +2726,7 @@ u8 samus_spinning(struct SamusData* pData)
                 pData->x_velocity = 0x0;
             }
             else
-                samus_apply_x_acceleration(acceleration, gSamusPhysics.midair_x_velocity_cap, pData);
+                SamusApplyXAcceleration(acceleration, gSamusPhysics.midair_x_velocity_cap, pData);
 
             if ((gButtonInput & KEY_A) == 0x0 && 0x0 < pData->y_velocity)
                 pData->y_velocity = 0x0;
@@ -2730,11 +2736,11 @@ u8 samus_spinning(struct SamusData* pData)
     }*/
 }
 
-u8 samus_spinning_gfx(struct SamusData* pData)
+u8 SamusSpinningGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, gSamusPhysics.slowed_by_liquid);
+    unk = SamusUpdateAnimation(pData, gSamusPhysics.slowed_by_liquid);
     if (unk == 0x2)
         pData->curr_anim_frame = 0x0;
 
@@ -2751,7 +2757,7 @@ u8 samus_spinning_gfx(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_starting_wall_jump(struct SamusData* pData)
+u8 SamusStartingWallJump(struct SamusData* pData)
 {
     u16 input;
 
@@ -2773,11 +2779,11 @@ u8 samus_starting_wall_jump(struct SamusData* pData)
     }
 }
 
-u8 samus_starting_wall_jump_gfx(struct SamusData* pData)
+u8 SamusStartingWallJumpGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
     {
         pData->forced_movement = 0x1;
@@ -2787,7 +2793,7 @@ u8 samus_starting_wall_jump_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_space_jumping_gfx(struct SamusData* pData)
+u8 SamusSpaceJumpingGFX(struct SamusData* pData)
 {
     u8 unk;
 
@@ -2799,19 +2805,19 @@ u8 samus_space_jumping_gfx(struct SamusData* pData)
             SoundPlay(0x6B);
     }
 
-    unk = samus_update_animation(pData, gSamusPhysics.slowed_by_liquid);
+    unk = SamusUpdateAnimation(pData, gSamusPhysics.slowed_by_liquid);
     if (unk == 0x2)
         pData->curr_anim_frame = 0x0;
 
     return SPOSE_NONE;
 }
 
-u8 samus_screw_attacking_gfx(struct SamusData* pData)
+u8 SamusCrewAttackingGFX(struct SamusData* pData)
 {
 
 }
 
-u8 samus_morphing(struct SamusData* pData)
+u8 SamusMorphing(struct SamusData* pData)
 {
     if ((gChangedInput & KEY_UP) != 0x0)
         pData->pose = SPOSE_UNMORPHING;
@@ -2819,18 +2825,18 @@ u8 samus_morphing(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_morphing_gfx(struct SamusData* pData)
+u8 SamusMorphingGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
         return SPOSE_MORPH_BALL;
     else
         return SPOSE_NONE;
 }
 
-u8 samus_morphball(struct SamusData* pData)
+u8 SamusMorphball(struct SamusData* pData)
 {
     /*u8 forced_movement;
 
@@ -2845,13 +2851,13 @@ u8 samus_morphball(struct SamusData* pData)
         pData->forced_movement = forced_movement + 0x1;
     else
     {
-        if ((gChangedInput & KEY_A) != 0x0 && (gEquipment.suit_misc_activation & SMF_HIGH_JUMP) != 0x0 & pData->shinespark_timer != 0x0 && samus_check_collision_above(pData, (i16)((u16)array_23a554[0x5] - 0x40)) << 0x18 == 0x0)
+        if ((gChangedInput & KEY_A) != 0x0 && (gEquipment.suit_misc_activation & SMF_HIGH_JUMP) != 0x0 & pData->shinespark_timer != 0x0 && SamusCheckCollisionAbove(pData, (i16)((u16)array_23a554[0x5] - 0x40)) << 0x18 == 0x0)
         {
             pData->y_position -= 0x20;
             return SPOSE_DELAY_BEFORE_BALLSPARKING;
         }
 
-        if (samus_check_a_pressed(pData) << 0x18 != FALSE)
+        if (SamusCheckAButtonPressed(pData) << 0x18 != FALSE)
         {
             if (pData->forced_movement != 0x1)
                 return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -2870,7 +2876,7 @@ u8 samus_morphball(struct SamusData* pData)
 
         if ((gChangedInput & KEY_UP) != 0x0)
         {
-            forced_movement = samus_check_collision_above(pData, array_23a554[0x2]);
+            forced_movement = SamusCheckCollisionAbove(pData, array_23a554[0x2]);
             if (forced_movement == 0x1)
             {
                 pData->x_position = (u16)(pData->x_position + array_23a554[0x0] & 0xFFC0) - array_23a554[0x0] + 0x40;
@@ -2917,7 +2923,7 @@ u8 samus_morphball(struct SamusData* pData)
     return SPOSE_NONE;*/
 }
 
-u8 samus_rolling(struct SamusData* pData)
+u8 SamusRolling(struct SamusData* pData)
 {
     /*i32 velocity;
 
@@ -2928,7 +2934,7 @@ u8 samus_rolling(struct SamusData* pData)
     }
     else
     {
-        if (samus_check_collision_above(pData, array_23a554[0x2]) << 0x18 == 0x0 && (gChangedInput & KEY_UP) != 0x0)
+        if (SamusCheckCollisionAbove(pData, array_23a554[0x2]) << 0x18 == 0x0 && (gChangedInput & KEY_UP) != 0x0)
         {
             if (gSamusPhysics.slowed_by_liquid != FALSE)
                 SoundPlay(0x78);
@@ -2947,7 +2953,7 @@ u8 samus_rolling(struct SamusData* pData)
                     velocity = 0xA0;
                     pData->shinespark_timer = 0x6;
                 }
-                samus_apply_x_acceleration(gSamusPhysics.x_acceleration, velocity, pData);
+                SamusApplyXAcceleration(gSamusPhysics.x_acceleration, velocity, pData);
                 return SPOSE_NONE;
             }
             else
@@ -2961,24 +2967,24 @@ u8 samus_rolling(struct SamusData* pData)
     }*/
 }
 
-u8 samus_rolling_gfx(struct SamusData* pData)
+u8 SamusRollingGFX(struct SamusData* pData)
 {
-    u8 unk;
+    u8 aimState;
 
-    unk = samus_update_animation(pData, FALSE);
-    if (unk == 0x2)
+    aimState = SamusUpdateAnimation(pData, FALSE);
+    if (aimState == SAMUS_ANIM_STATE_ENDED)
         pData->curr_anim_frame = 0x0;
-    else if (unk == 0x1 && (pData->curr_anim_frame == 0x1 || pData->curr_anim_frame == 0x5))
-        samus_check_set_environmental_effect(pData, 0x0, WANTING_RUNNING_ON_WET_GROUND);
+    else if (aimState == SAMUS_ANIM_STATE_SUB_ENDED && (pData->curr_anim_frame == 0x1 || pData->curr_anim_frame == 0x5))
+        SamusCheckSetEnvironmentalEffect(pData, 0x0, WANTING_RUNNING_ON_WET_GROUND);
 
     return SPOSE_NONE;
 }
 
-u8 samus_unmorphing(struct SamusData* pData)
+u8 SamusUnmorphing(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_check_collision_above(pData, samus_hitbox_data[0x0][0x2]);
+    unk = SamusCheckCollisionAbove(pData, samus_hitbox_data[0x0][0x2]);
     if (unk == 0x0)
     {
         if ((gChangedInput & KEY_A) != 0x0)
@@ -2993,11 +2999,11 @@ u8 samus_unmorphing(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_unmorphing_gfx(struct SamusData* pData)
+u8 SamusUnmorphingGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
     {
         pData->unmorph_palette_timer = 0xF;
@@ -3006,11 +3012,11 @@ u8 samus_unmorphing_gfx(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_morphball_midair(struct SamusData* pData)
+u8 SamusMorphballMidAir(struct SamusData* pData)
 {
     /*u16 direction;
 
-    if ((gChangedInput & KEY_UP) != 0x0 && samus_check_collision_above(pData, array_23a554[0x2]) << 0x18 == 0x0)
+    if ((gChangedInput & KEY_UP) != 0x0 && SamusCheckCollisionAbove(pData, array_23a554[0x2]) << 0x18 == 0x0)
     {
         if (gSamusPhysics.slowed_by_liquid == TRUE)
             SoundPlay(0x78);
@@ -3033,7 +3039,7 @@ u8 samus_morphball_midair(struct SamusData* pData)
     }
 
     if (pData->y_velocity >= 0x0 && (pData->x_velocity != 0x0 || (gButtonInput & pData->direction) != 0x0))
-        samus_apply_x_acceleration(gSamusPhysics.midair_x_acceleration, gSamusPhysics.midair_morphed_x_velocity_cap, pData);
+        SamusApplyXAcceleration(gSamusPhysics.midair_x_acceleration, gSamusPhysics.midair_morphed_x_velocity_cap, pData);
     else
     {
         direction = pData->direction ^ (KEY_RIGHT | KEY_LEFT);
@@ -3045,7 +3051,7 @@ u8 samus_morphball_midair(struct SamusData* pData)
     return SPOSE_NONE;*/
 }
 
-u8 samus_hanging_on_ledge(struct SamusData* pData)
+u8 SamusHangingOnLedge(struct SamusData* pData)
 {
     /*
     // /!\ Wrong code order
@@ -3133,38 +3139,38 @@ u8 samus_hanging_on_ledge(struct SamusData* pData)
     return SPOSE_NONE;*/
 }
 
-u8 samus_hanging_on_ledge_gfx(struct SamusData* pData)
+u8 SamusHangingOnLedgeGFX(struct SamusData* pData)
 {
     u8 anim_state;
 
-    anim_state = samus_update_animation(pData, gSamusPhysics.slowed_by_liquid);
+    anim_state = SamusUpdateAnimation(pData, gSamusPhysics.slowed_by_liquid);
     if (anim_state == SAMUS_ANIM_STATE_ENDED)
         pData->curr_anim_frame = 0x0;
 
     return SPOSE_NONE;
 }
 
-u8 samus_turning_to_aim_while_hanging(struct SamusData* pData)
+u8 SamusTurningToAimWhileHanging(struct SamusData* pData)
 {
 
 }
 
-u8 samus_turning_to_aim_while_hanging_gfx(struct SamusData* pData)
+u8 SamusTurningToAimWhileHangingGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, gSamusPhysics.slowed_by_liquid);
+    unk = SamusUpdateAnimation(pData, gSamusPhysics.slowed_by_liquid);
     if (unk == 0x2)
         return SPOSE_AIMING_WHILE_HANGING;
     else
         return SPOSE_NONE;
 }
 
-u8 samus_hiding_arm_cannon_while_hanging_gfx(struct SamusData* pData)
+u8 SamusHidingArmCannonWhileHangingGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, gSamusPhysics.slowed_by_liquid);
+    unk = SamusUpdateAnimation(pData, gSamusPhysics.slowed_by_liquid);
     if (unk == 0x2)
     {
         pData->direction ^= (KEY_RIGHT | KEY_LEFT);
@@ -3174,16 +3180,16 @@ u8 samus_hiding_arm_cannon_while_hanging_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_aiming_while_hanging(struct SamusData* pData)
+u8 SamusAimingWhileHanging(struct SamusData* pData)
 {
 
 }
 
-u8 samus_pulling_self_up(struct SamusData* pData)
+u8 SamusPullingSelfUp(struct SamusData* pData)
 {
     u16 offset;
 
-    offset = samus_pulling_self_up_velocity[pData->curr_anim_frame];
+    offset = SamusPullingSelfUp_velocity[pData->curr_anim_frame];
     if (pData->timer != 0x0)
         offset >>= 0x1;
 
@@ -3191,11 +3197,11 @@ u8 samus_pulling_self_up(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_pulling_self_up_gfx(struct SamusData* pData)
+u8 SamusPullingSelfUpGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, pData->timer);
+    unk = SamusUpdateAnimation(pData, pData->timer);
     if (unk == 0x2)
     {
         pData->y_position = (pData->y_position & 0xFFC0) - 0x1;
@@ -3205,7 +3211,7 @@ u8 samus_pulling_self_up_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_pulling_self_forward(struct SamusData* pData)
+u8 SamusPullingSelfForward(struct SamusData* pData)
 {
     if ((pData->direction & KEY_RIGHT) != 0x0)
         pData->x_position += 0x4;
@@ -3215,11 +3221,11 @@ u8 samus_pulling_self_forward(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_pulling_self_forward_gfx(struct SamusData* pData)
+u8 SamusPullingSelfForwardGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
 
     if (unk == 0x2)
     {
@@ -3232,11 +3238,11 @@ u8 samus_pulling_self_forward_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_pulling_self_into_morphball_tunnel_gfx(struct SamusData* pData)
+u8 SamusPullingSelfIntoMorphballTunnelGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, pData->timer);
+    unk = SamusUpdateAnimation(pData, pData->timer);
     if (unk == 0x2)
     {
         if ((pData->direction & KEY_RIGHT) != 0x0)
@@ -3252,17 +3258,17 @@ u8 samus_pulling_self_into_morphball_tunnel_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_using_an_elevator(struct SamusData* pData)
+u8 SamusUsingAnElevator(struct SamusData* pData)
 {
     // https://decomp.me/scratch/ZYuqG
 }
 
-u8 samus_using_an_elevator_gfx(struct SamusData* pData)
+u8 SamusUsingAnElevatorGFX(struct SamusData* pData)
 {
 
 }
 
-u8 samus_facing_the_foreground(struct SamusData* pData)
+u8 SamusFacingTheForeground(struct SamusData* pData)
 {
     u16 direction;
 
@@ -3277,7 +3283,7 @@ u8 samus_facing_the_foreground(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_turning_from_facing_foreground_gfx(struct SamusData* pData)
+u8 SamusTurningFromFacningForegroundGFX(struct SamusData* pData)
 {
     if (pData->anim_duration_counter >= 0x2)
     {
@@ -3294,12 +3300,12 @@ u8 samus_turning_from_facing_foreground_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_delay_before_shinesparking_gfx(struct SamusData* pData)
+u8 SamusDelayBeforeShinesparkingGFX(struct SamusData* pData)
 {
     u8 unk;
     u16* input;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
     {
         input = &gButtonInput;
@@ -3311,17 +3317,17 @@ u8 samus_delay_before_shinesparking_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_shinesparking(struct SamusData* pData)
+u8 SamusShinesparking(struct SamusData* pData)
 {
 
 }
 
-u8 samus_shinesparking_gfx(struct SamusData* pData)
+u8 SamusShinesparkingGFX(struct SamusData* pData)
 {
 
 }
 
-u8 samus_shinespark_collision_gfx(struct SamusData* pData)
+u8 SamusShinesparkCollisionGFX(struct SamusData* pData)
 {
     if (pData->anim_duration_counter >= 0x11)
         return SPOSE_DELAY_AFTER_SHINESPARKING;
@@ -3329,33 +3335,33 @@ u8 samus_shinespark_collision_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_delay_after_shinesparking_gfx(struct SamusData* pData)
+u8 SamusDelayAfterShinesparkingGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
     else
         return SPOSE_NONE;
 }
 
-u8 samus_delay_before_ballsparking(struct SamusData* pData)
+u8 SamusDelayBeforeBallsparking(struct SamusData* pData)
 {
 
 }
 
-u8 samus_delay_before_ballsparking_gfx(struct SamusData* pData)
+u8 SamusDelayBeforeBallsparkingGFX(struct SamusData* pData)
 {
 
 }
 
-u8 samus_ballsparking_gfx(struct SamusData* pData)
+u8 SamusBallsparkingGFX(struct SamusData* pData)
 {
 
 }
 
-u8 samus_ballspark_collision_gfx(struct SamusData* pData)
+u8 SamusBallsparkCollisionGFX(struct SamusData* pData)
 {
     if (pData->anim_duration_counter >= 0x11)
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -3363,7 +3369,7 @@ u8 samus_ballspark_collision_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_on_zipline(struct SamusData* pData)
+u8 SamusOnZipline(struct SamusData* pData)
 {
     u16* input;
 
@@ -3378,25 +3384,25 @@ u8 samus_on_zipline(struct SamusData* pData)
         input = &gButtonInput;
         if (((pData->direction ^ (KEY_RIGHT | KEY_LEFT)) & *input) == 0x0)
         {
-            samus_aim_cannon(pData);
+            SamusAimCannon(pData);
             return SPOSE_NONE;
         }
         return SPOSE_TURNING_ON_ZIPLINE;
     }
 }
 
-u8 samus_shooting_on_zipline_gfx(struct SamusData* pData)
+u8 SamusShootingOnZiplineGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
         return SPOSE_ON_ZIPLINE;
     else
         return SPOSE_NONE;
 }
 
-u8 samus_morphball_on_zipline(struct SamusData* pData)
+u8 SamusMorphballOnZipline(struct SamusData* pData)
 {
     u16 direction;
 
@@ -3411,7 +3417,7 @@ u8 samus_morphball_on_zipline(struct SamusData* pData)
     }
 }
 
-u8 samus_saving_loading_game(struct SamusData* pData)
+u8 SamusSavingLoadingGame(struct SamusData* pData)
 {
     if (pData->timer != 0x0)
     {
@@ -3422,11 +3428,11 @@ u8 samus_saving_loading_game(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_turning_around_to_download_map_data_gfx(struct SamusData* pData)
+u8 SamusTurningAround_to_download_map_data_gfx(struct SamusData* pData)
 {
     u8 anim_state;
 
-    anim_state = samus_update_animation(pData, FALSE);
+    anim_state = SamusUpdateAnimation(pData, FALSE);
     if (anim_state == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_DOWNLOADING_MAP_DATA; // Set downloading if turning around ended
     else
@@ -3439,7 +3445,7 @@ u8 samus_turning_around_to_download_map_data_gfx(struct SamusData* pData)
  * @param pData Samus Data Pointer
  * @return u8 New Pose
  */
-u8 samus_getting_hurt(struct SamusData* pData)
+u8 SamusGettingHurt(struct SamusData* pData)
 {
     u8 forced_movement;
 
@@ -3462,18 +3468,18 @@ u8 samus_getting_hurt(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_getting_hurt_gfx(struct SamusData* pData)
+u8 SamusGettingHurtGFX(struct SamusData* pData)
 {
     u8 anim_state;
 
-    anim_state = samus_update_animation(pData, FALSE);
+    anim_state = SamusUpdateAnimation(pData, FALSE);
     if (anim_state == SAMUS_ANIM_STATE_ENDED)
         pData->curr_anim_frame--; // Alternate between last frames
 
     return SPOSE_NONE;
 }
 
-u8 samus_getting_knocked_back(struct SamusData* pData)
+u8 SamusGettingKnockedBack(struct SamusData* pData)
 {
     if (pData->timer >= 0xD)
     {
@@ -3489,16 +3495,16 @@ u8 samus_getting_knocked_back(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_dying(struct SamusData* pData)
+u8 SamusDying(struct SamusData* pData)
 {
 
 }
 
-u8 samus_crouching_to_crawl_gfx(struct SamusData* pData)
+u8 SamusCrouchingToCrawlGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
     {
         if ((pData->direction & KEY_RIGHT) != 0x0)
@@ -3512,10 +3518,10 @@ u8 samus_crouching_to_crawl_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_crawling_stopped(struct SamusData* pData)
+u8 SamusCrawlingStopped(struct SamusData* pData)
 {
     pData->x_velocity = 0x0;
-    if (samus_check_collision_above(pData, samus_hitbox_data[0x0][0x2]) << 0x18 == 0x0)
+    if (SamusCheckCollisionAbove(pData, samus_hitbox_data[0x0][0x2]) << 0x18 == 0x0)
         return SPOSE_UNCROUCHING_FROM_CRAWLING;
     else if (gSamusPhysics.has_new_projectile != 0x0)
         return SPOSE_SHOOTING_WHILE_CRAWLING;
@@ -3527,20 +3533,20 @@ u8 samus_crawling_stopped(struct SamusData* pData)
         return SPOSE_TURNING_AROUND_WHILE_CRAWLING;
 }
 
-u8 samus_starting_to_crawl_gfx(struct SamusData* pData)
+u8 SamusStartingToCrawlGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
         return SPOSE_CRAWLING_STOPPED;
     else
         return SPOSE_NONE;
 }
 
-u8 samus_crawling(struct SamusData* pData)
+u8 SamusCrawling(struct SamusData* pData)
 {
-    if (samus_check_collision_above(pData, samus_hitbox_data[0x0][0x2]) << 0x18 == 0x0)
+    if (SamusCheckCollisionAbove(pData, samus_hitbox_data[0x0][0x2]) << 0x18 == 0x0)
         return SPOSE_UNCROUCHING_FROM_CRAWLING;
     else
     {
@@ -3550,7 +3556,7 @@ u8 samus_crawling(struct SamusData* pData)
         {
             if ((gButtonInput & pData->direction) != 0x0)
             {
-                samus_apply_x_acceleration(gSamusPhysics.x_acceleration, 0x20, pData);
+                SamusApplyXAcceleration(gSamusPhysics.x_acceleration, 0x20, pData);
                 return SPOSE_NONE;
             }
             else
@@ -3564,15 +3570,15 @@ u8 samus_crawling(struct SamusData* pData)
     }
 }
 
-u8 samus_dying_gfx(struct SamusData* pData)
+u8 SamusDyingGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
         pData->curr_anim_frame = 0x0;
     else if (unk == 0x1 && (pData->curr_anim_frame == 0x1 || pData->curr_anim_frame == 0x4))
-        samus_check_set_environmental_effect(pData, 0x0, WANTING_RUNNING_ON_WET_GROUND);
+        SamusCheckSetEnvironmentalEffect(pData, 0x0, WANTING_RUNNING_ON_WET_GROUND);
 
     if (*(u16*)&pData->anim_duration_counter == 0x1)
         SoundPlay(0x9E);
@@ -3580,7 +3586,7 @@ u8 samus_dying_gfx(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_turning_around_while_crawling(struct SamusData* pData)
+u8 SamusTurningAroundWhileCrawling(struct SamusData* pData)
 {
     if (gSamusPhysics.has_new_projectile != 0x0)
         return SPOSE_SHOOTING_WHILE_CRAWLING;
@@ -3588,29 +3594,29 @@ u8 samus_turning_around_while_crawling(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_crawling_gfx(struct SamusData* pData)
+u8 SamusCrawlingGFX(struct SamusData* pData)
 {
-    u8 unk;
+    u8 animState;
 
-    unk = samus_update_animation(pData, FALSE);
-    if (unk == 0x2)
+    animState = SamusUpdateAnimation(pData, FALSE);
+    if (unk == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_STARTING_TO_CRAWL;
     else
         return SPOSE_NONE;
 }
 
-u8 samus_grabbing_a_ledge_suitless_gfx(struct SamusData* pData)
+u8 SamusGrabbingALedgeSuitlessGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
         return SPOSE_HANGING_ON_LEDGE;
     else
         return SPOSE_NONE;
 }
 
-u8 samus_facing_the_background(struct SamusData* pData)
+u8 SamusFacingTheBackground(struct SamusData* pData)
 {
     u16 direction;
 
@@ -3624,12 +3630,12 @@ u8 samus_facing_the_background(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_turning_from_facing_the_background_gfx(struct SamusData* pData)
+u8 SamusTurningFromFacingTheBackgroundGFX(struct SamusData* pData)
 {
     u8 unk;
     u16* input;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
     {
         input = &gButtonInput;
@@ -3646,18 +3652,18 @@ u8 samus_turning_from_facing_the_background_gfx(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 samus_turning_to_enter_escape_ship_gfx(struct SamusData* pData)
+u8 SamusTurningToEnterEscapeShipGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    unk = samus_update_animation(pData, FALSE);
+    unk = SamusUpdateAnimation(pData, FALSE);
     if (unk == 0x2)
         return SPOSE_IN_ESCAPE_SHIP;
     else
         return SP_NONE;
 }
 
-u8 samus_execute_pose_subroutine(struct SamusData* pData)
+u8 SamusExecutePoseSubroutine(struct SamusData* pData)
 {
     u8 pose;
     u8 timer;
@@ -3669,7 +3675,7 @@ u8 samus_execute_pose_subroutine(struct SamusData* pData)
     pEquipment = &gEquipment;
     pHazard = &gSamusHazardDamage;
 
-    if (samus_take_hazard_damage(pData, pEquipment, pHazard) << 0x18)
+    if (SamusTakeHazardDamage(pData, pEquipment, pHazard) << 0x18)
         return SPOSE_HURT_REQUEST;
     else
     {
@@ -3684,14 +3690,14 @@ u8 samus_execute_pose_subroutine(struct SamusData* pData)
             pData->shinespark_timer--;
         }
         if (pEquipment->suit_type != SUIT_SUITLESS)
-            samus_set_highlighted_weapon(pData, pWeapon, pEquipment);
+            SamusSetHighlightedWeapon(pData, pWeapon, pEquipment);
 
-        samus_set_spinning_pose(pData, pEquipment);
+        SamusSetSpinningPose(pData, pEquipment);
         samus_spawn_new_projectile(pData, pWeapon, pEquipment);
         samus_pose_functions_pointers[pData->pose](pData);
         if (pose == SPOSE_NONE)
             samus_pose_gfx_functions_pointers[pData->pose](pData);
-        samus_check_shinesparking(pData);
+        SamusCheckShinesparking(pData);
     }
 
     return pose;
@@ -3702,22 +3708,22 @@ u8 samus_execute_pose_subroutine(struct SamusData* pData)
  * 
  * @param pData Samus Data Pointer
  */
-void samus_update_velocity_position(struct SamusData* pData)
+void SamusUpdateVelocityPosition(struct SamusData* pData)
 {
 
 }
 
-void samus_update_graphics_oam(struct SamusData* pData, u8 direction)
+void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
 {
 
 }
 
-void samus_update_palette(struct SamusData* pData)
+void SamusUpdatePalette(struct SamusData* pData)
 {
 
 }
 
-void samus_check_play_low_health_sound(void)
+void SamusCheckPlayLowHealthSound(void)
 {
     struct SamusData* pData;
     struct Equipment* pEquipment;
@@ -3729,7 +3735,7 @@ void samus_check_play_low_health_sound(void)
         SoundPlay(0x82);
 }
 
-void samus_update_draw_distance_and_standing_status(struct SamusData* pData, struct SamusPhysics* pPhysics)
+void SamusUpdateDrawDistanceAndStandingStatus(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
     u8 offset;
     u8 standing;
@@ -3744,17 +3750,17 @@ void samus_update_draw_distance_and_standing_status(struct SamusData* pData, str
         pData->standing_status = standing;
 }
 
-void samus_update_arm_cannon_position_offset(u8 direction)
+void SamusUpdateArmCannonPositionOffset(u8 direction)
 {
 
 }
 
-void samus_init(void)
+void SamusInit(void)
 {
 
 }
 
-void samus_draw(void)
+void SamusDraw(void)
 {
 
 }

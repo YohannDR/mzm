@@ -60,7 +60,7 @@ void squeept_detect_samus(void)
         gCurrentSprite.timer1--;
     else
     {
-        nsab = sprite_util_check_samus_near_sprite_above_below(0x200, 0x180);
+        nsab = SpriteUtilCheckSamusNearSpriteAboveBelow(0x200, 0x180);
         if (nsab == NSAB_ABOVE)
         {
             gCurrentSprite.pose = 0x35;
@@ -77,7 +77,7 @@ void squeept_go_up(void)
 
 void squeept_turn_around(void)
 {
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         squeept_going_down_gfx_init();
         gCurrentSprite.pose = 0x39;
@@ -102,7 +102,7 @@ void squeept_go_down(void)
         gCurrentSprite.y_position += velocity;
     }
 
-    if (sprite_util_check_in_room_effect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_BIG) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+    if (SpriteUtilCheckInRoomEffect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_BIG) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         SoundPlay(0x156);
 
     if (gCurrentSprite.y_position_spawn < gCurrentSprite.y_position)
@@ -122,10 +122,10 @@ void squeept(void)
     }
 
     if (gCurrentSprite.freeze_timer != 0x0)
-        sprite_util_update_freeze_timer();
+        SpriteUtilUpdateFreezeTimer();
     else
     {
-        if (!sprite_util_is_sprite_stunned())
+        if (!SpriteUtilIsSpriteStunned())
         {
             switch (gCurrentSprite.pose)
             {
@@ -146,7 +146,7 @@ void squeept(void)
                     squeept_go_down();
                     break;
                 default:
-                    sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
             }
         }
     }

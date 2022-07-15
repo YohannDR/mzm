@@ -39,20 +39,20 @@ void deorem_sprite_debris_spawn(u16 y_position, u16 x_position, u8 timer)
     switch (timer)
     {
         case 0x1:
-            sprite_debris_init(0x0, 0x11, y_position - 0x40, x_position);
-            sprite_debris_init(0x0, 0x12, y_position - 0x10, x_position + 0x3E);
+            SpriteDebrisInit(0x0, 0x11, y_position - 0x40, x_position);
+            SpriteDebrisInit(0x0, 0x12, y_position - 0x10, x_position + 0x3E);
             break;
         case 0x3:
-            sprite_debris_init(0x0, 0x13, y_position + 0x28, x_position - 0x5C);
-            sprite_debris_init(0x0, 0x4, y_position, x_position + 0x1E);
+            SpriteDebrisInit(0x0, 0x13, y_position + 0x28, x_position - 0x5C);
+            SpriteDebrisInit(0x0, 0x4, y_position, x_position + 0x1E);
             break;
         case 0x7:
-            sprite_debris_init(0x0, 0x11, y_position + 0x14, x_position - 0x14);
-            sprite_debris_init(0x0, 0x12, y_position - 0x14, x_position + 0x6E);
+            SpriteDebrisInit(0x0, 0x11, y_position + 0x14, x_position - 0x14);
+            SpriteDebrisInit(0x0, 0x12, y_position - 0x14, x_position + 0x6E);
             break;
         case 0xC:
-            sprite_debris_init(0x0, 0x13, y_position + 0x28, x_position + 0x1E);
-            sprite_debris_init(0x0, 0x4, y_position - 0x10, x_position - 0x64);
+            SpriteDebrisInit(0x0, 0x13, y_position + 0x28, x_position + 0x1E);
+            SpriteDebrisInit(0x0, 0x4, y_position - 0x10, x_position - 0x64);
     }
 }
 
@@ -73,9 +73,9 @@ void deorem_spawn_charge_beam(u16 y_position, u16 x_position)
     u8 gfx_slot;
 
     gfx_slot = gCurrentSprite.spriteset_gfx_slot;
-    sprite_spawn_primary(PSPRITE_CHARGE_BEAM, 0x0, gfx_slot, y_position, x_position, 0x0);
-    sprite_load_gfx(PSPRITE_CHARGE_BEAM, gfx_slot);
-    sprite_load_pal(PSPRITE_CHARGE_BEAM, gfx_slot, 0x1);
+    SpriteSpawnPrimary(PSPRITE_CHARGE_BEAM, 0x0, gfx_slot, y_position, x_position, 0x0);
+    SpriteLoadGFX(PSPRITE_CHARGE_BEAM, gfx_slot);
+    SpriteLoadPAL(PSPRITE_CHARGE_BEAM, gfx_slot, 0x1);
 }
 
 /**
@@ -138,13 +138,13 @@ void deorem_spawn_going_up(void)
         ram_slot = gCurrentSprite.primary_sprite_ram_slot;
         y_position = gCurrentSprite.y_position;
         x_position = gCurrentSprite.x_position;
-        sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0xB, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0xA, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0x9, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0x8, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0x7, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0x6, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        screen_shake_start_vertical(0x28, 0x81);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xB, gfx_slot, ram_slot, y_position, x_position, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xA, gfx_slot, ram_slot, y_position, x_position, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x9, gfx_slot, ram_slot, y_position, x_position, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x8, gfx_slot, ram_slot, y_position, x_position, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x7, gfx_slot, ram_slot, y_position, x_position, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x6, gfx_slot, ram_slot, y_position, x_position, 0x0);
+        ScreenShakeStartVertical(0x28, 0x81);
         SoundPlay(0x193);
     }
 }
@@ -183,12 +183,12 @@ void deorem_spawn_head_body(void)
         ram_slot = gCurrentSprite.primary_sprite_ram_slot;
         y_position = gCurrentSprite.y_position;
         x_position = gCurrentSprite.x_position;
-        segment_E_slot = sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0xE, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        segment_D_slot = sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0xD, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        segment_C_slot = sprite_spawn_secondary(SSPRITE_DEOREM_SEGMENT, 0xC, gfx_slot, ram_slot, y_position, x_position, 0x0);
+        segment_E_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xE, gfx_slot, ram_slot, y_position, x_position, 0x0);
+        segment_D_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xD, gfx_slot, ram_slot, y_position, x_position, 0x0);
+        segment_C_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xC, gfx_slot, ram_slot, y_position, x_position, 0x0);
         gSpriteData[segment_D_slot].timer1 = segment_C_slot;
         gSpriteData[segment_E_slot].timer1 = segment_D_slot;
-        eye_slot = sprite_spawn_secondary(SSPRITE_DEOREM_EYE, 0x0, gfx_slot, ram_slot, y_position - 0x1C, x_position - 0x4, 0x0);
+        eye_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_EYE, 0x0, gfx_slot, ram_slot, y_position - 0x1C, x_position - 0x4, 0x0);
         if (eye_slot == 0xFF)
             gCurrentSprite.status = 0x0;
         else
@@ -240,7 +240,7 @@ void deorem_death(void)
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
-        sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position + 0x40, FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+        SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position + 0x40, FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
 }
 
 void deorem_check_leaving_ceiling_anim_ended(void)
@@ -545,6 +545,6 @@ void deorem_thorn(void)
             deorem_thorn_movement();
             break;
         default:
-            sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
     }
 }

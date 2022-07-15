@@ -38,7 +38,7 @@ void water_drop(void)
             break;
 
         case 0x9:
-            if (sprite_util_check_end_current_sprite_anim() != FALSE)
+            if (SpriteUtillCheckEndCurrentSpriteAnim() != FALSE)
             {
                 gCurrentSprite.oam_pointer = water_drop_oam_falling_33bc94;
                 gCurrentSprite.curr_anim_frame = 0x0;
@@ -50,7 +50,7 @@ void water_drop(void)
             break;
 
         case 0x1F:
-            block = sprite_util_check_vertical_collision_at_position_slopes(gCurrentSprite.y_position, gCurrentSprite.x_position);
+            block = SpriteUtilCheckVerticalCollisionAtPosition_slopes(gCurrentSprite.y_position, gCurrentSprite.x_position);
             if (gCurrentAffectingClipdata.hazard == HAZARD_TYPE_WATER)
             {
                 if (gEffectYPosition != 0x0)
@@ -93,7 +93,7 @@ void water_drop(void)
             if (gCurrentSprite.timer2 != 0x0)
                 gCurrentSprite.y_position = gEffectYPosition;
 
-            if (sprite_util_check_end_current_sprite_anim() != FALSE)
+            if (SpriteUtillCheckEndCurrentSpriteAnim() != FALSE)
             {
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.pose = 0x11;

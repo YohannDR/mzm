@@ -1,8 +1,8 @@
 #ifndef SOFTRESET_H
 #define SOFTRESET_H
 
-void softreCallbackSetVBlank(void);
-void check_softreset(void);
-void softreset(void);
+void SoftresetVBlankCallback(void);
+void SoftresetCheck(void);
+void Softreset(void);
 
 #endif /* SOFTRESET_H */

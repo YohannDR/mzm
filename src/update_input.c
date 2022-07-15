@@ -5,7 +5,7 @@
 #include "types.h"
 
 void
-update_input(void)
+UpdateInput(void)
 {
     u16 keys         = KEY_MASK & ~read16(REG_KEY_INPUT);
     gChangedInput  = keys & ~gPreviousButtonInput;

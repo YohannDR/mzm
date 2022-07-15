@@ -151,20 +151,20 @@ void imago_cocoon_falling_before_blocks(void)
         imago_cocoon_falling_movement();
         y_position = gSubSpriteData1.y_position + 0x180;
         x_position = gSubSpriteData1.x_position;
-        sprite_util_check_collision_at_position(y_position, x_position);
+        SpriteUtilCheckCollisionAtPosition(y_position, x_position);
         if (gPreviousCollisionCheck & 0xF0) // Check for solid collision
         {
             imago_cocoon_change_one_ccaa(CCAA_REMOVE_SOLID); // Remove middile block
             gCurrentSprite.pose = 0x23;
             gCurrentSprite.timer1 = 0x0;
-            screen_shake_start_vertical(0x28, 0x81);
+            ScreenShakeStartVertical(0x28, 0x81);
             SoundPlay(0x1A4);
         }
     }
     else
     {
         if (gSubSpriteData1.curr_anim_frame == 0x7 && gSubSpriteData1.anim_duration_counter == 0x6)
-            sprite_spawn_secondary(SSPRITE_IMAGO_CEILING_VINE, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gSubSpriteData1.y_position, gSubSpriteData1.x_position, 0x0);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_CEILING_VINE, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gSubSpriteData1.y_position, gSubSpriteData1.x_position, 0x0);
 
         y_position = gBG1YPosition - 0x40;
         x_position = gSubSpriteData1.x_position;
@@ -176,13 +176,13 @@ void imago_cocoon_falling_before_blocks(void)
             {
                 offset = (rng * 0x8) - 0x5A;
                 x_position -= offset;
-                sprite_debris_init(0x0, 0x5, y_position, x_position);
+                SpriteDebrisInit(0x0, 0x5, y_position, x_position);
             }
             else
             {
                 offset = (rng * 0x8) + 0x5A;
                 x_position -= offset;
-                sprite_debris_init(0x0, 0x5, y_position, x_position);
+                SpriteDebrisInit(0x0, 0x5, y_position, x_position);
             }
         }
         
@@ -192,19 +192,19 @@ void imago_cocoon_falling_before_blocks(void)
             {
                 offset = (rng * 0x4) - 0x96;
                 x_position += offset;
-                sprite_debris_init(0x0, 0x8, y_position, x_position);
+                SpriteDebrisInit(0x0, 0x8, y_position, x_position);
                 offset = (rng * 0x4) - 0x20;
                 x_position -= offset;
-                sprite_debris_init(0x0, 0x6, y_position, x_position);
+                SpriteDebrisInit(0x0, 0x6, y_position, x_position);
             }
             else
             {
                 offset = (rng * 0x4) - 0x82;
                 x_position -= offset;
-                sprite_debris_init(0x0, 0x6, y_position, x_position);
+                SpriteDebrisInit(0x0, 0x6, y_position, x_position);
                 offset = (rng * 0x4) - 0x20;
                 x_position += offset;
-                sprite_debris_init(0x0, 0x8, y_position, x_position);
+                SpriteDebrisInit(0x0, 0x8, y_position, x_position);
             }
         }
     }
@@ -332,14 +332,14 @@ void imago_cocoon_vine_spawn_spore(void)
 
             gfx_slot = gCurrentSprite.spriteset_gfx_slot;
             ram_slot = gCurrentSprite.timer2;
-            sprite_spawn_secondary(SSPRITE_IMAGO_COCOON_SPORE, 0x0, gfx_slot, ram_slot, y_position, x_position, status);
-            sprite_spawn_secondary(SSPRITE_IMAGO_COCOON_SPORE, 0x1, gfx_slot, ram_slot, y_position, x_position, status);
-            sprite_spawn_secondary(SSPRITE_IMAGO_COCOON_SPORE, 0x2, gfx_slot, ram_slot, y_position, x_position, status);
-            sprite_spawn_secondary(SSPRITE_IMAGO_COCOON_SPORE, 0x3, gfx_slot, ram_slot, y_position, x_position, status);
-            sprite_spawn_secondary(SSPRITE_IMAGO_COCOON_SPORE, 0x4, gfx_slot, ram_slot, y_position, x_position, status);
-            sprite_spawn_secondary(SSPRITE_IMAGO_COCOON_SPORE, 0x5, gfx_slot, ram_slot, y_position, x_position, status);
-            sprite_spawn_secondary(SSPRITE_IMAGO_COCOON_SPORE, 0x6, gfx_slot, ram_slot, y_position, x_position, status);
-            sprite_spawn_secondary(SSPRITE_IMAGO_COCOON_SPORE, 0x7, gfx_slot, ram_slot, y_position, x_position, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x0, gfx_slot, ram_slot, y_position, x_position, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x1, gfx_slot, ram_slot, y_position, x_position, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x2, gfx_slot, ram_slot, y_position, x_position, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x3, gfx_slot, ram_slot, y_position, x_position, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x4, gfx_slot, ram_slot, y_position, x_position, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x5, gfx_slot, ram_slot, y_position, x_position, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x6, gfx_slot, ram_slot, y_position, x_position, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x7, gfx_slot, ram_slot, y_position, x_position, status);
         }
     }
 }
@@ -440,7 +440,7 @@ void imago_cocoon_spore_before_spawning(void)
         if (gCurrentSprite.room_slot == 0x0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && gCurrentSprite.curr_anim_frame == 0x0 && gCurrentSprite.anim_duration_counter == 0x1)
             SoundPlay(0x1A0);
 
-        if (sprite_util_check_end_current_sprite_anim())
+        if (SpriteUtillCheckEndCurrentSpriteAnim())
         {
             gCurrentSprite.oam_pointer = imago_cocoon_spore_oam_2e0bf8;
             gCurrentSprite.anim_duration_counter = 0x0;
@@ -504,7 +504,7 @@ void imago_cocoon_spore_exploding_gfx_init(void)
 void imago_cocoon_spore_check_exploding_anim_ended(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
-    if (sprite_util_check_end_current_sprite_anim())
+    if (SpriteUtillCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0x0;
 }
 
@@ -546,7 +546,7 @@ u8 winged_ripper_imago_collision(void)
         imago_left = imago_x + pSprite->hitbox_left_offset;
         imago_right = imago_x + pSprite->hitbox_right_offset;
 
-        if (sprite_util_check_objects_touching(sprite_top, sprite_bottom, sprite_left, sprite_right, imago_top, imago_bottom, imago_left, imago_right))
+        if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, imago_top, imago_bottom, imago_left, imago_right))
         {
             gCurrentSprite.pose = 0x62;
             colliding = TRUE;
@@ -602,7 +602,7 @@ void winged_ripper_death(void)
             gSamusData.standing_status = STANDING_MIDAIR;
         gCurrentSprite.standing_on_sprite = FALSE;
     }
-    sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position + 0x8, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position + 0x8, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
 }
 
 void imago_cocoon(void)
@@ -629,7 +629,7 @@ void imago_cocoon(void)
     }
 
     if (gCurrentSprite.pose > 0x24)
-        sprite_util_sync_current_sprite_position_with_sub_sprite1_position();
+        SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position();
     else
         imago_cocoon_update_position_and_anim();
 }
@@ -657,7 +657,7 @@ void imago_cocoon_vine(void)
     }
 
     if (gCurrentSprite.pose == 0x67)
-        sprite_util_sync_current_sprite_position_with_sub_sprite1_position();
+        SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position();
     else
         imago_cocoon_update_position_and_anim();
 }
@@ -685,8 +685,8 @@ void imago_cocoon_spore(void)
             imago_cocoon_spore_check_exploding_anim_ended();
             break;
         default:
-            sprite_util_sprite_death(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
-            if (gCurrentSprite.status & SPRITE_STATUS_EXISTS && sprite_util_count_drops() > 0x1)
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+            if (gCurrentSprite.status & SPRITE_STATUS_EXISTS && SpriteUtilCountDrops() > 0x1)
                 gCurrentSprite.status = 0x0; // Anti lag measure
     }
 }
@@ -695,11 +695,11 @@ void winged_ripper(void)
 {
     if (gCurrentSprite.freeze_timer != 0x0)
     {
-        sprite_util_unfreeze_anim_easy();
+        SpriteUtilUnfreezeAnimEasy();
         if (!(winged_ripper_imago_collision() << 0x18))
             return;
     }
-    if (!sprite_util_is_sprite_stunned())
+    if (!SpriteUtilIsSpriteStunned())
     {
         switch (gCurrentSprite.pose)
         {
