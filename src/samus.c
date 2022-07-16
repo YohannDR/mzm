@@ -722,7 +722,7 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 default_offse
     {
         gSamusEnvirnmentalEffects[offset].type = effect;
         gSamusEnvirnmentalEffects[offset].currentAnimationFrame = 0x0;
-        gSamusEnvirnmentalEffects[offset].animationDuratoinCounter = 0x0;
+        gSamusEnvirnmentalEffects[offset].animationDurationCounter = 0x0;
         gSamusEnvirnmentalEffects[offset].xPosition = xPosition;
         gSamusEnvirnmentalEffects[offset].yPosition = yPosition;
     }
@@ -833,7 +833,7 @@ void SamusUpdateJumpVelocity(struct SamusData* pData, struct SamusData* pCopy, s
         case SPOSE_MORPH_BALL:
         case SPOSE_ROLLING:
             pData->currentAnimationFrame = pCopy->currentAnimationFrame;
-            pData->animationDuratoinCounter = pCopy->animationDuratoinCounter;
+            pData->animationDurationCounter = pCopy->animationDurationCounter;
         case SPOSE_MORPHING:
             if (pCopy->forcedMovement == 0xA)
             {
@@ -1481,13 +1481,13 @@ void SamusCopyData(struct SamusData* pData_)
     pData->elevatorDirection = 0x0;
     pData->xVelocity = 0x0;
     pData->yVelocity = 0x0;
-    pData->animationDuratoinCounter = 0x0;
+    pData->animationDurationCounter = 0x0;
     pData->currentAnimationFrame = 0x0;
 
     if (pData->shinesparkTimer != 0xB4)
         pScrew->flag = SCREW_SPEED_FLAG_NONE;
 
-    pScrew->animationDuratoinCounter = 0x0;
+    pScrew->animationDurationCounter = 0x0;
     pScrew->currentAnimationFrame = 0x0;
 }
 
@@ -1552,7 +1552,7 @@ void SamusUpdate(void)
     pData = &gSamusData;
 
     if (0x1 < gGameModeSub1)
-        pData->animationDuratoinCounter++;
+        pData->animationDurationCounter++;
     
     SamusUpdatePhysics(pData);
     new_pose = SamusExecutePoseSubroutine(pData);
@@ -2584,7 +2584,7 @@ u8 SamusMidAirGFX(struct SamusData* pData)
     if (pData->yVelocity >= 0x0)
     {
         if (pData->currentAnimationFrame == 0x2)
-            pData->animationDuratoinCounter = 0x0;
+            pData->animationDurationCounter = 0x0;
     }
     else
     {
@@ -2611,7 +2611,7 @@ u8 SamusTurningAroundMidAir(struct SamusData* pData)
             pData->pose = SPOSE_SPINNING;
             pData->direction ^= (KEY_RIGHT | KEY_LEFT);
             pData->currentAnimationFrame = 0x0;
-            pData->animationDuratoinCounter = 0x0;
+            pData->animationDurationCounter = 0x0;
             pData->turning = FALSE;
             return SPOSE_NONE;
         }
@@ -2744,7 +2744,7 @@ u8 SamusSpinningGFX(struct SamusData* pData)
     if (unk == 0x2)
         pData->currentAnimationFrame = 0x0;
 
-    if (*(u16*)&pData->animationDuratoinCounter == 0x1)
+    if (*(u16*)&pData->animationDurationCounter == 0x1)
     {
         if (gSamusPhysics.slowedByLiquid != FALSE)
             SoundPlay(0x92);
@@ -2797,7 +2797,7 @@ u8 SamusSpaceJumpingGFX(struct SamusData* pData)
 {
     u8 unk;
 
-    if (*(u16*)&pData->animationDuratoinCounter == 0x1)
+    if (*(u16*)&pData->animationDurationCounter == 0x1)
     {
         if (gSamusPhysics.slowedByLiquid != FALSE)
             SoundPlay(0x6B);
@@ -3285,7 +3285,7 @@ u8 SamusFacingTheForeground(struct SamusData* pData)
 
 u8 SamusTurningFromFacningForegroundGFX(struct SamusData* pData)
 {
-    if (pData->animationDuratoinCounter >= 0x2)
+    if (pData->animationDurationCounter >= 0x2)
     {
         if (pData->elevatorDirection != 0x0)
             return SPOSE_USING_AN_ELEVATOR;
@@ -3329,7 +3329,7 @@ u8 SamusShinesparkingGFX(struct SamusData* pData)
 
 u8 SamusShinesparkCollisionGFX(struct SamusData* pData)
 {
-    if (pData->animationDuratoinCounter >= 0x11)
+    if (pData->animationDurationCounter >= 0x11)
         return SPOSE_DELAY_AFTER_SHINESPARKING;
     else
         return SPOSE_NONE;
@@ -3363,7 +3363,7 @@ u8 SamusBallsparkingGFX(struct SamusData* pData)
 
 u8 SamusBallsparkCollisionGFX(struct SamusData* pData)
 {
-    if (pData->animationDuratoinCounter >= 0x11)
+    if (pData->animationDurationCounter >= 0x11)
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
     else
         return SPOSE_NONE;
@@ -3422,7 +3422,7 @@ u8 SamusSavingLoadingGame(struct SamusData* pData)
     if (pData->timer != 0x0)
     {
         pData->currentAnimationFrame = 0x0;
-        pData->animationDuratoinCounter = 0x0;
+        pData->animationDurationCounter = 0x0;
     }
 
     return SPOSE_NONE;
@@ -3580,7 +3580,7 @@ u8 SamusDyingGFX(struct SamusData* pData)
     else if (unk == 0x1 && (pData->currentAnimationFrame == 0x1 || pData->currentAnimationFrame == 0x4))
         SamusCheckSetEnvironmentalEffect(pData, 0x0, WANTING_RUNNING_ON_WET_GROUND);
 
-    if (*(u16*)&pData->animationDuratoinCounter == 0x1)
+    if (*(u16*)&pData->animationDurationCounter == 0x1)
         SoundPlay(0x9E);
 
     return SPOSE_NONE;

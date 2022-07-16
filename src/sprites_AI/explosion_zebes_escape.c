@@ -10,7 +10,7 @@ void ExplosionZebesEscape(void)
     u32 rng_;
     u32 xPosition;
     u32 yPosition;
-    u8 array_offset;
+    u8 arrayOffset;
     u8 variable;
     u32 yOffset;
     u32 xOffset;
@@ -20,39 +20,39 @@ void ExplosionZebesEscape(void)
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.drawDistanceTopOffset = 0x1;
         gCurrentSprite.drawDistanceBottomOffset = 0x1;
-        gCurrentSprite.draw_distance_horizontal_offset = 0x1;
+        gCurrentSprite.drawDistanceHorizontalOffset = 0x1;
         gCurrentSprite.hitboxTopOffset = 0x0;
         gCurrentSprite.hitboxBottomOffset = 0x0;
         gCurrentSprite.hitboxLeftOffset = 0x0;
         gCurrentSprite.hitboxRightOffset = 0x0;
-        gCurrentSprite.samus_collision = SSC_NONE;
-        gCurrentSprite.oam_pointer = large_energy_oam_data_2b2750;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.samusCollision = SSC_NONE;
+        gCurrentSprite.pOam = large_energy_oam_data_2b2750;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x9;
-        gCurrentSprite.array_offset = 0x7;
+        gCurrentSprite.arrayOffset = 0x7;
         gCurrentSprite.workVariable2 = 0x0;
-        gCurrentSprite.yPosition_spawn = gCurrentSprite.yPosition;
-        gCurrentSprite.xPosition_spawn = gCurrentSprite.xPosition;
+        gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
+        gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
         return;
     }
 
-    yPosition = gCurrentSprite.yPosition_spawn;
+    yPosition = gCurrentSprite.yPositionSpawn;
     xPosition = (u16)(gBG1XPosition + 0x1E0);
     rng = gSpriteRNG;
     rng_ = rng & 0x3;
-    array_offset = gCurrentSprite.array_offset;
-    gCurrentSprite.array_offset++;
+    arrayOffset = gCurrentSprite.arrayOffset;
+    gCurrentSprite.arrayOffset++;
     variable = gCurrentSprite.workVariable2;
     gCurrentSprite.workVariable2++;
 
-    yPosition = gCurrentSprite.yPosition_spawn;
-    if (gSamusData.yPosition < (gCurrentSprite.yPosition_spawn - 0xA0))
+    yPosition = gCurrentSprite.yPositionSpawn;
+    if (gSamusData.yPosition < (gCurrentSprite.yPositionSpawn - 0xA0))
         yPosition = (u16)(gSamusData.yPosition + 0x64);
 
-    if ((array_offset & 0xF) == 0x0 && rng >= 0x8)
+    if ((arrayOffset & 0xF) == 0x0 && rng >= 0x8)
     {
-        if ((array_offset & 0x10) != 0x0)
+        if ((arrayOffset & 0x10) != 0x0)
         {
             if (rng >= 0xC)
             {
@@ -132,7 +132,7 @@ void ExplosionZebesEscape(void)
         }
     }
 
-    if ((array_offset & 0xF) == 0x0)
+    if ((arrayOffset & 0xF) == 0x0)
     {
         if (rng >= 0x8)
         {

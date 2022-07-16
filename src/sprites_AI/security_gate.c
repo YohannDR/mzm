@@ -15,8 +15,8 @@ void SecurityGateChangeCCAA(u8 caa)
 void SecurityGateOpen(void)
 {
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
-    gCurrentSprite.oam_pointer = security_gate_oam_2e6bb8;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.pOam = security_gate_oam_2e6bb8;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x27;
     SecurityGateChangeCCAA(CCAA_REMOVE_SOLID); // Remove collision
@@ -30,8 +30,8 @@ void SecurityGateOpen(void)
 void SecurityGateStartClosing(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
-    gCurrentSprite.oam_pointer = security_gate_oam_2e6b08;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.pOam = security_gate_oam_2e6b08;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x23;
     unk_2b20(0x109);
@@ -45,15 +45,15 @@ void SecurityGateDefaultOpenInit(void)
 {
     if (gAlarmTimer != 0x0) // Check if should be closed or open
     {
-        gCurrentSprite.oam_pointer = security_gate_oam_2e6b98;
+        gCurrentSprite.pOam = security_gate_oam_2e6b98;
         gCurrentSprite.pose = 0x25;
-        gCurrentSprite.timer1 = 0x1;
+        gCurrentSprite.timer = 0x1;
         SecurityGateChangeCCAA(CCAA_MAKE_SOLID3); // Set collision
     }
     else
     {
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
-        gCurrentSprite.oam_pointer = security_gate_oam_2e6af8;
+        gCurrentSprite.pOam = security_gate_oam_2e6af8;
         gCurrentSprite.pose = 0x9;
     }
 
@@ -63,12 +63,12 @@ void SecurityGateDefaultOpenInit(void)
     gCurrentSprite.hitboxRightOffset = 0x18;
     gCurrentSprite.drawDistanceTopOffset = 0x40;
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x8;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.samus_collision = SSC_NONE;
+    gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.health = 0x1;
-    gCurrentSprite.draw_order = 0x3;
+    gCurrentSprite.drawOrder = 0x3;
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
 }
 
@@ -90,12 +90,12 @@ void SecurityGateCheckClosingAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
-        gCurrentSprite.oam_pointer = security_gate_oam_2e6b98;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.pOam = security_gate_oam_2e6b98;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x25;
-        gCurrentSprite.timer1 = 0x0;
-        gCurrentSprite.array_offset = 0x0;
+        gCurrentSprite.timer = 0x0;
+        gCurrentSprite.arrayOffset = 0x0;
     }
 }
 
@@ -105,20 +105,20 @@ void SecurityGateCheckClosingAnimEnded(void)
  */
 void SecurityGateDefaultOpenOpenAfterAlarm(void)
 {
-    if (gCurrentSprite.timer1 == 0x0 && !SpriteCheckCollidingWithSamusDrawing()) // ?
+    if (gCurrentSprite.timer == 0x0 && !SpriteCheckCollidingWithSamusDrawing()) // ?
     {
         SecurityGateChangeCCAA(CCAA_MAKE_SOLID3);
-        gCurrentSprite.timer1++;
+        gCurrentSprite.timer++;
     }
 
     if (gAlarmTimer == 0x0)
     {
-        gCurrentSprite.array_offset++;
-        if (gCurrentSprite.array_offset > 0x28)
+        gCurrentSprite.arrayOffset++;
+        if (gCurrentSprite.arrayOffset > 0x28)
             SecurityGateOpen();
     }
     else
-        gCurrentSprite.array_offset = 0x0;
+        gCurrentSprite.arrayOffset = 0x0;
 }
 
 /**
@@ -129,8 +129,8 @@ void SecurityGateCheckOpeningAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
-        gCurrentSprite.oam_pointer = security_gate_oam_2e6af8;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.pOam = security_gate_oam_2e6af8;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x9;
     }
@@ -161,14 +161,14 @@ void SecurityGateDefaultClosedInit(void)
     if (gAlarmTimer != 0x0)
     {
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
-        gCurrentSprite.oam_pointer = security_gate_oam_2e6af8;
+        gCurrentSprite.pOam = security_gate_oam_2e6af8;
         gCurrentSprite.pose = 0x9;
     }
     else
     {
-        gCurrentSprite.oam_pointer = security_gate_oam_2e6b98;
+        gCurrentSprite.pOam = security_gate_oam_2e6b98;
         gCurrentSprite.pose = 0x25;
-        gCurrentSprite.timer1 = 0x1;
+        gCurrentSprite.timer = 0x1;
         SecurityGateChangeCCAA(CCAA_MAKE_SOLID3);
     }
 
@@ -178,12 +178,12 @@ void SecurityGateDefaultClosedInit(void)
     gCurrentSprite.hitboxRightOffset = 0x18;
     gCurrentSprite.drawDistanceTopOffset = 0x40;
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x8;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.samus_collision = SSC_NONE;
+    gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.health = 0x1;
-    gCurrentSprite.draw_order = 0x3;
+    gCurrentSprite.drawOrder = 0x3;
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
 }
 
@@ -203,10 +203,10 @@ void SecurityGateDefaultClosedCheckAlarm(void)
  */
 void SecurityGateDefaultClosedCloseAfterAlarm(void)
 {
-    if (gCurrentSprite.timer1 == 0x0 && !SpriteCheckCollidingWithSamusDrawing())
+    if (gCurrentSprite.timer == 0x0 && !SpriteCheckCollidingWithSamusDrawing())
     {
         SecurityGateChangeCCAA(CCAA_MAKE_SOLID3);
-        gCurrentSprite.timer1++;
+        gCurrentSprite.timer++;
     }
 
     if (gAlarmTimer != 0x0)
@@ -219,7 +219,7 @@ void SecurityGateDefaultClosedCloseAfterAlarm(void)
  */
 void SecurityGateDefaultOpen(void)
 {
-    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     switch (gCurrentSprite.pose)
     {
         case 0x0:
@@ -248,7 +248,7 @@ void SecurityGateDefaultOpen(void)
  */
 void SecurityGateDefaultClosed(void)
 {
-    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     switch (gCurrentSprite.pose)
     {
         case 0x0:

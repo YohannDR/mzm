@@ -6,16 +6,16 @@ void WaverInit(void)
 {
     gCurrentSprite.drawDistanceTopOffset = 0x10;
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x10;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
     gCurrentSprite.hitboxTopOffset = -0x20;
     gCurrentSprite.hitboxBottomOffset = 0x20;
     gCurrentSprite.hitboxLeftOffset = -0x20;
     gCurrentSprite.hitboxRightOffset = -0x20;
-    gCurrentSprite.oam_pointer = waver_oam_2d88ac;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.pOam = waver_oam_2d88ac;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
-    gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
+    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     SpriteUtilMakeSpriteFaceSamusXFlip();
     gCurrentSprite.pose = 0x9;
 }
@@ -69,7 +69,7 @@ void Waver(void)
             unk_2b20(0x177);
     }
 
-    if (gCurrentSprite.freeze_timer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0x0)
         SpriteUtilUpdateFreezeTimer();
     else
     {

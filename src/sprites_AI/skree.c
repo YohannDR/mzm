@@ -5,22 +5,22 @@
 
 void SkreeInit(void)
 {
-    gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.drawDistanceTopOffset = 0x0;
     gCurrentSprite.drawDistanceBottomOffset = 0x20;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x10;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
     gCurrentSprite.hitboxTopOffset = 0x0;
     gCurrentSprite.hitboxBottomOffset = 0x60;
     gCurrentSprite.hitboxLeftOffset = -0x18;
     gCurrentSprite.hitboxRightOffset = 0x18;
-    gCurrentSprite.health = primary_sprites_stats[gCurrentSprite.sprite_id].spawn_health;
+    gCurrentSprite.health = primary_sprites_stats[gCurrentSprite.spriteID].spawn_health;
     gCurrentSprite.yPosition -= 0x40;
 }
 
 void SkreeGFXInit(void)
 {
-    gCurrentSprite.oam_pointer = skree_oam_2cd474;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.pOam = skree_oam_2cd474;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x9;
 }
@@ -33,8 +33,8 @@ void SkreeDetectSamus(void)
 
 void SkreeSpinGFXInit(void)
 {
-    gCurrentSprite.oam_pointer = skree_oam_spinning_2cd49c;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.pOam = skree_oam_spinning_2cd49c;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x23;
 }
@@ -47,10 +47,10 @@ void SkreeCheckSpinAnimEnded(void)
 
 void SkreeStartGoingDown(void)
 {
-    gCurrentSprite.oam_pointer = skree_going_down_2cd4cc;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.pOam = skree_going_down_2cd4cc;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.array_offset = 0x0;
+    gCurrentSprite.arrayOffset = 0x0;
     gCurrentSprite.workVariable2 = 0x0;
     gCurrentSprite.pose = 0x35;
 
@@ -68,30 +68,30 @@ void SkreeGoDown(void)
     u32 block;
     u32 x_movement;
     u32 y_movement;
-    u32 array_offset;
+    u32 arrayOffset;
 
-    block = SpriteUtilCheckVerticalCollisionAtPosition_slopes(gCurrentSprite.hitboxBottomOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+    block = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.hitboxBottomOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
     if (gPreviousVerticalCollisionCheck != 0x0)
     {
         gCurrentSprite.yPosition = block - gCurrentSprite.hitboxBottomOffset;
         gCurrentSprite.pose = 0x37;
-        gCurrentSprite.timer1 = 0x0;
+        gCurrentSprite.timer = 0x0;
         if ((gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
             SoundPlay(0x142);
     }
     else
     {
         x_movement = gCurrentSprite.workVariable2 >> 0x2;
-        array_offset = gCurrentSprite.array_offset;
-        y_movement = skree_falling_speed_2cca7c[array_offset];
+        arrayOffset = gCurrentSprite.arrayOffset;
+        y_movement = skree_falling_speed_2cca7c[arrayOffset];
         if (y_movement == 0x7FFF)
         {
-            y_movement = skree_falling_speed_2cca7c[array_offset - 0x1];
+            y_movement = skree_falling_speed_2cca7c[arrayOffset - 0x1];
             gCurrentSprite.yPosition += y_movement;
         }
         else
         {
-            gCurrentSprite.array_offset++;
+            gCurrentSprite.arrayOffset++;
             gCurrentSprite.yPosition += y_movement;
         }
 
@@ -120,15 +120,15 @@ void SkreeCrashGround(void)
     u16 yPosition;
     u16 xPosition;
     u8 gfx_slot;
-    u8 ram_slot;
-    u8 sprite_id;
+    u8 ramSlot;
+    u8 spriteID;
 
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    gCurrentSprite.timer1++;
+    gCurrentSprite.timer++;
 
-    switch (gCurrentSprite.timer1)
+    switch (gCurrentSprite.timer)
     {
         case 0x1:
             yPosition += 0x48;
@@ -139,22 +139,22 @@ void SkreeCrashGround(void)
             break;
 
         case 0x28:
-            gCurrentSprite.oam_pointer = skree_oam_crashing_2cd4f4;
+            gCurrentSprite.pOam = skree_oam_crashing_2cd4f4;
             break;
 
         case 0x3C:
-            gfx_slot = gCurrentSprite.spriteset_gfx_slot;
-            ram_slot = gCurrentSprite.primary_sprite_ram_slot;
+            gfx_slot = gCurrentSprite.spritesetGFXSlot;
+            ramSlot = gCurrentSprite.primarySpriteRAMSlot;
 
-            if (gCurrentSprite.sprite_id == PSPRITE_SKREE_BLUE)
-                sprite_id = SSPRITE_BLUE_SKREE_EXPLOSION;
+            if (gCurrentSprite.spriteID == PSPRITE_SKREE_BLUE)
+                spriteID = SSPRITE_BLUE_SKREE_EXPLOSION;
             else
-                sprite_id = SSPRITE_SKREE_EXPLOSION;
+                spriteID = SSPRITE_SKREE_EXPLOSION;
             
-            SpriteSpawnSecondary(sprite_id, 0x0, gfx_slot, ram_slot, yPosition - 0x8, xPosition, 0x0);
-            SpriteSpawnSecondary(sprite_id, 0x0, gfx_slot, ram_slot, yPosition - 0x8, xPosition, SPRITE_STATUS_XFLIP);
-            SpriteSpawnSecondary(sprite_id, 0x1, gfx_slot, ram_slot, yPosition + 0x8, xPosition - 0xC, 0x0);
-            SpriteSpawnSecondary(sprite_id, 0x1, gfx_slot, ram_slot, yPosition + 0x8, xPosition + 0xC, SPRITE_STATUS_XFLIP);
+            SpriteSpawnSecondary(spriteID, 0x0, gfx_slot, ramSlot, yPosition - 0x8, xPosition, 0x0);
+            SpriteSpawnSecondary(spriteID, 0x0, gfx_slot, ramSlot, yPosition - 0x8, xPosition, SPRITE_STATUS_XFLIP);
+            SpriteSpawnSecondary(spriteID, 0x1, gfx_slot, ramSlot, yPosition + 0x8, xPosition - 0xC, 0x0);
+            SpriteSpawnSecondary(spriteID, 0x1, gfx_slot, ramSlot, yPosition + 0x8, xPosition + 0xC, SPRITE_STATUS_XFLIP);
             gCurrentSprite.status = 0x0;
             ParticleSet(yPosition + 0x24, xPosition, PE_SPRITE_EXPLOSION_HUGE);
             SoundPlay(0x134);
@@ -169,45 +169,45 @@ void SkreeExplosionInit(void)
     gCurrentSprite.properties |= SP_PROJECTILE;
     gCurrentSprite.drawDistanceTopOffset = 0x10;
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x10;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
     gCurrentSprite.hitboxTopOffset = -0xC;
     gCurrentSprite.hitboxBottomOffset = 0xC;
     gCurrentSprite.hitboxLeftOffset = -0xC;
     gCurrentSprite.hitboxRightOffset = 0xC;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x9;
-    gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
-    gCurrentSprite.draw_order = 0x3;
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
+    gCurrentSprite.drawOrder = 0x3;
     gCurrentSprite.bg_priority = gIORegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.yPosition += 0x28;
     gCurrentSprite.status = (status | SPRITE_STATUS_DOUBLE_SIZE | SPRITE_STATUS_ROTATION_SCALING);
-    gCurrentSprite.oam_scaling = 0x100;
-    gCurrentSprite.oam_rotation = 0x0;
+    gCurrentSprite.oamScaling = 0x100;
+    gCurrentSprite.oamRotation = 0x0;
 
-    if (gCurrentSprite.room_slot != 0x0)
-        gCurrentSprite.oam_pointer = skree_explosion_oam_going_down_2cd5c4;
+    if (gCurrentSprite.roomSlot != 0x0)
+        gCurrentSprite.pOam = skree_explosion_oam_going_down_2cd5c4;
     else
-        gCurrentSprite.oam_pointer = skree_explosion_oam_going_up_2cd5e4;
+        gCurrentSprite.pOam = skree_explosion_oam_going_up_2cd5e4;
 }
 
 void SkreeExplosionMove(void)
 {
     if (gCurrentSprite.currentAnimationFrame > 0x1)
-        gCurrentSprite.ignore_samus_collision_timer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
 
     if ((gCurrentSprite.status & SPRITE_STATUS_XFLIP) != 0x0)
     {
         gCurrentSprite.xPosition += 0x8;
-        gCurrentSprite.oam_rotation += 0x20;
+        gCurrentSprite.oamRotation += 0x20;
     }
     else
     {
         gCurrentSprite.xPosition -= 0x8;
-        gCurrentSprite.oam_rotation -= 0x20;
+        gCurrentSprite.oamRotation -= 0x20;
     }
 
-    if (gCurrentSprite.room_slot != 0x0)
+    if (gCurrentSprite.roomSlot != 0x0)
         gCurrentSprite.yPosition += 0x4;
     else
         gCurrentSprite.yPosition -= 0x4;
@@ -225,7 +225,7 @@ void Skree(void)
             unk_2b20(0x143);
     }
 
-    if (gCurrentSprite.freeze_timer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0x0)
         SpriteUtilUpdateFreezeTimer();
     else
     {

@@ -32,7 +32,7 @@ u8 RidleyCheckGrabbing(u16 yPosition, u16 xPosition)
     return 0;
 }
 
-void RidleySamusGrabbed(u8 ram_slot)
+void RidleySamusGrabbed(u8 ramSlot)
 {
 
 }
@@ -52,7 +52,7 @@ void RidleyTailAttacksYMove(u16 movement)
 
 }
 
-void RidleySpawnFireballsStart(u8 room_slot)
+void RidleySpawnFireballsStart(u8 roomSlot)
 {
 
 }

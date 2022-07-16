@@ -268,7 +268,7 @@ struct SamusData {
     i16 xVelocity;
     i16 yVelocity;
     u16 currentSlope;
-    u8 animationDuratoinCounter;
+    u8 animationDurationCounter;
     u8 currentAnimationFrame;
 };
 
@@ -323,7 +323,7 @@ struct SamusPhysics {
 
 struct ScrewSpeedAnimation {
     u8 flag;
-    u8 animationDuratoinCounter;
+    u8 animationDurationCounter;
     u8 currentAnimationFrame;
     u32 unknown;
 };
@@ -337,7 +337,7 @@ struct HazardDamage {
 
 struct EnvironmentalEffect {
     u8 type;
-    u8 animationDuratoinCounter;
+    u8 animationDurationCounter;
     u8 currentAnimationFrame;
     u8 breathingTimer;
     u16 xPosition;

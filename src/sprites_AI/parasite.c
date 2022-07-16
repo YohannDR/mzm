@@ -18,7 +18,7 @@ u8 ParasiteCount(void)
 
     while (pSprite < gSpriteData + 24)
     {
-        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samus_collision == SSC_BUG)
+        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == SSC_BUG)
         {
             if (pSprite->pose == 0x43)
                 count++;

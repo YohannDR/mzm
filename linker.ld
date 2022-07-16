@@ -134,6 +134,10 @@ SECTIONS {
         . = 0x000054F4; gBG0Movement = .;
         . = 0x0000550C; gSamusDoorPositionOffset = .;
         . = 0x00005518; gRainSoundEffect = .;
+        . = 0x000056cc; gBLDALPHAata1 = .;
+        . = 0x000056d4; gBLDALPHAata1 = .;
+        . = 0x000056dc; gBLDYData1 = .;
+        . = 0x000056e4; gBLDYData2 = .;
         . = 0x00005708; gCurrentRoomScrollDataPointer = .;
         . = 0x00005704; gClipdataCodePointer = .;
         . = 0x00007e60; sp_sys = .;

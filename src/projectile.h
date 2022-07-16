@@ -55,11 +55,11 @@ extern u16 gArmCannonX;
 
 struct ProjectileData {
     u8 status;
-    struct FrameData* oam_pointer;
+    struct FrameData* pOam;
     u16 yPosition;
     u16 xPosition;
     u16 currentAnimationFrame;
-    u8 animationDuratoinCounter;
+    u8 animationDurationCounter;
     u8 type;
     u8 direction;
     u8 movement_stage;

@@ -10,13 +10,13 @@
  * 162b0 | 94 | 
  * Spawns an item banner depending on the chozo statue sprite ID
  * 
- * @param sprite_id Chozo statue sprite ID
+ * @param spriteID Chozo statue sprite ID
  */
-void ChozoBallSpawnItemBanner(u8 sprite_id)
+void ChozoBallSpawnItemBanner(u8 spriteID)
 {
     u8 text;
 
-    switch (sprite_id)
+    switch (spriteID)
     {
         case PSPRITE_CHOZO_STATUE_LONG:
             text = 0x8;
@@ -56,17 +56,17 @@ void ChozoBallSpawnItemBanner(u8 sprite_id)
     SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 }
 
-void ChozoBallSetOAMPointer(u8 sprite_id)
+void ChozoBallSetOAMPointer(u8 spriteID)
 {
 
 }
 
-void ChozoBallRevealingSetOAMPointer(u8 sprite_id)
+void ChozoBallRevealingSetOAMPointer(u8 spriteID)
 {
 
 }
 
-void ChozoBallRevealedSetOAMPointer(u8 sprite_id)
+void ChozoBallRevealedSetOAMPointer(u8 spriteID)
 {
 
 }
@@ -84,13 +84,13 @@ void ChozoBallInit(void)
     gCurrentSprite.hitboxRightOffset = 0x1C;
     gCurrentSprite.drawDistanceTopOffset = 0xC;
     gCurrentSprite.drawDistanceBottomOffset = 0xC;
-    gCurrentSprite.draw_distance_horizontal_offset = 0xC;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0xC;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.samus_collision = SSC_SOLID;
+    gCurrentSprite.samusCollision = SSC_SOLID;
     gCurrentSprite.health = 0x1;
     gCurrentSprite.pose = 0x8;
-    ChozoBallSetOAMPointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
+    ChozoBallSetOAMPointer(gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID);
 }
 
 /**
@@ -110,13 +110,13 @@ void ChozoBallRevealing(void)
 {
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     gCurrentSprite.health = 0x1;
-    gCurrentSprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
+    gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
     gCurrentSprite.pose = 0x67;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.palette_row = gCurrentSprite.absolute_palette_row;
-    gCurrentSprite.invicibility_stun_flash_timer &= 0x80;
-    ChozoBallRevealingSetOAMPointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
+    gCurrentSprite.palette_row = gCurrentSprite.absolutePaletteRow;
+    gCurrentSprite.invicibilityStunFlashTimer &= 0x80;
+    ChozoBallRevealingSetOAMPointer(gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID);
     SoundPlay(0x11D);
 }
 
@@ -129,9 +129,9 @@ void ChozoBallCheckRevealingAnimEnded(void)
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x9;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        ChozoBallRevealedSetOAMPointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
+        ChozoBallRevealedSetOAMPointer(gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID);
     }
 }
 
@@ -141,18 +141,18 @@ void ChozoBallCheckRevealingAnimEnded(void)
  */
 void ChozoBallRegisterItem(void)
 {
-    u8 sprite_id;
+    u8 spriteID;
 
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
         gPreventMovementTimer = 0x3E8;
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
-        gCurrentSprite.ignore_samus_collision_timer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
         gCurrentSprite.pose = 0x23;
-        gCurrentSprite.timer1 = 0x0;
-        sprite_id = gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id;
-        ChozoStatueRegisterItem(sprite_id);
-        ChozoBallSpawnItemBanner(sprite_id);
+        gCurrentSprite.timer = 0x0;
+        spriteID = gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID;
+        ChozoStatueRegisterItem(spriteID);
+        ChozoBallSpawnItemBanner(spriteID);
     }
 }
 
@@ -162,9 +162,9 @@ void ChozoBallRegisterItem(void)
  */
 void ChozoBallFlashAnimation(void)
 {
-    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
 
-    if (!(gCurrentSprite.timer1 & 0x1))
+    if (!(gCurrentSprite.timer & 0x1))
         gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
         
     if (gPreventMovementTimer < 0x3E7)

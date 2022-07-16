@@ -73,24 +73,24 @@ void GlassTubeInit(void)
 {
     gCurrentSprite.drawDistanceTopOffset = 0x30;
     gCurrentSprite.drawDistanceBottomOffset = 0x30;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x70;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x70;
     gCurrentSprite.hitboxTopOffset = -0x80;
     gCurrentSprite.hitboxBottomOffset = 0x80;
     gCurrentSprite.hitboxLeftOffset = -0x100;
     gCurrentSprite.hitboxRightOffset = 0x100;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.samus_collision = SSC_NONE;
+    gCurrentSprite.samusCollision = SSC_NONE;
     
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_GLASS_TUBE_BROKEN))
     {
-        gCurrentSprite.oam_pointer = glass_tube_oam_broken;
+        gCurrentSprite.pOam = glass_tube_oam_broken;
         gCurrentSprite.pose = 0xF;
         GlassTubeChangeCCAA();
     }
     else
     {
-        gCurrentSprite.oam_pointer = glass_tube_oam;
+        gCurrentSprite.pOam = glass_tube_oam;
         gCurrentSprite.pose = 0x9;
     }
 
@@ -110,8 +110,8 @@ void GlassTubeCheckPowerBombCollision(void)
     u16 bomb_bottom;
     u16 bomb_left;
     u16 bomb_right;   
-    u16 sprite_y;
-    u16 sprite_x;
+    u16 spriteY;
+    u16 spriteX;
     u16 sprite_top;
     u16 sprite_bottom;
     u16 sprite_left;
@@ -126,17 +126,17 @@ void GlassTubeCheckPowerBombCollision(void)
         bomb_left = gCurrentPowerBomb.hitboxLeftOffset + bomb_x;
         bomb_right = gCurrentPowerBomb.hitboxRightOffset + bomb_x;
         
-        sprite_y = gCurrentSprite.yPosition;
-        sprite_x = gCurrentSprite.xPosition;
-        sprite_top = gCurrentSprite.hitboxTopOffset + sprite_y;
-        sprite_bottom = gCurrentSprite.hitboxBottomOffset + sprite_y;
-        sprite_left = gCurrentSprite.hitboxLeftOffset + sprite_x;
-        sprite_right = gCurrentSprite.hitboxRightOffset + sprite_x;
+        spriteY = gCurrentSprite.yPosition;
+        spriteX = gCurrentSprite.xPosition;
+        sprite_top = gCurrentSprite.hitboxTopOffset + spriteY;
+        sprite_bottom = gCurrentSprite.hitboxBottomOffset + spriteY;
+        sprite_left = gCurrentSprite.hitboxLeftOffset + spriteX;
+        sprite_right = gCurrentSprite.hitboxRightOffset + spriteX;
 
         if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, bomb_top, bomb_bottom, bomb_left, bomb_right))
         {
             gCurrentSprite.pose = 0x23;
-            gCurrentSprite.timer1 = 0x78;
+            gCurrentSprite.timer = 0x78;
             EventFunction(EVENT_ACTION_SETTING, EVENT_GLASS_TUBE_BROKEN);
         }
     }
@@ -147,12 +147,12 @@ void GlassTubeCheckPowerBombCollision(void)
 */
 void GlassTubeDelayBeforeBreaking(void)
 {
-    gCurrentSprite.timer1--;
-    if (gCurrentSprite.timer1 == 0x0)
+    gCurrentSprite.timer--;
+    if (gCurrentSprite.timer == 0x0)
     {
         gCurrentSprite.pose = 0x25;
-        gCurrentSprite.oam_pointer = glass_tube_oam_cracking;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.pOam = glass_tube_oam_cracking;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         SoundPlay(0x27A);
     }
@@ -167,8 +167,8 @@ void GlassTubeCheckCrackingAnimEnded(void)
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x27;
-        gCurrentSprite.oam_pointer = glass_tube_oam_breaking;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.pOam = glass_tube_oam_breaking;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         GlassTubeChangeCCAA();
         ParticleSet(gCurrentSprite.yPosition - 0x1E, gCurrentSprite.xPosition - 0x12C, PE_MEDIUM_DUST);
@@ -189,8 +189,8 @@ void GlassTubeCheckBreakingAnimEnded(void)
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0xF;
-        gCurrentSprite.oam_pointer = glass_tube_oam_broken;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.pOam = glass_tube_oam_broken;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
     }
 }
@@ -201,7 +201,7 @@ void GlassTubeCheckBreakingAnimEnded(void)
  */
 void GlassTube(void)
 {
-    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     switch (gCurrentSprite.pose)
     {
         case 0x0:

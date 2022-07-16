@@ -4,7 +4,7 @@
 #include "../types.h"
 
 u8 MetroidCheckAirCollision(u16 yPosition, u16 xPosition);
-void MetroidMove(u16 samus_y, u16 samus_x, u8 speed_y, u8 speed_x, u8 speed_divisor);
+void MetroidMove(u16 samusY, u16 samusX, u8 speed_y, u8 speed_x, u8 speedDivisor);
 u8 MetroidBombDetection(void);
 void MetroidCheckBouncingOnMetroid(u16 movement);
 u8 MetroidCheckSamusGrabbed(void);

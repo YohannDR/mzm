@@ -27,12 +27,12 @@ u8 unk_4bcd0(void)
 
 }
 
-void unk_4bdf8(u8 ram_slot)
+void unk_4bdf8(u8 ramSlot)
 {
 
 }
 
-void unk_4beb4(u8 ram_slot)
+void unk_4beb4(u8 ramSlot)
 {
 
 }
@@ -62,7 +62,7 @@ void MechaRidleyStartBattle(void)
 
 }
 
-u8 MechaRidleyCheckSamusOutOfAmmo(u8 ram_slot)
+u8 MechaRidleyCheckSamusOutOfAmmo(u8 ramSlot)
 {
     return 0;
 }

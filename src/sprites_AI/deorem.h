@@ -9,7 +9,7 @@ void DeoremChangeRightCCAA(u8 caa);
 void DeoremMoveDiagonaly(u8 velocity, u16 dstPosition);
 void DeoremRandomSpriteDebris(u8 rng);
 void DeoremSpriteDebrisSpawn(u16 yPosition, u16 xPosition, u8 timer);
-u8 DeoremCheckLeaving(u8 ram_slot);
+u8 DeoremCheckLeaving(u8 ramSlot);
 void DeoremSpawnChargeBeam(u16 yPosition, u16 xPosition);
 void DeoremSetEyeOpeningTimer(void);
 void DeoremCallSpawnChargeBeam(void);

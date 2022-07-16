@@ -10,32 +10,32 @@ void ZebInit(void)
     gCurrentSprite.hitboxRightOffset = 0x1C;
     gCurrentSprite.drawDistanceTopOffset = 0x8;
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x10;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
     gCurrentSprite.workVariable = 0x1;
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
+    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
     gCurrentSprite.yPosition -= 0x20;
     gCurrentSprite.xPosition += 0x20;
-    gCurrentSprite.yPosition_spawn = gCurrentSprite.yPosition;
-    gCurrentSprite.xPosition_spawn = gCurrentSprite.xPosition;
+    gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
+    gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
 }
 
 void ZebGFXInit(void)
 {
-    gCurrentSprite.samus_collision = SSC_NONE;
+    gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.pose = 0x9;
-    gCurrentSprite.oam_pointer = zeb_oam_2cca2c;
+    gCurrentSprite.pOam = zeb_oam_2cca2c;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
     gCurrentSprite.bg_priority = 0x2;
 }
 
 void ZebCheckSpawn(void)
 {
-    u16 samus_x;
-    u16 samus_y;
-    u16 sprite_x;
-    u16 sprite_y;
+    u16 samusX;
+    u16 samusY;
+    u16 spriteX;
+    u16 spriteY;
     i32 offset;
 
     if (!SpriteUtilCheckHasDrops())
@@ -44,23 +44,23 @@ void ZebCheckSpawn(void)
             gCurrentSprite.workVariable--;
         else
         {
-            samus_y = gSamusData.yPosition;
-            samus_x = gSamusData.xPosition;
-            sprite_y = gCurrentSprite.yPosition;
-            sprite_x = gCurrentSprite.xPosition;
+            samusY = gSamusData.yPosition;
+            samusX = gSamusData.xPosition;
+            spriteY = gCurrentSprite.yPosition;
+            spriteX = gCurrentSprite.xPosition;
 
-            if (samus_y <= (sprite_y - 0x1E))
+            if (samusY <= (spriteY - 0x1E))
             {
-                if (sprite_x >= samus_x)
-                    offset = samus_x - sprite_x;
+                if (spriteX >= samusX)
+                    offset = samusX - spriteX;
                 else
-                    offset = sprite_x - samus_x;
+                    offset = spriteX - samusX;
                 
                 if (offset > 0x24 && SpriteUtilCheckSamusNearSpriteAboveBelow(0x140, 0x140) == NSAB_ABOVE)
                 {
-                    gCurrentSprite.oam_scaling = gSamusData.yPosition;
+                    gCurrentSprite.oamScaling = gSamusData.yPosition;
                     gCurrentSprite.pose = 0x23;
-                    gCurrentSprite.timer1 = 0x2;
+                    gCurrentSprite.timer = 0x2;
                     gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
                     SpriteUtilMakeSpriteFaceSamusXFlip();
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
@@ -76,26 +76,26 @@ void ZebGoingUp(void)
     u16 yPosition;
 
     gCurrentSprite.yPosition -= 0x8;
-    if (gCurrentSprite.timer1 != 0x0)
+    if (gCurrentSprite.timer != 0x0)
     {
-        gCurrentSprite.timer1--;
-        if (gCurrentSprite.timer1 == 0x0)
-            gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
+        gCurrentSprite.timer--;
+        if (gCurrentSprite.timer == 0x0)
+            gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     }
     else
     {
-        if (gCurrentSprite.oam_scaling < gSamusData.yPosition && gSamusData.yPosition >= (i32)(gCurrentSprite.yPosition_spawn - 0x80))
-            yPosition = gCurrentSprite.oam_scaling;
+        if (gCurrentSprite.oamScaling < gSamusData.yPosition && gSamusData.yPosition >= (i32)(gCurrentSprite.yPositionSpawn - 0x80))
+            yPosition = gCurrentSprite.oamScaling;
         else
             yPosition = gSamusData.yPosition;
 
         if ((yPosition - 0x64) > gCurrentSprite.yPosition)
         {
             gCurrentSprite.pose = 0x25;
-            gCurrentSprite.timer1 = 0xA;
-            gCurrentSprite.oam_pointer = zeb_oam_2cca54;
+            gCurrentSprite.timer = 0xA;
+            gCurrentSprite.pOam = zeb_oam_2cca54;
             gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.animationDuratoinCounter = 0x0;
+            gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.bg_priority = 0x1;
         }
     }
@@ -103,26 +103,26 @@ void ZebGoingUp(void)
 
 void ZebReset(void)
 {
-    gCurrentSprite.yPosition = gCurrentSprite.yPosition_spawn;
-    gCurrentSprite.xPosition = gCurrentSprite.xPosition_spawn;
+    gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn;
+    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn;
     ZebGFXInit();
     gCurrentSprite.workVariable = 0x3C;
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
-    gCurrentSprite.invicibility_stun_flash_timer = 0x0;
+    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.invicibilityStunFlashTimer = 0x0;
     gCurrentSprite.palette_row = 0x0;
-    gCurrentSprite.frozen_palette_row_offset = 0x0;
-    gCurrentSprite.absolute_palette_row = 0x0;
-    gCurrentSprite.ignore_samus_collision_timer = 0x1;
-    gCurrentSprite.freeze_timer = 0x0;
+    gCurrentSprite.frozenPaletteRowOffset = 0x0;
+    gCurrentSprite.absolutePaletteRow = 0x0;
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.freezeTimer = 0x0;
 }
 
 void ZebMove(void)
 {
     u8 timer;
 
-    if (gCurrentSprite.timer1 != 0x0)
+    if (gCurrentSprite.timer != 0x0)
     {
-        if (timer = gCurrentSprite.timer1 -= 0x1 == 0x0)
+        if (timer = gCurrentSprite.timer -= 0x1 == 0x0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                 play_sound(0x145);
@@ -164,7 +164,7 @@ void Zeb(void)
             unk_2b20(0x146);
     }
 
-    if (gCurrentSprite.freeze_timer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0x0)
         SpriteUtilUpdateFreezeTimer();
     else
     {

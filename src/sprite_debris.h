@@ -6,22 +6,22 @@
 #include "oam.h"
 
 struct SpriteDebris {
-    struct FrameData* oam_pointer;
+    struct FrameData* pOam;
     u16 currentAnimationFrame;
     u16 yPosition;
     u16 xPosition;
-    u8 animationDuratoinCounter;
+    u8 animationDurationCounter;
     u8 exists;
-    u8 debris_type;
-    u8 frame_counter;
-    u8 array_offset;
+    u8 debrisType;
+    u8 frameCounter;
+    u8 arrayOffset;
 };
 
-void SpriteDebrisSetSplash(u16 old_y, u16 yPosition, u16 xPosition);
+void SpriteDebrisSetSplash(u16 oldY, u16 yPosition, u16 xPosition);
 void SpriteDebrisProcess(struct SpriteDebris* pDebris);
 void SpriteDebrisProcessAll(void);
 void SpriteDebrisDraw(struct SpriteDebris* pDebris);
 void SpriteDebrisDrawAll(void);
-void SpriteDebrisInit(u8 cloud_type, u8 debris_type, u16 yPosition, u16 xPosition);
+void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition);
 
 #endif /* SPRITE_DEBRIS_H */

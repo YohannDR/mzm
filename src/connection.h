@@ -95,7 +95,7 @@ struct HatchData {
     u8 status;
     u8 hits;
     u8 type;
-    u8 animationDuratoinCounter;
+    u8 animationDurationCounter;
     u8 xPosition;
     u8 yPosition;
     u8 sourceDoor;

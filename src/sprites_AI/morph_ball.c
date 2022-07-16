@@ -16,16 +16,16 @@ void MorphBallInit(void)
         gCurrentSprite.hitboxRightOffset = 0x1C;
         gCurrentSprite.drawDistanceTopOffset = 0x8;
         gCurrentSprite.drawDistanceBottomOffset = 0x8;
-        gCurrentSprite.draw_distance_horizontal_offset = 0x8;
-        gCurrentSprite.oam_pointer = morph_ball_oam_2b2ba8;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+        gCurrentSprite.pOam = morph_ball_oam_2b2ba8;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
+        gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
         gCurrentSprite.health = 0x1;
         gCurrentSprite.yPosition -= 0x20;
         gCurrentSprite.pose = 0x9;
-        gCurrentSprite.draw_order = 0x3;
-        SpriteSpawnSecondary(SSPRITE_MORPH_BALL_OUTSIDE, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        gCurrentSprite.drawOrder = 0x3;
+        SpriteSpawnSecondary(SSPRITE_MORPH_BALL_OUTSIDE, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
 
@@ -35,9 +35,9 @@ void MorphBallGet(void)
     {
         gPreventMovementTimer = 0x3E8;
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
-        gCurrentSprite.ignore_samus_collision_timer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
         gCurrentSprite.pose = 0x23;
-        gCurrentSprite.timer1 = 0x0;
+        gCurrentSprite.timer = 0x0;
         gEquipment.suitMisc |= SMF_MORPH_BALL;
         SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, 0x10, 0xC, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
@@ -45,8 +45,8 @@ void MorphBallGet(void)
 
 void MorphBallFlashAnim(void)
 {
-    gCurrentSprite.ignore_samus_collision_timer = 0x1;
-    if ((gCurrentSprite.timer1 & 0x1) == 0x0)
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    if ((gCurrentSprite.timer & 0x1) == 0x0)
         gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
     if (gPreventMovementTimer < 0x3E7)
         gCurrentSprite.status = 0x0;
@@ -60,23 +60,23 @@ void MorphBallOutsideInit(void)
     gCurrentSprite.hitboxRightOffset = 0x4;
     gCurrentSprite.drawDistanceTopOffset = 0x8;
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x8;
-    gCurrentSprite.oam_pointer = morph_ball_outside_oam_2b2bd0;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+    gCurrentSprite.pOam = morph_ball_outside_oam_2b2bd0;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.samus_collision = SSC_NONE;
-    gCurrentSprite.draw_order = 0x2;
+    gCurrentSprite.samusCollision = SSC_NONE;
+    gCurrentSprite.drawOrder = 0x2;
     gCurrentSprite.pose = 0x9;
 }
 
 void MorphBallOutsideFlashAnim(void)
 {
-    u8 ram_slot;
+    u8 ramSlot;
 
-    ram_slot = gCurrentSprite.primary_sprite_ram_slot;
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
 
-    gCurrentSprite.status = gSpriteData[ram_slot].status;
-    if ((gSpriteData[ram_slot].properties & SP_ALWAYS_ACTIVE) != 0x0)
+    gCurrentSprite.status = gSpriteData[ramSlot].status;
+    if ((gSpriteData[ramSlot].properties & SP_ALWAYS_ACTIVE) != 0x0)
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
 }
 
@@ -97,7 +97,7 @@ void MorphBall(void)
 
 void MorphBallOutside(void)
 {
-    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     
     switch (gCurrentSprite.pose)
     {

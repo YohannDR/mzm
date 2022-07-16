@@ -45,22 +45,43 @@ void TransparencyUpdateBLDCNT(u8 action, u16 value)
 
 }
 
-void TransparencySpriteUpdateBLDY(u8 value, u8 delay, u8 intensity)
+void TransparencySpriteUpdateBLDY(u8 value, i8 delay, u8 intensity)
+{
+    // https://decomp.me/scratch/SjDPH
+
+    // Can't generate signed cast for delay
+    /*u8 above;
+
+    above = FALSE;
+    
+    if (value > 0x10)
+        above = TRUE;
+
+    if (above)
+        gBLDYData2.activeFlag &= ~TRANSPARENCY_ACTIVE;
+    else
+    {
+        gBLDYData2.delayMax = delay;
+        gBLDYData2.intensity = intensity;
+        gBLDYData2.value = value;
+        gBLDYData2.delay = above;
+        gBLDYData2.activeFlag = TRANSPARENCY_ACTIVE;
+
+        TransprencyApplyNewEffects();
+    }*/
+}
+
+void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u8 intensity)
 {
 
 }
 
-void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, u8 delay, u8 intensity)
+void TransparencyUpdateBLDY(u8 value, i8 delay, u8 intensity)
 {
 
 }
 
-void TransparencyUpdateBLDY(u8 value, u8 delay, u8 intensity)
-{
-
-}
-
-void TransprencyUpdateBLDALPHA(u8 eva, u8 evb, u8 unk, u8 fading_related)
+void TransprencyUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u8 intensity)
 {
 
 }

@@ -14,7 +14,7 @@ void GeronNorfair(void)
     u16 yPosition;
     u16 xPosition;
 
-    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     if (gCurrentSprite.pose == 0x0)
     {
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_POWER_GRIP_OBTAINED))
@@ -23,18 +23,18 @@ void GeronNorfair(void)
         {
             gCurrentSprite.drawDistanceTopOffset = 0x30;
             gCurrentSprite.drawDistanceBottomOffset = 0x0;
-            gCurrentSprite.draw_distance_horizontal_offset = 0x14;
+            gCurrentSprite.drawDistanceHorizontalOffset = 0x14;
             gCurrentSprite.hitboxTopOffset = -0xC0;
             gCurrentSprite.hitboxBottomOffset = 0x0;
             gCurrentSprite.hitboxLeftOffset = -0x30;
             gCurrentSprite.hitboxRightOffset = 0x30;
-            gCurrentSprite.draw_order = 0x5;
+            gCurrentSprite.drawOrder = 0x5;
             gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.animationDuratoinCounter = 0x0;
-            gCurrentSprite.samus_collision = SSC_NONE;
+            gCurrentSprite.animationDurationCounter = 0x0;
+            gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.health = 0x1;
-            gCurrentSprite.oam_pointer = GeronNorfair_oam;
+            gCurrentSprite.pOam = GeronNorfair_oam;
             yPosition = gCurrentSprite.yPosition - 0x20;
             xPosition = gCurrentSprite.xPosition;
             caa = CCAA_MAKE_SOLID3

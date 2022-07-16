@@ -3,10 +3,10 @@
 
 #include "../types.h"
 
-void ChozoBallSpawnItemBanner(u8 sprite_id);
-void ChozoBallSetOAMPointer(u8 sprite_id);
-void ChozoBallRevealingSetOAMPointer(u8 sprite_id);
-void ChozoBallRevealedSetOAMPointer(u8 sprite_id);
+void ChozoBallSpawnItemBanner(u8 spriteID);
+void ChozoBallSetOAMPointer(u8 spriteID);
+void ChozoBallRevealingSetOAMPointer(u8 spriteID);
+void ChozoBallRevealedSetOAMPointer(u8 spriteID);
 void ChozoBallInit(void);
 void ChozoBallEmpty(void);
 void ChozoBallRevealing(void);

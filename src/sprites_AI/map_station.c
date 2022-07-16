@@ -9,12 +9,12 @@ void MapStationInit(void)
     gCurrentSprite.yPosition += 0x80;
     gCurrentSprite.drawDistanceTopOffset = 0x80;
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x1C;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x1C;
     gCurrentSprite.hitboxTopOffset = -0x200;
     gCurrentSprite.hitboxLeftOffset = -0x20;
     gCurrentSprite.hitboxRightOffset = 0x20;
-    gCurrentSprite.samus_collision = SSC_NONE;
-    gCurrentSprite.draw_order = 0x4;
+    gCurrentSprite.samusCollision = SSC_NONE;
+    gCurrentSprite.drawOrder = 0x4;
     gCurrentSprite.bg_priority = 0x1;
     gCurrentSprite.health = 0x1;
     gCurrentSprite.properties |= SP_SOLID_FOR_PROJECTILES;
@@ -23,41 +23,41 @@ void MapStationInit(void)
     {
         gCurrentSprite.hitboxBottomOffset = -0x40;
         gCurrentSprite.pose = 0xF;
-        gCurrentSprite.oam_pointer = map_station_oam_2d3788;
+        gCurrentSprite.pOam = map_station_oam_2d3788;
         gCurrentSprite.currentAnimationFrame = 0x13;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.animationDurationCounter = 0x0;
     }
     else
     {
         gCurrentSprite.hitboxBottomOffset = 0x40;
         gCurrentSprite.pose = 0x9;
-        gCurrentSprite.oam_pointer = map_station_oam_2d36f8;
+        gCurrentSprite.pOam = map_station_oam_2d36f8;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
-        sprite_util_spawn_secondary(SSPRITE_MAP_STATION_SCREEN, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
-        sprite_util_spawn_secondary(SSPRITE_MAP_STATION_SCREEN, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        gCurrentSprite.animationDurationCounter = 0x0;
+        sprite_util_spawn_secondary(SSPRITE_MAP_STATION_SCREEN, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        sprite_util_spawn_secondary(SSPRITE_MAP_STATION_SCREEN, 0x1, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
 
 void MapStationSamusDetection(void)
 {
-    i32 samus_y;
-    i32 samus_x;
-    u16 sprite_y;
-    u16 sprite_x;
+    i32 samusY;
+    i32 samusX;
+    u16 spriteY;
+    u16 spriteX;
 
-    samus_y = gSamusData.yPosition;
-    samus_x = gSamusData.xPosition;
-    sprite_y = (u16)(gCurrentSprite.yPosition + 0x80);
-    sprite_x = (u16)(gCurrentSprite.xPosition + 0x60);
+    samusY = gSamusData.yPosition;
+    samusX = gSamusData.xPosition;
+    spriteY = (u16)(gCurrentSprite.yPosition + 0x80);
+    spriteX = (u16)(gCurrentSprite.xPosition + 0x60);
 
-    if (!SpriteUtilCheckCrouchinOrMorphed() && samus_y == sprite_y - 0x1 && sprite_x - 0x40 < samus_x && sprite_x + 0x40 > samus_x)
+    if (!SpriteUtilCheckCrouchinOrMorphed() && samusY == spriteY - 0x1 && spriteX - 0x40 < samusX && spriteX + 0x40 > samusX)
     {
-        gCurrentSprite.oam_pointer = map_station_oam_2d3708;
+        gCurrentSprite.pOam = map_station_oam_2d3708;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.pose = 0x23;
-        gSamusData.xPosition = sprite_x;
+        gSamusData.xPosition = spriteX;
         if (gSamusData.invincibilityTimer != 0x0)
             gSamusData.invincibilityTimer = 0x0;
 
@@ -73,11 +73,11 @@ void MapStationCheckSamusGrabbedAnimEnded(void)
 {
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
-        gCurrentSprite.oam_pointer = map_station_oam_2d3758;
+        gCurrentSprite.pOam = map_station_oam_2d3758;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.pose = 0x25;
-        gCurrentSprite.timer1 = 0x46;
+        gCurrentSprite.timer = 0x46;
         gSamusData.timer = 0x0;
     }
 }
@@ -86,15 +86,15 @@ void MapStationDownloadingAnim(void)
 {
     u32 timer;
 
-    timer = gCurrentSprite.timer1 - 0x1;
-    gCurrentSprite.timer1 = timer;
+    timer = gCurrentSprite.timer - 0x1;
+    gCurrentSprite.timer = timer;
     if ((u8)timer == 0x0)
     {
-        gCurrentSprite.oam_pointer = map_station_oam_2d3778;
+        gCurrentSprite.pOam = map_station_oam_2d3778;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.pose = 0x27;
-        gCurrentSprite.timer1 = 0xA;
+        gCurrentSprite.timer = 0xA;
     }
     else if (timer == 0xA)
         gPauseScreenFlag = 0x5;
@@ -104,8 +104,8 @@ void MapStationSpawnMessage(void)
 {
     u8 text;
 
-    gCurrentSprite.timer1--;
-    if (gCurrentSprite.timer1 == 0x0)
+    gCurrentSprite.timer--;
+    if (gCurrentSprite.timer == 0x0)
     {
         switch (gCurrentArea)
         {
@@ -145,30 +145,30 @@ void MapStationAfterDownload(void)
     if (gSpriteData[slot].pose == 0x25)
     {
         gCurrentSprite.pose = 0x2B;
-        gCurrentSprite.timer1 = 0xA;
+        gCurrentSprite.timer = 0xA;
     }
 }
 
 void MapStationBeforeRetraction(void)
 {
-    gCurrentSprite.timer1--;
-    if (gCurrentSprite.timer1 == 0x0)
+    gCurrentSprite.timer--;
+    if (gCurrentSprite.timer == 0x0)
         gCurrentSprite.pose = 0x2D;
 }
 
 void MapStationRetraction(void)
 {
     gCurrentSprite.pose = 0x2F;
-    gCurrentSprite.oam_pointer = map_station_oam_2d3788;
+    gCurrentSprite.pOam = map_station_oam_2d3788;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.animationDurationCounter = 0x0;
     SamusSetPose(SPOSE_STANDING);
     SoundPlay(0x124);
 }
 
 void MapStation(void)
 {
-    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     switch (gCurrentSprite.pose)
     {
         case 0x0:

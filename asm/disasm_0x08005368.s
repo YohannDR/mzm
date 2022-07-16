@@ -20463,8 +20463,8 @@ lbl_0800f470:
     .align 2, 0
 lbl_0800f478: .4byte 0x0000ffc0
 
-    thumb_func_start SpriteUtilCheckVerticalCollisionAtPosition_slopes
-SpriteUtilCheckVerticalCollisionAtPosition_slopes: @ 0x0800f47c
+    thumb_func_start SpriteUtilCheckVerticalCollisionAtPositionSlopes
+SpriteUtilCheckVerticalCollisionAtPositionSlopes: @ 0x0800f47c
     push {r4, r5, lr}
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10
@@ -20867,7 +20867,7 @@ current_sprite_falling_unused: @ 0x0800f79c
     ldr r4, lbl_0800f7c0 @ =0x03000738
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
-    bl SpriteUtilCheckVerticalCollisionAtPosition_slopes
+    bl SpriteUtilCheckVerticalCollisionAtPositionSlopes
     adds r1, r0, #0
     ldr r0, lbl_0800f7c4 @ =0x030007f0
     ldrb r0, [r0]
@@ -21009,8 +21009,8 @@ lbl_0800f8aa:
     pop {r0}
     bx r0
 
-    thumb_func_start current_sprite_face_samus_xflip
-current_sprite_face_samus_xflip: @ 0x0800f8b0
+    thumb_func_start current_sprite_face_samusXflip
+current_sprite_face_samusXflip: @ 0x0800f8b0
     push {lr}
     ldr r2, lbl_0800f8c8 @ =0x03000738
     ldr r1, lbl_0800f8cc @ =0x030013d4
@@ -21063,8 +21063,8 @@ lbl_0800f90e:
     pop {r0}
     bx r0
 
-    thumb_func_start current_sprite_face_away_from_samus_xflip
-current_sprite_face_away_from_samus_xflip: @ 0x0800f914
+    thumb_func_start current_sprite_face_away_from_samusXflip
+current_sprite_face_away_from_samusXflip: @ 0x0800f914
     push {lr}
     ldr r2, lbl_0800f92c @ =0x03000738
     ldr r1, lbl_0800f930 @ =0x030013d4

@@ -4,23 +4,23 @@
 
 void DragonYMovement(void)
 {
-    u16 old_y;
+    u16 oldY;
     u16 y_spawn;
 
-    old_y = gCurrentSprite.yPosition;
-    y_spawn = gCurrentSprite.yPosition_spawn;
+    oldY = gCurrentSprite.yPosition;
+    y_spawn = gCurrentSprite.yPositionSpawn;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
         if ((i32)(y_spawn - 0x7F) < gCurrentSprite.yPosition)
             gCurrentSprite.yPosition -= 0x2;
-        SpriteUtilCheckOutOfRoomEffect(old_y, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_SMALL);
+        SpriteUtilCheckOutOfRoomEffect(oldY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_SMALL);
     }
     else
     {
         if ((i32)(y_spawn - 0x2) > gCurrentSprite.yPosition)
             gCurrentSprite.yPosition += 0x2;
-        SpriteUtilCheckInRoomEffect(old_y, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_SMALL);
+        SpriteUtilCheckInRoomEffect(oldY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_SMALL);
     }
 }
 
@@ -32,24 +32,24 @@ void DragonInit(void)
     gCurrentSprite.hitboxRightOffset = 0x18;
     gCurrentSprite.drawDistanceTopOffset = 0x18;
     gCurrentSprite.drawDistanceBottomOffset = 0x18;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x18;
-    gCurrentSprite.oam_pointer = dragon_oam_2d5ad8;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+    gCurrentSprite.pOam = dragon_oam_2d5ad8;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
+    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
     SpriteUtilMakeSpriteFaceSamusXFlip();
     gCurrentSprite.pose = 0x8;
-    gCurrentSprite.yPosition_spawn = gCurrentSprite.yPosition;
+    gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
 }
 
 void DragonGFXInit(void)
 {
     gCurrentSprite.pose = 0x9;
-    gCurrentSprite.oam_pointer = dragon_oam_2d5ad8;
+    gCurrentSprite.pOam = dragon_oam_2d5ad8;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
-    gCurrentSprite.timer1 = 0x64;
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.timer = 0x64;
 }
 
 void DragonGoUp(void)
@@ -58,8 +58,8 @@ void DragonGoUp(void)
     u16 xPosition;
     u16 yPosition;
 
-    if (gCurrentSprite.timer1 != 0x0)
-        gCurrentSprite.timer1--;
+    if (gCurrentSprite.timer != 0x0)
+        gCurrentSprite.timer--;
 
     DragonYMovement();
     gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
@@ -73,7 +73,7 @@ void DragonGoUp(void)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
-                if (gCurrentSprite.timer1 == 0x0)
+                if (gCurrentSprite.timer == 0x0)
                 {
                     yPosition = gCurrentSprite.yPosition - 0x88;
                     xPosition = gCurrentSprite.xPosition + 0x48;
@@ -89,7 +89,7 @@ void DragonGoUp(void)
                 gCurrentSprite.pose = 0xA;
             else
             {
-                if (gCurrentSprite.timer1 == 0x0)
+                if (gCurrentSprite.timer == 0x0)
                 {
                     yPosition = gCurrentSprite.yPosition - 0x88;
                     xPosition = gCurrentSprite.xPosition - 0x48;
@@ -105,9 +105,9 @@ void DragonGoUp(void)
 void DragonTurningAroundGFXInit(void)
 {
     gCurrentSprite.pose = 0xB;
-    gCurrentSprite.oam_pointer = dragon_oam_2d5b28;
+    gCurrentSprite.pOam = dragon_oam_2d5b28;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.animationDurationCounter = 0x0;
 }
 
 void DragonCheckTurningAroundFirstHalfAnimEnded(void)
@@ -116,9 +116,9 @@ void DragonCheckTurningAroundFirstHalfAnimEnded(void)
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0xC;
-        gCurrentSprite.oam_pointer = dragon_oam_2d5b40;
+        gCurrentSprite.pOam = dragon_oam_2d5b40;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
     }
 }
@@ -133,23 +133,23 @@ void DragonCheckTurningAroundSecondHalfAnimEnded(void)
 void DragonSpittingGFXInit(void)
 {
     gCurrentSprite.pose = 0x35;
-    gCurrentSprite.oam_pointer = dragon_oam_2d5af8;
+    gCurrentSprite.pOam = dragon_oam_2d5af8;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
-    gCurrentSprite.timer1 = 0x1E;
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.timer = 0x1E;
 }
 
 void DragonSpittingAnim(void)
 {
     DragonYMovement();
-    gCurrentSprite.timer1--;
-    if (gCurrentSprite.timer1 == 0x0)
+    gCurrentSprite.timer--;
+    if (gCurrentSprite.timer == 0x0)
     {
         gCurrentSprite.pose = 0x37;
-        gCurrentSprite.oam_pointer = dragon_oam_2d5b10;
+        gCurrentSprite.pOam = dragon_oam_2d5b10;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
-        gCurrentSprite.timer1 = 0x8;
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.timer = 0x8;
     }
 }
 
@@ -158,8 +158,8 @@ void DragonSpawnFireball(void)
     u16 yPosition;
     u16 xPosition;
 
-    gCurrentSprite.timer1--;
-    if (gCurrentSprite.timer1 == 0x0)
+    gCurrentSprite.timer--;
+    if (gCurrentSprite.timer == 0x0)
     {
         DragonGFXInit();
         yPosition = gCurrentSprite.yPosition - 0x48;
@@ -167,7 +167,7 @@ void DragonSpawnFireball(void)
             xPosition = gCurrentSprite.xPosition + 0x28;
         else
             xPosition = gCurrentSprite.xPosition - 0x28;
-        SpriteSpawnSecondary(SSPRITE_DRAGON_FIREBALL, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
+        SpriteSpawnSecondary(SSPRITE_DRAGON_FIREBALL, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
     }
 }
 
@@ -177,46 +177,46 @@ void DragonFireballInit(void)
     gCurrentSprite.properties |= SP_PROJECTILE;
     gCurrentSprite.drawDistanceTopOffset = 0x8;
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x8;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
     gCurrentSprite.hitboxTopOffset = -0x10;
     gCurrentSprite.hitboxBottomOffset = 0x10;
     gCurrentSprite.hitboxLeftOffset = -0x10;
     gCurrentSprite.hitboxRightOffset = 0x10;
-    gCurrentSprite.oam_pointer = dragon_fireball_oam_2d5b58;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.pOam = dragon_fireball_oam_2d5b58;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x9;
-    gCurrentSprite.samus_collision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
-    gCurrentSprite.draw_order = 0x3;
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
+    gCurrentSprite.drawOrder = 0x3;
     gCurrentSprite.bg_priority = gIORegistersBackup.BG1CNT & 0x3;
-    gCurrentSprite.health = secondary_sprite_stats[gCurrentSprite.sprite_id][0x0];
+    gCurrentSprite.health = secondary_sprite_stats[gCurrentSprite.spriteID][0x0];
     
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
-        gCurrentSprite.oam_rotation = 0x40;
+        gCurrentSprite.oamRotation = 0x40;
         gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
     }
     else
-        gCurrentSprite.oam_rotation = 0x0;
+        gCurrentSprite.oamRotation = 0x0;
 
     gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
-    gCurrentSprite.oam_scaling = 0x100;
-    gCurrentSprite.array_offset = 0x0;
+    gCurrentSprite.oamScaling = 0x100;
+    gCurrentSprite.arrayOffset = 0x0;
     SoundPlay(0x14C);
 }
 
 void DragonFireballMove(void)
 {
-    /*u16 x_speed;
-    u16 old_y;
+    /*u16 xSpeed;
+    u16 oldY;
     u8 offset;
     i16 movement;
     i16 rotation;
 
-    x_speed = 0xC;
-    old_y = gCurrentSprite.yPosition;
-    offset = gCurrentSprite.array_offset;
+    xSpeed = 0xC;
+    oldY = gCurrentSprite.yPosition;
+    offset = gCurrentSprite.arrayOffset;
     movement = dragon_array_2d5134[offset];
     rotation = dragon_array_2d5184[offset];
     if (movement == 0x7FFF)
@@ -227,22 +227,22 @@ void DragonFireballMove(void)
     }
     else
     {
-        gCurrentSprite.array_offset = offset + 0x1;
+        gCurrentSprite.arrayOffset = offset + 0x1;
         gCurrentSprite.yPosition += movement;
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        gCurrentSprite.xPosition += x_speed;
-        gCurrentSprite.oam_rotation = rotation + 0x40;
+        gCurrentSprite.xPosition += xSpeed;
+        gCurrentSprite.oamRotation = rotation + 0x40;
     }
     else
     {
-        gCurrentSprite.xPosition -= x_speed;
-        gCurrentSprite.oam_rotation = -rotation;
+        gCurrentSprite.xPosition -= xSpeed;
+        gCurrentSprite.oamRotation = -rotation;
     }
 
-    if (SpriteUtilCheckInRoomEffect(old_y, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_NONE))
+    if (SpriteUtilCheckInRoomEffect(oldY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_NONE))
         gCurrentSprite.pose = 0x42;
     else
     {
@@ -254,9 +254,9 @@ void DragonFireballMove(void)
 
 void DragonFireballExplodingGFXInit(void)
 {
-    gCurrentSprite.ignore_samus_collision_timer = 0x1;
-    gCurrentSprite.oam_pointer = dragon_fireball_oam_2d5b78;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.pOam = dragon_fireball_oam_2d5b78;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x43;
     gCurrentSprite.status = (gCurrentSprite.status & ~SPRITE_STATUS_YFLIP);
@@ -265,7 +265,7 @@ void DragonFireballExplodingGFXInit(void)
 
 void DragonFireballCheckExplodingAnimEnded(void)
 {
-    gCurrentSprite.ignore_samus_collision_timer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     if (SpriteUtillCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0x0;
 }
@@ -279,7 +279,7 @@ void Dragon(void)
             unk_2b20(0x14D);
     }
 
-    if (gCurrentSprite.freeze_timer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0x0)
         SpriteUtilUpdateFreezeTimer();
     else
     {

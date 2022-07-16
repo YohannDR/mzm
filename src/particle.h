@@ -89,10 +89,10 @@ extern u16 gParticleSamusReflectionOAMFrames[73];
 
 struct ParticleEffect {
     u8 status;
-    u8 animationDuratoinCounter;
+    u8 animationDurationCounter;
     u8 effect;
     u8 stage;
-    u8 frame_counter;
+    u8 frameCounter;
     u16 currentAnimationFrame;
     u16 yPosition;
     u16 xPosition;

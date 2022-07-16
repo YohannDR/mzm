@@ -272,7 +272,7 @@ u8 LocationTextGetGFXSlot(void)
     if (lt != LT_INVALID)
     {
         // Location text found with spriteset
-        gSpriteData[0x0].room_slot = lt;
+        gSpriteData[0x0].roomSlot = lt;
         gfx_slot = LocationTextLoadAreaBannerGFX();
         // Draw location text
         draw_location_text(lt, gfx_slot);
@@ -316,7 +316,7 @@ u8 LocationTextGetGFXSlot(void)
             if (lt != LT_INVALID)
             {
                 // If found
-                gSpriteData[0x0].room_slot = lt;
+                gSpriteData[0x0].roomSlot = lt;
                 gfx_slot = LocationTextLoadAreaBannerGFX();
                 // Draw location text
                 draw_location_text(lt, gfx_slot);

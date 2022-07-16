@@ -6,16 +6,16 @@ void MultiviolaInit(void)
 {
     gCurrentSprite.drawDistanceTopOffset = 0x20;
     gCurrentSprite.drawDistanceBottomOffset = 0xC;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x10;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
     gCurrentSprite.hitboxTopOffset = -0x20;
     gCurrentSprite.hitboxBottomOffset = 0x20;
     gCurrentSprite.hitboxLeftOffset = -0x20;
     gCurrentSprite.hitboxRightOffset = 0x20;
-    gCurrentSprite.oam_pointer = multiviola_oam_2d0520;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = gCurrentSprite.primary_sprite_ram_slot << 0x1;
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
-    gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
+    gCurrentSprite.pOam = multiviola_oam_2d0520;
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = gCurrentSprite.primarySpriteRAMSlot << 0x1;
+    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     SpriteUtilMakeSpriteFaceSamusXFlip();
     gCurrentSprite.pose = 0x9;
 }
@@ -97,10 +97,10 @@ void Multiviola(void)
             unk_2b20(0x153);
     }
 
-    if (gCurrentSprite.freeze_timer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0x0)
     {
         SpriteUtilUpdateFreezeTimer();
-        SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(SSPRITE_MULTIVIOLA_UNUSED, gCurrentSprite.primary_sprite_ram_slot);
+        SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(SSPRITE_MULTIVIOLA_UNUSED, gCurrentSprite.primarySpriteRAMSlot);
     }
     else
     {

@@ -106,23 +106,23 @@ void SovaGFXUpdate(void)
     if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-            gCurrentSprite.oam_pointer = sova_oam_2cfc78;
+            gCurrentSprite.pOam = sova_oam_2cfc78;
         else
-            gCurrentSprite.oam_pointer = sova_oam_2cfc40;
+            gCurrentSprite.pOam = sova_oam_2cfc40;
     }
     else
     {
         if (gCurrentSprite.workVariable2 != 0x0)
-            gCurrentSprite.oam_pointer = sova_oam_2cfcb0;
+            gCurrentSprite.pOam = sova_oam_2cfcb0;
         else
-            gCurrentSprite.oam_pointer = sova_oam_2cfb98;
+            gCurrentSprite.pOam = sova_oam_2cfb98;
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             status |= SPRITE_STATUS_XFLIP;
         else
             status &= ~SPRITE_STATUS_XFLIP;
     }
 
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 }
 
@@ -179,16 +179,16 @@ void SovaInit(void)
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
     }
 
-    gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     SovaGFXUpdate();
     SovaHitboxUpdate();
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
+    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
     gCurrentSprite.drawDistanceTopOffset = 0x10;
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x10;
-    if (gCurrentSprite.sprite_id == PSPRITE_SOVA_ORANGE)
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    if (gCurrentSprite.spriteID == PSPRITE_SOVA_ORANGE)
     {
-        gCurrentSprite.absolute_palette_row = 0x1;
+        gCurrentSprite.absolutePaletteRow = 0x1;
         gCurrentSprite.palette_row = 0x1;
     }
 }
@@ -222,7 +222,7 @@ void SovaMove(void)
             speed = 0x0;
     }
 
-    if (gCurrentSprite.sprite_id == PSPRITE_SOVA_ORANGE && speed)
+    if (gCurrentSprite.spriteID == PSPRITE_SOVA_ORANGE && speed)
         speed++;
 
     turning = FALSE;
@@ -431,10 +431,10 @@ void SovaMove(void)
         unk_f594();
         if (gPreviousVerticalCollisionCheck == 0x0 || gPreviousVerticalCollisionCheck & 0xF0)
         {
-            if (gCurrentSprite.oam_pointer != sova_oam_2cfb98)
+            if (gCurrentSprite.pOam != sova_oam_2cfb98)
             {
-                gCurrentSprite.oam_pointer = sova_oam_2cfb98;
-                gCurrentSprite.animationDuratoinCounter = 0x0;
+                gCurrentSprite.pOam = sova_oam_2cfb98;
+                gCurrentSprite.animationDurationCounter = 0x0;
                 gCurrentSprite.currentAnimationFrame = 0x0;
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
                     gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
@@ -477,10 +477,10 @@ void SovaMove(void)
             {
                 if (gPreviousVerticalCollisionCheck == 0x2 || gPreviousVerticalCollisionCheck == 0x4)
                 {
-                    if (gCurrentSprite.oam_pointer != sova_oam_2cfbd0)
+                    if (gCurrentSprite.pOam != sova_oam_2cfbd0)
                     {
-                        gCurrentSprite.oam_pointer = sova_oam_2cfbd0;
-                        gCurrentSprite.animationDuratoinCounter = 0x0;
+                        gCurrentSprite.pOam = sova_oam_2cfbd0;
+                        gCurrentSprite.animationDurationCounter = 0x0;
                         gCurrentSprite.currentAnimationFrame = 0x0;
                         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
                     }
@@ -494,10 +494,10 @@ void SovaMove(void)
                 }
                 else
                 {
-                    if (gCurrentSprite.oam_pointer != sova_oam_2cfc08)
+                    if (gCurrentSprite.pOam != sova_oam_2cfc08)
                     {
-                        gCurrentSprite.oam_pointer = sova_oam_2cfc08;
-                        gCurrentSprite.animationDuratoinCounter = 0x0;
+                        gCurrentSprite.pOam = sova_oam_2cfc08;
+                        gCurrentSprite.animationDurationCounter = 0x0;
                         gCurrentSprite.currentAnimationFrame = 0x0;
                         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
                     }
@@ -512,10 +512,10 @@ void SovaMove(void)
             {
                 if (gPreviousVerticalCollisionCheck == 0x3 || gPreviousVerticalCollisionCheck == 0x5)
                 {
-                    if (gCurrentSprite.oam_pointer != sova_oam_2cfc08)
+                    if (gCurrentSprite.pOam != sova_oam_2cfc08)
                     {
-                        gCurrentSprite.oam_pointer = sova_oam_2cfc08;
-                        gCurrentSprite.animationDuratoinCounter = 0x0;
+                        gCurrentSprite.pOam = sova_oam_2cfc08;
+                        gCurrentSprite.animationDurationCounter = 0x0;
                         gCurrentSprite.currentAnimationFrame = 0x0;
                         gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
                     }
@@ -523,10 +523,10 @@ void SovaMove(void)
                 }
                 else
                 {
-                    if (gCurrentSprite.oam_pointer != sova_oam_2cfbd0)
+                    if (gCurrentSprite.pOam != sova_oam_2cfbd0)
                     {
-                        gCurrentSprite.oam_pointer = sova_oam_2cfbd0;
-                        gCurrentSprite.animationDuratoinCounter = 0x0;
+                        gCurrentSprite.pOam = sova_oam_2cfbd0;
+                        gCurrentSprite.animationDurationCounter = 0x0;
                         gCurrentSprite.currentAnimationFrame = 0x0;
                         gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
                     }
@@ -552,16 +552,16 @@ void SovaTurningAroundGFXUpdate(void)
 
     status = SPRITE_STATUS_NONE;
     gCurrentSprite.pose = 0xB;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     switch (gCurrentSprite.workVariable)
     {
         case 0x0:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.oam_pointer = sova_oam_2cfce8;
+                gCurrentSprite.pOam = sova_oam_2cfce8;
             else
-                gCurrentSprite.oam_pointer = sova_oam_2cfd28;
+                gCurrentSprite.pOam = sova_oam_2cfd28;
 
             status &= ~SPRITE_STATUS_XFLIP;
             status &= ~SPRITE_STATUS_FACING_DOWN;
@@ -569,9 +569,9 @@ void SovaTurningAroundGFXUpdate(void)
 
         case 0x1:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.oam_pointer = sova_oam_2cfce8;
+                gCurrentSprite.pOam = sova_oam_2cfce8;
             else
-                gCurrentSprite.oam_pointer = sova_oam_2cfd28;
+                gCurrentSprite.pOam = sova_oam_2cfd28;
 
             status |= SPRITE_STATUS_XFLIP;
             status &= ~SPRITE_STATUS_FACING_DOWN;
@@ -579,9 +579,9 @@ void SovaTurningAroundGFXUpdate(void)
 
         case 0x2:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.oam_pointer = sova_oam_2cfd28;
+                gCurrentSprite.pOam = sova_oam_2cfd28;
             else
-                gCurrentSprite.oam_pointer = sova_oam_2cfce8;
+                gCurrentSprite.pOam = sova_oam_2cfce8;
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
             gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
@@ -589,9 +589,9 @@ void SovaTurningAroundGFXUpdate(void)
 
         case 0x3:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.oam_pointer = sova_oam_2cfd28;
+                gCurrentSprite.pOam = sova_oam_2cfd28;
             else
-                gCurrentSprite.oam_pointer = sova_oam_2cfce8;
+                gCurrentSprite.pOam = sova_oam_2cfce8;
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
@@ -599,9 +599,9 @@ void SovaTurningAroundGFXUpdate(void)
 
         case 0x4:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.oam_pointer = sova_oam_2cfd48;
+                gCurrentSprite.pOam = sova_oam_2cfd48;
             else
-                gCurrentSprite.oam_pointer = sova_oam_2cfd08;
+                gCurrentSprite.pOam = sova_oam_2cfd08;
             
             status &= ~SPRITE_STATUS_XFLIP;
             status &= ~SPRITE_STATUS_FACING_DOWN;
@@ -609,9 +609,9 @@ void SovaTurningAroundGFXUpdate(void)
 
         case 0x5:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.oam_pointer = sova_oam_2cfd08;
+                gCurrentSprite.pOam = sova_oam_2cfd08;
             else
-                gCurrentSprite.oam_pointer = sova_oam_2cfd48;
+                gCurrentSprite.pOam = sova_oam_2cfd48;
 
             status |= SPRITE_STATUS_XFLIP;
             status &= ~SPRITE_STATUS_FACING_DOWN;
@@ -619,9 +619,9 @@ void SovaTurningAroundGFXUpdate(void)
 
         case 0x6:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.oam_pointer = sova_oam_2cfd48;
+                gCurrentSprite.pOam = sova_oam_2cfd48;
             else
-                gCurrentSprite.oam_pointer = sova_oam_2cfd08;
+                gCurrentSprite.pOam = sova_oam_2cfd08;
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
             gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
@@ -629,9 +629,9 @@ void SovaTurningAroundGFXUpdate(void)
 
         case 0x7:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                gCurrentSprite.oam_pointer = sova_oam_2cfd08;
+                gCurrentSprite.pOam = sova_oam_2cfd08;
             else
-                gCurrentSprite.oam_pointer = sova_oam_2cfd48;
+                gCurrentSprite.pOam = sova_oam_2cfd48;
             
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
@@ -761,8 +761,8 @@ void SovaTurningAround(void)
 void SovaBackOnGround(void)
 {
     gCurrentSprite.pose = 0xF;
-    gCurrentSprite.oam_pointer = sova_oam_falling_2cfd68;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.pOam = sova_oam_falling_2cfd68;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     SpriteUtilChooseRandomXFlip();
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -795,46 +795,46 @@ void SovaStartFalling(void)
         gCurrentSprite.yPosition += 0x28;
 
     gCurrentSprite.pose = 0x1F;
-    gCurrentSprite.array_offset = 0x0;
+    gCurrentSprite.arrayOffset = 0x0;
     gCurrentSprite.workVariable2 = 0x0;
     status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_ON_VERTICAL_WALL);
     SovaHitboxUpdate();
-    gCurrentSprite.oam_pointer = sova_oam_falling_2cfd68;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.pOam = sova_oam_falling_2cfd68;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 }
 
 void SovaFalling(void)
 {
-    u16 old_y;
+    u16 oldY;
     i16 movement;
     u16 offset;
     u32 new_y;
     u32 block;
 
-    old_y = gCurrentSprite.yPosition;
-    offset = gCurrentSprite.array_offset;
+    oldY = gCurrentSprite.yPosition;
+    offset = gCurrentSprite.arrayOffset;
     movement = sprites_falling_speed_2b0d04[offset];
     if (movement == 0x7FFF)
     {
         movement = sprites_falling_speed_2b0d04[offset - 0x1];
-        new_y = old_y + movement;
+        new_y = oldY + movement;
     }
     else
     {
-        gCurrentSprite.array_offset++;
+        gCurrentSprite.arrayOffset++;
         new_y = gCurrentSprite.yPosition + movement;
     }
 
     gCurrentSprite.yPosition = new_y;
-    block = SpriteUtilCheckVerticalCollisionAtPosition_slopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+    block = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
     if (gPreviousVerticalCollisionCheck)
     {
         gCurrentSprite.yPosition = block;
         SovaBackOnGround();
     }
     else
-        SpriteUtilCheckInRoomEffect(old_y, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_BIG);
+        SpriteUtilCheckInRoomEffect(oldY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_BIG);
 }
 
 void SovaDeath(void)
@@ -872,7 +872,7 @@ void Sova(void)
             unk_2b20(0x154);
     }
 
-    if (gCurrentSprite.freeze_timer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0x0)
         SpriteUtilUpdateFreezeTimer();
     else
     {

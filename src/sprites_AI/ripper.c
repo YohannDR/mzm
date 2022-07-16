@@ -10,12 +10,12 @@ void RipperInit(void)
     gCurrentSprite.hitboxRightOffset = 0x20;
     gCurrentSprite.drawDistanceTopOffset = 0x10;
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.draw_distance_horizontal_offset = 0x10;
-    gCurrentSprite.oam_pointer = ripper_oam_2cc048;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    gCurrentSprite.pOam = ripper_oam_2cc048;
+    gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
+    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
     gCurrentSprite.yPosition -= 0x8;
     SpriteUtilChooseRandomXFlip();
     gCurrentSprite.pose = 0x8;
@@ -24,16 +24,16 @@ void RipperInit(void)
 void RipperGFXInit(void)
 {
     gCurrentSprite.pose = 0x9;
-    gCurrentSprite.oam_pointer = ripper_oam_2cc048;
+    gCurrentSprite.pOam = ripper_oam_2cc048;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.animationDurationCounter = 0x0;
 }
 
 void RipperMove(void)
 {
     u16 speed;
 
-    if (gCurrentSprite.sprite_id == PSPRITE_RIPPER_PURPLE)
+    if (gCurrentSprite.spriteID == PSPRITE_RIPPER_PURPLE)
         speed = 0x4;
     else
         speed = 0x2;
@@ -59,9 +59,9 @@ void RipperMove(void)
 void RipperTurnAroundGFXInit(void)
 {
     gCurrentSprite.pose = 0xB;
-    gCurrentSprite.oam_pointer = ripper_oam_2cc070;
+    gCurrentSprite.pOam = ripper_oam_2cc070;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.animationDurationCounter = 0x0;
 }
 
 void RipperTurnAroundBegin(void)
@@ -70,8 +70,8 @@ void RipperTurnAroundBegin(void)
     {
         gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
         gCurrentSprite.pose = 0xC;
-        gCurrentSprite.oam_pointer = ripper_oam_2cc088;
-        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.pOam = ripper_oam_2cc088;
+        gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
     }
 }
@@ -91,7 +91,7 @@ void Ripper(void)
             unk_2b20(0x149);
     }
 
-    if (gCurrentSprite.freeze_timer != 0x0)
+    if (gCurrentSprite.freezeTimer != 0x0)
         SpriteUtilUpdateFreezeTimer();
     else
     {

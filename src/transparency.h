@@ -3,33 +3,48 @@
 
 #include "types.h"
 
+// Globals
+
+extern struct BldalphaData gBLDALPHAata1;
+extern struct BldalphaData gBLDALPHAata1;
+extern struct BldyData gBLDYData1;
+extern struct BldyData gBLDYData2;
+
+// Defines
+
+#define TRANSPARENCY_ACTIVE 0x1
+
+// Structs
+
 struct BldalphaData {
-    u16 maybe_bldcnt;
-    u8 unk;
-    u8 eva;
-    u8 evb;
-    u8 unk2;
-    u8 unk3;
-    u8 fading_related;
+    u16 BLDCNT;
+    u8 activeFlag;
+    u8 evbCoef;
+    u8 evaCoef;
+    i8 delayMax;
+    i8 delay;
+    u8 intensity;
 };
 
 struct BldyData {
-    u16 unk;
-    u8 unk2;
-    u8 unk3;
-    u8 unk4;
-    u8 unk5;
-    u8 unk6;
+    u16 BLDCNT;
+    u8 activeFlag;
+    u8 value;
+    i8 delayMax;
+    i8 delay;
+    u8 intensity;
 };
+
+// Functions
 
 void TransparencySetRoomEffectsTransparency(void);
 u16 TransparencyGetBGSizeFlag(u8 size);
 u16 TransparencyCheckIsDarkRoom(void);
 void TransparencyUpdateBLDCNT(u8 action, u16 value);
-void TransparencySpriteUpdateBLDY(u8 value, u8 delay, u8 intensity);
-void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, u8 delay, u8 intensity);
-void TransparencyUpdateBLDY(u8 value, u8 delay, u8 intensity);
-void TransprencyUpdateBLDALPHA(u8 eva, u8 evb, u8 unk, u8 fading_related);
+void TransparencySpriteUpdateBLDY(u8 value, i8 delay, u8 intensity);
+void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u8 intensity);
+void TransparencyUpdateBLDY(u8 value, i8 delay, u8 intensity);
+void TransprencyUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u8 intensity);
 void TransprencyApplyNewEffects(void);
 void TransprencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha);
 void TransprencyApplyNewBLDY(struct BldyData* pBldy);
