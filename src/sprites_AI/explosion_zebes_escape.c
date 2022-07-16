@@ -8,37 +8,37 @@ void ExplosionZebesEscape(void)
 {
     u32 rng;
     u32 rng_;
-    u32 x_position;
-    u32 y_position;
+    u32 xPosition;
+    u32 yPosition;
     u8 array_offset;
     u8 variable;
-    u32 y_offset;
-    u32 x_offset;
+    u32 yOffset;
+    u32 xOffset;
 
     if (gCurrentSprite.pose == 0x0)
     {
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
-        gCurrentSprite.draw_distance_top_offset = 0x1;
-        gCurrentSprite.draw_distance_bottom_offset = 0x1;
+        gCurrentSprite.drawDistanceTopOffset = 0x1;
+        gCurrentSprite.drawDistanceBottomOffset = 0x1;
         gCurrentSprite.draw_distance_horizontal_offset = 0x1;
-        gCurrentSprite.hitbox_top_offset = 0x0;
-        gCurrentSprite.hitbox_bottom_offset = 0x0;
-        gCurrentSprite.hitbox_left_offset = 0x0;
-        gCurrentSprite.hitbox_right_offset = 0x0;
+        gCurrentSprite.hitboxTopOffset = 0x0;
+        gCurrentSprite.hitboxBottomOffset = 0x0;
+        gCurrentSprite.hitboxLeftOffset = 0x0;
+        gCurrentSprite.hitboxRightOffset = 0x0;
         gCurrentSprite.samus_collision = SSC_NONE;
         gCurrentSprite.oam_pointer = large_energy_oam_data_2b2750;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.array_offset = 0x7;
         gCurrentSprite.workVariable2 = 0x0;
-        gCurrentSprite.y_position_spawn = gCurrentSprite.y_position;
-        gCurrentSprite.x_position_spawn = gCurrentSprite.x_position;
+        gCurrentSprite.yPosition_spawn = gCurrentSprite.yPosition;
+        gCurrentSprite.xPosition_spawn = gCurrentSprite.xPosition;
         return;
     }
 
-    y_position = gCurrentSprite.y_position_spawn;
-    x_position = (u16)(gBG1XPosition + 0x1E0);
+    yPosition = gCurrentSprite.yPosition_spawn;
+    xPosition = (u16)(gBG1XPosition + 0x1E0);
     rng = gSpriteRNG;
     rng_ = rng & 0x3;
     array_offset = gCurrentSprite.array_offset;
@@ -46,9 +46,9 @@ void ExplosionZebesEscape(void)
     variable = gCurrentSprite.workVariable2;
     gCurrentSprite.workVariable2++;
 
-    y_position = gCurrentSprite.y_position_spawn;
-    if (gSamusData.y_position < (gCurrentSprite.y_position_spawn - 0xA0))
-        y_position = (u16)(gSamusData.y_position + 0x64);
+    yPosition = gCurrentSprite.yPosition_spawn;
+    if (gSamusData.yPosition < (gCurrentSprite.yPosition_spawn - 0xA0))
+        yPosition = (u16)(gSamusData.yPosition + 0x64);
 
     if ((array_offset & 0xF) == 0x0 && rng >= 0x8)
     {
@@ -58,16 +58,16 @@ void ExplosionZebesEscape(void)
             {
                 if ((rng & 0x1) != 0x0)
                 {
-                    y_position += (rng * 0x8) - 0xE6;
-                    x_position += (rng << rng_);
-                    ParticleSet(y_position, x_position, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+                    yPosition += (rng * 0x8) - 0xE6;
+                    xPosition += (rng << rng_);
+                    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
                     unk_2b20(0x276);
                 }
                 else
                 {
-                    y_position += (rng * 0x8) - 0xDC;
-                    x_position += (rng << rng_) + 0xA0;
-                    ParticleSet(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
+                    yPosition += (rng * 0x8) - 0xDC;
+                    xPosition += (rng << rng_) + 0xA0;
+                    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
                     unk_2b20(0xA4);
                 }
             }
@@ -75,16 +75,16 @@ void ExplosionZebesEscape(void)
             {
                 if ((rng & 0x1) != 0x0)
                 {
-                    y_position += (rng * 0x8) - 0xDC;
-                    x_position -= (rng << rng_);
-                    ParticleSet(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
+                    yPosition += (rng * 0x8) - 0xDC;
+                    xPosition -= (rng << rng_);
+                    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
                     unk_2b20(0xA4);
                 }
                 else
                 {
-                    y_position += (rng * 0x8) - 0xE6;
-                    x_position -= (rng << rng_) + 0xA0;
-                    ParticleSet(y_position, x_position, PE_SPRITE_EXPLOSION_BIG);
+                    yPosition += (rng * 0x8) - 0xE6;
+                    xPosition -= (rng << rng_) + 0xA0;
+                    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_BIG);
                     unk_2b20(0x276);
                 }
             }
@@ -97,38 +97,38 @@ void ExplosionZebesEscape(void)
             {
                 if ((rng & 0x1) != 0x0)
                 {
-                    ParticleSet(y_position + (rng * 0x10 - 0x140), x_position + rng << rng_, PE_TWO_MEDIUM_DUST);
+                    ParticleSet(yPosition + (rng * 0x10 - 0x140), xPosition + rng << rng_, PE_TWO_MEDIUM_DUST);
                     unk_2b20(0xA5);
                 }
                 else
                 {
-                    y_offset = (rng * 0x10) - 0x118;
-                    x_offset = rng << rng_;
+                    yOffset = (rng * 0x10) - 0x118;
+                    xOffset = rng << rng_;
                 }
             }
             else
             {
-                y_offset = (rng * 0x10) - 0x168;
-                x_offset = (rng << rng_) + 0xC0;
+                yOffset = (rng * 0x10) - 0x168;
+                xOffset = (rng << rng_) + 0xC0;
             }
 
-            ParticleSet(y_position + y_offset, x_position + x_offset, PE_MEDIUM_DUST);
+            ParticleSet(yPosition + yOffset, xPosition + xOffset, PE_MEDIUM_DUST);
             unk_2b20(0x277);
         }
     }
 
-    y_position = (u16)(gBG1YPosition - 0x40);
+    yPosition = (u16)(gBG1YPosition - 0x40);
     if ((variable & 0x1F) == 0x0)
     {
         if ((variable & 0x20) != 0x0)
         {
-            SpriteDebrisInit(0x0, 0x5, y_position, x_position - (rng * 0x10) - 0x78);
-            SpriteDebrisInit(0x0, 0x8, y_position, x_position + (rng * 0x8) - 0x190);
+            SpriteDebrisInit(0x0, 0x5, yPosition, xPosition - (rng * 0x10) - 0x78);
+            SpriteDebrisInit(0x0, 0x8, yPosition, xPosition + (rng * 0x8) - 0x190);
         }
         else
         {
-            SpriteDebrisInit(0x0, 0x7, y_position, x_position - (rng * 0x10) - 0x78);
-            SpriteDebrisInit(0x0, 0x5, y_position, x_position + (rng * 0x8) - 0x12C);
+            SpriteDebrisInit(0x0, 0x7, yPosition, xPosition - (rng * 0x10) - 0x78);
+            SpriteDebrisInit(0x0, 0x5, yPosition, xPosition + (rng * 0x8) - 0x12C);
         }
     }
 
@@ -136,13 +136,13 @@ void ExplosionZebesEscape(void)
     {
         if (rng >= 0x8)
         {
-            SpriteDebrisInit(0x0, 0x8, y_position, x_position + (rng * 0x20) - 0x1C2);
-            SpriteDebrisInit(0x0, 0x6, y_position, x_position - (rng * 0x20) - 0x24E);
+            SpriteDebrisInit(0x0, 0x8, yPosition, xPosition + (rng * 0x20) - 0x1C2);
+            SpriteDebrisInit(0x0, 0x6, yPosition, xPosition - (rng * 0x20) - 0x24E);
         }
         else
         {
-            SpriteDebrisInit(0x0, 0x6, y_position, x_position - (rng * 0x20) - 0x17C);
-            SpriteDebrisInit(0x0, 0x8, y_position, x_position + (rng * 0x8) - 0x278);
+            SpriteDebrisInit(0x0, 0x6, yPosition, xPosition - (rng * 0x20) - 0x17C);
+            SpriteDebrisInit(0x0, 0x8, yPosition, xPosition + (rng * 0x8) - 0x278);
         }
     }
 }

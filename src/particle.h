@@ -89,13 +89,13 @@ extern u16 gParticleSamusReflectionOAMFrames[73];
 
 struct ParticleEffect {
     u8 status;
-    u8 anim_duration_counter;
+    u8 animationDuratoinCounter;
     u8 effect;
     u8 stage;
     u8 frame_counter;
-    u16 curr_anim_frame;
-    u16 y_position;
-    u16 x_position;
+    u16 currentAnimationFrame;
+    u16 yPosition;
+    u16 xPosition;
 };
 
 // Typedefs
@@ -107,7 +107,7 @@ typedef void (*ParticleFunc_T)(struct ParticleEffect*);
 void ParticleCheckOnScreen(struct ParticleEffect* pParticle);
 void ParticleDraw(struct ParticleEffect* pParticle);
 void ParticleProcessAll(void);
-void ParticleSet(u16 y_position, u16 x_position, u8 effect);
+void ParticleSet(u16 yPosition, u16 xPosition, u8 effect);
 u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, struct FrameData* pOam);
 void ParticleSetCurrentOAMFramePointer(struct ParticleEffect* pParticle, struct FrameData* pOam);
 void ParticleSpriteSplashSmall(struct ParticleEffect* pParticle);

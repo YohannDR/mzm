@@ -5,19 +5,19 @@
 
 void Ripper2Init(void)
 {
-    gCurrentSprite.hitbox_top_offset = -0x24;
-    gCurrentSprite.hitbox_bottom_offset = 0x8;
-    gCurrentSprite.hitbox_left_offset = -0x28;
-    gCurrentSprite.hitbox_right_offset = 0x28;
-    gCurrentSprite.draw_distance_top_offset = 0x10;
-    gCurrentSprite.draw_distance_bottom_offset = 0x8;
+    gCurrentSprite.hitboxTopOffset = -0x24;
+    gCurrentSprite.hitboxBottomOffset = 0x8;
+    gCurrentSprite.hitboxLeftOffset = -0x28;
+    gCurrentSprite.hitboxRightOffset = 0x28;
+    gCurrentSprite.drawDistanceTopOffset = 0x10;
+    gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.draw_distance_horizontal_offset = 0x28;
     gCurrentSprite.oam_pointer = ripper2_oam_2cc458;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
-    gCurrentSprite.y_position -= 0x8;
+    gCurrentSprite.yPosition -= 0x8;
     SpriteUtilChooseRandomXFlip();
     gCurrentSprite.pose = 0x8;
 }
@@ -26,27 +26,27 @@ void Ripper2GFXInit(void)
 {
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.oam_pointer = ripper2_oam_2cc458;
-    gCurrentSprite.curr_anim_frame = 0x0;
-    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
 }
 
 void Ripper2Move(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x10, gCurrentSprite.x_position + 0x2C);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition + 0x2C);
         if (gPreviousCollisionCheck != 0x11)
-            gCurrentSprite.x_position += 0x8;
+            gCurrentSprite.xPosition += 0x8;
         else
             gCurrentSprite.pose = 0xA;
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position - 0x10, gCurrentSprite.x_position - 0x2C);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition - 0x2C);
         if (gPreviousCollisionCheck == 0x11)
             gCurrentSprite.pose = 0xA;
         else
-            gCurrentSprite.x_position -= 0x8;
+            gCurrentSprite.xPosition -= 0x8;
     }
 }
 
@@ -54,8 +54,8 @@ void Ripper2TurnAroundGFXInit(void)
 {
     gCurrentSprite.pose = 0xB;
     gCurrentSprite.oam_pointer = ripper2_oam_2cc480;
-    gCurrentSprite.curr_anim_frame = 0x0;
-    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         unk_2b20(0x267);
 }
@@ -67,8 +67,8 @@ void Ripper2TurnAroundBegin(void)
         gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
         gCurrentSprite.pose = 0xC;
         gCurrentSprite.oam_pointer = ripper2_oam_2cc498;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
     }
 }
 
@@ -112,7 +112,7 @@ void Ripper2(void)
                     Ripper2CheckTurnedAround();
                     break;
                 default:
-                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position - 0x18, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - 0x18, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
             }
         }
     }

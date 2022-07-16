@@ -31,19 +31,19 @@ void PowerBombExplosion(void)
 /**
  * 576ec | 48 | Starts a power bomb explosion at the given parameters
  * 
- * @param x_position The X Position of the epicenter
- * @param y_position The Y Position of the epicenter
+ * @param xPosition The X Position of the epicenter
+ * @param yPosition The Y Position of the epicenter
  * @param owner Owner of the power bomb, left over from fusion
  */
-void PowerBombExplosionStart(u16 x_position, u16 y_position, u8 owner)
+void PowerBombExplosionStart(u16 xPosition, u16 yPosition, u8 owner)
 {
     if (gGameModeSub2 == 0x2) // /!\ Wrong register for ldrsh
     {
         PowerBombExplosionSet0x12To0();
         if (gCurrentPowerBomb.animation_state == 0x0) // Check if there isn't already an explosion
         {
-            gCurrentPowerBomb.x_position = x_position;
-            gCurrentPowerBomb.y_position = y_position;
+            gCurrentPowerBomb.xPosition = xPosition;
+            gCurrentPowerBomb.yPosition = yPosition;
             gCurrentPowerBomb.owner = owner;
             if (gCurrentPowerBomb.also_always_zero != 0x0)
                 gCurrentPowerBomb.animation_state = 0x2;

@@ -14,6 +14,7 @@ extern struct ProjectileData gProjectileData[16];
 extern u16 gArmCannonY;
 extern u16 gArmCannonX;
 
+// Defines
 
 #define PROJECTILE_NONE 0x0
 #define PROJECTILE_BEAM 0x1
@@ -50,44 +51,35 @@ extern u16 gArmCannonX;
 #define PROJ_TYPE_BOMB 0xE
 #define PROJ_TYPE_POWER_BOMB 0xF
 
+// Structs
+
 struct ProjectileData {
     u8 status;
     struct FrameData* oam_pointer;
-    u16 y_position;
-    u16 x_position;
-    u16 curr_anim_frame;
-    u8 anim_duration_counter;
+    u16 yPosition;
+    u16 xPosition;
+    u16 currentAnimationFrame;
+    u8 animationDuratoinCounter;
     u8 type;
     u8 direction;
     u8 movement_stage;
     u8 draw_distance_offset;
     u8 timer;
-    i16 hitbox_top_offset;
-    i16 hitbox_bottom_offset;
-    i16 hitbox_left_offset;
-    i16 hitbox_right_offset;
+    i16 hitboxTopOffset;
+    i16 hitboxBottomOffset;
+    i16 hitboxLeftOffset;
+    i16 hitboxRightOffset;
 };
-struct PowerBomb {
-    u8 animation_state;
-    u8 stage;
-    u8 semi_minor_axis;
-    u8 unknown;
-    u16 x_position;
-    u16 y_position;
-    i16 hitbox_left_offset;
-    i16 hitbox_right_offset;
-    i16 hitbox_top_offset;
-    i16 hitbox_bottom_offset;
-    u8 power_bomb_placed;
-    u8 owner;
-    u8 also_always_zero;
-};
+
+// Typedef
 
 typedef (*ProjFunc_T)(struct ProjectileData*);
 
+// Functions
+
 void ProjectileSetBeamParticleEffect(void);
 u8 ProjectileCheckNumberOfProjectiles(u8 type, u8 limit);
-u8 ProjectileInit(u8 type, u16 y_position, u16 x_position);
+u8 ProjectileInit(u8 type, u16 yPosition, u16 xPosition);
 void ProjectileUpdate(void);
 void ProjectileUpdateAnimation(struct ProjectileData* pProj);
 void ProjectileDrawAllStatusFalse(void);
@@ -97,7 +89,7 @@ void ProjectileCheckDespawn(struct ProjectileData* pProj);
 void ProjectileLoadGraphics(void);
 void ProjectileCallLoadGraphicsAndClearProjectiles(void);
 void ProjectileMove(struct ProjectileData* pProj, u8 distance);
-u8 ProjectileCheckHittingSolidBlock(u16 y_position, u16 x_position);
+u8 ProjectileCheckHittingSolidBlock(u16 yPosition, u16 xPosition);
 u8 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj);
 void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay);
 void ProjectileMoveTumbling(struct ProjectileData* pProj);
@@ -109,16 +101,16 @@ u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage);
 struct SpriteData* ProjectileHitSpriteImmuneToProjectiles(struct SpriteData* pSprite);
 struct SpriteData* ProjectileHitSolidSprite(struct SpriteData* pSprite);
 void ProjectilePowerBombDealDamage(struct SpriteData* pSprite);
-void ProjectileHitSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
-void ProjectileNonIceChargedHitSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
+void ProjectileHitSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition, u16 damage, u8 effect);
+void ProjectileNonIceChargedHitSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition, u16 damage, u8 effect);
 void ProjectileFreezeSprite(struct SpriteData* pSprite, u8 freeze_timer);
-void ProjectileIceBeamHittingSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
-void ProjectileChargedIceBeamHittingSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position, u16 damage, u8 effect);
+void ProjectileIceBeamHittingSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition, u16 damage, u8 effect);
+void ProjectileChargedIceBeamHittingSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition, u16 damage, u8 effect);
 void ProjectileStartTumblingMissile(struct SpriteData* pSprite, struct ProjectileData* pProj, u8 type);
 void ProjectileStartTumblingMissileCurrentSprite(struct ProjectileData* pProj, u8 type);
-void ProjectileMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 y_position, u16 x_position);
-void ProjectileSuperMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 y_position, u16 x_position);
-void ProjectileBombMissileHitSprite(struct SpriteData* pSprite, u16 y_position, u16 x_position);
+void ProjectileMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 yPosition, u16 xPosition);
+void ProjectileSuperMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 yPosition, u16 xPosition);
+void ProjectileBombMissileHitSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition);
 void ProjectileProcessNormalBeam(struct ProjectileData* pProj);
 void ProjectileProcessLongBeam(struct ProjectileData* pProj);
 void ProjectileProcessIceBeam(struct ProjectileData* pProj);

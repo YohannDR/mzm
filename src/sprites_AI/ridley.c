@@ -27,7 +27,7 @@ void RidleyMaybeCheckDead(void)
 
 }
 
-u8 RidleyCheckGrabbing(u16 y_position, u16 x_position)
+u8 RidleyCheckGrabbing(u16 yPosition, u16 xPosition)
 {
     return 0;
 }

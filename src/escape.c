@@ -40,10 +40,10 @@ void EscapeUpdateOAM(void)
 
     gParticleEscapeOAMFrames[24] = gEscapeTimerDigits.hundredths + increment;
     gParticleEscapeOAMFrames[21] = gEscapeTimerDigits.tenths + increment;
-    gParticleEscapeOAMFrames[15] = gEscapeTimerDigits.seconds_ones + increment;
-    gParticleEscapeOAMFrames[12] = gEscapeTimerDigits.seconds_tens + increment;
-    gParticleEscapeOAMFrames[6] = gEscapeTimerDigits.minutes_ones + increment;
-    gParticleEscapeOAMFrames[3] = gEscapeTimerDigits.minutes_tens + increment;
+    gParticleEscapeOAMFrames[15] = gEscapeTimerDigits.secondsOnes + increment;
+    gParticleEscapeOAMFrames[12] = gEscapeTimerDigits.secondsTens + increment;
+    gParticleEscapeOAMFrames[6] = gEscapeTimerDigits.minutesOnes + increment;
+    gParticleEscapeOAMFrames[3] = gEscapeTimerDigits.minutesTens + increment;
 }
 
 void EscapeCheckReloadGraphics(void)
@@ -68,28 +68,28 @@ void EscapeSetTimer(void)
         {
             gEscapeTimerDigits.hundredths = 0x0;
             gEscapeTimerDigits.tenths = 0x0;
-            gEscapeTimerDigits.seconds_ones = 0x0;
-            gEscapeTimerDigits.seconds_tens = 0x0;
-            gEscapeTimerDigits.minutes_ones = 0x3;
-            gEscapeTimerDigits.minutes_tens = 0x0;
+            gEscapeTimerDigits.secondsOnes = 0x0;
+            gEscapeTimerDigits.secondsTens = 0x0;
+            gEscapeTimerDigits.minutesOnes = 0x3;
+            gEscapeTimerDigits.minutesTens = 0x0;
         }
         else if (gDifficulty == 0x2)
         {
             gEscapeTimerDigits.hundredths = 0x0;
             gEscapeTimerDigits.tenths = 0x0;
-            gEscapeTimerDigits.seconds_ones = 0x0;
-            gEscapeTimerDigits.seconds_tens = 0x0;
-            gEscapeTimerDigits.minutes_ones = 0x1;
-            gEscapeTimerDigits.minutes_tens = 0x0;
+            gEscapeTimerDigits.secondsOnes = 0x0;
+            gEscapeTimerDigits.secondsTens = 0x0;
+            gEscapeTimerDigits.minutesOnes = 0x1;
+            gEscapeTimerDigits.minutesTens = 0x0;
         }
         else
         {
             gEscapeTimerDigits.hundredths = 0x0;
             gEscapeTimerDigits.tenths = 0x0;
-            gEscapeTimerDigits.seconds_ones = 0x0;
-            gEscapeTimerDigits.seconds_tens = 0x0;
-            gEscapeTimerDigits.minutes_ones = 0x2;
-            gEscapeTimerDigits.minutes_tens = 0x0;
+            gEscapeTimerDigits.secondsOnes = 0x0;
+            gEscapeTimerDigits.secondsTens = 0x0;
+            gEscapeTimerDigits.minutesOnes = 0x2;
+            gEscapeTimerDigits.minutesTens = 0x0;
         }
     }
     else if (escape == ESCAPE_MECHA_RIDLEY)
@@ -98,29 +98,29 @@ void EscapeSetTimer(void)
         {
             gEscapeTimerDigits.hundredths = 0x0;
             gEscapeTimerDigits.tenths = 0x0;
-            gEscapeTimerDigits.seconds_ones = 0x0;
-            gEscapeTimerDigits.seconds_tens = 0x0;
-            gEscapeTimerDigits.minutes_ones = 0x3;
-            gEscapeTimerDigits.minutes_tens = 0x0;
+            gEscapeTimerDigits.secondsOnes = 0x0;
+            gEscapeTimerDigits.secondsTens = 0x0;
+            gEscapeTimerDigits.minutesOnes = 0x3;
+            gEscapeTimerDigits.minutesTens = 0x0;
         }
         else
         {
             gEscapeTimerDigits.hundredths = 0x0;
             gEscapeTimerDigits.tenths = 0x0;
-            gEscapeTimerDigits.seconds_ones = 0x0;
-            gEscapeTimerDigits.seconds_tens = 0x0;
-            gEscapeTimerDigits.minutes_ones = 0x5;
-            gEscapeTimerDigits.minutes_tens = 0x0;
+            gEscapeTimerDigits.secondsOnes = 0x0;
+            gEscapeTimerDigits.secondsTens = 0x0;
+            gEscapeTimerDigits.minutesOnes = 0x5;
+            gEscapeTimerDigits.minutesTens = 0x0;
         }
     }
     else
     {
         gEscapeTimerDigits.hundredths = 0x9;
         gEscapeTimerDigits.tenths = 0x9;
-        gEscapeTimerDigits.seconds_ones = 0x9;
-        gEscapeTimerDigits.seconds_tens = 0x9;
-        gEscapeTimerDigits.minutes_ones = 0x9;
-        gEscapeTimerDigits.minutes_tens = 0x9;
+        gEscapeTimerDigits.secondsOnes = 0x9;
+        gEscapeTimerDigits.secondsTens = 0x9;
+        gEscapeTimerDigits.minutesOnes = 0x9;
+        gEscapeTimerDigits.minutesTens = 0x9;
     }
 }
 
@@ -172,31 +172,31 @@ void EscaepUpdateTimer(void)
     {
         gEscapeTimerDigits.hundredths = 0x9;
         gEscapeTimerDigits.tenths = 0x9;
-        if (gEscapeTimerDigits.seconds_ones != 0x0)
-            gEscapeTimerDigits.seconds_ones--;
+        if (gEscapeTimerDigits.secondsOnes != 0x0)
+            gEscapeTimerDigits.secondsOnes--;
         else
         {
-            gEscapeTimerDigits.seconds_ones = 0x9;
-            if (gEscapeTimerDigits.seconds_tens != 0x0)
-                gEscapeTimerDigits.seconds_tens--;
+            gEscapeTimerDigits.secondsOnes = 0x9;
+            if (gEscapeTimerDigits.secondsTens != 0x0)
+                gEscapeTimerDigits.secondsTens--;
             else
             {
-                gEscapeTimerDigits.seconds_tens = 0x5;
-                if (gEscapeTimerDigits.minutes_ones != 0x0)
-                    gEscapeTimerDigits.minutes_ones--;
+                gEscapeTimerDigits.secondsTens = 0x5;
+                if (gEscapeTimerDigits.minutesOnes != 0x0)
+                    gEscapeTimerDigits.minutesOnes--;
                 else
                 {
-                    gEscapeTimerDigits.minutes_ones = 0x9;
-                    if (gEscapeTimerDigits.minutes_tens != 0x0)
-                        gEscapeTimerDigits.minutes_tens--;
+                    gEscapeTimerDigits.minutesOnes = 0x9;
+                    if (gEscapeTimerDigits.minutesTens != 0x0)
+                        gEscapeTimerDigits.minutesTens--;
                     else
                     {
                         gEscapeTimerDigits.hundredths = 0x0;
                         gEscapeTimerDigits.tenths = 0x0;
-                        gEscapeTimerDigits.seconds_ones = 0x0;
-                        gEscapeTimerDigits.seconds_tens = 0x0;
-                        gEscapeTimerDigits.minutes_ones = 0x0;
-                        gEscapeTimerDigits.minutes_tens = 0x0;
+                        gEscapeTimerDigits.secondsOnes = 0x0;
+                        gEscapeTimerDigits.secondsTens = 0x0;
+                        gEscapeTimerDigits.minutesOnes = 0x0;
+                        gEscapeTimerDigits.minutesTens = 0x0;
                         gCurrentEscapeStatus = ESCAPE_STATUS_FAILED;
                     }
                 }

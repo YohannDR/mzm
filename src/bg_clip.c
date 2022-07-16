@@ -2,24 +2,24 @@
 #include "globals.h"
 #include "../data/data.h"
 
-void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 y_position, u16 x_position)
+void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition)
 {
 
 }
 
-void BGClipSetBG1BlockValue(u16 value, u16 y_position, u16 x_position)
+void BGClipSetBG1BlockValue(u16 value, u16 yPosition, u16 xPosition)
 {
 
 }
 
-void BGClipSetRawBG1BlockValue(u16 value, u16 y_position, u16 x_position)
+void BGClipSetRawBG1BlockValue(u16 value, u16 yPosition, u16 xPosition)
 {
-    gBGPointersAndDimensions.backgrounds[0x1].decompressed[gBGPointersAndDimensions.backgrounds[0x1].width * y_position + x_position] = value;
+    gBGPointersAndDimensions.backgrounds[0x1].pDecomp[gBGPointersAndDimensions.backgrounds[0x1].width * yPosition + xPosition] = value;
 }
 
-void BGClipSetClipdataBlockValue(u16 value, u16 y_position, u16 x_position)
+void BGClipSetClipdataBlockValue(u16 value, u16 yPosition, u16 xPosition)
 {
-    gBGPointersAndDimensions.clipdata_decompressed[gBGPointersAndDimensions.clipdata_width * y_position + x_position] = value;
+    gBGPointersAndDimensions.pClipDecomp[gBGPointersAndDimensions.clipdataWidth * yPosition + xPosition] = value;
 }
 
 void BGClipCheckTouchingSpecialClipdata(void)
@@ -71,8 +71,8 @@ void BGClipFinishCollectingTank(void)
 
 void BGClipFinishCollectingAbility(void)
 {
-    BGClipSetItemAsCollected(gSamusData.x_position >> 0x6, gSamusData.y_position >> 0x6, 0x80);
-    update_minimap_square_for_collected_items((u8)(gSamusData.x_position >> 0x6), (u8)(gSamusData.y_position >> 0x6));
+    BGClipSetItemAsCollected(gSamusData.xPosition >> 0x6, gSamusData.yPosition >> 0x6, 0x80);
+    update_minimap_square_for_collected_items((u8)(gSamusData.xPosition >> 0x6), (u8)(gSamusData.yPosition >> 0x6));
 }
 
 void BGClipCheckGrabbingCrumnbleBlock(u8 false)
@@ -80,12 +80,12 @@ void BGClipCheckGrabbingCrumnbleBlock(u8 false)
 
 }
 
-u8 BGClipCheckOpeningHatch(u16 x_position, u16 y_position)
+u8 BGClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
 {
 
 }
 
-void BGClipSetItemAsCollected(u8 x_position, u8 y_position, u8 type)
+void BGClipSetItemAsCollected(u8 xPosition, u8 yPosition, u8 type)
 {
 
 }

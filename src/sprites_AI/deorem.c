@@ -30,29 +30,29 @@ void DeoremRandomSpriteDebris(u8 rng)
  * 20f80 | a8 | 
  * Handles the spawning of sprite debris when Deorem appears
  * 
- * @param y_position Y Position
- * @param x_position X Position
+ * @param yPosition Y Position
+ * @param xPosition X Position
  * @param timer Timer (determines which set to spawn)
  */
-void DeoremSpriteDebrisSpawn(u16 y_position, u16 x_position, u8 timer)
+void DeoremSpriteDebrisSpawn(u16 yPosition, u16 xPosition, u8 timer)
 {
     switch (timer)
     {
         case 0x1:
-            SpriteDebrisInit(0x0, 0x11, y_position - 0x40, x_position);
-            SpriteDebrisInit(0x0, 0x12, y_position - 0x10, x_position + 0x3E);
+            SpriteDebrisInit(0x0, 0x11, yPosition - 0x40, xPosition);
+            SpriteDebrisInit(0x0, 0x12, yPosition - 0x10, xPosition + 0x3E);
             break;
         case 0x3:
-            SpriteDebrisInit(0x0, 0x13, y_position + 0x28, x_position - 0x5C);
-            SpriteDebrisInit(0x0, 0x4, y_position, x_position + 0x1E);
+            SpriteDebrisInit(0x0, 0x13, yPosition + 0x28, xPosition - 0x5C);
+            SpriteDebrisInit(0x0, 0x4, yPosition, xPosition + 0x1E);
             break;
         case 0x7:
-            SpriteDebrisInit(0x0, 0x11, y_position + 0x14, x_position - 0x14);
-            SpriteDebrisInit(0x0, 0x12, y_position - 0x14, x_position + 0x6E);
+            SpriteDebrisInit(0x0, 0x11, yPosition + 0x14, xPosition - 0x14);
+            SpriteDebrisInit(0x0, 0x12, yPosition - 0x14, xPosition + 0x6E);
             break;
         case 0xC:
-            SpriteDebrisInit(0x0, 0x13, y_position + 0x28, x_position + 0x1E);
-            SpriteDebrisInit(0x0, 0x4, y_position - 0x10, x_position - 0x64);
+            SpriteDebrisInit(0x0, 0x13, yPosition + 0x28, xPosition + 0x1E);
+            SpriteDebrisInit(0x0, 0x4, yPosition - 0x10, xPosition - 0x64);
     }
 }
 
@@ -65,15 +65,15 @@ u8 DeoremCheckLeaving(u8 ram_slot)
  * 21094 | 40 |
  * Spawns and loads a charge beam sprite at the given position
  * 
- * @param y_position Y Position
- * @param x_position X Position
+ * @param yPosition Y Position
+ * @param xPosition X Position
  */
-void DeoremSpawnChargeBeam(u16 y_position, u16 x_position)
+void DeoremSpawnChargeBeam(u16 yPosition, u16 xPosition)
 {
     u8 gfx_slot;
 
     gfx_slot = gCurrentSprite.spriteset_gfx_slot;
-    SpriteSpawnPrimary(PSPRITE_CHARGE_BEAM, 0x0, gfx_slot, y_position, x_position, 0x0);
+    SpriteSpawnPrimary(PSPRITE_CHARGE_BEAM, 0x0, gfx_slot, yPosition, xPosition, 0x0);
     SpriteLoadGFX(PSPRITE_CHARGE_BEAM, gfx_slot);
     SpriteLoadPAL(PSPRITE_CHARGE_BEAM, gfx_slot, 0x1);
 }
@@ -98,7 +98,7 @@ void DeoremSetEyeOpeningTimer(void)
  */
 void DeoremCallSpawnChargeBeam(void)
 {
-    DeoremSpawnChargeBeam(gCurrentSprite.y_position + 0xB0, gCurrentSprite.x_position + 0x1A0);
+    DeoremSpawnChargeBeam(gCurrentSprite.yPosition + 0xB0, gCurrentSprite.xPosition + 0x1A0);
     gCurrentSprite.status = 0x0;
 }
 
@@ -123,27 +123,27 @@ void DeoremSpawnGoingDownAnim(void)
  */
 void DeoremSpawnGoingUp(void)
 {
-    u16 y_position;
+    u16 yPosition;
     u8 gfx_slot;
     u8 ram_slot;
-    u16 x_position;
+    u16 xPosition;
 
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
     {
         gCurrentSprite.pose = 0x23;
         gCurrentSprite.timer1 = 0x32;
-        gCurrentSprite.y_position = gCurrentSprite.y_position_spawn + 0x31C;
+        gCurrentSprite.yPosition = gCurrentSprite.yPosition_spawn + 0x31C;
         gfx_slot = gCurrentSprite.spriteset_gfx_slot;
         ram_slot = gCurrentSprite.primary_sprite_ram_slot;
-        y_position = gCurrentSprite.y_position;
-        x_position = gCurrentSprite.x_position;
-        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xB, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xA, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x9, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x8, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x7, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x6, gfx_slot, ram_slot, y_position, x_position, 0x0);
+        yPosition = gCurrentSprite.yPosition;
+        xPosition = gCurrentSprite.xPosition;
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xB, gfx_slot, ram_slot, yPosition, xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xA, gfx_slot, ram_slot, yPosition, xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x9, gfx_slot, ram_slot, yPosition, xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x8, gfx_slot, ram_slot, yPosition, xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x7, gfx_slot, ram_slot, yPosition, xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x6, gfx_slot, ram_slot, yPosition, xPosition, 0x0);
         ScreenShakeStartVertical(0x28, 0x81);
         SoundPlay(0x193);
     }
@@ -162,8 +162,8 @@ void DeoremSpawnHeadBody(void)
 {
     u8 gfx_slot;
     u8 ram_slot;
-    u16 y_position;
-    u16 x_position;
+    u16 yPosition;
+    u16 xPosition;
     u8 segment_E_slot;
     u8 segment_D_slot;
     u8 segment_C_slot;
@@ -176,19 +176,19 @@ void DeoremSpawnHeadBody(void)
     if (gCurrentSprite.timer1 == 0x0)
     {
         gCurrentSprite.pose = 0x25;
-        gCurrentSprite.y_position = gCurrentSprite.y_position_spawn;
+        gCurrentSprite.yPosition = gCurrentSprite.yPosition_spawn;
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.timer1 = 0xB;
         gfx_slot = gCurrentSprite.spriteset_gfx_slot;
         ram_slot = gCurrentSprite.primary_sprite_ram_slot;
-        y_position = gCurrentSprite.y_position;
-        x_position = gCurrentSprite.x_position;
-        segment_E_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xE, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        segment_D_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xD, gfx_slot, ram_slot, y_position, x_position, 0x0);
-        segment_C_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xC, gfx_slot, ram_slot, y_position, x_position, 0x0);
+        yPosition = gCurrentSprite.yPosition;
+        xPosition = gCurrentSprite.xPosition;
+        segment_E_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xE, gfx_slot, ram_slot, yPosition, xPosition, 0x0);
+        segment_D_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xD, gfx_slot, ram_slot, yPosition, xPosition, 0x0);
+        segment_C_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xC, gfx_slot, ram_slot, yPosition, xPosition, 0x0);
         gSpriteData[segment_D_slot].timer1 = segment_C_slot;
         gSpriteData[segment_E_slot].timer1 = segment_D_slot;
-        eye_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_EYE, 0x0, gfx_slot, ram_slot, y_position - 0x1C, x_position - 0x4, 0x0);
+        eye_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_EYE, 0x0, gfx_slot, ram_slot, yPosition - 0x1C, xPosition - 0x4, 0x0);
         if (eye_slot == 0xFF)
             gCurrentSprite.status = 0x0;
         else
@@ -240,7 +240,7 @@ void DeoremDeath(void)
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
-        SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position + 0x40, FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+        SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition + 0x40, FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
 }
 
 void DeoremCheckLeavingCeilingAnimEnded(void)
@@ -496,9 +496,9 @@ void DeoremEye(void)
             if (isft == 0x10)
             {
                 gSpriteData[ram_slot].oam_pointer = deorem_oam_2d7a84;
-                gSpriteData[ram_slot].anim_duration_counter = 0x0;
-                gSpriteData[ram_slot].curr_anim_frame = 0x0;
-                gSpriteData[ram_slot].hitbox_bottom_offset = 0x40;
+                gSpriteData[ram_slot].animationDuratoinCounter = 0x0;
+                gSpriteData[ram_slot].currentAnimationFrame = 0x0;
+                gSpriteData[ram_slot].hitboxBottomOffset = 0x40;
                 if (gCurrentSprite.health < 0x15)
                     gSpriteData[ram_slot].absolute_palette_row = 0x2;
                 gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
@@ -545,6 +545,6 @@ void DeoremThorn(void)
             DeoremThornMovement();
             break;
         default:
-            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
     }
 }

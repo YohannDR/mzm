@@ -5,6 +5,13 @@
 #include "sprite.h"
 #include "event.h"
 
+// Globals
+
+extern struct RoomEntry gCurrentRoomEntry;
+extern struct BackgroundPositions gBackgroundPositions;
+
+// Defines
+
 #define EFFECT_NONE 0x0
 #define EFFECT_WATER 0x1
 #define EFFECT_STRONG_LAVA 0x2
@@ -18,81 +25,81 @@
 #define EFFECT_BG3_GRADIENT 0xA
 #define EFFECT_BG2_GRADIENT 0xB
 
-#define gBG0Movement_NONE 0x0
-#define gBG0Movement_WATER_CLOUDS 0x1
-#define gBG0Movement_SNOWFLAKES 0x4
+#define BG0MOVEMENT_NONE 0x0
+#define BG0MOVEMENT_WATER_CLOUDS 0x1
+#define BG0MOVEMENT_SNOWFLAKES 0x4
 
 struct RoomEntry {
     u8 tileset;
-    u8 bg0_prop;
-    u8 bg1_prop;
-    u8 bg2_prop;
-    u8 bg3_prop;
-    u8 scrolls_flag;
-    u8 bg3_scrolling;
+    u8 BG0Prop;
+    u8 BG1Prop;
+    u8 BG2Prop;
+    u8 BG3Prop;
+    u8 scrollsFlag;
+    u8 BG3Scrolling;
     u8 transparency;
-    struct EnemyRoomData* enemy_room_data;
-    u8 first_spriteset_event;
-    u8 second_spriteset_event;
-    u8 map_x;
-    u8 map_y;
+    struct EnemyRoomData* pEnemyRoomData;
+    u8 firstSpritesetEvent;
+    u8 secondSpritesetEvent;
+    u8 mapX;
+    u8 mapY;
     u8 effect;
-    u16 effect_y;
-    u8 effect_clone;
-    u16 music_track;
-    u8 bg0_size;
-    u8 bg3_size;
-    u8 bg3_from_bottom_flag;
-    u8 animated_tilset;
-    u8 animated_palette;
+    u16 effectY;
+    u8 visualEffect;
+    u16 musicTrack;
+    u8 BG0Size;
+    u8 BG3Size;
+    u8 BG3FromBottomFlag;
+    u8 animatedTileset;
+    u8 animatedPalettz;
 };
 
 struct RoomEntryROM {
     u8 tileset;
-    u8 bg0_prop;
-    u8 bg1_prop;
-    u8 bg2_prop;
-    u8 bg3_prop;
-    void* bg0_ptr;
-    void* bg1_ptr;
-    void* bg2_ptr;
-    void* clip_ptr;
-    void* bg3_ptr;
-    u8 bg3_scrolling;
+    u8 BG0Prop;
+    u8 BG1Prop;
+    u8 BG2Prop;
+    u8 BG3Prop;
+    void* pBG0Data;
+    void* pBG1Data;
+    void* pBG2Data;
+    void* pClipData;
+    void* pBG3Data;
+    u8 BG3Scrolling;
     u8 transparency;
     struct EnemyRoomData* pDefaultSpriteData;
-    u8 default_spriteset;
-    u8 first_spriteset_event;
+    u8 defaultSpriteset;
+    u8 firstSpritesetEvent;
     struct EnemyRoomData* pFirstSpriteData;
-    u8 first_spriteset;
-    u8 second_spriteset_event;
+    u8 firstSpriteset;
+    u8 secondSpritesetEvent;
     struct EnemyRoomData* pSecondSpriteData;
     u8 second_spriteset;
-    u8 map_x;
-    u8 map_y;
+    u8 mapX;
+    u8 mapY;
     u8 effect;
-    u8 effect_y;
-    u16 music_track;
+    u8 effectY;
+    u16 musicTrack;
 };
 
 struct BackgroundPositions {
     struct RawCoordsX bg[4];
-    struct RawCoordsX door_transition;
+    struct RawCoordsX doorTransition;
 };
 
 struct BG0Movement {
     u8 type;
-    u8 y_offset;
+    u8 yOffset;
     u16 unused;
-    u16 x_offset;
-    u16 snowflakes_related;
+    u16 xOffset;
+    u16 snowflakesRelated;
 };
 
 struct BG3Movement {
     u8 direction;
     u8 counter;
     u8 undefined; // Needed for correct alignement
-    u16 x_offset;
+    u16 xOffset;
 };
 
 void RoomLoad(void);
@@ -103,7 +110,7 @@ void RoomRemoveNeverReformBlocksAndCollectedTanks(void);
 void RoomReset(void);
 void RoomSetBackgroundScrolling(void);
 void RoomSetInitialTilemap(u8 bg_number);
-u8 RoomRLEDecompress(u8 mode, u8* src, u8* dst);
+u8 RoomRLEDecompress(u8 mode, u8* pSrc, u8* pDst);
 void RoomUpdateGFXInfo(void);
 void RoomUpdateAnimatedGraphicsAndPalettes(void);
 void RoomUpdateHatchFlashingAnimation(void);

@@ -3,6 +3,11 @@
 
 #include "types.h"
 
+// Globals
+
+
+// Defines
+
 #define EVENT_ACTION_CLEARING 0x0
 #define EVENT_ACTION_SETTING 0x1
 #define EVENT_ACTION_TOGGLING 0x2
@@ -87,6 +92,8 @@
 #define EVENT_AKI 0x4C
 #define EVENT_BOMBATE 0x4D
 #define EVENT_END_UNUSED 0x4E
+
+// Functions
 
 u32 EventFunction(u8 action, u8 event);
 

@@ -3,15 +3,21 @@
 
 #include "types.h"
 
+// Globals
+
+extern u8 gHideHud;
+
+// Functions
+
 void HUDUpdateOAM(void);
-void HUDUpdateEnergyTanks(u8* dst, u8* normal_src, u8* refill_src, u8 nbr_tanks, u8 refill_stage);
+void HUDUpdateEnergyTanks(u8* pDst, u8* pSrcNormal, u8* pSrcRefill, u8 nbrTanks, u8 refillStage);
 void HUDDrawEnergy(u8 file_number);
-void HUDDrawMissileDigits(u16 hundreds_place, u16 tens_place, u16 ones_place, u16 highlight_status);
-void HUDDrawSuperMissileDigits(u16 tens_place, u16 ones_place, u16 highlight_status);
-void HUDDrawPowerBombDigits(u16 tens_place, u16 ones_place, u16 highlight_status);
-void HUDDrawMissiles(u8 update_highlight);
-void HUDDrawPowerBomb(u8 update_highlight);
-void HUDDrawSuperMissiles(u8 update_highlight);
+void HUDDrawMissileDigits(u16 hundredsPlace, u16 tensPlace, u16 onesPlace, u16 highlightStatus);
+void HUDDrawSuperMissileDigits(u16 tensPlace, u16 onesPlace, u16 highlightStatus);
+void HUDDrawPowerBombDigits(u16 tensPlace, u16 onesPlace, u16 highlightStatus);
+void HUDDrawMissiles(u8 updateHighlight);
+void HUDDrawPowerBomb(u8 updateHighlight);
+void HUDDrawSuperMissiles(u8 updateHighlight);
 void HUDDrawHighlight(void);
 void HUDDrawSuitless(void);
 void HUDDraw(void);

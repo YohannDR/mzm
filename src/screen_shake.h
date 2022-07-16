@@ -5,7 +5,7 @@
 
 struct ScreenShake {
     u8 timer;
-    u8 loop_counter;
+    u8 loopCounter;
     u8 unknown; // intensity ?
     u8 unknown2;
 };

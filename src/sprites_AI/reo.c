@@ -4,16 +4,16 @@
 
 void ReoInit(void)
 {
-    gCurrentSprite.draw_distance_top_offset = 0x18;
-    gCurrentSprite.draw_distance_bottom_offset = 0x18;
+    gCurrentSprite.drawDistanceTopOffset = 0x18;
+    gCurrentSprite.drawDistanceBottomOffset = 0x18;
     gCurrentSprite.draw_distance_horizontal_offset = 0x18;
-    gCurrentSprite.hitbox_top_offset = -0x20;
-    gCurrentSprite.hitbox_bottom_offset = 0x20;
-    gCurrentSprite.hitbox_left_offset = -0x38;
-    gCurrentSprite.hitbox_right_offset = 0x38;
+    gCurrentSprite.hitboxTopOffset = -0x20;
+    gCurrentSprite.hitboxBottomOffset = 0x20;
+    gCurrentSprite.hitboxLeftOffset = -0x38;
+    gCurrentSprite.hitboxRightOffset = 0x38;
     gCurrentSprite.oam_pointer = reo_oam_2ce214;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
     SpriteUtilChooseRandomXDirection();
@@ -35,24 +35,24 @@ void ReoSamusDetection(void)
     u8 offset;
 
     offset = gCurrentSprite.array_offset;
-    movement = reo_idle_anim_y_position_offsets[offset];
+    movement = reo_idle_anim_yPosition_offsets[offset];
     if (movement == 0x7FFF)
     {
-        movement = reo_idle_anim_y_position_offsets[0x0];
+        movement = reo_idle_anim_yPosition_offsets[0x0];
         offset = 0x0;
     }
     gCurrentSprite.array_offset = offset + 0x1;
-    gCurrentSprite.y_position += movement;
+    gCurrentSprite.yPosition += movement;
     
     offset = gCurrentSprite.workVariable2;
-    movement = reo_idle_anim_x_position_offsets[offset];
+    movement = reo_idle_anim_xPosition_offsets[offset];
     if (movement == 0x7FFF)
     {
-        movement = reo_idle_anim_x_position_offsets[0x0];
+        movement = reo_idle_anim_xPosition_offsets[0x0];
         offset = 0x0;
     }
     gCurrentSprite.workVariable2 = offset + 0x1;
-    gCurrentSprite.x_position += movement;
+    gCurrentSprite.xPosition += movement;
 
     if (SpriteUtilCheckSamusNearSpriteLeftRight(0x200, 0x1C0) != NSLR_OUT_OF_RANGE)
         gCurrentSprite.pose = 0x22;
@@ -100,7 +100,7 @@ void Reo(void)
                     ReoMove();
                     break;
                 default:
-                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);
+                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_BIG);
             }
         }
     }

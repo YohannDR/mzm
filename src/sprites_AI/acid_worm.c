@@ -12,7 +12,7 @@ void AcidWormRandoXMovement(void)
 
 }
 
-void AcidWormChangeTwoGroundCCAA(u8 caa, u16 y_position, u16 x_position)
+void AcidWormChangeTwoGroundCCAA(u8 caa, u16 yPosition, u16 xPosition)
 {
 
 }

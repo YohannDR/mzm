@@ -380,18 +380,18 @@ extern u8 gSpriteRNG;
 // Structs
 
 struct __attribute__((packed)) EnemyRoomData {
-    u8 y_position;
-    u8 x_position;
+    u8 yPosition;
+    u8 xPosition;
     u8 spriteset_slot;
 };
 
 struct SubSpriteData {
     struct FrameData* oam_pointer;
-    u16 curr_anim_frame;
-    u16 y_position;
-    u16 x_position;
+    u16 currentAnimationFrame;
+    u16 yPosition;
+    u16 xPosition;
     u16 health;
-    u8 anim_duration_counter;
+    u8 animationDuratoinCounter;
     u8 maybe_status;
     u8 timer;
     u8 unknown;
@@ -403,19 +403,19 @@ struct SubSpriteData {
 
 struct SpriteData {
     u16 status;
-    u16 y_position;
-    u16 x_position;
-    u16 y_position_spawn;
-    u16 x_position_spawn;
-    i16 hitbox_top_offset;
-    i16 hitbox_bottom_offset;
-    i16 hitbox_left_offset;
-    i16 hitbox_right_offset;
+    u16 yPosition;
+    u16 xPosition;
+    u16 yPosition_spawn;
+    u16 xPosition_spawn;
+    i16 hitboxTopOffset;
+    i16 hitboxBottomOffset;
+    i16 hitboxLeftOffset;
+    i16 hitboxRightOffset;
     u16 oam_scaling;
     u16 health;
-    u16 curr_anim_frame;
+    u16 currentAnimationFrame;
     struct FrameData* oam_pointer;
-    u8 anim_duration_counter;
+    u8 animationDuratoinCounter;
     u8 sprite_id;
     u8 room_slot;
     u8 spriteset_gfx_slot;
@@ -426,8 +426,8 @@ struct SpriteData {
     u8 pose;
     u8 samus_collision;
     u8 ignore_samus_collision_timer;
-    u8 draw_distance_top_offset;
-    u8 draw_distance_bottom_offset;
+    u8 drawDistanceTopOffset;
+    u8 drawDistanceBottomOffset;
     u8 draw_distance_horizontal_offset;
     u8 oam_rotation;
     u8 invicibility_stun_flash_timer;
@@ -457,9 +457,9 @@ void SpriteLoadGFX(u8 sprite_id, u8 gfx_row);
 void SpriteLoadPAL(u8 sprite_id, u8 pal_row, u8 len);
 void SpriteClearData(void);
 void SpriteLoadRoomSprites(void);
-void SpriteInitPrimary(u8 spriteset_slot, u16 y_position, u16 x_position, u8 room_slot);
-u8 SpriteSpawnSecondary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, u16 status_to_add);
-u8 SpriteSpawnPrimary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u16 y_position, u16 x_position, u16 status_to_add);
-u8 SpriteSpawnDropFollowers(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 y_position, u16 x_position, u16 status_to_add);
+void SpriteInitPrimary(u8 spriteset_slot, u16 yPosition, u16 xPosition, u8 room_slot);
+u8 SpriteSpawnSecondary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 yPosition, u16 xPosition, u16 status_to_add);
+u8 SpriteSpawnPrimary(u8 sprite_id, u8 room_slot, u8 gfx_slot, u16 yPosition, u16 xPosition, u16 status_to_add);
+u8 SpriteSpawnDropFollowers(u8 sprite_id, u8 room_slot, u8 gfx_slot, u8 ram_slot, u16 yPosition, u16 xPosition, u16 status_to_add);
 
 #endif /* SPRITE_H */

@@ -1,38 +1,45 @@
 #include "clipdata.h"
 #include "globals.h"
 
+/**
+ * @brief 57dcc | 2c | Transfers the clipdata code to RAM and sets the pointer to it
+ * 
+ */
 void ClipdataSetupCode(void)
 {
-
+    // Copy code to RAM
+    dma_set(3, ClipdataConvertToCollision + 1, gNonGameplayRAM, (DMA_ENABLE << 0x10) | 0x140);
+    // Set pointer
+    gClipdataCodePointer = (ClipFunc_T)(gNonGameplayRAM + 1);
 }
 
 /**
  * @brief Gets information on the clipdata block at the position in parameters, only used for samus
  * 
- * @param y_position Y position (in sub-pixels)
- * @param x_position X position (in sub-pixels)
+ * @param yPosition Y position (in sub-pixels)
+ * @param xPosition X position (in sub-pixels)
  * @return u32 Clipdata type (including solid flag)
  */
-u32 ClipdataProcessForSamus(u16 y_position, u16 x_position)
+u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
 {
     struct CollisionData collision;
     u32 result;
 
     // Get tile position
-    collision.tile_y = y_position >> 0x6;
-    collision.tile_x = x_position >> 0x6;
+    collision.tile_y = yPosition >> 0x6;
+    collision.tile_x = xPosition >> 0x6;
 
-    if (collision.tile_x >= gBGPointersAndDimensions.clipdata_width)
+    if (collision.tile_x >= gBGPointersAndDimensions.clipdataWidth)
         result = CLIPDATA_TYPE_SOLID_FLAG | CLIPDATA_TYPE_SOLID;
     else
     {        
-        if (collision.tile_y < gBGPointersAndDimensions.clipdata_height)
+        if (collision.tile_y < gBGPointersAndDimensions.clipdataHeight)
         {
             // Get clip type at position
-            collision.clipdata_type = gTilemapAndClipPointers.clip_collisions[gBGPointersAndDimensions.clipdata_decompressed[gBGPointersAndDimensions.clipdata_width * collision.tile_y + collision.tile_x]];
+            collision.clipdata_type = gTilemapAndClipPointers.clip_collisions[gBGPointersAndDimensions.pClipDecomp[gBGPointersAndDimensions.clipdataWidth * collision.tile_y + collision.tile_x]];
             // Get sub pixel
-            collision.sub_pixel_y = y_position & 0x3F;
-            collision.sub_pixel_x = x_position & 0x3F;
+            collision.sub_pixel_y = yPosition & 0x3F;
+            collision.sub_pixel_x = xPosition & 0x3F;
             collision.actor_type = CLIPDATA_ACTOR_SAMUS;
             result = gClipdataCodePointer(&collision);
         }
@@ -46,20 +53,20 @@ u32 ClipdataProcessForSamus(u16 y_position, u16 x_position)
 /**
  * @brief 57e7c | 100 | Processes the clipdata at the position (hazard, movement, destruction, modification...) and gets the type of said clipdata
  * 
- * @param y_position Y Position (subpixels)
- * @param x_position X Position (subpixels)
+ * @param yPosition Y Position (subpixels)
+ * @param xPosition X Position (subpixels)
  * @return u32 Clipdata type (including solid flag)
  */
-u32 ClipdataProcess(u16 y_position, u16 x_position)
+u32 ClipdataProcess(u16 yPosition, u16 xPosition)
 {
     struct CollisionData collision;
     u32 clipdata;
 
-    collision.tile_y = y_position >> 6;
-    collision.tile_x = x_position >> 6;
+    collision.tile_y = yPosition >> 6;
+    collision.tile_x = xPosition >> 6;
 
     // Check in bounds
-    if (collision.tile_x >= gBGPointersAndDimensions.clipdata_width || collision.tile_y >= gBGPointersAndDimensions.clipdata_height)
+    if (collision.tile_x >= gBGPointersAndDimensions.clipdataWidth || collision.tile_y >= gBGPointersAndDimensions.clipdataHeight)
     {
         // Clear if out of bounds
         gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
@@ -75,7 +82,7 @@ u32 ClipdataProcess(u16 y_position, u16 x_position)
             collision.actor_type = CLIPDATA_ACTOR_SPRITE;
             gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
             gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
-            ClipdataUpdateCurrentAffecting(y_position, collision.tile_y, collision.tile_x, 0x2);
+            ClipdataUpdateCurrentAffecting(yPosition, collision.tile_y, collision.tile_x, 0x2);
         }
         else if (gCurrentClipdataAffectingAction >= CCAA_UNUSED)
         {
@@ -88,7 +95,7 @@ u32 ClipdataProcess(u16 y_position, u16 x_position)
             collision.actor_type = CLIPDATA_ACTOR_SPRITE;
 
         // Get clip at position
-        clipdata = gBGPointersAndDimensions.clipdata_decompressed[collision.tile_y * gBGPointersAndDimensions.clipdata_width + collision.tile_x];
+        clipdata = gBGPointersAndDimensions.pClipDecomp[collision.tile_y * gBGPointersAndDimensions.clipdataWidth + collision.tile_x];
         if (gCurrentClipdataAffectingAction != CCAA_NONE)
         {
             // Apply CCAA if not none
@@ -98,8 +105,8 @@ u32 ClipdataProcess(u16 y_position, u16 x_position)
 
         // Get type and sub pixel, then call clipdata code
         collision.clipdata_type = gTilemapAndClipPointers.clip_collisions[clipdata];
-        collision.sub_pixel_y = y_position & 0x3F;
-        collision.sub_pixel_x = x_position & 0x3F;
+        collision.sub_pixel_y = yPosition & 0x3F;
+        collision.sub_pixel_x = xPosition & 0x3F;
         return clipdata = gClipdataCodePointer(&collision);
     }
 }
@@ -241,11 +248,11 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
 /**
  * @brief 58080 | 40 | Checks for the current affecting clipdata (movement and hazard) at the position
  * 
- * @param y_position Y Position (subpixels)
- * @param x_position X Position (subpixels)
+ * @param yPosition Y Position (subpixels)
+ * @param xPosition X Position (subpixels)
  * @return i32 Current affecting clipdata, first 16 bits are hazard, last 16 bits are movement
  */
-i32 ClipdataCheckCurrentAffectingAtPosition(u16 y_position, u16 x_position)
+i32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition)
 {
     u16 tile_y;
     u16 tile_x;
@@ -253,16 +260,16 @@ i32 ClipdataCheckCurrentAffectingAtPosition(u16 y_position, u16 x_position)
     gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
     gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
 
-    tile_y = y_position >> 0x6;
-    tile_x = x_position >> 0x6;
+    tile_y = yPosition >> 0x6;
+    tile_x = xPosition >> 0x6;
 
-    if (tile_y >= gBGPointersAndDimensions.clipdata_height || tile_x >= gBGPointersAndDimensions.clipdata_width)
+    if (tile_y >= gBGPointersAndDimensions.clipdataHeight || tile_x >= gBGPointersAndDimensions.clipdataWidth)
         return 0x0;
     else
-        return ClipdataUpdateCurrentAffecting(y_position, tile_y, tile_x, 0x0);
+        return ClipdataUpdateCurrentAffecting(yPosition, tile_y, tile_x, 0x0);
 }
 
-i32 ClipdataUpdateCurrentAffecting(u16 y_position, u16 tile_y, u16 tile_x, u8 unk)
+i32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tile_y, u16 tile_x, u8 unk)
 {
 
 }
@@ -275,11 +282,11 @@ u8 ClipdataCheckCantUseElevator(void)
 /**
  * @brief 58260 | 64 | Gets the ground effect clipdata at the position
  * 
- * @param y_position Y Position (subpixels)
- * @param x_position X Position (subpixels)
+ * @param yPosition Y Position (subpixels)
+ * @param xPosition X Position (subpixels)
  * @return i32 Ground Effect Clipdata
  */
-i32 ClipdataCheckGroundEffect(u16 y_position, u16 x_position)
+i32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
 {
     // https://decomp.me/scratch/PlWs7
 
@@ -287,14 +294,14 @@ i32 ClipdataCheckGroundEffect(u16 y_position, u16 x_position)
     i16 tile_x;
     u32 clipdata;
 
-    tile_y = y_position >> 0x6; /!\ Swapped instructions for some reason
-    tile_x = x_position >> 0x6;
+    tile_y = yPosition >> 0x6; /!\ Swapped instructions for some reason
+    tile_x = xPosition >> 0x6;
 
-    if (tile_y >= gBGPointersAndDimensions.clipdata_height || tile_x >= gBGPointersAndDimensions.clipdata_width)
+    if (tile_y >= gBGPointersAndDimensions.clipdataHeight || tile_x >= gBGPointersAndDimensions.clipdataWidth)
         return GROUND_EFFECT_NONE;
     else
     {
-        clipdata = gBGPointersAndDimensions.clipdata_decompressed[tile_y * gBGPointersAndDimensions.clipdata_width + tile_x];
+        clipdata = gBGPointersAndDimensions.pClipDecomp[tile_y * gBGPointersAndDimensions.clipdataWidth + tile_x];
         if (clipdata & 0x400)
             clipdata = 0x0;
         else

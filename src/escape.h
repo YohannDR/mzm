@@ -24,10 +24,10 @@ extern struct EscapeDigits gEscapeTimerDigits;
 struct __attribute__((packed)) EscapeDigits {
     u8 hundredths;
     u8 tenths;
-    u8 seconds_ones;
-    u8 seconds_tens;
-    u8 minutes_ones;
-    u8 minutes_tens;
+    u8 secondsOnes;
+    u8 secondsTens;
+    u8 minutesOnes;
+    u8 minutesTens;
 };
 
 // Functions

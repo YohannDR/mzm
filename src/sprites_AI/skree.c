@@ -6,36 +6,36 @@
 void SkreeInit(void)
 {
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
-    gCurrentSprite.draw_distance_top_offset = 0x0;
-    gCurrentSprite.draw_distance_bottom_offset = 0x20;
+    gCurrentSprite.drawDistanceTopOffset = 0x0;
+    gCurrentSprite.drawDistanceBottomOffset = 0x20;
     gCurrentSprite.draw_distance_horizontal_offset = 0x10;
-    gCurrentSprite.hitbox_top_offset = 0x0;
-    gCurrentSprite.hitbox_bottom_offset = 0x60;
-    gCurrentSprite.hitbox_left_offset = -0x18;
-    gCurrentSprite.hitbox_right_offset = 0x18;
+    gCurrentSprite.hitboxTopOffset = 0x0;
+    gCurrentSprite.hitboxBottomOffset = 0x60;
+    gCurrentSprite.hitboxLeftOffset = -0x18;
+    gCurrentSprite.hitboxRightOffset = 0x18;
     gCurrentSprite.health = primary_sprites_stats[gCurrentSprite.sprite_id].spawn_health;
-    gCurrentSprite.y_position -= 0x40;
+    gCurrentSprite.yPosition -= 0x40;
 }
 
 void SkreeGFXInit(void)
 {
     gCurrentSprite.oam_pointer = skree_oam_2cd474;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x9;
 }
 
 void SkreeDetectSamus(void)
 {
-    if (gSamusData.y_position > gCurrentSprite.y_position && gSamusData.y_position - gCurrentSprite.y_position < 0x284 && (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) != 0x0 && gSamusData.x_position > gCurrentSprite.x_position - 0x96 && gSamusData.x_position < gCurrentSprite.x_position + 0x96)
+    if (gSamusData.yPosition > gCurrentSprite.yPosition && gSamusData.yPosition - gCurrentSprite.yPosition < 0x284 && (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) != 0x0 && gSamusData.xPosition > gCurrentSprite.xPosition - 0x96 && gSamusData.xPosition < gCurrentSprite.xPosition + 0x96)
         gCurrentSprite.pose = 0x22;
 }
 
 void SkreeSpinGFXInit(void)
 {
     gCurrentSprite.oam_pointer = skree_oam_spinning_2cd49c;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x23;
 }
 
@@ -48,13 +48,13 @@ void SkreeCheckSpinAnimEnded(void)
 void SkreeStartGoingDown(void)
 {
     gCurrentSprite.oam_pointer = skree_going_down_2cd4cc;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.array_offset = 0x0;
     gCurrentSprite.workVariable2 = 0x0;
     gCurrentSprite.pose = 0x35;
 
-    if (gCurrentSprite.x_position > gSamusData.x_position)
+    if (gCurrentSprite.xPosition > gSamusData.xPosition)
         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
     else
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
@@ -70,10 +70,10 @@ void SkreeGoDown(void)
     u32 y_movement;
     u32 array_offset;
 
-    block = SpriteUtilCheckVerticalCollisionAtPosition_slopes(gCurrentSprite.hitbox_bottom_offset + gCurrentSprite.y_position, gCurrentSprite.x_position);
+    block = SpriteUtilCheckVerticalCollisionAtPosition_slopes(gCurrentSprite.hitboxBottomOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
     if (gPreviousVerticalCollisionCheck != 0x0)
     {
-        gCurrentSprite.y_position = block - gCurrentSprite.hitbox_bottom_offset;
+        gCurrentSprite.yPosition = block - gCurrentSprite.hitboxBottomOffset;
         gCurrentSprite.pose = 0x37;
         gCurrentSprite.timer1 = 0x0;
         if ((gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
@@ -87,27 +87,27 @@ void SkreeGoDown(void)
         if (y_movement == 0x7FFF)
         {
             y_movement = skree_falling_speed_2cca7c[array_offset - 0x1];
-            gCurrentSprite.y_position += y_movement;
+            gCurrentSprite.yPosition += y_movement;
         }
         else
         {
             gCurrentSprite.array_offset++;
-            gCurrentSprite.y_position += y_movement;
+            gCurrentSprite.yPosition += y_movement;
         }
 
         if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT) != 0x0)
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position + 0x40, gCurrentSprite.x_position + 0x20);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + 0x40, gCurrentSprite.xPosition + 0x20);
             if (gPreviousCollisionCheck == 0x11)
                 return;
-            gCurrentSprite.x_position += x_movement;
+            gCurrentSprite.xPosition += x_movement;
         }
         else
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position + 0x40, gCurrentSprite.x_position - 0x20);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + 0x40, gCurrentSprite.xPosition - 0x20);
             if (gPreviousCollisionCheck == 0x11)
                 return;
-            gCurrentSprite.x_position -= x_movement;
+            gCurrentSprite.xPosition -= x_movement;
         }
 
         if (x_movement < 0x10)
@@ -117,25 +117,25 @@ void SkreeGoDown(void)
 
 void SkreeCrashGround(void)
 {
-    u16 y_position;
-    u16 x_position;
+    u16 yPosition;
+    u16 xPosition;
     u8 gfx_slot;
     u8 ram_slot;
     u8 sprite_id;
 
-    y_position = gCurrentSprite.y_position;
-    x_position = gCurrentSprite.x_position;
+    yPosition = gCurrentSprite.yPosition;
+    xPosition = gCurrentSprite.xPosition;
 
     gCurrentSprite.timer1++;
 
     switch (gCurrentSprite.timer1)
     {
         case 0x1:
-            y_position += 0x48;
-            SpriteDebrisInit(0x0, 0x11, y_position - 0x10, x_position);
-            SpriteDebrisInit(0x0, 0x12, y_position, x_position + 0xC);
-            SpriteDebrisInit(0x0, 0x13, y_position - 0x2A, x_position + 0x14);
-            SpriteDebrisInit(0x0, 0x4, y_position - 0x18, x_position - 0x1E);
+            yPosition += 0x48;
+            SpriteDebrisInit(0x0, 0x11, yPosition - 0x10, xPosition);
+            SpriteDebrisInit(0x0, 0x12, yPosition, xPosition + 0xC);
+            SpriteDebrisInit(0x0, 0x13, yPosition - 0x2A, xPosition + 0x14);
+            SpriteDebrisInit(0x0, 0x4, yPosition - 0x18, xPosition - 0x1E);
             break;
 
         case 0x28:
@@ -151,12 +151,12 @@ void SkreeCrashGround(void)
             else
                 sprite_id = SSPRITE_SKREE_EXPLOSION;
             
-            SpriteSpawnSecondary(sprite_id, 0x0, gfx_slot, ram_slot, y_position - 0x8, x_position, 0x0);
-            SpriteSpawnSecondary(sprite_id, 0x0, gfx_slot, ram_slot, y_position - 0x8, x_position, SPRITE_STATUS_XFLIP);
-            SpriteSpawnSecondary(sprite_id, 0x1, gfx_slot, ram_slot, y_position + 0x8, x_position - 0xC, 0x0);
-            SpriteSpawnSecondary(sprite_id, 0x1, gfx_slot, ram_slot, y_position + 0x8, x_position + 0xC, SPRITE_STATUS_XFLIP);
+            SpriteSpawnSecondary(sprite_id, 0x0, gfx_slot, ram_slot, yPosition - 0x8, xPosition, 0x0);
+            SpriteSpawnSecondary(sprite_id, 0x0, gfx_slot, ram_slot, yPosition - 0x8, xPosition, SPRITE_STATUS_XFLIP);
+            SpriteSpawnSecondary(sprite_id, 0x1, gfx_slot, ram_slot, yPosition + 0x8, xPosition - 0xC, 0x0);
+            SpriteSpawnSecondary(sprite_id, 0x1, gfx_slot, ram_slot, yPosition + 0x8, xPosition + 0xC, SPRITE_STATUS_XFLIP);
             gCurrentSprite.status = 0x0;
-            ParticleSet(y_position + 0x24, x_position, PE_SPRITE_EXPLOSION_HUGE);
+            ParticleSet(yPosition + 0x24, xPosition, PE_SPRITE_EXPLOSION_HUGE);
             SoundPlay(0x134);
     }
 }
@@ -167,20 +167,20 @@ void SkreeExplosionInit(void)
 
     status = gCurrentSprite.status & ~SPRITE_STATUS_NOT_DRAWN | (SPRITE_STATUS_UNKNOWN3 | SPRITE_STATUS_NONE);
     gCurrentSprite.properties |= SP_PROJECTILE;
-    gCurrentSprite.draw_distance_top_offset = 0x10;
-    gCurrentSprite.draw_distance_bottom_offset = 0x10;
+    gCurrentSprite.drawDistanceTopOffset = 0x10;
+    gCurrentSprite.drawDistanceBottomOffset = 0x10;
     gCurrentSprite.draw_distance_horizontal_offset = 0x10;
-    gCurrentSprite.hitbox_top_offset = -0xC;
-    gCurrentSprite.hitbox_bottom_offset = 0xC;
-    gCurrentSprite.hitbox_left_offset = -0xC;
-    gCurrentSprite.hitbox_right_offset = 0xC;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.hitboxTopOffset = -0xC;
+    gCurrentSprite.hitboxBottomOffset = 0xC;
+    gCurrentSprite.hitboxLeftOffset = -0xC;
+    gCurrentSprite.hitboxRightOffset = 0xC;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
     gCurrentSprite.draw_order = 0x3;
-    gCurrentSprite.bg_priority = gIORegistersBackup.bg2cnt & 0x3;
-    gCurrentSprite.y_position += 0x28;
+    gCurrentSprite.bg_priority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.yPosition += 0x28;
     gCurrentSprite.status = (status | SPRITE_STATUS_DOUBLE_SIZE | SPRITE_STATUS_ROTATION_SCALING);
     gCurrentSprite.oam_scaling = 0x100;
     gCurrentSprite.oam_rotation = 0x0;
@@ -193,24 +193,24 @@ void SkreeExplosionInit(void)
 
 void SkreeExplosionMove(void)
 {
-    if (gCurrentSprite.curr_anim_frame > 0x1)
+    if (gCurrentSprite.currentAnimationFrame > 0x1)
         gCurrentSprite.ignore_samus_collision_timer = 0x1;
 
     if ((gCurrentSprite.status & SPRITE_STATUS_XFLIP) != 0x0)
     {
-        gCurrentSprite.x_position += 0x8;
+        gCurrentSprite.xPosition += 0x8;
         gCurrentSprite.oam_rotation += 0x20;
     }
     else
     {
-        gCurrentSprite.x_position -= 0x8;
+        gCurrentSprite.xPosition -= 0x8;
         gCurrentSprite.oam_rotation -= 0x20;
     }
 
     if (gCurrentSprite.room_slot != 0x0)
-        gCurrentSprite.y_position += 0x4;
+        gCurrentSprite.yPosition += 0x4;
     else
-        gCurrentSprite.y_position -= 0x4;
+        gCurrentSprite.yPosition -= 0x4;
 
     if (SpriteUtillCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0x0;
@@ -254,7 +254,7 @@ void Skree(void)
                     SkreeCrashGround();
                     break;
                 default:
-                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position + 0x34, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition + 0x34, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
             }
         }
     }

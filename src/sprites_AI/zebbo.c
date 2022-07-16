@@ -5,19 +5,19 @@
 
 void ZebboInit(void)
 {
-    gCurrentSprite.hitbox_top_offset = -0x18;
-    gCurrentSprite.hitbox_bottom_offset = 0x18;
-    gCurrentSprite.hitbox_left_offset = -0x18;
-    gCurrentSprite.hitbox_right_offset = 0x18;
-    gCurrentSprite.draw_distance_top_offset = 0x8;
-    gCurrentSprite.draw_distance_bottom_offset = 0x8;
+    gCurrentSprite.hitboxTopOffset = -0x18;
+    gCurrentSprite.hitboxBottomOffset = 0x18;
+    gCurrentSprite.hitboxLeftOffset = -0x18;
+    gCurrentSprite.hitboxRightOffset = 0x18;
+    gCurrentSprite.drawDistanceTopOffset = 0x8;
+    gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.draw_distance_horizontal_offset = 0x10;
     gCurrentSprite.workVariable = 0x1;
     gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
-    gCurrentSprite.y_position -= 0x20;
-    gCurrentSprite.x_position += 0x20;
-    gCurrentSprite.y_position_spawn = gCurrentSprite.y_position;
-    gCurrentSprite.x_position_spawn = gCurrentSprite.x_position;
+    gCurrentSprite.yPosition -= 0x20;
+    gCurrentSprite.xPosition += 0x20;
+    gCurrentSprite.yPosition_spawn = gCurrentSprite.yPosition;
+    gCurrentSprite.xPosition_spawn = gCurrentSprite.xPosition;
 }
 
 void ZebboGFXInit(void)
@@ -25,8 +25,8 @@ void ZebboGFXInit(void)
     gCurrentSprite.samus_collision = SSC_NONE;
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.oam_pointer = zebbo_oam_2e7098;
-    gCurrentSprite.curr_anim_frame = 0x0;
-    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
     gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
     gCurrentSprite.bg_priority = 0x2;
 }
@@ -38,9 +38,9 @@ void ZebbosSpawn(void)
 
 void ZebooGoingUp(void)
 {
-    u16 y_position;
+    u16 yPosition;
 
-    gCurrentSprite.y_position -= 0x8;
+    gCurrentSprite.yPosition -= 0x8;
     if (gCurrentSprite.timer1 != 0x0)
     {
         gCurrentSprite.timer1--;
@@ -49,18 +49,18 @@ void ZebooGoingUp(void)
     }
     else
     {
-        if (gCurrentSprite.oam_scaling < gSamusData.y_position && gSamusData.y_position > (i32)(gCurrentSprite.y_position_spawn - 0x80))
-            y_position = gCurrentSprite.oam_scaling;
+        if (gCurrentSprite.oam_scaling < gSamusData.yPosition && gSamusData.yPosition > (i32)(gCurrentSprite.yPosition_spawn - 0x80))
+            yPosition = gCurrentSprite.oam_scaling;
         else
-            y_position = gSamusData.y_position;
+            yPosition = gSamusData.yPosition;
 
-        if ((i32)(y_position - 0x64) > gCurrentSprite.y_position)
+        if ((i32)(yPosition - 0x64) > gCurrentSprite.yPosition)
         {
             gCurrentSprite.pose = 0x35;
             gCurrentSprite.timer1 = 0xA;
             gCurrentSprite.oam_pointer = zebbo_oam_2e70c0;
-            gCurrentSprite.curr_anim_frame = 0x0;
-            gCurrentSprite.anim_duration_counter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDuratoinCounter = 0x0;
             gCurrentSprite.bg_priority = 0x1;
         }
     }
@@ -72,8 +72,8 @@ void ZebboRespawning(void)
         gCurrentSprite.status = 0x0;
     else
     {
-        gCurrentSprite.y_position = gCurrentSprite.y_position_spawn;
-        gCurrentSprite.x_position = gCurrentSprite.x_position_spawn;
+        gCurrentSprite.yPosition = gCurrentSprite.yPosition_spawn;
+        gCurrentSprite.xPosition = gCurrentSprite.xPosition_spawn;
         ZebboGFXInit();
         gCurrentSprite.workVariable = 0x3C;
         gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
@@ -122,7 +122,7 @@ void Zebbo(void)
                     ZebboMove();
                     break;
                 default:
-                    SpriteUtilSpriteDeath(DEATH_RESPAWNING, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteUtilSpriteDeath(DEATH_RESPAWNING, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
                     ZebboRespawning();
             }
         }

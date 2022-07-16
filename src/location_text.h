@@ -3,6 +3,11 @@
 
 #include "types.h"
 
+// Globals
+
+
+// Defines
+
 #define LT_BRINSTAR 0x0
 #define LT_KRAID 0x1
 #define LT_NORFAIR 0x2
@@ -18,6 +23,8 @@
 #define LT_CHOZO_RUINS 0xC
 #define LT_STARSHIP 0xD
 #define LT_INVALID 0xFF
+
+// Functions
 
 u8 LocationTextGetBrinstar(void);
 u8 LocationTextGetKraid(void);

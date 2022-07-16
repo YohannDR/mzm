@@ -11,8 +11,8 @@
 void GeronNorfair(void)
 {
     u8 caa;
-    u16 y_position;
-    u16 x_position;
+    u16 yPosition;
+    u16 xPosition;
 
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     if (gCurrentSprite.pose == 0x0)
@@ -21,29 +21,29 @@ void GeronNorfair(void)
             gCurrentSprite.status = 0x0;
         else
         {
-            gCurrentSprite.draw_distance_top_offset = 0x30;
-            gCurrentSprite.draw_distance_bottom_offset = 0x0;
+            gCurrentSprite.drawDistanceTopOffset = 0x30;
+            gCurrentSprite.drawDistanceBottomOffset = 0x0;
             gCurrentSprite.draw_distance_horizontal_offset = 0x14;
-            gCurrentSprite.hitbox_top_offset = -0xC0;
-            gCurrentSprite.hitbox_bottom_offset = 0x0;
-            gCurrentSprite.hitbox_left_offset = -0x30;
-            gCurrentSprite.hitbox_right_offset = 0x30;
+            gCurrentSprite.hitboxTopOffset = -0xC0;
+            gCurrentSprite.hitboxBottomOffset = 0x0;
+            gCurrentSprite.hitboxLeftOffset = -0x30;
+            gCurrentSprite.hitboxRightOffset = 0x30;
             gCurrentSprite.draw_order = 0x5;
-            gCurrentSprite.curr_anim_frame = 0x0;
-            gCurrentSprite.anim_duration_counter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDuratoinCounter = 0x0;
             gCurrentSprite.samus_collision = SSC_NONE;
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.health = 0x1;
             gCurrentSprite.oam_pointer = GeronNorfair_oam;
-            y_position = gCurrentSprite.y_position - 0x20;
-            x_position = gCurrentSprite.x_position;
+            yPosition = gCurrentSprite.yPosition - 0x20;
+            xPosition = gCurrentSprite.xPosition;
             caa = CCAA_MAKE_SOLID3
             gCurrentClipdataAffectingAction = caa;
-            ClipdataProcess(y_position, x_position);
+            ClipdataProcess(yPosition, xPosition);
             gCurrentClipdataAffectingAction = caa;
-            ClipdataProcess(y_position - 0x40, x_position);
+            ClipdataProcess(yPosition - 0x40, xPosition);
             gCurrentClipdataAffectingAction = caa;
-            ClipdataProcess(y_position - 0x80, x_position);
+            ClipdataProcess(yPosition - 0x80, xPosition);
         }
     }
 }

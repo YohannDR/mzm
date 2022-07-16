@@ -35,7 +35,7 @@ u16 TransparencyCheckIsDarkRoom(void)
     u16 flag;
 
     flag = 0x0;
-    if (gCurrentRoomEntry.bg0_prop == 0x45)
+    if (gCurrentRoomEntry.BG0Prop == 0x45)
         flag = 0xFFFF;
     return flag;
 }

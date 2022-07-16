@@ -22,7 +22,7 @@ LoadInterruptCode(void)
 
 void ResetFreeOAM(void) {
     i32 i;
-    u16 *oam = (u16*)oam_data;
+    u16 *oam = (u16*)gOamData;
     oam += gNextOAMSlot * 4;
     for (i = gNextOAMSlot; i < 0x80; ++oam, ++i) {
         *oam++ = 0xff;

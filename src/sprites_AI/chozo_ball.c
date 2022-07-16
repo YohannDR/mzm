@@ -53,7 +53,7 @@ void ChozoBallSpawnItemBanner(u8 sprite_id)
             break;
     }
 
-    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 }
 
 void ChozoBallSetOAMPointer(u8 sprite_id)
@@ -78,15 +78,15 @@ void ChozoBallRevealedSetOAMPointer(u8 sprite_id)
 void ChozoBallInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.hitbox_top_offset = -0x1C;
-    gCurrentSprite.hitbox_bottom_offset = 0x1C;
-    gCurrentSprite.hitbox_left_offset = -0x1C;
-    gCurrentSprite.hitbox_right_offset = 0x1C;
-    gCurrentSprite.draw_distance_top_offset = 0xC;
-    gCurrentSprite.draw_distance_bottom_offset = 0xC;
+    gCurrentSprite.hitboxTopOffset = -0x1C;
+    gCurrentSprite.hitboxBottomOffset = 0x1C;
+    gCurrentSprite.hitboxLeftOffset = -0x1C;
+    gCurrentSprite.hitboxRightOffset = 0x1C;
+    gCurrentSprite.drawDistanceTopOffset = 0xC;
+    gCurrentSprite.drawDistanceBottomOffset = 0xC;
     gCurrentSprite.draw_distance_horizontal_offset = 0xC;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samus_collision = SSC_SOLID;
     gCurrentSprite.health = 0x1;
     gCurrentSprite.pose = 0x8;
@@ -112,8 +112,8 @@ void ChozoBallRevealing(void)
     gCurrentSprite.health = 0x1;
     gCurrentSprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
     gCurrentSprite.pose = 0x67;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.palette_row = gCurrentSprite.absolute_palette_row;
     gCurrentSprite.invicibility_stun_flash_timer &= 0x80;
     ChozoBallRevealingSetOAMPointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
@@ -129,8 +129,8 @@ void ChozoBallCheckRevealingAnimEnded(void)
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x9;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         ChozoBallRevealedSetOAMPointer(gSpriteData[gCurrentSprite.primary_sprite_ram_slot].sprite_id);
     }
 }

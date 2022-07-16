@@ -9,22 +9,22 @@ void ChargeBeamInit(void)
     u8 check;
     u16 status;
 
-    if (gEquipment.beam_bombs & BBF_CHARGE_BEAM)
+    if (gEquipment.beamBombs & BBF_CHARGE_BEAM)
         gCurrentSprite.status = 0x0;
     else
     {
         gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
         status = gCurrentSprite.status & ~SPRITE_STATUS_NOT_DRAWN;
-        gCurrentSprite.hitbox_top_offset = -0x1C;
-        gCurrentSprite.hitbox_bottom_offset = 0x1C;
-        gCurrentSprite.hitbox_left_offset = -0x1C;
-        gCurrentSprite.hitbox_right_offset = 0x1C;
-        gCurrentSprite.draw_distance_top_offset = 0x20;
-        gCurrentSprite.draw_distance_bottom_offset = 0x20;
+        gCurrentSprite.hitboxTopOffset = -0x1C;
+        gCurrentSprite.hitboxBottomOffset = 0x1C;
+        gCurrentSprite.hitboxLeftOffset = -0x1C;
+        gCurrentSprite.hitboxRightOffset = 0x1C;
+        gCurrentSprite.drawDistanceTopOffset = 0x20;
+        gCurrentSprite.drawDistanceBottomOffset = 0x20;
         gCurrentSprite.draw_distance_horizontal_offset = 0x20;
         gCurrentSprite.oam_pointer = charge_beam_oam_2b3920;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.samus_collision = SSC_NONE;
         gCurrentSprite.health = 0x1;
         gCurrentSprite.array_offset = 0x0;
@@ -40,7 +40,7 @@ void ChargeBeamSpawnGlow(void)
     if (SpriteUtilCheckNearEndCurrentSpriteAnim() != 0x0)
     {
         gCurrentSprite.pose = 0xB;
-        gCurrentSprite.workVariable = SpriteSpawnSecondary(SSPRITE_CHARGE_BEAM_GLOW, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        gCurrentSprite.workVariable = SpriteSpawnSecondary(SSPRITE_CHARGE_BEAM_GLOW, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
 
@@ -49,8 +49,8 @@ void ChargeBeamGFXInit(void)
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.oam_pointer = charge_beam_oam_2b38f8;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
     gCurrentSprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
     gCurrentSprite.array_offset = 0x0;
@@ -58,18 +58,18 @@ void ChargeBeamGFXInit(void)
 
 void ChargeBeamGet(void)
 {
-    i16 y_offset;
+    i16 yOffset;
     u8 array_offset;
 
     array_offset = gCurrentSprite.array_offset;
-    y_offset = i16_array_2b31ac[array_offset];
+    yOffset = i16_array_2b31ac[array_offset];
     if (y_offset == 0x7FFF)
     {
-        y_offset = i16_array_2b31ac[0x0];
+        yOffset = i16_array_2b31ac[0x0];
         array_offset = 0x0;
     }
     gCurrentSprite.array_offset = array_offset + 0x1;
-    gCurrentSprite.y_position += y_offset;
+    gCurrentSprite.yPosition += yOffset;
     if ((gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING) != 0x0)
     {
         if (gCurrentSprite.workVariable < 0x18)
@@ -79,18 +79,18 @@ void ChargeBeamGet(void)
         gCurrentSprite.ignore_samus_collision_timer = 0x2;
         gCurrentSprite.pose = 0x23;
         gCurrentSprite.timer1 = 0x0;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
-        gEquipment.beam_bombs |= BBF_CHARGE_BEAM;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+        gEquipment.beamBombs |= BBF_CHARGE_BEAM;
         EventFunction(EVENT_ACTION_SETTING, EVENT_CHARGE_BEAM_OBTAINED);
-        SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, 0x9, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, 0x9, 0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
 
 void ChargeBeamFlashingAnim(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
-    gCurrentSprite.anim_duration_counter;
+    gCurrentSprite.animationDuratoinCounter;
     if ((gCurrentSprite.timer1 & 0x1) == 0x0)
         gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
     if (gPreventMovementTimer < 0x3E7)
@@ -101,16 +101,16 @@ void ChargeBeamGlowInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.draw_order = 0x3;
-    gCurrentSprite.draw_distance_top_offset = 0x10;
-    gCurrentSprite.draw_distance_bottom_offset = 0x10;
+    gCurrentSprite.drawDistanceTopOffset = 0x10;
+    gCurrentSprite.drawDistanceBottomOffset = 0x10;
     gCurrentSprite.draw_distance_horizontal_offset = 0x10;
-    gCurrentSprite.hitbox_top_offset = -0x20;
-    gCurrentSprite.hitbox_bottom_offset = 0x20;
-    gCurrentSprite.hitbox_left_offset = -0x20;
-    gCurrentSprite.hitbox_right_offset = 0x20;
+    gCurrentSprite.hitboxTopOffset = -0x20;
+    gCurrentSprite.hitboxBottomOffset = 0x20;
+    gCurrentSprite.hitboxLeftOffset = -0x20;
+    gCurrentSprite.hitboxRightOffset = 0x20;
     gCurrentSprite.oam_pointer = charge_beam_glow_oam;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samus_collision = SSC_NONE;
     gCurrentSprite.pose = 0x9;
 }
@@ -121,7 +121,7 @@ void ChargeBeamGlowMovement(void)
 
     ram_slot = gCurrentSprite.primary_sprite_ram_slot;
 
-    gCurrentSprite.y_position = gSpriteData[ram_slot].y_position;
+    gCurrentSprite.yPosition = gSpriteData[ram_slot].yPosition;
 }
 
 void ChargeBeam(void)

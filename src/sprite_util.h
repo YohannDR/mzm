@@ -29,17 +29,17 @@
 #define SPLASH_HUGE 0x3
 
 void SpriteUtilInitLocationText(void);
-void SpriteUtilCheckStopSamusAgainstSolidSpriteLeft(u16 y_position, u16 x_position);
-void SpriteUtilCheckStopSamusAgainstSolidSpriteRight(u16 y_position, u16 x_position);
+void SpriteUtilCheckStopSamusAgainstSolidSpriteLeft(u16 yPosition, u16 xPosition);
+void SpriteUtilCheckStopSamusAgainstSolidSpriteRight(u16 yPosition, u16 xPosition);
 u8 SpriteUtilTakeDamageFromSprite(u8 kb_flag, struct SpriteData* pSprite, u16 dmg_mulitplier);
 u8 SpriteUtilCheckObjectsTouching(u16 o1_top, u16 o1_bottom, u16 o1_left, u16 o1_right, u16 o2_top, u16 o2_bottom, u16 o2_left, u16 o2_right);
 void SpriteUtilSamusAndSpriteCollision(void);
-u32 SpriteUtilCheckVerticalCollisionAtPosition(u16 y_position, u16 x_position);
-u32 SpriteUtilCheckVerticalCollisionAtPosition_slopes(u16 y_position, u16 x_position);
+u32 SpriteUtilCheckVerticalCollisionAtPosition(u16 yPosition, u16 xPosition);
+u32 SpriteUtilCheckVerticalCollisionAtPosition_slopes(u16 yPosition, u16 xPosition);
 void unk_f594(void);
 void unk_f608(void);
-void SpriteUtilCheckCollisionAtPosition(u16 y_position, u16 x_position);
-u32 SpriteUtilGetCollisionAtPosition(u16 y_position, u16 x_position);
+void SpriteUtilCheckCollisionAtPosition(u16 yPosition, u16 xPosition);
+u32 SpriteUtilGetCollisionAtPosition(u16 yPosition, u16 xPosition);
 void SpriteUtilCurrentSpriteFall(void);
 void SpriteUtilChooseRandomXFlip(void);
 void SpriteUtilChooseRandomXDirection(void);
@@ -91,10 +91,10 @@ u8 SpriteUtilCountDrops(void);
 void SpriteUtilMoveSpriteTowardsSamus(u16 samus_y, u16 samus_x, u8 y_speed, u8 x_speed, u8 speed_divisor);
 void SpriteUtilRidleyFireballMove(u16 sprite_y, u16 samus_x, u8 y_speed, u8 x_speed, u8 speed_divisor);
 void SpriteUtilUpdateStunTimer(struct SpriteData* pSprite);
-void SpriteUtilRandomSpriteDebris(u8 cloud_type, u8 number, u16 y_position, u16 x_position);
+void SpriteUtilRandomSpriteDebris(u8 cloud_type, u8 number, u16 yPosition, u16 xPosition);
 u8 SpriteUtilGetAmmoDrop(u8 rng);
 u8 SpriteUtilDetermineEnemyDrop(void);
-void SpriteUtilSpriteDeath(u8 death_type, u16 y_position, u16 x_position, u8 play_sound, u8 effect);
+void SpriteUtilSpriteDeath(u8 death_type, u16 yPosition, u16 xPosition, u8 play_sound, u8 effect);
 u8 SpriteUtilIsSpriteStunned(void);
 u8 SpriteUtilIsSpriteOnScreenAndScreenShake(void);
 void SpriteUtilUpdateSubSprite1Timer(void);
@@ -107,9 +107,9 @@ void SpriteUtilUpdateSubSpriteAnim(struct SubSpriteData* pSub);
 void SpriteUtilSyncCurrentSpritePositionWithSubSpritePosition(struct SubSpriteData* pSub);
 void SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOAM(struct SubSpriteData* pSub);
 u8 SpriteCheckCollidingWithSamusDrawing(void);
-void SpriteUtilSetSplashEffect(u16 y_position, u16 x_position, u8 size);
-u8 SpriteUtilCheckOutOfRoomEffect(u16 old_y, u16 y_position, u16 x_position, u8 size);
-u8 SpriteUtilCheckInRoomEffect(u16 old_y, u16 y_position, u16 x_position, u8 size);
+void SpriteUtilSetSplashEffect(u16 yPosition, u16 xPosition, u8 size);
+u8 SpriteUtilCheckOutOfRoomEffect(u16 old_y, u16 yPosition, u16 xPosition, u8 size);
+u8 SpriteUtilCheckInRoomEffect(u16 old_y, u16 yPosition, u16 xPosition, u8 size);
 u16 SpriteUtilGetFinalCompletionPercentage(void);
 
 #endif /* SPRITE_UTIL_H */

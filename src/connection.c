@@ -7,7 +7,7 @@ void ConnectionUpdateOpeningClosingHatches(void)
 
 }
 
-void ConnectionUpdateHatchAnimation(u8 dont_set_raw, u8 hatch)
+void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u8 hatch)
 {
     /*u32 value;
     u32 bg_block;
@@ -47,25 +47,25 @@ void ConnectionUpdateHatchAnimation(u8 dont_set_raw, u8 hatch)
     }
 
     value = bg_block + clip_block;
-    if (dont_set_raw != FALSE)
+    if (dontSetRaw != FALSE)
     {
-        BGClipSetBG1BlockValue(value, gHatchData[hatch].y_position, gHatchData[hatch].x_position);
-        BGClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].y_position + 0x1, gHatchData[hatch].x_position);
-        BGClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].y_position + 0x2, gHatchData[hatch].x_position);
-        BGClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].y_position + 0x3, gHatchData[hatch].x_position);
+        BGClipSetBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
+        BGClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
+        BGClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
+        BGClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
     }
     else
     {
-        BGClipSetRawBG1BlockValue(value, gHatchData[hatch].y_position, gHatchData[hatch].x_position);
-        BGClipSetRawBG1BlockValue(value + 0x10, gHatchData[hatch].y_position + 0x1, gHatchData[hatch].x_position);
-        BGClipSetRawBG1BlockValue(value + 0x20, gHatchData[hatch].y_position + 0x2, gHatchData[hatch].x_position);
-        BGClipSetRawBG1BlockValue(value + 0x30, gHatchData[hatch].y_position + 0x3, gHatchData[hatch].x_position);
+        BGClipSetRawBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
+        BGClipSetRawBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
+        BGClipSetRawBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
+        BGClipSetRawBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
     }
     
-    BGClipSetClipdataBlockValue((u16)value, gHatchData[hatch].y_position, gHatchData[hatch].x_position);
-    BGClipSetClipdataBlockValue((u16)value + 0x10, gHatchData[hatch].y_position + 0x1, gHatchData[hatch].x_position);
-    BGClipSetClipdataBlockValue((u16)value + 0x20, gHatchData[hatch].y_position + 0x2, gHatchData[hatch].x_position);
-    BGClipSetClipdataBlockValue((u16)value + 0x30, gHatchData[hatch].y_position + 0x3, gHatchData[hatch].x_position);*/
+    BGClipSetClipdataBlockValue((u16)value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
+    BGClipSetClipdataBlockValue((u16)value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
+    BGClipSetClipdataBlockValue((u16)value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
+    BGClipSetClipdataBlockValue((u16)value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);*/
 }
 
 void ConnectionHatchFlashingAnimation(u8 hatch)
@@ -78,7 +78,7 @@ void ConnectionOverrideOpenedHatch(u8 hatch, u8 type)
 
 }
 
-u8 ConnectionCheckEnterDoor(u16 y_position, u16 x_position)
+u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
 {
     /*u8* pSrc;
     struct gHatchData* pData;
@@ -101,7 +101,7 @@ u8 ConnectionCheckEnterDoor(u16 y_position, u16 x_position)
         count = 0x0;
         pData = gHatchData;
         pCurrArea = &gCurrentArea;
-        pSrc = &pData[0x0].source_door;
+        pSrc = &pData[0x0].sourceDoor;
         offset = 0x0;
         pLastDoor = &gLastDoorUsed;
 
@@ -110,7 +110,7 @@ u8 ConnectionCheckEnterDoor(u16 y_position, u16 x_position)
             if (*pSrc != u8_array_345868[0x7])
             {
                 pCurr = door_pointer_array_75faa8[*pCurrArea] + *pSrc;
-                if (DOOR_AREA_CONNECTION < (pCurr->type & 0xF) && pCurr->x_start <= x_position && x_position <= pCurr->x_end && pCurr->y_start <= y_position && y_position <= pCurr->y_end)
+                if (DOOR_AREA_CONNECTION < (pCurr->type & 0xF) && pCurr->xStart <= xPosition && xPosition <= pCurr->xEnd && pCurr->yStart <= yPosition && yPosition <= pCurr->yEnd)
                 {
                     gDoorPositionStart.x = 0x0;
                     gDoorPositionStart.y = 0x0;
@@ -119,21 +119,21 @@ u8 ConnectionCheckEnterDoor(u16 y_position, u16 x_position)
                     {
                         event_door = ConnectionFindEventBasedDoor(*pSrc);
                         if (event_door == 0xFF)
-                            *pLastDoor = pCurr->destination_door;
+                            *pLastDoor = pCurr->destinationRoom;
                         else
                             *pLastDoor = event_door;
                     }
                     else
-                        *pLastDoor = pCurr->destination_door;
+                        *pLastDoor = pCurr->destinationRoom;
 
                     if (DOOR_NO_HATCH < (pCurr->type & 0xF))
                     {
-                        if (pCurr->x_start > (gBG1XPosition >> 0x6) + 0x8)
+                        if (pCurr->xStart > (gBG1XPosition >> 0x6) + 0x8)
                             gDoorPositionStart.x = 0x1;
-                        gDoorPositionStart.y = pCurr->y_start;
+                        gDoorPositionStart.y = pCurr->yStart;
                     }
 
-                    gSamusDoorPositionOffset = ((pCurr->y_end + 0x1) * 0x40 - gSamusData.y_position) - 0x1;
+                    gSamusDoorPositionOffset = ((pCurr->yEnd + 0x1) * 0x40 - gSamusData.yPosition) - 0x1;
                     ConnectionProcessDoorType(pCurr->type);
                     gGameModeSub1 = 0x3;
 
@@ -143,8 +143,8 @@ u8 ConnectionCheckEnterDoor(u16 y_position, u16 x_position)
 
                     last_door = *pLastDoor;
                     pAreaDoors = door_pointer_array_75faa8[*pCurrArea];
-                    ConnectionCheckPlayCutsceneDuringTransition(*pCurrArea, (u8)(pAreaDoors[last_door].source_room + 0x1));
-                    check_play_room_music_track(*pCurrArea, pAreaDoors[last_door].source_room);
+                    ConnectionCheckPlayCutsceneDuringTransition(*pCurrArea, (u8)(pAreaDoors[last_door].sourceRoom + 0x1));
+                    check_play_room_music_track(*pCurrArea, pAreaDoors[last_door].sourceRoom);
                     door_found = TRUE;
                     break;
                 }
@@ -159,7 +159,7 @@ u8 ConnectionCheckEnterDoor(u16 y_position, u16 x_position)
     }*/
 }
 
-u8 ConnectionCheckAreaConnection(u16 y_position, u16 x_position)
+u8 ConnectionCheckAreaConnection(u16 yPosition, u16 xPosition)
 {
 
 }
@@ -193,7 +193,7 @@ void ConnectionProcessDoorType(u8 type)
     background_fading_start(transition);*/
 }
 
-u8 ConnectionFindEventBasedDoor(u8 source_room)
+u8 ConnectionFindEventBasedDoor(u8 sourceRoom)
 {
 
 }
@@ -208,12 +208,12 @@ void ConnectionCheckUnlockDoors(void)
 
 }
 
-void ConnectionStartLockAnimation(u8 maybe_direction, u8 hatch, u8 maybe_status)
+void ConnectionStartLockAnimation(u8 dontSetRaw, u8 hatch, u8 status)
 {
 
 }
 
-void ConnectionLockHatches(u8 is_event)
+void ConnectionLockHatches(u8 isEvent)
 {
 
 }
@@ -233,9 +233,51 @@ void ConnectionCheckHatchLockEvents(void)
 
 }
 
-void ConnectionCheckPlayCutsceneDuringTransition(u8 area, u8 dst_door)
+/**
+ * @brief 5f744 | b8 | Checks if a cutscene should play during a door transition
+ * 
+ * @param area Current area
+ * @param dstRoomPlusOne Destination room (+ 1)
+ */
+void ConnectionCheckPlayCutsceneDuringTransition(u8 area, u8 dstRoomPlusOne)
 {
+    switch (area)
+    {
+        case AREA_KRAID:
+            // Room 0x1E is the Kraid fight room
+            if (dstRoomPlusOne == 0x1F && !EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_KILLED))
+            {
+                MusicFade(0xA);
+                SoundFadeAll(0xA);
+                gCurrentCutscene = CUTSCENE_KRAID_RISING;
+            }
+            break;
 
+        case AREA_CHOZODIA:
+            // Room 0x2A is the Charlie fight room
+            if (dstRoomPlusOne == 0x2B)
+            {
+                if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
+                    gCurrentCutscene = CUTSCENE_BEFORE_CHARLIE;
+            }
+            // Room 0xA is the suitless entry of the mothership
+            else if (dstRoomPlusOne == 0xB && !EventFunction(EVENT_ACTION_CHECKING, EVENT_ENTER_MOTHERSHIP_DEMO_PLAYED))
+            {
+                // TODO define
+                if (gRainSoundEffect & 0x2)
+                    SoundFade(0x121, 0xA); // Rain sound
+                gCurrentCutscene = CUTSCENE_MECHA_RIDLEY_SEES_SAMUS;
+            }
+            break;
+
+        // Dumb cases in order to generate jump table
+        case AREA_BRINSTAR:
+        case AREA_NORFAIR:
+        case AREA_RIDLEY:
+        case AREA_CRATERIA:
+        case AREA_TOURIAN:
+            break;
+    }
 }
 
 /**

@@ -3,11 +3,15 @@
 
 #include "types.h"
 
+// Globals
+
 extern Func_t gVBlankCallback;
 extern Func_t gHBlankCallback;
 extern Func_t gVCountCallback;
 extern Func_t gSerialCommunicationCallback;
 extern Func_t gTimer3Callback;
+
+// Functions
 
 void CallbackCallVblank(void);
 void CallbackSetVBlank(Func_t callback);

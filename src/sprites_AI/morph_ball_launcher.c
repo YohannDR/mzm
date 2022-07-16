@@ -8,8 +8,8 @@ void MorphBallLauncherChangeCCAA(u8 caa)
     u16 sprite_y;
     u16 sprite_x;
     
-    sprite_y = gCurrentSprite.y_position;
-    sprite_x = gCurrentSprite.x_position;
+    sprite_y = gCurrentSprite.yPosition;
+    sprite_x = gCurrentSprite.xPosition;
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(sprite_y, sprite_x + 0x40);
     gCurrentClipdataAffectingAction = caa;
@@ -24,22 +24,22 @@ void MorphBallLauncherChangeCCAA(u8 caa)
 
 void MorphBallLauncherInit(void)
 {
-    gCurrentSprite.y_position -= 0x20;
-    gCurrentSprite.hitbox_top_offset = 0x0;
-    gCurrentSprite.hitbox_bottom_offset = 0x0;
-    gCurrentSprite.hitbox_left_offset = 0x0;
-    gCurrentSprite.hitbox_right_offset = 0x0;
-    gCurrentSprite.draw_distance_top_offset = 0x8;
-    gCurrentSprite.draw_distance_bottom_offset = 0x20;
+    gCurrentSprite.yPosition -= 0x20;
+    gCurrentSprite.hitboxTopOffset = 0x0;
+    gCurrentSprite.hitboxBottomOffset = 0x0;
+    gCurrentSprite.hitboxLeftOffset = 0x0;
+    gCurrentSprite.hitboxRightOffset = 0x0;
+    gCurrentSprite.drawDistanceTopOffset = 0x8;
+    gCurrentSprite.drawDistanceBottomOffset = 0x20;
     gCurrentSprite.draw_distance_horizontal_offset = 0x20;
     gCurrentSprite.samus_collision = SSC_NONE;
     gCurrentSprite.oam_pointer = morph_ball_launcher_oam_2de0f8;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x9;
-    gCurrentSprite.bg_priority = ((gIORegistersBackup.bg2cnt & 0x3) + 0x1) & 0x3;
+    gCurrentSprite.bg_priority = ((gIORegistersBackup.BG1CNT & 0x3) + 0x1) & 0x3;
     gCurrentSprite.draw_order = 0x2;
-    SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+    SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     MorphBallLauncherChangeCCAA(CCAA_MAKE_SOLID3);
 }
 
@@ -54,8 +54,8 @@ void MorphBallLauncherDetectBomb(void)
     u16 proj_x;
 
     has_bomb = FALSE;
-    sprite_y = gCurrentSprite.y_position + 0x20;
-    sprite_x = gCurrentSprite.x_position;
+    sprite_y = gCurrentSprite.yPosition + 0x20;
+    sprite_x = gCurrentSprite.xPosition;
     count = 0x0;
 
     while (count <= 0xF)
@@ -64,8 +64,8 @@ void MorphBallLauncherDetectBomb(void)
 
         if (pProj->status & PROJ_STATUS_EXISTS && pProj->type == PROJ_TYPE_BOMB && pProj->movement_stage == 0x1)
         {
-            proj_y = pProj->y_position;
-            proj_x = pProj->x_position;
+            proj_y = pProj->yPosition;
+            proj_x = pProj->xPosition;
 
             if (proj_y < sprite_y && proj_y > (i32)(sprite_y - 0x8) && proj_x < (sprite_x + 0x8) && proj_x > (i32)(sprite_x - 0x8))
             {
@@ -90,8 +90,8 @@ void MorphBallLauncherBombTimer(void)
     if (gCurrentSprite.timer1 == 0x0)
     {
         gCurrentSprite.oam_pointer = morph_ball_launcher_oam_2de120;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0xC;
         gCurrentSprite.timer1 = 0x3C;
         gCurrentSprite.workVariable = 0x0;
@@ -102,15 +102,15 @@ void MorphBallLauncherLaunchSamusAnim(void)
 {
     if (gCurrentSprite.workVariable == 0x0 && gSamusData.pose == SPOSE_DELAY_BEFORE_BALLSPARKING)
     {
-        SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gSamusData.y_position - 0x10, gSamusData.x_position, 0x0);
+        SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gSamusData.yPosition - 0x10, gSamusData.xPosition, 0x0);
         gCurrentSprite.workVariable = 0x1;
     }
     gCurrentSprite.timer1--;
     if (gCurrentSprite.timer1 == 0x0)
     {
         gCurrentSprite.oam_pointer = morph_ball_launcher_oam_2de0f8;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x9;
     }
 }

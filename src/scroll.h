@@ -5,17 +5,17 @@
 
 struct Scroll {
     u8 within;
-    u16 x_end;
-    u16 x_start;
-    u16 y_start;
-    u16 y_end;
+    u16 xEnd;
+    u16 xStart;
+    u16 yStart;
+    u16 yEnd;
 };
 
 struct ScreenPositionAndVelocity {
-    u16 x_position;
-    u16 y_position;
-    i8 x_velocity;
-    i8 y_velocity;
+    u16 xPosition;
+    u16 yPosition;
+    i8 xVelocity;
+    i8 yVelocity;
 };
 
 void ScrollProcess(struct RawCoordsX* pCoords);

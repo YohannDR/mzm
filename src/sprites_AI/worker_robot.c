@@ -21,18 +21,18 @@ u8 WorkerRobotCheckSamusInFront(void)
 
     if ((gCurrentSprite.status & SPRITE_STATUS_SAMUS_ON_TOP) == 0x0)
     {
-        sprite_y = gCurrentSprite.y_position;
-        sprite_x = gCurrentSprite.x_position;
+        sprite_y = gCurrentSprite.yPosition;
+        sprite_x = gCurrentSprite.xPosition;
         sprite_top = sprite_y - 0xA4;
         sprite_left = sprite_y - 0x48;
         sprite_right = sprite_y + 0x48;
 
-        samus_y = gSamusData.y_position;
-        samus_x = gSamusData.x_position;
-        samus_top = samus_y + gSamusPhysics.draw_distance_top_offset;
-        samus_bottom = samus_y + gSamusPhysics.draw_distance_bottom_offset;
-        samus_left = samus_x + gSamusPhysics.draw_distance_left_offset;
-        samus_right = samus_x + gSamusPhysics.draw_distance_right_offset;
+        samus_y = gSamusData.yPosition;
+        samus_x = gSamusData.xPosition;
+        samus_top = samus_y + gSamusPhysics.drawDistanceTopOffset;
+        samus_bottom = samus_y + gSamusPhysics.drawDistanceBottomOffset;
+        samus_left = samus_x + gSamusPhysics.drawDistanceLeftOffset;
+        samus_right = samus_x + gSamusPhysics.drawDistanceRightOffset;
 
         if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_y, sprite_left, sprite_right, samus_top, samus_bottom, samus_left, samus_right))
         {
@@ -54,16 +54,16 @@ u8 WorkerRobotCheckSamusInFront(void)
 
 void WorkerRobotInit(void)
 {
-    gCurrentSprite.hitbox_top_offset = -0x74;
-    gCurrentSprite.hitbox_bottom_offset = 0x0;
-    gCurrentSprite.hitbox_left_offset = -0x1C;
-    gCurrentSprite.hitbox_right_offset = 0x1C;
-    gCurrentSprite.draw_distance_top_offset = 0x28;
-    gCurrentSprite.draw_distance_bottom_offset = 0x0;
+    gCurrentSprite.hitboxTopOffset = -0x74;
+    gCurrentSprite.hitboxBottomOffset = 0x0;
+    gCurrentSprite.hitboxLeftOffset = -0x1C;
+    gCurrentSprite.hitboxRightOffset = 0x1C;
+    gCurrentSprite.drawDistanceTopOffset = 0x28;
+    gCurrentSprite.drawDistanceBottomOffset = 0x0;
     gCurrentSprite.draw_distance_horizontal_offset = 0x10;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7bcc;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     gCurrentSprite.workVariable = 0x0;
     gCurrentSprite.samus_collision = SSC_SOLID;
@@ -78,13 +78,13 @@ void WorkerRobotGFXInit(void)
 {
     gCurrentSprite.pose = 0x11;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7bcc;
-    gCurrentSprite.curr_anim_frame = 0x0;
-    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
 }
 
 void WorkerRobotSleepingDetectProjectile(void)
 {
-    if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.x_position) == 0x0)
+    if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition) == 0x0)
         gCurrentSprite.pose = 0x20;
     else if (gCurrentSprite.invicibility_stun_flash_timer & 0x7F)
         gCurrentSprite.pose = 0x12;
@@ -94,8 +94,8 @@ void WorkerRobotStandingGFXInit(void)
 {
     gCurrentSprite.pose = 0x13;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7c0c;
-    gCurrentSprite.curr_anim_frame = 0x0;
-    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         unk_2b20(0x26F);
 }
@@ -126,12 +126,12 @@ void WorkerRobotWalkingDetectProjectile(void)
     u16 proj_right;
 
     on_side = FALSE;
-    sprite_y = gCurrentSprite.y_position;
-    sprite_x = gCurrentSprite.x_position;
-    sprite_top = sprite_y + gCurrentSprite.hitbox_top_offset;
-    sprite_bottom = sprite_y + gCurrentSprite.hitbox_bottom_offset;
-    sprite_left = sprite_x + gCurrentSprite.hitbox_left_offset;
-    sprite_right = sprite_x + gCurrentSprite.hitbox_right_offset;
+    sprite_y = gCurrentSprite.yPosition;
+    sprite_x = gCurrentSprite.xPosition;
+    sprite_top = sprite_y + gCurrentSprite.hitboxTopOffset;
+    sprite_bottom = sprite_y + gCurrentSprite.hitboxBottomOffset;
+    sprite_left = sprite_x + gCurrentSprite.hitboxLeftOffset;
+    sprite_right = sprite_x + gCurrentSprite.hitboxRightOffset;
     pProj = gProjectileData;
 
     while (pProj < gProjectileData + 16)
@@ -141,12 +141,12 @@ void WorkerRobotWalkingDetectProjectile(void)
             type = pProj->type;
             if ((u8)(type - 0xC) < 0x2)
             {
-                proj_y = pProj->y_position;
-                proj_x = pProj->x_position;
-                proj_top = proj_y + pProj->hitbox_top_offset;
-                proj_bottom = proj_y + pProj->hitbox_bottom_offset;
-                proj_left = proj_x + pProj->hitbox_left_offset;
-                proj_right = proj_y + pProj->hitbox_right_offset;
+                proj_y = pProj->yPosition;
+                proj_x = pProj->xPosition;
+                proj_top = proj_y + pProj->hitboxTopOffset;
+                proj_bottom = proj_y + pProj->hitboxBottomOffset;
+                proj_left = proj_x + pProj->hitboxLeftOffset;
+                proj_right = proj_y + pProj->hitboxRightOffset;
 
                 if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
                 {
@@ -185,7 +185,7 @@ void WorkerRobotWalkingDetectProjectile(void)
                                     gCurrentSprite.oam_pointer = worker_robot_oam_2e7b2c;
                             }
                         }
-                        gCurrentSprite.anim_duration_counter = 0x0;
+                        gCurrentSprite.animationDuratoinCounter = 0x0;
                     }
 
                     if (type == PROJ_TYPE_SUPER_MISSILE)
@@ -213,11 +213,11 @@ void WorkerRobotWakingUpGFXInit(void)
 {
     gCurrentSprite.pose = 0xF;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7b74;
-    gCurrentSprite.curr_anim_frame = 0x0;
-    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
     gCurrentSprite.timer1 = 0x1E;
     gCurrentSprite.workVariable = 0x0;
-    gCurrentSprite.hitbox_top_offset = -0x84;
+    gCurrentSprite.hitboxTopOffset = -0x84;
 }
 
 void WorkerRobotCheckProjectile(void)
@@ -237,8 +237,8 @@ void WorkerRobotWalkGFXInit(void)
 {
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7ae4;
-    gCurrentSprite.curr_anim_frame = 0x0;
-    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
 }
 
 void WorkerRobotMove(void)
@@ -250,8 +250,8 @@ void WorkerRobotBackToSleepGFXInit(void)
 {
     gCurrentSprite.pose = 0xB;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7b84;
-    gCurrentSprite.curr_anim_frame = 0x0;
-    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         unk_2b20(0x270);
 }
@@ -262,9 +262,9 @@ void WorkerRobotCheckBackToSleepAnimEnded(void)
     {
         gCurrentSprite.pose = 0xC;
         gCurrentSprite.oam_pointer = worker_robot_oam_2e7bdc;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
-        gCurrentSprite.hitbox_top_offset = -0x74;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.hitboxTopOffset = -0x74;
     }
 }
 
@@ -279,8 +279,8 @@ void WorkerRobotTurningAround(void)
 
         gCurrentSprite.pose = 0xD;
         gCurrentSprite.oam_pointer = worker_robot_oam_2e7bf4;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
     }
 }
 
@@ -296,8 +296,8 @@ void WorkerRobotFallingGFXInit(void)
     gCurrentSprite.array_offset = 0x0;
     gCurrentSprite.workVariable = 0x0;
     gCurrentSprite.oam_pointer = worker_robot_oam_2e7ae4;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
 }
 
 void WorkerRobotFalling(void)
@@ -365,6 +365,6 @@ void WorkerRobot(void)
             WorkerRobotFallingSleep();
             break;
         default:
-            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position - 0x46, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - 0x46, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
     }
 }

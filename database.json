@@ -79,7 +79,7 @@
             "Size": 56
         },
         {
-            "Name": "dessgeega_sidehopper_in_block_y_velocity",
+            "Name": "dessgeega_sidehopper_in_block_yVelocity",
             "Offset": 2821348,
             "Type": "i16",
             "IsArray": 1,
@@ -323,7 +323,7 @@
         }
     ],
     "charge_beam_data.c": [{
-            "Name": "charge_beam_y_position_offsets",
+            "Name": "charge_beam_yPosition_offsets",
             "Offset": 2830764,
             "Type": "i16",
             "IsArray": 1,

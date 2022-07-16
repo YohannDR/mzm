@@ -8,7 +8,7 @@ void unk_31b40(void);
 void unk_31bc8(void);
 void unk_31c0c(void);
 void RidleyMaybeCheckDead(void);
-u8 RidleyCheckGrabbing(u16 y_position, u16 x_position);
+u8 RidleyCheckGrabbing(u16 yPosition, u16 xPosition);
 void RidleySamusGrabbed(u8 ram_slot);
 void RidleyMaybeHittingTail(void);
 u8 RidleyTailAttacksXMove(u16 movement);

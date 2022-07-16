@@ -10,8 +10,8 @@ void ScrollProcess(struct RawCoordsX* pCoords)
     struct Scroll* pScroll;
 
     ScrollUpdateCurrent(pCoords);
-    screen_x = gPositionAndVelocity.x_position;
-    screen_y = gPositionAndVelocity.y_position;
+    screen_x = gPositionAndVelocity.xPosition;
+    screen_y = gPositionAndVelocity.yPosition;
 
     pScroll = gCurrentScrolls;
     if (pScroll->within)
@@ -40,45 +40,45 @@ void ScrollScreen(u16 screen_x, u16 screen_y)
 i32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
     i32 x_pos;
-    i32 x_start;
+    i32 xStart;
 
     x_pos = pCoords->x;
-    x_start = pScroll->x_start;
+    xStart = pScroll->xStart;
 
-    if (x_start + 0x1E0 <= x_pos)
-        return x_start;
-    else if (x_pos <= pScroll->x_end - 0x1E0)
+    if (xStart + 0x1E0 <= x_pos)
+        return xStart;
+    else if (x_pos <= pScroll->xEnd - 0x1E0)
         return x_pos - 0x1E0;
     else
-        return pScroll->x_end - 0x3C0;
+        return pScroll->xEnd - 0x3C0;
 }
 
 i32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
     i32 y_pos;
-    i32 y_start;
+    i32 yStart;
 
     if (pScroll->within == 0x2)
     {
         y_pos = pCoords->y;
-        y_start = pScroll->y_start;
+        yStart = pScroll->yStart;
 
-        if (y_pos >= y_start + 0x180)
+        if (y_pos >= yStart + 0x180)
         {
-            if (y_pos > pScroll->y_end - 0x100)
+            if (y_pos > pScroll->yEnd - 0x100)
             {
-                if (pScroll->y_end - 0x280 < y_start)
-                    return y_start;
-                return pScroll->y_end - 0x280;
+                if (pScroll->yEnd - 0x280 < yStart)
+                    return yStart;
+                return pScroll->yEnd - 0x280;
             }
             else
                 return y_pos - 0x180;
         }
         else
-            return y_start;
+            return yStart;
     }
     else
-        return pScroll->y_end - 0x280;
+        return pScroll->yEnd - 0x280;
 }
 
 void ScrollLoad(void)
@@ -126,7 +126,7 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 
             if (pData[0x4] != 0xFF && pData[0x7] != 0xFF)
             {
-                if (pBG->clipdata_decompressed[pData[0x5] * pBG->clipdata_width + pData[0x4]] == 0x0)
+                if (pBG->pClipDecomp[pData[0x5] * pBG->clipdataWidth + pData[0x4]] == 0x0)
                 {
                     if (pData[0x6] != 0xFF)
                         bounds[pData[0x6]] = 0x7;
@@ -143,30 +143,30 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
                 bound = pData[bounds[0x0]] << 0x6;
                 if (0x80 >= bound)
                     bound = 0x80;
-                pScroll->x_start = bound;
+                pScroll->xStart = bound;
 
                 // X end
-                clip_limit = (pBG->clipdata_width << 0x6) - 0x80;
+                clip_limit = (pBG->clipdataWidth << 0x6) - 0x80;
                 bound_limit = (pData[bounds[0x1]] + 0x1) << 0x6;
                 if (bound_limit < clip_limit)
                     bound = bound_limit;
                 else
                     bound = clip_limit;
-                pScroll->x_end = bound;
+                pScroll->xEnd = bound;
 
                 bound = pData[bounds[0x2]] << 0x6;
                 if (bound < 0x80)
                     bound = 0x80;
-                pScroll->y_start = bound;
+                pScroll->yStart = bound;
 
                 // Y end
-                clip_limit = (pBG->clipdata_height << 0x6) - 0x80;
+                clip_limit = (pBG->clipdataHeight << 0x6) - 0x80;
                 bound_limit = (pData[bounds[0x3]] + 0x1) << 0x6;
                 if (bound_limit < clip_limit)
                     bound = bound_limit;
                 else
                     bound = clip_limit;
-                pScroll->y_end = bound;
+                pScroll->yEnd = bound;
 
                 pScroll->within = 0x2;
                 pScroll++;
@@ -180,10 +180,10 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
     if (pScroll->within == FALSE && pScroll[0x1].within == FALSE)
     {
         pScroll->within = 0x0;
-        pScroll->x_end = 0x0;
-        pScroll->x_start = 0x0;
-        pScroll->y_start = 0x0;
-        pScroll->y_end = 0x0;
+        pScroll->xEnd = 0x0;
+        pScroll->xStart = 0x0;
+        pScroll->yStart = 0x0;
+        pScroll->yEnd = 0x0;
     }*/
 }
 
@@ -226,7 +226,7 @@ u32 ScrollGetBG3Scroll(void)
     y_scroll = 0x0;
     x_scroll = 0x0;
 
-    switch (gCurrentRoomEntry.bg3_scrolling)
+    switch (gCurrentRoomEntry.BG3Scrolling)
     {
         case 0x0:
             break;
@@ -297,7 +297,7 @@ void ScrollBG3Related(void)
 void ScrollAutoBG3(void)
 {
     if (gBG3Movement.direction == 0x1 && (gBG3Movement.counter & 0x7) == 0x0)
-        gBG3Movement.x_offset++;
+        gBG3Movement.xOffset++;
     gBG3Movement.counter++;
 }
 

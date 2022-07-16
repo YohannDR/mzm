@@ -5,17 +5,17 @@
 #include "../sprite_util.h"
 #include "../globals.h"
 
-u8 MetroidCheckAirCollision(u16 y_position, u16 x_position)
+u8 MetroidCheckAirCollision(u16 yPosition, u16 xPosition)
 {
     u8 colliding;
 
     colliding = FALSE;
-    if (gSamusPhysics.horizontal_moving_direction == HDMOVING_RIGHT)
+    if (gSamusPhysics.horizontalMovingDirection == HDMOVING_RIGHT)
     {
-        SpriteUtilCheckCollisionAtPosition(y_position - 0x30, x_position + 0x3C);
+        SpriteUtilCheckCollisionAtPosition(yPosition - 0x30, xPosition + 0x3C);
         if (gPreviousCollisionCheck == 0x0)
         {
-            SpriteUtilCheckCollisionAtPosition(y_position + 0x10, x_position + 0x3C);
+            SpriteUtilCheckCollisionAtPosition(yPosition + 0x10, xPosition + 0x3C);
             if (gPreviousCollisionCheck != 0x0)
                 colliding = TRUE;
         }
@@ -24,12 +24,12 @@ u8 MetroidCheckAirCollision(u16 y_position, u16 x_position)
     }
     else
     {
-        if (gSamusPhysics.horizontal_moving_direction == HDMOVING_LEFT)
+        if (gSamusPhysics.horizontalMovingDirection == HDMOVING_LEFT)
         {
-            SpriteUtilCheckCollisionAtPosition(y_position - 0x30, x_position - 0x3C);
+            SpriteUtilCheckCollisionAtPosition(yPosition - 0x30, xPosition - 0x3C);
             if (gPreviousCollisionCheck == 0x0)
             {
-                SpriteUtilCheckCollisionAtPosition(y_position + 0x10, x_position - 0x3C);
+                SpriteUtilCheckCollisionAtPosition(yPosition + 0x10, xPosition - 0x3C);
                 if (gPreviousCollisionCheck != 0x0)
                     colliding = TRUE;
             }
@@ -64,12 +64,12 @@ u8 MetroidBombDetection(void)
     u8 status;
     struct ProjectileData* pProj;
 
-    sprite_y = gCurrentSprite.y_position;
-    sprite_x = gCurrentSprite.x_position;
-    sprite_top = sprite_y + gCurrentSprite.hitbox_top_offset;
-    sprite_bottom = sprite_y + gCurrentSprite.hitbox_bottom_offset;
-    sprite_left = sprite_x + gCurrentSprite.hitbox_left_offset;
-    sprite_right = sprite_x + gCurrentSprite.hitbox_right_offset;
+    sprite_y = gCurrentSprite.yPosition;
+    sprite_x = gCurrentSprite.xPosition;
+    sprite_top = sprite_y + gCurrentSprite.hitboxTopOffset;
+    sprite_bottom = sprite_y + gCurrentSprite.hitboxBottomOffset;
+    sprite_left = sprite_x + gCurrentSprite.hitboxLeftOffset;
+    sprite_right = sprite_x + gCurrentSprite.hitboxRightOffset;
     status = PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
     count = 0x0;
 
@@ -78,12 +78,12 @@ u8 MetroidBombDetection(void)
         pProj = gProjectileData + count;
         if (pProj->type == PROJ_TYPE_BOMB && (pProj->status & status) == status)
         {
-            proj_y = pProj->y_position;
-            proj_x = pProj->x_position;
-            proj_top = proj_y + pProj->hitbox_top_offset;
-            proj_bottom = proj_y + pProj->hitbox_bottom_offset;
-            proj_left = proj_x + pProj->hitbox_left_offset;
-            proj_right = proj_x + pProj->hitbox_right_offset;
+            proj_y = pProj->yPosition;
+            proj_x = pProj->xPosition;
+            proj_top = proj_y + pProj->hitboxTopOffset;
+            proj_bottom = proj_y + pProj->hitboxBottomOffset;
+            proj_left = proj_x + pProj->hitboxLeftOffset;
+            proj_right = proj_x + pProj->hitboxRightOffset;
 
             if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
                 return TRUE;
@@ -115,7 +115,7 @@ u8 MetroidCheckSamusGrabbed(void)
 
 void MetroidPlaySound(void)
 {
-    if (gCurrentSprite.curr_anim_frame == 0x0 && gCurrentSprite.anim_duration_counter == 0x1 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+    if (gCurrentSprite.currentAnimationFrame == 0x0 && gCurrentSprite.animationDuratoinCounter == 0x1 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         unk_2b20(0x170);
 }
 
@@ -167,18 +167,18 @@ void MetroidInit(void)
         gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
         gCurrentSprite.oam_scaling = 0x40;
         gCurrentSprite.oam_rotation = 0x0;
-        gCurrentSprite.draw_distance_top_offset = 0x6;
-        gCurrentSprite.draw_distance_bottom_offset = 0x6;
+        gCurrentSprite.drawDistanceTopOffset = 0x6;
+        gCurrentSprite.drawDistanceBottomOffset = 0x6;
         gCurrentSprite.draw_distance_horizontal_offset = 0x5;
-        gCurrentSprite.hitbox_top_offset = -0x28;
-        gCurrentSprite.hitbox_bottom_offset = 0x20;
-        gCurrentSprite.hitbox_left_offset = -0x28;
-        gCurrentSprite.hitbox_right_offset = 0x28;
+        gCurrentSprite.hitboxTopOffset = -0x28;
+        gCurrentSprite.hitboxBottomOffset = 0x20;
+        gCurrentSprite.hitboxLeftOffset = -0x28;
+        gCurrentSprite.hitboxRightOffset = 0x28;
         gCurrentSprite.oam_pointer = metroid_oam_2edd20;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
-        gCurrentSprite.y_position_spawn = gCurrentSprite.health;
+        gCurrentSprite.yPosition_spawn = gCurrentSprite.health;
         gCurrentSprite.samus_collision = SSC_NONE;
         SpriteUtilMakeSpriteFaceSamusDirection();
         gCurrentSprite.pose = 0x1;
@@ -186,7 +186,7 @@ void MetroidInit(void)
         gCurrentSprite.array_offset = 0x0;
         gCurrentSprite.draw_order = 0xC;
 
-        slot = SpriteSpawnSecondary(SSPRITE_METROID_SHELL, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        slot = SpriteSpawnSecondary(SSPRITE_METROID_SHELL, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         if (slot == 0xFF)
             gCurrentSprite.status = 0x0;
         gCurrentSprite.palette_row = 0x3;
@@ -198,8 +198,8 @@ void MetroidCheckSpawn(void)
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
     {
         gCurrentSprite.pose = 0x2;
-        gCurrentSprite.draw_distance_top_offset = 0x18;
-        gCurrentSprite.draw_distance_bottom_offset = 0x18;
+        gCurrentSprite.drawDistanceTopOffset = 0x18;
+        gCurrentSprite.drawDistanceBottomOffset = 0x18;
         gCurrentSprite.draw_distance_horizontal_offset = 0x14;
         gCurrentSprite.timer1 = (gSpriteRNG << 0x2) + 0x1;
     }
@@ -218,8 +218,8 @@ void MetroidSpawnedGFXInit(void)
     gCurrentSprite.timer1 = 0x0;
     gCurrentSprite.array_offset = 0x1;
     gCurrentSprite.oam_pointer = metroid_oam_2edc20;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
 }
 
 void MetroidMovement(void)
@@ -237,20 +237,20 @@ void MetroidMovement(void)
         }
     }
     MetroidCheckBouncingOnMetroid(0x1);
-    MetroidMove((u16)(gSamusData.y_position + gSamusPhysics.draw_distance_top_offset), gSamusData.x_position, 0x1E, 0x28, 0x2);
+    MetroidMove((u16)(gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset), gSamusData.xPosition, 0x1E, 0x28, 0x2);
 }
 
 void MetroidGrabSamusGFXInit(void)
 {
     gCurrentSprite.pose = 0x43;
     gCurrentSprite.oam_pointer = metroid_oam_2edca8;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.timer1 = 0x4;
     gCurrentSprite.workVariable = 0x4;
     gCurrentSprite.frozen_palette_row_offset = 0x4;
     gCurrentSprite.oam_rotation = 0x0;
-    gEquipment.grabbed_by_metroid = TRUE;
+    gEquipment.grabbedByMetroid = TRUE;
 }
 
 void MetroidSamusGrabbed(void)
@@ -263,8 +263,8 @@ void MetroidDeath(void)
     struct SpriteData* pSprite;
     u8 is_metroid_alive;
     u8 rng;
-    u16 y_position;
-    u16 x_position;
+    u16 yPosition;
+    u16 xPosition;
     u8 metroid_id;
     u8 frozen_id;
     u16 exists;
@@ -272,14 +272,14 @@ void MetroidDeath(void)
     u8 pose;
 
     rng = gSpriteRNG;
-    y_position = gCurrentSprite.y_position;
-    x_position = gCurrentSprite.x_position;
+    yPosition = gCurrentSprite.yPosition;
+    xPosition = gCurrentSprite.xPosition;
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        y_position += rng;
+        yPosition += rng;
     else 
-        y_position -= rng;
+        yPosition -= rng;
 
-    SpriteUtilSpriteDeath(DEATH_NORMAL, y_position, x_position + 0x24, TRUE, PE_FREEZING_SPRITE_WITH_CHARGED_ICE);
+    SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, xPosition + 0x24, TRUE, PE_FREEZING_SPRITE_WITH_CHARGED_ICE);
 
     metroid_id = PSPRITE_METROID;
     frozen_id = PSPRITE_FROZEN_METROID;
@@ -342,22 +342,22 @@ void Metroid(void)
     {
         if ((gCurrentSprite.invicibility_stun_flash_timer & 0x7F) == 0x2)
         {
-            if (gCurrentSprite.health == gCurrentSprite.y_position_spawn)
+            if (gCurrentSprite.health == gCurrentSprite.yPosition_spawn)
             {
                 if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                     unk_2b20(0x171);
             }
             else
-                gCurrentSprite.y_position_spawn = gCurrentSprite.health;
+                gCurrentSprite.yPosition_spawn = gCurrentSprite.health;
         }
     }
 
     if (gCurrentSprite.freeze_timer != 0x0)
     {
-        gCurrentSprite.hitbox_top_offset = -0x30;
-        gCurrentSprite.hitbox_bottom_offset = 0x28;
-        gCurrentSprite.hitbox_left_offset = -0x40;
-        gCurrentSprite.hitbox_right_offset = 0x40;
+        gCurrentSprite.hitboxTopOffset = -0x30;
+        gCurrentSprite.hitboxBottomOffset = 0x28;
+        gCurrentSprite.hitboxLeftOffset = -0x40;
+        gCurrentSprite.hitboxRightOffset = 0x40;
         MetroidCheckBouncingOnMetroid(0x1);
         if (gDifficulty == 0x0)
             SpriteUtilUnfreezeAnimEasy();
@@ -369,10 +369,10 @@ void Metroid(void)
     {
         if (gCurrentSprite.sprite_id == PSPRITE_FROZEN_METROID)
         {
-            gCurrentSprite.hitbox_top_offset = -0x28;
-            gCurrentSprite.hitbox_bottom_offset = 0x20;
-            gCurrentSprite.hitbox_left_offset = -0x28;
-            gCurrentSprite.hitbox_right_offset = 0x28;
+            gCurrentSprite.hitboxTopOffset = -0x28;
+            gCurrentSprite.hitboxBottomOffset = 0x20;
+            gCurrentSprite.hitboxLeftOffset = -0x28;
+            gCurrentSprite.hitboxRightOffset = 0x28;
             gCurrentSprite.sprite_id = PSPRITE_METROID;
             if (gCurrentSprite.pose < 0x62)
                 gCurrentSprite.pose = 0x8;
@@ -411,8 +411,8 @@ void MetroidShell(void)
 {
     u8 slot;
     u8 rng;
-    u16 y_position;
-    u16 x_position;
+    u16 yPosition;
+    u16 xPosition;
 
     slot = gCurrentSprite.primary_sprite_ram_slot;
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
@@ -420,41 +420,41 @@ void MetroidShell(void)
     if (gSpriteData[slot].health == 0x0)
     {
         rng = gSpriteRNG;
-        y_position = gCurrentSprite.y_position;
-        x_position = gCurrentSprite.x_position;
+        yPosition = gCurrentSprite.yPosition;
+        xPosition = gCurrentSprite.xPosition;
         if (gSpriteData[slot].status & SPRITE_STATUS_XFLIP)
-            y_position -= rng;
+            yPosition -= rng;
         else
-            y_position += rng;
+            yPosition += rng;
 
         gCurrentSprite.sprite_id = PSPRITE_METROID;
         gCurrentSprite.properties &= ~SP_SECONDARY_SPRITE;
-        SpriteUtilSpriteDeath(DEATH_NORMAL, y_position, x_position - 0x24, TRUE, PE_FREEZING_SPRITE_WITH_CHARGED_ICE);
+        SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, xPosition - 0x24, TRUE, PE_FREEZING_SPRITE_WITH_CHARGED_ICE);
     }
     else
     {
         if (gCurrentSprite.pose == 0x0)
         {
             gCurrentSprite.samus_collision = SSC_NONE;
-            gCurrentSprite.draw_distance_top_offset = 0x14;
-            gCurrentSprite.draw_distance_bottom_offset = 0xA;
+            gCurrentSprite.drawDistanceTopOffset = 0x14;
+            gCurrentSprite.drawDistanceBottomOffset = 0xA;
             gCurrentSprite.draw_distance_horizontal_offset = 0x18;
-            gCurrentSprite.hitbox_top_offset = -0x4;
-            gCurrentSprite.hitbox_bottom_offset = 0x4;
-            gCurrentSprite.hitbox_left_offset = -0x4;
-            gCurrentSprite.hitbox_right_offset = 0x4;
+            gCurrentSprite.hitboxTopOffset = -0x4;
+            gCurrentSprite.hitboxBottomOffset = 0x4;
+            gCurrentSprite.hitboxLeftOffset = -0x4;
+            gCurrentSprite.hitboxRightOffset = 0x4;
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.draw_order = 0x3;
             gCurrentSprite.oam_pointer = metroid_shell_oam_2edc08;
-            gCurrentSprite.anim_duration_counter = 0x0;
-            gCurrentSprite.curr_anim_frame = 0x0;
+            gCurrentSprite.animationDuratoinCounter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0x0;
         }
 
         if (gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN && (gSpriteData[slot].status & SPRITE_STATUS_YFLIP) == 0x0)
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-        gCurrentSprite.y_position = gSpriteData[slot].y_position;
-        gCurrentSprite.x_position = gSpriteData[slot].x_position;
+        gCurrentSprite.yPosition = gSpriteData[slot].yPosition;
+        gCurrentSprite.xPosition = gSpriteData[slot].xPosition;
     }
 }
 
@@ -465,17 +465,17 @@ void MetroidDoorLock(void)
     {
         gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
         gCurrentSprite.samus_collision = SSC_NONE;
-        gCurrentSprite.draw_distance_top_offset = 0x1;
-        gCurrentSprite.draw_distance_bottom_offset = 0x1;
+        gCurrentSprite.drawDistanceTopOffset = 0x1;
+        gCurrentSprite.drawDistanceBottomOffset = 0x1;
         gCurrentSprite.draw_distance_horizontal_offset = 0x1;
-        gCurrentSprite.hitbox_top_offset = 0x0;
-        gCurrentSprite.hitbox_bottom_offset = 0x0;
-        gCurrentSprite.hitbox_left_offset = 0x0;
-        gCurrentSprite.hitbox_right_offset = 0x0;
+        gCurrentSprite.hitboxTopOffset = 0x0;
+        gCurrentSprite.hitboxBottomOffset = 0x0;
+        gCurrentSprite.hitboxLeftOffset = 0x0;
+        gCurrentSprite.hitboxRightOffset = 0x0;
         gCurrentSprite.pose = 0x8;
         gCurrentSprite.oam_pointer = large_energy_oam_2b2750;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
 
         if (SpriteUtilCountPrimarySprites(PSPRITE_METROID) != 0x0)
             gDoorUnlockTimer = 0x1;

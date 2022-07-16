@@ -6,36 +6,36 @@
 
 void MapStationInit(void)
 {
-    gCurrentSprite.y_position += 0x80;
-    gCurrentSprite.draw_distance_top_offset = 0x80;
-    gCurrentSprite.draw_distance_bottom_offset = 0x10;
+    gCurrentSprite.yPosition += 0x80;
+    gCurrentSprite.drawDistanceTopOffset = 0x80;
+    gCurrentSprite.drawDistanceBottomOffset = 0x10;
     gCurrentSprite.draw_distance_horizontal_offset = 0x1C;
-    gCurrentSprite.hitbox_top_offset = -0x200;
-    gCurrentSprite.hitbox_left_offset = -0x20;
-    gCurrentSprite.hitbox_right_offset = 0x20;
+    gCurrentSprite.hitboxTopOffset = -0x200;
+    gCurrentSprite.hitboxLeftOffset = -0x20;
+    gCurrentSprite.hitboxRightOffset = 0x20;
     gCurrentSprite.samus_collision = SSC_NONE;
     gCurrentSprite.draw_order = 0x4;
     gCurrentSprite.bg_priority = 0x1;
     gCurrentSprite.health = 0x1;
     gCurrentSprite.properties |= SP_SOLID_FOR_PROJECTILES;
 
-    if ((gEquipment.downloaded_map_status >> gCurrentArea) & 0x1 || gAlarmTimer != 0x0)
+    if ((gEquipment.downloadedMapStatus >> gCurrentArea) & 0x1 || gAlarmTimer != 0x0)
     {
-        gCurrentSprite.hitbox_bottom_offset = -0x40;
+        gCurrentSprite.hitboxBottomOffset = -0x40;
         gCurrentSprite.pose = 0xF;
         gCurrentSprite.oam_pointer = map_station_oam_2d3788;
-        gCurrentSprite.curr_anim_frame = 0x13;
-        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x13;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
     }
     else
     {
-        gCurrentSprite.hitbox_bottom_offset = 0x40;
+        gCurrentSprite.hitboxBottomOffset = 0x40;
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.oam_pointer = map_station_oam_2d36f8;
-        gCurrentSprite.curr_anim_frame = 0x0;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        sprite_util_spawn_secondary(SSPRITE_MAP_STATION_SCREEN, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
-        sprite_util_spawn_secondary(SSPRITE_MAP_STATION_SCREEN, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        sprite_util_spawn_secondary(SSPRITE_MAP_STATION_SCREEN, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        sprite_util_spawn_secondary(SSPRITE_MAP_STATION_SCREEN, 0x1, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
 
@@ -46,20 +46,20 @@ void MapStationSamusDetection(void)
     u16 sprite_y;
     u16 sprite_x;
 
-    samus_y = gSamusData.y_position;
-    samus_x = gSamusData.x_position;
-    sprite_y = (u16)(gCurrentSprite.y_position + 0x80);
-    sprite_x = (u16)(gCurrentSprite.x_position + 0x60);
+    samus_y = gSamusData.yPosition;
+    samus_x = gSamusData.xPosition;
+    sprite_y = (u16)(gCurrentSprite.yPosition + 0x80);
+    sprite_x = (u16)(gCurrentSprite.xPosition + 0x60);
 
     if (!SpriteUtilCheckCrouchinOrMorphed() && samus_y == sprite_y - 0x1 && sprite_x - 0x40 < samus_x && sprite_x + 0x40 > samus_x)
     {
         gCurrentSprite.oam_pointer = map_station_oam_2d3708;
-        gCurrentSprite.curr_anim_frame = 0x0;
-        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
         gCurrentSprite.pose = 0x23;
-        gSamusData.x_position = sprite_x;
-        if (gSamusData.invincibility_timer != 0x0)
-            gSamusData.invincibility_timer = 0x0;
+        gSamusData.xPosition = sprite_x;
+        if (gSamusData.invincibilityTimer != 0x0)
+            gSamusData.invincibilityTimer = 0x0;
 
         if (gSamusData.direction & KEY_RIGHT)
             SamusSetPose(SPOSE_TURNING_AROUND_TO_DOWNLOAD_MAP_DATA);
@@ -74,8 +74,8 @@ void MapStationCheckSamusGrabbedAnimEnded(void)
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.oam_pointer = map_station_oam_2d3758;
-        gCurrentSprite.curr_anim_frame = 0x0;
-        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
         gCurrentSprite.pose = 0x25;
         gCurrentSprite.timer1 = 0x46;
         gSamusData.timer = 0x0;
@@ -91,8 +91,8 @@ void MapStationDownloadingAnim(void)
     if ((u8)timer == 0x0)
     {
         gCurrentSprite.oam_pointer = map_station_oam_2d3778;
-        gCurrentSprite.curr_anim_frame = 0x0;
-        gCurrentSprite.anim_duration_counter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
         gCurrentSprite.pose = 0x27;
         gCurrentSprite.timer1 = 0xA;
     }
@@ -128,10 +128,10 @@ void MapStationSpawnMessage(void)
                 text = 0x23;
         }
 
-        gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
-        gCurrentSprite.hitbox_top_offset = -0x40;
+        gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        gCurrentSprite.hitboxTopOffset = -0x40;
         gCurrentSprite.pose = 0x29;
-        gSamusData.curr_anim_frame = 0x0;
+        gSamusData.currentAnimationFrame = 0x0;
         gSamusData.timer = 0x1;
         call_sound_function(0x123, 0xA);
     }
@@ -160,8 +160,8 @@ void MapStationRetraction(void)
 {
     gCurrentSprite.pose = 0x2F;
     gCurrentSprite.oam_pointer = map_station_oam_2d3788;
-    gCurrentSprite.curr_anim_frame = 0x0;
-    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
     SamusSetPose(SPOSE_STANDING);
     SoundPlay(0x124);
 }

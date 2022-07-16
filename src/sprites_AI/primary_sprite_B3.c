@@ -14,16 +14,16 @@ void PrimarySpriteB3(void)
     {
         gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
         gCurrentSprite.samus_collision = SSC_NONE;
-        gCurrentSprite.draw_distance_top_offset = 0x1;
-        gCurrentSprite.draw_distance_bottom_offset = 0x1;
+        gCurrentSprite.drawDistanceTopOffset = 0x1;
+        gCurrentSprite.drawDistanceBottomOffset = 0x1;
         gCurrentSprite.draw_distance_horizontal_offset = 0x1;
-        gCurrentSprite.hitbox_top_offset = 0x0;
-        gCurrentSprite.hitbox_bottom_offset = 0x0;
-        gCurrentSprite.hitbox_left_offset = 0x0;
-        gCurrentSprite.hitbox_right_offset = 0x0;
+        gCurrentSprite.hitboxTopOffset = 0x0;
+        gCurrentSprite.hitboxBottomOffset = 0x0;
+        gCurrentSprite.hitboxLeftOffset = 0x0;
+        gCurrentSprite.hitboxRightOffset = 0x0;
         gCurrentSprite.oam_pointer = large_energy_drop_oam;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x9;
         TransparencyUpdateBLDCNT(0x1, 0xC41); // TODO BLDCNT values
         if (gAlarmTimer == 0x0)

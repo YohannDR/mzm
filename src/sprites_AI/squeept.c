@@ -4,42 +4,42 @@
 
 void SqueeptGFXReset(void)
 {
-    gCurrentSprite.hitbox_top_offset = -0x2C;
-    gCurrentSprite.hitbox_bottom_offset = 0x20;
+    gCurrentSprite.hitboxTopOffset = -0x2C;
+    gCurrentSprite.hitboxBottomOffset = 0x20;
     gCurrentSprite.oam_pointer = squeept_oam_2d1be0;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
 }
 
 void SqueeptTurningAroundGFXInit(void)
 {
-    gCurrentSprite.hitbox_top_offset = -0x20;
-    gCurrentSprite.hitbox_bottom_offset = 0x20;
+    gCurrentSprite.hitboxTopOffset = -0x20;
+    gCurrentSprite.hitboxBottomOffset = 0x20;
     gCurrentSprite.oam_pointer = squeept_oam_2d1b68;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
 }
 
 void SqueeptGoingDownGFXInit(void)
 {
-    gCurrentSprite.hitbox_top_offset = 0x0;
-    gCurrentSprite.hitbox_bottom_offset = 0x28;
+    gCurrentSprite.hitboxTopOffset = 0x0;
+    gCurrentSprite.hitboxBottomOffset = 0x28;
     gCurrentSprite.oam_pointer = squeept_oam_2d1bc8;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
 }
 
 void SqueeptInit(void)
 {
-    gCurrentSprite.draw_distance_top_offset = 0x14;
-    gCurrentSprite.draw_distance_bottom_offset = 0x14;
+    gCurrentSprite.drawDistanceTopOffset = 0x14;
+    gCurrentSprite.drawDistanceBottomOffset = 0x14;
     gCurrentSprite.draw_distance_horizontal_offset = 0x10;
-    gCurrentSprite.hitbox_left_offset = -0x20;
-    gCurrentSprite.hitbox_right_offset = 0x20;
+    gCurrentSprite.hitboxLeftOffset = -0x20;
+    gCurrentSprite.hitboxRightOffset = 0x20;
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
-    gCurrentSprite.y_position += 0x4;
-    gCurrentSprite.y_position_spawn = gCurrentSprite.y_position;
+    gCurrentSprite.yPosition += 0x4;
+    gCurrentSprite.yPosition_spawn = gCurrentSprite.yPosition;
 }
 
 void SqueeptReset(void)
@@ -91,23 +91,23 @@ void SqueeptGoDown(void)
     u8 offset;
     i16 velocity;
 
-    old_y = gCurrentSprite.y_position;
+    old_y = gCurrentSprite.yPosition;
     offset = gCurrentSprite.array_offset;
     velocity = squeept_falling_speed_2d1562[offset];
     if (velocity == 0x7FFF)
-        gCurrentSprite.y_position += squeept_falling_speed_2d1562[offset - 0x1];
+        gCurrentSprite.yPosition += squeept_falling_speed_2d1562[offset - 0x1];
     else
     {
         gCurrentSprite.array_offset = offset + 0x1;
-        gCurrentSprite.y_position += velocity;
+        gCurrentSprite.yPosition += velocity;
     }
 
-    if (SpriteUtilCheckInRoomEffect(old_y, gCurrentSprite.y_position, gCurrentSprite.x_position, SPLASH_BIG) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+    if (SpriteUtilCheckInRoomEffect(old_y, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_BIG) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         SoundPlay(0x156);
 
-    if (gCurrentSprite.y_position_spawn < gCurrentSprite.y_position)
+    if (gCurrentSprite.yPosition_spawn < gCurrentSprite.yPosition)
     {
-        gCurrentSprite.y_position = gCurrentSprite.y_position_spawn;
+        gCurrentSprite.yPosition = gCurrentSprite.yPosition_spawn;
         SqueeptReset();
     }
 }
@@ -146,7 +146,7 @@ void Squeept(void)
                     SqueeptGoDown();
                     break;
                 default:
-                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
             }
         }
     }

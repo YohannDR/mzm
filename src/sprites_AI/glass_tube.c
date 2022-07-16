@@ -10,59 +10,59 @@
 
 void GlassTubeChangeCCAA(void)
 {
-    /*u16 y_position;
-    u16 x_position;
+    /*u16 yPosition;
+    u16 xPosition;
     u8 caa;
 
-    y_position = gCurrentSprite.y_position - 0x20;
-    x_position = gCurrentSprite.x_position;
+    yPosition = gCurrentSprite.yPosition - 0x20;
+    xPosition = gCurrentSprite.xPosition;
 
     caa = CCAA_REMOVE_SOLID;
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position - 0x40, x_position);
+    ClipdataProcess(yPosition - 0x40, xPosition);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position - 0x40);
+    ClipdataProcess(yPosition, xPosition - 0x40);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position - 0x80);
+    ClipdataProcess(yPosition, xPosition - 0x80);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position - 0xC0);
+    ClipdataProcess(yPosition, xPosition - 0xC0);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position - 0x100);
+    ClipdataProcess(yPosition, xPosition - 0x100);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position - 0x140);
+    ClipdataProcess(yPosition, xPosition - 0x140);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position + 0x40);
+    ClipdataProcess(yPosition, xPosition + 0x40);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position + 0x80);
+    ClipdataProcess(yPosition, xPosition + 0x80);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position + 0xC0);
+    ClipdataProcess(yPosition, xPosition + 0xC0);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position + 0x100);
+    ClipdataProcess(yPosition, xPosition + 0x100);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position + 0x140);
-    y_position += 0x140;
+    ClipdataProcess(yPosition, xPosition + 0x140);
+    yPosition += 0x140;
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position - 0x40, x_position);
+    ClipdataProcess(yPosition - 0x40, xPosition);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position - 0x40);
+    ClipdataProcess(yPosition, xPosition - 0x40);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position - 0x80);
+    ClipdataProcess(yPosition, xPosition - 0x80);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position - 0xC0);
+    ClipdataProcess(yPosition, xPosition - 0xC0);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position - 0x100);
+    ClipdataProcess(yPosition, xPosition - 0x100);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position - 0x140);
+    ClipdataProcess(yPosition, xPosition - 0x140);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position + 0x40);
+    ClipdataProcess(yPosition, xPosition + 0x40);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position + 0x80);
+    ClipdataProcess(yPosition, xPosition + 0x80);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position + 0xC0);
+    ClipdataProcess(yPosition, xPosition + 0xC0);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position + 0x100);
+    ClipdataProcess(yPosition, xPosition + 0x100);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position, x_position + 0x140);*/
+    ClipdataProcess(yPosition, xPosition + 0x140);*/
 }
 
 /**
@@ -71,15 +71,15 @@ void GlassTubeChangeCCAA(void)
  */
 void GlassTubeInit(void)
 {
-    gCurrentSprite.draw_distance_top_offset = 0x30;
-    gCurrentSprite.draw_distance_bottom_offset = 0x30;
+    gCurrentSprite.drawDistanceTopOffset = 0x30;
+    gCurrentSprite.drawDistanceBottomOffset = 0x30;
     gCurrentSprite.draw_distance_horizontal_offset = 0x70;
-    gCurrentSprite.hitbox_top_offset = -0x80;
-    gCurrentSprite.hitbox_bottom_offset = 0x80;
-    gCurrentSprite.hitbox_left_offset = -0x100;
-    gCurrentSprite.hitbox_right_offset = 0x100;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.hitboxTopOffset = -0x80;
+    gCurrentSprite.hitboxBottomOffset = 0x80;
+    gCurrentSprite.hitboxLeftOffset = -0x100;
+    gCurrentSprite.hitboxRightOffset = 0x100;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samus_collision = SSC_NONE;
     
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_GLASS_TUBE_BROKEN))
@@ -117,21 +117,21 @@ void GlassTubeCheckPowerBombCollision(void)
     u16 sprite_left;
     u16 sprite_right;
 
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED) && gCurrentPowerBomb.animation_state != 0x0 && gEquipment.max_power_bombs != 0x0)
+    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED) && gCurrentPowerBomb.animation_state != 0x0 && gEquipment.maxPowerBombs != 0x0)
     {
-        bomb_y = gCurrentPowerBomb.y_position;
-        bomb_x = gCurrentPowerBomb.x_position;
-        bomb_top = gCurrentPowerBomb.hitbox_top_offset + bomb_y;
-        bomb_bottom = gCurrentPowerBomb.hitbox_bottom_offset + bomb_y;
-        bomb_left = gCurrentPowerBomb.hitbox_left_offset + bomb_x;
-        bomb_right = gCurrentPowerBomb.hitbox_right_offset + bomb_x;
+        bomb_y = gCurrentPowerBomb.yPosition;
+        bomb_x = gCurrentPowerBomb.xPosition;
+        bomb_top = gCurrentPowerBomb.hitboxTopOffset + bomb_y;
+        bomb_bottom = gCurrentPowerBomb.hitboxBottomOffset + bomb_y;
+        bomb_left = gCurrentPowerBomb.hitboxLeftOffset + bomb_x;
+        bomb_right = gCurrentPowerBomb.hitboxRightOffset + bomb_x;
         
-        sprite_y = gCurrentSprite.y_position;
-        sprite_x = gCurrentSprite.x_position;
-        sprite_top = gCurrentSprite.hitbox_top_offset + sprite_y;
-        sprite_bottom = gCurrentSprite.hitbox_bottom_offset + sprite_y;
-        sprite_left = gCurrentSprite.hitbox_left_offset + sprite_x;
-        sprite_right = gCurrentSprite.hitbox_right_offset + sprite_x;
+        sprite_y = gCurrentSprite.yPosition;
+        sprite_x = gCurrentSprite.xPosition;
+        sprite_top = gCurrentSprite.hitboxTopOffset + sprite_y;
+        sprite_bottom = gCurrentSprite.hitboxBottomOffset + sprite_y;
+        sprite_left = gCurrentSprite.hitboxLeftOffset + sprite_x;
+        sprite_right = gCurrentSprite.hitboxRightOffset + sprite_x;
 
         if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, bomb_top, bomb_bottom, bomb_left, bomb_right))
         {
@@ -152,8 +152,8 @@ void GlassTubeDelayBeforeBreaking(void)
     {
         gCurrentSprite.pose = 0x25;
         gCurrentSprite.oam_pointer = glass_tube_oam_cracking;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         SoundPlay(0x27A);
     }
 }
@@ -168,13 +168,13 @@ void GlassTubeCheckCrackingAnimEnded(void)
     {
         gCurrentSprite.pose = 0x27;
         gCurrentSprite.oam_pointer = glass_tube_oam_breaking;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         GlassTubeChangeCCAA();
-        ParticleSet(gCurrentSprite.y_position - 0x1E, gCurrentSprite.x_position - 0x12C, PE_MEDIUM_DUST);
-        ParticleSet(gCurrentSprite.y_position + 0xA0, gCurrentSprite.x_position - 0x140, PE_TWO_MEDIUM_DUST);
-        ParticleSet(gCurrentSprite.y_position - 0x1E, gCurrentSprite.x_position + 0x12C, PE_MEDIUM_DUST);
-        ParticleSet(gCurrentSprite.y_position + 0xA0, gCurrentSprite.x_position + 0x140, PE_TWO_MEDIUM_DUST);
+        ParticleSet(gCurrentSprite.yPosition - 0x1E, gCurrentSprite.xPosition - 0x12C, PE_MEDIUM_DUST);
+        ParticleSet(gCurrentSprite.yPosition + 0xA0, gCurrentSprite.xPosition - 0x140, PE_TWO_MEDIUM_DUST);
+        ParticleSet(gCurrentSprite.yPosition - 0x1E, gCurrentSprite.xPosition + 0x12C, PE_MEDIUM_DUST);
+        ParticleSet(gCurrentSprite.yPosition + 0xA0, gCurrentSprite.xPosition + 0x140, PE_TWO_MEDIUM_DUST);
         ScreenShakeStartVertical(0x1E, 0x81);
         ScreenShakeStartHorizontal(0x1E, 0x81);
     }
@@ -190,8 +190,8 @@ void GlassTubeCheckBreakingAnimEnded(void)
     {
         gCurrentSprite.pose = 0xF;
         gCurrentSprite.oam_pointer = glass_tube_oam_broken;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
     }
 }
 

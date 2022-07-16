@@ -3,18 +3,25 @@
 
 #include "types.h"
 
+// Globals
+
+
+// Structs
+
 struct IORegistersBackup {
-    u16 dispcnt_non_gameplay;
-    u16 bldcnt_non_gameplay;
-    u16 bldalpha_non_gameplay;
-    u8 winin_h_non_gameplay;
-    u8 winout_l_non_gameplay;
-    u16 bg0cnt_write_only;
-    u16 bg1cnt;
-    u16 bg2cnt;
-    u16 bg3cnt;
-    u16 bg0cnt;
+    u16 DISPCNT_NonGameplay;
+    u16 BLDCNT_NonGameplay;
+    u16 BLDALPHA_NonGameplay;
+    u8 WININ_H_NonGameplay;
+    u8 WINOUT_L_NonGameplay;
+    u16 BG3CNT_WriteOnly;
+    u16 BG3CNT;
+    u16 BG1CNT;
+    u16 BG2CNT;
+    u16 BG3CNT;
 };
+
+// Functions
 
 void IOWriteRegisters(void);
 void IOWriteRegistersDuringTransition(void);

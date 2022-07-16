@@ -5,6 +5,13 @@
 #include "block.h"
 #include "gba.h"
 
+// Globals
+
+extern struct CurrentAffectingClip gCurrentAffectingClipdata;
+extern struct TilemapAndClipPointers gTilemapAndClipPointers;
+
+// Defines
+
 #define CCAA_NONE 0x0
 #define CCAA_REMOVE_SOLID 0x1
 #define CCAA_MAKE_SOLID1 0x2
@@ -73,6 +80,8 @@
 #define CLIPDATA_TYPE_PASS_THROUGH_BOTTOM 0xC
 #define CLIPDATA_TYPE_SOLID_FLAG 0x1000000
 
+// Structs
+
 struct CurrentAffectingClip {
     u16 movement;
     u16 hazard;
@@ -93,15 +102,19 @@ struct TilemapAndClipPointers {
     u16* clip_behaviors;
 };
 
+// Typedef
+
 typedef u32 (*ClipFunc_T)(struct CollisionData*);
 
+// Functions
+
 void ClipdataSetupCode(void);
-u32 ClipdataProcessForSamus(u16 y_position, u16 x_position);
-u32 ClipdataProcess(u16 y_position, u16 x_position);
+u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition);
+u32 ClipdataProcess(u16 yPosition, u16 xPosition);
 u32 ClipdataConvertToCollision(struct CollisionData* pCollision);
-i32 ClipdataCheckCurrentAffectingAtPosition(u16 y_position, u16 x_position);
-i32 ClipdataUpdateCurrentAffecting(u16 y_position, u16 tile_y, u16 tile_x, u8 unk);
+i32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition);
+i32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tile_y, u16 tile_x, u8 unk);
 u8 ClipdataCheckCantUseElevator(void);
-i32 ClipdataCheckGroundEffect(u16 y_position, u16 x_position);
+i32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition);
 
 #endif /* CLIPDATA_H */

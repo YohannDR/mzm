@@ -5,8 +5,8 @@
 #include "types.h"
 
 struct DMA {
-    void* src;
-    void* dst;
+    void* pSrc;
+    void* pDst;
     u32 control;
 };
 

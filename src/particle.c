@@ -14,20 +14,20 @@
 void ParticleCheckOnScreen(struct ParticleEffect* pParticle)
 {
     /*u16 bgY_offset;
-    u16 y_offset;
+    u16 yOffset;
     u16 bgX_offset;
-    u16 x_offset;
+    u16 xOffset;
 
     if (pParticle->status & PARTICLE_STATUS_ABSOLUTE_POSITION)
         pParticle->status |= PARTICLE_STATUS_ONSCREEN;
     else
     {
         bgY_offset = gBG1YPosition + 0x200;
-        y_offset = pParticle->y_position + 0x200;
+        yOffset = pParticle->yPosition + 0x200;
         bgX_offset = gBG1XPosition + 0x200;
-        x_offset = pParticle->x_position + 0x200;
+        xOffset = pParticle->xPosition + 0x200;
 
-        if (x_offset >= bgX_offset && bgX_offset >= x_offset && y_offset >= bgY_offset && bgY_offset >= y_offset)
+        if (x_offset >= bgX_offset && bgX_offset >= xOffset && yOffset >= bgY_offset && bgY_offset >= yOffset)
             pParticle->status |= PARTICLE_STATUS_ONSCREEN;
         else
         {
@@ -50,8 +50,8 @@ void ParticleDraw(struct ParticleEffect* pParticle)
     u16* pSrc;
     struct RawOamData* pDst;
     u8 slot;
-    u16 y_position;
-    u16 x_position;
+    u16 yPosition;
+    u16 xPosition;
     u8 status;
     u8 priority;
 
@@ -60,17 +60,17 @@ void ParticleDraw(struct ParticleEffect* pParticle)
     part_count = *pSrc++;
     if (part_count + slot < 0x80) // Checks within bounds
     {
-        pDst = oam_data + slot;
+        pDst = gOamData + slot;
         status = pParticle->status;
         if (status & PARTICLE_STATUS_ABSOLUTE_POSITION)
         {
-            y_position = pParticle->y_position;
-            x_position = pParticle->x_position;
+            yPosition = pParticle->yPosition;
+            xPosition = pParticle->xPosition;
         }
         else
         {
-            y_position = (pParticle->y_position >> 0x2) - (gBG1YPosition >> 0x2);
-            x_position = (pParticle->x_position >> 0x2) - (gBG1XPosition >> 0x2);
+            yPosition = (pParticle->yPosition >> 0x2) - (gBG1YPosition >> 0x2);
+            xPosition = (pParticle->xPosition >> 0x2) - (gBG1XPosition >> 0x2);
         }
 
         if (status & PARTICLE_STATUS_LOW_PRIORITY)
@@ -159,11 +159,11 @@ void ParticleProcessAll(void)
  * 540ec | a0 | 
  * Sets a new particle effect with the given parameters
  * 
- * @param y_position Y Position
- * @param x_position X Position
+ * @param yPosition Y Position
+ * @param xPosition X Position
  * @param effect Particle effect ID
  */
-void ParticleSet(u16 y_position, u16 x_position, u8 effect)
+void ParticleSet(u16 yPosition, u16 xPosition, u8 effect)
 {
     struct ParticleEffect* pParticle;
     struct ParticleEffect* pLow;
@@ -204,10 +204,10 @@ void ParticleSet(u16 y_position, u16 x_position, u8 effect)
     }
 
     pParticle->status = PARTICLE_STATUS_EXISTS;
-    pParticle->y_position = y_position;
-    pParticle->x_position = x_position;
-    pParticle->curr_anim_frame = 0x0;
-    pParticle->anim_duration_counter = 0x0;
+    pParticle->yPosition = yPosition;
+    pParticle->xPosition = xPosition;
+    pParticle->currentAnimationFrame = 0x0;
+    pParticle->animationDuratoinCounter = 0x0;
     pParticle->effect = effect;
     pParticle->stage = 0x0;
     pParticle->frame_counter = 0x0;
@@ -227,20 +227,20 @@ u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, struct FrameData* p
     u32 adc;
 
     ended = 0x0;
-    adc = pParticle->anim_duration_counter + 0x1;
-    pParticle->anim_duration_counter = adc;
-    if ((u8)pOam[pParticle->curr_anim_frame].timer <= (u8)adc)
+    adc = pParticle->animationDuratoinCounter + 0x1;
+    pParticle->animationDuratoinCounter = adc;
+    if ((u8)pOam[pParticle->currentAnimationFrame].timer <= (u8)adc)
     {
-        pParticle->anim_duration_counter = 0x0;
-        pParticle->curr_anim_frame++;
-        if ((u8)pOam[pParticle->curr_anim_frame].timer == 0x0)
+        pParticle->animationDuratoinCounter = 0x0;
+        pParticle->currentAnimationFrame++;
+        if ((u8)pOam[pParticle->currentAnimationFrame].timer == 0x0)
         {
-            pParticle->curr_anim_frame = 0x0;
+            pParticle->currentAnimationFrame = 0x0;
             ended = 0x1;
         }
     }
 
-    gCurrentParticleEffectOAMFramePointer = pOam[pParticle->curr_anim_frame].oam_frame_ptr;
+    gCurrentParticleEffectOAMFramePointer = pOam[pParticle->currentAnimationFrame].oam_frame_ptr;
     return ended;
 }
 
@@ -253,7 +253,7 @@ u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, struct FrameData* p
  */
 void ParticleSetCurrentOAMFramePointer(struct ParticleEffect* pParticle, struct FrameData* pOam)
 {
-    gCurrentParticleEffectOAMFramePointer = pOam[pParticle->curr_anim_frame].oam_frame_ptr;
+    gCurrentParticleEffectOAMFramePointer = pOam[pParticle->currentAnimationFrame].oam_frame_ptr;
 }
 
 /**
@@ -269,7 +269,7 @@ void ParticleSpriteSplashSmall(struct ParticleEffect* pParticle)
         pParticle->status = 0x0;
     else
     {
-        pParticle->y_position = gEffectYPosition;
+        pParticle->yPosition = gEffectYPosition;
         if (pParticle->stage != 0x0)
             return;
         pParticle->stage++;
@@ -290,7 +290,7 @@ void ParticleSpriteSplashWaterBig(struct ParticleEffect* pParticle)
         pParticle->status = 0x0;
     else
     {
-        pParticle->y_position = gEffectYPosition;
+        pParticle->yPosition = gEffectYPosition;
         if (pParticle->stage != 0x0)
             return;
         pParticle->stage++;
@@ -311,7 +311,7 @@ void ParticleSpriteSplashWaterHuge(struct ParticleEffect* pParticle)
         pParticle->status = 0x0;
     else
     {
-        pParticle->y_position = gEffectYPosition;
+        pParticle->yPosition = gEffectYPosition;
         if (pParticle->stage != 0x0)
             return;
         pParticle->stage++;
@@ -332,7 +332,7 @@ void ParticleSpriteSplashLavaSmall(struct ParticleEffect* pParticle)
         pParticle->status = 0x0;
     else
     {
-        pParticle->y_position = gEffectYPosition;
+        pParticle->yPosition = gEffectYPosition;
         if (pParticle->stage != 0x0)
             return;
         pParticle->stage++;
@@ -353,7 +353,7 @@ void ParticleSpriteSplashLavaBig(struct ParticleEffect* pParticle)
         pParticle->status = 0x0;
     else
     {
-        pParticle->y_position = gEffectYPosition;
+        pParticle->yPosition = gEffectYPosition;
         if (pParticle->stage != 0x0)
             return;
         pParticle->stage++;
@@ -374,7 +374,7 @@ void ParticleSpriteSplashLavaHuge(struct ParticleEffect* pParticle)
         pParticle->status = 0x0;
     else
     {
-        pParticle->y_position = gEffectYPosition;
+        pParticle->yPosition = gEffectYPosition;
         if (pParticle->stage != 0x0)
             return;
         pParticle->stage++;
@@ -395,7 +395,7 @@ void ParticleSpriteSplashAcidSmall(struct ParticleEffect* pParticle)
         pParticle->status = 0x0;
     else
     {
-        pParticle->y_position = gEffectYPosition;
+        pParticle->yPosition = gEffectYPosition;
         if (pParticle->stage != 0x0)
             return;
         pParticle->stage++;
@@ -416,7 +416,7 @@ void ParticleSpriteSplashAcidBig(struct ParticleEffect* pParticle)
         pParticle->status = 0x0;
     else
     {
-        pParticle->y_position = gEffectYPosition;
+        pParticle->yPosition = gEffectYPosition;
         if (pParticle->stage != 0x0)
             return;
         pParticle->stage++;
@@ -437,7 +437,7 @@ void ParticleSpriteSplashAcidHuge(struct ParticleEffect* pParticle)
         pParticle->status = 0x0;
     else
     {
-        pParticle->y_position = gEffectYPosition;
+        pParticle->yPosition = gEffectYPosition;
         if (pParticle->stage != 0x0)
             return;
         pParticle->stage++;
@@ -722,8 +722,8 @@ void ParticleBeamTrailingRight(struct ParticleEffect* pParticle)
     {
         if (pParticle->stage != 0x0)
         {
-            pParticle->x_position++;
-            pParticle->y_position += 0x4;
+            pParticle->xPosition++;
+            pParticle->yPosition += 0x4;
             return;
         }
         pParticle->stage++;
@@ -746,8 +746,8 @@ void ParticleBeamTrailingLeft(struct ParticleEffect* pParticle)
     {
         if (pParticle->stage != 0x0)
         {
-            pParticle->x_position--;
-            pParticle->y_position += 0x4;
+            pParticle->xPosition--;
+            pParticle->yPosition += 0x4;
             return;
         }
         pParticle->stage++;
@@ -1441,29 +1441,29 @@ void ParticlePlayBeginToChargeSound(void)
 {
     u16 bbf;
 
-    bbf = gEquipment.beam_bombs_activation;
+    bbf = gEquipment.beamBombsActivation;
 
-    if (gEquipment.beam_bombs_activation & BBF_ICE_BEAM)
+    if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
     {
-        if (gEquipment.beam_bombs_activation & BBF_LONG_BEAM)
+        if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
             SoundPlay(0xE6);
         else
             SoundPlay(0xE4);
     }
     else
     {
-        if (gEquipment.beam_bombs_activation & BBF_PLASMA_BEAM)
+        if (gEquipment.beamBombsActivation & BBF_PLASMA_BEAM)
         {
-            if (gEquipment.beam_bombs_activation & BBF_LONG_BEAM)
+            if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
                 SoundPlay(0xE2);
             else
                 SoundPlay(0xE0);
         }
         else
         {
-            if (gEquipment.beam_bombs_activation & BBF_WAVE_BEAM)
+            if (gEquipment.beamBombsActivation & BBF_WAVE_BEAM)
             {
-                if (gEquipment.beam_bombs_activation & BBF_LONG_BEAM)
+                if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
                     SoundPlay(0xDE);
                 else
                     SoundPlay(0xDC);
@@ -1487,29 +1487,29 @@ void ParticleStopBeginToChargeSound(void)
 {
     u16 bbf;
 
-    bbf = gEquipment.beam_bombs_activation;
+    bbf = gEquipment.beamBombsActivation;
 
-    if (gEquipment.beam_bombs_activation & BBF_ICE_BEAM)
+    if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
     {
-        if (gEquipment.beam_bombs_activation & BBF_LONG_BEAM)
+        if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
             SoundStop(0xE6);
         else
             SoundStop(0xE4);
     }
     else
     {
-        if (gEquipment.beam_bombs_activation & BBF_PLASMA_BEAM)
+        if (gEquipment.beamBombsActivation & BBF_PLASMA_BEAM)
         {
-            if (gEquipment.beam_bombs_activation & BBF_LONG_BEAM)
+            if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
                 SoundStop(0xE2);
             else
                 SoundStop(0xE0);
         }
         else
         {
-            if (gEquipment.beam_bombs_activation & BBF_WAVE_BEAM)
+            if (gEquipment.beamBombsActivation & BBF_WAVE_BEAM)
             {
-                if (gEquipment.beam_bombs_activation & BBF_LONG_BEAM)
+                if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
                     SoundStop(0xDE);
                 else
                     SoundStop(0xDC);
@@ -1533,29 +1533,29 @@ void ParticlePlayBeamFullChargedSound(void)
 {
     u16 bbf;
 
-    bbf = gEquipment.beam_bombs_activation;
+    bbf = gEquipment.beamBombsActivation;
 
-    if (gEquipment.beam_bombs_activation & BBF_ICE_BEAM)
+    if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
     {
-        if (gEquipment.beam_bombs_activation & BBF_LONG_BEAM)
+        if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
             SoundPlay(0xE7);
         else
             SoundPlay(0xE5);
     }
     else
     {
-        if (gEquipment.beam_bombs_activation & BBF_PLASMA_BEAM)
+        if (gEquipment.beamBombsActivation & BBF_PLASMA_BEAM)
         {
-            if (gEquipment.beam_bombs_activation & BBF_LONG_BEAM)
+            if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
                 SoundPlay(0xE3);
             else
                 SoundPlay(0xE1);
         }
         else
         {
-            if (gEquipment.beam_bombs_activation & BBF_WAVE_BEAM)
+            if (gEquipment.beamBombsActivation & BBF_WAVE_BEAM)
             {
-                if (gEquipment.beam_bombs_activation & BBF_LONG_BEAM)
+                if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
                     SoundPlay(0xDF);
                 else
                     SoundPlay(0xDD);
@@ -1579,10 +1579,10 @@ void ParticlePlayBeamFullChargedSound(void)
  */
 void ParticleChargingBeam(struct ParticleEffect* pParticle)
 {
-    pParticle->y_position = gArmCannonY;
-    pParticle->x_position = gArmCannonX;
+    pParticle->yPosition = gArmCannonY;
+    pParticle->xPosition = gArmCannonX;
 
-    if (gSamusWeaponInfo.charge_counter < 0x10)
+    if (gSamusWeaponInfo.chargeCounter < 0x10)
     {
         pParticle->status = 0x0;
         ParticleStopBeginToChargeSound();
@@ -1616,11 +1616,11 @@ void ParticleChargingBeam(struct ParticleEffect* pParticle)
                     ParticleSetCurrentOAMFramePointer(pParticle, particle_charging_beam_oam_begin);
                 else
                 {
-                    if (gSamusWeaponInfo.charge_counter >= 0x40)
+                    if (gSamusWeaponInfo.chargeCounter >= 0x40)
                     {
                         pParticle->stage = 0x2;
-                        pParticle->curr_anim_frame = 0x0;
-                        pParticle->anim_duration_counter = 0x0;
+                        pParticle->currentAnimationFrame = 0x0;
+                        pParticle->animationDuratoinCounter = 0x0;
                         pParticle->frame_counter = 0x0;
                         ParticleUpdateAnimation(pParticle, particle_charging_beam_oam_charged);
                     }
@@ -1677,7 +1677,7 @@ void ParticleEscape(struct ParticleEffect* pParticle)
             break;
 
         case 0x2:
-            pParticle->y_position -= 0x2;
+            pParticle->yPosition -= 0x2;
             pParticle->frame_counter--;
             if (pParticle->frame_counter == 0x0)
                 pParticle->status = 0x0;
@@ -1706,7 +1706,7 @@ void ParticleSamusReflection(struct ParticleEffect* pParticle)
         pParticle->status |= (PARTICLE_STATUS_SPECIAL_EFFECT | PARTICLE_STATUS_LOW_PRIORITY | PARTICLE_STATUS_XFLIP); // Init status
     }
 
-    pSrc = (u16*)gSamusPhysics.body_oam;
+    pSrc = (u16*)gSamusPhysics.pBodyOam;
     part_count = *pSrc++;
     pDst = gParticleSamusReflectionOAMFrames;
     if (part_count > 0x18) // Check within bounds
@@ -1724,8 +1724,8 @@ void ParticleSamusReflection(struct ParticleEffect* pParticle)
 
     gCurrentParticleEffectOAMFramePointer = gParticleSamusReflectionOAMFrames; // Set for draw
 
-    pParticle->y_position = gSubSpriteData1.y_position + 0x5C;
-    pParticle->x_position = gSubSpriteData1.x_position;
+    pParticle->yPosition = gSubSpriteData1.yPosition + 0x5C;
+    pParticle->xPosition = gSubSpriteData1.xPosition;
 
     if (gSubSpriteData1.maybe_status == 0x0) // Probably checks for shootable symbol state
         pParticle->status &= ~PARTICLE_STATUS_NOT_DRAWN;

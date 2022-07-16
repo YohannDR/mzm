@@ -6,20 +6,20 @@
 
 void ZiplineCheckColliding(void)
 {
-    u16 y_position;
-    u16 x_position;
+    u16 yPosition;
+    u16 xPosition;
 
-    y_position = gCurrentSprite.y_position - 0x20;
-    x_position = gCurrentSprite.x_position;
+    yPosition = gCurrentSprite.yPosition - 0x20;
+    xPosition = gCurrentSprite.xPosition;
 
     if (gCurrentSprite.pose == 0x0)
     {
-        SpriteUtilCheckCollisionAtPosition(y_position, x_position + 0x2C);
+        SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + 0x2C);
         if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
         else
         {
-            SpriteUtilCheckCollisionAtPosition(y_position, x_position - 0x2C);
+            SpriteUtilCheckCollisionAtPosition(yPosition, xPosition - 0x2C);
             if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
                 gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
         }
@@ -27,9 +27,9 @@ void ZiplineCheckColliding(void)
     else
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-            SpriteUtilCheckCollisionAtPosition(y_position, x_position + 0x2C);
+            SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + 0x2C);
         else
-            SpriteUtilCheckCollisionAtPosition(y_position, x_position - 0x2C);
+            SpriteUtilCheckCollisionAtPosition(yPosition, xPosition - 0x2C);
     }
 }
 
@@ -53,23 +53,23 @@ u8 ZiplineMoving(void)
     if (gCurrentAffectingClipdata.hazard == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
     {
         releasing++;
-        gCurrentSprite.x_position = (gCurrentSprite.x_position & 0xFFC0) + 0x20;
+        gCurrentSprite.xPosition = (gCurrentSprite.xPosition & 0xFFC0) + 0x20;
         if (samus_grabbing)
-            gSamusData.x_position = gCurrentSprite.x_position;
+            gSamusData.xPosition = gCurrentSprite.xPosition;
     }
     else
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
-            gCurrentSprite.x_position += velocity;
+            gCurrentSprite.xPosition += velocity;
             if (samus_grabbing)
-                gSamusData.x_position += velocity;
+                gSamusData.xPosition += velocity;
         }
         else
         {
-            gCurrentSprite.x_position -= velocity;
+            gCurrentSprite.xPosition -= velocity;
             if (samus_grabbing)
-                gSamusData.x_position -= velocity;
+                gSamusData.xPosition -= velocity;
         }
     }
 
@@ -93,8 +93,8 @@ void ZiplineGFXUpdate(void)
             {
                 case 0x0:
                     gCurrentSprite.oam_pointer = zipline_oam_2ce9b0;
-                    gCurrentSprite.anim_duration_counter = 0x0;
-                    gCurrentSprite.curr_anim_frame = 0x0;
+                    gCurrentSprite.animationDuratoinCounter = 0x0;
+                    gCurrentSprite.currentAnimationFrame = 0x0;
                     gCurrentSprite.workVariable = 0x1;
                     break;
 
@@ -102,8 +102,8 @@ void ZiplineGFXUpdate(void)
                     if (SpriteUtillCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_2ce9d0;
-                        gCurrentSprite.anim_duration_counter = 0x0;
-                        gCurrentSprite.curr_anim_frame = 0x0;
+                        gCurrentSprite.animationDuratoinCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0x0;
                         gCurrentSprite.workVariable = 0x2;
                         gCurrentSprite.health = 0x2;
                     }
@@ -113,8 +113,8 @@ void ZiplineGFXUpdate(void)
                     if (SpriteUtillCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_2ce9d0;
-                        gCurrentSprite.anim_duration_counter = 0x0;
-                        gCurrentSprite.curr_anim_frame = 0x0;
+                        gCurrentSprite.animationDuratoinCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0x0;
                         gCurrentSprite.workVariable = 0x2;
                     }
                     break;
@@ -123,8 +123,8 @@ void ZiplineGFXUpdate(void)
                     if (gCurrentSprite.oam_pointer != zipline_oam_2ce9d0)
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_2ce9d0;
-                        gCurrentSprite.anim_duration_counter = 0x0;
-                        gCurrentSprite.curr_anim_frame = 0x0;
+                        gCurrentSprite.animationDuratoinCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0x0;
                     }
             }
         }
@@ -134,8 +134,8 @@ void ZiplineGFXUpdate(void)
             {
                 case 0x0:
                     gCurrentSprite.oam_pointer = zipline_oam_2ce928;
-                    gCurrentSprite.anim_duration_counter = 0x0;
-                    gCurrentSprite.curr_anim_frame = 0x0;
+                    gCurrentSprite.animationDuratoinCounter = 0x0;
+                    gCurrentSprite.currentAnimationFrame = 0x0;
                     gCurrentSprite.workVariable = 0x1;
                     break;
 
@@ -144,8 +144,8 @@ void ZiplineGFXUpdate(void)
                     if (SpriteUtill0x0EndCurrentSpriteAnim())
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_2cd948;
-                        gCurrentSprite.anim_duration_counter = 0x0;
-                        gCurrentSprite.curr_anim_frame = 0x0;
+                        gCurrentSprite.animationDuratoinCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0x0;
                         gCurrentSprite.workVariable = 0x2;
                     }
                     break;
@@ -154,8 +154,8 @@ void ZiplineGFXUpdate(void)
                     if (gCurrentSprite.oam_pointer != zipline_oam_2ce948)
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_2ce948;
-                        gCurrentSprite.anim_duration_counter = 0x0;
-                        gCurrentSprite.curr_anim_frame = 0x0;
+                        gCurrentSprite.animationDuratoinCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0x0;
                     }
             }
         }
@@ -168,8 +168,8 @@ void ZiplineGFXUpdate(void)
             {
                 case 0x2:
                     gCurrentSprite.oam_pointer = zipline_oam_2cea08;
-                    gCurrentSprite.anim_duration_counter = 0x0;
-                    gCurrentSprite.curr_anim_frame = 0x0;
+                    gCurrentSprite.animationDuratoinCounter = 0x0;
+                    gCurrentSprite.currentAnimationFrame = 0x0;
                     gCurrentSprite.workVariable = 0x3;
                     break;
 
@@ -178,8 +178,8 @@ void ZiplineGFXUpdate(void)
                     if (SpriteUtillCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_activated_2ce978;
-                        gCurrentSprite.curr_anim_frame = 0x0;
-                        gCurrentSprite.anim_duration_counter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0x0;
+                        gCurrentSprite.animationDuratoinCounter = 0x0;
                         gCurrentSprite.workVariable = 0x0;
                     }
                     break;
@@ -188,8 +188,8 @@ void ZiplineGFXUpdate(void)
                     if (gCurrentSprite.oam_pointer != zipline_oam_activated_2ce978)
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_activated_2ce978;
-                        gCurrentSprite.anim_duration_counter = 0x0;
-                        gCurrentSprite.curr_anim_frame = 0x0;
+                        gCurrentSprite.animationDuratoinCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0x0;
                     }
             }
         }
@@ -199,8 +199,8 @@ void ZiplineGFXUpdate(void)
             {
                 case 0x2:
                     gCurrentSprite.oam_pointer = zipline_oam_2ce958;
-                    gCurrentSprite.anim_duration_counter = 0x0;
-                    gCurrentSprite.curr_anim_frame = 0x0;
+                    gCurrentSprite.animationDuratoinCounter = 0x0;
+                    gCurrentSprite.currentAnimationFrame = 0x0;
                     gCurrentSprite.workVariable = 0x3;
                     break;
 
@@ -209,8 +209,8 @@ void ZiplineGFXUpdate(void)
                     if (SpriteUtillCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_deactivated_2ce918;
-                        gCurrentSprite.anim_duration_counter = 0x0;
-                        gCurrentSprite.curr_anim_frame = 0x0;
+                        gCurrentSprite.animationDuratoinCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0x0;
                         gCurrentSprite.workVariable = 0x0;
                     }
                     break;
@@ -219,8 +219,8 @@ void ZiplineGFXUpdate(void)
                     if (gCurrentSprite.oam_pointer != zipline_oam_deactivated_2ce918)
                     {
                         gCurrentSprite.oam_pointer = zipline_oam_activated_2ce978;
-                        gCurrentSprite.anim_duration_counter = 0x0;
-                        gCurrentSprite.curr_anim_frame = 0x0;
+                        gCurrentSprite.animationDuratoinCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0x0;
                     }
             }
         }
@@ -229,20 +229,20 @@ void ZiplineGFXUpdate(void)
 
 void ZiplineInit(void)
 {
-    gCurrentSprite.hitbox_top_offset = -0x40;
-    gCurrentSprite.hitbox_bottom_offset = 0x10;
-    gCurrentSprite.hitbox_left_offset = -0x4;
-    gCurrentSprite.hitbox_right_offset = 0x4;
-    gCurrentSprite.draw_distance_top_offset = 0x10;
-    gCurrentSprite.draw_distance_bottom_offset = 0x8;
+    gCurrentSprite.hitboxTopOffset = -0x40;
+    gCurrentSprite.hitboxBottomOffset = 0x10;
+    gCurrentSprite.hitboxLeftOffset = -0x4;
+    gCurrentSprite.hitboxRightOffset = 0x4;
+    gCurrentSprite.drawDistanceTopOffset = 0x10;
+    gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.draw_distance_horizontal_offset = 0x8;
     gCurrentSprite.samus_collision = SSC_ZIPLINE;
     gCurrentSprite.health = 0x1;
     gCurrentSprite.properties |= SP_SOLID_FOR_PROJECTILES;
     gCurrentSprite.draw_order = 0x3;
     gCurrentSprite.bg_priority = 0x1;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.timer1 = 0x0;
     gCurrentSprite.workVariable = 0x0;
     ZiplineCheckColliding();
@@ -284,16 +284,16 @@ void ZiplineButtonInit(void)
     else
         gCurrentSprite.oam_pointer = zipline_button_oam_deactivated_2cea28;
 
-    gCurrentSprite.y_position -= 0x80;
-    gCurrentSprite.draw_distance_top_offset = 0x0;
-    gCurrentSprite.draw_distance_bottom_offset = 0x18;
+    gCurrentSprite.yPosition -= 0x80;
+    gCurrentSprite.drawDistanceTopOffset = 0x0;
+    gCurrentSprite.drawDistanceBottomOffset = 0x18;
     gCurrentSprite.draw_distance_horizontal_offset = 0x8;
-    gCurrentSprite.hitbox_top_offset = 0x0;
-    gCurrentSprite.hitbox_bottom_offset = 0x50;
-    gCurrentSprite.hitbox_left_offset = -0x14;
-    gCurrentSprite.hitbox_right_offset = 0x14;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.hitboxTopOffset = 0x0;
+    gCurrentSprite.hitboxBottomOffset = 0x50;
+    gCurrentSprite.hitboxLeftOffset = -0x14;
+    gCurrentSprite.hitboxRightOffset = 0x14;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samus_collision = SSC_NONE;
     gCurrentSprite.health = 0x1;
     gCurrentSprite.properties |= SP_SOLID_FOR_PROJECTILES;
@@ -305,8 +305,8 @@ void ZiplineButtonInit(void)
 void ZiplineButtonActivatedGFXInit(void)
 {
     gCurrentSprite.pose = 0x9;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.oam_pointer = zipline_button_oam_activated_2cea38;
 }
 
@@ -352,8 +352,8 @@ void ZiplineButtonIdle(void)
     if (moving)
     {
         gCurrentSprite.pose = 0x23;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.oam_pointer = zipline_button_oam_2cea70;
     }
 }

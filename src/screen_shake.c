@@ -6,7 +6,7 @@ u8 ScreenShakeStartVertical(u8 duration, u8 unk)
     if (duration != 0x0 && duration > gScreenShakeY.timer)
     {
         gScreenShakeY.timer = duration;
-        gScreenShakeY.loop_counter = 0x0;
+        gScreenShakeY.loopCounter = 0x0;
         gScreenShakeY.unknown = unk;
         gScreenShakeY.unknown2 = 0x0;
         gScreenShakeYRelated = 0x0;
@@ -19,7 +19,7 @@ u8 ScreenShakeStartHorizontal(u8 duration, u8 unk)
     if (duration != 0x0 && duration > gScreenShakeX.timer)
     {
         gScreenShakeX.timer = duration;
-        gScreenShakeX.loop_counter = 0x0;
+        gScreenShakeX.loopCounter = 0x0;
         gScreenShakeX.unknown = unk;
         gScreenShakeX.unknown2 = 0x0;
         gScreenShakeXRelated = 0x0;
@@ -32,7 +32,7 @@ u8 ScreenShakeStartHorizontal_Unused(u8 duration)
     if (duration != 0x0 && duration > gScreenShakeX.timer)
     {
         gScreenShakeX.timer = duration;
-        gScreenShakeX.loop_counter = 0x0;
+        gScreenShakeX.loopCounter = 0x0;
         gScreenShakeX.unknown = 0x0;
         gScreenShakeX.unknown2 = 0x0;
         gScreenShakeXRelated = 0x0;
@@ -54,14 +54,14 @@ i32 ScreenShakeUpdateVertical(void)
     else
     {
         gScreenShakeY.timer--;
-        if (gScreenShakeY.loop_counter < 0x2)
+        if (gScreenShakeY.loopCounter < 0x2)
         {
-            gScreenShakeY.loop_counter++;
+            gScreenShakeY.loopCounter++;
             return 0x0;
         }
         else
         {
-            gScreenShakeY.loop_counter = zero;
+            gScreenShakeY.loopCounter = zero;
             unk2 = gScreenShakeY.unknown & 0x7F;
             unk = -0x2;
             if (gScreenShakeY.unknown2 != 0x0)
@@ -93,14 +93,14 @@ i32 ScreenShakeUpdateHorizontal(void)
     else
     {
         gScreenShakeX.timer--;
-        if (gScreenShakeX.loop_counter < 0x2)
+        if (gScreenShakeX.loopCounter < 0x2)
         {
-            gScreenShakeX.loop_counter++;
+            gScreenShakeX.loopCounter++;
             offset = 0x0;
         }
         else
         {
-            gScreenShakeX.loop_counter = zero;
+            gScreenShakeX.loopCounter = zero;
             unk2 = gScreenShakeX.unknown & 0x7F;
             unk = -0x2;
             if (gScreenShakeX.unknown2 != 0x0)

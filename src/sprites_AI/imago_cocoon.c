@@ -19,15 +19,15 @@ void ImagoCocoonUpdatePositionAndAnim(void)
  */
 void ImagoCocoonChangeOneCCAA(u8 caa)
 {
-    u32 y_position;
-    u16 x_position;
+    u32 yPosition;
+    u16 xPosition;
 
-    y_position = (u16)(gCurrentSprite.y_position_spawn + 0x2C0);
-    x_position = gSubSpriteData1.x_position;
+    yPosition = (u16)(gCurrentSprite.yPosition_spawn + 0x2C0);
+    xPosition = gSubSpriteData1.xPosition;
     gCurrentClipdataAffectingAction = caa;
-    y_position -= 0x20;
-    ClipdataProcess(y_position, x_position);
-    ParticleSet(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
+    yPosition -= 0x20;
+    ClipdataProcess(yPosition, xPosition);
+    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
 }
 
 /**
@@ -37,20 +37,20 @@ void ImagoCocoonChangeOneCCAA(u8 caa)
  */
 void ImagoCocoonChangeTwoMiddleCCAA(u8 caa)
 {
-    u32 y_position;
-    u32 y_position_;
-    u16 x_position;
+    u32 yPosition;
+    u32 yPosition_;
+    u16 xPosition;
 
-    y_position = (u16)(gCurrentSprite.y_position_spawn + 0x2C0);
-    x_position = gSubSpriteData1.x_position;
+    yPosition = (u16)(gCurrentSprite.yPosition_spawn + 0x2C0);
+    xPosition = gSubSpriteData1.xPosition;
     gCurrentClipdataAffectingAction = caa;
-    y_position_ = y_position - 0x20,
-    ClipdataProcess(y_position_, x_position + 0x40);
+    yPosition_ = yPosition - 0x20,
+    ClipdataProcess(yPosition_, xPosition + 0x40);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(y_position_, x_position - 0x40);
+    ClipdataProcess(yPosition_, xPosition - 0x40);
 
-    ParticleSet(y_position, x_position + 0x48, PE_SPRITE_EXPLOSION_HUGE);
-    ParticleSet(y_position, x_position - 0x48, PE_SPRITE_EXPLOSION_HUGE);
+    ParticleSet(yPosition, xPosition + 0x48, PE_SPRITE_EXPLOSION_HUGE);
+    ParticleSet(yPosition, xPosition - 0x48, PE_SPRITE_EXPLOSION_HUGE);
 }
 
 void ImagoCocoonChangeTwoAroundCCAA(u8 caa)
@@ -65,19 +65,19 @@ void ImagoCocoonChangeTwoAroundCCAA(u8 caa)
  */
 void ImagoCocoonChangeTwoBlockingCCAA(u8 caa)
 {
-    u32 y_position;
-    u32 y_position_;
-    u32 x_position;
+    u32 yPosition;
+    u32 yPosition_;
+    u32 xPosition;
 
-    y_position = (u16)(gCurrentSprite.y_position_spawn + 0x340);
-    x_position = gSubSpriteData1.x_position;
+    yPosition = (u16)(gCurrentSprite.yPosition_spawn + 0x340);
+    xPosition = gSubSpriteData1.xPosition;
     gCurrentClipdataAffectingAction = caa;
-    y_position_ = y_position + 0x20;
-    x_position += 0x240;
-    ClipdataProcess(y_position_, x_position);
+    yPosition_ = yPosition + 0x20;
+    xPosition += 0x240;
+    ClipdataProcess(yPosition_, xPosition);
     gCurrentClipdataAffectingAction = caa;
-    y_position += 0x60;
-    ClipdataProcess(y_position, x_position);
+    yPosition += 0x60;
+    ClipdataProcess(yPosition, xPosition);
 }
 
 /**
@@ -122,7 +122,7 @@ void ImagoCocoonFallingMovement(void)
         gCurrentSprite.array_offset++;
 
     increment = (gCurrentSprite.array_offset >> 0x2) + 0x8;
-    gSubSpriteData1.y_position += increment;
+    gSubSpriteData1.yPosition += increment;
 }
 
 void imago_cocoon_main_loop(void)
@@ -136,9 +136,9 @@ void imago_cocoon_main_loop(void)
  */
 void ImagoCocoonFallingBeforeBlocks(void)
 {
-    // /!\ Calculs with the x_position are wrong
-    u16 y_position;
-    u32 x_position;
+    // /!\ Calculs with the xPosition are wrong
+    u16 yPosition;
+    u32 xPosition;
     u32 offset;
     u32 rng;
     u8 timer;
@@ -146,12 +146,12 @@ void ImagoCocoonFallingBeforeBlocks(void)
     if ((gFrameCounter8Bit & 0x1F) == 0x0)
         ImagoCocoonChangeOAMScaling(0x1, 0x1);
 
-    if (gSubSpriteData1.curr_anim_frame > 0x7)
+    if (gSubSpriteData1.currentAnimationFrame > 0x7)
     {
         ImagoCocoonFallingMovement();
-        y_position = gSubSpriteData1.y_position + 0x180;
-        x_position = gSubSpriteData1.x_position;
-        SpriteUtilCheckCollisionAtPosition(y_position, x_position);
+        yPosition = gSubSpriteData1.yPosition + 0x180;
+        xPosition = gSubSpriteData1.xPosition;
+        SpriteUtilCheckCollisionAtPosition(yPosition, xPosition);
         if (gPreviousCollisionCheck & 0xF0) // Check for solid collision
         {
             ImagoCocoonChangeOneCCAA(CCAA_REMOVE_SOLID); // Remove middile block
@@ -163,11 +163,11 @@ void ImagoCocoonFallingBeforeBlocks(void)
     }
     else
     {
-        if (gSubSpriteData1.curr_anim_frame == 0x7 && gSubSpriteData1.anim_duration_counter == 0x6)
-            SpriteSpawnSecondary(SSPRITE_IMAGO_CEILING_VINE, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gSubSpriteData1.y_position, gSubSpriteData1.x_position, 0x0);
+        if (gSubSpriteData1.currentAnimationFrame == 0x7 && gSubSpriteData1.animationDuratoinCounter == 0x6)
+            SpriteSpawnSecondary(SSPRITE_IMAGO_CEILING_VINE, 0x0, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
 
-        y_position = gBG1YPosition - 0x40;
-        x_position = gSubSpriteData1.x_position;
+        yPosition = gBG1YPosition - 0x40;
+        xPosition = gSubSpriteData1.xPosition;
         rng = gSpriteRNG;
         timer = gCurrentSprite.timer1 = gCurrentSprite.timer1 + 0x1;
         if ((timer & 0x1F) == 0x0)
@@ -175,36 +175,36 @@ void ImagoCocoonFallingBeforeBlocks(void)
             if (timer & 0x20)
             {
                 offset = (rng * 0x8) - 0x5A;
-                x_position -= offset;
-                SpriteDebrisInit(0x0, 0x5, y_position, x_position);
+                xPosition -= offset;
+                SpriteDebrisInit(0x0, 0x5, yPosition, xPosition);
             }
             else
             {
                 offset = (rng * 0x8) + 0x5A;
-                x_position -= offset;
-                SpriteDebrisInit(0x0, 0x5, y_position, x_position);
+                xPosition -= offset;
+                SpriteDebrisInit(0x0, 0x5, yPosition, xPosition);
             }
         }
         
-        if (gSubSpriteData1.curr_anim_frame > 0x3 && (timer & 0x1) == 0x0)
+        if (gSubSpriteData1.currentAnimationFrame > 0x3 && (timer & 0x1) == 0x0)
         {
             if (rng > 0x8)
             {
                 offset = (rng * 0x4) - 0x96;
-                x_position += offset;
-                SpriteDebrisInit(0x0, 0x8, y_position, x_position);
+                xPosition += offset;
+                SpriteDebrisInit(0x0, 0x8, yPosition, xPosition);
                 offset = (rng * 0x4) - 0x20;
-                x_position -= offset;
-                SpriteDebrisInit(0x0, 0x6, y_position, x_position);
+                xPosition -= offset;
+                SpriteDebrisInit(0x0, 0x6, yPosition, xPosition);
             }
             else
             {
                 offset = (rng * 0x4) - 0x82;
-                x_position -= offset;
-                SpriteDebrisInit(0x0, 0x6, y_position, x_position);
+                xPosition -= offset;
+                SpriteDebrisInit(0x0, 0x6, yPosition, xPosition);
                 offset = (rng * 0x4) - 0x20;
-                x_position += offset;
-                SpriteDebrisInit(0x0, 0x8, y_position, x_position);
+                xPosition += offset;
+                SpriteDebrisInit(0x0, 0x8, yPosition, xPosition);
             }
         }
     }
@@ -255,11 +255,11 @@ void ImagoCocoonVinePlaySound(void)
  */
 void ImagoCocoonVineDeath(void)
 {
-    u16 y_position;
-    u16 x_position;
+    u16 yPosition;
+    u16 xPosition;
 
-    y_position = gCurrentSprite.y_position;
-    x_position = gCurrentSprite.x_position;
+    yPosition = gCurrentSprite.yPosition;
+    xPosition = gCurrentSprite.xPosition;
 
     switch (gCurrentSprite.room_slot)
     {
@@ -268,18 +268,18 @@ void ImagoCocoonVineDeath(void)
         case 0x2:
         case 0x6:
         case 0x7:
-            y_position += 0x20;
+            yPosition += 0x20;
             break;
         case 0x8:
         case 0x9:
-            y_position += 0x10;
+            yPosition += 0x10;
             break;
         default:
             gCurrentSprite.status = 0x0;
             return;
     }
 
-    ParticleSet(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
+    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
     if (gSubSpriteData1.health != 0x0)
         gSubSpriteData1.health--; // Health = number of vines alive so when a vine dies it gets decremented
     gCurrentSprite.status = 0x0;
@@ -295,51 +295,51 @@ void ImagoCocoonVineSpawnSpore(void)
     u8 ram_slot;
     u8 gfx_slot;
     u16 status;
-    u16 y_position;
-    u16 x_position;
+    u16 yPosition;
+    u16 xPosition;
 
     slot = gCurrentSprite.primary_sprite_ram_slot;
 
     if (gSpriteData[slot].pose == 0x25)
     {
-        y_position = gCurrentSprite.y_position;
+        yPosition = gCurrentSprite.yPosition;
         if (gCurrentSprite.room_slot == 0x0)
-            x_position = gCurrentSprite.x_position + 0x40;
+            xPosition = gCurrentSprite.xPosition + 0x40;
         else
-            x_position = gCurrentSprite.x_position - 0x40;
-        ParticleSet(y_position - 0x64, x_position, PE_TWO_MEDIUM_DUST);
+            xPosition = gCurrentSprite.xPosition - 0x40;
+        ParticleSet(yPosition - 0x64, xPosition, PE_TWO_MEDIUM_DUST);
         gCurrentSprite.status = 0x0;
     }
     else if (gSubSpriteData1.health != 0x0 && gCurrentSprite.room_slot == 0x0)
     {
-        gCurrentSprite.y_position_spawn++;
-        if ((gCurrentSprite.y_position_spawn & 0xFF) == 0x0)
+        gCurrentSprite.yPosition_spawn++;
+        if ((gCurrentSprite.yPosition_spawn & 0xFF) == 0x0)
         {
-            if (gCurrentSprite.y_position_spawn & 0x100)
+            if (gCurrentSprite.yPosition_spawn & 0x100)
             {
                 // Spore on the left
-                y_position = gCurrentSprite.y_position - 0x60;
-                x_position = gCurrentSprite.x_position - 0x46;
+                yPosition = gCurrentSprite.yPosition - 0x60;
+                xPosition = gCurrentSprite.xPosition - 0x46;
                 status = SPRITE_STATUS_NONE;
             }
             else
             {
                 // Spore on the right
-                y_position = gCurrentSprite.y_position - 0x90;
-                x_position = gCurrentSprite.x_position + 0x64;
+                yPosition = gCurrentSprite.yPosition - 0x90;
+                xPosition = gCurrentSprite.xPosition + 0x64;
                 status = SPRITE_STATUS_XFLIP;
             }
 
             gfx_slot = gCurrentSprite.spriteset_gfx_slot;
             ram_slot = gCurrentSprite.workVariable;
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x0, gfx_slot, ram_slot, y_position, x_position, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x1, gfx_slot, ram_slot, y_position, x_position, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x2, gfx_slot, ram_slot, y_position, x_position, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x3, gfx_slot, ram_slot, y_position, x_position, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x4, gfx_slot, ram_slot, y_position, x_position, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x5, gfx_slot, ram_slot, y_position, x_position, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x6, gfx_slot, ram_slot, y_position, x_position, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x7, gfx_slot, ram_slot, y_position, x_position, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x0, gfx_slot, ram_slot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x1, gfx_slot, ram_slot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x2, gfx_slot, ram_slot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x3, gfx_slot, ram_slot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x4, gfx_slot, ram_slot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x5, gfx_slot, ram_slot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x6, gfx_slot, ram_slot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x7, gfx_slot, ram_slot, yPosition, xPosition, status);
         }
     }
 }
@@ -350,7 +350,7 @@ void ImagoCocoonVineSpawnSpore(void)
  */
 void ImagoCocoonVineHangingDeath(void)
 {
-    if (gSubSpriteData1.health == 0x0 && gSubSpriteData1.curr_anim_frame > 0x7)
+    if (gSubSpriteData1.health == 0x0 && gSubSpriteData1.currentAnimationFrame > 0x7)
     {
         gCurrentSprite.ignore_samus_collision_timer = 0x1;
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
@@ -371,7 +371,7 @@ void ImagoCocoonVineHangingDeathAnim(void)
     slot = gCurrentSprite.primary_sprite_ram_slot;
     if (gSpriteData[slot].pose == 0x25)
     {
-        ParticleSet(gCurrentSprite.y_position + 0xA0, gCurrentSprite.x_position, PE_SPRITE_EXPLOSION_HUGE);
+        ParticleSet(gCurrentSprite.yPosition + 0xA0, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_HUGE);
         gCurrentSprite.status = 0x0;
     }
 }
@@ -387,13 +387,13 @@ void ImagoCocoonSporeSyncPosition(void)
     slot = gCurrentSprite.primary_sprite_ram_slot;
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        gCurrentSprite.y_position = gSpriteData[slot].y_position - 0x90;
-        gCurrentSprite.x_position = gSpriteData[slot].x_position + 0x64;
+        gCurrentSprite.yPosition = gSpriteData[slot].yPosition - 0x90;
+        gCurrentSprite.xPosition = gSpriteData[slot].xPosition + 0x64;
     }
     else
     {
-        gCurrentSprite.y_position = gSpriteData[slot].y_position - 0x60;
-        gCurrentSprite.x_position = gSpriteData[slot].x_position + 0x46;
+        gCurrentSprite.yPosition = gSpriteData[slot].yPosition - 0x60;
+        gCurrentSprite.xPosition = gSpriteData[slot].xPosition + 0x46;
     }
 }
 
@@ -406,20 +406,20 @@ void ImagoCocoonSporeInit(void)
     if (gCurrentSprite.room_slot == 0x0)
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-    gCurrentSprite.draw_distance_top_offset = 0xC;
-    gCurrentSprite.draw_distance_bottom_offset = 0xC;
+    gCurrentSprite.drawDistanceTopOffset = 0xC;
+    gCurrentSprite.drawDistanceBottomOffset = 0xC;
     gCurrentSprite.draw_distance_horizontal_offset = 0xC;
-    gCurrentSprite.hitbox_top_offset = -0x8;
-    gCurrentSprite.hitbox_bottom_offset = 0x8;
-    gCurrentSprite.hitbox_left_offset = -0x8;
-    gCurrentSprite.hitbox_right_offset = 0x5;
+    gCurrentSprite.hitboxTopOffset = -0x8;
+    gCurrentSprite.hitboxBottomOffset = 0x8;
+    gCurrentSprite.hitboxLeftOffset = -0x8;
+    gCurrentSprite.hitboxRightOffset = 0x5;
     gCurrentSprite.oam_pointer = imago_cocoon_spore_oam_2e0bd0;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.samus_collision = SSC_NONE;
     gCurrentSprite.draw_order = 0x3;
-    gCurrentSprite.bg_priority = gIORegistersBackup.bg2cnt & 0x3;
+    gCurrentSprite.bg_priority = gIORegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.health = secondary_sprite_stats[gCurrentSprite.sprite_id][0x0];
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
@@ -437,14 +437,14 @@ void ImagoCocoonSporeBeforeSpawning(void)
         gCurrentSprite.pose = 0x42; // If imago cocoon is dead, kill the spores
     else
     {
-        if (gCurrentSprite.room_slot == 0x0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && gCurrentSprite.curr_anim_frame == 0x0 && gCurrentSprite.anim_duration_counter == 0x1)
+        if (gCurrentSprite.room_slot == 0x0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && gCurrentSprite.currentAnimationFrame == 0x0 && gCurrentSprite.animationDuratoinCounter == 0x1)
             SoundPlay(0x1A0);
 
         if (SpriteUtillCheckEndCurrentSpriteAnim())
         {
             gCurrentSprite.oam_pointer = imago_cocoon_spore_oam_2e0bf8;
-            gCurrentSprite.anim_duration_counter = 0x0;
-            gCurrentSprite.curr_anim_frame = 0x0;
+            gCurrentSprite.animationDuratoinCounter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.pose = 0x23;
             gCurrentSprite.timer1 = 0x3C;
         }
@@ -467,8 +467,8 @@ void ImagoCocoonSporeSpawning(void)
         {
             gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
             gCurrentSprite.oam_pointer = imago_cocoon_spore_oam_2e0c18;
-            gCurrentSprite.anim_duration_counter = 0x0;
-            gCurrentSprite.curr_anim_frame = 0x0;
+            gCurrentSprite.animationDuratoinCounter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.properties |= SP_PROJECTILE;
             gCurrentSprite.samus_collision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
             gCurrentSprite.pose = 0x25;
@@ -491,8 +491,8 @@ void ImagoCocoonSporeExplodingGFXInit(void)
 {
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     gCurrentSprite.oam_pointer = imago_cocoon_spore_oam_2e0c38;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x43;
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
 }
@@ -532,19 +532,19 @@ u8 WingedRipperImagoCollision(void)
     pSprite = gSpriteData + gCurrentSprite.primary_sprite_ram_slot;
     if (pSprite->pose == 0x9 && pSprite->array_offset > 0x10)
     {
-        sprite_y = gCurrentSprite.y_position;
-        sprite_x = gCurrentSprite.x_position;
-        sprite_top = sprite_y + gCurrentSprite.hitbox_top_offset;
-        sprite_bottom = sprite_y + gCurrentSprite.hitbox_bottom_offset;
-        sprite_left = sprite_x + gCurrentSprite.hitbox_left_offset;
-        sprite_right = sprite_x + gCurrentSprite.hitbox_right_offset;
+        sprite_y = gCurrentSprite.yPosition;
+        sprite_x = gCurrentSprite.xPosition;
+        sprite_top = sprite_y + gCurrentSprite.hitboxTopOffset;
+        sprite_bottom = sprite_y + gCurrentSprite.hitboxBottomOffset;
+        sprite_left = sprite_x + gCurrentSprite.hitboxLeftOffset;
+        sprite_right = sprite_x + gCurrentSprite.hitboxRightOffset;
         
-        imago_y = pSprite->y_position;
-        imago_x = pSprite->x_position;
-        imago_top = imago_y + pSprite->hitbox_top_offset;
-        imago_bottom = imago_y + pSprite->hitbox_bottom_offset;
-        imago_left = imago_x + pSprite->hitbox_left_offset;
-        imago_right = imago_x + pSprite->hitbox_right_offset;
+        imago_y = pSprite->yPosition;
+        imago_x = pSprite->xPosition;
+        imago_top = imago_y + pSprite->hitboxTopOffset;
+        imago_bottom = imago_y + pSprite->hitboxBottomOffset;
+        imago_left = imago_x + pSprite->hitboxLeftOffset;
+        imago_right = imago_x + pSprite->hitboxRightOffset;
 
         if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, imago_top, imago_bottom, imago_left, imago_right))
         {
@@ -560,16 +560,16 @@ u8 WingedRipperImagoCollision(void)
 void WingerRipperInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.hitbox_top_offset = -0x20;
-    gCurrentSprite.hitbox_bottom_offset = 0x4;
-    gCurrentSprite.hitbox_left_offset = -0x20;
-    gCurrentSprite.hitbox_right_offset = 0x20;
-    gCurrentSprite.draw_distance_top_offset = 0xC;
-    gCurrentSprite.draw_distance_bottom_offset = 0x8;
+    gCurrentSprite.hitboxTopOffset = -0x20;
+    gCurrentSprite.hitboxBottomOffset = 0x4;
+    gCurrentSprite.hitboxLeftOffset = -0x20;
+    gCurrentSprite.hitboxRightOffset = 0x20;
+    gCurrentSprite.drawDistanceTopOffset = 0xC;
+    gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.draw_distance_horizontal_offset = 0x10,
     gCurrentSprite.oam_pointer = winged_ripper_oam_2e0c60;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = secondary_sprite_stats[gCurrentSprite.sprite_id][0x0];
     gCurrentSprite.draw_order = 0x8;
@@ -585,8 +585,8 @@ void WingerRipperGFXInit(void)
 {
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.oam_pointer = winged_ripper_oam_2e0c60;
-    gCurrentSprite.curr_anim_frame = 0x0;
-    gCurrentSprite.anim_duration_counter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
 }
 
 void WingerRipperMove(void)
@@ -598,11 +598,11 @@ void WingerRipperDeath(void)
 {
     if (gCurrentSprite.standing_on_sprite)
     {
-        if (gSamusData.standing_status == STANDING_ENEMY)
-            gSamusData.standing_status = STANDING_MIDAIR;
+        if (gSamusData.standingStatus == STANDING_ENEMY)
+            gSamusData.standingStatus = STANDING_MIDAIR;
         gCurrentSprite.standing_on_sprite = FALSE;
     }
-    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position + 0x8, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition + 0x8, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
 }
 
 void imago_cocoon(void)
@@ -685,7 +685,7 @@ void ImagoCocoonSpore(void)
             ImagoCocoonSporeCheckExplodingAnimEnded();
             break;
         default:
-            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
             if (gCurrentSprite.status & SPRITE_STATUS_EXISTS && SpriteUtilCountDrops() > 0x1)
                 gCurrentSprite.status = 0x0; // Anti lag measure
     }
@@ -726,16 +726,16 @@ void DefeatedImagoCocoon(void)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
-        gCurrentSprite.draw_distance_top_offset = 0xC;
-        gCurrentSprite.draw_distance_bottom_offset = 0x28;
+        gCurrentSprite.drawDistanceTopOffset = 0xC;
+        gCurrentSprite.drawDistanceBottomOffset = 0x28;
         gCurrentSprite.draw_distance_horizontal_offset = 0x30;
-        gCurrentSprite.hitbox_top_offset = -0x4;
-        gCurrentSprite.hitbox_bottom_offset = 0x4;
-        gCurrentSprite.hitbox_left_offset = -0x4;
-        gCurrentSprite.hitbox_right_offset = 0x4;
+        gCurrentSprite.hitboxTopOffset = -0x4;
+        gCurrentSprite.hitboxBottomOffset = 0x4;
+        gCurrentSprite.hitboxLeftOffset = -0x4;
+        gCurrentSprite.hitboxRightOffset = 0x4;
         gCurrentSprite.oam_pointer = imago_cocoon_oam_2e0d00;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.samus_collision = SSC_NONE;
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.frozen_palette_row_offset = 0x5;
@@ -749,16 +749,16 @@ void ImagoCeilingVine(void)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
-        gCurrentSprite.draw_distance_top_offset = 0xC;
-        gCurrentSprite.draw_distance_bottom_offset = 0x28;
+        gCurrentSprite.drawDistanceTopOffset = 0xC;
+        gCurrentSprite.drawDistanceBottomOffset = 0x28;
         gCurrentSprite.draw_distance_horizontal_offset = 0x30;
-        gCurrentSprite.hitbox_top_offset = -0x4;
-        gCurrentSprite.hitbox_bottom_offset = 0x4;
-        gCurrentSprite.hitbox_left_offset = -0x4;
-        gCurrentSprite.hitbox_right_offset = 0x4;
+        gCurrentSprite.hitboxTopOffset = -0x4;
+        gCurrentSprite.hitboxBottomOffset = 0x4;
+        gCurrentSprite.hitboxLeftOffset = -0x4;
+        gCurrentSprite.hitboxRightOffset = 0x4;
         gCurrentSprite.oam_pointer = imago_ceiling_vine_oam_2e0a28;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.samus_collision = SSC_NONE;
         gCurrentSprite.draw_order = 0x5;
         gCurrentSprite.pose = 0x9;
@@ -777,17 +777,17 @@ void EventTriggerDiscoveredImagoPassage(void)
         }
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3;
         gCurrentSprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
-        gCurrentSprite.draw_distance_top_offset = 0x10;
-        gCurrentSprite.draw_distance_bottom_offset = 0x0;
+        gCurrentSprite.drawDistanceTopOffset = 0x10;
+        gCurrentSprite.drawDistanceBottomOffset = 0x0;
         gCurrentSprite.draw_distance_horizontal_offset = 0x8;
-        gCurrentSprite.hitbox_top_offset = -0x40;
-        gCurrentSprite.hitbox_bottom_offset = 0x0;
-        gCurrentSprite.hitbox_left_offset = -0x20;
-        gCurrentSprite.hitbox_right_offset = 0x20;
+        gCurrentSprite.hitboxTopOffset = -0x40;
+        gCurrentSprite.hitboxBottomOffset = 0x0;
+        gCurrentSprite.hitboxLeftOffset = -0x20;
+        gCurrentSprite.hitboxRightOffset = 0x20;
         gCurrentSprite.pose = 0x8;
         gCurrentSprite.oam_pointer = large_energy_oam_2b2750;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
@@ -802,23 +802,23 @@ void ImagoCocoonAfterFight(void)
     gCurrentSprite.ignore_samus_collision_timer = 0x1;
     if (gCurrentSprite.pose == 0x0)
     {
-        gCurrentSprite.draw_distance_top_offset = 0x30;
-        gCurrentSprite.draw_distance_bottom_offset = 0x10;
+        gCurrentSprite.drawDistanceTopOffset = 0x30;
+        gCurrentSprite.drawDistanceBottomOffset = 0x10;
         gCurrentSprite.draw_distance_horizontal_offset = 0x20;
-        gCurrentSprite.hitbox_top_offset = -0x4;
-        gCurrentSprite.hitbox_bottom_offset = 0x4;
-        gCurrentSprite.hitbox_left_offset = -0x4;
-        gCurrentSprite.hitbox_right_offset = 0x4;
+        gCurrentSprite.hitboxTopOffset = -0x4;
+        gCurrentSprite.hitboxBottomOffset = 0x4;
+        gCurrentSprite.hitboxLeftOffset = -0x4;
+        gCurrentSprite.hitboxRightOffset = 0x4;
         gCurrentSprite.oam_pointer = imago_cocoon_oam_2e0d00;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.samus_collision = SSC_NONE;
         gCurrentSprite.pose = 0x9;
     }
 
-    if (gCurrentSprite.anim_duration_counter == 0x1)
+    if (gCurrentSprite.animationDuratoinCounter == 0x1)
     {
-        switch (gCurrentSprite.curr_anim_frame)
+        switch (gCurrentSprite.currentAnimationFrame)
         {
             case 0x1:
             case 0x4:

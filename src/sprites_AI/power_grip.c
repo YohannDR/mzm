@@ -9,25 +9,25 @@ void PowerGrip(void)
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            if (gEquipment.suit_misc & SMF_POWER_GRIP)
+            if (gEquipment.suitMisc & SMF_POWER_GRIP)
                 gCurrentSprite.status = 0x0;
             else
             {
-                gCurrentSprite.draw_distance_top_offset = 0x8;
-                gCurrentSprite.draw_distance_bottom_offset = 0x8;
+                gCurrentSprite.drawDistanceTopOffset = 0x8;
+                gCurrentSprite.drawDistanceBottomOffset = 0x8;
                 gCurrentSprite.draw_distance_horizontal_offset = 0x8;
-                gCurrentSprite.hitbox_top_offset = -0x1C;
-                gCurrentSprite.hitbox_bottom_offset = 0x1C;
-                gCurrentSprite.hitbox_left_offset = -0x1C;
-                gCurrentSprite.hitbox_right_offset = 0x1C;
+                gCurrentSprite.hitboxTopOffset = -0x1C;
+                gCurrentSprite.hitboxBottomOffset = 0x1C;
+                gCurrentSprite.hitboxLeftOffset = -0x1C;
+                gCurrentSprite.hitboxRightOffset = 0x1C;
                 gCurrentSprite.oam_pointer = PowerGrip_oam_2b310c;
-                gCurrentSprite.anim_duration_counter = 0x0;
-                gCurrentSprite.curr_anim_frame = 0x0;
+                gCurrentSprite.animationDuratoinCounter = 0x0;
+                gCurrentSprite.currentAnimationFrame = 0x0;
                 gCurrentSprite.samus_collision = SSC_ABILITY_LASER_SEARCHLIGHT;
                 gCurrentSprite.health = 0x1;
-                gCurrentSprite.y_position -= 0x40;
+                gCurrentSprite.yPosition -= 0x40;
                 gCurrentSprite.pose = 0x9;
-                SpriteSpawnSecondary(SSPRITE_POWER_GRIP_GLOW, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+                SpriteSpawnSecondary(SSPRITE_POWER_GRIP_GLOW, gCurrentSprite.room_slot, gCurrentSprite.spriteset_gfx_slot, gCurrentSprite.primary_sprite_ram_slot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
             }
             break;
 
@@ -39,9 +39,9 @@ void PowerGrip(void)
                 gCurrentSprite.ignore_samus_collision_timer = 0x1;
                 gCurrentSprite.pose = 0x23;
                 gCurrentSprite.timer1 = 0x0;
-                gEquipment.suit_misc |= SMF_POWER_GRIP;
+                gEquipment.suitMisc |= SMF_POWER_GRIP;
                 EventFunction(EVENT_ACTION_SETTING, EVENT_POWER_GRIP_OBTAINED);
-                SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, 0x15,0x6, gCurrentSprite.y_position, gCurrentSprite.x_position, 0x0);
+                SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, 0x15,0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
             }
             break;
 
@@ -60,16 +60,16 @@ void PowerGrip_glow(void)
     {
         case 0x0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.draw_distance_top_offset = 0x10;
-            gCurrentSprite.draw_distance_bottom_offset = 0x10;
+            gCurrentSprite.drawDistanceTopOffset = 0x10;
+            gCurrentSprite.drawDistanceBottomOffset = 0x10;
             gCurrentSprite.draw_distance_horizontal_offset = 0x10;
-            gCurrentSprite.hitbox_top_offset = 0x0;
-            gCurrentSprite.hitbox_bottom_offset = 0x0;
-            gCurrentSprite.hitbox_left_offset = 0x0;
-            gCurrentSprite.hitbox_right_offset = 0x0;
+            gCurrentSprite.hitboxTopOffset = 0x0;
+            gCurrentSprite.hitboxBottomOffset = 0x0;
+            gCurrentSprite.hitboxLeftOffset = 0x0;
+            gCurrentSprite.hitboxRightOffset = 0x0;
             gCurrentSprite.oam_pointer = PowerGrip_glow_oam;
-            gCurrentSprite.anim_duration_counter = 0x0;
-            gCurrentSprite.curr_anim_frame = 0x0;
+            gCurrentSprite.animationDuratoinCounter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.samus_collision = SSC_NONE;
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.draw_order = 0x5;

@@ -4,16 +4,16 @@
 
 void MultiviolaInit(void)
 {
-    gCurrentSprite.draw_distance_top_offset = 0x20;
-    gCurrentSprite.draw_distance_bottom_offset = 0xC;
+    gCurrentSprite.drawDistanceTopOffset = 0x20;
+    gCurrentSprite.drawDistanceBottomOffset = 0xC;
     gCurrentSprite.draw_distance_horizontal_offset = 0x10;
-    gCurrentSprite.hitbox_top_offset = -0x20;
-    gCurrentSprite.hitbox_bottom_offset = 0x20;
-    gCurrentSprite.hitbox_left_offset = -0x20;
-    gCurrentSprite.hitbox_right_offset = 0x20;
+    gCurrentSprite.hitboxTopOffset = -0x20;
+    gCurrentSprite.hitboxBottomOffset = 0x20;
+    gCurrentSprite.hitboxLeftOffset = -0x20;
+    gCurrentSprite.hitboxRightOffset = 0x20;
     gCurrentSprite.oam_pointer = multiviola_oam_2d0520;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = gCurrentSprite.primary_sprite_ram_slot << 0x1;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = gCurrentSprite.primary_sprite_ram_slot << 0x1;
     gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
     SpriteUtilMakeSpriteFaceSamusXFlip();
@@ -30,9 +30,9 @@ void MultiviolaMove(void)
 
     if ((gCurrentSprite.status & SPRITE_STATUS_XFLIP) != 0x0)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.hitbox_right_offset + gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.hitboxRightOffset + gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == 0x0)
-            gCurrentSprite.x_position += 0x3;
+            gCurrentSprite.xPosition += 0x3;
         else
         {
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
@@ -41,9 +41,9 @@ void MultiviolaMove(void)
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.hitbox_left_offset + gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.hitboxLeftOffset + gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == 0x0)
-            gCurrentSprite.x_position -= 0x3;
+            gCurrentSprite.xPosition -= 0x3;
         else
         {
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
@@ -53,9 +53,9 @@ void MultiviolaMove(void)
 
     if ((gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL) != 0x0)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitbox_top_offset + gCurrentSprite.y_position, gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitboxTopOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == 0x0)
-            gCurrentSprite.y_position -= y_movement;
+            gCurrentSprite.yPosition -= y_movement;
         else
         {
             gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
@@ -64,9 +64,9 @@ void MultiviolaMove(void)
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitbox_bottom_offset + gCurrentSprite.y_position, gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitboxBottomOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == 0x0)
-            gCurrentSprite.y_position += y_movement;
+            gCurrentSprite.yPosition += y_movement;
         else
         {
             gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
@@ -109,7 +109,7 @@ void Multiviola(void)
             switch (gCurrentSprite.pose)
             {
                 default:
-                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);
+                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_BIG);
                     break;
                 case 0x0:
                     MultiviolaInit();

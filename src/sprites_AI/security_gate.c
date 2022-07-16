@@ -16,8 +16,8 @@ void SecurityGateOpen(void)
 {
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
     gCurrentSprite.oam_pointer = security_gate_oam_2e6bb8;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x27;
     SecurityGateChangeCCAA(CCAA_REMOVE_SOLID); // Remove collision
     unk_2b20(0x225);
@@ -31,8 +31,8 @@ void SecurityGateStartClosing(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
     gCurrentSprite.oam_pointer = security_gate_oam_2e6b08;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x23;
     unk_2b20(0x109);
 }
@@ -57,15 +57,15 @@ void SecurityGateDefaultOpenInit(void)
         gCurrentSprite.pose = 0x9;
     }
 
-    gCurrentSprite.hitbox_top_offset = -0x100;
-    gCurrentSprite.hitbox_bottom_offset = 0x0;
-    gCurrentSprite.hitbox_left_offset = -0x18;
-    gCurrentSprite.hitbox_right_offset = 0x18;
-    gCurrentSprite.draw_distance_top_offset = 0x40;
-    gCurrentSprite.draw_distance_bottom_offset = 0x8;
+    gCurrentSprite.hitboxTopOffset = -0x100;
+    gCurrentSprite.hitboxBottomOffset = 0x0;
+    gCurrentSprite.hitboxLeftOffset = -0x18;
+    gCurrentSprite.hitboxRightOffset = 0x18;
+    gCurrentSprite.drawDistanceTopOffset = 0x40;
+    gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.draw_distance_horizontal_offset = 0x8;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samus_collision = SSC_NONE;
     gCurrentSprite.health = 0x1;
     gCurrentSprite.draw_order = 0x3;
@@ -91,8 +91,8 @@ void SecurityGateCheckClosingAnimEnded(void)
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.oam_pointer = security_gate_oam_2e6b98;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x25;
         gCurrentSprite.timer1 = 0x0;
         gCurrentSprite.array_offset = 0x0;
@@ -130,8 +130,8 @@ void SecurityGateCheckOpeningAnimEnded(void)
     if (SpriteUtillCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.oam_pointer = security_gate_oam_2e6af8;
-        gCurrentSprite.anim_duration_counter = 0x0;
-        gCurrentSprite.curr_anim_frame = 0x0;
+        gCurrentSprite.animationDuratoinCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x9;
     }
 }
@@ -142,14 +142,14 @@ void SecurityGateCheckOpeningAnimEnded(void)
  */
 void SecurityGateDeath(void)
 {
-    u16 y_position;
-    u16 x_position;
+    u16 yPosition;
+    u16 xPosition;
 
     SecurityGateChangeCCAA(CCAA_REMOVE_SOLID);
-    y_position = gCurrentSprite.y_position - 0x40;
-    x_position = gCurrentSprite.x_position;
-    ParticleSet(y_position, x_position, PE_SPRITE_EXPLOSION_HUGE);
-    SpriteUtilSpriteDeath(DEATH_NORMAL, y_position - 0x60, x_position, TRUE, PE_SPRITE_EXPLOSION_BIG);
+    yPosition = gCurrentSprite.yPosition - 0x40;
+    xPosition = gCurrentSprite.xPosition;
+    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
+    SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition - 0x60, xPosition, TRUE, PE_SPRITE_EXPLOSION_BIG);
 }
 
 /**
@@ -172,15 +172,15 @@ void SecurityGateDefaultClosedInit(void)
         SecurityGateChangeCCAA(CCAA_MAKE_SOLID3);
     }
 
-    gCurrentSprite.hitbox_top_offset = -0x100;
-    gCurrentSprite.hitbox_bottom_offset = 0x0;
-    gCurrentSprite.hitbox_left_offset = -0x18;
-    gCurrentSprite.hitbox_right_offset = 0x18;
-    gCurrentSprite.draw_distance_top_offset = 0x40;
-    gCurrentSprite.draw_distance_bottom_offset = 0x8;
+    gCurrentSprite.hitboxTopOffset = -0x100;
+    gCurrentSprite.hitboxBottomOffset = 0x0;
+    gCurrentSprite.hitboxLeftOffset = -0x18;
+    gCurrentSprite.hitboxRightOffset = 0x18;
+    gCurrentSprite.drawDistanceTopOffset = 0x40;
+    gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.draw_distance_horizontal_offset = 0x8;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samus_collision = SSC_NONE;
     gCurrentSprite.health = 0x1;
     gCurrentSprite.draw_order = 0x3;

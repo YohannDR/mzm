@@ -25,18 +25,18 @@ void IOUpdateDISPCNT(u8 operation, u16 value)
     {
         gWrittenToDISPCNT = read16(REG_BASE);
         if (operation)
-            gDISPCNTBackup = gIORegistersBackup.dispcnt_non_gameplay | value;
+            gDISPCNTBackup = gIORegistersBackup.DISPCNT_NonGameplay | value;
         else
-            gDISPCNTBackup = gIORegistersBackup.dispcnt_non_gameplay & ~value;
+            gDISPCNTBackup = gIORegistersBackup.DISPCNT_NonGameplay & ~value;
 
-        if (gDISPCNTBackup != gIORegistersBackup.dispcnt_non_gameplay)
+        if (gDISPCNTBackup != gIORegistersBackup.DISPCNT_NonGameplay)
         {
-            if (gWrittenToDISPCNT == gIORegistersBackup.dispcnt_non_gameplay)
+            if (gWrittenToDISPCNT == gIORegistersBackup.DISPCNT_NonGameplay)
                 gWrittenToDISPCNT = gDISPCNTBackup;
             else
                 gWrittenToDISPCNT = 0x0;
 
-            gIORegistersBackup.dispcnt_non_gameplay = gDISPCNTBackup;
+            gIORegistersBackup.DISPCNT_NonGameplay = gDISPCNTBackup;
             gDISPCNTBackup = value;
         }
     }

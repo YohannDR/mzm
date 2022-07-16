@@ -4,16 +4,16 @@
 
 void WaverInit(void)
 {
-    gCurrentSprite.draw_distance_top_offset = 0x10;
-    gCurrentSprite.draw_distance_bottom_offset = 0x10;
+    gCurrentSprite.drawDistanceTopOffset = 0x10;
+    gCurrentSprite.drawDistanceBottomOffset = 0x10;
     gCurrentSprite.draw_distance_horizontal_offset = 0x10;
-    gCurrentSprite.hitbox_top_offset = -0x20;
-    gCurrentSprite.hitbox_bottom_offset = 0x20;
-    gCurrentSprite.hitbox_left_offset = -0x20;
-    gCurrentSprite.hitbox_right_offset = -0x20;
+    gCurrentSprite.hitboxTopOffset = -0x20;
+    gCurrentSprite.hitboxBottomOffset = 0x20;
+    gCurrentSprite.hitboxLeftOffset = -0x20;
+    gCurrentSprite.hitboxRightOffset = -0x20;
     gCurrentSprite.oam_pointer = waver_oam_2d88ac;
-    gCurrentSprite.anim_duration_counter = 0x0;
-    gCurrentSprite.curr_anim_frame = 0x0;
+    gCurrentSprite.animationDuratoinCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.sprite_id][0x0];
     gCurrentSprite.samus_collision = SSC_HURTS_SAMUS;
     SpriteUtilMakeSpriteFaceSamusXFlip();
@@ -27,34 +27,34 @@ void WaverMove(void)
     speed = 0x2;
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.hitbox_right_offset + gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.hitboxRightOffset + gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == 0x0)
-            gCurrentSprite.x_position += 0x4;
+            gCurrentSprite.xPosition += 0x4;
         else
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.y_position, gCurrentSprite.hitbox_left_offset + gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.hitboxLeftOffset + gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == 0x0)
-            gCurrentSprite.x_position -= 0x4;
+            gCurrentSprite.xPosition -= 0x4;
         else
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitbox_top_offset + gCurrentSprite.y_position, gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitboxTopOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == 0x0)
-            gCurrentSprite.y_position -= speed;
+            gCurrentSprite.yPosition -= speed;
         else
             gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitbox_bottom_offset + gCurrentSprite.y_position, gCurrentSprite.x_position);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitboxBottomOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == 0x0)
-            gCurrentSprite.y_position += speed;
+            gCurrentSprite.yPosition += speed;
         else
             gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
     }
@@ -78,7 +78,7 @@ void Waver(void)
             switch (gCurrentSprite.pose)
             {
                 default:
-                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.y_position, gCurrentSprite.x_position, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
                     break;
                 case 0x0:
                     WaverInit();
