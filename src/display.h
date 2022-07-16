@@ -14,8 +14,8 @@ struct IORegistersBackup {
     u16 BLDALPHA_NonGameplay;
     u8 WININ_H_NonGameplay;
     u8 WINOUT_L_NonGameplay;
-    u16 BG3CNT_WriteOnly;
-    u16 BG3CNT;
+    u16 BG0CNT_WriteOnly;
+    u16 BG0CNT;
     u16 BG1CNT;
     u16 BG2CNT;
     u16 BG3CNT;

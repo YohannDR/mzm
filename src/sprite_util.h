@@ -28,11 +28,17 @@
 #define SPLASH_BIG 0x2
 #define SPLASH_HUGE 0x3
 
+#define SPRITE_COLLISION_FLAG_NONE 0x0
+#define SPRITE_COLLISION_FLAG_ON_TOP 0x1
+#define SPRITE_COLLISION_FLAG_ON_BOTTOM 0x2
+#define SPRITE_COLLISION_FLAG_ON_LEFT 0x4
+#define SPRITE_COLLISION_FLAG_ON_RIGHT 0x8
+
 void SpriteUtilInitLocationText(void);
 void SpriteUtilCheckStopSamusAgainstSolidSpriteLeft(u16 yPosition, u16 xPosition);
 void SpriteUtilCheckStopSamusAgainstSolidSpriteRight(u16 yPosition, u16 xPosition);
-u8 SpriteUtilTakeDamageFromSprite(u8 kb_flag, struct SpriteData* pSprite, u16 dmg_mulitplier);
-u8 SpriteUtilCheckObjectsTouching(u16 o1_top, u16 o1_bottom, u16 o1_left, u16 o1_right, u16 o2_top, u16 o2_bottom, u16 o2_left, u16 o2_right);
+u8 SpriteUtilTakeDamageFromSprite(u8 kbFlag, struct SpriteData* pSprite, u16 dmg_mulitplier);
+u8 SpriteUtilCheckObjectsTouching(u16 o1Top, u16 o1Bottom, u16 o1Left, u16 o1Right, u16 o2Top, u16 o2Bottom, u16 o2Left, u16 o2Right);
 void SpriteUtilSamusAndSpriteCollision(void);
 u32 SpriteUtilCheckVerticalCollisionAtPosition(u16 yPosition, u16 xPosition);
 u32 SpriteUtilCheckVerticalCollisionAtPositionSlopes(u16 yPosition, u16 xPosition);

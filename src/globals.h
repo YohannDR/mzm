@@ -26,7 +26,7 @@ extern u32 events_triggered[8];
 
 // IWRAM
 
-enum gPauseScreenFlags {
+enum PauseScreenFlags {
     PAUSE_SCREEN_NONE,
     PAUSE_SCREEN_UNKNOWN_1,
     PAUSE_SCREEN_PAUSE_OR_CUTSCENE,
@@ -111,7 +111,6 @@ extern u8 gFrameCounter8Bit;
 extern vu16 gVBlankRequestFlag;
 extern u16 gInterruptCode[0x100];
 extern struct RawOamData gOamData[160];
-extern u8 gPauseScreenFlag;
 extern u8 gSRAMCorruptFlag;
 extern u16 gButtonInput;
 extern u16 gPreviousButtonInput;
@@ -142,6 +141,8 @@ extern void *sp_irq;
 extern Func_t intr_vector[13];
 extern u16 (*intr_code_ptr)[0x100];
 extern u16 (*intr_code_ptr)[0x100];
+
+extern u16 unk_03007ff8;
 
 // IO
 

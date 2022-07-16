@@ -144,55 +144,55 @@ u8 RoomRLEDecompress(u8 mode, u8* pSrc, u8* pDst)
     len = 0x3000;
     if (mode == 0x0)
     {
-        src++;
+        pSrc++;
         len = 0x2000;
     }
-    bit_fill(0x3, 0x0, dst, len, 0x10);
+    bit_fill(0x3, 0x0, pDst, len, 0x10);
 
     len = 0x0;
     do {
-        dest = dst;
+        dest = pDst;
         if (len != 0x0)
-            dest = dst + 0x1;
-        unk = src + 0x1;
-        if (*src == 0x1)
+            dest = pDst + 0x1;
+        unk = pSrc + 0x1;
+        if (*pSrc == 0x1)
         {
             unk3 = *unk;
-            src += 0x2;
+            pSrc += 0x2;
             while (i = unk3, i != 0x0)
             {
                 if ((unk3 & 0x80) == 0x0)
                 {
                     for (; i != 0x0; i--)
                     {
-                        *dest = *src;
-                        src++;
-                        dst += 0x2;
+                        *dest = *pSrc;
+                        pSrc++;
+                        pDst += 0x2;
                     }
                 }
                 else
                 {
                     i &= 0x7F;
-                    if (*src == 0x0)
+                    if (*pSrc == 0x0)
                         dest = dest + (i * 0x2);
                     else
                     {
                         for (; i != 0x0; i--)
                         {
-                            *dest = *src;
+                            *dest = *pSrc;
                             dest += 0x2;
                         }
                     }
-                    src++;
+                    pSrc++;
                 }
-                unk3 = *src;
-                src++;
+                unk3 = *pSrc;
+                pSrc++;
             }
         }
         else
         {
-            unk = src + 0x2;
-            src += 0x3;
+            unk = pSrc + 0x2;
+            pSrc += 0x3;
             unk4 = (*unk << 0x8 | *unk2);
             while (i = unk4, i != 0x0)
             {
@@ -200,32 +200,32 @@ u8 RoomRLEDecompress(u8 mode, u8* pSrc, u8* pDst)
                 {
                     for (; i != 0x0; i--)
                     {
-                        *dest = *src;
-                        src++;
+                        *dest = *pSrc;
+                        pSrc++;
                         dest += 0x2;
                     }
                 }
                 else
                 {
                     i &= 0x7FFF;
-                    if (*src == 0x0)
+                    if (*pSrc == 0x0)
                         dest = dest + (i * 0x2);
                     else
                     {
                         if ((unk4 & 0x7FFF) != 0x0)
                         {
                             do {
-                                *dest = *src;
+                                *dest = *pSrc;
                                 dest += 0x2;
                                 i--;
                             } while(i != 0x0);
                         }
                     }
-                    src++;
+                    pSrc++;
                 }
-                unk3 = *src;
-                unk = src + 0x1;
-                src += 0x2;
+                unk3 = *pSrc;
+                unk = pSrc + 0x1;
+                pSrc += 0x2;
                 unk4 = (unk3 << 0x8 | *unk);
             }
         }
@@ -296,8 +296,8 @@ void RoomUpdateBackgroundsPosition(void)
     }
     else
     {
-        gBackgroundPositions.bg[3].x = new_bg3_x + (x_offset >> 0x1);
-        gBackgroundPositions.bg[3].y = new_bg3_y + (y_offset >> 0x1);
+        gBackgroundPositions.bg[3].x = new_bg3_x + (xOffset >> 0x1);
+        gBackgroundPositions.bg[3].y = new_bg3_y + (yOffset >> 0x1);
     }
 }
 

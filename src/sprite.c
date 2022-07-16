@@ -407,7 +407,7 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
             pSprite->ignoreSamusCollisionTimer = 0x1;
             pSprite->primarySpriteRAMSlot = ramSlot;
             pSprite->freezeTimer = 0x0;
-            pSprite->standing_on_sprite = FALSE;
+            pSprite->standingOnSprite = FALSE;
             return; 
         }
 
@@ -461,7 +461,7 @@ u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfx_slot, u8 ramSlot, u16 y
             pSprite->ignoreSamusCollisionTimer = 0x1;
             pSprite->primarySpriteRAMSlot = ramSlot;
             pSprite->freezeTimer = 0x0;
-            pSprite->standing_on_sprite = FALSE;
+            pSprite->standingOnSprite = FALSE;
 
             return new_ramSlot;
         }
@@ -517,7 +517,7 @@ u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfx_slot, u16 yPosition, u16 
             pSprite->ignoreSamusCollisionTimer = 0x1;
             pSprite->primarySpriteRAMSlot = new_ramSlot;
             pSprite->freezeTimer = 0x0;
-            pSprite->standing_on_sprite = FALSE;
+            pSprite->standingOnSprite = FALSE;
 
             return new_ramSlot;
         }
@@ -574,7 +574,7 @@ u8 SpriteSpawnDropFollowers(u8 spriteID, u8 roomSlot, u8 gfx_slot, u8 ramSlot, u
             pSprite->ignoreSamusCollisionTimer = 0x1;
             pSprite->primarySpriteRAMSlot = ramSlot;
             pSprite->freezeTimer = 0x0;
-            pSprite->standing_on_sprite = FALSE;
+            pSprite->standingOnSprite = FALSE;
 
             return new_ramSlot;
         }

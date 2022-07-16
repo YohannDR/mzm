@@ -253,7 +253,7 @@ void ZiplineInit(void)
     gCurrentSprite.pose = 0x9;
 }
 
-void ZiplineMoving(void)
+void ZiplineUpdate(void)
 {
     if (!SpriteUtilCheckOnZipline() && gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
@@ -368,7 +368,7 @@ void ZiplineButtonZiplineMoving(void)
         ZiplineButtonActivatedGFXInit();
 }
 
-void Zipline"void)
+void Zipline(void)
 {
     switch (gCurrentSprite.pose)
     {

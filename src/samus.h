@@ -226,7 +226,7 @@ struct Equipment {
     u16 currentEnergy;
     u16 currentMissiles;
     u8 currentSuperMissiles;
-    u8 gCurrentPowerBombs;
+    u8 currentPowerBombs;
     u8 beamBombs;
     u8 beamBombsActivation;
     u8 suitMisc;

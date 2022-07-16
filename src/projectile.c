@@ -956,7 +956,7 @@ void ProjectileCheckHittingSprite(void)
                                 case PROJ_TYPE_CHARGED_PISTOL:
                                     if (pSprite->samusCollision == SSC_SPACE_PIRATE)
                                     {
-                                        pSprite->standing_on_sprite = FALSE;
+                                        pSprite->standingOnSprite = FALSE;
                                         pSprite->freezeTimer = 0x3C;
                                         pSprite->palette_row = 0x1;
                                         pSprite->absolutePaletteRow = 0x1;
@@ -1030,10 +1030,10 @@ u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage)
         pSprite->properties |= SP_MAYBE_DESTROYED;
         pSprite->freezeTimer = 0x0;
         pSprite->palette_row = 0x0;
-        if (pSprite->standing_on_sprite != FALSE && gSamusData.standingStatus == STANDING_ENEMY)
+        if (pSprite->standingOnSprite != FALSE && gSamusData.standingStatus == STANDING_ENEMY)
         {
             gSamusData.standingStatus = STANDING_MIDAIR;
-            pSprite->standing_on_sprite = FALSE;
+            pSprite->standingOnSprite = FALSE;
         }
         pSprite->pose = 0x62;
         pSprite->ignoreSamusCollisionTimer = 0x1;
@@ -1065,10 +1065,10 @@ u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
         pSprite->properties |= SP_MAYBE_DESTROYED;
         pSprite->freezeTimer = 0x0;
         pSprite->palette_row = 0x0;
-        if (pSprite->standing_on_sprite && gSamusData.standingStatus == STANDING_ENEMY)
+        if (pSprite->standingOnSprite && gSamusData.standingStatus == STANDING_ENEMY)
         {
             gSamusData.standingStatus = STANDING_MIDAIR;
-            pSprite->standing_on_sprite = FALSE;
+            pSprite->standingOnSprite = FALSE;
         }
         pSprite->pose = 0x62;
         pSprite->ignoreSamusCollisionTimer = 0x1;
@@ -1144,10 +1144,10 @@ void ProjectilePowerBombDealDamage(struct SpriteData* pSprite)
                     pSprite->properties |= SP_MAYBE_DESTROYED;
                     pSprite->freezeTimer = 0x0;
                     pSprite->palette_row = 0x0;
-                    if (pSprite->standing_on_sprite && gSamusData.standingStatus == STANDING_ENEMY)
+                    if (pSprite->standingOnSprite && gSamusData.standingStatus == STANDING_ENEMY)
                     {
                         gSamusData.standingStatus = STANDING_MIDAIR;
-                        pSprite->standing_on_sprite = FALSE;
+                        pSprite->standingOnSprite = FALSE;
                     }
                     pSprite->pose = 0x62;
                     pSprite->ignoreSamusCollisionTimer = 0x1;
@@ -2393,10 +2393,10 @@ void ProjectileProcessPowerBomb(struct ProjectileData* pProj)
     switch (pProj->movement_stage)
     {
         case 0x0:
-            if (gEquipmentcurrentPowerBombs != 0x0)
+            if (gEquipment.currentPowerBombs != 0x0)
             {
-                gEquipmentcurrentPowerBombs--;
-                if (gEquipmentcurrentPowerBombs == 0x0)
+                gEquipment.currentPowerBombs--;
+                if (gEquipment.currentPowerBombs == 0x0)
                     gSamusWeaponInfo.weaponHighlighted ^= WH_POWER_BOMB;
             }
             pProj->pOam = power_bomb_oam_normal;

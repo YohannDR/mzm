@@ -596,11 +596,11 @@ void WingerRipperMove(void)
 
 void WingerRipperDeath(void)
 {
-    if (gCurrentSprite.standing_on_sprite)
+    if (gCurrentSprite.standingOnSprite)
     {
         if (gSamusData.standingStatus == STANDING_ENEMY)
             gSamusData.standingStatus = STANDING_MIDAIR;
-        gCurrentSprite.standing_on_sprite = FALSE;
+        gCurrentSprite.standingOnSprite = FALSE;
     }
     SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition + 0x8, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
 }

@@ -571,7 +571,7 @@ void ParticleShootingBeamDiagDownRight(struct ParticleEffect* pParticle)
  * 
  * @param pParticle Particle Effect Pointer to the concerned particle
  */
-void ParticleShootingBeamDownLeft(struct ParticleEffect* pParticle)
+void ParticleShootingBeamUpLeft(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
     if (ParticleUpdateAnimation(pParticle, particle_shooting_beam_up_oam))
@@ -591,7 +591,7 @@ void ParticleShootingBeamDownLeft(struct ParticleEffect* pParticle)
  * 
  * @param pParticle Particle Effect Pointer to the concerned particle
  */
-void ParticleShootingBeamDownRight(struct ParticleEffect* pParticle)
+void ParticleShootingBeamUpRight(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
     if (ParticleUpdateAnimation(pParticle, particle_shooting_beam_up_oam))

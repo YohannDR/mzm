@@ -2043,7 +2043,7 @@ void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeap
         case SPOSE_MORPH_BALL_MIDAIR:
         case SPOSE_GETTING_HURT_IN_MORPH_BALL:
         case SPOSE_GETTING_KNOCKED_BACK_IN_MORPH_BALL:
-            if ((gButtonInput & gButtonAssignments.armMissiles) == 0x0 || pEquipment->gCurrentPowerBombs != 0x0)
+            if ((gButtonInput & gButtonAssignments.armMissiles) == 0x0 || pEquipment->currentPowerBombs != 0x0)
             {
                 weapon_high = WH_POWER_BOMB;
                 if (pWeapon->weaponHighlighted == WH_NONE)
@@ -3599,7 +3599,7 @@ u8 SamusCrawlingGFX(struct SamusData* pData)
     u8 animState;
 
     animState = SamusUpdateAnimation(pData, FALSE);
-    if (unk == SAMUS_ANIM_STATE_ENDED)
+    if (animState == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_STARTING_TO_CRAWL;
     else
         return SPOSE_NONE;

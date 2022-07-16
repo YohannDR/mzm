@@ -329,14 +329,19 @@ extern u8 gSpriteRNG;
 #define SSC_NONE 0x0
 #define SSC_SOLID 0x1
 #define SSC_ESCAPE_SHIP 0x2
+#define SSC_HURTS_SAMUS_CAN_STAND_ON_TOP 0x3
 #define SSC_HURTS_SAMUS 0x4
 #define SSC_ATOMIC_DISCHARGE 0x5
 #define SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT 0x6
 #define SSC_KNOCKS_BACK_SAMUS 0x7
+#define SSC_HURTS_SAMUS_NO_KNOCKBACK 0x9
 #define SSC_KRAID 0xA
 #define SSC_HURTS_SAMUS_NO_PASS_THROUGH 0xB
 #define SSC_ZEBETITE 0xC
 #define SSC_IMAGO_STINGER 0xD
+#define SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT_BIG_KNOCKBACK 0xE
+#define SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT_NO_KNOCKBACK 0x10
+#define SSC_HURTS_SAMUS_NO_KNOCKBACK_NO_CONTACT_DAMAGE 0x11
 #define SSC_MELLOW 0x12
 #define SSC_SPACE_PIRATE_LASER 0x13
 #define SSC_SPACE_PIRATE 0x14
@@ -436,7 +441,7 @@ struct SpriteData {
     u8 workVariable2;
     u8 arrayOffset;
     u8 freezeTimer;
-    u8 standing_on_sprite;
+    u8 standingOnSprite;
     u8 properties;
     u8 frozenPaletteRowOffset;
     u8 absolutePaletteRow;
