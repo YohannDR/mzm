@@ -4,7 +4,7 @@
 #include "../types.h"
 #include "../sprite.h"
 
-u8 ParasiteCount(void);
+u32 ParasiteCount(void);
 void ParasiteInit(struct SpriteData* pSprite);
 void ParasiteGrabSamus(struct SpriteData* pSprite);
 void ParasiteSamusGrabbed(struct SpriteData* pSprite);

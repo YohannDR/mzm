@@ -17,7 +17,7 @@ extern struct SpriteData gCurrentSprite;
 extern struct SpriteDebris gSpriteDebris[8];
 extern u8 gPreviousVerticalCollisionCheck;
 extern u8 gPreviousCollisionCheck;
-extern u8 gCollisionRelated;
+extern u8 gIgnoreSamusAndSpriteCollision;
 extern u8 gSpriteDrawOrder[24];
 extern u8 gSpriteRNG;
 

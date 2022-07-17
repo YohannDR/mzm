@@ -131,7 +131,7 @@ void ProjectileUpdate(void)
     {
         checks = FALSE;
         count = 0x0;
-        pEffect = pParticleEffects;
+        pEffect = gParticleEffects;
         do {
             if ((pEffect->status & PARTICLE_STATUS_EXISTS) != 0x0 && pEffect->effect == PE_CHARGING_BEAM)
             {

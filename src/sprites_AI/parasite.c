@@ -8,7 +8,7 @@
  * 
  * @return 1 if count greater than 3, 0 otherwise
  */
-u8 ParasiteCount(void)
+u32 ParasiteCount(void)
 {
     struct SpriteData* pSprite;
     u8 count;
