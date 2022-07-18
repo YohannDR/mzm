@@ -240,7 +240,7 @@ u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, struct FrameData* p
         }
     }
 
-    gCurrentParticleEffectOAMFramePointer = pOam[pParticle->currentAnimationFrame].oam_frame_ptr;
+    gCurrentParticleEffectOAMFramePointer = pOam[pParticle->currentAnimationFrame].pFrame;
     return ended;
 }
 
@@ -253,7 +253,7 @@ u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, struct FrameData* p
  */
 void ParticleSetCurrentOAMFramePointer(struct ParticleEffect* pParticle, struct FrameData* pOam)
 {
-    gCurrentParticleEffectOAMFramePointer = pOam[pParticle->currentAnimationFrame].oam_frame_ptr;
+    gCurrentParticleEffectOAMFramePointer = pOam[pParticle->currentAnimationFrame].pFrame;
 }
 
 /**

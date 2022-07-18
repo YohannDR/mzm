@@ -12,7 +12,7 @@ void ZebInit(void)
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
     gCurrentSprite.workVariable = 0x1;
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
     gCurrentSprite.yPosition -= 0x20;
     gCurrentSprite.xPosition += 0x20;
     gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
@@ -107,7 +107,7 @@ void ZebReset(void)
     gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn;
     ZebGFXInit();
     gCurrentSprite.workVariable = 0x3C;
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
     gCurrentSprite.invicibilityStunFlashTimer = 0x0;
     gCurrentSprite.palette_row = 0x0;
     gCurrentSprite.frozenPaletteRowOffset = 0x0;

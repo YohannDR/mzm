@@ -43,7 +43,7 @@ void HiveInit(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = event_check;
         gCurrentSprite.drawOrder = 0x5;
-        gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
+        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.timer = 0x0;
         
@@ -87,7 +87,7 @@ void HivePhase1(void)
     if ((u8)HiveCountMellows() < 0x4)
         SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     
-    if (gCurrentSprite.health < primary_sprite_stats[gCurrentSprite.spriteID][0x0] >> 0x1)
+    if (gCurrentSprite.health < sPrimarySpriteStats[gCurrentSprite.spriteID][0x0] >> 0x1)
     {
         gCurrentSprite.frozenPaletteRowOffset = 0x2;
         gCurrentSprite.pOam = hive_oam_2da9a4;
@@ -104,7 +104,7 @@ void HivePhase2(void)
     if ((u8)HiveCountMellows() < 0x4)
         SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     
-    if (gCurrentSprite.health < primary_sprite_stats[gCurrentSprite.spriteID][0x0] >> 0x2)
+    if (gCurrentSprite.health < sPrimarySpriteStats[gCurrentSprite.spriteID][0x0] >> 0x2)
     {
         gCurrentSprite.frozenPaletteRowOffset = 0x3;
         gCurrentSprite.pOam = hive_oam_2daa04;
@@ -224,7 +224,7 @@ void MellowInit(struct SpriteData* pSprite)
         pSprite->animationDurationCounter = 0x0;
         pSprite->currentAnimationFrame = 0x0;
         pSprite->samusCollision = SSC_MELLOW;
-        pSprite->health = primary_sprite_stats[pSprite->spriteID][0x0];
+        pSprite->health = sPrimarySpriteStats[pSprite->spriteID][0x0];
         if (pSprite->roomSlot != 0x88)
         {
             pSprite->pOam = mellow_oam_2da88c;
@@ -353,7 +353,7 @@ void HiveRoots(void)
     if (pSprite->spriteID == PSPRITE_HIVE)
     {
         gCurrentSprite.palette_row = pSprite->palette_row;
-        if (pSprite->health < primary_sprite_stats[pSprite->spriteID][0x0] >> 0x1 && pSprite->freezeTimer == 0x0)
+        if (pSprite->health < sPrimarySpriteStats[pSprite->spriteID][0x0] >> 0x1 && pSprite->freezeTimer == 0x0)
             gCurrentSprite.status = 0x0;
         else
         {

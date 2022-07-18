@@ -9,7 +9,7 @@ struct OamFrame {
 };
 
 struct FrameData {
-    u16* oam_frame_ptr;
+    u16* pFrame;
     u8 timer;
 };
 

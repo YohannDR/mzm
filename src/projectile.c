@@ -716,10 +716,10 @@ void ProjectileCheckHittingSprite(void)
     u16 proj_right;
     u16 spriteY;
     u16 spriteX;
-    u16 sprite_top;
-    u16 sprite_bottom;
-    u16 sprite_left;
-    u16 sprite_right;
+    u16 spriteTop;
+    u16 spriteBottom;
+    u16 spriteLeft;
+    u16 spriteRight;
     u8 count;
     u8 drawOrder;
     u32 drawOrder_next;
@@ -742,11 +742,11 @@ void ProjectileCheckHittingSprite(void)
             {
                 spriteY = pSprite->yPosition;
                 spriteX = pSprite->xPosition;
-                sprite_top = spriteY + pSprite->hitboxTopOffset;
-                sprite_bottom = spriteY + pSprite->hitboxBottomOffset;
-                sprite_left = spriteX + pSprite->hitboxLeftOffset;
-                sprite_right = spriteX + pSprite->hitboxRightOffset;
-                if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
+                spriteTop = spriteY + pSprite->hitboxTopOffset;
+                spriteBottom = spriteY + pSprite->hitboxBottomOffset;
+                spriteLeft = spriteX + pSprite->hitboxLeftOffset;
+                spriteRight = spriteX + pSprite->hitboxRightOffset;
+                if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, proj_top, proj_bottom, proj_left, proj_right))
                     ProjectilePowerBombDealDamage(pSprite);
             }
             pSprite++;
@@ -780,10 +780,10 @@ void ProjectileCheckHittingSprite(void)
             {
                 spriteY = pSprite->yPosition;
                 spriteX = pSprite->xPosition;
-                sprite_top = spriteX + pSprite->hitboxTopOffset;
-                sprite_bottom = spriteX + pSprite->hitboxBottomOffset;
-                sprite_left = spriteY + pSprite->hitboxLeftOffset;
-                sprite_right = spriteY + pSprite->hitboxRightOffset;
+                spriteTop = spriteX + pSprite->hitboxTopOffset;
+                spriteBottom = spriteX + pSprite->hitboxBottomOffset;
+                spriteLeft = spriteY + pSprite->hitboxLeftOffset;
+                spriteRight = spriteY + pSprite->hitboxRightOffset;
 
                 status_proj = PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
                 pProj = gProjectileData;
@@ -797,7 +797,7 @@ void ProjectileCheckHittingSprite(void)
                         proj_bottom = proj_y + pProj->hitboxBottomOffset;
                         proj_left = proj_x + pProj->hitboxLeftOffset;
                         proj_right = proj_x + pProj->hitboxRightOffset;
-                        if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
+                        if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, proj_top, proj_bottom, proj_left, proj_right))
                         {
                             switch (pProj->type)
                             {
@@ -1002,9 +1002,9 @@ void ProjectileCheckHittingSprite(void)
 u16 ProjectileGetSpriteWeakness(struct SpriteData* pSprite)
 {
     if (pSprite->properties & SP_SECONDARY_SPRITE) // Check wheter secondary or primary
-        return primary_sprite_stats[pSprite->spriteID][0x2]; // Offset 2 is weakness
+        return sPrimarySpriteStats[pSprite->spriteID][0x2]; // Offset 2 is weakness
     else
-        return secondary_sprite_stats[pSprite->spriteID][0x2];
+        return sSecondarySpriteStats[pSprite->spriteID][0x2];
 }
 
 /**
@@ -2188,10 +2188,10 @@ void ProjectileMorphballLauncherCheckLaunchSamus(struct ProjectileData* pProj)
 {
     u16 samusY;
     u16 samusX;
-    u16 samus_top;
-    u16 samus_bottom;
-    u16 samus_left;
-    u16 samus_right;
+    u16 samusTop;
+    u16 samusBottom;
+    u16 samusLeft;
+    u16 samusRight;
     u16 proj_y;
     u16 proj_x;
     u16 proj_top;
@@ -2201,10 +2201,10 @@ void ProjectileMorphballLauncherCheckLaunchSamus(struct ProjectileData* pProj)
 
     samusY = gSamusData.yPosition;
     samusX = gSamusData.xPosition;
-    samus_top = samusY + gSamusPhysics.drawDistanceTopOffset;
-    samus_bottom = samusY + gSamusPhysics.drawDistanceBottomOffset;
-    samus_left = samusX + gSamusPhysics.drawDistanceLeftOffset;
-    samus_right = samusX + gSamusPhysics.drawDistanceRightOffset;
+    samusTop = samusY + gSamusPhysics.drawDistanceTopOffset;
+    samusBottom = samusY + gSamusPhysics.drawDistanceBottomOffset;
+    samusLeft = samusX + gSamusPhysics.drawDistanceLeftOffset;
+    samusRight = samusX + gSamusPhysics.drawDistanceRightOffset;
 
     proj_y = pProj->yPosition;
     proj_x = pProj->xPosition;
@@ -2213,7 +2213,7 @@ void ProjectileMorphballLauncherCheckLaunchSamus(struct ProjectileData* pProj)
     proj_left = proj_x + pProj->hitboxLeftOffset;
     proj_right = proj_x + pProj->hitboxRightOffset;
 
-    if (SpriteUtilCheckObjectsTouching(samus_top, samus_bottom, samus_left, samus_right, proj_top, proj_bottom, proj_left, proj_right) && gSamusData.invincibilityTimer != 0x0)
+    if (SpriteUtilCheckObjectsTouching(samusTop, samusBottom, samusLeft, samusRight, proj_top, proj_bottom, proj_left, proj_right) && gSamusData.invincibilityTimer != 0x0)
     {
         switch (gSamusData.pose)
         {

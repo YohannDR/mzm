@@ -38,14 +38,54 @@ void SpriteUtilInitLocationText(void)
     }
 }
 
+/**
+ * @brief e514 | 90 | Checks if samus should stop when colliding with a solid sprite from the left
+ * 
+ * @param yPosition Y Position
+ * @param xPosition X Position
+ */
 void SpriteUtilCheckStopSamusAgainstSolidSpriteLeft(u16 yPosition, u16 xPosition)
 {
+    u16 xPos;
 
+    xPos = xPosition - gSamusPhysics.drawDistanceRightOffset;
+
+    SpriteUtilCheckCollisionAtPosition(yPosition, xPos + gSamusPhysics.drawDistanceLeftOffset);
+    if (gPreviousCollisionCheck == COLLISION_AIR)
+    {
+        SpriteUtilCheckCollisionAtPosition(yPosition - 0x40, xPos + gSamusPhysics.drawDistanceLeftOffset);
+        if (gPreviousCollisionCheck == COLLISION_AIR || SpriteUtilCheckMorphed())
+        {
+            gSamusData.xPosition = xPos;
+            if (gSamusData.direction & KEY_RIGHT && gEquipment.currentEnergy != 0x0)
+                gSamusData.xVelocity = 0x0;
+        }
+    }
 }
 
+/**
+ * @brief e5a4 | 90 | Checks if samus should stop when colliding with a solid sprite from the right
+ * 
+ * @param yPosition Y Position
+ * @param xPosition X Position
+ */
 void SpriteUtilCheckStopSamusAgainstSolidSpriteRight(u16 yPosition, u16 xPosition)
 {
+    u16 xPos;
 
+    xPos = xPosition - gSamusPhysics.drawDistanceLeftOffset;
+
+    SpriteUtilCheckCollisionAtPosition(yPosition, xPos + gSamusPhysics.drawDistanceRightOffset);
+    if (gPreviousCollisionCheck == COLLISION_AIR)
+    {
+        SpriteUtilCheckCollisionAtPosition(yPosition - 0x40, xPos + gSamusPhysics.drawDistanceRightOffset);
+        if (gPreviousCollisionCheck == COLLISION_AIR || SpriteUtilCheckMorphed())
+        {
+            gSamusData.xPosition = xPos + 0x1;
+            if (gSamusData.direction & KEY_LEFT && gEquipment.currentEnergy != 0x0)
+                gSamusData.xVelocity = 0x0;
+        }
+    }
 }
 
 /**
@@ -63,9 +103,9 @@ u8 SpriteUtilTakeDamageFromSprite(u8 kbFlag, struct SpriteData* pSprite, u16 dmg
     u16 flags;
 
     if (pSprite->properties & SP_SECONDARY_SPRITE)
-        damage = secondary_sprite_stats[pSprite->spriteID][0x1]; // Get Damage
+        damage = sSecondarySpriteStats[pSprite->spriteID][0x1]; // Get Damage
     else
-        damage = primary_sprite_stats[pSprite->spriteID][0x1]; // Get Damage
+        damage = sPrimarySpriteStats[pSprite->spriteID][0x1]; // Get Damage
     damage *= dmgMultiplier; // Apply multiplier
 
     // Apply changes based on the current suit
@@ -699,7 +739,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                                 break;
 
                             case SSC_MECHA_RIDLEY:
-                                if (SpriteUtilGetFinalCompletionPercentage() == 0x64)
+                                if (SpriteUtilGetCurrentCompletionPercentage() == 0x64)
                                     dmgMultiplier = 0x2;
                                 else
                                     dmgMultiplier = 0x1;
@@ -898,9 +938,38 @@ u32 SpriteUtilGetCollisionAtPosition(u32 yPosition, u32 xPosition)
     return collision;
 }
 
+/**
+ * @brief f79c | 70 | Handles the current sprite falling
+ * 
+ */
 void SpriteUtilCurrentSpriteFall(void)
 {
+    u32 blockTopEdge;
+    i16 movement;
+    u32 offset;
 
+    blockTopEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+
+    if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
+    {
+        gCurrentSprite.yPosition = blockTopEdge;
+        gCurrentSprite.pose = 0xE;
+    }
+    else
+    {
+        offset = gCurrentSprite.arrayOffset;
+        movement = sSpritesFallingSpeed[offset];
+        if (movement == 0x7FFF)
+        {
+            movement = sSpritesFallingSpeed[offset - 0x1];
+            (i16)gCurrentSprite.yPosition += movement;
+        }
+        else
+        {
+            gCurrentSprite.arrayOffset = offset + 0x1;
+            (i16)gCurrentSprite.yPosition -= -movement;
+        }
+    }
 }
 
 /**
@@ -997,9 +1066,11 @@ void unk_f9e7(i16 movement)
 
 }
 
-u8 SpriteUtilMakeSpriteFaceSamusRotation(u8 oamRotation, u16 samusY, u16 samusX, u16 spriteY, u16 spriteX)
+u8 SpriteUtilMakeSpriteFaceSamusRotation(i16 oamRotation, i16 samusY, i16 samusX, i16 spriteY, i16 spriteX)
 {
+    // https://decomp.me/scratch/QMDVm
 
+    return oamRotation;
 }
 
 u8 SpriteUtillCheckEndCurrentSpriteAnim(void)
@@ -1019,15 +1090,16 @@ u8 SpriteUtillCheckEndCurrentSpriteAnim(void)
 
 u8 SpriteUtilCheckNearEndCurrentSpriteAnim(void)
 {
-    /*u32 adc;
-    u16 caf;
-    
-    adc = gCurrentSprite.animationDurationCounter;
-    caf = gCurrentSprite.currentAnimationFrame;
-    adc = ((adc << 0x18) + 0x2000000) >> 0x18;
+    // https://decomp.me/scratch/73v13
 
-    if ((u8)gCurrentSprite.pOam[caf].timer < adc &&
-    (u8)gCurrentSprite.pOam[(u16)(caf + 0x1)].timer == 0x0)
+    /*u8 adc;
+    u16 caf;
+
+    adc = (u8)(gCurrentSprite.animationDurationCounter + 0x1);
+    caf = gCurrentSprite.currentAnimationFrame;
+    adc = (u8)(adc + 0x1);
+
+    if (gCurrentSprite.pOam[caf].timer < adc && gCurrentSprite.pOam[(u16)(caf + 0x1)].timer == 0x0)
         return TRUE;
     else
         return FALSE;*/
@@ -1405,7 +1477,7 @@ u8 SpriteUtilCheckCrouchinOrCrawling(void)
     return FALSE;
 }
 
-u8 SpriteUtilCheckMorphed(void)
+u32 SpriteUtilCheckMorphed(void)
 {
     switch (gSamusData.pose)
     {
@@ -1497,9 +1569,9 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
     }
 
     if (pSprite->properties & SP_SECONDARY_SPRITE)
-        weakness = secondary_sprite_stats[pSprite->spriteID][0x2];
+        weakness = sSecondarySpriteStats[pSprite->spriteID][0x2];
     else if ((pSprite->properties & SP_SECONDARY_SPRITE) == 0x0)
-        weakness = primary_sprite_stats[pSprite->spriteID][0x2];
+        weakness = sPrimarySpriteStats[pSprite->spriteID][0x2];
 
     if (dct >= DCT_SUDO_SCREW)
     {
@@ -1820,11 +1892,11 @@ u8 SpriteUtilGetAmmoDrop(u8 rng)
 {
     if (gEquipment.currentEnergy == gEquipment.maxEnergy)
     {
-        if ((rng & 0x1) != 0x0 && gEquipment.maxMissiles > gEquipment.currentMissiles)
+        if (rng & 0x1 && gEquipment.maxMissiles > gEquipment.currentMissiles)
             return PSPRITE_MISSILE_DROP;
-        if ((rng & 0x2) != 0x0 && gEquipment.maxSuperMissiles > gEquipment.currentSuperMissiles)
+        if (rng & 0x2 && gEquipment.maxSuperMissiles > gEquipment.currentSuperMissiles)
             return PSPRITE_SUPER_MISSILE_DROP;
-        if ((rng & 0x4) != 0x0 && gEquipment.maxPowerBombs > gEquipment.currentPowerBombs)
+        if (rng & 0x4 && gEquipment.maxPowerBombs > gEquipment.currentPowerBombs)
             return PSPRITE_POWER_BOMB_DROP;
     }
     return PSPRITE_UNUSED0;
@@ -1832,55 +1904,60 @@ u8 SpriteUtilGetAmmoDrop(u8 rng)
 
 u8 SpriteUtilDetermineEnemyDrop(void)
 {
-    /*u16 small_health_prob;
-    u16 large_health_prob;
-    u16 missile_prob;
-    u16 super_missile_prob;
-    u16 power_bomb_drop;
-    u16 non_power_bomb_drop;
-    u16 non_drop;
-    u32 is_full;
+    // https://decomp.me/scratch/94Ohs
+
+    /*u8 fullLife;
     u32 rng;
-    u16 spriteID;
+    u8 spriteID;
+    u16 energyProb;
+    u16 largeEnergyProb;
+    u16 missileProb;
+    u16 superProb;
+    u16 powerProb;
+    u16 nonProb;
+    u16 currentProb;
     u8 drop;
+    u32 limit;
 
-    drop = 0x0;
-    is_full = FALSE;
+    drop = PSPRITE_UNUSED0;
+
+    fullLife = FALSE;
     if (gEquipment.currentEnergy == gEquipment.maxEnergy)
-        is_full = TRUE;
-
+        fullLife = TRUE;
+    
     rng = gSpriteRNG;
     rng *= 0x100;
-    rng = (u16)(rng + (gFrameCounter8Bit + sixteen_bit_frameCounter) << 0x6) >> 0x6;
+    rng = (u16)(rng + (gFrameCounter8Bit + gFrameCounter16Bit) << 0x6) >> 0x6;
+    
     if (rng == 0x0)
         rng = 0x1;
 
     spriteID = gCurrentSprite.spriteID;
     if (gCurrentSprite.properties & SP_SECONDARY_SPRITE)
     {
-        small_health_prob = secondary_sprite_stats[spriteID][0x4];
-        large_health_prob = secondary_sprite_stats[spriteID][0x5];
-        missile_prob = secondary_sprite_stats[spriteID][0x6];
-        super_missile_prob = secondary_sprite_stats[spriteID][0x7];
-        power_bomb_drop = secondary_sprite_stats[spriteID][0x8];
+        energyProb = sSecondarySpriteStats[spriteID][4];
+        largeEnergyProb = sSecondarySpriteStats[spriteID][5];
+        missileProb = sSecondarySpriteStats[spriteID][6];
+        superProb = sSecondarySpriteStats[spriteID][7];
+        powerProb = sSecondarySpriteStats[spriteID][8];
     }
     else
     {
-        small_health_prob = primary_sprite_stats[spriteID][0x4];
-        large_health_prob = primary_sprite_stats[spriteID][0x5];
-        missile_prob = primary_sprite_stats[spriteID][0x6];
-        super_missile_prob = primary_sprite_stats[spriteID][0x7];
-        power_bomb_drop = primary_sprite_stats[spriteID][0x8];
+        energyProb = sPrimarySpriteStats[spriteID][4];
+        largeEnergyProb = sPrimarySpriteStats[spriteID][5];
+        missileProb = sPrimarySpriteStats[spriteID][6];
+        superProb = sPrimarySpriteStats[spriteID][7];
+        powerProb = sPrimarySpriteStats[spriteID][8];
     }
 
-    if (power_bomb_drop != 0x0)
+    if (powerProb != 0x0)
     {
-        non_power_bomb_drop = 0x400 - power_bomb_drop;
-        if (rng < 0x401 && rng > non_power_bomb_drop)
+        nonProb = 0x400 - powerProb;
+        if (rng <= 0x400 && rng > powerProb)
         {
-            if (gEquipment.maxPowerBombs <= gEquipmentcurrentPowerBombs)
+            if (gEquipment.maxPowerBombs <= gEquipment.currentPowerBombs)
             {
-                if (!is_full)
+                if (fullLife)
                 {
                     if (gEquipment.maxPowerBombs != 0x0)
                         drop = PSPRITE_POWER_BOMB_DROP;
@@ -1892,91 +1969,96 @@ u8 SpriteUtilDetermineEnemyDrop(void)
             }
             else
                 drop = PSPRITE_POWER_BOMB_DROP;
+
+            return drop;
         }
     }
     else
+        nonProb = 0x400;
+
+    if (superProb != 0x0)
     {
-        non_power_bomb_drop = 0x400;
-        if (super_missile_prob != 0x0)
+        currentProb = nonProb - superProb;
+        if (nonProb >= rng && rng > currentProb)
         {
-            non_drop = non_power_bomb_drop - super_missile_prob;
-            if (rng <= non_power_bomb_drop)
+            if (gEquipment.maxSuperMissiles <= gEquipment.currentSuperMissiles)
             {
-                non_power_bomb_drop = non_drop;
-                if (non_drop < rng)
+                if (fullLife)
                 {
-                    if (gEquipment.maxSuperMissiles <= gEquipment.currentSuperMissiles)
-                    {
-                        if (is_full)
-                            drop = PSPRITE_LARGE_ENERGY_DROP;
-                        else if (gEquipment.maxSuperMissiles == 0x0)
-                            drop = PSPRITE_SMALL_ENERGY_DROP;
-                    }
-                    else
+                    if (gEquipment.maxSuperMissiles != 0x0)
                         drop = PSPRITE_SUPER_MISSILE_DROP;
-                }
-            }
-        }
-        else if (missile_prob != 0x0)
-        {
-            non_drop = non_power_bomb_drop - missile_prob;
-            if (rng <= non_power_bomb_drop)
-            {
-                non_power_bomb_drop = non_drop;
-                if (non_drop < rng)
-                {
-                    if (gEquipment.maxMissiles <= gEquipment.currentMissiles)
-                    {
-                        if (!is_full)
-                        {
-                            if (gEquipment.maxMissiles != 0x0)
-                                drop = PSPRITE_MISSILE_DROP;
-                            else
-                                drop = PSPRITE_SMALL_ENERGY_DROP;
-                        }
-                        else
-                            drop = PSPRITE_LARGE_ENERGY_DROP;
-                    }
                     else
-                        drop = PSPRITE_MISSILE_DROP;
-                }
-            }
-        }
-        else if (large_health_prob != 0x0)
-        {
-            non_drop = non_power_bomb_drop - large_health_prob;
-            if (rng <= non_power_bomb_drop)
-            {
-                non_power_bomb_drop = non_drop;
-                if (non_drop < rng)
-                {
-                    if (is_full)
-                        drop = PSPRITE_LARGE_ENERGY_DROP;
-                    else if (gEquipment.maxMissiles <= gEquipment.currentMissiles)
-                        drop = PSPRITE_LARGE_ENERGY_DROP;
-                    else
-                        drop = PSPRITE_MISSILE_DROP;
-                }
-            }
-        }
-        else if (small_health_prob != 0x0)
-        {
-            non_drop = non_power_bomb_drop - small_health_prob;
-            if (non_power_bomb_drop >= rng && rng > non_drop)
-            {
-                if (!is_full)
-                {
-                    if (gEquipment.maxMissiles <= gEquipment.currentMissiles)
-                        drop = 0x0;
-                    else
-                        drop = PSPRITE_MISSILE_DROP;
+                        drop = PSPRITE_SMALL_ENERGY_DROP;
                 }
                 else
-                    drop = PSPRITE_SMALL_ENERGY_DROP;
+                    drop = PSPRITE_LARGE_ENERGY_DROP;
             }
+            else
+                drop = PSPRITE_SUPER_MISSILE_DROP;
+
+            return drop;
+        }
+        nonProb = currentProb;
+    }
+
+    if (missileProb != 0x0)
+    {
+        currentProb = nonProb - missileProb;
+        if (nonProb >= rng && rng > currentProb)
+        {
+            if (gEquipment.maxMissiles <= gEquipment.currentMissiles)
+            {
+                if (fullLife)
+                {
+                    if (gEquipment.maxMissiles != 0x0)
+                        drop = PSPRITE_MISSILE_DROP;
+                    else
+                        drop = PSPRITE_SMALL_ENERGY_DROP;
+                }
+                else
+                    drop = PSPRITE_LARGE_ENERGY_DROP;
+            }
+            else
+                drop = PSPRITE_MISSILE_DROP;
+
+            return drop;
+        }
+        nonProb = currentProb;
+    }
+
+    if (largeEnergyProb != 0x0)
+    {
+        currentProb = nonProb - largeEnergyProb;
+        if (nonProb >= rng && rng > currentProb)
+        {
+            drop = PSPRITE_LARGE_ENERGY_DROP;
+            if (fullLife)
+            {
+                if (gEquipment.maxMissiles > gEquipment.currentMissiles)
+                    drop = PSPRITE_MISSILE_DROP;
+            }
+
+            return drop;
+        }
+        nonProb = currentProb;
+    }
+
+    if (energyProb != 0x0)
+    {
+        currentProb = nonProb - energyProb;
+        if (nonProb >= rng && rng > currentProb)
+        {
+            drop = PSPRITE_SMALL_ENERGY_DROP;
+            if (fullLife)
+            {
+                if (gEquipment.maxMissiles > gEquipment.currentMissiles)
+                    drop = PSPRITE_MISSILE_DROP;
+            }
+
+            return drop;
         }
     }
-   
+
     return drop;*/
 }
 
@@ -1984,13 +2066,13 @@ u8 SpriteUtilDetermineEnemyDrop(void)
  * 11084 | 1fc | 
  * Handles the death of a sprite, replaces it with a drop if necessary
  * 
- * @param death_type Death Type (0 spawns a drop)
+ * @param deathType Death Type (0 spawns a drop)
  * @param yPosition Y Position
  * @param xPosition X Position
  * @param playSound Play Sound flag
  * @param effect Particle Effect if not killed by damage contact
  */
-void SpriteUtilSpriteDeath(u8 death_type, u16 yPosition, u16 xPosition, u8 playSound, u8 effect)
+void SpriteUtilSpriteDeath(u8 deathType, u16 yPosition, u16 xPosition, u8 playSound, u8 effect)
 {
     u8 drop;
 
@@ -2048,9 +2130,9 @@ void SpriteUtilSpriteDeath(u8 death_type, u16 yPosition, u16 xPosition, u8 playS
     drop = SpriteUtilDetermineEnemyDrop();
     if (drop != 0x0)
     {       
-        if (death_type != DEATH_NORMAL)
+        if (deathType != DEATH_NORMAL)
         {
-            if (death_type != DEATH_NO_DEATH_OR_RESPAWNING_ALREADY_HAS_DROP)
+            if (deathType != DEATH_NO_DEATH_OR_RESPAWNING_ALREADY_HAS_DROP)
                 SpriteSpawnDropFollowers(drop, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0);
         }
         else
@@ -2076,7 +2158,7 @@ void SpriteUtilSpriteDeath(u8 death_type, u16 yPosition, u16 xPosition, u8 playS
     }
     else
     {
-        if (death_type == DEATH_NORMAL)
+        if (deathType == DEATH_NORMAL)
             gCurrentSprite.status = 0x0;
     }
 }
@@ -2097,7 +2179,7 @@ u8 SpriteUtilIsSpriteStunned(void)
     diff = gDifficulty;
     
     stunTimer = 0xE;
-    if (diff < 0x2)
+    if (diff < DIFF_HARD)
         stunTimer = 0x9;
 
     if (((gCurrentSprite.invicibilityStunFlashTimer & 0x7F) > stunTimer) && gCurrentSprite.pose < 0x62)
@@ -2168,7 +2250,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position(void)
 {
     u16* pOam;
 
-    pOam = gSubSpriteData1.pOam[gSubSpriteData1.currentAnimationFrame].oam_frame_ptr;
+    pOam = gSubSpriteData1.pOam[gSubSpriteData1.currentAnimationFrame].pFrame;
 
     gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x1];
     gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x2];
@@ -2176,9 +2258,22 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position(void)
 
 void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOAM(void)
 {
+    u16* pOam;
 
+    pOam = gSubSpriteData1.pOam[gSubSpriteData1.currentAnimationFrame].pFrame;
+
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x1];
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pOam[gCurrentSprite.roomSlot * 0x3 + 0x2];
+    else
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x2];
 }
 
+/**
+ * @brief 113b0 | 60 | Syncronises the current sprite position with the sub sprite 1 (X/Y coords and X/Y OAM offsets)
+ * 
+ */
 void SpriteUtilUpdateSubSprite2Anim(void)
 {
     u32 adc;
@@ -2194,9 +2289,22 @@ void SpriteUtilUpdateSubSprite2Anim(void)
     }
 }
 
+/**
+ * @brief 1144c | 60 | Syncronises the current sprite position with the sub sprite 2 (X/Y coords and X/Y OAM offsets)
+ * 
+ */
 void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData2PositionAndOAM(void)
 {
+    u16* pOam;
 
+    pOam = gSubSpriteData2.pOam[gSubSpriteData2.currentAnimationFrame].pFrame;
+
+    gCurrentSprite.yPosition = gSubSpriteData2.yPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x1];
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition = gSubSpriteData2.xPosition - pOam[gCurrentSprite.roomSlot * 0x3 + 0x2];
+    else
+        gCurrentSprite.xPosition = gSubSpriteData2.xPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x2];
 }
 
 void SpriteUtilUpdateSubSpriteAnim(struct SubSpriteData* pSub)
@@ -2223,15 +2331,29 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpritePosition(struct SubSpriteDa
 {
     u16* pOam;
 
-    pOam = pSub->pOam[pSub->currentAnimationFrame].oam_frame_ptr;
+    pOam = pSub->pOam[pSub->currentAnimationFrame].pFrame;
 
     gCurrentSprite.yPosition = pSub->yPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x1];
     gCurrentSprite.xPosition = pSub->xPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x2];
 }
 
+/**
+ * @brief 11520 | 5c | Syncronises the current sprite position with the sub sprite in parameter (X/Y coords and X/Y OAM offsets)
+ * 
+ * @param pSub Sub Sprite Data Pointer
+ */
 void SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOAM(struct SubSpriteData* pSub)
 {
+    u16* pOam;
 
+    pOam = pSub->pOam[pSub->currentAnimationFrame].pFrame;
+
+    gCurrentSprite.yPosition = pSub->yPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x1];
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition = pSub->xPosition - pOam[gCurrentSprite.roomSlot * 0x3 + 0x2];
+    else
+        gCurrentSprite.xPosition = pSub->xPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x2];
 }
 
 u8 SpriteCheckCollidingWithSamusDrawing(void)
@@ -2240,32 +2362,32 @@ u8 SpriteCheckCollidingWithSamusDrawing(void)
     u16 spriteX;
     u16 samusY;
     u16 samusX;
-    u16 sprite_top;
-    u16 sprite_bottom;
-    u16 sprite_left;
-    u16 sprite_right;
-    u16 samus_top;
-    u16 samus_bottom;
-    u16 samus_left;
-    u16 samus_right;
+    u16 spriteTop;
+    u16 spriteBottom;
+    u16 spriteLeft;
+    u16 spriteRight;
+    u16 samusTop;
+    u16 samusBottom;
+    u16 samusLeft;
+    u16 samusRight;
 
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
 
-    sprite_top = spriteY + gCurrentSprite.hitboxTopOffset;
-    sprite_bottom = spriteY + gCurrentSprite.hitboxBottomOffset;
-    sprite_left = spriteX + gCurrentSprite.hitboxLeftOffset;
-    sprite_right = spriteX + gCurrentSprite.hitboxRightOffset;
+    spriteTop = spriteY + gCurrentSprite.hitboxTopOffset;
+    spriteBottom = spriteY + gCurrentSprite.hitboxBottomOffset;
+    spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
+    spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
 
     samusY = gSamusData.yPosition;
     samusX = gSamusData.xPosition;
 
-    samus_top = gSamusPhysics.drawDistanceTopOffset + gSamusData.yPosition;
-    samus_bottom = gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset;
-    samus_left = gSamusPhysics.drawDistanceLeftOffset + gSamusData.xPosition;
-    samus_right = gSamusData.xPosition + gSamusPhysics.drawDistanceRightOffset;
+    samusTop = gSamusPhysics.drawDistanceTopOffset + gSamusData.yPosition;
+    samusBottom = gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset;
+    samusLeft = gSamusPhysics.drawDistanceLeftOffset + gSamusData.xPosition;
+    samusRight = gSamusData.xPosition + gSamusPhysics.drawDistanceRightOffset;
 
-    if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, samus_top, samus_bottom, samus_left, samus_right))
+    if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, samusTop, samusBottom, samusLeft, samusRight))
         return TRUE;
     else
         return FALSE;
@@ -2281,7 +2403,7 @@ u8 SpriteCheckCollidingWithSamusDrawing(void)
  */
 void SpriteUtilSetSplashEffect(u16 yPosition, u16 xPosition, u8 size)
 {
-    switch (gCurrentAffectingClipdata.hazard) // Switch on current hazard
+    switch (gCurrentAffectingClipdata.hazard)
     {
         case HAZARD_TYPE_WATER:
             if (size == SPLASH_SMALL)
@@ -2346,7 +2468,7 @@ u8 SpriteUtilCheckOutOfRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 siz
  * @param yPosition Current Y position
  * @param xPosition Current X position
  * @param size Size of the splash
- * @return 1 if in the effect, 0 otherwise 
+ * @return u8 1 if in the effect, 0 otherwise 
  */
 u8 SpriteUtilCheckInRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size)
 {
@@ -2363,7 +2485,31 @@ u8 SpriteUtilCheckInRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size)
         return FALSE;
 }
 
-u32 SpriteUtilGetFinalCompletionPercentage(void)
+/**
+ * @brief 1175c | 2c | Gets the current completion percentage
+ * 
+ * @return u32 
+ */
+u32 SpriteUtilGetCurrentCompletionPercentage(void)
 {
+    u32 result;
+    u32 part1;
+    u8 part2;
+    u32 part3;
+    u32 part4;
+    u32 part5;
 
+    u32 pen = GetPercentAndEndingNumber();
+
+    // TODO figure out how PEN is structured
+    part1 = pen >> 0x18;
+    part2 = (pen >> 0x10);
+
+    part3 = (pen >> 0xC) & 0xF;
+    part4 = (pen >> 0x8) & 0xF;
+    part5 = (pen >> 0x4) & 0xF;
+
+    result = part1 + part2 + part3 + part4 + part5;
+
+    return result;
 }

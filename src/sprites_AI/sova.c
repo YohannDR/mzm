@@ -182,7 +182,7 @@ void SovaInit(void)
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     SovaGFXUpdate();
     SovaHitboxUpdate();
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
     gCurrentSprite.drawDistanceTopOffset = 0x10;
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
@@ -814,10 +814,10 @@ void SovaFalling(void)
 
     oldY = gCurrentSprite.yPosition;
     offset = gCurrentSprite.arrayOffset;
-    movement = sprites_falling_speed_2b0d04[offset];
+    movement = sSpritesFallingSpeed_2b0d04[offset];
     if (movement == 0x7FFF)
     {
-        movement = sprites_falling_speed_2b0d04[offset - 0x1];
+        movement = sSpritesFallingSpeed_2b0d04[offset - 0x1];
         new_y = oldY + movement;
     }
     else

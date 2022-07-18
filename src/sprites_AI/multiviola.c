@@ -14,7 +14,7 @@ void MultiviolaInit(void)
     gCurrentSprite.pOam = multiviola_oam_2d0520;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = gCurrentSprite.primarySpriteRAMSlot << 0x1;
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     SpriteUtilMakeSpriteFaceSamusXFlip();
     gCurrentSprite.pose = 0x9;

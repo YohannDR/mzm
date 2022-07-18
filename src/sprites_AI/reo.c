@@ -14,7 +14,7 @@ void ReoInit(void)
     gCurrentSprite.pOam = reo_oam_2ce214;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     SpriteUtilChooseRandomXDirection();
     if (0x8 < gSpriteRNG)

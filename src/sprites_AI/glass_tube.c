@@ -112,10 +112,10 @@ void GlassTubeCheckPowerBombCollision(void)
     u16 bomb_right;   
     u16 spriteY;
     u16 spriteX;
-    u16 sprite_top;
-    u16 sprite_bottom;
-    u16 sprite_left;
-    u16 sprite_right;
+    u16 spriteTop;
+    u16 spriteBottom;
+    u16 spriteLeft;
+    u16 spriteRight;
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED) && gCurrentPowerBomb.animation_state != 0x0 && gEquipment.maxPowerBombs != 0x0)
     {
@@ -128,12 +128,12 @@ void GlassTubeCheckPowerBombCollision(void)
         
         spriteY = gCurrentSprite.yPosition;
         spriteX = gCurrentSprite.xPosition;
-        sprite_top = gCurrentSprite.hitboxTopOffset + spriteY;
-        sprite_bottom = gCurrentSprite.hitboxBottomOffset + spriteY;
-        sprite_left = gCurrentSprite.hitboxLeftOffset + spriteX;
-        sprite_right = gCurrentSprite.hitboxRightOffset + spriteX;
+        spriteTop = gCurrentSprite.hitboxTopOffset + spriteY;
+        spriteBottom = gCurrentSprite.hitboxBottomOffset + spriteY;
+        spriteLeft = gCurrentSprite.hitboxLeftOffset + spriteX;
+        spriteRight = gCurrentSprite.hitboxRightOffset + spriteX;
 
-        if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, bomb_top, bomb_bottom, bomb_left, bomb_right))
+        if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, bomb_top, bomb_bottom, bomb_left, bomb_right))
         {
             gCurrentSprite.pose = 0x23;
             gCurrentSprite.timer = 0x78;

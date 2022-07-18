@@ -295,7 +295,7 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
     else
     {
         slot = gNextOAMSlot;
-        pSrc = pDebris->pOam[pDebris->currentAnimationFrame].oam_frame_ptr;
+        pSrc = pDebris->pOam[pDebris->currentAnimationFrame].pFrame;
         part_count = *pSrc++;
         if (part_count + slot < 0x80)
         {

@@ -420,7 +420,7 @@ void ImagoCocoonSporeInit(void)
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.drawOrder = 0x3;
     gCurrentSprite.bg_priority = gIORegistersBackup.BG1CNT & 0x3;
-    gCurrentSprite.health = secondary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0x0];
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     ImagoCocoonSporeSyncPosition();
@@ -517,10 +517,10 @@ u8 WingedRipperImagoCollision(void)
     struct SpriteData* pSprite;
     u16 spriteY;
     u16 spriteX;
-    u16 sprite_top;
-    u16 sprite_bottom;
-    u16 sprite_left;
-    u16 sprite_right;
+    u16 spriteTop;
+    u16 spriteBottom;
+    u16 spriteLeft;
+    u16 spriteRight;
     u16 imago_y;
     u16 imago_x;
     u16 imago_top;
@@ -534,10 +534,10 @@ u8 WingedRipperImagoCollision(void)
     {
         spriteY = gCurrentSprite.yPosition;
         spriteX = gCurrentSprite.xPosition;
-        sprite_top = spriteY + gCurrentSprite.hitboxTopOffset;
-        sprite_bottom = spriteY + gCurrentSprite.hitboxBottomOffset;
-        sprite_left = spriteX + gCurrentSprite.hitboxLeftOffset;
-        sprite_right = spriteX + gCurrentSprite.hitboxRightOffset;
+        spriteTop = spriteY + gCurrentSprite.hitboxTopOffset;
+        spriteBottom = spriteY + gCurrentSprite.hitboxBottomOffset;
+        spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
+        spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
         
         imago_y = pSprite->yPosition;
         imago_x = pSprite->xPosition;
@@ -546,7 +546,7 @@ u8 WingedRipperImagoCollision(void)
         imago_left = imago_x + pSprite->hitboxLeftOffset;
         imago_right = imago_x + pSprite->hitboxRightOffset;
 
-        if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, imago_top, imago_bottom, imago_left, imago_right))
+        if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, imago_top, imago_bottom, imago_left, imago_right))
         {
             gCurrentSprite.pose = 0x62;
             colliding = TRUE;
@@ -571,7 +571,7 @@ void WingerRipperInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = secondary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0x0];
     gCurrentSprite.drawOrder = 0x8;
     gCurrentSprite.pose = 0x8;
     gCurrentSprite.oamScaling = 0xC0;

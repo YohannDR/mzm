@@ -37,7 +37,7 @@ void DragonInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
     SpriteUtilMakeSpriteFaceSamusXFlip();
     gCurrentSprite.pose = 0x8;
     gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
@@ -189,7 +189,7 @@ void DragonFireballInit(void)
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
     gCurrentSprite.drawOrder = 0x3;
     gCurrentSprite.bg_priority = gIORegistersBackup.BG1CNT & 0x3;
-    gCurrentSprite.health = secondary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0x0];
     
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {

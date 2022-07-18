@@ -86,7 +86,7 @@
             "Size": 16
         },
         {
-            "Name": "sprites_failling_speed",
+            "Name": "sSpritesFallingSpeed",
             "Offset": 2821380,
             "Type": "i16",
             "IsArray": 1,
@@ -100,14 +100,14 @@
             "Size": 10
         },
         {
-            "Name": "primary_sprite_stats",
+            "Name": "sPrimarySpriteStats",
             "Offset": 2821480,
             "Type": "u16",
             "IsArray": 2,
             "Size": 13500425
         },
         {
-            "Name": "secondary_sprite_stats",
+            "Name": "sSecondarySpriteStats",
             "Offset": 2825188,
             "Type": "u16",
             "IsArray": 2,

@@ -9,32 +9,32 @@ u8 WorkerRobotCheckSamusInFront(void)
 {
     u16 spriteY;
     u16 spriteX;
-    u16 sprite_top;
-    u16 sprite_left;
-    u16 sprite_right;
+    u16 spriteTop;
+    u16 spriteLeft;
+    u16 spriteRight;
     u16 samusY;
     u16 samusX;
-    u16 samus_top;
-    u16 samus_bottom;
-    u16 samus_left;
-    u16 samus_right;
+    u16 samusTop;
+    u16 samusBottom;
+    u16 samusLeft;
+    u16 samusRight;
 
     if ((gCurrentSprite.status & SPRITE_STATUS_SAMUS_ON_TOP) == 0x0)
     {
         spriteY = gCurrentSprite.yPosition;
         spriteX = gCurrentSprite.xPosition;
-        sprite_top = spriteY - 0xA4;
-        sprite_left = spriteY - 0x48;
-        sprite_right = spriteY + 0x48;
+        spriteTop = spriteY - 0xA4;
+        spriteLeft = spriteY - 0x48;
+        spriteRight = spriteY + 0x48;
 
         samusY = gSamusData.yPosition;
         samusX = gSamusData.xPosition;
-        samus_top = samusY + gSamusPhysics.drawDistanceTopOffset;
-        samus_bottom = samusY + gSamusPhysics.drawDistanceBottomOffset;
-        samus_left = samusX + gSamusPhysics.drawDistanceLeftOffset;
-        samus_right = samusX + gSamusPhysics.drawDistanceRightOffset;
+        samusTop = samusY + gSamusPhysics.drawDistanceTopOffset;
+        samusBottom = samusY + gSamusPhysics.drawDistanceBottomOffset;
+        samusLeft = samusX + gSamusPhysics.drawDistanceLeftOffset;
+        samusRight = samusX + gSamusPhysics.drawDistanceRightOffset;
 
-        if (SpriteUtilCheckObjectsTouching(sprite_top, spriteY, sprite_left, sprite_right, samus_top, samus_bottom, samus_left, samus_right))
+        if (SpriteUtilCheckObjectsTouching(spriteTop, spriteY, spriteLeft, spriteRight, samusTop, samusBottom, samusLeft, samusRight))
         {
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
@@ -67,7 +67,7 @@ void WorkerRobotInit(void)
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     gCurrentSprite.workVariable = 0x0;
     gCurrentSprite.samusCollision = SSC_SOLID;
-    gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
     SpriteUtilMakeSpriteFaceAwawFromSamusXFlip();
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
@@ -114,10 +114,10 @@ void WorkerRobotWalkingDetectProjectile(void)
     struct FrameData* pOam;
     u16 spriteY;
     u16 spriteX;
-    u16 sprite_top;
-    u16 sprite_bottom;
-    u16 sprite_left;
-    u16 sprite_right;
+    u16 spriteTop;
+    u16 spriteBottom;
+    u16 spriteLeft;
+    u16 spriteRight;
     u16 proj_y;
     u16 proj_x;
     u16 proj_top;
@@ -128,10 +128,10 @@ void WorkerRobotWalkingDetectProjectile(void)
     on_side = FALSE;
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
-    sprite_top = spriteY + gCurrentSprite.hitboxTopOffset;
-    sprite_bottom = spriteY + gCurrentSprite.hitboxBottomOffset;
-    sprite_left = spriteX + gCurrentSprite.hitboxLeftOffset;
-    sprite_right = spriteX + gCurrentSprite.hitboxRightOffset;
+    spriteTop = spriteY + gCurrentSprite.hitboxTopOffset;
+    spriteBottom = spriteY + gCurrentSprite.hitboxBottomOffset;
+    spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
+    spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
     pProj = gProjectileData;
 
     while (pProj < gProjectileData + 16)
@@ -148,16 +148,16 @@ void WorkerRobotWalkingDetectProjectile(void)
                 proj_left = proj_x + pProj->hitboxLeftOffset;
                 proj_right = proj_y + pProj->hitboxRightOffset;
 
-                if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
+                if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, proj_top, proj_bottom, proj_left, proj_right))
                 {
-                    if (pProj->direction == ACD_FORWARD || ((u8)(pProj->direction - 0x1) < 0x2 && proj_y > sprite_top && proj_y < sprite_bottom))
+                    if (pProj->direction == ACD_FORWARD || ((u8)(pProj->direction - 0x1) < 0x2 && proj_y > spriteTop && proj_y < spriteBottom))
                         on_side++;
                     
                     if (on_side)
                     {
                         if (pProj->status & PROJ_STATUS_XFLIP)
                         {
-                            proj_x = sprite_left;
+                            proj_x = spriteLeft;
                             gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
                             {
@@ -172,7 +172,7 @@ void WorkerRobotWalkingDetectProjectile(void)
                         }
                         else
                         {
-                            proj_x = sprite_right;
+                            proj_x = spriteRight;
                             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
                             {

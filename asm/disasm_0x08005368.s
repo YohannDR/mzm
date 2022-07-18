@@ -25268,7 +25268,7 @@ lbl_08011756:
     thumb_func_start get_final_completion_percentage
 get_final_completion_percentage: @ 0x0801175c
     push {r4, r5, lr}
-    bl get_percent_and_ending_number
+    bl GetPercentAndEndingNumber
     lsrs r1, r0, #0x18
     lsrs r4, r0, #0x10
     lsls r4, r4, #0x18

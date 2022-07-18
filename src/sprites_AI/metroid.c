@@ -50,10 +50,10 @@ u8 MetroidBombDetection(void)
 {
     u16 spriteY;
     u16 spriteX;
-    u16 sprite_top;
-    u16 sprite_bottom;
-    u16 sprite_left;
-    u16 sprite_right;
+    u16 spriteTop;
+    u16 spriteBottom;
+    u16 spriteLeft;
+    u16 spriteRight;
     u16 proj_y;
     u16 proj_x;
     u16 proj_top;
@@ -66,10 +66,10 @@ u8 MetroidBombDetection(void)
 
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
-    sprite_top = spriteY + gCurrentSprite.hitboxTopOffset;
-    sprite_bottom = spriteY + gCurrentSprite.hitboxBottomOffset;
-    sprite_left = spriteX + gCurrentSprite.hitboxLeftOffset;
-    sprite_right = spriteX + gCurrentSprite.hitboxRightOffset;
+    spriteTop = spriteY + gCurrentSprite.hitboxTopOffset;
+    spriteBottom = spriteY + gCurrentSprite.hitboxBottomOffset;
+    spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
+    spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
     status = PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
     count = 0x0;
 
@@ -85,7 +85,7 @@ u8 MetroidBombDetection(void)
             proj_left = proj_x + pProj->hitboxLeftOffset;
             proj_right = proj_x + pProj->hitboxRightOffset;
 
-            if (SpriteUtilCheckObjectsTouching(sprite_top, sprite_bottom, sprite_left, sprite_right, proj_top, proj_bottom, proj_left, proj_right))
+            if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, proj_top, proj_bottom, proj_left, proj_right))
                 return TRUE;
         }
         count++;
@@ -177,7 +177,7 @@ void MetroidInit(void)
         gCurrentSprite.pOam = metroid_oam_2edd20;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.health = primary_sprite_stats[gCurrentSprite.spriteID][0x0];
+        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
         gCurrentSprite.yPositionSpawn = gCurrentSprite.health;
         gCurrentSprite.samusCollision = SSC_NONE;
         SpriteUtilMakeSpriteFaceSamusDirection();

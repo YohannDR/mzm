@@ -72,12 +72,12 @@ void WaterDrop(void)
                 else
                 {
                     offset = gCurrentSprite.arrayOffset;
-                    if (sprites_falling_speed_2b0d04[offset] == 0x7FFF)
-                        gCurrentSprite.yPosition += (i16)sprites_falling_speed_2b0d04[offset - 0x1];
+                    if (sSpritesFallingSpeed_2b0d04[offset] == 0x7FFF)
+                        gCurrentSprite.yPosition += (i16)sSpritesFallingSpeed_2b0d04[offset - 0x1];
                     else
                     {
                         gCurrentSprite.arrayOffset++;
-                        gCurrentSprite.yPosition += sprites_falling_speed_2b0d04[offset];
+                        gCurrentSprite.yPosition += sSpritesFallingSpeed_2b0d04[offset];
                     }
                 }
             }

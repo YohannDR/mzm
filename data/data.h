@@ -129,10 +129,10 @@ u8 blob_0x823a5bc_0x82b0cab[485104];
 
 u8 random_number_table_0_F[56];
 i16 dessgeega_sidehopper_in_block_yVelocity[16];
-i16 sprites_failling_speed[40];
+i16 sSpritesFallingSpeed[40];
 i16 worker_robot_sleeping_falling_speed[10];
-u16 primary_sprite_stats[206][9];
-u16 secondary_sprite_stats[77][9];
+u16 sPrimarySpriteStats[206][9];
+u16 sSecondarySpriteStats[77][9];
 
 /* blob_0x82b214e_0x82b2523.c */
 
