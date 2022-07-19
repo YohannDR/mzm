@@ -114,7 +114,7 @@ void ChozoBallRevealing(void)
     gCurrentSprite.pose = 0x67;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.palette_row = gCurrentSprite.absolutePaletteRow;
+    gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
     gCurrentSprite.invicibilityStunFlashTimer &= 0x80;
     ChozoBallRevealingSetOAMPointer(gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID);
     SoundPlay(0x11D);

@@ -53,7 +53,7 @@ SECTIONS {
         . = 0x00000114; gScreenShakeX = .;
         . = 0x00000118; gCurrentScrolls = .;
         . = 0x00000130; gCurrentPowerBomb = .;
-        . = 0x00000144; gPositionAndVelocity = .;
+        . = 0x00000144; gScreenPositionAndVelocity = .;
         . = 0x00000198; gLastElevatorUsed = .;
         . = 0x000001A8; gAlarmTimer = .;
         . = 0x000001AC; gSpriteData = .;

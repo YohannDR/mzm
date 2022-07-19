@@ -42,13 +42,13 @@ void WaverMove(void)
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
     }
 
-    if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitboxTopOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == 0x0)
             gCurrentSprite.yPosition -= speed;
         else
-            gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
     }
     else
     {
@@ -56,7 +56,7 @@ void WaverMove(void)
         if (gPreviousCollisionCheck == 0x0)
             gCurrentSprite.yPosition += speed;
         else
-            gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
     }
 }
 

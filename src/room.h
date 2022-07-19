@@ -3,6 +3,8 @@
 
 #include "types.h"
 #include "sprite.h"
+#include "transparency.h"
+#include "block.h"
 #include "event.h"
 
 // Globals
@@ -28,6 +30,10 @@ extern struct BackgroundPositions gBackgroundPositions;
 #define BG0MOVEMENT_NONE 0x0
 #define BG0MOVEMENT_WATER_CLOUDS 0x1
 #define BG0MOVEMENT_SNOWFLAKES 0x4
+
+#define RAIN_SOUND_NONE 0x0
+#define RAIN_SOUND_ENABLED 0x1
+#define RAIN_SOUND_PLAYING 0x2
 
 struct RoomEntry {
     u8 tileset;
@@ -109,12 +115,12 @@ void RoomLoadBackgrounds(void);
 void RoomRemoveNeverReformBlocksAndCollectedTanks(void);
 void RoomReset(void);
 void RoomSetBackgroundScrolling(void);
-void RoomSetInitialTilemap(u8 bg_number);
+void RoomSetInitialTilemap(u8 bgNumber);
 u8 RoomRLEDecompress(u8 mode, u8* pSrc, u8* pDst);
 void RoomUpdateGFXInfo(void);
 void RoomUpdateAnimatedGraphicsAndPalettes(void);
 void RoomUpdateHatchFlashingAnimation(void);
-void room_update(void);
+void RoomUpdate(void);
 void RoomUpdateBackgroundsPosition(void);
 void RoomUpdateVerticalTilemap(i8 offset);
 void RoomUpdateHorizontalTilemap(i8 offset);

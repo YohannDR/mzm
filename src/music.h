@@ -10,5 +10,6 @@ void SoundUpdateAudio(void);
 void SoundFade(u16 sound, u16 timer);
 void SoundFadeAll(u16 timer);
 void MusicFade(u16 timer);
+void MusicPlay(u16 music, u8 priority);
 
 #endif /* MUSIC_H */

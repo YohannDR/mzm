@@ -10,8 +10,8 @@ void ScrollProcess(struct RawCoordsX* pCoords)
     struct Scroll* pScroll;
 
     ScrollUpdateCurrent(pCoords);
-    screen_x = gPositionAndVelocity.xPosition;
-    screen_y = gPositionAndVelocity.yPosition;
+    screen_x = gScreenPositionAndVelocity.xPosition;
+    screen_y = gScreenPositionAndVelocity.yPosition;
 
     pScroll = gCurrentScrolls;
     if (pScroll->within)

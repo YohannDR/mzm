@@ -34,7 +34,7 @@ extern u8 gSpriteRNG;
 #define SPRITE_STATUS_YFLIP 0x80
 #define SPRITE_STATUS_FACING_DOWN 0x100
 #define SPRITE_STATUS_FACING_RIGHT 0x200
-#define SPRITE_STATUS_ON_VERTICAL_WALL 0x400
+#define SPRITE_STATUS_UNKNOWN2 0x400
 #define SPRITE_STATUS_SAMUS_COLLIDING 0x800
 #define SPRITE_STATUS_SAMUS_ON_TOP 0x1000
 #define SPRITE_STATUS_UNKNOWN4 0x2000
@@ -424,7 +424,7 @@ struct SpriteData {
     u8 spriteID;
     u8 roomSlot;
     u8 spritesetGFXSlot;
-    u8 palette_row;
+    u8 paletteRow;
     u8 bg_priority;
     u8 drawOrder;
     u8 primarySpriteRAMSlot;
@@ -459,7 +459,7 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite);
 void SpriteLoadAllData(void);
 void SpriteLoadSpriteset(void);
 void SpriteLoadGFX(u8 spriteID, u8 gfx_row);
-void SpriteLoadPAL(u8 spriteID, u8 pal_row, u8 len);
+void SpriteLoadPAL(u8 spriteID, u8 row, u8 len);
 void SpriteClearData(void);
 void SpriteLoadRoomSprites(void);
 void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSlot);

@@ -2,6 +2,7 @@
 #define SPRITE_UTIL_H
 
 #include "sprite.h"
+#include "block.h"
 #include "samus.h"
 #include "types.h"
 

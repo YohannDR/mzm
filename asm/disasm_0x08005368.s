@@ -17715,7 +17715,7 @@ load_gSpriteData: @ 0x0800df24
     ldr r0, lbl_0800df7c @ =0x030001a8
     strh r1, [r0]
 lbl_0800df4c:
-    bl clear_gSpriteData
+    bl SpriteClearData
     bl load_spriteset
     bl sub_08053a18
     bl init_location_text
@@ -17915,8 +17915,8 @@ lbl_0800e0e4: .4byte 0x040000d4
 lbl_0800e0e8: .4byte 0x0875eef0
 lbl_0800e0ec: .4byte 0x05000300
 
-    thumb_func_start clear_gSpriteData
-clear_gSpriteData: @ 0x0800e0f0
+    thumb_func_start SpriteClearData
+SpriteClearData: @ 0x0800e0f0
     push {r4, r5, r6, lr}
     ldr r0, lbl_0800e12c @ =0x030001ac
     movs r6, #0
@@ -22488,8 +22488,11 @@ sub_080102e4: @ 0x080102e4
     ldr r0, lbl_08010300 @ =0x03001530
     ldrb r1, [r0, #0xa]
 
-    non_word_aligned_thumb_func_start refill_super_missiles
+    thumb_func_start refill_super_missiles
 refill_super_missiles: @ 0x080102ea
+    push {lr}
+    ldr r0, lbl_08010300 @ =0x03001530
+    ldrb r1, [r0, #0xa]
     ldrb r2, [r0, #4]
     adds r3, r0, #0
     cmp r1, r2

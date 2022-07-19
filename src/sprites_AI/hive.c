@@ -254,9 +254,9 @@ void MellowInit(struct SpriteData* pSprite)
             pSprite->oamScaling = 0x20;
             SpriteUtilMakeSpriteFaceSamusDirection();
             if (pSprite->yPosition > gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset)
-                pSprite->status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+                pSprite->status &= ~SPRITE_STATUS_UNKNOWN2;
             else
-                pSprite->status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+                pSprite->status |= SPRITE_STATUS_UNKNOWN2;
         }
     }
 }
@@ -296,9 +296,9 @@ void MellowSamusDetected(struct SpriteData* pSprite)
     pSprite->oamScaling = 0x20;
     SpriteUtilMakeSpriteFaceSamusDirection();
     if (pSprite->yPosition > gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset)
-        pSprite->status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+        pSprite->status &= ~SPRITE_STATUS_UNKNOWN2;
     else
-        pSprite->status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+        pSprite->status |= SPRITE_STATUS_UNKNOWN2;
 }
 
 void MellowMove(struct SpriteData* pSprite)
@@ -352,7 +352,7 @@ void HiveRoots(void)
     pSprite = gSpriteData + ramSlot;
     if (pSprite->spriteID == PSPRITE_HIVE)
     {
-        gCurrentSprite.palette_row = pSprite->palette_row;
+        gCurrentSprite.paletteRow = pSprite->paletteRow;
         if (pSprite->health < sPrimarySpriteStats[pSprite->spriteID][0x0] >> 0x1 && pSprite->freezeTimer == 0x0)
             gCurrentSprite.status = 0x0;
         else
@@ -485,7 +485,7 @@ void MellowSwarm(void)
     }
     else
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL && gCurrentSprite.yPositionSpawn != 0x0)
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2 && gCurrentSprite.yPositionSpawn != 0x0)
             gCurrentSprite.yPositionSpawn--;
         else
         {
@@ -498,11 +498,11 @@ void MellowSwarm(void)
                 pSprite++;
             }
 
-            if ((gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL) == 0x0)
+            if ((gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2) == 0x0)
             {
                 if (count >= gCurrentSprite.workVariable2)
                 {
-                    gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+                    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
                     return;
                 }
             }

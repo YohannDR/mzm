@@ -18,7 +18,7 @@ void ReoInit(void)
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     SpriteUtilChooseRandomXDirection();
     if (0x8 < gSpriteRNG)
-        gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
     gCurrentSprite.pose = 0x8;
 }
 

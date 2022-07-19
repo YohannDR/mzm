@@ -10,7 +10,7 @@ void DragonYMovement(void)
     oldY = gCurrentSprite.yPosition;
     y_spawn = gCurrentSprite.yPositionSpawn;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_ON_VERTICAL_WALL)
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
     {
         if ((i32)(y_spawn - 0x7F) < gCurrentSprite.yPosition)
             gCurrentSprite.yPosition -= 0x2;
@@ -62,12 +62,12 @@ void DragonGoUp(void)
         gCurrentSprite.timer--;
 
     DragonYMovement();
-    gCurrentSprite.status &= ~SPRITE_STATUS_ON_VERTICAL_WALL;
+    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
     if (gSamusData.yPosition <= gCurrentSprite.yPosition)
     {
         nslr = SpriteUtilCheckSamusNearSpriteLeftRight(0x180, 0x180);
         if (nslr != NSLR_OUT_OF_RANGE)
-            gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
         
         if (nslr == NSLR_RIGHT)
         {

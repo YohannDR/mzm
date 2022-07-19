@@ -205,13 +205,13 @@ void SavePlatformFlashingAnim(void)
     offset = gCurrentSprite.arrayOffset;
     if (gCurrentSprite.currentAnimationFrame & 0x1)
     {
-        gCurrentSprite.palette_row = 0x0;
-        gSpriteData[offset].palette_row = gCurrentSprite.palette_row;
+        gCurrentSprite.paletteRow = 0x0;
+        gSpriteData[offset].paletteRow = gCurrentSprite.paletteRow;
     }
     else
     {
-        gCurrentSprite.palette_row = 0x2;
-        gSpriteData[offset].palette_row = gCurrentSprite.palette_row;
+        gCurrentSprite.paletteRow = 0x2;
+        gSpriteData[offset].paletteRow = gCurrentSprite.paletteRow;
     }
 }
 
@@ -222,8 +222,8 @@ void SavePlatformFlashingAnimEnd(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x47;
     gCurrentSprite.timer = 0x3C;
-    gCurrentSprite.palette_row = 0x0;
-    gSpriteData[gCurrentSprite.arrayOffset].palette_row = 0x0;
+    gCurrentSprite.paletteRow = 0x0;
+    gSpriteData[gCurrentSprite.arrayOffset].paletteRow = 0x0;
 }
 
 void SavePlatformTextTimer(void)

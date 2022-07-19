@@ -5,13 +5,87 @@
 #include "event.h"
 #include "bg_clip.h"
 
-/*const struct gBG3Movement empty_gBG3Movement = {
-    0x0, 0x0, 0x0
-};*/
-
 void RoomLoad(void)
 {
+    /*ClipdataSetupCode();
+    RoomReset();
 
+    if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
+    {
+        RoomLoadEntry();
+        ScrollLoad();
+        RoomSetBackgroundScrolling();
+    }
+    else if (gPauseScreenFlag == PAUSE_SCREEN_ITEM_ACQUISITION)
+    {
+
+    }
+    else if (gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS)
+    {
+
+    }
+    else if (gPauseScreenFlag == PAUSE_SCREEN_SUITLESS_ITEMS)
+        MusicPlay(0xE, 0x10); // Chozo ruins
+
+    RoomLoadTileset();
+    RoomLoadBackgrounds();
+    RoomRemoveNeverReformBlocksAndCollectedTanks();
+    gPreviousXPosition = gSamusData.xPosition;
+    gPreviousYPosition = gSamusData.yPosition;
+    TransparencySetRoomEffectsTransparency();
+    LoadFirstRoom(); // Undefined
+
+    if (gPauseScreenFlag == PAUSE_SCREEN_NONE && !gIsLoadingFile)
+    {
+        ScrollProcessGeneral();
+        gBG1YPosition = gScreenPositionAndVelocity.yPosition;
+        gBG1XPosition = gScreenPositionAndVelocity.xPosition;
+        ScrollBG3Related();
+        ScrollProcessGeneral();
+    }
+
+    CheckPlayLightningEffect(); // Undefined
+    RoomUpdateBackgroundsPosition();
+    ConnectionLoadDoors();
+    ConnectionCheckHatchLockEvents();
+    RoomSetInitialTilemap(0x0);
+    RoomSetInitialTilemap(0x1);
+    RoomSetInitialTilemap(0x2);
+    LoadAnimatedGraphics(); // Undefined
+    ResetTanksAnimation(); // Undefined
+    SetBGHazeEffect(); // Undefined
+    ProcessHaze(); // Undefined
+    MinimapCheckOnTransition(); // Undefined
+
+    if (!gIsLoadingFile && gGameModeSub3 != 0x0 && gPauseScreenFlag == PAUSE_SCREEN_NONE && gSamusData.pose == SPOSE_USING_AN_ELEVATOR)
+    {
+        if (gSamusData.elevatorDirection == KEY_UP)
+            gSamusData.yPosition += 0xC0;
+        else
+            gSamusData.yPosition -= 0xC0;
+        gPreviousYPosition = gSamusData.yPosition;
+    }
+
+    sub_08060800(); // Undefined
+
+    if (gRainSoundEffect != RAIN_SOUND_NONE)
+    {
+        if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
+        {
+            if (gRainSoundEffect & RAIN_SOUND_PLAYING)
+            {
+                if (!(gRainSoundEffect & RAIN_SOUND_ENABLED))
+                    SoundFade(0x121, 0xA); // Rain
+                    gRainSoundEffect &= ~RAIN_SOUND_PLAYING;
+            }
+            else if (gRainSoundEffect & RAIN_SOUND_ENABLED)
+            {
+                SoundPlayNotAlreadyPlaying(0x121); // Rain
+                gRainSoundEffect |= RAIN_SOUND_PLAYING;
+            }
+        }
+        gRainSoundEffect &= ~RAIN_SOUND_ENABLED;
+    }*/
 }
 
 void RoomLoadTileset(void)
@@ -112,7 +186,7 @@ void RoomLoadBackgrounds(void)
 
 void RoomRemoveNeverReformBlocksAndCollectedTanks(void)
 {
-	// remove_never_reform_blocks();
+	BlockRemoveNeverReformBlocks();
 	BGClipRemoveCollectedTanks();
 }
 
@@ -126,112 +200,14 @@ void RoomSetBackgroundScrolling(void)
 
 }
 
-void RoomSetInitialTilemap(u8 bg_number)
+void RoomSetInitialTilemap(u8 bgNumber)
 {
 
 }
 
 u8 RoomRLEDecompress(u8 mode, u8* pSrc, u8* pDst)
 {
-    u32 len;
-    u8* dest;
-    u8* unk;
-    u8* unk2;
-    u8 unk3;
-    u16 unk4;
-    u32 i;
 
-    len = 0x3000;
-    if (mode == 0x0)
-    {
-        pSrc++;
-        len = 0x2000;
-    }
-    bit_fill(0x3, 0x0, pDst, len, 0x10);
-
-    len = 0x0;
-    do {
-        dest = pDst;
-        if (len != 0x0)
-            dest = pDst + 0x1;
-        unk = pSrc + 0x1;
-        if (*pSrc == 0x1)
-        {
-            unk3 = *unk;
-            pSrc += 0x2;
-            while (i = unk3, i != 0x0)
-            {
-                if ((unk3 & 0x80) == 0x0)
-                {
-                    for (; i != 0x0; i--)
-                    {
-                        *dest = *pSrc;
-                        pSrc++;
-                        pDst += 0x2;
-                    }
-                }
-                else
-                {
-                    i &= 0x7F;
-                    if (*pSrc == 0x0)
-                        dest = dest + (i * 0x2);
-                    else
-                    {
-                        for (; i != 0x0; i--)
-                        {
-                            *dest = *pSrc;
-                            dest += 0x2;
-                        }
-                    }
-                    pSrc++;
-                }
-                unk3 = *pSrc;
-                pSrc++;
-            }
-        }
-        else
-        {
-            unk = pSrc + 0x2;
-            pSrc += 0x3;
-            unk4 = (*unk << 0x8 | *unk2);
-            while (i = unk4, i != 0x0)
-            {
-                if ((unk4 & 0x8000) == 0x0)
-                {
-                    for (; i != 0x0; i--)
-                    {
-                        *dest = *pSrc;
-                        pSrc++;
-                        dest += 0x2;
-                    }
-                }
-                else
-                {
-                    i &= 0x7FFF;
-                    if (*pSrc == 0x0)
-                        dest = dest + (i * 0x2);
-                    else
-                    {
-                        if ((unk4 & 0x7FFF) != 0x0)
-                        {
-                            do {
-                                *dest = *pSrc;
-                                dest += 0x2;
-                                i--;
-                            } while(i != 0x0);
-                        }
-                    }
-                    pSrc++;
-                }
-                unk3 = *pSrc;
-                unk = pSrc + 0x1;
-                pSrc += 0x2;
-                unk4 = (unk3 << 0x8 | *unk);
-            }
-        }
-        len++;
-    } while (len < 0x2);
-    return 0x0;
 }
 
 void RoomUpdateGFXInfo(void)
@@ -249,7 +225,7 @@ void RoomUpdateHatchFlashingAnimation(void)
 
 }
 
-void room_update(void)
+void RoomUpdate(void)
 {
 
 }
@@ -289,7 +265,7 @@ void RoomUpdateBackgroundsPosition(void)
     new_bg3_x = (gBG3XPosition >> 0x2) + gBG3Movement.xOffset & 0x1FF;
     new_bg3_y = gBG3YPosition >> 0x2 & 0x1FF;
 
-    if ((gScreenShakeRelated & 0x800) != 0x0)
+    if (gScreenShakeRelated & 0x800)
     {
         gBackgroundPositions.bg[3].x = new_bg3_x;
         gBackgroundPositions.bg[3].y = new_bg3_y;

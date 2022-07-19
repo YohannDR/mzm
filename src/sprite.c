@@ -328,10 +328,10 @@ void SpriteLoadGFX(u8 spriteID, u8 gfx_row)
  * Loads the palette in PALRAM for a new sprite
  * 
  * @param spriteID Sprite ID
- * @param pal_row Palette Row
+ * @param row Palette Row
  * @param len Lenght (in rows)
  */
-void SpriteLoadPAL(u8 spriteID, u8 pal_row, u8 len)
+void SpriteLoadPAL(u8 spriteID, u8 row, u8 len)
 {
     spriteID -= 0x10;
 
@@ -401,7 +401,7 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
             pSprite->pose = 0x0;
             pSprite->health = 0x0;
             pSprite->invicibilityStunFlashTimer = 0x0;
-            pSprite->palette_row = 0x0;
+            pSprite->paletteRow = 0x0;
             pSprite->frozenPaletteRowOffset = 0x0;
             pSprite->absolutePaletteRow = 0x0;
             pSprite->ignoreSamusCollisionTimer = 0x1;
@@ -455,7 +455,7 @@ u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfx_slot, u8 ramSlot, u16 y
             pSprite->pose = 0x0;
             pSprite->health = status;
             pSprite->invicibilityStunFlashTimer = 0x0;
-            pSprite->palette_row = 0x0;
+            pSprite->paletteRow = 0x0;
             pSprite->frozenPaletteRowOffset = 0x0;
             pSprite->absolutePaletteRow = 0x0;
             pSprite->ignoreSamusCollisionTimer = 0x1;
@@ -511,7 +511,7 @@ u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfx_slot, u16 yPosition, u16 
             pSprite->pose = 0x0;
             pSprite->health = status;
             pSprite->invicibilityStunFlashTimer = 0x0;
-            pSprite->palette_row = 0x0;
+            pSprite->paletteRow = 0x0;
             pSprite->frozenPaletteRowOffset = 0x0;
             pSprite->absolutePaletteRow = 0x0;
             pSprite->ignoreSamusCollisionTimer = 0x1;
@@ -568,7 +568,7 @@ u8 SpriteSpawnDropFollowers(u8 spriteID, u8 roomSlot, u8 gfx_slot, u8 ramSlot, u
             pSprite->pose = 0x0;
             pSprite->health = status;
             pSprite->invicibilityStunFlashTimer = 0x0;
-            pSprite->palette_row = 0x0;
+            pSprite->paletteRow = 0x0;
             pSprite->frozenPaletteRowOffset = 0x0;
             pSprite->absolutePaletteRow = 0x0;
             pSprite->ignoreSamusCollisionTimer = 0x1;

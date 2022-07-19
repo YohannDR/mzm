@@ -102,7 +102,7 @@ extern struct BG2Movement gBG2Movement;
 extern struct ScreenShake gScreenShakeY;
 extern struct ScreenShake gScreenShakeX;
 extern struct Scroll gCurrentScrolls[2];
-extern struct ScreenPositionAndVelocity gPositionAndVelocity;
+extern struct ScreenPositionAndVelocity gScreenPositionAndVelocity;
 extern struct LastElevatorUsed gLastElevatorUsed;
 extern i8 gIsLoadingFile;
 extern i8 gPauseScreenFlag;

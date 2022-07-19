@@ -6,7 +6,7 @@
 void EnemyDropInit(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 0x14;
-    gCurrentSprite.status |= SPRITE_STATUS_ON_VERTICAL_WALL;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.yPositionSpawn = 0xC8;
     gCurrentSprite.xPositionSpawn = 0x0;

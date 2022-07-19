@@ -958,7 +958,7 @@ void ProjectileCheckHittingSprite(void)
                                     {
                                         pSprite->standingOnSprite = FALSE;
                                         pSprite->freezeTimer = 0x3C;
-                                        pSprite->palette_row = 0x1;
+                                        pSprite->paletteRow = 0x1;
                                         pSprite->absolutePaletteRow = 0x1;
                                         ParticleSet(proj_y, proj_x, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
                                     }
@@ -1029,7 +1029,7 @@ u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage)
         pSprite->health = 0x0;
         pSprite->properties |= SP_MAYBE_DESTROYED;
         pSprite->freezeTimer = 0x0;
-        pSprite->palette_row = 0x0;
+        pSprite->paletteRow = 0x0;
         if (pSprite->standingOnSprite != FALSE && gSamusData.standingStatus == STANDING_ENEMY)
         {
             gSamusData.standingStatus = STANDING_MIDAIR;
@@ -1054,9 +1054,9 @@ u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage)
  */
 u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
 {
-    u8 is_dead;
+    u8 isDead;
 
-    is_dead = FALSE;
+    isDead = FALSE;
     if (pSprite->health > damage)
         pSprite->health -= damage;
     else
@@ -1064,7 +1064,7 @@ u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
         pSprite->health = 0x0;
         pSprite->properties |= SP_MAYBE_DESTROYED;
         pSprite->freezeTimer = 0x0;
-        pSprite->palette_row = 0x0;
+        pSprite->paletteRow = 0x0;
         if (pSprite->standingOnSprite && gSamusData.standingStatus == STANDING_ENEMY)
         {
             gSamusData.standingStatus = STANDING_MIDAIR;
@@ -1072,13 +1072,13 @@ u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
         }
         pSprite->pose = 0x62;
         pSprite->ignoreSamusCollisionTimer = 0x1;
-        is_dead++;
+        isDead++;
     }
 
     pSprite->invicibilityStunFlashTimer &= 0x80; 
     pSprite->invicibilityStunFlashTimer |= 0x11;
     pSprite->properties |= SP_DAMAGED;
-    return is_dead;
+    return isDead;
 }
 
 /**
@@ -1143,7 +1143,7 @@ void ProjectilePowerBombDealDamage(struct SpriteData* pSprite)
                     pSprite->health = 0x0;
                     pSprite->properties |= SP_MAYBE_DESTROYED;
                     pSprite->freezeTimer = 0x0;
-                    pSprite->palette_row = 0x0;
+                    pSprite->paletteRow = 0x0;
                     if (pSprite->standingOnSprite && gSamusData.standingStatus == STANDING_ENEMY)
                     {
                         gSamusData.standingStatus = STANDING_MIDAIR;
@@ -1261,7 +1261,7 @@ void ProjectileNonIceChargedHitSprite(struct SpriteData* pSprite, u16 yPosition,
 void ProjectileFreezeSprite(struct SpriteData* pSprite, u8 freeze_timer)
 {
     pSprite->freezeTimer = freeze_timer;
-    pSprite->palette_row = 0xF - (pSprite->spritesetGFXSlot + pSprite->frozenPaletteRowOffset);
+    pSprite->paletteRow = 0xF - (pSprite->spritesetGFXSlot + pSprite->frozenPaletteRowOffset);
     unk_2b20(0x140);
 }
 

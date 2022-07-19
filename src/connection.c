@@ -263,8 +263,7 @@ void ConnectionCheckPlayCutsceneDuringTransition(u8 area, u8 dstRoomPlusOne)
             // Room 0xA is the suitless entry of the mothership
             else if (dstRoomPlusOne == 0xB && !EventFunction(EVENT_ACTION_CHECKING, EVENT_ENTER_MOTHERSHIP_DEMO_PLAYED))
             {
-                // TODO define
-                if (gRainSoundEffect & 0x2)
+                if (gRainSoundEffect & RAIN_SOUND_PLAYING)
                     SoundFade(0x121, 0xA); // Rain sound
                 gCurrentCutscene = CUTSCENE_MECHA_RIDLEY_SEES_SAMUS;
             }
