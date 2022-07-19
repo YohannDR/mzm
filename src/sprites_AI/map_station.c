@@ -15,7 +15,7 @@ void MapStationInit(void)
     gCurrentSprite.hitboxRightOffset = 0x20;
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.drawOrder = 0x4;
-    gCurrentSprite.bg_priority = 0x1;
+    gCurrentSprite.bgPriority = 0x1;
     gCurrentSprite.health = 0x1;
     gCurrentSprite.properties |= SP_SOLID_FOR_PROJECTILES;
 

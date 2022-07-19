@@ -30,6 +30,6 @@ struct RawCoordsY {
     u16 x;
 };
 
-typedef void (*Func_t)(void);
+typedef void (*Func_T)(void);
 
 #endif /* TYPES_H */

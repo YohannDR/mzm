@@ -425,7 +425,7 @@ struct SpriteData {
     u8 roomSlot;
     u8 spritesetGFXSlot;
     u8 paletteRow;
-    u8 bg_priority;
+    u8 bgPriority;
     u8 drawOrder;
     u8 primarySpriteRAMSlot;
     u8 pose;
@@ -449,7 +449,7 @@ struct SpriteData {
 
 // Functions
 
-void sprite_update(void);
+void SpriteUpdate(void);
 void SpriteUpdateAnimation(struct SpriteData* pSprite);
 void SpriteDrawAll_2(void);
 void SpriteDrawAll(void);

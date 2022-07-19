@@ -188,7 +188,7 @@ void DragonFireballInit(void)
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
     gCurrentSprite.drawOrder = 0x3;
-    gCurrentSprite.bg_priority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0x0];
     
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)

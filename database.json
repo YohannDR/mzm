@@ -72,7 +72,7 @@
         "Size": 485104
     }],
     "sprite_stats.c": [{
-            "Name": "random_number_table_0_F",
+            "Name": "sRandomTable0_F",
             "Offset": 2821292,
             "Type": "u8",
             "IsArray": 1,
@@ -1821,7 +1821,7 @@
             "Name": "samus_pose_functions_pointers",
             "Offset": 7726760,
             "Type": "Pointer",
-            "pType": "SamusFunc_t",
+            "pType": "SamusFunc_T",
             "IsArray": 1,
             "Size": 67,
             "Pointers": [
@@ -1898,7 +1898,7 @@
             "Name": "samus_pose_gfx_functions_pointers",
             "Offset": 7727028,
             "Type": "Pointer",
-            "pType": "SamusFunc_t",
+            "pType": "SamusFunc_T",
             "IsArray": 1,
             "Size": 67,
             "Pointers": [
@@ -1973,10 +1973,10 @@
         }
     ],
     "primary_sprite_pointers.c": [{
-        "Name": "primary_sprite_ai_pointers",
+        "Name": "sPrimarySpritesAIPointers",
         "Offset": 7727296,
         "Type": "Pointer",
-        "pType": "Func_t",
+        "pType": "Func_T",
         "IsArray": 1,
         "Size": 206,
         "Pointers": [
@@ -2195,10 +2195,10 @@
         "Size": 1520
     }],
     "secondary_sprites_pointers.c": [{
-        "Name": "secondary_sprite_ai_pointers",
+        "Name": "sSecondarySpritesAIPointers",
         "Offset": 7729640,
         "Type": "Pointer",
-        "pType": "Func_t",
+        "pType": "Func_T",
         "IsArray": 1,
         "Size": 77,
         "Pointers": [

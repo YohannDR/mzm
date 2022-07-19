@@ -243,7 +243,7 @@ void MellowInit(struct SpriteData* pSprite)
         else
         {
             pSprite->pOam = mellow_oam_2da8bc;
-            pSprite->bg_priority = gIORegistersBackup.BG1CNT & 0x3;
+            pSprite->bgPriority = gIORegistersBackup.BG1CNT & 0x3;
             pSprite->drawOrder = 0x3;
             pSprite->workVariable = 0x0;
             pSprite->workVariable2 = 0x1;
@@ -380,7 +380,7 @@ void Mellow(void)
 {
     struct SpriteData* pSprite;
 
-    pSprite = &current_sprite;
+    pSprite = &gCurrentSprite;
 
     if ((pSprite->properties & SP_DAMAGED) != 0x0)
     {

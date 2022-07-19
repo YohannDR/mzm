@@ -240,7 +240,7 @@ void ZiplineInit(void)
     gCurrentSprite.health = 0x1;
     gCurrentSprite.properties |= SP_SOLID_FOR_PROJECTILES;
     gCurrentSprite.drawOrder = 0x3;
-    gCurrentSprite.bg_priority = 0x1;
+    gCurrentSprite.bgPriority = 0x1;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.timer = 0x0;
@@ -299,7 +299,7 @@ void ZiplineButtonInit(void)
     gCurrentSprite.properties |= SP_SOLID_FOR_PROJECTILES;
     gCurrentSprite.pose = 0x1;
     gCurrentSprite.drawOrder = 0x3;
-    gCurrentSprite.bg_priority = 0x1;
+    gCurrentSprite.bgPriority = 0x1;
 }
 
 void ZiplineButtonActivatedGFXInit(void)

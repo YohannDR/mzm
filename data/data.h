@@ -127,7 +127,7 @@ u8 blob_0x823a5bc_0x82b0cab[485104];
 
 /* sprite_stats.c */
 
-u8 random_number_table_0_F[56];
+u8 sRandomTable0_F[56];
 i16 dessgeega_sidehopper_in_block_yVelocity[16];
 i16 sSpritesFallingSpeed[40];
 i16 worker_robot_sleeping_falling_speed[10];
@@ -1378,12 +1378,12 @@ u8 blob_0x8345cde_0x875e6a7[4295113];
 
 /* samus_pointers_data.c */
 
-SamusFunc_t samus_pose_functions_pointers[67];
-SamusFunc_t samus_pose_gfx_functions_pointers[67];
+SamusFunc_T samus_pose_functions_pointers[67];
+SamusFunc_T samus_pose_gfx_functions_pointers[67];
 
 /* primary_sprite_pointers.c */
 
-Func_t primary_sprite_ai_pointers[206];
+Func_T sPrimarySpritesAIPointers[206];
 
 /* blob_0x875ebf8_0x875f1e7.c */
 
@@ -1391,7 +1391,7 @@ u8 blob_0x875ebf8_0x875f1e7[1520];
 
 /* secondary_sprites_pointers.c */
 
-Func_t secondary_sprite_ai_pointers[77];
+Func_T sSecondarySpritesAIPointers[77];
 
 /* blob_0x875f31c_0x875f973.c */
 

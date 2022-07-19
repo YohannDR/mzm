@@ -1,6 +1,8 @@
-# Metroid - Zero Mission Decompile
+# Metroid - Zero Mission Decomp
 
-This is a work in progress decompile of Metroid - Zero Mission.
+This is a work in progress decompilation of Metroid - Zero Mission.
+
+**It's very likely that the code of this repo doesn't build, and even if it does it probably won't match, this is normal**
 
 This produces the following ROMs:
 

@@ -27,7 +27,7 @@ void ZebGFXInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
-    gCurrentSprite.bg_priority = 0x2;
+    gCurrentSprite.bgPriority = 0x2;
 }
 
 void ZebCheckSpawn(void)
@@ -96,7 +96,7 @@ void ZebGoingUp(void)
             gCurrentSprite.pOam = zeb_oam_2cca54;
             gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.bg_priority = 0x1;
+            gCurrentSprite.bgPriority = 0x1;
         }
     }
 }

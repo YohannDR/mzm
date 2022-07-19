@@ -17,7 +17,7 @@ void UnusedSprites(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pOam = unused_sprites_oam;
-        gCurrentSprite.bg_priority = 0x1;
+        gCurrentSprite.bgPriority = 0x1;
     }
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
 }

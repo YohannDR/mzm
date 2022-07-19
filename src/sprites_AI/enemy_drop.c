@@ -15,7 +15,7 @@ void EnemyDropInit(void)
     gCurrentSprite.drawDistanceTopOffset = 0x8;
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
-    gCurrentSprite.bg_priority = (u8)gIORegistersBackup.bg2_cnt & 0x3
+    gCurrentSprite.bgPriority = (u8)gIORegistersBackup.bg2_cnt & 0x3
     gCurrentSprite.drawOrder = 0x1;
 
     switch (gCurrentSprite.spriteID)
@@ -63,7 +63,7 @@ void EnemyDropGet(void)
     struct SpriteData* pSprite;
     u32 timer;
 
-    pSprite = &current_sprite;
+    pSprite = &gCurrentSprite;
     if (pSpriteignoreSamusCollisionTimer != 0x0)
     {
         if (pSprite->ignoreSamusCollisionTimer < 0x2)

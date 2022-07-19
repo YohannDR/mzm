@@ -84,7 +84,7 @@ u8 SpriteUtilRefillPowerBombs(void);
 u8 SpriteUtilCheckCrouchinOrMorphed(void);
 u8 SpriteUtilCheckCrouchinOrCrawling(void);
 u32 SpriteUtilCheckMorphed(void);
-u8 SpriteUtilCheckStopSpritesPose(void);
+u32 SpriteUtilCheckStopSpritesPose(void);
 u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struct SamusData* pData);
 u32 SpriteUtilCheckPullingSelfUp(void);
 u32 SpriteUtilCheckOnZipline(void);

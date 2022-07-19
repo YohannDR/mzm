@@ -358,7 +358,7 @@ struct SamusEcho {
 
 // Typedefs
 
-typedef u8 (*SamusFunc_t)(struct SamusData*);
+typedef u8 (*SamusFunc_T)(struct SamusData*);
 
 // Functions
 

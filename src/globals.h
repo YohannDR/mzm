@@ -138,7 +138,7 @@ extern ClipFunc_T gClipdataCodePointer;
 
 extern void *sp_sys;
 extern void *sp_irq;
-extern Func_t intr_vector[13];
+extern Func_T intr_vector[13];
 extern u16 (*intr_code_ptr)[0x100];
 extern u16 (*intr_code_ptr)[0x100];
 

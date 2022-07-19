@@ -10,6 +10,10 @@
 #include "../data/data.h"
 #include "globals.h"
 
+/**
+ * @brief e498 | 7c | Initialize the first sprite to be a location text if necessary
+ * 
+ */
 void SpriteUtilInitLocationText(void)
 {
     u8 gfx_slot;
@@ -23,7 +27,7 @@ void SpriteUtilInitLocationText(void)
         gSpriteData[0x0].spriteID = PSPRITE_AREA_BANNER;
         gSpriteData[0x0].yPosition = gSamusData.yPosition;
         gSpriteData[0x0].xPosition = gSamusData.xPosition;
-        gSpriteData[0x0].bg_priority = 0x0;
+        gSpriteData[0x0].bgPriority = 0x0;
         gSpriteData[0x0].drawOrder = 0x1;
         gSpriteData[0x0].pose = 0x0;
         gSpriteData[0x0].health = 0x0;
@@ -142,6 +146,19 @@ u8 SpriteUtilTakeDamageFromSprite(u8 kbFlag, struct SpriteData* pSprite, u16 dmg
     }
 }
 
+/**
+ * @brief e6f8 | 50 | Checks if two objects are touching
+ * 
+ * @param o1Top Object 1 Top
+ * @param o1Bottom Object 1 Bottom
+ * @param o1Left Object 1 Left
+ * @param o1Right Object 1 Right
+ * @param o2Top Object 2 Top
+ * @param o2Bottom Object 2 Bottom
+ * @param o2Left Object 2 Left
+ * @param o2Right Object 2 Right
+ * @return u32 1 if touching, 0 otherwise
+ */
 u32 SpriteUtilCheckObjectsTouching(u16 o1Top, u16 o1Bottom, u16 o1Left, u16 o1Right, u16 o2Top, u16 o2Bottom, u16 o2Left, u16 o2Right)
 {
     if (o2Bottom >= o1Top && o2Top < o1Bottom && o2Right >= o1Left && o2Left < o1Right)
@@ -840,9 +857,34 @@ u32 SpriteUtilCheckVerticalCollisionAtPositionSlopes(u16 yPosition, u16 xPositio
 
 }
 
+/**
+ * @brief f594 | 74 | Unknown function
+ * 
+ */
 void unk_f594(void)
 {
+    u16 yPosition;
+    u16 xPosition;
+    u32 blockTop;
 
+    yPosition = gCurrentSprite.yPosition;
+    xPosition = gCurrentSprite.xPosition;
+
+    blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition - 0x4, xPosition);
+    if ((gPreviousVerticalCollisionCheck & (0x1 | COLLISION_LEFT_SLIGHT_FLOOR_SLOPE | COLLISION_LEFT_STEEP_FLOOR_SLOPE | 0x8)) > 0x1)
+        gCurrentSprite.yPosition = blockTop;
+    else
+    {
+        blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition, xPosition);
+        if ((gPreviousVerticalCollisionCheck & (0x1 | COLLISION_LEFT_SLIGHT_FLOOR_SLOPE | COLLISION_LEFT_STEEP_FLOOR_SLOPE | 0x8)) > 0x1)
+            gCurrentSprite.yPosition = blockTop;
+        else
+        {
+            blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition + 0x4, xPosition);
+            if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
+                gCurrentSprite.yPosition = blockTop;
+        }
+    }
 }
 
 void unk_f608(void)
@@ -1576,7 +1618,7 @@ u32 SpriteUtilCheckMorphed(void)
     return FALSE;
 }
 
-u8 SpriteUtilCheckStopSpritesPose(void)
+u32 SpriteUtilCheckStopSpritesPose(void)
 {
     if (gPreventMovementTimer == 0x0)
     {
@@ -2325,7 +2367,7 @@ void SpriteUtilSpriteDeath(u8 deathType, u16 yPosition, u16 xPosition, u8 playSo
             gCurrentSprite.spriteID = drop;
             gCurrentSprite.yPosition = yPosition;
             gCurrentSprite.xPosition = xPosition;
-            gCurrentSprite.bg_priority = 0x2;
+            gCurrentSprite.bgPriority = 0x2;
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.pose = 0x0;
             gCurrentSprite.health = 0x0;

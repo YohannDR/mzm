@@ -28,7 +28,7 @@ void ZebboGFXInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
-    gCurrentSprite.bg_priority = 0x2;
+    gCurrentSprite.bgPriority = 0x2;
 }
 
 void ZebbosSpawn(void)
@@ -61,7 +61,7 @@ void ZebooGoingUp(void)
             gCurrentSprite.pOam = zebbo_oam_2e70c0;
             gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.bg_priority = 0x1;
+            gCurrentSprite.bgPriority = 0x1;
         }
     }
 }

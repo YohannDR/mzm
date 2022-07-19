@@ -419,7 +419,7 @@ void ImagoCocoonSporeInit(void)
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.drawOrder = 0x3;
-    gCurrentSprite.bg_priority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0x0];
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
