@@ -39,7 +39,7 @@ CFLAGS = -O2 -mthumb-interwork -fhex-asm
 CPPFLAGS = -nostdinc -Isrc/
 
 # Objects
-CSRC = $(wildcard src/*.c) $(wildcard src/sram/*.c) $(wildcard data/*.c)
+CSRC = $(wildcard src/*.c) $(wildcard src/sram/*.c) $(wildcard data/*.c) $(wildcard src/libgcc/*.c)
 .PRECIOUS: $(CSRC:.c=.s)
 ASMSRC = $(CSRC:.c=.s) $(wildcard asm/*.s)
 OBJ = $(ASMSRC:.s=.o) 
@@ -116,7 +116,7 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 
 %.dump: %.gba
 	$(MSG) OBJDUMP $@
-	$Q$(OBJDUMP) -D -bbinary -marm7tdmi -Mforce-thumb $< | $(TAIL) -n+3 > $@
+	$Q$(OBJDUMP) -D -bbinary -marm7tdmi -Mforce-thumb --stop-address 0x8c728 $< | $(TAIL) -n+3 >$@
 
 %.o: %.s
 	$(MSG) AS $@
@@ -132,6 +132,9 @@ data/data_0x0808c71c.s: data/data.txt
 
 src/sram/%.s: CFLAGS = -O1 -mthumb-interwork -fhex-asm
 src/sram/%.s: src/sram/%.c
+
+src/libgcc/%.s: CFLAGS = -O2 -fhex-asm
+src/libgcc/%.s: src/libgcc/%.c
 
 tools/%: tools/%.c
 	$(MSG) HOSTCC $@

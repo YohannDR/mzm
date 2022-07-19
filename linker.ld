@@ -140,6 +140,8 @@ SECTIONS {
         . = 0x000056e4; gBLDYData2 = .;
         . = 0x00005708; gCurrentRoomScrollDataPointer = .;
         . = 0x00005704; gClipdataCodePointer = .;
+        . = 0x000058e0; src/libgcc/fp-bit-base.o(.bss);
+        . = 0x000058f8; src/libgcc/float.o(.bss);
         . = 0x00007e60; sp_sys = .;
         . = 0x00007fa0; sp_irq = .;
         . = 0x00007ff8; unk_03007ff8 = .;
@@ -171,6 +173,9 @@ SECTIONS {
         asm/disasm_0x08011ed8.o(.text);
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
+        src/libgcc/fp-bit-base.o(.text);
+        src/libgcc/float.o(.text);
+        src/libgcc/libgcc.o(.text);
         data/blob_0x808c71c_0x82b2523.o(.text);
         data/sprite_debris_data.o(.text);
         data/blob_0x82b25c8_0x8339ee3.o(.text);
