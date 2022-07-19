@@ -463,8 +463,8 @@ void SpriteLoadPAL(u8 spriteID, u8 row, u8 len);
 void SpriteClearData(void);
 void SpriteLoadRoomSprites(void);
 void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSlot);
-u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfx_slot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 status_to_add);
-u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfx_slot, u16 yPosition, u16 xPosition, u16 status_to_add);
-u8 SpriteSpawnDropFollowers(u8 spriteID, u8 roomSlot, u8 gfx_slot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 status_to_add);
+u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 status_to_add);
+u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 xPosition, u16 status_to_add);
+u8 SpriteSpawnDropFollowers(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 status_to_add);
 
 #endif /* SPRITE_H */

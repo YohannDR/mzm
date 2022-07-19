@@ -293,7 +293,7 @@ void ImagoCocoonVineSpawnSpore(void)
 {
     u8 slot;
     u8 ramSlot;
-    u8 gfx_slot;
+    u8 gfxSlot;
     u16 status;
     u16 yPosition;
     u16 xPosition;
@@ -330,16 +330,16 @@ void ImagoCocoonVineSpawnSpore(void)
                 status = SPRITE_STATUS_XFLIP;
             }
 
-            gfx_slot = gCurrentSprite.spritesetGFXSlot;
+            gfxSlot = gCurrentSprite.spritesetGFXSlot;
             ramSlot = gCurrentSprite.workVariable;
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x0, gfx_slot, ramSlot, yPosition, xPosition, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x1, gfx_slot, ramSlot, yPosition, xPosition, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x2, gfx_slot, ramSlot, yPosition, xPosition, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x3, gfx_slot, ramSlot, yPosition, xPosition, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x4, gfx_slot, ramSlot, yPosition, xPosition, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x5, gfx_slot, ramSlot, yPosition, xPosition, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x6, gfx_slot, ramSlot, yPosition, xPosition, status);
-            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x7, gfx_slot, ramSlot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x0, gfxSlot, ramSlot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x1, gfxSlot, ramSlot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x2, gfxSlot, ramSlot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x3, gfxSlot, ramSlot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x4, gfxSlot, ramSlot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x5, gfxSlot, ramSlot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x6, gfxSlot, ramSlot, yPosition, xPosition, status);
+            SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, 0x7, gfxSlot, ramSlot, yPosition, xPosition, status);
         }
     }
 }

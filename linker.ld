@@ -6,7 +6,8 @@ MEMORY {
 
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
-        . = 0x00037e00; events_triggered = .;
+        . = 0x00035400; unk_02035400 = .;
+        . = 0x00037e00; gEventsTriggered = .;
         . = 0x00038000; unk_02038000 = .;
     } >ewram
 

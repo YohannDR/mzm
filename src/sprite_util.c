@@ -16,14 +16,14 @@
  */
 void SpriteUtilInitLocationText(void)
 {
-    u8 gfx_slot;
+    u8 gfxSlot;
 
-    gfx_slot = LocationTextGetGFXSlot();
-    if (gfx_slot < 0x8)
+    gfxSlot = LocationTextGetGFXSlot();
+    if (gfxSlot < 0x8)
     {
         gSpriteData[0x0].status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN | SPRITE_STATUS_UNKNOWN3;
         gSpriteData[0x0].properties = SP_ABSOLUTE_POSITION;
-        gSpriteData[0x0].spritesetGFXSlot = gfx_slot;
+        gSpriteData[0x0].spritesetGFXSlot = gfxSlot;
         gSpriteData[0x0].spriteID = PSPRITE_AREA_BANNER;
         gSpriteData[0x0].yPosition = gSamusData.yPosition;
         gSpriteData[0x0].xPosition = gSamusData.xPosition;
@@ -854,7 +854,65 @@ u32 SpriteUtilCheckVerticalCollisionAtPosition(u16 yPosition, u16 xPosition)
 
 u32 SpriteUtilCheckVerticalCollisionAtPositionSlopes(u16 yPosition, u16 xPosition)
 {
+    // https://decomp.me/scratch/RabAn
 
+    /*u32 clipdata;
+    u8 collision;
+    u16 blockY;
+
+    clipdata = ClipdataProcess(yPosition, xPosition);
+
+    if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
+        collision = COLLISION_SOLID;
+    else
+        collision = COLLISION_AIR;
+
+    switch (clipdata & 0xFF)
+    {
+        case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
+            blockY = (i16)((yPosition & 0xffc0) - ((xPosition & 0x3f) - 0x3f));
+            collision = COLLISION_RIGHT_STEEP_FLOOR_SLOPE;
+            break;
+
+        case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
+            blockY = (i16)((yPosition & 0xFFC0) - (((xPosition & 0x3f) >> 0x1) - 0x3F));
+            collision = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
+            break;
+
+        case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
+            blockY = (i16)((yPosition & 0xFFC0) - (((xPosition & 0x3f) >> 0x1) - 0x1F));
+            collision = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
+            break;
+
+        case CLIPDATA_TYPE_LEFT_STEEP_FLOOR_SLOPE:
+            blockY = (yPosition & 0xFFC0) | (xPosition & 0x3F);
+            collision = COLLISION_LEFT_STEEP_FLOOR_SLOPE;
+            break;
+
+        case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
+            blockY = (yPosition & 0xFFC0) | (((xPosition & 0x3f) >> 0x1) + 0x1F); 
+            collision = COLLISION_LEFT_SLIGHT_FLOOR_SLOPE;
+            break;
+
+        case CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE:
+            blockY = (yPosition & 0xFFC0) | (xPosition & 0x3f) >> 0x1; 
+            collision = COLLISION_LEFT_SLIGHT_FLOOR_SLOPE;
+            break;
+
+
+        case CLIPDATA_TYPE_PASS_THROUGH_BOTTOM:
+            collision = COLLISION_PASS_THROUGH_BOTTOM;
+            
+        default:
+            blockY = yPosition & 0xFFC0;
+    }
+
+    if (xPosition >= blockY)
+        gPreviousVerticalCollisionCheck = collision;
+    else
+        gPreviousVerticalCollisionCheck = COLLISION_AIR;
+
+    return blockY;*/
 }
 
 /**
@@ -887,9 +945,34 @@ void unk_f594(void)
     }
 }
 
+/**
+ * @brief f608 | 80 | Unknown function
+ * 
+ */
 void unk_f608(void)
 {
+    u16 yPosition;
+    u16 xPosition;
+    u32 blockTop;
 
+    yPosition = gCurrentSprite.yPosition + gCurrentSprite.hitboxBottomOffset;
+    xPosition = gCurrentSprite.xPosition;
+
+    blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition - 0x4, xPosition);
+    if ((gPreviousVerticalCollisionCheck & (0x1 | COLLISION_LEFT_SLIGHT_FLOOR_SLOPE | COLLISION_LEFT_STEEP_FLOOR_SLOPE | 0x8)) > 0x1)
+        gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottomOffset;
+    else
+    {
+        blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition, xPosition);
+        if ((gPreviousVerticalCollisionCheck & (0x1 | COLLISION_LEFT_SLIGHT_FLOOR_SLOPE | COLLISION_LEFT_STEEP_FLOOR_SLOPE | 0x8)) > 0x1)
+            gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottomOffset;
+        else
+        {
+            blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition + 0x4, xPosition);
+            if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
+                gCurrentSprite.yPosition = blockTop - gCurrentSprite.hitboxBottomOffset;
+        }
+    }
 }
 
 /**

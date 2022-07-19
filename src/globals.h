@@ -22,7 +22,8 @@
 
 // EWRAM
 
-extern u32 events_triggered[8];
+extern u32 gEventsTriggered[8];
+extern u16 unk_02035400;
 
 // IWRAM
 

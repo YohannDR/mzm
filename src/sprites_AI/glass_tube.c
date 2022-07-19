@@ -117,7 +117,7 @@ void GlassTubeCheckPowerBombCollision(void)
     u16 spriteLeft;
     u16 spriteRight;
 
-    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED) && gCurrentPowerBomb.animation_state != 0x0 && gEquipment.maxPowerBombs != 0x0)
+    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED) && gCurrentPowerBomb.animationState != 0x0 && gEquipment.maxPowerBombs != 0x0)
     {
         bomb_y = gCurrentPowerBomb.yPosition;
         bomb_x = gCurrentPowerBomb.xPosition;

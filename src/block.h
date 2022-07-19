@@ -30,7 +30,7 @@ void BlockRemoveNeverReformSingleBlock(u16 xPosition, u16 yPosition);
 void BlockShiftNeverReformBlocks(void);
 u8 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock);
 u8 BlockCheckRevealOrDestroyBombBlock(struct ClipdataBlockData* pClipBlock);
-u8 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 true_clip);
+u8 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip);
 u8 BlockUpdateMakeSolidBlocks(u8 make_solid, u16 xPosition, u16 yPosition);
 u8 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosition, u8 action);
 void BlockUpdateBrokenBlocks(void);

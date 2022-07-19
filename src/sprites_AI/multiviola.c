@@ -23,10 +23,10 @@ void MultiviolaInit(void)
 void MultiviolaMove(void)
 {
     u8 is_bouncing;
-    u16 y_movement;
+    u16 yMovement;
 
     is_bouncing = 0x0;
-    y_movement = 0x3;
+    yMovement = 0x3;
 
     if ((gCurrentSprite.status & SPRITE_STATUS_XFLIP) != 0x0)
     {
@@ -55,7 +55,7 @@ void MultiviolaMove(void)
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitboxTopOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == 0x0)
-            gCurrentSprite.yPosition -= y_movement;
+            gCurrentSprite.yPosition -= yMovement;
         else
         {
             gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
@@ -66,7 +66,7 @@ void MultiviolaMove(void)
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.hitboxBottomOffset + gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck == 0x0)
-            gCurrentSprite.yPosition += y_movement;
+            gCurrentSprite.yPosition += yMovement;
         else
         {
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;

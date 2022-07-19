@@ -215,9 +215,9 @@ u8 LocationTextGetTourian(void)
 u8 LocationTextLoadAreaBannerGFX(void)
 {
     u8 count;
-    u8 gfx_slot;
+    u8 gfxSlot;
 
-    gfx_slot = 0x80; // Default
+    gfxSlot = 0x80; // Default
 
     // Loop through sprites to try and find if an area banner is in the spriteset
     for (count = 0x0; count < 0xF; count++)
@@ -225,21 +225,21 @@ u8 LocationTextLoadAreaBannerGFX(void)
         if (gSpritesetSpritesID[count] == PSPRITE_AREA_BANNER)
         {
             // Found area banner, load the gfx slot
-            gfx_slot = gSpritesetGFXSlots[count];
+            gfxSlot = gSpritesetGFXSlots[count];
             break;
         }
     }
 
     // Check if found an area banner
-    if (gfx_slot > 0x7)
+    if (gfxSlot > 0x7)
     {
         // Use 7 as default and load GFX/PAL
-        gfx_slot = 0x7;
+        gfxSlot = 0x7;
         SpriteLoadGFX(PSPRITE_AREA_BANNER, 0x7);
         SpriteLoadPAL(PSPRITE_AREA_BANNER, 0x7, 0x1);
     }
 
-    return gfx_slot;
+    return gfxSlot;
 }
 
 /**
@@ -250,11 +250,11 @@ u8 LocationTextLoadAreaBannerGFX(void)
  */
 u8 LocationTextGetGFXSlot(void)
 {
-    u8 gfx_slot;
+    u8 gfxSlot;
     u8 lt;
 
     lt = LT_INVALID;
-    gfx_slot = 0xFF;
+    gfxSlot = 0xFF;
 
     switch (gSpriteset)
     {
@@ -273,9 +273,9 @@ u8 LocationTextGetGFXSlot(void)
     {
         // Location text found with spriteset
         gSpriteData[0x0].roomSlot = lt;
-        gfx_slot = LocationTextLoadAreaBannerGFX();
+        gfxSlot = LocationTextLoadAreaBannerGFX();
         // Draw location text
-        draw_location_text(lt, gfx_slot);
+        draw_location_text(lt, gfxSlot);
     }
     else
     {
@@ -317,15 +317,15 @@ u8 LocationTextGetGFXSlot(void)
             {
                 // If found
                 gSpriteData[0x0].roomSlot = lt;
-                gfx_slot = LocationTextLoadAreaBannerGFX();
+                gfxSlot = LocationTextLoadAreaBannerGFX();
                 // Draw location text
-                draw_location_text(lt, gfx_slot);
+                draw_location_text(lt, gfxSlot);
                 // Load different palette for some reason
                 if (lt < LT_SAVE_ROOM)
-                    dma_set(3, area_banner_location_text_pal, (VRAM_BASE + 0x300) + (gfx_slot * 0x20), DMA_ENABLE | 0x10);
+                    dma_set(3, area_banner_location_text_pal, (VRAM_BASE + 0x300) + (gfxSlot * 0x20), DMA_ENABLE | 0x10);
             }
         }
     }
 
-    return gfx_slot;
+    return gfxSlot;
 }

@@ -70,12 +70,12 @@ u8 DeoremCheckLeaving(u8 ramSlot)
  */
 void DeoremSpawnChargeBeam(u16 yPosition, u16 xPosition)
 {
-    u8 gfx_slot;
+    u8 gfxSlot;
 
-    gfx_slot = gCurrentSprite.spritesetGFXSlot;
-    SpriteSpawnPrimary(PSPRITE_CHARGE_BEAM, 0x0, gfx_slot, yPosition, xPosition, 0x0);
-    SpriteLoadGFX(PSPRITE_CHARGE_BEAM, gfx_slot);
-    SpriteLoadPAL(PSPRITE_CHARGE_BEAM, gfx_slot, 0x1);
+    gfxSlot = gCurrentSprite.spritesetGFXSlot;
+    SpriteSpawnPrimary(PSPRITE_CHARGE_BEAM, 0x0, gfxSlot, yPosition, xPosition, 0x0);
+    SpriteLoadGFX(PSPRITE_CHARGE_BEAM, gfxSlot);
+    SpriteLoadPAL(PSPRITE_CHARGE_BEAM, gfxSlot, 0x1);
 }
 
 /**
@@ -124,7 +124,7 @@ void DeoremSpawnGoingDownAnim(void)
 void DeoremSpawnGoingUp(void)
 {
     u16 yPosition;
-    u8 gfx_slot;
+    u8 gfxSlot;
     u8 ramSlot;
     u16 xPosition;
 
@@ -134,16 +134,16 @@ void DeoremSpawnGoingUp(void)
         gCurrentSprite.pose = 0x23;
         gCurrentSprite.timer = 0x32;
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn + 0x31C;
-        gfx_slot = gCurrentSprite.spritesetGFXSlot;
+        gfxSlot = gCurrentSprite.spritesetGFXSlot;
         ramSlot = gCurrentSprite.primarySpriteRAMSlot;
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
-        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xB, gfx_slot, ramSlot, yPosition, xPosition, 0x0);
-        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xA, gfx_slot, ramSlot, yPosition, xPosition, 0x0);
-        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x9, gfx_slot, ramSlot, yPosition, xPosition, 0x0);
-        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x8, gfx_slot, ramSlot, yPosition, xPosition, 0x0);
-        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x7, gfx_slot, ramSlot, yPosition, xPosition, 0x0);
-        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x6, gfx_slot, ramSlot, yPosition, xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xB, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xA, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x9, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x8, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x7, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x6, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
         ScreenShakeStartVertical(0x28, 0x81);
         SoundPlay(0x193);
     }
@@ -160,7 +160,7 @@ void DeoremSpawnGoingUpAnim(void)
  */
 void DeoremSpawnHeadBody(void)
 {
-    u8 gfx_slot;
+    u8 gfxSlot;
     u8 ramSlot;
     u16 yPosition;
     u16 xPosition;
@@ -179,16 +179,16 @@ void DeoremSpawnHeadBody(void)
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn;
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.timer = 0xB;
-        gfx_slot = gCurrentSprite.spritesetGFXSlot;
+        gfxSlot = gCurrentSprite.spritesetGFXSlot;
         ramSlot = gCurrentSprite.primarySpriteRAMSlot;
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
-        segment_E_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xE, gfx_slot, ramSlot, yPosition, xPosition, 0x0);
-        segment_D_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xD, gfx_slot, ramSlot, yPosition, xPosition, 0x0);
-        segment_C_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xC, gfx_slot, ramSlot, yPosition, xPosition, 0x0);
+        segment_E_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xE, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+        segment_D_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xD, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+        segment_C_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xC, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
         gSpriteData[segment_D_slot].timer = segment_C_slot;
         gSpriteData[segment_E_slot].timer = segment_D_slot;
-        eye_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_EYE, 0x0, gfx_slot, ramSlot, yPosition - 0x1C, xPosition - 0x4, 0x0);
+        eye_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_EYE, 0x0, gfxSlot, ramSlot, yPosition - 0x1C, xPosition - 0x4, 0x0);
         if (eye_slot == 0xFF)
             gCurrentSprite.status = 0x0;
         else

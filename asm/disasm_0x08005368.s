@@ -18417,7 +18417,7 @@ lbl_0800e494: .4byte 0x030006ec
     thumb_func_start init_location_text
 init_location_text: @ 0x0800e498
     push {r4, lr}
-    bl load_area_banner_gfx_slot
+    bl load_area_banner_gfxSlot
     lsls r0, r0, #0x18
     lsrs r4, r0, #0x18
     cmp r4, #7

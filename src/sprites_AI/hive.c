@@ -21,7 +21,7 @@ void HiveInit(void)
 {
     u32 event_check;
     u8 roomSlot;
-    u8 gfx_slot;
+    u8 gfxSlot;
     u16 yPosition;
     u16 xPosition;
 
@@ -49,14 +49,14 @@ void HiveInit(void)
         
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
-        gfx_slot = gCurrentSprite.spritesetGFXSlot;
+        gfxSlot = gCurrentSprite.spritesetGFXSlot;
         roomSlot = gCurrentSprite.roomSlot;
         
-        SpriteSpawnSecondary(SSPRITE_HIVE_ROOTS, roomSlot, gfx_slot, gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0);
-        SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfx_slot, yPosition + 0x40, xPosition - 0x1F, 0x0);
-        SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfx_slot, yPosition + 0x20, xPosition + 0x10, 0x0);
-        SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfx_slot, yPosition - 0x48, xPosition - 0x10, 0x0);
-        SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfx_slot, yPosition - 0x60, xPosition + 0x1F, 0x0);
+        SpriteSpawnSecondary(SSPRITE_HIVE_ROOTS, roomSlot, gfxSlot, gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0);
+        SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot, yPosition + 0x40, xPosition - 0x1F, 0x0);
+        SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot, yPosition + 0x20, xPosition + 0x10, 0x0);
+        SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot, yPosition - 0x48, xPosition - 0x10, 0x0);
+        SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot, yPosition - 0x60, xPosition + 0x1F, 0x0);
     }
 }
 

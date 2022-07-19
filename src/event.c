@@ -21,7 +21,7 @@ u32 EventFunction(u8 action, u8 event)
         return FALSE;
     else
     {
-        pEvent = events_triggered;
+        pEvent = gEventsTriggered;
         pEvent += (event - 0x1) >> 0x1D; 
         value = 0x1 << (event & 0x1F);
         previous = *pEvent;

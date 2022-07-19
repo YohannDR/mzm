@@ -397,7 +397,7 @@ void ProjectileUpdate(void)
             break;
 
         case PROJECTILE_POWER_BOMB:
-            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_POWER_BOMB, 0x1) << 0x18 != FALSE && pProj->animation_state == 0x0 && ProjectileInit(PROJ_TYPE_POWER_BOMB, gSamusData.yPosition, gSamusData.xPosition) << 0x18 != FALSE)
+            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_POWER_BOMB, 0x1) << 0x18 != FALSE && pProj->animationState == 0x0 && ProjectileInit(PROJ_TYPE_POWER_BOMB, gSamusData.yPosition, gSamusData.xPosition) << 0x18 != FALSE)
                 gSamusWeaponInfo.cooldown = 0x5;
             gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
 
@@ -726,7 +726,7 @@ void ProjectileCheckHittingSprite(void)
 
     pEquipment = &gEquipment;
 
-    if (gCurrentPowerBomb.animation_state != 0x0 && pEquipment->maxPowerBombs != 0x0)
+    if (gCurrentPowerBomb.animationState != 0x0 && pEquipment->maxPowerBombs != 0x0)
     {
         proj_y = gCurrentPowerBomb.yPosition;
         proj_x = gCurrentPowerBomb.xPosition;
@@ -2420,7 +2420,7 @@ void ProjectileProcessPowerBomb(struct ProjectileData* pProj)
                 pSprite++;
             }
             SoundPlay(0x100);
-            gCurrentPowerBomb.power_bomb_placed = TRUE;
+            gCurrentPowerBomb.powerBombPlaced = TRUE;
             break;
 
         case 0x1:
