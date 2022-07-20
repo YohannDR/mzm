@@ -54,12 +54,12 @@ u8 MetroidBombDetection(void)
     u16 spriteBottom;
     u16 spriteLeft;
     u16 spriteRight;
-    u16 proj_y;
-    u16 proj_x;
-    u16 proj_top;
-    u16 proj_bottom;
-    u16 proj_left;
-    u16 proj_right;
+    u16 projY;
+    u16 projX;
+    u16 projTop;
+    u16 projBottom;
+    u16 projLeft;
+    u16 projRight;
     u8 count;
     u8 status;
     struct ProjectileData* pProj;
@@ -78,14 +78,14 @@ u8 MetroidBombDetection(void)
         pProj = gProjectileData + count;
         if (pProj->type == PROJ_TYPE_BOMB && (pProj->status & status) == status)
         {
-            proj_y = pProj->yPosition;
-            proj_x = pProj->xPosition;
-            proj_top = proj_y + pProj->hitboxTopOffset;
-            proj_bottom = proj_y + pProj->hitboxBottomOffset;
-            proj_left = proj_x + pProj->hitboxLeftOffset;
-            proj_right = proj_x + pProj->hitboxRightOffset;
+            projY = pProj->yPosition;
+            projX = pProj->xPosition;
+            projTop = projY + pProj->hitboxTopOffset;
+            projBottom = projY + pProj->hitboxBottomOffset;
+            projLeft = projX + pProj->hitboxLeftOffset;
+            projRight = projX + pProj->hitboxRightOffset;
 
-            if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, proj_top, proj_bottom, proj_left, proj_right))
+            if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, projTop, projBottom, projLeft, projRight))
                 return TRUE;
         }
         count++;

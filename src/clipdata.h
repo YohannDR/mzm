@@ -88,12 +88,12 @@ struct CurrentAffectingClip {
 };
 
 struct CollisionData {
-    i32 clipdata_type;
-    i32 sub_pixel_x;
-    i32 sub_pixel_y;
-    i32 actor_type;
-    u16 tile_x;
-    u16 tile_y;
+    i32 clipdataType;
+    i32 subPixelX;
+    i32 subPixelY;
+    i32 actorType;
+    u16 tileX;
+    u16 tileY;
 };
 
 struct TilemapAndClipPointers {
@@ -113,7 +113,7 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition);
 u32 ClipdataProcess(u16 yPosition, u16 xPosition);
 u32 ClipdataConvertToCollision(struct CollisionData* pCollision);
 i32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition);
-i32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tile_y, u16 tile_x, u8 unk);
+i32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 unk);
 u8 ClipdataCheckCantUseElevator(void);
 i32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition);
 

@@ -118,12 +118,12 @@ void WorkerRobotWalkingDetectProjectile(void)
     u16 spriteBottom;
     u16 spriteLeft;
     u16 spriteRight;
-    u16 proj_y;
-    u16 proj_x;
-    u16 proj_top;
-    u16 proj_bottom;
-    u16 proj_left;
-    u16 proj_right;
+    u16 projY;
+    u16 projX;
+    u16 projTop;
+    u16 projBottom;
+    u16 projLeft;
+    u16 projRight;
 
     on_side = FALSE;
     spriteY = gCurrentSprite.yPosition;
@@ -141,23 +141,23 @@ void WorkerRobotWalkingDetectProjectile(void)
             type = pProj->type;
             if ((u8)(type - 0xC) < 0x2)
             {
-                proj_y = pProj->yPosition;
-                proj_x = pProj->xPosition;
-                proj_top = proj_y + pProj->hitboxTopOffset;
-                proj_bottom = proj_y + pProj->hitboxBottomOffset;
-                proj_left = proj_x + pProj->hitboxLeftOffset;
-                proj_right = proj_y + pProj->hitboxRightOffset;
+                projY = pProj->yPosition;
+                projX = pProj->xPosition;
+                projTop = projY + pProj->hitboxTopOffset;
+                projBottom = projY + pProj->hitboxBottomOffset;
+                projLeft = projX + pProj->hitboxLeftOffset;
+                projRight = projY + pProj->hitboxRightOffset;
 
-                if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, proj_top, proj_bottom, proj_left, proj_right))
+                if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, projTop, projBottom, projLeft, projRight))
                 {
-                    if (pProj->direction == ACD_FORWARD || ((u8)(pProj->direction - 0x1) < 0x2 && proj_y > spriteTop && proj_y < spriteBottom))
+                    if (pProj->direction == ACD_FORWARD || ((u8)(pProj->direction - 0x1) < 0x2 && projY > spriteTop && projY < spriteBottom))
                         on_side++;
                     
                     if (on_side)
                     {
                         if (pProj->status & PROJ_STATUS_XFLIP)
                         {
-                            proj_x = spriteLeft;
+                            projX = spriteLeft;
                             gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
                             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
                             {
@@ -172,7 +172,7 @@ void WorkerRobotWalkingDetectProjectile(void)
                         }
                         else
                         {
-                            proj_x = spriteRight;
+                            projX = spriteRight;
                             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
                             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
                             {
@@ -190,13 +190,13 @@ void WorkerRobotWalkingDetectProjectile(void)
 
                     if (type == PROJ_TYPE_SUPER_MISSILE)
                     {
-                        ParticleSet(proj_y, proj_x, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
+                        ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
                         if (on_side)
                             gCurrentSprite.workVariable = 0x3C;
                     }
                     else
                     {
-                        ParticleSet(proj_y, proj_x, PE_HITTING_SOMETHING_WITH_MISSILE);
+                        ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_MISSILE);
                         if (on_side)
                             gCurrentSprite.workVariable = 0x1E;
                     }

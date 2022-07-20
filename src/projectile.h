@@ -51,6 +51,16 @@ extern u16 gArmCannonX;
 #define PROJ_TYPE_BOMB 0xE
 #define PROJ_TYPE_POWER_BOMB 0xF
 
+
+#define BOMB_STAGE_INIT 0x0
+#define BOMB_STAGE_FIRST_SPIN 0x1
+#define BOMB_STAGE_FAST_SPIN 0x2
+#define BOMB_STAGE_EXPLODING 0x3
+#define BOMB_STAGE_PLACED_ON_LAUNCHER 0x4
+#define BOMB_STAGE_FIRST_SPIN_ON_LAUNCHER 0x5
+#define BOMB_STAGE_FAST_SPIN_ON_LAUNCHER 0x6
+#define BOMB_STAGE_EXPLODING_ON_LAUNCHER 0x7
+
 // Structs
 
 struct ProjectileData {
@@ -62,7 +72,7 @@ struct ProjectileData {
     u8 animationDurationCounter;
     u8 type;
     u8 direction;
-    u8 movement_stage;
+    u8 movementStage;
     u8 draw_distance_offset;
     u8 timer;
     i16 hitboxTopOffset;
@@ -89,7 +99,7 @@ void ProjectileCheckDespawn(struct ProjectileData* pProj);
 void ProjectileLoadGraphics(void);
 void ProjectileCallLoadGraphicsAndClearProjectiles(void);
 void ProjectileMove(struct ProjectileData* pProj, u8 distance);
-u8 ProjectileCheckHittingSolidBlock(u16 yPosition, u16 xPosition);
+u32 ProjectileCheckHittingSolidBlock(u32 yPosition, u32 xPosition);
 u8 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj);
 void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay);
 void ProjectileMoveTumbling(struct ProjectileData* pProj);
@@ -110,7 +120,7 @@ void ProjectileStartTumblingMissile(struct SpriteData* pSprite, struct Projectil
 void ProjectileStartTumblingMissileCurrentSprite(struct ProjectileData* pProj, u8 type);
 void ProjectileMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 yPosition, u16 xPosition);
 void ProjectileSuperMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 yPosition, u16 xPosition);
-void ProjectileBombMissileHitSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition);
+void ProjectileBombHitSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition);
 void ProjectileProcessNormalBeam(struct ProjectileData* pProj);
 void ProjectileProcessLongBeam(struct ProjectileData* pProj);
 void ProjectileProcessIceBeam(struct ProjectileData* pProj);

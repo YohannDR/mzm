@@ -50,8 +50,8 @@ void MorphBallLauncherDetectBomb(void)
     u8 count;
     u16 spriteY;
     u16 spriteX;
-    u16 proj_y;
-    u16 proj_x;
+    u16 projY;
+    u16 projX;
 
     has_bomb = FALSE;
     spriteY = gCurrentSprite.yPosition + 0x20;
@@ -62,14 +62,14 @@ void MorphBallLauncherDetectBomb(void)
     {
         pProj = gProjectileData + count;
 
-        if (pProj->status & PROJ_STATUS_EXISTS && pProj->type == PROJ_TYPE_BOMB && pProj->movement_stage == 0x1)
+        if (pProj->status & PROJ_STATUS_EXISTS && pProj->type == PROJ_TYPE_BOMB && pProj->movementStage == 0x1)
         {
-            proj_y = pProj->yPosition;
-            proj_x = pProj->xPosition;
+            projY = pProj->yPosition;
+            projX = pProj->xPosition;
 
-            if (proj_y < spriteY && proj_y > (i32)(spriteY - 0x8) && proj_x < (spriteX + 0x8) && proj_x > (i32)(spriteX - 0x8))
+            if (projY < spriteY && projY > (i32)(spriteY - 0x8) && projX < (spriteX + 0x8) && projX > (i32)(spriteX - 0x8))
             {
-                pProj->movement_stage = 0x4;
+                pProj->movementStage = 0x4;
                 has_bomb++;
                 break;
             }

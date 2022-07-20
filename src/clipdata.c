@@ -26,21 +26,21 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
     u32 result;
 
     // Get tile position
-    collision.tile_y = yPosition >> 0x6;
-    collision.tile_x = xPosition >> 0x6;
+    collision.tileY = yPosition >> 0x6;
+    collision.tileX = xPosition >> 0x6;
 
-    if (collision.tile_x >= gBGPointersAndDimensions.clipdataWidth)
+    if (collision.tileX >= gBGPointersAndDimensions.clipdataWidth)
         result = CLIPDATA_TYPE_SOLID_FLAG | CLIPDATA_TYPE_SOLID;
     else
     {        
-        if (collision.tile_y < gBGPointersAndDimensions.clipdataHeight)
+        if (collision.tileY < gBGPointersAndDimensions.clipdataHeight)
         {
             // Get clip type at position
-            collision.clipdata_type = gTilemapAndClipPointers.clip_collisions[gBGPointersAndDimensions.pClipDecomp[gBGPointersAndDimensions.clipdataWidth * collision.tile_y + collision.tile_x]];
+            collision.clipdataType = gTilemapAndClipPointers.clip_collisions[gBGPointersAndDimensions.pClipDecomp[gBGPointersAndDimensions.clipdataWidth * collision.tileY + collision.tileX]];
             // Get sub pixel
-            collision.sub_pixel_y = yPosition & 0x3F;
-            collision.sub_pixel_x = xPosition & 0x3F;
-            collision.actor_type = CLIPDATA_ACTOR_SAMUS;
+            collision.subPixelY = yPosition & 0x3F;
+            collision.subPixelX = xPosition & 0x3F;
+            collision.actorType = CLIPDATA_ACTOR_SAMUS;
             result = gClipdataCodePointer(&collision);
         }
         else
@@ -62,11 +62,11 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
     struct CollisionData collision;
     u32 clipdata;
 
-    collision.tile_y = yPosition >> 6;
-    collision.tile_x = xPosition >> 6;
+    collision.tileY = yPosition >> 6;
+    collision.tileX = xPosition >> 6;
 
     // Check in bounds
-    if (collision.tile_x >= gBGPointersAndDimensions.clipdataWidth || collision.tile_y >= gBGPointersAndDimensions.clipdataHeight)
+    if (collision.tileX >= gBGPointersAndDimensions.clipdataWidth || collision.tileY >= gBGPointersAndDimensions.clipdataHeight)
     {
         // Clear if out of bounds
         gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
@@ -79,34 +79,34 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
         if (gCurrentClipdataAffectingAction == CCAA_NONE)
         {
             // No CCAA, then update current affecting
-            collision.actor_type = CLIPDATA_ACTOR_SPRITE;
+            collision.actorType = CLIPDATA_ACTOR_SPRITE;
             gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
             gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
-            ClipdataUpdateCurrentAffecting(yPosition, collision.tile_y, collision.tile_x, 0x2);
+            ClipdataUpdateCurrentAffecting(yPosition, collision.tileY, collision.tileX, 0x2);
         }
         else if (gCurrentClipdataAffectingAction >= CCAA_UNUSED)
         {
             // "Destructing" CCAA (projectiles, samus, bomb chain), then it's a non sprite
-            collision.actor_type = CLIPDATA_ACTOR_NON_SPRITE;
+            collision.actorType = CLIPDATA_ACTOR_NON_SPRITE;
             if (gCurrentClipdataAffectingAction == CCAA_UNUSED)
                 gCurrentClipdataAffectingAction = CCAA_NONE;
         }
         else
-            collision.actor_type = CLIPDATA_ACTOR_SPRITE;
+            collision.actorType = CLIPDATA_ACTOR_SPRITE;
 
         // Get clip at position
-        clipdata = gBGPointersAndDimensions.pClipDecomp[collision.tile_y * gBGPointersAndDimensions.clipdataWidth + collision.tile_x];
+        clipdata = gBGPointersAndDimensions.pClipDecomp[collision.tileY * gBGPointersAndDimensions.clipdataWidth + collision.tileX];
         if (gCurrentClipdataAffectingAction != CCAA_NONE)
         {
             // Apply CCAA if not none
-            BlockApplyCCAA(collision.tile_y, collision.tile_x, clipdata);
+            BlockApplyCCAA(collision.tileY, collision.tileX, clipdata);
             gCurrentClipdataAffectingAction = CCAA_NONE;
         }
 
         // Get type and sub pixel, then call clipdata code
-        collision.clipdata_type = gTilemapAndClipPointers.clip_collisions[clipdata];
-        collision.sub_pixel_y = yPosition & 0x3F;
-        collision.sub_pixel_x = xPosition & 0x3F;
+        collision.clipdataType = gTilemapAndClipPointers.clip_collisions[clipdata];
+        collision.subPixelY = yPosition & 0x3F;
+        collision.subPixelX = xPosition & 0x3F;
         return clipdata = gClipdataCodePointer(&collision);
     }
 }
@@ -123,11 +123,11 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
 
     result = CLIPDATA_TYPE_AIR;
 
-    switch (pCollision->clipdata_type)
+    switch (pCollision->clipdataType)
     {
         case CLIPDATA_TYPE_SOLID:
             // No calculations needed, return type and add solid flag
-            result = pCollision->clipdata_type | CLIPDATA_TYPE_SOLID_FLAG;
+            result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             break;
 
         case CLIPDATA_TYPE_LEFT_STEEP_FLOOR_SLOPE:
@@ -135,109 +135,109 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
             // The slope forms a rectangle triangle with the right angle being in the bottom left
             // For the subpixels coordinates, 0,0 is the top left, and 3F,3F the bottom right
             // So in order to determine whether it's colliding with the solid part or not, we simply check if Y > X
-            if (pCollision->sub_pixel_y >= pCollision->sub_pixel_x)
-                result = pCollision->clipdata_type | CLIPDATA_TYPE_SOLID_FLAG;
+            if (pCollision->subPixelY >= pCollision->subPixelX)
+                result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             else
-                result = pCollision->clipdata_type;
+                result = pCollision->clipdataType;
             break;
             
         case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
             // Checking if in the solid or air part of the slope
             // Same logic, however since the slope is "flipped" in regards to the coordinates, we substract the X to 3F
-            if (pCollision->sub_pixel_y >= 0x3F - pCollision->sub_pixel_x)
-                result = pCollision->clipdata_type | CLIPDATA_TYPE_SOLID_FLAG;
+            if (pCollision->subPixelY >= 0x3F - pCollision->subPixelX)
+                result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             else
-                result = pCollision->clipdata_type;
+                result = pCollision->clipdataType;
             break;
 
         case CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE:
             // Checking if in the solid or air part of the slope
             // Same logic, however the triangle hypotenuse is "larger" and extends on 2 block, with the angle being twice as big
             // Hence why the subpixel X is divided by 2, it's to compensate
-            if (pCollision->sub_pixel_y >= pCollision->sub_pixel_x >> 1)
-                result = pCollision->clipdata_type | CLIPDATA_TYPE_SOLID_FLAG;
+            if (pCollision->subPixelY >= pCollision->subPixelX >> 1)
+                result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             else
-                result = pCollision->clipdata_type;
+                result = pCollision->clipdataType;
             break;
 
         case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
             // Checking if in the solid or air part of the slope
             // Same logic, we add 0x3F because it's the lower part of the slope
-            if (pCollision->sub_pixel_y >= (pCollision->sub_pixel_x + 0x3F) >> 1)
-                result = pCollision->clipdata_type | CLIPDATA_TYPE_SOLID_FLAG;
+            if (pCollision->subPixelY >= (pCollision->subPixelX + 0x3F) >> 1)
+                result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             else
-                result = pCollision->clipdata_type;
+                result = pCollision->clipdataType;
             break;
 
         case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
             // Checking if in the solid or air part of the slope
             // Same logic
-            if (pCollision->sub_pixel_y >= 0x3F - (pCollision->sub_pixel_x >> 1))
-                result = pCollision->clipdata_type | CLIPDATA_TYPE_SOLID_FLAG;
+            if (pCollision->subPixelY >= 0x3F - (pCollision->subPixelX >> 1))
+                result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             else
-                result = pCollision->clipdata_type;
+                result = pCollision->clipdataType;
             break;
 
         case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
             // Checking if in the solid or air part of the slope
             // Same logic
-            if (pCollision->sub_pixel_y >= (0x3F - pCollision->sub_pixel_x) >> 1)
-                result = pCollision->clipdata_type | CLIPDATA_TYPE_SOLID_FLAG;
+            if (pCollision->subPixelY >= (0x3F - pCollision->subPixelX) >> 1)
+                result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             else
-                result = pCollision->clipdata_type;
+                result = pCollision->clipdataType;
             break;
 
         case CLIPDATA_TYPE_AIR:
         case CLIPDATA_TYPE_PASS_THROUGH_BOTTOM:
             // No calculations needed, return type
-            result = pCollision->clipdata_type;
+            result = pCollision->clipdataType;
             break;
 
         case CLIPDATA_TYPE_ENEMY_ONLY:
-            if (pCollision->actor_type > CLIPDATA_ACTOR_NON_SPRITE)
+            if (pCollision->actorType > CLIPDATA_ACTOR_NON_SPRITE)
             {
                 // Only for sprites
-                pCollision->clipdata_type = CLIPDATA_TYPE_AIR;
+                pCollision->clipdataType = CLIPDATA_TYPE_AIR;
                 result = CLIPDATA_TYPE_AIR;
             }
             else
             {
                 // For non sprite
-                pCollision->clipdata_type = CLIPDATA_TYPE_SOLID;
-                result = pCollision->clipdata_type | CLIPDATA_TYPE_SOLID_FLAG;
+                pCollision->clipdataType = CLIPDATA_TYPE_SOLID;
+                result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             }
             break;
 
         case CLIPDATA_TYPE_DOOR:
-            pCollision->clipdata_type = CLIPDATA_TYPE_SOLID;
-            result = pCollision->clipdata_type | CLIPDATA_TYPE_SOLID_FLAG;
+            pCollision->clipdataType = CLIPDATA_TYPE_SOLID;
+            result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             break;
 
         case CLIPDATA_TYPE_STOP_ENEMY:
-            if (pCollision->actor_type < CLIPDATA_ACTOR_SPRITE)
+            if (pCollision->actorType < CLIPDATA_ACTOR_SPRITE)
             {
                 // For non sprite
-                pCollision->clipdata_type = CLIPDATA_TYPE_AIR;
+                pCollision->clipdataType = CLIPDATA_TYPE_AIR;
                 result = CLIPDATA_TYPE_AIR;
             }
             else
             {
                 // For sprite
-                pCollision->clipdata_type = CLIPDATA_TYPE_SOLID;
-                result = pCollision->clipdata_type | CLIPDATA_TYPE_SOLID_FLAG;
+                pCollision->clipdataType = CLIPDATA_TYPE_SOLID;
+                result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             }
             break;
 
         case CLIPDATA_TYPE_TANK:
-            if (pCollision->actor_type == CLIPDATA_ACTOR_SAMUS)
+            if (pCollision->actorType == CLIPDATA_ACTOR_SAMUS)
             {
-                pCollision->clipdata_type = CLIPDATA_TYPE_AIR;
+                pCollision->clipdataType = CLIPDATA_TYPE_AIR;
                 result = CLIPDATA_TYPE_AIR;
             }
             else
             {
-                pCollision->clipdata_type = CLIPDATA_TYPE_SOLID;
-                result = pCollision->clipdata_type | CLIPDATA_TYPE_SOLID_FLAG;
+                pCollision->clipdataType = CLIPDATA_TYPE_SOLID;
+                result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             }
             break;
     }
@@ -254,22 +254,22 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
  */
 i32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition)
 {
-    u16 tile_y;
-    u16 tile_x;
+    u16 tileY;
+    u16 tileX;
 
     gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
     gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
 
-    tile_y = yPosition >> 0x6;
-    tile_x = xPosition >> 0x6;
+    tileY = yPosition >> 0x6;
+    tileX = xPosition >> 0x6;
 
-    if (tile_y >= gBGPointersAndDimensions.clipdataHeight || tile_x >= gBGPointersAndDimensions.clipdataWidth)
+    if (tileY >= gBGPointersAndDimensions.clipdataHeight || tileX >= gBGPointersAndDimensions.clipdataWidth)
         return 0x0;
     else
-        return ClipdataUpdateCurrentAffecting(yPosition, tile_y, tile_x, 0x0);
+        return ClipdataUpdateCurrentAffecting(yPosition, tileY, tileX, 0x0);
 }
 
-i32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tile_y, u16 tile_x, u8 unk)
+i32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 unk)
 {
 
 }
@@ -290,18 +290,18 @@ i32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
 {
     // https://decomp.me/scratch/PlWs7
 
-    /*i16 tile_y;
-    i16 tile_x;
+    /*i16 tileY;
+    i16 tileX;
     u32 clipdata;
 
-    tile_y = yPosition >> 0x6; /!\ Swapped instructions for some reason
-    tile_x = xPosition >> 0x6;
+    tileY = yPosition >> 0x6; /!\ Swapped instructions for some reason
+    tileX = xPosition >> 0x6;
 
-    if (tile_y >= gBGPointersAndDimensions.clipdataHeight || tile_x >= gBGPointersAndDimensions.clipdataWidth)
+    if (tileY >= gBGPointersAndDimensions.clipdataHeight || tileX >= gBGPointersAndDimensions.clipdataWidth)
         return GROUND_EFFECT_NONE;
     else
     {
-        clipdata = gBGPointersAndDimensions.pClipDecomp[tile_y * gBGPointersAndDimensions.clipdataWidth + tile_x];
+        clipdata = gBGPointersAndDimensions.pClipDecomp[tileY * gBGPointersAndDimensions.clipdataWidth + tileX];
         if (clipdata & 0x400)
             clipdata = 0x0;
         else

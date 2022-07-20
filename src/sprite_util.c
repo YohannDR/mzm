@@ -199,7 +199,6 @@ void SpriteUtilSamusAndSpriteCollision(void)
     u16 verticalCollisionOffset;
     u16 horizontalCollisionOffset;
     u8 collisionFlags;
-    i32 collisionPos;
 
     pData = &gSamusData;
     dmgMultiplier = 0x0;
