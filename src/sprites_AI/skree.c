@@ -85,7 +85,7 @@ void SkreeGoDown(void)
         xMovement = gCurrentSprite.workVariable2 >> 0x2;
         arrayOffset = gCurrentSprite.arrayOffset;
         yMovement = skree_falling_speed_2cca7c[arrayOffset];
-        if (yMovement == 0x7FFF)
+        if (yMovement == SPRITE_ARRAY_TERMINATOR)
         {
             yMovement = skree_falling_speed_2cca7c[arrayOffset - 0x1];
             gCurrentSprite.yPosition += yMovement;

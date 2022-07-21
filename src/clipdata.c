@@ -57,13 +57,15 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
  * @param xPosition X Position (subpixels)
  * @return u32 Clipdata type (including solid flag)
  */
-u32 ClipdataProcess(u16 yPosition, u16 xPosition)
+u32 ClipdataProcess(u32 yPosition, u32 xPosition)
 {
     struct CollisionData collision;
     u32 clipdata;
+    u16 yPos = yPosition; // Needed for u16 casts, but parameters need to be u32 in order to prevent safe casts when calling
+    u16 xPos = xPosition;
 
-    collision.tileY = yPosition >> 6;
-    collision.tileX = xPosition >> 6;
+    collision.tileY = yPos >> 6;
+    collision.tileX = xPos >> 6;
 
     // Check in bounds
     if (collision.tileX >= gBGPointersAndDimensions.clipdataWidth || collision.tileY >= gBGPointersAndDimensions.clipdataHeight)
@@ -82,7 +84,7 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
             collision.actorType = CLIPDATA_ACTOR_SPRITE;
             gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
             gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
-            ClipdataUpdateCurrentAffecting(yPosition, collision.tileY, collision.tileX, 0x2);
+            ClipdataUpdateCurrentAffecting(yPos, collision.tileY, collision.tileX, 0x2);
         }
         else if (gCurrentClipdataAffectingAction >= CCAA_UNUSED)
         {
@@ -105,8 +107,8 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
 
         // Get type and sub pixel, then call clipdata code
         collision.clipdataType = gTilemapAndClipPointers.clip_collisions[clipdata];
-        collision.subPixelY = yPosition & 0x3F;
-        collision.subPixelX = xPosition & 0x3F;
+        collision.subPixelY = yPos & 0x3F;
+        collision.subPixelX = xPos & 0x3F;
         return clipdata = gClipdataCodePointer(&collision);
     }
 }

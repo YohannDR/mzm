@@ -815,7 +815,7 @@ void SovaFalling(void)
     oldY = gCurrentSprite.yPosition;
     offset = gCurrentSprite.arrayOffset;
     movement = sSpritesFallingSpeed_2b0d04[offset];
-    if (movement == 0x7FFF)
+    if (movement == SPRITE_ARRAY_TERMINATOR)
     {
         movement = sSpritesFallingSpeed_2b0d04[offset - 0x1];
         new_y = oldY + movement;

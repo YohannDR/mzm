@@ -125,7 +125,7 @@ void RoomLoadEntry(void)
         gCurrentRoomEntry.effectY = 0xFFFF;
 
     // gCurrentRoomEntry.effectY = effectY;
-    gSpritesetEnrtyUsed = 0x0;
+    gSpritesetEntryUsed = 0x0;
     // Set events
     gCurrentRoomEntry.firstSpritesetEvent = entry.firstSpritesetEvent;
     gCurrentRoomEntry.secondSpritesetEvent = entry.secondSpritesetEvent;
@@ -134,12 +134,12 @@ void RoomLoadEntry(void)
     {
         gCurrentRoomEntry.pEnemyRoomData = entry.pSecondSpriteData;
         gSpriteset = entry.second_spriteset;
-        gSpritesetEnrtyUsed = 0x2;
+        gSpritesetEntryUsed = 0x2;
     }
     // Check for first spriteset
-    if (gCurrentRoomEntry.firstSpritesetEvent != EVENT_NONE && gSpritesetEnrtyUsed == 0x0)
+    if (gCurrentRoomEntry.firstSpritesetEvent != EVENT_NONE && gSpritesetEntryUsed == 0x0)
     {
-        if (gSpritesetEnrtyUsed != 0x0)
+        if (gSpritesetEntryUsed != 0x0)
         {
             gCurrentRoomEntry.scrollsFlag = 0x2;
             gCurrentRoomEntry.visualEffect = EFFECT_NONE;
@@ -150,11 +150,11 @@ void RoomLoadEntry(void)
         {
             gCurrentRoomEntry.pEnemyRoomData = entry.pFirstSpriteData;
             gSpriteset = entry.firstSpriteset;
-            gSpritesetEnrtyUsed = 0x1;
+            gSpritesetEntryUsed = 0x1;
         }
     }
 
-    if (gSpritesetEnrtyUsed == 0x0)
+    if (gSpritesetEntryUsed == 0x0)
     {
         gCurrentRoomEntry.pEnemyRoomData = entry.pDefaultSpriteData;
         gSpriteset = entry.defaultSpriteset;
@@ -165,7 +165,7 @@ void RoomLoadEntry(void)
     gCurrentRoomEntry.BG0Size = 0x0;
     gCurrentRoomEntry.BG3Size = 0x0;
 
-    if (gSpritesetEnrtyUsed != 0x0 && gCurrentRoomEntry.BG0Prop == 0x44)
+    if (gSpritesetEntryUsed != 0x0 && gCurrentRoomEntry.BG0Prop == 0x44)
     {
         gWaitingSpacePiratesPosition.x = 0x8000;
         gWaitingSpacePiratesPosition.y = 0x8000;

@@ -33,13 +33,14 @@ SECTIONS {
         . = 0x00000056; gLastDoorUsed = .;
         . = 0x00000058; gDisplayLocationText = .;
         . = 0x0000006C; gEffectYPosition = .;
+        . = 0x0000006E; gEffectYPositionOffset = .;
         . = 0x00000071; gScreenShakeXRelated = .;
         . = 0x00000073; gScreenShakeYRelated = .;
         . = 0x00000074; gScreenShakeRelated = .;
         . = 0x00000074; gDISPCNTBackup = .;
         . = 0x00000078; gSpriteset = .;
         . = 0x00000079; gCurrentClipdataAffectingAction = .;
-        . = 0x0000007A; gSpritesetEnrtyUsed = .;
+        . = 0x0000007A; gSpritesetEntryUsed = .;
         . = 0x0000007B; gDoorUnlockTimer = .;
         . = 0x0000007d; gCurrentCutscene = .;
         . = 0x0000007e; gTourianEscapeCutsceneStage = .;

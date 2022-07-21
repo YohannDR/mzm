@@ -72,7 +72,7 @@ void WaterDrop(void)
                 else
                 {
                     offset = gCurrentSprite.arrayOffset;
-                    if (sSpritesFallingSpeed_2b0d04[offset] == 0x7FFF)
+                    if (sSpritesFallingSpeed_2b0d04[offset] == SPRITE_ARRAY_TERMINATOR)
                         gCurrentSprite.yPosition += (i16)sSpritesFallingSpeed_2b0d04[offset - 0x1];
                     else
                     {

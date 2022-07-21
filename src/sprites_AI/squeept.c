@@ -94,7 +94,7 @@ void SqueeptGoDown(void)
     oldY = gCurrentSprite.yPosition;
     offset = gCurrentSprite.arrayOffset;
     velocity = squeept_falling_speed_2d1562[offset];
-    if (velocity == 0x7FFF)
+    if (velocity == SPRITE_ARRAY_TERMINATOR)
         gCurrentSprite.yPosition += squeept_falling_speed_2d1562[offset - 0x1];
     else
     {

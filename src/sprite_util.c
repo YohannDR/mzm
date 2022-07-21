@@ -1082,7 +1082,7 @@ void SpriteUtilCurrentSpriteFall(void)
     {
         offset = gCurrentSprite.arrayOffset;
         movement = sSpritesFallingSpeed[offset];
-        if (movement == 0x7FFF)
+        if (movement == SPRITE_ARRAY_TERMINATOR)
         {
             movement = sSpritesFallingSpeed[offset - 0x1];
             (i16)gCurrentSprite.yPosition += movement;

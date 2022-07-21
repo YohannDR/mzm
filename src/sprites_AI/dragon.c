@@ -219,7 +219,7 @@ void DragonFireballMove(void)
     offset = gCurrentSprite.arrayOffset;
     movement = dragon_array_2d5134[offset];
     rotation = dragon_array_2d5184[offset];
-    if (movement == 0x7FFF)
+    if (movement == SPRITE_ARRAY_TERMINATOR)
     {
         movement = dragon_array_2d5134[offset - 0x1];
         rotation = dragon_array_2d5184[offset - 0x1];

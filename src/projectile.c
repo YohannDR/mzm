@@ -684,7 +684,7 @@ void ProjectileMoveTumbling(struct ProjectileData* pProj)
     {
         timer = pProj->timer;
         movement = tumbling_missile_speed[timer];
-        if (movement == 0x7FFF)
+        if (movement == SPRITE_ARRAY_TERMINATOR)
             new_pos = tumbling_missile_speed[timer - 1] + pProj->yPosition;
         else
         {

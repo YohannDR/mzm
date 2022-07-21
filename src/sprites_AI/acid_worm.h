@@ -4,10 +4,10 @@
 #include "../types.h"
 
 void AcidWormSyncHeadPosition(void);
-void AcidWormRandoXMovement(void);
+void AcidWormRandomXMovement(void);
 void AcidWormChangeTwoGroundCCAA(u8 caa, u16 yPosition, u16 xPosition);
 void AcidWormChangeBigBlockDownCCAA(u8 caa);
-void AcidWormChangeBigBlockDownCCAA(u8 caa);
+void AcidWormChangeBigBlockMiddleCCAA(u8 caa);
 void AcidWormChangeBigBlockTopCCAA(u8 caa);
 void AcidWormPlaySound(void);
 u8 AcidWormCollidingWithSamusWhenExtending(void);

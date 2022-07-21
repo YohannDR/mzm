@@ -279,15 +279,15 @@ extern u8 gSpriteRNG;
 #define SSPRITE_KRAID_SPIKE 0x1C
 #define SSPRITE_KRAID_NAIL 0x1D
 #define SSPRITE_ZIPLINE_BUTTON_INITIALIZE_MORPH_SYMBOL 0x1E
-#define SSPRITE_AtomicElectricity 0x1F
+#define SSPRITE_ATOMIC_ELECTRICITY 0x1F
 #define SSPRITE_MOTHER_BRAIN_EYE 0x20
 #define SSPRITE_RIDLEY_FIREBALL 0x21
 #define SSPRITE_UNKNOWN_ITEM_CHOZO_STATUE_BODY 0x22
 #define SSPRITE_UNKNOWN_ITEM_CHOZO_STATUE_REFILL 0x23
 #define SSPRITE_MORPH_BALL_LAUNCHER_BACK 0x24
-#define SSPRITE_AcidWormBody 0x25
-#define SSPRITE_AcidWormSpit 0x26
-#define SSPRITE_CannonBullet 0x27
+#define SSPRITE_ACID_WORM_BODY 0x25
+#define SSPRITE_ACID_WORM_SPIT 0x26
+#define SSPRITE_CANNON_BULLET 0x27
 #define SSPRITE_CROCOMIRE_BODY 0x28
 #define SSPRITE_IMAGO_BODY 0x29
 #define SSPRITE_DEFEATED_IMAGO_COCOON 0x2A
@@ -380,7 +380,9 @@ extern u8 gSpriteRNG;
 #define WEAKNESS_POWER_BOMB 0x10
 #define WEAKNESS_SPEEDBOOSTER_SCREW_ATTACK 0x20
 #define WEAKNESS_CAN_BE_FROZEN 0x40
-#define WEAKNESS_LIMIT 0xFFFF
+
+
+#define SPRITE_ARRAY_TERMINATOR 0x7FFF
 
 // Structs
 
@@ -419,7 +421,7 @@ struct SpriteData {
     u16 oamScaling;
     u16 health;
     u16 currentAnimationFrame;
-    struct FrameData* pOam;
+    const struct FrameData* pOam;
     u8 animationDurationCounter;
     u8 spriteID;
     u8 roomSlot;

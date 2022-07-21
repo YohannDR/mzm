@@ -36,7 +36,7 @@ void ReoSamusDetection(void)
 
     offset = gCurrentSprite.arrayOffset;
     movement = reo_idle_anim_yPosition_offsets[offset];
-    if (movement == 0x7FFF)
+    if (movement == SPRITE_ARRAY_TERMINATOR)
     {
         movement = reo_idle_anim_yPosition_offsets[0x0];
         offset = 0x0;
@@ -46,7 +46,7 @@ void ReoSamusDetection(void)
     
     offset = gCurrentSprite.workVariable2;
     movement = reo_idle_anim_xPosition_offsets[offset];
-    if (movement == 0x7FFF)
+    if (movement == SPRITE_ARRAY_TERMINATOR)
     {
         movement = reo_idle_anim_xPosition_offsets[0x0];
         offset = 0x0;

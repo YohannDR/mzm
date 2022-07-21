@@ -63,7 +63,7 @@ void ChargeBeamGet(void)
 
     arrayOffset = gCurrentSprite.arrayOffset;
     yOffset = i16_array_2b31ac[arrayOffset];
-    if (y_offset == 0x7FFF)
+    if (y_offset == SPRITE_ARRAY_TERMINATOR)
     {
         yOffset = i16_array_2b31ac[0x0];
         arrayOffset = 0x0;
