@@ -2,6 +2,33 @@
 #define ACID_WORM_AI_H
 
 #include "../types.h"
+#include "../sprite_util.h"
+
+#define ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE 0x1
+#define ACID_WORM_POSE_IDLE_INIT 0x8
+#define ACID_WORM_POSE_IDLE 0x9
+#define ACID_WORM_POSE_EXTENDED 0xF
+#define ACID_WORM_POSE_CHECK_WARNING_ENDED 0x23
+#define ACID_WORM_POSE_EXTENDING 0x25
+#define ACID_WORM_POSE_RETRACTING 0x27
+#define ACID_WORM_POSE_RAISING_ACID 0x29
+#define ACID_WORM_POSE_BRINGING_DOWN_ACID 0x2B
+#define ACID_WORM_POSE_CHECK_SPAWN 0x42
+#define ACID_WORM_POSE_SPAWN_EXTEND 0x43
+#define ACID_WORM_POSE_SPAWN_ON_TOP 0x45
+#define ACID_WORM_POSE_SPAWN_RETRACT 0x47
+#define ACID_WORM_POSE_DYING_ANIM 0x67
+#define ACID_WORM_POSE_DYING 0x68
+
+#define ACID_WORM_BODY_PART_AROUND_MOUTH 0x1
+#define ACID_WORM_BODY_PART_WEAK_POINT 0x2
+#define ACID_WORM_BODY_PART_BELOW_WEAK_POINT 0x3
+#define ACID_WORM_BODY_PART_ABOVE_SEGMENTS 0x4
+#define ACID_WORM_BODY_PART_SEGMENT1 0x5
+#define ACID_WORM_BODY_PART_SEGMENT2 0x6
+#define ACID_WORM_BODY_PART_SEGMENT3 0x7
+#define ACID_WORM_BODY_PART_SEGMENT4 0x8
+#define ACID_WORM_BODY_PART_SEGMENT5 0x9
 
 void AcidWormSyncHeadPosition(void);
 void AcidWormRandomXMovement(void);
@@ -17,11 +44,11 @@ void AcidWormSpawnStart(void);
 void AcidWormSpawnExtending(void);
 void AcidWormSpawnStayingOnTop(void);
 void AcidWormSpawnRetracting(void);
-void AcidWormGFXInit(void);
+void AcidWormIdleInit(void);
 void AcidWormIdle(void);
 void AcidWormCheckWarningAnimEnded(void);
 void AcidWormExtend(void);
-void AcidWormHookedToBlock(void);
+void AcidWormExtended(void);
 void AcidWormRetracting(void);
 void AcidWormRaiseAcid(void);
 void AcidWormAcidGoDown(void);

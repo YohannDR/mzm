@@ -258,7 +258,7 @@ void WorkerRobotBackToSleepGFXInit(void)
 
 void WorkerRobotCheckBackToSleepAnimEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0xC;
         gCurrentSprite.pOam = worker_robot_oam_2e7bdc;
@@ -270,7 +270,7 @@ void WorkerRobotCheckBackToSleepAnimEnded(void)
 
 void WorkerRobotTurningAround(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_RIGHT);

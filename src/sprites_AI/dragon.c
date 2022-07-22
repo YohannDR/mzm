@@ -113,7 +113,7 @@ void DragonTurningAroundGFXInit(void)
 void DragonCheckTurningAroundFirstHalfAnimEnded(void)
 {
     DragonYMovement();
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0xC;
         gCurrentSprite.pOam = dragon_oam_2d5b40;
@@ -126,7 +126,7 @@ void DragonCheckTurningAroundFirstHalfAnimEnded(void)
 void DragonCheckTurningAroundSecondHalfAnimEnded(void)
 {
     DragonYMovement();
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
         gCurrentSprite.pose = 0x34;
 }
 
@@ -266,7 +266,7 @@ void DragonFireballExplodingGFXInit(void)
 void DragonFireballCheckExplodingAnimEnded(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0x0;
 }
 

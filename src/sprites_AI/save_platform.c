@@ -86,7 +86,7 @@ void SavePlatformSamusDetection(void)
 
 void SavePlatformCheckOpeningAnimEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x25;
         gCurrentSprite.pOam = save_platform_oam_2d4d54;
@@ -126,7 +126,7 @@ void SavePlatformSecondSamusDetection(void)
 
 void SavePlatformCheckClosingAnimEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.pOam = save_platform_oam_2d4cfc;
@@ -363,7 +363,7 @@ void SavePlatformTopRetractGFXInit(void)
 
 void SavePlatformTopCheckRetractingAnimEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x43;
         gCurrentSprite.pOam = save_platform_top_oam_2d4e04;
@@ -374,7 +374,7 @@ void SavePlatformTopCheckRetractingAnimEnded(void)
 
 void SavePlatformTopCheckTubeAnimSpawnEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x23;
         gCurrentSprite.pOam = save_platform_top_oam_2d5024;
@@ -411,7 +411,7 @@ void SavePlatformTopCheckTubeAnimEnded(void)
 
 void SavePlatformTopCheckTubeAnimDespawnEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.status = 0x0;
         gSpriteData[gSpriteData[gCurrentSprite.primarySpriteRAMSlot].arrayOffset].pose = 0x46;
@@ -420,7 +420,7 @@ void SavePlatformTopCheckTubeAnimDespawnEnded(void)
 
 void SavePlatformTopCheckTubeAroundAnimEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0x0;
 }
 

@@ -99,7 +99,7 @@ void ZiplineGFXUpdate(void)
                     break;
 
                 case 0x1:
-                    if (SpriteUtillCheckEndCurrentSpriteAnim())
+                    if (SpriteUtilCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.pOam = zipline_oam_2ce9d0;
                         gCurrentSprite.animationDurationCounter = 0x0;
@@ -110,7 +110,7 @@ void ZiplineGFXUpdate(void)
                     break;
 
                 case 0x3:
-                    if (SpriteUtillCheckEndCurrentSpriteAnim())
+                    if (SpriteUtilCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.pOam = zipline_oam_2ce9d0;
                         gCurrentSprite.animationDurationCounter = 0x0;
@@ -175,7 +175,7 @@ void ZiplineGFXUpdate(void)
 
                 case 0x1:
                 case 0x3:
-                    if (SpriteUtillCheckEndCurrentSpriteAnim())
+                    if (SpriteUtilCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.pOam = zipline_oam_activated_2ce978;
                         gCurrentSprite.currentAnimationFrame = 0x0;
@@ -206,7 +206,7 @@ void ZiplineGFXUpdate(void)
 
                 case 0x1:
                 case 0x3:
-                    if (SpriteUtillCheckEndCurrentSpriteAnim())
+                    if (SpriteUtilCheckEndCurrentSpriteAnim())
                     {
                         gCurrentSprite.pOam = zipline_oam_deactivated_2ce918;
                         gCurrentSprite.animationDurationCounter = 0x0;

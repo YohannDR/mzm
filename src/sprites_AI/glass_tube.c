@@ -164,7 +164,7 @@ void GlassTubeDelayBeforeBreaking(void)
  */
 void GlassTubeCheckCrackingAnimEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x27;
         gCurrentSprite.pOam = glass_tube_oam_breaking;
@@ -186,7 +186,7 @@ void GlassTubeCheckCrackingAnimEnded(void)
  */
 void GlassTubeCheckBreakingAnimEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0xF;
         gCurrentSprite.pOam = glass_tube_oam_broken;

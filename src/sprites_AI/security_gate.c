@@ -88,7 +88,7 @@ void SecurityGateDefaultOpenCheckAlarm(void)
  */
 void SecurityGateCheckClosingAnimEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pOam = security_gate_oam_2e6b98;
         gCurrentSprite.animationDurationCounter = 0x0;
@@ -127,7 +127,7 @@ void SecurityGateDefaultOpenOpenAfterAlarm(void)
  */
 void SecurityGateCheckOpeningAnimEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pOam = security_gate_oam_2e6af8;
         gCurrentSprite.animationDurationCounter = 0x0;

@@ -77,7 +77,7 @@ void SqueeptGoUp(void)
 
 void SqueeptTurnAround(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         SqueeptGoingDownGFXInit();
         gCurrentSprite.pose = 0x39;

@@ -71,7 +71,7 @@ void MapStationSamusDetection(void)
 
 void MapStationCheckSamusGrabbedAnimEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pOam = map_station_oam_2d3758;
         gCurrentSprite.currentAnimationFrame = 0x0;

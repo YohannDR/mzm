@@ -440,7 +440,7 @@ void ImagoCocoonSporeBeforeSpawning(void)
         if (gCurrentSprite.roomSlot == 0x0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && gCurrentSprite.currentAnimationFrame == 0x0 && gCurrentSprite.animationDurationCounter == 0x1)
             SoundPlay(0x1A0);
 
-        if (SpriteUtillCheckEndCurrentSpriteAnim())
+        if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
             gCurrentSprite.pOam = imago_cocoon_spore_oam_2e0bf8;
             gCurrentSprite.animationDurationCounter = 0x0;
@@ -504,7 +504,7 @@ void ImagoCocoonSporeExplodingGFXInit(void)
 void ImagoCocoonSporeCheckExplodingAnimEnded(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0x0;
 }
 

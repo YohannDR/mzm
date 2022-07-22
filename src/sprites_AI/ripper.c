@@ -66,7 +66,7 @@ void RipperTurnAroundGFXInit(void)
 
 void RipperTurnAroundBegin(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
         gCurrentSprite.pose = 0xC;

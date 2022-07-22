@@ -1736,7 +1736,7 @@ void ParticleSamusReflection(struct ParticleEffect* pParticle)
     else
     {
         pParticle->status |= PARTICLE_STATUS_NOT_DRAWN;
-        if (gSubSpriteData1.unknown == 0x1)
+        if (gSubSpriteData1.workVariable1 == 0x1)
             pParticle->status = 0x0;
     }
 }

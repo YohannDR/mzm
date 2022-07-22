@@ -643,7 +643,7 @@ void SovaTurningAroundGFXUpdate(void)
 
 void SovaTurningAround(void)
 {
-    if (!SpriteUtillCheckEndCurrentSpriteAnim())
+    if (!SpriteUtilCheckEndCurrentSpriteAnim())
         return;
     
     gCurrentSprite.pose = 0x9;

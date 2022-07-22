@@ -113,7 +113,7 @@ void GerutaGoDownGFXInit(void)
 
 void GerutaCheckWarningEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x35;
         gCurrentSprite.animationDurationCounter = 0x0;
@@ -156,7 +156,7 @@ void GerutaGoingDown(void)
 
 void GerutaCheckBouncingAnimEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x3B;
         gCurrentSprite.animationDurationCounter = 0x0;

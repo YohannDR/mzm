@@ -58,7 +58,7 @@ void SpriteUtilMakeSpriteFaceAwawFromSamusDirection(void);
 void unk_f978(i16 movement);
 void unk_f9e7(i16 movement);
 u8 SpriteUtilMakeSpriteFaceSamusRotation(i16 oamRotation, i16 samusY, i16 samusX, i16 spriteY, i16 spriteX);
-u8 SpriteUtillCheckEndCurrentSpriteAnim(void);
+u32 SpriteUtilCheckEndCurrentSpriteAnim(void);
 u8 SpriteUtilCheckNearEndCurrentSpriteAnim(void);
 u8 SpriteUtilCheckEndSpriteAnim(u8 ramSlot);
 u8 SpriteUtilCheckNearEndSpriteAnim(u8 ramSlot);
@@ -115,8 +115,8 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpritePosition(struct SubSpriteDa
 void SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOAM(struct SubSpriteData* pSub);
 u8 SpriteCheckCollidingWithSamusDrawing(void);
 void SpriteUtilSetSplashEffect(u16 yPosition, u16 xPosition, u8 size);
-u8 SpriteUtilCheckOutOfRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size);
-u8 SpriteUtilCheckInRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size);
+u32 SpriteUtilCheckOutOfRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size);
+u32 SpriteUtilCheckInRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size);
 u32 SpriteUtilGetCurrentCompletionPercentage(void);
 
 #endif /* SPRITE_UTIL_H */

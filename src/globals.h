@@ -40,7 +40,7 @@ enum PauseScreenFlags {
     PAUSE_SCREEN_UNKNOWN_9,
 };
 
-enum gDifficulty {
+enum Difficulty {
     DIFF_EASY = 0x0,
     DIFF_NORMAL = 0x1,
     DIFF_HARD = 0x2

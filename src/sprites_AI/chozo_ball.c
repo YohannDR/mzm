@@ -126,7 +126,7 @@ void ChozoBallRevealing(void)
  */
 void ChozoBallCheckRevealingAnimEnded(void)
 {
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.animationDurationCounter = 0x0;

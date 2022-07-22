@@ -271,7 +271,7 @@ void ChozoPillarPlatform(void)
             break;
 
         case 0x8:
-            if (SpriteUtillCheckEndCurrentSpriteAnim())
+            if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.pose = 0x9;
                 gCurrentSprite.animationDurationCounter = 0x0;

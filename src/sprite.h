@@ -401,7 +401,7 @@ struct SubSpriteData {
     u8 animationDurationCounter;
     u8 maybe_status;
     u8 timer;
-    u8 unknown;
+    u8 workVariable1;
     u8 maybe_roomSlot;
     u8 maybe_ramSlot;
     u8 unknown2;

@@ -213,7 +213,7 @@ void SkreeExplosionMove(void)
     else
         gCurrentSprite.yPosition -= 0x4;
 
-    if (SpriteUtillCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0x0;
 }
 

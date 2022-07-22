@@ -38,7 +38,7 @@ void WaterDrop(void)
             break;
 
         case 0x9:
-            if (SpriteUtillCheckEndCurrentSpriteAnim() != FALSE)
+            if (SpriteUtilCheckEndCurrentSpriteAnim() != FALSE)
             {
                 gCurrentSprite.pOam = WaterDrop_oam_falling_33bc94;
                 gCurrentSprite.currentAnimationFrame = 0x0;
@@ -93,7 +93,7 @@ void WaterDrop(void)
             if (gCurrentSprite.workVariable != 0x0)
                 gCurrentSprite.yPosition = gEffectYPosition;
 
-            if (SpriteUtillCheckEndCurrentSpriteAnim() != FALSE)
+            if (SpriteUtilCheckEndCurrentSpriteAnim() != FALSE)
             {
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.pose = 0x11;

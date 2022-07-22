@@ -1196,7 +1196,7 @@ u8 SpriteUtilMakeSpriteFaceSamusRotation(i16 oamRotation, i16 samusY, i16 samusX
     return oamRotation;
 }
 
-u8 SpriteUtillCheckEndCurrentSpriteAnim(void)
+u32 SpriteUtilCheckEndCurrentSpriteAnim(void)
 {
     u8 adc;
     u16 caf;
@@ -2749,7 +2749,7 @@ void SpriteUtilSetSplashEffect(u16 yPosition, u16 xPosition, u8 size)
  * @param size Size of the splash
  * @return 1 if out of effect, 0 otherwise 
  */
-u8 SpriteUtilCheckOutOfRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size)
+u32 SpriteUtilCheckOutOfRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size)
 {
     if (oldY > gEffectYPosition && yPosition <= gEffectYPosition)
     {
@@ -2774,7 +2774,7 @@ u8 SpriteUtilCheckOutOfRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 siz
  * @param size Size of the splash
  * @return u8 1 if in the effect, 0 otherwise 
  */
-u8 SpriteUtilCheckInRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size)
+u32 SpriteUtilCheckInRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size)
 {
     if (oldY < gEffectYPosition && yPosition >= gEffectYPosition)
     {
