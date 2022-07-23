@@ -174,7 +174,7 @@ void DragonSpawnFireball(void)
 void DragonFireballInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.properties |= SP_PROJECTILE;
+    gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
     gCurrentSprite.drawDistanceTopOffset = 0x8;
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x8;

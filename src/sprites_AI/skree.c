@@ -167,7 +167,7 @@ void SkreeExplosionInit(void)
     u16 status;
 
     status = gCurrentSprite.status & ~SPRITE_STATUS_NOT_DRAWN | (SPRITE_STATUS_UNKNOWN3 | SPRITE_STATUS_NONE);
-    gCurrentSprite.properties |= SP_PROJECTILE;
+    gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
     gCurrentSprite.drawDistanceTopOffset = 0x10;
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;

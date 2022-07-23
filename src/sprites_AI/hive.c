@@ -155,7 +155,7 @@ void HiveDying(void)
         if ((pSprite->status & SPRITE_STATUS_EXISTS) != 0x0 && pSprite->samusCollision == collision && pSprite->roomSlot == roomSlot && pSprite->pose == pose)
         {
             pSprite->pose = 0x25;
-            pSprite->properties |= SP_PROJECTILE;
+            pSprite->properties |= SP_KILL_OFF_SCREEN;
         }
         pSprite++;
     }

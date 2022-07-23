@@ -51,6 +51,7 @@ SECTIONS {
         . = 0x000000E4; gBackgroundPositions = .;
         . = 0x000000F8; gWaitingSpacePiratesPosition = .;
         . = 0x000000FC; gBG2Movement = .;
+        . = 0x00000100; gLockScreen = .;
         . = 0x00000110; gScreenShakeY = .;
         . = 0x00000114; gScreenShakeX = .;
         . = 0x00000118; gCurrentScrolls = .;

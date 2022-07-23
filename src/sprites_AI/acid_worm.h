@@ -4,6 +4,8 @@
 #include "../types.h"
 #include "../sprite_util.h"
 
+// Acid worm
+
 #define ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE 0x1
 #define ACID_WORM_POSE_IDLE_INIT 0x8
 #define ACID_WORM_POSE_IDLE 0x9
@@ -17,8 +19,11 @@
 #define ACID_WORM_POSE_SPAWN_EXTEND 0x43
 #define ACID_WORM_POSE_SPAWN_ON_TOP 0x45
 #define ACID_WORM_POSE_SPAWN_RETRACT 0x47
+#define ACID_WORM_POSE_DYING_INIT 0x62
 #define ACID_WORM_POSE_DYING_ANIM 0x67
 #define ACID_WORM_POSE_DYING 0x68
+
+// Acid worm body
 
 #define ACID_WORM_BODY_PART_AROUND_MOUTH 0x1
 #define ACID_WORM_BODY_PART_WEAK_POINT 0x2
@@ -29,6 +34,8 @@
 #define ACID_WORM_BODY_PART_SEGMENT3 0x7
 #define ACID_WORM_BODY_PART_SEGMENT4 0x8
 #define ACID_WORM_BODY_PART_SEGMENT5 0x9
+
+// Acid worm spit
 
 void AcidWormSyncHeadPosition(void);
 void AcidWormRandomXMovement(void);

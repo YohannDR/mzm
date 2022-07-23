@@ -268,7 +268,7 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite)
         else
         {
             pSprite->status &= ~SPRITE_STATUS_ONSCREEN;
-            if (pSprite->properties & SP_PROJECTILE)
+            if (pSprite->properties & SP_KILL_OFF_SCREEN)
             {
                 xOffset = spriteX + 0x280;
                 yOffset = spriteY + 0x280;

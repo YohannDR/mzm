@@ -1,6 +1,6 @@
 ﻿{
     "generic_data.c": [{
-            "Name": "sine_y_values",
+            "Name": "sSineYValues",
             "Offset": 575260,
             "Type": "i16",
             "IsArray": 1,

@@ -3,6 +3,11 @@
 
 #include "types.h"
 
+
+extern struct Scroll gCurrentScrolls[2];
+extern struct ScreenPositionAndVelocity gScreenPositionAndVelocity;
+extern struct LockScreen gLockScreen;
+
 struct Scroll {
     u8 within;
     u16 xEnd;
@@ -16,6 +21,12 @@ struct ScreenPositionAndVelocity {
     u16 yPosition;
     i8 xVelocity;
     i8 yVelocity;
+};
+
+struct LockScreen {
+    u8 lock;
+    u16 xPositionCenter;
+    u16 yPositionCenter;
 };
 
 void ScrollProcess(struct RawCoordsX* pCoords);

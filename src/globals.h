@@ -9,6 +9,7 @@
 #include "particle.h"
 #include "oam.h"
 #include "screen_shake.h"
+#include "display.h"
 #include "samus.h"
 #include "gba/keys.h"
 #include "projectile.h"
@@ -103,8 +104,6 @@ extern struct RawCoordsX gWaitingSpacePiratesPosition;
 extern struct BG2Movement gBG2Movement;
 extern struct ScreenShake gScreenShakeY;
 extern struct ScreenShake gScreenShakeX;
-extern struct Scroll gCurrentScrolls[2];
-extern struct ScreenPositionAndVelocity gScreenPositionAndVelocity;
 extern struct LastElevatorUsed gLastElevatorUsed;
 extern i8 gIsLoadingFile;
 extern i8 gPauseScreenFlag;

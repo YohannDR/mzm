@@ -584,7 +584,72 @@ const struct FrameData sAcidWormOAM_SpawnOnTop[24] = {
 
 void AcidWormSyncHeadPosition(void)
 {
+    i32 offset;
+    u8 arrayOffset;
+    i32 posOffset;
+    i32 positionOffset;
+    i32 position;
+    i32 sine;
+    u8 rotation;
+#ifndef NONMATCHING
+    register i32 r0 asm("r0");
+#else
+    i32 r0;
+#endif
+    
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+        rotation = gCurrentSprite.oamRotation + 0x80;
+    else
+        rotation = gCurrentSprite.oamRotation;
 
+    if (gSubSpriteData1.workVariable1 == 0x1)
+        offset = 0x180;
+    else
+        offset = 0x100;
+
+    arrayOffset = gCurrentSprite.arrayOffset;
+    sine = sArray_82fab90[arrayOffset];
+    if (sine == SPRITE_ARRAY_TERMINATOR)
+    {
+        sine = sArray_82fab90[0x0];
+        arrayOffset = 0x0;
+    }
+    gCurrentSprite.arrayOffset = arrayOffset + 0x1;
+
+    if (gCurrentSprite.health != 0x0)
+        posOffset = (i16)(offset + (sine << 0x2) * ((gCurrentSprite.roomSlot / 0x4) + 0x1));
+    else
+        posOffset = (i16)(offset + (sine << 0x4));
+
+    sine = r0 = sSineYValues[rotation];
+    if (sine < 0x0)
+    {
+        sine = (i16)(-sine * posOffset >> 0x8);
+        gCurrentSprite.yPosition = gSubSpriteData1.yPosition - sine;
+    }
+    else
+    {
+        sine = (i16)(r0 * posOffset >> 0x8);
+        gCurrentSprite.yPosition = gSubSpriteData1.yPosition + sine;
+    }
+
+    sine = sSineYValues[rotation + 0x40];
+    position = (i16)gSubSpriteData1.xPosition;
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+        (i16)position += offset;
+    else
+        (i16)position -= offset;
+
+    if (sine < 0x0)
+    {
+        sine = (i16)(-sine * posOffset >> 0x8);
+        gCurrentSprite.xPosition = position - sine;
+    }
+    else
+    {
+        sine = (i16)(sine * posOffset >> 0x8);
+        gCurrentSprite.xPosition = position + sine;
+    }
 }
 
 /**
@@ -736,9 +801,87 @@ u8 AcidWormCollidingWithSamusWhenExtending(void)
         return FALSE;
 }
 
+/**
+ * @brief 3dbf4 | 224 | Initializes an acid worm sprite
+ * 
+ */
 void AcidWormInit(void)
 {
+    u16 yPosition;
+    u16 xPosition;
+    u8 gfxSlot;
+    u8 ramSlot;
 
+    gCurrentSprite.hitboxTopOffset = -0x30;
+    gCurrentSprite.hitboxBottomOffset = 0x38;
+    gCurrentSprite.hitboxLeftOffset = -0x38;
+    gCurrentSprite.hitboxRightOffset = 0x38;
+
+    gCurrentSprite.drawDistanceTopOffset = 0x1A;
+    gCurrentSprite.drawDistanceBottomOffset = 0x10;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x1A;
+
+    gCurrentSprite.pOam = sAcidWormOAM_Idle;
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+    
+    gCurrentSprite.samusCollision = SSC_ACID_WORM_MOUTH;
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
+
+    gCurrentSprite.pose = ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE;
+    gCurrentSprite.status |= (SPRITE_STATUS_UNKNOWN2 | SPRITE_STATUS_UNKNOWN3);
+    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.workVariable2 = 0x14;
+
+    gCurrentSprite.yPosition -= 0x20;
+    gCurrentSprite.xPosition += 0x20;
+    yPosition = gCurrentSprite.yPosition;
+    xPosition = gCurrentSprite.xPosition;
+
+    gSubSpriteData1.yPosition = yPosition;
+    gSubSpriteData1.xPosition = xPosition;
+    gCurrentSprite.yPositionSpawn = yPosition;
+    gCurrentSprite.xPositionSpawn = xPosition;
+
+    gSubSpriteData1.workVariable1 = 0x0;
+    gSubSpriteData1.timer = 0x0;
+
+    if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ACID_WORM_KILLED))
+    {
+        // Acid worm killed, remove block and bring liquid down
+        gEffectYPositionOffset = 0x260;
+        AcidWormChangeBigBlockDownCCAA(CCAA_REMOVE_SOLID);
+        AcidWormChangeBigBlockMiddleCCAA(CCAA_REMOVE_SOLID);
+        AcidWormChangeBigBlockTopCCAA(CCAA_REMOVE_SOLID);
+        AcidWormChangeTwoGroundCCAA(CCAA_REMOVE_SOLID, yPosition, xPosition);
+        gCurrentSprite.status = 0x0;
+    }
+    else
+    {
+        if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
+            gCurrentSprite.status = 0x0; // No ziplines, kill sprite
+        else
+        {
+            gDoorUnlockTimer = 0x1; // Lock doors
+            gSubSpriteData1.health = gCurrentSprite.yPositionSpawn - 0x80; // Acid base position
+            gCurrentSprite.roomSlot = 0x0;
+
+            gfxSlot = gCurrentSprite.spritesetGFXSlot;
+            ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+            
+            // Spawn body
+            SpriteSpawnSecondary(SSPRITE_ACID_WORM_BODY, ACID_WORM_BODY_PART_AROUND_MOUTH, gfxSlot, ramSlot, yPosition + 0x40, xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_ACID_WORM_BODY, ACID_WORM_BODY_PART_WEAK_POINT, gfxSlot, ramSlot, yPosition + 0x80, xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_ACID_WORM_BODY, ACID_WORM_BODY_PART_BELOW_WEAK_POINT, gfxSlot, ramSlot, yPosition + 0xC0, xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_ACID_WORM_BODY, ACID_WORM_BODY_PART_ABOVE_SEGMENTS, gfxSlot, ramSlot, yPosition + 0x100, xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_ACID_WORM_BODY, ACID_WORM_BODY_PART_SEGMENT1, gfxSlot, ramSlot, yPosition + 0x140, xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_ACID_WORM_BODY, ACID_WORM_BODY_PART_SEGMENT2, gfxSlot, ramSlot, yPosition + 0x180, xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_ACID_WORM_BODY, ACID_WORM_BODY_PART_SEGMENT3, gfxSlot, ramSlot, yPosition + 0x1C0, xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_ACID_WORM_BODY, ACID_WORM_BODY_PART_SEGMENT4, gfxSlot, ramSlot, yPosition + 0x200, xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_ACID_WORM_BODY, ACID_WORM_BODY_PART_SEGMENT5, gfxSlot, ramSlot, yPosition + 0x240, xPosition, 0x0);
+        }
+    }
 }
 
 /**
@@ -881,6 +1024,10 @@ void AcidWormIdleInit(void)
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
 }
 
+/**
+ * @brief 3e030 | c0 | 
+ * 
+ */
 void AcidWormIdle(void)
 {
     // https://decomp.me/scratch/5cYt2
@@ -1676,7 +1823,7 @@ void AcidWormBodyMainLoop(void)
             }
             else
             {
-                gSpriteData[slot].pose = 0x62;
+                gSpriteData[slot].pose = ACID_WORM_POSE_DYING_INIT;
                 gSpriteData[slot].health = 0x0;
                 gSpriteData[slot].samusCollision = SSC_NONE;
                 gCurrentSprite.health = 0x0;
@@ -1693,47 +1840,355 @@ void AcidWormBodyMainLoop(void)
     }
 }
 
+/**
+ * @brief 3f018 | c8 | Handles the death of an acid worm body
+ * 
+ */
 void AcidWormBodyDeath(void)
 {
+    u8 ramSlot;
+    u8 roomSlot;
+    u8 effect;
 
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1; // Remove collision
+    AcidWormSyncHeadPosition();
+
+    if (gSpriteData[ramSlot].invicibilityStunFlashTimer != 0x0)
+        gCurrentSprite.paletteRow = gSpriteData[ramSlot].paletteRow; // Flashing effect
+    else
+    {
+        gCurrentSprite.timer--;
+        if (gCurrentSprite.timer == 0x0)
+        {
+            roomSlot = gCurrentSprite.roomSlot;
+            effect = PE_SPRITE_EXPLOSION_BIG;
+            if (roomSlot != ACID_WORM_BODY_PART_WEAK_POINT)
+            {
+                effect = PE_SPRITE_EXPLOSION_MEDIUM;
+                if (roomSlot == ACID_WORM_BODY_PART_SEGMENT5)
+                {
+                    // Last segment
+                    gSubSpriteData1.timer = 0x0;
+                    ParticleSet(gSpriteData[ramSlot].yPositionSpawn + 0x60, gSpriteData[ramSlot].xPositionSpawn, PE_SPRITE_EXPLOSION_BIG);
+                    ParticleSet(gSpriteData[ramSlot].yPositionSpawn + 0x40, gSpriteData[ramSlot].xPositionSpawn, PE_SPRITE_EXPLOSION_BIG);
+                    // Open path
+                    AcidWormChangeTwoGroundCCAA(CCAA_REMOVE_SOLID, gSpriteData[ramSlot].yPositionSpawn, gSpriteData[ramSlot].xPositionSpawn);
+                    // Set event and open door
+                    EventFunction(EVENT_ACTION_SETTING, EVENT_ACID_WORM_KILLED);
+                    gDoorUnlockTimer = -0x14;
+                    MusicFade(0x10E);
+                }
+            }
+
+            // Kill sprite
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, FALSE, effect);
+        }
+    }
 }
 
+/**
+ * @brief 3f0e0 | 8c | Initialize an acid worm spit sprite
+ * 
+ */
 void AcidWormSpitInit(void)
 {
+    gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+    gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
+    gCurrentSprite.drawDistanceTopOffset = 0x8;
+    gCurrentSprite.drawDistanceBottomOffset = 0x8;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
 
+    gCurrentSprite.hitboxTopOffset = -0x10;
+    gCurrentSprite.hitboxBottomOffset = 0x10;
+    gCurrentSprite.hitboxLeftOffset = -0x10;
+    gCurrentSprite.hitboxRightOffset = 0x10;
+
+    gCurrentSprite.pOam = sAcidWormSpitOAM_Moving;
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+
+    gCurrentSprite.drawOrder = 0x3;
+    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0x0];
+
+    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.pose = 0x9;
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
 }
 
+/**
+ * @brief 3f16c | 118 | Handles the movement of an acid worm spit
+ * 
+ */
 void AcidWormSpitMove(void)
 {
+    u32 offset;
+    i32 yMovement;
+    u16 xMovement;
 
+    if (gCurrentSprite.roomSlot == 0x2)
+    {
+        xMovement = 0x2;
+        offset = gCurrentSprite.arrayOffset;
+        yMovement = sAcidWormSpitTwoYVelocity[offset];
+        if (yMovement == SPRITE_ARRAY_TERMINATOR)
+        {
+            yMovement = sAcidWormSpitTwoYVelocity[offset - 0x1];
+            gCurrentSprite.yPosition += yMovement;
+        }
+        else
+        {
+            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.yPosition += yMovement;
+        }
+    }
+    else if (gCurrentSprite.roomSlot == 0x1)
+    {
+        xMovement = 0xA;
+        offset = gCurrentSprite.arrayOffset;
+        yMovement = sAcidWormSpitOneYVelocity[offset];
+        if (yMovement == SPRITE_ARRAY_TERMINATOR)
+        {
+            yMovement = sAcidWormSpitOneYVelocity[offset - 0x1];
+            gCurrentSprite.yPosition += yMovement;
+        }
+        else
+        {
+            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.yPosition += yMovement;
+        }
+    }
+    else
+    {
+        xMovement = 0x7;
+        offset = gCurrentSprite.arrayOffset;
+        yMovement = sAcidWormSpitThreeYVelocity[offset];
+        if (yMovement == SPRITE_ARRAY_TERMINATOR)
+        {
+            yMovement = sAcidWormSpitThreeYVelocity[offset - 0x1];
+            gCurrentSprite.yPosition += yMovement;
+        }
+        else
+        {
+            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.yPosition += yMovement;
+        }
+    }
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition += xMovement;
+    else
+        gCurrentSprite.xPosition -= xMovement;
+
+    if (gCurrentSprite.yPosition >= gEffectYPosition)
+    {
+        gCurrentSprite.yPosition = gEffectYPosition;
+        gCurrentSprite.pOam = sAcidWormSpitOAM_Exploding;
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.pose = 0x45;
+    }
+    else
+    {
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+        if (gPreviousCollisionCheck & (COLLISION_PASS_THROUGH_BOTTOM | 0x20 | 0x40 | 0x80))
+            gCurrentSprite.pose = 0x42;
+    }
 }
 
+/**
+ * @brief 3f284 | 48 | Initializes an acid worm spit sprite to be exploding
+ * 
+ */
 void AcidWormSpitExplodingGFXInit(void)
 {
+    gCurrentSprite.pOam = sAcidWormSpitOAM_Exploding;
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
 
+    gCurrentSprite.pose = 0x43;
+    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    SoundPlay(0x1B8);
 }
 
+/**
+ * @brief 3f2cc | 24 | Checks if the explosion animation has ended
+ * 
+ */
 void AcidWormSpitCheckExplodingAnimEnded(void)
 {
-
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
+        gCurrentSprite.status = 0x0; // Kill sprite
 }
 
+/**
+ * @brief 3f2f0 | 2c | Checks if the explosion animation has ended (on acid)
+ * 
+ */
 void AcidWormSpitCheckExplodingOnAcidAnimEnded(void)
 {
-
+    gCurrentSprite.yPosition = gEffectYPosition; // Sync position
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
+        gCurrentSprite.status = 0x0; // Kill sprite
 }
 
+/**
+ * @brief 3f31c | 264 | Acid worm AI
+ * 
+ */
 void AcidWorm(void)
 {
+    switch (gCurrentSprite.pose)
+    {
+        case 0x0:
+            AcidWormInit();
+            break;
 
+        case ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE:
+            AcidWormCheckSamusOnZipline();
+            break;
+
+        case ACID_WORM_POSE_CHECK_SPAWN:
+            AcidWormSpawnStart();
+            break;
+
+        case ACID_WORM_POSE_SPAWN_EXTEND:
+            AcidWormSpawnExtending();
+            break;
+
+        case ACID_WORM_POSE_SPAWN_ON_TOP:
+            AcidWormSpawnStayingOnTop();
+            break;
+
+        case ACID_WORM_POSE_SPAWN_RETRACT:
+            AcidWormSpawnRetracting();
+            break;
+
+        case ACID_WORM_POSE_IDLE_INIT:
+            AcidWormIdleInit();
+
+        case ACID_WORM_POSE_IDLE:
+            AcidWormIdle();
+            break;
+
+        case ACID_WORM_POSE_CHECK_WARNING_ENDED:
+            AcidWormCheckWarningAnimEnded();
+            break;
+
+        case ACID_WORM_POSE_EXTENDING:
+            AcidWormExtend();
+            break;
+
+        case ACID_WORM_POSE_RETRACTING:
+            AcidWormRetracting();
+            break;
+
+        case ACID_WORM_POSE_EXTENDED:
+            AcidWormExtended();
+            break;
+
+        case ACID_WORM_POSE_RAISING_ACID:
+            AcidWormRaiseAcid();
+            break;
+
+        case ACID_WORM_POSE_BRINGING_DOWN_ACID:
+            AcidWormAcidGoDown();
+            break;
+
+        case ACID_WORM_POSE_DYING_INIT:
+            AcidWormDeathGFXInit();
+            break;
+
+        case ACID_WORM_POSE_DYING_ANIM:
+            AcidWormDeathFlashingAnim();
+            break;
+
+        case ACID_WORM_POSE_DYING:
+            AcidWormDying();
+            break;
+    }
+
+    // Lock screen if not dead
+    if (gSubSpriteData1.timer != 0x0)
+    {
+        gLockScreen.lock = 0x2;
+        gLockScreen.yPositionCenter = gCurrentSprite.yPositionSpawn - 0x100;
+        gLockScreen.xPositionCenter = gCurrentSprite.xPositionSpawn;
+    }
+    else
+        gLockScreen.lock = FALSE;
 }
 
+/**
+ * @brief 3f580 | a4 | Acid worm body AI
+ * 
+ */
 void AcidWormBody(void)
 {
+    u8 ramSlot;
 
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+
+    // Sync palette
+    gCurrentSprite.absolutePaletteRow = gSpriteData[ramSlot].absolutePaletteRow;
+    if (gSpriteData[ramSlot].paletteRow == 0xE - (gSpriteData[ramSlot].spritesetGFXSlot + gSpriteData[ramSlot].frozenPaletteRowOffset))
+    {
+        gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+        gCurrentSprite.animationDurationCounter++;
+    }
+    else if (gSpriteData[ramSlot].paletteRow == gSpriteData[ramSlot].absolutePaletteRow)
+        gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
+
+    switch (gCurrentSprite.pose)
+    {
+        case 0x0:
+            AcidWormBodyInit();
+            break;
+
+        case 0x43:
+            AcidWormBodyMove();
+            break;
+
+        case 0x9:
+            AcidWormBodyMainLoop();
+            break;
+
+        case 0x67:
+            AcidWormBodyDeath();
+    }
 }
 
+/**
+ * @brief 3f624 | 60 | Acid worm spit AI
+ * 
+ */
 void AcidWormSpit(void)
 {
+    switch (gCurrentSprite.pose)
+    {
+        case 0x0:
+            AcidWormSpitInit();
+            break;
 
+        case 0x9:
+            AcidWormSpitMove();
+            break;
+
+        case 0x42:
+            AcidWormSpitExplodingGFXInit();
+
+        case 0x43:
+            AcidWormSpitCheckExplodingAnimEnded();
+            break;
+
+        case 0x45:
+            AcidWormSpitCheckExplodingOnAcidAnimEnded();
+            break;
+
+        default:
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SMALL);
+    }
 }

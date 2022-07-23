@@ -469,7 +469,7 @@ void ImagoCocoonSporeSpawning(void)
             gCurrentSprite.pOam = imago_cocoon_spore_oam_2e0c18;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.properties |= SP_PROJECTILE;
+            gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
             gCurrentSprite.pose = 0x25;
             if (gCurrentSprite.roomSlot == 0x0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
