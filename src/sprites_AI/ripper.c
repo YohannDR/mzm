@@ -1,5 +1,6 @@
 #include "ripper.h"
 #include "../sprite_util.h"
+#include "../../data/data.h"
 #include "../globals.h"
 
 void RipperInit(void)
