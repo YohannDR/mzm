@@ -1,4 +1,4 @@
-#include "PowerGrip.h"
+#include "power_grip.h"
 #include "../sprite_util.h"
 #include "../sprite.h"
 #include "../globals.h"
