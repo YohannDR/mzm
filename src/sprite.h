@@ -19,6 +19,7 @@ extern u8 gPreviousVerticalCollisionCheck;
 extern u8 gPreviousCollisionCheck;
 extern u8 gIgnoreSamusAndSpriteCollision;
 extern u8 gSpriteDrawOrder[24];
+extern struct BossWork gBossWork;
 extern u8 gSpriteRNG;
 
 // Defines
@@ -447,6 +448,33 @@ struct SpriteData {
     u8 properties;
     u8 frozenPaletteRowOffset;
     u8 absolutePaletteRow;
+};
+
+struct BossWork {
+    u16 work1; // Usually spawn Y
+    u16 work2; // Usually spawn X
+    u16 work3;
+    u16 work4; // Usually health
+    u16 work5;
+    u16 work6;
+    u16 work7;
+    u16 work8;
+    u16 work9;
+    u16 work10;
+    u16 work11; // Completion percentage, only used by mecha ridley
+    u16 work12;
+    u16 work13;
+    u16 work14;
+    u16 work15;
+    u16 work16;
+    u16 work17;
+    u16 work18;
+    u16 work19;
+    u16 work20;
+    u16 work21;
+    u16 work22;
+    u16 work23;
+    u16 work24;
 };
 
 // Functions

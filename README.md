@@ -1,6 +1,7 @@
 # Metroid - Zero Mission Decomp
 
 This is a work in progress decompilation of Metroid - Zero Mission.
+Progress can be seen here : https://docs.google.com/spreadsheets/d/1X8XarD5evY8ZI7r_GQqh1pYmdVMbBcINYfRBUlogmKY/edit#gid=0
 
 **It's very likely that the code of this repo doesn't build, and even if it does it probably won't match, this is normal**
 

@@ -448,6 +448,10 @@ void AreaBannerCheckRemovingAnimEnded(void)
         gCurrentSprite.status = 0x0; // Kill sprite
 }
 
+/**
+ * @brief 3c884 | e0 | Area banner AI
+ * 
+ */
 void AreaBanner(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;

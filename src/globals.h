@@ -80,6 +80,7 @@ extern u8 gResetGame;
 extern u8 gDisableScrolling;
 extern u8 gSkipDoorTransition;
 extern u8 gDisableSoftreset;
+extern i8 gCollectingTank;
 extern u8 gDisablePause;
 extern u8 gCurrentArea;
 extern u8 gCurrentRoom;

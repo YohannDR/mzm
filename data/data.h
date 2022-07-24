@@ -94,7 +94,6 @@
 #include "../src/sprites_AI/black_space_pirate.h"
 #include "../src/sprites_AI/escape_ship_pirate.h"
 #include "../src/sprites_AI/chozo_ball.h"
-#include "../src/sprites_AI/save_yes_no_cursor.h"
 #include "../src/sprites_AI/chozo_statue_movement.h"
 
 /* generic_data.c */

@@ -101,7 +101,7 @@ u8 LocationTextGetNorfair(void)
     u8 lt;
 
     lt = LT_INVALID;
-    switch(gCurrentRoom)
+    switch (gCurrentRoom)
     {
         case 0x24: // Save room 1
         case 0x27: // Save room 2
@@ -132,7 +132,7 @@ u8 LocationTextGetRidley(void)
     u8 lt;
 
     lt = LT_INVALID;
-    switch(gCurrentRoom)
+    switch (gCurrentRoom)
     {
         case 0x1: // Save room 1
         case 0x14: // Save room 2
@@ -160,7 +160,7 @@ u8 LocationTextGetChozodia(void)
     u8 lt;
 
     lt = LT_INVALID;
-    switch(gCurrentRoom)
+    switch (gCurrentRoom)
     {        
         case 0x0: // Suitless spawn room
         case 0x22: // Crateria passage with missile tank room
@@ -192,7 +192,7 @@ u8 LocationTextGetTourian(void)
     u8 lt;
 
     lt = LT_INVALID;
-    switch(gCurrentRoom)
+    switch (gCurrentRoom)
     {
         case 0x6: // Save room 1
         case 0xB: // Save room 2

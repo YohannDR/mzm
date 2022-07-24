@@ -55,7 +55,7 @@ void AtomicChaseSamus(void)
 
 u8 AtomicElectricityCheckAtomicAlive(u8 slot)
 {
-    return 0;
+
 }
 
 void AtomicElectriciytInit(void)

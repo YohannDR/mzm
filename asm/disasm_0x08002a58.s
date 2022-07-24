@@ -3001,8 +3001,8 @@ lbl_0800407c:
 lbl_08004084:
     .byte 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00
 
-    thumb_func_start sub_0800408c
-sub_0800408c: @ 0x0800408c
+    thumb_func_start backup_track_data2_sound_channels
+backup_track_data2_sound_channels: @ 0x0800408c
     push {r4, r5, r6, r7, lr}
     mov r7, sb
     mov r6, r8
@@ -3105,8 +3105,8 @@ lbl_0800413a:
     .align 2, 0
 lbl_0800414c: .4byte 0x030039bc
 
-    thumb_func_start sub_08004150
-sub_08004150: @ 0x08004150
+    thumb_func_start retrieve_track_data2_sound_channels
+retrieve_track_data2_sound_channels: @ 0x08004150
     push {r4, r5, r6, r7, lr}
     mov r7, sb
     mov r6, r8

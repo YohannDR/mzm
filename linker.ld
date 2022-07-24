@@ -26,6 +26,7 @@ SECTIONS {
         . = 0x0000003D; gDisableScrolling = .;
         . = 0x00000042; gSkipDoorTransition = .;
         . = 0x00000043; gDisableSoftreset = .;
+        . = 0x00000044; gCollectingTank = .;
         . = 0x00000049; gDisablePause = .;
         . = 0x00000049; gHideHud = .;
         . = 0x00000054; gCurrentArea = .;
@@ -71,6 +72,7 @@ SECTIONS {
         . = 0x000007F1; gPreviousCollisionCheck = .;
         . = 0x000007F1; gCollisionDebris = .;
         . = 0x000007F3; gSpriteDrawOrder = .;
+        . = 0x0000080C; gBossWork = .;
         . = 0x0000083C; gSpriteRNG = .;
         . = 0x00000840; gParticleEffects = .;
         . = 0x00000918; gCurrentParticleEffectOAMFramePointer = .;

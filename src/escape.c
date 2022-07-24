@@ -9,7 +9,8 @@ u8 EscapeDetermineTimer(void)
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MOTHER_BRAIN_KILLED))
             return ESCAPE_MOTHER_BRAIN;
     }
-    else if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_CHOZODIA) && EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
+    else if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_CHOZODIA) &&
+        EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
         return ESCAPE_MECHA_RIDLEY;
     return ESCAPE_NONE;
 }
@@ -64,7 +65,7 @@ void EscapeSetTimer(void)
     gEscapeTimerCounter = 0xFF;
     if (escape == ESCAPE_MOTHER_BRAIN)
     {
-        if (gDifficulty == 0x0)
+        if (gDifficulty == DIFF_EASY)
         {
             gEscapeTimerDigits.hundredths = 0x0;
             gEscapeTimerDigits.tenths = 0x0;
@@ -73,7 +74,7 @@ void EscapeSetTimer(void)
             gEscapeTimerDigits.minutesOnes = 0x3;
             gEscapeTimerDigits.minutesTens = 0x0;
         }
-        else if (gDifficulty == 0x2)
+        else if (gDifficulty == DIFF_HARD)
         {
             gEscapeTimerDigits.hundredths = 0x0;
             gEscapeTimerDigits.tenths = 0x0;
@@ -94,7 +95,7 @@ void EscapeSetTimer(void)
     }
     else if (escape == ESCAPE_MECHA_RIDLEY)
     {
-        if (gDifficulty == 0x2)
+        if (gDifficulty == DIFF_HARD)
         {
             gEscapeTimerDigits.hundredths = 0x0;
             gEscapeTimerDigits.tenths = 0x0;
