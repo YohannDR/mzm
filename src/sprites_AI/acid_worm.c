@@ -16,7 +16,7 @@ const i16 sAcidWormSpitThreeYVelocity[20] = {
     0xC, 0xE, 0x10, 0x12, SPRITE_ARRAY_TERMINATOR
 };
 
-const i16 sArray_82fab90[33] = {
+const i16 sAcidWormSwingingMovement[33] = {
     0x0, 0x0, 0x0, 0x0, -0x1, -0x1, -0x1, -0x1, -0x2, -0x2, -0x2, -0x2, -0x1, -0x1, -0x1, -0x1,
     0x0, 0x0, 0x0, 0x0, 0x1, 0x1, 0x1, 0x1, 0x2, 0x2, 0x2, 0x2, 0x1, 0x1, 0x1, 0x1, SPRITE_ARRAY_TERMINATOR
 };
@@ -582,6 +582,10 @@ const struct FrameData sAcidWormOAM_SpawnOnTop[24] = {
 };
 
 
+/**
+ * @brief 3d860 | 118 | Synchronises the position of the acid worm body parts with itself
+ * 
+ */
 void AcidWormSyncHeadPosition(void)
 {
     i32 offset;
@@ -608,10 +612,10 @@ void AcidWormSyncHeadPosition(void)
         offset = 0x100;
 
     arrayOffset = gCurrentSprite.arrayOffset;
-    sine = sArray_82fab90[arrayOffset];
+    sine = sAcidWormSwingingMovement[arrayOffset];
     if (sine == SPRITE_ARRAY_TERMINATOR)
     {
-        sine = sArray_82fab90[0x0];
+        sine = sAcidWormSwingingMovement[0x0];
         arrayOffset = 0x0;
     }
     gCurrentSprite.arrayOffset = arrayOffset + 0x1;
@@ -733,39 +737,42 @@ void AcidWormChangeBigBlockMiddleCCAA(u8 caa)
         ParticleSet(yPosition - 0x40, xPosition + 0x10, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
 }
 
+/**
+ * @brief 3daa8 | e4 | Updates the clipdata of the 2 top blocks of the big block on the ground
+ * 
+ * @param caa 
+ */
 void AcidWormChangeBigBlockTopCCAA(u8 caa)
 {
-    // https://decomp.me/scratch/FryQC
-
-    /*u16 yPosition;
+    u16 yPosition;
     u16 xPosition;
-    u32 blockX;
-    u32 blockX2;
+    u32 blockLeft;
+    u32 blockRight;
 
     yPosition = gCurrentSprite.yPositionSpawn - 0x80;
     xPosition = gCurrentSprite.xPositionSpawn;
     gCurrentClipdataAffectingAction = caa;
-    blockX = xPosition - 0x20;
+    blockLeft = xPosition - 0x20;
 
-    ClipdataProcess(yPosition, blockX);
+    ClipdataProcess(yPosition, blockLeft); // Left block
     gCurrentClipdataAffectingAction = caa;
-    blockX2 = blockX + 0x20;
-    ClipdataProcess(yPosition, blockX2);
+    blockRight = xPosition + 0x20;
+    ClipdataProcess(yPosition, blockRight); // Right block
 
     if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ACID_WORM_KILLED))
     {
+        // If acid worm dying, play effects
         ParticleSet(yPosition - 0x40, xPosition - 0x8, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
         yPosition -= 0x80;
-        SpriteDebrisInit(0x0, 0x11, yPosition - 0x42, blockX);
+        SpriteDebrisInit(0x0, 0x11, yPosition - 0x42, blockLeft);
         SpriteDebrisInit(0x0, 0x12, yPosition, xPosition - 0x34);
         SpriteDebrisInit(0x0, 0x13, yPosition - 0x5C, xPosition - 0x3E);
-        SpriteDebrisInit(0x0, 0x4, yPosition, blockX);
+        SpriteDebrisInit(0x0, 0x4, yPosition, blockLeft);
         SpriteDebrisInit(0x0, 0x11, yPosition - 0x24, xPosition + 0x52);
-        SpriteDebrisInit(0x0, 0x12, yPosition - 0x4C, blockX2);
+        SpriteDebrisInit(0x0, 0x12, yPosition - 0x4C, blockRight);
         SpriteDebrisInit(0x0, 0x13, yPosition, xPosition + 0x48);
         SpriteDebrisInit(0x0, 0x4, yPosition - 0x6C, xPosition + 0x34);
-    }*/
-
+    }
 }
 
 /**
@@ -904,19 +911,20 @@ void AcidWormCheckSamusOnZipline(void)
 void AcidWormSpawnStart(void)
 {
     // On zipline, a little more than 2 blocks on each side, y position doesn't matter
-    if (SpriteUtilCheckOnZipline() && gSamusData.xPosition > (i32)(gCurrentSprite.xPositionSpawn - 0x8C)
-        && gSamusData.xPosition < (i32)(gCurrentSprite.xPositionSpawn + 0x8C))
+    if (SpriteUtilCheckOnZipline() && gSamusData.xPosition > (i32)(gCurrentSprite.xPositionSpawn - (BLOCK_SIZE * 0x2 + 0xC))
+        && gSamusData.xPosition < (i32)(gCurrentSprite.xPositionSpawn + (BLOCK_SIZE * 0x2 + 0xC)))
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
         gSubSpriteData1.timer = 0x1;
         gCurrentSprite.pose = ACID_WORM_POSE_SPAWN_EXTEND;
         gCurrentSprite.timer = 0x0;
+        // Destroy bottom
         AcidWormChangeBigBlockDownCCAA(CCAA_REMOVE_SOLID);
         ScreenShakeStartVertical(0x3C, 0x81);
         ScreenShakeStartHorizontal(0x3C, 0x81);
         SoundPlay(0x1A7);
         SoundPlay(0x1A8);
-        MusicPlay(0x3C, 0x0);
+        MusicPlay(0x3C, 0x0); // Play battle music
     }
 }
 
@@ -931,7 +939,7 @@ void AcidWormSpawnExtending(void)
     oldY = gCurrentSprite.yPosition;
 
     // Check if extended 7 blocks
-    if (gCurrentSprite.yPosition < (i32)(gCurrentSprite.yPositionSpawn - 0x1C0))
+    if (gCurrentSprite.yPosition < (i32)(gCurrentSprite.yPositionSpawn - (BLOCK_SIZE * 0x7)))
     {
         gCurrentSprite.pose = ACID_WORM_POSE_SPAWN_ON_TOP;
         gCurrentSprite.pOam = sAcidWormOAM_SpawnOnTop;

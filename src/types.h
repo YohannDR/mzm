@@ -18,7 +18,7 @@ typedef volatile signed short vi16;
 typedef volatile unsigned int vu32;
 typedef volatile signed int vi32;
 
-typedef i32 unknown_sized_int; // To mark ints whose size is yet unknown, for convenience reasons.
+#define BLOCK_SIZE 0x40
 
 struct RawCoordsX {
     u16 x;

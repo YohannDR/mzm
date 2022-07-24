@@ -1,8 +1,8 @@
 #ifndef GBA_DMA_H
 #define GBA_DMA_H
 
-#include "gba/memory.h"
-#include "types.h"
+#include "memory.h"
+#include "../types.h"
 
 #define REG_DMA0 (REG_BASE + 0x080)
 #define REG_DMA1 (REG_BASE + 0x0bc)

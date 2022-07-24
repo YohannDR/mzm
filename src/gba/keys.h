@@ -1,8 +1,8 @@
 #ifndef GBA_KEYS_H
 #define GBA_KEYS_H
 
-#include "gba/memory.h"
-#include "types.h"
+#include "memory.h"
+#include "../types.h"
 
 #define REG_KEY_INPUT (REG_BASE + 0x130)
 
