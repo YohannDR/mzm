@@ -428,10 +428,10 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
  * @param ramSlot The RAM slot of the secondary sprite's parent
  * @param yPosition Y Position
  * @param xPosition X Position
- * @param status_to_add Additionnal status flags (default are Exists, On Screen and Not Drawn)
+ * @param statusToAdd Additionnal status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
  */
-u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 status_to_add)
+u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
 {
     u8 new_ramSlot;
     struct SpriteData* pSprite;
@@ -445,7 +445,7 @@ u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yP
         status = pSprite->status & SPRITE_STATUS_EXISTS;
         if (status == 0x0)
         {
-            pSprite->status = status_to_add | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
+            pSprite->status = statusToAdd | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
             pSprite->properties = SP_SECONDARY_SPRITE;
             pSprite->spritesetGFXSlot = gfxSlot;
             pSprite->spriteID = spriteID;
@@ -484,10 +484,10 @@ u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yP
  * @param gfxSlot The sprite graphics slot
  * @param yPosition Y Position
  * @param xPosition X Position
- * @param status_to_add Additionnal status flags (default are Exists, On Screen and Not Drawn)
+ * @param statusToAdd Additionnal status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF if the sprite couldn't spawn
  */
-u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 xPosition, u16 status_to_add)
+u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
 {
     u8 new_ramSlot;
     struct SpriteData* pSprite;
@@ -501,7 +501,7 @@ u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 x
         status = pSprite->status & SPRITE_STATUS_EXISTS;
         if (status == 0x0)
         {
-            pSprite->status = status_to_add | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
+            pSprite->status = statusToAdd | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
             pSprite->properties = 0x0;
             pSprite->spritesetGFXSlot = gfxSlot;
             pSprite->spriteID = spriteID;
@@ -541,10 +541,10 @@ u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 x
  * @param ramSlot The RAM slot of the sprite's parent
  * @param yPosition Y Position
  * @param xPosition X Position
- * @param status_to_add Additionnal status flags (default are Exists, On Screen and Not Drawn)
+ * @param statusToAdd Additionnal status flags (default are Exists, On Screen and Not Drawn)
  * @return The assigned RAM slot of the spawned sprite, 0xFF is the sprite couldn't spawn
  */
-u8 SpriteSpawnDropFollowers(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 status_to_add)
+u8 SpriteSpawnDropFollowers(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yPosition, u16 xPosition, u16 statusToAdd)
 {
     u8 new_ramSlot;
     struct SpriteData* pSprite;
@@ -558,7 +558,7 @@ u8 SpriteSpawnDropFollowers(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u1
         status = pSprite->status & SPRITE_STATUS_EXISTS;
         if (status == 0x0)
         {
-            pSprite->status = status_to_add | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
+            pSprite->status = statusToAdd | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
             pSprite->properties = 0x0;
             pSprite->spritesetGFXSlot = gfxSlot;
             pSprite->spriteID = spriteID;

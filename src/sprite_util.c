@@ -1211,7 +1211,7 @@ u32 SpriteUtilCheckEndCurrentSpriteAnim(void)
         return FALSE;
 }
 
-u8 SpriteUtilCheckNearEndCurrentSpriteAnim(void)
+u32 SpriteUtilCheckNearEndCurrentSpriteAnim(void)
 {
     // https://decomp.me/scratch/73v13
 
@@ -1349,7 +1349,7 @@ u8 SpriteUtilCheckSamusNearSpriteAboveBelow(u16 yRange, u16 xRange)
 
 }
 
-u8 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 xRangeBehind)
+u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 xRangeBehind)
 {
 
 }

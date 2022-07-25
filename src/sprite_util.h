@@ -14,6 +14,10 @@
 #define NSAB_ABOVE 0x1
 #define NSAB_BELOW 0x2
 
+#define NSFB_OUT_OF_RANGE 0x0
+#define NSAB_IN_FRONT 0x3
+#define NSAB_BEHIND 0xC
+
 #define DCT_NONE 0x0
 #define DCT_SHINESPARK 0x1
 #define DCT_SPEEDBOOSTER 0x2
@@ -59,7 +63,7 @@ void unk_f978(i16 movement);
 void unk_f9e7(i16 movement);
 u8 SpriteUtilMakeSpriteFaceSamusRotation(i16 oamRotation, i16 samusY, i16 samusX, i16 spriteY, i16 spriteX);
 u32 SpriteUtilCheckEndCurrentSpriteAnim(void);
-u8 SpriteUtilCheckNearEndCurrentSpriteAnim(void);
+u32 SpriteUtilCheckNearEndCurrentSpriteAnim(void);
 u8 SpriteUtilCheckEndSpriteAnim(u8 ramSlot);
 u8 SpriteUtilCheckNearEndSpriteAnim(u8 ramSlot);
 u8 SpriteUtilCheckEndSubSprite1Anim(void);
@@ -69,7 +73,7 @@ u8 SpriteUtilCheckEndSubSpriteAnim(struct SubSpriteData* pSub);
 u8 SpriteUtilCheckNearEndSubSpriteAnim(struct SubSpriteData* pSub);
 u8 SpriteUtilCheckSamusNearSpriteLeftRight(u16 yRange, u16 xRange);
 u8 SpriteUtilCheckSamusNearSpriteAboveBelow(u16 yRange, u16 xRange);
-u8 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 xRangeBehind);
+u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 xRangeBehind);
 void SpriteUtilSamusStandingOnSprite(struct SpriteData* pSprite);
 void SpriteUtilUpdateFreezeTimer(void);
 void SpriteUtilUnfreezeAnimEasy(void);
