@@ -23,7 +23,7 @@ void SpriteUpdate(void)
     rngParam1 = gFrameCounter8Bit;
     rngParam2 = (gFrameCounter16Bit >> 0x4); // Incorrect stack
 
-    if (gGameModeSub1 == 0x2)
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
     {
         SpriteDebrisProcessAll();
         if (!SpriteUtilCheckStopSpritesPose())

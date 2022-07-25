@@ -4,6 +4,7 @@
 #include "sprite_util.h"
 #include "power_bomb_explosion.h"
 #include "music.h"
+#include "game_modes.h"
 #include "../data/data.h"
 #include "globals.h"
 
@@ -131,34 +132,39 @@ u8 ProjectileInit(u8 type, u16 yPosition, u16 xPosition)
 
 void ProjectileUpdate(void)
 {
-    /*u8 checks;
-    i32 count;
-    struct ParticleEffect* pEffect;
+    // https://decomp.me/scratch/jEGx8
+
+    /*i32 count;
+    u8 checks;
+    u8 projType;
+    u16 beamSound;
+    u16 beams;
+    struct ParticleEffect* pParticle;
     struct ProjectileData* pProj;
-    u8 type;
-    u16 flag;
-    u16 sound;
-    u8 proj_limit;
 
-    if (gGameModeSub1 != 0x2) return;
-
+    if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
+        return;
+    
     SamusCallUpdateArmCannonPositionOffset();
-
-    gArmCannonY = ((gSamusData.yPosition >> 0x2) + gSamusPhysics.armCannonYPositionOffset) * 0x4;
-    gArmCannonX = ((gSamusData.xPosition >> 0x2) + gSamusPhysics.armCannonXPositionOffset) * 0x4;
+    gArmCannonY = (((gSamusData.yPosition / 4)) + gSamusPhysics.armCannonYPositionOffset) * 0x4;
+    gArmCannonX = (((gSamusData.xPosition / 4)) + gSamusPhysics.armCannonXPositionOffset) * 0x4;
 
     if (gSamusWeaponInfo.chargeCounter == 0x10 && gEquipment.suitType != SUIT_SUITLESS)
     {
         checks = FALSE;
         count = 0x0;
-        pEffect = gParticleEffects;
-        do {
-            if ((pEffect->status & PARTICLE_STATUS_EXISTS) != 0x0 && pEffect->effect == PE_CHARGING_BEAM)
+        
+        pParticle = gParticleEffects; // /!\ Swapped instructions
+
+        do
+        {
+            if (pParticle->status & PARTICLE_STATUS_EXISTS && pParticle->effect == PE_CHARGING_BEAM)
             {
                 checks++;
                 break;
             }
-            pEffect++;
+
+            pParticle++;
             count++;
         } while (count < 0x10);
 
@@ -171,272 +177,265 @@ void ProjectileUpdate(void)
         case PROJECTILE_CHARGED_BEAM:
             if (gEquipment.suitType == SUIT_SUITLESS)
             {
-                if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_CHARGED_PISTOL, 0x2) << 0x18 != FALSE && ProjectileInit(PROJ_TYPE_CHARGED_PISTOL, gArmCannonY, gArmCannonX) << 0x18 != FALSE)
+                if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_CHARGED_PISTOL, 0x2) && ProjectileInit(PROJ_TYPE_CHARGED_PISTOL, gArmCannonY, gArmCannonX))
                 {
                     gSamusWeaponInfo.cooldown = 0x7;
                     ProjectileSetBeamParticleEffect();
                     gSamusWeaponInfo.beamReleasePaletteTimer = 0x4;
-                    SoundPlay(0xA0);
+                    SoundPlay(0xA0); // Charged pistol shot
                 }
             }
             else
             {
-                flag = gEquipment.beamBombsActivation;
-                if ((gEquipment.beamBombsActivation & BBF_PLASMA_BEAM) != 0x0)
+                beams = gEquipment.beamBombsActivation;
+                if (beams & BBF_PLASMA_BEAM)
                 {
-                    type = PROJ_TYPE_CHARGED_PLASMA_BEAM;
-                    if ((gEquipment.beamBombsActivation & BBF_WAVE_BEAM) != 0x0)
+                    projType = PROJ_TYPE_CHARGED_PLASMA_BEAM;
+                    if (beams & BBF_WAVE_BEAM)
                     {
-                        if ((gEquipment.beamBombsActivation & BBF_LONG_BEAM) != 0x0)
+                        if (beams & BBF_LONG_BEAM)
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_ICE_BEAM;
-                            sound = 0xF5;
-                            if (flag != 0x0)
-                                sound = 0xF7;
+                            if (beams & BBF_ICE_BEAM)
+                                beamSound = 0xF7;
+                            else
+                                beamSound = 0xF5;
                         }
                         else
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_ICE_BEAM;
-                            sound = 0xF4;
-                            if (flag != 0x0)
-                                sound = 0xF6;
+                            if (beams & BBF_ICE_BEAM)
+                                beamSound = 0xF6;
+                            else
+                                beamSound = 0xF4;
                         }
                     }
                     else
                     {
-                        if ((gEquipment.beamBombsActivation & BBF_LONG_BEAM) != 0x0)
+                        if (beams & BBF_LONG_BEAM)
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_ICE_BEAM;
-                            sound = 0xF1;
-                            if (flag != 0x0)
-                                sound = 0xF3;
+                            if (beams & BBF_ICE_BEAM)
+                                beamSound = 0xF3;
+                            else
+                                beamSound = 0xF1;
                         }
                         else
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_ICE_BEAM;
-                            sound = 0xF0;
-                            if (flag != 0x0)
-                                sound = 0xF2;
+                            if (beams & BBF_ICE_BEAM)
+                                beamSound = 0xF2;
+                            else
+                                beamSound = 0xF0;
                         }
                     }
                 }
                 else
                 {
-                    if ((gEquipment.beamBombsActivation & BBF_WAVE_BEAM) != 0x0)
+                    if (beams & BBF_WAVE_BEAM)
                     {
-                        type = PROJ_TYPE_CHARGED_WAVE_BEAM;
-                        if ((gEquipment.beamBombsActivation & BBF_LONG_BEAM) != 0x0)
+                        projType = PROJ_TYPE_CHARGED_WAVE_BEAM;
+                        if (beams & BBF_LONG_BEAM)
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_ICE_BEAM;
-                            sound = 0xED;
-                            if (flag != 0x0)
-                                sound = 0xEF;
+                            if (beams & BBF_ICE_BEAM)
+                                beamSound = 0xEF;
+                            else
+                                beamSound = 0xED;
                         }
                         else
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_ICE_BEAM;
-                            sound = 0xEC;
-                            if (flag != 0x0)
-                                sound = 0xEE;
+                            if (beams & BBF_ICE_BEAM)
+                                beamSound = 0xEE;
+                            else
+                                beamSound = 0xEC;
                         }
                     }
                     else
                     {
-                        if ((gEquipment.beamBombsActivation & BBF_ICE_BEAM) != 0x0)
+                        if (beams & BBF_ICE_BEAM)
                         {
-                            type = PROJ_TYPE_CHARGED_ICE_BEAM;                            
-                            flag = gEquipment.beamBombsActivation & BBF_LONG_BEAM;
-                            sound = 0xEA;
-                            if (flag != 0x0)
-                                sound = 0xEB;
+                            projType = PROJ_TYPE_CHARGED_ICE_BEAM;
+                            if (beams & BBF_LONG_BEAM)
+                                beamSound = 0xEB;
+                            else
+                                beamSound = 0xEA;
                         }
                         else
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_LONG_BEAM;
-                            if (flag != 0x0)
+                            if (beams & BBF_LONG_BEAM)
                             {
-                                type = PROJ_TYPE_CHARGED_LONG_BEAM;
-                                sound = 0xE9;
+                                projType = PROJ_TYPE_CHARGED_LONG_BEAM;
+                                beamSound = 0xE9;
                             }
                             else
                             {
-                                type = PROJ_TYPE_CHARGED_BEAM;
-                                sound = 0xE8;
+                                projType = PROJ_TYPE_CHARGED_BEAM;
+                                beamSound = 0xE8;
                             }
                         }
                     }
                 }
-                proj_limit = 0x2;
 
-                if (ProjectileCheckNumberOfProjectiles(type, proj_limit) << 0x18 != FALSE && ProjectileInit(type, gArmCannonY, gArmCannonX) << 0x18 != FALSE)
+                if (ProjectileCheckNumberOfProjectiles(projType, 0x2) && ProjectileInit(projType, gArmCannonY, gArmCannonX))
                 {
                     gSamusWeaponInfo.cooldown = 0x7;
                     ProjectileSetBeamParticleEffect();
                     gSamusWeaponInfo.beamReleasePaletteTimer = 0x4;
-                    SoundPlay(sound);
+                    SoundPlay(beamSound);
                 }
             }
             gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
             break;
-        
+
         case PROJECTILE_BEAM:
             if (gEquipment.suitType == SUIT_SUITLESS)
             {
-                if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_PISTOL, 0x2) << 0x18 != FALSE && ProjectileInit(PROJ_TYPE_PISTOL, gArmCannonY, gArmCannonX) << 0x18 != FALSE)
+                if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_PISTOL, 0x6) && ProjectileInit(PROJ_TYPE_PISTOL, gArmCannonY, gArmCannonX))
                 {
                     gSamusWeaponInfo.cooldown = 0x7;
                     ProjectileSetBeamParticleEffect();
                     gSamusWeaponInfo.beamReleasePaletteTimer = 0x4;
-                    SoundPlay(0x9F);
+                    SoundPlay(0x9F); // Pistol shot
                 }
             }
             else
             {
-                flag = gEquipment.beamBombsActivation;
-                if ((gEquipment.beamBombsActivation & BBF_PLASMA_BEAM) != 0x0)
+                beams = gEquipment.beamBombsActivation;
+                if (beams & BBF_PLASMA_BEAM)
                 {
-                    type = PROJ_TYPE_PLASMA_BEAM;
-                    if ((gEquipment.beamBombsActivation & BBF_WAVE_BEAM) != 0x0)
+                    projType = PROJ_TYPE_PLASMA_BEAM;
+                    if (beams & BBF_WAVE_BEAM)
                     {
-                        if ((gEquipment.beamBombsActivation & BBF_LONG_BEAM) != 0x0)
+                        if (beams & BBF_LONG_BEAM)
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_ICE_BEAM;
-                            sound = 0xD5;
-                            if (flag != 0x0)
-                                sound = 0xD7;
+                            if (beams & BBF_ICE_BEAM)
+                                beamSound = 0xD7;
+                            else
+                                beamSound = 0xD5;
                         }
                         else
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_ICE_BEAM;
-                            sound = 0xD4;
-                            if (flag != 0x0)
-                                sound = 0xD6;
+                            if (beams & BBF_ICE_BEAM)
+                                beamSound = 0xD6;
+                            else
+                                beamSound = 0xD4;
                         }
                     }
                     else
                     {
-                        if ((gEquipment.beamBombsActivation & BBF_LONG_BEAM) != 0x0)
+                        if (beams & BBF_LONG_BEAM)
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_ICE_BEAM;
-                            sound = 0xD1;
-                            if (flag != 0x0)
-                                sound = 0xD3;
+                            if (beams & BBF_ICE_BEAM)
+                                beamSound = 0xD3;
+                            else
+                                beamSound = 0xD1;
                         }
                         else
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_ICE_BEAM;
-                            sound = 0xD0;
-                            if (flag != 0x0)
-                                sound = 0xD2;
+                            if (beams & BBF_ICE_BEAM)
+                                beamSound = 0xD2;
+                            else
+                                beamSound = 0xD0;
                         }
                     }
                 }
                 else
                 {
-                    if ((gEquipment.beamBombsActivation & BBF_WAVE_BEAM) != 0x0)
+                    if (beams & BBF_WAVE_BEAM)
                     {
-                        type = PROJ_TYPE_WAVE_BEAM;
-                        if ((gEquipment.beamBombsActivation & BBF_LONG_BEAM) != 0x0)
+                        projType = PROJ_TYPE_WAVE_BEAM;
+                        if (beams & BBF_LONG_BEAM)
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_ICE_BEAM;
-                            sound = 0xCD;
-                            if (flag != 0x0)
-                                sound = 0xCF;
+                            if (beams & BBF_ICE_BEAM)
+                                beamSound = 0xCF;
+                            else
+                                beamSound = 0xCD;
                         }
                         else
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_ICE_BEAM;
-                            sound = 0xCC;
-                            if (flag != 0x0)
-                                sound = 0xCE;
+                            if (beams & BBF_ICE_BEAM)
+                                beamSound = 0xCE;
+                            else
+                                beamSound = 0xCC;
                         }
                     }
                     else
                     {
-                        if ((gEquipment.beamBombsActivation & BBF_ICE_BEAM) != 0x0)
+                        if (beams & BBF_ICE_BEAM)
                         {
-                            type = PROJ_TYPE_ICE_BEAM;
-                            flag = gEquipment.beamBombsActivation & BBF_LONG_BEAM;
-                            sound = 0xCA;
-                            if (flag != 0x0)
-                                sound = 0xCB;
+                            projType = PROJ_TYPE_ICE_BEAM;
+                            if (beams & BBF_LONG_BEAM)
+                                beamSound = 0xCB;
+                            else
+                                beamSound = 0xCA;
                         }
                         else
                         {
-                            flag = gEquipment.beamBombsActivation & BBF_LONG_BEAM;
-                            if (flag != 0x0)
+                            if (beams & BBF_LONG_BEAM)
                             {
-                                type = PROJ_TYPE_LONG_BEAM;
-                                sound = 0xC9;
+                                projType = PROJ_TYPE_LONG_BEAM;
+                                beamSound = 0xC9;
                             }
                             else
                             {
-                                type = PROJ_TYPE_BEAM;
-                                sound = 0xC8;
+                                projType = PROJ_TYPE_BEAM;
+                                beamSound = 0xC8;
                             }
                         }
                     }
                 }
-                proj_limit = 0x6;
 
-                if (ProjectileCheckNumberOfProjectiles(type, proj_limit) << 0x18 != FALSE && ProjectileInit(type, gArmCannonY, gArmCannonX) << 0x18 != FALSE)
+                if (ProjectileCheckNumberOfProjectiles(projType, 0x6) && ProjectileInit(projType, gArmCannonY, gArmCannonX))
                 {
                     gSamusWeaponInfo.cooldown = 0x7;
                     ProjectileSetBeamParticleEffect();
                     gSamusWeaponInfo.beamReleasePaletteTimer = 0x4;
-                    SoundPlay(sound);
+                    SoundPlay(beamSound);
                 }
             }
             gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
             break;
 
         case PROJECTILE_MISSILE:
-            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_MISSILE, 0x4) << 0x18 != FALSE && ProjectileInit(PROJ_TYPE_MISSILE, gArmCannonY, gArmCannonX) << 0x18 != FALSE)
+            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_MISSILE, 0x4) && ProjectileInit(PROJ_TYPE_MISSILE, gArmCannonY, gArmCannonX))
             {
                 gSamusWeaponInfo.cooldown = 0x9;
-                SoundPlay(0xF8);
-                SoundPlay(0xF9);
+                SoundPlay(0xF8); // Missile shot
+                SoundPlay(0xF9); // Missile thrust
             }
             gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
             break;
-        
+
         case PROJECTILE_SUPER_MISSILE:
-            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_SUPER_MISSILE, 0x4) << 0x18 != FALSE && ProjectileInit(PROJ_TYPE_SUPER_MISSILE, gArmCannonY, gArmCannonX) << 0x18 != FALSE)
+            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_SUPER_MISSILE, 0x4) && ProjectileInit(PROJ_TYPE_SUPER_MISSILE, gArmCannonY, gArmCannonX))
             {
                 gSamusWeaponInfo.cooldown = 0xB;
-                SoundPlay(0xFB);
-                SoundPlay(0xFC);
+                SoundPlay(0xFB); // Super missile shot
+                SoundPlay(0xFC); // Super missile thrust
             }
             gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
             break;
 
         case PROJECTILE_BOMB:
-            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_BOMB, 0x4) << 0x18 != FALSE && ProjectileInit(PROJ_TYPE_BOMB, gSamusData.yPosition, gSamusData.xPosition) << 0x18 != FALSE)
+            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_BOMB, 0x4) && ProjectileInit(PROJ_TYPE_BOMB, gSamusData.yPosition, gSamusData.xPosition))
                 gSamusWeaponInfo.cooldown = 0x7;
             gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
             break;
 
         case PROJECTILE_POWER_BOMB:
-            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_POWER_BOMB, 0x1) << 0x18 != FALSE && pProj->animationState == 0x0 && ProjectileInit(PROJ_TYPE_POWER_BOMB, gSamusData.yPosition, gSamusData.xPosition) << 0x18 != FALSE)
+            if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_POWER_BOMB, 0x1) && gCurrentPowerBomb.animationState == 0x0
+                && ProjectileInit(PROJ_TYPE_POWER_BOMB, gSamusData.yPosition, gSamusData.xPosition))
                 gSamusWeaponInfo.cooldown = 0x5;
             gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
-
-        default:
             break;
     }
 
     ProjectileCheckHittingSprite();
 
-    pProj = gProjectileData;
-    while (pProj < gProjectileData + 16)
+    for (pProj = gProjectileData; pProj < gProjectileData + 16; pProj++)
     {
-        if ((pProj->status & PROJ_STATUS_EXISTS) != 0x0)
+        if (pProj->status & PROJ_STATUS_EXISTS)
         {
             process_projectile_functions_pointers[pProj->type](pProj);
             ProjectileUpdateAnimation(pProj);
             ProjectileCheckDespawn(pProj);
         }
-        pProj++;
     }*/
 }
 
@@ -2554,7 +2553,7 @@ void ProjectileProcessPowerBomb(struct ProjectileData* pProj)
             break;
 
         case 0x2:
-            if (gGameModeSub1 == 0x2)
+            if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
             {
                 pProj->timer--;
                 if (pProj->timer == 0x0)

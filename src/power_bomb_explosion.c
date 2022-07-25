@@ -17,7 +17,7 @@ void PowerBombExplosionProcess(void)
                 PowerBombExplosionBegin();
             else if (gCurrentPowerBomb.animationState == 0x5)
                 PowerBombExplosionEnd();
-            else if (gGameModeSub1 == 0x2)
+            else if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
                 PowerBombExplosion();
         }
     }
@@ -186,7 +186,7 @@ void PowerBombExplosion(void)
  */
 void PowerBombExplosionStart(u16 xPosition, u16 yPosition, u8 owner)
 {
-    if (gGameModeSub1 == 0x2)
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
     {
         PowerBombExplosionSet0x12To0();
         if (gCurrentPowerBomb.animationState == 0x0) // Check if there isn't already an explosion
@@ -217,7 +217,7 @@ void PowerBombExplosionSet0x12To0(void)
  */
 void PowerBombExplosionBegin(void)
 {
-    if (gGameModeSub1 == 0x2)
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
     {
         gCurrentPowerBomb.animationState = 0x3;
         gCurrentPowerBomb.powerBombPlaced = FALSE;

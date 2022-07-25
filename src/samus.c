@@ -1614,7 +1614,7 @@ void SamusCallGFXFunctions(void)
 
     pData = &gSamusData;
 
-    if (gGameModeSub1 == 0x2)
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
         SamusUpdateEnvironmentalEffect(pData);
 
     flag = pData->direction & KEY_RIGHT;
