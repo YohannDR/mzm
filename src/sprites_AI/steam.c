@@ -573,6 +573,10 @@ const struct FrameData sSteamDiagonalOAM_Small[10] = {
 };
 
 
+/**
+ * @brief 4a5e4 | 208 | Steam AI
+ * 
+ */
 void Steam(void)
 {
     u8 isLarge;
