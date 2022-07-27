@@ -12,22 +12,22 @@ extern struct TilemapAndClipPointers gTilemapAndClipPointers;
 
 // Defines
 
-#define CCAA_NONE 0x0
-#define CCAA_REMOVE_SOLID 0x1
-#define CCAA_MAKE_SOLID1 0x2
-#define CCAA_MAKE_SOLID2 0x3
-#define CCAA_MAKE_SOLID3 0x4
-#define CCAA_BOMB_CHAIN_UNUSED 0x5
-#define CCAA_UNUSED 0x6
-#define CCAA_BEAM 0x7
-#define CCAA_BOMB_PISTOL 0x8
-#define CCAA_MISSILE 0x9
-#define CCAA_SUPER_MISSILE 0xA
-#define CCAA_POWER_BOMB 0xB
-#define CCAA_SPEEDBOOSTER 0xC
-#define CCAA_SPEEDBOOSTER2 0xD
-#define CCAA_SCREW_ATTACK 0xE
-#define CCAA_BOMB_CHAIN 0xF
+#define CAA_NONE 0x0
+#define CAA_REMOVE_SOLID 0x1
+#define CAA_MAKE_SOLID1 0x2
+#define CAA_MAKE_SOLID2 0x3
+#define CAA_MAKE_SOLID3 0x4
+#define CAA_BOMB_CHAIN_UNUSED 0x5
+#define CAA_UNUSED 0x6
+#define CAA_BEAM 0x7
+#define CAA_BOMB_PISTOL 0x8
+#define CAA_MISSILE 0x9
+#define CAA_SUPER_MISSILE 0xA
+#define CAA_POWER_BOMB 0xB
+#define CAA_SPEEDBOOSTER 0xC
+#define CAA_SPEEDBOOSTER2 0xD
+#define CAA_SCREW_ATTACK 0xE
+#define CAA_BOMB_CHAIN 0xF
 
 #define COLLISION_AIR 0x0
 #define COLLISION_LEFT_SLIGHT_FLOOR_SLOPE 0x2

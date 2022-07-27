@@ -37,7 +37,7 @@ void GeronNorfair(void)
             gCurrentSprite.pOam = GeronNorfair_oam;
             yPosition = gCurrentSprite.yPosition - 0x20;
             xPosition = gCurrentSprite.xPosition;
-            caa = CCAA_MAKE_SOLID3
+            caa = CAA_MAKE_SOLID3
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition, xPosition);
             gCurrentClipdataAffectingAction = caa;

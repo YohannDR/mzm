@@ -19,7 +19,7 @@ void SecurityGateOpen(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x27;
-    SecurityGateChangeCCAA(CCAA_REMOVE_SOLID); // Remove collision
+    SecurityGateChangeCCAA(CAA_REMOVE_SOLID); // Remove collision
     unk_2b20(0x225);
 }
 
@@ -48,7 +48,7 @@ void SecurityGateDefaultOpenInit(void)
         gCurrentSprite.pOam = security_gate_oam_2e6b98;
         gCurrentSprite.pose = 0x25;
         gCurrentSprite.timer = 0x1;
-        SecurityGateChangeCCAA(CCAA_MAKE_SOLID3); // Set collision
+        SecurityGateChangeCCAA(CAA_MAKE_SOLID3); // Set collision
     }
     else
     {
@@ -107,7 +107,7 @@ void SecurityGateDefaultOpenOpenAfterAlarm(void)
 {
     if (gCurrentSprite.timer == 0x0 && !SpriteCheckCollidingWithSamusDrawing()) // ?
     {
-        SecurityGateChangeCCAA(CCAA_MAKE_SOLID3);
+        SecurityGateChangeCCAA(CAA_MAKE_SOLID3);
         gCurrentSprite.timer++;
     }
 
@@ -145,7 +145,7 @@ void SecurityGateDeath(void)
     u16 yPosition;
     u16 xPosition;
 
-    SecurityGateChangeCCAA(CCAA_REMOVE_SOLID);
+    SecurityGateChangeCCAA(CAA_REMOVE_SOLID);
     yPosition = gCurrentSprite.yPosition - 0x40;
     xPosition = gCurrentSprite.xPosition;
     ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
@@ -169,7 +169,7 @@ void SecurityGateDefaultClosedInit(void)
         gCurrentSprite.pOam = security_gate_oam_2e6b98;
         gCurrentSprite.pose = 0x25;
         gCurrentSprite.timer = 0x1;
-        SecurityGateChangeCCAA(CCAA_MAKE_SOLID3);
+        SecurityGateChangeCCAA(CAA_MAKE_SOLID3);
     }
 
     gCurrentSprite.hitboxTopOffset = -0x100;
@@ -205,7 +205,7 @@ void SecurityGateDefaultClosedCloseAfterAlarm(void)
 {
     if (gCurrentSprite.timer == 0x0 && !SpriteCheckCollidingWithSamusDrawing())
     {
-        SecurityGateChangeCCAA(CCAA_MAKE_SOLID3);
+        SecurityGateChangeCCAA(CAA_MAKE_SOLID3);
         gCurrentSprite.timer++;
     }
 

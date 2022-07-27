@@ -858,10 +858,10 @@ void AcidWormInit(void)
     {
         // Acid worm killed, remove block and bring liquid down
         gEffectYPositionOffset = 0x260;
-        AcidWormChangeBigBlockDownCCAA(CCAA_REMOVE_SOLID);
-        AcidWormChangeBigBlockMiddleCCAA(CCAA_REMOVE_SOLID);
-        AcidWormChangeBigBlockTopCCAA(CCAA_REMOVE_SOLID);
-        AcidWormChangeTwoGroundCCAA(CCAA_REMOVE_SOLID, yPosition, xPosition);
+        AcidWormChangeBigBlockDownCCAA(CAA_REMOVE_SOLID);
+        AcidWormChangeBigBlockMiddleCCAA(CAA_REMOVE_SOLID);
+        AcidWormChangeBigBlockTopCCAA(CAA_REMOVE_SOLID);
+        AcidWormChangeTwoGroundCCAA(CAA_REMOVE_SOLID, yPosition, xPosition);
         gCurrentSprite.status = 0x0;
     }
     else
@@ -919,7 +919,7 @@ void AcidWormSpawnStart(void)
         gCurrentSprite.pose = ACID_WORM_POSE_SPAWN_EXTEND;
         gCurrentSprite.timer = 0x0;
         // Destroy bottom
-        AcidWormChangeBigBlockDownCCAA(CCAA_REMOVE_SOLID);
+        AcidWormChangeBigBlockDownCCAA(CAA_REMOVE_SOLID);
         ScreenShakeStartVertical(0x3C, 0x81);
         ScreenShakeStartHorizontal(0x3C, 0x81);
         SoundPlay(0x1A7);
@@ -960,9 +960,9 @@ void AcidWormSpawnExtending(void)
         // Gradually destroy big block
         gCurrentSprite.timer++;
         if (gCurrentSprite.timer == 0x4)
-            AcidWormChangeBigBlockMiddleCCAA(CCAA_REMOVE_SOLID);
+            AcidWormChangeBigBlockMiddleCCAA(CAA_REMOVE_SOLID);
         else if (gCurrentSprite.timer == 0x8)
-            AcidWormChangeBigBlockTopCCAA(CCAA_REMOVE_SOLID);
+            AcidWormChangeBigBlockTopCCAA(CAA_REMOVE_SOLID);
     }
 }
 
@@ -1881,7 +1881,7 @@ void AcidWormBodyDeath(void)
                     ParticleSet(gSpriteData[ramSlot].yPositionSpawn + 0x60, gSpriteData[ramSlot].xPositionSpawn, PE_SPRITE_EXPLOSION_BIG);
                     ParticleSet(gSpriteData[ramSlot].yPositionSpawn + 0x40, gSpriteData[ramSlot].xPositionSpawn, PE_SPRITE_EXPLOSION_BIG);
                     // Open path
-                    AcidWormChangeTwoGroundCCAA(CCAA_REMOVE_SOLID, gSpriteData[ramSlot].yPositionSpawn, gSpriteData[ramSlot].xPositionSpawn);
+                    AcidWormChangeTwoGroundCCAA(CAA_REMOVE_SOLID, gSpriteData[ramSlot].yPositionSpawn, gSpriteData[ramSlot].xPositionSpawn);
                     // Set event and open door
                     EventFunction(EVENT_ACTION_SETTING, EVENT_ACID_WORM_KILLED);
                     gDoorUnlockTimer = -0x14;

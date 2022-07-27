@@ -84,7 +84,7 @@ void PowerBombExplosion(void)
 
         if (!(gFrameCounter8Bit & 0x1))
         {
-            gCurrentClipdataAffectingAction = CCAA_POWER_BOMB;
+            gCurrentClipdataAffectingAction = CAA_POWER_BOMB;
 
             for (xLoop = 0x0; xLoop < 0x2;)
             {
@@ -129,7 +129,7 @@ void PowerBombExplosion(void)
         }
         else
         {
-            gCurrentClipdataAffectingAction = CCAA_POWER_BOMB;
+            gCurrentClipdataAffectingAction = CAA_POWER_BOMB;
 
             
             for (xLoop = 0x0; xLoop < 0x2;)
@@ -173,7 +173,7 @@ void PowerBombExplosion(void)
                 xLoop = loopTemp;
             }
         }
-        gCurrentClipdataAffectingAction = CCAA_NONE;
+        gCurrentClipdataAffectingAction = CAA_NONE;
     }
 }
 

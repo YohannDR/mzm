@@ -89,19 +89,24 @@ def ParsePart2(value):
     return result
 
 file = open("../baserom_us.gba", "rb")
-inputValue = input("Address : ")
 
-addr = int(inputValue, 16)
+def Func():
+    inputValue = input("Address : ")
 
-file.seek(addr)
+    addr = int(inputValue, 16)
 
-part_count = int.from_bytes(file.read(2), "little")
-result = hex(part_count) + ",\n"
+    file.seek(addr)
 
-for x in range(0, part_count):
-    part0 = ParsePart0(int.from_bytes(file.read(2), "little"))
-    result += part0 + ", "
-    result += ParsePart1(part0, int.from_bytes(file.read(2), "little")) + ", "
-    result += ParsePart2(int.from_bytes(file.read(2), "little")) + ",\n"
+    part_count = int.from_bytes(file.read(2), "little")
+    result = hex(part_count) + ",\n"
 
-print(result)
+    for x in range(0, part_count):
+        part0 = ParsePart0(int.from_bytes(file.read(2), "little"))
+        result += part0 + ", "
+        result += ParsePart1(part0, int.from_bytes(file.read(2), "little")) + ", "
+        result += ParsePart2(int.from_bytes(file.read(2), "little")) + ",\n"
+
+    print(result)
+    Func()
+
+Func()

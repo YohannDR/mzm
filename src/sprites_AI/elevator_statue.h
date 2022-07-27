@@ -3,15 +3,25 @@
 
 #include "../types.h"
 
+#define ELEVATOR_STATUE_POSE_CHECK_FALL 0x8
+#define ELEVATOR_STATUE_POSE_DELAY_BEFORE_FALLING 0x9
+#define ELEVATOR_STATUE_POSE_FALLING 0xB
+#define ELEVATOR_STATUE_POSE_IDLE 0xF
+
+
+#define ELEVATOR_STATUE_DEBRIS_PART_KRAID 0x0
+#define ELEVATOR_STATUE_DEBRIS_PART_RIDLEY 0x1
+#define ELEVATOR_STATUE_DEBRIS_PART_DUST 0x2
+
 void ElevatorStatueChangeTwoGroundCCAA(u8 caa);
 void KraidElevatorStatueChangeCAA(u8 caa);
-void KraidElevatorStatueAfterFall(void);
+void KraidElevatorStatueFallenInit(void);
 void KraidElevatorStatueInit(void);
 void KraidElevatorStatueCheckShouldFall(void);
 void KraidElevatorStatueDelayBeforeFalling(void);
 void KraidElevatorStatueFalling(void);
 void RidleyElevatorStatueChangeCCAA(u8 caa);
-void RidleyElevatorStatueAfterFall(void);
+void RidleyElevatorStatueFallenInit(void);
 void RidleyElevatorStatueInit(void);
 void RidleyElevatorStatueCheckShouldFall(void);
 void RidleyElevatorStatueDelayBeforeFalling(void);

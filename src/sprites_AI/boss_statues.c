@@ -880,7 +880,7 @@ void KraidStatueOpenedInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.pose = BOSS_STATUE_POSE_IDLE;
-    KraidStatueHorizontalLignThreeChangeCCAA(CCAA_MAKE_SOLID3);
+    KraidStatueHorizontalLignThreeChangeCCAA(CAA_MAKE_SOLID3);
 }
 
 /**
@@ -927,7 +927,7 @@ void KraidStatueInit(void)
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.animationDurationCounter = 0x0;
 
-        KraidStatueHorizontalLignHeightChangeCCAA(CCAA_MAKE_SOLID3);
+        KraidStatueHorizontalLignHeightChangeCCAA(CAA_MAKE_SOLID3);
     }
 }
 
@@ -958,7 +958,7 @@ void KraidStatueCheckBackgroundLocked(void)
         gCurrentSprite.workVariable = 0x0;
         gCurrentSprite.workVariable2 = 0x0;
         SoundPlay(0x12B);
-        BossStatueVerticalLignChangeCCAA(CCAA_MAKE_SOLID3);
+        BossStatueVerticalLignChangeCCAA(CAA_MAKE_SOLID3);
     }
 }
 
@@ -987,7 +987,7 @@ void RidleyStatueOpenedInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.pose = BOSS_STATUE_POSE_IDLE;
-    RidleyStatueChangeThreeCCAA(CCAA_MAKE_SOLID3);
+    RidleyStatueChangeThreeCCAA(CAA_MAKE_SOLID3);
 }
 
 /**
@@ -1030,7 +1030,7 @@ void RidleyStatueInit(void)
         }
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.animationDurationCounter = 0x0;
-        RidleyStatueChangeFourCCAA(CCAA_MAKE_SOLID3);
+        RidleyStatueChangeFourCCAA(CAA_MAKE_SOLID3);
     }
 }
 
@@ -1056,7 +1056,7 @@ void RidleyStatueCheckBackgroundLocked(void)
         // Set opening behavior
         gCurrentSprite.pose = BOSS_STATUE_POSE_OPENING;
         gCurrentSprite.timer = 0x3C;
-        BossStatueVerticalLignChangeCCAA(CCAA_MAKE_SOLID3);
+        BossStatueVerticalLignChangeCCAA(CAA_MAKE_SOLID3);
     }
 }
 
@@ -1072,7 +1072,7 @@ void RidleyStatueOpening(void)
     u32 temp;
 
     if (gSamusData.xPosition > gCurrentSprite.xPosition + 0x220)
-        BossStatueVerticalLignChangeCCAA(CCAA_REMOVE_SOLID);
+        BossStatueVerticalLignChangeCCAA(CAA_REMOVE_SOLID);
     
     if (gCurrentSprite.timer != 0x0)
     {
@@ -1093,14 +1093,14 @@ void RidleyStatueOpening(void)
     else
     {
         if (gCurrentSprite.currentAnimationFrame == 0x1D && gCurrentSprite.animationDurationCounter == 0x1)
-            RidleyStatueChangeFourCCAA(CCAA_REMOVE_SOLID);
+            RidleyStatueChangeFourCCAA(CAA_REMOVE_SOLID);
 
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
             RidleyStatueOpenedInit();
             EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_STATUE_OPENED);
             gDoorUnlockTimer = -0x14;
-            BossStatueVerticalLignChangeCCAA(CCAA_REMOVE_SOLID);
+            BossStatueVerticalLignChangeCCAA(CAA_REMOVE_SOLID);
         }
         else if ((u16)(gCurrentSprite.currentAnimationFrame - 0x9) < 0x1F)
         {

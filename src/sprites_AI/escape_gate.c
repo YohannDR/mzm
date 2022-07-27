@@ -266,7 +266,7 @@ void EscapeGate(void)
             gCurrentSprite.drawOrder = 0x3;
 
             gSubSpriteData1.workVariable1 = 0x0;
-            EscapeGateChangeCCAA(CCAA_MAKE_SOLID1); // Set gate collision
+            EscapeGateChangeCCAA(CAA_MAKE_SOLID1); // Set gate collision
             break;
 
         case ESCAPE_GATE_POSE_LOAD_GRAPHICS:
@@ -318,7 +318,7 @@ void EscapeGate(void)
                 gCurrentSprite.pose = ESCAPE_GATE_POSE_OPENED;
             }
             else if (gCurrentSprite.currentAnimationFrame == 0x4 && gCurrentSprite.animationDurationCounter == 0xA)
-                EscapeGateChangeCCAA(CCAA_REMOVE_SOLID);
+                EscapeGateChangeCCAA(CAA_REMOVE_SOLID);
             break;
 
         case ESCAPE_GATE_POSE_OPENED:

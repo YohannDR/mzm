@@ -1434,7 +1434,7 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
     */
     if (pProj->movementStage == 0x2)
     {
-        gCurrentClipdataAffectingAction = CCAA_BEAM;
+        gCurrentClipdataAffectingAction = CAA_BEAM;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
@@ -1448,7 +1448,7 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
     }
     else if (pProj->movementStage == 0x1)
     {
-        gCurrentClipdataAffectingAction = CCAA_BEAM;
+        gCurrentClipdataAffectingAction = CAA_BEAM;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
@@ -1489,7 +1489,7 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
         pProj->hitboxLeftOffset = -0x8;
         pProj->hitboxRightOffset = 0x8;
         pProj->movementStage = 0x1;
-        ProjectileCheckHitBlock(pProj, CCAA_BEAM, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+        ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
     }
 
     pProj->timer++;
@@ -1512,7 +1512,7 @@ void ProjectileProcessLongBeam(struct ProjectileData* pProj)
     */
    if (pProj->movementStage == 0x2)
    {
-       gCurrentClipdataAffectingAction = CCAA_BEAM;
+       gCurrentClipdataAffectingAction = CAA_BEAM;
        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
        {
            pProj->status = 0x0;
@@ -1526,7 +1526,7 @@ void ProjectileProcessLongBeam(struct ProjectileData* pProj)
    }
    else if (pProj->movementStage == 0x1)
    {
-       gCurrentClipdataAffectingAction = CCAA_BEAM;
+       gCurrentClipdataAffectingAction = CAA_BEAM;
        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
        {
            pProj->status = 0x0;
@@ -1567,7 +1567,7 @@ void ProjectileProcessLongBeam(struct ProjectileData* pProj)
        pProj->hitboxLeftOffset = -0xC;
        pProj->hitboxRightOffset = 0xC;
        pProj->movementStage = 0x1;
-       ProjectileCheckHitBlock(pProj, CCAA_BEAM, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+       ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
        pProj->timer++;
    }
 }
@@ -1587,7 +1587,7 @@ void ProjectileProcessIceBeam(struct ProjectileData* pProj)
     */
     if (pProj->movementStage == 0x2)
     {
-        gCurrentClipdataAffectingAction = CCAA_BEAM;
+        gCurrentClipdataAffectingAction = CAA_BEAM;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
@@ -1605,7 +1605,7 @@ void ProjectileProcessIceBeam(struct ProjectileData* pProj)
     }
     else if (pProj->movementStage == 0x1)
     {
-        gCurrentClipdataAffectingAction = CCAA_BEAM;
+        gCurrentClipdataAffectingAction = CAA_BEAM;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
@@ -1646,7 +1646,7 @@ void ProjectileProcessIceBeam(struct ProjectileData* pProj)
         pProj->hitboxLeftOffset = -0x14;
         pProj->hitboxRightOffset = 0x14;
         pProj->movementStage = 0x1;
-        ProjectileCheckHitBlock(pProj, CCAA_BEAM, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+        ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
     }
 
     pProj->timer++;
@@ -1668,7 +1668,7 @@ u32 ProjectileCheckWaveBeamHittingBlocks(struct ProjectileData* pProj)
     u8 ccaa;
 
     nbrBlocks = 0x0;
-    ccaa = CCAA_BEAM;
+    ccaa = CAA_BEAM;
     yPosition = pProj->yPosition;
     xPosition = pProj->xPosition;
 
@@ -1847,7 +1847,7 @@ void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
     has_wave = gEquipment.beamBombsActivation & BBF_WAVE_BEAM;
     if (!has_wave)
     {
-        gCurrentClipdataAffectingAction = CCAA_BEAM;
+        gCurrentClipdataAffectingAction = CAA_BEAM;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0)
         {
             pProj->status = 0x0;
@@ -1961,7 +1961,7 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
     */
     if (pProj->movementStage == 0x2)
     {
-        gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+        gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
@@ -1975,7 +1975,7 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
     }
     else if (pProj->movementStage == 0x1)
     {
-        gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+        gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
@@ -2016,7 +2016,7 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
         pProj->hitboxLeftOffset = -0x4;
         pProj->hitboxRightOffset = 0x4;
         pProj->movementStage = 0x1;
-        ProjectileCheckHitBlock(pProj, CCAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+        ProjectileCheckHitBlock(pProj, CAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
         pProj->timer++;
     }
 }
@@ -2061,7 +2061,7 @@ void ProjectileProcessChargedPistol(struct ProjectileData* pProj)
     */
     if (pProj->movementStage == 0x2)
     {
-        gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+        gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
@@ -2076,7 +2076,7 @@ void ProjectileProcessChargedPistol(struct ProjectileData* pProj)
     }
     else if (pProj->movementStage == 0x1)
     {
-        gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+        gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
@@ -2117,7 +2117,7 @@ void ProjectileProcessChargedPistol(struct ProjectileData* pProj)
         pProj->hitboxLeftOffset = -0xC;
         pProj->hitboxRightOffset = 0xC;
         pProj->movementStage = 0x1;
-        ProjectileCheckHitBlock(pProj, CCAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+        ProjectileCheckHitBlock(pProj, CAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
         pProj->timer++;
     }
 }
@@ -2150,7 +2150,7 @@ void ProjectileProcessMissile(struct ProjectileData* pProj)
     */
     if (pProj->movementStage == 0x2)
     {
-        gCurrentClipdataAffectingAction = CCAA_MISSILE;
+        gCurrentClipdataAffectingAction = CAA_MISSILE;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) == 0x0) // Check for collision
         {
             ProjectileMove(pProj, pProj->timer + 0x8);
@@ -2166,7 +2166,7 @@ void ProjectileProcessMissile(struct ProjectileData* pProj)
     }
     else if (pProj->movementStage == 0x1)
     {
-        gCurrentClipdataAffectingAction = CCAA_MISSILE;
+        gCurrentClipdataAffectingAction = CAA_MISSILE;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
@@ -2205,7 +2205,7 @@ void ProjectileProcessMissile(struct ProjectileData* pProj)
         pProj->hitboxLeftOffset = -0x8;
         pProj->hitboxRightOffset = 0x8;
         pProj->movementStage++;
-        ProjectileCheckHitBlock(pProj, CCAA_MISSILE, PE_HITTING_SOMETHING_WITH_MISSILE);
+        ProjectileCheckHitBlock(pProj, CAA_MISSILE, PE_HITTING_SOMETHING_WITH_MISSILE);
     }
     else // When tumbling
     {
@@ -2239,7 +2239,7 @@ void ProjectileProcessSuperMissile(struct ProjectileData* pProj)
     */
     if (pProj->movementStage == 0x2)
     {
-        gCurrentClipdataAffectingAction = CCAA_SUPER_MISSILE;
+        gCurrentClipdataAffectingAction = CAA_SUPER_MISSILE;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) == 0x0) // Check for collision
         {
             ProjectileMove(pProj, pProj->timer + 0xC);
@@ -2255,7 +2255,7 @@ void ProjectileProcessSuperMissile(struct ProjectileData* pProj)
     }
     else if (pProj->movementStage == 0x1)
     {
-        gCurrentClipdataAffectingAction = CCAA_SUPER_MISSILE;
+        gCurrentClipdataAffectingAction = CAA_SUPER_MISSILE;
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
@@ -2294,7 +2294,7 @@ void ProjectileProcessSuperMissile(struct ProjectileData* pProj)
         pProj->hitboxLeftOffset = -0xC;
         pProj->hitboxRightOffset = 0xC;
         pProj->movementStage++;
-        ProjectileCheckHitBlock(pProj, CCAA_SUPER_MISSILE, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
+        ProjectileCheckHitBlock(pProj, CAA_SUPER_MISSILE, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
     }
     else // When tumbling
     {
@@ -2391,7 +2391,7 @@ void ProjectileProcessBomb(struct ProjectileData* pProj)
                 // /!\ u8 cast missing in asm
                 if (pProj->timer == 0xF)
                 {
-                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
                     yPosition = pProj->yPosition - 0x8;
                     ClipdataProcess(yPosition, pProj->xPosition); // Block center
                     ProjectileCheckSamusBombBounce(pProj); // Checks if samus can bounce
@@ -2399,42 +2399,42 @@ void ProjectileProcessBomb(struct ProjectileData* pProj)
                 }
                 else if (pProj->timer == 0xE)
                 {
-                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition + 0x38, pProj->xPosition); // Block bottom middle
                 }
                 else if (pProj->timer == 0xD)
                 {
-                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition - 0x8, pProj->xPosition + 0x30); // Block right middle
                 }
                 else if (pProj->timer == 0xC)
                 {
-                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition - 0x8, pProj->xPosition - 0x30); // Block left middle
                 }
                 else if (pProj->timer == 0xB)
                 {
-                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition + 0x38, pProj->xPosition + 0x24); // Block right bottom
                 }
                 else if (pProj->timer == 0xA)
                 {
-                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition + 0x38, pProj->xPosition - 0x24); // Block left bottom
                 }
                 else if (pProj->timer == 0x9)
                 {
-                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition - 0x48, pProj->xPosition); // Block top middle
                 }
                 else if (pProj->timer == 0x8)
                 {
-                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition - 0x48, pProj->xPosition + 0x24); // Block right top
                 }
                 else if (pProj->timer == 0x7)
                 {
-                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition - 0x48, pProj->xPosition - 0x24); // Block left top
                 }
             }

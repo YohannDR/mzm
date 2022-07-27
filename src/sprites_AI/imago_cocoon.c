@@ -154,7 +154,7 @@ void ImagoCocoonFallingBeforeBlocks(void)
         SpriteUtilCheckCollisionAtPosition(yPosition, xPosition);
         if (gPreviousCollisionCheck & 0xF0) // Check for solid collision
         {
-            ImagoCocoonChangeOneCCAA(CCAA_REMOVE_SOLID); // Remove middile block
+            ImagoCocoonChangeOneCCAA(CAA_REMOVE_SOLID); // Remove middile block
             gCurrentSprite.pose = 0x23;
             gCurrentSprite.timer = 0x0;
             ScreenShakeStartVertical(0x28, 0x81);
@@ -227,7 +227,7 @@ void ImagoCocoonUnlockPassage(void)
         if (gCurrentSprite.timer == 0x0)
         {
             gCurrentSprite.pose = 0x27;
-            ImagoCocoonChangeTwoBlockingCCAA(CCAA_REMOVE_SOLID); // Remove blocking collision
+            ImagoCocoonChangeTwoBlockingCCAA(CAA_REMOVE_SOLID); // Remove blocking collision
             gDoorUnlockTimer = -0x3C;
             music_play(0xB, 0x0); // Boss killed
         }

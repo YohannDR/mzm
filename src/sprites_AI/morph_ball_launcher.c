@@ -40,7 +40,7 @@ void MorphBallLauncherInit(void)
     gCurrentSprite.bgPriority = ((gIORegistersBackup.BG1CNT & 0x3) + 0x1) & 0x3;
     gCurrentSprite.drawOrder = 0x2;
     SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_BACK, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
-    MorphBallLauncherChangeCCAA(CCAA_MAKE_SOLID3);
+    MorphBallLauncherChangeCCAA(CAA_MAKE_SOLID3);
 }
 
 void MorphBallLauncherDetectBomb(void)

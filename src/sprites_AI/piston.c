@@ -396,7 +396,7 @@ void PistonInit(void)
     gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
     gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
 
-    PistonChangeFourCCAA(CCAA_MAKE_SOLID3); // Set hitbox
+    PistonChangeFourCCAA(CAA_MAKE_SOLID3); // Set hitbox
 }
 
 /**
@@ -440,7 +440,7 @@ void PistonCheckProjectile(void)
     }
     else if (!PistonSamusCollision())
     {
-        PistonChangeOneBelowCCAA(CCAA_MAKE_SOLID3);
+        PistonChangeOneBelowCCAA(CAA_MAKE_SOLID3);
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
         gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
     }
@@ -455,7 +455,7 @@ void PistonOpen(void)
     if (gCurrentSprite.currentAnimationFrame == 0x2 && gCurrentSprite.animationDurationCounter == 0x1)
     {
         // Remove collision of the bottom part
-        PistonChangeOneBelowCCAA(CCAA_REMOVE_SOLID);
+        PistonChangeOneBelowCCAA(CAA_REMOVE_SOLID);
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
     }
 
@@ -480,7 +480,7 @@ void PistonOpened(void)
     // Check should set the top solid (not already solid and samus not in the block)
     if (!(gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING) && !PistonCheckSamusIn())
     {
-        PistonChangeOneUpperCCAA(CCAA_MAKE_SOLID3); // Set collision of top part
+        PistonChangeOneUpperCCAA(CAA_MAKE_SOLID3); // Set collision of top part
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING; // Set flag to know collision has been set
     }
 }

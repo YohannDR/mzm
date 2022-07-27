@@ -17,7 +17,7 @@ void GlassTubeChangeCCAA(void)
     yPosition = gCurrentSprite.yPosition - 0x20;
     xPosition = gCurrentSprite.xPosition;
 
-    caa = CCAA_REMOVE_SOLID;
+    caa = CAA_REMOVE_SOLID;
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - 0x40, xPosition);
     gCurrentClipdataAffectingAction = caa;

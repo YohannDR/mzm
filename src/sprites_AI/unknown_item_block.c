@@ -299,7 +299,7 @@ void UnkownItemBlock(void)
 
             gCurrentSprite.yPosition -= BLOCK_SIZE;
             gCurrentSprite.xPosition += (BLOCK_SIZE / 2);
-            UnkownItemBlockChangeCCAA(CCAA_MAKE_SOLID1);
+            UnkownItemBlockChangeCCAA(CAA_MAKE_SOLID1);
 
         case UNKNOWN_ITEM_BLOCK_POSE_CHECK_ACTIVATE:
             // Check activate block
@@ -392,7 +392,7 @@ void UnkownItemBlock(void)
             gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x60;
 
-            UnkownItemBlockChangeCCAA(CCAA_REMOVE_SOLID); // Remove collision
+            UnkownItemBlockChangeCCAA(CAA_REMOVE_SOLID); // Remove collision
 
             // Play sound, most likely planned to have a different sound for each block
             if (spriteID == PSPRITE_PLASMA_BEAM_BLOCK)

@@ -73,12 +73,12 @@ u32 ClipdataProcess(u32 yPosition, u32 xPosition)
         // Clear if out of bounds
         gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
         gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
-        gCurrentClipdataAffectingAction = CCAA_NONE;
+        gCurrentClipdataAffectingAction = CAA_NONE;
         return CLIPDATA_TYPE_AIR;
     }
     else
     {
-        if (gCurrentClipdataAffectingAction == CCAA_NONE)
+        if (gCurrentClipdataAffectingAction == CAA_NONE)
         {
             // No CCAA, then update current affecting
             collision.actorType = CLIPDATA_ACTOR_SPRITE;
@@ -86,23 +86,23 @@ u32 ClipdataProcess(u32 yPosition, u32 xPosition)
             gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
             ClipdataUpdateCurrentAffecting(yPos, collision.tileY, collision.tileX, 0x2);
         }
-        else if (gCurrentClipdataAffectingAction >= CCAA_UNUSED)
+        else if (gCurrentClipdataAffectingAction >= CAA_UNUSED)
         {
             // "Destructing" CCAA (projectiles, samus, bomb chain), then it's a non sprite
             collision.actorType = CLIPDATA_ACTOR_NON_SPRITE;
-            if (gCurrentClipdataAffectingAction == CCAA_UNUSED)
-                gCurrentClipdataAffectingAction = CCAA_NONE;
+            if (gCurrentClipdataAffectingAction == CAA_UNUSED)
+                gCurrentClipdataAffectingAction = CAA_NONE;
         }
         else
             collision.actorType = CLIPDATA_ACTOR_SPRITE;
 
         // Get clip at position
         clipdata = gBGPointersAndDimensions.pClipDecomp[collision.tileY * gBGPointersAndDimensions.clipdataWidth + collision.tileX];
-        if (gCurrentClipdataAffectingAction != CCAA_NONE)
+        if (gCurrentClipdataAffectingAction != CAA_NONE)
         {
             // Apply CCAA if not none
             BlockApplyCCAA(collision.tileY, collision.tileX, clipdata);
-            gCurrentClipdataAffectingAction = CCAA_NONE;
+            gCurrentClipdataAffectingAction = CAA_NONE;
         }
 
         // Get type and sub pixel, then call clipdata code

@@ -1,13 +1,529 @@
 #include "rising_chozo_pillar.h"
-#include "../particle.h"
-#include "../music.h"
-#include "../sprite_debris.h"
-#include "../sprite_util.h"
-#include "../screen_shake.h"
-#include "../sprite.h"
-#include "../particle.h"
 #include "../../data/data.h"
 #include "../globals.h"
+
+const u8 sRisingChozoPillarGFX[2684];
+const u16 sRisingChozoPillarPAL[64];
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame0[7] = {
+    0x2,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame1[7] = {
+    0x2,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x204
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame2[7] = {
+    0x2,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x208
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame3[7] = {
+    0x2,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x20c
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame4[7] = {
+    0x2,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x210
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame5[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1200,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x214
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame6[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1204,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame7[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1208,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame8[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x120c,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame9[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1210,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame10[13] = {
+    0x4,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2200,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1214,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame11[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2204,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame12[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2208,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame13[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x220c,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame14[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2210,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame15[13] = {
+    0x4,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x3200,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2214,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame16[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x3204,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame17[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x3208,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame18[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x320c,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame19[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x3210,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame20[10] = {
+    0x3,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x3214,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame21[7] = {
+    0x2,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x3218
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame22[19] = {
+    0x6,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
+    OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_8x32 | 0x1e8, OBJ_SPRITE_OAM | 0x298,
+    OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | OBJ_SIZE_8x32 | 0x10, OBJ_SPRITE_OAM | 0x298,
+    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x2f4,
+    OBJ_SHAPE_HORIZONTAL | 0x8, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x2f4
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame23[19] = {
+    0x6,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x280,
+    OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_8x32 | 0x1e8, OBJ_SPRITE_OAM | 0x299,
+    OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | OBJ_SIZE_8x32 | 0x10, OBJ_SPRITE_OAM | 0x299,
+    OBJ_SHAPE_HORIZONTAL | 0xef, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x2d4,
+    OBJ_SHAPE_HORIZONTAL | 0x9, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x2d4
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame24[7] = {
+    0x2,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x280
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame25[7] = {
+    0x2,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x284
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame26[7] = {
+    0x2,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x288
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Slot0Spawned_Frame0[7] = {
+    0x2,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x2d0,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x28c
+};
+
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame0[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame1[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x244
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame2[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x248
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame3[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x24c
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame4[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x250
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame5[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1240,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x254
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame6[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1244,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame7[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1248,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame8[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x124c,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame9[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1250,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame10[10] = {
+    0x3,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2240,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1254,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame11[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2244,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame12[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2248,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame13[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x224c,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame14[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2250,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame15[10] = {
+    0x3,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x3240,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2254,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x1258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame16[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x3244,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame17[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x3248,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame18[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x324c,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame19[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x3250,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame20[7] = {
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x3254,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame21[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x3258
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame22[16] = {
+    0x5,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x25c,
+    OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_8x32 | 0x1e8, OBJ_SPRITE_OAM | 0x298,
+    OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | OBJ_SIZE_8x32 | 0x10, OBJ_SPRITE_OAM | 0x298,
+    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x2f4,
+    OBJ_SHAPE_HORIZONTAL | 0x8, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x2f4
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame23[16] = {
+    0x5,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2c0,
+    OBJ_SHAPE_VERTICAL | 0xf0, OBJ_SIZE_8x32 | 0x1e8, OBJ_SPRITE_OAM | 0x299,
+    OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | OBJ_SIZE_8x32 | 0x10, OBJ_SPRITE_OAM | 0x299,
+    OBJ_SHAPE_HORIZONTAL | 0xef, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x2d4,
+    OBJ_SHAPE_HORIZONTAL | 0x9, OBJ_Y_FLIP | OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x2d4
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame24[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2c0
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame25[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2c4
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawning_Frame26[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2c8
+};
+
+const u16 sRisingChozoPillarPlatformOAM_Spawned_Frame0[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x2cc
+};
+
+const u16 sRisingChozoPillarPlatformShadowOAM_Frame0[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0x8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x290
+};
+
+const u16 sRisingChozoPillarPlatformShadowOAM_Frame1[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0x8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x294
+};
+
+const u16 sRisingChozoPillarPlatformShadowOAM_Frame2[4] = {
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0x8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x2b4
+};
+
+const struct FrameData sRisingChozoPillarPlatformOAM_Slot0Spawning[28] = {
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame0,
+    0x4,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame1,
+    0x4,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame2,
+    0x4,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame3,
+    0x4,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame4,
+    0x4,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame5,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame6,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame7,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame8,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame9,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame10,
+    0x2,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame11,
+    0x2,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame12,
+    0x2,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame13,
+    0x2,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame14,
+    0x2,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame15,
+    0x1,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame16,
+    0x1,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame17,
+    0x1,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame18,
+    0x1,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame19,
+    0x0,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame20,
+    0x1,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame21,
+    0x1,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame22,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame23,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame24,
+    0x8,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame25,
+    0x8,
+    sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame26,
+    0x8,
+    NULL,
+    0x0
+};
+
+const struct FrameData sRisingChozoPillarPlatformOAM_Slot0Spawned[2] = {
+    sRisingChozoPillarPlatformOAM_Slot0Spawned_Frame0,
+    0xFF,
+    NULL,
+    0x0
+};
+
+const struct FrameData sRisingChozoPillarPlatformOAM_Spawning[28] = {
+    sRisingChozoPillarPlatformOAM_Spawning_Frame0,
+    0x4,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame1,
+    0x4,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame2,
+    0x4,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame3,
+    0x4,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame4,
+    0x4,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame5,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame6,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame7,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame8,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame9,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame10,
+    0x2,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame11,
+    0x2,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame12,
+    0x2,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame13,
+    0x2,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame14,
+    0x2,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame15,
+    0x1,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame16,
+    0x1,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame17,
+    0x1,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame18,
+    0x1,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame19,
+    0x0,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame20,
+    0x1,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame21,
+    0x1,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame22,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame23,
+    0x3,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame24,
+    0x8,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame25,
+    0x8,
+    sRisingChozoPillarPlatformOAM_Spawning_Frame26,
+    0x8,
+    NULL,
+    0x0
+};
+
+const struct FrameData sRisingChozoPillarPlatformOAM_Spawned[2] = {
+    sRisingChozoPillarPlatformOAM_Spawned_Frame0,
+    0xFF,
+    NULL,
+    0x0
+};
+
+const struct FrameData sRisingChozoPillarPlatformShadowOAM[4] = {
+    sRisingChozoPillarPlatformShadowOAM_Frame0,
+    0x4,
+    sRisingChozoPillarPlatformShadowOAM_Frame1,
+    0x3,
+    sRisingChozoPillarPlatformShadowOAM_Frame2,
+    0xFF,
+    NULL,
+    0x0
+};
+
 
 /**
  * 4854c | a8 | 
@@ -17,7 +533,7 @@
  * @param xPosition X Position 
  * @param rng Set of debris to use
  */
-void RiingChozoPillarRandomSpriteDebris(u16 yPosition, u16 xPosition, u8 rng)
+void RisingChozoPillarRandomSpriteDebris(u16 yPosition, u16 xPosition, u8 rng)
 {
     switch (rng)
     {
@@ -47,7 +563,7 @@ void RiingChozoPillarRandomSpriteDebris(u16 yPosition, u16 xPosition, u8 rng)
  * @param xPosition X Position 
  * @param rng Set of particles to use
  */
-void RiingChozoPillarRandomParticles(u16 yPosition, u16 xPosition, u8 rng)
+void RisingChozoPillarRandomParticles(u16 yPosition, u16 xPosition, u8 rng)
 {
     switch (rng)
     {
@@ -78,23 +594,40 @@ void RiingChozoPillarRandomParticles(u16 yPosition, u16 xPosition, u8 rng)
     }
 }
 
-void RiingChozoPillarSpawnThreePlatforms(u16 yPosition, u16 xPosition, u8 caa)
+/**
+ * @brief 486a0 | e4 | 
+ * Spawns three platforms and sets the collision for them
+ * @param yPosition Y Position
+ * @param xPosition X Position
+ * @param caa Clipdata Affecting Action
+ */
+void RisingChozoPillarSpawnThreePlatforms(u16 yPosition, u16 xPosition, u8 caa)
 {
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - 0xC0, xPosition + 0xC0);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 3), xPosition + (BLOCK_SIZE * 3));
+    
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - 0xC0, xPosition + 0x100);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 3), xPosition + (BLOCK_SIZE * 4));
+    
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - 0x2C0, xPosition + 0xC0);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 11), xPosition + (BLOCK_SIZE * 3));
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - 0x2C0, xPosition + 0x100);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 11), xPosition + (BLOCK_SIZE * 4));
+    
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - 0x4C0, xPosition + 0xC0);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 19), xPosition + (BLOCK_SIZE * 3));
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - 0x4C0, xPosition - 0x100);
-    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, yPosition - 0xC0, xPosition + 0xE0, 0x0);
-    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, yPosition - 0x2C0, xPosition + 0xE0, 0x0);
-    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, yPosition - 0x4C0, xPosition + 0xE0, 0x0);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 19), xPosition + (BLOCK_SIZE * 4));
+
+    // Spawn platforms
+    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spritesetGFXSlot,
+        gCurrentSprite.primarySpriteRAMSlot, yPosition - (BLOCK_SIZE * 3),  xPosition + (BLOCK_SIZE * 3 + BLOCK_SIZE / 2), 0x0);
+    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spritesetGFXSlot,
+        gCurrentSprite.primarySpriteRAMSlot, yPosition - (BLOCK_SIZE * 11),  xPosition + (BLOCK_SIZE * 3 + BLOCK_SIZE / 2), 0x0);
+    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spritesetGFXSlot,
+        gCurrentSprite.primarySpriteRAMSlot, yPosition - (BLOCK_SIZE * 19), xPosition + (BLOCK_SIZE * 3 + BLOCK_SIZE / 2), 0x0);
 }
 
 /**
@@ -105,7 +638,7 @@ void RiingChozoPillarSpawnThreePlatforms(u16 yPosition, u16 xPosition, u8 caa)
  * @param xPosition X Position
  * @param caa Clipdata Affecting Action
  */
-void RiingChozoPillarSpawnTwoPlatforms(u16 yPosition, u16 xPosition, u8 caa)
+void RisingChozoPillarSpawnTwoPlatforms(u16 yPosition, u16 xPosition, u8 caa)
 {
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - 0x1C0, xPosition);
@@ -148,7 +681,7 @@ void RisingChozoPillar(void)
     u16 xPosition;
     u16 x_pos;
 
-    caa = CCAA_MAKE_SOLID1;
+    caa = CAA_MAKE_SOLID1;
     yPosition = gCurrentSprite.yPosition - 0x20;
     xPosition = gCurrentSprite.xPosition;
 
@@ -157,9 +690,9 @@ void RisingChozoPillar(void)
         case 0x0:
             if (EventFunction(EVENT_ACTION_CHECKING, EVENT_CHOZO_PILLAR_FULLY_EXTENDED))
             {
-                RiingChozoPillarSpawnThreePlatforms(yPosition, xPosition, caa);
-                RiingChozoPillarSpawnTwoPlatforms(yPosition, xPosition, caa);
-                RiingChozoPillarSpawnOnePlatform(yPosition, xPosition, caa);
+                RisingChozoPillarSpawnThreePlatforms(yPosition, xPosition, caa);
+                RisingChozoPillarSpawnTwoPlatforms(yPosition, xPosition, caa);
+                RisingChozoPillarSpawnOnePlatform(yPosition, xPosition, caa);
                 gCurrentSprite.status = 0x0;
             }
             else
@@ -200,16 +733,16 @@ void RisingChozoPillar(void)
             }
             y_pos = yPosition + 0x20;
             x_pos = xPosition + 0xE0;
-            RiingChozoPillarRandomSpriteDebris(y_pos, x_pos, gCurrentSprite.oamScaling & 0xF);
-            RiingChozoPillarRandomParticles(y_pos, x_pos, gCurrentSprite.oamScaling & 0x7F);
+            RisingChozoPillarRandomSpriteDebris(y_pos, x_pos, gCurrentSprite.oamScaling & 0xF);
+            RisingChozoPillarRandomParticles(y_pos, x_pos, gCurrentSprite.oamScaling & 0x7F);
             break;
         case 0x22:
             gCurrentSprite.pose = 0x23;
-            RiingChozoPillarSpawnThreePlatforms(yPosition, xPosition, caa);
+            RisingChozoPillarSpawnThreePlatforms(yPosition, xPosition, caa);
             break;
         case 0x23:
             gCurrentSprite.pose = 0x24;
-            RiingChozoPillarSpawnTwoPlatforms(yPosition, xPosition, caa);
+            RisingChozoPillarSpawnTwoPlatforms(yPosition, xPosition, caa);
             break;
         case 0x24:
             gCurrentSprite.pose = 0x25;
@@ -253,19 +786,19 @@ void ChozoPillarPlatform(void)
                 gCurrentSprite.pose = 0x9;
                 if (gCurrentSprite.roomSlot != 0x0)
                 {
-                    gCurrentSprite.pOam = chozo_pillar_platform_oam_spawned;
+                    gCurrentSprite.pOam = sRisingChozoPillarPlatformOAM_Spawned;
                     SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM_SHADOW, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
                 }
                 else
-                    gCurrentSprite.pOam = chozo_pillar_platform_slot1_oam_spawned;
+                    gCurrentSprite.pOam = sRisingChozoPillarPlatformOAM_Slot0Spawned;
             }
             else
             {
                 gCurrentSprite.pose = 0x8;
                 if (gCurrentSprite.roomSlot != 0x0)
-                    gCurrentSprite.pOam = chozo_pillar_platform_slot1_oam_spawning;
+                    gCurrentSprite.pOam = sRisingChozoPillarPlatformOAM_Slot0Spawning;
                 else
-                    gCurrentSprite.pOam = chozo_pillar_platform_oam_spawning;
+                    gCurrentSprite.pOam = sRisingChozoPillarPlatformOAM_Spawning;
                 SoundPlay(0x126);
             }
             break;
@@ -277,9 +810,9 @@ void ChozoPillarPlatform(void)
                 gCurrentSprite.animationDurationCounter = 0x0;
                 gCurrentSprite.currentAnimationFrame = 0x0;
                 if (gCurrentSprite.roomSlot != 0x0)
-                    gCurrentSprite.pOam = chozo_pillar_platform_slot1_oam_spawned;
+                    gCurrentSprite.pOam = sRisingChozoPillarPlatformOAM_Spawned;
                 else
-                    gCurrentSprite.pOam = chozo_pillar_platform_oam_spawned;
+                    gCurrentSprite.pOam = sRisingChozoPillarPlatformOAM_Slot0Spawned;
             }
             else
             {
@@ -310,7 +843,7 @@ void ChozoPillarPlatformShadow(void)
         gCurrentSprite.hitboxLeftOffset = 0x0;
         gCurrentSprite.hitboxRightOffset = 0x0;
         gCurrentSprite.pose = 0x8;
-        gCurrentSprite.pOam = ChozoPillarPlatformShadow_oam;
+        gCurrentSprite.pOam = sRisingChozoPillarPlatformShadowOAM;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.drawOrder = 0xC;
