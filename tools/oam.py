@@ -91,10 +91,7 @@ def ParsePart2(value):
 file = open("../baserom_us.gba", "rb")
 inputValue = input("Address : ")
 
-try:
-    addr = int(inputValue)
-except:
-    addr = int(inputValue, 16)
+addr = int(inputValue, 16)
 
 file.seek(addr)
 

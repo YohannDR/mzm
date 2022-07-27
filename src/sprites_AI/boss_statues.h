@@ -3,16 +3,20 @@
 
 #include "../types.h"
 
+#define BOSS_STATUE_POSE_CHECK_START_OPEN 0x9
+#define BOSS_STATUE_POSE_OPENING 0xB
+#define BOSS_STATUE_POSE_IDLE 0xF
+
 void BossStatueVerticalLignChangeCCAA(u8 caa);
-void BossStatueHorizontalLignThreeChangeCCAA(u8 caa);
-void BossStatueHorizontalLignHeightChangeCCAA(u8 caa);
-void KraidStatueAfterOpen(void);
+void KraidStatueHorizontalLignThreeChangeCCAA(u8 caa);
+void KraidStatueHorizontalLignHeightChangeCCAA(u8 caa);
+void KraidStatueOpenedInit(void);
 void KraidStatueInit(void);
 void KraidStatueCheckBackgroundLocked(void);
 void KraidStatueOpening(void);
 void RidleyStatueChangeThreeCCAA(u8 caa);
 void RidleyStatueChangeFourCCAA(u8 caa);
-void RidleyStatueAfterOpen(void);
+void RidleyStatueOpenedInit(void);
 void RidleyStatueInit(void);
 void RidleyStatueCheckBackgroundLocked(void);
 void RidleyStatueOpening(void);
