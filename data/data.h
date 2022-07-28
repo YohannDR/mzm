@@ -99,7 +99,7 @@
 /* generic_data.c */
 
 i16 sSineYValues[320];
-u8 random_number_table[256];
+u8 sRandomNumberTable[256];
 
 /* blob_0x808ca9c_0x8239463.c */
 

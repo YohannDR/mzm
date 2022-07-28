@@ -3,22 +3,31 @@
 
 #include "../types.h"
 
+#define DESSGEEGA_POSE_JUMP_WARNING_INIT 0x8
+#define DESSGEEGA_POSE_JUMP_WARNING 0x9
+#define DESSGEEGA_POSE_IDLE 0xF
+#define DESSGEEGA_POSE_LONG_BEAM_DETECT 0x11
+#define DESSGEEGA_POSE_FALLING 0x1F
+#define DESSGEEGA_POSE_JUMPING 0x23
+#define DESSGEEGA_POSE_LANDING 0x25
+#define DESSGEEGA_POSE_LONG_BEAM_SPAWNING 0x33
+
 u8 DessgeegaCheckSamusNearLeftRight(void);
 void DessgeegaInit(void);
-void DessgeegaJumpingGFXInit(void);
-void DessgeegaBeforeJumping(void);
-void DessgeegaBeforeLanding(void);
-void DessgeegaCheckSamusInRange(void);
-void DessgeegaBouncingGFXInit(void);
-void DessgeegaCheckBouncing(void);
-void DessgeegaCheckBeforeJumpingCeilingAnimEnded(void);
-void DessgeegaMoveGround(void);
-void DessgeegaMoveCeiling(void);
+void DessgeegaJumpWarningInit(void);
+void DessgeegaJumpingInit(void);
+void DessgeegaLandingInit(void);
+void DessgeegaIdleInit(void);
+void DessgeegaFallingInit(void);
+void DessgeegaJumpWarningGround(void);
+void DessgeegaJumpWarningCeiling(void);
+void DessgeegaJumpingGround(void);
+void DessgeegaJumpingCeiling(void);
 void DessgeegaCheckLandingAnimEnded(void);
-void DessgeegaJumpingGroundIntoBlock(void);
-void DessgeegaJumpingCeilingIntoBlock(void);
-void DessgeegaGroundIdleAnim(void);
-void DessgeegaCeilingdleAnim(void);
+void DessgeegaFallingGround(void);
+void DessgeegaFallingCeiling(void);
+void DessgeegaIdleGround(void);
+void DessgeegaIdleCeiling(void);
 void DessgeegaDeath(void);
 void DessgeegaLongBeamDetectSamus(void);
 void DessgeegaLongBeamSpawning(void);
