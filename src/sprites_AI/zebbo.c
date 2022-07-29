@@ -97,7 +97,7 @@ void Zebbo(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            unk_2b20(0x164);
+            SoundPlayNotAlreadyPlaying(0x164);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

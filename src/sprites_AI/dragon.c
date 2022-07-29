@@ -276,7 +276,7 @@ void Dragon(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            unk_2b20(0x14D);
+            SoundPlayNotAlreadyPlaying(0x14D);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

@@ -133,7 +133,7 @@ void GerutaCheckGoingDownAnimEnded(void)
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
         SpriteUtilMakeSpriteFaceSamusDirection();
         if ((gCurrentSprite.status & SPRITE_STATUS_ONSCREEN))
-            unk_2b20(0x14E);
+            SoundPlayNotAlreadyPlaying(0x14E);
     }
 }
 
@@ -164,7 +164,7 @@ void GerutaCheckBouncingAnimEnded(void)
         gCurrentSprite.pOam = geruta_oam_2d14a0;
         gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
         if ((gCurrentSprite.status & SPRITE_STATUS_ONSCREEN))
-            unk_2b20(0x14F);
+            SoundPlayNotAlreadyPlaying(0x14F);
     }
 }
 
@@ -194,7 +194,7 @@ void Geruta(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if ((gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
-            unk_2b20(0x151);
+            SoundPlayNotAlreadyPlaying(0x151);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

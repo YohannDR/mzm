@@ -223,7 +223,7 @@ void Skree(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if ((gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
-            unk_2b20(0x143);
+            SoundPlayNotAlreadyPlaying(0x143);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

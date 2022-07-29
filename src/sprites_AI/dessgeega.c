@@ -337,6 +337,7 @@ void DessgeegaInit(void)
             gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
         }
+        // Should be idle init instead of idle, this skips the initialization of some variables
         gCurrentSprite.pose = DESSGEEGA_POSE_IDLE;
     }
 

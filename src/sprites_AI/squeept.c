@@ -118,7 +118,7 @@ void Squeept(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            unk_2b20(0x157);
+            SoundPlayNotAlreadyPlaying(0x157);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

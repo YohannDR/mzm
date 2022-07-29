@@ -19,7 +19,7 @@ void RuinsTestMoveToPosition(u16 yTarget, u16 xTarget, u16 yPosition, u16 xPosit
 
 u8 RuinsTestProjectileCollision(void)
 {
-    return 0;
+
 }
 
 void unk_38d28(void)
@@ -34,7 +34,7 @@ void unk_38d70(void)
 
 u8 RuinsTestCheckSamusHurting(void)
 {
-    return 0;
+
 }
 
 void unk_38e28(void)

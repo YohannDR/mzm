@@ -75,7 +75,7 @@ void MultiviolaMove(void)
     }
 
     if (is_bouncing != 0x0 && (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
-        unk_2b20(0x152);
+        SoundPlayNotAlreadyPlaying(0x152);
 }
 
 void MultivioaUnused_Empty1(void)
@@ -94,7 +94,7 @@ void Multiviola(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if ((gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) != 0x0)
-            unk_2b20(0x153);
+            SoundPlayNotAlreadyPlaying(0x153);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

@@ -116,7 +116,7 @@ u8 MetroidCheckSamusGrabbed(void)
 void MetroidPlaySound(void)
 {
     if (gCurrentSprite.currentAnimationFrame == 0x0 && gCurrentSprite.animationDurationCounter == 0x1 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        unk_2b20(0x170);
+        SoundPlayNotAlreadyPlaying(0x170);
 }
 
 void MetroidInit(void)
@@ -336,7 +336,7 @@ void Metroid(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            unk_2b20(0x172);
+            SoundPlayNotAlreadyPlaying(0x172);
     }
     else
     {
@@ -345,7 +345,7 @@ void Metroid(void)
             if (gCurrentSprite.health == gCurrentSprite.yPositionSpawn)
             {
                 if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                    unk_2b20(0x171);
+                    SoundPlayNotAlreadyPlaying(0x171);
             }
             else
                 gCurrentSprite.yPositionSpawn = gCurrentSprite.health;

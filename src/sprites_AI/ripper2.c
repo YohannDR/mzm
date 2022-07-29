@@ -57,7 +57,7 @@ void Ripper2TurnAroundGFXInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        unk_2b20(0x267);
+        SoundPlayNotAlreadyPlaying(0x267);
 }
 
 void Ripper2TurnAroundBegin(void)
@@ -84,7 +84,7 @@ void Ripper2(void)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            unk_2b20(0x268);
+            SoundPlayNotAlreadyPlaying(0x268);
     }
 
     if (gCurrentSprite.freezeTimer != 0x0)

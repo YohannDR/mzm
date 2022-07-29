@@ -61,14 +61,14 @@ void ExplosionZebesEscape(void)
                     yPosition += (rng * 0x8) - 0xE6;
                     xPosition += (rng << rng_);
                     ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
-                    unk_2b20(0x276);
+                    SoundPlayNotAlreadyPlaying(0x276);
                 }
                 else
                 {
                     yPosition += (rng * 0x8) - 0xDC;
                     xPosition += (rng << rng_) + 0xA0;
                     ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
-                    unk_2b20(0xA4);
+                    SoundPlayNotAlreadyPlaying(0xA4);
                 }
             }
             else
@@ -78,14 +78,14 @@ void ExplosionZebesEscape(void)
                     yPosition += (rng * 0x8) - 0xDC;
                     xPosition -= (rng << rng_);
                     ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
-                    unk_2b20(0xA4);
+                    SoundPlayNotAlreadyPlaying(0xA4);
                 }
                 else
                 {
                     yPosition += (rng * 0x8) - 0xE6;
                     xPosition -= (rng << rng_) + 0xA0;
                     ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_BIG);
-                    unk_2b20(0x276);
+                    SoundPlayNotAlreadyPlaying(0x276);
                 }
             }
         }
@@ -98,7 +98,7 @@ void ExplosionZebesEscape(void)
                 if ((rng & 0x1) != 0x0)
                 {
                     ParticleSet(yPosition + (rng * 0x10 - 0x140), xPosition + rng << rng_, PE_TWO_MEDIUM_DUST);
-                    unk_2b20(0xA5);
+                    SoundPlayNotAlreadyPlaying(0xA5);
                 }
                 else
                 {
@@ -113,7 +113,7 @@ void ExplosionZebesEscape(void)
             }
 
             ParticleSet(yPosition + yOffset, xPosition + xOffset, PE_MEDIUM_DUST);
-            unk_2b20(0x277);
+            SoundPlayNotAlreadyPlaying(0x277);
         }
     }
 

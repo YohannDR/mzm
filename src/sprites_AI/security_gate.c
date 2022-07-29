@@ -20,7 +20,7 @@ void SecurityGateOpen(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x27;
     SecurityGateChangeCCAA(CAA_REMOVE_SOLID); // Remove collision
-    unk_2b20(0x225);
+    SoundPlayNotAlreadyPlaying(0x225);
 }
 
 /**
@@ -34,7 +34,7 @@ void SecurityGateStartClosing(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x23;
-    unk_2b20(0x109);
+    SoundPlayNotAlreadyPlaying(0x109);
 }
 
 /**

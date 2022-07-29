@@ -1,6 +1,5 @@
 #include "gadora.h"
 #include "../../data/data.h"
-#include "../sprite.h"
 #include "../globals.h"
 
 const u8 sGadoraGFX[2340];

@@ -5,8 +5,8 @@
 
 void ChargeBeamInit(void);
 void ChargeBeamSpawnGlow(void);
-void ChargeBeamGFXInit(void);
-void ChargeBeamGet(void);
+void ChargeBeamVisibleInit(void);
+void ChargeBeamIdle(void);
 void ChargeBeamFlashingAnim(void);
 void ChargeBeamGlowInit(void);
 void ChargeBeamGlowMovement(void);

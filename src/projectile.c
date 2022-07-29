@@ -1278,7 +1278,7 @@ void ProjectileFreezeSprite(struct SpriteData* pSprite, u8 freeze_timer)
 {
     pSprite->freezeTimer = freeze_timer;
     pSprite->paletteRow = 0xF - (pSprite->spritesetGFXSlot + pSprite->frozenPaletteRowOffset);
-    unk_2b20(0x140);
+    SoundPlayNotAlreadyPlaying(0x140);
 }
 
 void ProjectileIceBeamHittingSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition, u16 damage, u8 effect)

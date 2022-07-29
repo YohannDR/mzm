@@ -1,7 +1,6 @@
 #include "map_station.h"
 #include "../sprite.h"
-#include "../sprite_util.h"
-#include "../samus.h"
+#include "item_banner.h"
 #include "../globals.h"
 
 void MapStationInit(void)
@@ -133,7 +132,7 @@ void MapStationSpawnMessage(void)
         gCurrentSprite.pose = 0x29;
         gSamusData.currentAnimationFrame = 0x0;
         gSamusData.timer = 0x1;
-        call_sound_function(0x123, 0xA);
+        SoundFade(0x123, 0xA);
     }
 }
 
@@ -142,7 +141,7 @@ void MapStationAfterDownload(void)
     u8 slot;
 
     slot = gCurrentSprite.workVariable;
-    if (gSpriteData[slot].pose == 0x25)
+    if (gSpriteData[slot].pose == ITEM_BANNER_POSE_REMOVAL_ANIMATION)
     {
         gCurrentSprite.pose = 0x2B;
         gCurrentSprite.timer = 0xA;

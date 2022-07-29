@@ -97,7 +97,7 @@ void WorkerRobotStandingGFXInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        unk_2b20(0x26F);
+        SoundPlayNotAlreadyPlaying(0x26F);
 }
 
 void WorkerRobotCheckStandingAnimEnded(void)
@@ -253,7 +253,7 @@ void WorkerRobotBackToSleepGFXInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-        unk_2b20(0x270);
+        SoundPlayNotAlreadyPlaying(0x270);
 }
 
 void WorkerRobotCheckBackToSleepAnimEnded(void)
