@@ -119,7 +119,7 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
             if (pScroll == (pScrollLimit + 2))
                 return;
 
-            bounds[0x0] = 0x0;
+            bounds[0] = 0x0;
             bounds[0x1] = 0x1;
             bounds[0x2] = 0x2;
             bounds[0x3] = 0x3;
@@ -138,9 +138,9 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
                     bounds[pData[0x6]] = 0x7;
             }
 
-            if (pData[bounds[0x0]] <= x_pos && x_pos <= pData[bounds[0x1]] && pData[bounds[0x2]] <= y_pos && y_pos <= pData[bounds[0x3]] && pScroll->within == 0x0)
+            if (pData[bounds[0]] <= x_pos && x_pos <= pData[bounds[0x1]] && pData[bounds[0x2]] <= y_pos && y_pos <= pData[bounds[0x3]] && pScroll->within == 0x0)
             {
-                bound = pData[bounds[0x0]] << 0x6;
+                bound = pData[bounds[0]] << 0x6;
                 if (0x80 >= bound)
                     bound = 0x80;
                 pScroll->xStart = bound;

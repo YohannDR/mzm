@@ -14,7 +14,7 @@ void ReoInit(void)
     gCurrentSprite.pOam = reo_oam_2ce214;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     SpriteUtilChooseRandomXDirection();
     if (0x8 < gSpriteRNG)
@@ -38,7 +38,7 @@ void ReoSamusDetection(void)
     movement = reo_idle_anim_yPosition_offsets[offset];
     if (movement == SPRITE_ARRAY_TERMINATOR)
     {
-        movement = reo_idle_anim_yPosition_offsets[0x0];
+        movement = reo_idle_anim_yPosition_offsets[0];
         offset = 0x0;
     }
     gCurrentSprite.arrayOffset = offset + 0x1;
@@ -48,7 +48,7 @@ void ReoSamusDetection(void)
     movement = reo_idle_anim_xPosition_offsets[offset];
     if (movement == SPRITE_ARRAY_TERMINATOR)
     {
-        movement = reo_idle_anim_xPosition_offsets[0x0];
+        movement = reo_idle_anim_xPosition_offsets[0];
         offset = 0x0;
     }
     gCurrentSprite.workVariable2 = offset + 0x1;

@@ -37,7 +37,7 @@ void SqueeptInit(void)
     gCurrentSprite.hitboxLeftOffset = -0x20;
     gCurrentSprite.hitboxRightOffset = 0x20;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
     gCurrentSprite.yPosition += 0x4;
     gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
 }

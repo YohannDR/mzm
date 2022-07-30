@@ -347,63 +347,9 @@ u8 blob_0x82f7dd4_0x82fd107[21300];
 
 /* geron_data.c */
 
-u16 GeronNorfair_oam1[43];
-u16 GeronNorfair_oam2[43];
-u16 GeronNorfair_oam3[43];
-u16 GeronNorfair_oam4[43];
-u16 GeronNorfair_oam5[43];
-u16 GeronNorfair_oam6[46];
-u16 GeronNorfair_oam7[46];
-u16 GeronNorfair_oam8[40];
-u16 GeronNorfair_oam9[43];
-u16 GeronNorfair_oam10[43];
-struct FrameData GeronNorfair_oam[11];
-u8 geron_gfx[612];
-u16 geron_pal[16];
-
 /* blob_0x82fd79c_0x830d55b.c */
 
 u8 blob_0x82fd79c_0x830d55b[64960];
-
-/* glass_tube_data.c */
-
-u16 glass_tube_oam1[37];
-u16 glass_tube_oam_cracking1[37];
-u16 glass_tube_oam_cracking2[49];
-u16 glass_tube_oam_cracking3[55];
-u16 glass_tube_oam_cracking4[73];
-u16 glass_tube_oam_cracking5[85];
-u16 glass_tube_oam_cracking6[106];
-u16 glass_tube_oam_cracking7[115];
-u16 glass_tube_oam_cracking8[127];
-u16 glass_tube_oam_cracking9[142];
-u16 glass_tube_oam_cracking10[157];
-u16 glass_tube_oam_cracking11[172];
-u16 glass_tube_oam_breaking1[172];
-u16 glass_tube_oam_breaking2[172];
-u16 glass_tube_oam_breaking3[172];
-u16 glass_tube_oam_breaking4[172];
-u16 glass_tube_oam_breaking5[172];
-u16 glass_tube_oam_breaking6[172];
-u16 glass_tube_oam_breaking7[172];
-u16 glass_tube_oam_breaking8[163];
-u16 glass_tube_oam_breaking9[157];
-u16 glass_tube_oam_breaking10[139];
-u16 glass_tube_oam_breaking11[133];
-u16 glass_tube_oam_breaking12[115];
-u16 glass_tube_oam_breaking13[94];
-u16 glass_tube_oam_breaking14[85];
-u16 glass_tube_oam_breaking15[70];
-u16 glass_tube_oam_breaking16[52];
-u16 glass_tube_oam_breaking17[31];
-u16 glass_tube_oam_breaking18[25];
-u16 glass_tube_oam_broken1[19];
-struct FrameData glass_tube_oam[2];
-struct FrameData glass_tube_oam_cracking[12];
-struct FrameData glass_tube_oam_breaking[19];
-struct FrameData glass_tube_oam_broken[2];
-u8 glass_tube_gfx[2208];
-u16 glass_tube_pal[64];
 
 /* blob_0x830df94_0x8312b97.c */
 
@@ -411,70 +357,6 @@ u8 blob_0x830df94_0x8312b97[19460];
 
 /* rising_chozo_pillar_data.c */
 
-u8 rising_chozo_pillar_gfx[2684];
-u16 rising_chozo_pillar_pal[64];
-u16 chozo_pillar_platform_oam_spawning1[7];
-u16 chozo_pillar_platform_oam_spawning2[7];
-u16 chozo_pillar_platform_oam_spawning3[7];
-u16 chozo_pillar_platform_oam_spawning4[7];
-u16 chozo_pillar_platform_oam_spawning5[7];
-u16 chozo_pillar_platform_oam_spawning6[10];
-u16 chozo_pillar_platform_oam_spawning7[10];
-u16 chozo_pillar_platform_oam_spawning8[10];
-u16 chozo_pillar_platform_oam_spawning9[10];
-u16 chozo_pillar_platform_oam_spawning10[10];
-u16 chozo_pillar_platform_oam_spawning11[13];
-u16 chozo_pillar_platform_oam_spawning12[10];
-u16 chozo_pillar_platform_oam_spawning13[10];
-u16 chozo_pillar_platform_oam_spawning14[10];
-u16 chozo_pillar_platform_oam_spawning15[10];
-u16 chozo_pillar_platform_oam_spawning16[13];
-u16 chozo_pillar_platform_oam_spawning17[10];
-u16 chozo_pillar_platform_oam_spawning18[10];
-u16 chozo_pillar_platform_oam_spawning19[10];
-u16 chozo_pillar_platform_oam_spawning20[10];
-u16 chozo_pillar_platform_oam_spawning21[10];
-u16 chozo_pillar_platform_oam_spawning22[7];
-u16 chozo_pillar_platform_oam_spawning23[19];
-u16 chozo_pillar_platform_oam_spawning24[19];
-u16 chozo_pillar_platform_oam_spawning25[7];
-u16 chozo_pillar_platform_slot1_oam_spawned1[7];
-u16 chozo_pillar_platform_slot1_oam_spawning1[4];
-u16 chozo_pillar_platform_slot1_oam_spawning2[4];
-u16 chozo_pillar_platform_slot1_oam_spawning3[4];
-u16 chozo_pillar_platform_slot1_oam_spawning4[4];
-u16 chozo_pillar_platform_slot1_oam_spawning5[4];
-u16 chozo_pillar_platform_slot1_oam_spawning6[7];
-u16 chozo_pillar_platform_slot1_oam_spawning7[7];
-u16 chozo_pillar_platform_slot1_oam_spawning8[7];
-u16 chozo_pillar_platform_slot1_oam_spawning9[7];
-u16 chozo_pillar_platform_slot1_oam_spawning10[7];
-u16 chozo_pillar_platform_slot1_oam_spawning11[10];
-u16 chozo_pillar_platform_slot1_oam_spawning12[7];
-u16 chozo_pillar_platform_slot1_oam_spawning13[7];
-u16 chozo_pillar_platform_slot1_oam_spawning14[7];
-u16 chozo_pillar_platform_slot1_oam_spawning15[7];
-u16 chozo_pillar_platform_slot1_oam_spawning16[10];
-u16 chozo_pillar_platform_slot1_oam_spawning17[7];
-u16 chozo_pillar_platform_slot1_oam_spawning18[7];
-u16 chozo_pillar_platform_slot1_oam_spawning19[7];
-u16 chozo_pillar_platform_slot1_oam_spawning20[7];
-u16 chozo_pillar_platform_slot1_oam_spawning21[7];
-u16 chozo_pillar_platform_slot1_oam_spawning22[4];
-u16 chozo_pillar_platform_slot1_oam_spawning23[16];
-u16 chozo_pillar_platform_slot1_oam_spawning24[16];
-u16 chozo_pillar_platform_slot1_oam_spawning25[4];
-u16 chozo_pillar_platform_slot1_oam_spawning26[4];
-u16 chozo_pillar_platform_slot1_oam_spawning27[4];
-u16 chozo_pillar_platform_oam_spawned1[4];
-u16 ChozoPillarPlatformShadow_oam1[4];
-u16 ChozoPillarPlatformShadow_oam2[4];
-u16 ChozoPillarPlatformShadow_oam3[4];
-struct FrameData chozo_pillar_platform_oam_spawning[25];
-struct FrameData chozo_pillar_platform_slot1_oam_spawned[2];
-struct FrameData chozo_pillar_platform_slot1_oam_spawning[28];
-struct FrameData chozo_pillar_platform_oam_spawned[2];
-struct FrameData ChozoPillarPlatformShadow_oam[4];
 
 /* blob_0x8313c4c_0x8326ca7.c */
 

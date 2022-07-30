@@ -182,7 +182,7 @@ void SovaInit(void)
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     SovaGFXUpdate();
     SovaHitboxUpdate();
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
     gCurrentSprite.drawDistanceTopOffset = 0x10;
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;

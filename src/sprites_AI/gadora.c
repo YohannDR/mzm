@@ -439,7 +439,7 @@ void GadoraInit(void)
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
         gCurrentSprite.drawOrder = 0x5;
         gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
-        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
 
         // Change palette if ridley gadora
         if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY)
@@ -728,7 +728,7 @@ void GadoraEye(void)
             {
                 gCurrentSprite.absolutePaletteRow = 0x1;
                 gCurrentSprite.paletteRow = 0x1;
-                gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+                gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
             }
 
             gCurrentSprite.drawDistanceTopOffset = 0x8;

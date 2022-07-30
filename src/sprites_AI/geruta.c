@@ -64,7 +64,7 @@ void GerutaInit(void)
     gCurrentSprite.pOam = geruta_oam_2d1400;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.yPosition -= 0xC;
     gCurrentSprite.pose = 0x8;

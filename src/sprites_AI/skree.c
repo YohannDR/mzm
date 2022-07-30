@@ -14,7 +14,7 @@ void SkreeInit(void)
     gCurrentSprite.hitboxBottomOffset = 0x60;
     gCurrentSprite.hitboxLeftOffset = -0x18;
     gCurrentSprite.hitboxRightOffset = 0x18;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
     gCurrentSprite.yPosition -= 0x40;
 }
 

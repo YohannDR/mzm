@@ -67,7 +67,7 @@ void WorkerRobotInit(void)
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     gCurrentSprite.workVariable = 0x0;
     gCurrentSprite.samusCollision = SSC_SOLID;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
     SpriteUtilMakeSpriteFaceAwawFromSamusXFlip();
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;

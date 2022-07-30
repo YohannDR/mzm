@@ -420,7 +420,7 @@ void ImagoCocoonSporeInit(void)
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.drawOrder = 0x3;
     gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
-    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     ImagoCocoonSporeSyncPosition();
@@ -571,7 +571,7 @@ void WingerRipperInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
     gCurrentSprite.drawOrder = 0x8;
     gCurrentSprite.pose = 0x8;
     gCurrentSprite.oamScaling = 0xC0;

@@ -101,7 +101,7 @@ u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
         count = 0x0;
         pData = gHatchData;
         pCurrArea = &gCurrentArea;
-        pSrc = &pData[0x0].sourceDoor;
+        pSrc = &pData[0].sourceDoor;
         offset = 0x0;
         pLastDoor = &gLastDoorUsed;
 

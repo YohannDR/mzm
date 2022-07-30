@@ -615,7 +615,7 @@ void AcidWormSyncHeadPosition(void)
     sine = sAcidWormSwingingMovement[arrayOffset];
     if (sine == SPRITE_ARRAY_TERMINATOR)
     {
-        sine = sAcidWormSwingingMovement[0x0];
+        sine = sAcidWormSwingingMovement[0];
         arrayOffset = 0x0;
     }
     gCurrentSprite.arrayOffset = arrayOffset + 0x1;
@@ -833,7 +833,7 @@ void AcidWormInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     
     gCurrentSprite.samusCollision = SSC_ACID_WORM_MOUTH;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
 
     gCurrentSprite.pose = ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE;
@@ -1116,7 +1116,7 @@ void AcidWormExtend(void)
     u8 speed;
     u8 checks;
 
-    spawnHealth = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+    spawnHealth = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
     if (gCurrentSprite.timer != 0x0)
     {
         // Delay before moving
@@ -1413,7 +1413,7 @@ void AcidWormRetracting(void)
     spriteY = gCurrentSprite.yPosition;
     if (checks == 0x3) // Check everything done
     {
-        if (gCurrentSprite.health <= sPrimarySpriteStats[gCurrentSprite.spriteID][0x0] >> 0x1 && gDifficulty != DIFF_EASY)
+        if (gCurrentSprite.health <= sPrimarySpriteStats[gCurrentSprite.spriteID][0] >> 0x1 && gDifficulty != DIFF_EASY)
         {
             gCurrentSprite.status ^= SPRITE_STATUS_MOSAIC;
 
@@ -1823,9 +1823,9 @@ void AcidWormBodyMainLoop(void)
                 gSpriteData[slot].health -= health2;
                 gCurrentSprite.health = 0x400;
                 
-                if (gSpriteData[slot].health <= (u32)(sPrimarySpriteStats[gSpriteData[slot].spriteID][0x0] / 0x4))
+                if (gSpriteData[slot].health <= (u32)(sPrimarySpriteStats[gSpriteData[slot].spriteID][0] / 0x4))
                     gSpriteData[slot].absolutePaletteRow = 0x2;
-                else if (gSpriteData[slot].health <= sPrimarySpriteStats[gSpriteData[slot].spriteID][0x0] >> 0x1)
+                else if (gSpriteData[slot].health <= sPrimarySpriteStats[gSpriteData[slot].spriteID][0] >> 0x1)
                     gSpriteData[slot].absolutePaletteRow = 0x1;
                 SoundPlay(0x1BC);
             }
@@ -1917,7 +1917,7 @@ void AcidWormSpitInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.drawOrder = 0x3;
-    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
 
     gCurrentSprite.arrayOffset = 0x0;
     gCurrentSprite.pose = 0x9;

@@ -177,7 +177,7 @@ void MetroidInit(void)
         gCurrentSprite.pOam = metroid_oam_2edd20;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
         gCurrentSprite.yPositionSpawn = gCurrentSprite.health;
         gCurrentSprite.samusCollision = SSC_NONE;
         SpriteUtilMakeSpriteFaceSamusDirection();

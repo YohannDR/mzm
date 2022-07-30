@@ -21,24 +21,24 @@ void SpriteUtilInitLocationText(void)
     gfxSlot = LocationTextGetGFXSlot();
     if (gfxSlot < 0x8)
     {
-        gSpriteData[0x0].status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN | SPRITE_STATUS_UNKNOWN3;
-        gSpriteData[0x0].properties = SP_ABSOLUTE_POSITION;
-        gSpriteData[0x0].spritesetGFXSlot = gfxSlot;
-        gSpriteData[0x0].spriteID = PSPRITE_AREA_BANNER;
-        gSpriteData[0x0].yPosition = gSamusData.yPosition;
-        gSpriteData[0x0].xPosition = gSamusData.xPosition;
-        gSpriteData[0x0].bgPriority = 0x0;
-        gSpriteData[0x0].drawOrder = 0x1;
-        gSpriteData[0x0].pose = 0x0;
-        gSpriteData[0x0].health = 0x0;
-        gSpriteData[0x0].invicibilityStunFlashTimer = 0x0;
-        gSpriteData[0x0].paletteRow = 0x0;
-        gSpriteData[0x0].frozenPaletteRowOffset = 0x0;
-        gSpriteData[0x0].absolutePaletteRow = 0x0;
-        gSpriteData[0x0].ignoreSamusCollisionTimer = 0x1;
-        gSpriteData[0x0].primarySpriteRAMSlot = 0x0;
-        gSpriteData[0x0].freezeTimer = 0x0;
-        gSpriteData[0x0].standingOnSprite = FALSE;
+        gSpriteData[0].status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN | SPRITE_STATUS_UNKNOWN3;
+        gSpriteData[0].properties = SP_ABSOLUTE_POSITION;
+        gSpriteData[0].spritesetGFXSlot = gfxSlot;
+        gSpriteData[0].spriteID = PSPRITE_AREA_BANNER;
+        gSpriteData[0].yPosition = gSamusData.yPosition;
+        gSpriteData[0].xPosition = gSamusData.xPosition;
+        gSpriteData[0].bgPriority = 0x0;
+        gSpriteData[0].drawOrder = 0x1;
+        gSpriteData[0].pose = 0x0;
+        gSpriteData[0].health = 0x0;
+        gSpriteData[0].invicibilityStunFlashTimer = 0x0;
+        gSpriteData[0].paletteRow = 0x0;
+        gSpriteData[0].frozenPaletteRowOffset = 0x0;
+        gSpriteData[0].absolutePaletteRow = 0x0;
+        gSpriteData[0].ignoreSamusCollisionTimer = 0x1;
+        gSpriteData[0].primarySpriteRAMSlot = 0x0;
+        gSpriteData[0].freezeTimer = 0x0;
+        gSpriteData[0].standingOnSprite = FALSE;
     }
 }
 

@@ -439,7 +439,7 @@ void HiveInit(void)
         gCurrentSprite.currentAnimationFrame = 0x0;
 
         gCurrentSprite.drawOrder = 0x5;
-        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.timer = 0x0;
         
@@ -495,7 +495,7 @@ void HivePhase1(void)
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
     
-    if (gCurrentSprite.health < sPrimarySpriteStats[gCurrentSprite.spriteID][0x0] >> 0x1)
+    if (gCurrentSprite.health < sPrimarySpriteStats[gCurrentSprite.spriteID][0] >> 0x1)
     {
         gCurrentSprite.frozenPaletteRowOffset = 0x2;
         gCurrentSprite.pOam = sHiveOAM_Phase2;
@@ -519,7 +519,7 @@ void HivePhase2(void)
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
     
-    if (gCurrentSprite.health < sPrimarySpriteStats[gCurrentSprite.spriteID][0x0] >> 0x2)
+    if (gCurrentSprite.health < sPrimarySpriteStats[gCurrentSprite.spriteID][0] >> 0x2)
     {
         gCurrentSprite.frozenPaletteRowOffset = 0x3;
         gCurrentSprite.pOam = sHiveOAM_Phase3;
@@ -672,7 +672,7 @@ void MellowInit(struct SpriteData* pSprite)
         pSprite->animationDurationCounter = 0x0;
         pSprite->currentAnimationFrame = 0x0;
         pSprite->samusCollision = SSC_MELLOW;
-        pSprite->health = sPrimarySpriteStats[pSprite->spriteID][0x0];
+        pSprite->health = sPrimarySpriteStats[pSprite->spriteID][0];
         if (pSprite->roomSlot != 0x88)
         {
             pSprite->pOam = sMellowOAM_Idle;
@@ -1120,7 +1120,7 @@ void HiveRoots(void)
     if (gSpriteData[ramSlot].spriteID == PSPRITE_HIVE)
     {
         gCurrentSprite.paletteRow = gSpriteData[ramSlot].paletteRow;
-        if (gSpriteData[ramSlot].health < sPrimarySpriteStats[gSpriteData[ramSlot].spriteID][0x0] / 2 && gSpriteData[ramSlot].freezeTimer == 0x0)
+        if (gSpriteData[ramSlot].health < sPrimarySpriteStats[gSpriteData[ramSlot].spriteID][0] / 2 && gSpriteData[ramSlot].freezeTimer == 0x0)
             gCurrentSprite.status = 0x0;
         else
         {

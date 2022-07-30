@@ -430,7 +430,7 @@ void BaristuteInit(void)
     gCurrentSprite.hitboxRightOffset = 0x54;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0x0];
+    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
     SpriteUtilMakeSpriteFaceSamusDirection();
 }
 
@@ -908,7 +908,7 @@ void Baristute(void)
     if (gCurrentSprite.invicibilityStunFlashTimer & 0x7F)
     {
         // Damaged
-        spawnHealth = sPrimarySpriteStats[gCurrentSprite.spriteID][0x0];
+        spawnHealth = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
         health = gCurrentSprite.health;
 
         if (health <= spawnHealth / 4)
