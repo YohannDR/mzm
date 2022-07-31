@@ -434,7 +434,7 @@ void PistonCheckProjectile(void)
             gCurrentSprite.currentAnimationFrame = 0x0;
 
             gCurrentSprite.pose = PISTON_POSE_OPENING;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             SoundPlay(0x173);
         }
     }
@@ -442,7 +442,7 @@ void PistonCheckProjectile(void)
     {
         PistonChangeOneBelowCCAA(CAA_MAKE_SOLID3);
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
     }
 }
 

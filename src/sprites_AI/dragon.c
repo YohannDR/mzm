@@ -260,7 +260,7 @@ void DragonFireballExplodingGFXInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x43;
     gCurrentSprite.status = (gCurrentSprite.status & ~SPRITE_STATUS_YFLIP);
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 }
 
 void DragonFireballCheckExplodingAnimEnded(void)

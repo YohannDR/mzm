@@ -681,7 +681,7 @@ void RisingChozoPillar(void)
     u16 xPosition;
     u16 x_pos;
 
-    caa = CAA_MAKE_SOLID1;
+    caa = CAA_MAKE_SOLID_GRIPPABLE;
     yPosition = gCurrentSprite.yPosition - 0x20;
     xPosition = gCurrentSprite.xPosition;
 
@@ -697,7 +697,7 @@ void RisingChozoPillar(void)
             }
             else
             {
-                gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
+                gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
                 gCurrentSprite.samusCollision = SSC_NONE;
                 gCurrentSprite.drawDistanceTopOffset = 0x1;
                 gCurrentSprite.drawDistanceBottomOffset = 0x1;
@@ -770,7 +770,7 @@ void ChozoPillarPlatform(void)
         case 0x0:
             gCurrentSprite.yPosition += 0x4;
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawDistanceTopOffset = 0x8;
             gCurrentSprite.drawDistanceBottomOffset = 0x10;
@@ -833,7 +833,7 @@ void ChozoPillarPlatformShadow(void)
     if (gCurrentSprite.pose == 0x0)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.drawDistanceTopOffset = 0x0;
         gCurrentSprite.drawDistanceBottomOffset = 0x10;

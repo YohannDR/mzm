@@ -107,7 +107,7 @@ u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
 
         while (count < 0x10)
         {
-            if (*pSrc != u8_array_345868[0x7])
+            if (*pSrc != u8_array_345868[7])
             {
                 pCurr = door_pointer_array_75faa8[*pCurrArea] + *pSrc;
                 if (DOOR_AREA_CONNECTION < (pCurr->type & 0xF) && pCurr->xStart <= xPosition && xPosition <= pCurr->xEnd && pCurr->yStart <= yPosition && yPosition <= pCurr->yEnd)

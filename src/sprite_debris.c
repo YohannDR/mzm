@@ -322,8 +322,8 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
                 oam_x = (part2 + xPosition);
                 mask = 0x1FF;
                 oam_x &= mask;
-                gOamData[curr_slot].data[0].valueU[0x1] = gOamData[curr_slot].data[0].valueU[0x1] & -(mask + 0x1) | oam_x;
-                gOamData[curr_slot].data[0x1].valueB[0x1] = ((priority << 0x2) | (gOamData[curr_slot].data[0x1].valueB[0x1] & -0xD));
+                gOamData[curr_slot].data[0].valueU[1] = gOamData[curr_slot].data[0].valueU[1] & -(mask + 0x1) | oam_x;
+                gOamData[curr_slot].data[1].valueB[1] = ((priority << 0x2) | (gOamData[curr_slot].data[1].valueB[1] & -0xD));
 
                 pDst += 0x2; // Jump over part 4
                 count++;

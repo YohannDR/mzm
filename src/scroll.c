@@ -95,7 +95,7 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
     u16 x_pos;
     u16 y_pos;
     u32 id;
-    i32 bounds[0x4];
+    i32 bounds[4];
     i32 bound;
     i32 clip_limit;
     i32 bound_limit;
@@ -103,12 +103,12 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
     pScroll = &gCurrentScrolls.first;
     pScrollLimit = pScroll;
     pScroll->within = FALSE;
-    pScroll[0x1].within = FALSE;
+    pScroll[1].within = FALSE;
 
     x_pos = pCoords->x >> 0x6;
     y_pos = (u16)(pCoords->y - 0x1 >> 0x6);
 
-    id = gCurrentRoomScrollDataPointer[0x1]; // ID
+    id = gCurrentRoomScrollDataPointer[1]; // ID
     pData = gCurrentRoomScrollDataPointer + 0x2;
 
     if (id != 0x0)
@@ -120,25 +120,25 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
                 return;
 
             bounds[0] = 0x0;
-            bounds[0x1] = 0x1;
-            bounds[0x2] = 0x2;
-            bounds[0x3] = 0x3;
+            bounds[1] = 0x1;
+            bounds[2] = 0x2;
+            bounds[3] = 0x3;
 
-            if (pData[0x4] != 0xFF && pData[0x7] != 0xFF)
+            if (pData[4] != 0xFF && pData[7] != 0xFF)
             {
-                if (pBG->pClipDecomp[pData[0x5] * pBG->clipdataWidth + pData[0x4]] == 0x0)
+                if (pBG->pClipDecomp[pData[5] * pBG->clipdataWidth + pData[4]] == 0x0)
                 {
-                    if (pData[0x6] != 0xFF)
-                        bounds[pData[0x6]] = 0x7;
+                    if (pData[6] != 0xFF)
+                        bounds[pData[6]] = 0x7;
                 }
             }
             else
             {
-                if (gSamusData.pose == SPOSE_USING_AN_ELEVATOR && pData[0x7] != 0xFF && (u8)(pData[0x6] - 0x2) < 0x2)
-                    bounds[pData[0x6]] = 0x7;
+                if (gSamusData.pose == SPOSE_USING_AN_ELEVATOR && pData[7] != 0xFF && (u8)(pData[6] - 0x2) < 0x2)
+                    bounds[pData[6]] = 0x7;
             }
 
-            if (pData[bounds[0]] <= x_pos && x_pos <= pData[bounds[0x1]] && pData[bounds[0x2]] <= y_pos && y_pos <= pData[bounds[0x3]] && pScroll->within == 0x0)
+            if (pData[bounds[0]] <= x_pos && x_pos <= pData[bounds[1]] && pData[bounds[2]] <= y_pos && y_pos <= pData[bounds[3]] && pScroll->within == 0x0)
             {
                 bound = pData[bounds[0]] << 0x6;
                 if (0x80 >= bound)
@@ -147,21 +147,21 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 
                 // X end
                 clip_limit = (pBG->clipdataWidth << 0x6) - 0x80;
-                bound_limit = (pData[bounds[0x1]] + 0x1) << 0x6;
+                bound_limit = (pData[bounds[1]] + 0x1) << 0x6;
                 if (bound_limit < clip_limit)
                     bound = bound_limit;
                 else
                     bound = clip_limit;
                 pScroll->xEnd = bound;
 
-                bound = pData[bounds[0x2]] << 0x6;
+                bound = pData[bounds[2]] << 0x6;
                 if (bound < 0x80)
                     bound = 0x80;
                 pScroll->yStart = bound;
 
                 // Y end
                 clip_limit = (pBG->clipdataHeight << 0x6) - 0x80;
-                bound_limit = (pData[bounds[0x3]] + 0x1) << 0x6;
+                bound_limit = (pData[bounds[3]] + 0x1) << 0x6;
                 if (bound_limit < clip_limit)
                     bound = bound_limit;
                 else
@@ -177,7 +177,7 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
         }
     }
     
-    if (pScroll->within == FALSE && pScroll[0x1].within == FALSE)
+    if (pScroll->within == FALSE && pScroll[1].within == FALSE)
     {
         pScroll->within = 0x0;
         pScroll->xEnd = 0x0;

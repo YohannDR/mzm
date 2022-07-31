@@ -27,7 +27,7 @@ void ZebboGFXInit(void)
     gCurrentSprite.pOam = zebbo_oam_2e7098;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
+    gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     gCurrentSprite.bgPriority = 0x2;
 }
 

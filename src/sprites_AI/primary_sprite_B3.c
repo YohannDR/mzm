@@ -12,7 +12,7 @@ void PrimarySpriteB3(void)
 
     if (gCurrentSprite.pose == 0x0)
     {
-        gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
+        gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.drawDistanceTopOffset = 0x1;
         gCurrentSprite.drawDistanceBottomOffset = 0x1;

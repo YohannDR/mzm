@@ -14,7 +14,7 @@ void BGClipSetBG1BlockValue(u16 value, u16 yPosition, u16 xPosition)
 
 void BGClipSetRawBG1BlockValue(u16 value, u16 yPosition, u16 xPosition)
 {
-    gBGPointersAndDimensions.backgrounds[0x1].pDecomp[gBGPointersAndDimensions.backgrounds[0x1].width * yPosition + xPosition] = value;
+    gBGPointersAndDimensions.backgrounds[1].pDecomp[gBGPointersAndDimensions.backgrounds[1].width * yPosition + xPosition] = value;
 }
 
 void BGClipSetClipdataBlockValue(u16 value, u16 yPosition, u16 xPosition)

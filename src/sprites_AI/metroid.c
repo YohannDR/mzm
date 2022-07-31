@@ -163,7 +163,7 @@ void MetroidInit(void)
             gDoorUnlockTimer = 0x1;
         
         gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
         gCurrentSprite.oamScaling = 0x40;
         gCurrentSprite.oamRotation = 0x0;
@@ -232,7 +232,7 @@ void MetroidMovement(void)
         else
         {
             gCurrentSprite.pose = 0x42;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             return;
         }
     }
@@ -463,7 +463,7 @@ void MetroidDoorLock(void)
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     if (gCurrentSprite.pose == 0x0)
     {
-        gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
+        gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.drawDistanceTopOffset = 0x1;
         gCurrentSprite.drawDistanceBottomOffset = 0x1;

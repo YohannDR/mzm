@@ -1207,7 +1207,7 @@ void MellowSwarm(void)
             gCurrentSprite.status = 0x0;
         else
         {
-            gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
+            gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
             gCurrentSprite.hitboxTopOffset = -0x4;
             gCurrentSprite.hitboxBottomOffset = 0x4;
             gCurrentSprite.hitboxLeftOffset = -0x4;

@@ -501,7 +501,7 @@ void DeoremEye(void)
                 gSpriteData[ramSlot].hitboxBottomOffset = 0x40;
                 if (gCurrentSprite.health < 0x15)
                     gSpriteData[ramSlot].absolutePaletteRow = 0x2;
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+                gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
                 SoundPlay(0x19A);
             }
         }

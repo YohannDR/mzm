@@ -14,7 +14,7 @@ extern struct TilemapAndClipPointers gTilemapAndClipPointers;
 
 #define CAA_NONE 0x0
 #define CAA_REMOVE_SOLID 0x1
-#define CAA_MAKE_SOLID1 0x2
+#define CAA_MAKE_SOLID_GRIPPABLE 0x2
 #define CAA_MAKE_SOLID2 0x3
 #define CAA_MAKE_SOLID3 0x4
 #define CAA_BOMB_CHAIN_UNUSED 0x5

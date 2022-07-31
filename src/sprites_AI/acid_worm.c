@@ -837,7 +837,7 @@ void AcidWormInit(void)
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
 
     gCurrentSprite.pose = ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE;
-    gCurrentSprite.status |= (SPRITE_STATUS_UNKNOWN2 | SPRITE_STATUS_UNKNOWN3);
+    gCurrentSprite.status |= (SPRITE_STATUS_UNKNOWN2 | SPRITE_STATUS_IGNORE_PROJECTILES);
     gCurrentSprite.arrayOffset = 0x0;
     gCurrentSprite.workVariable2 = 0x14;
 
@@ -914,7 +914,7 @@ void AcidWormSpawnStart(void)
     if (SpriteUtilCheckOnZipline() && gSamusData.xPosition > (i32)(gCurrentSprite.xPositionSpawn - (BLOCK_SIZE * 0x2 + 0xC))
         && gSamusData.xPosition < (i32)(gCurrentSprite.xPositionSpawn + (BLOCK_SIZE * 0x2 + 0xC)))
     {
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
         gSubSpriteData1.timer = 0x1;
         gCurrentSprite.pose = ACID_WORM_POSE_SPAWN_EXTEND;
         gCurrentSprite.timer = 0x0;
@@ -1592,7 +1592,7 @@ void AcidWormDying(void)
 void AcidWormBodyInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.samusCollision = SSC_ACID_WORM;
     gCurrentSprite.pose = 0x43;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -1746,7 +1746,7 @@ void AcidWormBodyMove(void) {
         gCurrentSprite.oamRotation = 0x0;
     }
     if (0x42 < gSpriteData[slot].pose)
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
 
     if ((gCurrentSprite.roomSlot == 0x2) && (gCurrentSprite.health < 0x400))
     {
@@ -1781,7 +1781,7 @@ void AcidWormBodyMainLoop(void)
         gCurrentSprite.pose = 0x67;
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.health = health;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     }
     else
     {
@@ -1835,16 +1835,16 @@ void AcidWormBodyMainLoop(void)
                 gSpriteData[slot].health = 0x0;
                 gSpriteData[slot].samusCollision = SSC_NONE;
                 gCurrentSprite.health = 0x0;
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+                gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
                 gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
                 SoundPlay(0x1BD);
                 return;
             }
         }
         if (gSpriteData[slot].oamRotation != 0x0)
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
         else
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     }
 }
 
@@ -2016,7 +2016,7 @@ void AcidWormSpitExplodingGFXInit(void)
 
     gCurrentSprite.pose = 0x43;
     gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     SoundPlay(0x1B8);
 }
 

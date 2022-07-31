@@ -1579,7 +1579,7 @@ void ElevatorStatueDebris(void)
     {
         case 0x0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
 
             gCurrentSprite.hitboxTopOffset = 0x0;

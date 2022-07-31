@@ -83,7 +83,7 @@ void FakePowerBombEventTrigger(void)
             return;
         }
         
-        gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
+        gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
         gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
         gCurrentSprite.drawDistanceTopOffset = 0x10;
         gCurrentSprite.drawDistanceBottomOffset = 0x0;

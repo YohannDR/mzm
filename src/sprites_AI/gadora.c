@@ -753,7 +753,7 @@ void GadoraEye(void)
             gSpriteData[ramSlot].ignoreSamusCollisionTimer = 0x1;
             gSpriteData[ramSlot].health = 0x0;
             gCurrentSprite.pose = GADORA_EYE_POSE_DEATH;
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             gCurrentSprite.timer = 0x28; // Death timer
             break;
 
@@ -774,12 +774,12 @@ void GadoraEye(void)
             if (gSpriteData[ramSlot].pose == GADORA_POSE_EYE_OPENED)
             {
                 // Make vulnerable
-                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
+                gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
                 if ((gCurrentSprite.invicibilityStunFlashTimer & 0x7F) == 0x10)
                     gSpriteData[ramSlot].timer = 0x0; // Force close eye if hit
             }
             else
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3; // Make un-vulnerable
+                gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES; // Make un-vulnerable
     }
 }
 

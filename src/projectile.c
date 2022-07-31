@@ -761,7 +761,7 @@ void ProjectileCheckHittingSprite(void)
         projBottom = projY + gCurrentPowerBomb.hitboxBottomOffset;
         projLeft = projX + gCurrentPowerBomb.hitboxLeftOffset;
         projRight = projX + gCurrentPowerBomb.hitboxRightOffset;
-        status = (SPRITE_STATUS_EXISTS | SPRITE_STATUS_UNKNOWN3);
+        status = (SPRITE_STATUS_EXISTS | SPRITE_STATUS_IGNORE_PROJECTILES);
         pSprite = gSpriteData;
         while (pSprite < gSpriteData + 24)
         {
@@ -779,7 +779,7 @@ void ProjectileCheckHittingSprite(void)
             pSprite++;
         }
     }
-    status = (SPRITE_STATUS_EXISTS | SPRITE_STATUS_UNKNOWN3);
+    status = (SPRITE_STATUS_EXISTS | SPRITE_STATUS_IGNORE_PROJECTILES);
     count = 0x0;
     pSprite = gSpriteData;
     while (pSprite < gSpriteData + 24)
@@ -1018,9 +1018,9 @@ void ProjectileCheckHittingSprite(void)
 u16 ProjectileGetSpriteWeakness(struct SpriteData* pSprite)
 {
     if (pSprite->properties & SP_SECONDARY_SPRITE) // Check wheter secondary or primary
-        return sPrimarySpriteStats[pSprite->spriteID][0x2]; // Offset 2 is weakness
+        return sPrimarySpriteStats[pSprite->spriteID][2]; // Offset 2 is weakness
     else
-        return sSecondarySpriteStats[pSprite->spriteID][0x2];
+        return sSecondarySpriteStats[pSprite->spriteID][2];
 }
 
 /**

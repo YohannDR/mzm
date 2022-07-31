@@ -277,7 +277,7 @@ void UnkownItemBlock(void)
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+            gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             gCurrentSprite.drawOrder = 0x1;
 
             gCurrentSprite.hitboxTopOffset = -0x44;
@@ -299,7 +299,7 @@ void UnkownItemBlock(void)
 
             gCurrentSprite.yPosition -= BLOCK_SIZE;
             gCurrentSprite.xPosition += (BLOCK_SIZE / 2);
-            UnkownItemBlockChangeCCAA(CAA_MAKE_SOLID1);
+            UnkownItemBlockChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE);
 
         case UNKNOWN_ITEM_BLOCK_POSE_CHECK_ACTIVATE:
             // Check activate block
@@ -325,7 +325,7 @@ void UnkownItemBlock(void)
                 gCurrentSprite.pOam = sUnknownItemBlockOAM_Activated;
                 gCurrentSprite.animationDurationCounter = 0x0;
                 gCurrentSprite.currentAnimationFrame = 0x0;
-                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
+                gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
                 gCurrentSprite.pose = UNKNOWN_ITEM_BLOCK_POSE_WAIT_FOR_PROJECITLE;
             }
             break;

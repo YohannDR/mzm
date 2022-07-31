@@ -266,7 +266,7 @@ void EscapeGate(void)
             gCurrentSprite.drawOrder = 0x3;
 
             gSubSpriteData1.workVariable1 = 0x0;
-            EscapeGateChangeCCAA(CAA_MAKE_SOLID1); // Set gate collision
+            EscapeGateChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE); // Set gate collision
             break;
 
         case ESCAPE_GATE_POSE_LOAD_GRAPHICS:

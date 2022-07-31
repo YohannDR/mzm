@@ -21,7 +21,7 @@ void SpriteUtilInitLocationText(void)
     gfxSlot = LocationTextGetGFXSlot();
     if (gfxSlot < 0x8)
     {
-        gSpriteData[0].status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN | SPRITE_STATUS_UNKNOWN3;
+        gSpriteData[0].status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN | SPRITE_STATUS_IGNORE_PROJECTILES;
         gSpriteData[0].properties = SP_ABSOLUTE_POSITION;
         gSpriteData[0].spritesetGFXSlot = gfxSlot;
         gSpriteData[0].spriteID = PSPRITE_AREA_BANNER;
@@ -107,9 +107,9 @@ u8 SpriteUtilTakeDamageFromSprite(u8 kbFlag, struct SpriteData* pSprite, u16 dmg
     u16 flags;
 
     if (pSprite->properties & SP_SECONDARY_SPRITE)
-        damage = sSecondarySpriteStats[pSprite->spriteID][0x1]; // Get Damage
+        damage = sSecondarySpriteStats[pSprite->spriteID][1]; // Get Damage
     else
-        damage = sPrimarySpriteStats[pSprite->spriteID][0x1]; // Get Damage
+        damage = sPrimarySpriteStats[pSprite->spriteID][1]; // Get Damage
     damage *= dmgMultiplier; // Apply multiplier
 
     // Apply changes based on the current suit
@@ -1743,7 +1743,7 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
     if (pSprite->properties & (SP_SOLID_FOR_PROJECTILES | SP_IMMUNE_TO_PROJECTILES))
         return DCT_NONE;
 
-    if (pSprite->status & SPRITE_STATUS_UNKNOWN3)
+    if (pSprite->status & SPRITE_STATUS_IGNORE_PROJECTILES)
         return DCT_NONE;
 
     if (pData->speedboostingShinesparking != FALSE)
@@ -1775,9 +1775,9 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
     }
 
     if (pSprite->properties & SP_SECONDARY_SPRITE)
-        weakness = sSecondarySpriteStats[pSprite->spriteID][0x2];
+        weakness = sSecondarySpriteStats[pSprite->spriteID][2];
     else if ((pSprite->properties & SP_SECONDARY_SPRITE) == 0x0)
-        weakness = sPrimarySpriteStats[pSprite->spriteID][0x2];
+        weakness = sPrimarySpriteStats[pSprite->spriteID][2];
 
     if (dct >= DCT_SUDO_SCREW)
     {

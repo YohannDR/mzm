@@ -26,7 +26,7 @@ void ZebGFXInit(void)
     gCurrentSprite.pOam = zeb_oam_2cca2c;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
+    gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     gCurrentSprite.bgPriority = 0x2;
 }
 
@@ -61,7 +61,7 @@ void ZebCheckSpawn(void)
                     gCurrentSprite.oamScaling = gSamusData.yPosition;
                     gCurrentSprite.pose = 0x23;
                     gCurrentSprite.timer = 0x2;
-                    gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
+                    gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
                     SpriteUtilMakeSpriteFaceSamusXFlip();
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                         SoundPlay(0x144);

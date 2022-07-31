@@ -876,7 +876,7 @@ void DessgeegaLongBeamDetectSamus(void)
     u16 xPosition;
 
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
     // Detect samus
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
@@ -887,7 +887,7 @@ void DessgeegaLongBeamDetectSamus(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.arrayOffset = FALSE;
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
 
         ScreenShakeStartVertical(0xA, 0x81);
 

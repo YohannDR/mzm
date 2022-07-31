@@ -353,7 +353,7 @@ void ImagoCocoonVineHangingDeath(void)
     if (gSubSpriteData1.health == 0x0 && gSubSpriteData1.currentAnimationFrame > 0x7)
     {
         gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.pose = 0x43;
     }
@@ -421,7 +421,7 @@ void ImagoCocoonSporeInit(void)
     gCurrentSprite.drawOrder = 0x3;
     gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     ImagoCocoonSporeSyncPosition();
 }
@@ -465,7 +465,7 @@ void ImagoCocoonSporeSpawning(void)
         gCurrentSprite.timer--;
         if (gCurrentSprite.timer == 0x0)
         {
-            gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3);
+            gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
             gCurrentSprite.pOam = imago_cocoon_spore_oam_2e0c18;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
@@ -494,7 +494,7 @@ void ImagoCocoonSporeExplodingGFXInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x43;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+    gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 }
 
 /**
@@ -725,7 +725,7 @@ void DefeatedImagoCocoon(void)
     if (gCurrentSprite.pose == 0x0)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.drawDistanceTopOffset = 0xC;
         gCurrentSprite.drawDistanceBottomOffset = 0x28;
         gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
@@ -748,7 +748,7 @@ void ImagoCeilingVine(void)
     if (gCurrentSprite.pose == 0x0)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.drawDistanceTopOffset = 0xC;
         gCurrentSprite.drawDistanceBottomOffset = 0x28;
         gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
@@ -775,7 +775,7 @@ void EventTriggerDiscoveredImagoPassage(void)
             gCurrentSprite.status = 0x0;
             return;
         }
-        gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN3;
+        gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
         gCurrentSprite.drawDistanceTopOffset = 0x10;
         gCurrentSprite.drawDistanceBottomOffset = 0x0;
