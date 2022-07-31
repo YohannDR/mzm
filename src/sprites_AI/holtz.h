@@ -12,6 +12,8 @@
 #define HOLTZ_POSE_GOING_UP 0x39
 #define HOLTZ_POSE_BACK_TO_CEILING 0x3B
 
+#define HOLTZ_SIZE 0x28
+
 u8 HoltzYMovement(u16 movement);
 u8 HoltzXMovement(u16 movement);
 void HoltzInit(void);
@@ -21,7 +23,7 @@ void HoltzWarningInit(void);
 void HoltzCheckWarningAnimEnded(void);
 void HoltzGoingDownMove(void);
 void HoltzSlidingMove(void);
-void HoltzGoingToMove(void);
+void HoltzGoingUpMove(void);
 void HoltzBackToCeiling(void);
 void Holtz(void);
 
