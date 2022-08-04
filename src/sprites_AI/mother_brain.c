@@ -647,7 +647,7 @@ const struct FrameData sMotherBrainPartOAM_EyeClosing[4] = {
     0x0
 };
 
-asm("
+/*asm("
 .align 2, 0
 .global MotherBrainSyncSubSpritesPosition
 .thumb
@@ -703,7 +703,7 @@ lbl_0803c996:
     .align 2, 0
 lbl_0803c9c0: .4byte 0x0300070c
 lbl_0803c9c4: .4byte 0x03000738
-lbl_0803c9c8: .4byte 0x0875f774")
+lbl_0803c9c8: .4byte 0x0875f774");*/
 
 /*void MotherBrainSyncSubSpritesPosition(void)
 {
