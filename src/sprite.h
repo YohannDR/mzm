@@ -281,7 +281,7 @@ extern u8 gSpriteRNG;
 #define SSPRITE_KRAID_NAIL 0x1D
 #define SSPRITE_ZIPLINE_BUTTON_INITIALIZE_MORPH_SYMBOL 0x1E
 #define SSPRITE_ATOMIC_ELECTRICITY 0x1F
-#define SSPRITE_MOTHER_BRAIN_EYE 0x20
+#define SSPRITE_MOTHER_BRAIN_PART 0x20
 #define SSPRITE_RIDLEY_FIREBALL 0x21
 #define SSPRITE_UNKNOWN_ITEM_CHOZO_STATUE_BODY 0x22
 #define SSPRITE_UNKNOWN_ITEM_CHOZO_STATUE_REFILL 0x23
@@ -341,6 +341,7 @@ extern u8 gSpriteRNG;
 #define SSC_ZEBETITE 0xC
 #define SSC_IMAGO_STINGER 0xD
 #define SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT_BIG_KNOCKBACK 0xE
+#define SSC_MOTHER_BRAIN_BEAM 0xF
 #define SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT_NO_KNOCKBACK 0x10
 #define SSC_HURTS_SAMUS_NO_KNOCKBACK_NO_CONTACT_DAMAGE 0x11
 #define SSC_MELLOW 0x12
@@ -394,7 +395,7 @@ struct __attribute__((packed)) EnemyRoomData {
 };
 
 struct SubSpriteData {
-    struct FrameData* pOam;
+    const struct FrameData* pMultiOam;
     u16 currentAnimationFrame;
     u16 yPosition;
     u16 xPosition;
@@ -403,10 +404,10 @@ struct SubSpriteData {
     u8 maybe_status;
     u8 timer;
     u8 workVariable1;
-    u8 maybe_roomSlot;
-    u8 maybe_ramSlot;
-    u8 unknown2;
-    u8 unknown3;
+    u8 workVariable2;
+    u8 workVariable3;
+    u8 workVariable4;
+    u8 workVariable5;
 };
 
 struct SpriteData {

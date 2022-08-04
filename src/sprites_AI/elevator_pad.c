@@ -1,5 +1,4 @@
-#include "ElevatorPad.h"
-#include "../samus.h"
+#include "elevator_pad.h"
 #include "../globals.h"
 
 void ElevatorPad(void)

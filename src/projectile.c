@@ -2384,14 +2384,13 @@ void ProjectileProcessBomb(struct ProjectileData* pProj)
             break;
 
         case BOMB_STAGE_EXPLODING:
-            pProj->timer--;
             
-            if (pProj->timer != 0x0)
+            if (pProj->timer-- != 0x1)
             {
                 // /!\ u8 cast missing in asm
                 if (pProj->timer == 0xF)
                 {
-                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
                     yPosition = pProj->yPosition - 0x8;
                     ClipdataProcess(yPosition, pProj->xPosition); // Block center
                     ProjectileCheckSamusBombBounce(pProj); // Checks if samus can bounce
@@ -2399,42 +2398,42 @@ void ProjectileProcessBomb(struct ProjectileData* pProj)
                 }
                 else if (pProj->timer == 0xE)
                 {
-                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition + 0x38, pProj->xPosition); // Block bottom middle
                 }
                 else if (pProj->timer == 0xD)
                 {
-                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition - 0x8, pProj->xPosition + 0x30); // Block right middle
                 }
                 else if (pProj->timer == 0xC)
                 {
-                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition - 0x8, pProj->xPosition - 0x30); // Block left middle
                 }
                 else if (pProj->timer == 0xB)
                 {
-                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition + 0x38, pProj->xPosition + 0x24); // Block right bottom
                 }
                 else if (pProj->timer == 0xA)
                 {
-                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition + 0x38, pProj->xPosition - 0x24); // Block left bottom
                 }
                 else if (pProj->timer == 0x9)
                 {
-                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition - 0x48, pProj->xPosition); // Block top middle
                 }
                 else if (pProj->timer == 0x8)
                 {
-                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition - 0x48, pProj->xPosition + 0x24); // Block right top
                 }
                 else if (pProj->timer == 0x7)
                 {
-                    gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;
+                    gCurrentClipdataAffectingAction = CCAA_BOMB_PISTOL;
                     ClipdataProcess(pProj->yPosition - 0x48, pProj->xPosition - 0x24); // Block left top
                 }
             }

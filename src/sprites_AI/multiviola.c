@@ -1,5 +1,5 @@
 #include "multiviola.h"
-#include "../sprite_util.h"
+#include "../../data/data.h"
 #include "../globals.h"
 
 void MultiviolaInit(void)

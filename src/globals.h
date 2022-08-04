@@ -47,6 +47,8 @@ enum Difficulty {
     DIFF_HARD = 0x2
 };
 
+// Temporary place
+
 #define CUTSCENE_NONE 0x0
 #define CUTSCENE_INTRO_TEXT 0x1
 #define CUTSCENE_MOTHERSHIP_MONOLOGUE 0x2
@@ -63,6 +65,17 @@ enum Difficulty {
 #define CUTSCENE_MECHA_RIDLEY_SEES_SAMUS 0xD
 #define CUTSCENE_SAMUS_IN_BLUE_SHIP 0xE
 
+struct InGameTimer {
+    u8 hours;
+    u8 minutes;
+    u8 seconds;
+    u8 frames;
+};
+
+extern struct InGameTimer gInGameTimer;
+extern struct InGameTimer gInGameTimerAtBosses[5];
+
+///
 
 extern u8 unk_02038000[];
 

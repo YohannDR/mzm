@@ -1257,7 +1257,7 @@ u8 SpriteUtilCheckEndSubSprite1Anim(void)
     caf = gSubSpriteData1.currentAnimationFrame;
     adc = (u8)(adc + 0x1);
 
-    if ((u8)gSubSpriteData1.pOam[caf].timer < adc && (u8)gSubSpriteData1.pOam[(u16)(caf + 0x1)].timer == 0x0)
+    if ((u8)gSubSpriteData1.pMultiOam[caf].timer < adc && (u8)gSubSpriteData1.pMultiOam[(u16)(caf + 0x1)].timer == 0x0)
         return TRUE;
     else
         return FALSE;
@@ -1277,7 +1277,7 @@ u8 SpriteUtilCheckEndSubSprite2Anim(void)
     caf = gSubSpriteData2.currentAnimationFrame;
     adc = (u8)(adc + 0x1);
 
-    if ((u8)gSubSpriteData2.pOam[caf].timer < adc && (u8)gSubSpriteData2.pOam[(u16)(caf + 0x1)].timer == 0x0)
+    if ((u8)gSubSpriteData2.pMultiOam[caf].timer < adc && (u8)gSubSpriteData2.pMultiOam[(u16)(caf + 0x1)].timer == 0x0)
         return TRUE;
     else
         return FALSE;
@@ -1292,7 +1292,7 @@ u8 SpriteUtilCheckEndSubSpriteAnim(struct SubSpriteData* pSub)
     caf = pSub->currentAnimationFrame;
     adc = (u8)(adc + 0x1);
 
-    if ((u8)pSub->pOam[caf].timer < adc && (u8)pSub->pOam[(u16)(caf + 0x1)].timer == 0x0)
+    if ((u8)pSub->pMultiOam[caf].timer < adc && (u8)pSub->pMultiOam[(u16)(caf + 0x1)].timer == 0x0)
         return TRUE;
     else
         return FALSE;
@@ -2524,7 +2524,7 @@ void SpriteUtilUpdateSubSprite1Timer(void)
     adc = (u8)(gSubSpriteData1.animationDurationCounter + 0x1);
     caf = gSubSpriteData1.currentAnimationFrame;
 
-    if (gSubSpriteData1.pOam[caf].timer < adc)
+    if (gSubSpriteData1.pMultiOam[caf].timer < adc)
     {
         timer = (u8)caf;
         gSubSpriteData1.timer = timer + 0x1;
@@ -2537,11 +2537,11 @@ void SpriteUtilUpdateSubSprite1Anim(void)
 
     adc = gSubSpriteData1.animationDurationCounter + 0x1;
     gSubSpriteData1.animationDurationCounter = adc;
-    if ((u8)gSubSpriteData1.pOam[gSubSpriteData1.currentAnimationFrame].timer < (u8)adc)
+    if ((u8)gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].timer < (u8)adc)
     {
         gSubSpriteData1.animationDurationCounter = 0x1;
         gSubSpriteData1.currentAnimationFrame++;
-        if ((u8)gSubSpriteData1.pOam[gSubSpriteData1.currentAnimationFrame].timer == 0x0)
+        if ((u8)gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].timer == 0x0)
             gSubSpriteData1.currentAnimationFrame = 0x0;
     }
 }
@@ -2554,7 +2554,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position(void)
 {
     u16* pOam;
 
-    pOam = gSubSpriteData1.pOam[gSubSpriteData1.currentAnimationFrame].pFrame;
+    pOam = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
 
     gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x1];
     gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x2];
@@ -2564,7 +2564,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOAM(void)
 {
     u16* pOam;
 
-    pOam = gSubSpriteData1.pOam[gSubSpriteData1.currentAnimationFrame].pFrame;
+    pOam = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
 
     gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x1];
 
@@ -2584,11 +2584,11 @@ void SpriteUtilUpdateSubSprite2Anim(void)
 
     adc = gSubSpriteData2.animationDurationCounter + 0x1;
     gSubSpriteData2.animationDurationCounter = adc;
-    if ((u8)gSubSpriteData2.pOam[gSubSpriteData2.currentAnimationFrame].timer < (u8)adc)
+    if ((u8)gSubSpriteData2.pMultiOam[gSubSpriteData2.currentAnimationFrame].timer < (u8)adc)
     {
         gSubSpriteData2.animationDurationCounter = 0x1;
         gSubSpriteData2.currentAnimationFrame++;
-        if ((u8)gSubSpriteData2.pOam[gSubSpriteData2.currentAnimationFrame].timer == 0x0)
+        if ((u8)gSubSpriteData2.pMultiOam[gSubSpriteData2.currentAnimationFrame].timer == 0x0)
             gSubSpriteData2.currentAnimationFrame = 0x0;
     }
 }
@@ -2601,7 +2601,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData2PositionAndOAM(void)
 {
     u16* pOam;
 
-    pOam = gSubSpriteData2.pOam[gSubSpriteData2.currentAnimationFrame].pFrame;
+    pOam = gSubSpriteData2.pMultiOam[gSubSpriteData2.currentAnimationFrame].pFrame;
 
     gCurrentSprite.yPosition = gSubSpriteData2.yPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x1];
 
@@ -2617,11 +2617,11 @@ void SpriteUtilUpdateSubSpriteAnim(struct SubSpriteData* pSub)
 
     adc = pSub->animationDurationCounter + 0x1;
     pSub->animationDurationCounter = adc;
-    if ((u8)pSub->pOam[pSub->currentAnimationFrame].timer < (u8)adc)
+    if ((u8)pSub->pMultiOam[pSub->currentAnimationFrame].timer < (u8)adc)
     {
         pSub->animationDurationCounter = 0x1;
         pSub->currentAnimationFrame++;
-        if ((u8)pSub->pOam[pSub->currentAnimationFrame].timer == 0x0)
+        if ((u8)pSub->pMultiOam[pSub->currentAnimationFrame].timer == 0x0)
             pSub->currentAnimationFrame = 0x0;
     }
 }
@@ -2635,7 +2635,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpritePosition(struct SubSpriteDa
 {
     u16* pOam;
 
-    pOam = pSub->pOam[pSub->currentAnimationFrame].pFrame;
+    pOam = pSub->pMultiOam[pSub->currentAnimationFrame].pFrame;
 
     gCurrentSprite.yPosition = pSub->yPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x1];
     gCurrentSprite.xPosition = pSub->xPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x2];
@@ -2650,7 +2650,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOAM(struct SubSp
 {
     u16* pOam;
 
-    pOam = pSub->pOam[pSub->currentAnimationFrame].pFrame;
+    pOam = pSub->pMultiOam[pSub->currentAnimationFrame].pFrame;
 
     gCurrentSprite.yPosition = pSub->yPosition + pOam[gCurrentSprite.roomSlot * 0x3 + 0x1];
 

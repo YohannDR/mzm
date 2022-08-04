@@ -1,7 +1,5 @@
 #include "skree.h"
-#include "../data/data.h"
-#include "../sprite_debris.h"
-#include "../sprite_util.h"
+#include "../../data/data.h"
 #include "../globals.h"
 
 void SkreeInit(void)
