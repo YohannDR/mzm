@@ -173,7 +173,7 @@ void GerutaGoingUp(void)
     GerutaXMovement(0x4);
     if (GerutaYMovement(0xC) << 0x18)
     {
-        gCurrentSprite.yPosition = (gCurrentSprite.yPosition & 0xFFC0);
+        gCurrentSprite.yPosition = (gCurrentSprite.yPosition & BLOCK_POSITION_FLAG);
         gCurrentSprite.yPosition  += 0x34;
         gCurrentSprite.pose = 0x3D;
         gCurrentSprite.animationDurationCounter = 0x0;

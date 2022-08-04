@@ -19,6 +19,8 @@ typedef volatile unsigned int vu32;
 typedef volatile signed int vi32;
 
 #define BLOCK_SIZE 0x40
+#define BLOCK_POSITION_FLAG (~BLOCK_SIZE + 1)
+#define SUB_PIXEL_POSITION_FLAG (BLOCK_SIZE - 1)
 
 struct RawCoordsX {
     u16 x;

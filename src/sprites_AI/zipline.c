@@ -53,7 +53,7 @@ u8 ZiplineMoving(void)
     if (gCurrentAffectingClipdata.hazard == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
     {
         releasing++;
-        gCurrentSprite.xPosition = (gCurrentSprite.xPosition & 0xFFC0) + 0x20;
+        gCurrentSprite.xPosition = (gCurrentSprite.xPosition & BLOCK_POSITION_FLAG) + 0x20;
         if (samus_grabbing)
             gSamusData.xPosition = gCurrentSprite.xPosition;
     }

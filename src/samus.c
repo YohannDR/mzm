@@ -102,17 +102,17 @@ u8 SamusSlopeRelated(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosit
     switch (clipdata & 0xFF)
     {
         case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
-            next_y_pos = ((yPosition & 0xFFC0) + 0x3F) - (xPosition & 0x3F);
-            next_x_pos = ((xPosition & 0xFFC0) + 0x3F) - (yPosition & 0x3F);
+            next_y_pos = ((yPosition & BLOCK_POSITION_FLAG) + 0x3F) - (xPosition & SUB_PIXEL_POSITION_FLAG);
+            next_x_pos = ((xPosition & BLOCK_POSITION_FLAG) + 0x3F) - (yPosition & SUB_PIXEL_POSITION_FLAG);
 
             slope_type = SLOPE_STEEP | SLOPE_LEFT;
             break;
 
         case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
-            next_y_pos = ((yPosition & 0xFFC0) + 0x3F) - ((xPosition & 0x3F) / 2);
-            x_begin = xPosition & 0xFFC0;
+            next_y_pos = ((yPosition & BLOCK_POSITION_FLAG) + 0x3F) - ((xPosition & SUB_PIXEL_POSITION_FLAG) / 2);
+            x_begin = xPosition & BLOCK_POSITION_FLAG;
 
-            x_slope_offset = (yPosition & 0x3F) * 2 - 0x7E;
+            x_slope_offset = (yPosition & SUB_PIXEL_POSITION_FLAG) * 2 - 0x7E;
             tmp_next_x_pos = x_begin - x_slope_offset;
             next_x_pos = tmp_next_x_pos;
 
@@ -120,10 +120,10 @@ u8 SamusSlopeRelated(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosit
             break;
 
         case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
-            next_y_pos = ((yPosition & 0xFFC0) + 0x1F) - ((xPosition & 0x3F) / 2);
-            x_begin = xPosition & 0xFFC0;
+            next_y_pos = ((yPosition & BLOCK_POSITION_FLAG) + 0x1F) - ((xPosition & SUB_PIXEL_POSITION_FLAG) / 2);
+            x_begin = xPosition & BLOCK_POSITION_FLAG;
 
-            x_slope_offset = (yPosition & 0x3F) * 2 - 0x3E;
+            x_slope_offset = (yPosition & SUB_PIXEL_POSITION_FLAG) * 2 - 0x3E;
             tmp_next_x_pos = x_begin - x_slope_offset;
             next_x_pos = tmp_next_x_pos;
 
@@ -131,18 +131,18 @@ u8 SamusSlopeRelated(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosit
             break;
 
         case CLIPDATA_TYPE_LEFT_STEEP_FLOOR_SLOPE:
-            next_y_pos = (yPosition & 0xFFC0) | (xPosition & 0x3F);
-            next_x_pos = (xPosition & 0xFFC0) | (yPosition & 0x3F);
+            next_y_pos = (yPosition & BLOCK_POSITION_FLAG) | (xPosition & SUB_PIXEL_POSITION_FLAG);
+            next_x_pos = (xPosition & BLOCK_POSITION_FLAG) | (yPosition & SUB_PIXEL_POSITION_FLAG);
 
             slope_type = SLOPE_STEEP | SLOPE_RIGHT;
             break;
 
         case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
             mask_FFC0 = 0xFFC0;
-            next_y_pos = (yPosition & mask_FFC0) | ((xPosition & 0x3F) / 2 + 0x1F);
+            next_y_pos = (yPosition & mask_FFC0) | ((xPosition & SUB_PIXEL_POSITION_FLAG) / 2 + 0x1F);
             x_begin__ = xPosition & mask_FFC0;
 
-            x_slope_offset = (yPosition & 0x3F) * 2 + 0xFFC1;
+            x_slope_offset = (yPosition & SUB_PIXEL_POSITION_FLAG) * 2 + 0xFFC1;
             next_x_pos = x_begin__ +  x_slope_offset;
 
             slope_type = SLOPE_SLIGHT | SLOPE_RIGHT;
@@ -150,10 +150,10 @@ u8 SamusSlopeRelated(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosit
 
         case CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE:
             mask_FFC0 = 0xFFC0;
-            next_y_pos = (yPosition & mask_FFC0) | ((xPosition & 0x3F) / 2);
+            next_y_pos = (yPosition & mask_FFC0) | ((xPosition & SUB_PIXEL_POSITION_FLAG) / 2);
             x_begin__ = xPosition & mask_FFC0;
 
-            x_slope_offset = (yPosition & 0x3F) * 2;
+            x_slope_offset = (yPosition & SUB_PIXEL_POSITION_FLAG) * 2;
             next_x_pos = x_begin__ + x_slope_offset;
 
             slope_type = SLOPE_SLIGHT | SLOPE_RIGHT;
@@ -162,8 +162,8 @@ u8 SamusSlopeRelated(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosit
         case CLIPDATA_TYPE_PASS_THROUGH_BOTTOM:
             collision = COLLISION_PASS_THROUGH_BOTTOM;
         default:
-            next_y_pos = yPosition & 0xFFC0;
-            next_x_pos = xPosition & 0xFFC0;
+            next_y_pos = yPosition & BLOCK_POSITION_FLAG;
+            next_x_pos = xPosition & BLOCK_POSITION_FLAG;
             slope_type = SLOPE_NONE;
     }
     *pYPosition = next_y_pos;
@@ -201,9 +201,9 @@ u8 SamusCheckTopSideCollisionMidAir(struct SamusData* pData, struct SamusPhysics
     result = SAMUS_COLLISION_DETECTION_NONE;
     
     if (pPhysics->horizontalMovingDirection == HDMOVING_LEFT)
-        *pPosition = (pData->xPosition & 0xFFC0) - pPhysics->hitboxLeftOffset;
+        *pPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - pPhysics->hitboxLeftOffset;
     else
-        *pPosition = (pData->xPosition & 0xFFC0) - pPhysics->hitboxRightOffset + 0x3F;
+        *pPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - pPhysics->hitboxRightOffset + 0x3F;
 
     y_pos = pData->yPosition;
     clip = ClipdataProcessForSamus(y_pos, xPosition);
@@ -669,9 +669,9 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 default_offse
             else
             {
                 if (previous_pos < liquid_check_pos)
-                    yPosition = gPreviousYPosition & 0xFFC0;
+                    yPosition = gPreviousYPosition & BLOCK_POSITION_FLAG;
                 else
-                    yPosition = pData->yPosition & 0xFFC0;
+                    yPosition = pData->yPosition & BLOCK_POSITION_FLAG;
             }
             break;
 
@@ -1294,10 +1294,10 @@ void SamusCheckCarryFromCopy(struct SamusData* pData, struct SamusData* pCopy, s
 
         case SPOSE_HANGING_ON_LEDGE:
         case SPOSE_GRABBING_A_LEDGE_SUITLESS:
-            if ((pData->yPosition & 0x3F) < 0x1F)
-                pData->yPosition = (pData->yPosition & 0xFFC0) + 0x8;
+            if ((pData->yPosition & SUB_PIXEL_POSITION_FLAG) < 0x1F)
+                pData->yPosition = (pData->yPosition & BLOCK_POSITION_FLAG) + 0x8;
             else
-                pData->yPosition = (pData->yPosition & 0xFFC0) + 0x48;
+                pData->yPosition = (pData->yPosition & BLOCK_POSITION_FLAG) + 0x48;
             pWeapon->diagonalAim = DIAG_AIM_NONE;
 
             gSamusEcho.active = FALSE;
@@ -2389,9 +2389,9 @@ u8 SamusCrouching(struct SamusData* pData)
 
     unk = SamusCheckCollisionAbove(pData, array_23a554[2]);
     if (unk == 0x1)
-        xPosition = (pData->xPosition & 0xFFC0) - (u16)array_23a554[0];
+        xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - (u16)array_23a554[0];
     else if (unk == 0x8)
-        xPosition = (pData->xPosition & 0xFFC0) - (u16)array_23a554[0] + 0x3F;
+        xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - (u16)array_23a554[0] + 0x3F;
 
     if (SamusCheckAButtonPressed(pData) << 0x18 != FALSE && (unk & 0x6) == 0x0)
     {
@@ -2469,9 +2469,9 @@ u8 SamusTurningAroundAndCrouching(struct SamusData* pData)
     {
         unk = SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]);
         if (unk == 0x1)
-            xPosition = (pData->xPosition & 0xFFC0) - (u16)samus_hitbox_data[0][0];
+            xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - (u16)samus_hitbox_data[0][0];
         else if (unk == 0x8)
-            xPosition = (pData->xPosition & 0xFFC0) - (u16)samus_hitbox_data[0][0] + 0x3F;
+            xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - (u16)samus_hitbox_data[0][0] + 0x3F;
 
         if (SamusCheckAButtonPressed(pData) << 0x18 != FALSE && (unk & 0x6) == 0x0)
         {
@@ -2879,7 +2879,7 @@ u8 SamusMorphball(struct SamusData* pData)
             forcedMovement = SamusCheckCollisionAbove(pData, array_23a554[2]);
             if (forcedMovement == 0x1)
             {
-                pData->xPosition = (u16)(pData->xPosition + array_23a554[0] & 0xFFC0) - array_23a554[0] + 0x40;
+                pData->xPosition = (u16)(pData->xPosition + array_23a554[0] & BLOCK_POSITION_FLAG) - array_23a554[0] + 0x40;
                 gPreviousXPosition = pData->xPosition;
 
                 if (gSamusPhysics.slowedByLiquid != FALSE)
@@ -2892,7 +2892,7 @@ u8 SamusMorphball(struct SamusData* pData)
 
             if (forcedMovement == 0x8)
             {
-                pData->xPosition = (u16)(pData->xPosition + array_23a554[0] & 0xFFC0) - array_23a554[0] + 0x40;
+                pData->xPosition = (u16)(pData->xPosition + array_23a554[0] & BLOCK_POSITION_FLAG) - array_23a554[0] + 0x40;
                 gPreviousXPosition = pData->xPosition;
                 forcedMovement = 0x0;
             }
@@ -3204,7 +3204,7 @@ u8 SamusPullingSelfUpGFX(struct SamusData* pData)
     unk = SamusUpdateAnimation(pData, pData->timer);
     if (unk == 0x2)
     {
-        pData->yPosition = (pData->yPosition & 0xFFC0) - 0x1;
+        pData->yPosition = (pData->yPosition & BLOCK_POSITION_FLAG) - 0x1;
         return SPOSE_PULLING_YOURSELF_FORWARD_FROM_HANGING;
     }
     else
@@ -3250,7 +3250,7 @@ u8 SamusPullingSelfIntoMorphballTunnelGFX(struct SamusData* pData)
         else
             pData->xPosition -= 0x6;
 
-        pData->yPosition = (pData->yPosition & 0xFFC0) - 0x1;
+        pData->yPosition = (pData->yPosition & BLOCK_POSITION_FLAG) - 0x1;
         play_sound(0x77);
         return SPOSE_MORPH_BALL;
     }

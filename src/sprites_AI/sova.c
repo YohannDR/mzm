@@ -666,7 +666,7 @@ void SovaTurningAround(void)
             if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT) == 0x0)
             {
                 gCurrentSprite.yPosition -= 0x1C;
-                gCurrentSprite.xPosition = (gCurrentSprite.xPosition & 0xFFC0) + 0x40;
+                gCurrentSprite.xPosition = (gCurrentSprite.xPosition & BLOCK_POSITION_FLAG) + 0x40;
             }
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
@@ -686,7 +686,7 @@ void SovaTurningAround(void)
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
                 gCurrentSprite.yPosition += 0x1C;
-                gCurrentSprite.xPosition = (gCurrentSprite.xPosition & 0xFFC0) + 0x40;
+                gCurrentSprite.xPosition = (gCurrentSprite.xPosition & BLOCK_POSITION_FLAG) + 0x40;
             }
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
@@ -696,7 +696,7 @@ void SovaTurningAround(void)
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
                 gCurrentSprite.xPosition += 0x1C;
-                gCurrentSprite.yPosition = (gCurrentSprite.yPosition & 0xFFC0) + 0x40;
+                gCurrentSprite.yPosition = (gCurrentSprite.yPosition & BLOCK_POSITION_FLAG) + 0x40;
                 gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             }
             else
@@ -716,7 +716,7 @@ void SovaTurningAround(void)
             else
             {
                 gCurrentSprite.xPosition -= 0x1C;
-                gCurrentSprite.yPosition = (gCurrentSprite.yPosition & 0xFFC0) + 0x40;
+                gCurrentSprite.yPosition = (gCurrentSprite.yPosition & BLOCK_POSITION_FLAG) + 0x40;
                 gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             }
             gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;

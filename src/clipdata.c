@@ -38,8 +38,8 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
             // Get clip type at position
             collision.clipdataType = gTilemapAndClipPointers.clip_collisions[gBGPointersAndDimensions.pClipDecomp[gBGPointersAndDimensions.clipdataWidth * collision.tileY + collision.tileX]];
             // Get sub pixel
-            collision.subPixelY = yPosition & 0x3F;
-            collision.subPixelX = xPosition & 0x3F;
+            collision.subPixelY = yPosition & SUB_PIXEL_POSITION_FLAG;
+            collision.subPixelX = xPosition & SUB_PIXEL_POSITION_FLAG;
             collision.actorType = CLIPDATA_ACTOR_SAMUS;
             result = gClipdataCodePointer(&collision);
         }
@@ -107,8 +107,8 @@ u32 ClipdataProcess(u32 yPosition, u32 xPosition)
 
         // Get type and sub pixel, then call clipdata code
         collision.clipdataType = gTilemapAndClipPointers.clip_collisions[clipdata];
-        collision.subPixelY = yPos & 0x3F;
-        collision.subPixelX = xPos & 0x3F;
+        collision.subPixelY = yPos & SUB_PIXEL_POSITION_FLAG;
+        collision.subPixelX = xPos & SUB_PIXEL_POSITION_FLAG;
         return clipdata = gClipdataCodePointer(&collision);
     }
 }

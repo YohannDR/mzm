@@ -135,8 +135,9 @@ void EscaepUpdateTimer(void)
         return;
     }
 
-    if (gGameModeSub1 != 0x2)
+    if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
         return;
+
     if (gPreventMovementTimer != 0x0)
         return;
 
