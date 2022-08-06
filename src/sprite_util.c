@@ -2552,7 +2552,7 @@ void SpriteUtilUpdateSubSprite1Anim(void)
  */
 void SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position(void)
 {
-    u16* pOam;
+    const u16* pOam;
 
     pOam = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
 
@@ -2562,7 +2562,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position(void)
 
 void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOAM(void)
 {
-    u16* pOam;
+    const u16* pOam;
 
     pOam = gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
 
@@ -2599,7 +2599,7 @@ void SpriteUtilUpdateSubSprite2Anim(void)
  */
 void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData2PositionAndOAM(void)
 {
-    u16* pOam;
+    const u16* pOam;
 
     pOam = gSubSpriteData2.pMultiOam[gSubSpriteData2.currentAnimationFrame].pFrame;
 
@@ -2633,7 +2633,7 @@ void SpriteUtilUpdateSubSpriteAnim(struct SubSpriteData* pSub)
  */
 void SpriteUtilSyncCurrentSpritePositionWithSubSpritePosition(struct SubSpriteData* pSub)
 {
-    u16* pOam;
+    const u16* pOam;
 
     pOam = pSub->pMultiOam[pSub->currentAnimationFrame].pFrame;
 
@@ -2648,7 +2648,7 @@ void SpriteUtilSyncCurrentSpritePositionWithSubSpritePosition(struct SubSpriteDa
  */
 void SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOAM(struct SubSpriteData* pSub)
 {
-    u16* pOam;
+    const u16* pOam;
 
     pOam = pSub->pMultiOam[pSub->currentAnimationFrame].pFrame;
 

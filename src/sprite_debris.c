@@ -270,7 +270,7 @@ void SpriteDebrisProcessAll(void)
  */
 void SpriteDebrisDraw(struct SpriteDebris* pDebris)
 {
-    u16* pSrc;
+    const u16* pSrc;
     u8 slot;
     u32 curr_slot;
     u16 yPosition;

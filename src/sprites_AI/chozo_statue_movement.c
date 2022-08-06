@@ -1,4 +1,4 @@
-#include "ChozoStatueMovement.h"
+#include "chozo_statue_movement.h"
 
 #include "../../data/data.h"
 #include "../globals.h"

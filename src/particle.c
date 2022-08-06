@@ -47,7 +47,7 @@ void ParticleCheckOnScreen(struct ParticleEffect* pParticle)
 void ParticleDraw(struct ParticleEffect* pParticle)
 {
     u16 part_count;
-    u16* pSrc;
+    const u16* pSrc;
     struct RawOamData* pDst;
     u8 slot;
     u16 yPosition;

@@ -7,7 +7,7 @@
 // Globals
 
 extern struct ParticleEffect gParticleEffects[16];
-extern u16* gCurrentParticleEffectOAMFramePointer;
+extern const u16* gCurrentParticleEffectOAMFramePointer;
 extern u16 gParticleEscapeOAMFrames[25];
 extern u16 gParticleSamusReflectionOAMFrames[73];
 

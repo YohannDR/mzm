@@ -34,7 +34,7 @@
 #define OBJ_SPRITE_OAM 0x8000 // Not sure what this is, sprite OAM doesn't work without it
 
 struct FrameData {
-    u16* pFrame;
+    const u16* pFrame;
     u8 timer;
 };
 

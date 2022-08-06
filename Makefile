@@ -39,7 +39,7 @@ CFLAGS = -O2 -mthumb-interwork -fhex-asm
 CPPFLAGS = -nostdinc -Isrc/
 
 # Objects
-CSRC = $(wildcard src/*.c) $(wildcard src/sram/*.c) $(wildcard data/*.c) $(wildcard src/libgcc/*.c)
+CSRC = $(wildcard src/*.c) $(wildcard src/sprites_AI/*.c) $(wildcard src/sram/*.c) $(wildcard data/*.c) $(wildcard src/libgcc/*.c)
 .PRECIOUS: $(CSRC:.c=.s)
 ASMSRC = $(CSRC:.c=.s) $(wildcard asm/*.s)
 OBJ = $(ASMSRC:.s=.o) 
@@ -135,6 +135,9 @@ src/sram/%.s: src/sram/%.c
 
 src/libgcc/%.s: CFLAGS = -O2 -fhex-asm
 src/libgcc/%.s: src/libgcc/%.c
+
+src/sprites_AI/%.s: CFLAGS = -O2 -mthumb-interwork -fhex-asm
+src/sprites_AI/%.s: src/sram/%.c
 
 tools/%: tools/%.c
 	$(MSG) HOSTCC $@
