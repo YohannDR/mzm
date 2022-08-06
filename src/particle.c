@@ -163,17 +163,13 @@ void ParticleProcessAll(void)
  * @param xPosition X Position
  * @param effect Particle effect ID
  */
-void ParticleSet(u32 yPosition, u32 xPosition, u32 effect)
+void ParticleSet(u16 yPosition, u16 xPosition, u8 effect)
 {
     struct ParticleEffect* pParticle;
     struct ParticleEffect* pLow;
     u8 counter;
     u8 counter_d;
     u8 count;
-    
-    u16 yPos = yPosition;
-    u16 xPos = xPosition;
-    u8 eff = effect;
 
     counter = FALSE;
     for (pParticle = gParticleEffects; pParticle < gParticleEffects + 16; pParticle++)
@@ -208,11 +204,11 @@ void ParticleSet(u32 yPosition, u32 xPosition, u32 effect)
     }
 
     pParticle->status = PARTICLE_STATUS_EXISTS;
-    pParticle->yPosition = yPos;
-    pParticle->xPosition = xPos;
+    pParticle->yPosition = yPosition;
+    pParticle->xPosition = xPosition;
     pParticle->currentAnimationFrame = 0x0;
     pParticle->animationDurationCounter = 0x0;
-    pParticle->effect = eff;
+    pParticle->effect = effect;
     pParticle->stage = 0x0;
     pParticle->frameCounter = 0x0;
 }

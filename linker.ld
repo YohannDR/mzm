@@ -91,7 +91,7 @@ SECTIONS {
         . = 0x00000c1c; gSRAMCorruptFlag = .;
         . = 0x00000c70; gMainGameMode = .;
         . = 0x00000c72; gGameModeSub1 = .;
-        . = 0x00000c74; gGameModeSub2= .;
+        . = 0x00000c74; gGameModeSub2 = .;
         . = 0x00000c75; gGameModeSub3 = .;
         . = 0x00000c76; gClearedEveryFrame = .;
         . = 0x00000c77; gFrameCounter8Bit = .;
@@ -145,8 +145,8 @@ SECTIONS {
         . = 0x000056d4; gBLDALPHAata1 = .;
         . = 0x000056dc; gBLDYData1 = .;
         . = 0x000056e4; gBLDYData2 = .;
-        . = 0x00005708; gCurrentRoomScrollDataPointer = .;
         . = 0x00005704; gClipdataCodePointer = .;
+        . = 0x00005708; gCurrentRoomScrollDataPointer = .;
         . = 0x000058e0; src/libgcc/fp-bit-base.o(.bss);
         . = 0x000058f8; src/libgcc/float.o(.bss);
         . = 0x00007e60; sp_sys = .;

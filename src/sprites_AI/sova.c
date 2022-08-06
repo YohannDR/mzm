@@ -117,9 +117,9 @@ void SovaGFXUpdate(void)
         else
             gCurrentSprite.pOam = sova_oam_2cfb98;
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-            status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
         else
-            status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
     }
 
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -193,7 +193,7 @@ void SovaInit(void)
     }
 }
 
-void SovaInit(void)
+void SovaIdleInit(void)
 {
     SovaGFXUpdate();
     gCurrentSprite.pose = 0x9;
@@ -884,7 +884,7 @@ void Sova(void)
                     SovaInit();
                     break;
                 case 0x8:
-                    SovaInit();
+                    SovaIdleInit();
                 case 0x9:
                     SovaMove();
                     break;

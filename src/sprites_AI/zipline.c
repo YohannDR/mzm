@@ -267,7 +267,7 @@ void ZiplineUpdate(void)
         if ((gCurrentSprite.timer & 0xF) == 0x0)
             SoundPlay(0x110);
         gCurrentSprite.timer++;
-        if (ZiplineMoving() << 0x18)
+        if (ZiplineMoving())
         {
             gCurrentSprite.health = 0x1;
             gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
@@ -376,7 +376,7 @@ void Zipline(void)
             ZiplineInit();
             break;
         case 0x9:
-            ZiplineMoving();
+            ZiplineUpdate();
     }
 }
 

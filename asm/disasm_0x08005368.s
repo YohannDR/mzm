@@ -3450,8 +3450,8 @@ lbl_08006e9c:
     pop {r0}
     bx r0
 
-    thumb_func_start samus_set_hurt_pose
-samus_set_hurt_pose: @ 0x08006eac
+    thumb_func_start SamusChangeToHurtPose
+SamusChangeToHurtPose: @ 0x08006eac
     push {r4, r5, r6, lr}
     adds r4, r0, #0
     adds r5, r1, #0
@@ -3619,8 +3619,8 @@ lbl_0800703c: .4byte 0x030013b8
 lbl_08007040: .4byte 0x030013ba
 lbl_08007044: .4byte 0x03000c72
 
-    thumb_func_start samus_set_knockback_pose
-samus_set_knockback_pose: @ 0x08007048
+    thumb_func_start SamusChangeToKnockbackPose
+SamusChangeToKnockbackPose: @ 0x08007048
     push {r4, r5, r6, lr}
     adds r4, r0, #0
     adds r5, r1, #0
@@ -3728,8 +3728,8 @@ lbl_0800714c:
     .align 2, 0
 lbl_08007160: .4byte 0x0823a554
 
-    thumb_func_start samus_turn_around_arm_cannon
-samus_turn_around_arm_cannon: @ 0x08007164
+    thumb_func_start SamusCheckCarryFromCopy
+SamusCheckCarryFromCopy: @ 0x08007164
     push {r4, r5, r6, lr}
     adds r4, r0, #0
     adds r5, r1, #0
@@ -4250,7 +4250,7 @@ lbl_080075a8:
     adds r0, r5, #0
     adds r1, r6, #0
     adds r2, r7, #0
-    bl SamusCheckCarrayFromCopy
+    bl SamusCheckCarryFromCopy
 lbl_080075b4:
     pop {r4, r5, r6, r7}
     pop {r0}
@@ -21763,8 +21763,8 @@ lbl_0800fddc:
     pop {r1}
     bx r1
 
-    thumb_func_start check_samus_near_sprite_left_right
-check_samus_near_sprite_left_right: @ 0x0800fde0
+    thumb_func_start SpriteUtilCheckSamusNearSpriteLeftRight
+SpriteUtilCheckSamusNearSpriteLeftRight: @ 0x0800fde0
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10

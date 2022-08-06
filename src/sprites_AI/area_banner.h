@@ -4,6 +4,8 @@
 #include "../types.h"
 #include "../location_text.h"
 
+extern const u16 sAreaBannerLocationTextPAL[16];
+
 #define AREA_BANNER_POSE_SPAWN 0x8
 #define AREA_BANNER_POSE_SCROLLING_UP 0x9
 #define AREA_BANNER_POSE_STATIC 0x23

@@ -361,16 +361,13 @@ void SpriteDebrisDrawAll(void)
  * @param yPosition Y Position
  * @param xPosition X Position
  */
-void SpriteDebrisInit(u8 cloudType, u8 debrisType, u32 yPosition, u32 xPosition)
+void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition)
 {
     struct SpriteDebris* pDebris;
     u8 counter;
     u8 counter_d;
     u8 prev_counter;
     u8 count;
-
-    u16 yPos = yPosition;
-    u16 xPos = xPosition;
 
     counter = FALSE;
     for (pDebris = gSpriteDebris; pDebris < gSpriteDebris + 8; pDebris++)
@@ -402,8 +399,8 @@ void SpriteDebrisInit(u8 cloudType, u8 debrisType, u32 yPosition, u32 xPosition)
 
     pDebris->pOam = sprite_debris_oam;
     pDebris->exists = TRUE;
-    pDebris->yPosition = yPos;
-    pDebris->xPosition = xPos;
+    pDebris->yPosition = yPosition;
+    pDebris->xPosition = xPosition;
     pDebris->currentAnimationFrame = 0x0;
     pDebris->animationDurationCounter = 0x0;
     pDebris->debrisType = debrisType;
