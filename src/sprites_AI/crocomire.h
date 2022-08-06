@@ -6,7 +6,7 @@
 void CrocomireSyncSubSprites(void);
 void CrocomireInit(void);
 void CrocomireGFXInit(void);
-void CrocomireEmpty(void);
+void Crocomire_Empty(void);
 void CrocomireBodyInit(void);
 void Crocomire(void);
 void CrocomireBody(void);

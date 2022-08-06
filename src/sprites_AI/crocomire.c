@@ -17,9 +17,9 @@ void CrocomireGFXInit(void)
 
 }
 
-void CrocomireEmpty(void)
+void Crocomire_Empty(void)
 {
-
+    return;
 }
 
 void CrocomireBodyInit(void)
