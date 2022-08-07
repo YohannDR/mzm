@@ -3,6 +3,9 @@
 
 #include "../types.h"
 
+#define MORPH_BALL_POSE_IDLE 0x9
+#define MORPH_BALL_POSE_BEING_ACQUIRED 0x23
+
 void MorphBallInit(void);
 void MorphBallGet(void);
 void MorphBallFlashAnim(void);
