@@ -15,7 +15,7 @@ void EnemyDropInit(void)
     gCurrentSprite.drawDistanceTopOffset = 0x8;
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
-    gCurrentSprite.bgPriority = (u8)gIORegistersBackup.bg2_cnt & 0x3
+    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.drawOrder = 0x1;
 
     switch (gCurrentSprite.spriteID)
@@ -64,7 +64,7 @@ void EnemyDropGet(void)
     u32 timer;
 
     pSprite = &gCurrentSprite;
-    if (pSpriteignoreSamusCollisionTimer != 0x0)
+    if (pSprite->ignoreSamusCollisionTimer != 0x0)
     {
         if (pSprite->ignoreSamusCollisionTimer < 0x2)
             status = pSprite->status & ~SPRITE_STATUS_NOT_DRAWN;
@@ -106,8 +106,8 @@ void EnemyDropGet(void)
                     break;
 
                 case SSC_POWER_BOMB_DROP:
-                    gEquipmentcurrentPowerBombs += 0x1;
-                    if (gEquipmentcurrentPowerBombs > gEquipment.maxPowerBombs)
+                    gEquipment.currentPowerBombs += 0x1;
+                    if (gEquipment.currentPowerBombs > gEquipment.maxPowerBombs)
                         gEquipmentcurrentPowerBombs = gEquipment.maxPowerBombs;
                     SoundPlay(0x8A);
                     break;

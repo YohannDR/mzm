@@ -227,7 +227,7 @@ void SovaMove(void)
 
     turning = FALSE;
 
-    if (SovaCheckCollidingWithAir() << 0x18)
+    if (SovaCheckCollidingWithAir() )
     {
         gCurrentSprite.pose = 0x1E;
         return;
@@ -773,7 +773,7 @@ void SovaBackOnGround(void)
 
 void SovaCheckBackOnGroundAnimEnded(void)
 {
-    if (SovaCheckCollidingWithAir() << 0x18 != 0x0)
+    if (SovaCheckCollidingWithAir()  != 0x0)
         gCurrentSprite.pose = 0x1E;
     else
     {

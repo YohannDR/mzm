@@ -775,7 +775,7 @@ void SamusUpdateJumpVelocity(struct SamusData* pData, struct SamusData* pCopy, s
             if (pCopy->forcedMovement == 0x2)
                 pData->yVelocity = pCopy->yVelocity;
 
-            if (SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]) << 0x18)
+            if (SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]) )
                 pData->yPosition += 0x20;
             break;
 
@@ -870,7 +870,7 @@ void SamusUpdateJumpVelocity(struct SamusData* pData, struct SamusData* pCopy, s
         case SPOSE_CROUCHING:
         case SPOSE_TURNING_AROUND_AND_CROUCHING:
         case SPOSE_SHOOTING_AND_CROUCHING:
-            if (SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]) << 0x18)
+            if (SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]) )
                 pData->yPosition += 0x20;
         default:
             pData->pose = SPOSE_MIDAIR;
@@ -2312,14 +2312,14 @@ u8 SamusTurningAround(struct SamusData* pData)
 {
     u8 new_pose;
 
-    if ((gButtonInput & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (gChangedInput & KEY_A) != 0x0 && pData->shinesparkTimer != 0x0 && SamusCheckCollisionAbove(pData, (i16)((u16)samus_hitbox_data[0][2] - 0x20)) << 0x18 == 0x0)
+    if ((gButtonInput & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (gChangedInput & KEY_A) != 0x0 && pData->shinesparkTimer != 0x0 && SamusCheckCollisionAbove(pData, (i16)((u16)samus_hitbox_data[0][2] - 0x20))  == 0x0)
     {
         pData->yPosition -= 0x20;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
     }
     else
     {
-        if (SamusCheckAButtonPressed(pData) << 0x18 != FALSE)
+        if (SamusCheckAButtonPressed(pData)  != FALSE)
             return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
         else
         {
@@ -2381,7 +2381,7 @@ u8 SamusCrouching(struct SamusData* pData)
     u16* input;
     u32 timer;
 
-    if ((gButtonInput & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (gChangedInput & KEY_A) != 0x0 && pData->shinesparkTimer != 0x0 && SamusCheckCollisionAbove(pData, (i16)((u16)array_23a554[2] - 0x20)) << 0x18 == 0x0)
+    if ((gButtonInput & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (gChangedInput & KEY_A) != 0x0 && pData->shinesparkTimer != 0x0 && SamusCheckCollisionAbove(pData, (i16)((u16)array_23a554[2] - 0x20))  == 0x0)
     {
         pData->yPosition -= 0x20;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
@@ -2393,7 +2393,7 @@ u8 SamusCrouching(struct SamusData* pData)
     else if (unk == 0x8)
         xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - (u16)array_23a554[0] + 0x3F;
 
-    if (SamusCheckAButtonPressed(pData) << 0x18 != FALSE && (unk & 0x6) == 0x0)
+    if (SamusCheckAButtonPressed(pData)  != FALSE && (unk & 0x6) == 0x0)
     {
         if (unk == 0x1 || unk == 0x8)
             pData->xPosition = xPosition;
@@ -2460,7 +2460,7 @@ u8 SamusTurningAroundAndCrouching(struct SamusData* pData)
     u8 unk;
     u16 xPosition;
 
-    if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A && pData->shinesparkTimer != 0x0 && SamusCheckCollisionAbove(pData, (i16)((u16)samus_hitbox_data[0][2] - 0x20)) << 0x18 == 0x0)
+    if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A && pData->shinesparkTimer != 0x0 && SamusCheckCollisionAbove(pData, (i16)((u16)samus_hitbox_data[0][2] - 0x20))  == 0x0)
     {
         pData->yPosition -= 0x20;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
@@ -2473,7 +2473,7 @@ u8 SamusTurningAroundAndCrouching(struct SamusData* pData)
         else if (unk == 0x8)
             xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - (u16)samus_hitbox_data[0][0] + 0x3F;
 
-        if (SamusCheckAButtonPressed(pData) << 0x18 != FALSE && (unk & 0x6) == 0x0)
+        if (SamusCheckAButtonPressed(pData)  && (unk & 0x6) == 0x0)
         {
             if (unk == 0x1 || unk == 0x8)
                 pData->xPosition = xPosition;
@@ -2851,13 +2851,13 @@ u8 SamusMorphball(struct SamusData* pData)
         pData->forcedMovement = forcedMovement + 0x1;
     else
     {
-        if ((gChangedInput & KEY_A) != 0x0 && (gEquipment.suitMiscActivation & SMF_HIGH_JUMP) != 0x0 & pData->shinesparkTimer != 0x0 && SamusCheckCollisionAbove(pData, (i16)((u16)array_23a554[5] - 0x40)) << 0x18 == 0x0)
+        if ((gChangedInput & KEY_A) != 0x0 && (gEquipment.suitMiscActivation & SMF_HIGH_JUMP) != 0x0 & pData->shinesparkTimer != 0x0 && SamusCheckCollisionAbove(pData, (i16)((u16)array_23a554[5] - 0x40))  == 0x0)
         {
             pData->yPosition -= 0x20;
             return SPOSE_DELAY_BEFORE_BALLSPARKING;
         }
 
-        if (SamusCheckAButtonPressed(pData) << 0x18 != FALSE)
+        if (SamusCheckAButtonPressed(pData)  != FALSE)
         {
             if (pData->forcedMovement != 0x1)
                 return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -2934,7 +2934,7 @@ u8 SamusRolling(struct SamusData* pData)
     }
     else
     {
-        if (SamusCheckCollisionAbove(pData, array_23a554[2]) << 0x18 == 0x0 && (gChangedInput & KEY_UP) != 0x0)
+        if (SamusCheckCollisionAbove(pData, array_23a554[2])  == 0x0 && (gChangedInput & KEY_UP) != 0x0)
         {
             if (gSamusPhysics.slowedByLiquid != FALSE)
                 SoundPlay(0x78);
@@ -3016,7 +3016,7 @@ u8 SamusMorphballMidAir(struct SamusData* pData)
 {
     /*u16 direction;
 
-    if ((gChangedInput & KEY_UP) != 0x0 && SamusCheckCollisionAbove(pData, array_23a554[2]) << 0x18 == 0x0)
+    if ((gChangedInput & KEY_UP) != 0x0 && SamusCheckCollisionAbove(pData, array_23a554[2])  == 0x0)
     {
         if (gSamusPhysics.slowedByLiquid == TRUE)
             SoundPlay(0x78);
@@ -3521,7 +3521,7 @@ u8 SamusCrouchingToCrawlGFX(struct SamusData* pData)
 u8 SamusCrawlingStopped(struct SamusData* pData)
 {
     pData->xVelocity = 0x0;
-    if (SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]) << 0x18 == 0x0)
+    if (SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2])  == 0x0)
         return SPOSE_UNCROUCHING_FROM_CRAWLING;
     else if (gSamusPhysics.hasNewProjectile != 0x0)
         return SPOSE_SHOOTING_WHILE_CRAWLING;
@@ -3546,7 +3546,7 @@ u8 SamusStartingToCrawlGFX(struct SamusData* pData)
 
 u8 SamusCrawling(struct SamusData* pData)
 {
-    if (SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]) << 0x18 == 0x0)
+    if (SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2])  == 0x0)
         return SPOSE_UNCROUCHING_FROM_CRAWLING;
     else
     {
@@ -3675,7 +3675,7 @@ u8 SamusExecutePoseSubroutine(struct SamusData* pData)
     pEquipment = &gEquipment;
     pHazard = &gSamusHazardDamage;
 
-    if (SamusTakeHazardDamage(pData, pEquipment, pHazard) << 0x18)
+    if (SamusTakeHazardDamage(pData, pEquipment, pHazard) )
         return SPOSE_HURT_REQUEST;
     else
     {

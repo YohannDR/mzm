@@ -1669,7 +1669,7 @@ void ParticleEscape(struct ParticleEffect* pParticle)
                 pParticle->frameCounter = 0xFF;
                 play_cutscene(0x2);
             }
-            else if (gCurrentEscapeStatus == ESCAPE_STATUS_HAPPENNING && EscapeCheckHasEscaped() << 0x18)
+            else if (gCurrentEscapeStatus == ESCAPE_STATUS_HAPPENNING && EscapeCheckHasEscaped())
             {
                 pParticle->stage = 0x2;
                 pParticle->frameCounter = 0x20;

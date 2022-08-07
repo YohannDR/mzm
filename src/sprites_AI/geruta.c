@@ -143,7 +143,7 @@ void GerutaGoingDown(void)
 
     oldY = gCurrentSprite.yPosition;
     GerutaXMovement(0x4);
-    if (GerutaYMovement(0xC) << 0x18)
+    if (GerutaYMovement(0xC) )
     {
         gCurrentSprite.pose = 0x39;
         gCurrentSprite.animationDurationCounter = 0x0;
@@ -171,7 +171,7 @@ void GerutaCheckBouncingAnimEnded(void)
 void GerutaGoingUp(void)
 {
     GerutaXMovement(0x4);
-    if (GerutaYMovement(0xC) << 0x18)
+    if (GerutaYMovement(0xC) )
     {
         gCurrentSprite.yPosition = (gCurrentSprite.yPosition & BLOCK_POSITION_FLAG);
         gCurrentSprite.yPosition  += 0x34;

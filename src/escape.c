@@ -129,7 +129,7 @@ void EscaepUpdateTimer(void)
 {
     u32 counter;
 
-    if (EscapeDetermineTimer() << 0x18 == ESCAPE_NONE || gCurrentEscapeStatus != ESCAPE_STATUS_HAPPENNING)
+    if (EscapeDetermineTimer() == ESCAPE_NONE || gCurrentEscapeStatus != ESCAPE_STATUS_HAPPENNING)
     {
         gCurrentEscapeStatus = ESCAPE_STATUS_NONE;
         return;

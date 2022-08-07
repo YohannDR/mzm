@@ -2387,7 +2387,6 @@ void ProjectileProcessBomb(struct ProjectileData* pProj)
             
             if (pProj->timer-- != 0x1)
             {
-                // /!\ u8 cast missing in asm
                 if (pProj->timer == 0xF)
                 {
                     gCurrentClipdataAffectingAction = CAA_BOMB_PISTOL;

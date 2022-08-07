@@ -696,7 +696,7 @@ void WingedRipper(void)
     if (gCurrentSprite.freezeTimer != 0x0)
     {
         SpriteUtilUnfreezeAnimEasy();
-        if (!(WingedRipperImagoCollision() << 0x18))
+        if (!(WingedRipperImagoCollision()))
             return;
     }
     if (!SpriteUtilIsSpriteStunned())

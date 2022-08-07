@@ -68,7 +68,7 @@ void SavePlatformSamusDetection(void)
 {
     u8 timer;
 
-    if (SavePlatformDetectSamus() << 0x18 && !SpriteUtilCheckCrouchinOrMorphed())
+    if (SavePlatformDetectSamus()  && !SpriteUtilCheckCrouchinOrMorphed())
     {
         timer = gCurrentSprite.timer = gCurrentSprite.timer - 0x1;
         if (timer == 0x0)
