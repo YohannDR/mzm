@@ -106,7 +106,7 @@ void RipperMovingInit(void)
 }
 
 /**
- * @brief 1be1c | 6c | Handles a ripper sprite moving
+ * @brief 1be1c | 6c | Handles a ripper moving
  * 
  */
 void RipperMove(void)
