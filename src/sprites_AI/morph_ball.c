@@ -74,6 +74,10 @@ const struct FrameData sMorphBallOutsideOAM_Idle[5] = {
 };
 
 
+/**
+ * @brief 13080 | ac | Initializes a morph ball sprite
+ * 
+ */
 void MorphBallInit(void)
 {
     if (gEquipment.suitMisc & SMF_MORPH_BALL)
@@ -106,9 +110,13 @@ void MorphBallInit(void)
     }
 }
 
+/**
+ * @brief 1312c | 74 | Handles a morph ball sprite being idle
+ * 
+ */
 void MorphBallGet(void)
 {
-    if ((gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING) != 0x0)
+    if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
         gPreventMovementTimer = 0x3E8;
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
@@ -120,6 +128,10 @@ void MorphBallGet(void)
     }
 }
 
+/**
+ * @brief 131a0 | 3c | Handles a morph ball being acquired
+ * 
+ */
 void MorphBallFlashAnim(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
@@ -129,6 +141,10 @@ void MorphBallFlashAnim(void)
         gCurrentSprite.status = 0x0;
 }
 
+/**
+ * @brief 131dc | 58 | Initializes a morph ball outside sprite
+ * 
+ */
 void MorphBallOutsideInit(void)
 {
     gCurrentSprite.hitboxTopOffset = -0x4;
@@ -149,6 +165,10 @@ void MorphBallOutsideInit(void)
     gCurrentSprite.pose = 0x9;
 }
 
+/**
+ * @brief 13234 | 3c | Handles a morph ball outside being acquired 
+ * 
+ */
 void MorphBallOutsideFlashAnim(void)
 {
     u8 ramSlot;
@@ -160,6 +180,10 @@ void MorphBallOutsideFlashAnim(void)
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
 }
 
+/**
+ * @brief 13270 | 38 | Morph ball AI
+ * 
+ */
 void MorphBall(void)
 {
     switch (gCurrentSprite.pose)
@@ -175,6 +199,10 @@ void MorphBall(void)
     }
 }
 
+/**
+ * @brief 132a8 | 2c | Morph ball outside AI
+ * 
+ */
 void MorphBallOutside(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
