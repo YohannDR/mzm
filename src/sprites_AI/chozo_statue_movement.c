@@ -4,7 +4,7 @@
 #include "../globals.h"
 
 /**
- * @brief 125e8 | 160 | Spawns a new chozo statue echo secondary sprite
+ * @brief 125e8 | 160 | Spawns a new chozo statue movement secondary sprite
  * 
  * @param stage Movement stage
  */
