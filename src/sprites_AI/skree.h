@@ -10,12 +10,15 @@
 #define SKREE_POSE_GOING_DOWN 0x35
 #define SKREE_POSE_CRASHING 0x37
 
+#define SKREE_EXPLOSION_PART_GOING_UP 0x0
+#define SKREE_EXPLOSION_PART_GOING_DOWN 0x1
+
 void SkreeInit(void);
-void SkreeGFXInit(void);
+void SkreeIdleInit(void);
 void SkreeDetectSamus(void);
-void SkreeSpinGFXInit(void);
+void SkreeSpinningInit(void);
 void SkreeCheckSpinAnimEnded(void);
-void SkreeStartGoingDown(void);
+void SkreeGoingDownInit(void);
 void SkreeGoDown(void);
 void SkreeCrashGround(void);
 void SkreeExplosionInit(void);
