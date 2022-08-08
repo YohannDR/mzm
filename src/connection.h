@@ -66,7 +66,7 @@ struct Door {
     u8 yEnd;
     u8 destinationRoom;
     i8 xExit;
-    i8 yyExit;
+    i8 yExit;
 };
 
 struct __attribute__((packed)) AreaConnection {

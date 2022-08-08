@@ -3,6 +3,14 @@
 
 #include "../types.h"
 
+#define SEARCHLIGHT_EYE_POSE_IDLE 0x9
+#define SEARCHLIGHT_EYE_POSE_GETTING_ALERTED 0x23
+#define SEARCHLIGHT_EYE_POSE_ALERTED 0x25
+#define SEARCHLIGHT_EYE_POSE_SHOOTING 0x27
+
+#define SEARCHLIGHT_EYE_BEAM_POSE_IDLE 0x9
+#define SEARCHLIGHT_EYE_BEAM_POSE_GETTING_ALERTED 0x23
+
 void SearchlightEyeInit(void);
 void SearchlightEyeMove(void);
 void SearchlightEyeCheckAlarm(void);
