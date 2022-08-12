@@ -5,6 +5,8 @@
 
 #define KRAID_POSE_GO_UP 0x1
 #define KRAID_POSE_CHECK_FULLY_UP 0x2
+#define KRAID_POSE_FIRST_STEP_INIT 0x8
+#define KRAID_POSE_FIRST_STEP 0x9
 #define KRAID_POSE_STANDING_INIT 0xE
 #define KRAID_POSE_STANDING 0xF
 #define KRAID_POSE_DYING_INIT 0x62
@@ -54,11 +56,11 @@ u8 KraidMoveUp(void);
 void KraidGoUp(void);
 void KraidCheckFullyUp(void);
 u8 KraidMoveFeet(void);
-void KraidMoveFeetToSameDirectionAsPosition(void);
+void KraidFirstStepInit(void);
 void KraidMoveFeetToOppositeDirectionAsPosition(void);
 void KraidFeetMovementOppositeDirectionAsPositionUpdate(void);
 void KraidStandingInit(void);
-void KraidBeforeStartMovingFeetSameDirectionAsPosition(void);
+void KraidStanding(void);
 void KraidAfterMovingFeetSameDirectionAsPosition(void);
 void KraidBeforeStartMovingFeetOppositeDirectionAsPosition(void);
 void KraidPreventSamusGoingThrough(void);

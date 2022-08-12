@@ -2707,17 +2707,16 @@ void KraidCheckProjectilesCollidingWithBelly(void)
 
 void KraidOpenCloseRoutineAndProjectileCollision(void)
 {
-    // https://decomp.me/scratch/TOZNZ
-
-    /*u8 closed;
+    struct SpriteData* pSprite;
+    struct ProjectileData* pProj;
+    const struct FrameData* pOam;
+    u8 closed;
     u16 spriteY;
     u16 spriteX;
     u16 spriteTop;
     u16 spriteBottom;
     u16 spriteLeft;
     u16 spriteRight;
-    struct ProjectileData* pProj;
-    struct SpriteData* pSprite;
     u16 projY;
     u16 projX;
     u16 yTopOffset;
@@ -2781,7 +2780,9 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
     }
     else if (pSprite->pOam == sKraidOAM_ClosingMouth)
     {
-        if (pSprite->currentAnimationFrame > 0x1)
+        if (pSprite->currentAnimationFrame <= 0x1)
+            closed = FALSE;
+        else
         {
             closed = TRUE;
             if (gSubSpriteData1.timer != 0x0)
@@ -2801,13 +2802,12 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
                 pSprite->currentAnimationFrame = 0x0;
             }
         }
-        else
-            closed = FALSE;
     }
     else
     {
+        pOam = sKraidOAM_Rising;
         closed = FALSE;
-        if (pSprite->pOam != sKraidOAM_Rising && gSubSpriteData1.timer == 0x0)
+        if (pSprite->pOam != pOam && gSubSpriteData1.timer == 0x0)
         {
             pSprite->pOam = sKraidOAM_ClosingMouth;
             pSprite->animationDurationCounter = 0x0;
@@ -2988,7 +2988,7 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
             ParticleSet(projY, projX, PE_HITTING_SOMETHING_INVINCIBLE);
             break;
         }
-    }*/
+    }
 }
 
 void KraidRandomSpriteDebrisOnCeiling(u8 rng)
@@ -3691,14 +3691,94 @@ void KraidCheckFullyUp(void)
         gCurrentSprite.pose = 0xE;
 }
 
+/**
+ * @brief 1966c | 1a4 | Handles Kraid moving a feet
+ * 
+ * @return u8 
+ */
 u8 KraidMoveFeet(void)
 {
+    u8 offset;
+    u16 yPosition;
+    u16 xPosition;
 
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+    {
+        if (gSubSpriteData1.health >= sPrimarySpriteStats[PSPRITE_KRAID][0] / 3)
+            offset = BLOCK_SIZE;
+        else if (gDifficulty == DIFF_EASY)
+            offset = BLOCK_SIZE;
+        else
+            offset = BLOCK_SIZE * 3;
+
+        if (gCurrentSprite.xPositionSpawn + offset < gSubSpriteData1.xPosition)
+            return 0x2;
+
+        if (gSubSpriteData1.currentAnimationFrame < 0x5)
+        {
+            KraidMoveBG2ToRight(0x1);
+            yPosition = BLOCK_SIZE * 39 + BLOCK_SIZE / 2;
+            xPosition = gSubSpriteData1.xPosition + BLOCK_SIZE * 5;
+
+            if (SpriteUtilGetCollisionAtPosition(yPosition, xPosition) != COLLISION_AIR)
+            {
+                gCurrentClipdataAffectingAction = CAA_REMOVE_SOLID;
+                ClipdataProcess(yPosition, xPosition);
+                ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
+                SpriteDebrisInit(0x0, 0x11, yPosition - 0x10, xPosition);
+                SpriteDebrisInit(0x0, 0x12, yPosition, xPosition + 0xC);
+                SpriteDebrisInit(0x0, 0x13, yPosition - 0x2A, xPosition + 0x14);
+                SpriteDebrisInit(0x0, 0x4, yPosition - 0x18, xPosition - 0x1e);
+                SoundPlay(0x138);
+                yPosition -= (BLOCK_SIZE * 8);
+                xPosition -= BLOCK_SIZE;
+
+                if (SpriteUtilGetCollisionAtPosition(yPosition, xPosition) != COLLISION_AIR)
+                {
+                    gCurrentClipdataAffectingAction = CAA_REMOVE_SOLID;
+                    ClipdataProcess(yPosition, xPosition);
+                    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_MEDIUM);
+                    SpriteDebrisInit(0x0, 0x11, yPosition - 0x10, xPosition);
+                    SpriteDebrisInit(0x0, 0x12, yPosition, xPosition + 0xC);
+                    SpriteDebrisInit(0x0, 0x13, yPosition - 0x2A, xPosition + 0x14);
+                    SpriteDebrisInit(0x0, 0x4, yPosition - 0x18, xPosition - 0x1E);
+                }
+            }
+        }
+    }
+    else
+    {
+        if (gSubSpriteData1.health < sPrimarySpriteStats[PSPRITE_KRAID][0] / 3)
+            offset = BLOCK_SIZE;
+        else
+            offset = 0x0;
+
+        if (gCurrentSprite.xPositionSpawn + offset > gSubSpriteData1.xPosition)
+            return 0x1;
+
+        if (gSubSpriteData1.currentAnimationFrame < 0x5)
+        {
+            KraidMoveBG2ToLeft(0x1);
+        }
+    }
+
+    return 0x0;
 }
 
-void KraidMoveFeetToSameDirectionAsPosition(void)
+/**
+ * @brief 19810 | 44 | Initializes Kraid to do the first step
+ * 
+ */
+void KraidFirstStepInit(void)
 {
-    
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+        gSubSpriteData1.pMultiOam = sKraidMultiSpriteData_MovingLeftFeetToRight;
+    else
+        gSubSpriteData1.pMultiOam = sKraidMultiSpriteData_MovingRightFeetToLeft;
+    gSubSpriteData1.animationDurationCounter = 0x0;
+    gSubSpriteData1.currentAnimationFrame = 0x0;
+
+    gCurrentSprite.pose = KRAID_POSE_FIRST_STEP;
 }
 
 void KraidMoveFeetToOppositeDirectionAsPosition(void)
@@ -3723,9 +3803,21 @@ void KraidStandingInit(void)
     gCurrentSprite.pose = KRAID_POSE_STANDING_INIT;
 }
 
-void KraidBeforeStartMovingFeetSameDirectionAsPosition(void)
+/**
+ * @brief 19a7c | 38 | Handles Kraid standing
+ * 
+ */
+void KraidStanding(void)
 {
-    
+    if (SpriteUtilCheckNearEndCurrentSpriteAnim())
+    {
+        gCurrentSprite.pose = KRAID_POSE_FIRST_STEP_INIT;
+        if (gSubSpriteData1.maybe_status == 0x1)
+        {
+            gSubSpriteData1.maybe_status = 0x2;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+        }
+    }
 }
 
 void KraidAfterMovingFeetSameDirectionAsPosition(void)
