@@ -130,11 +130,11 @@ u8 ProjectileInit(u8 type, u16 yPosition, u16 xPosition)
     return FALSE;
 }
 
+// Scratch that matches: https://decomp.me/scratch/woOst
+#define ARRLEN(x) ((i32)(sizeof(x) / sizeof(x[0])))
 void ProjectileUpdate(void)
 {
-    // https://decomp.me/scratch/jEGx8
-
-    /*i32 count;
+    i32 count;
     u8 checks;
     u8 projType;
     u16 beamSound;
@@ -153,20 +153,18 @@ void ProjectileUpdate(void)
     {
         checks = FALSE;
         count = 0x0;
-        
-        pParticle = gParticleEffects; // /!\ Swapped instructions
 
         do
         {
+            pParticle = &gParticleEffects[count];
             if (pParticle->status & PARTICLE_STATUS_EXISTS && pParticle->effect == PE_CHARGING_BEAM)
             {
                 checks++;
                 break;
             }
 
-            pParticle++;
             count++;
-        } while (count < 0x10);
+        } while (count < ARRLEN(gParticleEffects));
 
         if (!checks)
             ParticleSet(gArmCannonY, gArmCannonX, PE_CHARGING_BEAM);
@@ -436,7 +434,7 @@ void ProjectileUpdate(void)
             ProjectileUpdateAnimation(pProj);
             ProjectileCheckDespawn(pProj);
         }
-    }*/
+    }
 }
 
 void ProjectileUpdateAnimation(struct ProjectileData* pProj)
