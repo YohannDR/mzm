@@ -2155,7 +2155,7 @@ const struct FrameData sKraidPartOAM_LeftArmDying[11] = {
     0x0
 };
 
-const struct FrameData sKraidPArtOAM_LeftArmThrowingNails[21] = {
+const struct FrameData sKraidPartOAM_LeftArmThrowingNails[21] = {
     sKraidPartOAM_LeftArmThrowingNails_Frame0,
     0x8,
     sKraidPartOAM_LeftArmThrowingNails_Frame1,
@@ -2443,7 +2443,7 @@ const struct FrameData sKraidPartOAM_RightFeetIdle2[5] = {
     0x0
 };
 
-const struct FrameData sKraidPArtOAM_RightFeetMovingRight[8] = {
+const struct FrameData sKraidPartOAM_RightFeetMovingRight[8] = {
     sKraidPartOAM_RightFeetMovingRight_Frame0,
     0x8,
     sKraidPartOAM_RightFeetMovingRight_Frame1,
@@ -4253,7 +4253,7 @@ void KraidPartThrowNails(void)
                 if (nbrDrops < threshold)
                 {
                     // Set throwing
-                    gCurrentSprite.pOam = sKraidPArtOAM_LeftArmThrowingNails;
+                    gCurrentSprite.pOam = sKraidPartOAM_LeftArmThrowingNails;
                     gCurrentSprite.animationDurationCounter = 0x0;
                     gCurrentSprite.currentAnimationFrame = 0x0;
                 }
@@ -4701,7 +4701,7 @@ void KraidPart(void)
             KraidPartUpdateLeftArmIdlingHitbox();
         else if (gCurrentSprite.pOam == sKraidPartOAM_LeftArmDying)
             KraidPartUpdateLeftArmDyingHitbox();
-        else if (gCurrentSprite.pOam == sKraidPArtOAM_LeftArmThrowingNails)
+        else if (gCurrentSprite.pOam == sKraidPartOAM_LeftArmThrowingNails)
             KraidPartUpdateLeftArmAttackingHitbox();
         else if (gCurrentSprite.pOam == sKraidPartOAM_2cac5c)
             KraidPartHitboxChange_2Unused();
