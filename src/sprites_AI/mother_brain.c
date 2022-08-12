@@ -2,34 +2,34 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-const u16 sMotherBrainMultiSpriteFrameData_Part0[12] = {
+const u16 sMotherBrainMultiSpriteData_Part0[12] = {
     0x8, 0x18, 0x9C, 0x0, 0x0, 0x0, 0x2, 0x18, 0x9C, 0x7, 0x60, 0x18
 };
 
-const u16 sMotherBrainMultiSpriteFrameData_Part1[12] = {
+const u16 sMotherBrainMultiSpriteData_Part1[12] = {
     0x8, 0x1C, 0x9C, 0x0, 0x4, 0x0, 0x2, 0x1C, 0x9C, 0x7, 0x60, 0x18
 };
 
-const u16 sMotherBrainMultiSpriteFrameData_Part2[12] = {
+const u16 sMotherBrainMultiSpriteData_Part2[12] = {
     0x8, 0x20, 0x9C, 0x0, 0x8, 0x0, 0x2, 0x20, 0x9C, 0x7, 0x60, 0x18
 };
 
-const u16 sMotherBrainMultiSpriteFrameData_Part3[12] = {
+const u16 sMotherBrainMultiSpriteData_Part3[12] = {
     0x8, 0x24, 0x9C, 0x0, 0xC, 0x0, 0x2, 0x24, 0x9C, 0x7, 0x60, 0x18
 };
 
-const struct FrameData sMotherBrainMultiSpriteFrameData[7] = {
-    sMotherBrainMultiSpriteFrameData_Part0,
+const struct FrameData sMotherBrainMultiSpriteData[7] = {
+    sMotherBrainMultiSpriteData_Part0,
     0xE,
-    sMotherBrainMultiSpriteFrameData_Part1,
+    sMotherBrainMultiSpriteData_Part1,
     0xE,
-    sMotherBrainMultiSpriteFrameData_Part2,
+    sMotherBrainMultiSpriteData_Part2,
     0x8,
-    sMotherBrainMultiSpriteFrameData_Part3,
+    sMotherBrainMultiSpriteData_Part3,
     0x6,
-    sMotherBrainMultiSpriteFrameData_Part2,
+    sMotherBrainMultiSpriteData_Part2,
     0x8,
-    sMotherBrainMultiSpriteFrameData_Part1,
+    sMotherBrainMultiSpriteData_Part1,
     0xE,
     NULL,
     0x0
@@ -805,7 +805,7 @@ void MotherBrainInit(void)
         gCurrentSprite.oamRotation = 0x0;
         gCurrentSprite.workVariable2 = 0x0;
         
-        gSubSpriteData1.pMultiOam = sMotherBrainMultiSpriteFrameData;
+        gSubSpriteData1.pMultiOam = sMotherBrainMultiSpriteData;
         gSubSpriteData1.animationDurationCounter = 0x0;
         gSubSpriteData1.currentAnimationFrame = 0x0;
         gSubSpriteData1.workVariable1 = 0x0;

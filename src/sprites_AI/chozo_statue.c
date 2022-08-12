@@ -124,7 +124,7 @@ void ChozoStatueBodyRefill(void)
 
 void ChozoStatueBody_Empty(void)
 {
-
+    return;
 }
 
 void ChozoStatueBodyEndRefill(void)

@@ -1043,7 +1043,7 @@ u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage)
     else
     {
         pSprite->health = 0x0;
-        pSprite->properties |= SP_MAYBE_DESTROYED;
+        pSprite->properties |= SP_DESTROYED;
         pSprite->freezeTimer = 0x0;
         pSprite->paletteRow = 0x0;
         if (pSprite->standingOnSprite != FALSE && gSamusData.standingStatus == STANDING_ENEMY)
@@ -1078,7 +1078,7 @@ u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
     else
     {
         pSprite->health = 0x0;
-        pSprite->properties |= SP_MAYBE_DESTROYED;
+        pSprite->properties |= SP_DESTROYED;
         pSprite->freezeTimer = 0x0;
         pSprite->paletteRow = 0x0;
         if (pSprite->standingOnSprite && gSamusData.standingStatus == STANDING_ENEMY)
@@ -1157,7 +1157,7 @@ void ProjectilePowerBombDealDamage(struct SpriteData* pSprite)
                 else
                 {
                     pSprite->health = 0x0;
-                    pSprite->properties |= SP_MAYBE_DESTROYED;
+                    pSprite->properties |= SP_DESTROYED;
                     pSprite->freezeTimer = 0x0;
                     pSprite->paletteRow = 0x0;
                     if (pSprite->standingOnSprite && gSamusData.standingStatus == STANDING_ENEMY)

@@ -97,7 +97,7 @@ void SavePlatformTopChozodiaCheckRefillAnimEnded(void)
 
 void SavePlatformTopChozodia_Empty(void)
 {
-
+    return;
 }
 
 void SavePlatformTopChozodiaExtendGFXInit(void)

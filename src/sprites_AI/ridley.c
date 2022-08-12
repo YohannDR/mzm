@@ -114,7 +114,7 @@ void unk_3383c(void)
 
 void Ridley_Empty(void)
 {
-
+    return;
 }
 
 void unk_338b8(void)

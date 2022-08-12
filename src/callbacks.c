@@ -96,8 +96,7 @@ void CallbackSetTimer3(Func_T callback) {
     }
 }
 
-void
-Callback_Empty(void)
+void Callback_Empty(void)
 {
     return;
 }

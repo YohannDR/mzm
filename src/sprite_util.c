@@ -1468,7 +1468,7 @@ void SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(u8 spriteID, u8 ramSlot
                 && gSpriteData[count].spriteID == spriteID
                 && gSpriteData[count].primarySpriteRAMSlot == ramSlot
                 && gSpriteData[count].freezeTimer < gCurrentSprite.freezeTimer
-                && (gSpriteData[count].properties & SP_MAYBE_DESTROYED) == 0x0)
+                && (gSpriteData[count].properties & SP_DESTROYED) == 0x0)
             {
                 gSpriteData[count].freezeTimer = gCurrentSprite.freezeTimer;
                 gSpriteData[count].paletteRow = 0xF - (gSpriteData[count].spritesetGFXSlot + gSpriteData[count].frozenPaletteRowOffset);
@@ -1482,7 +1482,7 @@ void SpriteUtillUpdatePrimarySpriteFreezeTimerOfCurrent(void)
 {
     if (gCurrentSprite.freezeTimer != 0) {
         u8 count = gCurrentSprite.primarySpriteRAMSlot;
-        if (gSpriteData[count].freezeTimer < gCurrentSprite.freezeTimer && (gSpriteData[count].properties & SP_MAYBE_DESTROYED) == 0)
+        if (gSpriteData[count].freezeTimer < gCurrentSprite.freezeTimer && (gSpriteData[count].properties & SP_DESTROYED) == 0)
         {
             gSpriteData[count].freezeTimer = gCurrentSprite.freezeTimer;
             gSpriteData[count].paletteRow = 0xf - (gSpriteData[count].spritesetGFXSlot + gSpriteData[count].frozenPaletteRowOffset);
@@ -1811,7 +1811,7 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
         if (weakness & WEAKNESS_SPEEDBOOSTER_SCREW_ATTACK)
         {
             pSprite->health = 0x0;
-            pSprite->properties |= SP_MAYBE_DESTROYED;
+            pSprite->properties |= SP_DESTROYED;
             pSprite->freezeTimer = 0x0;
             pSprite->paletteRow = 0x0;
             if (pSprite->standingOnSprite && pData->standingStatus == STANDING_ENEMY)

@@ -743,7 +743,7 @@ void RinkaMotherBrainMove(void)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
         {
-            totalDistance = (u16)(u16)Sqrt(distanceXRight * distanceXRight + distanceYUp * distanceYUp);
+            totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
             {
                 gCurrentSprite.yPosition = spawnY + ((velocity * ((i32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
