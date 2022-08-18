@@ -474,7 +474,7 @@ u8 HiveCountMellows(void)
     collision = SSC_MELLOW;
     roomSlot = gCurrentSprite.roomSlot; // For current hive only
 
-    for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == collision && pSprite->roomSlot == roomSlot)
             count++;
@@ -559,7 +559,7 @@ void HiveDying(void)
     count = 0x0;
     param = PSPRITE_HIVE;
     // Count hives
-    for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE)
             && pSprite->spriteID == param && pSprite->health != 0x0)
@@ -574,7 +574,7 @@ void HiveDying(void)
     collision = SSC_MELLOW;
 
     // Set mellows of current hive to fleeing behavior
-    for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == collision
             && pSprite->roomSlot == param && pSprite->pose == pose)
@@ -837,7 +837,7 @@ void MellowMove(struct SpriteData* pSprite)
     spriteLeft = pSprite->xPosition - 0x18;
     spriteRight = pSprite->xPosition + 0x18;
 
-    for (pMellow = gSpriteData + (u8)(pSprite->primarySpriteRAMSlot + 1); pMellow < gSpriteData + 24; pMellow++)
+    for (pMellow = gSpriteData + (u8)(pSprite->primarySpriteRAMSlot + 1); pMellow < gSpriteData + MAX_AMOUNT_OF_SPRITES; pMellow++)
     {
         if (pMellow->status & SPRITE_STATUS_EXISTS && pMellow->samusCollision == SSC_MELLOW)
         {
@@ -1258,7 +1258,7 @@ void MellowSwarm(void)
         {
             collision = SSC_MELLOW;
             pSprite = gSpriteData;
-            while (pSprite < gSpriteData + 24)
+            while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
             {
                 if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == collision)
                     count++;

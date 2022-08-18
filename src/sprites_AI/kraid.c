@@ -2643,7 +2643,7 @@ void KraidCheckProjectilesCollidingWithBelly(void)
     spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
     spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
 
-    for (pProj = gProjectileData; pProj < gProjectileData + 16; pProj++)
+    for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
         // Check can collide and colliding
         if (pProj->status & PROJ_STATUS_EXISTS && pProj->status & PROJ_STATUS_CAN_AFFECT_ENVIRONMENT &&
@@ -2833,7 +2833,7 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
     spriteLeft = spriteX + pSprite->hitboxLeftOffset;
     spriteRight = spriteX + pSprite->hitboxRightOffset;
 
-    for (pProj = gProjectileData; pProj < gProjectileData + 16; pProj++)
+    for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
         if (pProj->status & PROJ_STATUS_EXISTS && pProj->status & PROJ_STATUS_CAN_AFFECT_ENVIRONMENT &&
             pProj->movementStage > 0x1 && pProj->xPosition > spriteLeft && pProj->xPosition < spriteRight &&

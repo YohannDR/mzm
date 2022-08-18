@@ -1136,7 +1136,7 @@ void Geron(void)
             spriteRight = gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset;
 
             // Check make parasites grab geron
-            for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+            for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
             {
                 // Check not already grabbed
                 if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == SSC_BUG)

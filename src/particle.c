@@ -105,7 +105,7 @@ void ParticleProcessAll(void)
     if (gGameModeSub1 != 0x2 && (gGameModeSub1 == 0x1 || gGameModeSub1 == 0x3))
     {
         pParticle = gParticleEffects;
-        while (pParticle < gParticleEffects + 16)
+        while (pParticle < gParticleEffects + MAX_AMOUNT_OF_PARTICLES)
         {
             if (pParticle->status & PARTICLE_STATUS_EXISTS && pParticle->effect == PE_ESCAPE) // Probably a priority system
             {
@@ -119,7 +119,7 @@ void ParticleProcessAll(void)
     else
     {
         pParticle = gParticleEffects;
-        while (pParticle < gParticleEffects + 16)
+        while (pParticle < gParticleEffects + MAX_AMOUNT_OF_PARTICLES)
         {
             if ((pParticle->status & (PARTICLE_STATUS_EXISTS | PARTICLE_STATUS_EXPLOSION)) == (PARTICLE_STATUS_EXISTS | PARTICLE_STATUS_EXPLOSION))
             {
@@ -136,7 +136,7 @@ void ParticleProcessAll(void)
         }
                 
         pParticle = gParticleEffects;
-         while (pParticle < gParticleEffects + 16)
+         while (pParticle < gParticleEffects + MAX_AMOUNT_OF_PARTICLES)
         {
             if ((pParticle->status & (PARTICLE_STATUS_EXISTS | PARTICLE_STATUS_EXPLOSION)) == PARTICLE_STATUS_EXISTS)
             {
@@ -172,7 +172,7 @@ void ParticleSet(u16 yPosition, u16 xPosition, u8 effect)
     u8 count;
 
     counter = FALSE;
-    for (pParticle = gParticleEffects; pParticle < gParticleEffects + 16; pParticle++)
+    for (pParticle = gParticleEffects; pParticle < gParticleEffects + MAX_AMOUNT_OF_PARTICLES; pParticle++)
     {
         if (!pParticle->status)
         {
@@ -184,7 +184,7 @@ void ParticleSet(u16 yPosition, u16 xPosition, u8 effect)
     if (!counter)
     {
         count = 0x0;
-        for (pParticle = pLow = gParticleEffects; pParticle < gParticleEffects + 16; pParticle++)
+        for (pParticle = pLow = gParticleEffects; pParticle < gParticleEffects + MAX_AMOUNT_OF_PARTICLES; pParticle++)
         {
             if (pParticle->effect < PE_CHARGING_BEAM)
                 counter_d = pParticle->frameCounter;

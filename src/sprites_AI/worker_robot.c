@@ -134,7 +134,7 @@ void WorkerRobotWalkingDetectProjectile(void)
     spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
     pProj = gProjectileData;
 
-    while (pProj < gProjectileData + 16)
+    while (pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES)
     {
         if ((pProj->status & (PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT)) == (PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT))
         {

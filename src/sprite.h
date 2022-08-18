@@ -6,8 +6,10 @@
 
 // Globals
 
+#define MAX_AMOUNT_OF_SPRITES 24
+
 extern u16 gAlarmTimer;
-extern struct SpriteData gSpriteData[24];
+extern struct SpriteData gSpriteData[MAX_AMOUNT_OF_SPRITES];
 extern u8 gSpritesetSpritesID[15];
 extern u8 gSpritesetGFXSlots[15];
 extern struct SubSpriteData gSubSpriteData1;
@@ -18,7 +20,7 @@ extern struct SpriteDebris gSpriteDebris[8];
 extern u8 gPreviousVerticalCollisionCheck;
 extern u8 gPreviousCollisionCheck;
 extern u8 gIgnoreSamusAndSpriteCollision;
-extern u8 gSpriteDrawOrder[24];
+extern u8 gSpriteDrawOrder[MAX_AMOUNT_OF_SPRITES];
 extern struct BossWork gBossWork;
 extern u8 gSpriteRNG;
 

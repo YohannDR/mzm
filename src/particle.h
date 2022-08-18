@@ -6,7 +6,9 @@
 
 // Globals
 
-extern struct ParticleEffect gParticleEffects[16];
+#define MAX_AMOUNT_OF_PARTICLES 16
+
+extern struct ParticleEffect gParticleEffects[MAX_AMOUNT_OF_PARTICLES];
 extern const u16* gCurrentParticleEffectOAMFramePointer;
 extern u16 gParticleEscapeOAMFrames[25];
 extern u16 gParticleSamusReflectionOAMFrames[73];

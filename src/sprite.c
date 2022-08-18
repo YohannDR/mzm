@@ -210,7 +210,7 @@ void SpriteDrawAll(void)
         pSprite2 = gSpriteData;
         unk2 = unk + 0x1;
 
-        while (pSprite2 < gSpriteData + 24)
+        while (pSprite2 < gSpriteData + MAX_AMOUNT_OF_SPRITES)
         {
             if (gSpriteDrawOrder[ramSlot] == unk)
             {
@@ -375,7 +375,7 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
 
     ramSlot = 0x0;
 
-    for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (!(pSprite->status & SPRITE_STATUS_EXISTS))
         {
@@ -440,7 +440,7 @@ u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yP
     new_ramSlot = 0x0;
     pSprite = gSpriteData;
 
-    while (pSprite < gSpriteData + 24)
+    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
     {
         status = pSprite->status & SPRITE_STATUS_EXISTS;
         if (status == 0x0)
@@ -496,7 +496,7 @@ u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 x
     new_ramSlot = 0x0;
     pSprite = gSpriteData;
 
-    while (pSprite < gSpriteData + 24)
+    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
     {
         status = pSprite->status & SPRITE_STATUS_EXISTS;
         if (status == 0x0)
@@ -553,7 +553,7 @@ u8 SpriteSpawnDropFollowers(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u1
     new_ramSlot = 0x0;
     pSprite = gSpriteData;
 
-    while (pSprite < gSpriteData + 24)
+    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
     {
         status = pSprite->status & SPRITE_STATUS_EXISTS;
         if (status == 0x0)

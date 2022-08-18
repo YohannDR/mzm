@@ -69,7 +69,7 @@ u8 ProjectileCheckNumberOfProjectiles(u8 type, u8 limit)
     count = 0x0;
     pProj = gProjectileData;
 
-    while (pProj < gProjectileData + 16)
+    while (pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES)
     {
         if (pProj->status & PROJ_STATUS_EXISTS && pProj->type == type)
         {
@@ -98,7 +98,7 @@ u8 ProjectileInit(u8 type, u16 yPosition, u16 xPosition)
     u8 status;
     u8 hitbox;
 
-    for (pProj = gProjectileData; pProj < gProjectileData + 16; pProj++)
+    for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
         hitbox = 0x1;
         pData = &gSamusData;
@@ -130,8 +130,6 @@ u8 ProjectileInit(u8 type, u16 yPosition, u16 xPosition)
     return FALSE;
 }
 
-// Scratch that matches: https://decomp.me/scratch/woOst
-#define ARRLEN(x) ((i32)(sizeof(x) / sizeof(x[0])))
 void ProjectileUpdate(void)
 {
     i32 count;
@@ -164,7 +162,7 @@ void ProjectileUpdate(void)
             }
 
             count++;
-        } while (count < ARRLEN(gParticleEffects));
+        } while (count < MAX_AMOUNT_OF_PARTICLES);
 
         if (!checks)
             ParticleSet(gArmCannonY, gArmCannonX, PE_CHARGING_BEAM);
@@ -426,7 +424,7 @@ void ProjectileUpdate(void)
 
     ProjectileCheckHittingSprite();
 
-    for (pProj = gProjectileData; pProj < gProjectileData + 16; pProj++)
+    for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
         if (pProj->status & PROJ_STATUS_EXISTS)
         {
@@ -520,7 +518,7 @@ void ProjectileCallLoadGraphicsAndClearProjectiles(void)
     if (gPauseScreenFlag == 0x0)
     {
         pProj = gProjectileData;
-        while (pProj < gProjectileData + 16)
+        while (pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES)
         {
             pProj->status = 0x0;
             pProj++;
@@ -761,7 +759,7 @@ void ProjectileCheckHittingSprite(void)
         projRight = projX + gCurrentPowerBomb.hitboxRightOffset;
         status = (SPRITE_STATUS_EXISTS | SPRITE_STATUS_IGNORE_PROJECTILES);
         pSprite = gSpriteData;
-        while (pSprite < gSpriteData + 24)
+        while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
         {
             if ((pSprite->status & status) == SPRITE_STATUS_EXISTS && pSprite->health != 0x0 && (pSprite->invicibilityStunFlashTimer & 0x80) == 0x0)
             {
@@ -780,7 +778,7 @@ void ProjectileCheckHittingSprite(void)
     status = (SPRITE_STATUS_EXISTS | SPRITE_STATUS_IGNORE_PROJECTILES);
     count = 0x0;
     pSprite = gSpriteData;
-    while (pSprite < gSpriteData + 24)
+    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
     {
         if ((pSprite->status & status) == SPRITE_STATUS_EXISTS && pSprite->health != 0x0)
             gSpriteDrawOrder[count] = pSprite->drawOrder;
@@ -794,7 +792,7 @@ void ProjectileCheckHittingSprite(void)
         count = 0x0;
         pSprite = gSpriteData;
         drawOrder_next = drawOrder + 0x1;
-        while (pSprite < gSpriteData + 24)
+        while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
         {
             pSprite_next = pSprite + 0x1;
             if (gSpriteDrawOrder[count] == drawOrder)
@@ -807,7 +805,7 @@ void ProjectileCheckHittingSprite(void)
                 spriteRight = spriteX + pSprite->hitboxRightOffset;
                 statusProj = PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT;
                 pProj = gProjectileData;
-                while (pProj < gProjectileData + 16)
+                while (pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES)
                 {
                     if ((pProj->status & statusProj) == statusProj)
                     {
@@ -2526,7 +2524,7 @@ void ProjectileProcessPowerBomb(struct ProjectileData* pProj)
             pProj->movementStage++;
 
             pSprite = gSpriteData;
-            while (pSprite < gSpriteData + 24)
+            while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
             {
                 if (pSprite->status & SPRITE_STATUS_EXISTS)
                     pSprite->invicibilityStunFlashTimer &= 0x7F;

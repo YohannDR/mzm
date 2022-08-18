@@ -16,7 +16,7 @@ u32 ParasiteCount(void)
     count = 0x0;
     pSprite = gSpriteData;
 
-    while (pSprite < gSpriteData + 24)
+    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == SSC_BUG)
         {

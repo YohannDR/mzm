@@ -516,7 +516,7 @@ void SearchlightEyeBeamDetectSamus(void)
             gCurrentSprite.samusCollision = SSC_NONE;
             gAlarmTimer = 0x1E0;
 
-            for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+            for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
             {
                 if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == SSC_SPACE_PIRATE)
                     pSprite->status |= SPRITE_STATUS_MOSAIC;

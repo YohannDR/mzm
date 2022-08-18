@@ -242,7 +242,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
         }
     }
 
-    for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         status = pSprite->status;
         if ((status & (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN)) == (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN))
@@ -780,7 +780,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
             break;
     }
 
-    for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->ignoreSamusCollisionTimer != 0x0)
             pSprite->ignoreSamusCollisionTimer--;
@@ -1877,7 +1877,7 @@ u8 SpriteUtilCountPrimarySprites(u8 spriteID)
     count = 0x0;
     pSprite = gSpriteData;
 
-    while (pSprite < gSpriteData + 24)
+    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE) && pSprite->spriteID == spriteID)
             count++;
@@ -1897,7 +1897,7 @@ u8 SpriteUtilCountSecondarySpritesWithCurrentSpriteRAMSlot(u8 spriteID)
     ramSlot = gCurrentSprite.primarySpriteRAMSlot;
     pSprite = gSpriteData;
 
-    while (pSprite < gSpriteData + 24)
+    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->properties & SP_SECONDARY_SPRITE && pSprite->spriteID == spriteID && pSprite->primarySpriteRAMSlot == ramSlot)
             count++;
@@ -1917,7 +1917,7 @@ u8 SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(u8 spriteID)
     ramSlot = gCurrentSprite.primarySpriteRAMSlot;
     pSprite = gSpriteData;
 
-    while (pSprite < gSpriteData + 24)
+    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE) && pSprite->spriteID == spriteID && pSprite->primarySpriteRAMSlot == ramSlot)
             count++;
@@ -1935,7 +1935,7 @@ u8 SpriteUtilFindPrimary(u8 spriteID)
     ramSlot = 0x0;
     pSprite = gSpriteData;
 
-    while (pSprite < gSpriteData + 24)
+    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
     {
         if ((pSprite->status & SPRITE_STATUS_EXISTS) != 0x0 && (pSprite->properties & SP_SECONDARY_SPRITE) == 0x0 && pSprite->spriteID == spriteID)
             return ramSlot;
@@ -1954,7 +1954,7 @@ u8 SpriteUtilFindSecondaryWithRoomSlot(u8 spriteID, u8 roomSlot)
     ramSlot = 0x0;
     pSprite = gSpriteData;
 
-    while (pSprite < gSpriteData + 24)
+    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
     {
         if ((pSprite->status & SPRITE_STATUS_EXISTS) != 0x0 && (pSprite->properties & SP_SECONDARY_SPRITE) != 0x0 && pSprite->spriteID == spriteID && pSprite->roomSlot == roomSlot)
             return ramSlot;
@@ -1975,7 +1975,7 @@ u8 SpriteUtilCheckHasDrops(void)
     collision = SSC_ABILITY_LASER_SEARCHLIGHT;
     pSprite = gSpriteData;
 
-    while (pSprite< gSpriteData + 24)
+    while (pSprite< gSpriteData + MAX_AMOUNT_OF_SPRITES)
     {
         if ((pSprite->status & SPRITE_STATUS_EXISTS) != 0x0 && pSprite->primarySpriteRAMSlot == ramSlot && pSprite->samusCollision >= collision)
             return TRUE;
@@ -1993,7 +1993,7 @@ u8 SpriteUtilCountDrops(void)
     count = 0x0;
     pSprite = gSpriteData;
 
-    while (pSprite< gSpriteData + 24)
+    while (pSprite< gSpriteData + MAX_AMOUNT_OF_SPRITES)
     {
         if ((pSprite->status & SPRITE_STATUS_EXISTS) != 0x0 && pSprite->samusCollision >= SSC_ABILITY_LASER_SEARCHLIGHT)
             count++;

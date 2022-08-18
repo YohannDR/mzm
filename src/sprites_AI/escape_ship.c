@@ -980,7 +980,7 @@ void EscapeShipSetIgnoreSamus(void)
 {
     struct SpriteData* pSprite;
 
-    for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS)
             pSprite->ignoreSamusCollisionTimer = 0xF;
@@ -998,7 +998,7 @@ void EscapeShipSetPirateDrawOrder(void)
 
     collision = SSC_SPACE_PIRATE;
 
-    for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == collision)
             pSprite->drawOrder = 0x2;
@@ -1032,7 +1032,7 @@ void EscapeShipPirateCollision(void)
     spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
     spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
 
-    for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == SSC_SPACE_PIRATE)
         {
@@ -1083,7 +1083,7 @@ void EscapeShipCheckCollidingWithLaser(void)
     spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
     offset = 0x4;
 
-    for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == SSC_SPACE_PIRATE_LASER)
         {

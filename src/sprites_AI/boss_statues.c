@@ -1188,7 +1188,7 @@ void KraidStatue(void)
             gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN;
     }
 
-    for (pProj = gProjectileData; pProj < gProjectileData + 16; pProj++)
+    for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
         if (pProj->status & PROJ_STATUS_EXISTS)
             pProj->status |= PROJ_STATUS_UNKNOWN;

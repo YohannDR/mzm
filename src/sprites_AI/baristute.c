@@ -845,7 +845,7 @@ void BaristuteDeath(void)
     {
         // Check if dead
         count = 0x0;
-        for (pSprite = gSpriteData; pSprite < gSpriteData + 24; pSprite++)
+        for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
         {
             if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE)
                 && pSprite->spriteID == spriteID && pSprite->health != 0x0)
