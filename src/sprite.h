@@ -403,13 +403,13 @@ struct SubSpriteData {
     u16 xPosition;
     u16 health;
     u8 animationDurationCounter;
-    u8 maybe_status;
-    u8 timer;
     u8 workVariable1;
     u8 workVariable2;
     u8 workVariable3;
     u8 workVariable4;
     u8 workVariable5;
+    u8 workVariable6;
+    u8 workVariable7;
 };
 
 struct SpriteData {

@@ -265,7 +265,7 @@ void EscapeGate(void)
             gCurrentSprite.workVariable2 = 0x1;
             gCurrentSprite.drawOrder = 0x3;
 
-            gSubSpriteData1.workVariable1 = 0x0;
+            gSubSpriteData1.workVariable3 = 0x0;
             EscapeGateChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE); // Set gate collision
             break;
 
@@ -291,7 +291,7 @@ void EscapeGate(void)
                 if (SpriteUtilCountPrimarySprites(PSPRITE_BLACK_SPACE_PIRATE) == 0x0)
                     gCurrentSprite.pose = ESCAPE_GATE_POSE_CHECK_OPEN;
             }
-            else if (gSubSpriteData1.workVariable1 == 0x2)
+            else if (gSubSpriteData1.workVariable3 == 0x2)
                 gCurrentSprite.pose = ESCAPE_GATE_POSE_CHECK_OPEN;
             break;
 
@@ -325,7 +325,7 @@ void EscapeGate(void)
             if (spriteID != PSPRITE_ESCAPE_GATE1)
                 return;
 
-            if (gSubSpriteData1.workVariable1 == 0x1)
+            if (gSubSpriteData1.workVariable3 == 0x1)
             {
                 // Spawn pirate that chases the escape ship
                 SpriteSpawnPrimary(PSPRITE_SPACE_PIRATE_WAITING1, 0x81, 0x0, gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0xA0, 0x0);
@@ -337,7 +337,7 @@ void EscapeGate(void)
             if (spriteID != PSPRITE_ESCAPE_GATE1)
                 return;
 
-            if (gSubSpriteData1.workVariable1 == 0x2)
+            if (gSubSpriteData1.workVariable3 == 0x2)
                 delay = 0x3;
             break;
     }

@@ -606,7 +606,7 @@ void AcidWormSyncHeadPosition(void)
     else
         rotation = gCurrentSprite.oamRotation;
 
-    if (gSubSpriteData1.workVariable1 == 0x1)
+    if (gSubSpriteData1.workVariable3 == 0x1)
         offset = 0x180;
     else
         offset = 0x100;
@@ -781,7 +781,7 @@ void AcidWormChangeBigBlockTopCCAA(u8 caa)
  */
 void AcidWormPlaySound(void)
 {
-    if (gSubSpriteData1.workVariable1 == 0x0)
+    if (gSubSpriteData1.workVariable3 == 0x0)
         SoundPlay(0x1B0);
     else
         SoundPlay(0x1AC);
@@ -851,8 +851,8 @@ void AcidWormInit(void)
     gCurrentSprite.yPositionSpawn = yPosition;
     gCurrentSprite.xPositionSpawn = xPosition;
 
-    gSubSpriteData1.workVariable1 = 0x0;
-    gSubSpriteData1.timer = 0x0;
+    gSubSpriteData1.workVariable3 = 0x0;
+    gSubSpriteData1.workVariable2 = 0x0;
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ACID_WORM_KILLED))
     {
@@ -915,7 +915,7 @@ void AcidWormSpawnStart(void)
         && gSamusData.xPosition < (i32)(gCurrentSprite.xPositionSpawn + (BLOCK_SIZE * 0x2 + 0xC)))
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
-        gSubSpriteData1.timer = 0x1;
+        gSubSpriteData1.workVariable2 = 0x1;
         gCurrentSprite.pose = ACID_WORM_POSE_SPAWN_EXTEND;
         gCurrentSprite.timer = 0x0;
         // Destroy bottom
@@ -1123,7 +1123,7 @@ void AcidWormExtend(void)
         gCurrentSprite.timer--;
         if (gCurrentSprite.timer == 0x0)
         {
-            if (gSubSpriteData1.workVariable1 == 0x0)
+            if (gSubSpriteData1.workVariable3 == 0x0)
             {
                 if (gCurrentSprite.health <= spawnHealth >> 0x2)
                     SoundPlay(0x1AF);
@@ -1140,7 +1140,7 @@ void AcidWormExtend(void)
     {
         gEffectYPositionOffset++;
         // Get speed based on destination or health
-        if (gSubSpriteData1.workVariable1 == 0x0)
+        if (gSubSpriteData1.workVariable3 == 0x0)
         {
             if (gCurrentSprite.health <= spawnHealth >> 0x2)
                 speed = 0x4;
@@ -1193,7 +1193,7 @@ void AcidWormExtend(void)
         {
             // Extend done
             gCurrentSprite.pose = ACID_WORM_POSE_EXTENDED;
-            if (gSubSpriteData1.workVariable1 == 0x0) // If not spitting
+            if (gSubSpriteData1.workVariable3 == 0x0) // If not spitting
             {
                 yPosition = gCurrentSprite.yPosition;
                 xPosition = gCurrentSprite.xPosition;
@@ -1269,7 +1269,7 @@ void AcidWormExtended(void)
     finishedThrowing = FALSE;
     AcidWormSyncHeadPosition();
 
-    if (gSubSpriteData1.workVariable1 == 0x0)
+    if (gSubSpriteData1.workVariable3 == 0x0)
     {
         // Hooked to block
         if (!AcidWormCollidingWithSamusWhenExtending())
@@ -1547,7 +1547,7 @@ void AcidWormDying(void)
     // Check acid reached bottom 
     if (gEffectYPosition > (i32)(gCurrentSprite.yPositionSpawn + 0x1E0))
     {
-        if (gSubSpriteData1.timer == 0x0)
+        if (gSubSpriteData1.workVariable2 == 0x0)
         {
             gCurrentSprite.status = 0x0;
             MusicPlay(0xB, 0x0); // Boss killed
@@ -1555,7 +1555,7 @@ void AcidWormDying(void)
     }
     else
     {
-        if (gSubSpriteData1.timer == 0x0)
+        if (gSubSpriteData1.workVariable2 == 0x0)
         {
             if (gEffectYPosition < gCurrentSprite.yPositionSpawn)
             {
@@ -1877,7 +1877,7 @@ void AcidWormBodyDeath(void)
                 if (roomSlot == ACID_WORM_BODY_PART_SEGMENT5)
                 {
                     // Last segment
-                    gSubSpriteData1.timer = 0x0;
+                    gSubSpriteData1.workVariable2 = 0x0;
                     ParticleSet(gSpriteData[ramSlot].yPositionSpawn + 0x60, gSpriteData[ramSlot].xPositionSpawn, PE_SPRITE_EXPLOSION_BIG);
                     ParticleSet(gSpriteData[ramSlot].yPositionSpawn + 0x40, gSpriteData[ramSlot].xPositionSpawn, PE_SPRITE_EXPLOSION_BIG);
                     // Open path
@@ -2120,7 +2120,7 @@ void AcidWorm(void)
     }
 
     // Lock screen if not dead
-    if (gSubSpriteData1.timer != 0x0)
+    if (gSubSpriteData1.workVariable2 != 0x0)
     {
         gLockScreen.lock = 0x2;
         gLockScreen.yPositionCenter = gCurrentSprite.yPositionSpawn - 0x100;

@@ -1727,12 +1727,12 @@ void ParticleSamusReflection(struct ParticleEffect* pParticle)
     pParticle->yPosition = gSubSpriteData1.yPosition + 0x5C;
     pParticle->xPosition = gSubSpriteData1.xPosition;
 
-    if (gSubSpriteData1.maybe_status == 0x0) // Probably checks for shootable symbol state
+    if (gSubSpriteData1.workVariable1 == 0x0) // Probably checks for shootable symbol state
         pParticle->status &= ~PARTICLE_STATUS_NOT_DRAWN;
     else
     {
         pParticle->status |= PARTICLE_STATUS_NOT_DRAWN;
-        if (gSubSpriteData1.workVariable1 == 0x1)
+        if (gSubSpriteData1.workVariable3 == 0x1)
             pParticle->status = 0x0;
     }
 }

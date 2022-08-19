@@ -9,6 +9,10 @@
 #define KRAID_POSE_FIRST_STEP 0x9
 #define KRAID_POSE_STANDING_INIT 0xE
 #define KRAID_POSE_STANDING 0xF
+#define KRAID_POSE_STANDING_BETWEEN_STEPS_INIT 0x10
+#define KRAID_POSE_STANDING_BETWEEN_STEPS 0x11
+#define KRAID_POSE_SECOND_STEP_INIT 0x22
+#define KRAID_POSE_SECOND_STEP 0x23
 #define KRAID_POSE_DYING_INIT 0x62
 #define KRAID_POSE_DYING 0x67
 #define KRAID_POSE_DEAD_STATIONARY 0x68
@@ -38,10 +42,16 @@
 #define KRAID_PART_RIGHT_ARM 0xA
 #define KRAID_PART_RIGHT_FEET 0xB
 
+// Kraid spike
+
+#define KRAID_SPIKE_POSE_DELAY_BEFORE_MOVING 0x9
+#define KRAID_SPIKE_POSE_MOVING 0x23
+#define KRAID_SPIKE_POSE_IN_WALL 0x25
+
 void KraidSyncSubSprites(void);
 void KraidCheckProjectilesCollidingWithBelly(void);
 void KraidOpenCloseRoutineAndProjectileCollision(void);
-void KraidRandomSpriteDebrisOnCeiling(u8 rng);
+void KraidRandomSpriteDebrisOnCeiling(u8 timer);
 void KraidPartHitboxChange_1Unused(void);
 void KraidPartUpdateRightArmIdlingHitbox(void);
 void KraidPartUpdateRightArmAttackingHitbox(void);
@@ -57,12 +67,13 @@ void KraidGoUp(void);
 void KraidCheckFullyUp(void);
 u8 KraidMoveFeet(void);
 void KraidFirstStepInit(void);
-void KraidMoveFeetToOppositeDirectionAsPosition(void);
-void KraidFeetMovementOppositeDirectionAsPositionUpdate(void);
+void KraidFirstStep(void);
+void KraidSecondStepInit(void);
+void KraidSecondStep(void);
 void KraidStandingInit(void);
 void KraidStanding(void);
-void KraidAfterMovingFeetSameDirectionAsPosition(void);
-void KraidBeforeStartMovingFeetOppositeDirectionAsPosition(void);
+void KraidStandingBetweenStepsInit(void);
+void KraidStandingBetweenSteps(void);
 void KraidPreventSamusGoingThrough(void);
 void KraidDyingInit(void);
 void KraidDying(void);

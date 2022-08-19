@@ -2520,14 +2520,14 @@ void SpriteUtilUpdateSubSprite1Timer(void)
     u32 adc;
     u8 timer;
 
-    gSubSpriteData1.timer = 0x0;
+    gSubSpriteData1.workVariable2 = 0x0;
     adc = (u8)(gSubSpriteData1.animationDurationCounter + 0x1);
     caf = gSubSpriteData1.currentAnimationFrame;
 
     if (gSubSpriteData1.pMultiOam[caf].timer < adc)
     {
         timer = (u8)caf;
-        gSubSpriteData1.timer = timer + 0x1;
+        gSubSpriteData1.workVariable2 = timer + 0x1;
     }
 }
 

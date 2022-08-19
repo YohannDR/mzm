@@ -63,7 +63,7 @@ void FallingChozoPillar(void)
             break;
 
         case FALLING_CHOZO_PILLAR_POSE_CHECK_SUIT_ANIM_ENDED:
-            if (gSubSpriteData1.workVariable1 == 0x8) // Check suit animation ended
+            if (gSubSpriteData1.workVariable3 == 0x8) // Check suit animation ended
             {
                 gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.pose = FALLING_CHOZO_PILLAR_POSE_CHECK_ON_SCREEN;

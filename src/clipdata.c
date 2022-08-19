@@ -288,13 +288,11 @@ u8 ClipdataCheckCantUseElevator(void)
  */
 i32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
 {
-    // https://decomp.me/scratch/PlWs7
-
-    /*i16 tileY;
-    i16 tileX;
+    i32 tileY;
+    i32 tileX;
     u32 clipdata;
 
-    tileY = yPosition >> 0x6; /!\ Swapped instructions for some reason
+    tileY = yPosition >> 0x6;
     tileX = xPosition >> 0x6;
 
     if (tileY >= gBGPointersAndDimensions.clipdataHeight || tileX >= gBGPointersAndDimensions.clipdataWidth)
@@ -313,5 +311,5 @@ i32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
             clipdata = GROUND_EFFECT_NONE;
 
         return clipdata;
-    }*/
+    }
 }
