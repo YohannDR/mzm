@@ -13,36 +13,48 @@ u32 EventFunction(u8 action, u8 event)
 {
     u32* pEvent;
     u32 previous;
-    u32 value;
-    u32 is_set;
-
-    // /!\ Weird cast stuff
-    if ((u8)(event - 0x1) > 0x4D) // Check if within limit
+    u32 newEvent;
+    u32 isSet;
+    
+    if ((u8)(event - 1) > EVENT_BOMBATE)
         return FALSE;
     else
     {
+        // Get event chunk
         pEvent = gEventsTriggered;
-        pEvent += (event - 0x1) >> 0x1D; 
-        value = 0x1 << (event & 0x1F);
+        pEvent += (event / 32);
+
+        // Get correct bit for the requested event
+        newEvent = 1 << (event & 31);
+        // Get previous event
         previous = *pEvent;
 
-        is_set = previous & value;
-        if (is_set)
-            is_set = TRUE; // Set to 1 if different than 0
+        // Check is set
+        isSet = previous & newEvent;
+        if (previous & newEvent)
+            isSet = TRUE; // Not 0, then set
+
+        // Apply action
         switch (action)
         {
             case EVENT_ACTION_CLEARING:
-                *pEvent = previous & ~value; // Clear bit
-                return is_set;
+                // Remove
+                *pEvent = previous & ~newEvent;
+                break;
 
             case EVENT_ACTION_SETTING:
-                *pEvent = previous | value; // Set bit
-                return is_set ^ 0x1; // Toggle bit, not sure why they did that
+                // Add
+                *pEvent = previous | newEvent;
+                isSet ^= TRUE;
+                break;
 
             case EVENT_ACTION_TOGGLING:
-                *pEvent = previous ^ value; // Toggle bit
-                return is_set ^ 0x1; // Toggle bit
+                // Toggle
+                *pEvent = previous ^ newEvent;
+                isSet ^= TRUE;
+                break;
         }
-        return is_set;
+
+        return isSet;
     }
 }
