@@ -37,7 +37,7 @@ u16 BGClipGetNewBLDALPHAValue(u16 clip)
     u16 bldalpha;
     u16 offset;
 
-    offset = (u16)(clip - 0x44);
+    offset = clip - 0x44;
     if (offset < 0xB)
         return bldalpha_values_for_clipdata[offset];
     else
@@ -51,7 +51,7 @@ u16 BGClipGetNewBLDALPHAValue(u16 clip)
 
 void BGClipCheckWalkingOnCrumbleBlock(void)
 {
-
+    
 }
 
 void BGClipCheckTouchingTransitionOnElevator(void)
@@ -75,9 +75,69 @@ void BGClipFinishCollectingAbility(void)
     update_minimap_square_for_collected_items((u8)(gSamusData.xPosition >> 0x6), (u8)(gSamusData.yPosition >> 0x6));
 }
 
-void BGClipCheckGrabbingCrumnbleBlock(u8 false)
+/**
+ * @brief 5ae1c | 104 | Checks if samus is grabbing a crumble block
+ * 
+ * @param dontDestroy 
+ */
+void BGClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
 {
+    u8 setPose;
+    i32 yOffset;
+    i32 xOffset;
+    u16 yPosition;
+    u16 xPosition;
+    u16 behavior;
 
+    if (gSamusPhysics.standingStatus != STANDING_HANGING)
+        return;
+
+    setPose = FALSE;
+    yOffset = -0x6C;
+    if (gSamusData.direction & KEY_RIGHT)
+        xOffset = BLOCK_SIZE / 2;
+    else
+        xOffset = -(BLOCK_SIZE / 2);
+
+    if (gSamusData.pose != SPOSE_HANGING_ON_LEDGE && gSamusData.pose != SPOSE_GRABBING_A_LEDGE_SUITLESS)
+        xOffset = -xOffset;
+
+    if (!dontDestroy)
+    {
+        // Get position
+        xPosition = (gSamusData.xPosition + xOffset) >> 0x6;
+        yPosition = (gSamusData.yPosition + yOffset) >> 0x6;
+
+        // Get behavior
+        behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.
+            pClipDecomp[yPosition * gBGPointersAndDimensions.clipdataWidth + xPosition]];
+
+        // Check is crumble
+        if (behavior == CLIP_BEHAVIOR_CRUMBLE_BLOCK)
+        {
+            // Destroy block
+            if (BlockStoreBrokenReformBlock(BLOCK_TYPE_CRUMBLE, xPosition, yPosition, FALSE))
+                setPose = TRUE;
+        }
+        else if (behavior == CLIP_BEHAVIOR_SLOW_CRUMBLE_BLOCK)
+        {
+            // Destroy block
+            if (BlockStoreBrokenReformBlock(BLOCK_TYPE_SLOW_CRUMBLE, xPosition, yPosition, TRUE))
+            {
+                BGClipSetBG1BlockValue(0x401, yPosition, xPosition);
+                BGClipSetClipdataBlockValue(0x401, yPosition, xPosition);
+                setPose = FALSE;
+            }
+        }
+    }
+
+    if (!setPose)
+    {
+        if (!(ClipdataProcessForSamus(gSamusData.yPosition + yOffset, gSamusData.xPosition + xOffset) & CLIPDATA_TYPE_SOLID_FLAG))
+            setPose = TRUE;
+    }
+    if (setPose)
+        SamusSetPose(SPOSE_UPDATE_JUMP_VELOCITY_REQUEST);
 }
 
 u8 BGClipCheckOpeningHatch(u16 xPosition, u16 yPosition)

@@ -36,7 +36,7 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
         if (collision.tileY < gBGPointersAndDimensions.clipdataHeight)
         {
             // Get clip type at position
-            collision.clipdataType = gTilemapAndClipPointers.clip_collisions[gBGPointersAndDimensions.pClipDecomp[gBGPointersAndDimensions.clipdataWidth * collision.tileY + collision.tileX]];
+            collision.clipdataType = gTilemapAndClipPointers.pClipCollisions[gBGPointersAndDimensions.pClipDecomp[gBGPointersAndDimensions.clipdataWidth * collision.tileY + collision.tileX]];
             // Get sub pixel
             collision.subPixelY = yPosition & SUB_PIXEL_POSITION_FLAG;
             collision.subPixelX = xPosition & SUB_PIXEL_POSITION_FLAG;
@@ -104,7 +104,7 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
         }
 
         // Get type and sub pixel, then call clipdata code
-        collision.clipdataType = gTilemapAndClipPointers.clip_collisions[clipdata];
+        collision.clipdataType = gTilemapAndClipPointers.pClipCollisions[clipdata];
         collision.subPixelY = yPosition & SUB_PIXEL_POSITION_FLAG;
         collision.subPixelX = xPosition & SUB_PIXEL_POSITION_FLAG;
         return clipdata = gClipdataCodePointer(&collision);
@@ -303,7 +303,7 @@ i32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
         if (clipdata & 0x400)
             clipdata = 0x0;
         else
-            clipdata = gTilemapAndClipPointers.clip_behaviors[clipdata];
+            clipdata = gTilemapAndClipPointers.pClipBehaviors[clipdata];
 
         if ((clipdata - 0x50) < 0x5)
             clipdata = GroundEffectClipdataValues[clipdata - 0x50];
