@@ -7,8 +7,7 @@
  * @param b B
  * @return i16 Result
  */
-i16
-FixedMultiplication(i16 a, i16 b)
+i16 FixedMultiplication(i16 a, i16 b)
 {
     i32 x   = a;
     i32 y   = b;
@@ -25,8 +24,7 @@ FixedMultiplication(i16 a, i16 b)
  * @param b B
  * @return i16 Result
  */
-i16
-FixedDivision(i16 a, i16 b)
+i16 FixedDivision(i16 a, i16 b)
 {
     i32 x = a;
     i32 y = b;
@@ -40,8 +38,7 @@ FixedDivision(i16 a, i16 b)
  * @param a A
  * @return i16 Result
  */
-i16
-FixedInverse(i16 a)
+i16 FixedInverse(i16 a)
 {
     return 0x10000 / a;
 }

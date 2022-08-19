@@ -27,8 +27,10 @@ SECTIONS {
         . = 0x00000042; gSkipDoorTransition = .;
         . = 0x00000043; gDisableSoftreset = .;
         . = 0x00000044; gCollectingTank = .;
+        . = 0x00000048; gDisableDoorAndTanks = .;
         . = 0x00000049; gDisablePause = .;
-        . = 0x00000049; gHideHud = .;
+        . = 0x0000004A; gHideHud = .;
+        . = 0x0000004C; gDisableClipdataChangingTransparency = .;
         . = 0x00000054; gCurrentArea = .;
         . = 0x00000055; gCurrentRoom = .;
         . = 0x00000056; gLastDoorUsed = .;

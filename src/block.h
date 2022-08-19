@@ -58,7 +58,7 @@ u8 BlockUpdateMakeSolidBlocks(u8 make_solid, u16 xPosition, u16 yPosition);
 u8 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosition, u8 action);
 void BlockUpdateBrokenBlocks(void);
 void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock);
-u8 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 stopSamus);
+u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 stopSamus);
 u8 BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type);
 u8 BlockCheckRevealBombChainBlock(u8 type, u16 xPosition, u16 yPosition);
 u8 BlockCheckSamusInReformingBlock(u8 xPosition, u8 yPosition);

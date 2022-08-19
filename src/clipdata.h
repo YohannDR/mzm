@@ -177,7 +177,7 @@ struct CollisionData {
 };
 
 struct TilemapAndClipPointers {
-    u16* tilemap;
+    u16* pTilemap;
     u8* pClipCollisions;
     u16* pClipBehaviors;
 };
