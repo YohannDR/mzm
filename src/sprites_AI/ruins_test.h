@@ -4,14 +4,14 @@
 #include "../types.h"
 
 void RuinsTestCalculateDelay(u8 delay);
-void RuinsTestChangeCCAA(u8 action);
-void RuinsTestMoveToPosition(u16 yTarget, u16 xTarget, u16 yPosition, u16 xPosition, u8 speedMultiplier, u8 speed);
+void RuinsTestChangeCCAA(u8 caa);
+void RuinsTestMoveToPosition(u16 yTarget, u16 xTarget, u16 yPosition, u16 xPosition, u16 speedMultiplier, u16 speed);
 u8 RuinsTestProjectileCollision(void);
-void unk_38d28(void);
-void unk_38d70(void);
+u8 RuinsTestCheckHitByChargedPistol(void);
+u8 RuinsTestCheckSymbolShooted(void);
 u8 RuinsTestCheckSamusHurting(void);
-void unk_38e28(void);
-void RuinsTestGhostMove(u8 rng);
+u8 RuinsTestUpdateSymbol(void);
+void RuinsTestGhostMove(u8 speed);
 void RuinsTestInit(void);
 void RuinsTestSpawningAnim(void);
 void RuinsTestSpawnReflectionStart(void);
