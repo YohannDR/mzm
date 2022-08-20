@@ -12,7 +12,7 @@
 
 #define MAX_AMOUNT_OF_PROJECTILES 16
 
-extern struct ProjectileData gProjectileData[16];
+extern struct ProjectileData gProjectileData[MAX_AMOUNT_OF_PROJECTILES];
 extern u16 gArmCannonY;
 extern u16 gArmCannonX;
 
