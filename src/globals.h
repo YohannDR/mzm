@@ -116,6 +116,11 @@ extern i8 gTourianEscapeCutsceneStage;
 extern struct IORegistersBackup gIORegistersBackup;
 extern struct BackgroundPointersAndDimensions gBGPointersAndDimensions;
 
+extern u8 gEnergyRefillAnimation;
+extern u8 gMissileRefillAnimation;
+extern u8 gSuperMissileRefillAnimation;
+extern u8 gPowerBombRefillAnimation;
+
 extern struct RawCoordsX gWaitingSpacePiratesPosition;
 extern struct BG2Movement gBG2Movement;
 extern struct ScreenShake gScreenShakeY;

@@ -84,6 +84,10 @@ SECTIONS {
         . = 0x0000095D; gEscapeTimerCounter = .;
         . = 0x0000095E; gEscapeTimerDigits = .;
         . = 0x0000095E; gParticleEscapeOAMFrames = .;
+        . = 0x00000996; gEnergyRefillAnimation = .;
+        . = 0x00000997; gMissileRefillAnimation = .;
+        . = 0x00000998; gSuperMissileRefillAnimation = .;
+        . = 0x00000999; gPowerBombRefillAnimation = .;
         . = 0x0000095E; gParticleSamusReflectionOAMFrames = .;
         . = 0x00000A2C; gProjectileData = .;
         . = 0x00000B1D; gIsLoadingFile = .;
