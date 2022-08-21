@@ -633,7 +633,8 @@ void ItemBannerRemovalAnimation(void)
             gDisablePause = FALSE; // Re-enable pause
         else if (message == MESSAGE_FULLY_POWERED_SUIT)
         {
-            gSubSpriteData1.workVariable3 = 0x7; // Start suit animation
+            // Start suit animation
+            gSubSpriteData1.workVariable3 = RUINS_TEST_FIGHT_STAGE_STARTING_SUIT_ANIM;
             // Spawn chozo pillar
             SpriteLoadGFX(PSPRITE_FALLING_CHOZO_PILLAR, 0x7);
             SpriteLoadPAL(PSPRITE_FALLING_CHOZO_PILLAR, 0x7, 0x1);
