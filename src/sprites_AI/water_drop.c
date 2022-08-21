@@ -101,6 +101,10 @@ const struct FrameData sWaterDropOAM_Splashing[6] = {
 };
 
 
+/**
+ * @brief 12780 | 2c | Initializes a water drop sprite
+ * 
+ */
 void WaterDropInit(void)
 {
     gCurrentSprite.hitboxTopOffset = -0x4;
@@ -113,6 +117,10 @@ void WaterDropInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
 }
 
+/**
+ * @brief 127ac | 288 | Water drop AI 
+ * 
+ */
 void WaterDrop(void)
 {
     u16 offset;
