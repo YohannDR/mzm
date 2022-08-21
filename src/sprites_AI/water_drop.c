@@ -1,6 +1,105 @@
 #include "water_drop.h"
-#include "../sprite_util.h"
+#include "../../data/data.h"
 #include "../globals.h"
+
+// DATA ISSUES, this will need to be moved elsewhere later
+
+const u16 sWaterDropOAM_Spawning_Frame0[4] = {
+    0x1,
+    0xfe, 0x1fc, 0x2161
+};
+
+const u16 sWaterDropOAM_Spawning_Frame1[4] = {
+    0x1,
+    0xff, 0x1fc, 0x2161
+};
+
+const u16 sWaterDropOAM_Spawning_Frame2[4] = {
+    0x1,
+    0x0, 0x1fc, 0x2161
+};
+
+const u16 sWaterDropOAM_Spawning_Frame3[4] = {
+    0x1,
+    0x0, 0x1fc, 0x2162
+};
+
+const u16 sWaterDropOAM_Falling_Frame0[4] = {
+    0x1,
+    0xfc, 0x1fc, 0x2160
+};
+
+const u16 sWaterDropOAM_Splashing_Frame0[7] = {
+    0x2,
+    0xf8, 0x1fe, 0x409d,
+    0xf8, 0x1fa, 0x409d
+};
+
+const u16 sWaterDropOAM_Splashing_Frame1[7] = {
+    0x2,
+    0xf8, 0x1fe, 0x409e,
+    0xf8, 0x1fa, 0x409e
+};
+
+const u16 sWaterDropOAM_Splashing_Frame2[7] = {
+    0x2,
+    0xf8, 0x1fe, 0x409f,
+    0xf8, 0x1fa, 0x409f
+};
+
+const u16 sWaterDropOAM_Splashing_Frame3[7] = {
+    0x2,
+    0xf8, 0x1fe, 0x40bd,
+    0xf8, 0x1fa, 0x40bd
+};
+
+const u16 sWaterDropOAM_Splashing_Frame4[7] = {
+    0x2,
+    0xf8, 0x1fe, 0x40be,
+    0xf8, 0x1fa, 0x40be
+};
+
+const struct FrameData sWaterDropOAM_Spawning[8] = {
+    sWaterDropOAM_Spawning_Frame0,
+    0x6,
+    sWaterDropOAM_Spawning_Frame1,
+    0x6,
+    sWaterDropOAM_Spawning_Frame2,
+    0xA,
+    sWaterDropOAM_Spawning_Frame3,
+    0xC,
+    sWaterDropOAM_Spawning_Frame2,
+    0x4,
+    sWaterDropOAM_Spawning_Frame1,
+    0x4,
+    sWaterDropOAM_Spawning_Frame0,
+    0x4,
+    NULL,
+    0x0
+};
+
+const struct FrameData sWaterDropOAM_Falling[2] = {
+    sWaterDropOAM_Falling_Frame0,
+    0xFF,
+    NULL,
+    0x0
+};
+
+const struct FrameData sWaterDropOAM_Splashing[6] = {
+    sWaterDropOAM_Splashing_Frame0,
+    0x4,
+    sWaterDropOAM_Splashing_Frame1,
+    0x4,
+    sWaterDropOAM_Splashing_Frame2,
+    0x4,
+    sWaterDropOAM_Splashing_Frame3,
+    0x4,
+    sWaterDropOAM_Splashing_Frame4,
+    0x4,
+    NULL,
+    0x0
+};
+
 
 void WaterDropInit(void)
 {
@@ -8,6 +107,7 @@ void WaterDropInit(void)
     gCurrentSprite.hitboxBottomOffset = 0x4;
     gCurrentSprite.hitboxLeftOffset = -0x4;
     gCurrentSprite.hitboxRightOffset = 0x4;
+
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.drawOrder = 0x1;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -17,6 +117,7 @@ void WaterDrop(void)
 {
     u16 offset;
     u32 block;
+    i32 movement;
 
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
 
@@ -25,97 +126,112 @@ void WaterDrop(void)
         case 0x0:
             WaterDropInit();
             gCurrentSprite.yPosition -= 0x40;
+
             gCurrentSprite.drawDistanceTopOffset = 0x8;
             gCurrentSprite.drawDistanceBottomOffset = 0x8;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+
             gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.pOam = WaterDrop_oam_data_33bc54;
+            gCurrentSprite.pOam = sWaterDropOAM_Spawning;
+
             gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
             gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
+
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.pose = 0x11;
+            gCurrentSprite.pose = WATER_DROP_POSE_SPAWNING;
             gCurrentSprite.timer = gSpriteRNG << 0x3;
             break;
 
-        case 0x9:
-            if (SpriteUtilCheckEndCurrentSpriteAnim() != FALSE)
+        case WATER_DROP_POSE_CHECK_SPAWNING_ENDED:
+            if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
-                gCurrentSprite.pOam = WaterDrop_oam_falling_33bc94;
+                gCurrentSprite.pOam = sWaterDropOAM_Falling;
                 gCurrentSprite.currentAnimationFrame = 0x0;
                 gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.workVariable = 0x0;
+
+                gCurrentSprite.workVariable = FALSE;
                 gCurrentSprite.arrayOffset = 0x0;
-                gCurrentSprite.pose = 0x1F;
+                gCurrentSprite.pose = WATER_DROP_POSE_FALLING;
             }
             break;
 
-        case 0x1F:
+        case WATER_DROP_POSE_FALLING:
             block = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
             if (gCurrentAffectingClipdata.hazard == HAZARD_TYPE_WATER)
             {
+                // Splashing on water
                 if (gEffectYPosition != 0x0)
                 {
                     gCurrentSprite.yPosition = gEffectYPosition;
-                    gCurrentSprite.workVariable = 0x1;
+                    gCurrentSprite.workVariable = TRUE;
                 }
                 else
                     gCurrentSprite.yPosition = block;
-                gCurrentSprite.pose = 0xE;
+                gCurrentSprite.pose = WATER_DROP_POSE_SPLASHING_INIT;
             }
             else
             {
-                if (gPreviousVerticalCollisionCheck != 0x0)
+                // Splashing on ground
+                if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
                 {
                     gCurrentSprite.yPosition = block;
-                    gCurrentSprite.pose = 0xE;
+                    gCurrentSprite.pose = WATER_DROP_POSE_SPLASHING_INIT;
                 }
                 else
                 {
+                    // Fall
                     offset = gCurrentSprite.arrayOffset;
-                    if (sSpritesFallingSpeed_2b0d04[offset] == SPRITE_ARRAY_TERMINATOR)
-                        gCurrentSprite.yPosition += (i16)sSpritesFallingSpeed_2b0d04[offset - 0x1];
+                    movement = sSpritesFallingSpeed[offset]; 
+                    if (movement == SPRITE_ARRAY_TERMINATOR)
+                    {
+                        movement = sSpritesFallingSpeed[offset - 0x1];
+                        gCurrentSprite.yPosition += movement;
+                    }
                     else
                     {
                         gCurrentSprite.arrayOffset++;
-                        gCurrentSprite.yPosition += sSpritesFallingSpeed_2b0d04[offset];
+                        gCurrentSprite.yPosition += movement;
                     }
                 }
             }
             break;
 
-        case 0xE:
-            gCurrentSprite.pOam = WaterDrop_oam_splashing_33bca4;
+        case WATER_DROP_POSE_SPLASHING_INIT:
+            gCurrentSprite.pOam = sWaterDropOAM_Splashing;
             gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.pose = 0xF;
+            gCurrentSprite.pose = WATER_DROP_POSE_SPLASHING;
 
-        case 0xF:
-            if (gCurrentSprite.workVariable != 0x0)
+        case WATER_DROP_POSE_SPLASHING:
+            if (gCurrentSprite.workVariable)
                 gCurrentSprite.yPosition = gEffectYPosition;
 
-            if (SpriteUtilCheckEndCurrentSpriteAnim() != FALSE)
+            if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
-                gCurrentSprite.pose = 0x11;
+                gCurrentSprite.pose = WATER_DROP_POSE_SPAWNING;
                 gCurrentSprite.timer = (gSpriteRNG << 0x3) + 0x64;
             }
             break;
 
-        case 0x11:
+        case WATER_DROP_POSE_SPAWNING:
             gCurrentSprite.timer--;
-            if ((u8)gCurrentSprite.timer == 0x0)
+            if (gCurrentSprite.timer == 0x0)
             {
-                gCurrentSprite.pOam = WaterDrop_oam_data_33bc54;
+                gCurrentSprite.pOam = sWaterDropOAM_Spawning;
                 gCurrentSprite.currentAnimationFrame = 0x0;
                 gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.pose = 0x9;
+
+                gCurrentSprite.pose = WATER_DROP_POSE_CHECK_SPAWNING_ENDED;
                 gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+
                 gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn;
                 gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn;
-                if ((gSpriteRNG & 0x1) != 0x0)
-                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + ((i32)(gSpriteRNG + 0x1) / 0x2);
+
+                if (gSpriteRNG & 0x1)
+                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + ((i32)(gSpriteRNG + 0x1) >> 1);
                 else
-                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - ((i32)(gSpriteRNG + 0x1) / 0x2);
+                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - ((i32)(gSpriteRNG + 0x1) >> 1);
             }
     }
 }
