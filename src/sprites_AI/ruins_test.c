@@ -2082,6 +2082,10 @@ void RuinsTestSpawning(void)
     }
 }
 
+/**
+ * @brief 3910c | 88 | Handles the Ruins test turning into the reflection
+ * 
+ */
 void RuinsTestTurningIntoReflection(void)
 {
     if (gCurrentSprite.currentAnimationFrame == 0x7)
@@ -2979,6 +2983,10 @@ void RuinsTestGhostSymbolDelayBeforePlacingAtEndOfFight(void)
     }
 }
 
+/**
+ * @brief 39e78 | 2f4 | Ruins test AI
+ * 
+ */
 void RuinsTest(void)
 {
     switch (gCurrentSprite.pose)

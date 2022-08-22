@@ -148,43 +148,6 @@ i16 debris_6_velocity[9];
 i16 debris_7_velocity[9];
 i16 debris_8_velocity[9];
 
-/* enemy_drop_data.c */
-
-u16 small_energy_drop_oam1[4];
-u16 small_energy_drop_oam2[4];
-u16 small_energy_drop_oam3[4];
-u16 small_energy_drop_oam4[4];
-u16 large_energy_drop_oam1[4];
-u16 large_energy_drop_oam2[4];
-u16 large_energy_drop_oam3[4];
-u16 large_energy_drop_oam4[4];
-u16 missile_drop_oam1[4];
-u16 missile_drop_oam2[4];
-u16 super_missile_drop_oam1[4];
-u16 super_missile_drop_oam2[4];
-u16 power_bomb_drop_oam1[4];
-u16 power_bomb_drop_oam2[4];
-u16 multiple_large_energy_drop_slot1_oam1[10];
-u16 multiple_large_energy_drop_slot1_oam2[10];
-u16 multiple_large_energy_drop_slot1_oam3[10];
-u16 multiple_large_energy_drop_slot1_oam4[10];
-u16 multiple_large_energy_drop_slot3_oam1[10];
-u16 multiple_large_energy_drop_slot3_oam2[10];
-u16 multiple_large_energy_drop_slot3_oam3[10];
-u16 multiple_large_energy_drop_slot3_oam4[10];
-u16 multiple_large_energy_drop_slot2_oam1[10];
-u16 multiple_large_energy_drop_slot2_oam2[10];
-u16 multiple_large_energy_drop_slot2_oam3[10];
-u16 multiple_large_energy_drop_slot2_oam4[10];
-struct FrameData small_energy_drop_oam[5];
-struct FrameData large_energy_drop_oam[5];
-struct FrameData missile_drop_oam[3];
-struct FrameData super_missile_drop_oam[3];
-struct FrameData power_bomb_drop_oam[3];
-struct FrameData multiple_large_energy_drop_slot1_oam[5];
-struct FrameData multiple_large_energy_drop_slot3_oam[5];
-struct FrameData multiple_large_energy_drop_slot2_oam[5];
-
 /* blob_0x82cd604_0x82f7db3.c */
 
 u8 blob_0x82cd604_0x82f7db3[174000];

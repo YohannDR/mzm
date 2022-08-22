@@ -93,7 +93,7 @@ void FakePowerBombEventTrigger(void)
         gCurrentSprite.hitboxLeftOffset = -0x60;
         gCurrentSprite.hitboxRightOffset = 0x60;
         gCurrentSprite.pose = 0x8;
-        gCurrentSprite.pOam = large_energy_drop_oam;
+        gCurrentSprite.pOam = sEnemyDropOAM_LargeEnergy;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
     }

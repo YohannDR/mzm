@@ -785,7 +785,7 @@ void EventTriggerDiscoveredImagoPassage(void)
         gCurrentSprite.hitboxLeftOffset = -0x20;
         gCurrentSprite.hitboxRightOffset = 0x20;
         gCurrentSprite.pose = 0x8;
-        gCurrentSprite.pOam = large_energy_oam_2b2750;
+        gCurrentSprite.pOam = sEnemyDropOAM_LargeEnergy;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
     }

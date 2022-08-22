@@ -740,7 +740,7 @@ void GadoraEye(void)
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.pOam = large_energy_drop_oam; // No graphics
+            gCurrentSprite.pOam = sEnemyDropOAM_LargeEnergy; // No graphics
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
 

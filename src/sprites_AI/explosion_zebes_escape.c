@@ -1,8 +1,6 @@
 #include "explosion_zebes_escape.h"
-#include "screen_shake.h"
-#include "particle.h"
-#include "sprite_debris.h"
-#include "globals.h"
+#include "enemy_drop.h"
+#include "../globals.h"
 
 void ExplosionZebesEscape(void)
 {
@@ -26,7 +24,7 @@ void ExplosionZebesEscape(void)
         gCurrentSprite.hitboxLeftOffset = 0x0;
         gCurrentSprite.hitboxRightOffset = 0x0;
         gCurrentSprite.samusCollision = SSC_NONE;
-        gCurrentSprite.pOam = large_energy_oam_data_2b2750;
+        gCurrentSprite.pOam = sEnemyDropOAM_LargeEnergy;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x9;
