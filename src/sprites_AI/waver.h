@@ -3,6 +3,8 @@
 
 #include "../types.h"
 
+#define WAVER_POSE_MOVING 0x9
+
 void WaverInit(void);
 void WaverMove(void);
 void Waver(void);
