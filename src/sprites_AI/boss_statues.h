@@ -9,13 +9,13 @@
 
 void BossStatueVerticalLignChangeCCAA(u8 caa);
 void KraidStatueHorizontalLignThreeChangeCCAA(u8 caa);
-void KraidStatueHorizontalLignHeightChangeCCAA(u8 caa);
+void KraidStatueInsideChangeCCAA(u8 caa);
 void KraidStatueOpenedInit(void);
 void KraidStatueInit(void);
 void KraidStatueCheckBackgroundLocked(void);
 void KraidStatueOpening(void);
 void RidleyStatueChangeThreeCCAA(u8 caa);
-void RidleyStatueChangeFourCCAA(u8 caa);
+void RidleyStatueInsideChangeCCAA(u8 caa);
 void RidleyStatueOpenedInit(void);
 void RidleyStatueInit(void);
 void RidleyStatueCheckBackgroundLocked(void);

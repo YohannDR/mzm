@@ -836,38 +836,84 @@ const struct FrameData sRidleyStatueOAM_Opened[2] = {
 };
 
 
+/**
+ * @brief 49184 | 80 | Changes the clipdata of a 6 blocks vertical lign
+ * 
+ * @param caa Clipdata Affecting Action
+ */
 void BossStatueVerticalLignChangeCCAA(u8 caa)
 {
-    // https://decomp.me/scratch/RnGpx
-
-    /*u16 yPosition;
+    u16 yPosition;
     u16 xPosition;
 
-    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
-    xPosition = gCurrentSprite.xPosition + (BLOCK_SIZE * 8); // /!\ Weird maths
-    gCurrentClipdataAffectingAction = caa;
+    yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
+    xPosition = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
     
-    ClipdataProcess(yPosition, xPosition);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition);
+    ClipdataProcess(yPosition, xPosition + (BLOCK_SIZE * 8));
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE * 2), xPosition);
+    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition + (BLOCK_SIZE * 8));
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE * 3), xPosition);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 2), xPosition + (BLOCK_SIZE * 8));
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE * 4), xPosition);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 3), xPosition + (BLOCK_SIZE * 8));
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE * 5), xPosition);*/
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 4), xPosition + (BLOCK_SIZE * 8));
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 5), xPosition + (BLOCK_SIZE * 8));
 }
 
+/**
+ * @brief 49204 | 58 | Updates the clipdata of a 3 blocks horizontal lign for the Kraid statue
+ * 
+ * @param caa Clipdata Affecting Action 
+ */
 void KraidStatueHorizontalLignThreeChangeCCAA(u8 caa)
 {
+    u16 yPosition;
+    u16 xPosition;
 
+    yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
+    xPosition = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
+
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE * 4, xPosition + BLOCK_SIZE * 2);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE * 4, xPosition + BLOCK_SIZE * 3);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE * 4, xPosition + BLOCK_SIZE * 4);
 }
 
-void KraidStatueHorizontalLignHeightChangeCCAA(u8 caa)
+/**
+ * @brief 4925c | b8 | Updates the clipdata of the Kraid statue insides
+ * 
+ * @param caa Clipdata Affecting Action
+ */
+void KraidStatueInsideChangeCCAA(u8 caa)
 {
+    u16 yPosition;
+    u16 xPosition;
 
+    yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
+    xPosition = gCurrentSprite.xPosition + HALF_BLOCK_SIZE;
+
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition + BLOCK_SIZE * 2);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition + BLOCK_SIZE * 3);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition + BLOCK_SIZE * 4);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition + BLOCK_SIZE * 5);
+
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition + BLOCK_SIZE * 2);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition + BLOCK_SIZE * 3);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition + BLOCK_SIZE * 4);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE * 3, xPosition + BLOCK_SIZE * 3);
 }
 
 /**
@@ -927,7 +973,7 @@ void KraidStatueInit(void)
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.animationDurationCounter = 0x0;
 
-        KraidStatueHorizontalLignHeightChangeCCAA(CAA_MAKE_SOLID3);
+        KraidStatueInsideChangeCCAA(CAA_MAKE_SOLID3);
     }
 }
 
@@ -962,19 +1008,124 @@ void KraidStatueCheckBackgroundLocked(void)
     }
 }
 
+/**
+ * @brief 49474 | 1b8 | Handles the Kraid statue opening
+ * 
+ */
 void KraidStatueOpening(void)
 {
+    u8 rngParam1;
+    u8 rngParam2;
+    u8 rngParam3;
+    u16 yPosition;
+    u16 xPosition;
 
+    if (gSamusData.xPosition > gCurrentSprite.xPosition + (BLOCK_SIZE * 8 + HALF_BLOCK_SIZE))
+        BossStatueVerticalLignChangeCCAA(CAA_REMOVE_SOLID);
+
+    if (gCurrentSprite.currentAnimationFrame == 0x1D && gCurrentSprite.animationDurationCounter == 0x1)
+        KraidStatueInsideChangeCCAA(CAA_REMOVE_SOLID);
+
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
+    {
+        // Set opened
+        KraidStatueOpenedInit();
+        // Set event
+        EventFunction(EVENT_ACTION_SETTING, EVENT_KRAID_STATUE_OPENED);
+        // Check should open doors
+        if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_KILLED) || EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_STATUE_OPENED))
+        {
+            gDoorUnlockTimer = -0x14;
+            BossStatueVerticalLignChangeCCAA(CAA_REMOVE_SOLID);
+        }
+    }
+    else if ((u16)(gCurrentSprite.currentAnimationFrame - 0x9) < 0x1F)
+    {
+        gCurrentSprite.workVariable2++;
+        if (!(gCurrentSprite.workVariable++ & 0x1F))
+            ScreenShakeStartVertical(0xA, 0x81);
+
+        // Set debris
+        rngParam1 = gCurrentSprite.workVariable;
+        rngParam2 = gCurrentSprite.workVariable2;
+
+        yPosition = gBG1YPosition - BLOCK_SIZE;
+        xPosition = gBG1XPosition + (BLOCK_SIZE * 9 - QUARTER_BLOCK_SIZE);
+
+        rngParam3 = gSpriteRNG;
+
+        if (!(rngParam2 & 0x1F))
+        {
+            if (rngParam2 & 0x20)
+            {
+                SpriteDebrisInit(0x0, 0x5, yPosition, xPosition + 0x78 - rngParam3 * 0x10);
+                SpriteDebrisInit(0x0, 0x8, yPosition, xPosition - 0x190 + rngParam3 * 0x8);
+            }
+            else
+            {
+                SpriteDebrisInit(0x0, 0x7, yPosition, xPosition - 0xA0 - rngParam3 * 0x10);
+                SpriteDebrisInit(0x0, 0x5, yPosition, xPosition - 0x12C + rngParam3 * 0x8);
+            }
+        }
+
+        if (!(rngParam1 & 0xF))
+        {
+            if (rngParam3 > 0x7)
+            {
+                SpriteDebrisInit(0x0, 0x8, yPosition, xPosition - 0x1C2 + rngParam3 * 0x20);
+                SpriteDebrisInit(0x0, 0x6, yPosition, xPosition + 0x24E - rngParam3 * 0x20);
+            }
+            else
+            {
+                SpriteDebrisInit(0x0, 0x6, yPosition, xPosition + 0x17C - rngParam3 * 0x20);
+                SpriteDebrisInit(0x0, 0x8, yPosition, xPosition - 0x278 + rngParam3 * 0x8);
+            }
+        }
+    }
 }
 
+/**
+ * @brief 4962c | 6c | Updates the clipdata of a 3 blocks horizontal lign for the Ridley statue
+ * 
+ * @param caa Clipdata Affecting Action
+ */
 void RidleyStatueChangeThreeCCAA(u8 caa)
 {
+    u16 yPosition;
+    u16 xPosition;
 
+    yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
+    xPosition = gCurrentSprite.xPosition - HALF_BLOCK_SIZE;
+
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE * 4, xPosition - BLOCK_SIZE * 2);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE * 4, xPosition - BLOCK_SIZE * 3);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE * 4, xPosition - BLOCK_SIZE * 4);
 }
 
-void RidleyStatueChangeFourCCAA(u8 caa)
+/**
+ * @brief 49698 | 7c | Updates the clipdata of the Ridley statue insides
+ * 
+ * @param caa Clipdata affecting action
+ */
+void RidleyStatueInsideChangeCCAA(u8 caa)
 {
+    u16 yPosition;
+    u16 xPosition;
 
+    yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
+    xPosition = gCurrentSprite.xPosition - HALF_BLOCK_SIZE;
+
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE, xPosition - BLOCK_SIZE);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition - BLOCK_SIZE);
 }
 
 /**
@@ -1030,7 +1181,7 @@ void RidleyStatueInit(void)
         }
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.animationDurationCounter = 0x0;
-        RidleyStatueChangeFourCCAA(CAA_MAKE_SOLID3);
+        RidleyStatueInsideChangeCCAA(CAA_MAKE_SOLID3);
     }
 }
 
@@ -1060,16 +1211,17 @@ void RidleyStatueCheckBackgroundLocked(void)
     }
 }
 
+/**
+ * @brief 49844 | 1f4 | Handles the Ridley statue opening
+ * 
+ */
 void RidleyStatueOpening(void)
 {
-    // https://decomp.me/scratch/VKylc
-
-    /*u8 rngParam1;
+    u8 rngParam1;
     u8 rngParam2;
     u32 rngParam3;
     u16 yPosition;
     u16 xPosition;
-    u32 temp;
 
     if (gSamusData.xPosition > gCurrentSprite.xPosition + 0x220)
         BossStatueVerticalLignChangeCCAA(CAA_REMOVE_SOLID);
@@ -1082,6 +1234,7 @@ void RidleyStatueOpening(void)
         gCurrentSprite.timer--;
         if (gCurrentSprite.timer == 0x0)
         {
+            // Set opening
             gCurrentSprite.pOam = sRidleyStatueOAM_Opening;
             gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.animationDurationCounter = 0x0;
@@ -1097,13 +1250,17 @@ void RidleyStatueOpening(void)
 
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
+            // Set opened
             RidleyStatueOpenedInit();
+            // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_STATUE_OPENED);
+            // Unlock doors
             gDoorUnlockTimer = -0x14;
             BossStatueVerticalLignChangeCCAA(CAA_REMOVE_SOLID);
         }
         else if ((u16)(gCurrentSprite.currentAnimationFrame - 0x9) < 0x1F)
         {
+            // Set random debris
             gCurrentSprite.workVariable2++;
             if (!(gCurrentSprite.workVariable++ & 0x1F))
                 ScreenShakeStartVertical(0xA, 0x81);
@@ -1120,17 +1277,13 @@ void RidleyStatueOpening(void)
             {
                 if (rngParam2 & 0x20)
                 {
-                    temp = rngParam3 * 0x10 - 0x78;
-                    SpriteDebrisInit(0x0, 0x5, yPosition, xPosition - temp);
-                    temp = rngParam3 * 0x8 - 0x190;
-                    SpriteDebrisInit(0x0, 0x8, yPosition, xPosition + temp);
+                    SpriteDebrisInit(0x0, 0x5, yPosition, xPosition + 0x78 - rngParam3 * 0x10);
+                    SpriteDebrisInit(0x0, 0x8, yPosition, xPosition - 0x190 + rngParam3 * 0x8);
                 }
                 else
                 {
-                    temp = rngParam3 * 0x10 + 0xA0;
-                    SpriteDebrisInit(0x0, 0x7, yPosition, xPosition - temp);
-                    temp = rngParam3 * 0x8 - 0x12C;
-                    SpriteDebrisInit(0x0, 0x5, yPosition, xPosition + temp);
+                    SpriteDebrisInit(0x0, 0x7, yPosition, xPosition - 0xA0 - rngParam3 * 0x10);
+                    SpriteDebrisInit(0x0, 0x5, yPosition, xPosition - 0x12C + rngParam3 * 0x8);
                 }
             }
 
@@ -1138,21 +1291,17 @@ void RidleyStatueOpening(void)
             {
                 if (rngParam3 > 0x7)
                 {
-                    temp = rngParam3 * 0x20 - 0x1C2;
-                    SpriteDebrisInit(0x0, 0x8, yPosition, xPosition + temp);
-                    temp = rngParam3 * 0x20 - 0x24E;
-                    SpriteDebrisInit(0x0, 0x6, yPosition, xPosition - temp);
+                    SpriteDebrisInit(0x0, 0x8, yPosition, xPosition - 0x1C2 + rngParam3 * 0x20);
+                    SpriteDebrisInit(0x0, 0x6, yPosition, xPosition + 0x24E - rngParam3 * 0x20);
                 }
                 else
                 {
-                    temp = rngParam3 * 0x20 - 0x17C;
-                    SpriteDebrisInit(0x0, 0x6, yPosition, xPosition - temp);
-                    temp = rngParam3 * 0x8 - 0x278;
-                    SpriteDebrisInit(0x0, 0x8, yPosition, xPosition + temp);
+                    SpriteDebrisInit(0x0, 0x6, yPosition, xPosition + 0x17C - rngParam3 * 0x20);
+                    SpriteDebrisInit(0x0, 0x8, yPosition, xPosition - 0x278 + rngParam3 * 0x8);
                 }
             }
         }
-    }*/
+    }
 }
 
 /**
