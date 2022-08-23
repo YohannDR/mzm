@@ -2094,6 +2094,8 @@ void ImagoPartSyncPalette(void)
  */
 void Imago(void)
 {
+    // https://decomp.me/scratch/H8S1t
+
     u16 xDistance;
     u16 yDistance;
     u16 health;
