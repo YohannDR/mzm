@@ -1089,7 +1089,7 @@ const struct FrameData sDefeatedImagoCocoonOAM[9] = {
 };
 
 
-void ImagoCocoonUpdatePositionAndAnim(void)
+void ImagoCocoonSyncSprites(void)
 {
     
 }
@@ -2410,7 +2410,7 @@ void ImagoCocoon(void)
     if (gCurrentSprite.pose >= IMAGO_COCOON_POSE_UNLOCK_PASSAGE)
         SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position();
     else
-        ImagoCocoonUpdatePositionAndAnim();
+        ImagoCocoonSyncSprites();
 }
 
 /**
@@ -2447,7 +2447,7 @@ void ImagoCocoonVine(void)
     if (gCurrentSprite.pose == 0x67)
         SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position();
     else
-        ImagoCocoonUpdatePositionAndAnim();
+        ImagoCocoonSyncSprites();
 }
 
 /**

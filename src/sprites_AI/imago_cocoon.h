@@ -60,7 +60,7 @@
 #define WINGED_RIPPER_POSE_MOVING_INIT 0x8
 #define WINGED_RIPPER_POSE_MOVING 0x9
 
-void ImagoCocoonUpdatePositionAndAnim(void);
+void ImagoCocoonSyncSprites(void);
 void ImagoCocoonChangeOneCCAA(u8 caa);
 void ImagoCocoonChangeTwoMiddleCCAA(u8 caa);
 void ImagoCocoonChangeTwoAroundCCAA(u8 caa);
