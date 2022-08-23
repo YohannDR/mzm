@@ -220,11 +220,11 @@ void RinkaInit(void)
     gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
 
     gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
-    gCurrentSprite.yPosition -= (BLOCK_SIZE / 2);
+    gCurrentSprite.yPosition -= (HALF_BLOCK_SIZE);
 
     // Get spawn tile position
-    gCurrentSprite.arrayOffset = (gCurrentSprite.yPosition - (BLOCK_SIZE / 2)) >> 6;
-    gCurrentSprite.workVariable2 = (gCurrentSprite.xPosition - (BLOCK_SIZE / 2)) >> 6;
+    gCurrentSprite.arrayOffset = (gCurrentSprite.yPosition - (HALF_BLOCK_SIZE)) >> 6;
+    gCurrentSprite.workVariable2 = (gCurrentSprite.xPosition - (HALF_BLOCK_SIZE)) >> 6;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.drawOrder = 0x3;
@@ -261,8 +261,8 @@ void RinkaSpawningInit(void)
 void RinkaRespawn(void)
 {
     // Set spawn position
-    gCurrentSprite.yPosition = (gCurrentSprite.arrayOffset * BLOCK_SIZE) + (BLOCK_SIZE / 2);
-    gCurrentSprite.xPosition = (gCurrentSprite.workVariable2 * BLOCK_SIZE) + (BLOCK_SIZE / 2);
+    gCurrentSprite.yPosition = (gCurrentSprite.arrayOffset * BLOCK_SIZE) + (HALF_BLOCK_SIZE);
+    gCurrentSprite.xPosition = (gCurrentSprite.workVariable2 * BLOCK_SIZE) + (HALF_BLOCK_SIZE);
 
     RinkaSpawningInit();
     gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
@@ -390,8 +390,8 @@ void RinkaMove(void)
     acceleration = ++gCurrentSprite.oamScaling;
     velocity *= (acceleration);
 
-    spawnY = gCurrentSprite.arrayOffset * BLOCK_SIZE + (BLOCK_SIZE / 2);
-    spawnX = gCurrentSprite.workVariable2 * BLOCK_SIZE + (BLOCK_SIZE / 2);
+    spawnY = gCurrentSprite.arrayOffset * BLOCK_SIZE + (HALF_BLOCK_SIZE);
+    spawnX = gCurrentSprite.workVariable2 * BLOCK_SIZE + (HALF_BLOCK_SIZE);
 
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
         distanceYUp = gCurrentSprite.yPositionSpawn - spawnY;
@@ -506,8 +506,8 @@ void RinkaMotherBrainRespawn(void)
     i32 offset;
     u8* pSprite;
 
-    spriteY = gCurrentSprite.arrayOffset * BLOCK_SIZE + (BLOCK_SIZE / 2);
-    spriteX = gCurrentSprite.workVariable2 * BLOCK_SIZE + (BLOCK_SIZE / 2);
+    spriteY = gCurrentSprite.arrayOffset * BLOCK_SIZE + (HALF_BLOCK_SIZE);
+    spriteX = gCurrentSprite.workVariable2 * BLOCK_SIZE + (HALF_BLOCK_SIZE);
     samusX = gSamusData.xPosition;
 
     // Check should be first or second place
@@ -515,7 +515,7 @@ void RinkaMotherBrainRespawn(void)
     {
         case PSPRITE_RINKA_MOTHER_BRAIN2:
             offset = 0x28;
-            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (BLOCK_SIZE / 2)))
+            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
             {
                 gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
                 spriteY += BLOCK_SIZE;
@@ -527,7 +527,7 @@ void RinkaMotherBrainRespawn(void)
 
         case PSPRITE_RINKA_MOTHER_BRAIN3:
             offset = 0x22;
-            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (BLOCK_SIZE / 2)))
+            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
             {
                 gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
                 spriteY -= BLOCK_SIZE;
@@ -539,7 +539,7 @@ void RinkaMotherBrainRespawn(void)
 
         case PSPRITE_RINKA_MOTHER_BRAIN4:
             offset = 0x18;
-            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (BLOCK_SIZE / 2)))
+            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
             {
                 gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
                 spriteX -= (BLOCK_SIZE * 24);
@@ -550,7 +550,7 @@ void RinkaMotherBrainRespawn(void)
 
         case PSPRITE_RINKA_MOTHER_BRAIN5:
             offset = 0x1E;
-            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (BLOCK_SIZE / 2)))
+            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
             {
                 gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
                 spriteX -= (BLOCK_SIZE * 30);
@@ -561,7 +561,7 @@ void RinkaMotherBrainRespawn(void)
 
         case PSPRITE_RINKA_MOTHER_BRAIN6:
             offset = 0x14;
-            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (BLOCK_SIZE / 2)))
+            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
             {
                 gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
                 spriteX -= (BLOCK_SIZE * 20);
@@ -726,8 +726,8 @@ void RinkaMotherBrainMove(void)
             break;
     }
 
-    spawnY = tileY * BLOCK_SIZE + (BLOCK_SIZE / 2);
-    spawnX = tileX * BLOCK_SIZE + (BLOCK_SIZE / 2);
+    spawnY = tileY * BLOCK_SIZE + (HALF_BLOCK_SIZE);
+    spawnX = tileX * BLOCK_SIZE + (HALF_BLOCK_SIZE);
 
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
         distanceYUp = gCurrentSprite.yPositionSpawn - spawnY;

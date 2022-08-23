@@ -688,30 +688,30 @@ void AtomicSmoothMovement(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (SpriteUtilGetCollisionAtPosition(spriteY, spriteX + (BLOCK_SIZE / 2)) != COLLISION_AIR)
+        if (SpriteUtilGetCollisionAtPosition(spriteY, spriteX + (HALF_BLOCK_SIZE)) != COLLISION_AIR)
             hittingSolidX++;
         else
         {
-            if (SpriteUtilGetCollisionAtPosition(spriteY + (BLOCK_SIZE / 2), spriteX + (BLOCK_SIZE / 2)) != COLLISION_AIR)
+            if (SpriteUtilGetCollisionAtPosition(spriteY + (HALF_BLOCK_SIZE), spriteX + (HALF_BLOCK_SIZE)) != COLLISION_AIR)
                 hittingSolidX++;
             else
             {
-                if (SpriteUtilGetCollisionAtPosition(spriteY - (BLOCK_SIZE / 2), spriteX + (BLOCK_SIZE / 2)) != COLLISION_AIR)
+                if (SpriteUtilGetCollisionAtPosition(spriteY - (HALF_BLOCK_SIZE), spriteX + (HALF_BLOCK_SIZE)) != COLLISION_AIR)
                     hittingSolidX++;
             }
         }
     }
     else
     {
-        if (SpriteUtilGetCollisionAtPosition(spriteY, spriteX - (BLOCK_SIZE / 2)) != COLLISION_AIR)
+        if (SpriteUtilGetCollisionAtPosition(spriteY, spriteX - (HALF_BLOCK_SIZE)) != COLLISION_AIR)
             hittingSolidX++;
         else
         {
-            if (SpriteUtilGetCollisionAtPosition(spriteY + (BLOCK_SIZE / 2), spriteX - (BLOCK_SIZE / 2)) != COLLISION_AIR)
+            if (SpriteUtilGetCollisionAtPosition(spriteY + (HALF_BLOCK_SIZE), spriteX - (HALF_BLOCK_SIZE)) != COLLISION_AIR)
                 hittingSolidX++;
             else
             {
-                if (SpriteUtilGetCollisionAtPosition(spriteY - (BLOCK_SIZE / 2), spriteX - (BLOCK_SIZE / 2)) != COLLISION_AIR)
+                if (SpriteUtilGetCollisionAtPosition(spriteY - (HALF_BLOCK_SIZE), spriteX - (HALF_BLOCK_SIZE)) != COLLISION_AIR)
                     hittingSolidX++;
             }
         }
@@ -719,30 +719,30 @@ void AtomicSmoothMovement(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
     {
-        if (SpriteUtilGetCollisionAtPosition(spriteY + (BLOCK_SIZE / 2), spriteX) != COLLISION_AIR)
+        if (SpriteUtilGetCollisionAtPosition(spriteY + (HALF_BLOCK_SIZE), spriteX) != COLLISION_AIR)
             hittingSolidY++;
         else
         {
-            if (SpriteUtilGetCollisionAtPosition(spriteY + (BLOCK_SIZE / 2), spriteX + (BLOCK_SIZE / 2)) != COLLISION_AIR)
+            if (SpriteUtilGetCollisionAtPosition(spriteY + (HALF_BLOCK_SIZE), spriteX + (HALF_BLOCK_SIZE)) != COLLISION_AIR)
                 hittingSolidY++;
             else
             {
-                if (SpriteUtilGetCollisionAtPosition(spriteY + (BLOCK_SIZE / 2), spriteX - (BLOCK_SIZE / 2)) != COLLISION_AIR)
+                if (SpriteUtilGetCollisionAtPosition(spriteY + (HALF_BLOCK_SIZE), spriteX - (HALF_BLOCK_SIZE)) != COLLISION_AIR)
                     hittingSolidY++;
             }
         }
     }
     else
     {
-        if (SpriteUtilGetCollisionAtPosition(spriteY - (BLOCK_SIZE / 2), spriteX) != COLLISION_AIR)
+        if (SpriteUtilGetCollisionAtPosition(spriteY - (HALF_BLOCK_SIZE), spriteX) != COLLISION_AIR)
             hittingSolidY++;
         else
         {
-            if (SpriteUtilGetCollisionAtPosition(spriteY - (BLOCK_SIZE / 2), spriteX + (BLOCK_SIZE / 2)) != COLLISION_AIR)
+            if (SpriteUtilGetCollisionAtPosition(spriteY - (HALF_BLOCK_SIZE), spriteX + (HALF_BLOCK_SIZE)) != COLLISION_AIR)
                 hittingSolidY++;
             else
             {
-                if (SpriteUtilGetCollisionAtPosition(spriteY - (BLOCK_SIZE / 2), spriteX - (BLOCK_SIZE / 2)) != COLLISION_AIR)
+                if (SpriteUtilGetCollisionAtPosition(spriteY - (HALF_BLOCK_SIZE), spriteX - (HALF_BLOCK_SIZE)) != COLLISION_AIR)
                     hittingSolidY++;
             }
         }
@@ -1053,7 +1053,7 @@ void AtomicMove(void)
             if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
             {
                 // Move down
-                SpriteUtilCheckCollisionAtPosition(yPosition + (BLOCK_SIZE / 2), xPosition);
+                SpriteUtilCheckCollisionAtPosition(yPosition + (HALF_BLOCK_SIZE), xPosition);
                 if (gPreviousCollisionCheck == COLLISION_AIR)
                     gCurrentSprite.yPosition += movement;
                 else
@@ -1062,7 +1062,7 @@ void AtomicMove(void)
             else
             {
                 // Move up
-                SpriteUtilCheckCollisionAtPosition(yPosition - (BLOCK_SIZE / 2), xPosition);
+                SpriteUtilCheckCollisionAtPosition(yPosition - (HALF_BLOCK_SIZE), xPosition);
                 if (gPreviousCollisionCheck == COLLISION_AIR)
                     gCurrentSprite.yPosition -= movement;
                 else
@@ -1072,7 +1072,7 @@ void AtomicMove(void)
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
                 // Move right
-                SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + (BLOCK_SIZE / 2));
+                SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + (HALF_BLOCK_SIZE));
                 if (gPreviousCollisionCheck == COLLISION_AIR)
                     gCurrentSprite.xPosition += movement;
                 else
@@ -1081,7 +1081,7 @@ void AtomicMove(void)
             else
             {
                 // Move left
-                SpriteUtilCheckCollisionAtPosition(yPosition, xPosition - (BLOCK_SIZE / 2));
+                SpriteUtilCheckCollisionAtPosition(yPosition, xPosition - (HALF_BLOCK_SIZE));
                 if (gPreviousCollisionCheck == COLLISION_AIR)
                     gCurrentSprite.xPosition -= movement;
                 else
@@ -1135,26 +1135,26 @@ void AtomicMaybeMoveBackToIdle(void)
         movement = 0x2;
         if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
         {
-            SpriteUtilCheckCollisionAtPosition(yPosition + (BLOCK_SIZE / 2), xPosition);
+            SpriteUtilCheckCollisionAtPosition(yPosition + (HALF_BLOCK_SIZE), xPosition);
             if (gPreviousCollisionCheck == COLLISION_AIR)
                 gCurrentSprite.yPosition += 0x2;
         }
         else
         {
-            SpriteUtilCheckCollisionAtPosition(yPosition - (BLOCK_SIZE / 2), xPosition);
+            SpriteUtilCheckCollisionAtPosition(yPosition - (HALF_BLOCK_SIZE), xPosition);
             if (gPreviousCollisionCheck == COLLISION_AIR)
                 gCurrentSprite.yPosition -= 0x2;
         }
 
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
-            SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + (BLOCK_SIZE / 2));
+            SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + (HALF_BLOCK_SIZE));
             if (gPreviousCollisionCheck == COLLISION_AIR)
                 gCurrentSprite.xPosition += movement;
         }
         else
         {
-            SpriteUtilCheckCollisionAtPosition(yPosition, xPosition - (BLOCK_SIZE / 2));
+            SpriteUtilCheckCollisionAtPosition(yPosition, xPosition - (HALF_BLOCK_SIZE));
             if (gPreviousCollisionCheck == COLLISION_AIR)
                 gCurrentSprite.xPosition -= movement;
         }

@@ -652,24 +652,24 @@ void Steam(void)
                     gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
                 }
 
-                if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition - ((BLOCK_SIZE / 2 + 4))) &
+                if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - ((HALF_BLOCK_SIZE + 4))) &
                     (COLLISION_PASS_THROUGH_BOTTOM | 0x20 | 0x40 | 0x80))
                 {
                     // Steam on left wall
                     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
-                    gCurrentSprite.yPosition -= (BLOCK_SIZE / 2);
-                    gCurrentSprite.xPosition -= (BLOCK_SIZE / 2);
+                    gCurrentSprite.yPosition -= (HALF_BLOCK_SIZE);
+                    gCurrentSprite.xPosition -= (HALF_BLOCK_SIZE);
                 }
                 else
                 {
-                    if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition + (BLOCK_SIZE / 2)) &
+                    if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + (HALF_BLOCK_SIZE)) &
                         (COLLISION_PASS_THROUGH_BOTTOM | 0x20 | 0x40 | 0x80))
                     {
                         // Steam on right wall
                         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
                         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-                        gCurrentSprite.yPosition -= (BLOCK_SIZE / 2);
-                        gCurrentSprite.xPosition += (BLOCK_SIZE / 2);
+                        gCurrentSprite.yPosition -= (HALF_BLOCK_SIZE);
+                        gCurrentSprite.xPosition += (HALF_BLOCK_SIZE);
                     }
                     else
                     {
@@ -737,7 +737,7 @@ void SteamDiagonal(void)
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.workVariable = FALSE; // Not large by default
 
-        collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition - ((BLOCK_SIZE / 2) + 4));
+        collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - ((HALF_BLOCK_SIZE) + 4));
         if (!(collision & (COLLISION_PASS_THROUGH_BOTTOM | 0x20 | 0x40 | 0x80)))
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP; // Flip if wall on left
 

@@ -263,16 +263,16 @@ void SecurityGateChangeCCAA(u8 caa)
 
     // Bottom
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE / 2), xPosition);
+    ClipdataProcess(yPosition - (HALF_BLOCK_SIZE), xPosition);
     // Middle bottom
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE + BLOCK_SIZE / 2), xPosition);
+    ClipdataProcess(yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), xPosition);
     // Middle top
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - ((BLOCK_SIZE * 2) + BLOCK_SIZE / 2), xPosition);
+    ClipdataProcess(yPosition - ((BLOCK_SIZE * 2) + HALF_BLOCK_SIZE), xPosition);
     // Top
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - ((BLOCK_SIZE * 3) + BLOCK_SIZE / 2), xPosition);
+    ClipdataProcess(yPosition - ((BLOCK_SIZE * 3) + HALF_BLOCK_SIZE), xPosition);
 }
 
 /**

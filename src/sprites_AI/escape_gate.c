@@ -198,8 +198,8 @@ void EscapeGateChangeCCAA(u8 caa)
     u16 yPosition;
     u16 xPosition;
 
-    yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE / 2);
-    xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE / 2);
+    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
+    xPosition = gCurrentSprite.xPosition - (HALF_BLOCK_SIZE);
 
     // Left part
     gCurrentClipdataAffectingAction = caa;

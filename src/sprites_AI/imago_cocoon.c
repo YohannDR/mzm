@@ -1127,11 +1127,11 @@ void ImagoCocoonChangeTwoMiddleCCAA(u8 caa)
     
     // Right block
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE / 2), xPosition + BLOCK_SIZE);
+    ClipdataProcess(yPosition - (HALF_BLOCK_SIZE), xPosition + BLOCK_SIZE);
     
     // Left block
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE / 2), xPosition - BLOCK_SIZE);
+    ClipdataProcess(yPosition - (HALF_BLOCK_SIZE), xPosition - BLOCK_SIZE);
 
     ParticleSet(yPosition, xPosition + 0x48, PE_SPRITE_EXPLOSION_HUGE);
     ParticleSet(yPosition, xPosition - 0x48, PE_SPRITE_EXPLOSION_HUGE);
@@ -1177,11 +1177,11 @@ void ImagoCocoonChangeTwoBlockingCCAA(u8 caa)
 
     // Top block
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition + BLOCK_SIZE / 2, xPosition + BLOCK_SIZE * 9);
+    ClipdataProcess(yPosition + HALF_BLOCK_SIZE, xPosition + BLOCK_SIZE * 9);
     
     // Bottom block
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition + BLOCK_SIZE + BLOCK_SIZE / 2, xPosition + BLOCK_SIZE * 9);
+    ClipdataProcess(yPosition + BLOCK_SIZE + HALF_BLOCK_SIZE, xPosition + BLOCK_SIZE * 9);
 }
 
 /**
@@ -1797,12 +1797,12 @@ void ImagoCocoonVineDeath(void)
         case IMAGO_COCOON_PART_VINE_RIGHT_MIDDLE:
         case IMAGO_COCOON_PART_VINE_RIGHT_RIGHT:
         case IMAGO_COCOON_PART_VINE_LEFT_LEFT:
-            yPosition += BLOCK_SIZE / 2;
+            yPosition += HALF_BLOCK_SIZE;
             break;
             
         case IMAGO_COCOON_PART_VINE_RIGHT_LEFT:
         case IMAGO_COCOON_PART_VINE_LEFT_RIGHT:
-            yPosition += BLOCK_SIZE / 4;
+            yPosition += QUARTER_BLOCK_SIZE;
             break;
 
         default:
@@ -1915,7 +1915,7 @@ void ImagoCocoonCeilingVineDeath(void)
 
     if (gSpriteData[ramSlot].pose == IMAGO_COCOON_POSE_UNLOCK_PASSAGE)
     {
-        ParticleSet(gCurrentSprite.yPosition + BLOCK_SIZE * 2 + BLOCK_SIZE / 2, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_HUGE);
+        ParticleSet(gCurrentSprite.yPosition + BLOCK_SIZE * 2 + HALF_BLOCK_SIZE, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_HUGE);
         gCurrentSprite.status = 0x0;
     }
 }

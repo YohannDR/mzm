@@ -195,7 +195,7 @@ u8 SkulteraXMovement(u16 movement)
     negMovement = movement;
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition + 0x38);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + 0x38);
         if (gPreviousCollisionCheck != COLLISION_SOLID)
         {
             gCurrentSprite.xPosition += movement;
@@ -206,7 +206,7 @@ u8 SkulteraXMovement(u16 movement)
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition - 0x38);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - 0x38);
         if (gPreviousCollisionCheck != COLLISION_SOLID)
         {
             gCurrentSprite.xPosition -= negMovement;
@@ -337,13 +337,13 @@ void SkulteraChasingSamus(void)
     u32 nslr;
 
     samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset / 2;
-    spriteY = gCurrentSprite.yPosition - (BLOCK_SIZE / 2);
+    spriteY = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
 
     // Check move vertically
     if ((i32)(spriteY - BLOCK_SIZE) > samusY)
     {
         // Check move up
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + BLOCK_SIZE / 2), gCurrentSprite.xPosition);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), gCurrentSprite.xPosition);
         // If no solid block and still in water
         if (gPreviousCollisionCheck == COLLISION_AIR && gCurrentAffectingClipdata.hazard == HAZARD_TYPE_WATER)
             gCurrentSprite.yPosition -= 0x2;
@@ -476,7 +476,7 @@ void Skultera(void)
                 break;
 
             default:
-                SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_BIG);
+                SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_BIG);
         }
     }
 }

@@ -1068,7 +1068,7 @@ u32 SpriteUtilGetCollisionAtPosition(u32 yPosition, u32 xPosition)
 void SpriteUtilCurrentSpriteFall(void)
 {
     u32 blockTopEdge;
-    i16 movement;
+    i32 movement;
     u32 offset;
 
     blockTopEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
@@ -1085,12 +1085,12 @@ void SpriteUtilCurrentSpriteFall(void)
         if (movement == SPRITE_ARRAY_TERMINATOR)
         {
             movement = sSpritesFallingSpeed[offset - 0x1];
-            (i16)gCurrentSprite.yPosition += movement;
+            gCurrentSprite.yPosition += movement;
         }
         else
         {
             gCurrentSprite.arrayOffset = offset + 0x1;
-            (i16)gCurrentSprite.yPosition -= -movement;
+            gCurrentSprite.yPosition -= -movement;
         }
     }
 }

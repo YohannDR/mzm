@@ -931,7 +931,7 @@ void GunshipInit(void)
     {
         // Idle
         SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_PLATFORM, gCurrentSprite.spritesetGFXSlot,
-            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - BLOCK_SIZE * 3 + BLOCK_SIZE / 2, gCurrentSprite.xPosition, 0x0);
+            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - BLOCK_SIZE * 3 + HALF_BLOCK_SIZE, gCurrentSprite.xPosition, 0x0);
         
         gCurrentSprite.yPositionSpawn = 0x0;
         gCurrentSprite.samusCollision = SSC_ESCAPE_SHIP;
@@ -1901,9 +1901,9 @@ void GunshipPartPlatformGoDown(void)
         gCurrentSprite.timer--;
     else
     {
-        if (gSpriteData[ramSlot].yPosition - (BLOCK_SIZE * 2 + BLOCK_SIZE / 2) < gCurrentSprite.yPosition)
+        if (gSpriteData[ramSlot].yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE) < gCurrentSprite.yPosition)
         {
-            gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition -  (BLOCK_SIZE * 2 + BLOCK_SIZE / 2);
+            gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition -  (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
             gCurrentSprite.pose = GUNSHIP_PART_POSE_PLATFORM_CHECK_GO_UP;
         }
         else

@@ -206,9 +206,9 @@ void BGClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
     setPose = FALSE;
     yOffset = -0x6C;
     if (gSamusData.direction & KEY_RIGHT)
-        xOffset = BLOCK_SIZE / 2;
+        xOffset = HALF_BLOCK_SIZE;
     else
-        xOffset = -(BLOCK_SIZE / 2);
+        xOffset = -(HALF_BLOCK_SIZE);
 
     if (gSamusData.pose != SPOSE_HANGING_ON_LEDGE && gSamusData.pose != SPOSE_GRABBING_A_LEDGE_SUITLESS)
         xOffset = -xOffset;

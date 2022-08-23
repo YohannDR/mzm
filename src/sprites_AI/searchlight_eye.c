@@ -242,12 +242,12 @@ void SearchlightEyeInit(void)
     gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
 
     // Set direction
-    if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition + BLOCK_SIZE) != COLLISION_AIR)
-        gCurrentSprite.xPosition += (BLOCK_SIZE / 2);
+    if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + BLOCK_SIZE) != COLLISION_AIR)
+        gCurrentSprite.xPosition += (HALF_BLOCK_SIZE);
     else
     {
         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-        gCurrentSprite.xPosition -= (BLOCK_SIZE / 2);
+        gCurrentSprite.xPosition -= (HALF_BLOCK_SIZE);
     }
 
     if (gCurrentSprite.spriteID == PSPRITE_SEARCHLIGHT_EYE)
@@ -304,7 +304,7 @@ void SearchlightEyeMove(void)
     {
         // Move down
         gCurrentSprite.yPosition++;
-        SpriteUtilGetCollisionAtPosition(yPosition + (BLOCK_SIZE / 2), xPosition);
+        SpriteUtilGetCollisionAtPosition(yPosition + (HALF_BLOCK_SIZE), xPosition);
         if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
             gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2; // Change direction
     }
@@ -312,7 +312,7 @@ void SearchlightEyeMove(void)
     {
         // Move up
         gCurrentSprite.yPosition--;
-        SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE / 2), xPosition);
+        SpriteUtilGetCollisionAtPosition(yPosition - (HALF_BLOCK_SIZE), xPosition);
         if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID)
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2; // Change direction
     }

@@ -597,7 +597,7 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
     
     yPosition = gCurrentSprite.yPosition - 0x10;
     xPosition = gCurrentSprite.xPosition;
-    size = BLOCK_SIZE / 2;
+    size = HALF_BLOCK_SIZE;
     pose = METROID_POSE_MOVING;
 
     if (gCurrentSprite.pose == pose && gCurrentSprite.freezeTimer == 0x0)

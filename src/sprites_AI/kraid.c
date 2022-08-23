@@ -3782,7 +3782,7 @@ u8 KraidMoveFeet(void)
         if (gSubSpriteData1.currentAnimationFrame < 0x5)
         {
             KraidMoveBG2ToRight(0x1);
-            yPosition = BLOCK_SIZE * 39 + BLOCK_SIZE / 2;
+            yPosition = BLOCK_SIZE * 39 + HALF_BLOCK_SIZE;
             xPosition = gSubSpriteData1.xPosition + BLOCK_SIZE * 5;
 
             if (SpriteUtilGetCollisionAtPosition(yPosition, xPosition) != COLLISION_AIR)
@@ -4446,14 +4446,14 @@ void KraidPartThrowNails(void)
             if (gCurrentSprite.currentAnimationFrame == 0x7 && gCurrentSprite.animationDurationCounter == 0x4)
             {
                 SpriteSpawnSecondary(SSPRITE_KRAID_NAIL, 0x0, gCurrentSprite.spritesetGFXSlot,
-                    gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - (BLOCK_SIZE * 3 + (BLOCK_SIZE / 2)),
+                    gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - (BLOCK_SIZE * 3 + (HALF_BLOCK_SIZE)),
                     gCurrentSprite.xPosition + (BLOCK_SIZE * 2), 0x0);
             }
             else if (gCurrentSprite.currentAnimationFrame == 0x8 && gCurrentSprite.animationDurationCounter == 0x1)
             {
                 SpriteSpawnSecondary(SSPRITE_KRAID_NAIL, 0x1, gCurrentSprite.spritesetGFXSlot,
                     gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - (BLOCK_SIZE * 3),
-                    gCurrentSprite.xPosition + (BLOCK_SIZE * 3 + (BLOCK_SIZE / 2)), 0x0);
+                    gCurrentSprite.xPosition + (BLOCK_SIZE * 3 + (HALF_BLOCK_SIZE)), 0x0);
             }
 
             if (SpriteUtilCheckEndCurrentSpriteAnim())
@@ -4500,7 +4500,7 @@ void KraidPartCheckAttack(void)
             gCurrentSprite.timer--;
         else
         {
-            nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 2, BLOCK_SIZE * 8 + (BLOCK_SIZE / 2));
+            nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 2, BLOCK_SIZE * 8 + (HALF_BLOCK_SIZE));
             gCurrentSprite.timer = 0xB4;
         }
 
@@ -4977,14 +4977,14 @@ void Kraid(void)
                     SoundPlay(0x1CC);
                     if (pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToRight)
                     {
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + BLOCK_SIZE / 2, pSub->xPosition - 0x2C, PE_SECOND_MEDIUM_DUST);
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + BLOCK_SIZE / 2, pSub->xPosition - 0x90, PE_SECOND_MEDIUM_DUST);
+                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition - 0x2C, PE_SECOND_MEDIUM_DUST);
+                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition - 0x90, PE_SECOND_MEDIUM_DUST);
                     }
                     else
                     {
                         pSprite = &gCurrentSprite;
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + BLOCK_SIZE / 2, pSub->xPosition + 0xEC, PE_SECOND_MEDIUM_DUST);
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + BLOCK_SIZE / 2, pSub->xPosition + 0x150, PE_SECOND_MEDIUM_DUST);
+                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition + 0xEC, PE_SECOND_MEDIUM_DUST);
+                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition + 0x150, PE_SECOND_MEDIUM_DUST);
                     }
                 }
             }
@@ -5007,14 +5007,14 @@ void Kraid(void)
                     if (pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToLeft)
                     {
                         pSprite = &gCurrentSprite;
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + BLOCK_SIZE / 2, pSub->xPosition - 0x64, PE_SECOND_MEDIUM_DUST);
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + BLOCK_SIZE / 2, pSub->xPosition - 0xC8, PE_SECOND_MEDIUM_DUST);
+                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition - 0x64, PE_SECOND_MEDIUM_DUST);
+                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition - 0xC8, PE_SECOND_MEDIUM_DUST);
                     }
                     else
                     {
                         pSprite = &gCurrentSprite;
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + BLOCK_SIZE / 2, pSub->xPosition + 0x10A, PE_SECOND_MEDIUM_DUST);
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + BLOCK_SIZE / 2, pSub->xPosition + 0x16E, PE_SECOND_MEDIUM_DUST);
+                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition + 0x10A, PE_SECOND_MEDIUM_DUST);
+                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition + 0x16E, PE_SECOND_MEDIUM_DUST);
                     }
                 }
             }
@@ -5237,7 +5237,7 @@ void KraidSpike(void)
             }
 
             if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_ON_TOP &&
-                SpriteUtilGetCollisionAtPosition(gSamusData.yPosition - BLOCK_SIZE / 2, gSamusData.xPosition + BLOCK_SIZE / 2) == COLLISION_AIR)
+                SpriteUtilGetCollisionAtPosition(gSamusData.yPosition - HALF_BLOCK_SIZE, gSamusData.xPosition + HALF_BLOCK_SIZE) == COLLISION_AIR)
                 gSamusData.xPosition += 0x8;
 
             gCurrentSprite.xPosition += 0x8;
@@ -5300,25 +5300,25 @@ void KraidSpike(void)
                         yPosition += 0x20;
                     else if (gCurrentSprite.roomSlot == KRAID_PART_MIDDLE_HOLE_LEFT)
                     {
-                        if (SpriteUtilGetCollisionAtPosition(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE / 2) != COLLISION_AIR)
+                        if (SpriteUtilGetCollisionAtPosition(yPosition - BLOCK_SIZE * 3, xPosition - HALF_BLOCK_SIZE) != COLLISION_AIR)
                         {
                             gCurrentClipdataAffectingAction = CAA_REMOVE_SOLID;
-                            ClipdataProcess(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE / 2);
-                            ParticleSet(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE / 2, PE_SPRITE_EXPLOSION_MEDIUM);
+                            ClipdataProcess(yPosition - BLOCK_SIZE * 3, xPosition - HALF_BLOCK_SIZE);
+                            ParticleSet(yPosition - BLOCK_SIZE * 3, xPosition - HALF_BLOCK_SIZE, PE_SPRITE_EXPLOSION_MEDIUM);
                         }
 
-                        if (SpriteUtilGetCollisionAtPosition(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE * 2 + BLOCK_SIZE / 2) != COLLISION_AIR)
+                        if (SpriteUtilGetCollisionAtPosition(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE * 2 + HALF_BLOCK_SIZE) != COLLISION_AIR)
                         {
                             gCurrentClipdataAffectingAction = CAA_REMOVE_SOLID;
-                            ClipdataProcess(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE * 2 + BLOCK_SIZE / 2);
-                            ParticleSet(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE * 2 + BLOCK_SIZE / 2, PE_SPRITE_EXPLOSION_MEDIUM);
+                            ClipdataProcess(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+                            ParticleSet(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE * 2 + HALF_BLOCK_SIZE, PE_SPRITE_EXPLOSION_MEDIUM);
                         }
 
-                        if (SpriteUtilGetCollisionAtPosition(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE * 3 + BLOCK_SIZE / 2) != COLLISION_AIR)
+                        if (SpriteUtilGetCollisionAtPosition(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE * 3 + HALF_BLOCK_SIZE) != COLLISION_AIR)
                         {
                             gCurrentClipdataAffectingAction = CAA_REMOVE_SOLID;
-                            ClipdataProcess(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE * 3 + BLOCK_SIZE / 2);
-                            ParticleSet(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE * 3 + BLOCK_SIZE / 2, PE_SPRITE_EXPLOSION_MEDIUM);
+                            ClipdataProcess(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE * 3 + HALF_BLOCK_SIZE);
+                            ParticleSet(yPosition - BLOCK_SIZE * 3, xPosition - BLOCK_SIZE * 3 + HALF_BLOCK_SIZE, PE_SPRITE_EXPLOSION_MEDIUM);
                         }
                     }
 
@@ -5405,7 +5405,7 @@ void KraidNail(void)
             }
             else
             {
-                dstY = gSamusData.yPosition - (BLOCK_SIZE * 2 + (BLOCK_SIZE / 2));
+                dstY = gSamusData.yPosition - (BLOCK_SIZE * 2 + (HALF_BLOCK_SIZE));
                 gCurrentSprite.oamRotation = 0x0;
             }
 

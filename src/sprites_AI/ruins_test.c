@@ -1620,7 +1620,7 @@ void RuinsTestChangeCCAA(u8 caa)
     u16 yPosition;
     u16 xPosition;
 
-    yPosition = gBossWork.work1 - (BLOCK_SIZE * 6 + BLOCK_SIZE / 2);
+    yPosition = gBossWork.work1 - (BLOCK_SIZE * 6 + HALF_BLOCK_SIZE);
     xPosition = gBossWork.work2;
 
     // Left side
@@ -2807,23 +2807,23 @@ void RuinsTestGhostMoveSymbolToPlace(void)
     targetX = gBossWork.work2;
     if (gCurrentSprite.roomSlot == RUINS_TEST_GHOST_PART_FIRST_SYMBOL)
     {
-        targetY -= BLOCK_SIZE * 3 - BLOCK_SIZE / 4;
-        targetX -= BLOCK_SIZE * 5 + BLOCK_SIZE / 2;
+        targetY -= BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE;
+        targetX -= BLOCK_SIZE * 5 + HALF_BLOCK_SIZE;
     }
     else if (gCurrentSprite.roomSlot == RUINS_TEST_GHOST_PART_SECOND_SYMBOL)
     {
-        targetY -= BLOCK_SIZE * 3 - BLOCK_SIZE / 4;
-        targetX += BLOCK_SIZE * 5 + BLOCK_SIZE / 2;
+        targetY -= BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE;
+        targetX += BLOCK_SIZE * 5 + HALF_BLOCK_SIZE;
     }
     else if (gCurrentSprite.roomSlot == RUINS_TEST_GHOST_PART_THIRD_SYMBOL)
     {
-        targetY += BLOCK_SIZE * 3 - BLOCK_SIZE / 4;
-        targetX -= BLOCK_SIZE * 5 + BLOCK_SIZE / 2;
+        targetY += BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE;
+        targetX -= BLOCK_SIZE * 5 + HALF_BLOCK_SIZE;
     }
     else
     {
-        targetY += BLOCK_SIZE * 3 - BLOCK_SIZE / 4;
-        targetX += BLOCK_SIZE * 5 + BLOCK_SIZE / 2;
+        targetY += BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE;
+        targetX += BLOCK_SIZE * 5 + HALF_BLOCK_SIZE;
     }
 
     if (targetX > gCurrentSprite.xPosition)

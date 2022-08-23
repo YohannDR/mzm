@@ -1241,8 +1241,8 @@ void MotherBrainSpawnBlock(void)
     u16 yPosition;
     u16 xPosition;
 
-    yPosition = gSubSpriteData1.yPosition - (BLOCK_SIZE * 4 + BLOCK_SIZE / 2);
-    xPosition = gSubSpriteData1.xPosition + (BLOCK_SIZE * 11 + BLOCK_SIZE / 2);
+    yPosition = gSubSpriteData1.yPosition - (BLOCK_SIZE * 4 + HALF_BLOCK_SIZE);
+    xPosition = gSubSpriteData1.xPosition + (BLOCK_SIZE * 11 + HALF_BLOCK_SIZE);
 
     if (gSamusData.xPosition < (xPosition - 0x3C))
     {

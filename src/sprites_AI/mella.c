@@ -174,18 +174,18 @@ u8 MellaYMovement(u16 movement)
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition - 0x30);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - 0x30);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition - 0x70);        
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - 0x70);        
             if (gPreviousCollisionCheck == COLLISION_SOLID)
                 return TRUE;
         }
 
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition + 0x30);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + 0x30);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition + 0x70);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + 0x70);
             if (gPreviousCollisionCheck == COLLISION_SOLID)
                 return TRUE;
         }
@@ -205,11 +205,11 @@ u8 MellaXMovement(u16 movement)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition + BLOCK_SIZE);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + BLOCK_SIZE);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
 
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + (BLOCK_SIZE / 2), gCurrentSprite.xPosition + BLOCK_SIZE);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + BLOCK_SIZE);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
 
@@ -217,11 +217,11 @@ u8 MellaXMovement(u16 movement)
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE / 2), gCurrentSprite.xPosition - BLOCK_SIZE);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - BLOCK_SIZE);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
 
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + (BLOCK_SIZE / 2), gCurrentSprite.xPosition - BLOCK_SIZE);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - BLOCK_SIZE);
         if (gPreviousCollisionCheck == COLLISION_SOLID)
             return TRUE;
 
@@ -405,7 +405,7 @@ void MellaGoingUp(void)
     if (MellaYMovement(yMovement))
     {
         // Touched ceiling, set idle behavior
-        gCurrentSprite.yPosition = (gCurrentSprite.yPosition & BLOCK_POSITION_FLAG) + (BLOCK_SIZE / 2);
+        gCurrentSprite.yPosition = (gCurrentSprite.yPosition & BLOCK_POSITION_FLAG) + (HALF_BLOCK_SIZE);
         gCurrentSprite.pose = MELLA_POSE_IDLE_INIT;
     }
 }

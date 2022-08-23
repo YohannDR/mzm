@@ -280,13 +280,13 @@ void PistonChangeFourCCAA(u8 caa)
     xPosition = gCurrentSprite.xPosition;
 
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE + BLOCK_SIZE / 2), xPosition);
+    ClipdataProcess(yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), xPosition);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - ((BLOCK_SIZE * 0x2) + (BLOCK_SIZE / 2)), xPosition);
+    ClipdataProcess(yPosition - ((BLOCK_SIZE * 0x2) + (HALF_BLOCK_SIZE)), xPosition);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - ((BLOCK_SIZE * 0x3) + (BLOCK_SIZE / 2)), xPosition);
+    ClipdataProcess(yPosition - ((BLOCK_SIZE * 0x3) + (HALF_BLOCK_SIZE)), xPosition);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - ((BLOCK_SIZE * 0x4) + (BLOCK_SIZE / 2)), xPosition);
+    ClipdataProcess(yPosition - ((BLOCK_SIZE * 0x4) + (HALF_BLOCK_SIZE)), xPosition);
 }
 
 /**
@@ -303,7 +303,7 @@ void PistonChangeOneBelowCCAA(u8 caa)
     xPosition = gCurrentSprite.xPosition;
 
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (BLOCK_SIZE / 2), xPosition);
+    ClipdataProcess(yPosition - (HALF_BLOCK_SIZE), xPosition);
 }
 
 /**
@@ -320,7 +320,7 @@ void PistonChangeOneUpperCCAA(u8 caa)
     xPosition = gCurrentSprite.xPosition;
 
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - ((BLOCK_SIZE * 0x5) + (BLOCK_SIZE / 2)), xPosition);
+    ClipdataProcess(yPosition - ((BLOCK_SIZE * 0x5) + (HALF_BLOCK_SIZE)), xPosition);
 }
 
 /**

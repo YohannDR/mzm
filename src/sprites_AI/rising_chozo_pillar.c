@@ -623,11 +623,11 @@ void RisingChozoPillarSpawnThreePlatforms(u16 yPosition, u16 xPosition, u8 caa)
 
     // Spawn platforms
     SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spritesetGFXSlot,
-        gCurrentSprite.primarySpriteRAMSlot, yPosition - (BLOCK_SIZE * 3),  xPosition + (BLOCK_SIZE * 3 + BLOCK_SIZE / 2), 0x0);
+        gCurrentSprite.primarySpriteRAMSlot, yPosition - (BLOCK_SIZE * 3),  xPosition + (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE), 0x0);
     SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spritesetGFXSlot,
-        gCurrentSprite.primarySpriteRAMSlot, yPosition - (BLOCK_SIZE * 11),  xPosition + (BLOCK_SIZE * 3 + BLOCK_SIZE / 2), 0x0);
+        gCurrentSprite.primarySpriteRAMSlot, yPosition - (BLOCK_SIZE * 11),  xPosition + (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE), 0x0);
     SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x1, gCurrentSprite.spritesetGFXSlot,
-        gCurrentSprite.primarySpriteRAMSlot, yPosition - (BLOCK_SIZE * 19), xPosition + (BLOCK_SIZE * 3 + BLOCK_SIZE / 2), 0x0);
+        gCurrentSprite.primarySpriteRAMSlot, yPosition - (BLOCK_SIZE * 19), xPosition + (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE), 0x0);
 }
 
 /**

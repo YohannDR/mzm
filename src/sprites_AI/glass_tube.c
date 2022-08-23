@@ -1342,7 +1342,7 @@ void GlassTubeChangeCCAA(void)
     u16 xPosition;
     u8 caa;
 
-    yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE / 2);
+    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
     xPosition = gCurrentSprite.xPosition;
     caa = CAA_REMOVE_SOLID;
 

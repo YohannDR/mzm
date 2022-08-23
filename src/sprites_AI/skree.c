@@ -399,14 +399,14 @@ void SkreeGoDown(void)
 
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition + (BLOCK_SIZE / 2));
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition + (HALF_BLOCK_SIZE));
             if (gPreviousCollisionCheck == COLLISION_SOLID)
                 return;
             gCurrentSprite.xPosition += xMovement;
         }
         else
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition - (BLOCK_SIZE / 2));
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition - (HALF_BLOCK_SIZE));
             if (gPreviousCollisionCheck == COLLISION_SOLID)
                 return;
             gCurrentSprite.xPosition -= xMovement;

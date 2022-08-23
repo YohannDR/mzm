@@ -343,10 +343,10 @@ const struct FrameData sViolaOAM_MovingOffsetDown[17] = {
 void ViolaInit(void)
 {
     SpriteUtilChooseRandomXDirection();
-    gCurrentSprite.yPosition -= (BLOCK_SIZE / 2);
+    gCurrentSprite.yPosition -= (HALF_BLOCK_SIZE);
 
     // Check for solid blocks around
-    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition +(BLOCK_SIZE / 2), gCurrentSprite.xPosition);
+    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition +(HALF_BLOCK_SIZE), gCurrentSprite.xPosition);
     if (gPreviousCollisionCheck & 0xF0)
     {
         gCurrentSprite.yPosition += 0x8;

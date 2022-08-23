@@ -381,7 +381,7 @@ void MorphBallLauncherDetectBomb(void)
     u16 projX;
 
     hasBomb = FALSE;
-    spriteY = gCurrentSprite.yPosition + BLOCK_SIZE / 2;
+    spriteY = gCurrentSprite.yPosition + HALF_BLOCK_SIZE;
     spriteX = gCurrentSprite.xPosition;
 
     for (count = 0x0; count < MAX_AMOUNT_OF_PROJECTILES; count++)

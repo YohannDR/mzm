@@ -248,8 +248,8 @@ void UnkownItemBlockChangeCCAA(u8 caa)
     u16 yPosition;
     u16 xPosition;
 
-    yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE / 2);
-    xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE / 2);
+    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
+    xPosition = gCurrentSprite.xPosition - (HALF_BLOCK_SIZE);
 
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition, xPosition); // Top left
@@ -298,7 +298,7 @@ void UnkownItemBlock(void)
             gCurrentSprite.pose = UNKNOWN_ITEM_BLOCK_POSE_CHECK_ACTIVATE;
 
             gCurrentSprite.yPosition -= BLOCK_SIZE;
-            gCurrentSprite.xPosition += (BLOCK_SIZE / 2);
+            gCurrentSprite.xPosition += (HALF_BLOCK_SIZE);
             UnkownItemBlockChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE);
 
         case UNKNOWN_ITEM_BLOCK_POSE_CHECK_ACTIVATE:

@@ -100,7 +100,7 @@ void MorphBallInit(void)
 
         gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
         gCurrentSprite.health = 0x1;
-        gCurrentSprite.yPosition -= (BLOCK_SIZE / 2);
+        gCurrentSprite.yPosition -= (HALF_BLOCK_SIZE);
         gCurrentSprite.pose = MORPH_BALL_POSE_IDLE;
         gCurrentSprite.drawOrder = 0x3;
 

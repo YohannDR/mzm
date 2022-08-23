@@ -1170,7 +1170,7 @@ void ElevatorStatueChangeTwoGroundCCAA(u8 caa)
     u16 yPosition;
     u16 xPosition;
 
-    yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE / 2);
+    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
     xPosition = gCurrentSprite.xPosition - BLOCK_SIZE;
 
     gCurrentClipdataAffectingAction = caa;
@@ -1189,7 +1189,7 @@ void KraidElevatorStatueChangeCAA(u8 caa)
     u16 yPosition;
     u16 xPosition;
 
-    yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE / 2);
+    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
     xPosition = gCurrentSprite.xPosition - BLOCK_SIZE;
     
     gCurrentClipdataAffectingAction = caa;
@@ -1354,7 +1354,7 @@ void RidleyElevatorStatueChangeCCAA(u8 caa)
     u16 yPosition;
     u16 xPosition;
 
-    yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE / 2);
+    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
     xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE * 2);
 
     gCurrentClipdataAffectingAction = caa;

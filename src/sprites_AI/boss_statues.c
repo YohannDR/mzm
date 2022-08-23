@@ -843,7 +843,7 @@ void BossStatueVerticalLignChangeCCAA(u8 caa)
     /*u16 yPosition;
     u16 xPosition;
 
-    yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE / 2);
+    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
     xPosition = gCurrentSprite.xPosition + (BLOCK_SIZE * 8); // /!\ Weird maths
     gCurrentClipdataAffectingAction = caa;
     
@@ -996,7 +996,7 @@ void RidleyStatueOpenedInit(void)
  */
 void RidleyStatueInit(void)
 {
-    gCurrentSprite.xPosition += (BLOCK_SIZE / 2);
+    gCurrentSprite.xPosition += (HALF_BLOCK_SIZE);
 
     gCurrentSprite.drawDistanceTopOffset = 0x58;
     gCurrentSprite.drawDistanceBottomOffset = 0x0;
@@ -1201,7 +1201,7 @@ void KraidStatue(void)
         else
         {
             gLockScreen.lock = TRUE;
-            gLockScreen.xPositionCenter = gCurrentSprite.xPosition + (BLOCK_SIZE / 2);
+            gLockScreen.xPositionCenter = gCurrentSprite.xPosition + (HALF_BLOCK_SIZE);
             gLockScreen.yPositionCenter = gCurrentSprite.yPosition;
         }
     }
@@ -1212,7 +1212,7 @@ void KraidStatue(void)
         else
         {
             gLockScreen.lock = TRUE;
-            gLockScreen.xPositionCenter = gCurrentSprite.xPosition + (BLOCK_SIZE / 2);
+            gLockScreen.xPositionCenter = gCurrentSprite.xPosition + (HALF_BLOCK_SIZE);
             gLockScreen.yPositionCenter = gCurrentSprite.yPosition;
         }
     }

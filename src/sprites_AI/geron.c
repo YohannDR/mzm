@@ -1115,7 +1115,7 @@ void Geron(void)
                 gCurrentSprite.health = 0x1;
                 gCurrentSprite.pOam = sGeronOAM_Idle;
 
-                yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE / 2);
+                yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
                 xPosition = gCurrentSprite.xPosition;
 
                 // Set collision
@@ -1206,7 +1206,7 @@ void Geron(void)
                 gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
                 gCurrentSprite.pose = GERON_POSE_DELAY_BEFORE_DESTROYED;
 
-                yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE / 2);
+                yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
                 xPosition = gCurrentSprite.xPosition;
 
                 // Remove collision

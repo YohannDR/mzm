@@ -881,7 +881,7 @@ void MellowMove(struct SpriteData* pSprite)
                 break;
 
             case 0x3:
-                spriteY += (BLOCK_SIZE / 2);
+                spriteY += (HALF_BLOCK_SIZE);
                 if (pSprite->status & SPRITE_STATUS_FACING_RIGHT)
                     spriteX -= (BLOCK_SIZE * 4);
                 else
@@ -899,19 +899,19 @@ void MellowMove(struct SpriteData* pSprite)
         switch (pSprite->xPositionSpawn)
         {
             case 0x1:
-                spriteY -= (BLOCK_SIZE / 2);
+                spriteY -= (HALF_BLOCK_SIZE);
                 if (pSprite->status & SPRITE_STATUS_FACING_RIGHT)
-                    spriteX += (BLOCK_SIZE - BLOCK_SIZE / 4);
+                    spriteX += (BLOCK_SIZE - QUARTER_BLOCK_SIZE);
                 else
-                    spriteX -= (BLOCK_SIZE - BLOCK_SIZE / 4);
+                    spriteX -= (BLOCK_SIZE - QUARTER_BLOCK_SIZE);
                 break;
 
             case 0x3:
-                spriteY += (BLOCK_SIZE / 2);
+                spriteY += (HALF_BLOCK_SIZE);
                 if (pSprite->status & SPRITE_STATUS_FACING_RIGHT)
-                    spriteX -= (BLOCK_SIZE - BLOCK_SIZE / 4);
+                    spriteX -= (BLOCK_SIZE - QUARTER_BLOCK_SIZE);
                 else
-                    spriteX += (BLOCK_SIZE - BLOCK_SIZE / 4);
+                    spriteX += (BLOCK_SIZE - QUARTER_BLOCK_SIZE);
                 break;
         }
     }
