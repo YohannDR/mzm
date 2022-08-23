@@ -1466,7 +1466,7 @@ void SamusCopyData(struct SamusData* pData_)
     pCopy = &gSamusDataCopy;
 
     *pCopy = *pData;
-    if (pData->turning != FALSE)
+    if (pData->turning)
     {
         pData->direction ^= (KEY_LEFT | KEY_RIGHT);
         pData->turning = FALSE;

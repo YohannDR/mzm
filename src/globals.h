@@ -97,6 +97,7 @@ extern u8 gDisableDoorAndTanks;
 extern i8 gCollectingTank;
 extern u8 gDisablePause;
 extern u8 gDisableClipdataChangingTransparency;
+extern i8 gDisableAnimatedPalette;
 extern u8 gCurrentArea;
 extern u8 gCurrentRoom;
 extern u8 gLastDoorUsed;

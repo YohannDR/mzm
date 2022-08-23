@@ -31,6 +31,7 @@ SECTIONS {
         . = 0x00000049; gDisablePause = .;
         . = 0x0000004A; gHideHud = .;
         . = 0x0000004C; gDisableClipdataChangingTransparency = .;
+        . = 0x0000004D; gDisableAnimatedPalette = .;
         . = 0x00000054; gCurrentArea = .;
         . = 0x00000055; gCurrentRoom = .;
         . = 0x00000056; gLastDoorUsed = .;
