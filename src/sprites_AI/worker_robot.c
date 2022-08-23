@@ -349,6 +349,8 @@ const struct FrameData sWorkerRobotOAM_WakingUp[9] = {
 
 u8 WorkerRobotCheckSamusInFront(void)
 {
+    // https://decomp.me/scratch/bljwu
+
     u16 spriteY;
     u16 spriteX;
     u16 spriteTop;
@@ -451,6 +453,8 @@ void WorkerRobotChecWakingUpAnimEnded(void)
 
 void WorkerRobotWalkingDetectProjectile(void)
 {
+    // https://decomp.me/scratch/P1vZU
+
     struct ProjectileData* pProj;
     u8 type;
     u8 onSide;
