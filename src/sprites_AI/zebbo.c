@@ -324,7 +324,6 @@ void Zebbo(void)
         switch (gCurrentSprite.pose)
         {
             case 0x0:
-
                 ZebboInit();
 
             case ZEBBO_POSE_IDLE_INIT:
