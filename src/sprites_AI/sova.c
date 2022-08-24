@@ -1,5 +1,5 @@
 #include "sova.h"
-#include "../sprite_util.h"
+#include "../../data/data.h"
 #include "../globals.h"
 
 u8 SovaCheckCollidingWithAir(void)
@@ -157,7 +157,7 @@ void SovaInit(void)
                 SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x20, gCurrentSprite.xPosition + 0x20);
                 if ((gPreviousCollisionCheck & 0xF0) == 0x0)
                 {
-                    gCurrentSprite.gCurrentSprite.status = gPreviousCollisionCheck & 0xF0;
+                    gCurrentSprite.status = gPreviousCollisionCheck & 0xF0;
                     return;
                 }
                 else
@@ -171,9 +171,9 @@ void SovaInit(void)
         }
     }
 
-    if (!(gCurrentSprite.gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2))
+    if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2))
     {
-        if (gCurrentSprite.gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
         else
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
