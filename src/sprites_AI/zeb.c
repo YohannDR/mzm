@@ -1,36 +1,103 @@
 #include "zeb.h"
-#include "../sprite_util.h"
+#include "../../data/data.h"
 #include "../globals.h"
 
+const u32 sZebGFX[162];
+const u16 sZebPAL[16];
+const u32 sZebBlueGFX[162];
+const u16 sZebBluePAL[16];
+
+const u16 sZebOAM_Idle_Frame0[7] = {
+    0x2,
+    0xf9, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x20a,
+    0xf8, OBJ_SIZE_16x16 | 0x1fa, OBJ_SPRITE_OAM | 0x200
+};
+
+const u16 sZebOAM_Idle_Frame1[7] = {
+    0x2,
+    0xf9, OBJ_SIZE_16x16 | 0x1f5, OBJ_SPRITE_OAM | 0x20a,
+    0xf8, OBJ_SIZE_16x16 | 0x1fa, OBJ_SPRITE_OAM | 0x204
+};
+
+const u16 sZebOAM_Idle_Frame2[7] = {
+    0x2,
+    0xf8, OBJ_SIZE_16x16 | 0x1f5, OBJ_SPRITE_OAM | 0x20a,
+    0xf7, OBJ_SIZE_16x16 | 0x1fa, OBJ_SPRITE_OAM | 0x208
+};
+
+const struct FrameData sZebOAM_Idle[5] = {
+    sZebOAM_Idle_Frame0,
+    0x4,
+    sZebOAM_Idle_Frame1,
+    0x3,
+    sZebOAM_Idle_Frame2,
+    0x4,
+    sZebOAM_Idle_Frame1,
+    0x3,
+    NULL,
+    0x0
+};
+
+const struct FrameData sZebOAM_Moving[5] = {
+    sZebOAM_Idle_Frame0,
+    0x3,
+    sZebOAM_Idle_Frame1,
+    0x1,
+    sZebOAM_Idle_Frame2,
+    0x2,
+    sZebOAM_Idle_Frame1,
+    0x1,
+    NULL,
+    0x0
+};
+
+/**
+ * @brief 1c238 | 60 | Initializes a zeb sprite
+ * 
+ */
 void ZebInit(void)
 {
     gCurrentSprite.hitboxTopOffset = -0x8;
     gCurrentSprite.hitboxBottomOffset = 0x14;
     gCurrentSprite.hitboxLeftOffset = -0x1C;
     gCurrentSprite.hitboxRightOffset = 0x1C;
+
     gCurrentSprite.drawDistanceTopOffset = 0x8;
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+
     gCurrentSprite.workVariable = 0x1;
     gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
-    gCurrentSprite.yPosition -= 0x20;
-    gCurrentSprite.xPosition += 0x20;
+
+    gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
+    gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
+    // Save spawn position
     gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
     gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
 }
 
-void ZebGFXInit(void)
+/**
+ * @brief 1c298 | 3c | Initializes a zeb to be idle
+ * 
+ */
+void ZebIdleInit(void)
 {
     gCurrentSprite.samusCollision = SSC_NONE;
-    gCurrentSprite.pose = 0x9;
-    gCurrentSprite.pOam = zeb_oam_2cca2c;
+
+    gCurrentSprite.pose = ZEB_POSE_IDLE;
+    gCurrentSprite.pOam = sZebOAM_Idle;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
+
     gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
     gCurrentSprite.bgPriority = 0x2;
 }
 
-void ZebCheckSpawn(void)
+/**
+ * @brief 1c2d4 | 98 | Handles a zeb being idle
+ * 
+ */
+void ZebIdle(void)
 {
     u16 samusX;
     u16 samusY;
@@ -49,28 +116,34 @@ void ZebCheckSpawn(void)
             spriteY = gCurrentSprite.yPosition;
             spriteX = gCurrentSprite.xPosition;
 
-            if (samusY <= (spriteY - 0x1E))
+            if (samusY <= spriteY - 0x1E)
             {
-                if (spriteX >= samusX)
-                    offset = samusX - spriteX;
+                // TODO : make the ternary a macro
+                if ((spriteX > samusX ? spriteX - samusX : samusX - spriteX) <= 0x24 ||
+                    SpriteUtilCheckSamusNearSpriteAboveBelow(BLOCK_SIZE * 5, BLOCK_SIZE * 5) != NSAB_ABOVE)
+                    return;
                 else
-                    offset = spriteX - samusX;
-                
-                if (offset > 0x24 && SpriteUtilCheckSamusNearSpriteAboveBelow(0x140, 0x140) == NSAB_ABOVE)
                 {
+                    // Samus in range
                     gCurrentSprite.oamScaling = gSamusData.yPosition;
-                    gCurrentSprite.pose = 0x23;
+                    gCurrentSprite.pose = ZEB_POSE_GOING_UP;
                     gCurrentSprite.timer = 0x2;
                     gCurrentSprite.status &= ~(SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
+
                     SpriteUtilMakeSpriteFaceSamusXFlip();
+
                     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
                         SoundPlay(0x144);
                 }
-            }
+            }   
         }
     }
 }
 
+/**
+ * @brief 1c36c | 80 | Handles a zeb going up
+ * 
+ */
 void ZebGoingUp(void)
 {
     u16 yPosition;
@@ -84,28 +157,37 @@ void ZebGoingUp(void)
     }
     else
     {
-        if (gCurrentSprite.oamScaling < gSamusData.yPosition && gSamusData.yPosition >= (i32)(gCurrentSprite.yPositionSpawn - 0x80))
+        if (gCurrentSprite.oamScaling < gSamusData.yPosition && gSamusData.yPosition >= gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 2)
             yPosition = gCurrentSprite.oamScaling;
         else
             yPosition = gSamusData.yPosition;
 
-        if ((yPosition - 0x64) > gCurrentSprite.yPosition)
+        if (yPosition - 0x64 > gCurrentSprite.yPosition)
         {
-            gCurrentSprite.pose = 0x25;
+            gCurrentSprite.pose = ZEB_POSE_GOING_UP;
             gCurrentSprite.timer = 0xA;
-            gCurrentSprite.pOam = zeb_oam_2cca54;
+
+            gCurrentSprite.pOam = sZebOAM_Moving;
             gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.animationDurationCounter = 0x0;
+
             gCurrentSprite.bgPriority = 0x1;
         }
     }
 }
 
-void ZebReset(void)
+/**
+ * @brief 1c3ec | 58 | Handles a zeb respawning
+ * 
+ */
+void ZebRespawn(void)
 {
+    // Set spawn position
     gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn;
     gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn;
-    ZebGFXInit();
+
+    ZebIdleInit();
+
     gCurrentSprite.workVariable = 0x3C;
     gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
     gCurrentSprite.invicibilityStunFlashTimer = 0x0;
@@ -116,17 +198,20 @@ void ZebReset(void)
     gCurrentSprite.freezeTimer = 0x0;
 }
 
+/**
+ * @brief 1c444 | c8 | Handles a zeb moving
+ * 
+ */
 void ZebMove(void)
 {
-    u8 timer;
-
     if (gCurrentSprite.timer != 0x0)
     {
-        if (timer = gCurrentSprite.timer -= 0x1 == 0x0)
+        gCurrentSprite.timer--;
+        if (gCurrentSprite.timer == 0x0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                play_sound(0x145);
-            gCurrentSprite.workVariable = timer;
+                SoundPlay(0x145);
+            gCurrentSprite.workVariable = 0x0;
         }
     }
     else
@@ -134,27 +219,35 @@ void ZebMove(void)
         gCurrentSprite.workVariable++;
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
-            if ((i32)(gCurrentSprite.xPosition - gSamusData.xPosition) > 0x400 || gCurrentSprite.xPosition & 0x8000)
+            // Check should respawn
+            if (gCurrentSprite.xPosition - gSamusData.xPosition > BLOCK_SIZE * 16 || gCurrentSprite.xPosition & 0x8000)
             {
-                ZebReset();
+                ZebRespawn();
                 return;
             }
-            gCurrentSprite.xPosition += 0xC;
+            else
+                gCurrentSprite.xPosition += 0xC; // Move
         }
         else
         {
-            if ((i32)(gSamusData.xPosition - gCurrentSprite.xPosition) > 0x400 || gCurrentSprite.xPosition & 0x8000)
+            // Check should respawn
+            if (gSamusData.xPosition - gCurrentSprite.xPosition > BLOCK_SIZE * 16 || gCurrentSprite.xPosition & 0x8000)
             {
-                ZebReset();
+                ZebRespawn();
                 return;
             }
-            gCurrentSprite.xPosition -= 0xC;
+            else
+                gCurrentSprite.xPosition -= 0xC; // Move
         }
-        if ((gCurrentSprite.workVariable & 0xF) == 0x0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+        if (!(gCurrentSprite.workVariable & 0xF) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlay(0x145);
     }
 }
 
+/**
+ * @brief 1c50c | 138 | Zeb AI
+ * 
+ */
 void Zeb(void)
 {
     if (gCurrentSprite.properties & SP_DAMAGED)
@@ -168,27 +261,32 @@ void Zeb(void)
         SpriteUtilUpdateFreezeTimer();
     else
     {
-        if (!SpriteUtilIsSpriteStunned())
+        if (SpriteUtilIsSpriteStunned())
+            return;
+        
+        switch (gCurrentSprite.pose)
         {
-            switch (gCurrentSprite.pose)
-            {
-                case 0x0:
-                    ZebInit();
-                case 0x8:
-                    ZebGFXInit();
-                case 0x9:
-                    ZebCheckSpawn();
-                    break;
-                case 0x23:
-                    ZebGoingUp();
-                    break;
-                case 0x25:
-                    ZebMove();
-                    break;
-                default:
-                    SpriteUtilSpriteDeath(DEATH_RESPAWNING, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
-                    ZebReset();
-            }
+            case 0x0:
+                ZebInit();
+
+            case ZEB_POSE_IDLE_INIT:
+                ZebIdleInit();
+
+            case ZEB_POSE_IDLE:
+                ZebIdle();
+                break;
+
+            case ZEB_POSE_GOING_UP:
+                ZebGoingUp();
+                break;
+
+            case ZEB_POSE_MOVING:
+                ZebMove();
+                break;
+
+            default:
+                SpriteUtilSpriteDeath(DEATH_RESPAWNING, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
+                ZebRespawn();
         }
     }
 }
