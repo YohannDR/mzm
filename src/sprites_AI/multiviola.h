@@ -3,6 +3,8 @@
 
 #include "../types.h"
 
+#define MULTIVIOLA_POSE_MOVING 0x9
+
 void MultiviolaInit(void);
 void MultiviolaMove(void);
 void MultivioaUnused_Empty1(void);
