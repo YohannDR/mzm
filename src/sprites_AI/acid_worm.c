@@ -640,9 +640,9 @@ void AcidWormSyncHeadPosition(void)
     sine = sSineYValues[rotation + 0x40];
     position = (i16)gSubSpriteData1.xPosition;
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-        (i16)position += offset;
+        position = (i16)(position + offset);
     else
-        (i16)position -= offset;
+        position = (i16)(position - offset);
 
     if (sine < 0x0)
     {
