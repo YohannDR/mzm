@@ -1108,39 +1108,44 @@ void Hive(void)
     }
 }
 
+/**
+ * @brief 255b8 | ac | Hive roots AI
+ * 
+ */
 void HiveRoots(void)
 {
-    // https://decomp.me/scratch/cjLAd
-
-    /*u8 ramSlot;
-    struct SpriteData* pSprite;
+    u8 ramSlot;
 
     ramSlot = gCurrentSprite.primarySpriteRAMSlot;
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     if (gSpriteData[ramSlot].spriteID == PSPRITE_HIVE)
     {
         gCurrentSprite.paletteRow = gSpriteData[ramSlot].paletteRow;
-        if (gSpriteData[ramSlot].health < sPrimarySpriteStats[gSpriteData[ramSlot].spriteID][0] / 2 && gSpriteData[ramSlot].freezeTimer == 0x0)
-            gCurrentSprite.status = 0x0;
-        else
+        if (gSpriteData[ramSlot].health < sPrimarySpriteStats[gSpriteData[ramSlot].spriteID][0x0] / 2 && gSpriteData[ramSlot].freezeTimer == 0x0)
         {
-            if (gSpriteData[ramSlot].status == 0x0)
-                gCurrentSprite.status = 0x0;
-            else
-            {
-                if (gCurrentSprite.freezeTimer != 0x0)
-                    SpriteUtilUpdateFreezeTimer();
-                else
-                {
-                    if (gCurrentSprite.pose == 0x0)
-                        HiveRootsInit();
-                    HiveRootsMove();
-                }
-            }
+            gCurrentSprite.status = 0x0;
+            return;
         }
     }
     else
-        gCurrentSprite.status = 0x0;*/
+    {
+        gCurrentSprite.status = 0x0;
+        return;
+    }
+
+    if (gSpriteData[ramSlot].status == 0x0)
+        gCurrentSprite.status = 0x0;
+    else
+    {
+        if (gCurrentSprite.freezeTimer != 0x0)
+            SpriteUtilUpdateFreezeTimer();
+        else
+        {
+            if (gCurrentSprite.pose == 0x0)
+                HiveRootsInit();
+            HiveRootsMove();
+        }
+    }
 }
 
 void Mellow(void)
