@@ -227,13 +227,13 @@ void SovaMove(void)
 
     turning = FALSE;
 
-    if (SovaCheckCollidingWithAir() )
+    if (SovaCheckCollidingWithAir())
     {
         gCurrentSprite.pose = 0x1E;
         return;
     }
 
-    if (sprite_util_is_screen_on_screen_and_screen_shake())
+    if (SpriteUtilIsSpriteOnScreenAndScreenShake())
     {
         if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2 || gCurrentSprite.workVariable2)
             gCurrentSprite.pose = 0x1E;
@@ -244,7 +244,7 @@ void SovaMove(void)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
-            if (gCurrentSprite..status & SPRITE_STATUS_FACING_RIGHT)
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
                 SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
                 if ((gPreviousCollisionCheck & 0xF0) == 0x0)
