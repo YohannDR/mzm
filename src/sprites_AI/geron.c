@@ -1151,7 +1151,7 @@ void Geron(void)
                         pSprite->workVariable = gCurrentSprite.primarySpriteRAMSlot;
 
                         // Set grabbed behavior
-                        pSprite->pose = 0x4C;
+                        pSprite->pose = PARASITE_POSE_GERON_GRABBED_INIT;
                         pSprite->status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
                         // Set no collision to prevent being counted twice
