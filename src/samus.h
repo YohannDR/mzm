@@ -35,7 +35,7 @@ extern i16 gSamusDoorPositionOffset;
 
 #define SMF_NONE 0x0
 #define SMF_HIGH_JUMP 0x1
-#define SMF_SPEED_BOOSTER 0x2
+#define SMF_SPEEDBOOSTER 0x2
 #define SMF_SPACE_JUMP 0x4
 #define SMF_SCREW_ATTACK 0x8
 #define SMF_VARIA_SUIT 0x10

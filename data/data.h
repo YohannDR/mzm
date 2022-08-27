@@ -39,7 +39,6 @@
 #include "../src/sprites_AI/morph_ball_launcher.h"
 #include "../src/sprites_AI/space_pirate.h"
 #include "../src/sprites_AI/gamet.h"
-#include "../src/sprites_AI/unknown_item_chozo_statue.h"
 #include "../src/sprites_AI/zebbo.h"
 #include "../src/sprites_AI/worker_robot.h"
 #include "../src/sprites_AI/parasite.h"
@@ -92,7 +91,6 @@
 #include "../src/sprites_AI/escape_gate.h"
 #include "../src/sprites_AI/black_space_pirate.h"
 #include "../src/sprites_AI/escape_ship_pirate.h"
-#include "../src/sprites_AI/chozo_ball.h"
 #include "../src/sprites_AI/chozo_statue_movement.h"
 
 /* generic_data.c */
@@ -169,9 +167,6 @@ u8 blob_0x82fd79c_0x830d55b[64960];
 /* blob_0x830df94_0x8312b97.c */
 
 u8 blob_0x830df94_0x8312b97[19460];
-
-/* rising_chozo_pillar_data.c */
-
 
 /* blob_0x8313c4c_0x8326ca7.c */
 

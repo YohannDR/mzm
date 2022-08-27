@@ -2248,7 +2248,7 @@ u8 SamusRunning(struct SamusData* pData)
     }
 
     xVelocity = gSamusPhysics.xVelocityCap;
-    if ((gEquipment.suitMiscActivation & SMF_SPEED_BOOSTER) != 0x0 && gSamusPhysics.slowedByLiquid == FALSE)
+    if ((gEquipment.suitMiscActivation & SMF_SPEEDBOOSTER) != 0x0 && gSamusPhysics.slowedByLiquid == FALSE)
     {
         if (pData->timer >= 0x8C)
             xVelocity = 0xA0;
