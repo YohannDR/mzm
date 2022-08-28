@@ -4,6 +4,8 @@
 
 void ExplosionZebesEscape(void)
 {
+    // https://decomp.me/scratch/anca0
+
     u16 yPosition;
     u16 xPosition;
     u8 particleTimer;
