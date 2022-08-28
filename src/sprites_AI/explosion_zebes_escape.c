@@ -4,85 +4,81 @@
 
 void ExplosionZebesEscape(void)
 {
-    u32 rng;
-    u32 rng_;
-    u32 xPosition;
-    u32 yPosition;
-    u8 arrayOffset;
-    u8 variable;
-    u32 yOffset;
-    u32 xOffset;
+    u16 yPosition;
+    u16 xPosition;
+    u8 particleTimer;
+    u8 debrisTimer;
+    u8 rngParam1;
+    u8 rngParam2;
+    i32 zero = 0;
 
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0)
     {
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
+        
         gCurrentSprite.drawDistanceTopOffset = 0x1;
         gCurrentSprite.drawDistanceBottomOffset = 0x1;
         gCurrentSprite.drawDistanceHorizontalOffset = 0x1;
+
         gCurrentSprite.hitboxTopOffset = 0x0;
         gCurrentSprite.hitboxBottomOffset = 0x0;
         gCurrentSprite.hitboxLeftOffset = 0x0;
         gCurrentSprite.hitboxRightOffset = 0x0;
+
         gCurrentSprite.samusCollision = SSC_NONE;
+        
         gCurrentSprite.pOam = sEnemyDropOAM_LargeEnergy;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
+
         gCurrentSprite.pose = 0x9;
-        gCurrentSprite.arrayOffset = 0x7;
-        gCurrentSprite.workVariable2 = 0x0;
+        gCurrentSprite.arrayOffset = 0x0;
+        gCurrentSprite.workVariable2 = 0x7;
+
         gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
         gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
         return;
     }
-
+    ++zero; --zero;
     yPosition = gCurrentSprite.yPositionSpawn;
-    xPosition = (u16)(gBG1XPosition + 0x1E0);
-    rng = gSpriteRNG;
-    rng_ = rng & 0x3;
-    arrayOffset = gCurrentSprite.arrayOffset;
-    gCurrentSprite.arrayOffset++;
-    variable = gCurrentSprite.workVariable2;
-    gCurrentSprite.workVariable2++;
+    xPosition = gBG1XPosition + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
 
-    yPosition = gCurrentSprite.yPositionSpawn;
-    if (gSamusData.yPosition < (gCurrentSprite.yPositionSpawn - 0xA0))
-        yPosition = (u16)(gSamusData.yPosition + 0x64);
+    rngParam1 = gSpriteRNG;
+    rngParam2 = rngParam1 & 0x3;
 
-    if ((arrayOffset & 0xF) == 0x0 && rng >= 0x8)
+    particleTimer = gCurrentSprite.arrayOffset++;
+    debrisTimer = gCurrentSprite.workVariable2++;
+
+    if (gSamusData.yPosition < yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE))
+        yPosition = gSamusData.yPosition + 0x64;
+
+    if (!(particleTimer & 0xF) && rngParam1 > 0x7)
     {
-        if ((arrayOffset & 0x10) != 0x0)
+        if (particleTimer & 0x10)
         {
-            if (rng >= 0xC)
+            if (rngParam1 > 0xB)
             {
-                if ((rng & 0x1) != 0x0)
+                if (rngParam1 & 0x1)
                 {
-                    yPosition += (rng * 0x8) - 0xE6;
-                    xPosition += (rng << rng_);
-                    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
-                    SoundPlayNotAlreadyPlaying(0x276);
+                    ParticleSet(yPosition - 0xDC + rngParam1 * 8, xPosition + 0xA0 + (rngParam1 << rngParam2), PE_SPRITE_EXPLOSION_HUGE);
+                    SoundPlayNotAlreadyPlaying(0xA4);
                 }
                 else
                 {
-                    yPosition += (rng * 0x8) - 0xDC;
-                    xPosition += (rng << rng_) + 0xA0;
-                    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
-                    SoundPlayNotAlreadyPlaying(0xA4);
+                    ParticleSet(yPosition - 0xE6 + rngParam1 * 8, xPosition + (rngParam1 << rngParam2), PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+                    SoundPlayNotAlreadyPlaying(0x276);
                 }
             }
             else
             {
-                if ((rng & 0x1) != 0x0)
+                if (rngParam1 & 0x1)
                 {
-                    yPosition += (rng * 0x8) - 0xDC;
-                    xPosition -= (rng << rng_);
-                    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
+                    ParticleSet(yPosition - 0xDC + rngParam1 * 8, xPosition - (rngParam1 << rngParam2), PE_SPRITE_EXPLOSION_HUGE);
                     SoundPlayNotAlreadyPlaying(0xA4);
                 }
                 else
                 {
-                    yPosition += (rng * 0x8) - 0xE6;
-                    xPosition -= (rng << rng_) + 0xA0;
-                    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_BIG);
+                    ParticleSet(yPosition - 0xE6 + rngParam1 * 8, xPosition - 0xA0 - (rngParam1 << rngParam2), PE_SPRITE_EXPLOSION_BIG);
                     SoundPlayNotAlreadyPlaying(0x276);
                 }
             }
@@ -91,56 +87,63 @@ void ExplosionZebesEscape(void)
         {
             ScreenShakeStartVertical(0xA, 0x81);
             ScreenShakeStartHorizontal(0xA, 0x81);
-            if (rng >= 0xC)
+            
+            if (rngParam1 > 0xB)
             {
-                if ((rng & 0x1) != 0x0)
+                if (rngParam1 & 0x1)
                 {
-                    ParticleSet(yPosition + (rng * 0x10 - 0x140), xPosition + rng << rng_, PE_TWO_MEDIUM_DUST);
+                    ParticleSet(yPosition - 0x140 + rngParam1 * 16, xPosition + 0xC0 + (rngParam1 << rngParam2), PE_TWO_MEDIUM_DUST);
                     SoundPlayNotAlreadyPlaying(0xA5);
                 }
                 else
                 {
-                    yOffset = (rng * 0x10) - 0x118;
-                    xOffset = rng << rng_;
+                    ParticleSet(yPosition - 0x118 + rngParam1 * 16, xPosition + (rngParam1 << rngParam2), PE_MEDIUM_DUST);
+                    SoundPlayNotAlreadyPlaying(0x277);
                 }
             }
             else
             {
-                yOffset = (rng * 0x10) - 0x168;
-                xOffset = (rng << rng_) + 0xC0;
+                if (rngParam1 & 0x1)
+                {
+                    ParticleSet(yPosition - 0x168 + rngParam1 * 16, xPosition - 0xC0 - (rngParam1 << rngParam2), PE_MEDIUM_DUST);
+                    SoundPlayNotAlreadyPlaying(0x277);
+                }
+                else
+                {
+                    ParticleSet(yPosition - 0x12C + rngParam1 * 16, xPosition - (rngParam1 << rngParam2), PE_TWO_MEDIUM_DUST);
+                    SoundPlayNotAlreadyPlaying(0xA5);
+                }
             }
-
-            ParticleSet(yPosition + yOffset, xPosition + xOffset, PE_MEDIUM_DUST);
-            SoundPlayNotAlreadyPlaying(0x277);
         }
     }
 
-    yPosition = (u16)(gBG1YPosition - 0x40);
-    if ((variable & 0x1F) == 0x0)
+    yPosition = gBG1YPosition - BLOCK_SIZE;
+
+    if (!(debrisTimer & 0x1F))
     {
-        if ((variable & 0x20) != 0x0)
+        if (debrisTimer & 0x20)
         {
-            SpriteDebrisInit(0x0, 0x5, yPosition, xPosition - (rng * 0x10) - 0x78);
-            SpriteDebrisInit(0x0, 0x8, yPosition, xPosition + (rng * 0x8) - 0x190);
+            SpriteDebrisInit(0x0, 0x5, yPosition, xPosition + 0x78 - rngParam1 * 16);
+            SpriteDebrisInit(0x0, 0x8, yPosition, xPosition - 0x190 + rngParam1 * 8);
         }
         else
         {
-            SpriteDebrisInit(0x0, 0x7, yPosition, xPosition - (rng * 0x10) - 0x78);
-            SpriteDebrisInit(0x0, 0x5, yPosition, xPosition + (rng * 0x8) - 0x12C);
+            SpriteDebrisInit(0x0, 0x7, yPosition, xPosition - 0xA0 - rngParam1 * 16);
+            SpriteDebrisInit(0x0, 0x5, yPosition, xPosition - 0x12C + rngParam1 * 8);
         }
     }
 
-    if ((arrayOffset & 0xF) == 0x0)
+    if (!(particleTimer & 0xF))
     {
-        if (rng >= 0x8)
+        if (rngParam1 > 0x7)
         {
-            SpriteDebrisInit(0x0, 0x8, yPosition, xPosition + (rng * 0x20) - 0x1C2);
-            SpriteDebrisInit(0x0, 0x6, yPosition, xPosition - (rng * 0x20) - 0x24E);
+            SpriteDebrisInit(0x0, 0x8, yPosition, xPosition - 0x1C2 + rngParam1 * 32);
+            SpriteDebrisInit(0x0, 0x6, yPosition, xPosition + 0x24E - rngParam1 * 32);
         }
         else
         {
-            SpriteDebrisInit(0x0, 0x6, yPosition, xPosition - (rng * 0x20) - 0x17C);
-            SpriteDebrisInit(0x0, 0x8, yPosition, xPosition + (rng * 0x8) - 0x278);
+            SpriteDebrisInit(0x0, 0x6, yPosition, xPosition + 0x17C - rngParam1 * 32);
+            SpriteDebrisInit(0x0, 0x8, yPosition, xPosition - 0x278 + rngParam1 * 8);
         }
     }
 }
