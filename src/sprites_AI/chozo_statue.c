@@ -1,4 +1,5 @@
 #include "chozo_statue.h"
+#include "unknown_item_chozo_statue.h"
 #include "../../data/data.h"
 #include "../globals.h"
 
@@ -306,21 +307,21 @@ const u16 sChozoStatuePartOAM_ArmSamusGrabbed_Frame0[13] = {
     OBJ_SHAPE_VERTICAL | 0xf6, 0x1f6, OBJ_SPRITE_OAM | 0x1249
 };
 
-const u16 sChozoBallOAM_Closed_Frame0[10] = {
+const u16 sChozoBallOAM_NormalClosed_Frame0[10] = {
     0x3,
     0xf7, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x1307,
     OBJ_SHAPE_VERTICAL | 0xf7, 0x7, OBJ_SPRITE_OAM | 0x1309,
     OBJ_SHAPE_HORIZONTAL | 0x7, 0x1f7, OBJ_SPRITE_OAM | 0x1310
 };
 
-const u16 sChozoBallOAM_Closed_Frame1[10] = {
+const u16 sChozoBallOAM_NormalClosed_Frame1[10] = {
     0x3,
     0xf7, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x130a,
     OBJ_SHAPE_VERTICAL | 0xf7, 0x7, OBJ_SPRITE_OAM | 0x130c,
     OBJ_SHAPE_HORIZONTAL | 0x7, 0x1f7, OBJ_SPRITE_OAM | 0x1330
 };
 
-const u16 sChozoBallOAM_Closed_Frame3[10] = {
+const u16 sChozoBallOAM_NormalClosed_Frame3[10] = {
     0x3,
     0xf7, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x130d,
     OBJ_SHAPE_VERTICAL | 0xf7, 0x7, OBJ_SPRITE_OAM | 0x130f,
@@ -684,14 +685,14 @@ const struct FrameData sChozoStatuePartOAM_ArmSamusGrabbed[2] = {
     0x0
 };
 
-const struct FrameData sChozoBallOAM_Closed[5] = {
-    sChozoBallOAM_Closed_Frame0,
+const struct FrameData sChozoBallOAM_NormalClosed[5] = {
+    sChozoBallOAM_NormalClosed_Frame0,
     0xE,
-    sChozoBallOAM_Closed_Frame1,
+    sChozoBallOAM_NormalClosed_Frame1,
     0xE,
-    sChozoBallOAM_Closed_Frame0,
+    sChozoBallOAM_NormalClosed_Frame0,
     0xE,
-    sChozoBallOAM_Closed_Frame3,
+    sChozoBallOAM_NormalClosed_Frame3,
     0xE,
     NULL,
     0x0
@@ -890,6 +891,27 @@ const struct FrameData sChozoStatuePartOAM_GlowIdle[41] = {
     NULL,
     0x0
 };
+
+const u32 sChozoStatueIceBeamGFX[1335];
+const u16 sChozoStatueIceBeamPAL[80];
+
+const u32 sChozoStatueWaveBeamGFX[1335];
+const u16 sChozoStatueWaveBeamPAL[80];
+
+const u32 sChozoStatueBombsGFX[1339];
+const u16 sChozoStatueBombsPAL[80];
+
+const u32 sChozoStatueSpeedboosterGFX[1342];
+const u16 sChozoStatueSpeedboosterPAL[80];
+
+const u32 sChozoStatueHighJumpGFX[1372];
+const u16 sChozoStatueHighJumpPAL[80];
+
+const u32 sChozoStatueScrewAttackGFX[1378];
+const u16 sChozoStatueScrewAttackPAL[80];
+
+const u32 sChozoStatueVariaGFX[1378];
+const u16 sChozoStatueVariaPAL[80];
 
 
 void ChozoStatueSyncSubSprites(void)
@@ -1195,21 +1217,21 @@ void ChozoStatueInit(void)
         {
             // Set seated
             gSubSpriteData1.pMultiOam = sChozoStatueMultiSpriteData_Seated;
-            ChozoStatueSittingChangeCCAA(CAA_MAKE_SOLID3);
+            ChozoStatueSeatedChangeCCAA(CAA_MAKE_SOLID3);
         }
         else
         {
             // Set standing
             gSubSpriteData1.workVariable3 = TRUE;
             gSubSpriteData1.pMultiOam = sChozoStatueMultiSpriteData_Standing;
-            ChozoStatueHintChangeCCAA(CAA_MAKE_SOLID3, CAA_MAKE_SOLID_GRIPPABLE);
+            ChozoStatueStandingChangeCCAA(CAA_MAKE_SOLID3, CAA_MAKE_SOLID_GRIPPABLE);
         }
     }
     else
     {
         // Is item
         gSubSpriteData1.pMultiOam = sChozoStatueMultiSpriteData_Seated;
-        ChozoStatueSittingChangeCCAA(CAA_MAKE_SOLID3);
+        ChozoStatueSeatedChangeCCAA(CAA_MAKE_SOLID3);
 
         if (behavior == CHOZO_STATUE_BEHAVIOR_ITEM)
         {
@@ -1360,7 +1382,7 @@ void ChozoStatueSittingInit(void)
     gSubSpriteData1.animationDurationCounter = 0x0;
     gSubSpriteData1.currentAnimationFrame = 0x0;
 
-    ChozoStatueHintChangeCCAA(CAA_REMOVE_SOLID, CAA_REMOVE_SOLID);
+    ChozoStatueStandingChangeCCAA(CAA_REMOVE_SOLID, CAA_REMOVE_SOLID);
     SoundPlay(0x11C);
 
     gSlowScrollingTimer = 0x3C;
@@ -1385,7 +1407,7 @@ void ChozoStatueSitting(void)
         gCurrentSprite.pose = CHOZO_STATUE_POSE_DELAY_AFTER_SITTING;
         gCurrentSprite.timer = 0x1E;
 
-        ChozoStatueSittingChangeCCAA(CAA_MAKE_SOLID3);
+        ChozoStatueSeatedChangeCCAA(CAA_MAKE_SOLID3);
     }
 }
 
@@ -1410,16 +1432,16 @@ void ChozoStatueWaitForItemToBeCollected(void)
     if (ChozoStatueGetBehavior(gCurrentSprite.spriteID) == CHOZO_STATUE_BEHAVIOR_REFILL)
     {
         // Hint behavior, thus item was took
-        gCurrentSprite.pose = CHOZO_STATUE_POSE_DELAY_BEFORE_ITEM_BANNER;
+        gCurrentSprite.pose = CHOZO_STATUE_POSE_TIMER_AFTER_TIMER;
         gCurrentSprite.timer = 0x28;
     }
 }
 
 /**
- * @brief 14494 | 24 | To document
+ * @brief 14494 | 24 | Timer after the item is grabbed, unknown purpose
  * 
  */
-void ChozoStatueItemBeforeBanner(void)
+void ChozoStatueTimerAfterItemGrabbed(void)
 {
     gCurrentSprite.timer--;
     if (gCurrentSprite.timer == 0x0)
@@ -2011,8 +2033,8 @@ void ChozoStatue(void)
             ChozoStatueWaitForItemToBeCollected();
             break;
 
-        case CHOZO_STATUE_POSE_DELAY_BEFORE_ITEM_BANNER:
-            ChozoStatueItemBeforeBanner();
+        case CHOZO_STATUE_POSE_TIMER_AFTER_TIMER:
+            ChozoStatueTimerAfterItemGrabbed();
             break;
 
         case CHOZO_STATUE_POSE_REFILL_INIT:
@@ -2156,362 +2178,5 @@ void ChozoStatueRefill(void)
     {
         gCurrentSprite.status = 0x0;
         SoundFade(0x10F, 0x1E); // Chozo statue refill
-    }
-}
-
-void UnknownItemChozoStatueSyncSubSprites(void)
-{
-
-}
-
-void UnknownItemChozoStatueRegisterItem(void)
-{
-
-}
-
-void UnknownItemChozoStatueHintFlashing_Unused(void)
-{
-
-}
-
-void UnknownItemChozoStatueSittingInit_Unused(void)
-{
-
-}
-
-void UnknownItemChozoStatueSitting_Unused(void)
-{
-
-}
-
-void UnknownItemChozoStatueDelayBeforeRefillAfterHint_Unused(void)
-{
-
-}
-
-void UnknownItemChozoStatueWaitForItemToBeCollected(void)
-{
-
-}
-
-void UnknownItemChozoStatueCheckItemBannerSpawned(void)
-{
-
-}
-
-void UnknownItemChozoStatueRefillInit(void)
-{
-
-}
-
-void UnknownItemChozoStatueRefill(void)
-{
-
-}
-
-void UnknownItemChozoStatueSleepingInit(void)
-{
-
-}
-
-void UnknownItemChozoStatueSleeping(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartInit(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartGlowIdle(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartArmCheckGrabSamusHint(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartSyncSamus(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartArmSitting(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartArmSeated(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartArmCheckGrabSamusRefill(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartArmRefill(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartEmpty(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartSleepingInit(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartArmSleeping(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartEyeOpeningInit_Unused(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartEyeOpening_Unused(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartEyeClosingInit(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartEyeClosing(void)
-{
-
-}
-
-void UnknownItemChozoStatuePartLegIdle(void)
-{
-
-}
-
-void UnknownItemChozoStatue(void)
-{
-
-}
-
-void UnknownItemChozoStatuePart(void)
-{
-
-}
-
-void UnknownItemChozoStatueRefill(void)
-{
-
-}
-
-void ChozoStatueHintChangeCCAA(u8 caa1, u8 caa2)
-{
-
-}
-
-void ChozoStatueSittingChangeCCAA(u8 caa1)
-{
-    
-}
-
-/**
- * 162b0 | 94 | Spawns an item banner depending on the chozo statue sprite ID
- * 
- * @param spriteID Chozo statue sprite ID
- */
-void ChozoBallSpawnItemBanner(u8 spriteID)
-{
-    u8 text;
-
-    switch (spriteID)
-    {
-        case PSPRITE_CHOZO_STATUE_LONG:
-            text = 0x8;
-            break;
-        case PSPRITE_CHOZO_STATUE_ICE:
-            text = 0xA;
-            break;
-        case PSPRITE_CHOZO_STATUE_WAVE:
-            text = 0xB;
-            break;
-        case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
-            text = 0xC;
-            break;
-        case PSPRITE_CHOZO_STATUE_BOMB:
-            text = 0xD;
-            break;
-        case PSPRITE_CHOZO_STATUE_SPEEDBOOSTER:
-            text = 0x11;
-            break;
-        case PSPRITE_CHOZO_STATUE_HIGH_JUMP:
-            text = 0x12;
-            break;
-        case PSPRITE_CHOZO_STATUE_SCREW:
-            text = 0x13;
-            break;
-        case PSPRITE_CHOZO_STATUE_VARIA:
-            text = 0xE;
-            break;
-        case PSPRITE_CHOZO_STATUE_SPACE_JUMP:
-            text = 0x14;
-            break;
-        case PSPRITE_CHOZO_STATUE_GRAVITY:
-            text = 0xF;
-            break;
-    }
-
-    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
-}
-
-void ChozoBallSetOAMPointer(u8 spriteID)
-{
-
-}
-
-void ChozoBallRevealingSetOAMPointer(u8 spriteID)
-{
-
-}
-
-void ChozoBallRevealedSetOAMPointer(u8 spriteID)
-{
-
-}
-
-/**
- * 16470 | 74 | Initializes a chozo ball sprite
- * 
- */
-void ChozoBallInit(void)
-{
-    gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.hitboxTopOffset = -0x1C;
-    gCurrentSprite.hitboxBottomOffset = 0x1C;
-    gCurrentSprite.hitboxLeftOffset = -0x1C;
-    gCurrentSprite.hitboxRightOffset = 0x1C;
-    gCurrentSprite.drawDistanceTopOffset = 0xC;
-    gCurrentSprite.drawDistanceBottomOffset = 0xC;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0xC;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.samusCollision = SSC_SOLID;
-    gCurrentSprite.health = 0x1;
-    gCurrentSprite.pose = 0x8;
-    ChozoBallSetOAMPointer(gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID);
-}
-
-/**
- * 164e4 | 4 | Empty function
- * 
- */
-void ChozoBallEmpty(void)
-{
-    return;
-}
-
-/**
- * 164e8 | 70 | Called before the chozo ball reveals, calls ChozoBallRevealingSetOAMPointer and updates the sprite data
- * 
- */
-void ChozoBallRevealing(void)
-{
-    gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
-    gCurrentSprite.health = 0x1;
-    gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
-    gCurrentSprite.pose = 0x67;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
-    gCurrentSprite.invicibilityStunFlashTimer &= 0x80;
-    ChozoBallRevealingSetOAMPointer(gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID);
-    SoundPlay(0x11D);
-}
-
-/**
- * 16558 | 3c | Checks if the revealing animation has ended, calls ChozoBallRevealedSetOAMPointer
- * 
- */
-void ChozoBallCheckRevealingAnimEnded(void)
-{
-    if (SpriteUtilCheckEndCurrentSpriteAnim())
-    {
-        gCurrentSprite.pose = 0x9;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        ChozoBallRevealedSetOAMPointer(gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID);
-    }
-}
-
-/**
- * 16594 | 1c | Registers the item grabbed and calls ChozoBallSpawnItemBanner
- * 
- */
-void ChozoBallRegisterItem(void)
-{
-    u8 spriteID;
-
-    if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
-    {
-        gPreventMovementTimer = 0x3E8;
-        gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-        gCurrentSprite.pose = 0x23;
-        gCurrentSprite.timer = 0x0;
-        spriteID = gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID;
-        ChozoStatueRegisterItem(spriteID);
-        ChozoBallSpawnItemBanner(spriteID);
-    }
-}
-
-/**
- * 16600 | 3c | Handles the flashing animation when the item gets grabbed 
- * 
- */
-void ChozoBallFlashAnimation(void)
-{
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-
-    if (!(gCurrentSprite.timer & 0x1))
-        gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
-        
-    if (gPreventMovementTimer < 0x3E7)
-        gCurrentSprite.status = 0x0;
-}
-
-/**
- * 1663c | 58 | Chozo ball AI
- * 
- */
-void ChozoBall(void)
-{
-    switch (gCurrentSprite.pose)
-    {
-        case 0x0:
-            ChozoBallInit();
-            break;
-        case 0x8:
-            ChozoBallEmpty();
-            break;
-        case 0x67:
-            ChozoBallCheckRevealingAnimEnded();
-            break;
-        case 0x9:
-            ChozoBallRegisterItem();
-            break;
-        case 0x23:
-            ChozoBallFlashAnimation();
-            break;
-        default:
-            ChozoBallRevealing();
     }
 }
