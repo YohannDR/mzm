@@ -21,9 +21,11 @@ SECTIONS {
         . = 0x0000002B; gSamusOnTopOfBackgrounds = .;
         . = 0x0000002C; gDifficulty = .;
         . = 0x0000002D; gUseMotherShip = .;
+        . = 0x00000030; gMusicTrackInfo = .;
         . = 0x00000038; gCurrentDemo = .;
         . = 0x0000003c; gResetGame = .;
         . = 0x0000003D; gDisableScrolling = .;
+        . = 0x0000003E; gSlowScrollingTimer = .;
         . = 0x00000042; gSkipDoorTransition = .;
         . = 0x00000043; gDisableSoftreset = .;
         . = 0x00000044; gCollectingTank = .;

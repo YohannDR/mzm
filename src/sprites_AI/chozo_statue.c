@@ -1184,7 +1184,7 @@ void ChozoStatueInit(void)
     gSubSpriteData1.animationDurationCounter = 0x0;
     gSubSpriteData1.currentAnimationFrame = 0x0;
     gSubSpriteData1.workVariable2 = 0x0;
-    gSubSpriteData1.workVariable3 = 0x0;
+    gSubSpriteData1.workVariable3 = FALSE;
 
     behavior = ChozoStatueGetBehavior(gCurrentSprite.spriteID);
     if (behavior > CHOZO_STATUE_BEHAVIOR_REFILL)
@@ -1200,7 +1200,7 @@ void ChozoStatueInit(void)
         else
         {
             // Set standing
-            gSubSpriteData1.workVariable3 = 0x1;
+            gSubSpriteData1.workVariable3 = TRUE;
             gSubSpriteData1.pMultiOam = sChozoStatueMultiSpriteData_Standing;
             ChozoStatueHintChangeCCAA(CAA_MAKE_SOLID3, CAA_MAKE_SOLID_GRIPPABLE);
         }
@@ -1278,7 +1278,7 @@ void ChozoStatueRegisterHint(void)
 
     // Open eye
     eyeSlot = gCurrentSprite.workVariable;
-    gSpriteData[eyeSlot].pose = 0x42;
+    gSpriteData[eyeSlot].pose = CHOZO_STATUE_PART_POSE_EYE_OPENING_INIT;
 
     gCurrentSprite.pose = CHOZO_STATUE_POSE_HINT_FLASHING;
     gCurrentSprite.timer = 0x78;
@@ -1296,19 +1296,97 @@ void ChozoStatueRegisterHint(void)
     MusicFade(0x3C);
 }
 
+/**
+ * @brief 142fc | bc | Handles the flashing before a chozo statue hint
+ * 
+ */
 void ChozoStatueHintFlashing(void)
 {
+    u8 ramSlot;
 
+    ramSlot = gCurrentSprite.workVariable;
+
+    if (gSpriteData[ramSlot].pose == 0x61)
+    {
+        gCurrentSprite.timer--;
+        if (gCurrentSprite.timer == 0x0)
+        {
+            gCurrentSprite.pose = CHOZO_STATUE_POSE_SITTING_INIT;
+            gCurrentSprite.paletteRow = 0x0;
+
+            // Start hint
+            gPauseScreenFlag = PAUSE_SCREEN_CHOZO_HINT;
+
+            MusicPlay(0x5, 0x0); // Chozo statue hint
+        }
+        else
+        {
+            if (gCurrentSprite.timer == 0x77)
+            {
+                make_background_flash(0x0); // Undefined || Slight yellow flash
+                SoundPlay(0x11B); // Chozo hint
+            }
+            else if (gCurrentSprite.timer > 0x77)
+                return;
+
+            // Update palette
+            gCurrentSprite.workVariable2--;
+            if (gCurrentSprite.workVariable2 == 0x0)
+            {
+                // Reset delay
+                gCurrentSprite.workVariable2 = 0xC;
+                // Change row
+                gCurrentSprite.paletteRow = sChozoStatueFlashingPaletteRows[gCurrentSprite.arrayOffset];
+                
+                // Update offset
+                if (gCurrentSprite.arrayOffset > 0x2)
+                    gCurrentSprite.arrayOffset = 0x0;
+                else
+                    gCurrentSprite.arrayOffset++;
+            }
+        }
+    }
 }
 
+/**
+ * @brief 143b8 | 40 | Initializes a Chozo statue to be sitting
+ * 
+ */
 void ChozoStatueSittingInit(void)
 {
+    gCurrentSprite.pose = CHOZO_STATUE_POSE_SITTING;
 
+    gSubSpriteData1.pMultiOam = sChozoStatueMultiSpriteData_Sitting;
+    gSubSpriteData1.animationDurationCounter = 0x0;
+    gSubSpriteData1.currentAnimationFrame = 0x0;
+
+    ChozoStatueHintChangeCCAA(CAA_REMOVE_SOLID, CAA_REMOVE_SOLID);
+    SoundPlay(0x11C);
+
+    gSlowScrollingTimer = 0x3C;
 }
 
+/**
+ * @brief 143f8 | 4c | Handles a chozo statue sitting
+ * 
+ */
 void ChozoStatueSitting(void)
 {
+    SpriteUtilUpdateSubSprite1Timer();
+    if (gSubSpriteData1.workVariable2 != 0x0)
+        SpawnChozoStatueMovement(gSubSpriteData1.workVariable2);
 
+    if (SpriteUtilCheckEndSubSprite1Anim())
+    {
+        gSubSpriteData1.pMultiOam = sChozoStatueMultiSpriteData_Seated;
+        gSubSpriteData1.animationDurationCounter = 0x0;
+        gSubSpriteData1.currentAnimationFrame = 0x0;
+
+        gCurrentSprite.pose = CHOZO_STATUE_POSE_DELAY_AFTER_SITTING;
+        gCurrentSprite.timer = 0x1E;
+
+        ChozoStatueSittingChangeCCAA(CAA_MAKE_SOLID3);
+    }
 }
 
 /**
@@ -1348,104 +1426,547 @@ void ChozoStatueItemBeforeBanner(void)
         gCurrentSprite.pose = CHOZO_STATUE_POSE_IDLE;
 }
 
+/**
+ * @brief 144b8 | 48 | Initializes a chozo statue for a refill
+ * 
+ */
 void ChozoStatueRefillInit(void)
 {
+    gCurrentSprite.pose = CHOZO_STATUE_POSE_REFILL;
+    gCurrentSprite.workVariable2 = 0x4;
+    gCurrentSprite.arrayOffset = 0x0;
 
+    SpriteSpawnSecondary(SSPRITE_CHOZO_STATUE_REFILL, 0x0, gCurrentSprite.spritesetGFXSlot,
+        gCurrentSprite.primarySpriteRAMSlot, gSamusData.yPosition - 0x18, gSamusData.xPosition, 0x0);
 }
 
+/**
+ * @brief 14500 | 4c | Handles a chozo statue refilling Samus
+ * 
+ */
 void ChozoStatueRefill(void)
 {
-
+    // Update palette
+    gCurrentSprite.workVariable2--;
+    if (gCurrentSprite.workVariable2 == 0x0)
+    {
+        // Reset delay
+        gCurrentSprite.workVariable2 = 0x4;
+        // Change row
+        gCurrentSprite.paletteRow = sChozoStatueFlashingPaletteRows[gCurrentSprite.arrayOffset];
+        
+        // Update offset
+        if (gCurrentSprite.arrayOffset > 0x2)
+            gCurrentSprite.arrayOffset = 0x0;
+        else
+            gCurrentSprite.arrayOffset++;
+    }
 }
 
+/**
+ * @brief 1454c | 20 | Initializes a chozos statue to be sleeping
+ * 
+ */
 void ChozoStatueSleepingInit(void)
 {
-
+    gCurrentSprite.pose = CHOZO_STATUE_POSE_SLEEPING;
+    gCurrentSprite.paletteRow = 0x0;
+    gCurrentSprite.timer = 0x46;
 }
 
+/**
+ * @brief 1456c | 58 | Handles a chozo statue going to sleep
+ * 
+ */
 void ChozoStatueSleeping(void)
 {
+    u8 ramSlot;
 
+    gCurrentSprite.timer--;
+    if (gCurrentSprite.timer == 0x0)
+    {
+        // Close eye
+        ramSlot = gCurrentSprite.workVariable;
+        gSpriteData[ramSlot].pose = CHOZO_STATUE_PART_POSE_EYE_CLOSING_INIT;
+
+        gCurrentSprite.pose = CHOZO_STATUE_POSE_DO_NOTHING;
+
+        // Replay room music if hint
+        if (gSubSpriteData1.workVariable3)
+            MusicPlay(gMusicTrackInfo.currentRoomTrack, 0x0);
+    }
 }
 
+/**
+ * @brief 145c4 | 174 | Initializes a chozo statue part sprite
+ * 
+ */
 void ChozoStatuePartInit(void)
 {
+    u8 ramSlot;
+    u8 behavior;
 
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+
+    gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+    gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
+    gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
+
+    gCurrentSprite.samusCollision = SSC_NONE;
+    gCurrentSprite.drawOrder = 0x2;
+    
+    gCurrentSprite.hitboxTopOffset = 0x4;
+    gCurrentSprite.hitboxBottomOffset = 0x4;
+    gCurrentSprite.hitboxLeftOffset = 0x4;
+    gCurrentSprite.hitboxRightOffset = 0x4;
+
+    behavior = ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteID);
+
+    switch (gCurrentSprite.roomSlot)
+    {
+        case CHOZO_STATUE_PART_ARM:
+            gCurrentSprite.drawDistanceTopOffset = 0x10;
+            gCurrentSprite.drawDistanceBottomOffset = 0x10;
+            gCurrentSprite.drawDistanceHorizontalOffset = 0x1E;
+
+            gCurrentSprite.animationDurationCounter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0x0;
+
+            if (behavior == CHOZO_STATUE_BEHAVIOR_HINT)
+                gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_HINT;
+            else
+                gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_REFILL;
+
+            if (behavior == CHOZO_STATUE_BEHAVIOR_ITEM)
+                gCurrentSprite.pOam = sChozoStatuePartOAM_ArmIdle;
+            else
+                gCurrentSprite.pOam = sChozoStatuePartOAM_ArmGlow;
+            break;
+    
+        case CHOZO_STATUE_PART_LEG:
+            gCurrentSprite.drawDistanceTopOffset = 0x30;
+            gCurrentSprite.drawDistanceBottomOffset = 0x0;
+            gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+
+            if (behavior == CHOZO_STATUE_BEHAVIOR_HINT)
+                gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_LEG_IDLE;
+            else
+                gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_DO_NOTHING;
+            break;
+
+        case CHOZO_STATUE_PART_EYE:
+            gCurrentSprite.drawDistanceTopOffset = 0x8;
+            gCurrentSprite.drawDistanceBottomOffset = 0x8;
+            gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+
+            gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_DO_NOTHING;
+            gCurrentSprite.animationDurationCounter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0x0;
+
+            if (behavior == CHOZO_STATUE_BEHAVIOR_HINT)
+                gCurrentSprite.pOam = sChozoStatuePartOAM_EyeClosed;
+            else
+                gCurrentSprite.pOam = sChozoStatuePartOAM_EyeOpened;
+            break;
+
+        case CHOZO_STATUE_PART_GLOW:
+            gCurrentSprite.drawDistanceTopOffset = 0x10;
+            gCurrentSprite.drawDistanceBottomOffset = 0x1;
+            gCurrentSprite.drawDistanceHorizontalOffset = 0xC;
+
+            gCurrentSprite.pOam = sChozoStatuePartOAM_GlowIdle;
+            gCurrentSprite.animationDurationCounter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0x0;
+
+            gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_GLOW_IDLE;
+            gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
+            break;
+
+        default:
+            gCurrentSprite.status = 0x0;
+    }
 }
 
-void ChozoStatuePartHandRefillAnim(void)
+/**
+ * @brief 14738 | 5c | Handles the glow being idle
+ * 
+ */
+void ChozoStatuePartGlowIdle(void)
 {
+    u8 ramSlot;
 
+    // Arm part slot
+    ramSlot = gCurrentSprite.workVariable;
+
+    if (gSpriteData[ramSlot].pOam == sChozoStatuePartOAM_ArmGlow)
+    {
+        // Display if arm has glow
+        if (gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN)
+        {
+            gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+            gCurrentSprite.animationDurationCounter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0x0;
+        }
+    }
+    else if (!(gCurrentSprite.status & SPRITE_STATUS_NOT_DRAWN))
+        gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
 }
 
-void ChozoStatuePartGrabSamus(void)
+/**
+ * @brief 14794 | a0 | Detects if Samus in in the hand (for a hint)
+ * 
+ */
+void ChozoStatuePartArmCheckGrabSamusHint(void)
 {
+    u8 ramSlot;
+    u16 xPosition;
 
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    xPosition = gCurrentSprite.xPosition;
+
+    // Get X offset
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        xPosition += CHOZO_STATUE_HAND_X_OFFSET;
+    else
+        xPosition -= CHOZO_STATUE_HAND_X_OFFSET;
+
+    // In range, chozo statue is idle, either morph ball or rolling
+    if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_IDLE &&
+        gSamusData.yPosition == gCurrentSprite.yPosition - CHOZO_STATUE_HAND_Y_OFFSET &&
+        gSamusData.xPosition > xPosition - QUARTER_BLOCK_SIZE && gSamusData.xPosition < xPosition + QUARTER_BLOCK_SIZE &&
+        (u8)(gSamusData.pose - SPOSE_MORPH_BALL) < (SPOSE_UNMORPHING - SPOSE_MORPH_BALL))
+    {
+        // Set pose
+        SamusSetPose(SPOSE_GRABBED_BY_CHOZO_STATUE);
+        
+        // Update statue
+        gSpriteData[ramSlot].pose = CHOZO_STATUE_POSE_REGISTER_HINT;
+        
+        gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_SITTING;
+
+        // Set samus grabbed
+        gCurrentSprite.pOam = sChozoStatuePartOAM_ArmSamusGrabbed;
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+
+        gDisablePause = TRUE;
+    }
 }
 
+/**
+ * @brief 14834 | 30 | Synchronizes Samus' position with the hand position
+ * 
+ */
 void ChozoStatuePartSyncSamusPosition(void)
 {
+    gSamusData.yPosition = gCurrentSprite.yPosition - CHOZO_STATUE_HAND_Y_OFFSET;
 
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gSamusData.xPosition = gCurrentSprite.xPosition + CHOZO_STATUE_HAND_X_OFFSET;
+    else
+        gSamusData.xPosition = gCurrentSprite.xPosition - CHOZO_STATUE_HAND_X_OFFSET;
 }
 
-void ChozoStatuePartSyncSamusPositionWhileSitting(void)
+/**
+ * @brief 14864 | 44 | Handles the arm part sitting
+ * 
+ */
+void ChozoStatuePartArmSitting(void)
 {
+    u8 ramSlot;
 
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+
+    // Check set seated
+    if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_DELAY_AFTER_SITTING)
+        gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_SEATED;
+
+    ChozoStatuePartSyncSamusPosition();
+
+    // Spawn echo
+    if (gSubSpriteData1.workVariable2)
+        SpawnChozoStatueMovement(gSubSpriteData1.workVariable2);
 }
 
-void ChozoStatuePartSyncSamusPositionAfterSitting(void)
+/**
+ * @brief 148a8 | 40 | Handles the arm part being seated
+ * 
+ */
+void ChozoStatuePartArmSeated(void)
 {
+    u8 ramSlot;
 
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+
+    ChozoStatuePartSyncSamusPosition();
+
+    if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_IDLE)
+    {
+        gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_REFILL;
+        gDisablePause = FALSE;
+    }
 }
 
-void ChozoStatuePartDetectSamus(void)
+/**
+ * @brief 148e8 | fc | Detects if Samus in in the hand (for a refill)
+ * 
+ */
+void ChozoStatuePartArmCheckGrabSamusRefill(void)
 {
+    u8 ramSlot;
+    u8 isGrabbed;
+    u16 xPosition;
 
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+
+    // Update OAM
+    if (gCurrentSprite.pOam == sChozoStatuePartOAM_ArmIdle && gPreventMovementTimer == 0x0 &&
+        ChozoStatueGetBehavior(gSpriteData[ramSlot].spriteID) != CHOZO_STATUE_BEHAVIOR_ITEM)
+        gCurrentSprite.pOam = sChozoStatuePartOAM_ArmGlow;
+
+    isGrabbed = FALSE;
+    xPosition = gCurrentSprite.xPosition;
+
+    // Get X offset
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        xPosition += CHOZO_STATUE_HAND_X_OFFSET;
+    else
+        xPosition -= CHOZO_STATUE_HAND_X_OFFSET;
+
+    // In range, chozo statue is idle
+    if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_IDLE &&
+        gSamusData.yPosition == gCurrentSprite.yPosition - CHOZO_STATUE_HAND_Y_OFFSET &&
+        gSamusData.xPosition > xPosition - QUARTER_BLOCK_SIZE && gSamusData.xPosition < xPosition + QUARTER_BLOCK_SIZE)
+    {
+        if (gSamusData.pose == SPOSE_MORPH_BALL)
+        {
+            // Set grabbed
+            SamusSetPose(SPOSE_GRABBED_BY_CHOZO_STATUE);
+            isGrabbed++;
+        }
+        else if (gSamusData.pose == SPOSE_GRABBED_BY_CHOZO_STATUE)
+            isGrabbed++; // Already grabbed
+
+        if (isGrabbed)
+        {
+            gSpriteData[ramSlot].pose = CHOZO_STATUE_POSE_REFILL_INIT;
+            gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_REFILL;
+
+            ChozoStatuePartSyncSamusPosition();
+
+            gCurrentSprite.pOam = sChozoStatuePartOAM_ArmSamusGrabbed;
+            gCurrentSprite.animationDurationCounter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0x0;
+
+            gCurrentSprite.timer = 0x1E;
+        }
+    }
 }
 
-void ChozoStatuePartRefill(void)
+/**
+ * @brief 149e4 | 140 | Refills Samus
+ * 
+ */
+void ChozoStatuePartArmRefill(void)
 {
+    u8 ramSlot;
 
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+
+    if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_REFILL)
+    {
+        if (gCurrentSprite.timer == 0x1E)
+        {
+            // Refill energy
+            if (!SpriteUtilRefillEnergy())
+            {
+                gCurrentSprite.timer--;
+                gEnergyRefillAnimation = 0xD;
+            }
+        }
+        else if (gCurrentSprite.timer == 0x1D)
+        {
+            // Refill missiles
+            if (gEnergyRefillAnimation != 0x0)
+                gEnergyRefillAnimation--;
+            else if (!SpriteUtilRefillMissiles())
+            {
+                gCurrentSprite.timer--;
+                gMissileRefillAnimation = 0xD;
+            }
+        }
+        else if (gCurrentSprite.timer == 0x1C)
+        {
+            // Refill super missiles
+            if (gMissileRefillAnimation != 0x0)
+                gMissileRefillAnimation--;
+            else if (!SpriteUtilRefillSuperMissiles())
+            {
+                gCurrentSprite.timer--;
+                gSuperMissileRefillAnimation = 0xD;
+            }
+        }
+        else if (gCurrentSprite.timer == 0x1B)
+        {
+            // Refill power bombs
+            if (gSuperMissileRefillAnimation != 0x0)
+                gSuperMissileRefillAnimation--;
+            else if (!SpriteUtilRefillPowerBombs())
+            {
+                gCurrentSprite.timer--;
+                gPowerBombRefillAnimation = 0xD;
+            }
+        }
+        else
+        {
+            // Check refill anim ended
+            if (gPowerBombRefillAnimation != 0x0)
+                gPowerBombRefillAnimation--;
+            else if (gCurrentSprite.timer != 0x0)
+                gCurrentSprite.timer--; // Update timer
+            else
+            {
+                // Set sleeping
+                gSpriteData[ramSlot].pose = CHOZO_STATUE_POSE_SLEEPING_INIT;
+                gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_SLEEPING_INIT;
+
+                // Spawn refill correct ended message
+                if (gEquipment.maxMissiles == 0x0 && gEquipment.maxSuperMissiles == 0x0 && gEquipment.maxPowerBombs == 0x0)
+                {
+                    // Only energy
+                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ENERGY_TANK_RECHARGE_COMPLETE, 0x6,
+                        gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                }
+                else
+                {
+                    // Energy and weapons
+                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_WEAPONS_AND_ENERGY_RESTORED, 0x6,
+                        gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                }
+            }
+        }
+    }
 }
 
+/**
+ * @brief 14b24 | 4 | Empty function
+ * 
+ */
 void ChozoStatuePart_Empty(void)
 {
     return;
 }
 
-void ChozoStatuePartEndRefill(void)
+/**
+ * @brief 14b28 | 30 | Initializes the arm part to be sleeping
+ * 
+ */
+void ChozoStatuePartSleepingInit(void)
 {
+    u8 ramSlot;
 
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+
+    if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_SLEEPING)
+        gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_SLEEPING;
 }
 
-void ChozoStatuePartReleaseSamus(void)
+/**
+ * @brief 14b58 | 38 | Handles the arm part sleeping
+ * 
+ */
+void ChozoStatuePartArmSleeping(void)
 {
+    // Check release samus
+    if (gPreventMovementTimer == 0x0 && gCurrentSprite.pOam == sChozoStatuePartOAM_ArmSamusGrabbed)
+    {
+        // Release samus
+        gCurrentSprite.pOam = sChozoStatuePartOAM_ArmIdle;
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
 
+        SamusSetPose(SPOSE_MORPH_BALL);
+    }
 }
 
-void ChozoStatuePartInitHintGFX(void)
+/**
+ * @brief 14b90 | 20 | Initializes the eye part to be opening
+ * 
+ */
+void ChozoStatuePartEyeOpeningInit(void)
 {
+    gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_EYE_OPENING;
 
+    gCurrentSprite.pOam = sChozoStatuePartOAM_EyeOpening;
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
 }
 
-void ChozoStatuePartCheckEyeOpenedHint(void)
+/**
+ * @brief 14bb0 | 2c | Handles the eye part opening
+ * 
+ */
+void ChozoStatuePartEyeOpening(void)
 {
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
+    {
+        gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_DO_NOTHING;
 
+        // Set opened
+        gCurrentSprite.pOam = sChozoStatuePartOAM_EyeOpened;
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+    }
 }
 
-void ChozoStatueItemAfterBanner(void)
+/**
+ * @brief 14bdc | 20 | Initializes the eye part to be closing
+ * 
+ */
+void ChozoStatuePartEyeClosingInit(void)
 {
+    gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_EYE_CLOSING;
 
+    gCurrentSprite.pOam = sChozoStatuePartOAM_EyeClosing;
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
 }
 
-void ChozoStatuePartCheckEyeClosedRefill(void)
+/**
+ * @brief 14bfc | 2c | Handles the eye part closing
+ * 
+ */
+void ChozoStatuePartEyeClosing(void)
 {
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
+    {
+        gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_DO_NOTHING;
 
+        // Set closed
+        gCurrentSprite.pOam = sChozoStatuePartOAM_EyeClosed;
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+    }
 }
 
-void ChozoStatuePartSetSittingPose(void)
+/**
+ * @brief 14c28 | 48 | Handles the leg part being idle
+ * 
+ */
+void ChozoStatuePartLegIdle(void)
 {
+    u8 ramSlot;
 
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+
+    if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_SITTING)
+    {
+        // Spawn echo
+        if (gSubSpriteData1.workVariable2 != 0x0)
+            SpawnChozoStatueMovement(gSubSpriteData1.workVariable2);
+    }
+    else if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_DELAY_AFTER_SITTING)
+        gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_DO_NOTHING;
 }
 
 /**
@@ -1514,14 +2035,128 @@ void ChozoStatue(void)
     ChozoStatueSyncSubSprites();
 }
 
+/**
+ * @brief 14db8 | 248 | Chozo statue part AI
+ * 
+ */
 void ChozoStatuePart(void)
 {
+    u8 ramSlot;
 
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+
+    switch (gCurrentSprite.pose)
+    {
+        case 0x0:
+            ChozoStatuePartInit();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_HINT:
+            ChozoStatuePartArmCheckGrabSamusHint();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_ARM_SITTING:
+            ChozoStatuePartArmSitting();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_ARM_SEATED:
+            ChozoStatuePartArmSeated();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_REFILL:
+            ChozoStatuePartArmCheckGrabSamusRefill();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_ARM_REFILL:
+            ChozoStatuePartArmRefill();
+            ChozoStatuePart_Empty();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_ARM_SLEEPING_INIT:
+            ChozoStatuePartSleepingInit();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_ARM_SLEEPING:
+            ChozoStatuePartArmSleeping();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_EYE_OPENING_INIT:
+            ChozoStatuePartEyeOpeningInit();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_EYE_OPENING:
+            ChozoStatuePartEyeOpening();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_EYE_CLOSING_INIT:
+            ChozoStatuePartEyeClosingInit();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_EYE_CLOSING:
+            ChozoStatuePartEyeClosing();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_LEG_IDLE:
+            ChozoStatuePartLegIdle();
+            break;
+
+        case CHOZO_STATUE_PART_POSE_GLOW_IDLE:
+            ChozoStatuePartGlowIdle();
+
+        case CHOZO_STATUE_PART_POSE_DO_NOTHING:
+            break;
+    }
+
+    if (gCurrentSprite.roomSlot == CHOZO_STATUE_PART_LEG)
+        ChozoStatueSyncSubSprites();
+    else
+        SpriteUtilSyncCurrentSpritePositionWithSubSpriteData1PositionAndOAM();
+
+    gCurrentSprite.paletteRow = gSpriteData[ramSlot].paletteRow;
 }
 
+/**
+ * @brief 15000 | a8 | Chozo statue refill AI
+ * 
+ */
 void ChozoStatueRefill(void)
 {
+    u8 ramSlot;
 
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+
+    if (gCurrentSprite.pose == 0x0)
+    {
+        gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+        gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
+
+        gCurrentSprite.samusCollision = SSC_NONE;
+        gCurrentSprite.drawOrder = 0x1;
+
+        gCurrentSprite.drawDistanceTopOffset = 0x10;
+        gCurrentSprite.drawDistanceBottomOffset = 0x10;
+        gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+        
+        gCurrentSprite.hitboxTopOffset = 0x4;
+        gCurrentSprite.hitboxBottomOffset = 0x4;
+        gCurrentSprite.hitboxLeftOffset = 0x4;
+        gCurrentSprite.hitboxRightOffset = 0x4;
+
+        gCurrentSprite.pose = 0x9;
+
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.pOam = sChozoStatueRefillOAM;
+
+        SoundPlay(0x10F); // Chozo statue refill
+    }
+    else if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_SLEEPING)
+    {
+        gCurrentSprite.status = 0x0;
+        SoundFade(0x10F, 0x1E); // Chozo statue refill
+    }
 }
 
 void UnknownItemChozoStatueSyncSubSprites(void)
@@ -1589,12 +2224,12 @@ void UnknownItemChozoStatuePartInit(void)
 
 }
 
-void UnknownItemChozoStatuePartHandRefillAnim(void)
+void UnknownItemChozoStatuePartGlowIdle(void)
 {
 
 }
 
-void UnknownItemChozoStatuePartGrabSamus(void)
+void UnknownItemChozoStatuePartArmCheckGrabSamusHint(void)
 {
 
 }
@@ -1604,22 +2239,22 @@ void UnknownItemChozoStatuePartSyncSamus(void)
 
 }
 
-void UnknownItemChozoStatuePartSyncSamusPositionWhileSitting(void)
+void UnknownItemChozoStatuePartArmSitting(void)
 {
 
 }
 
-void UnknownItemChozoStatuePartSyncSamusPositionAfterSitting(void)
+void UnknownItemChozoStatuePartArmSeated(void)
 {
 
 }
 
-void UnknownItemChozoStatuePartDetectSamus(void)
+void UnknownItemChozoStatuePartArmCheckGrabSamusRefill(void)
 {
 
 }
 
-void UnknownItemChozoStatuePartRefill(void)
+void UnknownItemChozoStatuePartArmRefill(void)
 {
 
 }
@@ -1629,37 +2264,37 @@ void UnknownItemChozoStatuePartEmpty(void)
 
 }
 
-void UnknownItemChozoStatuePartEndRefill(void)
+void UnknownItemChozoStatuePartSleepingInit(void)
 {
 
 }
 
-void UnknownItemChozoStatuePartReleaseSamus(void)
+void UnknownItemChozoStatuePartArmSleeping(void)
 {
 
 }
 
-void UnknownItemChozoStatuePartInitHintGFX_Unused(void)
+void UnknownItemChozoStatuePartEyeOpeningInit_Unused(void)
 {
 
 }
 
-void UnknownItemChozoStatuePartCheckEyeOpenedHint_Unused(void)
+void UnknownItemChozoStatuePartEyeOpening_Unused(void)
 {
 
 }
 
-void UnknownItemChozoStatueItemAfterBanner(void)
+void UnknownItemChozoStatuePartEyeClosingInit(void)
 {
 
 }
 
-void UnknownItemChozoStatuePartCheckEyeClosedRefill(void)
+void UnknownItemChozoStatuePartEyeClosing(void)
 {
 
 }
 
-void UnknownItemChozoStatuePartSetSittingPose(void)
+void UnknownItemChozoStatuePartLegIdle(void)
 {
 
 }

@@ -83,6 +83,7 @@ extern u8 gDebugFlag;
 extern u16 gFrameCounter16Bit;
 extern u16 gWrittenToDISPCNT;
 extern u8 gStereoFlag;
+extern struct MusicTrackInfo gMusicTrackInfo;
 extern u32 gCurrentDemo; /* XXX: type */
 extern u8 gMonochromeBGFading;
 extern u8 gWhichBGPositionIsWrittenToBG3OFS;
@@ -91,6 +92,7 @@ extern u8 gDifficulty;
 extern u8 gUseMotherShip;
 extern u8 gResetGame;
 extern u8 gDisableScrolling;
+extern u16 gSlowScrollingTimer;
 extern u8 gSkipDoorTransition;
 extern u8 gDisableSoftreset;
 extern u8 gDisableDoorAndTanks;

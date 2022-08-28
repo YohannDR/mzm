@@ -24,6 +24,24 @@
 
 // Chozo statue part
 
+#define CHOZO_STATUE_HAND_X_OFFSET 0x38
+#define CHOZO_STATUE_HAND_Y_OFFSET 0x11
+
+#define CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_HINT 0x9
+#define CHOZO_STATUE_PART_POSE_LEG_IDLE 0xF
+#define CHOZO_STATUE_PART_POSE_ARM_SITTING 0x23
+#define CHOZO_STATUE_PART_POSE_ARM_SEATED 0x24
+#define CHOZO_STATUE_PART_POSE_ARM_CHECK_GRAB_SAMUS_REFILL 0x25
+#define CHOZO_STATUE_PART_POSE_ARM_REFILL 0x27
+#define CHOZO_STATUE_PART_POSE_ARM_SLEEPING_INIT 0x29
+#define CHOZO_STATUE_PART_POSE_ARM_SLEEPING 0x2B
+#define CHOZO_STATUE_PART_POSE_EYE_OPENING_INIT 0x42
+#define CHOZO_STATUE_PART_POSE_EYE_OPENING 0x43
+#define CHOZO_STATUE_PART_POSE_EYE_CLOSING_INIT 0x44
+#define CHOZO_STATUE_PART_POSE_EYE_CLOSING 0x45
+#define CHOZO_STATUE_PART_POSE_GLOW_IDLE 0x4F
+#define CHOZO_STATUE_PART_POSE_DO_NOTHING 0x61
+
 #define CHOZO_STATUE_PART_ARM 0x0
 #define CHOZO_STATUE_PART_GLOW 0x1
 #define CHOZO_STATUE_PART_EYE 0x2
@@ -48,21 +66,21 @@ void ChozoStatueRefill(void);
 void ChozoStatueSleepingInit(void);
 void ChozoStatueSleeping(void);
 void ChozoStatuePartInit(void);
-void ChozoStatuePartHandRefillAnim(void);
-void ChozoStatuePartGrabSamus(void);
+void ChozoStatuePartGlowIdle(void);
+void ChozoStatuePartArmCheckGrabSamusHint(void);
 void ChozoStatuePartSyncSamusPosition(void);
-void ChozoStatuePartSyncSamusPositionWhileSitting(void);
-void ChozoStatuePartSyncSamusPositionAfterSitting(void);
-void ChozoStatuePartDetectSamus(void);
-void ChozoStatuePartRefill(void);
+void ChozoStatuePartArmSitting(void);
+void ChozoStatuePartArmSeated(void);
+void ChozoStatuePartArmCheckGrabSamusRefill(void);
+void ChozoStatuePartArmRefill(void);
 void ChozoStatuePart_Empty(void);
-void ChozoStatuePartEndRefill(void);
-void ChozoStatuePartReleaseSamus(void);
-void ChozoStatuePartInitHintGFX(void);
-void ChozoStatuePartCheckEyeOpenedHint(void);
-void ChozoStatueItemAfterBanner(void);
-void ChozoStatuePartCheckEyeClosedRefill(void);
-void ChozoStatuePartSetSittingPose(void);
+void ChozoStatuePartSleepingInit(void);
+void ChozoStatuePartArmSleeping(void);
+void ChozoStatuePartEyeOpeningInit(void);
+void ChozoStatuePartEyeOpening(void);
+void ChozoStatuePartEyeClosingInit(void);
+void ChozoStatuePartEyeClosing(void);
+void ChozoStatuePartLegIdle(void);
 void ChozoStatue(void);
 void ChozoStatuePart(void);
 void ChozoStatueRefill(void);
@@ -80,21 +98,21 @@ void UnknownItemChozoStatueRefill(void);
 void UnknownItemChozoStatueSleepingInit(void);
 void UnknownItemChozoStatueSleeping(void);
 void UnknownItemChozoStatuePartInit(void);
-void UnknownItemChozoStatuePartHandRefillAnim(void);
-void UnknownItemChozoStatuePartGrabSamus(void);
+void UnknownItemChozoStatuePartGlowIdle(void);
+void UnknownItemChozoStatuePartArmCheckGrabSamusHint(void);
 void UnknownItemChozoStatuePartSyncSamus(void);
-void UnknownItemChozoStatuePartSyncSamusPositionWhileSitting(void);
-void UnknownItemChozoStatuePartSyncSamusPositionAfterSitting(void);
-void UnknownItemChozoStatuePartDetectSamus(void);
-void UnknownItemChozoStatuePartRefill(void);
+void UnknownItemChozoStatuePartArmSitting(void);
+void UnknownItemChozoStatuePartArmSeated(void);
+void UnknownItemChozoStatuePartArmCheckGrabSamusRefill(void);
+void UnknownItemChozoStatuePartArmRefill(void);
 void UnknownItemChozoStatuePartEmpty(void);
-void UnknownItemChozoStatuePartEndRefill(void);
-void UnknownItemChozoStatuePartReleaseSamus(void);
-void UnknownItemChozoStatuePartInitHintGFX_Unused(void);
-void UnknownItemChozoStatuePartCheckEyeOpenedHint_Unused(void);
-void UnknownItemChozoStatueItemAfterBanner(void);
-void UnknownItemChozoStatuePartCheckEyeClosedRefill(void);
-void UnknownItemChozoStatuePartSetSittingPose(void);
+void UnknownItemChozoStatuePartSleepingInit(void);
+void UnknownItemChozoStatuePartArmSleeping(void);
+void UnknownItemChozoStatuePartEyeOpeningInit_Unused(void);
+void UnknownItemChozoStatuePartEyeOpening_Unused(void);
+void UnknownItemChozoStatuePartEyeClosingInit(void);
+void UnknownItemChozoStatuePartEyeClosing(void);
+void UnknownItemChozoStatuePartLegIdle(void);
 void UnknownItemChozoStatue(void);
 void UnknownItemChozoStatuePart(void);
 void UnknownItemChozoStatueRefill(void);

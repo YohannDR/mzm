@@ -3,6 +3,13 @@
 
 #include "types.h"
 
+struct MusicTrackInfo {
+    u16 currentRoomTrack;
+    u8 pauseScreenFlag;
+    u8 takingNormalTransition;
+    i8 unk;
+};
+
 void SoundPlay(u16 sound);
 void SoundStop(u16 sound);
 void SoundPlayNotAlreadyPlaying(u16 sound);
