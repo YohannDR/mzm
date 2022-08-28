@@ -1432,7 +1432,7 @@ void ChozoStatueWaitForItemToBeCollected(void)
     if (ChozoStatueGetBehavior(gCurrentSprite.spriteID) == CHOZO_STATUE_BEHAVIOR_REFILL)
     {
         // Hint behavior, thus item was took
-        gCurrentSprite.pose = CHOZO_STATUE_POSE_TIMER_AFTER_TIMER;
+        gCurrentSprite.pose = CHOZO_STATUE_POSE_TIMER_AFTER_ITEM;
         gCurrentSprite.timer = 0x28;
     }
 }
@@ -2033,7 +2033,7 @@ void ChozoStatue(void)
             ChozoStatueWaitForItemToBeCollected();
             break;
 
-        case CHOZO_STATUE_POSE_TIMER_AFTER_TIMER:
+        case CHOZO_STATUE_POSE_TIMER_AFTER_ITEM:
             ChozoStatueTimerAfterItemGrabbed();
             break;
 
