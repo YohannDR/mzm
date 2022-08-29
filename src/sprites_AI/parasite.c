@@ -1450,14 +1450,18 @@ void ParasiteFallingInit(struct SpriteData* pSprite)
     pSprite->arrayOffset = 0x0;
 }
 
+/**
+ * @brief 30d84 | 74 | Handles a parasite falling
+ * 
+ * @param pSprite Sprite Data Pointer
+ */
 void ParasiteFalling(struct SpriteData* pSprite)
 {
-    // https://decomp.me/scratch/zrecp
-
     i32 offset;
     i32 movement;
     u16 oldY;
     u32 topEdge;
+    i32 newMovement;
 
     oldY = pSprite->yPosition;
     offset = pSprite->arrayOffset;
@@ -1465,8 +1469,8 @@ void ParasiteFalling(struct SpriteData* pSprite)
     
     if (movement == SPRITE_ARRAY_TERMINATOR)
     {
-        movement = sSpritesFallingSpeed[offset - 1];
-        pSprite->yPosition += movement;
+        newMovement = sSpritesFallingSpeed[offset - 1];
+        pSprite->yPosition += newMovement;
     }
     else
     {
