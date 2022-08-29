@@ -3,6 +3,9 @@
 
 #include "types.h"
 
+#define SCREEN_WIDTH (BLOCK_SIZE * 9)
+#define SCREEN_HEIGHT (BLOCK_SIZE * 5)
+
 
 extern struct Scroll gCurrentScrolls[2];
 extern struct ScreenPositionAndVelocity gScreenPositionAndVelocity;

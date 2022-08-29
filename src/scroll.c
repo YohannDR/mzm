@@ -39,40 +39,40 @@ void ScrollScreen(u16 screen_x, u16 screen_y)
 
 i32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
-    i32 x_pos;
+    i32 xPosition;
     i32 xStart;
 
-    x_pos = pCoords->x;
+    xPosition = pCoords->x;
     xStart = pScroll->xStart;
 
-    if (xStart + 0x1E0 <= x_pos)
+    if (xStart + 0x1E0 <= xPosition)
         return xStart;
-    else if (x_pos <= pScroll->xEnd - 0x1E0)
-        return x_pos - 0x1E0;
+    else if (xPosition <= pScroll->xEnd - 0x1E0)
+        return xPosition - 0x1E0;
     else
         return pScroll->xEnd - 0x3C0;
 }
 
 i32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
-    i32 y_pos;
+    i32 yPosition;
     i32 yStart;
 
     if (pScroll->within == 0x2)
     {
-        y_pos = pCoords->y;
+        yPosition = pCoords->y;
         yStart = pScroll->yStart;
 
-        if (y_pos >= yStart + 0x180)
+        if (yPosition >= yStart + 0x180)
         {
-            if (y_pos > pScroll->yEnd - 0x100)
+            if (yPosition > pScroll->yEnd - 0x100)
             {
                 if (pScroll->yEnd - 0x280 < yStart)
                     return yStart;
                 return pScroll->yEnd - 0x280;
             }
             else
-                return y_pos - 0x180;
+                return yPosition - 0x180;
         }
         else
             return yStart;
@@ -81,110 +81,128 @@ i32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords)
         return pScroll->yEnd - 0x280;
 }
 
+/**
+ * @brief 58478 | 60 | Loads the scrolls for the current room
+ * 
+ */
 void ScrollLoad(void)
 {
+    u8** ppSrc;
 
+    ppSrc = sAreaScrollPointers[gCurrentArea];
+
+    // Loop through every scroll of the area
+    for (; ; ppSrc++)
+    {
+        if (ppSrc[0][0] == gCurrentRoom)
+        {
+            // Found room, set pointer and flag
+            gCurrentRoomScrollDataPointer = *ppSrc;
+            gCurrentRoomEntry.scrollsFlag = 0x3;
+            break;
+        }
+        else if (ppSrc[0][0] == 0xFF)
+        {
+            // Reached terminator
+            gCurrentRoomScrollDataPointer = *ppSrc;
+            break;
+        }
+    }
 }
 
 void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 {
-    /*struct Scroll* pScroll;
-    struct Scroll* pScrollLimit;
-    struct background_pointers_and_dimensions* pBG;
+    // https://decomp.me/scratch/VHsfW
+
+    struct Scroll* pScroll;
+    u16 xPosition;
+    u16 yPosition;
+    u32 scrollID;
     u8* pData;
-    u16 x_pos;
-    u16 y_pos;
-    u32 id;
     i32 bounds[4];
     i32 bound;
-    i32 clip_limit;
-    i32 bound_limit;
+    i32 limit;
+    u8 direction;
 
-    pScroll = &gCurrentScrolls.first;
-    pScrollLimit = pScroll;
-    pScroll->within = FALSE;
-    pScroll[1].within = FALSE;
+    pScroll = gCurrentScrolls;
+    gCurrentScrolls[0].within = FALSE;
+    gCurrentScrolls[1].within = FALSE;
 
-    x_pos = pCoords->x >> 0x6;
-    y_pos = (u16)(pCoords->y - 0x1 >> 0x6);
+    xPosition = pCoords->x;
+    xPosition /= BLOCK_SIZE;
+    yPosition = pCoords->y - 1;
+    yPosition /= BLOCK_SIZE;
 
-    id = gCurrentRoomScrollDataPointer[1]; // ID
-    pData = gCurrentRoomScrollDataPointer + 0x2;
-
-    if (id != 0x0)
-    {
-        pBG = &gBGPointersAndDimensions;
-        while (id != 0x0)
-        {
-            if (pScroll == (pScrollLimit + 2))
-                return;
-
-            bounds[0] = 0x0;
-            bounds[1] = 0x1;
-            bounds[2] = 0x2;
-            bounds[3] = 0x3;
-
-            if (pData[4] != 0xFF && pData[7] != 0xFF)
-            {
-                if (pBG->pClipDecomp[pData[5] * pBG->clipdataWidth + pData[4]] == 0x0)
-                {
-                    if (pData[6] != 0xFF)
-                        bounds[pData[6]] = 0x7;
-                }
-            }
-            else
-            {
-                if (gSamusData.pose == SPOSE_USING_AN_ELEVATOR && pData[7] != 0xFF && (u8)(pData[6] - 0x2) < 0x2)
-                    bounds[pData[6]] = 0x7;
-            }
-
-            if (pData[bounds[0]] <= x_pos && x_pos <= pData[bounds[1]] && pData[bounds[2]] <= y_pos && y_pos <= pData[bounds[3]] && pScroll->within == 0x0)
-            {
-                bound = pData[bounds[0]] << 0x6;
-                if (0x80 >= bound)
-                    bound = 0x80;
-                pScroll->xStart = bound;
-
-                // X end
-                clip_limit = (pBG->clipdataWidth << 0x6) - 0x80;
-                bound_limit = (pData[bounds[1]] + 0x1) << 0x6;
-                if (bound_limit < clip_limit)
-                    bound = bound_limit;
-                else
-                    bound = clip_limit;
-                pScroll->xEnd = bound;
-
-                bound = pData[bounds[2]] << 0x6;
-                if (bound < 0x80)
-                    bound = 0x80;
-                pScroll->yStart = bound;
-
-                // Y end
-                clip_limit = (pBG->clipdataHeight << 0x6) - 0x80;
-                bound_limit = (pData[bounds[3]] + 0x1) << 0x6;
-                if (bound_limit < clip_limit)
-                    bound = bound_limit;
-                else
-                    bound = clip_limit;
-                pScroll->yEnd = bound;
-
-                pScroll->within = 0x2;
-                pScroll++;
-            }
-
-            pData += 0x8;
-            id--;
-        }
-    }
+    pData = gCurrentRoomScrollDataPointer;
+    pData++;
+    scrollID = *pData++;
     
-    if (pScroll->within == FALSE && pScroll[1].within == FALSE)
+    for (; scrollID != 0x0; scrollID--)
     {
-        pScroll->within = 0x0;
-        pScroll->xEnd = 0x0;
-        pScroll->xStart = 0x0;
-        pScroll->yStart = 0x0;
-        pScroll->yEnd = 0x0;
-    }*/
+        // Incorrect
+        if (pScroll == gCurrentScrolls)
+            return;
+
+        bounds[0] = 0x0;
+        bounds[1] = 0x1;
+        bounds[2] = 0x2;
+        bounds[3] = 0x3;
+
+        if (pData[4] != 0xFF && pData[7] != 0xFF)
+        {
+            if (gBGPointersAndDimensions.pClipDecomp[pData[5] * gBGPointersAndDimensions.clipdataWidth + pData[4]] == 0x0 && pData[6] != 0xFF)
+                bounds[pData[6]] = 0x7;
+        }
+        else
+        {
+            if (gSamusData.pose == SPOSE_USING_AN_ELEVATOR && pData[7] != 0xFF && (u8)(pData[6] - 0x2) < 0x2)
+                bounds[pData[6]] = 0x7;
+        }
+
+        if (pData[bounds[0]] <= xPosition && xPosition <= pData[bounds[1]] && pData[bounds[2]] <= yPosition && yPosition <= pData[bounds[3]] && !pScroll->within)
+        {
+            limit = BLOCK_SIZE * 2;
+            bound = pData[bounds[0]] * BLOCK_SIZE;
+            if (bound < limit)
+                bound = limit;
+            pScroll->xStart = bound;
+
+            limit = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE - (BLOCK_SIZE * 2);
+            bound = (pData[bounds[1]] + 1) * BLOCK_SIZE;
+
+            if (bound < limit)
+                bound = limit;
+            pScroll->xEnd = bound;
+
+            limit = BLOCK_SIZE * 2;
+            bound = pData[bounds[2]] * BLOCK_SIZE;
+            if (bound < limit)
+                bound = limit;
+            pScroll->yStart = bound;
+
+            limit = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE - (BLOCK_SIZE * 2);
+            bound = (pData[bounds[3]] + 1) * BLOCK_SIZE;
+
+            if (bound < limit)
+                bound = limit;
+            pScroll->yEnd = bound;
+
+            pScroll->within = 0x2;
+            
+            pScroll++;
+        }
+
+        pData += 0x8;
+    }
+
+    if (!gCurrentScrolls[0].within && !gCurrentScrolls[1].within)
+    {
+        gCurrentScrolls[0].within = FALSE;
+        gCurrentScrolls[0].xEnd = 0x0;
+        gCurrentScrolls[0].xStart = 0x0;
+        gCurrentScrolls[0].yStart = 0x0;
+        gCurrentScrolls[0].yEnd = 0x0;
+    }
 }
 
 void ScrollProcessGeneral(void)
