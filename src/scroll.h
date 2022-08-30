@@ -10,6 +10,9 @@
 extern struct Scroll gCurrentScrolls[2];
 extern struct ScreenPositionAndVelocity gScreenPositionAndVelocity;
 extern struct LockScreen gLockScreen;
+extern i8 gScreenYOffset;
+extern i16 gScreenXOffset;
+extern struct Unk_3005714 gUnk_3005714;
 
 struct Scroll {
     u8 within;
@@ -30,6 +33,13 @@ struct LockScreen {
     u8 lock;
     u16 xPositionCenter;
     u16 yPositionCenter;
+};
+
+struct Unk_3005714 {
+    i16 unk0;
+    i16 unk2;
+    i16 unk4;
+    i16 unk6;
 };
 
 void ScrollProcess(struct RawCoordsX* pCoords);

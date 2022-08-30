@@ -149,6 +149,8 @@ SECTIONS {
         . = 0x000054EC; gBG3Movement = .;
         . = 0x000054F4; gBG0Movement = .;
         . = 0x0000550C; gSamusDoorPositionOffset = .;
+        . = 0x00005515; gScreenYOffset = .;
+        . = 0x00005516; gScreenXOffset = .;
         . = 0x00005518; gRainSoundEffect = .;
         . = 0x000056cc; gBLDALPHAata1 = .;
         . = 0x000056d4; gBLDALPHAata1 = .;
@@ -156,6 +158,7 @@ SECTIONS {
         . = 0x000056e4; gBLDYData2 = .;
         . = 0x00005704; gClipdataCodePointer = .;
         . = 0x00005708; gCurrentRoomScrollDataPointer = .;
+        . = 0x00005714; gUnk_3005714 = .;
         . = 0x000058e0; src/libgcc/fp-bit-base.o(.bss);
         . = 0x000058f8; src/libgcc/float.o(.bss);
         . = 0x00007e60; sp_sys = .;

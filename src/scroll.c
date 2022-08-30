@@ -223,7 +223,51 @@ void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
 
 void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
 {
+    // https://decomp.me/scratch/yaHOg
 
+    i32 xOffset;
+    u16 xPosition;
+    i32 clipPosition;
+
+    xOffset = 0x0;
+    if (!gLockScreen.lock && gSamusPhysics.standingStatus == STANDING_NOT_IN_CONTROL)
+    {
+        if (gSamusData.direction & KEY_RIGHT)
+            xOffset = BLOCK_SIZE * 2;
+        else if (gSamusData.direction & KEY_LEFT)
+            xOffset = -(BLOCK_SIZE * 2);
+    }
+
+    gScreenXOffset = xOffset;
+
+    xPosition = pCoords->x;
+    if (xPosition < 0x260 - gScreenXOffset)
+        xOffset = BLOCK_SIZE * 2;
+    else
+    {
+        clipPosition = (0x260 + gBGPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE) - gScreenXOffset;
+        if (xPosition > clipPosition)        
+            xOffset = gScreenXOffset + (clipPosition - 0x1E0);
+        else
+            xOffset = gScreenXOffset + (clipPosition - 0x1E0);
+    }
+
+    gScreenPositionAndVelocity.xPosition = xOffset;
+
+    xOffset -= gBG1XPosition;
+    if (xOffset > 0x0)
+    {
+        if (gUnk_3005714.unk2 < xOffset)
+            xOffset = gUnk_3005714.unk2;
+    }
+    else
+    {
+        if (xOffset < gUnk_3005714.unk0)
+            xOffset = gUnk_3005714.unk0;
+    }
+
+    gScreenPositionAndVelocity.xVelocity = xOffset;
+    gBG1XPosition += xOffset;
 }
 
 void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
@@ -238,11 +282,11 @@ void ScrollAutoBG0(void)
 
 u32 ScrollGetBG3Scroll(void)
 {
-    u32 x_scroll;
-    u32 y_scroll;
+    u32 xScroll;
+    u32 yScroll;
 
-    y_scroll = 0x0;
-    x_scroll = 0x0;
+    yScroll = 0x0;
+    xScroll = 0x0;
 
     switch (gCurrentRoomEntry.BG3Scrolling)
     {
@@ -250,47 +294,47 @@ u32 ScrollGetBG3Scroll(void)
             break;
 
         case 0x1:
-            x_scroll = 0x2;
-            y_scroll = 0x0;
+            xScroll = 0x2;
+            yScroll = 0x0;
             break;
 
         case 0x2:
-            x_scroll = 0x0;
-            y_scroll = 0x2;
+            xScroll = 0x0;
+            yScroll = 0x2;
             break;
 
         case 0x3:
-            x_scroll = 0x2;
-            y_scroll = 0x2;
+            xScroll = 0x2;
+            yScroll = 0x2;
             break;
 
         case 0x4:
-            x_scroll = 0x1;
-            y_scroll = 0x2;
+            xScroll = 0x1;
+            yScroll = 0x2;
             break;
 
         case 0x5:
-            x_scroll = 0x2;
-            y_scroll = 0x1;
+            xScroll = 0x2;
+            yScroll = 0x1;
             break;
 
         case 0x6:
         case 0xA:
-            x_scroll = 0x1;
-            y_scroll = 0x1;
+            xScroll = 0x1;
+            yScroll = 0x1;
             break;
         
         case 0x9:
-            x_scroll = 0x3;
-            y_scroll = 0x0;
+            xScroll = 0x3;
+            yScroll = 0x0;
             break;
 
         case 0x7:
-            x_scroll = 0x1;
-            y_scroll = 0x0;
+            xScroll = 0x1;
+            yScroll = 0x0;
     }
 
-    return y_scroll << 0x10 | x_scroll;
+    return yScroll << 0x10 | xScroll;
 }
 
 void ScrollBG3(void)
@@ -314,7 +358,7 @@ void ScrollBG3Related(void)
 
 void ScrollAutoBG3(void)
 {
-    if (gBG3Movement.direction == 0x1 && (gBG3Movement.counter & 0x7) == 0x0)
+    if (gBG3Movement.direction == 0x1 && !(gBG3Movement.counter & 0x7))
         gBG3Movement.xOffset++;
     gBG3Movement.counter++;
 }
