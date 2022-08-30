@@ -2,77 +2,1196 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
+const u32 sZoomerGFX[379];
+const u16 sZoomerPAL[32];
+
+const u16 sZoomerOAM_Falling_Frame0[13] = {
+    0x4,
+    0xee, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x200,
+    OBJ_SHAPE_VERTICAL | 0xee, 0x4, OBJ_SPRITE_OAM | 0x202,
+    0xf8, 0x1f6, OBJ_SPRITE_OAM | 0x20f,
+    0xf8, OBJ_X_FLIP | 0x1, OBJ_SPRITE_OAM | 0x20f
+};
+
+const u16 sZoomerOAM_Falling_Frame1[13] = {
+    0x4,
+    0xef, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x203,
+    OBJ_SHAPE_VERTICAL | 0xef, 0x4, OBJ_SPRITE_OAM | 0x202,
+    0xf8, 0x1f6, OBJ_SPRITE_OAM | 0x210,
+    0xf8, OBJ_X_FLIP | 0x1, OBJ_SPRITE_OAM | 0x210
+};
+
+const u16 sZoomerOAM_Falling_Frame2[13] = {
+    0x4,
+    0xf0, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x205,
+    OBJ_SHAPE_VERTICAL | 0xf0, 0x4, OBJ_SPRITE_OAM | 0x202,
+    0xf8, 0x1f6, OBJ_SPRITE_OAM | 0x22f,
+    0xf8, OBJ_X_FLIP | 0x1, OBJ_SPRITE_OAM | 0x22f
+};
+
+const u16 sZoomerOAM_OnGround_Frame0[13] = {
+    0x4,
+    0xef, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x200,
+    OBJ_SHAPE_VERTICAL | 0xef, 0x4, OBJ_SPRITE_OAM | 0x202,
+    0xf8, 0x1f4, OBJ_SPRITE_OAM | 0x207,
+    0xf8, OBJ_X_FLIP | 0x1, OBJ_SPRITE_OAM | 0x227
+};
+
+const u16 sZoomerOAM_OnGround_Frame1[13] = {
+    0x4,
+    0xee, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x203,
+    OBJ_SHAPE_VERTICAL | 0xee, 0x4, OBJ_SPRITE_OAM | 0x202,
+    0xf8, 0x1f6, OBJ_SPRITE_OAM | 0x208,
+    0xf8, OBJ_X_FLIP | 0x1, OBJ_SPRITE_OAM | 0x228
+};
+
+const u16 sZoomerOAM_OnGround_Frame2[13] = {
+    0x4,
+    0xef, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x205,
+    OBJ_SHAPE_VERTICAL | 0xef, 0x4, OBJ_SPRITE_OAM | 0x202,
+    0xf8, 0x1f6, OBJ_SPRITE_OAM | 0x227,
+    0xf8, OBJ_X_FLIP | 0x3, OBJ_SPRITE_OAM | 0x207
+};
+
+const u16 sZoomerOAM_OnGround_Frame3[13] = {
+    0x4,
+    0xf0, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x203,
+    OBJ_SHAPE_VERTICAL | 0xf0, 0x4, OBJ_SPRITE_OAM | 0x202,
+    0xf8, 0x1f6, OBJ_SPRITE_OAM | 0x228,
+    0xf8, OBJ_X_FLIP | 0x1, OBJ_SPRITE_OAM | 0x208
+};
+
+const u16 sZoomerOAM_TurningEdgeLeft_Frame0[10] = {
+    0x3,
+    0xf5, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x211,
+    OBJ_SHAPE_HORIZONTAL | 0xed, 0x1f7, OBJ_SPRITE_OAM | 0x217,
+    OBJ_SHAPE_VERTICAL | 0xf5, 0x7, OBJ_SPRITE_OAM | 0x21b
+};
+
+const u16 sZoomerOAM_TurningEdgeLeft_Frame1[10] = {
+    0x3,
+    0xf8, OBJ_SIZE_16x16 | 0x1fb, OBJ_SPRITE_OAM | 0x213,
+    OBJ_SHAPE_HORIZONTAL | 0xf0, 0x1fb, OBJ_SPRITE_OAM | 0x237,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0xb, OBJ_SPRITE_OAM | 0x21c
+};
+
+const u16 sZoomerOAM_TurningEdgeLeft_Frame2[10] = {
+    0x3,
+    0xf9, OBJ_SIZE_16x16 | 0x1fa, OBJ_SPRITE_OAM | 0x215,
+    OBJ_SHAPE_HORIZONTAL | 0xf1, 0x1fa, OBJ_SPRITE_OAM | 0x219,
+    OBJ_SHAPE_VERTICAL | 0xf9, 0xa, OBJ_SPRITE_OAM | 0x21d
+};
+
+const u16 sZoomerOAM_OnWall_Frame0[13] = {
+    0x4,
+    0xf4, OBJ_SIZE_16x16 | 0x1, OBJ_SPRITE_OAM | 0x209,
+    OBJ_SHAPE_HORIZONTAL | 0x4, 0x1, OBJ_SPRITE_OAM | 0x239,
+    0xf4, 0x0, OBJ_SPRITE_OAM | 0x21e,
+    0x1, OBJ_Y_FLIP | 0x0, OBJ_SPRITE_OAM | 0x23e
+};
+
+const u16 sZoomerOAM_OnWall_Frame1[13] = {
+    0x4,
+    0xf4, OBJ_SIZE_16x16 | 0x2, OBJ_SPRITE_OAM | 0x20b,
+    OBJ_SHAPE_HORIZONTAL | 0x4, 0x2, OBJ_SPRITE_OAM | 0x239,
+    0xf6, 0x0, OBJ_SPRITE_OAM | 0x21f,
+    0x1, OBJ_Y_FLIP | 0x0, OBJ_SPRITE_OAM | 0x23f
+};
+
+const u16 sZoomerOAM_OnWall_Frame2[13] = {
+    0x4,
+    0xf4, OBJ_SIZE_16x16 | 0x1, OBJ_SPRITE_OAM | 0x20d,
+    OBJ_SHAPE_HORIZONTAL | 0x4, 0x1, OBJ_SPRITE_OAM | 0x239,
+    0xf6, 0x0, OBJ_SPRITE_OAM | 0x23e,
+    0x3, OBJ_Y_FLIP | 0x0, OBJ_SPRITE_OAM | 0x21e
+};
+
+const u16 sZoomerOAM_OnWall_Frame3[13] = {
+    0x4,
+    0xf4, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x20b,
+    OBJ_SHAPE_HORIZONTAL | 0x4, 0x0, OBJ_SPRITE_OAM | 0x239,
+    0xf6, 0x0, OBJ_SPRITE_OAM | 0x23f,
+    0x1, OBJ_Y_FLIP | 0x0, OBJ_SPRITE_OAM | 0x21f
+};
+
+const u16 sZoomerOAM_TurningCornerRight_Frame0[10] = {
+    0x3,
+    0xf5, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x211,
+    OBJ_SHAPE_HORIZONTAL | 0xed, 0x1f7, OBJ_SPRITE_OAM | 0x217,
+    OBJ_SHAPE_VERTICAL | 0xf5, 0x7, OBJ_SPRITE_OAM | 0x21b
+};
+
+const u16 sZoomerOAM_TurningCornerRight_Frame1[10] = {
+    0x3,
+    0xf3, OBJ_SIZE_16x16 | 0x1f6, OBJ_SPRITE_OAM | 0x213,
+    OBJ_SHAPE_HORIZONTAL | 0xeb, 0x1f6, OBJ_SPRITE_OAM | 0x237,
+    OBJ_SHAPE_VERTICAL | 0xf3, 0x6, OBJ_SPRITE_OAM | 0x21c
+};
+
+const u16 sZoomerOAM_TurningCornerRight_Frame2[10] = {
+    0x3,
+    0xf1, OBJ_SIZE_16x16 | 0x1f5, OBJ_SPRITE_OAM | 0x215,
+    OBJ_SHAPE_HORIZONTAL | 0xe9, 0x1f5, OBJ_SPRITE_OAM | 0x219,
+    OBJ_SHAPE_VERTICAL | 0xf1, 0x5, OBJ_SPRITE_OAM | 0x21d
+};
+
+const u16 sZoomerOAM_TurningCornerLeft_Frame0[10] = {
+    0x3,
+    0xf8, OBJ_SIZE_16x16 | 0x1fe, OBJ_SPRITE_OAM | 0x215,
+    OBJ_SHAPE_HORIZONTAL | 0xf0, 0x1fe, OBJ_SPRITE_OAM | 0x219,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0xe, OBJ_SPRITE_OAM | 0x21d
+};
+
+const u16 sZoomerOAM_TurningCornerLeft_Frame1[10] = {
+    0x3,
+    0xf8, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x213,
+    OBJ_SHAPE_HORIZONTAL | 0xf0, 0x0, OBJ_SPRITE_OAM | 0x237,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0x10, OBJ_SPRITE_OAM | 0x21c
+};
+
+const u16 sZoomerOAM_TurningCornerLeft_Frame2[10] = {
+    0x3,
+    0xf8, OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x211,
+    OBJ_SHAPE_HORIZONTAL | 0xf0, 0x1ff, OBJ_SPRITE_OAM | 0x217,
+    OBJ_SHAPE_VERTICAL | 0xf8, 0xf, OBJ_SPRITE_OAM | 0x21b
+};
+
+const u16 sZoomerOAM_WalkingOnLeftSlope_Frame0[13] = {
+    0x4,
+    0xf0, OBJ_SIZE_16x16 | 0x1f6, OBJ_SPRITE_OAM | 0x240,
+    OBJ_SHAPE_VERTICAL | 0xf0, 0x6, OBJ_SPRITE_OAM | 0x242,
+    0xf6, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x244,
+    0xf6, 0x1f0, OBJ_SPRITE_OAM | 0x243
+};
+
+const u16 sZoomerOAM_WalkingOnLeftSlope_Frame1[10] = {
+    0x3,
+    0xf1, OBJ_SIZE_16x16 | 0x1f6, OBJ_SPRITE_OAM | 0x240,
+    OBJ_SHAPE_VERTICAL | 0xf1, 0x6, OBJ_SPRITE_OAM | 0x242,
+    0xf6, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x246
+};
+
+const u16 sZoomerOAM_WalkingOnLeftSlope_Frame2[10] = {
+    0x3,
+    0xf1, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x240,
+    OBJ_SHAPE_VERTICAL | 0xf1, 0x7, OBJ_SPRITE_OAM | 0x242,
+    0xf6, OBJ_SIZE_16x16 | 0x1f9, OBJ_SPRITE_OAM | 0x248
+};
+
+const u16 sZoomerOAM_WalkingOnLeftSlope_Frame3[10] = {
+    0x3,
+    0xf0, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x240,
+    OBJ_SHAPE_VERTICAL | 0xf0, 0x7, OBJ_SPRITE_OAM | 0x242,
+    0xf6, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x24a
+};
+
+const u16 sZoomerOAM_WalkingOnRightSlope_Frame0[13] = {
+    0x4,
+    0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1fa, OBJ_SPRITE_OAM | 0x240,
+    OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | 0x1f2, OBJ_SPRITE_OAM | 0x242,
+    0xf6, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x244,
+    0xf6, OBJ_X_FLIP | 0x8, OBJ_SPRITE_OAM | 0x243
+};
+
+const u16 sZoomerOAM_WalkingOnRightSlope_Frame1[13] = {
+    0x3,
+    0xf1, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1fa, OBJ_SPRITE_OAM | 0x240,
+    OBJ_SHAPE_VERTICAL | 0xf1, OBJ_X_FLIP | 0x1f2, OBJ_SPRITE_OAM | 0x242,
+    0xf6, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x246
+};
+
+const u16 sZoomerOAM_WalkingOnRightSlope_Frame2[10] = {
+    0x3,
+    0xf1, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f9, OBJ_SPRITE_OAM | 0x240,
+    OBJ_SHAPE_VERTICAL | 0xf1, OBJ_X_FLIP | 0x1f1, OBJ_SPRITE_OAM | 0x242,
+    0xf6, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x248
+};
+
+const u16 sZoomerOAM_WalkingOnRightSlope_Frame3[10] = {
+    0x3,
+    0xf0, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f9, OBJ_SPRITE_OAM | 0x240,
+    OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | 0x1f1, OBJ_SPRITE_OAM | 0x242,
+    0xf6, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f9, OBJ_SPRITE_OAM | 0x24a
+};
+
+const struct FrameData sZoomerOAM_Falling[5] = {
+    sZoomerOAM_Falling_Frame0,
+    0x3,
+    sZoomerOAM_Falling_Frame1,
+    0x3,
+    sZoomerOAM_Falling_Frame2,
+    0x3,
+    sZoomerOAM_Falling_Frame1,
+    0x3,
+    NULL,
+    0x0
+};
+
+const struct FrameData sZoomerOAM_OnGround[5] = {
+    sZoomerOAM_OnGround_Frame0,
+    0x3,
+    sZoomerOAM_OnGround_Frame1,
+    0x3,
+    sZoomerOAM_OnGround_Frame2,
+    0x3,
+    sZoomerOAM_OnGround_Frame3,
+    0x3,
+    NULL,
+    0x0
+};
+
+const struct FrameData sZoomerOAM_TurningEdgeLeft[4] = {
+    sZoomerOAM_TurningEdgeLeft_Frame0,
+    0x2,
+    sZoomerOAM_TurningEdgeLeft_Frame1,
+    0x2,
+    sZoomerOAM_TurningEdgeLeft_Frame2,
+    0x2,
+    NULL,
+    0x0
+};
+
+const struct FrameData sZoomerOAM_TurningEdgeRight[4] = {
+    sZoomerOAM_TurningEdgeLeft_Frame2,
+    0x2,
+    sZoomerOAM_TurningEdgeLeft_Frame1,
+    0x2,
+    sZoomerOAM_TurningEdgeLeft_Frame0,
+    0x2,
+    NULL,
+    0x0
+};
+
+const struct FrameData sZoomerOAM_OnWall[5] = {
+    sZoomerOAM_OnWall_Frame0,
+    0x3,
+    sZoomerOAM_OnWall_Frame1,
+    0x3,
+    sZoomerOAM_OnWall_Frame2,
+    0x3,
+    sZoomerOAM_OnWall_Frame3,
+    0x3,
+    NULL,
+    0x0
+};
+
+const struct FrameData sZoomerOAM_TurningCornerRight[4] = {
+    sZoomerOAM_TurningCornerRight_Frame0,
+    0x2,
+    sZoomerOAM_TurningCornerRight_Frame1,
+    0x2,
+    sZoomerOAM_TurningCornerRight_Frame2,
+    0x2,
+    NULL,
+    0x0
+};
+
+const struct FrameData sZoomerOAM_TurningCornerLeft[4] = {
+    sZoomerOAM_TurningCornerLeft_Frame0,
+    0x2,
+    sZoomerOAM_TurningCornerLeft_Frame1,
+    0x2,
+    sZoomerOAM_TurningCornerLeft_Frame2,
+    0x2,
+    NULL,
+    0x0
+};
+
+const struct FrameData sZoomerOAM_WalkingOnLeftSlope[5] = {
+    sZoomerOAM_WalkingOnLeftSlope_Frame0,
+    0x3,
+    sZoomerOAM_WalkingOnLeftSlope_Frame1,
+    0x3,
+    sZoomerOAM_WalkingOnLeftSlope_Frame2,
+    0x3,
+    sZoomerOAM_WalkingOnLeftSlope_Frame3,
+    0x3,
+    NULL,
+    0x0
+};
+
+const struct FrameData sZoomerOAM_WalkingOnRightSlope[5] = {
+    sZoomerOAM_WalkingOnRightSlope_Frame0,
+    0x3,
+    sZoomerOAM_WalkingOnRightSlope_Frame1,
+    0x3,
+    sZoomerOAM_WalkingOnRightSlope_Frame2,
+    0x3,
+    sZoomerOAM_WalkingOnRightSlope_Frame3,
+    0x3,
+    NULL,
+    0x0
+};
+
+
+/**
+ * @brief 16694 | 96 | Checks if a zoomer is colliding with air
+ * 
+ * @return u8 1 if colliding with air, 0 otherwise
+ */
 u8 ZoomerCheckCollidingWithAir(void)
 {
+    u8 colliding;
 
+    colliding = FALSE;
+
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        {
+            if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition) == COLLISION_AIR &&
+                SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition) == COLLISION_AIR)
+                colliding = TRUE;
+        }
+        else
+        {
+            if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x4) == COLLISION_AIR &&
+                SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x4) == COLLISION_AIR)
+                colliding = TRUE;
+        }
+    }
+    else
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+        {
+            if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition - HALF_BLOCK_SIZE) == COLLISION_AIR &&
+                SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition + HALF_BLOCK_SIZE) == COLLISION_AIR)
+                colliding = TRUE;
+        }
+        else
+        {
+            if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - HALF_BLOCK_SIZE) == COLLISION_AIR &&
+                SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + HALF_BLOCK_SIZE) == COLLISION_AIR)
+                colliding = TRUE;
+        }
+    }
+
+    return colliding;
 }
 
-void ZoomerCollisionInit(void)
+/**
+ * @brief 16728 | 80 | Updates the hitbox of a zoomer
+ * 
+ */
+void ZoomerUpdateHitbox(void)
 {
-
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        {
+            gCurrentSprite.hitboxTopOffset = -0x1C;
+            gCurrentSprite.hitboxBottomOffset = 0x1C;
+            gCurrentSprite.hitboxLeftOffset = -0x34;
+            gCurrentSprite.hitboxRightOffset = 0x4;
+        }
+        else
+        {
+            gCurrentSprite.hitboxTopOffset = -0x1C;
+            gCurrentSprite.hitboxBottomOffset = 0x1C;
+            gCurrentSprite.hitboxLeftOffset = -0x4;
+            gCurrentSprite.hitboxRightOffset = 0x34;
+        }
+    }
+    else
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+        {
+            gCurrentSprite.hitboxTopOffset = -0x4;
+            gCurrentSprite.hitboxBottomOffset = 0x34;
+            gCurrentSprite.hitboxLeftOffset = -0x1C;
+            gCurrentSprite.hitboxRightOffset = 0x1C;
+        }
+        else
+        {
+            gCurrentSprite.hitboxTopOffset = -0x34;
+            gCurrentSprite.hitboxBottomOffset = 0x4;
+            gCurrentSprite.hitboxLeftOffset = -0x1C;
+            gCurrentSprite.hitboxRightOffset = 0x1C;
+        }
+    }
 }
 
-void ZoomerGFXInit(void)
+/**
+ * @brief 167a8 | 30 | Sets the crawling OAM for a zoomer
+ * 
+ */
+void ZoomerSetCrawlingOAM(void)
 {
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        gCurrentSprite.pOam = sZoomerOAM_OnWall;
+    else
+        gCurrentSprite.pOam = sZoomerOAM_OnGround;
 
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
 }
 
-void ZoomerNormalDirectionGFXInit(void)
+/**
+ * @brief 167d8 | 30 | Sets the falling OAM for a zoomer
+ * 
+ */
+void ZoomerSetFallingOAM(void)
 {
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        gCurrentSprite.pOam = sZoomerOAM_OnWall;
+    else
+        gCurrentSprite.pOam = sZoomerOAM_OnGround;
 
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
 }
 
+/**
+ * @brief 16808 | 114 | Initializes a zoomer sprite
+ * 
+ */
 void ZoomerInit(void)
 {
+    SpriteUtilChooseRandomXDirection();
+    gCurrentSprite.pose = ZOOMER_POSE_IDLE;
 
+    // Check surroundings
+    if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition) & 0xF0)
+    {
+        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+    }
+    else if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x44, gCurrentSprite.xPosition) & 0xF0)
+    {
+        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+        gCurrentSprite.yPosition -= BLOCK_SIZE;
+    }
+    else if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x24) & 0xF0)
+    {
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
+        gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
+    }
+    else if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition + HALF_BLOCK_SIZE) & 0xF0)
+    {
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
+        gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
+    }
+    else
+    {
+        gCurrentSprite.status = 0x0;
+        return;
+    }
+
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
+    ZoomerSetCrawlingOAM();
+    ZoomerUpdateHitbox();
+
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.drawDistanceTopOffset = 0x10;
+    gCurrentSprite.drawDistanceBottomOffset = 0x10;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+
+    // Check set other palette
+    if (gCurrentSprite.spriteID == PSPRITE_ZOOMER_RED)
+    {
+        gCurrentSprite.absolutePaletteRow = 0x1;
+        gCurrentSprite.paletteRow = 0x1;
+    }
 }
 
-void ZoomerCallGFXInit(void)
+/**
+ * @brief 1691c | 18 | Initializes a zoomer to be idle
+ * 
+ */
+void ZoomerIdleInit(void)
 {
-
+    ZoomerSetCrawlingOAM();
+    gCurrentSprite.pose = ZOOMER_POSE_IDLE;
 }
 
-void ZoomerMove(void)
+/**
+ * @brief 16934 | 3e8 | Handles a zoomer crawling
+ * 
+ */
+void ZoomerCrawling(void)
 {
+    u16 speed;
+    u8 turning;
+    u8 collision;
 
+    if (gCurrentSprite.spriteID == PSPRITE_ZOOMER_RED)
+        speed = 0x3;
+    else
+        speed = 0x2;
+
+    turning = FALSE;
+
+    if (ZoomerCheckCollidingWithAir())
+    {
+        gCurrentSprite.pose = ZOOMER_POSE_FALLING_INIT;
+        return;
+    }
+
+    if (SpriteUtilIsSpriteOnScreenAndScreenShake())
+    {
+        if (gCurrentSprite.status & (SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_UNKNOWN2))
+            gCurrentSprite.pose = ZOOMER_POSE_FALLING_INIT;
+        return;
+    }
+
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        {
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+            {
+                collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+                if (!(collision & 0xF0))
+                {
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                    turning = TRUE;
+                    gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_EDGE;
+                }
+                else
+                {
+                    collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x4);
+                    if (collision == COLLISION_SOLID)
+                    {
+                        gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                        turning = TRUE;
+                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER;
+                    }
+                    else
+                        gCurrentSprite.yPosition += speed;
+                }
+            }
+            else
+            {
+                collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition);
+                if (!(collision & 0xF0))
+                {
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                    turning = TRUE;
+                    gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER;
+                }
+                else
+                {
+                    collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x4);
+                    if (collision == COLLISION_SOLID)
+                    {
+                        gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                        turning = TRUE;
+                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_EDGE;
+                    }
+                    else
+                        gCurrentSprite.yPosition -= speed;
+                }
+            }
+        }
+        else
+        {
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+            {
+                collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0x4);
+                if (!(collision & 0xF0))
+                {
+                    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                    turning = TRUE;
+                    gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_LEFT_CORNER;
+                }
+                else
+                {
+                    collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition);
+                    if (collision == COLLISION_SOLID)
+                    {
+                        gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                        turning = TRUE;
+                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_LEFT_EDGE;
+                    }
+                    else
+                        gCurrentSprite.yPosition += speed;
+                }
+            }
+            else
+            {
+                collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition - 0x4);
+                if (!(collision & 0xF0))
+                {
+                    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                    turning = TRUE;
+                    gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_LEFT_EDGE;
+                }
+                else
+                {
+                    collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition);
+                    if (collision == COLLISION_SOLID)
+                    {
+                        gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                        turning = TRUE;
+                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_LEFT_CORNER;
+                    }
+                    else
+                        gCurrentSprite.yPosition -= speed;
+                }
+            }
+        }
+    }
+    else
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+        {
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+            {
+                collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition);
+                if (!(collision & 0xF))
+                {
+                    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                    turning = TRUE;
+                    gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE;
+                }
+                else
+                {
+                    collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + HALF_BLOCK_SIZE);
+                    if (collision == COLLISION_SOLID)
+                    {
+                        gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                        turning = TRUE;
+                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_RIGHT_CORNER;
+                    }
+                    else
+                        gCurrentSprite.xPosition += speed;
+                }
+            }
+            else
+            {
+                collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition - 0x4);
+                if (!(collision & 0xF))
+                {
+                    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                    turning = TRUE;
+                    gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_RIGHT_CORNER;
+                }
+                else
+                {
+                    collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - HALF_BLOCK_SIZE);
+                    if (collision == COLLISION_SOLID)
+                    {
+                        gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                        turning = TRUE;
+                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE;
+                    }
+                    else
+                        gCurrentSprite.xPosition -= speed;
+                }
+            }
+        }
+        else
+        {
+            unk_f594();
+
+            if (gPreviousVerticalCollisionCheck == COLLISION_AIR || gPreviousVerticalCollisionCheck & 0xF0)
+            {
+                if (gCurrentSprite.pOam != sZoomerOAM_OnGround)
+                {
+                    gCurrentSprite.pOam = sZoomerOAM_OnGround;
+                    gCurrentSprite.animationDurationCounter = 0x0;
+                    gCurrentSprite.currentAnimationFrame = 0x0;
+                }
+
+                if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                {
+                    collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+                    if (collision == COLLISION_AIR)
+                    {
+                        gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                        turning = TRUE;
+                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_CORNER;
+                    }
+                    else
+                    {
+                        collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition + HALF_BLOCK_SIZE);
+                        if (collision == COLLISION_SOLID)
+                        {
+                            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                            turning = TRUE;
+                            gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_RIGHT_EDGE;
+                        }
+                        else
+                            gCurrentSprite.xPosition += speed;
+                    }
+                }
+                else
+                {
+                    collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0x4);
+                    if (collision == COLLISION_AIR)
+                    {
+                        gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                        turning = TRUE;
+                        gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_TOP_RIGHT_EDGE;
+                    }
+                    else
+                    {
+                        collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition - HALF_BLOCK_SIZE);
+                        if (collision == COLLISION_SOLID)
+                        {
+                            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                            turning = TRUE;
+                            gCurrentSprite.workVariable = ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_CORNER;
+                        }
+                        else
+                            gCurrentSprite.xPosition -= speed;
+                    }
+                }
+            }
+            else
+            {
+                if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                {
+                    if (gPreviousVerticalCollisionCheck == COLLISION_LEFT_SLIGHT_FLOOR_SLOPE || gPreviousVerticalCollisionCheck == COLLISION_LEFT_STEEP_FLOOR_SLOPE)
+                    {
+                        if (gCurrentSprite.pOam != sZoomerOAM_WalkingOnLeftSlope)
+                        {
+                            gCurrentSprite.pOam = sZoomerOAM_WalkingOnLeftSlope;
+                            gCurrentSprite.animationDurationCounter = 0x0;
+                            gCurrentSprite.currentAnimationFrame = 0x0;
+                        }
+
+                        gCurrentSprite.xPosition += speed;
+                    }
+                    else
+                    {
+                        if (gCurrentSprite.pOam != sZoomerOAM_WalkingOnRightSlope)
+                        {
+                            gCurrentSprite.pOam = sZoomerOAM_WalkingOnRightSlope;
+                            gCurrentSprite.animationDurationCounter = 0x0;
+                            gCurrentSprite.currentAnimationFrame = 0x0;
+                        }
+
+                        gCurrentSprite.xPosition += (speed * 2 / 3);
+
+                        if (gFrameCounter8Bit & 0x1 && gCurrentSprite.animationDurationCounter != 0x0)
+                            gCurrentSprite.animationDurationCounter--;
+                    }
+                }
+                else
+                {
+                    if (gPreviousVerticalCollisionCheck == COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE || gPreviousVerticalCollisionCheck == COLLISION_RIGHT_STEEP_FLOOR_SLOPE)
+                    {
+                        if (gCurrentSprite.pOam != sZoomerOAM_WalkingOnRightSlope)
+                        {
+                            gCurrentSprite.pOam = sZoomerOAM_WalkingOnRightSlope;
+                            gCurrentSprite.animationDurationCounter = 0x0;
+                            gCurrentSprite.currentAnimationFrame = 0x0;
+                        }
+
+                        gCurrentSprite.xPosition -= speed;
+                    }
+                    else
+                    {
+                        if (gCurrentSprite.pOam != sZoomerOAM_WalkingOnLeftSlope)
+                        {
+                            gCurrentSprite.pOam = sZoomerOAM_WalkingOnLeftSlope;
+                            gCurrentSprite.animationDurationCounter = 0x0;
+                            gCurrentSprite.currentAnimationFrame = 0x0;
+                        }
+
+                        gCurrentSprite.xPosition -= (speed * 2 / 3);
+
+                        if (gFrameCounter8Bit & 0x1 && gCurrentSprite.animationDurationCounter != 0x0)
+                            gCurrentSprite.animationDurationCounter--;
+                    }
+                }
+            }
+        }
+    }
+
+    if (turning)
+        gCurrentSprite.pose = ZOOMER_POSE_TURNING_AROUND_INIT;
 }
 
-void ZoomerGFXRotationUpdate(void)
+/**
+ * @brief 16d1c | 194 | Initializes a zoomer to be turning around
+ * 
+ */
+void ZoomerTurningAroundInit(void)
 {
+    gCurrentSprite.pose = ZOOMER_POSE_TURNING_AROUND;
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
 
+    switch (gCurrentSprite.workVariable)
+    {
+        case ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_CORNER:
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.pOam = sZoomerOAM_TurningEdgeLeft;
+            else
+                gCurrentSprite.pOam = sZoomerOAM_TurningCornerRight;
+
+            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
+            break;
+
+        case ZOOMER_TURNING_DIRECTION_TOP_RIGHT_EDGE:
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.pOam = sZoomerOAM_TurningEdgeLeft;
+            else
+                gCurrentSprite.pOam = sZoomerOAM_TurningCornerRight;
+
+            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
+            break;
+
+        case ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE:
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.pOam = sZoomerOAM_TurningCornerRight;
+            else
+                gCurrentSprite.pOam = sZoomerOAM_TurningEdgeLeft;
+
+            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            break;
+
+        case ZOOMER_TURNING_DIRECTION_TOP_RIGHT_CORNER:
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.pOam = sZoomerOAM_TurningCornerRight;
+            else
+                gCurrentSprite.pOam = sZoomerOAM_TurningEdgeLeft;
+
+            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            break;
+        
+        case ZOOMER_TURNING_DIRECTION_TOP_LEFT_EDGE:
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.pOam = sZoomerOAM_TurningCornerLeft;
+            else
+                gCurrentSprite.pOam = sZoomerOAM_TurningEdgeRight;
+
+            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
+            break;
+
+        case ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER:
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.pOam = sZoomerOAM_TurningEdgeRight;
+            else
+                gCurrentSprite.pOam = sZoomerOAM_TurningCornerLeft;
+
+            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
+            break;
+
+        case ZOOMER_TURNING_DIRECTION_TOP_LEFT_CORNER:
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.pOam = sZoomerOAM_TurningCornerLeft;
+            else
+                gCurrentSprite.pOam = sZoomerOAM_TurningEdgeRight;
+
+            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            break;
+
+        case ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_EDGE:
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                gCurrentSprite.pOam = sZoomerOAM_TurningEdgeRight;
+            else
+                gCurrentSprite.pOam = sZoomerOAM_TurningCornerLeft;
+
+            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            break;
+
+        default:
+            gCurrentSprite.status = 0x0;
+    }
 }
 
-void ZoomerTurning(void)
+/**
+ * @brief 16eb0 | 1cc | Handles a zoomer turning around
+ * 
+ */
+void ZoomerTurningAround(void)
 {
+    if (!SpriteUtilCheckEndCurrentSpriteAnim())
+        return;
 
+    gCurrentSprite.pose = ZOOMER_POSE_IDLE;
+
+    switch (gCurrentSprite.workVariable)
+    {
+        case ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_CORNER:
+            if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
+            {
+                gCurrentSprite.yPosition -= 0x1C;
+                gCurrentSprite.xPosition &= BLOCK_POSITION_FLAG;
+            }
+
+            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            break;
+
+        case ZOOMER_TURNING_DIRECTION_TOP_RIGHT_EDGE:
+            if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
+            {
+                gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
+                gCurrentSprite.xPosition &= BLOCK_POSITION_FLAG;
+                gCurrentSprite.xPosition += BLOCK_SIZE;
+            }
+
+            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            break;
+
+        case ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE:
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+            {
+                gCurrentSprite.yPosition += 0x1C;
+                gCurrentSprite.xPosition &= BLOCK_POSITION_FLAG;
+            }
+
+            gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            break;
+
+        case ZOOMER_TURNING_DIRECTION_TOP_RIGHT_CORNER:
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+            {
+                gCurrentSprite.yPosition += HALF_BLOCK_SIZE;
+                gCurrentSprite.xPosition &= BLOCK_POSITION_FLAG;
+                gCurrentSprite.xPosition += BLOCK_SIZE;
+            }
+
+            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            break;
+
+        case ZOOMER_TURNING_DIRECTION_TOP_LEFT_EDGE:
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+            {
+                gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
+                gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG;
+                gCurrentSprite.yPosition += BLOCK_SIZE;
+            }
+            else
+                gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG;
+
+            gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_DOWN);
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            break;
+        
+        case ZOOMER_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER:
+            if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
+            {
+                gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
+                gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG;
+                gCurrentSprite.yPosition += BLOCK_SIZE;
+            }
+            else
+                gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG;
+
+            gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_DOWN);
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            break;
+
+        case ZOOMER_TURNING_DIRECTION_TOP_LEFT_CORNER:
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+            {
+                gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG;
+                gCurrentSprite.xPosition += 0x1C;
+            }
+
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            break;
+        
+        case ZOOMER_TURNING_DIRECTION_BOTTOM_LEFT_EDGE:
+            if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
+            {
+                gCurrentSprite.yPosition &= BLOCK_POSITION_FLAG;
+                gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
+            }
+
+            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+            break;
+
+        default:
+            gCurrentSprite.status = 0x0;
+    }
+
+    ZoomerSetCrawlingOAM();
+    ZoomerUpdateHitbox();
 }
 
-void Zoomer_Unused(void)
+/**
+ * @brief 1707c | 18 | Initializes a zoomer to be landing (unused)
+ * 
+ */
+void ZoomerLandingInit_Unused(void)
 {
-
+    gCurrentSprite.pose = ZOOMER_POSE_LANDING;
+    ZoomerSetFallingOAM();
 }
 
-void ZoomerBackOnGround(void)
+/**
+ * @brief 17094 | 30 | Handles a zoomer landing
+ * 
+ */
+void ZoomerLanding(void)
 {
-
+    if (ZoomerCheckCollidingWithAir())
+        gCurrentSprite.pose = ZOOMER_POSE_FALLING_INIT;
+    else if (SpriteUtilCheckNearEndCurrentSpriteAnim())
+        gCurrentSprite.pose = ZOOMER_POSE_IDLE_INIT;
 }
 
-void ZoomerStartFalling(void)
+/**
+ * @brief 170c4 | 68 | Initializes a zoomer to be falling
+ * 
+ */
+void ZoomerFallingInit(void)
 {
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            gCurrentSprite.xPosition -= HALF_BLOCK_SIZE;
+        else
+            gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
+    }
+    else if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+        gCurrentSprite.yPosition += 0x28;
 
+    gCurrentSprite.pose = ZOOMER_POSE_FALLING;
+    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_UNKNOWN2);
+
+    ZoomerUpdateHitbox();
+    ZoomerSetFallingOAM();
 }
 
+/**
+ * @brief 1712c | 84 | Handles a zoomer falling
+ * 
+ */
 void ZoomerFalling(void)
 {
+    u16 yPosition;
+    u8 offset;
+    i32 movement;
+    u32 blockTop;
+    i32 newMovement;
 
+    yPosition = gCurrentSprite.yPosition;
+
+    offset = gCurrentSprite.arrayOffset;
+    movement = sSpritesFallingSpeed[offset];
+
+    if (movement == SPRITE_ARRAY_TERMINATOR)
+    {
+        newMovement = sSpritesFallingSpeed[offset - 1];
+        gCurrentSprite.yPosition += newMovement;
+    }
+    else
+    {
+        gCurrentSprite.arrayOffset++;
+        gCurrentSprite.yPosition += movement;
+    }
+
+    blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+    if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
+    {
+        gCurrentSprite.yPosition = blockTop;
+        gCurrentSprite.pose = ZOOMER_POSE_LANDING;
+        SpriteUtilChooseRandomXDirection();
+    }
+    else
+        SpriteUtilCheckInRoomEffect(yPosition, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_BIG);
 }
 
+/**
+ * @brief 171b0 | 5c | Handles a zoomer dying
+ * 
+ */
 void ZoomerDeath(void)
 {
+    u16 yPosition;
+    u16 xPosition;
 
+    yPosition = gCurrentSprite.yPosition;
+    xPosition = gCurrentSprite.xPosition;
+
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            xPosition -= 0x28;
+        else
+            xPosition += 0x28;
+    }
+    else
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+            yPosition += 0x28;
+        else
+            yPosition -= 0x28;
+    }
+
+    SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
 }
 
+/**
+ * @brief 1720c | 11c | Zoomer AI
+ * 
+ */
 void Zoomer(void)
 {
+    if (gCurrentSprite.properties & SP_DAMAGED)
+    {
+        gCurrentSprite.properties &= ~SP_DAMAGED;
+        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+            SoundPlayNotAlreadyPlaying(0x147);
+    }
 
+    if (gCurrentSprite.freezeTimer != 0x0)
+        SpriteUtilUpdateFreezeTimer();
+    else
+    {
+        if (SpriteUtilIsSpriteStunned())
+            return;
+
+        switch (gCurrentSprite.pose)
+        {
+            case 0x0:
+                ZoomerInit();
+                break;
+
+            case ZOOMER_POSE_IDLE_INIT:
+                ZoomerIdleInit();
+
+            case ZOOMER_POSE_IDLE:
+                ZoomerCrawling();
+                break;
+
+            case ZOOMER_POSE_TURNING_AROUND_INIT:
+                ZoomerTurningAroundInit();
+
+            case ZOOMER_POSE_TURNING_AROUND:
+                ZoomerTurningAround();
+                break;
+
+            case ZOOMER_POSE_LANDING_INIT:
+                ZoomerLandingInit_Unused();
+
+            case ZOOMER_POSE_LANDING:
+                ZoomerLanding();
+                break;
+
+            case ZOOMER_POSE_FALLING_INIT:
+                ZoomerFallingInit();
+
+            case ZOOMER_POSE_FALLING:
+                ZoomerFalling();
+                break;
+
+            default:
+                ZoomerDeath();
+        }
+    }
 }
