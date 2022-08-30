@@ -3,14 +3,14 @@
 #include "../globals.h"
 
 const i16 sBaristuteFallingYVelocity[8] = {
-    0x4, 0x8, 0xC, 0x10, 0x14, 0x18, 0x1C, SPRITE_ARRAY_TERMINATOR
+    4, 8, 12, 16, 20, 24, 28, SPRITE_ARRAY_TERMINATOR
 };
 
 const i16 sBaristuteJumpingYVelocity[10] = {
-    -0xC, -0x10, -0x10, -0x8, -0x4, 0x0, 0xC, 0x12, 0x18, 0x20
+    -12, -16, -16, -8, -4, 0, 12, 18, 24, 32
 };
 
-const u8 sBaristuteGFX[2384];
+const u32 sBaristuteGFX[596];
 const u16 sBaristutePAL[80];
 
 const u16 sBaristuteOAM_Idle_Frame0[49] = {
@@ -599,11 +599,8 @@ void BaristuteIdleInit(void)
  */
 void BaristuteIdle(void)
 {
-    // https://decomp.me/scratch/bFiH7
-
     u16 yPosition;
-    u32 xPosition;
-    u32 collision;
+    u16 xPosition;
 
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
@@ -623,13 +620,10 @@ void BaristuteIdle(void)
             else
                 gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
 
-            // /!\ Not fully merged calls
-            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                collision = SpriteUtilGetCollisionAtPosition(yPosition - 0x10, xPosition + gCurrentSprite.hitboxRightOffset + 0x10);
-            else
-                collision = SpriteUtilGetCollisionAtPosition(yPosition - 0x10, xPosition + gCurrentSprite.hitboxLeftOffset - 0x10);
-
-            if (collision == COLLISION_AIR)
+            // TODO make macro
+            if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT
+                ? SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxRightOffset + QUARTER_BLOCK_SIZE)
+                : SpriteUtilGetCollisionAtPosition(yPosition - QUARTER_BLOCK_SIZE, xPosition + gCurrentSprite.hitboxLeftOffset - QUARTER_BLOCK_SIZE)) == COLLISION_AIR)
             {
                 if (gCurrentSprite.spriteID == PSPRITE_BARISTUTE_KRAID_UPPER)
                     gCurrentSprite.pose = BARISTUTE_POSE_WALKING_INIT;
