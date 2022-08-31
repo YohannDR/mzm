@@ -3,6 +3,22 @@
 
 #include "../types.h"
 
+#define SPACE_PIRATE_CLIMBING_DIRECTION_UP 0x0
+#define SPACE_PIRATE_CLIMBING_DIRECTION_DOWN 0x1
+
+#define SPACE_PIRATE_AIM_FORWARD 0x0
+#define SPACE_PIRATE_AIM_DIAGONALLY_UP 0x1
+#define SPACE_PIRATE_AIM_DIAGONALLY_DOWN 0x2
+
+#define SPACE_PIRATE_POSE_HIT_BY_LASER_INIT 0x6B
+#define SPACE_PIRATE_POSE_HIT_BY_LASER 0x6C
+
+// Space pirate laser
+
+#define SPACE_PIRATE_LASERE_PART_FORWARD 0x0
+#define SPACE_PIRATE_LASERE_PART_DIAGONALLY_UP 0x1
+#define SPACE_PIRATE_LASERE_PART_DIAGONALLY_DOWN 0x2
+
 void DisableChozodiaAlarm(void);
 void DecrementChozodiaAlarm(void);
 void SpawnWaitingPirates(void);
@@ -11,8 +27,8 @@ void SpacePirateSamusDetection(void);
 void SpacePirateCheckCollidingWithLaser(void);
 void SpacePirateFireLaserGround(void);
 void SpacePirateFireLaserWall(void);
-void unk_29708(void);
-void unk_29940(void);
+u8 SpacePirateCheckCollidingWithPirateWhenWalking(void);
+u8 SpacePirateCheckCollidingWithPirateWhenClimbing(u8 direction);
 u8 SpacePirateCheckSamusInShootingRange(void);
 void unk_29b68(void);
 void unk_29c94(void);
@@ -78,8 +94,8 @@ void unk_2c224(void);
 void unk_2c2d0(void);
 void unk_2c2f0(void);
 void SpacePirateDeath(u8 playSound);
-void unk_2c3a0(void);
-void unk_2c3e8(void);
+void SpacePirateHitByLaserInit(void);
+void SpacePirateHitByLaser(void);
 void SpacePirateLaserInit(void);
 void SpacePirateLaserExploding(void);
 void SpacePirateLaserCheckExplodingAnimEnded(void);

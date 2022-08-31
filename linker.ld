@@ -37,6 +37,7 @@ SECTIONS {
         . = 0x00000054; gCurrentArea = .;
         . = 0x00000055; gCurrentRoom = .;
         . = 0x00000056; gLastDoorUsed = .;
+        . = 0x00000057; gLastDoorProperties = .;
         . = 0x00000058; gDisplayLocationText = .;
         . = 0x0000006C; gEffectYPosition = .;
         . = 0x0000006E; gEffectYPositionOffset = .;

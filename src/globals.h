@@ -103,6 +103,7 @@ extern i8 gDisableAnimatedPalette;
 extern u8 gCurrentArea;
 extern u8 gCurrentRoom;
 extern u8 gLastDoorUsed;
+extern u8 gLastDoorProperties;
 extern u8 gDisplayLocationText;
 extern u16 gEffectYPosition;
 extern i16 gEffectYPositionOffset;
