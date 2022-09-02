@@ -1227,7 +1227,7 @@ void UnknownItemChozoStatueRefillInit(void)
  * @brief 15580 | 4c | Handles an unknown item chozo statue refilling Samus
  * 
  */
-void UnknownItemChozoStatueRefill(void)
+void UnknownItemChozoStatueRefillSamus(void)
 {
     // Update palette
     gCurrentSprite.workVariable2--;
@@ -1803,7 +1803,7 @@ void UnknownItemChozoStatue(void)
             break;
 
         case CHOZO_STATUE_POSE_REFILL:
-            UnknownItemChozoStatueRefill();
+            UnknownItemChozoStatueRefillSamus();
             break;
 
         case CHOZO_STATUE_POSE_SLEEPING_INIT:
@@ -1903,7 +1903,7 @@ void UnknownItemChozoStatuePart(void)
  * @brief 16080 | a8 | Unknown item chozo statue refill AI
  * 
  */
-void UnknownItemChozoStatueRefill(void)
+void UnknownItemChozoStatueRefillSamus(void)
 {
     u8 ramSlot;
 

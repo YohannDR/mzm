@@ -20,7 +20,7 @@ void UnknownItemChozoStatueDelayBeforeRefillAfterHint(void);
 void UnknownItemChozoStatueWaitForItemToBeCollected(void);
 void UnknownItemChozoStatueTimerAfterItemGrabbed(void);
 void UnknownItemChozoStatueRefillInit(void);
-void UnknownItemChozoStatueRefill(void);
+void UnknownItemChozoStatueRefillSamus(void);
 void UnknownItemChozoStatueSleepingInit(void);
 void UnknownItemChozoStatueSleeping(void);
 void UnknownItemChozoStatuePartInit(void);
@@ -41,7 +41,7 @@ void UnknownItemChozoStatuePartEyeClosing(void);
 void UnknownItemChozoStatuePartLegIdle(void);
 void UnknownItemChozoStatue(void);
 void UnknownItemChozoStatuePart(void);
-void UnknownItemChozoStatueRefill(void);
+void UnknownItemChozoStatueRefillSamus(void);
 void ChozoStatueStandingChangeCCAA(u8 bodyCaa, u8 handCaa);
 void ChozoStatueSeatedChangeCCAA(u8 caa);
 

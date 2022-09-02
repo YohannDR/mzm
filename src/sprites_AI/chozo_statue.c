@@ -1466,7 +1466,7 @@ void ChozoStatueRefillInit(void)
  * @brief 14500 | 4c | Handles a chozo statue refilling Samus
  * 
  */
-void ChozoStatueRefill(void)
+void ChozoStatueRefillSamus(void)
 {
     // Update palette
     gCurrentSprite.workVariable2--;
@@ -2042,7 +2042,7 @@ void ChozoStatue(void)
             break;
 
         case CHOZO_STATUE_POSE_REFILL:
-            ChozoStatueRefill();
+            ChozoStatueRefillSamus();
             break;
 
         case CHOZO_STATUE_POSE_SLEEPING_INIT:
@@ -2142,7 +2142,7 @@ void ChozoStatuePart(void)
  * @brief 15000 | a8 | Chozo statue refill AI
  * 
  */
-void ChozoStatueRefill(void)
+void ChozoStatueRefillSamus(void)
 {
     u8 ramSlot;
 

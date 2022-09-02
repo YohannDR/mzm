@@ -75,7 +75,7 @@ void ChozoStatueDelayBeforeRefillAfterHint(void);
 void ChozoStatueWaitForItemToBeCollected(void);
 void ChozoStatueTimerAfterItemGrabbed(void);
 void ChozoStatueRefillInit(void);
-void ChozoStatueRefill(void);
+void ChozoStatueRefillSamus(void);
 void ChozoStatueSleepingInit(void);
 void ChozoStatueSleeping(void);
 void ChozoStatuePartInit(void);
@@ -96,6 +96,6 @@ void ChozoStatuePartEyeClosing(void);
 void ChozoStatuePartLegIdle(void);
 void ChozoStatue(void);
 void ChozoStatuePart(void);
-void ChozoStatueRefill(void);
+void ChozoStatueRefillSamus(void);
 
 #endif /* CHOZO_STATUE_AI_H */
