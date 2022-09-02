@@ -1321,6 +1321,7 @@ const struct FrameData sGlassTubeOAM_Breaking[19] = {
     sGlassTubeOAM_Breaking_Frame16,
     0x2,
     sGlassTubeOAM_Breaking_Frame17,
+    0x2,
     NULL,
     0x0
 };

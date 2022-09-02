@@ -58,7 +58,7 @@ const struct FrameData sMorphBallOAM_Idle[5] = {
     0x0
 };
 
-const struct FrameData sMorphBallOutsideOAM_Idle[5] = {
+const struct FrameData sMorphBallOutsideOAM_Idle[6] = {
     sMorphBallOutsideOAM_Idle_Frame0,
     0x64,
     sMorphBallOutsideOAM_Idle_Frame1,

@@ -1119,6 +1119,7 @@ const struct FrameData sCrocomirePartOAM_LegsWalkingForward[8] = {
     sCrocomirePartOAM_LegsWalkingForward_Frame5,
     0x8,
     sCrocomirePartOAM_LegsWalkingForward_Frame6,
+    0x8,
     NULL,
     0x0
 };
