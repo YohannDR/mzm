@@ -1903,7 +1903,7 @@ void UnknownItemChozoStatuePart(void)
  * @brief 16080 | a8 | Unknown item chozo statue refill AI
  * 
  */
-void UnknownItemChozoStatueRefillSamus(void)
+void UnknownItemChozoStatueRefill(void)
 {
     u8 ramSlot;
 

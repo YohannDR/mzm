@@ -41,7 +41,7 @@ void UnknownItemChozoStatuePartEyeClosing(void);
 void UnknownItemChozoStatuePartLegIdle(void);
 void UnknownItemChozoStatue(void);
 void UnknownItemChozoStatuePart(void);
-void UnknownItemChozoStatueRefillSamus(void);
+void UnknownItemChozoStatueRefill(void);
 void ChozoStatueStandingChangeCCAA(u8 bodyCaa, u8 handCaa);
 void ChozoStatueSeatedChangeCCAA(u8 caa);
 

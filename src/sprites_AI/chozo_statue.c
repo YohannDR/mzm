@@ -2142,7 +2142,7 @@ void ChozoStatuePart(void)
  * @brief 15000 | a8 | Chozo statue refill AI
  * 
  */
-void ChozoStatueRefillSamus(void)
+void ChozoStatueRefill(void)
 {
     u8 ramSlot;
 

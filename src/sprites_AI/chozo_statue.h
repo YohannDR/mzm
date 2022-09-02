@@ -96,6 +96,6 @@ void ChozoStatuePartEyeClosing(void);
 void ChozoStatuePartLegIdle(void);
 void ChozoStatue(void);
 void ChozoStatuePart(void);
-void ChozoStatueRefillSamus(void);
+void ChozoStatueRefill(void);
 
 #endif /* CHOZO_STATUE_AI_H */
