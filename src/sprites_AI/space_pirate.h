@@ -10,6 +10,7 @@
 #define SPACE_PIRATE_AIM_DIAGONALLY_UP 0x1
 #define SPACE_PIRATE_AIM_DIAGONALLY_DOWN 0x2
 
+#define SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT 0x44
 #define SPACE_PIRATE_POSE_HIT_BY_LASER_INIT 0x6B
 #define SPACE_PIRATE_POSE_HIT_BY_LASER 0x6C
 
@@ -53,7 +54,7 @@ void SpacePirateCheckTurningAnimEnded(void);
 void unk_2aba4(void);
 void unk_2abd4(void);
 void unk_2ac10(void);
-void unk_2ac60(void);
+void SpacePirateTurningAroundAlertedInit(void);
 void unk_2ac8c(void);
 void unk_2acd0(void);
 void unk_2ad34(void);
