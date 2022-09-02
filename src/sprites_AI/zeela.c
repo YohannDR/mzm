@@ -37,11 +37,6 @@ void ZeelaCallGFXInit(void)
 
 }
 
-void ZeelaInit(void)
-{
-
-}
-
 void ZeelaMove(void)
 {
 
