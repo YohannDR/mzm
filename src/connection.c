@@ -7,65 +7,60 @@ void ConnectionUpdateOpeningClosingHatches(void)
 
 }
 
-void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u8 hatch)
+void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr)
 {
-    /*u32 value;
-    u32 bg_block;
-    u32 clip_block;
-    i32 direction_flag;
+    // https://decomp.me/scratch/q1BYt
 
-    direction_flag = gHatchData[hatch].direction << 0x1B;
-    bg_block = 0x411;
-    if (direction_flag < 0x0)
-        bg_block = 0x416;
+    u32 value;
+    i8 direction;
+    i32 caf;
 
-    direction_flag = (gHatchData[hatch].direction << 0x1C >> 0x1D) - 0x1;
-    if ((gHatchData[hatch].status & 0x3) == 0x3)
+    direction = gHatchData[hatchNbr].facingRight;
+
+    value = 0x411;
+    if (direction < 0x0)
+        value = 0x416;
+
+    caf = gHatchData[hatchNbr].currentAnimationFrame - 0x1;
+
+    if (gHatchData[hatchNbr].opening == 0x3)
     {
-        direction_flag = (0x2 - direction_flag);
-        if (direction_flag < 0x0)
+        caf = 0x2 - caf;
+        if (caf < 0x0)
         {
-            direction_flag = 0x0;
-            bg_block = hatch_clipdata_block_values_3602c8[gHatchData[hatch].type] - (direction_flag >> 0x1F);
-            clip_block = direction_flag;
-            if (gHatchData[hatch].type == HATCH_NONE)
-                clip_block = direction_flag + 0x80;
+            caf = 0x0;
+            value = direction + sHatchClipdataBGBlockValues[gHatchData[hatchNbr].type];
         }
-        else if (gHatchData[hatch].type != HATCH_NONE)
+        else
         {
-            direction_flag += 0x40;
-            clip_block = direction_flag;
-            if (gHatchData[hatch].type == HATCH_NONE)
-                clip_block = direction_flag + 0x80;
+            if (gHatchData[hatchNbr].type != 0x0)
+                caf += 0x40;
         }
-    }
-    else
-    {
-        clip_block = direction_flag;
-        if (gHatchData[hatch].type == HATCH_NONE)
-            clip_block = direction_flag + 0x80;
-    }
-
-    value = bg_block + clip_block;
-    if (dontSetRaw != FALSE)
-    {
-        BGClipSetBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
-        BGClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
-        BGClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
-        BGClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
-    }
-    else
-    {
-        BGClipSetRawBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
-        BGClipSetRawBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
-        BGClipSetRawBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
-        BGClipSetRawBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
     }
     
-    BGClipSetClipdataBlockValue((u16)value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
-    BGClipSetClipdataBlockValue((u16)value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
-    BGClipSetClipdataBlockValue((u16)value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
-    BGClipSetClipdataBlockValue((u16)value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);*/
+    if (gHatchData[hatchNbr].type == 0x0)
+        caf += 0x80;
+
+    value += caf;
+    if (dontSetRaw)
+    {
+        BGClipSetBG1BlockValue(value, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
+        BGClipSetBG1BlockValue(value + 0x10, gHatchData[hatchNbr].yPosition + 0x1, gHatchData[hatchNbr].xPosition);
+        BGClipSetBG1BlockValue(value + 0x20, gHatchData[hatchNbr].yPosition + 0x2, gHatchData[hatchNbr].xPosition);
+        BGClipSetBG1BlockValue(value + 0x30, gHatchData[hatchNbr].yPosition + 0x3, gHatchData[hatchNbr].xPosition);
+    }
+    else
+    {
+        BGClipSetRawBG1BlockValue(value, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
+        BGClipSetRawBG1BlockValue(value + 0x10, gHatchData[hatchNbr].yPosition + 0x1, gHatchData[hatchNbr].xPosition);
+        BGClipSetRawBG1BlockValue(value + 0x20, gHatchData[hatchNbr].yPosition + 0x2, gHatchData[hatchNbr].xPosition);
+        BGClipSetRawBG1BlockValue(value + 0x30, gHatchData[hatchNbr].yPosition + 0x3, gHatchData[hatchNbr].xPosition);
+    }
+
+    BGClipSetClipdataBlockValue(value, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
+    BGClipSetClipdataBlockValue(value + 0x10, gHatchData[hatchNbr].yPosition + 0x1, gHatchData[hatchNbr].xPosition);
+    BGClipSetClipdataBlockValue(value + 0x20, gHatchData[hatchNbr].yPosition + 0x2, gHatchData[hatchNbr].xPosition);
+    BGClipSetClipdataBlockValue(value + 0x30, gHatchData[hatchNbr].yPosition + 0x3, gHatchData[hatchNbr].xPosition);
 }
 
 void ConnectionHatchFlashingAnimation(u8 hatch)
@@ -294,7 +289,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
 
                 start_special_background_fading(0x2);
                 SoundFade(0x10E, 0xA);
-                fade_music(0xA);
+                MusicFade(0xA);
             }
             break;
 
@@ -305,7 +300,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
 
                 start_special_background_fading(0x2);
                 SoundFade(0x10E, 0xA);
-                fade_music(0xA);
+                MusicFade(0xA);
             }
             break;
 
@@ -316,7 +311,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
 
                 start_special_background_fading(0x2);
                 SoundFade(0x10E, 0xA);
-                fade_music(0xA);
+                MusicFade(0xA);
             }
             break;
 
@@ -327,7 +322,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
 
                 start_special_background_fading(0x2);
                 SoundFade(0x10E, 0xA);
-                fade_music(0xA);
+                MusicFade(0xA);
             }
             break;
 

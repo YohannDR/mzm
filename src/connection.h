@@ -92,8 +92,14 @@ struct HatchLockEvent {
 };
 
 struct HatchData {
-    u8 direction;
-    u8 status;
+    u8 exists:1;
+    u8 currentAnimationFrame:3;
+    i8 facingRight:1;
+    u8 padding:3;
+    u8 opening:2;
+    u8 locked:1;
+    u8 unk:1;
+    u8 flashingStatus:3;
     u8 hits;
     u8 type;
     u8 animationDurationCounter;
@@ -111,7 +117,7 @@ struct LastElevatorUsed {
 // Functions
 
 void ConnectionUpdateOpeningClosingHatches(void);
-void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u8 hatch);
+void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr);
 void ConnectionHatchFlashingAnimation(u8 hatch);
 void ConnectionOverrideOpenedHatch(u8 hatch, u8 type);
 u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition);
