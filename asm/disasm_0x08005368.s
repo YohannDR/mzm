@@ -1771,7 +1771,7 @@ lbl_08006078:
     movs r0, #0x3d
     mov sl, r0
     movs r0, #0x9b
-    bl play_sound1
+    bl SoundPlay
     b lbl_080060dc
     .align 2, 0
 lbl_080060b8: .4byte 0x03001530
@@ -1785,11 +1785,11 @@ lbl_080060c0:
     cmp r0, #0
     beq lbl_080060d6
     movs r0, #0x95
-    bl play_sound1
+    bl SoundPlay
     b lbl_080060dc
 lbl_080060d6:
     movs r0, #0x7a
-    bl play_sound1
+    bl SoundPlay
 lbl_080060dc:
     mov r0, sb
     adds r0, #0x58
@@ -2025,13 +2025,13 @@ lbl_080062c8:
     cmp r0, #2
     bne lbl_08006304
     movs r0, #0xa1
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006366
     .align 2, 0
 lbl_08006300: .4byte 0x03001530
 lbl_08006304:
     movs r0, #0x68
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006366
 lbl_0800630c:
     ldr r0, lbl_0800631c @ =0x03001530
@@ -2039,13 +2039,13 @@ lbl_0800630c:
     cmp r0, #2
     bne lbl_08006320
     movs r0, #0xa2
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006366
     .align 2, 0
 lbl_0800631c: .4byte 0x03001530
 lbl_08006320:
     movs r0, #0x69
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006366
 lbl_08006328:
     cmp r5, #2
@@ -2059,7 +2059,7 @@ lbl_08006328:
     cmp r0, #0
     beq lbl_08006358
     movs r0, #0x67
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006366
 lbl_08006344:
     cmp r5, #3
@@ -2074,11 +2074,11 @@ lbl_08006344:
     bne lbl_08006360
 lbl_08006358:
     movs r0, #0x66
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006366
 lbl_08006360:
     movs r0, #0x67
-    bl play_sound1
+    bl SoundPlay
 lbl_08006366:
     mov r8, r4
     ldrh r4, [r6, #0x14]
@@ -2103,13 +2103,13 @@ lbl_0800636c:
     cmp r0, #2
     bne lbl_080063a0
     movs r0, #0xa3
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800641a
     .align 2, 0
 lbl_0800639c: .4byte 0x03001530
 lbl_080063a0:
     movs r0, #0x74
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800641a
 lbl_080063a8:
     cmp r5, #5
@@ -2136,7 +2136,7 @@ lbl_080063ca:
     lsls r0, r0, #0x18
     lsrs r7, r0, #0x18
     movs r0, #0x73
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800641a
 lbl_080063d8:
     mov r0, sl
@@ -2145,7 +2145,7 @@ lbl_080063d8:
     cmp r0, #0
     beq lbl_080063ea
     movs r0, #0x95
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800641a
 lbl_080063ea:
     ldr r0, lbl_080063fc @ =0x030013f4
@@ -2153,7 +2153,7 @@ lbl_080063ea:
     cmp r0, #0
     beq lbl_08006400
     movs r0, #0x72
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800641a
     .align 2, 0
 lbl_080063fc: .4byte 0x030013f4
@@ -2163,13 +2163,13 @@ lbl_08006400:
     cmp r0, #2
     beq lbl_08006414
     movs r0, #0x71
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800641a
     .align 2, 0
 lbl_08006410: .4byte 0x03001530
 lbl_08006414:
     movs r0, #0x99
-    bl play_sound1
+    bl SoundPlay
 lbl_0800641a:
     ldrh r3, [r6, #0x12]
     mov r8, r3
@@ -2345,7 +2345,7 @@ lbl_08006540:
     lsls r0, r0, #0x10
     lsrs r4, r0, #0x10
     movs r0, #0x91
-    bl play_sound1
+    bl SoundPlay
     b lbl_080065b4
 lbl_0800655e:
     ldrh r0, [r6, #0x14]
@@ -2689,7 +2689,7 @@ lbl_08006844:
     strh r2, [r6, #6]
 lbl_0800684c:
     movs r0, #0x7d
-    bl play_sound1
+    bl SoundPlay
 lbl_08006852:
     ldr r6, lbl_080068b8 @ =0x0300154c
     movs r4, #0
@@ -2767,14 +2767,14 @@ lbl_080068fc:
     cmp r0, #1
     bne lbl_08006934
     movs r0, #0x75
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006934
 lbl_0800690a:
     ldrb r0, [r6, #2]
     cmp r0, #1
     bne lbl_08006934
     movs r0, #0x74
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006934
 lbl_08006918:
     mov r1, r8
@@ -2959,7 +2959,7 @@ lbl_08006aac:
     movs r0, #0x74
     strh r0, [r4, #0x18]
     movs r0, #0x95
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006bc2
     .align 2, 0
 lbl_08006ac4: .4byte 0x03001588
@@ -2968,11 +2968,11 @@ lbl_08006ac8:
     cmp r0, #2
     beq lbl_08006ad6
     movs r0, #0x76
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006bc2
 lbl_08006ad6:
     movs r0, #0x9a
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006bc2
 lbl_08006ade:
     ldrb r0, [r5, #4]
@@ -3120,7 +3120,7 @@ lbl_08006bc2:
     cmp r0, #0xc0
     bne lbl_08006bec
     movs r0, #0x6e
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006c26
     .align 2, 0
 lbl_08006be8: .4byte 0x03001588
@@ -3128,13 +3128,13 @@ lbl_08006bec:
     cmp r0, #0xe8
     bne lbl_08006bf8
     movs r0, #0x6f
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006c26
 lbl_08006bf8:
     cmp r0, #0xd4
     bne lbl_08006c26
     movs r0, #0x9d
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006c26
 lbl_08006c04:
     cmp r0, #0x14
@@ -3146,13 +3146,13 @@ lbl_08006c04:
     beq lbl_08006c20
 lbl_08006c12:
     movs r0, #0x94
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006c26
     .align 2, 0
 lbl_08006c1c: .4byte 0x03001588
 lbl_08006c20:
     movs r0, #0x70
-    bl play_sound1
+    bl SoundPlay
 lbl_08006c26:
     pop {r4, r5, r6}
     pop {r0}
@@ -3356,7 +3356,7 @@ lbl_08006df4:
     movs r0, #0xa0
     strb r0, [r4, #0xa]
     movs r0, #0x8b
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006e54
 lbl_08006e04:
     movs r0, #0x1e
@@ -3376,7 +3376,7 @@ lbl_08006e18:
     movs r0, #1
     strb r0, [r4, #0x1d]
     movs r0, #0x90
-    bl play_sound1
+    bl SoundPlay
     b lbl_08006e54
 lbl_08006e2a:
     ldr r0, lbl_08006e40 @ =0x0823a554
@@ -3564,7 +3564,7 @@ lbl_08006fce:
     ldrb r0, [r5, #2]
     strb r0, [r4, #2]
     movs r0, #0x7c
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800701e
     .align 2, 0
 lbl_08006fdc: .4byte 0x0823a554
@@ -3870,7 +3870,7 @@ lbl_080072e4:
     cmp r0, #0
     beq lbl_08007300
     movs r0, #0x94
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800731a
     .align 2, 0
 lbl_080072fc: .4byte 0x03001588
@@ -3880,13 +3880,13 @@ lbl_08007300:
     cmp r0, #2
     beq lbl_08007314
     movs r0, #0x7b
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800731a
     .align 2, 0
 lbl_08007310: .4byte 0x03001530
 lbl_08007314:
     movs r0, #0x9c
-    bl play_sound1
+    bl SoundPlay
 lbl_0800731a:
     ldrb r0, [r5, #5]
     cmp r0, #0
@@ -3905,13 +3905,13 @@ lbl_08007326:
     movs r2, #6
     bl samus_apply_environment_effects
     movs r0, #0x8c
-    bl play_sound1
+    bl SoundPlay
     b lbl_080074e2
 lbl_08007340:
     movs r0, #0x32
     strb r0, [r4, #8]
     movs r0, #0x8e
-    bl play_sound1
+    bl SoundPlay
     b lbl_080074e2
 lbl_0800734c:
     ldrb r0, [r5, #4]
@@ -4013,7 +4013,7 @@ lbl_080073fc:
     movs r0, #0x30
     strb r0, [r4, #6]
     movs r0, #0x90
-    bl play_sound1
+    bl SoundPlay
     b lbl_080074e2
 lbl_08007408:
     ldrb r0, [r5, #4]
@@ -4027,7 +4027,7 @@ lbl_08007412:
     strb r0, [r1]
 lbl_08007418:
     movs r0, #0x8f
-    bl play_sound1
+    bl SoundPlay
     b lbl_080074e2
     .align 2, 0
 lbl_08007420: .4byte 0x03001528
@@ -4073,7 +4073,7 @@ lbl_0800746a:
     strh r0, [r4, #0x18]
     movs r0, #0x87
     lsls r0, r0, #1
-    bl play_sound1
+    bl SoundPlay
     b lbl_080074e2
     .align 2, 0
 lbl_08007478: .4byte 0x0000fff8
@@ -4095,13 +4095,13 @@ lbl_08007482:
     cmp r0, #2
     bne lbl_080074a8
     movs r0, #0x9b
-    bl play_sound1
+    bl SoundPlay
     b lbl_080074e2
     .align 2, 0
 lbl_080074a4: .4byte 0x03001530
 lbl_080074a8:
     movs r0, #0x7a
-    bl play_sound1
+    bl SoundPlay
     b lbl_080074e2
 lbl_080074b0:
     ldrh r0, [r5, #0xc]
@@ -4196,19 +4196,19 @@ lbl_08007540:
     beq lbl_08007562
 lbl_08007544:
     movs r0, #0x8e
-    bl play_sound2
+    bl SoundStop
     b lbl_08007562
 lbl_0800754c:
     cmp r4, #0x26
     beq lbl_08007562
     movs r0, #0x8f
-    bl play_sound2
+    bl SoundStop
     b lbl_08007562
 lbl_08007558:
     cmp r4, #0x27
     beq lbl_08007562
     movs r0, #0x8f
-    bl play_sound2
+    bl SoundStop
 lbl_08007562:
     cmp r4, #0xfa
     beq lbl_08007590
@@ -5538,7 +5538,7 @@ lbl_080080a0:
     eors r0, r1
     strb r0, [r4, #3]
     movs r0, #0x85
-    bl play_sound1
+    bl SoundPlay
 lbl_080080ba:
     ldrb r0, [r7]
     subs r0, #0x11
@@ -5633,7 +5633,7 @@ lbl_080081aa:
     bne lbl_080081b8
     strb r0, [r4, #5]
     movs r0, #0x84
-    bl play_sound1
+    bl SoundPlay
 lbl_080081b8:
     strb r6, [r4, #2]
     pop {r4, r5, r6, r7}
@@ -5951,7 +5951,7 @@ lbl_080083d4:
     bne lbl_080083ec
 lbl_080083e0:
     movs r0, #0x7e
-    bl play_sound1
+    bl SoundPlay
     b lbl_080083ec
 lbl_080083e8:
     movs r0, #0
@@ -5968,7 +5968,7 @@ lbl_080083fa:
     cmp r6, #0xf
     bne lbl_08008404
     movs r0, #0x7f
-    bl play_sound1
+    bl SoundPlay
 lbl_08008404:
     ldrh r0, [r7, #6]
     cmp r0, #0
@@ -6018,7 +6018,7 @@ lbl_08008436:
     adds r0, #1
     strb r0, [r4, #5]
     movs r0, #0x8b
-    bl play_sound1
+    bl SoundPlay
     b lbl_08008464
 lbl_0800845a:
     ldrb r0, [r4, #5]
@@ -6034,7 +6034,7 @@ lbl_08008464:
     bne lbl_08008470
 lbl_0800846a:
     movs r0, #0x8b
-    bl play_sound2
+    bl SoundStop
 lbl_08008470:
     pop {r4}
     pop {r0}
@@ -6289,13 +6289,13 @@ lbl_08008626:
     cmp r0, #2
     beq lbl_08008640
     movs r0, #0x64
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800868a
     .align 2, 0
 lbl_0800863c: .4byte 0x03001530
 lbl_08008640:
     movs r0, #0x96
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800868a
 lbl_08008648:
     adds r0, r2, #0
@@ -6315,7 +6315,7 @@ lbl_08008660:
     beq lbl_0800866e
 lbl_08008666:
     movs r0, #0x93
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800868a
 lbl_0800866e:
     ldr r0, lbl_08008680 @ =0x03001530
@@ -6323,13 +6323,13 @@ lbl_0800866e:
     cmp r0, #2
     beq lbl_08008684
     movs r0, #0x65
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800868a
     .align 2, 0
 lbl_08008680: .4byte 0x03001530
 lbl_08008684:
     movs r0, #0x97
-    bl play_sound1
+    bl SoundPlay
 lbl_0800868a:
     ldrb r0, [r5]
     cmp r0, #0
@@ -6477,7 +6477,7 @@ lbl_0800879e:
     cmp r0, #2
     beq lbl_080087ac
     movs r0, #0x79
-    bl play_sound1
+    bl SoundPlay
 lbl_080087ac:
     ldrb r0, [r6]
     cmp r0, #0
@@ -6625,7 +6625,7 @@ lbl_080088b6:
     cmp r0, #2
     beq lbl_080088c8
     movs r0, #0x79
-    bl play_sound1
+    bl SoundPlay
 lbl_080088c8:
     ldr r0, lbl_080088e8 @ =0x03001588
     adds r0, #0x5c
@@ -6859,7 +6859,7 @@ lbl_08008a58:
     bne lbl_08008a90
 lbl_08008a7c:
     movs r0, #0x77
-    bl play_sound1
+    bl SoundPlay
     movs r0, #0x10
     b lbl_08008b0c
     .align 2, 0
@@ -7227,7 +7227,7 @@ SamusMidAir: @ 0x08008cf8
     cmp r0, #0
     beq lbl_08008d2c
     movs r0, #0x77
-    bl play_sound1
+    bl SoundPlay
     movs r0, #0x14
     b lbl_08008dec
     .align 2, 0
@@ -7681,7 +7681,7 @@ lbl_0800905e:
     cmp r0, #0
     beq lbl_08009078
     movs r0, #0x92
-    bl play_sound1
+    bl SoundPlay
     b lbl_08009092
     .align 2, 0
 lbl_08009074: .4byte 0x03001588
@@ -7691,13 +7691,13 @@ lbl_08009078:
     cmp r0, #2
     beq lbl_0800908c
     movs r0, #0x6a
-    bl play_sound1
+    bl SoundPlay
     b lbl_08009092
     .align 2, 0
 lbl_08009088: .4byte 0x03001530
 lbl_0800908c:
     movs r0, #0x98
-    bl play_sound1
+    bl SoundPlay
 lbl_08009092:
     movs r0, #0xff
     pop {r4, r5}
@@ -7778,13 +7778,13 @@ samus_spacejump_gfx: @ 0x08009104
     cmp r0, #0
     beq lbl_08009124
     movs r0, #0x6b
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800912a
     .align 2, 0
 lbl_08009120: .4byte 0x03001588
 lbl_08009124:
     movs r0, #0x6b
-    bl play_sound1
+    bl SoundPlay
 lbl_0800912a:
     ldr r0, lbl_0800914c @ =0x03001588
     adds r0, #0x5b
@@ -7821,7 +7821,7 @@ samus_screwattack_gfx: @ 0x08009150
     cmp r0, #1
     bne lbl_0800918c
     movs r0, #0x6d
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800918c
     .align 2, 0
 lbl_08009174: .4byte 0x03001530
@@ -7833,7 +7833,7 @@ lbl_0800917c:
     cmp r0, #1
     bne lbl_0800918c
     movs r0, #0x6c
-    bl play_sound1
+    bl SoundPlay
 lbl_0800918c:
     ldrb r0, [r4, #0x1d]
     lsls r0, r0, #4
@@ -8082,7 +8082,7 @@ lbl_0800935e:
     cmp r0, #0
     beq lbl_0800937c
     movs r0, #0x78
-    bl play_sound1
+    bl SoundPlay
     b lbl_08009382
     .align 2, 0
 lbl_08009370: .4byte 0x0000ffc0
@@ -8090,7 +8090,7 @@ lbl_08009374: .4byte 0x03001600
 lbl_08009378: .4byte 0x03001588
 lbl_0800937c:
     movs r0, #0x78
-    bl play_sound1
+    bl SoundPlay
 lbl_08009382:
     movs r0, #0x13
     b lbl_080093ac
@@ -8168,7 +8168,7 @@ lbl_080093ec:
     cmp r0, #0
     beq lbl_08009428
     movs r0, #0x78
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800942e
     .align 2, 0
 lbl_0800941c: .4byte 0x0823a554
@@ -8176,7 +8176,7 @@ lbl_08009420: .4byte 0x03001380
 lbl_08009424: .4byte 0x03001588
 lbl_08009428:
     movs r0, #0x78
-    bl play_sound1
+    bl SoundPlay
 lbl_0800942e:
     movs r0, #0x13
     b lbl_08009482
@@ -8345,7 +8345,7 @@ SamusMorphballMidAir: @ 0x0800952c
     cmp r0, #1
     bne lbl_0800956c
     movs r0, #0x78
-    bl play_sound1
+    bl SoundPlay
     b lbl_08009572
     .align 2, 0
 lbl_08009560: .4byte 0x03001380
@@ -8353,7 +8353,7 @@ lbl_08009564: .4byte 0x0823a554
 lbl_08009568: .4byte 0x03001588
 lbl_0800956c:
     movs r0, #0x78
-    bl play_sound1
+    bl SoundPlay
 lbl_08009572:
     movs r0, #0xf
     strb r0, [r4, #9]
@@ -9148,7 +9148,7 @@ lbl_08009b06:
     subs r0, #1
     strh r0, [r4, #0x14]
     movs r0, #0x77
-    bl play_sound1
+    bl SoundPlay
     movs r0, #0x11
     b lbl_08009b22
     .align 2, 0
@@ -10013,7 +10013,7 @@ lbl_0800a0f2:
     adds r0, #1
     strh r0, [r4, #0xc]
     movs r0, #0x83
-    bl play_sound1
+    bl SoundPlay
 lbl_0800a100:
     movs r5, #0
     movs r0, #0x40
@@ -10343,7 +10343,7 @@ lbl_0800a344:
     cmp r0, #1
     bne lbl_0800a350
     movs r0, #0x9e
-    bl play_sound1
+    bl SoundPlay
 lbl_0800a350:
     movs r0, #0xff
     pop {r4}
@@ -10534,7 +10534,7 @@ lbl_0800a476:
     cmp r0, #4
     bne lbl_0800a496
     movs r0, #0x8d
-    bl play_sound1
+    bl SoundPlay
 lbl_0800a496:
     ldrb r0, [r5, #8]
     subs r0, #1
@@ -12936,7 +12936,7 @@ check_play_low_health_sound: @ 0x0800b868
     cmp r0, #0
     bne lbl_0800b894
     movs r0, #0x82
-    bl play_sound1
+    bl SoundPlay
 lbl_0800b894:
     pop {r0}
     bx r0
@@ -19859,7 +19859,7 @@ lbl_0800efd0: .4byte 0x03001602
 lbl_0800efd4: .4byte 0x03001600
 lbl_0800efd8:
     movs r0, #0x8f
-    bl play_sound2
+    bl SoundStop
 lbl_0800efde:
     ldrh r1, [r6, #2]
     adds r1, #0x3c
@@ -20128,7 +20128,7 @@ lbl_0800f1ba:
     cmp r0, #0
     bne lbl_0800f1ee
     movs r0, #0x7c
-    bl play_sound1
+    bl SoundPlay
 lbl_0800f1ee:
     movs r0, #0xf
     ldr r2, [sp, #0x3c]
@@ -20211,7 +20211,7 @@ lbl_0800f25a:
     movs r0, #8
     bl SamusSetPose
     ldr r0, lbl_0800f298 @ =0x000001e3
-    bl play_sound1
+    bl SoundPlay
     b lbl_0800f300
     .align 2, 0
 lbl_0800f294: .4byte 0x030007f2
@@ -24351,8 +24351,8 @@ lbl_08011074:
     bx r1
     .align 2, 0
 
-    thumb_func_start sprite_death
-sprite_death: @ 0x08011084
+    thumb_func_start SpriteUtilSpriteDeath
+SpriteUtilSpriteDeath: @ 0x08011084
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
@@ -24391,14 +24391,14 @@ lbl_080110c6:
     adds r0, r5, #0
     adds r1, r6, #0
     movs r2, #0x24
-    bl set_particle_effect
+    bl ParticleSet
     movs r0, #0
     movs r1, #3
     adds r2, r5, #0
     adds r3, r6, #0
     bl random_sprite_debris
     ldr r0, lbl_080110e4 @ =0x00000131
-    bl play_sound1
+    bl SoundPlay
     b lbl_080111d8
     .align 2, 0
 lbl_080110e4: .4byte 0x00000131
@@ -24406,14 +24406,14 @@ lbl_080110e8:
     adds r0, r5, #0
     adds r1, r6, #0
     movs r2, #0x26
-    bl set_particle_effect
+    bl ParticleSet
     movs r0, #0
     movs r1, #3
     adds r2, r5, #0
     adds r3, r6, #0
     bl random_sprite_debris
     ldr r0, lbl_08011108 @ =0x00000133
-    bl play_sound1
+    bl SoundPlay
     b lbl_080111d8
     .align 2, 0
 lbl_08011108: .4byte 0x00000133
@@ -24421,7 +24421,7 @@ lbl_0801110c:
     adds r0, r5, #0
     adds r1, r6, #0
     movs r2, #0x23
-    bl set_particle_effect
+    bl ParticleSet
     movs r0, #0
     movs r1, #3
     adds r2, r5, #0
@@ -24429,13 +24429,13 @@ lbl_0801110c:
     bl random_sprite_debris
     movs r0, #0x98
     lsls r0, r0, #1
-    bl play_sound1
+    bl SoundPlay
     b lbl_080111d8
 lbl_0801112c:
     adds r0, r5, #0
     adds r1, r6, #0
     movs r2, #0x25
-    bl set_particle_effect
+    bl ParticleSet
     movs r0, #0
     movs r1, #3
     adds r2, r5, #0
@@ -24443,7 +24443,7 @@ lbl_0801112c:
     bl random_sprite_debris
     movs r0, #0x99
     lsls r0, r0, #1
-    bl play_sound1
+    bl SoundPlay
     b lbl_080111d8
 lbl_0801114c:
     cmp r2, #0x1f
@@ -24451,12 +24451,12 @@ lbl_0801114c:
     adds r0, r5, #0
     adds r1, r6, #0
     movs r2, #0x1f
-    bl set_particle_effect
+    bl ParticleSet
     cmp r7, #0
     beq lbl_080111d8
     movs r0, #0x96
     lsls r0, r0, #1
-    bl play_sound1
+    bl SoundPlay
     b lbl_080111d8
 lbl_08011168:
     cmp r2, #0x20
@@ -24464,11 +24464,11 @@ lbl_08011168:
     adds r0, r5, #0
     adds r1, r6, #0
     movs r2, #0x20
-    bl set_particle_effect
+    bl ParticleSet
     cmp r7, #0
     beq lbl_080111d8
     ldr r0, lbl_08011184 @ =0x0000012d
-    bl play_sound1
+    bl SoundPlay
     b lbl_080111d8
     .align 2, 0
 lbl_08011184: .4byte 0x0000012d
@@ -24478,12 +24478,12 @@ lbl_08011188:
     adds r0, r5, #0
     adds r1, r6, #0
     movs r2, #0x21
-    bl set_particle_effect
+    bl ParticleSet
     cmp r7, #0
     beq lbl_080111d8
     movs r0, #0x97
     lsls r0, r0, #1
-    bl play_sound1
+    bl SoundPlay
     b lbl_080111d8
 lbl_080111a4:
     cmp r2, #0x22
@@ -24491,11 +24491,11 @@ lbl_080111a4:
     adds r0, r5, #0
     adds r1, r6, #0
     movs r2, #0x22
-    bl set_particle_effect
+    bl ParticleSet
     cmp r7, #0
     beq lbl_080111d8
     ldr r0, lbl_080111c0 @ =0x0000012f
-    bl play_sound1
+    bl SoundPlay
     b lbl_080111d8
     .align 2, 0
 lbl_080111c0: .4byte 0x0000012f
@@ -24508,7 +24508,7 @@ lbl_080111c4:
     bhi lbl_080111d8
     adds r0, r5, #0
     adds r1, r6, #0
-    bl set_particle_effect
+    bl ParticleSet
 lbl_080111d8:
     bl determine_enemy_drop
     lsls r0, r0, #0x18
@@ -25131,58 +25131,58 @@ lbl_08011652:
     bne lbl_08011660
     adds r0, r3, #0
     movs r2, #0
-    bl set_particle_effect
+    bl ParticleSet
     b lbl_080116c4
 lbl_08011660:
     cmp r2, #2
     bne lbl_0801166e
     adds r0, r3, #0
     movs r2, #1
-    bl set_particle_effect
+    bl ParticleSet
     b lbl_080116c4
 lbl_0801166e:
     adds r0, r3, #0
     movs r2, #2
-    bl set_particle_effect
+    bl ParticleSet
     b lbl_080116c4
 lbl_08011678:
     cmp r2, #1
     bne lbl_08011686
     adds r0, r3, #0
     movs r2, #3
-    bl set_particle_effect
+    bl ParticleSet
     b lbl_080116c4
 lbl_08011686:
     cmp r2, #2
     bne lbl_08011694
     adds r0, r3, #0
     movs r2, #4
-    bl set_particle_effect
+    bl ParticleSet
     b lbl_080116c4
 lbl_08011694:
     adds r0, r3, #0
     movs r2, #5
-    bl set_particle_effect
+    bl ParticleSet
     b lbl_080116c4
 lbl_0801169e:
     cmp r2, #1
     bne lbl_080116ac
     adds r0, r3, #0
     movs r2, #6
-    bl set_particle_effect
+    bl ParticleSet
     b lbl_080116c4
 lbl_080116ac:
     cmp r4, #2
     bne lbl_080116ba
     adds r0, r3, #0
     movs r2, #7
-    bl set_particle_effect
+    bl ParticleSet
     b lbl_080116c4
 lbl_080116ba:
     adds r0, r6, #0
     adds r1, r5, #0
     movs r2, #8
-    bl set_particle_effect
+    bl ParticleSet
 lbl_080116c4:
     pop {r4, r5, r6}
     pop {r0}

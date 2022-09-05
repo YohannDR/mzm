@@ -2008,7 +2008,7 @@ lbl_08001b9e:
     ldrh r1, [r5, #0x20]
     ldr r0, lbl_08001bc4 @ =0x00007fff
     ands r0, r1
-    bl play_sound1
+    bl SoundPlay
     movs r0, #1
     strb r0, [r5, #0x1c]
 lbl_08001bb8:

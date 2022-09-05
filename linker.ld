@@ -92,7 +92,7 @@ SECTIONS {
         . = 0x00000997; gMissileRefillAnimation = .;
         . = 0x00000998; gSuperMissileRefillAnimation = .;
         . = 0x00000999; gPowerBombRefillAnimation = .;
-        . = 0x0000095E; gParticleSamusReflectionOAMFrames = .;
+        . = 0x0000099A; gParticleSamusReflectionOAMFrames = .;
         . = 0x00000A2C; gProjectileData = .;
         . = 0x00000B1D; gIsLoadingFile = .;
         . = 0x00000BEC; gArmCannonY = .;
@@ -196,10 +196,35 @@ SECTIONS {
         src/libgcc/fp-bit-base.o(.text);
         src/libgcc/float.o(.text);
         src/libgcc/libgcc.o(.text);
-        data/blob_0x808c71c_0x82b2523.o(.text);
-        data/sprite_debris_data.o(.text);
-        data/blob_0x82b25c8_0x8339ee3.o(.text);
-        data/particle_misc_data.o(.text);
-        data/blob_0x833bd34_0x87fffff.o(.text);
+    } >rom
+
+    .bss :
+    ALIGN(2) {
+        asm/romheader.o(.bss);
+        asm/crt0.o(.bss);
+        asm/intr_main.o(.bss);
+        src/agbmain.o(.bss);
+        src/init_game.o(.bss);
+        src/softreset.o(.bss);
+        src/syscall_wrappers.o(.bss);
+        src/update_input.o(.bss);
+        src/init_helpers.o(.bss);
+        src/fixed_point.o(.bss);
+        src/callbacks.o(.bss);
+        src/sub_08000c04.o(.bss);
+        asm/disasm_0x08000c48.o(.bss);
+        src/play_sound.o(.bss);
+        src/sub_08002a38.o(.bss);
+        asm/disasm_0x08002a58.o(.bss);
+        asm/syscalls.o(.bss);
+        asm/disasm_0x080051d4.o(.bss);
+        asm/disasm_0x08005368.o(.bss);
+        src/sprite_debris.o(.bss);
+        asm/disasm_0x08011ed8.o(.bss);
+        asm/libgcc.o(.bss);
+        asm/disasm_0x0808af18.o(.bss);
+        src/libgcc/fp-bit-base.o(.bss);
+        src/libgcc/float.o(.bss);
+        src/libgcc/libgcc.o(.bss);
     } >rom
 }

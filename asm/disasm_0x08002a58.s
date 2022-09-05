@@ -2824,7 +2824,7 @@ lbl_08003f1c: .4byte music_info
 sub_08003f20: @ 0x08003f20
     push {r4, r5, r6, lr}
     movs r0, #0x63
-    bl play_sound1
+    bl SoundPlay
     movs r0, #0
     bl sub_080034ac
     ldr r2, lbl_08003f5c @ =music_info
@@ -3255,7 +3255,7 @@ sub_08004260: @ 0x08004260
     push {lr}
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
-    bl play_sound1
+    bl SoundPlay
     ldr r0, lbl_08004278 @ =0x0808f254
     ldr r0, [r0]
     movs r1, #0x1e
