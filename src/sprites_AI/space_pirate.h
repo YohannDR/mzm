@@ -4,6 +4,15 @@
 #include "../types.h"
 
 extern const struct FrameData sSpacePirateCarryingPowerBombOAM[9];
+const struct FrameData sSpacePirateOAM_Standing[5];
+
+const struct FrameData sSpacePirateOAM_ShootingDiagonallyDown[5];
+const struct FrameData sSpacePirateOAM_ShootingDiagonallyUp[5];
+const struct FrameData sSpacePirateOAM_ShootingForward[5];
+
+const struct FrameData sSpacePirateOAM_ChargingLaserDiagonallyDown[8];
+const struct FrameData sSpacePirateOAM_ChargingLaserDiagonallyUp[8];
+const struct FrameData sSpacePirateOAM_ChargingLaserForward[8];
 
 #define SPACE_PIRATE_CLIMBING_DIRECTION_UP 0x0
 #define SPACE_PIRATE_CLIMBING_DIRECTION_DOWN 0x1

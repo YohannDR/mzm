@@ -3,18 +3,21 @@
 
 #include "../types.h"
 
-void BlackSpacePirateHitByProjectile(void);
+#define BLACK_SPACE_PIRATE_POSE_INACTIVE 0x1
+
+void BlackSpacePirateProjectileCollision(void);
 void BlackSpacePirateCollidingWithLaser(void);
 void BlackSpacePirateInit(void);
-void BlackSpacePirateCheckOnScreen(void);
-void BlackSpacePirateShootingTimer(void);
-void BlackSpacePirateBeforeShootingGFXInit(void);
-void BlackSpacePirateDetermineShootingDirection(void);
+void BlackSpacePirateCheckStartActing(void);
+void BlackSpacePirateChargingLaserInit(void);
+void BlackSpacePirateChargingLaser(void);
+void BlackSpacePirateShootingInit(void);
+void BlackSpacePirateShooting(void);
 void BlackSpacePirateJumping(void);
 void BlackSpacePirateMove(void);
 void BlackSpacePirateDeath(u8 playSound);
-void unk_2d794(void);
-void unk_2d7dc(void);
+void BlackSpacePirateHitByLaserInit(void);
+void BlackSpacePirateHitByLaser(void);
 void BlackSpacePirate(void);
 
 #endif /* BLACK_SPACE_PIRATE_AI_H */
