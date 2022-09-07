@@ -23,6 +23,8 @@ extern const struct FrameData sSpacePirateOAM_ChargingLaserForward[8];
 #define SPACE_PIRATE_AIM_DIAGONALLY_UP 0x1
 #define SPACE_PIRATE_AIM_DIAGONALLY_DOWN 0x2
 
+#define SPACE_PIRATE_POSE_WALKING_INIT 0x8
+#define SPACE_PIRATE_POSE_WALKING 0x9
 #define SPACE_PIRATE_POSE_TURNING_AROUND_INIT 0xA
 #define SPACE_PIRATE_POSE_TURNING_AROUND_FIRST_PART 0xB
 #define SPACE_PIRATE_POSE_TURNING_AROUND_SECOND_PART 0xC
@@ -31,6 +33,10 @@ extern const struct FrameData sSpacePirateOAM_ChargingLaserForward[8];
 #define SPACE_PIRATE_POSE_DELAY_BEFORE_LAUNCHING_FROM_WALL 0x15
 #define SPACE_PIRATE_POSE_FALLING_INIT 0x1E
 #define SPACE_PIRATE_POSE_FALLING 0x1F
+#define SPACE_PIRATE_POSE_WALKING_ALERTED_INIT 0x22
+#define SPACE_PIRATE_POSE_WALKING_ALERTED 0x23
+#define SPACE_PIRATE_POSE_WAITING_AT_DOOR 0x24
+#define SPACE_PIRATE_POSE_SHOOTING_AFTER_WAITING_AT_DOOR 0x25
 #define SPACE_PIRATE_POSE_CHARGING_LASER_INIT 0x34
 #define SPACE_PIRATE_POSE_CHARGING_LASER 0x35
 #define SPACE_PIRATE_POSE_SHOOTING_LASER_INIT 0x36
@@ -90,15 +96,15 @@ u8 SpacePirateCheckSamusInShootingRange(void);
 u8 unk_29b68(void);
 u8 SpacePirateDetectSamusWhileCrawling(void);
 u8 SpacePirateClimbingCheckWallJumpOrFire(void);
-void SpacePirateMaybeWalking(void);
+void unk_29ef0(void);
 void SpacePirateInit(void);
 void SpacePirateFallingInit(void);
 void SpacePirateFalling(void);
 void unk_2a768(void);
 void unk_2a794(void);
 void unk_2a7c0(void);
-void SpacePirateRunningTurningAround(void);
-void SpacePirateAlertAnimation(void);
+void SpacePirateWalkingInit(void);
+void SpacePirateWalking(void);
 void SpacePirateIdleAnim(void);
 void unk_2aa30(void);
 void unk_2aa5c(void);
@@ -113,16 +119,16 @@ void SpacePirateTurningAroundSecondPart(void);
 void SpacePirateTurningAroundAlertedInit(void);
 void SpacePirateTurningAroundFirstPartAlerted(void);
 void SpacePirateTurningAroundSecondPartAlerted(void);
-void unk_2ad34(void);
-void unk_2ad6c(void);
+void SpacePirateWalkingAlertedInit(void);
+void SpacePirateWalkingAlerted(void);
 void SpacePirateJumpingInit(void);
 void SpacePirateJumping(void);
 void SpacePirateChargingLaserInit(void);
 void SpacePirateChargingLaser(void);
 void SpacePirateShootingLaserInit(void);
 void SpacePirateShootingLaser(void);
-void unk_2b4c0(void);
-void unk_2b628(void);
+void SpacePirateWaitingAtDoor(void);
+void SpacePirateShootingAfterWaitingAtDoor(void);
 void SpacePirateClimbingUpInit(void);
 void SpacePirateClimbingUp(void);
 void SpacePirateClimbingDownInit(void);

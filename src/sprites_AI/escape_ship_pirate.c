@@ -163,12 +163,12 @@ void EscapeShipSpacePirate(void)
             EscapeShipSpacePirateDelayBeforeJumping();
             break;
 
-        case 0x8:
-            SpacePirateRunningTurningAround();
+        case SPACE_PIRATE_POSE_WALKING_INIT:
+            SpacePirateWalkingInit();
             break;
 
-        case 0x9:
-            SpacePirateAlertAnimation();
+        case SPACE_PIRATE_POSE_WALKING:
+            SpacePirateWalking();
             break;
 
         case 0x27:
@@ -179,12 +179,12 @@ void EscapeShipSpacePirate(void)
             unk_2aa30();
             break;
 
-        case 0x24:
-            unk_2b4c0();
+        case SPACE_PIRATE_POSE_WAITING_AT_DOOR:
+            SpacePirateWaitingAtDoor();
             break;
 
-        case 0x25:
-            unk_2b628();
+        case SPACE_PIRATE_POSE_SHOOTING_AFTER_WAITING_AT_DOOR:
+            SpacePirateShootingAfterWaitingAtDoor();
             break;
 
         case 0x2A:
@@ -246,11 +246,11 @@ void EscapeShipSpacePirate(void)
             SpacePirateTurningAroundSecondPart();
             break;
 
-        case 0x22:
-            unk_2ad34();
+        case SPACE_PIRATE_POSE_WALKING_ALERTED_INIT:
+            SpacePirateWalkingAlertedInit();
 
-        case 0x23:
-            unk_2ad34();
+        case SPACE_PIRATE_POSE_WALKING_ALERTED:
+            SpacePirateWalkingAlertedInit();
             break;
 
         case SPACE_PIRATE_POSE_CHARGING_LASER_INIT:
