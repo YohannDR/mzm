@@ -171,12 +171,12 @@ void EscapeShipSpacePirate(void)
             SpacePirateWalking();
             break;
 
-        case 0x27:
-            SpacePirateIdleAnim();
+        case SPACE_PIRATE_POSE_IDLE:
+            SpacePirateIdle();
             break;
 
-        case 0x28:
-            unk_2aa30();
+        case SPACE_PIRATE_POSE_IDLE_AT_DOOR:
+            SpacePirateIdleAtDoor();
             break;
 
         case SPACE_PIRATE_POSE_WAITING_AT_DOOR:

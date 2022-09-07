@@ -37,6 +37,8 @@ extern const struct FrameData sSpacePirateOAM_ChargingLaserForward[8];
 #define SPACE_PIRATE_POSE_WALKING_ALERTED 0x23
 #define SPACE_PIRATE_POSE_WAITING_AT_DOOR 0x24
 #define SPACE_PIRATE_POSE_SHOOTING_AFTER_WAITING_AT_DOOR 0x25
+#define SPACE_PIRATE_POSE_IDLE 0x27
+#define SPACE_PIRATE_POSE_IDLE_AT_DOOR 0x28
 #define SPACE_PIRATE_POSE_CHARGING_LASER_INIT 0x34
 #define SPACE_PIRATE_POSE_CHARGING_LASER 0x35
 #define SPACE_PIRATE_POSE_SHOOTING_LASER_INIT 0x36
@@ -105,8 +107,8 @@ void unk_2a794(void);
 void unk_2a7c0(void);
 void SpacePirateWalkingInit(void);
 void SpacePirateWalking(void);
-void SpacePirateIdleAnim(void);
-void unk_2aa30(void);
+void SpacePirateIdle(void);
+void SpacePirateIdleAtDoor(void);
 void unk_2aa5c(void);
 void unk_2aa88(void);
 void unk_2aaec(void);

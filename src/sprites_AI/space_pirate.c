@@ -3678,7 +3678,7 @@ void SpacePirateInit(void)
                 gCurrentSprite.xPosition += 0x28;
             }
 
-            gCurrentSprite.pose = 0x28;
+            gCurrentSprite.pose = SPACE_PIRATE_POSE_IDLE_AT_DOOR;
             gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_MOSAIC | SPRITE_STATUS_IGNORE_PROJECTILES);
         }
     }
@@ -3727,7 +3727,7 @@ void SpacePirateInit(void)
                 gCurrentSprite.currentAnimationFrame = 0x0;
                 gCurrentSprite.timer = gSpriteRNG * 10 + 0x3C;
                 gCurrentSprite.workVariable = 0x0;
-                gCurrentSprite.pose = 0x27;
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_IDLE;
 
                 SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + BLOCK_SIZE);
 
@@ -3855,14 +3855,36 @@ void SpacePirateFalling(void)
     }
 }
 
+/**
+ * @brief 2a768 | 2c | To document
+ * 
+ */
 void unk_2a768(void)
 {
+    gCurrentSprite.pose = 0xF;
+    gCurrentSprite.hitboxTopOffset = -0xA0;
 
+    gCurrentSprite.pOam = sSpacePirateOAM_Crouched;
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+
+    gCurrentSprite.workVariable2 = 0x0;
 }
 
+/**
+ * @brief 2a794 | 2c | To document
+ * 
+ */
 void unk_2a794(void)
 {
+    gCurrentSprite.pose = 0xF;
+    gCurrentSprite.hitboxTopOffset = -0xA0;
 
+    gCurrentSprite.pOam = sSpacePirateOAM_StandingAlerted;
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+
+    gCurrentSprite.workVariable2 = 0x0;
 }
 
 /**
@@ -3951,14 +3973,107 @@ void SpacePirateWalking(void)
     }
 }
 
-void SpacePirateIdleAnim(void)
+/**
+ * @brief 2a910 | 120 | Handles a space pirate being idle
+ * 
+ */
+void SpacePirateIdle(void)
 {
+    u8 turn;
 
+    turn = FALSE;
+
+    switch (gCurrentSprite.workVariable)
+    {
+        case 0x0:
+            if (unk_29b68())
+            {
+                if (gCurrentSprite.pose == 0x10)
+                {
+                    gCurrentSprite.pose = SPACE_PIRATE_POSE_IDLE;
+                    turn++;
+                }
+                else if (gCurrentSprite.pose == 0xE)
+                {
+                    gCurrentSprite.pose = SPACE_PIRATE_POSE_IDLE;
+                    gCurrentSprite.pOam = sSpacePirateOAM_Crouched;
+                    gCurrentSprite.animationDurationCounter = 0x0;
+                    gCurrentSprite.currentAnimationFrame = 0x0;
+                    gCurrentSprite.workVariable = 0x2;
+                }
+                else
+                    gCurrentSprite.samusCollision = SSC_SPACE_PIRATE;
+            }
+            else
+            {
+                if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
+                {
+                    if (SpriteUtilCheckEndCurrentSpriteAnim())
+                        turn++;
+                }
+                else
+                {
+                    if (gCurrentSprite.timer != 0x0)
+                        gCurrentSprite.timer--;
+                    else
+                    {
+                        if (gSpriteRNG == gCurrentSprite.primarySpriteRAMSlot / 2)
+                            turn++;
+                    }
+                }
+            }
+
+            if (turn)
+            {
+                gCurrentSprite.pOam = sSpacePirateOAM_TurningAroundFirstPart;
+                gCurrentSprite.animationDurationCounter = 0x0;
+                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.workVariable = 0x1;
+            }
+            break;
+
+        case 0x1:
+            if (SpriteUtilCheckEndCurrentSpriteAnim())
+            {
+                gCurrentSprite.workVariable = 0x2;
+
+                gCurrentSprite.pOam = sSpacePirateOAM_TurningAroundSecondPart;
+                gCurrentSprite.animationDurationCounter = 0x0;
+                gCurrentSprite.currentAnimationFrame = 0x0;
+
+                gCurrentSprite.status ^= (SPRITE_STATUS_FACING_RIGHT | SPRITE_STATUS_SAMUS_COLLIDING);
+                SpacePirateFlip();
+            }
+            break;
+
+        case 0x2:
+            if (SpriteUtilCheckEndCurrentSpriteAnim())
+            {
+                gCurrentSprite.workVariable = 0x0;
+
+                gCurrentSprite.pOam = sSpacePirateOAM_Standing;
+                gCurrentSprite.animationDurationCounter = 0x0;
+                gCurrentSprite.currentAnimationFrame = 0x0;
+
+                gCurrentSprite.timer = gSpriteRNG * 10 + 0x3C;
+            }
+            break;
+    }
 }
 
-void unk_2aa30(void)
+/**
+ * @brief 2aa30 | 2c | Handles a space pirate being idle at a door
+ * 
+ */
+void SpacePirateIdleAtDoor(void)
 {
+    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
 
+    if (gAlarmTimer != 0x0)
+    {
+        gCurrentSprite.timer = 0x14;
+        gCurrentSprite.pose = SPACE_PIRATE_POSE_WAITING_AT_DOOR;
+    }
 }
 
 void unk_2aa5c(void)
@@ -3981,9 +4096,19 @@ void unk_2ab10(void)
 
 }
 
+/**
+ * @brief 2ab34 | 24 | To document
+ * 
+ */
 void unk_2ab34(void)
 {
+    gCurrentSprite.pOam = sSpacePirateOAM_StandingAlerted;
+    gCurrentSprite.pose = 0x11;
 
+    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0x0;
+
+    gCurrentSprite.workVariable2 = 0x0;
 }
 
 void SpacePirateCheckTurningAnimEnded(void)
@@ -5609,12 +5734,12 @@ void SpacePirate(void)
             SpacePirateWalking();
             break;
 
-        case 0x27:
-            SpacePirateIdleAnim();
+        case SPACE_PIRATE_POSE_IDLE:
+            SpacePirateIdle();
             break;
 
-        case 0x28:
-            unk_2aa30();
+        case SPACE_PIRATE_POSE_IDLE_AT_DOOR:
+            SpacePirateIdleAtDoor();
             break;
 
         case SPACE_PIRATE_POSE_WAITING_AT_DOOR:
