@@ -1203,29 +1203,35 @@ u32 SpriteUtilCheckEndCurrentSpriteAnim(void)
 
     adc = gCurrentSprite.animationDurationCounter;
     caf = gCurrentSprite.currentAnimationFrame;
-    adc = (u8)(adc + 0x1);
+   
+    adc++;
 
-    if ((u8)gCurrentSprite.pOam[caf].timer < adc && (u8)gCurrentSprite.pOam[(u16)(caf + 0x1)].timer == 0x0)
+    if (gCurrentSprite.pOam[caf].timer < adc && gCurrentSprite.pOam[++caf].timer == 0x0)
         return TRUE;
     else
         return FALSE;
 }
 
+/**
+ * @brief fc00 | 3c | Checks if the animation of the current sprite has nearly ended
+ * 
+ * @return u32 1 if nearly ended, 0 otherwise
+ */
 u32 SpriteUtilCheckNearEndCurrentSpriteAnim(void)
 {
-    // https://decomp.me/scratch/73v13
-
-    /*u8 adc;
+    u8 adc;
     u16 caf;
 
-    adc = (u8)(gCurrentSprite.animationDurationCounter + 0x1);
+    adc = gCurrentSprite.animationDurationCounter;
     caf = gCurrentSprite.currentAnimationFrame;
-    adc = (u8)(adc + 0x1);
-
-    if (gCurrentSprite.pOam[caf].timer < adc && gCurrentSprite.pOam[(u16)(caf + 0x1)].timer == 0x0)
+    
+    adc++;
+    adc++;
+    
+    if (gCurrentSprite.pOam[caf].timer < adc && gCurrentSprite.pOam[++caf].timer == 0x0)
         return TRUE;
     else
-        return FALSE;*/
+        return FALSE;
 }
 
 u8 SpriteUtilCheckEndSpriteAnim(u8 ramSlot)
@@ -1235,17 +1241,36 @@ u8 SpriteUtilCheckEndSpriteAnim(u8 ramSlot)
 
     adc = gSpriteData[ramSlot].animationDurationCounter;
     caf = gSpriteData[ramSlot].currentAnimationFrame;
-    adc = (u8)(adc + 0x1);
+    
+    adc++;
 
-    if ((u8)gSpriteData[ramSlot].pOam[caf].timer < adc && (u8)gSpriteData[ramSlot].pOam[(u16)(caf + 0x1)].timer == 0x0)
+    if (gSpriteData[ramSlot].pOam[caf].timer < adc && gSpriteData[ramSlot].pOam[++caf].timer == 0x0)
         return TRUE;
     else
         return FALSE;
 }
 
+/**
+ * @brief fc84 | 4c | Checks if the animation of a sprite has nearly ended
+ * 
+ * @param ramSlot Sprite RAM slot
+ * @return u8 1 if nearly ended, 0 otherwise
+ */
 u8 SpriteUtilCheckNearEndSpriteAnim(u8 ramSlot)
 {
+    u8 adc;
+    u16 caf;
 
+    adc = gSpriteData[ramSlot].animationDurationCounter;
+    caf = gSpriteData[ramSlot].currentAnimationFrame;
+    
+    adc++;
+    adc++;
+    
+    if (gSpriteData[ramSlot].pOam[caf].timer < adc && gSpriteData[ramSlot].pOam[++caf].timer == 0x0)
+        return TRUE;
+    else
+        return FALSE;
 }
 
 u8 SpriteUtilCheckEndSubSprite1Anim(void)
@@ -1255,17 +1280,34 @@ u8 SpriteUtilCheckEndSubSprite1Anim(void)
 
     adc = gSubSpriteData1.animationDurationCounter;
     caf = gSubSpriteData1.currentAnimationFrame;
-    adc = (u8)(adc + 0x1);
+    adc++;
 
-    if ((u8)gSubSpriteData1.pMultiOam[caf].timer < adc && (u8)gSubSpriteData1.pMultiOam[(u16)(caf + 0x1)].timer == 0x0)
+    if (gSubSpriteData1.pMultiOam[caf].timer < adc && gSubSpriteData1.pMultiOam[++caf].timer == 0x0)
         return TRUE;
     else
         return FALSE;
 }
 
+/**
+ * @brief fd08 | 3c | Checks if the animation of the sub sprite data 1 has nearly ended
+ * 
+ * @return u32 1 if nearly ended, 0 otherwise
+ */
 u8 SpriteUtilCheckNearEndSubSprite1Anim(void)
 {
+    u8 adc;
+    u16 caf;
 
+    adc = gSubSpriteData1.animationDurationCounter;
+    caf = gSubSpriteData1.currentAnimationFrame;
+
+    adc++;
+    adc++;
+
+    if (gSubSpriteData1.pMultiOam[caf].timer < adc && gSubSpriteData1.pMultiOam[++caf].timer == 0x0)
+        return TRUE;
+    else
+        return FALSE;
 }
 
 u8 SpriteUtilCheckEndSubSprite2Anim(void)
@@ -1290,14 +1332,20 @@ u8 SpriteUtilCheckEndSubSpriteAnim(struct SubSpriteData* pSub)
 
     adc = pSub->animationDurationCounter;
     caf = pSub->currentAnimationFrame;
-    adc = (u8)(adc + 0x1);
+    adc++;
 
-    if ((u8)pSub->pMultiOam[caf].timer < adc && (u8)pSub->pMultiOam[(u16)(caf + 0x1)].timer == 0x0)
+    if (pSub->pMultiOam[caf].timer < adc && (u8)pSub->pMultiOam[++caf].timer == 0x0)
         return TRUE;
     else
         return FALSE;
 }
 
+/**
+ * @brief fdac | 34 | Checks if the animation of a sub sprite data has nearly ended
+ * 
+ * @param pSub Sub Sprite Data Pointer
+ * @return u32 1 if nearly ended, 0 otherwise
+ */
 u8 SpriteUtilCheckNearEndSubSpriteAnim(struct SubSpriteData* pSub)
 {
 
@@ -1305,43 +1353,39 @@ u8 SpriteUtilCheckNearEndSubSpriteAnim(struct SubSpriteData* pSub)
 
 u8 SpriteUtilCheckSamusNearSpriteLeftRight(u16 yRange, u16 xRange)
 {
-    /*struct SamusData* pData;
+    // https://decomp.me/scratch/0xhby
+
     u8 result;
     u16 samusY;
     u16 samusX;
     u16 spriteY;
     u16 spriteX;
-    i32 difference;
 
     result = NSLR_OUT_OF_RANGE;
-    pData = &gSamusData;
-    samusY = (gSamusPhysics.drawDistanceTopOffset / 0x2) + pData->yPosition;
-    samusX = pData->xPosition;
+
+    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset / 2;
+    samusX = gSamusData.xPosition;
+
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
-
-    if (spriteY > samusY)
-        difference = spriteX - spriteY;
-    else
-        difference = spriteY - samusY;
-
-    if (difference >= yRange)
+    
+    if ((spriteY > samusY ? spriteY - samusY : samusY - spriteY) >= yRange)
         return NSLR_OUT_OF_RANGE;
     else
     {
         if (spriteX > samusX)
         {
-            if ((i32)(spriteX - samusX) < xRange)
+            if ((spriteX - samusX) < xRange)
                 result = NSLR_LEFT;
         }
         else
         {
-            if ((i32)(samusX - spriteX) < xRange)
+            if ((samusX - spriteX) < xRange)
                 result = NSLR_RIGHT;
         }
     }
 
-    return result;*/
+    return result;
 }
 
 u8 SpriteUtilCheckSamusNearSpriteAboveBelow(u16 yRange, u16 xRange)
