@@ -268,8 +268,6 @@ void SpriteDebrisProcessAll(void)
  */
 void SpriteDebrisDraw(struct SpriteDebris* pDebris)
 {
-    // https://decomp.me/scratch/NYWAh
-
     const u16* src;
     u16* dst;
     u16 yPosition;
@@ -280,7 +278,7 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
     u8 count;
     u16 part1;
     u16 part2;
-    union OamData* pUnion;
+    u32 currSlot;
 
     if (gBG1YPosition + BLOCK_SIZE * 3 > (pDebris->yPosition + BLOCK_SIZE * 4) ||
         gBG1YPosition + BLOCK_SIZE * 15 < (pDebris->yPosition + BLOCK_SIZE * 4))
@@ -297,8 +295,8 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
     {
         dst = (u16*)(gOamData + prevSlot);
 
-        xPosition = (pDebris->xPosition / 4) - (gBG1XPosition / 4);
-        yPosition = (pDebris->yPosition / 4) - (gBG1YPosition / 4);
+        xPosition = (pDebris->xPosition >> 2) - (gBG1XPosition >> 2);
+        yPosition = (pDebris->yPosition >> 2) - (gBG1YPosition >> 2);
 
         if (gSamusOnTopOfBackgrounds)
             bgPriority = 0x1;
@@ -313,11 +311,10 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
             *dst++ = part2;
             *dst = *src++; // Copy source and save part 1 and 2
 
-            pUnion = gOamData + (prevSlot + count);
-
-            pUnion->split.y = part1 + yPosition;
-            pUnion->split.x = part2 + xPosition;
-            pUnion->split.priority = bgPriority;
+            currSlot = prevSlot + count;
+            gOamData[currSlot].split.y = part1 + yPosition;
+            gOamData[currSlot].split.x = (part2 + xPosition) & 0x1FF;
+            gOamData[currSlot].split.priority = bgPriority;
 
             dst += 0x2;
         }
