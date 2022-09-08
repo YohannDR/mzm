@@ -107,7 +107,7 @@ void ParticleDraw(struct ParticleEffect* pParticle)
                 if (pParticle->status & SPRITE_STATUS_XFLIP)
                 {
                     pUnion->split.xFlip ^= 0x1;
-                    pUnion->split.x = xPosition - (part + array_2b0c94[pUnion->split.shape][pUnion->split.size] * 8);
+                    // pUnion->split.x = xPosition - (part + array_2b0c94[pUnion->split.shape][pUnion->split.size] * 8);
                 }
                 
                 dst++;
