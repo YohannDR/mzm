@@ -495,7 +495,7 @@ void DeoremEye(void)
             gSpriteData[ramSlot].invicibilityStunFlashTimer = gCurrentSprite.invicibilityStunFlashTimer;
             if (isft == 0x10)
             {
-                gSpriteData[ramSlot].pOam = deorem_oam_2d7a84;
+                // gSpriteData[ramSlot].pOam = deorem_oam_2d7a84;
                 gSpriteData[ramSlot].animationDurationCounter = 0x0;
                 gSpriteData[ramSlot].currentAnimationFrame = 0x0;
                 gSpriteData[ramSlot].hitboxBottomOffset = 0x40;

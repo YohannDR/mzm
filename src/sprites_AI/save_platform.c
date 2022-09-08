@@ -4,7 +4,7 @@
 #include "../samus.h"
 #include "../globals.h"
 
-u8 SavePlatformDetectSamus(void)
+/*u8 SavePlatformDetectSamus(void)
 {
     u8 colliding;
     i32 samusY;
@@ -522,4 +522,4 @@ void SavePlatformTop(void)
         case 0x47:
             SavePlatformTopCheckRetractingAnimEnded();
     }
-}
+}*/

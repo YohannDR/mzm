@@ -305,11 +305,11 @@ i32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
         else
             clipdata = gTilemapAndClipPointers.pClipBehaviors[clipdata];
 
-        if ((clipdata - 0x50) < 0x5)
+        /*if ((clipdata - 0x50) < 0x5)
             clipdata = GroundEffectClipdataValues[clipdata - 0x50];
         else
             clipdata = GROUND_EFFECT_NONE;
-
+        */
         return clipdata;
     }
 }

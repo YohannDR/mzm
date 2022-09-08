@@ -29,7 +29,7 @@ void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr)
         if (caf < 0x0)
         {
             caf = 0x0;
-            value = direction + sHatchClipdataBGBlockValues[gHatchData[hatchNbr].type];
+            // value = direction + sHatchClipdataBGBlockValues[gHatchData[hatchNbr].type];
         }
         else
         {

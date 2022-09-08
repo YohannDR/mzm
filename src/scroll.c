@@ -89,7 +89,7 @@ void ScrollLoad(void)
 {
     u8** ppSrc;
 
-    ppSrc = sAreaScrollPointers[gCurrentArea];
+    // ppSrc = sAreaScrollPointers[gCurrentArea];
 
     // Loop through every scroll of the area
     for (; ; ppSrc++)

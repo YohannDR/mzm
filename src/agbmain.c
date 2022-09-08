@@ -6,6 +6,8 @@
 #include "syscalls.h"
 #include "update_input.h"
 
+
+
 void agbmain(void)
 {
     InitializeGame();

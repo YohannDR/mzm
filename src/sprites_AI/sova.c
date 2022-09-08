@@ -2,7 +2,7 @@
 #include "../../data/data.h"
 #include "../globals.h"
 
-u8 SovaCheckCollidingWithAir(void)
+/*u8 SovaCheckCollidingWithAir(void)
 {
     u8 colliding;
 
@@ -908,4 +908,4 @@ void Sova(void)
             }
         }
     }
-}
+}*/
