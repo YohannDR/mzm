@@ -10,12 +10,13 @@ void agbmain(void)
 {
     InitializeGame();
 
-    while (gClearedEveryFrame = 0, sub_08004d48(), !gResetGame) {
+    while (gClearedEveryFrame = 0, sub_08004d48(), !gResetGame)
+    {
         UpdateInput();
         SoftresetCheck();
 
-        ++gFrameCounter8Bit;
-        ++gFrameCounter16Bit;
+        gFrameCounter8Bit++;
+        gFrameCounter16Bit++;
 
         switch (gMainGameMode) {
             case GM_SOFTRESET:
@@ -38,28 +39,29 @@ void agbmain(void)
                     if (gGameModeSub2 == 1)
                         gMainGameMode = GM_FILESELECT;
                     else if (gGameModeSub2 == 2)
-                        gMainGameMode = GM_DEMO;
-                    else
                     {
-                        gMainGameMode = GM_INTRO;
-                        gGameModeSub1 = 0;
-                        gPauseScreenFlag = 0;
-                        gGameModeSub2 = 0;
+                        start_new_demo();
+                        gMainGameMode = GM_DEMO;
                     }
+                    else
+                        gMainGameMode = GM_INTRO;
+                    gGameModeSub1 = 0;
+                    gPauseScreenFlag = 0;
+                    gGameModeSub2 = 0;
                 }
                 break;
 
             case GM_FILESELECT:
                 if (fileselect_main())
                 {
-                    if (gGameModeSub2== 1)
-                        gMainGameMode= GM_INGAME;
+                    if (gGameModeSub2 == 1)
+                        gMainGameMode = GM_INGAME;
                     else if (gGameModeSub2 == 2)
-                        gMainGameMode= GM_INGAME;
+                        gMainGameMode = GM_INGAME;
                     else if (gGameModeSub2 == 4)
-                        gMainGameMode= GM_FUSION_GALLERY;
+                        gMainGameMode = GM_FUSION_GALLERY;
                     else if (gGameModeSub2 == 5)
-                        gMainGameMode= GM_GALLERY;
+                        gMainGameMode = GM_GALLERY;
                     else
                         gMainGameMode = GM_INTRO;
                     gGameModeSub1 = 0;
@@ -100,10 +102,11 @@ void agbmain(void)
                     switch (psf) {
                         case PAUSE_SCREEN_UNKNOWN_1 - 1:
                             gGameModeSub3 = 0;
-                            /* FALLTHROUGH */
+
                         case PAUSE_SCREEN_SUITLESS_ITEMS - 1:
                             gPauseScreenFlag = PAUSE_SCREEN_NONE;
                             break;
+
                         case PAUSE_SCREEN_UNKNOWN_9 - 1:
                             gPauseScreenFlag = PAUSE_SCREEN_NONE;
                             gGameModeSub2   = 1;
@@ -125,7 +128,7 @@ void agbmain(void)
                 if (gameover_main())
                 {
                     gMainGameMode = gGameModeSub2;
-                    gGameModeSub1  = 0;
+                    gGameModeSub1 = 0;
                     gGameModeSub2 = 0;
                 }
                 break;
@@ -215,9 +218,10 @@ void agbmain(void)
                 if (erase_sram_main())
                 {
                     if (gGameModeSub2 == 1)
-                        gResetGame = 1;
+                        gResetGame = TRUE;
                     else
                         gMainGameMode = GM_SOFTRESET;
+
                     gGameModeSub1 = 0;
                     gGameModeSub2 = 0;
                 }
@@ -225,15 +229,17 @@ void agbmain(void)
 
             case GM_DEBUG_MENU:
                 for (;;) {
+                    // TODO add debug code
                     /* EMPTY */
                 }
             }
-        }
+        
 
-    gVBlankRequestFlag &= 0xfffe;
-    gClearedEveryFrame = 1;
+        gVBlankRequestFlag &= 0xfffe;
+        gClearedEveryFrame = 1;
 
-    do {
-        SYSCALL(2); /* SYS_Halt */
-    } while (!(gVBlankRequestFlag & 1));
+        do {
+            SYSCALL(2); /* SYS_Halt */
+        } while (!(gVBlankRequestFlag & 1));
+    }
 }
