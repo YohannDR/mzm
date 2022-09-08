@@ -13,6 +13,8 @@ extern Func_T gTimer3Callback;
 
 // Functions
 
+void sub_08003380(void); // DMA 2 interrupt code
+
 void CallbackCallVblank(void);
 void CallbackSetVBlank(Func_T callback);
 void CallbackCallHBlank(void);

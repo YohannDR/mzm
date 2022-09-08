@@ -87,4 +87,4 @@ lbl_0800020C:
 
 @ pool
 lbl_08000234: .4byte 0x000024C0
-lbl_08000238: .4byte 0x0808CA9C
+lbl_08000238: .4byte sIntrTable
