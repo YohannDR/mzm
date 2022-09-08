@@ -16,7 +16,6 @@ extern struct SubSpriteData gSubSpriteData1;
 extern struct SubSpriteData gSubSpriteData2;
 extern u8 gParasiteRelated;
 extern struct SpriteData gCurrentSprite;
-extern struct SpriteDebris gSpriteDebris[8];
 extern u8 gPreviousVerticalCollisionCheck;
 extern u8 gPreviousCollisionCheck;
 extern u8 gIgnoreSamusAndSpriteCollision;

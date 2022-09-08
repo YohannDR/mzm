@@ -136,7 +136,6 @@ extern i8 gClearedEveryFrame;
 extern u8 gFrameCounter8Bit;
 extern vu16 gVBlankRequestFlag;
 extern u16 gInterruptCode[0x100];
-extern struct RawOamData gOamData[160];
 extern u8 gSRAMCorruptFlag;
 extern u16 gButtonInput;
 extern u16 gPreviousButtonInput;

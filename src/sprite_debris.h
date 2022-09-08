@@ -5,6 +5,10 @@
 #include "clipdata.h"
 #include "oam.h"
 
+#define MAX_AMOUNT_OF_SPRITE_DEBRIS 8
+
+extern struct SpriteDebris gSpriteDebris[MAX_AMOUNT_OF_SPRITE_DEBRIS];
+
 struct SpriteDebris {
     struct FrameData* pOam;
     u16 currentAnimationFrame;

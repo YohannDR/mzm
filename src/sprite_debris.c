@@ -22,7 +22,7 @@ void SpriteDebrisSetSplash(u16 oldY, u16 yPosition, u16 xPosition)
  * 117b4 | 4d4 | 
  * Processes a sprite debris (handles movement and checks if it should despawn)
  * 
- * @param pDebris Sprite Debris Pointer to the concerned debris
+ * @param pDebris Sprite Debris Pointer
  */
 void SpriteDebrisProcess(struct SpriteDebris* pDebris)
 {
@@ -39,7 +39,7 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
         return;
     }
 
-    offset = pDebris->arrayOffset >> 0x1;
+    offset = pDebris->arrayOffset / 2;
     if (offset > 0x8)
         offset = 0x8;
 
@@ -239,8 +239,7 @@ void SpriteDebrisProcessAll(void)
 
     if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
     {
-        pDebris = gSpriteDebris;
-        while (pDebris < gSpriteDebris + 0x8)
+        for (pDebris = gSpriteDebris; pDebris < gSpriteDebris + MAX_AMOUNT_OF_SPRITE_DEBRIS; pDebris++)
         {
             if (pDebris->exists)
             {
@@ -248,7 +247,7 @@ void SpriteDebrisProcessAll(void)
                 adc = pDebris->animationDurationCounter + 0x1;
                 pDebris->animationDurationCounter = adc;
                 timer = pDebris->pOam[pDebris->currentAnimationFrame].timer;
-                if (timer < (u8)adc)
+                if (timer < adc)
                 {
                     pDebris->animationDurationCounter = 0x1;
                     pDebris->currentAnimationFrame++;
@@ -258,7 +257,6 @@ void SpriteDebrisProcessAll(void)
                     }
                 }
             }
-            pDebris++;
         }
     }
 }
@@ -266,70 +264,65 @@ void SpriteDebrisProcessAll(void)
 /**
  * 11cf4 | 110 | Draws a sprite debris
  * 
- * @param pDebris Sprite Debris Pointer to the concerned debris
+ * @param pDebris Sprite Debris Pointer
  */
 void SpriteDebrisDraw(struct SpriteDebris* pDebris)
 {
-    const u16* pSrc;
-    u8 slot;
-    u32 curr_slot;
+    // https://decomp.me/scratch/NYWAh
+
+    const u16* src;
+    u16* dst;
     u16 yPosition;
     u16 xPosition;
-    u8 priority;
-    u16* pDst;
-    u8 part_count;
+    u8 bgPriority;
+    u8 partCount;
+    u8 prevSlot;
     u8 count;
     u16 part1;
     u16 part2;
-    i32 bg_offset;
-    i32 pos_offset;
-    i32 oam_x;
-    i32 mask;
+    union OamData* pUnion;
 
-    bg_offset = gBG1YPosition + 0xC0;
-    pos_offset = pDebris->yPosition + 0x100;
-
-    if ((bg_offset > pos_offset) || (gBG1YPosition + 0x3C0 < pos_offset)) {
-        pDebris->exists = FALSE;
-    }
-    else
+    if (gBG1YPosition + BLOCK_SIZE * 3 > (pDebris->yPosition + BLOCK_SIZE * 4) ||
+        gBG1YPosition + BLOCK_SIZE * 15 < (pDebris->yPosition + BLOCK_SIZE * 4))
     {
-        slot = gNextOAMSlot;
-        pSrc = pDebris->pOam[pDebris->currentAnimationFrame].pFrame;
-        part_count = *pSrc++;
-        if (part_count + slot < 0x80)
+        pDebris->exists = FALSE;
+        return;
+    }
+
+    prevSlot = gNextOAMSlot;
+    src = pDebris->pOam[pDebris->currentAnimationFrame].pFrame;
+    partCount = *src++;
+
+    if (partCount + prevSlot < 0x80)
+    {
+        dst = (u16*)(gOamData + prevSlot);
+
+        xPosition = (pDebris->xPosition / 4) - (gBG1XPosition / 4);
+        yPosition = (pDebris->yPosition / 4) - (gBG1YPosition / 4);
+
+        if (gSamusOnTopOfBackgrounds)
+            bgPriority = 0x1;
+        else
+            bgPriority = 0x2;
+
+        for (count = 0; count < partCount; count++)
         {
-            pDst = (u16*)(gOamData + slot);
-            xPosition = (pDebris->xPosition >> 0x2) - (gBG1XPosition >> 0x2);
-            yPosition = (pDebris->yPosition >> 0x2) - (gBG1YPosition >> 0x2);
-            if (gSamusOnTopOfBackgrounds)
-                priority = 0x1;
-            else
-                priority = 0x2;
+            part1 = *src++;
+            *dst++ = part1;
+            part2 = *src++;
+            *dst++ = part2;
+            *dst = *src++; // Copy source and save part 1 and 2
 
-            count = 0x0;
+            pUnion = gOamData + (prevSlot + count);
 
-            while (count < part_count)
-            {
-                part1 = *pSrc++;
-                *pDst++ = part1;
-                part2 = *pSrc++;
-                *pDst++ = part2;
-                *pDst = *pSrc++; // Copy source and save part 1 and 2
+            pUnion->split.y = part1 + yPosition;
+            pUnion->split.x = part2 + xPosition;
+            pUnion->split.priority = bgPriority;
 
-                curr_slot = slot + count;
-                gOamData[curr_slot].data[0].valueB[0] = part1 + yPosition; // Update y position
-                oam_x = (part2 + xPosition);
-                mask = 0x1FF;
-                oam_x &= mask;
-                gOamData[curr_slot].data[0].valueU[1] = gOamData[curr_slot].data[0].valueU[1] & -(mask + 0x1) | oam_x;
-                gOamData[curr_slot].data[1].valueB[1] = ((priority << 0x2) | (gOamData[curr_slot].data[1].valueB[1] & -0xD));
-
-                pDst += 0x2; // Jump over part 4
-                count++;
-            }
-            gNextOAMSlot = part_count + slot; // update next slot
+            dst += 0x2;
         }
+
+        gNextOAMSlot = prevSlot + partCount;
     }
 }
 
@@ -343,12 +336,10 @@ void SpriteDebrisDrawAll(void)
 
     if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
     {
-        pDebris = gSpriteDebris;
-        while (pDebris < gSpriteDebris + 0x8)
+        for (pDebris = gSpriteDebris; pDebris < gSpriteDebris + MAX_AMOUNT_OF_SPRITE_DEBRIS; pDebris++)
         {
             if (pDebris->exists && pDebris->frameCounter != 0x0)
                 SpriteDebrisDraw(pDebris);
-            pDebris++;
         }
     }
 }
@@ -370,7 +361,7 @@ void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition)
     u8 count;
 
     counter = FALSE;
-    for (pDebris = gSpriteDebris; pDebris < gSpriteDebris + 8; pDebris++)
+    for (pDebris = gSpriteDebris; pDebris < gSpriteDebris + MAX_AMOUNT_OF_SPRITE_DEBRIS; pDebris++)
     {
         if (!pDebris->exists)
         {
@@ -383,7 +374,7 @@ void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition)
     {
         prev_counter = 0xFF;
         count = 0x0;
-        for (pDebris = gSpriteDebris; pDebris < gSpriteDebris + 8; pDebris++)
+        for (pDebris = gSpriteDebris; pDebris < gSpriteDebris + MAX_AMOUNT_OF_SPRITE_DEBRIS; pDebris++)
         {
             counter_d = pDebris->frameCounter;
             if (counter < counter_d)
