@@ -4076,24 +4076,72 @@ void SpacePirateIdleAtDoor(void)
     }
 }
 
+/**
+ * @brief 2aa5c | 2c | To document
+ * 
+ */
 void unk_2aa5c(void)
 {
+    gCurrentSprite.pOam = sSpacePirateOAM_Standing;
+    
+    gCurrentSprite.pose = 0x2B;
+    gCurrentSprite.animationDurationCounter = 0x0;   
+    gCurrentSprite.currentAnimationFrame = 0x0;
 
+    gCurrentSprite.workVariable2 = 0x0;   
+    gCurrentSprite.timer = 0x6;   
 }
 
+/**
+ * @brief 2aa88 | 64 | To document
+ * 
+ */
 void unk_2aa88(void)
 {
+    unk_f594();
 
+    if (gPreviousVerticalCollisionCheck == COLLISION_AIR)
+        gCurrentSprite.pose = SPACE_PIRATE_POSE_FALLING_INIT;
+    else if (!SpacePirateCheckSamusInShootingRange())
+    {
+        if (gCurrentSprite.timer != 0x0)
+        {
+            if (SpriteUtilCheckEndCurrentSpriteAnim())
+                gCurrentSprite.timer--;
+        }
+        else if (SpriteUtilCheckNearEndCurrentSpriteAnim())
+            gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
+    }
 }
 
+/**
+ * @brief 2aaec | 24 | To document
+ * 
+ */
 void unk_2aaec(void)
 {
+    gCurrentSprite.pOam = sSpacePirateOAM_Crouched;
+    
+    gCurrentSprite.pose = 0x11;
+    gCurrentSprite.animationDurationCounter = 0x0;   
+    gCurrentSprite.currentAnimationFrame = 0x0;
 
+    gCurrentSprite.workVariable2 = 0x0;
 }
 
+/**
+ * @brief 2ab10 | 24 | To document
+ * 
+ */
 void unk_2ab10(void)
 {
+    gCurrentSprite.pOam = sSpacePirateOAM_Standing;
+    
+    gCurrentSprite.pose = 0x11;
+    gCurrentSprite.animationDurationCounter = 0x0;   
+    gCurrentSprite.currentAnimationFrame = 0x0;
 
+    gCurrentSprite.workVariable2 = 0x0;
 }
 
 /**
