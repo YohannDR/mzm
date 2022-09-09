@@ -4,15 +4,24 @@
 #include "../data/data.h"
 #include "globals.h"
 
-const i16 debris_bouncing_velocity[9];
-const i16 debris_11_velocity[9];
-const i16 debris_12_velocity[9];
-const i16 debris_13_velocity[9];
-const i16 debris_4_velocity[9];
-const i16 debris_5_velocity[9];
-const i16 debris_6_velocity[9];
-const i16 debris_7_velocity[9];
-const i16 debris_8_velocity[9];
+
+extern const i16 debris_bouncing_velocity[9];
+
+extern const i16 debris_11_velocity[9];
+
+extern const i16 debris_12_velocity[9];
+
+extern const i16 debris_13_velocity[9];
+
+extern const i16 debris_4_velocity[9];
+
+extern const i16 debris_5_velocity[9];
+
+extern const i16 debris_6_velocity[9];
+
+extern const i16 debris_7_velocity[9];
+
+extern const i16 debris_8_velocity[10];
 
 /**
  * 11788 | 2c | 
@@ -359,7 +368,7 @@ void SpriteDebrisDrawAll(void)
  * @param yPosition Y Position
  * @param xPosition X Position
  */
-void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition)
+/*void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition)
 {
     struct SpriteDebris* pDebris;
     u8 counter;
@@ -404,4 +413,4 @@ void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition)
     pDebris->debrisType = debrisType;
     pDebris->frameCounter = 0x0;
     pDebris->arrayOffset = 0x0;
-}
+}*/
