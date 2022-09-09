@@ -368,7 +368,7 @@ void SpriteDebrisDrawAll(void)
  * @param yPosition Y Position
  * @param xPosition X Position
  */
-/*void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition)
+void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition)
 {
     struct SpriteDebris* pDebris;
     u8 counter;
@@ -413,4 +413,4 @@ void SpriteDebrisDrawAll(void)
     pDebris->debrisType = debrisType;
     pDebris->frameCounter = 0x0;
     pDebris->arrayOffset = 0x0;
-}*/
+}
