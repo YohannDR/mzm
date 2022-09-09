@@ -134,18 +134,6 @@ extern u16 sSecondarySpriteStats[77][9];
 
 extern u8 blob_0x82b214e_0x82b2523[982];
 
-/* sprite_debris_data.c */
-
-extern i16 debris_bouncing_velocity[9];
-extern i16 debris_11_velocity[9];
-extern i16 debris_12_velocity[9];
-extern i16 debris_13_velocity[9];
-extern i16 debris_4_velocity[9];
-extern i16 debris_5_velocity[9];
-extern i16 debris_6_velocity[9];
-extern i16 debris_7_velocity[9];
-extern i16 debris_8_velocity[9];
-
 /* blob_0x82cd604_0x82f7db3.c */
 
 extern u8 blob_0x82cd604_0x82f7db3[174000];
@@ -353,7 +341,7 @@ extern struct FrameData particle_main_boss_death_oam[18];
 extern struct FrameData WaterDrop_oam[8];
 extern struct FrameData WaterDrop_oam_falling[2];
 extern struct FrameData WaterDrop_oam_splashing[6];
-extern struct FrameData sprite_debris_oam[5];
+const struct FrameData sprite_debris_oam[5];
 extern struct FrameData sprite_debris_oam_unused[7];
 
 /* blob_0x833bd34_0x833cbdf.c */

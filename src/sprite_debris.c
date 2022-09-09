@@ -4,6 +4,16 @@
 #include "../data/data.h"
 #include "globals.h"
 
+const i16 debris_bouncing_velocity[9];
+const i16 debris_11_velocity[9];
+const i16 debris_12_velocity[9];
+const i16 debris_13_velocity[9];
+const i16 debris_4_velocity[9];
+const i16 debris_5_velocity[9];
+const i16 debris_6_velocity[9];
+const i16 debris_7_velocity[9];
+const i16 debris_8_velocity[9];
+
 /**
  * 11788 | 2c | 
  * Checks if a sprite debris is in a liquid, if yes sets a small splash effect
@@ -247,7 +257,7 @@ void SpriteDebrisProcessAll(void)
                 adc = pDebris->animationDurationCounter + 0x1;
                 pDebris->animationDurationCounter = adc;
                 timer = pDebris->pOam[pDebris->currentAnimationFrame].timer;
-                if (timer < adc)
+                if (timer < (u8)adc)
                 {
                     pDebris->animationDurationCounter = 0x1;
                     pDebris->currentAnimationFrame++;
