@@ -3871,8 +3871,8 @@ lbl_08004d40:
     strh r3, [r0, #0xe]
     bx lr
 
-    thumb_func_start sub_08004d48
-sub_08004d48: @ 0x08004d48
+    thumb_func_start UpdateAudio
+UpdateAudio: @ 0x08004d48
     push {r4, r5, r6, lr}
     ldr r4, lbl_08004df4 @ =0x0808f254
     ldr r5, lbl_08004df8 @ =0x00000009

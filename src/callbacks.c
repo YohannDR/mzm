@@ -17,7 +17,7 @@ CallbackCallVblank(void)
     unk_03007ff8 |= 0x01;
 
     if (!gClearedEveryFrame) {
-        sub_08004d48();
+        UpdateAudio();
     }
 }
 

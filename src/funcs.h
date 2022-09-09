@@ -25,7 +25,7 @@ int erase_sram_main(void);
 void sub_080033dc(void);
 void sub_08003fac(u16 id, u32 unk); /* TODO: unk type */
 void sub_08004014(u16 id, u32 unk); /* TODO: unk type */
-void sub_08004d48();
+void UpdateAudio();
 void sub_0805d034(void);
 
 #endif /* FUNCS_H */

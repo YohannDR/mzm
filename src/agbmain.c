@@ -83,7 +83,7 @@ void agbmain(void)
 {
     InitializeGame();
 
-    while (gClearedEveryFrame = 0, sub_08004d48(), !gResetGame)
+    while (gClearedEveryFrame = 0, UpdateAudio(), !gResetGame)
     {
         UpdateInput();
         SoftresetCheck();
