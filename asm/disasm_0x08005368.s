@@ -15340,7 +15340,7 @@ lbl_0800cc22:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl dma_transfer
+    bl DMATransfer
 lbl_0800cc34:
     ldr r1, lbl_0800cda0 @ =0x03000000
     movs r0, #0
@@ -15424,21 +15424,21 @@ lbl_0800ccb2:
     movs r4, #0x10
     str r4, [sp]
     movs r0, #3
-    bl dma_transfer
+    bl DMATransfer
     ldr r1, lbl_0800cdcc @ =0x02035700
     ldr r2, lbl_0800cdd0 @ =0x05000300
     movs r3, #0x80
     lsls r3, r3, #1
     str r4, [sp]
     movs r0, #3
-    bl dma_transfer
+    bl DMATransfer
     ldr r1, lbl_0800cdd4 @ =0x02035460
     ldr r2, lbl_0800cdd8 @ =0x05000060
     movs r3, #0xd0
     lsls r3, r3, #1
     str r4, [sp]
     movs r0, #3
-    bl dma_transfer
+    bl DMATransfer
 lbl_0800cd06:
     bl sub_08055f68
     ldr r5, lbl_0800cd80 @ =0x03000c75
@@ -22481,12 +22481,6 @@ lbl_080102de:
     pop {r1}
     bx r1
     .align 2, 0
-
-    thumb_func_start sub_080102e4
-sub_080102e4: @ 0x080102e4
-    push {lr}
-    ldr r0, lbl_08010300 @ =0x03001530
-    ldrb r1, [r0, #0xa]
 
     thumb_func_start refill_super_missiles
 refill_super_missiles: @ 0x080102ea
