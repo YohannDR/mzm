@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-void dma_transfer(int dma_channel, void *src, void *dst, u32 len, u8 bit_size);
+void DMATransfer(u8 channel, void *src, void *dst, u32 len, u8 bitSize);
 void init_sound(void);
 void read_sram(void);
 void start_new_demo(void);

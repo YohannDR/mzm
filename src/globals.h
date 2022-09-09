@@ -171,5 +171,5 @@ extern u16 unk_03007ff8;
 
 // IO
 
-extern struct DMA gRegDMA[4];
+extern volatile struct DMA gRegDMA[4];
 #endif /* GLOBALS_H */

@@ -16,7 +16,7 @@ ClearGFXRAM(void)
 void
 LoadInterruptCode(void)
 {
-    dma_transfer(3, intr_main, &gInterruptCode, sizeof(gInterruptCode), 0x10);
+    DMATransfer(3, intr_main, &gInterruptCode, sizeof(gInterruptCode), 0x10);
     intr_code_ptr = &gInterruptCode;
 }
 

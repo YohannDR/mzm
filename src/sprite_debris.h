@@ -10,7 +10,7 @@
 extern struct SpriteDebris gSpriteDebris[MAX_AMOUNT_OF_SPRITE_DEBRIS];
 
 struct SpriteDebris {
-    struct FrameData* pOam;
+    const struct FrameData* pOam;
     u16 currentAnimationFrame;
     u16 yPosition;
     u16 xPosition;
