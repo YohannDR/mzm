@@ -85,67 +85,67 @@ void SavePlatformChozodiaMessageBannerDisappearingTimer(void)
 
 }
 
-void SavePlatformTopChozodiaInit(void)
+void SavePlatformPartChozodiaInit(void)
 {
 
 }
 
-void SavePlatformTopChozodiaCheckRefillAnimEnded(void)
+void SavePlatformPartChozodiaCheckRefillAnimEnded(void)
 {
 
 }
 
-void SavePlatformTopChozodia_Empty(void)
+void SavePlatformPartChozodia_Empty(void)
 {
     return;
 }
 
-void SavePlatformTopChozodiaExtendGFXInit(void)
+void SavePlatformPartChozodiaExtendGFXInit(void)
 {
 
 }
 
-void SavePlatformTopChozodiaCheckExtendingAnimEnded(void)
+void SavePlatformPartChozodiaCheckExtendingAnimEnded(void)
 {
 
 }
 
-void SavePlatformTopChozodiaRetractingGFXInit(void)
+void SavePlatformPartChozodiaRetractingGFXInit(void)
 {
 
 }
 
-void SavePlatformTopChozodiaCheckRetractingAnimEnded(void)
+void SavePlatformPartChozodiaCheckRetractingAnimEnded(void)
 {
 
 }
 
-void SavePlatformTopChozodiaCheckTubeAnimSpawnEnded(void)
+void SavePlatformPartChozodiaCheckTubeAnimSpawnEnded(void)
 {
 
 }
 
-void SavePlatformTopChozodiaCheckSpawnBigLight(void)
+void SavePlatformPartChozodiaCheckSpawnBigLight(void)
 {
 
 }
 
-void SavePlatformTopChozodiaCheckTubeAnimEnded(void)
+void SavePlatformPartChozodiaCheckTubeAnimEnded(void)
 {
 
 }
 
-void SavePlatformTopChozodiaCheckTubeDespawningAnimEnded(void)
+void SavePlatformPartChozodiaCheckTubeDespawningAnimEnded(void)
 {
 
 }
 
-void SavePlatformTopChozodiaCheckTubeAroundAnimEnded(void)
+void SavePlatformPartChozodiaCheckTubeAroundAnimEnded(void)
 {
 
 }
 
-void SavePlatformTopChozodiaTubeDownUpAnim(void)
+void SavePlatformPartChozodiaTubeDownUpAnim(void)
 {
 
 }
@@ -155,7 +155,7 @@ void SavePlatformChozodia(void)
 
 }
 
-void SavePlatformTopChozodia(void)
+void SavePlatformPartChozodia(void)
 {
 
 }
