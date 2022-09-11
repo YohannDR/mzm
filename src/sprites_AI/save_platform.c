@@ -389,7 +389,7 @@ const u16 sSavePlatformPartOAM_TubeSpawning_Frame20[13] = {
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_X_FLIP | OBJ_SIZE_8x32 | 0x1, OBJ_SPRITE_OAM | 0x219
 };
 
-const u16 sSavePlatformPartOAM_TubeSpawning_Frame22[4] = {
+const u16 sSavePlatformPartOAM_TubeSpawning_Frame22[13] = {
     0x4,
     OBJ_SHAPE_VERTICAL | 0xb0, OBJ_SIZE_8x32 | 0x1f4, OBJ_SPRITE_OAM | 0x219,
     OBJ_SHAPE_VERTICAL | 0xd0, OBJ_SIZE_8x32 | 0x1f4, OBJ_SPRITE_OAM | 0x219,
