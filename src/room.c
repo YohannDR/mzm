@@ -25,7 +25,7 @@ void RoomLoad(void)
 
     }
     else if (gPauseScreenFlag == PAUSE_SCREEN_SUITLESS_ITEMS)
-        MusicPlay(0xE, 0x10); // Chozo ruins
+        MusicPlay(MUSIC_CHOZO_RUINS, 0x10);
 
     RoomLoadTileset();
     RoomLoadBackgrounds();

@@ -1369,7 +1369,7 @@ void ImagoCocoonIdle(void)
         {
             if (gSubSpriteData1.xPosition < gSamusData.xPosition && gSamusData.xPosition - gSubSpriteData1.xPosition < BLOCK_SIZE * 7)
             {
-                MusicPlay(0x3F, 0x0); // Imago cocoon battle
+                MusicPlay(MUSIC_IMAGO_COCOON_BATTLE, 0x0);
                 gBossWork.work1 = IMAGO_COCOON_MUSIC_STAGE_STARTED_MUSIC;
             }
         }
@@ -1559,7 +1559,7 @@ void ImagoCocoonUnlockPassage(void)
             ImagoCocoonChangeTwoBlockingCCAA(CAA_REMOVE_SOLID); // Remove blocking collision
 
             gDoorUnlockTimer = -0x3C;
-            MusicPlay(0xB, 0x0); // Boss killed
+            MusicPlay(MUSIC_BOSS_KILLED, 0x0);
         }
     }
 }

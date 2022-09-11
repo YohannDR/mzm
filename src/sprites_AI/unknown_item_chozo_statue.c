@@ -1102,7 +1102,7 @@ void UnknownItemChozoStatueHintFlashing(void)
             // Start hint
             gPauseScreenFlag = PAUSE_SCREEN_CHOZO_HINT;
 
-            MusicPlay(0x5, 0x0); // Chozo statue hint
+            MusicPlay(MUSIC_CHOZO_STATUE_HINT, 0x0);
         }
         else
         {

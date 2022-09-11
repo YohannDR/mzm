@@ -1635,7 +1635,7 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
             gCurrentSprite.hitboxRightOffset = 0x58;
             gCurrentSprite.pose = IMAGO_LARVA_POSE_IDLE;
             gDoorUnlockTimer = 0x1;
-            MusicPlay(0x4F, 0x0); // Imago larva battle
+            MusicPlay(MUSIC_CATTERPILLARS_BATTLE_2, 0x0);
         }
         else
         {
@@ -1968,7 +1968,7 @@ void ImagoLarvaDead(struct SubSpriteData* pSub)
             EventFunction(EVENT_ACTION_SETTING, EVENT_CATERPILLAR_KILLED);
             // Unlock doors
             gDoorUnlockTimer = -0x3C;
-            MusicPlay(0xB, 0x0); // Boss killed
+            MusicPlay(MUSIC_BOSS_KILLED, 0x0);
         }
 
         // Kill sprite
