@@ -104,8 +104,8 @@ sub_08002acc: @ 0x08002acc
     .align 2, 0
 lbl_08002b1c: .4byte 0x0808f254
 
-    thumb_func_start sub_08002b20
-sub_08002b20: @ 0x08002b20
+    thumb_func_start SoundPlayNotAlreadyPlaying
+SoundPlayNotAlreadyPlaying: @ 0x08002b20
     push {r4, lr}
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10

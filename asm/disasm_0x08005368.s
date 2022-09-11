@@ -20118,7 +20118,7 @@ lbl_0800f1ba:
     mov r1, sl
     strb r0, [r1, #6]
     movs r0, #0x80
-    bl sub_08002b20
+    bl SoundPlayNotAlreadyPlaying
     ldr r1, lbl_0800f1fc @ =0x0300070c
     ldrb r0, [r1, #0xe]
     adds r0, #1
