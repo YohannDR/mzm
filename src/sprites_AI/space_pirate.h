@@ -16,6 +16,8 @@ extern const struct FrameData sSpacePirateOAM_ChargingLaserDiagonallyDown[8];
 extern const struct FrameData sSpacePirateOAM_ChargingLaserDiagonallyUp[8];
 extern const struct FrameData sSpacePirateOAM_ChargingLaserForward[8];
 
+#define SPACE_PIRATE_HEIGHT (BLOCK_SIZE * 3 + 0x34)
+
 #define SPACE_PIRATE_CLIMBING_DIRECTION_UP 0x0
 #define SPACE_PIRATE_CLIMBING_DIRECTION_DOWN 0x1
 

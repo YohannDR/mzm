@@ -912,7 +912,7 @@ void AcidWormSpawnStart(void)
 {
     // On zipline, a little more than 2 blocks on each side, y position doesn't matter
     if (SpriteUtilCheckOnZipline() && gSamusData.xPosition > (i32)(gCurrentSprite.xPositionSpawn - (BLOCK_SIZE * 0x2 + 0xC))
-        && gSamusData.xPosition < (i32)(gCurrentSprite.xPositionSpawn + (BLOCK_SIZE * 0x2 + 0xC)))
+        && gSamusData.xPosition < gCurrentSprite.xPositionSpawn + (BLOCK_SIZE * 0x2 + 0xC))
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
         gSubSpriteData1.workVariable2 = 0x1;
@@ -939,7 +939,7 @@ void AcidWormSpawnExtending(void)
     oldY = gCurrentSprite.yPosition;
 
     // Check if extended 7 blocks
-    if (gCurrentSprite.yPosition < (i32)(gCurrentSprite.yPositionSpawn - (BLOCK_SIZE * 0x7)))
+    if (gCurrentSprite.yPosition < gCurrentSprite.yPositionSpawn - (BLOCK_SIZE * 0x7))
     {
         gCurrentSprite.pose = ACID_WORM_POSE_SPAWN_ON_TOP;
         gCurrentSprite.pOam = sAcidWormOAM_SpawnOnTop;
@@ -1040,46 +1040,51 @@ void AcidWormIdle(void)
 {
     // https://decomp.me/scratch/5cYt2
     
-    /*u16 spritePos;
+    u16 spritePos;
     u16 samusY;
-
+    u32 temp;
+    
     if (gEffectYPosition > gSubSpriteData1.health)
         gEffectYPositionOffset--;
 
     samusY = gSamusData.yPosition;
     spritePos = gCurrentSprite.yPosition;
+    
     if (samusY > gEffectYPosition || samusY > spritePos)
-        gCurrentSprite.timer = 0x3C;
-    else
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer == 0x0)
+        
+        gCurrentSprite.timer = 0x3C;
+        return;
+    }
+
+    gCurrentSprite.timer--;
+    if (gCurrentSprite.timer == 0x0)
+    {
+        temp = spritePos - samusY - 0x51;
+        if (temp < 0xEF)
         {
-            if ((u32)((spritePos - samusY) - 0x51) < 0xEF)
+            if (gSamusData.xPosition > gCurrentSprite.xPositionSpawn - BLOCK_SIZE * 7)
             {
-                if (gSamusData.xPosition > (i32)(gCurrentSprite.xPositionSpawn - 0x1C0))
-                {
-                    spritePos = 0x1C0;
-                    if (gSamusData.xPosition >= (i32)(gCurrentSprite.xPositionSpawn + spritePos))
-                        gSubSpriteData1.workVariable1 = 0x1;
-                    else
-                        gSubSpriteData1.workVariable1 = 0x0;
-                }
+                if (gSamusData.xPosition >= gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 7)
+                    gSubSpriteData1.workVariable1 = TRUE;
                 else
-                    gSubSpriteData1.workVariable1 = 0x1;
+                    gSubSpriteData1.workVariable1 = FALSE;
             }
             else
-                gSubSpriteData1.workVariable1 = 0x1;
-
-            gCurrentSprite.pOam = sAcidWormOAM_Warning;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.pose = ACID_WORM_POSE_CHECK_WARNING_ENDED;
-            SpriteUtilMakeSpriteFaceSamusDirection();
-            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
-            SoundPlay(0x1B5);
+                gSubSpriteData1.workVariable1 = TRUE;
         }
-    }*/
+        else
+            gSubSpriteData1.workVariable1 = TRUE;
+
+        gCurrentSprite.pOam = sAcidWormOAM_Warning;
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+        
+        gCurrentSprite.pose = ACID_WORM_POSE_CHECK_WARNING_ENDED;
+        SpriteUtilMakeSpriteFaceSamusDirection();
+        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+        SoundPlay(0x1B5);
+    }
 }
 
 /**
