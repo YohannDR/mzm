@@ -41,6 +41,8 @@ enum PauseScreenFlags {
     PAUSE_SCREEN_UNKNOWN_9,
 };
 
+#define MAX_AMOUNT_OF_DIFFICULTIES 3
+
 enum Difficulty {
     DIFF_EASY = 0x0,
     DIFF_NORMAL = 0x1,

@@ -5,12 +5,18 @@
 #include "block.h"
 #include "gba.h"
 
+#define behavior_to_block(behavior) (behavior - 0x10)
+#define behavior_to_tank(behavior) (behavior - 0x34)
+#define behavior_to_bldalpha(behavior) (behavior - 0x44)
+
 // Globals
 
 extern struct CurrentAffectingClip gCurrentAffectingClipdata;
 extern struct TilemapAndClipPointers gTilemapAndClipPointers;
 
 // Defines
+
+#define MAX_AMOUNT_OF_CAA 16
 
 #define CAA_NONE 0x0
 #define CAA_REMOVE_SOLID 0x1
@@ -25,7 +31,7 @@ extern struct TilemapAndClipPointers gTilemapAndClipPointers;
 #define CAA_SUPER_MISSILE 0xA
 #define CAA_POWER_BOMB 0xB
 #define CAA_SPEEDBOOSTER 0xC
-#define CAA_SPEEDBOOSTER2 0xD
+#define CAA_SPEEDBOOSTER_ON_GROUND 0xD
 #define CAA_SCREW_ATTACK 0xE
 #define CAA_BOMB_CHAIN 0xF
 

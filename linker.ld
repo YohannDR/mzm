@@ -9,6 +9,7 @@ SECTIONS {
         . = 0x00035400; unk_02035400 = .;
         . = 0x00037e00; gEventsTriggered = .;
         . = 0x00038000; unk_02038000 = .;
+        . = 0x00027780; gMakeSolidBlocks = .;
     } >ewram
 
     iwram (NOLOAD) : ALIGN(4) {
@@ -153,6 +154,7 @@ SECTIONS {
         . = 0x00005515; gScreenYOffset = .;
         . = 0x00005516; gScreenXOffset = .;
         . = 0x00005518; gRainSoundEffect = .;
+        . = 0x00005528; gBrokenBlocks = .;
         . = 0x000056cc; gBLDALPHAata1 = .;
         . = 0x000056d4; gBLDALPHAata1 = .;
         . = 0x000056dc; gBLDYData1 = .;

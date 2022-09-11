@@ -59,6 +59,7 @@
 #define MESSAGE_ACTIVATE_EASY_SLEEP 0x24
 #define MESSAGE_PRESS_SELECT_L_AND_R 0x25
 #define MESSAGE_EASY_SLEEP_PROMPT 0x26
+#define MESSAGE_NONE -1
 
 void ItemBannerInit(void);
 void ItemBannerGFXInit(void);

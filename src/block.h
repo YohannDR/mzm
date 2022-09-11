@@ -3,6 +3,17 @@
 
 #include "types.h"
 
+#define bomb_chain_type_to_flag(type) (1 << type)
+
+#define MAX_AMOUNT_OF_MAKE_SOLID_BLOCKS 64
+#define MAX_AMOUNT_OF_BROKEN_BLOCKS 48
+#define MAX_AMOUNT_OF_BLOCKS 48
+#define MAX_AMOUNT_OF_BLOCKS_TYPES 22
+#define MAX_AMOUNT_OF_TANK_TYPES 12
+
+extern struct BrokenBlock gBrokenBlocks[MAX_AMOUNT_OF_BROKEN_BLOCKS];
+extern u16 gMakeSolidBlocks[MAX_AMOUNT_OF_MAKE_SOLID_BLOCKS];
+
 #define BLOCK_TYPE_NONE 0x0
 #define BLOCK_TYPE_SHOT_BLOCK_REFORM 0x1
 #define BLOCK_TYPE_BOMB_BLOCK_REFORM 0x2
@@ -15,16 +26,55 @@
 #define BLOCK_TYPE_SUPER_MISSILE_NO_REFORM 0x9
 #define BLOCK_TYPE_POWER_BOMB_NEVER_REFORM 0xA
 #define BLOCK_TYPE_SCREW_NO_REFORM 0xB
-#define BLOCK_TYPE_SPEEDBOOSTER_NO_REFORM 0xC
-#define BLOCK_TYPE_BOMB_NEVER_REFORM 0xD
+#define BLOCK_TYPE_SPEEDBOOSTER_BLOCK_NO_REFORM 0xC
+#define BLOCK_TYPE_BOMB_BLOCK_NEVER_REFORM 0xD
 #define BLOCK_TYPE_VERTICAL_BOMB_CHAIN1 0xE
 #define BLOCK_TYPE_VERTICAL_BOMB_CHAIN2 0xF
 #define BLOCK_TYPE_VERTICAL_BOMB_CHAIN3 0x10
 #define BLOCK_TYPE_VERTICAL_BOMB_CHAIN4 0x11
-#define BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN1 0xE
-#define BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN2 0xF
-#define BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN3 0x10
-#define BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN4 0x11
+#define BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN1 0x12
+#define BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN2 0x13
+#define BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN3 0x14
+#define BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN4 0x15
+
+#define ITEM_TYPE_NONE 0x0
+#define ITEM_TYPE_MISSILE 0x1
+#define ITEM_TYPE_ENERGY 0x2
+#define ITEM_TYPE_SUPER_MISSILE 0x3
+#define ITEM_TYPE_POWER_BOMB 0x4
+#define ITEM_TYPE_ABILITY 0x80
+
+#define CAA_DAMAGE_TYPE_NONE 0x0
+#define CAA_DAMAGE_TYPE_BEAM 0x1
+#define CAA_DAMAGE_TYPE_BOMB_PISTOL 0x2
+#define CAA_DAMAGE_TYPE_MISSILE 0x4
+#define CAA_DAMAGE_TYPE_SUPER_MISSILE 0x8
+#define CAA_DAMAGE_TYPE_POWER_BOMB 0x10
+#define CAA_DAMAGE_TYPE_SPEEDBOOST 0x20
+#define CAA_DAMAGE_TYPE_SPEEDBOOST_ON_GROUND 0x40
+#define CAA_DAMAGE_TYPE_SCREW_ATTACK 0x80
+#define CAA_DAMAGE_TYPE_BOMB_CHAIN 0x1000
+
+#define BLOCK_LIFE_TYPE_NONE 0x0 
+#define BLOCK_LIFE_TYPE_NO_NEVER_REFORM 0x1 
+#define BLOCK_LIFE_TYPE_REFORM 0x2 
+#define BLOCK_LIFE_TYPE_BOMB_CHAIN 0x3 
+#define BLOCK_LIFE_TYPE_TANK 0x4 
+
+#define BLOCK_SUB_TYPE_REFORM 0x0
+#define BLOCK_SUB_TYPE_SQUARE_NO_REFORM 0x1
+#define BLOCK_SUB_TYPE_NO_REFORM 0x2
+#define BLOCK_SUB_TYPE_SQUARE_NEVER_REFORM 0x3
+#define BLOCK_SUB_TYPE_BOMB_CHAIN 0x4
+
+#define BOMB_CHAIN_TYPE_VERTICAL1 0x0
+#define BOMB_CHAIN_TYPE_VERTICAL2 0x1
+#define BOMB_CHAIN_TYPE_VERTICAL3 0x2
+#define BOMB_CHAIN_TYPE_VERTICAL4 0x3
+#define BOMB_CHAIN_TYPE_HORIZONTAL1 0x4
+#define BOMB_CHAIN_TYPE_HORIZONTAL2 0x5
+#define BOMB_CHAIN_TYPE_HORIZONTAL3 0x6
+#define BOMB_CHAIN_TYPE_HORIZONTAL4 0x7
 
 struct BrokenBlock {
     u8 broken;
@@ -42,7 +92,33 @@ struct ClipdataBlockData {
     u8 blockBehavior;
 };
 
-u8 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock);
+struct TankList {
+    u8 energy;
+    u8 missile;
+    u8 superMissile;
+    u8 powerBomb;
+};
+
+struct BlockBehavior {
+    u8 lifeType;
+    u8 subType;
+    u8 type;
+    u8 unk;
+};
+
+struct BombChainReverseData {
+    u8 typeFlag;
+    u16 behavior;
+};
+
+struct TankBehavior {
+    u8 itemType;
+    u8 underwater;
+    i8 messageID;
+    u16 revealedClipdata
+};
+
+u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock);
 u8 BlockDestroyNonReformBlock(struct ClipdataBlockData* pClipBlock);
 u8 BlockDestroyBombChainBlock(struct ClipdataBlockData* pClipBlock);
 u8 BlockDestroySingleBreakableBlock(struct ClipdataBlockData* pClipBlock);
@@ -53,15 +129,15 @@ void BlockRemoveNeverReformSingleBlock(u16 xPosition, u16 yPosition);
 void BlockShiftNeverReformBlocks(void);
 u8 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock);
 u8 BlockCheckRevealOrDestroyBombBlock(struct ClipdataBlockData* pClipBlock);
-u8 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip);
-u8 BlockUpdateMakeSolidBlocks(u8 make_solid, u16 xPosition, u16 yPosition);
-u8 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosition, u8 action);
+u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip);
+u32 BlockUpdateMakeSolidBlocks(u8 makeSolid, u16 xPosition, u16 yPosition);
+u32 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosition, u16 action);
 void BlockUpdateBrokenBlocks(void);
 void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock);
-u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 stopSamus);
+u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 advanceStage);
 u8 BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type);
 u8 BlockCheckRevealBombChainBlock(u8 type, u16 xPosition, u16 yPosition);
-u8 BlockCheckSamusInReformingBlock(u8 xPosition, u8 yPosition);
+u32 BlockCheckSamusInReformingBlock(u8 xPosition, u8 yPosition);
 u8 BlockStartBombChain(u8 type, u16 xPosition, u16 yPosition);
 void BlockProcessBombChains(void);
 void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition);
