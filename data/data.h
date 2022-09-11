@@ -125,6 +125,7 @@ extern u8 blob_0x823a5bc_0x82b0cab[485104];
 
 extern u8 sRandomTable0_F[56];
 extern i16 dessgeega_sidehopper_in_block_yVelocity[16];
+extern i16 sSpritesFallingCeilingSpeed[16];
 extern i16 sSpritesFallingSpeed[40];
 extern i16 worker_robot_sleeping_falling_speed[10];
 extern u16 sPrimarySpriteStats[206][9];

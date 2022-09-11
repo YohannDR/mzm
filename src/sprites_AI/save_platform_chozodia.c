@@ -1,6 +1,5 @@
 #include "save_platform_chozodia.h"
-#include "../sprite_util.h"
-#include "../sprite.h"
+#include "save_platform.h"
 #include "../../data/data.h"
 #include "../globals.h"
 
@@ -159,4 +158,3 @@ void SavePlatformPartChozodia(void)
 {
 
 }
-
