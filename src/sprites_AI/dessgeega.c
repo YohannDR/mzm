@@ -753,30 +753,32 @@ void DessgeegaCheckLandingAnimEnded(void)
         DessgeegaIdleInit(); // Set idle
 }
 
+/**
+ * @brief 24234 | a4 | Handles a dessgeega falling from the ground
+ * 
+ */
 void DessgeegaFallingGround(void)
 {
-    // https://decomp.me/scratch/rzu1N
-
-    /*u8 colliding;
-    u8 offset;
-    i32 velocity;
+    u8 colliding;
     u32 topEdge;
+    u8 offset;
+    i32 movement;
 
     colliding = FALSE;
 
     topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
     if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
-        colliding = TRUE;
+        colliding++;
     else
     {
         topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
         if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
-            colliding = TRUE;
+            colliding++;
         else
         {
             topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
-                colliding = TRUE;
+                colliding++;
         }
     }
     
@@ -789,31 +791,83 @@ void DessgeegaFallingGround(void)
     {
         // Update Y position
         offset = gCurrentSprite.arrayOffset;
-        velocity = sSpritesFallingSpeed[offset];
-        if (sSpritesFallingSpeed[offset] == SPRITE_ARRAY_TERMINATOR)
+        movement = sSpritesFallingSpeed[offset];
+        if (movement == SPRITE_ARRAY_TERMINATOR)
         {
             // Reached end of array, use last velocity
-            velocity = sSpritesFallingSpeed[offset - 1] + gCurrentSprite.yPosition;
-            gCurrentSprite.yPosition = velocity;
+            movement = sSpritesFallingSpeed[offset - 1];
+            gCurrentSprite.yPosition += movement;
         }
         else
         {
-            gCurrentSprite.arrayOffset = offset + 1;
-            gCurrentSprite.yPosition += velocity;
+            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.yPosition += movement;
         }
-    }*/
+    }
 }
 
+/**
+ * @brief 242d8 | a8 | Handles a dessgeega falling from the ceiling
+ * 
+ */
 void DessgeegaFallingCeiling(void)
 {
+    u8 colliding;
+    u32 topEdge;
+    u8 offset;
+    i32 movement;
 
+    colliding = FALSE;
+
+    topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+    if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
+        colliding++;
+    else
+    {
+        topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+        if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
+            colliding++;
+        else
+        {
+            topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
+                colliding++;
+        }
+    }
+    
+    if (colliding)
+    {
+        gCurrentSprite.yPosition = topEdge + BLOCK_SIZE;
+        DessgeegaLandingInit();
+    }
+    else
+    {
+        // Update Y position
+        offset = gCurrentSprite.arrayOffset;
+        movement = sSpritesFallingCeilingSpeed[offset];
+        if (movement == SPRITE_ARRAY_TERMINATOR)
+        {
+            // Reached end of array, use last velocity
+            movement = sSpritesFallingCeilingSpeed[offset - 1];
+            gCurrentSprite.yPosition += movement;
+        }
+        else
+        {
+            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.yPosition += movement;
+        }
+    }
 }
 
+/**
+ * @brief 24380 | 98 | Handles a dessgeega being idle on the ground
+ * 
+ */
 void DessgeegaIdleGround(void)
 {
-    // https://decomp.me/scratch/rPiEB
-
-    /*if (!DessgeegaCheckSamusNearLeftRight())
+    if (DessgeegaCheckSamusNearLeftRight())
+        DessgeegaJumpWarningInit();
+    else
     {
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
         if (gPreviousCollisionCheck == COLLISION_AIR)
@@ -835,12 +889,30 @@ void DessgeegaIdleGround(void)
                     SoundPlayNotAlreadyPlaying(0x15C);
             }
         }
-    }*/
+    }
 }
 
+/**
+ * @brief 24418 | 5c | Handles a dessgeega being idle on the ceiling
+ * 
+ */
 void DessgeegaIdleCeiling(void)
 {
-
+    if (DessgeegaCheckSamusNearLeftRight())
+        DessgeegaJumpWarningInit();
+    else
+    {
+        if (SpriteUtilCheckEndCurrentSpriteAnim())
+        {
+            if (gCurrentSprite.timer++ == gCurrentSprite.workVariable)
+                DessgeegaJumpWarningInit();
+            else
+            {
+                if (gCurrentSprite.pOam == sDessgeegaOAM_Screaming && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+                    SoundPlayNotAlreadyPlaying(0x15C);
+            }
+        }
+    } 
 }
 
 /**
