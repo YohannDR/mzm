@@ -173,7 +173,72 @@ void BGClipCheckTouchingTransitionOnElevator(void)
 
 void BGClipCheckTouchingTransitionOrTank(void)
 {
+    // https://decomp.me/scratch/68qvD
 
+    /*i32 position;
+    i32 limit;
+    struct TankCollectionData collectionData;
+
+    position = gSamusData.xPosition + (gSamusPhysics.drawDistanceRightOffset >> 0x1);
+    if (position < 0x0)
+        position = 0x0;
+    else
+    {
+        if (position > gBGPointersAndDimensions.clipdataWidth << 0x6)
+            position = gBGPointersAndDimensions.clipdataWidth << 0x6;
+    }
+
+    collectionData.xRight = position >> 0x6;
+
+    position = gSamusData.xPosition + (gSamusPhysics.drawDistanceLeftOffset >> 0x1);
+    if (position < 0x0)
+        position = 0x0;
+    else
+    {
+        if (position > gBGPointersAndDimensions.clipdataWidth << 0x6)
+            position = gBGPointersAndDimensions.clipdataWidth << 0x6;
+    }
+
+    collectionData.xLeft = position >> 0x6;
+
+    position = gSamusData.xPosition;
+    if (position > gBGPointersAndDimensions.clipdataWidth << 0x6)
+        position = gBGPointersAndDimensions.clipdataWidth << 0x6;
+
+    collectionData.xCenter = position >> 0x6;
+
+    position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 0x1);
+    if (position < 0x0)
+        position = 0x0;
+    else
+    {
+        if (position > gBGPointersAndDimensions.clipdataHeight << 0x6)
+            position = gBGPointersAndDimensions.clipdataHeight << 0x6;
+    }
+
+    collectionData.yTop = position;
+
+    position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 0x2);
+    if (position < 0x0)
+        position = 0x0;
+    else
+    {
+        if (position > gBGPointersAndDimensions.clipdataHeight << 0x6)
+            position = gBGPointersAndDimensions.clipdataHeight << 0x6;
+    }
+
+    collectionData.yBottom = position;
+
+    position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 0x1) + (gSamusPhysics.drawDistanceTopOffset >> 0x2);
+    if (position < 0x0)
+        position = 0x0;
+    else
+    {
+        if (position > gBGPointersAndDimensions.clipdataHeight << 0x6)
+            position = gBGPointersAndDimensions.clipdataHeight << 0x6;
+    }
+
+    collectionData.yCenter = position;*/
 }
 
 /**

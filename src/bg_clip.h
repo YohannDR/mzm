@@ -27,6 +27,17 @@ struct LastTank {
     u8 yPosition;
 };
 
+struct TankCollectionData {
+    i32 padding[2];
+    i32 behavior[2];
+    i32 yTop;
+    i32 yBottom;
+    i32 yCenter;
+    i32 xRight;
+    i32 xLeft;
+    i32 xCenter;
+};
+
 void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition);
 void BGClipSetBG1BlockValue(u16 value, u16 yPosition, u16 xPosition);
 void BGClipSetRawBG1BlockValue(u16 value, u16 yPosition, u16 xPosition);

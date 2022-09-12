@@ -824,15 +824,17 @@ void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition)
     if (clipdata != 0x0)
         BlockApplyCCAA(yPosition, xPosition, clipdata);
 
-    for (i = 0x0; i < 0x2; i++)
+    i = 0x0;
+    for (; i < 0x2; ++i)
     {
-        yOffset = yPosition + sSubBombChainPositionOffset[type][i][1];
+        yOffset = yPosition + sSubBombChainPositionOffset[type][i*2+1];
         offset = yOffset * gBGPointersAndDimensions.clipdataWidth;
-        xOffset = xPosition + sSubBombChainPositionOffset[type][i][0];
+        xOffset = xPosition + sSubBombChainPositionOffset[type][i*2];
         offset += xOffset;
         clipdata = gBGPointersAndDimensions.pClipDecomp[offset];
         if (clipdata != 0x0)
             BlockApplyCCAA(yOffset, xOffset, clipdata);
+
     }
 
     gCurrentClipdataAffectingAction = CAA_NONE;
