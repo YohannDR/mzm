@@ -924,7 +924,7 @@ void AcidWormSpawnStart(void)
         ScreenShakeStartHorizontal(0x3C, 0x81);
         SoundPlay(0x1A7);
         SoundPlay(0x1A8);
-        MusicPlay(0x3C, 0x0); // Play battle music
+        MusicPlay(MUSIC_WORMS_BATTLE, 0x0);
     }
 }
 
@@ -1555,7 +1555,7 @@ void AcidWormDying(void)
         if (gSubSpriteData1.workVariable2 == 0x0)
         {
             gCurrentSprite.status = 0x0;
-            MusicPlay(0xB, 0x0); // Boss killed
+            MusicPlay(MUSIC_BOSS_KILLED, 0x0);
         }
     }
     else

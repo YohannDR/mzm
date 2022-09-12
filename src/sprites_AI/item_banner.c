@@ -522,7 +522,7 @@ void ItemBannerPopUp(void)
             }
             else if (message == MESSAGE_FULLY_POWERED_SUIT)
             {
-                MusicPlay(0x19, 0x0);
+                MusicPlay(MUSIC_BRINSTAR_REMIX, 0x0);
                 InsertMusicAndQueueCurrent(0x4A, 0x0);
             }
             else if (message != MESSAGE_SAVE_PROMPT)

@@ -2651,7 +2651,7 @@ void DecrementChozodiaAlarm(void)
         {
             gDisableAnimatedPalette = FALSE;
             if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
-                MusicPlay(0x45, 0x40); // Alarm activated
+                MusicPlay(MUSIC_ALARM_ACTIVATED, 0x40);
         }
     }
 }

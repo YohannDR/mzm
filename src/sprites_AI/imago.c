@@ -1191,7 +1191,7 @@ void ImagoSpawn(void)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.pose = IMAGO_POSE_COMING_DOWN_INIT;
-        MusicPlay(0x40, 0x0); // Imago battle
+        MusicPlay(MUSIC_IMAGO_BATTLE, 0x0);
     }
 }
 
@@ -1915,7 +1915,7 @@ void ImagoDying(void)
             gCurrentSprite.pose = IMAGO_POSE_SET_EVENT;
             gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
             SoundPlay(0xC5);
-            MusicPlay(0xB, 0x0); // Boss killed
+            MusicPlay(MUSIC_BOSS_KILLED, 0x0);
     }
 }
 

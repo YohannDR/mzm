@@ -1101,7 +1101,7 @@ void MotherBrainStartEscape(void)
         // Spawn banner and effects
         SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_ZEBES_ESCAPE, 0x0, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         SpriteSpawnPrimary(PSPRITE_EXPLOSION_ZEBES_ESCAPE, 0x0, 0x0, gCurrentSprite.yPosition + (BLOCK_SIZE * 4), gCurrentSprite.xPosition, 0x0);
-        MusicPlay(0x8, 0x40); // Escape
+        MusicPlay(MUSIC_ESCAPE, 0x40);
         SoundPlay(0x120);
         gSubSpriteData1.workVariable3 = 0x3;
     }

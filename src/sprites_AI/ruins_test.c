@@ -3131,7 +3131,7 @@ void RuinsTestSymbol(void)
                 gCurrentSprite.pose = RUINS_TEST_SYMBOL_POSE_UPDATE_PALETTE;
                 gCurrentSprite.currentAnimationFrame = 0x1;
                 gCurrentSprite.animationDurationCounter = 0x0;
-                MusicPlay(0x43, 0x0); // Charlie battle with intro
+                MusicPlay(MUSIC_RUINS_TEST_BATTLE_WITH_INTRO, 0x0);
                 SoundPlay(0x1D3);
             }
             break;
