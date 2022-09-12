@@ -155,6 +155,9 @@ SECTIONS {
         . = 0x00005516; gScreenXOffset = .;
         . = 0x00005518; gRainSoundEffect = .;
         . = 0x00005528; gBrokenBlocks = .;
+        . = 0x000056a8; gLastTankCollected = .;
+        . = 0x000056ac; gBombchains = .;
+        . = 0x000056bc; gActiveBombChainTypes = .;
         . = 0x000056cc; gBLDALPHAata1 = .;
         . = 0x000056d4; gBLDALPHAata1 = .;
         . = 0x000056dc; gBLDYData1 = .;

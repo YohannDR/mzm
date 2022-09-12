@@ -1,5 +1,6 @@
 #include "bg_clip.h"
 #include "globals.h"
+#include "data/block_data.h"
 #include "../data/data.h"
 
 void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition)
@@ -175,9 +176,31 @@ void BGClipCheckTouchingTransitionOrTank(void)
 
 }
 
+/**
+ * @brief 5ad8c | 60 | Finishes the collection of a tank
+ * 
+ */
 void BGClipFinishCollectingTank(void)
 {
+    u32 clipdata;
+    u32 tank;
 
+    gCollectingTank = FALSE;
+
+    tank = behavior_to_tank(gLastTankCollected.behavior);
+    if (sTankBehaviors[tank].itemType != ITEM_TYPE_NONE)
+    {
+        // Get clip
+        if (sTankBehaviors[tank].underwater)
+            clipdata = 0x43C;
+        else
+            clipdata = 0x0;
+
+        BGClipSetBG1BlockValue(0x0, gLastTankCollected.yPosition, gLastTankCollected.xPosition);
+        BGClipSetBG1BlockValue(clipdata, gLastTankCollected.yPosition, gLastTankCollected.xPosition);
+        BGClipSetItemAsCollected(gLastTankCollected.xPosition, gLastTankCollected.yPosition, sTankBehaviors[tank].itemType);
+        update_minimap_square_for_collected_items(gLastTankCollected.xPosition, gLastTankCollected.yPosition);
+    }
 }
 
 void BGClipFinishCollectingAbility(void)

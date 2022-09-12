@@ -10,7 +10,7 @@
 
 // Defines
 
-#define MAX_AMOUNT_OF_AREAS 8
+#define MAX_AMOUNT_OF_AREAS 7
 #define MAX_AMOUNT_OF_HATCH_TYPES 8
 
 #define AREA_BRINSTAR 0x0
@@ -71,12 +71,6 @@ struct Door {
     u8 destinationRoom;
     i8 xExit;
     i8 yExit;
-};
-
-struct __attribute__((packed)) AreaConnection {
-    u8 sourceArea;
-    u8 sourceDoor;
-    u8 destinationArea;
 };
 
 struct EventBasedConnection {

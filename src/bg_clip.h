@@ -3,8 +3,10 @@
 
 #include "types.h"
 
+extern struct LastTank gLastTankCollected;
+
 struct BackgroundPointersAndDimensions {
-    struct SubBGPtr {
+    struct {
         u16* pDecomp;
         u16 width;
         u16 height;
@@ -17,6 +19,12 @@ struct BackgroundPointersAndDimensions {
 struct BG2Movement {
     i16 xOffset;
     i16 yOffset;
+};
+
+struct LastTank {
+    u16 behavior;
+    u8 xPosition;
+    u8 yPosition;
 };
 
 void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition);
