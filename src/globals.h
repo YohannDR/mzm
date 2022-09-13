@@ -155,7 +155,6 @@ extern u8 gDemoState;
 extern struct ButtonAssignments gButtonAssignments;
 extern u8 gNonGameplayRAM[640]; // Weird type, subject to change
 extern u8 gUnk_03004fc9;
-extern struct HatchData gHatchData[16];
 extern struct RawCoordsX gDoorPositionStart;
 extern struct BG3Movement gBG3Movement;
 extern struct BG0Movement gBG0Movement;

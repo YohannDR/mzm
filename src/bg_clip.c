@@ -175,11 +175,22 @@ void BGClipCheckTouchingTransitionOrTank(void)
 {
     // https://decomp.me/scratch/68qvD
 
-    /*i32 position;
+    i32 position;
+    i32 collectingFirstTank;
     i32 limit;
     struct TankCollectionData collectionData;
+    u16* pBehavior;
+    i32 i;
+    i32 offset;
+    u16* pPosition;
+    i32 unk;
+    u8 tankType;
+    i32 newMax;
+    i8 messageID;
+    i32 max;
+    i32 increment;
 
-    position = gSamusData.xPosition + (gSamusPhysics.drawDistanceRightOffset >> 0x1);
+    position = (gSamusPhysics.drawDistanceRightOffset >> 0x1) + gSamusData.xPosition;
     if (position < 0x0)
         position = 0x0;
     else
@@ -188,7 +199,7 @@ void BGClipCheckTouchingTransitionOrTank(void)
             position = gBGPointersAndDimensions.clipdataWidth << 0x6;
     }
 
-    collectionData.xRight = position >> 0x6;
+    collectionData.xPositions[0] = position >> 0x6;
 
     position = gSamusData.xPosition + (gSamusPhysics.drawDistanceLeftOffset >> 0x1);
     if (position < 0x0)
@@ -199,13 +210,13 @@ void BGClipCheckTouchingTransitionOrTank(void)
             position = gBGPointersAndDimensions.clipdataWidth << 0x6;
     }
 
-    collectionData.xLeft = position >> 0x6;
+    collectionData.xPositions[1] = position >> 0x6;
 
     position = gSamusData.xPosition;
     if (position > gBGPointersAndDimensions.clipdataWidth << 0x6)
         position = gBGPointersAndDimensions.clipdataWidth << 0x6;
 
-    collectionData.xCenter = position >> 0x6;
+    collectionData.xPositions[2] = position >> 0x6;
 
     position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 0x1);
     if (position < 0x0)
@@ -216,7 +227,7 @@ void BGClipCheckTouchingTransitionOrTank(void)
             position = gBGPointersAndDimensions.clipdataHeight << 0x6;
     }
 
-    collectionData.yTop = position;
+    collectionData.yPositions[0] = position;
 
     position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 0x2);
     if (position < 0x0)
@@ -227,7 +238,7 @@ void BGClipCheckTouchingTransitionOrTank(void)
             position = gBGPointersAndDimensions.clipdataHeight << 0x6;
     }
 
-    collectionData.yBottom = position;
+    collectionData.yPositions[1] = position;
 
     position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 0x1) + (gSamusPhysics.drawDistanceTopOffset >> 0x2);
     if (position < 0x0)
@@ -238,7 +249,135 @@ void BGClipCheckTouchingTransitionOrTank(void)
             position = gBGPointersAndDimensions.clipdataHeight << 0x6;
     }
 
-    collectionData.yCenter = position;*/
+    collectionData.yPositions[2] = position;
+
+    pPosition = collectionData.xPositions;
+    pBehavior = collectionData.behaviors;
+    for (i = 1; i > 0; i--)
+    {
+        position = *pPosition++;
+        offset = gBGPointersAndDimensions.pClipDecomp[collectionData.yPositions[0] * gBGPointersAndDimensions.clipdataWidth + position];
+        *pBehavior++ = gTilemapAndClipPointers.pClipBehaviors[offset];
+    }
+
+    pPosition = collectionData.yPositions;
+    pBehavior = collectionData.behaviors + 2;
+    for (i = 1; i > 0; i--)
+    {
+        position = *pPosition++;
+        offset = gBGPointersAndDimensions.pClipDecomp[position * gBGPointersAndDimensions.clipdataWidth + collectionData.xPositions[0]];
+        *pBehavior++ = gTilemapAndClipPointers.pClipBehaviors[offset];
+    }
+
+    if (collectionData.behaviors[0] | collectionData.behaviors[1] |
+        collectionData.behaviors[2] | collectionData.behaviors[3])
+    {
+        unk = -1;
+        if (collectionData.behaviors[0] == CLIP_BEHAVIOR_DOOR_TRANSITION)
+            unk = 0x0;
+        else if (collectionData.behaviors[1] == CLIP_BEHAVIOR_DOOR_TRANSITION)
+            unk = 0x1;
+        else if (collectionData.behaviors[2] == CLIP_BEHAVIOR_VERTICAL_UP_TRANSITION)
+            unk = 0x2;
+        else if (collectionData.behaviors[3] == CLIP_BEHAVIOR_VERTICAL_DOWN_TRANSITION)
+            unk = 0x3;
+
+        if ((unk + 1) != 0)
+        {
+            if (!ConnectionCheckEnterDoor(collectionData.yPositions[sHatchRelated_345cee[i][1]], collectionData.xPositions[sHatchRelated_345cee[i][0]]))
+                ConnectionCheckAreaConnection(collectionData.yPositions[sHatchRelated_345cee[i][1]], collectionData.xPositions[sHatchRelated_345cee[i][0]]);
+        }
+        else
+        {
+            collectingFirstTank = FALSE;
+
+            for (position = 3; position >= 0; position--)
+            {
+                if (collectionData.behaviors[i] != CLIP_BEHAVIOR_AIR_SOLID &&
+                    behavior_to_tank(collectionData.behaviors[i]) <
+                    behavior_to_tank(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK))
+                {
+                    tankType = sTankBehaviors[behavior_to_tank(collectionData.behaviors[i])].itemType;
+
+                    if (tankType != ITEM_TYPE_NONE)
+                    {
+                        if (check_tile_is_explored(collectionData.yPositions[sHatchRelated_345cee[i][1]], collectionData.xPositions[sHatchRelated_345cee[i][0]]))
+                        {
+                            gCollectingTank = TRUE;
+                            gPreventMovementTimer = 0x3E8;
+                            gLastTankCollected.behavior = collectionData.behaviors[i];
+                            gLastTankCollected.xPosition = collectionData.xPositions[i];
+                            gLastTankCollected.yPosition = collectionData.yPositions[i];
+
+                            if (tankType == ITEM_TYPE_MISSILE)
+                            {
+                                max = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS].missile;
+                                increment = sTankIncreaseAmount[gDifficulty].missile;
+                                newMax = gEquipment.maxMissiles + increment;
+                                if ((increment * max) + sStartingHealthAmmo.missile >= newMax)
+                                {
+                                    if (gEquipment.maxMissiles == 0x0)
+                                        collectingFirstTank = TRUE;
+
+                                    gEquipment.maxMissiles = newMax;
+                                    gEquipment.currentMissiles += increment;
+                                }
+                            }
+                            else if (tankType == ITEM_TYPE_ENERGY)
+                            {
+                                max = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS].energy;
+                                increment = sTankIncreaseAmount[gDifficulty].energy;
+                                newMax = gEquipment.maxEnergy + increment;
+                                if ((increment * max) + sStartingHealthAmmo.energy >= newMax)
+                                {
+                                    gEquipment.maxEnergy = newMax;
+                                    gEquipment.currentEnergy += increment;
+                                }
+                            }
+                            else if (tankType == ITEM_TYPE_SUPER_MISSILE)
+                            {                                
+                                max = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS].superMissile;
+                                increment = sTankIncreaseAmount[gDifficulty].superMissile;
+                                newMax = gEquipment.maxSuperMissiles + increment;
+                                if ((increment * max) + sStartingHealthAmmo.superMissile >= newMax)
+                                {
+                                    if (gEquipment.maxSuperMissiles == 0x0)
+                                        collectingFirstTank = TRUE;
+
+                                    gEquipment.maxSuperMissiles = newMax;
+                                    gEquipment.currentSuperMissiles += increment;
+                                }
+                            }
+                            else if (tankType == ITEM_TYPE_POWER_BOMB)
+                            {
+                                max = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS].powerBomb;
+                                increment = sTankIncreaseAmount[gDifficulty].powerBomb;
+                                newMax = gEquipment.maxPowerBombs + increment;
+                                if ((increment * max) + sStartingHealthAmmo.powerBomb >= newMax)
+                                {
+                                    if (gEquipment.maxPowerBombs == 0x0)
+                                        collectingFirstTank = TRUE;
+
+                                    gEquipment.maxPowerBombs = newMax;
+                                    gEquipment.currentPowerBombs += increment;
+                                }
+                            }
+
+                            messageID = sTankBehaviors[behavior_to_tank(collectionData.behaviors[i])].messageID + collectingFirstTank;
+                            if (messageID != MESSAGE_NONE)
+                            {
+                                SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, messageID, 0x6,
+                                    gSamusData.yPosition, gSamusData.xPosition, 0x0);
+                            }
+                        }
+                    }
+                }
+
+                if (gCollectingTank)
+                    break;
+            }
+        }
+    }
 }
 
 /**
@@ -339,14 +478,125 @@ void BGClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
         SamusSetPose(SPOSE_UPDATE_JUMP_VELOCITY_REQUEST);
 }
 
+/**
+ * @brief 5af20 | 180 | Checks if a hatch should open depending on the CCAA
+ * 
+ * @param xPosition X Position
+ * @param yPosition Y Position
+ * @return u8 Hatch opening action
+ */
 u8 BGClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
 {
+    i32 i;
+    u8 action;
 
+    for (i = 0; i < MAX_AMOUNT_OF_HATCHES; i++)
+    {
+        if (gHatchData[i].exists && !gHatchData[i].opening)
+        {
+            action = HATCH_OPENING_ACTION_NOT_OPENING;
+
+            // Check touches hatch and hatch is weak
+            if (gHatchData[i].xPosition == xPosition && gHatchData[i].yPosition <= yPosition &&
+                yPosition <= gHatchData[i].yPosition + (HATCH_VERTICAL_SIZE - 1) &&
+                sHatchBehaviors[gHatchData[i].type][0] &
+                sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction])
+            {
+                // Increase hits
+                gHatchData[i].hits++;
+                action = HATCH_OPENING_ACTION_OPENING;
+
+                // Check for a special action
+                if (gHatchData[i].type == HATCH_LOCKED)
+                {
+                    // Check hatches are unlocked
+                    if (!gHatchesState.unlocking)
+                        action = HATCH_OPENING_ACTION_LOCKED;
+                }
+                else if (gHatchData[i].type == HATCH_LOCKED_AND_LOCK_DESTINATION)
+                {
+                    if (!gHatchesState.unk)
+                        action = HATCH_OPENING_ACTION_LOCKED;
+                }
+                else if (gHatchData[i].type == HATCH_MISSILE)
+                {
+                    // Check instantly open
+                    if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] & CAA_DAMAGE_TYPE_SUPER_MISSILE)
+                        gHatchData[i].hits = sHatchBehaviors[HATCH_MISSILE][1]; // Set max health
+                }
+            }
+            
+            if (action != HATCH_OPENING_ACTION_NOT_OPENING)
+            {
+                if (action == HATCH_OPENING_ACTION_OPENING)
+                {
+                    // Check enough hits
+                    if (gHatchData[i].hits >= sHatchBehaviors[gHatchData[i].type][1])
+                    {
+                        // Unlock
+                        gHatchData[i].locked = FALSE;
+                        gHatchData[i].opening = TRUE;
+
+                        // Set hatch as opened
+                        if (gHatchData[i].type >= HATCH_MISSILE)
+                            ConnectionSetHatchAsOpened(HATCH_ACTION_SETTING_SOURCE_AND_DESTINATION, gHatchData[i].sourceDoor);
+                        else
+                            ConnectionSetHatchAsOpened(HATCH_ACTION_SETTING_SOURCE, gHatchData[i].sourceDoor);
+                    }
+                    else
+                        gHatchData[i].flashingTimer = 0x1; // Set flashing
+                }
+                else
+                    gHatchData[i].hits = 0x0; // Locked, reset
+
+                gHatchData[i].hitTimer = 0x0;
+                break;
+            }
+        }
+    }
+
+    return action;
 }
 
-void BGClipSetItemAsCollected(u8 xPosition, u8 yPosition, u8 type)
+void BGClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
 {
+    // https://decomp.me/scratch/sixf9
 
+    u8 overLimit;
+    i32 i;
+    u8* pData;
+    struct ItemInfo* pItem;
+    i32 limit;
+
+    if (gCurrentArea > MAX_AMOUNT_OF_AREAS)
+        return;
+    
+    limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
+    overLimit = TRUE;
+    pItem = gItemsCollected[gCurrentArea];
+    i = 0;
+    for (; ; pItem++)
+    {
+        if (i >= limit)
+            break;
+        else if (pItem->room == 0xFF)
+        {
+            overLimit = FALSE;
+            break;
+        }
+        i++;
+    }
+
+    if (!overLimit)
+    {
+        pData = &pItem->room;
+        *pData++ = gCurrentRoom;
+        *pData++ = type;
+        *pData++ = xPosition;
+        *pData++ = yPosition;
+
+        gNumberOfItemsCollected[gCurrentArea]++;
+    }
 }
 
 void BGClipRemoveCollectedTanks(void)

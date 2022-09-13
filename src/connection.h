@@ -7,6 +7,10 @@
 
 // Globals
 
+extern struct HatchesState gHatchesState;
+
+#define MAX_AMOUNT_OF_HATCHES 16
+extern struct HatchData gHatchData[MAX_AMOUNT_OF_HATCHES];
 
 // Defines
 
@@ -46,6 +50,12 @@
 #define HATCH_ACTION_CHECKING_OPENED 0x0
 #define HATCH_ACTION_SETTING_SOURCE_AND_DESTINATION 0x1
 #define HATCH_ACTION_SETTING_SOURCE 0x2
+
+#define HATCH_OPENING_ACTION_NOT_OPENING 0x0
+#define HATCH_OPENING_ACTION_OPENING 0x1
+#define HATCH_OPENING_ACTION_LOCKED 0x2
+
+#define HATCH_VERTICAL_SIZE 4
 
 #define ELEVATOR_ROUTE_NONE 0x0
 #define ELEVATOR_ROUTE_CRATERIA_TO_BRINSTAR 0x1
@@ -89,15 +99,20 @@ struct HatchLockEvent {
 };
 
 struct HatchData {
+    /* 0 */
     u8 exists:1;
     u8 currentAnimationFrame:3;
     i8 facingRight:1;
     u8 padding:3;
+    /* 1 */
     u8 opening:2;
     u8 locked:1;
     u8 unk:1;
-    u8 flashingStatus:3;
-    u8 hits;
+    u8 flashingTimer:4;
+    /* 2 */
+    u8 hitTimer:4;
+    u8 hits:4;
+    /* 3 */
     u8 type;
     u8 animationDurationCounter;
     u8 xPosition;
@@ -109,6 +124,14 @@ struct LastElevatorUsed {
     u16 unused;
     u8 route;
     i8 direction;
+};
+
+struct HatchesState {
+    i8 unlocking;
+    i8 unk;
+    u16 hatchesLockedWithTimer;
+    u16 hatchesLockedWithEvent;
+    u16 unk2;
 };
 
 // Functions

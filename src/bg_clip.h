@@ -2,7 +2,12 @@
 #define BG_CLIP_H
 
 #include "types.h"
+#include "connection.h"
 
+#define MAX_AMOUNT_OF_ITEMS_PER_AREA 64
+
+extern struct ItemInfo gItemsCollected[MAX_AMOUNT_OF_AREAS + 1][MAX_AMOUNT_OF_ITEMS_PER_AREA];
+extern u8 gNumberOfItemsCollected[MAX_AMOUNT_OF_AREAS + 1];
 extern struct LastTank gLastTankCollected;
 
 struct BackgroundPointersAndDimensions {
@@ -27,15 +32,17 @@ struct LastTank {
     u8 yPosition;
 };
 
+struct ItemInfo {
+    u8 room;
+    i8 type;
+    u8 xPosition;
+    u8 yPosition;
+};
+
 struct TankCollectionData {
-    i32 padding[2];
-    i32 behavior[2];
-    i32 yTop;
-    i32 yBottom;
-    i32 yCenter;
-    i32 xRight;
-    i32 xLeft;
-    i32 xCenter;
+    u16 behaviors[4];
+    u16 yPositions[3];
+    u16 xPositions[3];
 };
 
 void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition);
@@ -52,7 +59,7 @@ void BGClipFinishCollectingTank(void);
 void BGClipFinishCollectingAbility(void);
 void BGClipCheckGrabbingCrumnbleBlock(u8 dontDestroy);
 u8 BGClipCheckOpeningHatch(u16 xPosition, u16 yPosition);
-void BGClipSetItemAsCollected(u8 xPosition, u8 yPosition, u8 type);
+void BGClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type);
 void BGClipRemoveCollectedTanks(void);
 void BGClipCallMotherBrainUpdateGlass(u8 stage);
 

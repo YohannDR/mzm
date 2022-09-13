@@ -7,6 +7,7 @@ MEMORY {
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
         . = 0x00035400; unk_02035400 = .;
+        . = 0x00036c00; gItemsCollected = .;
         . = 0x00037e00; gEventsTriggered = .;
         . = 0x00038000; unk_02038000 = .;
         . = 0x00027780; gMakeSolidBlocks = .;
@@ -40,6 +41,7 @@ SECTIONS {
         . = 0x00000056; gLastDoorUsed = .;
         . = 0x00000057; gLastDoorProperties = .;
         . = 0x00000058; gDisplayLocationText = .;
+        . = 0x00000063; gNumberOfItemsCollected = .;
         . = 0x0000006C; gEffectYPosition = .;
         . = 0x0000006E; gEffectYPositionOffset = .;
         . = 0x00000071; gScreenShakeXRelated = .;
@@ -148,6 +150,7 @@ SECTIONS {
         . = 0x00005450; gTilemapAndClipPointers = .;
         . = 0x0000545C; gHatchData = .;
         . = 0x000054E0; gDoorPositionStart = .;
+        . = 0x000054E4; gHatchesState = .;
         . = 0x000054EC; gBG3Movement = .;
         . = 0x000054F4; gBG0Movement = .;
         . = 0x0000550C; gSamusDoorPositionOffset = .;
