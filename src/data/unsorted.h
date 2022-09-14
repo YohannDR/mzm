@@ -2,8 +2,8 @@
 #include "../minimap.h"
 
 // 754bc0
-static VisitedMinimapTilesPointer_T const sVisitedMinimapTilesPointer[1] = {
-    (VisitedMinimapTilesPointer_T)gVisitedMinimapTiles
+static u32* const sVisitedMinimapTilesPointer[1] = {
+    gVisitedMinimapTiles
 };
 
 // 760218
@@ -12,4 +12,12 @@ static const u32 sExploredMinimapBitFlags[32] = {
     0x1000, 0x2000, 0x4000, 0x8000, 0x10000, 0x20000, 0x40000, 0x80000,
     0x100000, 0x200000, 0x400000, 0x800000, 0x1000000, 0x2000000, 0x4000000,
     0x8000000, 0x10000000, 0x20000000, 0x40000000, 0x80000000
+};
+
+// 760298
+static const MinimapFunc_T sMinimapTilesCopyGFXFunctionPointers[4] = {
+    MinimapCopyTileGFX,
+    MinimapCopyTileXFlippedGFX,
+    MinimapCopyTileYFlippedGFX,
+    MinimapCopyTileXYFlippedGFX,
 };

@@ -1,8 +1,7 @@
 #include "samus.h"
-#include "sprite.h"
-#include "clipdata.h"
 #include "music.h"
 #include "../data/data.h"
+#include "data/pointers.h"
 #include "globals.h"
 
 void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, struct SamusPhysics* pPhysics)
@@ -2362,12 +2361,9 @@ u8 SamusTurningAroundGFX(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 samus_shooting_gfx(struct SamusData* pData)
+u8 SamusShootingGFX(struct SamusData* pData)
 {
-    u8 unk;
-
-    unk = SamusUpdateAnimation(pData, FALSE);
-    if (unk == 0x2)
+    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_STANDING;
     else
         return SPOSE_NONE;
@@ -2812,7 +2808,7 @@ u8 SamusSpaceJumpingGFX(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusCrewAttackingGFX(struct SamusData* pData)
+u8 SamusScrewAttackingGFX(struct SamusData* pData)
 {
 
 }
@@ -3428,7 +3424,7 @@ u8 SamusSavingLoadingGame(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusTurningAround_to_download_map_data_gfx(struct SamusData* pData)
+u8 SamusTurningAroundToDownloadMapData(struct SamusData* pData)
 {
     u8 anim_state;
 
@@ -3694,9 +3690,9 @@ u8 SamusExecutePoseSubroutine(struct SamusData* pData)
 
         SamusSetSpinningPose(pData, pEquipment);
         samus_spawn_newProjectile(pData, pWeapon, pEquipment);
-        samus_pose_functions_pointers[pData->pose](pData);
+        pose = sSamusPoseFunctionPointers[pData->pose](pData);
         if (pose == SPOSE_NONE)
-            samus_pose_gfx_functions_pointers[pData->pose](pData);
+            sSamusPoseGFXFunctionPointers[pData->pose](pData);
         SamusCheckShinesparking(pData);
     }
 

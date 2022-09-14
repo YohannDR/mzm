@@ -23,6 +23,7 @@ SECTIONS {
         . = 0x00000002; gFrameCounter16Bit = .;
         . = 0x00000004; gStereoFlag = .;
         . = 0x0000000A; gWrittenToDISPCNT = .;
+        . = 0x00000020; gLanguage = .;
         . = 0x00000029; gMonochromeBGFading = .;
         . = 0x0000002A; gWhichBGPositionIsWrittenToBG3OFS = .;
         . = 0x0000002B; gSamusOnTopOfBackgrounds = .;
@@ -110,6 +111,8 @@ SECTIONS {
         . = 0x00000BEC; gArmCannonY = .;
         . = 0x00000BEE; gArmCannonX = .;
         . = 0x00000bf0; gPauseScreenFlag = .;
+        . = 0x00000bf0; gAreaBeforeTransition = .;
+        . = 0x00000c08; gLastAreaNameVisited = .;
         . = 0x00000c1c; gSRAMCorruptFlag = .;
         . = 0x00000c70; gMainGameMode = .;
         . = 0x00000c72; gGameModeSub1 = .;

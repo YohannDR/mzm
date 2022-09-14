@@ -373,22 +373,9 @@ extern u16 bldalpha_values_for_clipdata[11];
 
 extern u8 blob_0x8345cde_0x875e6a7[4295113];
 
-/* samus_pointers_data.c */
-
-extern SamusFunc_T samus_pose_functions_pointers[67];
-extern SamusFunc_T samus_pose_gfx_functions_pointers[67];
-
-/* primary_sprite_pointers.c */
-
-Func_T sPrimarySpritesAIPointers[206];
-
 /* blob_0x875ebf8_0x875f1e7.c */
 
 extern u8 blob_0x875ebf8_0x875f1e7[1520];
-
-/* secondary_sprites_pointers.c */
-
-Func_T sSecondarySpritesAIPointers[77];
 
 /* blob_0x875f31c_0x875f973.c */
 

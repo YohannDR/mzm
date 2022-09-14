@@ -49,6 +49,10 @@ enum Difficulty {
     DIFF_HARD = 0x2
 };
 
+#define LANGUAGE_JAPANESE 0x0
+#define LANGUAGE_HIRAGANA 0x1
+#define LANGUAGE_ENGLISH 0x2
+
 // Temporary place
 
 #define CUTSCENE_NONE 0x0
@@ -77,6 +81,16 @@ struct InGameTimer {
 extern struct InGameTimer gInGameTimer;
 extern struct InGameTimer gInGameTimerAtBosses[5];
 
+union TileData {
+    struct {
+        u32 tile:10;
+        u32 flip:2;
+        u32 palette:4;
+    } split;
+
+    u16 all;
+};
+
 ///
 
 extern u8 unk_02038000[];
@@ -91,6 +105,7 @@ extern u8 gMonochromeBGFading;
 extern u8 gWhichBGPositionIsWrittenToBG3OFS;
 extern u8 gSamusOnTopOfBackgrounds;
 extern u8 gDifficulty;
+extern i8 gLanguage;
 extern u8 gUseMotherShip;
 extern u8 gResetGame;
 extern u8 gDisableScrolling;
@@ -104,6 +119,7 @@ extern u8 gShipLandingFlag;
 extern u8 gDisableClipdataChangingTransparency;
 extern i8 gDisableAnimatedPalette;
 extern u8 gCurrentArea;
+extern u8 gAreaBeforeTransition;
 extern u8 gCurrentRoom;
 extern u8 gLastDoorUsed;
 extern u8 gLastDoorProperties;

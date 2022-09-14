@@ -5,6 +5,8 @@
 #include "oam.h"
 #include "game_modes.h"
 
+#define MAX_AMOUNT_OF_SAMUS_POSES 67
+
 // Globals
 
 extern struct SamusData gSamusData;
@@ -427,7 +429,7 @@ u8 SamusSpinningGFX(struct SamusData* pData);
 u8 SamusStartingWallJump(struct SamusData* pData);
 u8 SamusStartingWallJumpGFX(struct SamusData* pData);
 u8 SamusSpaceJumpingGFX(struct SamusData* pData);
-u8 SamusCrewAttackingGFX(struct SamusData* pData);
+u8 SamusScrewAttackingGFX(struct SamusData* pData);
 u8 SamusMorphing(struct SamusData* pData);
 u8 SamusMorphingGFX(struct SamusData* pData);
 u8 SamusMorphball(struct SamusData* pData);

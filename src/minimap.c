@@ -2,9 +2,19 @@
 #include "globals.h"
 #include "data/unsorted.h"
 
+/**
+ * @brief 6c154 | 24 | Updates the minimap
+ * 
+ */
 void MinimapUpdate(void)
 {
-    
+    MinimapCheckForUnexploredTile();
+    if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_LOWER_LINE)
+    {
+        MinimapSetTileAsExplored();
+        MinimapUpdateForExploredTiles();
+    }
+    MinimapDraw();
 }
 
 /**
@@ -16,8 +26,8 @@ void MinimapSetTileAsExplored(void)
     u32 offset;
     if (!gShipLandingFlag)
     {
-        offset = gCurrentArea * MINIMAP_SIZE + gMinimapY;
-        (*sVisitedMinimapTilesPointer[0])[offset] |= sExploredMinimapBitFlags[gMinimapX];
+        offset = gCurrentArea * 32 + gMinimapY; 
+        sVisitedMinimapTilesPointer[0][offset] |= sExploredMinimapBitFlags[gMinimapX];
     }
 }
 
@@ -86,19 +96,153 @@ void MinimapCheckForUnexploredTile(void)
     }
 }
 
+/**
+ * @brief 6c474 | a4 | Updates the minimap when taking a transition
+ * 
+ */
 void MinimapCheckOnTransition(void)
 {
+    if (gAreaBeforeTransition != gCurrentArea)
+    {
+        // New area
+        MinimapCheckSetAreaNameAsExplored(FALSE);
 
+        // Get new minimap
+        gAreaBeforeTransition = gCurrentArea;
+        get_minimap_data(gAreaBeforeTransition, gDecompressedMinimapData); // Undefined
+
+        dma_set(3, gDecompressedMinimapData, gDecompressedMinimapVisitedTiles, (DMA_ENABLE << 16) | MINIMAP_SIZE * MINIMAP_SIZE);
+
+        MinimapCheckSetAreaNameAsExplored(TRUE);
+        MinimapSetDownloadedTiles(gAreaBeforeTransition, gDecompressedMinimapVisitedTiles);
+
+        // Clear coords
+        gMinimapX = 0xFF;
+        gMinimapY = 0xFF;
+    }
+
+    // Check for transition tile
+    gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_NONE;
+    MinimapCheckForUnexploredTile();
+
+    if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_LOWER_LINE)
+    {
+        MinimapSetTileAsExplored();
+        MinimapUpdateForExploredTiles();
+    }
+
+    // Full redraw
+    gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_UPPER_LINE;
+    MinimapDraw();
+
+    gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_MIDDLE_LINE;
+    MinimapDraw();
+
+    gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_LOWER_LINE;
+    MinimapDraw();
 }
 
 void MinimapUpdateForExploredTiles(void)
 {
+    // https://decomp.me/scratch/adSdZ
 
+    u32 offset;
+    u32 tile;
+    u16* map;
+    u16* tiles;
+
+    if (!gShipLandingFlag)
+    {
+        offset = gMinimapX + gMinimapY * MINIMAP_SIZE;
+        tiles = gDecompressedMinimapVisitedTiles + offset;
+        
+        if (!(*tiles & 0xF000))
+        {
+            map = gDecompressedMinimapData + offset;
+            if (*map & 0xF000)
+                *tiles = *map;
+            else
+                *tiles = *map | 0x1000;
+
+            tile = (*map & 0x3FF) - 0x141;
+            if (tile < 0x4)
+            {
+                gLastAreaNameVisited.flags = TRUE;
+                gLastAreaNameVisited.area = gCurrentArea;
+                gLastAreaNameVisited.mapX = gMinimapX + 0x1;
+                gLastAreaNameVisited.mapY = gMinimapY + 0x1;
+            }
+        }
+    }
 }
 
 void MinimapDraw(void)
 {
+    // https://decomp.me/scratch/DE4B1
 
+    i32 yOffset;
+    i32 xOffset;
+    i32 xPosition;
+    i32 yPosition;
+    u32 limit;
+    u32* dst;
+    u16 rawTile;
+    u8 flag;
+    u16 tile;
+    u8 palette;
+    u32 flip;
+    u16* src;
+
+    if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_NONE)
+        return;
+    
+    src = gDecompressedMinimapVisitedTiles;
+    flag = gUpdateMinimapFlag;
+    dst = gMinimapTilesGFX + (flag - 1) * 24;
+
+    if (flag == MINIMAP_UPDATE_FLAG_LOWER_LINE)
+        yOffset = 0x1;
+    else if (flag == MINIMAP_UPDATE_FLAG_MIDDLE_LINE)
+        yOffset = 0x0;
+    else if (flag == MINIMAP_UPDATE_FLAG_UPPER_LINE)
+        yOffset = -0x1;
+    else
+    {
+        gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_NONE;
+        return;
+    }
+
+    for (xOffset = -0x1; xOffset < 0x2;)
+    {
+        limit = 0x1F;
+        xPosition = gMinimapX + xOffset;
+        if (xPosition > limit)
+            xPosition = -0x1;
+
+        yPosition = gMinimapY + yOffset;
+        if (yPosition > limit)
+            yPosition = -0x1;
+
+        if (yPosition < 0x0 || xPosition < 0x0)
+        {
+            xPosition = limit;
+            yPosition = limit;
+        }
+
+        rawTile = src[yPosition * MINIMAP_SIZE + xPosition];
+        flip = (rawTile & 0xC00) >> 0xA;
+        palette = rawTile >> 0xC;
+        tile = rawTile & 0x3ff;
+        
+        if (gLanguage == LANGUAGE_HIRAGANA && tile > 0x140)
+            tile += 0x20;
+
+        tile <<= 0x5;
+        sMinimapTilesCopyGFXFunctionPointers[flip](dst, &tile, palette);
+
+        xOffset++;
+        dst += 0x8;
+    }
 }
 
 void MinimapCopyTileGFX(u32* dst, u16* pTile, u8 palette)
@@ -123,7 +267,42 @@ void MinimapCopyTileXYFlippedGFX(u32* dst, u16* pTile, u8 palette)
 
 void MinimapSetTilesWithObtainedItems(u8 area, u16* dst)
 {
+    // https://decomp.me/scratch/Eree5
 
+    u32* src;
+    u32* src2;
+    u16* pDecomp;
+    u32 tile;
+    u32 tempTile;
+    i32 i;
+    i32 j;
+    u32 temp;
+
+    if (area >= MAX_AMOUNT_OF_AREAS)
+        return;
+
+    src = gMinimapTilesWithObtainedItems + area * MINIMAP_SIZE;
+
+    for (i = 0; i < MINIMAP_SIZE;)
+    {
+        tile = *src++;
+        temp = i + 1;
+        src2 = src;
+        if (tile)
+        {
+            tempTile = tile;
+            for (j = 0; j < MINIMAP_SIZE && tempTile; j++)
+            {
+                if (tempTile & sExploredMinimapBitFlags[j])
+                {
+                    tempTile ^= sExploredMinimapBitFlags[j];
+                    dst[i * MINIMAP_SIZE + j]++;
+                }
+            }
+        }
+        i = temp;
+        src = src2;
+    }
 }
 
 void MinimapSetDownloadedTiles(u8 area, u16* dst)
@@ -163,9 +342,32 @@ void MinimapUpdateForCollectedItem(u8 xPosition, u8 yPosition)
     }
 }
 
+/**
+ * @brief 6cc68 | 64 | Checks if a minimap has been explored
+ * 
+ * @param xPosition X Position
+ * @param yPosition Y Position
+ * @return u32 Explored bit flag
+ */
 u32 MinimapCheckIsTileExplored(u8 xPosition, u8 yPosition)
 {
+    u32 mapX;
+    u32 mapY;
+    u32 offset;
+    u32* ptr;
+    u32 tileOffset;
 
+    if (gCurrentArea >= MAX_AMOUNT_OF_AREAS)
+        return 1;
+    else
+    {
+        offset = gCurrentArea * MINIMAP_SIZE;
+        mapX = (xPosition - 0x2) / 0xF + gCurrentRoomEntry.mapX;
+        mapY = (yPosition - 0x2) / 0xA + gCurrentRoomEntry.mapY;
+
+        tileOffset = mapY + offset;
+        return sVisitedMinimapTilesPointer[0][tileOffset] & sExploredMinimapBitFlags[mapX];
+    }
 }
 
 void MinimapLoadTilesWithObtainedItems(void)

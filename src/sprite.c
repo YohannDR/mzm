@@ -3,8 +3,8 @@
 #include "sprite_debris.h"
 #include "sprite_util.h"
 #include "syscalls.h"
-#include "sprites_AI/space_pirate.h"
 #include "gba.h"
+#include "data/pointers.h"
 #include "../data/data.h"
 #include "globals.h"
 
@@ -315,7 +315,7 @@ void SpriteLoadSpriteset(void)
 void SpriteLoadGFX(u8 spriteID, u8 gfx_row)
 {
     spriteID -= 0x10;
-    // LZ77UncompVRAM(sprites_gfx_pointers[spriteID], VRAM_BASE + 0x14000 + (gfx_row * 0x800));
+    LZ77UncompVRAM(sSpritesGraphicsPointers[spriteID], VRAM_BASE + 0x14000 + (gfx_row * 0x800));
 }
 
 /**
@@ -330,7 +330,7 @@ void SpriteLoadPAL(u8 spriteID, u8 row, u8 len)
 {
     spriteID -= 0x10;
 
-    // dma_set(3, sprites_pal_pointers[spriteID], PALRAM_BASE + 0x300 + (gfx_row * 0x20), DMA_ENABLE | len << 0x4);
+    dma_set(3, sSpritesPalettePointers[spriteID], PALRAM_BASE + 0x300 + (row * 0x20), DMA_ENABLE | len << 0x4);
 }
 
 void SpriteClearData(void)
