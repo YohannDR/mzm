@@ -6,8 +6,10 @@
 
 #define MAX_AMOUNT_OF_ITEMS_PER_AREA 64
 
-extern struct ItemInfo gItemsCollected[MAX_AMOUNT_OF_AREAS + 1][MAX_AMOUNT_OF_ITEMS_PER_AREA];
-extern u8 gNumberOfItemsCollected[MAX_AMOUNT_OF_AREAS + 1];
+extern struct ItemInfo gItemsCollected[MAX_AMOUNT_OF_AREAS][MAX_AMOUNT_OF_ITEMS_PER_AREA];
+extern u8 gNeverReformBlocks[MAX_AMOUNT_OF_AREAS][512];
+extern u8 gNumberOfNeverReformBlocks[MAX_AMOUNT_OF_AREAS];
+extern u8 gNumberOfItemsCollected[MAX_AMOUNT_OF_AREAS];
 extern struct LastTank gLastTankCollected;
 
 struct BackgroundPointersAndDimensions {

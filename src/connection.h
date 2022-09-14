@@ -14,7 +14,7 @@ extern struct HatchData gHatchData[MAX_AMOUNT_OF_HATCHES];
 
 // Defines
 
-#define MAX_AMOUNT_OF_AREAS 7
+#define MAX_AMOUNT_OF_AREAS 8
 #define MAX_AMOUNT_OF_HATCH_TYPES 8
 
 #define AREA_BRINSTAR 0x0

@@ -239,9 +239,39 @@ u8 BlockDestroySquareBlock(struct ClipdataBlockData* pClipBlock)
     return TRUE;
 }
 
-u8 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
+u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
 {
+    // https://decomp.me/scratch/wIffo
 
+    u32 overLimit;
+    u8* pBlock;
+    i32 i;
+
+    if (gCurrentArea >= MAX_AMOUNT_OF_AREAS)
+        return FALSE;
+    else if (xPosition * yPosition == 0x0)
+        return FALSE;
+
+    overLimit = TRUE;
+    pBlock = gNeverReformBlocks[gCurrentArea];
+    i = gNumberOfNeverReformBlocks[gCurrentArea] * 2;
+
+    for (; i < 0x1FC; i += 2)
+    {
+        if (pBlock[i] == 0xFF)
+        {
+            overLimit = FALSE;
+            break;
+        }
+    }
+
+    if (!overLimit)
+    {
+        pBlock[i++] = xPosition;
+        pBlock[i] = yPosition;
+    }
+
+    return overLimit;
 }
 
 void BlockRemoveNeverReformBlocks(void)

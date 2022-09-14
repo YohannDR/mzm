@@ -141,7 +141,7 @@ u32 BlockDestroyNonReformBlock(struct ClipdataBlockData* pClipBlock);
 u8 BlockDestroyBombChainBlock(struct ClipdataBlockData* pClipBlock);
 u8 BlockDestroySingleBreakableBlock(struct ClipdataBlockData* pClipBlock);
 u8 BlockDestroySquareBlock(struct ClipdataBlockData* pClipBlock);
-u8 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition);
+u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition);
 void BlockRemoveNeverReformBlocks(void);
 void BlockRemoveNeverReformSingleBlock(u16 xPosition, u16 yPosition);
 void BlockShiftNeverReformBlocks(void);

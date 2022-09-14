@@ -409,7 +409,7 @@ void BGClipFinishCollectingTank(void)
 
 void BGClipFinishCollectingAbility(void)
 {
-    BGClipSetItemAsCollected(gSamusData.xPosition >> 0x6, gSamusData.yPosition >> 0x6, 0x80);
+    BGClipSetItemAsCollected(gSamusData.xPosition >> 0x6, gSamusData.yPosition >> 0x6, ITEM_TYPE_ABILITY);
     update_minimap_square_for_collected_items((u8)(gSamusData.xPosition >> 0x6), (u8)(gSamusData.yPosition >> 0x6));
 }
 
@@ -564,22 +564,22 @@ void BGClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
 
     u8 overLimit;
     i32 i;
-    u8* pData;
-    struct ItemInfo* pItem;
+    u8* pItem;
     i32 limit;
 
     if (gCurrentArea > MAX_AMOUNT_OF_AREAS)
         return;
-    
+
+    i = gCurrentArea;
     limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
     overLimit = TRUE;
-    pItem = gItemsCollected[gCurrentArea];
+    pItem = (u8*)gItemsCollected[i];
     i = 0;
-    for (; ; pItem++)
+    for (; ; pItem += 4)
     {
         if (i >= limit)
             break;
-        else if (pItem->room == 0xFF)
+        else if (pItem[0] == 0xFF)
         {
             overLimit = FALSE;
             break;
@@ -589,11 +589,10 @@ void BGClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
 
     if (!overLimit)
     {
-        pData = &pItem->room;
-        *pData++ = gCurrentRoom;
-        *pData++ = type;
-        *pData++ = xPosition;
-        *pData++ = yPosition;
+        *pItem++ = gCurrentRoom;
+        *pItem++ = type;
+        *pItem++ = xPosition;
+        *pItem++ = yPosition;
 
         gNumberOfItemsCollected[gCurrentArea]++;
     }
@@ -601,7 +600,47 @@ void BGClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
 
 void BGClipRemoveCollectedTanks(void)
 {
+    // https://decomp.me/scratch/RQGNU
 
+    struct ItemInfo* pItem;
+    i32 i;
+    i32 limit;
+    i32 position;
+    u32 behavior;
+    u32 temp;
+
+    if (gPauseScreenFlag == PAUSE_SCREEN_NONE && gCurrentArea < MAX_AMOUNT_OF_AREAS)
+    {
+        i = gCurrentArea;
+        limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
+        pItem = gItemsCollected[i];
+        i = 0;
+
+        for (; i < limit; pItem++)
+        {
+            if (pItem->room == 0xFF)
+                return;
+            
+            if (pItem->room == gCurrentRoom && pItem->type >= 0)
+            {
+                position = gBGPointersAndDimensions.clipdataWidth * pItem->yPosition + pItem->xPosition;
+
+                behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[position]] - CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK;
+                if (behavior <= behavior_to_tank(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK))
+                {
+                    gBGPointersAndDimensions.pClipDecomp[position] = 0x43C;
+                    gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0x0;
+                }
+                else
+                {
+                    gBGPointersAndDimensions.pClipDecomp[position] = 0x0;
+                    gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0x0;
+                }
+            }
+
+            i++;
+        }
+    }
 }
 
 void BGClipCallMotherBrainUpdateGlass(u8 stage)

@@ -6,7 +6,7 @@
 #include "../types.h"
 #include "../sprites_AI/item_banner.h"
 
-static const struct TankList sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS + 1] = {
+static const struct TankList sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS] = {
     [AREA_BRINSTAR] = {
         .energy = 3,
         .missile = 10,
