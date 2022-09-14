@@ -6,11 +6,16 @@ MEMORY {
 
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
+        . = 0x00027780; gMakeSolidBlocks = .;
         . = 0x00035400; unk_02035400 = .;
+        . = 0x00027780; gMakeSolidBlocks = .;
+        . = 0x00033800; gMinimapTilesWithObtainedItems = .;
         . = 0x00036c00; gItemsCollected = .;
+        . = 0x00037400; gVisitedMinimapTiles = .;
+        . = 0x00034000; gDecompressedMinimapVisitedTiles = .;
+        . = 0x00034800; gDecompressedMinimapData = .;
         . = 0x00037e00; gEventsTriggered = .;
         . = 0x00038000; unk_02038000 = .;
-        . = 0x00027780; gMakeSolidBlocks = .;
     } >ewram
 
     iwram (NOLOAD) : ALIGN(4) {
@@ -34,6 +39,7 @@ SECTIONS {
         . = 0x00000048; gDisableDoorAndTanks = .;
         . = 0x00000049; gDisablePause = .;
         . = 0x0000004A; gHideHud = .;
+        . = 0x0000004B; gShipLandingFlag = .;
         . = 0x0000004C; gDisableClipdataChangingTransparency = .;
         . = 0x0000004D; gDisableAnimatedPalette = .;
         . = 0x00000054; gCurrentArea = .;
@@ -41,6 +47,8 @@ SECTIONS {
         . = 0x00000056; gLastDoorUsed = .;
         . = 0x00000057; gLastDoorProperties = .;
         . = 0x00000058; gDisplayLocationText = .;
+        . = 0x00000059; gMinimapX = .;
+        . = 0x0000005A; gMinimapY = .;
         . = 0x00000063; gNumberOfItemsCollected = .;
         . = 0x0000006C; gEffectYPosition = .;
         . = 0x0000006E; gEffectYPositionOffset = .;
@@ -86,6 +94,7 @@ SECTIONS {
         . = 0x0000080C; gBossWork = .;
         . = 0x0000083C; gSpriteRNG = .;
         . = 0x00000840; gParticleEffects = .;
+        . = 0x00000903; gUpdateMinimapFlag = .;
         . = 0x00000918; gCurrentParticleEffectOAMFramePointer = .;
         . = 0x0000095C; gCurrentEscapeStatus = .;
         . = 0x0000095D; gEscapeTimerCounter = .;

@@ -3525,7 +3525,7 @@ void RidleyDying(void)
             // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_KILLED);
             // Update minimap
-            update_minimap_chunk(EVENT_RIDLEY_KILLED);
+            MinimapUpdateChunk(EVENT_RIDLEY_KILLED);
             MusicPlay(MUSIC_BOSS_KILLED, 0x0);
         }
         else if (gCurrentSprite.workVariable == 0x95)

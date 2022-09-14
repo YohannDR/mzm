@@ -100,6 +100,7 @@ extern u8 gDisableSoftreset;
 extern u8 gDisableDoorAndTanks;
 extern i8 gCollectingTank;
 extern u8 gDisablePause;
+extern u8 gShipLandingFlag;
 extern u8 gDisableClipdataChangingTransparency;
 extern i8 gDisableAnimatedPalette;
 extern u8 gCurrentArea;

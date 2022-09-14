@@ -1292,7 +1292,7 @@ void GunshipCheckEscapeZebes(void)
 
         // Set event and update minimap
         EventFunction(EVENT_ACTION_SETTING, EVENT_ESCAPED_ZEBES);
-        update_minimap_chunk(EVENT_ESCAPED_ZEBES);
+        MinimapUpdateChunk(EVENT_ESCAPED_ZEBES);
         SoundFade(0x120, 0x3C);
         MusicUpdatePriority(0x0);
     }

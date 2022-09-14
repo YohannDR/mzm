@@ -4058,7 +4058,7 @@ void KraidDyingInit(void)
     gCurrentSprite.invicibilityStunFlashTimer = 0x8;
     gCurrentSprite.drawOrder = 0xC;
     EventFunction(EVENT_ACTION_SETTING, EVENT_KRAID_KILLED);
-    update_minimap_chunk(EVENT_KRAID_KILLED); // Undefined
+    MinimapUpdateChunk(EVENT_KRAID_KILLED);
     SoundPlay(0x1D0);
 }
 
