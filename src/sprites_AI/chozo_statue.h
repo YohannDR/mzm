@@ -3,12 +3,6 @@
 
 #include "../types.h"
 
-extern const struct FrameData sChozoBallOAM_NormalClosed[5];
-
-extern const struct FrameData sChozoBallOAM_NormalRevealing[4];
-
-extern const struct FrameData sChozoBallOAM_NormalRevealed[5];
-
 #define CHOZO_STATUE_BEHAVIOR_ITEM 0x0
 #define CHOZO_STATUE_BEHAVIOR_REFILL 0x1
 #define CHOZO_STATUE_BEHAVIOR_HINT 0x2
@@ -60,6 +54,26 @@ extern const struct FrameData sChozoBallOAM_NormalRevealed[5];
 #define CHOZO_BALL_POSE_IDLE 0x9
 #define CHOZO_BALL_POSE_GETTING 0x23
 #define CHOZO_BALL_POSE_REVEALING 0x67
+
+
+extern const struct FrameData sChozoStatuePartOAM_LegStanding[2];
+extern const struct FrameData sChozoStatuePartOAM_LegSitting[10];
+extern const struct FrameData sChozoStatuePartOAM_LegSeated[2];
+extern const struct FrameData sChozoStatueOAM_Idle[2];
+extern const struct FrameData sChozoStatuePartOAM_EyeOpened[2];
+extern const struct FrameData sChozoStatuePartOAM_EyeClosing[3];
+extern const struct FrameData sChozoStatuePartOAM_EyeOpening[3];
+extern const struct FrameData sChozoStatuePartOAM_EyeClosed[2];
+extern const struct FrameData sChozoStatuePartOAM_ArmIdle[2];
+extern const struct FrameData sChozoStatuePartOAM_ArmGlow[9];
+extern const struct FrameData sChozoStatuePartOAM_ArmSamusGrabbed[2];
+extern const struct FrameData sChozoBallOAM_NormalClosed[5];
+extern const struct FrameData sChozoBallOAM_NormalRevealing[4];
+extern const struct FrameData sChozoBallOAM_NormalRevealed[5];
+extern const struct FrameData sChozoStatueRefillOAM[41];
+extern const struct FrameData sChozoStatuePartOAM_GlowIdle[41];
+
+
 
 void ChozoStatueSyncSubSprites(void);
 void ChozoStatueRegisterItem(u8 spriteID);

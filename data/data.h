@@ -81,6 +81,8 @@
 #include "../src/sprites_AI/searchlight_eye.h"
 #include "../src/sprites_AI/steam.h"
 #include "../src/sprites_AI/unknown_item_block.h"
+#include "../src/sprites_AI/unknown_item_chozo_statue.h"
+#include "../src/sprites_AI/chozo_ball.h"
 #include "../src/sprites_AI/gadora.h"
 #include "../src/sprites_AI/searchlight.h"
 #include "../src/sprites_AI/primary_sprite_B3.h"

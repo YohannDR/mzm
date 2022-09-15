@@ -1,5 +1,6 @@
 #include "chozo_statue.h"
 #include "unknown_item_chozo_statue.h"
+#include "../data/pointers.h"
 #include "../../data/data.h"
 #include "../globals.h"
 
@@ -914,9 +915,31 @@ const u32 sChozoStatueVariaGFX[1378];
 const u16 sChozoStatueVariaPAL[80];
 
 
+/**
+ * @brief 13850 | 88 | Synchronize the sub sprites of a chozo statue
+ * 
+ */
 void ChozoStatueSyncSubSprites(void)
 {
+    u16 (*pData)[3];
+    u32 offset;
 
+    pData = (u16(*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
+    offset = pData[gCurrentSprite.roomSlot][0];
+    
+    if (gCurrentSprite.pOam != sChozoStatueFrameDataPointers[offset])
+    {
+        gCurrentSprite.pOam = sChozoStatueFrameDataPointers[offset];
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+    }
+
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][2];
+    else
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][2];
 }
 
 /**

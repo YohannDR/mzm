@@ -19,6 +19,6 @@ void MorphBallLauncherDetectBomb(void);
 void MorphBallLauncherDelayBeforeLaunching(void);
 void MorphBallLauncherLaunchSamus(void);
 void MorphBallLauncher(void);
-void MorphBallLauncherBack(void);
+void MorphBallLauncherPart(void);
 
 #endif /* MORPH_BALL_LAUNCHER_AI_H */
