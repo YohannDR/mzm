@@ -7,15 +7,15 @@
 
 // Globals
 
-extern struct HatchesState gHatchesState;
-
 #define MAX_AMOUNT_OF_HATCHES 16
-extern struct HatchData gHatchData[MAX_AMOUNT_OF_HATCHES];
-
-// Defines
-
 #define MAX_AMOUNT_OF_AREAS 8
 #define MAX_AMOUNT_OF_HATCH_TYPES 8
+
+extern struct HatchesState gHatchesState;
+extern struct HatchData gHatchData[MAX_AMOUNT_OF_HATCHES];
+extern u32 gHatchesOpened[MAX_AMOUNT_OF_AREAS][8];
+
+// Defines
 
 #define AREA_BRINSTAR 0x0
 #define AREA_KRAID 0x1
@@ -145,7 +145,7 @@ u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition);
 u8 ConnectionCheckAreaConnection(u16 yPosition, u16 xPosition);
 void ConnectionProcessDoorType(u8 type);
 u8 ConnectionFindEventBasedDoor(u8 sourceDoor);
-u8 ConnectionSetHatchAsOpened(u8 action, u8 hatch);
+u32 ConnectionSetHatchAsOpened(u8 action, u8 hatch);
 void ConnectionCheckUnlockDoors(void);
 void ConnectionStartLockAnimation(u8 dontSetRaw, u8 hatch, u8 status);
 void ConnectionLockHatches(u8 isEvent);

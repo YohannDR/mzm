@@ -13,6 +13,7 @@ SECTIONS {
         . = 0x00035400; unk_02035400 = .;
         . = 0x00036c00; gItemsCollected = .;
         . = 0x00037400; gVisitedMinimapTiles = .;
+        . = 0x00037c00; gHatchesOpened = .;
         . = 0x00037e00; gEventsTriggered = .;
         . = 0x00038000; unk_02038000 = .;
     } >ewram

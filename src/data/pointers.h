@@ -827,6 +827,6 @@ static const struct Door* sAreaDoorsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
     [AREA_CHOZODIA] = sTourianDoors
 };
 
-// 75faa8
+// 75fac4
 
 #endif

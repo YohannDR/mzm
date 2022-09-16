@@ -1,6 +1,7 @@
 #include "connection.h"
 #include "globals.h"
-#include "data/doors.h"
+#include "data/pointers.h"
+#include "data/hatch_data.h"
 #include "bg_clip.h"
 
 void ConnectionUpdateOpeningClosingHatches(void)
@@ -194,9 +195,41 @@ u8 ConnectionFindEventBasedDoor(u8 sourceRoom)
 
 }
 
-u8 ConnectionSetHatchAsOpened(u8 action, u8 hatch)
+u32 ConnectionSetHatchAsOpened(u8 action, u8 hatch)
 {
+    // https://decomp.me/scratch/3q3rr
 
+    u32* pHatch;
+    u32 closed;
+    u32 doorBit;
+    u32 chunk;
+    u32 mask;
+    struct Door currDoor;
+
+    pHatch = gHatchesOpened[gCurrentArea];
+    closed = FALSE;
+    chunk = hatch / 32;
+    doorBit = hatch & 31;
+
+    if (action != HATCH_ACTION_CHECKING_OPENED)
+    {
+        pHatch[chunk] &= ~(1 << doorBit);
+        if (action == HATCH_ACTION_SETTING_SOURCE_AND_DESTINATION)
+        {
+            currDoor = sAreaDoorsPointers[gCurrentArea][hatch];
+            chunk = currDoor.destinationDoor / 32;
+            doorBit = currDoor.destinationDoor & 31;
+            pHatch[chunk] &= ~(1 << doorBit);
+        }
+    }
+    else
+    {
+        closed = pHatch[chunk] & (1 << doorBit);
+        if (closed)
+            closed = TRUE;
+    }
+
+    return closed;
 }
 
 void ConnectionCheckUnlockDoors(void)
@@ -219,9 +252,15 @@ void ConnectionLoadDoors(void)
 
 }
 
+/**
+ * @brief 5f5b4 | 24 | Locks the hatches (using Door Unlock Timer)
+ * 
+ */
 void ConnectionLockHatchesWithTimer(void)
 {
-
+    gHatchesState.hatchesLockedWithTimer = 0xFFFF;
+    ConnectionLockHatches(FALSE);
+    gDoorUnlockTimer = 0x2;
 }
 
 void ConnectionCheckHatchLockEvents(void)
