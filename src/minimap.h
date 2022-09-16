@@ -13,7 +13,7 @@ extern u16 gDecompressedMinimapData[MINIMAP_SIZE * MINIMAP_SIZE];
 extern u8 gMinimapX;
 extern u8 gMinimapY;
 extern u8 gUpdateMinimapFlag;
-extern u32 gMinimapTilesGFX[5][24];
+extern u32 gMinimapTilesGFX[5 * 24];
 
 extern struct LastAreaName gLastAreaNameVisited;
 

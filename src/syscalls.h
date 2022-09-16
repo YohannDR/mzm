@@ -62,8 +62,8 @@ void CPUFastSet(void *src, void *dst, u16 size);
 void CPUSet(void *src, void *dst, u16 size);
 i32 DivarmDiv(i32 number, i32 denom);
 i32 DivarmMod(i32 denom, i32 number);
-void LZ77UncompVRAM(void *src, void *dst);
-void LZ77UncompWRAM(void *src, void *dst);
+void LZ77UncompVRAM(const void *src, void *dst);
+void LZ77UncompWRAM(const void *src, void *dst);
 u32 Midikey2Freq(struct wavedata *wd, u8 mk, u8 fp);
 int Multiboot(void *mbp); /* TODO: proper struct */
 void SoundBias0(void);

@@ -7,13 +7,12 @@ MEMORY {
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
         . = 0x00027780; gMakeSolidBlocks = .;
-        . = 0x00035400; unk_02035400 = .;
-        . = 0x00027780; gMakeSolidBlocks = .;
         . = 0x00033800; gMinimapTilesWithObtainedItems = .;
-        . = 0x00036c00; gItemsCollected = .;
-        . = 0x00037400; gVisitedMinimapTiles = .;
         . = 0x00034000; gDecompressedMinimapVisitedTiles = .;
         . = 0x00034800; gDecompressedMinimapData = .;
+        . = 0x00035400; unk_02035400 = .;
+        . = 0x00036c00; gItemsCollected = .;
+        . = 0x00037400; gVisitedMinimapTiles = .;
         . = 0x00037e00; gEventsTriggered = .;
         . = 0x00038000; unk_02038000 = .;
     } >ewram

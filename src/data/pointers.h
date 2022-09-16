@@ -1,3 +1,6 @@
+#ifndef POINTERS_DATA
+#define POINTERS_DATA
+
 #include "../types.h"
 #include "../samus.h"
 #include "../projectile.h"
@@ -810,3 +813,5 @@ static const ParticleFunc_T sProcessParticleFunctionPointers[61] = {
     [PE_CHARGING_BEAM] = ParticleChargingBeam,
     [PE_ESCAPE] = ParticleEscape,
 };
+
+#endif
