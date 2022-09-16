@@ -1,5 +1,6 @@
 #include "tangle_vine.h"
 #include "../../data/data.h"
+#include "../data/pointers.h"
 #include "../globals.h"
 
 const i16 sTangleVineGerutaMultiSpriteData_Idle_Frame0[9] = {
@@ -797,9 +798,32 @@ const struct FrameData sTangleVineLarvaLeftOAM[5] = {
     0x0
 };
 
+
+/**
+ * @brief 413c4 | 88 | Synchronize the sub sprites of a tangle vine
+ * 
+ */
 void TangleVineSyncSprites(void)
 {
+    u16 (*pData)[3];
+    u32 offset;
 
+    pData = (u16(*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
+    offset = pData[gCurrentSprite.roomSlot][0];
+    
+    if (gCurrentSprite.pOam != sTangleVineFrameDataPointers[offset])
+    {
+        gCurrentSprite.pOam = sTangleVineFrameDataPointers[offset];
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+    }
+
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][2];
+    else
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][2];
 }
 
 /**

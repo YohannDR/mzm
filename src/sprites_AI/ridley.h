@@ -104,6 +104,43 @@
 #define RIDLEY_FIREBALL_POSE_MOVE_DIAGONAL_PATTERN 0x29
 #define RIDLEY_FIREBALL_POSE_DESTROY 0x42
 
+
+
+extern const struct FrameData sRidleyOAM_Idle[7];
+extern const struct FrameData sRidleyOAM_SpittingFireballs[5];
+extern const struct FrameData sRidleyOAM_TurningAroundFirstPart[3];
+extern const struct FrameData sRidleyOAM_TurningAroundSecondPart[3];
+extern const struct FrameData sRidleyPartOAM_HeadIdle[3];
+extern const struct FrameData sRidleyPartOAM_OpeningMouth[2];
+extern const struct FrameData sRidleyPartOAM_MouthOpened[3];
+extern const struct FrameData sRidleyPartOAM_HeadDying[5];
+extern const struct FrameData sRidleyPartOAM_HeadTurningAround[2];
+extern const struct FrameData sRidleyPartOAM_ClawIdle[7];
+extern const struct FrameData sRidleyPartOAM_ClawSpittingFireballs[5];
+extern const struct FrameData sRidleyPartOAM_ClawTurningAroundFirstPart[3];
+extern const struct FrameData sRidleyPartOAM_ClawTurningAroundSecondPart[3];
+extern const struct FrameData sRidleyPartOAM_ClawCarryingSamus[2];
+extern const struct FrameData sRidleyPartOAM_ClawLiftingSamus[6];
+extern const struct FrameData sRidleyPartOAM_ClawSamusLifted[2];
+extern const struct FrameData sRidleyPartOAM_ClawReleasingSamus[6];
+extern const struct FrameData sRidleyPartOAM_LeftWingIdle[11];
+extern const struct FrameData sRidleyPartOAM_RightWingIdle[11];
+extern const struct FrameData sRidleyPartOAM_LeftWing_Unused[11];
+extern const struct FrameData sRidleyPartOAM_RightWing_Unused[11];
+extern const struct FrameData sRidleyPartOAM_LeftWingSpittingFireballs[7];
+extern const struct FrameData sRidleyPartOAM_RightWingSpittingFireballs[7];
+extern const struct FrameData sRidleyTailOAM_Part[2];
+extern const struct FrameData sRidleyTailOAM_TipPointingDown[2];
+extern const struct FrameData sRidleyTailOAM_TipPointingUp[2];
+extern const struct FrameData sRidleyTailOAM_TipPointingDiagonallyDownRight[2];
+extern const struct FrameData sRidleyTailOAM_TipPointingDiagonallyUpRight[2];
+extern const struct FrameData sRidleyTailOAM_TipPointingDiagonallyDownLeft[2];
+extern const struct FrameData sRidleyTailOAM_TipPointingDiagonallyUpLeft[2];
+extern const struct FrameData sRidleyOAM_Square[2];
+extern const struct FrameData sRidleyFireballOAM_Small[2];
+extern const struct FrameData sRidleyFireballOAM_Big[2];
+
+
 void RidleySyncSubSprites(void);
 void RidleyTailSyncSubSprites(void);
 void RidleyIdleYFloatingMovement(void);

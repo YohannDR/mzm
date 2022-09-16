@@ -85,7 +85,7 @@ struct ProjectileData {
 
 // Typedef
 
-typedef (*ProjFunc_T)(struct ProjectileData*);
+typedef void (*ProjFunc_T)(struct ProjectileData*);
 
 // Functions
 

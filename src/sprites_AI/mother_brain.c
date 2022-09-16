@@ -1,5 +1,6 @@
 #include "mother_brain.h"
 #include "../../data/data.h"
+#include "../data/pointers.h"
 #include "../globals.h"
 
 const u16 sMotherBrainMultiSpriteData_Part0[12] = {
@@ -647,83 +648,29 @@ const struct FrameData sMotherBrainPartOAM_EyeClosing[4] = {
     0x0
 };
 
-/*asm("
-.align 2, 0
-.global MotherBrainSyncSubSpritesPosition
-.thumb
-.type MotherBrainSyncSubSpritesPosition, %function
-MotherBrainSyncSubSpritesPosition: @ 0x0803c964
-    push {r4, lr}
-    ldr r4, lbl_0803c9c0 @ =0x0300070c
-    ldrh r0, [r4, #4]
-    ldr r1, [r4]
-    lsl r0, r0, #3
-    add r0, r0, r1
-    ldr r3, [r0]
-    ldr r2, lbl_0803c9c4 @ =0x03000738
-    ldrb r1, [r2, #0x1e]
-    lsl r0, r1, #1
-    add r0, r0, r1
-    lsl r0, r0, #1
-    add r0, r0, r3
-    ldrh r0, [r0]
-    ldr r1, lbl_0803c9c8 @ =0x0875f774
-    lsl r0, r0, #2
-    add r0, r0, r1
-    ldr r1, [r2, #0x18]
-    ldr r0, [r0]
-    cmp r1, r0
-    beq lbl_0803c996
-    str r0, [r2, #0x18]
-    movs r0, #0
-    strb r0, [r2, #0x1c]
-    strh r0, [r2, #0x16]
-lbl_0803c996:
-    ldrb r1, [r2, #0x1e]
-    lsl r0, r1, #1
-    add r0, r0, r1
-    lsl r0, r0, #1
-    add r0, r0, r3
-    ldrh r0, [r0, #2]
-    ldrh r1, [r4, #6]
-    add r0, r0, r1
-    strh r0, [r2, #2]
-    ldrb r1, [r2, #0x1e]
-    lsl r0, r1, #1
-    add r0, r0, r1
-    lsl r0, r0, #1
-    add r0, r0, r3
-    ldrh r0, [r0, #4]
-    ldrh r4, [r4, #8]
-    add r0, r0, r4
-    strh r0, [r2, #4]
-    pop {r4}
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_0803c9c0: .4byte 0x0300070c
-lbl_0803c9c4: .4byte 0x03000738
-lbl_0803c9c8: .4byte 0x0875f774");*/
 
-/*void MotherBrainSyncSubSpritesPosition(void)
+/**
+ * @brief 3c964 | 68 | Synchronize the sub sprites of Mother Brain
+ * 
+ */
+void MotherBrainSyncSubSpritesPosition(void)
 {
-    // Function doesn't match without the necessary data (which isn't currently available)
     const u16 (*pFrame)[3];
     u32 offset;
 
     pFrame = (const u16 (*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
     offset = pFrame[gCurrentSprite.roomSlot][0]; // Frame data ID
 
-    if (gCurrentSprite.pOam != ((const struct FrameData**)0x875f774)[offset])
+    if (gCurrentSprite.pOam != sMotheBrainFrameDataPointers[offset])
     {
-        gCurrentSprite.pOam = ((const struct FrameData**)0x875f774)[offset];
+        gCurrentSprite.pOam = sMotheBrainFrameDataPointers[offset];
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
     }
 
     gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pFrame[gCurrentSprite.roomSlot][1]; // Y offset
     gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pFrame[gCurrentSprite.roomSlot][2]; // X offset
-}*/
+}
 
 /**
  * @brief 3c9cc | 80 | Updates the palette of mother brain when firing

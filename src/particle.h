@@ -112,7 +112,7 @@ void ParticleProcessAll(void);
 void ParticleSet(u16 yPosition, u16 xPosition, u8 effect);
 u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, struct FrameData* pOam);
 void ParticleSetCurrentOAMFramePointer(struct ParticleEffect* pParticle, struct FrameData* pOam);
-void ParticleSpriteSplashSmall(struct ParticleEffect* pParticle);
+void ParticleSpriteSplashWaterSmall(struct ParticleEffect* pParticle);
 void ParticleSpriteSplashWaterBig(struct ParticleEffect* pParticle);
 void ParticleSpriteSplashWaterHuge(struct ParticleEffect* pParticle);
 void ParticleSpriteSplashLavaSmall(struct ParticleEffect* pParticle);

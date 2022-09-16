@@ -6,6 +6,7 @@
 #include "music.h"
 #include "game_modes.h"
 #include "../data/data.h"
+#include "data/pointers.h"
 #include "globals.h"
 
 void ProjectileSetBeamParticleEffect(void)
@@ -428,7 +429,7 @@ void ProjectileUpdate(void)
     {
         if (pProj->status & PROJ_STATUS_EXISTS)
         {
-            process_projectile_functions_pointers[pProj->type](pProj);
+            sProcessProjectileFunctionPointers[pProj->type](pProj);
             ProjectileUpdateAnimation(pProj);
             ProjectileCheckDespawn(pProj);
         }

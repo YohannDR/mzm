@@ -1,5 +1,6 @@
 #include "crocomire.h"
 #include "../../data/data.h"
+#include "../data/pointers.h"
 #include "../globals.h"
 
 const i16 sCrocomireMultiSpriteData_Idle_Frame0[18] = {
@@ -1255,9 +1256,28 @@ const struct FrameData sCrocomirePartOAM_3070b8[6] = {
     0x0
 };
 
+
+/**
+ * @brief 43d88 | 68 | Synchronize the sub sprites of Crocomire
+ * 
+ */
 void CrocomireSyncSubSprites(void)
 {
+    u16 (*pData)[3];
+    u32 offset;
 
+    pData = (u16(*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
+    offset = pData[gCurrentSprite.roomSlot][0];
+    
+    if (gCurrentSprite.pOam != sCrocomireFrameDataPointers[offset])
+    {
+        gCurrentSprite.pOam = sCrocomireFrameDataPointers[offset];
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+    }
+
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
+    gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][2];
 }
 
 /**

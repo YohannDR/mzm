@@ -1,5 +1,6 @@
 #include "imago.h"
 #include "../../data/data.h"
+#include "../data/pointers.h"
 #include "../globals.h"
 
 const i16 sImagoMultiSpriteData_Idle_Frame0[21] = {
@@ -930,7 +931,25 @@ const struct FrameData sImagoEggOAM_Standing[2] = {
 
 void ImagoSyncSubSprites(void)
 {
+    u16 (*pData)[3];
+    u32 offset;
 
+    pData = (u16(*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
+    offset = pData[gCurrentSprite.roomSlot][0];
+    
+    if (gCurrentSprite.pOam != sImagoFrameDataPointers[offset])
+    {
+        gCurrentSprite.pOam = sImagoFrameDataPointers[offset];
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+    }
+
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][2];
+    else
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][2];
 }
 
 /**

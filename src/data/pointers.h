@@ -1,5 +1,10 @@
 #include "../types.h"
 #include "../samus.h"
+#include "../projectile.h"
+#include "../particle.h"
+#include "../sprites_AI/sprites.h"
+
+// 75e6a8
 
 static const SamusFunc_T sSamusPoseFunctionPointers[MAX_AMOUNT_OF_SAMUS_POSES] = {
     [SPOSE_RUNNING] = SamusRunning,
@@ -350,12 +355,12 @@ static const Func_T sPrimarySpritesAIPointers[206] = {
     [PSPRITE_RINKA_MOTHER_BRAIN6] = RinkaMotherBrain 
 };
 
-static const u32* const sSpritesGraphicsPointers[190] = {
-
+static const u32* sSpritesGraphicsPointers[190] = {
+    NULL
 };
 
-static const u16* const sSpritesPalettePointers[190] = {
-
+static const u16* sSpritesPalettePointers[190] = {
+    NULL
 };
 
 static const Func_T sSecondarySpritesAIPointers[190] = {
@@ -438,11 +443,11 @@ static const Func_T sSecondarySpritesAIPointers[190] = {
     [SSPRITE_MOTHER_BRAIN_GLASS_BREAKING] = MotherBrainGlassBreaking 
 };
 
-static const u8* const sSpritesetPointers[114] = {
-
+static const u8* sSpritesetPointers[114] = {
+    NULL
 };
 
-static const struct FrameData* const sChozoStatueFrameDataPointers[16] = {
+static const struct FrameData* sChozoStatueFrameDataPointers[16] = {
     sChozoStatuePartOAM_LegStanding,
     sChozoStatuePartOAM_LegSitting,
     sChozoStatuePartOAM_LegSeated,
@@ -461,6 +466,347 @@ static const struct FrameData* const sChozoStatueFrameDataPointers[16] = {
     sChozoStatuePartOAM_GlowIdle,
 };
 
-static const struct FrameData* const sUnknownItemChozoStatueFrameDataPointers[16] = {
+static const struct FrameData* sUnknownItemChozoStatueFrameDataPointers[16] = {
+    sUnknownItemChozoStatuePartOAM_LegStanding,
+    sUnknownItemChozoStatuePartOAM_LegSitting,
+    sUnknownItemChozoStatuePartOAM_LegSeated,
+    sUnknownItemChozoStatueOAM_Idle,
+    sUnknownItemChozoStatuePartOAM_EyeOpened,
+    sUnknownItemChozoStatuePartOAM_EyeClosing,
+    sUnknownItemChozoStatuePartOAM_EyeOpening,
+    sUnknownItemChozoStatuePartOAM_EyeClosed,
+    sUnknownItemChozoStatuePartOAM_ArmIdle,
+    sUnknownItemChozoStatuePartOAM_ArmGlow,
+    sUnknownItemChozoStatuePartOAM_ArmSamusGrabbed,
+    sChozoBallOAM_UnknownClosed,
+    sChozoBallOAM_UnknownRevealed,
+    sUnknownItemChozoStatueRefillOAM,
+    sUnknownItemChozoStatuePartOAM_GlowIdle
+};
 
+static const struct FrameData* sKraidFrameDataPointers[38] = {
+    sKraidOAM_MouthClosed,
+    sKraidOAM_MouthClosedBlink,
+    sKraidOAM_OpeningMouth,
+    sKraidOAM_MouthOpened,
+    sKraidOAM_Rising,
+    sKraidOAM_ClosingMouth,
+    sKraidPartOAM_2cac5c,
+    sKraidPartOAM_LeftArmIdle,
+    sKraidPartOAM_LeftArmDying,
+    sKraidPartOAM_LeftArmThrowingNails,
+    sKraidPartOAM_2cadc4,
+    sKraidPartOAM_RightArmIdle,
+    sKraidPartOAM_RightArmAttacking,
+    sKraidPartOAM_RightArmDying,
+    sKraidPartOAM_LeftFeetRising,
+    sKraidPartOAM_LeftFeetIdle1,
+    sKraidPartOAM_LeftFeetMovingRight,
+    sKraidPartOAM_LeftFeetIdle2,
+    sKraidPartOAM_LeftFeetMovedRight,
+    sKraidPartOAM_LeftFeetMovingLeft,
+    sKraidPartOAM_LeftFeetMovedLeft,
+    sKraidPartOAM_RightFeetRising,
+    sKraidPartOAM_RightFeetIdle1,
+    sKraidPartOAM_RightFeetMovedRight,
+    sKraidPartOAM_RightFeetIdle2,
+    sKraidPartOAM_RightFeetMovingRight,
+    sKraidPartOAM_RightFeetMovedLeft,
+    sKraidPartOAM_RightFeetMovingLeft,
+    sKraidPartOAM_TopHoleLeft,
+    sKraidPartOAM_TopHoleRight,
+    sKraidPartOAM_MiddleHoleLeft,
+    sKraidPartOAM_MiddleHoleRight,
+    sKraidPartOAM_BottomHoleLeft,
+    sKraidPartOAM_BottomHoleRight,
+    sKraidNailOAM,
+    sKraidOAM_2cb29c,
+    sKraidOAM_2cb2ac,
+    sKraidSpikeOAM
+};
+
+static const struct FrameData* sImagoLarvaFrameDataPointers[23] = {
+    sImagoLarvaPartOAM_ShellAttacking,
+    sImagoLarvaPartOAM_ShellIdle,
+    sImagoLarvaPartOAM_ShellRetreating,
+    sImagoLarvaPartOAM_ShellDying,
+    sImagoLarvaPartOAM_ClawsAttacking,
+    sImagoLarvaPartOAM_ClawsIdle,
+    sImagoLarvaPartOAM_ClawsRetreating,
+    sImagoLarvaPartOAM_ClawsTakingDamage,
+    sImagoLarvaPartOAM_LeftDotAppearing,
+    sImagoLarvaPartOAM_MiddleDotAppearing,
+    sImagoLarvaPartOAM_RightDotAppearing,
+    sImagoLarvaPartOAM_LeftDotVisible,
+    sImagoLarvaPartOAM_MiddleDotVisible,
+    sImagoLarvaPartOAM_RightDotVisible,
+    sImagoLarvaPartOAM_LeftDotDisappearing,
+    sImagoLarvaPartOAM_MiddleDotDisappearing,
+    sImagoLarvaPartOAM_RightDotDisappearing,
+    sImagoLarvaPartOAM_ShellWarning,
+    sImagoLarvaOAM_Idle,
+    sImagoLarvaPartOAM_ClawsWarningFirstPart,
+    sImagoLarvaPartOAM_ClawsWarningSecondPart,
+    sImagoLarvaOAM_Warning,
+    sImagoLarvaPartOAM_ShellTakingDamage
+};
+
+static const struct FrameData* sImagoCocoonFrameDataPointers[21] = {
+    sImagoCocoonOAM_CeilingVineMotionless,
+    sImagoCocoonOAM_CeilingVineMoving,
+    sImagoCocoonOAM_CeilingVineBroken,
+    sImagoCocoonOAM_DecorativeVinesLeft,
+    sImagoCocoonOAM_DecorativeVinesRight,
+    sImagoCocoonVineOAM_LeftMiddle,
+    sImagoCocoonVineOAM_RightMiddle,
+    sImagoCocoonVineOAM_LeftRight,
+    sImagoCocoonVineOAM_RightRight,
+    sImagoCocoonVineOAM_LeftLeft,
+    sImagoCocoonVineOAM_RightLeft,
+    sImagoCocoonOAM_Idle,
+    sImagoCocoonOAM_2e0bb0,
+    sImagoCocoonOAM_Static,
+    sImagoCocoonSporeOAM_Spawning,
+    sImagoCocoonSpore_Nest,
+    sImagoCocoonSpore_Moving,
+    sImagoCocoonSpore_Exploding,
+    sWingedRipperOAM_Moving,
+    sWingedRipperOAM_TurningAround,
+    sDefeatedImagoCocoonOAM
+};
+
+static const struct FrameData* sRidleyFrameDataPointers[33] = {
+    sRidleyOAM_Idle,
+    sRidleyOAM_SpittingFireballs,
+    sRidleyOAM_TurningAroundFirstPart,
+    sRidleyOAM_TurningAroundSecondPart,
+    sRidleyPartOAM_HeadIdle,
+    sRidleyPartOAM_OpeningMouth,
+    sRidleyPartOAM_MouthOpened,
+    sRidleyPartOAM_HeadDying,
+    sRidleyPartOAM_HeadTurningAround,
+    sRidleyPartOAM_ClawIdle,
+    sRidleyPartOAM_ClawSpittingFireballs,
+    sRidleyPartOAM_ClawTurningAroundFirstPart,
+    sRidleyPartOAM_ClawTurningAroundSecondPart,
+    sRidleyPartOAM_ClawCarryingSamus,
+    sRidleyPartOAM_ClawLiftingSamus,
+    sRidleyPartOAM_ClawSamusLifted,
+    sRidleyPartOAM_ClawReleasingSamus,
+    sRidleyPartOAM_LeftWingIdle,
+    sRidleyPartOAM_RightWingIdle,
+    sRidleyPartOAM_LeftWing_Unused,
+    sRidleyPartOAM_RightWing_Unused,
+    sRidleyPartOAM_LeftWingSpittingFireballs,
+    sRidleyPartOAM_RightWingSpittingFireballs,
+    sRidleyTailOAM_Part,
+    sRidleyTailOAM_TipPointingDown,
+    sRidleyTailOAM_TipPointingUp,
+    sRidleyTailOAM_TipPointingDiagonallyDownRight,
+    sRidleyTailOAM_TipPointingDiagonallyUpRight,
+    sRidleyTailOAM_TipPointingDiagonallyDownLeft,
+    sRidleyTailOAM_TipPointingDiagonallyUpLeft,
+    sRidleyOAM_Square,
+    sRidleyFireballOAM_Small,
+    sRidleyFireballOAM_Big
+};
+
+static const u8 sAtomicDynamicPaletteData[33][2] = {
+    { 0, 4 },
+    { 2, 4 },
+    { 0, 4 },
+    { 2, 4 },
+    { 0, 4 },
+    { 2, 4 },
+    { 0, 4 },
+    { 2, 4 },
+    { 3, 4 },
+    { 2, 4 },
+    { 3, 4 },
+    { 2, 4 },
+    { 3, 4 },
+    { 2, 4 },
+    { 3, 4 },
+    { 2, 4 },
+    { 3, 2 },
+    { 2, 2 },
+    { 3, 2 },
+    { 2, 2 },
+    { 3, 2 },
+    { 2, 2 },
+    { 3, 2 },
+    { 2, 2 },
+    { 3, 2 },
+    { 2, 2 },
+    { 3, 2 },
+    { 2, 2 },
+    { 3, 2 },
+    { 2, 2 },
+    { 3, 2 },
+    { 2, 2 },
+    { 0, 0 }
+};
+
+static const struct FrameData* sMotheBrainFrameDataPointers[10] = {
+    sMotherBrainOAM_Idle,
+    sMotherBrainOAM_ChargingBeam,
+    sMotherBrainPartOAM_EyeClosed,
+    sMotherBrainPartOAM_2fa934,
+    sMotherBrainPartOAM_EyeOpening,
+    sMotherBrainPartOAM_2fa984,
+    sMotherBrainPartOAM_EyeDying,
+    sMotherBrainPartOAM_Bottom,
+    sMotherBrainPartOAM_BeamSpawning,
+    sMotherBrainBeamOAM_Moving
+};
+
+static const struct FrameData* sTangleVineFrameDataPointers[13] = {
+    sTangleVineTallOAM_OnGround,
+    sTangleVineMediumOAM_OnGround,
+    sTangleVineShortOAM_OnGround,
+    sTangleVineCurvedOAM_OnGround,
+    sTangleVineTallOAM_OnCeiling,
+    sTangleVineMediumOAM_OnCeiling,
+    sTangleVineShortOAM_OnCeiling,
+    sTangleVineCurvedOAM_OnCeiling,
+    sTangleVineGerutaPartOAM_Grip,
+    sTangleVineGerutaOAM_Root,
+    sTangleVineGerutaOAM_Full,
+    sTangleVineRedGerutaOAM,
+    sTangleVineGerutaPartOAM_Geruta
+};
+
+static const struct FrameData* sImagoFrameDataPointers[17] = {
+    sImagoPartOAM_BodyIdle,
+    sImagoPartOAM_BodyGrowling,
+    sImagoOAM_BrokenStinger,
+    sImagoPartOAM_LeftWingIdle,
+    sImagoPartOAM_LeftWingShootingNeedles,
+    sImagoPartOAM_LeftWingDying,
+    sImagoPartOAM_RightWingIdle,
+    sImagoPartOAM_RightWingShootingNeedles,
+    sImagoPartOAM_RIghtWingDying,
+    sImagoPartOAM_Core,
+    simagoOAM_Flying,
+    sImagoOAM_ShootingNeedles,
+    sImagoOAM_RechargingNeedles,
+    sImagoDamagedStingerOAM,
+    sImagoNeedleOAM,
+    sImagoDamagedStingerOAM_Unused,
+    sImagoEggOAM_Breaking
+};
+
+static const struct FrameData* sCrocomireFrameDataPointers[25] = {
+    sCrocomirePartOAM_BodyIdle,
+    sCrocomirePartOAM_BodyAngry,
+    sCrocomireOAM_Idle,
+    sCrocomireOAM_Screaming,
+    sCrocomireOAM_Dying,
+    sCrocomirePartOAM_RightArmIdle,
+    sCrocomirePartOAM_LeftArmIdle,
+    sCrocomirePartOAM_LeftArmScreaming,
+    sCrocomirePartOAM_RightArmWalkingForward,
+    sCrocomirePartOAM_LeftArmWalkingForward,
+    sCrocomirePartOAM_RightArmWalkingBackwards,
+    sCrocomirePartOAM_LeftArmWalkingBackwards,
+    sCrocomirePartOAM_RightArmDying,
+    sCrocomirePartOAM_LeftArmDying,
+    sCrocomirePartOAM_LegsIdle,
+    sCrocomirePartOAM_LegsWalkingForward,
+    sCrocomirePartOAM_LegsWalkingBackwards,
+    sCrocomirePartOAM_LegsDying,
+    sCrocomirePartOAM_Tongue,
+    sCrocomirePartOAM_TongueDying,
+    sCrocomireProjectileOAM,
+    sCrocomirePartOAM_307028,
+    sCrocomirePartOAM_307058,
+    sCrocomirePartOAM_307088,
+    sCrocomirePartOAM_3070b8,
+};
+
+static const struct FrameData* sMechaRidleyFrameDataPointers[63] = {
+    NULL
+};
+
+static const ProjFunc_T sProcessProjectileFunctionPointers[16] = {
+    [PROJ_TYPE_BEAM] = ProjectileProcessNormalBeam,
+    [PROJ_TYPE_LONG_BEAM] = ProjectileProcessLongBeam,
+    [PROJ_TYPE_ICE_BEAM] = ProjectileProcessIceBeam,
+    [PROJ_TYPE_WAVE_BEAM] = ProjectileProcessWaveBeam,
+    [PROJ_TYPE_PLASMA_BEAM] = ProjectileProcessPlasmaBeam,
+    [PROJ_TYPE_PISTOL] = ProjectileProcessPistol,
+    [PROJ_TYPE_CHARGED_BEAM] = ProjectileProcessChargedNormalBeam,
+    [PROJ_TYPE_CHARGED_LONG_BEAM] = ProjectileProcessChargedLongBeam,
+    [PROJ_TYPE_CHARGED_ICE_BEAM] = ProjectileProcessChargedIceBeam,
+    [PROJ_TYPE_CHARGED_WAVE_BEAM] = ProjectileProcessChargedWaveBeam,
+    [PROJ_TYPE_CHARGED_PLASMA_BEAM] = ProjectileProcessChargedPlasmaBeam,
+    [PROJ_TYPE_CHARGED_PISTOL] = ProjectileProcessChargedPistol,
+    [PROJ_TYPE_MISSILE] = ProjectileProcessMissile,
+    [PROJ_TYPE_SUPER_MISSILE] = ProjectileProcessSuperMissile,
+    [PROJ_TYPE_BOMB] = ProjectileProcessBomb,
+    [PROJ_TYPE_POWER_BOMB] = ProjectileProcessPowerBomb
+};
+
+static const ParticleFunc_T sProcessParticleFunctionPointers[61] = {
+    [PE_SPRITE_SPLASH_WATER_SMALL] = ParticleSpriteSplashWaterSmall,
+    [PE_SPRITE_SPLASH_WATER_BIG] = ParticleSpriteSplashWaterBig,
+    [PE_SPRITE_SPLASH_WATER_HUGE] = ParticleSpriteSplashWaterHuge,
+    [PE_SPRITE_SPLASH_LAVA_SMALL] = ParticleSpriteSplashLavaSmall,
+    [PE_SPRITE_SPLASH_LAVA_BIG] = ParticleSpriteSplashLavaBig,
+    [PE_SPRITE_SPLASH_LAVA_HUGE] = ParticleSpriteSplashLavaHuge,
+    [PE_SPRITE_SPLASH_ACID_SMALL] = ParticleSpriteSplashAcidSmall,
+    [PE_SPRITE_SPLASH_ACID_BIG] = ParticleSpriteSplashAcidBig,
+    [PE_SPRITE_SPLASH_ACID_HUGE] = ParticleSpriteSplashAcidHuge,
+    [PE_SHOOTING_BEAM_LEFT] = ParticleShootingBeamLeft,
+    [PE_SHOOTING_BEAM_DIAG_UP_LEFT] = ParticleShootingBeamDiagUpLeft,
+    [PE_SHOOTING_BEAM_DIAG_DOWN_LEFT] = ParticleShootingBeamDiagDownLeft,
+    [PE_SHOOTING_BEAM_UP_LEFT] = ParticleShootingBeamUpLeft,
+    [PE_SHOOTING_BEAM_DOWN_LEFT] = ParticleShootingBeamDiagDownLeft,
+    [PE_SHOOTING_BEAM_RIGHT] = ParticleShootingBeamRight,
+    [PE_SHOOTING_BEAM_DIAG_UP_RIGHT] = ParticleShootingBeamDiagUpRight,
+    [PE_SHOOTING_BEAM_DIAG_DOWN_RIGHT] = ParticleShootingBeamDiagDownRight,
+    [PE_SHOOTING_BEAM_UP_RIGHT] = ParticleShootingBeamDiagUpRight,
+    [PE_SHOOTING_BEAM_DOWN_RIGHT] = ParticleShootingBeamDownRight,
+    [PE_BOMB] = ParticleBomb,
+    [PE_MISSILE_TRAIL] = ParticleMissileTrail,
+    [PE_SUPER_MISSILE_TRAIL] = ParticleSuperMissileTrail,
+    [PE_BEAM_TRAILING_RIGHT] = ParticleBeamTrailingRight,
+    [PE_BEAM_TRAILING_LEFT] = ParticleBeamTrailingLeft,
+    [PE_CHARGED_LONG_BEAM_TRAIL] = ParticleChargedLongBeamTrail,
+    [PE_CHARGED_ICE_BEAM_TRAIL] = ParticleChargedIceBeamTrail,
+    [PE_CHARGED_WAVE_BEAM_TRAIL] = ParticleChargedWaveBeamTrail,
+    [PE_CHARGED_PLASMA_BEAM_TRAIL] = ParticleChargedPlasmaBeamTrail,
+    [PE_CHARGED_FULL_BEAM_TRAIL] = ParticleChargedFullBeamTrail,
+    [PE_CHARGED_PISTOL_TRAIL] = ParticleChargedPistolTrail,
+    [PE_SPRITE_EXPLOSION_HUGE] = ParticleSpriteExplosionHuge,
+    [PE_SPRITE_EXPLOSION_SMALL] = ParticleSpriteExplosionSmall,
+    [PE_SPRITE_EXPLOSION_MEDIUM] = ParticleSpriteExplosionMedium,
+    [PE_SPRITE_EXPLOSION_BIG] = ParticleSpriteExplosionBig,
+    [PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG] = ParticleSpriteExplosionSingleThenBig,
+    [PE_SCREW_ATTACK_DESTROYED] = ParticleScrewAttackDestroyed,
+    [PE_SHINESPARK_DESTROYED] = ParticleShinesparkDestroyed,
+    [PE_SUDO_SCREW_DESTROYED] = ParticleSudoScrewDestroyed,
+    [PE_SPEEDBOOSTER_DESTROYED] = ParticleSpeedboosterDestroyed,
+    [PE_MAIN_BOSS_DEATH] = ParticleMainBossDeath,
+    [PE_FREEZING_SPRITE_WITH_ICE] = ParticleFreezingSpriteWithIce,
+    [PE_FREEZING_SPRITE_WITH_CHARGED_ICE] = ParticleFreezingSpriteWithChargedIce,
+    [PE_HITTING_SOMETHING_WITH_BASE_BEAM] = ParticleHittingSomethingWithBaseBeam,
+    [PE_HITTING_SOMETHING_WITH_LONG_BEAM] = ParticleHittingSomethingWithLongBeam,
+    [PE_HITTING_SOMETHING_WITH_ICE_BEAM] = ParticleHittingSomethingWithIceBeam,
+    [PE_HITTING_SOMETHING_WITH_WAVE_BEAM] = ParticleHittingSomethingWithWaveBeam,
+    [PE_HITTING_SOMETHING_WITH_PLASMA_BEAM] = ParticleHittingSomethingWithPlasmaBeam,
+    [PE_HITTING_SOMETHING_INVINCIBLE] = ParticleHittingSomethingInvincible,
+    [PE_HITTING_SOMETHING_WITH_MISSILE] = ParticleHittingSomethingWithMissile,
+    [PE_HITTING_SOMETHING_WITH_SUPER_MISSILE] = ParticleHittingSomethingWithSuperMissile,
+    [PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA] = ParticleHittingSomethingWithFullBeamNoPlasma,
+    [PE_HITTING_SOMETHING_WITH_FULL_BEAM] = ParticleHittingSomethingWithFullBeam,
+    [PE_SMALL_DUST] = ParticleSmallDust,
+    [PE_MEDIUM_DUST] = ParticleMediumDust,
+    [PE_TWO_MEDIUM_DUST] = ParticleTwoMediumDust,
+    [PE_SECOND_SMALL_DUST] = ParticleSecondSmallDust,
+    [PE_SECOND_MEDIUM_DUST] = ParticleSecondMediumDust,
+    [PE_SECOND_TWO_MEDIUM_DUST] = ParticleSecondTwoMediumDust,
+    [PE_SAMUS_REFLECTION] = ParticleSamusReflection,
+    [PE_CHARGING_BEAM] = ParticleChargingBeam,
+    [PE_ESCAPE] = ParticleEscape,
 };

@@ -60,6 +60,31 @@
 #define WINGED_RIPPER_POSE_MOVING_INIT 0x8
 #define WINGED_RIPPER_POSE_MOVING 0x9
 
+
+
+extern const struct FrameData sImagoCocoonOAM_CeilingVineMotionless[5];
+extern const struct FrameData sImagoCocoonOAM_CeilingVineMoving[10];
+extern const struct FrameData sImagoCocoonOAM_CeilingVineBroken[2];
+extern const struct FrameData sImagoCocoonOAM_DecorativeVinesLeft[6];
+extern const struct FrameData sImagoCocoonOAM_DecorativeVinesRight[6];
+extern const struct FrameData sImagoCocoonVineOAM_LeftMiddle[5];
+extern const struct FrameData sImagoCocoonVineOAM_RightMiddle[5];
+extern const struct FrameData sImagoCocoonVineOAM_LeftRight[5];
+extern const struct FrameData sImagoCocoonVineOAM_RightRight[5];
+extern const struct FrameData sImagoCocoonVineOAM_LeftLeft[5];
+extern const struct FrameData sImagoCocoonVineOAM_RightLeft[5];
+extern const struct FrameData sImagoCocoonOAM_Idle[5];
+extern const struct FrameData sImagoCocoonOAM_2e0bb0[2];
+extern const struct FrameData sImagoCocoonOAM_Static[2];
+extern const struct FrameData sImagoCocoonSporeOAM_Spawning[5];
+extern const struct FrameData sImagoCocoonSpore_Nest[4];
+extern const struct FrameData sImagoCocoonSpore_Moving[4];
+extern const struct FrameData sImagoCocoonSpore_Exploding[5];
+extern const struct FrameData sWingedRipperOAM_Moving[10];
+extern const struct FrameData sWingedRipperOAM_TurningAround[10];
+extern const struct FrameData sDefeatedImagoCocoonOAM[9];
+
+
 void ImagoCocoonSyncSprites(void);
 void ImagoCocoonChangeOneCCAA(u8 caa);
 void ImagoCocoonChangeTwoMiddleCCAA(u8 caa);

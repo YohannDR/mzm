@@ -1,6 +1,7 @@
 #include "imago_larva.h"
-#include "../sprite_util.h" // sprite_util.h include is REQUIRED
+#include "../sprite_util.h" // sprite_util.h include required?
 #include "../../data/data.h"
+#include "../data/pointers.h"
 #include "../globals.h"
 
 const i16 sImagoLarvaMultiSpriteData_Attacking_Frame0[18] = {
@@ -1566,9 +1567,33 @@ const struct FrameData sImagoLarvaPartOAM_ShellTakingDamage[5] = {
     0x0
 };
 
+
+/**
+ * @brief 259a0 | 84 | Synchronize the sub sprites of an Imago larva
+ * 
+ * @param pSub 
+ */
 void ImagoLarvaSyncSubSprites(struct SubSpriteData* pSub)
 {
+    u16 (*pData)[3];
+    u32 offset;
 
+    pData = (u16(*)[3])pSub->pMultiOam[pSub->currentAnimationFrame].pFrame;
+    offset = pData[gCurrentSprite.roomSlot][0];
+    
+    if (gCurrentSprite.pOam != sImagoLarvaFrameDataPointers[offset])
+    {
+        gCurrentSprite.pOam = sImagoLarvaFrameDataPointers[offset];
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+    }
+
+    gCurrentSprite.yPosition = pSub->yPosition + pData[gCurrentSprite.roomSlot][1];
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition = pSub->xPosition - pData[gCurrentSprite.roomSlot][2];
+    else
+        gCurrentSprite.xPosition = pSub->xPosition + pData[gCurrentSprite.roomSlot][2];
 }
 
 /**

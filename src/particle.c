@@ -3,6 +3,7 @@
 #include "screen_shake.h"
 #include "music.h"
 #include "../data/data.h"
+#include "data/pointers.h"
 #include "globals.h"
 
 /**
@@ -126,31 +127,28 @@ void ParticleDraw(struct ParticleEffect* pParticle)
  */
 void ParticleProcessAll(void)
 {
-    /*struct ParticleEffect* pParticle;
+    struct ParticleEffect* pParticle;
     u8 status;
 
     if (gGameModeSub1 != 0x2 && (gGameModeSub1 == 0x1 || gGameModeSub1 == 0x3))
     {
-        pParticle = gParticleEffects;
-        while (pParticle < gParticleEffects + MAX_AMOUNT_OF_PARTICLES)
+        for (pParticle = gParticleEffects; pParticle < gParticleEffects + MAX_AMOUNT_OF_PARTICLES; pParticle++)
         {
             if (pParticle->status & PARTICLE_STATUS_EXISTS && pParticle->effect == PE_ESCAPE) // Probably a priority system
             {
-                process_particle_functions_pointer[pParticle->effect](pParticle); // Call subroutine
+                sProcessParticleFunctionPointers[pParticle->effect](pParticle); // Call subroutine
                 if ((pParticle->status & PARTICLE_STATUS_EXISTS) != 0x0)
                     ParticleDraw(pParticle);
             } 
-            pParticle++;
         }
     }
     else
     {
-        pParticle = gParticleEffects;
-        while (pParticle < gParticleEffects + MAX_AMOUNT_OF_PARTICLES)
+        for (pParticle = gParticleEffects; pParticle < gParticleEffects + MAX_AMOUNT_OF_PARTICLES; pParticle++)
         {
             if ((pParticle->status & (PARTICLE_STATUS_EXISTS | PARTICLE_STATUS_EXPLOSION)) == (PARTICLE_STATUS_EXISTS | PARTICLE_STATUS_EXPLOSION))
             {
-                process_particle_functions_pointer[pParticle->effect](pParticle); // Call subroutine
+                sProcessParticleFunctionPointers[pParticle->effect](pParticle); // Call subroutine
                 if ((pParticle->status & PARTICLE_STATUS_EXISTS) != 0x0)
                 {
                     ParticleCheckOnScreen(pParticle);
@@ -159,15 +157,13 @@ void ParticleProcessAll(void)
                         ParticleDraw(pParticle);
                 }
             }
-            pParticle++;
         }
-                
-        pParticle = gParticleEffects;
-         while (pParticle < gParticleEffects + MAX_AMOUNT_OF_PARTICLES)
+
+        for (pParticle = gParticleEffects; pParticle < gParticleEffects + MAX_AMOUNT_OF_PARTICLES; pParticle++)
         {
             if ((pParticle->status & (PARTICLE_STATUS_EXISTS | PARTICLE_STATUS_EXPLOSION)) == PARTICLE_STATUS_EXISTS)
             {
-                process_particle_functions_pointer[pParticle->effect](pParticle); // Call subroutine
+                sProcessParticleFunctionPointers[pParticle->effect](pParticle); // Call subroutine
                 if (pParticle->status & PARTICLE_STATUS_EXISTS)
                 {
                     ParticleCheckOnScreen(pParticle);
@@ -176,10 +172,9 @@ void ParticleProcessAll(void)
                         ParticleDraw(pParticle);
                 }
             }
-            pParticle++;
         }
         EscaepUpdateTimer();
-    }*/
+    }
 }
 
 /**
@@ -289,7 +284,7 @@ void ParticleSetCurrentOAMFramePointer(struct ParticleEffect* pParticle, struct 
  * 
  * @param pParticle Particle Effect Pointer
  */
-void ParticleSpriteSplashSmall(struct ParticleEffect* pParticle)
+void ParticleSpriteSplashWaterSmall(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
     if (ParticleUpdateAnimation(pParticle, particle_sprite_splash_water_small_oam))

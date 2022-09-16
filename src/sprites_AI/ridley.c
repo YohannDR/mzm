@@ -1,5 +1,6 @@
 #include "ridley.h"
 #include "../../data/data.h"
+#include "../data/pointers.h"
 #include "../globals.h"
 
 const i16 sRidleyMultiSpriteData_Idle_Frame0[18] = {
@@ -1784,14 +1785,65 @@ const struct FrameData sRidleyFireballOAM_Big[2] = {
     0x0
 };
 
+
+/**
+ * @brief 31aa4 | 9c | Synchronize the sub sprites of Ridley
+ * 
+ */
 void RidleySyncSubSprites(void)
 {
+    u16 (*pData)[3];
+    u32 offset;
 
+    pData = (u16(*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
+    offset = pData[gCurrentSprite.roomSlot][0];
+    
+    if (gCurrentSprite.pOam != sRidleyFrameDataPointers[offset])
+    {
+        gCurrentSprite.pOam = sRidleyFrameDataPointers[offset];
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+    }
+
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][2];
+    else
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][2];
+
+    if (gCurrentSprite.roomSlot == RIDLEY_PART_TAIL)
+    {
+        gSubSpriteData2.yPosition = gCurrentSprite.yPosition;
+        gSubSpriteData2.xPosition = gCurrentSprite.xPosition;
+    }
 }
 
+/**
+ * @brief 31b40 | 88 | Synchronize the sub sprites of the Ridley tail
+ * 
+ */
 void RidleyTailSyncSubSprites(void)
 {
+    u16 (*pData)[3];
+    u32 offset;
 
+    pData = (u16(*)[3])gSubSpriteData2.pMultiOam[gSubSpriteData2.currentAnimationFrame].pFrame;
+    offset = pData[gCurrentSprite.roomSlot][0];
+    
+    if (gCurrentSprite.pOam != sRidleyFrameDataPointers[offset])
+    {
+        gCurrentSprite.pOam = sRidleyFrameDataPointers[offset];
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+    }
+
+    gCurrentSprite.yPosition = gSubSpriteData2.yPosition + pData[gCurrentSprite.roomSlot][1];
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition = gSubSpriteData2.xPosition - pData[gCurrentSprite.roomSlot][2];
+    else
+        gCurrentSprite.xPosition = gSubSpriteData2.xPosition + pData[gCurrentSprite.roomSlot][2];
 }
 
 /**

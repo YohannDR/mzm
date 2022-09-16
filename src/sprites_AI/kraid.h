@@ -48,6 +48,48 @@
 #define KRAID_SPIKE_POSE_MOVING 0x23
 #define KRAID_SPIKE_POSE_IN_WALL 0x25
 
+
+extern const struct FrameData sKraidOAM_MouthClosed[6];
+extern const struct FrameData sKraidOAM_MouthClosedBlink[11];
+extern const struct FrameData sKraidOAM_OpeningMouth[9];
+extern const struct FrameData sKraidOAM_MouthOpened[7];
+extern const struct FrameData sKraidOAM_Rising[3];
+extern const struct FrameData sKraidOAM_ClosingMouth[5];
+extern const struct FrameData sKraidPartOAM_2cac5c[2];
+extern const struct FrameData sKraidPartOAM_LeftArmIdle[11];
+extern const struct FrameData sKraidPartOAM_LeftArmDying[11];
+extern const struct FrameData sKraidPartOAM_LeftArmThrowingNails[21];
+extern const struct FrameData sKraidPartOAM_2cadc4[2];
+extern const struct FrameData sKraidPartOAM_RightArmIdle[11];
+extern const struct FrameData sKraidPartOAM_RightArmAttacking[13];
+extern const struct FrameData sKraidPartOAM_RightArmDying[13];
+extern const struct FrameData sKraidPartOAM_LeftFeetRising[2];
+extern const struct FrameData sKraidPartOAM_LeftFeetIdle1[5];
+extern const struct FrameData sKraidPartOAM_LeftFeetMovingRight[8];
+extern const struct FrameData sKraidPartOAM_LeftFeetIdle2[5];
+extern const struct FrameData sKraidPartOAM_LeftFeetMovedRight[9];
+extern const struct FrameData sKraidPartOAM_LeftFeetMovingLeft[8];
+extern const struct FrameData sKraidPartOAM_LeftFeetMovedLeft[5];
+extern const struct FrameData sKraidPartOAM_RightFeetRising[2];
+extern const struct FrameData sKraidPartOAM_RightFeetIdle1[5];
+extern const struct FrameData sKraidPartOAM_RightFeetMovedRight[9];
+extern const struct FrameData sKraidPartOAM_RightFeetIdle2[5];
+extern const struct FrameData sKraidPartOAM_RightFeetMovingRight[8];
+extern const struct FrameData sKraidPartOAM_RightFeetMovedLeft[5];
+extern const struct FrameData sKraidPartOAM_RightFeetMovingLeft[8];
+extern const struct FrameData sKraidPartOAM_TopHoleLeft[5];
+extern const struct FrameData sKraidPartOAM_TopHoleRight[5];
+extern const struct FrameData sKraidPartOAM_MiddleHoleRight[5];
+extern const struct FrameData sKraidPartOAM_MiddleHoleLeft[5];
+extern const struct FrameData sKraidPartOAM_BottomHoleRight[5];
+extern const struct FrameData sKraidPartOAM_BottomHoleLeft[5];
+extern const struct FrameData sKraidNailOAM[2];
+extern const struct FrameData sKraidOAM_2cb29c[2];
+extern const struct FrameData sKraidOAM_2cb2ac[2];
+extern const struct FrameData sKraidSpikeOAM[9];
+
+
+
 void KraidSyncSubSprites(void);
 void KraidCheckProjectilesCollidingWithBelly(void);
 void KraidOpenCloseRoutineAndProjectileCollision(void);

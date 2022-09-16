@@ -1,5 +1,6 @@
 #include "imago_cocoon.h"
 #include "../../data/data.h"
+#include "../data/pointers.h"
 #include "../globals.h"
 
 const i16 sImagoCocoonMultiSpriteData_Idle_Frame0[30] = {
@@ -881,7 +882,7 @@ const struct FrameData sImagoCocoonVineOAM_LeftMiddle[5] = {
     0x0
 };
 
-const struct FrameData sImagoCocoonVineOAM_RIghtMiddle[5] = {
+const struct FrameData sImagoCocoonVineOAM_RightMiddle[5] = {
     sImagoCocoonVineOAM_RightMiddle_Frame0,
     0x6,
     sImagoCocoonVineOAM_RightMiddle_Frame1,
@@ -1089,9 +1090,27 @@ const struct FrameData sDefeatedImagoCocoonOAM[9] = {
 };
 
 
+/**
+ * @brief 26c38 | 68 | Sync the sub sprites of Imago cocoon
+ * 
+ */
 void ImagoCocoonSyncSprites(void)
 {
+    u16 (*pData)[3];
+    u32 offset;
+
+    pData = (u16(*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
+    offset = pData[gCurrentSprite.roomSlot][0];
     
+    if (gCurrentSprite.pOam != sImagoCocoonFrameDataPointers[offset])
+    {
+        gCurrentSprite.pOam = sImagoCocoonFrameDataPointers[offset];
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+    }
+
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
+    gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][2];
 }
 
 /**

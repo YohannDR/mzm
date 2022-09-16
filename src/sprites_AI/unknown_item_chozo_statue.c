@@ -2,6 +2,7 @@
 #include "item_banner.h"
 #include "chozo_statue.h"
 #include "../globals.h"
+#include "../data/pointers.h"
 
 const i16 sUnknownItemChozoStatueMultiSpriteData_Standing_Frame0[15] = {
     8, -176, -104,
@@ -932,9 +933,32 @@ const u16 sChozoStatueGravitySuitPAL[80];
 const u32 sChozoStatuePlasmaBeamGFX[1357];
 const u16 sChozoStatuePlasmaBeamPAL[80];
 
+
+/**
+ * @brief 150a8 | 88 | Synchronize the sub sprites of an unknown item chozo statue
+ * 
+ */
 void UnknownItemChozoStatueSyncSubSprites(void)
 {
+    u16 (*pData)[3];
+    u32 offset;
 
+    pData = (u16(*)[3])gSubSpriteData1.pMultiOam[gSubSpriteData1.currentAnimationFrame].pFrame;
+    offset = pData[gCurrentSprite.roomSlot][0];
+    
+    if (gCurrentSprite.pOam != sUnknownItemChozoStatueFrameDataPointers[offset])
+    {
+        gCurrentSprite.pOam = sUnknownItemChozoStatueFrameDataPointers[offset];
+        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0x0;
+    }
+
+    gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition - pData[gCurrentSprite.roomSlot][2];
+    else
+        gCurrentSprite.xPosition = gSubSpriteData1.xPosition + pData[gCurrentSprite.roomSlot][2];
 }
 
 /**
