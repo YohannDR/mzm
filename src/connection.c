@@ -1,5 +1,6 @@
 #include "connection.h"
 #include "globals.h"
+#include "data/doors.h"
 #include "bg_clip.h"
 
 void ConnectionUpdateOpeningClosingHatches(void)
@@ -105,12 +106,12 @@ u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
             if (*pSrc != u8_array_345868[7])
             {
                 pCurr = door_pointer_array_75faa8[*pCurrArea] + *pSrc;
-                if (DOOR_AREA_CONNECTION < (pCurr->type & 0xF) && pCurr->xStart <= xPosition && xPosition <= pCurr->xEnd && pCurr->yStart <= yPosition && yPosition <= pCurr->yEnd)
+                if (DOOR_TYPE_AREA_CONNECTION < (pCurr->type & 0xF) && pCurr->xStart <= xPosition && xPosition <= pCurr->xEnd && pCurr->yStart <= yPosition && yPosition <= pCurr->yEnd)
                 {
                     gDoorPositionStart.x = 0x0;
                     gDoorPositionStart.y = 0x0;
 
-                    if ((pCurr->type & DOOR_LOAD_EVENT_BASED_ROOM) != 0x0)
+                    if ((pCurr->type & DOOR_TYPE_LOAD_EVENT_BASED_ROOM) != 0x0)
                     {
                         event_door = ConnectionFindEventBasedDoor(*pSrc);
                         if (event_door == 0xFF)
@@ -121,7 +122,7 @@ u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
                     else
                         *pLastDoor = pCurr->destinationRoom;
 
-                    if (DOOR_NO_HATCH < (pCurr->type & 0xF))
+                    if (DOOR_TYPE_NO_HATCH < (pCurr->type & 0xF))
                     {
                         if (pCurr->xStart > (gBG1XPosition >> 0x6) + 0x8)
                             gDoorPositionStart.x = 0x1;
@@ -161,17 +162,17 @@ u8 ConnectionCheckAreaConnection(u16 yPosition, u16 xPosition)
 
 void ConnectionProcessDoorType(u8 type)
 {
-    /*8 transition;
+    u8 transition;
 
     transition = 0x6;
 
-    switch (type & 0xF)
+    switch (type & DOOR_TYPE_NO_FLAGS)
     {
-        case DOOR_REMOVE_MOTHER_SHIP:
+        case DOOR_TYPE_REMOVE_MOTHER_SHIP:
             gUseMotherShip = FALSE;
             break;
 
-        case DOOR_SET_MOTHER_SHIP:
+        case DOOR_TYPE_SET_MOTHER_SHIP:
             gUseMotherShip = TRUE;
             break;
 
@@ -180,12 +181,12 @@ void ConnectionProcessDoorType(u8 type)
             if (!gSkipDoorTransition)
                 transition = 0x4;
 
-        case DOOR_NO_HATCH:
-        case DOOR_AREA_CONNECTION:
+        case DOOR_TYPE_NO_HATCH:
+        case DOOR_TYPE_AREA_CONNECTION:
             break;
     }
 
-    background_fading_start(transition);*/
+    background_fading_start(transition); // Undefined
 }
 
 u8 ConnectionFindEventBasedDoor(u8 sourceRoom)

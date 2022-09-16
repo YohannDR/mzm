@@ -2709,7 +2709,7 @@ void SpawnWaitingPirates(void)
     xPosition = gWaitingSpacePiratesPosition.x;
 
     // Spawn sprite
-    if ((gLastDoorProperties & DOOR_NO_FLAGS) == DOOR_NO_HATCH)
+    if ((gLastDoorProperties & DOOR_TYPE_NO_FLAGS) == DOOR_TYPE_NO_HATCH)
     {
         switch (gSpriteset)
         {

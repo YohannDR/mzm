@@ -5,7 +5,10 @@
 #include "../samus.h"
 #include "../projectile.h"
 #include "../particle.h"
+#include "../connection.h"
 #include "../sprites_AI/sprites.h"
+
+#include "doors.h"
 
 // 75e6a8
 
@@ -813,5 +816,17 @@ static const ParticleFunc_T sProcessParticleFunctionPointers[61] = {
     [PE_CHARGING_BEAM] = ParticleChargingBeam,
     [PE_ESCAPE] = ParticleEscape,
 };
+
+static const struct Door* sAreaDoorsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
+    [AREA_BRINSTAR] = sBrinstarDoors,
+    [AREA_KRAID] = sKraidDoors,
+    [AREA_NORFAIR] = sNorfairDoors,
+    [AREA_RIDLEY] = sRidleyDoors,
+    [AREA_TOURIAN] = sTourianDoors,
+    [AREA_CRATERIA] = sCrateriaDoors,
+    [AREA_CHOZODIA] = sTourianDoors
+};
+
+// 75faa8
 
 #endif

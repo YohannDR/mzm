@@ -27,16 +27,17 @@ extern struct HatchData gHatchData[MAX_AMOUNT_OF_HATCHES];
 #define AREA_INVALID 0x7
 #define AREA_NONE 0xFF
 
-#define DOOR_NONE 0x0
-#define DOOR_AREA_CONNECTION 0x1
-#define DOOR_NO_HATCH 0x2
-#define DOOR_OPEN_HATCH 0x3
-#define DOOR_CLOSED_HATCH 0x4
-#define DOOR_REMOVE_MOTHER_SHIP 0x5
-#define DOOR_SET_MOTHER_SHIP 0x6
-#define DOOR_NO_FLAGS 0xF
-#define DOOR_LOAD_EVENT_BASED_ROOM 0x20
-#define DOOR_DISPLAYS_ROOM_LOCATION 0x40
+#define DOOR_TYPE_NONE 0x0
+#define DOOR_TYPE_AREA_CONNECTION 0x1
+#define DOOR_TYPE_NO_HATCH 0x2
+#define DOOR_TYPE_OPEN_HATCH 0x3
+#define DOOR_TYPE_CLOSED_HATCH 0x4
+#define DOOR_TYPE_REMOVE_MOTHER_SHIP 0x5
+#define DOOR_TYPE_SET_MOTHER_SHIP 0x6
+#define DOOR_TYPE_NO_FLAGS 0xF
+#define DOOR_TYPE_EXISTS 0x10
+#define DOOR_TYPE_LOAD_EVENT_BASED_ROOM 0x20
+#define DOOR_TYPE_DISPLAYS_ROOM_LOCATION 0x40
 
 #define HATCH_NONE 0x0
 #define HATCH_UNUSED 0x1
@@ -78,7 +79,7 @@ struct Door {
     u8 xEnd;
     u8 yStart;
     u8 yEnd;
-    u8 destinationRoom;
+    u8 destinationDoor;
     i8 xExit;
     i8 yExit;
 };
