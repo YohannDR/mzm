@@ -10,6 +10,7 @@
 #define MAX_AMOUNT_OF_HATCHES 16
 #define MAX_AMOUNT_OF_AREAS 8
 #define MAX_AMOUNT_OF_HATCH_TYPES 8
+#define MAX_AMOUNT_OF_EVENT_BASED_CONNECTIONS 41
 
 extern struct HatchesState gHatchesState;
 extern struct HatchData gHatchData[MAX_AMOUNT_OF_HATCHES];
@@ -88,27 +89,40 @@ struct EventBasedConnection {
     u8 sourceArea;
     u8 sourceDoor;
     u8 event;
-    u8 destinationRoom;
+    u8 destinationDoor;
 };
 
 struct HatchLockEvent {
-    u8 destinationRoom;
+    u8 room;
     u8 event;
     u8 isBefore;
-    u8 hatchesToLock;
-    u8 unknown;
+    u8 hatchesToLock1:1;
+    u8 hatchesToLock2:1;
+    u8 hatchesToLock3:1;
+    u8 hatchesToLock4:1;
+    u8 hatchesToLock5:1;
+    u8 hatchesToLock6:1;
+    u8 hatchesToLock7:1;
+    u8 hatchesToLock8:1;
+    u8 hatchesToLockPart2_1:1;
+    u8 hatchesToLockPart2_2:1;
+    u8 hatchesToLockPart2_3:1;
+    u8 hatchesToLockPart2_4:1;
+    u8 hatchesToLockPart2_5:1;
+    u8 hatchesToLockPart2_6:1;
+    u8 hatchesToLockPart2_7:1;
+    u8 hatchesToLockPart2_8:1;
 };
 
 struct HatchData {
     /* 0 */
     u8 exists:1;
     u8 currentAnimationFrame:3;
-    i8 facingRight:1;
+    u8 facingRight:1;
     u8 padding:3;
     /* 1 */
     u8 opening:2;
-    u8 locked:1;
-    u8 unk:1;
+    u8 locked:2;
     u8 flashingTimer:4;
     /* 2 */
     u8 hitTimer:4;
@@ -137,17 +151,17 @@ struct HatchesState {
 
 // Functions
 
-void ConnectionUpdateOpeningClosingHatches(void);
-void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr);
+void ConnectionUpdateHatches(void);
+void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatch);
 void ConnectionHatchFlashingAnimation(u8 hatch);
-void ConnectionOverrideOpenedHatch(u8 hatch, u8 type);
+void ConnectionOverrideOpenedHatch(u8 hatch, u32 type);
 u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition);
 u8 ConnectionCheckAreaConnection(u16 yPosition, u16 xPosition);
 void ConnectionProcessDoorType(u8 type);
 u8 ConnectionFindEventBasedDoor(u8 sourceDoor);
 u32 ConnectionSetHatchAsOpened(u8 action, u8 hatch);
 void ConnectionCheckUnlockDoors(void);
-void ConnectionStartLockAnimation(u8 dontSetRaw, u8 hatch, u8 status);
+void ConnectionHatchStartLockAnimation(u8 dontSetRaw, u8 hatch, u8 status);
 void ConnectionLockHatches(u8 isEvent);
 void ConnectionLoadDoors(void);
 void ConnectionLockHatchesWithTimer(void);

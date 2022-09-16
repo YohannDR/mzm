@@ -15,4 +15,5 @@
 *.runtimeconfig.json
 
 data/*.c
+tools/*.txt
 .vscode

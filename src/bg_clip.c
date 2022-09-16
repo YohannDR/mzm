@@ -8,7 +8,7 @@ void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition
 
 }
 
-void BGClipSetBG1BlockValue(u16 value, u16 yPosition, u16 xPosition)
+void BGClipSetBG1BlockValue(u32 value, u16 yPosition, u16 xPosition)
 {
     // https://decomp.me/scratch/1BdqX
 
@@ -50,7 +50,7 @@ void BGClipSetBG1BlockValue(u16 value, u16 yPosition, u16 xPosition)
  * @param yPosition Y Position
  * @param xPosition X Position
  */
-void BGClipSetRawBG1BlockValue(u16 value, u16 yPosition, u16 xPosition)
+void BGClipSetRawBG1BlockValue(u32 value, u16 yPosition, u16 xPosition)
 {
     gBGPointersAndDimensions.backgrounds[1].pDecomp[gBGPointersAndDimensions.backgrounds[1].width * yPosition + xPosition] = value;
 }

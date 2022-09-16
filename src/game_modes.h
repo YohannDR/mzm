@@ -24,6 +24,7 @@ enum MainGameMode {
 // For in game
 
 #define SUB_GAME_MODE_PLAYING 0x2
+#define SUB_GAME_MODE_LOADING_ROOM 0x3
 
 extern i16 gMainGameMode;
 extern i16 gGameModeSub1;

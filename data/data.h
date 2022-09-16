@@ -6,7 +6,7 @@
 #include "../src/samus.h"
 #include "../src/particle.h"
 #include "../src/projectile.h"
-#include "sprites_AI/sprites.h"
+#include "../src/sprites_AI/sprites.h"
 
 /* generic_data.c */
 

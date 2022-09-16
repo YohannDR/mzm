@@ -827,6 +827,20 @@ static const struct Door* sAreaDoorsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
     [AREA_CHOZODIA] = sTourianDoors
 };
 
-// 75fac4
+// More...
+
+// 75fde0
+
+static const struct HatchLockEvent* sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
+    [AREA_BRINSTAR] = sHatchLockEventsBrinstar,
+    [AREA_KRAID] = sHatchLockEventsKraid,
+    [AREA_NORFAIR] = sHatchLockEventsNorfair,
+    [AREA_RIDLEY] = sHatchLockEventsNorfair,
+    [AREA_TOURIAN] = sHatchLockEventsNorfair,
+    [AREA_CRATERIA] = sHatchLockEventsNorfair,
+    [AREA_CHOZODIA] = sHatchLockEventsChozodia
+};
+
+// 75fdfc
 
 #endif

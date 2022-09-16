@@ -1,48 +1,108 @@
 from io import BufferedReader
 
-def extractDoorType(file: BufferedReader):
-    result = ""
+events = [
+    "EVENT_NONE",
+    "EVENT_EASY",
+    "EVENT_HARD",
+    "EVENT_ENTER_NORFAIR_DEMO_PLAYED",
+    "EVENT_EXIT_KRAID_DEMO_PLAYED",
+    "EVENT_ENTER_RIDLEY_DEMO_PLAYED",
+    "EVENT_ENTER_MOTHERSHIP_DEMO_PLAYED",
+    "EVENT_ENTER_TOURIAN_DEMO_PLAYED",
+    "EVENT_STATUE_LONG_BEAM_GRABBED",
+    "EVENT_STATUE_BOMBS_GRABBED",
+    "EVENT_STATUE_ICE_BEAM_GRABBED",
+    "EVENT_STATUE_SPEEDBOOSTER_GRABBED",
+    "EVENT_STATUE_HIGH_JUMP_GRABBED",
+    "EVENT_STATUE_VARIA_SUIT_GRABBED",
+    "EVENT_STATUE_WAVE_BEAM_GRABBED",
+    "EVENT_STATUE_SCREW_ATTACK_GRABBED",
+    "EVENT_POWER_GRIP_OBTAINED",
+    "EVENT_CHOZO_PILLAR_FULLY_EXTENDED",
+    "EVENT_HIGH_JUMP_OBTAINED",
+    "EVENT_VARIA_SUIT_OBTAINED",
+    "EVENT_CHARGE_BEAM_OBTAINED",
+    "EVENT_SCREW_ATTACK_OBTAINED",
+    "EVENT_SPACE_JUMP_OBTAINED",
+    "EVENT_GRAVITY_SUIT_OBTAINED",
+    "EVENT_PLASMA_BEAM_OBTAINED",
+    "EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED",
+    "EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED",
+    "EVENT_DEOREM_KILLED_AT_SECOND_LOCATION",
+    "EVENT_ACID_WORM_KILLED",
+    "EVENT_KRAID_GADORA_KILLED",
+    "EVENT_KRAID_KILLED",
+    "EVENT_KRAID_ELEVATOR_STATUE_DESTROYED",
+    "EVENT_CATERPILLAR_KILLED",
+    "EVENT_IMAGO_TUNNEL_DISCOVERED",
+    "EVENT_IMAGO_COCOON_KILLED",
+    "EVENT_IMAGO_KILLED",
+    "EVENT_RIDLEY_GADORA_KILLED",
+    "EVENT_RIDLEY_KILLED",
+    "EVENT_RIDLEY_ELEVATOR_STATUE_DESTROYED",
+    "EVENT_MOTHER_BRAIN_KILLED",
+    "EVENT_CROCOMIRE_KILLED",
+    "EVENT_REPEL_MACHINE_KILLED",
+    "EVENT_VIEWED_STATUE_ROOM",
+    "EVENT_LONG_BEAM_DESSGEEGA_KILLED",
+    "EVENT_THREE_HIVES_DESTROYED",
+    "EVENT_BUGS_KILLED",
+    "EVENT_ZIPLINES_ACTIVATED",
+    "EVENT_PLANT_DESTROYED_LAVA",
+    "EVENT_PLANT_DESTROYED_POST_VARIA",
+    "EVENT_PLANT_DESTROYED_VARIA2",
+    "EVENT_PLANT_DESTROYED_VARIA3",
+    "EVENT_PLANT_DESTROYED_VARIA1",
+    "EVENT_KRAID_BARISTUTES_KILLED",
+    "EVENT_KRAID_STATUE_OPENED",
+    "EVENT_RIDLEY_STATUE_OPENED",
+    "EVENT_FIRST_METROID_ROOM_CLEARED",
+    "EVENT_THIRD_METROID_ROOM_CLEARED",
+    "EVENT_FIFTH_METROID_ROOM_CLEARED",
+    "EVENT_SECOND_METROID_ROOM_CLEARED",
+    "EVENT_SIXTH_METROID_ROOM_CLEARED",
+    "EVENT_FOURTH_METROID_ROOM_CLEARED",
+    "EVENT_ZEBETITE_ONE_DESTROYED",
+    "EVENT_ZEBETITE_TWO_DESTROYED",
+    "EVENT_ZEBETITE_THREE_DESTROYED",
+    "EVENT_ZEBETITE_FOUR_DESTROYED",
+    "EVENT_ESCAPED_ZEBES",
+    "EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP",
+    "EVENT_FULLY_POWERED_SUIT_OBTAINED",
+    "EVENT_SKIPPED_VARIA_SUIT",
+    "EVENT_CHOZOBLOCK",
+    "EVENT_POWER_BOMB_STOLEN",
+    "EVENT_SPACE_PIRATE_WITH_POWER_BOMB_ONE",
+    "EVENT_SPACE_PIRATE_WITH_POWER_BOMB_TWO",
+    "EVENT_GLASS_TUBE_BROKEN",
+    "EVENT_MECHA_RIDLEY_KILLED",
+    "EVENT_ESCAPED_CHOZODIA",
+    "EVENT_AKI",
+    "EVENT_BOMBATE",
+    "EVENT_END_UNUSED"
+]
 
-    types = ["DOOR_TYPE_NONE", "DOOR_TYPE_AREA_CONNECTION", "DOOR_TYPE_NO_HATCH",
-        "DOOR_TYPE_OPEN_HATCH", "DOOR_TYPE_CLOSED_HATCH", "DOOR_TYPE_REMOVE_MOTHER_SHIP",
-        "DOOR_TYPE_SET_MOTHER_SHIP", "DOOR_TYPE_SET_MOTHER_SHIP"]
+areas = [
+    "AREA_BRINSTAR",
+    "AREA_KRAID",
+    "AREA_NORFAIR",
+    "AREA_RIDLEY",
+    "AREA_TOURIAN",
+    "AREA_CRATERIA",
+    "AREA_CHOZODIA",
+    "AREA_INVALID",
+    "AREA_NONE"
+]
 
-    value = int.from_bytes(file.read(1), "little")
-
-    result += types[value & 0xF]
-    result += " | DOOR_TYPE_EXISTS"
-
-    if (value & 0x20):
-        result += " | DOOR_TYPE_LOAD_EVENT_BASED_ROOM"
-
-    if (value & 0x40):
-        result += " | DOOR_TYPE_DISPLAYS_ROOM_LOCATION"
-
-    return result
-
-def extractDoor(file: BufferedReader):
-    result = "{\n\t.type = "
-    result += extractDoorType(file)
-    result += ",\n\t.sourceRoom = "
+def extractEBC(file: BufferedReader):
+    result = "{\n\t"
+    result += areas[int.from_bytes(file.read(1), "little")]
+    result += ",\n\t"
     result += str(int.from_bytes(file.read(1), "little"))
-    result += ",\n\t.xStart = "
-    result += str(int.from_bytes(file.read(1), "little"))
-    result += ",\n\t.xEnd = "
-    result += str(int.from_bytes(file.read(1), "little"))
-    result += ",\n\t.yStart = "
-    result += str(int.from_bytes(file.read(1), "little"))
-    result += ",\n\t.yEnd = "
-    result += str(int.from_bytes(file.read(1), "little"))
-    result += ",\n\t.destinationDoor = "
-    result += str(int.from_bytes(file.read(1), "little"))
-    result += ",\n\t.xExit = "
-    result += str(sign(int.from_bytes(file.read(1), "little"), 1))
-    result += ",\n\t.yExit = "
-    result += str(sign(int.from_bytes(file.read(1), "little"), 1))
+    result += ",\n\t"
+    result += areas[int.from_bytes(file.read(1), "little")]
     result += "\n},\n"
-
-    file.read(3) # padding
-
+    
     return result
 
 def sign(value, size):
@@ -66,20 +126,20 @@ def sign(value, size):
 file = open("../baserom_us.gba", "rb")
 def Func():
     #inputValue = input("Address : ")
-    size = 246#int(input("Size : "))
+    size = 25#int(input("Size : "))
 
-    addr = 0x33fe14#int(inputValue, 16)
+    addr = 0x360274#int(inputValue, 16)
 
     file.seek(addr)
 
     result = ""
     for x in range(0, size):
-        result += extractDoor(file)
+        result += extractEBC(file)
 
     return result
 
 
-f = open("doors.txt", "a")
+f = open("AC.txt", "a")
 f.write(Func())
 f.close()
 
