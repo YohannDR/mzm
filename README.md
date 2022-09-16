@@ -11,7 +11,7 @@ This produces the following ROMs:
 
 **Discords**: 
 - https://discord.gg/2MGB9Xbr9y MAGret
-- https://discord.gg/WtekHKb MAGcCnst
+- https://discord.gg/WtekHKb MAGConst
 
 ## Dependencies
 
