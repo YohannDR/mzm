@@ -5,8 +5,8 @@
 
 // Globals
 
-extern struct BldalphaData gBLDALPHAata1;
-extern struct BldalphaData gBLDALPHAata1;
+extern struct BldalphaData gBldalphaData1;
+extern struct BldalphaData gBldalphaData2;
 extern struct BldyData gBLDYData1;
 extern struct BldyData gBLDYData2;
 

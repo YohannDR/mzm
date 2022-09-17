@@ -161,6 +161,7 @@ SECTIONS {
         . = 0x000052E0; gSamusPalette = .;
         . = 0x00005450; gTilemapAndClipPointers = .;
         . = 0x0000545C; gHatchData = .;
+        . = 0x000054DC; gNumberOfValidHatchesInRoom = .;
         . = 0x000054E0; gDoorPositionStart = .;
         . = 0x000054E4; gHatchesState = .;
         . = 0x000054EC; gBG3Movement = .;
@@ -173,8 +174,8 @@ SECTIONS {
         . = 0x000056a8; gLastTankCollected = .;
         . = 0x000056ac; gBombchains = .;
         . = 0x000056bc; gActiveBombChainTypes = .;
-        . = 0x000056cc; gBLDALPHAata1 = .;
-        . = 0x000056d4; gBLDALPHAata1 = .;
+        . = 0x000056cc; gBldalphaData1 = .;
+        . = 0x000056d4; gBldalphaData2 = .;
         . = 0x000056dc; gBLDYData1 = .;
         . = 0x000056e4; gBLDYData2 = .;
         . = 0x00005704; gClipdataCodePointer = .;
