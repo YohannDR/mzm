@@ -153,8 +153,8 @@ u32 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosi
 void BlockUpdateBrokenBlocks(void);
 void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock);
 u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 advanceStage);
-u8 BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type);
-u8 BlockCheckRevealBombChainBlock(u8 type, u16 xPosition, u16 yPosition);
+void BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type);
+u32 BLockRevealBombChainBlock(u8 type, u16 xPosition, u16 yPosition);
 u32 BlockCheckSamusInReformingBlock(u8 xPosition, u8 yPosition);
 u32 BlockStartBombChain(u8 type, u16 xPosition, u16 yPosition);
 void BlockProcessBombChains(void);

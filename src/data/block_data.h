@@ -415,7 +415,7 @@ static const u16 sReformingBlocksTilemapValue[MAX_AMOUNT_OF_BLOCKS_TYPES] = {
     [BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN4] =       0x46F
 };
 
-static const u16 sBrokenBlocksTimers[MAX_AMOUNT_OF_BLOCKS_TYPES][13] = {
+static const u8 sBrokenBlocksTimers[MAX_AMOUNT_OF_BLOCKS_TYPES][13] = {
     [BLOCK_TYPE_NONE] = {
         0, 0, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0
     },

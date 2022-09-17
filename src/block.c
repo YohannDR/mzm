@@ -529,9 +529,90 @@ u32 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosi
     return result;
 }
 
+/**
+ * @brief 59b54 | 120 | Updates the broken blocks
+ * 
+ */
 void BlockUpdateBrokenBlocks(void)
 {
+    struct BrokenBlock* pBlock;
+    i32 i;
+    u32 updateStage;
 
+    pBlock = gBrokenBlocks;
+    i = MAX_AMOUNT_OF_BROKEN_BLOCKS - 1;
+    while (i >= 0)
+    {
+        if (pBlock->stage != 0x0)
+        {
+            pBlock->timer++;
+            if (pBlock->broken)
+            {
+                if (pBlock->timer >= sBrokenBlocksTimers[pBlock->type][pBlock->stage])
+                {
+                    updateStage = FALSE;
+                    pBlock->timer = 0x0;
+    
+                    if (pBlock->stage > 0xC)
+                    {
+                        if (BlockCheckSamusInReformingBlock(pBlock->xPosition, pBlock->yPosition))
+                            pBlock->stage = 0x2;
+                        else
+                        {
+                            BGClipSetClipdataBlockValue(sReformingBlocksTilemapValue[pBlock->type], pBlock->yPosition, pBlock->xPosition);
+                            pBlock->broken = FALSE;
+                            pBlock->stage = 0x0;
+                            pBlock->type = BLOCK_TYPE_NONE;
+                            pBlock->xPosition = 0x0;
+                            pBlock->yPosition = 0x0;
+                        }
+                    }
+                    else if (pBlock->stage == 0x7)
+                    {
+                        if (BlockCheckSamusInReformingBlock(pBlock->xPosition, pBlock->yPosition))
+                            pBlock->timer = sBrokenBlocksTimers[pBlock->type][pBlock->stage] / 2;
+                        else
+                            updateStage = TRUE;
+                    }
+                    else
+                    {
+                        if (pBlock->stage == 0x1)
+                            BlockBrokenBlockRemoveCollision(pBlock->yPosition, pBlock->xPosition);
+                        updateStage = TRUE;
+                    }
+    
+                    if (updateStage)
+                    {
+                        pBlock->stage++;
+                        BlockUpdateBrokenBlockAnimation(pBlock);
+                    }
+                }
+            }
+            else
+            {
+                if (pBlock->timer >= sBrokenBlocksTimers[pBlock->type][pBlock->stage])
+                {
+                    pBlock->timer = 0x0;
+                    pBlock->stage++;
+    
+                    BlockUpdateBrokenBlockAnimation(pBlock);
+    
+                    if (pBlock->stage > 0x6)
+                    {
+                        pBlock->broken = FALSE;
+                        pBlock->stage = 0x0;
+                        pBlock->type = BLOCK_TYPE_NONE;
+                        pBlock->xPosition = 0x0;
+                        pBlock->yPosition = 0x0;
+                    }
+                }
+            }
+        }
+
+
+        i--;
+        pBlock++;
+    }
 }
 
 void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
@@ -613,14 +694,120 @@ u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 advanc
     return result;
 }
 
-u8 BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type)
+/**
+ * @brief 59e54 | a4 | Stores a new broken block (that doesn't reform)
+ * 
+ * @param xPosition X Position
+ * @param yPosition Y Position
+ * @param type Block type
+ */
+void BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type)
 {
+    struct BrokenBlock* pBlock;
+    i32 i;
+    i32 stage;
 
+    pBlock = gBrokenBlocks;
+    i = 0;
+
+    while (i < MAX_AMOUNT_OF_BROKEN_BLOCKS)
+    {
+        if (pBlock->stage == 0x0)
+        {
+            pBlock->broken = FALSE;
+            pBlock->stage = 0x2;
+            pBlock->type = type;
+            pBlock->timer = 0x0;
+            pBlock->xPosition = xPosition;
+            pBlock->yPosition = yPosition;
+
+            BlockUpdateBrokenBlockAnimation(pBlock);
+            return;
+        }
+
+        i++;
+        pBlock++;
+    }
+
+    stage = 0x4;
+
+    while (stage != 0x0)
+    {
+        pBlock = gBrokenBlocks;
+        i = 0;
+
+        while (i < MAX_AMOUNT_OF_BROKEN_BLOCKS)
+        {
+            if (!pBlock->broken && pBlock->stage >= stage)
+            {
+                BGClipSetBG1BlockValue(0x0, pBlock->yPosition, pBlock->xPosition);
+
+                pBlock->broken = FALSE;
+                pBlock->stage = 0x2;
+                pBlock->type = type;
+                pBlock->timer = 0x0;
+                pBlock->xPosition = xPosition;
+                pBlock->yPosition = yPosition;
+
+                BlockUpdateBrokenBlockAnimation(gBrokenBlocks + i);
+                return;
+            }
+
+            i++;
+            pBlock++;
+        }
+
+        stage >>= 1;
+    }
 }
 
-u8 BlockCheckRevealBombChainBlock(u8 type, u16 xPosition, u16 yPosition)
+/**
+ * @brief 59ef8 | 78 | Reveals a bomb chain block
+ * 
+ * @param type Block type
+ * @param xPosition X Position
+ * @param yPosition Y Position
+ * @return u32 1 if was revealed, 0 otherwise
+ */
+u32 BlockCheckRevealBombChainBlock(u8 type, u16 xPosition, u16 yPosition)
 {
+    struct BrokenBlock* pBlock;
+    i32 i;
+    i32 couldSpawn;
 
+    couldSpawn = FALSE;
+    pBlock = gBrokenBlocks;
+    i = 0;
+
+    while (i < MAX_AMOUNT_OF_BROKEN_BLOCKS)
+    {
+        if (pBlock->xPosition == xPosition && pBlock->yPosition == yPosition)
+        {
+            couldSpawn = 0x0;
+            break;
+        }
+
+        if (!(couldSpawn & 0x80) && pBlock->stage == 0x0)
+            couldSpawn = i | 0x80;
+
+        i++;
+        pBlock++;
+    }
+
+    if (couldSpawn)
+    {
+        pBlock = gBrokenBlocks + (couldSpawn & 0x7F);
+
+        pBlock->broken = FALSE;
+        pBlock->stage = 0x0;
+        pBlock->type = type;
+        pBlock->timer = 0x0;
+        pBlock->xPosition = xPosition;
+        pBlock->yPosition = yPosition;
+        couldSpawn = TRUE;
+    }
+
+    return couldSpawn;
 }
 
 /**
