@@ -2,12 +2,15 @@
 #include "data/generic.h"
 #include "globals.h"
 
+/**
+ * @brief 52308 | 35c | Updates the OAM of the HUD
+ * 
+ */
 void HUDUpdateOAM(void)
 {
-    // https://decomp.me/scratch/YlLyU
-
     u32 oamSlot;
     u16* dst;
+    struct Equipment* pEquipment = &gEquipment;
     
     oamSlot = 0x0;
 
@@ -47,7 +50,8 @@ void HUDUpdateOAM(void)
         dst++;
         oamSlot++;
 
-        if (gEquipment.suitType == SUIT_SUITLESS)
+        
+        if (pEquipment->suitType == SUIT_SUITLESS)
         {
             // Left part of charge bar
             *dst++ = 0x0;
@@ -83,7 +87,7 @@ void HUDUpdateOAM(void)
         }
         else
         {
-            if (gEquipment.maxMissiles != 0x0)
+            if (pEquipment->maxMissiles != 0x0)
             {
                 // Missile digits
                 
@@ -102,8 +106,7 @@ void HUDUpdateOAM(void)
                 dst++;
                 oamSlot++;
             }
-            
-            if (gEquipment.maxSuperMissiles != 0x0)
+            if (pEquipment->maxSuperMissiles != 0x0)
             {
                 // Super missile digits
                 *dst++ = 0x0;
@@ -121,8 +124,7 @@ void HUDUpdateOAM(void)
                 dst++;
                 oamSlot++;
             }
-
-            if (gEquipment.maxPowerBombs != 0x0)
+            if (pEquipment->maxPowerBombs != 0x0)
             {
                 // Power bomb digits
 
@@ -173,7 +175,7 @@ void HUDUpdateOAM(void)
         gOamData[oamSlot].split.x = 0xD6;
         gOamData[oamSlot].split.size = 0x2;
 
-        *dst++ = 0x0;
+        *dst = 0x0;
         gOamData[oamSlot].split.tileNum = 0xDC;
         gOamData[oamSlot].split.paletteNum = 0x5;
         
