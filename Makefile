@@ -35,7 +35,7 @@ GBAFIX = tools/gbafix/gbafix
 
 # Flags
 ASFLAGS = -mcpu=arm7tdmi
-CFLAGS = -O2 -mthumb-interwork -fhex-asm
+CFLAGS = -Werror -O2 -mthumb-interwork -fhex-asm
 CPPFLAGS = -nostdinc -Isrc/
 
 # Objects
