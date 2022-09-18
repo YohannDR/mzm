@@ -4,6 +4,7 @@
 #include "music.h"
 #include "../data/data.h"
 #include "data/pointers.h"
+#include "data/projectiles.h"
 #include "globals.h"
 
 /**
@@ -698,14 +699,15 @@ void ParticleBomb(struct ParticleEffect* pParticle)
 void ParticleMissileTrail(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_missile_trail_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleMissileTrailOAM))
         pParticle->status = 0x0;
     else
     {
-        if (pParticle->stage != 0x0)
-            return;
-        pParticle->stage++;
-        pParticle->status |= PARTICLE_STATUS_LOW_PRIORITY;
+        if (pParticle->stage == 0x0)
+        {
+            pParticle->stage++;
+            pParticle->status |= PARTICLE_STATUS_LOW_PRIORITY;
+        }
     }
 }
 
@@ -718,14 +720,15 @@ void ParticleMissileTrail(struct ParticleEffect* pParticle)
 void ParticleSuperMissileTrail(struct ParticleEffect* pParticle)
 {    
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_super_missile_trail_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSuperMissileTrailOAM))
         pParticle->status = 0x0;
     else
     {
-        if (pParticle->stage != 0x0)
-            return;
-        pParticle->stage++;
-        pParticle->status |= PARTICLE_STATUS_LOW_PRIORITY;
+        if (pParticle->stage == 0x0)
+        {
+            pParticle->stage++;
+            pParticle->status |= PARTICLE_STATUS_LOW_PRIORITY;
+        }
     }
 }
 
@@ -746,10 +749,12 @@ void ParticleBeamTrailingRight(struct ParticleEffect* pParticle)
         {
             pParticle->xPosition++;
             pParticle->yPosition += 0x4;
-            return;
         }
-        pParticle->stage++;
-        pParticle->status |= PARTICLE_STATUS_LOW_PRIORITY;
+        else
+        {
+            pParticle->stage++;
+            pParticle->status |= PARTICLE_STATUS_LOW_PRIORITY;
+        }
     }
 }
 
@@ -786,7 +791,7 @@ void ParticleBeamTrailingLeft(struct ParticleEffect* pParticle)
 void ParticleChargedLongBeamTrail(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_charged_long_beam_trail_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleChargedLongBeamTrailOAM))
         pParticle->status = 0x0;
     else
     {
@@ -804,7 +809,7 @@ void ParticleChargedLongBeamTrail(struct ParticleEffect* pParticle)
 void ParticleChargedIceBeamTrail(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_charged_ice_beam_trail_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleChargedIceBeamTrailOAM))
         pParticle->status = 0x0;
     else
     {
@@ -822,7 +827,7 @@ void ParticleChargedIceBeamTrail(struct ParticleEffect* pParticle)
 void ParticleChargedWaveBeamTrail(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_charged_wave_beam_trail_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleChargedWaveBeamTrailOAM))
         pParticle->status = 0x0;
     else
     {
@@ -840,7 +845,7 @@ void ParticleChargedWaveBeamTrail(struct ParticleEffect* pParticle)
 void ParticleChargedPlasmaBeamTrail(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_charged_plasma_beam_trail_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleChargedPlasmaBeamTrailOAM))
         pParticle->status = 0x0;
     else
     {
@@ -858,7 +863,7 @@ void ParticleChargedPlasmaBeamTrail(struct ParticleEffect* pParticle)
 void ParticleChargedFullBeamTrail(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_charged_full_beam_trail_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleChargedFullBeamTrailOAM))
         pParticle->status = 0x0;
     else
     {
@@ -876,7 +881,7 @@ void ParticleChargedFullBeamTrail(struct ParticleEffect* pParticle)
 void ParticleChargedPistolTrail(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_charged_pistol_trail_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleChargedPistolTrailOAM))
         pParticle->status = 0x0;
     else
     {

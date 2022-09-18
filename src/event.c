@@ -31,7 +31,7 @@ u32 EventFunction(u8 action, u8 event)
 
         // Check is set
         isSet = previous & newEvent;
-        if (previous & newEvent)
+        if (isSet)
             isSet = TRUE; // Not 0, then set
 
         // Apply action

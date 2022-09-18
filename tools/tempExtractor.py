@@ -1,146 +1,30 @@
-from io import BufferedReader
-
-events = [
-    "EVENT_NONE",
-    "EVENT_EASY",
-    "EVENT_HARD",
-    "EVENT_ENTER_NORFAIR_DEMO_PLAYED",
-    "EVENT_EXIT_KRAID_DEMO_PLAYED",
-    "EVENT_ENTER_RIDLEY_DEMO_PLAYED",
-    "EVENT_ENTER_MOTHERSHIP_DEMO_PLAYED",
-    "EVENT_ENTER_TOURIAN_DEMO_PLAYED",
-    "EVENT_STATUE_LONG_BEAM_GRABBED",
-    "EVENT_STATUE_BOMBS_GRABBED",
-    "EVENT_STATUE_ICE_BEAM_GRABBED",
-    "EVENT_STATUE_SPEEDBOOSTER_GRABBED",
-    "EVENT_STATUE_HIGH_JUMP_GRABBED",
-    "EVENT_STATUE_VARIA_SUIT_GRABBED",
-    "EVENT_STATUE_WAVE_BEAM_GRABBED",
-    "EVENT_STATUE_SCREW_ATTACK_GRABBED",
-    "EVENT_POWER_GRIP_OBTAINED",
-    "EVENT_CHOZO_PILLAR_FULLY_EXTENDED",
-    "EVENT_HIGH_JUMP_OBTAINED",
-    "EVENT_VARIA_SUIT_OBTAINED",
-    "EVENT_CHARGE_BEAM_OBTAINED",
-    "EVENT_SCREW_ATTACK_OBTAINED",
-    "EVENT_SPACE_JUMP_OBTAINED",
-    "EVENT_GRAVITY_SUIT_OBTAINED",
-    "EVENT_PLASMA_BEAM_OBTAINED",
-    "EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED",
-    "EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED",
-    "EVENT_DEOREM_KILLED_AT_SECOND_LOCATION",
-    "EVENT_ACID_WORM_KILLED",
-    "EVENT_KRAID_GADORA_KILLED",
-    "EVENT_KRAID_KILLED",
-    "EVENT_KRAID_ELEVATOR_STATUE_DESTROYED",
-    "EVENT_CATERPILLAR_KILLED",
-    "EVENT_IMAGO_TUNNEL_DISCOVERED",
-    "EVENT_IMAGO_COCOON_KILLED",
-    "EVENT_IMAGO_KILLED",
-    "EVENT_RIDLEY_GADORA_KILLED",
-    "EVENT_RIDLEY_KILLED",
-    "EVENT_RIDLEY_ELEVATOR_STATUE_DESTROYED",
-    "EVENT_MOTHER_BRAIN_KILLED",
-    "EVENT_CROCOMIRE_KILLED",
-    "EVENT_REPEL_MACHINE_KILLED",
-    "EVENT_VIEWED_STATUE_ROOM",
-    "EVENT_LONG_BEAM_DESSGEEGA_KILLED",
-    "EVENT_THREE_HIVES_DESTROYED",
-    "EVENT_BUGS_KILLED",
-    "EVENT_ZIPLINES_ACTIVATED",
-    "EVENT_PLANT_DESTROYED_LAVA",
-    "EVENT_PLANT_DESTROYED_POST_VARIA",
-    "EVENT_PLANT_DESTROYED_VARIA2",
-    "EVENT_PLANT_DESTROYED_VARIA3",
-    "EVENT_PLANT_DESTROYED_VARIA1",
-    "EVENT_KRAID_BARISTUTES_KILLED",
-    "EVENT_KRAID_STATUE_OPENED",
-    "EVENT_RIDLEY_STATUE_OPENED",
-    "EVENT_FIRST_METROID_ROOM_CLEARED",
-    "EVENT_THIRD_METROID_ROOM_CLEARED",
-    "EVENT_FIFTH_METROID_ROOM_CLEARED",
-    "EVENT_SECOND_METROID_ROOM_CLEARED",
-    "EVENT_SIXTH_METROID_ROOM_CLEARED",
-    "EVENT_FOURTH_METROID_ROOM_CLEARED",
-    "EVENT_ZEBETITE_ONE_DESTROYED",
-    "EVENT_ZEBETITE_TWO_DESTROYED",
-    "EVENT_ZEBETITE_THREE_DESTROYED",
-    "EVENT_ZEBETITE_FOUR_DESTROYED",
-    "EVENT_ESCAPED_ZEBES",
-    "EVENT_MARKER_BETWEEN_ZEBES_AND_MOTHERSHIP",
-    "EVENT_FULLY_POWERED_SUIT_OBTAINED",
-    "EVENT_SKIPPED_VARIA_SUIT",
-    "EVENT_CHOZOBLOCK",
-    "EVENT_POWER_BOMB_STOLEN",
-    "EVENT_SPACE_PIRATE_WITH_POWER_BOMB_ONE",
-    "EVENT_SPACE_PIRATE_WITH_POWER_BOMB_TWO",
-    "EVENT_GLASS_TUBE_BROKEN",
-    "EVENT_MECHA_RIDLEY_KILLED",
-    "EVENT_ESCAPED_CHOZODIA",
-    "EVENT_AKI",
-    "EVENT_BOMBATE",
-    "EVENT_END_UNUSED"
-]
-
-areas = [
-    "AREA_BRINSTAR",
-    "AREA_KRAID",
-    "AREA_NORFAIR",
-    "AREA_RIDLEY",
-    "AREA_TOURIAN",
-    "AREA_CRATERIA",
-    "AREA_CHOZODIA",
-    "AREA_INVALID",
-    "AREA_NONE"
-]
-
-def extractEBC(file: BufferedReader):
-    result = "{\n\t"
-    result += areas[int.from_bytes(file.read(1), "little")]
-    result += ",\n\t"
-    result += str(int.from_bytes(file.read(1), "little"))
-    result += ",\n\t"
-    result += areas[int.from_bytes(file.read(1), "little")]
-    result += "\n},\n"
-    
-    return result
-
-def sign(value, size):
-    limit = 0
-    max = 0
-    if size == 1:
-        limit = 0x7F
-        max = 0x100
-    elif size == 2:
-        limit = 0x7FFF
-        max = 0x10000
-    elif size == 4:
-        limit = 0x7FFFFFFF
-        max = 0x100000000
-
-    if value > limit:
-        value = -(max - value)
+def sign(value):
+    if value > 0x7FFF:
+        value = -(0x10000 - value)
 
     return value
 
 file = open("../baserom_us.gba", "rb")
-def Func():
-    #inputValue = input("Address : ")
-    size = 25#int(input("Size : "))
 
-    addr = 0x360274#int(inputValue, 16)
+def Func():
+    inputValue = input("Address : ")
+    size = int(input("Size : "))
+
+    addr = int(inputValue, 16)
 
     file.seek(addr)
 
     result = ""
-    for x in range(0, size):
-        result += extractEBC(file)
 
-    return result
+    for x in range(1, size + 1):
+        result += str(sign(int.from_bytes(file.read(1), "little")))
 
+        if x % 3 == 0 and x != 0:
+            result += ",\n"
+        else:
+            result += ", "
 
-f = open("AC.txt", "a")
-f.write(Func())
-f.close()
+    print(result)
+    Func()
 
-file.close()
+Func()
