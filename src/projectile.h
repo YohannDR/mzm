@@ -115,7 +115,7 @@ struct SpriteData* ProjectileHitSolidSprite(struct SpriteData* pSprite);
 void ProjectilePowerBombDealDamage(struct SpriteData* pSprite);
 void ProjectileHitSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition, u16 damage, u8 effect);
 void ProjectileNonIceChargedHitSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition, u16 damage, u8 effect);
-void ProjectileFreezeSprite(struct SpriteData* pSprite, u8 freeze_timer);
+void ProjectileFreezeSprite(struct SpriteData* pSprite, u8 freezeTimer);
 void ProjectileIceBeamHittingSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition, u16 damage, u8 effect);
 void ProjectileChargedIceBeamHittingSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition, u16 damage, u8 effect);
 void ProjectileStartTumblingMissile(struct SpriteData* pSprite, struct ProjectileData* pProj, u8 type);

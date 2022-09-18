@@ -68,9 +68,8 @@ u8 ProjectileCheckNumberOfProjectiles(u8 type, u8 limit)
     struct ProjectileData* pProj;
 
     count = 0x0;
-    pProj = gProjectileData;
 
-    while (pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES)
+    for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
         if (pProj->status & PROJ_STATUS_EXISTS && pProj->type == type)
         {
@@ -78,7 +77,6 @@ u8 ProjectileCheckNumberOfProjectiles(u8 type, u8 limit)
             if (count >= limit)
                 return FALSE;
         }
-        pProj++;
     }
 
     return TRUE;
@@ -1271,21 +1269,140 @@ void ProjectileNonIceChargedHitSprite(struct SpriteData* pSprite, u16 yPosition,
  * @param pSprite Sprite Data Pointer to the sprite concerned
  * @param freeze_timer Freeze timer to apply
  */
-void ProjectileFreezeSprite(struct SpriteData* pSprite, u8 freeze_timer)
+void ProjectileFreezeSprite(struct SpriteData* pSprite, u8 freezeTimer)
 {
-    pSprite->freezeTimer = freeze_timer;
+    pSprite->freezeTimer = freezeTimer;
     pSprite->paletteRow = 0xF - (pSprite->spritesetGFXSlot + pSprite->frozenPaletteRowOffset);
     SoundPlayNotAlreadyPlaying(0x140);
 }
 
+/**
+ * @brief 50724 | 104 | Handles an ice beam (non charged) hitting a sprite
+ * 
+ * @param pSprite Sprite Data Pointer
+ * @param yPosition Collision Y Position
+ * @param xPosition Collision X Position
+ * @param damage Projectile damage
+ * @param effect Particle effect
+ */
 void ProjectileIceBeamHittingSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition, u16 damage, u8 effect)
 {
+    u8 freezeTimer;
+    u16 weakness;
+    u16 freezeFlag;
 
+    freezeTimer = 0x0;
+
+    if (pSprite->properties & SP_SOLID_FOR_PROJECTILES)
+    {
+        ProjectileHitSolidSprite(pSprite);
+        ParticleSet(yPosition, xPosition, effect);
+        return;
+    }
+
+    if (pSprite->properties & SP_IMMUNE_TO_PROJECTILES)
+    {
+        ProjectileHitSpriteImmuneToProjectiles(pSprite);
+        ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_INVINCIBLE);
+        return;
+    }
+
+    weakness = ProjectileGetSpriteWeakness(pSprite);
+    if (weakness & WEAKNESS_BEAM_BOMBS)
+    {
+        if (weakness & WEAKNESS_CAN_BE_FROZEN)
+        {
+            freezeFlag = weakness >> 0x8;
+            if (!(gFrameCounter8Bit & freezeFlag))
+                freezeTimer = ProjectileIceBeamDealDamage(pSprite, damage);
+            else
+                ProjectileDealDamage(pSprite, damage);
+        }
+        else
+            ProjectileDealDamage(pSprite, damage);
+
+        ParticleSet(yPosition, xPosition, effect);
+    }
+    else
+    {
+        if (weakness & WEAKNESS_CAN_BE_FROZEN)
+        {
+            freezeTimer = 0xF0;
+            ParticleSet(yPosition, xPosition, effect);
+        }
+        else
+        {
+            ProjectileHitSolidSprite(pSprite);
+            ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_INVINCIBLE);
+        }
+    }
+
+    if (freezeTimer)
+    {
+        ProjectileFreezeSprite(pSprite, freezeTimer);
+        ParticleSet(yPosition, xPosition, PE_FREEZING_SPRITE_WITH_ICE);
+    }
 }
 
+/**
+ * @brief 50828 | ec | Handles an ice beam (charged) hitting a sprite
+ * 
+ * @param pSprite Sprite Data Pointer
+ * @param yPosition Collision Y Position
+ * @param xPosition Collision X Position
+ * @param damage Projectile damage
+ * @param effect Particle effect
+ */
 void ProjectileChargedIceBeamHittingSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition, u16 damage, u8 effect)
 {
+    u8 freezeTimer;
+    u16 weakness;
 
+    freezeTimer = 0x0;
+
+    if (pSprite->properties & SP_SOLID_FOR_PROJECTILES)
+    {
+        ProjectileHitSolidSprite(pSprite);
+        ParticleSet(yPosition, xPosition, effect);
+        return;
+    }
+
+    if (pSprite->properties & SP_IMMUNE_TO_PROJECTILES)
+    {
+        ProjectileHitSpriteImmuneToProjectiles(pSprite);
+        ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_INVINCIBLE);
+        return;
+    }
+
+    weakness = ProjectileGetSpriteWeakness(pSprite);
+    if (weakness & (WEAKNESS_CHARGE_BEAM_PISTOL | WEAKNESS_BEAM_BOMBS))
+    {
+        if (weakness & WEAKNESS_CAN_BE_FROZEN)
+            freezeTimer = ProjectileIceBeamDealDamage(pSprite, damage);
+        else
+            ProjectileDealDamage(pSprite, damage);
+
+        ParticleSet(yPosition, xPosition, effect);
+    }
+    else
+    {
+        if (weakness & WEAKNESS_CAN_BE_FROZEN)
+        {
+            freezeTimer = 0xF0;
+            ParticleSet(yPosition, xPosition, effect);
+        }
+        else
+        {
+            ProjectileHitSolidSprite(pSprite);
+            ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_INVINCIBLE);
+        }
+    }
+
+    if (freezeTimer)
+    {
+        ProjectileFreezeSprite(pSprite, freezeTimer);
+        ParticleSet(yPosition, xPosition, PE_FREEZING_SPRITE_WITH_CHARGED_ICE);
+    }
 }
 
 /**
@@ -1353,62 +1470,104 @@ void ProjectileStartTumblingMissileCurrentSprite(struct ProjectileData* pProj, u
     }
 }
 
+/**
+ * @brief 509dc | a0 | Handles a missile hitting a sprite
+ * 
+ * @param pSprite Sprite Data Pointer
+ * @param pProj Projectile Data Pointer
+ * @param yPosition Collision Y Position
+ * @param xPosition Collision X Position
+ */
 void ProjectileMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 yPosition, u16 xPosition)
 {
-    /*if (pSprite->properties & SP_SOLID_FOR_PROJECTILES)
+    if (pSprite->properties & SP_SOLID_FOR_PROJECTILES)
     {
         ProjectileHitSolidSprite(pSprite);
         ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_WITH_MISSILE);
-        if (pProj->movementStage == 0x0)
-            ProjectileDecrementMissileCounter(pProj);
-        pProj->status = 0x0;
-        return;
     }
-    else
-    {
-        if (pSprite->properties & SP_IMMUNE_TO_PROJECTILES)
-            ProjectileHitSpriteImmuneToProjectiles(pSprite);
-        else
-        {
-            if (ProjectileGetSpriteWeakness(pSprite) & WEAKNESS_MISSILES)
-            {
-                ProjectileDealDamage(pSprite, 0x14);
-                ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_WITH_MISSILE);
-                if (pProj->movementStage == 0x0)
-                    ProjectileDecrementMissileCounter(pProj);
-                pProj->status = 0x0;
-                return;
-            }
-            else
-            {
-                ProjectileHitSolidSprite(pSprite);
-            }
-        }
-        ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_INVINCIBLE);
-        ProjectileStartTumblingMissile(pSprite, pProj, PROJ_TYPE_MISSILE);
-    }*/
-}
-
-void ProjectileSuperMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 yPosition, u16 xPosition)
-{
-
-}
-
-void ProjectileBombHitSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition)
-{
-    if ((pSprite->properties & SP_IMMUNE_TO_PROJECTILES) != 0x0)
+    else if (pSprite->properties & SP_IMMUNE_TO_PROJECTILES)
     {
         ProjectileHitSpriteImmuneToProjectiles(pSprite);
+        ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_INVINCIBLE);
+        ProjectileStartTumblingMissile(pSprite, pProj, PROJ_TYPE_MISSILE);
+        return;
+    }
+    else if (ProjectileGetSpriteWeakness(pSprite) & WEAKNESS_MISSILES)
+    {
+        ProjectileDealDamage(pSprite, 0x14);
+        ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_WITH_MISSILE);
     }
     else
     {
-        if ((pSprite->properties & SP_SOLID_FOR_PROJECTILES) != 0x0)
-        {
+        ProjectileHitSolidSprite(pSprite);
+        ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_INVINCIBLE);
+        ProjectileStartTumblingMissile(pSprite, pProj, PROJ_TYPE_MISSILE);
+        return;
+    }
+    
+    if (pProj->movementStage == 0x0)
+        ProjectileDecrementMissileCounter(pProj);
+    pProj->status = 0x0;
+}
+
+/**
+ * @brief 50a7c | 9c | Handles a super missile hitting a sprite
+ * 
+ * @param pSprite Sprite Data Pointer
+ * @param pProj Projectile Data Pointer
+ * @param yPosition Collision Y Position
+ * @param xPosition Collision X Position
+ */
+void ProjectileSuperMissileHitSprite(struct SpriteData* pSprite, struct ProjectileData* pProj, u16 yPosition, u16 xPosition)
+{
+    if (pSprite->properties & SP_SOLID_FOR_PROJECTILES)
+    {
+        ProjectileHitSolidSprite(pSprite);
+        ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
+    }
+    else if (pSprite->properties & SP_IMMUNE_TO_PROJECTILES)
+    {
+        ProjectileHitSpriteImmuneToProjectiles(pSprite);
+        ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_INVINCIBLE);
+        ProjectileStartTumblingMissile(pSprite, pProj, PROJ_TYPE_SUPER_MISSILE);
+        return;
+    }
+    else if (ProjectileGetSpriteWeakness(pSprite) & (WEAKNESS_MISSILES | WEAKNESS_SUPER_MISSILES))
+    {
+        ProjectileDealDamage(pSprite, 0x64);
+        ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
+    }
+    else
+    {
+        ProjectileHitSolidSprite(pSprite);
+        ParticleSet(yPosition, xPosition, PE_HITTING_SOMETHING_INVINCIBLE);
+        ProjectileStartTumblingMissile(pSprite, pProj, PROJ_TYPE_SUPER_MISSILE);
+        return;
+    }
+    
+    if (pProj->movementStage == 0x0)
+        ProjectileDecrementSuperMissileCounter(pProj);
+    pProj->status = 0x0;
+}
+
+/**
+ * @brief 50b18 | 4c | Handles a bomb hitting a sprite
+ * 
+ * @param pSprite Sprite Data Pointer
+ * @param yPosition Collision Y Position
+ * @param xPosition Collision X Position
+ */
+void ProjectileBombHitSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPosition)
+{
+    if (pSprite->properties & SP_IMMUNE_TO_PROJECTILES)
+        ProjectileHitSpriteImmuneToProjectiles(pSprite);
+    else
+    {
+        if (pSprite->properties & SP_SOLID_FOR_PROJECTILES)
             ProjectileHitSolidSprite(pSprite);
-        }
         else
         {
-            if ((ProjectileGetSpriteWeakness(pSprite) & WEAKNESS_BEAM_BOMBS) != 0x0)
+            if (ProjectileGetSpriteWeakness(pSprite) & WEAKNESS_BEAM_BOMBS)
                 ProjectileDealDamage(pSprite, 0x8);
             else
                 ProjectileHitSolidSprite(pSprite);
@@ -1417,9 +1576,9 @@ void ProjectileBombHitSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPos
 }
 
 /**
- * 50b64 | f8 | Subroutine for the normal beam projectile, further detail is commented in the function
+ * 50b64 | f8 | Subroutine for the normal beam projectile
  * 
- * @param pProj Projectile Data Pointer to the concerned normal beam
+ * @param pProj Projectile Data Pointer
  */
 void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
 {
@@ -1495,7 +1654,7 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
 }
 
 /**
- * 50c5c | ec | Subroutine for the long beam projectile, further detail is commented in the function
+ * 50c5c | ec | Subroutine for the long beam projectile
  * 
  * @param pProj Projectile Data Pointer to the concerned long beam
  */
@@ -1570,7 +1729,7 @@ void ProjectileProcessLongBeam(struct ProjectileData* pProj)
 }
 
 /**
- * 50d48 | 124 | Subroutine for the ice beam projectile, further detail is commented in the function
+ * 50d48 | 124 | Subroutine for the ice beam projectile
  * 
  * @param pProj Projectile Data Pointer to the concerned ice beam
  */
@@ -1766,7 +1925,7 @@ u32 ProjectileCheckWaveBeamHittingBlocks(struct ProjectileData* pProj)
 }
 
 /**
- * 51068 | 130 | Subroutine for the wave beam projectile, further detail is commented in the function
+ * 51068 | 130 | Subroutine for the wave beam projectile
  * 
  * @param pProj Projectile Data Pointer to the concerned wave beam
  */
@@ -1833,7 +1992,7 @@ void ProjectileProcessWaveBeam(struct ProjectileData* pProj)
 }
 
 /**
- * 51198 | 1bc | Subroutine for the plasma beam projectile, further detail is commented in the function
+ * 51198 | 1bc | Subroutine for the plasma beam projectile
  * 
  * @param pProj Projectile Data Pointer to the concerned plasma beam
  */
@@ -1944,7 +2103,7 @@ void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
 }
 
 /**
-* 51354 | ec | Subroutine for the pistol projectile, further detail is commented in the function
+* 51354 | ec | Subroutine for the pistol projectile
 *
 * @param pProj Projectile Data Pointer to the concerned pistol
 */
@@ -2020,7 +2179,7 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
 
 void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
 {
-
+    
 }
 
 void ProjectileProcessChargedLongBeam(struct ProjectileData* pProj)
@@ -2044,7 +2203,7 @@ void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj)
 }
 
 /**
- * 51a7c | f8 | Subroutine for the charged pistol projectile, further detail is commented in the function
+ * 51a7c | f8 | Subroutine for the charged pistol projectile
  * 
  * @param pProj Projectile Data Pointer to the concerned charged pistol
  */
@@ -2133,7 +2292,7 @@ void ProjectileDecrementMissileCounter(struct ProjectileData* pProj)
 }
 
 /**
-* 51bac | 118 | Subroutine for the missile projectile, further detail is commented in the function
+* 51bac | 118 | Subroutine for the missile projectile
 * @param pProj Projectile Data Pointer to the concerned missile
 */
 void ProjectileProcessMissile(struct ProjectileData* pProj)
@@ -2353,7 +2512,7 @@ void ProjectileCheckSamusBombBounce(struct ProjectileData* pProj)
 }
 
 /**
-* 51ff8 | 1f8 | Subroutine for the bomb projectile, further detail is commented in the function
+* 51ff8 | 1f8 | Subroutine for the bomb projectile
 *
 * @param pProj Projectile Data Pointer to the concerned bomb
 */
@@ -2487,7 +2646,7 @@ void ProjectileProcess_Empty(struct ProjectileData* pProj)
 }
 
 /**
-* 521f4 | 114 | Subroutine for the power bomb projectile, further detail is commented in the function
+* 521f4 | 114 | Subroutine for the power bomb projectile
 * @param pProj Projectile Data Pointer to the concerned power bomb
 */
 void ProjectileProcessPowerBomb(struct ProjectileData* pProj)
