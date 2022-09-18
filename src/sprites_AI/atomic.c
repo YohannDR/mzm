@@ -1,4 +1,5 @@
 #include "atomic.h"
+#include "../data/pointers.h"
 #include "../../data/data.h"
 #include "../globals.h"
 
@@ -925,9 +926,50 @@ void AtomicUpdateDirectionToFleeSamus(void)
     }
 }
 
+/**
+ * @brief 3bc34 | b8 | Checks if an atomic should shoot electricity, also updates the palette
+ * 
+ */
 void AtomicCheckShootElectricity(void)
 {
+    u8 palette;
+    u8 offset;
 
+    if (gCurrentSprite.oamScaling != 0x0)
+    {
+        gCurrentSprite.oamScaling--;
+        if (gCurrentSprite.oamScaling == 0x0)
+        {
+            gCurrentSprite.workVariable = 0x0;
+            gCurrentSprite.oamRotation = 0x1;
+
+            SpriteSpawnSecondary(SSPRITE_ATOMIC_ELECTRICITY, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot,
+                gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        }
+    }
+    else
+    {
+        gCurrentSprite.oamRotation--;
+        if (gCurrentSprite.oamRotation == 0x0)
+        {
+            offset = gCurrentSprite.workVariable++;
+
+            palette = sAtomicDynamicPaletteData[offset][0];
+            gCurrentSprite.absolutePaletteRow = palette;
+            gCurrentSprite.paletteRow = palette;
+
+            if (sAtomicDynamicPaletteData[offset][1] != 0x0)
+            {
+                gCurrentSprite.oamRotation = sAtomicDynamicPaletteData[offset][1];
+                if (offset == 0x10 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+                    SoundPlayNotAlreadyPlaying(0x260);
+            }
+            else
+            {
+                gCurrentSprite.oamScaling = 0xC8;
+            }
+        }
+    }
 }
 
 /**
