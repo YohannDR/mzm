@@ -3845,7 +3845,7 @@ void SpacePirateFalling(void)
             offset = *pOffset;
             movement = sSpritesFallingSpeed[offset];
 
-            if (movement == SPRITE_ARRAY_TERMINATOR)
+            if (movement == SHORT_MAX)
             {
                 movement = sSpritesFallingSpeed[offset - 1];
                 gCurrentSprite.yPosition += movement;

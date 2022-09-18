@@ -678,7 +678,7 @@ void ProjectileMoveTumbling(struct ProjectileData* pProj)
     {
         timer = pProj->timer;
         movement = tumbling_missile_speed[timer];
-        if (movement == SPRITE_ARRAY_TERMINATOR)
+        if (movement == SHORT_MAX)
             new_pos = tumbling_missile_speed[timer - 1] + pProj->yPosition;
         else
         {
@@ -2179,7 +2179,7 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
 
 void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
 {
-    
+
 }
 
 void ProjectileProcessChargedLongBeam(struct ProjectileData* pProj)

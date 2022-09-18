@@ -6,7 +6,7 @@ const i16 sMetroidSpawningYMovement[65] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 2, 2, 1, 1,
     1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0,
     -1, 0, -1, 0, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0,
-    -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SPRITE_ARRAY_TERMINATOR
+    -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
 const i16 sMetroidSpawningXMovement[81] = {
@@ -14,7 +14,7 @@ const i16 sMetroidSpawningXMovement[81] = {
     2, 2, 2, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0,
     0, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1, -1, -1,
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1,
-    0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SPRITE_ARRAY_TERMINATOR 
+    0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX 
 };
 
 const u32 sMetroidGFX[793];
@@ -813,7 +813,7 @@ void MetroidSpawning(void)
     // Y movement
     offset = gCurrentSprite.arrayOffset;
     movement = sMetroidSpawningYMovement[offset];
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sMetroidSpawningYMovement[0]; // 0
         offset = 0x0;
@@ -824,7 +824,7 @@ void MetroidSpawning(void)
     // X movement
     offset = gCurrentSprite.workVariable2;
     movement = sMetroidSpawningXMovement[offset];
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sMetroidSpawningXMovement[0]; // 0
         offset = 0x0;

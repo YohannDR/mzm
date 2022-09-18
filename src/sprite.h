@@ -384,9 +384,6 @@ extern u8 gSpriteRNG;
 #define WEAKNESS_SPEEDBOOSTER_SCREW_ATTACK 0x20
 #define WEAKNESS_CAN_BE_FROZEN 0x40
 
-
-#define SPRITE_ARRAY_TERMINATOR 0x7FFF
-
 // Structs
 
 struct __attribute__((packed)) EnemyRoomData {

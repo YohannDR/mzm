@@ -6,13 +6,13 @@ const i16 sMellaIdleYMovement[65] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 2, 2, 1, 1, 1,
     0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0,
     -1, 0, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, 0, -1, 0,
-    -1, 0, -1, 0, 0, 0, 0, SPRITE_ARRAY_TERMINATOR
+    -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
 const i16 sMellaIdleXMovement[49] = {
     1, 0, 1, 0, 1, 1, 1, 2, 2, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
     0, 0, 0, 0, 0, 0, 0, 0, -1,0,-1,0,-1,0,-1,0,-1, -1, -1, -1,
-    -1, -1, -1, -1, 0, -1, 0,-1, SPRITE_ARRAY_TERMINATOR
+    -1, -1, -1, -1, 0, -1, 0,-1, SHORT_MAX
 };
 
 const u16 sMellaGoingDownYMovement[6] = {
@@ -286,7 +286,7 @@ void MellaIdle(void)
     // Y movement
     offset = gCurrentSprite.arrayOffset;
     movement = sMellaIdleYMovement[offset];
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sMellaIdleYMovement[0]; // 0
         offset = 0x0;
@@ -297,7 +297,7 @@ void MellaIdle(void)
     // X movement
     offset = gCurrentSprite.workVariable2;
     movement = sMellaIdleXMovement[offset];
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sMellaIdleXMovement[0]; // 0
         offset = 0x0;

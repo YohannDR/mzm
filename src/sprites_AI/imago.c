@@ -101,14 +101,14 @@ const struct FrameData sImagoMultiSpriteData_Dying[2] = {
 };
 
 const i16 sImagoDamagedStingerFallingYVelocity[10] = {
-    0, 1, 2, 4, 8, 12, 16, 20, 24, SPRITE_ARRAY_TERMINATOR
+    0, 1, 2, 4, 8, 12, 16, 20, 24, SHORT_MAX
 };
 
 const i16 sImagoAttackingXVelocity[49] = {
     -1, -1, -1, -1, -2, -2, -2, -2, -3, -3, -4, -5,
     -6, -5, -4, -3, -2, -2, -2, -2, -1, -1, -1, -1,
     1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 4, 4, 6, 5, 4, 3,
-    2, 2, 2, 2, 1, 1, 1, 1, SPRITE_ARRAY_TERMINATOR
+    2, 2, 2, 2, 1, 1, 1, 1, SHORT_MAX
 };
 
 const u8 sImagoDynamicPaletteData[9][2] = {
@@ -1532,7 +1532,7 @@ void ImagoAttackingGoingDown(void)
     // Move X
     offset = gCurrentSprite.workVariable2;
     movement = sImagoAttackingXVelocity[offset];
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sImagoAttackingXVelocity[0]; // -1
         offset = 0x0;
@@ -1581,7 +1581,7 @@ void ImagoAttackingGoingUp(void)
     // Move X
     offset = gCurrentSprite.workVariable2;
     movement = sImagoAttackingXVelocity[offset];
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sImagoAttackingXVelocity[0]; // -1
         offset = 0x0;
@@ -2485,7 +2485,7 @@ void ImagoDamagedStinger(void)
             // Move Y
             offset = gCurrentSprite.arrayOffset;
             movement = sImagoDamagedStingerFallingYVelocity[offset];
-            if (movement == SPRITE_ARRAY_TERMINATOR)
+            if (movement == SHORT_MAX)
             {
                 movement = sImagoDamagedStingerFallingYVelocity[offset - 1];
                 gCurrentSprite.yPosition += movement;

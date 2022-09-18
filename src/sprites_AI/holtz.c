@@ -6,7 +6,7 @@ const i16 sHoltzIdleYVelocity[65] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 2, 2, 1, 1,
     1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0,
     -1, 0, -1, 0, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0,
-    -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SPRITE_ARRAY_TERMINATOR
+    -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
 const u32 sHoltzGFX[200];
@@ -421,7 +421,7 @@ void HoltzIdle(void)
     // Y idle movement
     offset = gCurrentSprite.arrayOffset;
     movement = sHoltzIdleYVelocity[offset];
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sHoltzIdleYVelocity[0]; // 0
         offset = 0x0;
@@ -462,7 +462,7 @@ void HoltzCheckWarningAnimEnded(void)
     // Y idle movement
     offset = gCurrentSprite.arrayOffset;
     movement = sHoltzIdleYVelocity[offset];
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sHoltzIdleYVelocity[0]; // 0
         offset = 0x0;
@@ -574,7 +574,7 @@ void HoltzBackToCeiling(void)
     // Y idle movement
     offset = gCurrentSprite.arrayOffset;
     movement = sHoltzIdleYVelocity[offset];
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sHoltzIdleYVelocity[0]; // 0
         offset = 0x0;

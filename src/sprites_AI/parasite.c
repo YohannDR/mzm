@@ -1467,7 +1467,7 @@ void ParasiteFalling(struct SpriteData* pSprite)
     offset = pSprite->arrayOffset;
     movement = sSpritesFallingSpeed[offset];
     
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         newMovement = sSpritesFallingSpeed[offset - 1];
         pSprite->yPosition += newMovement;

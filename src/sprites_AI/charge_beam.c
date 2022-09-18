@@ -9,7 +9,7 @@ const i16 sChargeBeamIdleYMovement[66] = {
     1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0,
     0, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1, -1, -1, -1,
     -1, -1, -1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0,
-    0, SPRITE_ARRAY_TERMINATOR
+    0, SHORT_MAX
 };
 
 const u32 sChargeBeamGFX[243];
@@ -354,7 +354,7 @@ void ChargeBeamIdle(void)
     // Y floating movement
     offset = gCurrentSprite.arrayOffset;
     velocity = sChargeBeamIdleYMovement[offset];
-    if (velocity == SPRITE_ARRAY_TERMINATOR)
+    if (velocity == SHORT_MAX)
     {
         velocity = sChargeBeamIdleYMovement[0];
         offset = 0x0;

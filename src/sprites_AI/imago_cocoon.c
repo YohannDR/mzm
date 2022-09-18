@@ -172,7 +172,7 @@ const struct FrameData sImagoCocoonMultiSpriteData_Dying[10] = {
 const i16 sImagoCocoon_ArrayUnused1[36] = {
     -8, -8, -6, -6, -5, -5, -4, -4, -3, -3, -2, -2, -1,
     -1, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-    11, 12, 14, 16, 18, SPRITE_ARRAY_TERMINATOR
+    11, 12, 14, 16, 18, SHORT_MAX
 };
 
 const i16 sImagoCocoon_ArrayUnused2[48] = {

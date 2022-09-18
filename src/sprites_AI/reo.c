@@ -7,7 +7,7 @@ const i16 sReoIdleYMovement[65] = {
     1, 2, 2, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
     0, 0, 0, 0, 0, 0, 0, 0, 1, 0, -1, 0, -1,
     0, 1, 0, -1, 1, -1, -2, 2, -1, -1, 1, 0,
-    -1, 0, -1, 0, 1, 0, -1, 0, 0, 0, 0, SPRITE_ARRAY_TERMINATOR
+    -1, 0, -1, 0, 1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
 const i16 sReoIdleXMovement[81] = {
@@ -17,7 +17,7 @@ const i16 sReoIdleXMovement[81] = {
     0, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1, -1,
     -1, -1, -1, -1, -2, -2, -2, -2, -1, -1,
     -1, -1, -1, -1, 0, -1, 0, -1, 0, -1, 0,
-    -1, 0, 0, 0, 0, SPRITE_ARRAY_TERMINATOR
+    -1, 0, 0, 0, 0, SHORT_MAX
 };
 
 const u32 sReoGFX[277];
@@ -383,7 +383,7 @@ void ReoIdle(void)
     // Y movement
     offset = gCurrentSprite.arrayOffset;
     movement = sReoIdleYMovement[offset];
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sReoIdleYMovement[0];
         offset = 0x0;
@@ -394,7 +394,7 @@ void ReoIdle(void)
     // X movement
     offset = gCurrentSprite.workVariable2;
     movement = sReoIdleXMovement[offset];
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sReoIdleXMovement[0];
         offset = 0x0;

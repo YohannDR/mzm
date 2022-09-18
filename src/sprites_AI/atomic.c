@@ -8,7 +8,7 @@ const i16 sAtomicIdleYMovement[65] = {
     2, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0,
     0, 0, 0, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1, -1,
     -1, -1, -1, -1, -1, -1, 0, -1, 0, -1, 0, -1, 0,
-    -1, 0, 0, 0, 0, SPRITE_ARRAY_TERMINATOR
+    -1, 0, 0, 0, 0, SHORT_MAX
 };
 
 const i16 sAtomicIdleXMovement[81] = {
@@ -17,7 +17,7 @@ const i16 sAtomicIdleXMovement[81] = {
     0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1,
     0, -1, 0, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, 0, -1, 0,
-    -1, 0, -1, 0, 0, 0, 0, SPRITE_ARRAY_TERMINATOR
+    -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
 const u32 sAtomicGFX[752];
@@ -1038,7 +1038,7 @@ void AtomicIdle(void)
         // Y movement
         offset = gCurrentSprite.arrayOffset;
         movement = sAtomicIdleYMovement[offset];
-        if (movement == SPRITE_ARRAY_TERMINATOR)
+        if (movement == SHORT_MAX)
         {
             movement = sAtomicIdleYMovement[0]; // 0
             offset = 0x0;
@@ -1049,7 +1049,7 @@ void AtomicIdle(void)
         // X movement
         offset = gCurrentSprite.workVariable2;
         movement = sAtomicIdleXMovement[offset];
-        if (movement == SPRITE_ARRAY_TERMINATOR)
+        if (movement == SHORT_MAX)
         {
             movement = sAtomicIdleXMovement[0]; // 0
             offset = 0x0;

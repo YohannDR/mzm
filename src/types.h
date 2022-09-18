@@ -18,6 +18,18 @@ typedef volatile signed short vi16;
 typedef volatile unsigned int vu32;
 typedef volatile signed int vi32;
 
+#define SCHAR_MIN (-128)
+#define SCHAR_MAX (127)
+#define UCHAR_MAX (255)
+
+#define SHORT_MIN (-32768)
+#define SHORT_MAX (32767)
+#define USHORT_MAX (65565)
+
+#define INT_MIN (-2147483648)
+#define INT_MAX (2147483647)
+#define UINT_MAX (4294967295)
+
 #define BLOCK_SIZE 0x40
 #define HALF_BLOCK_SIZE (BLOCK_SIZE / 2)
 #define QUARTER_BLOCK_SIZE (BLOCK_SIZE / 4)

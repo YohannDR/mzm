@@ -3,7 +3,7 @@
 #include "../globals.h"
 
 const i16 sSkreeFallingSpeed[8] = {
-    2, 4, 6, 7, 12, 14, 16, SPRITE_ARRAY_TERMINATOR
+    2, 4, 6, 7, 12, 14, 16, SHORT_MAX
 };
 
 const u32 sSkreeGFX[264];
@@ -386,7 +386,7 @@ void SkreeGoDown(void)
         xMovement = gCurrentSprite.workVariable2 >> 0x2;
         offset = gCurrentSprite.arrayOffset;
         yMovement = sSkreeFallingSpeed[offset];
-        if (yMovement == SPRITE_ARRAY_TERMINATOR)
+        if (yMovement == SHORT_MAX)
         {
             yMovement = sSkreeFallingSpeed[offset - 0x1];
             gCurrentSprite.yPosition += yMovement;

@@ -7,14 +7,14 @@ const i16 sEscapeShipHoveringYMovement[65] = {
     -1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1,
     1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0,
-    0, SPRITE_ARRAY_TERMINATOR
+    0, SHORT_MAX
 };
 
 const i16 sEscapeShipHoveringXMovement[57] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1,
     1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, -1, 0, -1, 0, -1,
     0, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, 0,
-    -1, 0, -1, 0, -1, 0, 0, 0, 0, SPRITE_ARRAY_TERMINATOR
+    -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
 const u32 sEscapeShipGFX[919];
@@ -1256,7 +1256,7 @@ void EscapeShip(void)
 
                 offset = gCurrentSprite.arrayOffset;
                 movement = sEscapeShipHoveringYMovement[offset];
-                if (movement == SPRITE_ARRAY_TERMINATOR)
+                if (movement == SHORT_MAX)
                 {
                     movement = sEscapeShipHoveringYMovement[0]; // 0
                     offset = 0x0;
@@ -1266,7 +1266,7 @@ void EscapeShip(void)
 
                 offset = gCurrentSprite.workVariable2;
                 movement = sEscapeShipHoveringXMovement[offset];
-                if (movement == SPRITE_ARRAY_TERMINATOR)
+                if (movement == SHORT_MAX)
                 {
                     movement = sEscapeShipHoveringXMovement[0]; // 0
                     offset = 0x0;
@@ -1308,7 +1308,7 @@ void EscapeShip(void)
 
             offset = gCurrentSprite.arrayOffset;
             movement = sEscapeShipHoveringYMovement[offset];
-            if (movement == SPRITE_ARRAY_TERMINATOR)
+            if (movement == SHORT_MAX)
             {
                 movement = sEscapeShipHoveringYMovement[0]; // 0
                 offset = 0x0;
@@ -1318,7 +1318,7 @@ void EscapeShip(void)
 
             offset = gCurrentSprite.workVariable2;
             movement = sEscapeShipHoveringXMovement[offset];
-            if (movement == SPRITE_ARRAY_TERMINATOR)
+            if (movement == SHORT_MAX)
             {
                 movement = sEscapeShipHoveringXMovement[0]; // 0
                 offset = 0x0;

@@ -14,12 +14,12 @@ const i16 sGunshipTakingOffYVelocity[153] = {
     1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0,
     0, 0, 0-1, 0, -1, 0, -1, 0, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0,
-    0, 0, 0, 0, 0, SPRITE_ARRAY_TERMINATOR
+    0, 0, 0, 0, 0, SHORT_MAX
 };
 
 const i16 sGunshipFlyingYVelocity[22] = {
     -3, -3, -3, -3, -4, -4, -4, -4, -5, -5, -6, -6, -7,
-    -7, -8, -12, -16, -20, -24, -28, -32, SPRITE_ARRAY_TERMINATOR
+    -7, -8, -12, -16, -20, -24, -28, -32, SHORT_MAX
 };
 
 const u32 sGunshipGFX[1027];
@@ -1396,7 +1396,7 @@ void GunshipTakingOff(void)
     {
         offset = gCurrentSprite.arrayOffset;
         movement = sGunshipTakingOffYVelocity[offset];
-        if (movement == SPRITE_ARRAY_TERMINATOR)
+        if (movement == SHORT_MAX)
         {
             movement = sGunshipTakingOffYVelocity[offset - 1];
             gCurrentSprite.yPosition += movement;
@@ -1437,7 +1437,7 @@ void GunshipFlying(void)
 
         offset = gCurrentSprite.arrayOffset;
         movement = sGunshipFlyingYVelocity[offset];
-        if (movement == SPRITE_ARRAY_TERMINATOR)
+        if (movement == SHORT_MAX)
         {
             movement = sGunshipFlyingYVelocity[offset - 1];
             gCurrentSprite.yPosition += movement;

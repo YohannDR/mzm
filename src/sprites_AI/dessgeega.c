@@ -792,7 +792,7 @@ void DessgeegaFallingGround(void)
         // Update Y position
         offset = gCurrentSprite.arrayOffset;
         movement = sSpritesFallingSpeed[offset];
-        if (movement == SPRITE_ARRAY_TERMINATOR)
+        if (movement == SHORT_MAX)
         {
             // Reached end of array, use last velocity
             movement = sSpritesFallingSpeed[offset - 1];
@@ -845,7 +845,7 @@ void DessgeegaFallingCeiling(void)
         // Update Y position
         offset = gCurrentSprite.arrayOffset;
         movement = sSpritesFallingCeilingSpeed[offset];
-        if (movement == SPRITE_ARRAY_TERMINATOR)
+        if (movement == SHORT_MAX)
         {
             // Reached end of array, use last velocity
             movement = sSpritesFallingCeilingSpeed[offset - 1];

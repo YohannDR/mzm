@@ -9,12 +9,12 @@ const i16 sSqueeptRisingMovement[65] = {
     -10, -9, -9, -9, -9, -8, -8, -8, -8, -8, -8,
     -8, -8, -7, -7, -7, -7, -6, -6, -6, -6, -5,
     -5, -5, -5, -4, -4, -4, -4, -3, -3, -3, -3,
-    -2, -2, -2, -2, SPRITE_ARRAY_TERMINATOR
+    -2, -2, -2, -2, SHORT_MAX
 };
 
 const i16 sSqueeptFallingMovement[16] = {
     4, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14,
-    14, 16, 16, SPRITE_ARRAY_TERMINATOR
+    14, 16, 16, SHORT_MAX
 };
 
 const u32 sSqueeptGFX[263];
@@ -333,7 +333,7 @@ void SqueeptGoUp(void)
     offset = gCurrentSprite.arrayOffset;
     movement = sSqueeptRisingMovement[offset];
 
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         SqueeptTurningAroundInit();
         gCurrentSprite.pose = SQUEEPT_POSE_TURNING_AROUND;
@@ -379,7 +379,7 @@ void SqueeptGoDown(void)
     offset = gCurrentSprite.arrayOffset;
     movement = sSqueeptFallingMovement[offset];
 
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         newMovement = sSqueeptFallingMovement[offset - 0x1];
         gCurrentSprite.yPosition += newMovement;

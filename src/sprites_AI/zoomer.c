@@ -1084,7 +1084,7 @@ void ZoomerFalling(void)
     offset = gCurrentSprite.arrayOffset;
     movement = sSpritesFallingSpeed[offset];
 
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         newMovement = sSpritesFallingSpeed[offset - 1];
         gCurrentSprite.yPosition += newMovement;

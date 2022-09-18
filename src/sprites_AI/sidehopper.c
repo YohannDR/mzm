@@ -734,7 +734,7 @@ void SidehopperFallingGround(void)
         offset = gCurrentSprite.arrayOffset;
         movement = sSpritesFallingSpeed[offset];
 
-        if (movement == SPRITE_ARRAY_TERMINATOR)
+        if (movement == SHORT_MAX)
         {
             movement = sSpritesFallingSpeed[offset - 1];
             gCurrentSprite.yPosition += movement;
@@ -788,7 +788,7 @@ void SidehopperFallingCeiling(void)
         offset = gCurrentSprite.arrayOffset;
         movement = sSpritesFallingCeilingSpeed[offset];
 
-        if (movement == SPRITE_ARRAY_TERMINATOR)
+        if (movement == SHORT_MAX)
         {
             movement = sSpritesFallingCeilingSpeed[offset - 1];
             gCurrentSprite.yPosition += movement;

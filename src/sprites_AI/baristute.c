@@ -3,7 +3,7 @@
 #include "../globals.h"
 
 const i16 sBaristuteFallingYVelocity[8] = {
-    4, 8, 12, 16, 20, 24, 28, SPRITE_ARRAY_TERMINATOR
+    4, 8, 12, 16, 20, 24, 28, SHORT_MAX
 };
 
 const i16 sBaristuteJumpingYVelocity[10] = {
@@ -799,7 +799,7 @@ void BaristuteFalling(void)
         // Update Y position
         offset = gCurrentSprite.arrayOffset;
         velocity = sBaristuteFallingYVelocity[offset];
-        if (velocity == SPRITE_ARRAY_TERMINATOR)
+        if (velocity == SHORT_MAX)
         {
             // Reached end of array, use last velocity
             velocity = sBaristuteFallingYVelocity[offset - 1];

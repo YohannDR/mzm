@@ -870,7 +870,7 @@ const i16 sRidleySpawningSpittingFireballsYOffsets[81] = {
     -3, -2, -2, -2, -2, -1, -1, -1, -1, 0, 0, 0, 0, 0,
     0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 4, 4, 4,
     4, 4, 4, 4, 4, 4, 4, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1,
-    1, 0, 0, 0, 0, SPRITE_ARRAY_TERMINATOR
+    1, 0, 0, 0, 0, SHORT_MAX
 };
 
 const i16 sRidleyIdleYOffsets[65] = {
@@ -878,7 +878,7 @@ const i16 sRidleyIdleYOffsets[65] = {
     -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -1, -1, -1,
     -1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2,
     3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 1, 1, 1, 1, 0,
-    0, 0, 0, SPRITE_ARRAY_TERMINATOR
+    0, 0, 0, SHORT_MAX
 };
 
 const u32 sRidleyGFX[2211];
@@ -1857,7 +1857,7 @@ void RidleyIdleYFloatingMovement(void)
 
     offset = gCurrentSprite.arrayOffset;
     movement = sRidleyIdleYOffsets[offset];
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sRidleyIdleYOffsets[0]; // 0
         offset = 0x0;
@@ -1880,7 +1880,7 @@ void RidleySpawnSpittingFireballsYFloatingMovement(void)
     {
         offset = gCurrentSprite.arrayOffset;
         movement = sRidleySpawningSpittingFireballsYOffsets[offset];
-        if (movement == SPRITE_ARRAY_TERMINATOR)
+        if (movement == SHORT_MAX)
         {
             movement = sRidleySpawningSpittingFireballsYOffsets[0]; // 0
             offset = 0x0;

@@ -190,7 +190,7 @@ void WaterDrop(void)
                     // Fall
                     offset = gCurrentSprite.arrayOffset;
                     movement = sSpritesFallingSpeed[offset]; 
-                    if (movement == SPRITE_ARRAY_TERMINATOR)
+                    if (movement == SHORT_MAX)
                     {
                         movement = sSpritesFallingSpeed[offset - 0x1];
                         gCurrentSprite.yPosition += movement;

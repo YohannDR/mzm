@@ -6,7 +6,7 @@ const i16 sMellowIdleYVelocity[65] = {
     0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3,
     2, 2, 2, 2, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1,
     -2, -2, -2, -2, -3, -3, -3, -3, -3, -3, -3, -3, -2, -2, -2, -2,
-    -1, -1, -1, -1, 0, 0, 0, 0, SPRITE_ARRAY_TERMINATOR
+    -1, -1, -1, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
 const i16 sMellowIdleXVelocity[81] = {
@@ -14,7 +14,7 @@ const i16 sMellowIdleXVelocity[81] = {
     7, 7, 6, 6, 6, 5, 5, 5, 4, 4, 4, 3, 3, 2, 2, 1, 1, 0, 0, 0, 0,
     -1, -1, -2, -2, -3, -3, -4, -4, -4, -5, -5, -5, -6, -6, -6, -7,
     -7, -7, -7, -7, -7, -6, -6, -6, -5, -5, -5, -4, -4, -4, -3, -3,
-    -2, -2, -1, -1, 0, 0, SPRITE_ARRAY_TERMINATOR
+    -2, -2, -1, -1, 0, 0, SHORT_MAX
 };
 
 const u8 sHiveGFX[7196];
@@ -723,7 +723,7 @@ void MellowIdle(struct SpriteData* pSprite)
     offset = pSprite->arrayOffset;
     movement = sMellowIdleYVelocity[offset];
 
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sMellowIdleYVelocity[0];
         offset = 0x0;
@@ -736,7 +736,7 @@ void MellowIdle(struct SpriteData* pSprite)
     offset = pSprite->workVariable2;
     movement = sMellowIdleXVelocity[offset];
 
-    if (movement == SPRITE_ARRAY_TERMINATOR)
+    if (movement == SHORT_MAX)
     {
         movement = sMellowIdleXVelocity[0];
         offset = 0x0;
