@@ -67,7 +67,7 @@ extern u16 gArmCannonX;
 
 struct ProjectileData {
     u8 status;
-    struct FrameData* pOam;
+    const struct FrameData* pOam;
     u16 yPosition;
     u16 xPosition;
     u16 currentAnimationFrame;
@@ -75,7 +75,7 @@ struct ProjectileData {
     u8 type;
     u8 direction;
     u8 movementStage;
-    u8 draw_distance_offset;
+    u8 drawDistanceOffset;
     u8 timer;
     i16 hitboxTopOffset;
     i16 hitboxBottomOffset;
@@ -102,10 +102,10 @@ void ProjectileLoadGraphics(void);
 void ProjectileCallLoadGraphicsAndClearProjectiles(void);
 void ProjectileMove(struct ProjectileData* pProj, u8 distance);
 u32 ProjectileCheckHittingSolidBlock(u32 yPosition, u32 xPosition);
-u8 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj);
+u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj);
 void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay);
 void ProjectileMoveTumbling(struct ProjectileData* pProj);
-void ProjectileCheckHitBlock(struct ProjectileData* pProj, u8 ccaa, u8 effect);
+void ProjectileCheckHitBlock(struct ProjectileData* pProj, u8 caa, u8 effect);
 void ProjectileCheckHittingSprite(void);
 u16 ProjectileGetSpriteWeakness(struct SpriteData* pSprite);
 u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage);

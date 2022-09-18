@@ -588,7 +588,7 @@ u32 ProjectileCheckHittingSolidBlock(u32 yPosition, u32 xPosition)
         return FALSE;
 }
 
-u8 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
+u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
 {
 
 }
@@ -597,8 +597,8 @@ u8 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
  * 4fc38 | a8 | 
  * Sets a trail for the projectile using the effect in parameter 
  * 
- * @param pProj Projectile Data Pointer to the projectile concerned
- * @param effect Particle effect to play
+ * @param pProj Projectile Data Pointer
+ * @param effect Particle effect
  * @param delay Delay between each particle
  */
 void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
@@ -658,10 +658,9 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
 }
 
 /**
- * 4fce0 | 68 | 
- * Handles a projectile moving when tumbling
+ * 4fce0 | 68 | Handles a projectile moving when tumbling
  * 
- * @param pProj Projectile Data Pointer to the concerned projectile
+ * @param pProj Projectile Data Pointer
  */
 void ProjectileMoveTumbling(struct ProjectileData* pProj)
 {
@@ -692,12 +691,12 @@ void ProjectileMoveTumbling(struct ProjectileData* pProj)
     }
 }
 
-void ProjectileCheckHitBlock(struct ProjectileData* pProj, u8 ccaa, u8 effect)
+void ProjectileCheckHitBlock(struct ProjectileData* pProj, u8 caa, u8 effect)
 {
     u16 yPosition;
     u16 xPosition;
 
-    gCurrentClipdataAffectingAction = ccaa;
+    gCurrentClipdataAffectingAction = caa;
     yPosition = pProj->yPosition;
     xPosition = pProj->xPosition;
     if (pProj->direction == ACD_FORWARD)
@@ -1403,11 +1402,10 @@ void ProjectileChargedIceBeamHittingSprite(struct SpriteData* pSprite, u16 yPosi
 }
 
 /**
- * 50914 | 60 | 
- * Sets the projectile to a tumbling state (reserved for missile and super missile)
+ * 50914 | 60 | Sets the projectile to a tumbling state (reserved for missile and super missile)
  * 
- * @param pSprite Sprite Data Pointer to the concerned sprite
- * @param pProj Projectile Data Pointer to the concerned projectile
+ * @param pSprite Sprite Data Pointere
+ * @param pProj Projectile Data Pointer
  * @param type The type of the projectile
  */
 void ProjectileStartTumblingMissile(struct SpriteData* pSprite, struct ProjectileData* pProj, u8 type)
@@ -1436,11 +1434,10 @@ void ProjectileStartTumblingMissile(struct SpriteData* pSprite, struct Projectil
 }
 
 /**
- * 50974 | 68 | 
- * Sets the projectile to a tumbling state (reserved for missile and super missile, uses the current sprite)
+ * 50974 | 68 | Sets the projectile to a tumbling state (reserved for missile and super missile, uses the current sprite)
  * 
- * @param pProj Projectile Data Pointer to the concerned projectile
- * @param type The type of the projectile
+ * @param pProj Projectile Data Pointer
+ * @param type Projectile type
  */
 void ProjectileStartTumblingMissileCurrentSprite(struct ProjectileData* pProj, u8 type)
 {    
@@ -1573,7 +1570,7 @@ void ProjectileBombHitSprite(struct SpriteData* pSprite, u16 yPosition, u16 xPos
 }
 
 /**
- * 50b64 | f8 | Subroutine for the normal beam projectile
+ * 50b64 | f8 | Subroutine for a normal beam projectile
  * 
  * @param pProj Projectile Data Pointer
  */
@@ -1633,7 +1630,7 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
                 pProj->pOam = sNormalBeamOAM_Horizontal;
         }
 
-        pProj->draw_distance_offset = 0x40;
+        pProj->drawDistanceOffset = 0x40;
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
@@ -1651,9 +1648,9 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
 }
 
 /**
- * 50c5c | ec | Subroutine for the long beam projectile
+ * 50c5c | ec | Subroutine for a long beam projectile
  * 
- * @param pProj Projectile Data Pointer to the concerned long beam
+ * @param pProj Projectile Data Pointer
  */
 void ProjectileProcessLongBeam(struct ProjectileData* pProj)
 {
@@ -1711,7 +1708,7 @@ void ProjectileProcessLongBeam(struct ProjectileData* pProj)
                 pProj->pOam = sLongBeamOAM_Horizontal;
        }
 
-       pProj->draw_distance_offset = 0x40;
+       pProj->drawDistanceOffset = 0x40;
        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
        pProj->animationDurationCounter = 0x0;
        pProj->currentAnimationFrame = 0x0;
@@ -1726,9 +1723,9 @@ void ProjectileProcessLongBeam(struct ProjectileData* pProj)
 }
 
 /**
- * 50d48 | 124 | Subroutine for the ice beam projectile
+ * 50d48 | 124 | Subroutine for a ice beam projectile
  * 
- * @param pProj Projectile Data Pointer to the concerned ice beam
+ * @param pProj Projectile Data Pointer
  */
 void ProjectileProcessIceBeam(struct ProjectileData* pProj)
 {
@@ -1790,7 +1787,7 @@ void ProjectileProcessIceBeam(struct ProjectileData* pProj)
                 pProj->pOam = sIceBeamOAM_Horizontal;
         }
 
-        pProj->draw_distance_offset = 0x40;
+        pProj->drawDistanceOffset = 0x40;
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
@@ -1922,9 +1919,9 @@ u32 ProjectileCheckWaveBeamHittingBlocks(struct ProjectileData* pProj)
 }
 
 /**
- * 51068 | 130 | Subroutine for the wave beam projectile
+ * 51068 | 130 | Subroutine for a wave beam projectile
  * 
- * @param pProj Projectile Data Pointer to the concerned wave beam
+ * @param pProj Projectile Data Pointer
  */
 void ProjectileProcessWaveBeam(struct ProjectileData* pProj)
 {
@@ -1976,7 +1973,7 @@ void ProjectileProcessWaveBeam(struct ProjectileData* pProj)
                 pProj->hitboxRightOffset = 0x14;
         }
 
-        pProj->draw_distance_offset = 0xA0;
+        pProj->drawDistanceOffset = 0xA0;
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
@@ -1989,9 +1986,9 @@ void ProjectileProcessWaveBeam(struct ProjectileData* pProj)
 }
 
 /**
- * 51198 | 1bc | Subroutine for the plasma beam projectile
+ * 51198 | 1bc | Subroutine for a plasma beam projectile
  * 
- * @param pProj Projectile Data Pointer to the concerned plasma beam
+ * @param pProj Projectile Data Pointer
  */
 void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
 {
@@ -2001,7 +1998,7 @@ void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
     if (!hasWave)
     {
         gCurrentClipdataAffectingAction = CAA_BEAM;
-        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0)
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj))
         {
             pProj->status = 0x0;
             ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
@@ -2076,12 +2073,12 @@ void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
 
         if (hasWave)
         {
-            pProj->draw_distance_offset = 0xA0;
+            pProj->drawDistanceOffset = 0xA0;
             pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
         }
         else
         {
-            pProj->draw_distance_offset = 0x50;
+            pProj->drawDistanceOffset = 0x50;
             pProj->hitboxTopOffset = -0x14;
             pProj->hitboxBottomOffset = 0x14;
             pProj->hitboxLeftOffset = -0x14;
@@ -2100,9 +2097,9 @@ void ProjectileProcessPlasmaBeam(struct ProjectileData* pProj)
 }
 
 /**
-* 51354 | ec | Subroutine for the pistol projectile
+* 51354 | ec | Subroutine for a pistol projectile
 *
-* @param pProj Projectile Data Pointer to the concerned pistol
+* @param pProj Projectile Data Pointer
 */
 void ProjectileProcessPistol(struct ProjectileData* pProj)
 {
@@ -2160,7 +2157,7 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
                 pProj->pOam = sPistolOAM_Horizontal;
         }
 
-        pProj->draw_distance_offset = 0x40;
+        pProj->drawDistanceOffset = 0x40;
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
@@ -2174,9 +2171,78 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
     }
 }
 
+/**
+ * @brief 51440 | f8 | Subroutine for a charged normal beam
+ * 
+ * @param pProj 
+ */
 void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
 {
+    if (pProj->movementStage == 0x2)
+    {
+        gCurrentClipdataAffectingAction = CAA_BEAM;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj))
+        {
+            pProj->status = 0x0;
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            return;
+        }
+        else
+            ProjectileMove(pProj, 0x14);
+    }
+    else if (pProj->movementStage == 0x1)
+    {
+        gCurrentClipdataAffectingAction = CAA_BEAM;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj))
+        {
+            pProj->status = 0x0;
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            return;
+        }
+        else
+        {
+            pProj->movementStage++;
+            ProjectileMove(pProj, 0x10);
+        }
+    }
+    else
+    {
+        switch (pProj->direction)
+        {
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                pProj->pOam = sChargedNormalBeamOAM_Diagonal;
+                break;
 
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                pProj->pOam = sChargedNormalBeamOAM_Vertical;
+                break;
+
+            case ACD_FORWARD:
+            default:
+                pProj->pOam = sChargedNormalBeamOAM_Horizontal;
+        }
+
+        pProj->drawDistanceOffset = 0x60;
+        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+        pProj->animationDurationCounter = 0x0;
+        pProj->currentAnimationFrame = 0x0;
+
+        pProj->hitboxTopOffset = -0xC;
+        pProj->hitboxBottomOffset = 0xC;
+        pProj->hitboxLeftOffset = -0xC;
+        pProj->hitboxRightOffset= 0xC;
+
+        pProj->movementStage = 0x1;
+        ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+    }
+
+    pProj->timer++;
+    if (pProj->timer > 0xC)
+        pProj->status = 0x0;
 }
 
 void ProjectileProcessChargedLongBeam(struct ProjectileData* pProj)
@@ -2200,9 +2266,9 @@ void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj)
 }
 
 /**
- * 51a7c | f8 | Subroutine for the charged pistol projectile
+ * 51a7c | f8 | Subroutine for a charged pistol projectile
  * 
- * @param pProj Projectile Data Pointer to the concerned charged pistol
+ * @param pProj Projectile Data Pointer
  */
 void ProjectileProcessChargedPistol(struct ProjectileData* pProj)
 {
@@ -2261,7 +2327,7 @@ void ProjectileProcessChargedPistol(struct ProjectileData* pProj)
                 pProj->pOam = sChargedPistolOAM_Horizontal;
         }
 
-        pProj->draw_distance_offset = 0x80;
+        pProj->drawDistanceOffset = 0x80;
         pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
         pProj->animationDurationCounter = 0x0;
         pProj->currentAnimationFrame = 0x0;
@@ -2284,13 +2350,14 @@ void ProjectileDecrementMissileCounter(struct ProjectileData* pProj)
             gSamusWeaponInfo.weaponHighlighted ^= WH_MISSILE;
     }
 
-    pProj->draw_distance_offset = 0x40;
+    pProj->drawDistanceOffset = 0x40;
     pProj->status &= 0xFB;
 }
 
 /**
-* 51bac | 118 | Subroutine for the missile projectile
-* @param pProj Projectile Data Pointer to the concerned missile
+* 51bac | 118 | Subroutine for a missile projectile
+*
+* @param pProj Projectile Data Pointer
 */
 void ProjectileProcessMissile(struct ProjectileData* pProj)
 {
@@ -2377,7 +2444,7 @@ void ProjectileDecrementSuperMissileCounter(struct ProjectileData* pProj)
             gSamusWeaponInfo.weaponHighlighted ^= WH_SUPER_MISSILE;
     }
 
-    pProj->draw_distance_offset = 0x40;
+    pProj->drawDistanceOffset = 0x40;
     pProj->status &= 0xFB;
 }
 
@@ -2460,7 +2527,7 @@ void ProjectileProcessSuperMissile(struct ProjectileData* pProj)
 /**
  * 51e14 | b8 | Checks if samus is in place to be launched by the morph ball launcher, if yes sets pose to Delay before ballsparking 
  * 
- * @param pProj Projectile Data Pointer to the concerned bomb
+ * @param pProj Projectile Data Pointer
  */
 void ProjectileMorphballLauncherCheckLaunchSamus(struct ProjectileData* pProj)
 {
@@ -2509,9 +2576,9 @@ void ProjectileCheckSamusBombBounce(struct ProjectileData* pProj)
 }
 
 /**
-* 51ff8 | 1f8 | Subroutine for the bomb projectile
+* 51ff8 | 1f8 | Subroutine for a bomb projectile
 *
-* @param pProj Projectile Data Pointer to the concerned bomb
+* @param pProj Projectile Data Pointer
 */
 void ProjectileProcessBomb(struct ProjectileData* pProj)
 {
@@ -2524,7 +2591,7 @@ void ProjectileProcessBomb(struct ProjectileData* pProj)
             pProj->pOam = sBombOAM_Slow; // Bomb spinning at normal speed
             pProj->animationDurationCounter = 0x0;
             pProj->currentAnimationFrame = 0x0;
-            pProj->draw_distance_offset = 0x20;
+            pProj->drawDistanceOffset = 0x20;
             pProj->hitboxTopOffset = -0x3C;
             pProj->hitboxBottomOffset = 0x30;
             pProj->hitboxLeftOffset = -0x30;
@@ -2537,7 +2604,6 @@ void ProjectileProcessBomb(struct ProjectileData* pProj)
             break;
 
         case BOMB_STAGE_EXPLODING:
-            
             if (pProj->timer-- != 0x1)
             {
                 if (pProj->timer == 0xF)
@@ -2643,8 +2709,9 @@ void ProjectileProcess_Empty(struct ProjectileData* pProj)
 }
 
 /**
-* 521f4 | 114 | Subroutine for the power bomb projectile
-* @param pProj Projectile Data Pointer to the concerned power bomb
+* 521f4 | 114 | Subroutine for a power bomb projectile
+*
+* @param pProj Projectile Data Pointer
 */
 void ProjectileProcessPowerBomb(struct ProjectileData* pProj)
 {
@@ -2670,7 +2737,7 @@ void ProjectileProcessPowerBomb(struct ProjectileData* pProj)
             pProj->pOam = sPowerBombOAM_Slow;
             pProj->animationDurationCounter = 0x0;
             pProj->currentAnimationFrame = 0x0;
-            pProj->draw_distance_offset = 0x20;
+            pProj->drawDistanceOffset = 0x20;
             pProj->hitboxTopOffset = -0x10;
             pProj->hitboxBottomOffset = 0x10;
             pProj->hitboxLeftOffset = -0x10;
