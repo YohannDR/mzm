@@ -2837,7 +2837,7 @@ void SpacePirateSamusDetection(void)
     samusTop = samusY;
     samusBottom = samusY - BLOCK_SIZE;
 
-    small = SpriteUtilCheckCrouchinOrMorphed();
+    small = SpriteUtilCheckCrouchingOrMorphed();
 
     lowXRange = 0x8;
     highXRange = 0x8;

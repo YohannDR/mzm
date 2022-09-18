@@ -1059,7 +1059,7 @@ void MapStationIdle(void)
     spriteX = gCurrentSprite.xPosition + BLOCK_SIZE + HALF_BLOCK_SIZE;
 
     // Detect samus
-    if (!SpriteUtilCheckCrouchinOrMorphed() && samusY == spriteY - 0x1 && spriteX - BLOCK_SIZE < samusX && spriteX + BLOCK_SIZE > samusX)
+    if (!SpriteUtilCheckCrouchingOrMorphed() && samusY == spriteY - 0x1 && spriteX - BLOCK_SIZE < samusX && spriteX + BLOCK_SIZE > samusX)
     {
         // Set grabbing
         gCurrentSprite.pOam = sMapStationOAM_GrabbingSamus;

@@ -1026,7 +1026,7 @@ void SavePlatformInit(void)
  */
 void SavePlatformSamusDetection(void)
 {
-    if (SavePlatformDetectSamus() && !SpriteUtilCheckCrouchinOrMorphed())
+    if (SavePlatformDetectSamus() && !SpriteUtilCheckCrouchingOrMorphed())
     {
         gCurrentSprite.timer--;
         if (gCurrentSprite.timer == 0x0)
@@ -1065,7 +1065,7 @@ void SavePlatformSecondSamusDetection(void)
 {
     if (SavePlatformDetectSamus())
     {
-        if (!SpriteUtilCheckCrouchinOrMorphed())
+        if (!SpriteUtilCheckCrouchingOrMorphed())
         {
             gCurrentSprite.pose = SAVE_PLATFORM_POSE_SAVE_PROMPT;
             gCurrentSprite.timer = 0x4;

@@ -1679,7 +1679,7 @@ u8 SpriteUtilRefillPowerBombs(void)
         return FALSE;
 }
 
-u8 SpriteUtilCheckCrouchinOrMorphed(void)
+u8 SpriteUtilCheckCrouchingOrMorphed(void)
 {
     switch (gSamusData.pose)
     {
@@ -1706,7 +1706,7 @@ u8 SpriteUtilCheckCrouchinOrMorphed(void)
     return FALSE;
 }
 
-u8 SpriteUtilCheckCrouchinOrCrawling(void)
+u8 SpriteUtilCheckCrouchingOrCrawling(void)
 {
     switch (gSamusData.pose)
     {

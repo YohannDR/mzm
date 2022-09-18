@@ -2883,7 +2883,7 @@ void RidleyIdle(void)
         {
             // Check start new attack
             gCurrentSprite.timer--;
-            if (SpriteUtilCheckCrouchinOrMorphed() && gSpriteRNG > 0x7 && gCurrentSprite.timer == 0x0)
+            if (SpriteUtilCheckCrouchingOrMorphed() && gSpriteRNG > 0x7 && gCurrentSprite.timer == 0x0)
             {
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {

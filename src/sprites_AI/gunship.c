@@ -828,7 +828,7 @@ u8 GunshipCheckSamusEnter(void)
 {
     u16 samusX;
     
-    if (!SpriteUtilCheckCrouchinOrMorphed())
+    if (!SpriteUtilCheckCrouchingOrMorphed())
     {
         samusX = gSamusData.xPosition;
         if (gCurrentSprite.xPosition - 0x30 < samusX && gCurrentSprite.xPosition + 0x30 > samusX)
