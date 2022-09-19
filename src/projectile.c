@@ -5,6 +5,7 @@
 #include "power_bomb_explosion.h"
 #include "music.h"
 #include "game_modes.h"
+#include "hud.h"
 #include "../data/data.h"
 #include "data/projectiles.h"
 #include "data/pointers.h"
@@ -450,14 +451,44 @@ void ProjectileUpdateAnimation(struct ProjectileData* pProj)
     }
 }
 
+/**
+ * @brief 4f33c | 44 | Draws every projectile if the status flag 80 isn't set
+ * 
+ */
 void ProjectileDrawAllStatusFalse(void)
 {
+    struct ProjectileData* pProj;
 
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
+    {
+        for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
+        {
+            if ((pProj->status & (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN |
+                PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_UNKNOWN)) ==
+                (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN))
+                ProjectileDraw(pProj);
+        }
+    }
 }
 
+/**
+ * @brief 4f380 | 44 | Draws every projectile if the status flag 80 is set
+ * 
+ */
 void ProjectileDrawAllStatusTrue(void)
 {
+    struct ProjectileData* pProj;
 
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
+    {
+        for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
+        {
+            if ((pProj->status & (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN |
+                PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_UNKNOWN)) ==
+                (PROJ_STATUS_EXISTS | PROJ_STATUS_ON_SCREEN | PROJ_STATUS_UNKNOWN))
+                ProjectileDraw(pProj);
+        }
+    }
 }
 
 void ProjectileDraw(struct ProjectileData* pProj)
@@ -504,9 +535,82 @@ void ProjectileCheckDespawn(struct ProjectileData* pProj)
     }*/
 }
 
+/**
+ * @brief 4f670 | 2b0 | Loads the graphics for the beam projectiles
+ * 
+ */
 void ProjectileLoadGraphics(void)
 {
+    u8 palOffset;
+    u16 bba;
+    
+    if (gEquipment.suitType == SUIT_SUITLESS)
+    {
+        dma_set(3, sPistolBeamGFX_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x80);
+        dma_set(3, sPistolBeamGFX_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+        dma_set(3, sPistolBeamGFX_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+        dma_set(3, sPistolBeamGFX_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
 
+        HUDDrawSuitless();
+        palOffset = 0x50;
+    }
+    else
+    {
+        bba = gEquipment.beamBombsActivation;
+        if (bba & BBF_PLASMA_BEAM)
+        {
+            dma_set(3, sPlasmaBeamGFX_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sPlasmaBeamGFX_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sPlasmaBeamGFX_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sPlasmaBeamGFX_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+
+            if (bba & BBF_ICE_BEAM)
+                palOffset = 0x20;
+            else
+                palOffset = 0x40;
+        }
+        else if (bba & BBF_WAVE_BEAM)
+        {
+            dma_set(3, sWaveBeamGFX_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sWaveBeamGFX_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sWaveBeamGFX_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sWaveBeamGFX_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+
+            if (bba & BBF_ICE_BEAM)
+                palOffset = 0x20;
+            else
+                palOffset = 0x30;
+        }
+        else if (bba & BBF_ICE_BEAM)
+        {
+            dma_set(3, sIceBeamGFX_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sIceBeamGFX_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sIceBeamGFX_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sIceBeamGFX_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+
+            palOffset = 0x20;
+        }
+        else if (bba & BBF_LONG_BEAM)
+        {
+            dma_set(3, sLongBeamGFX_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sLongBeamGFX_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sLongBeamGFX_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sLongBeamGFX_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+
+            palOffset = 0x10;
+        }
+        else
+        {
+            dma_set(3, sNormalBeamGFX_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sNormalBeamGFX_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sNormalBeamGFX_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sNormalBeamGFX_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+
+            palOffset = 0x0;
+        }
+    }
+    
+    dma_set(3, (sBeamPAL + palOffset), PALRAM_BASE + 0x240, DMA_ENABLE << 16 | 6);
 }
 
 void ProjectileCallLoadGraphicsAndClearProjectiles(void)
@@ -522,11 +626,18 @@ void ProjectileCallLoadGraphicsAndClearProjectiles(void)
     }
 }
 
+/**
+ * @brief 4f954 | c4 | Moves a projectile
+ * 
+ * @param pProj Projectile Data Pointer
+ * @param distance Distance to move
+ */
 void ProjectileMove(struct ProjectileData* pProj, u8 distance)
 {
-    /*i16 xVelocity;
-    i32 xVelocity_;
-    
+    i16 samusVelocity;
+    i32 leftVelocity;
+    i32 rightVelocity;
+
     switch (pProj->direction)
     {
         case ACD_UP:
@@ -538,7 +649,7 @@ void ProjectileMove(struct ProjectileData* pProj, u8 distance)
             return;
 
         case ACD_DIAGONALLY_UP:
-            distance = (distance * 0x7) / 0xA;
+            distance = (distance * 7) / 10;
             pProj->yPosition -= distance;
             if (pProj->status & PROJ_STATUS_XFLIP)
                 pProj->xPosition += distance;
@@ -547,7 +658,7 @@ void ProjectileMove(struct ProjectileData* pProj, u8 distance)
             break;
 
         case ACD_DIAGONALLY_DOWN:
-            distance = (distance * 0x7) / 0xA;
+            distance = (distance * 7) / 10;
             pProj->yPosition += distance;
             if (pProj->status & PROJ_STATUS_XFLIP)
                 pProj->xPosition += distance;
@@ -562,18 +673,20 @@ void ProjectileMove(struct ProjectileData* pProj, u8 distance)
                 pProj->xPosition -= distance;
     }
 
-    xVelocity = (u16)gSamusData.xVelocity;
-    xVelocity_ = xVelocity >> 0x3;
+    samusVelocity = gSamusData.xVelocity;
+    leftVelocity = gSamusData.xVelocity >> 3;
+    rightVelocity = leftVelocity;
+
     if (pProj->status & PROJ_STATUS_XFLIP)
     {
-        if (xVelocity >= 0x1)
-            pProj->xPosition += xVelocity >> 0x3;
+        if (samusVelocity > 0x0)
+            pProj->xPosition += leftVelocity;
     }
     else
     {
-        if (xVelocity < 0x0)
-            pProj->xPosition += xVelocity_;
-    }*/
+        if (samusVelocity < 0x0)
+            pProj->xPosition += rightVelocity;
+    }
 }
 
 u32 ProjectileCheckHittingSolidBlock(u32 yPosition, u32 xPosition)
@@ -2245,24 +2358,353 @@ void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
         pProj->status = 0x0;
 }
 
+/**
+ * @brief 51538 | f8 | Subroutine for a charged long beam
+ * 
+ * @param pProj Projectile Data Pointer
+ */
 void ProjectileProcessChargedLongBeam(struct ProjectileData* pProj)
 {
+    if (pProj->movementStage == 0x2)
+    {
+        gCurrentClipdataAffectingAction = CAA_BEAM;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj))
+        {
+            pProj->status = 0x0;
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+            return;
+        }
 
+        ProjectileMove(pProj, 0x18);
+        ProjectileSetTrail(pProj, PE_CHARGED_LONG_BEAM_TRAIL, 0x7);
+    }
+    else if (pProj->movementStage == 0x1)
+    {
+        gCurrentClipdataAffectingAction = CAA_BEAM;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj))
+        {
+            pProj->status = 0x0;
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+            return;
+        }
+
+        pProj->movementStage++;
+        ProjectileMove(pProj, 0x10);
+    }
+    else
+    {
+        switch (pProj->direction)
+        {
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                pProj->pOam = sChargedLongBeamOAM_Diagonal;
+                break;
+
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                pProj->pOam = sChargedLongBeamOAM_Vertical;
+                break;
+
+            case ACD_FORWARD:
+            default:
+                pProj->pOam = sChargedLongBeamOAM_Horizontal;
+        }
+
+        pProj->drawDistanceOffset = 0x80;
+        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+        pProj->animationDurationCounter = 0x0;
+        pProj->currentAnimationFrame = 0x0;
+
+        pProj->hitboxTopOffset = -0x10;
+        pProj->hitboxBottomOffset = 0x10;
+        pProj->hitboxLeftOffset = -0x10;
+        pProj->hitboxRightOffset = 0x10;
+
+        pProj->movementStage = 0x1;
+        ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+    }
+
+    pProj->timer++;
 }
 
+/**
+ * @brief 51630 | 134 | Subroutine for a charged ice beam
+ * 
+ * @param pProj Projectile Data Pointer
+ */
 void ProjectileProcessChargedIceBeam(struct ProjectileData* pProj)
 {
+    if (pProj->movementStage == 0x2)
+    {
+        gCurrentClipdataAffectingAction = CAA_BEAM;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj))
+        {
+            pProj->status = 0x0;
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+            return;
+        }
 
+        ProjectileMove(pProj, 0x1A);
+        if (pProj->status & PROJ_STATUS_XFLIP)
+            ProjectileSetTrail(pProj, PE_BEAM_TRAILING_LEFT, 0x3);
+        else
+            ProjectileSetTrail(pProj, PE_BEAM_TRAILING_RIGHT, 0x3);
+        ProjectileSetTrail(pProj, PE_CHARGED_ICE_BEAM_TRAIL, 0x7);
+    }
+    else if (pProj->movementStage == 0x1)
+    {
+        gCurrentClipdataAffectingAction = CAA_BEAM;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj))
+        {
+            pProj->status = 0x0;
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+            return;
+        }
+
+        pProj->movementStage++;
+        ProjectileMove(pProj, 0x10);
+    }
+    else
+    {
+        switch (pProj->direction)
+        {
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                pProj->pOam = sChargedIceBeamOAM_Diagonal;
+                break;
+
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                pProj->pOam = sChargedIceBeamOAM_Vertical;
+                break;
+
+            case ACD_FORWARD:
+            default:
+                pProj->pOam = sChargedIceBeamOAM_Horizontal;
+        }
+
+        pProj->drawDistanceOffset = 0x80;
+        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+        pProj->animationDurationCounter = 0x0;
+        pProj->currentAnimationFrame = 0x0;
+
+        pProj->hitboxTopOffset = -0x18;
+        pProj->hitboxBottomOffset = 0x18;
+        pProj->hitboxLeftOffset = -0x18;
+        pProj->hitboxRightOffset = 0x18;
+
+        pProj->movementStage = 0x1;
+        ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
+    }
+
+    pProj->timer++;
+    if (!(gEquipment.beamBombsActivation & BBF_LONG_BEAM) && pProj->timer > 0xC)
+        pProj->status = 0x0;
 }
 
+/**
+ * @brief 51764 | 13c | Subroutine for a charged wave beam
+ * 
+ * @param pProj Projectile Data Pointer
+ */
 void ProjectileProcessChargedWaveBeam(struct ProjectileData* pProj)
 {
+    ProjectileCheckWaveBeamHittingBlocks(pProj);
+    
+    if (pProj->movementStage == 0x2)
+    {
+        ProjectileMove(pProj, 0x1C);
 
+        if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
+        {
+            if (pProj->status & PROJ_STATUS_XFLIP)
+                ProjectileSetTrail(pProj, PE_BEAM_TRAILING_LEFT, 0x3);
+            else
+                ProjectileSetTrail(pProj, PE_BEAM_TRAILING_RIGHT, 0x3);
+        }
+        ProjectileSetTrail(pProj, PE_CHARGED_WAVE_BEAM_TRAIL, 0x7);
+    }
+    else if (pProj->movementStage == 0x1)
+    {
+        pProj->movementStage++;
+        ProjectileMove(pProj, 0x10);
+    }
+    else
+    {
+        switch (pProj->direction)
+        {
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                pProj->pOam = sChargedWaveBeamOAM_Diagonal;
+
+                pProj->hitboxTopOffset = -0x10;
+                pProj->hitboxBottomOffset = 0x48;
+                pProj->hitboxLeftOffset = -0x30;
+                pProj->hitboxRightOffset = 0x30;
+                break;
+
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                pProj->pOam = sChargedWaveBeamOAM_Vertical;
+
+                pProj->hitboxTopOffset = -0x14;
+                pProj->hitboxBottomOffset = 0x14;
+                pProj->hitboxLeftOffset = -0x48;
+                pProj->hitboxRightOffset = 0x48;
+                break;
+
+            case ACD_FORWARD:
+            default:
+                pProj->pOam = sChargedWaveBeamOAM_Horizontal;
+
+                pProj->hitboxTopOffset = -0x48;
+                pProj->hitboxBottomOffset = 0x48;
+                pProj->hitboxLeftOffset = -0x14;
+                pProj->hitboxRightOffset = 0x14;
+        }
+
+        pProj->drawDistanceOffset = 0xC0;
+        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+        pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+        pProj->animationDurationCounter = 0x0;
+        pProj->currentAnimationFrame = 0x0;
+        pProj->movementStage = 0x1;
+    }
+
+    pProj->timer++;
+    if (!(gEquipment.beamBombsActivation & BBF_LONG_BEAM) && pProj->timer > 0xC)
+        pProj->status = 0x0;
 }
 
+/**
+ * @brief 518a0 | 1dc | Subroutine for a charged plasma beam
+ * 
+ * @param pProj Projectile Data Pointer
+ */
 void ProjectileProcessChargedPlasmaBeam(struct ProjectileData* pProj)
 {
+    u8 hasWave;
 
+    hasWave = gEquipment.beamBombsActivation & BBF_WAVE_BEAM;
+
+    if (!hasWave)
+    {
+        gCurrentClipdataAffectingAction = CAA_BEAM;
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj))
+        {
+            pProj->status = 0x0;
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+            return;
+        }
+    }
+    else
+        ProjectileCheckWaveBeamHittingBlocks(pProj);
+
+    if (pProj->movementStage == 0x2)
+    {
+        ProjectileMove(pProj, 0x20);
+        if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
+        {
+            if (pProj->status & PROJ_STATUS_XFLIP)
+                ProjectileSetTrail(pProj, PE_BEAM_TRAILING_LEFT, 0x3);
+            else
+                ProjectileSetTrail(pProj, PE_BEAM_TRAILING_RIGHT, 0x3);
+
+            if (hasWave)
+                ProjectileSetTrail(pProj, PE_CHARGED_FULL_BEAM_TRAIL, 0x7);
+            else
+                ProjectileSetTrail(pProj, PE_CHARGED_PLASMA_BEAM_TRAIL, 0x7);
+        }
+        else
+        {
+            if (hasWave)
+                ProjectileSetTrail(pProj, PE_CHARGED_FULL_BEAM_TRAIL, 0x7);
+            else
+                ProjectileSetTrail(pProj, PE_CHARGED_PLASMA_BEAM_TRAIL, 0x7);
+        }
+    }
+    else if (pProj->movementStage == 0x1)
+    {
+        pProj->movementStage++;
+        ProjectileMove(pProj, 0x10);
+    }
+    else
+    {
+        switch (pProj->direction)
+        {
+            case ACD_DIAGONALLY_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_DIAGONALLY_UP:
+                if (hasWave)
+                {
+                    pProj->pOam = sChargedPlasmaBeamOAM_Diagonal_Wave;
+                    pProj->hitboxTopOffset = -0x10;
+                    pProj->hitboxBottomOffset = 0x48;
+                    pProj->hitboxLeftOffset = -0x38;
+                    pProj->hitboxRightOffset = 0x38;
+                }
+                else
+                    pProj->pOam = sChargedPlasmaBeamOAM_Diagonal_NoWave;
+                break;
+
+            case ACD_DOWN:
+                pProj->status |= PROJ_STATUS_YFLIP;
+            case ACD_UP:
+                if (hasWave)
+                {
+                    pProj->pOam = sChargedPlasmaBeamOAM_Vertical_Wave;
+                    pProj->hitboxTopOffset = -0x24;
+                    pProj->hitboxBottomOffset = 0x24;
+                    pProj->hitboxLeftOffset = -0x48;
+                    pProj->hitboxRightOffset = 0x48;
+                }
+                else
+                    pProj->pOam = sChargedPlasmaBeamOAM_Vertical_NoWave;
+                break;
+
+            case ACD_FORWARD:
+            default:
+                if (hasWave)
+                {
+                    pProj->pOam = sChargedPlasmaBeamOAM_Horizontal_Wave;
+                    pProj->hitboxTopOffset = -0x48;
+                    pProj->hitboxBottomOffset = 0x48;
+                    pProj->hitboxLeftOffset = -0x24;
+                    pProj->hitboxRightOffset = 0x24;
+                }
+                else
+                    pProj->pOam = sChargedPlasmaBeamOAM_Horizontal_NoWave;
+        }
+
+        pProj->status &= ~PROJ_STATUS_NOT_DRAWN;
+        pProj->animationDurationCounter = 0x0;
+        pProj->currentAnimationFrame = 0x0;
+        pProj->movementStage = 0x1;
+
+        if (hasWave)
+        {
+            pProj->drawDistanceOffset = 0xE0;
+            pProj->status |= PROJ_STATUS_HIGH_PRIORITY;
+        }
+        else
+        {
+            pProj->drawDistanceOffset = 0xC0;
+            pProj->hitboxTopOffset = -0x18;
+            pProj->hitboxBottomOffset = 0x18;
+            pProj->hitboxLeftOffset = -0x18;
+            pProj->hitboxRightOffset = 0x18;
+        }
+    }
+
+    pProj->timer++;
+    if (!(gEquipment.beamBombsActivation & BBF_LONG_BEAM) && pProj->timer > 0xC)
+        pProj->status = 0x0;
 }
 
 /**
@@ -2570,9 +3012,72 @@ void ProjectileMorphballLauncherCheckLaunchSamus(struct ProjectileData* pProj)
     }
 }
 
+/**
+ * @brief 51ecc | 12c | Checks if Samus should bounce on a bomb
+ * 
+ * @param pProj Projectile Data Pointer
+ */
 void ProjectileCheckSamusBombBounce(struct ProjectileData* pProj)
 {
+    u16 samusY;
+    u16 samusX;
+    u16 previousX;
+    u16 samusTop;
+    u16 samusBottom;
+    u16 samusLeft;
+    u16 samusRight;
 
+    u16 projY;
+    u16 projX;
+    u16 projTop;
+    u16 projBottom;
+    u16 projLeft;
+    u16 projRight;
+    u8 direction;
+    u16 bombOffset;
+
+    samusY = gSamusData.yPosition;
+    samusX = gSamusData.xPosition;
+
+    if (!(ClipdataProcess(samusY + HALF_BLOCK_SIZE, samusX) & CLIPDATA_TYPE_SOLID_FLAG) || 
+        !(ClipdataProcess(samusY - (BLOCK_SIZE + HALF_BLOCK_SIZE), samusX) & CLIPDATA_TYPE_SOLID_FLAG))
+    {
+        previousX = gPreviousXPosition;
+        samusTop = samusY + gSamusPhysics.drawDistanceTopOffset;
+        samusBottom = samusY + gSamusPhysics.drawDistanceBottomOffset;
+        samusLeft = samusX + gSamusPhysics.drawDistanceLeftOffset;
+        samusRight = samusX + gSamusPhysics.drawDistanceRightOffset;
+
+        projY = pProj->yPosition;
+        projX = pProj->xPosition;
+        projTop = projY + pProj->hitboxTopOffset;
+        projBottom = projY + pProj->hitboxBottomOffset;
+        projLeft = projX + pProj->hitboxLeftOffset;
+        projRight = projX + pProj->hitboxRightOffset;
+
+        if (SpriteUtilCheckObjectsTouching(samusTop, samusBottom, samusLeft, samusRight,
+            projTop, projBottom, projLeft, projRight))
+        {
+            bombOffset = projLeft + (projRight - projLeft) / 0x2;
+            if (gSamusData.invincibilityTimer == 0x0)
+            {
+                if (samusY - HALF_BLOCK_SIZE > projY)
+                    direction = FORCED_MOVEMENT_BOMB_JUMP_ABOVE;
+                else
+                    direction = FORCED_MOVEMENT_BOMB_JUMP;
+    
+                if (samusX < projX + 0x5 && samusX > projX - 0x5)
+                    SamusBombBounce(direction + FORCED_MOVEMENT_BOMB_JUMP_UP);
+                else
+                {
+                    if (bombOffset >= previousX)
+                        SamusBombBounce(direction + FORCED_MOVEMENT_BOMB_JUMP_LEFT);
+                    else
+                        SamusBombBounce(direction + FORCED_MOVEMENT_BOMB_JUMP_RIGHT);
+                }
+            }
+        }
+    }
 }
 
 /**

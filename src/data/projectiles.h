@@ -1633,7 +1633,7 @@ static const struct FrameData sWaveBeamOAM_Vertical_Unused[8] = {
     0x0
 };
 
-static const struct FrameData sChargedWaveBeam_Horizontal[8] = {
+static const struct FrameData sChargedWaveBeamOAM_Horizontal[8] = {
     sChargedWaveBeamOAM_Horizontal_Frame0,
     0x3,
     sChargedWaveBeamOAM_Horizontal_Frame1,
@@ -1651,7 +1651,7 @@ static const struct FrameData sChargedWaveBeam_Horizontal[8] = {
     0x0
 };
 
-static const struct FrameData sChargedWaveBeam_Diagonal[8] = {
+static const struct FrameData sChargedWaveBeamOAM_Diagonal[8] = {
     sChargedWaveBeamOAM_Diagonal_Frame0,
     0x3,
     sChargedWaveBeamOAM_Diagonal_Frame1,
@@ -1670,7 +1670,7 @@ static const struct FrameData sChargedWaveBeam_Diagonal[8] = {
     0x0
 };
 
-static const struct FrameData sChargedWaveBeam_Vertical[8] = {
+static const struct FrameData sChargedWaveBeamOAM_Vertical[8] = {
     sChargedWaveBeamOAM_Vertical_Frame0,
     0x3,
     sChargedWaveBeamOAM_Vertical_Frame1,
