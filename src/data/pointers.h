@@ -9,6 +9,7 @@
 #include "../sprites_AI/sprites.h"
 
 #include "doors.h"
+#include "hatch_data.h"
 
 // 75e6a8
 
