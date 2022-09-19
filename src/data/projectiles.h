@@ -1152,27 +1152,27 @@ static const u16 sWaveBeamOAM_Vertical_Frame0[4] = {
     OBJ_SHAPE_VERTICAL | 0xfb, 0x1fc, 0x2082
 };
 
-static const u16 sWaveBeamOAM_Vertical_Frame1[4] = {
+static const u16 sWaveBeamOAM_Vertical_Frame1[10] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xfb, 0x0, 0x2082,
     OBJ_SHAPE_VERTICAL | 0xfb, 0x1f8, 0x2082,
     OBJ_SHAPE_VERTICAL | 0x5, 0x1fc, 0x20c6
 };
 
-static const u16 sWaveBeamOAM_Vertical_Frame2[4] = {
+static const u16 sWaveBeamOAM_Vertical_Frame2[10] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xfb, 0x4, 0x2082,
     OBJ_SHAPE_VERTICAL | 0xfb, 0x1f4, 0x2082,
     OBJ_SHAPE_VERTICAL | 0xd, 0x1fc, 0x20c6
 };
 
-static const u16 sWaveBeamOAM_Vertical_Frame3[4] = {
+static const u16 sWaveBeamOAM_Vertical_Frame3[7] = {
     0x2,
     OBJ_SHAPE_VERTICAL | 0xfb, 0x8, 0x2082,
     OBJ_SHAPE_VERTICAL | 0xfb, 0x1f0, 0x2082
 };
 
-static const u16 sWaveBeamOAM_Vertical_Frame4[4] = {
+static const u16 sWaveBeamOAM_Vertical_Frame4[13] = {
     0x4,
     OBJ_SHAPE_VERTICAL | 0xfb, 0x5, 0x2082,
     OBJ_SHAPE_VERTICAL | 0xfb, 0x1f3, 0x2082,
@@ -1180,7 +1180,7 @@ static const u16 sWaveBeamOAM_Vertical_Frame4[4] = {
     OBJ_SHAPE_VERTICAL | 0xfb, 0x1ef, 0x20c6
 };
 
-static const u16 sWaveBeamOAM_Vertical_Frame5[4] = {
+static const u16 sWaveBeamOAM_Vertical_Frame5[13] = {
     0x4,
     OBJ_SHAPE_VERTICAL | 0xfb, 0x0, 0x2082,
     OBJ_SHAPE_VERTICAL | 0xfb, 0x1f8, 0x2082,
@@ -1188,7 +1188,7 @@ static const u16 sWaveBeamOAM_Vertical_Frame5[4] = {
     OBJ_SHAPE_VERTICAL | 0xfb, 0x1f2, 0x20c6
 };
 
-static const u16 sWaveBeamOAM_Vertical_Frame6[4] = {
+static const u16 sWaveBeamOAM_Vertical_Frame6[10] = {
     0x3,
     OBJ_SHAPE_VERTICAL | 0xfb, 0x1fc, 0x2082,
     OBJ_SHAPE_VERTICAL | 0xfb, 0x2, 0x20c6,
@@ -1647,6 +1647,7 @@ static const struct FrameData sChargedWaveBeamOAM_Horizontal[8] = {
     sChargedWaveBeamOAM_Horizontal_Frame5,
     0x1,
     sChargedWaveBeamOAM_Horizontal_Frame6,
+    0x1,
     NULL,
     0x0
 };
@@ -1761,7 +1762,7 @@ static const u16 sChargedPlasmaBeamOAM_Diagonal_NoWave_Frame0[13] = {
     0x7, OBJ_SIZE_16x16 | 0x7, 0x20a5
 };
 
-static const u16 sChargedPlasmaBeamOAM_Diagonal_NoWave_Frame1[13] = {
+static const u16 sChargedPlasmaBeamOAM_Diagonal_NoWave_Frame1[19] = {
     0x6,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, 0x2080,
     0x0, OBJ_SIZE_16x16 | 0x0, 0x20a1,

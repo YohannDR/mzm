@@ -244,7 +244,7 @@ void ParticleSet(u16 yPosition, u16 xPosition, u8 effect)
  * @param pOam OAM Pointer to the concerned Frame Data
  * @return 1 if ended, 0 otherwise
  */
-u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, struct FrameData* pOam)
+u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, const struct FrameData* pOam)
 {
     u8 ended;
     u32 adc;
@@ -274,7 +274,7 @@ u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, struct FrameData* p
  * @param pParticle Particle Effect Pointer
  * @param pOam OAM Pointer to the concerned Frame Data
  */
-void ParticleSetCurrentOAMFramePointer(struct ParticleEffect* pParticle, struct FrameData* pOam)
+void ParticleSetCurrentOAMFramePointer(struct ParticleEffect* pParticle, const struct FrameData* pOam)
 {
     gCurrentParticleEffectOAMFramePointer = pOam[pParticle->currentAnimationFrame].pFrame;
 }
