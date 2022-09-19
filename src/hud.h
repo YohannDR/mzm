@@ -6,6 +6,23 @@
 // Globals
 
 extern u8 gHideHud;
+extern u8 gMissileHighlightStatus;
+extern u8 gPowerBombHighlightStatus;
+extern u8 gSuperMissileHighlightStatus;
+extern struct HudDigits gEnergyDigits;
+extern struct HudDigits gMaxEnergyDigits;
+extern struct HudDigits gMissileDigits;
+extern struct HudDigits gPowerBombDigits;
+extern struct HudDigits gSuperMissileDigits;
+
+// Structs
+
+struct HudDigits {
+    u8 ones;
+    u8 tens;
+    u8 hundreds;
+    u8 thousands;
+};
 
 // Functions
 

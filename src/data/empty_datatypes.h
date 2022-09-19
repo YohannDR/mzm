@@ -11,7 +11,6 @@ static const struct HatchData sHatchData_Empty = {
     .padding = 3,
     .opening = FALSE,
     .locked = FALSE,
-    .unk = FALSE,
     .flashingTimer = 0,
     .hitTimer = 0,
     .hits = 0,

@@ -1,5 +1,5 @@
 #include "hud.h"
-#include "data/generic.h"
+#include "data/hud_data.h"
 #include "globals.h"
 
 /**

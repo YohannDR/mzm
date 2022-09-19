@@ -95,7 +95,15 @@ SECTIONS {
         . = 0x0000080C; gBossWork = .;
         . = 0x0000083C; gSpriteRNG = .;
         . = 0x00000840; gParticleEffects = .;
+        . = 0x00000900; gMissileHighlightStatus = .;
+        . = 0x00000901; gPowerBombHighlightStatus = .;
+        . = 0x00000902; gSuperMissileHighlightStatus = .;
         . = 0x00000903; gUpdateMinimapFlag = .;
+        . = 0x00000904; gEnergyDigits = .;
+        . = 0x00000908; gMaxEnergyDigits = .;
+        . = 0x0000090C; gMissileDigits = .;
+        . = 0x00000910; gPowerBombDigits = .;
+        . = 0x00000914; gSuperMissileDigits = .;
         . = 0x00000918; gCurrentParticleEffectOAMFramePointer = .;
         . = 0x0000095C; gCurrentEscapeStatus = .;
         . = 0x0000095D; gEscapeTimerCounter = .;
