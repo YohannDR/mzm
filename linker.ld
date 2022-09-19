@@ -105,6 +105,7 @@ SECTIONS {
         . = 0x00000910; gPowerBombDigits = .;
         . = 0x00000914; gSuperMissileDigits = .;
         . = 0x00000918; gCurrentParticleEffectOAMFramePointer = .;
+        . = 0x0000091C; gAmmoDigitsGFX = .;
         . = 0x0000095C; gCurrentEscapeStatus = .;
         . = 0x0000095D; gEscapeTimerCounter = .;
         . = 0x0000095E; gEscapeTimerDigits = .;

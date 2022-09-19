@@ -214,24 +214,147 @@ void HUDUpdateEnergyTanks(u8* pDst, u8* pSrcNormal, u8* pSrcRefill, u8 nbrTanks,
     } 
 }
 
-void HUDDrawEnergy(u8 file_number)
+void HUDDrawEnergy(u8 fileNumber)
 {
 
 }
 
-void HUDDrawMissileDigits(u16 hundredsPlace, u16 tensPlace, u16 onesPlace, u16 highlightStatus)
+/**
+ * @brief 52c6c | 100 | Draws the missile digits to the ammo digits
+ * 
+ * @param hundreds Hundreds
+ * @param tens Tens
+ * @param ones Ones
+ * @param highlightStatus Highlight status
+ */
+void HUDDrawMissileDigits(u16 hundreds, u16 tens, u16 ones, u16 highlightStatus)
 {
+    u8 row;
+    u8 i;
 
+    row = 0;
+    for (i = 0; i < 8; i++)
+    {
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[hundreds];
+        row++;
+        hundreds++;
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[hundreds];
+        row++;
+        hundreds += 0x3;
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[tens];
+        row++;
+        tens++;
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[tens];
+        row++;
+        tens += 0x3;
+    }
+
+    row = 0x20;
+    for (i = 0; i < 8; i++)
+    {
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[ones];
+        row++;
+        ones++;
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[ones];
+        row++;
+        ones += 0x3;
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[highlightStatus];
+        row++;
+        highlightStatus++;
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[highlightStatus];
+        row++;
+        highlightStatus += 0x3;
+    }
 }
 
-void HUDDrawSuperMissileDigits(u16 tensPlace, u16 onesPlace, u16 highlightStatus)
+/**
+ * @brief 52d6c | d8 | Draws the super missile digits to the ammo digits
+ * 
+ * @param tens Tens
+ * @param ones Ones
+ * @param highlightStatus Highlight status
+ */
+void HUDDrawSuperMissileDigits(u16 tens, u16 ones, u16 highlightStatus)
 {
+    u8 row;
+    u8 i;
 
+    row = 0;
+    for (i = 0; i < 8; i++)
+    {
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[tens];
+        row++;
+        tens++;
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[tens];
+        row++;
+        tens += 0x3;
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[ones];
+        row++;
+        ones++;
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[ones];
+        row++;
+        ones += 0x3;
+    }
+
+    row = 0x20;
+    for (i = 0; i < 8; i++)
+    {
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[highlightStatus];
+        row++;
+        highlightStatus++;
+        gAmmoDigitsGFX[row] = sMissileDigitsGFX[highlightStatus];
+        row++;
+        highlightStatus += 0x3;
+        gAmmoDigitsGFX[row] = 0x0;
+        row++;
+        gAmmoDigitsGFX[row] = 0x0;
+        row++;
+    }
 }
 
-void HUDDrawPowerBombDigits(u16 tensPlace, u16 onesPlace, u16 highlightStatus)
+/**
+ * @brief 52e44 | d8 | Draws the power bomb digits to the ammo digits
+ * 
+ * @param tens Tens
+ * @param ones Ones
+ * @param highlightStatus Highlight status
+ */
+void HUDDrawPowerBombDigits(u16 tens, u16 ones, u16 highlightStatus)
 {
+    u8 row;
+    u8 i;
 
+    row = 0;
+    for (i = 0; i < 8; i++)
+    {
+        gAmmoDigitsGFX[row] = sPowerBombDigitsGFX[tens];
+        row++;
+        tens++;
+        gAmmoDigitsGFX[row] = sPowerBombDigitsGFX[tens];
+        row++;
+        tens += 0x3;
+        gAmmoDigitsGFX[row] = sPowerBombDigitsGFX[ones];
+        row++;
+        ones++;
+        gAmmoDigitsGFX[row] = sPowerBombDigitsGFX[ones];
+        row++;
+        ones += 0x3;
+    }
+
+    row = 0x20;
+    for (i = 0; i < 8; i++)
+    {
+        gAmmoDigitsGFX[row] = sPowerBombDigitsGFX[highlightStatus];
+        row++;
+        highlightStatus++;
+        gAmmoDigitsGFX[row] = sPowerBombDigitsGFX[highlightStatus];
+        row++;
+        highlightStatus += 0x3;
+        gAmmoDigitsGFX[row] = 0x0;
+        row++;
+        gAmmoDigitsGFX[row] = 0x0;
+        row++;
+    }
 }
 
 void HUDDrawMissiles(u8 updateHighlight)
