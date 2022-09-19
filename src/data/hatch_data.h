@@ -1,3 +1,6 @@
+#ifndef HATCH_DATA_H
+#define HATCH_DATA_H
+
 #include "../types.h"
 #include "../connection.h"
 #include "../clipdata.h"
@@ -835,3 +838,5 @@ static const u16 sNumberOfHatchLockEventsPerArea[MAX_AMOUNT_OF_AREAS] = {
 };
 
 // 3602e8
+
+#endif
