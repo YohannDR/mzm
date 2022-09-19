@@ -1,4 +1,5 @@
 #include "hud.h"
+#include "minimap.h"
 #include "data/hud_data.h"
 #include "globals.h"
 
@@ -357,24 +358,596 @@ void HUDDrawPowerBombDigits(u16 tens, u16 ones, u16 highlightStatus)
     }
 }
 
+/**
+ * @brief 52f1c | 220 | Updates the missile HUD
+ * 
+ * @param updateHighlight Update highlight flag
+ */
 void HUDDrawMissiles(u8 updateHighlight)
 {
+    u16 refillStage;
+    u8 digit;
+    u8 needUpdate;
+    u16 missiles;
+    u16 hundreds;
+    u16 tens;
+    u16 ones;
 
+    needUpdate = FALSE;
+
+    if (updateHighlight)
+        needUpdate++;
+    else
+    {
+        // Update missile digits
+        missiles = gEquipment.currentMissiles;
+
+        // Update hundreds
+        digit = missiles / 100 % 10;
+        if (gMissileDigits.hundreds != digit)
+        {
+            gMissileDigits.hundreds = digit;
+            needUpdate++;
+        }
+
+        // Update tens
+        digit = missiles / 10 % 10;
+        if (gMissileDigits.tens != digit)
+        {
+            gMissileDigits.tens = digit;
+            needUpdate++;
+        }
+
+        // Update ones
+        digit = missiles % 10;
+        if (gMissileDigits.ones != digit)
+        {
+            gMissileDigits.ones = digit;
+            needUpdate++;
+        }
+    }
+
+    if (needUpdate)
+    {
+        hundreds = gMissileDigits.hundreds;
+        tens = gMissileDigits.tens;
+        ones = gMissileDigits.ones;
+
+        // Check set empty GFX
+        if (hundreds == 0)
+        {
+            hundreds = 10;
+            if (tens == 0)
+                tens = 10;
+        }
+
+        // Offset for graphics
+        hundreds *= 32;
+        tens *= 32;
+        ones *= 32;
+
+        missiles = gMissileHighlightStatus * 384;
+        
+        // Offset depending on highlight
+        hundreds += missiles;
+        tens += missiles;
+        ones += missiles;
+        refillStage = missiles + 352;
+        
+        // Update GFX
+        HUDDrawMissileDigits(hundreds, tens, ones, refillStage);
+        dma_set(3, gAmmoDigitsGFX, VRAM_BASE + 0x10E40, DMA_ENABLE << 16 | 32);
+    }
+
+    if (gMissileRefillAnimation != 0x0 && !updateHighlight)
+    {
+        hundreds = gMissileDigits.hundreds;
+        tens = gMissileDigits.tens;
+        ones = gMissileDigits.ones;
+
+        if (hundreds == 0)
+        {
+            hundreds = 10;
+            if (tens == 0)
+                tens = 10;
+        }
+
+        hundreds *= 32;
+        tens *= 32;
+        ones *= 32;
+
+        refillStage = 352;
+        
+        // Update missile symbol for refill
+        if (gMissileRefillAnimation == 0xD)
+        {
+            missiles = 0x480;
+            dma_set(3, sMissileHUDGFX_Refill1, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+        }
+        else if (gMissileRefillAnimation == 0xA)
+        {
+            missiles = 0x600;
+            dma_set(3, sMissileHUDGFX_Refill2, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+        }
+        else if (gMissileRefillAnimation == 0x4)
+        {
+            missiles = 0x780;
+            dma_set(3, sMissileHUDGFX_Refill3, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+        }
+        else if (gMissileRefillAnimation == 0x1)
+        {
+            needUpdate = gMissileHighlightStatus;
+            missiles = needUpdate * 384;
+            dma_set(3, sMissileHUDGFX_Inactive + (gMissileHighlightStatus * 64), VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+        }
+        else
+            return;
+
+        hundreds += missiles;
+        tens += missiles;
+        ones += missiles;
+        refillStage += missiles;
+        HUDDrawMissileDigits(hundreds, tens, ones, refillStage);
+
+        dma_set(3, gAmmoDigitsGFX, VRAM_BASE + 0x10E40, DMA_ENABLE << 16 | 32);
+    }
 }
 
+/**
+ * @brief 5313c | 1f8 | Updates the power bomb HUD
+ * 
+ * @param updateHighlight Update highlight flag
+ */
 void HUDDrawPowerBomb(u8 updateHighlight)
 {
+    u16 refillStage;
+    u8 digit;
+    u8 needUpdate;
+    u16 powerBombs;
+    u16 hundreds;
+    u16 tens;
+    u16 ones;
 
+    needUpdate = FALSE;
+
+    if (updateHighlight)
+        needUpdate++;
+    else
+    {
+        // Update missile digits
+        powerBombs = gEquipment.currentPowerBombs;
+
+        // Update hundreds
+        digit = powerBombs / 100 % 10;
+        if (gPowerBombDigits.hundreds != digit)
+        {
+            gPowerBombDigits.hundreds = digit;
+            needUpdate++;
+        }
+
+        // Update tens
+        digit = powerBombs / 10 % 10;
+        if (gPowerBombDigits.tens != digit)
+        {
+            gPowerBombDigits.tens = digit;
+            needUpdate++;
+        }
+
+        // Update ones
+        digit = powerBombs % 10;
+        if (gPowerBombDigits.ones != digit)
+        {
+            gPowerBombDigits.ones = digit;
+            needUpdate++;
+        }
+    }
+
+    if (needUpdate)
+    {
+        hundreds = gPowerBombDigits.hundreds;
+        tens = gPowerBombDigits.tens;
+        ones = gPowerBombDigits.ones;
+
+        // Check set empty GFX
+        if (hundreds == 0)
+        {
+            hundreds = 10;
+            if (tens == 0)
+                tens = 10;
+        }
+
+        // Offset for graphics
+        tens *= 32;
+        ones *= 32;
+
+        powerBombs = gPowerBombHighlightStatus * 384;
+        
+        // Offset depending on highlight
+        tens += powerBombs;
+        ones += powerBombs;
+        refillStage = powerBombs + 352;
+        
+        // Update GFX
+        HUDDrawPowerBombDigits(tens, ones, refillStage);
+        dma_set(3, gAmmoDigitsGFX, VRAM_BASE + 0x10B40, DMA_ENABLE << 16 | 32);
+    }
+
+    if (gPowerBombRefillAnimation != 0x0 && !updateHighlight)
+    {
+        hundreds = gPowerBombDigits.hundreds;
+        tens = gPowerBombDigits.tens;
+        ones = gPowerBombDigits.ones;
+
+        if (hundreds == 0)
+        {
+            hundreds = 10;
+            if (tens == 0)
+                tens = 10;
+        }
+
+        tens *= 32;
+        ones *= 32;
+
+        refillStage = 352;
+        
+        // Update power bomb symbol for refill
+        if (gPowerBombRefillAnimation == 0xD)
+        {
+            powerBombs = 0x480;
+            dma_set(3, sPowerBombHUDGFX_Refill1, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+        }
+        else if (gPowerBombRefillAnimation == 0xA)
+        {
+            powerBombs = 0x600;
+            dma_set(3, sPowerBombHUDGFX_Refill2, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+        }
+        else if (gPowerBombRefillAnimation == 0x4)
+        {
+            powerBombs = 0x780;
+            dma_set(3, sPowerBombHUDGFX_Refill3, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+        }
+        else if (gPowerBombRefillAnimation == 0x1)
+        {
+            needUpdate = gPowerBombHighlightStatus;
+            powerBombs = needUpdate * 384;
+            dma_set(3, sPowerBombHUDGFX_Inactive + (gPowerBombHighlightStatus * 64), VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+        }
+        else
+            return;
+
+        tens += powerBombs;
+        ones += powerBombs;
+        refillStage += powerBombs;
+        HUDDrawPowerBombDigits(tens, ones, refillStage);
+
+        dma_set(3, gAmmoDigitsGFX, VRAM_BASE + 0x10B40, DMA_ENABLE << 16 | 32);
+    }
 }
 
+/**
+ * @brief 53334 | 1f8 | Updates the super missile HUD
+ * 
+ * @param updateHighlight Update highlight flag
+ */
 void HUDDrawSuperMissiles(u8 updateHighlight)
 {
+    u16 refillStage;
+    u8 digit;
+    u8 needUpdate;
+    u16 superMissiles;
+    u16 hundreds;
+    u16 tens;
+    u16 ones;
 
+    needUpdate = FALSE;
+
+    if (updateHighlight)
+        needUpdate++;
+    else
+    {
+        // Update missile digits
+        superMissiles = gEquipment.currentSuperMissiles;
+
+        // Update hundreds
+        digit = superMissiles / 100 % 10;
+        if (gSuperMissileDigits.hundreds != digit)
+        {
+            gSuperMissileDigits.hundreds = digit;
+            needUpdate++;
+        }
+
+        // Update tens
+        digit = superMissiles / 10 % 10;
+        if (gSuperMissileDigits.tens != digit)
+        {
+            gSuperMissileDigits.tens = digit;
+            needUpdate++;
+        }
+
+        // Update ones
+        digit = superMissiles % 10;
+        if (gSuperMissileDigits.ones != digit)
+        {
+            gSuperMissileDigits.ones = digit;
+            needUpdate++;
+        }
+    }
+
+    if (needUpdate)
+    {
+        hundreds = gSuperMissileDigits.hundreds;
+        tens = gSuperMissileDigits.tens;
+        ones = gSuperMissileDigits.ones;
+
+        // Check set empty GFX
+        if (hundreds == 0)
+        {
+            hundreds = 10;
+            if (tens == 0)
+                tens = 10;
+        }
+
+        // Offset for graphics
+        tens *= 32;
+        ones *= 32;
+
+        superMissiles = gSuperMissileHighlightStatus * 384;
+        
+        // Offset depending on highlight
+        tens += superMissiles;
+        ones += superMissiles;
+        refillStage = superMissiles + 352;
+        
+        // Update GFX
+        HUDDrawSuperMissileDigits(tens, ones, refillStage);
+        dma_set(3, gAmmoDigitsGFX, VRAM_BASE + 0x10EC0, DMA_ENABLE << 16 | 32);
+    }
+
+    if (gSuperMissileRefillAnimation != 0x0 && !updateHighlight)
+    {
+        hundreds = gSuperMissileDigits.hundreds;
+        tens = gSuperMissileDigits.tens;
+        ones = gSuperMissileDigits.ones;
+
+        if (hundreds == 0)
+        {
+            hundreds = 10;
+            if (tens == 0)
+                tens = 10;
+        }
+
+        tens *= 32;
+        ones *= 32;
+
+        refillStage = 352;
+        
+        // Update power bomb symbol for refill
+        if (gSuperMissileRefillAnimation == 0xD)
+        {
+            superMissiles = 0x480;
+            dma_set(3, sSuperMissileHUDGFX_Refill1, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+        }
+        else if (gSuperMissileRefillAnimation == 0xA)
+        {
+            superMissiles = 0x600;
+            dma_set(3, sSuperMissileHUDGFX_Refill2, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+        }
+        else if (gSuperMissileRefillAnimation == 0x4)
+        {
+            superMissiles = 0x780;
+            dma_set(3, sSuperMissileHUDGFX_Refill3, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+        }
+        else if (gSuperMissileRefillAnimation == 0x1)
+        {
+            needUpdate = gSuperMissileHighlightStatus;
+            superMissiles = needUpdate * 384;
+            dma_set(3, sSuperMissileHUDGFX_Inactive + (gSuperMissileHighlightStatus * 64), VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+        }
+        else
+            return;
+
+        tens += superMissiles;
+        ones += superMissiles;
+        refillStage += superMissiles;
+        HUDDrawSuperMissileDigits(tens, ones, refillStage);
+
+        dma_set(3, gAmmoDigitsGFX, VRAM_BASE + 0x10EC0, DMA_ENABLE << 16 | 32);
+    }
 }
 
-void HUDDrawHighlight(void)
+/**
+ * @brief 5352c | 3bc | Updates the GFX of the HUD
+ * 
+ */
+void HUDUpdateGFX(void)
 {
+    // Update missile GFX
+    if (gMissileHighlightStatus == HIGHLIGHT_STATUS_HIGHLIGHTED)
+    {
+        if (!(gSamusWeaponInfo.weaponHighlighted & WH_MISSILE))
+        {
+            if (gSamusWeaponInfo.missilesSeleced || gEquipment.currentMissiles == 0x0)
+            {
+                dma_set(3, sMissileHUDGFX_Inactive, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+                gMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
+            }
+            else
+            {
+                dma_set(3, sMissileHUDGFX_Selected, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+                gMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
+            }
 
+            HUDDrawMissiles(TRUE);
+        }
+    }
+    else if (gMissileHighlightStatus == HIGHLIGHT_STATUS_SELECTED)
+    {
+        if (!(gSamusWeaponInfo.weaponHighlighted & WH_MISSILE))
+        {
+            if (gSamusWeaponInfo.missilesSeleced || gEquipment.currentMissiles == 0x0)
+            {
+                dma_set(3, sMissileHUDGFX_Inactive, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+                gMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
+
+                HUDDrawMissiles(TRUE);
+            }
+        }
+        else
+        {
+            dma_set(3, sMissileHUDGFX_Active, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+            gMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
+            
+            HUDDrawMissiles(TRUE);
+        }
+    }
+    else if (gMissileHighlightStatus == HIGHLIGHT_STATUS_NOT_HIGHLIGHTED)
+    {
+        if (gSamusWeaponInfo.weaponHighlighted & WH_MISSILE)
+        {
+            dma_set(3, sMissileHUDGFX_Active, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+            gMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
+                
+            HUDDrawMissiles(TRUE);
+        }
+        else
+        {
+            if (!gSamusWeaponInfo.missilesSeleced && gEquipment.currentMissiles != 0x0)
+            {
+                dma_set(3, sMissileHUDGFX_Selected, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+                gMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
+                
+                HUDDrawMissiles(TRUE);
+            }
+        }
+    }
+
+    // Update power bomb GFX
+    if (gPowerBombHighlightStatus == HIGHLIGHT_STATUS_HIGHLIGHTED)
+    {
+        if (!(gSamusWeaponInfo.weaponHighlighted & WH_POWER_BOMB))
+        {
+            if (gEquipment.currentPowerBombs != 0x0)
+            {
+                dma_set(3, sPowerBombHUDGFX_Selected, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+                gPowerBombHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
+            }
+            else
+            {
+                dma_set(3, sPowerBombHUDGFX_Inactive, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+                gPowerBombHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
+            }
+
+            HUDDrawPowerBomb(TRUE);
+        }
+    }
+    
+    if (gPowerBombHighlightStatus == HIGHLIGHT_STATUS_SELECTED)
+    {
+        if (!(gSamusWeaponInfo.weaponHighlighted & WH_POWER_BOMB))
+        {
+            if (gEquipment.currentPowerBombs == 0x0)
+            {
+                dma_set(3, sPowerBombHUDGFX_Inactive, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+                gPowerBombHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
+                
+                HUDDrawPowerBomb(TRUE);
+            }
+        }
+        else
+        {
+            dma_set(3, sPowerBombHUDGFX_Active, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+            gPowerBombHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
+            
+            HUDDrawPowerBomb(TRUE);
+        }
+    }
+    else if (gPowerBombHighlightStatus == HIGHLIGHT_STATUS_NOT_HIGHLIGHTED)
+    {
+        if (gSamusWeaponInfo.weaponHighlighted & WH_POWER_BOMB)
+        {
+            dma_set(3, sPowerBombHUDGFX_Active, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+            gPowerBombHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
+                
+            HUDDrawPowerBomb(TRUE);
+        }
+        else
+        {
+            if (gEquipment.currentPowerBombs != 0x0)
+            {
+                dma_set(3, sPowerBombHUDGFX_Selected, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+                gPowerBombHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
+                
+                HUDDrawPowerBomb(TRUE);
+            }
+        }
+    }
+
+    // Update super missile GFX
+    if (gSuperMissileHighlightStatus == HIGHLIGHT_STATUS_HIGHLIGHTED)
+    {
+        if (!(gSamusWeaponInfo.weaponHighlighted & WH_SUPER_MISSILE))
+        {
+            if (!gSamusWeaponInfo.missilesSeleced)
+            {
+                dma_set(3, sSuperMissileHUDGFX_Inactive, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+                gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
+            }
+            else
+            {
+                dma_set(3, sSuperMissileHUDGFX_Selected, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+                gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
+            }
+
+            HUDDrawSuperMissiles(TRUE);
+        }
+    }
+    else if (gSuperMissileHighlightStatus == HIGHLIGHT_STATUS_SELECTED)
+    {
+        if (!(gSamusWeaponInfo.weaponHighlighted & WH_SUPER_MISSILE))
+        {
+            if (!gSamusWeaponInfo.missilesSeleced)
+            {
+                dma_set(3, sSuperMissileHUDGFX_Inactive, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+                gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
+                
+                HUDDrawSuperMissiles(TRUE);
+            }
+        }
+        else
+        {
+            dma_set(3, sSuperMissileHUDGFX_Active, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+            gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
+        
+            HUDDrawSuperMissiles(TRUE);
+        }
+    }
+    else if (gSuperMissileHighlightStatus == HIGHLIGHT_STATUS_NOT_HIGHLIGHTED)
+    {
+        if (gSamusWeaponInfo.weaponHighlighted & WH_SUPER_MISSILE)
+        {
+            dma_set(3, sSuperMissileHUDGFX_Active, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+            gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
+                
+            HUDDrawSuperMissiles(TRUE);
+        }
+        else
+        {
+            if (gSamusWeaponInfo.missilesSeleced)
+            {
+                dma_set(3, sSuperMissileHUDGFX_Selected, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+                gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
+                
+                HUDDrawSuperMissiles(TRUE);
+            }
+        }
+    }
+
+    // Update minimap GFX
+    if (gUpdateMinimapFlag != MINIMAP_UPDATE_FLAG_NONE)
+    {
+        gUpdateMinimapFlag--;
+        dma_set(3, (gMinimapTilesGFX + gUpdateMinimapFlag * 24), (VRAM_BASE + 0x11F80) + (gUpdateMinimapFlag * 1024), DMA_ENABLE << 16 | 48);
+    }
 }
 
 /**
@@ -407,7 +980,7 @@ void HUDDraw(void)
     HUDDrawMissiles(FALSE);
     HUDDrawPowerBomb(FALSE);
     HUDDrawSuperMissiles(FALSE);
-    HUDDrawHighlight();
+    HUDUpdateGFX();
     if (gEquipment.suitType == SUIT_SUITLESS)
         HUDDrawSuitless();
     HUDUpdateOAM();

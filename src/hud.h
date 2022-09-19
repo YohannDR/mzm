@@ -3,6 +3,12 @@
 
 #include "types.h"
 
+// Defines
+
+#define HIGHLIGHT_STATUS_NOT_HIGHLIGHTED 0
+#define HIGHLIGHT_STATUS_SELECTED 1
+#define HIGHLIGHT_STATUS_HIGHLIGHTED 2
+
 // Globals
 
 extern u8 gHideHud;
@@ -38,7 +44,7 @@ void HUDDrawPowerBombDigits(u16 tens, u16 ones, u16 highlightStatus);
 void HUDDrawMissiles(u8 updateHighlight);
 void HUDDrawPowerBomb(u8 updateHighlight);
 void HUDDrawSuperMissiles(u8 updateHighlight);
-void HUDDrawHighlight(void);
+void HUDUpdateGFX(void);
 void HUDDrawSuitless(void);
 void HUDDraw(void);
 
