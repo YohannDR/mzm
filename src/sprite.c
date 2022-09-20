@@ -34,7 +34,7 @@ void SpriteUpdate(void)
                 if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
                 {
                     dma_set(3, &gSpriteData[count], &gCurrentSprite, 0x8000001c); // Transfer sprite to current
-                    gSpriteRNG = sRandomTable0_F[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) & 0x1F];
+                    gSpriteRNG = sSpriteRandomNumberTable[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) & 0x1F];
                     SpriteUtilUpdateStunTimer(pCurrent);
                     if (pCurrent->properties & SP_SECONDARY_SPRITE) // Call AI
                         sSecondarySpritesAIPointers[pCurrent->spriteID]();
@@ -62,7 +62,7 @@ void SpriteUpdate(void)
                     if (gSpriteData[count].pose == 0x0 || gSpriteData[count].properties & SP_ALWAYS_ACTIVE)
                     {
                         dma_set(3, &gSpriteData[count], &gCurrentSprite, 0x8000001c); // Incorrect ldr
-                        gSpriteRNG = sRandomTable0_F[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) & 0x1F];
+                        gSpriteRNG = sSpriteRandomNumberTable[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) & 0x1F];
                         SpriteUtilUpdateStunTimer(pCurrent);
                         if (pCurrent->properties & SP_SECONDARY_SPRITE) // Call AI
                             sSecondarySpritesAIPointers[pCurrent->spriteID]();
@@ -95,7 +95,7 @@ void SpriteUpdate(void)
             if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
             {
                 dma_set(3, &gSpriteData[count], &gCurrentSprite, 0x8000001c);
-                gSpriteRNG = sRandomTable0_F[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) & 0x1F];
+                gSpriteRNG = sSpriteRandomNumberTable[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) & 0x1F];
                 SpriteUtilUpdateStunTimer(pCurrent);
                 if (pCurrent->properties & SP_SECONDARY_SPRITE)
                     sSecondarySpritesAIPointers[pCurrent->spriteID]();
@@ -123,7 +123,7 @@ void SpriteUpdate(void)
             if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
             {
                 dma_set(3, &gSpriteData[count], &gCurrentSprite, 0x8000001c);
-                gSpriteRNG = sRandomTable0_F[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) & 0x1F];
+                gSpriteRNG = sSpriteRandomNumberTable[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) & 0x1F];
                 
                 if (pCurrent->pose == 0x0)
                 {

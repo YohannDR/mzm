@@ -1,3 +1,6 @@
+#ifndef BLOCK_DATA_C
+#define BLOCK_DATA_C
+
 #include "../block.h"
 #include "../clipdata.h"
 #include "../connection.h"
@@ -670,3 +673,5 @@ static const u8 sHatchRelated_345cee[4][2] = {
 static const u16 sMotherBrainGlassBreakingBaseTilemapValues[5] = {
     0x170, 0x177, 0x1C0, 0x1C7, 0x210
 };
+
+#endif
