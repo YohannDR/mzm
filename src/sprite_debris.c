@@ -1,5 +1,5 @@
 #include "sprite_debris.h"
-#include "sprite_util.h"
+#include "data/particle_data.h"
 #include "game_modes.h"
 #include "../data/data.h"
 #include "globals.h"
@@ -404,7 +404,7 @@ void SpriteDebrisInit(u8 cloudType, u8 debrisType, u16 yPosition, u16 xPosition)
             return;
     }
 
-    pDebris->pOam = sprite_debris_oam;
+    pDebris->pOam = sSpriteDebrisOAM;
     pDebris->exists = TRUE;
     pDebris->yPosition = yPosition;
     pDebris->xPosition = xPosition;

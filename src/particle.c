@@ -248,19 +248,18 @@ void ParticleSet(u16 yPosition, u16 xPosition, u8 effect)
 u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, const struct FrameData* pOam)
 {
     u8 ended;
-    u32 adc;
+    u8 adc;
 
-    ended = 0x0;
-    adc = pParticle->animationDurationCounter + 0x1;
-    pParticle->animationDurationCounter = adc;
-    if ((u8)pOam[pParticle->currentAnimationFrame].timer <= (u8)adc)
+    ended = FALSE;
+    adc = ++pParticle->animationDurationCounter;
+    if (pOam[pParticle->currentAnimationFrame].timer <= adc)
     {
         pParticle->animationDurationCounter = 0x0;
         pParticle->currentAnimationFrame++;
-        if ((u8)pOam[pParticle->currentAnimationFrame].timer == 0x0)
+        if (pOam[pParticle->currentAnimationFrame].timer == 0x0)
         {
             pParticle->currentAnimationFrame = 0x0;
-            ended = 0x1;
+            ended = TRUE;
         }
     }
 
@@ -972,7 +971,7 @@ void ParticleSpriteExplosionBig(struct ParticleEffect* pParticle)
 void ParticleSpriteExplosionSingleThenBig(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_sprite_explosion_single_then_big_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSpriteExplosionSingleThenBigOAM))
         pParticle->status = 0x0;
     else if (pParticle->stage == 0x0)
     {
@@ -990,7 +989,7 @@ void ParticleSpriteExplosionSingleThenBig(struct ParticleEffect* pParticle)
 void ParticleScrewAttackDestroyed(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_screw_attack_destroyed_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleScrewAttackDestroyedOAM))
         pParticle->status = 0x0;
     else if (pParticle->stage == 0x0)
     {
@@ -1008,7 +1007,7 @@ void ParticleScrewAttackDestroyed(struct ParticleEffect* pParticle)
 void ParticleShinesparkDestroyed(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_shinespark_destroyed_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleShinesparkDestroyedOAM))
         pParticle->status = 0x0;
     else if (pParticle->stage == 0x0)
     {
@@ -1026,7 +1025,7 @@ void ParticleShinesparkDestroyed(struct ParticleEffect* pParticle)
 void ParticleSudoScrewDestroyed(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_sudo_screw_destroyed_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSudoScrewDestroyedOAM))
         pParticle->status = 0x0;
     else if (pParticle->stage == 0x0)
     {
@@ -1044,7 +1043,7 @@ void ParticleSudoScrewDestroyed(struct ParticleEffect* pParticle)
 void ParticleSpeedboosterDestroyed(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_speedbooster_destroyed_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSpeedboosterDestroyedOAM))
         pParticle->status = 0x0;
     else if (pParticle->stage == 0x0)
     {
@@ -1062,7 +1061,7 @@ void ParticleSpeedboosterDestroyed(struct ParticleEffect* pParticle)
 void ParticleMainBossDeath(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_main_boss_death_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleMainBossDeathOAM))
         pParticle->status = 0x0;
     else if (pParticle->stage == 0x0)
     {
@@ -1081,7 +1080,7 @@ void ParticleFreezingSpriteWithIce(struct ParticleEffect* pParticle)
 {
     pParticle->status ^= PARTICLE_STATUS_NOT_DRAWN;
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_freezing_sprite_with_ice_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleFreezingSpriteWithIceOAM))
         pParticle->status = 0x0;
     else if (pParticle->stage == 0x0)
     {
@@ -1100,7 +1099,7 @@ void ParticleFreezingSpriteWithChargedIce(struct ParticleEffect* pParticle)
 {
     pParticle->status ^= PARTICLE_STATUS_NOT_DRAWN;
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_freezing_sprite_with_charged_ice_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleFreezingSpritewithChargedIceBeamOAM))
         pParticle->status = 0x0;
     else if (pParticle->stage == 0x0)
     {

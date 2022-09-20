@@ -1,51 +1,7 @@
 #include "water_drop.h"
 #include "../../data/data.h"
+#include "../data/particle_data.h"
 #include "../globals.h"
-
-// DATA ISSUES, this will need to be moved elsewhere later
-
-
-
-const struct FrameData sWaterDropOAM_Spawning[8] = {
-    sWaterDropOAM_Spawning_Frame0,
-    0x6,
-    sWaterDropOAM_Spawning_Frame1,
-    0x6,
-    sWaterDropOAM_Spawning_Frame2,
-    0xA,
-    sWaterDropOAM_Spawning_Frame3,
-    0xC,
-    sWaterDropOAM_Spawning_Frame2,
-    0x4,
-    sWaterDropOAM_Spawning_Frame1,
-    0x4,
-    sWaterDropOAM_Spawning_Frame0,
-    0x4,
-    NULL,
-    0x0
-};
-
-const struct FrameData sWaterDropOAM_Falling[2] = {
-    sWaterDropOAM_Falling_Frame0,
-    0xFF,
-    NULL,
-    0x0
-};
-
-const struct FrameData sWaterDropOAM_Splashing[6] = {
-    sWaterDropOAM_Splashing_Frame0,
-    0x4,
-    sWaterDropOAM_Splashing_Frame1,
-    0x4,
-    sWaterDropOAM_Splashing_Frame2,
-    0x4,
-    sWaterDropOAM_Splashing_Frame3,
-    0x4,
-    sWaterDropOAM_Splashing_Frame4,
-    0x4,
-    NULL,
-    0x0
-};
 
 
 /**

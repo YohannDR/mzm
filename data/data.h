@@ -54,10 +54,6 @@ extern u8 blob_0x82b214e_0x82b2523[982];
 
 extern u8 blob_0x82cd604_0x82f7db3[174000];
 
-/* area_banner_data.c */
-
-extern u16 area_banner_location_text_pal[16];
-
 /* blob_0x82f7dd4_0x82fd107.c */
 
 extern u8 blob_0x82f7dd4_0x82fd107[21300];
@@ -79,14 +75,6 @@ extern u8 blob_0x8313c4c_0x8326ca7[77915];
 /* blob_0x832b9e8_0x832ba07.c */
 
 extern u8 blob_0x832b9e8_0x832ba07[32];
-
-/* common_gSpriteData.c */
-
-extern u16 common_sprites_pal[96];
-extern u8 common_sprites_gfx[14336];
-
-/* hud_data.c */
-
 
 /* blob_0x8331348_0x8339aa7.c */
 
@@ -127,9 +115,5 @@ extern u8 blob_0x875ebf8_0x875f1e7[1520];
 /* blob_0x875f31c_0x875f973.c */
 
 extern u8 blob_0x875f31c_0x875f973[16234];
-
-/* particle_pointers.c */
-
-ParticleFunc_T process_particle_functions_pointer[61];
 
 #endif /* DATA_H */
