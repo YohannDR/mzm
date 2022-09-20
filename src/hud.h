@@ -36,7 +36,7 @@ struct HudDigits {
 // Functions
 
 void HUDUpdateOAM(void);
-void HUDUpdateEnergyTanks(u8* pDst, u8* pSrcNormal, u8* pSrcRefill, u8 nbrTanks, u8 refillStage);
+void HUDUpdateEnergyTanks(u8* pDst, const u8* pSrcNormal, const u8* pSrcRefill, u8 nbrTanks, u8 refillStage);
 void HUDDrawEnergy(u8 fileNumber);
 void HUDDrawMissileDigits(u16 hundreds, u16 tens, u16 ones, u16 highlightStatus);
 void HUDDrawSuperMissileDigits(u16 tens, u16 ones, u16 highlightStatus);

@@ -924,7 +924,7 @@ void ProjectileCheckHittingSprite(void)
                             switch (pProj->type)
                             {
                                 case PROJ_TYPE_BEAM:
-                                    ProjectileHitSprite(pSprite, projY, projX, 0x2, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+                                    ProjectileHitSprite(pSprite, projY, projX, 0x2, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
                                     pProj->status = 0x0;
                                     break;
 
@@ -1003,7 +1003,7 @@ void ProjectileCheckHittingSprite(void)
                                     break;
 
                                 case PROJ_TYPE_CHARGED_BEAM:
-                                    ProjectileNonIceChargedHitSprite(pSprite, projY, projX, 0x8, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+                                    ProjectileNonIceChargedHitSprite(pSprite, projY, projX, 0x8, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
                                     pProj->status = 0x0;
                                     break;
 
@@ -1701,7 +1701,7 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
             return;
         }
         else
@@ -1715,7 +1715,7 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
             return;
         }
         else
@@ -1752,7 +1752,7 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
         pProj->hitboxLeftOffset = -0x8;
         pProj->hitboxRightOffset = 0x8;
         pProj->movementStage = 0x1;
-        ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+        ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
     }
 
     pProj->timer++;
@@ -2228,7 +2228,7 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
         }
         else
         {
@@ -2242,7 +2242,7 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
         if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
         {
             pProj->status = 0x0;
-            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
         }
         else
         {
@@ -2279,7 +2279,7 @@ void ProjectileProcessPistol(struct ProjectileData* pProj)
         pProj->hitboxLeftOffset = -0x4;
         pProj->hitboxRightOffset = 0x4;
         pProj->movementStage = 0x1;
-        ProjectileCheckHitBlock(pProj, CAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+        ProjectileCheckHitBlock(pProj, CAA_BOMB_PISTOL, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
         pProj->timer++;
     }
 }
@@ -2297,7 +2297,7 @@ void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
         if (ProjectileCheckVerticalCollisionAtPosition(pProj))
         {
             pProj->status = 0x0;
-            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
             return;
         }
         else
@@ -2309,7 +2309,7 @@ void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
         if (ProjectileCheckVerticalCollisionAtPosition(pProj))
         {
             pProj->status = 0x0;
-            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+            ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
             return;
         }
         else
@@ -2350,7 +2350,7 @@ void ProjectileProcessChargedNormalBeam(struct ProjectileData* pProj)
         pProj->hitboxRightOffset= 0xC;
 
         pProj->movementStage = 0x1;
-        ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+        ProjectileCheckHitBlock(pProj, CAA_BEAM, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
     }
 
     pProj->timer++;

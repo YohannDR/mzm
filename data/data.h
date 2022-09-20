@@ -92,49 +92,6 @@ extern u8 common_sprites_gfx[14336];
 
 extern u8 blob_0x8331348_0x8339aa7[34656];
 
-/* particle_beam_data.c */
-
-extern struct FrameData particle_shooting_beam_left_right_oam[5];
-extern struct FrameData particle_shooting_beam_diagonally_up_oam[5];
-extern struct FrameData particle_shooting_beam_diagonally_down_oam[5];
-extern struct FrameData particle_shooting_beam_up_oam[5];
-extern struct FrameData particle_shooting_beam_down_oam[5];
-extern struct FrameData particle_bomb_oam[7];
-extern struct FrameData particle_beam_trailing_oam[6];
-extern struct FrameData particle_charging_beam_oam_begin[23];
-extern struct FrameData particle_charging_beam_oam_charged[3];
-
-/* particle_misc_data.c */
-
-extern struct FrameData particle_hitting_something_with_base_beam_oam[5];
-extern struct FrameData particle_hitting_something_with_long_beam_oam[5];
-extern struct FrameData particle_hitting_something_with_ice_beam_oam[6];
-extern struct FrameData particle_hitting_something_with_wave_beam_full_beam_no_plasma_oam[7];
-extern struct FrameData particle_hitting_something_with_plasma_beam_full_beam_oam[8];
-extern struct FrameData particle_hitting_something_invincible_oam[6];
-extern struct FrameData particle_hitting_something_with_missile_oam[8];
-extern struct FrameData particle_hitting_something_with_super_missile_oam[8];
-extern struct FrameData particle_sprite_explosion_huge_oam[14];
-extern struct FrameData particle_small_dust_oam[7];
-extern struct FrameData particle_medium_dust_oam[10];
-extern struct FrameData particle_two_medium_dust_oam[11];
-extern struct FrameData particle_sprite_explosion_small_oam[12];
-extern struct FrameData particle_sprite_explosion_medium_oam[18];
-extern struct FrameData particle_sprite_explosion_big_oam[18];
-extern struct FrameData particle_sprite_explosion_single_then_big_oam[17];
-extern struct FrameData particle_screw_attack_destroyed_oam[9];
-extern struct FrameData particle_shinespark_destroyed_oam[11];
-extern struct FrameData particle_sudo_screw_destroyed_oam[9];
-extern struct FrameData particle_speedbooster_destroyed_oam[9];
-extern struct FrameData particle_freezing_sprite_with_ice_oam[17];
-extern struct FrameData particle_freezing_sprite_with_charged_ice_oam[16];
-extern struct FrameData particle_main_boss_death_oam[18];
-extern struct FrameData WaterDrop_oam[8];
-extern struct FrameData WaterDrop_oam_falling[2];
-extern struct FrameData WaterDrop_oam_splashing[6];
-const struct FrameData sprite_debris_oam[5];
-extern struct FrameData sprite_debris_oam_unused[7];
-
 /* blob_0x833bd34_0x833cbdf.c */
 
 extern u8 blob_0x833bd34_0x833cbdf[3756];

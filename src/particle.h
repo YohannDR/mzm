@@ -57,7 +57,7 @@ extern u16 gParticleSamusReflectionOAMFrames[73];
 #define PE_MAIN_BOSS_DEATH 0x27
 #define PE_FREEZING_SPRITE_WITH_ICE 0x28
 #define PE_FREEZING_SPRITE_WITH_CHARGED_ICE 0x29
-#define PE_HITTING_SOMETHING_WITH_BASE_BEAM 0x2A
+#define PE_HITTING_SOMETHING_WITH_NORMAL_BEAM 0x2A
 #define PE_HITTING_SOMETHING_WITH_LONG_BEAM 0x2B
 #define PE_HITTING_SOMETHING_WITH_ICE_BEAM 0x2C
 #define PE_HITTING_SOMETHING_WITH_WAVE_BEAM 0x2D
@@ -154,7 +154,7 @@ void ParticleSpeedboosterDestroyed(struct ParticleEffect* pParticle);
 void ParticleMainBossDeath(struct ParticleEffect* pParticle);
 void ParticleFreezingSpriteWithIce(struct ParticleEffect* pParticle);
 void ParticleFreezingSpriteWithChargedIce(struct ParticleEffect* pParticle);
-void ParticleHittingSomethingWithBaseBeam(struct ParticleEffect* pParticle);
+void ParticleHittingSomethingWithNormalBeam(struct ParticleEffect* pParticle);
 void ParticleHittingSomethingWithLongBeam(struct ParticleEffect* pParticle);
 void ParticleHittingSomethingWithIceBeam(struct ParticleEffect* pParticle);
 void ParticleHittingSomethingWithWaveBeam(struct ParticleEffect* pParticle);

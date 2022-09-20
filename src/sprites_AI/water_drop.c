@@ -4,60 +4,7 @@
 
 // DATA ISSUES, this will need to be moved elsewhere later
 
-const u16 sWaterDropOAM_Spawning_Frame0[4] = {
-    0x1,
-    0xfe, 0x1fc, 0x2161
-};
 
-const u16 sWaterDropOAM_Spawning_Frame1[4] = {
-    0x1,
-    0xff, 0x1fc, 0x2161
-};
-
-const u16 sWaterDropOAM_Spawning_Frame2[4] = {
-    0x1,
-    0x0, 0x1fc, 0x2161
-};
-
-const u16 sWaterDropOAM_Spawning_Frame3[4] = {
-    0x1,
-    0x0, 0x1fc, 0x2162
-};
-
-const u16 sWaterDropOAM_Falling_Frame0[4] = {
-    0x1,
-    0xfc, 0x1fc, 0x2160
-};
-
-const u16 sWaterDropOAM_Splashing_Frame0[7] = {
-    0x2,
-    0xf8, 0x1fe, 0x409d,
-    0xf8, 0x1fa, 0x409d
-};
-
-const u16 sWaterDropOAM_Splashing_Frame1[7] = {
-    0x2,
-    0xf8, 0x1fe, 0x409e,
-    0xf8, 0x1fa, 0x409e
-};
-
-const u16 sWaterDropOAM_Splashing_Frame2[7] = {
-    0x2,
-    0xf8, 0x1fe, 0x409f,
-    0xf8, 0x1fa, 0x409f
-};
-
-const u16 sWaterDropOAM_Splashing_Frame3[7] = {
-    0x2,
-    0xf8, 0x1fe, 0x40bd,
-    0xf8, 0x1fa, 0x40bd
-};
-
-const u16 sWaterDropOAM_Splashing_Frame4[7] = {
-    0x2,
-    0xf8, 0x1fe, 0x40be,
-    0xf8, 0x1fa, 0x40be
-};
 
 const struct FrameData sWaterDropOAM_Spawning[8] = {
     sWaterDropOAM_Spawning_Frame0,

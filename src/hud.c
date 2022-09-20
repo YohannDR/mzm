@@ -195,7 +195,7 @@ void HUDUpdateOAM(void)
  * @param nbrTanks Number of energy tanks
  * @param refillStage Refill stage
  */
-void HUDUpdateEnergyTanks(u8* pDst, u8* pSrcNormal, u8* pSrcRefill, u8 nbrTanks, u8 refillStage)
+void HUDUpdateEnergyTanks(u8* pDst, const u8* pSrcNormal, const u8* pSrcRefill, u8 nbrTanks, u8 refillStage)
 {
     if (refillStage == 0x0)
     {
@@ -217,7 +217,246 @@ void HUDUpdateEnergyTanks(u8* pDst, u8* pSrcNormal, u8* pSrcRefill, u8 nbrTanks,
 
 void HUDDrawEnergy(u8 fileNumber)
 {
+    // https://decomp.me/scratch/TXHCl
 
+    u8* dst;
+    u16 maxEnergy;
+    u16 energy;
+    u8 nbrTanks;
+    u8 digit;
+    u8 needUpdate;
+
+    if (fileNumber != 0)
+    {
+        if (fileNumber < 4)
+        {
+            gEnergyRefillAnimation = 0;
+            gEnergyDigits.ones = 0xF;
+            gEnergyDigits.tens = 0xF;
+            gEnergyDigits.hundreds = 0xF;
+            gEnergyDigits.thousands = 0xF;
+            gMaxEnergyDigits.ones = 0xF;
+            gMaxEnergyDigits.tens = 0xF;
+            gMaxEnergyDigits.hundreds = 0xF;
+            gMaxEnergyDigits.thousands = 0xF;
+            dst = (VRAM_BASE + 0x20 + (fileNumber - 1) * 0xE0);
+        }
+        else
+            return;
+    }
+    else
+        dst = (VRAM_BASE + 0x10A00);
+
+    needUpdate = FALSE;
+
+    maxEnergy = gEquipment.maxEnergy;
+
+    digit = (u8)(maxEnergy / 1000) % 10;
+    if (gMaxEnergyDigits.thousands != digit)
+    {
+        gMaxEnergyDigits.thousands = digit;
+        needUpdate++;
+    }
+
+    nbrTanks = maxEnergy / 100;
+    digit = nbrTanks % 10;
+    if (gMaxEnergyDigits.hundreds != digit)
+    {
+        gMaxEnergyDigits.hundreds = digit;
+        needUpdate++;
+    }
+
+    digit = (u8)(maxEnergy / 10) % 10;
+    if (gMaxEnergyDigits.tens != digit)
+    {
+        gMaxEnergyDigits.tens = digit;
+        needUpdate++;
+    }
+
+    digit = maxEnergy % 10;
+    if (gMaxEnergyDigits.ones != digit)
+    {
+        gMaxEnergyDigits.ones = digit;
+        needUpdate++;
+    }
+
+    energy = gEquipment.currentEnergy;
+
+    digit = (u8)(energy / 1000) % 10;
+    if (gEnergyDigits.thousands != digit)
+    {
+        gEnergyDigits.thousands = digit;
+        needUpdate++;
+    }
+
+    maxEnergy = (u8)(energy / 100);
+    digit = maxEnergy % 10;
+    if (gEnergyDigits.hundreds != digit)
+    {
+        gEnergyDigits.hundreds = digit;
+        needUpdate++;
+    }
+
+    digit = (u8)(energy / 10) % 10;
+    if (gEnergyDigits.tens != digit)
+    {
+        gEnergyDigits.tens = digit;
+        needUpdate++;
+
+        dma_set(3, sEnergyDigitsTensGFX[digit], dst, DMA_ENABLE << 16 | 16);
+    }
+
+    digit = energy % 10;
+    if (gEnergyDigits.ones != digit)
+    {
+        gEnergyDigits.ones = digit;
+        needUpdate++;
+
+        dma_set(3, sEnergyDigitsOnesGFX[digit], dst + 32, DMA_ENABLE << 16 | 16);
+    }
+
+    if (needUpdate)
+    {
+        if (energy < 0x1E)
+            gEquipment.lowHealth = TRUE;
+        else
+            gEquipment.lowHealth = FALSE;
+
+        switch (nbrTanks)
+        {
+            case 0:
+                dma_set(3, sEnergyTanksGFX_Zero, dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+
+            case 1:
+                dma_set(3, (sEnergyTanksGFX_One + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+                
+            case 2:
+                dma_set(3, (sEnergyTanksGFX_Two + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+                
+            case 3:
+                dma_set(3, (sEnergyTanksGFX_Three + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+                
+            case 4:
+                dma_set(3, (sEnergyTanksGFX_Four + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+                
+            case 5:
+                dma_set(3, (sEnergyTanksGFX_Five + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+                
+            case 6:
+                dma_set(3, (sEnergyTanksGFX_Six + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+                
+            case 7:
+                dma_set(3, (sEnergyTanksGFX_Seven + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+                
+            case 8:
+                dma_set(3, (sEnergyTanksGFX_Eight + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+                
+            case 9:
+                dma_set(3, (sEnergyTanksGFX_Nine + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+                
+            case 10:
+                dma_set(3, (sEnergyTanksGFX_Ten + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+                
+            case 11:
+                dma_set(3, (sEnergyTanksGFX_Eleven + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+                
+            case 12:
+                dma_set(3, (sEnergyTanksGFX_Twelve + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                break;
+        }
+    }
+
+    if (gEnergyRefillAnimation != 0x0)
+    {
+        if (gEnergyRefillAnimation == 0xD)
+        {
+            dma_set(3, sEnergyDigitsRefill1GFX[gEnergyDigits.tens], dst, DMA_ENABLE << 16 | 16);
+            dma_set(3, sEnergyDigitsRefill1GFX[gEnergyDigits.ones + 10], dst + 32, DMA_ENABLE << 16 | 16);
+            needUpdate = 0;
+        }
+        else if (gEnergyRefillAnimation == 0xA)
+        {
+            dma_set(3, sEnergyDigitsRefill2GFX[gEnergyDigits.tens], dst, DMA_ENABLE << 16 | 16);
+            dma_set(3, sEnergyDigitsRefill2GFX[gEnergyDigits.ones + 10], dst + 32, DMA_ENABLE << 16 | 16);
+            needUpdate = 1;
+        }
+        else if (gEnergyRefillAnimation == 0x4)
+        {
+            dma_set(3, sEnergyDigitsRefill3GFX[gEnergyDigits.tens], dst, DMA_ENABLE << 16 | 16);
+            dma_set(3, sEnergyDigitsRefill3GFX[gEnergyDigits.ones + 10], dst + 32, DMA_ENABLE << 16 | 16);
+            needUpdate = 2;
+        }
+        else if (gEnergyRefillAnimation == 0x1)
+        {
+            dma_set(3, sEnergyDigitsTensGFX[gEnergyDigits.tens], dst, DMA_ENABLE << 16 | 16);
+            dma_set(3, sEnergyDigitsTensGFX[gEnergyDigits.ones + 10], dst + 32, DMA_ENABLE << 16 | 16);
+            needUpdate = 3;
+        }
+        else
+            return;
+        switch (nbrTanks)
+        {
+            case 1:
+                HUDUpdateEnergyTanks(dst, sEnergyTanksGFX_One, sEnergyTanksRefillGFX_One, nbrTanks, needUpdate);
+                break;
+    
+            case 2:
+                HUDUpdateEnergyTanks(dst, sEnergyTanksGFX_Two, sEnergyTanksRefillGFX_Two, nbrTanks, needUpdate);
+                break;
+    
+            case 3:
+                HUDUpdateEnergyTanks(dst, sEnergyTanksGFX_Three, sEnergyTanksRefillGFX_Three, nbrTanks, needUpdate);
+                break;
+    
+            case 4:
+                HUDUpdateEnergyTanks(dst, sEnergyTanksGFX_Four, sEnergyTanksRefillGFX_Four, nbrTanks, needUpdate);
+                break;
+    
+            case 5:
+                HUDUpdateEnergyTanks(dst, sEnergyTanksGFX_Five, sEnergyTanksRefillGFX_Five, nbrTanks, needUpdate);
+                break;
+    
+            case 6:
+                HUDUpdateEnergyTanks(dst, sEnergyTanksGFX_Six, sEnergyTanksRefillGFX_Six, nbrTanks, needUpdate);
+                break;
+    
+            case 7:
+                HUDUpdateEnergyTanks(dst, sEnergyTanksGFX_Seven, sEnergyTanksRefillGFX_Seven, nbrTanks, needUpdate);
+                break;
+    
+            case 8:
+                HUDUpdateEnergyTanks(dst, sEnergyTanksGFX_Eight, sEnergyTanksRefillGFX_Eight, nbrTanks, needUpdate);
+                break;
+    
+            case 9:
+                HUDUpdateEnergyTanks(dst, sEnergyTanksGFX_Nine, sEnergyTanksRefillGFX_Nine, nbrTanks, needUpdate);
+                break;
+    
+            case 10:
+                HUDUpdateEnergyTanks(dst, sEnergyTanksGFX_Ten, sEnergyTanksRefillGFX_Ten, nbrTanks, needUpdate);
+                break;
+    
+            case 11:
+                HUDUpdateEnergyTanks(dst, sEnergyTanksGFX_Eleven, sEnergyTanksRefillGFX_Eleven, nbrTanks, needUpdate);
+                break;
+    
+            case 12:
+                HUDUpdateEnergyTanks(dst, sEnergyTanksGFX_Twelve, sEnergyTanksRefillGFX_Twelve, nbrTanks, needUpdate);
+                break;
+        }
+    }
 }
 
 /**

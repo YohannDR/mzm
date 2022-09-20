@@ -5,23 +5,23 @@
 #include "globals.h"
 
 
-extern const i16 debris_bouncing_velocity[9];
+const i16 debris_bouncing_velocity[9];
 
-extern const i16 debris_11_velocity[9];
+const i16 debris_11_velocity[9];
 
-extern const i16 debris_12_velocity[9];
+const i16 debris_12_velocity[9];
 
-extern const i16 debris_13_velocity[9];
+const i16 debris_13_velocity[9];
 
-extern const i16 debris_4_velocity[9];
+const i16 debris_4_velocity[9];
 
-extern const i16 debris_5_velocity[9];
+const i16 debris_5_velocity[9];
 
-extern const i16 debris_6_velocity[9];
+const i16 debris_6_velocity[9];
 
-extern const i16 debris_7_velocity[9];
+const i16 debris_7_velocity[9];
 
-extern const i16 debris_8_velocity[10];
+const i16 debris_8_velocity[10];
 
 /**
  * 11788 | 2c | 

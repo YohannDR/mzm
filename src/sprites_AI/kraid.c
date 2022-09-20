@@ -2695,7 +2695,7 @@ void KraidCheckProjectilesCollidingWithBelly(void)
             {
                 case PROJ_TYPE_BEAM:
                 case PROJ_TYPE_CHARGED_BEAM:
-                    ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_BASE_BEAM);
+                    ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
                     break;
                     
                 case PROJ_TYPE_LONG_BEAM:
@@ -2883,7 +2883,7 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
                 {
                     damaged = TRUE;
                     damage = 0x8;
-                    effect = PE_HITTING_SOMETHING_WITH_BASE_BEAM;
+                    effect = PE_HITTING_SOMETHING_WITH_NORMAL_BEAM;
                 }
                 else if (pProj->type == PROJ_TYPE_CHARGED_LONG_BEAM)
                 {
