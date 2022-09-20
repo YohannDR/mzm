@@ -3,7 +3,6 @@
 #include "../data/particle_data.c"
 #include "../globals.h"
 
-
 /**
  * @brief 12780 | 2c | Initializes a water drop sprite
  * 

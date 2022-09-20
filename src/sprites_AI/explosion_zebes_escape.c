@@ -1,5 +1,5 @@
 #include "explosion_zebes_escape.h"
-#include "enemy_drop.h"
+#include "../data/sprites/enemy_drop.c"
 #include "../globals.h"
 
 void ExplosionZebesEscape(void)

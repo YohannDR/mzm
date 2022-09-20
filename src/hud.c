@@ -215,16 +215,20 @@ void HUDUpdateEnergyTanks(u8* pDst, const u8* pSrcNormal, const u8* pSrcRefill, 
     } 
 }
 
+/**
+ * @brief 526d4 | 598 | Updates the energy HUD
+ * 
+ * @param fileNumber File number
+ */
 void HUDDrawEnergy(u8 fileNumber)
 {
-    // https://decomp.me/scratch/TXHCl
-
     u8* dst;
     u16 maxEnergy;
     u16 energy;
     u8 nbrTanks;
     u8 digit;
     u8 needUpdate;
+    u16 v;
 
     if (fileNumber != 0)
     {
@@ -249,16 +253,16 @@ void HUDDrawEnergy(u8 fileNumber)
 
     needUpdate = FALSE;
 
-    maxEnergy = gEquipment.maxEnergy;
+    v = gEquipment.maxEnergy;
 
-    digit = (u8)(maxEnergy / 1000) % 10;
+    digit = (u8)(v / 1000) % 10;
     if (gMaxEnergyDigits.thousands != digit)
     {
         gMaxEnergyDigits.thousands = digit;
         needUpdate++;
     }
 
-    nbrTanks = maxEnergy / 100;
+    nbrTanks = v / 100;
     digit = nbrTanks % 10;
     if (gMaxEnergyDigits.hundreds != digit)
     {
@@ -266,14 +270,14 @@ void HUDDrawEnergy(u8 fileNumber)
         needUpdate++;
     }
 
-    digit = (u8)(maxEnergy / 10) % 10;
+    digit = (u8)(v / 10) % 10;
     if (gMaxEnergyDigits.tens != digit)
     {
         gMaxEnergyDigits.tens = digit;
         needUpdate++;
     }
 
-    digit = maxEnergy % 10;
+    digit = v % 10;
     if (gMaxEnergyDigits.ones != digit)
     {
         gMaxEnergyDigits.ones = digit;

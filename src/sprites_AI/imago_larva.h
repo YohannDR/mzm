@@ -39,30 +39,6 @@
 #define IMAGO_LARVA_PART_LARVA 0x5
 
 
-extern const struct FrameData sImagoLarvaPartOAM_ShellAttacking[12];
-extern const struct FrameData sImagoLarvaPartOAM_ShellIdle[5];
-extern const struct FrameData sImagoLarvaPartOAM_ShellRetreating[12];
-extern const struct FrameData sImagoLarvaPartOAM_ShellDying[9];
-extern const struct FrameData sImagoLarvaPartOAM_ClawsAttacking[5];
-extern const struct FrameData sImagoLarvaPartOAM_ClawsIdle[5];
-extern const struct FrameData sImagoLarvaPartOAM_ClawsRetreating[5];
-extern const struct FrameData sImagoLarvaPartOAM_ClawsTakingDamage[4];
-extern const struct FrameData sImagoLarvaPartOAM_LeftDotAppearing[4];
-extern const struct FrameData sImagoLarvaPartOAM_MiddleDotAppearing[4];
-extern const struct FrameData sImagoLarvaPartOAM_RightDotAppearing[4];
-extern const struct FrameData sImagoLarvaPartOAM_LeftDotVisible[2];
-extern const struct FrameData sImagoLarvaPartOAM_MiddleDotVisible[2];
-extern const struct FrameData sImagoLarvaPartOAM_RightDotVisible[2];
-extern const struct FrameData sImagoLarvaPartOAM_LeftDotDisappearing[4];
-extern const struct FrameData sImagoLarvaPartOAM_MiddleDotDisappearing[4];
-extern const struct FrameData sImagoLarvaPartOAM_RightDotDisappearing[4];
-extern const struct FrameData sImagoLarvaPartOAM_ShellWarning[10];
-extern const struct FrameData sImagoLarvaOAM_Idle[9];
-extern const struct FrameData sImagoLarvaPartOAM_ClawsWarningFirstPart[3];
-extern const struct FrameData sImagoLarvaPartOAM_ClawsWarningSecondPart[3];
-extern const struct FrameData sImagoLarvaOAM_Warning[10];
-extern const struct FrameData sImagoLarvaPartOAM_ShellTakingDamage[5];
-
 void ImagoLarvaSyncSubSprites(struct SubSpriteData* pSub);
 void ImagoLarvaUpdatePalette(void);
 void ImagoLarvaInit(struct SubSpriteData* pSub);

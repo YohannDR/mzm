@@ -1,5 +1,6 @@
 #include "zeela.h"
 #include "../../data/data.h"
+#include "../data/sprites/zeela.c"
 #include "../globals.h"
 
 void ZeelaSpawnEyes(void)

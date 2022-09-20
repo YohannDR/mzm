@@ -1,5 +1,6 @@
 #include "primary_sprite_B3.h"
 #include "../../data/data.h"
+#include "../data/sprites/enemy_drop.c"
 #include "../globals.h"
 
 /**

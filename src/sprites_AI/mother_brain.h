@@ -23,20 +23,6 @@
 #define MOTHER_BRAIN_PART_POSE_UPDATE 0x32
 #define MOTHER_BRAIN_PART_POSE_GLASS_BREAKING 0x62
 
-
-extern const struct FrameData sMotherBrainOAM_Idle[12];
-extern const struct FrameData sMotherBrainOAM_ChargingBeam[5];
-extern const struct FrameData sMotherBrainPartOAM_EyeClosed[12];
-extern const struct FrameData sMotherBrainPartOAM_2fa934[5];
-extern const struct FrameData sMotherBrainPartOAM_EyeOpening[5];
-extern const struct FrameData sMotherBrainPartOAM_2fa984[8];
-extern const struct FrameData sMotherBrainPartOAM_EyeDying[5];
-extern const struct FrameData sMotherBrainPartOAM_Bottom[7];
-extern const struct FrameData sMotherBrainPartOAM_BeamSpawning[5];
-extern const struct FrameData sMotherBrainBeamOAM_Moving[3];
-extern const struct FrameData sMotherBrainGlassBreakingOAM_Breaking[18];
-extern const struct FrameData sMotherBrainPartOAM_EyeClosing[4];
-
 void MotherBrainSyncSubSpritesPosition(void);
 void MotherBrainUpdatePalette(void);
 void MotherBrainInit(void);

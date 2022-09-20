@@ -3,23 +3,6 @@
 
 #include "../types.h"
 
-extern const struct FrameData sUnknownItemChozoStatuePartOAM_LegStanding[2];
-extern const struct FrameData sUnknownItemChozoStatuePartOAM_LegSitting[10];
-extern const struct FrameData sUnknownItemChozoStatuePartOAM_LegSeated[2];
-extern const struct FrameData sUnknownItemChozoStatueOAM_Idle[2];
-extern const struct FrameData sUnknownItemChozoStatuePartOAM_EyeOpened[2];
-extern const struct FrameData sUnknownItemChozoStatuePartOAM_EyeClosing[3];
-extern const struct FrameData sUnknownItemChozoStatuePartOAM_EyeOpening[3];
-extern const struct FrameData sUnknownItemChozoStatuePartOAM_EyeClosed[2];
-extern const struct FrameData sUnknownItemChozoStatuePartOAM_ArmIdle[2];
-extern const struct FrameData sUnknownItemChozoStatuePartOAM_ArmGlow[9];
-extern const struct FrameData sUnknownItemChozoStatuePartOAM_ArmSamusGrabbed[2];
-extern const struct FrameData sChozoBallOAM_UnknownClosed[5];
-extern const struct FrameData sChozoBallOAM_UnknownRevealing[4];
-extern const struct FrameData sChozoBallOAM_UnknownRevealed[5];
-extern const struct FrameData sUnknownItemChozoStatueRefillOAM[41];
-extern const struct FrameData sUnknownItemChozoStatuePartOAM_GlowIdle[41];
-
 void UnknownItemChozoStatueSyncSubSprites(void);
 void UnknownItemChozoStatueInit(void);
 void UnknownItemChozoStatue_Empty(void);

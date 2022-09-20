@@ -1,6 +1,8 @@
 #include "chozo_ball.h"
 #include "item_banner.h"
 #include "../globals.h"
+#include "../data/sprites/chozo_statue.c"
+#include "../data/sprites/unknown_item_chozo_statue.c"
 #include "chozo_statue.h"
 #include "unknown_item_chozo_statue.h"
 

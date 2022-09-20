@@ -1,34 +1,6 @@
 #include "unused_sprites.h"
+#include "../data/sprites/unused_sprites.c"
 #include "../globals.h"
-
-const u16 sUnusedSpritesOAM_Idle_Frame0[4] = {
-    0x1,
-    0xfc, 0x1fc, 0x3151
-};
-
-const u16 sUnusedSpritesOAM_Idle_Frame1[4] = {
-    0x1,
-    0xfc, 0x1fc, 0x3150
-};
-
-const struct FrameData sUnusedSpritesOAM_Idle[3] = {
-    sUnusedSpritesOAM_Idle_Frame0,
-    0x1E,
-    sUnusedSpritesOAM_Idle_Frame1,
-    0x1E,
-    NULL,
-    0x0
-};
-
-const struct FrameData sUnusedSpritesOAM_Unused[3] = {
-    sUnusedSpritesOAM_Idle_Frame0,
-    0x1E,
-    NULL,
-    0x0
-};
-
-const u32 sUnusedSpritesGFX[6];
-const u16 sUnusedSpritesPAL[16];
 
 /**
  * @brief 13024 | 5c | Unused sprites AI

@@ -59,25 +59,6 @@
 #define IMAGO_EGG_PART_LAST 0x80
 
 
-extern const struct FrameData sImagoPartOAM_BodyIdle[8];
-extern const struct FrameData sImagoPartOAM_BodyGrowling[16];
-extern const struct FrameData sImagoOAM_BrokenStinger[3];
-extern const struct FrameData sImagoPartOAM_LeftWingIdle[8];
-extern const struct FrameData sImagoPartOAM_LeftWingShootingNeedles[6];
-extern const struct FrameData sImagoPartOAM_LeftWingDying[7];
-extern const struct FrameData sImagoPartOAM_RightWingIdle[8];
-extern const struct FrameData sImagoPartOAM_RightWingShootingNeedles[6];
-extern const struct FrameData sImagoPartOAM_RIghtWingDying[5];
-extern const struct FrameData sImagoPartOAM_Core[9];
-extern const struct FrameData simagoOAM_Flying[9];
-extern const struct FrameData sImagoOAM_ShootingNeedles[11];
-extern const struct FrameData sImagoOAM_RechargingNeedles[4];
-extern const struct FrameData sImagoDamagedStingerOAM[2];
-extern const struct FrameData sImagoNeedleOAM[2];
-extern const struct FrameData sImagoDamagedStingerOAM_Unused[9];
-extern const struct FrameData sImagoEggOAM_Breaking[10];
-extern const struct FrameData sImagoEggOAM_Standing[2];
-
 void ImagoSyncSubSprites(void);
 void ImagoShootNeedles(void);
 void ImagoCoreFlashingAnim(void);
