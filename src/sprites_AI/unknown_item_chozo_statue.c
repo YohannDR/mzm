@@ -2,7 +2,7 @@
 #include "item_banner.h"
 #include "chozo_statue.h"
 #include "../globals.h"
-#include "../data/pointers.h"
+#include "../data/pointers.c"
 
 const i16 sUnknownItemChozoStatueMultiSpriteData_Standing_Frame0[15] = {
     8, -176, -104,

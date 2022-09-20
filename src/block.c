@@ -1,7 +1,7 @@
 #include "block.h"
 #include "clipdata.h"
 #include "power_bomb_explosion.h"
-#include "data/block_data.h"
+#include "data/block_data.c"
 #include "globals.h"
 
 /**

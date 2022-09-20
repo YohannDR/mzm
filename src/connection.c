@@ -1,9 +1,9 @@
 #include "connection.h"
 #include "globals.h"
 #include "bg_clip.h" // Required
-#include "data/pointers.h"
-#include "data/empty_datatypes.h"
-#include "data/hatch_data.h"
+#include "data/pointers.c"
+#include "data/empty_datatypes.c"
+#include "data/hatch_data.c"
 
 /**
  * @brief 5e760 | 198 | Updates the hatches

@@ -7,8 +7,8 @@
 #include "game_modes.h"
 #include "hud.h"
 #include "../data/data.h"
-#include "data/projectiles.h"
-#include "data/pointers.h"
+#include "data/projectile_data.c"
+#include "data/pointers.c"
 #include "globals.h"
 
 void ProjectileSetBeamParticleEffect(void)

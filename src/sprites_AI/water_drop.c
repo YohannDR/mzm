@@ -1,6 +1,6 @@
 #include "water_drop.h"
 #include "../../data/data.h"
-#include "../data/particle_data.h"
+#include "../data/particle_data.c"
 #include "../globals.h"
 
 

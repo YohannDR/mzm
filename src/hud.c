@@ -1,6 +1,6 @@
 #include "hud.h"
 #include "minimap.h"
-#include "data/hud_data.h"
+#include "data/hud_data.c"
 #include "globals.h"
 
 /**

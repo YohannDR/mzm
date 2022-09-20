@@ -1,6 +1,6 @@
 #include "imago.h"
 #include "../../data/data.h"
-#include "../data/pointers.h"
+#include "../data/pointers.c"
 #include "../globals.h"
 
 const i16 sImagoMultiSpriteData_Idle_Frame0[21] = {

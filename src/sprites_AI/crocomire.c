@@ -1,6 +1,6 @@
 #include "crocomire.h"
 #include "../../data/data.h"
-#include "../data/pointers.h"
+#include "../data/pointers.c"
 #include "../globals.h"
 
 const i16 sCrocomireMultiSpriteData_Idle_Frame0[18] = {

@@ -1,5 +1,5 @@
 #include "sprite_debris.h"
-#include "data/particle_data.h"
+#include "data/particle_data.c"
 #include "game_modes.h"
 #include "../data/data.h"
 #include "globals.h"

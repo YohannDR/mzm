@@ -1,6 +1,6 @@
 #include "kraid.h"
 #include "../../data/data.h"
-#include "../data/pointers.h"
+#include "../data/pointers.c"
 #include "../globals.h"
 
 const i16 sKraidMultiSpriteData_Rising_Frame0[36] = {

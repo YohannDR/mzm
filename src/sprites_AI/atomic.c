@@ -1,5 +1,5 @@
 #include "atomic.h"
-#include "../data/pointers.h"
+#include "../data/pointers.c"
 #include "../../data/data.h"
 #include "../globals.h"
 

@@ -8,8 +8,8 @@
 #include "../connection.h"
 #include "../sprites_AI/sprites.h"
 
-#include "doors.h"
-#include "hatch_data.h"
+#include "doors_data.c"
+#include "hatch_data.c"
 
 // 75e6a8
 

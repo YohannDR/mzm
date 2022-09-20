@@ -1,6 +1,6 @@
 #include "chozo_statue.h"
 #include "unknown_item_chozo_statue.h"
-#include "../data/pointers.h"
+#include "../data/pointers.c"
 #include "../../data/data.h"
 #include "../globals.h"
 

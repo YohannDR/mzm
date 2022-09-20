@@ -1,7 +1,7 @@
 #include "imago_larva.h"
 #include "../sprite_util.h" // sprite_util.h include required?
 #include "../../data/data.h"
-#include "../data/pointers.h"
+#include "../data/pointers.c"
 #include "../globals.h"
 
 const i16 sImagoLarvaMultiSpriteData_Attacking_Frame0[18] = {

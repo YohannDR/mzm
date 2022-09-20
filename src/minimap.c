@@ -1,6 +1,6 @@
 #include "minimap.h"
 #include "globals.h"
-#include "data/unsorted.h"
+#include "data/unsorted.c"
 
 /**
  * @brief 6c154 | 24 | Updates the minimap

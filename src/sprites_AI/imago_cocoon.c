@@ -1,6 +1,6 @@
 #include "imago_cocoon.h"
 #include "../../data/data.h"
-#include "../data/pointers.h"
+#include "../data/pointers.c"
 #include "../globals.h"
 
 const i16 sImagoCocoonMultiSpriteData_Idle_Frame0[30] = {

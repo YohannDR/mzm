@@ -1,7 +1,7 @@
 #include "samus.h"
 #include "music.h"
 #include "../data/data.h"
-#include "data/pointers.h"
+#include "data/pointers.c"
 #include "globals.h"
 
 void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, struct SamusPhysics* pPhysics)
