@@ -39,7 +39,7 @@ CFLAGS = -Werror -O2 -mthumb-interwork -fhex-asm
 CPPFLAGS = -nostdinc -Isrc/
 
 # Objects
-CSRC = $(wildcard src/*.c) $(wildcard src/sprites_AI/*.c) $(wildcard src/sram/*.c) $(wildcard data/*.c) $(wildcard src/libgcc/*.c)
+CSRC = $(wildcard src/*.c) $(wildcard src/sprites_AI/*.c) $(wildcard src/sram/*.c) $(wildcard data/*.c) $(wildcard src/libgcc/*.c) $(wildcard src/data/*.c)
 .PRECIOUS: $(CSRC:.c=.s)
 ASMSRC = $(CSRC:.c=.s) $(wildcard asm/*.s)
 OBJ = $(ASMSRC:.s=.o) 

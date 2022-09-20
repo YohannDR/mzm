@@ -1,5 +1,5 @@
-#ifndef PARTICLE_DATA_H
-#define PARTICLE_DATA_H
+#ifndef PARTICLE_DATA_C
+#define PARTICLE_DATA_C
 
 #include "../types.h"
 #include "../oam.h"

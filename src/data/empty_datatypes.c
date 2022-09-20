@@ -1,3 +1,6 @@
+#ifndef EMPTY_DATATYPES_C
+#define EMPTY_DATATYPES_C
+
 #include "../types.h"
 #include "../connection.h"
 #include "../scroll.h"
@@ -35,3 +38,5 @@ static const struct LockScreen sLockScreen_Empty = {
 // More...
 
 // 34587c
+
+#endif

@@ -1,5 +1,9 @@
+#ifndef PROJECTILE_DATA_C
+#define PROJECTILE_DATA_C
+
 #include "../types.h"
 #include "../oam.h"
+#include "../particle.h"
 
 // 326ca8
 
@@ -2665,3 +2669,5 @@ static const struct FrameData sParticleSamusReflectionOAM_Unused[2] = {
 };
 
 // 32ba08
+
+#endif

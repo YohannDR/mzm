@@ -1,5 +1,5 @@
-#ifndef HATCH_DATA_H
-#define HATCH_DATA_H
+#ifndef HATCH_DATA_C
+#define HATCH_DATA_C
 
 #include "../types.h"
 #include "../connection.h"

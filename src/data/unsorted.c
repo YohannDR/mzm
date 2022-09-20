@@ -1,3 +1,6 @@
+#ifndef UNSORTED_C
+#define UNSORTED_C
+
 #include "../types.h"
 #include "../minimap.h"
 
@@ -21,3 +24,5 @@ static const MinimapFunc_T sMinimapTilesCopyGFXFunctionPointers[4] = {
     MinimapCopyTileYFlippedGFX,
     MinimapCopyTileXYFlippedGFX,
 };
+
+#endif

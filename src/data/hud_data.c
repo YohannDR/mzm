@@ -1,3 +1,6 @@
+#ifndef HUD_DATA_C
+#define HUD_DATA_C
+
 #include "../types.h"
 
 // 32ba08
@@ -65,3 +68,5 @@ static const u8 sEnergyTanksRefillGFX_Twelve[160 * 3];
 static const u8 sSuitlessHUDChargeBarGFX[56][256];
 
 // 8339aa8
+
+#endif

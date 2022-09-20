@@ -1,5 +1,5 @@
-#ifndef POINTERS_DATA
-#define POINTERS_DATA
+#ifndef POINTERS_DATA_C
+#define POINTERS_DATA_C
 
 #include "../types.h"
 #include "../samus.h"

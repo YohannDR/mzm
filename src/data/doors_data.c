@@ -1,3 +1,6 @@
+#ifndef DOORS_DATA_C
+#define DOORS_DATA_C
+
 #include "../connection.h"
 
 // 33e608
@@ -8373,3 +8376,5 @@ static const struct Door sChozodiaDoors[246] = {
 };
 
 // 34099c
+
+#endif
