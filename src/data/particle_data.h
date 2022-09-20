@@ -1165,7 +1165,7 @@ static const u16 sParticleScrewAttackDestroyedOAM_Frame4[49] = {
     0x4, OBJ_X_FLIP | OBJ_Y_FLIP | 0x4, 0x3157
 };
 
-static const u16 sParticleScrewAttackDestroyedOAM_Frame5[25] = {
+static const u16 sParticleScrewAttackDestroyedOAM_Frame5[28] = {
     0x9,
     0xd6, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1d6, 0x418c,
     0xd6, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1a, 0x418c,

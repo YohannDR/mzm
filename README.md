@@ -30,4 +30,4 @@ This produces the following ROMs:
 ## Build
 
 - Run `make clean` if necessary
-- Run `make CPP=cpp`
+- Run `make CPP=cpp` (using the -j option is recommended to speed up the process)
