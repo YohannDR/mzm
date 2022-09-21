@@ -1,6 +1,7 @@
 #include "ruins_test.h"
 #include "../../data/data.h"
 #include "../data/sprites/ruins_test.c"
+#include "data/sprite_data.c"
 #include "../gba.h"
 #include "../globals.h"
 

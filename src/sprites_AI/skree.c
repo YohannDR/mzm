@@ -1,6 +1,7 @@
 #include "skree.h"
 #include "../../data/data.h"
 #include "../data/sprites/skree.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

@@ -36,12 +36,6 @@ extern u16 SamusPullingSelfUp_velocity[4];
 
 extern u8 blob_0x823a5bc_0x82b0cab[485104];
 
-/* sprite_stats.c */
-
-extern i16 worker_robot_sleeping_falling_speed[10];
-extern u16 sPrimarySpriteStats[206][9];
-extern u16 sSecondarySpriteStats[77][9];
-
 /* blob_0x82b214e_0x82b2523.c */
 
 extern u8 blob_0x82b214e_0x82b2523[982];

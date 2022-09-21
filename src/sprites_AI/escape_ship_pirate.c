@@ -1,6 +1,7 @@
 #include "escape_ship_pirate.h"
 #include "space_pirate.h"
 #include "../../data/data.h"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

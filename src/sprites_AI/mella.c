@@ -1,6 +1,7 @@
 #include "mella.h"
 #include "../../data/data.h"
 #include "../data/sprites/mella.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

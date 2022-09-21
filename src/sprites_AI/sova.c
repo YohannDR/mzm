@@ -1,6 +1,7 @@
 #include "sova.h"
 #include "../../data/data.h"
 #include "../data/sprites/sova.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /*u8 SovaCheckCollidingWithAir(void)

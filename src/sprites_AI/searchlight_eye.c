@@ -1,6 +1,7 @@
 #include "searchlight_eye.h"
 #include "../../data/data.h"
 #include "../data/sprites/searchlight_eye.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

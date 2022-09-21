@@ -1,8 +1,8 @@
 #include "black_space_pirate.h"
 #include "space_pirate.h"
 #include "../../data/data.h"
+#include "data/sprite_data.c"
 #include "../globals.h"
-
 
 /**
  * @brief 2cb68 | 268 | Handles black space pirate/projectile collision

@@ -2,6 +2,7 @@
 #include "../../data/data.h"
 #include "../data/pointers.c"
 #include "../data/sprites/ridley.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

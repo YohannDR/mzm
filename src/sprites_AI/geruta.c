@@ -1,6 +1,7 @@
 #include "geruta.h"
 #include "../../data/data.h"
 #include "../data/sprites/geruta.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

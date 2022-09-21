@@ -1,6 +1,7 @@
 #include "dragon.h"
 #include "../../data/data.h"
 #include "../data/sprites/dragon.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

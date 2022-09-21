@@ -1,6 +1,7 @@
 #include "ripper2.h"
 #include "../../data/data.h"
 #include "../data/sprites/ripper2.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

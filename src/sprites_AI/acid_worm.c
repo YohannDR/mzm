@@ -1,6 +1,7 @@
 #include "acid_worm.h"
 #include "../../data/data.h"
 #include "../data/sprites/acid_worm.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

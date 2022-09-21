@@ -3,6 +3,7 @@
 #include "../screen_shake.h"
 #include "../particle.h"
 #include "../sprite_util.h"
+#include "data/sprite_data.c"
 #include "../sprite.h"
 #include "../globals.h"
 

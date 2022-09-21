@@ -1,6 +1,7 @@
 #include "skultera.h"
 #include "../../data/data.h"
 #include "../data/sprites/skultera.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

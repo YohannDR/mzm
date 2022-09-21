@@ -1,6 +1,7 @@
 #include "holtz.h"
 #include "../../data/data.h"
 #include "../data/sprites/holtz.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

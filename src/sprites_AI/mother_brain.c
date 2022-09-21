@@ -3,6 +3,7 @@
 #include "../data/pointers.c"
 #include "../globals.h"
 #include "../data/sprites/mother_brain.c"
+#include "data/sprite_data.c"
 
 /**
  * @brief 3c964 | 68 | Synchronize the sub sprites of Mother Brain

@@ -1,6 +1,7 @@
 #include "squeept.h"
 #include "../../data/data.h"
 #include "../data/sprites/squeept.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

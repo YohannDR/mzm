@@ -2,6 +2,7 @@
 #include "../../data/data.h"
 #include "../globals.h"
 #include "../data/sprites/multiviola.c"
+#include "data/sprite_data.c"
 
 /**
  * @brief 1e854 | 70 | Initializes a multiviola sprite

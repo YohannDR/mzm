@@ -1,6 +1,7 @@
 #include "reo.h"
 #include "../../data/data.h"
 #include "../data/sprites/reo.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

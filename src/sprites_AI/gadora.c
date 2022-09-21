@@ -2,6 +2,7 @@
 #include "../../data/data.h"
 #include "../data/sprites/gadora.c"
 #include "../data/sprites/enemy_drop.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**

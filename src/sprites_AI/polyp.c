@@ -1,6 +1,7 @@
 #include "polyp.h"
 #include "../../data/data.h"
 #include "../data/sprites/polyp.c"
+#include "data/sprite_data.c"
 #include "../globals.h"
 
 /**
