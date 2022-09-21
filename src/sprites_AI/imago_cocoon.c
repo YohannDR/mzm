@@ -4,6 +4,7 @@
 #include "../data/sprites/imago_cocoon.c"
 #include "../data/sprites/enemy_drop.c"
 #include "data/sprite_data.c"
+#include "data/generic_data.c"
 #include "../globals.h"
 
 /**

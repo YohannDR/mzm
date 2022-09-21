@@ -3192,7 +3192,7 @@ static const u16 sSecondarySpriteStats[77][9] = {
     }
 };
 
-// Spritesets
+// Spritesets...
 
 static const i16 sDebrisBouncingVelocity[9] = {
     -4, -8, -4, 0, 4, 8, 12, 16, 20

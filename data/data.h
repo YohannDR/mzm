@@ -8,11 +8,6 @@
 #include "../src/projectile.h"
 #include "../src/sprites_AI/sprites.h"
 
-/* generic_data.c */
-
-extern i16 sSineYValues[320];
-extern u8 sRandomNumberTable[256];
-
 /* blob_0x808ca9c_0x8239463.c */
 
 extern u8 blob_0x808ca9c_0x8239463[1755592];
