@@ -1,6 +1,7 @@
 #include "dessgeega.h"
 #include "../../data/data.h"
 #include "../data/sprites/dessgeega.c"
+#include "../data/sprite_data.c"
 #include "../globals.h"
 
 /**

@@ -8,6 +8,7 @@
 #include "sprites_AI/parasite.h"
 #include "sprites_AI/ridley.h"
 #include "../data/data.h"
+#include "data/sprite_data.c"
 #include "globals.h"
 
 /**

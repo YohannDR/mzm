@@ -5,6 +5,7 @@
 #include "syscalls.h"
 #include "gba.h"
 #include "data/pointers.c"
+#include "data/sprite_data.c"
 #include "../data/data.h"
 #include "globals.h"
 

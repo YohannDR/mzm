@@ -1,6 +1,7 @@
 #include "viola.h"
 #include "../../data/data.h"
 #include "../data/sprites/viola.c"
+#include "../data/sprite_data.c"
 #include "../globals.h"
 
 /**
