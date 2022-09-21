@@ -737,7 +737,7 @@ void ConnectionLoadDoors(void)
         bldalpha = BGClipGetNewBLDALPHAValue(bldalpha);
         if (bldalpha)
         {
-            TransprencyUpdateBLDALPHA(bldalpha & 0xFF, bldalpha, 1, 1);
+            TransparencyUpdateBLDALPHA(bldalpha & 0xFF, bldalpha, 1, 1);
             gIORegistersBackup.BLDALPHA_NonGameplay_EVB = gBldalphaData1.evbCoef;
             gIORegistersBackup.BLDALPHA_NonGameplay_EVA = gBldalphaData1.evaCoef;
             write16((REG_BASE + 0x52), gIORegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIORegistersBackup.BLDALPHA_NonGameplay_EVA);;

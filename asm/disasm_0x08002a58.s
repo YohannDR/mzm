@@ -2135,8 +2135,8 @@ lbl_080039e6:
 lbl_080039ec: .4byte music_info
 lbl_080039f0: .4byte 0x0808f254
 
-    thumb_func_start sub_080039f4
-sub_080039f4: @ 0x080039f4
+    thumb_func_start MusicPlay
+MusicPlay: @ 0x080039f4
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x10
     lsrs r6, r0, #0x10
@@ -2221,8 +2221,8 @@ lbl_08003a8c:
     .align 2, 0
 lbl_08003a94: .4byte 0x0808f254
 
-    thumb_func_start fade_music
-fade_music: @ 0x08003a98
+    thumb_func_start MusicFade
+MusicFade: @ 0x08003a98
     push {lr}
     lsls r0, r0, #0x10
     lsrs r2, r0, #0x10
@@ -2324,7 +2324,7 @@ sub_08003b30: @ 0x08003b30
     bne lbl_08003b64
     adds r0, r3, #0
     adds r1, r2, #0
-    bl sub_080039f4
+    bl MusicPlay
     b lbl_08003b72
     .align 2, 0
 lbl_08003b60: .4byte music_info
@@ -2365,7 +2365,7 @@ sub_08003b7c: @ 0x08003b7c
     bne lbl_08003bb0
     adds r0, r4, #0
     adds r1, r2, #0
-    bl sub_080039f4
+    bl MusicPlay
     b lbl_08003bc6
     .align 2, 0
 lbl_08003bac: .4byte music_info
@@ -2493,8 +2493,8 @@ lbl_08003c94: .4byte music_info
 lbl_08003c98: .4byte 0x0808f2c0
 lbl_08003c9c: .4byte 0x0808f254
 
-    thumb_func_start sub_08003ca0
-sub_08003ca0: @ 0x08003ca0
+    thumb_func_start InsertMusicAndQueueCurrent
+InsertMusicAndQueueCurrent: @ 0x08003ca0
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x10
     lsrs r2, r0, #0x10
@@ -2716,8 +2716,8 @@ lbl_08003e5c:
     pop {r0}
     bx r0
 
-    thumb_func_start sub_08003e60
-sub_08003e60: @ 0x08003e60
+    thumb_func_start MusicUpdatePriority
+MusicUpdatePriority: @ 0x08003e60
     push {r4, lr}
     lsls r0, r0, #0x18
 lbl_08003e64:
@@ -3238,7 +3238,7 @@ sub_08004228: @ 0x08004228
     bl sub_08004c1c
     adds r0, r5, #0
     movs r1, #8
-    bl sub_080039f4
+    bl MusicPlay
     adds r0, r4, #0
     movs r1, #0x1e
     bl sub_080041ec
@@ -3283,7 +3283,7 @@ sub_0800427c: @ 0x0800427c
     cmp r3, r0
     bne lbl_080042ac
     movs r0, #2
-    bl sub_08003e60
+    bl MusicUpdatePriority
     b lbl_080042b6
     .align 2, 0
 lbl_080042a4: .4byte 0x0808f254

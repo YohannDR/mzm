@@ -269,7 +269,7 @@ void SpriteDebrisProcessAll(void)
  */
 void SpriteDebrisDraw(struct SpriteDebris* pDebris)
 {
-    const u16* src;
+    static const u16* src;
     u16* dst;
     u16 yPosition;
     u16 xPosition;

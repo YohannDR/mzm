@@ -71,15 +71,15 @@ extern u8 blob_0x833bd34_0x833cbdf[3756];
 
 /* particle_splash_data.c */
 
-extern struct FrameData particle_sprite_splash_water_big_oam[10];
-extern struct FrameData particle_sprite_splash_water_huge_oam[10];
-extern struct FrameData particle_sprite_splash_water_small_oam[7];
-extern struct FrameData particle_sprite_splash_lava_big_oam[10];
-extern struct FrameData particle_sprite_splash_lava_huge_oam[10];
-extern struct FrameData particle_sprite_splash_lava_small_oam[7];
-extern struct FrameData particle_sprite_splash_acid_big_oam[10];
-extern struct FrameData particle_sprite_splash_acid_huge_oam[10];
-extern struct FrameData particle_sprite_splash_acid_small_oam[7];
+extern struct FrameData ParticleSpriteSplashWaterBig_oam[10];
+extern struct FrameData ParticleSpriteSplashWaterHuge_oam[10];
+extern struct FrameData ParticleSpriteSplashWaterSmall_oam[7];
+extern struct FrameData ParticleSpriteSplashLavaBig_oam[10];
+extern struct FrameData ParticleSpriteSplashLavaHuge_oam[10];
+extern struct FrameData ParticleSpriteSplashLavaSmall_oam[7];
+extern struct FrameData ParticleSpriteSplashAcidBig_oam[10];
+extern struct FrameData ParticleSpriteSplashAcidHuge_oam[10];
+extern struct FrameData ParticleSpriteSplashAcidSmall_oam[7];
 
 /* blob_0x833d75c_0x8345cc8.c */
 

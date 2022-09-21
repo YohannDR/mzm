@@ -67,7 +67,7 @@ void TransparencySpriteUpdateBLDY(u8 value, i8 delay, u8 intensity)
         gBLDYData2.delay = above;
         gBLDYData2.activeFlag = TRANSPARENCY_ACTIVE;
 
-        TransprencyApplyNewEffects();
+        TransparencyApplyNewEffects();
     }*/
 }
 
@@ -81,22 +81,22 @@ void TransparencyUpdateBLDY(u8 value, i8 delay, u8 intensity)
 
 }
 
-void TransprencyUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u8 intensity)
+void TransparencyUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u8 intensity)
 {
 
 }
 
-void TransprencyApplyNewEffects(void)
+void TransparencyApplyNewEffects(void)
 {
 
 }
 
-void TransprencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
+void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
 {
 
 }
 
-void TransprencyApplyNewBLDY(struct BldyData* pBldy)
+void TransparencyApplyNewBLDY(struct BldyData* pBldy)
 {
 
 }

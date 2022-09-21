@@ -413,7 +413,7 @@ void RidleyStatueOpening(void)
     else
     {
         if (gCurrentSprite.currentAnimationFrame == 0x1D && gCurrentSprite.animationDurationCounter == 0x1)
-            RidleyStatueChangeFourCCAA(CAA_REMOVE_SOLID);
+            RidleyStatueInsideChangeCCAA(CAA_REMOVE_SOLID);
 
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {

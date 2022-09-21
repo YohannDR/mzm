@@ -1552,7 +1552,7 @@ void unk_2ab34(void)
     gCurrentSprite.workVariable2 = 0x0;
 }
 
-void SpacePirateCheckTurningAnimEnded(void)
+void sub_0802ab58(void)
 {
 
 }
@@ -3472,19 +3472,19 @@ void SpacePirate(void)
 
         case 0x10:
             unk_2aaec();
-            SpacePirateCheckTurningAnimEnded();
+            sub_0802ab58();
             break;
 
         case 0x1C:
             unk_2ab34();
 
         case 0x11:
-            SpacePirateCheckTurningAnimEnded();
+            sub_0802ab58();
             break;
 
         case 0x16:
             unk_2ab10();
-            SpacePirateCheckTurningAnimEnded();
+            sub_0802ab58();
             break;
 
         case 0xA:

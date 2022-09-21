@@ -75,7 +75,7 @@ void EnemyDropInit(void)
  * @brief 12e98 | 158 | Handles an enemy drop being idle
  * 
  */
-void EnemyDropGet(void)
+void EnemyDropIdle(void)
 {
     u16 status;
     u8 timer;

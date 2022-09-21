@@ -131,9 +131,9 @@ void ItemBannerPopUp(void)
                 backup_track_data2_sound_channels(); // Undefined
                 if (message == MESSAGE_UKNOWN_ITEM_PLASMA || message == MESSAGE_UNKNOWN_ITEM_GRAVITY
                     || message == MESSAGE_UNKNOWN_ITEM_SPACE_JUMP)
-                    InsertMusicAndQueueCurrent(0x42, 0x0); // Unknown item
+                    InsertMusicAndQueueCurrent(MUSIC_GETTING_UNKNOWN_ITEM_JINGLE, 0x0); // Unknown item
                 else
-                    InsertMusicAndQueueCurrent(0x37, 0x0);
+                    InsertMusicAndQueueCurrent(MUSIC_GETTING_ITEM_JINGLE, 0x0);
             }
             else if (message == MESSAGE_FIRST_MISSILE_TANK || message == MESSAGE_FIRST_SUPER_MISSILE_TANK
                 || message == MESSAGE_FIRST_POWER_BOMB_TANK)
@@ -141,12 +141,12 @@ void ItemBannerPopUp(void)
                 // New tank
                 gCurrentSprite.workVariable2 = TRUE;
                 backup_track_data2_sound_channels();
-                InsertMusicAndQueueCurrent(0x37, 0x0);
+                InsertMusicAndQueueCurrent(MUSIC_GETTING_ITEM_JINGLE, 0x0);
             }
             else if (message == MESSAGE_FULLY_POWERED_SUIT)
             {
                 MusicPlay(MUSIC_BRINSTAR_REMIX, 0x0);
-                InsertMusicAndQueueCurrent(0x4A, 0x0);
+                InsertMusicAndQueueCurrent(MUSIC_GETTING_FULLY_POWERED_SUIT_JINGLE, 0x0);
             }
             else if (message != MESSAGE_SAVE_PROMPT)
             {

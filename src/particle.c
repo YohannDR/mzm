@@ -288,7 +288,7 @@ void ParticleSetCurrentOAMFramePointer(struct ParticleEffect* pParticle, const s
 void ParticleSpriteSplashWaterSmall(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_sprite_splash_water_small_oam))
+    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashWaterSmall_oam))
         pParticle->status = 0x0;
     else
     {
@@ -309,7 +309,7 @@ void ParticleSpriteSplashWaterSmall(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashWaterBig(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_sprite_splash_water_big_oam))
+    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashWaterBig_oam))
         pParticle->status = 0x0;
     else
     {
@@ -330,7 +330,7 @@ void ParticleSpriteSplashWaterBig(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashWaterHuge(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_sprite_splash_water_huge_oam))
+    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashWaterHuge_oam))
         pParticle->status = 0x0;
     else
     {
@@ -351,7 +351,7 @@ void ParticleSpriteSplashWaterHuge(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashLavaSmall(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_sprite_splash_lava_small_oam))
+    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashLavaSmall_oam))
         pParticle->status = 0x0;
     else
     {
@@ -372,7 +372,7 @@ void ParticleSpriteSplashLavaSmall(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashLavaBig(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_sprite_splash_lava_big_oam))
+    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashLavaBig_oam))
         pParticle->status = 0x0;
     else
     {
@@ -393,7 +393,7 @@ void ParticleSpriteSplashLavaBig(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashLavaHuge(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_sprite_splash_lava_huge_oam))
+    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashLavaHuge_oam))
         pParticle->status = 0x0;
     else
     {
@@ -414,7 +414,7 @@ void ParticleSpriteSplashLavaHuge(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashAcidSmall(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_sprite_splash_acid_small_oam))
+    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashAcidSmall_oam))
         pParticle->status = 0x0;
     else
     {
@@ -435,7 +435,7 @@ void ParticleSpriteSplashAcidSmall(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashAcidBig(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_sprite_splash_acid_big_oam))
+    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashAcidBig_oam))
         pParticle->status = 0x0;
     else
     {
@@ -456,7 +456,7 @@ void ParticleSpriteSplashAcidBig(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashAcidHuge(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, particle_sprite_splash_acid_huge_oam))
+    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashAcidHuge_oam))
         pParticle->status = 0x0;
     else
     {
@@ -1670,7 +1670,7 @@ void ParticleEscape(struct ParticleEffect* pParticle)
                 gPreventMovementTimer = 0x3E8;
                 pParticle->stage = 0x3;
                 pParticle->frameCounter = 0xFF;
-                play_cutscene(0x2);
+                start_effect_for_cutscene(0x2);
             }
             else if (gCurrentEscapeStatus == ESCAPE_STATUS_HAPPENNING && EscapeCheckHasEscaped())
             {

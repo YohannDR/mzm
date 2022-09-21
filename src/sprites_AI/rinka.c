@@ -3,6 +3,7 @@
 #include "syscalls.h"
 #include "data/data.h"
 #include "data/sprites/rinka.c"
+#include "data/sprites/zebetite_and_cannon.c"
 #include "data/sprite_data.c"
 #include "globals.h"
 
@@ -642,7 +643,7 @@ void Rinka(void)
                 RinkaSpawningInit();
 
             case RINKA_POSE_SPAWNING:
-                rinkamother();
+                RinkaSpawning();
                 break;
 
             case RINKA_POSE_MOVING:

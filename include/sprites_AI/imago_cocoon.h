@@ -82,7 +82,7 @@ void ImagoCocoonCeilingVineIdle(void);
 void ImagoCocoonCeilingVineDeath(void);
 void ImagoCocoonSporeSyncPosition(void);
 void ImagoCocoonSporeInit(void);
-void ImagoCocoonSporeBeforeSpawning(void);
+void ImagoCocoonSporeSpawning(void);
 void ImagoCocoonSporeNest(void);
 void ImagoCocoonSporeMove(void);
 void ImagoCocoonSporeExplodingInit(void);

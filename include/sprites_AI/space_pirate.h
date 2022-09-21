@@ -103,7 +103,7 @@ void unk_2aa88(void);
 void unk_2aaec(void);
 void unk_2ab10(void);
 void unk_2ab34(void);
-void SpacePirateCheckTurningAnimEnded(void);
+void sub_0802ab58(void);
 void SpacePirateTurningAroundInit(void);
 void SpacePirateTurningAroundFirstPart(void);
 void SpacePirateTurningAroundSecondPart(void);

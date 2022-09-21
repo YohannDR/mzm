@@ -1399,7 +1399,7 @@ void ImagoCocoonSpore(void)
             break;
 
         case IMAGO_COCOON_SPORE_POSE_SPAWNING:
-            ImagoCocoonSporeBeforeSpawning();
+            ImagoCocoonSporeSpawning();
             break;
 
         case IMAGO_COCOON_SPORE_POSE_NEST:

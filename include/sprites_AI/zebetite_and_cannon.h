@@ -3,9 +3,6 @@
 
 #include "types.h"
 
-extern const struct FrameData sRinkaMotherBrainOAM_Spawning[16];
-extern const struct FrameData sRinkaMotherBrainOAM_Moving[5];
-
 void Zebetite(void);
 void CannonFireBullet(void);
 void CannonCheckSurroundings(void);

@@ -1995,7 +1995,7 @@ lbl_08001b84:
     bne lbl_08001b9e
     ldrh r0, [r5, #0x20]
     ldrb r1, [r5, #0x1f]
-    bl sub_080039f4
+    bl MusicPlay
     strb r4, [r5, #0x1c]
     b lbl_08001bb8
 lbl_08001b9e:
