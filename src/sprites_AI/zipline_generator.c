@@ -1,7 +1,7 @@
-#include "zipline_generator.h"
-#include "../../data/data.h"
-#include "../data/sprites/zipline_generator.c"
-#include "../globals.h"
+#include "sprites_AI/zipline_generator.h"
+#include "data/data.h"
+#include "data/sprites/zipline_generator.c"
+#include "globals.h"
 
 /**
  * @brief 2e1f0 | 64 | Updates the clipdata of the zipline generator

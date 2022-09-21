@@ -1,9 +1,9 @@
-#include "geron.h"
-#include "../../data/data.h"
-#include "../data/sprites/space_pirate.c"
-#include "../data/sprite_data.c"
+#include "sprites_AI/geron.h"
+#include "data/data.h"
+#include "data/sprites/space_pirate.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "data/sprite_data.c"
+#include "globals.h"
 
 /**
  * @brief 287e4 | 4c | Disables the chozodia alarm

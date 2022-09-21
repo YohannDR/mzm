@@ -1,7 +1,7 @@
-#include "save_platform.h"
-#include "../../data/data.h"
-#include "../data/sprites/save_platform.c"
-#include "../globals.h"
+#include "sprites_AI/save_platform.h"
+#include "data/data.h"
+#include "data/sprites/save_platform.c"
+#include "globals.h"
 
 /**
  * @brief 1f9b0 | 38 | Checks if Samus is standing on a save platform

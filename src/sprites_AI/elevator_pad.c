@@ -1,6 +1,6 @@
-#include "elevator_pad.h"
-#include "../globals.h"
-#include "../data/sprites/elevator_pad.c"
+#include "sprites_AI/elevator_pad.h"
+#include "globals.h"
+#include "data/sprites/elevator_pad.c"
 
 /**
  * @brief 2872c | b8 | Elevator pad AI

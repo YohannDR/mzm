@@ -1,8 +1,8 @@
-#include "rising_chozo_pillar.h"
-#include "../../data/data.h"
-#include "../data/sprites/rising_chozo_pillar.c"
-#include "../data/sprites/enemy_drop.c"
-#include "../globals.h"
+#include "sprites_AI/rising_chozo_pillar.h"
+#include "data/data.h"
+#include "data/sprites/rising_chozo_pillar.c"
+#include "data/sprites/enemy_drop.c"
+#include "globals.h"
 
 /**
  * 4854c | a8 | 

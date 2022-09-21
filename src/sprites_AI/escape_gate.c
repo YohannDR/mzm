@@ -1,7 +1,7 @@
-#include "escape_gate.h"
-#include "../data/sprites/escape_gate.c"
-#include "../../data/data.h"
-#include "../globals.h"
+#include "sprites_AI/escape_gate.h"
+#include "data/sprites/escape_gate.c"
+#include "data/data.h"
+#include "globals.h"
 
 /**
  * @brief 4e910 | b0 | Updates the hitbox of the escape gate

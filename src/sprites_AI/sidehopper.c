@@ -1,9 +1,9 @@
-#include "sidehopper.h"
-#include "../../data/data.h"
-#include "../data/sprites/sidehopper.c"
+#include "sprites_AI/sidehopper.h"
+#include "data/data.h"
+#include "data/sprites/sidehopper.c"
 #include "data/sprite_data.c"
-#include "../data/sprite_data.c"
-#include "../globals.h"
+#include "data/sprite_data.c"
+#include "globals.h"
 
 /**
  * @brief 3f684 | 20 | Checks if samus is near the dessgeega on the sides in a 5 block range

@@ -9,8 +9,8 @@
  */
 i16 FixedMultiplication(i16 a, i16 b)
 {
-    i32 x   = a;
-    i32 y   = b;
+    i32 x = a;
+    i32 y = b;
     i32 res = x;
     res *= y;
     res /= 0x100;

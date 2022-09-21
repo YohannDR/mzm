@@ -1,8 +1,8 @@
-#include "polyp.h"
-#include "../../data/data.h"
-#include "../data/sprites/polyp.c"
+#include "sprites_AI/polyp.h"
+#include "data/data.h"
+#include "data/sprites/polyp.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 36ec4 | 4c | Initializes a polyp sprite

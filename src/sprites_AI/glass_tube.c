@@ -1,8 +1,8 @@
-#include "glass_tube.h"
-#include "../power_bomb_explosion.h"
-#include "../data/sprites/glass_tube.c"
-#include "../../data/data.h"
-#include "../globals.h"
+#include "sprites_AI/glass_tube.h"
+#include "power_bomb_explosion.h"
+#include "data/sprites/glass_tube.c"
+#include "data/data.h"
+#include "globals.h"
 
 /**
  * @brief 4627c | 160 | Removes the clipdata for the glass tube

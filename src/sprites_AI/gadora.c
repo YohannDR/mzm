@@ -1,9 +1,9 @@
-#include "gadora.h"
-#include "../../data/data.h"
-#include "../data/sprites/gadora.c"
-#include "../data/sprites/enemy_drop.c"
+#include "sprites_AI/gadora.h"
+#include "data/data.h"
+#include "data/sprites/gadora.c"
+#include "data/sprites/enemy_drop.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 49eb8 | 134 | Initializes a gadora sprite

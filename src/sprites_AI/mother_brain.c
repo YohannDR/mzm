@@ -1,8 +1,8 @@
-#include "mother_brain.h"
-#include "../../data/data.h"
-#include "../data/pointers.c"
-#include "../globals.h"
-#include "../data/sprites/mother_brain.c"
+#include "sprites_AI/mother_brain.h"
+#include "data/data.h"
+#include "data/pointers.c"
+#include "globals.h"
+#include "data/sprites/mother_brain.c"
 #include "data/sprite_data.c"
 
 /**

@@ -1,7 +1,7 @@
-#include "escape_ship.h"
-#include "../../data/data.h"
-#include "../data/sprites/escape_ship.c"
-#include "../globals.h"
+#include "sprites_AI/escape_ship.h"
+#include "data/data.h"
+#include "data/sprites/escape_ship.c"
+#include "globals.h"
 
 /**
  * @brief 4ac00 | 94 | Updates the palette of the escape ship

@@ -1,9 +1,9 @@
-#include "imago.h"
-#include "../../data/data.h"
-#include "../data/pointers.c"
-#include "../data/sprites/imago.c"
+#include "sprites_AI/imago.h"
+#include "data/data.h"
+#include "data/pointers.c"
+#include "data/sprites/imago.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 void ImagoSyncSubSprites(void)
 {

@@ -1,10 +1,9 @@
-#include "parasite.h"
-#include "../sprite.h"
-#include "../../data/data.h"
-#include "../data/sprites/parasite.c"
-#include "../data/sprite_data.c"
+#include "sprites_AI/parasite.h"
+#include "data/data.h"
+#include "data/sprites/parasite.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "data/sprite_data.c"
+#include "globals.h"
 
 /**
  * 2fef0 | 54 | Counts the number of parasite that grabbed samus, used to know if samus should take damage

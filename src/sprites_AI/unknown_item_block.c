@@ -1,7 +1,7 @@
-#include "unknown_item_block.h"
-#include "../../data/data.h"
-#include "../data/sprites/unknown_item_block.c"
-#include "../globals.h"
+#include "sprites_AI/unknown_item_block.h"
+#include "data/data.h"
+#include "data/sprites/unknown_item_block.c"
+#include "globals.h"
 
 /**
  * @brief 4a930 | 70 | Updates the clipdata of the 4 blocks of the unknown item block

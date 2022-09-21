@@ -1,8 +1,8 @@
-#include "save_platform_chozodia.h"
-#include "save_platform.h"
-#include "../../data/data.h"
-#include "../data/sprites/save_platform_chozodia.c"
-#include "../globals.h"
+#include "sprites_AI/save_platform_chozodia.h"
+#include "sprites_AI/save_platform.h"
+#include "data/data.h"
+#include "data/sprites/save_platform_chozodia.c"
+#include "globals.h"
 
 /**
  * @brief 46708 | 168 | Initializes a save platform (Chozodia) sprite

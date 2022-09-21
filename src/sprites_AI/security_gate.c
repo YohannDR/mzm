@@ -1,7 +1,7 @@
-#include "security_gate.h"
-#include "../globals.h"
-#include "../sprite_util.h"
-#include "../data/sprites/security_gate.c"
+#include "sprites_AI/security_gate.h"
+#include "globals.h"
+#include "sprite_util.h"
+#include "data/sprites/security_gate.c"
 
 /**
  * @brief 2eaf8 | 50 | Updates the clipdata of the security gate

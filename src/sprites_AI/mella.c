@@ -1,8 +1,8 @@
-#include "mella.h"
-#include "../../data/data.h"
-#include "../data/sprites/mella.c"
+#include "sprites_AI/mella.h"
+#include "data/data.h"
+#include "data/sprites/mella.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 3b36c | cc | Handles the X movement of a mella

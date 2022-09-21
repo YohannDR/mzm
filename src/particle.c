@@ -2,7 +2,7 @@
 #include "escape.h"
 #include "screen_shake.h"
 #include "music.h"
-#include "../data/data.h"
+#include "data/data.h"
 #include "data/pointers.c"
 #include "data/projectile_data.c"
 #include "data/particle_data.c"

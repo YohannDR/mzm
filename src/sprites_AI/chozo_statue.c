@@ -1,9 +1,9 @@
-#include "chozo_statue.h"
-#include "unknown_item_chozo_statue.h"
-#include "../data/pointers.c"
-#include "../data/sprites/chozo_statue.c"
-#include "../../data/data.h"
-#include "../globals.h"
+#include "sprites_AI/chozo_statue.h"
+#include "sprites_AI/unknown_item_chozo_statue.h"
+#include "data/pointers.c"
+#include "data/sprites/chozo_statue.c"
+#include "data/data.h"
+#include "globals.h"
 
 /**
  * @brief 13850 | 88 | Synchronize the sub sprites of a chozo statue

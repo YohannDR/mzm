@@ -1,9 +1,9 @@
-#include "acid_worm.h"
-#include "../../data/data.h"
-#include "../data/sprites/acid_worm.c"
+#include "sprites_AI/acid_worm.h"
+#include "data/data.h"
+#include "data/sprites/acid_worm.c"
 #include "data/sprite_data.c"
 #include "data/generic_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 3d860 | 118 | Synchronises the position of the acid worm body parts with itself

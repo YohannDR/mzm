@@ -1,6 +1,6 @@
 #include "samus.h"
 #include "music.h"
-#include "../data/data.h"
+#include "data/data.h"
 #include "data/pointers.c"
 #include "globals.h"
 

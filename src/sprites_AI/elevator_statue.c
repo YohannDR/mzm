@@ -1,7 +1,7 @@
-#include "elevator_statue.h"
-#include "../../data/data.h"
-#include "../data/sprites/elevator_statue.c"
-#include "../globals.h"
+#include "sprites_AI/elevator_statue.h"
+#include "data/data.h"
+#include "data/sprites/elevator_statue.c"
+#include "globals.h"
 
 /**
  * @brief 47ebc | 50 | Updates the clipdata of the statue debris on the ground

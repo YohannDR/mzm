@@ -1,8 +1,8 @@
-#include "zebbo.h"
-#include "../../data/data.h"
-#include "../data/sprites/zebbo.c"
-#include "../data/sprite_data.c"
-#include "../globals.h"
+#include "sprites_AI/zebbo.h"
+#include "data/data.h"
+#include "data/sprites/zebbo.c"
+#include "data/sprite_data.c"
+#include "globals.h"
 
 /**
  * @brief 2f058 | 58 | Initializes a zebbo sprite

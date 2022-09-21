@@ -1,8 +1,8 @@
-#include "skultera.h"
-#include "../../data/data.h"
-#include "../data/sprites/skultera.c"
+#include "sprites_AI/skultera.h"
+#include "data/data.h"
+#include "data/sprites/skultera.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 48c7c | 30 | Sets the side hitboxes depending on the X flip

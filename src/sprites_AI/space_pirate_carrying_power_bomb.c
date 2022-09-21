@@ -1,8 +1,9 @@
-#include "space_pirate_carrying_power_bomb.h"
-#include "../../data/data.h"
-#include "../data/sprites/space_pirate_carrying_power_bomb.c"
-#include "../data/sprites/enemy_drop.c"
-#include "../globals.h"
+#include "sprites_AI/space_pirate_carrying_power_bomb.h"
+#include "data/data.h"
+#include "data/sprites/space_pirate_carrying_power_bomb.c"
+#include "data/sprites/space_pirate.c"
+#include "data/sprites/enemy_drop.c"
+#include "globals.h"
 
 /**
  * @brief 4b604 | 180 | Space pirate carrying power bomb AI

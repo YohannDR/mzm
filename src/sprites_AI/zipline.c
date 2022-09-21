@@ -1,7 +1,7 @@
-#include "zipline.h"
-#include "../../data/data.h"
-#include "../data/sprites/zipline.c"
-#include "../globals.h"
+#include "sprites_AI/zipline.h"
+#include "data/data.h"
+#include "data/sprites/zipline.c"
+#include "globals.h"
 
 /**
  * @brief 1d318 | 8c | Checks the collision for a stop block

@@ -1,9 +1,8 @@
-#include "charge_beam.h"
-#include "../sprite_util.h"
-#include "item_banner.h"
-#include "../data/sprites/charge_beam.c"
-#include "../globals.h"
-#include "../event.h"
+#include "sprites_AI/charge_beam.h"
+#include "sprites_AI/item_banner.h"
+#include "data/sprites/charge_beam.c"
+#include "globals.h"
+#include "event.h"
 
 /**
  * @brief 13498 | a4 | Initializes the charge beam sprite

@@ -1,7 +1,7 @@
 #include "bg_clip.h"
 #include "globals.h"
 #include "data/block_data.c"
-#include "../data/data.h"
+#include "data/data.h"
 
 void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition)
 {

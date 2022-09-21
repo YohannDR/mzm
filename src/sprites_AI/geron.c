@@ -1,7 +1,7 @@
-#include "geron.h"
-#include "../../data/data.h"
-#include "../data/sprites/geron.c"
-#include "../globals.h"
+#include "sprites_AI/geron.h"
+#include "data/data.h"
+#include "data/sprites/geron.c"
+#include "globals.h"
 
 /**
  * @brief 448e0 | 344 | Geron AI 

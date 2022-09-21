@@ -1,11 +1,11 @@
-#include "imago_cocoon.h"
-#include "../../data/data.h"
-#include "../data/pointers.c"
-#include "../data/sprites/imago_cocoon.c"
-#include "../data/sprites/enemy_drop.c"
+#include "sprites_AI/imago_cocoon.h"
+#include "data/data.h"
+#include "data/pointers.c"
+#include "data/sprites/imago_cocoon.c"
+#include "data/sprites/enemy_drop.c"
 #include "data/sprite_data.c"
 #include "data/generic_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 26c38 | 68 | Sync the sub sprites of Imago cocoon

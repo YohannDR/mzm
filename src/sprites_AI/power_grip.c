@@ -1,7 +1,7 @@
-#include "power_grip.h"
-#include "item_banner.h"
-#include "../data/sprites/power_grip.c"
-#include "../globals.h"
+#include "sprites_AI/power_grip.h"
+#include "sprites_AI/item_banner.h"
+#include "data/sprites/power_grip.c"
+#include "globals.h"
 
 /**
  * @brief 132d4 | 13c | Power grip AI

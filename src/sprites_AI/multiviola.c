@@ -1,7 +1,7 @@
-#include "multiviola.h"
-#include "../../data/data.h"
-#include "../globals.h"
-#include "../data/sprites/multiviola.c"
+#include "sprites_AI/multiviola.h"
+#include "data/data.h"
+#include "globals.h"
+#include "data/sprites/multiviola.c"
 #include "data/sprite_data.c"
 
 /**

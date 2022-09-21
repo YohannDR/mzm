@@ -1,7 +1,7 @@
-#include "searchlight.h"
-#include "../../data/data.h"
-#include "../data/sprites/searchlight.c"
-#include "../globals.h"
+#include "sprites_AI/searchlight.h"
+#include "data/data.h"
+#include "data/sprites/searchlight.c"
+#include "globals.h"
 
 /**
  * @brief 49bd0 | 1fc | Searchlight AI

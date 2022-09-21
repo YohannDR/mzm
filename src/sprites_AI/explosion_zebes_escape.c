@@ -1,6 +1,6 @@
-#include "explosion_zebes_escape.h"
-#include "../data/sprites/enemy_drop.c"
-#include "../globals.h"
+#include "sprites_AI/explosion_zebes_escape.h"
+#include "data/sprites/enemy_drop.c"
+#include "globals.h"
 
 void ExplosionZebesEscape(void)
 {

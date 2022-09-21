@@ -1,7 +1,7 @@
-#include "steam.h"
-#include "../../data/data.h"
-#include "../data/sprites/steam.c"
-#include "../globals.h"
+#include "sprites_AI/steam.h"
+#include "data/data.h"
+#include "data/sprites/steam.c"
+#include "globals.h"
 
 /**
  * @brief 4a5e4 | 208 | Steam AI

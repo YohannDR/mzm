@@ -1,0 +1,76 @@
+#ifndef SAVE_PLATFORM_CHOZODIA_AI_H
+#define SAVE_PLATFORM_CHOZODIA_AI_H
+
+#include "types.h"
+
+#define SAVE_PLATFORM_CHOZODIA_POSE_IDLE 0x9
+#define SAVE_PLATFORM_CHOZODIA_POSE_OPENING 0x23
+#define SAVE_PLATFORM_CHOZODIA_POSE_OPENED 0x25
+#define SAVE_PLATFORM_CHOZODIA_POSE_CLOSING 0x27
+#define SAVE_PLATFORM_CHOZODIA_POSE_RELEASE_SAMUS 0x28
+#define SAVE_PLATFORM_CHOZODIA_POSE_AFTER_SAVE 0x29
+#define SAVE_PLATFORM_CHOZODIA_POSE_SAVE_PROMPT 0x42
+#define SAVE_PLATFORM_CHOZODIA_POSE_SAVING 0x43
+#define SAVE_PLATFORM_CHOZODIA_POSE_OPENED_OFF_INIT 0x45
+#define SAVE_PLATFORM_CHOZODIA_POSE_SPAWN_SAVE_DONE_MESSAGE 0x47
+#define SAVE_PLATFORM_CHOZODIA_POSE_WAIT_FOR_MESSAGE_OUT 0x49
+#define SAVE_PLATFORM_CHOZODIA_POSE_DELAY_BEFORE_RELEASING 0x4B
+#define SAVE_PLATFORM_CHOZODIA_POSE_OFF 0x51
+#define SAVE_PLATFORM_CHOZODIA_POSE_CHECK_REFILL 0x54
+#define SAVE_PLATFORM_CHOZODIA_POSE_REFILL 0x55
+#define SAVE_PLATFORM_CHOZODIA_POSE_AFTER_REFILL 0x56
+
+// Save platform chozodia part
+
+#define SAVE_PLATFORM_CHOZODIA_PART_TUBE 0x0
+#define SAVE_PLATFORM_CHOZODIA_PART_TUBE_SHADOW 0x1
+#define SAVE_PLATFORM_CHOZODIA_PART_RAY 0x2
+#define SAVE_PLATFORM_CHOZODIA_PART_TOP 0x3
+#define SAVE_PLATFORM_CHOZODIA_PART_REFILL_LIGHT 0x4
+
+#define SAVE_PLATFORM_CHOZODIA_PART_POSE_TUBE_SPAWNING 0x9
+#define SAVE_PLATFORM_CHOZODIA_PART_POSE_TUBE_CHECK_SHADOW_DISAPPEARED 0x23
+#define SAVE_PLATFORM_CHOZODIA_PART_POSE_TUBE_IDLE 0x25
+#define SAVE_PLATFORM_CHOZODIA_PART_POSE_TUBE_DESPAWNING 0x27
+#define SAVE_PLATFORM_CHOZODIA_PART_POSE_TUBE_SHADOW_IDLE 0x29
+#define SAVE_PLATFORM_CHOZODIA_PART_POSE_RAY_IDLE 0x2B
+#define SAVE_PLATFORM_CHOZODIA_PART_POSE_REFILL_LIGHT_IDLE 0x33
+#define SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_IDLE 0x43
+#define SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_EXTENDING_INIT 0x44
+#define SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_EXTENDING 0x45
+#define SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_RETRACTING_INIT 0x46
+#define SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_RETRACTING 0x47
+
+void SavePlatformChozodiaInit(void);
+void SavePlatformChozodiaSamusDetection(void);
+void SavePlatformChozodiaCheckOpeningAnimEnded(void);
+void SavePlatformChozodiaSecondSamusDetection(void);
+void SavePlatformChozodiaCheckClosingAnimEnded(void);
+void SavePlatformChozodiaReleaseSamus(void);
+void SavePlatformChozodiaSamusDetectionOut(void);
+void SavePlatformChozodiaCheckRefill(void);
+void SavePlatformChozodiaRefill(void);
+void SavePlatformChozodiaAfterRefill(void);
+void SavePlatformChozodiaSavePrompt(void);
+void SavePlatformChozodiaSaving(void);
+void SavePlatformChozodiaOpenedOffInit(void);
+void SavePlatformChozodiaSpawnSaveDoneMessage(void);
+void SavePlatformChozodiaCheckMessageBannerOut(void);
+void SavePlatformChozodiaDelayBeforeReleasingSamus(void);
+void SavePlatformChozodiaPartInit(void);
+void SavePlatformChozodiaPartRefillLightIdle(void);
+void SavePlatformChozodiaPart_Empty(void);
+void SavePlatformChozodiaPartTopExtendingInit(void);
+void SavePlatformChozodiaPartTopExtending(void);
+void SavePlatformChozodiaPartTopRetractingInit(void);
+void SavePlatformChozodiaPartTopRetracting(void);
+void SavePlatformChozodiaPartTubeSpawning(void);
+void SavePlatformChozodiaPartSpawnRay(void);
+void SavePlatformChozodiaPartTubeIdle(void);
+void SavePlatformChozodiaPartTubeDespawning(void);
+void SavePlatformChozodiaPartTubeShadowIdle(void);
+void SavePlatformChozodiaPartRayIdle(void);
+void SavePlatformChozodia(void);
+void SavePlatformChozodiaPart(void);
+
+#endif /* SAVE_PLATFORM_CHOZODIA_AI_H */

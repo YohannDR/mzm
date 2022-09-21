@@ -1,8 +1,8 @@
-#include "map_station.h"
-#include "../sprite.h"
-#include "item_banner.h"
-#include "../data/sprites/map_station.c"
-#include "../globals.h"
+#include "sprites_AI/map_station.h"
+#include "sprites_AI/item_banner.h"
+#include "sprite.h"
+#include "data/sprites/map_station.c"
+#include "globals.h"
 
 /**
  * @brief 1f41c | f0 | Initializes a map station sprite

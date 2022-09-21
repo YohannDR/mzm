@@ -1,7 +1,7 @@
-#include "chozo_statue_movement.h"
+#include "sprites_AI/chozo_statue_movement.h"
 
-#include "../../data/data.h"
-#include "../globals.h"
+#include "data/data.h"
+#include "globals.h"
 
 /**
  * @brief 125e8 | 160 | Spawns a new chozo statue movement secondary sprite

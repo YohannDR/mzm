@@ -1,8 +1,8 @@
-#include "waver.h"
-#include "../../data/data.h"
-#include "../data/sprites/waver.c"
-#include "../data/sprite_data.c"
-#include "../globals.h"
+#include "sprites_AI/waver.h"
+#include "data/data.h"
+#include "data/sprites/waver.c"
+#include "data/sprite_data.c"
+#include "globals.h"
 
 /**
  * @brief 2483c | 68 | Initializes a waver sprite

@@ -1,8 +1,8 @@
-#include "squeept.h"
-#include "../../data/data.h"
-#include "../data/sprites/squeept.c"
+#include "sprites_AI/squeept.h"
+#include "data/data.h"
+#include "data/sprites/squeept.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 1eff4 | 24 | Initializes a squeept to be going up

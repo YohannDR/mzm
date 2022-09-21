@@ -1,8 +1,8 @@
-#include "skree.h"
-#include "../../data/data.h"
-#include "../data/sprites/skree.c"
+#include "sprites_AI/skree.h"
+#include "data/data.h"
+#include "data/sprites/skree.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 1c644 | 50 | Initializes a skree sprite

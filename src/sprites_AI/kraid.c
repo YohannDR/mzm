@@ -1,9 +1,9 @@
-#include "kraid.h"
-#include "../../data/data.h"
-#include "../data/pointers.c"
-#include "../data/sprites/kraid.c"
+#include "sprites_AI/kraid.h"
+#include "data/data.h"
+#include "data/pointers.c"
+#include "data/sprites/kraid.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 183d8 | 68 | Synchronize the sub sprites of Kraid

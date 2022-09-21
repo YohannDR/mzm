@@ -1,9 +1,9 @@
-#include "atomic.h"
-#include "../data/pointers.c"
-#include "../../data/data.h"
-#include "../data/sprites/atomic.c"
+#include "sprites_AI/atomic.h"
+#include "data/pointers.c"
+#include "data/data.h"
+#include "data/sprites/atomic.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 void AtomicSmoothMovement(void)
 {

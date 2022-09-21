@@ -256,5 +256,6 @@ SECTIONS {
         src/libgcc/fp-bit-base.o(.bss);
         src/libgcc/float.o(.bss);
         src/libgcc/libgcc.o(.bss);
+        include/data/generic_data.o(.bss)
     } >rom
 }

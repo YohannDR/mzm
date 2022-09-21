@@ -1,8 +1,8 @@
-#include "reo.h"
-#include "../../data/data.h"
-#include "../data/sprites/reo.c"
+#include "sprites_AI/reo.h"
+#include "data/data.h"
+#include "data/sprites/reo.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 1cc98 | 88 | Initializes a reo sprite

@@ -1,8 +1,9 @@
-#include "escape_ship_pirate.h"
-#include "space_pirate.h"
-#include "../../data/data.h"
+#include "sprites_AI/escape_ship_pirate.h"
+#include "sprites_AI/space_pirate.h"
+#include "data/data.h"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "data/sprites/space_pirate.c"
+#include "globals.h"
 
 /**
  * @brief 2dc78 | 60 | Initializes an escape ship space pirate sprite

@@ -1,9 +1,9 @@
-#include "crocomire.h"
-#include "../../data/data.h"
-#include "../data/pointers.c"
-#include "../data/sprites/crocomire.c"
+#include "sprites_AI/crocomire.h"
+#include "data/data.h"
+#include "data/pointers.c"
+#include "data/sprites/crocomire.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 43d88 | 68 | Synchronize the sub sprites of Crocomire

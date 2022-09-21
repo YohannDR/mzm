@@ -1,8 +1,8 @@
-#include "falling_chozo_pillar.h"
-#include "../../data/data.h"
-#include "../screen_shake.h"
-#include "../data/sprites/falling_chozo_pillar.c"
-#include "../globals.h"
+#include "sprites_AI/falling_chozo_pillar.h"
+#include "data/data.h"
+#include "screen_shake.h"
+#include "data/sprites/falling_chozo_pillar.c"
+#include "globals.h"
 
 /**
  * @brief 4b884 | 218 | Falling chozo pillar AI

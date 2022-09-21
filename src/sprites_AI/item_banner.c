@@ -1,7 +1,7 @@
-#include "item_banner.h"
-#include "../../data/data.h"
-#include "../data/sprites/item_banner.c"
-#include "../globals.h"
+#include "sprites_AI/item_banner.h"
+#include "data/data.h"
+#include "data/sprites/item_banner.c"
+#include "globals.h"
 
 /**
  * @brief 1b6b8 | 110 | Initializes an item banner sprite

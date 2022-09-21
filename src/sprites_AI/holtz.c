@@ -1,8 +1,8 @@
-#include "holtz.h"
-#include "../../data/data.h"
-#include "../data/sprites/holtz.c"
+#include "sprites_AI/holtz.h"
+#include "data/data.h"
+#include "data/sprites/holtz.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 3830c | cc | Handles the Y movement of a holtz

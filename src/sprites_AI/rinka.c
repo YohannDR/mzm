@@ -1,10 +1,10 @@
-#include "rinka.h"
-#include "zebetite_and_cannon.h"
-#include "../syscalls.h"
-#include "../../data/data.h"
-#include "../data/sprites/rinka.c"
+#include "sprites_AI/rinka.h"
+#include "sprites_AI/zebetite_and_cannon.h"
+#include "syscalls.h"
+#include "data/data.h"
+#include "data/sprites/rinka.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 3630c | 98 | Initializes a rinka sprite

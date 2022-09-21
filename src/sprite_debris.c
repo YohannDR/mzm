@@ -2,7 +2,7 @@
 #include "data/particle_data.c"
 #include "data/sprite_data.c"
 #include "game_modes.h"
-#include "../data/data.h"
+#include "data/data.h"
 #include "globals.h"
 
 /**

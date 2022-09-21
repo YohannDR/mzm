@@ -1,8 +1,8 @@
-#include "gamet.h"
-#include "../../data/data.h"
-#include "../data/sprites/gamet.c"
+#include "sprites_AI/gamet.h"
+#include "data/data.h"
+#include "data/sprites/gamet.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 2e610 | 60 | Initializes a gamet sprite

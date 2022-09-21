@@ -1,8 +1,8 @@
-#include "searchlight_eye.h"
-#include "../../data/data.h"
-#include "../data/sprites/searchlight_eye.c"
+#include "sprites_AI/searchlight_eye.h"
+#include "data/data.h"
+#include "data/sprites/searchlight_eye.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 44148 | 13c | Initializes a searchlight eye sprite

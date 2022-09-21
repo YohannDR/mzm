@@ -1,8 +1,8 @@
-#include "geruta.h"
-#include "../../data/data.h"
-#include "../data/sprites/geruta.c"
+#include "sprites_AI/geruta.h"
+#include "data/data.h"
+#include "data/sprites/geruta.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 1ea68 | b0 | Handles the Y movement of a geruta

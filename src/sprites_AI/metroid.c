@@ -1,9 +1,9 @@
-#include "metroid.h"
-#include "../../data/data.h"
-#include "../data/sprites/metroid.c"
-#include "../data/sprites/enemy_drop.c"
+#include "sprites_AI/metroid.h"
+#include "data/data.h"
+#include "data/sprites/metroid.c"
+#include "data/sprites/enemy_drop.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * 35360 | 7c | Checks if colliding with air, used when samus is gabbed for the movement

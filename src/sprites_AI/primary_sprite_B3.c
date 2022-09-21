@@ -1,7 +1,7 @@
-#include "primary_sprite_B3.h"
-#include "../../data/data.h"
-#include "../data/sprites/enemy_drop.c"
-#include "../globals.h"
+#include "sprites_AI/primary_sprite_B3.h"
+#include "data/data.h"
+#include "data/sprites/enemy_drop.c"
+#include "globals.h"
 
 /**
  * @brief 49dcc | ec | Primary Sprite B3 AI, the purpose of this sprite is unknown but it's related to the searchlights in Chozodia

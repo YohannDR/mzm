@@ -1,9 +1,9 @@
-#include "dessgeega.h"
-#include "../../data/data.h"
-#include "../data/sprites/dessgeega.c"
-#include "../data/sprite_data.c"
+#include "sprites_AI/dessgeega.h"
+#include "data/data.h"
+#include "data/sprites/dessgeega.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "data/sprite_data.c"
+#include "globals.h"
 
 /**
  * @brief 23b4c | 20 | Checks if samus is near the dessgeega on the sides in a 5 block range

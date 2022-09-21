@@ -1,6 +1,6 @@
-#include "enemy_drop.h"
-#include "../data/sprites/enemy_drop.c"
-#include "../globals.h"
+#include "sprites_AI/enemy_drop.h"
+#include "data/sprites/enemy_drop.c"
+#include "globals.h"
 
 /**
  * @brief 12d14 | 17a | Initializes an enemy drop sprite

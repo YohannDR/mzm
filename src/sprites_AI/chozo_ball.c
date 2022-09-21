@@ -1,10 +1,10 @@
-#include "chozo_ball.h"
-#include "item_banner.h"
-#include "../globals.h"
-#include "../data/sprites/chozo_statue.c"
-#include "../data/sprites/unknown_item_chozo_statue.c"
-#include "chozo_statue.h"
-#include "unknown_item_chozo_statue.h"
+#include "sprites_AI/chozo_ball.h"
+#include "sprites_AI/item_banner.h"
+#include "sprites_AI/chozo_statue.h"
+#include "sprites_AI/unknown_item_chozo_statue.h"
+#include "globals.h"
+#include "data/sprites/chozo_statue.c"
+#include "data/sprites/unknown_item_chozo_statue.c"
 
 /**
  * 162b0 | 94 | Spawns an item banner depending on the chozo statue sprite ID

@@ -1,7 +1,7 @@
-#include "area_banner.h"
-#include "../../data/data.h"
-#include "../data/sprites/area_banner.c"
-#include "../globals.h"
+#include "sprites_AI/area_banner.h"
+#include "data/data.h"
+#include "data/sprites/area_banner.c"
+#include "globals.h"
 
 /**
  * @brief 3c704 | a4 | Initializes an area banner sprite

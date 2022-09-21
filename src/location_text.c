@@ -1,7 +1,8 @@
 #include "location_text.h"
 #include "sprite.h"
 #include "gba.h"
-#include "../data/data.h"
+#include "data/data.h"
+#include "data/sprites/area_banner.c"
 #include "globals.h"
 
 /**

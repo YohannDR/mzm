@@ -1,9 +1,9 @@
-#include "zoomer.h"
-#include "../../data/data.h"
-#include "../data/sprites/zoomer.c"
-#include "../data/sprite_data.c"
-#include "../data/sprite_data.c"
-#include "../globals.h"
+#include "sprites_AI/zoomer.h"
+#include "data/data.h"
+#include "data/sprites/zoomer.c"
+#include "data/sprite_data.c"
+#include "data/sprite_data.c"
+#include "globals.h"
 
 /**
  * @brief 16694 | 96 | Checks if a zoomer is colliding with air

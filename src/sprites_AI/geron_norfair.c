@@ -1,9 +1,7 @@
-#include "geron_norfair.h"
-#include "../clipdata.h"
-#include "../event.h"
-#include "../../data/data.h"
-#include "../data/sprites/geron_norfair.c"
-#include "../globals.h"
+#include "sprites_AI/geron_norfair.h"
+#include "data/data.h"
+#include "data/sprites/geron_norfair.c"
+#include "globals.h"
 
 /**
  * 40178 | b8 | Geron Norfair AI
@@ -42,13 +40,14 @@ void GeronNorfair(void)
 
             yPosition = gCurrentSprite.yPosition - 0x20;
             xPosition = gCurrentSprite.xPosition;
+
             caa = CAA_MAKE_SOLID3;
             gCurrentClipdataAffectingAction = caa;
             ClipdataProcess(yPosition, xPosition);
             gCurrentClipdataAffectingAction = caa;
-            ClipdataProcess(yPosition - 0x40, xPosition);
+            ClipdataProcess(yPosition - BLOCK_SIZE, xPosition);
             gCurrentClipdataAffectingAction = caa;
-            ClipdataProcess(yPosition - 0x80, xPosition);
+            ClipdataProcess(yPosition - BLOCK_SIZE * 2, xPosition);
         }
     }
 }

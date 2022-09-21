@@ -6,7 +6,7 @@
 #include "music.h"
 #include "game_modes.h"
 #include "hud.h"
-#include "../data/data.h"
+#include "data/data.h"
 #include "data/projectile_data.c"
 #include "data/sprite_data.c"
 #include "data/pointers.c"

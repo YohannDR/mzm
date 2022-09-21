@@ -1,8 +1,8 @@
-#include "ripper2.h"
-#include "../../data/data.h"
-#include "../data/sprites/ripper2.c"
+#include "sprites_AI/ripper2.h"
+#include "data/data.h"
+#include "data/sprites/ripper2.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 1bfd8 | 7c | Initializes a ripper 2 sprite

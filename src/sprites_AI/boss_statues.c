@@ -1,7 +1,7 @@
-#include "boss_statues.h"
-#include "../../data/data.h"
-#include "../data/sprites/boss_statues.c"
-#include "../globals.h"
+#include "sprites_AI/boss_statues.h"
+#include "data/data.h"
+#include "data/sprites/boss_statues.c"
+#include "globals.h"
 
 /**
  * @brief 49184 | 80 | Changes the clipdata of a 6 blocks vertical lign

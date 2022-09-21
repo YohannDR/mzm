@@ -1,8 +1,8 @@
-#include "zeb.h"
-#include "../../data/data.h"
-#include "../data/sprites/zeb.c"
-#include "../data/sprite_data.c"
-#include "../globals.h"
+#include "sprites_AI/zeb.h"
+#include "data/data.h"
+#include "data/sprites/zeb.c"
+#include "data/sprite_data.c"
+#include "globals.h"
 
 /**
  * @brief 1c238 | 60 | Initializes a zeb sprite

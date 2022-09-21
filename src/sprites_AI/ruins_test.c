@@ -1,10 +1,10 @@
-#include "ruins_test.h"
-#include "../../data/data.h"
-#include "../data/sprites/ruins_test.c"
+#include "sprites_AI/ruins_test.h"
+#include "data/data.h"
+#include "data/sprites/ruins_test.c"
 #include "data/sprite_data.c"
 #include "data/generic_data.c"
-#include "../gba.h"
-#include "../globals.h"
+#include "gba.h"
+#include "globals.h"
 
 /**
  * @brief 38988 | 24 | Calculates the new delay for the symbol

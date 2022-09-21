@@ -1,8 +1,8 @@
-#include "gunship.h"
-#include "../hud.h"
-#include "../../data/data.h"
-#include "../data/sprites/gunship.c"
-#include "../globals.h"
+#include "sprites_AI/gunship.h"
+#include "hud.h"
+#include "data/data.h"
+#include "data/sprites/gunship.c"
+#include "globals.h"
 
 /**
  * @brief 44c24 | 84 | Updates the flames palette

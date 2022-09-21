@@ -36,10 +36,10 @@ GBAFIX = tools/gbafix/gbafix
 # Flags
 ASFLAGS = -mcpu=arm7tdmi
 CFLAGS = -Werror -O2 -mthumb-interwork -fhex-asm
-CPPFLAGS = -nostdinc -Isrc/
+CPPFLAGS = -nostdinc -Iinclude/
 
 # Objects
-CSRC = $(wildcard src/*.c) $(wildcard src/sprites_AI/*.c) $(wildcard src/sram/*.c) $(wildcard data/*.c) $(wildcard src/libgcc/*.c) $(wildcard src/data/*.c) $(wildcard src/data/sprites/*.c)
+CSRC = $(wildcard src/*.c) $(wildcard src/sprites_AI/*.c) $(wildcard src/sram/*.c) $(wildcard data/*.c) $(wildcard src/libgcc/*.c) $(wildcard include/data/*.c) $(wildcard include/data/sprites/*.c)
 .PRECIOUS: $(CSRC:.c=.s)
 ASMSRC = $(CSRC:.c=.s) $(wildcard asm/*.s)
 OBJ = $(ASMSRC:.s=.o) 

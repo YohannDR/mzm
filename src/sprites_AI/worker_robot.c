@@ -1,8 +1,8 @@
-#include "worker_robot.h"
-#include "../../data/data.h"
-#include "../data/sprites/worker_robot.c"
-#include "../data/sprite_data.c"
-#include "../globals.h"
+#include "sprites_AI/worker_robot.h"
+#include "data/data.h"
+#include "data/sprites/worker_robot.c"
+#include "data/sprite_data.c"
+#include "globals.h"
 
 u8 WorkerRobotCheckSamusInFront(void)
 {

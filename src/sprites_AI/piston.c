@@ -1,7 +1,7 @@
-#include "piston.h"
-#include "../../data/data.h"
-#include "../data/sprites/piston.c"
-#include "../globals.h"
+#include "sprites_AI/piston.h"
+#include "data/data.h"
+#include "data/sprites/piston.c"
+#include "globals.h"
 
 /**
  * @brief 31708 | 54 | Updates the clipdata of the 4 piston blocks

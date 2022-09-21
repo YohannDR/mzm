@@ -1,11 +1,7 @@
-#include "deorem.h"
-#include "../sprite_debris.h"
-#include "../screen_shake.h"
-#include "../particle.h"
-#include "../sprite_util.h"
+#include "sprites_AI/deorem.h"
+#include "data/data.h"
 #include "data/sprite_data.c"
-#include "../sprite.h"
-#include "../globals.h"
+#include "globals.h"
 
 void DeoremChangeLeftCCAA(u8 caa)
 {

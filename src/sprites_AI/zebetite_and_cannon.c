@@ -1,8 +1,8 @@
-#include "zebetite_and_cannon.h"
-#include "../../data/data.h"
-#include "../data/sprites/zebetite_and_cannon.c"
-#include "../data/sprite_data.c"
-#include "../globals.h"
+#include "sprites_AI/zebetite_and_cannon.h"
+#include "data/data.h"
+#include "data/sprites/zebetite_and_cannon.c"
+#include "data/sprite_data.c"
+#include "globals.h"
 
 void Zebetite(void)
 {

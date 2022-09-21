@@ -1,9 +1,9 @@
-#include "ridley.h"
-#include "../../data/data.h"
-#include "../data/pointers.c"
-#include "../data/sprites/ridley.c"
+#include "sprites_AI/ridley.h"
+#include "data/data.h"
+#include "data/pointers.c"
+#include "data/sprites/ridley.c"
 #include "data/sprite_data.c"
-#include "../globals.h"
+#include "globals.h"
 
 /**
  * @brief 31aa4 | 9c | Synchronize the sub sprites of Ridley
