@@ -13,7 +13,7 @@ void SpawnChozoStatueMovement(u8 stage)
     u8 ramSlot;
     u16 status;
 
-    for (ramSlot = 0x0; ramSlot < 0x18; ramSlot++)
+    for (ramSlot = 0x0; ramSlot < MAX_AMOUNT_OF_SPRITES; ramSlot++)
     {
         if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_EXISTS))
         {

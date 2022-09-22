@@ -269,7 +269,7 @@ void SpriteDebrisProcessAll(void)
  */
 void SpriteDebrisDraw(struct SpriteDebris* pDebris)
 {
-    static const u16* src;
+    const u16* src;
     u16* dst;
     u16 yPosition;
     u16 xPosition;
@@ -313,7 +313,7 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
             *dst = *src++; // Copy source and save part 1 and 2
 
             currSlot = prevSlot + count;
-            gOamData[currSlot].split.y = part1 + yPosition;
+            gOamData[currSlot].split.y = part1 + yPosition; // Update y position
             gOamData[currSlot].split.x = (part2 + xPosition) & 0x1FF;
             gOamData[currSlot].split.priority = bgPriority;
 
