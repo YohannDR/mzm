@@ -1,10 +1,13 @@
 #include "sprites_AI/explosion_zebes_escape.h"
 #include "data/sprites/enemy_drop.c"
-#include "globals.h"
+#include "sprite.h"
+#include "bg_clip.h"
+#include "samus.h"
+#include "constants/particle.h"
 
 void ExplosionZebesEscape(void)
 {
-    // https://decomp.me/scratch/anca0
+    // https://decomp.me/scratch/7SI4y
 
     u16 yPosition;
     u16 xPosition;

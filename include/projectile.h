@@ -8,14 +8,6 @@
 #include "clipdata.h"
 #include "samus.h"
 
-// Globals
-
-#define MAX_AMOUNT_OF_PROJECTILES 16
-
-extern struct ProjectileData gProjectileData[MAX_AMOUNT_OF_PROJECTILES];
-extern u16 gArmCannonY;
-extern u16 gArmCannonX;
-
 // Defines
 
 #define PROJECTILE_NONE 0x0
@@ -86,6 +78,14 @@ struct ProjectileData {
 // Typedef
 
 typedef void (*ProjFunc_T)(struct ProjectileData*);
+
+// Globals
+
+#define MAX_AMOUNT_OF_PROJECTILES 16
+
+extern struct ProjectileData gProjectileData[MAX_AMOUNT_OF_PROJECTILES];
+extern u16 gArmCannonY;
+extern u16 gArmCannonX;
 
 // Functions
 

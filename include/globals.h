@@ -160,14 +160,6 @@ extern u16 gButtonInput;
 extern u16 gPreviousButtonInput;
 extern u16 gChangedInput;
 extern u8 gNextOAMSlot;
-extern u16 gBG0XPosition;
-extern u16 gBG0YPosition;
-extern u16 gBG1XPosition;
-extern u16 gBG1YPosition;
-extern u16 gBG2XPosition;
-extern u16 gBG2YPosition;
-extern u16 gBG3XPosition;
-extern u16 gBG3YPosition;
 extern u8 gDemoState;
 extern struct ButtonAssignments gButtonAssignments;
 extern u8 gNonGameplayRAM[640]; // Weird type, subject to change

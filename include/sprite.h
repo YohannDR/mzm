@@ -4,25 +4,6 @@
 #include "types.h"
 #include "oam.h"
 
-// Globals
-
-#define MAX_AMOUNT_OF_SPRITES 24
-
-extern u16 gAlarmTimer;
-extern struct SpriteData gSpriteData[MAX_AMOUNT_OF_SPRITES];
-extern u8 gSpritesetSpritesID[15];
-extern u8 gSpritesetGFXSlots[15];
-extern struct SubSpriteData gSubSpriteData1;
-extern struct SubSpriteData gSubSpriteData2;
-extern u8 gParasiteRelated;
-extern struct SpriteData gCurrentSprite;
-extern u8 gPreviousVerticalCollisionCheck;
-extern u8 gPreviousCollisionCheck;
-extern u8 gIgnoreSamusAndSpriteCollision;
-extern u8 gSpriteDrawOrder[MAX_AMOUNT_OF_SPRITES];
-extern struct BossWork gBossWork;
-extern u8 gSpriteRNG;
-
 // Defines
 
 #define SPRITE_STATUS_NONE 0x0
@@ -475,6 +456,25 @@ struct BossWork {
     u16 work23;
     u16 work24;
 };
+
+// Globals
+
+#define MAX_AMOUNT_OF_SPRITES 24
+
+extern u16 gAlarmTimer;
+extern struct SpriteData gSpriteData[MAX_AMOUNT_OF_SPRITES];
+extern u8 gSpritesetSpritesID[15];
+extern u8 gSpritesetGFXSlots[15];
+extern struct SubSpriteData gSubSpriteData1;
+extern struct SubSpriteData gSubSpriteData2;
+extern u8 gParasiteRelated;
+extern struct SpriteData gCurrentSprite;
+extern u8 gPreviousVerticalCollisionCheck;
+extern u8 gPreviousCollisionCheck;
+extern u8 gIgnoreSamusAndSpriteCollision;
+extern u8 gSpriteDrawOrder[MAX_AMOUNT_OF_SPRITES];
+extern struct BossWork gBossWork;
+extern u8 gSpriteRNG;
 
 // Functions
 

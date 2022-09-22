@@ -123,7 +123,8 @@ void ChargeBeamIdle(void)
 void ChargeBeamFlashingAnim(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    gCurrentSprite.animationDurationCounter;
+    gCurrentSprite.animationDurationCounter--;
+    
     if (!(gCurrentSprite.timer & 0x1))
         gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
     if (gPreventMovementTimer < 0x3E7)

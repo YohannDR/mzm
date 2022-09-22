@@ -1,7 +1,6 @@
 #include "sprites_AI/chozo_statue_movement.h"
 
-#include "data/data.h"
-#include "globals.h"
+#include "sprite.h"
 
 /**
  * @brief 125e8 | 160 | Spawns a new chozo statue movement secondary sprite
@@ -33,7 +32,6 @@ void SpawnChozoStatueMovement(u8 stage)
             else
                 gSpriteData[ramSlot].drawOrder = gCurrentSprite.drawOrder + 0x1;
 
-            // Initialize sprite
             gSpriteData[ramSlot].properties = (SP_ALWAYS_ACTIVE | SP_SECONDARY_SPRITE);
             gSpriteData[ramSlot].spritesetGFXSlot = gCurrentSprite.spritesetGFXSlot;
             gSpriteData[ramSlot].spriteID = SSPRITE_CHOZO_STATUE_MOVEMENT;
