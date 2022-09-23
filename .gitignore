@@ -15,5 +15,6 @@
 *.runtimeconfig.json
 
 data/*.c
+include/**/*.s
 tools/*.txt
 .vscode

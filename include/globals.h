@@ -78,6 +78,7 @@ struct InGameTimer {
     u8 frames;
 };
 
+extern u8 gMaxInGameTimerFlag;
 extern struct InGameTimer gInGameTimer;
 extern struct InGameTimer gInGameTimerAtBosses[5];
 
