@@ -2,7 +2,6 @@
 #define SAMUS_H
 
 #include "types.h"
-#include "oam.h"
 #include "structs/samus.h"
 
 void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, struct SamusPhysics* pPhysics);

@@ -12,8 +12,8 @@
 #define MAX_AMOUNT_OF_DIFFICULTIES 3
 
 #define DIFF_EASY 0
-#define DIFF_NORMAL 2
-#define DIFF_HARD 3
+#define DIFF_NORMAL 1
+#define DIFF_HARD 2
 
 #define LANGUAGE_JAPANESE 0
 #define LANGUAGE_HIRAGANA 1

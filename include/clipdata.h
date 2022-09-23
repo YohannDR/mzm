@@ -5,11 +5,6 @@
 #include "structs/clipdata.h"
 #include "gba.h"
 
-#define behavior_to_block(behavior) (behavior - 0x10)
-#define behavior_to_tank(behavior) (behavior - 0x34)
-#define behavior_to_bldalpha(behavior) (behavior - 0x44)
-#define behavior_to_door(behavior) (behavior - 0x7F)
-
 // Functions
 
 void ClipdataSetupCode(void);

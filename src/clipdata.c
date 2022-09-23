@@ -1,5 +1,6 @@
-#include "clipdata.h"
 #include "gba.h"
+#include "clipdata.h"
+#include "temp_globals.h"
 #include "constants/clipdata.h"
 #include "structs/bg_clip.h"
 

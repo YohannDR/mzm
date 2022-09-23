@@ -2,7 +2,6 @@
 #define ACID_WORM_AI_H
 
 #include "types.h"
-#include "sprite_util.h"
 
 // Acid worm
 

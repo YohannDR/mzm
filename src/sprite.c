@@ -1,7 +1,6 @@
 #include "sprite.h"
 #include "constants/particle.h"
 #include "sprite_debris.h"
-#include "sprite_util.h"
 #include "syscalls.h"
 #include "gba.h"
 #include "data/pointers.c"

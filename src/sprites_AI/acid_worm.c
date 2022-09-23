@@ -1,13 +1,23 @@
 #include "sprites_AI/acid_worm.h"
-#include "data/data.h"
+
 #include "data/sprites/acid_worm.c"
 #include "data/sprite_data.c"
 #include "data/generic_data.c"
+
+#include "constants/audio.h"
+#include "constants/clipdata.h"
+#include "constants/event.h"
+#include "constants/game_state.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
-#include "constants/event.h"
+#include "constants/sprite_util.h"
+
+#include "structs/clipdata.h"
+#include "structs/connection.h"
+#include "structs/display.h"
+#include "structs/game_state.h"
 #include "structs/sprite.h"
-#include "globals.h"
+#include "structs/scroll.h"
 
 /**
  * @brief 3d860 | 118 | Synchronises the position of the acid worm body parts with itself

@@ -33,7 +33,7 @@
 
 #define OBJ_SPRITE_OAM 0x8000 // Not sure what this is, sprite OAM doesn't work without it
 
-
+extern u8 gNextOAMSlot;
 extern union OamData gOamData[160];
 
 struct FrameData {

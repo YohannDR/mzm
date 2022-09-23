@@ -17,6 +17,8 @@ struct IORegistersBackup {
     u16 BG3CNT;
 };
 
+extern u16 gDISPCNTBackup;
+extern u16 gWrittenToDISPCNT;
 extern struct IORegistersBackup gIORegistersBackup;
 
 #endif

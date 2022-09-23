@@ -1,6 +1,10 @@
 #include "scroll.h"
-#include "globals.h"
-#include "bg_clip.h"
+#include "gba.h"
+#include "constants/samus.h"
+#include "constants/room.h"
+#include "structs/bg_clip.h"
+#include "structs/samus.h"
+#include "structs/room.h"
 
 void ScrollProcess(struct RawCoordsX* pCoords)
 {
@@ -98,7 +102,7 @@ void ScrollLoad(void)
         {
             // Found room, set pointer and flag
             gCurrentRoomScrollDataPointer = *ppSrc;
-            gCurrentRoomEntry.scrollsFlag = 0x3;
+            gCurrentRoomEntry.scrollsFlag = ROOM_SCROLLS_FLAG_HAS_SCROLLS;
             break;
         }
         else if (ppSrc[0][0] == 0xFF)

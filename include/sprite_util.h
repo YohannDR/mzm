@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "structs/sprite.h"
+#include "structs/samus.h"
 
 void SpriteUtilInitLocationText(void);
 void SpriteUtilCheckStopSamusAgainstSolidSpriteLeft(u16 yPosition, u16 xPosition);

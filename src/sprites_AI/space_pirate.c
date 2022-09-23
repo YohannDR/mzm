@@ -1,6 +1,8 @@
 #include "sprites_AI/space_pirate.h"
+
 #include "data/sprites/space_pirate.c"
 #include "data/sprite_data.c"
+
 #include "constants/audio.h"
 #include "constants/connection.h"
 #include "constants/clipdata.h"
@@ -9,10 +11,12 @@
 #include "constants/sprite.h"
 #include "constants/event.h"
 #include "constants/sprite_util.h"
+
 #include "structs/connection.h"
 #include "structs/clipdata.h"
 #include "structs/display.h"
 #include "structs/game_state.h"
+#include "structs/room.h"
 #include "structs/visual_effects.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"

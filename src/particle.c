@@ -1,12 +1,24 @@
 #include "particle.h"
-#include "escape.h"
-#include "screen_shake.h"
-#include "music.h"
-#include "data/data.h"
+
 #include "data/pointers.c"
 #include "data/projectile_data.c"
 #include "data/particle_data.c"
-#include "globals.h"
+
+#include "constants/escape.h"
+
+#include "structs/bg_clip.h"
+#include "structs/escape.h"
+#include "structs/game_state.h"
+
+const struct FrameData ParticleSpriteSplashWaterSmall_oam[1];
+const struct FrameData ParticleSpriteSplashWaterBig_oam[1];
+const struct FrameData ParticleSpriteSplashWaterHuge_oam[1];
+const struct FrameData ParticleSpriteSplashLavaSmall_oam[1];
+const struct FrameData ParticleSpriteSplashLavaBig_oam[1];
+const struct FrameData ParticleSpriteSplashLavaHuge_oam[1];
+const struct FrameData ParticleSpriteSplashAcidSmall_oam[1];
+const struct FrameData ParticleSpriteSplashAcidBig_oam[1];
+const struct FrameData ParticleSpriteSplashAcidHuge_oam[1];
 
 /**
  * 53dd0 | 98 | 

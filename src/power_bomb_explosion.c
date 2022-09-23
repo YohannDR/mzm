@@ -1,7 +1,14 @@
+#include "gba.h"
 #include "power_bomb_explosion.h"
-#include "clipdata.h"
-#include "screen_shake.h"
-#include "globals.h"
+
+#include "constants/clipdata.h"
+#include "constants/game_state.h"
+
+#include "structs/bg_clip.h"
+#include "structs/clipdata.h"
+#include "structs/game_state.h"
+#include "structs/power_bomb_explosion.h"
+#include "temp_globals.h"
 
 /**
  * 5745c | 48 | Subroutine for the power bomb explosion
@@ -11,7 +18,7 @@ void PowerBombExplosionProcess(void)
     if (gCurrentPowerBomb.animationState > 0x1)
     {
         PowerBombExplosionSet0x12To0();
-        if (gCurrentPowerBomb.alsoAlwaysZero == 0x0) // Most likely a cancelled feature
+        if (gCurrentPowerBomb.unk == 0x0) // Most likely a cancelled feature
         {
             if (gCurrentPowerBomb.animationState == 0x2)
                 PowerBombExplosionBegin();
@@ -194,7 +201,7 @@ void PowerBombExplosionStart(u16 xPosition, u16 yPosition, u8 owner)
             gCurrentPowerBomb.xPosition = xPosition;
             gCurrentPowerBomb.yPosition = yPosition;
             gCurrentPowerBomb.owner = owner;
-            if (gCurrentPowerBomb.alsoAlwaysZero != 0x0)
+            if (gCurrentPowerBomb.unk != 0x0)
                 gCurrentPowerBomb.animationState = 0x2;
             else
                 PowerBombExplosionBegin();
@@ -208,7 +215,7 @@ void PowerBombExplosionStart(u16 xPosition, u16 yPosition, u8 owner)
  */
 void PowerBombExplosionSet0x12To0(void)
 {
-    gCurrentPowerBomb.alsoAlwaysZero = 0x0;
+    gCurrentPowerBomb.unk = 0x0;
 }
 
 /**
@@ -231,7 +238,7 @@ void PowerBombExplosionBegin(void)
         gCurrentPowerBomb.hitboxRightOffset = 0x0;
         gCurrentPowerBomb.hitboxTopOffset = 0x0;
         gCurrentPowerBomb.hitboxBottomOffset = 0x0;
-        gCurrentPowerBomb.alsoAlwaysZero = 0x0;
+        gCurrentPowerBomb.unk = 0x0;
         gCurrentPowerBomb.unknown = 0x0;
         ScreenShakeStartHorizontal(0x78, 0x80);
         SoundPlay(0x101); // Power bomb explosion

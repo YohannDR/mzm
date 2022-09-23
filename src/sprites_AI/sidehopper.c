@@ -1,9 +1,14 @@
 #include "sprites_AI/sidehopper.h"
-#include "constants/particle.h"
+
 #include "data/sprites/sidehopper.c"
 #include "data/sprite_data.c"
 #include "data/sprite_data.c"
+
+#include "constants/clipdata.h"
 #include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "constants/particle.h"
+
 #include "structs/sprite.h"
 
 /**

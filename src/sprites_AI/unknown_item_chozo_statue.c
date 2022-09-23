@@ -1,19 +1,23 @@
 #include "sprites_AI/unknown_item_chozo_statue.h"
 #include "sprites_AI/item_banner.h"
 #include "sprites_AI/chozo_statue.h"
+
 #include "data/pointers.c"
 #include "data/sprites/unknown_item_chozo_statue.c"
+
 #include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/game_state.h"
 #include "constants/sprite.h"
 #include "constants/samus.h"
+
 #include "structs/audio.h"
 #include "structs/clipdata.h"
 #include "structs/game_state.h"
 #include "structs/hud.h"
 #include "structs/scroll.h"
 #include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 150a8 | 88 | Synchronize the sub sprites of an unknown item chozo statue

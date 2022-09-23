@@ -1,5 +1,5 @@
 #include "transparency.h"
-#include "globals.h"
+#include "structs/room.h"
 
 void TransparencySetRoomEffectsTransparency(void)
 {

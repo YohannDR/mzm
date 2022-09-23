@@ -29,7 +29,7 @@ SECTIONS {
         . = 0x0000002A; gWhichBGPositionIsWrittenToBG3OFS = .;
         . = 0x0000002B; gSamusOnTopOfBackgrounds = .;
         . = 0x0000002C; gDifficulty = .;
-        . = 0x0000002D; gUseMotherShip = .;
+        . = 0x0000002D; gUseMotherShipDoors = .;
         . = 0x00000030; gMusicTrackInfo = .;
         . = 0x00000038; gCurrentDemo = .;
         . = 0x0000003c; gResetGame = .;

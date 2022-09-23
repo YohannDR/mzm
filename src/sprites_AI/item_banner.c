@@ -1,11 +1,15 @@
 #include "gba.h"
 #include "sprites_AI/item_banner.h"
 #include "sprites_AI/ruins_test.h"
+
 #include "data/sprites/item_banner.c"
+
 #include "constants/audio.h"
 #include "constants/game_state.h"
 #include "constants/sprite.h"
+
 #include "structs/bg_clip.h"
+#include "structs/demo.h"
 #include "structs/game_state.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"

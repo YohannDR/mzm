@@ -1,10 +1,19 @@
+#include "gba.h"
 #include "hud_generic.h"
-#include "hud.h"
-#include "minimap.h"
 #include "escape.h" // Required
+
 #include "data/hud_data.c"
+
+#include "constants/escape.h"
+#include "constants/game_state.h"
+#include "constants/minimap.h"
 #include "constants/particle.h"
-#include "globals.h"
+
+#include "structs/escape.h"
+#include "structs/game_state.h"
+#include "structs/minimap.h"
+#include "structs/hud.h"
+#include "structs/particle.h"
 
 /**
  * @brief 53c68 | 24 | Loads the common sprites graphics

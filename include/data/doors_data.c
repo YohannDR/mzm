@@ -1,7 +1,8 @@
 #ifndef DOORS_DATA_C
 #define DOORS_DATA_C
 
-#include "connection.h"
+#include "constants/connection.h"
+#include "structs/connection.h"
 
 // 33e608
 

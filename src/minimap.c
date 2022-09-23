@@ -1,6 +1,16 @@
+#include "gba.h"
 #include "minimap.h"
-#include "globals.h"
+
 #include "data/unsorted.c"
+
+#include "constants/game_state.h"
+#include "constants/minimap.h"
+
+#include "structs/bg_clip.h"
+#include "structs/game_state.h"
+#include "structs/minimap.h"
+#include "structs/samus.h"
+#include "structs/room.h"
 
 /**
  * @brief 6c154 | 24 | Updates the minimap

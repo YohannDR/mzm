@@ -1,10 +1,9 @@
-#include "funcs.h"
-#include "globals.h"
-#include "init_game.h"
-#include "softreset.h"
 #include "syscalls.h"
-#include "update_input.h"
+
 #include "constants/game_state.h"
+
+#include "structs/cutscene.h"
+#include "structs/demo.h"
 #include "structs/game_state.h"
 
 void agbmain(void)

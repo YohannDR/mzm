@@ -1,13 +1,18 @@
 #include "sprites_AI/baristute.h"
-#include "data/data.h"
+
 #include "data/sprites/baristute.c"
 #include "data/sprite_data.c"
 #include "data/generic_data.c"
-#include "constants/sprite.h"
-#include "constants/particle.h"
+
+#include "constants/clipdata.h"
 #include "constants/event.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+
+#include "structs/connection.h"
 #include "structs/sprite.h"
-#include "globals.h"
 
 /**
  * @brief 47600 | 20 | Checks if samus is near the baristute (8 blocks range on each side)

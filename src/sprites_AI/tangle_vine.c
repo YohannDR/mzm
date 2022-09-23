@@ -1,8 +1,12 @@
 #include "sprites_AI/tangle_vine.h"
+
 #include "data/pointers.c"
 #include "data/sprites/tangle_vine.c"
 #include "data/sprite_data.c"
+
 #include "constants/sprite.h"
+#include "constants/sprite_util.h"
+
 #include "structs/sprite.h"
 
 /**

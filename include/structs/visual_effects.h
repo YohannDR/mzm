@@ -3,6 +3,7 @@
 
 #include "types.h"
 
+extern u8 gMonochromeBGFading;
 extern i8 gDisableAnimatedPalette;
 
 #endif

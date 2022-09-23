@@ -1,7 +1,16 @@
+#include "gba.h"
 #include "hud.h"
-#include "minimap.h"
+#include "oam.h"
+
 #include "data/hud_data.c"
-#include "globals.h"
+
+#include "constants/minimap.h"
+#include "constants/samus.h"
+
+#include "structs/hud.h"
+#include "structs/minimap.h"
+#include "structs/samus.h"
+#include "structs/game_state.h"
 
 /**
  * @brief 52308 | 35c | Updates the OAM of the HUD

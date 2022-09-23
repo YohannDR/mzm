@@ -3,25 +3,7 @@
 
 #include "types.h"
 
-// Globals
-
 #define MAX_AMOUNT_OF_SAMUS_POSES 67
-
-extern struct SamusData gSamusData;
-extern struct SamusData gSamusDataCopy;
-extern struct WeaponInfo gSamusWeaponInfo;
-extern struct SamusEcho gSamusEcho;
-extern struct ScrewSpeedAnimation gScrewSpeedAnimation;
-extern struct Equipment gEquipment;
-extern struct HazardDamage gSamusHazardDamage;
-extern struct EnvironmentalEffect gSamusEnvirnmentalEffects[5];
-extern struct SamusPhysics gSamusPhysics;
-extern u16 gPreviousXPosition;
-extern u16 gPreviousYPosition;
-extern u16 gPreventMovementTimer;
-
-extern u16 gSamusPalette[16 * 2];
-extern i16 gSamusDoorPositionOffset;
 
 // Structs
 
@@ -166,5 +148,24 @@ struct SamusEcho {
 // Typedefs
 
 typedef u8 (*SamusFunc_T)(struct SamusData*);
+
+// Globals
+
+extern u8 gSamusOnTopOfBackgrounds;
+extern struct SamusData gSamusData;
+extern struct SamusData gSamusDataCopy;
+extern struct WeaponInfo gSamusWeaponInfo;
+extern struct SamusEcho gSamusEcho;
+extern struct ScrewSpeedAnimation gScrewSpeedAnimation;
+extern struct Equipment gEquipment;
+extern struct HazardDamage gSamusHazardDamage;
+extern struct EnvironmentalEffect gSamusEnvirnmentalEffects[5];
+extern struct SamusPhysics gSamusPhysics;
+extern u16 gPreviousXPosition;
+extern u16 gPreviousYPosition;
+extern u16 gPreventMovementTimer;
+
+extern u16 gSamusPalette[16 * 2];
+extern i16 gSamusDoorPositionOffset;
 
 #endif

@@ -1,5 +1,5 @@
 #include "sprites_AI/imago_larva.h"
-#include "sprite_util.h" // sprite_util.h include required?
+// #include "sprite_util.h" // sprite_util.h include required?
 #include "data/pointers.c"
 #include "data/sprites/imago_larva.c"
 #include "data/sprite_data.c"

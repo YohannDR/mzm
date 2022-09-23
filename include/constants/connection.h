@@ -1,7 +1,3 @@
-
-
-// Defines
-
 #define AREA_BRINSTAR 0x0
 #define AREA_KRAID 0x1
 #define AREA_NORFAIR 0x2

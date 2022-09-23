@@ -1,13 +1,16 @@
 #ifndef BLOCK_DATA_C
 #define BLOCK_DATA_C
 
-#include "block.h"
-#include "clipdata.h"
-#include "connection.h"
-#include "globals.h"
-#include "samus.h"
 #include "types.h"
+#include "macros.h"
 #include "sprites_AI/item_banner.h"
+
+#include "constants/block.h"
+#include "constants/clipdata.h"
+#include "constants/connection.h"
+#include "constants/game_state.h"
+#include "structs/block.h"
+#include "structs/connection.h"
 
 static const struct TankList sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS + 1] = {
     [AREA_BRINSTAR] = {

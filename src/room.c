@@ -1,9 +1,7 @@
 #include "room.h"
-#include "memory.h"
-#include "screen_shake.h"
-#include "globals.h"
-#include "event.h"
-#include "bg_clip.h"
+#include "structs/bg_clip.h"
+#include "structs/room.h"
+#include "structs/screen_shake.h"
 
 void RoomLoad(void)
 {

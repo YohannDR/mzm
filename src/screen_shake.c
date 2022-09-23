@@ -1,5 +1,5 @@
 #include "screen_shake.h"
-#include "globals.h"
+#include "structs/screen_shake.h"
 
 u8 ScreenShakeStartVertical(u8 duration, u8 unk)
 {

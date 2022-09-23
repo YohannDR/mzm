@@ -8,6 +8,7 @@
 
 #include "structs/game_state.h"
 #include "structs/sprite.h"
+#include "structs/power_bomb_explosion.h"
 
 void ProjectileSetBeamParticleEffect(void)
 {

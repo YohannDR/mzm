@@ -1,13 +1,18 @@
+#include "gba.h"
 #include "bg_clip.h"
 #include "data/block_data.c"
+
 #include "constants/connection.h"
 #include "constants/clipdata.h"
 #include "constants/game_state.h"
 #include "constants/samus.h"
 #include "constants/sprite.h"
+
 #include "structs/bg_clip.h"
+#include "structs/clipdata.h"
 #include "structs/connection.h"
 #include "structs/game_state.h"
+#include "structs/samus.h"
 
 void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition)
 {

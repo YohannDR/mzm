@@ -66,5 +66,7 @@ extern u16 gBG3XPosition;
 extern u16 gBG3YPosition;
 
 extern i8 gCollectingTank;
+extern u8 gDisableDoorAndTanks;
+extern u8 gDisableClipdataChangingTransparency;
 
 #endif

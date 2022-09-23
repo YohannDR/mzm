@@ -88,6 +88,9 @@ struct HatchesState {
 
 extern u32 gHatchesOpened[MAX_AMOUNT_OF_AREAS][8];
 
+extern u8 gWhichBGPositionIsWrittenToBG3OFS;
+extern struct RawCoordsX gDoorPositionStart;
+extern u8 gUseMotherShipDoors;
 extern u8 gCurrentArea;
 extern u8 gAreaBeforeTransition;
 extern u8 gCurrentRoom;
@@ -97,6 +100,7 @@ extern u8 gDisplayLocationText;
 extern i8 gDoorUnlockTimer;
 extern struct HatchesState gHatchesState;
 extern struct HatchData gHatchData[MAX_AMOUNT_OF_HATCHES];
+extern struct LastElevatorUsed gLastElevatorUsed;
 extern u8 gNumberOfValidHatchesInRoom;
 
 #endif

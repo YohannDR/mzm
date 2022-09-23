@@ -1,7 +1,3 @@
-
-
-// Defines
-
 #define SPRITE_STATUS_NONE 0x0
 #define SPRITE_STATUS_EXISTS 0x1
 #define SPRITE_STATUS_ONSCREEN 0x2

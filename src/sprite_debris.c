@@ -1,9 +1,17 @@
+#include "oam.h"
 #include "sprite_debris.h"
 #include "data/particle_data.c"
 #include "data/sprite_data.c"
 
-#include "data/data.h"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/game_state.h"
+#include "constants/sprite_util.h"
+
+#include "structs/bg_clip.h"
+#include "structs/clipdata.h"
+#include "structs/game_state.h"
+#include "structs/samus.h"
+#include "structs/sprite.h"
 
 /**
  * 11788 | 2c | 

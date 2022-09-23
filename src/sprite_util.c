@@ -1,15 +1,21 @@
+#include "gba.h"
+#include "oam.h"
 #include "sprite_util.h"
-#include "sprite_debris.h"
 #include "constants/particle.h"
-#include "samus.h"
-#include "location_text.h"
-#include "clipdata.h"
-#include "music.h"
 #include "sprites_AI/parasite.h"
 #include "sprites_AI/ridley.h"
-#include "data/data.h"
 #include "data/sprite_data.c"
-#include "globals.h"
+
+#include "constants/game_state.h"
+#include "constants/samus.h"
+#include "constants/sprite_util.h"
+#include "constants/clipdata.h"
+
+#include "structs/clipdata.h"
+#include "structs/game_state.h"
+#include "structs/screen_shake.h"
+#include "structs/sprite.h"
+
 
 /**
  * @brief e498 | 7c | Initialize the first sprite to be a location text if necessary

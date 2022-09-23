@@ -1,11 +1,17 @@
 #include "sprites_AI/atomic.h"
+
 #include "data/pointers.c"
-#include "data/data.h"
 #include "data/sprites/atomic.c"
-#include "constants/sprite.h"
-#include "structs/sprite.h"
 #include "data/sprite_data.c"
-#include "globals.h"
+
+#include "constants/game_state.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+
+#include "structs/game_state.h"
+#include "structs/display.h"
+#include "structs/sprite.h"
+
 
 void AtomicSmoothMovement(void)
 {

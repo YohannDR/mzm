@@ -1,14 +1,21 @@
 #include "connection.h"
 #include "bg_clip.h" // Required
+
 #include "data/pointers.c"
 #include "data/empty_datatypes.c"
 #include "data/hatch_data.c"
+
 #include "constants/connection.h"
+#include "constants/cutscene.h"
 #include "constants/game_state.h"
+#include "constants/room.h"
+
 #include "structs/bg_clip.h"
-#include "structs/display.h"
-#include "structs/game_state.h"
 #include "structs/connection.h"
+#include "structs/cutscene.h"
+#include "structs/display.h"
+#include "structs/room.h"
+#include "structs/game_state.h"
 
 /**
  * @brief 5e760 | 198 | Updates the hatches
@@ -386,11 +393,11 @@ void ConnectionProcessDoorType(u8 type)
     switch (type & DOOR_TYPE_NO_FLAGS)
     {
         case DOOR_TYPE_REMOVE_MOTHER_SHIP:
-            gUseMotherShip = FALSE;
+            gUseMotherShipDoors = FALSE;
             break;
 
         case DOOR_TYPE_SET_MOTHER_SHIP:
-            gUseMotherShip = TRUE;
+            gUseMotherShipDoors = TRUE;
             break;
 
         default:

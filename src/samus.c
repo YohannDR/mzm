@@ -1,8 +1,18 @@
+#include "gba.h"
 #include "samus.h"
-#include "music.h"
+#include "temp_globals.h"
+
 #include "data/data.h"
 #include "data/pointers.c"
-#include "globals.h"
+
+#include "constants/game_state.h"
+#include "constants/samus.h"
+
+#include "structs/bg_clip.h"
+#include "structs/game_state.h"
+#include "structs/visual_effects.h"
+#include "structs/samus.h"
+#include "structs/scroll.h"
 
 void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
@@ -67,7 +77,7 @@ void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, st
         if (pPhysics->standingStatus == STANDING_GROUND)
         {
             y_pos = y_pos + 1;
-            action = 4;
+            action = DESTRUCTING_ACTION_SPEED_ON_GROUND;
         }
         BlockSamusApplyScrewSpeedboosterDamageToEnvironment(left_hitbox, y_pos, action);
         BlockSamusApplyScrewSpeedboosterDamageToEnvironment(right_hitbox, y_pos, action);

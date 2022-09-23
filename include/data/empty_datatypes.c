@@ -2,8 +2,11 @@
 #define EMPTY_DATATYPES_C
 
 #include "types.h"
-#include "connection.h"
-#include "scroll.h"
+
+#include "constants/connection.h"
+
+#include "structs/connection.h"
+#include "structs/scroll.h"
 
 // 345868
 

@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "minimap.h"
+#include "structs/minimap.h"
 
 // 754bc0
 static u32* sVisitedMinimapTilesPointer[1] = {
