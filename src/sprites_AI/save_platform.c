@@ -256,11 +256,15 @@ void SavePlatformSaving(void)
 
     ramSlot = gCurrentSprite.arrayOffset;
     if (gCurrentSprite.currentAnimationFrame & 0x1)
+    {
         gCurrentSprite.paletteRow = 0x0;
+        gSpriteData[ramSlot].paletteRow = gCurrentSprite.paletteRow;
+    }
     else
+    {
         gCurrentSprite.paletteRow = 0x2;
-
-    gSpriteData[ramSlot].paletteRow = gCurrentSprite.paletteRow;
+        gSpriteData[ramSlot].paletteRow = gCurrentSprite.paletteRow;
+    }
 }
 
 /**

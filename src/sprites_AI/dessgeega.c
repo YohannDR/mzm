@@ -1,12 +1,13 @@
 #include "sprites_AI/dessgeega.h"
-#include "data/data.h"
 #include "data/sprites/dessgeega.c"
 #include "data/sprite_data.c"
+
 #include "constants/clipdata.h"
+#include "constants/event.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
-#include "constants/event.h"
+
 #include "structs/clipdata.h"
 #include "structs/connection.h"
 #include "structs/sprite.h"

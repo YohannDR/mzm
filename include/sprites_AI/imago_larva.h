@@ -57,7 +57,7 @@ void ImagoLarvaTakingDamageInit(struct SubSpriteData* pSub);
 void ImagoLarvaTakingDamage(struct SubSpriteData* pSub);
 void ImagoLarvaDyingInit(struct SubSpriteData* pSub);
 void ImagoLarvaDying(struct SubSpriteData* pSub);
-void ImagoLarvaDead(struct SubSpriteData* pSub);
+void ImagoLarvaDeath(struct SubSpriteData* pSub);
 void ImagoLarvaPartInit(struct SubSpriteData* pSub);
 void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub);
 void ImagoLarvaPartDotIdle(struct SubSpriteData* pSub);

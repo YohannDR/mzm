@@ -1,5 +1,4 @@
 #include "sprites_AI/imago_larva.h"
-// #include "sprite_util.h" // sprite_util.h include required?
 #include "data/pointers.c"
 #include "data/sprites/imago_larva.c"
 #include "data/sprite_data.c"
@@ -424,23 +423,23 @@ void ImagoLarvaDying(struct SubSpriteData* pSub)
  * 
  * @param pSub Sub Sprite Data Pointer
  */
-void ImagoLarvaDead(struct SubSpriteData* pSub)
+void ImagoLarvaDeath(struct SubSpriteData* pSub)
 {
+    u16 yPosition;
+    
     gCurrentSprite.timer--;
 
     if (gCurrentSprite.timer == 0x0)
     {
         if (gCurrentSprite.spriteID == PSPRITE_IMAGO_LARVA_RIGHT)
         {
-            // Set event
             EventFunction(EVENT_ACTION_SETTING, EVENT_CATERPILLAR_KILLED);
-            // Unlock doors
             gDoorUnlockTimer = -0x3C;
-            MusicPlay(MUSIC_BOSS_KILLED, 0x0);
+            MusicPlay(0xB, 0x0); // Boss killed
         }
 
-        // Kill sprite
-        SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - 0x24, gCurrentSprite.xPosition, FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+        yPosition = gCurrentSprite.yPosition - 0x24;
+        SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, gCurrentSprite.xPosition, FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
     }
 }
 
@@ -903,7 +902,7 @@ void ImagoLarva(void)
             break;
 
         case IMAGO_LARVA_POSE_DEAD:
-            ImagoLarvaDead(pSub);
+            ImagoLarvaDeath(pSub);
     }
 
     if (gCurrentSprite.health != 0x0)

@@ -496,7 +496,7 @@ static const struct FrameData* sChozoStatueFrameDataPointers[16] = {
     sChozoStatuePartOAM_GlowIdle,
 };
 
-static const struct FrameData* sUnknownItemChozoStatueFrameDataPointers[16] = {
+const struct FrameData* sUnknownItemChozoStatueFrameDataPointers[16] = {
     sUnknownItemChozoStatuePartOAM_LegStanding,
     sUnknownItemChozoStatuePartOAM_LegSitting,
     sUnknownItemChozoStatuePartOAM_LegSeated,

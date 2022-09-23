@@ -53,10 +53,10 @@ void ImagoCocoonChangeOneCCAA(u8 caa)
 
     yPosition = gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 11;
     xPosition = gSubSpriteData1.xPosition;
+    
     gCurrentClipdataAffectingAction = caa;
-    yPosition -= 0x20;
-    ClipdataProcess(yPosition, xPosition);
-    ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_HUGE);
+    ClipdataProcess(yPosition - HALF_BLOCK_SIZE, xPosition);
+    ParticleSet(yPosition - HALF_BLOCK_SIZE, xPosition, PE_SPRITE_EXPLOSION_HUGE);
 }
 
 /**
