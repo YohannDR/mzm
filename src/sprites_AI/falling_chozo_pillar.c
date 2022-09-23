@@ -2,7 +2,11 @@
 #include "data/data.h"
 #include "screen_shake.h"
 #include "data/sprites/falling_chozo_pillar.c"
-#include "globals.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "structs/display.h"
+#include "structs/game_state.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 4b884 | 218 | Falling chozo pillar AI

@@ -1,6 +1,9 @@
 #include "escape.h"
-#include "event.h"
-#include "globals.h"
+#include "constants/event.h"
+#include "constants/escape.h"
+#include "constants/game_state.h"
+#include "structs/game_state.h"
+#include "structs/samus.h"
 
 u8 EscapeDetermineTimer(void)
 {

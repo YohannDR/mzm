@@ -1,7 +1,12 @@
 #include "sprites_AI/elevator_statue.h"
-#include "data/data.h"
 #include "data/sprites/elevator_statue.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/sprite.h"
+#include "constants/event.h"
+#include "constants/samus.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
+#include "structs/clipdata.h"
 
 /**
  * @brief 47ebc | 50 | Updates the clipdata of the statue debris on the ground

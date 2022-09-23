@@ -2,7 +2,7 @@
 #define SPRITE_DATA_C
 
 #include "types.h"
-#include "sprite.h"
+#include "constants/sprite.h"
 
 // 2b0c94
 

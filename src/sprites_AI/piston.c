@@ -1,7 +1,11 @@
 #include "sprites_AI/piston.h"
-#include "data/data.h"
 #include "data/sprites/piston.c"
-#include "globals.h"
+#include "constants/sprite.h"
+#include "constants/clipdata.h"
+#include "structs/display.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
+#include "structs/clipdata.h"
 
 /**
  * @brief 31708 | 54 | Updates the clipdata of the 4 piston blocks

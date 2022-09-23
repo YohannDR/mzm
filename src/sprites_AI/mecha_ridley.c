@@ -1,8 +1,10 @@
 #include "sprites_AI/mecha_ridley.h"
-#include "data/data.h"
 #include "data/sprites/mecha_ridley.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/sprite.h"
+#include "constants/event.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 void MechaRidleySyncSubSprites(void)
 {

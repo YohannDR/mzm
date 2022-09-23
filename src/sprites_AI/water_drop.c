@@ -1,8 +1,10 @@
 #include "sprites_AI/water_drop.h"
-#include "data/data.h"
 #include "data/particle_data.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/sprite.h"
+#include "structs/clipdata.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 12780 | 2c | Initializes a water drop sprite

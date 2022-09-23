@@ -2,7 +2,7 @@
 
 #include "callbacks.h"
 #include "funcs.h"
-#include "game_modes.h"
+
 #include "gba.h"
 #include "globals.h"
 #include "init_helpers.h"

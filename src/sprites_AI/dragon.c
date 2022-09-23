@@ -2,7 +2,12 @@
 #include "data/data.h"
 #include "data/sprites/dragon.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/display.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 20564 | 50 | Handles the Y movement of a dragon

@@ -1,7 +1,14 @@
+#include "gba.h"
 #include "sprites_AI/item_banner.h"
-#include "data/data.h"
+#include "sprites_AI/ruins_test.h"
 #include "data/sprites/item_banner.c"
-#include "globals.h"
+#include "constants/audio.h"
+#include "constants/game_state.h"
+#include "constants/sprite.h"
+#include "structs/bg_clip.h"
+#include "structs/game_state.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 1b6b8 | 110 | Initializes an item banner sprite

@@ -2,7 +2,6 @@
 #define ROOM_H
 
 #include "types.h"
-#include "sprite.h"
 #include "transparency.h"
 #include "block.h"
 #include "event.h"

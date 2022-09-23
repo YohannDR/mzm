@@ -2,7 +2,7 @@
 #define IMAGO_LARVA_AI_H
 
 #include "types.h"
-#include "sprite.h"
+#include "structs/sprite.h"
 
 #define IMAGO_LARVA_POSE_IDLE_INIT 0x8
 #define IMAGO_LARVA_POSE_IDLE 0x9

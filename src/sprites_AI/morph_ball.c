@@ -1,7 +1,10 @@
 #include "sprites_AI/morph_ball.h"
 #include "sprites_AI/item_banner.h"
-#include "globals.h"
 #include "data/sprites/morph_ball.c"
+#include "constants/sprite.h"
+#include "constants/samus.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 13080 | ac | Initializes a morph ball sprite

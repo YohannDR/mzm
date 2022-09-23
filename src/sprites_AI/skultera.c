@@ -1,8 +1,13 @@
 #include "sprites_AI/skultera.h"
-#include "data/data.h"
 #include "data/sprites/skultera.c"
+#include "constants/particle.h"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/clipdata.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 48c7c | 30 | Sets the side hitboxes depending on the X flip

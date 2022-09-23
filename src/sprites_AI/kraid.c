@@ -1,9 +1,24 @@
 #include "sprites_AI/kraid.h"
-#include "data/data.h"
 #include "data/pointers.c"
 #include "data/sprites/kraid.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/audio.h"
+#include "constants/clipdata.h"
+#include "constants/event.h"
+#include "constants/game_state.h"
+#include "constants/sprite.h"
+#include "constants/samus.h"
+#include "constants/projectile.h"
+#include "constants/sprite_util.h"
+#include "structs/bg_clip.h"
+#include "structs/connection.h"
+#include "structs/clipdata.h"
+#include "structs/game_state.h"
+#include "structs/in_game_timer.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
+#include "structs/scroll.h"
+#include "structs/projectile.h"
 
 /**
  * @brief 183d8 | 68 | Synchronize the sub sprites of Kraid
@@ -1597,7 +1612,7 @@ void KraidBeforeDeath(void)
     {
         // Set dead
         SpriteUtilSpriteDeath(DEATH_NORMAL, gSubSpriteData1.yPosition - (BLOCK_SIZE * 3), gSubSpriteData1.xPosition, FALSE, PE_MAIN_BOSS_DEATH);
-        FadeCurrentMusicAndQueueNextMusic(0x14, 0xB, 0x0); // Boss killed
+        FadeCurrentMusicAndQueueNextMusic(0x14, MUSIC_BOSS_KILLED, 0x0); // Boss killed
         IOUpdateDISPCNT(FALSE, DCNT_BG2); // Remove BG2
         gInGameTimerAtBosses[0] = gInGameTimer;
     }
@@ -2021,7 +2036,7 @@ void KraidPartSpawnSpike(void)
             gCurrentSprite.spritesetGFXSlot, gCurrentSprite.workVariable,
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
-        if (spikeSlot < 0x18)
+        if (spikeSlot < MAX_AMOUNT_OF_SPRITES)
             gSpriteData[spikeSlot].xPositionSpawn = gSpriteData[ramSlot].xPositionSpawn;
 
         gCurrentSprite.pose = KRAID_PART_POSE_CHECK_SPAWN_SPIKES;

@@ -3,7 +3,12 @@
 #include "data/data.h"
 #include "data/sprite_data.c"
 #include "data/sprites/space_pirate.c"
-#include "globals.h"
+#include "constants/particle.h"
+#include "constants/samus.h"
+#include "constants/projectile.h"
+#include "constants/sprite.h"
+#include "structs/sprite.h"
+#include "structs/projectile.h"
 
 /**
  * @brief 2cb68 | 268 | Handles black space pirate/projectile collision

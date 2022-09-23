@@ -1,43 +1,8 @@
 #ifndef SPRITE_UTIL_H
 #define SPRITE_UTIL_H
 
-#include "sprite.h"
-#include "block.h"
-#include "samus.h"
 #include "types.h"
-
-#define NSLR_OUT_OF_RANGE 0x0
-#define NSLR_LEFT 0x4
-#define NSLR_RIGHT 0x8
-
-#define NSAB_OUT_OF_RANGE 0x0
-#define NSAB_ABOVE 0x1
-#define NSAB_BELOW 0x2
-
-#define NSFB_OUT_OF_RANGE 0x0
-#define NSAB_IN_FRONT 0x3
-#define NSAB_BEHIND 0xC
-
-#define DCT_NONE 0x0
-#define DCT_SHINESPARK 0x1
-#define DCT_SPEEDBOOSTER 0x2
-#define DCT_SCREW_ATTACK 0x3
-#define DCT_SUDO_SCREW 0x4
-
-#define DEATH_NORMAL 0x0
-#define DEATH_RESPAWNING 0x1
-#define DEATH_NO_DEATH_OR_RESPAWNING_ALREADY_HAS_DROP 0x2
-
-#define SPLASH_NONE 0x0
-#define SPLASH_SMALL 0x1
-#define SPLASH_BIG 0x2
-#define SPLASH_HUGE 0x3
-
-#define SPRITE_COLLISION_FLAG_NONE 0x0
-#define SPRITE_COLLISION_FLAG_ON_TOP 0x1
-#define SPRITE_COLLISION_FLAG_ON_BOTTOM 0x2
-#define SPRITE_COLLISION_FLAG_ON_LEFT 0x4
-#define SPRITE_COLLISION_FLAG_ON_RIGHT 0x8
+#include "structs/sprite.h"
 
 void SpriteUtilInitLocationText(void);
 void SpriteUtilCheckStopSamusAgainstSolidSpriteLeft(u16 yPosition, u16 xPosition);

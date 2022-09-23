@@ -60,7 +60,7 @@ static const u8 sRandomNumberTable[256] = {
     116, 180, 78, 153, 60, 7, 223, 175
 };
 
-const Func_T sIntrTable[13] = {
+static const Func_T sIntrTable[13] = {
     sub_08003380,
     CallbackCallSerialCommunication,
     CallbackCallTimer3,

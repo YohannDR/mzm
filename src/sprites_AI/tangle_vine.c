@@ -1,9 +1,9 @@
 #include "sprites_AI/tangle_vine.h"
-#include "data/data.h"
 #include "data/pointers.c"
 #include "data/sprites/tangle_vine.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/sprite.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 413c4 | 88 | Synchronize the sub sprites of a tangle vine

@@ -1,9 +1,14 @@
 #include "connection.h"
-#include "globals.h"
 #include "bg_clip.h" // Required
 #include "data/pointers.c"
 #include "data/empty_datatypes.c"
 #include "data/hatch_data.c"
+#include "constants/connection.h"
+#include "constants/game_state.h"
+#include "structs/bg_clip.h"
+#include "structs/display.h"
+#include "structs/game_state.h"
+#include "structs/connection.h"
 
 /**
  * @brief 5e760 | 198 | Updates the hatches

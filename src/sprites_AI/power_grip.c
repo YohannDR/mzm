@@ -1,7 +1,11 @@
 #include "sprites_AI/power_grip.h"
 #include "sprites_AI/item_banner.h"
 #include "data/sprites/power_grip.c"
-#include "globals.h"
+#include "constants/sprite.h"
+#include "constants/event.h"
+#include "constants/samus.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 132d4 | 13c | Power grip AI

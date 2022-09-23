@@ -1,7 +1,12 @@
 #include "sprites_AI/zipline.h"
-#include "data/data.h"
 #include "data/sprites/zipline.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/event.h"
+#include "constants/sprite.h"
+#include "constants/samus.h"
+#include "structs/clipdata.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 1d318 | 8c | Checks the collision for a stop block

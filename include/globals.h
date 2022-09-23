@@ -4,7 +4,6 @@
 #include "callbacks.h"
 #include "types.h"
 #include "sprite_debris.h"
-#include "sprite.h"
 #include "room.h"
 #include "particle.h"
 #include "oam.h"
@@ -28,31 +27,6 @@ extern u16 unk_02035400;
 
 // IWRAM
 
-enum PauseScreenFlags {
-    PAUSE_SCREEN_NONE,
-    PAUSE_SCREEN_UNKNOWN_1,
-    PAUSE_SCREEN_PAUSE_OR_CUTSCENE,
-    PAUSE_SCREEN_UNKNOWN_3,
-    PAUSE_SCREEN_CHOZO_HINT,
-    PAUSE_SCREEN_MAP_DOWNLOAD,
-    PAUSE_SCREEN_ITEM_ACQUISITION,
-    PAUSE_SCREEN_SUITLESS_ITEMS,
-    PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS,
-    PAUSE_SCREEN_UNKNOWN_9,
-};
-
-#define MAX_AMOUNT_OF_DIFFICULTIES 3
-
-enum Difficulty {
-    DIFF_EASY = 0x0,
-    DIFF_NORMAL = 0x1,
-    DIFF_HARD = 0x2
-};
-
-#define LANGUAGE_JAPANESE 0x0
-#define LANGUAGE_HIRAGANA 0x1
-#define LANGUAGE_ENGLISH 0x2
-
 // Temporary place
 
 #define CUTSCENE_NONE 0x0
@@ -71,17 +45,6 @@ enum Difficulty {
 #define CUTSCENE_MECHA_RIDLEY_SEES_SAMUS 0xD
 #define CUTSCENE_SAMUS_IN_BLUE_SHIP 0xE
 
-struct InGameTimer {
-    u8 hours;
-    u8 minutes;
-    u8 seconds;
-    u8 frames;
-};
-
-extern u8 gMaxInGameTimerFlag;
-extern struct InGameTimer gInGameTimer;
-extern struct InGameTimer gInGameTimerAtBosses[5];
-
 union TileData {
     struct {
         u32 tile:10;
@@ -96,70 +59,32 @@ union TileData {
 
 extern u8 unk_02038000[];
 
-extern u8 gDebugFlag;
-extern u16 gFrameCounter16Bit;
 extern u16 gWrittenToDISPCNT;
-extern u8 gStereoFlag;
-extern struct MusicTrackInfo gMusicTrackInfo;
 extern u32 gCurrentDemo; /* XXX: type */
 extern u8 gMonochromeBGFading;
 extern u8 gWhichBGPositionIsWrittenToBG3OFS;
 extern u8 gSamusOnTopOfBackgrounds;
-extern u8 gDifficulty;
-extern i8 gLanguage;
 extern u8 gUseMotherShip;
-extern u8 gResetGame;
-extern u8 gDisableScrolling;
-extern u16 gSlowScrollingTimer;
-extern u8 gSkipDoorTransition;
 extern u8 gDisableSoftreset;
 extern u8 gDisableDoorAndTanks;
-extern i8 gCollectingTank;
-extern u8 gDisablePause;
-extern u8 gShipLandingFlag;
 extern u8 gDisableClipdataChangingTransparency;
-extern i8 gDisableAnimatedPalette;
-extern u8 gCurrentArea;
-extern u8 gAreaBeforeTransition;
-extern u8 gCurrentRoom;
-extern u8 gLastDoorUsed;
-extern u8 gLastDoorProperties;
-extern u8 gDisplayLocationText;
-extern u16 gEffectYPosition;
-extern i16 gEffectYPositionOffset;
 extern u8 gScreenShakeXRelated;
 extern u8 gScreenShakeYRelated;
 extern u16 gScreenShakeRelated;
 extern u16 gDISPCNTBackup;
 extern u8 gSpriteset;
-extern u8 gCurrentClipdataAffectingAction;
 extern u8 gSpritesetEntryUsed;
-extern i8 gDoorUnlockTimer;
 extern i8 gCurrentCutscene;
 extern i8 gTourianEscapeCutsceneStage;
-extern struct IORegistersBackup gIORegistersBackup;
-extern struct BackgroundPointersAndDimensions gBGPointersAndDimensions;
-
-extern u8 gEnergyRefillAnimation;
-extern u8 gMissileRefillAnimation;
-extern u8 gSuperMissileRefillAnimation;
-extern u8 gPowerBombRefillAnimation;
 
 extern struct RawCoordsX gWaitingSpacePiratesPosition;
 extern struct BG2Movement gBG2Movement;
 extern struct ScreenShake gScreenShakeY;
 extern struct ScreenShake gScreenShakeX;
 extern struct LastElevatorUsed gLastElevatorUsed;
-extern i8 gIsLoadingFile;
-extern i8 gPauseScreenFlag;
-extern i8 gClearedEveryFrame;
-extern u8 gFrameCounter8Bit;
 extern vu16 gVBlankRequestFlag;
 extern u16 gInterruptCode[0x100];
 extern u8 gSRAMCorruptFlag;
-extern u16 gButtonInput;
-extern u16 gPreviousButtonInput;
-extern u16 gChangedInput;
 extern u8 gNextOAMSlot;
 extern u8 gDemoState;
 extern struct ButtonAssignments gButtonAssignments;
@@ -169,8 +94,6 @@ extern struct RawCoordsX gDoorPositionStart;
 extern struct BG3Movement gBG3Movement;
 extern struct BG0Movement gBG0Movement;
 extern u16 gRainSoundEffect;
-extern u8* gCurrentRoomScrollDataPointer;
-extern ClipFunc_T gClipdataCodePointer;
 
 extern void *sp_sys;
 extern void *sp_irq;

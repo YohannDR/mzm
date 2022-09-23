@@ -1,9 +1,16 @@
 #include "sprites_AI/imago.h"
-#include "data/data.h"
 #include "data/pointers.c"
 #include "data/sprites/imago.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/audio.h"
+#include "constants/sprite.h"
+#include "constants/clipdata.h"
+#include "constants/sprite_util.h"
+#include "constants/event.h"
+#include "structs/connection.h"
+#include "structs/game_state.h"
+#include "structs/sprite.h"
+#include "structs/clipdata.h"
 
 void ImagoSyncSubSprites(void)
 {

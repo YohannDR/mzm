@@ -1,9 +1,19 @@
+#include "sprites_AI/geron.h"
 #include "sprites_AI/parasite.h"
-#include "data/data.h"
 #include "data/sprites/parasite.c"
 #include "data/sprite_data.c"
-#include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/event.h"
+#include "constants/sprite.h"
+#include "constants/projectile.h"
+#include "constants/sprite_util.h"
+#include "constants/samus.h"
+#include "structs/connection.h"
+#include "structs/display.h"
+#include "structs/game_state.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
+#include "structs/projectile.h"
 
 /**
  * 2fef0 | 54 | Counts the number of parasite that grabbed samus, used to know if samus should take damage

@@ -1,8 +1,10 @@
 #include "sprites_AI/ripper2.h"
-#include "data/data.h"
 #include "data/sprites/ripper2.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 1bfd8 | 7c | Initializes a ripper 2 sprite

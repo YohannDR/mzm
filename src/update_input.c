@@ -1,6 +1,6 @@
 #include "update_input.h"
 #include "gba.h"
-#include "globals.h"
+#include "structs/game_state.h"
 #include "types.h"
 
 void UpdateInput(void)

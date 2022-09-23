@@ -1,10 +1,11 @@
 #include "funcs.h"
-#include "game_modes.h"
 #include "globals.h"
 #include "init_game.h"
 #include "softreset.h"
 #include "syscalls.h"
 #include "update_input.h"
+#include "constants/game_state.h"
+#include "structs/game_state.h"
 
 void agbmain(void)
 {
@@ -230,7 +231,6 @@ void agbmain(void)
             case GM_DEBUG_MENU:
                 for (;;) {
                     // TODO add debug code
-                    /* EMPTY */
                 }
             }
         

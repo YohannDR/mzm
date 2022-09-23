@@ -1,7 +1,11 @@
 #include "sprites_AI/security_gate.h"
-#include "globals.h"
-#include "sprite_util.h"
+#include "constants/particle.h"
 #include "data/sprites/security_gate.c"
+#include "constants/clipdata.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/clipdata.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 2eaf8 | 50 | Updates the clipdata of the security gate

@@ -1,6 +1,7 @@
 #include "sprites_AI/unused_sprites.h"
 #include "data/sprites/unused_sprites.c"
-#include "globals.h"
+#include "constants/sprite.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 13024 | 5c | Unused sprites AI

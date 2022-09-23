@@ -9,16 +9,6 @@ extern u8 gCurrentEscapeStatus;
 extern u8 gEscapeTimerCounter;
 extern struct EscapeDigits gEscapeTimerDigits;
 
-// Defines
-
-#define ESCAPE_NONE 0x0
-#define ESCAPE_MOTHER_BRAIN 0x1
-#define ESCAPE_MECHA_RIDLEY 0x2
-
-#define ESCAPE_STATUS_NONE 0x0
-#define ESCAPE_STATUS_HAPPENNING 0x1
-#define ESCAPE_STATUS_FAILED 0x2
-
 // Structs
 
 struct __attribute__((packed)) EscapeDigits {

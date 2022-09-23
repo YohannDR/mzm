@@ -1,8 +1,14 @@
 #include "sprites_AI/morph_ball_launcher.h"
-#include "sprite_util.h"
-#include "projectile.h"
 #include "data/sprites/morph_ball_launcher.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/sprite.h"
+#include "constants/samus.h"
+#include "constants/projectile.h"
+#include "structs/display.h"
+#include "structs/clipdata.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
+#include "structs/projectile.h"
 
 /**
  * @brief 268bc | 74 | Updates the clipdata of a morph ball launcher

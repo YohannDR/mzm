@@ -2,7 +2,12 @@
 #include "clipdata.h"
 #include "power_bomb_explosion.h"
 #include "data/block_data.c"
-#include "globals.h"
+#include "clipdata.h" // ?
+#include "constants/samus.h"
+#include "constants/clipdata.h"
+#include "structs/bg_clip.h"
+#include "structs/clipdata.h"
+#include "structs/game_state.h"
 
 /**
  * @brief 590b0 | 214 | Checks if soemthing should happen to a block depending on the CCAA

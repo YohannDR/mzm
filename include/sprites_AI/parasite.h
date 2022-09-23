@@ -2,7 +2,7 @@
 #define PARASITE_AI_H
 
 #include "types.h"
-#include "sprite.h"
+#include "structs/sprite.h"
 
 #define PARASITE_POSE_IDLE_INIT 0x8
 #define PARASITE_POSE_IDLE 0x9

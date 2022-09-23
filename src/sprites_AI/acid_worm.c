@@ -3,6 +3,10 @@
 #include "data/sprites/acid_worm.c"
 #include "data/sprite_data.c"
 #include "data/generic_data.c"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/event.h"
+#include "structs/sprite.h"
 #include "globals.h"
 
 /**

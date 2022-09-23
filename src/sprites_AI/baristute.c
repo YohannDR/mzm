@@ -3,6 +3,10 @@
 #include "data/sprites/baristute.c"
 #include "data/sprite_data.c"
 #include "data/generic_data.c"
+#include "constants/sprite.h"
+#include "constants/particle.h"
+#include "constants/event.h"
+#include "structs/sprite.h"
 #include "globals.h"
 
 /**

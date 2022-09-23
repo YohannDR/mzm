@@ -2,8 +2,18 @@
 #include "sprites_AI/unknown_item_chozo_statue.h"
 #include "data/pointers.c"
 #include "data/sprites/chozo_statue.c"
-#include "data/data.h"
-#include "globals.h"
+#include "constants/audio.h"
+#include "constants/clipdata.h"
+#include "constants/game_state.h"
+#include "constants/sprite.h"
+#include "constants/event.h"
+#include "constants/samus.h"
+#include "structs/audio.h"
+#include "structs/game_state.h"
+#include "structs/hud.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
+#include "structs/scroll.h"
 
 /**
  * @brief 13850 | 88 | Synchronize the sub sprites of a chozo statue

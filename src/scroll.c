@@ -10,8 +10,8 @@ void ScrollProcess(struct RawCoordsX* pCoords)
     struct Scroll* pScroll;
 
     ScrollUpdateCurrent(pCoords);
-    screen_x = gScreenPositionAndVelocity.xPosition;
-    screen_y = gScreenPositionAndVelocity.yPosition;
+    screen_x = gCamera.xPosition;
+    screen_y = gCamera.yPosition;
 
     pScroll = gCurrentScrolls;
     if (pScroll->within)
@@ -252,7 +252,7 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
             xOffset = gScreenXOffset + (clipPosition - 0x1E0);
     }
 
-    gScreenPositionAndVelocity.xPosition = xOffset;
+    gCamera.xPosition = xOffset;
 
     xOffset -= gBG1XPosition;
     if (xOffset > 0x0)
@@ -266,7 +266,7 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
             xOffset = gUnk_3005714.unk0;
     }
 
-    gScreenPositionAndVelocity.xVelocity = xOffset;
+    gCamera.xVelocity = xOffset;
     gBG1XPosition += xOffset;
 }
 

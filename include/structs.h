@@ -1,5 +1,5 @@
-#ifndef STRUCTS_H
-#define STRUCTS_H
+#ifndef STRUCT_H
+#define STRUCT_H
 
 #include "types.h"
 
@@ -9,4 +9,4 @@ struct struct_08002a38 {
     u8 unk_01e;
 };
 
-#endif /* STRUCTS_H */
+#endif /* STRUCT_H */

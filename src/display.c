@@ -1,6 +1,6 @@
 #include "display.h"
-#include "globals.h"
-#include "gba/memory.h"
+#include "gba.h"
+#include "structs/display.h"
 
 void IOWriteRegisters(void)
 {

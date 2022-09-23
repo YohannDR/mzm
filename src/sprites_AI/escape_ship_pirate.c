@@ -3,7 +3,10 @@
 #include "data/data.h"
 #include "data/sprite_data.c"
 #include "data/sprites/space_pirate.c"
-#include "globals.h"
+#include "constants/sprite.h"
+#include "constants/samus.h"
+#include "structs/game_state.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 2dc78 | 60 | Initializes an escape ship space pirate sprite

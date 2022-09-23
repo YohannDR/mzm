@@ -1,8 +1,15 @@
 #include "sprites_AI/worker_robot.h"
-#include "data/data.h"
 #include "data/sprites/worker_robot.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "constants/samus.h"
+#include "constants/projectile.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
+#include "structs/projectile.h"
 
 u8 WorkerRobotCheckSamusInFront(void)
 {

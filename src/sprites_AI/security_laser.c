@@ -1,7 +1,9 @@
+#include "gba.h"
 #include "sprites_AI/security_laser.h"
-#include "data/data.h"
 #include "data/sprites/security_laser.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/sprite.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 37cbc | 21c | Initializes a security laser sprite

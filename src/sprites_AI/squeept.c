@@ -1,8 +1,11 @@
 #include "sprites_AI/squeept.h"
-#include "data/data.h"
 #include "data/sprites/squeept.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 1eff4 | 24 | Initializes a squeept to be going up

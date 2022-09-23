@@ -1,8 +1,14 @@
 #include "sprites_AI/hive.h"
-#include "data/data.h"
 #include "data/sprites/hive.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/event.h"
+#include "constants/sprite_util.h"
+#include "structs/bg_clip.h"
+#include "structs/display.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 24a10 | 2c | Spawns 2 particle effects
@@ -838,7 +844,7 @@ void MellowSwarm(void)
             gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.pose = 0x9;
-            if (0x78 < (gSamusData.xPosition >> 0x2) -( gBG1XPosition >> 0x2))
+            if (0x78 < (gSamusData.xPosition >> 0x2) -(gBG1XPosition >> 0x2))
                 gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
             gCurrentSprite.yPositionSpawn = 0xF0;
 

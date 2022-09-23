@@ -1,8 +1,11 @@
 #include "sprites_AI/viola.h"
-#include "data/data.h"
 #include "data/sprites/viola.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 3743c | 120 | Initializes a viola sprite

@@ -1,10 +1,15 @@
 #include "sprites_AI/imago_larva.h"
 #include "sprite_util.h" // sprite_util.h include required?
-#include "data/data.h"
 #include "data/pointers.c"
 #include "data/sprites/imago_larva.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/audio.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "constants/event.h"
+#include "structs/connection.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 259a0 | 84 | Synchronize the sub sprites of an Imago larva

@@ -1,9 +1,11 @@
 #include "location_text.h"
-#include "sprite.h"
 #include "gba.h"
 #include "data/data.h"
 #include "data/sprites/area_banner.c"
-#include "globals.h"
+#include "constants/connection.h"
+#include "constants/sprite.h"
+#include "structs/connection.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 11ed8 | b8 | Gets the location text of the current room for brinstar 

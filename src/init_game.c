@@ -2,7 +2,7 @@
 
 #include "callbacks.h"
 #include "funcs.h"
-#include "game_modes.h"
+
 #include "gba.h"
 #include "io.h"
 #include "softreset.h"

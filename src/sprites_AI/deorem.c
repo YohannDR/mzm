@@ -1,7 +1,13 @@
 #include "sprites_AI/deorem.h"
 #include "data/data.h"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/game_state.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/clipdata.h"
+#include "constants/sprite_util.h"
+#include "structs/game_state.h"
+#include "structs/sprite.h"
 
 void DeoremChangeLeftCCAA(u8 caa)
 {
@@ -81,9 +87,9 @@ void DeoremSpawnChargeBeam(u16 yPosition, u16 xPosition)
  */
 void DeoremSetEyeOpeningTimer(void)
 {
-    if (gDifficulty == 0x0)
+    if (gDifficulty == DIFF_EASY)
         gCurrentSprite.timer = 0x78; // Easy
-    else if (gDifficulty == 0x2)
+    else if (gDifficulty == DIFF_HARD)
         gCurrentSprite.timer = 0x28; // Hard
     else
         gCurrentSprite.timer = 0x50; // Normal

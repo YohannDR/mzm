@@ -2,6 +2,8 @@
 #define HATCH_DATA_C
 
 #include "types.h"
+#include "constants/event.h"
+#include "constants/clipdata.h"
 #include "connection.h"
 #include "clipdata.h"
 

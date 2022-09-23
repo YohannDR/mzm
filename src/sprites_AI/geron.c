@@ -1,7 +1,11 @@
 #include "sprites_AI/geron.h"
-#include "data/data.h"
+#include "sprites_AI/parasite.h"
 #include "data/sprites/geron.c"
-#include "globals.h"
+#include "constants/sprite.h"
+#include "constants/event.h"
+#include "constants/clipdata.h"
+#include "structs/sprite.h"
+#include "structs/clipdata.h"
 
 /**
  * @brief 448e0 | 344 | Geron AI 

@@ -1,5 +1,7 @@
 #include "clipdata.h"
-#include "globals.h"
+#include "gba.h"
+#include "constants/clipdata.h"
+#include "structs/bg_clip.h"
 
 /**
  * @brief 57dcc | 2c | Transfers the clipdata code to RAM and sets the pointer to it

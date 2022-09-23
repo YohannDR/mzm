@@ -3,7 +3,13 @@
 #include "data/sprites/gadora.c"
 #include "data/sprites/enemy_drop.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "constants/event.h"
+#include "structs/display.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 49eb8 | 134 | Initializes a gadora sprite

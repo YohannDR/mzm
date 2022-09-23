@@ -1,6 +1,9 @@
 #include "sprites_AI/elevator_pad.h"
-#include "globals.h"
 #include "data/sprites/elevator_pad.c"
+#include "constants/sprite.h"
+#include "constants/samus.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 2872c | b8 | Elevator pad AI

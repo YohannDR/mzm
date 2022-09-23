@@ -1,7 +1,10 @@
 #include "sprites_AI/geron_norfair.h"
-#include "data/data.h"
 #include "data/sprites/geron_norfair.c"
-#include "globals.h"
+#include "constants/sprite.h"
+#include "constants/event.h"
+#include "constants/clipdata.h"
+#include "structs/sprite.h"
+#include "structs/clipdata.h"
 
 /**
  * 40178 | b8 | Geron Norfair AI

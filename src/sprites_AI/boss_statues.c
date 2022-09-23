@@ -1,7 +1,20 @@
 #include "sprites_AI/boss_statues.h"
-#include "data/data.h"
 #include "data/sprites/boss_statues.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/event.h"
+#include "constants/game_state.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "constants/projectile.h"
+#include "structs/bg_clip.h"
+#include "structs/connection.h"
+#include "structs/clipdata.h"
+#include "structs/display.h"
+#include "structs/scroll.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
+#include "structs/projectile.h"
+#include "structs/game_state.h"
 
 /**
  * @brief 49184 | 80 | Changes the clipdata of a 6 blocks vertical lign

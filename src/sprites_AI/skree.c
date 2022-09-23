@@ -1,8 +1,13 @@
 #include "sprites_AI/skree.h"
-#include "data/data.h"
 #include "data/sprites/skree.c"
+#include "constants/particle.h"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/display.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 1c644 | 50 | Initializes a skree sprite

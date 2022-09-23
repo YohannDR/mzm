@@ -1,8 +1,11 @@
 #include "sprites_AI/reo.h"
-#include "data/data.h"
 #include "data/sprites/reo.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 1cc98 | 88 | Initializes a reo sprite

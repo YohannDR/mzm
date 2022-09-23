@@ -1,7 +1,8 @@
 #include "sprites_AI/steam.h"
-#include "data/data.h"
 #include "data/sprites/steam.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/sprite.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 4a5e4 | 208 | Steam AI
@@ -128,7 +129,7 @@ void Steam(void)
         }
 
         gCurrentSprite.animationDurationCounter = 0x0;
-        // Animation starts at the random frame
+        // Animation starts at a random frame
         // desyncs the steams and allows them to be already blowing on room load
         gCurrentSprite.currentAnimationFrame = gSpriteRNG & 0x7;
         

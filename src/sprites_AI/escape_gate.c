@@ -1,7 +1,11 @@
 #include "sprites_AI/escape_gate.h"
 #include "data/sprites/escape_gate.c"
 #include "data/data.h"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/sprite.h"
+#include "structs/clipdata.h"
 
 /**
  * @brief 4e910 | b0 | Updates the hitbox of the escape gate
@@ -111,7 +115,7 @@ void EscapeGate(void)
             break;
 
         case ESCAPE_GATE_POSE_CHECK_OPEN:
-            if (spriteID != PSPRITE_ESCAPE_GATE1 || SpriteUtilCheckSamusNearSpriteLeftRight(0x40, 0x180) == NSLR_LEFT)
+            if (spriteID != PSPRITE_ESCAPE_GATE1 || SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE, BLOCK_SIZE * 6) == NSLR_LEFT)
             {
                 // Open gate if samus near
                 gCurrentSprite.pOam = sEscapeGateOAM_Opening;

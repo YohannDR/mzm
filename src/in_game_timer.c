@@ -1,5 +1,5 @@
 #include "types.h"
-#include "globals.h"
+#include "structs/in_game_timer.h"
 
 /**
  * @brief 579b8 | 6c | Updates the in game timer

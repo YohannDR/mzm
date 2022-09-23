@@ -1,8 +1,11 @@
 #include "sprites_AI/geega.h"
-#include "data/data.h"
 #include "data/sprites/geega.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "structs/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/samus.h"
 
 /**
  * @brief 40230 | 60 | Initializes a geega sprite

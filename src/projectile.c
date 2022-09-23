@@ -1,16 +1,13 @@
 #include "projectile.h"
-#include "sprite.h"
-#include "clipdata.h"
-#include "sprite_util.h"
-#include "power_bomb_explosion.h"
-#include "music.h"
-#include "game_modes.h"
-#include "hud.h"
-#include "data/data.h"
+
 #include "data/projectile_data.c"
 #include "data/sprite_data.c"
 #include "data/pointers.c"
-#include "globals.h"
+
+#include "constants/game_state.h"
+
+#include "structs/game_state.h"
+#include "structs/sprite.h"
 
 void ProjectileSetBeamParticleEffect(void)
 {

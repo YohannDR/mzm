@@ -1,11 +1,17 @@
 #include "sprites_AI/rinka.h"
 #include "sprites_AI/zebetite_and_cannon.h"
 #include "syscalls.h"
-#include "data/data.h"
 #include "data/sprites/rinka.c"
 #include "data/sprites/zebetite_and_cannon.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "constants/event.h"
+#include "constants/samus.h"
+#include "structs/display.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 3630c | 98 | Initializes a rinka sprite

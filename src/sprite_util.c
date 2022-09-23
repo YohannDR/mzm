@@ -1,6 +1,6 @@
 #include "sprite_util.h"
 #include "sprite_debris.h"
-#include "particle.h"
+#include "constants/particle.h"
 #include "samus.h"
 #include "location_text.h"
 #include "clipdata.h"

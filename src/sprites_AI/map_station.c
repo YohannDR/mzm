@@ -1,8 +1,15 @@
+#include "gba.h"
 #include "sprites_AI/map_station.h"
 #include "sprites_AI/item_banner.h"
-#include "sprite.h"
 #include "data/sprites/map_station.c"
-#include "globals.h"
+#include "constants/connection.h"
+#include "constants/game_state.h"
+#include "constants/sprite.h"
+#include "constants/samus.h"
+#include "structs/connection.h"
+#include "structs/game_state.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 1f41c | f0 | Initializes a map station sprite

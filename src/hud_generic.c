@@ -3,6 +3,7 @@
 #include "minimap.h"
 #include "escape.h" // Required
 #include "data/hud_data.c"
+#include "constants/particle.h"
 #include "globals.h"
 
 /**

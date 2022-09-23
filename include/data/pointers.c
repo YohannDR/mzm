@@ -2,10 +2,12 @@
 #define POINTERS_DATA_C
 
 #include "types.h"
-#include "samus.h"
-#include "projectile.h"
-#include "particle.h"
-#include "connection.h"
+#include "constants/samus.h"
+#include "constants/particle.h"
+#include "constants/projectile.h"
+#include "constants/sprite.h"
+#include "structs/samus.h"
+
 #include "sprites_AI/sprites.h"
 #include "sprites/chozo_statue.c"
 #include "sprites/crocomire.c"

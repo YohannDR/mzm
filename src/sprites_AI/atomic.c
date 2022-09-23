@@ -2,6 +2,8 @@
 #include "data/pointers.c"
 #include "data/data.h"
 #include "data/sprites/atomic.c"
+#include "constants/sprite.h"
+#include "structs/sprite.h"
 #include "data/sprite_data.c"
 #include "globals.h"
 

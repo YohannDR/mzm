@@ -1,9 +1,18 @@
 #include "sprites_AI/mother_brain.h"
-#include "data/data.h"
 #include "data/pointers.c"
-#include "globals.h"
 #include "data/sprites/mother_brain.c"
 #include "data/sprite_data.c"
+#include "constants/audio.h"
+#include "constants/clipdata.h"
+#include "constants/event.h"
+#include "constants/game_state.h"
+#include "constants/sprite.h"
+#include "structs/clipdata.h"
+#include "structs/display.h"
+#include "structs/game_state.h"
+#include "structs/in_game_timer.h"
+#include "structs/scroll.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 3c964 | 68 | Synchronize the sub sprites of Mother Brain

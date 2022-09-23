@@ -1,7 +1,11 @@
 #include "sprites_AI/searchlight.h"
-#include "data/data.h"
 #include "data/sprites/searchlight.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "structs/display.h"
+#include "structs/clipdata.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 49bd0 | 1fc | Searchlight AI

@@ -38,8 +38,8 @@ void RoomLoad(void)
     if (gPauseScreenFlag == PAUSE_SCREEN_NONE && !gIsLoadingFile)
     {
         ScrollProcessGeneral();
-        gBG1YPosition = gScreenPositionAndVelocity.yPosition;
-        gBG1XPosition = gScreenPositionAndVelocity.xPosition;
+        gBG1YPosition = gCamera.yPosition;
+        gBG1XPosition = gCamera.xPosition;
         ScrollBG3Related();
         ScrollProcessGeneral();
     }

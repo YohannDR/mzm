@@ -1,8 +1,11 @@
 #include "sprites_AI/multiviola.h"
-#include "data/data.h"
-#include "globals.h"
 #include "data/sprites/multiviola.c"
+#include "constants/particle.h"
 #include "data/sprite_data.c"
+#include "constants/clipdata.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 1e854 | 70 | Initializes a multiviola sprite

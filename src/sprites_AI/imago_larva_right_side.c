@@ -1,7 +1,7 @@
 #include "sprites_AI/imago_larva_right_side.h"
-#include "data/data.h"
 #include "data/sprites/imago_larva_right_side.c"
-#include "globals.h"
+#include "constants/sprite.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 412a8 | 11c | Imago larva (right side) AI

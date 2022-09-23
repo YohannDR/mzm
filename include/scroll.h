@@ -2,45 +2,10 @@
 #define SCROLL_H
 
 #include "types.h"
+#include "structs/scroll.h"
 
 #define SCREEN_WIDTH (BLOCK_SIZE * 9)
 #define SCREEN_HEIGHT (BLOCK_SIZE * 5)
-
-
-extern struct Scroll gCurrentScrolls[2];
-extern struct ScreenPositionAndVelocity gScreenPositionAndVelocity;
-extern struct LockScreen gLockScreen;
-extern i8 gScreenYOffset;
-extern i16 gScreenXOffset;
-extern struct Unk_3005714 gUnk_3005714;
-
-struct Scroll {
-    u8 within;
-    u16 xEnd;
-    u16 xStart;
-    u16 yStart;
-    u16 yEnd;
-};
-
-struct ScreenPositionAndVelocity {
-    u16 xPosition;
-    u16 yPosition;
-    i8 xVelocity;
-    i8 yVelocity;
-};
-
-struct LockScreen {
-    u8 lock;
-    u16 xPositionCenter;
-    u16 yPositionCenter;
-};
-
-struct Unk_3005714 {
-    i16 unk0;
-    i16 unk2;
-    i16 unk4;
-    i16 unk6;
-};
 
 void ScrollProcess(struct RawCoordsX* pCoords);
 void ScrollScreen(u16 screen_x, u16 screen_y);

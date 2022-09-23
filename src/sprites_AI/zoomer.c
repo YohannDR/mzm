@@ -1,9 +1,12 @@
 #include "sprites_AI/zoomer.h"
-#include "data/data.h"
 #include "data/sprites/zoomer.c"
+#include "constants/particle.h"
 #include "data/sprite_data.c"
-#include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/game_state.h"
+#include "structs/sprite.h"
 
 /**
  * @brief 16694 | 96 | Checks if a zoomer is colliding with air

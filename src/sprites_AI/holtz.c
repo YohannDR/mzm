@@ -1,8 +1,12 @@
 #include "sprites_AI/holtz.h"
-#include "data/data.h"
 #include "data/sprites/holtz.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/particle.h"
+#include "constants/clipdata.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
 
 /**
  * @brief 3830c | cc | Handles the Y movement of a holtz
@@ -168,7 +172,7 @@ void HoltzIdle(void)
     gCurrentSprite.yPosition += movement;
 
     // Detect samus
-    if ((i32)(gSamusData.yPosition - 0x48) >= gCurrentSprite.yPosition)
+    if ((gSamusData.yPosition - 0x48) >= gCurrentSprite.yPosition)
     {
         nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 8, BLOCK_SIZE * 5);
         if (nslr == NSLR_RIGHT || nslr == NSLR_LEFT)

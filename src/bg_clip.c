@@ -1,7 +1,13 @@
 #include "bg_clip.h"
-#include "globals.h"
 #include "data/block_data.c"
-#include "data/data.h"
+#include "constants/connection.h"
+#include "constants/clipdata.h"
+#include "constants/game_state.h"
+#include "constants/samus.h"
+#include "constants/sprite.h"
+#include "structs/bg_clip.h"
+#include "structs/connection.h"
+#include "structs/game_state.h"
 
 void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition)
 {
@@ -97,13 +103,13 @@ u16 BGClipGetNewBLDALPHAValue(u16 clip)
     u16 bldalpha;
     u16 offset;
 
-    offset = clip - 0x44;
+    offset = behavior_to_bldalpha(clip);
     if (offset < 0xB)
-        return bldalpha_values_for_clipdata[offset];
+        return 0;//bldalpha_values_for_clipdata[offset];
     else
     {
         bldalpha = 0x0;
-        if (clip == 0x4F)
+        if (clip == CLIP_BEHAVIOR_BG0_TRIGGER_DEFAULT_TRANSPARENCY)
             return 0xFFFF;
     }
     return bldalpha;

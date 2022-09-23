@@ -3,10 +3,9 @@
 #include "gba.h"
 #include "globals.h"
 #include "io.h"
-#include "music.h"
+#include "structs/game_state.h"
 
-void
-CallbackCallVblank(void)
+void CallbackCallVblank(void)
 {
     if (gVBlankCallback) {
         gVBlankCallback();

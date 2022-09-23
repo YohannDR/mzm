@@ -1,8 +1,11 @@
 #include "sprites_AI/zeb.h"
-#include "data/data.h"
 #include "data/sprites/zeb.c"
+#include "constants/particle.h"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/sprite.h"
+#include "structs/sprite.h"
+#include "constants/sprite_util.h"
+#include "structs/samus.h"
 
 /**
  * @brief 1c238 | 60 | Initializes a zeb sprite

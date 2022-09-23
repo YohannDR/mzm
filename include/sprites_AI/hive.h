@@ -2,7 +2,7 @@
 #define HIVE_AI_H
 
 #include "types.h"
-#include "sprite.h"
+#include "structs/sprite.h"
 
 void HiveSpawnParticle(void);
 void HiveInit(void);

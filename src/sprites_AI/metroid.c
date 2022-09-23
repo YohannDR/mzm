@@ -1,9 +1,21 @@
+#include "gba.h"
 #include "sprites_AI/metroid.h"
-#include "data/data.h"
 #include "data/sprites/metroid.c"
 #include "data/sprites/enemy_drop.c"
 #include "data/sprite_data.c"
-#include "globals.h"
+#include "constants/clipdata.h"
+#include "constants/event.h"
+#include "constants/game_state.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/projectile.h"
+#include "constants/samus.h"
+#include "constants/sprite_util.h"
+#include "structs/connection.h"
+#include "structs/game_state.h"
+#include "structs/sprite.h"
+#include "structs/samus.h"
+#include "structs/projectile.h"
 
 /**
  * 35360 | 7c | Checks if colliding with air, used when samus is gabbed for the movement
@@ -861,7 +873,7 @@ void Metroid(void)
         gCurrentSprite.hitboxLeftOffset = -0x40;
         gCurrentSprite.hitboxRightOffset = 0x40;
         MetroidCheckBouncingOnMetroid(0x1);
-        if (gDifficulty == 0x0)
+        if (gDifficulty == DIFF_EASY)
             SpriteUtilUnfreezeAnimEasy();
         else
             SpriteUtilMetroidUnfreezeAnim();
