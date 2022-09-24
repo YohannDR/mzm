@@ -121,7 +121,7 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 
 %.s: %.c
 	$(MSG) CC $@
-	$Q$(PREPROC) $< | $Q$(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
+	$Q$(PREPROC) $< | $(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
 
 %.c:
 	$(MSG) Extractor $@
