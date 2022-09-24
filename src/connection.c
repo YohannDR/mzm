@@ -1,3 +1,4 @@
+#include "gba.h"
 #include "connection.h"
 #include "bg_clip.h" // Required
 
@@ -11,6 +12,7 @@
 #include "constants/room.h"
 
 #include "structs/bg_clip.h"
+#include "structs/clipdata.h"
 #include "structs/connection.h"
 #include "structs/cutscene.h"
 #include "structs/display.h"

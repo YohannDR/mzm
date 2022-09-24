@@ -2,7 +2,6 @@
 #define DEOREM_AI_H
 
 #include "types.h"
-#include "clipdata.h"
 
 void DeoremChangeLeftCCAA(u8 caa);
 void DeoremChangeRightCCAA(u8 caa);

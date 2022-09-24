@@ -1,15 +1,19 @@
 #include "sprites_AI/imago_cocoon.h"
-#include "data/pointers.c"
+
+#include "data/frame_data_pointers.c"
 #include "data/sprites/imago_cocoon.c"
 #include "data/sprites/enemy_drop.c"
 #include "data/sprite_data.c"
 #include "data/generic_data.c"
+
 #include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/sprite.h"
 #include "constants/samus.h"
 #include "constants/sprite_util.h"
+#include "constants/particle.h"
+
 #include "structs/bg_clip.h"
 #include "structs/connection.h"
 #include "structs/display.h"
@@ -1562,7 +1566,7 @@ void EventTriggerDiscoveredImagoPassage(void)
         gCurrentSprite.hitboxLeftOffset = -0x20;
         gCurrentSprite.hitboxRightOffset = 0x20;
 
-        gCurrentSprite.pose = 0x9;
+        gCurrentSprite.pose = 0x8;
         gCurrentSprite.pOam = sEnemyDropOAM_LargeEnergy;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;

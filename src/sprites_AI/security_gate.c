@@ -1,9 +1,12 @@
 #include "sprites_AI/security_gate.h"
-#include "constants/particle.h"
+
 #include "data/sprites/security_gate.c"
+
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+#include "constants/particle.h"
+
 #include "structs/clipdata.h"
 #include "structs/sprite.h"
 

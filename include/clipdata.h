@@ -3,7 +3,6 @@
 
 #include "types.h"
 #include "structs/clipdata.h"
-#include "gba.h"
 
 // Functions
 

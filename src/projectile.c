@@ -1,3 +1,4 @@
+#include "gba.h"
 #include "projectile.h"
 
 #include "data/projectile_data.c"
@@ -6,6 +7,7 @@
 
 #include "constants/game_state.h"
 
+#include "structs/clipdata.h"
 #include "structs/game_state.h"
 #include "structs/sprite.h"
 #include "structs/power_bomb_explosion.h"

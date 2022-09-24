@@ -1,6 +1,9 @@
 #include "sprites_AI/primary_sprite_B3.h"
+
 #include "data/sprites/enemy_drop.c"
+
 #include "constants/sprite.h"
+
 #include "structs/sprite.h"
 
 /**
@@ -27,35 +30,38 @@ void PrimarySpriteB3(void)
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.pose = 0x9;
         TransparencyUpdateBLDCNT(0x1, 0xC41); // TODO BLDCNT values
-        if (gAlarmTimer == 0x0)
+        if (gAlarmTimer != 0x0)
         {
-            gCurrentSprite.workVariable2 = 0x1;
+            gCurrentSprite.workVariable2 = FALSE;
             gCurrentSprite.arrayOffset = 0x10;
         }
         else
         {
-            gCurrentSprite.workVariable2 = 0x0;
+            gCurrentSprite.workVariable2 = TRUE;
             gCurrentSprite.arrayOffset = 0x8;
         }
     }
 
-    if (gAlarmTimer == 0x0)
+    if (gAlarmTimer != 0x0)
+    {
+        if (gCurrentSprite.workVariable2)
+        {
+            gCurrentSprite.workVariable2--;
+            if (!gCurrentSprite.workVariable2 && gCurrentSprite.arrayOffset < 0x10)
+            {
+                gCurrentSprite.arrayOffset++;
+                gCurrentSprite.workVariable2 = TRUE;
+            }
+        }
+    }
+
+    else
     {
         if (gCurrentSprite.arrayOffset != 0x8)
         {
             gCurrentSprite.arrayOffset = 0x8;
-            gCurrentSprite.workVariable2 = 0x1;
+            gCurrentSprite.workVariable2 = TRUE;
         }
     }
-    else if (gCurrentSprite.workVariable2 != 0x0)
-    {
-        gCurrentSprite.workVariable2--;
-        if (gCurrentSprite.workVariable2 == 0x0 && gCurrentSprite.arrayOffset < 0x10)
-        {
-            gCurrentSprite.arrayOffset++;
-            gCurrentSprite.workVariable2 = 0x1;
-        }
-    }
-
     TransparencySpriteUpdateBLDALPHA(0x0, gCurrentSprite.arrayOffset, 0x0, 0x10);
 }

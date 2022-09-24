@@ -16,6 +16,7 @@
 #include "structs/connection.h"
 #include "structs/display.h"
 #include "structs/game_state.h"
+#include "structs/samus.h"
 #include "structs/sprite.h"
 #include "structs/scroll.h"
 

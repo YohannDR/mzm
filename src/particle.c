@@ -7,6 +7,7 @@
 #include "constants/escape.h"
 
 #include "structs/bg_clip.h"
+#include "structs/clipdata.h"
 #include "structs/escape.h"
 #include "structs/game_state.h"
 

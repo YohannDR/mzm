@@ -2,7 +2,6 @@
 #define SECURITY_GATE_AI_H
 
 #include "types.h"
-#include "clipdata.h"
 
 void SecurityGateChangeCCAA(u8 caa);
 void SecurityGateOpen(void);

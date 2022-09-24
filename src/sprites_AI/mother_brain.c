@@ -1,16 +1,22 @@
 #include "sprites_AI/mother_brain.h"
-#include "data/pointers.c"
+#include "sprites_AI/item_banner.h"
+
+#include "data/frame_data_pointers.c"
 #include "data/sprites/mother_brain.c"
 #include "data/sprite_data.c"
+
 #include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
+#include "constants/particle.h"
 #include "constants/game_state.h"
 #include "constants/sprite.h"
+
 #include "structs/clipdata.h"
 #include "structs/display.h"
 #include "structs/game_state.h"
 #include "structs/in_game_timer.h"
+#include "structs/samus.h"
 #include "structs/scroll.h"
 #include "structs/sprite.h"
 

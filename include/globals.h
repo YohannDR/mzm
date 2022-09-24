@@ -12,13 +12,6 @@
 #include "samus.h"
 #include "gba/keys.h"
 #include "projectile.h"
-#include "scroll.h"
-#include "connection.h"
-#include "bg_clip.h"
-#include "io.h"
-#include "escape.h"
-#include "clipdata.h"
-#include "input.h"
 
 // IWRAM
 

@@ -270,8 +270,7 @@ void GunshipSamusEntering(void)
 {
     u8 ramSlot;
 
-    gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    if (--gCurrentSprite.timer == 0x0)
     {
         gCurrentSprite.pose = GUNSHIP_POSE_REFILL;
         gCurrentSprite.timer = 0x41;
@@ -701,9 +700,7 @@ void GunshipFlying(void)
     u8 offset;
     i32 movement;
 
-    gCurrentSprite.timer--;
-
-    if (gCurrentSprite.timer == 0x0)
+    if (--gCurrentSprite.timer == 0x0)
         gCurrentSprite.pose = GUNSHIP_POSE_DO_NOTHING_ESCAPE;
     else
     {

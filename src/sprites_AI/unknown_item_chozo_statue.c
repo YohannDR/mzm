@@ -1,6 +1,7 @@
 #include "sprites_AI/unknown_item_chozo_statue.h"
 #include "sprites_AI/item_banner.h"
 
+#include "data/frame_data_pointers.c"
 #include "data/sprites/unknown_item_chozo_statue.c"
 
 #include "constants/audio.h"
@@ -16,8 +17,6 @@
 #include "structs/scroll.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"
-
-extern const struct FrameData* sUnknownItemChozoStatueFrameDataPointers[16];
 
 /**
  * @brief 150a8 | 88 | Synchronize the sub sprites of an unknown item chozo statue

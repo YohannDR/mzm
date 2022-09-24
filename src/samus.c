@@ -9,6 +9,7 @@
 #include "constants/samus.h"
 
 #include "structs/bg_clip.h"
+#include "structs/clipdata.h"
 #include "structs/game_state.h"
 #include "structs/visual_effects.h"
 #include "structs/samus.h"

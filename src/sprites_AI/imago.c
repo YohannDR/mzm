@@ -1,16 +1,21 @@
 #include "sprites_AI/imago.h"
-#include "data/pointers.c"
+
+#include "data/frame_data_pointers.c"
 #include "data/sprites/imago.c"
 #include "data/sprite_data.c"
+
 #include "constants/audio.h"
-#include "constants/sprite.h"
-#include "constants/clipdata.h"
-#include "constants/sprite_util.h"
 #include "constants/event.h"
+#include "constants/clipdata.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+#include "constants/sprite_util.h"
+
+#include "structs/clipdata.h"
 #include "structs/connection.h"
 #include "structs/game_state.h"
+#include "structs/samus.h"
 #include "structs/sprite.h"
-#include "structs/clipdata.h"
 
 void ImagoSyncSubSprites(void)
 {
@@ -1374,7 +1379,6 @@ void ImagoPart(void)
 
     ramSlot = gCurrentSprite.primarySpriteRAMSlot;
 
-    // Sync flip
     if (gSpriteData[ramSlot].status & SPRITE_STATUS_XFLIP)
         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
     else
@@ -1382,13 +1386,11 @@ void ImagoPart(void)
 
     if (gSpriteData[ramSlot].health == 0x0)
     {
-        // Imago dying
         gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         
         if (gSpriteData[ramSlot].pose >= IMAGO_POSE_CHARGING_THROUGH_WALL)
         {
-            // Set draw order
             switch (gCurrentSprite.roomSlot)
             {
                 case IMAGO_PART_LEFT_WING_INTERNAL:
@@ -1410,7 +1412,6 @@ void ImagoPart(void)
 
     if (gSpriteData[ramSlot].pose > IMAGO_POSE_DYING)
     {
-        // Imago dead, kill part
         switch (gCurrentSprite.roomSlot)
         {
             case IMAGO_PART_LEFT_WING_INTERNAL:
@@ -1435,7 +1436,7 @@ void ImagoPart(void)
 
             case IMAGO_PART_RIGHT_WING_EXTERNAL:
                 SpriteUtilSpriteDeath(DEATH_NORMAL, gSubSpriteData1.yPosition + 0x20, gSubSpriteData1.xPosition - 0x74,
-                    FALSE, PE_SPRITE_EXPLOSION_MEDIUM);
+                    FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
                 break;
 
             case IMAGO_PART_CORE:

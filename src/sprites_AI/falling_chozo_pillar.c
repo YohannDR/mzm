@@ -1,9 +1,11 @@
 #include "sprites_AI/falling_chozo_pillar.h"
-#include "data/data.h"
-#include "screen_shake.h"
+#include "sprites_AI/ruins_test.h"
+
 #include "data/sprites/falling_chozo_pillar.c"
+
 #include "constants/particle.h"
 #include "constants/sprite.h"
+
 #include "structs/display.h"
 #include "structs/game_state.h"
 #include "structs/sprite.h"
@@ -15,8 +17,6 @@
 void FallingChozoPillar(void)
 {
     u8 effect;
-    u32 xPosition;
-    u32 yPosition;
 
     switch (gCurrentSprite.pose)
     {
@@ -46,7 +46,7 @@ void FallingChozoPillar(void)
             break;
 
         case FALLING_CHOZO_PILLAR_POSE_CHECK_SUIT_ANIM_ENDED:
-            if (gSubSpriteData1.workVariable3 == 0x8) // Check suit animation ended
+            if (gSubSpriteData1.workVariable3 == RUINS_TEST_FIGHT_STAGE_SUIT_ANIM_ENDED) // Check suit animation ended
             {
                 gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.pose = FALLING_CHOZO_PILLAR_POSE_CHECK_ON_SCREEN;
@@ -74,10 +74,7 @@ void FallingChozoPillar(void)
                     else
                         effect = PE_SECOND_TWO_MEDIUM_DUST;
 
-                    yPosition = gCurrentSprite.yPosition - 0x100;
-                    xPosition = gSpriteRNG * 0x8 - 0x38;
-                    xPosition += gCurrentSprite.xPosition;
-                    ParticleSet(yPosition, xPosition, effect);
+                    ParticleSet(gCurrentSprite.yPosition - 0x100, gCurrentSprite.xPosition - 0x38 + gSpriteRNG * 0x8, effect);
                 }
 
                 gCurrentSprite.yPositionSpawn--; // Timer

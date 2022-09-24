@@ -1,15 +1,20 @@
+#include "gba.h"
 #include "sprites_AI/kraid.h"
-#include "data/pointers.c"
+
+#include "data/frame_data_pointers.c"
 #include "data/sprites/kraid.c"
 #include "data/sprite_data.c"
+
 #include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
-#include "constants/sprite.h"
-#include "constants/samus.h"
+#include "constants/particle.h"
 #include "constants/projectile.h"
+#include "constants/samus.h"
+#include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/bg_clip.h"
 #include "structs/connection.h"
 #include "structs/clipdata.h"

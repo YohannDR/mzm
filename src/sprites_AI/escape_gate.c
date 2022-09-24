@@ -1,9 +1,12 @@
+#include "gba.h"
 #include "sprites_AI/escape_gate.h"
+
 #include "data/sprites/escape_gate.c"
-#include "data/data.h"
+
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/sprite.h"
 #include "structs/clipdata.h"
 
