@@ -1,9 +1,9 @@
 #include "sprites_AI/mother_brain.h"
 #include "sprites_AI/item_banner.h"
 
-#include "data/frame_data_pointers.c"
-#include "data/sprites/mother_brain.c"
-#include "data/sprite_data.c"
+#include "data/frame_data_pointers.h"
+#include "data/sprites/mother_brain.h"
+#include "data/sprite_data.h"
 
 #include "constants/audio.h"
 #include "constants/clipdata.h"

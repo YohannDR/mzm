@@ -1,5 +1,5 @@
 #include "sprites_AI/morph_ball_launcher.h"
-#include "data/sprites/morph_ball_launcher.c"
+#include "data/sprites/morph_ball_launcher.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/samus.h"

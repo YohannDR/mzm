@@ -1,6 +1,6 @@
 #include "sprites_AI/geron.h"
 #include "sprites_AI/parasite.h"
-#include "data/sprites/geron.c"
+#include "data/sprites/geron.h"
 #include "constants/sprite.h"
 #include "constants/event.h"
 #include "constants/clipdata.h"

@@ -1,8 +1,8 @@
 #include "sprites_AI/tangle_vine.h"
 
-#include "data/frame_data_pointers.c"
-#include "data/sprites/tangle_vine.c"
-#include "data/sprite_data.c"
+#include "data/frame_data_pointers.h"
+#include "data/sprites/tangle_vine.h"
+#include "data/sprite_data.h"
 
 #include "constants/clipdata.h"
 #include "constants/particle.h"

@@ -1,8 +1,8 @@
 #include "sprites_AI/sidehopper.h"
 
-#include "data/sprites/sidehopper.c"
-#include "data/sprite_data.c"
-#include "data/sprite_data.c"
+#include "data/sprites/sidehopper.h"
+#include "data/sprite_data.h"
+#include "data/sprite_data.h"
 
 #include "constants/clipdata.h"
 #include "constants/sprite.h"

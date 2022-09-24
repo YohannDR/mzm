@@ -1,5 +1,5 @@
 #include "sprites_AI/unused_sprites.h"
-#include "data/sprites/unused_sprites.c"
+#include "data/sprites/unused_sprites.h"
 #include "constants/sprite.h"
 #include "structs/sprite.h"
 

@@ -1,6 +1,6 @@
 #include "sprites_AI/ripper.h"
-#include "data/sprites/ripper.c"
-#include "data/sprite_data.c"
+#include "data/sprites/ripper.h"
+#include "data/sprite_data.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"

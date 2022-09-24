@@ -1,6 +1,6 @@
 #include "sprites_AI/charge_beam.h"
 #include "sprites_AI/item_banner.h"
-#include "data/sprites/charge_beam.c"
+#include "data/sprites/charge_beam.h"
 #include "constants/sprite.h"
 #include "constants/event.h"
 #include "constants/samus.h"

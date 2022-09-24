@@ -1,2 +1,2 @@
 #define FLOAT
-#include "libgcc/fp-bit-base.c"
+#include "libgcc/fp-bit-base.h"

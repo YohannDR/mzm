@@ -1,10 +1,10 @@
 #include "sprites_AI/imago_cocoon.h"
 
-#include "data/frame_data_pointers.c"
-#include "data/sprites/imago_cocoon.c"
-#include "data/sprites/enemy_drop.c"
-#include "data/sprite_data.c"
-#include "data/generic_data.c"
+#include "data/frame_data_pointers.h"
+#include "data/sprites/imago_cocoon.h"
+#include "data/sprites/enemy_drop.h"
+#include "data/sprite_data.h"
+#include "data/generic_data.h"
 
 #include "constants/audio.h"
 #include "constants/clipdata.h"

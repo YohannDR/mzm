@@ -1,6 +1,6 @@
 #include "sprites_AI/gamet.h"
-#include "data/sprites/gamet.c"
-#include "data/sprite_data.c"
+#include "data/sprites/gamet.h"
+#include "data/sprite_data.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "structs/sprite.h"

@@ -1,5 +1,5 @@
 #include "sprites_AI/zipline_generator.h"
-#include "data/sprites/zipline_generator.c"
+#include "data/sprites/zipline_generator.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/sprite.h"

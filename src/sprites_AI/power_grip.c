@@ -1,6 +1,6 @@
 #include "sprites_AI/power_grip.h"
 #include "sprites_AI/item_banner.h"
-#include "data/sprites/power_grip.c"
+#include "data/sprites/power_grip.h"
 #include "constants/sprite.h"
 #include "constants/event.h"
 #include "constants/samus.h"

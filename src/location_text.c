@@ -1,7 +1,7 @@
 #include "gba.h"
 #include "location_text.h"
 
-#include "data/sprites/area_banner.c"
+#include "data/sprites/area_banner.h"
 
 #include "constants/connection.h"
 #include "constants/sprite.h"

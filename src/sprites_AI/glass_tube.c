@@ -1,6 +1,6 @@
 #include "sprites_AI/glass_tube.h"
 
-#include "data/sprites/glass_tube.c"
+#include "data/sprites/glass_tube.h"
 
 #include "constants/particle.h"
 #include "constants/sprite.h"

@@ -1,5 +1,5 @@
 #include "sprites_AI/enemy_drop.h"
-#include "data/sprites/enemy_drop.c"
+#include "data/sprites/enemy_drop.h"
 #include "constants/sprite.h"
 #include "structs/display.h"
 #include "structs/sprite.h"

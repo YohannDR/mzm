@@ -1,8 +1,8 @@
 #include "sprites_AI/unknown_item_chozo_statue.h"
 #include "sprites_AI/item_banner.h"
 
-#include "data/frame_data_pointers.c"
-#include "data/sprites/unknown_item_chozo_statue.c"
+#include "data/frame_data_pointers.h"
+#include "data/sprites/unknown_item_chozo_statue.h"
 
 #include "constants/audio.h"
 #include "constants/clipdata.h"

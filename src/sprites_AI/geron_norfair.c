@@ -1,5 +1,5 @@
 #include "sprites_AI/geron_norfair.h"
-#include "data/sprites/geron_norfair.c"
+#include "data/sprites/geron_norfair.h"
 #include "constants/sprite.h"
 #include "constants/event.h"
 #include "constants/clipdata.h"

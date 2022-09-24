@@ -2,7 +2,7 @@
 #include "hud.h"
 #include "oam.h"
 
-#include "data/hud_data.c"
+#include "data/hud_data.h"
 
 #include "constants/minimap.h"
 #include "constants/samus.h"

@@ -1,6 +1,6 @@
 #include "sprites_AI/viola.h"
-#include "data/sprites/viola.c"
-#include "data/sprite_data.c"
+#include "data/sprites/viola.h"
+#include "data/sprite_data.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"

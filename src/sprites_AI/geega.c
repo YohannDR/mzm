@@ -1,6 +1,6 @@
 #include "sprites_AI/geega.h"
-#include "data/sprites/geega.c"
-#include "data/sprite_data.c"
+#include "data/sprites/geega.h"
+#include "data/sprite_data.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "structs/sprite.h"

@@ -1,6 +1,6 @@
 #include "sprites_AI/reo.h"
-#include "data/sprites/reo.c"
-#include "data/sprite_data.c"
+#include "data/sprites/reo.h"
+#include "data/sprite_data.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"

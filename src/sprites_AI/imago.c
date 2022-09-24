@@ -1,8 +1,8 @@
 #include "sprites_AI/imago.h"
 
-#include "data/frame_data_pointers.c"
-#include "data/sprites/imago.c"
-#include "data/sprite_data.c"
+#include "data/frame_data_pointers.h"
+#include "data/sprites/imago.h"
+#include "data/sprite_data.h"
 
 #include "constants/audio.h"
 #include "constants/event.h"

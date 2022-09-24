@@ -1,6 +1,6 @@
 #include "sprites_AI/holtz.h"
-#include "data/sprites/holtz.c"
-#include "data/sprite_data.c"
+#include "data/sprites/holtz.h"
+#include "data/sprite_data.h"
 #include "constants/particle.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"

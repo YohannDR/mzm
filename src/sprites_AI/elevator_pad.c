@@ -1,5 +1,5 @@
 #include "sprites_AI/elevator_pad.h"
-#include "data/sprites/elevator_pad.c"
+#include "data/sprites/elevator_pad.h"
 #include "constants/sprite.h"
 #include "constants/samus.h"
 #include "structs/sprite.h"

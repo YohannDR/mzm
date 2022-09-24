@@ -1,15 +1,15 @@
 #include "oam.h"
 
-#include "sprites/chozo_statue.c"
-#include "sprites/crocomire.c"
-#include "sprites/unknown_item_chozo_statue.c"
-#include "sprites/kraid.c"
-#include "sprites/ridley.c"
-#include "sprites/tangle_vine.c"
-#include "sprites/imago_larva.c"
-#include "sprites/imago.c"
-#include "sprites/imago_cocoon.c"
-#include "sprites/mother_brain.c"
+#include "sprites/chozo_statue.h"
+#include "sprites/crocomire.h"
+#include "sprites/unknown_item_chozo_statue.h"
+#include "sprites/kraid.h"
+#include "sprites/ridley.h"
+#include "sprites/tangle_vine.h"
+#include "sprites/imago_larva.h"
+#include "sprites/imago.h"
+#include "sprites/imago_cocoon.h"
+#include "sprites/mother_brain.h"
 
 static const struct FrameData* sChozoStatueFrameDataPointers[16] = {
     sChozoStatuePartOAM_LegStanding,

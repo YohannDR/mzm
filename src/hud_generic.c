@@ -2,7 +2,7 @@
 #include "hud_generic.h"
 #include "escape.h" // Required
 
-#include "data/hud_data.c"
+#include "data/hud_data.h"
 
 #include "constants/escape.h"
 #include "constants/game_state.h"

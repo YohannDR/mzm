@@ -1,8 +1,8 @@
 #include "sprites_AI/baristute.h"
 
-#include "data/sprites/baristute.c"
-#include "data/sprite_data.c"
-#include "data/generic_data.c"
+#include "data/sprites/baristute.h"
+#include "data/sprite_data.h"
+#include "data/generic_data.h"
 
 #include "constants/clipdata.h"
 #include "constants/event.h"

@@ -1,5 +1,5 @@
 #include "block.h"
-#include "data/block_data.c"
+#include "data/block_data.h"
 
 #include "constants/samus.h"
 #include "constants/clipdata.h"

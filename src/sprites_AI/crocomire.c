@@ -1,8 +1,8 @@
 #include "sprites_AI/crocomire.h"
 
-#include "data/frame_data_pointers.c"
-#include "data/sprites/crocomire.c"
-#include "data/sprite_data.c"
+#include "data/frame_data_pointers.h"
+#include "data/sprites/crocomire.h"
+#include "data/sprite_data.h"
 
 #include "constants/sprite.h"
 

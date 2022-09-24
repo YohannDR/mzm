@@ -2,9 +2,9 @@
 #include "connection.h"
 #include "bg_clip.h" // Required
 
-#include "data/pointers.c"
-#include "data/empty_datatypes.c"
-#include "data/hatch_data.c"
+#include "data/pointers.h"
+#include "data/empty_datatypes.h"
+#include "data/hatch_data.h"
 
 #include "constants/connection.h"
 #include "constants/cutscene.h"

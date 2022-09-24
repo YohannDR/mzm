@@ -1,6 +1,6 @@
 #include "sprites_AI/mella.h"
-#include "data/sprites/mella.c"
-#include "data/sprite_data.c"
+#include "data/sprites/mella.h"
+#include "data/sprite_data.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"

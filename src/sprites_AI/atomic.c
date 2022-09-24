@@ -1,8 +1,8 @@
 #include "sprites_AI/atomic.h"
 
-#include "data/pointers.c"
-#include "data/sprites/atomic.c"
-#include "data/sprite_data.c"
+#include "data/pointers.h"
+#include "data/sprites/atomic.h"
+#include "data/sprite_data.h"
 
 #include "constants/game_state.h"
 #include "constants/sprite.h"

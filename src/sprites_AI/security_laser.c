@@ -1,6 +1,6 @@
 #include "gba.h"
 #include "sprites_AI/security_laser.h"
-#include "data/sprites/security_laser.c"
+#include "data/sprites/security_laser.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "structs/sprite.h"

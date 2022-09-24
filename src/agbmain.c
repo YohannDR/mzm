@@ -1,5 +1,5 @@
 #include "syscalls.h"
-#include "data/generic_data.c"
+#include "data/generic_data.h"
 
 #include "constants/game_state.h"
 

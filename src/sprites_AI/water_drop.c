@@ -1,6 +1,6 @@
 #include "sprites_AI/water_drop.h"
-#include "data/particle_data.c"
-#include "data/sprite_data.c"
+#include "data/particle_data.h"
+#include "data/sprite_data.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "structs/clipdata.h"

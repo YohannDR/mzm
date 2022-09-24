@@ -1,5 +1,5 @@
 #include "sprites_AI/steam.h"
-#include "data/sprites/steam.c"
+#include "data/sprites/steam.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "structs/sprite.h"

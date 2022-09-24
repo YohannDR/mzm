@@ -1,6 +1,6 @@
 #include "sprites_AI/sova.h"
-#include "data/sprites/sova.c"
-#include "data/sprite_data.c"
+#include "data/sprites/sova.h"
+#include "data/sprite_data.h"
 #include "constants/sprite.h"
 #include "structs/sprite.h"
 

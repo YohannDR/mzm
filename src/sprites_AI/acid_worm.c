@@ -1,8 +1,8 @@
 #include "sprites_AI/acid_worm.h"
 
-#include "data/sprites/acid_worm.c"
-#include "data/sprite_data.c"
-#include "data/generic_data.c"
+#include "data/sprites/acid_worm.h"
+#include "data/sprite_data.h"
+#include "data/generic_data.h"
 
 #include "constants/audio.h"
 #include "constants/clipdata.h"

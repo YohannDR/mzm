@@ -2,7 +2,7 @@
 #include "sprites_AI/item_banner.h"
 #include "sprites_AI/ruins_test.h"
 
-#include "data/sprites/item_banner.c"
+#include "data/sprites/item_banner.h"
 
 #include "constants/audio.h"
 #include "constants/game_state.h"

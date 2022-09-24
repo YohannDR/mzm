@@ -1,6 +1,6 @@
 #include "sprites_AI/deorem.h"
 #include "data/data.h"
-#include "data/sprite_data.c"
+#include "data/sprite_data.h"
 #include "constants/game_state.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"

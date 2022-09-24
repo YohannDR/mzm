@@ -1,5 +1,5 @@
 #include "sprites_AI/unknown_item_block.h"
-#include "data/sprites/unknown_item_block.c"
+#include "data/sprites/unknown_item_block.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/sprite.h"

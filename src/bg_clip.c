@@ -1,6 +1,6 @@
 #include "gba.h"
 #include "bg_clip.h"
-#include "data/block_data.c"
+#include "data/block_data.h"
 
 #include "constants/connection.h"
 #include "constants/clipdata.h"

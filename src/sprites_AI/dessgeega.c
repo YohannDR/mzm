@@ -1,6 +1,6 @@
 #include "sprites_AI/dessgeega.h"
-#include "data/sprites/dessgeega.c"
-#include "data/sprite_data.c"
+#include "data/sprites/dessgeega.h"
+#include "data/sprite_data.h"
 
 #include "constants/clipdata.h"
 #include "constants/event.h"

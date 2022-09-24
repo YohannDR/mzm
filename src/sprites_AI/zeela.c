@@ -1,6 +1,6 @@
 #include "sprites_AI/zeela.h"
-#include "data/sprites/zeela.c"
-#include "data/sprite_data.c"
+#include "data/sprites/zeela.h"
+#include "data/sprite_data.h"
 #include "constants/sprite.h"
 #include "structs/sprite.h"
 

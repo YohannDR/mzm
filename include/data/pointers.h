@@ -21,10 +21,10 @@
 
 #include "sprites_AI/sprites.h"
 
-#include "data/sprites/morph_ball.c"
+#include "data/sprites/morph_ball.h"
 
-#include "doors_data.c"
-#include "hatch_data.c"
+#include "doors_data.h"
+#include "hatch_data.h"
 
 // 75e6a8
 
@@ -470,7 +470,7 @@ static const u8* sSpritesetPointers[114] = {
 };
 
 // Temp probably
-#include "data/frame_data_pointers.c"
+#include "data/frame_data_pointers.h"
 
 static const struct FrameData* sMechaRidleyFrameDataPointers[63] = {
     NULL

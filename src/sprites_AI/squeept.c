@@ -1,6 +1,6 @@
 #include "sprites_AI/squeept.h"
-#include "data/sprites/squeept.c"
-#include "data/sprite_data.c"
+#include "data/sprites/squeept.h"
+#include "data/sprite_data.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"

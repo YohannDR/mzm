@@ -1,6 +1,6 @@
 #include "sprites_AI/item_banner.h"
 #include "sprites_AI/save_platform.h"
-#include "data/sprites/save_platform.c"
+#include "data/sprites/save_platform.h"
 #include "constants/escape.h"
 #include "constants/sprite.h"
 #include "constants/samus.h"

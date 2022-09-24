@@ -1,6 +1,6 @@
 #include "sprites_AI/morph_ball.h"
 #include "sprites_AI/item_banner.h"
-#include "data/sprites/morph_ball.c"
+#include "data/sprites/morph_ball.h"
 #include "constants/sprite.h"
 #include "constants/samus.h"
 #include "structs/sprite.h"

@@ -1,6 +1,6 @@
 #include "sprites_AI/mecha_ridley.h"
-#include "data/sprites/mecha_ridley.c"
-#include "data/sprite_data.c"
+#include "data/sprites/mecha_ridley.h"
+#include "data/sprite_data.h"
 #include "constants/sprite.h"
 #include "constants/event.h"
 #include "structs/sprite.h"

@@ -1,7 +1,7 @@
 #include "gba.h"
 #include "minimap.h"
 
-#include "data/unsorted.c"
+#include "data/unsorted.h"
 
 #include "constants/game_state.h"
 #include "constants/minimap.h"

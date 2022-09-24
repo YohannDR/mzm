@@ -1,6 +1,6 @@
 #include "sprites_AI/searchlight_eye.h"
-#include "data/sprites/searchlight_eye.c"
-#include "data/sprite_data.c"
+#include "data/sprites/searchlight_eye.h"
+#include "data/sprite_data.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/particle.h"

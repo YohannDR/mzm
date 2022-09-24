@@ -1,6 +1,6 @@
 #include "gba.h"
 #include "sprites_AI/escape_ship.h"
-#include "data/sprites/escape_ship.c"
+#include "data/sprites/escape_ship.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "structs/sprite.h"

@@ -1,5 +1,5 @@
 #include "sprites_AI/piston.h"
-#include "data/sprites/piston.c"
+#include "data/sprites/piston.h"
 #include "constants/sprite.h"
 #include "constants/clipdata.h"
 #include "structs/display.h"

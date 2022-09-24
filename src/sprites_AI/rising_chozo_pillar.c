@@ -1,6 +1,6 @@
 #include "sprites_AI/rising_chozo_pillar.h"
-#include "data/sprites/rising_chozo_pillar.c"
-#include "data/sprites/enemy_drop.c"
+#include "data/sprites/rising_chozo_pillar.h"
+#include "data/sprites/enemy_drop.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/particle.h"

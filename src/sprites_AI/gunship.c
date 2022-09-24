@@ -1,7 +1,7 @@
 #include "gba.h"
 #include "sprites_AI/gunship.h"
 #include "sprites_AI/item_banner.h"
-#include "data/sprites/gunship.c"
+#include "data/sprites/gunship.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 #include "constants/event.h"

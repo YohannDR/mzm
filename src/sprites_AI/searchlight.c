@@ -1,5 +1,5 @@
 #include "sprites_AI/searchlight.h"
-#include "data/sprites/searchlight.c"
+#include "data/sprites/searchlight.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"

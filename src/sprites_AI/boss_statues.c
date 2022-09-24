@@ -1,5 +1,5 @@
 #include "sprites_AI/boss_statues.h"
-#include "data/sprites/boss_statues.c"
+#include "data/sprites/boss_statues.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/game_state.h"

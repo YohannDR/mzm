@@ -3,7 +3,7 @@
 #include "temp_globals.h"
 
 #include "data/data.h"
-#include "data/pointers.c"
+#include "data/pointers.h"
 
 #include "constants/game_state.h"
 #include "constants/samus.h"

@@ -1,7 +1,7 @@
 #include "sprites_AI/space_pirate.h"
 
-#include "data/sprites/space_pirate.c"
-#include "data/sprite_data.c"
+#include "data/sprites/space_pirate.h"
+#include "data/sprite_data.h"
 
 #include "constants/audio.h"
 #include "constants/connection.h"

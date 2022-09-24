@@ -1,5 +1,5 @@
 #include "sprites_AI/elevator_statue.h"
-#include "data/sprites/elevator_statue.c"
+#include "data/sprites/elevator_statue.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/event.h"

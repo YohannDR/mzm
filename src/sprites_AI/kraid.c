@@ -1,9 +1,9 @@
 #include "gba.h"
 #include "sprites_AI/kraid.h"
 
-#include "data/frame_data_pointers.c"
-#include "data/sprites/kraid.c"
-#include "data/sprite_data.c"
+#include "data/frame_data_pointers.h"
+#include "data/sprites/kraid.h"
+#include "data/sprite_data.h"
 
 #include "constants/audio.h"
 #include "constants/clipdata.h"

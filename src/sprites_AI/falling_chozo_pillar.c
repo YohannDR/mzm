@@ -1,7 +1,7 @@
 #include "sprites_AI/falling_chozo_pillar.h"
 #include "sprites_AI/ruins_test.h"
 
-#include "data/sprites/falling_chozo_pillar.c"
+#include "data/sprites/falling_chozo_pillar.h"
 
 #include "constants/particle.h"
 #include "constants/sprite.h"

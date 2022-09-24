@@ -1,6 +1,6 @@
 #include "sprites_AI/primary_sprite_B3.h"
 
-#include "data/sprites/enemy_drop.c"
+#include "data/sprites/enemy_drop.h"
 
 #include "constants/sprite.h"
 

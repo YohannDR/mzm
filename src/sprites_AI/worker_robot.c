@@ -1,6 +1,6 @@
 #include "sprites_AI/worker_robot.h"
-#include "data/sprites/worker_robot.c"
-#include "data/sprite_data.c"
+#include "data/sprites/worker_robot.h"
+#include "data/sprite_data.h"
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"

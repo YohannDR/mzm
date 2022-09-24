@@ -1,6 +1,6 @@
 #include "sprites_AI/polyp.h"
-#include "data/sprites/polyp.c"
-#include "data/sprite_data.c"
+#include "data/sprites/polyp.h"
+#include "data/sprite_data.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"

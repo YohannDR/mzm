@@ -1,8 +1,8 @@
 #include "particle.h"
 
-#include "data/pointers.c"
-#include "data/projectile_data.c"
-#include "data/particle_data.c"
+#include "data/pointers.h"
+#include "data/projectile_data.h"
+#include "data/particle_data.h"
 
 #include "constants/escape.h"
 

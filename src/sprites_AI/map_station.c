@@ -1,7 +1,7 @@
 #include "gba.h"
 #include "sprites_AI/map_station.h"
 #include "sprites_AI/item_banner.h"
-#include "data/sprites/map_station.c"
+#include "data/sprites/map_station.h"
 #include "constants/connection.h"
 #include "constants/game_state.h"
 #include "constants/sprite.h"

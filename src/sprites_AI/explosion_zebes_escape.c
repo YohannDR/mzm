@@ -1,5 +1,5 @@
 #include "sprites_AI/explosion_zebes_escape.h"
-#include "data/sprites/enemy_drop.c"
+#include "data/sprites/enemy_drop.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "structs/bg_clip.h"

@@ -1,6 +1,6 @@
 #include "sprites_AI/geruta.h"
-#include "data/sprites/geruta.c"
-#include "data/sprite_data.c"
+#include "data/sprites/geruta.h"
+#include "data/sprite_data.h"
 #include "constants/particle.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
