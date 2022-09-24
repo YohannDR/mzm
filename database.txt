@@ -1,1 +1,2 @@
-Sprites/MorphBall.gfx;672;0x2b28a8
+sprites/MorphBall.gfx;672;0x2b28a8
+sprites/MorphBall.pal;32;0x2b2b48

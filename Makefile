@@ -31,9 +31,11 @@ RM = rm -f
 SHA1SUM = sha1sum
 TAIL = tail
 
+# Tools
 GBAFIX = tools/gbafix/gbafix
 PYTHON = python3
 EXTRACTOR = tools/extractor.py
+PREPROC = tools/preproc/preproc
 
 # Flags
 ASFLAGS = -mcpu=arm7tdmi
@@ -111,7 +113,7 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 
 %.dump: %.gba
 	$(MSG) OBJDUMP $@
-	$Q$(OBJDUMP) -D -bbinary -marm7tdmi -Mforce-thumb --stop-address 0x8c728 $< | $(TAIL) -n+3 >$@
+	$Q$(OBJDUMP) -D -bbinary -marm7tdmi -Mforce-thumb --stop-address 0x8c71c $< | $(TAIL) -n+3 >$@
 
 %.o: %.s
 	$(MSG) AS $@
@@ -119,7 +121,7 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 
 %.s: %.c
 	$(MSG) CC $@
-	$Q$(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
+	$Q$(PREPROC) $< | $Q$(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
 
 %.c:
 	$(MSG) Extractor $@

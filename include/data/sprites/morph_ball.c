@@ -3,9 +3,10 @@
 
 #include "types.h"
 #include "oam.h"
+#include "macros.h"
 
-static const u32 sMorphBallGFX[168];
-static const u16 sMorphBallPAL[16];
+static const u32 sMorphBallGFX[168] = INCBIN_U32("data/sprites/MorphBall.gfx");
+static const u16 sMorphBallPAL[16] = INCBIN_U32("data/sprites/MorphBall.pal");
 
 static const u16 sMorphBallOAM_Idle_Frame0[4] = {
     0x1,

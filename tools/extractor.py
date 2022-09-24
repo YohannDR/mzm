@@ -5,7 +5,7 @@ import shutil
 
 DATA_PATH = "../data/"
 subDirs: array = [
-    "Sprites/"
+    "sprites/"
 ]
 
 shutil.rmtree(DATA_PATH, ignore_errors=False, onerror=None)

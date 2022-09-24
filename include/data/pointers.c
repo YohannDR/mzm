@@ -21,6 +21,8 @@
 
 #include "sprites_AI/sprites.h"
 
+#include "data/sprites/morph_ball.c"
+
 #include "doors_data.c"
 #include "hatch_data.c"
 
@@ -376,7 +378,7 @@ static const Func_T sPrimarySpritesAIPointers[206] = {
 };
 
 static const u32* sSpritesGraphicsPointers[190] = {
-    NULL
+    sMorphBallGFX
 };
 
 static const u16* sSpritesPalettePointers[190] = {
