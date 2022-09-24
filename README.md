@@ -18,6 +18,7 @@ This produces the following ROMs:
 - [agbcc](https://github.com/pret/agbcc)
 - `binutils-arm-none-eabi`
 - `mzm_us_baserom.gba` (`sha1: 5de8536afe1f0078ee6fe1089f890e8c7aa0a6e8`)
+- `g++`
 
 ## Setup
 
@@ -25,6 +26,7 @@ This produces the following ROMs:
 - Install the dependencies (an `apt update` might be necessary for binutils)
 - Build agbcc (run `./build.sh`)
 - Add agbcc to your path (export PATH="agbcc path:$PATH"
+- Build preproc (run `make` in tools/preproc)
 - Clone this repo
 
 ## Build
