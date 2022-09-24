@@ -19,16 +19,19 @@ void agbmain(void)
         gFrameCounter8Bit++;
         gFrameCounter16Bit++;
 
-        switch (gMainGameMode) {
+        switch (gMainGameMode)
+        {
             case GM_SOFTRESET:
-                if (softreset_main()) {
+                if (softreset_main())
+                {
                     gMainGameMode = GM_INTRO;
                     gGameModeSub1 = 0;
                 }
                 break;
 
             case GM_INTRO:
-                if (intro_main()) {
+                if (intro_main())
+                {
                     gMainGameMode = GM_TITLE;
                     gGameModeSub1 = 0;
                 }
@@ -100,7 +103,8 @@ void agbmain(void)
                     gGameModeSub2 = 0;
 
                     psf = gPauseScreenFlag - 1;
-                    switch (psf) {
+                    switch (psf)
+                    {
                         case PAUSE_SCREEN_UNKNOWN_1 - 1:
                             gGameModeSub3 = 0;
 
@@ -177,11 +181,13 @@ void agbmain(void)
                 if (ingame_main())
                 {
                     i8 psf = gPauseScreenFlag;
-                    if (psf == PAUSE_SCREEN_PAUSE_OR_CUTSCENE) {
+                    if (psf == PAUSE_SCREEN_PAUSE_OR_CUTSCENE)
+                    {
                         gPauseScreenFlag = PAUSE_SCREEN_NONE;
                         gGameModeSub3 = 0;
                         gGameModeSub1 = 0;
-                        if (gDemoState == 0) {
+                        if (gDemoState == 0)
+                        {
                             gMainGameMode = gGameModeSub2;
                             gGameModeSub2 = (gCurrentDemo << 4) >> 0x1c; /* XXX: probably struct */
                         }
@@ -229,7 +235,8 @@ void agbmain(void)
                 break;
 
             case GM_DEBUG_MENU:
-                for (;;) {
+                for (;;)
+                {
                     // TODO add debug code
                 }
             }
