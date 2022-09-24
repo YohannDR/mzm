@@ -18,6 +18,7 @@ This produces the following ROMs:
 - [agbcc](https://github.com/pret/agbcc)
 - `binutils-arm-none-eabi`
 - `mzm_us_baserom.gba` (`sha1: 5de8536afe1f0078ee6fe1089f890e8c7aa0a6e8`)
+- `python3`
 - `g++`
 
 ## Setup
