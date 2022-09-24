@@ -1,6 +1,5 @@
 /src/**/*.s
 /data/*
-!/data/data.txt
 
 *.gba
 *.elf
@@ -14,7 +13,6 @@
 *.deps.json
 *.runtimeconfig.json
 
-data/*.c
 include/**/*.s
 tools/*.txt
 .vscode

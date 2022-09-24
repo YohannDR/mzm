@@ -32,6 +32,8 @@ SHA1SUM = sha1sum
 TAIL = tail
 
 GBAFIX = tools/gbafix/gbafix
+PYTHON = python3
+EXTRACTOR = tools/extractor.py
 
 # Flags
 ASFLAGS = -mcpu=arm7tdmi
@@ -55,10 +57,6 @@ endif
 
 .PHONY: all
 all: $(TARGET)
-
-.PHONY: extract
-extract:
-	$(MSG) MZM-Extractor -a
 
 .PHONY: check
 check: all
@@ -96,7 +94,6 @@ help:
 	@echo '  dump: dump the ROMs'
 	@echo '  diff: compare the ROM with the original'
 	@echo '  clean: remove the ROM and intermediate files'
-	@echo '  extract: extract data as files using the MZM-Extractor (https://github.com/YohannDR/MZM-Extractor)'
 	@echo '  help: show this message'
 	@echo ''
 	@echo 'Flags:'
@@ -124,6 +121,9 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 	$(MSG) CC $@
 	$Q$(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
 
+%.c:
+	$(MSG) Extractor $@
+	$Q$(PYTHON) $(EXTRACTOR)
 
 src/sram/%.s: CFLAGS = -O1 -mthumb-interwork -fhex-asm
 src/sram/%.s: src/sram/%.c
