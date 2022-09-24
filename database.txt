@@ -1,2 +1,79 @@
-sprites/MorphBall.gfx;672;0x2b28a8
+# Unused sprites
+
+sprites/UnusedSprites.gfx.lz;24;0x2b2870
+sprites/UnusedSprites.pal;32;0x2b2888
+
+# Item banner
+
+sprites/ItemBanner.gfx.lz;556;0x2cb304
+sprites/ItemBanner.pal;64;0x2cb530
+
+# Zoomer
+
+sprites/Zoomer.gfx.lz;1516;0x2c4194
+sprites/Zoomer.pal;64;0x2c4780
+
+# Zeela
+
+sprites/Zeela.gfx.lz;2312;0x2c4bc0
+sprites/Zeela.pal;64;0x2c54c8
+
+# Ripper
+
+sprites/Ripper.gfx.lz;564;0x2cbb6c
+sprites/Ripper.pal;32;0x2cbda0
+
+sprites/RipperPurple.gfx.lz;564;0x2cbdc0
+sprites/Ripper.pal;32;0x2cbff4
+
+# Zeb
+
+sprites/Zeb.gfx.lz;648;0x2cc4b0
+sprites/Zeb.pal;32;0x2cc738
+
+sprites/ZebBlue.gfx.lz;648;0x2cc758
+sprites/ZebBlue.pal;32;0x2cc9e0
+
+# Skree
+
+sprites/Skree.gfx.lz;1056;0x2cca8c
+sprites/Skree.pal;32;0x2cceac
+
+sprites/SkreeBlue.gfx.lz;1056;0x2cca8c
+sprites/SkreeBlue.pal;32;0x2cd2ec
+
+# Morph ball
+
+sprites/MorphBall.gfx.lz;672;0x2b28a8
 sprites/MorphBall.pal;32;0x2b2b48
+
+# Chozo statue
+
+sprites/ChozoStatueLongBeam.gfx.lz;5340;0x2b3bc8
+sprites/ChozoStatueLongBeam.pal;160;0x2b50a4
+
+sprites/ChozoStatueIceBeam.gfx.lz;5340;0x2b5b68
+sprites/ChozoStatueIceBeam.pal;160;0x2b7044
+
+sprites/ChozoStatueWaveBeam.gfx.lz;5340;0x2b70e4
+sprites/ChozoStatueWaveBeam.pal;160;0x2b85c0
+
+sprites/ChozoStatueBomb.gfx.lz;5356;0x2b8660
+sprites/ChozoStatueBomb.pal;160;0x2b9b4c
+
+sprites/ChozoStatueSpeedbooster.gfx.lz;5368;0x2b9bec
+sprites/ChozoStatueSpeedbooster.pal;160;0x2bb0e4
+
+sprites/ChozoStatueHighJump.gfx.lz;5488;0x2bb184
+sprites/ChozoStatueHighJump.pal;160;0x2bc6f4
+
+sprites/ChozoStatueScrewAttack.gfx.lz;5512;0x2bc794
+sprites/ChozoStatueScrewAttack.pal;160;0x2bdd1c
+
+sprites/ChozoStatueVariaSuit.gfx.lz;5392;0x2bddbc
+sprites/ChozoStatueVariaSuit.pal;160;0x2bf2cc
+
+# Power grip
+
+sprites/PowerGrip.gfx.lz;1116;0x2b2c00
+sprites/PowerGrip.pal;64;0x2b305c
