@@ -475,3 +475,36 @@ sprites/FallingChozoPillar.pal;16;0x31cb00;2
 
 sprites/MechaRidley.gfx.lz;2525;0x31fcf4;4
 # TODO add rest
+
+
+
+# HUD
+
+hud/CommonSprite.pal;96;0x32ba08;2
+hud/CommonSprite.gfx;3584;0x32bac8;4
+
+hud/MissileDigits.gfx;2304;0x32f2c8;1
+hud/PowerBombDigits.gfx;2304;0x32fbc8;1
+
+hud/MissileHUD_Inactive.gfx;64;0x3304c8;1
+hud/MissileHUD_Selected.gfx;64;0x330508;1
+hud/MissileHUD_Active.gfx;64;0x330548;1
+hud/MissileHUD_Refill1.gfx;64;0x330588;1
+hud/MissileHUD_Refill2.gfx;64;0x3305c8;1
+hud/MissileHUD_Refill3.gfx;64;0x330608;1
+
+hud/SuperMissileHUDInactive_Inactive.gfx;64;0x330648;1
+hud/SuperMissileHUDInactive_Selected.gfx;64;0x330688;1
+hud/SuperMissileHUDInactive_Active.gfx;64;0x3306c8;1
+hud/SuperMissileHUDInactive_Refill1.gfx;64;0x330708;1
+hud/SuperMissileHUDInactive_Refill2.gfx;64;0x330748;1
+hud/SuperMissileHUDInactive_Refill3.gfx;64;0x330788;1
+
+hud/PowerBombHUD_Inactive.gfx;64;0x3307c8;1
+hud/PowerBombHUD_Selected.gfx;64;0x330808;1
+hud/PowerBombHUD_Active.gfx;64;0x330848;1
+hud/PowerBombHUD_Refill1.gfx;64;0x330888;1
+hud/PowerBombHUD_Refill2.gfx;64;0x3308c8;1
+hud/PowerBombHUD_Refill3.gfx;64;0x330908;1
+
+

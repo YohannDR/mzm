@@ -5,7 +5,8 @@ import os
 
 DATA_PATH = "data/"
 subDirs: array = [
-    "sprites/"
+    "sprites/",
+    "hud/"
 ]
 
 try:
