@@ -25,7 +25,7 @@ struct RoomEntry {
     u8 BG3Size;
     u8 BG3FromBottomFlag;
     u8 animatedTileset;
-    u8 animatedPalettz;
+    u8 animatedPalette;
 };
 
 struct RoomEntryROM {
