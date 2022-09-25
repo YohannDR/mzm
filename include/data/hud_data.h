@@ -65,7 +65,7 @@ static const u8 sEnergyTanksRefillGFX_Ten[160 * 3];
 static const u8 sEnergyTanksRefillGFX_Eleven[160 * 3];
 static const u8 sEnergyTanksRefillGFX_Twelve[160 * 3];
 
-static const u8 sSuitlessHUDChargeBarGFX[56][256];
+static const u8 sSuitlessHUDChargeBarGFX[56 * 256];
 
 // 8339aa8
 

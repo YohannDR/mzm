@@ -1218,7 +1218,7 @@ void HUDDrawSuitless(void)
 
     if (chargeCounter < 0x38)
     {
-        dma_set(3, sSuitlessHUDChargeBarGFX[chargeCounter], VRAM_BASE + 0x11100, (DMA_ENABLE << 16) | 0x80);
+        dma_set(3, sSuitlessHUDChargeBarGFX + chargeCounter * 256, VRAM_BASE + 0x11100, (DMA_ENABLE << 16) | 0x80);
     }
 }
 
