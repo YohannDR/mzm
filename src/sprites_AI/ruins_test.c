@@ -2095,7 +2095,7 @@ void RuinsTestSamusReflectionEnd(void)
                 }
 
                 offset = gCurrentSprite.timer;
-                dma_set(3, sRuinsTestPAL_SamusReflection[offset], (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
+                dma_set(3, (sRuinsTestPAL_SamusReflection + offset * 16), (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
             }
 
             if (gCurrentSprite.pose == RUINS_TEST_SAMUS_REFLECTION_END_POSE_FULLSUIT)
@@ -2138,7 +2138,7 @@ void RuinsTestSamusReflectionEnd(void)
             {
                 gCurrentSprite.workVariable = 0xC;
                 offset = gCurrentSprite.timer++;
-                dma_set(3, sRuinsTestPAL_SamusReflectionFullSuit[offset], (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
+                dma_set(3, (sRuinsTestPAL_SamusReflectionFullSuit + offset * 16), (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
                 if (offset > 0x8)
                 {
                     gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_END_POSE_SET_FADING_STARTED;

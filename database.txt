@@ -1,79 +1,477 @@
 # Unused sprites
 
-sprites/UnusedSprites.gfx.lz;24;0x2b2870
-sprites/UnusedSprites.pal;32;0x2b2888
+sprites/UnusedSprites.gfx.lz;6;0x2b2870;4
+sprites/UnusedSprites.pal;16;0x2b2888;2
 
 # Item banner
 
-sprites/ItemBanner.gfx.lz;556;0x2cb304
-sprites/ItemBanner.pal;64;0x2cb530
+sprites/ItemBanner.gfx.lz;139;0x2cb304;4
+sprites/ItemBanner.pal;32;0x2cb530;2
 
 # Zoomer
 
-sprites/Zoomer.gfx.lz;1516;0x2c4194
-sprites/Zoomer.pal;64;0x2c4780
+sprites/Zoomer.gfx.lz;379;0x2c4194;4
+sprites/Zoomer.pal;32;0x2c4780;2
 
 # Zeela
 
-sprites/Zeela.gfx.lz;2312;0x2c4bc0
-sprites/Zeela.pal;64;0x2c54c8
+sprites/Zeela.gfx.lz;578;0x2c4bc0;4
+sprites/Zeela.pal;32;0x2c54c8;2
 
 # Ripper
 
-sprites/Ripper.gfx.lz;564;0x2cbb6c
-sprites/Ripper.pal;32;0x2cbda0
+sprites/Ripper.gfx.lz;141;0x2cbb6c;4
+sprites/Ripper.pal;16;0x2cbda0;2
 
-sprites/RipperPurple.gfx.lz;564;0x2cbdc0
-sprites/Ripper.pal;32;0x2cbff4
+sprites/RipperPurple.gfx.lz;564;0x2cbdc0;4
+sprites/Ripper.pal;16;0x2cbff4;2
 
 # Zeb
 
-sprites/Zeb.gfx.lz;648;0x2cc4b0
-sprites/Zeb.pal;32;0x2cc738
+sprites/Zeb.gfx.lz;162;0x2cc4b0;4
+sprites/Zeb.pal;16;0x2cc738;2
 
-sprites/ZebBlue.gfx.lz;648;0x2cc758
-sprites/ZebBlue.pal;32;0x2cc9e0
+sprites/ZebBlue.gfx.lz;162;0x2cc758;4
+sprites/ZebBlue.pal;16;0x2cc9e0;2
 
 # Skree
 
-sprites/Skree.gfx.lz;1056;0x2cca8c
-sprites/Skree.pal;32;0x2cceac
+sprites/Skree.gfx.lz;264;0x2cca8c;4
+sprites/Skree.pal;16;0x2cceac;2
 
-sprites/SkreeBlue.gfx.lz;1056;0x2cca8c
-sprites/SkreeBlue.pal;32;0x2cd2ec
+sprites/SkreeBlue.gfx.lz;264;0x2cca8c;4
+sprites/SkreeBlue.pal;16;0x2cd2ec;2
 
 # Morph ball
 
-sprites/MorphBall.gfx.lz;672;0x2b28a8
-sprites/MorphBall.pal;32;0x2b2b48
+sprites/MorphBall.gfx.lz;168;0x2b28a8;4
+sprites/MorphBall.pal;16;0x2b2b48;2
 
 # Chozo statue
 
-sprites/ChozoStatueLongBeam.gfx.lz;5340;0x2b3bc8
-sprites/ChozoStatueLongBeam.pal;160;0x2b50a4
+sprites/ChozoStatueLongBeam.gfx.lz;1335;0x2b3bc8;4
+sprites/ChozoStatueLongBeam.pal;80;0x2b50a4;2
 
-sprites/ChozoStatueIceBeam.gfx.lz;5340;0x2b5b68
-sprites/ChozoStatueIceBeam.pal;160;0x2b7044
+sprites/ChozoStatueIceBeam.gfx.lz;1335;0x2b5b68;4
+sprites/ChozoStatueIceBeam.pal;80;0x2b7044;2
 
-sprites/ChozoStatueWaveBeam.gfx.lz;5340;0x2b70e4
-sprites/ChozoStatueWaveBeam.pal;160;0x2b85c0
+sprites/ChozoStatueWaveBeam.gfx.lz;1335;0x2b70e4;4
+sprites/ChozoStatueWaveBeam.pal;80;0x2b85c0;2
 
-sprites/ChozoStatueBomb.gfx.lz;5356;0x2b8660
-sprites/ChozoStatueBomb.pal;160;0x2b9b4c
+sprites/ChozoStatueBomb.gfx.lz;1339;0x2b8660;4
+sprites/ChozoStatueBomb.pal;80;0x2b9b4c;2
 
-sprites/ChozoStatueSpeedbooster.gfx.lz;5368;0x2b9bec
-sprites/ChozoStatueSpeedbooster.pal;160;0x2bb0e4
+sprites/ChozoStatueSpeedbooster.gfx.lz;1342;0x2b9bec;4
+sprites/ChozoStatueSpeedbooster.pal;80;0x2bb0e4;2
 
-sprites/ChozoStatueHighJump.gfx.lz;5488;0x2bb184
-sprites/ChozoStatueHighJump.pal;160;0x2bc6f4
+sprites/ChozoStatueHighJump.gfx.lz;1372;0x2bb184;4
+sprites/ChozoStatueHighJump.pal;80;0x2bc6f4;2
 
-sprites/ChozoStatueScrewAttack.gfx.lz;5512;0x2bc794
-sprites/ChozoStatueScrewAttack.pal;160;0x2bdd1c
+sprites/ChozoStatueScrewAttack.gfx.lz;1378;0x2bc794;4
+sprites/ChozoStatueScrewAttack.pal;80;0x2bdd1c;2
 
-sprites/ChozoStatueVariaSuit.gfx.lz;5392;0x2bddbc
-sprites/ChozoStatueVariaSuit.pal;160;0x2bf2cc
+sprites/ChozoStatueVariaSuit.gfx.lz;1348;0x2bddbc;4
+sprites/ChozoStatueVariaSuit.pal;80;0x2bf2cc;2
+
+# Sova
+
+sprites/Sova.gfx.lz;851;0x2ceaa8;4
+sprites/Soav.pal;48;0x2cf7f4;2
+
+# Multiviola
+
+sprites/Multiviola.gfx.lz;221;0x2cfda0;4
+sprites/Multiviola.pal;16;0x2d0114;2
+
+# Geruta
+
+sprites/Geruta.gfx.lz;321;0x2d06e8;4
+sprites/Geruta.pal;16;0x2d0bec;2
+
+sprites/GerutaGreen.gfx.lz;308;0x2d0c0c;4
+sprites/GerutaGreen.pal;16;0x2d10dc;2
+
+# Squeept
+
+sprites/Squeept.gfx.lz;263;0x2d1584;4
+sprites/Squeept.pal;16;0x2d19a0;2
+
+# Map station
+
+sprites/MapStation.gfx.lz;680;0x2d1c20;4
+sprites/MapStation.pal;64;0x2d26c0;2
+
+# Dragon
+
+sprites/Dragon.gfx.lz;512;0x2d51d4;4
+sprites/Dragon.pal;32;0x2d59d4;2
+
+# Zipline
+
+sprites/Zipline.gfx.lz;264;0x2ce404;4
+sprites/Zipline.pal;16;0x2ce404;2
+
+# Reo
+
+sprites/Reo.gfx.lz;277;0x2cd728;4
+sprites/Reo.pal;16;0x2cdb7c;2
+
+sprites/ReoPurple.gfx.lz;277;0x2cdb9c;4
+sprites/ReoPurple.pal;16;0x2cdff0;2
+
+# Gunship
+
+sprites/Gunship.gfx.lz;1027;0x3095d0;4
+sprites/Gunship.pal;96;0x30a5dc;2
+sprites/GunshipFlashingPal.pal;56;0x30a63c;2
+sprites/GunshipUnk.pal;72;0x30a6ac;2
+
+# Deorem
+
+sprites/Deorem.gfx.lz;1569;0x2d5c34;4
+sprites/Deorem.pal;80;0x2d74b8;2
+
+# Charge beam
+
+sprites/ChargeBeam.gfx.lz;243;0x2b3230;4
+sprites/ChargeBeam.pal;16;0x2b35fc;2
+
+# Skultera
+
+sprites/Skultera.gfx.lz;285;0x313c4c;4
+sprites/Skultera.pal;16;0x3140c0;2
+
+# Dessgeega
+
+sprites/Dessgeega.gfx.lz;270;0x2d7afc;4
+sprites/Dessgeega.pal;16;0x2d7f34;2
+
+# Waver
+
+sprites/Waver.gfx.lz;289;0x2d83c4;4
+sprites/Waver.pal;16;0x2d8848;2
+
+# Hive
+
+sprites/Hive.gfx.lz;1799;0x2d8a08;4
+sprites/Hive.pal;96;0x2da624;2
 
 # Power grip
 
-sprites/PowerGrip.gfx.lz;1116;0x2b2c00
-sprites/PowerGrip.pal;64;0x2b305c
+sprites/PowerGrip.gfx.lz;279;0x2b2c00;4
+sprites/PowerGrip.pal;32;0x2b305c;2
+
+# Imago larva
+
+sprites/ImagoLarva.gfx.lz;1195;0x2db24c;4
+sprites/ImagoLarva.pal;80;0x2dc4f8;2
+
+# Morph ball launcher
+
+sprites/MorphBallLauncher.gfx.lz;303;0x2dd820;4
+sprites/MorphBallLauncher.pal;16;0x2ddcdc;2
+
+# Imago cocoon
+
+sprites/ImagoCocoon.gfx.lz;1758;0x2de538;4
+sprites/ImagoCocoon.pal;96;0x2e00b0;2
+
+# Elevator pad
+
+sprites/ElevatorPad.gfx.lz;136;0x2e0d48;4
+sprites/ElevatorPad.pal;16;0x2e0f68;2
+
+# Space pirate
+
+sprites/SpacePirate.gfx.lz;810;0x2e1088;4
+sprites/SpacePirate.pal;48;0x2e1d30;2
+
+# Gamet
+
+sprites/GametBlue.gfx.lz;168;0x2e6108;4
+sprites/GametBlue.pal;16;0x2e63a8;2
+
+sprites/GametRed.gfx.lz;168;0x2e63c8;4
+sprites/GametRed.pal;16;0x2e6668;2
+
+# Unknown item chozo statue
+
+sprites/ChozoStatueGravitySuit.gfx.lz;1357;0x2c15f0;4
+sprites/ChozoStatueGravitySuit.pal;80;0x2c2b24;2
+
+sprites/ChozoStatuePlasmaBeam.gfx.lz;1356;0x2c2bc4;4
+sprites/ChozoStatuePlasmaBeam.pal;80;0x2c40f4;2
+
+# Security gate
+
+sprites/SecurityGate.gfx.lz;122;0x2e6750;4
+sprites/SecurityGate.pal;16;0x2e6938;2
+
+# Zebbo
+
+sprites/ZebboGreen.gfx.lz;124;0x2e6c48;4
+sprites/ZebboGreen.pal;16;0x2e6e38;2
+
+sprites/ZebboYellow.gfx.lz;124;0x2e6e58;4
+sprites/ZebboYellow.pal;16;0x2e7048;2
+
+# Worker robot
+
+sprites/WorkerRobot.gfx.lz;376;0x2e70e8;4
+sprites/WorkerRobot.pal;32;0x2e76c8;2
+
+# Parasite
+
+sprites/Parasite.gfx.lz;309;0x2e7c54;4
+sprites/Parasite.pal;16;0x2e8128;2
+
+# Piston 
+
+sprites/Piston.gfx.lz;179;0x2e85f0;4
+sprites/Piston.pal;16;0x2e88bc;2
+
+# Ridley
+
+sprites/Ridley.gfx.lz;2211;0x2e9bf0;4
+sprites/Ridley.pal;128;0x2ebe7c;2
+
+# Zipline generator
+
+sprites/ZiplineGenerator.gfx.lz;1124;0x2e49b8;4
+sprites/ZiplineGenerator.pal;64;0x2e5b48;2
+
+# Metroid
+
+sprites/Metroid.gfx.lz;793;0x2ecc84;4
+sprites/Metroid.pal;80;0x2ed8e8;2
+sprites/MetroidSamusGrabbed.pal;80;0x2ed988;2
+
+# Rinka
+
+sprites/RinkaOrange.gfx.lz;242;0x2edd38;4
+sprites/RinkaOrange.pal;16;0x2ee100;2
+
+sprites/RinkaGreen.gfx.lz;242;0x2ee120;24
+sprites/RinkaGreen.pal;16;0x2ee4e8;2
+
+# Polyp
+
+sprites/Polyp.gfx.lz;241;0x2ee770;4
+sprites/Polyp.pal;16;0x2eeb34;2
+
+# Viola
+
+sprites/ViolaBlue.gfx.lz;302;0x2eed9c;4
+sprites/ViolaBlue.pal;16;0x2ef254;2
+
+sprites/ViolaOrange.gfx.lz;305;0x2ef274;4
+sprites/ViolaOrange.pal;16;0x2ef738;2
+
+# Geron norfair
+
+sprites/GeronNorfair.gfx.lz;270;0x2fccb0;4
+sprites/GeronNorfair.pal;16;0x2fd0e8;2
+
+# Holtz
+
+sprites/Holtz.gfx.lz;200;0x2f0f94;4
+sprites/Holtz.pal;16;0x2f12b4;2
+
+# Gekitai machine
+
+sprites/GekitaiMachine.gfx.lz;364;0x2f162c;4
+sprites/GekitaiMachine.pal;80;0x2f1bdc;2
+
+# Ruins test
+
+sprites/RuinsTest.gfx.lz;1951;0x2f1de0;4
+
+sprites/RuinsTest_SamusReflectionTurningRightTop.gfx.lz;96;0x2f3c5c;4
+sprites/RuinsTest_SamusReflectionTurningRightBottom.gfx.lz;64;0x2f3ddc;4
+sprites/RuinsTest_SamusReflectionTurningLeftTop.gfx.lz;96;0x2f3edc;4
+sprites/RuinsTest_SamusReflectionTurningLeftBottom.gfx.lz;64;0x2f405c;4
+
+sprites/RuinsTest_SamusReflectionFullSuitTop.gfx.lz;96;0x2f415c;4
+sprites/RuinsTest_SamusReflectionFullSuitBottom.gfx.lz;64;0x2f42dc;4
+sprites/RuinsTest_SamusReflectionSuitlessTop.gfx.lz;96;0x2f43dc;4
+sprites/RuinsTest_SamusReflectionSuitlessBottom.gfx.lz;64;0x2f455c;4
+
+sprites/RuinsTest.pal;128;0x2f465c;2
+sprites/RuinsTest_SymbolShotFrame1.pal;8;0x2f475c;2
+sprites/RuinsTest_SymbolShotFrame2.pal;8;0x2f476c;2
+sprites/RuinsTest_SymbolShotFrame3.pal;8;0x2f477c;2
+sprites/RuinsTest_SymbolShotFrame4.pal;8;0x2f478c;2
+sprites/RuinsTest_SymbolShotFrame5.pal;8;0x2f479c;2
+sprites/RuinsTest_SymbolShotFrame6.pal;8;0x2f47ac;2
+
+sprites/RuinsTest_SamusReflection.pal;240;0x2f47bc;2
+sprites/RuinsTest_SamusReflectionFullSuit.pal;240;0x2f499c;2
+
+# Save platform
+
+sprites/SavePlatform.gfx.lz;603;0x2d3948;4
+sprites/SavePlatform.pal;64;0x2d42b4;2
+
+# Kraid
+
+sprites/Kraid.gfx.lz;2725;0x2c6340;4
+sprites/Kraid.pal;128;0x2c8dd4;2
+
+# Ripper 2
+
+sprites/Ripper2.gfx.lz;212;0x2cc0a0;4
+sprites/Ripper2.pal;16;0x2cc3f0;2
+
+# Mella
+
+sprites/Mella.gfx.lz;162;0x2f6430;4
+sprites/Mella.pal;162;0x2f66b8;2
+
+# Atomic
+
+sprites/Atomic.gfx.lz;752;0x2f6920;4
+sprites/Atomic.pal;64;0x2f74e0;2
+
+# Area banner
+
+sprites/AreaBanner.gfx.lz;65;0x2f7c90;4
+sprites/AreaBanner.pal;16;0x2f7d94;2
+sprites/AreaBannerLocationText.pal;16;0x2f7db4;2
+
+# Mother brain
+
+sprites/MotherBrain.gfx.lz;1871;0x2f8404;4
+sprites/MotherBrain.pal;96;0x2fa140;2
+
+# Acid worm
+
+sprites/AcidWorm.gfx.lz;1000;0x2fac2c;4
+sprites/AcidWorm.pal;64;0x2fbbcc;2
+
+# Escape ship
+
+sprites/EscapeShip.gfx.lz;919;0x31a63c;4
+sprites/EscapeShip.pal;64;0x31b498;2
+
+# Sidehopper
+
+sprites/Sidehopper.gfx.lz;303;0x2fc470;4
+sprites/Sidehopper.pal;16;0x2fc92c;2
+
+# Geega
+
+sprites/Geega.gfx.lz;153;0x2fd518;4
+sprites/Geega.pal;16;0x2fd77c;2
+sprites/GeegWhite.gfx.lz;153;0x2fd79c;4
+sprites/GeegaWhite.pal;16;0x2fda00;2
+
+# Zebetite, rinka, cannon
+
+sprites/ZebetiteRinkaCannon.gfx.lz;476;0x2fdac0;4
+sprites/ZebetiteRinkaCannon.pal;32;0x2fe230;2
+
+# Imago larva right side
+
+sprites/ImagoLarvaRightSide.gfx.lz;592;0x2fec24;4
+sprites/ImagoLarvaRightSide.pal;32;0x2ff564;2
+
+# Tangle vine
+
+sprites/TangleVine.gfx.lz;1298;0x2ffabc;4
+sprites/TangleVine.pal;80;0x300f04;2
+
+# Imago
+
+sprites/Imago.gfx.lz;1503;0x301a90;4
+sprites/Imago.pal;96;0x30320c;2
+
+# Crocomire
+
+sprites/Crocomire.gfx.lz;1954;0x304054;4
+sprites/Crocomire.pal;128;0x305edc;2
+
+# Geron
+
+sprites/Geron.gfx.lz;711;0x30767c;4
+sprites/Geron.pal;78;0x308198;2
+
+# Glass tube
+
+sprites/GlassTube.gfx.lz;514;0x30b218;4
+sprites/GlassTube.pal;90;0x30ba20;2
+
+# Save platform chozodia
+
+sprites/SavePlatformChozodia.gfx.lz;552;0x30d674;4
+sprites/SavePlatformChozodia.pal;64;0x30df14;2
+
+# Baristute
+
+sprites/Baristute.gfx.lz;596;0x30f560;4
+sprites/Baristute.pal;80;0x30feb0;2
+
+# Elevator statues
+
+sprites/ElevatorStatues.gfx.lz;1122;0x31059c;4
+sprites/ElevatorStatues.pal;64;0x311724;2
+
+# Rising chozo pillar
+
+sprites/RisingChozoPillar.gfx.lz;671;0x312b98;4
+sprites/RisingChozoPillar.pal;64;0x313614;2
+
+# Security laser
+
+sprites/SecurityLaser.gfx.lz;104;0x2efa98;4
+sprites/SecurityLaser.pal;16;0x2efc38;2
+
+# Boss statues
+
+sprites/BossStatues.gfx.lz;2388;0x314304;4
+sprites/BossStatues.pal;128;0x316854;2
+
+# Searchlight eye
+
+sprites/SearchlightEye.gfx.lz;177;0x3070e8;4
+sprites/SearchlightEye.pal;16;0x3073ac;2
+
+# Steam
+
+sprites/Steam.gfx.lz;195;0x3188cc;4
+sprites/Steam.pal;16;0x318bd8;2
+
+# Unknown item block
+
+sprites/PlasmaBeamBlock.gfx.lz;306;0x31936c;4
+sprites/PlasmaBeamBlock.pal;16;0x319834;2
+
+sprites/GravitySuitBlock.gfx.lz;303;0x319854;4
+sprites/GravitySuitBlock.pal;16;0x319d10;2
+
+sprites/SpaceJumpBlock.gfx.lz;297;0x319d30;4
+sprites/SpaceJumpBlock.pal;16;0x31a1d4;42
+
+# Gadora
+
+sprites/Gadora.gfx.lz;585;0x317a30;4
+sprites/Gadora.pal;32;0x318354;2
+
+# Searchlight
+
+sprites/Searchlight.gfx.lz;172;0x317638;4
+sprites/Searchlight.pal;16;0x3178e8;2
+
+# Fake power bomb
+
+sprites/FakePowerBomb.gfx.lz;115;0x31c560;4
+sprites/FakePowerBomb.pal;16;0x31c72c;2
+
+# Falling chozo pillar
+
+sprites/FallingChozoPillar.gfx.lz;219;0x31c794;4
+sprites/FallingChozoPillar.pal;16;0x31cb00;2
+
+# Mecha Ridley
+
+sprites/MechaRidley.gfx.lz;2525;0x31fcf4;4
+# TODO add rest

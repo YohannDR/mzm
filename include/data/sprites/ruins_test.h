@@ -20,8 +20,8 @@ static const u16 sRuinsTestPAL_SymbolShot_Frame3[8];
 static const u16 sRuinsTestPAL_SymbolShot_Frame4[8];
 static const u16 sRuinsTestPAL_SymbolShot_Frame5[8];
 static const u16 sRuinsTestPAL_SymbolShot_Frame6[8];
-static const u16 sRuinsTestPAL_SamusReflection[15][16];
-static const u16 sRuinsTestPAL_SamusReflectionFullSuit[15][16];
+static const u16 sRuinsTestPAL_SamusReflection[15 * 16];
+static const u16 sRuinsTestPAL_SamusReflectionFullSuit[15 * 16];
 
 static const u16 sRuinsTestSamusReflectionOAM_Frame0[13] = {
     0x3,

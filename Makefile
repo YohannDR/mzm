@@ -125,10 +125,6 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 	$(MSG) CC $@
 	$Q$(PREPROC) $< | $(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
 
-%.c:
-	$(MSG) Extractor $@
-	$Q$(PYTHON) $(EXTRACTOR)
-
 src/sram/%.s: CFLAGS = -O1 -mthumb-interwork -fhex-asm
 src/sram/%.s: src/sram/%.c
 
