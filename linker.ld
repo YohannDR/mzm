@@ -54,8 +54,8 @@ SECTIONS {
         . = 0x00000063; gNumberOfItemsCollected = .;
         . = 0x0000006C; gEffectYPosition = .;
         . = 0x0000006E; gEffectYPositionOffset = .;
-        . = 0x00000071; gScreenShakeXRelated = .;
-        . = 0x00000073; gScreenShakeYRelated = .;
+        . = 0x00000071; gScreenShakeXOffset = .;
+        . = 0x00000073; gScreenShakeYOffset = .;
         . = 0x00000074; gScreenShakeRelated = .;
         . = 0x00000074; gDISPCNTBackup = .;
         . = 0x00000078; gSpriteset = .;

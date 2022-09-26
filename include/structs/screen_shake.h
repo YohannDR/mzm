@@ -7,11 +7,11 @@ struct ScreenShake {
     u8 timer;
     u8 loopCounter;
     u8 unknown; // intensity ?
-    u8 unknown2;
+    u8 direction;
 };
 
-extern u8 gScreenShakeXRelated;
-extern u8 gScreenShakeYRelated;
+extern u8 gScreenShakeXOffset;
+extern u8 gScreenShakeYOffset;
 extern u16 gScreenShakeRelated;
 extern struct ScreenShake gScreenShakeY;
 extern struct ScreenShake gScreenShakeX;

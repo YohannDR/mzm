@@ -8,8 +8,8 @@ u8 ScreenShakeStartVertical(u8 duration, u8 unk)
         gScreenShakeY.timer = duration;
         gScreenShakeY.loopCounter = 0x0;
         gScreenShakeY.unknown = unk;
-        gScreenShakeY.unknown2 = 0x0;
-        gScreenShakeYRelated = 0x0;
+        gScreenShakeY.direction = 0x0;
+        gScreenShakeYOffset = 0x0;
     }
     return gScreenShakeY.timer;
 }
@@ -21,8 +21,8 @@ u8 ScreenShakeStartHorizontal(u8 duration, u8 unk)
         gScreenShakeX.timer = duration;
         gScreenShakeX.loopCounter = 0x0;
         gScreenShakeX.unknown = unk;
-        gScreenShakeX.unknown2 = 0x0;
-        gScreenShakeXRelated = 0x0;
+        gScreenShakeX.direction = 0x0;
+        gScreenShakeXOffset = 0x0;
     }
     return gScreenShakeX.timer;
 }
@@ -34,86 +34,90 @@ u8 ScreenShakeStartHorizontal_Unused(u8 duration)
         gScreenShakeX.timer = duration;
         gScreenShakeX.loopCounter = 0x0;
         gScreenShakeX.unknown = 0x0;
-        gScreenShakeX.unknown2 = 0x0;
-        gScreenShakeXRelated = 0x0;
+        gScreenShakeX.direction = 0x0;
+        gScreenShakeXOffset = 0x0;
     }
     return gScreenShakeX.timer;
 }
 
 i32 ScreenShakeUpdateVertical(void)
 {
+    // https://decomp.me/scratch/je2b5
+
     i32 offset;
     i32 unk;
-    u8 unk2;
-    u8 zero;
 
-    zero = 0x0;
-    gScreenShakeYRelated = zero;
-    if (gScreenShakeY.timer == 0x0)
-        return 0x0;
+    offset = 0;
+    gScreenShakeYOffset = offset;
+
+    if (gScreenShakeY.timer == 0)
+        return offset;
     else
     {
         gScreenShakeY.timer--;
-        if (gScreenShakeY.loopCounter < 0x2)
+        if (gScreenShakeY.loopCounter < 2)
         {
             gScreenShakeY.loopCounter++;
-            return 0x0;
+            return offset;
         }
-        else
+
+        gScreenShakeY.loopCounter = offset;
+
+        unk = gScreenShakeY.unknown & 0x7F;
+        offset = -2;
+        if (gScreenShakeY.direction)
         {
-            gScreenShakeY.loopCounter = zero;
-            unk2 = gScreenShakeY.unknown & 0x7F;
-            unk = -0x2;
-            if (gScreenShakeY.unknown2 != 0x0)
-            {
-                unk = 0x2;
-                unk = (-(unk2) | unk2) >> 0x1F & 0x2;
-            }
-            gScreenShakeY.unknown2 ^= 0x1;
-            if (gScreenShakeY.timer < 0x10)
-                unk >>= 0x1;
-            gScreenShakeYRelated = (u8)unk;
-            offset = unk;
+            offset = 2;
+            offset &= (-unk | unk) >> 0x1F;
         }
+
+        gScreenShakeY.direction ^= TRUE;
+        if (gScreenShakeY.timer < 16)
+            offset >>= 1;
+
+        gScreenShakeYOffset = offset;
     }
+
     return offset;
 }
 
 i32 ScreenShakeUpdateHorizontal(void)
 {
+    // https://decomp.me/scratch/O4FYJ
+
     i32 offset;
     i32 unk;
-    u8 unk2;
-    u8 zero;
 
-    zero = 0x0;
-    gScreenShakeXRelated = zero;
-    if (gScreenShakeX.timer == 0x0)
-    return 0x0;
+    offset = 0;
+    gScreenShakeXOffset = offset;
+
+    if (gScreenShakeX.timer == 0)
+        return offset;
     else
     {
         gScreenShakeX.timer--;
-        if (gScreenShakeX.loopCounter < 0x2)
+        if (gScreenShakeX.loopCounter < 2)
         {
             gScreenShakeX.loopCounter++;
-            offset = 0x0;
+            return offset;
         }
-        else
+
+        gScreenShakeX.loopCounter = 0;
+
+        unk = gScreenShakeX.unknown & 0x7F;
+        offset = -2;
+        if (gScreenShakeX.direction)
         {
-            gScreenShakeX.loopCounter = zero;
-            unk2 = gScreenShakeX.unknown & 0x7F;
-            unk = -0x2;
-            if (gScreenShakeX.unknown2 != 0x0)
-            {
-                unk = 0x2;
-                unk = (-(unk2) | unk2) >> 0x1F & unk;
-            }
-            gScreenShakeX.unknown2 ^= 0x1;
-            if (gScreenShakeX.timer < 0x10)
-                unk >>= 0x1;
-            gScreenShakeXRelated = (u8)unk;
-            offset = unk;
+            offset = 2;
+            offset &= (-unk | unk) >> 0x1F;
         }
+
+        gScreenShakeX.direction ^= TRUE;
+        if (gScreenShakeX.timer < 16)
+            offset >>= 1;
+
+        gScreenShakeXOffset = offset;
     }
+
     return offset;
 }
