@@ -22,38 +22,48 @@ const struct FrameData ParticleSpriteSplashAcidBig_oam[1];
 const struct FrameData ParticleSpriteSplashAcidHuge_oam[1];
 
 /**
- * 53dd0 | 98 | 
- * Checks if a particle effect is on screen
+ * 53dd0 | 98 | Checks if a particle effect is on screen
  * 
  * @param pParticle Particle Effect Pointer
  */
 void ParticleCheckOnScreen(struct ParticleEffect* pParticle)
 {
-    /*u16 bgY_offset;
-    u16 yOffset;
-    u16 bgX_offset;
-    u16 xOffset;
+    u16 bgBaseY;
+    u16 bgBaseX;
+    u16 bgRightBoundry;
+    u16 bgTopBoundry;
+    u16 bgLeftBoundry;
+    u16 bgBottomBoundry;
+    u16 particleY;
+    u16 particleX;
 
     if (pParticle->status & PARTICLE_STATUS_ABSOLUTE_POSITION)
         pParticle->status |= PARTICLE_STATUS_ONSCREEN;
     else
     {
-        bgY_offset = gBG1YPosition + 0x200;
-        yOffset = pParticle->yPosition + 0x200;
-        bgX_offset = gBG1XPosition + 0x200;
-        xOffset = pParticle->xPosition + 0x200;
+        bgBaseY = gBG1YPosition + BLOCK_SIZE * 8;
+        particleY = pParticle->yPosition + BLOCK_SIZE * 8;
+        bgBottomBoundry = bgBaseY - BLOCK_SIZE * 2;
+        bgTopBoundry = bgBaseY + BLOCK_SIZE * 12;
 
-        if (x_offset >= bgX_offset && bgX_offset >= xOffset && yOffset >= bgY_offset && bgY_offset >= yOffset)
+        bgBaseX = gBG1XPosition + BLOCK_SIZE * 8;
+        particleX = pParticle->xPosition + BLOCK_SIZE * 8;
+        bgLeftBoundry = bgBaseX - BLOCK_SIZE * 2;
+        bgRightBoundry = bgBaseX + (BLOCK_SIZE * 17);
+
+        if (bgLeftBoundry < particleX && particleX < bgRightBoundry &&
+            bgBottomBoundry < particleY && particleY < bgTopBoundry)
             pParticle->status |= PARTICLE_STATUS_ONSCREEN;
         else
         {
-            if (pParticle->status & PARTICLE_STATUS_SPECIAL_EFFECT)
+            if (pParticle->status & PARTICLE_STATUS_LIVE_OFF_SCREEN)
                 pParticle->status &= ~PARTICLE_STATUS_ONSCREEN;
             else
-                pParticle->status |= PARTICLE_STATUS_ONSCREEN;
+                pParticle->status = 0x0;
         }
-    }*/
+    }
 }
+
 /**
  * 53e68 | 170 | Draws a particle effect
  * 
@@ -1621,7 +1631,7 @@ void ParticleChargingBeam(struct ParticleEffect* pParticle)
         switch (pParticle->stage)
         {
             case 0x0:
-                pParticle->status |= PARTICLE_STATUS_SPECIAL_EFFECT;
+                pParticle->status |= PARTICLE_STATUS_LIVE_OFF_SCREEN;
                 pParticle->stage++;
                 ParticleUpdateAnimation(pParticle, sParticleChargingBeamBeginOAM);
                 ParticlePlayBeginToChargeSound();
@@ -1672,7 +1682,7 @@ void ParticleEscape(struct ParticleEffect* pParticle)
     {
         case 0x0:
             pParticle->stage = 0x1;
-            pParticle->status |= (PARTICLE_STATUS_EXPLOSION | PARTICLE_STATUS_SPECIAL_EFFECT | PARTICLE_STATUS_ABSOLUTE_POSITION);
+            pParticle->status |= (PARTICLE_STATUS_EXPLOSION | PARTICLE_STATUS_LIVE_OFF_SCREEN | PARTICLE_STATUS_ABSOLUTE_POSITION);
             EscapeSetTimer();
             gCurrentEscapeStatus = ESCAPE_STATUS_HAPPENNING;
             break;
@@ -1719,7 +1729,7 @@ void ParticleSamusReflection(struct ParticleEffect* pParticle)
     if (pParticle->stage == 0x0)
     {
         pParticle->stage = 0x1;
-        pParticle->status |= (PARTICLE_STATUS_SPECIAL_EFFECT | PARTICLE_STATUS_LOW_PRIORITY | PARTICLE_STATUS_XFLIP); // Init status
+        pParticle->status |= (PARTICLE_STATUS_LIVE_OFF_SCREEN | PARTICLE_STATUS_LOW_PRIORITY | PARTICLE_STATUS_XFLIP); // Init status
     }
 
     pSrc = (u16*)gSamusPhysics.pBodyOam;
