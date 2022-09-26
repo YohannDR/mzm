@@ -187,11 +187,8 @@ void SearchlightEyeShoot(void)
 
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         {
-            // Probably flips the X flip status
-            status = gCurrentSprite.status & SPRITE_STATUS_XFLIP;
-            status = -status;
-            status >>= 0x1F;
-            status &= SPRITE_STATUS_XFLIP;
+            // Custom eor for some reason
+            status = gCurrentSprite.status & SPRITE_STATUS_XFLIP ? SPRITE_STATUS_XFLIP : 0;
             
             // Spawn beam
             SpriteSpawnSecondary(SSPRITE_SEARCHLIGHT_EYE_PROJECTILE, 0x0,
