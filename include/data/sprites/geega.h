@@ -1,13 +1,14 @@
-#ifndef GEEGA_DATA_C
-#define GEEGA_DATA_C
+#ifndef GEEGA_DATA_H
+#define GEEGA_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sGeegaGFX[153];
-static const u16 sGeegaPAL[16];
-static const u32 sGeegaWhiteGFX[153];
-static const u16 sGeegaWhitePAL[16];
+static const u32 sGeegaGFX[153] = INCBIN_U32("data/sprites/Geega.gfx.lz");
+static const u16 sGeegaPAL[16] = INCBIN_U16("data/sprites/Geega.pal");
+static const u32 sGeegaWhiteGFX[153] = INCBIN_U32("data/sprites/GeegaWhite.gfx.lz");
+static const u16 sGeegaWhitePAL[16] = INCBIN_U16("data/sprites/GeegaWhite.pal");
 
 static const u16 sGeegaOAM_Idle_Frame0[4] = {
     0x1,

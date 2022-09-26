@@ -1,11 +1,12 @@
-#ifndef GERON_NORFAIR_DATA_C
-#define GERON_NORFAIR_DATA_C
+#ifndef GERON_NORFAIR_DATA_H
+#define GERON_NORFAIR_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sGeronNorfairGFX[270];
-static const u16 sGeronNorfairPAL[16];
+static const u32 sGeronNorfairGFX[270] = INCBIN_U32("data/sprites/GeronNorfair.gfx.lz");
+static const u16 sGeronNorfairPAL[16] = INCBIN_U16("data/sprites/GeronNorfair.pal");
 
 static const u16 sGeronNorfairOAM_Idle_Frame0[43] = {
     0xe,

@@ -1,11 +1,12 @@
-#ifndef SAVE_PLATFORM_CHOZODIA_DATA_C
-#define SAVE_PLATFORM_CHOZODIA_DATA_C
+#ifndef SAVE_PLATFORM_CHOZODIA_DATA_H
+#define SAVE_PLATFORM_CHOZODIA_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sSavePlatformChozodiaGFX[552];
-static const u16 sSavePlatformChozodiaPAL[64];
+static const u32 sSavePlatformChozodiaGFX[552] = INCBIN_U32("data/sprites/SavePlatformChozodia.gfx.lz");
+static const u16 sSavePlatformChozodiaPAL[64] = INCBIN_U16("data/sprites/SavePlatformChozodia.pal");
 
 static const u16 sSavePlatformChozodiaOAM_Idle_Frame0[61] = {
     0x14,

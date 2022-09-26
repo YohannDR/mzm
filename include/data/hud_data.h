@@ -1,5 +1,5 @@
-#ifndef HUD_DATA_C
-#define HUD_DATA_C
+#ifndef HUD_DATA_H
+#define HUD_DATA_H
 
 #include "types.h"
 

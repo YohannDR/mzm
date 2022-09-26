@@ -1,7 +1,8 @@
-#ifndef TANGLE_VINE_DATA_C
-#define TANGLE_VINE_DATA_C
+#ifndef TANGLE_VINE_DATA_H
+#define TANGLE_VINE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sTangleVineGerutaMultiSpriteData_Idle_Frame0[9] = {
@@ -41,8 +42,8 @@ static const struct FrameData sTangleVineGerutaMultiSpriteData_Idle[5] = {
     0x0
 };
 
-static const u32 sTangleVineGFX[1298];
-static const u16 sTangleVinePAL[80];
+static const u32 sTangleVineGFX[1298] = INCBIN_U32("data/sprites/TangleVine.gfx.lz");
+static const u16 sTangleVinePAL[80] = INCBIN_U16("data/sprites/TangleVine.pal");
 
 static const u16 sTangleVineTallOAM_OnGround_Frame3[13] = {
     0x4,

@@ -1,11 +1,12 @@
-#ifndef STEAM_DATA_C
-#define STEAM_DATA_C
+#ifndef STEAM_DATA_H
+#define STEAM_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sSteamGFX[780];
-static const u16 sSteamPAL[16];
+static const u8 sSteamGFX[780] = INCBIN_U32("data/sprites/Steam.gfx.lz");
+static const u16 sSteamPAL[16] = INCBIN_U16("data/sprites/Steam.pal");
 
 static const u16 sSteamOAM_HorizontalLarge_Frame0[4] = {
     0x1,

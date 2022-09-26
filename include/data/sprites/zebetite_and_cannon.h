@@ -1,11 +1,12 @@
-#ifndef ZEBETITE_AND_CANNON_DATA_C
-#define ZEBETITE_AND_CANNON_DATA_C
+#ifndef ZEBETITE_AND_CANNON_DATA_H
+#define ZEBETITE_AND_CANNON_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sRinkaZebetiteAndCannonGFX[476];
-static const u16 sRinkaZebetiteAndCannonPAL[32];
+static const u32 sRinkaZebetiteAndCannonGFX[476] = INCBIN_U32("data/sprites/ZebetiteRinkaCannon.gfx.lz");
+static const u16 sRinkaZebetiteAndCannonPAL[32] = INCBIN_U16("data/sprites/ZebetiteRinkaCannon.pal");
 
 static const u16 sRinkaMotherBrainOAM_Moving_Frame0[7] = {
     0x2,

@@ -1,7 +1,8 @@
-#ifndef ACID_WORM_DATA_C
-#define ACID_WORM_DATA_C
+#ifndef ACID_WORM_DATA_H
+#define ACID_WORM_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sAcidWormSpitTwoYVelocity[16] = {
@@ -29,8 +30,8 @@ static const i16 sAcidWormHeadRandomXVelocity[45] = {
     0x4, 0x4, 0x3, 0x2, 0x2, 0x1, 0x1, SHORT_MAX
 };
 
-static const u8 sAcidWormGFX[4000];
-static const u16 sAcidWormPAL[64];
+static const u32 sAcidWormGFX[1000] = INCBIN_U32("data/sprites/AcidWorm.gfx.lz");
+static const u16 sAcidWormPAL[64] = INCBIN_U16("data/sprites/AcidWorm.pal");
 
 static const u16 sAcidWormBodyOAM_Unused2_Frame0[52] = {
     0x11,

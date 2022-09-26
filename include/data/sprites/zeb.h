@@ -1,13 +1,14 @@
-#ifndef ZEB_DATA_C
-#define ZEB_DATA_C
+#ifndef ZEB_DATA_H
+#define ZEB_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sZebGFX[162];
-static const u16 sZebPAL[16];
-static const u32 sZebBlueGFX[162];
-static const u16 sZebBluePAL[16];
+static const u32 sZebPinkGFX[162] = INCBIN_U32("data/sprites/ZebPink.gfx.lz");
+static const u16 sZebPinkPAL[16] = INCBIN_U16("data/sprites/ZebPink.pal");
+static const u32 sZebBlueGFX[162] = INCBIN_U32("data/sprites/ZebBlue.gfx.lz");
+static const u16 sZebBluePAL[16] = INCBIN_U16("data/sprites/ZebBlue.pal");
 
 static const u16 sZebOAM_Idle_Frame0[7] = {
     0x2,

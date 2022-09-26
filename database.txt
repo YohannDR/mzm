@@ -20,24 +20,24 @@ sprites/Zeela.pal;32;0x2c54c8;2
 
 # Ripper
 
-sprites/Ripper.gfx.lz;141;0x2cbb6c;4
-sprites/Ripper.pal;16;0x2cbda0;2
+sprites/RipperBrown.gfx.lz;141;0x2cbb6c;4
+sprites/RipperBrown.pal;16;0x2cbda0;2
 
 sprites/RipperPurple.gfx.lz;564;0x2cbdc0;4
-sprites/Ripper.pal;16;0x2cbff4;2
+sprites/RipperPurple.pal;16;0x2cbff4;2
 
 # Zeb
 
-sprites/Zeb.gfx.lz;162;0x2cc4b0;4
-sprites/Zeb.pal;16;0x2cc738;2
+sprites/ZebPink.gfx.lz;162;0x2cc4b0;4
+sprites/ZebPink.pal;16;0x2cc738;2
 
 sprites/ZebBlue.gfx.lz;162;0x2cc758;4
 sprites/ZebBlue.pal;16;0x2cc9e0;2
 
 # Skree
 
-sprites/Skree.gfx.lz;264;0x2cca8c;4
-sprites/Skree.pal;16;0x2cceac;2
+sprites/SkreeGreen.gfx.lz;264;0x2cca8c;4
+sprites/SkreeGreen.pal;16;0x2cceac;2
 
 sprites/SkreeBlue.gfx.lz;264;0x2cca8c;4
 sprites/SkreeBlue.pal;16;0x2cd2ec;2
@@ -85,8 +85,8 @@ sprites/Multiviola.pal;16;0x2d0114;2
 
 # Geruta
 
-sprites/Geruta.gfx.lz;321;0x2d06e8;4
-sprites/Geruta.pal;16;0x2d0bec;2
+sprites/GerutaRed.gfx.lz;321;0x2d06e8;4
+sprites/GerutaRed.pal;16;0x2d0bec;2
 
 sprites/GerutaGreen.gfx.lz;308;0x2d0c0c;4
 sprites/GerutaGreen.pal;16;0x2d10dc;2
@@ -113,8 +113,8 @@ sprites/Zipline.pal;16;0x2ce404;2
 
 # Reo
 
-sprites/Reo.gfx.lz;277;0x2cd728;4
-sprites/Reo.pal;16;0x2cdb7c;2
+sprites/ReoGreenWings.gfx.lz;277;0x2cd728;4
+sprites/ReoGreenWings.pal;16;0x2cdb7c;2
 
 sprites/ReoPurple.gfx.lz;277;0x2cdb9c;4
 sprites/ReoPurple.pal;16;0x2cdff0;2
@@ -123,8 +123,7 @@ sprites/ReoPurple.pal;16;0x2cdff0;2
 
 sprites/Gunship.gfx.lz;1027;0x3095d0;4
 sprites/Gunship.pal;96;0x30a5dc;2
-sprites/GunshipFlashingPal.pal;56;0x30a63c;2
-sprites/GunshipUnk.pal;72;0x30a6ac;2
+sprites/GunshipFlashingPal.pal;128;0x30a63c;2
 
 # Deorem
 
@@ -195,6 +194,9 @@ sprites/GametRed.gfx.lz;168;0x2e63c8;4
 sprites/GametRed.pal;16;0x2e6668;2
 
 # Unknown item chozo statue
+
+sprites/ChozoStatueSpaceJump.gfx.lz;1353;0x2bf534;4
+sprites/ChozoStatueSpaceJump.pal;80;0x2c0a58;2
 
 sprites/ChozoStatueGravitySuit.gfx.lz;1357;0x2c15f0;4
 sprites/ChozoStatueGravitySuit.pal;80;0x2c2b24;2
@@ -352,6 +354,7 @@ sprites/AcidWorm.pal;64;0x2fbbcc;2
 
 sprites/EscapeShip.gfx.lz;919;0x31a63c;4
 sprites/EscapeShip.pal;64;0x31b498;2
+sprites/EscapeShipFlashing.pal;48;0x31b518;2
 
 # Sidehopper
 
@@ -362,7 +365,7 @@ sprites/Sidehopper.pal;16;0x2fc92c;2
 
 sprites/Geega.gfx.lz;153;0x2fd518;4
 sprites/Geega.pal;16;0x2fd77c;2
-sprites/GeegWhite.gfx.lz;153;0x2fd79c;4
+sprites/GeegaWhite.gfx.lz;153;0x2fd79c;4
 sprites/GeegaWhite.pal;16;0x2fda00;2
 
 # Zebetite, rinka, cannon
@@ -476,7 +479,11 @@ sprites/FallingChozoPillar.pal;16;0x31cb00;2
 sprites/MechaRidley.gfx.lz;2525;0x31fcf4;4
 # TODO add rest
 
+# Escape gate
 
+sprites/EscapeGateAndTimer.gfx;2048;0x32618c;1
+sprites/EscapeGateAndTimer.pal;16;0x32698c;2
+sprites/EscapeGateFlashing.pal;96;0x3269ac;2
 
 # HUD
 

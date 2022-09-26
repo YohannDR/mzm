@@ -1,13 +1,14 @@
-#ifndef ZEBBO_DATA_C
-#define ZEBBO_DATA_C
+#ifndef ZEBBO_DATA_H
+#define ZEBBO_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sZebboGreenGFX[124];
-static const u32 sZebboGreenPAL[16];
-static const u32 sZebboYellowGFX[124];
-static const u32 sZebboYellowPAL[16];
+static const u32 sZebboGreenGFX[124] = INCBIN_U32("data/sprites/ZebboGreen.gfx.lz");
+static const u16 sZebboGreenPAL[16] = INCBIN_U16("data/sprites/ZebboGreen.pal");
+static const u32 sZebboYellowGFX[124] = INCBIN_U32("data/sprites/ZebboYellow.gfx.lz");
+static const u16 sZebboYellowPAL[16] = INCBIN_U16("data/sprites/ZebboYellow.pal");
 
 static const u16 sZebboOAM_Idle_Frame0[4] = {
     0x1,

@@ -1,15 +1,16 @@
-#ifndef UNKNOWN_ITEM_BLOCK_DATA_C
-#define UNKNOWN_ITEM_BLOCK_DATA_C
+#ifndef UNKNOWN_ITEM_BLOCK_DATA_H
+#define UNKNOWN_ITEM_BLOCK_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sPlasmaBeamBlockGFX[1224];
-static const u16 sPlasmaBeamBlockPAL[16];
-static const u8 sGravityBlockGFX[1212];
-static const u16 sGravityBlockPAL[16];
-static const u8 sSpaceJumpBlockGFX[1188];
-static const u16 sSpaceJumpBlockPAL[16];
+static const u32 sPlasmaBeamBlockGFX[306] = INCBIN_U32("data/sprites/PlasmaBeamBlock.gfx.lz");
+static const u16 sPlasmaBeamBlockPAL[16] = INCBIN_U16("data/sprites/PlasmaBeamBlock.pal");
+static const u32 sGravityBlockGFX[303] = INCBIN_U32("data/sprites/GravityBeamBlock.gfx.lz");
+static const u16 sGravityBlockPAL[16] = INCBIN_U16("data/sprites/GravityBeamBlock.pal");
+static const u32 sSpaceJumpBlockGFX[297] = INCBIN_U32("data/sprites/SpaceJumpBeamBlock.gfx.lz");
+static const u16 sSpaceJumpBlockPAL[16] = INCBIN_U16("data/sprites/SpaceJumpBeamBlock.pal");
 
 static const u16 sUnknownItemBlockOAM_Idle_Frame0[7] = {
     0x2,

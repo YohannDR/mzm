@@ -1,11 +1,12 @@
-#ifndef PARASITE_DATA_C
-#define PARASITE_DATA_C
+#ifndef PARASITE_DATA_H
+#define PARASITE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sParasiteGFX[309];
-static const u16 sParasitePAL[16];
+static const u32 sParasiteGFX[309] = INCBIN_U32("data/sprites/Parasite.gfx.lz");
+static const u16 sParasitePAL[16] = INCBIN_U16("data/sprites/Parasite.pal");
 
 static const u16 sParasiteOAM_Idle_Frame0[4] = {
     0x1,

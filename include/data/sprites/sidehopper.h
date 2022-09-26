@@ -1,7 +1,8 @@
-#ifndef SIDEHOPPER_DATA_C
-#define SIDEHOPPER_DATA_C
+#ifndef SIDEHOPPER_DATA_H
+#define SIDEHOPPER_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sSidehopperHighJumpVelocity[10] = {
@@ -12,8 +13,8 @@ static const i16 sSidehopperLowJumpVelocity[10] = {
     -4, -8, -4, -2, 0, 4, 8, 16, 16, 16
 };
 
-static const u32 sSidehopperGFX[303];
-static const u16 sSidehopperPAL[16];
+static const u32 sSidehopperGFX[303] = INCBIN_U32("data/sprites/Sidehopper.gfx.lz");
+static const u16 sSidehopperPAL[16] = INCBIN_U16("data/sprites/Sidehopper.pal");
 
 static const u16 sSidehopperOAM_Idle_Frame0[19] = {
     0x6,

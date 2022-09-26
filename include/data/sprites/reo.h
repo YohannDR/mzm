@@ -1,7 +1,8 @@
-#ifndef REO_DATA_C
-#define REO_DATA_C
+#ifndef REO_DATA_H
+#define REO_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sReoIdleYMovement[65] = {
@@ -22,10 +23,10 @@ static const i16 sReoIdleXMovement[81] = {
     -1, 0, 0, 0, 0, SHORT_MAX
 };
 
-static const u32 sReoGFX[277];
-static const u16 sReoPAL[16];
-static const u32 sReoPurpleWingsGFX[277];
-static const u16 sReoPurpleWingsPAL[16];
+static const u32 sReoGreenWingsGFX[277] = INCBIN_U32("data/sprites/ReoGreenWings.gfx.lz");
+static const u16 sReoGrrenWingsPAL[16] = INCBIN_U16("data/sprites/ReoGreenWings.pal");
+static const u32 sReoPurpleWingsGFX[277] = INCBIN_U32("data/sprites/ReoPurpleWings.gfx.lz");
+static const u16 sReoPurpleWingsPAL[16] = INCBIN_U16("data/sprites/ReoPurpleWings.pal");
 
 static const u16 sReoOAM_Idle_Frame0[10] = {
     0x3,

@@ -1,7 +1,8 @@
-#ifndef CHARGE_BEAM_DATA_C
-#define CHARGE_BEAM_DATA_C
+#ifndef CHARGE_BEAM_DATA_H
+#define CHARGE_BEAM_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sChargeBeamIdleYMovement[66] = {
@@ -12,8 +13,8 @@ static const i16 sChargeBeamIdleYMovement[66] = {
     0, SHORT_MAX
 };
 
-static const u32 sChargeBeamGFX[243];
-static const u16 sChargeBeamPAL[16];
+static const u32 sChargeBeamGFX[243] = INCBIN_U32("data/sprites/ChargeBeam.gfx.lz");
+static const u16 sChargeBeamPAL[16] = INCBIN_U16("data/sprites/ChargeBeam.pal");
 
 static const u16 sChargeBeamOAM_Visible_Frame0[4] = {
     0x1,

@@ -1,11 +1,12 @@
-#ifndef WORKER_ROBOT_DATA_C
-#define WORKER_ROBOT_DATA_C
+#ifndef WORKER_ROBOT_DATA_H
+#define WORKER_ROBOT_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sWorkerRobotGFX[376];
-static const u16 sWorkerRobotPAL[32];
+static const u32 sWorkerRobotGFX[376] = INCBIN_U32("data/sprites/sprites/WorkerRobot.gfx.lz");
+static const u16 sWorkerRobotPAL[32] = INCBIN_U16("data/sprites/WorkerRobot.pal");
 
 static const u16 sWorkerRobotOAM_Walking_Frame2[19] = {
     0x6,

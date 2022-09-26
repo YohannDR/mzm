@@ -1,7 +1,8 @@
-#ifndef BARISTUTE_DATA_C
-#define BARISTUTE_DATA_C
+#ifndef BARISTUTE_DATA_H
+#define BARISTUTE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sBaristuteFallingYVelocity[8] = {
@@ -12,8 +13,8 @@ static const i16 sBaristuteJumpingYVelocity[10] = {
     -12, -16, -16, -8, -4, 0, 12, 18, 24, 32
 };
 
-static const u32 sBaristuteGFX[596];
-static const u16 sBaristutePAL[80];
+static const u32 sBaristuteGFX[596] = INCBIN_U32("data/sprites/Barsitute.gfx.lz");
+static const u16 sBaristutePAL[80] = INCBIN_U16("data/sprites/Baristute.pal");
 
 static const u16 sBaristuteOAM_Idle_Frame0[49] = {
     0x10,

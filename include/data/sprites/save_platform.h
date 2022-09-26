@@ -1,11 +1,12 @@
-#ifndef SAVE_PLATFORM_DATA_C
-#define SAVE_PLATFORM_DATA_C
+#ifndef SAVE_PLATFORM_DATA_H
+#define SAVE_PLATFORM_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sSavePlatformGFX[603];
-static const u16 sSavePlatformPAL[64];
+static const u32 sSavePlatformGFX[603] = INCBIN_U32("data/sprites/SavePlatform.gfx.lz");
+static const u16 sSavePlatformPAL[64] = INCBIN_U16("data/sprites/SavePlatform.pal");
 
 static const u16 sSavePlatformOAM_Idle_Frame0[28] = {
     0x9,

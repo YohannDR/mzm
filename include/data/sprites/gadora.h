@@ -1,11 +1,12 @@
-#ifndef GADORA_DATA_C
-#define GADORA_DATA_C
+#ifndef GADORA_DATA_H
+#define GADORA_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sGadoraGFX[2340];
-static const u16 sGadoraPAL[32];
+static const u32 sGadoraGFX[585] = INCBIN_U32("data/sprites/Gadora.gfx.lz");
+static const u16 sGadoraPAL[32] = INCBIN_U16("data/sprites/Gadora.pal");
 
 static const u16 sGadoraOAM_EyeClosed_Frame2[22] = {
     0x7,

@@ -1,11 +1,12 @@
-#ifndef SEARCHLIGHT_EYE_DATA_C
-#define SEARCHLIGHT_EYE_DATA_C
+#ifndef SEARCHLIGHT_EYE_DATA_H
+#define SEARCHLIGHT_EYE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sSearchlightEyeGFX[177];
-static const u16 sSearchlightEyePAL[16];
+static const u32 sSearchlightEyeGFX[177] = INCBIN_U32("data/sprites/SearchlightEye.gfx.lz");
+static const u16 sSearchlightEyePAL[16] = INCBIN_U16("data/sprites/SearchlightEye.pal");
 
 static const u16 sSearchlightEyeOAM_Idle_Frame0[10] = {
     0x3,

@@ -1,11 +1,12 @@
-#ifndef ZIPLINE_DATA_C
-#define ZIPLINE_DATA_C
+#ifndef ZIPLINE_DATA_H
+#define ZIPLINE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sZiplineGFX[264];
-static const u16 sZiplinePAL[16];
+static const u32 sZiplineGFX[264] = INCBIN_U32("data/sprites/Zipline.gfx.lz");
+static const u16 sZiplinePAL[16] = INCBIN_U16("data/sprites/Zipline.pal");
 
 static const u16 sZiplineOAM_OffIdle_Frame0[7] = {
     0x2,

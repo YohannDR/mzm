@@ -1,7 +1,8 @@
-#ifndef SQUEEPT_DATA_C
-#define SQUEEPT_DATA_C
+#ifndef SQUEEPT_DATA_H
+#define SQUEEPT_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sSqueeptRisingMovement[65] = {
@@ -19,8 +20,8 @@ static const i16 sSqueeptFallingMovement[16] = {
     14, 16, 16, SHORT_MAX
 };
 
-static const u32 sSqueeptGFX[263];
-static const u16 sSqueeptPAL[16];
+static const u32 sSqueeptGFX[263] = INCBIN_U32("data/sprites/Squeept.gfx.lz");
+static const u16 sSqueeptPAL[16] = INCBIN_U16("data/sprites/Squeept.pal");
 
 static const u16 sSqueeptOAM_GoingUp_Frame0[25] = {
     0x8,

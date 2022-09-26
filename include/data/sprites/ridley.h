@@ -1,7 +1,8 @@
-#ifndef RIDLEY_DATA_C
-#define RIDLEY_DATA_C
+#ifndef RIDLEY_DATA_H
+#define RIDLEY_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sRidleyMultiSpriteData_Idle_Frame0[18] = {
@@ -882,8 +883,8 @@ static const i16 sRidleyIdleYOffsets[65] = {
     0, 0, 0, SHORT_MAX
 };
 
-static const u32 sRidleyGFX[2211];
-static const u16 sRidleyPAL[128];
+static const u32 sRidleyGFX[2211] = INCBIN_U32("data/sprites/Ridley.gfx.lz");
+static const u16 sRidleyPAL[128] = INCBIN_U16("data/sprites/Ridley.pal");
 
 static const u16 sRidleyOAM_Idle_Frame0[49] = {
     0x10,

@@ -1,7 +1,8 @@
-#ifndef GUNSHIP_DATA_DATA_C
-#define GUNSHIP_DATA_DATA_C
+#ifndef GUNSHIP_DATA_DATA_H
+#define GUNSHIP_DATA_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sGunshipTakingOffYVelocity[153] = {
@@ -23,9 +24,9 @@ static const i16 sGunshipFlyingYVelocity[22] = {
     -7, -8, -12, -16, -20, -24, -28, -32, SHORT_MAX
 };
 
-static const u32 sGunshipGFX[1027];
-static const u16 sGunshipPAL[48];
-static const u16 sGunshipFlashingPAL[8][16];
+static const u32 sGunshipGFX[1027] = INCBIN_U32("data/sprites/Gunship.gfx.lz");
+static const u16 sGunshipPAL[48] = INCBIN_U16("data/sprites/Gunship.pal");
+static const u16 sGunshipFlashingPAL[8 * 16] = INCBIN_U16("data/sprites/GunshipFlashingPal.pal");
 
 static const u16 sGunshipOAM_Idle_Frame0[52] = {
     0x11,

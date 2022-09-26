@@ -1,5 +1,5 @@
-#ifndef DOORS_DATA_C
-#define DOORS_DATA_C
+#ifndef DOORS_DATA_H
+#define DOORS_DATA_H
 
 #include "constants/connection.h"
 #include "structs/connection.h"

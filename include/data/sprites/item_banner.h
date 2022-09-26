@@ -1,11 +1,12 @@
-#ifndef ITEM_BANNER_DATA_C
-#define ITEM_BANNER_DATA_C
+#ifndef ITEM_BANNER_DATA_H
+#define ITEM_BANNER_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sItemBannerGFX[556];
-static const u16 sItemBannerPAL[32];
+static const u32 sItemBannerGFX[139] = INCBIN_U32("data/sprites/ItemBanner.gfx.lz");
+static const u16 sItemBannerPAL[32] = INCBIN_U16("data/sprites/ItemBanner.pal");
 
 static const u16 sSaveYesNoCursorOAM_Idle_Frame0[4] = {
     0x1,

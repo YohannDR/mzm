@@ -1,11 +1,12 @@
-#ifndef ELEVATOR_PAD_DATA_C
-#define ELEVATOR_PAD_DATA_C
+#ifndef ELEVATOR_PAD_DATA_H
+#define ELEVATOR_PAD_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sElevatorPadGFX[136];
-static const u16 sElevatorPadPAL[16];
+static const u32 sElevatorPadGFX[136] = INCBIN_U32("data/sprites/ElevatorPad.gfx.lz");
+static const u16 sElevatorPadPAL[16] = INCBIN_U16("data/sprites/ElevatorPad.pal");
 
 static const u16 sElevatorPadOAM_Moving_Frame0[4] = {
     0x1,

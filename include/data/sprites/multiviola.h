@@ -1,11 +1,12 @@
-#ifndef MULTIVIOLA_DATA_C
-#define MULTIVIOLA_DATA_C
+#ifndef MULTIVIOLA_DATA_H
+#define MULTIVIOLA_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sMultiviolaGFX[221];
-static const u16 sMultiviolaPAL[16];
+static const u32 sMultiviolaGFX[221] = INCBIN_U32("data/sprites/Multiviola.gfx.lz");
+static const u16 sMultiviolaPAL[16] = INCBIN_U16("data/sprites/Multiviola.pal");
 
 static const u16 sMultiviolaOAM_Moving_Frame0[22] = {
     0x7,

@@ -1,7 +1,8 @@
-#ifndef IMAGO_COCOON_DATA_C
-#define IMAGO_COCOON_DATA_C
+#ifndef IMAGO_COCOON_DATA_H
+#define IMAGO_COCOON_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sImagoCocoonMultiSpriteData_Idle_Frame0[30] = {
@@ -182,8 +183,8 @@ static const i16 sImagoCocoon_ArrayUnused2[48] = {
     0, 0, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2
 };
 
-static const u32 sImagoCocoonGFX[1758];
-static const u16 sImagoCocoonPAL[96];
+static const u32 sImagoCocoonGFX[1758] = INCBIN_U32("data/sprites/ImagoCocoon.gfx.lz");
+static const u16 sImagoCocoonPAL[96] = INCBIN_U16("data/sprites/ImagoCocoon.pal");
 
 static const u16 sImagoCocoonOAM_Idle_Frame0[4] = {
     0x1,

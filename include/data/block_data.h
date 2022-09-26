@@ -1,5 +1,5 @@
-#ifndef BLOCK_DATA_C
-#define BLOCK_DATA_C
+#ifndef BLOCK_DATA_H
+#define BLOCK_DATA_H
 
 #include "types.h"
 #include "macros.h"

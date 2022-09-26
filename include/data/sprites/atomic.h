@@ -1,7 +1,8 @@
-#ifndef ATOMIC_DATA_C
-#define ATOMIC_DATA_C
+#ifndef ATOMIC_DATA_H
+#define ATOMIC_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sAtomicIdleYMovement[65] = {
@@ -21,8 +22,8 @@ static const i16 sAtomicIdleXMovement[81] = {
     -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
-static const u32 sAtomicGFX[752];
-static const u16 sAtomicPAL[64];
+static const u32 sAtomicGFX[752] = INCBIN_S32("data/sprites/Atomic.gfx.lz");
+static const u16 sAtomicPAL[64] = INCBIN_U16("data/sprites/Atomic.pal");
 
 static const u16 sAtomicOAM_Idle_Frame0[13] = {
     0x4,

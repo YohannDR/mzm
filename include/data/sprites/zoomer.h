@@ -1,11 +1,12 @@
-#ifndef ZOOMER_DATA_C
-#define ZOOMER_DATA_C
+#ifndef ZOOMER_DATA_H
+#define ZOOMER_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sZoomerGFX[379];
-static const u16 sZoomerPAL[32];
+static const u32 sZoomerGFX[379] = INCBIN_U32("data/sprites/Zoomer.gfx.lz");
+static const u16 sZoomerPAL[32] = INCBIN_U16("data/sprites/Zoomer.pal");
 
 static const u16 sZoomerOAM_Falling_Frame0[13] = {
     0x4,

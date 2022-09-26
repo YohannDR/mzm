@@ -1,11 +1,12 @@
-#ifndef SECURITY_LASER_DATA_C
-#define SECURITY_LASER_DATA_C
+#ifndef SECURITY_LASER_DATA_H
+#define SECURITY_LASER_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sSecurityLaserGFX[104];
-static const u16 sSecurityLaserPAL[16];
+static const u32 sSecurityLaserGFX[104] = INCBIN_U32("data/sprites/SecurityLaser.gfx.lz");
+static const u16 sSecurityLaserPAL[16] = INCBIN_U16("data/sprites/SecurityLaser.pal");
 
 static const u16 sSecurityLaserOAM_VerticalSmall_Frame0[10] = {
     0x3,

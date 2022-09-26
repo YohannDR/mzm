@@ -1,12 +1,13 @@
-#ifndef AREA_BANNER_DATA_C
-#define AREA_BANNER_DATA_C
+#ifndef AREA_BANNER_DATA_H
+#define AREA_BANNER_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sAreaBannerGFX[260];
-static const u16 sAreaBannerPAL[16];
-static const u16 sAreaBannerLocationTextPAL[16];
+static const u32 sAreaBannerGFX[65] = INCBIN_U32("data/sprites/AreaBanner.gfx.lz");
+static const u16 sAreaBannerPAL[16] = INCBIN_U16("data/sprites/AreaBanner.pal");
+static const u16 sAreaBannerLocationTextPAL[16] = INCBIN_U16("data/sprites/AreaBannerLocationText.pal");
 
 static const u16 sAreaBannerOAM_SpawnMiddle_Frame0[7] = {
     0x2,

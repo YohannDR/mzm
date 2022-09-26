@@ -1,7 +1,8 @@
-#ifndef METROID_DATA_C
-#define METROID_DATA_C
+#ifndef METROID_DATA_H
+#define METROID_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sMetroidSpawningYMovement[65] = {
@@ -19,9 +20,9 @@ static const i16 sMetroidSpawningXMovement[81] = {
     0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX 
 };
 
-static const u32 sMetroidGFX[793];
-static const u16 sMetroidPAL[80];
-static const u16 sMetroidPAL_SamusGrabbed[80];
+static const u32 sMetroidGFX[793] = INCBIN_U32("data/sprites/Metroid.gfx.lz");
+static const u16 sMetroidPAL[80] = INCBIN_U16("data/sprites/Metroid.pal");
+static const u16 sMetroidPAL_SamusGrabbed[80] = INCBIN_U16("data/sprites/MetroidSamusGrabbed.pal");
 
 static const u16 sMetroidShellOAM_Idle_Frame0[7] = {
     0x2,

@@ -1,5 +1,5 @@
-#ifndef ENEMY_DROP_DATA_C
-#define ENEMY_DROP_DATA_C
+#ifndef ENEMY_DROP_DATA_H
+#define ENEMY_DROP_DATA_H
 
 #include "types.h"
 #include "oam.h"

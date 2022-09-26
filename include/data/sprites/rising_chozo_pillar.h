@@ -1,11 +1,12 @@
-#ifndef RISING_CHOZO_PILLAR_DATA_C
-#define RISING_CHOZO_PILLAR_DATA_C
+#ifndef RISING_CHOZO_PILLAR_DATA_H
+#define RISING_CHOZO_PILLAR_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sRisingChozoPillarGFX[2684];
-static const u16 sRisingChozoPillarPAL[64];
+static const u8 sRisingChozoPillarGFX[2684] = INCBIN_U32("data/sprites/RisingChozoPillar.gfx.lz");
+static const u16 sRisingChozoPillarPAL[64] = INCBIN_U16("data/sprites/RisingChozoPillar.pal");
 
 static const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame0[7] = {
     0x2,

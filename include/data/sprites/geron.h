@@ -1,11 +1,12 @@
-#ifndef GERON_DATA_C
-#define GERON_DATA_C
+#ifndef GERON_DATA_H
+#define GERON_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sGeronGFX[711];
-static const u16 sGeronPAL[16];
+static const u32 sGeronGFX[711] = INCBIN_U32("data/sprites/Geron.gfx.lz");
+static const u16 sGeronPAL[16] = INCBIN_U16("data/sprites/Geron.pal");
 
 static const u16 sGeronOAM_Idle_Frame0[40] = {
     0xd,

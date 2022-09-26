@@ -1,11 +1,12 @@
-#ifndef BOSS_STATUES_DATA_C
-#define BOSS_STATUES_DATA_C
+#ifndef BOSS_STATUES_DATA_H
+#define BOSS_STATUES_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sBossStatuesGFX[9552];
-static const u16 sBossStatuesPAL[128];
+static const u32 sBossStatuesGFX[2388] = INCBIN_U32("data/sprites/BossStatues.gfx.lz");
+static const u16 sBossStatuesPAL[128] = INCBIN_U16("data/sprites/BossStatues.pal");
 
 static const u16 sKraidStatueOAM_Idle_Frame0[16] = {
     0x5,

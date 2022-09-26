@@ -1,7 +1,8 @@
-#ifndef KRAID_DATA_C
-#define KRAID_DATA_C
+#ifndef KRAID_DATA_H
+#define KRAID_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sKraidMultiSpriteData_Rising_Frame0[36] = {
@@ -304,8 +305,8 @@ static const struct FrameData sKraidMultiSpriteData_Dying2[7] = {
     0x0
 };
 
-static const u32 sKraidGFX[2725];
-static const u16 sKraidPAL[128];
+static const u32 sKraidGFX[2725] = INCBIN_U32("data/sprites/Kraid.gfx.lz");
+static const u16 sKraidPAL[128] = INCBIN_U16("data/sprites/Kraid.pal");
 
 static const u16 sKraidOAM_MouthClosed_Frame0[31] = {
     0xa,

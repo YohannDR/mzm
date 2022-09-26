@@ -1,5 +1,5 @@
-#ifndef MOTHER_BRAIN_DATA_C
-#define MOTHER_BRAIN_DATA_C
+#ifndef MOTHER_BRAIN_DATA_H
+#define MOTHER_BRAIN_DATA_H
 
 #include "types.h"
 #include "oam.h"
@@ -59,8 +59,8 @@ static const u8 sMotherBrainDynamicPaletteData[19][2] = {
     { 80, 80 }
 };
 
-static const u32 sMotherBrainGFX[1871];
-static const u16 sMotherBrainPAL[96];
+static const u32 sMotherBrainGFX[1871] = INCBIN_U32("data/sprites/MotherBrain.gfx.lz");
+static const u16 sMotherBrainPAL[96] = INCBIN_U16("data/sprites/MotherBrain.pal"):;
 
 static const u16 sMotherBrainOAM_Idle_Frame0[58] = {
     0x13,

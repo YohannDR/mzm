@@ -1,5 +1,5 @@
-#ifndef SPRITE_DATA_C
-#define SPRITE_DATA_C
+#ifndef SPRITE_DATA_H
+#define SPRITE_DATA_H
 
 #include "types.h"
 #include "constants/sprite.h"

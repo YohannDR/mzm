@@ -1,11 +1,12 @@
-#ifndef IMAGO_LARVA_RIGHT_SIDE_DATA_C
-#define IMAGO_LARVA_RIGHT_SIDE_DATA_C
+#ifndef IMAGO_LARVA_RIGHT_SIDE_DATA_H
+#define IMAGO_LARVA_RIGHT_SIDE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sImagoLarvaRightSideGFX[592];
-static const u16 sImagoLarvaRightSidePAL[32];
+static const u32 sImagoLarvaRightSideGFX[592] = INCBIN_U32("data/sprites/ImagoLarvaRightSide.gfx.lz");
+static const u16 sImagoLarvaRightSidePAL[32] = INCBIN_U16("data/sprites/ImagoLarvaRightSide.pal");
 
 static const u16 sImagoLarvaRightSideOAM_Frame0[37] = {
     0xc,

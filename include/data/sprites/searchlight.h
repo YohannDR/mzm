@@ -1,11 +1,12 @@
-#ifndef SEARCHLIGHT_DATA_C
-#define SEARCHLIGHT_DATA_C
+#ifndef SEARCHLIGHT_DATA_H
+#define SEARCHLIGHT_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sSearchlightGFX[688];
-static const u16 sSearchlightPAL[16];
+static const u8 sSearchlightGFX[688] = INCBIN_U32("data/sprites/Searchlight.gfx.lz");
+static const u16 sSearchlightPAL[16] = INCBIN_U16("data/sprites/Searchlight.pal");
 
 static const u16 sSearchlightOAM_Moving_Frame0[25] = {
     0x8,

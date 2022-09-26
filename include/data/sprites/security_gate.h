@@ -1,11 +1,12 @@
-#ifndef SECURITY_GATE_DATA_C
-#define SECURITY_GATE_DATA_C
+#ifndef SECURITY_GATE_DATA_H
+#define SECURITY_GATE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sSecurityGateGFX[122];
-static const u16 sSecurityGatePAL[16];
+static const u32 sSecurityGateGFX[122] = INCBIN_U32("data/sprites/SecurityGate.gfx.lz");
+static const u16 sSecurityGatePAL[16] = INCBIN_U16("data/sprites/SecurityGate.pal");
 
 static const u16 sSecurityGateOAM_Opened_Frame0[4] = {
     0x1,

@@ -1,13 +1,14 @@
-#ifndef RIPPER_DATA_C
-#define RIPPER_DATA_C
+#ifndef RIPPER_DATA_H
+#define RIPPER_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sRipperGFX[141];
-static const u16 sRipperPAL[16];
-static const u32 sRipperPurpleGFX[141];
-static const u16 sRipperPurplePAL[16];
+static const u32 sRipperBrownGFX[141] = INCBIN_U32("data/sprites/RipperBrown.gfx.lz");
+static const u16 sRipperBrownPAL[16] = INCBIN_U16("data/sprites/RipperBrown.pal");
+static const u32 sRipperPurpleGFX[141] = INCBIN_U16("data/sprites/RipperPurple.gfx.lz");
+static const u16 sRipperPurplePAL[16] = INCBIN_U16("data/sprites/RipperPurple.pal");
 
 static const u16 sRipperOAM_Moving_Frame0[4] = {
     0x1,

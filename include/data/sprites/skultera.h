@@ -1,11 +1,12 @@
-#ifndef SKULTERA_DATA_C
-#define SKULTERA_DATA_C
+#ifndef SKULTERA_DATA_H
+#define SKULTERA_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sSkulteraGFX[1140];
-static const u16 sSkulteraPAL[16];
+static const u8 sSkulteraGFX[1140] = INCBIN_U32("data/sprites/Skultera.gfx.lz");
+static const u16 sSkulteraPAL[16] = INCBIN_U16("data/sprites/Skultera.pal");
 
 static const u16 sSkulteraOAM_Idle_Frame0[19] = {
     0x6,

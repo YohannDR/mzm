@@ -1,13 +1,14 @@
-#ifndef GERUTA_DATA_C
-#define GERUTA_DATA_C
+#ifndef GERUTA_DATA_H
+#define GERUTA_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sGerutaRedGFX[321];
-static const u16 sGerutaRedPAL[16];
-static const u16 sGerutaGreenGFX[308];
-static const u16 sGerutaGreenPAL[16];
+static const u32 sGerutaRedGFX[321] = INCBIN_U32("data/sprites/sprites/GerutaRed.gfx.lz");
+static const u16 sGerutaRedPAL[16] = INCBIN_U16("data/sprites/GerutaRed.pal");
+static const u32 sGerutaGreenGFX[308] = INCBIN_U32("data/sprites/GerutaGreen.gfx.lz");
+static const u16 sGerutaGreenPAL[16] = INCBIN_U16("data/sprites/GerutaGreen.pal");
 
 static const u16 sGerutaOAM_Idle_Frame0[16] = {
     0x5,

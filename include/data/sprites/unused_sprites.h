@@ -1,5 +1,5 @@
-#ifndef UNUSED_SPRITES_DATA_C
-#define UNUSED_SPRITES_DATA_C
+#ifndef UNUSED_SPRITES_DATA_H
+#define UNUSED_SPRITES_DATA_H
 
 #include "types.h"
 #include "macros.h"

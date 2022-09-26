@@ -1,13 +1,14 @@
-#ifndef GAMET_DATA_C
-#define GAMET_DATA_C
+#ifndef GAMET_DATA_H
+#define GAMET_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sGametBlueGFX[168];
-static const u32 sGametBluePAL[16];
-static const u32 sGametRedGFX[168];
-static const u32 sGametRedPAL[16];
+static const u32 sGametBlueGFX[168] = INCBIN_U32("data/sprites/GametBlue.gfx.lz");
+static const u32 sGametBluePAL[16] = INCBIN_U16("data/sprites/GametBlue.pal");
+static const u32 sGametRedGFX[168] = INCBIN_U32("data/sprites/GametRed.gfx.lz");
+static const u32 sGametRedPAL[16] = INCBIN_U16("data/sprites/GametRed.pal");
 
 static const u16 sGametOAM_Idle_Frame0[10] = {
     0x3,

@@ -1,11 +1,12 @@
-#ifndef GLASS_TUBE_DATA_C
-#define GLASS_TUBE_DATA_C
+#ifndef GLASS_TUBE_DATA_H
+#define GLASS_TUBE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sGlassTubeGFX[514];
-static const u16 sGlassTubePAL[80];
+static const u32 sGlassTubeGFX[514] = INCBIN_U32("data/sprites/GlassTube.gfx.lz");
+static const u16 sGlassTubePAL[80] = INCBIN_U16("data/sprites/GlassTube.pal");
 
 static const u16 sGlassTubeOAM_Intact_Frame0[37] = {
     0xc,

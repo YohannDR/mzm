@@ -1,27 +1,28 @@
-#ifndef RUINS_TEST_DATA_C
-#define RUINS_TEST_DATA_C
+#ifndef RUINS_TEST_DATA_H
+#define RUINS_TEST_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sRuinsTestGFX[1951];
-static const u32 sRuinsTestGFX_SamusReflectionTurningRightTop[96];
-static const u32 sRuinsTestGFX_SamusReflectionTurningRightBottom[64];
-static const u32 sRuinsTestGFX_SamusReflectionTurningLeftTop[96];
-static const u32 sRuinsTestGFX_SamusReflectionTurningLeftBottom[64];
-static const u32 sRuinsTestGFX_SamusReflectionFullSuitTop[94];
-static const u32 sRuinsTestGFX_SamusReflectionFullSuitBottom[64];
-static const u32 sRuinsTestGFX_SamusReflectionSuitlessTop[94];
-static const u32 sRuinsTestGFX_SamusReflectionSuitlessBottom[64];
-static const u16 sRuinsTestPAL[128];
-static const u16 sRuinsTestPAL_SymbolShot_Frame1[8];
-static const u16 sRuinsTestPAL_SymbolShot_Frame2[8];
-static const u16 sRuinsTestPAL_SymbolShot_Frame3[8];
-static const u16 sRuinsTestPAL_SymbolShot_Frame4[8];
-static const u16 sRuinsTestPAL_SymbolShot_Frame5[8];
-static const u16 sRuinsTestPAL_SymbolShot_Frame6[8];
-static const u16 sRuinsTestPAL_SamusReflection[15 * 16];
-static const u16 sRuinsTestPAL_SamusReflectionFullSuit[15 * 16];
+static const u32 sRuinsTestGFX[1951] = INCBIN_U32("data/sprites/RuinsTest.gfx.lz");
+static const u32 sRuinsTestGFX_SamusReflectionTurningRightTop[96] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionTurningRightTop.gfx.lz");
+static const u32 sRuinsTestGFX_SamusReflectionTurningRightBottom[64] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionTurningRightBottom.gfx.lz");
+static const u32 sRuinsTestGFX_SamusReflectionTurningLeftTop[96] = INCBIN_U32("sprites/RuinsTest_SamusReflectionTurningLeftTop.gfx.lz");
+static const u32 sRuinsTestGFX_SamusReflectionTurningLeftBottom[64] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionTurningLeftBottom.gfx.lz");
+static const u32 sRuinsTestGFX_SamusReflectionFullSuitTop[94] = INCBIN_U32("sprites/RuinsTest_SamusReflectionFullSuitTop.gfx.lz");
+static const u32 sRuinsTestGFX_SamusReflectionFullSuitBottom[64] = INCBIN_U32("sprites/RuinsTest_SamusReflectionFullSuitBottom.gfx.lz");
+static const u32 sRuinsTestGFX_SamusReflectionSuitlessTop[94] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionSuitlessTop.gfx.lz");
+static const u32 sRuinsTestGFX_SamusReflectionSuitlessBottom[64] = INCBIN_U32("sprites/RuinsTest_SamusReflectionSuitlessBottom.gfx.lz");
+static const u16 sRuinsTestPAL[128] = INCBIN_U16("sprites/RuinsTest.pal");
+static const u16 sRuinsTestPAL_SymbolShot_Frame1[8] = INCBIN_U16("sprites/RuinsTest_SymbolShotFrame1.pal");
+static const u16 sRuinsTestPAL_SymbolShot_Frame2[8] = INCBIN_U16("sprites/RuinsTest_SymbolShotFrame2.pal");
+static const u16 sRuinsTestPAL_SymbolShot_Frame3[8] = INCBIN_U16("sprites/RuinsTest_SymbolShotFrame3.pal");
+static const u16 sRuinsTestPAL_SymbolShot_Frame4[8] = INCBIN_U16("sprites/RuinsTest_SymbolShotFrame4.pal");
+static const u16 sRuinsTestPAL_SymbolShot_Frame5[8] = INCBIN_U16("sprites/RuinsTest_SymbolShotFrame5.pal");
+static const u16 sRuinsTestPAL_SymbolShot_Frame6[8] = INCBIN_U16("sprites/RuinsTest_SymbolShotFrame6.pal");
+static const u16 sRuinsTestPAL_SamusReflection[15 * 16] = INCBIN_U16("sprites/RuinsTest_SamusReflection.pal");
+static const u16 sRuinsTestPAL_SamusReflectionFullSuit[15 * 16] = INCBIN_U16("sprites/RuinsTest_SamusReflectionFullSuit.pal");
 
 static const u16 sRuinsTestSamusReflectionOAM_Frame0[13] = {
     0x3,

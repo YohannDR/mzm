@@ -1,5 +1,5 @@
-#ifndef PROJECTILE_DATA_C
-#define PROJECTILE_DATA_C
+#ifndef PROJECTILE_DATA_H
+#define PROJECTILE_DATA_H
 
 #include "types.h"
 #include "oam.h"

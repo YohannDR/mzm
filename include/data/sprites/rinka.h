@@ -1,13 +1,14 @@
-#ifndef RINKA_DATA_C
-#define RINKA_DATA_C
+#ifndef RINKA_DATA_H
+#define RINKA_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sRinkaOrangeGFX[242];
-static const u16 sRinkaOrangePAL[16];
-static const u32 sRinkaGreenGFX[242];
-static const u16 sRinkaGreenPAL[16];
+static const u32 sRinkaOrangeGFX[242] = INCBIN_U32("data/sprites/RinkaOrange.gfx.lz");
+static const u16 sRinkaOrangePAL[16] = INCBIN_U16("data/sprites/RinkaOrange.pal");
+static const u32 sRinkaGreenGFX[242] = INCBIN_U32("data/sprites/RinkaGreen.gfx.lz");
+static const u16 sRinkaGreenPAL[16] = INCBIN_U16("data/sprites/RinkaGreen.pal");
 
 static const u16 sRinkaOrangeOAM_Moving_Frame0[4] = {
     0x1,

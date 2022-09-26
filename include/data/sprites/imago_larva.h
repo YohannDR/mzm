@@ -1,7 +1,8 @@
-#ifndef IMAGO_LARVA_DATA_C
-#define IMAGO_LARVA_DATA_C
+#ifndef IMAGO_LARVA_DATA_H
+#define IMAGO_LARVA_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sImagoLarvaMultiSpriteData_Attacking_Frame0[18] = {
@@ -462,8 +463,8 @@ static const u8 sImagoLarvaPaletteRows[4] = {
     1, 2, 1, 0
 };
 
-static const u32 sImagoLarvaGFX[1195];
-static const u16 sImagoLarvaPAL[80];
+static const u32 sImagoLarvaGFX[1195] = INCBIN_U32("data/sprites/ImagoLarva.gfx.lz");
+static const u16 sImagoLarvaPAL[80] = INCBIN_U16("data/sprites/ImagoLarva.pal");
 
 static const u16 sImagoLarvaPartOAM_ShellAttacking_Frame0[82] = {
     0x1b,

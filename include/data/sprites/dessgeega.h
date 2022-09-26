@@ -1,7 +1,8 @@
-#ifndef DESSGEEGA_DATA_C
-#define DESSGEEGA_DATA_C
+#ifndef DESSGEEGA_DATA_H
+#define DESSGEEGA_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sDessgeegaHighJumpYVelocity[10] = {
@@ -12,8 +13,8 @@ static const i16 sDessgeegaLowJumpYVelocity[10] = {
     -4, -8, -4, -2, 0, 4, 8, 16, 16, 16 
 };
 
-static const u8 sDessgeegaGFX[1080];
-static const u16 sDessgeegaPAL[16];
+static const u32 sDessgeegaGFX[270] = INCBIN_U32("data/sprites/Dessgeega.gfx.lz");
+static const u16 sDessgeegaPAL[16] = INCBIN_U16("data/sprites/Dessgeega.pal");
 
 static const u16 sDessgeegaOAM_Idle_Frame0[31] = {
     0xa,

@@ -1,17 +1,18 @@
-#ifndef SKREE_DATA_C
-#define SKREE_DATA_C
+#ifndef SKREE_DATA_H
+#define SKREE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sSkreeFallingSpeed[8] = {
     2, 4, 6, 7, 12, 14, 16, SHORT_MAX
 };
 
-static const u32 sSkreeGFX[264];
-static const u16 sSkreePAL[16];
-static const u32 sSkreeBlueGFX[264];
-static const u16 sSkreeBluePAL[16];
+static const u32 sSkreeGreenGFX[264] = INCBIN_U32("data/sprites/SkreeGreen.gfx.lz");
+static const u16 sSkreeGreenPAL[16] = INCBIN_U16("data/sprites/SkreeGreen.pal");
+static const u32 sSkreeBlueGFX[264] = INCBIN_U32("data/sprites/SkreeBlue.gfx.lz");
+static const u16 sSkreeBluePAL[16] = INCBIN_U16("data/sprites/SkreeBlue.pal");
 
 static const u16 sSkreeOAM_Idle_Frame0[13] = {
     0x4,

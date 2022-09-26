@@ -1,7 +1,8 @@
-#ifndef HIVE_DATA_C
-#define HIVE_DATA_C
+#ifndef HIVE_DATA_H
+#define HIVE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sMellowIdleYVelocity[65] = {
@@ -19,8 +20,8 @@ static const i16 sMellowIdleXVelocity[81] = {
     -2, -2, -1, -1, 0, 0, SHORT_MAX
 };
 
-static const u8 sHiveGFX[7196];
-static const u16 sHivePAL[96];
+static const u32 sHiveGFX[1799] = INCBIN_U32("data/sprites/Hive.gfx.lz");
+static const u16 sHivePAL[96] = INCBIN_U16("data/sprites/Hive.pal");
 
 static const u16 sMellowOAM_Idle_Frame0[4] = {
     0x1,

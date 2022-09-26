@@ -1,7 +1,8 @@
-#ifndef POLYP_DATA_C
-#define POLYP_DATA_C
+#ifndef POLYP_DATA_H
+#define POLYP_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sPolypProjectileYVelocity[44] = {
@@ -10,8 +11,8 @@ static const i16 sPolypProjectileYVelocity[44] = {
     2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 14, 16, 18, SHORT_MAX
 };
 
-static const u32 sPolypGFX[241];
-static const u16 sPolypPAL[16];
+static const u32 sPolypGFX[241] = INCBIN_U32("data/sprites/Polyp.gfx.lz");
+static const u16 sPolypPAL[16] = INCBIN_U16("data/sprites/Polyp.pal");
 
 static const u16 sPolypOAM_Idle_Frame0[13] = {
     0x4,

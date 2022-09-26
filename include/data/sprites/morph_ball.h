@@ -1,5 +1,5 @@
-#ifndef MORPH_BALL_DATA_C
-#define MORPH_BALL_DATA_C
+#ifndef MORPH_BALL_DATA_H
+#define MORPH_BALL_DATA_H
 
 #include "types.h"
 #include "oam.h"

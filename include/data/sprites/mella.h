@@ -1,7 +1,8 @@
-#ifndef MELLA_DATA_C
-#define MELLA_DATA_C
+#ifndef MELLA_DATA_H
+#define MELLA_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sMellaIdleYMovement[65] = {
@@ -29,8 +30,8 @@ static const u16 sMellaMovingXMovement[7] = {
     0, 1, 2, 3, 4, 5, 6 
 };
 
-static const u32 sMellaGFX[162];
-static const u16 sMellaPAL[16];
+static const u32 sMellaGFX[162] = INCBIN_U32("data/sprites/Mella.gfx.lz");
+static const u16 sMellaPAL[16] = INCBIN_U16("data/sprites/Mella.pal");
 
 static const u16 sMellaOAM_Idle_Frame0[4] = {
     0x1,

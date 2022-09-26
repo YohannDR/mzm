@@ -1,13 +1,14 @@
-#ifndef VIOLA_DATA_C
-#define VIOLA_DATA_C
+#ifndef VIOLA_DATA_H
+#define VIOLA_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sViolaBlueGFX[302];
-static const u16 sViolaBluePAL[16];
-static const u32 sViolaOrangeGFX[305];
-static const u16 sViolaOrangePAL[16];
+static const u32 sViolaBlueGFX[302] = INCBIN_U32("data/sprites/ViolaBlue.gfx.lz");
+static const u16 sViolaBluePAL[16] = INCBIN_U16("data/sprites/ViolaBlue.pal");
+static const u32 sViolaOrangeGFX[305] = INCBIN_U32("data/sprites/ViolaOrange.gfx.lz");
+static const u16 sViolaOrangePAL[16] = INCBIN_U16("data/sprites/ViolaOrange.pal");
 
 static const u16 sViolaOAM_Moving_Frame0[4] = {
     0x1,

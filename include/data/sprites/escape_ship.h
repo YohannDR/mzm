@@ -1,7 +1,8 @@
-#ifndef ESCAPE_SHIP_DATA_C
-#define ESCAPE_SHIP_DATA_C
+#ifndef ESCAPE_SHIP_DATA_H
+#define ESCAPE_SHIP_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sEscapeShipHoveringYMovement[65] = {
@@ -19,9 +20,9 @@ static const i16 sEscapeShipHoveringXMovement[57] = {
     -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
-static const u32 sEscapeShipGFX[919];
-static const u16 sEscapeShipPAL[64];
-static const u16 sEscapeShipFlashingPAL[3][16];
+static const u32 sEscapeShipGFX[919] = INCBIN_U32("data/sprites/EscapeShip.gfx.lz");
+static const u16 sEscapeShipPAL[64] = INCBIN_U16("data/sprites/EscapeShip.pal");
+static const u16 sEscapeShipFlashingPAL[3 * 16] = INCBIN_U16("data/sprites/EscapeShipFlashing.pal");
 
 static const u16 sEscapeShipOAM_Idle_Frame0[34] = {
     0xb,

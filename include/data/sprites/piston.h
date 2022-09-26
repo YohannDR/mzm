@@ -1,11 +1,12 @@
-#ifndef PISTON_DATA_C
-#define PISTON_DATA_C
+#ifndef PISTON_DATA_H
+#define PISTON_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sPistonGFX[716];
-static const u16 sPistonPAL[16];
+static const u8 sPistonGFX[716] = INCBIN_U32("data/sprites/Piston.gfx.lz");
+static const u16 sPistonPAL[16] = INCBIN_U16("data/sprites/Piston.pal");
 
 static const u16 sPistonOAM_Idle_Frame0[34] = {
     0xb,

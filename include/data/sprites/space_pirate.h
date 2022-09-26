@@ -1,7 +1,8 @@
-#ifndef SPACE_PIRATE_DATA_C
-#define SPACE_PIRATE_DATA_C
+#ifndef SPACE_PIRATE_DATA_H
+#define SPACE_PIRATE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sSpacePirateWallJumpingVelocity[8] = {
@@ -24,8 +25,8 @@ static const i16 sSpacePirate_2e1070[12] = {
     -32, -28, -24, -20, -16, -8, -4, 8, 16, 24, 28, 32
 };
 
-static const u32 sSpacePirateGFX[810];
-static const u16 sSpacePiratePAL[48];
+static const u32 sSpacePirateGFX[810] = INCBIN_U32("data/sprites/SpacePirate.gfx.lz");
+static const u16 sSpacePiratePAL[48] = INCBIN_U16("data/sprites/SpacePirate.pal");
 
 static const u16 sSpacePirateOAM_Crouched_Frame0[43] = {
     0xe,

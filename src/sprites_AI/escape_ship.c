@@ -20,12 +20,9 @@ void EscapeShipPartUpdatePalette(u8 delay)
     timer = --gCurrentSprite.workVariable2;
     if (timer == 0x0)
     {
-        // Set new delay
         gCurrentSprite.workVariable2 = delay;
         row = gCurrentSprite.workVariable;
         flag = 0x80;
-
-        // Update palette row
         if (row & flag)
         {
             if (gCurrentSprite.workVariable > 0x80)
@@ -43,9 +40,8 @@ void EscapeShipPartUpdatePalette(u8 delay)
                 gCurrentSprite.workVariable |= flag;
         }
 
-        // Transfer palette
         offset = gCurrentSprite.workVariable & 0x7F;
-        dma_set(3, sEscapeShipFlashingPAL[offset],
+        dma_set(3, (sEscapeShipFlashingPAL + offset * 16),
             (PALRAM_BASE + 0x320 + (gCurrentSprite.spritesetGFXSlot * 0x20)), (DMA_ENABLE << 0x10) | 0x10);
     }
 }

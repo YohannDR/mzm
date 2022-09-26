@@ -1,5 +1,5 @@
-#ifndef GENERIC_DATA_C
-#define GENERIC_DATA_C
+#ifndef GENERIC_DATA_H
+#define GENERIC_DATA_H
 
 #include "types.h"
 #include "callbacks.h"

@@ -1,7 +1,8 @@
-#ifndef IMAGO_DATA_C
-#define IMAGO_DATA_C
+#ifndef IMAGO_DATA_H
+#define IMAGO_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sImagoMultiSpriteData_Idle_Frame0[21] = {
@@ -124,8 +125,8 @@ static const u8 sImagoDynamicPaletteData[9][2] = {
     { 128, 128 }
 };
 
-static const u32 sImagoGFX[1503];
-static const u16 sImagoPAL[96];
+static const u32 sImagoGFX[1503] = INCBIN_U32("data/sprites/Imago.gfx.lz");
+static const u16 sImagoPAL[96] = INCBIN_U16("data/sprites/Imago.pal");
 
 static const u16 sImagoPartOAM_BodyIdle_Frame0[55] = {
     0x12,

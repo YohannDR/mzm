@@ -1,11 +1,12 @@
-#ifndef ELEVATOR_STATUE_DATA_C
-#define ELEVATOR_STATUE_DATA_C
+#ifndef ELEVATOR_STATUE_DATA_H
+#define ELEVATOR_STATUE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sElevatorStatuesGFX[4488];
-static const u16 sElevatorStatuesPAL[64];
+static const u32 sElevatorStatuesGFX[1122] = INCBIN_U32("data/sprites/ElevatorStatues.gfx.lz");
+static const u16 sElevatorStatuesPAL[64] = INCBIN_U16("data/sprites/ElevatorStatues.pal");
 
 static const u16 sKraidElevatorStatueOAM_Idle_Frame0[64] = {
     0x15,

@@ -1,5 +1,5 @@
-#ifndef POINTERS_DATA_C
-#define POINTERS_DATA_C
+#ifndef POINTERS_DATA_H
+#define POINTERS_DATA_H
 
 #include "types.h"
 #include "oam.h"

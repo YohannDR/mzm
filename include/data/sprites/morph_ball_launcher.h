@@ -1,11 +1,12 @@
-#ifndef MORPH_BALL_LAUNCHER_DATA_C
-#define MORPH_BALL_LAUNCHER_DATA_C
+#ifndef MORPH_BALL_LAUNCHER_DATA_H
+#define MORPH_BALL_LAUNCHER_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sMorphBallLauncherGFX[303];
-static const u16 sMorphBallLauncherPAL[16];
+static const u32 sMorphBallLauncherGFX[303] = INCBIN_U32("data/sprites/MorphBallLauncher.gfx.lz");
+static const u16 sMorphBallLauncherPAL[16] = INCBIN_U16("data/sprites/MorphBallLauncher.pal");
 
 static const u16 sMorphBallLauncherOAM_Idle_Frame0[37] = {
     0xc,

@@ -1,7 +1,8 @@
-#ifndef HOLTZ_DATA_C
-#define HOLTZ_DATA_C
+#ifndef HOLTZ_DATA_H
+#define HOLTZ_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sHoltzIdleYVelocity[65] = {
@@ -11,8 +12,8 @@ static const i16 sHoltzIdleYVelocity[65] = {
     -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
-static const u32 sHoltzGFX[200];
-static const u16 sHoltzPAL[16];
+static const u32 sHoltzGFX[200] = INCBIN_U32("data/sprites/Holtz.gfx.lz");
+static const u16 sHoltzPAL[16] = INCBIN_U16("data/sprites/Holtz.pal");
 
 static const u16 sHoltzOAM_Idle_Frame0[13] = {
     0x4,

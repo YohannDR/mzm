@@ -1,7 +1,8 @@
-#ifndef DRAGON_DATA_C
-#define DRAGON_DATA_C
+#ifndef DRAGON_DATA_H
+#define DRAGON_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sDragonFireballYMovement[40] = {
@@ -16,8 +17,8 @@ static const i16 sDragonFireballOAMRotation[40] = {
     52, 56, 60, 64, 64, 64, 64, SHORT_MAX
 };
 
-static const u32 sDragonGFX[512];
-static const u16 sDragonPAL[32];
+static const u32 sDragonGFX[512] = INCBIN_U32("data/sprites/Dragon.gfx.lz");
+static const u16 sDragonPAL[32] = INCBIN_U16("data/sprites/Dragon.pal");
 
 static const u16 sDragonOAM_Spitting_Frame0[7] = {
     0x2,

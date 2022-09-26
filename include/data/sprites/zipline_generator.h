@@ -1,11 +1,12 @@
-#ifndef ZIPLINE_GENERATOR_DATA_C
-#define ZIPLINE_GENERATOR_DATA_C
+#ifndef ZIPLINE_GENERATOR_DATA_H
+#define ZIPLINE_GENERATOR_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sZiplineGeneratorGFX[1124];
-static const u16 sZiplineGeneratorPAL[64];
+static const u32 sZiplineGeneratorGFX[1124] = INCBIN_U32("data/sprites/ZiplineGenerator.gfx.lz");
+static const u16 sZiplineGeneratorPAL[64] = INCBIN_U16("data/sprites/ZiplineGenerator.pal");
 
 static const u16 sZiplineGeneratorPartOAM_ConductorDeactivated_Frame0[31] = {
     0xa,

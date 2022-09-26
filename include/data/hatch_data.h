@@ -1,5 +1,5 @@
-#ifndef HATCH_DATA_C
-#define HATCH_DATA_C
+#ifndef HATCH_DATA_H
+#define HATCH_DATA_H
 
 #include "types.h"
 #include "macros.h"

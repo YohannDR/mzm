@@ -1,11 +1,12 @@
-#ifndef POWER_GRIP_DATA_C
-#define POWER_GRIP_DATA_C
+#ifndef POWER_GRIP_DATA_H
+#define POWER_GRIP_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sPowerGripGFX[279];
-static const u16 sPowerGripPAL[32];
+static const u32 sPowerGripGFX[279] = INCBIN_U32("data/sprites/PowerGrip.gfx.lz");
+static const u16 sPowerGripPAL[32] = INCBIN_U16("data/sprites/PowerGrip.pal");
 
 static const u16 sPowerGripOAM_Idle_Frame0[4] = {
     0x1,

@@ -1,11 +1,12 @@
-#ifndef WAVER_DATA_C
-#define WAVER_DATA_C
+#ifndef WAVER_DATA_H
+#define WAVER_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u32 sWaverGFX[289];
-static const u16 sWaverPAL[16];
+static const u32 sWaverGFX[289] = INCBIN_U32("data/sprites/Waver.gfx.lz");
+static const u16 sWaverPAL[16] = INCBIN_U16("data/sprites/Waver.pal");
 
 static const u16 sWaverOAM_Frame0[7] = {
     0x2,

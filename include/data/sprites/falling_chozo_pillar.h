@@ -1,11 +1,12 @@
-#ifndef FALLING_CHOZO_PILLAR_DATA_C
-#define FALLING_CHOZO_PILLAR_DATA_C
+#ifndef FALLING_CHOZO_PILLAR_DATA_H
+#define FALLING_CHOZO_PILLAR_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sFallingChozoPillarGFX[876];
-static const u16 sFallingChozoPillarPAL[16];
+static const u32 sFallingChozoPillarGFX[219] = INCBIN_U32("data/sprites/FallingChozoPillar.gfx.lz");
+static const u16 sFallingChozoPillarPAL[16] = INCBIN_U16("data/sprites/FallingChozoPillar.pal");
 
 static const u16 sFallingChozoPillarOAM_Falling_Frame0[25] = {
     0x8,

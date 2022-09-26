@@ -1,7 +1,8 @@
-#ifndef CROCOMIRE_DATA_C
-#define CROCOMIRE_DATA_C
+#ifndef CROCOMIRE_DATA_H
+#define CROCOMIRE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
 static const i16 sCrocomireMultiSpriteData_Idle_Frame0[18] = {
@@ -144,8 +145,8 @@ static const struct FrameData sCrocomireMultiSpriteData_Angry[2] = {
     0x0
 };
 
-static const u32 sCrocomireGFX[1954];
-static const u16 sCrocomirePAL[128];
+static const u32 sCrocomireGFX[1954] = INCBIN_U32("data/sprites/Crocomire.gfx.lz");
+static const u16 sCrocomirePAL[128] = INCBIN_U16("data/sprites/Crocomire.pal");
 
 static const u16 sCrocomireOAM_Screaming_Frame1[22] = {
     0x7,

@@ -1,12 +1,13 @@
-#ifndef ESCAPE_GATE_DATA_C
-#define ESCAPE_GATE_DATA_C
+#ifndef ESCAPE_GATE_DATA_H
+#define ESCAPE_GATE_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
 
-static const u8 sEscapeGateAndTimerGFX[2048];
-static const u16 sEscapeGateAndTimerPAL[16];
-static const u16 sEscapeGateFlashingPAL[96];
+static const u8 sEscapeGateAndTimerGFX[2048] = INCBIN_U8("data/sprites/EscapeGateAndTimer.gfx");
+static const u16 sEscapeGateAndTimerPAL[16] = INCBIN_U16("data/sprites/EscapeGateAndTimer.pal");
+static const u16 sEscapeGateFlashingPAL[96] = INCBIN_U16("data/sprites/EscapeGateFlashing.pal");
 
 static const u16 sEscapeGateOAM_Closed_Frame0[16] = {
     0x5,

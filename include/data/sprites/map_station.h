@@ -1,8 +1,12 @@
-#ifndef MAP_STATION_DATA_C
-#define MAP_STATION_DATA_C
+#ifndef MAP_STATION_DATA_H
+#define MAP_STATION_DATA_H
 
 #include "types.h"
+#include "macros.h"
 #include "oam.h"
+
+static const u32 sMapStationGFX[680] = INCBIN_U32("data/sprites/MapStation.gfx.lz");
+static const u16 sMapStationPAL[64] = INCBIN_U16("data/sprites/MapStation.pal");
 
 static const u16 sMapStationOAM_Inactive_Frame19[76] = {
     0x19,
