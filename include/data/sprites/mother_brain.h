@@ -60,7 +60,7 @@ static const u8 sMotherBrainDynamicPaletteData[19][2] = {
 };
 
 static const u32 sMotherBrainGFX[1871] = INCBIN_U32("data/sprites/MotherBrain.gfx.lz");
-static const u16 sMotherBrainPAL[96] = INCBIN_U16("data/sprites/MotherBrain.pal"):;
+static const u16 sMotherBrainPAL[96] = INCBIN_U16("data/sprites/MotherBrain.pal");
 
 static const u16 sMotherBrainOAM_Idle_Frame0[58] = {
     0x13,
