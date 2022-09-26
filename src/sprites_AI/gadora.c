@@ -1,5 +1,4 @@
 #include "sprites_AI/gadora.h"
-#include "data/data.h"
 #include "data/sprites/gadora.h"
 #include "data/sprites/enemy_drop.h"
 #include "data/sprite_data.h"

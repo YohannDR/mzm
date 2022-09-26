@@ -1,11 +1,14 @@
 #include "sprites_AI/escape_ship_pirate.h"
 #include "sprites_AI/space_pirate.h"
-#include "data/data.h"
+
 #include "data/sprite_data.h"
 #include "data/sprites/space_pirate.h"
+
 #include "constants/sprite.h"
 #include "constants/samus.h"
+
 #include "structs/game_state.h"
+#include "structs/samus.h"
 #include "structs/sprite.h"
 
 /**

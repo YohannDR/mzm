@@ -1,5 +1,4 @@
 #include "sprites_AI/area_banner.h"
-#include "data/data.h"
 #include "data/sprites/area_banner.h"
 #include "constants/sprite.h"
 #include "structs/sprite.h"

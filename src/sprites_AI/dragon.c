@@ -1,5 +1,4 @@
 #include "sprites_AI/dragon.h"
-#include "data/data.h"
 #include "data/sprites/dragon.h"
 #include "data/sprite_data.h"
 #include "constants/clipdata.h"

@@ -2,7 +2,6 @@
 #include "samus.h"
 #include "temp_globals.h"
 
-#include "data/data.h"
 #include "data/pointers.h"
 
 #include "constants/game_state.h"
@@ -14,6 +13,11 @@
 #include "structs/visual_effects.h"
 #include "structs/samus.h"
 #include "structs/scroll.h"
+
+const i16 samus_hitbox_data[4][4];
+const i16 samus_visual_data[4][4];
+const i16 samus_draw_distance_offsets[4][4];
+const u16 SamusPullingSelfUp_velocity[8];
 
 void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {

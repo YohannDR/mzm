@@ -5,7 +5,6 @@
 #include "gba.h"
 #include "data/pointers.h"
 #include "data/sprite_data.h"
-#include "data/data.h"
 #include "constants/game_state.h"
 #include "structs/game_state.h"
 
