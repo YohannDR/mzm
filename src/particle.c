@@ -72,8 +72,6 @@ void ParticleCheckOnScreen(struct ParticleEffect* pParticle)
  */
 void ParticleDraw(struct ParticleEffect* pParticle)
 {
-    // https://decomp.me/scratch/rmhDY
-
     i32 prevSlot;
     i32 partCount;
     const u16* src;
@@ -88,7 +86,7 @@ void ParticleDraw(struct ParticleEffect* pParticle)
     i32 i;
     u32 shape;
     u32 size;
-    union OamData * oam;
+    union OamData* oam;
     
     prevSlot = gNextOAMSlot;
     src = gCurrentParticleEffectOAMFramePointer;
@@ -124,26 +122,27 @@ void ParticleDraw(struct ParticleEffect* pParticle)
 
         flipped = pParticle->status & PARTICLE_STATUS_XFLIP;
 
+        
         currSlot = prevSlot;
         for (i = 0; i < partCount; i++)
         {
             part = *src++;
             *dst++ = part;
-            gOamData[currSlot].split.y = part + yPosition;
+            gOamData[currSlot + i].split.y = part + yPosition;
 
             part = *src++;
             *dst++ = part;
-            gOamData[currSlot].split.x = part + xPosition;
+            gOamData[currSlot + i].split.x = part + xPosition;
 
             *dst++ = *src++;
-            gOamData[currSlot].split.priority = bgPriority;
+            gOamData[currSlot + i].split.priority = bgPriority;
 
             if (flipped)
             {
-                gOamData[currSlot].split.xFlip ^= 0x1;
-                shape = gOamData[currSlot].split.shape;
-                size = gOamData[currSlot].split.size;
-                gOamData[currSlot].split.x = xPosition - (part + sOamXFlipOffsets[shape][size] * 8);
+                gOamData[currSlot + i].split.xFlip ^= 0x1;
+                shape = gOamData[currSlot + i].split.shape;
+                size = gOamData[currSlot + i].split.size;
+                gOamData[currSlot + i].split.x = xPosition - (part + sOamXFlipOffsets[shape][size] * 8);
             }
             
             dst++;
