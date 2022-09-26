@@ -1,7 +1,12 @@
 #include "room.h"
+
+#include "constants/samus.h"
+
 #include "structs/bg_clip.h"
 #include "structs/room.h"
+#include "structs/samus.h"
 #include "structs/screen_shake.h"
+
 
 void RoomLoad(void)
 {
@@ -208,9 +213,24 @@ u8 RoomRLEDecompress(u8 mode, u8* pSrc, u8* pDst)
 
 }
 
+/**
+ * @brief 56e28 | 4c | Updates the graphics information about a room
+ * 
+ */
 void RoomUpdateGFXInfo(void)
 {
+    if (gSamusData.pose != SPOSE_USING_AN_ELEVATOR)
+        gDisableDoorAndTanks &= 0x7F;
+    else
+        gDisableDoorAndTanks |= 0x80;
 
+    if (gMonochromeBGFading != 0)
+        apply_background_fading(); // Undefined
+    else
+    {
+        MinimapUpdate();
+        TransparencyApplyNewEffects();
+    }
 }
 
 void RoomUpdateAnimatedGraphicsAndPalettes(void)

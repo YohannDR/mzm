@@ -3330,7 +3330,7 @@ lbl_08056e52:
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_08056e68
-    bl sub_0805cf4c
+    bl apply_background_fading
     b lbl_08056e70
     .align 2, 0
 lbl_08056e60: .4byte 0x03000048
@@ -15935,8 +15935,8 @@ lbl_0805cf42:
     bx r1
     .align 2, 0
 
-    thumb_func_start sub_0805cf4c
-sub_0805cf4c: @ 0x0805cf4c
+    thumb_func_start apply_background_fading
+apply_background_fading: @ 0x0805cf4c
     push {r4, r5, lr}
     ldr r5, lbl_0805cf8c @ =0x03000029
     ldrb r3, [r5]
