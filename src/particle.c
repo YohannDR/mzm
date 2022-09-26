@@ -2,6 +2,7 @@
 
 #include "data/pointers.h"
 #include "data/projectile_data.h"
+#include "data/sprite_data.h"
 #include "data/particle_data.h"
 
 #include "constants/escape.h"
@@ -73,22 +74,30 @@ void ParticleDraw(struct ParticleEffect* pParticle)
 {
     // https://decomp.me/scratch/rmhDY
 
-    u8 prevSlot;
-    u32 partCount;
+    i32 prevSlot;
+    i32 partCount;
     const u16* src;
     u16* dst;
+    u8 flipped;
+    i32 newSlot;
     u16 yPosition;
     u16 xPosition;
     u16 bgPriority;
     u16 part;
-    union OamData* pUnion;
-
+    i32 currSlot;
+    i32 i;
+    u32 shape;
+    u32 size;
+    union OamData * oam;
+    
     prevSlot = gNextOAMSlot;
     src = gCurrentParticleEffectOAMFramePointer;
 
     partCount = *src++;
+    
+    newSlot = partCount + prevSlot;
 
-    if (partCount + prevSlot < 0x80)
+    if (newSlot < 0x80)
     {
         dst = (u16*)(gOamData + prevSlot);
 
@@ -113,35 +122,33 @@ void ParticleDraw(struct ParticleEffect* pParticle)
         else
             bgPriority = 0x0;
 
-        if (partCount != 0x0)
+        flipped = pParticle->status & PARTICLE_STATUS_XFLIP;
+
+        currSlot = prevSlot;
+        for (i = 0; i < partCount; i++)
         {
-            pUnion = gOamData + (partCount + prevSlot);
+            part = *src++;
+            *dst++ = part;
+            gOamData[currSlot].split.y = part + yPosition;
 
-            for (; partCount != 0x0; partCount--)
+            part = *src++;
+            *dst++ = part;
+            gOamData[currSlot].split.x = part + xPosition;
+
+            *dst++ = *src++;
+            gOamData[currSlot].split.priority = bgPriority;
+
+            if (flipped)
             {
-                part = *src++;
-                *dst++ = part;
-                pUnion->split.y = part + yPosition;
-
-                part = *src++;
-                *dst++ = part;
-                pUnion->split.x = part + xPosition;
-
-                *dst++ = *src++;
-                pUnion->split.priority = bgPriority;
-
-                if (pParticle->status & SPRITE_STATUS_XFLIP)
-                {
-                    pUnion->split.xFlip ^= 0x1;
-                    // pUnion->split.x = xPosition - (part + array_2b0c94[pUnion->split.shape][pUnion->split.size] * 8);
-                }
-                
-                dst++;
-                pUnion++;
+                gOamData[currSlot].split.xFlip ^= 0x1;
+                shape = gOamData[currSlot].split.shape;
+                size = gOamData[currSlot].split.size;
+                gOamData[currSlot].split.x = xPosition - (part + sOamXFlipOffsets[shape][size] * 8);
             }
-
+            
+            dst++;
+            // currSlot++;
         }
-
         gNextOAMSlot = partCount + prevSlot;
     }
 }

@@ -14666,7 +14666,7 @@ lbl_0800c694:
     bl ProjectileUpdate
     bl HUDDraw
     bl sub_0800d36c
-    bl process_particle_effects
+    bl ParticleProcessAll
     bl ProjectileDrawAllStatusFalse
     ldr r0, lbl_0800c6ec @ =0x0300007c
     ldrb r0, [r0]
