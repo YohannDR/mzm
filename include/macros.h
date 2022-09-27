@@ -5,6 +5,8 @@
 
 #define bomb_chain_type_to_flag(type) (1 << type)
 
+#define check_samus_turning() ((pData->direction ^ (KEY_RIGHT | KEY_LEFT)) & gButtonInput)
+
 #define INCBIN(...) {0}
 #define INCBIN_U8   INCBIN
 #define INCBIN_U16  INCBIN

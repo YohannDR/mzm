@@ -1,5 +1,7 @@
 #include "gba.h"
 #include "samus.h"
+#include "clipdata.h" // Possibly necessary
+#include "macros.h"
 #include "temp_globals.h"
 
 #include "data/pointers.h"
@@ -1126,7 +1128,7 @@ void SamusChangeToHurtPose(struct SamusData* pData, struct SamusData* pCopy, str
     pData->invincibilityTimer = 0x30;
     pData->shinesparkTimer = 0x0;
     pData->standingStatus = STANDING_MIDAIR;
-    pWeapon->newProjectile = PROJECTILE_NONE;
+    pWeapon->newProjectile = PROJECTILE_CATEGORY_NONE;
     pWeapon->beamReleasePaletteTimer = 0x0;
 }
 
@@ -1172,7 +1174,7 @@ void SamusChangeToKnockbackPose(struct SamusData* pData, struct SamusData* pCopy
     pData->armCannonDirection = pCopy->armCannonDirection;
     pData->shinesparkTimer = 0x0;
     pData->standingStatus = STANDING_MIDAIR;
-    pWeapon->newProjectile = PROJECTILE_NONE;
+    pWeapon->newProjectile = PROJECTILE_CATEGORY_NONE;
     pWeapon->beamReleasePaletteTimer = 0x0;
 }
 
@@ -1541,26 +1543,24 @@ i16 SamusChangeVelocityOnSlope(struct SamusData* pData)
     return velocity;
 }
 
-void SamusCopyPalette(u16* pSrc, i32 offset, i32 nbrColors)
+/**
+ * @brief 7770 | 2c | Copies the provided palette to Samus's palette
+ * 
+ * @param src Source Palette Pointer
+ * @param offset Destination offset
+ * @param nbrColors Number of colors to copy
+ */
+void SamusCopyPalette(u16* src, i32 offset, i32 nbrColors)
 {
-    /*u16* pPalette;
-    u32 size;
+    i32 i;
 
-    if (offset < offset + nbrColors)
-    {
-        pPalette = gSamusPalette;
-        pPalette += offset;
-        size = nbrColors - offset;
-        do {
-           *pPalette++ = *src++;
-            size--;
-        } while (size != 0x0);
-    }*/
+    for (i = offset; i < offset + nbrColors; i++)
+        gSamusPalette[i] = *src++;
 }
 
 void SamusUpdate(void)
 {
-    u8 new_pose;
+    u8 newPose;
     struct SamusData* pData;
 
     pData = &gSamusData;
@@ -1569,9 +1569,9 @@ void SamusUpdate(void)
         pData->animationDurationCounter++;
     
     SamusUpdatePhysics(pData);
-    new_pose = SamusExecutePoseSubroutine(pData);
-    if (new_pose != SPOSE_NONE)
-        SamusSetPose(new_pose);
+    newPose = SamusExecutePoseSubroutine(pData);
+    if (newPose != SPOSE_NONE)
+        SamusSetPose(newPose);
     SamusUpdateDrawDistanceAndStandingStatus(pData, &gSamusPhysics);
     SamusUpdateVelocityPosition(pData);
 }
@@ -1657,33 +1657,45 @@ void SamusCallUpdateArmCannonPositionOffset(void)
     SamusUpdateArmCannonPositionOffset(direction);
 }
 
+/**
+ * @brief 7948 | 5c | Makes Samus bounce on a bomb
+ * 
+ * @param direction 
+ */
 void SamusBombBounce(u8 direction)
 {
-    /*u8 can_bounce;
+    u8 canBounce;
 
     if (gSamusPhysics.slowedByLiquid)
         return;
 
-    can_bounce = FALSE;
-    if ((direction & 0x7F) > 0x9)
+    canBounce = FALSE;
+
+    if ((direction & (FORCED_MOVEMENT_BOMB_JUMP_ABOVE - 1)) > 0x9)
     {
+        // Check pose
         switch (gSamusData.pose)
         {
-            case SPOSE_MORPH_BALL_MIDAIR:
-                if (gSamusData.yVelocity <= 0x0 && (direction & 0x80) == 0x0)
-                    can_bounce = TRUE;
-            
-            default:
-                if (!can_bounce)
-                    return;
-
-            case SPOSE_ROLLING:
             case SPOSE_MORPHING:
             case SPOSE_MORPH_BALL:
-                gSamusData.forcedMovement = direction & 0x7F;
-                SamusSetPose(SPOSE_UPDATE_JUMP_VELOCITY_REQUEST);
+            case SPOSE_ROLLING:
+                canBounce = TRUE;
+                break;
+
+            case SPOSE_MORPH_BALL_MIDAIR:
+                // Check when falling
+                if (gSamusData.yVelocity <= 0 && !(direction & FORCED_MOVEMENT_BOMB_JUMP_ABOVE))
+                    canBounce = TRUE;
+                break;
         }
-    }*/
+    }
+
+    if (canBounce)
+    {
+        // Make bounce
+        gSamusData.forcedMovement = direction & (FORCED_MOVEMENT_BOMB_JUMP_ABOVE - 1);
+        SamusSetPose(SPOSE_UPDATE_JUMP_VELOCITY_REQUEST);
+    }
 }
 
 void SamusAimCannon(struct SamusData* pData)
@@ -1835,74 +1847,77 @@ void SamusAimCannon(struct SamusData* pData)
     }*/
 }
 
+/**
+ * @brief 7cf8 | bc | Checks if Samus is firing a beam/missile
+ * 
+ * @param pData Samus Data Pointer
+ * @param pWeapon Samus Weapon Info Pointer
+ * @param pEquipment Samus Equipment Pointer
+ * @return u8 1 if fired, 0 otherwise
+ */
 u8 SamusCheckFireBeamMissile(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment)
 {
-    /*u8 has_proj;
-    u8 new_proj;
+    u8 hasProj;
 
-    has_proj = FALSE;
-    if (pWeapon->cooldown == 0x0 && pWeapon->newProjectile == PROJECTILE_NONE && (gChangedInput & KEY_B) != 0x0)
+    hasProj = FALSE;
+
+    // Check fire
+    if (pWeapon->cooldown == 0x0 && pWeapon->newProjectile == PROJECTILE_CATEGORY_NONE && gChangedInput & KEY_B)
     {
-        if ((pWeapon->weaponHighlighted & WH_MISSILE) != 0x0)
-            pWeapon->newProjectile = PROJECTILE_MISSILE;
-        else if ((pWeapon->weaponHighlighted & WH_SUPER_MISSILE) != 0x0)
-            pWeapon->newProjectile = PROJECTILE_SUPER_MISSILE;
+        if (pWeapon->weaponHighlighted & WH_MISSILE)
+            pWeapon->newProjectile = PROJECTILE_CATEGORY_MISSILE;
+        else if (pWeapon->weaponHighlighted & WH_SUPER_MISSILE)
+            pWeapon->newProjectile = PROJECTILE_CATEGORY_SUPER_MISSILE;
         else
-            pWeapon->newProjectile = PROJECTILE_BEAM;
-        has_proj++;
+            pWeapon->newProjectile = PROJECTILE_CATEGORY_BEAM;
+
+        hasProj++;
     }
 
-    if (has_proj)
+    if (!hasProj)
     {
-        if (pData->armCannonDirection == ACD_NONE)
-            pData->armCannonDirection = ACD_FORWARD;
-        return has_proj;
-    }
-
-    if (pWeapon->weaponHighlighted == WH_NONE)
-    {
-        if ((gButtonInput & KEY_B) != 0x0)
+        // Update charge coutner
+        if (pWeapon->weaponHighlighted == WH_NONE)
         {
-            if ((pEquipment->beamBombsActivation & BBF_CHARGE_BEAM) == 0x0)
-                pWeapon->chargeCounter = 0x0;
-            else
+            if (gButtonInput & KEY_B)
             {
-                if (pWeapon->chargeCounter < 0x4F)
-                    pWeapon->chargeCounter++;
-                else
-                    pWeapon->chargeCounter = 0x40;
-            }
-        }
-        else
-        {
-            if (pWeapon->chargeCounter >= 0x40)
-            {
-                new_proj = PROJECTILE_CHARGED_BEAM;
-                pWeapon->newProjectile = new_proj;
-                has_proj = TRUE;
-            }
-            else
-            {
-                if (0x19 < pWeapon->chargeCounter)
+                if (pEquipment->beamBombsActivation & BBF_CHARGE_BEAM)
                 {
-                    new_proj = PROJECTILE_BEAM;
-                    pWeapon->newProjectile = new_proj;
-                    has_proj = TRUE;
+                    if (pWeapon->chargeCounter < 0x4F)
+                        pWeapon->chargeCounter++;
+                    else
+                        pWeapon->chargeCounter = 0x40;
                 }
+                else
+                    pWeapon->chargeCounter = 0x0;
             }
-            pWeapon->chargeCounter = 0x0;
+            else
+            {
+                if (pWeapon->chargeCounter > 0x3F)
+                {
+                    pWeapon->newProjectile = PROJECTILE_CATEGORY_CHARGED_BEAM;
+                    hasProj++;
+                }
+                else if (pWeapon->chargeCounter > 0x19)
+                {
+                    pWeapon->newProjectile = PROJECTILE_CATEGORY_BEAM;
+                    hasProj++;
+                }
+                
+                pWeapon->chargeCounter = 0x0;
+            }
         }
+        else
+            pWeapon->chargeCounter = 0x0;
     }
-    else
-        pWeapon->chargeCounter = 0x0;
 
-    if (has_proj)
+    if (hasProj)
     {
         if (pData->armCannonDirection == ACD_NONE)
             pData->armCannonDirection = ACD_FORWARD;
     }
 
-    return has_proj;*/
+    return hasProj;
 }
 
 u8 SamusCheckFirePistol(struct SamusData* pData, struct WeaponInfo* pWeapon)
@@ -1916,22 +1931,22 @@ u8 SamusCheckFirePistol(struct SamusData* pData, struct WeaponInfo* pWeapon)
     else
         pWeapon->chargeCounter = 0x70;
 
-    if (pWeapon->cooldown == 0x0 && pWeapon->newProjectile == PROJECTILE_NONE && (gChangedInput & KEY_B) != 0x0)
+    if (pWeapon->cooldown == 0x0 && pWeapon->newProjectile == PROJECTILE_CATEGORY_NONE && (gChangedInput & KEY_B) != 0x0)
     {
         if (pWeapon->chargeCounter >= 0x70)
         {
-            pWeapon->newProjectile = PROJECTILE_CHARGED_BEAM;
+            pWeapon->newProjectile = PROJECTILE_CATEGORY_CHARGED_BEAM;
             pWeapon->chargeCounter = 0x0;
             new_proj++;
         }
         else
-            pWeapon->newProjectile = PROJECTILE_BEAM;
+            pWeapon->newProjectile = PROJECTILE_CATEGORY_BEAM;
 
         pWeapon->chargeCounter = 0x0;
         new_proj++;
     }
 
-    if (new_proj != PROJECTILE_NONE && pData->armCannonDirection == ACD_NONE)
+    if (new_proj != PROJECTILE_CATEGORY_NONE && pData->armCannonDirection == ACD_NONE)
         pData->armCannonDirection = ACD_FORWARD;
 
     return new_proj;
@@ -2000,13 +2015,13 @@ void SamusCheckNewProjectile(struct SamusData* pData, struct WeaponInfo* pWeapon
                 if ((gChangedInput & KEY_B) != 0x0 && pWeapon->cooldown == 0x0 && (pEquipment->beamBombsActivation & BBF_BOMBS) != 0x0)
                 {
                     if ((pWeapon->weaponHighlighted & WH_POWER_BOMB) != 0x0)
-                        pWeapon->newProjectile = PROJECTILE_POWER_BOMB;
+                        pWeapon->newProjectile = PROJECTILE_CATEGORY_POWER_BOMB;
                     else
-                        pWeapon->newProjectile = PROJECTILE_BOMB;
+                        pWeapon->newProjectile = PROJECTILE_CATEGORY_BOMB;
                 }
             case SPOSE_MORPHING:
                 if (0x3F < pWeapon->chargeCounter)
-                    pWeapon->newProjectile = PROJECTILE_CHARGED_BEAM;
+                    pWeapon->newProjectile = PROJECTILE_CATEGORY_CHARGED_BEAM;
                 pWeapon->chargeCounter = 0x0;
                 break;
             
@@ -2035,19 +2050,27 @@ u8 SamusCheckAButtonPressed(struct SamusData* pData)
     return return_value;
 }
 
+/**
+ * @brief 8080 | 140 | Sets the current highlighted weapon
+ * 
+ * @param pData Samus Data Pointer
+ * @param pWeapon Samus Weapon Info Pointer
+ * @param pEquipment Samus Equipment Pointer
+ */
 void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment)
 {
-    /*u8 weapon_high;
+    u8 weaponHigh;
+    
+    weaponHigh = WH_NONE;
 
-    weapon_high = WH_NONE;
-    if (pEquipment->currentSuperMissiles == 0x0)
-        pWeapon->missilesSeleced = weapon_high;
-    else if (pEquipment->currentMissiles == 0x0)
-        pWeapon->missilesSeleced = TRUE;
-    else if ((gChangedInput & KEY_SELECT) != 0x0)
+    if (pEquipment->currentSuperMissiles == 0)
+        pWeapon->missilesSelected = FALSE;
+    else if (pEquipment->currentMissiles == 0)
+        pWeapon->missilesSelected = TRUE;
+    else if (gChangedInput & KEY_SELECT)
     {
-        pWeapon->missilesSeleced ^= 0x1;
-        SoundPlay(0x85);
+        pWeapon->missilesSelected ^= TRUE;
+        SoundPlay(0x85); // Selecting missiles
     }
 
     switch (pData->pose)
@@ -2055,59 +2078,11 @@ void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeap
         case SPOSE_MORPH_BALL:
         case SPOSE_ROLLING:
         case SPOSE_MORPH_BALL_MIDAIR:
+        case SPOSE_MORPH_BALL_ON_ZIPLINE:
         case SPOSE_GETTING_HURT_IN_MORPH_BALL:
         case SPOSE_GETTING_KNOCKED_BACK_IN_MORPH_BALL:
-            if ((gButtonInput & gButtonAssignments.armMissiles) == 0x0 || pEquipment->currentPowerBombs != 0x0)
-            {
-                weapon_high = WH_POWER_BOMB;
-                if (pWeapon->weaponHighlighted == WH_NONE)
-                {
-                    pWeapon->chargeCounter = 0x0;
-                    SoundPlay(0x84);
-                }
-            }
-            else
-            {
-                if (weapon_high != WH_NONE)
-                {
-                    if (pWeapon->weaponHighlighted == WH_NONE)
-                    {
-                        pWeapon->chargeCounter = 0x0;
-                        SoundPlay(0x84);
-                    }
-                }
-            }
-            break;
-        
-        default:
-            if ((gButtonInput & gButtonAssignments.armMissiles) != 0x0)
-            {
-                if (pWeapon->missilesSeleced == TRUE)
-                {
-                    if (pEquipment->currentMissiles != 0x0)
-                    {
-                        weapon_high = WH_MISSILE;
-                        if (pWeapon->weaponHighlighted == WH_NONE)
-                        {
-                            pWeapon->chargeCounter = 0x0;
-                            SoundPlay(0x84);
-                        }
-                    }
-                }
-                else
-                {
-                    weapon_high = WH_SUPER_MISSILE;
-                    if (pEquipment->currentMissiles != 0x0)
-                    {
-                        weapon_high = WH_MISSILE;
-                        if (pWeapon->weaponHighlighted == WH_NONE)
-                        {
-                            pWeapon->chargeCounter = 0x0;
-                            SoundPlay(0x84);
-                        }
-                    }
-                }
-            }
+            if (gButtonInput & gButtonAssignments.armMissiles && pEquipment->currentPowerBombs != 0)
+                weaponHigh = WH_POWER_BOMB;
             break;
 
         case SPOSE_HANGING_ON_LEDGE:
@@ -2123,18 +2098,28 @@ void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeap
         case SPOSE_BALLSPARKING:
         case SPOSE_BALLSPARK_COLLISION:
         case SPOSE_SAVING_LOADING_GAME:
-            if (pWeapon->weaponHighlighted != WH_NONE)
-            {
-                if (pWeapon->weaponHighlighted == WH_NONE)
-                {
-                    pWeapon->chargeCounter = 0x0;
-                    SoundPlay(0x84);
-                }
-            }
+            break;
 
+        default:
+            if (gButtonInput & gButtonAssignments.armMissiles)
+            {
+                if (!pWeapon->missilesSelected)
+                {
+                    if (pEquipment->currentMissiles != 0)
+                        weaponHigh = WH_MISSILE;
+                }
+                else
+                    weaponHigh = WH_SUPER_MISSILE;
+            }
+            break;
     }
 
-    pWeapon->weaponHighlighted = weapon_high;*/
+    if (weaponHigh != WH_NONE && pWeapon->weaponHighlighted == WH_NONE)
+    {
+        pWeapon->chargeCounter = 0;
+        SoundPlay(0x84); // Arming missiles
+    }
+    pWeapon->weaponHighlighted = weaponHigh;
 }
 
 void SamusSetSpinningPose(struct SamusData* pData, struct Equipment* pEquipment)
@@ -2144,10 +2129,10 @@ void SamusSetSpinningPose(struct SamusData* pData, struct Equipment* pEquipment)
     switch (pData->pose)
     {
         case SPOSE_SPINNING:
-            if (gSamusPhysics.slowedByLiquid != FALSE)
+            if (gSamusPhysics.slowedByLiquid)
                 break;
 
-            if ((pEquipment->suitMiscActivation & SMF_SCREW_ATTACK) == 0x0)
+            if (!(pEquipment->suitMiscActivation & SMF_SCREW_ATTACK))
             {
                 if (pEquipment->suitMiscActivation & SMF_SPACE_JUMP)
                     pData->pose = SPOSE_SPACE_JUMPING;
@@ -2157,27 +2142,26 @@ void SamusSetSpinningPose(struct SamusData* pData, struct Equipment* pEquipment)
             break;
 
         case SPOSE_SPACE_JUMPING:
-            flag = pEquipment->suitMiscActivation & SMF_SCREW_ATTACK;
-            if (flag != 0x0)
+            if (pEquipment->suitMiscActivation & SMF_SCREW_ATTACK)
                 pData->pose = SPOSE_SCREW_ATTACKING;
             else
             {
                 if (pEquipment->suitMiscActivation & SMF_SPACE_JUMP && !gSamusPhysics.slowedByLiquid)
                     break;
                 pData->pose = SPOSE_SPINNING;
-                pData->currentAnimationFrame = flag;
+                pData->currentAnimationFrame = 0x0;
             }
             break;
 
         case SPOSE_SCREW_ATTACKING:
-            if (gSamusPhysics.slowedByLiquid != FALSE)
+            if (gSamusPhysics.slowedByLiquid)
             {
                 pData->pose = SPOSE_SPINNING;
                 pData->currentAnimationFrame = 0x0;
             }
             else
             {
-                if ((pEquipment->suitMiscActivation & SMF_SCREW_ATTACK) == 0x0)
+                if (!(pEquipment->suitMiscActivation & SMF_SCREW_ATTACK))
                 {
                     if (pEquipment->suitMiscActivation & SMF_SPACE_JUMP)
                         pData->pose = SPOSE_SPACE_JUMPING;
@@ -2190,54 +2174,223 @@ void SamusSetSpinningPose(struct SamusData* pData, struct Equipment* pEquipment)
     }
 }
 
-void SamusApplyXAcceleration(i16 acceleration, i16 velocity, struct SamusData* pData)
+void SamusApplyXAcceleration(i32 acceleration, i32 velocity, struct SamusData* pData)
 {
+    // https://decomp.me/scratch/FkAya
 
+    i32 xVelocity;
+    i32 xAcceleration;
+    i32 temp;
+
+    xAcceleration = (i16)acceleration;
+    xVelocity = (i16)velocity;
+
+    if (pData->direction & KEY_RIGHT)
+    {
+        temp = (u16)pData->xVelocity + xAcceleration;
+        pData->xVelocity = temp;
+        if ((i16)temp > xVelocity)
+            pData->xVelocity = xVelocity;
+    }
+    else
+    {
+        pData->xVelocity -= xAcceleration;
+        if (pData->xVelocity < -xVelocity)
+            pData->xVelocity = -xVelocity;
+    }
 }
 
+/**
+ * @brief 82b8 | 168 | Handles Samus taking hazard damage
+ * 
+ * @param pData Samus Data Pointer
+ * @param pEquipment Samus Equipment Pointer
+ * @param pHazard Hazard Damage Pointer
+ * @return u8 1 if getting knocked back, 0 otherwise
+ */
 u8 SamusTakeHazardDamage(struct SamusData* pData, struct Equipment* pEquipment, struct HazardDamage* pHazard)
 {
+    u16 yPosition;
+    u8 damaged;
+    u8 knockback;
+    u8 damageType;
+    u32 hazard;
 
-}
-
-void SamusCheckShinesparking(struct SamusData* pData)
-{
-    /*u8 pose;
-
-    pose = pData->pose;
-
-    switch (pose)
+    switch (pData->pose)
     {
-        case SPOSE_SHINESPARKING:
-            pData->speedboostingShinesparking = TRUE;
-            break;
-        case SPOSE_BALLSPARKING:
-            pData->speedboostingShinesparking = TRUE;
-            break;
-        default:
-            if ((u16)(pData->xVelocity + 0x9F) >= 0x13F)
-            {
-                if (pData->speedboostingShinesparking != FALSE) return;
-                if (pose != SPOSE_SKIDDING)
-                {
-                    pData->speedboostingShinesparking = TRUE;
-                    SoundPlay(0x8B);
-                }
-                break;
-            }
-            else
-            {
-                if (pData->speedboostingShinesparking == FALSE)
-                    SoundStop(0x8B);
-                return;
-            }
-
+        case SPOSE_GRABBED_BY_CHOZO_STATUE:
         case SPOSE_DYING:
-            pData->speedboostingShinesparking = FALSE;
+            return FALSE;
+
+        case SPOSE_HANGING_ON_LEDGE:
+        case SPOSE_TURNING_TO_AIM_WHILE_HANGING:
+        case SPOSE_HIDING_ARM_CANNON_WHILE_HANGING:
+        case SPOSE_AIMING_WHILE_HANGING:
+        case SPOSE_SHOOTING_WHILE_HANGING:
+        case SPOSE_PULLING_YOURSELF_UP_FROM_HANGING:
+        case SPOSE_PULLING_YOURSELF_FORWARD_FROM_HANGING:
+        case SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL:
+            yPosition = pData->yPosition - QUARTER_BLOCK_SIZE;
+            break;
+
+        default:
+            yPosition = pData->yPosition;
     }
 
-    if (pData->speedboostingShinesparking == FALSE)
-        SoundStop(0x8B);*/
+    pHazard->damageTimer++;
+    damaged = FALSE;
+    knockback = FALSE;
+    damageType = 0;
+
+    hazard = ClipdataCheckCurrentAffectingAtPosition(yPosition, pData->xPosition) & 0xFF;
+
+    if (pEquipment->suitMiscActivation & SMF_GRAVITY_SUIT)
+    {
+        if (hazard == HAZARD_TYPE_ACID)
+        {
+            damaged = TRUE;
+            if (pHazard->damageTimer > 0x3)
+                damageType = 0x1;
+        }
+    }
+    else
+    {
+        if (pEquipment->suitMiscActivation & SMF_VARIA_SUIT)
+        {
+            if (hazard == HAZARD_TYPE_ACID)
+            {
+                damaged = TRUE;
+                if (pHazard->damageTimer > 0x1)
+                    damageType = 0x1;
+            }
+            else if (hazard == HAZARD_TYPE_STRONG_LAVA)
+            {
+                damaged = TRUE;
+                if (pHazard->damageTimer > 0x4)
+                    damageType = 0x1;
+            }
+        }
+        else
+        {
+            if (hazard == HAZARD_TYPE_ACID)
+            {
+                damaged = TRUE;
+                damageType = 0x1;
+            }
+            else if (hazard == HAZARD_TYPE_SNOWFLAKES_KNOCKBACK)
+            {
+                damaged = TRUE;
+                if (pHazard->damageTimer > 0x3)
+                    damageType = 0xF;
+
+                if (pHazard->knockbackTimer++ > 0x57)
+                {
+                    pHazard->knockbackTimer = 0x0;
+                    knockback = TRUE;
+                }
+            }
+            else if (hazard == HAZARD_TYPE_STRONG_LAVA)
+            {
+                damaged = TRUE;
+                if (pHazard->damageTimer > 0x2)
+                    damageType = 0x1;
+            }
+            else if (hazard == HAZARD_TYPE_WEAK_LAVA)
+            {
+                damaged = TRUE;
+                if (pHazard->damageTimer > 0x7)
+                    damageType = 0x1;
+            }
+            else if (hazard == HAZARD_TYPE_HEAT)
+            {
+                damaged = TRUE;
+                if (pHazard->damageTimer > 0x5)
+                    damageType = 0xF;
+            }
+            else if (hazard == HAZARD_TYPE_COLD)
+            {
+                damaged = TRUE;
+                if (pHazard->damageTimer > 0x5)
+                    damageType = 0xF;
+            }
+        }
+    }
+
+    if (!damaged)
+    {
+        pHazard->damageTimer = 0x0;
+        pHazard->knockbackTimer = 0x0;
+        pHazard->paletteTimer = 0x0;
+    }
+    else
+    {
+        switch (pHazard->paletteTimer++)
+        {
+            case 0x1:
+            case 0x21:
+                if (hazard == HAZARD_TYPE_ACID || hazard == HAZARD_TYPE_STRONG_LAVA || hazard == HAZARD_TYPE_WEAK_LAVA)
+                    SoundPlay(0x7E);
+                break;
+    
+            case 0x40:
+                pHazard->paletteTimer = 0x0;
+        }
+    
+        if (damageType != 0x0)
+        {
+            pEquipment->currentEnergy--;
+            pHazard->damageTimer = 0x0;
+        }
+    
+        if (damageType == 0xF)
+            SoundPlay(0x7F);
+    }
+
+    if (pEquipment->currentEnergy == 0x0 || knockback)
+        return TRUE;
+    else
+        return FALSE;
+}
+
+/**
+ * @brief 8420 | 4c | Checks if Samus is shinesparking
+ * 
+ * @param pData 
+ */
+void SamusCheckShinesparking(struct SamusData* pData)
+{
+    u16 xVelocity;
+    u8 pose = pData->pose;
+
+    if (pose != SPOSE_DYING)
+    {
+        switch (pose)
+        {
+            case SPOSE_SHINESPARKING:
+            case SPOSE_BALLSPARKING:
+                pData->speedboostingShinesparking = TRUE;
+                break;
+            
+            default:
+                xVelocity = pData->xVelocity + 0x9F;
+                if (xVelocity > 0x13E)
+                {
+                    if (!pData->speedboostingShinesparking && pose != SPOSE_SKIDDING)
+                    {
+                        pData->speedboostingShinesparking++;
+                        SoundPlay(0x8B); // Speedbooster start
+                    }
+                }
+                else if (pData->speedboostingShinesparking)
+                    pData->speedboostingShinesparking = FALSE;
+                break;
+        }
+    }
+    else
+        pData->speedboostingShinesparking = FALSE;
+
+    if (!pData->speedboostingShinesparking)
+        SoundStop(0x8B); // Speedbooster start
 }
 
 u8 SamusInactivity(struct SamusData* pData)
@@ -2252,37 +2405,38 @@ u8 SamusUpdateAnimation(struct SamusData* pData, u8 slowed)
 
 u8 SamusRunning(struct SamusData* pData)
 {
-    /*u8 new_pose;
-    i32 xVelocity;
+    // https://decomp.me/scratch/g7GvE
 
-    if ((gChangedInput & KEY_A) != 0x0)
+    i32 xVelocity;
+    u16 currVelocity;
+
+    if (gChangedInput & KEY_A)
     {
-        pData->forcedMovement = 0x1;
+        pData->forcedMovement = FORCED_MOVEMENT_STARTING_SPIN_RUNNING;
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
     }
 
     xVelocity = gSamusPhysics.xVelocityCap;
-    if ((gEquipment.suitMiscActivation & SMF_SPEEDBOOSTER) != 0x0 && gSamusPhysics.slowedByLiquid == FALSE)
+    if (gEquipment.suitMiscActivation & SMF_SPEEDBOOSTER && !gSamusPhysics.slowedByLiquid)
     {
-        if (pData->timer >= 0x8C)
+        if (pData->timer > 0x8B)
             xVelocity = 0xA0;
-        else
+        else if (pData->timer > 0x77)
+            xVelocity = 0x8C;
+        
+        currVelocity = pData->xVelocity + 0x5F;
+        if (currVelocity > 0xBE)
         {
-            if (0x77 < pData->timer)
-                xVelocity = 0x8C;
-        }
-
-        if ((u16)((u16)pData->xVelocity + 0x5F) >= 0xBF)
-        {
-            if (0x9F >= (u8)pData->timer)
+            if (pData->timer < 0xA0)
                 pData->timer++;
         }
+        else
+            pData->timer = 0x0;
     }
     else
         pData->timer = 0x0;
 
-
-    if ((gButtonInput & pData->direction) != 0x0)
+    if (gButtonInput & pData->direction)
     {
         SamusApplyXAcceleration(gSamusPhysics.xAcceleration, xVelocity, pData);
         SamusAimCannon(pData);
@@ -2290,15 +2444,15 @@ u8 SamusRunning(struct SamusData* pData)
     }
     else
     {
-        if (pData->speedboostingShinesparking != FALSE)
+        if (pData->speedboostingShinesparking)
             return SPOSE_SKIDDING;
-        else if (gSamusPhysics.hasNewProjectile != 0x0)
+        else if (gSamusPhysics.hasNewProjectile)
             return SPOSE_SHOOTING;
-        else if (((pData->direction ^ (KEY_RIGHT | KEY_LEFT)) & gButtonInput) == 0x0)
+        else if (!check_samus_turning())
             return SPOSE_STANDING;
         else
             return SPOSE_TURNING_AROUND;
-    }*/
+    }
 }
 
 u8 SamusRunningGFX(struct SamusData* pData)
@@ -2434,7 +2588,7 @@ u8 SamusCrouching(struct SamusData* pData)
         if (pData->armCannonDirection == ACD_UP)
             pData->armCannonDirection = ACD_FORWARD;
 
-        if (gSamusPhysics.hasNewProjectile != PROJECTILE_NONE)
+        if (gSamusPhysics.hasNewProjectile != PROJECTILE_CATEGORY_NONE)
             return SPOSE_SHOOTING_AND_CROUCHING;
         
         input = &gButtonInput;
@@ -2669,95 +2823,94 @@ u8 SamusStartingSpinJumpGFX(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
+/**
+ * @brief 8efc | 144 | Samus spinning subroutine
+ * 
+ * @param pData Samus Data Pointer
+ * @return u8 New pose
+ */
 u8 SamusSpinning(struct SamusData* pData)
 {
-    /*i32 acceleration;
-    u16 direction;
-    u16* input;
+    i32 xAcceleration;
+    i32 xOffset;
 
-    if (gSamusPhysics.hasNewProjectile != 0x0)
+    if (gSamusPhysics.hasNewProjectile)
     {
-        pData->forcedMovement = 0x0;
+        pData->forcedMovement = FORCED_MOVEMENT_SHOOTING_WHILE_SPINNING;
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
     }
-    else
+
+    if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gButtonInput & (KEY_UP | KEY_DOWN))
     {
-        if ((gButtonInput & (KEY_RIGHT | KEY_LEFT)) == 0x0 && (gButtonInput & (KEY_UP | KEY_DOWN)) != 0x0)
-        {
-            pData->forcedMovement = 0x2;
-            return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
-        }
-        else
-        {
-            SamusAimCannon(pData);
-            acceleration = gSamusPhysics.midairXAcceleration;
-            if ((gEquipment.suitMiscActivation & SMF_SPACE_JUMP) != 0x0 && gSamusPhysics.slowedByLiquid == FALSE)
-            {
-                if ((gChangedInput & KEY_A) != 0x0 && pData->yVelocity <= -0x40)
-                {
-                    if ((gEquipment.suitMiscActivation & SMF_HIGH_JUMP) != 0x0)
-                        pData->yVelocity = 0xE8;
-                    else
-                        pData->yVelocity = 0xC0;
-                    
-                    return SPOSE_NONE;
-                }
-            }
-            else
-            {
-                if (pData->walljumpTimer != 0x0)
-                {
-                    pData->walljumpTimer--;
-                    if ((pData->direction & pData->lastWallTouchedMidAir) != 0x0)
-                    {
-                        if ((gChangedInput & KEY_A) != 0x0)
-                        {
-                            
-                            if ((pData->lastWallTouchedMidAir & KEY_RIGHT) != 0x0)
-                                acceleration = -0x28;
-                            else
-                                acceleration = 0x28;
-                            
-                            if ((ClipdataProcessForSamus(pData->yPosition, (u16)(pData->xPosition + acceleration)) & 0x1000000) != 0x0)
-                            {
-                                pData->direction = pData->lastWallTouchedMidAir;
-                                return SPOSE_STARTING_WALL_JUMP;
-                            }
-                        }
-                        acceleration = 0x1;
-                    }
-                }
-            }
+        pData->forcedMovement = FORCED_MOVEMENT_SPIN_BREAK;
+        return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+    }
 
-            input = &gButtonInput;
-            direction = pData->direction ^ (KEY_RIGHT | KEY_LEFT);
-            if ((direction & *input) != 0x0)
-            {
-                pData->direction = direction;
-                pData->xVelocity = 0x0;
-            }
-            else
-                SamusApplyXAcceleration(acceleration, gSamusPhysics.midairXVelocityCap, pData);
+    SamusAimCannon(pData);
 
-            if ((gButtonInput & KEY_A) == 0x0 && 0x0 < pData->yVelocity)
-                pData->yVelocity = 0x0;
+    xAcceleration = gSamusPhysics.midairXAcceleration;
+
+    if (gEquipment.suitMiscActivation & SMF_SPACE_JUMP && !gSamusPhysics.slowedByLiquid)
+    {
+        if (gChangedInput & KEY_A && pData->yVelocity <= -0x40)
+        {
+            if (gEquipment.suitMiscActivation & SMF_HIGH_JUMP)
+                pData->yVelocity = 0xE8;
+            else
+                pData->yVelocity = 0xC0;
 
             return SPOSE_NONE;
         }
-    }*/
+    }
+    else
+    {
+        if (pData->walljumpTimer != 0x0)
+        {
+            pData->walljumpTimer--;
+            if (pData->direction & pData->lastWallTouchedMidAir)
+            {
+                if (gChangedInput & KEY_A)
+                {
+                    if (pData->lastWallTouchedMidAir & KEY_RIGHT)
+                        xOffset = -0x28;
+                    else
+                        xOffset = 0x28;
+
+                    // u16 cast
+                    if (ClipdataProcessForSamus(pData->yPosition, pData->xPosition + xOffset) & CLIPDATA_TYPE_SOLID_FLAG)
+                    {
+                        pData->direction = pData->lastWallTouchedMidAir;
+                        return SPOSE_STARTING_WALL_JUMP;
+                    }
+                }
+
+                xAcceleration = 0x1;
+            }
+        }
+    }
+
+    if (gButtonInput & ((pData->direction ^ (KEY_RIGHT | KEY_LEFT))))
+    {
+        pData->direction ^= (KEY_RIGHT | KEY_LEFT);
+        pData->xVelocity = 0x0;
+    }
+    else
+        SamusApplyXAcceleration(xAcceleration, gSamusPhysics.midairXVelocityCap, pData);
+
+    if (!(gButtonInput & KEY_A) && pData->yVelocity > 0x0)
+        pData->yVelocity = 0x0;
+
+    return SPOSE_NONE;
 }
 
 u8 SamusSpinningGFX(struct SamusData* pData)
 {
-    u8 unk;
-
-    unk = SamusUpdateAnimation(pData, gSamusPhysics.slowedByLiquid);
-    if (unk == 0x2)
+    if (SamusUpdateAnimation(pData, gSamusPhysics.slowedByLiquid) == SAMUS_ANIM_STATE_ENDED)
         pData->currentAnimationFrame = 0x0;
 
     if (*(u16*)&pData->animationDurationCounter == 0x1)
     {
-        if (gSamusPhysics.slowedByLiquid != FALSE)
+        if (gSamusPhysics.slowedByLiquid)
             SoundPlay(0x92);
         else if (gEquipment.suitType != SUIT_SUITLESS)
             SoundPlay(0x6A);

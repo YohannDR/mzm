@@ -27,7 +27,7 @@ void SamusSetPose(u8 pose);
 void SamusCopyData(struct SamusData* pData);
 void SamusUpdatePhysics(struct SamusData* pData);
 i16 SamusChangeVelocityOnSlope(struct SamusData* pData);
-void SamusCopyPalette(u16* pSrc, i32 offset, i32 nbrColors);
+void SamusCopyPalette(u16* src, i32 offset, i32 nbrColors);
 void SamusUpdate(void);
 void SamusUpdateHitboxMovingDirection(void);
 void SamusCallGFXFunctions(void);
@@ -41,7 +41,7 @@ void SamusCheckNewProjectile(struct SamusData* pData, struct WeaponInfo* pWeapon
 u8 SamusCheckAButtonPressed(struct SamusData* pData);
 void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment);
 void SamusSetSpinningPose(struct SamusData* pData, struct Equipment* pEquipment);
-void SamusApplyXAcceleration(i16 acceleration, i16 velocity, struct SamusData* pData);
+void SamusApplyXAcceleration(i32 acceleration, i32 velocity, struct SamusData* pData);
 u8 SamusTakeHazardDamage(struct SamusData* pData, struct Equipment* pEquipment, struct HazardDamage* pHazard);
 void SamusCheckShinesparking(struct SamusData* pData);
 u8 SamusInactivity(struct SamusData* pData);

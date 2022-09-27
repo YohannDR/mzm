@@ -172,7 +172,7 @@ void ProjectileUpdate(void)
 
     switch (gSamusWeaponInfo.newProjectile)
     {
-        case PROJECTILE_CHARGED_BEAM:
+        case PROJECTILE_CATEGORY_CHARGED_BEAM:
             if (gEquipment.suitType == SUIT_SUITLESS)
             {
                 if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_CHARGED_PISTOL, 0x2) && ProjectileInit(PROJ_TYPE_CHARGED_PISTOL, gArmCannonY, gArmCannonX))
@@ -278,10 +278,10 @@ void ProjectileUpdate(void)
                     SoundPlay(beamSound);
                 }
             }
-            gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
+            gSamusWeaponInfo.newProjectile = PROJECTILE_CATEGORY_NONE;
             break;
 
-        case PROJECTILE_BEAM:
+        case PROJECTILE_CATEGORY_BEAM:
             if (gEquipment.suitType == SUIT_SUITLESS)
             {
                 if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_PISTOL, 0x6) && ProjectileInit(PROJ_TYPE_PISTOL, gArmCannonY, gArmCannonX))
@@ -387,40 +387,40 @@ void ProjectileUpdate(void)
                     SoundPlay(beamSound);
                 }
             }
-            gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
+            gSamusWeaponInfo.newProjectile = PROJECTILE_CATEGORY_NONE;
             break;
 
-        case PROJECTILE_MISSILE:
+        case PROJECTILE_CATEGORY_MISSILE:
             if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_MISSILE, 0x4) && ProjectileInit(PROJ_TYPE_MISSILE, gArmCannonY, gArmCannonX))
             {
                 gSamusWeaponInfo.cooldown = 0x9;
                 SoundPlay(0xF8); // Missile shot
                 SoundPlay(0xF9); // Missile thrust
             }
-            gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
+            gSamusWeaponInfo.newProjectile = PROJECTILE_CATEGORY_NONE;
             break;
 
-        case PROJECTILE_SUPER_MISSILE:
+        case PROJECTILE_CATEGORY_SUPER_MISSILE:
             if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_SUPER_MISSILE, 0x4) && ProjectileInit(PROJ_TYPE_SUPER_MISSILE, gArmCannonY, gArmCannonX))
             {
                 gSamusWeaponInfo.cooldown = 0xB;
                 SoundPlay(0xFB); // Super missile shot
                 SoundPlay(0xFC); // Super missile thrust
             }
-            gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
+            gSamusWeaponInfo.newProjectile = PROJECTILE_CATEGORY_NONE;
             break;
 
-        case PROJECTILE_BOMB:
+        case PROJECTILE_CATEGORY_BOMB:
             if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_BOMB, 0x4) && ProjectileInit(PROJ_TYPE_BOMB, gSamusData.yPosition, gSamusData.xPosition))
                 gSamusWeaponInfo.cooldown = 0x7;
-            gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
+            gSamusWeaponInfo.newProjectile = PROJECTILE_CATEGORY_NONE;
             break;
 
-        case PROJECTILE_POWER_BOMB:
+        case PROJECTILE_CATEGORY_POWER_BOMB:
             if (ProjectileCheckNumberOfProjectiles(PROJ_TYPE_POWER_BOMB, 0x1) && gCurrentPowerBomb.animationState == 0x0
                 && ProjectileInit(PROJ_TYPE_POWER_BOMB, gSamusData.yPosition, gSamusData.xPosition))
                 gSamusWeaponInfo.cooldown = 0x5;
-            gSamusWeaponInfo.newProjectile = PROJECTILE_NONE;
+            gSamusWeaponInfo.newProjectile = PROJECTILE_CATEGORY_NONE;
             break;
     }
 

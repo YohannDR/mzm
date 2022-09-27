@@ -1018,7 +1018,7 @@ void HUDUpdateGFX(void)
     {
         if (!(gSamusWeaponInfo.weaponHighlighted & WH_MISSILE))
         {
-            if (gSamusWeaponInfo.missilesSeleced || gEquipment.currentMissiles == 0x0)
+            if (gSamusWeaponInfo.missilesSelected || gEquipment.currentMissiles == 0x0)
             {
                 dma_set(3, sMissileHUDGFX_Inactive, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
                 gMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
@@ -1036,7 +1036,7 @@ void HUDUpdateGFX(void)
     {
         if (!(gSamusWeaponInfo.weaponHighlighted & WH_MISSILE))
         {
-            if (gSamusWeaponInfo.missilesSeleced || gEquipment.currentMissiles == 0x0)
+            if (gSamusWeaponInfo.missilesSelected || gEquipment.currentMissiles == 0x0)
             {
                 dma_set(3, sMissileHUDGFX_Inactive, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
                 gMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
@@ -1063,7 +1063,7 @@ void HUDUpdateGFX(void)
         }
         else
         {
-            if (!gSamusWeaponInfo.missilesSeleced && gEquipment.currentMissiles != 0x0)
+            if (!gSamusWeaponInfo.missilesSelected && gEquipment.currentMissiles != 0x0)
             {
                 dma_set(3, sMissileHUDGFX_Selected, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
                 gMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
@@ -1139,7 +1139,7 @@ void HUDUpdateGFX(void)
     {
         if (!(gSamusWeaponInfo.weaponHighlighted & WH_SUPER_MISSILE))
         {
-            if (!gSamusWeaponInfo.missilesSeleced)
+            if (!gSamusWeaponInfo.missilesSelected)
             {
                 dma_set(3, sSuperMissileHUDGFX_Inactive, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
                 gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
@@ -1157,7 +1157,7 @@ void HUDUpdateGFX(void)
     {
         if (!(gSamusWeaponInfo.weaponHighlighted & WH_SUPER_MISSILE))
         {
-            if (!gSamusWeaponInfo.missilesSeleced)
+            if (!gSamusWeaponInfo.missilesSelected)
             {
                 dma_set(3, sSuperMissileHUDGFX_Inactive, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
                 gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
@@ -1184,7 +1184,7 @@ void HUDUpdateGFX(void)
         }
         else
         {
-            if (gSamusWeaponInfo.missilesSeleced)
+            if (gSamusWeaponInfo.missilesSelected)
             {
                 dma_set(3, sSuperMissileHUDGFX_Selected, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
                 gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;

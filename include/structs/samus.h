@@ -31,7 +31,7 @@ struct WeaponInfo {
     u8 diagonalAim;
     u8 newProjectile;
     u8 weaponHighlighted;
-    u8 missilesSeleced;
+    u8 missilesSelected;
     u8 cooldown;
     u8 chargeCounter;
     u8 beamReleasePaletteTimer;
@@ -119,7 +119,6 @@ struct ScrewSpeedAnimation {
 
 struct HazardDamage {
     u8 damageTimer;
-    // u8 undefined; // Needed for correct alignment
     u16 knockbackTimer;
     u8 paletteTimer;
 };

@@ -1,6 +1,13 @@
 #include "screen_shake.h"
 #include "structs/screen_shake.h"
 
+/**
+ * @brief 55344 | 34 | Starts a vertical screen shake
+ * 
+ * @param duration Duration
+ * @param unk Unknown
+ * @return u8 Screen shake timer
+ */
 u8 ScreenShakeStartVertical(u8 duration, u8 unk)
 {
     if (duration != 0x0 && duration > gScreenShakeY.timer)
@@ -14,6 +21,13 @@ u8 ScreenShakeStartVertical(u8 duration, u8 unk)
     return gScreenShakeY.timer;
 }
 
+/**
+ * @brief 55378 | 34 | Starts an horizontal screen shake
+ * 
+ * @param duration Duration
+ * @param unk Unknown
+ * @return u8 Screen shake timer
+ */
 u8 ScreenShakeStartHorizontal(u8 duration, u8 unk)
 {
     if (duration != 0x0 && duration > gScreenShakeX.timer)
@@ -27,6 +41,12 @@ u8 ScreenShakeStartHorizontal(u8 duration, u8 unk)
     return gScreenShakeX.timer;
 }
 
+/**
+ * @brief 553ac | 30 | Starts an horizontal screen shake, unused
+ * 
+ * @param duration Duration
+ * @return u8 Screen shake timer
+ */
 u8 ScreenShakeStartHorizontal_Unused(u8 duration)
 {
     if (duration != 0x0 && duration > gScreenShakeX.timer)
@@ -40,10 +60,13 @@ u8 ScreenShakeStartHorizontal_Unused(u8 duration)
     return gScreenShakeX.timer;
 }
 
+/**
+ * @brief 553dc | 68 | Updates the vertical screen shake
+ * 
+ * @return i32 Screen offset
+ */
 i32 ScreenShakeUpdateVertical(void)
 {
-    // https://decomp.me/scratch/je2b5
-
     i32 offset;
     i32 unk;
 
@@ -61,14 +84,16 @@ i32 ScreenShakeUpdateVertical(void)
             return offset;
         }
 
-        gScreenShakeY.loopCounter = offset;
+        gScreenShakeY.loopCounter = 0;
 
         unk = gScreenShakeY.unknown & 0x7F;
         offset = -2;
         if (gScreenShakeY.direction)
         {
-            offset = 2;
-            offset &= (-unk | unk) >> 0x1F;
+            if (!unk)
+                offset = 0;
+            else
+                offset = 2;
         }
 
         gScreenShakeY.direction ^= TRUE;
@@ -81,10 +106,13 @@ i32 ScreenShakeUpdateVertical(void)
     return offset;
 }
 
+/**
+ * @brief 55444 | 68 | Updates the horizontal screen shake
+ * 
+ * @return i32 Screen offset
+ */
 i32 ScreenShakeUpdateHorizontal(void)
 {
-    // https://decomp.me/scratch/O4FYJ
-
     i32 offset;
     i32 unk;
 
@@ -108,8 +136,10 @@ i32 ScreenShakeUpdateHorizontal(void)
         offset = -2;
         if (gScreenShakeX.direction)
         {
-            offset = 2;
-            offset &= (-unk | unk) >> 0x1F;
+            if (!unk)
+                offset = 0;
+            else
+                offset = 2;
         }
 
         gScreenShakeX.direction ^= TRUE;
