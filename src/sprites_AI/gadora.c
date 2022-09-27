@@ -18,6 +18,7 @@ void GadoraInit(void)
 {
     u16 yPosition;
     u16 xPosition;
+    u8 ramSlot;
 
     // Check isn't already dead
     if (gCurrentSprite.spriteID == PSPRITE_GADORA_KRAID)
@@ -50,8 +51,9 @@ void GadoraInit(void)
     else
         xPosition -= 0x10;
 
-    if (SpriteSpawnSecondary(SSPRITE_GADORA_EYE, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot,
-            gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0) == 0xFF)
+    ramSlot = SpriteSpawnSecondary(SSPRITE_GADORA_EYE, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot,
+            gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0);
+    if (ramSlot == 0xFF)
         gCurrentSprite.status = 0x0;
     else
     {

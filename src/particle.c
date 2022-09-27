@@ -1,4 +1,5 @@
 #include "particle.h"
+#include "escape.h" // Required
 
 #include "data/pointers.h"
 #include "data/projectile_data.h"

@@ -530,20 +530,20 @@ void KraidStatue(void)
         else
         {
             gLockScreen.lock = TRUE;
-            gLockScreen.xPositionCenter = gCurrentSprite.xPosition + (HALF_BLOCK_SIZE);
             gLockScreen.yPositionCenter = gCurrentSprite.yPosition;
+            gLockScreen.xPositionCenter = gCurrentSprite.xPosition + (BLOCK_SIZE / 2);
         }
     }
     else
     {
-        if (SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 10, 0x1F0) != NSLR_RIGHT)
-            gLockScreen.lock = FALSE;
-        else
+        if (SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 10, 0x1F0) == NSLR_RIGHT)
         {
             gLockScreen.lock = TRUE;
-            gLockScreen.xPositionCenter = gCurrentSprite.xPosition + (HALF_BLOCK_SIZE);
             gLockScreen.yPositionCenter = gCurrentSprite.yPosition;
+            gLockScreen.xPositionCenter = gCurrentSprite.xPosition + (BLOCK_SIZE / 2);
         }
+        else
+            gLockScreen.lock = FALSE;
     }
 }
 

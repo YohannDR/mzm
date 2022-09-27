@@ -6,6 +6,7 @@
 #include "structs/room.h"
 #include "structs/samus.h"
 #include "structs/screen_shake.h"
+#include "structs/visual_effects.h"
 
 
 void RoomLoad(void)

@@ -191,7 +191,7 @@ void EscapeGate(void)
             }
 
             offset = gCurrentSprite.workVariable & 0x7F;
-            dma_set(3, sEscapeGateFlashingPAL[offset], PALRAM_BASE + 0x3E0, (DMA_ENABLE << 0x10) | 0x10);
+            dma_set(3, (sEscapeGateFlashingPAL + offset * 16), PALRAM_BASE + 0x3E0, (DMA_ENABLE << 0x10) | 0x10);
         }
     }
 }
