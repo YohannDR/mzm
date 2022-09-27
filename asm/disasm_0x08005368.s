@@ -10005,7 +10005,7 @@ SamusDying: @ 0x0800a0dc
     bne lbl_0800a0f2
     adds r0, #1
     strh r0, [r4, #0xc]
-    bl sub_08002a58
+    bl stop_all_musics_and_sounds
     b lbl_0800a100
 lbl_0800a0f2:
     cmp r1, #1

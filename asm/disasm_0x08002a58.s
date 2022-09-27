@@ -2,8 +2,8 @@
 
     .syntax unified
 
-    thumb_func_start sub_08002a58
-sub_08002a58: @ 0x08002a58
+    thumb_func_start stop_all_musics_and_sounds
+stop_all_musics_and_sounds: @ 0x08002a58
     push {r4, r5, lr}
     ldr r0, lbl_08002a84 @ =0x00000009
     lsls r0, r0, #0x10

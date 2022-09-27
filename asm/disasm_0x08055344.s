@@ -69186,7 +69186,7 @@ title_screen_init: @ 0x0807745c
     strb r5, [r0]
     ldr r0, lbl_080775f4 @ =0x03000000
     strb r5, [r0]
-    bl sub_08002a58
+    bl stop_all_musics_and_sounds
     ldr r4, lbl_080775f8 @ =0x08446d68
     movs r6, #0xa0
     lsls r6, r6, #0x13
@@ -70047,7 +70047,7 @@ game_over_menu_init: @ 0x08077ba8
     strb r2, [r1]
     movs r0, #0x80
     bl sub_080027f8
-    bl sub_08002a58
+    bl stop_all_musics_and_sounds
     ldr r1, lbl_08077d50 @ =0x0844f11c
     movs r5, #0xa0
     lsls r5, r5, #0x13
@@ -70267,7 +70267,7 @@ sub_08077dd8: @ 0x08077dd8
     strb r5, [r1]
     ldr r0, lbl_08077ed4 @ =0x0194f780
     bl sub_080027f8
-    bl sub_08002a58
+    bl stop_all_musics_and_sounds
     movs r1, #0xa0
     lsls r1, r1, #0x13
     ldr r2, lbl_08077ed8 @ =0x00007fff

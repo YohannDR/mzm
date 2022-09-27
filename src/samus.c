@@ -1,6 +1,6 @@
 #include "gba.h"
 #include "samus.h"
-#include "clipdata.h" // Possibly necessary
+#include "clipdata.h" // Necessary
 #include "macros.h"
 #include "temp_globals.h"
 
@@ -14,6 +14,7 @@
 #include "structs/game_state.h"
 #include "structs/visual_effects.h"
 #include "structs/samus.h"
+#include "structs/screen_shake.h"
 #include "structs/scroll.h"
 
 const i16 samus_hitbox_data[4][4];
@@ -112,7 +113,7 @@ u8 SamusSlopeRelated(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosit
     i32 tmp_next_x_pos;
 #endif // NONMATCHING
 
-    clipdata = process_clipdata_for_samus(yPosition, xPosition);
+    clipdata = ClipdataProcessForSamus(yPosition, xPosition);
     collision = (-(clipdata & 0x1000000) >> 0x1F);
 
     switch (clipdata & 0xFF)
@@ -2982,9 +2983,49 @@ u8 SamusMorphball(struct SamusData* pData)
 
 }
 
+/**
+ * @brief 93bc | cc | Samus rolling subroutine
+ * 
+ * @param pData Samus Data Pointer
+ * @return u8 New pose
+ */
 u8 SamusRolling(struct SamusData* pData)
 {
+    i32 xVelocity;
 
+    if (gChangedInput & KEY_A && gEquipment.suitMiscActivation & SMF_HIGH_JUMP)
+    {
+        pData->forcedMovement = FORCED_MOVEMENT_JUMPING_AFTER_ROLLING;
+        return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+    }
+
+    if (!SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]) && gChangedInput & KEY_UP)
+    {
+        if (gSamusPhysics.slowedByLiquid)
+            SoundPlay(0x78);
+        else
+            SoundPlay(0x78);
+
+        return SPOSE_UNMORPHING;
+    }
+
+    if (gButtonInput & pData->direction)
+    {
+        xVelocity = gSamusPhysics.xVelocityCap;
+        if (pData->speedboostingShinesparking)
+        {
+            xVelocity = 0xA0;
+            pData->shinesparkTimer = 0x6;
+        }
+
+        SamusApplyXAcceleration(gSamusPhysics.xAcceleration, xVelocity, pData);
+        return SPOSE_NONE;
+    }
+
+    if (check_samus_turning())
+        pData->turning = TRUE;
+
+    return SPOSE_MORPH_BALL;
 }
 
 u8 SamusRollingGFX(struct SamusData* pData)
@@ -3027,14 +3068,136 @@ u8 SamusUnmorphingGFX(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
+/**
+ * @brief 952c | d8 | Samus morphball midair subroutine
+ * 
+ * @param pData Samus Data Pointer
+ * @return u8 New pose
+ */
 u8 SamusMorphballMidAir(struct SamusData* pData)
 {
+    if (gChangedInput & KEY_UP && !SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]))
+    {
+        if (gSamusPhysics.slowedByLiquid == TRUE)
+            SoundPlay(0x78);
+        else
+            SoundPlay(0x78);
 
+        pData->unmorphPaletteTimer= 0xF;
+        return SPOSE_MIDAIR;
+    }
+
+    if (pData->forcedMovement == 0x0)
+    {
+        if (!(gButtonInput & KEY_A) && pData->yVelocity > 0x0)
+            pData->yVelocity = 0x0;
+    }
+    else if (pData->yVelocity < 0x7)
+        pData->forcedMovement = 0x0;
+
+    if ((pData->yVelocity >= 0x0 && pData->xVelocity != 0x0) || gButtonInput & pData->direction)
+    {
+        SamusApplyXAcceleration(gSamusPhysics.midairXAcceleration, gSamusPhysics.midairMorphedXVelocityCap, pData);
+    }
+    else
+    {
+        if (gButtonInput & (pData->direction ^ (KEY_RIGHT | KEY_LEFT)))
+            pData->direction ^= (KEY_RIGHT | KEY_LEFT);
+
+        pData->xVelocity = 0x0;
+    }
+
+    return SPOSE_NONE;
 }
 
+/**
+ * @brief 9604 | 16c | Samus hanging on ledge subroutine
+ * 
+ * @param pData Samus Data Pointer
+ * @return u8 New pose
+ */
 u8 SamusHangingOnLedge(struct SamusData* pData)
 {
+    u16 xPosition;
+    u32 sideBlock;
+    u32 currentBlock;
 
+    if (gScreenShakeX.timer > 0x1D)
+    {
+        pData->forcedMovement = 0x0;
+        return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+    }
+
+    if (pData->direction & KEY_RIGHT)
+        xPosition = pData->xPosition + HALF_BLOCK_SIZE;
+    else
+        xPosition = pData->xPosition - HALF_BLOCK_SIZE;
+
+    sideBlock = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE), xPosition);
+    sideBlock &= CLIPDATA_TYPE_SOLID_FLAG;
+
+    currentBlock = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE), pData->xPosition);
+    currentBlock &= CLIPDATA_TYPE_SOLID_FLAG;
+
+    if (gChangedInput & KEY_A)
+    {
+        if (gButtonInput & pData->direction)
+        {
+            if (!sideBlock && !currentBlock)
+                return SPOSE_PULLING_YOURSELF_UP_FROM_HANGING;
+            
+            if (gEquipment.suitMiscActivation & SMF_MORPH_BALL)
+                return SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL;
+        }
+
+        if (gButtonInput & (pData->direction ^ (KEY_RIGHT | KEY_LEFT)))
+        {
+            pData->direction ^= (KEY_RIGHT | KEY_LEFT);
+            pData->forcedMovement = 0x1;
+        }
+        else if (gButtonInput & KEY_DOWN)
+        {
+            pData->forcedMovement = 0x0;
+        }
+        else
+        {
+            pData->forcedMovement = 0x2;
+            pData->yVelocity = 0x90;
+        }
+        return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+    }
+    else
+    {
+        if (gSamusPhysics.hasNewProjectile)
+        {
+            pData->direction ^= (KEY_RIGHT | KEY_LEFT);
+            if (gButtonInput & KEY_DOWN)
+                pData->armCannonDirection = ACD_DOWN;
+            else
+                pData->armCannonDirection = ACD_UP;
+
+            return SPOSE_SHOOTING_WHILE_HANGING;
+        }
+
+        if (gEquipment.suitType != SUIT_SUITLESS && gSamusWeaponInfo.chargeCounter != 0x0)
+        {
+            pData->direction ^= (KEY_RIGHT | KEY_LEFT);
+            if (gButtonInput & KEY_DOWN)
+                pData->armCannonDirection = ACD_DOWN;
+            else
+                pData->armCannonDirection = ACD_UP;
+
+            return SPOSE_AIMING_WHILE_HANGING;
+        }
+
+        if (gButtonInput & gButtonAssignments.diagonalAim || gButtonInput & (KEY_UP | KEY_DOWN) || gButtonInput & (pData->direction ^ (KEY_RIGHT | KEY_LEFT)))
+        {
+            pData->direction ^= (KEY_RIGHT | KEY_LEFT);
+            return SPOSE_TURNING_TO_AIM_WHILE_HANGING;
+        }
+    }
+
+    return SPOSE_NONE;
 }
 
 u8 SamusHangingOnLedgeGFX(struct SamusData* pData)
@@ -3045,9 +3208,59 @@ u8 SamusHangingOnLedgeGFX(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
+/**
+ * @brief 9798 | c8 | Samus turning to aim while hanging subroutine
+ * 
+ * @param pData Samus Data Pointer
+ * @return u8 New pose
+ */
 u8 SamusTurningToAimWhileHanging(struct SamusData* pData)
 {
+    u16 xPosition;
+    u32 sideBlock;
+    u32 currentBlock;
 
+    if (gScreenShakeX.timer > 0x1D)
+    {
+        pData->forcedMovement = 0x0;
+        return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+    }
+
+    if (pData->direction & KEY_LEFT)
+        xPosition = pData->xPosition + HALF_BLOCK_SIZE;
+    else
+        xPosition = pData->xPosition - HALF_BLOCK_SIZE;
+
+    sideBlock = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE), xPosition);
+    sideBlock &= CLIPDATA_TYPE_SOLID_FLAG;
+
+    currentBlock = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE), pData->xPosition);
+    currentBlock &= CLIPDATA_TYPE_SOLID_FLAG;
+
+    if (gChangedInput & KEY_A)
+    {
+        if (gButtonInput & (pData->direction ^ (KEY_RIGHT | KEY_LEFT)))
+        {
+            if (!sideBlock && !currentBlock)
+            {
+                pData->direction ^= (KEY_RIGHT | KEY_LEFT);
+                return SPOSE_PULLING_YOURSELF_UP_FROM_HANGING;
+            }
+
+            if (gEquipment.suitMiscActivation & SMF_MORPH_BALL)
+            {
+                pData->direction ^= (KEY_RIGHT | KEY_LEFT);
+                return SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL;
+            }
+        }
+
+        pData->forcedMovement = 0x1;
+        return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+    }
+    else if (gSamusPhysics.hasNewProjectile)
+        return SPOSE_SHOOTING_WHILE_HANGING;
+
+    return SPOSE_NONE;
 }
 
 u8 SamusTurningToAimWhileHangingGFX(struct SamusData* pData)
@@ -3069,9 +3282,105 @@ u8 SamusHidingArmCannonWhileHangingGFX(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
+/**
+ * @brief 98b4 | 18c | Samus aiming while hanging subroutine
+ * 
+ * @param pData Samus Data Pointer
+ * @return u8 New pose
+ */
 u8 SamusAimingWhileHanging(struct SamusData* pData)
 {
+    u16 xPosition;
+    u32 sideBlock;
+    u32 currentBlock;
+    u32 aimingUp;
 
+    if (gScreenShakeX.timer > 0x1D)
+    {
+        pData->forcedMovement = 0x0;
+        return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+    }
+
+    SamusAimCannon(pData);
+    if (gSamusPhysics.hasNewProjectile)
+        return SPOSE_SHOOTING_WHILE_HANGING;
+
+    if (pData->direction & KEY_LEFT)
+        xPosition = pData->xPosition + HALF_BLOCK_SIZE;
+    else
+        xPosition = pData->xPosition - HALF_BLOCK_SIZE;
+
+    sideBlock = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE), xPosition);
+    sideBlock &= CLIPDATA_TYPE_SOLID_FLAG;
+
+    currentBlock = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE), pData->xPosition);
+    currentBlock &= CLIPDATA_TYPE_SOLID_FLAG;
+
+    if (gChangedInput & KEY_A)
+    {
+        if (gButtonInput & (pData->direction ^ (KEY_LEFT | KEY_RIGHT)))
+        {
+            if (!sideBlock && !currentBlock)
+            {
+                pData->direction ^= (KEY_LEFT | KEY_RIGHT);
+                return SPOSE_PULLING_YOURSELF_UP_FROM_HANGING;
+            }
+
+            if (gEquipment.suitMiscActivation & SMF_MORPH_BALL)
+            {
+                pData->direction ^= (KEY_LEFT | KEY_RIGHT);
+                return SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL;
+            }
+        }
+
+        if (gButtonInput & pData->direction)
+            pData->forcedMovement = 1;
+        else
+            pData->forcedMovement = 0;
+
+        return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+    }
+    else
+    {
+        aimingUp = FALSE;
+        if (!(gButtonInput & gButtonAssignments.diagonalAim))
+        {
+            if (gChangedInput & (pData->direction ^ (KEY_RIGHT | KEY_LEFT)))
+            {
+                if (gEquipment.suitType == SUIT_SUITLESS || gSamusWeaponInfo.chargeCounter == 0x0)
+                    return SPOSE_HIDING_ARM_CANNON_WHILE_HANGING;
+
+                pData->armCannonDirection = ACD_UP;
+            }
+
+            if (gButtonInput & KEY_UP && !(gButtonInput & pData->direction))
+                aimingUp++;
+        }
+
+        if (aimingUp)
+        {
+            if (pData->timer++ > 0x9)
+            {
+                if (!sideBlock && !currentBlock)
+                {
+                    pData->direction ^= (KEY_LEFT | KEY_RIGHT);
+                    return SPOSE_PULLING_YOURSELF_UP_FROM_HANGING;
+                }
+
+                if (gEquipment.suitMiscActivation & SMF_MORPH_BALL)
+                {
+                    pData->direction ^= (KEY_LEFT | KEY_RIGHT);
+                    return SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL;
+                }
+
+                pData->timer = 0x0;
+            }
+        }
+        else
+            pData->timer = 0x0;
+    }
+
+    return SPOSE_NONE;
 }
 
 u8 SamusPullingSelfUp(struct SamusData* pData)
@@ -3137,9 +3446,57 @@ u8 SamusPullingSelfIntoMorphballTunnelGFX(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
+/**
+ * @brief 9b28 | 8c | Samus using an elevator subroutine
+ * 
+ * @param pData Samus Data Pointer
+ * @return u8 New pose
+ */
 u8 SamusUsingAnElevator(struct SamusData* pData)
 {
-    // https://decomp.me/scratch/ZYuqG
+    u8 stop;
+    u32 currentBlock;
+    u32 previousBlock;
+    i16 newPosition;
+
+    if (!pData->currentAnimationFrame)
+    {
+        stop = FALSE;
+
+        pData->yPosition -= pData->yVelocity;
+
+        currentBlock = ClipdataCheckCurrentAffectingAtPosition(pData->yPosition, pData->xPosition) >> 0x10;
+
+        if (pData->elevatorDirection & KEY_UP)
+        {
+            previousBlock = ClipdataCheckCurrentAffectingAtPosition(gPreviousXPosition, pData->xPosition) >> 0x10;
+            if (currentBlock != CLIPDATA_MOVEMENT_ELEVATOR_DOWN_BLOCK && previousBlock == CLIPDATA_MOVEMENT_ELEVATOR_DOWN_BLOCK)
+            {
+                newPosition = pData->yPosition | SUB_PIXEL_POSITION_FLAG;
+                pData->yPosition = newPosition;
+                stop++;
+            }
+        }
+        else if (pData->elevatorDirection & KEY_DOWN)
+        {
+            if (currentBlock == CLIPDATA_MOVEMENT_ELEVATOR_UP_BLOCK)
+            {
+                newPosition = (pData->yPosition & BLOCK_POSITION_FLAG) - 1;
+                pData->yPosition = newPosition;
+                stop++;
+            }
+        }
+
+        if (stop)
+        {
+            pData->currentAnimationFrame++;
+            pData->animationDurationCounter = 0x0;
+            pData->yVelocity = 0x0;
+            SoundFade(0x10E, 0xA);
+        }
+    }
+
+    return SPOSE_NONE;
 }
 
 u8 SamusUsingAnElevatorGFX(struct SamusData* pData)
@@ -3217,9 +3574,18 @@ u8 SamusDelayAfterShinesparkingGFX(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
+/**
+ * @brief 9e0c | 28 | Delay before ballsparking subroutine
+ * 
+ * @param pData Samus Data Pointer
+ * @return u8 New pose
+ */
 u8 SamusDelayBeforeBallsparking(struct SamusData* pData)
 {
+    if (gButtonInput & (pData->direction ^ (KEY_LEFT | KEY_RIGHT)))
+        pData->direction ^= (KEY_LEFT | KEY_RIGHT);
 
+    return SPOSE_NONE;
 }
 
 u8 SamusDelayBeforeBallsparkingGFX(struct SamusData* pData)
@@ -3356,9 +3722,84 @@ u8 SamusGettingKnockedBack(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
+/**
+ * @brief a0dc | 10c | Samus dying subroutine
+ * 
+ * @param pData Samus Data Pointer
+ * @return u8 New pose
+ */
 u8 SamusDying(struct SamusData* pData)
 {
+    u32 bgX;
+    u32 bgY;
 
+    if (pData->lastWallTouchedMidAir == 0)
+    {
+        pData->lastWallTouchedMidAir++;
+        stop_all_musics_and_sounds(); // Undefined
+    }
+    else if (pData->lastWallTouchedMidAir == 1)
+    {
+        pData->lastWallTouchedMidAir++;
+        SoundPlay(0x83); // Death
+    }
+
+    pData->invincibilityTimer = 0x40;
+
+    if (pData->xVelocity != 0x0 || pData->yVelocity != 0x0)
+    {
+        bgX = gBG1XPosition + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
+        bgY = gBG1YPosition + BLOCK_SIZE * 6 + QUARTER_BLOCK_SIZE;
+
+        if (pData->xVelocity > 0)
+        {
+            if (pData->xPosition >= bgX)
+                pData->xVelocity = 0x0;
+        }
+        else if (pData->xVelocity < 0)
+        {
+            if (pData->xPosition <= bgX)
+                pData->xVelocity = 0x0;
+        }
+
+        if (pData->yVelocity > 0)
+        {
+            if (pData->yPosition >= bgY)
+                pData->yVelocity = 0x0;
+        }
+        else if (pData->yVelocity < 0)
+        {
+            if (pData->yPosition <= bgY)
+                pData->yVelocity = 0x0;
+        }
+
+        pData->yPosition += pData->yVelocity;
+    }
+
+    if (pData->currentAnimationFrame > 0x17)
+    {
+        switch (pData->timer++)
+        {
+            case 0x4:
+                gMonochromeBGFading = 0x2;
+            
+            case 0xC:
+            case 0x14:
+            case 0x1C:
+            case 0x24:
+            case 0x2C:
+            case 0x34:
+            case 0x50:
+                pData->walljumpTimer++;
+                break;
+
+            case 0x78:
+                gMainGameMode = GM_GAMEOVER;
+                gGameModeSub1 = 0;
+        }
+    }
+
+    return SPOSE_NONE;
 }
 
 u8 SamusCrouchingToCrawlGFX(struct SamusData* pData)
