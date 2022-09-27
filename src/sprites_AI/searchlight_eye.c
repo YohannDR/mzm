@@ -187,7 +187,7 @@ void SearchlightEyeShoot(void)
 
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         {
-            // Custom eor for some reason
+            // Custom and for some reason
             status = gCurrentSprite.status & SPRITE_STATUS_XFLIP ? SPRITE_STATUS_XFLIP : 0;
             
             // Spawn beam
