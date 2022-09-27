@@ -309,7 +309,7 @@ SECTIONS {
         asm/disasm_0x08053968.o(.text);
         src/hud_generic.o(.text);
         src/particle.o(.text);
-        asm/disasm_0x08053dd0.o(.text);
+        asm/disasm_0x08055344.o(.text);
 
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
@@ -427,7 +427,7 @@ SECTIONS {
         asm/disasm_0x08053968.o(.rodata);
         src/hud_generic.o(.rodata);
         src/particle.o(.rodata);
-        asm/disasm_0x08053dd0.o(.rodata);
+        asm/disasm_0x08055344.o(.rodata);
 
         asm/libgcc.o(.rodata);
         asm/disasm_0x0808af18.o(.rodata);
