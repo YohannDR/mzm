@@ -1,5 +1,6 @@
 #include "gba.h"
 #include "samus.h"
+#include "block.h" // Necessary
 #include "clipdata.h" // Necessary
 #include "macros.h"
 #include "temp_globals.h"
@@ -24,174 +25,130 @@ const u16 SamusPullingSelfUp_velocity[8];
 
 void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
-    u8 unk_bool;
-    u16 left_hitbox, right_hitbox, top_hitbox;
-    u16 hitboxTopOffset;
-    u16 y_pos;
+    // https://decomp.me/scratch/GTfBG
+
     u16 action;
+    u16 xLeft;
+    u16 xRight;
+    u16 yTop;
+    u16 yBottom;
+    u8 checkBlockBelow;
 
     action = DESTRUCTING_ACTION_NONE;
-    if ((pData->pose == SPOSE_SCREW_ATTACKING) ||
-        ((pData->pose == SPOSE_STARTING_SPIN_JUMP &&
-        ((gEquipment.suitMiscActivation & SMF_SCREW_ATTACK) != 0x0))))
-    {
+
+    if (pData->pose == SPOSE_SCREW_ATTACKING)
         action = DESTRUCTING_ACTION_SCREW;
-    }
+    else if (pData->pose == SPOSE_STARTING_SPIN_JUMP && gEquipment.suitMiscActivation & SMF_SCREW_ATTACK)
+        action = DESTRUCTING_ACTION_SCREW;
+
     if (pData->speedboostingShinesparking)
-    {
         action += DESTRUCTING_ACTION_SPEED;
-    }
-    
+
     if (action != DESTRUCTING_ACTION_NONE)
     {
-#ifndef NONMATCHING
-        register u16 tmp_y_pos asm("r3");
-        register u16 tmp_top_hitbox asm("r0");
-#endif // NONMATCHING
+        xLeft = pData->xPosition + pPhysics->hitboxLeftOffset;
+        xRight = pData->xPosition + pPhysics->hitboxRightOffset;
+        yTop = pData->yPosition + pPhysics->hitboxTopOffset;
+        yBottom = pData->yPosition;
+        
+        checkBlockBelow = FALSE;
+        if (pPhysics->hitboxTopOffset < -0x40)
+            checkBlockBelow = TRUE;
 
-        left_hitbox = pData->xPosition + pPhysics->hitboxLeftOffset;
-        right_hitbox = pData->xPosition + pPhysics->hitboxRightOffset;
+        BlockSamusApplyScrewSpeedboosterDamageToEnvironment(xLeft, yTop, action);
+        BlockSamusApplyScrewSpeedboosterDamageToEnvironment(xRight, yTop, action);
 
-        hitboxTopOffset = pPhysics->hitboxTopOffset;
-#ifndef NONMATCHING
-        tmp_y_pos = pData->yPosition;
-        tmp_top_hitbox = tmp_y_pos + hitboxTopOffset;
-        top_hitbox = tmp_top_hitbox;
-#else // NONMATCHING
-        top_hitbox = pData->yPosition + hitboxTopOffset;
-#endif // NONMATCHING
-
-        y_pos = (u16)pData->yPosition;
-        unk_bool = hitboxTopOffset << 0x10 < -0x400000;
-
-        BlockSamusApplyScrewSpeedboosterDamageToEnvironment(left_hitbox,  top_hitbox,  action);
-        BlockSamusApplyScrewSpeedboosterDamageToEnvironment(right_hitbox,  top_hitbox,  action);
         if (pPhysics->horizontalMovingDirection == HDMOVING_RIGHT)
         {
-            if (unk_bool)
-            {
-                BlockSamusApplyScrewSpeedboosterDamageToEnvironment(right_hitbox,  top_hitbox + 0x40,  action);
-            }
-            BlockSamusApplyScrewSpeedboosterDamageToEnvironment(right_hitbox,  y_pos,  action);
+            if (checkBlockBelow)
+                BlockSamusApplyScrewSpeedboosterDamageToEnvironment(xRight, yTop + BLOCK_SIZE, action);
+            BlockSamusApplyScrewSpeedboosterDamageToEnvironment(xRight, yBottom, action);
         }
         else
         {
-            if (unk_bool)
-            {
-                BlockSamusApplyScrewSpeedboosterDamageToEnvironment(left_hitbox,  top_hitbox + 0x40,  action);
-            }
-            BlockSamusApplyScrewSpeedboosterDamageToEnvironment(left_hitbox,  y_pos,  action);
+            if (checkBlockBelow)
+                BlockSamusApplyScrewSpeedboosterDamageToEnvironment(xLeft, yTop + BLOCK_SIZE, action);
+            BlockSamusApplyScrewSpeedboosterDamageToEnvironment(xLeft, yBottom, action);
         }
+
         if (pPhysics->standingStatus == STANDING_GROUND)
         {
-            y_pos = y_pos + 1;
+            yBottom++;
             action = DESTRUCTING_ACTION_SPEED_ON_GROUND;
         }
-        BlockSamusApplyScrewSpeedboosterDamageToEnvironment(left_hitbox, y_pos, action);
-        BlockSamusApplyScrewSpeedboosterDamageToEnvironment(right_hitbox, y_pos, action);
+
+        BlockSamusApplyScrewSpeedboosterDamageToEnvironment(xLeft, yBottom, action);
+        BlockSamusApplyScrewSpeedboosterDamageToEnvironment(xRight, yBottom, action);
     }
 }
 
 u8 SamusSlopeRelated(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosition, u16* pSlope)
 {
+    // https://decomp.me/scratch/bv4B0
+
     u32 clipdata;
-    u16 slope_type;
-    u16 next_x_pos, next_y_pos;
     u8 collision;
-
-    u32 x_slope_offset;
-    u16 x_begin;
-
-#ifndef NONMATCHING
-    register vu16* x_ptr asm("r2");
-    register i32 x_begin__ asm("r1");
-    register i32 mask_FFC0 asm("r3");
-    register i32 tmp_next_x_pos asm("r1");
-#else
-    i32 x_begin__;
-    i32 mask_FFC0;
-    i32 tmp_next_x_pos;
-#endif // NONMATCHING
+    u16 newX;
+    u16 newY;
+    u16 slopeType;
 
     clipdata = ClipdataProcessForSamus(yPosition, xPosition);
-    collision = (-(clipdata & 0x1000000) >> 0x1F);
+
+    if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
+        collision = CLIPDATA_TYPE_SOLID;
+    else
+        collision = CLIPDATA_TYPE_AIR;
 
     switch (clipdata & 0xFF)
     {
         case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
-            next_y_pos = ((yPosition & BLOCK_POSITION_FLAG) + 0x3F) - (xPosition & SUB_PIXEL_POSITION_FLAG);
-            next_x_pos = ((xPosition & BLOCK_POSITION_FLAG) + 0x3F) - (yPosition & SUB_PIXEL_POSITION_FLAG);
-
-            slope_type = SLOPE_STEEP | SLOPE_LEFT;
+            newY = ((yPosition & BLOCK_POSITION_FLAG) + SUB_PIXEL_POSITION_FLAG) - (xPosition & SUB_PIXEL_POSITION_FLAG);
+            newX = ((xPosition & BLOCK_POSITION_FLAG) + SUB_PIXEL_POSITION_FLAG) - (yPosition & SUB_PIXEL_POSITION_FLAG);
+            slopeType = SLOPE_STEEP | KEY_RIGHT;
             break;
 
         case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
-            next_y_pos = ((yPosition & BLOCK_POSITION_FLAG) + 0x3F) - ((xPosition & SUB_PIXEL_POSITION_FLAG) / 2);
-            x_begin = xPosition & BLOCK_POSITION_FLAG;
-
-            x_slope_offset = (yPosition & SUB_PIXEL_POSITION_FLAG) * 2 - 0x7E;
-            tmp_next_x_pos = x_begin - x_slope_offset;
-            next_x_pos = tmp_next_x_pos;
-
-            slope_type = SLOPE_SLIGHT | SLOPE_LEFT;
+            newY = (yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) - SUB_PIXEL_POSITION_FLAG);
+            newX = (xPosition & BLOCK_POSITION_FLAG) - ((yPosition & SUB_PIXEL_POSITION_FLAG) * 2 - (SUB_PIXEL_POSITION_FLAG - 1 + BLOCK_SIZE));
+            slopeType = SLOPE_SLIGHT | KEY_RIGHT;
             break;
 
         case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
-            next_y_pos = ((yPosition & BLOCK_POSITION_FLAG) + 0x1F) - ((xPosition & SUB_PIXEL_POSITION_FLAG) / 2);
-            x_begin = xPosition & BLOCK_POSITION_FLAG;
-
-            x_slope_offset = (yPosition & SUB_PIXEL_POSITION_FLAG) * 2 - 0x3E;
-            tmp_next_x_pos = x_begin - x_slope_offset;
-            next_x_pos = tmp_next_x_pos;
-
-            slope_type = SLOPE_SLIGHT | SLOPE_LEFT;
+            newY = (yPosition & BLOCK_POSITION_FLAG) + (SUB_PIXEL_POSITION_FLAG - HALF_BLOCK_SIZE) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1));
+            newX = (xPosition & BLOCK_POSITION_FLAG) - ((yPosition & SUB_PIXEL_POSITION_FLAG) * 2 - SUB_PIXEL_POSITION_FLAG + 1);
+            slopeType = SLOPE_SLIGHT | KEY_RIGHT;
             break;
 
         case CLIPDATA_TYPE_LEFT_STEEP_FLOOR_SLOPE:
-            next_y_pos = (yPosition & BLOCK_POSITION_FLAG) | (xPosition & SUB_PIXEL_POSITION_FLAG);
-            next_x_pos = (xPosition & BLOCK_POSITION_FLAG) | (yPosition & SUB_PIXEL_POSITION_FLAG);
-
-            slope_type = SLOPE_STEEP | SLOPE_RIGHT;
+            newY = (yPosition & BLOCK_POSITION_FLAG) | (xPosition & SUB_PIXEL_POSITION_FLAG);
+            newX = (xPosition & BLOCK_POSITION_FLAG) | (yPosition & SUB_PIXEL_POSITION_FLAG);
+            slopeType = SLOPE_STEEP | KEY_LEFT;
             break;
 
         case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
-            mask_FFC0 = 0xFFC0;
-            next_y_pos = (yPosition & mask_FFC0) | ((xPosition & SUB_PIXEL_POSITION_FLAG) / 2 + 0x1F);
-            x_begin__ = xPosition & mask_FFC0;
-
-            x_slope_offset = (yPosition & SUB_PIXEL_POSITION_FLAG) * 2 + 0xFFC1;
-            next_x_pos = x_begin__ +  x_slope_offset;
-
-            slope_type = SLOPE_SLIGHT | SLOPE_RIGHT;
+            newY = (yPosition & BLOCK_POSITION_FLAG) | (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) + (SUB_PIXEL_POSITION_FLAG - HALF_BLOCK_SIZE));
+            newX = (xPosition & BLOCK_POSITION_FLAG) + ((yPosition & SUB_PIXEL_POSITION_FLAG) * 2 - SUB_PIXEL_POSITION_FLAG);
+            slopeType = SLOPE_SLIGHT | KEY_LEFT;
             break;
 
         case CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE:
-            mask_FFC0 = 0xFFC0;
-            next_y_pos = (yPosition & mask_FFC0) | ((xPosition & SUB_PIXEL_POSITION_FLAG) / 2);
-            x_begin__ = xPosition & mask_FFC0;
-
-            x_slope_offset = (yPosition & SUB_PIXEL_POSITION_FLAG) * 2;
-            next_x_pos = x_begin__ + x_slope_offset;
-
-            slope_type = SLOPE_SLIGHT | SLOPE_RIGHT;
+            newY = (yPosition & BLOCK_POSITION_FLAG) | ((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1);
+            newX = (xPosition & BLOCK_POSITION_FLAG) + (yPosition & SUB_PIXEL_POSITION_FLAG) * 2;
+            slopeType = SLOPE_SLIGHT | KEY_LEFT;
             break;
 
         case CLIPDATA_TYPE_PASS_THROUGH_BOTTOM:
             collision = COLLISION_PASS_THROUGH_BOTTOM;
+
         default:
-            next_y_pos = yPosition & BLOCK_POSITION_FLAG;
-            next_x_pos = xPosition & BLOCK_POSITION_FLAG;
-            slope_type = SLOPE_NONE;
+            newY = yPosition & BLOCK_POSITION_FLAG;
+            newX = xPosition & BLOCK_POSITION_FLAG;
+            slopeType = SLOPE_NONE;
     }
-    *pYPosition = next_y_pos;
-#ifndef NONMATCHING
-    x_ptr = pXPosition;
-    *x_ptr =
-#else // NONMATCHING
-    *pX_position =
-#endif // NONMATCHING
-        next_x_pos;
-    *pSlope = slope_type;
+
+    *pYPosition = newY;
+    *pXPosition = newX;
+    *pSlope = slopeType;
     return collision;
 }
 
