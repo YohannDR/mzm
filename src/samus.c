@@ -1805,12 +1805,12 @@ void SamusAimCannon(struct SamusData* pData)
             case SPOSE_CROUCHING_SUITLESS:
                 if (gButtonInput & KEY_DOWN)
                 {
-                    pData->armCannonDirection = ACD_DOWN;
+                    pData->armCannonDirection = ACD_DIAGONALLY_DOWN;
                     pWeapon->diagonalAim = DIAG_AIM_DOWN;
                 }
                 else if (pWeapon->diagonalAim > DIAG_AIM_UP && gButtonInput & KEY_UP)
                 {
-                    pData->armCannonDirection = ACD_UP;
+                    pData->armCannonDirection = ACD_DIAGONALLY_UP;
                     pWeapon->diagonalAim = DIAG_AIM_UP;
                 }
                 break;
@@ -1826,9 +1826,9 @@ void SamusAimCannon(struct SamusData* pData)
         {
             case SPOSE_RUNNING:
                 if (gButtonInput & KEY_UP)
-                    pData->armCannonDirection = ACD_UP;
+                    pData->armCannonDirection = ACD_DIAGONALLY_UP;
                 else if (gButtonInput & KEY_DOWN)
-                    pData->armCannonDirection = ACD_DOWN;
+                    pData->armCannonDirection = ACD_DIAGONALLY_DOWN;
                 else if (pData->armCannonDirection < ACD_NONE)
                     pData->armCannonDirection = ACD_FORWARD;
 
@@ -1838,6 +1838,11 @@ void SamusAimCannon(struct SamusData* pData)
                     pWeapon->diagonalAim = DIAG_AIM_NONE;
                 else if (pWeapon->weaponHighlighted == WH_NONE && pWeapon->chargeCounter == 0x0)
                     pWeapon->diagonalAim = DIAG_AIM_NONE;
+                else
+                {
+                    pData->armCannonDirection = ACD_FORWARD;
+                    pWeapon->diagonalAim = DIAG_AIM_NONE;
+                }
                 break;
 
             case SPOSE_STANDING:
@@ -1847,7 +1852,12 @@ void SamusAimCannon(struct SamusData* pData)
                 if (pData->timer == 0x0 && gButtonInput & KEY_UP)
                 {
                     pData->armCannonDirection = ACD_UP;
-                    pWeapon->diagonalAim = DIAG_AIM_UP;
+                    pWeapon->diagonalAim = DIAG_AIM_NONE;
+                }
+                else
+                {
+                    pData->armCannonDirection = ACD_FORWARD;
+                    pWeapon->diagonalAim = DIAG_AIM_NONE;
                 }
                 break;
 
@@ -1866,8 +1876,67 @@ void SamusAimCannon(struct SamusData* pData)
             case SPOSE_AIMING_WHILE_HANGING:
                 if (gButtonInput & KEY_UP)
                 {
-
+                    if (gButtonInput & pData->direction)
+                    {
+                        pData->armCannonDirection = ACD_DIAGONALLY_UP;
+                        pWeapon->diagonalAim = DIAG_AIM_NONE;
+                    }
+                    else
+                    {
+                        pData->armCannonDirection = ACD_UP;
+                        pWeapon->diagonalAim = DIAG_AIM_NONE;
+                    }
                 }
+                else if (gButtonInput & KEY_DOWN)
+                {
+                    if (gButtonInput & pData->direction)
+                        pData->armCannonDirection = ACD_DIAGONALLY_DOWN;
+                    else
+                        pData->armCannonDirection = ACD_DOWN;
+
+                    pWeapon->diagonalAim = DIAG_AIM_NONE;
+                }
+                else
+                {
+                    if (gButtonInput & pData->direction)
+                    {
+                        pData->armCannonDirection = ACD_FORWARD;
+                        pWeapon->diagonalAim = DIAG_AIM_NONE;
+                    }
+                    else if (pData->armCannonDirection == ACD_UP || pData->armCannonDirection == ACD_DOWN)
+                        pWeapon->diagonalAim = DIAG_AIM_NONE;
+                    else
+                    {
+                        pData->armCannonDirection = ACD_FORWARD;
+                        pWeapon->diagonalAim = DIAG_AIM_NONE;
+                    }
+                }
+                break;
+
+            case SPOSE_ON_ZIPLINE:
+                if (gButtonInput & KEY_DOWN)
+                {
+                    if (gButtonInput & pData->direction)
+                        pData->armCannonDirection = ACD_DIAGONALLY_DOWN;
+                    else
+                        pData->armCannonDirection = ACD_DOWN;
+
+                    pWeapon->diagonalAim = DIAG_AIM_NONE;
+                }
+                else
+                {
+                    if (!(gButtonInput & pData->direction) && pData->armCannonDirection == ACD_DOWN)
+                        pWeapon->diagonalAim = DIAG_AIM_NONE;
+                    else
+                    {
+                        pData->armCannonDirection = ACD_FORWARD;
+                        pWeapon->diagonalAim = DIAG_AIM_NONE;
+                    }
+                }
+                break;
+
+            default:
+                pWeapon->diagonalAim = DIAG_AIM_NONE;
         }
     }
 }
