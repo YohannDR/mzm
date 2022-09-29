@@ -2546,10 +2546,7 @@ u8 SamusStanding(struct SamusData* pData)
 
 u8 SamusStandingGFX(struct SamusData* pData)
 {
-    u8 animState;
-
-    animState = SamusUpdateAnimation(pData, FALSE);
-    if (animState == SAMUS_ANIM_STATE_ENDED)
+    if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
         pData->currentAnimationFrame = 0x0;
 
     return SPOSE_NONE;
