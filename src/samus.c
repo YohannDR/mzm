@@ -320,81 +320,99 @@ u8 SamusCheckTopCollision(struct SamusData* pData, struct SamusPhysics* pPhysics
 
 }
 
+/**
+ * @brief 5f38 | 2dc | Checks the collisions for Samus
+ * 
+ * @param pData Samus Data Pointer
+ * @param pPhysics Samus Physics Pointer
+ */
 void SamusCheckCollisions(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
-    /*u8 new_pose;
-    i16 offset;
-    u32 block_prevent;
-    u32 block_grabbing;
-    u32 block_unk;
-    struct CurrentAffectingClip clip;
+    u8 newPose;
+    i32 xOffset;
+    u32 blockPrevent;
+    u32 blockGrabbing;
+    u32 blockAbove;
+    i32 movementBlock;
 
     if (pPhysics->standingStatus > STANDING_NOT_IN_CONTROL)
         return;
 
     SamusCheckScrewSpeedboosterAffectingEnvironment(pData, pPhysics);
+    newPose = SPOSE_NONE;
 
-    new_pose = SPOSE_NONE;
     if (pPhysics->verticalMovingDirection == VDMOVING_UP)
-        new_pose = SamusCheckTopCollision(pData, pPhysics);
+        newPose = SamusCheckTopCollision(pData, pPhysics);
     else if (pPhysics->verticalMovingDirection == VDMOVING_DOWN)
-        new_pose = SamusCheckLandingCollision(pData, pPhysics);
-    else if (pPhysics->horizontalMovingDirection == HDMOVING_NONE && pPhysics->standingStatus == STANDING_GROUND)
-        new_pose = SamusCheckStandingOnGroundCollision(pData, pPhysics);
-    else if (pPhysics->standingStatus == STANDING_MIDAIR)
-        new_pose = SamusCheckLandingCollision(pData, pPhysics);
+        newPose = SamusCheckLandingCollision(pData, pPhysics);
     else
     {
-        new_pose = SamusCheckWalkingSidesCollision(pData, pPhysics);
-        if (new_pose == SPOSE_NONE)
-            new_pose = unk_5AD8(pData, pPhysics);
+        if (pPhysics->horizontalMovingDirection != VDMOVING_NONE)
+        {
+            if (pPhysics->standingStatus == STANDING_MIDAIR)
+                newPose = SamusCheckLandingCollision(pData, pPhysics);
+            else
+            {
+                newPose = SamusCheckWalkingSidesCollision(pData, pPhysics);
+                if (newPose == SPOSE_NONE)
+                    newPose = unk_5AD8(pData, pPhysics);
+
+            }
+        }
+        else if (pPhysics->standingStatus == STANDING_GROUND)
+            newPose = SamusCheckStandingOnGroundCollision(pData, pPhysics);
     }
 
-    if (new_pose == SPOSE_NONE && gEquipment.suitMiscActivation & SMF_POWER_GRIP && gButtonInput & pData->direction && pData->yVelocity < 0x1)
+    if (newPose == SPOSE_NONE)
     {
-        // Power grip code
-        if (pData->direction & KEY_RIGHT)
-            offset = 0x1F;
-        else
-            offset = -0x1F;
-
-        // Block right above
-        block_prevent = ClipdataProcessForSamus(pData->yPosition + 0x20, pData->xPosition);
-        if (block_prevent == 0x0)
+        if (gEquipment.suitMiscActivation & SMF_POWER_GRIP && gButtonInput & pData->direction && pData->yVelocity < 0x1)
         {
-            // Block below samus
-            block_prevent = ClipdataProcessForSamus(pData->yPosition - 0xA0, pData->xPosition);
-            // Block that samus will try to grab
-            block_grabbing = ClipdataProcessForSamus(pData->yPosition - 0x68, pData->xPosition + offset);
-            // Not sure what this block is
-            block_unk = ClipdataProcessForSamus(pData->yPosition - 0x80, pData->xPosition + offset);
+            if (pData->direction & KEY_RIGHT)
+                xOffset = 0x1F;
+            else
+                xOffset = -0x1F;
 
-            switch (pData->pose)
+            blockPrevent = ClipdataProcessForSamus(pData->yPosition + HALF_BLOCK_SIZE, pData->xPosition);
+            if (blockPrevent == CLIPDATA_TYPE_AIR)
             {
-                case SPOSE_MIDAIR:
-                case SPOSE_STARTING_SPIN_JUMP:
-                case SPOSE_SPINNING:
-                case SPOSE_STARTING_WALL_JUMP:
-                case SPOSE_SPACE_JUMPING:
-                case SPOSE_SCREW_ATTACKING:
-                    clip = ClipdataCheckCurrentAffectingAtPosition(pData->yPosition - 0x60, pData->xPosition + offset);
-                    // Checks if can grab block
-                    if (!(block_prevent & 0x1000000) && block_grabbing & 0x1000000 && clip.movement != CLIPDATA_MOVEMENT_NON_POWER_GRIP && !(block_unk & 0x1000000))
-                    {
-                        if (gEquipment.suitType == SUIT_SUITLESS)
+                blockPrevent = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE), pData->xPosition);
+                blockPrevent &= CLIPDATA_TYPE_SOLID_FLAG;
+                blockGrabbing = ClipdataProcessForSamus(pData->yPosition - (BLOCK_SIZE + 0x28), pData->xPosition + xOffset);
+                blockGrabbing &= CLIPDATA_TYPE_SOLID_FLAG;
+                blockAbove = ClipdataProcessForSamus(pData->yPosition - BLOCK_SIZE * 2, pData->xPosition + xOffset);
+                blockAbove &= CLIPDATA_TYPE_SOLID_FLAG;
+
+                switch (pData->pose)
+                {
+                    case SPOSE_MIDAIR:
+                    case SPOSE_STARTING_SPIN_JUMP:
+                    case SPOSE_SPINNING:
+                    case SPOSE_STARTING_WALL_JUMP:
+                    case SPOSE_SPACE_JUMPING:
+                    case SPOSE_SCREW_ATTACKING:
+                        movementBlock = ClipdataCheckCurrentAffectingAtPosition(
+                            pData->yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
+                            pData->xPosition + xOffset);
+                        movementBlock >>= 0x10;
+
+                        if (!blockPrevent && blockGrabbing &&
+                            movementBlock != CLIPDATA_MOVEMENT_NON_POWER_GRIP && !blockAbove)
                         {
-                            new_pose = SPOSE_GRABBING_A_LEDGE_SUITLESS;
-                            SoundPlay(0x9B); // Suitless grip
-                        }
-                        else
-                        {
-                            new_pose = SPOSE_HANGING_ON_LEDGE;
-                            if (pPhysics->slowedByLiquid)
-                                SoundPlay(0x95); // Underwater grip
+                            if (gEquipment.suitType == SUIT_SUITLESS)
+                            {
+                                newPose = SPOSE_GRABBING_A_LEDGE_SUITLESS;
+                                SoundPlay(0x9B);
+                            }
                             else
-                                SoundStop(0x7A); // Normal grip
+                            {
+                                newPose = SPOSE_HANGING_ON_LEDGE;
+                                if (pPhysics->slowedByLiquid)
+                                    SoundPlay(0x95);
+                                else
+                                    SoundPlay(0x7A);
+                            }
                         }
-                    }
+                }
             }
         }
     }
@@ -402,17 +420,16 @@ void SamusCheckCollisions(struct SamusData* pData, struct SamusPhysics* pPhysics
     if (pPhysics->touchingSideBlock)
     {
         pData->xVelocity = 0x0;
-        
+
         switch (pData->pose)
         {
             case SPOSE_RUNNING:
                 if (gEquipment.suitType == SUIT_SUITLESS && gSamusDataCopy.timer == 0x1)
-                    new_pose = SPOSE_CROUCHING_TO_CRAWL;
+                    newPose = SPOSE_CROUCHING_TO_CRAWL;
                 break;
 
             case SPOSE_SPINNING:
             case SPOSE_SCREW_ATTACKING:
-                // Setup wall jump
                 pData->walljumpTimer = 0x8;
                 pData->lastWallTouchedMidAir = pData->direction ^ (KEY_RIGHT | KEY_LEFT);
                 break;
@@ -421,19 +438,18 @@ void SamusCheckCollisions(struct SamusData* pData, struct SamusPhysics* pPhysics
             case SPOSE_SHOOTING_ON_ZIPLINE:
             case SPOSE_TURNING_ON_ZIPLINE:
             case SPOSE_MORPH_BALL_ON_ZIPLINE:
-                // Drop if on zipline
-                new_pose = SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+                newPose = SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
         }
     }
 
     if (pPhysics->standingStatus != STANDING_INVALID)
     {
-        if (new_pose == SPOSE_UPDATE_JUMP_VELOCITY_REQUEST)
+        if (newPose == SPOSE_UPDATE_JUMP_VELOCITY_REQUEST)
             pData->yPosition++;
 
-        if (new_pose != SPOSE_NONE)
-            SamusSetPose(new_pose);
-    }*/
+        if (newPose != SPOSE_NONE)
+            SamusSetPose(newPose);
+    }
 }
 
 /**
@@ -892,10 +908,17 @@ void SamusUpdateJumpVelocity(struct SamusData* pData, struct SamusData* pCopy, s
     }*/
 }
 
+/**
+ * @brief 6c2c | 280 | Sets a landing pose for Samus
+ * 
+ * @param pData Samus Data Pointer
+ * @param pCopy Samus Data Copy Pointer
+ * @param pWeapon Samus Weapon Info Pointer
+ */
 void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
-    /*u8 collision;
-    
+    u32 collision;
+
     pCopy->lastWallTouchedMidAir = KEY_NONE;
 
     switch (pCopy->pose)
@@ -903,22 +926,20 @@ void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struc
         case SPOSE_MIDAIR:
             collision = SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]);
             if (collision)
+                // Blocks above, set crouched
                 pData->pose = SPOSE_CROUCHING;
-            else
+            else if (pCopy->xVelocity == 0x0)
+                // No X movement, normal landing
+                pData->pose = SPOSE_LANDING;
+            else if (pCopy->speedboostingShinesparking)
             {
-                if (pCopy->xVelocity == 0x0)
-                    pData->pose = SPOSE_LANDING;
-                else
-                {
-                    if (pCopy->speedboostingShinesparking)
-                    {
-                        pData->pose = SPOSE_RUNNING;
-                        pData->speedboostingShinesparking = TRUE;
-                    }
-                    else
-                        pData->pose = SPOSE_STANDING;
-                }
+                // Landing from a fall with speedbooster activated
+                pData->pose = SPOSE_RUNNING;
+                pData->speedboostingShinesparking = TRUE;
+                // Intended to keep speedbooster, however it's immediatly cancelled because of the velocity being too small
             }
+            else
+                pData->pose = SPOSE_STANDING;
             break;
 
         case SPOSE_MORPH_BALL_MIDAIR:
@@ -926,16 +947,17 @@ void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struc
 
             if (gButtonInput & KEY_A && gEquipment.suitMiscActivation & SMF_HIGH_JUMP)
             {
-                // /!\ Invalid cast
+                // Check bounce from maintained A
                 collision = SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2]);
-                collision &= SAMUS_COLLISION_DETECTION_MIDDLE_LEFT | SAMUS_COLLISION_DETECTION_MIDDLE_RIGHT;
-                if (!(collision))
-                    pData->forcedMovement = 0x14;
+                if (!(collision & (SAMUS_COLLISION_DETECTION_MIDDLE_LEFT | SAMUS_COLLISION_DETECTION_MIDDLE_RIGHT)))
+                    pData->forcedMovement = FORCED_MOVEMENT_MORPH_BALL_BOUNCE_BEFORE_JUMP;
             }
             else
             {
-                if (pCopy->yVelocity < -0xC0 && !gSamusPhysics.slowedByLiquid && ClipdataCheckGroundEffect(pData->yPosition + 0x1, pData->xPosition) != GROUND_EFFECT_VERY_DUSTY_GROUND)
+                if (pCopy->yVelocity < -0xC0 && !gSamusPhysics.slowedByLiquid &&
+                    ClipdataCheckGroundEffect(pData->yPosition + 1, pData->xPosition) != GROUND_EFFECT_VERY_DUSTY_GROUND)
                 {
+                    // Morph ball bounce
                     pData->forcedMovement = 0x1;
                     pData->yVelocity = 0x32;
                     break;
@@ -951,10 +973,11 @@ void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struc
         case SPOSE_BALLSPARKING:
             if (gButtonInput & pData->direction)
             {
+                // Carry shinespark
                 if (pData->direction & KEY_RIGHT)
-                    pData->xVelocity = 0xA0;
+                    pData->xVelocity = SAMUS_X_SPEEDBOOST_VELOCITY_CAP;
                 else
-                    pData->xVelocity = -0xA0;
+                    pData->xVelocity = -SAMUS_X_SPEEDBOOST_VELOCITY_CAP;
 
                 if (pCopy->pose == SPOSE_SHINESPARKING)
                     pData->pose = SPOSE_RUNNING;
@@ -966,20 +989,23 @@ void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struc
 
                 pData->speedboostingShinesparking = TRUE;
                 pData->timer = 0xA0;
-
                 SoundPlay(0x8B); // Speedbooster start
             }
             else
             {
+                // Cancel shinespark
                 ScreenShakeStartHorizontal(0x1E, 0x1);
+
+                // Set collision behavior
                 if (pCopy->pose == SPOSE_SHINESPARKING)
                     pData->pose = SPOSE_SHINESPARK_COLLISION;
                 else
                     pData->pose = SPOSE_BALLSPARK_COLLISION;
 
+                // Keep direction
                 pData->forcedMovement = pCopy->forcedMovement;
                 pData->currentAnimationFrame = 0x1;
-                SoundPlay(0x90); // Shinespark collision
+                SoundPlay(0x90);
             }
             break;
 
@@ -991,31 +1017,34 @@ void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struc
                 pData->pose = SPOSE_LANDING;
             else
                 pData->pose = SPOSE_STANDING;
+            break;
     }
 
     pData->armCannonDirection = pCopy->armCannonDirection;
 
+    // Update ACD
     switch (pData->pose)
     {
         case SPOSE_LANDING:
-            if (gSamusPhysics.hasNewProjectile != 0x0)
+            if (gSamusPhysics.hasNewProjectile)
                 pData->currentAnimationFrame = 0x1;
+            
             if (pCopy->armCannonDirection == ACD_DOWN)
                 pData->armCannonDirection = ACD_DIAGONALLY_DOWN;
             break;
-        
+
         case SPOSE_RUNNING:
             if (pCopy->armCannonDirection == ACD_UP)
                 pData->armCannonDirection = ACD_DIAGONALLY_UP;
-        
+
         case SPOSE_STANDING:
             if (pCopy->armCannonDirection == ACD_DOWN)
                 pData->armCannonDirection = ACD_DIAGONALLY_DOWN;
             break;
     }
 
-
-    SamusCheckSetEnvironmentalEffect(pData, 0x0, WANTING_LANDING_EFFECT);*/
+    // Check effect
+    SamusCheckSetEnvironmentalEffect(pData, 0, WANTING_LANDING_EFFECT);
 }
 
 void SamusChangeToHurtPose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
@@ -1465,9 +1494,101 @@ void SamusCopyData(struct SamusData* pData_)
     pScrew->currentAnimationFrame = 0x0;
 }
 
+/**
+ * @brief 761c | 110 | Updates the physics of Samus
+ * 
+ * @param pData Samus Data Pointer (unused)
+ */
 void SamusUpdatePhysics(struct SamusData* pData)
 {
+    struct Equipment* pEquipment;
+    struct SamusPhysics* pPhysics;
+    u16 yPosition;
+    u32 slowed;
+    i32 affecting;
+    
+    pData = &gSamusData;
+    pEquipment = &gEquipment;
+    pPhysics = &gSamusPhysics;
 
+    gUnk_03004fc9 = FALSE;
+
+    switch (pData->pose)
+    {
+        case SPOSE_HANGING_ON_LEDGE:
+        case SPOSE_TURNING_TO_AIM_WHILE_HANGING:
+        case SPOSE_HIDING_ARM_CANNON_WHILE_HANGING:
+        case SPOSE_AIMING_WHILE_HANGING:
+        case SPOSE_SHOOTING_WHILE_HANGING:
+        case SPOSE_PULLING_YOURSELF_UP_FROM_HANGING:
+        case SPOSE_PULLING_YOURSELF_FORWARD_FROM_HANGING:
+        case SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL:
+        case SPOSE_GRABBING_A_LEDGE_SUITLESS:
+            yPosition = pData->yPosition - QUARTER_BLOCK_SIZE;
+            break;
+
+        default:
+            yPosition = pData->yPosition;
+    }
+
+    slowed = FALSE;
+
+    affecting = ClipdataCheckCurrentAffectingAtPosition(yPosition, pData->xPosition);
+    affecting &= 0xFF;
+
+    switch (affecting)
+    {
+        case HAZARD_TYPE_WATER:
+        case HAZARD_TYPE_STRONG_LAVA:
+        case HAZARD_TYPE_WEAK_LAVA:
+        case HAZARD_TYPE_ACID:
+            if (!(pEquipment->suitMiscActivation & SMF_GRAVITY_SUIT))
+                slowed++;
+            break;
+
+        default:
+        if (gEquipment.grabbedByMetroid)
+            slowed++;
+    }
+
+    pPhysics->slowedByLiquid = slowed;
+
+    if (slowed)
+    {
+        pPhysics->xAcceleration = SAMUS_X_ACCELERATION / 2;
+        pPhysics->xVelocityCap = SAMUS_X_VELOCITY_CAP / 2;
+        pPhysics->midairXVelocityCap = SAMUS_X_MID_AIR_VELOCITY_CAP / 2;
+        pPhysics->midairXAcceleration = SAMUS_X_MID_AIR_ACCELERATION / 2;
+        pPhysics->midairMorphedXVelocityCap = SAMUS_X_MID_AIR_MORPHED_VELOCITY_CAP / 2;
+
+        pPhysics->yAcceleration = SAMUS_Y_ACCELERATION / 2;
+        pPhysics->positiveYVelocityCap = SAMUS_Y_SLOWED_VELOCITY_CAP;
+        pPhysics->negativeYVelocityCap = SAMUS_Y_SLOWED_VELOCITY_CAP;
+
+        if (pData->speedboostingShinesparking)
+            pData->speedboostingShinesparking = FALSE;
+    }
+    else
+    {
+        pPhysics->xAcceleration = SAMUS_X_ACCELERATION;
+        pPhysics->xVelocityCap = SAMUS_X_VELOCITY_CAP;
+        pPhysics->midairXVelocityCap = SAMUS_X_MID_AIR_VELOCITY_CAP;
+        pPhysics->midairXAcceleration = SAMUS_X_MID_AIR_ACCELERATION;
+        pPhysics->midairMorphedXVelocityCap = SAMUS_X_MID_AIR_MORPHED_VELOCITY_CAP;
+
+        pPhysics->yAcceleration = SAMUS_Y_ACCELERATION;
+        pPhysics->positiveYVelocityCap = SAMUS_Y_POSITIVE_VELOCITY_CAP;
+        pPhysics->negativeYVelocityCap = SAMUS_Y_NEGATIVE_VELOCITY_CAP;
+
+        if (pData->speedboostingShinesparking)
+        {
+            pPhysics->midairXVelocityCap = SAMUS_X_SPEEDBOOST_VELOCITY_CAP;
+            pPhysics->xVelocityCap = SAMUS_X_SPEEDBOOST_VELOCITY_CAP;
+        }
+    }
+
+    if (pData->standingStatus == STANDING_MIDAIR || pData->standingStatus == STANDING_ENEMY)
+        pData->currentSlope = SLOPE_NONE;
 }
 
 i16 SamusChangeVelocityOnSlope(struct SamusData* pData)
