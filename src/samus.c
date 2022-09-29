@@ -1779,8 +1779,9 @@ void SamusBombBounce(u8 direction)
 
 void SamusAimCannon(struct SamusData* pData)
 {
-    /*struct WeaponInfo* pWeapon;
-    u16 direction;
+    // https://decomp.me/scratch/25vTb
+
+    struct WeaponInfo* pWeapon;
 
     pWeapon = &gSamusWeaponInfo;
 
@@ -1796,6 +1797,7 @@ void SamusAimCannon(struct SamusData* pData)
             case SPOSE_MIDAIR:
             case SPOSE_LANDING:
             case SPOSE_STARTING_SPIN_JUMP:
+            case SPOSE_SPINNING:
             case SPOSE_SPACE_JUMPING:
             case SPOSE_SCREW_ATTACKING:
             case SPOSE_AIMING_WHILE_HANGING:
@@ -1803,127 +1805,71 @@ void SamusAimCannon(struct SamusData* pData)
             case SPOSE_CROUCHING_SUITLESS:
                 if (gButtonInput & KEY_DOWN)
                 {
-                    pData->armCannonDirection = ACD_DIAGONALLY_DOWN;
+                    pData->armCannonDirection = ACD_DOWN;
                     pWeapon->diagonalAim = DIAG_AIM_DOWN;
                 }
-                else if (DIAG_AIM_UP >= pWeapon->diagonalAim || gButtonInput & KEY_UP)
+                else if (pWeapon->diagonalAim > DIAG_AIM_UP && gButtonInput & KEY_UP)
                 {
-                    pData->armCannonDirection = ACD_DIAGONALLY_UP;
+                    pData->armCannonDirection = ACD_UP;
                     pWeapon->diagonalAim = DIAG_AIM_UP;
                 }
-                return;
-
-            default:
-                return;
+                break;
 
             case SPOSE_ON_ZIPLINE:
                 pData->armCannonDirection = ACD_DIAGONALLY_DOWN;
                 pWeapon->diagonalAim = DIAG_AIM_DOWN;
-                return;            
         }
     }
-
-    switch (pData->pose)
+    else
     {
-        case SPOSE_RUNNING:
-            if (gButtonInput & KEY_UP)
-                pData->armCannonDirection = ACD_DIAGONALLY_UP;
-            else
-            {
-                direction = gButtonInput & KEY_DOWN;
-                if (direction)
-                    pData->armCannonDirection = ACD_DIAGONALLY_DOWN;
-                else
-                {
-                    if (pData->armCannonDirection < ACD_NONE)
-                        pData->armCannonDirection = direction;
-                }
-            }
-
-            if (gEquipment.suitType == SUIT_SUITLESS || pData->armCannonDirection != ACD_NONE || (pWeapon->weaponHighlighted == WH_NONE && pWeapon->chargeCounter == 0x0))
-                pWeapon->diagonalAim = DIAG_AIM_NONE;
-            else
-                pData->armCannonDirection = ACD_FORWARD;
-
-            break;
-        
-        case SPOSE_STANDING:
-        case SPOSE_SHOOTING:
-        case SPOSE_LANDING:
-        case SPOSE_UNCROUCHING_SUITLESS:
-            if (pData->timer == 0x0 && gButtonInput & KEY_UP)
+        switch (pData->pose)
+        {
+            case SPOSE_RUNNING:
+                if (gButtonInput & KEY_UP)
                     pData->armCannonDirection = ACD_UP;
-            pWeapon->diagonalAim = DIAG_AIM_NONE;
-            break;
-
-        case SPOSE_CROUCHING:
-        case SPOSE_SHOOTING_AND_CROUCHING:
-        case SPOSE_CROUCHING_SUITLESS:
-            pData->armCannonDirection = ACD_FORWARD;
-            pWeapon->diagonalAim = DIAG_AIM_NONE;
-            break;
-
-        case SPOSE_MIDAIR:
-        case SPOSE_STARTING_SPIN_JUMP:
-        case SPOSE_SPINNING:
-        case SPOSE_SPACE_JUMPING:
-        case SPOSE_SCREW_ATTACKING:
-        case SPOSE_AIMING_WHILE_HANGING:
-            if (gButtonInput & KEY_UP)
-            {
-                if (pData->direction & gButtonInput)
-                    pData->armCannonDirection = ACD_DIAGONALLY_UP;
-                else
-                    pData->armCannonDirection = ACD_UP;
-            }
-            else
-            {
-                direction = gButtonInput & KEY_DOWN;
-                if (direction)
-                {
-                    if ((pData->direction & gButtonInput) == 0x0)
-                        pData->armCannonDirection = ACD_DIAGONALLY_DOWN;
-                    else
-                        pData->armCannonDirection = ACD_DOWN;
-                }
-                else
-                {
-                    if (pData->armCannonDirection & gButtonInput)
-                        pData->armCannonDirection = direction;
-                    else
-                    {
-                        if ((u8)(pData->armCannonDirection - 0x3) > 0x2)
-                            pData->armCannonDirection = pData->direction;
-                    }
-                }
-            }
-            pWeapon->diagonalAim = DIAG_AIM_NONE;
-            break;
-
-        case SPOSE_ON_ZIPLINE:
-            direction = gButtonInput & KEY_DOWN;
-            if (direction)
-            {
-                if (pData->direction & gButtonInput)
-                    pData->armCannonDirection = ACD_DIAGONALLY_DOWN;
-                else
+                else if (gButtonInput & KEY_DOWN)
                     pData->armCannonDirection = ACD_DOWN;
-                pWeapon->diagonalAim = DIAG_AIM_NONE;
-            }
-            else
-            {
-                if ((pData->direction & gButtonInput) == 0x0 && pData->armCannonDirection != ACD_DOWN)
+                else if (pData->armCannonDirection < ACD_NONE)
+                    pData->armCannonDirection = ACD_FORWARD;
+
+                if (gEquipment.suitType == SUIT_SUITLESS)
                     pWeapon->diagonalAim = DIAG_AIM_NONE;
-                else
+                else if (pData->armCannonDirection != ACD_NONE)
+                    pWeapon->diagonalAim = DIAG_AIM_NONE;
+                else if (pWeapon->weaponHighlighted == WH_NONE && pWeapon->chargeCounter == 0x0)
+                    pWeapon->diagonalAim = DIAG_AIM_NONE;
+                break;
+
+            case SPOSE_STANDING:
+            case SPOSE_SHOOTING:
+            case SPOSE_LANDING:
+            case SPOSE_UNCROUCHING_SUITLESS:
+                if (pData->timer == 0x0 && gButtonInput & KEY_UP)
                 {
-                    pData->armCannonDirection = direction;
-                    pWeapon->diagonalAim = DIAG_AIM_NONE;
+                    pData->armCannonDirection = ACD_UP;
+                    pWeapon->diagonalAim = DIAG_AIM_UP;
                 }
-            }
-        default:
-            pWeapon->diagonalAim = DIAG_AIM_NONE;
-            break;
-    }*/
+                break;
+
+            case SPOSE_CROUCHING:
+            case SPOSE_SHOOTING_AND_CROUCHING:
+            case SPOSE_CROUCHING_SUITLESS:
+                pData->armCannonDirection = ACD_FORWARD;
+                pWeapon->diagonalAim = DIAG_AIM_NONE;
+                break;
+
+            case SPOSE_MIDAIR:
+            case SPOSE_STARTING_SPIN_JUMP:
+            case SPOSE_SPINNING:
+            case SPOSE_SPACE_JUMPING:
+            case SPOSE_SCREW_ATTACKING:
+            case SPOSE_AIMING_WHILE_HANGING:
+                if (gButtonInput & KEY_UP)
+                {
+
+                }
+        }
+    }
 }
 
 /**
@@ -2539,9 +2485,74 @@ u8 SamusRunningGFX(struct SamusData* pData)
 
 }
 
+/**
+ * @brief 86d4 | 148 | Samus standing subroutine
+ * 
+ * @param pData Samus Data Pointer
+ * @return u8 New pose
+ */
 u8 SamusStanding(struct SamusData* pData)
 {
+    if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A &&
+        pData->shinesparkTimer && !SamusCheckCollisionAbove(pData, samus_hitbox_data[0][2] - HALF_BLOCK_SIZE))
+    {
+        pData->yPosition -= HALF_BLOCK_SIZE;
+        return SPOSE_DELAY_BEFORE_SHINESPARKING;
+    }
 
+    if (SamusCheckAButtonPressed(pData))
+        return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+
+    if (gButtonInput & pData->direction)
+        return SPOSE_RUNNING;
+
+    if (gSamusPhysics.hasNewProjectile)
+        return SPOSE_SHOOTING;
+
+    if (gButtonInput & (pData->direction ^ (KEY_RIGHT | KEY_LEFT)))
+        return SPOSE_TURNING_AROUND;
+
+    if (gChangedInput & KEY_DOWN)
+    {
+        if (ClipdataCheckCurrentAffectingAtPosition(pData->yPosition + 0x4, pData->xPosition) >> 0x10 == CLIPDATA_MOVEMENT_ELEVATOR_DOWN_BLOCK)
+        {
+            pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) + HALF_BLOCK_SIZE;
+            pData->elevatorDirection = KEY_DOWN;
+            return SPOSE_TURNING_FROM_FACING_THE_FOREGROUND;
+        }
+
+        if (gSamusWeaponInfo.diagonalAim == DIAG_AIM_NONE || pData->armCannonDirection == ACD_DIAGONALLY_DOWN)
+        {
+            if (gEquipment.suitType != SUIT_SUITLESS)
+                SoundPlay(0x79);
+            
+            if (gSamusPhysics.hasNewProjectile)
+                return SPOSE_SHOOTING_AND_CROUCHING;
+            
+            if (gEquipment.suitType == SUIT_SUITLESS)
+                return SPOSE_CROUCHING_SUITLESS;
+
+            return SPOSE_CROUCHING;
+        }
+    }
+    else
+    {
+        if (gChangedInput & KEY_UP)
+        {
+            if (ClipdataCheckCurrentAffectingAtPosition(pData->yPosition + 0x4, pData->xPosition) >> 0x10 == CLIPDATA_MOVEMENT_ELEVATOR_UP_BLOCK)
+            {
+                pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) + HALF_BLOCK_SIZE;
+                pData->elevatorDirection = KEY_UP;
+                return SPOSE_TURNING_FROM_FACING_THE_FOREGROUND;
+            }
+        }
+    }
+
+    if (pData->timer != 0x0)
+        pData->timer--;
+
+    SamusAimCannon(pData);
+    return SPOSE_NONE;
 }
 
 u8 SamusStandingGFX(struct SamusData* pData)
