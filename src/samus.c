@@ -453,137 +453,138 @@ void SamusCheckCollisions(struct SamusData* pData, struct SamusPhysics* pPhysics
 }
 
 /**
- * 6214 | 3dc | 
- * Checks if an environment effect for samus can/should spawn and spawns it
+ * 6214 | 3dc | Checks if an environment effect for samus can/should spawn and spawns it
  * 
  * @param pData Samus Data Pointer
- * @param default_offset Default offset in the global array (0 means auto)
+ * @param defaultOffset Default offset in the global array (0 means auto)
  * @param request Environmental effect requested
  */
-void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 default_offset, u32 request)
+void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset, u32 request)
 {
     u8 found;
-    u8 can_spawn;
-    u8 offset;
-    u16 xPosition;
-    u16 yPosition;
     u8 effect;
-    u32 current_affecting;
-    u32 previous_liquid;
-    u16 previous_pos;
-    u16 liquid_check_pos;
-    u16 offset_x;
+    u8 canSpawn;
+    u8 i;
+    u16 yPosition;
+    u16 xPosition;
+    u16 nextX;
+    u32 affecting;
+    u32 previousAffecting;
+    u16 liquidCheckY;
+    u16 previousY;
     struct SamusPhysics* pPhysics;
 
     pPhysics = &gSamusPhysics;
-
     found = FALSE;
-    can_spawn = TRUE;
+    canSpawn = TRUE;
 
-    if (default_offset == 0x0)
+    if (defaultOffset == 0x0)
     {
-        for (offset = 0; offset < 0x3; offset++)
+        for (i = 0; i < 0x3; i++)
         {
-            if (gSamusEnvirnmentalEffects[offset].type == ENV_EFFECT_NONE)
+            if (gSamusEnvironmentalEffects[i].type == ENV_EFFECT_NONE)
                 break;
         }
-        if (offset > 0x2)
-            can_spawn--;
+        if (i > 0x2)
+            canSpawn--;
     }
     else
-        offset = default_offset;
+        i = defaultOffset;
 
     switch (request)
     {
         case WANTING_RUNNING_EFFECT:
         case WANTING_RUNNING_EFFECT_:
             if (pData->direction & KEY_RIGHT)
-                offset_x = pData->xPosition + 0x4;
+                nextX = pData->xPosition + 4;
             else
-                offset_x = pData->xPosition - 0x4;
+                nextX = pData->xPosition - 4;
 
-            current_affecting = ClipdataCheckGroundEffect(pData->yPosition + 0x1, offset_x);
-
-            if (current_affecting == GROUND_EFFECT_WET_GROUND)
+            affecting = ClipdataCheckGroundEffect(pData->yPosition + 1, nextX);
+            if (affecting == GROUND_EFFECT_WET_GROUND)
             {
                 effect = ENV_EFFECT_RUNNING_ON_WET_GROUND;
                 found++;
+
                 if (request == WANTING_RUNNING_EFFECT)
                 {
                     if (gEquipment.suitType == SUIT_SUITLESS)
-                        SoundPlay(0xA1); // Suitless wet ground
+                        SoundPlay(0xA1);
                     else
-                        SoundPlay(0x68); // Wet footsteps
+                        SoundPlay(0x68);
                 }
                 else
                 {
                     if (gEquipment.suitType == SUIT_SUITLESS)
-                        SoundPlay(0xA2); // Suitless wet ground 2
+                        SoundPlay(0xA2);
                     else
-                        SoundPlay(0x69); // Wet footsteps 2
+                        SoundPlay(0x69);
                 }
             }
-            else if (current_affecting == GROUND_EFFECT_DUSTY_GROUND)
+            else if (affecting == GROUND_EFFECT_DUSTY_GROUND)
             {
                 effect = ENV_EFFECT_RUNNING_ON_DUSTY_GROUND;
                 found++;
 
                 if (request == WANTING_RUNNING_EFFECT)
-                    SoundPlay(0x66); // Dusty footstep
+                    SoundPlay(0x66);
                 else
-                    SoundPlay(0x67); // Dusty footstep 2
+                    SoundPlay(0x67);
             }
-            else if (current_affecting == GROUND_EFFECT_VERY_DUSTY_GROUND)
+            else if (affecting == GROUND_EFFECT_VERY_DUSTY_GROUND)
             {
                 effect = ENV_EFFECT_RUNNING_ON_VERY_DUSTY_GROUND;
                 found++;
+
                 if (request == WANTING_RUNNING_EFFECT)
-                    SoundPlay(0x66); // Dusty footstep
+                    SoundPlay(0x66);
                 else
-                    SoundPlay(0x67); // Dusty footstep 2
+                    SoundPlay(0x67);
             }
-            xPosition = offset_x;
+
+            xPosition = nextX;
             yPosition = pData->yPosition;
             break;
 
         case WANTING_LANDING_EFFECT:
-            current_affecting = ClipdataCheckGroundEffect(pData->yPosition + 0x1, pData->xPosition);
-            if (current_affecting == GROUND_EFFECT_WET_GROUND)
+            affecting = ClipdataCheckGroundEffect(pData->yPosition + 1, pData->xPosition);
+            if (affecting == GROUND_EFFECT_WET_GROUND)
             {
                 effect = ENV_EFFECT_LANDING_ON_WET_GROUND;
                 found++;
+
                 if (gEquipment.suitType == SUIT_SUITLESS)
                     SoundPlay(0xA3); // Suitless landing on wet ground
                 else
                     SoundPlay(0x74); // Landing on wet ground
             }
-            else if (current_affecting == GROUND_EFFECT_BUBBLY_GROUND)
+            else if (affecting == GROUND_EFFECT_BUBBLY_GROUND)
             {
                 effect = ENV_EFFECT_LANDING_ON_BUBBLY_GROUND;
                 found++;
             }
-            else if (current_affecting == GROUND_EFFECT_DUSTY_GROUND)
+            else if (affecting == GROUND_EFFECT_DUSTY_GROUND)
             {
                 effect = ENV_EFFECT_LANDING_ON_DUSTY_GROUND;
                 found++;
-                SoundPlay(0x73); // Landing on dusty ground
+                SoundPlay(0x73); // Landing on very dusty ground
             }
-            else if (current_affecting == GROUND_EFFECT_VERY_DUSTY_GROUND)
+            else if (affecting == GROUND_EFFECT_VERY_DUSTY_GROUND)
             {
                 effect = ENV_EFFECT_LANDING_ON_VERY_DUSTY_GROUND;
                 found++;
-                SoundPlay(0x73); // Landing on dusty ground
+                SoundPlay(0x73); // Landing on very dusty ground
             }
             else
             {
                 if (pPhysics->slowedByLiquid)
-                    SoundPlay(0x95); // Suitless landing/ledge grip underwater
-                else if (gSamusDataCopy.lastWallTouchedMidAir != KEY_NONE)
-                    SoundPlay(0x72); // Morphball drop bounce 2?
+                    SoundPlay(0x95);
+                else if (gSamusDataCopy.lastWallTouchedMidAir != 0)
+                    SoundPlay(0x72);
                 else if (gEquipment.suitType != SUIT_SUITLESS)
-                    SoundPlay(0x71); // Landing
+                    SoundPlay(0x71);
                 else
-                    SoundPlay(0x99); // Suitless landing
+                    SoundPlay(0x99);
             }
 
             xPosition = pData->xPosition;
@@ -592,60 +593,63 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 default_offse
 
         case WANTING_GOING_OUT_OF_LIQUID_EFFECT:
         case WANTING_RUNNING_OUT_OF_LIQUID_EFFECT:
-            liquid_check_pos = pData->yPosition;
-            previous_pos = gPreviousYPosition;
-            if (effect == WANTING_GOING_OUT_OF_LIQUID_EFFECT)
+            liquidCheckY = pData->yPosition;
+            previousY = gPreviousYPosition;
+
+            if (request == WANTING_GOING_OUT_OF_LIQUID_EFFECT)
             {
-                liquid_check_pos -= 0x10;
-                previous_pos -= 0x10;
+                liquidCheckY -= QUARTER_BLOCK_SIZE;
+                previousY -= QUARTER_BLOCK_SIZE;
             }
 
-            current_affecting = ClipdataCheckCurrentAffectingAtPosition(liquid_check_pos, pData->xPosition) & 0xFF;
-            previous_liquid = ClipdataCheckCurrentAffectingAtPosition(previous_pos, pData->xPosition) & 0xFF;
+            affecting = ClipdataCheckCurrentAffectingAtPosition(liquidCheckY, pData->xPosition);
+            affecting &= 0xFF;
+            previousAffecting = ClipdataCheckCurrentAffectingAtPosition(previousY, pData->xPosition);
+            previousAffecting &= 0xFF;
 
-            if (liquid_check_pos < previous_pos)
+            if (liquidCheckY < previousY)
             {
-                if (current_affecting != HAZARD_TYPE_WATER && previous_liquid == HAZARD_TYPE_WATER)
+                if (affecting != HAZARD_TYPE_WATER && previousAffecting == HAZARD_TYPE_WATER)
                 {
                     effect = ENV_EFFECT_GOING_OUT_OF_WATER;
                     found++;
                 }
-                else if (current_affecting != HAZARD_TYPE_STRONG_LAVA && previous_liquid == HAZARD_TYPE_STRONG_LAVA)
+                else if (affecting != HAZARD_TYPE_STRONG_LAVA && previousAffecting == HAZARD_TYPE_STRONG_LAVA)
                 {
                     effect = ENV_EFFECT_GOING_OUT_OF_LAVA;
                     found++;
                 }
-                else if (current_affecting != HAZARD_TYPE_WEAK_LAVA && previous_liquid == HAZARD_TYPE_WEAK_LAVA)
+                else if (affecting != HAZARD_TYPE_WEAK_LAVA && previousAffecting == HAZARD_TYPE_WEAK_LAVA)
                 {
                     effect = ENV_EFFECT_GOING_OUT_OF_LAVA;
                     found++;
                 }
-                else if (current_affecting != HAZARD_TYPE_ACID && previous_liquid == HAZARD_TYPE_ACID)
+                else if (affecting != HAZARD_TYPE_ACID && previousAffecting == HAZARD_TYPE_ACID)
                 {
-                    effect = ENV_EFFECT_GOING_OUT_OF_LAVA;
+                    effect = ENV_EFFECT_GOING_OUT_OF_ACID;
                     found++;
                 }
             }
             else
             {
-                if (current_affecting == HAZARD_TYPE_WATER && previous_liquid != HAZARD_TYPE_WATER)
+                if (affecting == HAZARD_TYPE_WATER && previousAffecting != HAZARD_TYPE_WATER)
                 {
                     effect = ENV_EFFECT_GOING_OUT_OF_WATER;
                     found++;
                 }
-                else if (current_affecting == HAZARD_TYPE_STRONG_LAVA && previous_liquid != HAZARD_TYPE_STRONG_LAVA)
+                else if (affecting == HAZARD_TYPE_STRONG_LAVA && previousAffecting != HAZARD_TYPE_STRONG_LAVA)
                 {
                     effect = ENV_EFFECT_GOING_OUT_OF_LAVA;
                     found++;
                 }
-                else if (current_affecting == HAZARD_TYPE_WEAK_LAVA && previous_liquid != HAZARD_TYPE_WEAK_LAVA)
+                else if (affecting == HAZARD_TYPE_WEAK_LAVA && previousAffecting != HAZARD_TYPE_WEAK_LAVA)
                 {
                     effect = ENV_EFFECT_GOING_OUT_OF_LAVA;
                     found++;
                 }
-                else if (current_affecting == HAZARD_TYPE_ACID && previous_liquid != HAZARD_TYPE_ACID)
+                else if (affecting == HAZARD_TYPE_ACID && previousAffecting != HAZARD_TYPE_ACID)
                 {
-                    effect = ENV_EFFECT_GOING_OUT_OF_LAVA;
+                    effect = ENV_EFFECT_GOING_OUT_OF_ACID;
                     found++;
                 }
             }
@@ -654,15 +658,16 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 default_offse
                 effect++;
 
             xPosition = pData->xPosition;
-            if (gEffectYPosition != 0x0)
+            if (gEffectYPosition != 0)
                 yPosition = gEffectYPosition;
             else
             {
-                if (previous_pos < liquid_check_pos)
+                if (liquidCheckY < previousY)
                     yPosition = gPreviousYPosition & BLOCK_POSITION_FLAG;
                 else
                     yPosition = pData->yPosition & BLOCK_POSITION_FLAG;
             }
+
             break;
 
         case WANTING_BREATHING_BUBBLES:
@@ -670,24 +675,25 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 default_offse
             {
                 effect = ENV_EFFECT_BREATHING_BUBBLES;
                 found++;
-                if (pData->direction & KEY_RIGHT)
-                    xPosition = pData->xPosition + 0xC;
-                else
-                    xPosition = pData->xPosition - 0xC;
 
-                yPosition = pData->yPosition + pPhysics->drawDistanceTopOffset + 0x10;
-                SoundPlay(0x91); // Breathing bubbles
+                if (pData->direction & KEY_RIGHT)
+                    xPosition = pData->xPosition + 12;
+                else
+                    xPosition = pData->xPosition - 12;
+
+                yPosition = pData->yPosition + pPhysics->drawDistanceTopOffset + QUARTER_BLOCK_SIZE;
+                SoundPlay(0x91); // Liquid bubbling
             }
             break;
 
         case WANTING_SKIDDING_EFFECT:
-            current_affecting = ClipdataCheckGroundEffect(pData->yPosition + 0x1, pData->xPosition);
-            if (current_affecting == GROUND_EFFECT_WET_GROUND)
+            affecting = ClipdataCheckGroundEffect(pData->yPosition + 1, pData->xPosition);
+            if (affecting == GROUND_EFFECT_WET_GROUND)
             {
                 effect = ENV_EFFECT_SKIDDING_ON_WET_GROUND;
                 found++;
             }
-            else if (current_affecting - 0x2 < 0x2) // Both dusty and very dusty
+            else if (affecting == GROUND_EFFECT_DUSTY_GROUND || affecting == GROUND_EFFECT_VERY_DUSTY_GROUND)
             {
                 effect = ENV_EFFECT_SKIDDING_ON_DUSTY_GROUND;
                 found++;
@@ -697,8 +703,8 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 default_offse
             break;
 
         case WANTING_RUNNING_ON_WET_GROUND:
-            current_affecting = ClipdataCheckGroundEffect(pData->yPosition + 0x1, pData->xPosition);
-            if (current_affecting == GROUND_EFFECT_WET_GROUND)
+            affecting = ClipdataCheckGroundEffect(pData->yPosition + 1, pData->xPosition);
+            if (affecting == GROUND_EFFECT_WET_GROUND)
             {
                 effect = ENV_EFFECT_RUNNING_ON_WET_GROUND;
                 xPosition = pData->xPosition;
@@ -708,13 +714,13 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 default_offse
             break;
     }
 
-    if (found & can_spawn)
+    if (found & canSpawn)
     {
-        gSamusEnvirnmentalEffects[offset].type = effect;
-        gSamusEnvirnmentalEffects[offset].currentAnimationFrame = 0x0;
-        gSamusEnvirnmentalEffects[offset].animationDurationCounter = 0x0;
-        gSamusEnvirnmentalEffects[offset].xPosition = xPosition;
-        gSamusEnvirnmentalEffects[offset].yPosition = yPosition;
+        gSamusEnvironmentalEffects[i].type = effect;
+        gSamusEnvironmentalEffects[i].currentAnimationFrame = 0;
+        gSamusEnvironmentalEffects[i].animationDurationCounter = 0;
+        gSamusEnvironmentalEffects[i].xPosition = xPosition;
+        gSamusEnvironmentalEffects[i].yPosition = yPosition;
     }
 }
 
