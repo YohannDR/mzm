@@ -22,6 +22,7 @@ const i16 samus_hitbox_data[4][4];
 const i16 samus_visual_data[4][4];
 const i16 samus_draw_distance_offsets[4][4];
 const u16 SamusPullingSelfUp_velocity[8];
+const struct FrameData* sSamusEnvEffectsFrameDataPointers[18];
 
 void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
@@ -724,9 +725,208 @@ void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset
     }
 }
 
+/**
+ * @brief 65f0 | 360 | Updates the environmental effects
+ * 
+ * @param pData Samus Data Pointer
+ */
 void SamusUpdateEnvironmentalEffect(struct SamusData* pData)
 {
+    u32 affecting;
+    u32 affectingTop;
+    u32 affectingLiquid;
+    u8 effect;
+    u8 i;
+    u8 subAnimEnded;
+    u16 yPosition;
+    u16 liquidY;
+    const struct FrameData* pOam;
+    struct SamusPhysics* pPhysics;
+    struct EnvironmentalEffect* pEnv;
 
+    if (pData->pose == SPOSE_DYING)
+        return;
+
+    pPhysics = &gSamusPhysics;
+    pEnv = gSamusEnvironmentalEffects;
+
+    switch (pData->pose)
+    {
+        case SPOSE_MIDAIR:
+        case SPOSE_TURNING_AROUND_MIDAIR:
+        case SPOSE_STARTING_SPIN_JUMP:
+        case SPOSE_SPINNING:
+        case SPOSE_SPACE_JUMPING:
+        case SPOSE_SCREW_ATTACKING:
+        case SPOSE_MORPH_BALL_MIDAIR:
+        case SPOSE_PULLING_YOURSELF_UP_FROM_HANGING:
+        case SPOSE_PULLING_YOURSELF_FORWARD_FROM_HANGING:
+        case SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL:
+        case SPOSE_DELAY_BEFORE_SHINESPARKING:
+        case SPOSE_SHINESPARKING:
+        case SPOSE_GETTING_HURT:
+        case SPOSE_GETTING_KNOCKED_BACK:
+        case SPOSE_GETTING_HURT_IN_MORPH_BALL:
+        case SPOSE_GETTING_KNOCKED_BACK_IN_MORPH_BALL:
+            SamusCheckSetEnvironmentalEffect(pData, 3, WANTING_GOING_OUT_OF_LIQUID_EFFECT);
+            break;
+
+        case SPOSE_RUNNING:
+        case SPOSE_ROLLING:
+            SamusCheckSetEnvironmentalEffect(pData, 0, WANTING_RUNNING_OUT_OF_LIQUID_EFFECT);
+    }
+
+    if ((ClipdataCheckCurrentAffectingAtPosition(pData->yPosition - BLOCK_SIZE * 2, pData->xPosition) & 0xFF) == HAZARD_TYPE_WATER)
+    {
+        if (pEnv->breathingTimer < 220)
+            pEnv->breathingTimer++;
+        else
+        {
+            SamusCheckSetEnvironmentalEffect(pData, 0, WANTING_BREATHING_BUBBLES);
+            pEnv->breathingTimer = 0;
+        }
+    }
+
+    pEnv += 4;
+    if (pEnv->type == ENV_EFFECT_NONE)
+    {
+        switch (pData->pose)
+        {
+            case SPOSE_HANGING_ON_LEDGE:
+            case SPOSE_TURNING_TO_AIM_WHILE_HANGING:
+            case SPOSE_HIDING_ARM_CANNON_WHILE_HANGING:
+            case SPOSE_AIMING_WHILE_HANGING:
+            case SPOSE_SHOOTING_WHILE_HANGING:
+            case SPOSE_PULLING_YOURSELF_UP_FROM_HANGING:
+            case SPOSE_PULLING_YOURSELF_FORWARD_FROM_HANGING:
+            case SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL:
+                yPosition = pData->yPosition - QUARTER_BLOCK_SIZE;
+                break;
+
+            default:
+                yPosition = pData->yPosition;
+        }
+
+        affecting = ClipdataCheckCurrentAffectingAtPosition(yPosition, pData->xPosition);
+        affecting &= 0xFF;
+        affectingTop = ClipdataCheckCurrentAffectingAtPosition(yPosition + pPhysics->drawDistanceTopOffset - 8, pData->xPosition);
+        affectingTop &= 0xFF;
+
+        if (pPhysics->drawDistanceTopOffset > -BLOCK_SIZE)
+            liquidY = yPosition - BLOCK_SIZE;
+        else
+            liquidY = yPosition + pPhysics->drawDistanceTopOffset;
+
+        affectingLiquid = ClipdataCheckCurrentAffectingAtPosition(liquidY, pData->xPosition);
+        affectingLiquid &= 0xFF;
+
+        subAnimEnded = FALSE;
+
+        if (affecting == HAZARD_TYPE_STRONG_LAVA && affectingTop != HAZARD_TYPE_STRONG_LAVA)
+        {
+            if (!(gEquipment.suitMiscActivation & SMF_GRAVITY_SUIT))
+            {
+                effect = ENV_EFFECT_TAKING_DAMAGE_IN_LAVA;
+                subAnimEnded++;
+            }
+        }
+        else if (affecting == HAZARD_TYPE_WEAK_LAVA && affectingTop != HAZARD_TYPE_WEAK_LAVA)
+        {
+            if (!(gEquipment.suitMiscActivation & (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT)))
+            {
+                effect = ENV_EFFECT_TAKING_DAMAGE_IN_LAVA;
+                subAnimEnded++;
+            }
+        }
+        else if (affecting == HAZARD_TYPE_ACID && affectingTop != HAZARD_TYPE_ACID)
+        {
+            effect = ENV_EFFECT_TAKING_DAMAGE_IN_ACID;
+            subAnimEnded++;
+        }
+
+        if (subAnimEnded)
+        {
+            pEnv->type = effect;
+            pEnv->currentAnimationFrame = 0;
+            pEnv->animationDurationCounter = 0;
+            pEnv->xPosition = pData->xPosition;
+
+            if (gEffectYPosition != 0)
+                pEnv->yPosition = gEffectYPosition;
+            else
+            {
+                if (affectingLiquid == HAZARD_TYPE_STRONG_LAVA || affectingLiquid == HAZARD_TYPE_WEAK_LAVA || affectingLiquid == HAZARD_TYPE_ACID)
+                    pEnv->yPosition = liquidY & BLOCK_POSITION_FLAG;
+                else
+                    pEnv->yPosition = yPosition & BLOCK_POSITION_FLAG;
+            }
+
+            SoundPlay(0x7D);
+        }
+    }
+
+    pEnv = gSamusEnvironmentalEffects;
+    for (i = 0; i < 5;)
+    {
+        effect = pEnv->type;
+        if (effect != ENV_EFFECT_NONE)
+        {
+            pEnv->animationDurationCounter++;
+
+            pOam = sSamusEnvEffectsFrameDataPointers[effect - 1];
+            pOam += pEnv->currentAnimationFrame;
+            subAnimEnded = FALSE;
+            
+            if (pEnv->animationDurationCounter >= pOam->timer)
+            {
+                pEnv->animationDurationCounter = 0;
+                pEnv->currentAnimationFrame++;
+                pOam++;
+                if (pOam->timer == 0)
+                {
+                    pEnv->type = ENV_EFFECT_NONE;
+                    pEnv->currentAnimationFrame = 0;
+                }
+
+                subAnimEnded++;
+            }
+
+            pEnv->pOamFrame = pOam->pFrame;
+
+            if (subAnimEnded)
+            {
+                switch (effect)
+                {
+                    case ENV_EFFECT_GOING_OUT_OF_WATER:
+                    case ENV_EFFECT_GOING_OUT_OF_LAVA:
+                    case ENV_EFFECT_GOING_OUT_OF_ACID:
+                        if (pEnv->currentAnimationFrame == 1)
+                            SoundPlay(0x75);
+                        break;
+
+                    case ENV_EFFECT_RUNNING_INTO_WATER:
+                    case ENV_EFFECT_RUNNING_INTO_LAVA:
+                    case ENV_EFFECT_RUNNING_INTO_ACID:
+                        if (pEnv->currentAnimationFrame == 1)
+                            SoundPlay(0x74);
+                        break;
+
+                    case ENV_EFFECT_TAKING_DAMAGE_IN_LAVA:
+                    case ENV_EFFECT_TAKING_DAMAGE_IN_ACID:
+                        pEnv->xPosition = pData->xPosition;
+                        break;
+
+                    case ENV_EFFECT_SKIDDING_ON_WET_GROUND:
+                    case ENV_EFFECT_SKIDDING_ON_DUSTY_GROUND:
+                        if (i == 0 && pEnv->currentAnimationFrame == 3)
+                            SamusCheckSetEnvironmentalEffect(pData, 0, WANTING_SKIDDING_EFFECT);
+                }
+            }
+        }
+
+        i++;
+        pEnv++;
+    }
 }
 
 /**

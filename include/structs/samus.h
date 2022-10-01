@@ -130,7 +130,7 @@ struct EnvironmentalEffect {
     u8 breathingTimer;
     u16 xPosition;
     u16 yPosition;
-    struct OamFrame* pOamFrame;
+    const u16* pOamFrame;
 };
 
 struct SamusEcho {
