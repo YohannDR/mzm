@@ -158,7 +158,7 @@ extern struct SamusEcho gSamusEcho;
 extern struct ScrewSpeedAnimation gScrewSpeedAnimation;
 extern struct Equipment gEquipment;
 extern struct HazardDamage gSamusHazardDamage;
-extern struct EnvironmentalEffect gSamusEnvirnmentalEffects[5];
+extern struct EnvironmentalEffect gSamusEnvironmentalEffects[5];
 extern struct SamusPhysics gSamusPhysics;
 extern u16 gPreviousXPosition;
 extern u16 gPreviousYPosition;

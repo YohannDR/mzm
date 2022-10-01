@@ -16,7 +16,7 @@ u8 SamusCheckStandingOnGroundCollision(struct SamusData* pData, struct SamusPhys
 u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 SamusCheckTopCollision(struct SamusData* pData, struct SamusPhysics* pPhysics);
 void SamusCheckCollisions(struct SamusData* pData, struct SamusPhysics* pPhysics);
-void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 default_offset, u32 request);
+void SamusCheckSetEnvironmentalEffect(struct SamusData* pData, u32 defaultOffset, u32 request);
 void SamusUpdateEnvironmentalEffect(struct SamusData* pData);
 void SamusUpdateJumpVelocity(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);
 void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon);

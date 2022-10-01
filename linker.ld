@@ -153,7 +153,7 @@ SECTIONS {
         . = 0x00001528; gScrewSpeedAnimation = .;
         . = 0x00001530; gEquipment = .;
         . = 0x00001544; gSamusHazardDamage = .;
-        . = 0x0000154C; gSamusEnvirnmentalEffects = .;
+        . = 0x0000154C; gSamusEnvironmentalEffects = .;
         . = 0x00001588; gSamusPhysics = .;
         . = 0x00001600; gPreviousXPosition = .;
         . = 0x00001602; gPreviousYPosition = .;
