@@ -939,7 +939,7 @@ void SamusUpdateEnvironmentalEffect(struct SamusData* pData)
  */
 void SamusUpdateJumpVelocity(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
-    /*struct Equipment* pEquipment;
+    struct Equipment* pEquipment;
 
     pEquipment = &gEquipment;
     pData->xVelocity = pCopy->xVelocity;
@@ -1111,7 +1111,7 @@ void SamusUpdateJumpVelocity(struct SamusData* pData, struct SamusData* pCopy, s
             else
                 SoundPlay(0x70);
         }
-    }*/
+    }
 }
 
 /**
