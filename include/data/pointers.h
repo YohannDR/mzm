@@ -583,6 +583,8 @@ static const struct HatchLockEvent* sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS
     [AREA_CHOZODIA] = sHatchLockEventsChozodia
 };
 
+// More ...
+
 // 75fdfc
 
 #endif

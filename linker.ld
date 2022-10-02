@@ -30,6 +30,7 @@ SECTIONS {
         . = 0x0000002B; gSamusOnTopOfBackgrounds = .;
         . = 0x0000002C; gDifficulty = .;
         . = 0x0000002D; gUseMotherShipDoors = .;
+        . = 0x0000002F; gCutsceneToSkip = .;
         . = 0x00000030; gMusicTrackInfo = .;
         . = 0x00000038; gCurrentDemo = .;
         . = 0x0000003c; gResetGame = .;
@@ -121,7 +122,15 @@ SECTIONS {
         . = 0x00000BEC; gArmCannonY = .;
         . = 0x00000BEE; gArmCannonX = .;
         . = 0x00000bf0; gPauseScreenFlag = .;
-        . = 0x00000bf0; gAreaBeforeTransition = .;
+        . = 0x00000bf1; gAreaBeforeTransition = .;
+        . = 0x00000bf4; gBG0HOFS_NonGameplay = .;
+        . = 0x00000bf6; gBG0VOFS_NonGameplay = .;
+        . = 0x00000bf8; gBG1HOFS_NonGameplay = .;
+        . = 0x00000bfA; gBG1VOFS_NonGameplay = .;
+        . = 0x00000bfC; gBG2HOFS_NonGameplay = .;
+        . = 0x00000bfE; gBG2VOFS_NonGameplay = .;
+        . = 0x00000C00; gBG3HOFS_NonGameplay = .;
+        . = 0x00000C02; gBG3VOFS_NonGameplay = .;
         . = 0x00000c08; gLastAreaNameVisited = .;
         . = 0x00000c1c; gSRAMCorruptFlag = .;
         . = 0x00000c70; gMainGameMode = .;
@@ -137,6 +146,9 @@ SECTIONS {
         . = 0x0000137e; gPreviousButtonInput = .;
         . = 0x00001380; gChangedInput = .;
         . = 0x00001382; gNextOAMSlot = .;
+        . = 0x000013AE; gWrittenToBLDY = .;
+        . = 0x000013B0; gWrittenToBLDALPHA_L = .;
+        . = 0x000013B2; gWrittenToBLDALPHA_H = .;
         . = 0x000013B4; gBG0XPosition = .;
         . = 0x000013B6; gBG0YPosition = .;
         . = 0x000013B8; gBG1XPosition = .;

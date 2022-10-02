@@ -4,6 +4,24 @@
 #include "types.h"
 
 #define REG_DISPCNT (REG_BASE + 0x000)
+
+#define REG_BG0CNT (REG_BASE + 0x008)
+#define REG_BG1CNT (REG_BASE + 0x00A)
+#define REG_BG2CNT (REG_BASE + 0x00C)
+#define REG_BG3CNT (REG_BASE + 0x00E)
+
+#define REG_BG0HOFS (REG_BASE + 0x010)
+#define REG_BG0VOFS (REG_BASE + 0x012)
+
+#define REG_BG1HOFS (REG_BASE + 0x014)
+#define REG_BG1VOFS (REG_BASE + 0x016)
+
+#define REG_BG2HOFS (REG_BASE + 0x018)
+#define REG_BG2VOFS (REG_BASE + 0x01A)
+
+#define REG_BG3HOFS (REG_BASE + 0x01C)
+#define REG_BG3VOFS (REG_BASE + 0x01E)
+
 #define REG_DISPSTAT (REG_BASE + 0x004)
 #define REG_BLDCNT (REG_BASE + 0x050)
 #define REG_BLDALPHA (REG_BASE + 0x052)

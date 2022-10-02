@@ -1,3 +1,5 @@
+#define CUTSCENE_DATA sNonGameplayRAMPointer->cutscene
+
 #define CUTSCENE_NONE 0
 #define CUTSCENE_INTRO_TEXT 1
 #define CUTSCENE_MOTHERSHIP_MONOLOGUE 2
