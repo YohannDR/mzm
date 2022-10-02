@@ -2,6 +2,34 @@
 #define CUTSCENE_STRUCT_H
 
 #include "types.h"
+#include "oam.h"
+
+// Temp place
+struct OamArray {
+    const struct FrameData* pOam;
+    u8 preAction;
+};
+
+#define OAM_ARRAY_PRE_ACTION_NONE 0
+#define OAM_ARRAY_PRE_ACTION_CHANGE_FRAME 1
+#define OAM_ARRAY_PRE_ACTION_RESET_FRAME 2
+#define OAM_ARRAY_PRE_ACTION_LOOP_ON_LAST_FRAME 3
+#define OAM_ARRAY_PRE_ACTION_KILL_AFTER_END 4
+#define OAM_ARRAY_PRE_ACTION_INCREMENT_ID_AFTER_END 5
+#define OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AFTER_END 7
+#define OAM_ARRAY_PRE_ACTION_SWITCH_TO_PREVIOUS_FRAME 8
+#define OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AT_BEGINNING 9
+
+
+struct CutsceneUnk {
+    u8 unk_0;
+    u8 dstPage;
+    u8 unk_2;
+    u8 unk_3;
+    u16 bg;
+    u8 unk_6;
+    u8 unk_7;
+};
 
 struct CutsceneInfo {
     u8 unk_0;
@@ -60,8 +88,8 @@ struct CutsceneSpecialEffect {
 };
 
 struct CutsceneOamData {
-    u16 yPosition;
-    u16 xPosition;
+    i16 yPosition;
+    i16 xPosition;
     u8 unk_2;
     u8 padding_5[3];
     u8 animationDurationCounter;
@@ -115,7 +143,7 @@ struct CutsceneData {
     u8 unk_BD;
     u8 unk_BE;
     u8 unk_BF;
-    struct CutsceneGraphicsData graphicsData2;
+    struct CutsceneGraphicsData graphicsData2[3];
     struct CutsceneOamData oam[30];
 };
 

@@ -1,13 +1,20 @@
 #ifndef TEMP_GLOBALS_H
 #define TEMP_GLOBALS_H
 
+#include "gba.h"
 #include "types.h"
 #include "structs/cutscene.h"
+
+
+union NonGameplayRAM {
+    struct CutsceneData cutscene;
+    u8 inGame[640];
+};
 
 extern u16 unk_02035400;
 
 extern u8 gUnk_03004fc9;
-extern u8 gNonGameplayRAM[640]; // Weird type, subject to change
+extern union NonGameplayRAM gNonGameplayRAM;
 
 extern u16 gWrittenToBLDALPHA_H;
 extern u16 gWrittenToBLDALPHA_L;
@@ -22,8 +29,9 @@ extern u16 gBG2VOFS_NonGameplay;
 extern u16 gBG3HOFS_NonGameplay;
 extern u16 gBG3VOFS_NonGameplay;
 
-union NonGameplayRAM {
-    struct CutsceneData cutscene;
+
+void* const sMemoryPointers[] = {
+    EWRAM_BASE
 };
 
 union NonGameplayRAM* const sNonGameplayRAMPointer;

@@ -88,7 +88,7 @@ def ParsePart2(value):
 
     return result
 
-file = open("../baserom_us.gba", "rb")
+file = open("../mzm_us_baserom.gba", "rb")
 
 def Func():
     inputValue = input("Address : ")

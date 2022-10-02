@@ -13,7 +13,7 @@ u8 CutsceneEndFunction(void);
 void CutsceneVBlank(void);
 void CutsceneLoadingVBlank(void);
 void CutsceneInit(void);
-void unk_6141c(u32 value, u16 bg);
+void unk_6141c(struct CutsceneUnk param_1);
 void CutsceneSetBGCNT(u16 value, u16 bg);
 void CutsceneUpdateBGPosition(u8 type, u16 bg, u16 value);
 u16* CutsceneGetBGHOFSPointer(u16 bg);

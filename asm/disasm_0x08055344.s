@@ -26881,7 +26881,7 @@ lbl_0806255c:
     ldr r0, [r5]
     add r0, r8
     movs r1, #1
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r1, [r5]
     movs r2, #0x80
     lsls r2, r2, #5
@@ -27045,7 +27045,7 @@ lbl_08062716:
     adds r1, r1, r0
     ldrb r1, [r1]
     adds r0, r3, #0
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
 lbl_0806273a:
     pop {r4}
     pop {r1}
@@ -27103,7 +27103,7 @@ lbl_08062760:
     strh r7, [r5, #0x18]
     adds r0, r5, #0
     movs r1, #2
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     b lbl_080627f8
     .align 2, 0
 lbl_080627ac: .4byte 0x0875feb4
@@ -28331,7 +28331,7 @@ lbl_080631ac:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #6
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r1, [r4]
 lbl_080631d2:
     movs r0, #0
@@ -28412,7 +28412,7 @@ lbl_08063260:
     strh r0, [r4, #0x14]
     adds r0, r4, #0
     movs r1, #4
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldrb r0, [r4, #0xd]
     adds r0, #1
     strb r0, [r4, #0xd]
@@ -28586,7 +28586,7 @@ lbl_080633e0:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #3
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
 lbl_08063402:
     ldr r1, [r4]
     movs r0, #0
@@ -29005,7 +29005,7 @@ lbl_0806370c:
     adds r0, r0, r2
     movs r1, #5
     str r3, [sp]
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     movs r0, #0xf0
     lsls r0, r0, #1
     strh r0, [r7, #0x22]
@@ -29133,7 +29133,7 @@ lbl_0806381e:
     adds r0, #0xf0
     adds r0, r5, r0
     movs r1, #1
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r2, [r7]
     adds r2, r2, r4
     adds r2, #0xfc
@@ -29254,7 +29254,7 @@ lbl_080638cc:
     ldr r0, [r4]
     adds r0, r0, r3
     movs r1, #4
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r2, [r4]
     ldrh r0, [r5, #4]
     movs r3, #0x80
@@ -29325,7 +29325,7 @@ lbl_08063978:
     beq lbl_08063a1c
     adds r0, r5, r4
     movs r1, #9
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     b lbl_08063a24
     .align 2, 0
 lbl_080639e8: .4byte 0x0839dcd0
@@ -29344,7 +29344,7 @@ lbl_08063a18: .4byte 0x0000027f
 lbl_08063a1c:
     adds r0, r5, r4
     movs r1, #0xa
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
 lbl_08063a24:
     adds r4, #0x20
     adds r6, #1
@@ -30513,15 +30513,15 @@ ridley_in_space_cutscene_init: @ 0x080642bc
     adds r1, r3, r4
     strh r2, [r1]
     movs r1, #1
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r0, [r5]
     adds r0, r0, r6
     movs r1, #2
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r0, [r5]
     adds r0, r0, r4
     movs r1, #3
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     movs r0, #0x10
     movs r1, #0
     bl MusicPlay
@@ -30725,7 +30725,7 @@ lbl_0806454a:
     ldr r0, [r2]
     adds r0, r0, r1
     movs r1, #6
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     mov r3, r8
     ldr r1, [r3]
     ldrb r0, [r1, #6]
@@ -30763,7 +30763,7 @@ lbl_08064582:
     adds r0, r0, r5
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
 lbl_080645aa:
     ldr r1, [r7]
     adds r0, r1, r4
@@ -30774,7 +30774,7 @@ lbl_080645aa:
     bne lbl_080645c0
     adds r0, r1, r5
     movs r1, #0
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
 lbl_080645c0:
     adds r5, #0x20
     adds r6, #1
@@ -30969,7 +30969,7 @@ lbl_08064726:
     adds r0, #0xf0
     add r0, r8
     adds r1, r3, #0
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     b lbl_0806474a
     .align 2, 0
 lbl_08064734: .4byte 0x08754bc4
@@ -31005,7 +31005,7 @@ lbl_08064752:
     bne lbl_0806477e
     adds r0, r1, r6
     movs r1, #0
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
 lbl_0806477e:
     adds r6, #0x20
     adds r5, #1
@@ -31139,7 +31139,7 @@ lbl_080647fa:
     adds r1, #0x70
     strh r1, [r0]
     movs r1, #8
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r0, [r7]
     adds r2, r0, #0
     adds r2, #0xf2
@@ -31150,7 +31150,7 @@ lbl_080647fa:
     subs r1, #0xc0
     strh r1, [r0]
     movs r1, #9
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r1, [r7]
     movs r2, #0x80
     lsls r2, r2, #5
@@ -31261,7 +31261,7 @@ lbl_08064972:
     ldr r0, [r0]
     adds r0, #0xf0
     movs r1, #0xa
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
 lbl_08064984:
     ldrb r1, [r4, #0xd]
     movs r0, #2
@@ -31491,19 +31491,19 @@ lbl_080649f8:
     ldr r0, [r5]
     add r0, sl
     movs r1, #2
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r0, [r5]
     movs r3, #0xe8
     lsls r3, r3, #1
     adds r0, r0, r3
     movs r1, #3
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r0, [r5]
     movs r1, #0xf8
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #4
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r1, [r5]
     movs r2, #0x80
     lsls r2, r2, #5
@@ -31964,7 +31964,7 @@ lbl_08064f7c:
     ldr r0, [r4]
     adds r0, #0xf0
     movs r1, #5
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r2, [r4]
     adds r3, r2, #0
     adds r3, #0xf2
@@ -31986,7 +31986,7 @@ lbl_08064fa4:
     lsls r5, r5, #1
     adds r0, r0, r5
     movs r1, #5
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r2, [r4]
     movs r1, #0x89
     lsls r1, r1, #1
@@ -32255,7 +32255,7 @@ ridley_landing_init: @ 0x080650e8
     ldr r0, [r5]
     adds r0, #0xf0
     movs r1, #1
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     movs r0, #0x11
     movs r1, #0
     bl MusicPlay
@@ -32494,7 +32494,7 @@ lbl_08065336:
     ldr r0, [r1]
     adds r0, #0xf0
     movs r1, #2
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     mov r2, r8
     ldr r1, [r2]
     movs r2, #0x80
@@ -32613,7 +32613,7 @@ lbl_080654e4:
     bl SoundPlay
     adds r0, r4, #0
     movs r1, #3
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
 lbl_080654fe:
     ldrb r2, [r4, #0xd]
     movs r0, #2
@@ -32722,7 +32722,7 @@ lbl_08065562:
     ldr r0, [r6]
     adds r0, #0xf0
     movs r1, #1
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r2, [r6]
     ldrh r0, [r4, #0xc]
     ldrh r1, [r4, #0x14]
@@ -33019,7 +33019,7 @@ lbl_0806572e:
     ldr r0, [r4]
     adds r0, #0xf0
     movs r1, #4
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r1, [r4]
     movs r7, #0x80
     lsls r7, r7, #5
@@ -33164,7 +33164,7 @@ lbl_08065974:
     ldr r0, [r4]
     adds r0, #0xf0
     movs r1, #2
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r1, [r4]
     b lbl_080659f4
     .align 2, 0
@@ -33193,7 +33193,7 @@ lbl_080659a8:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #4
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r1, [r4]
     b lbl_080659f4
 lbl_080659ca:
@@ -33331,7 +33331,7 @@ mecha_ridley_sees_samus_init: @ 0x08065a24
     ldr r0, [r6]
     adds r0, #0xf0
     movs r1, #1
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r1, [r6]
     movs r2, #0x89
     lsls r2, r2, #1
@@ -33354,7 +33354,7 @@ mecha_ridley_sees_samus_init: @ 0x08065a24
     ldr r0, [r6]
     adds r0, r0, r2
     movs r1, #3
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     movs r0, #2
     bl sub_08061fa0
     ldr r1, [r6]
@@ -33846,7 +33846,7 @@ lbl_08065eee:
     beq lbl_08065f10
     adds r0, r4, #0
     movs r1, #3
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     b lbl_08065f18
     .align 2, 0
 lbl_08065f08: .4byte 0x0808c99c
@@ -33854,7 +33854,7 @@ lbl_08065f0c: .4byte 0x03000c77
 lbl_08065f10:
     adds r0, r4, #0
     movs r1, #2
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
 lbl_08065f18:
     movs r0, #2
 lbl_08065f1a:
@@ -34153,7 +34153,7 @@ getting_fully_powered_suit_init: @ 0x08066020
     ldr r0, [r6]
     add r0, r8
     movs r1, #4
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r0, [r6]
     movs r3, #0xa4
     lsls r3, r3, #2
@@ -34182,7 +34182,7 @@ getting_fully_powered_suit_init: @ 0x08066020
     ldr r0, [r6]
     adds r0, r0, r3
     movs r1, #5
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     movs r7, #0
     adds r5, r4, #0
     mov r8, sb
@@ -34254,7 +34254,7 @@ lbl_080661bc:
     strh r1, [r2]
     add r0, sb
     movs r1, #1
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     movs r7, #8
     mov r4, r8
     ldr r5, lbl_08066314 @ =0x083ca1e4
@@ -35501,7 +35501,7 @@ lbl_08066cb0:
     adds r0, r1, #0
     adds r0, #0xf0
     movs r1, #2
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     b lbl_08066ce0
     .align 2, 0
 lbl_08066ccc: .4byte 0x03000054
@@ -35512,7 +35512,7 @@ lbl_08066cd0:
     lsls r2, r2, #1
     adds r0, r1, r2
     movs r1, #6
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
 lbl_08066ce0:
     ldr r0, lbl_08066cf8 @ =0x00000231
     bl SoundPlay
@@ -36385,7 +36385,7 @@ sub_080673e0: @ 0x080673e0
     beq lbl_0806741c
     adds r0, r4, #0
     movs r1, #3
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldrb r1, [r4, #0xd]
     movs r0, #0xfe
     ands r0, r1
@@ -37398,7 +37398,7 @@ lbl_08067ba2:
     lsls r4, r4, #1
     adds r0, r0, r4
     movs r1, #1
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r1, [r7]
     movs r0, #0xfe
     lsls r0, r0, #1
@@ -37767,7 +37767,7 @@ lbl_08067ee8: @ jump table
 lbl_08067efc:
     adds r0, r4, #0
     movs r1, #2
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r0, lbl_08067f18 @ =0x00000253
     bl SoundPlay
     ldr r1, lbl_08067f1c @ =0x030013b0
@@ -37911,7 +37911,7 @@ samus_in_blue_ship_init: @ 0x08067f90
     ldr r0, [r4]
     adds r0, #0xf0
     movs r1, #1
-    bl sub_08068148
+    bl update_cutscene_oam_data_id
     ldr r2, [r4]
     adds r1, r2, #0
     adds r1, #0xf2
@@ -38041,8 +38041,8 @@ sub_08068128: @ 0x08068128
     bx lr
     .align 2, 0
 
-    thumb_func_start sub_08068148
-sub_08068148: @ 0x08068148
+    thumb_func_start update_cutscene_oam_data_id
+update_cutscene_oam_data_id: @ 0x08068148
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
     strb r1, [r0, #0xa]

@@ -38,8 +38,8 @@ void Softreset(void)
     write16(REG_BLDY, 0x10);
     write16(REG_BLDCNT, 0xff);
 
-    dma_fill32(3, 0, IWRAM_BASE, 0x40000);
-    dma_fill32(3, 0, EWRAM_BASE, 0x7e00);
+    dma_fill32(3, 0, EWRAM_BASE, 0x40000);
+    dma_fill32(3, 0, IWRAM_BASE, 0x7e00);
 
     ClearGFXRAM();
     LoadInterruptCode();

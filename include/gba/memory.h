@@ -1,11 +1,11 @@
 #ifndef GBA_MEMORY_H
 #define GBA_MEMORY_H
 
-#define IWRAM_BASE (void *)0x02000000
-#define IWRAM_SIZE (32 * 0x400)
-
-#define EWRAM_BASE (void *)0x03000000
+#define EWRAM_BASE (void *)0x02000000
 #define EWRAM_SIZE (256 * 0x400)
+
+#define IWRAM_BASE (void *)0x03000000
+#define IWRAM_SIZE (32 * 0x400)
 
 #define REG_BASE (void *)0x04000000
 
