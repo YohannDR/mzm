@@ -1998,7 +1998,7 @@ lbl_08056368:
     movs r0, #3
     movs r1, #0
     movs r3, #0x20
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_080563f4 @ =0x03000bf0
     ldrb r0, [r0]
     lsls r0, r0, #0x18
@@ -2025,7 +2025,7 @@ lbl_08056368:
     str r0, [sp]
     movs r0, #3
     movs r1, #0x40
-    bl bit_fill
+    bl BitFill
 lbl_080563ce:
     add sp, #0x18
     pop {r4, r5, r6}
@@ -2275,7 +2275,7 @@ lbl_080565c6:
     str r0, [sp]
     movs r0, #3
     movs r1, #0x40
-    bl bit_fill
+    bl BitFill
 lbl_080565d8:
     ldr r2, lbl_08056610 @ =0x030000bc
     ldrb r1, [r2, #1]
@@ -3102,7 +3102,7 @@ lbl_08056cac:
     str r7, [sp]
     movs r0, #3
     movs r1, #0x40
-    bl bit_fill
+    bl BitFill
     b lbl_08056d02
 lbl_08056cca:
     movs r0, #0x40
@@ -3179,7 +3179,7 @@ lbl_08056d48:
     movs r0, #3
     movs r1, #0
     adds r2, r5, #0
-    bl bit_fill
+    bl BitFill
     movs r3, #0
 lbl_08056d58:
     adds r2, r5, #0
@@ -8481,7 +8481,7 @@ lbl_08059612:
     movs r0, #3
     mov r2, r8
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     movs r2, #0
     movs r7, #0
     mov r1, sl
@@ -13890,7 +13890,7 @@ lbl_0805bf26:
     adds r1, r5, #0
     adds r2, r6, #0
     movs r3, #0x20
-    bl bit_fill
+    bl BitFill
 lbl_0805bf50:
     mov r1, sl
     ldrb r0, [r1]
@@ -13911,7 +13911,7 @@ lbl_0805bf50:
     adds r1, r5, #0
     adds r2, r7, #0
     movs r3, #0x20
-    bl bit_fill
+    bl BitFill
 lbl_0805bf7a:
     adds r7, #0x20
     adds r6, #0x20
@@ -21971,7 +21971,7 @@ lbl_0805ff94:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     ldr r1, lbl_0805ffbc @ =0x04000008
     movs r2, #0x82
     lsls r2, r2, #1
@@ -24208,7 +24208,7 @@ lbl_08061158:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     b lbl_08061198
     .align 2, 0
 lbl_0806117c: .4byte 0x08754bc4
@@ -24222,7 +24222,7 @@ lbl_08061184:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
 lbl_08061198:
     movs r2, #0xc0
     lsls r2, r2, #0x13
@@ -24232,14 +24232,14 @@ lbl_08061198:
     str r4, [sp]
     movs r0, #3
     movs r1, #0x40
-    bl bit_fill
+    bl BitFill
     ldr r2, lbl_08061208 @ =0x06010000
     movs r3, #0x80
     lsls r3, r3, #8
     str r4, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     movs r2, #0xe0
     lsls r2, r2, #0x13
     movs r3, #0x80
@@ -24248,7 +24248,7 @@ lbl_08061198:
     str r0, [sp]
     movs r0, #3
     movs r1, #0xff
-    bl bit_fill
+    bl BitFill
     bl end_cutscene
     ldr r3, lbl_0806120c @ =0x0836bdac
     ldr r2, lbl_08061210 @ =0x0300007d
@@ -24399,7 +24399,7 @@ sub_080612e0: @ 0x080612e0
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     ldr r2, lbl_080613c8 @ =0x03005806
     ldr r1, lbl_080613cc @ =0x03005807
     movs r0, #0
@@ -25979,28 +25979,28 @@ lbl_08061e70:
     movs r0, #3
     movs r1, #0
     movs r3, #4
-    bl bit_fill
+    bl BitFill
     ldr r2, [r5]
     adds r2, #0xc0
     str r4, [sp]
     movs r0, #3
     movs r1, #0
     movs r3, #0x30
-    bl bit_fill
+    bl BitFill
     ldr r2, [r5]
     adds r2, #0x38
     str r4, [sp]
     movs r0, #3
     movs r1, #0
     movs r3, #0x60
-    bl bit_fill
+    bl BitFill
     ldr r2, [r5]
     adds r2, #0xc
     str r4, [sp]
     movs r0, #3
     movs r1, #0
     movs r3, #0x10
-    bl bit_fill
+    bl BitFill
     add sp, #4
     pop {r3, r4}
     mov r8, r3
@@ -26164,7 +26164,7 @@ lbl_0806201c:
     movs r1, #0
     adds r2, r6, #0
     adds r3, r4, #0
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_08062060 @ =0x08754bb4
     ldr r2, [r0]
     adds r2, r2, r4
@@ -26200,7 +26200,7 @@ lbl_08062068:
     movs r1, #0
     adds r2, r6, #0
     adds r3, r4, #0
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_080620b0 @ =0x08754bb4
     ldr r2, [r0]
     adds r2, r2, r4
@@ -26237,7 +26237,7 @@ lbl_080620b8:
     movs r1, #0
     adds r2, r6, #0
     adds r3, r4, #0
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_08062100 @ =0x08754bb4
     ldr r2, [r0]
     adds r2, r2, r4
@@ -26612,7 +26612,7 @@ lbl_08062384:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     b lbl_080623c6
     .align 2, 0
 lbl_080623a8: .4byte 0x00007fff
@@ -26627,7 +26627,7 @@ lbl_080623b0:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
 lbl_080623c6:
     ldr r2, lbl_080623e0 @ =0x08754bc4
     ldr r0, [r2]
@@ -27568,7 +27568,7 @@ story_text_cutscenes_init: @ 0x08062b90
     movs r1, #0
     ldr r2, lbl_08062c58 @ =0x03000c0c
     movs r3, #0x10
-    bl bit_fill
+    bl BitFill
     ldr r1, lbl_08062c5c @ =0x0836bdac
     ldr r0, lbl_08062c60 @ =0x0300007d
     ldrb r0, [r0]
@@ -27609,7 +27609,7 @@ story_text_cutscenes_init: @ 0x08062b90
     str r4, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     ldr r0, [r6]
     ldr r1, [r6, #4]
     bl sub_0806141c
@@ -27724,7 +27724,7 @@ lbl_08062ce4:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_08062d0c @ =0x08754bc4
     ldr r1, [r0]
     ldrb r0, [r1, #4]
@@ -28086,7 +28086,7 @@ lbl_08062f80:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     ldr r1, [r4]
     ldrb r0, [r1, #4]
     adds r0, #1
@@ -31368,7 +31368,7 @@ lbl_080649f8:
     movs r1, #0
     adds r2, r5, #0
     mov r3, r8
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_08064c04 @ =0x083ab6c0
     adds r1, r5, #0
     bl CallLZ77UncompVRAM
@@ -34793,7 +34793,7 @@ lbl_0806667c:
     movs r1, #0
     adds r2, r5, #0
     mov r3, sb
-    bl bit_fill
+    bl BitFill
     ldrb r4, [r7, #0x19]
     lsls r4, r4, #0xb
     add r4, r8
@@ -34802,7 +34802,7 @@ lbl_0806667c:
     movs r1, #0
     adds r2, r4, #0
     mov r3, sb
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_080667c0 @ =0x083eaf88
     adds r1, r5, #0
     bl CallLZ77UncompVRAM
@@ -35278,7 +35278,7 @@ before_charlie_init: @ 0x08066aa0
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     movs r1, #0
     strh r1, [r4]
     ldr r0, lbl_08066bb4 @ =0x083ce8f4
@@ -35307,7 +35307,7 @@ before_charlie_init: @ 0x08066aa0
     movs r0, #3
     movs r1, #0
     mov r3, sb
-    bl bit_fill
+    bl BitFill
     ldrb r4, [r6, #9]
     lsls r4, r4, #0xb
     mov r0, r8
@@ -35317,7 +35317,7 @@ before_charlie_init: @ 0x08066aa0
     movs r0, #3
     movs r1, #0
     mov r3, sb
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_08066bc4 @ =0x083ea404
     add r5, r8
     adds r1, r5, #0
@@ -35648,7 +35648,7 @@ statue_opening_init: @ 0x08066d64
     movs r0, #3
     movs r1, #0
     movs r3, #0x20
-    bl bit_fill
+    bl BitFill
     ldr r0, [r5]
     ldr r1, [r5, #4]
     bl sub_0806141c
@@ -38341,7 +38341,7 @@ lbl_08068358:
     movs r1, #0
     adds r2, r6, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     mov r3, r8
     ldr r2, [r3]
     movs r0, #0xd8
@@ -38574,7 +38574,7 @@ lbl_08068548:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
 lbl_08068562:
     ldr r0, [r7]
     adds r0, #0xbe
@@ -38653,7 +38653,7 @@ sub_080685b8: @ 0x080685b8
     movs r1, #0
     adds r2, r6, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     mov r0, r8
     ldr r2, [r0]
     movs r0, #0xd8
@@ -42566,7 +42566,7 @@ map_screen_init: @ 0x0806a434
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     bl ResetFreeOAM
     ldr r1, lbl_0806a508 @ =0x040000d4
     ldr r0, lbl_0806a50c @ =0x03000e7c
@@ -42877,7 +42877,7 @@ lbl_0806a744:
     movs r6, #0x10
     str r6, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     ldr r1, lbl_0806a7c0 @ =0x02034000
     ldr r2, lbl_0806a7c4 @ =0x0600e000
     movs r7, #0x80
@@ -42902,7 +42902,7 @@ lbl_0806a744:
     str r6, [sp]
     movs r0, #3
     adds r3, r7, #0
-    bl bit_fill
+    bl BitFill
     b lbl_0806a8f6
     .align 2, 0
 lbl_0806a794: .4byte 0x083feb60
@@ -42972,7 +42972,7 @@ lbl_0806a828:
     str r6, [sp]
     movs r0, #3
     adds r3, r7, #0
-    bl bit_fill
+    bl BitFill
 lbl_0806a84e:
     ldr r0, lbl_0806a894 @ =0x084082bc
     ldr r1, [r5]
@@ -43943,7 +43943,7 @@ lbl_0806b05a:
     movs r1, #0
     mov r2, ip
     movs r3, #0x80
-    bl bit_fill
+    bl BitFill
     b lbl_0806b0ee
     .align 2, 0
 lbl_0806b074: .4byte 0x0600cc40
@@ -44938,7 +44938,7 @@ lbl_0806b7c0:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     movs r4, #1
     rsbs r4, r4, #0
 lbl_0806b7fa:
@@ -45141,7 +45141,7 @@ lbl_0806b974:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     movs r4, #1
     rsbs r4, r4, #0
     b lbl_0806ba14
@@ -47574,7 +47574,7 @@ load_minimap_tiles_with_obtained_items: @ 0x0806cccc
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     movs r2, #0
 lbl_0806ccea:
     lsls r0, r2, #8
@@ -48373,7 +48373,7 @@ lbl_0806d30c:
     movs r0, #3
     movs r1, #0
     movs r3, #0x20
-    bl bit_fill
+    bl BitFill
 lbl_0806d31c:
     subs r5, #4
     subs r4, #1
@@ -48411,7 +48411,7 @@ sub_0806d334: @ 0x0806d334
     movs r4, #0x10
     str r4, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     ldr r1, lbl_0806d37c @ =0x0840f4c4
     ldr r0, lbl_0806d380 @ =0x087602a8
     ldr r2, [r0]
@@ -48439,7 +48439,7 @@ lbl_0806d38e:
     movs r0, #3
     adds r2, r5, #0
     movs r3, #0x40
-    bl bit_fill
+    bl BitFill
     adds r5, #0x40
     adds r4, #1
     cmp r4, #0x1f
@@ -50693,7 +50693,7 @@ draw_character_for_text: @ 0x0806e484
     movs r0, #3
     movs r1, #0
     movs r3, #0x80
-    bl bit_fill
+    bl BitFill
     ldr r0, [sp, #4]
     bl get_chararcter_width
     lsls r0, r0, #0x18
@@ -51328,7 +51328,7 @@ draw_character_for_message: @ 0x0806e93c
     movs r0, #3
     movs r1, #0
     movs r3, #0x80
-    bl bit_fill
+    bl BitFill
     ldr r0, [sp, #4]
     bl get_chararcter_width
     lsls r0, r0, #0x18
@@ -52245,7 +52245,7 @@ draw_location_text: @ 0x0806f018
     str r0, [sp]
     movs r0, #3
     adds r2, r6, #0
-    bl bit_fill
+    bl BitFill
     ldr r1, lbl_0806f08c @ =0x08760764
     ldr r0, lbl_0806f090 @ =0x03000020
     ldrb r0, [r0]
@@ -52354,7 +52354,7 @@ lbl_0806f10c:
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     ldrb r2, [r7, #0xb]
     lsls r2, r2, #0xb
     ldr r0, lbl_0806f138 @ =0x06014400
@@ -52376,7 +52376,7 @@ lbl_0806f13c:
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     ldrb r2, [r7, #0xb]
     lsls r2, r2, #0xb
     ldr r0, lbl_0806f17c @ =0x06014c00
@@ -52386,7 +52386,7 @@ lbl_0806f160:
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     ldrb r0, [r7, #0xc]
     adds r0, #1
     strb r0, [r7, #0xc]
@@ -52576,7 +52576,7 @@ lbl_0806f2c4:
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     ldrb r2, [r7, #0xb]
     lsls r2, r2, #0xb
     ldr r3, lbl_0806f2f0 @ =0x06014400
@@ -52598,7 +52598,7 @@ lbl_0806f2f4:
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     ldrb r2, [r7, #0xb]
     lsls r2, r2, #0xb
     ldr r3, lbl_0806f334 @ =0x06014c00
@@ -52608,7 +52608,7 @@ lbl_0806f318:
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     ldrb r0, [r7, #0xc]
     adds r0, #1
     strb r0, [r7, #0xc]
@@ -52784,13 +52784,13 @@ lbl_0806f46a:
     movs r0, #3
     movs r1, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     ldr r2, lbl_0806f498 @ =0x06007400
     str r4, [sp]
     movs r0, #3
     movs r1, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     movs r0, #1
     strb r0, [r6, #0xc]
     b lbl_0806f598
@@ -52806,13 +52806,13 @@ lbl_0806f49c:
     movs r0, #3
     movs r1, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     ldr r2, lbl_0806f4cc @ =0x06007c00
     str r4, [sp]
     movs r0, #3
     movs r1, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     ldr r1, lbl_0806f4d0 @ =0x03000c0c
     ldrb r0, [r1, #0xc]
     adds r0, #1
@@ -53142,7 +53142,7 @@ lbl_0806f714:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     ldr r1, [r6]
     adds r0, r1, #0
     adds r0, #0x58
@@ -53329,7 +53329,7 @@ lbl_0806f892:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     ldr r3, lbl_0806f8d0 @ =0x08754bc4
     ldr r0, [r3]
     adds r0, #0x56
@@ -53366,7 +53366,7 @@ lbl_0806f8dc:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     ldr r2, lbl_0806f920 @ =0x08754bc4
     ldr r0, [r2]
     adds r0, #0x56
@@ -53406,7 +53406,7 @@ lbl_0806f930:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     ldr r2, lbl_0806f984 @ =0x08754bc4
     ldr r0, [r2]
     adds r0, #0x56
@@ -53634,7 +53634,7 @@ sub_0806facc: @ 0x0806facc
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_0806fb50 @ =0x08754bc4
     ldr r0, [r0]
     adds r0, #0xe9
@@ -53657,7 +53657,7 @@ sub_0806facc: @ 0x0806facc
     movs r1, #0
     adds r2, r5, #0
     movs r3, #0x10
-    bl bit_fill
+    bl BitFill
     ldrh r1, [r4]
     movs r0, #0xff
     lsls r0, r0, #8
@@ -53766,7 +53766,7 @@ lbl_0806fbe2:
     movs r1, #0
     adds r2, r4, #0
     movs r3, #0x10
-    bl bit_fill
+    bl BitFill
     movs r0, #1
     strb r0, [r4, #0xd]
     ldr r1, [r5]
@@ -53845,7 +53845,7 @@ lbl_0806fc80:
     movs r1, #0
     adds r2, r4, #0
     movs r3, #0x10
-    bl bit_fill
+    bl BitFill
     movs r0, #1
     strb r0, [r4, #0xd]
     ldr r1, [r5]
@@ -54063,7 +54063,7 @@ sub_0806fe18: @ 0x0806fe18
     str r0, [sp]
     movs r0, #3
     movs r3, #0x12
-    bl bit_fill
+    bl BitFill
     movs r3, #0
     ldr r0, lbl_0806fed8 @ =0x08754bc4
     mov ip, r0
@@ -54528,7 +54528,7 @@ draw_status_screen_tanks_amounts: @ 0x08070180
     movs r0, #3
     movs r1, #0
     movs r3, #0x18
-    bl bit_fill
+    bl BitFill
     ldr r0, [r5]
     adds r0, r0, r4
     bl sub_08070324
@@ -54583,7 +54583,7 @@ lbl_080701ec:
     movs r0, #3
     movs r1, #0
     movs r3, #0x18
-    bl bit_fill
+    bl BitFill
     ldr r0, [r5]
     adds r0, r0, r4
     bl sub_08070534
@@ -57139,7 +57139,7 @@ lbl_0807159c:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_080715c8 @ =0x08754bc4
     ldr r1, [r0]
     ldrb r0, [r1, #8]
@@ -60779,7 +60779,7 @@ draw_boss_flames: @ 0x08073150
     movs r0, #3
     movs r1, #0
     movs r3, #0x18
-    bl bit_fill
+    bl BitFill
     ldr r1, [r4]
     ldrb r0, [r1, #0x12]
     adds r5, r4, #0
@@ -61399,7 +61399,7 @@ lbl_080735f8:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     b lbl_080736a2
     .align 2, 0
 lbl_08073648: .4byte 0x03000024
@@ -63133,7 +63133,7 @@ lbl_0807448c:
     movs r0, #3
     mov r1, sl
     mov r3, sb
-    bl bit_fill
+    bl BitFill
     mov r4, r8
     movs r1, #0
     ldrsb r1, [r4, r1]
@@ -63150,7 +63150,7 @@ lbl_0807448c:
     movs r0, #3
     mov r1, sl
     mov r3, sb
-    bl bit_fill
+    bl BitFill
     b lbl_0807454a
     .align 2, 0
 lbl_080744d4: .4byte 0x000036e0
@@ -63169,7 +63169,7 @@ lbl_080744d8:
     movs r0, #3
     mov r1, sl
     mov r3, sb
-    bl bit_fill
+    bl BitFill
     movs r0, #3
     bl sub_08000c48
     mov r2, r8
@@ -63188,7 +63188,7 @@ lbl_080744d8:
     movs r0, #3
     mov r1, sl
     mov r3, sb
-    bl bit_fill
+    bl BitFill
     movs r0, #4
     bl sub_08000c48
     mov r4, r8
@@ -63499,7 +63499,7 @@ lbl_08074760:
     str r0, [sp]
     movs r0, #3
     adds r2, r4, #0
-    bl bit_fill
+    bl BitFill
 lbl_08074776:
     adds r0, r5, #0
     add sp, #8
@@ -63716,14 +63716,14 @@ load_sram_arrays: @ 0x080748bc
     movs r0, #3
     adds r1, r4, #0
     adds r2, r6, #0
-    bl bit_fill
+    bl BitFill
     ldr r2, lbl_080749d8 @ =0x02036c00
     movs r3, #0x80
     lsls r3, r3, #4
     str r5, [sp]
     movs r0, #3
     adds r1, r4, #0
-    bl bit_fill
+    bl BitFill
     movs r7, #0
     movs r5, #0
 lbl_08074946:
@@ -64734,7 +64734,7 @@ lbl_08075108:
     movs r0, #3
     ldr r1, lbl_08075174 @ =0x0000ffff
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     movs r0, #9
     bl sub_08000c48
     mov r0, sb
@@ -64746,7 +64746,7 @@ lbl_08075108:
     movs r0, #3
     ldr r1, lbl_08075174 @ =0x0000ffff
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     movs r0, #0xa
     bl sub_08000c48
 lbl_0807514a:
@@ -64804,7 +64804,7 @@ lbl_080751b0:
     str r0, [sp]
     movs r0, #3
     movs r3, #0x30
-    bl bit_fill
+    bl BitFill
 lbl_080751c0:
     add sp, #4
     pop {r3, r4, r5}
@@ -64830,7 +64830,7 @@ sub_080751d8: @ 0x080751d8
     str r6, [sp]
     movs r0, #3
     adds r2, r4, #0
-    bl bit_fill
+    bl BitFill
     ldr r5, lbl_0807531c @ =0x03000054
     ldrb r0, [r5]
     strb r0, [r4]
@@ -65200,7 +65200,7 @@ lbl_080754e4:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     b lbl_08075576
     .align 2, 0
 lbl_08075520: .4byte 0x03000c24
@@ -65229,7 +65229,7 @@ lbl_0807553c:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     b lbl_08075576
     .align 2, 0
 lbl_08075560: .4byte 0x0000ffff
@@ -65882,7 +65882,7 @@ init_save_file: @ 0x08075a94
     movs r0, #3
     movs r1, #0
     adds r3, r6, #0
-    bl bit_fill
+    bl BitFill
     ldr r4, lbl_08075bac @ =0x0000ffff
     ldr r2, lbl_08075bb0 @ =0x02035c00
     movs r3, #0x80
@@ -65890,32 +65890,32 @@ init_save_file: @ 0x08075a94
     str r5, [sp]
     movs r0, #3
     adds r1, r4, #0
-    bl bit_fill
+    bl BitFill
     ldr r2, lbl_08075bb4 @ =0x02036c00
     str r5, [sp]
     movs r0, #3
     adds r1, r4, #0
     adds r3, r6, #0
-    bl bit_fill
+    bl BitFill
     ldr r2, lbl_08075bb8 @ =0x02037c00
     movs r3, #0x80
     lsls r3, r3, #2
     str r5, [sp]
     movs r0, #3
     adds r1, r4, #0
-    bl bit_fill
+    bl BitFill
     ldr r2, lbl_08075bbc @ =0x02037e00
     str r5, [sp]
     movs r0, #3
     movs r1, #0
     movs r3, #0x20
-    bl bit_fill
+    bl BitFill
     ldr r2, lbl_08075bc0 @ =0x02033800
     str r5, [sp]
     movs r0, #3
     movs r1, #0
     adds r3, r6, #0
-    bl bit_fill
+    bl BitFill
     movs r1, #0
     ldr r4, lbl_08075bc4 @ =0x0300005b
     movs r2, #0
@@ -67393,7 +67393,7 @@ lbl_080766bc:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     mov r1, r8
     ldr r0, [r1]
     strb r7, [r0, #0x12]
@@ -67456,7 +67456,7 @@ sub_08076710: @ 0x08076710
     movs r1, #0
     adds r2, r6, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     mov r0, r8
     ldr r2, [r0]
     movs r0, #0x84
@@ -74988,7 +74988,7 @@ lbl_0807a354:
     movs r1, #0
     adds r2, r5, #0
     adds r3, r6, #0
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_0807a448 @ =0x08754bb4
     ldr r1, [r0]
     movs r0, #0xa2
@@ -75201,7 +75201,7 @@ lbl_0807a584:
     movs r1, #0
     adds r2, r6, #0
     adds r3, r4, #0
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_0807a5e8 @ =0x08754bb4
     ldr r1, [r0]
     movs r3, #0xa2
@@ -79080,7 +79080,7 @@ lbl_0807c464:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
 lbl_0807c47a:
     ldr r1, [r7]
     movs r0, #1
@@ -79149,7 +79149,7 @@ sub_0807c4b0: @ 0x0807c4b0
     movs r1, #0
     adds r2, r6, #0
     adds r3, r5, #0
-    bl bit_fill
+    bl BitFill
     mov r1, r8
     ldr r2, [r1]
     adds r2, r2, r5
@@ -79283,7 +79283,7 @@ file_select_menu_init: @ 0x0807c5e0
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     movs r0, #0x80
     lsls r0, r0, #0x13
     ldr r7, lbl_0807c7a0 @ =0x08754bc4
@@ -79328,7 +79328,7 @@ file_select_menu_init: @ 0x0807c5e0
     movs r0, #3
     movs r1, #0
     mov r3, sb
-    bl bit_fill
+    bl BitFill
     bl sub_080756c0
     bl sub_0807c5a4
     ldr r0, [r7]
@@ -79393,7 +79393,7 @@ file_select_menu_init: @ 0x0807c5e0
     movs r1, #0
     adds r2, r4, #0
     mov r3, sb
-    bl bit_fill
+    bl BitFill
     ldr r1, lbl_0807c7f8 @ =0x08760b24
     ldr r0, lbl_0807c7fc @ =0x03000020
     ldrb r0, [r0]
@@ -79890,7 +79890,7 @@ display_save_file_info: @ 0x0807cb2c
     movs r0, #3
     movs r1, #0
     mov r3, r8
-    bl bit_fill
+    bl BitFill
     ldr r2, [r5]
     movs r0, #0xcc
     lsls r0, r0, #6
@@ -79899,7 +79899,7 @@ display_save_file_info: @ 0x0807cb2c
     movs r0, #3
     movs r1, #0
     mov r3, r8
-    bl bit_fill
+    bl BitFill
     ldr r2, [r5]
     movs r0, #0xd8
     lsls r0, r0, #6
@@ -79908,7 +79908,7 @@ display_save_file_info: @ 0x0807cb2c
     movs r0, #3
     movs r1, #0
     mov r3, r8
-    bl bit_fill
+    bl BitFill
     ldr r2, [r5]
     movs r0, #0xc0
     lsls r0, r0, #5
@@ -79949,7 +79949,7 @@ display_save_file_info: @ 0x0807cb2c
     movs r0, #3
     movs r1, #0
     mov r3, r8
-    bl bit_fill
+    bl BitFill
     ldr r2, [r5]
     movs r0, #0xf0
     lsls r0, r0, #6
@@ -79959,7 +79959,7 @@ display_save_file_info: @ 0x0807cb2c
     movs r0, #3
     movs r1, #0
     mov r3, r8
-    bl bit_fill
+    bl BitFill
     ldr r2, [r5]
     movs r0, #0x80
     lsls r0, r0, #6
@@ -79989,7 +79989,7 @@ display_save_file_info: @ 0x0807cb2c
     movs r0, #3
     movs r1, #0
     mov r3, r8
-    bl bit_fill
+    bl BitFill
     ldr r2, [r5]
     movs r0, #0x84
     lsls r0, r0, #7
@@ -79999,7 +79999,7 @@ display_save_file_info: @ 0x0807cb2c
     movs r0, #3
     movs r1, #0
     mov r3, r8
-    bl bit_fill
+    bl BitFill
     ldr r2, [r5]
     movs r7, #0x8a
     lsls r7, r7, #7
@@ -80008,7 +80008,7 @@ display_save_file_info: @ 0x0807cb2c
     movs r0, #3
     movs r1, #0
     mov r3, r8
-    bl bit_fill
+    bl BitFill
     ldr r2, [r5]
     movs r0, #0xa0
     lsls r0, r0, #6
@@ -80044,7 +80044,7 @@ display_save_file_info: @ 0x0807cb2c
     movs r0, #3
     movs r1, #0
     mov r3, r8
-    bl bit_fill
+    bl BitFill
     ldr r2, [r5]
     movs r0, #0x96
     lsls r0, r0, #6
@@ -80142,7 +80142,7 @@ lbl_0807cda0:
     movs r0, #3
     movs r1, #0
     movs r3, #0xe0
-    bl bit_fill
+    bl BitFill
 lbl_0807cdba:
     add sp, #4
     pop {r0}
@@ -81363,7 +81363,7 @@ lbl_0807d720:
     str r0, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     lsls r4, r4, #6
     movs r1, #0x80
     lsls r1, r1, #4
@@ -82837,7 +82837,7 @@ lbl_0807e2c4:
     movs r0, #3
     movs r1, #0
     movs r3, #0xc0
-    bl bit_fill
+    bl BitFill
     ldr r1, [r7]
     adds r1, #0x40
     ldrb r0, [r1]
@@ -95167,7 +95167,7 @@ lbl_08084470:
     movs r0, #3
     movs r1, #0
     adds r2, r4, #0
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_0808450c @ =0x0847abd8
     adds r1, r4, #0
     bl LZ77UncompVRAM
@@ -95747,7 +95747,7 @@ lbl_080848ce:
     movs r0, #0x20
     str r0, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     ldr r1, lbl_080849e4 @ =0x040000d4
     adds r5, #0x10
     adds r4, r4, r5
@@ -98422,13 +98422,13 @@ end_screen_init: @ 0x08085e08
     movs r0, #3
     movs r1, #0
     adds r3, r6, #0
-    bl bit_fill
+    bl BitFill
     ldr r2, lbl_08085fe4 @ =0x0600e800
     str r4, [sp]
     movs r0, #3
     movs r1, #0
     adds r3, r6, #0
-    bl bit_fill
+    bl BitFill
     ldr r4, lbl_08085fe8 @ =0x040000d4
     ldr r0, lbl_08085fec @ =0x0854b914
     str r0, [r4]
@@ -99529,7 +99529,7 @@ ending_image_init: @ 0x080867b4
     movs r0, #0x20
     str r0, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_08086918 @ =0x0854c0ec
     adds r4, r4, r0
     ldr r0, [r4]
@@ -100318,14 +100318,14 @@ unlocked_options_init: @ 0x08086e78
     str r5, [sp]
     movs r0, #3
     movs r3, #0x20
-    bl bit_fill
+    bl BitFill
     ldr r1, lbl_08086f98 @ =0xf3fff3ff
     ldr r2, lbl_08086f9c @ =0x06008800
     movs r3, #0x80
     lsls r3, r3, #4
     str r5, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_08086fa0 @ =0x0854bd34
     str r0, [r4]
     ldr r0, lbl_08086fa4 @ =0x050001e0
@@ -100437,7 +100437,7 @@ lbl_08086ffe:
     str r4, [sp]
     movs r0, #3
     movs r1, #0
-    bl bit_fill
+    bl BitFill
     ldr r0, lbl_08087024 @ =0x03001604
     ldrb r1, [r0]
     movs r0, #0x80
@@ -101066,7 +101066,7 @@ lbl_080874d0:
     movs r0, #0x20
     str r0, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     ldr r1, lbl_080875e0 @ =0x040000d4
     ldr r0, lbl_080875e4 @ =0x0854c0ec
     adds r4, r4, r0

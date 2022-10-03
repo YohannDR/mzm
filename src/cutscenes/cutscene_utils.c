@@ -3,9 +3,14 @@
 #include "cutscenes/cutscene_utils.h"
 #include "temp_globals.h"
 
+#include "data/cutscenes/cutscenes_data.h"
+
 #include "constants/audio.h"
 #include "constants/cutscene.h"
+#include "constants/game_state.h"
 
+#include "structs/cutscene.h"
+#include "structs/game_state.h"
 
 /**
  * @brief 60e28 | 4 | Default subroutine for Cutscene that don't have any
@@ -103,12 +108,77 @@ void CutsceneLoadingVBlank(void)
 
 void CutsceneInit(void)
 {
+    // https://decomp.me/scratch/5wvit
 
+    i32 unk;
+
+    CallbackSetVBlank(CutsceneLoadingVBlank);
+    BitFill(3, 0, &gNonGameplayRAM, sizeof(union NonGameplayRAM), 0x20);
+
+    sOamXOffset_NonGameplay = 0;
+    sOamYOffset_NonGameplay = 0;
+    gNextOAMSlot = 0;
+    ResetFreeOAM();
+
+    write16(REG_BLDCNT, 0xFF);
+    CUTSCENE_DATA.bldcnt = 0xFF;
+
+    write16(REG_BLDY, 0x10);
+    gWrittenToBLDY = 0x10;
+
+    write16(REG_DISPCNT, 0);
+    CUTSCENE_DATA.dispcnt = 0;
+
+    unk = sCutsceneData[gCurrentCutscene].unk_0;
+    if (unk != 0)
+    {
+        if (unk == 2)
+            gPauseScreenFlag = PAUSE_SCREEN_PAUSE_OR_CUTSCENE;
+
+        if (unk < 3)
+            DMATransfer(3, VRAM_BASE + 0x10000, EWRAM_BASE + 0x1E000, unk * 0x4000, 0x10);
+    }
+
+    if (gCutsceneToSkip != gCurrentCutscene)
+        gCurrentCutscene = CUTSCENE_NONE;
+
+    ClearGFXRAM();
+
+    gBG0HOFS_NonGameplay = 0x800;
+    gBG0VOFS_NonGameplay = 0x800;
+    gBG1HOFS_NonGameplay = 0x800;
+    gBG1VOFS_NonGameplay = 0x800;
+    gBG2HOFS_NonGameplay = 0x800;
+    gBG2VOFS_NonGameplay = 0x800;
+    gBG3HOFS_NonGameplay = 0x800;
+    gBG3VOFS_NonGameplay = 0x800;
+
+    CUTSCENE_DATA.stage = 0;
+    CUTSCENE_DATA.timer = 0;
+    sCutsceneData[gCurrentCutscene].pFunction();
 }
 
-void unk_6141c(u32 value, u16 bg)
+/**
+ * @brief 6141c | 58 | Sets up a BGCNT IO register with the page data info
+ * 
+ * @param pageData Page Data Info
+ */
+void CutsceneSetBGCNTPageData(struct CutscenePageData pageData)
 {
+    u8 offset;
 
+    if (pageData.bg == DCNT_BG0)
+        offset = 0;
+    else if (pageData.bg == DCNT_BG1)
+        offset = 1;
+    else if (pageData.bg == DCNT_BG2)
+        offset = 2;
+    else if (pageData.bg == DCNT_BG3)
+        offset = 3;
+    else
+        return;
+
+    CUTSCENE_DATA.bgcnt[offset] = pageData.unk_6 | pageData.priority | (pageData.tiletablePage << 8) | (pageData.graphicsPage << 2);
 }
 
 /**
@@ -186,7 +256,7 @@ u16* CutsceneGetBGVOFSPointer(u16 bg)
     return pBg;
 }
 
-void CutsceneStartBackgroundScrolling(u32 param_1, u32 param_2, u16 bg)
+void CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData, u16 bg)
 {
 
 }
@@ -237,9 +307,36 @@ void CutsceneUpdateScreenShake(u8 affectVertical, struct CutsceneScreenShake* pS
 
 }
 
-void CutsceneStartScreenShake(u32 param_1, u16 bg)
+/**
+ * @brief 61b98 | 4c | Starts a cutscene screen shake
+ * 
+ * @param shakeInfo Screen shake start info
+ * @param bg Affected background
+ */
+void CutsceneStartScreenShake(struct CutsceneScreenShakeInfo shakeInfo, u16 bg)
 {
+    struct CutsceneScreenShake* pShake;
 
+    if (shakeInfo.type == 0)
+    {
+        pShake = &CUTSCENE_DATA.horizontalScreenShake;
+        pShake->bg = bg;
+        pShake->loopCounter = 0;
+
+        pShake->unk_3 = shakeInfo.unk_1;
+        pShake->unk_4 = shakeInfo.unk_2;
+        pShake->unk_5 = 0;
+    }
+    else if (shakeInfo.type == 1)
+    {
+        pShake = &CUTSCENE_DATA.verticalScreenShake;
+        pShake->bg = bg;
+        pShake->loopCounter = 0;
+
+        pShake->unk_3 = shakeInfo.unk_1;
+        pShake->unk_4 = shakeInfo.unk_2;
+        pShake->unk_5 = 0;
+    }
 }
 
 void CutsceneUpdateSpecialEffect(void)

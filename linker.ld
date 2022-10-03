@@ -203,6 +203,8 @@ SECTIONS {
         . = 0x00005704; gClipdataCodePointer = .;
         . = 0x00005708; gCurrentRoomScrollDataPointer = .;
         . = 0x00005714; gUnk_3005714 = .;
+        . = 0x00005804; sOamXOffset_NonGameplay = .;
+        . = 0x00005805; sOamYOffset_NonGameplay = .;
         . = 0x000058e0; src/libgcc/fp-bit-base.o(.rodata);
         . = 0x000058f8; src/libgcc/float.o(.rodata);
         . = 0x00007e60; sp_sys = .;

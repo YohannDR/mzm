@@ -21,14 +21,25 @@ struct OamArray {
 #define OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AT_BEGINNING 9
 
 
-struct CutsceneUnk {
-    u8 unk_0;
-    u8 dstPage;
-    u8 unk_2;
-    u8 unk_3;
+
+typedef u8 (*CutsceneFunc_T)(void);
+
+struct CutscenePageData {
+    u8 graphicsPage;
+    u8 tiletablePage;
+    u8 priority;
     u16 bg;
-    u8 unk_6;
-    u8 unk_7;
+    u16 unk_6;
+};
+
+struct CutsceneScreenShakeInfo {
+    u8 type;
+    u8 unk_1;
+    u16 unk_2;
+};
+
+struct CutsceneScrollingInfo {
+    u32 data[2];
 };
 
 struct CutsceneInfo {
@@ -88,14 +99,15 @@ struct CutsceneSpecialEffect {
 };
 
 struct CutsceneOamData {
-    i16 yPosition;
-    i16 xPosition;
+    u16 yPosition;
+    u16 xPosition;
     u8 unk_2;
     u8 padding_5[3];
     u8 animationDurationCounter;
     u8 currentAnimationFrame;
     u8 oamID;
-    u8 status; // Bit field probably
+    u8 priority:2;
+    u8 status:6;
     u8 unk_C;
     u8 unk_D;
     i16 unk_E;
@@ -147,9 +159,10 @@ struct CutsceneData {
     struct CutsceneOamData oam[30];
 };
 
-typedef u8 (*CutsceneFunc_T)(void);
-
 extern u8 gCutsceneToSkip;
 extern i8 gCurrentCutscene;
+
+extern i8 sOamXOffset_NonGameplay;
+extern i8 sOamYOffset_NonGameplay;
 
 #endif

@@ -8,7 +8,7 @@
 
 union NonGameplayRAM {
     struct CutsceneData cutscene;
-    u8 inGame[640];
+    u8 inGame[1576];
 };
 
 extern u16 unk_02035400;

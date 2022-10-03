@@ -71,11 +71,44 @@ static const struct CutsceneInfo sCutsceneData[15] = {
 
 // Kraid rising
 
-static const struct CutsceneUnk sKraidRisingBehaviorData[4] = {
+static const struct CutscenePageData sKraidRisingPagesData[4] = {
+    {
+        .graphicsPage = 2,
+        .tiletablePage = 0x1E,
+        .priority = 1,
+        .bg = DCNT_BG1,
+        .unk_6 = 0
+    },
+    {
+        .graphicsPage = 2,
+        .tiletablePage = 0x1F,
+        .priority = 1,
+        .bg = DCNT_BG1,
+        .unk_6 = 0
+    },
+    {
+        .graphicsPage = 0,
+        .tiletablePage = 0xF,
+        .priority = 2,
+        .bg = DCNT_BG2,
+        .unk_6 = 0
+    },
+    {
+        .graphicsPage = 2,
+        .tiletablePage = 0x1F,
+        .priority = 3,
+        .bg = DCNT_BG3,
+        .unk_6 = 0
+    },
+};
+
+static const struct CutsceneScreenShakeInfo sKraidRisingScreenShakeData = {
 
 };
 
-// More ...
+static const struct CutsceneScrollingInfo sKraidRisingScrollingData = {
+
+};
 
 static const struct OamArray sKraidRisingCutsceneOAM[5] = {
     [0] = {
@@ -221,7 +254,7 @@ static const struct FrameData sKraidRisingOAM_BigPuff[5] = {
 static const u16 sKraidRisingCloseUpPAL[80] = INCBIN_U16("data/cutscenes/KraidRisingCloseUp.pal");
 static const u16 sKraidRisingSamusPAL[16] = INCBIN_U16("data/cutscenes/KraidRisingSamus.pal");
 static const u16 sKraidRisingParticlesPAL[16] = INCBIN_U16("data/cutscenes/KraidRisingParticles.pal");
-static const u16 sKraidRisingSamusVaria[16] = INCBIN_U16("data/cutscenes/KraidRisingSamusVaria.pal");
+static const u16 sKraidRisingSamusVariaPAL[16] = INCBIN_U16("data/cutscenes/KraidRisingSamusVaria.pal");
 static const u16 sKraidRisingRisingPAL[80] = INCBIN_U16("data/cutscenes/KraidRisingRising.pal");
 static const u8 sKraidRisingKraidCloseUpGFX[12348] = INCBIN_U8("data/cutscenes/KraidRisingCloseUp.gfx.lz");
 static const u8 sKraidRisingOAMGFX[3012] = INCBIN_U8("data/cutscenes/KraidRisingOAM.gfx.lz");

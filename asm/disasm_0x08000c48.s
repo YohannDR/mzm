@@ -50,7 +50,7 @@ lbl_08000c9e:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl bit_fill
+    bl BitFill
     b lbl_08000faa
     .align 2, 0
 lbl_08000cac: .4byte 0x0000ffff

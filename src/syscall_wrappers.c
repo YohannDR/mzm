@@ -2,12 +2,12 @@
 
 #include "syscalls.h"
 
-void CallLZ77UncompVRAM(void *src, void *dst)
+void CallLZ77UncompVRAM(const void *src, void *dst)
 {
     LZ77UncompVRAM(src, dst);
 }
 
-void CallLZ77UncompWRAM(void *src, void *dst)
+void CallLZ77UncompWRAM(const void *src, void *dst)
 {
     LZ77UncompWRAM(src, dst);
 }

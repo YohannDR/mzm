@@ -1171,8 +1171,8 @@ lbl_080032a0:
     .align 2, 0
 lbl_080032b0: .4byte 0x040000b0
 
-    thumb_func_start bit_fill
-bit_fill: @ 0x080032b4
+    thumb_func_start BitFill
+BitFill: @ 0x080032b4
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -3652,7 +3652,7 @@ lbl_08004bbe:
     adds r2, r7, #0
     movs r3, #0x50
     muls r3, r6, r3
-    bl bit_fill
+    bl BitFill
     movs r0, #1
     movs r2, #0x40
     lsls r1, r2, #0x10
