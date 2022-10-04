@@ -27,5 +27,6 @@ extern i16 gMainGameMode;
 extern i16 gGameModeSub1;
 extern i8 gGameModeSub2;
 extern i8 gGameModeSub3;
+extern u8 gSubGameModeStage;
 
 #endif

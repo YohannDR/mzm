@@ -15,7 +15,7 @@ void CutsceneLoadingVBlank(void);
 void CutsceneInit(void);
 void CutsceneSetBGCNTPageData(struct CutscenePageData pageData);
 void CutsceneSetBGCNT(u16 value, u16 bg);
-void CutsceneUpdateBGPosition(u8 type, u16 bg, u16 value);
+void CutsceneSetBackgroundPosition(u8 type, u16 bg, u16 value);
 u16* CutsceneGetBGHOFSPointer(u16 bg);
 u16* CutsceneGetBGVOFSPointer(u16 bg);
 void CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData, u16 bg);
@@ -32,7 +32,7 @@ void unk_61f0c(void);
 void unk_61f28(void);
 void unk_61f44(void);
 void unk_61f60(void);
-void unk_61fa0(void);
-void unk_621d0(void);
+u8 unk_61fa0(u8 param_1);
+u8 unk_621d0(void);
 
 #endif

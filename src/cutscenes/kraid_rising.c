@@ -287,13 +287,13 @@ u8 KraidRisingInit(void)
     
     CutsceneSetBGCNTPageData(sKraidRisingPagesData[0]);
     bg = sKraidRisingPagesData[0].bg;
-    CutsceneUpdateBGPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, bg, 0x800);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, bg, 0x800);
     CutsceneReset();
 
     gWrittenToBLDY = 0x10;
     CUTSCENE_DATA.bldcnt = 0xFF;
 
-    CutsceneUpdateBGPosition(CUTSCENE_BG_EDIT_VOFS, sKraidRisingPagesData[2].bg, 0x7E0);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sKraidRisingPagesData[2].bg, 0x7E0);
 
     CUTSCENE_DATA.dispcnt = bg;
     CUTSCENE_DATA.stage++;

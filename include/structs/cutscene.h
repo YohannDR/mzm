@@ -44,7 +44,10 @@ struct CutsceneScrollingInfo {
 
 struct CutsceneInfo {
     u8 unk_0;
-    u8 type; // Bit flag
+    u8 type:2;
+    u8 unk:2;
+    u8 isElevator:2;
+    u8 skippable:2;
     u8 storyText;
     CutsceneFunc_T pFunction;
     u8 unk_8;

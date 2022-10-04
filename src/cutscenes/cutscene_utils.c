@@ -6,10 +6,13 @@
 #include "data/cutscenes/cutscenes_data.h"
 
 #include "constants/audio.h"
+#include "constants/connection.h"
 #include "constants/cutscene.h"
 #include "constants/game_state.h"
 
+#include "structs/audio.h"
 #include "structs/cutscene.h"
+#include "structs/connection.h"
 #include "structs/game_state.h"
 
 /**
@@ -46,14 +49,139 @@ void CutsceneUpdateMusicAfterSkip(void)
     SoundFade(10);
 }
 
+/**
+ * @brief 60ef4 | 150 | Ends a cutscene
+ * 
+ */
 void CutsceneEnd(void)
 {
+    switch (gCurrentCutscene)
+    {
+        case CUTSCENE_RIDLEY_LANDING:
+            EventFunction(EVENT_ACTION_SETTING, sCutsceneData[CUTSCENE_RIDLEY_IN_SPACE].event);
+            break;
 
+        case CUTSCENE_INTRO_TEXT:
+            gCurrentArea = AREA_BRINSTAR;
+            gCurrentRoom = 0;
+            gLastDoorUsed = 0;
+            gGameModeSub3 = 0;
+            gShipLandingFlag = FALSE;
+            break;
+
+        case CUTSCENE_GETTING_FULLY_POWERED:
+            gPauseScreenFlag = PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS;
+            break;
+
+        case CUTSCENE_COULD_I_SURVIVE:
+            gPauseScreenFlag = PAUSE_SCREEN_SUITLESS_ITEMS;
+            gMusicTrackInfo.pauseScreenFlag = PAUSE_SCREEN_SUITLESS_ITEMS;
+            break;
+
+        case CUTSCENE_STATUE_OPENING:
+            if (gCurrentArea == AREA_KRAID)
+            {
+                SoundStop(0x1C);
+                unk_3bd0(MUSIC_KRAID_BATTLE_WITH_INTRO, 0x3C);
+            }
+            else if (gCurrentArea == AREA_RIDLEY)
+            {
+                SoundStop(0x1C);
+                unk_3bd0(MUSIC_RIDLEY_BATTLE, 0x3C);
+            }
+    }
+
+    start_special_background_fading(sCutsceneData[gCurrentCutscene].bgFading);
+    if (sCutsceneData[gCurrentCutscene].event != EVENT_NONE)
+        EventFunction(EVENT_ACTION_SETTING, sCutsceneData[gCurrentCutscene].event);
+
+    if (sCutsceneData[gCurrentCutscene].isElevator)
+    {
+        play_fading_sound(0x10E, sCutsceneData[gCurrentCutscene].fadingTimer);
+        check_play_fading_music(gMusicTrackInfo.currentRoomTrack, sCutsceneData[gCurrentCutscene].fadingTimer, 0);
+    }
 }
 
+/**
+ * @brief 61044 | 1e4 | Subroutine for a cutscene
+ * 
+ * @return u8 1 if ended, 0 otherwise
+ */
 u8 CutsceneSubroutine(void)
 {
+    u8 result;
+    u8 ended;
 
+    switch (gSubGameModeStage)
+    {
+        case 0:
+            CallbackSetVBlank(CutsceneLoadingVBlank);
+            if (unk_61fa0(sCutsceneData[gCurrentCutscene].unk_8))
+                gSubGameModeStage = 2;
+            else
+                gSubGameModeStage = 1;
+            break;
+
+        case 1:
+            unk_61f60();
+            if (unk_621d0())
+                gSubGameModeStage++;
+            break;
+            
+        case 2:
+            CutsceneInit();
+            CallbackSetVBlank(CutsceneVBlank);
+
+            gSubGameModeStage++;
+            break;
+            
+        case 3:
+            CUTSCENE_DATA.timer++;
+            CutsceneUpdateSpecialEffect();
+
+            result = sCutsceneData[gCurrentCutscene].pFunction();
+            if (result)
+                ended = TRUE;
+            else
+                ended = FALSE;
+
+            if (gCutsceneToSkip == gCurrentCutscene && gChangedInput & KEY_B)
+            {
+                CutsceneUpdateMusicAfterSkip();
+                ended = TRUE;
+            }
+
+            if (ended)
+            {
+                CUTSCENE_DATA.dispcnt = 0;
+                gSubGameModeStage++;
+            }
+            break;
+            
+        case 4:
+            if (CUTSCENE_DATA.unk_BF == 3)
+                BitFill(3, SHORT_MAX, PALRAM_BASE, PALRAM_SIZE, 0x10);
+            else
+                BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 0x10);
+
+            BitFill(3, 0x40, VRAM_BASE, 0x10000, 0x10);
+            BitFill(3, 0, VRAM_BASE + 0x10000, 0x8000, 0x10);
+            BitFill(3, 0xFF, OAM_BASE, OAM_SIZE, 0x20);
+
+            CutsceneEnd();
+
+            if (sCutsceneData[gCurrentCutscene].skippable)
+                gCutsceneToSkip = gCurrentCutscene;
+
+            gSubGameModeStage = 0;
+
+            if (sCutsceneData[gCurrentCutscene].unk_0 == 0)
+                gCurrentCutscene = CUTSCENE_NONE;
+        
+            return TRUE;
+    }
+
+    return FALSE;
 }
 
 /**
@@ -205,9 +333,38 @@ void CutsceneSetBGCNT(u16 value, u16 bg)
     CUTSCENE_DATA.bgcnt[offset] = value;
 }
 
-void CutsceneUpdateBGPosition(u8 type, u16 bg, u16 value)
+/**
+ * @brief 614d4 | a4 | Sets the position of a background
+ * 
+ * @param type Type (HOVS | VOFS)
+ * @param bg Background (DISPCNT flags)
+ * @param value Value
+ */
+void CutsceneSetBackgroundPosition(u8 type, u16 bg, u16 value)
 {
+    if (type & CUTSCENE_BG_EDIT_HOFS)
+    {
+        if (bg == DCNT_BG0)
+            gBG0HOFS_NonGameplay = value;
+        else if (bg == DCNT_BG1)
+            gBG1HOFS_NonGameplay = value;
+        else if (bg == DCNT_BG2)
+            gBG2HOFS_NonGameplay = value;
+        else if (bg == DCNT_BG3)
+            gBG3HOFS_NonGameplay = value;
+    }
 
+    if (type & CUTSCENE_BG_EDIT_VOFS)
+    {
+        if (bg == DCNT_BG0)
+            gBG0VOFS_NonGameplay = value;
+        else if (bg == DCNT_BG1)
+            gBG1VOFS_NonGameplay = value;
+        else if (bg == DCNT_BG2)
+            gBG2VOFS_NonGameplay = value;
+        else if (bg == DCNT_BG3)
+            gBG3VOFS_NonGameplay = value;
+    }
 }
 
 /**
@@ -261,14 +418,91 @@ void CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData
 
 }
 
+/**
+ * @brief 618d8 | 6c | Updates a cutscene background scrolling
+ * 
+ * @param pScrolling Cutscene Scrolling Data Pointer
+ */
 void CutsceneUpdateBackgroundScrolling(struct CutsceneScrolling* pScrolling)
 {
+    i32 offset;
 
+    if (pScrolling->unk_4 != 0)
+    {
+        if (pScrolling->unk_6 > 0)
+            pScrolling->unk_6--;
+        else
+        {
+            pScrolling->unk_6 = pScrolling->unk_8;
+            if (pScrolling->unk_7 >= 0)
+            {
+                if (pScrolling->unk_4 < pScrolling->unk_7)
+                    offset = FALSE;
+                else
+                    offset = TRUE;
+            }
+            else
+            {
+                if (pScrolling->unk_4 > pScrolling->unk_7)
+                    offset = FALSE;
+                else
+                    offset = TRUE;
+            }
+
+            if (offset)
+            {
+                offset = pScrolling->unk_7;    
+                pScrolling->unk_4 -= offset;
+            }
+            else
+            {
+                offset = pScrolling->unk_4;
+                pScrolling->unk_4 = 0;
+            }
+
+
+            (*pScrolling->pPosition) += offset;
+        }
+        
+    }
+
+    if (pScrolling->unk_4 == 0)
+        pScrolling->pPosition = NULL;
 }
 
+/**
+ * @brief 61944 | 80 | Checks if a background scrolling is active
+ * 
+ * @param bg 
+ * @return u8 
+ */
 u8 CutsceneCheckBackgroundScrollingActive(u16 bg)
 {
+    i32 offset;    
+    u8 status;
 
+    status = 0;
+    offset = -1;
+    if (bg == DCNT_BG0)
+        offset = 0;
+    else if (bg == DCNT_BG1)
+        offset = 2;
+    else if (bg == DCNT_BG2)
+        offset = 4;
+    else if (bg == DCNT_BG3)
+        offset = 6;
+
+    if (offset >= 0)
+    {
+        if (CUTSCENE_DATA.bgScrolling[offset].pPosition)
+            status |= CUTSCENE_BG_EDIT_HOFS;
+
+        offset = (i8)(offset + 1);
+        if (CUTSCENE_DATA.bgScrolling[offset].pPosition)
+            status |= CUTSCENE_BG_EDIT_VOFS;
+    }
+
+    return status;
 }
 
 void CutsceneUpdateBackgroundsPosition(u8 updateScrolling)
@@ -346,7 +580,18 @@ void CutsceneUpdateSpecialEffect(void)
 
 void CutsceneStartSpriteEffect(u16 bldcnt, u8 bldy, u8 interval, u8 intensity)
 {
+    // https://decomp.me/scratch/2WAha
 
+    CUTSCENE_DATA.specialEffect.status &= ~CUTSCENE_SPECIAL_EFFECT_STATUS_SPRITE_ENDED;
+    CUTSCENE_DATA.specialEffect.status |= CUTSCENE_SPECIAL_EFFECT_STATUS_ON_SPRITE;
+
+    CUTSCENE_DATA.specialEffect.s_WrittenToBLDY = bldy;
+    CUTSCENE_DATA.specialEffect.s_Intensity = intensity;
+    CUTSCENE_DATA.specialEffect.s_Interval = interval;
+    CUTSCENE_DATA.specialEffect.s_Timer = interval;
+
+    CUTSCENE_DATA.specialEffect.s_BLDCNT = bldcnt;
+    CUTSCENE_DATA.bldcnt = bldcnt;
 }
 
 void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u8 interval, u8 intensity)
@@ -379,12 +624,12 @@ void unk_61f60(void)
 
 }
 
-void unk_61fa0(void)
+u8 unk_61fa0(u8 param_1)
 {
 
 }
 
-void unk_621d0(void)
+u8 unk_621d0(void)
 {
 
 }

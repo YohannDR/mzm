@@ -23,6 +23,7 @@ SECTIONS {
         . = 0x00000000; gDebugFlag = .;
         . = 0x00000002; gFrameCounter16Bit = .;
         . = 0x00000004; gStereoFlag = .;
+        . = 0x00000005; gSubGameModeStage = .;
         . = 0x0000000A; gWrittenToDISPCNT = .;
         . = 0x00000020; gLanguage = .;
         . = 0x00000029; gMonochromeBGFading = .;
