@@ -249,7 +249,8 @@ SECTIONS {
         src/sprites_AI/unknown_item_chozo_statue.o(.text);
         src/sprites_AI/chozo_ball.o(.text);
         src/sprites_AI/zoomer.o(.text);
-        asm/disasm_0x08017328.o(.text);
+        src/sprites_AI/zeela.o(.text);
+        asm/disasm_0x080183d8.o(.text);
         src/sprites_AI/item_banner.o(.text);
         src/sprites_AI/ripper.o(.text);
         src/sprites_AI/ripper2.o(.text);
@@ -367,7 +368,8 @@ SECTIONS {
         src/sprites_AI/unknown_item_chozo_statue.o(.rodata);
         src/sprites_AI/chozo_ball.o(.rodata);
         src/sprites_AI/zoomer.o(.rodata);
-        asm/disasm_0x08017328.o(.rodata);
+        src/sprites_AI/zeela.o(.rodata);
+        asm/disasm_0x080183d8.o(.rodata);
         src/sprites_AI/item_banner.o(.rodata);
         src/sprites_AI/ripper.o(.rodata);
         src/sprites_AI/ripper2.o(.rodata);

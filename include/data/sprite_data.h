@@ -62,7 +62,7 @@ static const i16 sWorkerRobotSleepingFallingSpeed[10] = {
  * 8 : Power bomb drop probability
  */
 static const u16 sPrimarySpriteStats[206][9] = {
-        [PSPRITE_UNUSED0] = {
+    [PSPRITE_UNUSED0] = {
         0,
         0,
         WEAKNESS_NONE,
