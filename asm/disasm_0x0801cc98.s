@@ -1815,8 +1815,8 @@ lbl_0801dad0:
     .align 2, 0
 lbl_0801dad8: .4byte 0x030007f1
 
-    thumb_func_start SovaHitboxUpdate
-SovaHitboxUpdate: @ 0x0801dadc
+    thumb_func_start SovaUpdateHitbox
+SovaUpdateHitbox: @ 0x0801dadc
     push {lr}
     ldr r1, lbl_0801db04 @ =0x03000738
     ldrh r2, [r1]
@@ -1882,8 +1882,8 @@ lbl_0801db4e:
 lbl_0801db54: .4byte 0x0000ffcc
 lbl_0801db58: .4byte 0x0000ffe4
 
-    thumb_func_start SovaGFXUpdate
-SovaGFXUpdate: @ 0x0801db5c
+    thumb_func_start SovaSetCrawlingOAM
+SovaSetCrawlingOAM: @ 0x0801db5c
     push {lr}
     ldr r1, lbl_0801db7c @ =0x03000738
     ldrh r2, [r1]
@@ -2083,8 +2083,8 @@ lbl_0801dcd2:
     adds r1, #0x25
     movs r0, #4
     strb r0, [r1]
-    bl SovaGFXUpdate
-    bl SovaHitboxUpdate
+    bl SovaSetCrawlingOAM
+    bl SovaUpdateHitbox
     ldr r2, lbl_0801dd20 @ =0x082b0d68
     ldrb r1, [r4, #0x1d]
     lsls r0, r1, #3
@@ -2121,7 +2121,7 @@ lbl_0801dd20: .4byte 0x082b0d68
     thumb_func_start SovaIdleInit
 SovaIdleInit: @ 0x0801dd24
     push {lr}
-    bl SovaGFXUpdate
+    bl SovaSetCrawlingOAM
     ldr r0, lbl_0801dd38 @ =0x03000738
     adds r0, #0x24
     movs r1, #9
@@ -2745,8 +2745,8 @@ lbl_0801e1e0: .4byte 0x082cfbd0
 lbl_0801e1e4: .4byte 0x0000ffbf
 lbl_0801e1e8: .4byte 0x03000738
 
-    thumb_func_start SovaTurningAroundGFXUpdate
-SovaTurningAroundGFXUpdate: @ 0x0801e1ec
+    thumb_func_start SovaTurningAroundInit
+SovaTurningAroundInit: @ 0x0801e1ec
     push {r4, lr}
     ldr r3, lbl_0801e218 @ =0x03000738
     adds r1, r3, #0
@@ -3207,14 +3207,14 @@ lbl_0801e560:
     movs r0, #0
     strh r0, [r3]
 lbl_0801e564:
-    bl SovaGFXUpdate
-    bl SovaHitboxUpdate
+    bl SovaSetCrawlingOAM
+    bl SovaUpdateHitbox
 lbl_0801e56c:
     pop {r0}
     bx r0
 
-    thumb_func_start SovaBackOnGround
-SovaBackOnGround: @ 0x0801e570
+    thumb_func_start SovaLandingInit
+SovaLandingInit: @ 0x0801e570
     push {r4, lr}
     ldr r4, lbl_0801e59c @ =0x03000738
     adds r1, r4, #0
@@ -3250,8 +3250,8 @@ lbl_0801e5a8:
     .align 2, 0
 lbl_0801e5b0: .4byte 0x0000ffbf
 
-    thumb_func_start SovaBackOnGround_anim
-SovaBackOnGround_anim: @ 0x0801e5b4
+    thumb_func_start SovaLandingInit_anim
+SovaLandingInit_anim: @ 0x0801e5b4
     push {lr}
     bl SovaCheckCollidingWithAir
     lsls r0, r0, #0x18
@@ -3278,8 +3278,8 @@ lbl_0801e5dc:
     .align 2, 0
 lbl_0801e5e0: .4byte 0x03000738
 
-    thumb_func_start SovaStartFalling
-SovaStartFalling: @ 0x0801e5e4
+    thumb_func_start SovaFallingInit
+SovaFallingInit: @ 0x0801e5e4
     push {r4, r5, r6, lr}
     ldr r1, lbl_0801e608 @ =0x03000738
     ldrh r2, [r1]
@@ -3329,7 +3329,7 @@ lbl_0801e624:
     ands r0, r1
     movs r5, #0
     strh r0, [r6]
-    bl SovaHitboxUpdate
+    bl SovaUpdateHitbox
     ldr r0, lbl_0801e658 @ =0x082cfd68
     str r0, [r6, #0x18]
     strb r5, [r6, #0x1c]
@@ -3387,7 +3387,7 @@ lbl_0801e6a2:
     cmp r0, #0
     beq lbl_0801e6c4
     strh r1, [r4, #2]
-    bl SovaBackOnGround
+    bl SovaLandingInit
     b lbl_0801e6d0
     .align 2, 0
 lbl_0801e6c0: .4byte 0x030007f0
@@ -3551,17 +3551,17 @@ lbl_0801e826:
     bl SovaMove
     b lbl_0801e84e
 lbl_0801e82c:
-    bl SovaTurningAroundGFXUpdate
+    bl SovaTurningAroundInit
 lbl_0801e830:
     bl SovaTurningAround
     b lbl_0801e84e
 lbl_0801e836:
-    bl SovaBackOnGround
+    bl SovaLandingInit
 lbl_0801e83a:
-    bl SovaBackOnGround_anim
+    bl SovaLandingInit_anim
     b lbl_0801e84e
 lbl_0801e840:
-    bl SovaStartFalling
+    bl SovaFallingInit
 lbl_0801e844:
     bl SovaFalling
     b lbl_0801e84e
