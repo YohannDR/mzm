@@ -167,6 +167,10 @@ void SpriteDrawAll_2(void)
 
 }
 
+/**
+ * @brief d430 | 8c | Draws the sprites based on the draw order
+ * 
+ */
 void SpriteDrawAll(void)
 {
     struct SpriteData* pSprite;
