@@ -169,12 +169,9 @@ void SpriteDrawAll_2(void)
 
 void SpriteDrawAll(void)
 {
-    // https://decomp.me/scratch/sN0xE
-
     struct SpriteData* pSprite;
     i32 i;
     i32 drawOrder;
-    u8 d;
     u32 drawStatus;
     u32 checkStatus;
 
@@ -187,8 +184,10 @@ void SpriteDrawAll(void)
     {
         if ((gSpriteData[i].status & checkStatus) == drawStatus && gSpriteData[i].drawOrder < 9)
             gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
-        else
+        else {
+            u8 d = 0;
             gSpriteDrawOrder[i] = d;
+        }
     }
 
     for (drawOrder = 1; drawOrder < 9; drawOrder++)
