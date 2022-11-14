@@ -169,7 +169,38 @@ void SpriteDrawAll_2(void)
 
 void SpriteDrawAll(void)
 {
+    // https://decomp.me/scratch/sN0xE
 
+    struct SpriteData* pSprite;
+    i32 i;
+    i32 drawOrder;
+    u8 d;
+    u32 drawStatus;
+    u32 checkStatus;
+
+    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN;
+    drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN;
+    
+    SpriteDebrisDrawAll();
+
+    for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
+    {
+        if ((gSpriteData[i].status & checkStatus) == drawStatus && gSpriteData[i].drawOrder < 9)
+            gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
+        else
+            gSpriteDrawOrder[i] = d;
+    }
+
+    for (drawOrder = 1; drawOrder < 9; drawOrder++)
+    {
+        i = 0;
+        for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
+        {
+            if (gSpriteDrawOrder[i] == drawOrder)
+                SpriteDraw(pSprite, i);
+            i++;
+        }
+    }
 }
 
 void SpriteDrawAll_3(void)
