@@ -162,9 +162,58 @@ void SpriteUpdateAnimation(struct SpriteData* pSprite)
     }
 }
 
+/**
+ * @brief d36c | c4 | Call draw sprite function, difference with the other is unknown
+ * 
+ */
 void SpriteDrawAll_2(void)
 {
+    struct SpriteData* pSprite;
+    i32 i;
+    i32 drawOrder;
+    u32 drawStatus;
+    u32 checkStatus;
+    u32 modeCheck;
 
+    if (gGameModeSub1 ^ 2)
+        modeCheck = TRUE;
+    else
+        modeCheck = FALSE;
+
+    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN;
+    drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_UNKNOWN;
+
+    for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
+    {
+        if ((gSpriteData[i].status & checkStatus) == drawStatus && gSpriteData[i].drawOrder < 9)
+        {
+            if (modeCheck)
+            {
+                if (gSpriteData[i].properties & SP_ABSOLUTE_POSITION)
+                    gSpriteDrawOrder[i] = 0;
+                else
+                    gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
+            }
+            else
+                gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
+        }
+        else
+        {
+            u8 d = 0;
+            gSpriteDrawOrder[i] = d;
+        }
+    }
+
+    for (drawOrder = 1; drawOrder < 9; drawOrder++)
+    {
+        i = 0;
+        for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
+        {
+            if (gSpriteDrawOrder[i] == drawOrder)
+                SpriteDraw(pSprite, i);
+            i++;
+        }
+    }
 }
 
 /**
@@ -188,7 +237,8 @@ void SpriteDrawAll(void)
     {
         if ((gSpriteData[i].status & checkStatus) == drawStatus && gSpriteData[i].drawOrder < 9)
             gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
-        else {
+        else
+        {
             u8 d = 0;
             gSpriteDrawOrder[i] = d;
         }
@@ -206,9 +256,41 @@ void SpriteDrawAll(void)
     }
 }
 
-void SpriteDrawAll_3(void)
+/**
+ * @brief d4bc | 88 | Draws the sprites that have a draw order between 9 and 16
+ * 
+ */
+void SpriteDrawAll_Upper(void)
 {
+    struct SpriteData* pSprite;
+    i32 i;
+    i32 drawOrder;
+    u32 drawStatus;
+    u32 checkStatus;
 
+    checkStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN;
+    drawStatus = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN;
+
+    for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
+    {
+        if ((gSpriteData[i].status & checkStatus) == drawStatus && gSpriteData[i].drawOrder > 8)
+            gSpriteDrawOrder[i] = gSpriteData[i].drawOrder;
+        else {
+            u8 d = 0;
+            gSpriteDrawOrder[i] = d;
+        }
+    }
+
+    for (drawOrder = 9; drawOrder < 17; drawOrder++)
+    {
+        i = 0;
+        for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
+        {
+            if (gSpriteDrawOrder[i] == drawOrder)
+                SpriteDraw(pSprite, i);
+            i++;
+        }
+    }
 }
 
 void SpriteDraw(struct SpriteData* pSprite, u32 slot)

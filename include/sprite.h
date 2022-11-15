@@ -9,7 +9,7 @@ void SpriteUpdate(void);
 void SpriteUpdateAnimation(struct SpriteData* pSprite);
 void SpriteDrawAll_2(void);
 void SpriteDrawAll(void);
-void SpriteDrawAll_3(void);
+void SpriteDrawAll_Upper(void);
 void SpriteDraw(struct SpriteData* pSprite, u32 slot);
 void SpriteCheckOnScreen(struct SpriteData* pSprite);
 void SpriteLoadAllData(void);
