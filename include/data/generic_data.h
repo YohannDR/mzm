@@ -4,7 +4,7 @@
 #include "types.h"
 #include "callbacks.h"
 
-static const i16 sSineYValues[320] = {
+static const i16 sSineTable[320] = {
     0, 6, 12, 18, 25, 31, 37, 43, 49, 56, 62, 68, 74, 80,
     86, 92, 97, 103, 109, 115, 120, 126, 131, 136, 142,
     147, 152, 157, 162, 167, 171, 176, 181, 185, 189, 193,

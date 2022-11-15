@@ -1249,7 +1249,7 @@ void WingedRipperMove(void)
     offset = gCurrentSprite.workVariable;
 
     // Update Y position
-    currentY = sSineYValues[offset];
+    currentY = sSineTable[offset];
     previousY = (i16)gCurrentSprite.yPosition;
 
     if (currentY < 0x0)
@@ -1264,7 +1264,7 @@ void WingedRipperMove(void)
     }
 
     // Update X position
-    currentX = sSineYValues[offset + 0x40];
+    currentX = sSineTable[offset + 0x40];
     previousX = (i16)gCurrentSprite.xPosition;
 
     if (currentX < 0x0)

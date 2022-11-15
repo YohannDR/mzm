@@ -63,7 +63,7 @@ void AcidWormSyncHeadPosition(void)
     else
         posOffset = (i16)(offset + (sine << 0x4));
 
-    sine = r0 = sSineYValues[rotation];
+    sine = r0 = sSineTable[rotation];
     if (sine < 0x0)
     {
         sine = (i16)(-sine * posOffset >> 0x8);
@@ -75,7 +75,7 @@ void AcidWormSyncHeadPosition(void)
         gCurrentSprite.yPosition = gSubSpriteData1.yPosition + sine;
     }
 
-    sine = sSineYValues[rotation + 0x40];
+    sine = sSineTable[rotation + 0x40];
     position = (i16)gSubSpriteData1.xPosition;
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         position = (i16)(position + offset);

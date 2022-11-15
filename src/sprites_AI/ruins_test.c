@@ -392,9 +392,9 @@ void RuinsTestGhostMove(u8 speed)
     multiplier = (i16)gCurrentSprite.oamScaling;
 
     offset = gCurrentSprite.workVariable;
-    sine = sSineYValues[offset];
+    sine = sSineTable[offset];
 
-    if (sSineYValues[offset] < 0x0)
+    if (sSineTable[offset] < 0x0)
     {
         sine = (i16)(-sine * multiplier >> 0x8);
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn - sine;
@@ -405,9 +405,9 @@ void RuinsTestGhostMove(u8 speed)
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn + sine;
     }
 
-    sine = sSineYValues[offset + 0x40];
+    sine = sSineTable[offset + 0x40];
 
-    if (sSineYValues[offset + 0x40] < 0x0)
+    if (sSineTable[offset + 0x40] < 0x0)
     {
         sine = (i16)(-sine * multiplier >> 0x8);
         gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - sine;
