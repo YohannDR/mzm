@@ -147,7 +147,6 @@ void ParticleDraw(struct ParticleEffect* pParticle)
             }
             
             dst++;
-            // currSlot++;
         }
         gNextOAMSlot = partCount + prevSlot;
     }

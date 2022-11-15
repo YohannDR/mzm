@@ -1,12 +1,19 @@
 #include "sprite.h"
-#include "constants/particle.h"
 #include "sprite_debris.h"
 #include "syscalls.h"
 #include "gba.h"
+#include "fixed_point.h"
+
+#include "data/generic_data.h"
 #include "data/pointers.h"
 #include "data/sprite_data.h"
+
 #include "constants/game_state.h"
+#include "constants/particle.h"
+
+#include "structs/bg_clip.h"
 #include "structs/game_state.h"
+#include "structs/samus.h"
 
 /**
  * cf00 | 42c | Main routine that updates all the sprites
@@ -295,7 +302,257 @@ void SpriteDrawAll_Upper(void)
 
 void SpriteDraw(struct SpriteData* pSprite, u32 slot)
 {
+    // https://decomp.me/scratch/7FvMo
 
+    const u16* src;
+    u16* dst;
+    u16 partCount;
+    u32 currSlot;
+    u8 prevSlot;
+    u16 part1;
+    u16 part2;
+    u8 part3;
+    u32 i;
+
+    u16 xFlip;
+    u16 yFlip;
+    u16 doubleSize;
+    u16 alphaBlending;
+    u16 facingDown;
+    u16 mosaic;
+
+    u16 yPosition;
+    u16 xPosition;
+    u32 paletteRow;
+    u32 gfxOffset;
+    u32 bgPriority;
+    u32 shape;
+    u32 size;
+    u16 rotation;
+    u16 scaling;
+
+    i16 sine;
+    u16 dy;
+    u16 dmy;
+
+    u32 yOffset;
+    u32 xOffset;
+    u32 tempY;
+    u32 tempX;
+    i16 yParam;
+    i16 xParam;
+    u32 m11;
+    u32 m12;
+    u32 m21;
+    u32 m22;
+
+    prevSlot = gNextOAMSlot;
+    src = pSprite->pOam[pSprite->currentAnimationFrame].pFrame;
+    partCount = *src++;
+
+    if (prevSlot + partCount >= 0x80)
+        return;
+
+    dst = (u16*)(gOamData + prevSlot);
+    yPosition = pSprite->yPosition / 4 - gBG1YPosition / 4;
+    xPosition = pSprite->xPosition / 4 - gBG1XPosition / 4;
+
+    xFlip = pSprite->status & SPRITE_STATUS_XFLIP;
+    yFlip = pSprite->status & SPRITE_STATUS_YFLIP;
+    doubleSize = pSprite->status & SPRITE_STATUS_DOUBLE_SIZE;
+    alphaBlending = pSprite->status & SPRITE_STATUS_ALPHA_BLENDING;
+    facingDown = pSprite->status & SPRITE_STATUS_FACING_DOWN;
+
+    paletteRow = pSprite->spritesetGFXSlot + pSprite->paletteRow;
+    gfxOffset = pSprite->spritesetGFXSlot * 0x40;
+    bgPriority = pSprite->bgPriority;
+
+    if (gSamusOnTopOfBackgrounds && bgPriority)
+        bgPriority--;
+
+    if (pSprite->properties & SP_ABSOLUTE_POSITION)
+    {
+        yPosition = pSprite->yPosition;
+        xPosition = pSprite->xPosition;
+    }
+
+    if (!(pSprite->status & SPRITE_STATUS_ROTATION_SCALING))
+    {     
+        for (i = 0; i < partCount; i++)
+        {
+            part1 = *src++;
+            *dst++ = part1;
+            part2 = *src++;
+            *dst++ = part2;
+            *dst = *src++; // Copy source and save part 1 and 2
+
+            currSlot = prevSlot + i;
+            gOamData[currSlot].split.y = part1 + yPosition;
+            gOamData[currSlot].split.x = part2 + xPosition;
+            gOamData[currSlot].split.priority = bgPriority;
+            gOamData[currSlot].split.paletteNum = paletteRow;
+            gOamData[currSlot].split.tileNum += gfxOffset;
+
+            if (xFlip)
+            {
+                gOamData[currSlot].split.xFlip ^= TRUE;
+                shape = gOamData[currSlot].split.shape;
+                size = gOamData[currSlot].split.size;
+                gOamData[currSlot].split.x = xPosition - (part1 + sOamXFlipOffsets[shape][size] * 8);
+            }
+
+            if (facingDown)
+            {
+                gOamData[currSlot].split.yFlip ^= TRUE;
+                shape = gOamData[currSlot].split.shape;
+                size = gOamData[currSlot].split.size;
+                gOamData[currSlot].split.y = yPosition - (part2 + sOamYFlipOffsets[shape][size] * 8);
+            }
+
+            if (yFlip)
+            {
+                if (doubleSize)
+                    gOamData[currSlot].split.affineMode = 3;
+                else
+                    gOamData[currSlot].split.affineMode = 1;
+
+                // .
+            }
+
+            if (alphaBlending)
+                gOamData[currSlot].split.objMode = 1; // Semi transparent
+
+            dst++;
+        }
+
+        gNextOAMSlot = prevSlot + partCount;
+
+        if (yFlip)
+        {
+            rotation = pSprite->oamRotation;
+            scaling = pSprite->oamScaling;
+
+            if (xFlip)
+            {
+                sine = sSineYValues[rotation + 0x40];
+                gOamData[slot * 4].all.affineParam = FixedMultiplication(sine, FixedInverse(scaling));
+                sine = sSineYValues[rotation];
+                gOamData[slot * 4 + 1].all.affineParam = FixedMultiplication(sine, FixedInverse(scaling));
+            }
+            else
+            {
+                sine = sSineYValues[rotation + 0x40];
+                gOamData[slot * 4].all.affineParam = FixedMultiplication(sine, FixedInverse(-scaling));
+                sine = sSineYValues[rotation];
+                gOamData[slot * 4 + 1].all.affineParam = FixedMultiplication(sine, FixedInverse(-scaling));
+            }
+            
+            sine = sSineYValues[rotation];
+            gOamData[slot * 4 + 2].all.affineParam = FixedMultiplication(-sine, FixedInverse(scaling));
+            sine = sSineYValues[rotation + 0x40];
+            gOamData[slot * 4 + 3].all.affineParam = FixedMultiplication(sine, FixedInverse(scaling));
+        }
+    }
+    else
+    {
+        rotation = pSprite->oamRotation;
+        scaling = pSprite->oamScaling;
+
+        mosaic = pSprite->status & SPRITE_STATUS_MOSAIC;
+
+        yPosition += BLOCK_SIZE;
+        xPosition += BLOCK_SIZE;
+
+        for (i = 0; i < partCount; i++)
+        {
+            part1 = *src++;
+            *dst++ = part1;
+            part2 = *src++;
+            *dst++ = part2;
+            part3 = *dst = *src++; // Copy source and save part 1, 2 and 3
+
+            gOamData[currSlot].split.priority = bgPriority;
+            gOamData[currSlot].split.paletteNum = paletteRow;
+
+            gOamData[currSlot].split.tileNum += gfxOffset;
+
+            shape = gOamData[currSlot].split.shape;
+            size = gOamData[currSlot].split.size;
+
+            yOffset = sOamYFlipOffsets[shape][size] * 4;
+            xOffset = sOamXFlipOffsets[shape][size];
+
+            tempY = (part2 + yPosition) & 0xFF;
+            tempX = (part1 + xPosition) & 0x1FF;
+
+            yParam = (tempY - yPosition) + yOffset;
+            xParam = (tempX - xPosition) + xOffset;
+
+            yParam = tempY + (yParam * scaling - yParam);
+            xParam = tempX + (xParam * scaling - xParam);
+
+            m11 = sSineYValues[rotation + 0x40] * xParam;
+            m12 = sSineYValues[rotation] * yParam;
+            m21 = sSineYValues[rotation + 0x40] * yParam;
+            m22 = sSineYValues[rotation] * xParam;
+
+            if (doubleSize)
+            {
+
+            }
+            else
+            {
+
+            }
+
+            gOamData[currSlot].split.y = m11 - m12 - yOffset + (yPosition - BLOCK_SIZE);
+            gOamData[currSlot].split.x = m21 - m22 - xOffset + (xPosition - BLOCK_SIZE);
+
+            if (doubleSize)
+                gOamData[currSlot].split.affineMode = 3;
+            else
+                gOamData[currSlot].split.affineMode = 1;
+
+            // . Mosaic
+
+            if (alphaBlending)
+                gOamData[currSlot].split.objMode = 1; // Semi transparent
+
+            dst++;
+        }
+        
+        gNextOAMSlot = prevSlot + partCount;
+
+        sine = sSineYValues[rotation];
+        dy = FixedMultiplication(-sine, FixedInverse(scaling));
+        sine = sSineYValues[rotation + 0x40];
+        dmy = FixedMultiplication(sine, FixedInverse(scaling));
+
+        if (mosaic)
+        {
+            gOamData[112].all.affineParam = FixedMultiplication(sine, FixedInverse(scaling));
+            gOamData[113].all.affineParam = FixedMultiplication(sSineYValues[rotation], FixedInverse(scaling));
+            gOamData[114].all.affineParam = dy;
+            gOamData[115].all.affineParam = dmy;
+
+            gOamData[116].all.affineParam = FixedMultiplication(sine, FixedInverse(-scaling));
+            gOamData[117].all.affineParam = FixedMultiplication(sSineYValues[rotation], FixedInverse(-scaling));
+            gOamData[118].all.affineParam = dy;
+            gOamData[119].all.affineParam = dmy;
+        }
+        else
+        {
+            gOamData[120].all.affineParam = FixedMultiplication(sine, FixedInverse(scaling));
+            gOamData[121].all.affineParam = FixedMultiplication(sSineYValues[rotation], FixedInverse(scaling));
+            gOamData[122].all.affineParam = dy;
+            gOamData[123].all.affineParam = dmy;
+
+            gOamData[124].all.affineParam = FixedMultiplication(sine, FixedInverse(-scaling));
+            gOamData[125].all.affineParam = FixedMultiplication(sSineYValues[rotation], FixedInverse(-scaling));
+            gOamData[126].all.affineParam = dy;
+            gOamData[127].all.affineParam = dmy;
+        }
+    }
 }
 
 void SpriteCheckOnScreen(struct SpriteData* pSprite)
