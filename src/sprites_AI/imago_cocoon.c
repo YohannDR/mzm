@@ -1170,7 +1170,7 @@ void WingedRipperMovingInit(void)
 void WingedRipperMove(void)
 {
     i32 multiplier;
-    u8 offset;
+    u8 angle;
     i32 previousY;
     i32 previousX;
     i32 currentY;
@@ -1236,7 +1236,7 @@ void WingedRipperMove(void)
         }
     }
 
-    // Update sine offset
+    // Update angle
     if (gCurrentSprite.arrayOffset & 0x1)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -1246,10 +1246,10 @@ void WingedRipperMove(void)
     }
 
     multiplier = (i16)gCurrentSprite.oamScaling;
-    offset = gCurrentSprite.workVariable;
+    angle = gCurrentSprite.workVariable;
 
     // Update Y position
-    currentY = sSineTable[offset];
+    currentY = sin(angle);
     previousY = (i16)gCurrentSprite.yPosition;
 
     if (currentY < 0x0)
@@ -1264,7 +1264,7 @@ void WingedRipperMove(void)
     }
 
     // Update X position
-    currentX = sSineTable[offset + 0x40];
+    currentX = cos(angle);
     previousX = (i16)gCurrentSprite.xPosition;
 
     if (currentX < 0x0)

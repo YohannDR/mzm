@@ -102,7 +102,7 @@ u8 RuinsTestCheckHitByChargedPistol(void);
 u8 RuinsTestCheckSymbolShooted(void);
 u8 RuinsTestCheckSamusHurting(void);
 u8 RuinsTestUpdateSymbol(void);
-void RuinsTestGhostMove(u8 speed);
+void RuinsTestGhostMove(u8 dAngle);
 void RuinsTestInit(void);
 void RuinsTestSpawning(void);
 void RuinsTestTurningIntoReflection(void);

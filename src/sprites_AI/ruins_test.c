@@ -376,25 +376,25 @@ u8 RuinsTestUpdateSymbol(void)
     return FALSE;
 }
 
-void RuinsTestGhostMove(u8 speed)
+void RuinsTestGhostMove(u8 dAngle)
 {
     // https://decomp.me/scratch/clUGQ
 
     i32 multiplier;
     i32 sine;
-    u8 offset;
+    u8 angle;
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-        gCurrentSprite.workVariable += speed;
+        gCurrentSprite.workVariable += dAngle;
     else
-        gCurrentSprite.workVariable -= speed;
+        gCurrentSprite.workVariable -= dAngle;
 
     multiplier = (i16)gCurrentSprite.oamScaling;
 
-    offset = gCurrentSprite.workVariable;
-    sine = sSineTable[offset];
+    angle = gCurrentSprite.workVariable;
+    sine = sin(angle);
 
-    if (sSineTable[offset] < 0x0)
+    if (sin(angle) < 0x0)
     {
         sine = (i16)(-sine * multiplier >> 0x8);
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn - sine;
@@ -405,9 +405,9 @@ void RuinsTestGhostMove(u8 speed)
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn + sine;
     }
 
-    sine = sSineTable[offset + 0x40];
+    sine = cos(angle);
 
-    if (sSineTable[offset + 0x40] < 0x0)
+    if (cos(angle) < 0x0)
     {
         sine = (i16)(-sine * multiplier >> 0x8);
         gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - sine;

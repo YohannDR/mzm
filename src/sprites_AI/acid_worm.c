@@ -32,7 +32,7 @@ void AcidWormSyncHeadPosition(void)
     i32 positionOffset;
     i32 position;
     i32 sine;
-    u8 rotation;
+    u8 angle;
 #ifndef NONMATCHING
     register i32 r0 asm("r0");
 #else
@@ -40,9 +40,9 @@ void AcidWormSyncHeadPosition(void)
 #endif
     
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-        rotation = gCurrentSprite.oamRotation + 0x80;
+        angle = gCurrentSprite.oamRotation + 0x80;
     else
-        rotation = gCurrentSprite.oamRotation;
+        angle = gCurrentSprite.oamRotation;
 
     if (gSubSpriteData1.workVariable3 == 0x1)
         offset = 0x180;
@@ -63,7 +63,7 @@ void AcidWormSyncHeadPosition(void)
     else
         posOffset = (i16)(offset + (sine << 0x4));
 
-    sine = r0 = sSineTable[rotation];
+    sine = r0 = sin(angle);
     if (sine < 0x0)
     {
         sine = (i16)(-sine * posOffset >> 0x8);
@@ -75,7 +75,7 @@ void AcidWormSyncHeadPosition(void)
         gCurrentSprite.yPosition = gSubSpriteData1.yPosition + sine;
     }
 
-    sine = sSineTable[rotation + 0x40];
+    sine = cos(angle);
     position = (i16)gSubSpriteData1.xPosition;
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         position = (i16)(position + offset);
