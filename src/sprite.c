@@ -336,8 +336,8 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
 
     u32 yOffset;
     u32 xOffset;
-    u32 tempY;
-    u32 tempX;
+    i16 actualY;
+    i16 actualX;
     i16 yParam;
     i16 xParam;
     u32 m11;
@@ -474,35 +474,28 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             size = gOamData[prevSlot + i].splitFlip.size;
 
             yOffset = sOamYFlipOffsets[shape][size] * 4;
-            xOffset = sOamXFlipOffsets[shape][size];
+            xOffset = sOamXFlipOffsets[shape][size] * 4;
 
-            tempY = (part2 + yPosition) & 0xFF;
-            tempX = (part1 + xPosition) & 0x1FF;
+            actualY = (part1 + yPosition) & 0xFF;
+            actualX = (part2 + xPosition) & 0x1FF;
 
-            yParam = (tempY - yPosition) + yOffset;
-            xParam = (tempX - xPosition) + xOffset;
+            part1 = actualY - yOffset;
+            part2 = actualX - xOffset;
 
-            yParam = tempY + (yParam * scaling - yParam);
-            xParam = tempX + (xParam * scaling - xParam);
+            yParam = part1 * yPosition / 256 - part1;
+            xParam = part2 * xPosition / 256 - part2;
+            
+            actualY += yParam;
+            actualX += xParam;
 
-            m11 = cos(rotation) * xParam;
-            m12 = sin(rotation) * yParam;
-            m21 = cos(rotation) * yParam;
-            m22 = sin(rotation) * xParam;
+            m11 = actualX * cos(rotation);
+            m12 = actualY * sin(rotation);
+            m21 = actualX * cos(rotation);
+            m22 = actualY * sin(rotation);
 
-            if (doubleSize)
-            {
-                xOffset *= -0x8;
-                yOffset *= -0x8;
-            }
-            else
-            {
-                xOffset *= -0x4;
-                yOffset *= -0x4;
-            }
-
-            gOamData[prevSlot + i].splitFlip.y = m11 + m12 - yOffset + (yPosition - BLOCK_SIZE);
-            gOamData[prevSlot + i].splitFlip.x = m21 - m22 - xOffset + (xPosition - BLOCK_SIZE);
+            // Temp, forces compilation
+            gOamData[prevSlot + i].splitFlip.y = actualY;
+            gOamData[prevSlot + i].splitFlip.x = actualX;
 
             if (doubleSize)
                 gOamData[prevSlot + i].splitFlip.affineMode = 3;
@@ -591,6 +584,7 @@ void SpriteLoadAllData(void)
     {
         if (gGameModeSub3 == 0x0 && !gIsLoadingFile)
             gAlarmTimer = 0x0;
+
         SpriteClearData();
         SpriteLoadSpriteset();
         EscapeCheckReloadGraphics();
