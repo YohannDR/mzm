@@ -304,46 +304,74 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
 {
     // https://decomp.me/scratch/7FvMo
 
+    /*
+        Stack order :
+
+        0 ramSlot
+        4 i
+        8 part count
+        c Y offset
+        10 X offset
+        14 xflip
+        18 double
+        1c alpha
+        20 mosaic
+        24 facing down
+        28 bgPriority
+        2c palette
+        30 gfxRow
+        34 xPos
+        38 yPos
+        3c rotation
+        40 scaling
+        44 bgPriority (shifter, optimisation)
+        48 partCount + prevSlot
+    */
+    
     const u16* src;
     u16* dst;
-    i32 i;
-    u16 partCount;
     u8 prevSlot;
     u16 part1;
     u16 part2;
     u8 part3;
+    
 
-    u16 xFlip;
-    u16 yFlip;
-    u16 doubleSize;
-    u16 alphaBlending;
-    u16 facingDown;
-    u16 mosaic;
-
-    u32 gfxOffset;
-    u32 paletteRow;
-    u32 bgPriority;
-    u16 yPosition;
-    u16 xPosition;
 
     u32 shape;
     u32 size;
-    u16 rotation;
-    u16 scaling;
+    
 
     u16 dy;
     u16 dmy;
 
-    u32 yOffset;
-    u32 xOffset;
     i16 actualY;
     i16 actualX;
-    i16 yParam;
-    i16 xParam;
+    i16 yScaling;
+    i16 xScaling;
     u32 m11;
     u32 m12;
     u32 m21;
     u32 m22;
+    u32 y;
+    u32 x;
+
+    u16 yFlip;
+    i32 i;
+    u16 partCount;
+    u32 yOffset;
+    u32 xOffset;
+    u16 xFlip;
+    u16 doubleSize;
+    u16 alphaBlending;
+    u16 mosaic;
+    u16 facingDown;
+    u32 bgPriority;
+    u32 paletteRow;
+    u32 gfxOffset;
+    u16 xPosition;
+    u16 yPosition;
+    u16 rotation;
+    u16 scaling;
 
     prevSlot = gNextOAMSlot;
     src = pSprite->pOam[pSprite->currentAnimationFrame].pFrame;
@@ -383,12 +411,12 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             *dst++ = part1;
             part2 = *src++;
             *dst++ = part2;
-            *dst = *src++; // Copy source and save part 1 and 2
+            *dst++ = *src++; // Copy source and save part 1 and 2
 
             gOamData[prevSlot + i].splitFlip.y = part1 + yPosition;
             gOamData[prevSlot + i].splitFlip.x = part2 + xPosition;
             gOamData[prevSlot + i].splitFlip.priority = bgPriority;
-            gOamData[prevSlot + i].splitFlip.paletteNum = paletteRow;
+            gOamData[prevSlot + i].splitFlip.paletteNum += paletteRow;
             gOamData[prevSlot + i].splitFlip.tileNum += gfxOffset;
 
             if (xFlip)
@@ -434,13 +462,13 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
 
             if (xFlip)
             {
-                gOamData[slot * 4].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(scaling));
-                gOamData[slot * 4 + 1].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(scaling));
+                gOamData[slot * 4].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(-scaling));
+                gOamData[slot * 4 + 1].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(-scaling));
             }
             else
             {
-                gOamData[slot * 4].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(-scaling));
-                gOamData[slot * 4 + 1].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(-scaling));
+                gOamData[slot * 4].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(scaling));
+                gOamData[slot * 4 + 1].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(scaling));
             }
             
             gOamData[slot * 4 + 2].all.affineParam = FixedMultiplication(-sin(rotation), FixedInverse(scaling));
@@ -463,10 +491,10 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             *dst++ = part1;
             part2 = *src++;
             *dst++ = part2;
-            part3 = *dst = *src++; // Copy source and save part 1, 2 and 3
+            part3 = *dst++ = *src++; // Copy source and save part 1, 2 and 3
 
             gOamData[prevSlot + i].splitFlip.priority = bgPriority;
-            gOamData[prevSlot + i].splitFlip.paletteNum = paletteRow;
+            gOamData[prevSlot + i].splitFlip.paletteNum += paletteRow;
 
             gOamData[prevSlot + i].splitFlip.tileNum += gfxOffset;
 
@@ -479,23 +507,36 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             actualY = (part1 + yPosition) & 0xFF;
             actualX = (part2 + xPosition) & 0x1FF;
 
-            part1 = actualY - yOffset;
-            part2 = actualX - xOffset;
+            part1 = actualY - yPosition + yOffset;
+            part2 = actualX - xPosition + xOffset;
 
-            yParam = part1 * yPosition / 256 - part1;
-            xParam = part2 * xPosition / 256 - part2;
+            yScaling = part1 * scaling / 256 - part1;
+            xScaling = part2 * scaling / 256 - part2;
             
-            actualY += yParam;
-            actualX += xParam;
+            actualY = actualY + yScaling - yOffset;
+            actualX = actualX + xScaling - xOffset;
 
             m11 = actualX * cos(rotation);
             m12 = actualY * sin(rotation);
-            m21 = actualX * cos(rotation);
-            m22 = actualY * sin(rotation);
+            m21 = actualX * sin(rotation);
+            m22 = actualY * cos(rotation);
 
-            // Temp, forces compilation
-            gOamData[prevSlot + i].splitFlip.y = actualY;
-            gOamData[prevSlot + i].splitFlip.x = actualX;
+            y = (m21 + m22) / 8;
+            x = (m11 - m12) / 8;
+
+            if (doubleSize)
+            {
+                x -= xOffset * 2;
+                y -= yOffset * 2;
+            }
+            else
+            {
+                x -= xOffset;
+                y -= yOffset;
+            }
+
+            gOamData[prevSlot + i].splitFlip.y = y + yPosition - BLOCK_SIZE;
+            gOamData[prevSlot + i].splitFlip.x = x + xPosition - BLOCK_SIZE;
 
             if (doubleSize)
                 gOamData[prevSlot + i].splitFlip.affineMode = 3;
