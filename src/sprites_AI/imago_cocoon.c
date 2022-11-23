@@ -1169,23 +1169,23 @@ void WingedRipperMovingInit(void)
  */
 void WingedRipperMove(void)
 {
-    i32 multiplier;
+    i32 radius;
     u8 angle;
     i32 previousY;
     i32 previousX;
-    i32 currentY;
-    i32 currentX;
+    i32 s;
+    i32 c;
 
     // Check turning around
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.workVariable == 0x0)
+        if (gCurrentSprite.workVariable == 0)
         {
             gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 6;
             gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
-            gCurrentSprite.workVariable = 0x7F;
+            gCurrentSprite.workVariable = PI - 1;
         }
-        else if (gCurrentSprite.workVariable == 0x80)
+        else if (gCurrentSprite.workVariable == PI)
         {
             if (gCurrentSprite.pOam != sWingedRipperOAM_TurningAround)
             {
@@ -1208,11 +1208,11 @@ void WingedRipperMove(void)
     }
     else
     {
-        if (gCurrentSprite.workVariable == 0x80)
+        if (gCurrentSprite.workVariable == PI)
         {
             gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 6;
             gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
-            gCurrentSprite.workVariable = 0x1;
+            gCurrentSprite.workVariable = 1;
         }
         else if (gCurrentSprite.workVariable == 0x0)
         {
@@ -1245,63 +1245,63 @@ void WingedRipperMove(void)
             gCurrentSprite.workVariable--;
     }
 
-    multiplier = (i16)gCurrentSprite.oamScaling;
+    radius = (i16)gCurrentSprite.oamScaling;
     angle = gCurrentSprite.workVariable;
 
     // Update Y position
-    currentY = sin(angle);
+    s = sin(angle);
     previousY = (i16)gCurrentSprite.yPosition;
 
-    if (currentY < 0x0)
+    if (s < 0x0)
     {
-        currentY = (i16)(-currentY * multiplier / 256);
-        gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn - currentY;
+        s = (i16)(-s * radius / 256);
+        gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn - s;
     }
     else
     {
-        currentY = (i16)(currentY * multiplier / 256);
-        gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn + currentY;
+        s = (i16)(s * radius / 256);
+        gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn + s;
     }
 
     // Update X position
-    currentX = cos(angle);
+    c = cos(angle);
     previousX = (i16)gCurrentSprite.xPosition;
 
-    if (currentX < 0x0)
+    if (c < 0x0)
     {
-        currentX = (i16)(-currentX * multiplier / 256);
-        gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - currentX;
+        c = (i16)(-c * radius / 256);
+        gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - c;
     }
     else
     {
-        currentX = (i16)(currentX * multiplier / 256);
-        gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + currentX;
+        c = (i16)(c * radius / 256);
+        gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + c;
     }
 
-    currentY = (i16)gCurrentSprite.yPosition;
-    currentX = (i16)gCurrentSprite.xPosition;
+    s = (i16)gCurrentSprite.yPosition;
+    c = (i16)gCurrentSprite.xPosition;
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_ON_TOP)
     {
         // Update samus standing on the winged ripper
-        if (currentY > previousY)
+        if (s > previousY)
         {
-            previousY = (i16)(currentY - previousY);
+            previousY = (i16)(s - previousY);
             gSamusData.yPosition += previousY;
         }
         else
         {
-            previousY = (i16)(previousY - currentY);
+            previousY = (i16)(previousY - s);
             gSamusData.yPosition -= previousY;
         }
 
-        if (currentX > previousX)
+        if (c > previousX)
         {
-            previousX = (i16)(currentX - previousX);
+            previousX = (i16)(c - previousX);
             gSamusData.xPosition += previousX;
         }
         else
         {
-            previousX = (i16)(previousX - currentX);
+            previousX = (i16)(previousX - c);
             gSamusData.xPosition -= previousX;
         }
     }

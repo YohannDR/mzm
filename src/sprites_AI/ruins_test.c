@@ -1,9 +1,11 @@
 #include "sprites_AI/item_banner.h"
 #include "sprites_AI/ruins_test.h"
 #include "gba.h"
+
 #include "data/sprites/ruins_test.h"
 #include "data/sprite_data.h"
 #include "data/generic_data.h"
+
 #include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
@@ -13,6 +15,7 @@
 #include "constants/samus.h"
 #include "constants/projectile.h"
 #include "constants/sprite_util.h"
+
 #include "structs/clipdata.h"
 #include "structs/game_state.h"
 #include "structs/in_game_timer.h"
@@ -31,7 +34,7 @@ void RuinsTestCalculateDelay(u8 delay)
 }
 
 /**
- * @brief 389ac | d8
+ * @brief 389ac | d8 | Updates the clipdata of the ceiling hitbox
  * 
  * @param caa Clipdata Affecting Action
  */
@@ -92,7 +95,7 @@ void RuinsTestChangeCCAA(u8 caa)
  * @param xStart X Position current
  * @param yTarget Y Position target
  * @param xTarget X Position target
- * @param speedMultiplier Speed multiplier 
+ * @param speedMultiplier Speed multiplier
  * @param speed Speed
  */
 void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTarget, u16 speedMultiplier, u16 speed)
@@ -378,10 +381,11 @@ u8 RuinsTestUpdateSymbol(void)
 
 void RuinsTestGhostMove(u8 dAngle)
 {
-    // https://decomp.me/scratch/clUGQ
-
-    i32 multiplier;
+    i32 radius;
+    i16 s;
+    i16 c;
     i32 sine;
+    i32 cosine;
     u8 angle;
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -389,33 +393,31 @@ void RuinsTestGhostMove(u8 dAngle)
     else
         gCurrentSprite.workVariable -= dAngle;
 
-    multiplier = (i16)gCurrentSprite.oamScaling;
-
+    radius = (i16)gCurrentSprite.oamScaling;
     angle = gCurrentSprite.workVariable;
-    sine = sin(angle);
 
-    if (sin(angle) < 0x0)
+    s = sin(angle);
+    if (s < 0)
     {
-        sine = (i16)(-sine * multiplier >> 0x8);
+        sine = (i16)((-s * radius) >> 0x8);
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn - sine;
     }
     else
     {
-        sine = (i16)(sine * multiplier >> 0x8);
+        sine = (i16)((s * radius) >> 0x8);
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn + sine;
     }
 
-    sine = cos(angle);
-
-    if (cos(angle) < 0x0)
+    c = cos(angle);
+    if (c < 0)
     {
-        sine = (i16)(-sine * multiplier >> 0x8);
-        gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - sine;
+        cosine = (i16)((-c * radius) >> 0x8);
+        gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - cosine;
     }
     else
     {
-        sine = (i16)(sine * multiplier >> 0x8);
-        gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + sine;
+        cosine = (i16)((c * radius) >> 0x8);
+        gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + cosine;
     }
 }
 
@@ -644,7 +646,7 @@ void RuinsTestMoveCirclePattern(void)
         else
             speed = 0x1;
 
-        // Update sine offset
+        // Update radius
         if (gCurrentSprite.oamScaling < 0xC0)
         {
             gCurrentSprite.oamScaling += 0x3;
@@ -699,7 +701,7 @@ void RuinsTestMoveAtomPattern(void)
     u8 speed;
     u8 flag;
     u8 bouncing;
-    u8 var;
+    u8 angle;
 
     if (gBossWork.work3 == 0x0)
         gBossWork.work3++; // Prevent overflow
@@ -733,16 +735,16 @@ void RuinsTestMoveAtomPattern(void)
         if (!gBossWork.work4)
             RuinsTestGhostMove(speed);
 
-        var = flag & gCurrentSprite.workVariable;
+        angle = flag & gCurrentSprite.workVariable;
 
         // Check bouncing and set new destination
         if (gCurrentSprite.workVariable2 == 0x0)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                if (var == 0x80)
+                if (angle == PI)
                 {
-                    gCurrentSprite.workVariable = 0xC0;
+                    gCurrentSprite.workVariable = PI + PI / 2;
                     gCurrentSprite.yPositionSpawn += BLOCK_SIZE * 3;
                     gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 3;
                     bouncing++;
@@ -750,9 +752,9 @@ void RuinsTestMoveAtomPattern(void)
             }
             else
             {
-                if (var == 0x0)
+                if (angle == 0)
                 {
-                    gCurrentSprite.workVariable = 0xC0;
+                    gCurrentSprite.workVariable = PI + PI / 2;
                     gCurrentSprite.yPositionSpawn += BLOCK_SIZE * 3;
                     gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 3;
                     bouncing++;
@@ -763,9 +765,9 @@ void RuinsTestMoveAtomPattern(void)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                if (var == 0x40)
+                if (angle == PI / 2)
                 {
-                    gCurrentSprite.workVariable = 0x80;
+                    gCurrentSprite.workVariable = PI;
                     gCurrentSprite.yPositionSpawn += BLOCK_SIZE * 3;
                     gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 3;
                     bouncing++;
@@ -773,9 +775,9 @@ void RuinsTestMoveAtomPattern(void)
             }
             else
             {
-                if (var == 0x40)
+                if (angle == PI / 2)
                 {
-                    gCurrentSprite.workVariable = 0x0;
+                    gCurrentSprite.workVariable = 0;
                     gCurrentSprite.yPositionSpawn += BLOCK_SIZE * 3;
                     gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 3;
                     bouncing++;
@@ -786,18 +788,18 @@ void RuinsTestMoveAtomPattern(void)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                if (var == 0x0)
+                if (angle == 0)
                 {
-                    gCurrentSprite.workVariable = 0x80;
+                    gCurrentSprite.workVariable = PI;
                     gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 6;
                     bouncing++;
                 }
             }
             else
             {
-                if (var == 0x80)
+                if (angle == PI)
                 {
-                    gCurrentSprite.workVariable = 0x0;
+                    gCurrentSprite.workVariable = 0;
                     gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 6;
                     bouncing++;
                 }
@@ -807,9 +809,9 @@ void RuinsTestMoveAtomPattern(void)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                if (var == 0x0)
+                if (angle == 0)
                 {
-                    gCurrentSprite.workVariable = 0x40;
+                    gCurrentSprite.workVariable = PI / 2;
                     gCurrentSprite.yPositionSpawn -= BLOCK_SIZE * 3;
                     gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 3;
                     bouncing++;
@@ -817,9 +819,9 @@ void RuinsTestMoveAtomPattern(void)
             }
             else
             {
-                if (var == 0x80)
+                if (angle == PI)
                 {
-                    gCurrentSprite.workVariable = 0x40;
+                    gCurrentSprite.workVariable = PI / 2;
                     gCurrentSprite.yPositionSpawn -= BLOCK_SIZE * 3;
                     gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 3;
                     bouncing++;
@@ -830,9 +832,9 @@ void RuinsTestMoveAtomPattern(void)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                if (var == 0xC0)
+                if (angle == PI + PI / 2)
                 {
-                    gCurrentSprite.workVariable = 0x0;
+                    gCurrentSprite.workVariable = 0;
                     gCurrentSprite.yPositionSpawn -= BLOCK_SIZE * 3;
                     gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 3;
                     bouncing++;
@@ -840,9 +842,9 @@ void RuinsTestMoveAtomPattern(void)
             }
             else
             {
-                if (var == 0xC0)
+                if (angle == PI + PI / 2)
                 {
-                    gCurrentSprite.workVariable = 0x80;
+                    gCurrentSprite.workVariable = PI;
                     gCurrentSprite.yPositionSpawn -= BLOCK_SIZE * 3;
                     gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 3;
                     bouncing++;
@@ -853,18 +855,18 @@ void RuinsTestMoveAtomPattern(void)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                if (var == 0x80)
+                if (angle == PI)
                 {
-                    gCurrentSprite.workVariable = 0x0;
+                    gCurrentSprite.workVariable = 0;
                     gCurrentSprite.xPositionSpawn -= BLOCK_SIZE * 6;
                     gCurrentSprite.workVariable2 = 0x0;
                 }
             }
             else
             {
-                if (var == 0x0)
+                if (angle == 0)
                 {
-                    gCurrentSprite.workVariable = 0x80;
+                    gCurrentSprite.workVariable = PI;
                     gCurrentSprite.xPositionSpawn += BLOCK_SIZE * 6;
                     gCurrentSprite.workVariable2 = 0x0;
                 }
