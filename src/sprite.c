@@ -414,42 +414,42 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             *dst++ = part2;
             *dst++ = *src++; // Copy source and save part 1 and 2
 
-            gOamData[prevSlot + i].splitFlip.y = part1 + yPosition;
-            gOamData[prevSlot + i].splitFlip.x = part2 + xPosition;
-            gOamData[prevSlot + i].splitFlip.priority = bgPriority;
-            gOamData[prevSlot + i].splitFlip.paletteNum += paletteRow;
-            gOamData[prevSlot + i].splitFlip.tileNum += gfxOffset;
+            gOamData[prevSlot + i].split.y = part1 + yPosition;
+            gOamData[prevSlot + i].split.x = part2 + xPosition;
+            gOamData[prevSlot + i].split.priority = bgPriority;
+            gOamData[prevSlot + i].split.paletteNum += paletteRow;
+            gOamData[prevSlot + i].split.tileNum += gfxOffset;
 
             if (xFlip)
             {
-                gOamData[prevSlot + i].splitFlip.xFlip ^= TRUE;
-                shape = gOamData[prevSlot + i].splitFlip.shape;
-                size = gOamData[prevSlot + i].splitFlip.size;
-                gOamData[prevSlot + i].splitFlip.x = xPosition - (part1 + sOamXFlipOffsets[shape][size] * 8);
+                gOamData[prevSlot + i].split.xFlip ^= TRUE;
+                shape = gOamData[prevSlot + i].split.shape;
+                size = gOamData[prevSlot + i].split.size;
+                gOamData[prevSlot + i].split.x = xPosition - (part1 + sOamXFlipOffsets[shape][size] * 8);
             }
 
             if (facingDown)
             {
-                gOamData[prevSlot + i].splitFlip.yFlip ^= TRUE;
-                shape = gOamData[prevSlot + i].splitFlip.shape;
-                size = gOamData[prevSlot + i].splitFlip.size;
-                gOamData[prevSlot + i].splitFlip.y = yPosition - (part2 + sOamYFlipOffsets[shape][size] * 8);
+                gOamData[prevSlot + i].split.yFlip ^= TRUE;
+                shape = gOamData[prevSlot + i].split.shape;
+                size = gOamData[prevSlot + i].split.size;
+                gOamData[prevSlot + i].split.y = yPosition - (part2 + sOamYFlipOffsets[shape][size] * 8);
             }
 
             if (yFlip)
             {
                 if (doubleSize)
-                    gOamData[prevSlot + i].splitFlip.affineMode = 3;
+                    gOamData[prevSlot + i].split.affineMode = 3;
                 else
-                    gOamData[prevSlot + i].splitFlip.affineMode = 1;
+                    gOamData[prevSlot + i].split.affineMode = 1;
 
-                gOamData[prevSlot + i].splitFlip.yFlip = slot >> 4;
-                gOamData[prevSlot + i].splitFlip.xFlip = slot >> 3;
-                gOamData[prevSlot + i].splitFlip.matrixNum = slot;
+                gOamData[prevSlot + i].split.yFlip = slot >> 4;
+                gOamData[prevSlot + i].split.xFlip = slot >> 3;
+                gOamData[prevSlot + i].split.matrixNum = slot;
             }
 
             if (alphaBlending)
-                gOamData[prevSlot + i].splitFlip.objMode = 1; // Semi transparent
+                gOamData[prevSlot + i].split.objMode = 1; // Semi transparent
 
             dst++;
         }
@@ -494,13 +494,13 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             *dst++ = part2;
             part3 = *dst++ = *src++; // Copy source and save part 1, 2 and 3
 
-            gOamData[prevSlot + i].splitFlip.priority = bgPriority;
-            gOamData[prevSlot + i].splitFlip.paletteNum += paletteRow;
+            gOamData[prevSlot + i].split.priority = bgPriority;
+            gOamData[prevSlot + i].split.paletteNum += paletteRow;
 
-            gOamData[prevSlot + i].splitFlip.tileNum += gfxOffset;
+            gOamData[prevSlot + i].split.tileNum += gfxOffset;
 
-            shape = gOamData[prevSlot + i].splitFlip.shape;
-            size = gOamData[prevSlot + i].splitFlip.size;
+            shape = gOamData[prevSlot + i].split.shape;
+            size = gOamData[prevSlot + i].split.size;
 
             yOffset = sOamYFlipOffsets[shape][size] * 4;
             xOffset = sOamXFlipOffsets[shape][size] * 4;
@@ -536,49 +536,49 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
                 y -= yOffset;
             }
 
-            gOamData[prevSlot + i].splitFlip.y = y + yPosition - BLOCK_SIZE;
-            gOamData[prevSlot + i].splitFlip.x = x + xPosition - BLOCK_SIZE;
+            gOamData[prevSlot + i].split.y = y + yPosition - BLOCK_SIZE;
+            gOamData[prevSlot + i].split.x = x + xPosition - BLOCK_SIZE;
 
             if (doubleSize)
-                gOamData[prevSlot + i].splitFlip.affineMode = 3;
+                gOamData[prevSlot + i].split.affineMode = 3;
             else
-                gOamData[prevSlot + i].splitFlip.affineMode = 1;
+                gOamData[prevSlot + i].split.affineMode = 1;
 
             if (mosaic)
             {
-                if (gOamData[prevSlot + i].splitFlip.xFlip)
+                if (gOamData[prevSlot + i].split.xFlip)
                 {
-                    gOamData[prevSlot + i].splitFlip.x--;
-                    gOamData[prevSlot + i].splitFlip.yFlip = TRUE;
-                    gOamData[prevSlot + i].splitFlip.xFlip = TRUE;
-                    gOamData[prevSlot + i].splitFlip.matrixNum = 5;
+                    gOamData[prevSlot + i].split.x--;
+                    gOamData[prevSlot + i].split.yFlip = TRUE;
+                    gOamData[prevSlot + i].split.xFlip = TRUE;
+                    gOamData[prevSlot + i].split.matrixNum = 5;
                 }
                 else
                 {
-                    gOamData[prevSlot + i].splitFlip.yFlip = TRUE;
-                    gOamData[prevSlot + i].splitFlip.xFlip = TRUE;
-                    gOamData[prevSlot + i].splitFlip.matrixNum = 4;
+                    gOamData[prevSlot + i].split.yFlip = TRUE;
+                    gOamData[prevSlot + i].split.xFlip = TRUE;
+                    gOamData[prevSlot + i].split.matrixNum = 4;
                 }
             }
             else
             {
-                if (gOamData[prevSlot + i].splitFlip.xFlip)
+                if (gOamData[prevSlot + i].split.xFlip)
                 {
-                    gOamData[prevSlot + i].splitFlip.x--;
-                    gOamData[prevSlot + i].splitFlip.yFlip = TRUE;
-                    gOamData[prevSlot + i].splitFlip.xFlip = TRUE;
-                    gOamData[prevSlot + i].splitFlip.matrixNum = 7;
+                    gOamData[prevSlot + i].split.x--;
+                    gOamData[prevSlot + i].split.yFlip = TRUE;
+                    gOamData[prevSlot + i].split.xFlip = TRUE;
+                    gOamData[prevSlot + i].split.matrixNum = 7;
                 }
                 else
                 {
-                    gOamData[prevSlot + i].splitFlip.yFlip = TRUE;
-                    gOamData[prevSlot + i].splitFlip.xFlip = TRUE;
-                    gOamData[prevSlot + i].splitFlip.matrixNum = 6;
+                    gOamData[prevSlot + i].split.yFlip = TRUE;
+                    gOamData[prevSlot + i].split.xFlip = TRUE;
+                    gOamData[prevSlot + i].split.matrixNum = 6;
                 }
             }
 
             if (alphaBlending)
-                gOamData[prevSlot + i].splitFlip.objMode = 1; // Semi transparent
+                gOamData[prevSlot + i].split.objMode = 1; // Semi transparent
 
             dst++;
         }

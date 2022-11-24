@@ -129,21 +129,21 @@ void ParticleDraw(struct ParticleEffect* pParticle)
         {
             part = *src++;
             *dst++ = part;
-            gOamData[currSlot + i].splitFlip.y = part + yPosition;
+            gOamData[currSlot + i].split.y = part + yPosition;
 
             part = *src++;
             *dst++ = part;
-            gOamData[currSlot + i].splitFlip.x = part + xPosition;
+            gOamData[currSlot + i].split.x = part + xPosition;
 
             *dst++ = *src++;
-            gOamData[currSlot + i].splitFlip.priority = bgPriority;
+            gOamData[currSlot + i].split.priority = bgPriority;
 
             if (flipped)
             {
-                gOamData[currSlot + i].splitFlip.xFlip ^= TRUE;
-                shape = gOamData[currSlot + i].splitFlip.shape;
-                size = gOamData[currSlot + i].splitFlip.size;
-                gOamData[currSlot + i].splitFlip.x = xPosition - (part + sOamXFlipOffsets[shape][size] * 8);
+                gOamData[currSlot + i].split.xFlip ^= TRUE;
+                shape = gOamData[currSlot + i].split.shape;
+                size = gOamData[currSlot + i].split.size;
+                gOamData[currSlot + i].split.x = xPosition - (part + sOamXFlipOffsets[shape][size] * 8);
             }
             
             dst++;
