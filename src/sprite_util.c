@@ -183,7 +183,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
 {
     // https://decomp.me/scratch/Bu0kh
     
-    /*struct SamusData* pData;
+    struct SamusData* pData;
     struct SpriteData* pSprite;
 
     u16 dmgMultiplier;
@@ -779,19 +779,20 @@ void SpriteUtilSamusAndSpriteCollision(void)
                                 
                         }
                     }
+
+                    if (gIgnoreSamusAndSpriteCollision)
+                        break;
                 }
             }
         }
 
-        if (gIgnoreSamusAndSpriteCollision)
-            break;
     }
 
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->ignoreSamusCollisionTimer != 0x0)
             pSprite->ignoreSamusCollisionTimer--;
-    }*/
+    }
 }
 
 /**
