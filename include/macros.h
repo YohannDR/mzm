@@ -6,6 +6,7 @@
 #define bomb_chain_type_to_flag(type) (1 << type)
 
 #define check_samus_turning() ((pData->direction ^ (KEY_RIGHT | KEY_LEFT)) & gButtonInput)
+#define ARRAY_SIZE(a) (sizeof((a)) / sizeof((a)[0]))
 
 #define PI 128
 #define sin(a) (sSineTable[(a)])

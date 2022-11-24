@@ -639,7 +639,65 @@ void SpriteLoadAllData(void)
 
 void SpriteLoadSpriteset(void)
 {
+    // https://decomp.me/scratch/59czd
 
+    i32 i;
+    i32 j;
+    i32 spriteset;
+    u32 spriteID;
+    u32 gfxSlot;
+    u32 prevGfxSlot;
+    u16 nbrRows;
+
+    i32 ctrl_1;
+    i32 ctrl_2;
+
+    for (i = 0; i < 15; i++)
+    {
+        gSpritesetSpritesID[i] = PSPRITE_UNUSED16;
+        gSpritesetGFXSlots[i] = 0;
+    }
+
+    prevGfxSlot = UCHAR_MAX;
+    spriteset = gSpriteset;
+    if (spriteset >= MAX_AMOUNT_OF_SPRITESET - 1)
+    {
+        if (gCurrentArea > AREA_INVALID)
+            spriteset = MAX_AMOUNT_OF_SPRITESET - 1;
+        else
+            spriteset = 0;
+    }
+
+    j = 0;
+    for (i = 0; i < 15; i++)
+    {
+        spriteID = sSpritesetPointers[spriteset][j * 2];
+        gfxSlot = sSpritesetPointers[spriteset][j * 2 + 1];
+
+        j++;
+        
+        if (spriteID == PSPRITE_UNUSED0)
+            break;
+
+        gSpritesetSpritesID[i] = spriteID;
+        gSpritesetGFXSlots[i] = gfxSlot & 7;
+
+        if (gfxSlot != prevGfxSlot)
+        {
+            prevGfxSlot = gfxSlot;
+            if (gfxSlot != 8)
+            {
+                spriteID -= 0x10;
+
+                LZ77UncompVRAM(sSpritesGraphicsPointers[spriteID], VRAM_BASE + 0x14000 + (gfxSlot * 2048));
+
+                ctrl_1 = ((u8*)sSpritesGraphicsPointers[spriteID])[1];
+                ctrl_2 = ((u8*)sSpritesGraphicsPointers[spriteID])[2] << 8;
+                dma_set(3, sSpritesPalettePointers[spriteID], PALRAM_BASE + 0x300 + gfxSlot * 32,
+                    (DMA_ENABLE << 16) | (ctrl_1 | ctrl_2) / 2048 << 4);
+            }
+        }
+    }
 }
 
 /**

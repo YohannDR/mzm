@@ -26,6 +26,8 @@
 #include "doors_data.h"
 #include "hatch_data.h"
 
+#define MAX_AMOUNT_OF_SPRITESET 114
+
 // 75e6a8
 
 static const SamusFunc_T sSamusPoseFunctionPointers[MAX_AMOUNT_OF_SAMUS_POSES] = {
@@ -378,7 +380,7 @@ static const Func_T sPrimarySpritesAIPointers[206] = {
 };
 
 static const u32* sSpritesGraphicsPointers[190] = {
-    sMorphBallGFX
+    NULL
 };
 
 static const u16* sSpritesPalettePointers[190] = {
@@ -465,8 +467,121 @@ static const Func_T sSecondarySpritesAIPointers[190] = {
     [SSPRITE_MOTHER_BRAIN_GLASS_BREAKING] = MotherBrainGlassBreaking 
 };
 
-static const u8* sSpritesetPointers[114] = {
-    NULL
+static const u8* sSpritesetPointers[MAX_AMOUNT_OF_SPRITESET] = {
+    sSpriteset0,
+    sSpriteset1,
+    sSpriteset2,
+    sSpriteset3,
+    sSpriteset4,
+    sSpriteset5,
+    sSpriteset6,
+    sSpriteset7,
+    sSpriteset8,
+    sSpriteset9,
+    sSpriteset10,
+    sSpriteset11,
+    sSpriteset12,
+    sSpriteset13,
+    sSpriteset14,
+    sSpriteset15,
+    sSpriteset16,
+    sSpriteset17,
+    sSpriteset18,
+    sSpriteset19,
+    sSpriteset20,
+    sSpriteset21,
+    sSpriteset22,
+    sSpriteset23,
+    sSpriteset24,
+    sSpriteset25,
+    sSpriteset26,
+    sSpriteset27,
+    sSpriteset28,
+    sSpriteset29,
+    sSpriteset30,
+    sSpriteset31,
+    sSpriteset32,
+    sSpriteset33,
+    sSpriteset34,
+    sSpriteset35,
+    sSpriteset36,
+    sSpriteset37,
+    sSpriteset38,
+    sSpriteset39,
+    sSpriteset40,
+    sSpriteset41,
+    sSpriteset42,
+    sSpriteset43,
+    sSpriteset44,
+    sSpriteset45,
+    sSpriteset46,
+    sSpriteset47,
+    sSpriteset48,
+    sSpriteset49,
+    sSpriteset50,
+    sSpriteset51,
+    sSpriteset52,
+    sSpriteset53,
+    sSpriteset54,
+    sSpriteset55,
+    sSpriteset56,
+    sSpriteset57,
+    sSpriteset58,
+    sSpriteset59,
+    sSpriteset60,
+    sSpriteset61,
+    sSpriteset62,
+    sSpriteset63,
+    sSpriteset64,
+    sSpriteset65,
+    sSpriteset66,
+    sSpriteset67,
+    sSpriteset68,
+    sSpriteset69,
+    sSpriteset70,
+    sSpriteset71,
+    sSpriteset72,
+    sSpriteset73,
+    sSpriteset74,
+    sSpriteset75,
+    sSpriteset76,
+    sSpriteset77,
+    sSpriteset78,
+    sSpriteset79,
+    sSpriteset80,
+    sSpriteset81,
+    sSpriteset82,
+    sSpriteset83,
+    sSpriteset84,
+    sSpriteset85,
+    sSpriteset86,
+    sSpriteset87,
+    sSpriteset88,
+    sSpriteset89,
+    sSpriteset90,
+    sSpriteset91,
+    sSpriteset92,
+    sSpriteset93,
+    sSpriteset94,
+    sSpriteset95,
+    sSpriteset96,
+    sSpriteset97,
+    sSpriteset98,
+    sSpriteset99,
+    sSpriteset100,
+    sSpriteset101,
+    sSpriteset102,
+    sSpriteset103,
+    sSpriteset104,
+    sSpriteset105,
+    sSpriteset106,
+    sSpriteset107,
+    sSpriteset108,
+    sSpriteset109,
+    sSpriteset110,
+    sSpriteset111,
+    sSpriteset112,
+    sSpriteset113
 };
 
 // Temp probably
