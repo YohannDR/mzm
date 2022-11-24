@@ -670,9 +670,25 @@ void SpriteLoadPAL(u8 spriteID, u8 row, u8 len)
     dma_set(3, sSpritesPalettePointers[spriteID], PALRAM_BASE + 0x300 + (row * 0x20), DMA_ENABLE | len << 0x4);
 }
 
+/**
+ * @brief e0f0 | 44 | Clears the sprite data (including debris)
+ * 
+ */
 void SpriteClearData(void)
 {
-    // https://decomp.me/scratch/wqJL5
+    i32 i;
+
+    // Clear sprites
+    for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
+    {
+        gSpriteData[i].status = 0;
+        gSpriteData[i].standingOnSprite = FALSE;
+        gSpriteData[i].roomSlot = UCHAR_MAX;
+    }
+
+    // Clear debris
+    for (i = 0; i < MAX_AMOUNT_OF_SPRITE_DEBRIS; i++)
+        gSpriteDebris[i].exists = FALSE;
 }
 
 /**
