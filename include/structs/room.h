@@ -12,7 +12,7 @@ struct RoomEntry {
     u8 scrollsFlag;
     u8 BG3Scrolling;
     u8 transparency;
-    struct EnemyRoomData* pEnemyRoomData;
+    u8* pEnemyRoomData;
     u8 firstSpritesetEvent;
     u8 secondSpritesetEvent;
     u8 mapX;
@@ -41,13 +41,13 @@ struct RoomEntryROM {
     void* pBG3Data;
     u8 BG3Scrolling;
     u8 transparency;
-    struct EnemyRoomData* pDefaultSpriteData;
+    u8* pDefaultSpriteData;
     u8 defaultSpriteset;
     u8 firstSpritesetEvent;
-    struct EnemyRoomData* pFirstSpriteData;
+    u8* pFirstSpriteData;
     u8 firstSpriteset;
     u8 secondSpritesetEvent;
-    struct EnemyRoomData* pSecondSpriteData;
+    i8* pSecondSpriteData;
     u8 second_spriteset;
     u8 mapX;
     u8 mapY;

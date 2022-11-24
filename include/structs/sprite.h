@@ -5,12 +5,6 @@
 
 // Structs
 
-struct __attribute__((packed)) EnemyRoomData {
-    u8 yPosition;
-    u8 xPosition;
-    u8 spritesetSlot;
-};
-
 struct SubSpriteData {
     const struct FrameData* pMultiOam;
     u16 currentAnimationFrame;

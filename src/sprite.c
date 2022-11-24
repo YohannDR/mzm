@@ -13,6 +13,7 @@
 
 #include "structs/bg_clip.h"
 #include "structs/game_state.h"
+#include "structs/room.h"
 #include "structs/samus.h"
 
 /**
@@ -674,9 +675,34 @@ void SpriteClearData(void)
     // https://decomp.me/scratch/wqJL5
 }
 
+/**
+ * @brief e134 | 48 | Loads the sprites of the current room
+ * 
+ */
 void SpriteLoadRoomSprites(void)
 {
-    // https://decomp.me/scratch/N5TjC
+    u8 i;
+    u8 y;
+    u8 x;
+    u8 slot;
+    
+    for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
+    {
+        /*
+            0 | Y position
+            1 | X position
+            2 | Spriteset slot
+        */
+        y = gCurrentRoomEntry.pEnemyRoomData[i * 3];
+
+        // Terminator
+        if (y == 0xFF)
+            break;
+
+        x = gCurrentRoomEntry.pEnemyRoomData[i * 3 + 1];
+        slot = gCurrentRoomEntry.pEnemyRoomData[i * 3 + 2];
+        SpriteInitPrimary(slot, y, x, i);
+    }
 }
 
 /**
