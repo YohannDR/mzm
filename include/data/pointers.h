@@ -468,7 +468,8 @@ static const Func_T sSecondarySpritesAIPointers[190] = {
 };
 
 static const u8* sSpritesetPointers[MAX_AMOUNT_OF_SPRITESET] = {
-    sSpriteset0,
+    NULL
+    /*sSpriteset0,
     sSpriteset1,
     sSpriteset2,
     sSpriteset3,
@@ -581,7 +582,7 @@ static const u8* sSpritesetPointers[MAX_AMOUNT_OF_SPRITESET] = {
     sSpriteset110,
     sSpriteset111,
     sSpriteset112,
-    sSpriteset113
+    sSpriteset113*/
 };
 
 // Temp probably

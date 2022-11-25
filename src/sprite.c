@@ -617,7 +617,56 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
 
 void SpriteCheckOnScreen(struct SpriteData* pSprite)
 {
+    // https://decomp.me/scratch/R7eEG
 
+    u16 bgBaseY;
+    u16 bgBaseX;
+    u16 bgRightBoundry;
+    u16 bgTopBoundry;
+    u16 bgLeftBoundry;
+    u16 bgBottomBoundry;
+
+    u16 spriteY;
+    u16 spriteX;
+    u16 spriteYRange;
+    u16 spriteXRange;
+    u16 spriteTop;
+    u16 spriteBottom;
+    u16 spriteLeft;
+    u16 spriteRight;
+
+    if (!(pSprite->properties & SP_ABSOLUTE_POSITION))
+    {
+        bgBaseY = gBG1YPosition;
+        bgBaseX = gBG1XPosition;
+
+        spriteY = pSprite->yPosition;
+        spriteX = pSprite->xPosition;
+
+        bgBottomBoundry = bgBaseY + BLOCK_SIZE * 8;
+        spriteYRange = spriteY + BLOCK_SIZE * 8;
+        spriteBottom = bgBottomBoundry - pSprite->drawDistanceBottomOffset * 4;
+        spriteTop = bgBottomBoundry + (pSprite->drawDistanceTopOffset * 4 + BLOCK_SIZE * 10);
+
+        bgLeftBoundry = bgBaseX + BLOCK_SIZE * 8;
+        spriteXRange = spriteX + BLOCK_SIZE * 8;
+        spriteLeft = bgLeftBoundry - pSprite->drawDistanceHorizontalOffset * 4;
+        spriteRight = bgLeftBoundry + (pSprite->drawDistanceHorizontalOffset * 4 + BLOCK_SIZE * 15);
+
+        if (spriteLeft < spriteXRange && spriteXRange < spriteRight && spriteTop < spriteYRange && spriteYRange < spriteBottom)
+        {
+            pSprite->status |= SPRITE_STATUS_ONSCREEN;
+        }
+        else
+        {
+            pSprite->status &= ~SPRITE_STATUS_ONSCREEN;
+            if (pSprite->properties & SP_KILL_OFF_SCREEN)
+            {
+                if (1)
+                    pSprite->status = 0;
+            }
+        }
+    }
 }
 
 void SpriteLoadAllData(void)
