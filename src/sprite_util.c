@@ -718,8 +718,8 @@ void SpriteUtilSamusAndSpriteCollision(void)
                                     {
                                         pData->invincibilityTimer = 0x10;
                                         SoundPlayNotAlreadyPlaying(0x80); // Bug leeching
-                                        gSubSpriteData1.timer++;
-                                        if (!(gSubSpriteData1.timer & 0x3))
+                                        gSubSpriteData1.workVariable2++;
+                                        if (!(gSubSpriteData1.workVariable2 & 0x3))
                                             SoundPlay(0x7C); // Hurt
                                     }
                                 }
@@ -773,7 +773,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                                 gIgnoreSamusAndSpriteCollision = TRUE;
                                 break;
 
-                            case 0x8:
+                            default:
                                 pSprite->ignoreSamusCollisionTimer = 0xF;
                                 gIgnoreSamusAndSpriteCollision = TRUE;
                                 
