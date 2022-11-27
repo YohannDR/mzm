@@ -615,16 +615,17 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
     }
 }
 
+/**
+ * @brief ddd4 | 150 | Checks if a sprite is on screen
+ * 
+ * @param pSprite 
+ */
 void SpriteCheckOnScreen(struct SpriteData* pSprite)
 {
-    // https://decomp.me/scratch/R7eEG
-
     u16 bgBaseY;
     u16 bgBaseX;
-    u16 bgRightBoundry;
-    u16 bgTopBoundry;
-    u16 bgLeftBoundry;
-    u16 bgBottomBoundry;
+    u16 bgXRange;
+    u16 bgYRange;
 
     u16 spriteY;
     u16 spriteX;
@@ -635,6 +636,8 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite)
     u16 spriteLeft;
     u16 spriteRight;
 
+    u32 drawOffset;
+
     if (!(pSprite->properties & SP_ABSOLUTE_POSITION))
     {
         bgBaseY = gBG1YPosition;
@@ -643,26 +646,36 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite)
         spriteY = pSprite->yPosition;
         spriteX = pSprite->xPosition;
 
-        bgBottomBoundry = bgBaseY + BLOCK_SIZE * 8;
+        bgYRange = bgBaseY + BLOCK_SIZE * 8;
         spriteYRange = spriteY + BLOCK_SIZE * 8;
-        spriteBottom = bgBottomBoundry - pSprite->drawDistanceBottomOffset * 4;
-        spriteTop = bgBottomBoundry + (pSprite->drawDistanceTopOffset * 4 + BLOCK_SIZE * 10);
+        spriteBottom = bgYRange - pSprite->drawDistanceBottomOffset * 4;
+        drawOffset = pSprite->drawDistanceTopOffset * 4 + BLOCK_SIZE * 10;
+        spriteTop = bgYRange + drawOffset;
 
-        bgLeftBoundry = bgBaseX + BLOCK_SIZE * 8;
+        bgXRange = bgBaseX + BLOCK_SIZE * 8;
         spriteXRange = spriteX + BLOCK_SIZE * 8;
-        spriteLeft = bgLeftBoundry - pSprite->drawDistanceHorizontalOffset * 4;
-        spriteRight = bgLeftBoundry + (pSprite->drawDistanceHorizontalOffset * 4 + BLOCK_SIZE * 15);
+        spriteLeft = bgXRange - pSprite->drawDistanceHorizontalOffset * 4;
+        drawOffset = pSprite->drawDistanceHorizontalOffset * 4 + BLOCK_SIZE * 15;
+        spriteRight = bgXRange + drawOffset;
 
-        if (spriteLeft < spriteXRange && spriteXRange < spriteRight && spriteTop < spriteYRange && spriteYRange < spriteBottom)
-        {
+        if (spriteLeft < spriteXRange && spriteXRange < spriteRight && spriteBottom < spriteYRange && spriteYRange < spriteTop)
             pSprite->status |= SPRITE_STATUS_ONSCREEN;
-        }
         else
         {
             pSprite->status &= ~SPRITE_STATUS_ONSCREEN;
             if (pSprite->properties & SP_KILL_OFF_SCREEN)
             {
-                if (1)
+                bgYRange = bgBaseY + BLOCK_SIZE * 10;
+                spriteYRange = spriteY + BLOCK_SIZE * 10;
+                spriteBottom = bgYRange - BLOCK_SIZE * 9;
+                spriteTop = bgYRange + BLOCK_SIZE * 19;
+
+                bgXRange = bgBaseX + BLOCK_SIZE * 10;
+                spriteXRange = spriteX + BLOCK_SIZE * 10;
+                spriteLeft = bgXRange - BLOCK_SIZE * 9;
+                spriteRight = bgXRange + BLOCK_SIZE * 24;
+
+                if (spriteLeft >= spriteXRange || spriteXRange >= spriteRight || spriteBottom >= spriteYRange || spriteYRange >= spriteTop)
                     pSprite->status = 0;
             }
         }
