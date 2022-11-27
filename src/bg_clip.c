@@ -105,18 +105,18 @@ void BGClipApplyClipdataChangingTransparency(void)
 
 u16 BGClipGetNewBLDALPHAValue(u16 clip)
 {
-    u16 bldalpha;
-    u16 offset;
+    // https://decomp.me/scratch/0ipWe
 
-    offset = behavior_to_bldalpha(clip);
-    if (offset < 0xB)
-        return 0;//bldalpha_values_for_clipdata[offset];
+    u16 bldalpha;
+    u32 behavior = behavior_to_bldalpha(clip);
+
+    if (behavior < behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_DEFAULT_TRANSPARENCY))
+        bldalpha = sBldalphaValuesForClipdata[behavior];
+    else if (clip == CLIP_BEHAVIOR_BG0_TRIGGER_DEFAULT_TRANSPARENCY)
+        bldalpha = USHORT_MAX;
     else
-    {
-        bldalpha = 0x0;
-        if (clip == CLIP_BEHAVIOR_BG0_TRIGGER_DEFAULT_TRANSPARENCY)
-            return 0xFFFF;
-    }
+        bldalpha = 0;
+    
     return bldalpha;
 }
 
