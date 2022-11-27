@@ -3,6 +3,16 @@
 
 #include "types.h"
 
+// Temp
+struct Haze {
+    void* pAffected;
+    u16 unk;
+    u8 size;
+    u8 flag;
+};
+
+extern struct Haze gHazeInfo;
+
 struct RoomEntry {
     u8 tileset;
     u8 BG0Prop;
@@ -17,9 +27,9 @@ struct RoomEntry {
     u8 secondSpritesetEvent;
     u8 mapX;
     u8 mapY;
-    u8 effect;
-    u16 effectY;
     u8 visualEffect;
+    u16 effectY;
+    u8 damageEffect;
     u16 musicTrack;
     u8 BG0Size;
     u8 BG3Size;
@@ -34,11 +44,11 @@ struct RoomEntryROM {
     u8 BG1Prop;
     u8 BG2Prop;
     u8 BG3Prop;
-    void* pBG0Data;
-    void* pBG1Data;
-    void* pBG2Data;
-    void* pClipData;
-    void* pBG3Data;
+    u8* pBG0Data;
+    u8* pBG1Data;
+    u8* pBG2Data;
+    u8* pClipData;
+    u8* pBG3Data;
     u8 BG3Scrolling;
     u8 transparency;
     u8* pDefaultSpriteData;
@@ -47,8 +57,8 @@ struct RoomEntryROM {
     u8* pFirstSpriteData;
     u8 firstSpriteset;
     u8 secondSpritesetEvent;
-    i8* pSecondSpriteData;
-    u8 second_spriteset;
+    u8* pSecondSpriteData;
+    u8 secondSpriteset;
     u8 mapX;
     u8 mapY;
     u8 effect;
@@ -76,12 +86,19 @@ struct BG3Movement {
     u16 xOffset;
 };
 
+
+extern u16 gDecompClipdataMap[1024];
+extern u16 gDecompBG0Map[1024];
+extern u16 gDecompBG1Map[1024];
+extern u16 gDecompBG2Map[1024];
+
 extern u8 gSpriteset;
 extern u8 gSpritesetEntryUsed;
 extern struct RawCoordsX gWaitingSpacePiratesPosition;
 extern struct BG3Movement gBG3Movement;
 extern struct BG0Movement gBG0Movement;
 extern u16 gRainSoundEffect;
+extern u8 gScrollCounter;
 extern struct RoomEntry gCurrentRoomEntry;
 extern struct BackgroundPositions gBackgroundPositions;
 

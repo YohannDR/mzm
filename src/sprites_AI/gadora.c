@@ -44,7 +44,7 @@ void GadoraInit(void)
     xPosition = gCurrentSprite.xPosition;
 
     // Disable hatch
-    gadora_hatch_update(xPosition, yPosition, FALSE); // Undefined
+    GadoraHatchUpdate(xPosition, yPosition, FALSE);
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         xPosition += 0x10;
@@ -256,7 +256,7 @@ void GadoraDeath(void)
                 xPosition = gCurrentSprite.xPosition;
 
                 // Re-enable hatch
-                gadora_hatch_update(xPosition, yPosition, TRUE); // Undefiend
+                GadoraHatchUpdate(xPosition, yPosition, TRUE);
 
                 // Set event
                 if (gCurrentSprite.spriteID == PSPRITE_GADORA_KRAID)

@@ -685,6 +685,10 @@ static const struct Door* sAreaDoorsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
     [AREA_CHOZODIA] = sTourianDoors
 };
 
+static const struct RoomEntryROM* sAreaRoomEntryPointers[MAX_AMOUNT_OF_AREAS - 1] = {
+
+};
+
 // More...
 
 // 75fde0

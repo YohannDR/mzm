@@ -4695,8 +4695,8 @@ lbl_08057904:
     bx r0
     .align 2, 0
 
-    thumb_func_start gadora_hatch_update
-gadora_hatch_update: @ 0x0805790c
+    thumb_func_start GadoraHatchUpdate
+GadoraHatchUpdate: @ 0x0805790c
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

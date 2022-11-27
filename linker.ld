@@ -7,6 +7,10 @@ MEMORY {
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
         . = 0x00027780; gMakeSolidBlocks = .;
+        . = 0x00027800; gDecompClipdataMap = .;
+        . = 0x0002a800; gDecompBG0Map = .;
+        . = 0x0002d800; gDecompBG1Map = .;
+        . = 0x00030800; gDecompBG2Map = .;
         . = 0x00033800; gMinimapTilesWithObtainedItems = .;
         . = 0x00034000; gDecompressedMinimapVisitedTiles = .;
         . = 0x00034800; gDecompressedMinimapData = .;
@@ -66,6 +70,7 @@ SECTIONS {
         . = 0x0000007B; gDoorUnlockTimer = .;
         . = 0x0000007d; gCurrentCutscene = .;
         . = 0x0000007e; gTourianEscapeCutsceneStage = .;
+        . = 0x00000080; gHazeInfo = .;
         . = 0x00000088; gIORegistersBackup = .;
         . = 0x0000009C; gBGPointersAndDimensions = .;
         . = 0x000000BC; gCurrentRoomEntry = .;
@@ -201,6 +206,7 @@ SECTIONS {
         . = 0x000056d4; gBldalphaData2 = .;
         . = 0x000056dc; gBLDYData1 = .;
         . = 0x000056e4; gBLDYData2 = .;
+        . = 0x00005700; gScrollCounter = .;
         . = 0x00005704; gClipdataCodePointer = .;
         . = 0x00005708; gCurrentRoomScrollDataPointer = .;
         . = 0x00005714; gUnk_3005714 = .;
