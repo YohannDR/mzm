@@ -256,13 +256,16 @@ void SpriteUtilSamusAndSpriteCollision(void)
         {
             if (pSprite->ignoreSamusCollisionTimer == 0x0)
             {
-                spriteY = pSprite->yPosition;
-                spriteX = pSprite->xPosition;
+                register u16 a asm("r2"), b asm("r3");
+                spriteY = a = pSprite->yPosition;
+                spriteX = b = pSprite->xPosition;
 
-                spriteTop = pSprite->yPosition + pSprite->hitboxTopOffset;
-                spriteBottom = pSprite->yPosition + pSprite->hitboxBottomOffset;
-                spriteLeft = pSprite->xPosition + pSprite->hitboxLeftOffset;
-                spriteRight = pSprite->xPosition + pSprite->hitboxRightOffset;
+                spriteTop = a + pSprite->hitboxTopOffset;
+                spriteBottom = a + pSprite->hitboxBottomOffset;
+                asm(""::"r"(a));
+                spriteLeft = b + pSprite->hitboxLeftOffset;
+                spriteRight = b + pSprite->hitboxRightOffset;
+                asm(""::"r"(b));
 
                 if (SpriteUtilCheckObjectsTouching(samusTop, samusBottom, samusLeft, samusRight, spriteTop, spriteBottom, spriteLeft, spriteRight))
                 {
