@@ -15,9 +15,9 @@ MAKER_CODE = 01
 GAME_REVISION = 00
 
 # Binaries
+CPP = cpp
 TOOLCHAIN ?= arm-none-eabi-
 AS = $(TOOLCHAIN)as
-CPP = $(TOOLCHAIN)cpp
 LD = $(TOOLCHAIN)ld
 OBJCOPY = $(TOOLCHAIN)objcopy
 OBJDUMP = $(TOOLCHAIN)objdump
