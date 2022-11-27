@@ -8,6 +8,11 @@
 #define check_samus_turning() ((pData->direction ^ (KEY_RIGHT | KEY_LEFT)) & gButtonInput)
 #define ARRAY_SIZE(a) (sizeof((a)) / sizeof((a)[0]))
 
+#define RED(c) ((c) & 0x1F)
+#define GREEN(c) (((c) & 0x3E0) >> 5)
+#define BLUE(c) do{b=((c) & 0x7C00) >> 10;}while(0)
+#define COLOR(r, g, b) (((b) << 10) | ((g) << 5) | (r))
+
 #define PI 128
 #define sin(a) (sSineTable[(a)])
 #define cos(a) (sSineTable[(a) + PI / 2])
