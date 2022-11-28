@@ -618,7 +618,7 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
 /**
  * @brief ddd4 | 150 | Checks if a sprite is on screen
  * 
- * @param pSprite 
+ * @param pSprite Sprite Data Pointer
  */
 void SpriteCheckOnScreen(struct SpriteData* pSprite)
 {
