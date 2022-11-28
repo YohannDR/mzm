@@ -7,7 +7,9 @@
 
 #include "constants/game_state.h"
 
+#include "structs/bg_clip.h"
 #include "structs/clipdata.h"
+#include "structs/display.h"
 #include "structs/game_state.h"
 #include "structs/sprite.h"
 #include "structs/power_bomb_explosion.h"
@@ -494,7 +496,81 @@ void ProjectileDrawAllStatusTrue(void)
 
 void ProjectileDraw(struct ProjectileData* pProj)
 {
+    // https://decomp.me/scratch/hDI0c
 
+    const u16* src;
+    u16* dst;
+    i32 newSlot;
+    u32 bgPriority;
+    u16 yPosition;
+    u16 xPosition;
+    u16 part1;
+    u16 part2;
+    i32 currSlot;
+    i32 prevSlot;
+    u8 xFlip;
+    u8 yFlip;
+    i32 i;
+    u32 shape;
+    u32 size;
+    i32 partCount;
+    
+    prevSlot = gNextOAMSlot;
+    src = pProj->pOam[pProj->currentAnimationFrame].pFrame;
+
+    partCount = *src++;
+    
+    newSlot = partCount + prevSlot;
+
+    if (newSlot < 0x80)
+    {
+        dst = (u16*)(gOamData + prevSlot);
+
+        yPosition = (pProj->yPosition / 4) - gBG1YPosition / 4;
+        xPosition = (pProj->xPosition / 4) - gBG1XPosition / 4;
+
+        xFlip = pProj->status & PROJ_STATUS_XFLIP;
+        yFlip = pProj->status & PROJ_STATUS_YFLIP;
+
+        bgPriority = (gIORegistersBackup.BG1CNT & 3);
+        if (pProj->status & PROJ_STATUS_HIGH_PRIORITY)
+            bgPriority = 0x0;
+        else
+            bgPriority++;
+
+        for (i = 0; i < partCount; i++)
+        {
+            part1 = *src++;
+            *dst++ = part1;
+            gOamData[prevSlot + i].split.y = part1 + yPosition;
+
+            part2 = *src++;
+            *dst++ = part2;
+            gOamData[prevSlot + i].split.x = part2 + xPosition;
+
+            *dst++ = *src++;
+            gOamData[prevSlot + i].split.priority = bgPriority;
+
+            if (xFlip)
+            {
+                gOamData[prevSlot + i].split.xFlip ^= TRUE;
+                shape = gOamData[prevSlot + i].split.shape;
+                size = gOamData[prevSlot + i].split.size;
+                gOamData[prevSlot + i].split.x = xPosition - (part2 + sOamXFlipOffsets[shape][size] * 8);
+            }
+
+            if (yFlip)
+            {
+                gOamData[prevSlot + i].split.yFlip ^= TRUE;
+                shape = gOamData[prevSlot + i].split.shape;
+                size = gOamData[prevSlot + i].split.size;
+                gOamData[prevSlot + i].split.y = yPosition - (part1 + sOamYFlipOffsets[shape][size] * 8);
+            }
+            
+            dst++;
+        }
+        gNextOAMSlot = partCount + prevSlot;
+    }
 }
 
 void ProjectileCheckDespawn(struct ProjectileData* pProj)
@@ -704,7 +780,125 @@ u32 ProjectileCheckHittingSolidBlock(u32 yPosition, u32 xPosition)
 
 u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
 {
+    // https://decomp.me/scratch/kk4NO
 
+    u16 yPosition;
+    u16 xPosition;
+    u32 clipdata;
+    u32 result;
+    u16 collisionY;
+    u16 collisionX;
+
+    yPosition = pProj->yPosition;
+    xPosition = pProj->xPosition;
+    collisionY = yPosition;
+    collisionX = xPosition;
+
+    clipdata = ClipdataProcess(yPosition, xPosition);
+
+    if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
+        result = COLLISION_SOLID;
+    else
+        return COLLISION_AIR;
+
+    switch (clipdata & 0xFF)
+    {
+        case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
+            collisionY = (yPosition & BLOCK_POSITION_FLAG) - (xPosition & SUB_PIXEL_POSITION_FLAG) - SUB_PIXEL_POSITION_FLAG;
+            collisionX = (xPosition & BLOCK_POSITION_FLAG) - (yPosition & SUB_PIXEL_POSITION_FLAG) - SUB_PIXEL_POSITION_FLAG;
+            result = COLLISION_RIGHT_STEEP_FLOOR_SLOPE;
+            break;
+
+        case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
+            collisionY = (yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) - 0x3F);
+            collisionX = (xPosition & BLOCK_POSITION_FLAG) - (((yPosition & SUB_PIXEL_POSITION_FLAG) << 1) - 0x7E);
+            result = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
+            break;
+
+        case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
+            collisionY = (yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) + 0x1F);
+            collisionX = (xPosition & BLOCK_POSITION_FLAG) - (((yPosition & SUB_PIXEL_POSITION_FLAG) << 1) - 0x3E);
+            result = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
+            break;
+
+        case CLIPDATA_TYPE_LEFT_STEEP_FLOOR_SLOPE:
+            collisionY = (yPosition & BLOCK_POSITION_FLAG) | (xPosition & SUB_PIXEL_POSITION_FLAG);
+            collisionX = (xPosition & BLOCK_POSITION_FLAG) | (yPosition & SUB_PIXEL_POSITION_FLAG);
+            result = COLLISION_LEFT_STEEP_FLOOR_SLOPE;
+            break;
+
+        case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
+            collisionY = (yPosition & BLOCK_POSITION_FLAG) | (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) + 0x1F);
+            collisionX = (xPosition & BLOCK_POSITION_FLAG) + ((yPosition & SUB_PIXEL_POSITION_FLAG) << 1) - 0x3F;
+            result = COLLISION_LEFT_SLIGHT_FLOOR_SLOPE;
+            break;
+
+        case CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE:
+            collisionY = (yPosition & BLOCK_POSITION_FLAG) | ((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1);
+            collisionX = (xPosition & BLOCK_POSITION_FLAG) + (((yPosition & SUB_PIXEL_POSITION_FLAG) << 1));
+            result = COLLISION_LEFT_SLIGHT_FLOOR_SLOPE;
+            break;
+
+        case CLIPDATA_TYPE_PASS_THROUGH_BOTTOM:
+            collisionY = yPosition & BLOCK_POSITION_FLAG;
+            result = COLLISION_PASS_THROUGH_BOTTOM;
+            collisionX = xPosition;
+            break;
+
+        default:
+            collisionY = yPosition & BLOCK_POSITION_FLAG;
+            collisionX = xPosition & BLOCK_POSITION_FLAG;
+            if (!(pProj->status & PROJ_STATUS_XFLIP))
+                collisionX = (xPosition & BLOCK_POSITION_FLAG) + BLOCK_SIZE;
+            break;
+    }
+
+    switch (pProj->direction)
+    {
+        case ACD_DIAGONALLY_UP:
+        case ACD_DIAGONALLY_DOWN:
+            if (result == COLLISION_PASS_THROUGH_BOTTOM)
+                result = COLLISION_AIR;
+            break;
+
+        case ACD_UP:
+            if (result == COLLISION_SOLID)
+                pProj->yPosition = collisionY + BLOCK_SIZE;
+            else
+                result = COLLISION_AIR;
+            break;
+
+        case ACD_DOWN:
+            if (yPosition >= collisionY)
+                pProj->yPosition = collisionY;
+            else
+                result = COLLISION_AIR;
+            break;
+
+        default:
+            if (result != 0xC)
+            {
+                if (pProj->status & PROJ_STATUS_XFLIP)
+                {
+                    if (xPosition >= collisionX)
+                        pProj->xPosition = collisionX;
+                    else
+                        result = COLLISION_AIR;
+                }
+                else
+                {
+                    if (xPosition <= collisionX)
+                        pProj->xPosition = collisionX;
+                    else
+                        result = COLLISION_AIR;
+                }
+            }
+            else
+                result = COLLISION_AIR;
+            break;
+    }
+
+    return result;
 }
 
 /**
