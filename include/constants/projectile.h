@@ -36,11 +36,13 @@
 // Normal beam
 
 #define NORMAL_BEAM_DAMAGE 2
+
 #define CHARGED_NORMAL_BEAM_DAMAGE 8
 
 // Long beam
 
 #define LONG_BEAM_DAMAGE 3
+
 #define CHARGED_LONG_BEAM_DAMAGE 12
 
 // Ice beam
@@ -48,12 +50,20 @@
 #define ICE_BEAM_DAMAGE 3 // Ice
 #define ICE_LONG_BEAM_DAMAGE 4 // Ice | Long
 
+#define CHARGED_ICE_BEAM_DAMAGE 12 // Ice (Charged)
+#define CHARGED_ICE_LONG_BEAM_DAMAGE 16 // Ice | Long (Charged)
+
 // Wave beam damage
 
 #define WAVE_BEAM_DAMAGE 3 // Wave
 #define WAVE_LONG_BEAM_DAMAGE 4 // Wave | Long
 #define WAVE_ICE_BEAM_DAMAGE 4 // Wave | Ice
 #define WAVE_ICE_LONG_BEAM_DAMAGE 5 // Wave | Ice | Long
+
+#define CHARGED_WAVE_BEAM_DAMAGE 12 // Wave (Charged)
+#define CHARGED_WAVE_LONG_BEAM_DAMAGE 16 // Wave | Long (Charged)
+#define CHARGED_WAVE_ICE_BEAM_DAMAGE 16 // Wave | Ice (Charged)
+#define CHARGED_WAVE_ICE_LONG_BEAM_DAMAGE 20 // Wave | Ice | Long (Charged)
 
 // Plasma beam
 
@@ -65,6 +75,15 @@
 #define PLASMA_WAVE_LONG_BEAM_DAMAGE 5 // Plasma | Wave | Long
 #define PLASMA_WAVE_ICE_BEAM_DAMAGE 5 // Plasma | Wave | Ice
 #define PLASMA_WAVE_ICE_LONG_BEAM_DAMAGE 6 // Plasma | Wave | Ice | Long
+
+#define CHARGED_PLASMA_BEAM_DAMAGE 12 // Plasma (Charged)
+#define CHARGED_PLASMA_LONG_BEAM_DAMAGE 16 // Plasma | Long (Charged)
+#define CHARGED_PLASMA_ICE_BEAM_DAMAGE 16 // Plasma | Ice (Charged)
+#define CHARGED_PLASMA_WAVE_BEAM_DAMAGE 16 // Plasma | Wave (Charged)
+#define CHARGED_PLASMA_ICE_LONG_BEAM_DAMAGE 20 // Plasma | Ice | Long (Charged)
+#define CHARGED_PLASMA_WAVE_LONG_BEAM_DAMAGE 20 // Plasma | Wave | Long (Charged)
+#define CHARGED_PLASMA_WAVE_ICE_BEAM_DAMAGE 20 // Plasma | Wave | Ice (Charged)
+#define CHARGED_PLASMA_WAVE_ICE_LONG_BEAM_DAMAGE 24 // Plasma | Wave | Ice | Long (Charged)
 
 // Pistol
 
