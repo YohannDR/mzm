@@ -861,11 +861,16 @@ u32 SpriteUtilCheckVerticalCollisionAtPosition(u16 yPosition, u16 xPosition)
     return blockY;
 }
 
+/**
+ * @brief f47c | 118 | Checks the vertical collision at the position, accouts for slopes
+ * 
+ * @param yPosition Y Position
+ * @param xPosition X Position
+ * @return u32 Block top Y position
+ */
 u32 SpriteUtilCheckVerticalCollisionAtPositionSlopes(u16 yPosition, u16 xPosition)
 {
-    // https://decomp.me/scratch/RabAn
-
-    /*u32 clipdata;
+    u32 clipdata;
     u8 collision;
     u16 blockY;
 
@@ -879,32 +884,32 @@ u32 SpriteUtilCheckVerticalCollisionAtPositionSlopes(u16 yPosition, u16 xPositio
     switch (clipdata & 0xFF)
     {
         case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
-            blockY = (i16)((yPosition & BLOCK_POSITION_FLAG) - ((xPosition & SUB_PIXEL_POSITION_FLAG) - 0x3f));
+            blockY = (i16)((yPosition & 0xffc0) - ((xPosition & 0x3f) - 0x3f));
             collision = COLLISION_RIGHT_STEEP_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
-            blockY = (i16)((yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 0x1) - 0x3F));
+            blockY = (i16)((yPosition & 0xFFC0) - (((xPosition & 0x3f) >> 0x1) - 0x3F));
             collision = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
-            blockY = (i16)((yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 0x1) - 0x1F));
+            blockY = (i16)((yPosition & 0xFFC0) - (((xPosition & 0x3f) >> 0x1) - 0x1F));
             collision = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_LEFT_STEEP_FLOOR_SLOPE:
-            blockY = (yPosition & BLOCK_POSITION_FLAG) | (xPosition & SUB_PIXEL_POSITION_FLAG);
+            blockY = (yPosition & 0xFFC0) | (xPosition & 0x3F);
             collision = COLLISION_LEFT_STEEP_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
-            blockY = (yPosition & BLOCK_POSITION_FLAG) | (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 0x1) + 0x1F); 
+            blockY = (yPosition & 0xFFC0) | (((xPosition & 0x3f) >> 0x1) + 0x1F); 
             collision = COLLISION_LEFT_SLIGHT_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE:
-            blockY = (yPosition & BLOCK_POSITION_FLAG) | (xPosition & SUB_PIXEL_POSITION_FLAG) >> 0x1; 
+            blockY = (yPosition & 0xFFC0) | (xPosition & 0x3f) >> 0x1; 
             collision = COLLISION_LEFT_SLIGHT_FLOOR_SLOPE;
             break;
 
@@ -913,15 +918,15 @@ u32 SpriteUtilCheckVerticalCollisionAtPositionSlopes(u16 yPosition, u16 xPositio
             collision = COLLISION_PASS_THROUGH_BOTTOM;
             
         default:
-            blockY = yPosition & BLOCK_POSITION_FLAG;
+            blockY = yPosition & 0xFFC0;
     }
 
-    if (xPosition >= blockY)
+    if (yPosition >= blockY)
         gPreviousVerticalCollisionCheck = collision;
     else
         gPreviousVerticalCollisionCheck = COLLISION_AIR;
 
-    return blockY;*/
+    return blockY;
 }
 
 /**
