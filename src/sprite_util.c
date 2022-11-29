@@ -1791,7 +1791,7 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
     struct Equipment* pEquipment;
     u16 weakness;
     u16 bbf;
-    u32 damage;
+    u16 damage;
     u8 isDead;
     u8 isft;
 
@@ -1847,15 +1847,15 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
             damage = 0x2;
             bbf = gEquipment.beamBombsActivation;
             if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
-                damage = 0x3;
+                damage++;
             if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
-                damage = (u16)(damage + 0x1);
+                damage++;
             if (gEquipment.beamBombsActivation & BBF_WAVE_BEAM)
-                damage = (u16)(damage + 0x1);
+                damage++;
             if (bbf & BBF_PLASMA_BEAM)
-                damage = (u16)(damage + 0x1);
+                damage++;
 
-            damage = (u16)(damage << 0x2);
+            damage *= 4;
             isDead = ProjectileDealDamage(pSprite, damage);
             if (isDead)
             {
