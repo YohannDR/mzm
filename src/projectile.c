@@ -6,6 +6,7 @@
 #include "data/pointers.h"
 
 #include "constants/game_state.h"
+#include "constants/projectile.h"
 
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"
@@ -573,43 +574,80 @@ void ProjectileDraw(struct ProjectileData* pProj)
     }
 }
 
+/**
+ * @brief 4f578 | f8 | Checks if a projectile should despawn
+ * 
+ * @param pProj Projectile data pointer
+ */
 void ProjectileCheckDespawn(struct ProjectileData* pProj)
 {
-    /*u16 x_pos;
-    u16 y_pos;
-    u16 draw_distance;
+    u16 yPosition;
+    u16 xPosition;
+    u32 drawDistance;
 
-    if ((pProj->status & PROJ_STATUS_EXISTS) == 0x0) return;
+    u16 projTop;
+    u16 projBottom;
+    u16 projLeft;
+    u16 projRight;
 
-    y_pos = pProj->yPosition;
-    x_pos = pProj->xPosition;
-    draw_distance = pProj->draw_distance_offset;
+    u16 bgY;
+    u16 bgX;
+    u16 bgYRange;
+    u16 bgXRange;
 
-    if ((gBG1XPosition + 0x100) - draw_distance < x_pos + 0x100 &&
-        (x_pos + 0x100 < gBG1XPosition + 0x100 + draw_distance + 0x3C0) &&
-        ((gBG1YPosition + 0x100) - draw_distance < y_pos + 0x100) &&
-        (y_pos + 0x100 < gBG1YPosition + 0x100 + draw_distance + 0x280))
+    u16 yDistance;
+    u16 xDistance;
+    u32 offset;
+
+    if (!(pProj->status & PROJ_STATUS_EXISTS))
+        return;
+
+    bgY = gBG1YPosition;
+    bgX = gBG1XPosition;
+
+    yPosition = pProj->yPosition;
+    xPosition = pProj->xPosition;
+    drawDistance = pProj->drawDistanceOffset;
+
+    bgYRange = bgY + BLOCK_SIZE * 4;
+    yDistance = yPosition + BLOCK_SIZE * 4;
+
+    projTop = bgYRange - drawDistance;
+    offset = drawDistance + BLOCK_SIZE * 10;
+    projBottom = bgYRange + offset;
+
+    bgXRange = bgX + BLOCK_SIZE * 4;
+    xDistance = xPosition + BLOCK_SIZE * 4;
+    projLeft = bgXRange - drawDistance;
+
+    drawDistance += BLOCK_SIZE * 15;
+    projRight = bgXRange + drawDistance;
+
+    if (projLeft < xDistance && xDistance < projRight && projTop < yDistance && yDistance < projBottom)
         pProj->status |= PROJ_STATUS_ON_SCREEN;
     else
     {
-        pProj->status &= (PROJ_STATUS_EXISTS | PROJ_STATUS_NOT_DRAWN | PROJ_STATUS_HIGH_PRIORITY | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT | PROJ_STATUS_YFLIP | PROJ_STATUS_XFLIP | PROJ_STATUS_UNKNOWN);
-        if (PROJ_TYPE_SUPER_MISSILE < pProj->type) return;
+        pProj->status &= ~PROJ_STATUS_ON_SCREEN;
 
-        draw_distance = gSamusData.yPosition - 0x48;
-        if (draw_distance < y_pos)
-            y_pos -= draw_distance;
-        else
-            y_pos = draw_distance - y_pos;
-        
-        if (gSamusData.xPosition < x_pos)
-            x_pos -= gSamusData.xPosition;
-        else
-            x_pos = gSamusData.xPosition - x_pos;
-        
-        if (y_pos < 0x301 && x_pos < 0x281) return;
+        if (pProj->type <= PROJ_TYPE_SUPER_MISSILE)
+        {
+            yDistance = gSamusData.yPosition - 0x48;
+            xDistance = gSamusData.xPosition;
 
-        pProj->status = 0x0;
-    }*/
+            if (yPosition > yDistance)
+                yDistance = yPosition - yDistance;
+            else
+                yDistance = yDistance - yPosition;
+
+            if (xPosition > xDistance)
+                xDistance = xPosition - xDistance;
+            else
+                xDistance = xDistance - xPosition;
+
+            if (yDistance > BLOCK_SIZE * 12 || xDistance > BLOCK_SIZE * 10)
+                pProj->status = 0;
+        }
+    }
 }
 
 /**
@@ -982,7 +1020,7 @@ void ProjectileMoveTumbling(struct ProjectileData* pProj)
 {
     u8 timer;
     i16 movement;
-    u32 new_pos;
+    u32 newPosition;
 
     if ((pProj->status & PROJ_STATUS_ON_SCREEN) == 0x0)
         pProj->status = 0x0;
@@ -991,19 +1029,19 @@ void ProjectileMoveTumbling(struct ProjectileData* pProj)
         timer = pProj->timer;
         movement = sTumblingMissileSpeed[timer];
         if (movement == SHORT_MAX)
-            new_pos = sTumblingMissileSpeed[timer - 1] + pProj->yPosition;
+            newPosition = sTumblingMissileSpeed[timer - 1] + pProj->yPosition;
         else
         {
             pProj->timer = timer + 1;
-            new_pos = pProj->yPosition + movement;
+            newPosition = pProj->yPosition + movement;
         }
-        pProj->yPosition = new_pos;
+        pProj->yPosition = newPosition;
 
         if (pProj->status & PROJ_STATUS_XFLIP)
-            new_pos = pProj->xPosition + 0x4;
+            newPosition = pProj->xPosition + 0x4;
         else
-            new_pos = pProj->xPosition - 0x4;
-        pProj->xPosition = new_pos;
+            newPosition = pProj->xPosition - 0x4;
+        pProj->xPosition = newPosition;
     }
 }
 
