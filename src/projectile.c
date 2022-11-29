@@ -778,9 +778,15 @@ u32 ProjectileCheckHittingSolidBlock(u32 yPosition, u32 xPosition)
         return FALSE;
 }
 
+/**
+ * @brief 4fa3c | 1fc | Checks the vertical collision for a projectile
+ * 
+ * @param pProj Projectile data pointer
+ * @return u32 Collision result
+ */
 u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
 {
-    // https://decomp.me/scratch/kk4NO
+    // https://decomp.me/scratch/qaar5
 
     u16 yPosition;
     u16 xPosition;
@@ -788,6 +794,9 @@ u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
     u32 result;
     u16 collisionY;
     u16 collisionX;
+    u32 clip;
+    
+    u16 minus3F = 0xFFC1;
 
     yPosition = pProj->yPosition;
     xPosition = pProj->xPosition;
@@ -796,27 +805,27 @@ u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
 
     clipdata = ClipdataProcess(yPosition, xPosition);
 
-    if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
-        result = COLLISION_SOLID;
-    else
+    clip = clipdata & CLIPDATA_TYPE_SOLID_FLAG;
+    result = COLLISION_SOLID;
+    if (!clip)
         return COLLISION_AIR;
 
     switch (clipdata & 0xFF)
     {
         case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
-            collisionY = (yPosition & BLOCK_POSITION_FLAG) - (xPosition & SUB_PIXEL_POSITION_FLAG) - SUB_PIXEL_POSITION_FLAG;
-            collisionX = (xPosition & BLOCK_POSITION_FLAG) - (yPosition & SUB_PIXEL_POSITION_FLAG) - SUB_PIXEL_POSITION_FLAG;
+            collisionY = (i16)((yPosition & BLOCK_POSITION_FLAG) - ((xPosition & SUB_PIXEL_POSITION_FLAG) - 0x3F));
+            collisionX = (i16)((xPosition & BLOCK_POSITION_FLAG) - ((yPosition & SUB_PIXEL_POSITION_FLAG) - SUB_PIXEL_POSITION_FLAG));
             result = COLLISION_RIGHT_STEEP_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
-            collisionY = (yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) - 0x3F);
+            collisionY = (i16)((yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) - 0x3F));
             collisionX = (xPosition & BLOCK_POSITION_FLAG) - (((yPosition & SUB_PIXEL_POSITION_FLAG) << 1) - 0x7E);
             result = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
-            collisionY = (yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) + 0x1F);
+            collisionY = (i16)((yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) - 0x1F));
             collisionX = (xPosition & BLOCK_POSITION_FLAG) - (((yPosition & SUB_PIXEL_POSITION_FLAG) << 1) - 0x3E);
             result = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
             break;
@@ -829,7 +838,7 @@ u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
 
         case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
             collisionY = (yPosition & BLOCK_POSITION_FLAG) | (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) + 0x1F);
-            collisionX = (xPosition & BLOCK_POSITION_FLAG) + ((yPosition & SUB_PIXEL_POSITION_FLAG) << 1) - 0x3F;
+            collisionX = (xPosition & BLOCK_POSITION_FLAG) + (((yPosition & SUB_PIXEL_POSITION_FLAG) << 1) + minus3F);
             result = COLLISION_LEFT_SLIGHT_FLOOR_SLOPE;
             break;
 
@@ -842,14 +851,13 @@ u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
         case CLIPDATA_TYPE_PASS_THROUGH_BOTTOM:
             collisionY = yPosition & BLOCK_POSITION_FLAG;
             result = COLLISION_PASS_THROUGH_BOTTOM;
-            collisionX = xPosition;
             break;
 
         default:
             collisionY = yPosition & BLOCK_POSITION_FLAG;
             collisionX = xPosition & BLOCK_POSITION_FLAG;
             if (!(pProj->status & PROJ_STATUS_XFLIP))
-                collisionX = (xPosition & BLOCK_POSITION_FLAG) + BLOCK_SIZE;
+                collisionX += BLOCK_SIZE;
             break;
     }
 
@@ -1893,7 +1901,7 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
     if (pProj->movementStage == 0x2)
     {
         gCurrentClipdataAffectingAction = CAA_BEAM;
-        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != COLLISION_AIR) // Check for collision
         {
             pProj->status = 0x0;
             ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
@@ -1907,7 +1915,7 @@ void ProjectileProcessNormalBeam(struct ProjectileData* pProj)
     else if (pProj->movementStage == 0x1)
     {
         gCurrentClipdataAffectingAction = CAA_BEAM;
-        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != 0x0) // Check for collision
+        if (ProjectileCheckVerticalCollisionAtPosition(pProj) != COLLISION_AIR) // Check for collision
         {
             pProj->status = 0x0;
             ParticleSet(pProj->yPosition, pProj->xPosition, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
