@@ -784,7 +784,7 @@ void Mellow(void)
         SpriteUtilUpdateFreezeTimer();
     else
     {
-        if (0x9 < (pSprite->invicibilityStunFlashTimer & 0x7F) && pSprite->pose < 0x62)
+        if (0x9 < (pSprite->invincibilityStunFlashTimer & 0x7F) && pSprite->pose < 0x62)
         {
             if (pSprite->animationDurationCounter == 0x0)
                 return;

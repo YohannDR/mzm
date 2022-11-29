@@ -148,7 +148,7 @@ void RidleyUpdateHealth(void)
             break;
 
         default:
-            if ((gCurrentSprite.invicibilityStunFlashTimer & 0x7F) == 0x10)
+            if ((gCurrentSprite.invincibilityStunFlashTimer & 0x7F) == 0x10)
                 SoundPlayNotAlreadyPlaying(0x1ED);
 
             if (gCurrentSprite.health == 0x0 && gSubSpriteData1.health != 0x0)

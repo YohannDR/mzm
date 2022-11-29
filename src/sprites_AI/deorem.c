@@ -491,10 +491,10 @@ void DeoremEye(void)
     if (gCurrentSprite.pose < 0x68)
     {
         ramSlot = gCurrentSprite.primarySpriteRAMSlot;
-        isft = gCurrentSprite.invicibilityStunFlashTimer & 0x7F;
+        isft = gCurrentSprite.invincibilityStunFlashTimer & 0x7F;
         if (isft && gSpriteData[ramSlot].pose < 0x62)
         {
-            gSpriteData[ramSlot].invicibilityStunFlashTimer = gCurrentSprite.invicibilityStunFlashTimer;
+            gSpriteData[ramSlot].invincibilityStunFlashTimer = gCurrentSprite.invincibilityStunFlashTimer;
             if (isft == 0x10)
             {
                 // gSpriteData[ramSlot].pOam = deorem_oam_2d7a84;

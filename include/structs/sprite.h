@@ -50,7 +50,7 @@ struct SpriteData {
     u8 drawDistanceBottomOffset;
     u8 drawDistanceHorizontalOffset;
     u8 oamRotation;
-    u8 invicibilityStunFlashTimer;
+    u8 invincibilityStunFlashTimer;
     u8 timer;
     u8 workVariable;
     u8 workVariable2;

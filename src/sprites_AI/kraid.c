@@ -342,10 +342,10 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
                 else
                 {
                     pProj->status = 0x0;
-                    if ((pSprite->invicibilityStunFlashTimer & 0x7F) <= 0x2)
+                    if ((pSprite->invincibilityStunFlashTimer & 0x7F) <= 0x2)
                     {
-                        pSprite->invicibilityStunFlashTimer &= 0x80;
-                        pSprite->invicibilityStunFlashTimer |= 0x3;
+                        pSprite->invincibilityStunFlashTimer &= 0x80;
+                        pSprite->invincibilityStunFlashTimer |= 0x3;
                     }
                     ParticleSet(projY, projX, PE_HITTING_SOMETHING_INVINCIBLE);
                     break;
@@ -356,14 +356,14 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
                 
                 if (!closed)
                 {
-                    pSprite->invicibilityStunFlashTimer &= 0x80;
-                    pSprite->invicibilityStunFlashTimer |= 0x11;
+                    pSprite->invincibilityStunFlashTimer &= 0x80;
+                    pSprite->invincibilityStunFlashTimer |= 0x11;
                     SoundPlay(0x1CF);
                 }
                 else
                 {
-                    pSprite->invicibilityStunFlashTimer &= 0x80;
-                    pSprite->invicibilityStunFlashTimer |= 0x2;
+                    pSprite->invincibilityStunFlashTimer &= 0x80;
+                    pSprite->invincibilityStunFlashTimer |= 0x2;
                     gSubSpriteData1.workVariable2 = 0xB4;
                     damage = 0x0;
                 }
@@ -410,10 +410,10 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
             else
                 pProj->status = 0x0;
 
-            if ((pSprite->invicibilityStunFlashTimer & 0x7F) <= 0x2)
+            if ((pSprite->invincibilityStunFlashTimer & 0x7F) <= 0x2)
             {
-                pSprite->invicibilityStunFlashTimer &= 0x80;
-                pSprite->invicibilityStunFlashTimer |= 0x3;
+                pSprite->invincibilityStunFlashTimer &= 0x80;
+                pSprite->invincibilityStunFlashTimer |= 0x3;
             }
             ParticleSet(projY, projX, PE_HITTING_SOMETHING_INVINCIBLE);
             break;
@@ -1483,7 +1483,7 @@ void KraidDyingInit(void)
     gCurrentSprite.workVariable = 0x0;
     gCurrentSprite.workVariable2 = 0xC8;
     gCurrentSprite.health = 0x1;
-    gCurrentSprite.invicibilityStunFlashTimer = 0x8;
+    gCurrentSprite.invincibilityStunFlashTimer = 0x8;
     gCurrentSprite.drawOrder = 0xC;
     EventFunction(EVENT_ACTION_SETTING, EVENT_KRAID_KILLED);
     MinimapUpdateChunk(EVENT_KRAID_KILLED);

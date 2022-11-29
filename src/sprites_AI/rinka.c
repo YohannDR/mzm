@@ -75,7 +75,7 @@ void RinkaRespawn(void)
 
     RinkaSpawningInit();
     gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
-    gCurrentSprite.invicibilityStunFlashTimer = 0x0;
+    gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     gCurrentSprite.paletteRow = 0x0;
     gCurrentSprite.frozenPaletteRowOffset = 0x0;
     gCurrentSprite.absolutePaletteRow = 0x0;
@@ -384,7 +384,7 @@ void RinkaMotherBrainRespawn(void)
     gCurrentSprite.xPosition = spriteX;
     RinkaMotherBrainSpawningInit();
     gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
-    gCurrentSprite.invicibilityStunFlashTimer = 0x0;
+    gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     gCurrentSprite.paletteRow = 0x0;
     gCurrentSprite.frozenPaletteRowOffset = 0x1;
     gCurrentSprite.absolutePaletteRow = 0x0;

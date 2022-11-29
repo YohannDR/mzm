@@ -195,7 +195,7 @@ void MotherBrainMainLoop(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
 
-        gCurrentSprite.invicibilityStunFlashTimer = 0x78;
+        gCurrentSprite.invincibilityStunFlashTimer = 0x78;
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.health = 0x1;
@@ -233,7 +233,7 @@ void MotherBrainMainLoop(void)
         if (gCurrentSprite.currentAnimationFrame == 0x1 && gCurrentSprite.animationDurationCounter == 0x1)
             SoundPlay(0x2BD); // Mother brain idle
 
-        if ((gSpriteData[eyeRamSlot].invicibilityStunFlashTimer & 0x7F) == 0x10)
+        if ((gSpriteData[eyeRamSlot].invincibilityStunFlashTimer & 0x7F) == 0x10)
         {
             SoundPlay(0x2BE); // Mother brain hurt
             if (gSpriteData[eyeRamSlot].health < gBossWork.work4)
@@ -383,11 +383,11 @@ void MotherBrainDeath(void)
     eyeRamSlot = gSubSpriteData1.workVariable5;
     bottomRamSlot = gSubSpriteData1.workVariable6;
 
-    if (gCurrentSprite.invicibilityStunFlashTimer != 0x0)
+    if (gCurrentSprite.invincibilityStunFlashTimer != 0x0)
     {
         gSpriteData[eyeRamSlot].paletteRow = gCurrentSprite.paletteRow;
         gSpriteData[bottomRamSlot].paletteRow = gCurrentSprite.paletteRow;
-        if (!(gCurrentSprite.invicibilityStunFlashTimer & 0x3F))
+        if (!(gCurrentSprite.invincibilityStunFlashTimer & 0x3F))
             make_background_flash(0x3); // Quick flash || Undefined
     }
     else
@@ -577,7 +577,7 @@ void MotherBrainSpawnBlock(void)
  */
 void MotherBrainPartGlassStage1(void)
 {
-    gCurrentSprite.invicibilityStunFlashTimer = 0x0;
+    gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     // 3/4 of health
     if (gCurrentSprite.health <= (gBossWork.work3 * 3) >> 2)
     {
@@ -594,7 +594,7 @@ void MotherBrainPartGlassStage1(void)
  */
 void MotherBrainPartGlassStage2(void)
 {
-    gCurrentSprite.invicibilityStunFlashTimer = 0x0;
+    gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     // 2/4 of health
     if (gCurrentSprite.health <= gBossWork.work3 / 2)
     {
@@ -611,7 +611,7 @@ void MotherBrainPartGlassStage2(void)
  */
 void MotherBrainPartGlassStage3(void)
 {
-    gCurrentSprite.invicibilityStunFlashTimer = 0x0;
+    gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     // 1/4 of health
     if (gCurrentSprite.health <= gBossWork.work3 / 4)
     {
@@ -628,7 +628,7 @@ void MotherBrainPartGlassStage3(void)
  */
 void MotherBrainPartISFT(void)
 {
-    gCurrentSprite.invicibilityStunFlashTimer = 0x0;
+    gCurrentSprite.invincibilityStunFlashTimer = 0x0;
 }
 
 /**
@@ -637,7 +637,7 @@ void MotherBrainPartISFT(void)
  */
 void MotherBrainPartSpawnGlassBreaking(void)
 {
-    gCurrentSprite.invicibilityStunFlashTimer = 0x0;
+    gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     gCurrentSprite.pose = MOTHER_BRAIN_PART_POSE_GLASS_BROKEN;
     gSubSpriteData1.workVariable3 = 0x1;
     // Spawn glass

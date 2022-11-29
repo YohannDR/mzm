@@ -826,7 +826,7 @@ u8 SpacePirateCheckSamusInShootingRange(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.invicibilityStunFlashTimer & 0x7F && gSpriteDrawOrder[4] == 0x0)
+        if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F && gSpriteDrawOrder[4] == 0x0)
         {
             gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
             return TRUE;
@@ -834,7 +834,7 @@ u8 SpacePirateCheckSamusInShootingRange(void)
     }
     else
     {
-        if (gCurrentSprite.invicibilityStunFlashTimer & 0x7F && gSpriteDrawOrder[4] == 0x1)
+        if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F && gSpriteDrawOrder[4] == 0x1)
         {
             gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
             return TRUE;
@@ -887,14 +887,14 @@ u8 SpacePirateDetectSamusWhileCrawling(void)
     oldPose = gCurrentSprite.pose;
 
     if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2) && gAlarmTimer > 0x1DE)
-        gCurrentSprite.invicibilityStunFlashTimer++;
+        gCurrentSprite.invincibilityStunFlashTimer++;
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         if (gSpriteDrawOrder[2] == 0x1 && gSpriteDrawOrder[1] == 0x1)
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
 
-        if (gCurrentSprite.invicibilityStunFlashTimer & 0x7F)
+        if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
         {
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
             if (gSpriteDrawOrder[4] == 0x0)
@@ -906,7 +906,7 @@ u8 SpacePirateDetectSamusWhileCrawling(void)
         if (gSpriteDrawOrder[2] == 0x1 && gSpriteDrawOrder[1] == 0x0)
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
 
-        if (gCurrentSprite.invicibilityStunFlashTimer & 0x7F)
+        if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
         {
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
             if (gSpriteDrawOrder[4] == 0x1)
@@ -940,9 +940,9 @@ u8 SpacePirateClimbingCheckWallJumpOrFire(void)
     xPosition = gCurrentSprite.xPosition;
 
     if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2) && gAlarmTimer > 0x1DE)
-        gCurrentSprite.invicibilityStunFlashTimer++;
+        gCurrentSprite.invincibilityStunFlashTimer++;
 
-    if (gSpriteDrawOrder[2] == 0x1 || gCurrentSprite.invicibilityStunFlashTimer & 0x7F)
+    if (gSpriteDrawOrder[2] == 0x1 || gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
     {
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
 

@@ -164,10 +164,10 @@ void PistonCheckProjectile(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
-        if ((gCurrentSprite.invicibilityStunFlashTimer & 0x7F) == 0x10)
+        if ((gCurrentSprite.invincibilityStunFlashTimer & 0x7F) == 0x10)
         {
             // Projectile detected
-            gCurrentSprite.invicibilityStunFlashTimer &= 0x80;
+            gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
             gCurrentSprite.health = 0x100;
 
             gCurrentSprite.pOam = sPistonOAM_Opening;

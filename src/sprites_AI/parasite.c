@@ -1215,7 +1215,7 @@ void ParasiteProjectilesCollision(struct SpriteData* pSprite)
     u16 spriteLeft;
     u16 spriteRight;
 
-    if (pSprite->invicibilityStunFlashTimer & 0x80)
+    if (pSprite->invincibilityStunFlashTimer & 0x80)
         pSprite->pose = PARASITE_POSE_DYING_INIT;
     else
     {
@@ -1248,7 +1248,7 @@ void ParasiteProjectilesCollision(struct SpriteData* pSprite)
             pSprite->pose = PARASITE_POSE_DYING_INIT;
         else
         {
-            pSprite->invicibilityStunFlashTimer = 0x0;
+            pSprite->invincibilityStunFlashTimer = 0x0;
             pSprite->health = 0x1;
             pSprite->pose = PARASITE_POSE_EXPULSED_INIT;
 
@@ -1273,7 +1273,7 @@ void ParasiteMultiple(void)
 
     pSprite = &gCurrentSprite;
 
-    if (pSprite->invicibilityStunFlashTimer & 0x7F && pSprite->pose < PARASITE_POSE_DYING)
+    if (pSprite->invincibilityStunFlashTimer & 0x7F && pSprite->pose < PARASITE_POSE_DYING)
         ParasiteProjectilesCollision(pSprite);
 
     switch (pSprite->pose)
@@ -1361,7 +1361,7 @@ void Parasite(void)
 
     pSprite = &gCurrentSprite;
 
-    if (pSprite->invicibilityStunFlashTimer & 0x7F && pSprite->pose < PARASITE_POSE_DYING)
+    if (pSprite->invincibilityStunFlashTimer & 0x7F && pSprite->pose < PARASITE_POSE_DYING)
         ParasiteProjectilesCollision(pSprite);
 
     switch (pSprite->pose)

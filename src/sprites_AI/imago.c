@@ -133,7 +133,7 @@ void ImagoCoreFlashingAnim(void)
     u8 palette;
     u8 delay;
 
-    if (!(gCurrentSprite.invicibilityStunFlashTimer & 0x7F))
+    if (!(gCurrentSprite.invincibilityStunFlashTimer & 0x7F))
     {
         // Update delay
         if (gCurrentSprite.oamScaling != 0x0)

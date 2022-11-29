@@ -160,9 +160,9 @@ void Geron(void)
             else
             {
                 // Check should shake 
-                if (gCurrentSprite.invicibilityStunFlashTimer & 0x7F)
+                if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
                 {
-                    if ((gCurrentSprite.invicibilityStunFlashTimer & 0x7F) == 0x2)
+                    if ((gCurrentSprite.invincibilityStunFlashTimer & 0x7F) == 0x2)
                     {
                         // Set shaking
                         gCurrentSprite.pOam = sGeronOAM_Shaking;

@@ -853,7 +853,7 @@ void Metroid(void)
     }
     else
     {
-        if ((gCurrentSprite.invicibilityStunFlashTimer & 0x7F) == 0x2)
+        if ((gCurrentSprite.invincibilityStunFlashTimer & 0x7F) == 0x2)
         {
             if (gCurrentSprite.health == gCurrentSprite.yPositionSpawn)
             {

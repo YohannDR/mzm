@@ -256,7 +256,7 @@ u8 RuinsTestCheckHitByChargedPistol(void)
  */
 u8 RuinsTestCheckSymbolShooted(void)
 {
-    if (gCurrentSprite.invicibilityStunFlashTimer != 0x0 && gCurrentSprite.health != 0x64)
+    if (gCurrentSprite.invincibilityStunFlashTimer != 0x0 && gCurrentSprite.health != 0x64)
     {
         SoundPlay(0x1D9);
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -273,7 +273,7 @@ u8 RuinsTestCheckSymbolShooted(void)
             gCurrentSprite.samusCollision = SSC_NONE;
 
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-            gCurrentSprite.invicibilityStunFlashTimer += 0x3C;
+            gCurrentSprite.invincibilityStunFlashTimer += 0x3C;
 
             return TRUE;
         }
@@ -897,7 +897,7 @@ void RuinsTestMoveToCenter(void)
     u16 spriteY;
     u16 targetY;
 
-    if (!(gCurrentSprite.invicibilityStunFlashTimer & 0x7F))
+    if (!(gCurrentSprite.invincibilityStunFlashTimer & 0x7F))
     {
         targetY = gBossWork.work1;
         targetX = gBossWork.work2;
@@ -1096,7 +1096,7 @@ void RuinsTestGhostIdle(void)
 
     if (gSubSpriteData1.workVariable3 > RUINS_TEST_FIGHT_STAGE_GHOST_AT_CENTER)
     {
-        if (gCurrentSprite.invicibilityStunFlashTimer == 0x0)
+        if (gCurrentSprite.invincibilityStunFlashTimer == 0x0)
         {
             gCurrentSprite.timer--;
             if (gCurrentSprite.timer == 0x0)
@@ -1118,9 +1118,9 @@ void RuinsTestGhostIdle(void)
         ramSlot = gCurrentSprite.primarySpriteRAMSlot;
         gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition;
         gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition;
-        gCurrentSprite.invicibilityStunFlashTimer = gSpriteData[ramSlot].invicibilityStunFlashTimer;
+        gCurrentSprite.invincibilityStunFlashTimer = gSpriteData[ramSlot].invincibilityStunFlashTimer;
 
-        if (gCurrentSprite.invicibilityStunFlashTimer != 0x0)
+        if (gCurrentSprite.invincibilityStunFlashTimer != 0x0)
             gCurrentSprite.status &= ~SPRITE_STATUS_ALPHA_BLENDING;
         else
             gCurrentSprite.status |= SPRITE_STATUS_ALPHA_BLENDING;

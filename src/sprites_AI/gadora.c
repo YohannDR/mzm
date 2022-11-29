@@ -411,7 +411,7 @@ void GadoraEye(void)
             {
                 // Make vulnerable
                 gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
-                if ((gCurrentSprite.invicibilityStunFlashTimer & 0x7F) == 0x10)
+                if ((gCurrentSprite.invincibilityStunFlashTimer & 0x7F) == 0x10)
                     gSpriteData[ramSlot].timer = 0x0; // Force close eye if hit
             }
             else

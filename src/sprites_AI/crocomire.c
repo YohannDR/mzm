@@ -223,7 +223,7 @@ void CrocomirePart(void)
     {
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.pose = CROCOMIRE_PART_POSE_DYING;
-        gCurrentSprite.invicibilityStunFlashTimer = gSpriteData[ramSlot].invicibilityStunFlashTimer;
+        gCurrentSprite.invincibilityStunFlashTimer = gSpriteData[ramSlot].invincibilityStunFlashTimer;
     }
 
     if (gCurrentSprite.pose == 0x0)

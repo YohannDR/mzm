@@ -95,7 +95,7 @@ void WorkerRobotSleeping(void)
 {
     if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition) == COLLISION_AIR)
         gCurrentSprite.pose = WORKER_ROBOT_POSE_FALLING_SLEEPING_INIT;
-    else if (gCurrentSprite.invicibilityStunFlashTimer & 0x7F)
+    else if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
         gCurrentSprite.pose = WORKER_ROBOT_POSE_WAKING_UP_INIT;
 }
 

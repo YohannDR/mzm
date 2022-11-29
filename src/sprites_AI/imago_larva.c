@@ -47,7 +47,7 @@ void ImagoLarvaUpdatePalette(void)
     u8 timer;
     u8 timerLimit;
     
-    if (!(gCurrentSprite.invicibilityStunFlashTimer & 0x7F))
+    if (!(gCurrentSprite.invincibilityStunFlashTimer & 0x7F))
     {
         gCurrentSprite.workVariable2++;
         timer = gCurrentSprite.workVariable2;
@@ -391,8 +391,8 @@ void ImagoLarvaDyingInit(struct SubSpriteData* pSub)
 
     gCurrentSprite.pose = IMAGO_LARVA_POSE_DYING;
     gCurrentSprite.timer = 0x64;
-    gCurrentSprite.invicibilityStunFlashTimer &= 0x80;
-    gCurrentSprite.invicibilityStunFlashTimer |= gCurrentSprite.timer;
+    gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
+    gCurrentSprite.invincibilityStunFlashTimer |= gCurrentSprite.timer;
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.health = 0x1;
 
@@ -591,23 +591,23 @@ void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub)
         else
             gCurrentSprite.hitboxBottomOffset = 0x0;
 
-        if (gCurrentSprite.invicibilityStunFlashTimer & 0x7F)
+        if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
         {
             gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
-            gCurrentSprite.invicibilityStunFlashTimer &= 0x80;
+            gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
             gCurrentSprite.health = 0xFF;
         }
     }
     else if (pSub->xPosition < gSamusData.xPosition)
     {
-        if (gCurrentSprite.invicibilityStunFlashTimer & 0x7F)
+        if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
         {
             gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
-            gCurrentSprite.invicibilityStunFlashTimer &= 0x80;
+            gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
             gCurrentSprite.health = 0xFF;
         }
     }
-    else if (gCurrentSprite.invicibilityStunFlashTimer & 0x7F)
+    else if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
     {
         // Hit by something, check should retreat
         if (!pSub->workVariable2)
@@ -640,7 +640,7 @@ void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub)
         }
 
         gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
-        gCurrentSprite.invicibilityStunFlashTimer &= 0x80;
+        gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
         gCurrentSprite.health = 0xFF;
     }
 }
@@ -935,7 +935,7 @@ void ImagoLarvaPart(void)
         // Set dead
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_DEAD;
-        gCurrentSprite.invicibilityStunFlashTimer = gSpriteData[ramSlot].invicibilityStunFlashTimer;
+        gCurrentSprite.invincibilityStunFlashTimer = gSpriteData[ramSlot].invincibilityStunFlashTimer;
     }
 
     switch (gCurrentSprite.pose)

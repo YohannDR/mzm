@@ -944,7 +944,7 @@ void AcidWormDeathGFXInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = ACID_WORM_POSE_DYING_ANIM;
-    gCurrentSprite.invicibilityStunFlashTimer = 0x50;
+    gCurrentSprite.invincibilityStunFlashTimer = 0x50;
 }
 
 /**
@@ -958,9 +958,9 @@ void AcidWormDeathFlashingAnim(void)
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     AcidWormSyncHeadPosition();
 
-    if (gCurrentSprite.invicibilityStunFlashTimer & 0x7f)
+    if (gCurrentSprite.invincibilityStunFlashTimer & 0x7f)
     {
-        isft = --gCurrentSprite.invicibilityStunFlashTimer;
+        isft = --gCurrentSprite.invincibilityStunFlashTimer;
         
         if (!(isft & 0x3))
         {
@@ -1193,8 +1193,8 @@ void AcidWormBodyMove(void) {
 
     if ((gCurrentSprite.roomSlot == 0x2) && (gCurrentSprite.health < 0x400))
     {
-        gSpriteData[slot].invicibilityStunFlashTimer = gCurrentSprite.invicibilityStunFlashTimer;
-        gCurrentSprite.invicibilityStunFlashTimer &= 0x80;
+        gSpriteData[slot].invincibilityStunFlashTimer = gCurrentSprite.invincibilityStunFlashTimer;
+        gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
         health = 0x400 - gCurrentSprite.health;
         if (gSpriteData[slot].health > health)
         {
@@ -1257,8 +1257,8 @@ void AcidWormBodyMainLoop(void)
             return;
         if (gCurrentSprite.health < 0x400)
         {
-            gSpriteData[slot].invicibilityStunFlashTimer = gCurrentSprite.invicibilityStunFlashTimer;
-            gCurrentSprite.invicibilityStunFlashTimer &= 0x80;
+            gSpriteData[slot].invincibilityStunFlashTimer = gCurrentSprite.invincibilityStunFlashTimer;
+            gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
             health2 = 0x400 - gCurrentSprite.health;
             health = gSpriteData[slot].health;
             if (gSpriteData[slot].health > health2)
@@ -1305,7 +1305,7 @@ void AcidWormBodyDeath(void)
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1; // Remove collision
     AcidWormSyncHeadPosition();
 
-    if (gSpriteData[ramSlot].invicibilityStunFlashTimer != 0x0)
+    if (gSpriteData[ramSlot].invincibilityStunFlashTimer != 0x0)
         gCurrentSprite.paletteRow = gSpriteData[ramSlot].paletteRow; // Flashing effect
     else
     {

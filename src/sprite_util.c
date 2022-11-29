@@ -38,7 +38,7 @@ void SpriteUtilInitLocationText(void)
         gSpriteData[0].drawOrder = 0x1;
         gSpriteData[0].pose = 0x0;
         gSpriteData[0].health = 0x0;
-        gSpriteData[0].invicibilityStunFlashTimer = 0x0;
+        gSpriteData[0].invincibilityStunFlashTimer = 0x0;
         gSpriteData[0].paletteRow = 0x0;
         gSpriteData[0].frozenPaletteRowOffset = 0x0;
         gSpriteData[0].absolutePaletteRow = 0x0;
@@ -1883,14 +1883,14 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
                 pSprite->pose = 0x65;
 
             pSprite->ignoreSamusCollisionTimer = 0x1;
-            pSprite->invicibilityStunFlashTimer = pSprite->invicibilityStunFlashTimer & 0x80 | 0x11;
+            pSprite->invincibilityStunFlashTimer = pSprite->invincibilityStunFlashTimer & 0x80 | 0x11;
             pSprite->properties |= SP_DAMAGED;
             return dct;
         }
 
         isft = 0x3;
-        if ((pSprite->invicibilityStunFlashTimer & 0x7F) < isft)
-            pSprite->invicibilityStunFlashTimer = pSprite->invicibilityStunFlashTimer & 0x80 | 0x3;
+        if ((pSprite->invincibilityStunFlashTimer & 0x7F) < isft)
+            pSprite->invincibilityStunFlashTimer = pSprite->invincibilityStunFlashTimer & 0x80 | 0x3;
         dct = DCT_NONE;
     }
 
@@ -2176,9 +2176,9 @@ void SpriteUtilUpdateStunTimer(struct SpriteData* pSprite)
 {
     u8 isft;
 
-    if (pSprite->invicibilityStunFlashTimer & 0x7F)
+    if (pSprite->invincibilityStunFlashTimer & 0x7F)
     {
-        isft = pSprite->invicibilityStunFlashTimer = pSprite->invicibilityStunFlashTimer - 0x1;
+        isft = pSprite->invincibilityStunFlashTimer = pSprite->invincibilityStunFlashTimer - 0x1;
         if (!(isft & 0x3))
         {
             if (isft & 0x4)
@@ -2507,7 +2507,7 @@ void SpriteUtilSpriteDeath(u8 deathType, u16 yPosition, u16 xPosition, u8 playSo
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.pose = 0x0;
             gCurrentSprite.health = 0x0;
-            gCurrentSprite.invicibilityStunFlashTimer = 0x0;
+            gCurrentSprite.invincibilityStunFlashTimer = 0x0;
             gCurrentSprite.paletteRow = 0x0;
             gCurrentSprite.frozenPaletteRowOffset = 0x0;
             gCurrentSprite.absolutePaletteRow = 0x0;
@@ -2541,7 +2541,7 @@ u8 SpriteUtilIsSpriteStunned(void)
     if (diff < DIFF_HARD)
         stunTimer = 0x9;
 
-    if (((gCurrentSprite.invicibilityStunFlashTimer & 0x7F) > stunTimer) && gCurrentSprite.pose < 0x62)
+    if (((gCurrentSprite.invincibilityStunFlashTimer & 0x7F) > stunTimer) && gCurrentSprite.pose < 0x62)
     {
         if (gCurrentSprite.animationDurationCounter != 0x0)
             gCurrentSprite.animationDurationCounter--;

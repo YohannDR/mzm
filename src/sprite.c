@@ -884,7 +884,7 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
             pSprite->drawOrder = 0x4;
             pSprite->pose = 0x0;
             pSprite->health = 0x0;
-            pSprite->invicibilityStunFlashTimer = 0x0;
+            pSprite->invincibilityStunFlashTimer = 0x0;
             pSprite->paletteRow = 0x0;
             pSprite->frozenPaletteRowOffset = 0x0;
             pSprite->absolutePaletteRow = 0x0;
@@ -936,7 +936,7 @@ u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yP
             pSprite->drawOrder = 0x4;
             pSprite->pose = 0x0;
             pSprite->health = status;
-            pSprite->invicibilityStunFlashTimer = 0x0;
+            pSprite->invincibilityStunFlashTimer = 0x0;
             pSprite->paletteRow = 0x0;
             pSprite->frozenPaletteRowOffset = 0x0;
             pSprite->absolutePaletteRow = 0x0;
@@ -990,7 +990,7 @@ u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 x
             pSprite->drawOrder = 0x4;
             pSprite->pose = 0x0;
             pSprite->health = status;
-            pSprite->invicibilityStunFlashTimer = 0x0;
+            pSprite->invincibilityStunFlashTimer = 0x0;
             pSprite->paletteRow = 0x0;
             pSprite->frozenPaletteRowOffset = 0x0;
             pSprite->absolutePaletteRow = 0x0;
@@ -1045,7 +1045,7 @@ u8 SpriteSpawnDropFollowers(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u1
             pSprite->drawOrder = 0x4;
             pSprite->pose = 0x0;
             pSprite->health = status;
-            pSprite->invicibilityStunFlashTimer = 0x0;
+            pSprite->invincibilityStunFlashTimer = 0x0;
             pSprite->paletteRow = 0x0;
             pSprite->frozenPaletteRowOffset = 0x0;
             pSprite->absolutePaletteRow = 0x0;

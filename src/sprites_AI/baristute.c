@@ -533,7 +533,7 @@ void Baristute(void)
     }
 
     //Check update palette
-    if (gCurrentSprite.invicibilityStunFlashTimer & 0x7F)
+    if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
     {
         // Damaged
         spawnHealth = sPrimarySpriteStats[gCurrentSprite.spriteID][0];

@@ -42,7 +42,7 @@ void SpawnChozoStatueMovement(u8 stage)
             gSpriteData[ramSlot].bgPriority = gCurrentSprite.bgPriority;
             gSpriteData[ramSlot].pose = 0x0;
             gSpriteData[ramSlot].health = 0x0;
-            gSpriteData[ramSlot].invicibilityStunFlashTimer = 0x0;
+            gSpriteData[ramSlot].invincibilityStunFlashTimer = 0x0;
             gSpriteData[ramSlot].paletteRow = gCurrentSprite.paletteRow;
             gSpriteData[ramSlot].frozenPaletteRowOffset = gCurrentSprite.frozenPaletteRowOffset;
             gSpriteData[ramSlot].absolutePaletteRow = gCurrentSprite.absolutePaletteRow;

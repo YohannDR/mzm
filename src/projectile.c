@@ -1064,7 +1064,7 @@ void ProjectileCheckHittingSprite(void)
         pSprite = gSpriteData;
         while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
         {
-            if ((pSprite->status & status) == SPRITE_STATUS_EXISTS && pSprite->health != 0x0 && (pSprite->invicibilityStunFlashTimer & 0x80) == 0x0)
+            if ((pSprite->status & status) == SPRITE_STATUS_EXISTS && pSprite->health != 0x0 && (pSprite->invincibilityStunFlashTimer & 0x80) == 0x0)
             {
                 spriteY = pSprite->yPosition;
                 spriteX = pSprite->xPosition;
@@ -1354,7 +1354,7 @@ u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage)
         pSprite->ignoreSamusCollisionTimer = 0x1;
     }
 
-    pSprite->invicibilityStunFlashTimer = pSprite->invicibilityStunFlashTimer & 0x80 | 0x11;
+    pSprite->invincibilityStunFlashTimer = pSprite->invincibilityStunFlashTimer & 0x80 | 0x11;
     pSprite->properties |= SP_DAMAGED;
     return freeze_timer;
 }
@@ -1390,8 +1390,8 @@ u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
         isDead++;
     }
 
-    pSprite->invicibilityStunFlashTimer &= 0x80; 
-    pSprite->invicibilityStunFlashTimer |= 0x11;
+    pSprite->invincibilityStunFlashTimer &= 0x80; 
+    pSprite->invincibilityStunFlashTimer |= 0x11;
     pSprite->properties |= SP_DAMAGED;
     return isDead;
 }
@@ -1407,10 +1407,10 @@ struct SpriteData* ProjectileHitSpriteImmuneToProjectiles(struct SpriteData* pSp
     u8 isft;
 
     isft = 0x2; // Needed to force a bcs
-    if ((pSprite->invicibilityStunFlashTimer & 0x7F) < isft)
+    if ((pSprite->invincibilityStunFlashTimer & 0x7F) < isft)
     {
-        pSprite->invicibilityStunFlashTimer &= 0x80;
-        pSprite->invicibilityStunFlashTimer |= 0x2;
+        pSprite->invincibilityStunFlashTimer &= 0x80;
+        pSprite->invincibilityStunFlashTimer |= 0x2;
     } // Return is implicit
 }
 
@@ -1425,10 +1425,10 @@ struct SpriteData* ProjectileHitSolidSprite(struct SpriteData* pSprite)
     u8 isft;
 
     isft = 0x3; // Needed to force a bcs
-    if ((pSprite->invicibilityStunFlashTimer & 0x7F) < isft)
+    if ((pSprite->invincibilityStunFlashTimer & 0x7F) < isft)
     {
-        pSprite->invicibilityStunFlashTimer &= 0x80;
-        pSprite->invicibilityStunFlashTimer |= 0x3;
+        pSprite->invincibilityStunFlashTimer &= 0x80;
+        pSprite->invincibilityStunFlashTimer |= 0x3;
     } // Return is implicit
 }
 
@@ -1472,10 +1472,10 @@ void ProjectilePowerBombDealDamage(struct SpriteData* pSprite)
             else
                 isft = 0x3;
 
-            if ((pSprite->invicibilityStunFlashTimer & 0x7F) < isft)
-                pSprite->invicibilityStunFlashTimer = isft | 0x80;
+            if ((pSprite->invincibilityStunFlashTimer & 0x7F) < isft)
+                pSprite->invincibilityStunFlashTimer = isft | 0x80;
             else
-                pSprite->invicibilityStunFlashTimer |= 0x80;
+                pSprite->invincibilityStunFlashTimer |= 0x80;
             pSprite->properties |= SP_DAMAGED;
         }
     }
@@ -3451,7 +3451,7 @@ void ProjectileProcessPowerBomb(struct ProjectileData* pProj)
             while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
             {
                 if (pSprite->status & SPRITE_STATUS_EXISTS)
-                    pSprite->invicibilityStunFlashTimer &= 0x7F;
+                    pSprite->invincibilityStunFlashTimer &= 0x7F;
                 pSprite++;
             }
             SoundPlay(0x100);

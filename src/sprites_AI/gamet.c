@@ -190,7 +190,7 @@ void GametRespawn(void)
         gCurrentSprite.workVariable = 0x3C;
         gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
 
-        gCurrentSprite.invicibilityStunFlashTimer = 0x0;
+        gCurrentSprite.invincibilityStunFlashTimer = 0x0;
         gCurrentSprite.paletteRow = 0x0;
         gCurrentSprite.frozenPaletteRowOffset = 0x0;
         gCurrentSprite.absolutePaletteRow = 0x0;
