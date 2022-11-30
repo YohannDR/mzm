@@ -1068,6 +1068,10 @@ void ProjectileCheckHitBlock(struct ProjectileData* pProj, u8 caa, u8 effect)
     }
 }
 
+/**
+ * @brief 4fd9c | 5d4 | Checks if projectiles are colliding with sprites
+ * 
+ */
 void ProjectileCheckHittingSprite(void)
 {
     struct Equipment* pEquipment;
@@ -1076,6 +1080,8 @@ void ProjectileCheckHittingSprite(void)
     u16 statusCheck;
 
     struct ProjectileData* pProj;
+    struct SpriteData* pSprite;
+
     u16 o1y;
     u16 o1x;
     u16 o1Top;
@@ -1083,7 +1089,6 @@ void ProjectileCheckHittingSprite(void)
     u16 o1Left;
     u16 o1Right;
 
-    struct SpriteData* pSprite;
     u16 o2y;
     u16 o2x;
     u16 o2Top;
@@ -1167,13 +1172,13 @@ void ProjectileCheckHittingSprite(void)
                     switch (pProj->type)
                     {
                         case PROJ_TYPE_BEAM:
-                            ProjectileHitSprite(pSprite, o1y, o1x,
+                            ProjectileHitSprite(pSprite, o2y, o2x,
                                 NORMAL_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
                             pProj->status = 0;
                             break;
 
                         case PROJ_TYPE_LONG_BEAM:
-                            ProjectileHitSprite(pSprite, o1y, o1x,
+                            ProjectileHitSprite(pSprite, o2y, o2x,
                                 LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
                             pProj->status = 0;
                             break;
@@ -1181,12 +1186,12 @@ void ProjectileCheckHittingSprite(void)
                         case PROJ_TYPE_ICE_BEAM:
                             if (pEquipment->beamBombsActivation & BBF_LONG_BEAM)
                             {
-                                ProjectileIceBeamHittingSprite(pSprite, o1y, o1x,
+                                ProjectileIceBeamHittingSprite(pSprite, o2y, o2x,
                                     ICE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
                             }
                             else
                             {
-                                ProjectileIceBeamHittingSprite(pSprite, o1y, o1x,
+                                ProjectileIceBeamHittingSprite(pSprite, o2y, o2x,
                                     ICE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
                             }
                             pProj->status = 0;
@@ -1197,12 +1202,12 @@ void ProjectileCheckHittingSprite(void)
                             {
                                 if (pEquipment->beamBombsActivation & BBF_ICE_BEAM)
                                 {
-                                    ProjectileIceBeamHittingSprite(pSprite, o1y, o1x,
+                                    ProjectileIceBeamHittingSprite(pSprite, o2y, o2x,
                                         WAVE_ICE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
                                 }
                                 else
                                 {
-                                    ProjectileHitSprite(pSprite, o1y, o1x,
+                                    ProjectileHitSprite(pSprite, o2y, o2x,
                                         WAVE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
                                 }
                             }
@@ -1210,12 +1215,12 @@ void ProjectileCheckHittingSprite(void)
                             {
                                 if (pEquipment->beamBombsActivation & BBF_ICE_BEAM)
                                 {
-                                    ProjectileIceBeamHittingSprite(pSprite, o1y, o1x,
+                                    ProjectileIceBeamHittingSprite(pSprite, o2y, o2x,
                                         WAVE_ICE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
                                 }
                                 else
                                 {
-                                    ProjectileHitSprite(pSprite, o1y, o1x,
+                                    ProjectileHitSprite(pSprite, o2y, o2x,
                                         WAVE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
                                 }
                             }
@@ -1229,12 +1234,12 @@ void ProjectileCheckHittingSprite(void)
                                 {
                                     if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
                                     {
-                                        ProjectileIceBeamHittingSprite(pSprite, o1y, o1x,
+                                        ProjectileIceBeamHittingSprite(pSprite, o2y, o2x,
                                             PLASMA_WAVE_ICE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                     }
                                     else
                                     {
-                                        ProjectileIceBeamHittingSprite(pSprite, o1y, o1x,
+                                        ProjectileIceBeamHittingSprite(pSprite, o2y, o2x,
                                             PLASMA_ICE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                     }
                                 }
@@ -1242,12 +1247,12 @@ void ProjectileCheckHittingSprite(void)
                                 {
                                     if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
                                     {
-                                        ProjectileHitSprite(pSprite, o1y, o1x,
+                                        ProjectileHitSprite(pSprite, o2y, o2x,
                                             PLASMA_WAVE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                     }
                                     else
                                     {
-                                        ProjectileHitSprite(pSprite, o1y, o1x,
+                                        ProjectileHitSprite(pSprite, o2y, o2x,
                                             PLASMA_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                     }
                                 }
@@ -1258,12 +1263,12 @@ void ProjectileCheckHittingSprite(void)
                                 {
                                     if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
                                     {
-                                        ProjectileIceBeamHittingSprite(pSprite, o1y, o1x,
+                                        ProjectileIceBeamHittingSprite(pSprite, o2y, o2x,
                                             PLASMA_WAVE_ICE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                     }
                                     else
                                     {
-                                        ProjectileIceBeamHittingSprite(pSprite, o1y, o1x,
+                                        ProjectileIceBeamHittingSprite(pSprite, o2y, o2x,
                                             PLASMA_ICE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                     }
                                 }
@@ -1271,12 +1276,12 @@ void ProjectileCheckHittingSprite(void)
                                 {
                                     if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
                                     {
-                                        ProjectileHitSprite(pSprite, o1y, o1x,
+                                        ProjectileHitSprite(pSprite, o2y, o2x,
                                             PLASMA_WAVE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                     }
                                     else
                                     {
-                                        ProjectileHitSprite(pSprite, o1y, o1x,
+                                        ProjectileHitSprite(pSprite, o2y, o2x,
                                             PLASMA_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                     }
                                 }
@@ -1285,29 +1290,29 @@ void ProjectileCheckHittingSprite(void)
                         
                         case PROJ_TYPE_PISTOL:
                             ProjectileHitSpriteImmuneToProjectiles(pSprite);
-                            ParticleSet(o1y, o1x, PE_HITTING_SOMETHING_INVINCIBLE);
+                            ParticleSet(o2y, o2x, PE_HITTING_SOMETHING_INVINCIBLE);
                             pProj->status = 0;
                             break;
 
                         case PROJ_TYPE_CHARGED_BEAM:
-                            ProjectileNonIceChargedHitSprite(pSprite, o1y, o1x, CHARGED_NORMAL_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
+                            ProjectileNonIceChargedHitSprite(pSprite, o2y, o2x, CHARGED_NORMAL_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_NORMAL_BEAM);
                             pProj->status = 0;
                             break;
 
                         case PROJ_TYPE_CHARGED_LONG_BEAM:
-                            ProjectileNonIceChargedHitSprite(pSprite, o1y, o1x, CHARGED_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+                            ProjectileNonIceChargedHitSprite(pSprite, o2y, o2x, CHARGED_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
                             pProj->status = 0;
                             break;
 
                         case PROJ_TYPE_CHARGED_ICE_BEAM:
                             if (pEquipment->beamBombsActivation & BBF_LONG_BEAM)
                             {
-                                ProjectileChargedIceBeamHittingSprite(pSprite, o1y, o1x,
+                                ProjectileChargedIceBeamHittingSprite(pSprite, o2y, o2x,
                                     CHARGED_ICE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
                             }
                             else
                             {
-                                ProjectileChargedIceBeamHittingSprite(pSprite, o1y, o1x,
+                                ProjectileChargedIceBeamHittingSprite(pSprite, o2y, o2x,
                                     CHARGED_ICE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_ICE_BEAM);
                             }
                             pProj->status = 0;
@@ -1318,12 +1323,12 @@ void ProjectileCheckHittingSprite(void)
                             {
                                 if (pEquipment->beamBombsActivation & BBF_ICE_BEAM)
                                 {
-                                    ProjectileChargedIceBeamHittingSprite(pSprite, o1y, o1x,
+                                    ProjectileChargedIceBeamHittingSprite(pSprite, o2y, o2x,
                                         CHARGED_WAVE_ICE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
                                 }
                                 else
                                 {
-                                    ProjectileNonIceChargedHitSprite(pSprite, o1y, o1x,
+                                    ProjectileNonIceChargedHitSprite(pSprite, o2y, o2x,
                                         CHARGED_WAVE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
                                 }
                             }
@@ -1331,12 +1336,12 @@ void ProjectileCheckHittingSprite(void)
                             {
                                 if (pEquipment->beamBombsActivation & BBF_ICE_BEAM)
                                 {
-                                    ProjectileChargedIceBeamHittingSprite(pSprite, o1y, o1x,
+                                    ProjectileChargedIceBeamHittingSprite(pSprite, o2y, o2x,
                                         CHARGED_WAVE_ICE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA);
                                 }
                                 else
                                 {
-                                    ProjectileNonIceChargedHitSprite(pSprite, o1y, o1x,
+                                    ProjectileNonIceChargedHitSprite(pSprite, o2y, o2x,
                                         CHARGED_WAVE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_WAVE_BEAM);
                                 }
                             }
@@ -1350,12 +1355,12 @@ void ProjectileCheckHittingSprite(void)
                                 {
                                     if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
                                     {
-                                        ProjectileChargedIceBeamHittingSprite(pSprite, o1y, o1x,
+                                        ProjectileChargedIceBeamHittingSprite(pSprite, o2y, o2x,
                                             CHARGED_PLASMA_WAVE_ICE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                     }
                                     else
                                     {
-                                        ProjectileChargedIceBeamHittingSprite(pSprite, o1y, o1x,
+                                        ProjectileChargedIceBeamHittingSprite(pSprite, o2y, o2x,
                                             CHARGED_PLASMA_ICE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                     }
                                 }
@@ -1363,12 +1368,12 @@ void ProjectileCheckHittingSprite(void)
                                 {
                                     if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
                                     {
-                                        ProjectileNonIceChargedHitSprite(pSprite, o1y, o1x,
+                                        ProjectileNonIceChargedHitSprite(pSprite, o2y, o2x,
                                             CHARGED_PLASMA_WAVE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                     }
                                     else
                                     {
-                                        ProjectileNonIceChargedHitSprite(pSprite, o1y, o1x,
+                                        ProjectileNonIceChargedHitSprite(pSprite, o2y, o2x,
                                             CHARGED_PLASMA_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                     }
                                 }
@@ -1379,12 +1384,12 @@ void ProjectileCheckHittingSprite(void)
                                 {
                                     if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
                                     {
-                                        ProjectileChargedIceBeamHittingSprite(pSprite, o1y, o1x,
+                                        ProjectileChargedIceBeamHittingSprite(pSprite, o2y, o2x,
                                             CHARGED_PLASMA_WAVE_ICE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                     }
                                     else
                                     {
-                                        ProjectileChargedIceBeamHittingSprite(pSprite, o1y, o1x,
+                                        ProjectileChargedIceBeamHittingSprite(pSprite, o2y, o2x,
                                             CHARGED_PLASMA_ICE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
                                     }
                                 }
@@ -1392,12 +1397,12 @@ void ProjectileCheckHittingSprite(void)
                                 {
                                     if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
                                     {
-                                        ProjectileNonIceChargedHitSprite(pSprite, o1y, o1x,
+                                        ProjectileNonIceChargedHitSprite(pSprite, o2y, o2x,
                                             CHARGED_PLASMA_WAVE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                     }
                                     else
                                     {
-                                        ProjectileNonIceChargedHitSprite(pSprite, o1y, o1x,
+                                        ProjectileNonIceChargedHitSprite(pSprite, o2y, o2x,
                                             CHARGED_PLASMA_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
                                     }
                                 }
@@ -1411,11 +1416,11 @@ void ProjectileCheckHittingSprite(void)
                                 pSprite->freezeTimer = 60;
                                 pSprite->paletteRow = 1;
                                 pSprite->absolutePaletteRow = 1;
-                                ParticleSet(o1y, o1x, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
+                                ParticleSet(o2y, o2x, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
                             }
                             else
                             {
-                                ProjectileNonIceChargedHitSprite(pSprite, o1y, o1x,
+                                ProjectileNonIceChargedHitSprite(pSprite, o2y, o2x,
                                     CHARGED_PISTOL_DAMAGE, PE_HITTING_SOMETHING_WITH_LONG_BEAM);
                             }
                             
@@ -1423,15 +1428,15 @@ void ProjectileCheckHittingSprite(void)
                             break;
 
                         case PROJ_TYPE_MISSILE:
-                            ProjectileMissileHitSprite(pSprite, pProj, o1y, o1x);
+                            ProjectileMissileHitSprite(pSprite, pProj, o2y, o2x);
                             break;
 
                         case PROJ_TYPE_SUPER_MISSILE:
-                            ProjectileSuperMissileHitSprite(pSprite, pProj, o1y, o1x);
+                            ProjectileSuperMissileHitSprite(pSprite, pProj, o2y, o2x);
                             break;
                         
                         case PROJ_TYPE_BOMB:
-                            ProjectileBombHitSprite(pSprite, o1y, o1x);
+                            ProjectileBombHitSprite(pSprite, o2y, o2x);
                             break;
                     }
                 }
