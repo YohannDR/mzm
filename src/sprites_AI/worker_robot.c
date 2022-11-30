@@ -1,12 +1,15 @@
 #include "sprites_AI/worker_robot.h"
+
 #include "data/sprites/worker_robot.h"
 #include "data/sprite_data.h"
+
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 #include "constants/samus.h"
 #include "constants/projectile.h"
+
 #include "structs/sprite.h"
 #include "structs/samus.h"
 #include "structs/projectile.h"
@@ -67,19 +70,25 @@ void WorkerRobotInit(void)
     gCurrentSprite.hitboxBottomOffset = 0x0;
     gCurrentSprite.hitboxLeftOffset = -0x1C;
     gCurrentSprite.hitboxRightOffset = 0x1C;
+
     gCurrentSprite.drawDistanceTopOffset = 0x28;
     gCurrentSprite.drawDistanceBottomOffset = 0x0;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+
     gCurrentSprite.pOam = sWorkerRobotOAM_Sleeping;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
+
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
     gCurrentSprite.workVariable = 0x0;
     gCurrentSprite.samusCollision = SSC_SOLID;
     gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+
     SpriteUtilMakeSpriteFaceAwawFromSamusXFlip();
+
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+
     gCurrentSprite.pose = WORKER_ROBOT_POSE_SLEEPING;
 }
 
@@ -102,9 +111,11 @@ void WorkerRobotSleeping(void)
 void WorkerRobotWakingUpInit(void)
 {
     gCurrentSprite.pose = WORKER_ROBOT_POSE_WAKING_UP;
+
     gCurrentSprite.pOam = sWorkerRobotOAM_WakingUp;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
+
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         SoundPlayNotAlreadyPlaying(0x26F);
 }
@@ -223,9 +234,11 @@ void WorkerRobotWalkingDetectProjectile(void)
 void WorkerRobotStandingInit(void)
 {
     gCurrentSprite.pose = WORKER_ROBOT_POSE_STANDING;
+
     gCurrentSprite.pOam = sWorkerRobotOAM_Standing;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
+
     gCurrentSprite.timer = 0x1E;
     gCurrentSprite.workVariable = 0x0;
     gCurrentSprite.hitboxTopOffset = -0x84;
@@ -289,6 +302,7 @@ void WorkerRobotTurningAround(void)
             gCurrentSprite.status |= (SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_RIGHT);
 
         gCurrentSprite.pose = WORKER_ROBOT_POSE_CHECK_TURNING_AROUND_ENDED;
+
         gCurrentSprite.pOam = sWorkerRobotOAM_TurningAround;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
@@ -306,14 +320,47 @@ void WorkerRobotFallingInit(void)
     gCurrentSprite.pose = WORKER_ROBOT_POSE_FALLING;
     gCurrentSprite.arrayOffset = 0x0;
     gCurrentSprite.workVariable = 0x0;
+
     gCurrentSprite.pOam = sWorkerRobotOAM_Walking;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 }
 
+/**
+ * @brief 2fcc0 | 80 | Handles a worker robot falling
+ * 
+ */
 void WorkerRobotFalling(void)
 {
+    u32 blockTop;
+    i32 movement;
+    u8 offset;
 
+    gCurrentSprite.animationDurationCounter += 2;
+
+    blockTop = SpriteutilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+    if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
+    {
+        gCurrentSprite.yPosition = blockTop;
+        gCurrentSprite.pose = WORKER_ROBOT_POSE_STANDING_INIT;
+        SoundPlay(0x271);
+    }
+    else
+    {
+        offset = gCurrentSprite.arrayOffset;
+        movement = sSpritesFallingSpeed[offset];
+
+        if (movement == SHORT_MAX)
+        {
+            movement = sSpritesFallingSpeed[offset - 1];
+            gCurrentSprite.yPosition += movement;
+        }
+        else
+        {
+            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.yPosition += movement;
+        }
+    }
 }
 
 void WorkerRobotFallingSleepInit(void)
@@ -323,9 +370,39 @@ void WorkerRobotFallingSleepInit(void)
     gCurrentSprite.workVariable = 0x0;
 }
 
+/**
+ * @brief 2fd5c | 78 | Handles a worker robot falling while sleeping
+ * 
+ */
 void WorkerRobotFallingSleep(void)
 {
+    u32 blockTop;
+    i32 movement;
+    u8 offset;
 
+    blockTop = SpriteutilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+    if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
+    {
+        gCurrentSprite.yPosition = blockTop;
+        gCurrentSprite.pose = WORKER_ROBOT_POSE_SLEEPING_INIT;
+        SoundPlay(0x271);
+    }
+    else
+    {
+        offset = gCurrentSprite.arrayOffset;
+        movement = sWorkerRobotSleepingFallingSpeed[offset];
+
+        if (movement == SHORT_MAX)
+        {
+            movement = sWorkerRobotSleepingFallingSpeed[offset - 1];
+            gCurrentSprite.yPosition += movement;
+        }
+        else
+        {
+            gCurrentSprite.arrayOffset++;
+            gCurrentSprite.yPosition += movement;
+        }
+    }
 }
 
 void WorkerRobot(void)
