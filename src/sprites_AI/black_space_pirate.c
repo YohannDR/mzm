@@ -65,16 +65,28 @@ void BlackSpacePirateProjectileCollision(void)
                         if (pEquipment->beamBombsActivation & BBF_ICE_BEAM)
                         {
                             if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
-                                ProjectileIceBeamHittingSprite(pSprite, projY, projX, 0x6, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            {
+                                ProjectileIceBeamHittingSprite(pSprite, projY, projX,
+                                    PLASMA_WAVE_ICE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            }
                             else
-                                ProjectileIceBeamHittingSprite(pSprite, projY, projX, 0x5, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            {
+                                ProjectileIceBeamHittingSprite(pSprite, projY, projX,
+                                    PLASMA_ICE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            }
                         }
                         else
                         {
                             if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
-                                ProjectileHitSprite(pSprite, projY, projX, 0x5, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            {
+                                ProjectileHitSprite(pSprite, projY, projX,
+                                    PLASMA_WAVE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            }
                             else
-                                ProjectileHitSprite(pSprite, projY, projX, 0x4, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            {
+                                ProjectileHitSprite(pSprite, projY, projX,
+                                    PLASMA_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            }
                         }
                     }
                     else
@@ -82,16 +94,28 @@ void BlackSpacePirateProjectileCollision(void)
                         if (pEquipment->beamBombsActivation & BBF_ICE_BEAM)
                         {
                             if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
-                                ProjectileIceBeamHittingSprite(pSprite, projY, projX, 0x5, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            {
+                                ProjectileIceBeamHittingSprite(pSprite, projY, projX,
+                                    PLASMA_WAVE_ICE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            }
                             else
-                                ProjectileIceBeamHittingSprite(pSprite, projY, projX, 0x4, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            {
+                                ProjectileIceBeamHittingSprite(pSprite, projY, projX,
+                                    PLASMA_ICE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            }
                         }
                         else
                         {
                             if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
-                                ProjectileHitSprite(pSprite, projY, projX, 0x4, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            {
+                                ProjectileHitSprite(pSprite, projY, projX,
+                                    PLASMA_WAVE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            }
                             else
-                                ProjectileHitSprite(pSprite, projY, projX, 0x3, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            {
+                                ProjectileHitSprite(pSprite, projY, projX,
+                                    PLASMA_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            }
                         }
                     }
                     break;
@@ -104,16 +128,28 @@ void BlackSpacePirateProjectileCollision(void)
                         if (pEquipment->beamBombsActivation & BBF_ICE_BEAM)
                         {
                             if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
-                                ProjectileChargedIceBeamHittingSprite(pSprite, projY, projX, 0x18, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            {
+                                ProjectileChargedIceBeamHittingSprite(pSprite, projY, projX,
+                                    CHARGED_PLASMA_WAVE_ICE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            }
                             else
-                                ProjectileChargedIceBeamHittingSprite(pSprite, projY, projX, 0x14, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            {
+                                ProjectileChargedIceBeamHittingSprite(pSprite, projY, projX,
+                                    CHARGED_PLASMA_ICE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            }
                         }
                         else
                         {
                             if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
-                                ProjectileNonIceChargedHitSprite(pSprite, projY, projX, 0x14, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            {
+                                ProjectileNonIceChargedHitSprite(pSprite, projY, projX,
+                                    CHARGED_PLASMA_WAVE_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            }
                             else
-                                ProjectileNonIceChargedHitSprite(pSprite, projY, projX, 0x10, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            {
+                                ProjectileNonIceChargedHitSprite(pSprite, projY, projX,
+                                    CHARGED_PLASMA_LONG_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            }
                         }
                     }
                     else
@@ -121,16 +157,28 @@ void BlackSpacePirateProjectileCollision(void)
                         if (pEquipment->beamBombsActivation & BBF_ICE_BEAM)
                         {
                             if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
-                                ProjectileChargedIceBeamHittingSprite(pSprite, projY, projX, 0x14, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            {
+                                ProjectileChargedIceBeamHittingSprite(pSprite, projY, projX,
+                                    CHARGED_PLASMA_WAVE_ICE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            }
                             else
-                                ProjectileChargedIceBeamHittingSprite(pSprite, projY, projX, 0x10, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            {
+                                ProjectileChargedIceBeamHittingSprite(pSprite, projY, projX,
+                                    CHARGED_PLASMA_ICE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_FULL_BEAM);
+                            }
                         }
                         else
                         {
                             if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
-                                ProjectileNonIceChargedHitSprite(pSprite, projY, projX, 0x10, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            {
+                                ProjectileNonIceChargedHitSprite(pSprite, projY, projX,
+                                    CHARGED_PLASMA_WAVE_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            }
                             else
-                                ProjectileNonIceChargedHitSprite(pSprite, projY, projX, 0xC, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            {
+                                ProjectileNonIceChargedHitSprite(pSprite, projY, projX,
+                                    CHARGED_PLASMA_BEAM_DAMAGE, PE_HITTING_SOMETHING_WITH_PLASMA_BEAM);
+                            }
                         }
                     }
                     break;
