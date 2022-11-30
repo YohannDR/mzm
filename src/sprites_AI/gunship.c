@@ -13,6 +13,13 @@
 #include "structs/sprite.h"
 #include "structs/samus.h"
 
+#define GUNSHIP_START_FLYING(flyDuration)       \
+do {                                            \
+    gCurrentSprite.pose = GUNSHIP_POSE_FLYING;  \
+    gCurrentSprite.timer = flyDuration;         \
+    gCurrentSprite.arrayOffset = 0x0;           \
+} while (0)
+
 /**
  * @brief 44c24 | 84 | Updates the flames palette
  * 
@@ -667,11 +674,7 @@ void GunshipTakingOff(void)
 
     gCurrentSprite.timer--;
     if (gCurrentSprite.timer == 0x0)
-        do {
-            gCurrentSprite.pose = GUNSHIP_POSE_FLYING;
-            gCurrentSprite.timer = 0xA0;
-            gCurrentSprite.arrayOffset = 0x0;
-        } while (0);
+        GUNSHIP_START_FLYING(0xA0);
     else
     {
         offset = gCurrentSprite.arrayOffset;
