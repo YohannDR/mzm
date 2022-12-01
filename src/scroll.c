@@ -471,61 +471,120 @@ u32 ScrollGetBG3Scroll(void)
     u32 xScroll;
     u32 yScroll;
 
-    yScroll = 0x0;
-    xScroll = 0x0;
+    yScroll = 0;
+    xScroll = 0;
 
     switch (gCurrentRoomEntry.BG3Scrolling)
     {
-        case 0x0:
+        case 0:
             break;
 
-        case 0x1:
-            xScroll = 0x2;
-            yScroll = 0x0;
+        case 1:
+            xScroll = 2;
+            yScroll = 0;
             break;
 
-        case 0x2:
-            xScroll = 0x0;
-            yScroll = 0x2;
+        case 2:
+            xScroll = 0;
+            yScroll = 2;
             break;
 
-        case 0x3:
-            xScroll = 0x2;
-            yScroll = 0x2;
+        case 3:
+            xScroll = 2;
+            yScroll = 2;
             break;
 
-        case 0x4:
-            xScroll = 0x1;
-            yScroll = 0x2;
+        case 4:
+            xScroll = 1;
+            yScroll = 2;
             break;
 
-        case 0x5:
-            xScroll = 0x2;
-            yScroll = 0x1;
+        case 5:
+            xScroll = 2;
+            yScroll = 1;
             break;
 
-        case 0x6:
-        case 0xA:
-            xScroll = 0x1;
-            yScroll = 0x1;
+        case 6:
+        case 10:
+            xScroll = 1;
+            yScroll = 1;
             break;
         
-        case 0x9:
-            xScroll = 0x3;
-            yScroll = 0x0;
+        case 9:
+            xScroll = 3;
+            yScroll = 0;
             break;
 
-        case 0x7:
-            xScroll = 0x1;
-            yScroll = 0x0;
+        case 7:
+            xScroll = 1;
+            yScroll = 0;
     }
 
-    return yScroll << 0x10 | xScroll;
+    return yScroll << 16 | xScroll;
 }
 
+/**
+ * @brief 58da0 | 124 | Scrolls the background 3
+ * 
+ */
 void ScrollBG3(void)
 {
+    u32 xScrolling;
+    i32 yScrolling;
+    i32 offset;
+    i32 size;
 
+    yScrolling = ScrollGetBG3Scroll();
+    xScrolling = yScrolling & 0xFF;
+    yScrolling = yScrolling >> 16;
+
+    if (xScrolling != 0)
+    {
+        if (xScrolling == 1)
+            gBG3XPosition = gBG1XPosition - BLOCK_SIZE * 2;
+        else if (xScrolling == 2)
+            gBG3XPosition = (gBG1XPosition - BLOCK_SIZE * 2) >> 1;
+        else if (xScrolling == 3)
+            gBG3XPosition = (gBG1XPosition - BLOCK_SIZE * 2) >> 2;
+    }
+
+    if (gCurrentRoomEntry.BG3FromBottomFlag)
+    {
+        size = (gBGPointersAndDimensions.clipdataHeight - 0xC) * BLOCK_SIZE;
+
+        if (gCurrentRoomEntry.BG3Size & 2)
+            offset = 0x800;
+        else
+            offset = 0x400;
+
+        offset -= 0x280;
+
+        if (yScrolling == 0)
+        {
+            offset = 0;
+            size = 0;
+        }
+        else if (yScrolling == 1)
+            size -= gBG1YPosition;
+        else
+            size = (size - gBG1YPosition) >> 2;
+        
+        if (offset - size > 0)
+            gBG3YPosition = offset - size;
+        else
+            gBG3YPosition = 0;
+    }
+    else
+    {
+        if (yScrolling == 0)
+            gBG3YPosition = 0;
+        else if (yScrolling == 1)
+            gBG3YPosition = gBG1YPosition - BLOCK_SIZE * 2;
+        else if (yScrolling == 2)
+            gBG3YPosition = (gBG1YPosition - BLOCK_SIZE * 2) >> 1;
+        else
+            gBG3YPosition = (gBG1YPosition - BLOCK_SIZE * 2) >> 2;
+    }
 }
 
 void ScrollBG3Related(void)
@@ -559,7 +618,52 @@ void ScrollAutoBG3(void)
 
 void ScrollBG2(struct RawCoordsX* pCoords)
 {
+    // https://decomp.me/scratch/zdm9e
 
+    i32 size;
+    i32 position;
+
+    if (gCurrentRoomEntry.BG2Prop & BG_PROP_RLE_COMPRESSED)
+    {
+        if (gCurrentRoomEntry.BG2Prop & 0x20)
+        {
+            if (gCurrentRoomEntry.BG2Prop == 0x31)
+            {
+                position = gBG1XPosition + gBG2Movement.xOffset;
+                if (position < 0)
+                    position = 0;
+                else
+                {
+                    size = (gBGPointersAndDimensions.backgrounds[2].width - 0xF) * BLOCK_SIZE;
+                    if (size < position)
+                        position = size;
+                }
+
+                gBG2XPosition = position;
+
+                position = gBG1YPosition + gBG2Movement.yOffset;
+                if (position < 0)
+                    position = 0;
+                else
+                {
+                    size = (gBGPointersAndDimensions.backgrounds[2].height - 0xA) * BLOCK_SIZE;
+                    if (size < position)
+                        position = size;
+                }
+
+                gBG2YPosition = position;
+                return;
+            }
+        }
+
+        gBG2XPosition = gBG1XPosition;
+        gBG2YPosition = gBG1YPosition;
+    }
+    else
+    {
+        gBG2XPosition = 0;
+        gBG2YPosition = 0;
+    }
 }
 
 void ScrollMaybeScrollBG1Related(struct RawCoordsX* pCoords)
