@@ -1695,7 +1695,7 @@ lbl_08056074:
     bl sub_08058ec4
     bl process_general_scrolling
 lbl_080560c8:
-    bl CheckPlayLightningEffect
+    bl check_play_lightning_effect
     bl update_backgrounds_pos
     bl load_doors
     bl check_hatch_lock_events
@@ -1705,7 +1705,7 @@ lbl_080560c8:
     bl sub_08056b28
     movs r0, #2
     bl sub_08056b28
-    bl LoadAnimatedGraphics
+    bl load_animated_graphics
     bl ResetTanksAnimation
     bl SetBGHazeEffect
     bl ProcessHaze
@@ -5241,7 +5241,7 @@ load_room_cutscene_escape: @ 0x08057d04
     bl remove_never_reform_blocks_and_collected_tank
     bl TransparencySetRoomEffectsTransparency
     bl ScrollBG3
-    bl CheckPlayLightningEffect
+    bl check_play_lightning_effect
     bl update_backgrounds_pos
     bl load_doors
     bl check_hatch_lock_events
@@ -5251,7 +5251,7 @@ load_room_cutscene_escape: @ 0x08057d04
     bl sub_08056b28
     movs r0, #2
     bl sub_08056b28
-    bl LoadAnimatedGraphics
+    bl load_animated_graphics
     ldr r1, lbl_08057dbc @ =0x02007000
     ldr r2, lbl_08057dc0 @ =0x06003000
     movs r3, #0x80
@@ -18161,8 +18161,8 @@ lbl_0805e124: .4byte 0x0201b000
 lbl_0805e128: .4byte 0x80000040
 lbl_0805e12c: .4byte 0x03000046
 
-    thumb_func_start LoadAnimatedGraphics
-LoadAnimatedGraphics: @ 0x0805e130
+    thumb_func_start load_animated_graphics
+load_animated_graphics: @ 0x0805e130
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -18636,8 +18636,8 @@ lbl_0805e4f4:
     .align 2, 0
 lbl_0805e4fc: .4byte 0x030001a8
 
-    thumb_func_start CheckPlayLightningEffect
-CheckPlayLightningEffect: @ 0x0805e500
+    thumb_func_start check_play_lightning_effect
+check_play_lightning_effect: @ 0x0805e500
     push {lr}
     movs r1, #0
     ldr r0, lbl_0805e538 @ =0x03000bf0

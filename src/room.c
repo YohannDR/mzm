@@ -56,14 +56,14 @@ void RoomLoad(void)
         ScrollProcessGeneral();
     }
 
-    CheckPlayLightningEffect(); // Undefined
+    check_play_lightning_effect(); // Undefined
     RoomUpdateBackgroundsPosition();
     ConnectionLoadDoors();
     ConnectionCheckHatchLockEvents();
     RoomSetInitialTilemap(0x0);
     RoomSetInitialTilemap(0x1);
     RoomSetInitialTilemap(0x2);
-    LoadAnimatedGraphics(); // Undefined
+    load_animated_graphics(); // Undefined
     ResetTanksAnimation(); // Undefined
     SetBGHazeEffect(); // Undefined
     ProcessHaze(); // Undefined

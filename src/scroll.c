@@ -162,14 +162,14 @@ void ScrollLoad(void)
     // Loop through every scroll of the area
     for (; ; ppSrc++)
     {
-        if (ppSrc[0][0] == gCurrentRoom)
+        if (**ppSrc == gCurrentRoom)
         {
             // Found room, set pointer and flag
             gCurrentRoomScrollDataPointer = *ppSrc;
             gCurrentRoomEntry.scrollsFlag = ROOM_SCROLLS_FLAG_HAS_SCROLLS;
             break;
         }
-        else if (ppSrc[0][0] == 0xFF)
+        else if (**ppSrc == UCHAR_MAX)
         {
             // Reached terminator
             gCurrentRoomScrollDataPointer = *ppSrc;
