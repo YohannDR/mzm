@@ -530,22 +530,30 @@ void ScrollBG3(void)
 
 void ScrollBG3Related(void)
 {
-    u32 x_scroll;
+    u32 xScroll;
 
-    x_scroll = ScrollGetBG3Scroll();
-    x_scroll &= 0xFF;
-    if (x_scroll == 0x0)
+    xScroll = ScrollGetBG3Scroll();
+    xScroll &= 0xFF;
+    if (xScroll == 0x0)
         gBG3XPosition = 0x0;
-    else if (x_scroll == 0x2)
+    else if (xScroll == 0x2)
         gBG3XPosition = (gBG1XPosition - 0x80) >> 0x1;
-    else if (x_scroll == 0x3)
+    else if (xScroll == 0x3)
         gBG3XPosition = (gBG1XPosition - 0x80) >> 0x2;
 }
 
+/**
+ * @brief 58f14 | 2c | Handles the automatic scrolling of the background 3
+ * 
+ */
 void ScrollAutoBG3(void)
 {
-    if (gBG3Movement.direction == 0x1 && !(gBG3Movement.counter & 0x7))
-        gBG3Movement.xOffset++;
+    if (gBG3Movement.direction == 0x1)
+    {
+        if (!(gBG3Movement.counter & 0x7))
+            gBG3Movement.xOffset++;
+    }
+
     gBG3Movement.counter++;
 }
 
