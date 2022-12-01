@@ -271,9 +271,85 @@ void RoomSetInitialTilemap(u8 bgNumber)
 
 }
 
-u8 RoomRLEDecompress(u8 mode, u8* pSrc, u8* pDst)
+u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
 {
+    // https://decomp.me/scratch/ogbfm
 
+    u32 result;
+    u32 length;
+    u8* dest;
+    u8 numBytes;
+    u8 value;
+
+    result = FALSE;
+
+    length = 0x3000;
+    if (mode == 0)
+    {
+        result = 0x800;
+        if (*src != 0)
+        {
+            result = 0x1000;
+            if (*src == 3)
+                result = 0x2000;
+        }
+        
+        src++;
+        length = 0x2000;
+    }
+
+    BitFill(3, 0, dst, length, 0x10);
+    
+    for (length = 0; length < 2; length++)
+    {
+        dest = dst;
+        if (length != 0)
+            dest++;
+
+        numBytes = *src++;
+        if (numBytes == 1)
+        {
+            value = *src++;
+            length++;
+
+            while (value)
+            {
+                if (value & 0x80)
+                {
+                    value &= 0x7F;
+
+                    if (*src)
+                    {
+                        while (value--)
+                        {
+                            *dest = *src++;
+                            dest += 2;
+                        }
+                    }
+                    else
+                        dest += value * 2;
+
+                    src++;  
+                }
+                else
+                {
+                    while (value--)
+                    {
+                        *dest = *src++;
+                        dest += 2;
+                    }
+                }
+
+                value = *src++;
+            }
+        }
+        else
+        {
+            
+        }
+    }
+
+    return result;
 }
 
 /**

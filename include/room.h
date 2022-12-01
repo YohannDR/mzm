@@ -15,7 +15,7 @@ void RoomRemoveNeverReformBlocksAndCollectedTanks(void);
 void RoomReset(void);
 void RoomSetBackgroundScrolling(void);
 void RoomSetInitialTilemap(u8 bgNumber);
-u8 RoomRLEDecompress(u8 mode, u8* pSrc, u8* pDst);
+u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst);
 void RoomUpdateGFXInfo(void);
 void RoomUpdateAnimatedGraphicsAndPalettes(void);
 void RoomUpdateHatchFlashingAnimation(void);
