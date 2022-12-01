@@ -436,9 +436,34 @@ void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
 
 }
 
+/**
+ * @brief 58cc0 | 60 | Handles the automatic scrolling of the background 0
+ * 
+ */
 void ScrollAutoBG0(void)
 {
+    if (gBG0Movement.type == BG0_MOVEMENT_WATER_CLOUDS)
+    {
+        if (!(gBG0Movement.yOffset & 7))
+            gBG0Movement.xOffset++;
+    }
+    else if (gBG0Movement.type == 2)
+    {
+        if (!(gBG0Movement.yOffset & 3))
+            gBG0Movement.xOffset++;
+    }
+    else if (gBG0Movement.type == 3)
+    {
+        if (!(gBG0Movement.yOffset & 7))
+            gBG0Movement.snowflakesRelated++;
+    }
+    else if (gBG0Movement.type == BG0_MOVEMENT_SNOWFLAKES)
+    {
+        if (!(gBG0Movement.yOffset & 7))
+            gBG0Movement.snowflakesRelated--;
+    }
 
+    gBG0Movement.yOffset++;
 }
 
 u32 ScrollGetBG3Scroll(void)
