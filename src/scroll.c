@@ -1,39 +1,44 @@
 #include "scroll.h"
 #include "gba.h"
+
+#include "constants/game_state.h"
 #include "constants/samus.h"
 #include "constants/room.h"
+
 #include "structs/bg_clip.h"
+#include "structs/game_state.h"
+#include "structs/color_effects.h"
 #include "structs/samus.h"
 #include "structs/room.h"
 
 void ScrollProcess(struct RawCoordsX* pCoords)
 {
-    u32 screen_x;
-    u32 screen_y;
-    u32 new_position;
+    u32 screenX;
+    u32 screenY;
+    u32 newPosition;
     struct Scroll* pScroll;
 
     ScrollUpdateCurrent(pCoords);
-    screen_x = gCamera.xPosition;
-    screen_y = gCamera.yPosition;
+    screenX = gCamera.xPosition;
+    screenY = gCamera.yPosition;
 
     pScroll = gCurrentScrolls;
     if (pScroll->within)
     {
-        screen_x = ScrollProcessX(pScroll, pCoords);
-        screen_y = ScrollProcessY(pScroll, pCoords);
+        screenX = ScrollProcessX(pScroll, pCoords);
+        screenY = ScrollProcessY(pScroll, pCoords);
     }
 
     pScroll = gCurrentScrolls + 1;
     if (pScroll->within)
     {
-        new_position = ScrollProcessX(pScroll, pCoords);
-        screen_x = (i32)(screen_x + new_position) >> 0x1;
-        new_position = ScrollProcessY(pScroll, pCoords);
-        screen_y = (i32)(screen_y + new_position) >> 0x1;
+        newPosition = ScrollProcessX(pScroll, pCoords);
+        screenX = (i32)(screenX + newPosition) >> 0x1;
+        newPosition = ScrollProcessY(pScroll, pCoords);
+        screenY = (i32)(screenY + newPosition) >> 0x1;
     }
 
-    ScrollScreen((u16)screen_x, (u16)screen_y);
+    ScrollScreen((u16)screenX, (u16)screenY);
 }
 
 void ScrollScreen(u16 screen_x, u16 screen_y)
@@ -209,9 +214,102 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
     }
 }
 
+/**
+ * @brief 58640 | 1f4 | Processes the general scrolling
+ * 
+ */
 void ScrollProcessGeneral(void)
 {
+    struct RawCoordsX coords;
+    i32 distance;
 
+    u32 x;
+    u32 y;
+
+    if (gColorFading.stage != 0)
+        return;
+
+    if (gLockScreen.lock == FALSE)
+    {
+        coords.x = gSamusData.xPosition;
+        coords.y = gSamusData.yPosition + 1;
+
+        if (gSamusData.pose == SPOSE_HANGING_ON_LEDGE || gSamusData.pose == SPOSE_GRABBING_A_LEDGE_SUITLESS)
+            gSlowScrollingTimer = 1;
+        else if (gSamusData.pose == SPOSE_PULLING_YOURSELF_UP_FROM_HANGING || gSamusData.pose == SPOSE_PULLING_YOURSELF_FORWARD_FROM_HANGING)
+            gSlowScrollingTimer = 8;
+        else if (gSamusData.pose == SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL)
+            gSlowScrollingTimer = 20;
+        else if (gSlowScrollingTimer != 0)
+            gSlowScrollingTimer--;
+    }
+    else if (gLockScreen.lock == TRUE)
+    {
+        coords.x = gLockScreen.xPositionCenter;
+        coords.y = gLockScreen.yPositionCenter;
+    }
+    else
+    {
+        x = gSamusData.xPosition + gLockScreen.xPositionCenter;
+        y = gSamusData.yPosition + 1 + gLockScreen.yPositionCenter;
+
+        coords.x = x / 2;
+        coords.y = y / 2;
+    }
+
+    if (coords.y & 0x8000)
+        coords.y = 0;
+
+    gUnk_3005714 = sUnk_8345988[0];
+
+    if (!gLockScreen.lock)
+    {
+        if (gSlowScrollingTimer == 0)
+        {
+            distance = gSamusData.xPosition - gPreviousXPosition;
+
+            if (distance > 0)
+            {
+                if (distance >= gUnk_3005714.unk2)
+                    gUnk_3005714.unk2 = distance + 4;
+            }
+            else if (distance < 0 && distance <= gUnk_3005714.unk0)
+                gUnk_3005714.unk0 = distance - 4;
+
+            distance = gSamusData.yPosition - gPreviousYPosition;
+
+            if (distance > 0)
+            {
+                if (distance >= gUnk_3005714.unk6)
+                    gUnk_3005714.unk6 = distance + 4;
+            }
+            else if (distance < 0 && distance <= gUnk_3005714.unk4)
+                gUnk_3005714.unk4 = distance - 4;
+
+        }
+        else
+            gUnk_3005714 = sUnk_8345988[1];
+    }
+
+    if (!gDisableScrolling)
+    {
+        if (gUnk_300007f != 0 && gGameModeSub1 == 6)
+            sub_08059008(&coords);
+        else if (gCurrentRoomEntry.scrollsFlag == ROOM_SCROLLS_FLAG_HAS_SCROLLS)
+            ScrollProcess(&coords);
+        else
+            ScrollWithNoScrolls(&coords);
+
+        ScrollBG2(&coords);
+
+        if (gBG0Movement.type != 0 && gCurrentRoomEntry.BG0Prop & BG_PROP_LZ77_COMPRESSED)
+            ScrollAutoBG0();
+
+        ScrollUpdateEffectAndHazePosition(&coords);
+        ScrollBG3();
+        if (gBG3Movement.direction != 0)
+            ScrollAutoBG3();
+    }
 }
 
 void ScrollWithNoScrolls(struct RawCoordsX* pCoords)
@@ -367,7 +465,7 @@ void ScrollAutoBG3(void)
     gBG3Movement.counter++;
 }
 
-void ScrollBG2(void)
+void ScrollBG2(struct RawCoordsX* pCoords)
 {
 
 }

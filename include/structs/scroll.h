@@ -31,6 +31,8 @@ struct Unk_3005714 {
     i16 unk6;
 };
 
+extern const struct Unk_3005714 sUnk_8345988[3];
+
 extern u8 gDisableScrolling;
 extern u16 gSlowScrollingTimer;
 extern u8 gSkipDoorTransition;
@@ -39,6 +41,8 @@ extern struct Camera gCamera;
 extern struct LockScreen gLockScreen;
 extern i8 gScreenYOffset;
 extern i16 gScreenXOffset;
+
+extern u8 gUnk_300007f;
 extern struct Unk_3005714 gUnk_3005714;
 extern u8* gCurrentRoomScrollDataPointer;
 

@@ -70,6 +70,7 @@ SECTIONS {
         . = 0x0000007B; gDoorUnlockTimer = .;
         . = 0x0000007d; gCurrentCutscene = .;
         . = 0x0000007e; gTourianEscapeCutsceneStage = .;
+        . = 0x0000007f; gUnk_300007f = .;
         . = 0x00000080; gHazeInfo = .;
         . = 0x00000088; gIORegistersBackup = .;
         . = 0x0000009C; gBGPointersAndDimensions = .;
@@ -198,6 +199,7 @@ SECTIONS {
         . = 0x00005515; gScreenYOffset = .;
         . = 0x00005516; gScreenXOffset = .;
         . = 0x00005518; gRainSoundEffect = .;
+        . = 0x00005520; gColorFading = .;
         . = 0x00005528; gBrokenBlocks = .;
         . = 0x000056a8; gLastTankCollected = .;
         . = 0x000056ac; gBombchains = .;

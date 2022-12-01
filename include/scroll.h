@@ -23,7 +23,7 @@ u32 ScrollGetBG3Scroll(void);
 void ScrollBG3(void);
 void ScrollBG3Related(void);
 void ScrollAutoBG3(void);
-void ScrollBG2(void);
+void ScrollBG2(struct RawCoordsX* pCoords);
 void ScrollMaybeScrollBG1Related(struct RawCoordsX* pCoords);
 
 #endif /* SCROLL_H */
