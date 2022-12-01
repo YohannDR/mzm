@@ -8,7 +8,7 @@
 #define SCREEN_HEIGHT (BLOCK_SIZE * 5)
 
 void ScrollProcess(struct RawCoordsX* pCoords);
-void ScrollScreen(u16 screen_x, u16 screen_y);
+void ScrollScreen(u16 screenX, u16 screenY);
 i32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords);
 i32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords);
 void ScrollLoad(void);

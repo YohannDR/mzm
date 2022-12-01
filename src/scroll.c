@@ -11,6 +11,11 @@
 #include "structs/samus.h"
 #include "structs/room.h"
 
+/**
+ * @brief 582c4 | 64 | Processes the current scrolls
+ * 
+ * @param pCoords Coordinates pointer
+ */
 void ScrollProcess(struct RawCoordsX* pCoords)
 {
     u32 screenX;
@@ -38,12 +43,66 @@ void ScrollProcess(struct RawCoordsX* pCoords)
         screenY = (i32)(screenY + newPosition) >> 0x1;
     }
 
-    ScrollScreen((u16)screenX, (u16)screenY);
+    ScrollScreen(screenX, screenY);
 }
 
-void ScrollScreen(u16 screen_x, u16 screen_y)
+/**
+ * @brief 58328 | bc | Scrolls the screen to the provided position
+ * 
+ * @param screenX Screen Y
+ * @param screenY Screen X
+ */
+void ScrollScreen(u16 screenX, u16 screenY)
 {
+    i32 velocity;
 
+    gCamera.xPosition = screenX;
+    gCamera.yPosition = screenY;
+
+    if (gGameModeSub1 == 0)
+        return;
+    
+    if (screenY != gBG1YPosition)
+    {
+        velocity = screenY - gBG1YPosition;
+
+        if (velocity > 0)
+        {
+            if (gUnk_3005714.unk6 < velocity)
+                velocity = gUnk_3005714.unk6;
+        }
+        else
+        {
+            if (gUnk_3005714.unk4 > velocity)
+                velocity = gUnk_3005714.unk4;
+        }
+
+        gCamera.yVelocity = velocity;
+        gBG1YPosition += velocity;
+    }
+    else
+        gCamera.yVelocity = 0;
+    
+    if (screenX != gBG1XPosition)
+    {
+        velocity = screenX - gBG1XPosition;
+
+        if (velocity > 0)
+        {
+            if (gUnk_3005714.unk2 < velocity)
+                velocity = gUnk_3005714.unk2;
+        }
+        else
+        {
+            if (gUnk_3005714.unk0 > velocity)
+                velocity = gUnk_3005714.unk0;
+        }
+
+        gCamera.xVelocity = velocity;
+        gBG1XPosition += velocity;
+    }
+    else
+        gCamera.xVelocity = 0;
 }
 
 i32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
