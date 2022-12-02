@@ -3,10 +3,6 @@
 
 #include "types.h"
 
-// Defines
-
-
-
 void RoomLoad(void);
 void RoomLoadTileset(void);
 void RoomLoadEntry(void);
@@ -15,7 +11,7 @@ void RoomRemoveNeverReformBlocksAndCollectedTanks(void);
 void RoomReset(void);
 void RoomSetBackgroundScrolling(void);
 void RoomSetInitialTilemap(u8 bgNumber);
-u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst);
+u32 RoomRLEDecompress(u8 isBG, u8* src, u8* dst);
 void RoomUpdateGFXInfo(void);
 void RoomUpdateAnimatedGraphicsAndPalettes(void);
 void RoomUpdateHatchFlashingAnimation(void);

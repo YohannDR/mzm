@@ -274,32 +274,32 @@ void RoomSetInitialTilemap(u8 bgNumber)
 /**
  * @brief 56d18 | 110 | RLE decompression algorithm
  * 
- * @param mode Mode?
+ * @param isBG Is background
  * @param src Source address
  * @param dst Destination address
- * @return u32 Unknown
+ * @return u32 Size
  */
-u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
+u32 RoomRLEDecompress(u8 isBG, u8* src, u8* dst)
 {
-    u32 result;
+    u32 size;
     i32 length;
     u8* dest;
     u8 numBytes;
     u32 value;
-    u32 temp;
+    u32 sizeType;
 
-    result = FALSE;
-
+    // get decompressed size of data
+    size = 0;
     length = 0x3000;
-    if (mode == 0)
+    if (!isBG)
     {
-        temp = *src;
-        result = 0x800;
-        if (temp != 0)
+        sizeType = *src;
+        size = 0x800;
+        if (sizeType != 0)
         {
-            result = 0x1000;
-            if (temp == 3)
-                result = 0x2000;
+            size = 0x1000;
+            if (sizeType == 3)
+                size = 0x2000;
         }
         
         src++;
@@ -308,6 +308,7 @@ u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
 
     BitFill(3, 0, dst, length, 0x10);
     
+    // do 2 passes, one for low byte and one for high byte
     for (length = 0; length < 2; )
     {
         dest = dst;
@@ -317,6 +318,7 @@ u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
         numBytes = *src++;
         if (numBytes == 1)
         {
+            // read 1 byte at a type
             value = *src++;
             length++;
 
@@ -324,8 +326,8 @@ u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
             {
                 if (value & 0x80)
                 {
+                    // compressed, copy next byte
                     value &= 0x7F;
-
                     if (*src)
                     {
                         while (value)
@@ -342,6 +344,7 @@ u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
                 }
                 else
                 {
+                    // uncompressed, read next bytes
                     while (value)
                     {
                         *dest = *src++;
@@ -355,6 +358,7 @@ u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
         }
         else
         {
+            // read 2 bytes at a type
             value = *src++;
             value <<= 8;
             value |= *src++;
@@ -364,6 +368,7 @@ u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
             {
                 if (value & 0x8000)
                 {
+                    // compressed, copy next byte
                     value &= 0x7FFF;
                     if (*src)
                     {
@@ -386,6 +391,7 @@ u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
                 }
                 else
                 {
+                    // uncompressed, read next bytes
                     while (value)
                     {
                         *dest = *src++;
@@ -401,7 +407,7 @@ u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
         }
     }
 
-    return result;
+    return size;
 }
 
 /**
