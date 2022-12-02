@@ -271,26 +271,34 @@ void RoomSetInitialTilemap(u8 bgNumber)
 
 }
 
+/**
+ * @brief 56d18 | 110 | RLE decompression algorithm
+ * 
+ * @param mode Mode?
+ * @param src Source address
+ * @param dst Destination address
+ * @return u32 Unknown
+ */
 u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
 {
-    // https://decomp.me/scratch/ogbfm
-
     u32 result;
-    u32 length;
+    i32 length;
     u8* dest;
     u8 numBytes;
-    u8 value;
+    u32 value;
+    u32 temp;
 
     result = FALSE;
 
     length = 0x3000;
     if (mode == 0)
     {
+        temp = *src;
         result = 0x800;
-        if (*src != 0)
+        if (temp != 0)
         {
             result = 0x1000;
-            if (*src == 3)
+            if (temp == 3)
                 result = 0x2000;
         }
         
@@ -300,7 +308,7 @@ u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
 
     BitFill(3, 0, dst, length, 0x10);
     
-    for (length = 0; length < 2; length++)
+    for (length = 0; length < 2; )
     {
         dest = dst;
         if (length != 0)
@@ -320,10 +328,11 @@ u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
 
                     if (*src)
                     {
-                        while (value--)
+                        while (value)
                         {
-                            *dest = *src++;
+                            *dest = *src;
                             dest += 2;
+                            value--;
                         }
                     }
                     else
@@ -333,10 +342,11 @@ u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
                 }
                 else
                 {
-                    while (value--)
+                    while (value)
                     {
                         *dest = *src++;
                         dest += 2;
+                        value--;
                     }
                 }
 
@@ -345,7 +355,49 @@ u32 RoomRLEDecompress(u8 mode, u8* src, u8* dst)
         }
         else
         {
-            
+            value = *src++;
+            value <<= 8;
+            value |= *src++;
+            length++;
+
+            while (value)
+            {
+                if (value & 0x8000)
+                {
+                    value &= 0x7FFF;
+                    if (*src)
+                    {
+                        if (value)
+                        {
+                            while (value)
+                            {
+                                *dest = *src;
+                                dest += 2;
+                                value--;
+                            }
+                        }
+                        else
+                            dest += value * 2;
+                    }
+                    else
+                        dest += value * 2;
+
+                    src++;
+                }
+                else
+                {
+                    while (value)
+                    {
+                        *dest = *src++;
+                        dest += 2;
+                        value--;
+                    }
+                }
+
+                value = *src++;
+                value <<= 8;
+                value |= *src++;
+            }
         }
     }
 
