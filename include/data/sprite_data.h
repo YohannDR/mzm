@@ -1549,7 +1549,7 @@ static const u16 sPrimarySpriteStats[206][9] = {
         0,
         0
     },
-    [PSPRITE_ZEBITITE_TWO_AND_FOUR] = {
+    [PSPRITE_ZEBETITE_TWO_AND_FOUR] = {
         140,
         0,
         WEAKNESS_MISSILES,
@@ -3704,7 +3704,7 @@ static const u8 sSpriteset66[12] = {
 static const u8 sSpriteset67[26] = {
 	PSPRITE_MOTHER_BRAIN, 0,
 	PSPRITE_ZEBETITE_ONE_AND_THREE, 6,
-	PSPRITE_ZEBITITE_TWO_AND_FOUR, 6,
+	PSPRITE_ZEBETITE_TWO_AND_FOUR, 6,
 	PSPRITE_RINKA_MOTHER_BRAIN2, 6,
 	PSPRITE_RINKA_MOTHER_BRAIN3, 6,
 	PSPRITE_RINKA_MOTHER_BRAIN4, 6,

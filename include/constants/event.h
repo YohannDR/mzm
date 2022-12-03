@@ -1,6 +1,3 @@
-
-// Defines
-
 #define EVENT_ACTION_CLEARING 0x0
 #define EVENT_ACTION_SETTING 0x1
 #define EVENT_ACTION_TOGGLING 0x2

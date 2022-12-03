@@ -303,7 +303,7 @@ SECTIONS {
         src/sprites_AI/sidehopper.o(.text);
         src/sprites_AI/geron_norfair.o(.text);
         src/sprites_AI/geega.o(.text);
-        asm/disasm_0x080406c8.o(.text);
+        src/sprites_AI/zebetite_and_cannon.o(.text);
         src/sprites_AI/imago_larva_right_side.o(.text);
         src/sprites_AI/tangle_vine.o(.text);
         src/sprites_AI/imago.o(.text);
@@ -422,7 +422,7 @@ SECTIONS {
         src/sprites_AI/sidehopper.o(.rodata);
         src/sprites_AI/geron_norfair.o(.rodata);
         src/sprites_AI/geega.o(.rodata);
-        asm/disasm_0x080406c8.o(.rodata);
+        src/sprites_AI/zebetite_and_cannon.o(.rodata);
         src/sprites_AI/imago_larva_right_side.o(.rodata);
         src/sprites_AI/tangle_vine.o(.rodata);
         src/sprites_AI/imago.o(.rodata);

@@ -3,6 +3,7 @@
 
 #include "data/frame_data_pointers.h"
 #include "data/sprites/mother_brain.h"
+#include "data/sprites/zebetite_and_cannon.h"
 #include "data/sprite_data.h"
 
 #include "constants/audio.h"
@@ -829,7 +830,7 @@ void MotherBrainBlock(void)
         gCurrentSprite.hitboxLeftOffset = -0x20;
         gCurrentSprite.hitboxRightOffset = 0x20;
 
-        gCurrentSprite.pOam = (struct FrameData*)0x82febfc;
+        gCurrentSprite.pOam = sMotherBrainBlockOAM;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         
