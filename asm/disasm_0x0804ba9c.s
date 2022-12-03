@@ -1077,8 +1077,8 @@ lbl_0804c330: .4byte 0x08323b68
 lbl_0804c334: .4byte 0x05000300
 lbl_0804c338: .4byte 0x8000000d
 
-    thumb_func_start MechaRidleyCheckSamusOutOfAmmo
-MechaRidleyCheckSamusOutOfAmmo: @ 0x0804c33c
+    thumb_func_start MechaRidleyCheckStartFireballAttack
+MechaRidleyCheckStartFireballAttack: @ 0x0804c33c
     push {lr}
     lsls r0, r0, #0x18
     lsrs r3, r0, #0x18
@@ -1158,7 +1158,7 @@ sub_0804c3c8: @ 0x0804c3c8
     cmp r0, #0
     bne lbl_0804c3e4
     adds r0, r4, #0
-    bl MechaRidleyCheckSamusOutOfAmmo
+    bl MechaRidleyCheckStartFireballAttack
     lsls r0, r0, #0x18
     cmp r0, #0
     bne lbl_0804c3f0
@@ -1435,7 +1435,7 @@ lbl_0804c600: .4byte 0x0300070c
 lbl_0804c604: .4byte 0x0300080c
 lbl_0804c608:
     adds r0, r6, #0
-    bl MechaRidleyCheckSamusOutOfAmmo
+    bl MechaRidleyCheckStartFireballAttack
     lsls r0, r0, #0x18
     cmp r0, #0
     bne lbl_0804c622
@@ -2982,8 +2982,8 @@ lbl_0804d2d8:
     bx r0
     .align 2, 0
 
-    thumb_func_start MechaRidleyPartGlows
-MechaRidleyPartGlows: @ 0x0804d2e0
+    thumb_func_start MechaRidleyPartHeadIdle
+MechaRidleyPartHeadIdle: @ 0x0804d2e0
     push {lr}
     bl sub_0804bb88
     bl MechaRidleyPartGreeGlow
@@ -5048,7 +5048,7 @@ lbl_0804e488:
     bl MechaRidleyPartCoreCoverExplosion
     b lbl_0804e498
 lbl_0804e48e:
-    bl MechaRidleyPartGlows
+    bl MechaRidleyPartHeadIdle
     b lbl_0804e42c
 lbl_0804e494:
     bl mecha_ridley_sync_sub_sprites_pos

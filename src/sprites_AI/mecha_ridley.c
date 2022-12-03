@@ -1,10 +1,30 @@
 #include "sprites_AI/mecha_ridley.h"
+
 #include "data/sprites/mecha_ridley.h"
 #include "data/sprite_data.h"
-#include "constants/sprite.h"
+
 #include "constants/event.h"
+#include "constants/particle.h"
+#include "constants/sprite.h"
+
 #include "structs/sprite.h"
 #include "structs/samus.h"
+
+#define HEALTH_THRESHOLD_FULL 0
+#define HEALTH_THRESHOLD_DAMAGED 1
+#define HEALTH_THRESHOLD_COVER_BROKEN 2
+#define HEALTH_THRESHOLD_THREE_QUARTERS 3
+#define HEALTH_THRESHOLD_HALF 4
+#define HEALTH_THRESHOLD_QUARTER 5
+
+
+#define CHECK_COVER_HEALTH_THRESHOLD(maxHealth)               \
+do {                                                          \
+if (gSubSpriteData1.health < maxHealth * 3 / 4)               \
+    gSubSpriteData1.workVariable3 = HEALTH_THRESHOLD_DAMAGED; \
+} while(0);                                                   \
+
+
 
 void MechaRidleySyncSubSprites(void)
 {
@@ -72,14 +92,51 @@ void MechaRidleyStartBattle(void)
 
 }
 
-u8 MechaRidleyCheckSamusOutOfAmmo(u8 ramSlot)
+/**
+ * @brief 4c33c | 8c | Checks if the fireball attack should start
+ * 
+ * @param ramSlot Left arm RAM slot
+ * @return u8 1 if started, 0 otherwise
+ */
+u8 MechaRidleyCheckStartFireballAttack(u8 ramSlot)
 {
+    if (!(gCurrentSprite.arrayOffset & 0x3F))
+    {
+        if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2) && gSpriteRNG < 8)
+            unk_4beb4(ramSlot); // Start claw attack
+        else
+        {
+            gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
 
+            if (gSubSpriteData1.workVariable3 == HEALTH_THRESHOLD_DAMAGED && gBossWork.work6 == 0)
+            {
+                if (gBossWork.work5 == 0 && gEquipment.currentMissiles + gEquipment.currentSuperMissiles != 0)
+                {
+                    // Start fireball attack
+                    gCurrentSprite.pose = MECHA_RIDLEY_POSE_FIREBALL_ATTACK_INIT;
+                    return TRUE;
+                }
+            }
+
+            gBossWork.work4 = 2;
+        }
+    }
+
+    return FALSE;
 }
 
-void unk_4c3c8(void)
+/**
+ * @brief 4c3c8 | 38 | Handles Mecha being idle
+ * 
+ */
+void MechaRidleyIdle(void)
 {
+    u8 armSlot;
 
+    armSlot = gSubSpriteData1.workVariable5;
+
+    if ((unk_4bcd0() || !MechaRidleyCheckStartFireballAttack(armSlot)) && gSubSpriteData1.workVariable2 == 0xAA)
+        gBossWork.work5 = 1;
 }
 
 void MechaRidleyClawAttack(void)
@@ -355,19 +412,60 @@ void MechaRidleyPartInit(void)
     }
 }
 
-void MechaRidleyPartGlows(void)
+/**
+ * @brief 4d2e0 | 10 | Handles the head part being idle
+ * 
+ */
+void MechaRidleyPartHeadIdle(void)
 {
-
+    MechaRidleyPartLoadWeaponsGFX();
+    MechaRidleyPartGreeGlow();
 }
 
-void unk_4d2f0(void)
+/**
+ * @brief 4d2f0 | 48 | Handles the core part being idle
+ * 
+ */
+void MechaRidleyPartCoverIdle(void)
 {
+    u16 maxHealth;
 
+    if ((gCurrentSprite.invincibilityStunFlashTimer & 0x7F) == 0x10)
+        SoundPlay(0x2AF);
+
+    // Spawn health of cover
+    maxHealth = gBossWork.work10;
+
+    gSubSpriteData1.health = gCurrentSprite.health;
+
+    CHECK_COVER_HEALTH_THRESHOLD(maxHealth);
 }
 
+/**
+ * @brief 4d338 | 6c | Handles the cover part exploding
+ * 
+ */
 void MechaRidleyPartCoreCoverExplosion(void)
 {
+    u8 ramSlot;
 
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+
+    // Enable core hitbox
+    gSpriteData[ramSlot].status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
+
+    gSubSpriteData1.health = gBossWork.work9;
+    gBossWork.work7 = gBossWork.work9;
+
+    // Set cover destroyed flag
+    gSubSpriteData1.workVariable3 = HEALTH_THRESHOLD_COVER_BROKEN;
+
+    // Disable
+    gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
+    gCurrentSprite.pose = MECHA_RIDLEY_PART_COVER_POSE_BROKEN;
+
+    ParticleSet(gCurrentSprite.yPosition + 13, gCurrentSprite.xPosition - QUARTER_BLOCK_SIZE, PE_SPRITE_EXPLOSION_HUGE);
+    SoundPlay(0x12F);
 }
 
 void MechaRidleyPartMissileAttack(void)
@@ -476,7 +574,7 @@ void MechaRidley(void)
             break;
 
         case MECHA_RIDLEY_POSE_IDLE:
-            unk_4c3c8();
+            MechaRidleyIdle();
             break;
 
         case 0x22:
@@ -547,18 +645,18 @@ void MechaRidley(void)
             MechaRidleySecondEyeGlow();
     }
 
-    if (gSubSpriteData1.workVariable3 > 0x1)
+    if (gSubSpriteData1.workVariable3 >= HEALTH_THRESHOLD_COVER_BROKEN)
     {
         gSubSpriteData1.health = gCurrentSprite.health;
 
         health = gBossWork.work9;
-        
+
         if (gSubSpriteData1.health < health / 4)
-            gSubSpriteData1.workVariable3 = 0x5;
+            gSubSpriteData1.workVariable3 = HEALTH_THRESHOLD_QUARTER;
         else if (gSubSpriteData1.health < health / 2)
-            gSubSpriteData1.workVariable3 = 0x4;
+            gSubSpriteData1.workVariable3 = HEALTH_THRESHOLD_HALF;
         else if (gSubSpriteData1.health < health * 3 / 4)
-            gSubSpriteData1.workVariable3 = 0x3;
+            gSubSpriteData1.workVariable3 = HEALTH_THRESHOLD_THREE_QUARTERS;
     }
 
     gCurrentSprite.arrayOffset++;
@@ -588,4 +686,3 @@ void MechaRidleyFireball(void)
 {
 
 }
-

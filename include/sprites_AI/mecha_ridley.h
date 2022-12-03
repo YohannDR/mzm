@@ -8,6 +8,7 @@
 #define MECHA_RIDLEY_POSE_CRAWLING 0x3
 #define MECHA_RIDLEY_POSE_DELAY_BEFORE_IDLE 0x4
 #define MECHA_RIDLEY_POSE_IDLE 0x9
+#define MECHA_RIDLEY_POSE_FIREBALL_ATTACK_INIT 0x34
 #define MECHA_RIDLEY_POSE_DYING_INIT 0x62
 #define MECHA_RIDLEY_POSE_DYING_STANDING_UP 0x67
 #define MECHA_RIDLEY_POSE_SPAWN_DROPS 0x68
@@ -32,6 +33,13 @@
 #define MECHA_RIDLEY_PART_TAIL 0x9
 #define MECHA_RIDLEY_PART_MISSILE_LAUNCHER 0xA
 
+// Cover
+
+#define MECHA_RIDLEY_PART_COVER_POSE_BROKEN 0x67
+
+
+
+
 void MechaRidleySyncSubSprites(void);
 void MechaRidleyPartGreeGlow(void);
 void MechaRidleyPartLoadWeaponsGFX(void);
@@ -44,8 +52,8 @@ void MechaRidleyStartWalking(void);
 void MechaRidleyDelayBeforeCrawling(void);
 void MechaRidleyCrawling(void);
 void MechaRidleyStartBattle(void);
-u8 MechaRidleyCheckSamusOutOfAmmo(u8 ramSlot);
-void unk_4c3c8(void);
+u8 MechaRidleyCheckStartFireballAttack(u8 ramSlot);
+void MechaRidleyIdle(void);
 void MechaRidleyClawAttack(void);
 void MechaRidleyStandingUp(void);
 void MechaRidleyCurledUp(void);
@@ -64,8 +72,8 @@ void MechaRidleySpawnDrops(void);
 void MechaRidleyFirstEyeGlow(void);
 void MechaRidleySecondEyeGlow(void);
 void MechaRidleyPartInit(void);
-void MechaRidleyPartGlows(void);
-void unk_4d2f0(void);
+void MechaRidleyPartHeadIdle(void);
+void MechaRidleyPartCoverIdle(void);
 void MechaRidleyPartCoreCoverExplosion(void);
 void MechaRidleyPartMissileAttack(void);
 void MechaRidleyPartLaserAttack(void);
