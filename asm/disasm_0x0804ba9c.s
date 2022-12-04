@@ -3774,8 +3774,8 @@ lbl_0804d914:
     pop {r0}
     bx r0
 
-    thumb_func_start MechaRidleyPartUpdateFrontClawHitbox
-MechaRidleyPartUpdateFrontClawHitbox: @ 0x0804d928
+    thumb_func_start MechaRidleyPartLeftArmIdle
+MechaRidleyPartLeftArmIdle: @ 0x0804d928
     push {r4, r5, r6, r7, lr}
     movs r6, #0
     movs r5, #0
@@ -5017,7 +5017,7 @@ lbl_0804e432:
     .align 2, 0
 lbl_0804e44c: .4byte 0x030001ac
 lbl_0804e450:
-    bl MechaRidleyPartUpdateFrontClawHitbox
+    bl MechaRidleyPartLeftArmIdle
     ldr r0, lbl_0804e468 @ =0x030001ac
     lsls r1, r6, #3
     subs r1, r1, r6

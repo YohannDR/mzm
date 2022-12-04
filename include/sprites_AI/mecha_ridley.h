@@ -33,10 +33,36 @@
 #define MECHA_RIDLEY_PART_TAIL 0x9
 #define MECHA_RIDLEY_PART_MISSILE_LAUNCHER 0xA
 
-// Cover
+#define MECHA_RIDLEY_PART_POSE_RIGHT_ARM_IDLE 0x8
+#define MECHA_RIDLEY_PART_POSE_LEFT_ARM_IDLE 0x22
+#define MECHA_RIDLEY_PART_POSE_NECK_IDLE 0x24
+#define MECHA_RIDLEY_PART_POSE_EYE_IDLE 0x26
+#define MECHA_RIDLEY_PART_POSE_MISSILE_LAUNCHER_IDLE 0x28
+#define MECHA_RIDLEY_PART_POSE_COVER_IDLE 0x2A
+#define MECHA_RIDLEY_PART_POSE_HEAD_IDLE 0x2C
+#define MECHA_RIDLEY_PART_POSE_COVER_DESTROYED 0x62
+#define MECHA_RIDLEY_PART_POSE_COVER_BROKEN 0x67
 
-#define MECHA_RIDLEY_PART_COVER_POSE_BROKEN 0x67
+// Eye part
 
+#define LASER_DIRECTION_FORWARD 0
+#define LASER_DIRECTION_SLIGHTLY_DOWN 1
+#define LASER_DIRECTION_DOWN 2
+#define LASER_DIRECTION_SLIGHTLY_UP 3
+#define LASER_DIRECTION_UP 4
+
+#define EYE_STATE_IDLE 0
+#define EYE_STATE_BLINKING_INIT 1
+#define EYE_STATE_LASER_ATTACK_INIT 2
+#define EYE_STATE_LASER_ATTACK 3
+
+// Missile launcher part
+
+#define MISSILE_LAUNCHER_STATE_IDLE 0
+#define MISSILE_LAUNCHER_STATE_MISSILE_ATTACK_INIT 1
+#define MISSILE_LAUNCHER_STATE_OPENING 2
+#define MISSILE_LAUNCHER_STATE_OPENED 3
+#define MISSILE_LAUNCHER_STATE_CLOSING 4
 
 
 
@@ -75,11 +101,11 @@ void MechaRidleyPartInit(void);
 void MechaRidleyPartHeadIdle(void);
 void MechaRidleyPartCoverIdle(void);
 void MechaRidleyPartCoreCoverExplosion(void);
-void MechaRidleyPartMissileAttack(void);
-void MechaRidleyPartLaserAttack(void);
-void MechaRidleyPartUpdateHitboxOf_Unk(void);
-void MechaRidleyPartUpdateFrontClawHitbox(void);
-void MechaRidleyPartUpdateHitboxOf_Unk2(void);
+void MechaRidleyPartMissileLauncherIdle(void);
+void MechaRidleyPartEyeIdle(void);
+void MechaRidleyPartRightArmIdle(void);
+void MechaRidleyPartLeftArmIdle(void);
+void MechaRidleyPartNeckIdle(void);
 void MechaRidley(void);
 void MechaRidleyPart(void);
 void MechaRidleyLaser(void);
