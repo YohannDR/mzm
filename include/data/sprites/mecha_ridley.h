@@ -183,7 +183,7 @@ static const u16 sMechaRidleyPartOAM_EyeShootingLaserForward_Frame1[7] = {
     0xfa, 0x1fd, OBJ_SPRITE_OAM | 0x128d
 };
 
-static const u16 sMechaRidleyPartOAM_EyeShootingLaserForward_Frame2[7] = {
+static const u16 sMechaRidleyPartOAM_EyeShootingLaserForward_Frame2[10] = {
     0x3,
     OBJ_SHAPE_HORIZONTAL | 0xfa, 0x1e8, OBJ_SPRITE_OAM | 0x53a0,
     0xfa, 0x1f8, OBJ_SPRITE_OAM | 0x53a2,
@@ -1351,13 +1351,13 @@ static const u16 sMechaRidleyLaserOAM_Forward_Frame2[4] = {
     0xfc, 0x1fc, OBJ_SPRITE_OAM | 0x5260
 };
 
-static const u16 sMechaRidleyLaserOAM_Forward_Frame0[4] = {
+static const u16 sMechaRidleyLaserOAM_Forward_Frame0[7] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xfc, OBJ_SIZE_32x8 | 0x1e1, OBJ_SPRITE_OAM | 0x53a4,
     OBJ_SHAPE_HORIZONTAL | 0xfc, OBJ_X_FLIP | OBJ_SIZE_32x8 | 0x1ff, OBJ_SPRITE_OAM | 0x53a4
 };
 
-static const u16 sMechaRidleyLaserOAM_Forward_Frame1[4] = {
+static const u16 sMechaRidleyLaserOAM_Forward_Frame1[7] = {
     0x2,
     OBJ_SHAPE_HORIZONTAL | 0xfc, OBJ_SIZE_32x8 | 0x1e1, OBJ_SPRITE_OAM | 0x53a0,
     OBJ_SHAPE_HORIZONTAL | 0xfc, OBJ_X_FLIP | OBJ_SIZE_32x8 | 0x1ff, OBJ_SPRITE_OAM | 0x53a0
