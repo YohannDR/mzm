@@ -1063,14 +1063,18 @@ void MechaRidleyPartLeftArmIdle(void)
     gCurrentSprite.hitboxRightOffset = rightHitbox;
 }
 
+/**
+ * @brief 4db60 | 1f8 | Handles the neck part being idle
+ * 
+ */
 void MechaRidleyPartNeckIdle(void)
 {
-    // https://decomp.me/scratch/IqBSU
-
     i32 topHitbox;
     i32 bottomHitbox;
     i32 leftHitbox;
     i32 rightHitbox;
+
+    u16 rHitbox;
 
     topHitbox = 0;
     bottomHitbox = 0;
@@ -1091,28 +1095,14 @@ void MechaRidleyPartNeckIdle(void)
         leftHitbox = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
         rightHitbox = HALF_BLOCK_SIZE;
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckMiddle)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckMiddle || gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckMiddle_2)
     {
         topHitbox = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
         bottomHitbox = QUARTER_BLOCK_SIZE;
         leftHitbox = -BLOCK_SIZE * 2;
         rightHitbox = HALF_BLOCK_SIZE;
     }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckMiddle_2)
-    {
-        topHitbox = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
-        bottomHitbox = QUARTER_BLOCK_SIZE;
-        leftHitbox = -BLOCK_SIZE * 2;
-        rightHitbox = HALF_BLOCK_SIZE;
-    }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckHigh)
-    {
-        topHitbox = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
-        bottomHitbox = QUARTER_BLOCK_SIZE;
-        leftHitbox = -BLOCK_SIZE;
-        rightHitbox = HALF_BLOCK_SIZE;
-    }
-    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckHigh_2)
+    else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckHigh || gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckHigh_2)
     {
         topHitbox = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
         bottomHitbox = QUARTER_BLOCK_SIZE;
@@ -1181,21 +1171,99 @@ void MechaRidleyPartNeckIdle(void)
     }
     else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckMiddleToLow)
     {
+        if (gCurrentSprite.currentAnimationFrame == 0)
+        {
+            if (gCurrentSprite.animationDurationCounter == 1)
+                SoundPlay(0x2AC);
 
+            topHitbox = -BLOCK_SIZE;
+            bottomHitbox = BLOCK_SIZE;
+            leftHitbox = -BLOCK_SIZE * 2;
+            rightHitbox = HALF_BLOCK_SIZE;
+        }
+        else
+        {
+            topHitbox = -HALF_BLOCK_SIZE;
+            bottomHitbox = BLOCK_SIZE + HALF_BLOCK_SIZE;
+            leftHitbox = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            rightHitbox = HALF_BLOCK_SIZE;
+        }
     }
     else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckLowToHigh)
     {
+        if (gCurrentSprite.currentAnimationFrame == 0)
+        {
+            if (gCurrentSprite.animationDurationCounter == 1)
+                SoundPlay(0x2A1);
 
+            topHitbox = -BLOCK_SIZE;
+            bottomHitbox = BLOCK_SIZE;
+            leftHitbox = -BLOCK_SIZE * 2;
+            rightHitbox = HALF_BLOCK_SIZE;
+        }
+        else if (gCurrentSprite.currentAnimationFrame == 1)
+        {
+            topHitbox = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            bottomHitbox = QUARTER_BLOCK_SIZE;
+            leftHitbox = -BLOCK_SIZE * 2;
+            rightHitbox = HALF_BLOCK_SIZE;
+        }
+        else if (gCurrentSprite.currentAnimationFrame == 2)
+        {
+            topHitbox = -BLOCK_SIZE * 2;
+            bottomHitbox = 0;
+            leftHitbox = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            rightHitbox = HALF_BLOCK_SIZE;
+        }
+        else if (gCurrentSprite.currentAnimationFrame == 3)
+        {
+            topHitbox = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+            bottomHitbox = 0;
+            leftHitbox = -BLOCK_SIZE;
+            rightHitbox = HALF_BLOCK_SIZE;
+        }
     }
     else if (gCurrentSprite.pOam == sMechaRidleyPartOAM_NeckHighToLow)
     {
+        if (gCurrentSprite.currentAnimationFrame == 0)
+        {
+            if (gCurrentSprite.animationDurationCounter == 1)
+                SoundPlay(0x2A2);
 
+            topHitbox = -BLOCK_SIZE * 2;
+            bottomHitbox = 0;
+            leftHitbox = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            rightHitbox = HALF_BLOCK_SIZE;
+        }
+        else if (gCurrentSprite.currentAnimationFrame == 1)
+        {
+            topHitbox = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            bottomHitbox = QUARTER_BLOCK_SIZE;
+            leftHitbox = -BLOCK_SIZE * 2;
+            rightHitbox = HALF_BLOCK_SIZE;
+        }
+        else if (gCurrentSprite.currentAnimationFrame == 2)
+        {
+            topHitbox = -BLOCK_SIZE;
+            bottomHitbox = BLOCK_SIZE;
+            leftHitbox = -BLOCK_SIZE * 2;
+            rightHitbox = HALF_BLOCK_SIZE;
+        }
+        else if (gCurrentSprite.currentAnimationFrame == 3)
+        {
+            topHitbox = -HALF_BLOCK_SIZE;
+            bottomHitbox = BLOCK_SIZE + HALF_BLOCK_SIZE;
+            leftHitbox = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            rightHitbox = HALF_BLOCK_SIZE;
+        }
     }
 
     gCurrentSprite.hitboxTopOffset = topHitbox;
     gCurrentSprite.hitboxBottomOffset = bottomHitbox;
     gCurrentSprite.hitboxLeftOffset = leftHitbox;
-    gCurrentSprite.hitboxRightOffset = rightHitbox;
+
+    rHitbox = rightHitbox;
+    gCurrentSprite.hitboxRightOffset = rHitbox;
 }
 
 /**
