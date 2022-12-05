@@ -1,14 +1,18 @@
 #include "sprites_AI/mecha_ridley.h"
+#include "transparency.h"
+#include "gba.h"
 
 #include "data/sprites/mecha_ridley.h"
 #include "data/sprite_data.h"
 
+#include "constants/audio.h"
 #include "constants/event.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 
 #include "structs/sprite.h"
 #include "structs/samus.h"
+#include "structs/visual_effects.h"
 
 #define HEALTH_THRESHOLD_FULL 0
 #define HEALTH_THRESHOLD_COVER_DAMAGED 1
@@ -18,11 +22,11 @@
 #define HEALTH_THRESHOLD_QUARTER 5
 
 
-#define CHECK_COVER_HEALTH_THRESHOLD(maxHealth)               \
-do {                                                          \
-if (gSubSpriteData1.health < maxHealth * 3 / 4)               \
+#define CHECK_COVER_HEALTH_THRESHOLD(maxHealth)                     \
+do {                                                                \
+if (gSubSpriteData1.health < maxHealth * 3 / 4)                     \
     gSubSpriteData1.workVariable3 = HEALTH_THRESHOLD_COVER_DAMAGED; \
-} while(0);                                                   \
+} while(0);                                                         \
 
 
 
@@ -31,9 +35,35 @@ void MechaRidleySyncSubSprites(void)
 
 }
 
-void MechaRidleyPartGreeGlow(void)
+/**
+ * @brief 4bb04 | 84 | Handles the green palette cycle
+ * 
+ */
+void MechaRidleyPartGreenGlow(void)
 {
+    u8 palRow;
+    u8 stage;
 
+    if (gCurrentSprite.timer != 0)
+        gCurrentSprite.timer--;
+    else
+    {
+        stage = gCurrentSprite.workVariable++;
+
+        palRow = sMechaRidleyGreenGlowPaletteData[stage][0];
+        if (palRow == SCHAR_MAX + 1)
+        {
+            gCurrentSprite.workVariable = 1;
+            stage = 0;
+            palRow = sMechaRidleyGreenGlowPaletteData[stage][0];
+        }
+
+        gCurrentSprite.timer = sMechaRidleyGreenGlowPaletteData[stage][1];
+
+        dma_set(3, &sMechaRidleyGreenGlowPAL[palRow * 16],
+            PALRAM_BASE + 0x31A + gCurrentSprite.absolutePaletteRow * 32,
+            (DMA_ENABLE << 16) | 3);
+    }
 }
 
 void MechaRidleyPartLoadWeaponsGFX(void)
@@ -66,9 +96,21 @@ void MechaRidleyInit(void)
 
 }
 
+/**
+ * @brief 4c198 | 48 | Initializes Mecha ridley to be walking at the beginning of the fight
+ * 
+ */
 void MechaRidleyStartWalking(void)
 {
+    gCurrentSprite.pose = MECHA_RIDLEY_POSE_DELAY_BEFORE_CRAWLING;
+    SoundPlay(0x2B3);
 
+    dma_set(3, sMechaRidleyFadingPAL, PALRAM_BASE + 0x300, (DMA_ENABLE << 16) | 13);
+
+    TransparencyUpdateBLDCNT(1,
+        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL |
+        BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG3_SECOND_TARGET_PIXEL |
+        BLDCNT_BACKDROP_SECOND_TARGET_PIXEL);
 }
 
 /**
@@ -87,9 +129,36 @@ void MechaRidleyCrawling(void)
 
 }
 
+/**
+ * @brief 4c2a4 | 98 | Handles the fading at the start of the battle
+ * 
+ */
 void MechaRidleyStartBattle(void)
 {
+    u8 palRow;
 
+    if (--gCurrentSprite.workVariable == 0)
+    {
+        gCurrentSprite.workVariable = 2;
+        palRow = ++gCurrentSprite.timer;
+        
+        if (palRow > 6)
+        {
+            gCurrentSprite.pose = MECHA_RIDLEY_POSE_IDLE;
+            MusicPlay(MUSIC_MECHA_RIDLEY_BATTLE, 0);
+            gDisableAnimatedPalette = FALSE;
+        }
+        else
+        {
+            if (palRow == 1)
+                SoundPlay(0x2AD);
+
+            dma_set(3, &sMechaRidleyFadingPAL[palRow * 16],
+                PALRAM_BASE + 0x300, (DMA_ENABLE << 16) | 13);
+
+            TransparencySpriteUpdateBLDALPHA(palRow + 10, 0, 0, 16);
+        }
+    }
 }
 
 /**
@@ -150,9 +219,25 @@ void MechaRidleyStandingUp(void)
 
 }
 
+/**
+ * @brief 4c5dc | 54 | Handles mecha ridley being curled up
+ * 
+ */
 void MechaRidleyCurledUp(void)
 {
+    u8 leftArmSlot;
 
+    leftArmSlot = gSubSpriteData1.workVariable5;
+    if (!unk_4bcd0())
+    {
+        if (gBossWork.work7 > gSubSpriteData1.health)
+            unk_4bdf8(leftArmSlot);
+        else if (MechaRidleyCheckStartFireballAttack(leftArmSlot))
+            return;
+    }
+
+    if (gSubSpriteData1.workVariable2 == 170)
+        gBossWork.work5 = MISSILE_LAUNCHER_STATE_MISSILE_ATTACK_INIT;
 }
 
 void MechaRidleyCheckRetractingHeadBeforeMovingBackAnimEnded(void)
@@ -420,7 +505,7 @@ void MechaRidleyPartInit(void)
 void MechaRidleyPartHeadIdle(void)
 {
     MechaRidleyPartLoadWeaponsGFX();
-    MechaRidleyPartGreeGlow();
+    MechaRidleyPartGreenGlow();
 }
 
 /**

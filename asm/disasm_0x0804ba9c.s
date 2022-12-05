@@ -56,8 +56,8 @@ lbl_0804baf8: .4byte 0x0300070c
 lbl_0804bafc: .4byte 0x03000738
 lbl_0804bb00: .4byte 0x0875f878
 
-    thumb_func_start MechaRidleyPartGreeGlow
-MechaRidleyPartGreeGlow: @ 0x0804bb04
+    thumb_func_start MechaRidleyPartGreenGlow
+MechaRidleyPartGreenGlow: @ 0x0804bb04
     push {r4, r5, lr}
     ldr r4, lbl_0804bb18 @ =0x03000738
     adds r5, r4, #0
@@ -2986,7 +2986,7 @@ lbl_0804d2d8:
 MechaRidleyPartHeadIdle: @ 0x0804d2e0
     push {lr}
     bl sub_0804bb88
-    bl MechaRidleyPartGreeGlow
+    bl MechaRidleyPartGreenGlow
     pop {r0}
     bx r0
     .align 2, 0

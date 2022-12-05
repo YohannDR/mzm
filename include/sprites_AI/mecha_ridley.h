@@ -67,7 +67,7 @@
 
 
 void MechaRidleySyncSubSprites(void);
-void MechaRidleyPartGreeGlow(void);
+void MechaRidleyPartGreenGlow(void);
 void MechaRidleyPartLoadWeaponsGFX(void);
 void unk_4bc2c(void);
 u8 unk_4bcd0(void);
