@@ -1,4 +1,5 @@
 #include "sprites_AI/mecha_ridley.h"
+#include "sprites_AI/item_banner.h"
 #include "transparency.h"
 #include "gba.h"
 
@@ -10,6 +11,8 @@
 #include "constants/particle.h"
 #include "constants/sprite.h"
 
+#include "structs/connection.h"
+#include "structs/in_game_timer.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"
 #include "structs/visual_effects.h"
@@ -290,9 +293,58 @@ void MechaRidleyDying(void)
 
 }
 
+/**
+ * @brief 4ca30 | 1a8 | Handles mecha ridley fading when dying
+ * 
+ */
 void MechaRidleyGlowFading(void)
 {
+    switch (gCurrentSprite.timer++)
+    {
+        case 0:
+            dma_set(3, sMechaRidleyDestroyedGFX, VRAM_BASE + 0x15580, (DMA_ENABLE << 16) | 0x40);
+            break;
 
+        case 1:
+            dma_set(3, &sMechaRidleyDestroyedGFX[0x60], VRAM_BASE + 0x15980, (DMA_ENABLE << 16) | 0x60);
+            break;
+
+        case 2:
+            dma_set(3, &sMechaRidleyDestroyedGFX[0xC0], VRAM_BASE + 0x15D80, (DMA_ENABLE << 16) | 0x60);
+            break;
+
+        case 3:
+            dma_set(3, &sMechaRidleyDestroyedGFX[0x120], VRAM_BASE + 0x16180, (DMA_ENABLE << 16) | 0x60);
+            break;
+
+        case 4:
+            dma_set(3, &sMechaRidleyDestroyedGFX[0x180], VRAM_BASE + 0x16580, (DMA_ENABLE << 16) | 0x60);
+            break;
+
+        case 5:
+            dma_set(3, &sMechaRidleyDestroyedGFX[0x200], VRAM_BASE + 0x169C0, (DMA_ENABLE << 16) | 0x40);
+            break;
+
+        case 6:
+            dma_set(3, &sMechaRidleyDestroyedGFX[0x260], VRAM_BASE + 0x16DC0, (DMA_ENABLE << 16) | 0x40);
+            break;
+
+        case 8:
+            dma_set(3, sMechaRidley_8323b42_PAL, PALRAM_BASE + 0x39A, (DMA_ENABLE << 16) | 3);
+            break;
+
+        case 16:
+            dma_set(3, sMechaRidley_8323b62_PAL, PALRAM_BASE + 0x39A, (DMA_ENABLE << 16) | 3);
+            break;
+    }
+
+    if (gCurrentSprite.timer > 200)
+    {
+        gCurrentSprite.yPositionSpawn = 0;
+        gCurrentSprite.timer = 0;
+        gCurrentSprite.pose = MECHA_RIDLEY_POSE_SPAWN_DROPS;
+        gBossWork.work4 = EYE_STATE_LASER_SET_INACTIVE;
+    }
 }
 
 void MechaRidleySpawnDrops(void)
@@ -300,14 +352,76 @@ void MechaRidleySpawnDrops(void)
 
 }
 
+/**
+ * @brief 4ce1c | a4 | Handles the first eye glow after the fight
+ * 
+ */
 void MechaRidleyFirstEyeGlow(void)
 {
+    if (--gCurrentSprite.workVariable2 == 0)
+    {
+        gCurrentSprite.workVariable2 = 4;
 
+        if (gCurrentSprite.workVariable != 0)
+        {
+            gCurrentSprite.workVariable = 0;
+            dma_set(3, &sMechaRidleyGreenGlowPAL[2 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+        }
+        else
+        {
+            gCurrentSprite.workVariable = 1;
+            dma_set(3, &sMechaRidleyGreenGlowPAL[3 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+        }
+    }
+
+    if (--gCurrentSprite.timer == 0)
+    {
+        gCurrentSprite.pose = MECHA_RIDLEY_POSE_SECOND_EYE_GLOW;
+        gCurrentSprite.timer = 200;
+        gCurrentSprite.workVariable = 0;
+        gCurrentSprite.workVariable2 = 4;
+        gBossWork.work4 = EYE_STATE_LASER_SET_DYING;
+        SoundPlay(0x2B1);
+    }
 }
 
+/**
+ * @brief 4cec0 | c8 | Handles the second eye glow after the fight
+ * 
+ */
 void MechaRidleySecondEyeGlow(void)
 {
+    if (--gCurrentSprite.workVariable2 == 0)
+    {
+        gCurrentSprite.workVariable2 = 4;
 
+        if (gCurrentSprite.workVariable != 0)
+        {
+            gCurrentSprite.workVariable = 0;
+            dma_set(3, &sMechaRidleyGreenGlowPAL[3 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+        }
+        else
+        {
+            gCurrentSprite.workVariable = 1;
+            dma_set(3, sMechaRidley_8323b4a_PAL, PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+        }
+    }
+
+    if (gCurrentSprite.timer != 0)
+    {
+        gCurrentSprite.timer--;
+        if (gCurrentSprite.timer == 0)
+        {
+            EventFunction(EVENT_ACTION_SETTING, EVENT_MECHA_RIDLEY_KILLED);
+            SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_CHOZODIA_ESCAPE, 0, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
+
+            gInGameTimerAtBosses[3] = gInGameTimer;
+            gDoorUnlockTimer = -20;
+            gDisableAnimatedPalette = FALSE;
+
+            MusicPlay(MUSIC_ESCAPE, 0x40);
+        }
+    }
 }
 
 /**
@@ -1591,7 +1705,7 @@ void MechaRidleyPart(void)
                     gBossWork.work4 = 7;
                     break;
 
-                case 5:
+                case EYE_STATE_LASER_SET_INACTIVE:
                     gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeInactive;
                     gCurrentSprite.currentAnimationFrame = 0;
                     gCurrentSprite.animationDurationCounter = 0;
@@ -1599,7 +1713,7 @@ void MechaRidleyPart(void)
                     gBossWork.work4 = 7;
                     break;
 
-                case 6:
+                case EYE_STATE_LASER_SET_DYING:
                     gCurrentSprite.pOam = sMechaRidleyPartOAM_EyeDying;
                     gCurrentSprite.currentAnimationFrame = 0;
                     gCurrentSprite.animationDurationCounter = 0;

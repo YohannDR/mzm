@@ -24,7 +24,9 @@ static const u32 sMechaRidleyDestroyedGFX[336];
 static const u16 sMechaRidleyPAL[129];
 
 static const u16 sMechaRidley_8323aaa_PAL[12];
-static const u16 sMechaRidleyGreenGlowPAL[5 * 16];
+static const u16 sMechaRidleyGreenGlowPAL[4 * 16];
+static const u16 sMechaRidley_8323b42_PAL[3];
+static const u16 sMechaRidley_8323b4a_PAL[12];
 static const u16 sMechaRidley_8323b62_PAL[3];
 
 static const u16 sMechaRidleyFadingPAL[7 * 16];
