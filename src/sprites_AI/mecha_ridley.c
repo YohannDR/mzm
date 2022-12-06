@@ -7,6 +7,7 @@
 #include "data/sprite_data.h"
 
 #include "constants/audio.h"
+#include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
@@ -1831,9 +1832,92 @@ void MechaRidleyPart(void)
     }
 }
 
+/**
+ * @brief 4e4a0 | 118 | Mecha ridley laser AI
+ * 
+ */
 void MechaRidleyLaser(void)
 {
+    if (gCurrentSprite.pose == 0)
+    {
+        gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
+        gCurrentSprite.drawDistanceTopOffset = 8;
+        gCurrentSprite.drawDistanceBottomOffset = 8;
+        gCurrentSprite.drawDistanceHorizontalOffset = 8;
+
+        gCurrentSprite.hitboxTopOffset = -HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
+
+        gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
+        gCurrentSprite.drawOrder = 3;
+        gCurrentSprite.pose = 9;
+
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
+        // Set OAM
+        switch (gCurrentSprite.roomSlot)
+        {
+            case LASER_DIRECTION_SLIGHTLY_DOWN:
+                gCurrentSprite.pOam = sMechaRidleyLaserOAM_SlightlyDown;
+                break;
+
+            case LASER_DIRECTION_DOWN:
+                gCurrentSprite.pOam = sMechaRidleyLaserOAM_Down;
+                break;
+
+            case LASER_DIRECTION_SLIGHTLY_UP:
+                gCurrentSprite.pOam = sMechaRidleyLaserOAM_SlightlyUp;
+                break;
+
+            case LASER_DIRECTION_UP:
+                gCurrentSprite.pOam = sMechaRidleyLaserOAM_Up;
+                break;
+
+            default:
+                gCurrentSprite.pOam = sMechaRidleyLaserOAM_Forward;
+                break;
+        }
+    }
+
+    // Move
+    switch (gCurrentSprite.roomSlot)
+    {
+        case LASER_DIRECTION_SLIGHTLY_DOWN:
+            gCurrentSprite.yPosition += 6;
+            gCurrentSprite.xPosition -= QUARTER_BLOCK_SIZE;
+            break;
+
+        case LASER_DIRECTION_DOWN:
+            gCurrentSprite.yPosition += 15;
+            gCurrentSprite.xPosition -= 15;
+            break;
+
+        case LASER_DIRECTION_SLIGHTLY_UP:
+            gCurrentSprite.yPosition -= 6;
+            gCurrentSprite.xPosition -= QUARTER_BLOCK_SIZE;
+            break;
+
+        case LASER_DIRECTION_UP:
+            gCurrentSprite.yPosition -= 15;
+            gCurrentSprite.xPosition -= 15;
+            break;
+
+        default:
+            gCurrentSprite.xPosition -= 20;
+            break;
+    }
+
+    if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition) != COLLISION_AIR)
+    {
+        // Destroy
+        gCurrentSprite.status = 0;
+        ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
+        SoundPlay(0x2C1);
+    }
 }
 
 void MechaRidleyMissile(void)
