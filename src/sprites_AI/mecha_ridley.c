@@ -1,6 +1,7 @@
 #include "sprites_AI/mecha_ridley.h"
 #include "sprites_AI/item_banner.h"
 #include "transparency.h"
+#include "sprite_util.h" // delete
 #include "gba.h"
 
 #include "data/sprites/mecha_ridley.h"
@@ -10,6 +11,7 @@
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/particle.h"
+#include "constants/sprite_util.h"
 #include "constants/sprite.h"
 
 #include "structs/connection.h"
@@ -32,6 +34,33 @@ if (gSubSpriteData1.health < maxHealth * 3 / 4)                     \
     gSubSpriteData1.workVariable3 = HEALTH_THRESHOLD_COVER_DAMAGED; \
 } while(0);                                                         \
 
+
+/**
+ * Boss work map :
+ * 
+ * 1 : 
+ * 2 : Mecha ridley X position (forward)
+ * 3 : Last heigth of samus
+ * 4 : Eye state
+ * 5 : Missile launcher state
+ * 6 : Number of missiles
+ * 7 : Current weak spot health max threshold?
+ * 8 : Number of fireballs
+ * 9 : Core spawn health
+ * 10 : Cover spawn health
+ * 11 : Completion percentage
+ * 
+ */
+
+/**
+ * Sub sprite data (work variables) map :
+ * 
+ * 1 : 
+ * 2 : Claw attack timer?
+ * 3 : Health threshold
+ * 4 : Right arm ram slot
+ * 5 : Left arm ram slot
+ */
 
 
 void MechaRidleySyncSubSprites(void)
@@ -183,7 +212,7 @@ u8 MechaRidleyCheckStartFireballAttack(u8 ramSlot)
 
             if (gSubSpriteData1.workVariable3 == HEALTH_THRESHOLD_COVER_DAMAGED && gBossWork.work6 == 0)
             {
-                if (gBossWork.work5 == 0 && gEquipment.currentMissiles + gEquipment.currentSuperMissiles != 0)
+                if (gBossWork.work5 == MISSILE_LAUNCHER_STATE_IDLE && gEquipment.currentMissiles + gEquipment.currentSuperMissiles != 0)
                 {
                     // Start fireball attack
                     gCurrentSprite.pose = MECHA_RIDLEY_POSE_FIREBALL_ATTACK_INIT;
@@ -1920,12 +1949,185 @@ void MechaRidleyLaser(void)
     }
 }
 
+/**
+ * @brief 4e5b8 | 208 | Mecha ridley missile AI
+ * 
+ */
 void MechaRidleyMissile(void)
 {
+    u16 movement;
 
+    switch (gCurrentSprite.pose)
+    {
+        case 0:
+            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+
+            gCurrentSprite.drawDistanceTopOffset = 0x10;
+            gCurrentSprite.drawDistanceBottomOffset = 0x10;
+            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+
+            gCurrentSprite.hitboxTopOffset = -HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
+            gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
+
+            gCurrentSprite.pOam = sMechaRidleyMissileOAM;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
+
+            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.oamRotation = 0xA0;
+            gCurrentSprite.oamScaling = 0x100;
+            
+            gCurrentSprite.timer = 0x1E;
+            gCurrentSprite.pose = 9;
+            gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
+            gCurrentSprite.drawOrder = 2;
+
+            gBossWork.work6++;
+            break;
+
+        case 9:
+            gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+
+            movement = gCurrentSprite.timer / 2;
+            if (gCurrentSprite.roomSlot == 1)
+                movement -= 2;
+            else if (gCurrentSprite.roomSlot == 2)
+                movement += 2;
+
+            gCurrentSprite.yPosition -= movement;
+            gCurrentSprite.xPosition -= movement;
+
+            if (movement < 3)
+            {
+                gCurrentSprite.oamRotation = SpriteUtilMakeSpriteFaceSamusRotation(gCurrentSprite.oamRotation,
+                    gSamusData.yPosition - BLOCK_SIZE, gSamusData.xPosition,
+                    gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+            }
+
+            gCurrentSprite.timer -= 2;
+            if (gCurrentSprite.timer < 2)
+            {
+                gCurrentSprite.pose = 0x23;
+                gCurrentSprite.workVariable = 0;
+                gCurrentSprite.workVariable2 = 1;
+                gCurrentSprite.timer = 0;
+                gCurrentSprite.arrayOffset = 1;
+            }
+            break;
+
+        case 0x23:
+            if (gCurrentSprite.roomSlot == 1)
+                movement = BLOCK_SIZE;
+            else if (gCurrentSprite.roomSlot == 2)
+                movement = 0x5C;
+            else
+                movement = HALF_BLOCK_SIZE;
+            
+            SpriteUtilMoveSpriteTowardsSamus(gSamusData.yPosition - HALF_BLOCK_SIZE, gSamusData.xPosition, 0x28, 0x28, 2);
+            
+            gCurrentSprite.oamRotation = SpriteUtilMakeSpriteFaceSamusRotation(gCurrentSprite.oamRotation,
+                gSamusData.yPosition - movement, gSamusData.xPosition,
+                gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+
+            if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition) != COLLISION_AIR)
+                gCurrentSprite.pose = 0x44;
+            break;
+
+        case 0x42:
+            ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_HUGE);
+            gCurrentSprite.status = 0;
+            gBossWork.work6--;
+            SoundPlay(0x2C2);
+            break;
+
+        case 0x44:
+            ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
+            gCurrentSprite.status = 0;
+            gBossWork.work6--;
+            SoundPlay(0x12C);
+            break;
+
+        default:
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SMALL);
+            gBossWork.work6--;
+    }
 }
 
+/**
+ * @brief 4e7c0 | 150 | Mecha ridley fireball AI
+ * 
+ */
 void MechaRidleyFireball(void)
 {
+    switch (gCurrentSprite.pose)
+    {
+        case 0:
+            gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
+            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
+            gCurrentSprite.drawDistanceTopOffset = 0x14;
+            gCurrentSprite.drawDistanceBottomOffset = 0x14;
+            gCurrentSprite.drawDistanceHorizontalOffset = 0x14;
+            
+            gCurrentSprite.hitboxTopOffset = -0x1C;
+            gCurrentSprite.hitboxBottomOffset = 0x1C;
+            gCurrentSprite.hitboxLeftOffset = -0x1C;
+            gCurrentSprite.hitboxRightOffset = 0x1C;
+
+            gCurrentSprite.pOam = sMechaRidleyFireballOAM;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
+
+            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.timer = 0x1E;
+            gCurrentSprite.pose = 9;
+
+            gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
+            gCurrentSprite.drawOrder = 2;
+            gCurrentSprite.oamScaling = 0x100;
+
+            if (gCurrentSprite.roomSlot != 0)
+                gCurrentSprite.oamRotation = 0x28;
+            else
+                gCurrentSprite.oamRotation = 0;
+
+            gBossWork.work8++;
+            break;
+
+        case 9:
+            if (gCurrentSprite.roomSlot != 0)
+                gCurrentSprite.yPosition -= 2;
+            else
+                gCurrentSprite.yPosition += 12;
+
+            gCurrentSprite.xPosition -= 12;
+
+            if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition) != COLLISION_AIR)
+                gCurrentSprite.pose = 0x44;
+            break;
+
+        case 0x23:
+            break;
+
+        case 0x42:
+            ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_HUGE);
+            gCurrentSprite.status = 0;
+            gBossWork.work8--;
+            SoundPlay(0x2B4);
+            break;
+
+        case 0x44:
+            ParticleSet(gCurrentSprite.yPosition, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_SMALL);
+            gCurrentSprite.status = 0;
+            gBossWork.work8--;
+            SoundPlay(0x2B4);
+            break;
+
+        default:
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SMALL);
+            gBossWork.work8--;
+    }
 }

@@ -4,7 +4,145 @@
 #include "types.h"
 #include "oam.h"
 
-// Multi sprite data
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame0[33] = {
+    18, 0, 192,
+    9, -100, -32,
+    5, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame1[33] = {
+    18, 0, 192,
+    9, -96, -32,
+    5, -96, -32,
+    30, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 68, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame2[33] = {
+    18, 0, 192,
+    9, -92, -32,
+    5, -92, -32,
+    30, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame3[33] = {
+    18, 0, 192,
+    9, -92, -32,
+    5, -92, -32,
+    30, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 76, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame4[33] = {
+    18, 0, 192,
+    9, -96, -32,
+    5, -96, -32,
+    30, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame0[33] = {
+    18, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame1[33] = {
+    18, 0, 192,
+    9, -168, -56,
+    5, -168, -56,
+    31, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 68, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame2[33] = {
+    18, 0, 192,
+    9, -164, -56,
+    5, -164, -56,
+    31, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame3[33] = {
+    18, 0, 192,
+    9, -164, -56,
+    5, -164, -56,
+    31, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 76, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame4[33] = {
+    18, 0, 192,
+    9, -168, -56,
+    5, -168, -56,
+    31, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
 
 
 static const u8 sMechaRidleyGreenGlowPaletteData[7][2] = {
