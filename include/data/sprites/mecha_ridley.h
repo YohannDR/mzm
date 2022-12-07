@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame0[33] = {
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame0[33] = {
     18, 0, 192,
     9, -100, -32,
     5, -100, -32,
@@ -18,7 +18,7 @@ static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame0[33] = {
     45, -136, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame1[33] = {
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame1[33] = {
     18, 0, 192,
     9, -96, -32,
     5, -96, -32,
@@ -32,7 +32,7 @@ static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame1[33] = {
     45, -132, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame2[33] = {
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame2[33] = {
     18, 0, 192,
     9, -92, -32,
     5, -92, -32,
@@ -46,7 +46,7 @@ static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame2[33] = {
     45, -128, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame3[33] = {
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame3[33] = {
     18, 0, 192,
     9, -92, -32,
     5, -92, -32,
@@ -60,7 +60,7 @@ static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame3[33] = {
     45, -128, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame4[33] = {
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame4[33] = {
     18, 0, 192,
     9, -96, -32,
     5, -96, -32,
@@ -74,7 +74,7 @@ static const i16 sMechaRidleyMultiSpriteData_CrawlingForward_Frame4[33] = {
     45, -132, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame0[33] = {
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame0[33] = {
     18, 0, 192,
     9, -172, -56,
     5, -172, -56,
@@ -88,7 +88,7 @@ static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame0[33] = {
     45, -136, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame1[33] = {
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame1[33] = {
     18, 0, 192,
     9, -168, -56,
     5, -168, -56,
@@ -102,7 +102,7 @@ static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame1[33] = {
     45, -132, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame2[33] = {
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame2[33] = {
     18, 0, 192,
     9, -164, -56,
     5, -164, -56,
@@ -116,7 +116,7 @@ static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame2[33] = {
     45, -128, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame3[33] = {
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame3[33] = {
     18, 0, 192,
     9, -164, -56,
     5, -164, -56,
@@ -130,7 +130,7 @@ static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame3[33] = {
     45, -128, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame4[33] = {
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame4[33] = {
     18, 0, 192,
     9, -168, -56,
     5, -168, -56,
@@ -143,6 +143,1522 @@ static const i16 sMechaRidleyMultiSpriteData_CrawlingMiddle_Frame4[33] = {
     0, 128, 320,
     45, -132, 204
 };
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame0[33] = {
+    18, 0, 192,
+    9, -240, -16,
+    5, -240, -16,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame1[33] = {
+    18, 0, 192,
+    9, -236, -16,
+    5, -236, -16,
+    32, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 68, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame2[33] = {
+    18, 0, 192,
+    9, -232, -16,
+    5, -232, -16,
+    32, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame3[33] = {
+    18, 0, 192,
+    9, -232, -16,
+    5, -232, -16,
+    32, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 76, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame4[33] = {
+    18, 0, 192,
+    9, -236, -16,
+    5, -236, -16,
+    32, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    17, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Crawling_Unused1_Frame0[33] = {
+    20, 0, 192,
+    9, -100, -32,
+    5, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    19, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Crawling_Unused2_Frame0[33] = {
+    20, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    19, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Crawling_Unused3_Frame0[33] = {
+    20, 0, 192,
+    9, -240, -16,
+    5, -240, -16,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    19, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame0[33] = {
+    22, 0, 192,
+    9, -100, -32,
+    5, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame1[33] = {
+    22, -4, 192,
+    9, -104, -32,
+    5, -104, -32,
+    30, -48, 80,
+    2, -4, 116,
+    4, -4, 136,
+    3, -4, 136,
+    1, 64, 188,
+    21, -4, 0,
+    0, 128, 320,
+    45, -140, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame2[33] = {
+    22, -12, 192,
+    9, -108, -32,
+    5, -108, -32,
+    30, -52, 80,
+    2, -8, 116,
+    4, -8, 136,
+    3, -8, 136,
+    1, 64, 188,
+    21, -12, 0,
+    0, 128, 320,
+    45, -144, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame3[33] = {
+    22, -8, 192,
+    9, -100, -32,
+    5, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, -8, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame5[33] = {
+    22, 4, 192,
+    9, -96, -32,
+    5, -96, -32,
+    30, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    21, 4, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame0[33] = {
+    22, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame1[33] = {
+    22, -4, 192,
+    9, -176, -56,
+    5, -176, -56,
+    31, -48, 80,
+    2, -4, 116,
+    4, -4, 136,
+    3, -4, 136,
+    1, 64, 188,
+    21, -4, 0,
+    0, 128, 320,
+    45, -140, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame2[33] = {
+    22, -12, 192,
+    9, -180, -56,
+    5, -180, -56,
+    31, -52, 80,
+    2, -8, 116,
+    4, -8, 136,
+    3, -8, 136,
+    1, 64, 188,
+    21, -12, 0,
+    0, 128, 320,
+    45, -144, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame3[33] = {
+    22, -8, 192,
+    9, -172, -56,
+    5, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, -8, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame5[33] = {
+    22, 4, 192,
+    9, -168, -56,
+    5, -168, -56,
+    31, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    21, 4, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame0[33] = {
+    22, 0, 192,
+    9, -240, -16,
+    5, -240, -16,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame1[33] = {
+    22, -4, 192,
+    9, -244, -16,
+    5, -244, -16,
+    32, -48, 80,
+    2, -4, 116,
+    4, -4, 136,
+    3, -4, 136,
+    1, 64, 188,
+    21, -4, 0,
+    0, 128, 320,
+    45, -140, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame2[33] = {
+    22, -12, 192,
+    9, -248, -16,
+    5, -248, -16,
+    32, -52, 80,
+    2, -8, 116,
+    4, -8, 136,
+    3, -8, 136,
+    1, 64, 188,
+    21, -12, 0,
+    0, 128, 320,
+    45, -144, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame3[33] = {
+    22, -8, 192,
+    9, -240, -16,
+    5, -240, -16,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, -8, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame5[33] = {
+    22, 4, 192,
+    9, -236, -16,
+    5, -236, -16,
+    32, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    21, 4, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_RaisingArmsLow_Frame0[33] = {
+    24, 0, 192,
+    9, -100, -32,
+    5, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    23, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_RaisingArmsLow_Frame1[33] = {
+    24, 0, 192,
+    9, -92, -32,
+    5, -92, -32,
+    30, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 188,
+    23, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_RaisingArmsLow_Frame2[33] = {
+    24, 0, 192,
+    9, -96, -32,
+    5, -96, -32,
+    30, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    23, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame0[33] = {
+    24, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    23, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame1[33] = {
+    24, 0, 192,
+    9, -164, -56,
+    5, -164, -56,
+    31, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 188,
+    23, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame2[33] = {
+    24, 0, 192,
+    9, -168, -56,
+    5, -168, -56,
+    31, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    23, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_RaisingArmshigh_Frame0[33] = {
+    24, 0, 192,
+    9, -240, -16,
+    5, -240, -16,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    23, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_RaisingArmshigh_Frame1[33] = {
+    24, 0, 192,
+    9, -232, -16,
+    5, -232, -16,
+    32, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 188,
+    23, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_RaisingArmshigh_Frame2[33] = {
+    24, 0, 192,
+    9, -236, -16,
+    5, -236, -16,
+    32, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    23, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingLow_Frame0[33] = {
+    26, 0, 192,
+    9, -100, -32,
+    5, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingLow_Frame1[33] = {
+    26, 0, 192,
+    9, -104, -32,
+    5, -104, -32,
+    30, -48, 80,
+    2, -4, 116,
+    4, -4, 136,
+    3, -4, 136,
+    1, 64, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -140, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingLow_Frame2[33] = {
+    26, 0, 192,
+    9, -108, -32,
+    5, -108, -32,
+    30, -52, 80,
+    2, -8, 116,
+    4, -8, 136,
+    3, -8, 136,
+    1, 64, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -144, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingLow_Frame3[33] = {
+    26, 0, 192,
+    9, -100, -32,
+    5, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingLow_Frame5[33] = {
+    26, 0, 192,
+    9, -96, -32,
+    5, -96, -32,
+    30, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame0[33] = {
+    26, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame1[33] = {
+    26, 0, 192,
+    9, -176, -56,
+    5, -176, -56,
+    31, -48, 80,
+    2, -4, 116,
+    4, -4, 136,
+    3, -4, 136,
+    1, 64, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -140, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame2[33] = {
+    26, 0, 192,
+    9, -180, -56,
+    5, -180, -56,
+    31, -52, 80,
+    2, -8, 116,
+    4, -8, 136,
+    3, -8, 136,
+    1, 64, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -144, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame3[33] = {
+    26, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame5[33] = {
+    26, 0, 192,
+    9, -168, -56,
+    5, -168, -56,
+    31, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingHigh_Frame0[33] = {
+    26, 0, 192,
+    9, -240, -16,
+    5, -240, -16,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingHigh_Frame1[33] = {
+    26, 0, 192,
+    9, -244, -16,
+    5, -244, -16,
+    32, -48, 80,
+    2, -4, 116,
+    4, -4, 136,
+    3, -4, 136,
+    1, 64, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -140, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingHigh_Frame2[33] = {
+    26, 0, 192,
+    9, -248, -16,
+    5, -248, -16,
+    32, -52, 80,
+    2, -8, 116,
+    4, -8, 136,
+    3, -8, 136,
+    1, 64, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -144, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingHigh_Frame3[33] = {
+    26, 0, 192,
+    9, -240, -16,
+    5, -240, -16,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_StandingHigh_Frame5[33] = {
+    26, 0, 192,
+    9, -236, -16,
+    5, -236, -16,
+    32, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    25, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame0[33] = {
+    22, 0, 192,
+    9, -100, -32,
+    5, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    29, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame1[33] = {
+    22, 0, 188,
+    9, -100, -36,
+    5, -100, -36,
+    30, -44, 76,
+    2, 0, 112,
+    4, 0, 132,
+    3, 0, 132,
+    1, 68, 188,
+    29, 0, -4,
+    0, 128, 320,
+    45, -136, 200
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame2[33] = {
+    22, 0, 180,
+    9, -100, -44,
+    5, -100, -44,
+    30, -44, 68,
+    2, 0, 104,
+    4, 0, 124,
+    3, 0, 124,
+    1, 68, 184,
+    29, 0, -12,
+    0, 128, 316,
+    45, -136, 192
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame3[33] = {
+    22, 12, 180,
+    9, -88, -44,
+    5, -88, -44,
+    30, -32, 68,
+    2, 12, 104,
+    4, 12, 124,
+    3, 12, 124,
+    1, 76, 184,
+    29, 12, -12,
+    0, 128, 316,
+    45, -124, 192
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame4[33] = {
+    22, 8, 192,
+    9, -92, -32,
+    5, -92, -32,
+    30, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 184,
+    29, 8, 0,
+    0, 128, 316,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame0[33] = {
+    22, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    29, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame1[33] = {
+    22, 0, 188,
+    9, -172, -60,
+    5, -172, -60,
+    31, -44, 76,
+    2, 0, 112,
+    4, 0, 132,
+    3, 0, 132,
+    1, 68, 188,
+    29, 0, -4,
+    0, 128, 320,
+    45, -136, 200
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame2[33] = {
+    22, 0, 180,
+    9, -172, -68,
+    5, -172, -68,
+    31, -44, 68,
+    2, 0, 104,
+    4, 0, 124,
+    3, 0, 124,
+    1, 68, 184,
+    29, 0, -12,
+    0, 128, 316,
+    45, -136, 192
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame3[33] = {
+    22, 12, 180,
+    9, -160, -68,
+    5, -160, -68,
+    31, -32, 68,
+    2, 12, 104,
+    4, 12, 124,
+    3, 12, 124,
+    1, 76, 184,
+    29, 12, -12,
+    0, 128, 316,
+    45, -124, 192
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame4[33] = {
+    22, 8, 192,
+    9, -164, -56,
+    5, -164, -56,
+    31, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 184,
+    29, 8, 0,
+    0, 128, 316,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame0[33] = {
+    22, 0, 192,
+    9, -240, -16,
+    5, -240, -16,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    29, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame1[33] = {
+    22, 0, 188,
+    9, -240, -20,
+    5, -240, -20,
+    32, -44, 76,
+    2, 0, 112,
+    4, 0, 132,
+    3, 0, 132,
+    1, 68, 188,
+    29, 0, -4,
+    0, 128, 320,
+    45, -136, 200
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame2[33] = {
+    22, 0, 180,
+    9, -240, -28,
+    5, -240, -28,
+    32, -44, 68,
+    2, 0, 104,
+    4, 0, 124,
+    3, 0, 124,
+    1, 68, 184,
+    29, 0, -12,
+    0, 128, 316,
+    45, -136, 192
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame3[33] = {
+    22, 12, 180,
+    9, -228, -28,
+    5, -228, -28,
+    32, -32, 68,
+    2, 12, 104,
+    4, 12, 124,
+    3, 12, 124,
+    1, 76, 184,
+    29, 12, -12,
+    0, 128, 316,
+    45, -124, 192
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame4[33] = {
+    22, 8, 192,
+    9, -232, -16,
+    5, -232, -16,
+    32, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 184,
+    29, 8, 0,
+    0, 128, 316,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame0[33] = {
+    22, 0, 192,
+    9, -100, -72,
+    5, -100, -72,
+    33, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame1[33] = {
+    22, 0, 192,
+    9, -96, -108,
+    5, -96, -108,
+    33, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame2[33] = {
+    22, 0, 192,
+    9, -64, -152,
+    5, -64, -152,
+    33, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame3[33] = {
+    22, 0, 192,
+    9, 12, -212,
+    5, 12, -212,
+    33, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame4[33] = {
+    22, 0, 192,
+    9, 8, -208,
+    5, 8, -208,
+    33, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame8[33] = {
+    22, 0, 192,
+    9, -104, -28,
+    5, -104, -28,
+    33, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame0[33] = {
+    22, 0, 192,
+    9, -172, -96,
+    5, -172, -96,
+    34, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame1[33] = {
+    22, 0, 192,
+    9, -168, -132,
+    5, -168, -132,
+    34, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame2[33] = {
+    22, 0, 192,
+    9, -136, -176,
+    5, -136, -176,
+    34, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame3[33] = {
+    22, 0, 192,
+    9, -60, -236,
+    5, -60, -236,
+    34, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame4[33] = {
+    22, 0, 192,
+    9, -64, -232,
+    5, -64, -232,
+    34, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame8[33] = {
+    22, 0, 192,
+    9, -176, -52,
+    5, -176, -52,
+    34, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame0[33] = {
+    22, 0, 192,
+    9, -240, -56,
+    5, -240, -56,
+    35, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame1[33] = {
+    22, 0, 192,
+    9, -236, -92,
+    5, -236, -92,
+    35, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame2[33] = {
+    22, 0, 192,
+    9, -204, -136,
+    5, -204, -136,
+    35, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame3[33] = {
+    22, 0, 192,
+    9, -128, -196,
+    5, -128, -196,
+    35, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame4[33] = {
+    22, 0, 192,
+    9, -132, -192,
+    5, -132, -192,
+    35, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame8[33] = {
+    22, 0, 192,
+    9, -244, -16,
+    5, -244, -16,
+    35, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_LowToMiddle_Frame0[33] = {
+    22, 0, 192,
+    9, -140, -56,
+    5, -140, -56,
+    36, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_LowToMiddle_Frame1[33] = {
+    22, 0, 192,
+    9, -176, -56,
+    5, -176, -56,
+    36, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_MiddleToHigh_Frame0[33] = {
+    22, 0, 192,
+    9, -212, -52,
+    5, -212, -52,
+    37, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_MiddleToHigh_Frame1[33] = {
+    22, 0, 192,
+    9, -244, -44,
+    5, -244, -44,
+    37, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_HighToMiddle_Frame0[33] = {
+    22, 0, 192,
+    9, -212, -52,
+    5, -212, -52,
+    38, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_HighToMiddle_Frame1[33] = {
+    22, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    38, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_MiddleToLow_Frame0[33] = {
+    22, 0, 192,
+    9, -140, -56,
+    5, -140, -56,
+    39, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_MiddleToLow_Frame1[33] = {
+    22, 0, 192,
+    9, -104, -28,
+    5, -104, -28,
+    39, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_LowToHigh_Frame0[33] = {
+    22, 0, 192,
+    9, -140, -56,
+    5, -140, -56,
+    40, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_LowToHigh_Frame1[33] = {
+    22, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    40, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_LowToHigh_Frame2[33] = {
+    22, 0, 192,
+    9, -212, -52,
+    5, -212, -52,
+    40, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_LowToHigh_Frame3[33] = {
+    22, 0, 192,
+    9, -244, -44,
+    5, -244, -44,
+    40, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_HighToLow_Frame0[33] = {
+    22, 0, 192,
+    9, -212, -52,
+    5, -212, -52,
+    41, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_HighToLow_Frame1[33] = {
+    22, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    41, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_HighToLow_Frame2[33] = {
+    22, 0, 192,
+    9, -140, -56,
+    5, -140, -56,
+    41, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_HighToLow_Frame3[33] = {
+    22, 0, 192,
+    9, -104, -28,
+    5, -104, -28,
+    41, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_OpeningMouthLow_Frame0[33] = {
+    22, 0, 192,
+    9, -156, -12,
+    6, -100, -32,
+    42, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_OpeningMouthLow_Frame1[33] = {
+    22, 0, 192,
+    9, -152, -12,
+    6, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsLow_Frame0[33] = {
+    22, 0, 192,
+    9, -152, -12,
+    7, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsLow_Frame1[33] = {
+    22, 0, 192,
+    9, -152, -8,
+    7, -100, -32,
+    30, -40, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsLow_Frame2[33] = {
+    22, 0, 196,
+    9, -152, -4,
+    7, -100, -32,
+    30, -40, 84,
+    2, 0, 120,
+    4, 0, 140,
+    3, 0, 140,
+    1, 68, 192,
+    21, 0, 4,
+    0, 128, 324,
+    45, -136, 208
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ClosingMouthLow_Frame0[33] = {
+    22, 0, 192,
+    9, -152, -12,
+    8, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ClosingMouthLow_Frame1[33] = {
+    22, 0, 192,
+    9, -156, -12,
+    8, -100, -32,
+    42, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_OpeningMouthMiddle_Frame0[33] = {
+    22, 0, 192,
+    9, -228, -36,
+    6, -172, -56,
+    43, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_OpeningMouthMiddle_Frame1[33] = {
+    22, 0, 192,
+    9, -224, -36,
+    6, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame0[33] = {
+    22, 0, 192,
+    9, -224, -36,
+    7, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame1[33] = {
+    22, 0, 192,
+    9, -224, -32,
+    7, -172, -56,
+    31, -40, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame1[33] = {
+    22, 0, 196,
+    9, -224, -28,
+    7, -172, -56,
+    31, -40, 84,
+    2, 0, 120,
+    4, 0, 140,
+    3, 0, 140,
+    1, 68, 192,
+    21, 0, 4,
+    0, 128, 324,
+    45, -136, 208
+};
+
+
+
+
 
 
 static const u8 sMechaRidleyGreenGlowPaletteData[7][2] = {
@@ -571,7 +2087,7 @@ static const u16 sMechaRidleyPartOAM_EyeInactive_Frame1[4] = {
     0xfa, 0x1fd, OBJ_SPRITE_OAM | 0x1323
 };
 
-static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame0[19] = {
+static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame0[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x22, OBJ_SIZE_32x16 | 0x1b9, OBJ_SPRITE_OAM | 0x2f2,
     0x22, OBJ_SIZE_16x16 | 0x1d9, OBJ_SPRITE_OAM | 0x2f6,
@@ -581,7 +2097,7 @@ static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame0[19] = {
     OBJ_SHAPE_VERTICAL | 0x11, 0x5, OBJ_SPRITE_OAM | 0x321
 };
 
-static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame1[19] = {
+static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame1[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x22, OBJ_SIZE_32x16 | 0x1c8, OBJ_SPRITE_OAM | 0x2f2,
     0x22, OBJ_SIZE_16x16 | 0x1e8, OBJ_SPRITE_OAM | 0x2f6,
@@ -591,7 +2107,7 @@ static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame1[19] = {
     OBJ_SHAPE_VERTICAL | 0x11, 0x11, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame2[19] = {
+static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame2[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x21, OBJ_SIZE_32x16 | 0x1c9, OBJ_SPRITE_OAM | 0x2f2,
     0x21, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x2f6,
@@ -601,7 +2117,7 @@ static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame2[19] = {
     OBJ_SHAPE_VERTICAL | 0x10, 0x12, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame3[19] = {
+static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame3[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x21, OBJ_SIZE_32x16 | 0x1c9, OBJ_SPRITE_OAM | 0x2f2,
     0x21, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x2f6,
@@ -611,7 +2127,7 @@ static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame3[19] = {
     OBJ_SHAPE_VERTICAL | 0xf, 0x12, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame4[19] = {
+static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame4[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x21, OBJ_SIZE_32x16 | 0x1c9, OBJ_SPRITE_OAM | 0x2f2,
     0x21, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x2f6,
@@ -621,7 +2137,7 @@ static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame4[19] = {
     OBJ_SHAPE_VERTICAL | 0xe, 0x11, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame5[16] = {
+static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame5[16] = {
     0x5,
     0x11, OBJ_SIZE_32x32 | 0x1d5, OBJ_SPRITE_OAM | 0x218,
     0x18, OBJ_SIZE_16x16 | 0xf, OBJ_SPRITE_OAM | 0x28a,
@@ -630,7 +2146,7 @@ static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame5[16] = {
     OBJ_SHAPE_VERTICAL | 0xe, 0x11, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame6[16] = {
+static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame6[16] = {
     0x5,
     0x10, OBJ_SIZE_32x32 | 0x1c8, OBJ_SPRITE_OAM | 0x218,
     0x17, OBJ_SIZE_16x16 | 0x2, OBJ_SPRITE_OAM | 0x28a,
@@ -639,7 +2155,7 @@ static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame6[16] = {
     OBJ_SHAPE_VERTICAL | 0xd, 0x7, OBJ_SPRITE_OAM | 0x321
 };
 
-static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame7[16] = {
+static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame7[16] = {
     0x5,
     0xd, OBJ_SIZE_32x32 | 0x1bb, OBJ_SPRITE_OAM | 0x218,
     0x14, OBJ_SIZE_16x16 | 0x1f5, OBJ_SPRITE_OAM | 0x28a,
@@ -648,7 +2164,7 @@ static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame7[16] = {
     OBJ_SHAPE_VERTICAL | 0xd, OBJ_X_FLIP | 0x1fe, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame8[19] = {
+static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame8[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_SIZE_32x16 | 0x1ae, OBJ_SPRITE_OAM | 0x25c,
     0x1d, OBJ_SIZE_16x16 | 0x1ce, OBJ_SPRITE_OAM | 0x361,
@@ -658,7 +2174,7 @@ static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame8[19] = {
     OBJ_SHAPE_VERTICAL | 0xf, OBJ_X_FLIP | 0x1fd, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame9[19] = {
+static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame9[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x20, OBJ_SIZE_32x16 | 0x1ae, OBJ_SPRITE_OAM | 0x2f2,
     0x20, OBJ_SIZE_16x16 | 0x1ce, OBJ_SPRITE_OAM | 0x2f6,
@@ -668,7 +2184,7 @@ static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame9[19] = {
     OBJ_SHAPE_VERTICAL | 0x10, OBJ_X_FLIP | 0x1fd, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame10[19] = {
+static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame10[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x21, OBJ_SIZE_32x16 | 0x1ae, OBJ_SPRITE_OAM | 0x2f2,
     0x21, OBJ_SIZE_16x16 | 0x1ce, OBJ_SPRITE_OAM | 0x2f6,
@@ -678,7 +2194,7 @@ static const u16 sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame10[19] = {
     OBJ_SHAPE_VERTICAL | 0x11, OBJ_X_FLIP | 0x1fd, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame0[16] = {
+static const u16 sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame0[16] = {
     0x5,
     0x11, OBJ_SIZE_32x32 | 0x1cf, OBJ_SPRITE_OAM | 0x218,
     0x18, OBJ_SIZE_16x16 | 0x9, OBJ_SPRITE_OAM | 0x28a,
@@ -687,7 +2203,7 @@ static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame0[16] = {
     OBJ_SHAPE_VERTICAL | 0xe, 0xb, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame1[16] = {
+static const u16 sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame1[16] = {
     0x5,
     0x10, OBJ_SIZE_32x32 | 0x1c2, OBJ_SPRITE_OAM | 0x218,
     0x17, OBJ_SIZE_16x16 | 0x1fc, OBJ_SPRITE_OAM | 0x28a,
@@ -696,7 +2212,7 @@ static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame1[16] = {
     OBJ_SHAPE_VERTICAL | 0xd, 0x1, OBJ_SPRITE_OAM | 0x321
 };
 
-static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame2[16] = {
+static const u16 sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame2[16] = {
     0x5,
     0xd, OBJ_SIZE_32x32 | 0x1b5, OBJ_SPRITE_OAM | 0x218,
     0x14, OBJ_SIZE_16x16 | 0x1ef, OBJ_SPRITE_OAM | 0x28a,
@@ -705,7 +2221,7 @@ static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame2[16] = {
     OBJ_SHAPE_VERTICAL | 0xd, OBJ_X_FLIP | 0x1f8, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame3[19] = {
+static const u16 sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame3[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x1d, OBJ_SIZE_32x16 | 0x1a8, OBJ_SPRITE_OAM | 0x25c,
     0x1d, OBJ_SIZE_16x16 | 0x1c8, OBJ_SPRITE_OAM | 0x361,
@@ -715,7 +2231,7 @@ static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame3[19] = {
     OBJ_SHAPE_VERTICAL | 0xf, OBJ_X_FLIP | 0x1f7, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame4[19] = {
+static const u16 sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame4[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x20, OBJ_SIZE_32x16 | 0x1a8, OBJ_SPRITE_OAM | 0x2f2,
     0x20, OBJ_SIZE_16x16 | 0x1c8, OBJ_SPRITE_OAM | 0x2f6,
@@ -725,7 +2241,7 @@ static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame4[19] = {
     OBJ_SHAPE_VERTICAL | 0x10, OBJ_X_FLIP | 0x1f7, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame5[19] = {
+static const u16 sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame5[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x21, OBJ_SIZE_32x16 | 0x1a8, OBJ_SPRITE_OAM | 0x2f2,
     0x21, OBJ_SIZE_16x16 | 0x1c8, OBJ_SPRITE_OAM | 0x2f6,
@@ -735,7 +2251,7 @@ static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame5[19] = {
     OBJ_SHAPE_VERTICAL | 0x11, OBJ_X_FLIP | 0x1f7, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame6[19] = {
+static const u16 sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame6[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x22, OBJ_SIZE_32x16 | 0x1b3, OBJ_SPRITE_OAM | 0x2f2,
     0x22, OBJ_SIZE_16x16 | 0x1d3, OBJ_SPRITE_OAM | 0x2f6,
@@ -745,7 +2261,7 @@ static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame6[19] = {
     OBJ_SHAPE_VERTICAL | 0x11, 0x1ff, OBJ_SPRITE_OAM | 0x321
 };
 
-static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame7[19] = {
+static const u16 sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame7[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x22, OBJ_SIZE_32x16 | 0x1c2, OBJ_SPRITE_OAM | 0x2f2,
     0x22, OBJ_SIZE_16x16 | 0x1e2, OBJ_SPRITE_OAM | 0x2f6,
@@ -755,7 +2271,7 @@ static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame7[19] = {
     OBJ_SHAPE_VERTICAL | 0x11, 0xb, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame8[19] = {
+static const u16 sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame8[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x21, OBJ_SIZE_32x16 | 0x1c3, OBJ_SPRITE_OAM | 0x2f2,
     0x21, OBJ_SIZE_16x16 | 0x1e3, OBJ_SPRITE_OAM | 0x2f6,
@@ -765,7 +2281,7 @@ static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame8[19] = {
     OBJ_SHAPE_VERTICAL | 0x10, 0xc, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame9[19] = {
+static const u16 sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame9[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x21, OBJ_SIZE_32x16 | 0x1c3, OBJ_SPRITE_OAM | 0x2f2,
     0x21, OBJ_SIZE_16x16 | 0x1e3, OBJ_SPRITE_OAM | 0x2f6,
@@ -775,7 +2291,7 @@ static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame9[19] = {
     OBJ_SHAPE_VERTICAL | 0xf, 0xc, OBJ_SPRITE_OAM | 0x334
 };
 
-static const u16 sMechaRidleyPartOAM_RightArmCrawlingForward_Frame10[19] = {
+static const u16 sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame10[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0x21, OBJ_SIZE_32x16 | 0x1c3, OBJ_SPRITE_OAM | 0x2f2,
     0x21, OBJ_SIZE_16x16 | 0x1e3, OBJ_SPRITE_OAM | 0x2f6,
@@ -2331,54 +3847,54 @@ static const struct FrameData sMechaRidleyPartOAM_EyeInactive[3] = {
 };
 
 static const struct FrameData sMechaRidleyPartOAM_LeftArmCrawlingForward[12] = {
-    sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame0,
+    sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame0,
     8,
-    sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame1,
+    sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame1,
     8,
-    sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame2,
+    sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame2,
     8,
-    sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame3,
+    sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame3,
     4,
-    sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame4,
+    sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame4,
     4,
-    sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame5,
+    sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame5,
     8,
-    sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame6,
+    sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame6,
     8,
-    sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame7,
+    sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame7,
     8,
-    sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame8,
+    sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame8,
     4,
-    sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame9,
+    sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame9,
     4,
-    sMechaRidleyPartOAM_LeftArmCrawlingForward_Frame10,
+    sMechaRidleyPartOAM_LeftArmCrawlingForwardLow_Frame10,
     8,
     NULL,
     0
 };
 
 static const struct FrameData sMechaRidleyPartOAM_RightArmCrawlingForward[12] = {
-    sMechaRidleyPartOAM_RightArmCrawlingForward_Frame0,
+    sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame0,
     8,
-    sMechaRidleyPartOAM_RightArmCrawlingForward_Frame1,
+    sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame1,
     8,
-    sMechaRidleyPartOAM_RightArmCrawlingForward_Frame2,
+    sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame2,
     8,
-    sMechaRidleyPartOAM_RightArmCrawlingForward_Frame3,
+    sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame3,
     4,
-    sMechaRidleyPartOAM_RightArmCrawlingForward_Frame4,
+    sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame4,
     4,
-    sMechaRidleyPartOAM_RightArmCrawlingForward_Frame5,
+    sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame5,
     8,
-    sMechaRidleyPartOAM_RightArmCrawlingForward_Frame6,
+    sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame6,
     8,
-    sMechaRidleyPartOAM_RightArmCrawlingForward_Frame7,
+    sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame7,
     8,
-    sMechaRidleyPartOAM_RightArmCrawlingForward_Frame8,
+    sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame8,
     4,
-    sMechaRidleyPartOAM_RightArmCrawlingForward_Frame9,
+    sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame9,
     4,
-    sMechaRidleyPartOAM_RightArmCrawlingForward_Frame10,
+    sMechaRidleyPartOAM_RightArmCrawlingForwardLow_Frame10,
     8,
     NULL,
     0
