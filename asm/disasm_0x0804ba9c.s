@@ -1455,8 +1455,8 @@ lbl_0804c622:
 lbl_0804c628: .4byte 0x0300070c
 lbl_0804c62c: .4byte 0x0300080c
 
-    thumb_func_start MechaRidleyCheckRetractingHeadBeforeMovingBackAnimEnded
-MechaRidleyCheckRetractingHeadBeforeMovingBackAnimEnded: @ 0x0804c630
+    thumb_func_start MechaRidleyRetracting
+MechaRidleyRetracting: @ 0x0804c630
     push {r4, r5, r6, r7, lr}
     ldr r6, lbl_0804c68c @ =0x0300070c
     ldrb r5, [r6, #0x10]
@@ -1510,8 +1510,8 @@ lbl_0804c69c: .4byte 0x0831fc3c
 lbl_0804c6a0: .4byte 0x03000738
 lbl_0804c6a4: .4byte 0x0000029f
 
-    thumb_func_start MechaRidleyMovingBack
-MechaRidleyMovingBack: @ 0x0804c6a8
+    thumb_func_start MechaRidleyCrawlingBack
+MechaRidleyCrawlingBack: @ 0x0804c6a8
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
@@ -1580,8 +1580,8 @@ lbl_0804c72c: .4byte 0x030001ac
 lbl_0804c730: .4byte 0x08325acc
 lbl_0804c734: .4byte 0x08325a24
 
-    thumb_func_start MechaRidleyBeforeFireballs
-MechaRidleyBeforeFireballs: @ 0x0804c738
+    thumb_func_start MechaRidleyStandingForFireballsInit
+MechaRidleyStandingForFireballsInit: @ 0x0804c738
     push {lr}
     ldr r2, lbl_0804c76c @ =0x0300070c
     ldr r1, [r2]
@@ -1618,8 +1618,8 @@ lbl_0804c778: .4byte 0x0831f78c
 lbl_0804c77c: .4byte 0x0831fa14
 lbl_0804c780: .4byte 0x03000738
 
-    thumb_func_start MechaRidleyCheckExtendingHeadBeforeFireballsAnimEnded
-MechaRidleyCheckExtendingHeadBeforeFireballsAnimEnded: @ 0x0804c784
+    thumb_func_start MechaRidleyStandingForFireballs
+MechaRidleyStandingForFireballs: @ 0x0804c784
     push {lr}
     bl SpriteUtilCheckEndSubSprite1Anim
     cmp r0, #0
@@ -1788,8 +1788,8 @@ lbl_0804c8d4: .4byte 0x0300070c
 lbl_0804c8d8: .4byte 0x0831fa3c
 lbl_0804c8dc: .4byte 0x03000738
 
-    thumb_func_start MechaRidleyCheckRetractingHeadAfterFireballsAnimEnded
-MechaRidleyCheckRetractingHeadAfterFireballsAnimEnded: @ 0x0804c8e0
+    thumb_func_start MechaRidleyRetractingAfterFireballAttack
+MechaRidleyRetractingAfterFireballAttack: @ 0x0804c8e0
     push {lr}
     bl SpriteUtilCheckEndSubSprite1Anim
     cmp r0, #0
@@ -1827,8 +1827,8 @@ lbl_0804c924:
     .align 2, 0
 lbl_0804c928: .4byte 0x03000738
 
-    thumb_func_start MechaRidleyStartDying
-MechaRidleyStartDying: @ 0x0804c92c
+    thumb_func_start MechaRidleyDyingInit
+MechaRidleyDyingInit: @ 0x0804c92c
     push {lr}
     ldr r1, lbl_0804c984 @ =0x0300070c
     ldr r0, lbl_0804c988 @ =0x0831f684
@@ -4563,16 +4563,16 @@ lbl_0804e00c:
     bl MechaRidleyCurledUp
     b lbl_0804e064
 lbl_0804e012:
-    bl MechaRidleyCheckRetractingHeadBeforeMovingBackAnimEnded
+    bl MechaRidleyRetracting
     b lbl_0804e064
 lbl_0804e018:
-    bl MechaRidleyMovingBack
+    bl MechaRidleyCrawlingBack
     b lbl_0804e064
 lbl_0804e01e:
-    bl MechaRidleyBeforeFireballs
+    bl MechaRidleyStandingForFireballsInit
     b lbl_0804e064
 lbl_0804e024:
-    bl MechaRidleyCheckExtendingHeadBeforeFireballsAnimEnded
+    bl MechaRidleyStandingForFireballs
     b lbl_0804e064
 lbl_0804e02a:
     bl MechaRidleyCheckOpeningMouthAnimEnded
@@ -4584,10 +4584,10 @@ lbl_0804e036:
     bl mecha_ridley_check_closing_mouth_anim_ended
     b lbl_0804e064
 lbl_0804e03c:
-    bl MechaRidleyCheckRetractingHeadAfterFireballsAnimEnded
+    bl MechaRidleyRetractingAfterFireballAttack
     b lbl_0804e064
 lbl_0804e042:
-    bl MechaRidleyStartDying
+    bl MechaRidleyDyingInit
     b lbl_0804e064
 lbl_0804e048:
     bl MechaRidleyDying

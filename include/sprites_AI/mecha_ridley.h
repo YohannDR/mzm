@@ -8,8 +8,19 @@
 #define MECHA_RIDLEY_POSE_CRAWLING 0x3
 #define MECHA_RIDLEY_POSE_DELAY_BEFORE_IDLE 0x4
 #define MECHA_RIDLEY_POSE_IDLE 0x9
-#define MECHA_RIDLEY_POSE_FIREBALL_ATTACK_INIT 0x34
+#define MECHA_RIDLEY_POSE_CLAW_ATTACK 0x22
+#define MECHA_RIDLEY_POSE_STANDING_UP 0x23
+#define MECHA_RIDLEY_POSE_CURLED_UP 0x25
+#define MECHA_RIDLEY_POSE_RETRACTING 0x27
+#define MECHA_RIDLEY_POSE_CRAWLING_BACKWARDS 0x29
+#define MECHA_RIDLEY_POSE_STANDING_FOR_FIREBALL_ATTACK_INIT 0x34
+#define MECHA_RIDLEY_POSE_STANDING_FOR_FIREBALL_ATTACK 0x35
+#define MECHA_RIDLEY_POSE_OPENING_MOUTH 0x37
+#define MECHA_RIDLEY_POSE_FIREBALL_ATTACK 0x39
+#define MECHA_RIDLEY_POSE_CLOSING_MOUTH 0x3B
+#define MECHA_RIDLEY_POSE_RETRACTING_AFTER_FIREBALL_ATTACK 0x3D
 #define MECHA_RIDLEY_POSE_DYING_INIT 0x62
+#define MECHA_RIDLEY_POSE_DYING_GLOW_FADING 0x64
 #define MECHA_RIDLEY_POSE_DYING_STANDING_UP 0x67
 #define MECHA_RIDLEY_POSE_SPAWN_DROPS 0x68
 #define MECHA_RIDLEY_POSE_FIRST_EYE_GLOW 0x69
@@ -40,6 +51,7 @@
 #define MECHA_RIDLEY_PART_POSE_MISSILE_LAUNCHER_IDLE 0x28
 #define MECHA_RIDLEY_PART_POSE_COVER_IDLE 0x2A
 #define MECHA_RIDLEY_PART_POSE_HEAD_IDLE 0x2C
+#define MECHA_RIDLEY_PART_IDLE 0x61
 #define MECHA_RIDLEY_PART_POSE_COVER_DESTROYED 0x62
 #define MECHA_RIDLEY_PART_POSE_COVER_BROKEN 0x67
 
@@ -55,6 +67,7 @@
 #define EYE_STATE_BLINKING_INIT 1
 #define EYE_STATE_LASER_ATTACK_INIT 2
 #define EYE_STATE_LASER_ATTACK 3
+#define EYE_STATE_LASER_SET_IDLE 4
 #define EYE_STATE_LASER_SET_INACTIVE 5
 #define EYE_STATE_LASER_SET_DYING 6
 
@@ -66,15 +79,20 @@
 #define MISSILE_LAUNCHER_STATE_OPENED 3
 #define MISSILE_LAUNCHER_STATE_CLOSING 4
 
+// Firenballs
+
+#define FIREBALL_LOW 0
+#define FIREBALL_HIGH 1
+
 
 
 void MechaRidleySyncSubSprites(void);
 void MechaRidleyPartGreenGlow(void);
-void MechaRidleyPartLoadWeaponsGFX(void);
-void unk_4bc2c(void);
-u8 unk_4bcd0(void);
-void unk_4bdf8(u8 ramSlot);
-void unk_4beb4(u8 ramSlot);
+void MechaRidleyLoadFireballsGFX(void);
+void MechaRidleyLoadMissilesGFX(void);
+u8 MechaRidleyUpdateHeight(void);
+void MechaRidleyCrawlingBackwardsInit(u8 leftArmSlot);
+void MechaRidleyClawAttackInit(u8 leftArmSlot);
 void MechaRidleyInit(void);
 void MechaRidleyStartWalking(void);
 void MechaRidleyDelayBeforeCrawling(void);
@@ -85,15 +103,15 @@ void MechaRidleyIdle(void);
 void MechaRidleyClawAttack(void);
 void MechaRidleyStandingUp(void);
 void MechaRidleyCurledUp(void);
-void MechaRidleyCheckRetractingHeadBeforeMovingBackAnimEnded(void);
-void MechaRidleyMovingBack(void);
-void MechaRidleyBeforeFireballs(void);
-void MechaRidleyCheckExtendingHeadBeforeFireballsAnimEnded(void);
+void MechaRidleyRetracting(void);
+void MechaRidleyCrawlingBack(void);
+void MechaRidleyStandingForFireballsInit(void);
+void MechaRidleyStandingForFireballs(void);
 void MechaRidleyCheckOpeningMouthAnimEnded(void);
 void MechaRidleyFireballsAttack(void);
 void MechaRidleyCheckClosingMouthAnimEnded(void);
-void MechaRidleyCheckRetractingHeadAfterFireballsAnimEnded(void);
-void MechaRidleyStartDying(void);
+void MechaRidleyRetractingAfterFireballAttack(void);
+void MechaRidleyDyingInit(void);
 void MechaRidleyDying(void);
 void MechaRidleyGlowFading(void);
 void MechaRidleySpawnDrops(void);

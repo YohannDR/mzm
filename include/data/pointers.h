@@ -588,10 +588,6 @@ static const u8* sSpritesetPointers[MAX_AMOUNT_OF_SPRITESET] = {
 // Temp probably
 #include "data/frame_data_pointers.h"
 
-static const struct FrameData* sMechaRidleyFrameDataPointers[63] = {
-    NULL
-};
-
 static const ProjFunc_T sProcessProjectileFunctionPointers[16] = {
     [PROJ_TYPE_BEAM] = ProjectileProcessNormalBeam,
     [PROJ_TYPE_LONG_BEAM] = ProjectileProcessLongBeam,

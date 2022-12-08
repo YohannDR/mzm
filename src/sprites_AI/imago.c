@@ -17,6 +17,10 @@
 #include "structs/samus.h"
 #include "structs/sprite.h"
 
+/**
+ * @brief 41e4c | 88 | Sync the sub sprites of Imago
+ * 
+ */
 void ImagoSyncSubSprites(void)
 {
     u16 (*pData)[3];

@@ -2977,7 +2977,7 @@ static const u16 sMechaRidleyPartOAM_HeadIdle_Frame0[19] = {
     OBJ_SHAPE_HORIZONTAL | 0xfc, OBJ_SIZE_32x16 | 0x7, OBJ_SPRITE_OAM | 0x388
 };
 
-static const u16 sMechaRidleyPartOAM_HeadChargingFireballs_Frame0[25] = {
+static const u16 sMechaRidleyPartOAM_HeadOpeningMouth_Frame0[25] = {
     0x8,
     0xdc, OBJ_SIZE_16x16 | 0x1d8, OBJ_SPRITE_OAM | 0x208,
     OBJ_SHAPE_VERTICAL | 0xda, OBJ_SIZE_16x32 | 0x1e3, OBJ_SPRITE_OAM | 0x212,
@@ -2989,7 +2989,7 @@ static const u16 sMechaRidleyPartOAM_HeadChargingFireballs_Frame0[25] = {
     0x3, OBJ_SIZE_16x16 | 0x1e2, OBJ_SPRITE_OAM | 0x248
 };
 
-static const u16 sMechaRidleyPartOAM_HeadChargingFireballs_Frame1[25] = {
+static const u16 sMechaRidleyPartOAM_HeadOpeningMouth_Frame1[25] = {
     0x8,
     0xde, OBJ_SIZE_16x16 | 0x1d8, OBJ_SPRITE_OAM | 0x208,
     OBJ_SHAPE_VERTICAL | 0xdb, OBJ_SIZE_16x32 | 0x1e3, OBJ_SPRITE_OAM | 0x212,
@@ -4919,12 +4919,12 @@ static const struct FrameData sMechaRidleyPartOAM_HeadIdle[2] = {
     0
 };
 
-static const struct FrameData sMechaRidleyPartOAM_HeadChargingFireballs[4] = {
-    sMechaRidleyPartOAM_HeadChargingFireballs_Frame0,
+static const struct FrameData sMechaRidleyPartOAM_HeadOpeningMouth[4] = {
+    sMechaRidleyPartOAM_HeadOpeningMouth_Frame0,
     4,
-    sMechaRidleyPartOAM_HeadChargingFireballs_Frame1,
+    sMechaRidleyPartOAM_HeadOpeningMouth_Frame1,
     4,
-    sMechaRidleyPartOAM_HeadChargingFireballs_Frame0,
+    sMechaRidleyPartOAM_HeadOpeningMouth_Frame0,
     4,
     NULL,
     0
@@ -4941,12 +4941,12 @@ static const struct FrameData sMechaRidleyPartOAM_HeadSpittingFireballs[4] = {
     0
 };
 
-static const struct FrameData sMechaRidleyPartOAM_HeadDechargingFireballs[4] = {
+static const struct FrameData sMechaRidleyPartOAM_HeadClosingMouth[4] = {
     sMechaRidleyPartOAM_HeadSpittingFireballs_Frame0,
     4,
-    sMechaRidleyPartOAM_HeadChargingFireballs_Frame1,
+    sMechaRidleyPartOAM_HeadOpeningMouth_Frame1,
     4,
-    sMechaRidleyPartOAM_HeadChargingFireballs_Frame0,
+    sMechaRidleyPartOAM_HeadOpeningMouth_Frame0,
     4,
     NULL,
     0
