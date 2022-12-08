@@ -550,7 +550,7 @@ static const i16 sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame2[33] = {
     45, -132, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_RaisingArmshigh_Frame0[33] = {
+static const i16 sMechaRidleyMultiSpriteData_RaisingArmsHigh_Frame0[33] = {
     24, 0, 192,
     9, -240, -16,
     5, -240, -16,
@@ -564,7 +564,7 @@ static const i16 sMechaRidleyMultiSpriteData_RaisingArmshigh_Frame0[33] = {
     45, -136, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_RaisingArmshigh_Frame1[33] = {
+static const i16 sMechaRidleyMultiSpriteData_RaisingArmsHigh_Frame1[33] = {
     24, 0, 192,
     9, -232, -16,
     5, -232, -16,
@@ -578,7 +578,7 @@ static const i16 sMechaRidleyMultiSpriteData_RaisingArmshigh_Frame1[33] = {
     45, -128, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_RaisingArmshigh_Frame2[33] = {
+static const i16 sMechaRidleyMultiSpriteData_RaisingArmsHigh_Frame2[33] = {
     24, 0, 192,
     9, -236, -16,
     5, -236, -16,
@@ -1642,7 +1642,7 @@ static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame1[33] 
     45, -136, 204
 };
 
-static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame1[33] = {
+static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame2[33] = {
     22, 0, 196,
     9, -224, -28,
     7, -172, -56,
@@ -1656,9 +1656,1249 @@ static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame1[33] 
     45, -136, 208
 };
 
+static const i16 sMechaRidleyMultiSpriteData_ClosingMouthMiddle_Frame0[33] = {
+    22, 0, 192,
+    9, -224, -36,
+    8, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
 
+static const i16 sMechaRidleyMultiSpriteData_ClosingMouthMiddle_Frame1[33] = {
+    22, 0, 192,
+    9, -228, -36,
+    8, -172, -56,
+    43, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
 
+static const i16 sMechaRidleyMultiSpriteData_OpeningMouthHigh_Frame0[33] = {
+    22, 0, 192,
+    9, -296, 0,
+    6, -240, -20,
+    44, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
 
+static const i16 sMechaRidleyMultiSpriteData_OpeningMouthHigh_Frame1[33] = {
+    22, 0, 192,
+    9, -292, 0,
+    6, -240, -20,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsHigh_Frame0[33] = {
+    22, 0, 192,
+    9, -292, 0,
+    7, -240, -20,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsHigh_Frame1[33] = {
+    22, 0, 192,
+    9, -292, 4,
+    7, -240, -20,
+    32, -40, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_SpittingFireballsHigh_Frame2[33] = {
+    22, 0, 196,
+    9, -292, 8,
+    7, -240, -20,
+    32, -40, 84,
+    2, 0, 120,
+    4, 0, 140,
+    3, 0, 140,
+    1, 68, 192,
+    21, 0, 4,
+    0, 128, 324,
+    45, -136, 208
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ClosingMouthHigh_Frame0[33] = {
+    22, 0, 192,
+    9, -292, 0,
+    8, -240, -20,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_ClosingMouthHigh_Frame1[33] = {
+    22, 0, 192,
+    9, -296, 0,
+    8, -240, -20,
+    44, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpLow_Frame0[33] = {
+    22, 0, 192,
+    9, -100, -32,
+    5, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    47, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpLow_Frame1[33] = {
+    22, 4, 196,
+    9, -96, -28,
+    5, -96, -28,
+    30, -40, 84,
+    2, 4, 120,
+    4, 4, 140,
+    3, 4, 140,
+    1, 72, 188,
+    21, 4, 4,
+    0, 128, 324,
+    47, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpMiddle_Frame0[33] = {
+    22, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    47, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpMiddle_Frame1[33] = {
+    22, 4, 196,
+    9, -168, -52,
+    5, -168, -52,
+    31, -40, 84,
+    2, 4, 120,
+    4, 4, 140,
+    3, 4, 140,
+    1, 72, 188,
+    21, 4, 4,
+    0, 128, 324,
+    47, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpHigh_Frame0[33] = {
+    22, 0, 192,
+    9, -240, -16,
+    5, -240, -16,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    21, 0, 0,
+    0, 128, 320,
+    47, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpHigh_Frame1[33] = {
+    22, 4, 196,
+    9, -236, -12,
+    5, -236, -12,
+    32, -40, 84,
+    2, 4, 120,
+    4, 4, 140,
+    3, 4, 140,
+    1, 72, 188,
+    21, 4, 4,
+    0, 128, 324,
+    47, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_FiringMissilesLow_Frame0[33] = {
+    28, 0, 192,
+    9, -100, -32,
+    5, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    27, 0, 0,
+    0, 128, 320,
+    47, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_FiringMissilesLow_Frame1[33] = {
+    28, 4, 196,
+    9, -96, -28,
+    5, -96, -28,
+    30, -40, 84,
+    2, 4, 120,
+    4, 4, 140,
+    3, 4, 140,
+    1, 72, 188,
+    27, 4, 4,
+    0, 128, 324,
+    47, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_FiringMissilesMiddle_Frame0[33] = {
+    28, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    27, 0, 0,
+    0, 128, 320,
+    47, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_FiringMissilesMiddle_Frame1[33] = {
+    28, 4, 196,
+    9, -168, -52,
+    5, -168, -52,
+    31, -40, 84,
+    2, 4, 120,
+    4, 4, 140,
+    3, 4, 140,
+    1, 72, 188,
+    27, 4, 4,
+    0, 128, 324,
+    47, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_FiringMissilesHigh_Frame0[33] = {
+    28, 0, 192,
+    9, -240, -16,
+    5, -240, -16,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    27, 0, 0,
+    0, 128, 320,
+    47, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_FiringMissilesHigh_Frame1[33] = {
+    28, 4, 196,
+    9, -236, -12,
+    5, -236, -12,
+    32, -40, 84,
+    2, 4, 120,
+    4, 4, 140,
+    3, 4, 140,
+    1, 72, 188,
+    27, 4, 4,
+    0, 128, 324,
+    47, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Dying_Frame0[33] = {
+    57, 0, 192,
+    9, -88, -44,
+    5, -88, -44,
+    58, -44, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 68, 188,
+    56, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Dying_Frame1[33] = {
+    57, 0, 192,
+    9, -68, -60,
+    5, -68, -60,
+    58, -44, 80,
+    2, 12, 116,
+    4, 12, 136,
+    3, 12, 136,
+    1, 72, 188,
+    56, 0, 0,
+    0, 132, 320,
+    45, -124, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Dying_Frame2[33] = {
+    57, 0, 192,
+    9, -76, -60,
+    5, -76, -60,
+    58, -44, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 188,
+    56, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Dying_Frame3[33] = {
+    57, 0, 192,
+    9, -64, -96,
+    5, -64, -96,
+    58, -44, 80,
+    2, 12, 112,
+    4, 12, 132,
+    3, 12, 132,
+    1, 76, 188,
+    56, 0, 0,
+    0, 128, 320,
+    45, -124, 200
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Dying_Frame4[33] = {
+    57, 0, 192,
+    9, -36, -124,
+    5, -36, -124,
+    58, -44, 80,
+    2, 20, 108,
+    4, 20, 128,
+    3, 20, 128,
+    1, 80, 188,
+    56, 0, 0,
+    0, 128, 320,
+    45, -116, 196
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Dying_Frame5[33] = {
+    57, 0, 192,
+    9, 28, -168,
+    5, 28, -168,
+    58, -44, 80,
+    2, 36, 100,
+    4, 36, 120,
+    3, 36, 120,
+    1, 84, 184,
+    56, 0, 0,
+    0, 132, 324,
+    45, -100, 188
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Dying_Frame6[33] = {
+    57, 0, 192,
+    9, 24, -164,
+    5, 24, -164,
+    58, -44, 80,
+    2, 28, 100,
+    4, 28, 120,
+    3, 28, 120,
+    1, 80, 184,
+    56, 0, 0,
+    0, 128, 324,
+    45, -108, 188
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Dying_Frame7[33] = {
+    57, 0, 192,
+    9, 104, -192,
+    5, 104, -192,
+    58, -44, 80,
+    2, 32, 96,
+    4, 32, 116,
+    3, 32, 116,
+    1, 80, 184,
+    56, 0, 0,
+    0, 128, 328,
+    45, -104, 184
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Dying_Frame8[33] = {
+    57, 0, 192,
+    9, 168, -196,
+    5, 168, -196,
+    58, -44, 80,
+    2, 40, 96,
+    4, 40, 116,
+    3, 40, 116,
+    1, 84, 184,
+    56, 0, 0,
+    0, 132, 328,
+    45, -96, 184
+};
+
+static const i16 sMechaRidleyMultiSpriteData_Dying_Frame9[33] = {
+    57, 0, 192,
+    9, 164, -192,
+    5, 164, -192,
+    58, -44, 80,
+    2, 36, 96,
+    4, 36, 116,
+    3, 36, 116,
+    1, 84, 184,
+    56, 0, 0,
+    0, 132, 328,
+    45, -100, 184
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame0[33] = {
+    60, 0, 192,
+    9, -100, -32,
+    5, -100, -32,
+    30, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame4[33] = {
+    60, 0, 192,
+    9, -96, -32,
+    5, -96, -32,
+    30, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 68, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame3[33] = {
+    60, 0, 192,
+    9, -92, -32,
+    5, -92, -32,
+    30, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame2[33] = {
+    60, 0, 192,
+    9, -92, -32,
+    5, -92, -32,
+    30, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 76, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame1[33] = {
+    60, 0, 192,
+    9, -96, -32,
+    5, -96, -32,
+    30, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame0[33] = {
+    60, 0, 192,
+    9, -172, -56,
+    5, -172, -56,
+    31, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame4[33] = {
+    60, 0, 192,
+    9, -168, -56,
+    5, -168, -56,
+    31, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 68, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame3[33] = {
+    60, 0, 192,
+    9, -164, -56,
+    5, -164, -56,
+    31, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame2[33] = {
+    60, 0, 192,
+    9, -164, -56,
+    5, -164, -56,
+    31, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 76, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame1[33] = {
+    60, 0, 192,
+    9, -168, -56,
+    5, -168, -56,
+    31, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame0[33] = {
+    60, 0, 192,
+    9, -240, -16,
+    5, -240, -16,
+    32, -44, 80,
+    2, 0, 116,
+    4, 0, 136,
+    3, 0, 136,
+    1, 68, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -136, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame4[33] = {
+    60, 0, 192,
+    9, -236, -16,
+    5, -236, -16,
+    32, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 68, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame3[33] = {
+    60, 0, 192,
+    9, -232, -16,
+    5, -232, -16,
+    32, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 72, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame2[33] = {
+    60, 0, 192,
+    9, -232, -16,
+    5, -232, -16,
+    32, -36, 80,
+    2, 8, 116,
+    4, 8, 136,
+    3, 8, 136,
+    1, 76, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -128, 204
+};
+
+static const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame1[33] = {
+    60, 0, 192,
+    9, -236, -16,
+    5, -236, -16,
+    32, -40, 80,
+    2, 4, 116,
+    4, 4, 136,
+    3, 4, 136,
+    1, 72, 188,
+    59, 0, 0,
+    0, 128, 320,
+    45, -132, 204
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_CrawlingForwardLow[7] = {
+    sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame0,
+    24,
+    sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame2,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame3,
+    24,
+    sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame4,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame0,
+    12,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_CrawlingForwardMiddle[7] = {
+    sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame0,
+    24,
+    sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame2,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame3,
+    24,
+    sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame4,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame0,
+    12,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_CrawlingForwardHigh[7] = {
+    sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame0,
+    24,
+    sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame2,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame3,
+    24,
+    sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame4,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame0,
+    12,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_Crawling_Unused1[2] = {
+    sMechaRidleyMultiSpriteData_Crawling_Unused1_Frame0,
+    72,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_Crawling_Unused2[2] = {
+    sMechaRidleyMultiSpriteData_Crawling_Unused2_Frame0,
+    72,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_Crawling_Unused3[2] = {
+    sMechaRidleyMultiSpriteData_Crawling_Unused3_Frame0,
+    72,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_DyingStandingLow[7] = {
+    sMechaRidleyMultiSpriteData_DyingStandingLow_Frame0,
+    40,
+    sMechaRidleyMultiSpriteData_DyingStandingLow_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_DyingStandingLow_Frame2,
+    4,
+    sMechaRidleyMultiSpriteData_DyingStandingLow_Frame3,
+    40,
+    sMechaRidleyMultiSpriteData_DyingStandingLow_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_DyingStandingLow_Frame5,
+    4,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_DyingStandingMiddle[7] = {
+    sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame0,
+    40,
+    sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame2,
+    4,
+    sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame3,
+    40,
+    sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame5,
+    4,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_DyingStandingHigh[7] = {
+    sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame0,
+    40,
+    sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame2,
+    4,
+    sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame3,
+    40,
+    sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame5,
+    4,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_RaisingArmLow[4] = {
+    sMechaRidleyMultiSpriteData_RaisingArmsLow_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_RaisingArmsLow_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_RaisingArmsLow_Frame2,
+    2,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_RaisingArmMiddle[4] = {
+    sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame2,
+    2,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_RaisingArmHigh[4] = {
+    sMechaRidleyMultiSpriteData_RaisingArmsHigh_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_RaisingArmsHigh_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_RaisingArmsHigh_Frame2,
+    2,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_StandingLow[7] = {
+    sMechaRidleyMultiSpriteData_StandingLow_Frame0,
+    40,
+    sMechaRidleyMultiSpriteData_StandingLow_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_StandingLow_Frame2,
+    4,
+    sMechaRidleyMultiSpriteData_StandingLow_Frame3,
+    40,
+    sMechaRidleyMultiSpriteData_StandingLow_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_StandingLow_Frame5,
+    4,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_StandingMiddle[7] = {
+    sMechaRidleyMultiSpriteData_StandingMiddle_Frame0,
+    40,
+    sMechaRidleyMultiSpriteData_StandingMiddle_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_StandingMiddle_Frame2,
+    4,
+    sMechaRidleyMultiSpriteData_StandingMiddle_Frame3,
+    40,
+    sMechaRidleyMultiSpriteData_StandingMiddle_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_StandingMiddle_Frame5,
+    4,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_StandingHigh[7] = {
+    sMechaRidleyMultiSpriteData_StandingHigh_Frame0,
+    40,
+    sMechaRidleyMultiSpriteData_StandingHigh_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_StandingHigh_Frame2,
+    4,
+    sMechaRidleyMultiSpriteData_StandingHigh_Frame3,
+    40,
+    sMechaRidleyMultiSpriteData_StandingHigh_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_StandingHigh_Frame5,
+    4,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_SmallSwipeLow[6] = {
+    sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame0,
+    38,
+    sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame2,
+    4,
+    sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame3,
+    4,
+    sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame4,
+    4,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_SmallSwipeMiddle[6] = {
+    sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame0,
+    38,
+    sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame2,
+    4,
+    sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame3,
+    4,
+    sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame4,
+    4,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_SmallSwipeHigh[6] = {
+    sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame0,
+    38,
+    sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame2,
+    4,
+    sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame3,
+    4,
+    sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame4,
+    4,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_ShakingHeadLow[10] = {
+    sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame0,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame1,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame2,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame3,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame4,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame2,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame1,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame0,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame8,
+    3,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_ShakingHeadMiddle[10] = {
+    sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame0,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame1,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame2,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame3,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame4,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame2,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame1,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame0,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame8,
+    3,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_ShakingHeadHigh[10] = {
+    sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame0,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame1,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame2,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame3,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame4,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame2,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame1,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame0,
+    3,
+    sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame8,
+    3,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_LowToMiddle[3] = {
+    sMechaRidleyMultiSpriteData_LowToMiddle_Frame0,
+    3,
+    sMechaRidleyMultiSpriteData_LowToMiddle_Frame1,
+    3,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_MiddleToHigh[3] = {
+    sMechaRidleyMultiSpriteData_MiddleToHigh_Frame0,
+    3,
+    sMechaRidleyMultiSpriteData_MiddleToHigh_Frame1,
+    3,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_HighToMiddle[3] = {
+    sMechaRidleyMultiSpriteData_HighToMiddle_Frame0,
+    3,
+    sMechaRidleyMultiSpriteData_HighToMiddle_Frame1,
+    3,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_MiddleToLow[3] = {
+    sMechaRidleyMultiSpriteData_MiddleToLow_Frame0,
+    3,
+    sMechaRidleyMultiSpriteData_MiddleToLow_Frame1,
+    3,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_LowToHigh[5] = {
+    sMechaRidleyMultiSpriteData_LowToHigh_Frame0,
+    3,
+    sMechaRidleyMultiSpriteData_LowToHigh_Frame1,
+    3,
+    sMechaRidleyMultiSpriteData_LowToHigh_Frame2,
+    3,
+    sMechaRidleyMultiSpriteData_LowToHigh_Frame3,
+    3,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_HighToLow[5] = {
+    sMechaRidleyMultiSpriteData_HighToLow_Frame0,
+    3,
+    sMechaRidleyMultiSpriteData_HighToLow_Frame1,
+    3,
+    sMechaRidleyMultiSpriteData_HighToLow_Frame2,
+    3,
+    sMechaRidleyMultiSpriteData_HighToLow_Frame3,
+    3,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_OpeningMouthLow[3] = {
+    sMechaRidleyMultiSpriteData_OpeningMouthLow_Frame0,
+    4,
+    sMechaRidleyMultiSpriteData_OpeningMouthLow_Frame1,
+    8,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_SpittingFireballsLow[4] = {
+    sMechaRidleyMultiSpriteData_SpittingFireballsLow_Frame0,
+    2,
+    sMechaRidleyMultiSpriteData_SpittingFireballsLow_Frame1,
+    2,
+    sMechaRidleyMultiSpriteData_SpittingFireballsLow_Frame2,
+    2,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_ClosingMouthLow[3] = {
+    sMechaRidleyMultiSpriteData_ClosingMouthLow_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_ClosingMouthLow_Frame1,
+    4,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_OpeningMouthMiddle[3] = {
+    sMechaRidleyMultiSpriteData_OpeningMouthMiddle_Frame0,
+    4,
+    sMechaRidleyMultiSpriteData_OpeningMouthMiddle_Frame1,
+    8,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_SpittingFireballsMiddle[4] = {
+    sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame0,
+    2,
+    sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame1,
+    2,
+    sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame2,
+    2,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_ClosingMouthMiddle[3] = {
+    sMechaRidleyMultiSpriteData_ClosingMouthMiddle_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_ClosingMouthMiddle_Frame1,
+    4,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_OpeningMouthHigh[3] = {
+    sMechaRidleyMultiSpriteData_OpeningMouthHigh_Frame0,
+    4,
+    sMechaRidleyMultiSpriteData_OpeningMouthHigh_Frame1,
+    8,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_SpittingFireballsHigh[4] = {
+    sMechaRidleyMultiSpriteData_SpittingFireballsHigh_Frame0,
+    2,
+    sMechaRidleyMultiSpriteData_SpittingFireballsHigh_Frame1,
+    2,
+    sMechaRidleyMultiSpriteData_SpittingFireballsHigh_Frame2,
+    2,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_ClosingMouthHigh[3] = {
+    sMechaRidleyMultiSpriteData_ClosingMouthHigh_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_ClosingMouthHigh_Frame1,
+    4,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_FiringMissilesArmsUpLow[3] = {
+    sMechaRidleyMultiSpriteData_FiringMissileArmsUpLow_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_FiringMissileArmsUpLow_Frame1,
+    2,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_FiringMissilesArmsUpMiddle[3] = {
+    sMechaRidleyMultiSpriteData_FiringMissileArmsUpMiddle_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_FiringMissileArmsUpMiddle_Frame1,
+    2,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_FiringMissilesArmsUpHigh[3] = {
+    sMechaRidleyMultiSpriteData_FiringMissileArmsUpHigh_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_FiringMissileArmsUpHigh_Frame1,
+    2,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_FiringMissilesLow[3] = {
+    sMechaRidleyMultiSpriteData_FiringMissilesLow_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_FiringMissilesLow_Frame1,
+    2,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_FiringMissilesMiddle[3] = {
+    sMechaRidleyMultiSpriteData_FiringMissilesMiddle_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_FiringMissilesMiddle_Frame1,
+    2,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_FiringMissilesHigh[3] = {
+    sMechaRidleyMultiSpriteData_FiringMissilesHigh_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_FiringMissilesHigh_Frame1,
+    2,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_Dying[11] = {
+    sMechaRidleyMultiSpriteData_Dying_Frame0,
+    8,
+    sMechaRidleyMultiSpriteData_Dying_Frame1,
+    8,
+    sMechaRidleyMultiSpriteData_Dying_Frame2,
+    40,
+    sMechaRidleyMultiSpriteData_Dying_Frame3,
+    8,
+    sMechaRidleyMultiSpriteData_Dying_Frame4,
+    8,
+    sMechaRidleyMultiSpriteData_Dying_Frame5,
+    8,
+    sMechaRidleyMultiSpriteData_Dying_Frame6,
+    40,
+    sMechaRidleyMultiSpriteData_Dying_Frame7,
+    8,
+    sMechaRidleyMultiSpriteData_Dying_Frame8,
+    8,
+    sMechaRidleyMultiSpriteData_Dying_Frame9,
+    UCHAR_MAX,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_CrawlingBackwardsLow[7] = {
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame0,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame2,
+    24,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame3,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame4,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame0,
+    32,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle[7] = {
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame0,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame2,
+    24,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame3,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame4,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame0,
+    32,
+    NULL,
+    0
+};
+
+static const struct FrameData sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh[7] = {
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame0,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame1,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame2,
+    24,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame3,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame4,
+    4,
+    sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame0,
+    32,
+    NULL,
+    0
+};
 
 
 static const u8 sMechaRidleyGreenGlowPaletteData[7][2] = {
