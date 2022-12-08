@@ -1,7 +1,6 @@
 #include "sprites_AI/mecha_ridley.h"
 #include "sprites_AI/item_banner.h"
 #include "transparency.h"
-#include "sprite_util.h" // delete
 #include "gba.h"
 
 #include "data/sprites/mecha_ridley.h"
