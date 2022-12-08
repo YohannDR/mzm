@@ -77,8 +77,7 @@ void agbmain(void)
             case GM_INGAME:
                 if (ingame_main()) 
                 {
-                    i8 psf = gPauseScreenFlag;
-                    if (psf == PAUSE_SCREEN_NONE)
+                    if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
                     {
                         if (gCurrentCutscene != 0)
                             gMainGameMode = GM_CUTSCENE;
@@ -98,30 +97,28 @@ void agbmain(void)
             case GM_MAP_SCREEN:
                 if (map_screen_main())
                 {
-                    i8 psf;
                     gMainGameMode = gGameModeSub2;
                     gGameModeSub2 = 0;
 
-                    psf = gPauseScreenFlag - 1;
-                    switch (psf)
+                    switch (gPauseScreenFlag)
                     {
-                        case PAUSE_SCREEN_UNKNOWN_1 - 1:
+                        case PAUSE_SCREEN_UNKNOWN_1:
                             gGameModeSub3 = 0;
 
-                        case PAUSE_SCREEN_SUITLESS_ITEMS - 1:
+                        case PAUSE_SCREEN_SUITLESS_ITEMS:
                             gPauseScreenFlag = PAUSE_SCREEN_NONE;
                             break;
 
-                        case PAUSE_SCREEN_UNKNOWN_9 - 1:
+                        case PAUSE_SCREEN_UNKNOWN_9:
                             gPauseScreenFlag = PAUSE_SCREEN_NONE;
-                            gGameModeSub2   = 1;
+                            gGameModeSub2 = 1;
                             break;
 
-                        case PAUSE_SCREEN_PAUSE_OR_CUTSCENE - 1:
-                        case PAUSE_SCREEN_UNKNOWN_3 - 1:
-                        case PAUSE_SCREEN_CHOZO_HINT - 1:
-                        case PAUSE_SCREEN_MAP_DOWNLOAD - 1:
-                        case PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS - 1:
+                        case PAUSE_SCREEN_PAUSE_OR_CUTSCENE:
+                        case PAUSE_SCREEN_UNKNOWN_3:
+                        case PAUSE_SCREEN_CHOZO_HINT:
+                        case PAUSE_SCREEN_MAP_DOWNLOAD:
+                        case PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS:
                             break;
                     }
 
@@ -180,8 +177,7 @@ void agbmain(void)
             case GM_DEMO:
                 if (ingame_main())
                 {
-                    i8 psf = gPauseScreenFlag;
-                    if (psf == PAUSE_SCREEN_PAUSE_OR_CUTSCENE)
+                    if (gPauseScreenFlag == PAUSE_SCREEN_PAUSE_OR_CUTSCENE)
                     {
                         gPauseScreenFlag = PAUSE_SCREEN_NONE;
                         gGameModeSub3 = 0;
@@ -189,7 +185,7 @@ void agbmain(void)
                         if (gDemoState == 0)
                         {
                             gMainGameMode = gGameModeSub2;
-                            gGameModeSub2 = (gCurrentDemo << 4) >> 0x1c; /* XXX: probably struct */
+                            gGameModeSub2 = (gCurrentDemo << 4) >> 0x1c; /* XXX: probably struct (bitfields) */
                         }
                         else {
                             start_new_demo();
@@ -239,10 +235,10 @@ void agbmain(void)
                 {
                     // TODO add debug code
                 }
-            }
+        }
         
 
-        gVBlankRequestFlag &= 0xfffe;
+        gVBlankRequestFlag &= ~1;
         gClearedEveryFrame = 1;
 
         do {
