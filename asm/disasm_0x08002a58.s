@@ -2,35 +2,6 @@
 
     .syntax unified
 
-    thumb_func_start stop_all_musics_and_sounds
-stop_all_musics_and_sounds: @ 0x08002a58
-    push {r4, r5, lr}
-    ldr r0, lbl_08002a84 @ =0x00000009
-    lsls r0, r0, #0x10
-    lsrs r0, r0, #0x10
-    subs r4, r0, #1
-    cmp r4, #0
-    blt lbl_08002a7e
-    ldr r1, lbl_08002a88 @ =0x0808f254
-    lsls r0, r4, #1
-    adds r0, r0, r4
-    lsls r0, r0, #2
-    adds r5, r0, r1
-lbl_08002a70:
-    ldr r0, [r5]
-    bl sub_08004c1c
-    subs r5, #0xc
-    subs r4, #1
-    cmp r4, #0
-    bge lbl_08002a70
-lbl_08002a7e:
-    pop {r4, r5}
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_08002a84: .4byte 0x00000009
-lbl_08002a88: .4byte 0x0808f254
-
     thumb_func_start sub_08002a8c
 sub_08002a8c: @ 0x08002a8c
     push {r4, r5, lr}
@@ -53,7 +24,7 @@ lbl_08002aa4:
     cmp r0, #0
     bne lbl_08002ab6
     adds r0, r2, #0
-    bl sub_08004c1c
+    bl stop_music_or_sound
 lbl_08002ab6:
     subs r5, #0xc
     subs r4, #1
@@ -132,7 +103,7 @@ SoundPlayNotAlreadyPlaying: @ 0x08002b20
 lbl_08002b4e:
     adds r0, r4, #0
     movs r1, #0
-    bl sub_08003fac
+    bl queue_sound
 lbl_08002b56:
     pop {r4}
     pop {r0}
@@ -184,7 +155,7 @@ lbl_08002bac:
 lbl_08002bb4:
     adds r0, r4, #0
     movs r1, #0
-    bl sub_08003fac
+    bl queue_sound
     b lbl_08002bcc
 lbl_08002bbe:
     lsls r0, r1, #0x18
@@ -192,7 +163,7 @@ lbl_08002bbe:
     bne lbl_08002bcc
     adds r0, r5, #0
     movs r1, #0
-    bl sub_08003fac
+    bl queue_sound
 lbl_08002bcc:
     pop {r4, r5}
     pop {r0}
@@ -303,10 +274,10 @@ SoundFade: @ 0x08002c80
     lsrs r0, r0, #0x10
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
-    bl sub_08004014
+    bl stop_or_fade_sound
     pop {r0}
     bx r0
-    .align 2, 0
+   .align 2, 0
 
     thumb_func_start sub_08002c94
 sub_08002c94: @ 0x08002c94
@@ -316,7 +287,7 @@ sub_08002c94: @ 0x08002c94
     lsrs r1, r1, #0x10
     cmp r1, #0
     bne lbl_08002ca6
-    bl sub_08004c1c
+    bl stop_music_or_sound
     b lbl_08002cde
 lbl_08002ca6:
     ldrb r0, [r4, #0x1c]
@@ -334,7 +305,7 @@ lbl_08002ca6:
     cmp r0, #0
     beq lbl_08002cca
     adds r0, r4, #0
-    bl sub_08004c94
+    bl reset_track
     b lbl_08002cda
 lbl_08002cca:
     movs r0, #8
@@ -454,7 +425,7 @@ lbl_08002d8c:
 lbl_08002d98: .4byte 0x00000fff
 lbl_08002d9c:
     adds r0, r4, #0
-    bl sub_08004c94
+    bl reset_track
     ldrb r1, [r4]
     movs r0, #8
     ands r0, r1
@@ -504,7 +475,7 @@ sub_08002de8: @ 0x08002de8
     lsrs r0, r0, #0x10
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
-    bl sub_08003fac
+    bl queue_sound
     pop {r0}
     bx r0
     .align 2, 0
@@ -666,7 +637,7 @@ sub_08002f00: @ 0x08002f00
     lsls r2, r2, #0x10
     lsrs r2, r2, #0x10
     mov sb, r2
-    ldr r0, lbl_08002f88 @ =music_info
+    ldr r0, lbl_08002f88 @ =0x03001d00
     ldrb r1, [r0, #1]
     mov sl, r0
     cmp r1, #0
@@ -718,10 +689,10 @@ sub_08002f00: @ 0x08002f00
     cmp r0, #0
     bne lbl_08002f94
     adds r0, r6, #0
-    bl sub_08004c94
+    bl reset_track
     b lbl_08003000
     .align 2, 0
-lbl_08002f88: .4byte music_info
+lbl_08002f88: .4byte 0x03001d00
 lbl_08002f8c: .4byte 0x0808f254
 lbl_08002f90: .4byte 0x0808f2c0
 lbl_08002f94:
@@ -735,7 +706,7 @@ lbl_08002f94:
     cmp r0, r1
     bhi lbl_08003000
     adds r0, r6, #0
-    bl sub_08004c94
+    bl reset_track
 lbl_08002fac:
     ldrb r0, [r5]
     movs r1, #0x80
@@ -780,7 +751,7 @@ lbl_08003000:
     movs r0, #0
     strb r0, [r6, #0x1c]
     strb r0, [r5, #0x1c]
-    ldr r0, lbl_08003024 @ =music_info
+    ldr r0, lbl_08003024 @ =0x03001d00
     mov sl, r0
 lbl_0800300a:
     movs r0, #0
@@ -796,7 +767,7 @@ lbl_08003010:
     bx r0
     .align 2, 0
 lbl_08003020: .4byte 0x0000ffff
-lbl_08003024: .4byte music_info
+lbl_08003024: .4byte 0x03001d00
 
     thumb_func_start sub_08003028
 sub_08003028: @ 0x08003028
@@ -1286,7 +1257,7 @@ lbl_08003370:
     thumb_func_start sub_08003380
 sub_08003380: @ 0x08003380
     push {r4, lr}
-    ldr r3, lbl_080033c8 @ =music_info
+    ldr r3, lbl_080033c8 @ =0x03001d00
     ldrb r0, [r3, #0x10]
     adds r0, #1
     strb r0, [r3, #0x10]
@@ -1322,7 +1293,7 @@ lbl_080033c0:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080033c8: .4byte music_info
+lbl_080033c8: .4byte 0x03001d00
 lbl_080033cc: .4byte 0x040000c4
 lbl_080033d0: .4byte 0x84400004
 lbl_080033d4: .4byte 0x040000c6
@@ -1332,7 +1303,7 @@ lbl_080033d8: .4byte 0x040000d2
 sub_080033dc: @ 0x080033dc
     push {r4, r5, lr}
     sub sp, #4
-    ldr r5, lbl_08003440 @ =music_info
+    ldr r5, lbl_08003440 @ =0x03001d00
     ldrb r4, [r5, #1]
     cmp r4, #0
     bne lbl_08003438
@@ -1381,7 +1352,7 @@ lbl_08003438:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003440: .4byte music_info
+lbl_08003440: .4byte 0x03001d00
 lbl_08003444: .4byte 0x04000064
 lbl_08003448: .4byte 0x84400004
 lbl_0800344c: .4byte 0x00000c24
@@ -1392,7 +1363,7 @@ lbl_08003454: .4byte 0x04000084
 sub_08003458: @ 0x08003458
     push {r4, r5, lr}
     sub sp, #4
-    ldr r5, lbl_08003498 @ =music_info
+    ldr r5, lbl_08003498 @ =0x03001d00
     ldrb r4, [r5, #1]
     cmp r4, #0
     bne lbl_08003490
@@ -1423,7 +1394,7 @@ lbl_08003490:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003498: .4byte music_info
+lbl_08003498: .4byte 0x03001d00
 lbl_0800349c: .4byte 0x040000c4
 lbl_080034a0: .4byte 0x84400004
 lbl_080034a4: .4byte 0x00000c24
@@ -1729,7 +1700,7 @@ update_music_track: @ 0x080036d0
     push {r7}
     lsls r0, r0, #0x10
     lsrs r4, r0, #0x10
-    ldr r0, lbl_080036fc @ =music_info
+    ldr r0, lbl_080036fc @ =0x03001d00
     mov r8, r0
     adds r0, #0x21
     ldrb r1, [r0]
@@ -1745,7 +1716,7 @@ update_music_track: @ 0x080036d0
     bl sub_0800378c
     b lbl_08003776
     .align 2, 0
-lbl_080036fc: .4byte music_info
+lbl_080036fc: .4byte 0x03001d00
 lbl_08003700:
     lsls r0, r1, #0x18
     cmp r0, #0
@@ -1822,7 +1793,7 @@ sub_0800378c: @ 0x0800378c
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10
-    ldr r7, lbl_08003808 @ =music_info
+    ldr r7, lbl_08003808 @ =0x03001d00
     ldrb r6, [r7, #1]
     cmp r6, #0
     bne lbl_08003866
@@ -1882,7 +1853,7 @@ lbl_080037d4:
     movs r5, #0x46
     b lbl_0800383a
     .align 2, 0
-lbl_08003808: .4byte music_info
+lbl_08003808: .4byte 0x03001d00
 lbl_0800380c: .4byte 0x0808f254
 lbl_08003810: .4byte 0x03003b44
 lbl_08003814:
@@ -1922,10 +1893,10 @@ lbl_0800383a:
     adds r0, r6, #0
     movs r1, #0x1e
     bl sub_08002c94
-    ldr r0, lbl_08003874 @ =music_info
+    ldr r0, lbl_08003874 @ =0x03001d00
     strh r5, [r0, #0x22]
 lbl_08003860:
-    ldr r1, lbl_08003874 @ =music_info
+    ldr r1, lbl_08003874 @ =0x03001d00
     movs r0, #0
     strb r0, [r1, #1]
 lbl_08003866:
@@ -1935,12 +1906,12 @@ lbl_08003866:
     .align 2, 0
 lbl_0800386c: .4byte 0x0808f254
 lbl_08003870: .4byte 0x0808f2c0
-lbl_08003874: .4byte music_info
+lbl_08003874: .4byte 0x03001d00
 
     thumb_func_start check_play_new_music_track
 check_play_new_music_track: @ 0x08003878
     push {r4, r5, lr}
-    ldr r4, lbl_08003898 @ =music_info
+    ldr r4, lbl_08003898 @ =0x03001d00
     adds r0, r4, #0
     adds r0, #0x21
     ldrb r1, [r0]
@@ -1955,7 +1926,7 @@ check_play_new_music_track: @ 0x08003878
     bl sub_080038d8
     b lbl_080038c8
     .align 2, 0
-lbl_08003898: .4byte music_info
+lbl_08003898: .4byte 0x03001d00
 lbl_0800389c:
     lsls r0, r1, #0x18
     lsrs r5, r0, #0x18
@@ -1989,7 +1960,7 @@ lbl_080038d4: .4byte 0x0808f2c0
     thumb_func_start sub_080038d8
 sub_080038d8: @ 0x080038d8
     push {r4, r5, r6, r7, lr}
-    ldr r6, lbl_08003924 @ =music_info
+    ldr r6, lbl_08003924 @ =0x03001d00
     adds r0, r6, #0
     adds r0, #0x21
     ldrb r1, [r0]
@@ -2019,21 +1990,21 @@ sub_080038d8: @ 0x080038d8
     ldrh r0, [r6, #0x22]
     strh r0, [r6, #0x1c]
 lbl_08003918:
-    ldr r1, lbl_08003924 @ =music_info
+    ldr r1, lbl_08003924 @ =0x03001d00
     movs r0, #0
     strh r0, [r1, #0x22]
     pop {r4, r5, r6, r7}
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003924: .4byte music_info
+lbl_08003924: .4byte 0x03001d00
 lbl_08003928: .4byte 0x0808f254
 lbl_0800392c: .4byte 0x0808f2c0
 
     thumb_func_start update_music_after_alarm_disable
 update_music_after_alarm_disable: @ 0x08003930
     push {lr}
-    ldr r1, lbl_08003950 @ =music_info
+    ldr r1, lbl_08003950 @ =0x03001d00
     adds r2, r1, #0
     adds r2, #0x21
     movs r0, #0x20
@@ -2047,7 +2018,7 @@ update_music_after_alarm_disable: @ 0x08003930
     bl sub_08003b30
     b lbl_0800397a
     .align 2, 0
-lbl_08003950: .4byte music_info
+lbl_08003950: .4byte 0x03001d00
 lbl_08003954:
     subs r0, #0x5a
     lsls r0, r0, #0x10
@@ -2115,7 +2086,7 @@ lbl_080039c2:
     thumb_func_start sub_080039c8
 sub_080039c8: @ 0x080039c8
     push {r4, lr}
-    ldr r0, lbl_080039ec @ =music_info
+    ldr r0, lbl_080039ec @ =0x03001d00
     adds r0, #0x21
     ldrb r0, [r0]
     cmp r0, #0
@@ -2132,7 +2103,7 @@ lbl_080039e6:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080039ec: .4byte music_info
+lbl_080039ec: .4byte 0x03001d00
 lbl_080039f0: .4byte 0x0808f254
 
     thumb_func_start MusicPlay
@@ -2143,7 +2114,7 @@ MusicPlay: @ 0x080039f4
     adds r7, r6, #0
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    ldr r3, lbl_08003a60 @ =music_info
+    ldr r3, lbl_08003a60 @ =0x03001d00
     ldrb r0, [r3, #1]
     cmp r0, #0
     bne lbl_08003a58
@@ -2185,7 +2156,7 @@ lbl_08003a3e:
     adds r1, r5, #0
     bl sub_08004b50
 lbl_08003a52:
-    ldr r1, lbl_08003a60 @ =music_info
+    ldr r1, lbl_08003a60 @ =0x03001d00
     movs r0, #0
     strb r0, [r1, #1]
 lbl_08003a58:
@@ -2193,14 +2164,14 @@ lbl_08003a58:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003a60: .4byte music_info
+lbl_08003a60: .4byte 0x03001d00
 lbl_08003a64: .4byte 0x0808f2c0
 lbl_08003a68: .4byte 0x0808f254
 
     thumb_func_start sub_08003a6c
 sub_08003a6c: @ 0x08003a6c
     push {lr}
-    ldr r0, lbl_08003a80 @ =music_info
+    ldr r0, lbl_08003a80 @ =0x03001d00
     adds r0, #0x20
     ldrb r0, [r0]
     cmp r0, #0
@@ -2209,13 +2180,13 @@ sub_08003a6c: @ 0x08003a6c
     ldr r0, [r0]
     b lbl_08003a8c
     .align 2, 0
-lbl_08003a80: .4byte music_info
+lbl_08003a80: .4byte 0x03001d00
 lbl_08003a84: .4byte 0x0808f254
 lbl_08003a88:
     ldr r0, lbl_08003a94 @ =0x0808f254
     ldr r0, [r0, #0xc]
 lbl_08003a8c:
-    bl sub_08004c1c
+    bl stop_music_or_sound
     pop {r0}
     bx r0
     .align 2, 0
@@ -2226,7 +2197,7 @@ MusicFade: @ 0x08003a98
     push {lr}
     lsls r0, r0, #0x10
     lsrs r2, r0, #0x10
-    ldr r1, lbl_08003ac8 @ =music_info
+    ldr r1, lbl_08003ac8 @ =0x03001d00
     ldrb r0, [r1, #1]
     cmp r0, #0
     bne lbl_08003ada
@@ -2247,26 +2218,26 @@ MusicFade: @ 0x08003a98
     bl sub_08002c94
     b lbl_08003ad4
     .align 2, 0
-lbl_08003ac8: .4byte music_info
+lbl_08003ac8: .4byte 0x03001d00
 lbl_08003acc: .4byte 0x0808f254
 lbl_08003ad0:
-    bl sub_08004c1c
+    bl stop_music_or_sound
 lbl_08003ad4:
-    ldr r1, lbl_08003ae0 @ =music_info
+    ldr r1, lbl_08003ae0 @ =0x03001d00
     movs r0, #0
     strb r0, [r1, #1]
 lbl_08003ada:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003ae0: .4byte music_info
+lbl_08003ae0: .4byte 0x03001d00
 
     thumb_func_start sub_08003ae4
 sub_08003ae4: @ 0x08003ae4
     push {lr}
     lsls r0, r0, #0x10
     lsrs r2, r0, #0x10
-    ldr r1, lbl_08003b14 @ =music_info
+    ldr r1, lbl_08003b14 @ =0x03001d00
     ldrb r0, [r1, #1]
     cmp r0, #0
     bne lbl_08003b26
@@ -2287,19 +2258,19 @@ sub_08003ae4: @ 0x08003ae4
     bl sub_08002c94
     b lbl_08003b20
     .align 2, 0
-lbl_08003b14: .4byte music_info
+lbl_08003b14: .4byte 0x03001d00
 lbl_08003b18: .4byte 0x0808f254
 lbl_08003b1c:
-    bl sub_08004c1c
+    bl stop_music_or_sound
 lbl_08003b20:
-    ldr r1, lbl_08003b2c @ =music_info
+    ldr r1, lbl_08003b2c @ =0x03001d00
     movs r0, #0
     strb r0, [r1, #1]
 lbl_08003b26:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003b2c: .4byte music_info
+lbl_08003b2c: .4byte 0x03001d00
 
     thumb_func_start sub_08003b30
 sub_08003b30: @ 0x08003b30
@@ -2313,7 +2284,7 @@ sub_08003b30: @ 0x08003b30
     lsls r2, r2, #0x18
     lsrs r2, r2, #0x18
     adds r5, r2, #0
-    ldr r0, lbl_08003b60 @ =music_info
+    ldr r0, lbl_08003b60 @ =0x03001d00
     adds r0, #0x21
     ldrb r1, [r0]
     movs r0, #0x84
@@ -2327,7 +2298,7 @@ sub_08003b30: @ 0x08003b30
     bl MusicPlay
     b lbl_08003b72
     .align 2, 0
-lbl_08003b60: .4byte music_info
+lbl_08003b60: .4byte 0x03001d00
 lbl_08003b64:
     ldr r0, lbl_08003b78 @ =0x0808f254
     ldr r0, [r0]
@@ -2354,7 +2325,7 @@ sub_08003b7c: @ 0x08003b7c
     lsls r2, r2, #0x18
     lsrs r2, r2, #0x18
     adds r6, r2, #0
-    ldr r0, lbl_08003bac @ =music_info
+    ldr r0, lbl_08003bac @ =0x03001d00
     adds r0, #0x21
     ldrb r1, [r0]
     movs r0, #0x84
@@ -2368,7 +2339,7 @@ sub_08003b7c: @ 0x08003b7c
     bl MusicPlay
     b lbl_08003bc6
     .align 2, 0
-lbl_08003bac: .4byte music_info
+lbl_08003bac: .4byte 0x03001d00
 lbl_08003bb0:
     ldr r0, lbl_08003bcc @ =0x0808f254
     ldr r0, [r0]
@@ -2394,7 +2365,7 @@ sub_08003bd0: @ 0x08003bd0
     lsrs r2, r0, #0x10
     lsls r1, r1, #0x10
     lsrs r4, r1, #0x10
-    ldr r0, lbl_08003c14 @ =music_info
+    ldr r0, lbl_08003c14 @ =0x03001d00
     adds r0, #0x21
     ldrb r1, [r0]
     movs r0, #0x84
@@ -2423,7 +2394,7 @@ lbl_08003c0c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003c14: .4byte music_info
+lbl_08003c14: .4byte 0x03001d00
 lbl_08003c18: .4byte 0x0808f254
 lbl_08003c1c: .4byte 0x0808f2c0
 
@@ -2438,7 +2409,7 @@ sub_08003c20: @ 0x08003c20
     mov ip, r1
     lsls r2, r2, #0x18
     lsrs r2, r2, #0x18
-    ldr r3, lbl_08003c94 @ =music_info
+    ldr r3, lbl_08003c94 @ =0x03001d00
     ldrb r0, [r3, #1]
     cmp r0, #0
     bne lbl_08003c8c
@@ -2481,7 +2452,7 @@ lbl_08003c70:
     mov r2, ip
     bl sub_08002dfc
 lbl_08003c86:
-    ldr r1, lbl_08003c94 @ =music_info
+    ldr r1, lbl_08003c94 @ =0x03001d00
     movs r0, #0
     strb r0, [r1, #1]
 lbl_08003c8c:
@@ -2489,7 +2460,7 @@ lbl_08003c8c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003c94: .4byte music_info
+lbl_08003c94: .4byte 0x03001d00
 lbl_08003c98: .4byte 0x0808f2c0
 lbl_08003c9c: .4byte 0x0808f254
 
@@ -2501,7 +2472,7 @@ InsertMusicAndQueueCurrent: @ 0x08003ca0
     lsls r1, r1, #0x18
     lsrs r3, r1, #0x18
     adds r6, r3, #0
-    ldr r1, lbl_08003d00 @ =music_info
+    ldr r1, lbl_08003d00 @ =0x03001d00
     ldrb r0, [r1, #1]
     cmp r0, #0
     bne lbl_08003d40
@@ -2533,7 +2504,7 @@ lbl_08003ce4:
     cmp r3, #0
     bne lbl_08003d0c
     ldr r0, [r2, #0x24]
-    bl sub_08004c1c
+    bl stop_music_or_sound
     movs r0, #1
     bl sub_080034ac
     bl sub_08002a8c
@@ -2542,7 +2513,7 @@ lbl_08003ce4:
     ldrb r0, [r2]
     b lbl_08003d1e
     .align 2, 0
-lbl_08003d00: .4byte music_info
+lbl_08003d00: .4byte 0x03001d00
 lbl_08003d04: .4byte 0x0808f2c0
 lbl_08003d08: .4byte 0x0808f254
 lbl_08003d0c:
@@ -2559,7 +2530,7 @@ lbl_08003d1e:
     orrs r0, r1
     strb r0, [r2]
 lbl_08003d24:
-    ldr r3, lbl_08003d48 @ =music_info
+    ldr r3, lbl_08003d48 @ =0x03001d00
     adds r1, r3, #0
     adds r1, #0x20
     movs r2, #0
@@ -2570,7 +2541,7 @@ lbl_08003d24:
     adds r1, r5, #0
     bl sub_08004b50
 lbl_08003d3a:
-    ldr r1, lbl_08003d48 @ =music_info
+    ldr r1, lbl_08003d48 @ =0x03001d00
     movs r0, #0
     strb r0, [r1, #1]
 lbl_08003d40:
@@ -2578,7 +2549,7 @@ lbl_08003d40:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003d48: .4byte music_info
+lbl_08003d48: .4byte 0x03001d00
 
     thumb_func_start sub_08003d4c
 sub_08003d4c: @ 0x08003d4c
@@ -2589,7 +2560,7 @@ sub_08003d4c: @ 0x08003d4c
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
     mov r8, r0
-    ldr r4, lbl_08003d98 @ =music_info
+    ldr r4, lbl_08003d98 @ =0x03001d00
     ldrb r5, [r4, #1]
     cmp r5, #0
     bne lbl_08003e02
@@ -2620,7 +2591,7 @@ lbl_08003d76:
     lsrs r0, r0, #0x10
     b lbl_08003da2
     .align 2, 0
-lbl_08003d98: .4byte music_info
+lbl_08003d98: .4byte 0x03001d00
 lbl_08003d9c: .4byte 0x0808f254
 lbl_08003da0:
     ldrh r0, [r4, #0x1c]
@@ -2629,7 +2600,7 @@ lbl_08003da2:
     lsls r0, r0, #3
     adds r0, r0, r1
     ldr r1, [r0]
-    ldr r7, lbl_08003e14 @ =music_info
+    ldr r7, lbl_08003e14 @ =0x03001d00
     movs r0, #0
     mov sb, r0
     mov r0, sb
@@ -2679,7 +2650,7 @@ lbl_08003e02:
     bx r0
     .align 2, 0
 lbl_08003e10: .4byte 0x0808f2c0
-lbl_08003e14: .4byte music_info
+lbl_08003e14: .4byte 0x03001d00
 lbl_08003e18: .4byte 0x0808f254
 lbl_08003e1c: .4byte 0x0000ffff
 lbl_08003e20: .4byte 0x00000050
@@ -2689,7 +2660,7 @@ sub_08003e24: @ 0x08003e24
     push {lr}
     lsls r0, r0, #0x10
     lsrs r1, r0, #0x10
-    ldr r0, lbl_08003e3c @ =music_info
+    ldr r0, lbl_08003e3c @ =0x03001d00
     adds r0, #0x20
     ldrb r0, [r0]
     cmp r0, #0
@@ -2698,7 +2669,7 @@ sub_08003e24: @ 0x08003e24
     ldr r0, [r0]
     b lbl_08003e48
     .align 2, 0
-lbl_08003e3c: .4byte music_info
+lbl_08003e3c: .4byte 0x03001d00
 lbl_08003e40: .4byte 0x0808f254
 lbl_08003e44:
     ldr r0, lbl_08003e54 @ =0x0808f254
@@ -2711,7 +2682,7 @@ lbl_08003e48:
     .align 2, 0
 lbl_08003e54: .4byte 0x0808f254
 lbl_08003e58:
-    bl sub_08004c1c
+    bl stop_music_or_sound
 lbl_08003e5c:
     pop {r0}
     bx r0
@@ -2723,7 +2694,7 @@ MusicUpdatePriority: @ 0x08003e60
 lbl_08003e64:
     lsrs r2, r0, #0x18
     adds r4, r2, #0
-    ldr r1, lbl_08003e88 @ =music_info
+    ldr r1, lbl_08003e88 @ =0x03001d00
     ldrb r0, [r1, #1]
     adds r3, r1, #0
     cmp r0, #0
@@ -2740,7 +2711,7 @@ lbl_08003e64:
     strb r0, [r4]
     b lbl_08003eac
     .align 2, 0
-lbl_08003e88: .4byte music_info
+lbl_08003e88: .4byte 0x03001d00
 lbl_08003e8c:
     cmp r2, #0xff
     bne lbl_08003e9e
@@ -2771,7 +2742,7 @@ lbl_08003eb0:
     thumb_func_start sub_08003eb8
 sub_08003eb8: @ 0x08003eb8
     push {r4, r5, r6, lr}
-    ldr r1, lbl_08003ef0 @ =music_info
+    ldr r1, lbl_08003ef0 @ =0x03001d00
     ldrb r2, [r1, #1]
     cmp r2, #0
     bne lbl_08003f12
@@ -2797,7 +2768,7 @@ sub_08003eb8: @ 0x08003eb8
     adds r0, r0, r4
     b lbl_08003f02
     .align 2, 0
-lbl_08003ef0: .4byte music_info
+lbl_08003ef0: .4byte 0x03001d00
 lbl_08003ef4: .4byte 0x0808f254
 lbl_08003ef8: .4byte 0x0808f2c0
 lbl_08003efc:
@@ -2806,7 +2777,7 @@ lbl_08003efc:
     adds r0, r0, r1
 lbl_08003f02:
     ldr r1, [r0]
-    ldr r5, lbl_08003f1c @ =music_info
+    ldr r5, lbl_08003f1c @ =0x03001d00
     movs r4, #0
     strb r4, [r5, #1]
     adds r0, r6, #0
@@ -2818,7 +2789,7 @@ lbl_08003f12:
     bx r0
     .align 2, 0
 lbl_08003f18: .4byte 0x0808f2c0
-lbl_08003f1c: .4byte music_info
+lbl_08003f1c: .4byte 0x03001d00
 
     thumb_func_start sub_08003f20
 sub_08003f20: @ 0x08003f20
@@ -2827,7 +2798,7 @@ sub_08003f20: @ 0x08003f20
     bl SoundPlay
     movs r0, #0
     bl sub_080034ac
-    ldr r2, lbl_08003f5c @ =music_info
+    ldr r2, lbl_08003f5c @ =0x03001d00
     ldrb r1, [r2, #0xb]
     movs r0, #0x80
     orrs r0, r1
@@ -2849,7 +2820,7 @@ sub_08003f20: @ 0x08003f20
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003f5c: .4byte music_info
+lbl_08003f5c: .4byte 0x03001d00
 lbl_08003f60: .4byte 0x0808f254
 lbl_08003f64: .4byte 0x0000ffff
 lbl_08003f68: .4byte 0x00000050
@@ -2869,7 +2840,7 @@ sub_08003f6c: @ 0x08003f6c
     adds r1, r5, #0
     adds r2, r6, #0
     bl sub_08003058
-    ldr r2, lbl_08003fa8 @ =music_info
+    ldr r2, lbl_08003fa8 @ =0x03001d00
     ldrb r1, [r2, #0xb]
     movs r0, #0x7f
     ands r0, r1
@@ -2883,10 +2854,10 @@ lbl_08003f9a:
     .align 2, 0
 lbl_08003fa0: .4byte 0x0808f254
 lbl_08003fa4: .4byte 0x0000ffff
-lbl_08003fa8: .4byte music_info
+lbl_08003fa8: .4byte 0x03001d00
 
-    thumb_func_start sub_08003fac
-sub_08003fac: @ 0x08003fac
+    thumb_func_start queue_sound
+queue_sound: @ 0x08003fac
     push {r4, r5, r6, lr}
     lsls r0, r0, #0x10
     lsls r1, r1, #0x10
@@ -2942,8 +2913,8 @@ lbl_0800400e:
     pop {r0}
     bx r0
 
-    thumb_func_start sub_08004014
-sub_08004014: @ 0x08004014
+    thumb_func_start stop_or_fade_sound
+stop_or_fade_sound: @ 0x08004014
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x10
     lsls r1, r1, #0x10
@@ -2985,7 +2956,7 @@ lbl_08004050:
     cmp r7, #0
     bne lbl_08004074
     adds r0, r1, #0
-    bl sub_08004c1c
+    bl stop_music_or_sound
     b lbl_0800407c
     .align 2, 0
 lbl_08004070: .4byte 0x0808f254
@@ -3228,14 +3199,14 @@ sub_08004228: @ 0x08004228
     push {r4, r5, lr}
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10
-    ldr r0, lbl_08004258 @ =music_info
+    ldr r0, lbl_08004258 @ =0x03001d00
     ldrh r0, [r0, #0x1c]
     cmp r5, r0
     beq lbl_08004250
     ldr r0, lbl_0800425c @ =0x0808f254
     ldr r4, [r0]
     adds r0, r4, #0
-    bl sub_08004c1c
+    bl stop_music_or_sound
     adds r0, r5, #0
     movs r1, #8
     bl MusicPlay
@@ -3247,7 +3218,7 @@ lbl_08004250:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08004258: .4byte music_info
+lbl_08004258: .4byte 0x03001d00
 lbl_0800425c: .4byte 0x0808f254
 
     thumb_func_start sub_08004260
@@ -3303,7 +3274,7 @@ sub_080042bc: @ 0x080042bc
     push {r4, r5, r6, lr}
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10
-    ldr r4, lbl_08004300 @ =music_info
+    ldr r4, lbl_08004300 @ =0x03001d00
     ldrb r6, [r4, #1]
     cmp r6, #0
     bne lbl_080042f8
@@ -3335,7 +3306,7 @@ lbl_080042f8:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08004300: .4byte music_info
+lbl_08004300: .4byte 0x03001d00
 lbl_08004304: .4byte 0x0000012b
 lbl_08004308: .4byte 0x0808f254
 lbl_0800430c: .4byte 0x0808f2c0
@@ -3552,7 +3523,7 @@ sub_08004ad8: @ 0x08004ad8
 
     arm_func_start sub_08004adc
 sub_08004adc: @ 0x08004adc
-    ldr r0, lbl_08004b44 @ =music_info
+    ldr r0, lbl_08004b44 @ =0x03001d00
     ldrb r1, [r0, #0x10]
     add r1, r1, #1
     ldrb r3, [r0, #0xe]
@@ -3580,7 +3551,7 @@ sub_08004b3c: @ 0x08004b3c
     strb r1, [r0, #0x10]
     bx lr
     .align 2, 0
-lbl_08004b44: .4byte music_info
+lbl_08004b44: .4byte 0x03001d00
 lbl_08004b48: .4byte 0x0808ceec
 lbl_08004b4c: .4byte 0x0808cef0
 
@@ -3603,7 +3574,7 @@ sub_08004b50: @ 0x08004b50
     lsls r2, r6, #0x18
     lsrs r2, r2, #0x18
     bne lbl_08004b7c
-    bl sub_08004c94
+    bl reset_track
     movs r2, #0
     strb r2, [r4]
     b lbl_08004c00
@@ -3626,7 +3597,7 @@ lbl_08004b7c:
     b lbl_08004c0e
 lbl_08004b9c:
     adds r0, r4, #0
-    bl sub_08004c94
+    bl reset_track
 lbl_08004ba2:
     movs r3, #2
     lsls r2, r6, #8
@@ -3694,8 +3665,8 @@ lbl_08004c0e:
     pop {r1}
     bx r1
 
-    thumb_func_start sub_08004c1c
-sub_08004c1c: @ 0x08004c1c
+    thumb_func_start stop_music_or_sound
+stop_music_or_sound: @ 0x08004c1c
     push {r4, r5, r6, r7, lr}
     adds r7, r0, #0
     ldrb r6, [r7, #0x1c]
@@ -3763,8 +3734,8 @@ lbl_08004c8c:
     bx r0
     .align 2, 0
 
-    thumb_func_start sub_08004c94
-sub_08004c94: @ 0x08004c94
+    thumb_func_start reset_track
+reset_track: @ 0x08004c94
     push {r4, r5, r6, r7, lr}
     adds r7, r0, #0
     ldrb r6, [r7, #0x1e]
@@ -3897,7 +3868,7 @@ lbl_08004d5c:
     b lbl_08004d52
 lbl_08004d72:
     ldr r4, lbl_08004e00 @ =0x0808f254
-    ldr r6, lbl_08004e04 @ =music_info
+    ldr r6, lbl_08004e04 @ =0x03001d00
     movs r0, #0x21
     ldrb r0, [r6, r0]
     movs r1, #0x80
@@ -3969,7 +3940,7 @@ lbl_08004df4: .4byte 0x0808f254
 lbl_08004df8: .4byte 0x00000009
 lbl_08004dfc: .4byte 0x03003b44
 lbl_08004e00: .4byte 0x0808f254
-lbl_08004e04: .4byte music_info
+lbl_08004e04: .4byte 0x03001d00
 lbl_08004e08: .4byte 0x00000009
 lbl_08004e0c: .4byte 0x00000009
 
@@ -4258,7 +4229,7 @@ lbl_08005008:
 lbl_0800500a:
     ldrb r2, [r5, #0x18]
     bl Midikey2Freq
-    ldr r1, lbl_0800502c @ =music_info
+    ldr r1, lbl_0800502c @ =0x03001d00
     ldrh r2, [r1, #0x12]
     cmp r0, r2
     bne lbl_0800501e
@@ -4274,7 +4245,7 @@ lbl_08005024:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0800502c: .4byte music_info
+lbl_0800502c: .4byte 0x03001d00
 
     thumb_func_start sub_08005030
 sub_08005030: @ 0x08005030

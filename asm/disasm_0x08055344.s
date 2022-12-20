@@ -62213,7 +62213,7 @@ write_sram: @ 0x08073ce4
     mov r6, sb
     mov r5, r8
     push {r5, r6, r7}
-    ldr r3, lbl_08073f80 @ =music_info
+    ldr r3, lbl_08073f80 @ =0x03001d00
     ldrh r1, [r3, #0x1c]
     ldr r0, lbl_08073f84 @ =0xffff0000
     ands r0, r5
@@ -62545,7 +62545,7 @@ lbl_08073f46:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08073f80: .4byte music_info
+lbl_08073f80: .4byte 0x03001d00
 lbl_08073f84: .4byte 0xffff0000
 lbl_08073f88: .4byte 0x0000ffff
 lbl_08073f8c: .4byte 0xffffff00
@@ -62818,7 +62818,7 @@ lbl_080741e8:
     subs r2, #1
     cmp r2, #0
     bge lbl_080741e8
-    ldr r7, lbl_080742d4 @ =music_info
+    ldr r7, lbl_080742d4 @ =0x03001d00
     movs r2, #0x8c
     lsls r2, r2, #2
     adds r1, r4, r2
@@ -62898,7 +62898,7 @@ lbl_080742c4: .4byte 0x03001608
 lbl_080742c8: .4byte 0x030001a8
 lbl_080742cc: .4byte 0x03000150
 lbl_080742d0: .4byte 0x03000154
-lbl_080742d4: .4byte music_info
+lbl_080742d4: .4byte 0x03001d00
 lbl_080742d8: .4byte 0x03000184
 lbl_080742dc: .4byte 0x03000050
 
@@ -69186,7 +69186,7 @@ title_screen_init: @ 0x0807745c
     strb r5, [r0]
     ldr r0, lbl_080775f4 @ =0x03000000
     strb r5, [r0]
-    bl stop_all_musics_and_sounds
+    bl StopAllMusicsAndSounds
     ldr r4, lbl_080775f8 @ =0x08446d68
     movs r6, #0xa0
     lsls r6, r6, #0x13
@@ -70047,7 +70047,7 @@ game_over_menu_init: @ 0x08077ba8
     strb r2, [r1]
     movs r0, #0x80
     bl sub_080027f8
-    bl stop_all_musics_and_sounds
+    bl StopAllMusicsAndSounds
     ldr r1, lbl_08077d50 @ =0x0844f11c
     movs r5, #0xa0
     lsls r5, r5, #0x13
@@ -70267,7 +70267,7 @@ sub_08077dd8: @ 0x08077dd8
     strb r5, [r1]
     ldr r0, lbl_08077ed4 @ =0x0194f780
     bl sub_080027f8
-    bl stop_all_musics_and_sounds
+    bl StopAllMusicsAndSounds
     movs r1, #0xa0
     lsls r1, r1, #0x13
     ldr r2, lbl_08077ed8 @ =0x00007fff
@@ -76532,7 +76532,7 @@ lbl_0807b002:
 sub_0807b008: @ 0x0807b008
     push {r4, r5, r6, r7, lr}
     movs r7, #0
-    ldr r4, lbl_0807b088 @ =music_info
+    ldr r4, lbl_0807b088 @ =0x03001d00
     ldr r5, lbl_0807b08c @ =0x08760bac
     ldr r2, lbl_0807b090 @ =0x08754bc4
     ldr r0, [r2]
@@ -76598,7 +76598,7 @@ lbl_0807b07e:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0807b088: .4byte music_info
+lbl_0807b088: .4byte 0x03001d00
 lbl_0807b08c: .4byte 0x08760bac
 lbl_0807b090: .4byte 0x08754bc4
 
@@ -104290,7 +104290,7 @@ lbl_08088f14:
     b lbl_08089100
 lbl_08088f26:
     bl sub_08003458
-    ldr r0, lbl_08088f44 @ =music_info
+    ldr r0, lbl_08088f44 @ =0x03001d00
     ldrh r1, [r0, #0x1c]
     strh r1, [r4, #0x12]
     adds r0, #0x21
@@ -104303,7 +104303,7 @@ lbl_08088f26:
     b lbl_080890fe
     .align 2, 0
 lbl_08088f40: .4byte 0x03005808
-lbl_08088f44: .4byte music_info
+lbl_08088f44: .4byte 0x03001d00
 lbl_08088f48:
     ldr r0, lbl_08088f78 @ =serial_communication_code_connecting
     bl CallbackSetSerialCommunication

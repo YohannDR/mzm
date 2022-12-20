@@ -4,6 +4,8 @@ MEMORY {
     rom : ORIGIN = 0x08000000 LENGTH = 32M
 }
 
+gNumMusicPlayers = 9;
+
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
         . = 0x00027780; gMakeSolidBlocks = .;
@@ -184,8 +186,19 @@ SECTIONS {
         . = 0x00001cf4; gVCountCallback = .;
         . = 0x00001cf8; gSerialCommunicationCallback = .;
         . = 0x00001cfc; gTimer3Callback = .;
-        . = 0x00001d00; music_info = .;
+        . = 0x00001d00; gMusicInfo = .;
         . = 0x00002924; sound_data = .;
+
+        . = 0x00004348; gTrack0Variables = .;
+        . = 0x00004708; gTrack1Variables = .;
+        . = 0x00004a28; gTrack2Variables = .;
+        . = 0x00004ac8; gTrack3Variables = .;
+        . = 0x00004bc8; gTrack4Variables = .;
+        . = 0x00004c08; gTrack5Variables = .;
+        . = 0x00004ca8; gTrack6Variables = .;
+        . = 0x00004d98; gTrack7Variables = .;
+        . = 0x00004de8; gTrack8Variables = .;
+
         . = 0x00004fc9; gUnk_03004fc9 = .;
         . = 0x000052E0; gSamusPalette = .;
         . = 0x00005450; gTilemapAndClipPointers = .;
@@ -214,8 +227,22 @@ SECTIONS {
         . = 0x00005714; gUnk_3005714 = .;
         . = 0x00005804; sOamXOffset_NonGameplay = .;
         . = 0x00005805; sOamYOffset_NonGameplay = .;
+
+
         . = 0x000058e0; src/libgcc/fp-bit-base.o(.rodata);
         . = 0x000058f8; src/libgcc/float.o(.rodata);
+        . = 0x00005910; gTrackData8 = .;
+        . = 0x00005950; gTrackData3 = .;
+        . = 0x00005990; gTrackData1 = .;
+        . = 0x000059D0; gTrackData6 = .;
+        . = 0x00005A10; gTrackData4 = .;
+        . = 0x00005A50; gTrackData0 = .;
+        . = 0x00005A90; gTrackData7 = .;
+        . = 0x00005AD0; gTrackData2 = .;
+        . = 0x00005B10; gTrackData5 = .;
+
+
+
         . = 0x00007e60; sp_sys = .;
         . = 0x00007fa0; sp_irq = .;
         . = 0x00007ff8; unk_03007ff8 = .;

@@ -4306,7 +4306,7 @@ u8 SamusDying(struct SamusData* pData)
     if (pData->lastWallTouchedMidAir == 0)
     {
         pData->lastWallTouchedMidAir++;
-        stop_all_musics_and_sounds(); // Undefined
+        StopAllMusicsAndSounds(); // Undefined
     }
     else if (pData->lastWallTouchedMidAir == 1)
     {

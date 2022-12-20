@@ -860,7 +860,7 @@ void ConnectionCheckPlayCutsceneDuringTransition(u8 area, u8 dstRoomPlusOne)
             if (dstRoomPlusOne == 0x1F && !EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_KILLED))
             {
                 MusicFade(0xA);
-                SoundFadeAll(0xA);
+                FadeAllSounds(0xA);
                 gCurrentCutscene = CUTSCENE_KRAID_RISING;
             }
             break;
