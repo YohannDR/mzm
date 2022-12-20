@@ -326,7 +326,7 @@ SECTIONS {
         asm/disasm_0x0804ac00.o(.text);
         src/sprites_AI/space_pirate_carrying_power_bomb.o(.text);
         src/sprites_AI/falling_chozo_pillar.o(.text);
-        asm/disasm_0x0804ba9c.o(.text);
+        src/sprites_AI/mecha_ridley.o(.text);
         src/sprites_AI/escape_gate.o(.text);
         asm/disasm_0x0804ed08.o(.text)
         src/hud.o(.text);
@@ -445,7 +445,7 @@ SECTIONS {
         asm/disasm_0x0804ac00.o(.rodata);
         src/sprites_AI/space_pirate_carrying_power_bomb.o(.rodata);
         src/sprites_AI/falling_chozo_pillar.o(.rodata);
-        asm/disasm_0x0804ba9c.o(.rodata);
+        src/sprites_AI/mecha_ridley.o(.rodata);
         src/sprites_AI/escape_gate.o(.rodata);
         asm/disasm_0x0804ed08.o(.rodata)
         src/hud.o(.rodata);

@@ -5,7 +5,7 @@
 
 #include "data/sprites/mecha_ridley.h"
 #include "data/sprite_data.h"
-#include "data/pointers.h"
+#include "data/frame_data_pointers.h"
 
 #include "constants/audio.h"
 #include "constants/clipdata.h"
