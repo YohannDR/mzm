@@ -58,8 +58,8 @@ struct wavedata {
     /* i8 data[size+1]; */
 };
 
-void CPUFastSet(void *src, void *dst, u16 size);
-void CPUSet(void *src, void *dst, u16 size);
+void CpuFastSet(void *src, void *dst, u16 size);
+void CpuSet(void *src, void *dst, u32 size);
 i32 DivarmDiv(i32 number, i32 denom);
 i32 DivarmMod(i32 denom, i32 number);
 void LZ77UncompVRAM(const void *src, void *dst);

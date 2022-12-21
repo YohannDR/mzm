@@ -9,6 +9,9 @@
 #define REG_DMA2 (REG_BASE + 0x0c8)
 #define REG_DMA3 (REG_BASE + 0x0d4)
 
+#define REG_DMA1_CNT (REG_DMA1 + 8)
+#define REG_DMA2_CNT (REG_DMA2 + 8)
+
 #define dma_set(channel, src, dst, cnt)                                        \
     {                                                                          \
         vu32 *dma_ = (vu32 *)REG_DMA##channel;                                 \
@@ -64,5 +67,8 @@
 #define DMA_START_MASK (1 << 12 | 1 << 13)
 #define DMA_INTR_ENABLE (1 << 14)
 #define DMA_ENABLE (1 << 15)
+
+#define CPU_SET_FILL (1 << 8)
+#define CPU_SET_32BIT (1 << 10)
 
 #endif /* GBA_DMA_H */

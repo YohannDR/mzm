@@ -3901,7 +3901,7 @@ sub_080028f4: @ 0x080028f4
     ldr r2, lbl_080029ec @ =0x01000300
     mov r0, sp
     adds r1, r6, #0
-    bl CPUFastSet
+    bl CpuFastSet
     ldr r1, lbl_080029f0 @ =0xfffff3dc
     adds r4, r6, r1
     ldr r1, lbl_080029f4 @ =0x0808cc60

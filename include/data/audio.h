@@ -3,6 +3,10 @@
 
 #include "structs/audio.h"
 
+static const u8 sArray_808cee2[10] = {
+    1, 1, 1, 0, 1, 1, 0, 1, 1, 0
+};
+
 static const struct TrackGroupROMData sMusicTrackDataROM[9] = {
     [0] = {
         .pTrack = &gTrackData0,

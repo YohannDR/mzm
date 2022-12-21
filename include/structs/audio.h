@@ -58,6 +58,11 @@ struct SoundChannel {
     struct SoundChannel* pChannel2;
 };
 
+struct SoundChannelBackup {
+    struct SoundChannel* pChannel;
+    struct SoundChannel channel;
+};
+
 struct PSGSoundData {
     u8 unknown_0;
     u8 unknown_1;
@@ -244,7 +249,8 @@ struct MusicInfo {
     u8 unknown_20;
     u8 priority;
     u16 musicTrackOnTransition;
-    u32 rawData[768];
+    u32 musicRawData[768];
+    u8 soundRawData[3072];
 };
 
 
@@ -265,6 +271,8 @@ extern struct TrackData gTrackData6;
 extern struct TrackData gTrackData7;
 extern struct TrackData gTrackData8;
 
+extern struct SoundChannelBackup gSoundChannelBackup[7];
+extern struct SoundChannelBackup gSoundChannelTrack2Backup[7];
 extern struct SoundQueue gSoundQueue[9];
 
 extern struct TrackVariables gTrack0Variables[12];

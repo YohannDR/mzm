@@ -189,6 +189,8 @@ SECTIONS {
         . = 0x00001d00; gMusicInfo = .;
         . = 0x00002924; sound_data = .;
 
+        . = 0x00003834; gSoundChannelBackup = .;
+        . = 0x000039bc; gSoundChannelTrack2Backup = .;
         . = 0x00003b44; gSoundQueue = .;
         . = 0x00004348; gTrack0Variables = .;
         . = 0x00004708; gTrack1Variables = .;

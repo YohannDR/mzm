@@ -2,6 +2,7 @@
 #define GENERIC_DATA_H
 
 #include "types.h"
+#include "music_wrappers.h"
 #include "callbacks.h"
 
 static const i16 sSineTable[320] = {
@@ -61,7 +62,7 @@ static const u8 sRandomNumberTable[256] = {
 };
 
 static const Func_T sIntrTable[13] = {
-    sub_08003380,
+    DMA2IntrCode,
     CallbackCallSerialCommunication,
     CallbackCallTimer3,
     CallbackCallVblank,

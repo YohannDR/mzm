@@ -5,6 +5,7 @@
 
 #include "io.h"
 
+#include "gba/audio.h"
 #include "gba/display.h"
 #include "gba/dma.h"
 #include "gba/interrupt.h"

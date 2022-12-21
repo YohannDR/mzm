@@ -33,7 +33,7 @@ void SoundPlay(u16 sound)
  */
 void SoundStop(u16 sound)
 {
-    stop_or_fade_sound(sound, 0);
+    StopOrFadeSound(sound, 0);
 }
 
 /**
@@ -207,7 +207,7 @@ void unk_2c4c(void)
  */
 void SoundFade(u16 sound, u16 timer)
 {
-    stop_or_fade_sound(sound, timer);
+    StopOrFadeSound(sound, timer);
 }
 
 void ApplyMusicSoundFading(struct TrackData* pTrack, u16 timer)

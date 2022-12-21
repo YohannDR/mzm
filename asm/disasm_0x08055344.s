@@ -105558,7 +105558,7 @@ lbl_08089894:
     ldr r1, lbl_080898b0 @ =0x03005890
     ldr r2, lbl_080898b4 @ =0x05000006
     mov r0, sp
-    bl CPUSet
+    bl CpuSet
     bl sub_08089dec
     adds r0, r4, #0
     add sp, #4
@@ -105592,7 +105592,7 @@ sub_080898b8: @ 0x080898b8
     ldr r1, lbl_08089904 @ =0x03005890
     ldr r2, lbl_08089908 @ =0x05000006
     mov r0, sp
-    bl CPUSet
+    bl CpuSet
     add sp, #4
     pop {r0}
     bx r0
@@ -106799,7 +106799,7 @@ sub_0808a260: @ 0x0808a260
     ldr r1, lbl_0808a2c0 @ =0x03005b60
     ldr r2, lbl_0808a2c4 @ =0x05000069
     mov r0, sp
-    bl CPUSet
+    bl CpuSet
     add sp, #4
     pop {r4, r5}
     pop {r0}
@@ -106861,7 +106861,7 @@ sub_0808a2c8: @ 0x0808a2c8
     ldr r1, lbl_0808a374 @ =0x03005b60
     ldr r2, lbl_0808a378 @ =0x05000069
     mov r0, sp
-    bl CPUSet
+    bl CpuSet
     ldr r0, lbl_0808a37c @ =0x030058d2
     strb r4, [r0]
     ldr r0, lbl_0808a380 @ =0x030058d3

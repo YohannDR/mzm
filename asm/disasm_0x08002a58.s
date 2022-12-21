@@ -19,7 +19,7 @@ SoundStop: @ 0x08002a28
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     movs r1, #0
-    bl stop_or_fade_sound
+    bl StopOrFadeSound
     pop {r0}
     bx r0
     .align 2, 0
@@ -346,7 +346,7 @@ SoundFade: @ 0x08002c80
     lsrs r0, r0, #0x10
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
-    bl stop_or_fade_sound
+    bl StopOrFadeSound
     pop {r0}
     bx r0
    .align 2, 0
@@ -1414,7 +1414,7 @@ sub_080033dc: @ 0x080033dc
     adds r1, r5, r0
     ldr r2, lbl_08003450 @ =0x05000300
     mov r0, sp
-    bl CPUSet
+    bl CpuSet
     ldr r0, lbl_08003454 @ =0x04000084
     strb r4, [r0]
     strb r4, [r5, #1]
@@ -1458,7 +1458,7 @@ sub_08003458: @ 0x08003458
     adds r1, r5, r0
     ldr r2, lbl_080034a8 @ =0x05000300
     mov r0, sp
-    bl CPUSet
+    bl CpuSet
     strb r4, [r5, #1]
 lbl_08003490:
     add sp, #4
@@ -2984,8 +2984,8 @@ lbl_0800400e:
     pop {r0}
     bx r0
 
-    thumb_func_start stop_or_fade_sound
-stop_or_fade_sound: @ 0x08004014
+    thumb_func_start StopOrFadeSound
+StopOrFadeSound: @ 0x08004014
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x10
     lsls r1, r1, #0x10
