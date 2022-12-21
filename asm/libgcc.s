@@ -171,8 +171,8 @@ __div_by_zero: @ 0x0808acc8
     mov pc, lr
     .align 2, 0
 
-    thumb_func_start sub_0808accc
-sub_0808accc: @ 0x0808accc
+    thumb_func_start __fixunsdfsi
+__fixunsdfsi: @ 0x0808accc
     push {r4, r5, lr}
     adds r5, r1, #0
     adds r4, r0, #0
