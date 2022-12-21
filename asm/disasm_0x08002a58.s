@@ -1326,8 +1326,8 @@ lbl_08003370:
     pop {r0}
     bx r0
 
-    thumb_func_start sub_08003380
-sub_08003380: @ 0x08003380
+    thumb_func_start DMA2IntrCode
+DMA2IntrCode: @ 0x08003380
     push {r4, lr}
     ldr r3, lbl_080033c8 @ =0x03001d00
     ldrb r0, [r3, #0x10]
