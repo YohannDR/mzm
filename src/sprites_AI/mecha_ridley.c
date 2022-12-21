@@ -579,7 +579,7 @@ void MechaRidleyStartBattle(void)
             gCurrentSprite.pose = MECHA_RIDLEY_POSE_IDLE;
 
             // Start music
-            MusicPlay(MUSIC_MECHA_RIDLEY_BATTLE, 0);
+            PlayMusic(MUSIC_MECHA_RIDLEY_BATTLE, 0);
 
             // Enable alarm
             gDisableAnimatedPalette = FALSE;
@@ -1006,7 +1006,7 @@ void MechaRidleyDyingInit(void)
 
     ParticleSet(gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition, PE_MAIN_BOSS_DEATH);
     SoundPlay(0x2B0);
-    MusicFade(60);
+    FadeMusic(60);
 }
 
 /**
@@ -1276,7 +1276,7 @@ void MechaRidleySecondEyeGlow(void)
             // Enable alarm
             gDisableAnimatedPalette = FALSE;
 
-            MusicPlay(MUSIC_ESCAPE, 0x40);
+            PlayMusic(MUSIC_ESCAPE, 0x40);
         }
     }
 }

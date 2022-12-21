@@ -1,64 +1,5 @@
 #include "audio_wrappers.h"
-
-// Temporary place
-static const struct TrackGroundROMData sMusicTrackDataROM[9] = {
-    [0] = {
-        .pTrack = &gTrackData0,
-        .pVariables = gTrack0Variables,
-        .maxAmountOfTracks = 12,
-        .unknonw_A = 1
-    },
-    [1] = {
-        .pTrack = &gTrackData1,
-        .pVariables = gTrack1Variables,
-        .maxAmountOfTracks = 10,
-        .unknonw_A = 1
-    },
-    [2] = {
-        .pTrack = &gTrackData2,
-        .pVariables = gTrack2Variables,
-        .maxAmountOfTracks = 2,
-        .unknonw_A = 1
-    },
-    [3] = {
-        .pTrack = &gTrackData3,
-        .pVariables = gTrack3Variables,
-        .maxAmountOfTracks = 2,
-        .unknonw_A = 0
-    },
-    [4] = {
-        .pTrack = &gTrackData4,
-        .pVariables = gTrack4Variables,
-        .maxAmountOfTracks = 2,
-        .unknonw_A = 1
-    },
-    [5] = {
-        .pTrack = &gTrackData5,
-        .pVariables = gTrack5Variables,
-        .maxAmountOfTracks = 2,
-        .unknonw_A = 1
-    },
-    [6] = {
-        .pTrack = &gTrackData6,
-        .pVariables = gTrack6Variables,
-        .maxAmountOfTracks = 3,
-        .unknonw_A = 0
-    },
-    [7] = {
-        .pTrack = &gTrackData7,
-        .pVariables = gTrack7Variables,
-        .maxAmountOfTracks = 1,
-        .unknonw_A = 1
-    },
-    [8] = {
-        .pTrack = &gTrackData8,
-        .pVariables = gTrack8Variables,
-        .maxAmountOfTracks = 6,
-        .unknonw_A = 1
-    },
-};
-
-static const struct SoundEntry sSoundDataEntries[708];
+#include "data/audio.h"
 
 void InitializeAudio(void)
 {
@@ -82,7 +23,7 @@ void SetupSoundTransfer(void)
  */
 void SoundPlay(u16 sound)
 {
-    queue_sound(sound, 0);
+    QueueSound(sound, 0);
 }
 
 /**
@@ -159,13 +100,13 @@ void FadeAllSounds(u16 timer)
 void SoundPlayNotAlreadyPlaying(u16 sound)
 {
     struct TrackData* pTrack;
-    u8* pHeader;
+    const u8* pHeader;
 
     pTrack = sMusicTrackDataROM[sSoundDataEntries[sound].trackGroundNumber].pTrack;
     pHeader = sSoundDataEntries[sound].pHeader;
 
     if (!(pTrack->flags & 2) || pHeader != pTrack->pHeader)
-        queue_sound(sound, 0);
+        QueueSound(sound, 0);
 }
 
 /**
@@ -182,7 +123,7 @@ void unk_2b64(u16 sound)
     if (pTrack->flags & 2)
     {
         if (sSoundDataEntries[sound].pHeader != pTrack->pHeader)
-            queue_sound(sound, 0);
+            QueueSound(sound, 0);
     }
     else
     {
@@ -191,10 +132,10 @@ void unk_2b64(u16 sound)
             if (sSoundDataEntries[sound].pHeader == pTrack->pHeader)
                 unk_2c10(pTrack);
             else
-                queue_sound(sound, 0);
+                QueueSound(sound, 0);
         }
         else if (pTrack->flags == 0)
-            queue_sound(sound, 0);
+            QueueSound(sound, 0);
     }
 }
 
@@ -388,7 +329,7 @@ void unk_2d2c(struct TrackData* pTrack)
  */
 void PlayFadingSound(u16 sound, u16 timer)
 {
-    queue_sound(sound, timer);
+    QueueSound(sound, timer);
 }
 
 /**
@@ -398,7 +339,7 @@ void PlayFadingSound(u16 sound, u16 timer)
  * @param pHeader Sound header pointer
  * @param timer Fading timer
  */
-void InitFadingMusic(struct TrackData* pTrack, u8* pHeader, u16 timer)
+void InitFadingMusic(struct TrackData* pTrack, const u8* pHeader, u16 timer)
 {
     init_track(pTrack, pHeader);
 
@@ -494,7 +435,7 @@ void unk_2f00(u16 musicTrack1, u16 musicTrack2, u16 timer)
 
     struct TrackData* pTrack1;
     struct TrackData* pTrack2;
-    u8* pHeader;
+    const u8* pHeader;
 
     if (gMusicInfo.occupied)
         return;

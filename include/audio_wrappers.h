@@ -22,7 +22,7 @@ void ApplyMusicSoundFading(struct TrackData* pTrack, u16 timer);
 void ApplyRawMusicSoundFading(struct TrackData* pTrack, u16 timer);
 void unk_2d2c(struct TrackData* pTrack);
 void PlayFadingSound(u16 sound, u16 timer);
-void InitFadingMusic(struct TrackData* pTrack, u8* pHeader, u16 timer);
+void InitFadingMusic(struct TrackData* pTrack, const u8* pHeader, u16 timer);
 void unk_2e34(struct TrackData* pTrack, u16 timer);
 void unk_2e6c(struct TrackData* pTrack);
 void unk_2f00(u16 musicTrack1, u16 musicTrack2, u16 timer);

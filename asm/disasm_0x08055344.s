@@ -1658,7 +1658,7 @@ lbl_08056068:
     bne lbl_08056074
     movs r0, #0xe
     movs r1, #0x10
-    bl MusicPlay
+    bl PlayMusic
 lbl_08056074:
     bl load_tileset
     bl load_room_backgrounds
@@ -14908,7 +14908,7 @@ lbl_0805c79e:
     movs r0, #0x3c
     bl sub_08002acc
     movs r0, #0x3c
-    bl MusicFade
+    bl FadeMusic
     b lbl_0805c7d6
     .align 2, 0
 lbl_0805c7b4: .4byte 0x03000bf0
@@ -21052,7 +21052,7 @@ lbl_0805f77c:
     cmp r0, #0
     bne lbl_0805f7ea
     movs r0, #0xa
-    bl MusicFade
+    bl FadeMusic
     movs r0, #0xa
     bl sub_08002acc
     ldr r1, lbl_0805f7a0 @ =0x0300007d
@@ -21184,7 +21184,7 @@ lbl_0805f89c:
     movs r1, #0xa
     bl SoundFade
     movs r0, #0xa
-    bl MusicFade
+    bl FadeMusic
     b lbl_0805f8ec
     .align 2, 0
 lbl_0805f8b8: .4byte 0x0300007d
@@ -21208,7 +21208,7 @@ lbl_0805f8bc:
     movs r1, #0xa
     bl SoundFade
     movs r0, #0xa
-    bl MusicFade
+    bl FadeMusic
 lbl_0805f8ec:
     pop {r0}
     bx r0
@@ -22814,7 +22814,7 @@ lbl_080605ec:
     strb r6, [r0]
     movs r0, #1
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     movs r0, #0x36
     movs r1, #1
     bl InsertMusicAndQueueCurrent
@@ -23418,12 +23418,12 @@ lbl_08060afc:
     bl sub_08003f6c
     b lbl_08060b10
 lbl_08060b02:
-    bl retrieve_track_data2_sound_channels
+    bl RetrieveTrackData2SoundChannels
     b lbl_08060b10
 lbl_08060b08:
     movs r0, #0xe
     movs r1, #0x10
-    bl MusicPlay
+    bl PlayMusic
 lbl_08060b10:
     pop {r0}
     bx r0
@@ -23906,7 +23906,7 @@ lbl_08060ed4: .4byte 0x0300007d
 lbl_08060ed8:
     movs r0, #0x34
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     b lbl_08060eea
 lbl_08060ee2:
     movs r0, #0x93
@@ -26265,7 +26265,7 @@ lbl_08062100: .4byte 0x08754bb4
 lbl_08062104: .4byte 0x08754bc4
 lbl_08062108:
     movs r0, #0x14
-    bl MusicFade
+    bl FadeMusic
 lbl_0806210e:
     ldr r1, lbl_08062130 @ =0x08754bc4
     ldr r0, [r1]
@@ -27280,7 +27280,7 @@ lbl_0806290c:
     bls lbl_08062986
     movs r0, #0x34
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     ldr r0, lbl_08062958 @ =0x08754bb4
     ldr r1, [r0]
     movs r0, #0x80
@@ -28835,7 +28835,7 @@ mother_brain_close_up_init: @ 0x08063584
     bl sub_080614d4
     movs r0, #0x48
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     ldr r1, [r5]
     strh r4, [r1, #0x1c]
     ldrb r0, [r1]
@@ -30524,7 +30524,7 @@ ridley_in_space_cutscene_init: @ 0x080642bc
     bl update_cutscene_oam_data_id
     movs r0, #0x10
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     ldr r0, lbl_08064414 @ =0x0000028d
     bl SoundPlay
     movs r0, #2
@@ -32258,7 +32258,7 @@ ridley_landing_init: @ 0x080650e8
     bl update_cutscene_oam_data_id
     movs r0, #0x11
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     ldr r0, lbl_08065280 @ =0x0000028f
     bl SoundPlay
     ldr r1, [r5]
@@ -33028,7 +33028,7 @@ lbl_0806572e:
     strh r6, [r1, #0x1c]
     movs r0, #0x35
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     ldr r1, [r4]
     ldrb r0, [r1]
     adds r0, #1
@@ -34330,7 +34330,7 @@ lbl_08066250:
     strb r6, [r0]
     movs r0, #0x13
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     mov r5, r8
     ldr r0, [r5]
     strh r7, [r0, #2]
@@ -35350,7 +35350,7 @@ before_charlie_init: @ 0x08066aa0
     bl sub_080614d4
     movs r0, #0x12
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     ldr r2, lbl_08066bcc @ =0x08754bc4
     ldr r0, [r2]
     movs r1, #0
@@ -37451,7 +37451,7 @@ lbl_08067ba2:
     strb r3, [r2, #0xa]
     movs r0, #0x44
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     ldr r1, lbl_08067c9c @ =0x05000200
     ldr r0, lbl_08067d08 @ =0x08754bb4
     ldr r2, [r0]
@@ -44272,7 +44272,7 @@ lbl_0806b318:
     b lbl_0806b4f6
 lbl_0806b31e:
     movs r0, #0xa0
-    bl MusicFade
+    bl FadeMusic
 lbl_0806b324:
     movs r6, #1
     b lbl_0806b4f6
@@ -68848,10 +68848,10 @@ lbl_08077204:
     b lbl_08077306
 lbl_08077212:
     movs r0, #2
-    bl MusicUpdatePriority
+    bl UpdateMusicPriority
     movs r0, #2
     movs r1, #2
-    bl MusicPlay
+    bl PlayMusic
     ldr r0, lbl_08077234 @ =0x08754bc4
     ldr r1, [r0]
     movs r0, #0
@@ -68880,7 +68880,7 @@ lbl_0807723c:
     cmp r0, #2
     bne lbl_0807726c
     movs r0, #4
-    bl MusicUpdatePriority
+    bl UpdateMusicPriority
     b lbl_0807727e
     .align 2, 0
 lbl_08077264: .4byte 0x03000c74
@@ -69689,7 +69689,7 @@ lbl_08077920:
     movs r0, #0xa
     bl sub_08002acc
     movs r0, #0xa
-    bl MusicFade
+    bl FadeMusic
     ldr r0, lbl_0807795c @ =0x030013d2
     strb r4, [r0]
     ldr r1, lbl_08077960 @ =0x03000c74
@@ -69758,7 +69758,7 @@ lbl_080779c4:
     strb r0, [r1, #0x1e]
     movs r0, #0x53
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     ldr r1, lbl_080779d8 @ =0x03000c72
     ldrh r0, [r1]
     b lbl_08077ab0
@@ -69813,7 +69813,7 @@ lbl_08077a20:
     eors r0, r1
     strh r0, [r2, #0xc]
     movs r0, #0x14
-    bl MusicFade
+    bl FadeMusic
     ldr r1, lbl_08077a54 @ =0x03000c72
     ldrh r0, [r1]
     b lbl_08077ab0
@@ -79529,7 +79529,7 @@ lbl_0807c858: .4byte 0x03000bf3
 lbl_0807c85c:
     movs r0, #9
     movs r1, #2
-    bl MusicPlay
+    bl PlayMusic
     ldr r1, lbl_0807c968 @ =0x03000bf3
     movs r0, #0
     strb r0, [r1]
@@ -80891,7 +80891,7 @@ lbl_0807d338:
     cmp r4, #2
     bne lbl_0807d34c
     movs r0, #0
-    bl MusicFade
+    bl FadeMusic
     ldr r1, lbl_0807d348 @ =0x03000c74
     movs r0, #3
     b lbl_0807d554
@@ -81078,7 +81078,7 @@ lbl_0807d496:
 lbl_0807d4ae:
     strb r1, [r2]
     movs r0, #0x14
-    bl MusicFade
+    bl FadeMusic
     movs r0, #1
     b lbl_0807d57c
     .align 2, 0
@@ -86903,7 +86903,7 @@ intro_init: @ 0x080801dc
     adds r0, #2
     strh r5, [r0]
     movs r0, #1
-    bl MusicUpdatePriority
+    bl UpdateMusicPriority
     mov r0, r8
     ldr r1, [r0]
     adds r2, r1, #0
@@ -88835,7 +88835,7 @@ lbl_080811d8:
     movs r0, #0xa
     bl sub_08002acc
     movs r0, #0xa
-    bl MusicFade
+    bl FadeMusic
     b lbl_0808122a
     .align 2, 0
 lbl_08081200: .4byte 0x03001380
@@ -97292,7 +97292,7 @@ credits_init: @ 0x08085464
     bl _call_via_r8
     movs r0, #0x1b
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     add sp, #4
     pop {r3}
     mov r8, r3
@@ -100171,7 +100171,7 @@ lbl_08086db6:
     beq lbl_08086dd0
     movs r0, #0x80
     lsls r0, r0, #1
-    bl MusicFade
+    bl FadeMusic
     b lbl_08086dd6
     .align 2, 0
 lbl_08086dcc: .4byte 0x03001380
@@ -103194,7 +103194,7 @@ lbl_08088674:
     adds r0, #1
     strb r0, [r2, #1]
     movs r0, #0xf0
-    bl MusicFade
+    bl FadeMusic
     b lbl_0808870a
 lbl_08088682:
     ldrb r0, [r2, #7]
@@ -103571,7 +103571,7 @@ lbl_08088942:
     bl LZ77UncompVRAM
     movs r0, #0x1a
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     b lbl_08088aae
     .align 2, 0
 lbl_08088958: .4byte 0x085d0ce8
@@ -104272,7 +104272,7 @@ lbl_08088efc:
     movs r0, #0
     strh r0, [r4, #6]
     movs r0, #0x14
-    bl MusicFade
+    bl FadeMusic
     ldrb r0, [r4, #9]
     adds r0, #1
     b lbl_080890fe
@@ -104512,7 +104512,7 @@ lbl_080890ea:
     ldr r4, lbl_0808910c @ =0x03005808
     ldrh r0, [r4, #0x12]
     ldrb r1, [r4, #0x14]
-    bl MusicPlay
+    bl PlayMusic
     movs r0, #0xc
 lbl_080890fe:
     strb r0, [r4, #9]

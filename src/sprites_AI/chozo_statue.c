@@ -441,7 +441,7 @@ void ChozoStatueRegisterHint(void)
 
     // Register hint
     ChozoStatueRegisterItem(gCurrentSprite.spriteID);
-    MusicFade(0x3C);
+    FadeMusic(0x3C);
 }
 
 /**
@@ -465,7 +465,7 @@ void ChozoStatueHintFlashing(void)
             // Start hint
             gPauseScreenFlag = PAUSE_SCREEN_CHOZO_HINT;
 
-            MusicPlay(MUSIC_CHOZO_STATUE_HINT, 0x0);
+            PlayMusic(MUSIC_CHOZO_STATUE_HINT, 0x0);
         }
         else
         {
@@ -641,7 +641,7 @@ void ChozoStatueSleeping(void)
 
         // Replay room music if hint
         if (gSubSpriteData1.workVariable3)
-            MusicPlay(gMusicTrackInfo.currentRoomTrack, 0x0);
+            PlayMusic(gMusicTrackInfo.currentRoomTrack, 0x0);
     }
 }
 

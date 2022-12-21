@@ -189,6 +189,7 @@ SECTIONS {
         . = 0x00001d00; gMusicInfo = .;
         . = 0x00002924; sound_data = .;
 
+        . = 0x00003b44; gSoundQueue = .;
         . = 0x00004348; gTrack0Variables = .;
         . = 0x00004708; gTrack1Variables = .;
         . = 0x00004a28; gTrack2Variables = .;
@@ -264,8 +265,6 @@ SECTIONS {
         src/callbacks.o(.text);
         src/sub_08000c04.o(.text);
         asm/disasm_0x08000c48.o(.text);
-        src/play_sound.o(.text);
-        src/sub_08002a38.o(.text);
         asm/disasm_0x08002a58.o(.text);
         asm/syscalls.o(.text);
         asm/disasm_0x080051d4.o(.text);
@@ -383,8 +382,6 @@ SECTIONS {
         src/callbacks.o(.rodata);
         src/sub_08000c04.o(.rodata);
         asm/disasm_0x08000c48.o(.rodata);
-        src/play_sound.o(.rodata);
-        src/sub_08002a38.o(.rodata);
         asm/disasm_0x08002a58.o(.rodata);
         asm/syscalls.o(.rodata);
         asm/disasm_0x080051d4.o(.rodata);

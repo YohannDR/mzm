@@ -287,7 +287,7 @@ void ImagoWaitForLastEgg(void)
     if (gSubSpriteData1.workVariable3)
     {
         gCurrentSprite.pose = IMAGO_POSE_SPAWN;
-        MusicFade(0x24);
+        FadeMusic(0x24);
     }
 }
 
@@ -302,7 +302,7 @@ void ImagoSpawn(void)
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.pose = IMAGO_POSE_COMING_DOWN_INIT;
-        MusicPlay(MUSIC_IMAGO_BATTLE, 0x0);
+        PlayMusic(MUSIC_IMAGO_BATTLE, 0x0);
     }
 }
 
@@ -972,7 +972,7 @@ void ImagoDestroyWall(void)
             gCurrentSprite.timer = 0x0;
             ScreenShakeStartVertical(0x1E, 0x81);
             ScreenShakeStartVertical(0x3C, 0x81);
-            MusicFade(0x38);
+            FadeMusic(0x38);
             break;
     }
 
@@ -1026,7 +1026,7 @@ void ImagoDying(void)
             gCurrentSprite.pose = IMAGO_POSE_SET_EVENT;
             gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
             SoundPlay(0xC5);
-            MusicPlay(MUSIC_BOSS_KILLED, 0x0);
+            PlayMusic(MUSIC_BOSS_KILLED, 0x0);
     }
 }
 

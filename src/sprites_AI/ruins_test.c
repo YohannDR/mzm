@@ -1553,7 +1553,7 @@ void RuinsTestSymbol(void)
                 gCurrentSprite.pose = RUINS_TEST_SYMBOL_POSE_UPDATE_PALETTE;
                 gCurrentSprite.currentAnimationFrame = 0x1;
                 gCurrentSprite.animationDurationCounter = 0x0;
-                MusicPlay(MUSIC_RUINS_TEST_BATTLE_WITH_INTRO, 0x0);
+                PlayMusic(MUSIC_RUINS_TEST_BATTLE_WITH_INTRO, 0x0);
                 SoundPlay(0x1D3);
             }
             break;
@@ -2122,7 +2122,7 @@ void RuinsTestSamusReflectionEnd(void)
                 gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_END_POSE_UPDATE_PALETTE;
                 gCurrentSprite.timer = 0x1;
                 gCurrentSprite.workVariable = 0xC;
-                MusicFade(0xC8);
+                FadeMusic(0xC8);
             }
             else if (gCurrentSprite.timer == 0x1E)
             {

@@ -312,7 +312,7 @@ void ImagoCocoonIdle(void)
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && gSubSpriteData1.yPosition < gSamusData.yPosition &&
                 gSamusData.yPosition - gSubSpriteData1.yPosition > BLOCK_SIZE * 8)
             {
-                MusicFade(0x50);
+                FadeMusic(0x50);
                 gBossWork.work1 = IMAGO_COCOON_MUSIC_STAGE_STARTED_FADING;
             }
         }
@@ -320,7 +320,7 @@ void ImagoCocoonIdle(void)
         {
             if (gSubSpriteData1.xPosition < gSamusData.xPosition && gSamusData.xPosition - gSubSpriteData1.xPosition < BLOCK_SIZE * 7)
             {
-                MusicPlay(MUSIC_IMAGO_COCOON_BATTLE, 0x0);
+                PlayMusic(MUSIC_IMAGO_COCOON_BATTLE, 0x0);
                 gBossWork.work1 = IMAGO_COCOON_MUSIC_STAGE_STARTED_MUSIC;
             }
         }
@@ -491,7 +491,7 @@ void ImagoCocoonFallingAfterBlocks(void)
         gCurrentSprite.oamScaling = 0x100;
         gCurrentSprite.workVariable2 = FALSE;
 
-        MusicFade(0x55);
+        FadeMusic(0x55);
     }
 }
 
@@ -510,7 +510,7 @@ void ImagoCocoonUnlockPassage(void)
             ImagoCocoonChangeTwoBlockingCCAA(CAA_REMOVE_SOLID); // Remove blocking collision
 
             gDoorUnlockTimer = -0x3C;
-            MusicPlay(MUSIC_BOSS_KILLED, 0x0);
+            PlayMusic(MUSIC_BOSS_KILLED, 0x0);
         }
     }
 }

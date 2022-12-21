@@ -23,6 +23,13 @@ struct Envelope {
     u8 release;
 };
 
+struct SoundQueue {
+    u8 exists;
+    u8 priority;
+    u16 fadingTimer;
+    const u8* pHeader;
+};
+
 struct SoundChannel {
     u8 unknown_0;
     u8 unknown_1;
@@ -149,7 +156,7 @@ struct TrackData {
     u16 unknown_C;
     u16 unknown_E;
 
-    u8* pHeader;
+    const u8* pHeader;
     struct Voice* pVoice;
     struct TrackVariables* pVariables;
 
@@ -193,7 +200,7 @@ struct TrackData {
     u8 undefined_3F;
 };
 
-struct TrackGroundROMData {
+struct TrackGroupROMData {
     struct TrackData* pTrack;
     struct TrackVariables* pVariables;
     u16 maxAmountOfTracks;
@@ -201,7 +208,7 @@ struct TrackGroundROMData {
 };
 
 struct SoundEntry {
-    u8* pHeader;
+    const u8* pHeader;
     u16 trackGroundNumber;
     u16 trackGroundNumber_2;
 };
@@ -241,7 +248,6 @@ struct MusicInfo {
 };
 
 
-
 extern u8 gStereoFlag;
 extern struct MusicTrackInfo gMusicTrackInfo;
 
@@ -258,6 +264,8 @@ extern struct TrackData gTrackData5;
 extern struct TrackData gTrackData6;
 extern struct TrackData gTrackData7;
 extern struct TrackData gTrackData8;
+
+extern struct SoundQueue gSoundQueue[9];
 
 extern struct TrackVariables gTrack0Variables[12];
 extern struct TrackVariables gTrack1Variables[10];

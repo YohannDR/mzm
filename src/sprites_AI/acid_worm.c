@@ -338,7 +338,7 @@ void AcidWormCheckSamusOnZipline(void)
     if (SpriteUtilCheckOnZipline())
     {
         gCurrentSprite.pose = ACID_WORM_POSE_CHECK_SPAWN;
-        MusicFade(0x12);
+        FadeMusic(0x12);
     }
 }
 
@@ -362,7 +362,7 @@ void AcidWormSpawnStart(void)
         ScreenShakeStartHorizontal(0x3C, 0x81);
         SoundPlay(0x1A7);
         SoundPlay(0x1A8);
-        MusicPlay(MUSIC_WORMS_BATTLE, 0x0);
+        PlayMusic(MUSIC_WORMS_BATTLE, 0x0);
     }
 }
 
@@ -993,7 +993,7 @@ void AcidWormDying(void)
         if (gSubSpriteData1.workVariable2 == 0x0)
         {
             gCurrentSprite.status = 0x0;
-            MusicPlay(MUSIC_BOSS_KILLED, 0x0);
+            PlayMusic(MUSIC_BOSS_KILLED, 0x0);
         }
     }
     else
@@ -1328,7 +1328,7 @@ void AcidWormBodyDeath(void)
                     // Set event and open door
                     EventFunction(EVENT_ACTION_SETTING, EVENT_ACID_WORM_KILLED);
                     gDoorUnlockTimer = -0x14;
-                    MusicFade(0x10E);
+                    FadeMusic(0x10E);
                 }
             }
 

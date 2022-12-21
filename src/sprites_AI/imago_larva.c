@@ -102,7 +102,7 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
             gCurrentSprite.hitboxRightOffset = 0x58;
             gCurrentSprite.pose = IMAGO_LARVA_POSE_IDLE;
             gDoorUnlockTimer = 0x1;
-            MusicPlay(MUSIC_CATTERPILLARS_BATTLE_2, 0x0);
+            PlayMusic(MUSIC_CATTERPILLARS_BATTLE_2, 0x0);
         }
         else
         {
@@ -400,7 +400,7 @@ void ImagoLarvaDyingInit(struct SubSpriteData* pSub)
     SoundPlay(0xB0);
 
     if (gCurrentSprite.spriteID == PSPRITE_IMAGO_LARVA_RIGHT)
-        MusicFade(0xA);
+        FadeMusic(0xA);
 }
 
 /**
@@ -435,7 +435,7 @@ void ImagoLarvaDeath(struct SubSpriteData* pSub)
         {
             EventFunction(EVENT_ACTION_SETTING, EVENT_CATERPILLAR_KILLED);
             gDoorUnlockTimer = -0x3C;
-            MusicPlay(0xB, 0x0); // Boss killed
+            PlayMusic(0xB, 0x0); // Boss killed
         }
 
         yPosition = gCurrentSprite.yPosition - 0x24;

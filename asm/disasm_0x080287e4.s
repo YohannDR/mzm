@@ -33,7 +33,7 @@ lbl_08028804:
     bl EventFunction
     cmp r0, #0
     bne lbl_08028822
-    bl update_music_after_alarm_disable
+    bl UpdateMusicAfterAlarmDisable
 lbl_08028822:
     pop {r0}
     bx r0
@@ -68,7 +68,7 @@ lbl_08028850:
     bne lbl_0802886a
     movs r0, #0x45
     movs r1, #0x40
-    bl MusicPlay
+    bl PlayMusic
 lbl_0802886a:
     pop {r0}
     bx r0

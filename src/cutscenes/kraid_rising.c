@@ -233,7 +233,7 @@ u8 KraidRisingOpeningEyes(void)
         case 3:
             if (CUTSCENE_DATA.timer > 6)
             {
-                MusicPlay(MUSIC_KRAID_BATTLE_WITH_INTRO, 0);
+                PlayMusic(MUSIC_KRAID_BATTLE_WITH_INTRO, 0);
 
                 DMATransfer(3, sMemoryPointers[0] + 0x2000, VRAM_BASE + sKraidRisingPagesData[1].tiletablePage * 0x800, 0x800, 0x10);
                 CutsceneSetBGCNTPageData(sKraidRisingPagesData[1]);

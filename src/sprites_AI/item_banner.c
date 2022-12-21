@@ -139,7 +139,7 @@ void ItemBannerPopUp(void)
             {
                 // New item
                 gCurrentSprite.workVariable2 = TRUE;
-                backup_track_data2_sound_channels(); // Undefined
+                BackupTrackData2SoundChannels();
                 if (message == MESSAGE_UKNOWN_ITEM_PLASMA || message == MESSAGE_UNKNOWN_ITEM_GRAVITY
                     || message == MESSAGE_UNKNOWN_ITEM_SPACE_JUMP)
                     InsertMusicAndQueueCurrent(MUSIC_GETTING_UNKNOWN_ITEM_JINGLE, 0x0); // Unknown item
@@ -151,19 +151,19 @@ void ItemBannerPopUp(void)
             {
                 // New tank
                 gCurrentSprite.workVariable2 = TRUE;
-                backup_track_data2_sound_channels();
+                BackupTrackData2SoundChannels();
                 InsertMusicAndQueueCurrent(MUSIC_GETTING_ITEM_JINGLE, 0x0);
             }
             else if (message == MESSAGE_FULLY_POWERED_SUIT)
             {
-                MusicPlay(MUSIC_BRINSTAR_REMIX, 0x0);
+                PlayMusic(MUSIC_BRINSTAR_REMIX, 0x0);
                 InsertMusicAndQueueCurrent(MUSIC_GETTING_FULLY_POWERED_SUIT_JINGLE, 0x0);
             }
             else if (message != MESSAGE_SAVE_PROMPT)
             {
                 if ((u8)(message - 0x1) <= 0x1 || message == MESSAGE_SUPER_MISSILE_TANK_ACQUIRED
                     || message == MESSAGE_POWER_BOMB_TANK_ACQUIRED)
-                    backup_track_data2_sound_channels();
+                    BackupTrackData2SoundChannels();
                 SoundPlay(0x3A);
             }
             
@@ -276,7 +276,7 @@ void ItemBannerRemovalAnimation(void)
         }
         // Check replay sounds
         else if ((u8)(message - 0x1) < MESSAGE_MISSILE_TANK_ACQUIRED || message == MESSAGE_SUPER_MISSILE_TANK_ACQUIRED || message == MESSAGE_POWER_BOMB_TANK_ACQUIRED)
-            retrieve_track_data2_sound_channels(); // Undefined
+            RetrieveTrackData2SoundChannels();
 
         gPreventMovementTimer = 0x0;
         if (gCurrentSprite.workVariable2)

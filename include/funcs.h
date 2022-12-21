@@ -23,7 +23,7 @@ int fusion_gallery_main(void);
 int erase_sram_main(void);
 
 void sub_080033dc(void);
-void queue_sound(u16 id, u32 unk); /* TODO: unk type */
+void QueueSound(u16 id, u32 unk); /* TODO: unk type */
 void stop_or_fade_sound(u16 id, u32 unk); /* TODO: unk type */
 void UpdateAudio();
 void sub_0805d034(void);

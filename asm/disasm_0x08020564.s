@@ -1974,7 +1974,7 @@ lbl_08021468:
     bl SoundPlay
     movs r0, #0x3c
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
 lbl_080214a4:
     ldr r2, lbl_080214e0 @ =0x03000738
     adds r3, r2, #0

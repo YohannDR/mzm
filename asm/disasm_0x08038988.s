@@ -3109,7 +3109,7 @@ lbl_0803a2a2:
     strb r1, [r2, #0x1c]
     movs r0, #0x43
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     ldr r0, lbl_0803a2c4 @ =0x000001d3
     bl SoundPlay
     b lbl_0803a4e6
@@ -4544,7 +4544,7 @@ lbl_0803af1c:
     movs r0, #0xc
     strb r0, [r1]
     movs r0, #0xc8
-    bl MusicFade
+    bl FadeMusic
     b lbl_0803b034
     .align 2, 0
 lbl_0803af60: .4byte 0x0000fffb

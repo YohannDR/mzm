@@ -736,7 +736,7 @@ AcidWormCheckSamusOnZipline: @ 0x0803de18
     movs r1, #0x42
     strb r1, [r0]
     movs r0, #0x12
-    bl MusicFade
+    bl FadeMusic
 lbl_0803de30:
     pop {r0}
     bx r0
@@ -791,7 +791,7 @@ AcidWormSpawnStart: @ 0x0803de38
     bl SoundPlay
     movs r0, #0x3c
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
 lbl_0803dea4:
     pop {r0}
     bx r0
@@ -2242,7 +2242,7 @@ AcidWormDying: @ 0x0803e9e8
     strh r0, [r3]
     movs r0, #0xb
     movs r1, #0
-    bl MusicPlay
+    bl PlayMusic
     b lbl_0803eaa8
     .align 2, 0
 lbl_0803ea10: .4byte 0x0300006c
@@ -3081,7 +3081,7 @@ lbl_0803f05c:
     strb r0, [r1]
     movs r0, #0x87
     lsls r0, r0, #1
-    bl MusicFade
+    bl FadeMusic
 lbl_0803f0bc:
     ldr r0, lbl_0803f0dc @ =0x03000738
     ldrh r1, [r0, #2]

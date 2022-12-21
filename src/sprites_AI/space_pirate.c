@@ -37,7 +37,7 @@ void DisableChozodiaAlarm(void)
 
         // Check is in stealth
         if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
-            MusicUpdateAfterAlarmDisable();
+            UpdateMusicAfterAlarmDisable();
     }
 }
 
@@ -56,7 +56,7 @@ void DecrementChozodiaAlarm(void)
         {
             gDisableAnimatedPalette = FALSE;
             if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_FULLY_POWERED_SUIT_OBTAINED))
-                MusicPlay(MUSIC_ALARM_ACTIVATED, 0x40);
+                PlayMusic(MUSIC_ALARM_ACTIVATED, 0x40);
         }
     }
 }

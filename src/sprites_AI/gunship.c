@@ -212,7 +212,7 @@ void GunshipInit(void)
         SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_FLAMES_VERTICAL, gCurrentSprite.spritesetGFXSlot,
             gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
-        MusicUpdatePriority(0x0);
+        UpdateMusicPriority(0x0);
         gHideHud = TRUE;
     }
     else
@@ -581,7 +581,7 @@ void GunshipCheckEscapeZebes(void)
         EventFunction(EVENT_ACTION_SETTING, EVENT_ESCAPED_ZEBES);
         MinimapUpdateChunk(EVENT_ESCAPED_ZEBES);
         SoundFade(0x120, 0x3C);
-        MusicUpdatePriority(0x0);
+        UpdateMusicPriority(0x0);
     }
 }
 

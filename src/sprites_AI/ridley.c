@@ -1750,7 +1750,7 @@ void RidleyDying(void)
             if (gCurrentSprite.workVariable2 == 0x1)
                 start_effect_for_cutscene(0x6); // Undefined
             else if (gCurrentSprite.workVariable2 == 0x0)
-                MusicFade(0x96);
+                FadeMusic(0x96);
         }
     }
 
@@ -1814,7 +1814,7 @@ void RidleyDying(void)
             EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_KILLED);
             // Update minimap
             MinimapUpdateChunk(EVENT_RIDLEY_KILLED);
-            MusicPlay(MUSIC_BOSS_KILLED, 0x0);
+            PlayMusic(MUSIC_BOSS_KILLED, 0x0);
         }
         else if (gCurrentSprite.workVariable == 0x95)
             SoundPlay(0x1EF);

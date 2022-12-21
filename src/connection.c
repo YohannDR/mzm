@@ -859,7 +859,7 @@ void ConnectionCheckPlayCutsceneDuringTransition(u8 area, u8 dstRoomPlusOne)
             // Room 0x1E is the Kraid fight room
             if (dstRoomPlusOne == 0x1F && !EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_KILLED))
             {
-                MusicFade(0xA);
+                FadeMusic(0xA);
                 FadeAllSounds(0xA);
                 gCurrentCutscene = CUTSCENE_KRAID_RISING;
             }
@@ -906,7 +906,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
 
                 start_special_background_fading(0x2);
                 SoundFade(0x10E, 0xA);
-                MusicFade(0xA);
+                FadeMusic(0xA);
             }
             break;
 
@@ -917,7 +917,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
 
                 start_special_background_fading(0x2);
                 SoundFade(0x10E, 0xA);
-                MusicFade(0xA);
+                FadeMusic(0xA);
             }
             break;
 
@@ -928,7 +928,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
 
                 start_special_background_fading(0x2);
                 SoundFade(0x10E, 0xA);
-                MusicFade(0xA);
+                FadeMusic(0xA);
             }
             break;
 
@@ -939,7 +939,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
 
                 start_special_background_fading(0x2);
                 SoundFade(0x10E, 0xA);
-                MusicFade(0xA);
+                FadeMusic(0xA);
             }
             break;
 

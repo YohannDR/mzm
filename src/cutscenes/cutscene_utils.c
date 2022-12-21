@@ -39,7 +39,7 @@ void CutsceneUpdateMusicAfterSkip(void)
     switch (gCurrentCutscene)
     {
         case CUTSCENE_KRAID_RISING:
-            MusicPlay(MUSIC_KRAID_BATTLE_WITH_INTRO, 0);
+            PlayMusic(MUSIC_KRAID_BATTLE_WITH_INTRO, 0);
             break;
 
         case CUTSCENE_RIDLEY_SPAWNING:

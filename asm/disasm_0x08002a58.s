@@ -2,6 +2,78 @@
 
     .syntax unified
 
+    thumb_func_start SoundPlay
+SoundPlay: @ 0x08002a18
+    push {lr}
+    lsls r0, r0, #0x10
+    lsrs r0, r0, #0x10
+    movs r1, #0
+    bl QueueSound
+    pop {r0}
+    bx r0
+    .align 2, 0
+
+    thumb_func_start SoundStop
+SoundStop: @ 0x08002a28
+    push {lr}
+    lsls r0, r0, #0x10
+    lsrs r0, r0, #0x10
+    movs r1, #0
+    bl stop_or_fade_sound
+    pop {r0}
+    bx r0
+    .align 2, 0
+
+    thumb_func_start unk_2a38
+unk_2a38: @ 0x08002a38
+    push {lr}
+    adds r2,r0,#0
+    ldrb r1,[r2,#0x1E]
+    movs r3,#1
+    adds r0,r3,#0
+    ands r0,r1
+    cmp r0,#0
+    beq lbl_08002a54
+    ldrb r1,[r2,#0]
+    movs r0,#2
+    ands r0,r1
+    cmp r0,#0
+    beq lbl_08002a54
+    strb r3,[r2,#0]
+lbl_08002a54:
+    pop {r0}
+    bx r0
+    .align 2, 0
+
+    thumb_func_start StopAllMusicsAndSounds
+StopAllMusicsAndSounds: @ 0x08002a58
+    push {r4,r5,lr}
+    ldr r0, lbl_08002a84 @ =0x00000009
+    lsls r0,r0,#0x10
+    lsrs r0,r0,#0x10
+    subs r4,r0,#1
+    cmp r4,#0
+    blt lbl_08002a7e
+    ldr r1, lbl_08002ac8 @ =0x0808f254
+    lsls r0,r4,#1
+    adds r0,r0,r4
+    lsls r0,r0,#2
+    adds r5,r0,r1
+lbl_08002a70:
+    ldr r0,[r5,#0]
+    bl stop_music_or_sound
+    subs r5,#0xC
+    subs r4,#1
+    cmp r4,#1
+    bge lbl_08002a70
+lbl_08002a7e:
+    pop {r4,r5}
+    pop {r0}
+    bx r0
+    .align 2, 0
+lbl_08002a84: .4byte 0x00000009
+lbl_08002a88: .4byte 0x0808f254
+
     thumb_func_start sub_08002a8c
 sub_08002a8c: @ 0x08002a8c
     push {r4, r5, lr}
@@ -103,7 +175,7 @@ SoundPlayNotAlreadyPlaying: @ 0x08002b20
 lbl_08002b4e:
     adds r0, r4, #0
     movs r1, #0
-    bl queue_sound
+    bl QueueSound
 lbl_08002b56:
     pop {r4}
     pop {r0}
@@ -155,7 +227,7 @@ lbl_08002bac:
 lbl_08002bb4:
     adds r0, r4, #0
     movs r1, #0
-    bl queue_sound
+    bl QueueSound
     b lbl_08002bcc
 lbl_08002bbe:
     lsls r0, r1, #0x18
@@ -163,7 +235,7 @@ lbl_08002bbe:
     bne lbl_08002bcc
     adds r0, r5, #0
     movs r1, #0
-    bl queue_sound
+    bl QueueSound
 lbl_08002bcc:
     pop {r4, r5}
     pop {r0}
@@ -475,7 +547,7 @@ sub_08002de8: @ 0x08002de8
     lsrs r0, r0, #0x10
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
-    bl queue_sound
+    bl QueueSound
     pop {r0}
     bx r0
     .align 2, 0
@@ -2001,8 +2073,8 @@ lbl_08003924: .4byte 0x03001d00
 lbl_08003928: .4byte 0x0808f254
 lbl_0800392c: .4byte 0x0808f2c0
 
-    thumb_func_start update_music_after_alarm_disable
-update_music_after_alarm_disable: @ 0x08003930
+    thumb_func_start UpdateMusicAfterAlarmDisable
+UpdateMusicAfterAlarmDisable: @ 0x08003930
     push {lr}
     ldr r1, lbl_08003950 @ =0x03001d00
     adds r2, r1, #0
@@ -2106,8 +2178,8 @@ lbl_080039e6:
 lbl_080039ec: .4byte 0x03001d00
 lbl_080039f0: .4byte 0x0808f254
 
-    thumb_func_start MusicPlay
-MusicPlay: @ 0x080039f4
+    thumb_func_start PlayMusic
+PlayMusic: @ 0x080039f4
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x10
     lsrs r6, r0, #0x10
@@ -2192,8 +2264,8 @@ lbl_08003a8c:
     .align 2, 0
 lbl_08003a94: .4byte 0x0808f254
 
-    thumb_func_start MusicFade
-MusicFade: @ 0x08003a98
+    thumb_func_start FadeMusic
+FadeMusic: @ 0x08003a98
     push {lr}
     lsls r0, r0, #0x10
     lsrs r2, r0, #0x10
@@ -2295,7 +2367,7 @@ sub_08003b30: @ 0x08003b30
     bne lbl_08003b64
     adds r0, r3, #0
     adds r1, r2, #0
-    bl MusicPlay
+    bl PlayMusic
     b lbl_08003b72
     .align 2, 0
 lbl_08003b60: .4byte 0x03001d00
@@ -2336,7 +2408,7 @@ sub_08003b7c: @ 0x08003b7c
     bne lbl_08003bb0
     adds r0, r4, #0
     adds r1, r2, #0
-    bl MusicPlay
+    bl PlayMusic
     b lbl_08003bc6
     .align 2, 0
 lbl_08003bac: .4byte 0x03001d00
@@ -2687,11 +2759,10 @@ lbl_08003e5c:
     pop {r0}
     bx r0
 
-    thumb_func_start MusicUpdatePriority
-MusicUpdatePriority: @ 0x08003e60
+    thumb_func_start UpdateMusicPriority
+UpdateMusicPriority: @ 0x08003e60
     push {r4, lr}
     lsls r0, r0, #0x18
-lbl_08003e64:
     lsrs r2, r0, #0x18
     adds r4, r2, #0
     ldr r1, lbl_08003e88 @ =0x03001d00
@@ -2856,8 +2927,8 @@ lbl_08003fa0: .4byte 0x0808f254
 lbl_08003fa4: .4byte 0x0000ffff
 lbl_08003fa8: .4byte 0x03001d00
 
-    thumb_func_start queue_sound
-queue_sound: @ 0x08003fac
+    thumb_func_start QueueSound
+QueueSound: @ 0x08003fac
     push {r4, r5, r6, lr}
     lsls r0, r0, #0x10
     lsls r1, r1, #0x10
@@ -2972,8 +3043,8 @@ lbl_0800407c:
 lbl_08004084:
     .byte 0x70, 0x47, 0x00, 0x00, 0x70, 0x47, 0x00, 0x00
 
-    thumb_func_start backup_track_data2_sound_channels
-backup_track_data2_sound_channels: @ 0x0800408c
+    thumb_func_start BackupTrackData2SoundChannels
+BackupTrackData2SoundChannels: @ 0x0800408c
     push {r4, r5, r6, r7, lr}
     mov r7, sb
     mov r6, r8
@@ -3076,8 +3147,8 @@ lbl_0800413a:
     .align 2, 0
 lbl_0800414c: .4byte 0x030039bc
 
-    thumb_func_start retrieve_track_data2_sound_channels
-retrieve_track_data2_sound_channels: @ 0x08004150
+    thumb_func_start RetrieveTrackData2SoundChannels
+RetrieveTrackData2SoundChannels: @ 0x08004150
     push {r4, r5, r6, r7, lr}
     mov r7, sb
     mov r6, r8
@@ -3209,7 +3280,7 @@ sub_08004228: @ 0x08004228
     bl stop_music_or_sound
     adds r0, r5, #0
     movs r1, #8
-    bl MusicPlay
+    bl PlayMusic
     adds r0, r4, #0
     movs r1, #0x1e
     bl sub_080041ec
@@ -3254,7 +3325,7 @@ sub_0800427c: @ 0x0800427c
     cmp r3, r0
     bne lbl_080042ac
     movs r0, #2
-    bl MusicUpdatePriority
+    bl UpdateMusicPriority
     b lbl_080042b6
     .align 2, 0
 lbl_080042a4: .4byte 0x0808f254
@@ -3324,8 +3395,7 @@ call_soundcode_b: @ 0x08004310
 
     thumb_func_start soundcode_b
 soundcode_b: @ 0x08004320
-    lsls r0, r1
-    b lbl_08003e64
+    .byte 0x88, 0x40, 0x9F, 0xE5
 lbl_08004324:
     .byte 0x04, 0xC0, 0xD4, 0xE5, 0x06, 0xEC, 0xA0, 0xE3, 0x01, 0x00, 0x00, 0xEA
     .byte 0x01, 0x30, 0x53, 0xE2, 0x19, 0x00, 0x00, 0x0A, 0xDE, 0x60, 0x90, 0xE1, 0xDE, 0x70, 0x91, 0xE1
