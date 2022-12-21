@@ -6,6 +6,7 @@
 #include "constants/connection.h"
 
 #include "structs/connection.h"
+#include "structs/transparency.h"
 #include "structs/scroll.h"
 
 // 345868
@@ -41,5 +42,48 @@ static const struct LockScreen sLockScreen_Empty = {
 // More...
 
 // 34587c
+
+// More ...
+
+static const struct TransparencyRelated sTransparencyRelated_Empty = {
+    .unknown_0 = 0,
+    .unknown_1 = 0,
+    .unknown_2 = 0,
+    .unknown_3 = 0
+};
+
+static const struct LastElevatorUsed sLastElevatorUsed_Empty = {
+    .unused = 0,
+    .route = ELEVATOR_ROUTE_NONE,
+    .direction = 0
+};
+
+static const struct BldalphaData sBldalphaData_Empty = {
+    .BLDCNT = 0,
+    .activeFlag = FALSE,
+    .evbCoef = 0,
+    .evaCoef = 0,
+    .delayMax = 0,
+    .delay = 0,
+    .intensity = 1
+};
+
+static const struct BldyData sBldyData_Empty = {
+    .BLDCNT = 0,
+    .activeFlag = FALSE,
+    .value = 0,
+    .delayMax = 0,
+    .delay = 0,
+    .intensity = 1,
+};
+
+static const struct DefaultTransparency sDefaultTransparency_Empty = {
+    .unknown_0 = 0,
+    .unknown_1 = 0,
+    .evbCoef = 0,
+    .evaCoef = 0,
+    .unknown_4 = 0
+};
+
 
 #endif

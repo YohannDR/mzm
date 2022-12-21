@@ -290,7 +290,7 @@ u8 KraidRisingInit(void)
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, bg, 0x800);
     CutsceneReset();
 
-    gWrittenToBLDY = 0x10;
+    gWrittenToBLDY_NonGameplay = 0x10;
     CUTSCENE_DATA.bldcnt = 0xFF;
 
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sKraidRisingPagesData[2].bg, 0x7E0);

@@ -16,10 +16,6 @@ extern u16 unk_02035400;
 extern u8 gUnk_03004fc9;
 extern union NonGameplayRAM gNonGameplayRAM;
 
-extern u16 gWrittenToBLDALPHA_H;
-extern u16 gWrittenToBLDALPHA_L;
-extern u16 gWrittenToBLDY;
-
 extern u16 gBG0HOFS_NonGameplay;
 extern u16 gBG0VOFS_NonGameplay;
 extern u16 gBG1HOFS_NonGameplay;

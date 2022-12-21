@@ -155,7 +155,7 @@ SECTIONS {
         . = 0x0000137e; gPreviousButtonInput = .;
         . = 0x00001380; gChangedInput = .;
         . = 0x00001382; gNextOAMSlot = .;
-        . = 0x000013AE; gWrittenToBLDY = .;
+        . = 0x000013AE; gWrittenToBLDY_NonGameplay = .;
         . = 0x000013B0; gWrittenToBLDALPHA_L = .;
         . = 0x000013B2; gWrittenToBLDALPHA_H = .;
         . = 0x000013B4; gBG0XPosition = .;

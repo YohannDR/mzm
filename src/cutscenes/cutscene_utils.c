@@ -218,7 +218,7 @@ void CutsceneVBlank(void)
     write16(REG_BG2CNT, pCutscene->bgcnt[2]);
     write16(REG_BG3CNT, pCutscene->bgcnt[3]);
 
-    write16(REG_BLDY, gWrittenToBLDY);
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
     write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
 
     write16(REG_BLDCNT, pCutscene->bldcnt);
@@ -252,7 +252,7 @@ void CutsceneInit(void)
     CUTSCENE_DATA.bldcnt = 0xFF;
 
     write16(REG_BLDY, 0x10);
-    gWrittenToBLDY = 0x10;
+    gWrittenToBLDY_NonGameplay = 0x10;
 
     write16(REG_DISPCNT, 0);
     CUTSCENE_DATA.dispcnt = 0;
