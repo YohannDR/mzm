@@ -8,10 +8,15 @@ struct DMA {
     u32 control;
 };
 
+#define CHECK_DMA_ENDED(c)                               \
+{                                                        \
+    vu32* _pDma;                                         \
+    _pDma = (vu32*)&gRegDMA[c];                          \
+    do {} while ((_pDma[2] & (DMA_ENABLE << 16)) != 0);  \
+}
+
 void DMATransfer(u8 channel, void *src, void *dst, u32 len, u8 bitSize)
 {
-    // https://decomp.me/scratch/j8Gur
-
     volatile struct DMA* pDma;
     u32 sizeControl;
     u32 lengthControl;
@@ -36,7 +41,7 @@ void DMATransfer(u8 channel, void *src, void *dst, u32 len, u8 bitSize)
         pDma->control = sizeControl | lengthControl;
         pDma->control;
 
-        while (gRegDMA[channel].control & (DMA_ENABLE << 16));
+        CHECK_DMA_ENDED(channel);
 
         len -= 0x800;
         (char*)src += 0x800;
@@ -48,8 +53,8 @@ void DMATransfer(u8 channel, void *src, void *dst, u32 len, u8 bitSize)
 
     temp = bitSize << 0x1;
     lengthControl = (len >> (temp));
-    pDma->control = sizeControl | lengthControl;
+    pDma->control = sizeControl | lengthControl | temp;
     pDma->control;
 
-    while (gRegDMA[channel].control & (DMA_ENABLE << 16));
+    CHECK_DMA_ENDED(channel);
 }
