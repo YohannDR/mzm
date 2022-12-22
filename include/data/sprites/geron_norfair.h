@@ -2,234 +2,33 @@
 #define GERON_NORFAIR_DATA_H
 
 #include "types.h"
-#include "macros.h"
 #include "oam.h"
 
-static const u32 sGeronNorfairGFX[270] = INCBIN_U32("data/sprites/GeronNorfair.gfx.lz");
-static const u16 sGeronNorfairPAL[16] = INCBIN_U16("data/sprites/GeronNorfair.pal");
+extern const u32 sGeronNorfairGFX[270];
+extern const u16 sGeronNorfairPAL[16];
 
-static const u16 sGeronNorfairOAM_Idle_Frame0[43] = {
-    0xe,
-    0xef, 0x8, OBJ_SPRITE_OAM | 0x218,
-    0xe7, 0x1f1, OBJ_SPRITE_OAM | 0x238,
-    0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x210,
-    0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x20c,
-    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x213,
-    0xcf, 0x1f0, OBJ_SPRITE_OAM | 0x237,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_Y_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    0xd8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xd8, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e,
-    0xce, OBJ_Y_FLIP | 0x8, OBJ_SPRITE_OAM | 0x237
-};
+extern const u16 sGeronNorfairOAM_Idle_Frame0[43];
 
-static const u16 sGeronNorfairOAM_Idle_Frame1[43] = {
-    0xe,
-    0xf0, 0x9, OBJ_SPRITE_OAM | 0x218,
-    0xe6, 0x1f0, OBJ_SPRITE_OAM | 0x238,
-    0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x210,
-    0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x208,
-    OBJ_SHAPE_VERTICAL | 0xf0, 0x1fc, OBJ_SPRITE_OAM | 0x212,
-    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x213,
-    0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x237,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_Y_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    0xd8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xd8, OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x21e,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x21e
-};
+extern const u16 sGeronNorfairOAM_Idle_Frame1[43];
 
-static const u16 sGeronNorfairOAM_Idle_Frame2[43] = {
-    0xe,
-    0xef, 0xa, OBJ_SPRITE_OAM | 0x238,
-    0xe6, 0x1f1, OBJ_SPRITE_OAM | 0x238,
-    OBJ_SHAPE_HORIZONTAL | 0xd0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x204,
-    0xf0, 0x1fd, OBJ_SPRITE_OAM | 0x212,
-    0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x232,
-    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x213,
-    0xd1, 0x1f0, OBJ_SPRITE_OAM | 0x237,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_Y_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    0xd8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xd8, OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x21e,
-    0xe7, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xe7, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x21e
-};
+extern const u16 sGeronNorfairOAM_Idle_Frame2[43];
 
-static const u16 sGeronNorfairOAM_Idle_Frame3[43] = {
-    0xe,
-    0xf0, 0x9, OBJ_SPRITE_OAM | 0x238,
-    0xe5, 0x1f0, OBJ_SPRITE_OAM | 0x238,
-    0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x210,
-    0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x208,
-    OBJ_SHAPE_VERTICAL | 0xf0, 0x1fc, OBJ_SPRITE_OAM | 0x212,
-    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x213,
-    0xd2, 0x1f0, OBJ_SPRITE_OAM | 0x237,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_Y_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    0xd8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xd8, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e
-};
+extern const u16 sGeronNorfairOAM_Idle_Frame3[43];
 
-static const u16 sGeronNorfairOAM_Idle_Frame4[43] = {
-    0xe,
-    0xef, 0x8, OBJ_SPRITE_OAM | 0x219,
-    0xe6, 0x1f1, OBJ_SPRITE_OAM | 0x218,
-    0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x210,
-    0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x20c,
-    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x213,
-    OBJ_SHAPE_VERTICAL | 0xcc, 0x1f0, OBJ_SPRITE_OAM | 0x217,
-    0xcd, 0x8, OBJ_SPRITE_OAM | 0x237,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_Y_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    0xd8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xd8, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e
-};
+extern const u16 sGeronNorfairOAM_Idle_Frame4[43];
 
-static const u16 sGeronNorfairOAM_Unused_Frame[43] = {
-    0xe,
-    0xf0, 0x8, OBJ_SPRITE_OAM | 0x219,
-    0xe5, 0x1f1, OBJ_SPRITE_OAM | 0x218,
-    OBJ_SHAPE_HORIZONTAL | 0xd0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x208,
-    OBJ_SHAPE_VERTICAL | 0xf0, 0x1fc, OBJ_SPRITE_OAM | 0x212,
-    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x213,
-    OBJ_SHAPE_VERTICAL | 0xce, 0x1f0, OBJ_SPRITE_OAM | 0x217,
-    0xce, 0x8, OBJ_SPRITE_OAM | 0x237,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_Y_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    0xd8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xd8, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e
-};
+extern const u16 sGeronNorfairOAM_Unused_Frame[43];
 
-static const u16 sGeronNorfairOAM_Idle_Frame5[46] = {
-    0xf,
-    0xf0, 0x8, OBJ_SPRITE_OAM | 0x219,
-    0xe5, 0x1f1, OBJ_SPRITE_OAM | 0x218,
-    OBJ_SHAPE_HORIZONTAL | 0xd0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x204,
-    0xf0, 0x1fd, OBJ_SPRITE_OAM | 0x212,
-    0xf8, 0x1fc, OBJ_SPRITE_OAM | 0x232,
-    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x213,
-    0xd0, 0x1f0, OBJ_SPRITE_OAM | 0x217,
-    0xd0, 0x8, OBJ_SPRITE_OAM | 0x237,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_Y_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    0xd8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xd8, OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x21e,
-    0xe7, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xe7, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x21e
-};
+extern const u16 sGeronNorfairOAM_Idle_Frame5[46];
 
-static const u16 sGeronNorfairOAM_Idle_Frame6[46] = {
-    0xf,
-    0xf0, 0x8, OBJ_SPRITE_OAM | 0x238,
-    0xe7, 0x1f1, OBJ_SPRITE_OAM | 0x239,
-    0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x210,
-    0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x208,
-    OBJ_SHAPE_VERTICAL | 0xf0, 0x1fc, OBJ_SPRITE_OAM | 0x212,
-    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x213,
-    0xcf, OBJ_Y_FLIP | 0x8, OBJ_SPRITE_OAM | 0x237,
-    0xd2, 0x8, OBJ_SPRITE_OAM | 0x237,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_Y_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    0xd8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xd8, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e
-};
+extern const u16 sGeronNorfairOAM_Idle_Frame6[46];
 
-static const u16 sGeronNorfairOAM_Idle_Frame7[40] = {
-    0xd,
-    0xf0, 0x8, OBJ_SPRITE_OAM | 0x218,
-    0xe5, 0x1f1, OBJ_SPRITE_OAM | 0x218,
-    0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x210,
-    0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x20c,
-    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x213,
-    OBJ_SHAPE_VERTICAL | 0xcd, 0x8, OBJ_SPRITE_OAM | 0x217,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_Y_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    0xd8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xd8, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e
-};
+extern const u16 sGeronNorfairOAM_Idle_Frame7[40];
 
-static const u16 sGeronNorfairOAM_Idle_Frame8[43] = {
-    0xe,
-    0xf0, 0x8, OBJ_SPRITE_OAM | 0x239,
-    0xe4, 0x1f1, OBJ_SPRITE_OAM | 0x238,
-    0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x210,
-    0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x20c,
-    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x213,
-    0xce, OBJ_Y_FLIP | 0x8, OBJ_SPRITE_OAM | 0x237,
-    0xd6, 0x8, OBJ_SPRITE_OAM | 0x237,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_Y_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    0xd8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xd8, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e
-};
+extern const u16 sGeronNorfairOAM_Idle_Frame8[43];
 
-static const u16 sGeronNorfairOAM_Idle_Frame9[43] = {
-    0xe,
-    0xf0, 0x8, OBJ_SPRITE_OAM | 0x239,
-    0xe5, 0x1f1, OBJ_SPRITE_OAM | 0x238,
-    0xd0, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x210,
-    0xd0, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x20c,
-    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x213,
-    0xce, 0x1f0, OBJ_SPRITE_OAM | 0x237,
-    OBJ_SHAPE_HORIZONTAL | 0xe0, 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    OBJ_SHAPE_HORIZONTAL | 0xe8, OBJ_Y_FLIP | 0x1f5, OBJ_SPRITE_OAM | 0x21a,
-    0xd8, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xd8, OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x21c,
-    0xe8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x21e,
-    0xd1, OBJ_Y_FLIP | 0x8, OBJ_SPRITE_OAM | 0x237
-};
+extern const u16 sGeronNorfairOAM_Idle_Frame9[43];
 
-static const struct FrameData sGeronNorfairOAM_Idle[11] = {
-    sGeronNorfairOAM_Idle_Frame0,
-    0xC,
-    sGeronNorfairOAM_Idle_Frame1,
-    0xC,
-    sGeronNorfairOAM_Idle_Frame2,
-    0xC,
-    sGeronNorfairOAM_Idle_Frame3,
-    0xC,
-    sGeronNorfairOAM_Idle_Frame4,
-    0xC,
-    sGeronNorfairOAM_Idle_Frame5,
-    0xC,
-    sGeronNorfairOAM_Idle_Frame6,
-    0xC,
-    sGeronNorfairOAM_Idle_Frame7,
-    0xC,
-    sGeronNorfairOAM_Idle_Frame8,
-    0xC,
-    sGeronNorfairOAM_Idle_Frame9,
-    0xC,
-    NULL,
-    0x0
-};
+extern const struct FrameData sGeronNorfairOAM_Idle[11];
 
 #endif

@@ -2,36 +2,17 @@
 #define UNUSED_SPRITES_DATA_H
 
 #include "types.h"
-#include "macros.h"
 #include "oam.h"
 
-static const u16 sUnusedSpritesOAM_Idle_Frame0[4] = {
-    0x1,
-    0xfc, 0x1fc, 0x3151
-};
+extern const u16 sUnusedSpritesOAM_Idle_Frame0[4];
 
-static const u16 sUnusedSpritesOAM_Idle_Frame1[4] = {
-    0x1,
-    0xfc, 0x1fc, 0x3150
-};
+extern const u16 sUnusedSpritesOAM_Idle_Frame1[4];
 
-static const struct FrameData sUnusedSpritesOAM_Idle[3] = {
-    sUnusedSpritesOAM_Idle_Frame0,
-    0x1E,
-    sUnusedSpritesOAM_Idle_Frame1,
-    0x1E,
-    NULL,
-    0x0
-};
+extern const struct FrameData sUnusedSpritesOAM_Idle[3];
 
-static const struct FrameData sUnusedSpritesOAM_Unused[3] = {
-    sUnusedSpritesOAM_Idle_Frame0,
-    0x1E,
-    NULL,
-    0x0
-};
+extern const struct FrameData sUnusedSpritesOAM_Unused[2];
 
-static const u32 sUnusedSpritesGFX[6] = INCBIN_U32("data/sprites/UnusedSprites.gfx.lz");
-static const u16 sUnusedSpritesPAL[16] = INCBIN_U16("data/sprites/UnusedSprites.pal");
+extern const u32 sUnusedSpritesGFX[6];
+extern const u16 sUnusedSpritesPAL[16];
 
 #endif

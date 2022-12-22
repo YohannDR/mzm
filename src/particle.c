@@ -7,11 +7,14 @@
 #include "data/particle_data.h"
 
 #include "constants/escape.h"
+#include "constants/particle.h"
+#include "constants/samus.h"
 
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"
 #include "structs/escape.h"
 #include "structs/game_state.h"
+#include "structs/sprite.h"
 
 const struct FrameData ParticleSpriteSplashWaterSmall_oam[1];
 const struct FrameData ParticleSpriteSplashWaterBig_oam[1];

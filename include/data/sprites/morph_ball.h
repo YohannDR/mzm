@@ -3,77 +3,28 @@
 
 #include "types.h"
 #include "oam.h"
-#include "macros.h"
 
-static const u32 sMorphBallGFX[168] = INCBIN_U32("data/sprites/MorphBall.gfx");
-static const u16 sMorphBallPAL[16] = INCBIN_U32("data/sprites/MorphBall.pal");
+extern const u32 sMorphBallGFX[168];
+extern const u16 sMorphBallPAL[16];
 
-static const u16 sMorphBallOAM_Idle_Frame0[4] = {
-    0x1,
-    0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x200
-};
+extern const u16 sMorphBallOAM_Idle_Frame0[4];
 
-static const u16 sMorphBallOAM_Idle_Frame1[4] = {
-    0x1,
-    0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x202
-};
+extern const u16 sMorphBallOAM_Idle_Frame1[4];
 
-static const u16 sMorphBallOAM_Idle_Frame2[4] = {
-    0x1,
-    0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x204
-};
+extern const u16 sMorphBallOAM_Idle_Frame2[4];
 
-static const u16 sMorphBallOutsideOAM_Idle_Frame0[4] = {
-    0x1,
-    0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x206
-};
+extern const u16 sMorphBallOutsideOAM_Idle_Frame0[4];
 
-static const u16 sMorphBallOutsideOAM_Idle_Frame1[4] = {
-    0x1,
-    0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x208
-};
+extern const u16 sMorphBallOutsideOAM_Idle_Frame1[4];
 
-static const u16 sMorphBallOutsideOAM_Idle_Frame2[4] = {
-    0x1,
-    0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x20a
-};
+extern const u16 sMorphBallOutsideOAM_Idle_Frame2[4];
 
-static const u16 sMorphBallOutsideOAM_Idle_Frame3[4] = {
-    0x1,
-    0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x20c
-};
+extern const u16 sMorphBallOutsideOAM_Idle_Frame3[4];
 
-static const u16 sMorphBallOutsideOAM_Idle_Frame4[4] = {
-    0x1,
-    0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x20e
-};
+extern const u16 sMorphBallOutsideOAM_Idle_Frame4[4];
 
-static const struct FrameData sMorphBallOAM_Idle[5] = {
-    sMorphBallOAM_Idle_Frame0,
-    0x10,
-    sMorphBallOAM_Idle_Frame1,
-    0x10,
-    sMorphBallOAM_Idle_Frame2,
-    0x10,
-    sMorphBallOAM_Idle_Frame1,
-    0x10,
-    NULL,
-    0x0
-};
+extern const struct FrameData sMorphBallOAM_Idle[5];
 
-static const struct FrameData sMorphBallOutsideOAM_Idle[6] = {
-    sMorphBallOutsideOAM_Idle_Frame0,
-    0x64,
-    sMorphBallOutsideOAM_Idle_Frame1,
-    0x3,
-    sMorphBallOutsideOAM_Idle_Frame2,
-    0x6,
-    sMorphBallOutsideOAM_Idle_Frame3,
-    0x4,
-    sMorphBallOutsideOAM_Idle_Frame4,
-    0x3,
-    NULL,
-    0x0
-};
+extern const struct FrameData sMorphBallOutsideOAM_Idle[6];
 
 #endif

@@ -1,7 +1,8 @@
 #include "sprites_AI/chozo_statue.h"
 #include "sprites_AI/unknown_item_chozo_statue.h"
+#include "sprites_AI/item_banner.h"
 
-#include "data/pointers.h"
+#include "data/frame_data_pointers.h"
 #include "data/sprites/chozo_statue.h"
 
 #include "constants/audio.h"

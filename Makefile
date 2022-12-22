@@ -43,7 +43,7 @@ CFLAGS = -Werror -O2 -mthumb-interwork -fhex-asm
 CPPFLAGS = -nostdinc -Iinclude/
 
 # Objects
-CSRC = $(wildcard src/*.c) $(wildcard src/sprites_AI/*.c) $(wildcard src/sram/*.c) $(wildcard data/*.c) $(wildcard src/libgcc/*.c) $(wildcard include/data/*.c) $(wildcard include/data/sprites/*.c)
+CSRC = $(wildcard src/**.c) $(wildcard src/**/**.c) $(wildcard src/**/**/**.c)
 .PRECIOUS: $(CSRC:.c=.s)
 ASMSRC = $(CSRC:.c=.s) $(wildcard asm/*.s)
 OBJ = $(ASMSRC:.s=.o) 
@@ -123,7 +123,8 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 
 %.s: %.c
 	$(MSG) CC $@
-	$Q$(PREPROC) $< | $(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
+# $Q$(PREPROC) $< | $(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
+	$Q$(CPP) $(CPPFLAGS) $< | $(CC) -o $@ $(CFLAGS) && printf '\t.align 2, 0 @ dont insert nops\n' >> $@
 
 src/sram/%.s: CFLAGS = -O1 -mthumb-interwork -fhex-asm
 src/sram/%.s: src/sram/%.c

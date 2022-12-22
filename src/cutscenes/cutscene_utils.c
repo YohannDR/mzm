@@ -8,11 +8,13 @@
 #include "constants/audio.h"
 #include "constants/connection.h"
 #include "constants/cutscene.h"
+#include "constants/event.h"
 #include "constants/game_state.h"
 
 #include "structs/audio.h"
 #include "structs/cutscene.h"
 #include "structs/connection.h"
+#include "structs/display.h"
 #include "structs/game_state.h"
 
 /**

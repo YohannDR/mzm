@@ -1,7 +1,7 @@
 #include "oam.h"
 #include "sprite_debris.h"
 #include "data/particle_data.h"
-#include "data/sprite_data.h"
+#include "data/spriteset.h"
 
 #include "constants/clipdata.h"
 #include "constants/game_state.h"

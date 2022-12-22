@@ -5,7 +5,11 @@
 #include "data/sprite_data.h"
 #include "data/pointers.h"
 
+#include "constants/clipdata.h"
 #include "constants/game_state.h"
+#include "constants/samus.h"
+#include "constants/sprite.h"
+#include "constants/particle.h"
 #include "constants/projectile.h"
 
 #include "structs/bg_clip.h"

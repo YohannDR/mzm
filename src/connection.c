@@ -7,8 +7,11 @@
 #include "data/hatch_data.h"
 
 #include "constants/connection.h"
+#include "constants/clipdata.h"
 #include "constants/cutscene.h"
+#include "constants/event.h"
 #include "constants/game_state.h"
+#include "constants/samus.h"
 #include "constants/room.h"
 
 #include "structs/bg_clip.h"

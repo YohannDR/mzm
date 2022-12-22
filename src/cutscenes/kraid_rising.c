@@ -12,6 +12,7 @@
 #include "constants/samus.h"
 
 #include "structs/game_state.h"
+#include "structs/display.h"
 #include "structs/samus.h"
 
 u8 KraidRisingRising(void)

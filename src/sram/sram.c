@@ -3,16 +3,14 @@
 #include "gba.h"
 #include "io.h"
 
-static void
-SRAMWriteUncheckedInternal(u8 *src, u8 *dest, u32 size)
+static void SRAMWriteUncheckedInternal(u8 *src, u8 *dest, u32 size)
 {
     while (size-- != 0) {
         *dest++ = *src++;
     }
 }
 
-void
-SRAMWriteUnchecked(u8 *src, u8 *dest, u32 size)
+void SRAMWriteUnchecked(u8 *src, u8 *dest, u32 size)
 {
     u16 code[0x40];
     u16 *code_ptr;
@@ -40,8 +38,7 @@ SRAMWriteUnchecked(u8 *src, u8 *dest, u32 size)
     func(src, dest, size);
 }
 
-void
-SRAMWrite(u8 *src, u8 *dest, u32 size)
+void SRAMWrite(u8 *src, u8 *dest, u32 size)
 {
     u16 w = read16(REG_WAITCNT) & ~WAIT_SRAM_CYCLES_MASK | WAIT_SRAM_8CYCLES;
     write16(REG_WAITCNT, w);
@@ -51,8 +48,7 @@ SRAMWrite(u8 *src, u8 *dest, u32 size)
     }
 }
 
-static u8 *
-SRAMCheckInternal(u8 *src, u8 *dest, u32 size)
+static u8* SRAMCheckInternal(u8 *src, u8 *dest, u32 size)
 {
     while (size-- != 0) {
         if (*dest++ != *src++) {
@@ -63,8 +59,7 @@ SRAMCheckInternal(u8 *src, u8 *dest, u32 size)
     return NULL;
 }
 
-u8 *
-SRAMCheck(u8 *src, u8 *dest, u32 size)
+u8* SRAMCheck(u8 *src, u8 *dest, u32 size)
 {
     u16 code[0x60];
     u16 *code_ptr;
@@ -89,8 +84,7 @@ SRAMCheck(u8 *src, u8 *dest, u32 size)
     return func(src, dest, size);
 }
 
-u8 *
-SRAMWriteChecked(u8 *src, u8 *dest, u32 size)
+u8* SRAMWriteChecked(u8 *src, u8 *dest, u32 size)
 {
     u8 *diff;
     u8 i;

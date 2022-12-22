@@ -1,4 +1,5 @@
 #include "sprites_AI/imago_cocoon.h"
+#include "macros.h"
 
 #include "data/frame_data_pointers.h"
 #include "data/sprites/imago_cocoon.h"

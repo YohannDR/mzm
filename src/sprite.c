@@ -2,6 +2,7 @@
 #include "sprite_debris.h"
 #include "syscalls.h"
 #include "gba.h"
+#include "macros.h"
 #include "fixed_point.h"
 
 #include "data/generic_data.h"
@@ -9,6 +10,8 @@
 #include "data/sprite_data.h"
 
 #include "constants/game_state.h"
+#include "constants/connection.h"
+#include "constants/sprite.h"
 #include "constants/particle.h"
 
 #include "structs/bg_clip.h"

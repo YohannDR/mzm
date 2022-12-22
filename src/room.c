@@ -3,9 +3,10 @@
 
 #include "data/pointers.h"
 
+#include "constants/event.h"
+#include "constants/game_state.h"
 #include "constants/samus.h"
 #include "constants/room.h"
-#include "constants/game_state.h"
 
 #include "structs/game_state.h"
 #include "structs/color_effects.h"

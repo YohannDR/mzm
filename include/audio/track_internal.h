@@ -11,7 +11,6 @@ void unk_4d1c(struct TrackData* pTrack, struct TrackVariables* pVariables);
 void UpdateAudio(void);
 void unk_4e10(struct TrackVariables* pVariables);
 void unk_4eb4(struct TrackVariables* pVariables);
-void unk_4eb4(struct TrackVariables* pVariables);
 void unk_4f10(struct TrackVariables* pVariables);
 void unk_4f8c(struct SoundChannel* pChannel, struct TrackVariables* pVariables, i32 param_3);
 void unk_5030(struct TrackVariables* pVariables);

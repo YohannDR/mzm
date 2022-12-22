@@ -1,8 +1,10 @@
 #include "block.h"
+#include "macros.h"
 #include "data/block_data.h"
 
-#include "constants/samus.h"
+#include "constants/block.h"
 #include "constants/clipdata.h"
+#include "constants/samus.h"
 
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"

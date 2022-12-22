@@ -6,10 +6,11 @@
 #include "sprites_AI/ridley.h"
 #include "data/sprite_data.h"
 
+#include "constants/clipdata.h"
 #include "constants/game_state.h"
 #include "constants/samus.h"
+#include "constants/sprite.h"
 #include "constants/sprite_util.h"
-#include "constants/clipdata.h"
 
 #include "structs/clipdata.h"
 #include "structs/game_state.h"

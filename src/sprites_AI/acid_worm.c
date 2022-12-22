@@ -1,3 +1,4 @@
+#include "macros.h"
 #include "sprites_AI/acid_worm.h"
 
 #include "data/sprites/acid_worm.h"

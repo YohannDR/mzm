@@ -40,11 +40,6 @@ void unk_4eb4(struct TrackVariables* pVariables)
 
 }
 
-void unk_4eb4(struct TrackVariables* pVariables)
-{
-
-}
-
 void unk_4f10(struct TrackVariables* pVariables)
 {
 

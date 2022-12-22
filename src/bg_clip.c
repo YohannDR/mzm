@@ -1,7 +1,10 @@
 #include "gba.h"
 #include "bg_clip.h"
+#include "sprites_AI/item_banner.h"
+
 #include "data/block_data.h"
 
+#include "constants/block.h"
 #include "constants/connection.h"
 #include "constants/clipdata.h"
 #include "constants/game_state.h"

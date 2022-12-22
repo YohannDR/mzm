@@ -2,76 +2,27 @@
 #define GEEGA_DATA_H
 
 #include "types.h"
-#include "macros.h"
 #include "oam.h"
 
-static const u32 sGeegaGFX[153] = INCBIN_U32("data/sprites/Geega.gfx.lz");
-static const u16 sGeegaPAL[16] = INCBIN_U16("data/sprites/Geega.pal");
-static const u32 sGeegaWhiteGFX[153] = INCBIN_U32("data/sprites/GeegaWhite.gfx.lz");
-static const u16 sGeegaWhitePAL[16] = INCBIN_U16("data/sprites/GeegaWhite.pal");
+extern const u32 sGeegaGFX[153];
+extern const u16 sGeegaPAL[16];
+extern const u32 sGeegaWhiteGFX[153];
+extern const u16 sGeegaWhitePAL[16];
 
-static const u16 sGeegaOAM_Idle_Frame0[4] = {
-    0x1,
-    0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x200
-};
+extern const u16 sGeegaOAM_Idle_Frame0[4];
 
-static const u16 sGeegaOAM_Idle_Frame1[4] = {
-    0x1,
-    0xf9, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x202
-};
+extern const u16 sGeegaOAM_Idle_Frame1[4];
 
-static const u16 sGeegaOAM_Idle_Frame2[4] = {
-    0x1,
-    0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x204
-};
+extern const u16 sGeegaOAM_Idle_Frame2[4];
 
-static const u16 sGeegaOAM_Moving_Frame4[4] = {
-    0x1,
-    0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x206
-};
+extern const u16 sGeegaOAM_Moving_Frame4[4];
 
-static const u16 sGeegaOAM_Moving_Frame5[4] = {
-    0x1,
-    0xf7, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x208
-};
+extern const u16 sGeegaOAM_Moving_Frame5[4];
 
-static const u16 sGeegaOAM_Moving_Frame6[4] = {
-    0x1,
-    0xf7, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x20a
-};
+extern const u16 sGeegaOAM_Moving_Frame6[4];
 
-static const struct FrameData sGeegaOAM_Idle[5] = {
-    sGeegaOAM_Idle_Frame0,
-    0x4,
-    sGeegaOAM_Idle_Frame1,
-    0x3,
-    sGeegaOAM_Idle_Frame2,
-    0x4,
-    sGeegaOAM_Idle_Frame1,
-    0x2,
-    NULL,
-    0x0
-};
+extern const struct FrameData sGeegaOAM_Idle[5];
 
-static const struct FrameData sGeegaOAM_Moving[9] = {
-    sGeegaOAM_Idle_Frame0,
-    0x3,
-    sGeegaOAM_Idle_Frame1,
-    0x2,
-    sGeegaOAM_Idle_Frame2,
-    0x3,
-    sGeegaOAM_Idle_Frame1,
-    0x1,
-    sGeegaOAM_Moving_Frame4,
-    0x2,
-    sGeegaOAM_Moving_Frame5,
-    0x2,
-    sGeegaOAM_Moving_Frame6,
-    0x3,
-    sGeegaOAM_Moving_Frame5,
-    0x1,
-    NULL,
-    0x0
-};
+extern const struct FrameData sGeegaOAM_Moving[9];
 
 #endif

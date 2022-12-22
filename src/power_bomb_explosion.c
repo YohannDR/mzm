@@ -5,6 +5,7 @@
 
 #include "constants/clipdata.h"
 #include "constants/game_state.h"
+#include "constants/room.h"
 
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"

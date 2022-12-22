@@ -7,8 +7,10 @@
 
 #include "data/pointers.h"
 
+#include "constants/clipdata.h"
 #include "constants/game_state.h"
 #include "constants/samus.h"
+#include "constants/projectile.h"
 
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"
@@ -4512,7 +4514,7 @@ u8 SamusTurningToEnterEscapeShipGFX(struct SamusData* pData)
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_IN_ESCAPE_SHIP;
     else
-        return SP_NONE;
+        return SPOSE_NONE;
 }
 
 u8 SamusExecutePoseSubroutine(struct SamusData* pData)

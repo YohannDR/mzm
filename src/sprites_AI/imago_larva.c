@@ -1,11 +1,15 @@
 #include "sprites_AI/imago_larva.h"
-#include "data/pointers.h"
+
+#include "data/frame_data_pointers.h"
 #include "data/sprites/imago_larva.h"
 #include "data/sprite_data.h"
+
 #include "constants/audio.h"
+#include "constants/event.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
-#include "constants/event.h"
+#include "constants/particle.h"
+
 #include "structs/connection.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"
