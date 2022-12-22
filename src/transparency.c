@@ -463,10 +463,9 @@ void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
 {
     // https://decomp.me/scratch/6zyTC
 
-    i32 flag;
-    u32 intensity;
+    i32 newValue;
 
-    flag = FALSE;
+    newValue = FALSE;
     if (gWrittenToBLDALPHA != 0)
         return;
 
@@ -474,9 +473,9 @@ void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
         return;
 
     if (!(pBldalpha->activeFlag & 0x80))
-        flag = TRUE;
+        newValue = TRUE;
 
-    if (flag)
+    if (newValue)
         return;
 
     if (pBldalpha->delay != 0)
@@ -491,45 +490,45 @@ void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
 
     if (pBldalpha->evaCoef != gIORegistersBackup.BLDALPHA_NonGameplay_EVA)
     {
-        intensity = pBldalpha->intensity;
+        newValue = pBldalpha->intensity;
         if (pBldalpha->evaCoef < gIORegistersBackup.BLDALPHA_NonGameplay_EVA)
         {
-            flag = gIORegistersBackup.BLDALPHA_NonGameplay_EVA - intensity;
-            if (flag < pBldalpha->evaCoef)
-                flag = pBldalpha->evaCoef;
+            newValue = gIORegistersBackup.BLDALPHA_NonGameplay_EVA - newValue;
+            if (newValue < pBldalpha->evaCoef)
+                newValue = pBldalpha->evaCoef;
         }
         else
         {
-            flag = gIORegistersBackup.BLDALPHA_NonGameplay_EVA + intensity;
-            if (flag > pBldalpha->evaCoef)
-                flag = pBldalpha->evaCoef;
+            newValue = gIORegistersBackup.BLDALPHA_NonGameplay_EVA + newValue;
+            if (newValue > pBldalpha->evaCoef)
+                newValue = pBldalpha->evaCoef;
         }
 
-        gIORegistersBackup.BLDALPHA_NonGameplay_EVA = flag;
-        flag = TRUE;
+        gIORegistersBackup.BLDALPHA_NonGameplay_EVA = newValue;
+        newValue = TRUE;
     }
 
     if (pBldalpha->evbCoef != gIORegistersBackup.BLDALPHA_NonGameplay_EVB)
     {
-        intensity = pBldalpha->intensity;
+        newValue = pBldalpha->intensity;
         if (pBldalpha->evbCoef < gIORegistersBackup.BLDALPHA_NonGameplay_EVB)
         {
-            flag = gIORegistersBackup.BLDALPHA_NonGameplay_EVB - intensity;
-            if (flag < pBldalpha->evbCoef)
-                flag = pBldalpha->evbCoef;
+            newValue = gIORegistersBackup.BLDALPHA_NonGameplay_EVB - newValue;
+            if (newValue < pBldalpha->evbCoef)
+                newValue = pBldalpha->evbCoef;
         }
         else
         {
-            flag = gIORegistersBackup.BLDALPHA_NonGameplay_EVB + intensity;
-            if (flag > pBldalpha->evbCoef)
-                flag = pBldalpha->evbCoef;
+            newValue = gIORegistersBackup.BLDALPHA_NonGameplay_EVB + newValue;
+            if (newValue > pBldalpha->evbCoef)
+                newValue = pBldalpha->evbCoef;
         }
 
-        gIORegistersBackup.BLDALPHA_NonGameplay_EVB = flag;
-        flag = TRUE;
+        gIORegistersBackup.BLDALPHA_NonGameplay_EVB = newValue;
+        newValue = TRUE;
     }
 
-    if (flag)
+    if (newValue)
     {
         gWrittenToBLDALPHA = gIORegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIORegistersBackup.BLDALPHA_NonGameplay_EVA;
         if (pBldalpha->activeFlag == TRUE)
@@ -544,7 +543,64 @@ void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
 
 void TransparencyApplyNewBLDY(struct BldyData* pBldy)
 {
+    // https://decomp.me/scratch/puH7O
 
+    i32 newValue;
+
+    newValue = FALSE;
+    if (gWrittenToBLDY >= 0)
+        return;
+
+    if (gCurrentPowerBomb.animationState != 0)
+        return;
+
+    if (!(pBldy->activeFlag & 0x80))
+        newValue = TRUE;
+
+    if (newValue)
+        return;
+
+    if (pBldy->delay != 0)
+    {
+        pBldy->delay--;
+        return;
+    }
+
+    pBldy->delay = pBldy->delayMax;
+    if (pBldy->intensity == 0)
+        pBldy->intensity = 1;
+
+    if (pBldy->value != gIORegistersBackup.BLDY_NonGameplay)
+    {
+        newValue = pBldy->intensity;
+        if (pBldy->value < gIORegistersBackup.BLDY_NonGameplay)
+        {
+            newValue = gIORegistersBackup.BLDY_NonGameplay - newValue;
+            if (newValue < pBldy->value)
+                newValue = pBldy->value;
+        }
+        else
+        {
+            newValue = gIORegistersBackup.BLDY_NonGameplay + newValue;
+            if (newValue > pBldy->value)
+                newValue = pBldy->value;
+        }
+    
+        gIORegistersBackup.BLDY_NonGameplay = newValue;
+        newValue = TRUE;
+    }
+
+    if (newValue)
+    {
+        gWrittenToBLDY = gIORegistersBackup.BLDY_NonGameplay;
+        if (pBldy->activeFlag == TRUE)
+        {
+            pBldy->activeFlag |= 2;
+            gWrittenToBLDCNT = pBldy->BLDCNT;
+        }
+    }
+    else
+        pBldy->activeFlag = FALSE;
 }
 
 void unk_55e60(void)
@@ -552,7 +608,13 @@ void unk_55e60(void)
 
 }
 
+/**
+ * @brief 55f68 | To document
+ * 
+ */
 void unk_55f68(void)
 {
-
+    update_animated_palette_after_transition_or_reload(); // Undefined
+    transfer_faded_palette_on_transition(); // Undefined
+    check_play_loading_jingle(); // Undefind
 }

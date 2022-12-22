@@ -1545,8 +1545,8 @@ lbl_08055f64: .4byte 0x03000006
     thumb_func_start sub_08055f68
 sub_08055f68: @ 0x08055f68
     push {lr}
-    bl sub_08060828
-    bl sub_0805becc
+    bl update_animated_palette_after_transition_or_reload
+    bl transfer_faded_palette_on_transition
     bl check_play_loading_jingle
     pop {r0}
     bx r0
@@ -13823,8 +13823,8 @@ sub_0805bec8: @ 0x0805bec8
     movs r0, #1
     bx lr
 
-    thumb_func_start sub_0805becc
-sub_0805becc: @ 0x0805becc
+    thumb_func_start transfer_faded_palette_on_transition
+transfer_faded_palette_on_transition: @ 0x0805becc
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -23062,8 +23062,8 @@ lbl_0806081c:
 lbl_08060820: .4byte 0x03000bf0
 lbl_08060824: .4byte 0x0300019c
 
-    thumb_func_start sub_08060828
-sub_08060828: @ 0x08060828
+    thumb_func_start update_animated_palette_after_transition_or_reload
+update_animated_palette_after_transition_or_reload: @ 0x08060828
     push {lr}
     ldr r0, lbl_08060850 @ =0x03000bf0
     movs r1, #0
