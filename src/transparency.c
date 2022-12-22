@@ -34,8 +34,8 @@ void TransparencySetRoomEffectsTransparency(void)
         write16(REG_BG1CNT, gIORegistersBackup.BG1CNT);
         write16(REG_BG2CNT, gIORegistersBackup.BG2CNT);
 
-        write8(0x400004a, gIORegistersBackup.WINOUT_H_NonGameplay);
-        write8(0x4000049, gIORegistersBackup.WINOUT_L_NonGameplay);
+        write8(0x400004a, gIORegistersBackup.WINOUT_L);
+        write8(0x4000049, gIORegistersBackup.WININ_H);
 
         write16(0x4000042, gSuitFlashEffect.left << 8 | gSuitFlashEffect.right);
         write16(0x4000046, gSuitFlashEffect.top << 8 | gSuitFlashEffect.bottom);
@@ -267,8 +267,8 @@ void TransparencySetRoomEffectsTransparency(void)
     write16(0x4000040, 0);
     write16(0x4000044, 0);
 
-    gIORegistersBackup.WINOUT_L_NonGameplay = 0x3F;
-    gIORegistersBackup.WINOUT_H_NonGameplay = 0x20;
+    gIORegistersBackup.WININ_H = 0x3F;
+    gIORegistersBackup.WINOUT_L = 0x20;
 
     write8(0x400004a, 0x20);
     write8(0x4000049, 0x3F);

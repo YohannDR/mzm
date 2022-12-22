@@ -9,8 +9,8 @@ struct IORegistersBackup {
     u8 BLDALPHA_NonGameplay_EVA;
     u8 BLDALPHA_NonGameplay_EVB;
     u8 BLDY_NonGameplay;
-    u8 WINOUT_L_NonGameplay;
-    u8 WINOUT_H_NonGameplay;
+    u8 WININ_H;
+    u8 WINOUT_L;
     u16 BG0CNT;
     u16 BG1CNT;
     u16 BG2CNT;
@@ -40,8 +40,8 @@ extern struct InGameCutscene gInGameCutscene;
 
 extern struct SuitFlashEffect gSuitFlashEffect;
 
-extern u16 gWrittenToWINH;
-extern u16 gWrittenToWINV;
+extern u16 gWrittenToWIN1H;
+extern u16 gWrittenToWIN1V;
 extern u16 gWrittenToBLDCNT;
 
 extern u16 gWrittenToBLDALPHA;
@@ -52,6 +52,8 @@ extern u16 gWrittenToBLDY_NonGameplay;
 
 extern u16 gDISPCNTBackup;
 extern u16 gWrittenToDISPCNT;
+extern u8 gWrittentToWININ_H;
+extern u8 gWrittentToWINOUT_L;
 extern struct IORegistersBackup gIORegistersBackup;
 
 #endif

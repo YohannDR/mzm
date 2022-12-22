@@ -1,12 +1,16 @@
 #include "gba.h"
 #include "power_bomb_explosion.h"
 
+#include "data/pointers.h"
+
 #include "constants/clipdata.h"
 #include "constants/game_state.h"
 
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"
+#include "structs/display.h"
 #include "structs/game_state.h"
+#include "structs/room.h"
 #include "structs/power_bomb_explosion.h"
 #include "temp_globals.h"
 
@@ -230,8 +234,7 @@ void PowerBombExplosionBegin(void)
         gCurrentPowerBomb.powerBombPlaced = FALSE;
         dma_set(3, PALRAM_BASE, EWRAM_BASE + (0x9000), DMA_ENABLE << 0x10 | 0x100);
         unk_02035400 = 0x0;
-        // TODO defines
-        SetupHazeCode(0x7); // Undefined | Power bomb expanding
+        SetupHazeCode(HAZE_VALUE_POWER_BOMB_EXPANDING); // Undefined
         gCurrentPowerBomb.stage = 0x0;
         gCurrentPowerBomb.semiMinorAxis = 0x4;
         gCurrentPowerBomb.hitboxLeftOffset = 0x0;
@@ -245,7 +248,83 @@ void PowerBombExplosionBegin(void)
     }
 }
 
+/**
+ * @brief 577b8 | 154 | Handles ending a power bomb explosion
+ * 
+ */
 void PowerBombExplosionEnd(void)
 {
+    u8 eva;
+    u8 evb;
+    u8 done;
+    u16* pDispcnt;
 
+    if (gCurrentPowerBomb.stage == 0)
+    {
+        write16(REG_BLDY, 0);
+        gWrittenToBLDCNT = gIORegistersBackup.BLDCNT_NonGameplay;
+
+        if (sHazeData[gCurrentRoomEntry.visualEffect][3] == 2)
+            gWrittenToBLDALPHA = 0x10;
+        else
+            gWrittenToBLDALPHA = 0x1000;
+
+        pDispcnt = &gWrittenToDISPCNT;
+        write16(REG_DISPCNT, read16(REG_DISPCNT) | DCNT_WIN1);
+        write16(pDispcnt, read16(REG_DISPCNT));
+
+        gWrittenToWIN1H = gSuitFlashEffect.left << 8 | gSuitFlashEffect.right;
+        gWrittenToWIN1V = gSuitFlashEffect.top << 8 | gSuitFlashEffect.bottom;
+
+        // Set transparent color
+        write16(PALRAM_BASE, 0);
+
+        gWrittentToWININ_H = gIORegistersBackup.WININ_H;
+        gWrittentToWINOUT_L = gIORegistersBackup.WINOUT_L;
+
+        // Get BGCNT backups
+        write16(REG_BG0CNT, gIORegistersBackup.BG0CNT);
+        write16(REG_BG1CNT, gIORegistersBackup.BG1CNT);
+        write16(REG_BG2CNT, gIORegistersBackup.BG2CNT);
+        write16(REG_BG3CNT, gIORegistersBackup.BG3CNT);
+
+        gWrittenToDISPCNT = gIORegistersBackup.DISPCNT_NonGameplay;
+        gCurrentPowerBomb.stage = 1;
+    }
+    else if (gCurrentPowerBomb.stage == 1)
+    {
+        // Fade BLDALPHA until it was the same as before the power bomb
+        eva = read16(REG_BLDALPHA);
+        evb = read16(REG_BLDALPHA) >> 8;
+        done = TRUE;
+
+        if (gIORegistersBackup.BLDALPHA_NonGameplay_EVB != evb)
+        {
+            if (gIORegistersBackup.BLDALPHA_NonGameplay_EVB < evb)
+                evb--;
+            else
+                evb++;
+            done = FALSE;
+        }
+
+        if (gIORegistersBackup.BLDALPHA_NonGameplay_EVA != eva)
+        {
+            if (gIORegistersBackup.BLDALPHA_NonGameplay_EVA < eva)
+                eva--;
+            else
+                eva++;
+            done = FALSE;
+        }
+
+        gWrittenToBLDALPHA = evb << 8 | eva;
+        if (done)
+            gCurrentPowerBomb.stage = 2;
+    }
+    else if (gCurrentPowerBomb.stage == 2)
+    {
+        // Kill the power bomb
+        gCurrentPowerBomb.animationState = 0;
+        gCurrentPowerBomb.owner = 0;
+        gCurrentPowerBomb.stage = 0;
+    }
 }
