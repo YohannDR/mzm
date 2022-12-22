@@ -3604,7 +3604,7 @@ lbl_0805706c:
     orrs r0, r1
     strb r0, [r2, #7]
 lbl_0805708a:
-    bl process_power_bomb_explosion
+    bl PowerBombExplosionProcess
     pop {r4}
     pop {r0}
     bx r0

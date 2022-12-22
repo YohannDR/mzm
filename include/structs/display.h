@@ -52,8 +52,8 @@ extern u16 gWrittenToBLDY_NonGameplay;
 
 extern u16 gDISPCNTBackup;
 extern u16 gWrittenToDISPCNT;
-extern u8 gWrittentToWININ_H;
-extern u8 gWrittentToWINOUT_L;
+extern u8 gWrittenToWININ_H;
+extern u8 gWrittenToWINOUT_L;
 extern struct IORegistersBackup gIORegistersBackup;
 
 #endif

@@ -774,7 +774,7 @@ lbl_08057f0c:
     adds r2, r4, #0
     adds r0, r5, #0
     adds r1, r3, #0
-    bl apply_current_clipdata_affecting_action
+    bl BlockApplyCCAA
     movs r0, #0
     strb r0, [r6]
 lbl_08057f3a:
@@ -4084,8 +4084,8 @@ lbl_08059870:
     .align 2, 0
 lbl_08059878: .4byte 0x08345adc
 
-    thumb_func_start apply_current_clipdata_affecting_action
-apply_current_clipdata_affecting_action: @ 0x0805987c
+    thumb_func_start BlockApplyCCAA
+BlockApplyCCAA: @ 0x0805987c
     push {r4, r5, r6, r7, lr}
     sub sp, #8
     lsls r0, r0, #0x10
@@ -4420,7 +4420,7 @@ lbl_08059afc:
     adds r0, r6, #0
     adds r1, r7, #0
     adds r2, r4, #0
-    bl apply_current_clipdata_affecting_action
+    bl BlockApplyCCAA
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     mov r8, r0
@@ -4434,7 +4434,7 @@ lbl_08059afc:
     adds r0, r6, #0
     adds r1, r7, #0
     adds r2, r4, #0
-    bl apply_current_clipdata_affecting_action
+    bl BlockApplyCCAA
 lbl_08059b3e:
     ldr r1, lbl_08059b50 @ =0x03000079
     movs r0, #0
@@ -5512,7 +5512,7 @@ sub_0805a330: @ 0x0805a330
     beq lbl_0805a370
     mov r0, r8
     mov r1, sb
-    bl apply_current_clipdata_affecting_action
+    bl BlockApplyCCAA
 lbl_0805a370:
     movs r6, #0
     mov sl, r4
@@ -5549,7 +5549,7 @@ lbl_0805a37a:
     lsrs r0, r0, #0x10
     lsls r1, r3, #0x10
     lsrs r1, r1, #0x10
-    bl apply_current_clipdata_affecting_action
+    bl BlockApplyCCAA
 lbl_0805a3b8:
     adds r5, #2
     adds r6, #1

@@ -279,8 +279,8 @@ void PowerBombExplosionEnd(void)
         // Set transparent color
         write16(PALRAM_BASE, 0);
 
-        gWrittentToWININ_H = gIORegistersBackup.WININ_H;
-        gWrittentToWINOUT_L = gIORegistersBackup.WINOUT_L;
+        gWrittenToWININ_H = gIORegistersBackup.WININ_H;
+        gWrittenToWINOUT_L = gIORegistersBackup.WINOUT_L;
 
         // Get BGCNT backups
         write16(REG_BG0CNT, gIORegistersBackup.BG0CNT);

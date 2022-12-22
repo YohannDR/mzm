@@ -6999,7 +6999,7 @@ lbl_080522d8:
     ldrh r0, [r4, #0xa]
     ldrh r1, [r4, #8]
     movs r2, #0
-    bl start_power_bomb_explosion
+    bl PowerBombExplosionStart
     strb r5, [r4]
 lbl_080522fc:
     pop {r4, r5, r6}

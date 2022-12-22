@@ -30,7 +30,10 @@ SECTIONS {
         . = 0x00000002; gFrameCounter16Bit = .;
         . = 0x00000004; gStereoFlag = .;
         . = 0x00000005; gSubGameModeStage = .;
-        . = 0x0000000A; gWrittenToDISPCNT = .;
+        . = 0x00000006; gWrittenToBLDALPHA = .;
+        . = 0x0000000a; gWrittenToDISPCNT = .;
+        . = 0x0000000e; gWrittenToWININ_H = .;
+        . = 0x0000000f; gWrittenToWINOUT_L = .;
         . = 0x00000020; gLanguage = .;
         . = 0x00000029; gMonochromeBGFading = .;
         . = 0x0000002A; gWhichBGPositionIsWrittenToBG3OFS = .;
@@ -82,6 +85,7 @@ SECTIONS {
         . = 0x000000F8; gWaitingSpacePiratesPosition = .;
         . = 0x000000FC; gBG2Movement = .;
         . = 0x00000100; gLockScreen = .;
+        . = 0x00000108; gSuitFlashEffect = .;
         . = 0x00000110; gScreenShakeY = .;
         . = 0x00000114; gScreenShakeX = .;
         . = 0x00000118; gCurrentScrolls = .;
@@ -204,6 +208,9 @@ SECTIONS {
 
         . = 0x00004fc9; gUnk_03004fc9 = .;
         . = 0x000052E0; gSamusPalette = .;
+        . = 0x00005448; gWrittenToWIN1H = .;
+        . = 0x0000544a; gWrittenToWIN1V = .;
+        . = 0x0000544c; gWrittenToBLDCNT = .;
         . = 0x00005450; gTilemapAndClipPointers = .;
         . = 0x0000545C; gHatchData = .;
         . = 0x000054DC; gNumberOfValidHatchesInRoom = .;
