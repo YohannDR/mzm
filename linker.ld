@@ -362,6 +362,8 @@ SECTIONS {
         src/hud_generic.o(.text);
         src/particle.o(.text);
         asm/disasm_0x08055344.o(.text);
+        src/power_bomb_explosion.o(.text);
+        asm/disasm_0x0805745c.o(.text);
 
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
@@ -479,6 +481,8 @@ SECTIONS {
         src/hud_generic.o(.rodata);
         src/particle.o(.rodata);
         asm/disasm_0x08055344.o(.rodata);
+        src/power_bomb_explosion.o(.rodata);
+        asm/disasm_0x0805745c.o(.rodata);
 
         asm/libgcc.o(.rodata);
         asm/disasm_0x0808af18.o(.rodata);
