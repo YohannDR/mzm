@@ -239,8 +239,8 @@ SECTIONS {
         . = 0x00005805; sOamYOffset_NonGameplay = .;
 
 
-        . = 0x000058e0; src/libgcc/fp-bit-base.o(.rodata);
-        . = 0x000058f8; src/libgcc/float.o(.rodata);
+        . = 0x000058e0; src/libgcc/fp-bit-base.o(.bss);
+        . = 0x000058f8; src/libgcc/float.o(.bss);
         . = 0x00005910; gTrackData8 = .;
         . = 0x00005950; gTrackData3 = .;
         . = 0x00005990; gTrackData1 = .;
