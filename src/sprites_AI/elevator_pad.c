@@ -26,7 +26,7 @@ void ElevatorPad(void)
         gCurrentSprite.hitboxTopOffset = -0x4;
         gCurrentSprite.hitboxBottomOffset = 0x4;
         gCurrentSprite.hitboxLeftOffset = -0x4;
-        gCurrentSprite.hitboxRightOffset = -0x4;
+        gCurrentSprite.hitboxRightOffset = 0x4;
 
         gCurrentSprite.pOam = sElevatorPadOAM_Idle;
         gCurrentSprite.animationDurationCounter = 0x0;

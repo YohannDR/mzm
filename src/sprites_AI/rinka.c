@@ -624,7 +624,7 @@ void RinkaMotherBrainMove(void)
         respawn++;
 
     if (respawn)
-        RinkaRespawn();
+        RinkaMotherBrainRespawn();
 }
 
 /**

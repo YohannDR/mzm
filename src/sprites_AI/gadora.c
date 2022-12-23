@@ -364,7 +364,7 @@ void GadoraEye(void)
             {
                 gCurrentSprite.absolutePaletteRow = 0x1;
                 gCurrentSprite.paletteRow = 0x1;
-                gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+                gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
             }
 
             gCurrentSprite.drawDistanceTopOffset = 0x8;

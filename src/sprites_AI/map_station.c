@@ -177,10 +177,10 @@ void MapStationSpawnMessage(void)
                 text = MESSAGE_ENEMY_LOCATION_ABNORMAL;
         }
 
-        gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 0x6,
-            gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        gCurrentSprite.workVariable = SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 6,
+            gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
 
-        gCurrentSprite.hitboxTopOffset = -0x40;
+        gCurrentSprite.hitboxBottomOffset = -BLOCK_SIZE;
         gCurrentSprite.pose = MAP_STATION_POSE_WAIT_FOR_MESSAGE;
         gSamusData.currentAnimationFrame = 0x0;
         gSamusData.timer = 0x1;

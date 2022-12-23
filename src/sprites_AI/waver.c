@@ -17,10 +17,10 @@ void WaverInit(void)
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
-    gCurrentSprite.hitboxTopOffset = -0x20;
-    gCurrentSprite.hitboxBottomOffset = 0x20;
-    gCurrentSprite.hitboxLeftOffset = -0x20;
-    gCurrentSprite.hitboxRightOffset = -0x20;
+    gCurrentSprite.hitboxTopOffset = -HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
 
     gCurrentSprite.pOam = sWaverOAM;
     gCurrentSprite.animationDurationCounter = 0x0;

@@ -36,7 +36,7 @@ void ChargeBeamInit(void)
         gCurrentSprite.health = 0x1;
         gCurrentSprite.arrayOffset = 0x0;
         gCurrentSprite.pose = 0xA;
-        gCurrentSprite.status = status | SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.status = status | SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.drawOrder = 0x2;
     }
 }
@@ -69,7 +69,7 @@ void ChargeBeamVisibleInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+    gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
     gCurrentSprite.arrayOffset = 0x0;
 }

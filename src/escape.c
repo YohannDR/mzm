@@ -1,14 +1,23 @@
 #include "escape.h"
+#include "gba.h"
+
+#include "data/visual_effects_data.h"
 
 #include "constants/event.h"
 #include "constants/escape.h"
 #include "constants/game_state.h"
+#include "constants/particle.h"
 
 #include "structs/escape.h"
 #include "structs/game_state.h"
 #include "structs/particle.h"
 #include "structs/samus.h"
 
+/**
+ * @brief 53968 | 40 | Determines the current escape timer (if any) based on the events
+ * 
+ * @return u8 Escape ID
+ */
 u8 EscapeDetermineTimer(void)
 {
     if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_ZEBES))
@@ -16,12 +25,21 @@ u8 EscapeDetermineTimer(void)
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MOTHER_BRAIN_KILLED))
             return ESCAPE_MOTHER_BRAIN;
     }
-    else if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_CHOZODIA) &&
-        EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
+    else
+    {
+        if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_CHOZODIA) &&
+            EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
         return ESCAPE_MECHA_RIDLEY;
+    }
+
     return ESCAPE_NONE;
 }
 
+/**
+ * @brief 539a8 | 38 | Checks if Samus has escaped
+ * 
+ * @return u8 TRUE if escaped, FALSE otherwise
+ */
 u8 EscapeCheckHasEscaped(void)
 {
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED))
@@ -40,6 +58,10 @@ u8 EscapeCheckHasEscaped(void)
     return FALSE;
 }
 
+/**
+ * @brief 539e0 | 38 | Updates the OAM of the escape timer
+ * 
+ */
 void EscapeUpdateOAM(void)
 {
     u16 increment;
@@ -54,16 +76,34 @@ void EscapeUpdateOAM(void)
     gParticleEscapeOAMFrames[3] = gEscapeTimerDigits.minutesTens + increment;
 }
 
+/**
+ * @brief 53a18 | 30 | Checks if the escape timer graphics should reload
+ * 
+ */
 void EscapeCheckReloadGraphics(void)
 {
-
+    if (EscapeDetermineTimer() != ESCAPE_NONE)
+    {
+        dma_set(3, sEscapeTimerDigitsGFX, VRAM_BASE + 0x17800, DMA_ENABLE << 16 | sizeof(sEscapeTimerDigitsGFX) / 2);
+    }
 }
 
+/**
+ * @brief 53a48 | 60 | Starts an escape
+ * 
+ */
 void EscapeStart(void)
 {
-
+    dma_set(3, sEscapeTimerDigitsGFX, VRAM_BASE + 0x17800, DMA_ENABLE << 16 | 0xB0);
+    dma_set(3, sEscapeTimerDigitsGFX + 1024, VRAM_BASE + 0x17c00, DMA_ENABLE << 16 | 0xB0);
+    dma_set(3, sParticleEscapeOAM, gParticleEscapeOAMFrames, DMA_ENABLE << 16 | sizeof(gParticleEscapeOAMFrames) / 2);
+    ParticleSet(2, 141, PE_ESCAPE);
 }
 
+/**
+ * @brief 53aa8 | bc | Sets the timer for the current escape
+ * 
+ */
 void EscapeSetTimer(void)
 {
     u8 escape;
@@ -132,6 +172,10 @@ void EscapeSetTimer(void)
     }
 }
 
+/**
+ * @brief 53b64 | 104 | Updates the escape timer
+ * 
+ */
 void EscaepUpdateTimer(void)
 {
     u32 counter;
@@ -148,7 +192,7 @@ void EscaepUpdateTimer(void)
     if (gPreventMovementTimer != 0x0)
         return;
 
-    counter = gEscapeTimerCounter = gEscapeTimerCounter + 0x1;
+    counter = ++gEscapeTimerCounter;
 
     if (counter & 0x1)
     {

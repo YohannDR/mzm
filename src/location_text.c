@@ -81,9 +81,14 @@ u8 LocationTextGetCrateria(void)
         case 0x3: // Elevator to brinstar room
         case 0x4: // Elevator to tourian (escape) room
         case 0x6: // Elevator to norfair room
+        case 0xA:
+        case 0xB:
+        case 0xC:
+        case 0xD:
         case 0x12: // Elevator to tourian room
             lt = LT_CRATERIA;
             break;
+
         case 0x8: // Chozo pillar (non extended) room
         case 0x9: // Surface after water cavern room
         case 0xF: // Surface after plasma beam room
@@ -91,6 +96,7 @@ u8 LocationTextGetCrateria(void)
         case 0x11: // Chozo pillar (extended) room
             lt = LT_CHOZO_RUINS;
             break;
+
         case 0x0: // Surface (with ship) room
             lt = LT_PLANET_ZEBES;
     }

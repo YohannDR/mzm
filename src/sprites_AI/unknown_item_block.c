@@ -12,7 +12,7 @@
  * 
  * @param caa 
  */
-void UnkownItemBlockChangeCCAA(u8 caa)
+void UnknownItemBlockChangeCCAA(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
@@ -34,7 +34,7 @@ void UnkownItemBlockChangeCCAA(u8 caa)
  * @brief 4a9a0 | 22c | Unknown item block AI
  * 
  */
-void UnkownItemBlock(void)
+void UnknownItemBlock(void)
 {
     u32 spriteID;
     u8 activated;
@@ -58,7 +58,7 @@ void UnkownItemBlock(void)
             gCurrentSprite.drawDistanceBottomOffset = 0x10;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
-            gCurrentSprite.pOam = sUnknownItemBlockLightOAM_Idle;
+            gCurrentSprite.pOam = sUnknownItemBlockOAM_Idle;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
 
@@ -68,7 +68,7 @@ void UnkownItemBlock(void)
 
             gCurrentSprite.yPosition -= BLOCK_SIZE;
             gCurrentSprite.xPosition += (HALF_BLOCK_SIZE);
-            UnkownItemBlockChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE);
+            UnknownItemBlockChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE);
 
         case UNKNOWN_ITEM_BLOCK_POSE_CHECK_ACTIVATE:
             // Check activate block
@@ -161,7 +161,7 @@ void UnkownItemBlock(void)
             gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x60;
 
-            UnkownItemBlockChangeCCAA(CAA_REMOVE_SOLID); // Remove collision
+            UnknownItemBlockChangeCCAA(CAA_REMOVE_SOLID); // Remove collision
 
             // Play sound, most likely planned to have a different sound for each block
             if (spriteID == PSPRITE_PLASMA_BEAM_BLOCK)
@@ -178,7 +178,7 @@ void UnkownItemBlock(void)
  * @brief 4abcc | 34 | Unknown item block light AI
  * 
  */
-void UnkownItemBlockLight(void)
+void UnknownItemBlockLight(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     if (gCurrentSprite.currentAnimationFrame != 0x0)

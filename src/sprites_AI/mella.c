@@ -256,7 +256,7 @@ void MellaGoingUp(void)
     if (gCurrentSprite.arrayOffset < 0x37)
         gCurrentSprite.arrayOffset++;
 
-    if (gCurrentSprite.workVariable2 > 0x19)
+    if (gCurrentSprite.workVariable2 > 0x18)
         gCurrentSprite.workVariable2--;
 
     // Move

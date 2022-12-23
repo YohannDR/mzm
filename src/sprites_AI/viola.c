@@ -41,7 +41,7 @@ void ViolaInit(void)
             }
             else
             {
-                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + 0x24);
+                SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + HALF_BLOCK_SIZE);
                 if (gPreviousCollisionCheck & 0xF0)
                 {
                     gCurrentSprite.xPosition += 0x8;

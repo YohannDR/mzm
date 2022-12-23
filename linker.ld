@@ -131,7 +131,6 @@ SECTIONS {
         . = 0x00000999; gPowerBombRefillAnimation = .;
         . = 0x0000099A; gParticleSamusReflectionOAMFrames = .;
         . = 0x00000A2C; gProjectileData = .;
-        . = 0x00000B1D; gIsLoadingFile = .;
         . = 0x00000BEC; gArmCannonY = .;
         . = 0x00000BEE; gArmCannonX = .;
         . = 0x00000bf0; gPauseScreenFlag = .;
@@ -146,6 +145,7 @@ SECTIONS {
         . = 0x00000C02; gBG3VOFS_NonGameplay = .;
         . = 0x00000c08; gLastAreaNameVisited = .;
         . = 0x00000c1c; gSRAMCorruptFlag = .;
+        . = 0x00000c1d; gIsLoadingFile = .;
         . = 0x00000c70; gMainGameMode = .;
         . = 0x00000c72; gGameModeSub1 = .;
         . = 0x00000c74; gGameModeSub2 = .;
@@ -365,7 +365,7 @@ SECTIONS {
         src/sprites_AI/escape_gate.o(.text);
         asm/disasm_0x0804ed08.o(.text)
         src/hud.o(.text);
-        asm/disasm_0x08053968.o(.text);
+        src/escape.o(.text);
         src/hud_generic.o(.text);
         src/particle.o(.text);
         asm/disasm_0x08055344.o(.text);

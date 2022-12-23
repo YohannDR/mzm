@@ -229,17 +229,17 @@ void EscapeShipSpacePirate(void)
             sub_0802ab58();
             break;
 
-        case 0x10:
-            unk_2aaec();
-            sub_0802ab58();
-            break;
-
         case 0x11:
             sub_0802ab58();
             break;
 
         case 0x16:
             unk_2ab10();
+            sub_0802ab58();
+            break;
+
+        case 0x10:
+            unk_2aaec();
             sub_0802ab58();
             break;
 
@@ -258,7 +258,7 @@ void EscapeShipSpacePirate(void)
             SpacePirateWalkingAlertedInit();
 
         case SPACE_PIRATE_POSE_WALKING_ALERTED:
-            SpacePirateWalkingAlertedInit();
+            SpacePirateWalkingAlerted();
             break;
 
         case SPACE_PIRATE_POSE_CHARGING_LASER_INIT:

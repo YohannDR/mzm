@@ -572,7 +572,7 @@ void ImagoCocoonVineInit(void)
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.pose = IMAGO_COCOON_VINE_POSE_IDLE;
@@ -588,7 +588,7 @@ void ImagoCocoonVineInit(void)
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.pose = IMAGO_COCOON_VINE_POSE_IDLE;
@@ -604,7 +604,7 @@ void ImagoCocoonVineInit(void)
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.pose = IMAGO_COCOON_VINE_POSE_IDLE;
@@ -620,7 +620,7 @@ void ImagoCocoonVineInit(void)
             gCurrentSprite.hitboxLeftOffset = -0x18;
             gCurrentSprite.hitboxRightOffset = 0x18;
 
-            gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x4;
             gCurrentSprite.pose = IMAGO_COCOON_VINE_POSE_IDLE;
@@ -636,7 +636,7 @@ void ImagoCocoonVineInit(void)
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x7;
             gCurrentSprite.pose = IMAGO_COCOON_VINE_POSE_IDLE;
@@ -652,7 +652,7 @@ void ImagoCocoonVineInit(void)
             gCurrentSprite.hitboxLeftOffset = -0x10;
             gCurrentSprite.hitboxRightOffset = 0x10;
 
-            gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x7;
             gCurrentSprite.pose = IMAGO_COCOON_VINE_POSE_IDLE;
@@ -883,13 +883,13 @@ void ImagoCocoonSporeSyncPosition(void)
     ramSlot = gCurrentSprite.primarySpriteRAMSlot;
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - IMAGO_COCOON_SPORE_LEFT_Y_OFFSET;
-        gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition + IMAGO_COCOON_SPORE_LEFT_X_OFFSET;
+        gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - IMAGO_COCOON_SPORE_RIGHT_Y_OFFSET;
+        gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition + IMAGO_COCOON_SPORE_RIGHT_X_OFFSET;
     }
     else
     {
-        gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - IMAGO_COCOON_SPORE_RIGHT_Y_OFFSET;
-        gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition + IMAGO_COCOON_SPORE_RIGHT_X_OFFSET;
+        gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - IMAGO_COCOON_SPORE_LEFT_Y_OFFSET;
+        gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition - IMAGO_COCOON_SPORE_LEFT_X_OFFSET;
     }
 }
 
@@ -910,7 +910,7 @@ void ImagoCocoonSporeInit(void)
     gCurrentSprite.hitboxTopOffset = -0x8;
     gCurrentSprite.hitboxBottomOffset = 0x8;
     gCurrentSprite.hitboxLeftOffset = -0x8;
-    gCurrentSprite.hitboxRightOffset = 0x5;
+    gCurrentSprite.hitboxRightOffset = 0x8;
 
     gCurrentSprite.pOam = sImagoCocoonSporeOAM_Spawning;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -1611,7 +1611,7 @@ void ImagoCocoonAfterFight(void)
     {
         switch (gCurrentSprite.currentAnimationFrame)
         {
-            case 0x1:
+            case 0x0:
             case 0x4:
                 SoundPlay(0x212);
         }

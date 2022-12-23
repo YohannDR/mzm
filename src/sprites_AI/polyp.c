@@ -16,7 +16,7 @@ void PolypInit(void)
     gCurrentSprite.hitboxTopOffset = -0x18;
     gCurrentSprite.hitboxBottomOffset = 0x0;
     gCurrentSprite.hitboxLeftOffset = -0x38;
-    gCurrentSprite.hitboxRightOffset = 0x28;
+    gCurrentSprite.hitboxRightOffset = 0x38;
 
     gCurrentSprite.drawDistanceTopOffset = 0x8;
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
@@ -161,7 +161,7 @@ void PolypProjectileInit(void)
     gCurrentSprite.pose = 0x8;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.drawOrder = 0x5;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
 
     // Try set same direction samus
     nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 5, BLOCK_SIZE * 8 + 0x26);
@@ -186,7 +186,7 @@ void PolypProjectileInit(void)
 void PolypProjectileSpawn(void)
 {
     gCurrentSprite.timer--;
-    if (gCurrentSprite.timer != 0x0)
+    if (gCurrentSprite.timer == 0x0)
     {
         gCurrentSprite.pose = 0x9;
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
@@ -260,7 +260,7 @@ void PolypProjectileExplodingInit(void)
 void PolypProjectileCheckExplodingAnimEnded(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    if (SpriteUtilCheckNearEndCurrentSpriteAnim())
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
         gCurrentSprite.status = 0x0; // Kill sprite
 }
 

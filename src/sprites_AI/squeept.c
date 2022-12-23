@@ -27,7 +27,7 @@ void SqueeptGoingUpInit(void)
  */
 void SqueeptTurningAroundInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -0x20;
+    gCurrentSprite.hitboxTopOffset = -QUARTER_BLOCK_SIZE;
     gCurrentSprite.hitboxBottomOffset = 0x20;
 
     gCurrentSprite.pOam = sSqueeptOAM_TurningAround;
@@ -227,7 +227,7 @@ void Squeept(void)
         SpriteUtilUpdateFreezeTimer();
     else
     {
-        if (!SpriteUtilIsSpriteStunned())
+        if (SpriteUtilIsSpriteStunned())
             return;
 
         switch (gCurrentSprite.pose)

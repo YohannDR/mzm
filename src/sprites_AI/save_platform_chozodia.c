@@ -780,7 +780,7 @@ void SavePlatformChozodia(void)
             break;
 
         case SAVE_PLATFORM_CHOZODIA_POSE_OPENING:
-            MechaRidleyCheckOpeningMouthAnimEnded();
+            SavePlatformChozodiaCheckOpeningAnimEnded();
             break;
 
         case SAVE_PLATFORM_CHOZODIA_POSE_OPENED:

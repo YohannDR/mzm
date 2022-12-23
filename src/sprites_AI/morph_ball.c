@@ -56,7 +56,7 @@ void MorphBallGet(void)
         gCurrentSprite.pose = MORPH_BALL_POSE_BEING_ACQUIRED;
         gCurrentSprite.timer = 0x0;
         gEquipment.suitMisc |= SMF_MORPH_BALL;
-        SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_MORPH_BALL, 0xC, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_MORPH_BALL, 6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
     }
 }
 

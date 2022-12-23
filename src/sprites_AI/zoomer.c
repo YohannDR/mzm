@@ -119,7 +119,7 @@ void ZoomerSetFallingOAM(void)
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
         gCurrentSprite.pOam = sZoomerOAM_OnWall;
     else
-        gCurrentSprite.pOam = sZoomerOAM_OnGround;
+        gCurrentSprite.pOam = sZoomerOAM_Falling;
 
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;

@@ -2001,9 +2001,7 @@ const struct FrameData sParticleSpriteSplashAcidSmallOAM[7] = {
     0
 };
 
-const u8 sEscapeTimerDigitsGFX_Top[1024] = INCBIN_U8("data/EscapeTimerDigitsTop.gfx");
-
-const u8 sEscapeTimerDigitsGFX_Bottom[1024] = INCBIN_U8("data/EscapeTimerDigitsBottom.gfx");
+const u8 sEscapeTimerDigitsGFX[1024 * 2] = INCBIN_U8("data/EscapeTimerDigits.gfx");
 
 const u16 sParticleEscapeOAM[34] = {
     0x8,

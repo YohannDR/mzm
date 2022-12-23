@@ -188,7 +188,7 @@ void SidehopperJumpWarningGround(void)
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
         if (gPreviousCollisionCheck == COLLISION_AIR)
         {
-            SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
             if (gPreviousCollisionCheck == COLLISION_AIR)
             {
                 SidehopperFallingInit();

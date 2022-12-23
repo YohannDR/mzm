@@ -205,10 +205,14 @@ void DessgeegaJumpWarningGround(void)
             // Check left block
             SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
             if (gPreviousCollisionCheck == COLLISION_AIR)
+            {
                 DessgeegaFallingInit();
+                return;
+            }
         }
     }
-    else if (SpriteUtilCheckEndCurrentSpriteAnim())
+    
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
         DessgeegaJumpingInit(); // Jump if anim ended
 }
 
@@ -493,17 +497,19 @@ void DessgeegaFallingGround(void)
 
     colliding = FALSE;
 
-    topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+    topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
     if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
         colliding++;
     else
     {
-        topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+        topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
+            gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
         if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             colliding++;
         else
         {
-            topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition,
+                gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
                 colliding++;
         }
@@ -546,17 +552,17 @@ void DessgeegaFallingCeiling(void)
 
     colliding = FALSE;
 
-    topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+    topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
     if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
         colliding++;
     else
     {
-        topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
+        topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset);
         if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
             colliding++;
         else
         {
-            topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
+            topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset);
             if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
                 colliding++;
         }

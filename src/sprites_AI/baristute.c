@@ -64,7 +64,7 @@ void BaristuteInit(void)
     gCurrentSprite.hitboxRightOffset = 0x54;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
     SpriteUtilMakeSpriteFaceSamusDirection();
 }
 
@@ -340,7 +340,7 @@ void BaristutePlayWalkingSound(void)
  */
 void BaristuteWalking(void)
 {
-    u8 velocity;
+    u16 velocity;
     u16 walkingDistance;
 
     velocity = gCurrentSprite.workVariable2;

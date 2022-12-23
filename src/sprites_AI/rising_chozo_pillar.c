@@ -125,15 +125,19 @@ void RisingChozoPillarSpawnThreePlatforms(u16 yPosition, u16 xPosition, u8 caa)
 void RisingChozoPillarSpawnTwoPlatforms(u16 yPosition, u16 xPosition, u8 caa)
 {
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - 0x1C0, xPosition);
+    ClipdataProcess(yPosition - BLOCK_SIZE * 7, xPosition);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - 0x1C0, xPosition + 0x40);
+    ClipdataProcess(yPosition - BLOCK_SIZE * 7, xPosition + BLOCK_SIZE);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - 0x7c0, xPosition);
+    ClipdataProcess(yPosition - BLOCK_SIZE * 24, xPosition);
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - 0x7c0, xPosition + 0x40);
-    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, yPosition - 0x1C0, xPosition + 0x20, 0x0);
-    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, yPosition - 0x7c0, xPosition + 0x20, 0x0);
+    ClipdataProcess(yPosition - BLOCK_SIZE * 24, xPosition + BLOCK_SIZE);
+
+    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spritesetGFXSlot,
+        gCurrentSprite.primarySpriteRAMSlot, yPosition - BLOCK_SIZE * 7, xPosition + HALF_BLOCK_SIZE, 0x0);
+    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spritesetGFXSlot,
+        gCurrentSprite.primarySpriteRAMSlot, yPosition - BLOCK_SIZE * 24, xPosition + HALF_BLOCK_SIZE, 0x0);
 }
 
 /**
@@ -280,9 +284,9 @@ void ChozoPillarPlatform(void)
             {
                 gCurrentSprite.pose = 0x8;
                 if (gCurrentSprite.roomSlot != 0x0)
-                    gCurrentSprite.pOam = sRisingChozoPillarPlatformOAM_Slot0Spawning;
-                else
                     gCurrentSprite.pOam = sRisingChozoPillarPlatformOAM_Spawning;
+                else
+                    gCurrentSprite.pOam = sRisingChozoPillarPlatformOAM_Slot0Spawning;
                 SoundPlay(0x126);
             }
             break;

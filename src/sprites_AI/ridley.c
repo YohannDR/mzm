@@ -910,7 +910,7 @@ void RidleySpawning(void)
             return;
     }
     
-    RidleyIdleYFloatingMovement();
+    RidleySpawnSpittingFireballsYFloatingMovement();
 }
 
 /**
@@ -1339,7 +1339,7 @@ void RidleyTurningAroundFirstPart(void)
 {
     RidleyIdleYFloatingMovement();
 
-    if (SpriteUtilCheckNearEndSubSprite1Anim())
+    if (SpriteUtilCheckEndSubSprite1Anim())
     {
         gCurrentSprite.pose = RIDLEY_POSE_TURNING_AROUND_SECOND_PART;
 

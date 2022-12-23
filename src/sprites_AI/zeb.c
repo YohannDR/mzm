@@ -113,14 +113,14 @@ void ZebGoingUp(void)
     }
     else
     {
-        if (gCurrentSprite.oamScaling < gSamusData.yPosition && gSamusData.yPosition >= gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 2)
+        if (gCurrentSprite.oamScaling < gSamusData.yPosition && gSamusData.yPosition > gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 2)
             yPosition = gCurrentSprite.oamScaling;
         else
             yPosition = gSamusData.yPosition;
 
         if (yPosition - 0x64 > gCurrentSprite.yPosition)
         {
-            gCurrentSprite.pose = ZEB_POSE_GOING_UP;
+            gCurrentSprite.pose = ZEB_POSE_MOVING;
             gCurrentSprite.timer = 0xA;
 
             gCurrentSprite.pOam = sZebOAM_Moving;

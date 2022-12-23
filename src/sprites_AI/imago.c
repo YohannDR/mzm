@@ -103,7 +103,7 @@ void ImagoShootNeedles(void)
         if (gCurrentSprite.health < gSubSpriteData1.health / 3)
             gCurrentSprite.animationDurationCounter += 0x2;
 
-        if (SpriteUtilCheckEndCurrentSpriteAnim())
+        if (SpriteUtilCheckEndSubSprite1Anim())
         {
             // Set recharging needles
             gSubSpriteData1.pMultiOam = sImagoMultiSpriteData_RechargingNeedles;
@@ -117,7 +117,7 @@ void ImagoShootNeedles(void)
         if (health < gSubSpriteData1.health / 3)
             gCurrentSprite.animationDurationCounter += 0x2;
 
-        if (SpriteUtilCheckEndCurrentSpriteAnim())
+        if (SpriteUtilCheckEndSubSprite1Anim())
         {
             // Set idle
             gSubSpriteData1.pMultiOam = sImagoMultiSpriteData_Idle;
@@ -971,7 +971,7 @@ void ImagoDestroyWall(void)
             gCurrentSprite.pose = IMAGO_POSE_DYING;
             gCurrentSprite.timer = 0x0;
             ScreenShakeStartVertical(0x1E, 0x81);
-            ScreenShakeStartVertical(0x3C, 0x81);
+            ScreenShakeStartHorizontal(0x3C, 0x81);
             FadeMusic(0x38);
             break;
     }

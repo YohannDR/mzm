@@ -12,7 +12,7 @@
 void EnemyDropInit(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 0x14;
-    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+    gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.pose = ENEMY_DROP_POSE_IDLE;
 
     // Despawn timer

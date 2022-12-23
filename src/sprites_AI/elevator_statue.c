@@ -358,7 +358,7 @@ void RidleyElevatorStatueFalling(void)
 
     // Check set fallen
     if (SpriteUtilCheckEndCurrentSpriteAnim())
-        KraidElevatorStatueFallenInit();
+        RidleyElevatorStatueFallenInit();
 }
 
 /**

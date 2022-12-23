@@ -155,8 +155,11 @@ void ParticleProcessAll(void)
     struct ParticleEffect* pParticle;
     u8 status;
 
-    if (gGameModeSub1 != 0x2 && (gGameModeSub1 == 0x1 || gGameModeSub1 == 0x3))
+    if (gGameModeSub1 != 0x2)
     {
+        if (gGameModeSub1 != 0x1 && gGameModeSub1 != 0x3)
+            return;
+
         for (pParticle = gParticleEffects; pParticle < gParticleEffects + MAX_AMOUNT_OF_PARTICLES; pParticle++)
         {
             if (pParticle->status & PARTICLE_STATUS_EXISTS && pParticle->effect == PE_ESCAPE) // Probably a priority system
@@ -271,11 +274,11 @@ void ParticleSet(u16 yPosition, u16 xPosition, u8 effect)
 u8 ParticleUpdateAnimation(struct ParticleEffect* pParticle, const struct FrameData* pOam)
 {
     u8 ended;
-    u8 adc;
 
     ended = FALSE;
-    adc = ++pParticle->animationDurationCounter;
-    if (pOam[pParticle->currentAnimationFrame].timer <= adc)
+    pParticle->animationDurationCounter++;
+
+    if (pOam[pParticle->currentAnimationFrame].timer <= pParticle->animationDurationCounter)
     {
         pParticle->animationDurationCounter = 0x0;
         pParticle->currentAnimationFrame++;
@@ -1315,7 +1318,7 @@ void ParticleHittingSomethingWithMissile(struct ParticleEffect* pParticle)
         if (pParticle->stage == 0x0)
         {
             pParticle->stage++;
-            SoundPlay(0xF9);
+            SoundStop(0xF9);
             SoundPlay(0xFA);
         }
     }
@@ -1337,7 +1340,7 @@ void ParticleHittingSomethingWithSuperMissile(struct ParticleEffect* pParticle)
         if (pParticle->stage == 0x0)
         {
             pParticle->stage++;
-            SoundPlay(0xFC);
+            SoundStop(0xFC);
             SoundPlay(0xFD);
             ScreenShakeStartHorizontal(0xA, 0x81);
             ScreenShakeStartVertical(0xA, 0x81);

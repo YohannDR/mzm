@@ -856,7 +856,7 @@ void GunshipPartCheckSetHorizontalFlames(void)
         gCurrentSprite.timer--;
         if (gCurrentSprite.timer == 0x0)
         {
-            gCurrentSprite.pOam = sGunshipPartOAM_FlamesVertical;
+            gCurrentSprite.pOam = sGunshipPartOAM_FlamesHorizontal;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
 

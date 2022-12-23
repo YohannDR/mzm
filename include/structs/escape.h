@@ -3,12 +3,6 @@
 
 #include "types.h"
 
-// Globals
-
-extern u8 gCurrentEscapeStatus;
-extern u8 gEscapeTimerCounter;
-extern struct EscapeDigits gEscapeTimerDigits;
-
 // Structs
 
 struct __attribute__((packed)) EscapeDigits {
@@ -19,5 +13,11 @@ struct __attribute__((packed)) EscapeDigits {
     u8 minutesOnes;
     u8 minutesTens;
 };
+
+// Globals
+
+extern u8 gCurrentEscapeStatus;
+extern u8 gEscapeTimerCounter;
+extern struct EscapeDigits gEscapeTimerDigits;
 
 #endif

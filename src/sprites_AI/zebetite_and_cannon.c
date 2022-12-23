@@ -21,12 +21,13 @@
 void Zebetite(void)
 {
     // https://decomp.me/scratch/0Oxa5
-
+    
     u32 alreadyDead;
     u16 maxHealth;
     u16 spawnHealth;
     register u32 health asm("r4");
     u32 phase;
+    i32 healthDiff;
 
     if (gCurrentSprite.pose == 0)
     {
@@ -95,7 +96,8 @@ void Zebetite(void)
     maxHealth = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
     health = gCurrentSprite.health;
 
-    phase = (maxHealth - health) / 20;
+    healthDiff = maxHealth - health;
+    phase = healthDiff / 20;
 
     if (health == gCurrentSprite.oamScaling)
     {

@@ -28,7 +28,7 @@ u8 SavePlatformDetectSamus(void)
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
 
-    if (samusY == spriteY - (BLOCK_SIZE - 1) && (spriteX - BLOCK_SIZE) < samusX && (spriteX + BLOCK_SIZE) > samusX)
+    if (samusY == spriteY - (BLOCK_SIZE + 1) && (spriteX - BLOCK_SIZE) < samusX && (spriteX + BLOCK_SIZE) > samusX)
         colliding = TRUE;
 
     return colliding;
@@ -64,7 +64,7 @@ void SavePlatformInit(void)
 
     if (gCurrentSprite.workVariable2 || EscapeDetermineTimer() != ESCAPE_NONE)
     {
-        gCurrentSprite.pOam = sSavePlatformOAM_OpenedOff;
+        gCurrentSprite.pOam = sSavePlatformOAM_IdleOff;
         gCurrentSprite.pose = SAVE_PLATFORM_POSE_OFF;
     }
     else if (gIsLoadingFile)
@@ -72,7 +72,7 @@ void SavePlatformInit(void)
         SpriteSpawnSecondary(SSPRITE_SAVE_PLATFORM_PART, SAVE_PLATFORM_PART_TUBE, gCurrentSprite.spritesetGFXSlot,
             gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
-        gCurrentSprite.pOam = sSavePlatformOAM_IdleOff;
+        gCurrentSprite.pOam = sSavePlatformOAM_OpenedOff;
         gCurrentSprite.pose = SAVE_PLATFORM_POSE_RELEASE_SAMUS;
         gCurrentSprite.yPositionSpawn = 0x154;
     }
@@ -234,7 +234,7 @@ void SavePlatformSavePrompt(void)
                     gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
                 gSpriteData[gCurrentSprite.arrayOffset].pose = SAVE_PLATFORM_PART_POSE_TOP_EXTENDING_INIT;
-                gSamusData.invincibilityTimer = 0x0;
+                gSamusData.timer = 0x0;
                 SoundPlay(0x114);
             }
             else

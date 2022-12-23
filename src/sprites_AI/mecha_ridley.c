@@ -1070,27 +1070,27 @@ void MechaRidleyGlowFading(void)
             break;
 
         case 1:
-            dma_set(3, &sMechaRidleyDestroyedGFX[0x60], VRAM_BASE + 0x15980, (DMA_ENABLE << 16) | 0x60);
+            dma_set(3, &sMechaRidleyDestroyedGFX[0x30], VRAM_BASE + 0x15980, (DMA_ENABLE << 16) | 0x60);
             break;
 
         case 2:
-            dma_set(3, &sMechaRidleyDestroyedGFX[0xC0], VRAM_BASE + 0x15D80, (DMA_ENABLE << 16) | 0x60);
+            dma_set(3, &sMechaRidleyDestroyedGFX[0x60], VRAM_BASE + 0x15D80, (DMA_ENABLE << 16) | 0x60);
             break;
 
         case 3:
-            dma_set(3, &sMechaRidleyDestroyedGFX[0x120], VRAM_BASE + 0x16180, (DMA_ENABLE << 16) | 0x60);
+            dma_set(3, &sMechaRidleyDestroyedGFX[0x90], VRAM_BASE + 0x16180, (DMA_ENABLE << 16) | 0x60);
             break;
 
         case 4:
-            dma_set(3, &sMechaRidleyDestroyedGFX[0x180], VRAM_BASE + 0x16580, (DMA_ENABLE << 16) | 0x60);
+            dma_set(3, &sMechaRidleyDestroyedGFX[0xC0], VRAM_BASE + 0x16580, (DMA_ENABLE << 16) | 0x60);
             break;
 
         case 5:
-            dma_set(3, &sMechaRidleyDestroyedGFX[0x200], VRAM_BASE + 0x169C0, (DMA_ENABLE << 16) | 0x40);
+            dma_set(3, &sMechaRidleyDestroyedGFX[0x100], VRAM_BASE + 0x169C0, (DMA_ENABLE << 16) | 0x40);
             break;
 
         case 6:
-            dma_set(3, &sMechaRidleyDestroyedGFX[0x260], VRAM_BASE + 0x16DC0, (DMA_ENABLE << 16) | 0x40);
+            dma_set(3, &sMechaRidleyDestroyedGFX[0x130], VRAM_BASE + 0x16DC0, (DMA_ENABLE << 16) | 0x40);
             break;
 
         case 8:
@@ -1522,7 +1522,7 @@ void MechaRidleyPartCoreCoverExplosion(void)
     gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.pose = MECHA_RIDLEY_PART_POSE_COVER_BROKEN;
 
-    ParticleSet(gCurrentSprite.yPosition + 13, gCurrentSprite.xPosition - QUARTER_BLOCK_SIZE, PE_SPRITE_EXPLOSION_HUGE);
+    ParticleSet(gCurrentSprite.yPosition + 12, gCurrentSprite.xPosition - QUARTER_BLOCK_SIZE, PE_SPRITE_EXPLOSION_HUGE);
     SoundPlay(0x12F);
 }
 
@@ -2449,11 +2449,11 @@ void MechaRidley(void)
             break;
 
         case MECHA_RIDLEY_POSE_CLOSING_MOUTH:
-            MechaRidleyRetractingAfterFireballAttack();
+            MechaRidleyCheckClosingMouthAnimEnded();
             break;
 
         case MECHA_RIDLEY_POSE_RETRACTING_AFTER_FIREBALL_ATTACK:
-            MechaRidleyCheckClosingMouthAnimEnded();
+            MechaRidleyRetractingAfterFireballAttack();
             break;
 
         case MECHA_RIDLEY_POSE_DYING_INIT:
