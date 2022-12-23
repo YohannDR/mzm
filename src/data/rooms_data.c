@@ -1,7 +1,11 @@
-#include "data/doors_data.h"
+#include "data/rooms_data.h"
 #include "constants/connection.h"
 
-// 33e608
+const u8 sEnemyRoomData_Empty[3] = {
+	UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+};
+
+const u8 sTempArray_33dfdc[0x62C+1] = {0};
 
 const struct Door sBrinstarDoors[99] = {
 	{
@@ -3741,7 +3745,7 @@ const struct Door sNorfairDoors[133] = {
 	}
 };
 
-const struct Door sRidleyDoors[133] = {
+const struct Door sRidleyDoors[77] = {
 	{
 		.type = DOOR_TYPE_AREA_CONNECTION | DOOR_TYPE_EXISTS | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
 		.sourceRoom = 0,
@@ -8372,5 +8376,9 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	}
 };
+
+const struct Door sDebugDoors[26] = {0};
+
+const u8 sTempArray_340ad4[0x4D94] = {0};
 
 // 34099c

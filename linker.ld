@@ -470,8 +470,8 @@ SECTIONS {
         src/data/projectile_data.o(.rodata);
         src/data/hud_data.o(.rodata);
         src/data/particle_data.o(.rodata);
-        /* 33bd34-33e607 */
-        src/data/doors_data.o(.rodata);
+        src/data/visual_effects_data.o(.rodata);
+        src/data/rooms_data.o(.rodata);
         src/data/empty_datatypes.o(.rodata);
         /* 3458e4-34599f */
         src/data/block_data.o(.rodata);

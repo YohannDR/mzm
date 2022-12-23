@@ -3,7 +3,7 @@
 #include "particle.h"
 #include "projectile.h"
 
-#include "data/doors_data.h"
+#include "data/rooms_data.h"
 #include "data/spriteset.h"
 #include "data/hatch_data.h"
 

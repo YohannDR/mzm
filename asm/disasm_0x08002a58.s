@@ -33,7 +33,7 @@ unk_2a38: @ 0x08002a38
     adds r0,r3,#0
     ands r0,r1
     cmp r0,#0
-    beq lbl_08002a54
+    bne lbl_08002a54
     ldrb r1,[r2,#0]
     movs r0,#2
     ands r0,r1
@@ -54,7 +54,7 @@ StopAllMusicsAndSounds: @ 0x08002a58
     subs r4,r0,#1
     cmp r4,#0
     blt lbl_08002a7e
-    ldr r1, lbl_08002ac8 @ =0x0808f254
+    ldr r1, lbl_08002a88 @ =0x0808f254
     lsls r0,r4,#1
     adds r0,r0,r4
     lsls r0,r0,#2
@@ -64,7 +64,7 @@ lbl_08002a70:
     bl stop_music_or_sound
     subs r5,#0xC
     subs r4,#1
-    cmp r4,#1
+    cmp r4,#0
     bge lbl_08002a70
 lbl_08002a7e:
     pop {r4,r5}

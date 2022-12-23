@@ -5,6 +5,7 @@
 #include "data/projectile_data.h"
 #include "data/sprite_data.h"
 #include "data/particle_data.h"
+#include "data/visual_effects_data.h"
 
 #include "constants/escape.h"
 #include "constants/particle.h"
@@ -15,16 +16,6 @@
 #include "structs/escape.h"
 #include "structs/game_state.h"
 #include "structs/sprite.h"
-
-const struct FrameData ParticleSpriteSplashWaterSmall_oam[1];
-const struct FrameData ParticleSpriteSplashWaterBig_oam[1];
-const struct FrameData ParticleSpriteSplashWaterHuge_oam[1];
-const struct FrameData ParticleSpriteSplashLavaSmall_oam[1];
-const struct FrameData ParticleSpriteSplashLavaBig_oam[1];
-const struct FrameData ParticleSpriteSplashLavaHuge_oam[1];
-const struct FrameData ParticleSpriteSplashAcidSmall_oam[1];
-const struct FrameData ParticleSpriteSplashAcidBig_oam[1];
-const struct FrameData ParticleSpriteSplashAcidHuge_oam[1];
 
 /**
  * 53dd0 | 98 | Checks if a particle effect is on screen
@@ -320,7 +311,7 @@ void ParticleSetCurrentOAMFramePointer(struct ParticleEffect* pParticle, const s
 void ParticleSpriteSplashWaterSmall(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashWaterSmall_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSpriteSplashWaterSmallOAM))
         pParticle->status = 0x0;
     else
     {
@@ -341,7 +332,7 @@ void ParticleSpriteSplashWaterSmall(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashWaterBig(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashWaterBig_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSpriteSplashWaterBigOAM))
         pParticle->status = 0x0;
     else
     {
@@ -362,7 +353,7 @@ void ParticleSpriteSplashWaterBig(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashWaterHuge(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashWaterHuge_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSpriteSplashWaterHugeOAM))
         pParticle->status = 0x0;
     else
     {
@@ -383,7 +374,7 @@ void ParticleSpriteSplashWaterHuge(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashLavaSmall(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashLavaSmall_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSpriteSplashLavaSmallOAM))
         pParticle->status = 0x0;
     else
     {
@@ -404,7 +395,7 @@ void ParticleSpriteSplashLavaSmall(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashLavaBig(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashLavaBig_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSpriteSplashLavaBigOAM))
         pParticle->status = 0x0;
     else
     {
@@ -425,7 +416,7 @@ void ParticleSpriteSplashLavaBig(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashLavaHuge(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashLavaHuge_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSpriteSplashLavaHugeOAM))
         pParticle->status = 0x0;
     else
     {
@@ -446,7 +437,7 @@ void ParticleSpriteSplashLavaHuge(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashAcidSmall(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashAcidSmall_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSpriteSplashAcidSmallOAM))
         pParticle->status = 0x0;
     else
     {
@@ -467,7 +458,7 @@ void ParticleSpriteSplashAcidSmall(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashAcidBig(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashAcidBig_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSpriteSplashAcidBigOAM))
         pParticle->status = 0x0;
     else
     {
@@ -488,7 +479,7 @@ void ParticleSpriteSplashAcidBig(struct ParticleEffect* pParticle)
 void ParticleSpriteSplashAcidHuge(struct ParticleEffect* pParticle)
 {
     pParticle->frameCounter++;
-    if (ParticleUpdateAnimation(pParticle, ParticleSpriteSplashAcidHuge_oam))
+    if (ParticleUpdateAnimation(pParticle, sParticleSpriteSplashAcidHugeOAM))
         pParticle->status = 0x0;
     else
     {
