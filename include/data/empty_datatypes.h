@@ -1,9 +1,13 @@
 #ifndef EMPTY_DATATYPES_H
 #define EMPTY_DATATYPES_H
 
+#include "structs/block.h"
 #include "structs/connection.h"
 #include "structs/transparency.h"
+#include "structs/screen_shake.h"
 #include "structs/scroll.h"
+#include "structs/room.h"
+#include "structs/power_bomb_explosion.h"
 
 // 345868
 
@@ -13,11 +17,23 @@ extern const struct RawCoordsX sCoordsX_Empty;
 
 extern const struct LockScreen sLockScreen_Empty;
 
-// More...
+// Empty special background effect
 
-// 34587c
+extern const struct BrokenBlock sBrokenBlock_Empty;
 
-// More ...
+extern const struct BombChain sBombChain_Empty;
+
+extern const struct PowerBomb sPowerBomb_Empty;
+
+extern const struct ScreenShake sScreenShake_Empty;
+
+extern const struct BG0Movement sBg0Movement_Empty;
+
+extern const struct BG3Movement sBg3Movement_Empty;
+
+extern const u32 sUnusedStruct_3005504_Empty[2];
+
+extern const struct WaterMovement sWaterMovement_Empty;
 
 extern const struct TransparencyRelated sTransparencyRelated_Empty;
 

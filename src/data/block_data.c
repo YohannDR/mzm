@@ -8,7 +8,7 @@
 #include "constants/block.h"
 #include "constants/connection.h"
 
-const struct TankList sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS + 1] = {
+const struct TankList sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS] = {
     [AREA_BRINSTAR] = {
         .energy = 3,
         .missile = 10,
@@ -52,7 +52,7 @@ const struct TankList sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS + 1] = {
         .powerBomb = 6
     },
     // Total number of tanks in the entire game
-    [MAX_AMOUNT_OF_AREAS] = {
+    [MAX_AMOUNT_OF_AREAS - 1] = {
         .energy = 18,
         .missile = 50,
         .superMissile = 15,
@@ -107,259 +107,259 @@ const u16 sClipdataAffectingActionDamageTypes[MAX_AMOUNT_OF_CAA] = {
 };
 
 const struct BlockBehavior sBlockBehaviors[MAX_AMOUNT_OF_BLOCKS] = {
-    [behavior_to_block(CLIP_BEHAVIOR_SHOT_BLOCK_NEVER_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SHOT_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_NO_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_TOP_LEFT_SHOT_BLOCK_NEVER_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_TOP_LEFT_SHOT_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NEVER_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_TOP_RIGHT_SHOT_BLOCK_NEVER_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_TOP_RIGHT_SHOT_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NEVER_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_BOTTOM_LEFT_SHOT_BLOCK_NEVER_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_LEFT_SHOT_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NEVER_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_BOTTOM_RIGHT_SHOT_BLOCK_NEVER_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_RIGHT_SHOT_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NEVER_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_SHOT_BLOCK_NO_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SHOT_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_TOP_LEFT_SHOT_BLOCK_NO_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_TOP_LEFT_SHOT_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NO_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_TOP_RIGHT_SHOT_BLOCK_NO_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_TOP_RIGHT_SHOT_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NO_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_BOTTOM_LEFT_SHOT_BLOCK_NO_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_LEFT_SHOT_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NO_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_BOTTOM_RIGHT_SHOT_BLOCK_NO_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_RIGHT_SHOT_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NO_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_SHOT_BLOCK_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SHOT_BLOCK_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_SHOT_BLOCK_REFORM,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_BOMB_BLOCK_NEVER_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOMB_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_NO_REFORM,
         .type = BLOCK_TYPE_BOMB_BLOCK_NEVER_REFORM,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_BOMB_BLOCK_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOMB_BLOCK_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_BOMB_BLOCK_REFORM,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_MISSILE_BLOCK_NEVER_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_MISSILE_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_NO_REFORM,
         .type = BLOCK_TYPE_MISSILE_NEVER_REFORM,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_MISSILE_BLOCK_NO_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_MISSILE_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_MISSILE_NO_REFORM,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_SUPER_MISSILE_BLOCK_NEVER_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SUPER_MISSILE_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_NO_REFORM,
         .type = BLOCK_TYPE_SUPER_MISSILE_NEVER_REFORM,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_SUPER_MISSILE_BLOCK_NO_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SUPER_MISSILE_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_SUPER_MISSILE_NO_REFORM
     },
-    [behavior_to_block(CLIP_BEHAVIOR_SPEEDBOOST_BLOCK_NO_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SPEEDBOOST_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_SPEEDBOOSTER_BLOCK_NO_REFORM,
         .unk = 1
     },
-    [behavior_to_block(CLIP_BEHAVIOR_SPEEDBOOST_BLOCK_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SPEEDBOOST_BLOCK_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_SPEEDBOOSTER_BLOCK_REFORM,
         .unk = 1
     },
-    [behavior_to_block(CLIP_BEHAVIOR_CRUMBLE_BLOCK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_CRUMBLE_BLOCK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_CRUMBLE,
         .unk = 1
     },
-    [behavior_to_block(CLIP_BEHAVIOR_POWER_BOMB_BLOCK_NEVER_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_POWER_BOMB_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_NO_REFORM,
         .type = BLOCK_TYPE_POWER_BOMB_NEVER_REFORM,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_SCREW_ATTACK_BLOCK_NO_REFORM)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SCREW_ATTACK_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_SCREW_NO_REFORM,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN1)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN1)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_VERTICAL_BOMB_CHAIN1,
         .unk = 0x10
     },
-    [behavior_to_block(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN2)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN2)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_VERTICAL_BOMB_CHAIN2,
         .unk = 0x10
     },
-    [behavior_to_block(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN3)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN3)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_VERTICAL_BOMB_CHAIN3,
         .unk = 0x10
     },
-    [behavior_to_block(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN4)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN4)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_VERTICAL_BOMB_CHAIN4,
         .unk = 0x10
     },
-    [behavior_to_block(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN1)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN1)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN1,
         .unk = 0x10
     },
-    [behavior_to_block(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN2)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN2)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN2,
         .unk = 0x10
     },
-    [behavior_to_block(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN3)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN3)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN3,
         .unk = 0x10
     },
-    [behavior_to_block(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN4)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN4)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN4,
         .unk = 0x10
     },
-    [behavior_to_block(CLIP_BEHAVIOR_SLOW_CRUMBLE_BLOCK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SLOW_CRUMBLE_BLOCK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_SLOW_CRUMBLE,
         .unk = 0
     },
     // Empty space, 31-35 (5 blocks)
-    [behavior_to_block(CLIP_BEHAVIOR_HIDDEN_ENERGY_TANK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HIDDEN_ENERGY_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_TANK,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_HIDDEN_MISSILE_TANK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HIDDEN_MISSILE_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_TANK,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_HIDDEN_SUPER_MISSILE_TANK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HIDDEN_SUPER_MISSILE_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_TANK,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_TANK,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_ENERGY_TANK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_ENERGY_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_MISSILE_TANK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_MISSILE_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_SUPER_MISSILE_TANK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SUPER_MISSILE_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_POWER_BOMB_TANK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_POWER_BOMB_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_UNDERWATER_MISSILE_TANK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_UNDERWATER_MISSILE_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_UNDERWATER_SUPER_MISSILE_TANK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_UNDERWATER_SUPER_MISSILE_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
         .unk = 0
     },
-    [behavior_to_block(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK)] = {
+    [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
@@ -522,73 +522,73 @@ const struct BombChainReverseData sBombChainReverseData[8] = {
 };
 
 const struct TankBehavior sTankBehaviors[MAX_AMOUNT_OF_TANK_TYPES] = {
-    [behavior_to_tank(CLIP_BEHAVIOR_HIDDEN_ENERGY_TANK)] = {
+    [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_HIDDEN_ENERGY_TANK)] = {
         .itemType = ITEM_TYPE_NONE,
         .underwater = FALSE,
         .messageID = MESSAGE_NONE,
         .revealedClipdata = 0x41C
     },
-    [behavior_to_tank(CLIP_BEHAVIOR_HIDDEN_MISSILE_TANK)] = {
+    [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_HIDDEN_MISSILE_TANK)] = {
         .itemType = ITEM_TYPE_NONE,
         .underwater = FALSE,
         .messageID = MESSAGE_NONE,
         .revealedClipdata = 0x41D
     },
-    [behavior_to_tank(CLIP_BEHAVIOR_HIDDEN_SUPER_MISSILE_TANK)] = {
+    [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_HIDDEN_SUPER_MISSILE_TANK)] = {
         .itemType = ITEM_TYPE_NONE,
         .underwater = FALSE,
         .messageID = MESSAGE_NONE,
         .revealedClipdata = 0x41E
     },
-    [behavior_to_tank(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK)] = {
+    [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK)] = {
         .itemType = ITEM_TYPE_NONE,
         .underwater = FALSE,
         .messageID = MESSAGE_NONE,
         .revealedClipdata = 0x41F
     },
-    [behavior_to_tank(CLIP_BEHAVIOR_ENERGY_TANK)] = {
+    [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_ENERGY_TANK)] = {
         .itemType = ITEM_TYPE_ENERGY,
         .underwater = FALSE,
         .messageID = MESSAGE_ENERGY_TANK_ACQUIRED,
         .revealedClipdata = 0
     },
-    [behavior_to_tank(CLIP_BEHAVIOR_MISSILE_TANK)] = {
+    [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_MISSILE_TANK)] = {
         .itemType = ITEM_TYPE_MISSILE,
         .underwater = FALSE,
         .messageID = MESSAGE_MISSILE_TANK_ACQUIRED,
         .revealedClipdata = 0
     },
-    [behavior_to_tank(CLIP_BEHAVIOR_SUPER_MISSILE_TANK)] = {
+    [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_SUPER_MISSILE_TANK)] = {
         .itemType = ITEM_TYPE_SUPER_MISSILE,
         .underwater = FALSE,
         .messageID = MESSAGE_SUPER_MISSILE_TANK_ACQUIRED,
         .revealedClipdata = 0
     },
-    [behavior_to_tank(CLIP_BEHAVIOR_POWER_BOMB_TANK)] = {
+    [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_POWER_BOMB_TANK)] = {
         .itemType = ITEM_TYPE_POWER_BOMB,
         .underwater = FALSE,
         .messageID = MESSAGE_POWER_BOMB_TANK_ACQUIRED,
         .revealedClipdata = 0
     },
-    [behavior_to_tank(CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK)] = {
+    [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK)] = {
         .itemType = ITEM_TYPE_ENERGY,
         .underwater = TRUE,
         .messageID = MESSAGE_ENERGY_TANK_ACQUIRED,
         .revealedClipdata = 0
     },
-    [behavior_to_tank(CLIP_BEHAVIOR_UNDERWATER_MISSILE_TANK)] = {
+    [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_UNDERWATER_MISSILE_TANK)] = {
         .itemType = ITEM_TYPE_MISSILE,
         .underwater = TRUE,
         .messageID = MESSAGE_MISSILE_TANK_ACQUIRED,
         .revealedClipdata = 0
     },
-    [behavior_to_tank(CLIP_BEHAVIOR_UNDERWATER_SUPER_MISSILE_TANK)] = {
+    [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_UNDERWATER_SUPER_MISSILE_TANK)] = {
         .itemType = ITEM_TYPE_SUPER_MISSILE,
         .underwater = TRUE,
         .messageID = MESSAGE_SUPER_MISSILE_TANK_ACQUIRED,
         .revealedClipdata = 0
     },
-    [behavior_to_tank(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK)] = {
+    [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK)] = {
         .itemType = ITEM_TYPE_POWER_BOMB,
         .underwater = TRUE,
         .messageID = MESSAGE_POWER_BOMB_TANK_ACQUIRED,
@@ -634,17 +634,17 @@ const u16 sHatchBehaviors[MAX_AMOUNT_OF_HATCH_TYPES][2] = {
 };
 
 const u16 sBldalphaValuesForClipdata[11] = {
-    [behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_OPAQUE)] = 0x10,
-    [behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_LEVEL1)] = 0x30D,
-    [behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_LEVEL2)] = 0x60A,
-    [behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_LEVEL3)] = 0x907,
-    [behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_LEVEL4)] = 0xB05,
-    [behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_LEVEL5)] = 0xD03,
-    [behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_FULL)] = 0x1000,
-    [behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_BRIGHTER_LEVEL1)] = 0x1007,
-    [behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_BRIGHTER_LEVEL2)] = 0x100A,
-    [behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_BRIGHTER_LEVEL3)] = 0x100D,
-    [behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_BRIGHTER_LEVEL4)] = 0x1010,
+    [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_OPAQUE)] = 0x10,
+    [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_LEVEL1)] = 0x30D,
+    [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_LEVEL2)] = 0x60A,
+    [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_LEVEL3)] = 0x907,
+    [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_LEVEL4)] = 0xB05,
+    [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_LEVEL5)] = 0xD03,
+    [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_TRANSPARENT_FULL)] = 0x1000,
+    [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_BRIGHTER_LEVEL1)] = 0x1007,
+    [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_BRIGHTER_LEVEL2)] = 0x100A,
+    [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_BRIGHTER_LEVEL3)] = 0x100D,
+    [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_BRIGHTER_LEVEL4)] = 0x1010,
 };
 
 const i8 sSubBombChainPositionOffset[4][4] = {

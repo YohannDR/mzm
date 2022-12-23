@@ -1,6 +1,7 @@
 #include "data/empty_datatypes.h"
 #include "types.h"
 
+#include "constants/block.h"
 #include "constants/connection.h"
 
 // 345868
@@ -33,11 +34,76 @@ const struct LockScreen sLockScreen_Empty = {
     .yPositionCenter = USHORT_MAX,
 };
 
-// More...
+// Empty special background effect
+const u8 sTempArray_34587c[8] = {0};
 
-// 34587c
+const struct BrokenBlock sBrokenBlock_Empty = {
+    .broken = FALSE,
+    .stage = 0,
+    .type = BLOCK_TYPE_NONE,
+    .xPosition = 0,
+    .yPosition = 0,
+    .timer = 0
+};
 
-// More ...
+const struct BombChain sBombChain_Empty = {
+    .currentOffset = 0,
+    .srcXPosition = 0,
+    .srcYPosition = 0,
+    .type = 0,
+    .padding = 0,
+    .flipped = 0,
+    .unk = 0
+};
+
+const struct PowerBomb sPowerBomb_Empty = {
+    .animationState = 0,
+    .stage = 0,
+    .semiMinorAxis = 0,
+    .unknown_3 = 0,
+    .xPosition = 0,
+    .yPosition = 0,
+    .hitboxLeftOffset = 0,
+    .hitboxRightOffset = 0,
+    .hitboxTopOffset = 0,
+    .hitboxBottomOffset = 0,
+    .powerBombPlaced = FALSE,
+    .owner = 0,
+    .unknown_12 = 0
+};
+
+const struct ScreenShake sScreenShake_Empty = {
+    .timer = 0,
+    .loopCounter = 0,
+    .unknown = 0,
+    .direction = 0
+};
+
+const struct BG0Movement sBg0Movement_Empty = {
+    .type = 0,
+    .yOffset = 0,
+    .unused = 0,
+    .xOffset = 0,
+    .snowflakesRelated = 0
+};
+
+const struct BG3Movement sBg3Movement_Empty = {
+    .direction = 0,
+    .counter = 0,
+    .xOffset = 0,
+    .undefined = 0
+};
+
+const u32 sUnusedStruct_3005504_Empty[2] = {
+    0, 0
+};
+
+const struct WaterMovement sWaterMovement_Empty = {
+    .moving = FALSE,
+    .stage = 0,
+    .loopCounter = 0,
+    .yOffset = 0
+};
 
 const struct TransparencyRelated sTransparencyRelated_Empty = {
     .unknown_0 = 0,

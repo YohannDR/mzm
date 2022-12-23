@@ -9,7 +9,7 @@
 #include "structs/block.h"
 #include "structs/connection.h"
 
-extern const struct TankList sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS + 1];
+extern const struct TankList sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS];
 
 extern const struct TankList sStartingHealthAmmo;
 

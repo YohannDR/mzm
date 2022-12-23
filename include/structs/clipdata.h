@@ -5,6 +5,17 @@
 
 // Structs
 
+struct ElevatorPair {
+    u8 area1;
+    u8 room1;
+    u8 mapX1;
+    u8 mapY1;
+    u8 area2;
+    u8 room2;
+    u8 mapX2;
+    u8 mapY2;
+};
+
 struct CurrentAffectingClip {
     u16 movement;
     u16 hazard;

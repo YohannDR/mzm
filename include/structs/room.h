@@ -71,6 +71,13 @@ struct BackgroundPositions {
     struct RawCoordsX doorTransition;
 };
 
+struct WaterMovement {
+    u8 moving;
+    u8 stage;
+    u8 loopCounter;
+    u8 yOffset;
+};
+
 struct BG0Movement {
     u8 type;
     u8 yOffset;
@@ -98,6 +105,7 @@ extern struct RawCoordsX gWaitingSpacePiratesPosition;
 extern struct BG3Movement gBG3Movement;
 extern struct BG0Movement gBG0Movement;
 extern u16 gRainSoundEffect;
+extern struct WaterMovement gWaterMovement;
 extern u8 gScrollCounter;
 extern struct RoomEntry gCurrentRoomEntry;
 extern struct BackgroundPositions gBackgroundPositions;

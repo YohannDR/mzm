@@ -222,6 +222,7 @@ SECTIONS {
         . = 0x00005515; gScreenYOffset = .;
         . = 0x00005516; gScreenXOffset = .;
         . = 0x00005518; gRainSoundEffect = .;
+        . = 0x0000551c; gWaterMovement = .;
         . = 0x00005520; gColorFading = .;
         . = 0x00005528; gBrokenBlocks = .;
         . = 0x000056a8; gLastTankCollected = .;
@@ -473,7 +474,7 @@ SECTIONS {
         src/data/visual_effects_data.o(.rodata);
         src/data/rooms_data.o(.rodata);
         src/data/empty_datatypes.o(.rodata);
-        /* 3458e4-34599f */
+        src/data/clipdata_data.o(.rodata);
         src/data/block_data.o(.rodata);
         /* 345d00-360130*/
         src/data/hatch_data.o(.rodata);

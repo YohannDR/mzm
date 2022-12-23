@@ -1,6 +1,8 @@
 #include "scroll.h"
 #include "gba.h"
 
+#include "data/clipdata_data.h"
+
 #include "constants/game_state.h"
 #include "constants/samus.h"
 #include "constants/room.h"

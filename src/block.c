@@ -30,12 +30,12 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
 
     result = FALSE;
 
-    behavior = behavior_to_block(pClipBlock->behavior);
+    behavior = BEHAVIOR_TO_BLOCK(pClipBlock->behavior);
     // Check is block
-    if (behavior <= behavior_to_block(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK))
+    if (behavior <= BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK))
     {
         // Get block behavior
-        pClipBlock->blockBehavior = behavior_to_block(pClipBlock->behavior);
+        pClipBlock->blockBehavior = BEHAVIOR_TO_BLOCK(pClipBlock->behavior);
 
         if (gCurrentClipdataAffectingAction == CAA_SPEEDBOOSTER_ON_GROUND)
         {
@@ -56,71 +56,71 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
         // Apply behavior
         switch (pClipBlock->blockBehavior)
         {
-            case behavior_to_block(CLIP_BEHAVIOR_TOP_RIGHT_SHOT_BLOCK_NEVER_REFORM):
-            case behavior_to_block(CLIP_BEHAVIOR_TOP_RIGHT_SHOT_BLOCK_NO_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_TOP_RIGHT_SHOT_BLOCK_NEVER_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_TOP_RIGHT_SHOT_BLOCK_NO_REFORM):
                 pClipBlock->xPosition--;
                 break;
     
-            case behavior_to_block(CLIP_BEHAVIOR_BOTTOM_RIGHT_SHOT_BLOCK_NEVER_REFORM):
-            case behavior_to_block(CLIP_BEHAVIOR_BOTTOM_RIGHT_SHOT_BLOCK_NO_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_RIGHT_SHOT_BLOCK_NEVER_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_RIGHT_SHOT_BLOCK_NO_REFORM):
                 pClipBlock->xPosition--;
 
-            case behavior_to_block(CLIP_BEHAVIOR_BOTTOM_LEFT_SHOT_BLOCK_NEVER_REFORM):
-            case behavior_to_block(CLIP_BEHAVIOR_BOTTOM_LEFT_SHOT_BLOCK_NO_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_LEFT_SHOT_BLOCK_NEVER_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_LEFT_SHOT_BLOCK_NO_REFORM):
                 pClipBlock->yPosition--;
                 break;
             
-            case behavior_to_block(CLIP_BEHAVIOR_BOMB_BLOCK_NEVER_REFORM):
-            case behavior_to_block(CLIP_BEHAVIOR_BOMB_BLOCK_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOMB_BLOCK_NEVER_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOMB_BLOCK_REFORM):
                 destroy = BlockCheckRevealOrDestroyBombBlock(pClipBlock);
                 break;
 
-            case behavior_to_block(CLIP_BEHAVIOR_MISSILE_BLOCK_NEVER_REFORM):
-            case behavior_to_block(CLIP_BEHAVIOR_MISSILE_BLOCK_NO_REFORM):
-            case behavior_to_block(CLIP_BEHAVIOR_SUPER_MISSILE_BLOCK_NEVER_REFORM):
-            case behavior_to_block(CLIP_BEHAVIOR_SUPER_MISSILE_BLOCK_NO_REFORM):
-            case behavior_to_block(CLIP_BEHAVIOR_SPEEDBOOST_BLOCK_NO_REFORM):
-            case behavior_to_block(CLIP_BEHAVIOR_SPEEDBOOST_BLOCK_REFORM):
-            case behavior_to_block(CLIP_BEHAVIOR_POWER_BOMB_BLOCK_NEVER_REFORM):
-            case behavior_to_block(CLIP_BEHAVIOR_SCREW_ATTACK_BLOCK_NO_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_MISSILE_BLOCK_NEVER_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_MISSILE_BLOCK_NO_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SUPER_MISSILE_BLOCK_NEVER_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SUPER_MISSILE_BLOCK_NO_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SPEEDBOOST_BLOCK_NO_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SPEEDBOOST_BLOCK_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_POWER_BOMB_BLOCK_NEVER_REFORM):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SCREW_ATTACK_BLOCK_NO_REFORM):
                 destroy = BlockCheckRevealOrDestroyNonBombBlock(pClipBlock);
                 break;
 
-            case behavior_to_block(CLIP_BEHAVIOR_CRUMBLE_BLOCK):
-            case behavior_to_block(CLIP_BEHAVIOR_SLOW_CRUMBLE_BLOCK):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_CRUMBLE_BLOCK):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SLOW_CRUMBLE_BLOCK):
                 BlockCheckRevealOrDestroyNonBombBlock(pClipBlock);
                 destroy = FALSE;
                 break;
             
-            case behavior_to_block(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN1):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN1):
                 bombChainType = BOMB_CHAIN_TYPE_VERTICAL1;
                 break;
 
-            case behavior_to_block(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN2):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN2):
                 bombChainType = BOMB_CHAIN_TYPE_VERTICAL2;
                 break;
 
-            case behavior_to_block(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN3):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN3):
                 bombChainType = BOMB_CHAIN_TYPE_VERTICAL3;
                 break;
 
-            case behavior_to_block(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN4):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN4):
                 bombChainType = BOMB_CHAIN_TYPE_VERTICAL4;
                 break;
 
-            case behavior_to_block(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN1):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN1):
                 bombChainType = BOMB_CHAIN_TYPE_HORIZONTAL1;
                 break;
 
-            case behavior_to_block(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN2):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN2):
                 bombChainType = BOMB_CHAIN_TYPE_HORIZONTAL2;
                 break;
 
-            case behavior_to_block(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN3):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN3):
                 bombChainType = BOMB_CHAIN_TYPE_HORIZONTAL3;
                 break;
 
-            case behavior_to_block(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN4):
+            case BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN4):
                 bombChainType = BOMB_CHAIN_TYPE_HORIZONTAL4;
                 break;
         }
@@ -168,7 +168,7 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
                 (CAA_DAMAGE_TYPE_BEAM | CAA_DAMAGE_TYPE_BOMB_PISTOL | CAA_DAMAGE_TYPE_MISSILE |
                 CAA_DAMAGE_TYPE_SUPER_MISSILE | CAA_DAMAGE_TYPE_POWER_BOMB))
             {
-                clipdata = sTankBehaviors[behavior_to_tank(pClipBlock->behavior)].revealedClipdata;
+                clipdata = sTankBehaviors[BEHAVIOR_TO_TANK(pClipBlock->behavior)].revealedClipdata;
                 if (clipdata != 0x0)
                 {
                     BGClipSetBG1BlockValue(clipdata, pClipBlock->yPosition, pClipBlock->xPosition);
@@ -917,7 +917,7 @@ void BlockProcessBombChains(void)
 
     // Create clipdata block data structure
     clipBlock.behavior = sBombChainReverseData[pChain->type].behavior;
-    clipBlock.blockBehavior = behavior_to_block(clipBlock.behavior);
+    clipBlock.blockBehavior = BEHAVIOR_TO_BLOCK(clipBlock.behavior);
     clipBlock.yPosition = 0x0;
     clipBlock.xPosition = 0x0;
 

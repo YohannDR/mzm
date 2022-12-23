@@ -2579,7 +2579,7 @@ u8 SamusTakeHazardDamage(struct SamusData* pData, struct Equipment* pEquipment, 
                 damaged = TRUE;
                 damageType = 0x1;
             }
-            else if (hazard == HAZARD_TYPE_SNOWFLAKES_KNOCKBACK)
+            else if (hazard == HAZARD_TYPE_COLD_KNOCKBACK)
             {
                 damaged = TRUE;
                 if (pHazard->damageTimer > 0x3)

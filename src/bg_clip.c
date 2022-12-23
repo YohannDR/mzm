@@ -111,9 +111,9 @@ u16 BGClipGetNewBLDALPHAValue(u16 clip)
     // https://decomp.me/scratch/0ipWe
 
     u16 bldalpha;
-    u32 behavior = behavior_to_bldalpha(clip);
+    u32 behavior = BEHAVIOR_TO_BLDALPHA(clip);
 
-    if (behavior < behavior_to_bldalpha(CLIP_BEHAVIOR_BG0_TRIGGER_DEFAULT_TRANSPARENCY))
+    if (behavior < BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_DEFAULT_TRANSPARENCY))
         bldalpha = sBldalphaValuesForClipdata[behavior];
     else if (clip == CLIP_BEHAVIOR_BG0_TRIGGER_DEFAULT_TRANSPARENCY)
         bldalpha = USHORT_MAX;
@@ -308,10 +308,10 @@ void BGClipCheckTouchingTransitionOrTank(void)
             for (position = 3; position >= 0; position--)
             {
                 if (collectionData.behaviors[i] != CLIP_BEHAVIOR_AIR_SOLID &&
-                    behavior_to_tank(collectionData.behaviors[i]) <
-                    behavior_to_tank(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK))
+                    BEHAVIOR_TO_TANK(collectionData.behaviors[i]) <
+                    BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK))
                 {
-                    tankType = sTankBehaviors[behavior_to_tank(collectionData.behaviors[i])].itemType;
+                    tankType = sTankBehaviors[BEHAVIOR_TO_TANK(collectionData.behaviors[i])].itemType;
 
                     if (tankType != ITEM_TYPE_NONE)
                     {
@@ -377,7 +377,7 @@ void BGClipCheckTouchingTransitionOrTank(void)
                                 }
                             }
 
-                            messageID = sTankBehaviors[behavior_to_tank(collectionData.behaviors[i])].messageID + collectingFirstTank;
+                            messageID = sTankBehaviors[BEHAVIOR_TO_TANK(collectionData.behaviors[i])].messageID + collectingFirstTank;
                             if (messageID != MESSAGE_NONE)
                             {
                                 SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, messageID, 0x6,
@@ -405,7 +405,7 @@ void BGClipFinishCollectingTank(void)
 
     gCollectingTank = FALSE;
 
-    tank = behavior_to_tank(gLastTankCollected.behavior);
+    tank = BEHAVIOR_TO_TANK(gLastTankCollected.behavior);
     if (sTankBehaviors[tank].itemType != ITEM_TYPE_NONE)
     {
         // Get clip
@@ -640,7 +640,7 @@ void BGClipRemoveCollectedTanks(void)
                 position = gBGPointersAndDimensions.clipdataWidth * pItem->yPosition + pItem->xPosition;
 
                 behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[position]] - CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK;
-                if (behavior <= behavior_to_tank(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK))
+                if (behavior <= BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK))
                 {
                     gBGPointersAndDimensions.pClipDecomp[position] = 0x43C;
                     gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0x0;

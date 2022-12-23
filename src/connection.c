@@ -645,10 +645,10 @@ void ConnectionLoadDoors(void)
                 }
 
                 temp = gTilemapAndClipPointers.pClipBehaviors[clipdata];
-                behaviorCheck = behavior_to_door(temp) - 0x1;
+                behaviorCheck = BEHAVIOR_TO_DOOR(temp) - 0x1;
                 hatchType = 0x0;
-                if (behaviorCheck < behavior_to_door(CLIP_BEHAVIOR_POWER_BOMB_DOOR))
-                    hatchType = behavior_to_door(temp);
+                if (behaviorCheck < BEHAVIOR_TO_DOOR(CLIP_BEHAVIOR_POWER_BOMB_DOOR))
+                    hatchType = BEHAVIOR_TO_DOOR(temp);
 
                 hatchType = sHatchTypeTable[hatchType];
                 i = gNumberOfValidHatchesInRoom;

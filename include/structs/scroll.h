@@ -31,7 +31,6 @@ struct Unk_3005714 {
     i16 unk6;
 };
 
-extern const struct Unk_3005714 sUnk_8345988[3];
 
 extern u8 gDisableScrolling;
 extern u16 gSlowScrollingTimer;
