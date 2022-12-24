@@ -24,7 +24,7 @@ extern const u16 sAreaBannerOAM_SpawnMiddle_Frame6[55];
 
 extern const u16 sAreaBannerOAM_SpawnMiddle_Frame7[55];
 
-extern const u16 sAreaBannerOAM_externMiddle_Frame0[62];
+extern const u16 sAreaBannerOAM_StaticMiddle_Frame0[34];
 
 extern const u16 sAreaBannerOAM_SpawnBottom_Frame0[28];
 

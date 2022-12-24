@@ -53,7 +53,7 @@ const u8 sMotherBrainDynamicPaletteData[19][2] = {
     { 3, 3 },
     { 2, 3 },
     { 0, 1 },
-    { 80, 80 }
+    { SCHAR_MAX + 1, SCHAR_MAX + 1 }
 };
 
 const u32 sMotherBrainGFX[1871] = INCBIN_U32("data/sprites/MotherBrain.gfx.lz");

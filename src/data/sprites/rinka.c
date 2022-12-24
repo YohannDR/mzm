@@ -175,7 +175,7 @@ const struct FrameData sRinkaGreenOAM_Spawning[16] = {
     sRinkaGreenOAM_Moving_Frame2,
     0x3,
     sRinkaGreenOAM_Moving_Frame1,
-    0x3,
+    0x5,
     sRinkaGreenOAM_Moving_Frame0,
     0x4,
     sRinkaGreenOAM_Moving_Frame1,

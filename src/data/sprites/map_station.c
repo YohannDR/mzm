@@ -831,7 +831,7 @@ const struct FrameData sMapStationOAM_GrabbingSamus[10] = {
     sMapStationOAM_GrabbingSamus_Frame5,
     0x4,
     sMapStationOAM_GrabbingSamus_Frame6,
-    0x4,
+    0xC,
     sMapStationOAM_GrabbingSamus_Frame7,
     0x4,
     sMapStationOAM_GrabbingSamus_Frame8,

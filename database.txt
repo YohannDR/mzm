@@ -109,7 +109,7 @@ sprites/Dragon.pal;32;0x2d59d4;2
 # Zipline
 
 sprites/Zipline.gfx.lz;264;0x2ce404;4
-sprites/Zipline.pal;16;0x2ce404;2
+sprites/Zipline.pal;16;0x2ce824;2
 
 # Reo
 
@@ -478,10 +478,10 @@ sprites/FallingChozoPillar.pal;16;0x31cb00;2
 
 sprites/MechaRidley.gfx.lz;2525;0x31fcf4;4
 sprites/MechaRidleyWeapons.gfx.lz;1024;0x322468;4
-sprites/MechaRidleyDestroyed.gfx.lz;129;0x323468;4
+sprites/MechaRidleyDestroyed.gfx.lz;336;0x323468;4
 sprites/MechaRidley.pal;129;03239a8;2
 sprites/MechaRidley_323aaa.pal;12;0x323aaa;2
-sprites/MechaRidleyGreenGlow.pal;20;0x323ac2;2
+sprites/MechaRidleyGreenGlow.pal;64;0x323ac2;2
 sprites/MechaRidley_323b42.pal;4;0x323b42;2
 sprites/MechaRidley_323b4a.pal;12;0x323b4a;2
 sprites/MechaRidley_323b62.pal;3;0x323b62;2
@@ -594,3 +594,12 @@ weapons/PistolChargedBottom.gfx;512;0x32b678;1
 # Misc
 
 EscapeTimerDigits.gfx;2048;0x33d794;1
+
+# Blobs
+
+Blob_8cad0_8cee2.bin;1042;0x8cad0;1
+Blob_8ceec_8f253.bin;9064;0x8ceec;1
+Blob_8f2c0_908df.bin;5664;0x8f2c0;1
+Blob_908e0_2b0c93.bin;2229171;0x908e0;1
+Blob_2ceaa8_2cfd9f.bin;4856;0x2ceaa8;1
+Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1

@@ -242,7 +242,7 @@ const struct FrameData sDessgeegaOAM_Screaming[12] = {
     sDessgeegaOAM_Screaming_Frame5,
     0x3,
     sDessgeegaOAM_Screaming_Frame4,
-    0x4,
+    0x3,
     sDessgeegaOAM_Screaming_Frame5,
     0x4,
     sDessgeegaOAM_Screaming_Frame1,

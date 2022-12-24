@@ -600,13 +600,13 @@ const struct FrameData sTangleVineMediumOAM_OnGround[5] = {
 };
 
 const struct FrameData sTangleVineShortOAM_OnGround[5] = {
-    sTangleVineTallOAM_OnGround_Frame0,
+    sTangleVineShortOAM_OnGround_Frame0,
     0x8,
-    sTangleVineTallOAM_OnGround_Frame1,
+    sTangleVineShortOAM_OnGround_Frame1,
     0x8,
-    sTangleVineTallOAM_OnGround_Frame2,
+    sTangleVineShortOAM_OnGround_Frame2,
     0x8,
-    sTangleVineTallOAM_OnGround_Frame3,
+    sTangleVineShortOAM_OnGround_Frame3,
     0x8,
     NULL,
     0x0
@@ -618,13 +618,13 @@ const struct FrameData sTangleVineCurvedOAM_OnGround[7] = {
     sTangleVineCurvedOAM_OnGround_Frame1,
     0xA,
     sTangleVineCurvedOAM_OnGround_Frame2,
-    0xA,
+    0x6,
     sTangleVineCurvedOAM_OnGround_Frame3,
-    0xA,
+    0x6,
     sTangleVineCurvedOAM_OnGround_Frame2,
-    0xA,
+    0x6,
     sTangleVineCurvedOAM_OnGround_Frame1,
-    0xA,
+    0x6,
     NULL,
     0x0
 };

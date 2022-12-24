@@ -247,7 +247,7 @@ const struct FrameData sGadoraOAM_EyeClosed[5] = {
     sGadoraOAM_EyeClosed_Frame1,
     0x8,
     sGadoraOAM_EyeClosed_Frame2,
-    0x2,
+    0x8,
     sGadoraOAM_EyeClosed_Frame1,
     0x8,
     NULL,

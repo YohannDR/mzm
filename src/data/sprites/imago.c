@@ -34,8 +34,8 @@ const i16 sImagoMultiSpriteData_ShootingNeedles_Frame0[21] = {
 const i16 sImagoMultiSpriteData_ShootingNeedles_Frame1[21] = {
     4, 0, 0,
     4, -16, 36,
-    0, 7, 0,
-    6, 0, 0,
+    0, 8, 0,
+    7, 0, 0,
     7, -28, 28,
     9, 0, 0,
     11, 0, 0
@@ -44,16 +44,16 @@ const i16 sImagoMultiSpriteData_ShootingNeedles_Frame1[21] = {
 const i16 sImagoMultiSpriteData_RechargingNeedles_Frame0[21] = {
     3, 0, 0,
     3, -16, 36,
-    0, 6, 0,
+    0, 8, 0,
     6, 0, 0,
-    7, -28, 28,
+    6, -28, 28,
     9, 0, 0,
     12, 0, 0
 };
 
 const i16 sImagoMultiSpriteData_Dying_Frame0[21] = {
     5, 0, 0,
-    4, -8, 36,
+    4, -24, 36,
     0, 0, 0,
     8, -16, 12,
     8, -36, 48,
@@ -105,7 +105,7 @@ const i16 sImagoDamagedStingerFallingYVelocity[10] = {
 const i16 sImagoAttackingXVelocity[49] = {
     -1, -1, -1, -1, -2, -2, -2, -2, -3, -3, -4, -5,
     -6, -5, -4, -3, -2, -2, -2, -2, -1, -1, -1, -1,
-    1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 4, 4, 6, 5, 4, 3,
+    1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 4, 5, 6, 5, 4, 3,
     2, 2, 2, 2, 1, 1, 1, 1, SHORT_MAX
 };
 
@@ -721,7 +721,7 @@ const struct FrameData sImagoPartOAM_LeftWingShootingNeedles[6] = {
 
 const struct FrameData sImagoPartOAM_LeftWingDying[7] = {
     sImagoPartOAM_LeftWingIdle_Frame0,
-    0x6,
+    0x8,
     sImagoPartOAM_LeftWingIdle_Frame1,
     0xC,
     sImagoPartOAM_LeftWingIdle_Frame2,

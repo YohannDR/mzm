@@ -1,12 +1,13 @@
 #include "data/audio.h"
+#include "macros.h"
 
-const u8 sTempArray_8cee2[2] = {0};
+const u8 sTempArray_8cad0[0x412] = INCBIN_U8("data/Blob_8cad0_8cee2.bin");
 
 const u8 sArray_808cee2[10] = {
     1, 1, 1, 0, 1, 1, 0, 1, 1, 0
 };
 
-const u8 sTempArray_8ceec[0x2368] = {0};
+const u8 sTempArray_8ceec[0x2368] = INCBIN_U8("data/Blob_8ceec_8f253.bin");
 
 const struct TrackGroupROMData sMusicTrackDataROM[9] = {
     [0] = {
@@ -65,6 +66,7 @@ const struct TrackGroupROMData sMusicTrackDataROM[9] = {
     },
 };
 
-const struct SoundEntry sSoundDataEntries[708] = {0};
+const u8 sTempArray_8f2c0[0x1620] = INCBIN_U8("data/Blob_8f2c0_908df.bin");
+// const struct SoundEntry sSoundDataEntries[708] = {0};
 
-const u8 sTempArray_908e0[0x2203b4] = {0};
+const u8 sTempArray_908e0[0x2203b4] = INCBIN_U8("data/Blob_908e0_2b0c93.bin");

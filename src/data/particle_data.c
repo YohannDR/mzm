@@ -311,7 +311,7 @@ const struct FrameData sParticleBombOAM[7] = {
     sParticleBombOAM_Frame2,
     0x2,
     sParticleBombOAM_Frame3,
-    0x2,
+    0x4,
     sParticleBombOAM_Frame4,
     0x2,
     sParticleBombOAM_Frame5,

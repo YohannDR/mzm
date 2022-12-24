@@ -8,7 +8,7 @@ file = open("../mzm_us_baserom.gba", "rb")
 
 def Func():
     inputValue = input("Address : ")
-    # size = int(input("Size : "))
+    size = int(input("Size : "))
 
     addr = int(inputValue, 16)
 
@@ -16,7 +16,7 @@ def Func():
 
     result = ""
 
-    for x in range(1, 33 + 1):
+    for x in range(1, size + 1):
         result += str(sign(int.from_bytes(file.read(2), "little")))
 
         if x % 3 == 0 and x != 0:

@@ -1082,7 +1082,7 @@ const struct FrameData sSavePlatformChozodiaPartOAM_TopExtending[6] = {
     sSavePlatformChozodiaPartOAM_TopExtending_Frame3,
     0x4,
     sSavePlatformChozodiaPartOAM_TopExtending_Frame4,
-    0x4,
+    0x6,
     NULL,
     0x0
 };

@@ -1778,21 +1778,21 @@ const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame5[46] = {
 
 const u16 sSpacePirateOAM_ChargingLaserDiagonallyDown_Frame6[46] = {
     0xf,
-    0xec, OBJ_SIZE_16x16 | 0x1eb, OBJ_SPRITE_OAM | 0x243,
-    OBJ_SHAPE_VERTICAL | 0xec, 0x1fb, OBJ_SPRITE_OAM | 0x245,
-    OBJ_SHAPE_VERTICAL | 0xe2, 0x1fb, OBJ_SPRITE_OAM | 0x207,
+    OBJ_SHAPE_HORIZONTAL | 0xeb, 0x1ea, OBJ_SPRITE_OAM | 0x24e,
+    OBJ_SHAPE_VERTICAL | 0xeb, 0x1fa, OBJ_SPRITE_OAM | 0x287,
+    OBJ_SHAPE_VERTICAL | 0xe3, 0x1fc, OBJ_SPRITE_OAM | 0x207,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1, OBJ_SPRITE_OAM | 0x23a,
     0xf0, OBJ_SIZE_16x16 | 0x1, OBJ_SPRITE_OAM | 0x218,
     OBJ_SHAPE_VERTICAL | 0xe5, 0x1, OBJ_SPRITE_OAM | 0x20e,
-    0xd9, OBJ_SIZE_16x16 | 0x1ec, OBJ_SPRITE_OAM | 0x200,
+    0xda, OBJ_SIZE_16x16 | 0x1ec, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_HORIZONTAL | 0xe3, 0x1f8, OBJ_SPRITE_OAM | 0x260,
     OBJ_SHAPE_HORIZONTAL | 0xdc, 0x1f4, OBJ_SPRITE_OAM | 0x240,
+    0xdc, OBJ_SIZE_16x16 | 0x1ea, OBJ_SPRITE_OAM | 0x204,
     OBJ_SHAPE_HORIZONTAL | 0xf8, 0x1f4, OBJ_SPRITE_OAM | 0x23a,
     0xf0, OBJ_SIZE_16x16 | 0x1f3, OBJ_SPRITE_OAM | 0x218,
     0xe4, OBJ_SIZE_16x16 | 0x1f2, OBJ_SPRITE_OAM | 0x20c,
-    0xdd, OBJ_SIZE_16x16 | 0x1e9, OBJ_SPRITE_OAM | 0x204,
-    0xe6, OBJ_SIZE_16x16 | 0x1dd, OBJ_SPRITE_OAM | 0x243,
-    OBJ_SHAPE_VERTICAL | 0xe6, 0x1ed, OBJ_SPRITE_OAM | 0x245
+    OBJ_SHAPE_HORIZONTAL | 0xe1, 0x1d9, OBJ_SPRITE_OAM | 0x24e,
+    OBJ_SHAPE_VERTICAL | 0xe1, 0x1e9, OBJ_SPRITE_OAM | 0x287
 };
 
 const u16 sSpacePirateOAM_ShootingDiagonallyDown_Frame1[46] = {
@@ -2455,7 +2455,7 @@ const struct FrameData sSpacePirateOAM_AimingWhileClimbing[5] = {
 
 const struct FrameData sSpacePirateOAM_ClimbingChargingLaserForward[3] = {
     sSpacePirateOAM_AimingWhileClimbing_Frame0,
-    0x6,
+    0x4,
     sSpacePirateOAM_ClimbingChargingLaserForward_Frame1,
     0x4,
     NULL,

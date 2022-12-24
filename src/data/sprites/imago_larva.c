@@ -20,30 +20,30 @@ const i16 sImagoLarvaMultiSpriteData_Attacking_Frame1[18] = {
 };
 
 const i16 sImagoLarvaMultiSpriteData_Attacking_Frame2[18] = {
-    4, 4, -47,
-    13, -136, -72,
-    12, -112, -108,
+    4, 4, -4,
+    13, -140, -72,
+    12, -116, -108,
     11, -72, -132,
     0, 0, 0,
     18, 0, -16
 };
 
 const i16 sImagoLarvaMultiSpriteData_Attacking_Frame3[18] = {
-    4, 0, 0,
+    4, 0, -4,
     13, -140, -72,
     12, -116, -108,
-    11, -72, -124,
+    11, -72, -132,
     0, 0, 0,
-    18, 0, 4
+    18, 0, -16
 };
 
 const i16 sImagoLarvaMultiSpriteData_Attacking_Frame4[18] = {
     4, 0, -8,
     13, -140, -72,
     12, -116, -108,
-    11, -72, -128,
+    11, -72, -136,
     0, 0, 0,
-    18, 0, 4
+    18, 0, -16
 };
 
 const i16 sImagoLarvaMultiSpriteData_Attacking_Frame5[18] = {
@@ -430,7 +430,7 @@ const struct FrameData sImagoLarvaMultiSpriteData_Warning[10] = {
     sImagoLarvaMultiSpriteData_Warning_Frame2,
     0x3,
     sImagoLarvaMultiSpriteData_Warning_Frame3,
-    0x4,
+    0x3,
     sImagoLarvaMultiSpriteData_Warning_Frame2,
     0x4,
     sImagoLarvaMultiSpriteData_Warning_Frame3,

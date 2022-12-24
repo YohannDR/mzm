@@ -962,7 +962,7 @@ const struct FrameData sCrocomirePartOAM_RightArmWalkingForward[18] = {
 };
 
 const struct FrameData sCrocomirePartOAM_LeftArmWalkingForward[18] = {
-    sCrocomirePartOAM_LeftArmIdle_Frame0,
+    sCrocomirePartOAM_LeftArmIdle_Frame2,
     0x4,
     sCrocomirePartOAM_LeftArmWalkingForward_Frame1,
     0x4,
@@ -1099,7 +1099,7 @@ const struct FrameData sCrocomirePartOAM_LeftArmDying[3] = {
 const struct FrameData sCrocomirePartOAM_LegsIdle[3] = {
     sCrocomirePartOAM_LegsIdle_Frame0,
     0x18,
-    sCrocomirePartOAM_LeftArmIdle_Frame1,
+    sCrocomirePartOAM_LegsIdle_Frame1,
     0x18,
     NULL,
     0x0
@@ -1156,7 +1156,7 @@ const struct FrameData sCrocomirePartOAM_LegsDying[7] = {
     0x1,
     sCrocomirePartOAM_LegsDying_Frame4,
     0x2,
-    sCrocomirePartOAM_LegsDying_Frame1,
+    sCrocomirePartOAM_LegsIdle_Frame1,
     0x3,
     NULL,
     0x0

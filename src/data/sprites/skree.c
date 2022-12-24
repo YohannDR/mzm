@@ -2,7 +2,7 @@
 #include "macros.h"
 
 const i16 sSkreeFallingSpeed[8] = {
-    2, 4, 6, 7, 12, 14, 16, SHORT_MAX
+    2, 4, 6, 8, 12, 14, 16, SHORT_MAX
 };
 
 const u32 sSkreeGreenGFX[264] = INCBIN_U32("data/sprites/SkreeGreen.gfx.lz");
@@ -138,130 +138,130 @@ const u16 sSkreeExplosionOAM_GoingDown_Frame2[4] = {
 
 const struct FrameData sSkreeOAM_Idle[5] = {
     sSkreeOAM_Idle_Frame0,
-    0x8,
+    8,
     sSkreeOAM_Idle_Frame1,
-    0x8,
+    8,
     sSkreeOAM_Idle_Frame2,
-    0x8,
-    sSkreeOAM_Idle_Frame1,
-    0x8,
+    8,
+    sSkreeOAM_Idle_Frame3,
+    8,
     NULL,
-    0x0
+    0
 };
 
 const struct FrameData sSkreeOAM_Spinning[6] = {
     sSkreeOAM_Idle_Frame0,
-    0x4,
+    4,
     sSkreeOAM_Spinning_Frame1,
-    0x2,
+    2,
     sSkreeOAM_Spinning_Frame2,
-    0x2,
+    2,
     sSkreeOAM_Spinning_Frame1,
-    0x2,
+    2,
     sSkreeOAM_Spinning_Frame2,
-    0x2,
+    2,
     NULL,
-    0x0
+    0
 };
 
 const struct FrameData sSkreeOAM_GoingDown[5] = {
     sSkreeOAM_Idle_Frame0,
-    0x2,
+    2,
     sSkreeOAM_Idle_Frame1,
-    0x2,
+    2,
     sSkreeOAM_Idle_Frame2,
-    0x2,
+    2,
     sSkreeOAM_Idle_Frame3,
-    0x2,
+    2,
     NULL,
-    0x0
+    0
 };
 
 const struct FrameData sSkreeOAM_Crashing[5] = {
     sSkreeOAM_Idle_Frame0,
-    0x1,
+    1,
     sSkreeOAM_Idle_Frame1,
-    0x1,
+    1,
     sSkreeOAM_Idle_Frame2,
-    0x1,
+    1,
     sSkreeOAM_Idle_Frame3,
-    0x1,
+    1,
     NULL,
-    0x0
+    0
 };
 
 const struct FrameData sSkreeOAM_CrashingUnused[5] = {
     sSkreeOAM_CrashingUnused_Frame0,
-    0x8,
+    8,
     sSkreeOAM_CrashingUnused_Frame1,
-    0x8,
+    8,
     sSkreeOAM_CrashingUnused_Frame2,
-    0x8,
+    8,
     sSkreeOAM_CrashingUnused_Frame3,
-    0x8,
+    8,
     NULL,
-    0x0
+    0
 };
 
 const struct FrameData sSkreeOAM_CrashingUnused2[6] = {
     sSkreeOAM_CrashingUnused_Frame0,
-    0x4,
+    4,
     sSkreeOAM_CrashingUnused2_Frame1,
-    0x2,
+    2,
     sSkreeOAM_CrashingUnused2_Frame2,
-    0x4,
+    2,
     sSkreeOAM_CrashingUnused2_Frame1,
-    0x1,
-    sSkreeOAM_CrashingUnused_Frame2,
-    0x10,
+    2,
+    sSkreeOAM_CrashingUnused2_Frame2,
+    16,
     NULL,
-    0x0
+    0
 };
 
 const struct FrameData sSkreeOAM_CrashingUnused3[5] = {
     sSkreeOAM_CrashingUnused_Frame0,
-    0x2,
+    2,
     sSkreeOAM_CrashingUnused_Frame1,
-    0x2,
+    2,
     sSkreeOAM_CrashingUnused_Frame2,
-    0x2,
+    2,
     sSkreeOAM_CrashingUnused_Frame3,
-    0x2,
+    2,
     NULL,
-    0x0
+    0
 };
 
 const struct FrameData sSkreeOAM_CrashingUnused4[5] = {
     sSkreeOAM_CrashingUnused_Frame0,
-    0x1,
+    1,
     sSkreeOAM_CrashingUnused_Frame1,
-    0x1,
+    1,
     sSkreeOAM_CrashingUnused_Frame2,
-    0x1,
+    1,
     sSkreeOAM_CrashingUnused_Frame3,
-    0x1,
+    1,
     NULL,
-    0x0
+    0
 };
 
 const struct FrameData sSkreeExplosionOAM_GoingDown[4] = {
     sSkreeExplosionOAM_GoingDown_Frame0,
-    0x8,
+    8,
     sSkreeExplosionOAM_GoingDown_Frame1,
-    0x6,
+    6,
     sSkreeExplosionOAM_GoingDown_Frame2,
-    0x6,
+    4,
     NULL,
-    0x0
+    0
 };
 
 const struct FrameData sSkreeExplosionOAM_GoingUp[4] = {
     sSkreeExplosionOAM_GoingUp_Frame0,
-    0x8,
+    8,
     sSkreeExplosionOAM_GoingUp_Frame1,
-    0x6,
+    6,
     sSkreeExplosionOAM_GoingUp_Frame2,
-    0x6,
+    4,
     NULL,
-    0x0
+    0
 };

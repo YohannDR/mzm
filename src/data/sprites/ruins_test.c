@@ -1492,7 +1492,7 @@ const struct FrameData sRuinsTestLightningOAM_GoingOnGround[9] = {
     sRuinsTestLightningOAM_GoingOnGround_Frame3,
     0x1,
     sRuinsTestLightningOAM_GoingOnGround_Frame4,
-    0x1,
+    0x2,
     sRuinsTestLightningOAM_GoingOnGround_Frame5,
     0x1,
     sRuinsTestLightningOAM_GoingOnGround_Frame6,

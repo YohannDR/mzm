@@ -2,18 +2,18 @@
 #include "macros.h"
 
 const i16 sMetroidSpawningYMovement[65] = {
-    0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 2, 2, 1, 1,
-    1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0,
-    -1, 0, -1, 0, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0,
-    -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
+    0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 2, 2, 1,
+    1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
+    -1, 0, -1, 0, -1, 0, -1, 0, -1, -1, -1, -2, -2, -1,
+    -1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
 const i16 sMetroidSpawningXMovement[81] = {
-    0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 2,
-    2, 2, 2, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0,
-    0, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1, -1, -1,
-    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1,
-    0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX 
+    0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1,
+    2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1, 0, -1, 0,
+    -1, -1, -1, -1, -1, -1, -2, -2, -2, -2, -1, -1, -1,
+    -1, -1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX 
 };
 
 const u32 sMetroidGFX[793] = INCBIN_U32("data/sprites/Metroid.gfx.lz");
@@ -177,7 +177,7 @@ const struct FrameData sMetroidShellOAM_Idle[3] = {
 
 const struct FrameData sMetroidOAM_Moving[17] = {
     sMetroidOAM_Moving_Frame0,
-    0x0,
+    0x4,
     sMetroidOAM_Moving_Frame1,
     0x2,
     sMetroidOAM_Moving_Frame2,
@@ -197,7 +197,7 @@ const struct FrameData sMetroidOAM_Moving[17] = {
     sMetroidOAM_Moving_Frame9,
     0x2,
     sMetroidOAM_Moving_Frame10,
-    0x0,
+    0x2,
     sMetroidOAM_Moving_Frame9,
     0x2,
     sMetroidOAM_Moving_Frame10,

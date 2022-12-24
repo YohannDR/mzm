@@ -11,7 +11,7 @@ const i16 sDragonFireballYMovement[40] = {
 const i16 sDragonFireballOAMRotation[40] = {
     0, 0, 0, 0, 0, 0, 0, 0, 2, 4, 6, 8, 10, 12, 14, 16, 16,
     20, 24, 28, 29, 30, 31, 32, 33, 34, 35, 36, 40, 44, 48,
-    52, 56, 60, 64, 64, 64, 64, SHORT_MAX
+    52, 56, 60, 64, 64, 64, 64, 64, SHORT_MAX
 };
 
 const u32 sDragonGFX[512] = INCBIN_U32("data/sprites/Dragon.gfx.lz");

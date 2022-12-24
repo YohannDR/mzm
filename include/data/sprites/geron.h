@@ -15,7 +15,7 @@ extern const u16 sGeronOAM_Idle_Frame2[43];
 
 extern const u16 sGeronOAM_Idle_Frame3[46];
 
-extern const u16 sGeronOAM_Idle_Frame4[86];
+extern const u16 sGeronOAM_Idle_Frame4[43];
 
 extern const u16 sGeronOAM_Idle_Frame5[46];
 

@@ -38,7 +38,7 @@ extern const u16 sWorkerRobotOAM_BackToSleep_Frame5[28];
 
 extern const u16 sWorkerRobotOAM_BackToSleep_Frame6[28];
 
-extern const u16 sWorkerRobotOAM_Sleeping_Frame0[56];
+extern const u16 sWorkerRobotOAM_Sleeping_Frame0[28];
 
 extern const u16 sWorkerRobotOAM_WakingUp_Frame2[28];
 

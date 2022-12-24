@@ -353,23 +353,23 @@ const struct FrameData sItemBannerOAM_OneLineSpawn[9] = {
 
 const struct FrameData sItemBannerOAM_OneLineRemoving[9] = {
     sItemBannerOAM_OneLineSpawn_Frame7,
-    0x3,
+    3,
     sItemBannerOAM_OneLineSpawn_Frame6,
-    0x3,
+    3,
     sItemBannerOAM_OneLineSpawn_Frame5,
-    0x3,
+    2,
     sItemBannerOAM_TwoLinesSpawn_Frame4,
-    0x2,
+    2,
     sItemBannerOAM_TwoLinesSpawn_Frame3,
-    0x2,
+    2,
     sItemBannerOAM_TwoLinesSpawn_Frame2,
-    0x1,
+    1,
     sItemBannerOAM_TwoLinesSpawn_Frame1,
-    0x1,
+    1,
     sItemBannerOAM_TwoLinesSpawn_Frame0,
-    0x1,
+    1,
     NULL,
-    0x0
+    0
 };
 
 const struct FrameData sItemBannerOAM_OneLineStatic[2] = {

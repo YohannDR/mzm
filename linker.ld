@@ -200,7 +200,7 @@ SECTIONS {
         . = 0x00004708; gTrack1Variables = .;
         . = 0x00004a28; gTrack2Variables = .;
         . = 0x00004ac8; gTrack3Variables = .;
-        . = 0x00004bc8; gTrack4Variables = .;
+        . = 0x00004b68; gTrack4Variables = .;
         . = 0x00004c08; gTrack5Variables = .;
         . = 0x00004ca8; gTrack6Variables = .;
         . = 0x00004d98; gTrack7Variables = .;

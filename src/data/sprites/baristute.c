@@ -51,7 +51,7 @@ const u16 sBaristuteOAM_Walking_Frame1[52] = {
     0xdc, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x202,
     0xf2, OBJ_SIZE_16x16 | 0x1dd, OBJ_SPRITE_OAM | 0x21c,
     0xf1, OBJ_SIZE_16x16 | 0x1da, OBJ_SPRITE_OAM | 0x21a,
-    0xf1, OBJ_SIZE_16x16 | 0x1e5, OBJ_SPRITE_OAM | 0x21
+    0xf1, OBJ_SIZE_16x16 | 0x1e5, OBJ_SPRITE_OAM | 0x21e
 };
 
 const u16 sBaristuteOAM_Walking_Frame2[52] = {

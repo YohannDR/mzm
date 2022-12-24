@@ -13,18 +13,18 @@ const u16 sUnusedSpritesOAM_Idle_Frame1[4] = {
 
 const struct FrameData sUnusedSpritesOAM_Idle[3] = {
     sUnusedSpritesOAM_Idle_Frame0,
-    0x1E,
+    30,
     sUnusedSpritesOAM_Idle_Frame1,
-    0x1E,
+    30,
     NULL,
-    0x0
+    0
 };
 
 const struct FrameData sUnusedSpritesOAM_Unused[2] = {
     sUnusedSpritesOAM_Idle_Frame0,
-    0x1E,
+    UCHAR_MAX,
     NULL,
-    0x0
+    0
 };
 
 const u32 sUnusedSpritesGFX[6] = INCBIN_U32("data/sprites/UnusedSprites.gfx.lz");

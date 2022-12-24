@@ -218,7 +218,7 @@ const struct FrameData sGerutaOAM_Idle[3] = {
 };
 
 const struct FrameData sGerutaOAM_Warning[4] = {
-    sGerutaOAM_Idle_Frame0,
+    sGerutaOAM_Idle_Frame1,
     0x4,
     sGerutaOAM_Warning_Frame1,
     0x8,

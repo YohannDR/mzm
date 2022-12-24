@@ -115,8 +115,8 @@ $(ELF) $(MAP): $(OBJ) linker.ld
 
 %.dump: %.gba
 	$(MSG) OBJDUMP $@
-	$Q$(OBJDUMP) -D -bbinary -marm7tdmi -Mforce-thumb --stop-address 0x8c71c $< | $(TAIL) -n+3 >$@
-
+	$Q$(OBJDUMP) -D -bbinary -marm7tdmi -Mforce-thumb  $< | $(TAIL) -n+3 >$@
+#--stop-address 0x8c71c
 %.o: %.s
 	$(MSG) AS $@
 	$Q$(AS) $(ASFLAGS) $< -o $@

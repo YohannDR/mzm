@@ -74,5 +74,3 @@ const Func_T sIntrTable[13] = {
     Callback_Empty,
     Callback_Empty,
 };
-
-const u8 sTempArray_8cad0[0x410] = {0};

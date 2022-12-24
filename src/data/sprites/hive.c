@@ -331,7 +331,7 @@ const struct FrameData sHiveOAM_Dying[32] = {
     sHiveOAM_Phase3_Frame0,
     0x4,
     sHiveOAM_Phase3_Frame1,
-    0x3,
+    0x4,
     sHiveOAM_Phase3_Frame0,
     0x3,
     sHiveOAM_Phase3_Frame1,

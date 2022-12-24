@@ -951,7 +951,7 @@ const struct FrameData sImagoCocoonOAM_Idle[5] = {
     sImagoCocoonOAM_Idle_Frame1,
     0x80,
     sImagoCocoonOAM_Idle_Frame0,
-    80,
+    0x80,
     sImagoCocoonOAM_Idle_Frame1,
     0x40,
     NULL,

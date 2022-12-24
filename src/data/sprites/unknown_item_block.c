@@ -208,7 +208,7 @@ const struct FrameData sUnknownItemBlockOAM_Exploding[11] = {
     sUnknownItemBlockOAM_Exploding_Frame1,
     0x2,
     sUnknownItemBlockOAM_Exploding_Frame2,
-    0x2,
+    0x1,
     sUnknownItemBlockOAM_Exploding_Frame3,
     0x2,
     sUnknownItemBlockOAM_Exploding_Frame4,

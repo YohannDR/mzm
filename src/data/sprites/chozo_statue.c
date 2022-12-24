@@ -99,25 +99,25 @@ const struct FrameData sChozoStatueMultiSpriteData_Standing[2] = {
 
 const struct FrameData sChozoStatueMultiSpriteData_Sitting[11] = {
     sChozoStatueMultiSpriteData_Sitting_Frame0,
-    0xA,
+    10,
     sChozoStatueMultiSpriteData_Sitting_Frame1,
-    0xA,
+    10,
     sChozoStatueMultiSpriteData_Sitting_Frame2,
-    0xA,
+    10,
     sChozoStatueMultiSpriteData_Sitting_Frame3,
     0x5,
     sChozoStatueMultiSpriteData_Sitting_Frame2,
     0x1E,
     sChozoStatueMultiSpriteData_Sitting_Frame5,
-    0xA,
+    10,
     sChozoStatueMultiSpriteData_Sitting_Frame6,
-    0xA,
+    10,
     sChozoStatueMultiSpriteData_Sitting_Frame7,
-    0xA,
+    10,
     sChozoStatueMultiSpriteData_Sitting_Frame8,
-    0xA,
+    10,
     sChozoStatueMultiSpriteData_Sitting_Frame9,
-    0xA,
+    10,
     NULL,
     0x0
 };
@@ -582,62 +582,62 @@ const struct FrameData sChozoStatuePartOAM_LegStanding[2] = {
 
 const struct FrameData sChozoStatuePartOAM_LegSitting[10] = {
     sChozoStatuePartOAM_LegSitting_Frame0,
-    0xA,
+    10,
     sChozoStatuePartOAM_LegSitting_Frame1,
-    0xA,
+    10,
     sChozoStatuePartOAM_LegSitting_Frame2,
-    0x5,
+    10,
     sChozoStatuePartOAM_LegSitting_Frame3,
-    0x1E,
+    5,
     sChozoStatuePartOAM_LegSitting_Frame2,
-    0xA,
+    30,
     sChozoStatuePartOAM_LegSitting_Frame5,
-    0xA,
+    10,
     sChozoStatuePartOAM_LegSitting_Frame6,
-    0xA,
+    10,
     sChozoStatuePartOAM_LegSitting_Frame7,
-    0xA,
+    10,
     sChozoStatuePartOAM_LegSitting_Frame8,
-    0x14,
+    20,
     NULL,
     0x0
 };
 
 const struct FrameData sChozoStatuePartOAM_LegSeated[2] = {
     sChozoStatuePartOAM_LegSeated_Frame0,
-    0xFF,
+    UCHAR_MAX,
     NULL,
     0x0
 };
 
 const struct FrameData sChozoStatueOAM_Idle[2] = {
     sChozoStatueOAM_Idle_Frame0,
-    0xFF,
+    UCHAR_MAX,
     NULL,
     0x0
 };
 
 const struct FrameData sChozoStatuePartOAM_EyeOpened[2] = {
     sChozoStatuePartOAM_EyeOpened_Frame0,
-    0xFF,
+    UCHAR_MAX,
     NULL,
     0x0
 };
 
 const struct FrameData sChozoStatuePartOAM_EyeClosing[3] = {
     sChozoStatuePartOAM_EyeClosing_Frame0,
-    0xA,
+    10,
     sChozoStatuePartOAM_EyeClosing_Frame1,
-    0xA,
+    10,
     NULL,
     0x0
 };
 
 const struct FrameData sChozoStatuePartOAM_EyeOpening[3] = {
     sChozoStatuePartOAM_EyeClosing_Frame1,
-    0xA,
+    10,
     sChozoStatuePartOAM_EyeClosing_Frame0,
-    0xA,
+    10,
     NULL,
     0x0
 };
@@ -658,21 +658,21 @@ const struct FrameData sChozoStatuePartOAM_ArmIdle[2] = {
 
 const struct FrameData sChozoStatuePartOAM_ArmGlow[9] = {
     sChozoStatuePartOAM_ArmIdle_Frame0,
-    0xA,
+    10,
     sChozoStatuePartOAM_ArmGlow_Frame1,
-    0xA,
+    10,
     sChozoStatuePartOAM_ArmGlow_Frame2,
-    0xA,
+    10,
     sChozoStatuePartOAM_ArmGlow_Frame3,
-    0xA,
+    10,
     sChozoStatuePartOAM_ArmGlow_Frame4,
-    0xA,
+    10,
     sChozoStatuePartOAM_ArmGlow_Frame3,
-    0xA,
+    10,
     sChozoStatuePartOAM_ArmGlow_Frame2,
-    0xA,
+    10,
     sChozoStatuePartOAM_ArmGlow_Frame1,
-    0xA,
+    10,
     NULL,
     0x0
 };
@@ -710,13 +710,13 @@ const struct FrameData sChozoBallOAM_NormalRevealing[4] = {
 
 const struct FrameData sChozoBallOAM_NormalRevealed[5] = {
     sChozoBallOAM_NormalRevealed_Frame0,
-    0xA,
+    10,
     sChozoBallOAM_NormalRevealed_Frame1,
-    0xA,
+    10,
     sChozoBallOAM_NormalRevealed_Frame2,
-    0xA,
+    10,
     sChozoBallOAM_NormalRevealed_Frame1,
-    0xA,
+    10,
     NULL,
     0x0
 };

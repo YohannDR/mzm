@@ -541,7 +541,7 @@ const struct FrameData sRidleyMultiSpriteData_SpittingFireballs[3] = {
     sRidleyMultiSpriteData_SpittingFireballs_Frame0,
     0x3,
     sRidleyMultiSpriteData_SpittingFireballs_Frame1,
-    0x1,
+    0x3,
     NULL,
     0x0
 };
@@ -1402,7 +1402,7 @@ const struct FrameData sRidleyOAM_Idle[7] = {
     sRidleyOAM_Idle_Frame2,
     0xE,
     sRidleyOAM_Idle_Frame3,
-    0xE,
+    0x8,
     sRidleyOAM_Idle_Frame2,
     0xE,
     sRidleyOAM_Idle_Frame1,

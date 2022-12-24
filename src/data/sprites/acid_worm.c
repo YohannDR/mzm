@@ -123,6 +123,7 @@ const u16 sAcidWormOAM_Spitting_Frame3[34] = {
 };
 
 const u16 sAcidWormOAM_Spitting_Frame2[34] = {
+    0xb,
     OBJ_SHAPE_VERTICAL | 0xeb, 0x9, OBJ_SPRITE_OAM | 0x29f,
     OBJ_SHAPE_VERTICAL | 0xef, 0x2, OBJ_SPRITE_OAM | 0x29e,
     OBJ_SHAPE_VERTICAL | 0xf1, 0x1fc, OBJ_SPRITE_OAM | 0x29d,
@@ -523,6 +524,8 @@ const struct FrameData sAcidWormOAM_Warning[14] = {
     0x3,
     sAcidWormOAM_Moving_Frame1,
     0x6,
+    sAcidWormOAM_Spitting_Frame4,
+    3,
     sAcidWormOAM_Spitting_Frame3,
     0x1,
     NULL,

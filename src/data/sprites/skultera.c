@@ -152,7 +152,7 @@ const struct FrameData sSkulteraOAM_TurningAround[9] = {
 const struct FrameData sSkulteraOAM_ChasingSamus[5] = {
     sSkulteraOAM_Idle_Frame0,
     0x3,
-    sSkulteraOAM_Idle_Frame3,
+    sSkulteraOAM_Idle_Frame1,
     0x3,
     sSkulteraOAM_Idle_Frame2,
     0x3,

@@ -59,7 +59,7 @@ const struct FrameData sGeegaOAM_Moving[9] = {
     sGeegaOAM_Idle_Frame1,
     0x1,
     sGeegaOAM_Moving_Frame4,
-    0x2,
+    0x3,
     sGeegaOAM_Moving_Frame5,
     0x2,
     sGeegaOAM_Moving_Frame6,

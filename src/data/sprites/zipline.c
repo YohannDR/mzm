@@ -165,7 +165,7 @@ const struct FrameData sZiplineOAM_OnSamusGrabbed[7] = {
     0x8,
     sZiplineOAM_OnSamusGrabbed_Frame2,
     0x8,
-    sZiplineOAM_OnSamusGrabbed_Frame1,
+    sZiplineOAM_OnGrabbingSamus_Frame1,
     0x8,
     sZiplineOAM_OnSamusGrabbed_Frame2,
     0x8,
