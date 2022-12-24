@@ -1,25 +1,25 @@
 #include "oam.h"
 
-extern const struct FrameData* sChozoStatueFrameDataPointers[16];
+extern const struct FrameData* const sChozoStatueFrameDataPointers[16];
 
-extern const struct FrameData* sUnknownItemChozoStatueFrameDataPointers[16];
+extern const struct FrameData* const sUnknownItemChozoStatueFrameDataPointers[16];
 
-extern const struct FrameData* sKraidFrameDataPointers[38];
+extern const struct FrameData* const sKraidFrameDataPointers[38];
 
-extern const struct FrameData* sImagoLarvaFrameDataPointers[23];
+extern const struct FrameData* const sImagoLarvaFrameDataPointers[23];
 
-extern const struct FrameData* sImagoCocoonFrameDataPointers[21];
+extern const struct FrameData* const sImagoCocoonFrameDataPointers[21];
 
-extern const struct FrameData* sRidleyFrameDataPointers[33];
+extern const struct FrameData* const sRidleyFrameDataPointers[33];
 
 extern const u8 sAtomicDynamicPaletteData[33][2];
 
-extern const struct FrameData* sMotheBrainFrameDataPointers[10];
+extern const struct FrameData* const sMotheBrainFrameDataPointers[10];
 
-extern const struct FrameData* sTangleVineFrameDataPointers[13] ;
+extern const struct FrameData* const sTangleVineFrameDataPointers[13] ;
 
-extern const struct FrameData* sImagoFrameDataPointers[17];
+extern const struct FrameData* const sImagoFrameDataPointers[17];
 
-extern const struct FrameData* sCrocomireFrameDataPointers[25];
+extern const struct FrameData* const sCrocomireFrameDataPointers[25];
 
-extern const struct FrameData* sMechaRidleyFrameDataPointers[63];
+extern const struct FrameData* const sMechaRidleyFrameDataPointers[63];

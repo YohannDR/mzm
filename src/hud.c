@@ -316,7 +316,7 @@ void HUDDrawEnergy(u8 fileNumber)
         gEnergyDigits.tens = digit;
         needUpdate++;
 
-        dma_set(3, sEnergyDigitsTensGFX[digit], dst, DMA_ENABLE << 16 | 16);
+        dma_set(3, &sEnergyDigitsTensGFX[digit * 32], dst, DMA_ENABLE << 16 | 16);
     }
 
     digit = energy % 10;
@@ -325,7 +325,7 @@ void HUDDrawEnergy(u8 fileNumber)
         gEnergyDigits.ones = digit;
         needUpdate++;
 
-        dma_set(3, sEnergyDigitsOnesGFX[digit], dst + 32, DMA_ENABLE << 16 | 16);
+        dma_set(3, &sEnergyDigitsOnesGFX[digit * 32], dst + 32, DMA_ENABLE << 16 | 16);
     }
 
     if (needUpdate)
@@ -395,26 +395,26 @@ void HUDDrawEnergy(u8 fileNumber)
     {
         if (gEnergyRefillAnimation == 0xD)
         {
-            dma_set(3, sEnergyDigitsRefill1GFX[gEnergyDigits.tens], dst, DMA_ENABLE << 16 | 16);
-            dma_set(3, sEnergyDigitsRefill1GFX[gEnergyDigits.ones + 10], dst + 32, DMA_ENABLE << 16 | 16);
+            dma_set(3, &sEnergyDigitsRefill1GFX[gEnergyDigits.tens * 32], dst, DMA_ENABLE << 16 | 16);
+            dma_set(3, &sEnergyDigitsRefill1GFX[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, DMA_ENABLE << 16 | 16);
             needUpdate = 0;
         }
         else if (gEnergyRefillAnimation == 0xA)
         {
-            dma_set(3, sEnergyDigitsRefill2GFX[gEnergyDigits.tens], dst, DMA_ENABLE << 16 | 16);
-            dma_set(3, sEnergyDigitsRefill2GFX[gEnergyDigits.ones + 10], dst + 32, DMA_ENABLE << 16 | 16);
+            dma_set(3, &sEnergyDigitsRefill2GFX[gEnergyDigits.tens * 32], dst, DMA_ENABLE << 16 | 16);
+            dma_set(3, &sEnergyDigitsRefill2GFX[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, DMA_ENABLE << 16 | 16);
             needUpdate = 1;
         }
         else if (gEnergyRefillAnimation == 0x4)
         {
-            dma_set(3, sEnergyDigitsRefill3GFX[gEnergyDigits.tens], dst, DMA_ENABLE << 16 | 16);
-            dma_set(3, sEnergyDigitsRefill3GFX[gEnergyDigits.ones + 10], dst + 32, DMA_ENABLE << 16 | 16);
+            dma_set(3, &sEnergyDigitsRefill3GFX[gEnergyDigits.tens * 32], dst, DMA_ENABLE << 16 | 16);
+            dma_set(3, &sEnergyDigitsRefill3GFX[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, DMA_ENABLE << 16 | 16);
             needUpdate = 2;
         }
         else if (gEnergyRefillAnimation == 0x1)
         {
-            dma_set(3, sEnergyDigitsTensGFX[gEnergyDigits.tens], dst, DMA_ENABLE << 16 | 16);
-            dma_set(3, sEnergyDigitsTensGFX[gEnergyDigits.ones + 10], dst + 32, DMA_ENABLE << 16 | 16);
+            dma_set(3, &sEnergyDigitsTensGFX[gEnergyDigits.tens * 32], dst, DMA_ENABLE << 16 | 16);
+            dma_set(3, &sEnergyDigitsTensGFX[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, DMA_ENABLE << 16 | 16);
             needUpdate = 3;
         }
         else

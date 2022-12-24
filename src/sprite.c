@@ -6,7 +6,7 @@
 #include "fixed_point.h"
 
 #include "data/generic_data.h"
-#include "data/pointers.h"
+#include "data/samus_sprites_pointers.h"
 #include "data/sprite_data.h"
 
 #include "constants/game_state.h"

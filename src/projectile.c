@@ -3,7 +3,7 @@
 
 #include "data/projectile_data.h"
 #include "data/sprite_data.h"
-#include "data/pointers.h"
+#include "data/engine_pointers.h"
 
 #include "constants/clipdata.h"
 #include "constants/game_state.h"
@@ -16,6 +16,7 @@
 #include "structs/clipdata.h"
 #include "structs/display.h"
 #include "structs/game_state.h"
+#include "structs/samus.h"
 #include "structs/sprite.h"
 #include "structs/power_bomb_explosion.h"
 

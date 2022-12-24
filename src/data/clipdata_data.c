@@ -47,7 +47,7 @@ const u8 sGroundEffectsClipdataValues[8] = {
 };
 
 const struct ElevatorPair sElevatorRoomPairs[9] = {
-    [0] = {
+    [ELEVATOR_ROUTE_NONE] = {
         .area1 = 11,
         .room1 = 0,
         .mapX1 = 0,
@@ -57,7 +57,7 @@ const struct ElevatorPair sElevatorRoomPairs[9] = {
         .mapX2 = 0,
         .mapY2 = 0,
     },
-    [1] = {
+    [ELEVATOR_ROUTE_CRATERIA_TO_BRINSTAR] = {
         .area1 = AREA_CRATERIA,
         .room1 = 3,
         .mapX1 = 14,
@@ -67,7 +67,7 @@ const struct ElevatorPair sElevatorRoomPairs[9] = {
         .mapX2 = 0,
         .mapY2 = 15
     },
-    [2] = {
+    [ELEVATOR_ROUTE_BRINSTAR_TO_NORFAIR] = {
         .area1 = AREA_BRINSTAR,
         .room1 = 26,
         .mapX1 = 22,
@@ -77,7 +77,7 @@ const struct ElevatorPair sElevatorRoomPairs[9] = {
         .mapX2 = 14,
         .mapY2 = 4
     },
-    [3] = {
+    [ELEVATOR_ROUTE_BRINSTAR_TO_KRAID] = {
         .area1 = AREA_BRINSTAR,
         .room1 = 8,
         .mapX1 = 6,
@@ -87,7 +87,7 @@ const struct ElevatorPair sElevatorRoomPairs[9] = {
         .mapX2 = 9,
         .mapY2 = 5
     },
-    [4] = {
+    [ELEVATOR_ROUTE_NORFAIR_TO_RIDLEY] = {
         .area1 = AREA_NORFAIR,
         .room1 = 35,
         .mapX1 = 17,
@@ -97,7 +97,7 @@ const struct ElevatorPair sElevatorRoomPairs[9] = {
         .mapX2 = 15,
         .mapY2 = 2
     },
-    [5] = {
+    [ELEVATOR_ROUTE_BRINSTAR_TO_TOURIAN] = {
         .area1 = AREA_BRINSTAR,
         .room1 = 11,
         .mapX1 = 1,
@@ -107,7 +107,7 @@ const struct ElevatorPair sElevatorRoomPairs[9] = {
         .mapX2 = 20,
         .mapY2 = 3
     },
-    [6] = {
+    [ELEVATOR_ROUTE_CRATERIA_TO_TOURIAN] = {
         .area1 = AREA_CRATERIA,
         .room1 = 4,
         .mapX1 = 3,
@@ -117,7 +117,7 @@ const struct ElevatorPair sElevatorRoomPairs[9] = {
         .mapX2 = 18,
         .mapY2 = 2
     },
-    [7] = {
+    [ELEVATOR_ROUTE_CRATERIA_TO_NORFAIR] = {
         .area1 = AREA_CRATERIA,
         .room1 = 6,
         .mapX1 = 15,
@@ -127,7 +127,7 @@ const struct ElevatorPair sElevatorRoomPairs[9] = {
         .mapX2 = 5,
         .mapY2 = 4
     },
-    [8] = {
+    [ELEVATOR_ROUTE_CRATERIA_TO_TOURIAN_2] = {
         .area1 = AREA_CRATERIA,
         .room1 = 12,
         .mapX1 = 3,

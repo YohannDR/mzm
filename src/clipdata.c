@@ -1,8 +1,18 @@
 #include "gba.h"
 #include "clipdata.h"
+#include "macros.h"
 #include "temp_globals.h"
+
+#include "data/clipdata_data.h"
+
 #include "constants/clipdata.h"
+#include "constants/connection.h"
+#include "constants/event.h"
+#include "constants/samus.h"
+
 #include "structs/bg_clip.h"
+#include "structs/room.h"
+#include "structs/samus.h"
 
 /**
  * @brief 57dcc | 2c | Transfers the clipdata code to RAM and sets the pointer to it
@@ -255,7 +265,7 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
  * @param xPosition X Position (subpixels)
  * @return i32 Current affecting clipdata, first 16 bits are hazard, last 16 bits are movement
  */
-i32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition)
+u32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition)
 {
     u16 tileY;
     u16 tileX;
@@ -272,14 +282,111 @@ i32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition)
         return ClipdataUpdateCurrentAffecting(yPosition, tileY, tileX, 0x0);
 }
 
-i32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 unk)
+u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 unk)
 {
+    // https://decomp.me/scratch/DEj3d
 
+    u32 behavior;
+    u32 specialClip;
+    u32 hazardClip;
+    u32 effect;
+
+    behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[tileY * gBGPointersAndDimensions.clipdataWidth + tileX]];
+
+    if (behavior != CLIP_BEHAVIOR_AIR_SOLID)
+    {
+        if ((i32)behavior <= 0xF)
+            specialClip = sMovementClipdataValues[behavior];
+        else
+            specialClip = CLIPDATA_MOVEMENT_NONE;
+    }
+    else
+        specialClip = CLIPDATA_MOVEMENT_NONE;
+
+    if (!unk && (specialClip == CLIPDATA_MOVEMENT_ELEVATOR_DOWN_BLOCK || specialClip == CLIPDATA_MOVEMENT_ELEVATOR_UP_BLOCK)
+        && gSamusData.pose != SPOSE_USING_AN_ELEVATOR && ClipdataCheckCantUseElevator(specialClip))
+        specialClip = CLIPDATA_MOVEMENT_NONE;
+
+    gCurrentAffectingClipdata.movement = specialClip;
+    hazardClip = HAZARD_TYPE_NONE;
+
+    if ((u32)BEHAVIOR_TO_HAZARD(behavior) <= BEHAVIOR_TO_HAZARD(CLIP_BEHAVIOR_ACID))
+        hazardClip = sHazardClipdataValues[BEHAVIOR_TO_HAZARD(behavior)];
+    else
+    {
+        if (gCurrentRoomEntry.BG0Prop != 0)
+        {
+            effect = gCurrentRoomEntry.damageEffect;
+            if (effect != 0)
+            {
+                if (effect < 8)
+                {
+                    if (sHazardsDefinitions[effect][1] != HAZARD_TYPE_NONE)
+                    {
+                        if (gEffectYPosition <= yPosition)
+                            hazardClip = sHazardsDefinitions[effect][1];
+                    }
+                    else
+                        hazardClip = sHazardsDefinitions[effect][0];
+                }
+            }
+        }
+    }
+
+    gCurrentAffectingClipdata.hazard = hazardClip;
+
+    return gCurrentAffectingClipdata.movement << 16 | gCurrentAffectingClipdata.hazard;
 }
 
-u8 ClipdataCheckCantUseElevator(void)
+/**
+ * @brief 5819c | c4 | Checks if Samus can or can't use the current elevator
+ * 
+ * @param movementClip Movement clipdata (unused)
+ * @return u32 TRUE if can't use, FALSE otherwise
+ */
+u32 ClipdataCheckCantUseElevator(u32 movementClip)
 {
+    i32 direction;
+    i32 i;
 
+    gLastElevatorUsed.route = ELEVATOR_ROUTE_NONE;
+    gLastElevatorUsed.unused = 0;
+    gLastElevatorUsed.direction = 0;
+
+    direction = 0;
+    
+    for (i = 8; i > 0; i--)
+    {
+        // Get direction
+        if (gCurrentArea == sElevatorRoomPairs[i].area1 && gCurrentRoom == sElevatorRoomPairs[i].room1)
+            direction = ELEVATOR_DIRECTION_DOWN;
+        else if (gCurrentArea == sElevatorRoomPairs[i].area2 && gCurrentRoom == sElevatorRoomPairs[i].room2)
+            direction = ELEVATOR_DIRECTION_UP;
+
+        if (direction)
+        {
+            // Check escaped zebes
+            if (i == ELEVATOR_ROUTE_CRATERIA_TO_TOURIAN_2)
+            {
+                if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ESCAPED_ZEBES))
+                    i = ELEVATOR_ROUTE_CRATERIA_TO_TOURIAN;
+                else
+                    direction = 0;
+            }
+        }
+
+        // Set last used
+        if (direction)
+        {
+            gLastElevatorUsed.route = i;
+            gLastElevatorUsed.direction = direction;
+            break;
+        }
+    }
+
+    // Return can/can't be used
+    direction = direction == 0;
+    return direction;
 }
 
 /**
@@ -289,7 +396,7 @@ u8 ClipdataCheckCantUseElevator(void)
  * @param xPosition X Position (subpixels)
  * @return i32 Ground Effect Clipdata
  */
-i32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
+u32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
 {
     i32 tileY;
     i32 tileX;
@@ -308,11 +415,11 @@ i32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
         else
             clipdata = gTilemapAndClipPointers.pClipBehaviors[clipdata];
 
-        /*if ((clipdata - 0x50) < 0x5)
-            clipdata = GroundEffectClipdataValues[clipdata - 0x50];
+        if (BEHAVIOR_TO_GROUND_EFFECT(clipdata) < BEHAVIOR_TO_GROUND_EFFECT(CLIP_BEHAVIOR_GROUND_EFFECT_UNUSED1))
+            clipdata = sGroundEffectsClipdataValues[BEHAVIOR_TO_GROUND_EFFECT(clipdata)];
         else
             clipdata = GROUND_EFFECT_NONE;
-        */
+        
         return clipdata;
     }
 }

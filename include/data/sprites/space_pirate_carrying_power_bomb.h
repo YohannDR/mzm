@@ -5,7 +5,7 @@
 #include "macros.h"
 #include "oam.h"
 
-extern const u8 sFakePowerBombGFX[460];
+extern const u32 sFakePowerBombGFX[115];
 extern const u16 sFakePowerBombPAL[16];
 
 extern const u16 sFakePowerBombOAM_Idle_Frame0[4];

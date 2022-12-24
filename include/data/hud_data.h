@@ -32,11 +32,11 @@ extern const u8 sPowerBombHUDGFX_Refill1[64];
 extern const u8 sPowerBombHUDGFX_Refill2[64];
 extern const u8 sPowerBombHUDGFX_Refill3[64];
 
-extern const u8 sEnergyDigitsTensGFX[10][32];
-extern const u8 sEnergyDigitsOnesGFX[10][32];
-extern const u8 sEnergyDigitsRefill1GFX[20][32];
-extern const u8 sEnergyDigitsRefill2GFX[20][32];
-extern const u8 sEnergyDigitsRefill3GFX[20][32];
+extern const u8 sEnergyDigitsTensGFX[10 * 32];
+extern const u8 sEnergyDigitsOnesGFX[10 * 32];
+extern const u8 sEnergyDigitsRefill1GFX[20 * 32];
+extern const u8 sEnergyDigitsRefill2GFX[20 * 32];
+extern const u8 sEnergyDigitsRefill3GFX[20 * 32];
 
 extern const u8 sEnergyTanksGFX_Zero[160 * 1];
 extern const u8 sEnergyTanksGFX_One[160 * 2];

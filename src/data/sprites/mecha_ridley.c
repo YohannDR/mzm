@@ -2909,7 +2909,7 @@ const u8 sMechaRidleyGreenGlowPaletteData[7][2] = {
 };
 
 const u32 sMechaRidleyGFX[2525] = INCBIN_U32("data/sprites/MechaRidley.gfx.lz");
-const u32 sMechaRidleyWeaponsGFX[1024] = INCBIN_U32("data/sprites/MechaRidleyWeapons.gfx.lz");
+const u32 sMechaRidleyWeaponsGFX[32 * 32] = INCBIN_U32("data/sprites/MechaRidleyWeapons.gfx.lz");
 const u32 sMechaRidleyDestroyedGFX[336] = INCBIN_U32("data/sprites/MechaRidleyDestroyed.gfx.lz");
 
 const u16 sMechaRidleyPAL[129] = INCBIN_U16("data/sprites/MechaRidley.pal");

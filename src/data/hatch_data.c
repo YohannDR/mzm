@@ -838,4 +838,6 @@ const u16 sNumberOfHatchLockEventsPerArea[MAX_AMOUNT_OF_AREAS] = {
     [AREA_INVALID] = 0
 };
 
+const u8 sTemparray_3602e8[0x3FE3BF] = {0};
+
 // 3602e8

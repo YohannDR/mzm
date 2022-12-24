@@ -478,8 +478,10 @@ SECTIONS {
         src/data/block_data.o(.rodata);
         /* 345d00-360130*/
         src/data/hatch_data.o(.rodata);
-        /* 3602e8-75e6a7 */
-        src/data/pointers.o(.rodata); /* Split necessary */
+        /* 3602e8-75e6a8 */
+        src/data/samus_sprites_pointers.o(.rodata);
         src/data/frame_data_pointers.o(.rodata);
+        src/data/engine_pointers.o(.rodata);
+        /* - */
     } >rom
 }

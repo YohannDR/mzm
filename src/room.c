@@ -1,7 +1,7 @@
 #include "room.h"
 #include "gba.h"
 
-#include "data/pointers.h"
+#include "data/engine_pointers.h"
 
 #include "constants/event.h"
 #include "constants/game_state.h"

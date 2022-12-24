@@ -1,7 +1,7 @@
 #include "particle.h"
 #include "escape.h" // Required
 
-#include "data/pointers.h"
+#include "data/engine_pointers.h"
 #include "data/projectile_data.h"
 #include "data/sprite_data.h"
 #include "data/particle_data.h"
@@ -15,6 +15,7 @@
 #include "structs/clipdata.h"
 #include "structs/escape.h"
 #include "structs/game_state.h"
+#include "structs/samus.h"
 #include "structs/sprite.h"
 
 /**

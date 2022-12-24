@@ -1,7 +1,7 @@
 #include "data/sprites/steam.h"
 #include "macros.h"
 
-const u8 sSteamGFX[780] = INCBIN_U32("data/sprites/Steam.gfx.lz");
+const u32 sSteamGFX[195] = INCBIN_U32("data/sprites/Steam.gfx.lz");
 const u16 sSteamPAL[16] = INCBIN_U16("data/sprites/Steam.pal");
 
 const u16 sSteamOAM_HorizontalLarge_Frame0[4] = {

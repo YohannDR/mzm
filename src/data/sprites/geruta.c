@@ -1,7 +1,7 @@
 #include "data/sprites/geruta.h"
 #include "macros.h"
 
-const u32 sGerutaRedGFX[321] = INCBIN_U32("data/sprites/sprites/GerutaRed.gfx.lz");
+const u32 sGerutaRedGFX[321] = INCBIN_U32("data/sprites/GerutaRed.gfx.lz");
 const u16 sGerutaRedPAL[16] = INCBIN_U16("data/sprites/GerutaRed.pal");
 const u32 sGerutaGreenGFX[308] = INCBIN_U32("data/sprites/GerutaGreen.gfx.lz");
 const u16 sGerutaGreenPAL[16] = INCBIN_U16("data/sprites/GerutaGreen.pal");

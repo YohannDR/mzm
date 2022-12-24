@@ -672,3 +672,5 @@ const u8 sHatchRelated_345cee[4][2] = {
 const u16 sMotherBrainGlassBreakingBaseTilemapValues[5] = {
     0x170, 0x177, 0x1C0, 0x1C7, 0x210
 };
+
+const u8 sTempArray_345d00[0x1A430] = {0};

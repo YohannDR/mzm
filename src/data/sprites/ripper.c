@@ -3,7 +3,7 @@
 
 const u32 sRipperBrownGFX[141] = INCBIN_U32("data/sprites/RipperBrown.gfx.lz");
 const u16 sRipperBrownPAL[16] = INCBIN_U16("data/sprites/RipperBrown.pal");
-const u32 sRipperPurpleGFX[141] = INCBIN_U16("data/sprites/RipperPurple.gfx.lz");
+const u32 sRipperPurpleGFX[141] = INCBIN_U32("data/sprites/RipperPurple.gfx.lz");
 const u16 sRipperPurplePAL[16] = INCBIN_U16("data/sprites/RipperPurple.pal");
 
 const u16 sRipperOAM_Moving_Frame0[4] = {

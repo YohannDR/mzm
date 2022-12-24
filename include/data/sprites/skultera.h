@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u8 sSkulteraGFX[1140];
+extern const u32 sSkulteraGFX[285];
 extern const u16 sSkulteraPAL[16];
 
 extern const u16 sSkulteraOAM_Idle_Frame0[19];

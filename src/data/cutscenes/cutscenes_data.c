@@ -251,18 +251,19 @@ const struct FrameData sKraidRisingOAM_BigPuff[5] = {
     0
 };
 
-const u16 sKraidRisingCloseUpPAL[80] = INCBIN_U16("data/cutscenes/KraidRisingCloseUp.pal");
-const u16 sKraidRisingSamusPAL[16] = INCBIN_U16("data/cutscenes/KraidRisingSamus.pal");
-const u16 sKraidRisingParticlesPAL[16] = INCBIN_U16("data/cutscenes/KraidRisingParticles.pal");
-const u16 sKraidRisingSamusVariaPAL[16] = INCBIN_U16("data/cutscenes/KraidRisingSamusVaria.pal");
-const u16 sKraidRisingRisingPAL[80] = INCBIN_U16("data/cutscenes/KraidRisingRising.pal");
-const u8 sKraidRisingKraidCloseUpGFX[12348] = INCBIN_U8("data/cutscenes/KraidRisingCloseUp.gfx.lz");
-const u8 sKraidRisingOAMGFX[3012] = INCBIN_U8("data/cutscenes/KraidRisingOAM.gfx.lz");
-const u8 sKraidRisingKraidRisingGFX[6436] = INCBIN_U8("data/cutscenes/KraidRisingKraidRising.gfx.lz");
-const u8 sKraidRisingCaveBackroundGFX[5308] = INCBIN_U8("data/cutscenes/KraidRisingCaveBackround.gfx.lz");
-const u8 sKraidRisingKraidCloseUpEyesClosedTileTable[1472] = INCBIN_U8("data/cutscenes/KraidRisingKraidCloseUpEyesClosed.tt");
-const u8 sKraidRisingKraidCloseUpEyesBarelyOpenedTileTable[1472] = INCBIN_U8("data/cutscenes/KraidRisingKraidCloseUpEyesBarelyOpened.tt");
-const u8 sKraidRisingKraidCloseUpEyesALittleOpenedTileTable[1472] = INCBIN_U8("data/cutscenes/KraidRisingKraidCloseUpEyesALittleOpened.tt");
-const u8 sKraidRisingKraidCloseUpEyesOpenedTileTable[1472] = INCBIN_U8("data/cutscenes/KraidRisingKraidCloseUpEyesOpened.tt");
-const u8 sKraidRisingKraidRisingTileTable[1180] = INCBIN_U8("data/cutscenes/KraidRisingKraidRising.tt");
-const u8 sKraidRisingCaveBackgroundTileTable[1180] = INCBIN_U8("data/cutscenes/KraidRisingCaveBackground.tt");
+// Prepoc doesn't care about comments, so removing the _ is necessary
+const u16 sKraidRisingCloseUpPAL[80] = {0}; //INCBIN U16("data/cutscenes/KraidRisingCloseUp.pal");
+const u16 sKraidRisingSamusPAL[16] = {0}; //INCBIN U16("data/cutscenes/KraidRisingSamus.pal");
+const u16 sKraidRisingParticlesPAL[16] = {0}; //INCBIN U16("data/cutscenes/KraidRisingParticles.pal");
+const u16 sKraidRisingSamusVariaPAL[16] = {0}; //INCBIN U16("data/cutscenes/KraidRisingSamusVaria.pal");
+const u16 sKraidRisingRisingPAL[80] = {0}; //INCBIN U16("data/cutscenes/KraidRisingRising.pal");
+const u8 sKraidRisingKraidCloseUpGFX[12348] = {0}; //INCBIN U8("data/cutscenes/KraidRisingCloseUp.gfx.lz");
+const u8 sKraidRisingOAMGFX[3012] = {0}; //INCBIN U8("data/cutscenes/KraidRisingOAM.gfx.lz");
+const u8 sKraidRisingKraidRisingGFX[6436] = {0}; //INCBIN U8("data/cutscenes/KraidRisingKraidRising.gfx.lz");
+const u8 sKraidRisingCaveBackroundGFX[5308] = {0}; //INCBIN U8("data/cutscenes/KraidRisingCaveBackround.gfx.lz");
+const u8 sKraidRisingKraidCloseUpEyesClosedTileTable[1472] = {0}; //INCBIN U8("data/cutscenes/KraidRisingKraidCloseUpEyesClosed.tt");
+const u8 sKraidRisingKraidCloseUpEyesBarelyOpenedTileTable[1472] = {0}; //INCBIN U8("data/cutscenes/KraidRisingKraidCloseUpEyesBarelyOpened.tt");
+const u8 sKraidRisingKraidCloseUpEyesALittleOpenedTileTable[1472] = {0}; //INCBIN U8("data/cutscenes/KraidRisingKraidCloseUpEyesALittleOpened.tt");
+const u8 sKraidRisingKraidCloseUpEyesOpenedTileTable[1472] = {0}; //INCBIN U8("data/cutscenes/KraidRisingKraidCloseUpEyesOpened.tt");
+const u8 sKraidRisingKraidRisingTileTable[1180] = {0}; //INCBIN U8("data/cutscenes/KraidRisingKraidRising.tt");
+const u8 sKraidRisingCaveBackgroundTileTable[1180] = {0}; //INCBIN U8("data/cutscenes/KraidRisingCaveBackground.tt");

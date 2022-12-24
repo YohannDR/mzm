@@ -12,7 +12,7 @@
 #include "data/sprites/mother_brain.h"
 #include "data/sprites/mecha_ridley.h"
 
-const struct FrameData* sChozoStatueFrameDataPointers[16] = {
+const struct FrameData* const sChozoStatueFrameDataPointers[16] = {
     sChozoStatuePartOAM_LegStanding,
     sChozoStatuePartOAM_LegSitting,
     sChozoStatuePartOAM_LegSeated,
@@ -31,7 +31,7 @@ const struct FrameData* sChozoStatueFrameDataPointers[16] = {
     sChozoStatuePartOAM_GlowIdle,
 };
 
-const struct FrameData* sUnknownItemChozoStatueFrameDataPointers[16] = {
+const struct FrameData* const sUnknownItemChozoStatueFrameDataPointers[16] = {
     sUnknownItemChozoStatuePartOAM_LegStanding,
     sUnknownItemChozoStatuePartOAM_LegSitting,
     sUnknownItemChozoStatuePartOAM_LegSeated,
@@ -49,7 +49,7 @@ const struct FrameData* sUnknownItemChozoStatueFrameDataPointers[16] = {
     sUnknownItemChozoStatuePartOAM_GlowIdle
 };
 
-const struct FrameData* sKraidFrameDataPointers[38] = {
+const struct FrameData* const sKraidFrameDataPointers[38] = {
     sKraidOAM_MouthClosed,
     sKraidOAM_MouthClosedBlink,
     sKraidOAM_OpeningMouth,
@@ -90,7 +90,7 @@ const struct FrameData* sKraidFrameDataPointers[38] = {
     sKraidSpikeOAM
 };
 
-const struct FrameData* sImagoLarvaFrameDataPointers[23] = {
+const struct FrameData* const sImagoLarvaFrameDataPointers[23] = {
     sImagoLarvaPartOAM_ShellAttacking,
     sImagoLarvaPartOAM_ShellIdle,
     sImagoLarvaPartOAM_ShellRetreating,
@@ -116,7 +116,7 @@ const struct FrameData* sImagoLarvaFrameDataPointers[23] = {
     sImagoLarvaPartOAM_ShellTakingDamage
 };
 
-const struct FrameData* sImagoCocoonFrameDataPointers[21] = {
+const struct FrameData* const sImagoCocoonFrameDataPointers[21] = {
     sImagoCocoonOAM_CeilingVineMotionless,
     sImagoCocoonOAM_CeilingVineMoving,
     sImagoCocoonOAM_CeilingVineBroken,
@@ -140,7 +140,7 @@ const struct FrameData* sImagoCocoonFrameDataPointers[21] = {
     sDefeatedImagoCocoonOAM
 };
 
-const struct FrameData* sRidleyFrameDataPointers[33] = {
+const struct FrameData* const sRidleyFrameDataPointers[33] = {
     sRidleyOAM_Idle,
     sRidleyOAM_SpittingFireballs,
     sRidleyOAM_TurningAroundFirstPart,
@@ -213,7 +213,7 @@ const u8 sAtomicDynamicPaletteData[33][2] = {
     { 0, 0 }
 };
 
-const struct FrameData* sMotheBrainFrameDataPointers[10] = {
+const struct FrameData* const sMotheBrainFrameDataPointers[10] = {
     sMotherBrainOAM_Idle,
     sMotherBrainOAM_ChargingBeam,
     sMotherBrainPartOAM_EyeClosed,
@@ -226,7 +226,7 @@ const struct FrameData* sMotheBrainFrameDataPointers[10] = {
     sMotherBrainBeamOAM_Moving
 };
 
-const struct FrameData* sTangleVineFrameDataPointers[13] = {
+const struct FrameData* const sTangleVineFrameDataPointers[13] = {
     sTangleVineTallOAM_OnGround,
     sTangleVineMediumOAM_OnGround,
     sTangleVineShortOAM_OnGround,
@@ -242,7 +242,7 @@ const struct FrameData* sTangleVineFrameDataPointers[13] = {
     sTangleVineGerutaPartOAM_Geruta
 };
 
-const struct FrameData* sImagoFrameDataPointers[17] = {
+const struct FrameData* const sImagoFrameDataPointers[17] = {
     sImagoPartOAM_BodyIdle,
     sImagoPartOAM_BodyGrowling,
     sImagoOAM_BrokenStinger,
@@ -262,7 +262,7 @@ const struct FrameData* sImagoFrameDataPointers[17] = {
     sImagoEggOAM_Breaking
 };
 
-const struct FrameData* sCrocomireFrameDataPointers[25] = {
+const struct FrameData* const sCrocomireFrameDataPointers[25] = {
     sCrocomirePartOAM_BodyIdle,
     sCrocomirePartOAM_BodyAngry,
     sCrocomireOAM_Idle,
@@ -290,7 +290,7 @@ const struct FrameData* sCrocomireFrameDataPointers[25] = {
     sCrocomirePartOAM_3070b8,
 };
 
-const struct FrameData* sMechaRidleyFrameDataPointers[63] = {
+const struct FrameData* const sMechaRidleyFrameDataPointers[63] = {
     sMechaRidleyPartOAM_Tail,
     sMechaRidleyPartOAM_Ring,
     sMechaRidleyPartOAM_Cover,

@@ -1,7 +1,7 @@
 #include "gba.h"
 #include "power_bomb_explosion.h"
 
-#include "data/pointers.h"
+#include "data/engine_pointers.h"
 
 #include "constants/clipdata.h"
 #include "constants/game_state.h"

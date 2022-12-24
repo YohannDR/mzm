@@ -23,7 +23,7 @@ sprites/Zeela.pal;32;0x2c54c8;2
 sprites/RipperBrown.gfx.lz;141;0x2cbb6c;4
 sprites/RipperBrown.pal;16;0x2cbda0;2
 
-sprites/RipperPurple.gfx.lz;564;0x2cbdc0;4
+sprites/RipperPurple.gfx.lz;141;0x2cbdc0;4
 sprites/RipperPurple.pal;16;0x2cbff4;2
 
 # Zeb
@@ -116,13 +116,13 @@ sprites/Zipline.pal;16;0x2ce404;2
 sprites/ReoGreenWings.gfx.lz;277;0x2cd728;4
 sprites/ReoGreenWings.pal;16;0x2cdb7c;2
 
-sprites/ReoPurple.gfx.lz;277;0x2cdb9c;4
-sprites/ReoPurple.pal;16;0x2cdff0;2
+sprites/ReoPurpleWings.gfx.lz;277;0x2cdb9c;4
+sprites/ReoPurpleWings.pal;16;0x2cdff0;2
 
 # Gunship
 
 sprites/Gunship.gfx.lz;1027;0x3095d0;4
-sprites/Gunship.pal;96;0x30a5dc;2
+sprites/Gunship.pal;48;0x30a5dc;2
 sprites/GunshipFlashingPal.pal;128;0x30a63c;2
 
 # Deorem
@@ -253,7 +253,7 @@ sprites/MetroidSamusGrabbed.pal;80;0x2ed988;2
 sprites/RinkaOrange.gfx.lz;242;0x2edd38;4
 sprites/RinkaOrange.pal;16;0x2ee100;2
 
-sprites/RinkaGreen.gfx.lz;242;0x2ee120;24
+sprites/RinkaGreen.gfx.lz;242;0x2ee120;4
 sprites/RinkaGreen.pal;16;0x2ee4e8;2
 
 # Polyp
@@ -286,17 +286,17 @@ sprites/GekitaiMachine.pal;80;0x2f1bdc;2
 
 # Ruins test
 
-sprites/RuinsTest.gfx.lz;1951;0x2f1de0;4
+sprites/RuinsTest.gfx;1951;0x2f1de0;4
 
-sprites/RuinsTest_SamusReflectionTurningRightTop.gfx.lz;96;0x2f3c5c;4
-sprites/RuinsTest_SamusReflectionTurningRightBottom.gfx.lz;64;0x2f3ddc;4
-sprites/RuinsTest_SamusReflectionTurningLeftTop.gfx.lz;96;0x2f3edc;4
-sprites/RuinsTest_SamusReflectionTurningLeftBottom.gfx.lz;64;0x2f405c;4
+sprites/RuinsTest_SamusReflectionTurningRightTop.gfx;96;0x2f3c5c;4
+sprites/RuinsTest_SamusReflectionTurningRightBottom.gfx;64;0x2f3ddc;4
+sprites/RuinsTest_SamusReflectionTurningLeftTop.gfx;96;0x2f3edc;4
+sprites/RuinsTest_SamusReflectionTurningLeftBottom.gfx;64;0x2f405c;4
 
-sprites/RuinsTest_SamusReflectionFullSuitTop.gfx.lz;96;0x2f415c;4
-sprites/RuinsTest_SamusReflectionFullSuitBottom.gfx.lz;64;0x2f42dc;4
-sprites/RuinsTest_SamusReflectionSuitlessTop.gfx.lz;96;0x2f43dc;4
-sprites/RuinsTest_SamusReflectionSuitlessBottom.gfx.lz;64;0x2f455c;4
+sprites/RuinsTest_SamusReflectionFullSuitTop.gfx;96;0x2f415c;4
+sprites/RuinsTest_SamusReflectionFullSuitBottom.gfx;64;0x2f42dc;4
+sprites/RuinsTest_SamusReflectionSuitlessTop.gfx;96;0x2f43dc;4
+sprites/RuinsTest_SamusReflectionSuitlessBottom.gfx;64;0x2f455c;4
 
 sprites/RuinsTest.pal;128;0x2f465c;2
 sprites/RuinsTest_SymbolShotFrame1.pal;8;0x2f475c;2
@@ -327,7 +327,7 @@ sprites/Ripper2.pal;16;0x2cc3f0;2
 # Mella
 
 sprites/Mella.gfx.lz;162;0x2f6430;4
-sprites/Mella.pal;162;0x2f66b8;2
+sprites/Mella.pal;16;0x2f66b8;2
 
 # Atomic
 
@@ -396,12 +396,12 @@ sprites/Crocomire.pal;128;0x305edc;2
 # Geron
 
 sprites/Geron.gfx.lz;711;0x30767c;4
-sprites/Geron.pal;78;0x308198;2
+sprites/Geron.pal;48;0x308198;2
 
 # Glass tube
 
 sprites/GlassTube.gfx.lz;514;0x30b218;4
-sprites/GlassTube.pal;90;0x30ba20;2
+sprites/GlassTube.pal;80;0x30ba20;2
 
 # Save platform chozodia
 
@@ -452,7 +452,7 @@ sprites/GravitySuitBlock.gfx.lz;303;0x319854;4
 sprites/GravitySuitBlock.pal;16;0x319d10;2
 
 sprites/SpaceJumpBlock.gfx.lz;297;0x319d30;4
-sprites/SpaceJumpBlock.pal;16;0x31a1d4;42
+sprites/SpaceJumpBlock.pal;16;0x31a1d4;2
 
 # Gadora
 
@@ -477,7 +477,15 @@ sprites/FallingChozoPillar.pal;16;0x31cb00;2
 # Mecha Ridley
 
 sprites/MechaRidley.gfx.lz;2525;0x31fcf4;4
-# TODO add rest
+sprites/MechaRidleyWeapons.gfx.lz;1024;0x322468;4
+sprites/MechaRidleyDestroyed.gfx.lz;129;0x323468;4
+sprites/MechaRidley.pal;129;03239a8;2
+sprites/MechaRidley_323aaa.pal;12;0x323aaa;2
+sprites/MechaRidleyGreenGlow.pal;20;0x323ac2;2
+sprites/MechaRidley_323b42.pal;4;0x323b42;2
+sprites/MechaRidley_323b4a.pal;12;0x323b4a;2
+sprites/MechaRidley_323b62.pal;3;0x323b62;2
+sprites/MechaRidleyFading.pal;112;0x323b68;2
 
 # Escape gate
 
@@ -487,8 +495,8 @@ sprites/EscapeGateFlashing.pal;96;0x3269ac;2
 
 # HUD
 
-hud/CommonSprite.pal;96;0x32ba08;2
-hud/CommonSprite.gfx;3584;0x32bac8;4
+hud/Common.pal;96;0x32ba08;2
+hud/Common.gfx;3584;0x32bac8;4
 
 hud/MissileDigits.gfx;2304;0x32f2c8;1
 hud/PowerBombDigits.gfx;2304;0x32fbc8;1
@@ -500,12 +508,12 @@ hud/MissileHUD_Refill1.gfx;64;0x330588;1
 hud/MissileHUD_Refill2.gfx;64;0x3305c8;1
 hud/MissileHUD_Refill3.gfx;64;0x330608;1
 
-hud/SuperMissileHUDInactive_Inactive.gfx;64;0x330648;1
-hud/SuperMissileHUDInactive_Selected.gfx;64;0x330688;1
-hud/SuperMissileHUDInactive_Active.gfx;64;0x3306c8;1
-hud/SuperMissileHUDInactive_Refill1.gfx;64;0x330708;1
-hud/SuperMissileHUDInactive_Refill2.gfx;64;0x330748;1
-hud/SuperMissileHUDInactive_Refill3.gfx;64;0x330788;1
+hud/SuperMissileHUD_Inactive.gfx;64;0x330648;1
+hud/SuperMissileHUD_Selected.gfx;64;0x330688;1
+hud/SuperMissileHUD_Active.gfx;64;0x3306c8;1
+hud/SuperMissileHUD_Refill1.gfx;64;0x330708;1
+hud/SuperMissileHUD_Refill2.gfx;64;0x330748;1
+hud/SuperMissileHUD_Refill3.gfx;64;0x330788;1
 
 hud/PowerBombHUD_Inactive.gfx;64;0x3307c8;1
 hud/PowerBombHUD_Selected.gfx;64;0x330808;1
@@ -514,4 +522,75 @@ hud/PowerBombHUD_Refill1.gfx;64;0x330888;1
 hud/PowerBombHUD_Refill2.gfx;64;0x3308c8;1
 hud/PowerBombHUD_Refill3.gfx;64;0x330908;1
 
+hud/EnergyDigitsTens.gfx;320;0x330948;1
+hud/EnergyDigitsOnes.gfx;320;0x330a88;1
+hud/EnergyDigitsRefill1.gfx;640;0x330bc8;1
+hud/EnergyDigitsRefill2.gfx;640;0x330e48;1
+hud/EnergyDigitsRefill3.gfx;640;0x3310c8;1
 
+hud/EnergyTanksZero.gfx;160;0x331348;1
+hud/EnergyTanksOne.gfx;320;0x3313e8;1
+hud/EnergyTanksTwo.gfx;480;0x331528;1
+hud/EnergyTanksThree.gfx;640;0x331708;1
+hud/EnergyTanksFour.gfx;800;0x331988;1
+hud/EnergyTanksFive.gfx;960;0x331ca8;1
+hud/EnergyTanksSix.gfx;1120;0x332068;1
+hud/EnergyTanksSeven.gfx;1280;0x3324c8;1
+hud/EnergyTanksEight.gfx;1440;0x3329c8;1
+hud/EnergyTanksNine.gfx;1600;0x332f68;1
+hud/EnergyTanksTen.gfx;1760;0x3335a8;1
+hud/EnergyTanksEleven.gfx;1920;0x333c88;1
+hud/EnergyTanksTwelve.gfx;2080;0x334408;1
+
+hud/EnergyTanksRefillOne.gfx;480;0x334c28;1
+hud/EnergyTanksRefillTwo.gfx;480;0x334e08;1
+hud/EnergyTanksRefillThree.gfx;480;0x334fe8;1
+hud/EnergyTanksRefillFour.gfx;480;0x3351c8;1
+hud/EnergyTanksRefillFive.gfx;480;0x3353a8;1
+hud/EnergyTanksRefillSix.gfx;480;0x335588;1
+hud/EnergyTanksRefillSeven.gfx;480;0x335768;1
+hud/EnergyTanksRefillEight.gfx;480;0x335948;1
+hud/EnergyTanksRefillNine.gfx;480;0x335b28;1
+hud/EnergyTanksRefillTen.gfx;480;0x335d08;1
+hud/EnergyTanksRefillEleven.gfx;480;0x335ee8;1
+hud/EnergyTanksRefillTwelve.gfx;480;0x3360c8;1
+
+hud/SuitlessHUDBar.gfx;14336;0x3362a8;1
+
+# Weapons
+
+weapons/Beams.pal;96;0x3270e8;2
+
+weapons/NormalBeamTop.gfx;512;0x3271a8;1
+weapons/NormalBeamBottom.gfx;512;0x3273a8;1
+weapons/NormalBeamChargedTop.gfx;512;0x3275a8;1
+weapons/NormalBeamChargedBottom.gfx;512;0x3277a8;1
+
+weapons/LongBeamTop.gfx;512;0x327b90;1
+weapons/LongBeamBottom.gfx;512;0x327d90;1
+weapons/LongBeamChargedTop.gfx;512;0x327f90;1
+weapons/LongBeamChargedBottom.gfx;512;0x328190;1
+
+weapons/IceBeamTop.gfx;512;0x328500;1
+weapons/IceBeamBottom.gfx;512;0x328700;1
+weapons/IceBeamChargedTop.gfx;512;0x328900;1
+weapons/IceBeamChargedBottom.gfx;512;0x328b00;1
+
+weapons/WaveBeamTop.gfx;512;0x328f34;1
+weapons/WaveBeamBottom.gfx;512;0x329134;1
+weapons/WaveBeamChargedTop.gfx;512;0x329334;1
+weapons/WaveBeamChargedBottom.gfx;512;0x329534;1
+
+weapons/PlasmaBeamTop.gfx;512;0x329ed4;1
+weapons/PlasmaBeamBottom.gfx;512;0x32a0d4;1
+weapons/PlasmaBeamChargedTop.gfx;512;0x32a2d4;1
+weapons/PlasmaBeamChargedBottom.gfx;512;0x32a4d4;1
+
+weapons/PistolTop.gfx;512;0x32b078;1
+weapons/PistolBottom.gfx;512;0x32b278;1
+weapons/PistolChargedTop.gfx;512;0x32b478;1
+weapons/PistolChargedBottom.gfx;512;0x32b678;1
+
+# Misc
+
+EscapeTimerDigits.gfx;2048;0x33d794;1

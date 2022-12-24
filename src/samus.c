@@ -5,7 +5,7 @@
 #include "macros.h"
 #include "temp_globals.h"
 
-#include "data/pointers.h"
+#include "data/samus_sprites_pointers.h"
 
 #include "constants/clipdata.h"
 #include "constants/game_state.h"

@@ -2,7 +2,7 @@
 #include "connection.h"
 #include "bg_clip.h" // Required
 
-#include "data/pointers.h"
+#include "data/engine_pointers.h"
 #include "data/empty_datatypes.h"
 #include "data/hatch_data.h"
 
@@ -19,8 +19,9 @@
 #include "structs/connection.h"
 #include "structs/cutscene.h"
 #include "structs/display.h"
-#include "structs/room.h"
 #include "structs/game_state.h"
+#include "structs/room.h"
+#include "structs/samus.h"
 
 /**
  * @brief 5e760 | 198 | Updates the hatches

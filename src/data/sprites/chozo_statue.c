@@ -134,7 +134,7 @@ const u8 sChozoStatueFlashingPaletteRows[4] = {
 };
 
 const u32 sChozoStatueLongBeamGFX[1335] = INCBIN_U32("data/sprites/ChozoStatueLongBeam.gfx.lz");
-const u16 sChozoStatueLongBeamPAL[80] = INCBIN_U32("data/sprites/ChozoStatueLongBeam.pal");
+const u16 sChozoStatueLongBeamPAL[80] = INCBIN_U16("data/sprites/ChozoStatueLongBeam.pal");
 
 
 const u16 sChozoStatuePartOAM_LegStanding_Frame0[16] = {

@@ -1,24 +1,24 @@
 #include "data/sprites/ruins_test.h"
 #include "macros.h"
 
-const u32 sRuinsTestGFX[1951] = INCBIN_U32("data/sprites/RuinsTest.gfx.lz");
-const u32 sRuinsTestGFX_SamusReflectionTurningRightTop[96] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionTurningRightTop.gfx.lz");
-const u32 sRuinsTestGFX_SamusReflectionTurningRightBottom[64] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionTurningRightBottom.gfx.lz");
-const u32 sRuinsTestGFX_SamusReflectionTurningLeftTop[96] = INCBIN_U32("sprites/RuinsTest_SamusReflectionTurningLeftTop.gfx.lz");
-const u32 sRuinsTestGFX_SamusReflectionTurningLeftBottom[64] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionTurningLeftBottom.gfx.lz");
-const u32 sRuinsTestGFX_SamusReflectionFullSuitTop[96] = INCBIN_U32("sprites/RuinsTest_SamusReflectionFullSuitTop.gfx.lz");
-const u32 sRuinsTestGFX_SamusReflectionFullSuitBottom[64] = INCBIN_U32("sprites/RuinsTest_SamusReflectionFullSuitBottom.gfx.lz");
-const u32 sRuinsTestGFX_SamusReflectionSuitlessTop[96] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionSuitlessTop.gfx.lz");
-const u32 sRuinsTestGFX_SamusReflectionSuitlessBottom[64] = INCBIN_U32("sprites/RuinsTest_SamusReflectionSuitlessBottom.gfx.lz");
-const u16 sRuinsTestPAL[128] = INCBIN_U16("sprites/RuinsTest.pal");
-const u16 sRuinsTestPAL_SymbolShot_Frame1[8] = INCBIN_U16("sprites/RuinsTest_SymbolShotFrame1.pal");
-const u16 sRuinsTestPAL_SymbolShot_Frame2[8] = INCBIN_U16("sprites/RuinsTest_SymbolShotFrame2.pal");
-const u16 sRuinsTestPAL_SymbolShot_Frame3[8] = INCBIN_U16("sprites/RuinsTest_SymbolShotFrame3.pal");
-const u16 sRuinsTestPAL_SymbolShot_Frame4[8] = INCBIN_U16("sprites/RuinsTest_SymbolShotFrame4.pal");
-const u16 sRuinsTestPAL_SymbolShot_Frame5[8] = INCBIN_U16("sprites/RuinsTest_SymbolShotFrame5.pal");
-const u16 sRuinsTestPAL_SymbolShot_Frame6[8] = INCBIN_U16("sprites/RuinsTest_SymbolShotFrame6.pal");
-const u16 sRuinsTestPAL_SamusReflection[15 * 16] = INCBIN_U16("sprites/RuinsTest_SamusReflection.pal");
-const u16 sRuinsTestPAL_SamusReflectionFullSuit[15 * 16] = INCBIN_U16("sprites/RuinsTest_SamusReflectionFullSuit.pal");
+const u32 sRuinsTestGFX[1951] = INCBIN_U32("data/sprites/RuinsTest.gfx");
+const u32 sRuinsTestGFX_SamusReflectionTurningRightTop[96] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionTurningRightTop.gfx");
+const u32 sRuinsTestGFX_SamusReflectionTurningRightBottom[64] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionTurningRightBottom.gfx");
+const u32 sRuinsTestGFX_SamusReflectionTurningLeftTop[96] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionTurningLeftTop.gfx");
+const u32 sRuinsTestGFX_SamusReflectionTurningLeftBottom[64] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionTurningLeftBottom.gfx");
+const u32 sRuinsTestGFX_SamusReflectionFullSuitTop[96] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionFullSuitTop.gfx");
+const u32 sRuinsTestGFX_SamusReflectionFullSuitBottom[64] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionFullSuitBottom.gfx");
+const u32 sRuinsTestGFX_SamusReflectionSuitlessTop[96] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionSuitlessTop.gfx");
+const u32 sRuinsTestGFX_SamusReflectionSuitlessBottom[64] = INCBIN_U32("data/sprites/RuinsTest_SamusReflectionSuitlessBottom.gfx");
+const u16 sRuinsTestPAL[128] = INCBIN_U16("data/sprites/RuinsTest.pal");
+const u16 sRuinsTestPAL_SymbolShot_Frame1[8] = INCBIN_U16("data/sprites/RuinsTest_SymbolShotFrame1.pal");
+const u16 sRuinsTestPAL_SymbolShot_Frame2[8] = INCBIN_U16("data/sprites/RuinsTest_SymbolShotFrame2.pal");
+const u16 sRuinsTestPAL_SymbolShot_Frame3[8] = INCBIN_U16("data/sprites/RuinsTest_SymbolShotFrame3.pal");
+const u16 sRuinsTestPAL_SymbolShot_Frame4[8] = INCBIN_U16("data/sprites/RuinsTest_SymbolShotFrame4.pal");
+const u16 sRuinsTestPAL_SymbolShot_Frame5[8] = INCBIN_U16("data/sprites/RuinsTest_SymbolShotFrame5.pal");
+const u16 sRuinsTestPAL_SymbolShot_Frame6[8] = INCBIN_U16("data/sprites/RuinsTest_SymbolShotFrame6.pal");
+const u16 sRuinsTestPAL_SamusReflection[15 * 16] = INCBIN_U16("data/sprites/RuinsTest_SamusReflection.pal");
+const u16 sRuinsTestPAL_SamusReflectionFullSuit[15 * 16] = INCBIN_U16("data/sprites/RuinsTest_SamusReflectionFullSuit.pal");
 
 const u16 sRuinsTestSamusReflectionOAM_Frame0[10] = {
     0x3,
