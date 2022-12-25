@@ -1,9 +1,13 @@
 #include "sprites_AI/reo.h"
+
 #include "data/sprites/reo.h"
 #include "data/sprite_data.h"
+
+#include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/sprite.h"
 #include "structs/samus.h"
 
@@ -114,11 +118,13 @@ void ReoMovingInit(void)
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
 }
 
+/**
+ * @brief 1ce50 | 394 | Handles a reo moving
+ * 
+ */
 void ReoMove(void)
 {
-    // https://decomp.me/scratch/RUez3
-
-    /*u16 yPosition;
+    u16 yPosition;
     u16 xPosition;
     u16 otherY;
     u16 otherX;
@@ -136,7 +142,7 @@ void ReoMove(void)
     offset = 0x28;
     spriteID = gCurrentSprite.spriteID;
 
-    for (ramSlot = gCurrentSprite.primarySpriteRAMSlot + 0x1; ramSlot < MAX_AMOUNT_OF_SPRITES; ramSlot++)
+    for (ramSlot = gCurrentSprite.primarySpriteRAMSlot + 1; ramSlot < MAX_AMOUNT_OF_SPRITES; ramSlot++)
     {
         if (gSpriteData[ramSlot].status & SPRITE_STATUS_EXISTS && !(gSpriteData[ramSlot].properties & SP_SECONDARY_SPRITE) && gSpriteData[ramSlot].spriteID == spriteID)
         {
@@ -145,28 +151,28 @@ void ReoMove(void)
 
             if (yPosition + offset > otherY - offset && yPosition - offset < otherY + offset && xPosition + offset > otherX - offset && xPosition - offset < otherX + offset)
             {
-                if (gSpriteData[ramSlot].freezeTimer == 0x0)
+                if (gSpriteData[ramSlot].freezeTimer == 0)
                 {
                     if (yPosition > otherY)
                     {
                         if (SpriteUtilGetCollisionAtPosition(otherY - HALF_BLOCK_SIZE, otherX) == COLLISION_AIR)
-                            gSpriteData[ramSlot].yPosition -= 0x4;
+                            gSpriteData[ramSlot].yPosition -= 4;
                     }
                     else
                     {
                         if (SpriteUtilGetCollisionAtPosition(otherY + HALF_BLOCK_SIZE, otherX) == COLLISION_AIR)
-                            gSpriteData[ramSlot].yPosition += 0x4;
+                            gSpriteData[ramSlot].yPosition += 4;
                     }
 
                     if (xPosition > otherX)
                     {
                         if (SpriteUtilGetCollisionAtPosition(otherY, otherX - HALF_BLOCK_SIZE) == COLLISION_AIR)
-                            gSpriteData[ramSlot].xPosition -= 0x4;
+                            gSpriteData[ramSlot].xPosition -= 4;
                     }
                     else
                     {
                         if (SpriteUtilGetCollisionAtPosition(otherY, otherX + HALF_BLOCK_SIZE) == COLLISION_AIR)
-                            gSpriteData[ramSlot].xPosition += 0x4;
+                            gSpriteData[ramSlot].xPosition += 4;
                     }
                 }
 
@@ -176,63 +182,46 @@ void ReoMove(void)
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-    {
         collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + HALF_BLOCK_SIZE);
-        if (collision != COLLISION_AIR)
-        {
-            gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
-            gCurrentSprite.workVariable = 0x0;
-            gCurrentSprite.workVariable2 = 0x1;
-        }
-    }
     else
-    {
         collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - HALF_BLOCK_SIZE);
-        if (collision != COLLISION_AIR)
-        {
-            gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
-            gCurrentSprite.workVariable = 0x0;
-            gCurrentSprite.workVariable2 = 0x1;
-        }
+
+    if (collision != COLLISION_AIR)
+    {
+        gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
+        gCurrentSprite.workVariable = 0;
+        gCurrentSprite.workVariable2 = 1;
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
-    {
         collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition);
-        if (collision != COLLISION_AIR)
-        {
-            gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN2;
-            gCurrentSprite.timer = 0x0;
-            gCurrentSprite.arrayOffset = 0x1;
-        }
-    }
     else
-    {
         collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition);
-        if (collision != COLLISION_AIR)
-        {
-            gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN2;
-            gCurrentSprite.timer = 0x0;
-            gCurrentSprite.arrayOffset = 0x1;
-        }
+
+    if (collision != COLLISION_AIR)
+    {
+        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.timer = 0;
+        gCurrentSprite.arrayOffset = 1;
     }
 
     otherY = gSamusData.yPosition - 0x48;
     otherX = gSamusData.xPosition;
+    
     if (spriteID == PSPRITE_REO_PURPLE_WINGS)
     {
-        ySpeedCap = 0x20;
-        xSpeedCap = 0x40;
+        ySpeedCap = HALF_BLOCK_SIZE;
+        xSpeedCap = BLOCK_SIZE;
     }
     else
     {
-        ySpeedCap = 0x10;
-        xSpeedCap = 0x18;
+        ySpeedCap = QUARTER_BLOCK_SIZE;
+        xSpeedCap = QUARTER_BLOCK_SIZE + 8;
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gCurrentSprite.workVariable == 0x0)
+        if (gCurrentSprite.workVariable == 0)
         {
             if (gCurrentSprite.xPosition > otherX - 4)
                 gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
@@ -246,20 +235,20 @@ void ReoMove(void)
         }
         else
         {
-            if (gCurrentSprite.workVariable-- != 0x1)
+            if (gCurrentSprite.workVariable-- != 1)
             {
                 gCurrentSprite.xPosition += gCurrentSprite.workVariable >> 2;
             }
             else
             {
-                gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
-                gCurrentSprite.workVariable2 = 0x1;
+                gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                gCurrentSprite.workVariable2 = 1;
             }
         }
     }
     else
     {
-        if (gCurrentSprite.workVariable == 0x0)
+        if (gCurrentSprite.workVariable == 0)
         {
             if (gCurrentSprite.xPosition < otherX + 4)
                 gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
@@ -273,21 +262,21 @@ void ReoMove(void)
         }
         else
         {
-            if (gCurrentSprite.workVariable-- != 0x1)
+            if (gCurrentSprite.workVariable-- != 1)
             {
                 gCurrentSprite.xPosition -= gCurrentSprite.workVariable >> 2;
             }
             else
             {
-                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
-                gCurrentSprite.workVariable2 = 0x1;
+                gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                gCurrentSprite.workVariable2 = 1;
             }
         }
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
     {
-        if (gCurrentSprite.timer == 0x0)
+        if (gCurrentSprite.timer == 0)
         {
             if (gCurrentSprite.yPosition > otherY - 4)
                 gCurrentSprite.timer = gCurrentSprite.arrayOffset;
@@ -301,14 +290,14 @@ void ReoMove(void)
         }
         else
         {
-            if (gCurrentSprite.timer-- != 0x1)
+            if (gCurrentSprite.timer-- != 1)
             {
                 gCurrentSprite.yPosition += gCurrentSprite.timer >> 2;
             }
             else
             {
                 gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
-                gCurrentSprite.arrayOffset = 0x1;
+                gCurrentSprite.arrayOffset = 1;
             }
         }
 
@@ -316,7 +305,7 @@ void ReoMove(void)
     }
     else
     {
-        if (gCurrentSprite.timer == 0x0)
+        if (gCurrentSprite.timer == 0)
         {
             if (gCurrentSprite.yPosition < otherY + 4)
                 gCurrentSprite.timer = gCurrentSprite.arrayOffset;
@@ -330,14 +319,14 @@ void ReoMove(void)
         }
         else
         {
-            if (gCurrentSprite.timer-- != 0x1)
+            if (gCurrentSprite.timer-- != 1)
             {
                 gCurrentSprite.yPosition -= gCurrentSprite.timer >> 2;
             }
             else
             {
                 gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
-                gCurrentSprite.arrayOffset = 0x1;
+                gCurrentSprite.arrayOffset = 1;
             }
         }
 
@@ -345,12 +334,12 @@ void ReoMove(void)
     }
 
     gCurrentSprite.oamScaling--;
-    if (gCurrentSprite.oamScaling == 0x0)
+    if (gCurrentSprite.oamScaling == 0)
     {
         gCurrentSprite.oamScaling = 0x20;
         if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             SoundPlayNotAlreadyPlaying(0x158);
-    }*/
+    }
 }
 
 /**
