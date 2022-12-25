@@ -9,7 +9,7 @@ extern const i16 sReoIdleYMovement[65];
 extern const i16 sReoIdleXMovement[81];
 
 extern const u32 sReoGreenWingsGFX[277];
-extern const u16 sReoGrrenWingsPAL[16];
+extern const u16 sReoGreenWingsPAL[16];
 extern const u32 sReoPurpleWingsGFX[277];
 extern const u16 sReoPurpleWingsPAL[16];
 

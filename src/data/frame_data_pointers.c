@@ -44,6 +44,7 @@ const struct FrameData* const sUnknownItemChozoStatueFrameDataPointers[16] = {
     sUnknownItemChozoStatuePartOAM_ArmGlow,
     sUnknownItemChozoStatuePartOAM_ArmSamusGrabbed,
     sChozoBallOAM_UnknownClosed,
+    sChozoBallOAM_UnknownRevealing,
     sChozoBallOAM_UnknownRevealed,
     sUnknownItemChozoStatueRefillOAM,
     sUnknownItemChozoStatuePartOAM_GlowIdle
@@ -347,7 +348,7 @@ const struct FrameData* const sMechaRidleyFrameDataPointers[63] = {
     sMechaRidleyLaserOAM_Down,
     sMechaRidleyLaserOAM_SlightlyUp,
     sMechaRidleyLaserOAM_Up,
-    sMechaRidleyPartOAM_LeftArmSwinging,
+    sMechaRidleyPartOAM_LeftArmDying,
     sMechaRidleyPartOAM_RightArmDying,
     sMechaRidleyPartOAM_NeckDying,
     sMechaRidleyPartOAM_LeftArmCrawlingBackwards,

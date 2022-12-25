@@ -26,12 +26,8 @@ extern u16 gBG3HOFS_NonGameplay;
 extern u16 gBG3VOFS_NonGameplay;
 
 
-void* const sMemoryPointers[] = {
-    EWRAM_BASE
-};
+extern void* const sMemoryPointers[1];
 
-union NonGameplayRAM* const sNonGameplayRAMPointer[] = {
-    &gNonGameplayRAM
-};
+extern union NonGameplayRAM* const sNonGameplayRAMPointer[1];
 
 #endif

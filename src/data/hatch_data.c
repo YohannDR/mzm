@@ -223,8 +223,8 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
         .event = EVENT_MECHA_RIDLEY_KILLED,
         .isBefore = FALSE,
         .hatchesToLock1 = TRUE,
-        .hatchesToLock2 = TRUE,
-        .hatchesToLock3 = FALSE,
+        .hatchesToLock2 = FALSE,
+        .hatchesToLock3 = TRUE,
         .hatchesToLock4 = FALSE,
         .hatchesToLock5 = FALSE,
         .hatchesToLock6 = FALSE,
@@ -366,7 +366,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
         .hatchesToLockPart2_8 = FALSE
     },
     {
-        .room = 92,
+        .room = 71,
         .event = EVENT_MECHA_RIDLEY_KILLED,
         .isBefore = FALSE,
         .hatchesToLock1 = FALSE,
@@ -387,7 +387,7 @@ const struct HatchLockEvent sHatchLockEventsChozodia[15] = {
         .hatchesToLockPart2_8 = FALSE
     },
     {
-        .room = 70,
+        .room = 92,
         .event = EVENT_MECHA_RIDLEY_KILLED,
         .isBefore = FALSE,
         .hatchesToLock1 = TRUE,
@@ -838,6 +838,6 @@ const u16 sNumberOfHatchLockEventsPerArea[MAX_AMOUNT_OF_AREAS] = {
     [AREA_INVALID] = 0
 };
 
-const u8 sTemparray_3602e8[0x3FE3BF] = {0};
+const u8 sTemparray_3602e8[0x3FE3C0] = INCBIN_U8("data/Blob_3602e8_75e6a8.bin");
 
 // 3602e8

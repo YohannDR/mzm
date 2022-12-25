@@ -1,5 +1,7 @@
 #include "data/unsorted.h"
 #include "minimap.h"
+#include "gba.h"
+#include "temp_globals.h"
 
 // 754bc0
 u32* const  sVisitedMinimapTilesPointer[1] = {
@@ -20,4 +22,12 @@ const MinimapFunc_T sMinimapTilesCopyGFXFunctionPointers[4] = {
     MinimapCopyTileXFlippedGFX,
     MinimapCopyTileYFlippedGFX,
     MinimapCopyTileXYFlippedGFX,
+};
+
+void* const sMemoryPointers[] = {
+    EWRAM_BASE
+};
+
+union NonGameplayRAM* const sNonGameplayRAMPointer[] = {
+    &gNonGameplayRAM
 };

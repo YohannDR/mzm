@@ -1,11 +1,12 @@
 #include "data/rooms_data.h"
 #include "constants/connection.h"
+#include "macros.h"
 
-const u8 sEnemyRoomData_Empty[3] = {
+const u8 sEnemyRoomData_Empty[4] = {
 	UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
 };
 
-const u8 sTempArray_33dfdc[0x62C+1] = {0};
+const u8 sTempArray_33dfdc[0x62C] = INCBIN_U8("data/Blob_33dfdc_33e608.bin");
 
 const struct Door sBrinstarDoors[99] = {
 	{
@@ -1087,7 +1088,7 @@ const struct Door sBrinstarDoors[99] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NONE | DOOR_TYPE_EXISTS,
+		.type = DOOR_TYPE_NONE,
 		.sourceRoom = 0,
 		.xStart = 0,
 		.xEnd = 0,
@@ -1871,7 +1872,7 @@ const struct Door sKraidDoors[107] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 29,
 		.xStart = 2,
 		.xEnd = 2,
@@ -2267,7 +2268,7 @@ const struct Door sKraidDoors[107] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NONE | DOOR_TYPE_EXISTS,
+		.type = DOOR_TYPE_NONE,
 		.sourceRoom = 0,
 		.xStart = 0,
 		.xEnd = 0,
@@ -3007,7 +3008,7 @@ const struct Door sNorfairDoors[133] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 33,
 		.xStart = 2,
 		.xEnd = 2,
@@ -3040,7 +3041,7 @@ const struct Door sNorfairDoors[133] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 35,
 		.xStart = 2,
 		.xEnd = 2,
@@ -3315,7 +3316,7 @@ const struct Door sNorfairDoors[133] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 5,
 		.xStart = 2,
 		.xEnd = 2,
@@ -3469,7 +3470,7 @@ const struct Door sNorfairDoors[133] = {
 		.yExit = 16
 	},
 	{
-		.type = DOOR_TYPE_AREA_CONNECTION | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
+		.type = DOOR_TYPE_AREA_CONNECTION | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
 		.sourceRoom = 43,
 		.xStart = 22,
 		.xEnd = 24,
@@ -3733,7 +3734,7 @@ const struct Door sNorfairDoors[133] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NONE | DOOR_TYPE_EXISTS,
+		.type = DOOR_TYPE_NONE,
 		.sourceRoom = 0,
 		.xStart = 0,
 		.xEnd = 0,
@@ -4220,7 +4221,7 @@ const struct Door sRidleyDoors[77] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 2,
 		.xStart = 2,
 		.xEnd = 2,
@@ -4407,7 +4408,7 @@ const struct Door sRidleyDoors[77] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_AREA_CONNECTION | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
+		.type = DOOR_TYPE_AREA_CONNECTION | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
 		.sourceRoom = 2,
 		.xStart = 7,
 		.xEnd = 9,
@@ -4440,7 +4441,7 @@ const struct Door sRidleyDoors[77] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 2,
 		.xStart = 1,
 		.xEnd = 1,
@@ -4561,7 +4562,7 @@ const struct Door sRidleyDoors[77] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 32,
 		.xStart = 12,
 		.xEnd = 12,
@@ -4583,7 +4584,7 @@ const struct Door sRidleyDoors[77] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NONE | DOOR_TYPE_EXISTS,
+		.type = DOOR_TYPE_NONE,
 		.sourceRoom = 0,
 		.xStart = 0,
 		.xEnd = 0,
@@ -4740,7 +4741,7 @@ const struct Door sTourianDoors[44] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
 		.sourceRoom = 6,
 		.xStart = 2,
 		.xEnd = 2,
@@ -5070,7 +5071,7 @@ const struct Door sTourianDoors[44] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NONE | DOOR_TYPE_EXISTS,
+		.type = DOOR_TYPE_NONE,
 		.sourceRoom = 0,
 		.xStart = 0,
 		.xEnd = 0,
@@ -5128,7 +5129,7 @@ const struct Door sCrateriaDoors[53] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
 		.sourceRoom = 15,
 		.xStart = 2,
 		.xEnd = 2,
@@ -5293,7 +5294,7 @@ const struct Door sCrateriaDoors[53] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 9,
 		.xStart = 2,
 		.xEnd = 2,
@@ -5381,7 +5382,7 @@ const struct Door sCrateriaDoors[53] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 11,
 		.xStart = 2,
 		.xEnd = 2,
@@ -5414,7 +5415,7 @@ const struct Door sCrateriaDoors[53] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 12,
 		.xStart = 16,
 		.xEnd = 16,
@@ -5656,7 +5657,7 @@ const struct Door sCrateriaDoors[53] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NONE | DOOR_TYPE_EXISTS,
+		.type = DOOR_TYPE_NONE,
 		.sourceRoom = 0,
 		.xStart = 0,
 		.xEnd = 0,
@@ -6176,7 +6177,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 19,
 		.xStart = 16,
 		.xEnd = 16,
@@ -6253,7 +6254,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_SET_MOTHER_SHIP | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
+		.type = DOOR_TYPE_SET_MOTHER_SHIP | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
 		.sourceRoom = 24,
 		.xStart = 16,
 		.xEnd = 16,
@@ -6264,7 +6265,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 24,
 		.xStart = 2,
 		.xEnd = 2,
@@ -6297,7 +6298,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 26,
 		.xStart = 46,
 		.xEnd = 46,
@@ -6374,7 +6375,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 29,
 		.xStart = 46,
 		.xEnd = 46,
@@ -6407,7 +6408,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 31,
 		.xStart = 46,
 		.xEnd = 46,
@@ -6506,7 +6507,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 35,
 		.xStart = 61,
 		.xEnd = 61,
@@ -6539,7 +6540,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 37,
 		.xStart = 31,
 		.xEnd = 31,
@@ -6572,7 +6573,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 38,
 		.xStart = 2,
 		.xEnd = 2,
@@ -6605,7 +6606,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 40,
 		.xStart = 2,
 		.xEnd = 2,
@@ -6616,7 +6617,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 40,
 		.xStart = 16,
 		.xEnd = 16,
@@ -6726,7 +6727,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 32
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 13,
 		.xStart = 31,
 		.xEnd = 31,
@@ -6770,7 +6771,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 13,
 		.xStart = 31,
 		.xEnd = 31,
@@ -6814,7 +6815,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 13,
 		.xStart = 31,
 		.xEnd = 31,
@@ -7078,7 +7079,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 59,
 		.xStart = 2,
 		.xEnd = 2,
@@ -7342,7 +7343,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_CLOSED_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 69,
 		.xStart = 2,
 		.xEnd = 2,
@@ -7562,7 +7563,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = -32
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 55,
 		.xStart = 13,
 		.xEnd = 13,
@@ -7606,7 +7607,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM | DOOR_TYPE_DISPLAYS_ROOM_LOCATION,
 		.sourceRoom = 10,
 		.xStart = 31,
 		.xEnd = 31,
@@ -7815,7 +7816,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 32,
 		.xStart = 2,
 		.xEnd = 2,
@@ -7848,7 +7849,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 32,
 		.xStart = 2,
 		.xEnd = 2,
@@ -8288,7 +8289,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 0
 	},
 	{
-		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_EXISTS | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
+		.type = DOOR_TYPE_NO_HATCH | DOOR_TYPE_LOAD_EVENT_BASED_ROOM,
 		.sourceRoom = 19,
 		.xStart = 14,
 		.xEnd = 15,
@@ -8365,7 +8366,7 @@ const struct Door sChozodiaDoors[246] = {
 		.yExit = 32
 	},
 	{
-		.type = DOOR_TYPE_NONE | DOOR_TYPE_EXISTS,
+		.type = DOOR_TYPE_NONE,
 		.sourceRoom = 0,
 		.xStart = 0,
 		.xEnd = 0,
@@ -8377,8 +8378,6 @@ const struct Door sChozodiaDoors[246] = {
 	}
 };
 
-const struct Door sDebugDoors[26] = {0};
+//const struct Door sDebugDoors[26] = {0};
 
-const u8 sTempArray_340ad4[0x4D94] = {0};
-
-// 34099c
+const u8 sTempArray_34099c[0x4ECC] = INCBIN_U8("data/Blob_34099c_345868.bin");

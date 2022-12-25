@@ -14,7 +14,8 @@ const u16 sMovementClipdataValues[16] = {
     [CLIP_BEHAVIOR_VERTICAL_DOWN_TRANSITION] = CLIPDATA_MOVEMENT_NONE,
     [CLIP_BEHAVIOR_NON_POWER_GRIP] = CLIPDATA_MOVEMENT_NON_POWER_GRIP,
     [CLIP_BEHAVIOR_STOP_ENEMY_SOLID] = CLIPDATA_MOVEMENT_STOP_ENEMY_BLOCK_SOLID,
-    [CLIP_BEHAVIOR_SPACE_PIRATE_ZONELINE] = CLIPDATA_MOVEMENT_SPACE_PIRATE_ZONELINE
+    [CLIP_BEHAVIOR_SPACE_PIRATE_ZONELINE] = CLIPDATA_MOVEMENT_SPACE_PIRATE_ZONELINE,
+    [CLIP_BEHAVIOR_SPACE_PIRATE_WALLJUMP_POINT] = CLIPDATA_MOVEMENT_SPACE_PIRATE_WALLJUMP_POINT
 };
 
 const u16 sHazardsDefinitions[8][2] = {
@@ -64,7 +65,7 @@ const struct ElevatorPair sElevatorRoomPairs[9] = {
         .mapY1 = 10,
         .area2 = AREA_BRINSTAR,
         .room2 = 0,
-        .mapX2 = 0,
+        .mapX2 = 2,
         .mapY2 = 15
     },
     [ELEVATOR_ROUTE_BRINSTAR_TO_NORFAIR] = {
@@ -129,7 +130,7 @@ const struct ElevatorPair sElevatorRoomPairs[9] = {
     },
     [ELEVATOR_ROUTE_CRATERIA_TO_TOURIAN_2] = {
         .area1 = AREA_CRATERIA,
-        .room1 = 12,
+        .room1 = 18,
         .mapX1 = 3,
         .mapY1 = 12,
         .area2 = AREA_TOURIAN,

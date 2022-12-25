@@ -1732,7 +1732,7 @@ const u16 sParticleMainBossDeathOAM_Frame5[49] = {
     OBJ_SHAPE_VERTICAL | 0xe0, OBJ_X_FLIP | 0x1f4, 0x30d2
 };
 
-const u16 sParticleMainBossDeathOAM_Frame6[53] = {
+const u16 sParticleMainBossDeathOAM_Frame6[52] = {
     0x11,
     0xf8, OBJ_SIZE_16x16 | 0x1e8, 0x3188,
     0xee, OBJ_SIZE_16x16 | 0x1f3, 0x3155,
@@ -2047,7 +2047,7 @@ const struct FrameData sParticleHittingSomethingWithNormalBeamOAM[5] = {
     sParticleHittingSomethingWithNormalBeamOAM_Frame2,
     0x2,
     sParticleHittingSomethingWithNormalBeamOAM_Frame3,
-    0x2,
+    0x4,
     NULL,
     0x0
 };
@@ -2408,21 +2408,21 @@ const struct FrameData sParticleSpriteExplosionSingleThenBigOAM[17] = {
 };
 
 const struct FrameData sParticleScrewAttackDestroyedOAM[9] = {
-    sParticleSudoScrewDestroyedOAM_Frame0,
+    sParticleScrewAttackDestroyedOAM_Frame0,
     0x2,
-    sParticleSudoScrewDestroyedOAM_Frame1,
+    sParticleScrewAttackDestroyedOAM_Frame1,
     0x2,
-    sParticleSudoScrewDestroyedOAM_Frame2,
+    sParticleScrewAttackDestroyedOAM_Frame2,
     0x2,
-    sParticleSudoScrewDestroyedOAM_Frame3,
+    sParticleScrewAttackDestroyedOAM_Frame3,
     0x2,
-    sParticleSudoScrewDestroyedOAM_Frame4,
+    sParticleScrewAttackDestroyedOAM_Frame4,
     0x2,
-    sParticleSudoScrewDestroyedOAM_Frame5,
+    sParticleScrewAttackDestroyedOAM_Frame5,
     0x3,
-    sParticleSudoScrewDestroyedOAM_Frame6,
+    sParticleScrewAttackDestroyedOAM_Frame6,
     0x3,
-    sParticleSudoScrewDestroyedOAM_Frame7,
+    sParticleScrewAttackDestroyedOAM_Frame7,
     0x4,
     NULL,
     0x0
@@ -2663,8 +2663,8 @@ const struct FrameData sSpriteDebrisOAM[5] = {
 const struct FrameData sSpriteDebrisOAM_Unused[7] = {
     sParticleHittingSomethingWithNormalBeamOAM_Frame1,
     0x1,
-    sParticleHittingSomethingWithNormalBeamOAM_Frame2,
-    0x1,
+    sParticleHittingSomethingWithLongBeamOAM_Frame2,
+    0x2,
     sParticleHittingSomethingWithIceBeamOAM_Frame3,
     0x2,
     sParticleHittingSomethingWithWaveBeamOAM_Frame4,

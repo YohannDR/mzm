@@ -438,7 +438,7 @@ extern const u16 sParticleMainBossDeathOAM_Frame4[31];
 
 extern const u16 sParticleMainBossDeathOAM_Frame5[49];
 
-extern const u16 sParticleMainBossDeathOAM_Frame6[53];
+extern const u16 sParticleMainBossDeathOAM_Frame6[52];
 
 extern const u16 sParticleMainBossDeathOAM_Frame7[55];
 

@@ -19,7 +19,7 @@ const i16 sReoIdleXMovement[81] = {
 };
 
 const u32 sReoGreenWingsGFX[277] = INCBIN_U32("data/sprites/ReoGreenWings.gfx.lz");
-const u16 sReoGrrenWingsPAL[16] = INCBIN_U16("data/sprites/ReoGreenWings.pal");
+const u16 sReoGreenWingsPAL[16] = INCBIN_U16("data/sprites/ReoGreenWings.pal");
 const u32 sReoPurpleWingsGFX[277] = INCBIN_U32("data/sprites/ReoPurpleWings.gfx.lz");
 const u16 sReoPurpleWingsPAL[16] = INCBIN_U16("data/sprites/ReoPurpleWings.pal");
 

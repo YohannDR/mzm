@@ -1,4 +1,6 @@
 #include "data/engine_pointers.h"
+#include "macros.h"
+
 #include "data/clipdata_data.h"
 #include "data/hatch_data.h"
 #include "data/rooms_data.h"
@@ -44,11 +46,11 @@ const ParticleFunc_T sProcessParticleFunctionPointers[61] = {
     [PE_SHOOTING_BEAM_DIAG_UP_LEFT] = ParticleShootingBeamDiagUpLeft,
     [PE_SHOOTING_BEAM_DIAG_DOWN_LEFT] = ParticleShootingBeamDiagDownLeft,
     [PE_SHOOTING_BEAM_UP_LEFT] = ParticleShootingBeamUpLeft,
-    [PE_SHOOTING_BEAM_DOWN_LEFT] = ParticleShootingBeamDiagDownLeft,
+    [PE_SHOOTING_BEAM_DOWN_LEFT] = ParticleShootingBeamDownLeft,
     [PE_SHOOTING_BEAM_RIGHT] = ParticleShootingBeamRight,
     [PE_SHOOTING_BEAM_DIAG_UP_RIGHT] = ParticleShootingBeamDiagUpRight,
     [PE_SHOOTING_BEAM_DIAG_DOWN_RIGHT] = ParticleShootingBeamDiagDownRight,
-    [PE_SHOOTING_BEAM_UP_RIGHT] = ParticleShootingBeamDiagUpRight,
+    [PE_SHOOTING_BEAM_UP_RIGHT] = ParticleShootingBeamUpRight,
     [PE_SHOOTING_BEAM_DOWN_RIGHT] = ParticleShootingBeamDownRight,
     [PE_BOMB] = ParticleBomb,
     [PE_MISSILE_TRAIL] = ParticleMissileTrail,
@@ -101,16 +103,22 @@ const struct Door* const sAreaDoorsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
     [AREA_RIDLEY] = sRidleyDoors,
     [AREA_TOURIAN] = sTourianDoors,
     [AREA_CRATERIA] = sCrateriaDoors,
-    [AREA_CHOZODIA] = sTourianDoors
+    [AREA_CHOZODIA] = sChozodiaDoors
 };
 
 const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_AREAS - 1] = {
-
+    (const struct RoomEntryROM*)0x8340ad4,
+    (const struct RoomEntryROM*)0x83414ac,
+    (const struct RoomEntryROM*)0x8341e84,
+    (const struct RoomEntryROM*)0x8342be0,
+    (const struct RoomEntryROM*)0x834339c,
+    (const struct RoomEntryROM*)0x834384c,
+    (const struct RoomEntryROM*)0x8343d74,
 };
 
 const u8* const sScrollPointer_Empty = sScroll_Empty;
 
-const u8 sTempArray_75fae4[0x2A4] = {0};
+const u8 sTempArray_75fae4[0x2A4] = INCBIN_U8("data/Blob_75fae4_75fd88.bin");
 
 /**
  * @brief Haze data for each room effect
@@ -161,11 +169,9 @@ const u8 sHazeData[13][4] = {
     }
 };
 
-// More ...
+const u8 sTempArray_75fdbc[0x24] = INCBIN_U8("data/Blob_75fdbc_75fde0.bin");
 
-// 75fde0
-
-const struct HatchLockEvent* sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
+const struct HatchLockEvent* const sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
     [AREA_BRINSTAR] = sHatchLockEventsBrinstar,
     [AREA_KRAID] = sHatchLockEventsKraid,
     [AREA_NORFAIR] = sHatchLockEventsNorfair,
@@ -175,6 +181,4 @@ const struct HatchLockEvent* sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1] =
     [AREA_CHOZODIA] = sHatchLockEventsChozodia
 };
 
-// More ...
-
-// 75fdfc
+const u8 sTempArray_75fdfc[0x97938] = INCBIN_U8("data/Blob_75fdfc_7f7734.bin");

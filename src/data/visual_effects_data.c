@@ -1065,7 +1065,7 @@ const struct FrameData sEnvEffectOAM_GoingOutOfAcid[11] = {
 };
 
 const struct FrameData sEnvEffectOAM_RunningIntoAcid[7] = {
-    sEnvEffectOAM_GoingOutOfAcid_Frame0,
+    sEnvEffectOAM_GoingOutOfAcid_Frame9,
     4,
     sEnvEffectOAM_RunningIntoAcid_Frame1,
     4,
@@ -1118,27 +1118,27 @@ const struct FrameData sEnvEffectOAM_BreathingBubbles[8] = {
 };
 
 const struct FrameData sEnvEffectOAM_RunningOnVeryDustyGround[12] = {
-    sEnvEffectOAM_LandingOnVeryDustyGround_Frame0,
+    sEnvEffectOAM_RunningOnVeryDustyGround_Frame0,
     3,
     sEnvEffectOAM_LandingOnVeryDustyGround_Frame1,
     1,
-    sEnvEffectOAM_LandingOnVeryDustyGround_Frame2,
+    sEnvEffectOAM_RunningOnVeryDustyGround_Frame2,
     3,
     sEnvEffectOAM_LandingOnVeryDustyGround_Frame1,
     1,
-    sEnvEffectOAM_LandingOnVeryDustyGround_Frame4,
+    sEnvEffectOAM_RunningOnVeryDustyGround_Frame4,
     3,
     sEnvEffectOAM_LandingOnVeryDustyGround_Frame1,
     1,
-    sEnvEffectOAM_LandingOnVeryDustyGround_Frame6,
+    sEnvEffectOAM_RunningOnVeryDustyGround_Frame6,
     3,
     sEnvEffectOAM_LandingOnVeryDustyGround_Frame1,
     1,
-    sEnvEffectOAM_LandingOnVeryDustyGround_Frame8,
+    sEnvEffectOAM_RunningOnVeryDustyGround_Frame8,
     3,
     sEnvEffectOAM_LandingOnVeryDustyGround_Frame1,
     1,
-    sEnvEffectOAM_LandingOnVeryDustyGround_Frame10,
+    sEnvEffectOAM_RunningOnVeryDustyGround_Frame10,
     3,
     NULL,
     0
@@ -1204,7 +1204,8 @@ const u16 sParticleSpriteSplashWaterBigOAM_Frame2[19] = {
     0xfa, OBJ_X_FLIP | 0x2, 0x409d,
     0xfe, OBJ_SIZE_16x16 | 0x1f8, 0x418a,
     OBJ_SHAPE_VERTICAL | 0xf3, OBJ_X_FLIP | 0x1f8, 0x415f,
-    OBJ_SHAPE_VERTICAL | 0xf3, 0x0, 0x415f
+    OBJ_SHAPE_VERTICAL | 0xf3, 0x0, 0x415f,
+    0xea, 0x1fc, 0x415e
 };
 
 const u16 sParticleSpriteSplashWaterBigOAM_Frame3[19] = {
@@ -1871,6 +1872,8 @@ const struct FrameData sParticleSpriteSplashWaterSmallOAM[7] = {
     4,
     sParticleSpriteSplashWaterSmallOAM_Frame4,
     4,
+    sParticleSpriteSplashWaterSmallOAM_Frame5,
+    4,
     NULL,
     0
 };
@@ -2012,5 +2015,8 @@ const u16 sParticleEscapeOAM[34] = {
     OBJ_SHAPE_VERTICAL | 0x0, 0x20, 0x33c0,
     OBJ_SHAPE_VERTICAL | 0x0, 0x28, 0x33ca,
     OBJ_SHAPE_VERTICAL | 0x0, 0x30, 0x33c0,
-    OBJ_SHAPE_VERTICAL | 0x0, 0x38, 0x33c0
+    OBJ_SHAPE_VERTICAL | 0x0, 0x38, 0x33c0,
+    0x0, 0xdf94, 0x833,
+    0xff, 0x0, 0x0,
+    0x0, 0x0, 0x0
 };

@@ -32,7 +32,7 @@ extern const u8 sHazeData[13][4];
 
 // 75fde0
 
-extern const struct HatchLockEvent* sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1];
+extern const struct HatchLockEvent* const sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1];
 
 // More ...
 

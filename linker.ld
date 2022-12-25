@@ -476,7 +476,7 @@ SECTIONS {
         src/data/empty_datatypes.o(.rodata);
         src/data/clipdata_data.o(.rodata);
         src/data/block_data.o(.rodata);
-        /* 345d00-360130*/
+        /* 345d00-360130 */
         src/data/hatch_data.o(.rodata);
         /* 3602e8-75e6a8 */
         src/data/samus_sprites_pointers.o(.rodata);

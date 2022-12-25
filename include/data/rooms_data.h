@@ -3,7 +3,8 @@
 
 #include "structs/connection.h"
 
-extern const u8 sEnemyRoomData_Empty[3];
+// Should be [3], needed for alignement issues for now
+extern const u8 sEnemyRoomData_Empty[4];
 
 extern const struct Door sBrinstarDoors[99];
 
