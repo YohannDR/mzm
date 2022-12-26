@@ -3,6 +3,11 @@
 
 #include "types.h"
 
+#define FADING_TYPE_IN 0
+#define FADING_TYPE_FLASH 1
+#define FADING_TYPE_OUT 2
+#define FADING_TYPE_UNK 3
+
 // Functions
 
 void unk_5b24c(void);
@@ -21,6 +26,6 @@ void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage
 void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage);
 void ApplySpecialBackgroundEffectColorOnOBJ(u16 mask, u16 color, u8 stage);
 void ApplySpecialBackgroundFadingColor(u8 type, u8 color, u16** ppSrc, u16** ppDst, u16 mask);
-u16 ApplyFadeOnColor(u8 type, u16 color, u16 currentColor);
+u16 ApplyFadeOnColor(u8 type, u16 color, u8 currentColor);
 
 #endif /* COLOR_EFFECTS_H */

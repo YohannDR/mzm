@@ -1,5 +1,6 @@
 #include "gba.h"
 #include "bg_clip.h"
+#include "transparency.h"
 #include "sprites_AI/item_banner.h"
 
 #include "data/block_data.h"
@@ -14,6 +15,7 @@
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"
 #include "structs/connection.h"
+#include "structs/transparency.h"
 #include "structs/game_state.h"
 #include "structs/samus.h"
 
@@ -103,7 +105,45 @@ void BGClipCheckTouchingSpecialClipdata(void)
 
 void BGClipApplyClipdataChangingTransparency(void)
 {
+    // https://decomp.me/scratch/qCOUj
 
+    u32 bldalpha;
+    u16 clipdata;
+    i32 xPosition;
+    i32 yPosition;
+    i32 clipLimit;
+
+    xPosition = gSamusData.xPosition;
+    clipLimit = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
+    if (xPosition > clipLimit)
+        xPosition = clipLimit;
+
+    xPosition >>= 6;
+
+    yPosition = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 1);
+    if (yPosition < 0)
+        yPosition = 0;
+    else
+    {
+        clipLimit = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
+        if (yPosition > clipLimit)
+            yPosition = clipLimit;
+    }
+
+    yPosition >>= 6;
+
+    clipdata = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[yPosition * gBGPointersAndDimensions.clipdataWidth + xPosition]];
+    if (clipdata == CLIP_BEHAVIOR_AIR_SOLID)
+        return;
+
+    bldalpha = BGClipGetNewBLDALPHAValue(clipdata);
+    if (bldalpha == 0)
+        return;
+    
+    if (bldalpha == USHORT_MAX)
+        TransparencyUpdateBLDALPHA(gDefaultTransparency.evaCoef, gDefaultTransparency.evbCoef, 1, 1);
+    else
+        TransparencyUpdateBLDALPHA(bldalpha & UCHAR_MAX, bldalpha >> 8, 1, 1);
 }
 
 u16 BGClipGetNewBLDALPHAValue(u16 clip)

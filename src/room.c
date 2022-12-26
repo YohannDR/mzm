@@ -2,51 +2,95 @@
 #include "gba.h"
 
 #include "data/engine_pointers.h"
+#include "data/empty_datatypes.h"
 
+#include "constants/audio.h"
+#include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
 #include "constants/samus.h"
 #include "constants/room.h"
 
-#include "structs/game_state.h"
-#include "structs/color_effects.h"
+#include "structs/audio.h"
 #include "structs/bg_clip.h"
+#include "structs/color_effects.h"
+#include "structs/clipdata.h"
+#include "structs/cutscene.h"
+#include "structs/display.h"
+#include "structs/demo.h"
+#include "structs/game_state.h"
 #include "structs/scroll.h"
 #include "structs/room.h"
 #include "structs/samus.h"
 #include "structs/screen_shake.h"
 #include "structs/visual_effects.h"
 
-
+/**
+ * @brief 55f7c | 26c | Loads the current room
+ * 
+ */
 void RoomLoad(void)
 {
-    /*ClipdataSetupCode();
+    ClipdataSetupCode();
     RoomReset();
 
+    // Check for PSF
     if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
     {
+        // No PSF, fully load room
         RoomLoadEntry();
         ScrollLoad();
         RoomSetBackgroundScrolling();
     }
+    // Getting an item, init cutscene
     else if (gPauseScreenFlag == PAUSE_SCREEN_ITEM_ACQUISITION)
     {
+        // Varia
+        if (gCurrentItemBeingAcquired == 0xE)
+        {
+            gEquipment.suitMiscActivation &= ~SMF_VARIA_SUIT;
+            SamusSetPose(SPOSE_FACING_THE_FOREGROUND);
 
+            gSamusData.xPosition = 0x278;
+            gSamusData.yPosition = 0x1FF;
+
+            gInGameCutscene.stage = 0;
+            gInGameCutscene.cutsceneNumber_Copy = 0x9;
+            start_in_game_cutscene(9); // Undefined
+
+            gDisablePause = TRUE;
+            gSamusWeaponInfo.chargeCounter = 0;
+            gSamusData.lastWallTouchedMidAir = TRUE;
+        }
     }
     else if (gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS)
     {
+        gEquipment.suitMiscActivation &= ~SMF_GRAVITY_SUIT;
+        SamusSetPose(SPOSE_FACING_THE_FOREGROUND);
 
+        gSamusData.xPosition = 0x620;
+        gSamusData.yPosition = 0x7BF;
+
+        gInGameCutscene.stage = 0;
+        gInGameCutscene.cutsceneNumber_Copy = 0xA;
+        start_in_game_cutscene(10); // Undefined
+
+        gDisablePause = TRUE;
+        gSamusData.lastWallTouchedMidAir = TRUE;
+        gCurrentItemBeingAcquired = 0xF; // Gravity
+        gSamusWeaponInfo.chargeCounter = 0;
     }
     else if (gPauseScreenFlag == PAUSE_SCREEN_SUITLESS_ITEMS)
         PlayMusic(MUSIC_CHOZO_RUINS, 0x10);
 
+    // Load graphics
     RoomLoadTileset();
     RoomLoadBackgrounds();
     RoomRemoveNeverReformBlocksAndCollectedTanks();
     gPreviousXPosition = gSamusData.xPosition;
     gPreviousYPosition = gSamusData.yPosition;
     TransparencySetRoomEffectsTransparency();
-    LoadFirstRoom(); // Undefined
+    load_first_room(); // Undefined
 
     if (gPauseScreenFlag == PAUSE_SCREEN_NONE && !gIsLoadingFile)
     {
@@ -57,6 +101,7 @@ void RoomLoad(void)
         ScrollProcessGeneral();
     }
 
+    // Load states, entities
     check_play_lightning_effect(); // Undefined
     RoomUpdateBackgroundsPosition();
     ConnectionLoadDoors();
@@ -65,22 +110,24 @@ void RoomLoad(void)
     RoomSetInitialTilemap(0x1);
     RoomSetInitialTilemap(0x2);
     load_animated_graphics(); // Undefined
-    ResetTanksAnimation(); // Undefined
-    SetBGHazeEffect(); // Undefined
-    ProcessHaze(); // Undefined
-    MinimapCheckOnTransition(); // Undefined
+    reset_tanks_animation(); // Undefined
+    set_bg_haze_effect(); // Undefined
+    process_haze(); // Undefined
+    MinimapCheckOnTransition();
 
+    // Check using elevator
     if (!gIsLoadingFile && gGameModeSub3 != 0x0 && gPauseScreenFlag == PAUSE_SCREEN_NONE && gSamusData.pose == SPOSE_USING_AN_ELEVATOR)
     {
         if (gSamusData.elevatorDirection == KEY_UP)
-            gSamusData.yPosition += 0xC0;
+            gSamusData.yPosition += BLOCK_SIZE * 3;
         else
-            gSamusData.yPosition -= 0xC0;
+            gSamusData.yPosition -= BLOCK_SIZE * 3;
         gPreviousYPosition = gSamusData.yPosition;
     }
 
     sub_08060800(); // Undefined
 
+    // Update rain sound effect
     if (gRainSoundEffect != RAIN_SOUND_NONE)
     {
         if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
@@ -88,8 +135,10 @@ void RoomLoad(void)
             if (gRainSoundEffect & RAIN_SOUND_PLAYING)
             {
                 if (!(gRainSoundEffect & RAIN_SOUND_ENABLED))
+                {
                     SoundFade(0x121, 0xA); // Rain
                     gRainSoundEffect &= ~RAIN_SOUND_PLAYING;
+                }
             }
             else if (gRainSoundEffect & RAIN_SOUND_ENABLED)
             {
@@ -98,7 +147,7 @@ void RoomLoad(void)
             }
         }
         gRainSoundEffect &= ~RAIN_SOUND_ENABLED;
-    }*/
+    }
 }
 
 void RoomLoadTileset(void)
@@ -259,12 +308,199 @@ void RoomRemoveNeverReformBlocksAndCollectedTanks(void)
 
 void RoomReset(void)
 {
+    // https://decomp.me/scratch/TZ1cZ
+    
+    const struct Door* pDoor;
+    i32 i;
+    i32 yOffset;
+    i32 xOffset;
+    u16 count;
+    u16* ptr;
+    u16 temp;
+    
+    gColorFading.unk_3 = 0;
+    gColorFading.timer = 0;
+    gColorFading.status = 0;
+    gColorFading.stage = 0;
+    gColorFading.unk_6 = 0;
 
+    if (gCurrentPowerBomb.animationState != 0)
+        gScreenShakeX = sScreenShake_Empty;
+
+    gCurrentPowerBomb = sPowerBomb_Empty;
+    gWrittenToBLDCNT_Internal = 0;
+    gScrollCounter = 0;
+    gMusicTrackInfo.takingNormalTransition = FALSE;
+
+    if (gGameModeSub3 == 0)
+    {
+        gMusicTrackInfo.currentRoomTrack = MUSIC_NONE;
+        gMusicTrackInfo.unk = 0;
+        gMusicTrackInfo.pauseScreenFlag = PAUSE_SCREEN_NONE;
+
+        gCurrentClipdataAffectingAction = CAA_NONE;
+        gAreaBeforeTransition = UCHAR_MAX;
+        gDisableDoorAndTanks = FALSE;
+        gCurrentCutscene = 0;
+
+        gLastElevatorUsed = sLastElevatorUsed_Empty;
+        gRainSoundEffect = RAIN_SOUND_NONE;
+
+        if (!gIsLoadingFile && gCurrentDemo.status & 0xF0)
+            init_demo_related(FALSE);
+    
+        gDoorPositionStart.x = 0;
+        gDoorPositionStart.y = 0;
+        gCurrentItemBeingAcquired = 0;
+
+        save_most_recent_file_to_sram(); // Undefined
+    }
+
+    unk_5c158(); // Undefined
+
+    if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
+        return;
+
+    gDisableScrolling = FALSE;
+    gSlowScrollingTimer = 0;
+    gCollectingTank = FALSE;
+
+    gScreenShakeRelated = 0;
+    gDisablePause = FALSE;
+    gDisableClipdataChangingTransparency = FALSE;
+    
+    gWrittenTo0x05000000 = 0;
+    gScreenYOffset = 0;
+    gScreenXOffset = 0;
+
+    gDISPCNTBackup = 0;
+    gInGameCutscene.cutsceneNumber = 0;
+    gInGameCutscene.cutsceneNumber_Copy = 0;
+
+    gEffectYPosition = 0;
+    gHatchesState.unlocking = FALSE;
+    gHatchesState.hatchesLockedWithTimer = 0;
+    gHatchesState.unk = FALSE;
+    gHatchesState.hatchesLockedWithEvent = 0;
+    gHatchesState.unk2 = FALSE;
+    gDoorUnlockTimer = 0;
+
+    pDoor = &sAreaDoorsPointers[gCurrentArea][0];
+    pDoor += gLastDoorUsed;
+    gCurrentRoom = pDoor->sourceRoom;
+    gLastDoorProperties = pDoor->type;
+    gDisplayLocationText = (pDoor->type >> 6) & 1;
+
+    gDoorPositionStart.x = pDoor->xStart;
+    gDoorPositionStart.y = pDoor->yStart;
+
+    gWaitingSpacePiratesPosition = sCoordsX_Empty;
+    gLockScreen = sLockScreen_Empty;
+    gBackgroundEffect = sBackgroundEffect_Empty;
+    gWaterMovement = sWaterMovement_Empty;
+
+    gEffectYPositionOffset = 0;
+    gUnusedStruct_3005504 = sUnusedStruct_3005504_Empty;
+
+    gBG0Movement = sBg0Movement_Empty;
+    gBG2Movement.xOffset = 0;
+    gBG2Movement.yOffset = 0;
+
+    for (i = 0; i < MAX_AMOUNT_OF_BROKEN_BLOCKS; i++)
+        gBrokenBlocks[i] = sBrokenBlock_Empty;
+
+    for (i = 0; i < MAX_AMOUNT_OF_BOMB_CHAINS; i++)
+        gBombChains[i] = sBombChain_Empty;
+
+    gActiveBombChainTypes = 0;
+    gDisableAnimatedGraphicsTimer = 0;
+
+    count = 64;
+    while (count != 0)
+    {
+        ptr = &gMakeSolidBlocks[count];
+        *--ptr = 0;
+        count--;
+    }
+
+    gScreenShakeY = sScreenShake_Empty;
+    gScreenShakeX = sScreenShake_Empty;
+    gScreenShakeXOffset = 0;
+    gScreenShakeYOffset = 0;
+
+    if (gIsLoadingFile)
+        return;
+
+    gCamera.xPosition = 0;
+    gCamera.yPosition = 0;
+    gCamera.xVelocity = 0;
+    gCamera.yVelocity = 0;
+
+    xOffset = pDoor->xStart;
+    yOffset = pDoor->yEnd + 1;
+    gSamusData.xPosition = xOffset * BLOCK_SIZE + (pDoor->xExit + 8) * 4;
+    gSamusData.yPosition = (yOffset) * BLOCK_SIZE + pDoor->yExit * 4 - 1;
+
+    if (gCurrentDemo.status & 0xF0)
+        init_demo_related(TRUE);
+
+    gWaitingSpacePiratesPosition.x = gSamusData.xPosition;
+    gWaitingSpacePiratesPosition.y = gSamusData.yPosition;
+
+    if (pDoor->xExit > 0)
+        gWaitingSpacePiratesPosition.x -= HALF_BLOCK_SIZE;
+    else if (pDoor->xExit < 0)
+        gWaitingSpacePiratesPosition.x += HALF_BLOCK_SIZE;
+    
+    if (gSamusDoorPositionOffset != 0)
+    {
+        if (gSamusDoorPositionOffset < 0)
+            gSamusDoorPositionOffset = 0;
+        else
+        {
+            yOffset = -gSamusPhysics.drawDistanceTopOffset;
+            temp = (u16)yOffset;
+            if (temp + gSamusDoorPositionOffset > UCHAR_MAX)
+                gSamusDoorPositionOffset = UCHAR_MAX - temp;
+        }
+
+        gSamusData.yPosition -= gSamusDoorPositionOffset;
+        gSamusDoorPositionOffset = 0;
+    }
+
+    if (gSamusData.standingStatus == STANDING_ENEMY)
+        gSamusData.standingStatus = STANDING_MIDAIR;
+
+    gBG1XPosition = 0;
+    gBG1YPosition = 0;
+    gBG0XPosition = 0;
+    gBG0YPosition = 0;
 }
 
+/**
+ * @brief 56ac8 | 60 | Sets the automatic background scrolling (BG0 and BG3)
+ * 
+ */
 void RoomSetBackgroundScrolling(void)
 {
+    gBG3Movement = sBg3Movement_Empty;
 
+    switch (gCurrentRoomEntry.BG3Scrolling)
+    {
+        case 0x7:
+        case 0x8:
+        case 0xA:
+            gBG3Movement.direction = TRUE;
+    }
+
+    if (gCurrentRoomEntry.visualEffect == EFFECT_WATER)
+        gBG0Movement.type = BG0_MOVEMENT_WATER_CLOUDS;
+    else if (gCurrentRoomEntry.visualEffect == EFFECT_SNOWFLAKES_COLD_KNOCKBACK)
+        gBG0Movement.type = BG0_MOVEMENT_SNOWFLAKES;
+    else if (gCurrentRoomEntry.visualEffect == EFFECT_SNOWFLAKES_COLD)
+        gBG0Movement.type = BG0_MOVEMENT_SNOWFLAKES;
+
+    gInGameCutscene.cutsceneNumber_Copy = 0;
 }
 
 void RoomSetInitialTilemap(u8 bgNumber)

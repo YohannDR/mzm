@@ -34,8 +34,14 @@ const struct LockScreen sLockScreen_Empty = {
     .yPositionCenter = USHORT_MAX,
 };
 
-// Empty special background effect
-const u8 sTempArray_34587c[8] = {0};
+const struct BackgroundEffect sBackgroundEffect_Empty = {
+    .unused = 0,
+    .timer = 0,
+    .colorStage = 0,
+    .type = 0,
+    .stage = 0,
+    .unk_7 = 0
+};
 
 const struct BrokenBlock sBrokenBlock_Empty = {
     .broken = FALSE,
@@ -94,8 +100,9 @@ const struct BG3Movement sBg3Movement_Empty = {
     .undefined = 0
 };
 
-const u32 sUnusedStruct_3005504_Empty[2] = {
-    0, 0
+const struct Unused_3005504 sUnusedStruct_3005504_Empty = {
+    .field_0 = 0,
+    .field_4 = 0
 };
 
 const struct WaterMovement sWaterMovement_Empty = {

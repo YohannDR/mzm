@@ -3,7 +3,14 @@
 
 #include "types.h"
 
+struct Demo {
+    u8 number;
+    u8 playing;
+    u8 status;
+    u8 unk_3;
+};
+
 extern u8 gDemoState;
-extern u32 gCurrentDemo; /* XXX: type */
+extern struct Demo gCurrentDemo; /* XXX: type */
 
 #endif

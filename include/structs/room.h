@@ -93,6 +93,11 @@ struct BG3Movement {
     u16 xOffset;
 };
 
+struct Unused_3005504 {
+    u32 field_0;
+    u32 field_4;
+};
+
 
 extern u16 gDecompClipdataMap[1024];
 extern u16 gDecompBG0Map[1024];
@@ -109,5 +114,10 @@ extern struct WaterMovement gWaterMovement;
 extern u8 gScrollCounter;
 extern struct RoomEntry gCurrentRoomEntry;
 extern struct BackgroundPositions gBackgroundPositions;
+
+extern struct Unused_3005504 gUnusedStruct_3005504;
+
+// Temp
+extern i8 gCurrentItemBeingAcquired;
 
 #endif

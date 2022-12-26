@@ -8,6 +8,7 @@
 #include "structs/scroll.h"
 #include "structs/room.h"
 #include "structs/power_bomb_explosion.h"
+#include "structs/visual_effects.h"
 
 // 345868
 
@@ -17,7 +18,7 @@ extern const struct RawCoordsX sCoordsX_Empty;
 
 extern const struct LockScreen sLockScreen_Empty;
 
-// Empty special background effect
+extern const struct BackgroundEffect sBackgroundEffect_Empty;
 
 extern const struct BrokenBlock sBrokenBlock_Empty;
 
@@ -31,7 +32,7 @@ extern const struct BG0Movement sBg0Movement_Empty;
 
 extern const struct BG3Movement sBg3Movement_Empty;
 
-extern const u32 sUnusedStruct_3005504_Empty[2];
+extern const struct Unused_3005504 sUnusedStruct_3005504_Empty;
 
 extern const struct WaterMovement sWaterMovement_Empty;
 

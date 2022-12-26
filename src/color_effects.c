@@ -81,8 +81,8 @@ void ApplyMonochromeToPalette(u16* src, u16* dst, i8 additionalValue)
 
         if (result < 0)
             result = 0;
-        else if (result > 0x1F)
-            result = 0x1F;
+        else if (result > COLOR_MASK)
+            result = COLOR_MASK;
         
         // Create grey color
         *dst = COLOR(result, result, result);
@@ -124,13 +124,13 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
         {
             colorMono = *srcMonochrome;
             monoR = RED(colorMono);
-            monoG = (colorMono >> 5) & 0x1F;
-            monoB = (colorMono >> 10) & 0x1F;
+            monoG = (colorMono >> 5) & COLOR_MASK;
+            monoB = (colorMono >> 10) & COLOR_MASK;
     
             colorBase = *srcBase;
             baseR = RED(colorBase);
-            baseG = (colorBase >> 5) & 0x1F;
-            baseB = (colorBase >> 10) & 0x1F;
+            baseG = (colorBase >> 5) & COLOR_MASK;
+            baseB = (colorBase >> 10) & COLOR_MASK;
 
             newR = (stage * (monoR - baseR) / 32);
             newG = (stage * (monoG - baseG) / 32);
@@ -166,7 +166,44 @@ void ApplySpecialBackgroundFadingColor(u8 type, u8 color, u16** ppSrc, u16** ppD
 
 }
 
-u16 ApplyFadeOnColor(u8 type, u16 color, u16 currentColor)
+u16 ApplyFadeOnColor(u8 type, u16 color, u8 currentColor)
 {
+    // https://decomp.me/scratch/RdwBt
 
+    i32 red;
+    i32 green;
+    i32 b;
+
+    red = RED(color);
+    green = GREEN(color);
+    BLUE(color);
+
+    switch (type)
+    {
+        case FADING_TYPE_IN:
+            red = (currentColor * red) >> 5 & COLOR_MASK;
+            green = (currentColor * green) >> 5 & COLOR_MASK;
+            b = (currentColor * b) >> 5 & COLOR_MASK;
+            break;
+
+        case FADING_TYPE_FLASH:
+            red = (COLOR_MASK - ((currentColor * (COLOR_MASK - red)) >> 5)) & COLOR_MASK;
+            green = (COLOR_MASK - ((currentColor * (COLOR_MASK - green)) >> 5)) & COLOR_MASK;
+            b = (COLOR_MASK - ((currentColor * (COLOR_MASK - b)) >> 5)) & COLOR_MASK;
+            break;
+
+        case FADING_TYPE_OUT:
+            red = (red - ((currentColor * red) >> 5)) & COLOR_MASK;
+            green = (green - ((currentColor * green) >> 5)) & COLOR_MASK;
+            b =( b - ((currentColor * b) >> 5) )& COLOR_MASK;
+            break;
+
+        case FADING_TYPE_UNK:
+            red = (red + ((currentColor * (COLOR_MASK - red)) >> 5)) & COLOR_MASK;
+            green = (green + ((currentColor * (COLOR_MASK - green)) >> 5)) & COLOR_MASK;
+            b = (b + ((currentColor * (COLOR_MASK - b)) >> 5)) & COLOR_MASK;
+            break;
+    }
+
+    return COLOR(red, green, b);
 }
