@@ -185,7 +185,7 @@ void agbmain(void)
                         if (gDemoState == 0)
                         {
                             gMainGameMode = gGameModeSub2;
-                            gGameModeSub2 = (gCurrentDemo << 4) >> 0x1c; /* XXX: probably struct (bitfields) */
+                            gGameModeSub2 = gCurrentDemo.unk_3;
                         }
                         else {
                             start_new_demo();

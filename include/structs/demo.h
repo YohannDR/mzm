@@ -4,13 +4,13 @@
 #include "types.h"
 
 struct Demo {
-    u8 number;
-    u8 playing;
-    u8 status;
-    u8 unk_3;
+    u8 number:4;
+    u32 playing:4;
+    u32 status:16;
+    u32 unk_3:4;
 };
 
 extern u8 gDemoState;
-extern struct Demo gCurrentDemo; /* XXX: type */
+extern struct Demo gCurrentDemo;
 
 #endif
