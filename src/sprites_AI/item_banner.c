@@ -7,6 +7,7 @@
 #include "constants/audio.h"
 #include "constants/game_state.h"
 #include "constants/sprite.h"
+#include "constants/text.h"
 
 #include "structs/bg_clip.h"
 #include "structs/demo.h"

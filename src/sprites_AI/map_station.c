@@ -1,11 +1,15 @@
-#include "gba.h"
 #include "sprites_AI/map_station.h"
+#include "gba.h"
 #include "sprites_AI/item_banner.h"
+
 #include "data/sprites/map_station.h"
+
 #include "constants/connection.h"
 #include "constants/game_state.h"
 #include "constants/sprite.h"
 #include "constants/samus.h"
+#include "constants/text.h"
+
 #include "structs/connection.h"
 #include "structs/game_state.h"
 #include "structs/sprite.h"

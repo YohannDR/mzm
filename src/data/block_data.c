@@ -1,12 +1,11 @@
 #include "data/block_data.h"
 
 #include "macros.h"
-#include "sprites_AI/item_banner.h"
 
-#include "data/block_data.h"
 
 #include "constants/block.h"
 #include "constants/connection.h"
+#include "constants/text.h"
 
 const struct TankList sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS] = {
     [AREA_BRINSTAR] = {

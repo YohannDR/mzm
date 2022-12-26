@@ -1,5 +1,4 @@
 #include "sprites_AI/mother_brain.h"
-#include "sprites_AI/item_banner.h"
 
 #include "data/frame_data_pointers.h"
 #include "data/sprites/mother_brain.h"
@@ -12,6 +11,7 @@
 #include "constants/particle.h"
 #include "constants/game_state.h"
 #include "constants/sprite.h"
+#include "constants/text.h"
 
 #include "structs/clipdata.h"
 #include "structs/display.h"

@@ -1,0 +1,358 @@
+#define STORY_TEXT_PLANET_ZEBES 0
+#define STORY_TEXT_THE_TIMING 1
+#define STORY_TEXT_COULD_I_SURVIVE 2
+#define STORY_TEXT_EMERGENCY 3
+#define STORY_TEXT_EXTERMINATE 4
+#define STORY_TEXT_DEFEAT 5
+
+#define MESSAGE_DUMMY 0x0
+#define MESSAGE_ENERGY_TANK_ACQUIRED 0x1
+#define MESSAGE_MISSILE_TANK_ACQUIRED 0x2
+#define MESSAGE_FIRST_MISSILE_TANK 0x3
+#define MESSAGE_SUPER_MISSILE_TANK_ACQUIRED 0x4
+#define MESSAGE_FIRST_SUPER_MISSILE_TANK 0x5
+#define MESSAGE_POWER_BOMB_TANK_ACQUIRED 0x6
+#define MESSAGE_FIRST_POWER_BOMB_TANK 0x7
+#define MESSAGE_LONG_BEAM 0x8
+#define MESSAGE_CHARGE_BEAM 0x9
+#define MESSAGE_ICE_BEAM 0xA
+#define MESSAGE_WAVE_BEAM 0xB
+#define MESSAGE_UKNOWN_ITEM_PLASMA 0xC
+#define MESSAGE_BOMB 0xD
+#define MESSAGE_VARIA_SUIT 0xE
+#define MESSAGE_UNKNOWN_ITEM_GRAVITY 0xF
+#define MESSAGE_MORPH_BALL 0x10
+#define MESSAGE_SPEED_BOOSTER 0x11
+#define MESSAGE_HIGH_JUMP 0x12
+#define MESSAGE_SCREW_ATTACK 0x13
+#define MESSAGE_UNKNOWN_ITEM_SPACE_JUMP 0x14
+#define MESSAGE_POWER_GRIP 0x15
+#define MESSAGE_SAVE_PROMPT 0x16
+#define MESSAGE_SAVE_COMPLETE 0x17
+#define MESSAGE_WEAPON_RESUPPLY_COMPLETE 0x18
+#define MESSAGE_ENERGY_TANK_RECHARGE_COMPLETE 0x19
+#define MESSAGE_WEAPONS_AND_ENERGY_RESTORED 0x1A
+#define MESSAGE_BRINSTAR_MAP_ACQUIRED 0x1B
+#define MESSAGE_KRAID_MAP_ACQUIRED 0x1C
+#define MESSAGE_NORFAIR_MAP_ACQUIRED 0x1D
+#define MESSAGE_RIDLEY_MAP_ACQUIRED 0x1E
+#define MESSAGE_MOTHER_SHIP_MAP_ACQUIRED 0x1F
+#define MESSAGE_FULLY_POWERED_SUIT 0x20
+#define MESSAGE_ZEBES_ESCAPE 0x21
+#define MESSAGE_CHOZODIA_ESCAPE 0x22
+#define MESSAGE_ENEMY_LOCATION_ABNORMAL 0x23
+#define MESSAGE_ACTIVATE_EASY_SLEEP 0x24
+#define MESSAGE_PRESS_SELECT_L_AND_R 0x25
+#define MESSAGE_EASY_SLEEP_PROMPT 0x26
+#define MESSAGE_NONE -1
+
+// 0
+#define CHAR_SMALL_0 0
+// 1
+#define CHAR_SMALL_1 1
+// 2
+#define CHAR_SMALL_2 2
+// 3
+#define CHAR_SMALL_3 3
+// 4
+#define CHAR_SMALL_4 4
+// 5
+#define CHAR_SMALL_5 5
+// 6
+#define CHAR_SMALL_6 6
+// 7
+#define CHAR_SMALL_7 7
+// 8
+#define CHAR_SMALL_8 8
+// 9
+#define CHAR_SMALL_9 9
+// A
+#define CHAR_SMALL_A 10
+// B
+#define CHAR_SMALL_B 11
+// C
+#define CHAR_SMALL_C 12
+// D
+#define CHAR_SMALL_D 13
+// E
+#define CHAR_SMALL_E 14
+// F
+#define CHAR_SMALL_F 15
+// G
+#define CHAR_SMALL_G 16
+// H
+#define CHAR_SMALL_H 17
+// I
+#define CHAR_SMALL_I 18
+// J
+#define CHAR_SMALL_J 19
+// K
+#define CHAR_SMALL_K 20
+// L
+#define CHAR_SMALL_L 21
+// M
+#define CHAR_SMALL_M 22
+// N
+#define CHAR_SMALL_N 23
+// O
+#define CHAR_SMALL_O 24
+// P
+#define CHAR_SMALL_P 25
+// Q
+#define CHAR_SMALL_Q 26
+// R
+#define CHAR_SMALL_R 27
+// S
+#define CHAR_SMALL_S 28
+// T
+#define CHAR_SMALL_T 29
+// U
+#define CHAR_SMALL_U 30
+// V
+#define CHAR_SMALL_V 31
+// W
+#define CHAR_SMALL_W 32
+// X
+#define CHAR_SMALL_X 33
+// Y
+#define CHAR_SMALL_Y 34
+// Z
+#define CHAR_SMALL_Z 35
+// :
+#define CHAR_SMALL_COLON 36
+// _
+#define CHAR_SMALL_UNDERSCORE 37
+// /
+#define CHAR_SMALL_RIGHT_SLASH 38
+// Blank
+#define CHAR_EMPTY_SPACE 64
+// !
+#define CHAR_BANG_BANG 65
+// "
+#define CHAR_DOUBLE_QUOTES 66
+// #
+#define CHAR_SHARP 67
+// $
+#define CHAR_DOLLAR_SIGN 68
+// %
+#define CHAR_PERCENT_SIGN 69
+// &
+#define CHAR_PERCENT_AMPERSAND 70
+// '
+#define CHAR_SINGLE_QUOTE 71
+// (
+#define CHAR_OPENING_PARENTHESIS 72
+// )
+#define CHAR_CLOSING_PARENTHESIS 73
+// *
+#define CHAR_ASTERISK 74
+// +
+#define CHAR_PLUS_SIGN 75
+// ,
+#define CHAR_COMMA 76
+// -
+#define CHAR_MINUS_SIGN 77
+// .
+#define CHAR_DOT 78
+// /
+#define CHAR_RIGHT_SLASH 79
+// 0
+#define CHAR_0 80
+// 1
+#define CHAR_1 81
+// 2
+#define CHAR_2 82
+// 3
+#define CHAR_3 83
+// 4
+#define CHAR_4 84
+// 5
+#define CHAR_5 85
+// 6
+#define CHAR_6 86
+// 7
+#define CHAR_7 87
+// 8
+#define CHAR_8 88
+// 9
+#define CHAR_9 89
+// :
+#define CHAR_COLON 90
+// ;
+#define CHAR_SEMICOLON 91
+// Undefined
+#define CHAR_SMALL_SEMICOLON 92
+// =
+#define CHAR_EQUALS_SYMBOL 93
+// 1
+#define CHAR_1_DUP 94
+// ?
+#define CHAR_QUESTION_MARK 95
+// Blank
+#define CHAR_EMPTY_96 128
+// A
+#define CHAR_UPPERCASE_A 129
+// B
+#define CHAR_UPPERCASE_B 130
+// C
+#define CHAR_UPPERCASE_C 131
+// D
+#define CHAR_UPPERCASE_D 132
+// E
+#define CHAR_UPPERCASE_E 133
+// F
+#define CHAR_UPPERCASE_F 134
+// G
+#define CHAR_UPPERCASE_G 135
+// H
+#define CHAR_UPPERCASE_H 136
+// I
+#define CHAR_UPPERCASE_I 137
+// J
+#define CHAR_UPPERCASE_J 138
+// K
+#define CHAR_UPPERCASE_K 139
+// L
+#define CHAR_UPPERCASE_L 140
+// M
+#define CHAR_UPPERCASE_M 141
+// N
+#define CHAR_UPPERCASE_N 142
+// O
+#define CHAR_UPPERCASE_O 143
+// P
+#define CHAR_UPPERCASE_P 144
+// Q
+#define CHAR_UPPERCASE_Q 145
+// R
+#define CHAR_UPPERCASE_R 146
+// S
+#define CHAR_UPPERCASE_S 147
+// T
+#define CHAR_UPPERCASE_T 148
+// U
+#define CHAR_UPPERCASE_U 149
+// V
+#define CHAR_UPPERCASE_V 150
+// W
+#define CHAR_UPPERCASE_W 151
+// X
+#define CHAR_UPPERCASE_X 152
+// Y
+#define CHAR_UPPERCASE_Y 153
+// Z
+#define CHAR_UPPERCASE_Z 154
+// [
+#define CHAR_OPENING_BRACKET 155
+// ¥
+#define CHAR_YEN_SIGN 156
+// ]
+#define CHAR_CLOSING_BRACKET 157
+// a
+#define CHAR_LOWERCASE_A 193
+// b
+#define CHAR_LOWERCASE_B 194
+// c
+#define CHAR_LOWERCASE_C 195
+// d
+#define CHAR_LOWERCASE_D 196
+// e
+#define CHAR_LOWERCASE_E 197
+// f
+#define CHAR_LOWERCASE_F 198
+// g
+#define CHAR_LOWERCASE_G 199
+// h
+#define CHAR_LOWERCASE_H 200
+// i
+#define CHAR_LOWERCASE_I 201
+// j
+#define CHAR_LOWERCASE_J 202
+// k
+#define CHAR_LOWERCASE_K 203
+// l
+#define CHAR_LOWERCASE_L 204
+// m
+#define CHAR_LOWERCASE_M 205
+// n
+#define CHAR_LOWERCASE_N 206
+// o
+#define CHAR_LOWERCASE_O 207
+// p
+#define CHAR_LOWERCASE_P 208
+// q
+#define CHAR_LOWERCASE_Q 209
+// r
+#define CHAR_LOWERCASE_R 210
+// s
+#define CHAR_LOWERCASE_S 211
+// t
+#define CHAR_LOWERCASE_T 212
+// u
+#define CHAR_LOWERCASE_U 213
+// v
+#define CHAR_LOWERCASE_V 214
+// w
+#define CHAR_LOWERCASE_W 215
+// x
+#define CHAR_LOWERCASE_X 216
+// y
+#define CHAR_LOWERCASE_Y 217
+// z
+#define CHAR_LOWERCASE_Z 218
+// {
+#define CHAR_OPENING_BRACE 219
+// |
+#define CHAR_VERTICAL_BAR 220
+// }
+#define CHAR_CLOSING_BRACE 221
+// X
+#define CHAR_X_CROSS 223
+// 0
+#define CHAR_MINI_0 272
+// 1
+#define CHAR_MINI_1 273
+// 2
+#define CHAR_MINI_2 274
+// 3
+#define CHAR_MINI_3 275
+// 4
+#define CHAR_MINI_4 276
+// 5
+#define CHAR_MINI_5 277
+// 6
+#define CHAR_MINI_6 278
+// 7
+#define CHAR_MINI_7 279
+// 8
+#define CHAR_MINI_8 280
+// 9
+#define CHAR_MINI90 281
+
+// Select button, part 1
+#define CHAR_SELECT_1 713
+// Select button, part 2
+#define CHAR_SELECT_2 714
+// Select button, part 3
+#define CHAR_SELECT_3 715
+// D-pad, up button pressed
+#define CHAR_DPAD_UP 768
+// D-pad, down button pressed
+#define CHAR_DPAD_DOWN 770
+// D-pad, left button pressed
+#define CHAR_DPAD_LEFT 772
+// D-pad, right button pressed
+#define CHAR_DPAD_RIGHT 774
+// A button
+#define CHAR_A_BUTTON 776
+// B button
+#define CHAR_B_BUTTON 778
+// L button
+#define CHAR_L_BUTTON 780
+// R button
+#define CHAR_R_BUTTON 782
+
+#define CHAR_COLOR_MASK 0x8100
+#define CHAR_WIDTH_MASK 0x8000
+#define CHAR_ABSOLUTE_WIDTH_MASK 0x8300
+#define CHAR_TERMINATOR 0xFF00

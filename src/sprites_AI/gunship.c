@@ -1,11 +1,15 @@
-#include "gba.h"
 #include "sprites_AI/gunship.h"
+#include "gba.h"
 #include "sprites_AI/item_banner.h"
+
 #include "data/sprites/gunship.h"
+
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 #include "constants/event.h"
 #include "constants/samus.h"
+#include "constants/text.h"
+
 #include "structs/connection.h"
 #include "structs/display.h"
 #include "structs/game_state.h"

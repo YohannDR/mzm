@@ -1,4 +1,3 @@
-#include "sprites_AI/item_banner.h"
 #include "sprites_AI/ruins_test.h"
 #include "gba.h"
 
@@ -15,6 +14,7 @@
 #include "constants/samus.h"
 #include "constants/projectile.h"
 #include "constants/sprite_util.h"
+#include "constants/text.h"
 
 #include "structs/clipdata.h"
 #include "structs/game_state.h"

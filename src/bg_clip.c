@@ -1,7 +1,6 @@
 #include "gba.h"
 #include "bg_clip.h"
 #include "transparency.h"
-#include "sprites_AI/item_banner.h"
 
 #include "data/block_data.h"
 
@@ -11,6 +10,7 @@
 #include "constants/game_state.h"
 #include "constants/samus.h"
 #include "constants/sprite.h"
+#include "constants/text.h"
 
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"

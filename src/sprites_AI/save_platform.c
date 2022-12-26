@@ -1,9 +1,13 @@
-#include "sprites_AI/item_banner.h"
 #include "sprites_AI/save_platform.h"
+#include "sprites_AI/item_banner.h"
+
 #include "data/sprites/save_platform.h"
+
 #include "constants/escape.h"
 #include "constants/sprite.h"
 #include "constants/samus.h"
+#include "constants/text.h"
+
 #include "structs/game_state.h"
 #include "structs/hud.h"
 #include "structs/sprite.h"

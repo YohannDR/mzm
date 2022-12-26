@@ -1,5 +1,4 @@
 #include "sprites_AI/mecha_ridley.h"
-#include "sprites_AI/item_banner.h"
 #include "transparency.h"
 #include "gba.h"
 
@@ -13,6 +12,7 @@
 #include "constants/particle.h"
 #include "constants/sprite_util.h"
 #include "constants/sprite.h"
+#include "constants/text.h"
 
 #include "structs/connection.h"
 #include "structs/in_game_timer.h"

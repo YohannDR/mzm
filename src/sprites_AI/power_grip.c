@@ -1,9 +1,12 @@
 #include "sprites_AI/power_grip.h"
-#include "sprites_AI/item_banner.h"
+
 #include "data/sprites/power_grip.h"
+
 #include "constants/sprite.h"
 #include "constants/event.h"
 #include "constants/samus.h"
+#include "constants/text.h"
+
 #include "structs/sprite.h"
 #include "structs/samus.h"
 

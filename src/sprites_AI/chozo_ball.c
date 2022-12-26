@@ -1,10 +1,12 @@
 #include "sprites_AI/chozo_ball.h"
-#include "sprites_AI/item_banner.h"
 #include "sprites_AI/chozo_statue.h"
-#include "sprites_AI/unknown_item_chozo_statue.h"
+
 #include "data/sprites/chozo_statue.h"
 #include "data/sprites/unknown_item_chozo_statue.h"
+
 #include "constants/sprite.h"
+#include "constants/text.h"
+
 #include "structs/sprite.h"
 #include "structs/samus.h"
 
