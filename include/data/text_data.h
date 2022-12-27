@@ -19,4 +19,8 @@ extern const u16** const sStoryTextPointers[7];
 extern const u16** const sLocationTextpointers[7];
 extern const u16** const sFileScreenTextPointers[7];
 
+extern const u32 sCharactersGFX[1];
+extern const u32 sArray_760338[24];
+extern const u32 sArray_760398[8];
+
 #endif /* TEXT_DATA_H */
