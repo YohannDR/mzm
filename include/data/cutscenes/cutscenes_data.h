@@ -70,5 +70,13 @@ extern const u8 sKraidRisingKraidCloseUpEyesOpenedTileTable[1472];
 extern const u8 sKraidRisingKraidRisingTileTable[1180];
 extern const u8 sKraidRisingCaveBackgroundTileTable[1180];
 
-#endif /* CUTSCENES_DATA_H
- */
+// Mecha sees Samus
+
+extern const struct OamArray sMechaSeesSamusCutsceneOAM[5];
+
+extern const u8 sMechaSeesSamusMetalGFX[9528];
+extern const u8 sMechaSeesSamusCoverEyeGFX[10684];
+extern const u16 sMechaSeesSamusPAL[160];
+extern const u8 sMechaSeesSamusCoverMetalTileTable[10684];
+
+#endif /* CUTSCENES_DATA_H */

@@ -616,7 +616,7 @@ void unk_61f28(void)
 
 }
 
-void unk_61f44(void)
+u32 unk_61f44(void)
 {
 
 }

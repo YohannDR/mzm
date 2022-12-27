@@ -110,7 +110,11 @@ struct CutsceneOamData {
     u8 currentAnimationFrame;
     u8 oamID;
     u8 priority:2;
-    u8 status:6;
+    u8 status:2;
+    u8 ended:1;
+    u8 notDrawn:1;
+    u8 unk_B_40:1;
+    u8 idChanged:1;
     u8 unk_C;
     u8 unk_D;
     i16 unk_E;

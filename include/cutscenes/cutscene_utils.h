@@ -30,7 +30,7 @@ void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u8 in
 void CutsceneReset(void);
 void unk_61f0c(void);
 void unk_61f28(void);
-void unk_61f44(void);
+u32 unk_61f44(void);
 void unk_61f60(void);
 u8 unk_61fa0(u8 param_1);
 u8 unk_621d0(void);
