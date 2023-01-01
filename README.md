@@ -26,11 +26,12 @@ This produces the following ROMs:
 - **WINDOWS ONLY** : Install and setup [WSL](https://docs.microsoft.com/en-us/windows/wsl/install)
 - Install the dependencies (an `apt update` might be necessary for binutils)
 - Build agbcc (run `./build.sh`)
-- Add agbcc to your path (export PATH="agbcc path:$PATH"
+- Add agbcc to your path (export PATH="agbcc path:$PATH")
 - Build preproc (run `make` in tools/preproc)
 - Clone this repo
 
 ## Build
 
 - Run `make clean` if necessary
+- Run the `extractor.py` script in tools (`python3 tools/extractor.py`) if necessary
 - Run `make` (using the -j option is recommended to speed up the process)
