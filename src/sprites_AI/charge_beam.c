@@ -78,7 +78,7 @@ void ChargeBeamVisibleInit(void)
 }
 
 /**
- * @brief 13694 | 44 | Handles the charge beam being idle
+ * @brief 135cc | 44 | Handles the charge beam being idle
  * 
  */
 void ChargeBeamIdle(void)
