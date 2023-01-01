@@ -1,5 +1,6 @@
 #include "cutscenes/mecha_sees_samus.h"
 #include "cutscenes/cutscene_utils.h"
+#include "syscall_wrappers.h"
 
 #include "temp_globals.h"
 #include "data/cutscenes/cutscenes_data.h"
@@ -78,7 +79,44 @@ u8 MechaRidleySeesSamusEyeOpen(void)
 
 u8 MechaRidleySeesSamusInit(void)
 {
+    // https://decomp.me/scratch/ZlQqH
 
+    u16 bg;
+
+    unk_61f0c();
+    DMATransfer(3, sMechaSeesSamusPAL, PALRAM_BASE, sizeof(sMechaSeesSamusPAL), 0x10);
+    DMATransfer(3, PALRAM_BASE, PALRAM_BASE + 0x200, 0x200, 0x20);
+
+    write16(PALRAM_BASE, 0);
+
+    CallLZ77UncompVRAM(sMechaSeesSamusMetalGFX, VRAM_BASE + sMechaRidleySeesSamusPagesData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sMechaSeesSamusCoverMetalTileTable, VRAM_BASE + sMechaRidleySeesSamusPagesData[0].tiletablePage * 0x800);
+    CallLZ77UncompVRAM(sMechaSeesSamusCoverEyeGFX, VRAM_BASE + 0x10000);
+
+    CutsceneSetBGCNTPageData(sMechaRidleySeesSamusPagesData[0]);
+
+    bg = sMechaRidleySeesSamusPagesData[0].bg;
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, bg, 0x800);
+    CutsceneReset();
+
+    CUTSCENE_DATA.oam[0].xPosition = BLOCK_SIZE * 7 + BLOCK_SIZE / 2;
+    CUTSCENE_DATA.oam[0].yPosition = BLOCK_SIZE * 5;
+    CUTSCENE_DATA.oam[0].priority = sMechaRidleySeesSamusPagesData[0].priority;
+    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], 1);
+
+    CUTSCENE_DATA.oam[1].xPosition = BLOCK_SIZE * 7 + BLOCK_SIZE / 2;
+    CUTSCENE_DATA.oam[1].yPosition = BLOCK_SIZE * 5;
+    CUTSCENE_DATA.oam[1].priority = sMechaRidleySeesSamusPagesData[0].priority + 1;
+    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], 3);
+
+    unk_61fa0(2);
+
+    CUTSCENE_DATA.dispcnt = bg | DCNT_OBJ;
+    CUTSCENE_DATA.timer = 0;
+    CUTSCENE_DATA.subStage = 0;
+    CUTSCENE_DATA.stage++;
+
+    return FALSE;
 }
 
 /**

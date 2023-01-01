@@ -72,6 +72,8 @@ extern const u8 sKraidRisingCaveBackgroundTileTable[1180];
 
 // Mecha sees Samus
 
+extern const struct CutscenePageData sMechaRidleySeesSamusPagesData[1];
+
 extern const struct OamArray sMechaSeesSamusCutsceneOAM[5];
 
 extern const u8 sMechaSeesSamusMetalGFX[9528];
