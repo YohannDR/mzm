@@ -137,7 +137,7 @@ void PistonInit(void)
     gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
     gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
 
-    PistonChangeFourCCAA(CAA_MAKE_SOLID3); // Set hitbox
+    PistonChangeFourCCAA(CAA_MAKE_NON_POWER_GRIP); // Set hitbox
 }
 
 /**
@@ -181,7 +181,7 @@ void PistonCheckProjectile(void)
     }
     else if (!PistonSamusCollision())
     {
-        PistonChangeOneBelowCCAA(CAA_MAKE_SOLID3);
+        PistonChangeOneBelowCCAA(CAA_MAKE_NON_POWER_GRIP);
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
     }
@@ -221,7 +221,7 @@ void PistonOpened(void)
     // Check should set the top solid (not already solid and samus not in the block)
     if (!(gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING) && !PistonCheckSamusIn())
     {
-        PistonChangeOneUpperCCAA(CAA_MAKE_SOLID3); // Set collision of top part
+        PistonChangeOneUpperCCAA(CAA_MAKE_NON_POWER_GRIP); // Set collision of top part
         gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING; // Set flag to know collision has been set
     }
 }

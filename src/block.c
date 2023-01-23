@@ -401,13 +401,13 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
                 BGClipSetClipdataBlockValue(0x43E, yPosition, xPosition);
             break;
 
-        case CAA_MAKE_SOLID2:
+        case CAA_MAKE_STOP_ENEMY:
             result = BlockUpdateMakeSolidBlocks(TRUE, xPosition, yPosition);
             if (result)
                 BGClipSetClipdataBlockValue(0x43D, yPosition, xPosition);
             break;
 
-        case CAA_MAKE_SOLID3:
+        case CAA_MAKE_NON_POWER_GRIP:
             result = BlockUpdateMakeSolidBlocks(TRUE, xPosition, yPosition);
             if (result)
                 BGClipSetClipdataBlockValue(0x43F, yPosition, xPosition);

@@ -72,7 +72,7 @@ void KraidElevatorStatueFallenInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
 
     gCurrentSprite.pose = ELEVATOR_STATUE_POSE_IDLE;
-    ElevatorStatueChangeTwoGroundCCAA(CAA_MAKE_SOLID3);
+    ElevatorStatueChangeTwoGroundCCAA(CAA_MAKE_NON_POWER_GRIP);
 }
 
 /**
@@ -104,7 +104,7 @@ void KraidElevatorStatueInit(void)
         gCurrentSprite.animationDurationCounter = 0x0;
 
         gCurrentSprite.pose = ELEVATOR_STATUE_POSE_CHECK_FALL;
-        KraidElevatorStatueChangeCAA(CAA_MAKE_SOLID3); // Set collision
+        KraidElevatorStatueChangeCAA(CAA_MAKE_NON_POWER_GRIP); // Set collision
     }
 }
 
@@ -237,7 +237,7 @@ void RidleyElevatorStatueFallenInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
 
     gCurrentSprite.pose = ELEVATOR_STATUE_POSE_IDLE;
-    ElevatorStatueChangeTwoGroundCCAA(CAA_MAKE_SOLID3);
+    ElevatorStatueChangeTwoGroundCCAA(CAA_MAKE_NON_POWER_GRIP);
 }
 
 /**
@@ -269,7 +269,7 @@ void RidleyElevatorStatueInit(void)
         gCurrentSprite.animationDurationCounter = 0x0;
 
         gCurrentSprite.pose = ELEVATOR_STATUE_POSE_CHECK_FALL;
-        RidleyElevatorStatueChangeCCAA(CAA_MAKE_SOLID3); // Set collision
+        RidleyElevatorStatueChangeCCAA(CAA_MAKE_NON_POWER_GRIP); // Set collision
     }
 }
 

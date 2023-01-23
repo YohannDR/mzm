@@ -77,7 +77,7 @@ void SecurityGateDefaultOpenInit(void)
         gCurrentSprite.pOam = sSecurityGateOAM_Closed;
         gCurrentSprite.pose = 0x25;
         gCurrentSprite.timer = 0x1;
-        SecurityGateChangeCCAA(CAA_MAKE_SOLID3); // Set collision
+        SecurityGateChangeCCAA(CAA_MAKE_NON_POWER_GRIP); // Set collision
     }
     else
     {
@@ -136,7 +136,7 @@ void SecurityGateDefaultOpenOpenAfterAlarm(void)
 {
     if (gCurrentSprite.timer == 0x0 && !SpriteCheckCollidingWithSamusDrawing()) // ?
     {
-        SecurityGateChangeCCAA(CAA_MAKE_SOLID3);
+        SecurityGateChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
         gCurrentSprite.timer++;
     }
 
@@ -198,7 +198,7 @@ void SecurityGateDefaultClosedInit(void)
         gCurrentSprite.pOam = sSecurityGateOAM_Closed;
         gCurrentSprite.pose = 0x25;
         gCurrentSprite.timer = 0x1;
-        SecurityGateChangeCCAA(CAA_MAKE_SOLID3);
+        SecurityGateChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
     }
 
     gCurrentSprite.hitboxTopOffset = -0x100;
@@ -234,7 +234,7 @@ void SecurityGateDefaultClosedCloseAfterAlarm(void)
 {
     if (gCurrentSprite.timer == 0x0 && !SpriteCheckCollidingWithSamusDrawing())
     {
-        SecurityGateChangeCCAA(CAA_MAKE_SOLID3);
+        SecurityGateChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
         gCurrentSprite.timer++;
     }
 

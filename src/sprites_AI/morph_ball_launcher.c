@@ -72,7 +72,7 @@ void MorphBallLauncherInit(void)
         gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
     // Set hitbox
-    MorphBallLauncherChangeCCAA(CAA_MAKE_SOLID3);
+    MorphBallLauncherChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
 }
 
 /**

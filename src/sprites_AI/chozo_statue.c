@@ -344,21 +344,21 @@ void ChozoStatueInit(void)
         {
             // Set seated
             gSubSpriteData1.pMultiOam = sChozoStatueMultiSpriteData_Seated;
-            ChozoStatueSeatedChangeCCAA(CAA_MAKE_SOLID3);
+            ChozoStatueSeatedChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
         }
         else
         {
             // Set standing
             gSubSpriteData1.workVariable3 = TRUE;
             gSubSpriteData1.pMultiOam = sChozoStatueMultiSpriteData_Standing;
-            ChozoStatueStandingChangeCCAA(CAA_MAKE_SOLID3, CAA_MAKE_SOLID_GRIPPABLE);
+            ChozoStatueStandingChangeCCAA(CAA_MAKE_NON_POWER_GRIP, CAA_MAKE_SOLID_GRIPPABLE);
         }
     }
     else
     {
         // Is item
         gSubSpriteData1.pMultiOam = sChozoStatueMultiSpriteData_Seated;
-        ChozoStatueSeatedChangeCCAA(CAA_MAKE_SOLID3);
+        ChozoStatueSeatedChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
 
         if (behavior == CHOZO_STATUE_BEHAVIOR_ITEM)
         {
@@ -534,7 +534,7 @@ void ChozoStatueSitting(void)
         gCurrentSprite.pose = CHOZO_STATUE_POSE_DELAY_AFTER_SITTING;
         gCurrentSprite.timer = 0x1E;
 
-        ChozoStatueSeatedChangeCCAA(CAA_MAKE_SOLID3);
+        ChozoStatueSeatedChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
     }
 }
 

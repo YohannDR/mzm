@@ -106,7 +106,7 @@ void KraidStatueOpenedInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.pose = BOSS_STATUE_POSE_IDLE;
-    KraidStatueHorizontalLignThreeChangeCCAA(CAA_MAKE_SOLID3);
+    KraidStatueHorizontalLignThreeChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
 }
 
 /**
@@ -153,7 +153,7 @@ void KraidStatueInit(void)
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.animationDurationCounter = 0x0;
 
-        KraidStatueInsideChangeCCAA(CAA_MAKE_SOLID3);
+        KraidStatueInsideChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
     }
 }
 
@@ -184,7 +184,7 @@ void KraidStatueCheckBackgroundLocked(void)
         gCurrentSprite.workVariable = 0x0;
         gCurrentSprite.workVariable2 = 0x0;
         SoundPlay(0x12B);
-        BossStatueVerticalLignChangeCCAA(CAA_MAKE_SOLID3);
+        BossStatueVerticalLignChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
     }
 }
 
@@ -318,7 +318,7 @@ void RidleyStatueOpenedInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.pose = BOSS_STATUE_POSE_IDLE;
-    RidleyStatueChangeThreeCCAA(CAA_MAKE_SOLID3);
+    RidleyStatueChangeThreeCCAA(CAA_MAKE_NON_POWER_GRIP);
 }
 
 /**
@@ -361,7 +361,7 @@ void RidleyStatueInit(void)
         }
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.animationDurationCounter = 0x0;
-        RidleyStatueInsideChangeCCAA(CAA_MAKE_SOLID3);
+        RidleyStatueInsideChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
     }
 }
 
@@ -387,7 +387,7 @@ void RidleyStatueCheckBackgroundLocked(void)
         // Set opening behavior
         gCurrentSprite.pose = BOSS_STATUE_POSE_OPENING;
         gCurrentSprite.timer = 0x3C;
-        BossStatueVerticalLignChangeCCAA(CAA_MAKE_SOLID3);
+        BossStatueVerticalLignChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
     }
 }
 

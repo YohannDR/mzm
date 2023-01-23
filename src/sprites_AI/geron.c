@@ -104,7 +104,7 @@ void Geron(void)
                 xPosition = gCurrentSprite.xPosition;
 
                 // Set collision
-                caa = CAA_MAKE_SOLID3;
+                caa = CAA_MAKE_NON_POWER_GRIP;
                 gCurrentClipdataAffectingAction = caa;
                 ClipdataProcess(yPosition, xPosition);
                 gCurrentClipdataAffectingAction = caa;

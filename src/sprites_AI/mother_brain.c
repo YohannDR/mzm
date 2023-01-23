@@ -848,7 +848,7 @@ void MotherBrainBlock(void)
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;
             
-            gCurrentClipdataAffectingAction = CAA_MAKE_SOLID3;
+            gCurrentClipdataAffectingAction = CAA_MAKE_NON_POWER_GRIP;
             ClipdataProcess(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         }
     }
