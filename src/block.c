@@ -398,19 +398,19 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
         case CAA_MAKE_SOLID_GRIPPABLE:
             result = BlockUpdateMakeSolidBlocks(TRUE, xPosition, yPosition);
             if (result)
-                BGClipSetClipdataBlockValue(0x43E, yPosition, xPosition);
+                BGClipSetClipdataBlockValue(CLIPDATA_CUSTOM_FLAG | CLIPDATA_CUSTOM_SOLID2, yPosition, xPosition);
             break;
 
         case CAA_MAKE_STOP_ENEMY:
             result = BlockUpdateMakeSolidBlocks(TRUE, xPosition, yPosition);
             if (result)
-                BGClipSetClipdataBlockValue(0x43D, yPosition, xPosition);
+                BGClipSetClipdataBlockValue(CLIPDATA_CUSTOM_FLAG | CLIPDATA_CUSTOM_STOP_ENEMY_AIR, yPosition, xPosition);
             break;
 
         case CAA_MAKE_NON_POWER_GRIP:
             result = BlockUpdateMakeSolidBlocks(TRUE, xPosition, yPosition);
             if (result)
-                BGClipSetClipdataBlockValue(0x43F, yPosition, xPosition);
+                BGClipSetClipdataBlockValue(CLIPDATA_CUSTOM_FLAG | CLIPDATA_CUSTOM_NON_POWER_GRIP, yPosition, xPosition);
             break;
     }
 

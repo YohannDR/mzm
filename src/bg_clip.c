@@ -213,7 +213,7 @@ void BGClipCheckWalkingOnCrumbleBlock(void)
                 if (BlockStoreBrokenReformBlock(BLOCK_TYPE_SLOW_CRUMBLE, xPosition, yPosition, TRUE))
                 {
                     BGClipSetBG1BlockValue(0x401, yPosition, xPosition);
-                    BGClipSetClipdataBlockValue(0x401, yPosition, xPosition);
+                    BGClipSetClipdataBlockValue(CLIPDATA_CUSTOM_FLAG | CLIPDATA_CUSTOM_SOLID, yPosition, xPosition);
                 }
             }
         }
@@ -517,7 +517,7 @@ void BGClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
             if (BlockStoreBrokenReformBlock(BLOCK_TYPE_SLOW_CRUMBLE, xPosition, yPosition, TRUE))
             {
                 BGClipSetBG1BlockValue(0x401, yPosition, xPosition);
-                BGClipSetClipdataBlockValue(0x401, yPosition, xPosition);
+                BGClipSetClipdataBlockValue(CLIPDATA_CUSTOM_FLAG | CLIPDATA_CUSTOM_SOLID, yPosition, xPosition);
                 setPose = FALSE;
             }
         }

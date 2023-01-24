@@ -594,6 +594,9 @@ weapons/PistolChargedBottom.gfx;512;0x32b678;1
 # Misc
 
 EscapeTimerDigits.gfx;2048;0x33d794;1
+CommonTiles.gfx;4096;0x5d940c;1
+CommonTilesMotherShip.gfx;4096;0x5da40c;1
+TilemapCustom.tt;832;0x3655a0;2
 
 # Blobs
 
