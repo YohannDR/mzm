@@ -3,8 +3,8 @@
 
 #include "types.h"
 
-extern const u16 sClipdataBehaviorTypes_Tilemap[176];
-extern const u16 sClipdataCollisionTypes_Tilemap[176];
+extern const u16 sClipdataBehaviorTypes_Tilemap[208];
+extern const u16 sClipdataCollisionTypes_Tilemap[208];
 
 extern const u16 sCommonTilemap[832];
 extern const u16 sClipdataCollisionTypes_Debug[160];
