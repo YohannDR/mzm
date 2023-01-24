@@ -778,7 +778,70 @@ void RoomUpdateBackgroundsPosition(void)
 
 void RoomUpdateVerticalTilemap(i8 offset)
 {
+    // https://decomp.me/scratch/X1hX1
 
+    u8 properties;
+    i32 yPosition;
+    i32 xPosition;
+    i32 i;
+    u16* pDecomp;
+    i32 width;
+    u16 value;
+    u16 unk;
+    u32* dst;
+
+    for (i = 0; i < 3; i++)
+    {
+        if (i == 0)
+        {
+            properties = gCurrentRoomEntry.BG0Prop;
+            yPosition = gBG0YPosition / BLOCK_SIZE;
+            xPosition = gBG0XPosition / BLOCK_SIZE;
+        }
+        else if (i == 1)
+        {
+            properties = gCurrentRoomEntry.BG1Prop;
+            yPosition = gBG1YPosition / BLOCK_SIZE;
+            xPosition = gBG1XPosition / BLOCK_SIZE;
+        }
+        else
+        {
+            properties = gCurrentRoomEntry.BG2Prop;
+            yPosition = gBG2YPosition / BLOCK_SIZE;
+            xPosition = gBG2XPosition / BLOCK_SIZE;
+        }
+
+        if (!(properties & BG_PROP_RLE_COMPRESSED))
+            continue;
+
+        yPosition += offset;
+        if (yPosition < 0)
+            continue;
+
+        if (yPosition > gBGPointersAndDimensions.backgrounds[i].height)
+            continue;
+
+        xPosition -= 2;
+        if (xPosition < 0)
+            xPosition = 0;
+
+        if (gBGPointersAndDimensions.backgrounds[i].width < 0x13)
+            width = gBGPointersAndDimensions.backgrounds[i].width;
+        else
+            width = 0x13;
+
+        dst = VRAM_BASE + i * 4096 + (yPosition & 0xF) * 128;
+        pDecomp = &gBGPointersAndDimensions.backgrounds[i].pDecomp[yPosition * width + xPosition];
+        while (width--)
+        {
+            value = *pDecomp;
+            unk = value & 0xF;
+            if (xPosition & 0x10)
+                unk += 0x200;
+
+            dst[unk] = *pDecomp;
+        }
+    }
 }
 
 void RoomUpdateHorizontalTilemap(i8 offset)
