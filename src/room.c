@@ -778,17 +778,19 @@ void RoomUpdateBackgroundsPosition(void)
 
 void RoomUpdateVerticalTilemap(i8 offset)
 {
-    // https://decomp.me/scratch/X1hX1
+    // https://decomp.me/scratch/wGbln
 
-    u8 properties;
-    i32 yPosition;
-    i32 xPosition;
+    u16 properties;
+    u16 yPosition;
+    u16 xPosition;
     i32 i;
-    u16* pDecomp;
+    u16* pTilemap;
     i32 width;
     u16 value;
     u16 unk;
     u32* dst;
+    i32 posOffset;
+    u32 tilemapOffset;
 
     for (i = 0; i < 3; i++)
     {
@@ -814,32 +816,46 @@ void RoomUpdateVerticalTilemap(i8 offset)
         if (!(properties & BG_PROP_RLE_COMPRESSED))
             continue;
 
-        yPosition += offset;
-        if (yPosition < 0)
+        posOffset = yPosition + offset;
+        if (posOffset < 0)
             continue;
 
-        if (yPosition > gBGPointersAndDimensions.backgrounds[i].height)
+        if (posOffset > gBGPointersAndDimensions.backgrounds[i].height)
             continue;
+            
+        yPosition = posOffset;
 
-        xPosition -= 2;
-        if (xPosition < 0)
-            xPosition = 0;
+        posOffset = xPosition - 2;
+        if (posOffset < 0)
+            posOffset = 0;
 
-        if (gBGPointersAndDimensions.backgrounds[i].width < 0x13)
+        xPosition = posOffset;
+
+        width = 0x13;
+        if (gBGPointersAndDimensions.backgrounds[i].width < width)
             width = gBGPointersAndDimensions.backgrounds[i].width;
-        else
-            width = 0x13;
 
-        dst = VRAM_BASE + i * 4096 + (yPosition & 0xF) * 128;
-        pDecomp = &gBGPointersAndDimensions.backgrounds[i].pDecomp[yPosition * width + xPosition];
-        while (width--)
+        tilemapOffset = yPosition * gBGPointersAndDimensions.backgrounds[i].width + xPosition;
+        
+        dst = VRAM_BASE + i * 4096;
+        dst += (yPosition & 0xF) * 32;
+
+        while (width != 0)
         {
-            value = *pDecomp;
-            unk = value & 0xF;
+            value = gBGPointersAndDimensions.backgrounds[i].pDecomp[tilemapOffset];
+
+            pTilemap = &gTilemapAndClipPointers.pTilemap[value * 4];
+
+            unk = xPosition & 0xF;
             if (xPosition & 0x10)
                 unk += 0x200;
 
-            dst[unk] = *pDecomp;
+            dst[unk] = pTilemap[0] | pTilemap[1] << 0x10;
+            dst[unk + 0x10] = pTilemap[2] | pTilemap[3] << 0x10;
+
+            width--;
+            xPosition++;
+            tilemapOffset++;
         }
     }
 }
