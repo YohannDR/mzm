@@ -133,7 +133,7 @@ void BGClipApplyClipdataChangingTransparency(void)
     yPosition >>= 6;
 
     clipdata = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[yPosition * gBGPointersAndDimensions.clipdataWidth + xPosition]];
-    if (clipdata == CLIP_BEHAVIOR_AIR_SOLID)
+    if (clipdata == CLIP_BEHAVIOR_NONE)
         return;
 
     bldalpha = BGClipGetNewBLDALPHAValue(clipdata);
@@ -347,7 +347,7 @@ void BGClipCheckTouchingTransitionOrTank(void)
 
             for (position = 3; position >= 0; position--)
             {
-                if (collectionData.behaviors[i] != CLIP_BEHAVIOR_AIR_SOLID &&
+                if (collectionData.behaviors[i] != CLIP_BEHAVIOR_NONE &&
                     BEHAVIOR_TO_TANK(collectionData.behaviors[i]) <
                     BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK))
                 {

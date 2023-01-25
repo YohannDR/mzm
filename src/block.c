@@ -1,5 +1,7 @@
 #include "block.h"
 #include "macros.h"
+#include "gba.h"
+
 #include "data/block_data.h"
 
 #include "constants/block.h"
@@ -625,7 +627,74 @@ void BlockUpdateBrokenBlocks(void)
 
 void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
 {
+    // https://decomp.me/scratch/hH7ax
 
+    u16 value;
+    u16* dst;
+    u16* src;
+    u32 offset;
+
+    value = CLIPDATA_TILEMAP_AIR;
+
+    switch (pBlock->stage)
+    {
+        case 2:
+        case 12:
+            value = sReformingBlocksTilemapValue[pBlock->type];
+            break;
+
+        case 3:
+        case 11:
+            value = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID;
+            break;
+
+        case 4:
+        case 10:
+            value = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID_BREAKING_1;
+            break;
+
+        case 5:
+        case 9:
+            value = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID_BREAKING_2;
+            break;
+
+        case 6:
+        case 8:
+            value = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID_BREAKING_3;
+            break;
+
+        case 7:
+            value = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_AIR;
+            break;
+
+        case 0:
+        case 1:
+        case 13:
+    }
+
+    if (value == CLIPDATA_TILEMAP_AIR)
+        return;
+
+    gBGPointersAndDimensions.backgrounds[1].pDecomp[pBlock->yPosition * gBGPointersAndDimensions.backgrounds[1].width + pBlock->xPosition] = value;
+
+    if ((gBG1YPosition / BLOCK_SIZE) - 4 > pBlock->yPosition || pBlock->yPosition > (gBG1YPosition / BLOCK_SIZE) + 13)
+        return;
+
+    if ((gBG1XPosition / BLOCK_SIZE) - 4 > pBlock->xPosition || pBlock->xPosition > (gBG1XPosition / BLOCK_SIZE) + 18)
+        return;
+
+    dst = VRAM_BASE + 0x1000;
+    if (pBlock->xPosition & 0x10)
+        dst = VRAM_BASE + 0x1800;
+
+    dst += (pBlock->xPosition & 0xF) * 2 + (pBlock->yPosition & 0xF) * 64;
+
+    offset = value * 4;
+    src = gTilemapAndClipPointers.pTilemap;
+    dst[0] = src[offset++];
+    dst[1] = src[offset++];
+    dst[32] = src[offset++];
+    dst[33] = src[offset];
 }
 
 /**

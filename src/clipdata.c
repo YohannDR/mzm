@@ -293,7 +293,7 @@ u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 unk)
 
     behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[tileY * gBGPointersAndDimensions.clipdataWidth + tileX]];
 
-    if (behavior != CLIP_BEHAVIOR_AIR_SOLID)
+    if (behavior != CLIP_BEHAVIOR_NONE)
     {
         if ((i32)behavior <= 0xF)
             specialClip = sMovementClipdataValues[behavior];
