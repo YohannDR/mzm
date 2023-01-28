@@ -13,6 +13,22 @@ struct Haze {
 
 extern struct Haze gHazeInfo;
 
+struct AnimatedGraphicsEntry {
+    u8 palette;
+    u8 tileset;
+};
+
+extern struct AnimatedGraphicsEntry gAnimatedGraphicsEntry;
+
+struct TilesetTransparentColor {
+    u16 transparentColor;
+    u16 field_2;
+};
+
+extern struct TilesetTransparentColor gTilesetTransparentColor;
+
+// ---
+
 struct RoomEntry {
     u8 tileset;
     u8 BG0Prop;
@@ -107,6 +123,15 @@ struct Unused_3005504 {
     u32 field_4;
 };
 
+extern u8 gClipdataCollisionTypes[1024];
+extern u8 gClipdataCollisionTypes_Tilemap[512];
+
+extern u16 gClipdataBehaviorTypes[1024];
+extern u16 gClipdataBehaviorTypes_Tilemap[512];
+
+extern u16 gTilemap[1024];
+
+extern u16 gCommonTilemap[1024];
 
 extern u16 gDecompClipdataMap[1024];
 extern u16 gDecompBG0Map[1024];

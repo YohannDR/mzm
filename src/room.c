@@ -4,8 +4,12 @@
 #include "data/engine_pointers.h"
 #include "data/empty_datatypes.h"
 #include "data/common_pals.h"
+#include "data/clipdata_types.h"
+#include "data/clipdata_types_tilemap.h"
+#include "data/rooms_data.h"
 
 #include "constants/audio.h"
+#include "constants/connection.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
@@ -151,9 +155,68 @@ void RoomLoad(void)
     }
 }
 
+/**
+ * @brief 561e8 | 21c | Loads the tileset of the current room
+ * 
+ */
 void RoomLoadTileset(void)
 {
+    struct TilesetEntry entry;
+    u32 backgroundGfxSize;
 
+    entry = sTilesetEntries[gCurrentRoomEntry.tileset];
+
+    gTilemapAndClipPointers.pTilemap = gTilemap;
+    gTilemapAndClipPointers.pClipCollisions = gClipdataCollisionTypes;
+    gTilemapAndClipPointers.pClipBehaviors = gClipdataBehaviorTypes;
+
+    DMATransfer(3, entry.pTilemap + 2, gTilemap, sizeof(gTilemap) * 4, 0x10);
+
+    if (gCurrentArea > AREA_INVALID)
+    {
+        DMATransfer(3, sClipdataCollisionTypes_Debug, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 0x10);
+        DMATransfer(3, sClipdataBehaviorTypes_Debug, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 0x10);
+    }
+    else
+    {
+        DMATransfer(3, sClipdataCollisionTypes, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 0x10);
+        DMATransfer(3, sClipdataBehaviorTypes, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 0x10);
+    }
+
+    DMATransfer(3, sCommonTilemap, gCommonTilemap, sizeof(gCommonTilemap) * 2, 0x10);
+    DMATransfer(3, sClipdataCollisionTypes_Tilemap, gClipdataCollisionTypes_Tilemap, sizeof(gClipdataCollisionTypes_Tilemap), 0x10);
+    DMATransfer(3, sClipdataBehaviorTypes_Tilemap, gClipdataBehaviorTypes_Tilemap, sizeof(gClipdataBehaviorTypes_Tilemap), 0x10);
+
+    CallLZ77UncompVRAM(entry.pTileGraphics, VRAM_BASE + 0x5800);
+    DMATransfer(3, entry.pPalette + 0x10, PALRAM_BASE + 0x60, 0x1A0, 0x10);
+    write16(PALRAM_BASE, 0);
+
+    if (gUseMotherShipDoors == TRUE)
+    {
+        DMATransfer(3, sCommonTilesMothershipGFX, VRAM_BASE + 0x4800, sizeof(sCommonTilesMothershipGFX), 0x10);
+        DMATransfer(3, sCommonTilesMotherShipPAL, PALRAM_BASE + 2, 0x5E, 0x10);
+    }
+    else
+    {
+        DMATransfer(3, sCommonTilesGFX, VRAM_BASE + 0x4800, sizeof(sCommonTilesGFX), 0x10);
+        DMATransfer(3, sCommonTilesPAL, PALRAM_BASE + 2, 0x5E, 0x10);
+    }
+
+    gTilesetTransparentColor.transparentColor = *entry.pPalette;
+    gTilesetTransparentColor.field_2 = 0;
+
+    backgroundGfxSize = ((u8*)entry.pBackgroundGraphics)[2] << 8 | ((u8*)entry.pBackgroundGraphics)[1];
+    CallLZ77UncompVRAM(entry.pBackgroundGraphics, VRAM_BASE + 0xfde0 - backgroundGfxSize);
+    BitFill(3, 0, VRAM_BASE + 0xFFE0, 0x20, 0x20);
+
+    if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
+        return;
+
+    gCurrentRoomEntry.animatedTileset = gAnimatedGraphicsEntry.tileset = entry.animatedTileset;
+    gCurrentRoomEntry.animatedPalette = gAnimatedGraphicsEntry.palette = entry.animatedPalette;
+
+    if (gCurrentRoomEntry.BG2Prop == BG_PROP_MOVING)
+        BitFill(3, 0x40, VRAM_BASE + 0x2000, 0x1000, 0x10);
 }
 
 /**

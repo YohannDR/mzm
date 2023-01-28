@@ -85,7 +85,7 @@ const u16 sClipdataBehaviorTypes_Tilemap[208] = {
     [CLIPDATA_TILEMAP_NO_HATCH_DOOR_BOTTOM_RIGHT] = CLIP_BEHAVIOR_NONE, // 0xCB
 };
 
-const u16 sClipdataCollisionTypes_Tilemap[208] = {
+const u8 sClipdataCollisionTypes_Tilemap[208] = {
     [CLIPDATA_TILEMAP_AIR] = CLIPDATA_TYPE_AIR, // 0x0
     [CLIPDATA_TILEMAP_SOLID] = CLIPDATA_TYPE_SOLID, // 0x1
     [CLIPDATA_TILEMAP_SHOT_BLOCK_REFORM] = CLIPDATA_TYPE_SOLID, // 0x5
@@ -131,7 +131,7 @@ const u16 sClipdataCollisionTypes_Tilemap[208] = {
 
 const u16 sCommonTilemap[832] = INCBIN_U16("data/common/CommonTilemap.tt");
 
-const u16 sClipdataCollisionTypes_Debug[160] = {
+const u8 sClipdataCollisionTypes_Debug[160] = {
     [CLIPDATA_DEBUG_AIR] = CLIPDATA_TYPE_AIR, // 0x0
     [CLIPDATA_DEBUG_SOLID] = CLIPDATA_TYPE_SOLID, // 0x1
     [CLIPDATA_DEBUG_WATER] = CLIPDATA_TYPE_AIR, // 0x2
