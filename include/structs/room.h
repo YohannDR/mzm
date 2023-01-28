@@ -22,7 +22,7 @@ struct RoomEntry {
     u8 scrollsFlag;
     u8 BG3Scrolling;
     u8 transparency;
-    u8* pEnemyRoomData;
+    const u8* pEnemyRoomData;
     u8 firstSpritesetEvent;
     u8 secondSpritesetEvent;
     u8 mapX;
@@ -44,26 +44,35 @@ struct RoomEntryROM {
     u8 BG1Prop;
     u8 BG2Prop;
     u8 BG3Prop;
-    u8* pBG0Data;
-    u8* pBG1Data;
-    u8* pBG2Data;
-    u8* pClipData;
-    u8* pBG3Data;
+    const u8* pBG0Data;
+    const u8* pBG1Data;
+    const u8* pBG2Data;
+    const u8* pClipData;
+    const u8* pBG3Data;
     u8 BG3Scrolling;
     u8 transparency;
-    u8* pDefaultSpriteData;
+    const u8* pDefaultSpriteData;
     u8 defaultSpriteset;
     u8 firstSpritesetEvent;
-    u8* pFirstSpriteData;
+    const u8* pFirstSpriteData;
     u8 firstSpriteset;
     u8 secondSpritesetEvent;
-    u8* pSecondSpriteData;
+    const u8* pSecondSpriteData;
     u8 secondSpriteset;
     u8 mapX;
     u8 mapY;
     u8 effect;
     u8 effectY;
     u16 musicTrack;
+};
+
+struct TilesetEntry {
+    const u8* pTileGraphics;
+    const u16* pPalette;
+    const u8* pBackgroundGraphics;
+    const u8* pTilemap;
+    u8 animatedTileset;
+    u8 animatedPalette;
 };
 
 struct BackgroundPositions {

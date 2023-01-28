@@ -241,7 +241,7 @@ void RoomLoadEntry(void)
 void RoomLoadBackgrounds(void)
 {
     struct RoomEntryROM entry;
-    u8* src;
+    const u8* src;
 
     // Why
     entry = sAreaRoomEntryPointers[gCurrentArea][gCurrentRoom];
@@ -517,7 +517,7 @@ void RoomSetInitialTilemap(u8 bgNumber)
  * @param dst Destination address
  * @return u32 Size
  */
-u32 RoomRLEDecompress(u8 isBG, u8* src, u8* dst)
+u32 RoomRLEDecompress(u8 isBG, const u8* src, u8* dst)
 {
     u32 size;
     i32 length;

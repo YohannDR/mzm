@@ -2,9 +2,12 @@
 #define DOORS_DATA_H
 
 #include "structs/connection.h"
+#include "structs/room.h"
 
 // Should be [3], needed for alignement issues for now
-extern const u8 sEnemyRoomData_Empty[4];
+extern const u8 sEnemyRoomData_Empty[3];
+
+extern const struct TilesetEntry sTilesetEntries[79];
 
 extern const struct Door sBrinstarDoors[99];
 
