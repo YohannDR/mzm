@@ -16,6 +16,6 @@ extern struct BackgroundEffect gBackgroundEffect;
 
 extern u8 gMonochromeBGFading;
 extern i8 gDisableAnimatedPalette;
-extern i8 gDisableAnimatedGraphicsTimer;
+extern u8 gDisableAnimatedGraphicsTimer;
 
 #endif

@@ -667,9 +667,46 @@ void RoomUpdateGFXInfo(void)
     }
 }
 
+/**
+ * @brief 56e74 | 80 | Checks if the animated graphics, palette and effects should be updated
+ * 
+ */
 void RoomUpdateAnimatedGraphicsAndPalettes(void)
 {
+    u8 dontUpdateBgEffect;
+    u8 dontUpdateGraphics;
 
+    dontUpdateBgEffect = FALSE;
+    dontUpdateGraphics = FALSE;
+
+    if (gGameModeSub1 == SUB_GAME_MODE_DOOR_TRANSITION || gGameModeSub1 == SUB_GAME_MODE_LOADING_ROOM)
+        dontUpdateBgEffect = TRUE;
+    else if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
+    {
+        dontUpdateBgEffect = TRUE;
+        dontUpdateGraphics = TRUE;
+    }
+
+    if (gPreventMovementTimer != 0)
+        dontUpdateGraphics = TRUE;
+
+    if (gDisableAnimatedGraphicsTimer != 0)
+    {
+        gDisableAnimatedGraphicsTimer--;
+        dontUpdateBgEffect = TRUE;
+        dontUpdateGraphics = TRUE;
+    }
+
+    if (!dontUpdateBgEffect && gBackgroundEffect.type != 0 && gCurrentPowerBomb.animationState == 0)
+        check_apply_background_effect_color(); // Undefined
+
+    if (!dontUpdateGraphics)
+    {
+        update_animated_graphics(); // Undefined
+        update_tanks_animation(); // Undefined
+        update_animated_palette(); // Undefined
+        RoomUpdateHatchFlashingAnimation();
+    }
 }
 
 void RoomUpdateHatchFlashingAnimation(void)

@@ -13604,8 +13604,8 @@ ResetTanksAnimation: @ 0x0805e224
     .align 2, 0
 lbl_0805e244: .4byte 0x030057f0
 
-    thumb_func_start sub_0805e248
-sub_0805e248: @ 0x0805e248
+    thumb_func_start update_tanks_animation
+update_tanks_animation: @ 0x0805e248
     push {r4, r5, lr}
     movs r3, #3
     ldr r0, lbl_0805e2a0 @ =0x030057f0
@@ -13980,8 +13980,8 @@ lbl_0805e53c: .4byte 0x030056f8
 lbl_0805e540: .4byte 0x03000054
 lbl_0805e544: .4byte 0x03000055
 
-    thumb_func_start sub_0805e548
-sub_0805e548: @ 0x0805e548
+    thumb_func_start check_apply_background_effect_color
+check_apply_background_effect_color: @ 0x0805e548
     push {r4, r5, r6, lr}
     ldr r5, lbl_0805e570 @ =0x030056f8
     ldrh r0, [r5, #2]

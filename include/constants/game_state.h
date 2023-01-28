@@ -40,5 +40,6 @@
 
 // For in game
 
+#define SUB_GAME_MODE_DOOR_TRANSITION 0x1
 #define SUB_GAME_MODE_PLAYING 0x2
 #define SUB_GAME_MODE_LOADING_ROOM 0x3

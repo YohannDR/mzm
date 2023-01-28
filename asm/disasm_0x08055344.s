@@ -3390,14 +3390,14 @@ lbl_08056eb2:
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_08056eca
-    bl sub_0805e548
+    bl check_apply_background_effect_color
 lbl_08056eca:
     cmp r4, #0
     bne lbl_08056ede
     bl update_animated_graphics
-    bl sub_0805e248
+    bl update_tanks_animation
     bl update_animated_palette
-    bl sub_08056ef4
+    bl RoomUpdateHatchFlashingAnimation
 lbl_08056ede:
     pop {r4}
     pop {r0}
@@ -3408,8 +3408,8 @@ lbl_08056ee8: .4byte 0x03000045
 lbl_08056eec: .4byte 0x030056f8
 lbl_08056ef0: .4byte 0x03000130
 
-    thumb_func_start sub_08056ef4
-sub_08056ef4: @ 0x08056ef4
+    thumb_func_start RoomUpdateHatchFlashingAnimation
+RoomUpdateHatchFlashingAnimation: @ 0x08056ef4
     push {r4, lr}
     sub sp, #4
     ldr r0, lbl_08056fa8 @ =0x03000c72
