@@ -591,12 +591,24 @@ weapons/PistolBottom.gfx;512;0x32b278;1
 weapons/PistolChargedTop.gfx;512;0x32b478;1
 weapons/PistolChargedBottom.gfx;512;0x32b678;1
 
+# Common
+
+common/CommonTiles.gfx;4096;0x5d940c;1
+common/CommonTilesMotherShip.gfx;4096;0x5da40c;1
+common/CommonTilemap.tt;832;0x3655a0;2
+
+common/CommonTiles.pal;15;0x5dfe22;2
+common/DoorTransition.pal;241;0x5dfe40;2
+common/CommonTilesMotherShip.pal;15;0x5e0022;2
+common/DoorTransitionMotherShip.pal;240;0x5e0040;2
+
+common/HatchFlashingMotherShip.pal;256;0x5e0220;2
+common/HatchFlashing.pal;256;0x5e0420;2
+
 # Misc
 
 EscapeTimerDigits.gfx;2048;0x33d794;1
-CommonTiles.gfx;4096;0x5d940c;1
-CommonTilesMotherShip.gfx;4096;0x5da40c;1
-CommonTilemap.tt;832;0x3655a0;2
+
 
 # Blobs
 

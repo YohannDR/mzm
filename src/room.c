@@ -3,6 +3,7 @@
 
 #include "data/engine_pointers.h"
 #include "data/empty_datatypes.h"
+#include "data/common_pals.h"
 
 #include "constants/audio.h"
 #include "constants/clipdata.h"
@@ -709,9 +710,54 @@ void RoomUpdateAnimatedGraphicsAndPalettes(void)
     }
 }
 
+/**
+ * @brief 56ef4 | dc | Updates the hatches flashing animation
+ * 
+ */
 void RoomUpdateHatchFlashingAnimation(void)
 {
+    const u16* pPalette;
+    
+    if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
+        return;
 
+    // Get palette pointer
+    if (gUseMotherShipDoors)
+        pPalette = sHatchFlashingMotherShipPAL;
+    else
+        pPalette = sHatchFlashingPAL;
+
+    // Update hatches that unlocked
+    if (gHatchesState.unlocking)
+    {
+        gHatchFlashingAnimation.unlocking_delay++;
+        if (gHatchFlashingAnimation.unlocking_delay > 7)
+        {
+            gHatchFlashingAnimation.unlocking_delay = 0;
+            gHatchFlashingAnimation.unlocking_paletteRow++;
+
+            if (gHatchFlashingAnimation.unlocking_paletteRow > 5)
+                gHatchFlashingAnimation.unlocking_paletteRow = 0;
+
+            DMATransfer(3, &pPalette[gHatchFlashingAnimation.unlocking_paletteRow * 16 + 6], PALRAM_BASE + 0x2C, 4, 0x10);
+        }
+    }
+
+    // Left over code?
+    if (gHatchesState.unk)
+    {
+        gHatchFlashingAnimation.navigation_delay++;
+        if (gHatchFlashingAnimation.navigation_delay > 7)
+        {
+            gHatchFlashingAnimation.navigation_delay = 0;
+            gHatchFlashingAnimation.navigation_paletteRow++;
+
+            if (gHatchFlashingAnimation.navigation_paletteRow > 5)
+                gHatchFlashingAnimation.navigation_paletteRow = 0;
+
+            dma_set(3, &pPalette[gHatchFlashingAnimation.navigation_paletteRow * 16 + 6], PALRAM_BASE + 0x4C, DMA_ENABLE << 16 | 2);
+        }
+    }
 }
 
 /**

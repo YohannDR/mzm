@@ -129,7 +129,7 @@ const u16 sClipdataCollisionTypes_Tilemap[208] = {
     [CLIPDATA_TILEMAP_NO_HATCH_DOOR_TOP_LEFT] = CLIPDATA_TYPE_DOOR, // 0x9A
 };
 
-const u16 sCommonTilemap[832] = INCBIN_U16("data/CommonTilemap.tt");
+const u16 sCommonTilemap[832] = INCBIN_U16("data/common/CommonTilemap.tt");
 
 const u16 sClipdataCollisionTypes_Debug[160] = {
     [CLIPDATA_DEBUG_AIR] = CLIPDATA_TYPE_AIR, // 0x0

@@ -199,5 +199,5 @@ const u16 sClipdataBehaviorTypes[176] = {
     [CLIPDATA_STRONG_LAVA] = CLIP_BEHAVIOR_STRONG_LAVA,
 };
 
-const u8 sCommonTilesGFX[4096] = INCBIN_U8("data/CommonTiles.gfx");
-const u8 sCommonTilesMothershipGFX[4096] = INCBIN_U8("data/CommonTilesMotherShip.gfx");
+const u8 sCommonTilesGFX[4096] = INCBIN_U8("data/common/CommonTiles.gfx");
+const u8 sCommonTilesMothershipGFX[4096] = INCBIN_U8("data/common/CommonTilesMotherShip.gfx");

@@ -81,6 +81,15 @@ struct HatchesState {
     u16 unk2;
 };
 
+struct HatchFlashingAnimation {
+    u8 unlocking_delay;
+    i8 unlocking_paletteRow;
+
+    // Assumed to be left over from fusion (navigation doors)
+    u8 navigation_delay;
+    i8 navigation_paletteRow;
+};
+
 #define MAX_AMOUNT_OF_HATCHES 16
 #define MAX_AMOUNT_OF_AREAS 8
 #define MAX_AMOUNT_OF_HATCH_TYPES 8
@@ -102,5 +111,7 @@ extern struct HatchesState gHatchesState;
 extern struct HatchData gHatchData[MAX_AMOUNT_OF_HATCHES];
 extern struct LastElevatorUsed gLastElevatorUsed;
 extern u8 gNumberOfValidHatchesInRoom;
+
+extern struct HatchFlashingAnimation gHatchFlashingAnimation;
 
 #endif

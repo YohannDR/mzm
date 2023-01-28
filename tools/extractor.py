@@ -7,7 +7,8 @@ DATA_PATH = "data/"
 subDirs: array = [
     "sprites/",
     "hud/",
-    "weapons/"
+    "weapons/",
+    "common/"
 ]
 
 try:
