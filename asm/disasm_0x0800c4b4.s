@@ -865,7 +865,7 @@ lbl_0800cbfa:
     ldr r4, lbl_0800cd88 @ =0x030013ae
     movs r0, #0x10
     strh r0, [r4]
-    bl sub_0805c08c
+    bl hide_screen_during_load
     ldr r1, lbl_0800cd8c @ =0x04000054
     ldrh r0, [r4]
     strh r0, [r1]

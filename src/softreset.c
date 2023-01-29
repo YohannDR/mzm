@@ -30,7 +30,7 @@ void Softreset(void)
     sub_0805d034();
     sub_080033dc();
 
-    write16(REG_IME, 0);
+    write16(REG_IME, FALSE);
     write16(REG_IE, 0);
     write16(REG_DISPSTAT, 0);
     PLTT_BG[0] = 0;
@@ -60,5 +60,5 @@ void Softreset(void)
     gChangedInput = KEY_NONE;
 
     write16(REG_IF, 0xffff);
-    write16(REG_IME, 1);
+    write16(REG_IME, TRUE);
 }

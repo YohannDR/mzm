@@ -14,7 +14,7 @@
 void InitializeGame(void)
 {
     write16(REG_DISPCNT, DCNT_BLANK);
-    write16(REG_IME, 0);
+    write16(REG_IME, FALSE);
     write16(REG_DISPSTAT, 0);
 
     dma_fill32(3, 0, EWRAM_BASE, 0x40000);
@@ -57,5 +57,5 @@ void InitializeGame(void)
     gStereoFlag = 0;
 
     write16(REG_IF, 0xffff);
-    write16(REG_IME, 1);
+    write16(REG_IME, TRUE);
 }

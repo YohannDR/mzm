@@ -7,6 +7,7 @@
 #define REG_IME (REG_BASE + 0x208)
 #define REG_IE (REG_BASE + 0x200)
 #define REG_IF (REG_BASE + 0x202)
+#define REG_VCOUNT (REG_BASE + 0x006)
 
 #define IF_VBLANK (1 << 0)
 #define IF_HBLANK (1 << 1)

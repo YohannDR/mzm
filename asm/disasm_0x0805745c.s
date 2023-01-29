@@ -9349,8 +9349,8 @@ start_special_background_fading: @ 0x0805c074
     .align 2, 0
 lbl_0805c088: .4byte 0x03005520
 
-    thumb_func_start sub_0805c08c
-sub_0805c08c: @ 0x0805c08c
+    thumb_func_start hide_screen_during_load
+hide_screen_during_load: @ 0x0805c08c
     push {lr}
     ldr r0, lbl_0805c0d8 @ =0x03000c75
     ldrb r0, [r0]

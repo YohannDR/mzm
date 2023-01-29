@@ -33,9 +33,6 @@
 
 #define OBJ_SPRITE_OAM 0x8000 // Not sure what this is, sprite OAM doesn't work without it
 
-extern u8 gNextOAMSlot;
-extern union OamData gOamData[160];
-
 struct FrameData {
     const u16* pFrame;
     u8 timer;
@@ -72,5 +69,8 @@ union OamData {
         u16 affineParam;
     } all;
 };
+
+extern u8 gNextOAMSlot;
+extern union OamData gOamData[160];
 
 #endif /* OAM_H */

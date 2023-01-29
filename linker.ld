@@ -183,6 +183,7 @@ SECTIONS {
         . = 0x00001600; gPreviousXPosition = .;
         . = 0x00001602; gPreviousYPosition = .;
         . = 0x00001606; gPreventMovementTimer = .;
+        . = 0x00001608; gDisableDrawingSamusAndScrolling = .;
         . = 0x0000168C; gButtonAssignments = .;
         . = 0x000016C4; gNonGameplayRAM = .;
         . = 0x00001cec; gVBlankCallback = .;
@@ -213,6 +214,7 @@ SECTIONS {
         . = 0x000053cc; gDemoInputTimer = .;
         . = 0x000053ce; gDemoInput = .;
         . = 0x000053E0; gSamusPalette = .;
+        . = 0x00005440; gSamusPaletteSize = .;
         . = 0x00005448; gWrittenToWIN1H = .;
         . = 0x0000544a; gWrittenToWIN1V = .;
         . = 0x0000544c; gWrittenToBLDCNT = .;

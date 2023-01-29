@@ -63,25 +63,25 @@ struct SamusData {
 
 struct SamusPhysics {
     u16* pBodyOam;
-    u8* pShouldersGFX;
-    u16 shoulderGFXSize;
-    u8* pTorsoGFX;
-    u16 torsoGFXSize;
-    u8* pLegsGFX;
-    u16 legsGFXSize;
-    u8* pBodyLowerHalfGFX;
-    u16 bodyLowerHalfGFXSize;
+    u8* pShouldersGfx;
+    u16 shoulderGfxSize;
+    u8* pTorsoGfx;
+    u16 torsoGfxSize;
+    u8* pLegsGfx;
+    u16 legsGfxSize;
+    u8* pBodyLowerHalfGfx;
+    u16 bodyLowerHalfGfxSize;
     u16 unk;
     u16* pArmCannonOAM;
-    u8* pArmCannonGFXUpper;
-    u16 armCannonGFXUpperSize;
-    u8* pArmCannonGFXLower;
-    u16 armCannonGFXLowerSize;
+    u8* pArmCannonGfxUpper;
+    u16 armCannonGfxUpperSize;
+    u8* pArmCannonGfxLower;
+    u16 armCannonGfxLowerSize;
     u16* pScrewSpeedOAM;
-    u8* pScrewSpeedGFX;
-    u16 screwSpeedGFXSize;
-    u8* pScrewShinesparkGFX;
-    u16 screwShinesparkGFXSize;
+    u8* pScrewSpeedGfx;
+    u16 screwSpeedGfxSize;
+    u8* pScrewShinesparkGfx;
+    u16 screwShinesparkGfxSize;
     u16 armCannonXPositionOffset;
     u16 armCannonYPositionOffset;
     u8 horizontalMovingDirection;
@@ -163,8 +163,10 @@ extern struct SamusPhysics gSamusPhysics;
 extern u16 gPreviousXPosition;
 extern u16 gPreviousYPosition;
 extern u16 gPreventMovementTimer;
+extern u8 gDisableDrawingSamusAndScrolling;
 
 extern u16 gSamusPalette[16 * 2];
+extern u16 gSamusPaletteSize;
 extern i16 gSamusDoorPositionOffset;
 
 #endif
