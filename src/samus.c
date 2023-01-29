@@ -155,9 +155,68 @@ u8 SamusSlopeRelated(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosit
     return collision;
 }
 
+/**
+ * @brief 5604 | b4 | To document
+ * 
+ * @param pData Samus Data Pointer
+ * @param pPhysics Samus Physics Pointer
+ * @param xPosition X Position
+ * @param pPosition Result X Position
+ * @return u8 Collision result
+ */
 u8 unk_5604(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 xPosition, u16* pPosition)
 {
+    u8 result;
+    u16 yPosition;
+    i32 clipdata;
 
+    result = SAMUS_COLLISION_DETECTION_NONE;
+
+    if (pPhysics->horizontalMovingDirection == HDMOVING_LEFT)
+        *pPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - pPhysics->hitboxLeftOffset;
+    else
+        *pPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - pPhysics->hitboxRightOffset + SUB_PIXEL_POSITION_FLAG;
+
+    yPosition = pData->yPosition + pPhysics->hitboxTopOffset;
+    clipdata = ClipdataProcessForSamus(yPosition, xPosition);
+
+    switch (clipdata & 0xFF)
+    {
+        case CLIPDATA_TYPE_LEFT_STEEP_FLOOR_SLOPE:
+        case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
+        case CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE:
+        case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
+        case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
+        case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
+            break;
+
+        default:
+            if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
+                result += SAMUS_COLLISION_DETECTION_LEFT_MOST;
+    }
+
+    if (pPhysics->hitboxTopOffset >= -BLOCK_SIZE)
+        return result;
+
+    clipdata = ClipdataProcessForSamus(yPosition + BLOCK_SIZE, xPosition);
+
+
+    switch (clipdata & 0xFF)
+    {
+        case CLIPDATA_TYPE_LEFT_STEEP_FLOOR_SLOPE:
+        case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
+        case CLIPDATA_TYPE_LEFT_UPPER_SLIGHT_FLOOR_SLOPE:
+        case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
+        case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
+        case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
+            break;
+
+        default:
+            if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
+                result += SAMUS_COLLISION_DETECTION_MIDDLE_LEFT;
+    }
+
+    return result;
 }
 
 /**
@@ -315,7 +374,133 @@ u8 SamusCheckStandingOnGroundCollision(struct SamusData* pData, struct SamusPhys
 
 u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
+    // https://decomp.me/scratch/zWpei
 
+    u16 resultXLeft;
+    u16 resultYLeft;
+    u16 resultSlopeLeft;
+
+    u16 resultXRight;
+    u16 resultYRight;
+    u16 resultSlopeRight;
+
+    u16 horizontalHitbox;
+    u8 collisionLeft;
+    u8 collisionRight;
+
+    u16 currentSubpixelY;
+    u16 previousSubpixelY;
+
+    i16* pLeftHitbox;
+    i16* pRightHitbox;
+    i16* tempPtr;
+
+    if (pPhysics->horizontalMovingDirection == HDMOVING_LEFT)
+    {
+        horizontalHitbox = pPhysics->hitboxLeftOffset;
+        pLeftHitbox = &pPhysics->hitboxLeftOffset;
+    }
+    else
+    {
+        horizontalHitbox = pPhysics->hitboxRightOffset;
+        pLeftHitbox = &pPhysics->hitboxLeftOffset;
+    }
+
+    if (unk_5604(pData, pPhysics, pData->xPosition + horizontalHitbox, &resultXLeft) != SAMUS_COLLISION_DETECTION_NONE)
+    {
+        pData->xPosition = resultXLeft;
+        pPhysics->touchingSideBlock++;
+    }
+
+    if (pData->standingStatus == STANDING_ENEMY)
+        return SPOSE_NONE;
+
+    currentSubpixelY = pData->yPosition & BLOCK_POSITION_FLAG;
+    previousSubpixelY = gPreviousYPosition;
+    previousSubpixelY &= BLOCK_POSITION_FLAG;
+
+    tempPtr = pLeftHitbox;
+    collisionLeft = SamusSlopeRelated(pData->xPosition + *pLeftHitbox, pData->yPosition, &resultXLeft, &resultYLeft, &resultSlopeLeft);
+    
+    pRightHitbox = &pPhysics->hitboxRightOffset;
+    collisionRight = SamusSlopeRelated(pData->xPosition + *pRightHitbox, pData->yPosition, &resultXRight, &resultYRight, &resultSlopeRight);
+
+    if (currentSubpixelY > previousSubpixelY)
+    {
+        if (collisionLeft != CLIPDATA_TYPE_AIR)
+        {
+            if (resultSlopeLeft != SLOPE_NONE)
+            {
+                if (collisionRight != CLIPDATA_TYPE_AIR)
+                    pData->yPosition = resultYRight - 1;
+                else
+                {
+                    pData->currentSlope = resultSlopeLeft;
+                    pData->yPosition = resultYLeft;
+                }
+
+                return SPOSE_LANDING_REQUEST;
+            }
+
+            SamusSlopeRelated(pData->xPosition + *tempPtr, pData->yPosition - BLOCK_SIZE,
+                &resultXLeft, &resultYLeft, &resultSlopeLeft);
+
+            pData->yPosition = resultYLeft;
+            if (resultSlopeLeft == SLOPE_NONE)
+                pData->yPosition += SUB_PIXEL_POSITION_FLAG;
+
+            pData->currentSlope = resultSlopeLeft;
+            return SPOSE_LANDING_REQUEST;
+        }
+
+        if (collisionRight == CLIPDATA_TYPE_AIR)
+            return SPOSE_NONE;
+
+        if (resultSlopeRight == SLOPE_NONE)
+        {
+            SamusSlopeRelated(pData->xPosition + *pRightHitbox, pData->yPosition - BLOCK_SIZE,
+                &resultXLeft, &resultYLeft, &resultSlopeLeft);
+
+            pData->yPosition = resultYLeft;
+            if (resultSlopeLeft == SLOPE_NONE)
+                pData->yPosition += SUB_PIXEL_POSITION_FLAG;
+
+            pData->currentSlope = resultSlopeLeft;
+            return SPOSE_LANDING_REQUEST;
+        }
+    
+        pData->currentSlope = resultSlopeRight;
+        pData->yPosition = resultYRight;
+        return SPOSE_LANDING_REQUEST;
+    }
+
+    if (collisionLeft != CLIPDATA_TYPE_AIR)
+    {
+        if (resultSlopeLeft != SLOPE_NONE)
+        {
+            pData->currentSlope = resultSlopeLeft;
+            pData->yPosition = resultYLeft;
+            return SPOSE_LANDING_REQUEST;
+        }
+
+        pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - *pLeftHitbox;
+        pPhysics->touchingSideBlock++;
+        return SPOSE_NONE;
+    }
+
+    if (collisionRight == CLIPDATA_TYPE_AIR)
+        return SPOSE_NONE;
+
+    if (resultSlopeLeft == SLOPE_NONE)
+    {
+        pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - *pRightHitbox + SUB_PIXEL_POSITION_FLAG;
+        pPhysics->touchingSideBlock++;
+        return SPOSE_NONE;
+    }
+    
+    pData->currentSlope = resultSlopeLeft;
+    pData->yPosition = resultYRight;
+    return SPOSE_LANDING_REQUEST;
 }
 
 u8 SamusCheckTopCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
