@@ -207,7 +207,12 @@ SECTIONS {
         . = 0x00004de8; gTrack8Variables = .;
 
         . = 0x00004fc9; gUnk_03004fc9 = .;
-        . = 0x000052E0; gSamusPalette = .;
+        . = 0x00004fca; gDemoInputData = .;
+        . = 0x000051ca; gDemoInputDuration = .;
+        . = 0x000053ca; gDemoInputNumber = .;
+        . = 0x000053cc; gDemoInputTimer = .;
+        . = 0x000053ce; gDemoInput = .;
+        . = 0x000053E0; gSamusPalette = .;
         . = 0x00005448; gWrittenToWIN1H = .;
         . = 0x0000544a; gWrittenToWIN1V = .;
         . = 0x0000544c; gWrittenToBLDCNT = .;
@@ -279,6 +284,8 @@ SECTIONS {
         asm/syscalls.o(.text);
         asm/disasm_0x080051d4.o(.text);
         asm/disasm_0x08005368.o(.text);
+        src/demo.o(.text);
+        asm/disasm_0x0800c4b4.o(.text);
         src/sprite_debris.o(.text);
         src/location_text.o(.text);
         src/sprites_AI/chozo_statue_movement.o(.text);
