@@ -924,18 +924,16 @@ void RoomUpdateBackgroundsPosition(void)
 
 void RoomUpdateVerticalTilemap(i8 offset)
 {
-    // https://decomp.me/scratch/wGbln
+    // https://decomp.me/scratch/X1hX1
 
-    u16 properties;
+    i32 properties;
     u16 yPosition;
     u16 xPosition;
     i32 i;
     u16* pTilemap;
-    i32 width;
     u16 value;
-    u16 unk;
+    u32 unk;
     u32* dst;
-    i32 posOffset;
     u32 tilemapOffset;
 
     for (i = 0; i < 3; i++)
@@ -962,34 +960,33 @@ void RoomUpdateVerticalTilemap(i8 offset)
         if (!(properties & BG_PROP_RLE_COMPRESSED))
             continue;
 
-        posOffset = yPosition + offset;
-        if (posOffset < 0)
+        properties = yPosition + offset;
+        if (properties < 0)
             continue;
 
-        if (posOffset > gBGPointersAndDimensions.backgrounds[i].height)
+        if (properties > gBGPointersAndDimensions.backgrounds[i].height)
             continue;
             
-        yPosition = posOffset;
+        yPosition = properties;
 
-        posOffset = xPosition - 2;
-        if (posOffset < 0)
-            posOffset = 0;
+        properties = xPosition - 2;
+        if (properties < 0)
+            properties = 0;
 
-        xPosition = posOffset;
+        xPosition = properties;
 
-        width = 0x13;
-        if (gBGPointersAndDimensions.backgrounds[i].width < width)
-            width = gBGPointersAndDimensions.backgrounds[i].width;
+        properties = 0x13;
+        if (gBGPointersAndDimensions.backgrounds[i].width < properties)
+            properties = gBGPointersAndDimensions.backgrounds[i].width;
 
         tilemapOffset = yPosition * gBGPointersAndDimensions.backgrounds[i].width + xPosition;
         
         dst = VRAM_BASE + i * 4096;
         dst += (yPosition & 0xF) * 32;
 
-        while (width != 0)
+        while (properties != 0)
         {
             value = gBGPointersAndDimensions.backgrounds[i].pDecomp[tilemapOffset];
-
             pTilemap = &gTilemapAndClipPointers.pTilemap[value * 4];
 
             unk = xPosition & 0xF;
@@ -999,7 +996,7 @@ void RoomUpdateVerticalTilemap(i8 offset)
             dst[unk] = pTilemap[0] | pTilemap[1] << 0x10;
             dst[unk + 0x10] = pTilemap[2] | pTilemap[3] << 0x10;
 
-            width--;
+            properties--;
             xPosition++;
             tilemapOffset++;
         }
