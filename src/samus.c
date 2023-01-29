@@ -354,7 +354,37 @@ u8 SamusCheckWalkingOnSlope(struct SamusData* pData, u16 xPosition)
 
 u8 SamusCheckCollisionAbove(struct SamusData* pData, i16 hitbox)
 {
+    // https://decomp.me/scratch/ZW8uX
 
+    u8 result;
+    u16 yPosition;
+    i32 clipdata;
+    struct SamusPhysics* pPhysics;
+
+    pPhysics = &gSamusPhysics;
+
+    result = SAMUS_COLLISION_DETECTION_NONE;
+
+    yPosition = pData->yPosition + (i16)hitbox; // ?
+    clipdata = ClipdataProcessForSamus(yPosition, pData->xPosition + pPhysics->hitboxLeftOffset);
+    
+    if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
+        result += SAMUS_COLLISION_DETECTION_LEFT_MOST;
+
+    // samus_hitbox_data pool probably inccorect
+    clipdata = ClipdataProcessForSamus(yPosition, pData->xPosition + samus_hitbox_data[0][0]);
+    if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
+        result += SAMUS_COLLISION_DETECTION_MIDDLE_LEFT;
+
+    clipdata = ClipdataProcessForSamus(yPosition, pData->xPosition + samus_hitbox_data[0][1]);
+    if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
+        result += SAMUS_COLLISION_DETECTION_MIDDLE_RIGHT;
+
+    clipdata = ClipdataProcessForSamus(yPosition, pData->xPosition + pPhysics->hitboxRightOffset);
+    if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
+        result += SAMUS_COLLISION_DETECTION_RIGHT_MOST;
+
+    return result;
 }
 
 u8 SamusCheckWalkingSidesCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
