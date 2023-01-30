@@ -441,8 +441,6 @@ void InitAndLoadGenerics(void)
 
 void UpdateFreeMovement_Debug(void)
 {
-    // https://decomp.me/scratch/b6yun
-
     i32 xVelocity;
     i32 yVelocity;
     u32 bgSize;
@@ -489,7 +487,7 @@ void UpdateFreeMovement_Debug(void)
     bgSize = gBGPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE;
     if (xVelocity < 0)
     {
-        if (gSamusData.xPosition < xVelocity)
+        if (gSamusData.xPosition < -xVelocity)
             gSamusData.xPosition = 0;
         else
             gSamusData.xPosition += xVelocity;
@@ -505,7 +503,7 @@ void UpdateFreeMovement_Debug(void)
     bgSize = gBGPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE;
     if (yVelocity < 0)
     {
-        if (gSamusData.yPosition < yVelocity)
+        if (gSamusData.yPosition < -yVelocity)
             gSamusData.yPosition = 0;
         else
             gSamusData.yPosition += yVelocity;
