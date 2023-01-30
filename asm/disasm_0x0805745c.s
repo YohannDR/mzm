@@ -97,8 +97,8 @@ lbl_080579a4:
     bx r1
     .align 2, 0
 
-    thumb_func_start update_in_game_timer
-update_in_game_timer: @ 0x080579b8
+    thumb_func_start InGameTimerUpdate
+InGameTimerUpdate: @ 0x080579b8
     push {lr}
     ldr r0, lbl_08057a1c @ =0x0300014c
     ldrb r2, [r0]
@@ -156,8 +156,8 @@ lbl_08057a18:
 lbl_08057a1c: .4byte 0x0300014c
 lbl_08057a20: .4byte 0x03000150
 
-    thumb_func_start sub_08057a24
-sub_08057a24: @ 0x08057a24
+    thumb_func_start IOWriteRegisters
+IOWriteRegisters: @ 0x08057a24
     push {r4, lr}
     ldr r2, lbl_08057ac0 @ =0x0300000a
     ldrh r1, [r2]
@@ -256,8 +256,8 @@ lbl_08057aec: .4byte 0x04000042
 lbl_08057af0: .4byte 0x0300544c
 lbl_08057af4: .4byte 0x04000050
 
-    thumb_func_start sub_08057af8
-sub_08057af8: @ 0x08057af8
+    thumb_func_start IOWriteRegistersDuringTransition
+IOWriteRegistersDuringTransition: @ 0x08057af8
     push {r4, lr}
     ldr r2, lbl_08057b98 @ =0x0300000a
     ldrh r1, [r2]
@@ -424,8 +424,8 @@ lbl_08057c46:
     pop {r0}
     bx r0
 
-    thumb_func_start sub_08057c4c
-sub_08057c4c: @ 0x08057c4c
+    thumb_func_start process_pause_button_press
+process_pause_button_press: @ 0x08057c4c
     push {r4, lr}
     movs r4, #1
     ldr r0, lbl_08057c78 @ =0x03000bf0
@@ -1723,8 +1723,8 @@ lbl_0805862c:
     .align 2, 0
 lbl_0805863c: .4byte 0x030013d4
 
-    thumb_func_start process_general_scrolling
-process_general_scrolling: @ 0x08058640
+    thumb_func_start ScrollProcessGeneral
+ScrollProcessGeneral: @ 0x08058640
     push {r4, r5, lr}
     sub sp, #4
     ldr r0, lbl_0805867c @ =0x03005520
@@ -9724,8 +9724,8 @@ lbl_0805c39a:
 lbl_0805c3a4: .4byte 0x085dfe40
 lbl_0805c3a8: .4byte 0x05000020
 
-    thumb_func_start sub_0805c3ac
-sub_0805c3ac: @ 0x0805c3ac
+    thumb_func_start unk_5c3ac
+unk_5c3ac: @ 0x0805c3ac
     push {r4, r5, lr}
     ldr r4, lbl_0805c3e8 @ =0x03005520
     movs r0, #0
@@ -9810,8 +9810,8 @@ lbl_0805c45a:
     pop {r1}
     bx r1
 
-    thumb_func_start sub_0805c460
-sub_0805c460: @ 0x0805c460
+    thumb_func_start process_fading_effect
+process_fading_effect: @ 0x0805c460
     push {r4, r5, lr}
     ldr r4, lbl_0805c498 @ =0x03005520
     movs r5, #0

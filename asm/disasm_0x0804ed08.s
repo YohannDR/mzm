@@ -1514,8 +1514,8 @@ lbl_0804f914: .4byte 0x083270e8
 lbl_0804f918: .4byte 0x05000240
 lbl_0804f91c: .4byte 0x80000006
 
-    thumb_func_start call_load_beam_graphics_and_clear_projectiles
-call_load_beam_graphics_and_clear_projectiles: @ 0x0804f920
+    thumb_func_start ProjectileCallLoadGraphicsAndClearProjectiles
+ProjectileCallLoadGraphicsAndClearProjectiles: @ 0x0804f920
     push {lr}
     bl load_beam_graphics
     ldr r0, lbl_0804f94c @ =0x03000bf0

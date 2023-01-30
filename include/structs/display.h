@@ -53,6 +53,9 @@ extern u16 gWrittenToBLDALPHA_L;
 extern i8 gWrittenToBLDY;
 extern u16 gWrittenToBLDY_NonGameplay;
 
+extern u16 gWrittenToMOSAIC_H;
+extern u16 gWrittenToMOSAIC_L;
+
 extern u16 gDISPCNTBackup;
 extern u16 gWrittenToDISPCNT;
 extern u8 gWrittenToWININ_H;

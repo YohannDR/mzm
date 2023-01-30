@@ -4518,8 +4518,8 @@ lbl_08007792:
     .align 2, 0
 lbl_08007798: .4byte 0x030053e0
 
-    thumb_func_start samus_update
-samus_update: @ 0x0800779c
+    thumb_func_start SamusUpdate
+SamusUpdate: @ 0x0800779c
     push {r4, lr}
     ldr r4, lbl_080077dc @ =0x030013d4
     ldr r0, lbl_080077e0 @ =0x03000c72
@@ -4554,8 +4554,8 @@ lbl_080077dc: .4byte 0x030013d4
 lbl_080077e0: .4byte 0x03000c72
 lbl_080077e4: .4byte 0x03001588
 
-    thumb_func_start samus_update_hitbox
-samus_update_hitbox: @ 0x080077e8
+    thumb_func_start SamusUpdateHitboxMovingDirection
+SamusUpdateHitboxMovingDirection: @ 0x080077e8
     push {r4, r5, lr}
     ldr r5, lbl_08007818 @ =0x030013d4
     ldr r4, lbl_0800781c @ =0x03001588
@@ -4680,8 +4680,8 @@ lbl_080078c2:
 lbl_080078d8: .4byte 0x08239464
 lbl_080078dc: .4byte 0x0823a554
 
-    thumb_func_start samus_graphics_update
-samus_graphics_update: @ 0x080078e0
+    thumb_func_start SamusCallGFXFunctions
+SamusCallGFXFunctions: @ 0x080078e0
     push {r4, lr}
     ldr r4, lbl_08007914 @ =0x030013d4
     ldr r0, lbl_08007918 @ =0x03000c72
@@ -4711,8 +4711,8 @@ lbl_08007902:
 lbl_08007914: .4byte 0x030013d4
 lbl_08007918: .4byte 0x03000c72
 
-    thumb_func_start call_check_low_health
-call_check_low_health: @ 0x0800791c
+    thumb_func_start SamusCallCheckLowHealth
+SamusCallCheckLowHealth: @ 0x0800791c
     push {lr}
     bl check_play_low_health_sound
     pop {r0}
@@ -13432,8 +13432,8 @@ lbl_0800bcac: .4byte 0x08238ff4
 lbl_0800bcb0: .4byte 0xffffff00
 lbl_0800bcb4: .4byte 0xfffffe00
 
-    thumb_func_start init_samus
-init_samus: @ 0x0800bcb8
+    thumb_func_start SamusInit
+SamusInit: @ 0x0800bcb8
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
@@ -13576,8 +13576,8 @@ lbl_0800bddc: .4byte 0x040000d4
 lbl_0800bde0: .4byte 0x03001588
 lbl_0800bde4: .4byte 0x8500001e
 
-    thumb_func_start draw_samus
-draw_samus: @ 0x0800bde8
+    thumb_func_start SamusDraw
+SamusDraw: @ 0x0800bde8
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

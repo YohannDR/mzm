@@ -8,6 +8,8 @@ gNumMusicPlayers = 9;
 
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
+        . = 0x00026300; gHazeDataValues = .;
+        . = 0x00026d00; gPreviousHazeDataValues = .;
         . = 0x00027780; gMakeSolidBlocks = .;
         . = 0x00027800; gDecompClipdataMap = .;
         . = 0x0002a800; gDecompBG0Map = .;
@@ -31,9 +33,11 @@ SECTIONS {
         . = 0x00000004; gStereoFlag = .;
         . = 0x00000005; gSubGameModeStage = .;
         . = 0x00000006; gWrittenToBLDALPHA = .;
+        . = 0x00000008; gWrittenToBLDCNT_Internal = .;
         . = 0x0000000a; gWrittenToDISPCNT = .;
         . = 0x0000000e; gWrittenToWININ_H = .;
         . = 0x0000000f; gWrittenToWINOUT_L = .;
+        . = 0x00000010; gWrittenTo0x05000000 = .;
         . = 0x00000020; gLanguage = .;
         . = 0x00000029; gMonochromeBGFading = .;
         . = 0x0000002A; gWhichBGPositionIsWrittenToBG3OFS = .;
@@ -73,6 +77,7 @@ SECTIONS {
         . = 0x00000079; gCurrentClipdataAffectingAction = .;
         . = 0x0000007A; gSpritesetEntryUsed = .;
         . = 0x0000007B; gDoorUnlockTimer = .;
+        . = 0x0000007c; gDisableDrawingSprites = .;
         . = 0x0000007d; gCurrentCutscene = .;
         . = 0x0000007e; gTourianEscapeCutsceneStage = .;
         . = 0x0000007f; gUnk_300007f = .;
@@ -159,6 +164,8 @@ SECTIONS {
         . = 0x0000137e; gPreviousButtonInput = .;
         . = 0x00001380; gChangedInput = .;
         . = 0x00001382; gNextOAMSlot = .;
+        . = 0x0000139c; gWrittenToMOSAIC_H = .;
+        . = 0x0000139e; gWrittenToMOSAIC_L = .;
         . = 0x000013AE; gWrittenToBLDY_NonGameplay = .;
         . = 0x000013B0; gWrittenToBLDALPHA_L = .;
         . = 0x000013B2; gWrittenToBLDALPHA_H = .;
@@ -213,6 +220,7 @@ SECTIONS {
         . = 0x000053ca; gDemoInputNumber = .;
         . = 0x000053cc; gDemoInputTimer = .;
         . = 0x000053ce; gDemoInput = .;
+        . = 0x000053d0; gNotPressingUp = .;
         . = 0x000053E0; gSamusPalette = .;
         . = 0x00005440; gSamusPaletteSize = .;
         . = 0x00005448; gWrittenToWIN1H = .;
@@ -287,6 +295,7 @@ SECTIONS {
         asm/disasm_0x080051d4.o(.text);
         asm/disasm_0x08005368.o(.text);
         src/demo.o(.text);
+        src/in_game.o(.text);
         asm/disasm_0x0800c4b4.o(.text);
         src/sprite_debris.o(.text);
         src/location_text.o(.text);

@@ -1542,8 +1542,8 @@ lbl_08055f5e:
     .align 2, 0
 lbl_08055f64: .4byte 0x03000006
 
-    thumb_func_start sub_08055f68
-sub_08055f68: @ 0x08055f68
+    thumb_func_start unk_55f68
+unk_55f68: @ 0x08055f68
     push {lr}
     bl update_animated_palette_after_transition_or_reload
     bl transfer_faded_palette_on_transition
@@ -1552,8 +1552,8 @@ sub_08055f68: @ 0x08055f68
     bx r0
     .align 2, 0
 
-    thumb_func_start load_room
-load_room: @ 0x08055f7c
+    thumb_func_start RoomLoad
+RoomLoad: @ 0x08055f7c
     push {r4, r5, lr}
     bl setup_clipdata_code
     bl reset_info_on_transition
@@ -1684,7 +1684,7 @@ lbl_08056074:
     asrs r0, r0, #0x18
     cmp r0, #0
     bne lbl_080560c8
-    bl process_general_scrolling
+    bl ScrollProcessGeneral
     ldr r1, lbl_0805614c @ =0x030013ba
     ldr r2, lbl_08056150 @ =0x03000144
     ldrh r0, [r2, #2]
@@ -1693,7 +1693,7 @@ lbl_08056074:
     ldrh r0, [r2]
     strh r0, [r1]
     bl sub_08058ec4
-    bl process_general_scrolling
+    bl ScrollProcessGeneral
 lbl_080560c8:
     bl check_play_lightning_effect
     bl update_backgrounds_pos
@@ -3303,8 +3303,8 @@ lbl_08056e1a:
     pop {r1}
     bx r1
 
-    thumb_func_start sub_08056e28
-sub_08056e28: @ 0x08056e28
+    thumb_func_start RoomUpdateGFXInfo
+RoomUpdateGFXInfo: @ 0x08056e28
     push {lr}
     ldr r0, lbl_08056e40 @ =0x030013d4
     ldrb r0, [r0]
@@ -3342,8 +3342,8 @@ lbl_08056e70:
     pop {r0}
     bx r0
 
-    thumb_func_start sub_08056e74
-sub_08056e74: @ 0x08056e74
+    thumb_func_start RoomUpdateAnimatedGraphicsAndPalettes
+RoomUpdateAnimatedGraphicsAndPalettes: @ 0x08056e74
     push {r4, lr}
     movs r2, #0
     movs r4, #0
@@ -3516,8 +3516,8 @@ lbl_08056fc4: .4byte 0x040000d4
 lbl_08056fc8: .4byte 0x0500004c
 lbl_08056fcc: .4byte 0x80000002
 
-    thumb_func_start update_room_info
-update_room_info: @ 0x08056fd0
+    thumb_func_start RoomUpdate
+RoomUpdate: @ 0x08056fd0
     push {r4, lr}
     ldr r0, lbl_08057094 @ =0x0300003d
     ldrb r0, [r0]
