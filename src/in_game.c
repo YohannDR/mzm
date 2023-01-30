@@ -18,6 +18,7 @@
 #include "constants/demo.h"
 #include "constants/game_state.h"
 
+#include "structs/bg_clip.h"
 #include "structs/cutscene.h"
 #include "structs/demo.h"
 #include "structs/display.h"
@@ -102,8 +103,8 @@ u32 InGameMainLoop(void)
             RoomUpdateGFXInfo();
             break;
 
-        case 6:
-            unk_cde8();
+        case SUB_GAME_MODE_FREE_MOVEMENT:
+            UpdateFreeMovement_Debug();
             RoomUpdateGFXInfo();
             break;
     }
@@ -438,7 +439,82 @@ void InitAndLoadGenerics(void)
     CallbackSetVBlank(VBlankCodeInGameLoad);
 }
 
-/*void unk_cde8(void)
+void UpdateFreeMovement_Debug(void)
 {
+    // https://decomp.me/scratch/b6yun
 
-}*/
+    i32 xVelocity;
+    i32 yVelocity;
+    u32 bgSize;
+
+    xVelocity = 0;
+    yVelocity = 0;
+
+    gPreviousXPosition = gSamusData.xPosition;
+    gPreviousYPosition = gSamusData.yPosition;
+
+    if (gChangedInput & (KEY_B | KEY_START))
+    {
+        gGameModeSub1 = SUB_GAME_MODE_PLAYING;
+        gUnk_300007f = 0;
+    }
+
+    if (gChangedInput & KEY_SELECT)
+        gUnk_300007f ^= 1;
+
+    if (gButtonInput & KEY_RIGHT)
+        xVelocity = 12;
+
+    if (gButtonInput & KEY_LEFT)
+        xVelocity = -12;
+
+    if (gButtonInput & KEY_UP)
+        yVelocity = -12;
+
+    if (gButtonInput & KEY_DOWN)
+        yVelocity = 12;
+
+    if (gButtonInput & (KEY_R | KEY_L))
+    {
+        xVelocity = (i16)(xVelocity * 2);
+        yVelocity = (i16)(yVelocity * 2);
+    }
+
+    if (gSamusData.xPosition & 0x8000)
+        gSamusData.xPosition = 0;
+
+    if (gSamusData.yPosition & 0x8000)
+        gSamusData.yPosition = 0;
+
+    bgSize = gBGPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE;
+    if (xVelocity < 0)
+    {
+        if (gSamusData.xPosition < xVelocity)
+            gSamusData.xPosition = 0;
+        else
+            gSamusData.xPosition += xVelocity;
+    }
+    else
+    {
+        if (gSamusData.xPosition > (i32)(bgSize - xVelocity))
+            gSamusData.xPosition = bgSize;
+        else
+            gSamusData.xPosition += xVelocity;
+    }
+
+    bgSize = gBGPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE;
+    if (yVelocity < 0)
+    {
+        if (gSamusData.yPosition < yVelocity)
+            gSamusData.yPosition = 0;
+        else
+            gSamusData.yPosition += yVelocity;
+    }
+    else
+    {
+        if (gSamusData.yPosition > (i32)(bgSize - yVelocity))
+            gSamusData.yPosition = bgSize;
+        else
+            gSamusData.yPosition += yVelocity;
+    }
+}

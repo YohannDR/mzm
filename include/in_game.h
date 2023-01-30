@@ -12,6 +12,6 @@ void unk_c9ec(void);
 void VBlankCodeInGame(void);
 void VBlankInGame_Empty(void);
 void InitAndLoadGenerics(void);
-void unk_cde8(void);
+void UpdateFreeMovement_Debug(void);
 
 #endif /* IN_GAME_H */
