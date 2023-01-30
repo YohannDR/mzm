@@ -2,8 +2,8 @@
 
     .syntax unified
 
-    thumb_func_start ingame_main
-ingame_main: @ 0x0800c4b4
+    thumb_func_start InGameMainLoop
+InGameMainLoop: @ 0x0800c4b4
     push {r4, lr}
     bl ingame_setvblank_callback
     movs r4, #0

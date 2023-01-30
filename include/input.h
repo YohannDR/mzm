@@ -6,8 +6,8 @@
 struct ButtonAssignments {
     u16 armMissiles;
     u16 diagonalAim;
-    u16 swapMissiles;
     u16 pause;
+    u16 swapMissiles;
 };
 
 #endif /* GBA_INPUT_H */

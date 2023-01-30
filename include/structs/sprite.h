@@ -107,5 +107,6 @@ extern u8 gIgnoreSamusAndSpriteCollision;
 extern u8 gSpriteDrawOrder[MAX_AMOUNT_OF_SPRITES];
 extern struct BossWork gBossWork;
 extern u8 gSpriteRNG;
+extern u8 gDisableDrawingSprites;
 
 #endif

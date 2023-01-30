@@ -75,7 +75,7 @@ void agbmain(void)
                 break;
 
             case GM_INGAME:
-                if (ingame_main()) 
+                if (InGameMainLoop()) 
                 {
                     if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
                     {
@@ -175,7 +175,7 @@ void agbmain(void)
                 break;
 
             case GM_DEMO:
-                if (ingame_main())
+                if (InGameMainLoop())
                 {
                     if (gPauseScreenFlag == PAUSE_SCREEN_PAUSE_OR_CUTSCENE)
                     {

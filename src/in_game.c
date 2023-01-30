@@ -2,23 +2,156 @@
 #include "gba.h"
 #include "callbacks.h"
 #include "oam.h"
+#include "projectile.h"
 #include "samus.h"
+#include "sprite.h"
+#include "demo.h"
+#include "particle.h"
+#include "room.h"
+#include "scroll.h"
 #include "init_helpers.h"
 #include "hud_generic.h"
+#include "display.h"
 
 #include "data/hud_data.h"
 
+#include "constants/demo.h"
 #include "constants/game_state.h"
 
 #include "structs/cutscene.h"
+#include "structs/demo.h"
 #include "structs/display.h"
 #include "structs/game_state.h"
 #include "structs/room.h"
+#include "structs/sprite.h"
 #include "structs/connection.h"
 
+/**
+ * @brief c4b4 | 244 | Main loop in game
+ * 
+ * @return u32 bool, changing game mode
+ */
 u32 InGameMainLoop(void)
 {
+    u32 changing;
 
+    SetVBlankCodeInGame();
+    changing = FALSE;
+
+    switch (gGameModeSub1)
+    {
+        case 0:
+            if (gGameModeSub3 == 0)
+                DemoResetInputAndDuration();
+
+            if (gDemoState == DEMO_STATE_PLAYING)
+                CopyDemoInput();
+
+            InitAndLoadGenerics();
+            gGameModeSub1++;
+            break;
+
+        case SUB_GAME_MODE_DOOR_TRANSITION:
+            IOWriteRegisters();
+            if (unk_5c3ac()) // Undefined
+                gGameModeSub1++;
+            break;
+
+        case SUB_GAME_MODE_PLAYING:
+            DemoMainLoop();
+            IOWriteRegisters();
+
+            if ((gChangedInput & gButtonAssignments.pause || gPauseScreenFlag != PAUSE_SCREEN_NONE) && process_pause_button_press()) // Undefined
+                gGameModeSub1++;
+
+            if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
+            {
+                gPreviousXPosition = gSamusData.xPosition;
+                gPreviousYPosition = gSamusData.yPosition;
+
+                if (!(gButtonInput & KEY_UP))
+                    gNotPressingUp = TRUE;
+
+                if (gPreventMovementTimer != 0)
+                    gPreventMovementTimer--;
+                else
+                {
+                    SamusUpdate();
+                    SamusUpdateHitboxMovingDirection();
+                }
+
+                InGameTimerUpdate();
+            }
+
+            RoomUpdateGFXInfo();
+            break;
+
+        case SUB_GAME_MODE_LOADING_ROOM:
+            IOWriteRegistersDuringTransition();
+            if (process_fading_effect())
+            {
+                gGameModeSub1 = 0;
+                if (gPauseScreenFlag != PAUSE_SCREEN_NONE || gCurrentCutscene != 0 || gTourianEscapeCutsceneStage != 0)
+                    changing = TRUE;
+            }
+            break;
+
+        case 5:
+            IOWriteRegisters();
+            SamusUpdate();
+            RoomUpdateGFXInfo();
+            break;
+
+        case 6:
+            unk_cde8();
+            RoomUpdateGFXInfo();
+            break;
+    }
+
+    if (gGameModeSub1 == 5)
+    {
+        SamusCallGFXFunctions();
+        SamusDraw();
+        ResetFreeOAM();
+        RoomUpdate();
+    }
+    else if (gGameModeSub1 != 0)
+    {
+        RoomUpdateAnimatedGraphicsAndPalettes();
+        SpriteUpdate();
+    
+        if (!gDisableDrawingSamusAndScrolling)
+        {
+            ScrollProcessGeneral();
+            SamusCallGFXFunctions();
+        }
+        else if (gDisableScrolling == 2)
+            ScrollProcessGeneral();
+    
+        ProjectileUpdate();
+        HUDDraw();
+    
+        SpriteDrawAll_2();
+        ParticleProcessAll();
+        ProjectileDrawAllStatusFalse();
+    
+        if (!gDisableDrawingSprites)
+            SpriteDrawAll();
+    
+        if (!gDisableDrawingSamusAndScrolling)
+            SamusDraw();
+    
+        SpriteDrawAll_Upper();
+        ProjectileDrawAllStatusTrue();
+        
+        ResetFreeOAM();
+        RoomUpdate();
+    
+        if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
+            SamusCallCheckLowHealth();
+    }
+
+    return changing;
 }
 
 /**

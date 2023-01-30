@@ -10,6 +10,7 @@ extern vu16 gVBlankRequestFlag;
 extern u8 gDisableSoftreset;
 extern u8 gDebugFlag;
 extern u8 gDisablePause;
+extern u8 gDisableScrolling;
 extern u8 gShipLandingFlag;
 extern u16 gButtonInput;
 extern u16 gPreviousButtonInput;
@@ -22,6 +23,7 @@ extern u16 gFrameCounter16Bit;
 extern u8 gDifficulty;
 extern i8 gLanguage;
 extern u8 gResetGame;
+extern u8 gNotPressingUp;
 
 extern i16 gMainGameMode;
 extern i16 gGameModeSub1;
