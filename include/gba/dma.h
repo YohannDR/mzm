@@ -4,7 +4,7 @@
 #include "memory.h"
 #include "types.h"
 
-#define REG_DMA0 (REG_BASE + 0x080)
+#define REG_DMA0 (REG_BASE + 0x0b0)
 #define REG_DMA1 (REG_BASE + 0x0bc)
 #define REG_DMA2 (REG_BASE + 0x0c8)
 #define REG_DMA3 (REG_BASE + 0x0d4)

@@ -213,9 +213,61 @@ void TransferSamusGraphics(u32 updatePalette, struct SamusPhysics* pPhysics)
         dma_set(3, gSamusPalette, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | gSamusPaletteSize / 2);
 }
 
+/**
+ * @brief c894 | 158 | V-blank code for the in game loads
+ * 
+ */
 void VBlankCodeInGameLoad(void)
 {
+    vu8 buffer;
 
+    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+
+    if (gHazeInfo.flag & 0x80)
+    {
+        dma_set(0, gHazeDataValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_START_HBLANK) << 16 | gHazeInfo.size / 2);
+        
+        buffer = 0;
+        buffer = 0;
+        buffer = 0;
+        buffer = 0;
+        
+        dma_set(0, gHazeDataValues, gHazeInfo.pAffected, DMA_DEST_RELOAD << 16 | gHazeInfo.size / 2);
+
+        buffer = 0;
+        
+        if (!(gVBlankRequestFlag))
+        {
+            buffer = 0;
+            dma_set(3, gPreviousHazeDataValues, gHazeDataValues, DMA_ENABLE << 16 | gHazeInfo.unk / 2);
+            write16(PALRAM_BASE, gWrittenTo0x05000000);
+        }
+
+        buffer = 0;
+        dma_set(0, gHazeDataValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_START_HBLANK | DMA_REPEAT | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
+    }
+
+    TransferSamusGraphics(FALSE, &gSamusPhysics);
+
+    if (gWrittenToBLDCNT_Internal & BLDCNT_BRIGHTNESS_INCREASE_EFFECT)
+    {
+        write16(REG_BLDCNT, gWrittenToBLDCNT_Internal);
+        gWrittenToBLDCNT_Internal = 0;
+    }
+
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
+
+    write16(REG_BG0HOFS, gBackgroundPositions.bg[0].x);
+    write16(REG_BG0VOFS, gBackgroundPositions.bg[0].y);
+
+    write16(REG_BG1HOFS, gBackgroundPositions.bg[1].x);
+    write16(REG_BG1VOFS, gBackgroundPositions.bg[1].y);
+
+    write16(REG_BG2HOFS, gBackgroundPositions.bg[2].x);
+    write16(REG_BG2VOFS, gBackgroundPositions.bg[2].y);
+
+    write16(REG_BG3HOFS, gBackgroundPositions.bg[gWhichBGPositionIsWrittenToBG3OFS].x);
+    write16(REG_BG3VOFS, gBackgroundPositions.bg[gWhichBGPositionIsWrittenToBG3OFS].y);
 }
 
 /**
