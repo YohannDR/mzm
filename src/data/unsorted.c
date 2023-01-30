@@ -28,6 +28,4 @@ void* const sMemoryPointers[] = {
     EWRAM_BASE
 };
 
-union NonGameplayRAM* const sNonGameplayRAMPointer[] = {
-    &gNonGameplayRAM
-};
+union NonGameplayRAM* sNonGameplayRAMPointer = &gNonGameplayRAM;

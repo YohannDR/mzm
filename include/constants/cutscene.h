@@ -1,4 +1,4 @@
-#define CUTSCENE_DATA sNonGameplayRAMPointer[0]->cutscene
+#define CUTSCENE_DATA sNonGameplayRAMPointer->cutscene
 
 #define CUTSCENE_NONE 0
 #define CUTSCENE_INTRO_TEXT 1

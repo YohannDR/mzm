@@ -3,11 +3,14 @@
 
 #include "gba.h"
 #include "types.h"
+
 #include "structs/cutscene.h"
+#include "structs/intro.h"
 
 
 union NonGameplayRAM {
     struct CutsceneData cutscene;
+    struct IntroData intro;
     u8 inGame[1576];
 };
 
@@ -28,6 +31,7 @@ extern u16 gBG3VOFS_NonGameplay;
 
 extern void* const sMemoryPointers[1];
 
-extern union NonGameplayRAM* const sNonGameplayRAMPointer[1];
+// This isn't an array, also not const on purpose, do not add const
+extern union NonGameplayRAM* sNonGameplayRAMPointer;
 
 #endif
