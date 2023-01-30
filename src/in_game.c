@@ -225,7 +225,7 @@ void VBlankCodeInGameLoad(void)
 
     if (gHazeInfo.flag & 0x80)
     {
-        dma_set(0, gHazeDataValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_START_HBLANK) << 16 | gHazeInfo.size / 2);
+        dma_set(0, gHazeDataValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
         
         buffer = 0;
         buffer = 0;
@@ -236,7 +236,7 @@ void VBlankCodeInGameLoad(void)
 
         buffer = 0;
         
-        if (!(gVBlankRequestFlag))
+        if (!(gVBlankRequestFlag & 1))
         {
             buffer = 0;
             dma_set(3, gPreviousHazeDataValues, gHazeDataValues, DMA_ENABLE << 16 | gHazeInfo.unk / 2);
