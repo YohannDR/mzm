@@ -9,7 +9,7 @@ struct InGameTimer {
     u8 hours;
     u8 minutes;
     u8 seconds;
-    u8 frames;
+    u8 frames
 };
 
 extern u8 gMaxInGameTimerFlag;
