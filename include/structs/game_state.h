@@ -4,6 +4,14 @@
 #include "types.h"
 #include "input.h"
 
+struct GameCompletion {
+    u8 completedGame;
+    u8 introPlayed;
+    u8 language;
+};
+
+extern struct GameCompletion gGameCompletion;
+
 extern struct ButtonAssignments gButtonAssignments;
 extern i8 gTourianEscapeCutsceneStage;
 extern vu16 gVBlankRequestFlag;

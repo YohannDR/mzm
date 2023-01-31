@@ -6,11 +6,13 @@
 
 #include "structs/cutscene.h"
 #include "structs/intro.h"
+#include "structs/game_over.h"
 
 
 union NonGameplayRAM {
     struct CutsceneData cutscene;
     struct IntroData intro;
+    struct GameOverData gameOver;
     u8 inGame[1576];
 };
 

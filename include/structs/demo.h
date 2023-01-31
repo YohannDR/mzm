@@ -4,9 +4,9 @@
 #include "types.h"
 
 struct Demo {
-    u8 number:4;
-    u32 playing:4;
-    u32 status:16;
+    u8 number;
+    u8 playing;
+    u32 status:8;
     u32 unk_3:4;
 };
 
