@@ -123,8 +123,6 @@ void IntroInit(void)
 
 void IntroTextProcessOAM(void)
 {
-    // https://decomp.me/scratch/sSIl4
-
     const u16* src;
     u16* dst;
     u16 i;
@@ -159,9 +157,14 @@ void IntroTextProcessOAM(void)
     {
         src = INTRO_DATA.pTextOamFramePointer;
         partCount = *src++;
-
-        while (i < partCount && i < INTRO_DATA.nextCharacter)
+        for (; i < partCount; i++)
         {
+            // Brackets are necesary
+            if (i >= INTRO_DATA.nextCharacter) 
+            {
+                break;
+            }
+
             part = *src++;
             *dst++ = part;
 
@@ -179,7 +182,6 @@ void IntroTextProcessOAM(void)
                 gOamData[i].split.paletteNum = 0;
 
             dst++;
-            i++;
         }
     }
 
@@ -208,10 +210,6 @@ void IntroTextProcessOAM(void)
     }
 
     gNextOamSlot = i;
-    asm("mov r0,r0");
-    asm("mov r0,r0");
-    asm("mov r0,r0");
-    asm("mov r0,r0");
 }
 
 /**

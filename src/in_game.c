@@ -345,7 +345,7 @@ void VBlankCodeInGame(void)
 }
 
 /**
- * @brief cba0 | b | Empty V-blank code
+ * @brief cba0 | c | Empty V-blank code
  * 
  */
 void VBlankInGame_Empty(void)
