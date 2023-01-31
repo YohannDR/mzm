@@ -22,8 +22,8 @@ void ResetFreeOAM(void)
 {
     i32 i;
     u16 *oam = (u16*)gOamData;
-    oam += gNextOAMSlot * 4;
-    for (i = gNextOAMSlot; i < 0x80; ++oam, ++i) {
+    oam += gNextOamSlot * 4;
+    for (i = gNextOamSlot; i < 0x80; ++oam, ++i) {
         *oam++ = 0xff;
         *oam++ = 0xff;
         *oam++ = 0x0;

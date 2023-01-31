@@ -84,7 +84,7 @@ void ParticleDraw(struct ParticleEffect* pParticle)
     u32 size;
     union OamData* oam;
     
-    prevSlot = gNextOAMSlot;
+    prevSlot = gNextOamSlot;
     src = gCurrentParticleEffectOAMFramePointer;
 
     partCount = *src++;
@@ -143,7 +143,7 @@ void ParticleDraw(struct ParticleEffect* pParticle)
             
             dst++;
         }
-        gNextOAMSlot = partCount + prevSlot;
+        gNextOamSlot = partCount + prevSlot;
     }
 }
 

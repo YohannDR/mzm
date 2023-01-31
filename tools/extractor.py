@@ -8,7 +8,8 @@ subDirs: array = [
     "sprites/",
     "hud/",
     "weapons/",
-    "common/"
+    "common/",
+    "intro/"
 ]
 
 try:

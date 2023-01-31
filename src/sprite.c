@@ -377,7 +377,7 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
     u16 rotation;
     u16 scaling;
 
-    prevSlot = gNextOAMSlot;
+    prevSlot = gNextOamSlot;
     src = pSprite->pOam[pSprite->currentAnimationFrame].pFrame;
     partCount = *src++;
 
@@ -457,7 +457,7 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             dst++;
         }
 
-        gNextOAMSlot = partCount + prevSlot;
+        gNextOamSlot = partCount + prevSlot;
 
         if (yFlip)
         {
@@ -586,7 +586,7 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             dst++;
         }
         
-        gNextOAMSlot = partCount + prevSlot;
+        gNextOamSlot = partCount + prevSlot;
 
         dy = FixedMultiplication(-sin(rotation), FixedInverse(scaling));
         dmy = FixedMultiplication(cos(rotation), FixedInverse(scaling));

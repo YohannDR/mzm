@@ -141,7 +141,7 @@ u8 MechaRidleySeesSamusSubroutine(void)
  */
 void MechaRidleySeesSamusProcessOAM(void)
 {
-    gNextOAMSlot = 0;
+    gNextOamSlot = 0;
     process_cutscene_oam(sMechaSeesSamusSubroutineData[CUTSCENE_DATA.stage].oamLength, CUTSCENE_DATA.oam, sMechaSeesSamusCutsceneOAM); // Undefined
     ResetFreeOAM();
 }

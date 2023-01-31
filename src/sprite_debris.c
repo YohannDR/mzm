@@ -296,7 +296,7 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
         return;
     }
 
-    prevSlot = gNextOAMSlot;
+    prevSlot = gNextOamSlot;
     src = pDebris->pOam[pDebris->currentAnimationFrame].pFrame;
     partCount = *src++;
 
@@ -328,7 +328,7 @@ void SpriteDebrisDraw(struct SpriteDebris* pDebris)
             dst += 0x2;
         }
 
-        gNextOAMSlot = prevSlot + partCount;
+        gNextOamSlot = prevSlot + partCount;
     }
 }
 

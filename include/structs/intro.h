@@ -11,19 +11,19 @@ struct IntroData {
     u8 characterPalette; // 2
     u8 nextCharacter; // 3
     
-    i16 charDrawerY; // 4
-    u16 charDrawerX; // 6
+    i16 charDrawerX; // 4
+    u16 charDrawerY; // 6
     u8 charDrawerPalette; // 8
 
     u8 unk_9; // 9
     u8 unk_A; // A
 
     u16 timer; // C
-    u16* pTextOamFramePointer; // 10
+    const u16* pTextOamFramePointer; // 10
     u16 fuzzPalette[16]; // 14
 
     u16 rotation; // 34
-    i16 scaling; // 36
+    u16 scaling; // 36
 
     u8 padding_38_3c[5]; // 38
 
@@ -36,5 +36,7 @@ struct IntroData {
     u16 dispcnt; // 44
     u16 bldcnt; // 46
 };
+
+typedef u8 (*IntroFunc_T)(void);
 
 #endif /* INTRO_STRUCT_H */

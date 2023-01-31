@@ -30,7 +30,7 @@ void agbmain(void)
                 break;
 
             case GM_INTRO:
-                if (intro_main())
+                if (IntroSubroutine())
                 {
                     gMainGameMode = GM_TITLE;
                     gGameModeSub1 = 0;

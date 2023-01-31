@@ -605,6 +605,30 @@ common/DoorTransitionMotherShip.pal;240;0x5e0040;2
 common/HatchFlashingMotherShip.pal;256;0x5e0220;2
 common/HatchFlashing.pal;256;0x5e0420;2
 
+# Intro
+
+intro/TextAndShip.pal;96;0x45f914;2
+intro/45f9d4.pal;16;0x45f9d4;2
+intro/SamusInHerShip.pal;80;0x45f9f4;2
+intro/ViewOfZebes.pal;160;0x45fa94;2
+intro/MotherBrain.pal;80;0x45fbd4;2
+
+intro/TextAndShip.gfx.lz;1310;0x45fdb4;4
+intro/SpaceBackground.gfx.lz;3181;0x46122c;4
+intro/SpaceBackground.tt;577;0x4643e0;4
+
+intro/SamusInHerShip.gfx.lz;4800;0x464ce4;4
+intro/SamusInHerShip.tt;418;0x4697e4;4
+
+intro/SamusShipViewOfZebes.gfx.lz;1224;0x469e6c;4
+intro/ViewOfZebes.gfx.lz;2986;0x46b18c;4
+intro/ViewOfZebes.tt;577;0x46e034;4
+
+intro/MotherBrain.gfx.lz;5004;0x46e938;4
+intro/MotherBrain.tt;577;0x473768;4
+intro/Fuzz.gfx.lz;5224;0x47406c;4
+intro/47920c.tt;125;0x47920c;4
+
 # Misc
 
 EscapeTimerDigits.gfx;2048;0x33d794;1
@@ -620,7 +644,8 @@ Blob_2ceaa8_2cfd9f.bin;4856;0x2ceaa8;1
 Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
 Blob_345d00_360130.bin;107568;0x345d00;1
-Blob_3602e8_75e6a8.bin;4187072;0x3602e8;1
+Blob_3602e8_45f45c.bin;1044852;0x3602e8;1
+Blob_479400_75e6a8.bin;3035816;0x479400;1
 Blob_75fae4_75fd88.bin;676;0x75fae4;1
 Blob_75fdbc_75fde0.bin;36;0x75fdbc;1
 Blob_75fdfc_7f7734.bin;620856;0x75fdfc;1

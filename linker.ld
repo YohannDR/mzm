@@ -163,7 +163,7 @@ SECTIONS {
         . = 0x0000137c; gButtonInput = .;
         . = 0x0000137e; gPreviousButtonInput = .;
         . = 0x00001380; gChangedInput = .;
-        . = 0x00001382; gNextOAMSlot = .;
+        . = 0x00001382; gNextOamSlot = .;
         . = 0x0000139c; gWrittenToMOSAIC_H = .;
         . = 0x0000139e; gWrittenToMOSAIC_L = .;
         . = 0x000013AE; gWrittenToBLDY_NonGameplay = .;
@@ -497,7 +497,9 @@ SECTIONS {
         src/data/block_data.o(.rodata);
         /* 345d00-360130 */
         src/data/hatch_data.o(.rodata);
-        /* 3602e8-75e6a8 */
+        /* 3602e8-45f45c */
+        src/data/intro_data.o(.rodata);
+        /* 479400-75e6a8 */
         src/data/samus_sprites_pointers.o(.rodata);
         src/data/frame_data_pointers.o(.rodata);
         src/data/engine_pointers.o(.rodata);

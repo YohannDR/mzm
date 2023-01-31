@@ -326,7 +326,7 @@ u8 KraidRisingSubroutine(void)
  */
 void KraidRisingProcessOAM(void)
 {
-    gNextOAMSlot = 0;
+    gNextOamSlot = 0;
 
     process_cutscene_oam(sKraidRisingSubroutineData[CUTSCENE_DATA.stage].oamLength, CUTSCENE_DATA.oam, sKraidRisingCutsceneOAM); // Undefined
     ResetFreeOAM();

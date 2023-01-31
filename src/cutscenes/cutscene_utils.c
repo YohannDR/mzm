@@ -247,7 +247,7 @@ void CutsceneInit(void)
 
     sOamXOffset_NonGameplay = 0;
     sOamYOffset_NonGameplay = 0;
-    gNextOAMSlot = 0;
+    gNextOamSlot = 0;
     ResetFreeOAM();
 
     write16(REG_BLDCNT, 0xFF);

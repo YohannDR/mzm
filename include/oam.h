@@ -70,7 +70,7 @@ union OamData {
     } all;
 };
 
-extern u8 gNextOAMSlot;
+extern u8 gNextOamSlot;
 extern union OamData gOamData[160];
 
 #endif /* OAM_H */

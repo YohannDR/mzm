@@ -192,7 +192,7 @@ void HUDUpdateOAM(void)
         oamSlot++;
     }
 
-    gNextOAMSlot = oamSlot;
+    gNextOamSlot = oamSlot;
 }
 
 /**

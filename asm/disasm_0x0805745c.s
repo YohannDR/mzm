@@ -84076,8 +84076,8 @@ lbl_08081170: .4byte 0x040000d4
 lbl_08081174: .4byte 0x0845fd34
 lbl_08081178: .4byte 0x80000010
 
-    thumb_func_start intro_main
-intro_main: @ 0x0808117c
+    thumb_func_start IntroSubroutine
+IntroSubroutine: @ 0x0808117c
     push {r4, r5, lr}
     movs r5, #0
     ldr r0, lbl_08081198 @ =0x03001382

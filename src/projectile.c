@@ -537,7 +537,7 @@ void ProjectileDraw(struct ProjectileData* pProj)
     u32 size;
     i32 partCount;
     
-    prevSlot = gNextOAMSlot;
+    prevSlot = gNextOamSlot;
     src = pProj->pOam[pProj->currentAnimationFrame].pFrame;
 
     partCount = *src++;
@@ -589,7 +589,7 @@ void ProjectileDraw(struct ProjectileData* pProj)
             
             dst++;
         }
-        gNextOAMSlot = partCount + prevSlot;
+        gNextOamSlot = partCount + prevSlot;
     }
 }
 
