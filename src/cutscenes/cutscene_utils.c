@@ -1,9 +1,9 @@
 #include "gba.h"
 #include "oam.h"
 #include "cutscenes/cutscene_utils.h"
-#include "temp_globals.h"
 
 #include "data/cutscenes/cutscenes_data.h"
+#include "data/shortcut_pointers.h"
 
 #include "constants/audio.h"
 #include "constants/connection.h"

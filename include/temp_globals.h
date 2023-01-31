@@ -31,7 +31,5 @@ extern u16 gBG3VOFS_NonGameplay;
 
 extern void* const sMemoryPointers[1];
 
-// This isn't an array, also not const on purpose, do not add const
-extern union NonGameplayRAM* sNonGameplayRAMPointer;
 
 #endif

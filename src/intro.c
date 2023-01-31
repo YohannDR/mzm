@@ -2,8 +2,8 @@
 #include "callbacks.h"
 #include "macros.h"
 #include "complex_oam.h" // Required
-#include "temp_globals.h"
 
+#include "data/shortcut_pointers.h"
 #include "data/intro_data.h"
 
 #include "constants/game_state.h"
@@ -208,6 +208,10 @@ void IntroTextProcessOAM(void)
     }
 
     gNextOamSlot = i;
+    asm("mov r0,r0");
+    asm("mov r0,r0");
+    asm("mov r0,r0");
+    asm("mov r0,r0");
 }
 
 /**
@@ -922,7 +926,7 @@ u8 IntroFuzz(void)
  * 
  * @return u32 bool, ended
  */
-u32 IntroSubroutine(void)
+/*u32 IntroSubroutine(void)
 {
     u32 ended;
 
@@ -969,4 +973,4 @@ u32 IntroSubroutine(void)
     }
 
     return ended;
-}
+}*/

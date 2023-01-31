@@ -27,3 +27,5 @@
 #define INCBIN_S8   INCBIN
 #define INCBIN_S16  INCBIN
 #define INCBIN_S32  INCBIN
+
+#define FORCE_RODATA __attribute__((section(".rodata")))

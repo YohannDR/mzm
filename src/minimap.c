@@ -2,6 +2,7 @@
 #include "minimap.h"
 
 #include "data/unsorted.h"
+#include "data/shortcut_pointers.h"
 
 #include "constants/game_state.h"
 #include "constants/minimap.h"
@@ -37,7 +38,7 @@ void MinimapSetTileAsExplored(void)
     if (!gShipLandingFlag)
     {
         offset = gCurrentArea * 32 + gMinimapY; 
-        sVisitedMinimapTilesPointer[0][offset] |= sExploredMinimapBitFlags[gMinimapX];
+        (*sVisitedMinimapTilesPointer)[offset] |= sExploredMinimapBitFlags[gMinimapX];
     }
 }
 

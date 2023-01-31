@@ -1,11 +1,11 @@
+#include "cutscenes/kraid_rising.h"
 #include "oam.h"
 #include "syscall_wrappers.h"
-#include "temp_globals.h"
-#include "cutscenes/kraid_rising.h"
 
 #include "data/cutscenes/cutscenes_data.h"
 #include "data/cutscenes/kraid_rising.h"
 #include "data/generic_data.h"
+#include "data/shortcut_pointers.h"
 
 #include "constants/audio.h"
 #include "constants/cutscene.h"

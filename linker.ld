@@ -391,6 +391,8 @@ SECTIONS {
         asm/disasm_0x08055344.o(.text);
         src/power_bomb_explosion.o(.text);
         asm/disasm_0x0805745c.o(.text);
+        src/intro.o(.text);
+        asm/disasm_0x0808117c.o(.text);
 
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
@@ -499,7 +501,9 @@ SECTIONS {
         src/data/hatch_data.o(.rodata);
         /* 3602e8-45f45c */
         src/data/intro_data.o(.rodata);
-        /* 479400-75e6a8 */
+        /* 479400-754bb4 */
+        src/data/shortcut_pointers.o(.rodata);
+        /* 754bd0-75e6a8 */
         src/data/samus_sprites_pointers.o(.rodata);
         src/data/frame_data_pointers.o(.rodata);
         src/data/engine_pointers.o(.rodata);

@@ -4,9 +4,6 @@
 #include "types.h"
 #include "structs/minimap.h"
 
-// 754bc0
-extern u32* const sVisitedMinimapTilesPointer[1];
-
 // 760218
 extern const u32 sExploredMinimapBitFlags[32];
 

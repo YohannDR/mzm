@@ -2,9 +2,9 @@
 #include "cutscenes/cutscene_utils.h"
 #include "syscall_wrappers.h"
 
-#include "temp_globals.h"
 #include "data/cutscenes/cutscenes_data.h"
 #include "data/cutscenes/mecha_sees_samus_data.h"
+#include "data/shortcut_pointers.h"
 
 #include "constants/cutscene.h"
 
