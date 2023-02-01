@@ -29,7 +29,7 @@ extern const u8 sIntroFuzzRandomValues_1[64];
 extern const u8 sIntroFuzzRandomValues_2[64];
 extern const u8 sTimeAttackPasswordCharacters[32];
 
-extern const struct InGameTimer sTimeAttackAntiCheatTimes[4];
+extern const u32 sTimeAttackAntiCheatTimes[4];
 
 extern const u8 sArray_45fd24[12];
 extern const u8 sArray_45fd30[4];

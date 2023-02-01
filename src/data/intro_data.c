@@ -270,31 +270,11 @@ const u8 sTimeAttackPasswordCharacters[32] = {
     'Q', 'R', 'T', 'V', 'W', 'X', 'Y', '=', '-', '+'
 };
 
-const struct InGameTimer sTimeAttackAntiCheatTimes[4] = {
-    [0] = {
-        .hours = 0,
-        .minutes = 0,
-        .seconds = 5,
-        .frames = 0
-    },
-    [1] = {
-        .hours = 0,
-        .minutes = 0,
-        .seconds = 10,
-        .frames = 0
-    },
-    [2] = {
-        .hours = 0,
-        .minutes = 0,
-        .seconds = 16,
-        .frames = 0
-    },
-    [3] = {
-        .hours = 0,
-        .minutes = 0,
-        .seconds = 22,
-        .frames = 0
-    },
+const u32 sTimeAttackAntiCheatTimes[4] = {
+    0 | 0 << 8 | 5 << 16  | 0 << 24,
+    0 | 0 << 8 | 10 << 16 | 0 << 24,
+    0 | 0 << 8 | 16 << 16 | 0 << 24,
+    0 | 0 << 8 | 22 << 16 | 0 << 24
 };
 
 const u8 sArray_45fd24[12] = {

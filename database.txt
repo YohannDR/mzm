@@ -634,6 +634,35 @@ intro/47920c.tt;125;0x47920c;4
 EscapeTimerDigits.gfx;2048;0x33d794;1
 
 
+## Cutscenes
+
+# Kraid Rising
+
+cutscenes/KraidRising/CloseUp.pal;80;0x36bff8;2
+cutscenes/KraidRising/Samus.pal;16;0x36c098;2
+cutscenes/KraidRising/Particles.pal;16;0x36c0b8;2
+cutscenes/KraidRising/SamusVaria.pal;16;0x36c0d8;2
+cutscenes/KraidRising/Rising.pal;112;0x36c0f8;2
+
+cutscenes/KraidRising/CloseUp.gfx.lz;3087;0x36c1d8;4
+cutscenes/KraidRising/OAM.gfx.lz;753;0x36f214;4
+cutscenes/KraidRising/KraidRising.gfx.lz;1609;0x36fdd8;4
+cutscenes/KraidRising/CaveBackround.gfx.lz;1327;0x3716fc;4
+
+cutscenes/KraidRising/KraidCloseUpEyesClosed.tt;368;0x372bb8;4
+cutscenes/KraidRising/KraidCloseUpEyesBarelyOpened.tt;368;0x373178;4
+cutscenes/KraidRising/KraidCloseUpEyesALittleOpened.tt;368;0x373738;4
+cutscenes/KraidRising/KraidCloseUpEyesOpened.tt;368;0x373cf8;4
+cutscenes/KraidRising/KraidRising.tt;295;0x3742b8;4
+cutscenes/KraidRising/CaveBackground.tt;370;0x374754;4
+
+# Mecha sees samus
+
+cutscenes/MechaSeesSamus/Metal.gfx.lz;2382;0x3c0dfc;4
+cutscenes/MechaSeesSamus/EyeCover.gfx.lz;2671;0x3c3334;4
+cutscenes/MechaSeesSamus/Palette.pal;160;0x3c5cf0;2
+cutscenes/MechaSeesSamus/Metal.tt;368;0x3c5e30;4
+
 # Blobs
 
 Blob_8cad0_8cee2.bin;1042;0x8cad0;1
@@ -644,9 +673,12 @@ Blob_2ceaa8_2cfd9f.bin;4856;0x2ceaa8;1
 Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
 Blob_345d00_360130.bin;107568;0x345d00;1
-Blob_3602e8_45f45c.bin;1044852;0x3602e8;1
+Blob_3602e8_36bdac.bin;47812;0x3602e8;1
+Blob_374d1c_3c0948.bin;310316;0x374d1c;1
+Blob_3c63f0_45f45c.bin;626796;0x3c63f0;1
 Blob_479400_754bb4.bin;2996148;0x479400;1
 Blob_754bd0_75e6a8.bin;39640;0x754bd0;1
 Blob_75fae4_75fd88.bin;676;0x75fae4;1
 Blob_75fdbc_75fde0.bin;36;0x75fdbc;1
-Blob_75fdfc_7f7734.bin;620856;0x75fdfc;1
+Blob_75fdfc_760014.bin;536;0x75fdfc;1
+Blob_76002c_7f7734.bin;620296;0x76002c;1

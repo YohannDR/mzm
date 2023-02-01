@@ -30,8 +30,4 @@ extern u16 gBG2VOFS_NonGameplay;
 extern u16 gBG3HOFS_NonGameplay;
 extern u16 gBG3VOFS_NonGameplay;
 
-
-extern void* const sMemoryPointers[1];
-
-
 #endif

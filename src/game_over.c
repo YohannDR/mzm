@@ -3,13 +3,16 @@
 #include "temp_globals.h"
 
 #include "data/shortcut_pointers.h"
+#include "data/game_over_data.h"
 
 #include "constants/audio.h"
 #include "constants/demo.h"
+#include "constants/game_over.h"
 
 #include "structs/demo.h"
 #include "structs/display.h"
 #include "structs/game_state.h"
+#include "structs/samus.h"
 
 /**
  * @brief 778c4 | 214 | Subroutine for the game over
@@ -81,7 +84,7 @@ u32 GameOverSubroutine(void)
             break;
         
         case 4:
-            if (GAME_OVER_DATA.samusHeadOam.status & 0x10)
+            if (GAME_OVER_DATA.oam[0].status & 0x10)
             {
                 GAME_OVER_DATA.timer = 0;
                 gGameModeSub1++;
@@ -157,7 +160,7 @@ u32 GameOverProcessInput(void)
     if (gChangedInput & (KEY_A | KEY_START))
     {
         play_menu_sound(12); // Undefined
-        GameOverUpdateSamusHead(2);
+        GameOverUpdateSamusHead(SAMUS_CURSOR_ACTION_SELECTING);
         return TRUE;
     }
 
@@ -185,7 +188,7 @@ u32 GameOverProcessInput(void)
     // Update cursor
     play_menu_sound(11); // Undefined
     GameOverUpdateTextGfx();
-    GameOverUpdateSamusHead(1);
+    GameOverUpdateSamusHead(SAMUS_CURSOR_ACTION_MOVING);
 
     return FALSE;
 }
@@ -288,12 +291,32 @@ void GameOverUpdateLettersPalette(void)
 
 }
 
+/**
+ * @brief 78174 | 88 | Updates the head of Samus (cursor)
+ * 
+ * @param action Action done
+ */
 void GameOverUpdateSamusHead(u8 action)
 {
+    update_menu_oam_id(&GAME_OVER_DATA.oam[0], sGameOverSamusHeadOAMIds[gEquipment.suitType][action]); // undefined
+    GAME_OVER_DATA.oam[0].xPosition = sGameOverSamusHeadXPositions[gLanguage];
+    GAME_OVER_DATA.oam[0].yPosition = sGameOverSamusHeadYPositions[GAME_OVER_DATA.optionSelected];
 
+    if (GAME_OVER_DATA.optionSelected != 0)
+        GAME_OVER_DATA.win1V = 0x7E92;
+    else
+        GAME_OVER_DATA.win1V = 0x667A;
+
+    GAME_OVER_DATA.win1H = 0xF0;
 }
 
+/**
+ * @brief 781fc | 2c | Processes the OAM for the game over menu
+ * 
+ */
 void GameOverProcessOAM(void)
 {
-
+    gNextOamSlot = 0;
+    process_complex_menu_oam(ARRAY_SIZE(GAME_OVER_DATA.oam), GAME_OVER_DATA.oam, sGameOverOam); // Undefined
+    ResetFreeOAM();
 }

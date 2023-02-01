@@ -20,7 +20,13 @@ struct OamArray {
 #define OAM_ARRAY_PRE_ACTION_SWITCH_TO_PREVIOUS_FRAME 8
 #define OAM_ARRAY_PRE_ACTION_DECREMENT_ID_AT_BEGINNING 9
 
-
+#define MACRO_CUTSCENE_NEXT_STAGE() \
+{                                   \
+    struct CutsceneTimeInfo* ptr;   \
+    ptr = &CUTSCENE_DATA.timeInfo;  \
+    ptr->subStage = 0;              \
+    ptr->timer = 0;                 \
+}
 
 typedef u8 (*CutsceneFunc_T)(void);
 
@@ -128,13 +134,14 @@ struct CutsceneOamData {
     u8 unk_1E;
 };
 
-struct CutsceneData {
+struct CutsceneTimeInfo {
     u8 stage;
     u16 timer;
     u8 subStage;
-    u8 padding_5;
-    u8 unk_6;
-    u8 padding_7;
+};
+
+struct CutsceneData {
+    struct CutsceneTimeInfo timeInfo;
     u8 unk_8;
     u8 unk_9;
     u8 unk_A;

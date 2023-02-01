@@ -391,6 +391,8 @@ SECTIONS {
         asm/disasm_0x08055344.o(.text);
         src/power_bomb_explosion.o(.text);
         asm/disasm_0x0805745c.o(.text);
+        src/cutscenes/mecha_sees_samus.o(.text);
+        asm/disasm_0x08065bd8.o(.text);
         src/intro.o(.text);
         asm/disasm_0x0808117c.o(.text);
 
@@ -499,7 +501,9 @@ SECTIONS {
         src/data/block_data.o(.rodata);
         /* 345d00-360130 */
         src/data/hatch_data.o(.rodata);
-        /* 3602e8-45f45c */
+        /* 3602e8-36bdac */
+        src/data/cutscenes/cutscenes_data.o(.rodata);
+        /* 3c63f0-45f45c */
         src/data/intro_data.o(.rodata);
         /* 479400-754bb4 */
         src/data/shortcut_pointers.o(.rodata);
@@ -507,6 +511,8 @@ SECTIONS {
         src/data/samus_sprites_pointers.o(.rodata);
         src/data/frame_data_pointers.o(.rodata);
         src/data/engine_pointers.o(.rodata);
-        /* - */
+        /* 75fdfc-760014 */
+        src/data/cutscenes/mecha_sees_samus_data.o(.rodata);
+        /* 76002c-7f7734 */
     } >rom
 }

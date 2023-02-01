@@ -21,14 +21,14 @@ u8 KraidRisingRising(void)
 
     u32 i;
 
-    switch (CUTSCENE_DATA.subStage)
+    switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
             dma_set(3, sKraidRisingRisingPAL, PALRAM_BASE, DMA_ENABLE << 16 | 0x70);
             write16(PALRAM_BASE, 0);
 
             CallLZ77UncompVRAM(sKraidRisingKraidRisingGFX, VRAM_BASE + sKraidRisingPagesData[2].graphicsPage * 0x4000);
-            DMATransfer(3, sMemoryPointers[0] + 0x2800, VRAM_BASE + sKraidRisingPagesData[2].tiletablePage * 0x800, 0x800, 0x10);
+            DMATransfer(3, sEwramPointer + 0x2800, VRAM_BASE + sKraidRisingPagesData[2].tiletablePage * 0x800, 0x800, 0x10);
 
             CutsceneSetBGCNTPageData(sKraidRisingPagesData[2]);
             CutsceneReset();
@@ -47,13 +47,13 @@ u8 KraidRisingRising(void)
                 CUTSCENE_DATA.oam[i].timer = sRandomNumberTable[gFrameCounter8Bit + i] & 0x7F;
             }
 
-            CUTSCENE_DATA.subStage++;
-            CUTSCENE_DATA.timer = 0;
+            CUTSCENE_DATA.timeInfo.subStage++;
+            CUTSCENE_DATA.timeInfo.timer = 0;
             break;
 
         case 1:
             CallLZ77UncompVRAM(sKraidRisingCaveBackroundGFX, VRAM_BASE + sKraidRisingPagesData[3].graphicsPage * 0x4000);
-            DMATransfer(3, sMemoryPointers[0] + 0x3000, VRAM_BASE + sKraidRisingPagesData[3].tiletablePage * 0x800, 0x800, 0x10);
+            DMATransfer(3, sEwramPointer + 0x3000, VRAM_BASE + sKraidRisingPagesData[3].tiletablePage * 0x800, 0x800, 0x10);
 
             CutsceneSetBGCNTPageData(sKraidRisingPagesData[3]);
             CutsceneStartScreenShake(sKraidRisingScreenShakeData, sKraidRisingPagesData[2].bg | sKraidRisingPagesData[3].bg);
@@ -67,37 +67,36 @@ u8 KraidRisingRising(void)
             CUTSCENE_DATA.dispcnt = sKraidRisingPagesData[2].bg | sKraidRisingPagesData[3].bg | DCNT_OBJ;
 
             SoundPlay(0x22D);
-            CUTSCENE_DATA.subStage++;
-            CUTSCENE_DATA.timer = 0;
+            CUTSCENE_DATA.timeInfo.subStage++;
+            CUTSCENE_DATA.timeInfo.timer = 0;
             break;
 
         case 2:
-            if (CUTSCENE_DATA.timer != 0)
-                CUTSCENE_DATA.subStage++;
+            if (CUTSCENE_DATA.timeInfo.timer != 0)
+                CUTSCENE_DATA.timeInfo.subStage++;
             break;
 
         case 3:
-            if (!CutsceneCheckBackgroundScrollingActive(sKraidRisingPagesData[1].bg))
+            if (!CutsceneCheckBackgroundScrollingActive(sKraidRisingPagesData[2].bg))
             {
-                CutsceneStartBackgroundScrolling(sKraidRisingScrollingData, sKraidRisingPagesData[1].bg);
-                CUTSCENE_DATA.subStage++;
-                CUTSCENE_DATA.timer = 0;
+                CutsceneStartBackgroundScrolling(sKraidRisingScrollingData, sKraidRisingPagesData[2].bg);
+                CUTSCENE_DATA.timeInfo.subStage++;
+                CUTSCENE_DATA.timeInfo.timer = 0;
             }
             break;
 
         case 4:
-            if (CUTSCENE_DATA.timer > 0x78)
+            if (CUTSCENE_DATA.timeInfo.timer > 0x78)
             {
-                CUTSCENE_DATA.subStage++;
-                CUTSCENE_DATA.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+                CUTSCENE_DATA.timeInfo.timer = 0;
             }
             break;
 
         case 5:
             unk_61f0c();
-            CUTSCENE_DATA.stage++;
-            CUTSCENE_DATA.subStage = 0;
-            CUTSCENE_DATA.timer = 0;
+            CUTSCENE_DATA.timeInfo.stage++;
+            MACRO_CUTSCENE_NEXT_STAGE();
             break;
     }
 
@@ -192,68 +191,70 @@ struct CutsceneOamData* KraidRisingUpdateDebris(struct CutsceneOamData* pOam, u8
     }
 }
 
+/**
+ * @brief 6280c | 188 | Handles the kraid opening his eyes part of the cutscene
+ * 
+ * @return u8 FALSE
+ */
 u8 KraidRisingOpeningEyes(void)
 {
-    // https://decomp.me/scratch/uSyVv
-
-    switch (CUTSCENE_DATA.subStage)
+    switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            if (CUTSCENE_DATA.timer > 8)
+            if (CUTSCENE_DATA.timeInfo.timer > 8)
             {
                 CutsceneStartSpriteEffect(CUTSCENE_DATA.bldcnt, 0, 0, 16);
-                CUTSCENE_DATA.subStage++;
-                CUTSCENE_DATA.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+                CUTSCENE_DATA.timeInfo.timer = 0;
             }
             break;
 
         case 1:
-            if (CUTSCENE_DATA.timer > 0x1E)
+            if (CUTSCENE_DATA.timeInfo.timer > 0x1E)
             {
                 SoundPlay(0x22C);
 
-                DMATransfer(3, sMemoryPointers[0] + 0x1000, VRAM_BASE + sKraidRisingPagesData[1].tiletablePage * 0x800, 0x800, 0x10);
+                DMATransfer(3, sEwramPointer + 0x1000, VRAM_BASE + sKraidRisingPagesData[1].tiletablePage * 0x800, 0x800, 0x10);
                 CutsceneSetBGCNTPageData(sKraidRisingPagesData[1]);
 
-                CUTSCENE_DATA.subStage++;
-                CUTSCENE_DATA.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+                CUTSCENE_DATA.timeInfo.timer = 0;
             }
             break;
 
         case 2:
-            if (CUTSCENE_DATA.timer > 6)
+            if (CUTSCENE_DATA.timeInfo.timer > 6)
             {
-                DMATransfer(3, sMemoryPointers[0] + 0x1800, VRAM_BASE + sKraidRisingPagesData[0].tiletablePage * 0x800, 0x800, 0x10);
+                DMATransfer(3, sEwramPointer + 0x1800, VRAM_BASE + sKraidRisingPagesData[0].tiletablePage * 0x800, 0x800, 0x10);
                 CutsceneSetBGCNTPageData(sKraidRisingPagesData[0]);
 
-                CUTSCENE_DATA.subStage++;
-                CUTSCENE_DATA.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+                CUTSCENE_DATA.timeInfo.timer = 0;
             }
             break;
 
         case 3:
-            if (CUTSCENE_DATA.timer > 6)
+            if (CUTSCENE_DATA.timeInfo.timer > 6)
             {
                 PlayMusic(MUSIC_KRAID_BATTLE_WITH_INTRO, 0);
 
-                DMATransfer(3, sMemoryPointers[0] + 0x2000, VRAM_BASE + sKraidRisingPagesData[1].tiletablePage * 0x800, 0x800, 0x10);
+                DMATransfer(3, sEwramPointer + 0x2000, VRAM_BASE + sKraidRisingPagesData[1].tiletablePage * 0x800, 0x800, 0x10);
                 CutsceneSetBGCNTPageData(sKraidRisingPagesData[1]);
 
-                CUTSCENE_DATA.subStage++;
-                CUTSCENE_DATA.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+                CUTSCENE_DATA.timeInfo.timer = 0;
             }
             break;
 
         case 4:
-            if (CUTSCENE_DATA.timer > 0x3C)
-                CUTSCENE_DATA.subStage++;
+            if (CUTSCENE_DATA.timeInfo.timer > 0x3C)
+                CUTSCENE_DATA.timeInfo.subStage++;
             break;
 
         case 5:
             unk_61f0c();
-            CUTSCENE_DATA.stage++;
-            CUTSCENE_DATA.subStage = 0;
-            CUTSCENE_DATA.timer = 0;
+            CUTSCENE_DATA.timeInfo.stage++;
+            MACRO_CUTSCENE_NEXT_STAGE();
             break;
     }
 
@@ -262,8 +263,6 @@ u8 KraidRisingOpeningEyes(void)
 
 u8 KraidRisingInit(void)
 {
-    // https://decomp.me/scratch/1BOW4
-
     u16 bg;
 
     unk_61f0c();
@@ -279,11 +278,12 @@ u8 KraidRisingInit(void)
     DMATransfer(3, sKraidRisingParticlesPAL, PALRAM_BASE + 0x220, 0x20, 0x10);
 
     CallLZ77UncompVRAM(sKraidRisingOAMGFX, VRAM_BASE + 0x10000);
-    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesBarelyOpenedTileTable, sMemoryPointers[0] + 0x1000);
-    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesALittleOpenedTileTable, sMemoryPointers[0] + 0x1800);
-    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesOpenedTileTable, sMemoryPointers[0] + 0x2000);
-    CallLZ77UncompVRAM(sKraidRisingKraidRisingTileTable, sMemoryPointers[0] + 0x2800);
-    CallLZ77UncompVRAM(sKraidRisingCaveBackgroundTileTable, sMemoryPointers[0] + 0x3000);
+    
+    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesBarelyOpenedTileTable, sEwramPointer + 0x1000);
+    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesALittleOpenedTileTable, sEwramPointer + 0x1800);
+    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesOpenedTileTable, sEwramPointer + 0x2000);
+    CallLZ77UncompVRAM(sKraidRisingKraidRisingTileTable, sEwramPointer + 0x2800);
+    CallLZ77UncompVRAM(sKraidRisingCaveBackgroundTileTable, sEwramPointer + 0x3000);
     CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesClosedTileTable, VRAM_BASE + sKraidRisingPagesData[0].tiletablePage * 0x800);
     
     CutsceneSetBGCNTPageData(sKraidRisingPagesData[0]);
@@ -297,9 +297,8 @@ u8 KraidRisingInit(void)
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sKraidRisingPagesData[2].bg, 0x7E0);
 
     CUTSCENE_DATA.dispcnt = bg;
-    CUTSCENE_DATA.stage++;
-    CUTSCENE_DATA.subStage = 0;
-    CUTSCENE_DATA.timer = 0;
+    CUTSCENE_DATA.timeInfo.stage++;
+    MACRO_CUTSCENE_NEXT_STAGE();
 
     return FALSE;
 }
@@ -313,7 +312,7 @@ u8 KraidRisingSubroutine(void)
 {
     u8 ended;
 
-    ended = sKraidRisingSubroutineData[CUTSCENE_DATA.stage].pFunction();
+    ended = sKraidRisingSubroutineData[CUTSCENE_DATA.timeInfo.stage].pFunction();
 
     CutsceneUpdateBackgroundsPosition(TRUE);
     KraidRisingProcessOAM();
@@ -328,6 +327,6 @@ void KraidRisingProcessOAM(void)
 {
     gNextOamSlot = 0;
 
-    process_cutscene_oam(sKraidRisingSubroutineData[CUTSCENE_DATA.stage].oamLength, CUTSCENE_DATA.oam, sKraidRisingCutsceneOAM); // Undefined
+    process_cutscene_oam(sKraidRisingSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sKraidRisingCutsceneOAM); // Undefined
     ResetFreeOAM();
 }
