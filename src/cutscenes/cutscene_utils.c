@@ -601,24 +601,57 @@ void CutsceneReset(void)
 
 }
 
+/**
+ * @brief 61f0c | 1c | To document
+ * 
+ */
 void unk_61f0c(void)
 {
-
+    CUTSCENE_DATA.dispcnt = 0;
+    gWrittenToBLDY_NonGameplay = 0x10;
+    CUTSCENE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
+        BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
+        BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 }
 
+/**
+ * @brief 61f28 | 1c | To document
+ * 
+ */
 void unk_61f28(void)
 {
-
+    CUTSCENE_DATA.dispcnt = 0;
+    gWrittenToBLDY_NonGameplay = 0x10;
+    CUTSCENE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
+        BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
+        BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 }
 
+/**
+ * @brief 61f44 | 40 | To document
+ * 
+ * @return u32 
+ */
 u32 unk_61f44(void)
 {
+    unk_61f60();
+    if (unk_621d0())
+        return TRUE;
 
+    return FALSE;
 }
 
+/**
+ * @brief 61f60 | 40 | To document
+ * 
+ */
 void unk_61f60(void)
 {
-
+    if (CUTSCENE_DATA.unk_BC)
+    {
+        DMATransfer(3, sEwramPointer + 0x400, PALRAM_BASE, 0x400, 0x10);
+        CUTSCENE_DATA.unk_BC = FALSE;
+    }
 }
 
 u8 unk_61fa0(u8 param_1)
