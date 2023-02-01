@@ -41,7 +41,7 @@ struct GameOverData {
 
     u8 unk_35;
     
-    struct MenuOamData samusHeadOam;
+    struct MenuOamData oam[1];
 };
 
 #endif /* GAME_OVER_STRUCT_H */
