@@ -196,35 +196,33 @@ u8 CutsceneEndFunction(void)
     return TRUE;
 }
 
+/**
+ * @brief 6122c | a8 | V-blank code during cutscenes
+ * 
+ */
 void CutsceneVBlank(void)
 {
-    // https://decomp.me/scratch/u6eTX
-
-    struct CutsceneData* pCutscene;
-    
     dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | 0x100);
 
-    pCutscene = &CUTSCENE_DATA;
+    write16(REG_BG0HOFS, CUTSCENE_DATA.bg0hofs);
+    write16(REG_BG0VOFS, CUTSCENE_DATA.bg0vofs);
+    write16(REG_BG1HOFS, CUTSCENE_DATA.bg1hofs);
+    write16(REG_BG1VOFS, CUTSCENE_DATA.bg1vofs);
+    write16(REG_BG2HOFS, CUTSCENE_DATA.bg2hofs);
+    write16(REG_BG2VOFS, CUTSCENE_DATA.bg2vofs);
+    write16(REG_BG3HOFS, CUTSCENE_DATA.bg3hofs);
+    write16(REG_BG3VOFS, CUTSCENE_DATA.bg3vofs);
 
-    write16(REG_BG0HOFS, pCutscene->bg0hofs);
-    write16(REG_BG0VOFS, pCutscene->bg0vofs);
-    write16(REG_BG1HOFS, pCutscene->bg1hofs);
-    write16(REG_BG1VOFS, pCutscene->bg1vofs);
-    write16(REG_BG2HOFS, pCutscene->bg2hofs);
-    write16(REG_BG2VOFS, pCutscene->bg2vofs);
-    write16(REG_BG3HOFS, pCutscene->bg3hofs);
-    write16(REG_BG3VOFS, pCutscene->bg3vofs);
-
-    write16(REG_BG0CNT, pCutscene->bgcnt[0]);
-    write16(REG_BG1CNT, pCutscene->bgcnt[1]);
-    write16(REG_BG2CNT, pCutscene->bgcnt[2]);
-    write16(REG_BG3CNT, pCutscene->bgcnt[3]);
+    write16(REG_BG0CNT, CUTSCENE_DATA.bgcnt[0]);
+    write16(REG_BG1CNT, CUTSCENE_DATA.bgcnt[1]);
+    write16(REG_BG2CNT, CUTSCENE_DATA.bgcnt[2]);
+    write16(REG_BG3CNT, CUTSCENE_DATA.bgcnt[3]);
 
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
     write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
 
-    write16(REG_BLDCNT, pCutscene->bldcnt);
-    write16(REG_DISPCNT, pCutscene->dispcnt);
+    write16(REG_BLDCNT, CUTSCENE_DATA.bldcnt);
+    write16(REG_DISPCNT, CUTSCENE_DATA.dispcnt);
 }
 
 /**
@@ -236,28 +234,26 @@ void CutsceneLoadingVBlank(void)
     vu8 var = 0;
 }
 
+/**
+ * @brief 612e0 | 13c | Initializes a cutscene
+ * 
+ */
 void CutsceneInit(void)
 {
-    // https://decomp.me/scratch/5wvit
-
     i32 unk;
 
     CallbackSetVBlank(CutsceneLoadingVBlank);
     BitFill(3, 0, &gNonGameplayRAM, sizeof(union NonGameplayRAM), 0x20);
 
-    sOamXOffset_NonGameplay = 0;
-    sOamYOffset_NonGameplay = 0;
+    sOamXOffset_NonGameplay = sOamYOffset_NonGameplay = 0;
     gNextOamSlot = 0;
     ResetFreeOAM();
 
-    write16(REG_BLDCNT, 0xFF);
-    CUTSCENE_DATA.bldcnt = 0xFF;
+    write16(REG_BLDCNT, CUTSCENE_DATA.bldcnt = 0xFF);
 
-    write16(REG_BLDY, 0x10);
-    gWrittenToBLDY_NonGameplay = 0x10;
+    write16(REG_BLDY, gWrittenToBLDY = 0x10);
 
-    write16(REG_DISPCNT, 0);
-    CUTSCENE_DATA.dispcnt = 0;
+    write16(REG_DISPCNT, CUTSCENE_DATA.dispcnt = 0);
 
     unk = sCutsceneData[gCurrentCutscene].unk_0;
     if (unk != 0)
@@ -274,14 +270,10 @@ void CutsceneInit(void)
 
     ClearGFXRAM();
 
-    gBG0HOFS_NonGameplay = 0x800;
-    gBG0VOFS_NonGameplay = 0x800;
-    gBG1HOFS_NonGameplay = 0x800;
-    gBG1VOFS_NonGameplay = 0x800;
-    gBG2HOFS_NonGameplay = 0x800;
-    gBG2VOFS_NonGameplay = 0x800;
-    gBG3HOFS_NonGameplay = 0x800;
-    gBG3VOFS_NonGameplay = 0x800;
+    gBG0HOFS_NonGameplay = gBG0VOFS_NonGameplay = 0x800;
+    gBG1HOFS_NonGameplay = gBG1VOFS_NonGameplay = 0x800;
+    gBG2HOFS_NonGameplay = gBG2VOFS_NonGameplay = 0x800;
+    gBG3HOFS_NonGameplay = gBG3VOFS_NonGameplay= 0x800;
 
     CUTSCENE_DATA.stage = 0;
     CUTSCENE_DATA.timer = 0;
@@ -507,15 +499,18 @@ u8 CutsceneCheckBackgroundScrollingActive(u16 bg)
     return status;
 }
 
+/**
+ * @brief 619c4 | c4 | Updates the backgrounds positions
+ * 
+ * @param updateScrolling Update scrolling flag
+ */
 void CutsceneUpdateBackgroundsPosition(u8 updateScrolling)
 {
-    // https://decomp.me/scratch/l3Uul
-
     i32 i;
 
     if (updateScrolling & TRUE)
     {
-        for (i = 0; i < 8; i++)
+        for (i = 0; i < ARRAY_SIZE(CUTSCENE_DATA.bgScrolling); i++)
         {
             if (CUTSCENE_DATA.bgScrolling[i].pPosition != NULL)
                 CutsceneUpdateBackgroundScrolling(CUTSCENE_DATA.bgScrolling + i);
