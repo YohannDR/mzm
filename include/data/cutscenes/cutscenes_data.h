@@ -70,6 +70,11 @@ extern const u32 sKraidRisingKraidCloseUpEyesOpenedTileTable[368];
 extern const u32 sKraidRisingKraidRisingTileTable[295];
 extern const u32 sKraidRisingCaveBackgroundTileTable[370];
 
+// Ridley spawn
+
+extern const struct CutscenePageData sRidleySpawnPageData[4];
+extern const struct OamArray sRidleySpawnOam[5];
+
 // Mecha sees Samus
 
 extern const struct CutscenePageData sMechaRidleySeesSamusPagesData[1];

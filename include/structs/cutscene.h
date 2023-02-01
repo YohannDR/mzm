@@ -108,26 +108,27 @@ struct CutsceneSpecialEffect {
 };
 
 struct CutsceneOamData {
-    u16 yPosition;
-    u16 xPosition;
+    i16 yPosition;
+    i16 xPosition;
     u8 unk_2;
     u8 padding_5[3];
     u8 animationDurationCounter;
     u8 currentAnimationFrame;
     u8 oamID;
     u8 priority:2;
-    u8 status:2;
+    u8 unk_B_4:2;
     u8 ended:1;
     u8 notDrawn:1;
-    u8 unk_B_40:1;
-    u8 idChanged:1;
-    u8 unk_C;
+    u8 idChanged:2;
+    u8 unk_C_0:2;
+    u8 unk_C_2:2;
+    u8 unk_C_4:1;
     u8 unk_D;
     i16 unk_E;
     i16 unk_10;
     i16 unk_12;
     u16 timer;
-    i16 unk_16;
+    u16 unk_16;
     i16 unk_18;
     u16 unk_1A;
     u8 padding_1C[2];

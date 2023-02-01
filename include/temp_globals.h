@@ -29,5 +29,7 @@ extern u16 gBG2HOFS_NonGameplay;
 extern u16 gBG2VOFS_NonGameplay;
 extern u16 gBG3HOFS_NonGameplay;
 extern u16 gBG3VOFS_NonGameplay;
+extern u16 gCurrentOamRotation;
+extern u16 gCurrentOamScaling;
 
 #endif
