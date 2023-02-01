@@ -54,21 +54,21 @@ extern const struct FrameData sKraidRisingOAM_SmallPuff[5];
 
 extern const struct FrameData sKraidRisingOAM_BigPuff[5];
 
-extern const u16 sKraidRisingCloseUpPAL[80];
-extern const u16 sKraidRisingSamusPAL[16];
-extern const u16 sKraidRisingParticlesPAL[16];
-extern const u16 sKraidRisingSamusVariaPAL[16];
-extern const u16 sKraidRisingRisingPAL[80];
-extern const u8 sKraidRisingKraidCloseUpGFX[12348];
-extern const u8 sKraidRisingOAMGFX[3012];
-extern const u8 sKraidRisingKraidRisingGFX[6436];
-extern const u8 sKraidRisingCaveBackroundGFX[5308];
-extern const u8 sKraidRisingKraidCloseUpEyesClosedTileTable[1472];
-extern const u8 sKraidRisingKraidCloseUpEyesBarelyOpenedTileTable[1472];
-extern const u8 sKraidRisingKraidCloseUpEyesALittleOpenedTileTable[1472];
-extern const u8 sKraidRisingKraidCloseUpEyesOpenedTileTable[1472];
-extern const u8 sKraidRisingKraidRisingTileTable[1180];
-extern const u8 sKraidRisingCaveBackgroundTileTable[1180];
+extern const u16 sKraidRisingCloseUpPAL[5 * 16];
+extern const u16 sKraidRisingSamusPAL[1 * 16];
+extern const u16 sKraidRisingParticlesPAL[1 * 16];
+extern const u16 sKraidRisingSamusVariaPAL[1 * 16];
+extern const u16 sKraidRisingRisingPAL[7 * 16];
+extern const u32 sKraidRisingKraidCloseUpGFX[3087];
+extern const u32 sKraidRisingOAMGFX[753];
+extern const u32 sKraidRisingKraidRisingGFX[1609];
+extern const u32 sKraidRisingCaveBackroundGFX[1327];
+extern const u32 sKraidRisingKraidCloseUpEyesClosedTileTable[368];
+extern const u32 sKraidRisingKraidCloseUpEyesBarelyOpenedTileTable[368];
+extern const u32 sKraidRisingKraidCloseUpEyesALittleOpenedTileTable[368];
+extern const u32 sKraidRisingKraidCloseUpEyesOpenedTileTable[368];
+extern const u32 sKraidRisingKraidRisingTileTable[295];
+extern const u32 sKraidRisingCaveBackgroundTileTable[370];
 
 // Mecha sees Samus
 
@@ -76,9 +76,13 @@ extern const struct CutscenePageData sMechaRidleySeesSamusPagesData[1];
 
 extern const struct OamArray sMechaSeesSamusCutsceneOAM[5];
 
-extern const u8 sMechaSeesSamusMetalGFX[9528];
-extern const u8 sMechaSeesSamusCoverEyeGFX[10684];
-extern const u16 sMechaSeesSamusPAL[160];
-extern const u8 sMechaSeesSamusCoverMetalTileTable[10684];
+extern const struct FrameData sMechaSeesSamusOAM_FocusingEye[4];
+
+extern const struct FrameData sMechaSeesSamusOAM_OpeningEye[4];
+
+extern const u32 sMechaSeesSamusMetalGFX[2382];
+extern const u32 sMechaSeesSamusCoverEyeGFX[2671];
+extern const u16 sMechaSeesSamusPAL[10 * 16];
+extern const u32 sMechaSeesSamusCoverMetalTileTable[368];
 
 #endif /* CUTSCENES_DATA_H */

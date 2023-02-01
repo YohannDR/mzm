@@ -9,7 +9,10 @@ subDirs: array = [
     "hud/",
     "weapons/",
     "common/",
-    "intro/"
+    "intro/",
+    "cutscenes/",
+    "cutscenes/KraidRising/",
+    "cutscenes/MechaSeesSamus/"
 ]
 
 try:

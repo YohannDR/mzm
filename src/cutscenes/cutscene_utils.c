@@ -138,7 +138,7 @@ u8 CutsceneSubroutine(void)
             break;
             
         case 3:
-            CUTSCENE_DATA.timer++;
+            CUTSCENE_DATA.timeInfo.timer++;
             CutsceneUpdateSpecialEffect();
 
             result = sCutsceneData[gCurrentCutscene].pFunction();
@@ -283,8 +283,8 @@ void CutsceneInit(void)
     gBG3HOFS_NonGameplay = 0x800;
     gBG3VOFS_NonGameplay = 0x800;
 
-    CUTSCENE_DATA.stage = 0;
-    CUTSCENE_DATA.timer = 0;
+    CUTSCENE_DATA.timeInfo.stage = 0;
+    CUTSCENE_DATA.timeInfo.timer = 0;
     sCutsceneData[gCurrentCutscene].pFunction();
 }
 

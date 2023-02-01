@@ -10,78 +10,80 @@
 
 u8 MechaRidleySeesSamusEyeOpen(void)
 {
-    // https://decomp.me/scratch/kpJgq
-
-    switch (CUTSCENE_DATA.subStage)
+    switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
             if (unk_61f44())
             {
-                CUTSCENE_DATA.timer = 0;
-                CUTSCENE_DATA.subStage++;
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
 
         case 1:
-            if (CUTSCENE_DATA.timer > 32)
+            if (CUTSCENE_DATA.timeInfo.timer > 30)
             {
                 SoundPlay(0x293);
                 update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], 2);
-                CUTSCENE_DATA.timer = 0;
-                CUTSCENE_DATA.subStage++;
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
 
         case 2:
             if (!CUTSCENE_DATA.oam[0].idChanged && !CUTSCENE_DATA.oam[0].unk_B_40)
             {
-                CUTSCENE_DATA.timer = 0;
-                CUTSCENE_DATA.subStage++;
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
 
         case 3:
-            if (CUTSCENE_DATA.timer > 4)
+            if (CUTSCENE_DATA.timeInfo.timer > 4)
             {
                 SoundPlay(0x294);
                 update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], 4);
-                CUTSCENE_DATA.timer = 0;
-                CUTSCENE_DATA.subStage++;
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
 
         case 4:
             if (CUTSCENE_DATA.oam[1].ended)
             {
-                CUTSCENE_DATA.timer = 0;
-                CUTSCENE_DATA.subStage++;
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
 
         case 5:
-            if (CUTSCENE_DATA.timer > 60)
+            if (CUTSCENE_DATA.timeInfo.timer > 60)
             {
-                CUTSCENE_DATA.timer = 0;
-                CUTSCENE_DATA.subStage++;
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
 
         case 6:
             unk_61f0c();
-            CUTSCENE_DATA.stage++;
-            CUTSCENE_DATA.subStage = 0;
-            CUTSCENE_DATA.timer = 0;
-            break;
+            {
+                CUTSCENE_DATA.timeInfo.stage++;
+                MACRO_CUTSCENE_NEXT_STAGE();
+            }
     }
 
     return FALSE;
 }
 
+/**
+ * @brief 65a24 | 148 | Initializes the mecha ridley sees Samus cutscene
+ * 
+ * @return u8 FALSE
+ */
 u8 MechaRidleySeesSamusInit(void)
 {
-    // https://decomp.me/scratch/ZlQqH
-
     u16 bg;
+    u32 priority;
 
     unk_61f0c();
     DMATransfer(3, sMechaSeesSamusPAL, PALRAM_BASE, sizeof(sMechaSeesSamusPAL), 0x10);
@@ -101,26 +103,27 @@ u8 MechaRidleySeesSamusInit(void)
 
     CUTSCENE_DATA.oam[0].xPosition = BLOCK_SIZE * 7 + BLOCK_SIZE / 2;
     CUTSCENE_DATA.oam[0].yPosition = BLOCK_SIZE * 5;
-    CUTSCENE_DATA.oam[0].priority = sMechaRidleySeesSamusPagesData[0].priority;
+    priority = sMechaRidleySeesSamusPagesData[0].priority;
+    CUTSCENE_DATA.oam[0].priority = priority;
     update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], 1);
 
     CUTSCENE_DATA.oam[1].xPosition = BLOCK_SIZE * 7 + BLOCK_SIZE / 2;
     CUTSCENE_DATA.oam[1].yPosition = BLOCK_SIZE * 5;
-    CUTSCENE_DATA.oam[1].priority = sMechaRidleySeesSamusPagesData[0].priority + 1;
+    CUTSCENE_DATA.oam[1].priority = priority + 1;
     update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], 3);
 
     unk_61fa0(2);
 
     CUTSCENE_DATA.dispcnt = bg | DCNT_OBJ;
-    CUTSCENE_DATA.timer = 0;
-    CUTSCENE_DATA.subStage = 0;
-    CUTSCENE_DATA.stage++;
+    CUTSCENE_DATA.timeInfo.timer = 0;
+    CUTSCENE_DATA.timeInfo.subStage = 0;
+    CUTSCENE_DATA.timeInfo.stage++;
 
     return FALSE;
 }
 
 /**
- * @brief 65b6c | 34 | Mecha ridley sees Samus rising cutscene subroutine
+ * @brief 65b6c | 34 | Mecha ridley sees Samus cutscene subroutine
  * 
  * @return u8 1 if ended, 0 otherwise
  */
@@ -128,7 +131,7 @@ u8 MechaRidleySeesSamusSubroutine(void)
 {
     u8 ended;
 
-    ended = sMechaSeesSamusSubroutineData[CUTSCENE_DATA.stage].pFunction();
+    ended = sMechaSeesSamusSubroutineData[CUTSCENE_DATA.timeInfo.stage].pFunction();
     CutsceneUpdateBackgroundsPosition(TRUE);
     MechaRidleySeesSamusProcessOAM();
 
@@ -142,6 +145,6 @@ u8 MechaRidleySeesSamusSubroutine(void)
 void MechaRidleySeesSamusProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sMechaSeesSamusSubroutineData[CUTSCENE_DATA.stage].oamLength, CUTSCENE_DATA.oam, sMechaSeesSamusCutsceneOAM); // Undefined
+    process_cutscene_oam(sMechaSeesSamusSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMechaSeesSamusCutsceneOAM); // Undefined
     ResetFreeOAM();
 }

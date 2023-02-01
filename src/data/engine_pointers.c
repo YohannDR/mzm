@@ -181,4 +181,4 @@ const struct HatchLockEvent* const sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS 
     [AREA_CHOZODIA] = sHatchLockEventsChozodia
 };
 
-const u8 sTempArray_75fdfc[0x97938] = INCBIN_U8("data/Blob_75fdfc_7f7734.bin");
+const u8 sTempArray_75fdfc[0x218] = INCBIN_U8("data/Blob_75fdfc_760014.bin");
