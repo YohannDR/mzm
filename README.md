@@ -28,7 +28,6 @@ This produces the following ROMs:
 - Build agbcc (run `./build.sh`)
 - Add agbcc to your path (export PATH="agbcc path:$PATH")
 - Build preproc (run `make` in tools/preproc)
-- Clone this repo
 
 ## Build
 
