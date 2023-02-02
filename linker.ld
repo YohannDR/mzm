@@ -148,6 +148,8 @@ SECTIONS {
         . = 0x00000bfE; gBG2VOFS_NonGameplay = .;
         . = 0x00000C00; gBG3HOFS_NonGameplay = .;
         . = 0x00000C02; gBG3VOFS_NonGameplay = .;
+        . = 0x00000c04; gCurrentOamRotation = .;
+        . = 0x00000c06; gCurrentOamScaling = .;
         . = 0x00000c08; gLastAreaNameVisited = .;
         . = 0x00000c1c; gSRAMCorruptFlag = .;
         . = 0x00000c1d; gIsLoadingFile = .;
@@ -391,6 +393,7 @@ SECTIONS {
         asm/disasm_0x08055344.o(.text);
         src/power_bomb_explosion.o(.text);
         asm/disasm_0x0805745c.o(.text);
+        src/cutscenes/ridley_spawn.o(.text);
         src/cutscenes/mecha_sees_samus.o(.text);
         asm/disasm_0x08065bd8.o(.text);
         src/intro.o(.text);
@@ -511,7 +514,8 @@ SECTIONS {
         src/data/samus_sprites_pointers.o(.rodata);
         src/data/frame_data_pointers.o(.rodata);
         src/data/engine_pointers.o(.rodata);
-        /* 75fdfc-760014 */
+        /* 75fdfc-75ffe0 */
+        src/data/cutscenes/ridley_spawn_data.o(.rodata);
         src/data/cutscenes/mecha_sees_samus_data.o(.rodata);
         /* 76002c-7f7734 */
     } >rom

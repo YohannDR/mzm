@@ -4,6 +4,11 @@
 #include "types.h"
 #include "structs/cutscene.h"
 
+#define RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING_REFLECTION 1
+#define RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING 2
+#define RIDLEY_SPAWN_OAM_ID_RIDLEY_SCREAMING 3
+#define RIDLEY_SPAWN_OAM_ID_SAMUS 4
+
 u8 RidleySpawnRidleyFlyingIn(void);
 void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam);
 u8 RidleySpawnHelmetReflection(void);

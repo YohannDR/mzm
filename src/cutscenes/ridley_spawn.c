@@ -5,13 +5,75 @@
 #include "data/cutscenes/ridley_spawn.h"
 #include "data/cutscenes/cutscenes_data.h"
 
+#include "constants/audio.h"
 #include "constants/cutscene.h"
+#include "constants/samus.h"
 
 #include "structs/display.h"
+#include "structs/samus.h"
 
+/**
+ * @brief 65304 | 19c | Handles the ridley flying in part of the cutscene
+ * 
+ * @return u8 FALSE
+ */
 u8 RidleySpawnRidleyFlyingIn(void)
 {
+    switch (CUTSCENE_DATA.timeInfo.subStage)
+    {
+        case 0:
+            DMATransfer(3, sRidleySpawnRidleyScreamingPAL, PALRAM_BASE + 0x200, sizeof(sRidleySpawnRidleyScreamingPAL), 0x10);
+            CallLZ77UncompVRAM(sRidleySpawnScreamingGFX, VRAM_BASE + 0x10000);
+            
+            CallLZ77UncompVRAM(sRidleySpawnBackgroundGFX, VRAM_BASE + sRidleySpawnPageData[3].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sRidleySpawnBackgroundTileTable, VRAM_BASE + sRidleySpawnPageData[3].tiletablePage * 0x800);
+            DMATransfer(3, sRidleySpawnBackgroundPAL, PALRAM_BASE, sizeof(sRidleySpawnBackgroundPAL), 0x10);
+            write16(PALRAM_BASE, 0);
+            CutsceneSetBGCNTPageData(sRidleySpawnPageData[3]);
 
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleySpawnPageData[3].bg, 0x800);
+            CutsceneReset();
+            
+            CUTSCENE_DATA.oam[0].xPosition = sRidleySpawnRidleyPositions[1].x;
+            CUTSCENE_DATA.oam[0].yPosition = sRidleySpawnRidleyPositions[1].y;
+
+            CUTSCENE_DATA.oam[0].unk_C_4 = TRUE;
+            CUTSCENE_DATA.oam[0].notDrawn = FALSE;
+            CUTSCENE_DATA.oam[0].priority = 0;
+            CUTSCENE_DATA.oam[0].unk_B_4 = FALSE;
+
+            gCurrentOamScaling = 0x120;
+            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING);
+            CUTSCENE_DATA.dispcnt = sRidleySpawnPageData[3].bg | DCNT_OBJ;
+            
+            CUTSCENE_DATA.timeInfo.timer = 0;
+            CUTSCENE_DATA.timeInfo.subStage++;
+            break;
+
+        case 1:
+            CUTSCENE_DATA.oam[0].unk_D |= 3;
+            CUTSCENE_DATA.timeInfo.timer = 0;
+            CUTSCENE_DATA.timeInfo.subStage++;
+            break;
+
+        case 2:
+            if (CUTSCENE_DATA.oam[0].unk_D == 0)
+            {
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+            }
+            break;
+
+        case 3:
+            unk_61f0c();
+            CUTSCENE_DATA.timeInfo.stage++;
+            MACRO_CUTSCENE_NEXT_STAGE();
+            break;
+    }
+
+    RidleySpawnUpdateRidley(&CUTSCENE_DATA.oam[0]);
+
+    return FALSE;
 }
 
 /**
@@ -36,7 +98,7 @@ void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam)
         else if (pOam->oamID != 3 && gCurrentOamScaling > 0x16F)
         {
             SoundPlay(0x24C); // Ridley cutscene roar
-            update_cutscene_oam_data_id(pOam, 3);
+            update_cutscene_oam_data_id(pOam, RIDLEY_SPAWN_OAM_ID_RIDLEY_SCREAMING);
         }
     }
 
@@ -82,7 +144,7 @@ u8 RidleySpawnHelmetReflection(void)
             CUTSCENE_DATA.oam[0].unk_B_4 = TRUE;
 
             gCurrentOamScaling = 0x40;
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], 1);
+            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING_REFLECTION);
             CUTSCENE_DATA.dispcnt = sRidleySpawnPageData[1].bg | sRidleySpawnPageData[2].bg | DCNT_OBJ;
 
             CUTSCENE_DATA.timeInfo.timer = 0;
@@ -160,7 +222,54 @@ u8 RidleySpawnSamusLookingUp(void)
 
 u8 RidleySpawnInit(void)
 {
+    // https://decomp.me/scratch/uYVOz
 
+    unk_61f0c();
+
+    if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
+        DMATransfer(3, sRidleySpawnSamusVariaPAL, PALRAM_BASE + 0x200, sizeof(sRidleySpawnSamusVariaPAL), 0x10);
+    else
+        DMATransfer(3, sRidleySpawnSamusPAL, PALRAM_BASE + 0x200, sizeof(sRidleySpawnSamusPAL), 0x10);
+
+    DMATransfer(3, sRidleySpawnBackgroundPAL, PALRAM_BASE, sizeof(sRidleySpawnBackgroundPAL), 0x10);
+    write16(PALRAM_BASE, 0);
+
+    CallLZ77UncompVRAM(sRidleySpawnSamusAndRidleyGFX, VRAM_BASE + 0x10000);
+
+    CallLZ77UncompVRAM(sRidleySpawnBackgroundGFX, VRAM_BASE + sRidleySpawnPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sRidleySpawnBackgroundTileTable, VRAM_BASE + sRidleySpawnPageData[0].tiletablePage * 0x800);
+
+    CallLZ77UncompVRAM(sRidleySpawnSamusHelmetFaceGFX, VRAM_BASE + sRidleySpawnPageData[1].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sRidleySpawnSamusHelmetTileTable, VRAM_BASE + sRidleySpawnPageData[1].tiletablePage * 0x800);
+    CallLZ77UncompVRAM(sRidleySpawnSamusFaceTileTable, VRAM_BASE + sRidleySpawnPageData[2].tiletablePage * 0x800);
+
+    CutsceneSetBGCNTPageData(sRidleySpawnPageData[1]);
+    CutsceneSetBGCNTPageData(sRidleySpawnPageData[2]);
+    CutsceneSetBGCNTPageData(sRidleySpawnPageData[0]);
+
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleySpawnPageData[1].bg, 0x800);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleySpawnPageData[2].bg, 0x800);
+    CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sRidleySpawnPageData[0].bg, 0x800);
+    
+    CutsceneReset();
+
+    CUTSCENE_DATA.oam[0].xPosition = sRidleySpawnRidleyPositions[2].x;
+    CUTSCENE_DATA.oam[0].yPosition = sRidleySpawnRidleyPositions[2].y;
+    CUTSCENE_DATA.oam[0].priority = sRidleySpawnPageData[0].priority;
+    CUTSCENE_DATA.oam[0].unk_C_4 = TRUE;
+    CUTSCENE_DATA.oam[0].unk_B_4 = TRUE;
+
+    gCurrentOamScaling = 0x100;
+    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_SAMUS);
+
+    CUTSCENE_DATA.dispcnt = sRidleySpawnPageData[0].bg | DCNT_OBJ;
+
+    PlayMusic(MUSIC_RIDLEY_BATTLE, 0);
+    CUTSCENE_DATA.timeInfo.stage++;
+    CUTSCENE_DATA.timeInfo.timer = 0;
+    CUTSCENE_DATA.timeInfo.subStage = 0;
+    
+    return FALSE;
 }
 
 /**
