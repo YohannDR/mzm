@@ -76,8 +76,11 @@ extern const struct CutscenePageData sRidleyLandingPageData[5];
 
 extern const struct CutsceneScrollingInfo sRidleyLandingScrollingInfo[3];
 
+extern const struct OamArray sRidleyLandingCutsceneOAM[11];
+
 //..
 
+extern const u16 sCutscene_3a09d4_PAL[9 * 16];
 extern const u16 sCutsceneZebesPAL[13 * 16];
 extern const u16 sCutsceneMotherShipPAL[5 * 16];
 extern const u16 sRidleyLandingRidleyAndRocksPAL[2 * 16];

@@ -69,7 +69,7 @@ u32 GameOverSubroutine(void)
                 break;
             }
             GAME_OVER_DATA.dynamicPalette.enableFlags = 0x80 | 1;
-            MusicPlay(MUSIC_GAME_OVER, 0);
+            PlayMusic(MUSIC_GAME_OVER, 0);
             gGameModeSub1++;
             break;
 

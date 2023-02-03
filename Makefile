@@ -39,7 +39,7 @@ PREPROC = tools/preproc/preproc
 
 # Flags
 ASFLAGS = -mcpu=arm7tdmi
-CFLAGS = -Werror -O2 -mthumb-interwork -fhex-asm
+CFLAGS = -Werror -O2 -mthumb-interwork -fhex-asm -f2003-patch
 CPPFLAGS = -nostdinc -Iinclude/
 
 # Objects

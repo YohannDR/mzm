@@ -393,6 +393,7 @@ SECTIONS {
         asm/disasm_0x08055344.o(.text);
         src/power_bomb_explosion.o(.text);
         asm/disasm_0x0805745c.o(.text);
+        src/cutscenes/ridley_landing.o(.text);
         src/cutscenes/ridley_spawn.o(.text);
         src/cutscenes/mecha_sees_samus.o(.text);
         asm/disasm_0x08065bd8.o(.text);
@@ -514,7 +515,8 @@ SECTIONS {
         src/data/samus_sprites_pointers.o(.rodata);
         src/data/frame_data_pointers.o(.rodata);
         src/data/engine_pointers.o(.rodata);
-        /* 75fdfc-75ffe0 */
+        /* 75fdfc-75ffb8 */
+        src/data/cutscenes/ridley_landing_data.o(.rodata);
         src/data/cutscenes/ridley_spawn_data.o(.rodata);
         src/data/cutscenes/mecha_sees_samus_data.o(.rodata);
         /* 76002c-7f7734 */

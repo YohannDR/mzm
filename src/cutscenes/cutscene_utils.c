@@ -300,7 +300,7 @@ void CutsceneSetBGCNTPageData(struct CutscenePageData pageData)
     else
         return;
 
-    CUTSCENE_DATA.bgcnt[offset] = pageData.unk_6 | pageData.priority | (pageData.tiletablePage << 8) | (pageData.graphicsPage << 2);
+    CUTSCENE_DATA.bgcnt[offset] = pageData.screenSize | pageData.priority | (pageData.tiletablePage << 8) | (pageData.graphicsPage << 2);
 }
 
 /**

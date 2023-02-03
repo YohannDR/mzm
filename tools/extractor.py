@@ -12,6 +12,7 @@ subDirs: array = [
     "intro/",
     "cutscenes/",
     "cutscenes/KraidRising/",
+    "cutscenes/RidleyLanding/",
     "cutscenes/RidleySpawn/",
     "cutscenes/MechaSeesSamus/"
 ]

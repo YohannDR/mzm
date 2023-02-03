@@ -35,7 +35,7 @@ lbl_08065c14:
     movs r1, #0xc
     movs r2, #8
     movs r3, #1
-    bl sub_08061d68
+    bl CutsceneStartSpriteEffect
     ldr r1, [r4]
     b lbl_08065d02
     .align 2, 0
@@ -82,7 +82,7 @@ lbl_08065c74: .4byte 0x08754bc4
 lbl_08065c78:
     ldr r0, lbl_08065c94 @ =0x083c63f0
     ldrh r0, [r0, #4]
-    bl sub_080615c8
+    bl CutsceneGetBGVOFSPointer
     adds r1, r0, #0
     ldrh r0, [r1]
     subs r0, #4
@@ -125,7 +125,7 @@ lbl_08065ca4:
     movs r1, #0x10
     movs r2, #8
     movs r3, #1
-    bl sub_08061d68
+    bl CutsceneStartSpriteEffect
     ldr r0, [r5]
     ldr r1, lbl_08065cf4 @ =0x000001bd
     adds r2, r0, r1
@@ -174,10 +174,10 @@ lbl_08065d2a:
     bl sub_08065ddc
     ldr r4, lbl_08065d9c @ =0x083c63f0
     ldrh r0, [r4, #0xc]
-    bl sub_080615c8
+    bl CutsceneGetBGVOFSPointer
     adds r6, r0, #0
     ldrh r0, [r4, #4]
-    bl sub_080615c8
+    bl CutsceneGetBGVOFSPointer
     ldrh r0, [r0]
     strh r0, [r6]
     ldr r0, [r5]
@@ -199,7 +199,7 @@ lbl_08065d58:
     ble lbl_08065d58
     ldr r0, lbl_08065d9c @ =0x083c63f0
     ldrh r0, [r0, #4]
-    bl sub_080615c8
+    bl CutsceneGetBGVOFSPointer
     ldrh r0, [r0]
     ldr r1, lbl_08065da0 @ =0xfffff800
     adds r4, r0, r1
@@ -1581,10 +1581,10 @@ lbl_080668c6:
     bl sub_080669f4
     ldr r4, lbl_0806690c @ =0x083ce46c
     ldrh r0, [r4, #0x1c]
-    bl sub_080615c8
+    bl CutsceneGetBGVOFSPointer
     adds r5, r0, #0
     ldrh r0, [r4, #0x14]
-    bl sub_080615c8
+    bl CutsceneGetBGVOFSPointer
     ldrh r0, [r0]
     strh r0, [r5]
     movs r0, #0
@@ -1611,7 +1611,7 @@ sub_08066910: @ 0x08066910
     beq lbl_08066972
     ldr r5, lbl_08066978 @ =0x083ce46c
     ldrh r0, [r5, #0x14]
-    bl sub_080615c8
+    bl CutsceneGetBGVOFSPointer
     adds r2, r0, #0
     ldrh r0, [r2]
     adds r0, #1
@@ -1727,7 +1727,7 @@ sub_080669f4: @ 0x080669f4
     beq lbl_08066a24
     ldr r0, lbl_08066a2c @ =0x083ce46c
     ldrh r0, [r0, #0x24]
-    bl sub_08061578
+    bl CutsceneGetBGHOFSPointer
     adds r1, r0, #0
     ldrh r0, [r1]
     subs r0, #2
@@ -2001,7 +2001,7 @@ lbl_08066c40:
     movs r1, #0
     movs r2, #8
     movs r3, #1
-    bl sub_08061d68
+    bl CutsceneStartSpriteEffect
     ldr r1, [r4]
     b lbl_08066d08
 lbl_08066c58:
@@ -2013,7 +2013,7 @@ lbl_08066c58:
 lbl_08066c62:
     ldr r0, lbl_08066c8c @ =0x083ed498
     ldrh r0, [r0, #4]
-    bl sub_080615c8
+    bl CutsceneGetBGVOFSPointer
     adds r1, r0, #0
     ldrh r0, [r1]
     movs r2, #0x80
@@ -2114,18 +2114,18 @@ lbl_08066d28:
 lbl_08066d2a:
     ldr r4, lbl_08066d60 @ =0x083ed498
     ldrh r0, [r4, #0xc]
-    bl sub_080615c8
+    bl CutsceneGetBGVOFSPointer
     adds r5, r0, #0
     ldrh r6, [r4, #4]
     adds r0, r6, #0
-    bl sub_080615c8
+    bl CutsceneGetBGVOFSPointer
     ldrh r0, [r0]
     strh r0, [r5]
     ldrh r0, [r4, #0x14]
-    bl sub_080615c8
+    bl CutsceneGetBGVOFSPointer
     adds r4, r0, #0
     adds r0, r6, #0
-    bl sub_080615c8
+    bl CutsceneGetBGVOFSPointer
     ldrh r0, [r0]
     lsrs r0, r0, #1
     strh r0, [r4]
@@ -2545,7 +2545,7 @@ lbl_080670e0:
     movs r1, #0
     movs r2, #8
     movs r3, #1
-    bl sub_08061d68
+    bl CutsceneStartSpriteEffect
     ldr r1, [r5]
     strh r4, [r1, #2]
     b lbl_080672dc
@@ -2892,7 +2892,7 @@ sub_08067390: @ 0x08067390
     beq lbl_080673d2
     ldr r0, lbl_080673dc @ =0x083f0390
     ldrh r0, [r0, #0xc]
-    bl sub_08061578
+    bl CutsceneGetBGHOFSPointer
     adds r1, r0, #0
     ldrh r0, [r1]
     movs r2, #0xac
@@ -2912,7 +2912,7 @@ lbl_080673bc:
 lbl_080673c2:
     ldr r0, lbl_080673dc @ =0x083f0390
     ldrh r0, [r0, #4]
-    bl sub_08061578
+    bl CutsceneGetBGHOFSPointer
     adds r1, r0, #0
     ldrh r0, [r1]
     subs r0, #1
@@ -3356,7 +3356,7 @@ lbl_080676f4:
     strh r0, [r6, #2]
     ldr r0, lbl_0806774c @ =0x083f0390
     ldrh r0, [r0, #4]
-    bl sub_08061578
+    bl CutsceneGetBGHOFSPointer
     ldrh r1, [r0]
     movs r2, #2
     ldrsh r0, [r4, r2]
@@ -3617,7 +3617,7 @@ lbl_080678ea:
     strb r0, [r4, #0xd]
     ldr r0, lbl_08067940 @ =0x083f0390
     ldrh r0, [r0, #4]
-    bl sub_08061578
+    bl CutsceneGetBGHOFSPointer
     ldrh r1, [r0]
     movs r2, #2
     ldrsh r0, [r4, r2]
@@ -4284,7 +4284,7 @@ sub_08067e84: @ 0x08067e84
     beq lbl_08067eb8
     ldr r0, lbl_08067eb4 @ =0x083f6c0c
     ldrh r0, [r0, #4]
-    bl sub_08061578
+    bl CutsceneGetBGHOFSPointer
     ldrh r1, [r0]
     adds r1, #4
     b lbl_08067ec4
@@ -4293,7 +4293,7 @@ lbl_08067eb4: .4byte 0x083f6c0c
 lbl_08067eb8:
     ldr r0, lbl_08067ecc @ =0x083f6c0c
     ldrh r0, [r0, #4]
-    bl sub_08061578
+    bl CutsceneGetBGHOFSPointer
     ldrh r1, [r0]
     subs r1, #4
 lbl_08067ec4:

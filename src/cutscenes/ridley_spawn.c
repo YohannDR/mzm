@@ -37,7 +37,7 @@ u8 RidleySpawnRidleyFlyingIn(void)
             CUTSCENE_DATA.oam[0].xPosition = sRidleySpawnRidleyPositions[1].x;
             CUTSCENE_DATA.oam[0].yPosition = sRidleySpawnRidleyPositions[1].y;
 
-            CUTSCENE_DATA.oam[0].unk_C_4 = TRUE;
+            CUTSCENE_DATA.oam[0].rotationScaling = TRUE;
             CUTSCENE_DATA.oam[0].notDrawn = FALSE;
             CUTSCENE_DATA.oam[0].priority = 0;
             CUTSCENE_DATA.oam[0].unk_B_4 = FALSE;
@@ -140,7 +140,7 @@ u8 RidleySpawnHelmetReflection(void)
             CUTSCENE_DATA.oam[0].yPosition = sRidleySpawnRidleyPositions[0].y;
 
             CUTSCENE_DATA.oam[0].priority = sRidleySpawnPageData[2].priority;
-            CUTSCENE_DATA.oam[0].unk_C_4 = TRUE;
+            CUTSCENE_DATA.oam[0].rotationScaling = TRUE;
             CUTSCENE_DATA.oam[0].unk_B_4 = TRUE;
 
             gCurrentOamScaling = 0x40;
@@ -256,7 +256,7 @@ u8 RidleySpawnInit(void)
     CUTSCENE_DATA.oam[0].xPosition = sRidleySpawnRidleyPositions[2].x;
     CUTSCENE_DATA.oam[0].yPosition = sRidleySpawnRidleyPositions[2].y;
     CUTSCENE_DATA.oam[0].priority = sRidleySpawnPageData[0].priority;
-    CUTSCENE_DATA.oam[0].unk_C_4 = TRUE;
+    CUTSCENE_DATA.oam[0].rotationScaling = TRUE;
     CUTSCENE_DATA.oam[0].unk_B_4 = TRUE;
 
     gCurrentOamScaling = 0x100;

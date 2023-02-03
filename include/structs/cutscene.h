@@ -35,7 +35,7 @@ struct CutscenePageData {
     u8 tiletablePage;
     u8 priority;
     u16 bg;
-    u16 unk_6;
+    u16 screenSize;
 };
 
 struct CutsceneScreenShakeInfo {
@@ -45,7 +45,9 @@ struct CutsceneScreenShakeInfo {
 };
 
 struct CutsceneScrollingInfo {
-    u32 data[2];
+    u16 unk_0;
+    i16 unk_2;
+    u32 unk_4;
 };
 
 struct CutsceneInfo {
@@ -120,9 +122,9 @@ struct CutsceneOamData {
     u8 ended:1;
     u8 notDrawn:1;
     u8 idChanged:2;
-    u8 unk_C_0:2;
-    u8 unk_C_2:2;
-    u8 unk_C_4:1;
+    u8 unk_C_0:4;
+    u8 rotationScaling:1;
+    u8 unk_C_5:1;
     u8 unk_D;
     i16 unk_E;
     i16 unk_10;
