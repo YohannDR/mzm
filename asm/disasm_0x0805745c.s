@@ -25921,7 +25921,7 @@ sub_0806444c: @ 0x0806444c
     ldr r1, lbl_08064494 @ =0x03000c06
     ldrh r1, [r1]
     movs r2, #0
-    bl calculate_oam_part4
+    bl CalculateOamPart4
     pop {r0}
     bx r0
     .align 2, 0

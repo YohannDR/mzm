@@ -4131,7 +4131,7 @@ sub_08067d40: @ 0x08067d40
     ldr r1, lbl_08067d88 @ =0x03000c06
     ldrh r1, [r1]
     movs r2, #0
-    bl calculate_oam_part4
+    bl CalculateOamPart4
     pop {r0}
     bx r0
     .align 2, 0
@@ -8197,7 +8197,7 @@ lbl_08069cc0:
     mov r0, sl
     mov r1, r8
     adds r2, r7, #0
-    bl process_complex_oam
+    bl ProcessComplexOam
     b lbl_08069d58
     .align 2, 0
 lbl_08069d0c: .4byte 0x03005807
@@ -8685,7 +8685,7 @@ lbl_0806a078:
     mov r0, sl
     mov r1, r8
     adds r2, r7, #0
-    bl process_complex_oam
+    bl ProcessComplexOam
     b lbl_0806a110
     .align 2, 0
 lbl_0806a0c4: .4byte 0x03005807
@@ -52779,8 +52779,8 @@ lbl_0807fd58: .4byte 0x03000c77
 lbl_0807fd5c: .4byte 0x03001694
 lbl_0807fd60: .4byte 0x03001604
 
-    thumb_func_start process_complex_oam
-process_complex_oam: @ 0x080process_complex_oam
+    thumb_func_start ProcessComplexOam
+ProcessComplexOam: @ 0x0807fd64
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -53032,8 +53032,8 @@ lbl_0807ff2c:
     .align 2, 0
 lbl_0807ff54: .4byte 0x03000e7c
 
-    thumb_func_start calculate_oam_part4
-calculate_oam_part4: @ 0x080calculate_oam_part4
+    thumb_func_start CalculateOamPart4
+CalculateOamPart4: @ 0x0807ff58
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

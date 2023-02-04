@@ -470,5 +470,5 @@ void RidleyLandingProcessOAM(void)
 
     process_cutscene_oam(sRidleyLandingSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleyLandingCutsceneOAM);
     ResetFreeOAM();
-    calculate_oam_part4(gCurrentOamRotation, gCurrentOamScaling, 0);
+    CalculateOamPart4(gCurrentOamRotation, gCurrentOamScaling, 0);
 }

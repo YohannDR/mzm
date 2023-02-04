@@ -955,7 +955,7 @@ lbl_08081910:
     asrs r1, r2, #0x10
     asrs r2, r6, #0x10
     movs r3, #0
-    bl process_complex_oam
+    bl ProcessComplexOam
     adds r0, r7, #1
     lsls r0, r0, #0x10
     lsrs r7, r0, #0x10
@@ -969,7 +969,7 @@ lbl_08081954:
     ldrsh r1, [r0, r3]
     movs r0, #0
     movs r2, #0
-    bl calculate_oam_part4
+    bl CalculateOamPart4
 lbl_08081966:
     ldr r0, lbl_08081ac8 @ =0x08754bc4
     ldr r2, [r0]
@@ -1027,7 +1027,7 @@ lbl_0808199e:
     asrs r1, r2, #0x10
     asrs r2, r6, #0x10
     movs r3, #0
-    bl process_complex_oam
+    bl ProcessComplexOam
     adds r0, r7, #1
     lsls r0, r0, #0x10
     lsrs r7, r0, #0x10
@@ -1041,7 +1041,7 @@ lbl_080819e2:
     ldrsh r1, [r0, r3]
     movs r0, #0
     movs r2, #0x10
-    bl calculate_oam_part4
+    bl CalculateOamPart4
 lbl_080819f4:
     movs r0, #4
     mov r8, r0
@@ -13334,7 +13334,7 @@ lbl_08087d38:
     asrs r1, r2, #0x10
     asrs r2, r7, #0x10
     movs r3, #0
-    bl process_complex_oam
+    bl ProcessComplexOam
     adds r0, r6, #1
     lsls r0, r0, #0x10
     lsrs r6, r0, #0x10
@@ -13348,7 +13348,7 @@ lbl_08087d7c:
     ldrsh r1, [r0, r7]
     movs r0, #0
     movs r2, #0
-    bl calculate_oam_part4
+    bl CalculateOamPart4
 lbl_08087d8e:
     movs r3, #1
 lbl_08087d90:
