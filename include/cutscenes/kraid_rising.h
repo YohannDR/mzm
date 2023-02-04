@@ -24,4 +24,4 @@ u8 KraidRisingInit(void);
 u8 KraidRisingSubroutine(void);
 void KraidRisingProcessOAM(void);
 
-#endif
+#endif /* KRAID_RISING_CUTSCENE */

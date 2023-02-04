@@ -3,6 +3,7 @@
 #include "syscall_wrappers.h"
 
 #include "data/cutscenes/cutscenes_data.h"
+#include "data/cutscenes/internal_mecha_sees_samus_data.h"
 #include "data/cutscenes/mecha_sees_samus_data.h"
 #include "data/shortcut_pointers.h"
 

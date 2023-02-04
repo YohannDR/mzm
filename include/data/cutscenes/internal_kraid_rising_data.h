@@ -1,5 +1,5 @@
-#ifndef KRAID_RISING_DATA_H
-#define KRAID_RISING_DATA_H
+#ifndef INTERNAL_KRAID_RISING_DATA_H
+#define INTERNAL_KRAID_RISING_DATA_H
 
 #include "types.h"
 #include "structs/cutscene.h"
@@ -14,4 +14,4 @@ extern const struct CutsceneSubroutineData sKraidRisingSubroutineData[4];
 
 // 75fee0
 
-#endif /* KRAID_RISING_DATA_H */
+#endif /* INTERNAL_KRAID_RISING_DATA_H */

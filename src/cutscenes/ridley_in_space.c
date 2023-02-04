@@ -5,6 +5,7 @@
 #include "data/shortcut_pointers.h"
 #include "data/cutscenes/cutscenes_data.h"
 #include "data/cutscenes/ridley_in_space_data.h"
+#include "data/cutscenes/internal_ridley_in_space_data.h"
 
 #include "constants/audio.h"
 #include "constants/cutscene.h"
@@ -41,7 +42,7 @@ u8 RidleyInSpaceShipLeaving(void)
             CUTSCENE_DATA.oam[2].xPosition = sRidleyInSpaceShipLeavingPosition.x;
             CUTSCENE_DATA.oam[2].yPosition = sRidleyInSpaceShipLeavingPosition.y;
             CUTSCENE_DATA.oam[2].rotationScaling = TRUE;
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[2], 4);
+            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[2], RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP_LEAVING_BACK);
 
             CUTSCENE_DATA.dispcnt = sRidleyInSpacePageData[0].bg | DCNT_OBJ;
 
@@ -58,9 +59,9 @@ u8 RidleyInSpaceShipLeaving(void)
                 CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[(gFrameCounter8Bit * i) & 0xFF];
 
                 if (CUTSCENE_DATA.oam[i].unk_12 & 1)
-                    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], 9);
+                    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE);
                 else
-                    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], 10);
+                    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE2);
             }
             CUTSCENE_DATA.timeInfo.timer = 0;
             CUTSCENE_DATA.timeInfo.subStage++;
@@ -153,7 +154,7 @@ void RidleyInSpaceUpdateShipLeaving(struct CutsceneOamData* pOam)
 
         if (pOam->unk_D == 0)
         {
-            pOam->oamID = 5;
+            pOam->oamID = RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP_LEAVING_FRONT;
             gCurrentOamScaling = 0x100;
             pOam->xPosition = 0x4C0;
             pOam->yPosition = 0x78;
@@ -467,7 +468,7 @@ void RidleyInSpaceUpdateViewOfShip(struct CutsceneOamData* pOam)
     pOam->unk_18++;
 
     if (!(pOam->unk_18 & 0x1F))
-        pOam->yPosition += sRidleyInSpace_75ff80[((u16)pOam->unk_18 >> 5) & 7];
+        pOam->yPosition += RidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 5) & 7];
 }
 
 void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam)
@@ -502,7 +503,7 @@ void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam)
     pOam->unk_18++;
 
     if (!(pOam->unk_18 & 0xF))
-        pOam->yPosition += sRidleyInSpace_75ff80[((u16)pOam->unk_18 >> 4) & 7];
+        pOam->yPosition += RidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 4) & 7];
 }
 
 /**
@@ -530,7 +531,7 @@ void RidleyInSpaceUpdateLeftBlueShip(struct CutsceneOamData* pOam)
     pOam->unk_18++;
 
     if (!(pOam->unk_18 & 0xF))
-        pOam->yPosition += sRidleyInSpace_75ff80[((u16)pOam->unk_18 >> 4) & 7];
+        pOam->yPosition += RidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 4) & 7];
 }
 
 /**
@@ -566,9 +567,9 @@ u8 RidleyInSpaceInit(void)
     CUTSCENE_DATA.oam[2].xPosition = sRidleyInSpaceShipsStartPosition[2].x;
     CUTSCENE_DATA.oam[2].yPosition = sRidleyInSpaceShipsStartPosition[2].y;
 
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], 1);
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], 2);
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[2], 3);
+    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_IN_SPACE_OAM_ID_LEFT_BLUE_SHIP);
+    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], RIDLEY_IN_SPACE_OAM_ID_RIGHT_BLUE_SHIP);
+    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[2], RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP);
 
     PlayMusic(MUSIC_RIDLEY_IN_SPACE, 0);
     SoundPlay(0x28D);
@@ -639,7 +640,7 @@ void RidleyInSpaceViewOfShipParticles(void)
             if (CUTSCENE_DATA.timeInfo.unk_6 & 2)
                 CUTSCENE_DATA.oam[i].yPosition = BLOCK_SIZE * 10 - CUTSCENE_DATA.oam[i].yPosition;
 
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], 6);
+            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_VIEW_OF_SHIP_PARTICLE);
             CUTSCENE_DATA.timeInfo.unk_6++;
             break;
         }
@@ -661,6 +662,8 @@ void RidleyInSpaceViewOfShipParticles(void)
 
 u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
 {
+    // https://decomp.me/scratch/BWCTd
+
     u32 oamId;
     i32 divisor;
     u32 xPosition;
@@ -681,7 +684,7 @@ u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
     else if (pOam->timer < 100)
     {
         if (pOam->timer == 0x19 || pOam->timer == 0x32 || pOam->timer == 0x46)
-            oamId = 8;
+            oamId = RIDLEY_IN_SPACE_OAM_ID_VIEW_OF_SHIP_PARTICLE2;
 
         divisor = -pOam->unk_12 + 0x64;
         xPosition = pOam->unk_E / divisor;
@@ -731,9 +734,9 @@ void RidleyInSpaceShipLeavingParticles(void)
                 CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[i * gFrameCounter8Bit & 0xFF];
 
                 if (CUTSCENE_DATA.oam[i].unk_12 & 1)
-                    newY = 9;
+                    newY = RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE;
                 else
-                    newY = 10;
+                    newY = RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE2;
 
                 update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], newY);
             }

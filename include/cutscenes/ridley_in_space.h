@@ -4,6 +4,16 @@
 #include "types.h"
 #include "structs/cutscene.h"
 
+#define RIDLEY_IN_SPACE_OAM_ID_LEFT_BLUE_SHIP 1
+#define RIDLEY_IN_SPACE_OAM_ID_RIGHT_BLUE_SHIP 2
+#define RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP 3
+#define RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP_LEAVING_BACK 4
+#define RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP_LEAVING_FRONT 5
+#define RIDLEY_IN_SPACE_OAM_ID_VIEW_OF_SHIP_PARTICLE 6
+#define RIDLEY_IN_SPACE_OAM_ID_VIEW_OF_SHIP_PARTICLE2 8
+#define RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE 9
+#define RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE2 10
+
 u8 RidleyInSpaceShipLeaving(void);
 void RidleyInSpaceUpdateShipLeaving(struct CutsceneOamData* pOam);
 u8 RidleyInSpaceRidleySuspicious(void);

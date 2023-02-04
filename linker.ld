@@ -507,6 +507,11 @@ SECTIONS {
         src/data/hatch_data.o(.rodata);
         /* 3602e8-36bdac */
         src/data/cutscenes/cutscenes_data.o(.rodata);
+        src/data/cutscenes/kraid_rising_data.o(.rodata);
+        src/data/cutscenes/ridley_in_space_data.o(.rodata);
+        src/data/cutscenes/ridley_landing_data.o(.rodata);
+        src/data/cutscenes/ridley_spawn_data.o(.rodata);
+        src/data/cutscenes/mecha_sees_samus_data.o(.rodata);
         /* 3c63f0-45f45c */
         src/data/intro_data.o(.rodata);
         /* 479400-754bb4 */
@@ -516,9 +521,9 @@ SECTIONS {
         src/data/frame_data_pointers.o(.rodata);
         src/data/engine_pointers.o(.rodata);
         /* 75fdfc-75ffb8 */
-        src/data/cutscenes/ridley_landing_data.o(.rodata);
-        src/data/cutscenes/ridley_spawn_data.o(.rodata);
-        src/data/cutscenes/mecha_sees_samus_data.o(.rodata);
+        src/data/cutscenes/internal_ridley_landing_data.o(.rodata);
+        src/data/cutscenes/internal_ridley_spawn_data.o(.rodata);
+        src/data/cutscenes/internal_mecha_sees_samus_data.o(.rodata);
         /* 76002c-7f7734 */
     } >rom
 }

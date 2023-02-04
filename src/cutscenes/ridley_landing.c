@@ -4,6 +4,7 @@
 
 #include "data/cutscenes/cutscenes_data.h"
 #include "data/cutscenes/ridley_landing_data.h"
+#include "data/cutscenes/internal_ridley_landing_data.h"
 #include "data/shortcut_pointers.h"
 
 #include "constants/audio.h"

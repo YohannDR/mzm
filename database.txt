@@ -656,6 +656,30 @@ cutscenes/KraidRising/KraidCloseUpEyesOpened.tt;368;0x373cf8;4
 cutscenes/KraidRising/KraidRising.tt;295;0x3742b8;4
 cutscenes/KraidRising/CaveBackground.tt;370;0x374754;4
 
+# Ridley in space
+
+cutscenes/RidleyInSpace/Ship.gfx.lz;1565;0x387088;4
+cutscenes/RidleyInSpace/RidleySitting.gfx.lz;3848;0x3888fc;4
+cutscenes/RidleyInSpace/ShipInterior.gfx.lz;4391;0x38c51c;4
+cutscenes/RidleyInSpace/RidleySuspicious.gfx.lz;1961;0x3909b8;4
+cutscenes/RidleyInSpace/ShipInterior2.gfx.lz;4235;0x39285c;4
+cutscenes/RidleyInSpace/MotherShipLeaving.gfx.lz;1497;0x396a88;4
+cutscenes/RidleyInSpace/SpaceBackground.gfx.lz;5470;0x3981ec;4
+
+cutscenes/RidleyInSpace/Ships.pal;48;0x39d8b0;2
+cutscenes/RidleyInSpace/39d910.pal;96;0x39d910;2
+cutscenes/RidleyInSpace/RedAlert.pal;96;0x39d9d0;2
+cutscenes/RidleyInSpace/ShipInterior.pal;240;0x39da90;2
+cutscenes/RidleyInSpace/39dc70.pal;48;0x39dc70;2
+cutscenes/RidleyInSpace/SpaceBackground.pal;80;0x39dcd0;2
+
+cutscenes/RidleyInSpace/RidleySitting.tt;449;0x39dd70;4
+cutscenes/RidleyInSpace/ShipInterior.tt;559;0x39e474;4
+cutscenes/RidleyInSpace/RidleySuspiciousEyesOpen.tt;287;0x39ed30;4
+cutscenes/RidleyInSpace/RidleySuspiciousSquintedEyes.tt;287;0x39f1ac;4
+cutscenes/RidleyInSpace/ShipInterior2.tt;385;0x39f628;4
+cutscenes/RidleyInSpace/SPaceBackground.tt;577;0x39fc2c;4
+
 # Ridley landing
 
 cutscenes/RidleyLanding/3a09d4.pal;144;0x3a09d4;2
@@ -721,7 +745,7 @@ Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
 Blob_345d00_360130.bin;107568;0x345d00;1
 Blob_3602e8_36bdac.bin;47812;0x3602e8;1
-Blob_374d1c_3a0530.bin;178196;0x374d1c;1
+Blob_374d1c_386f60.bin;74308;0x374d1c;1
 Blob_3c63f0_45f45c.bin;626796;0x3c63f0;1
 Blob_479400_754bb4.bin;2996148;0x479400;1
 Blob_754bd0_75e6a8.bin;39640;0x754bd0;1

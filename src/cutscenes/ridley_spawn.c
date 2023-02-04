@@ -2,7 +2,8 @@
 #include "cutscenes/cutscene_utils.h"
 
 #include "data/shortcut_pointers.h"
-#include "data/cutscenes/ridley_spawn.h"
+#include "data/cutscenes/ridley_spawn_data.h"
+#include "data/cutscenes/internal_ridley_spawn_data.h"
 #include "data/cutscenes/cutscenes_data.h"
 
 #include "constants/audio.h"
