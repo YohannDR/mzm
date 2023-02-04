@@ -7,7 +7,8 @@
 u8 RidleyInSpaceShipLeaving(void);
 void RidleyInSpaceUpdateShipLeaving(struct CutsceneOamData* pOam);
 u8 RidleyInSpaceRidleySuspicious(void);
-void RidleyInSpaceUpdateAlertPalette(struct CutsceneGraphicsData* pGraphics);
+u8 RidleyInSpaceRedAlert(void);
+void RidleyInSpaceUpdateAlertPalette(struct CutscenePaletteData* pPalette);
 u8 RidleyInSpaceViewOfShip(void);
 void RidleyInSpaceUpdateViewOfShip(struct CutsceneOamData* pOam);
 void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam);

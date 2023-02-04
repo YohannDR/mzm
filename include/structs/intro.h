@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-#define INTRO_DATA sNonGameplayRAMPointer->intro
+#define INTRO_DATA sNonGameplayRamPointer->intro
 
 struct IntroData {
     u8 stage; // 0

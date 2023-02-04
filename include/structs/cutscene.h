@@ -85,6 +85,13 @@ struct CutsceneScrolling {
     i8 unk_8;
 };
 
+struct CutscenePaletteData {
+    u8 active;
+    u8 timer;
+    u8 paletteRow;
+    u8 maxTimer;
+};
+
 struct CutsceneGraphicsData {
     u8 active;
     u8 paletteStage;
@@ -151,7 +158,7 @@ struct CutsceneData {
     u8 unk_9;
     u8 unk_A;
     u8 unk_B;
-    struct CutsceneGraphicsData graphicsData1;
+    struct CutscenePaletteData paletteData[4];
     u16 dispcnt;
     u16 bldcnt;
     u16 bgcnt[4];
@@ -174,7 +181,7 @@ struct CutsceneData {
     u8 unk_BD;
     u8 unk_BE;
     u8 unk_BF;
-    struct CutsceneGraphicsData graphicsData2[3];
+    struct CutsceneGraphicsData graphicsData[3];
     struct CutsceneOamData oam[30];
 };
 

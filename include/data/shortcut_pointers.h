@@ -8,7 +8,7 @@ extern void* sEwramPointer;
 extern void* sBgPalramPointer;
 extern void* sObjPalramPointer;
 extern u32** sVisitedMinimapTilesPointer;
-extern union NonGameplayRAM* sNonGameplayRAMPointer;
+extern union NonGameplayRAM* sNonGameplayRamPointer;
 extern void* sSramEwramPointer;
 extern void* sSramFlashPointer;
 

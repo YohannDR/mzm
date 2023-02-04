@@ -79,7 +79,7 @@ u8 KraidRisingRising(void)
         case 3:
             if (!CutsceneCheckBackgroundScrollingActive(sKraidRisingPagesData[2].bg))
             {
-                CutsceneStartBackgroundScrolling(sKraidRisingScrollingData, sKraidRisingPagesData[2].bg);
+                CutsceneStartBackgroundScrolling(sKraidRisingScrollingInfo, sKraidRisingPagesData[2].bg);
                 CUTSCENE_DATA.timeInfo.subStage++;
                 CUTSCENE_DATA.timeInfo.timer = 0;
             }

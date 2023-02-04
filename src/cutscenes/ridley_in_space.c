@@ -14,14 +14,167 @@
 
 void update_cutscene_oam_data_id(struct CutsceneOamData*, u8);
 
+/**
+ * @brief 63884 | 298 | Handles the ship leaving part
+ * 
+ * @return u8 FALSE
+ */
 u8 RidleyInSpaceShipLeaving(void)
 {
+    i32 i;
 
+    switch (CUTSCENE_DATA.timeInfo.subStage)
+    {
+        case 0:
+            DMATransfer(3, sRidleyInSpaceSpaceBackgroundPAL, PALRAM_BASE, sizeof(sRidleyInSpaceSpaceBackgroundPAL), 0x10);
+            write16(PALRAM_BASE, 0);
+
+            CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundGFX, VRAM_BASE + sRidleyInSpacePageData[0].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundTileTable, VRAM_BASE + sRidleyInSpacePageData[0].tiletablePage * 0x800);
+
+            DMATransfer(3, sRidleyInSpace_39dc70_PAL, PALRAM_BASE + 0x200, sizeof(sRidleyInSpace_39dc70_PAL), 0x10);
+            CallLZ77UncompVRAM(sRidleyInSpaceMotherShipLeavingGFX, VRAM_BASE + 0x10000);
+
+            CutsceneSetBGCNTPageData(sRidleyInSpacePageData[0]);
+            CutsceneReset();
+
+            CUTSCENE_DATA.oam[2].xPosition = sRidleyInSpaceShipLeavingPosition.x;
+            CUTSCENE_DATA.oam[2].yPosition = sRidleyInSpaceShipLeavingPosition.y;
+            CUTSCENE_DATA.oam[2].rotationScaling = TRUE;
+            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[2], 4);
+
+            CUTSCENE_DATA.dispcnt = sRidleyInSpacePageData[0].bg | DCNT_OBJ;
+
+            for (i = 3; i < 13; i++)
+            {
+                CUTSCENE_DATA.oam[i].unk_D = 0;
+                CUTSCENE_DATA.oam[i].xPosition = sRandomNumberTable[gFrameCounter8Bit & i] * 4;
+                CUTSCENE_DATA.oam[i].yPosition = sRandomNumberTable[(gFrameCounter8Bit + i) & 0xFF] * 4;
+
+                if (CUTSCENE_DATA.oam[i].yPosition >= BLOCK_SIZE * 10)
+                    continue;
+
+                CUTSCENE_DATA.oam[i].timer = 0;
+                CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[(gFrameCounter8Bit * i) & 0xFF];
+
+                if (CUTSCENE_DATA.oam[i].unk_12 & 1)
+                    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], 9);
+                else
+                    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], 10);
+            }
+            CUTSCENE_DATA.timeInfo.timer = 0;
+            CUTSCENE_DATA.timeInfo.subStage++;
+            break;
+
+        case 1:
+            if (CUTSCENE_DATA.timeInfo.timer > 60)
+            {
+                SoundPlay(0x28E);
+                CUTSCENE_DATA.oam[2].unk_D = 3;
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+            }
+            break;
+
+        case 2:
+            if (CUTSCENE_DATA.oam[2].unk_D == 0)
+            {
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+            }
+            break;
+
+        case 3:
+            if (CUTSCENE_DATA.timeInfo.timer > 60 * 2)
+            {
+                CUTSCENE_DATA.oam[2].unk_D = 12;
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+            }
+            break;
+
+        case 4:
+            if (CUTSCENE_DATA.oam[2].unk_D == 0)
+            {
+                CUTSCENE_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ);
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+            }
+            break;
+
+        case 5:
+            if (CUTSCENE_DATA.timeInfo.timer > 60 * 2)
+            {
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+            }
+            break;
+
+        case 6:
+            unk_61f0c();
+            CUTSCENE_DATA.timeInfo.stage++;
+            MACRO_CUTSCENE_NEXT_STAGE();
+            break;
+    }
+
+    RidleyInSpaceShipLeavingParticles();
+    (*CutsceneGetBGHOFSPointer(sRidleyInSpacePageData[0].bg)) += 2;
+    RidleyInSpaceUpdateShipLeaving(&CUTSCENE_DATA.oam[2]);
+
+    return FALSE;
 }
 
+/**
+ * @brief 63b1c | c4 | Updates the ship leaving object
+ * 
+ * @param pOam Cutscene OAM data pointer
+ */
 void RidleyInSpaceUpdateShipLeaving(struct CutsceneOamData* pOam)
 {
+    if (pOam->unk_D & 3)
+    {
+        if (pOam->unk_D & 1)
+        {
+            pOam->xPosition += 8;
+            if (pOam->xPosition > 0x4E0)
+                pOam->unk_D = 0;
+        }
 
+        if (pOam->unk_D & 2)
+        {
+            pOam->unk_18++;
+            pOam->unk_10 = -3;
+
+            pOam->yPosition += pOam->unk_10;
+
+            if (pOam->yPosition < -0x70)
+                pOam->unk_D = 0;
+        }
+
+        if (pOam->unk_D == 0)
+        {
+            pOam->oamID = 5;
+            gCurrentOamScaling = 0x100;
+            pOam->xPosition = 0x4C0;
+            pOam->yPosition = 0x78;
+        }
+    }
+    else if (pOam->unk_D & 0xC)
+    {
+        if (pOam->unk_D & 4)
+            pOam->xPosition -= 16;
+
+        pOam->unk_10 = 0;
+        if (gCurrentOamScaling < 0x200)
+        {
+            gCurrentOamScaling += 8;
+            if (gCurrentOamScaling < 0x200)
+                return;
+        }
+        
+        gCurrentOamScaling = 0x200;
+        pOam->unk_D = 0;
+    }
 }
 
 /**
@@ -95,9 +248,114 @@ u8 RidleyInSpaceRidleySuspicious(void)
     return FALSE;
 }
 
-void RidleyInSpaceUpdateAlertPalette(struct CutsceneGraphicsData* pGraphics)
+/**
+ * @brief 63d90 | 1c4 | Handles the red alert part
+ * 
+ * @return u8 FALSE
+ */
+u8 RidleyInSpaceRedAlert(void)
 {
+    u8 scrollStatus;
 
+    switch (CUTSCENE_DATA.timeInfo.subStage)
+    {
+        case 0:
+            DMATransfer(3, sRidleyInSpace_39d910_PAL, PALRAM_BASE, sizeof(sRidleyInSpace_39d910_PAL), 0x10);
+            write16(PALRAM_BASE, 0);
+
+            CallLZ77UncompVRAM(sRidleyInSpaceShipInteriorTileTable, VRAM_BASE + sRidleyInSpacePageData[1].tiletablePage * 0x800);
+            CallLZ77UncompVRAM(sRidleyInSpaceShipInteriorGFX, VRAM_BASE + sRidleyInSpacePageData[1].graphicsPage * 0x4000);
+
+            CallLZ77UncompVRAM(sRidleyInSpaceRidleySittingGFX, VRAM_BASE + sRidleyInSpacePageData[2].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sRidleyInSpaceRidleySittingTileTable, VRAM_BASE + sRidleyInSpacePageData[2].tiletablePage * 0x800);
+
+            CutsceneSetBGCNTPageData(sRidleyInSpacePageData[1]);
+            CutsceneSetBGCNTPageData(sRidleyInSpacePageData[2]);
+
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sRidleyInSpacePageData[1].bg, 0x800);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[1].bg, 0xA80);
+
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sRidleyInSpacePageData[2].bg, 0x800);
+            CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_VOFS, sRidleyInSpacePageData[2].bg, 0xA80);
+
+            CutsceneReset();
+            CUTSCENE_DATA.dispcnt = sRidleyInSpacePageData[1].bg | sRidleyInSpacePageData[2].bg;
+            CUTSCENE_DATA.timeInfo.timer = 0;
+            CUTSCENE_DATA.timeInfo.subStage++;
+            break;
+
+        case 1:
+            if (CUTSCENE_DATA.timeInfo.timer > 40)
+            {
+                CUTSCENE_DATA.paletteData[0] = sRidleyInSpacePaletteData;
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+            }
+            break;
+
+        case 2:
+            if (CUTSCENE_DATA.timeInfo.timer > 60)
+            {
+                CutsceneStartBackgroundScrolling(sRidleyInSpaceScrollingInfo[0], sRidleyInSpacePageData[1].bg);
+                CutsceneStartBackgroundScrolling(sRidleyInSpaceScrollingInfo[0], sRidleyInSpacePageData[2].bg);
+
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+            }
+            break;
+
+        case 3:
+            scrollStatus = CutsceneCheckBackgroundScrollingActive(sRidleyInSpacePageData[1].bg);
+            if (scrollStatus == 0)
+            {
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+            }
+            break;
+
+        case 4:
+            if (CUTSCENE_DATA.timeInfo.timer > 60)
+            {
+                CUTSCENE_DATA.timeInfo.timer = 0;
+                CUTSCENE_DATA.timeInfo.subStage++;
+            }
+            break;
+
+        case 5:
+            unk_61f0c();
+            CUTSCENE_DATA.timeInfo.stage++;
+            MACRO_CUTSCENE_NEXT_STAGE();
+            break;
+    }
+
+    RidleyInSpaceUpdateAlertPalette(&CUTSCENE_DATA.paletteData[0]);
+    return FALSE;
+}
+
+/**
+ * @brief 63f54 | 60 | Updates the red alert palette
+ * 
+ * @param pPalette Cutscene palette data pointer
+ */
+void RidleyInSpaceUpdateAlertPalette(struct CutscenePaletteData* pPalette)
+{
+    if (!(pPalette->active & TRUE))
+        return;
+
+    if (pPalette->timer != 0)
+    {
+        pPalette->timer--;
+        return;
+    }
+
+    pPalette->timer = pPalette->maxTimer;
+    pPalette->paletteRow++;
+
+    if (pPalette->paletteRow >= ARRAY_SIZE(sRidleyInSpaceRedAlertPaletteRows))
+        pPalette->paletteRow = 0;
+
+    DMATransfer(3, &sRidleyInSpaceRedAlertPAL[sRidleyInSpaceRedAlertPaletteRows[pPalette->paletteRow] * 16],
+        PALRAM_BASE + 0xA0, 16 * 2, 0x10);
 }
 
 /**
@@ -187,19 +445,92 @@ u8 RidleyInSpaceViewOfShip(void)
     return FALSE;
 }
 
+/**
+ * @brief 64168 | 64 | Updates the mother ship during the view of ship part
+ * 
+ * @param pOam Cutscene OAM data pointer
+ */
 void RidleyInSpaceUpdateViewOfShip(struct CutsceneOamData* pOam)
 {
+    if (pOam->unk_D & 2)
+    {
+        if (pOam->yPosition < BLOCK_SIZE * 2)
+            pOam->unk_10 = 2;
+        else
+            pOam->unk_10 = 1;
 
+        pOam->yPosition += pOam->unk_10;
+        if (pOam->yPosition > 0xDF)
+            pOam->unk_D = 0;
+    }
+
+    pOam->unk_18++;
+
+    if (!(pOam->unk_18 & 0x1F))
+        pOam->yPosition += sRidleyInSpace_75ff80[((u16)pOam->unk_18 >> 5) & 7];
 }
 
 void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam)
 {
+    // https://decomp.me/scratch/KYgw3
 
+    i32 yVelocity;
+    
+    if (pOam->unk_D & 1)
+    {
+        pOam->unk_E = -2;
+        pOam->xPosition += pOam->unk_E;
+
+        if (pOam->xPosition <= 0x2D0)
+        {
+            pOam->unk_D = 0;
+            pOam->unk_18 = 0;
+        }
+    }
+
+    if (pOam->unk_D & 2)
+    {
+        if (pOam->unk_18 & 1)
+            yVelocity = -1;
+        else
+            yVelocity = 0;
+
+        pOam->unk_10 = yVelocity;
+        pOam->yPosition += pOam->unk_10;
+    }
+
+    pOam->unk_18++;
+
+    if (!(pOam->unk_18 & 0xF))
+        pOam->yPosition += sRidleyInSpace_75ff80[((u16)pOam->unk_18 >> 4) & 7];
 }
 
+/**
+ * @brief 6424c | 70 | Updates the left blue ship during the view of ship part
+ * 
+ * @param pOam 
+ */
 void RidleyInSpaceUpdateLeftBlueShip(struct CutsceneOamData* pOam)
-{
+{    
+    if (pOam->unk_D & 1)
+    {
+        pOam->unk_E = 2;
+        pOam->xPosition += pOam->unk_E;
 
+        if (pOam->xPosition > 0x10F)
+            pOam->unk_D = 0;
+    }
+
+    if (pOam->unk_D & 2)
+    {
+        pOam->unk_10 = -1;
+        pOam->yPosition += pOam->unk_10;
+    }
+
+    pOam->unk_18++;
+
+    if (!(pOam->unk_18 & 0xF))
+        pOam->yPosition += sRidleyInSpace_75ff80[((u16)pOam->unk_18 >> 4) & 7];
 }
 
 /**
@@ -251,14 +582,33 @@ u8 RidleyInSpaceInit(void)
     return FALSE;
 }
 
+/**
+ * @brief 64418 | 34 | Subroutine for the ridley in space cutscene
+ * 
+ * @return u8 bool, ended
+ */
 u8 RidleyInSpaceSubroutine(void)
 {
+    u8 ended;
 
+    ended = sRidleyInSpaceSubroutineData[CUTSCENE_DATA.timeInfo.stage].pFunction();
+    
+    CutsceneUpdateBackgroundsPosition(TRUE);
+    RidleyInSpaceProcessOAM();
+    return ended;
 }
 
+/**
+ * @brief 6444c | 4c | Processes the OAM for the cutscene
+ * 
+ */
 void RidleyInSpaceProcessOAM(void)
 {
+    gNextOamSlot = 0;
+    process_cutscene_oam(sRidleyInSpaceSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleyInSpaceCutsceneOAM);
 
+    ResetFreeOAM();
+    calculate_oam_part4(gCurrentOamRotation, gCurrentOamScaling, 0);
 }
 
 /**
@@ -311,8 +661,6 @@ void RidleyInSpaceViewOfShipParticles(void)
 
 u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
 {
-    // https://decomp.me/scratch/BWCTd
-
     u32 oamId;
     i32 divisor;
     u32 xPosition;
@@ -341,7 +689,11 @@ u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
         
         pOam->yPosition = pOam->unk_10 / divisor + 0x140;
 
-        if ((u16)(xPosition + 0xC0) > 0x400 || pOam->yPosition > 0x2A0 || pOam->yPosition < -0x20)
+        if ((u16)(xPosition + 0xC0) > 0x400)
+            pOam->idChanged = 0;
+        else if (pOam->yPosition > 0x2A0)
+            pOam->idChanged = 0;
+        else if (pOam->yPosition < -0x20)
             pOam->idChanged = 0;
     }
     else

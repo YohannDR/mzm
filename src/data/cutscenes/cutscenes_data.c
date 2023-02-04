@@ -207,7 +207,7 @@ const struct CutsceneScreenShakeInfo sKraidRisingScreenShakeData = {
     .unk_2 = 0
 };
 
-const struct CutsceneScrollingInfo sKraidRisingScrollingData = {
+const struct CutsceneScrollingInfo sKraidRisingScrollingInfo = {
     .unk_0 = 1,
     .unk_2 = 80,
     .unk_4 = 0x804

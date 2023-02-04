@@ -4,7 +4,7 @@
 #include "types.h"
 #include "structs/menu.h"
 
-#define GAME_OVER_DATA sNonGameplayRAMPointer->gameOver
+#define GAME_OVER_DATA sNonGameplayRamPointer->gameOver
 
 struct GameOverDynamicPalette {
     u16 timer;

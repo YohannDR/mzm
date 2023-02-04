@@ -14,7 +14,7 @@ extern const struct CutscenePageData sKraidRisingPagesData[4];
 
 extern const struct CutsceneScreenShakeInfo sKraidRisingScreenShakeData;
 
-extern const struct CutsceneScrollingInfo sKraidRisingScrollingData;
+extern const struct CutsceneScrollingInfo sKraidRisingScrollingInfo;
 
 extern const struct OamArray sKraidRisingCutsceneOAM[5];
 
@@ -72,9 +72,14 @@ extern const u32 sKraidRisingCaveBackgroundTileTable[370];
 
 // Ridley in space
 
+extern const struct CutsceneScrollingInfo sRidleyInSpaceScrollingInfo[2];
 extern const struct CutscenePageData sRidleyInSpacePageData[6];
+extern const struct CutscenePaletteData sRidleyInSpacePaletteData;
+
+extern const u8 sRidleyInSpaceRedAlertPaletteRows[10];
 
 //...
+extern const struct OamArray sRidleyInSpaceCutsceneOAM[11];
 
 extern const u32 sRidleyInSpaceShipsGFX[1565];
 extern const u32 sRidleyInSpaceRidleySittingGFX[3848];
