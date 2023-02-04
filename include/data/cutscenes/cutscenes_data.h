@@ -70,6 +70,36 @@ extern const u32 sKraidRisingKraidCloseUpEyesOpenedTileTable[368];
 extern const u32 sKraidRisingKraidRisingTileTable[295];
 extern const u32 sKraidRisingCaveBackgroundTileTable[370];
 
+// Ridley in space
+
+extern const struct CutscenePageData sRidleyInSpacePageData[6];
+
+//...
+
+extern const u32 sRidleyInSpaceShipsGFX[1565];
+extern const u32 sRidleyInSpaceRidleySittingGFX[3848];
+extern const u32 sRidleyInSpaceShipInteriorGFX[4391];
+extern const u32 sRidleyInSpaceRidleySuspiciousGFX[1961];
+extern const u32 sRidleyInSpaceShipInterior2GFX[4235];
+extern const u32 sRidleyInSpaceMotherShipLeavingGFX[1497];
+extern const u32 sRidleyInSpaceSpaceBackgroundGFX[5470];
+
+//...
+
+extern const u16 sRidleyInSpaceShipsPAL[3 * 16];
+extern const u16 sRidleyInSpace_39d910_PAL[6 * 16];
+extern const u16 sRidleyInSpaceRedAlertPAL[6 * 16];
+extern const u16 sRidleyInSpaceShipInteriorPAL[15 * 16];
+extern const u16 sRidleyInSpace_39dc70_PAL[3 * 16];
+extern const u16 sRidleyInSpaceSpaceBackgroundPAL[5 * 16];
+
+extern const u32 sRidleyInSpaceRidleySittingTileTable[449];
+extern const u32 sRidleyInSpaceShipInteriorTileTable[559];
+extern const u32 sRidleyInSpaceRidleySuspiciousEyesOpenTileTable[287];
+extern const u32 sRidleyInSpaceRidleySuspiciousEyesSquintedTileTable[287];
+extern const u32 sRidleyInSpaceShipInteriorTileTable2[385];
+extern const u32 sRidleyInSpaceSpaceBackgroundTileTable[577];
+
 // Ridley landing
 
 extern const struct CutscenePageData sRidleyLandingPageData[5];
@@ -77,8 +107,6 @@ extern const struct CutscenePageData sRidleyLandingPageData[5];
 extern const struct CutsceneScrollingInfo sRidleyLandingScrollingInfo[3];
 
 extern const struct OamArray sRidleyLandingCutsceneOAM[11];
-
-//..
 
 extern const u16 sCutscene_3a09d4_PAL[9 * 16];
 extern const u16 sCutsceneZebesPAL[13 * 16];

@@ -129,7 +129,7 @@ struct CutsceneOamData {
     i16 unk_E;
     i16 unk_10;
     i16 unk_12;
-    u16 timer;
+    i16 timer;
     u16 unk_16;
     i16 unk_18;
     u16 unk_1A;
@@ -141,6 +141,8 @@ struct CutsceneTimeInfo {
     u8 stage;
     u16 timer;
     u8 subStage;
+    u8 unk_5;
+    u8 unk_6;
 };
 
 struct CutsceneData {
