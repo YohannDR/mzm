@@ -387,6 +387,8 @@ void MotherBrainCloseUpProcessOAM(void)
 
 void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
 {
+    // https://decomp.me/scratch/DGgzD
+
     struct CutsceneOamData* pOam;
     struct CutsceneOamData* pOam2;
 
