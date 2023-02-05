@@ -1,9 +1,11 @@
-#include "gba.h"
 #include "minimap.h"
+#include "gba.h"
+#include "macros.h"
 
 #include "data/unsorted.h"
 #include "data/shortcut_pointers.h"
 
+#include "constants/connection.h"
 #include "constants/game_state.h"
 #include "constants/minimap.h"
 
@@ -12,6 +14,9 @@
 #include "structs/minimap.h"
 #include "structs/samus.h"
 #include "structs/room.h"
+
+extern const u8 sBossIcons[7][5];
+extern const u16 sMapChunksToUpdate[3];
 
 /**
  * @brief 6c154 | 24 | Updates the minimap
@@ -38,7 +43,7 @@ void MinimapSetTileAsExplored(void)
     if (!gShipLandingFlag)
     {
         offset = gCurrentArea * 32 + gMinimapY; 
-        (*sVisitedMinimapTilesPointer)[offset] |= sExploredMinimapBitFlags[gMinimapX];
+        sVisitedMinimapTilesPointer[offset] |= sExploredMinimapBitFlags[gMinimapX];
     }
 }
 
@@ -377,7 +382,7 @@ u32 MinimapCheckIsTileExplored(u8 xPosition, u8 yPosition)
         mapY = (yPosition - 0x2) / 0xA + gCurrentRoomEntry.mapY;
 
         tileOffset = mapY + offset;
-        return sVisitedMinimapTilesPointer[0][tileOffset] & sExploredMinimapBitFlags[mapX];
+        return sVisitedMinimapTilesPointer[tileOffset] & sExploredMinimapBitFlags[mapX];
     }
 }
 
@@ -388,5 +393,129 @@ void MinimapLoadTilesWithObtainedItems(void)
 
 void MinimapUpdateChunk(u8 event)
 {
+    // https://decomp.me/scratch/J8b8P
 
+    i32 i;
+    u16* pMinimap;
+    u16* pVisited;
+    register u16* pMinimapLower asm("r2");
+    u16* pVisitedLower;
+    u16* ptr;
+    u32 mask;
+
+    for (i = 0; i < ARRAY_SIZE(sBossIcons); i++)
+    {
+        if (event == sBossIcons[i][0])
+            break;
+    }
+
+    if (i >= 7)//ARRAY_SIZE(sBossIcons))
+        return;
+
+    if (i != gCurrentArea)
+        return;
+
+    i = sBossIcons[i][3] * MINIMAP_SIZE + sBossIcons[i][2];
+
+    pMinimap = &gDecompressedMinimapData[i];
+    pVisited = &gDecompressedMinimapVisitedTiles[i];
+
+    if (gCurrentArea == AREA_CRATERIA)
+    {
+        if ((*pMinimap & 0x3FF) == sMapChunksToUpdate[2])
+        {
+            mask = 0xF000;
+            ptr = pVisited;
+            pVisitedLower = pMinimap;
+            
+            for (i = 2; i >= 0; i--)
+            {
+                (*pVisitedLower)++;
+                if (mask & *ptr)
+                    (*ptr)++;
+                
+                ptr++;
+                pVisitedLower++;
+            }
+
+            i = FALSE;
+        }
+        else
+            i = TRUE;
+    }
+    else if (gCurrentArea == AREA_KRAID)
+    {
+        if ((*pMinimap & 0x3FF) == sMapChunksToUpdate[0])
+        {
+            pVisitedLower = pVisited;
+            pMinimapLower = pMinimap;
+            
+            for (i = 1; i >= 0; i--)
+            {
+                (*pMinimapLower) += 0x20;
+                (*pVisitedLower) += 0x20;
+                
+                pVisitedLower++;
+                pMinimapLower++;
+            }
+
+            pVisitedLower = pVisited;
+            pVisitedLower += MINIMAP_SIZE;
+            pMinimapLower = pMinimap;
+            pMinimapLower += MINIMAP_SIZE;
+
+            for (i = 1; i >= 0; i--)
+            {
+                (*pMinimapLower) += 0x20;
+                (*pVisitedLower) += 0x20;
+                
+                pVisitedLower++;
+                pMinimapLower++;
+            }
+
+            i = FALSE;
+        }
+        else
+            i = TRUE;
+    }
+    else if (gCurrentArea == AREA_RIDLEY)
+    {
+        if ((*pMinimap & 0x3FF) == sMapChunksToUpdate[1])
+        {
+            pVisitedLower = pVisited;
+            pMinimapLower = pMinimap;
+            for (i = 1; i >= 0; i--)
+            {
+                (*pMinimapLower) += 0x20;
+                (*pVisitedLower) += 0x20;
+                
+                pVisitedLower++;
+                pMinimapLower++;
+            }
+
+            pVisitedLower = pVisited;
+            pVisitedLower += MINIMAP_SIZE;
+            pMinimapLower = pMinimap;
+            pMinimapLower += MINIMAP_SIZE;
+
+            for (i = 1; i >= 0; i--)
+            {
+                (*pMinimapLower) += 0x20;
+                (*pVisitedLower) += 0x20;
+                
+                pVisitedLower++;
+                pMinimapLower++;
+            }
+
+            i = FALSE;
+        }
+        else
+            i = TRUE;
+    }
+
+    if (i)
+        return;
+
+    gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_LOWER_LINE;
+    MinimapDraw();
 }
