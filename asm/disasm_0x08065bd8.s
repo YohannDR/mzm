@@ -1143,7 +1143,7 @@ lbl_08066536:
     movs r1, #0
     movs r2, #0x10
     movs r3, #0x10
-    bl sub_08061dc8
+    bl CutsceneStartBackgroundEffect
     ldr r1, [r6]
     b lbl_08066604
     .align 2, 0
@@ -1169,7 +1169,7 @@ lbl_08066550:
     movs r1, #0
     movs r2, #0x10
     movs r3, #1
-    bl sub_08061dc8
+    bl CutsceneStartBackgroundEffect
     ldr r2, [r6]
     ldrh r0, [r2, #0x1c]
     ldrh r1, [r4, #0x3c]
@@ -1191,7 +1191,7 @@ lbl_08066594:
     movs r1, #0x10
     movs r2, #0
     movs r3, #1
-    bl sub_08061dc8
+    bl CutsceneStartBackgroundEffect
     ldr r1, [r6]
     b lbl_08066604
     .align 2, 0
@@ -1499,7 +1499,7 @@ lbl_0806681a:
     movs r1, #0x10
     movs r2, #0
     movs r3, #0x10
-    bl sub_08061dc8
+    bl CutsceneStartBackgroundEffect
     ldr r1, [r5]
     adds r1, #0xd8
     ldrb r2, [r1]
@@ -18999,7 +18999,7 @@ lbl_0806f1aa:
     adds r0, r0, r3
     adds r2, r2, r0
     adds r0, r4, #0
-    bl process_current_message
+    bl TextProcessCurrentMessage
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
     cmp r0, #2
@@ -19214,7 +19214,7 @@ lbl_0806f356:
     adds r0, r0, r3
     adds r2, r2, r0
     adds r0, r4, #0
-    bl process_current_message
+    bl TextProcessCurrentMessage
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
     cmp r0, #2
@@ -19436,7 +19436,7 @@ lbl_0806f51c:
     ldr r1, [r1]
     adds r0, r4, #0
     adds r2, r5, #0
-    bl process_current_message
+    bl TextProcessCurrentMessage
     lsls r0, r0, #0x18
     lsrs r1, r0, #0x18
     cmp r1, #2
@@ -19563,7 +19563,7 @@ lbl_0806f5fa:
     ldr r1, [r1]
     adds r0, r4, #0
     adds r2, r6, #0
-    bl process_current_message
+    bl TextProcessCurrentMessage
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
     cmp r0, #2
@@ -19769,7 +19769,7 @@ lbl_0806f794:
     ldr r1, [r0]
     ldr r2, lbl_0806f7e0 @ =0x06007800
     adds r0, r5, #0
-    bl process_current_message
+    bl TextProcessCurrentMessage
     lsls r0, r0, #0x18
     lsrs r4, r0, #0x18
     cmp r4, #2
@@ -19995,8 +19995,8 @@ lbl_0806f980: .4byte 0x06007800
 lbl_0806f984: .4byte 0x08754bc4
 lbl_0806f988: .4byte 0x00000123
 
-    thumb_func_start process_current_message
-process_current_message: @ 0x0806f98c
+    thumb_func_start TextProcessCurrentMessage
+TextProcessCurrentMessage: @ 0x0806f98c
     push {r4, r5, r6, r7, lr}
     mov r7, sb
     mov r6, r8
@@ -20357,7 +20357,7 @@ lbl_0806fc0a:
     ldr r2, [r6]
     adds r2, r2, r0
     adds r0, r4, #0
-    bl process_current_message
+    bl TextProcessCurrentMessage
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0806fc40
@@ -20436,7 +20436,7 @@ lbl_0806fca8:
     ldr r2, [r6]
     adds r2, r2, r0
     adds r0, r4, #0
-    bl process_current_message
+    bl TextProcessCurrentMessage
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0806fcde
@@ -39068,7 +39068,7 @@ lbl_08078fe4:
     ldr r1, [r0]
     ldr r0, lbl_08079030 @ =0x03000c0c
     adds r2, r4, #0
-    bl process_current_message
+    bl TextProcessCurrentMessage
     lsls r0, r0, #0x18
     lsrs r6, r0, #0x18
     cmp r6, #2

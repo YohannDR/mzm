@@ -656,6 +656,12 @@ cutscenes/KraidRising/KraidCloseUpEyesOpened.tt;368;0x373cf8;4
 cutscenes/KraidRising/KraidRising.tt;295;0x3742b8;4
 cutscenes/KraidRising/CaveBackground.tt;370;0x374754;4
 
+# Story text
+
+cutscenes/StoryText/UnusedLetters.gfx.lz;645;0x374d24;4
+cutscenes/StoryText/Palette.pal;16;0x375738;2
+cutscenes/StoryText/Text.tt;347;0x375758;4
+
 # Ridley in space
 
 cutscenes/RidleyInSpace/Ship.gfx.lz;1565;0x387088;4
@@ -745,11 +751,11 @@ Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
 Blob_345d00_360130.bin;107568;0x345d00;1
 Blob_3602e8_36bdac.bin;47812;0x3602e8;1
-Blob_374d1c_386f60.bin;74308;0x374d1c;1
+Blob_375cc4_386f60.bin;70300;0x375cc4;1
 Blob_3c63f0_45f45c.bin;626796;0x3c63f0;1
 Blob_479400_754bb4.bin;2996148;0x479400;1
 Blob_754bd0_75e6a8.bin;39640;0x754bd0;1
 Blob_75fae4_75fd88.bin;676;0x75fae4;1
 Blob_75fdbc_75fde0.bin;36;0x75fdbc;1
-Blob_75fdfc_75ffb8.bin;444;0x75fdfc;1
+Blob_75fdfc_75fe5c.bin;96;0x75fdfc;1
 Blob_76002c_7f7734.bin;620296;0x76002c;1

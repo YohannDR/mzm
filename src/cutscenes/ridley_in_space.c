@@ -468,7 +468,7 @@ void RidleyInSpaceUpdateViewOfShip(struct CutsceneOamData* pOam)
     pOam->unk_18++;
 
     if (!(pOam->unk_18 & 0x1F))
-        pOam->yPosition += RidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 5) & 7];
+        pOam->yPosition += sRidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 5) & 7];
 }
 
 void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam)
@@ -503,7 +503,7 @@ void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam)
     pOam->unk_18++;
 
     if (!(pOam->unk_18 & 0xF))
-        pOam->yPosition += RidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 4) & 7];
+        pOam->yPosition += sRidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 4) & 7];
 }
 
 /**
@@ -531,7 +531,7 @@ void RidleyInSpaceUpdateLeftBlueShip(struct CutsceneOamData* pOam)
     pOam->unk_18++;
 
     if (!(pOam->unk_18 & 0xF))
-        pOam->yPosition += RidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 4) & 7];
+        pOam->yPosition += sRidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 4) & 7];
 }
 
 /**

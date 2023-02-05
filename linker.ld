@@ -151,6 +151,7 @@ SECTIONS {
         . = 0x00000c04; gCurrentOamRotation = .;
         . = 0x00000c06; gCurrentOamScaling = .;
         . = 0x00000c08; gLastAreaNameVisited = .;
+        . = 0x00000c0c; gCurrentMessage = .;
         . = 0x00000c1c; gSRAMCorruptFlag = .;
         . = 0x00000c1d; gIsLoadingFile = .;
         . = 0x00000c70; gMainGameMode = .;
@@ -393,6 +394,8 @@ SECTIONS {
         asm/disasm_0x08055344.o(.text);
         src/power_bomb_explosion.o(.text);
         asm/disasm_0x0805745c.o(.text);
+        src/cutscenes/story_text_cutscene.o(.text);
+        asm/disasm_0x08063008.o(.text);
         src/cutscenes/ridley_landing.o(.text);
         src/cutscenes/ridley_spawn.o(.text);
         src/cutscenes/mecha_sees_samus.o(.text);
@@ -508,6 +511,7 @@ SECTIONS {
         /* 3602e8-36bdac */
         src/data/cutscenes/cutscenes_data.o(.rodata);
         src/data/cutscenes/kraid_rising_data.o(.rodata);
+        src/data/cutscenes/story_text_cutscene_data.o(.rodata);
         src/data/cutscenes/ridley_in_space_data.o(.rodata);
         src/data/cutscenes/ridley_landing_data.o(.rodata);
         src/data/cutscenes/ridley_spawn_data.o(.rodata);
@@ -520,7 +524,11 @@ SECTIONS {
         src/data/samus_sprites_pointers.o(.rodata);
         src/data/frame_data_pointers.o(.rodata);
         src/data/engine_pointers.o(.rodata);
-        /* 75fdfc-75ffb8 */
+        /* 75fdfc-75fe5c */
+        src/data/cutscenes/internal_kraid_rising_data.o(.rodata);
+        src/data/cutscenes/internal_story_text_cutscene_data.o(.rodata);
+        src/data/cutscenes/internal_mother_brain_close_up_data.o(.rodata);
+        src/data/cutscenes/internal_ridley_in_space_data.o(.rodata);
         src/data/cutscenes/internal_ridley_landing_data.o(.rodata);
         src/data/cutscenes/internal_ridley_spawn_data.o(.rodata);
         src/data/cutscenes/internal_mecha_sees_samus_data.o(.rodata);
