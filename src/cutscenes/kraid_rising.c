@@ -16,6 +16,8 @@
 #include "structs/display.h"
 #include "structs/samus.h"
 
+void update_cutscene_oam_data_id(struct CutsceneOamData*, u8);
+
 u8 KraidRisingRising(void)
 {
     // https://decomp.me/scratch/DHiok
@@ -36,9 +38,9 @@ u8 KraidRisingRising(void)
 
             for (i = 0; i < 11; i++)
             {
-                CUTSCENE_DATA.oam[i + 6].xPosition = sKraidRisingPuffData[i].xPosition;
-                CUTSCENE_DATA.oam[i + 6].yPosition = sKraidRisingPuffData[i].yPosition;
-                CUTSCENE_DATA.oam[i + 6].timer = sKraidRisingPuffData[i].timer;
+                CUTSCENE_DATA.oam[i + 6].xPosition = sKraidRisingPuffData[i][0];
+                CUTSCENE_DATA.oam[i + 6].yPosition = sKraidRisingPuffData[i][1];
+                CUTSCENE_DATA.oam[i + 6].timer = sKraidRisingPuffData[i][3];
             }
 
             for (i = 0; i < 6; i++)
@@ -131,15 +133,8 @@ struct CutsceneOamData* KraidRisingUpdatePuff(struct CutsceneOamData* pOam, u8 p
             // Update timer
             pOam->timer = (sRandomNumberTable[gFrameCounter8Bit + puffID] & 0xF) + 1;
 
-            // Why
-            data = (u8*)(sKraidRisingPuffData);
-            offset = puffID * 8;
-
-            // OAM ID field
-            data += 4;
-
-            // Reset animation
-            update_cutscene_oam_data_id(pOam, data[offset]); // Undefined
+            // Update OAM id
+            update_cutscene_oam_data_id(pOam, sKraidRisingPuffData[puffID][2]); // Undefined
         }
     }
 

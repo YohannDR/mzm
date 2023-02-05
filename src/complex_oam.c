@@ -37,6 +37,15 @@ u8 ProcessComplexOam(u32 oamSlot, i16 xPosition, i16 yPosition, u16 rotation, i1
     unk_x = x - xOffset;
     unk_y = y - yOffset;
 
+    unk_x = scaling * unk_x / 256 - unk_x;
+    unk_y = scaling * unk_y / 256 - unk_y;
+
+    x = x + unk_x;
+    y = y + unk_y;
+
+    gOamData[oamSlot].split.y = x * cos(rotation) - y * sin(rotation);
+    gOamData[oamSlot].split.y = y * sin(rotation) + y * cos(rotation);
+
     if (!doubleSize)
     {
         gOamData[oamSlot].split.affineMode = 1;
@@ -48,6 +57,20 @@ u8 ProcessComplexOam(u32 oamSlot, i16 xPosition, i16 yPosition, u16 rotation, i1
 
 
 
+    if (gOamData[oamSlot].split.shape & 2)
+    {
+        if (gOamData[oamSlot].split.shape & 1)
+            gOamData[oamSlot].split.matrixNum = flipSize + 3;
+        else
+            gOamData[oamSlot].split.matrixNum = flipSize + 1;
+    }
+    else
+    {
+        if (gOamData[oamSlot].split.shape & 1)
+            gOamData[oamSlot].split.matrixNum = flipSize + 2;
+        else
+            gOamData[oamSlot].split.matrixNum = flipSize;
+    }
 
     gOamData[oamSlot].split.xFlip = FALSE;
     gOamData[oamSlot].split.yFlip = FALSE;

@@ -6,7 +6,7 @@
 
 // 75fe5c
 
-extern const struct KraidRisingPuffData sKraidRisingPuffData[11];
+extern const u16 sKraidRisingPuffData[11][4];
 
 extern const u16 sKraidRisingDebrisSpawnXPosition[6];
 

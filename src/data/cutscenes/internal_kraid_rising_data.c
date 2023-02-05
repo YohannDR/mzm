@@ -3,72 +3,72 @@
 #include "cutscenes/cutscene_utils.h"
 #include "cutscenes/kraid_rising.h"
 
-const struct KraidRisingPuffData sKraidRisingPuffData[11] = {
-    {
-        .xPosition = BLOCK_SIZE,
-        .yPosition = BLOCK_SIZE * 7,
-        .oamID = KRAID_RISING_OAM_ID_SMALL_PUFF,
-        .timer = 1
+const u16 sKraidRisingPuffData[11][4] = {
+    [0] = {
+        BLOCK_SIZE,
+        BLOCK_SIZE * 7,
+        KRAID_RISING_OAM_ID_SMALL_PUFF,
+        1
     },
-    {
-        .xPosition = HALF_BLOCK_SIZE,
-        .yPosition = BLOCK_SIZE * 9 + HALF_BLOCK_SIZE,
-        .oamID = KRAID_RISING_OAM_ID_SMALL_PUFF,
-        .timer = 3
+    [1] = {
+        HALF_BLOCK_SIZE,
+        BLOCK_SIZE * 9 + HALF_BLOCK_SIZE,
+        KRAID_RISING_OAM_ID_SMALL_PUFF,
+        3
     },
-    {
-        .xPosition = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE,
-        .yPosition = BLOCK_SIZE * 9,
-        .oamID = KRAID_RISING_OAM_ID_BIG_PUFF,
-        .timer = 8
+    [2] = {
+        BLOCK_SIZE * 2 + HALF_BLOCK_SIZE,
+        BLOCK_SIZE * 9,
+        KRAID_RISING_OAM_ID_BIG_PUFF,
+        8
     },
-    {
-        .xPosition = BLOCK_SIZE * 3 + HALF_BLOCK_SIZE,
-        .yPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
-        .oamID = KRAID_RISING_OAM_ID_SMALL_PUFF,
-        .timer = 5
+    [3] = {
+        BLOCK_SIZE * 3 + HALF_BLOCK_SIZE,
+        BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
+        KRAID_RISING_OAM_ID_SMALL_PUFF,
+        5
     },
-    {
-        .xPosition = BLOCK_SIZE * 5,
-        .yPosition = BLOCK_SIZE * 8 + HALF_BLOCK_SIZE,
-        .oamID = KRAID_RISING_OAM_ID_BIG_PUFF,
-        .timer = 7
+    [4] = {
+        BLOCK_SIZE * 5,
+        BLOCK_SIZE * 8 + HALF_BLOCK_SIZE,
+        KRAID_RISING_OAM_ID_BIG_PUFF,
+        7
     },
-    {
-        .xPosition = BLOCK_SIZE * 9,
-        .yPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
-        .oamID = KRAID_RISING_OAM_ID_SMALL_PUFF,
-        .timer = 7
+    [5] = {
+        BLOCK_SIZE * 9,
+        BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
+        KRAID_RISING_OAM_ID_SMALL_PUFF,
+        7
     },
-    {
-        .xPosition = BLOCK_SIZE * 10 + HALF_BLOCK_SIZE,
-        .yPosition = BLOCK_SIZE * 9,
-        .oamID = KRAID_RISING_OAM_ID_BIG_PUFF,
-        .timer = 10
+    [6] = {
+        BLOCK_SIZE * 10 + HALF_BLOCK_SIZE,
+        BLOCK_SIZE * 9,
+        KRAID_RISING_OAM_ID_BIG_PUFF,
+        10
     },
-    {
-        .xPosition = BLOCK_SIZE * 11 + HALF_BLOCK_SIZE,
-        .yPosition = BLOCK_SIZE * 7,
-        .oamID = KRAID_RISING_OAM_ID_SMALL_PUFF,
-        .timer = 6
+    [7] = {
+        BLOCK_SIZE * 11 + HALF_BLOCK_SIZE,
+        BLOCK_SIZE * 7,
+        KRAID_RISING_OAM_ID_SMALL_PUFF,
+        6
     },
-    {
-        .xPosition = BLOCK_SIZE * 13,
-        .yPosition = BLOCK_SIZE * 8 + HALF_BLOCK_SIZE,
-        .oamID = KRAID_RISING_OAM_ID_BIG_PUFF,
-        .timer = 12
+    [8] = {
+        BLOCK_SIZE * 13,
+        BLOCK_SIZE * 8 + HALF_BLOCK_SIZE,
+        KRAID_RISING_OAM_ID_BIG_PUFF,
+        12
     },
-    {
-        .xPosition = BLOCK_SIZE * 14 + HALF_BLOCK_SIZE,
-        .yPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
-        .oamID = KRAID_RISING_OAM_ID_SMALL_PUFF,
-        .timer = 4
+    [9] = {
+        BLOCK_SIZE * 14 + HALF_BLOCK_SIZE,
+        BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
+        KRAID_RISING_OAM_ID_SMALL_PUFF,
+        4
     },
-    {
-        .xPosition = BLOCK_SIZE * 14 + HALF_BLOCK_SIZE,
-        .yPosition = BLOCK_SIZE * 9 + HALF_BLOCK_SIZE,
-        .oamID = KRAID_RISING_OAM_ID_SMALL_PUFF,
-        .timer = 2
+    [10] = {
+        BLOCK_SIZE * 14 + HALF_BLOCK_SIZE,
+        BLOCK_SIZE * 9 + HALF_BLOCK_SIZE,
+        KRAID_RISING_OAM_ID_SMALL_PUFF,
+        2
     }
 };
 
