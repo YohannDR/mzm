@@ -13,6 +13,6 @@ u8 MotherBrainCloseUpSubroutine(void);
 void MotherBrainCloseUpProcessOAM(void);
 void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus);
 void MotherBrainCloseUpUpdateBubble(struct CutsceneOamData* pOam);
-void MotherBrainCloseUpInitBubbles(u8 packId);
+u8 MotherBrainCloseUpInitBubbles(u8 packId);
 
 #endif /* MOTHER_BRAIN_CLOSE_UP_CUTSCENE */
