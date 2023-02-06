@@ -21340,8 +21340,8 @@ unk_61f0c: @ 0x08061f0c
 lbl_08061f20: .4byte 0x08754bc4
 lbl_08061f24: .4byte 0x030013ae
 
-    thumb_func_start sub_08061f28
-sub_08061f28: @ 0x08061f28
+    thumb_func_start unk_61f28
+unk_61f28: @ 0x08061f28
     ldr r0, lbl_08061f3c @ =0x08754bc4
     ldr r2, [r0]
     movs r0, #0

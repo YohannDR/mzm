@@ -13,9 +13,7 @@ const struct CutsceneSubroutineData sMechaSeesSamusSubroutineData[3] = {
         .oamLength = 2
     },
     {
-        .pFunction = (CutsceneFunc_T)0x8061229, //CutsceneEndFunction,
+        .pFunction = (CutsceneFunc_T)0x8061229,//CutsceneEndFunction,
         .oamLength = 2
     }
 };
-
-const u8 sTempArray_76002c[0x97708] = INCBIN_U8("data/Blob_76002c_7f7734.bin");

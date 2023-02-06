@@ -188,7 +188,7 @@ struct CutsceneData {
 extern u8 gCutsceneToSkip;
 extern i8 gCurrentCutscene;
 
-extern i8 sOamXOffset_NonGameplay;
-extern i8 sOamYOffset_NonGameplay;
+extern i8 gOamXOffset_NonGameplay;
+extern i8 gOamYOffset_NonGameplay;
 
 #endif

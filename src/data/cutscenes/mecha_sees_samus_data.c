@@ -267,5 +267,3 @@ const u32 sMechaSeesSamusMetalGFX[2382] = INCBIN_U32("data/cutscenes/MechaSeesSa
 const u32 sMechaSeesSamusCoverEyeGFX[2671] = INCBIN_U32("data/cutscenes/MechaSeesSamus/EyeCover.gfx.lz");
 const u16 sMechaSeesSamusPAL[10 * 16] = INCBIN_U16("data/cutscenes/MechaSeesSamus/Palette.pal");
 const u32 sMechaSeesSamusCoverMetalTileTable[368] = INCBIN_U32("data/cutscenes/MechaSeesSamus/Metal.tt");
-
-const u8 sTempArray_3c63f0[0x9906c] = INCBIN_U8("data/Blob_3c63f0_45f45c.bin");

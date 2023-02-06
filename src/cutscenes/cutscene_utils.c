@@ -245,7 +245,7 @@ void CutsceneInit(void)
     CallbackSetVBlank(CutsceneLoadingVBlank);
     BitFill(3, 0, &gNonGameplayRAM, sizeof(union NonGameplayRAM), 0x20);
 
-    sOamXOffset_NonGameplay = sOamYOffset_NonGameplay = 0;
+    gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
     gNextOamSlot = 0;
     ResetFreeOAM();
 

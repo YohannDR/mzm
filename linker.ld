@@ -254,8 +254,8 @@ SECTIONS {
         . = 0x00005704; gClipdataCodePointer = .;
         . = 0x00005708; gCurrentRoomScrollDataPointer = .;
         . = 0x00005714; gUnk_3005714 = .;
-        . = 0x00005804; sOamXOffset_NonGameplay = .;
-        . = 0x00005805; sOamYOffset_NonGameplay = .;
+        . = 0x00005804; gOamXOffset_NonGameplay = .;
+        . = 0x00005805; gOamYOffset_NonGameplay = .;
 
 
         . = 0x000058e0; src/libgcc/fp-bit-base.o(.bss);
@@ -400,6 +400,7 @@ SECTIONS {
         src/cutscenes/ridley_landing.o(.text);
         src/cutscenes/ridley_spawn.o(.text);
         src/cutscenes/mecha_sees_samus.o(.text);
+        src/cutscenes/getting_fully_powered_suit.o(.text);
         asm/disasm_0x08065bd8.o(.text);
         src/intro.o(.text);
         asm/disasm_0x0808117c.o(.text);
@@ -517,6 +518,7 @@ SECTIONS {
         src/data/cutscenes/ridley_landing_data.o(.rodata);
         src/data/cutscenes/ridley_spawn_data.o(.rodata);
         src/data/cutscenes/mecha_sees_samus_data.o(.rodata);
+        src/data/cutscenes/getting_fully_powered_suit_data.o(.rodata);
         /* 3c63f0-45f45c */
         src/data/intro_data.o(.rodata);
         /* 479400-754bb4 */
@@ -533,6 +535,7 @@ SECTIONS {
         src/data/cutscenes/internal_ridley_landing_data.o(.rodata);
         src/data/cutscenes/internal_ridley_spawn_data.o(.rodata);
         src/data/cutscenes/internal_mecha_sees_samus_data.o(.rodata);
+        src/data/cutscenes/internal_getting_fully_powered_suit_data.o(.rodata);
         /* 76002c-7f7734 */
     } >rom
 }
