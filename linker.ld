@@ -394,6 +394,7 @@ SECTIONS {
         asm/disasm_0x08055344.o(.text);
         src/power_bomb_explosion.o(.text);
         asm/disasm_0x0805745c.o(.text);
+        src/cutscenes/kraid_rising.o(.text);
         src/cutscenes/story_text_cutscene.o(.text);
         asm/disasm_0x08063008.o(.text);
         src/cutscenes/ridley_landing.o(.text);

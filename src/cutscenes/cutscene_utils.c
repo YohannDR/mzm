@@ -467,8 +467,8 @@ void CutsceneUpdateBackgroundScrolling(struct CutsceneScrolling* pScrolling)
 /**
  * @brief 61944 | 80 | Checks if a background scrolling is active
  * 
- * @param bg 
- * @return u8 
+ * @param bg Background
+ * @return u8 Flags
  */
 u8 CutsceneCheckBackgroundScrollingActive(u16 bg)
 {

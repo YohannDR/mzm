@@ -143,7 +143,7 @@ lbl_0806312c:
     ldr r0, [r0]
     ldrh r4, [r5, #0x24]
     adds r1, r4, #0
-    bl sub_08061b98
+    bl CutsceneStartScreenShake
     ldr r0, lbl_08063180 @ =0x08754bc4
     ldr r2, [r0]
     ldrh r0, [r5, #0x1c]
@@ -1781,7 +1781,7 @@ lbl_08063ee0: .4byte 0x08386f70
 lbl_08063ee4:
     ldr r0, lbl_08063efc @ =0x08386f70
     ldrh r0, [r0, #0xc]
-    bl sub_08061944
+    bl CutsceneCheckBackgroundScrollingActive
     lsls r0, r0, #0x18
     lsrs r2, r0, #0x18
     cmp r2, #0

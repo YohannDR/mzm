@@ -119,10 +119,13 @@ void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam)
     }
 }
 
+/**
+ * @brief 65540 | 12c | Handles the helmet reflection part
+ * 
+ * @return u8 FALSE
+ */
 u8 RidleySpawnHelmetReflection(void)
-{
-    // https://decomp.me/scratch/sJH9O
-    
+{    
     i32 velocity;
 
     switch (CUTSCENE_DATA.timeInfo.subStage)
@@ -221,10 +224,13 @@ u8 RidleySpawnSamusLookingUp(void)
     return FALSE;
 }
 
+/**
+ * @brief 656e8 | 1bc | Initializes the ridley spawn cutscene
+ * 
+ * @return u8 FALSE
+ */
 u8 RidleySpawnInit(void)
 {
-    // https://decomp.me/scratch/uYVOz
-
     unk_61f0c();
 
     if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)

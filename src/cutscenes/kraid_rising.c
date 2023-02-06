@@ -1,4 +1,5 @@
 #include "cutscenes/kraid_rising.h"
+#include "cutscenes/cutscene_utils.h"
 #include "oam.h"
 #include "syscall_wrappers.h"
 
@@ -18,10 +19,13 @@
 
 void update_cutscene_oam_data_id(struct CutsceneOamData*, u8);
 
+/**
+ * @brief 6240c | 2ec | Handles the kraid rising part
+ * 
+ * @return u8 FALSE
+ */
 u8 KraidRisingRising(void)
 {
-    // https://decomp.me/scratch/DHiok
-
     u32 i;
 
     switch (CUTSCENE_DATA.timeInfo.subStage)
@@ -107,7 +111,7 @@ u8 KraidRisingRising(void)
         KraidRisingUpdatePuff(&CUTSCENE_DATA.oam[i + 6], i);
 
     for (i = 0; i < 6; i++)
-        KraidRisingUpdatePuff(&CUTSCENE_DATA.oam[i], i);
+        KraidRisingUpdateDebris(&CUTSCENE_DATA.oam[i], i);
 
     return FALSE;
 }

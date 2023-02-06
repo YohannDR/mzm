@@ -385,23 +385,27 @@ void MotherBrainCloseUpProcessOAM(void)
     ResetFreeOAM();
 }
 
+/**
+ * @brief 636a8 | 108 | Updates the eye OAM object
+ * 
+ * @param lookingAtSamus bool, looking at samus
+ */
 void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
 {
-    // https://decomp.me/scratch/DGgzD
-
     struct CutsceneOamData* pOam;
-    struct CutsceneOamData* pOam2;
 
-    pOam = &CUTSCENE_DATA.oam[0];
+    pOam = CUTSCENE_DATA.oam;
+    
     if (!lookingAtSamus)
     {
-        pOam2 = &CUTSCENE_DATA.oam[7];
-        pOam2->xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
-        pOam2->yPosition = BLOCK_SIZE * 5 + HALF_BLOCK_SIZE;
-        pOam2->priority = sMotherBrainCloseUpPageData[2].priority;
-        pOam2->unk_C_0 = 3;
-        pOam2->oamID = 0;
-        pOam2->idChanged = TRUE;
+        struct CutsceneOamData* pOam;
+        pOam = &CUTSCENE_DATA.oam[7];
+        pOam->xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
+        pOam->yPosition = BLOCK_SIZE * 5 + HALF_BLOCK_SIZE;
+        pOam->priority = sMotherBrainCloseUpPageData[2].priority;
+        pOam->unk_C_0 = 3;
+        pOam->oamID = 0;
+        pOam->idChanged = TRUE;
     }
     else
     {
@@ -410,15 +414,15 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
         pOam->priority = sMotherBrainCloseUpPageData[4].priority;
         pOam->unk_C_0 = 1;
         pOam->unk_B_4 = 1;
-        update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], MOTHER_BRAIN_CLOSE_UP_OAM_ID_EYE_OPENED);
+        update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], 5);
         
         pOam[1].xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
         pOam[1].yPosition = BLOCK_SIZE * 5 + 4;
 
-        CUTSCENE_DATA.oam[1].priority = sMotherBrainCloseUpPageData[4].priority;
+        pOam[1].priority = sMotherBrainCloseUpPageData[4].priority;
 
-        CUTSCENE_DATA.oam[1].unk_C_0 = 1;
-        CUTSCENE_DATA.oam[1].unk_B_4 = 1;
+        pOam[1].unk_C_0 = 1;
+        pOam[1].unk_B_4 = 1;
     }
 }
 
