@@ -94,11 +94,11 @@ struct CutscenePaletteData {
 
 struct CutsceneGraphicsData {
     u8 active;
-    u8 paletteStage;
-    u8 paletteRow;
+    i8 paletteStage;
+    u8 maxTimer;
     u8 maxPaletteStage;
     u16 timer;
-    u8 padding[10];
+    u8 padding[6];
 };
 
 struct CutsceneSpecialEffect {
@@ -181,7 +181,7 @@ struct CutsceneData {
     u8 unk_BD;
     u8 unk_BE;
     u8 unk_BF;
-    struct CutsceneGraphicsData graphicsData[3];
+    struct CutsceneGraphicsData graphicsData[4];
     struct CutsceneOamData oam[30];
 };
 

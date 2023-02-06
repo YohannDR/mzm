@@ -58,7 +58,7 @@ void PowerBombYellowTint(u8 paletteRow)
  * @param dst Destination address
  * @param additionalValue Additional color
  */
-void ApplyMonochromeToPalette(u16* src, u16* dst, i8 additionalValue)
+void ApplyMonochromeToPalette(const u16* src, u16* dst, i8 additionalValue)
 {
     i32 i;
     u16 color;

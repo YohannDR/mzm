@@ -1,0 +1,36 @@
+#include "data/cutscenes/internal_before_charlie_data.h"
+#include "cutscenes/before_charlie.h"
+#include "macros.h"
+
+const struct CutsceneGraphicsData sBeforeCharlieCutsceneGraphicsData = {
+    .active = FALSE,
+    .paletteStage = 0,
+    .maxTimer = 4,
+    .maxPaletteStage = 0,
+    .timer = 0,
+};
+
+const struct CutsceneSubroutineData sBeforeCharlieSubroutineData[5] = {
+    [0] = {
+        .pFunction = BeforeCharlieInit,
+        .oamLength = 0
+    },
+    [1] = {
+        .pFunction = BeforeCharlieChozoWallSides,
+        .oamLength = 0
+    },
+    [2] = {
+        .pFunction = BeforeCharlieWallAndGreyVoice,
+        .oamLength = 0
+    },
+    [3] = {
+        .pFunction = BeforeCharlieSamusCloseUp,
+        .oamLength = 0
+    },
+    [4] = {
+        .pFunction = (CutsceneFunc_T)0x8061229,//CutsceneEndFunction,
+        .oamLength = 0
+    },
+};
+
+const u8 sTempArray_760078[0x976bc] = INCBIN_U8("data/Blob_760078_7f7734.bin");

@@ -306,5 +306,3 @@ const u32 sGettingFullyPoweredSuitSamusTileTable[387] = INCBIN_U32("data/cutscen
 const u8 sGettingFullyPoweredSuitBackgroundGFX[13872] = INCBIN_U8("data/cutscenes/GettingFullyPoweredSuit/Background.gfx.lz");
 const u32 sGettingFullyPoweredSuitBackgroundTileTable[734] = INCBIN_U32("data/cutscenes/GettingFullyPoweredSuit/Background.tt");
 const u16 sGettingFullyPoweredSuitRingPAL[7 * 16] = INCBIN_U16("data/cutscenes/GettingFullyPoweredSuit/RingPalette.pal");
-
-const u8 sTempArray_3ce46c[0x90ff0] = INCBIN_U8("data/Blob_3ce46c_45f45c.bin");

@@ -13610,7 +13610,7 @@ chozodia_escape_init: @ 0x08087e4c
     lsls r2, r2, #2
     adds r1, r1, r2
     movs r2, #0
-    bl sub_0805b624
+    bl ApplyMonochromeToPalette
     ldr r2, lbl_080880e8 @ =0x03001604
     strb r5, [r2]
     ldr r3, lbl_080880ec @ =0x03000014

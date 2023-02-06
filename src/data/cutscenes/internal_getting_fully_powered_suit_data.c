@@ -16,5 +16,3 @@ const struct CutsceneSubroutineData sGettingFullyPoweredSuitSubroutineData[3] = 
         .oamLength = 0
     }
 };
-
-const u8 sTempArray_760044[0x976f0] = INCBIN_U8("data/Blob_760044_7f7734.bin");

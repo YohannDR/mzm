@@ -7940,8 +7940,8 @@ lbl_0805b618: .4byte 0x030056f4
 lbl_0805b61c: .4byte 0x02035000
 lbl_0805b620: .4byte 0x03005520
 
-    thumb_func_start sub_0805b624
-sub_0805b624: @ 0x0805b624
+    thumb_func_start ApplyMonochromeToPalette
+ApplyMonochromeToPalette: @ 0x0805b624
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
@@ -7997,8 +7997,8 @@ lbl_0805b66e:
     pop {r0}
     bx r0
 
-    thumb_func_start sub_0805b68c
-sub_0805b68c: @ 0x0805b68c
+    thumb_func_start ApplySmoothMonochromeToPalette
+ApplySmoothMonochromeToPalette: @ 0x0805b68c
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

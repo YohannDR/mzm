@@ -401,7 +401,8 @@ SECTIONS {
         src/cutscenes/ridley_spawn.o(.text);
         src/cutscenes/mecha_sees_samus.o(.text);
         src/cutscenes/getting_fully_powered_suit.o(.text);
-        asm/disasm_0x08065bd8.o(.text);
+        src/cutscenes/before_charlie.o(.text);
+        asm/disasm_0x08066c00.o(.text);
         src/intro.o(.text);
         asm/disasm_0x0808117c.o(.text);
 
@@ -519,6 +520,7 @@ SECTIONS {
         src/data/cutscenes/ridley_spawn_data.o(.rodata);
         src/data/cutscenes/mecha_sees_samus_data.o(.rodata);
         src/data/cutscenes/getting_fully_powered_suit_data.o(.rodata);
+        src/data/cutscenes/before_charlie_data.o(.rodata);
         /* 3c63f0-45f45c */
         src/data/intro_data.o(.rodata);
         /* 479400-754bb4 */
@@ -536,6 +538,7 @@ SECTIONS {
         src/data/cutscenes/internal_ridley_spawn_data.o(.rodata);
         src/data/cutscenes/internal_mecha_sees_samus_data.o(.rodata);
         src/data/cutscenes/internal_getting_fully_powered_suit_data.o(.rodata);
+        src/data/cutscenes/internal_before_charlie_data.o(.rodata);
         /* 76002c-7f7734 */
     } >rom
 }
