@@ -43,7 +43,7 @@ const u16 sGettingFullyPoweredSuitRingSparklesSpawnPositions[6][2] = {
         -(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE + 8), 0x18
     },
     [1] = {
-        -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + 8), HALF_BLOCK_SIZE + 8
+        -(BLOCK_SIZE + HALF_BLOCK_SIZE + 8), HALF_BLOCK_SIZE + 8
     },
     [2] = {
         BLOCK_SIZE * 3 + 8, 0x18
@@ -52,10 +52,10 @@ const u16 sGettingFullyPoweredSuitRingSparklesSpawnPositions[6][2] = {
         BLOCK_SIZE + QUARTER_BLOCK_SIZE, HALF_BLOCK_SIZE + 12
     },
     [4] = {
-        BLOCK_SIZE * 4 + HALF_BLOCK_SIZE + 4, -QUARTER_BLOCK_SIZE
+        BLOCK_SIZE * 4 + HALF_BLOCK_SIZE -8, -QUARTER_BLOCK_SIZE
     },
     [5] = {
-        -(BLOCK_SIZE * 4 + HALF_BLOCK_SIZE), 20
+        -(BLOCK_SIZE * 4 + HALF_BLOCK_SIZE), -20
     }
 };
 
@@ -303,7 +303,7 @@ const u16 sGettingFullyPoweredSuitPAL[19 * 16] = INCBIN_U16("data/cutscenes/Gett
 const u32 sGettingFullyPoweredSuitSamusGFX[2608] = INCBIN_U32("data/cutscenes/GettingFullyPoweredSuit/Samus.gfx.lz");
 const u32 sGettingFullyPoweredSuitRingSparklesGFX[646] = INCBIN_U32("data/cutscenes/GettingFullyPoweredSuit/RingSparkles.gfx.lz");
 const u32 sGettingFullyPoweredSuitSamusTileTable[387] = INCBIN_U32("data/cutscenes/GettingFullyPoweredSuit/Samus.tt");
-const u8 sGettingFullyPoweredSuitBackgroundGFX[15072] = INCBIN_U8("data/cutscenes/GettingFullyPoweredSuit/Background.gfx.lz");
+const u8 sGettingFullyPoweredSuitBackgroundGFX[13872] = INCBIN_U8("data/cutscenes/GettingFullyPoweredSuit/Background.gfx.lz");
 const u32 sGettingFullyPoweredSuitBackgroundTileTable[734] = INCBIN_U32("data/cutscenes/GettingFullyPoweredSuit/Background.tt");
 const u16 sGettingFullyPoweredSuitRingPAL[7 * 16] = INCBIN_U16("data/cutscenes/GettingFullyPoweredSuit/RingPalette.pal");
 

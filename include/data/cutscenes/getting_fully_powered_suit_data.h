@@ -16,7 +16,7 @@ extern const u16 sGettingFullyPoweredSuitPAL[19 * 16];
 extern const u32 sGettingFullyPoweredSuitSamusGFX[2608];
 extern const u32 sGettingFullyPoweredSuitRingSparklesGFX[646];
 extern const u32 sGettingFullyPoweredSuitSamusTileTable[387];
-extern const u8 sGettingFullyPoweredSuitBackgroundGFX[15072];
+extern const u8 sGettingFullyPoweredSuitBackgroundGFX[13872];
 extern const u32 sGettingFullyPoweredSuitBackgroundTileTable[734];
 extern const u16 sGettingFullyPoweredSuitRingPAL[7 * 16];
 

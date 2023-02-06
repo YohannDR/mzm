@@ -92,7 +92,7 @@ u8 GettingFullyPoweredSuitAnimation(void)
     }
 
     GettingFullyPoweredSuitUpdateRingPalette(&CUTSCENE_DATA.paletteData[0]);
-    *CutsceneGetBGVOFSPointer(sGettingFullyPoweredSuitPageData[1].bg) = *CutsceneGetBGHOFSPointer(sGettingFullyPoweredSuitPageData[0].bg);
+    *CutsceneGetBGVOFSPointer(sGettingFullyPoweredSuitPageData[1].bg) = *CutsceneGetBGVOFSPointer(sGettingFullyPoweredSuitPageData[0].bg);
 
     GettingFullyPoweredSuitUpdateRing(&CUTSCENE_DATA.oam[6]);
 
@@ -264,13 +264,13 @@ u8 GettingFullyPoweredSuitInit(void)
     DMATransfer(3, PALRAM_BASE, PALRAM_BASE + 0x200, 0x200, 0x20);
     write16(PALRAM_BASE, 0);
 
-    LZ77UncompVRAM(sGettingFullyPoweredSuitSamusGFX, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].graphicsPage * 0x4000);
-    LZ77UncompVRAM(sGettingFullyPoweredSuitSamusTileTable, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].tiletablePage * 0x800);
+    CallLZ77UncompVRAM(sGettingFullyPoweredSuitSamusGFX, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sGettingFullyPoweredSuitSamusTileTable, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].tiletablePage * 0x800);
 
-    LZ77UncompVRAM(sGettingFullyPoweredSuitBackgroundGFX, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].graphicsPage * 0x4000);
-    LZ77UncompVRAM(sGettingFullyPoweredSuitBackgroundTileTable, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].tiletablePage * 0x800);
+    CallLZ77UncompVRAM(sGettingFullyPoweredSuitBackgroundGFX, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sGettingFullyPoweredSuitBackgroundTileTable, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].tiletablePage * 0x800);
 
-    LZ77UncompVRAM(sGettingFullyPoweredSuitRingSparklesGFX, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sGettingFullyPoweredSuitRingSparklesGFX, VRAM_BASE + 0x10000);
 
     CutsceneSetBGCNTPageData(sGettingFullyPoweredSuitPageData[0]);
     CutsceneSetBGCNTPageData(sGettingFullyPoweredSuitPageData[1]);

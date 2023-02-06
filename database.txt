@@ -746,7 +746,7 @@ cutscenes/GettingFullyPoweredSuit/Palette.pal;304;0x3c66a0;2
 cutscenes/GettingFullyPoweredSuit/Samus.gfx.lz;2608;0x3c6900;4
 cutscenes/GettingFullyPoweredSuit/RingSparkles.gfx.lz;646;0x3c91c0;4
 cutscenes/GettingFullyPoweredSuit/Samus.tt;387;0x3c9bd8;4
-cutscenes/GettingFullyPoweredSuit/Background.gfx.lz;15072;0x3ca1e4;1
+cutscenes/GettingFullyPoweredSuit/Background.gfx.lz;13872;0x3ca1e4;1
 cutscenes/GettingFullyPoweredSuit/Background.tt;734;0x3cd814;4
 cutscenes/GettingFullyPoweredSuit/RingPalette.pal;112;0x3ce38c;2
 
@@ -762,10 +762,10 @@ Blob_34099c_345868.bin;20172;0x34099c;1
 Blob_345d00_360130.bin;107568;0x345d00;1
 Blob_3602e8_36bdac.bin;47812;0x3602e8;1
 Blob_375cc4_386f60.bin;70300;0x375cc4;1
-Blob_3ce46c_45f45c.bin;593904;0x3c63f0;1
+Blob_3ce46c_45f45c.bin;593904;0x3ce46c;1
 Blob_479400_754bb4.bin;2996148;0x479400;1
 Blob_754bd0_75e6a8.bin;39640;0x754bd0;1
 Blob_75fae4_75fd88.bin;676;0x75fae4;1
 Blob_75fdbc_75fde0.bin;36;0x75fdbc;1
 Blob_75fdfc_75fe5c.bin;96;0x75fdfc;1
-Blob_760044_7f7734.bin;620272;0x760044c;1
+Blob_760044_7f7734.bin;620272;0x760044;1

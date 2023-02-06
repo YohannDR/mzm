@@ -12,7 +12,7 @@ const struct CutsceneSubroutineData sGettingFullyPoweredSuitSubroutineData[3] = 
         .oamLength = 14
     },
     [2] = {
-        .pFunction = (CutsceneFunc_T)0x8061228,//CutsceneEndFunction,
+        .pFunction = (CutsceneFunc_T)0x8061229,//CutsceneEndFunction,
         .oamLength = 0
     }
 };
