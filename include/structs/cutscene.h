@@ -129,10 +129,9 @@ struct CutsceneOamData {
     u16 ended:1;
     u16 notDrawn:1;
     u16 idChanged:2;
-    u8 unk_C_0:4;
+    u8 boundBackground:4;
     u8 rotationScaling:1;
-    u8 unk_C_5:1;
-    u8 unk_D;
+    u8 actions;
     i16 unk_E;
     i16 unk_10;
     i16 unk_12;
