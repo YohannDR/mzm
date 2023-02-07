@@ -2855,7 +2855,7 @@ u32 SpriteUtilCheckInRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size)
  * 
  * @return u32 
  */
-u32 SpriteUtilGetCurrentCompletionPercentage(void)
+u32 SpriteUtilGetFinalCompletionPercentage(void)
 {
     u32 result;
     u32 part1;

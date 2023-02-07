@@ -388,7 +388,7 @@ void MechaRidleyInit(void)
         gBossWork.work9 = 0;
         gBossWork.work10 = 0;
 
-        gBossWork.work11 = SpriteUtilGetCurrentCompletionPercentage();
+        gBossWork.work11 = SpriteUtilGetFinalCompletionPercentage();
 
         // Offset to the right
         gCurrentSprite.xPosition += BLOCK_SIZE * 11;

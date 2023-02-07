@@ -4561,7 +4561,7 @@ lbl_0800f2b8:
     strb r0, [r2]
     b lbl_0800f2fa
 lbl_0800f2c0:
-    bl SpriteUtilGetCurrentCompletionPercentage
+    bl SpriteUtilGetFinalCompletionPercentage
     movs r3, #1
     str r3, [sp, #0x10]
     cmp r0, #0x64
@@ -9585,8 +9585,8 @@ lbl_08011756:
     pop {r1}
     bx r1
 
-    thumb_func_start SpriteUtilGetCurrentCompletionPercentage
-SpriteUtilGetCurrentCompletionPercentage: @ 0x0801175c
+    thumb_func_start SpriteUtilGetFinalCompletionPercentage
+SpriteUtilGetFinalCompletionPercentage: @ 0x0801175c
     push {r4, r5, lr}
     bl GetPercentAndEndingNumber
     lsrs r1, r0, #0x18

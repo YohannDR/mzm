@@ -87,6 +87,6 @@ u8 SpriteCheckCollidingWithSamusDrawing(void);
 void SpriteUtilSetSplashEffect(u16 yPosition, u16 xPosition, u8 size);
 u32 SpriteUtilCheckOutOfRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size);
 u32 SpriteUtilCheckInRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size);
-u32 SpriteUtilGetCurrentCompletionPercentage(void);
+u32 SpriteUtilGetFinalCompletionPercentage(void);
 
 #endif /* SPRITE_UTIL_H */
