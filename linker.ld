@@ -402,7 +402,8 @@ SECTIONS {
         src/cutscenes/mecha_sees_samus.o(.text);
         src/cutscenes/getting_fully_powered_suit.o(.text);
         src/cutscenes/before_charlie.o(.text);
-        asm/disasm_0x08066c00.o(.text);
+        src/cutscenes/statue_opening.o(.text);
+        asm/disasm_0x08067080.o(.text);
         src/intro.o(.text);
         asm/disasm_0x0808117c.o(.text);
 
@@ -521,7 +522,8 @@ SECTIONS {
         src/data/cutscenes/mecha_sees_samus_data.o(.rodata);
         src/data/cutscenes/getting_fully_powered_suit_data.o(.rodata);
         src/data/cutscenes/before_charlie_data.o(.rodata);
-        /* 3c63f0-45f45c */
+        src/data/cutscenes/statue_opening_data.o(.rodata);
+        /* 3f0390-45f45c */
         src/data/intro_data.o(.rodata);
         /* 479400-754bb4 */
         src/data/shortcut_pointers.o(.rodata);
@@ -539,6 +541,7 @@ SECTIONS {
         src/data/cutscenes/internal_mecha_sees_samus_data.o(.rodata);
         src/data/cutscenes/internal_getting_fully_powered_suit_data.o(.rodata);
         src/data/cutscenes/internal_before_charlie_data.o(.rodata);
-        /* 76002c-7f7734 */
+        src/data/cutscenes/internal_statue_opening_data.o(.rodata);
+        /* 760090-7f7734 */
     } >rom
 }

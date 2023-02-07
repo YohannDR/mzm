@@ -1,6 +1,5 @@
 #include "data/cutscenes/internal_before_charlie_data.h"
 #include "cutscenes/before_charlie.h"
-#include "macros.h"
 
 const struct CutsceneGraphicsData sBeforeCharlieCutsceneGraphicsData = {
     .active = FALSE,
@@ -32,5 +31,3 @@ const struct CutsceneSubroutineData sBeforeCharlieSubroutineData[5] = {
         .oamLength = 0
     },
 };
-
-const u8 sTempArray_760078[0x976bc] = INCBIN_U8("data/Blob_760078_7f7734.bin");

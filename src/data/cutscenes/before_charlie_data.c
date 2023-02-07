@@ -89,5 +89,3 @@ const u32 sBeforeCharlieYoungSamusCloseUpTileTable[368] = INCBIN_U32("data/cutsc
 const u32 sBeforeCharlieSamusCloseUpEyesClosedTileTable[251] = INCBIN_U32("data/cutscenes/BeforeCharlie/SamusCloseUpEyesClosed.tt");
 const u32 sBeforeCharlieSamusCloseUpEyesOpenedTileTable[232] = INCBIN_U32("data/cutscenes/BeforeCharlie/SamusCloseUpEyesOpened.tt");
 const u32 sBeforeCharlieSamusCloseUpOutlineTileTable[333] = INCBIN_U32("data/cutscenes/BeforeCharlie/SamusCloseUpOutline.tt");
-
-const u8 sTempArray_3ed498[0x71fc4] = INCBIN_U8("data/Blob_3ed498_45f45c.bin");
