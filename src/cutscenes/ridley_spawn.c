@@ -52,13 +52,13 @@ u8 RidleySpawnRidleyFlyingIn(void)
             break;
 
         case 1:
-            CUTSCENE_DATA.oam[0].unk_D |= 3;
+            CUTSCENE_DATA.oam[0].actions |= 3;
             CUTSCENE_DATA.timeInfo.timer = 0;
             CUTSCENE_DATA.timeInfo.subStage++;
             break;
 
         case 2:
-            if (CUTSCENE_DATA.oam[0].unk_D == 0)
+            if (CUTSCENE_DATA.oam[0].actions == 0)
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -86,7 +86,7 @@ void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam)
 {
     u16 velocity;
     
-    if (pOam->unk_D & 1)
+    if (pOam->actions & 1)
     {
         pOam->unk_16 += 2;
         gCurrentOamScaling += 4 +  (pOam->unk_16 >> 3);
@@ -94,7 +94,7 @@ void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam)
         if (gCurrentOamScaling >= 0x1F8)
         {
             gCurrentOamScaling = 0x1F8;
-            pOam->unk_D = 0;
+            pOam->actions = 0;
         }
         else if (pOam->oamID != 3 && gCurrentOamScaling > 0x16F)
         {
@@ -103,7 +103,7 @@ void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam)
         }
     }
 
-    if (pOam->unk_D & 2)
+    if (pOam->actions & 2)
     {
         pOam->unk_18++;
         velocity = (u16)pOam->unk_18 >> 2;
@@ -111,7 +111,7 @@ void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam)
         if (pOam->unk_10 < 0)
         {
             pOam->unk_10 = 0;
-            pOam->unk_D &= 1;
+            pOam->actions &= 1;
         }
 
         pOam->unk_10 *= 4;

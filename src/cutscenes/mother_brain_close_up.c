@@ -76,7 +76,7 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
             if (CUTSCENE_DATA.specialEffect.status & CUTSCENE_SPECIAL_EFFECT_STATUS_BG_ENDED)
             {
                 // Allow elevator animation to start
-                CUTSCENE_DATA.oam[0].unk_D = 1;
+                CUTSCENE_DATA.oam[0].actions = 1;
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -122,14 +122,14 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
  */
 void MotherBrainCloseUpUpdateElevatorReflection(struct CutsceneOamData* pOam)
 {
-    if (pOam->unk_D == 0)
+    if (pOam->actions == 0)
         return;
 
-    if (pOam->unk_D == 1)
+    if (pOam->actions == 1)
     {
         // Set cooldown
         pOam->timer = 60;
-        pOam->unk_D = 2;
+        pOam->actions = 2;
         return;
     }
 
@@ -146,9 +146,9 @@ void MotherBrainCloseUpUpdateElevatorReflection(struct CutsceneOamData* pOam)
     update_cutscene_oam_data_id(pOam, MOTHER_BRAIN_CLOSE_UP_OAM_ID_ELEVATOR_ANIMATION);
 
     // Check for elevator animation limit
-    pOam->unk_D++;
-    if (pOam->unk_D > 6)
-        pOam->unk_D = 0; // Stop animation
+    pOam->actions++;
+    if (pOam->actions > 6)
+        pOam->actions = 0; // Stop animation
 }
 
 /**
@@ -403,7 +403,7 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
         pOam->xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
         pOam->yPosition = BLOCK_SIZE * 5 + HALF_BLOCK_SIZE;
         pOam->priority = sMotherBrainCloseUpPageData[2].priority;
-        pOam->unk_C_0 = 3;
+        pOam->boundBackground = 3;
         pOam->oamID = 0;
         pOam->idChanged = TRUE;
     }
@@ -412,7 +412,7 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
         pOam->xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
         pOam->yPosition = BLOCK_SIZE * 5 + 4;
         pOam->priority = sMotherBrainCloseUpPageData[4].priority;
-        pOam->unk_C_0 = 1;
+        pOam->boundBackground = 1;
         pOam->unk_B_4 = 1;
         update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], 5);
         
@@ -421,7 +421,7 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
 
         pOam[1].priority = sMotherBrainCloseUpPageData[4].priority;
 
-        pOam[1].unk_C_0 = 1;
+        pOam[1].boundBackground = 1;
         pOam[1].unk_B_4 = 1;
     }
 }
@@ -466,7 +466,7 @@ u8 MotherBrainCloseUpInitBubbles(u8 packId)
         CUTSCENE_DATA.oam[i].yPosition = sMotherBrainCloseUpBubblesSpawnPositions[packId][1];
 
         update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], MOTHER_BRAIN_CLOSE_UP_OAM_ID_BUBBLE);
-        CUTSCENE_DATA.oam[i].unk_C_0 = 3;
+        CUTSCENE_DATA.oam[i].boundBackground = 3;
         return FALSE;
     }
 

@@ -53,14 +53,14 @@ u8 RidleyLandingRidleyFlying(void)
             if (CUTSCENE_DATA.timeInfo.timer > 60)
             {
                 SoundPlay(0x292);
-                CUTSCENE_DATA.oam[1].unk_D |= (1 | 2);
+                CUTSCENE_DATA.oam[1].actions |= (1 | 2);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
             break;
 
         case 2:
-            if (CUTSCENE_DATA.oam[1].unk_D == 0)
+            if (CUTSCENE_DATA.oam[1].actions == 0)
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -85,20 +85,20 @@ void RidleyLandingUpdateRidley(struct CutsceneOamData* pOam)
 {
     u16* pX;
 
-    if (pOam->unk_D & 1)
+    if (pOam->actions & 1)
     {
         pOam->unk_16++;
         pOam->unk_E = -0x24;
         pOam->xPosition += pOam->unk_E;
 
         if (pOam->xPosition < -0xFF)
-            pOam->unk_D = 0;
+            pOam->actions = 0;
 
         if (pOam->unk_16 == 8)
             update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_LANDING_OAM_ID_ROCKS_AND_RIDLEY_SHADOW);
     }
 
-    if (pOam->unk_D & 2)
+    if (pOam->actions & 2)
     {
         pOam->unk_18++;
         pOam->unk_10 = -((u16)pOam->unk_18 >> 1);
@@ -152,13 +152,13 @@ u8 RidleyLandingShipLanding(void)
 
             CUTSCENE_DATA.oam[6].xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
             CUTSCENE_DATA.oam[6].yPosition = -BLOCK_SIZE * 8;
-            CUTSCENE_DATA.oam[6].unk_C_0 = 3;
+            CUTSCENE_DATA.oam[6].boundBackground = 3;
             CUTSCENE_DATA.oam[6].priority = 1;
 
-            CUTSCENE_DATA.oam[7].unk_C_0 = 3;
+            CUTSCENE_DATA.oam[7].boundBackground = 3;
             CUTSCENE_DATA.oam[7].priority = 1;
             
-            CUTSCENE_DATA.oam[8].unk_C_0 = 3;
+            CUTSCENE_DATA.oam[8].boundBackground = 3;
             CUTSCENE_DATA.oam[8].priority = 1;
 
             update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[6], 2);
@@ -175,7 +175,7 @@ u8 RidleyLandingShipLanding(void)
             CutsceneStartSpriteEffect(CUTSCENE_DATA.bldcnt, 0, 4, 1);
             CutsceneStartBackgroundScrolling(sRidleyLandingScrollingInfo[0], sRidleyLandingPageData[1].bg);
 
-            CUTSCENE_DATA.oam[6].unk_D = 1;
+            CUTSCENE_DATA.oam[6].actions = 1;
             CUTSCENE_DATA.timeInfo.timer = 0;
             CUTSCENE_DATA.timeInfo.subStage++;
             break;
@@ -205,7 +205,7 @@ u8 RidleyLandingShipLanding(void)
             break;
 
         case 3:
-            if (!CUTSCENE_DATA.oam[6].unk_D)
+            if (!CUTSCENE_DATA.oam[6].actions)
             {
                 SoundPlay(0x291);
                 CUTSCENE_DATA.timeInfo.timer = 0;
@@ -303,7 +303,7 @@ struct CutsceneOamData* RidleyLandingUpdateShipLanding(struct CutsceneOamData* p
 {
     i32 yPosition;
 
-    if (pOam->unk_D != 0)
+    if (pOam->actions != 0)
     {
         yPosition = 0x58 - pOam->yPosition;
         
@@ -325,7 +325,7 @@ struct CutsceneOamData* RidleyLandingUpdateShipLanding(struct CutsceneOamData* p
             CUTSCENE_DATA.oam[1].yPosition = BLOCK_SIZE * 9 + QUARTER_BLOCK_SIZE;
         }
         else if (yPosition == 0)
-            pOam->unk_D = 0;
+            pOam->actions = 0;
     }
 }
 

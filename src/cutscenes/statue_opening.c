@@ -151,13 +151,13 @@ u8 StatueOpeningInit(void)
     CUTSCENE_DATA.oam[0].xPosition = BLOCK_SIZE * 8;
     CUTSCENE_DATA.oam[0].yPosition = BLOCK_SIZE * 7;
     CUTSCENE_DATA.oam[0].priority = 0;
-    CUTSCENE_DATA.oam[0].unk_C_0 = 1;
+    CUTSCENE_DATA.oam[0].boundBackground = 1;
     CUTSCENE_DATA.oam[0].idChanged = 1;
 
     CUTSCENE_DATA.oam[1].xPosition = BLOCK_SIZE * 8;
     CUTSCENE_DATA.oam[1].yPosition = BLOCK_SIZE * 7;
     CUTSCENE_DATA.oam[1].priority = 0;
-    CUTSCENE_DATA.oam[1].unk_C_0 = 1;
+    CUTSCENE_DATA.oam[1].boundBackground = 1;
     CUTSCENE_DATA.oam[1].idChanged = 1;
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_STATUE_OPENED))

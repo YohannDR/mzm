@@ -59,21 +59,21 @@ u8 EnterTourianAnimation(void)
         case 3:
             if (CUTSCENE_DATA.timeInfo.timer == 8)
             {
-                CUTSCENE_DATA.oam[1].unk_D |= 2;
+                CUTSCENE_DATA.oam[1].actions |= 2;
                 SoundPlay(0x296);
             }
             else if (CUTSCENE_DATA.timeInfo.timer == 90)
             {
-                CUTSCENE_DATA.oam[3].unk_D |= 2;
+                CUTSCENE_DATA.oam[3].actions |= 2;
             }
             else if (CUTSCENE_DATA.timeInfo.timer == 100)
             {
-                CUTSCENE_DATA.oam[5].unk_D |= 2;
-                CUTSCENE_DATA.oam[8].unk_D |= 2;
+                CUTSCENE_DATA.oam[5].actions |= 2;
+                CUTSCENE_DATA.oam[8].actions |= 2;
             }
             else if (CUTSCENE_DATA.timeInfo.timer >= 120)
             {
-                CUTSCENE_DATA.oam[7].unk_D |= 2;
+                CUTSCENE_DATA.oam[7].actions |= 2;
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -91,7 +91,7 @@ u8 EnterTourianAnimation(void)
         case 5:
             if (CUTSCENE_DATA.oam[1].ended || CUTSCENE_DATA.timeInfo.timer > 300)
             {
-                CUTSCENE_DATA.oam[1].unk_D &= ~4;
+                CUTSCENE_DATA.oam[1].actions &= ~4;
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -153,7 +153,7 @@ u8 EnterTourianAnimation(void)
     flag = FALSE;
     for (i = 1; i < 8; i += 2)
     {
-        if (CUTSCENE_DATA.oam[i].unk_D & 1)
+        if (CUTSCENE_DATA.oam[i].actions & 1)
         {
             flag = TRUE;
             break;
@@ -161,7 +161,7 @@ u8 EnterTourianAnimation(void)
     }
 
     EnterTourianSwitchMetroidPalette(&CUTSCENE_DATA.paletteData[0], movement = flag);
-    CUTSCENE_DATA.oam[8].unk_D |= movement;
+    CUTSCENE_DATA.oam[8].actions |= movement;
     EnterTourianUpdatePirate(&CUTSCENE_DATA.oam[8]);
 
     return FALSE;
@@ -244,7 +244,7 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
     u8 notDrawn;
     i32 velocity;
 
-    if (pOam->unk_D & 1)
+    if (pOam->actions & 1)
     {
         if (pOam->unk_16 != 0)
             pOam->unk_16--;
@@ -291,7 +291,7 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
         }
     }
 
-    if (pOam->unk_D & 2)
+    if (pOam->actions & 2)
     {
         pOam->unk_1A++;
         if (pOam->unk_1A > 4)
@@ -302,11 +302,11 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
             velocity = 0x3AA0;
             ApplySmoothPaletteTransition(sEwramPointer + 0x280, sEwramPointer + velocity, PALRAM_BASE + 0x280, pOam->unk_12);
             if (pOam->unk_12 > 30)
-                pOam->unk_D ^= 2;
+                pOam->actions ^= 2;
         }
     }
 
-    pOam->unk_D &= ~1;
+    pOam->actions &= ~1;
     position = *CutsceneGetBGHOFSPointer(sEnterTourianPageData[0].bg);
 
     if (position - pOam->xPosition + 0x5DF < 0x6DE)
@@ -354,9 +354,9 @@ u8 EnterTourianInit(void)
 
     CUTSCENE_DATA.oam[1].oamID = 6;
     CUTSCENE_DATA.oam[1].idChanged = TRUE;
-    CUTSCENE_DATA.oam[1].unk_C_0 = 3;
+    CUTSCENE_DATA.oam[1].boundBackground = 3;
     CUTSCENE_DATA.oam[1].priority = sEnterTourianPageData[0].priority;
-    CUTSCENE_DATA.oam[1].unk_D = 1;
+    CUTSCENE_DATA.oam[1].actions = 1;
 
     CUTSCENE_DATA.oam[3] = CUTSCENE_DATA.oam[1];
     CUTSCENE_DATA.oam[5] = CUTSCENE_DATA.oam[1];
@@ -371,7 +371,7 @@ u8 EnterTourianInit(void)
     
     CUTSCENE_DATA.oam[0].oamID = 2;
     CUTSCENE_DATA.oam[0].idChanged = TRUE;
-    CUTSCENE_DATA.oam[0].unk_C_0 = 3;
+    CUTSCENE_DATA.oam[0].boundBackground = 3;
     CUTSCENE_DATA.oam[0].priority = sEnterTourianPageData[0].priority;
 
     CUTSCENE_DATA.oam[2] = CUTSCENE_DATA.oam[0];
@@ -390,9 +390,9 @@ u8 EnterTourianInit(void)
     }
 
     update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[8], 1);
-    CUTSCENE_DATA.oam[8].unk_C_0 = 3;
+    CUTSCENE_DATA.oam[8].boundBackground = 3;
     CUTSCENE_DATA.oam[8].priority = sEnterTourianPageData[0].priority;
-    CUTSCENE_DATA.oam[8].unk_D = 1;
+    CUTSCENE_DATA.oam[8].actions = 1;
     CUTSCENE_DATA.oam[8].xPosition = sEnterTourian_760090[4][0];
     CUTSCENE_DATA.oam[8].yPosition = sEnterTourian_760090[4][1];
 

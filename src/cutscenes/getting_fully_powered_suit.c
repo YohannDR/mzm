@@ -35,7 +35,7 @@ u8 GettingFullyPoweredSuitAnimation(void)
         case 1:
             if (CUTSCENE_DATA.timeInfo.timer > 20)
             {
-                CUTSCENE_DATA.oam[6].unk_D = 2;
+                CUTSCENE_DATA.oam[6].actions = 2;
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -70,7 +70,7 @@ u8 GettingFullyPoweredSuitAnimation(void)
                     BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
                     BLDCNT_BACKDROP_FIRST_TARGET_PIXEL, 16, 8, 1);
 
-                CUTSCENE_DATA.oam[6].unk_D |= 4;
+                CUTSCENE_DATA.oam[6].actions |= 4;
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -151,7 +151,7 @@ void GettingFullyPoweredSuitUpdateRing(struct CutsceneOamData* pOam)
 {
     u16 unk;
     
-    if (pOam->unk_D & 4)
+    if (pOam->actions & 4)
     {
         unk = ++pOam->unk_18;
         pOam->unk_10 = -4 - (unk / 4);
@@ -162,11 +162,11 @@ void GettingFullyPoweredSuitUpdateRing(struct CutsceneOamData* pOam)
         pOam->unk_18 = 0;
     }
 
-    if (pOam->unk_D & 2)
+    if (pOam->actions & 2)
     {
         pOam->yPosition += pOam->unk_10;
         if (pOam->yPosition < -0xBF)
-            pOam->unk_D = 0;
+            pOam->actions = 0;
     }
 
     CUTSCENE_DATA.oam[13].yPosition = pOam->yPosition;
@@ -180,12 +180,12 @@ void GettingFullyPoweredSuitUpdateRing(struct CutsceneOamData* pOam)
  */
 void GettingFullyPoweredSuitUpdateSparkleAroundRing(struct CutsceneOamData* pOam, u8 sparkleId)
 {
-    if (pOam->unk_D == 0)
+    if (pOam->actions == 0)
     {
         pOam->timer = sRandomNumberTable[(gFrameCounter8Bit + sparkleId) & 0xFF] & 0x1F;
-        pOam->unk_D = 1;
+        pOam->actions = 1;
     }
-    else if (pOam->unk_D == 1)
+    else if (pOam->actions == 1)
     {
         if (pOam->timer != 0)
             pOam->timer--;
@@ -196,11 +196,11 @@ void GettingFullyPoweredSuitUpdateSparkleAroundRing(struct CutsceneOamData* pOam
             else
                 update_cutscene_oam_data_id(pOam, GETTING_FULLY_POWERED_SUIT_OAM_ID_SPARKLE_AROUND_RING1);
 
-            pOam->unk_D = 2;
+            pOam->actions = 2;
         }
     }
     else if (!pOam->idChanged)
-        pOam->unk_D = 0;
+        pOam->actions = 0;
     
     if (pOam->idChanged)
     {
@@ -219,7 +219,7 @@ void GettingFullyPoweredSuitUpdateSparkleGoingUp(struct CutsceneOamData* pOam, u
 {
     u16 unk;
 
-    if (pOam->unk_D & 2)
+    if (pOam->actions & 2)
     {
         unk = ++pOam->unk_18;
         pOam->unk_10 += (unk / 16);
@@ -231,14 +231,14 @@ void GettingFullyPoweredSuitUpdateSparkleGoingUp(struct CutsceneOamData* pOam, u
         if (pOam->yPosition >= -0xDF)
             return;
 
-        pOam->unk_D = 0;
+        pOam->actions = 0;
         pOam->timer = sGettingFullyPoweredSuitBackgroundGFX[gFrameCounter8Bit + sparkleId] & 0x3F;
     }
     else
     {
         if (pOam->timer == 0)
         {
-            pOam->unk_D = 2;
+            pOam->actions = 2;
             pOam->unk_10 = 0;
             pOam->xPosition = sGettingFullyPoweredSuit_3c642c[sparkleId - 7] + (sRandomNumberTable[gFrameCounter8Bit] & 0x3F);
             pOam->yPosition = BLOCK_SIZE * 11;
@@ -295,7 +295,7 @@ u8 GettingFullyPoweredSuitInit(void)
     CUTSCENE_DATA.oam[6].yPosition = BLOCK_SIZE * 22;
     CUTSCENE_DATA.oam[6].priority = sGettingFullyPoweredSuitPageData[0].priority;
     CUTSCENE_DATA.oam[6].unk_B_4 = 0;
-    CUTSCENE_DATA.oam[6].unk_C_0 = 2;
+    CUTSCENE_DATA.oam[6].boundBackground = 2;
 
     update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[6], GETTING_FULLY_POWERED_SUIT_OAM_ID_RING_BOTTOM);
     CUTSCENE_DATA.oam[13] = CUTSCENE_DATA.oam[6];
@@ -305,7 +305,7 @@ u8 GettingFullyPoweredSuitInit(void)
     for (i = 0; i < 6; i++)
     {
         CUTSCENE_DATA.oam[i].priority = sGettingFullyPoweredSuitPageData[0].priority;
-        CUTSCENE_DATA.oam[i].unk_C_0 = 2;
+        CUTSCENE_DATA.oam[i].boundBackground = 2;
     }
 
     CUTSCENE_DATA.oam[7].xPosition = sGettingFullyPoweredSuit_3c642c[0];
