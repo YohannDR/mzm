@@ -23,5 +23,6 @@ struct Message {
 
 extern struct Message gCurrentMessage;
 extern u32 gCurrentCharacterGfx[32];
+extern i8 gCurrentItemBeginAcquired;
 
 #endif /* TEXT_STRUCT_H */

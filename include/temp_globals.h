@@ -8,6 +8,7 @@
 #include "structs/intro.h"
 #include "structs/game_over.h"
 #include "structs/ending_and_gallery.h"
+#include "structs/menus/pause_screen.h"
 
 
 union NonGameplayRAM {
@@ -15,6 +16,7 @@ union NonGameplayRAM {
     struct IntroData intro;
     struct GameOverData gameOver;
     struct EndingData ending;
+    struct PauseScreenData pauseScreen;
     u8 inGame[1576];
 };
 
