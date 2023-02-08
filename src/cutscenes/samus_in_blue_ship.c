@@ -107,7 +107,7 @@ void SamusInBlueShipUpdateControlPanel(struct CutsceneOamData* pOam)
             break;
 
         case 1:
-            update_cutscene_oam_data_id(pOam, 2);
+            UpdateCutsceneOamDataID(pOam, 2);
             SoundPlay(0x253);
             gWrittenToBLDALPHA_L = 16;
             gWrittenToBLDALPHA_H = 0;
@@ -175,7 +175,7 @@ u8 SamusInBlueShipInit(void)
 
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sSamusInBlueShipPageData[0].bg, 0x800);
 
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], 1);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], 1);
 
     CUTSCENE_DATA.oam[0].xPosition = BLOCK_SIZE * 39 + HALF_BLOCK_SIZE;
     CUTSCENE_DATA.oam[0].yPosition = BLOCK_SIZE * 37 - 4;

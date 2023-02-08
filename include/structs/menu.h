@@ -14,7 +14,11 @@ struct MenuOamData {
     u8 animationDurationCounter;
     u8 currentAnimationFrame;
     u8 oamID;
-    u8 status; // Bitfield
+    u16 priority:2;
+    u16 unk_B_4:2;
+    u16 ended:1;
+    u16 notDrawn:1;
+    u16 idChanged:2;
 
     u8 unk_C;
     i16 unk_E;

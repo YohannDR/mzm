@@ -1,6 +1,7 @@
 #include "cutscenes/kraid_rising.h"
 #include "cutscenes/cutscene_utils.h"
 #include "oam.h"
+#include "oam_id.h"
 #include "syscall_wrappers.h"
 
 #include "data/cutscenes/cutscenes_data.h"
@@ -16,8 +17,6 @@
 #include "structs/game_state.h"
 #include "structs/display.h"
 #include "structs/samus.h"
-
-void update_cutscene_oam_data_id(struct CutsceneOamData*, u8);
 
 /**
  * @brief 6240c | 2ec | Handles the kraid rising part
@@ -70,7 +69,7 @@ u8 KraidRisingRising(void)
             CUTSCENE_DATA.oam[17].yPosition = BLOCK_SIZE * 10;
             CUTSCENE_DATA.oam[17].priority = sKraidRisingPagesData[2].priority;
 
-            update_cutscene_oam_data_id(CUTSCENE_DATA.oam + 17, KRAID_RISING_OAM_ID_SAMUS);
+            UpdateCutsceneOamDataID(CUTSCENE_DATA.oam + 17, KRAID_RISING_OAM_ID_SAMUS);
             CUTSCENE_DATA.dispcnt = sKraidRisingPagesData[2].bg | sKraidRisingPagesData[3].bg | DCNT_OBJ;
 
             SoundPlay(0x22D);
@@ -138,7 +137,7 @@ struct CutsceneOamData* KraidRisingUpdatePuff(struct CutsceneOamData* pOam, u8 p
             pOam->timer = (sRandomNumberTable[gFrameCounter8Bit + puffID] & 0xF) + 1;
 
             // Update OAM id
-            update_cutscene_oam_data_id(pOam, sKraidRisingPuffData[puffID][2]); // Undefined
+            UpdateCutsceneOamDataID(pOam, sKraidRisingPuffData[puffID][2]); // Undefined
         }
     }
 
@@ -171,7 +170,7 @@ struct CutsceneOamData* KraidRisingUpdateDebris(struct CutsceneOamData* pOam, u8
             pOam->unk_18 = 0;
 
             // Reset anim
-            update_cutscene_oam_data_id(pOam, KRAID_RISING_OAM_ID_DEBRIS);
+            UpdateCutsceneOamDataID(pOam, KRAID_RISING_OAM_ID_DEBRIS);
         }
         else
         {

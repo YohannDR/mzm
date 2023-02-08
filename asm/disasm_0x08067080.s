@@ -452,7 +452,7 @@ sub_080673e0: @ 0x080673e0
     beq lbl_0806741c
     adds r0, r4, #0
     movs r1, #3
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     ldrb r1, [r4, #0xd]
     movs r0, #0xfe
     ands r0, r1
@@ -1465,7 +1465,7 @@ lbl_08067ba2:
     lsls r4, r4, #1
     adds r0, r0, r4
     movs r1, #1
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     ldr r1, [r7]
     movs r0, #0xfe
     lsls r0, r0, #1
@@ -1834,7 +1834,7 @@ lbl_08067ee8: @ jump table
 lbl_08067efc:
     adds r0, r4, #0
     movs r1, #2
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     ldr r0, lbl_08067f18 @ =0x00000253
     bl SoundPlay
     ldr r1, lbl_08067f1c @ =0x030013b0
@@ -1978,7 +1978,7 @@ samus_in_blue_ship_init: @ 0x08067f90
     ldr r0, [r4]
     adds r0, #0xf0
     movs r1, #1
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     ldr r2, [r4]
     adds r1, r2, #0
     adds r1, #0xf2
@@ -2089,8 +2089,8 @@ lbl_0806811c: .4byte 0x087600e0
 lbl_08068120: .4byte 0x08754bc4
 lbl_08068124: .4byte 0x083f6c18
 
-    thumb_func_start sub_08068128
-sub_08068128: @ 0x08068128
+    thumb_func_start UpdateMenuOamDataID
+UpdateMenuOamDataID: @ 0x08068128
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
     strb r1, [r0, #0xa]
@@ -2108,8 +2108,8 @@ sub_08068128: @ 0x08068128
     bx lr
     .align 2, 0
 
-    thumb_func_start update_cutscene_oam_data_id
-update_cutscene_oam_data_id: @ 0x08068148
+    thumb_func_start UpdateCutsceneOamDataID
+UpdateCutsceneOamDataID: @ 0x08068148
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
     strb r1, [r0, #0xa]
@@ -4027,13 +4027,13 @@ lbl_08068fdc:
     lsls r4, r4, #3
     adds r4, r4, r1
     ldrb r1, [r4, #1]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r5]
     movs r6, #0x89
     lsls r6, r6, #3
     adds r0, r0, r6
     ldrb r1, [r4, #2]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, [r5]
     ldrh r2, [r4, #4]
     ldr r3, lbl_08069020 @ =0x0000044a
@@ -4584,7 +4584,7 @@ lbl_08069430:
     lsls r1, r5, #3
     adds r1, r1, r2
     ldrb r1, [r1]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, [r7]
     adds r4, r1, r4
     movs r0, #0xc
@@ -8907,7 +8907,7 @@ sub_0806b718: @ 0x0806b718
     movs r2, #0x87
     lsls r2, r2, #3
     adds r0, r0, r2
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_0806b734:
     movs r0, #1
     cmp r4, #0xf
@@ -9819,7 +9819,7 @@ lbl_0806be9c:
     lsls r4, r4, #1
     adds r0, r0, r4
     movs r1, #2
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, [r5]
     movs r0, #0x8d
     lsls r0, r0, #1
@@ -9938,7 +9938,7 @@ lbl_0806bf88:
     lsls r1, r1, #1
     adds r0, r3, r1
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     ldr r4, lbl_0806bfc0 @ =0x00000123
     adds r2, r0, r4
@@ -17375,7 +17375,7 @@ lbl_0806f86e:
     lsls r3, r3, #1
     adds r0, r0, r3
     adds r1, r4, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     b lbl_0806f974
 lbl_0806f87e:
     ldr r0, lbl_0806f8c4 @ =0x03001380
@@ -20427,7 +20427,7 @@ sub_08070f6c: @ 0x08070f6c
     lsls r1, r1, #1
     adds r0, r2, r1
     movs r1, #6
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_08070f9a:
     ldr r0, [r4]
     adds r0, #0xc1
@@ -20507,7 +20507,7 @@ lbl_08071026:
     lsls r1, r1, #1
     adds r0, r2, r1
     movs r1, #6
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     adds r0, #0xc1
     ldrb r0, [r0]
@@ -21149,7 +21149,7 @@ lbl_08071516:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #0xd
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r7]
     adds r2, r0, #0
     adds r2, #0xc1
@@ -21249,7 +21249,7 @@ lbl_08071600:
     lsls r4, r4, #1
     adds r0, r0, r4
     adds r1, r5, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r5, [r7]
     ldr r3, lbl_0807167c @ =0x0840de50
     ldr r6, lbl_08071678 @ =0x0840dec4
@@ -21326,7 +21326,7 @@ lbl_08071684:
     lsls r2, r2, #1
     adds r0, r0, r2
     movs r1, #6
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, lbl_080716d0 @ =0x000001f7
     bl SoundPlay
     ldr r0, [r4]
@@ -21424,13 +21424,13 @@ lbl_08071744:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r2, #0x84
     lsls r2, r2, #1
     adds r0, r0, r2
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, [r4]
     movs r0, #4
     strb r0, [r1, #8]
@@ -22245,7 +22245,7 @@ lbl_08071d9a:
     lsls r1, r1, #3
     adds r0, r2, r1
     adds r1, r3, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     adds r0, r7, #0
     pop {r3}
     mov r8, r3
@@ -22341,7 +22341,7 @@ lbl_08071e36:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #6
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     movs r0, #0xfb
     lsls r0, r0, #1
     bl SoundPlay
@@ -23895,7 +23895,7 @@ lbl_080729e0:
     ldrb r1, [r1, #0x12]
     adds r1, r1, r2
     ldrb r1, [r1]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     bl sub_0806889c
     ldr r1, [r4]
     ldrb r0, [r1, #8]
@@ -32360,11 +32360,11 @@ lbl_08076dc4:
     ldr r0, [r4]
     adds r0, #0x9c
     movs r1, #5
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     adds r0, #0xac
     movs r1, #5
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     b lbl_08076e10
     .align 2, 0
 lbl_08076df8: .4byte 0x08754bc4
@@ -34747,7 +34747,7 @@ game_over_menu_samus_head: @ 0x08078174
     adds r0, r0, r4
     ldrb r1, [r0]
     adds r0, r3, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r5, [r5]
     ldr r1, lbl_080781d0 @ =0x084547b4
     ldr r0, lbl_080781d4 @ =0x03000020
@@ -34914,7 +34914,7 @@ lbl_080782c6:
     adds r0, #0x80
     strh r1, [r0]
     ldrb r1, [r4, #4]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     mov r0, sb
     adds r0, #0x90
     ldrh r1, [r4, #8]
@@ -34922,7 +34922,7 @@ lbl_080782c6:
     ldrh r1, [r4, #0xa]
     strh r1, [r0]
     ldrb r1, [r4, #0xc]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     mov r0, sb
     adds r0, #0xa0
     ldrh r1, [r4, #0x10]
@@ -34930,7 +34930,7 @@ lbl_080782c6:
     ldrh r1, [r4, #0x12]
     strh r1, [r0]
     ldrb r1, [r4, #0x14]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r6, lbl_080784e0 @ =0x08754bc4
     ldr r1, [r6]
     movs r0, #0x98
@@ -35235,7 +35235,7 @@ lbl_08078572:
     adds r0, #0xe4
     lsls r1, r3, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r2, [r4]
     ldr r4, lbl_080785b8 @ =0x08760b40
     adds r1, r6, r4
@@ -35256,7 +35256,7 @@ lbl_0807859e:
     adds r0, #0xf4
     lsls r1, r3, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     cmp r5, #1
     beq lbl_080785bc
     ldrb r3, [r4, #0xc]
@@ -35274,7 +35274,7 @@ lbl_080785be:
     adds r0, r0, r1
     lsls r1, r3, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     cmp r5, #2
     beq lbl_080785e4
     ldr r0, lbl_080785e0 @ =0x08760b40
@@ -35310,7 +35310,7 @@ lbl_08078608:
     adds r1, r3, #2
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     cmp r5, #0
     beq lbl_0807863e
     ldr r2, [r4]
@@ -35387,7 +35387,7 @@ lbl_080786a8:
     adds r3, #1
     lsls r1, r3, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, [r4]
     adds r1, #0xff
     ldrb r3, [r1]
@@ -35446,7 +35446,7 @@ lbl_0807872c:
     lsls r1, r1, #0x18
 lbl_0807872e:
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     b lbl_08078746
     .align 2, 0
 lbl_08078738: .4byte 0x08754bc4
@@ -35516,7 +35516,7 @@ lbl_080787a2:
     adds r0, #0xd4
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r4, [r4]
     ldr r3, lbl_0807886c @ =0x08760b40
     adds r1, r7, r3
@@ -35555,7 +35555,7 @@ lbl_080787ee:
     adds r0, #0xf4
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, lbl_0807886c @ =0x08760b40
     ldrb r1, [r0, #0xc]
     cmp r5, #1
@@ -35581,7 +35581,7 @@ lbl_0807881c:
     adds r0, r0, r2
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, lbl_0807886c @ =0x08760b40
     ldrb r1, [r0, #0x14]
     cmp r5, #2
@@ -35609,7 +35609,7 @@ lbl_08078852:
     adds r0, r0, r2
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     b lbl_080788c8
     .align 2, 0
 lbl_08078868: .4byte 0x08754bc4
@@ -35630,19 +35630,19 @@ lbl_08078874:
     ldr r0, [r4]
     adds r0, #0xf4
     ldrb r1, [r6, #4]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r1, #0x82
     lsls r1, r1, #1
     adds r0, r0, r1
     ldrb r1, [r6, #0xc]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r2, #0x8a
     lsls r2, r2, #1
     adds r0, r0, r2
     ldrb r1, [r6, #0x14]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     b lbl_080788c8
     .align 2, 0
 lbl_080788b4: .4byte 0x08754bc4
@@ -35653,7 +35653,7 @@ lbl_080788b8:
     adds r1, #2
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_080788c8:
     pop {r4, r5, r6, r7}
     pop {r0}
@@ -35724,7 +35724,7 @@ lbl_08078924:
     adds r1, r1, r3
     adds r0, #0xc4
     ldrb r1, [r1]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r2, [r5]
     adds r0, r2, #0
     adds r0, #0x26
@@ -35738,7 +35738,7 @@ lbl_08078924:
 lbl_08078966:
     adds r0, r2, #0
     adds r0, #0xf4
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_0807896e:
     ldr r0, lbl_08078988 @ =0x08754bc4
     ldr r0, [r0]
@@ -35763,7 +35763,7 @@ lbl_08078992:
     movs r2, #0x82
     lsls r2, r2, #1
     adds r0, r0, r2
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_080789a0:
     ldr r0, lbl_080789b8 @ =0x08754bc4
     ldr r1, [r0]
@@ -35787,7 +35787,7 @@ lbl_080789c2:
     movs r2, #0x8a
     lsls r2, r2, #1
     adds r0, r0, r2
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     b lbl_08078a0c
 lbl_080789d0:
     adds r2, #0xcf
@@ -35800,7 +35800,7 @@ lbl_080789d0:
     ldr r0, [r5]
     adds r0, #0xf4
     ldrb r1, [r7, #4]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_080789e8:
     cmp r4, #1
     bne lbl_080789fa
@@ -35809,7 +35809,7 @@ lbl_080789e8:
     lsls r1, r1, #1
     adds r0, r0, r1
     ldrb r1, [r7, #0xc]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_080789fa:
     cmp r4, #2
     bne lbl_08078a0c
@@ -35818,7 +35818,7 @@ lbl_080789fa:
     lsls r2, r2, #1
     adds r0, r0, r2
     ldrb r1, [r7, #0x14]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_08078a0c:
     pop {r4, r5, r6, r7}
     pop {r0}
@@ -35878,7 +35878,7 @@ lbl_08078a66:
     adds r0, #0xd4
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r4, [r4]
     ldr r3, lbl_08078b30 @ =0x08760b40
     adds r1, r7, r3
@@ -35917,7 +35917,7 @@ lbl_08078ab2:
     adds r0, #0xf4
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, lbl_08078b30 @ =0x08760b40
     ldrb r1, [r0, #0xc]
     cmp r5, #1
@@ -35943,7 +35943,7 @@ lbl_08078ae0:
     adds r0, r0, r2
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, lbl_08078b30 @ =0x08760b40
     ldrb r1, [r0, #0x14]
     cmp r5, #2
@@ -35971,7 +35971,7 @@ lbl_08078b16:
     adds r0, r0, r2
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     b lbl_08078b8c
     .align 2, 0
 lbl_08078b2c: .4byte 0x08754bc4
@@ -35992,19 +35992,19 @@ lbl_08078b38:
     ldr r0, [r4]
     adds r0, #0xf4
     ldrb r1, [r6, #4]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r1, #0x82
     lsls r1, r1, #1
     adds r0, r0, r1
     ldrb r1, [r6, #0xc]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r2, #0x8a
     lsls r2, r2, #1
     adds r0, r0, r2
     ldrb r1, [r6, #0x14]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     b lbl_08078b8c
     .align 2, 0
 lbl_08078b78: .4byte 0x08754bc4
@@ -36015,7 +36015,7 @@ lbl_08078b7c:
     adds r1, #2
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_08078b8c:
     pop {r4, r5, r6, r7}
     pop {r0}
@@ -36106,7 +36106,7 @@ lbl_08078c30:
     adds r0, r1, r6
 lbl_08078c44:
     movs r1, #1
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     b lbl_08078c76
     .align 2, 0
 lbl_08078c4c: .4byte 0x08754bc4
@@ -36127,7 +36127,7 @@ lbl_08078c5c:
     lsls r6, r6, #2
     adds r0, r1, r6
     movs r1, #2
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_08078c76:
     ldr r0, lbl_08078c94 @ =0x08754bc4
     ldr r2, [r0]
@@ -36180,7 +36180,7 @@ lbl_08078cbe:
     adds r2, r2, r1
     adds r2, r2, r4
     ldrb r1, [r2]
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     mov r1, r8
     ldr r2, [r1]
     ldrb r0, [r5]
@@ -40285,7 +40285,7 @@ lbl_0807ad80:
     lsls r4, r4, #2
     adds r0, r0, r4
     movs r1, #0xe
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, [r5]
     ldr r2, lbl_0807add0 @ =0x00000226
     adds r0, r1, r2
@@ -40328,19 +40328,19 @@ lbl_0807adea:
     lsls r3, r3, #2
     adds r0, r2, r3
     movs r1, #7
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r1, #0x8d
     lsls r1, r1, #2
     adds r0, r0, r1
     movs r1, #9
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r2, #0x91
     lsls r2, r2, #2
     adds r0, r0, r2
     movs r1, #0xb
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, [r4]
     b lbl_0807afde
     .align 2, 0
@@ -40407,7 +40407,7 @@ lbl_0807ae86:
     lsls r3, r3, #2
     adds r0, r0, r3
     movs r1, #0xa
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     adds r0, #0x40
     movs r1, #3
@@ -40435,7 +40435,7 @@ lbl_0807aeba:
     lsls r1, r1, #2
     adds r0, r0, r1
     movs r1, #8
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     adds r0, #0x40
     movs r1, #4
@@ -40535,19 +40535,19 @@ lbl_0807af80:
     lsls r1, r1, #2
     adds r0, r0, r1
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r2, #0x8d
     lsls r2, r2, #2
     adds r0, r0, r2
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r3, #0x91
     lsls r3, r3, #2
     adds r0, r0, r3
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, [r4]
     ldr r0, lbl_0807afc8 @ =0x0000025e
     adds r1, r1, r0
@@ -40931,7 +40931,7 @@ lbl_0807b1e4:
     lsls r4, r4, #1
     adds r0, r1, r4
     movs r1, #9
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, [r6]
     movs r5, #0xe8
     lsls r5, r5, #1
@@ -40960,7 +40960,7 @@ lbl_0807b1e4:
     lsls r4, r4, #1
     adds r0, r0, r4
     movs r1, #0xb
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, [r6]
     movs r0, #0xf0
     lsls r0, r0, #1
@@ -41004,13 +41004,13 @@ lbl_0807b360:
     lsls r3, r3, #1
     adds r0, r0, r3
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r4, #0xea
     lsls r4, r4, #1
     adds r0, r0, r4
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_0807b37e:
     ldr r2, lbl_0807b3b0 @ =0x08754bc4
     ldr r0, [r2]
@@ -41114,13 +41114,13 @@ lbl_0807b43c:
     lsls r5, r5, #1
     adds r0, r0, r5
     movs r1, #0x14
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r1, #0xf2
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #0x10
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, lbl_0807b474 @ =0x000001fd
     bl SoundPlay
     ldr r0, [r4]
@@ -42016,11 +42016,11 @@ lbl_0807bac4:
     ldr r0, [r5]
     add r0, sl
     movs r1, #0x14
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r5]
     adds r0, r0, r4
     movs r1, #0x10
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, lbl_0807bbec @ =0x03000bf8
     movs r2, #0xdb
     lsls r2, r2, #3
@@ -42151,7 +42151,7 @@ lbl_0807bc58:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #0xc
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_0807bcb0:
     ldr r5, lbl_0807bd18 @ =0x08754bc4
     ldr r2, [r5]
@@ -42276,7 +42276,7 @@ lbl_0807bd8e:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, [r4]
     movs r2, #0xf7
     lsls r2, r2, #1
@@ -42288,7 +42288,7 @@ lbl_0807bd8e:
     lsls r3, r3, #1
     adds r0, r1, r3
     movs r1, #0x10
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_0807bdd0:
     ldr r1, [r4]
     b lbl_0807c0f2
@@ -42385,7 +42385,7 @@ lbl_0807be70:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r2, #0xf7
     lsls r2, r2, #1
@@ -42520,7 +42520,7 @@ lbl_0807bf7c:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r2, [r4]
     ldrh r1, [r2]
     ldr r0, lbl_0807bfb4 @ =0x0000fcff
@@ -42608,7 +42608,7 @@ lbl_0807c01c:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r2, #0xf7
     lsls r2, r2, #1
@@ -42668,7 +42668,7 @@ lbl_0807c094:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #0
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, [r4]
     movs r2, #0xff
     lsls r2, r2, #1
@@ -47335,7 +47335,7 @@ lbl_0807e5fa:
     adds r0, #0xa4
 lbl_0807e60c:
     movs r1, #0x17
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     b lbl_0807e6d2
 lbl_0807e614:
     cmp r4, #0x80
@@ -47346,7 +47346,7 @@ lbl_0807e618:
     adds r0, #0xa4
 lbl_0807e61e:
     movs r1, #0x18
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     b lbl_0807e6d2
     .align 2, 0
 lbl_0807e628: .4byte 0x08754bc4
@@ -47417,7 +47417,7 @@ lbl_0807e694:
     adds r0, r1, #0
     adds r0, #0xa4
     movs r1, #0x17
-    bl sub_08068128
+    bl UpdateMenuOamDataID
 lbl_0807e6ac:
     ldr r1, [r5]
     adds r0, r1, #0
@@ -47428,7 +47428,7 @@ lbl_0807e6ac:
     adds r0, r1, #0
     adds r0, #0x74
     movs r1, #0x21
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r1, [r5]
     adds r2, r1, #0
     adds r2, #0x76
@@ -47519,7 +47519,7 @@ lbl_0807e7a4:
     movs r1, #0x80
     strh r1, [r0]
     movs r1, #0x22
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     movs r0, #5
     bl sub_0807ef7c
     ldr r1, lbl_0807e7f0 @ =0x03000bf8
@@ -47585,7 +47585,7 @@ lbl_0807e838:
     movs r1, #0xa0
     strh r1, [r0]
     movs r1, #0x26
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     movs r0, #5
     bl sub_0807ef7c
     ldr r1, lbl_0807e87c @ =0x03000bf4
@@ -47656,7 +47656,7 @@ lbl_0807e8cc:
     movs r1, #0xc0
     strh r1, [r0]
     movs r1, #0x24
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     movs r0, #5
     bl sub_0807ef7c
     ldr r1, lbl_0807e908 @ =0x03000bf4
@@ -47746,7 +47746,7 @@ lbl_0807e988:
     movs r1, #0xa0
     strh r1, [r0]
     movs r1, #0x26
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     movs r0, #5
     bl sub_0807ef7c
     ldr r1, lbl_0807e9f8 @ =0x03000bf8
@@ -47891,7 +47891,7 @@ lbl_0807eabc:
     movs r1, #0xa0
     strh r1, [r0]
     movs r1, #0x26
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     movs r0, #5
     bl sub_0807ef7c
     ldr r1, lbl_0807eb2c @ =0x03000bf8
@@ -48120,7 +48120,7 @@ lbl_0807eca4:
     movs r1, #0xc0
     strh r1, [r0]
     movs r1, #0x24
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     movs r0, #5
     bl sub_0807ef7c
     ldr r1, lbl_0807ece8 @ =0x03000bf4
@@ -48275,7 +48275,7 @@ lbl_0807eddc:
     movs r1, #0xa0
     strh r1, [r0]
     movs r1, #0x26
-    bl sub_08068128
+    bl UpdateMenuOamDataID
     ldr r0, lbl_0807ee28 @ =0x03000bf4
     movs r3, #0xec
     lsls r3, r3, #3

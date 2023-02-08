@@ -44,7 +44,7 @@ u8 RidleySpawnRidleyFlyingIn(void)
             CUTSCENE_DATA.oam[0].unk_B_4 = FALSE;
 
             gCurrentOamScaling = 0x120;
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING);
             CUTSCENE_DATA.dispcnt = sRidleySpawnPageData[3].bg | DCNT_OBJ;
             
             CUTSCENE_DATA.timeInfo.timer = 0;
@@ -99,7 +99,7 @@ void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam)
         else if (pOam->oamID != 3 && gCurrentOamScaling > 0x16F)
         {
             SoundPlay(0x24C); // Ridley cutscene roar
-            update_cutscene_oam_data_id(pOam, RIDLEY_SPAWN_OAM_ID_RIDLEY_SCREAMING);
+            UpdateCutsceneOamDataID(pOam, RIDLEY_SPAWN_OAM_ID_RIDLEY_SCREAMING);
         }
     }
 
@@ -148,7 +148,7 @@ u8 RidleySpawnHelmetReflection(void)
             CUTSCENE_DATA.oam[0].unk_B_4 = TRUE;
 
             gCurrentOamScaling = 0x40;
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING_REFLECTION);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING_REFLECTION);
             CUTSCENE_DATA.dispcnt = sRidleySpawnPageData[1].bg | sRidleySpawnPageData[2].bg | DCNT_OBJ;
 
             CUTSCENE_DATA.timeInfo.timer = 0;
@@ -267,7 +267,7 @@ u8 RidleySpawnInit(void)
     CUTSCENE_DATA.oam[0].unk_B_4 = TRUE;
 
     gCurrentOamScaling = 0x100;
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_SAMUS);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_SAMUS);
 
     CUTSCENE_DATA.dispcnt = sRidleySpawnPageData[0].bg | DCNT_OBJ;
 

@@ -196,7 +196,7 @@ lbl_080631ac:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #6
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     ldr r1, [r4]
 lbl_080631d2:
     movs r0, #0
@@ -277,7 +277,7 @@ lbl_08063260:
     strh r0, [r4, #0x14]
     adds r0, r4, #0
     movs r1, #4
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     ldrb r0, [r4, #0xd]
     adds r0, #1
     strb r0, [r4, #0xd]
@@ -451,7 +451,7 @@ lbl_080633e0:
     lsls r1, r1, #1
     adds r0, r0, r1
     movs r1, #3
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
 lbl_08063402:
     ldr r1, [r4]
     movs r0, #0
@@ -870,7 +870,7 @@ lbl_0806370c:
     adds r0, r0, r2
     movs r1, #5
     str r3, [sp]
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     movs r0, #0xf0
     lsls r0, r0, #1
     strh r0, [r7, #0x22]
@@ -998,7 +998,7 @@ lbl_0806381e:
     adds r0, #0xf0
     adds r0, r5, r0
     movs r1, #1
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     ldr r2, [r7]
     adds r2, r2, r4
     adds r2, #0xfc
@@ -1119,7 +1119,7 @@ lbl_080638cc:
     ldr r0, [r4]
     adds r0, r0, r3
     movs r1, #4
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     ldr r2, [r4]
     ldrh r0, [r5, #4]
     movs r3, #0x80
@@ -1190,7 +1190,7 @@ lbl_08063978:
     beq lbl_08063a1c
     adds r0, r5, r4
     movs r1, #9
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     b lbl_08063a24
     .align 2, 0
 lbl_080639e8: .4byte 0x0839dcd0
@@ -1209,7 +1209,7 @@ lbl_08063a18: .4byte 0x0000027f
 lbl_08063a1c:
     adds r0, r5, r4
     movs r1, #0xa
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
 lbl_08063a24:
     adds r4, #0x20
     adds r6, #1
@@ -2378,15 +2378,15 @@ ridley_in_space_cutscene_init: @ 0x080642bc
     adds r1, r3, r4
     strh r2, [r1]
     movs r1, #1
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     ldr r0, [r5]
     adds r0, r0, r6
     movs r1, #2
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     ldr r0, [r5]
     adds r0, r0, r4
     movs r1, #3
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     movs r0, #0x10
     movs r1, #0
     bl PlayMusic
@@ -2590,7 +2590,7 @@ lbl_0806454a:
     ldr r0, [r2]
     adds r0, r0, r1
     movs r1, #6
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     mov r3, r8
     ldr r1, [r3]
     ldrb r0, [r1, #6]
@@ -2628,7 +2628,7 @@ lbl_08064582:
     adds r0, r0, r5
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
 lbl_080645aa:
     ldr r1, [r7]
     adds r0, r1, r4
@@ -2639,7 +2639,7 @@ lbl_080645aa:
     bne lbl_080645c0
     adds r0, r1, r5
     movs r1, #0
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
 lbl_080645c0:
     adds r5, #0x20
     adds r6, #1
@@ -2834,7 +2834,7 @@ lbl_08064726:
     adds r0, #0xf0
     add r0, r8
     adds r1, r3, #0
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
     b lbl_0806474a
     .align 2, 0
 lbl_08064734: .4byte 0x08754bc4
@@ -2870,7 +2870,7 @@ lbl_08064752:
     bne lbl_0806477e
     adds r0, r1, r6
     movs r1, #0
-    bl update_cutscene_oam_data_id
+    bl UpdateCutsceneOamDataID
 lbl_0806477e:
     adds r6, #0x20
     adds r5, #1

@@ -389,7 +389,7 @@ u8 EnterTourianInit(void)
         CUTSCENE_DATA.oam[i].yPosition = sEnterTourian_760090[i >> 1][1];
     }
 
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[8], 1);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[8], 1);
     CUTSCENE_DATA.oam[8].boundBackground = 3;
     CUTSCENE_DATA.oam[8].priority = sEnterTourianPageData[0].priority;
     CUTSCENE_DATA.oam[8].actions = 1;

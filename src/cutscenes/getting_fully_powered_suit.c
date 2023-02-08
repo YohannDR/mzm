@@ -192,9 +192,9 @@ void GettingFullyPoweredSuitUpdateSparkleAroundRing(struct CutsceneOamData* pOam
         else
         {
             if (sRandomNumberTable[gFrameCounter8Bit] & 1)
-                update_cutscene_oam_data_id(pOam, GETTING_FULLY_POWERED_SUIT_OAM_ID_SPARKLE_AROUND_RING2);
+                UpdateCutsceneOamDataID(pOam, GETTING_FULLY_POWERED_SUIT_OAM_ID_SPARKLE_AROUND_RING2);
             else
-                update_cutscene_oam_data_id(pOam, GETTING_FULLY_POWERED_SUIT_OAM_ID_SPARKLE_AROUND_RING1);
+                UpdateCutsceneOamDataID(pOam, GETTING_FULLY_POWERED_SUIT_OAM_ID_SPARKLE_AROUND_RING1);
 
             pOam->actions = 2;
         }
@@ -297,10 +297,10 @@ u8 GettingFullyPoweredSuitInit(void)
     CUTSCENE_DATA.oam[6].unk_B_4 = 0;
     CUTSCENE_DATA.oam[6].boundBackground = 2;
 
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[6], GETTING_FULLY_POWERED_SUIT_OAM_ID_RING_BOTTOM);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[6], GETTING_FULLY_POWERED_SUIT_OAM_ID_RING_BOTTOM);
     CUTSCENE_DATA.oam[13] = CUTSCENE_DATA.oam[6];
     CUTSCENE_DATA.oam[13].priority = sGettingFullyPoweredSuitPageData[0].priority + 1;
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[13], GETTING_FULLY_POWERED_SUIT_OAM_ID_RING_TOP);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[13], GETTING_FULLY_POWERED_SUIT_OAM_ID_RING_TOP);
 
     for (i = 0; i < 6; i++)
     {
@@ -312,7 +312,7 @@ u8 GettingFullyPoweredSuitInit(void)
     CUTSCENE_DATA.oam[7].yPosition = BLOCK_SIZE * 11;
     CUTSCENE_DATA.oam[7].priority = sGettingFullyPoweredSuitPageData[0].priority;
     CUTSCENE_DATA.oam[i].timer = sRandomNumberTable[gFrameCounter8Bit] & 0x3F;
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[7], GETTING_FULLY_POWERED_SUIT_OAM_ID_SPARKLE_GOING_UP);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[7], GETTING_FULLY_POWERED_SUIT_OAM_ID_SPARKLE_GOING_UP);
 
     for (i = 8; i < 12; i++)
     {

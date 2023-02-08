@@ -38,11 +38,11 @@ u8 RidleyLandingRidleyFlying(void)
             
             CUTSCENE_DATA.oam[1].xPosition = 0x480;
 			CUTSCENE_DATA.oam[1].yPosition = 0x180;
-			update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], RIDLEY_LANDING_OAM_ID_RIDLEY);
+			UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], RIDLEY_LANDING_OAM_ID_RIDLEY);
             
 			CUTSCENE_DATA.oam[0].xPosition = 0x2C0;
 			CUTSCENE_DATA.oam[0].yPosition = 0x200;
-			update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_LANDING_OAM_ID_ROCKS);
+			UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_LANDING_OAM_ID_ROCKS);
             
             CUTSCENE_DATA.dispcnt = sRidleyLandingPageData[4].bg | DCNT_OBJ;
             CUTSCENE_DATA.timeInfo.timer = 0;
@@ -95,7 +95,7 @@ void RidleyLandingUpdateRidley(struct CutsceneOamData* pOam)
             pOam->actions = 0;
 
         if (pOam->unk_16 == 8)
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_LANDING_OAM_ID_ROCKS_AND_RIDLEY_SHADOW);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_LANDING_OAM_ID_ROCKS_AND_RIDLEY_SHADOW);
     }
 
     if (pOam->actions & 2)
@@ -161,9 +161,9 @@ u8 RidleyLandingShipLanding(void)
             CUTSCENE_DATA.oam[8].boundBackground = 3;
             CUTSCENE_DATA.oam[8].priority = 1;
 
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[6], 2);
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[7], 3);
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[8], 4);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[6], 2);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[7], 3);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[8], 4);
 
             CUTSCENE_DATA.dispcnt = sRidleyLandingPageData[1].bg | DCNT_OBJ;
 
@@ -314,13 +314,13 @@ struct CutsceneOamData* RidleyLandingUpdateShipLanding(struct CutsceneOamData* p
 
         if (yPosition == 0x88)
         {
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_LANDING_OAM_ID_SMOKE_PARTICLES);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_LANDING_OAM_ID_SMOKE_PARTICLES);
             CUTSCENE_DATA.oam[0].xPosition = BLOCK_SIZE * 7 - QUARTER_BLOCK_SIZE;
             CUTSCENE_DATA.oam[0].yPosition = BLOCK_SIZE * 9;
         }
         else if (yPosition == 0x78)
         {
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], RIDLEY_LANDING_OAM_ID_SMOKE_PARTICLES);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], RIDLEY_LANDING_OAM_ID_SMOKE_PARTICLES);
             CUTSCENE_DATA.oam[1].xPosition = BLOCK_SIZE * 9;
             CUTSCENE_DATA.oam[1].yPosition = BLOCK_SIZE * 9 + QUARTER_BLOCK_SIZE;
         }
@@ -431,7 +431,7 @@ u8 RidleyLandingInit(void)
     CUTSCENE_DATA.oam[0].yPosition = BLOCK_SIZE * 3;
     CUTSCENE_DATA.oam[0].rotationScaling = TRUE;
 
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_IN_SPACE);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_LANDING_OAM_ID_MOTHER_SHIP_IN_SPACE);
 
     PlayMusic(MUSIC_RIDLEY_LANDING, 0);
     SoundPlay(0x28F);

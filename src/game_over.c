@@ -84,7 +84,7 @@ u32 GameOverSubroutine(void)
             break;
         
         case 4:
-            if (GAME_OVER_DATA.oam[0].status & 0x10)
+            if (GAME_OVER_DATA.oam[0].ended)
             {
                 GAME_OVER_DATA.timer = 0;
                 gGameModeSub1++;

@@ -88,7 +88,7 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
                 SoundPlay(0x230);
 
                 // Set eye focusing animation
-                update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], MOTHER_BRAIN_CLOSE_UP_OAM_ID_EYE_FOCUSING);
+                UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], MOTHER_BRAIN_CLOSE_UP_OAM_ID_EYE_FOCUSING);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -143,7 +143,7 @@ void MotherBrainCloseUpUpdateElevatorReflection(struct CutsceneOamData* pOam)
     pOam->timer = 90;
 
     // Set the elevator animation
-    update_cutscene_oam_data_id(pOam, MOTHER_BRAIN_CLOSE_UP_OAM_ID_ELEVATOR_ANIMATION);
+    UpdateCutsceneOamDataID(pOam, MOTHER_BRAIN_CLOSE_UP_OAM_ID_ELEVATOR_ANIMATION);
 
     // Check for elevator animation limit
     pOam->actions++;
@@ -222,7 +222,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
             {
                 SoundPlay(0x22F);
                 // Start eye opening animation
-                update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[7], MOTHER_BRAIN_CLOSE_UP_OAM_ID_EYE_OPENING);
+                UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[7], MOTHER_BRAIN_CLOSE_UP_OAM_ID_EYE_OPENING);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -414,7 +414,7 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
         pOam->priority = sMotherBrainCloseUpPageData[4].priority;
         pOam->boundBackground = 1;
         pOam->unk_B_4 = 1;
-        update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], 5);
+        UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], 5);
         
         pOam[1].xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
         pOam[1].yPosition = BLOCK_SIZE * 5 + 4;
@@ -465,7 +465,7 @@ u8 MotherBrainCloseUpInitBubbles(u8 packId)
         CUTSCENE_DATA.oam[i].xPosition = sMotherBrainCloseUpBubblesSpawnPositions[packId][0];
         CUTSCENE_DATA.oam[i].yPosition = sMotherBrainCloseUpBubblesSpawnPositions[packId][1];
 
-        update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], MOTHER_BRAIN_CLOSE_UP_OAM_ID_BUBBLE);
+        UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], MOTHER_BRAIN_CLOSE_UP_OAM_ID_BUBBLE);
         CUTSCENE_DATA.oam[i].boundBackground = 3;
         return FALSE;
     }

@@ -71,9 +71,9 @@ u8 StatueOpeningOpening(void)
             {
                 // Set opening animation for appropriate statue
                 if (gCurrentArea == AREA_KRAID)
-                    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], STATUE_OPENING_OAM_ID_KRAID_ACTIVATING);
+                    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], STATUE_OPENING_OAM_ID_KRAID_ACTIVATING);
                 else if (gCurrentArea == AREA_RIDLEY)
-                    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATING);
+                    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], STATUE_OPENING_OAM_ID_RIDLEY_ACTIVATING);
 
                 SoundPlay(0x231);
                 CUTSCENE_DATA.timeInfo.subStage++;

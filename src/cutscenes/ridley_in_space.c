@@ -1,5 +1,6 @@
 #include "cutscenes/ridley_in_space.h"
 #include "cutscenes/cutscene_utils.h"
+#include "oam_id.h"
 
 #include "data/generic_data.h"
 #include "data/shortcut_pointers.h"
@@ -12,8 +13,6 @@
 
 #include "structs/display.h"
 #include "structs/game_state.h"
-
-void update_cutscene_oam_data_id(struct CutsceneOamData*, u8);
 
 /**
  * @brief 63884 | 298 | Handles the ship leaving part
@@ -42,7 +41,7 @@ u8 RidleyInSpaceShipLeaving(void)
             CUTSCENE_DATA.oam[2].xPosition = sRidleyInSpaceShipLeavingPosition.x;
             CUTSCENE_DATA.oam[2].yPosition = sRidleyInSpaceShipLeavingPosition.y;
             CUTSCENE_DATA.oam[2].rotationScaling = TRUE;
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[2], RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP_LEAVING_BACK);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[2], RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP_LEAVING_BACK);
 
             CUTSCENE_DATA.dispcnt = sRidleyInSpacePageData[0].bg | DCNT_OBJ;
 
@@ -59,9 +58,9 @@ u8 RidleyInSpaceShipLeaving(void)
                 CUTSCENE_DATA.oam[i].unk_12 = sRandomNumberTable[(gFrameCounter8Bit * i) & 0xFF];
 
                 if (CUTSCENE_DATA.oam[i].unk_12 & 1)
-                    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE);
+                    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE);
                 else
-                    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE2);
+                    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE2);
             }
             CUTSCENE_DATA.timeInfo.timer = 0;
             CUTSCENE_DATA.timeInfo.subStage++;
@@ -567,9 +566,9 @@ u8 RidleyInSpaceInit(void)
     CUTSCENE_DATA.oam[2].xPosition = sRidleyInSpaceShipsStartPosition[2].x;
     CUTSCENE_DATA.oam[2].yPosition = sRidleyInSpaceShipsStartPosition[2].y;
 
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[0], RIDLEY_IN_SPACE_OAM_ID_LEFT_BLUE_SHIP);
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[1], RIDLEY_IN_SPACE_OAM_ID_RIGHT_BLUE_SHIP);
-    update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[2], RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_IN_SPACE_OAM_ID_LEFT_BLUE_SHIP);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], RIDLEY_IN_SPACE_OAM_ID_RIGHT_BLUE_SHIP);
+    UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[2], RIDLEY_IN_SPACE_OAM_ID_MOTHER_SHIP);
 
     PlayMusic(MUSIC_RIDLEY_IN_SPACE, 0);
     SoundPlay(0x28D);
@@ -640,7 +639,7 @@ void RidleyInSpaceViewOfShipParticles(void)
             if (CUTSCENE_DATA.timeInfo.unk_6 & 2)
                 CUTSCENE_DATA.oam[i].yPosition = BLOCK_SIZE * 10 - CUTSCENE_DATA.oam[i].yPosition;
 
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_VIEW_OF_SHIP_PARTICLE);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], RIDLEY_IN_SPACE_OAM_ID_VIEW_OF_SHIP_PARTICLE);
             CUTSCENE_DATA.timeInfo.unk_6++;
             break;
         }
@@ -653,10 +652,10 @@ void RidleyInSpaceViewOfShipParticles(void)
 
         oamId = RidleyInSpaceViewOfShipUpdateParticle(&CUTSCENE_DATA.oam[i]);
         if (oamId != 0)
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], oamId);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], oamId);
 
         if (CUTSCENE_DATA.oam[i].idChanged == 0)
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], 0);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], 0);
     }
 }
 
@@ -738,7 +737,7 @@ void RidleyInSpaceShipLeavingParticles(void)
                 else
                     newY = RIDLEY_IN_SPACE_OAM_ID_SHIP_LEAVING_PARTICLE2;
 
-                update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], newY);
+                UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], newY);
             }
             break;
         }
@@ -752,7 +751,7 @@ void RidleyInSpaceShipLeavingParticles(void)
         RidleyInSpaceViewOfShipUpdateParticle(&CUTSCENE_DATA.oam[i]);
 
         if (CUTSCENE_DATA.oam[i].idChanged == 0)
-            update_cutscene_oam_data_id(&CUTSCENE_DATA.oam[i], 0);
+            UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], 0);
     }
 }
 
