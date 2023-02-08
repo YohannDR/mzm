@@ -1,9 +1,11 @@
 #include "time_attack.h"
+#include "macros.h"
 
 #include "data/intro_data.h"
 #include "data/time_attack_data.h"
 
 #include "structs/in_game_timer.h"
+#include "structs/game_state.h"
 
 /**
  * @brief 7f120 | 28 | Performs an exclusive or on all the values of the seed with the value param
@@ -270,12 +272,150 @@ u8 TimeAttackCheckSaveFileValidity(void)
 
 void CheckUnlockTimeAttack(void)
 {
+    // https://decomp.me/scratch/bFzS6
 
+    u32 igt[4];
+    u8 flags[32];
+    u8 i;
+    u8 j;
+    u32 value;
+    u32 result;
+    u8 shift;
+    u8 mask;
+    u32 part1;
+    u32 part2;
+    u32 part3;
+    u32 part4;
+    u32 part5;
+    u32 pen;
+
+    if (gFileScreenOptionsUnlocked.timeAttack & 1 || !TimeAttackCheckSaveFileValidity())
+        return;
+
+    pen = GetPercentAndEndingNumber();
+
+    mask = 0xFF;
+    // TODO figure out how PEN is structured
+    part1 = pen >> 0x18;
+    part2 = (pen >> 0x10) & mask;
+
+    part3 = (pen >> 0xC) & 0xF;
+    part4 = (pen >> 0x8) & 0xF;
+    part5 = (pen >> 0x4) & 0xF;
+
+    if (part1 > 12 || part2 > 50 || part3 > 15 || part4 > 9 || part5 > 14 || part5 < 8 || part2 == 0)
+        return;
+
+    for (i = 0; i < ARRAY_SIZE(igt); i++)
+        igt[i] = 0;
+
+    for (i = 0; i < ARRAY_SIZE(igt); i++)
+    {
+        igt[0] += gInGameTimerAtBosses[i].hours;
+        igt[1] += gInGameTimerAtBosses[i].minutes;
+        igt[2] += gInGameTimerAtBosses[i].seconds;
+        igt[3] += gInGameTimerAtBosses[i].frames;
+    }
+
+    igt[0] &= 31;
+
+    flags[0]  = (igt[3] >> 7) & 1;
+    flags[1]  = (igt[1] >> 0) & 1;
+    flags[2]  = (igt[2] >> 7) & 1;
+    flags[3]  = (igt[3] >> 6) & 1;
+    flags[4]  = (igt[0] >> 0) & 1;
+    flags[5]  = (igt[1] >> 1) & 1;
+    flags[6]  = (igt[2] >> 6) & 1;
+    flags[7]  = (igt[3] >> 5) & 1;
+    flags[8]  = (igt[0] >> 1) & 1;
+    flags[9]  = (igt[2] >> 5) & 1;
+    flags[10] = (igt[3] >> 4) & 1;
+    flags[11] = (igt[1] >> 2) & 1;
+    flags[12] = (igt[2] >> 4) & 1;
+    flags[13] = (igt[3] >> 3) & 1;
+    flags[14] = (igt[0] >> 2) & 1;
+    flags[15] = (igt[1] >> 3) & 1;
+    flags[16] = (igt[1] >> 7) & 1;
+    flags[17] = (igt[2] >> 3) & 1;
+    flags[18] = (igt[0] >> 3) & 1;
+    flags[19] = (igt[3] >> 2) & 1;
+    flags[20] = (igt[2] >> 2) & 1;
+    flags[21] = (igt[3] >> 1) & 1;
+    flags[22] = (igt[1] >> 4) & 1;
+    flags[23] = (igt[2] >> 1) & 1;
+    flags[24] = (igt[2] >> 0) & 1;
+    flags[25] = (igt[3] >> 0) & 1;
+    flags[26] = (igt[1] >> 6) & 1;
+    flags[27] = (igt[0] >> 4) & 1;
+    flags[28] = (igt[1] >> 5) & 1;
+    flags[29] = 1 & 1;
+    flags[30] = 2 & 1;
+    flags[31] = 1;
+
+    gFileScreenOptionsUnlocked.timeAttack = FALSE;
+
+    i = 0;
+    result = 0;
+    mask = 24;
+    while (i < 4)
+    {
+        value = 0;
+        shift = 7;
+        for (j = 0; j < 8; j++)
+        {
+            value += flags[i * 8 + j] << shift;
+            shift--;
+        }
+
+        result += (value << mask);
+
+        i++;
+        mask -= 8;
+    }
+
+    gFileScreenOptionsUnlocked.timeAttack = result;
 }
 
 u8 unk_7f60c(u8* param_1)
 {
+    // https://decomp.me/scratch/JPI7a
 
+    u8 i;
+    u32 sum;
+    u8 mask;
+    u32 unk_0;
+    u32 j;
+
+    if (!(gFileScreenOptionsUnlocked.timeAttack & 1))
+        return FALSE;
+
+    sum = 0;
+    mask = 31;
+    for (i = 0; i < 32; i++)
+    {
+        sum += (gFileScreenOptionsUnlocked.timeAttack >> i & 1) << mask;
+        mask--;
+    }
+
+    j = (sum * 8) >> 6;
+    unk_0 = 10000000;
+
+    for (i = 0; i < 7; i++)
+    {
+        mask = 0;
+        while (j >= unk_0)
+        {
+            j -= unk_0;
+            mask++;
+        }
+
+        param_1[i] = mask + 48;
+
+        unk_0 /= 10;
+    }
+    param_1[i] = j + 48;
+
+    return TRUE;
 }
 
 /**
@@ -452,129 +592,260 @@ void TimeAttackRandomizeSeed(u8* pSeed, u32 rng)
 
 u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
 {
-    // https://decomp.me/scratch/D8huk
-
     u8 seed[16];
-    u8 rng;
     i32 i;
+    i32 j;
     i32 seedOffset;
     u32 mask;
-    u32 value;
+    u8 value;
+    u32 sum;
+    u8* ptr;
 
     seedOffset = 0;
     mask = 1;
 
-    for (i = 32; i > 0; i--)
+    for (i = 0; i < 32; i++)
     {
-        if (pTimeAttack->timeAttack & mask)
-            value = TRUE;
-        else
-            value = FALSE;
-
-        pTimeAttack->passwordSeed[seedOffset] = value;
+        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->timeAttack & mask) != 0;
         mask <<= 1;
         seedOffset++;
     }
     
     mask = 1;
-    for (i = 6; i > 0; i--)
+    for (i = 0; i < 7; i++)
     {
-        if (pTimeAttack->igtHours & mask)
-            value = TRUE;
-        else
-            value = FALSE;
-
-        pTimeAttack->passwordSeed[seedOffset] = value;
+        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->igtHours & mask) != 0;
         mask <<= 1;
         seedOffset++;
     }
     
     mask = 1;
-    for (i = 5; i > 0; i--)
+    for (i = 0; i < 6; i++)
     {
-        if (pTimeAttack->igtMinutes & mask)
-            value = TRUE;
-        else
-            value = FALSE;
-
-        pTimeAttack->passwordSeed[seedOffset] = value;
+        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->igtMinutes & mask) != 0;
         mask <<= 1;
         seedOffset++;
     }
     
     mask = 1;
-    for (i = 5; i > 0; i--)
+    for (i = 0; i < 6; i++)
     {
-        if (pTimeAttack->igtSeconds & mask)
-            value = TRUE;
-        else
-            value = FALSE;
-
-        pTimeAttack->passwordSeed[seedOffset] = value;
+        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->igtSeconds & mask) != 0;
         mask <<= 1;
         seedOffset++;
     }
     
     mask = 1;
-    for (i = 5; i > 0; i--)
+    for (i = 0; i < 6; i++)
     {
-        if (pTimeAttack->unk_7 & mask)
-            value = TRUE;
-        else
-            value = FALSE;
-
-        pTimeAttack->passwordSeed[seedOffset] = value;
+        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->unk_7 & mask) != 0;
         mask <<= 1;
         seedOffset++;
     }
 
     mask = 1;
-    for (i = 4; i > 0; i--)
+    for (i = 0; i < 5; i++)
     {
-        if (pTimeAttack->unk_8 & mask)
-            value = TRUE;
-        else
-            value = FALSE;
-
-        pTimeAttack->passwordSeed[seedOffset] = value;
+        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->unk_8 & mask) != 0;
         mask <<= 1;
         seedOffset++;
     }
 
     mask = 1;
-    for (i = 3; i > 0; i--)
+    for (i = 0; i < 4; i++)
     {
-        if (pTimeAttack->completionPercentage & mask)
-            value = TRUE;
-        else
-            value = FALSE;
-
-        pTimeAttack->passwordSeed[seedOffset] = value;
+        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->unk_9 & mask) != 0;
         mask <<= 1;
         seedOffset++;
     }
 
     mask = 1;
-    for (i = 3; i > 0; i--)
+    for (i = 0; i < 4; i++)
     {
-        if (pTimeAttack->unk_A & mask)
-            value = TRUE;
-        else
-            value = FALSE;
-
-        pTimeAttack->passwordSeed[seedOffset] = value;
+        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->unk_A & mask) != 0;
         mask <<= 1;
         seedOffset++;
     }
 
-    sTimeAttackSeedShuffleFunctionPointers[rng](seed, 12);
+    mask = 1;
+    pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->unk_B & mask) != 0;
+    seedOffset++;
+
+    mask = 1;
+    pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->unk_C & mask) != 0;
+    seedOffset++;
+
+    mask = 1;
+    for (i = 0; i < 8; i++)
+    {
+        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->igtAtBosses1 & mask) != 0;
+        mask <<= 1;
+        seedOffset++;
+    }
+
+    mask = 1;
+    for (i = 0; i < 8; i++)
+    {
+        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->igtAtBosses2 & mask) != 0;
+        mask <<= 1;
+        seedOffset++;
+    }
+
+    sum = 0;
+
+    for (j = 0; j < 11; j++)
+    {
+        mask = 0;
+        value = 0;
+
+        ptr = &pTimeAttack->passwordSeed[j * 8];
+        for (i = 0; i < 8; i++)
+        {
+            value += *ptr << mask;
+            mask++;
+            ptr++;
+        }
+
+        seed[j] = value;
+        sum += value;
+    }
+
+    seed[j] = sum;
+
+    sTimeAttackSeedShuffleFunctionPointers[pTimeAttack->rng](seed, 12);
     TimeAttackRandomizeSeed(seed, pTimeAttack->rng);
     TimeAttackGeneratePassword(seed, pTimeAttack->password, sizeof(pTimeAttack->password));
 
     return FALSE;
 }
 
+/**
+ * @brief 7fb48 | 21c | Checks if new time attack records should be set
+ * 
+ * @return u8 bool, new record set
+ */
 u8 TimeAttackCheckSetNewRecord(void)
 {
+    u32 convertedIgt;
+    u32 converted100RecordIgt;
+    u32 part1;
+    u32 part2;
+    u32 part3;
+    u32 part4;
+    u32 part5;
+    u32 pen;
+    u32 mask;
+    u32 completionPercentage;
+    u32 records;
+    u8 validFile;
+    struct TimeAttackData* pTimeAttack;
+    u32 igtBoss1;
+    u32 igtBoss2;
+    u32 unk_b;
+    u8 i;
+    u32 convertedRecordIgt;
 
+    convertedIgt = (gInGameTimer.hours << 24) + (gInGameTimer.minutes << 16) + (gInGameTimer.seconds << 8);
+    convertedRecordIgt = (gTimeAttackRecord.igt.hours << 24) + (gTimeAttackRecord.igt.minutes << 16) +
+        (gTimeAttackRecord.igt.seconds << 8);
+    converted100RecordIgt = (gTimeAttackRecord.igt100.hours << 24) + (gTimeAttackRecord.igt100.minutes << 16) +
+        (gTimeAttackRecord.igt100.seconds << 8);
+
+    pen = GetPercentAndEndingNumber();
+
+    mask = 0xFF;
+    // TODO figure out how PEN is structured
+    part1 = pen >> 0x18;
+    part2 = (pen >> 0x10) & mask;
+
+    part3 = (pen >> 0xC) & 0xF;
+    part4 = (pen >> 0x8) & 0xF;
+    part5 = (pen >> 0x4) & 0xF;
+    completionPercentage = part1 + part2 + part3 + part4 + part5;
+
+    if (part5 > 13)
+        unk_b = 1;
+    else
+        unk_b = 0;
+
+    // Check current IGT is faster than previous Any% record
+    if (convertedIgt < convertedRecordIgt)
+        records = 1;
+    else
+        records = 0;
+
+    // Check current IGT is faster than previous 100% record
+    if (completionPercentage >= 100 && convertedIgt < converted100RecordIgt)
+        records |= 2;
+
+    // No records set, abort
+    if (records == 0)
+        return FALSE;
+
+    validFile = FALSE;
+    if (gFileScreenOptionsUnlocked.timeAttack & 1)
+        validFile = TimeAttackCheckSaveFileValidity();
+
+    // Check didn't get more items than possible?
+    if (part1 > 12 || part2 > 50 || part3 > 15 || part4 > 9 || part5 > 14 || part5 < 8 || part2 == 0)
+        validFile = FALSE;
+
+    igtBoss1 = (gInGameTimerAtBosses[0].frames & 15) << 4 | (gInGameTimerAtBosses[2].frames & 15);
+    igtBoss2 = (gInGameTimerAtBosses[3].frames & 15) << 4 | (gInGameTimerAtBosses[1].frames & 15);
+
+    pTimeAttack = &gTimeAttackData;
+
+    pTimeAttack->timeAttack = gFileScreenOptionsUnlocked.timeAttack;
+
+    pTimeAttack->igtHours = gInGameTimer.hours;
+    pTimeAttack->igtMinutes = gInGameTimer.minutes;
+    pTimeAttack->igtSeconds = gInGameTimer.seconds;
+
+    pTimeAttack->unk_7 = part2;
+    pTimeAttack->unk_8 = part3;
+    pTimeAttack->unk_9 = part4;
+    pTimeAttack->unk_A = part1;
+    pTimeAttack->unk_B = unk_b;
+
+    pTimeAttack->unk_C = validFile;
+    pTimeAttack->igtAtBosses1 = igtBoss1;
+    pTimeAttack->igtAtBosses2 = igtBoss2;
+    pTimeAttack->rng = gFrameCounter8Bit & 15;
+
+    // Generate password
+    TimeAttackGenerateSeed(pTimeAttack);
+
+    // Updates Any% record
+    if (records & 1)
+    {
+        for (i = 0; i < sizeof(gTimeAttackRecord.password); i++)
+            gTimeAttackRecord.password[i] = pTimeAttack->password[i];
+
+        gTimeAttackRecord.igt.hours = gInGameTimer.hours;
+        gTimeAttackRecord.igt.minutes = gInGameTimer.minutes;
+        gTimeAttackRecord.igt.seconds = gInGameTimer.seconds;
+        gTimeAttackRecord.igt.frames = gInGameTimer.frames;
+    }
+
+    // Update 100% record
+    if (records & 2)
+    {
+        for (i = 0; i < sizeof(gTimeAttackRecord.password100); i++)
+            gTimeAttackRecord.password100[i] = pTimeAttack->password[i];
+
+        gTimeAttackRecord.igt100.hours = gInGameTimer.hours;
+        gTimeAttackRecord.igt100.minutes = gInGameTimer.minutes;
+        gTimeAttackRecord.igt100.seconds = gInGameTimer.seconds;
+        gTimeAttackRecord.igt100.frames = gInGameTimer.frames;
+    }
+
+    if (records)
+    {
+        // Save new times
+        save_time_attack_to_sram();
+        // New time attack record flag
+        gEndingFlags |= 1;
+    }
+
+    return TRUE;
 }

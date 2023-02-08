@@ -2,6 +2,7 @@
 #define TIME_ATTACK_STRUCT_H
 
 #include "types.h"
+#include "structs/in_game_timer.h"
 
 typedef void (*TimeAttackFunc_T)(u8*, i32);
 
@@ -12,7 +13,7 @@ struct TimeAttackData {
     u8 igtSeconds;
     u8 unk_7;
     u8 unk_8;
-    u8 completionPercentage;
+    u8 unk_9;
     u8 unk_A;
     u8 unk_B;
     u8 unk_C;
@@ -23,5 +24,15 @@ struct TimeAttackData {
     u8 unk_24;
     u8 passwordSeed[62];
 };
+
+struct TimeAttackRecord {
+    u8 password[20];
+    struct InGameTimer igt;
+    u8 password100[20];
+    struct InGameTimer igt100;
+};
+
+extern struct TimeAttackData gTimeAttackData;
+extern struct TimeAttackRecord gTimeAttackRecord;
 
 #endif /* TIME_ATTACK_STRUCT_H */

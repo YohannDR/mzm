@@ -12,6 +12,14 @@ struct GameCompletion {
 
 extern struct GameCompletion gGameCompletion;
 
+struct FileScreenOptionsUnlocked {
+    u16 galleryImages;
+    u16 fusionGalleryImages;
+    u8 soundTestAndOgMetroid;
+    u32 timeAttack;
+};
+
+extern struct FileScreenOptionsUnlocked gFileScreenOptionsUnlocked;
 extern struct ButtonAssignments gButtonAssignments;
 extern i8 gTourianEscapeCutsceneStage;
 extern vu16 gVBlankRequestFlag;
@@ -32,6 +40,7 @@ extern u8 gDifficulty;
 extern i8 gLanguage;
 extern u8 gResetGame;
 extern u8 gNotPressingUp;
+extern u8 gEndingFlags;
 
 extern i16 gMainGameMode;
 extern i16 gGameModeSub1;
