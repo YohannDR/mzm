@@ -270,7 +270,7 @@ u32 StatusScreenSuitlessItems(void)
     
                 StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_TOGGLING);
     
-                switch (gCurrentItemBeginAcquired)
+                switch (gCurrentItemBeingAcquired)
                 {
                     case 12:
                     case 15:
