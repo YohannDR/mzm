@@ -387,19 +387,22 @@ u32 StatusScreenSuitlessItems(void)
     
                 switch (gCurrentItemBeingAcquired)
                 {
-                    case 12:
-                    case 15:
-                    case 20:
+                    case ITEM_ACQUISITION_PLASMA_BEAM:
+                    case ITEM_ACQUISITION_GRAVITY:
+                    case ITEM_ACQUISITION_SPACE_JUMP:
+                        // Play unknown item sound
                         SoundPlay(0x20F);
                         break;
     
-                    case 3:
-                    case 5:
-                    case 7:
+                    case ITEM_ACQUISITION_MISSILES:
+                    case ITEM_ACQUISITION_SUPER_MISSILES:
+                    case ITEM_ACQUISITION_POWER_BOMB:
+                        // Update row
                         StatusScreenUpdateRow(sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group,
                             sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].row, TRUE, TRUE);
                         
                     default:
+                        // Play normal item sound
                         SoundPlay(0x1F7);
                         break;
                 }
