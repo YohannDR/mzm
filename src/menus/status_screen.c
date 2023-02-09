@@ -19,7 +19,7 @@
 // Temp
 extern u16 gUnk_03005804;
 
-#define STATUS_SCREEN_TILEMAP (sEwramPointer + 0x7000)
+#define STATUS_SCREEN_TILEMAP ((u16*)(sEwramPointer + 0x7000))
 
 void UpdateMinimapAnimatedPalette(void)
 {
@@ -68,7 +68,42 @@ void UpdateSuitType(u8 newSuit)
 
 u32 StatusScreenDrawItems(u8 row)
 {
+    // https://decomp.me/scratch/qX1cv
 
+    i32 i;
+    u32 j;
+    u32 position;
+    i32 temp;
+
+    if (row >= 8)
+        return TRUE;
+
+    for (i = 0; i < 6; i++)
+    {
+        if (row == 0 && sStatusScreenRowsData[i][0] == ABILITY_GROUP_SUITS)
+            continue;
+
+        position = (sStatusScreenGroupsData[sStatusScreenRowsData[i][0]][0] + row) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[sStatusScreenRowsData[i][0]][2];
+    
+        if (sStatusScreenRowsData[i][1] <= row)
+            continue;
+
+        j = 0;
+        while (j < sStatusScreenRowsData[i][2])
+        {
+            *(((u16*)VRAM_BASE + 0x6000) + position) = STATUS_SCREEN_TILEMAP[position];
+
+            j++;
+            position++;
+        }
+    }
+    
+    if (row >= 7)
+        j = TRUE;
+    else
+        j = FALSE;
+
+    return j;
 }
 
 u8 StatusScreenGetSlotForNewItem(u8 param_1, u8 item)
@@ -141,7 +176,52 @@ void StatusScreenDraw(void)
 
 void StatusScreenSetPistolVisibility(u16* pTilemap)
 {
+    // https://decomp.me/scratch/8tP1q
 
+    u32 positionStart;
+    u32 positionEnd;
+    i32 size;
+    u8* pActivation;
+    u32 row;
+    u32 notGettingSuitless;
+    u32 nextRow;
+
+    row = 0;
+
+    pActivation = PAUSE_SCREEN_DATA.statusScreenData.beamBombActivation;
+
+    positionStart = (sStatusScreenGroupsData[0][0] + 1) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[0][2];
+    positionEnd = positionStart + sStatusScreenUnknownItemsData[0][0] * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[0][2];
+
+    pActivation[0] = sStatusScreenBeamBombFlagsOrderPointer[0];
+
+    size = sStatusScreenGroupsData[0][3] - positionEnd;
+    while (size != 0)
+    {
+        pTilemap[positionStart++] = pTilemap[positionEnd++];
+        size--;
+    }
+
+    notGettingSuitless = (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_SUITLESS) == 0;
+    nextRow = row + 1;
+    StatusScreenUpdateRow(ABILITY_GROUP_BEAMS, nextRow, notGettingSuitless, FALSE);
+    row = nextRow;
+
+    if (PAUSE_SCREEN_DATA.statusScreenData.unk_0 == 0)
+        PAUSE_SCREEN_DATA.statusScreenData.unk_0 = 0x80;
+        
+    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
+        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
+
+    positionStart = (sStatusScreenGroupsData[0][0] + row + 1) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[0][2];
+    positionEnd = positionStart + (sStatusScreenUnknownItemsData[0][0] + 1) * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[0][2];
+
+    size = sStatusScreenGroupsData[0][3] - positionEnd;
+    while (size != 0)
+    {
+        pTilemap[positionStart++] = pTilemap[positionEnd++];
+        size--;
+    }
 }
 
 void StatusScreenDrawSingleTankAmount(u8 group, u16 amout, u8 palette, u8 isMax)
@@ -181,7 +261,42 @@ void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 param_4)
 
 void StatusScreenEnableUnknownItem(u8 group, u8 row)
 {
+    // https://decomp.me/scratch/gaqHa
 
+    u32 tilemapPosition;
+    i32 groupX;
+    u32 dstPosition;
+    u16* dst;
+
+    switch (group)
+    {
+        case ABILITY_GROUP_BEAMS:
+        case ABILITY_GROUP_SUITS:
+        case ABILITY_GROUP_MISC:
+            tilemapPosition = (sStatusScreenUnknownItemsData[group][1] - 1) * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[group][2];
+            break;
+
+        default:
+            tilemapPosition = FALSE;
+    }
+
+    if (!tilemapPosition)
+        return;
+
+    dstPosition = (sStatusScreenGroupsData[group][0] + row) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[group][2];
+    groupX = sStatusScreenGroupsData[group][3] - sStatusScreenGroupsData[group][2];
+    dst = (u16*)(VRAM_BASE + 0xC002) + dstPosition;
+
+    tilemapPosition++;
+
+    while (groupX > 1)
+    {
+        *dst = STATUS_SCREEN_TILEMAP[tilemapPosition];
+
+        groupX--;
+        dst++;
+        tilemapPosition++;
+    }
 }
 
 /**
