@@ -411,11 +411,15 @@ u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
 
 }
 
+/**
+ * @brief 7142c | 3d4 | Handles the fully powered items sequence
+ * 
+ * @return u32 bool, ended
+ */
 u32 StatusScreenFullyPoweredItems(void)
 {
-    // https://decomp.me/scratch/Tfzwt
-
     u32 result;
+    u8 rightSlot;
 
     if (PAUSE_SCREEN_DATA.subroutineInfo.unk_8 != 0)
     {
@@ -425,73 +429,138 @@ u32 StatusScreenFullyPoweredItems(void)
 
     switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
     {
-        case 0:
-            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 55)
+        case FULLY_POWERED_ITEMS_CHECK_ENABLE_SUIT:
+            // Wait
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 50)
             {
+                // Update to suit wireframe
                 status_screen_update_samus_wire_frame(2);
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
             }
             break;
 
-        case 1:
+        case FULLY_POWERED_ITEMS_DELAY:
+            // Wait
             if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 30)
             {
                 PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
-                PAUSE_SCREEN_DATA.unk_EA = 1;
+                PAUSE_SCREEN_DATA.unk_EA = TRUE;
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
             }
             break;
 
-        case 2:
+        case FULLY_POWERED_ITEMS_CHECK_NEXT_SLOT:
             result = StatusScreenFindUnknownItemSlot(FALSE);
             if (result == 2)
             {
                 PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
-                if (PAUSE_SCREEN_DATA.unk_EA == 0)
+                if (!PAUSE_SCREEN_DATA.unk_EA)
                     SoundFade(0x215, 15);
             }
 
+            // If it found an unknown item, it'll stay on this stage, if it found a normal item it'll go to stage 3,
+            // and if it reached the end of the slots, it'll go to stage 4
             PAUSE_SCREEN_DATA.subroutineInfo.stage += result;
             PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             break;
 
-        case 3:
+        case FULLY_POWERED_ITEMS_ACTIVATE_NORMAL_SLOT:
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer < 7)
+                break;
+            
+            // Update row (enables it)
+            StatusScreenUpdateRow(sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group,
+                sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].row, TRUE, TRUE);
+            
+            // Enable cursor
+            StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
+            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 13);
+
+            if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= 8)
+                PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
+            else
+                PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
+
+            // Check play sound
+            if (PAUSE_SCREEN_DATA.unk_EA)
+            {
+                SoundPlay(0x215);
+                PAUSE_SCREEN_DATA.unk_EA = FALSE;
+            }
+
+            // Goto next slot
+            PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot++;
+            // Go back to looking for normal items
+            PAUSE_SCREEN_DATA.subroutineInfo.stage--;
+            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             break;
 
-        case 4:
+        case FULLY_POWERED_ITEMS_SEARCH_FOR_UNKNOWN_ITEM:
             result = StatusScreenFindUnknownItemSlot(TRUE);
             if (result == 1)
             {
+                // Found unknown item
                 BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 0x10);
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
             }
             else
-                PAUSE_SCREEN_DATA.subroutineInfo.stage = 10;
+            {
+                // Didn't found any unknown item, finish sequence
+                PAUSE_SCREEN_DATA.subroutineInfo.stage = FULLY_POWERED_ITEMS_FINISH;
+            }
             PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             break;
 
-        case 5:
+        case FULLY_POWERED_ITEMS_ENABLE_UNKNOWN_ITEM_INIT:
+            // Get OAM id for the "enabling" item animation
+            if (sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group == ABILITY_GROUP_BEAMS)
+                result = 0x2F;
+            else if (sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group == ABILITY_GROUP_SUITS)
+                result = 0x33;
+            else
+                result = 0x31;
+
+            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[10], result);
+
+            // Set position (same calculations as cursor)
+            PAUSE_SCREEN_DATA.miscOam[10].yPosition = (sStatusScreenGroupsData[sStatusScreenItemsData[
+                PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group][0] + 
+                sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].row) * HALF_BLOCK_SIZE;
+
+            PAUSE_SCREEN_DATA.miscOam[10].xPosition = (sStatusScreenGroupsData[sStatusScreenItemsData[
+                PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group][2] + 1) * HALF_BLOCK_SIZE;
+
+            StatusScreenUpdateUnknownItemPalette(0);
+            SoundPlay(0x214);
+            PAUSE_SCREEN_DATA.subroutineInfo.stage++;
+            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             break;
 
-        case 6:
+        case FULLY_POWERED_ITEMS_UNKNOWN_ITEM_ACTIVATING_ANIMATION_PART1:
+            if (StatusScreenUpdateUnknownItemPalette(1))
+            {
+                // Goto part 2
+                PAUSE_SCREEN_DATA.subroutineInfo.stage++;
+                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            }
             break;
 
-        case 7:
-            break;
-
-        case 8:
+        case FULLY_POWERED_ITEMS_ENABLE_UNKNOWN_ITEM:
+            // Enable item (visually)
             StatusScreenEnableUnknownItem(sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group,
                 sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].row);
+            
+            // Update cursor
             StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 6);
             SoundPlay(0x1F7);
 
-            if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot < 8)
-                PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
-            else
+            if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= 8)
                 PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
+            else
+                PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
 
             PAUSE_SCREEN_DATA.subroutineInfo.stage++;
             PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
@@ -500,46 +569,62 @@ u32 StatusScreenFullyPoweredItems(void)
 
             if (sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group == ABILITY_GROUP_SUITS)
             {
+                // Update wireframe samus to gravity
                 gEquipment.suitMiscActivation |= SMF_GRAVITY_SUIT;
                 status_screen_update_samus_wire_frame(2);
             }
             break;
 
-        case 9:
+        case FULLY_POWERED_ITEMS_UNKNOWN_ITEM_ACTIVATING_ANIMATION_PART2:
+            if (StatusScreenUpdateUnknownItemPalette(2))
+            {
+                // Goto enable unknown item
+                PAUSE_SCREEN_DATA.subroutineInfo.stage++;
+                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            }
+            break;
+
+        case FULLY_POWERED_ITEMS_UNKNOWN_ITEM_DESCRIPTION:
+            // Update "idle" palette animation
             StatusScreenUpdateUnknownItemPalette(3);
+
+            // Handle message
             if (gCurrentMessage.messageEnded)
             {
                 if (gChangedInput & KEY_A)
                 {
+                    // Continue search for the next unknown item
                     PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot++;
                     gCurrentMessage.messageEnded = FALSE;
                     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[10], 0);
                     UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 0);
-                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 4;
+                    PAUSE_SCREEN_DATA.subroutineInfo.stage = FULLY_POWERED_ITEMS_SEARCH_FOR_UNKNOWN_ITEM;
                 }
                 break;
             }
 
+            // Process item description
             TextProcessDescription();
             break;
 
-        case 10:
+        case FULLY_POWERED_ITEMS_FINISH:
+            // Force give every item
             gEquipment.beamBombsActivation = gEquipment.beamBombs;
             gEquipment.suitMiscActivation = gEquipment.suitMisc;
 
-            if (PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot != 0)
-                PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot;
+            rightSlot = PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot;
+            if (rightSlot != 0)
+                PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = rightSlot;
             else if (PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot != 0)
                 PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot;
             else
-                PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot;
-
+                PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = rightSlot;
 
             PAUSE_SCREEN_DATA.subroutineInfo.stage++;
             PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
             break;
 
-        case 11:
+        case FULLY_POWERED_ITEMS_END:
         default:
             return TRUE;
     }
