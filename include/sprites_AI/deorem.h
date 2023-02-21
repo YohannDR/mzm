@@ -3,6 +3,21 @@
 
 #include "types.h"
 
+#define DEOREM_POSE_INIT 0x0
+#define DEOREM_POSE_SPAWN_GOING_DOWN 0x8
+#define DEOREM_POSE_MAIN 0x26
+#define DEOREM_POSE_RETRACTING 0x27
+#define DEOREM_POSE_THORNS_1 0x28
+#define DEOREM_POSE_THORNS_2 0x29
+#define DEOREM_POSE_AFTER_THORNS 0x2A
+#define DEOREM_POSE_LEAVING 0x43
+#define DEOREM_POSE_LEAVING_ANIM 0x44
+#define DEOREM_POSE_LEAVING_IN_GROUND 0x45
+#define DEOREM_POSE_CALL_SPAWN_CHARGE_BEAM 0x60
+#define DEOREM_POSE_DYING 0x62
+#define DEOREM_POSE_DYING_GOING_DOWN 0x67
+#define DEOREM_POSE_DEATH 0x68
+
 void DeoremChangeLeftCCAA(u8 caa);
 void DeoremChangeRightCCAA(u8 caa);
 void DeoremMoveDiagonaly(u8 velocity, u16 dstPosition);
