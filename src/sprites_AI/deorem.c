@@ -1022,9 +1022,129 @@ void DeoremLeavingInGroundDebris(void)
     }
 }
 
+/**
+ * @brief 22140 | 21c | Initialize a Deorem segment sprite
+ * 
+ */
 void DeoremSegmentInit(void)
 {
+    u8 roomSlot;
+    
+    gCurrentSprite.frozenPaletteRowOffset = 1;
+    gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.health = 1;
 
+    roomSlot = gCurrentSprite.roomSlot;
+
+    switch (roomSlot)
+    {
+    case 1:
+    case 5:
+    case 7:
+    case 11:
+    case 13:
+    case 17:
+        gCurrentSprite.currentAnimationFrame = 1;
+        break;
+    case 2:
+    case 8:
+    case 12:
+    case 16:
+    case 18:
+    case 19:
+        gCurrentSprite.currentAnimationFrame = 2;
+        break;
+    case 3:
+    case 9:
+    case 15:
+        gCurrentSprite.currentAnimationFrame = 3;
+        break;
+    case 0:
+    case 4:
+    case 10:
+    case 14:
+        gCurrentSprite.currentAnimationFrame = 0;
+        break;
+    }
+
+    if (roomSlot == 18)
+    {
+        gCurrentSprite.drawDistanceTopOffset = 0x30;
+        gCurrentSprite.drawDistanceBottomOffset = 0x30;
+        gCurrentSprite.drawDistanceHorizontalOffset = 0x1A;
+        gCurrentSprite.hitboxTopOffset = -3 * HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxBottomOffset = 3 * HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxLeftOffset = -3 * QUARTER_BLOCK_SIZE;
+        gCurrentSprite.hitboxRightOffset = 3 * QUARTER_BLOCK_SIZE;
+        gCurrentSprite.pOam = DeoremUnkOAMData_082d78e4;
+    }
+    else if ((roomSlot == 0) || (roomSlot == 6) || (roomSlot == 12))
+    {
+        gCurrentSprite.drawDistanceTopOffset = 0x18;
+        gCurrentSprite.drawDistanceBottomOffset = 0x18;
+        gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+        gCurrentSprite.hitboxTopOffset = -BLOCK_SIZE;
+        gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE;
+        gCurrentSprite.hitboxLeftOffset = -3 * HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxRightOffset = 3 * HALF_BLOCK_SIZE;
+        gCurrentSprite.pOam = DeoremUnkOAMData_082d78bc;
+        gCurrentSprite.drawOrder = 11;
+    }
+    else
+    {        
+        gCurrentSprite.drawDistanceTopOffset = 0x12;
+        gCurrentSprite.drawDistanceBottomOffset = 0x12;
+        gCurrentSprite.drawDistanceHorizontalOffset = 0x22;
+        gCurrentSprite.hitboxTopOffset = -BLOCK_SIZE;
+        gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE;
+        gCurrentSprite.hitboxLeftOffset = -3 * HALF_BLOCK_SIZE;
+        gCurrentSprite.hitboxRightOffset = 3 * HALF_BLOCK_SIZE;
+        gCurrentSprite.pOam = DeoremUnkOAMData_082d7894;   
+    }
+
+    if (roomSlot < 6)
+        gCurrentSprite.pose = 0x8; // TODO: Pose names
+    else if ((u8)(roomSlot - 6) < 6)
+    {
+        gCurrentSprite.pose = 0x22;
+        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+    }
+    else if ((u8)(roomSlot - 12) < 3)
+    {
+        gCurrentSprite.pose = 0x24;
+        gCurrentSprite.workVariable = 0;
+        gCurrentSprite.workVariable2 = 1;
+    }
+    else if ((u8)(roomSlot - 15) < 3)
+    {
+        gCurrentSprite.pose = 0x4A;
+        gCurrentSprite.drawOrder = 3;
+        gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
+    }
+    else
+    {
+        if (roomSlot == 18)
+        {
+            gCurrentSprite.pose = 0xF;
+            gCurrentSprite.drawOrder = 3;
+            gCurrentSprite.workVariable2 = 0x1C;
+        }
+        else
+        {
+            if (roomSlot == 19)
+            {
+                gCurrentSprite.pose = 0x11;
+                gCurrentSprite.drawOrder = 3;
+                gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+                gCurrentSprite.workVariable2 = 0x1C;
+            }
+            else
+                gCurrentSprite.status = 0;
+        }
+    }
 }
 
 void DeoremSegmentSpawnGoingDown(void)
@@ -1179,13 +1299,13 @@ void Deorem(void)
         case 0x9:
             DeoremSpawnGoingDownAnim();
             break;
-        case 0x22:
+        case DEOREM_POSE_SPAWN_GOING_UP:
             DeoremSpawnGoingUp();
             break;
         case 0x23:
             DeoremSpawnGoingUpAnim();
             break;
-        case 0x24:
+        case DEOREM_POSE_SPAWN_HEAD_BODY:
             DeoremSpawnHeadBody();
             break;
         case 0x25:

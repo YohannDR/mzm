@@ -6,6 +6,63 @@
 
 /* OAM data */
 
+const u16 DeoremUnkOAM_082d7558[4] = { /* 0x082d7558 */
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_64x32 | 0x1df, OBJ_SPRITE_OAM | 0x1210
+};
+
+const u16 DeoremUnkOAM_082d7560[4] = { /* 0x082d7560 */
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xef, OBJ_SIZE_64x32 | 0x1e0, OBJ_SPRITE_OAM | 0x1208
+};
+
+const u16 DeoremUnkOAM_082d7568[4] = { /* 0x082d7568 */
+    0x1,
+    OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_64x32 | 0x1df, OBJ_SPRITE_OAM | 0x1200
+};
+
+const u16 DeoremUnkOAM_082d7570[7] = { /* 0x082d7570 */
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf1, OBJ_SIZE_64x32 | 0x1e0, OBJ_SPRITE_OAM | 0x1210,
+    OBJ_SHAPE_HORIZONTAL | 0x7, OBJ_SIZE_32x16 | 0x1f0, OBJ_SPRITE_OAM | 0x131c
+};
+
+const u16 DeoremUnkOAM_082d757e[7] = { /* 0x082d757e */
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf1, OBJ_SIZE_64x32 | 0x1e0, OBJ_SPRITE_OAM | 0x1208,
+    OBJ_SHAPE_HORIZONTAL | 0x7, OBJ_SIZE_32x16 | 0x1ef, OBJ_SPRITE_OAM | 0x131c
+};
+
+const u16 DeoremUnkOAM_082d758c[7] = { /* 0x082d758c */
+    0x2,
+    OBJ_SHAPE_HORIZONTAL | 0xf2, OBJ_SIZE_64x32 | 0x1e0, OBJ_SPRITE_OAM | 0x1200,
+    OBJ_SHAPE_HORIZONTAL | 0x7, OBJ_SIZE_32x16 | 0x1ee, OBJ_SPRITE_OAM | 0x131c
+};
+
+const u16 DeoremUnkOAM_082d759a[13] = { /* 0x082d759a */
+    0x4,
+    0xd4, OBJ_SIZE_32x32 | 0x1ef, OBJ_SPRITE_OAM | 0x1218,
+    0xf0, OBJ_SIZE_32x32 | 0x1ef, OBJ_SPRITE_OAM | 0x1290,
+    0x0, 0x1e7, OBJ_SPRITE_OAM | 0x1331,
+    0xfd, OBJ_X_FLIP | 0xf, OBJ_SPRITE_OAM | 0x1330
+};
+
+const u16 DeoremUnkOAM_082d75b4[13] = { /* 0x082d75b4 */
+    0x4,
+    0xd3, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x1218,
+    0xef, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x128c,
+    0xfe, 0x1e8, OBJ_SPRITE_OAM | 0x1332,
+    0xfe, OBJ_X_FLIP | 0x10, OBJ_SPRITE_OAM | 0x1332
+};
+
+const u16 DeoremUnkOAM_082d75ce[13] = { /* 0x082d75ce */
+    0x4,
+    0xd4, OBJ_SIZE_32x32 | 0x1f2, OBJ_SPRITE_OAM | 0x1218,
+    0xf0, OBJ_SIZE_32x32 | 0x1f0, OBJ_SPRITE_OAM | 0x1288,
+    0x0, OBJ_X_FLIP | 0x10, OBJ_SPRITE_OAM | 0x1331,
+    0xfc, 0x1e8, OBJ_SPRITE_OAM | 0x1330
+};
+
 const u16 DeoremThornBaseOAM_Frame0[4] = { /* 0x082d75e8 */
     0x1,
     0xf9, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x1314
@@ -143,6 +200,30 @@ const u16 DeoremPliersOpenedOAM_Frame2[16] = { /* 0x082d7796 */
 /* Frame Datas */
 // Earlier frame datas ignored because they currently point to undocumented data
 
+const struct FrameData DeoremUnkOAMData_082d7894[5] = { /* 0x082d7894 */
+    { DeoremUnkOAM_082d7558, 0xC },
+    { DeoremUnkOAM_082d7560, 0xC },
+    { DeoremUnkOAM_082d7568, 0xC },
+    { DeoremUnkOAM_082d7560, 0xC },
+    { NULL, 0x0 }
+};
+
+const struct FrameData DeoremUnkOAMData_082d78bc[5] = { /* 0x082d7894 */
+    { DeoremUnkOAM_082d7570, 0xC },
+    { DeoremUnkOAM_082d757e, 0xC },
+    { DeoremUnkOAM_082d758c, 0xC },
+    { DeoremUnkOAM_082d757e, 0xC },
+    { NULL, 0x0 }
+};
+
+const struct FrameData DeoremUnkOAMData_082d78e4[5] = { /* 0x082d7894 */
+    { DeoremUnkOAM_082d759a, 0xC },
+    { DeoremUnkOAM_082d75b4, 0xC },
+    { DeoremUnkOAM_082d75ce, 0xC },
+    { DeoremUnkOAM_082d75b4, 0xC },
+    { NULL, 0x0 }
+};
+
 const struct FrameData DeoremThornBaseOAMData[2] = { /* 0x082d790c */
     { DeoremThornBaseOAM_Frame0, 0xff },
     { NULL, 0x0 }
@@ -206,6 +287,6 @@ const struct FrameData DeoremPliersClosedOAMData[5] = { /* 0x082d7a84 */
 };
 
 // 0x082d7aac[5]
-const struct FrameData DeoremOAMData_unk4[5] = {0};
+const struct FrameData DeoremOAMData_unk4[5] = {0}; // TODO
 
 #endif
