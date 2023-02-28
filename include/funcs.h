@@ -8,7 +8,6 @@ void init_sound(void);
 void read_sram(void);
 void start_new_demo(void);
 int softreset_main(void);
-int titlescreen_main(void);
 int fileselect_main(void);
 int map_screen_main(void);
 int gameover_main(void);

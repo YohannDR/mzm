@@ -38,7 +38,7 @@ void agbmain(void)
                 break;
 
             case GM_TITLE:
-                if (titlescreen_main())
+                if (TitleScreenSubroutine())
                 {
                     if (gGameModeSub2 == 1)
                         gMainGameMode = GM_FILESELECT;

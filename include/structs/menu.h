@@ -4,8 +4,8 @@
 #include "types.h"
 
 struct MenuOamData {
-    u16 yPosition;
-    u16 xPosition;
+    i16 yPosition;
+    i16 xPosition;
 
     u8 unk_4;
     u8 unk_5;
@@ -20,7 +20,7 @@ struct MenuOamData {
     u16 notDrawn:1;
     u16 idChanged:2;
 
-    u8 unk_C;
+    u8 boundBackground:4;
     i16 unk_E;
 };
 

@@ -4773,7 +4773,7 @@ sub_080695bc: @ 0x080695bc
     adds r1, r1, r0
     ldr r2, lbl_080695f8 @ =0x0840d3ec
     movs r0, #4
-    bl sub_080696ac
+    bl process_menu_oam
     ldr r1, [r4]
     ldrb r0, [r1, #0x11]
     cmp r0, #0
@@ -4783,7 +4783,7 @@ sub_080695bc: @ 0x080695bc
     adds r1, r1, r0
     ldr r2, lbl_080695fc @ =0x0840d5dc
     movs r0, #0x18
-    bl sub_080696ac
+    bl process_menu_oam
     b lbl_0806960e
     .align 2, 0
 lbl_080695f0: .4byte 0x03001382
@@ -4796,7 +4796,7 @@ lbl_08069600:
     adds r1, r1, r0
     ldr r2, lbl_08069690 @ =0x0840d4f4
     movs r0, #4
-    bl sub_080696ac
+    bl process_menu_oam
 lbl_0806960e:
     ldr r4, lbl_08069694 @ =0x08754bc4
     ldr r1, [r4]
@@ -4805,7 +4805,7 @@ lbl_0806960e:
     adds r1, r1, r0
     ldr r2, lbl_08069698 @ =0x0840d22c
     movs r0, #0x17
-    bl sub_080696ac
+    bl process_menu_oam
     ldr r2, [r4]
     ldrh r1, [r2]
     movs r0, #0x10
@@ -4817,7 +4817,7 @@ lbl_0806960e:
     adds r1, r2, r0
     ldr r2, lbl_0806969c @ =0x0840d55c
     movs r0, #5
-    bl sub_080696ac
+    bl process_menu_oam
 lbl_0806963a:
     ldr r2, [r4]
     ldrb r0, [r2, #0x11]
@@ -4838,7 +4838,7 @@ lbl_0806963a:
     adds r1, r2, r0
     ldr r2, lbl_080696a4 @ =0x0840d51c
     movs r0, #1
-    bl sub_080696ac
+    bl process_menu_oam
 lbl_08069664:
     ldr r1, [r4]
     movs r0, #0xba
@@ -4846,14 +4846,14 @@ lbl_08069664:
     adds r1, r1, r0
     ldr r2, lbl_0806969c @ =0x0840d55c
     movs r0, #0xc
-    bl sub_080696ac
+    bl process_menu_oam
     ldr r1, [r4]
     movs r0, #0x81
     lsls r0, r0, #3
     adds r1, r1, r0
     ldr r2, lbl_080696a8 @ =0x0840d534
     movs r0, #1
-    bl sub_080696ac
+    bl process_menu_oam
 lbl_08069684:
     bl ResetFreeOAM
     pop {r4}
@@ -4868,8 +4868,8 @@ lbl_080696a0: .4byte 0x03000054
 lbl_080696a4: .4byte 0x0840d51c
 lbl_080696a8: .4byte 0x0840d534
 
-    thumb_func_start sub_080696ac
-sub_080696ac: @ 0x080696ac
+    thumb_func_start process_menu_oam
+process_menu_oam: @ 0x080696ac
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -31013,7 +31013,7 @@ erase_sram_menu_process_oam: @ 0x08076364
     adds r1, #0x10
     ldr r2, lbl_0807638c @ =0x08415428
     movs r0, #3
-    bl sub_080696ac
+    bl process_menu_oam
     bl ResetFreeOAM
     pop {r0}
     bx r0
@@ -31022,8 +31022,8 @@ lbl_08076384: .4byte 0x03001382
 lbl_08076388: .4byte 0x08754bc4
 lbl_0807638c: .4byte 0x08415428
 
-    thumb_func_start sub_08076390
-sub_08076390: @ 0x08076390
+    thumb_func_start set_bgcnt_special_graphics_data
+set_bgcnt_special_graphics_data: @ 0x08076390
     push {lr}
     ldrb r2, [r0, #2]
     ldrh r1, [r0, #4]
@@ -31138,7 +31138,7 @@ title_screen_process_oam: @ 0x0807644c
     adds r1, #0x4c
     ldr r2, lbl_08076474 @ =0x0844f0e4
     movs r0, #7
-    bl sub_080696ac
+    bl process_menu_oam
     bl ResetFreeOAM
     pop {r0}
     bx r0
@@ -32862,8 +32862,8 @@ lbl_08077198:
     bx r1
     .align 2, 0
 
-    thumb_func_start titlescreen_main
-titlescreen_main: @ 0x080771a0
+    thumb_func_start TitleScreenSubroutine
+TitleScreenSubroutine: @ 0x080771a0
     push {r4, r5, r6, lr}
     movs r6, #0
     ldr r0, lbl_080771c4 @ =0x08754bc4
@@ -33313,9 +33313,9 @@ title_screen_init: @ 0x0807745c
     ldr r1, lbl_08077628 @ =0x06010000
     bl CallLZ77UncompVRAM
     adds r0, r6, #0
-    bl sub_08076390
+    bl set_bgcnt_special_graphics_data
     mov r0, sb
-    bl sub_08076390
+    bl set_bgcnt_special_graphics_data
     ldr r0, lbl_0807762c @ =0x03000c75
     mov r1, sl
     strb r1, [r0]
@@ -34855,7 +34855,7 @@ lbl_08078266:
     adds r1, #0x74
     ldr r2, lbl_08078284 @ =0x0845f1dc
     movs r0, #0xf
-    bl sub_080696ac
+    bl process_menu_oam
     b lbl_0807829a
     .align 2, 0
 lbl_08078278: .4byte 0x03001382
@@ -34870,7 +34870,7 @@ lbl_08078288:
     adds r1, r1, r0
     ldr r2, lbl_080782a8 @ =0x0845f31c
     movs r0, #0xb
-    bl sub_080696ac
+    bl process_menu_oam
 lbl_0807829a:
     bl ResetFreeOAM
     pop {r0}
