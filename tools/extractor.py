@@ -20,6 +20,8 @@ subDirs: array = [
     "cutscenes/GettingFullyPoweredSuit/",
     "cutscenes/BeforeCharlie/",
     "cutscenes/StatueOpening/",
+    "menus/",
+    "menus/TitleScreen",
 ]
 
 try:

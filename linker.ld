@@ -29,6 +29,7 @@ SECTIONS {
 
     iwram (NOLOAD) : ALIGN(4) {
         . = 0x00000000; gDebugFlag = .;
+        . = 0x00000001; gSramErrorFlag = .;
         . = 0x00000002; gFrameCounter16Bit = .;
         . = 0x00000004; gStereoFlag = .;
         . = 0x00000005; gSubGameModeStage = .;
@@ -254,9 +255,8 @@ SECTIONS {
         . = 0x00005704; gClipdataCodePointer = .;
         . = 0x00005708; gCurrentRoomScrollDataPointer = .;
         . = 0x00005714; gUnk_3005714 = .;
-        . = 0x00005804; gOamXOffset_NonGameplay = .;
-        . = 0x00005805; gOamYOffset_NonGameplay = .;
-
+        . = 0x00005806; gOamXOffset_NonGameplay = .;
+        . = 0x00005807; gOamYOffset_NonGameplay = .;
 
         . = 0x000058e0; src/libgcc/fp-bit-base.o(.bss);
         . = 0x000058f8; src/libgcc/float.o(.bss);
@@ -404,6 +404,8 @@ SECTIONS {
         src/cutscenes/before_charlie.o(.text);
         src/cutscenes/statue_opening.o(.text);
         asm/disasm_0x08067080.o(.text);
+        src/menus/title_screen.o(.text);
+        asm/disasm_0x080778c4.o(.text);
         src/intro.o(.text);
         asm/disasm_0x0808117c.o(.text);
 
@@ -523,7 +525,9 @@ SECTIONS {
         src/data/cutscenes/getting_fully_powered_suit_data.o(.rodata);
         src/data/cutscenes/before_charlie_data.o(.rodata);
         src/data/cutscenes/statue_opening_data.o(.rodata);
-        /* 3f0390-45f45c */
+        /* 3f0390-446d68 */
+        src/data/menus/title_screen_data.o(.rodata);
+        /* 44f11c-45f45c */
         src/data/intro_data.o(.rodata);
         /* 479400-754bb4 */
         src/data/shortcut_pointers.o(.rodata);
@@ -542,6 +546,8 @@ SECTIONS {
         src/data/cutscenes/internal_getting_fully_powered_suit_data.o(.rodata);
         src/data/cutscenes/internal_before_charlie_data.o(.rodata);
         src/data/cutscenes/internal_statue_opening_data.o(.rodata);
-        /* 760090-7f7734 */
+        /* 760090-760aa0 */
+        src/data/menus/internal_title_screen_data.o(.rodata)
+        /* 760aef-7f7734 */
     } >rom
 }

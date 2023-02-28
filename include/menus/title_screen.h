@@ -4,18 +4,21 @@
 #include "types.h"
 #include "structs/menus/title_screen.h"
 
+void TitleScreenSetBGCNTPageData(const struct TitleScreenPageData* const pPageData);
+void TitleScreenLoadPageData(const struct TitleScreenPageData* const pPageData);
+void TitleScreenLoadPageData_Copy(const struct TitleScreenPageData* const pPageData);
 void TitleScreenUpdateOAMId(u8 offset, u8 oamId);
 void TitleScreenCallProcessOAM(void);
 void TitleScreenResetOAM(void);
 u32 TitleScreenFadingIn(void);
-u32 TitleScreenFadingOut(u8 param_1, u8 param2);
+u32 TitleScreenFadingOut(u8 intensity, u8 delay);
 void unk_76710(u8 param_1);
 void unk_767a4(void);
 void TitleScreenUpdateAnimatedPalette(void);
 void unk_76978(u8 param_1);
 u32 unk_76a98(void);
 u32 TitleScreenCometsView(void);
-void unk_76cf4(void);
+void TitleScreenTransferGroundGraphics(void);
 void TitleScreenProcessOAM(void);
 void TitleScreenProcessComets(struct TitleScrenOamTiming* pTiming, struct MenuOamData* pOam, u8 cometNumber);
 void TitleScreenProcessTopSparkle(struct TitleScrenOamTiming* pTiming, struct MenuOamData* pOam);

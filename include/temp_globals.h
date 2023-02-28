@@ -39,7 +39,4 @@ extern u16 gBG3VOFS_NonGameplay;
 extern u16 gCurrentOamRotation;
 extern u16 gCurrentOamScaling;
 
-extern i8 gMenuOamXOffset;
-extern i8 gMenuOamYOffset;
-
 #endif

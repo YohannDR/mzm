@@ -7824,7 +7824,7 @@ lbl_0805b51c:
     adds r1, r7, #0
     add r2, sp, #4
     adds r3, r4, #0
-    bl sub_0805baac
+    bl ApplySpecialBackgroundFadingColor
     ldr r0, lbl_0805b57c @ =0x02035200
     str r0, [sp, #8]
     ldr r0, lbl_0805b580 @ =0x02035600
@@ -7840,7 +7840,7 @@ lbl_0805b51c:
     adds r1, r7, #0
     add r2, sp, #4
     adds r3, r4, #0
-    bl sub_0805baac
+    bl ApplySpecialBackgroundFadingColor
     movs r0, #3
     strb r0, [r6, #4]
     add sp, #0xc
@@ -8548,8 +8548,8 @@ lbl_0805baa0: .4byte 0x02035240
 lbl_0805baa4: .4byte 0x02035200
 lbl_0805baa8: .4byte 0x03005520
 
-    thumb_func_start sub_0805baac
-sub_0805baac: @ 0x0805baac
+    thumb_func_start ApplySpecialBackgroundFadingColor
+ApplySpecialBackgroundFadingColor: @ 0x0805baac
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -21754,7 +21754,7 @@ lbl_08062230:
     str r5, [sp]
     add r2, sp, #4
     adds r3, r6, #0
-    bl sub_0805baac
+    bl ApplySpecialBackgroundFadingColor
     ldr r0, [r4]
     movs r2, #0x80
     lsls r2, r2, #2
@@ -21773,7 +21773,7 @@ lbl_08062230:
     str r5, [sp]
     add r2, sp, #4
     adds r3, r6, #0
-    bl sub_0805baac
+    bl ApplySpecialBackgroundFadingColor
     ldr r0, [r7]
     adds r0, #0xbc
     movs r1, #1
@@ -21856,7 +21856,7 @@ lbl_080622f8:
     str r5, [sp]
     add r2, sp, #4
     adds r3, r6, #0
-    bl sub_0805baac
+    bl ApplySpecialBackgroundFadingColor
     ldr r0, [r4]
     movs r2, #0x80
     lsls r2, r2, #2
@@ -21875,7 +21875,7 @@ lbl_080622f8:
     str r5, [sp]
     add r2, sp, #4
     adds r3, r6, #0
-    bl sub_0805baac
+    bl ApplySpecialBackgroundFadingColor
     ldr r0, [r7]
     adds r0, #0xbc
     movs r1, #1

@@ -11,20 +11,20 @@ struct TitleScrenOamTiming {
     u16 timer;
 };
 
-struct TitleScreen_UnkStruct {
-    u8 unk_0;
-    u8 unk_1;
-    u16 unk_2;
+struct TitleScreenAnimatedPalette {
+    u8 paletteRow;
+    u8 maxTimer;
+    u16 timer;
     u8 unk_4;
 };
 
 struct TitleScreenPageData {
-    u8 graphicsPage;
     u8 tiletablePage;
+    u8 graphicsPage;
     u8 priority;
     u16 screenSize;
     u16 bg;
-    const u32* const tilemapPointer; 
+    const u32* const tiletablePointer; 
 };
 
 struct TitleScreenData {
@@ -33,7 +33,7 @@ struct TitleScreenData {
     u16 unk_4;
     u8 cometsStage;
     u16 cometsTimer;
-    u8 unk_A;
+    u8 activeAnimatedPalettes;
     u16 type;
     u8 unk_E;
     u8 unk_F;
@@ -46,7 +46,7 @@ struct TitleScreenData {
     u8 padding_1A[8];
     u16 bldcnt;
     u16 unk_24;
-    struct TitleScreen_UnkStruct unk_28[3];
+    struct TitleScreenAnimatedPalette animatedPalettes[3];
     struct TitleScrenOamTiming oamTimings[3];
     struct MenuOamData oam[7];
 };
