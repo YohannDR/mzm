@@ -17,9 +17,8 @@ int tourian_escape_main(void);
 int cutscene_main(void);
 int gallery_main(void);
 int fusion_gallery_main(void);
-int erase_sram_main(void);
 
-void sub_080033dc(void);
+void unk_33dc(void);
 void QueueSound(u16 id, u32 unk); /* TODO: unk type */
 void StopOrFadeSound(u16 id, u32 unk); /* TODO: unk type */
 void UpdateAudio();

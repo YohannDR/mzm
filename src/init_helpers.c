@@ -5,7 +5,7 @@
 #include "memory.h"
 #include "types.h"
 
-void ClearGFXRAM(void)
+void ClearGfxRam(void)
 {
     BitFill(3, 0x00, VRAM_BASE, VRAM_SIZE, 0x10);
     BitFill(3, 0xff, OAM_BASE, OAM_SIZE, 0x20);

@@ -75,7 +75,7 @@ void IntroInit(void)
     INTRO_DATA.charDrawerX = 0x38;
     INTRO_DATA.charDrawerY = 0x60;
 
-    ClearGFXRAM();
+    ClearGfxRam();
 
     LZ77UncompVRAM(sIntroTextAndShipFlyingInGFX, VRAM_BASE + 0x10000);
     LZ77UncompVRAM(sIntroSpaceBackgroundGFX, VRAM_BASE);

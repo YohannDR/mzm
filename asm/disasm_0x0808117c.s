@@ -1490,7 +1490,7 @@ tourian_escape_init: @ 0x08081d04
     ldr r0, lbl_08081e04 @ =0x8500018a
     str r0, [r4, #8]
     ldr r0, [r4, #8]
-    bl ClearGFXRAM
+    bl ClearGfxRam
     ldr r0, lbl_08081e08 @ =0x08480148
     ldr r1, lbl_08081e0c @ =0x06010000
     bl LZ77UncompVRAM
@@ -6932,7 +6932,7 @@ fusion_gallery_init: @ 0x08084870
     ldrsh r4, [r0, r1]
     cmp r4, #0
     bne lbl_080848ce
-    bl ClearGFXRAM
+    bl ClearGfxRam
     str r4, [sp, #4]
     ldr r1, lbl_080849e4 @ =0x040000d4
     add r2, sp, #4
@@ -8417,7 +8417,7 @@ credits_init: @ 0x08085464
     ldr r0, lbl_080855d0 @ =0x8500018a
     str r0, [r4, #8]
     ldr r0, [r4, #8]
-    bl ClearGFXRAM
+    bl ClearGfxRam
     ldr r0, lbl_080855d4 @ =0x085b2aa0
     movs r1, #0xc0
     lsls r1, r1, #0x13
@@ -11540,7 +11540,7 @@ unlocked_options_init: @ 0x08086e78
     ldr r0, lbl_08086f88 @ =0x8500018a
     str r0, [r4, #8]
     ldr r0, [r4, #8]
-    bl ClearGFXRAM
+    bl ClearGfxRam
     ldr r0, lbl_08086f8c @ =0x085c943c
     ldr r1, lbl_08086f90 @ =0x06008000
     bl LZ77UncompVRAM
@@ -12190,7 +12190,7 @@ gallery_init: @ 0x080873e4
     ldrsh r4, [r0, r1]
     cmp r4, #0
     bne lbl_08087440
-    bl ClearGFXRAM
+    bl ClearGfxRam
     str r4, [sp, #4]
     ldr r1, lbl_08087498 @ =0x040000d4
     add r2, sp, #4
@@ -13474,7 +13474,7 @@ chozodia_escape_init: @ 0x08087e4c
     ldr r0, lbl_08088044 @ =vblank_during_chozodia_escape
     bl CallbackSetVBlank
     strh r6, [r4]
-    bl ClearGFXRAM
+    bl ClearGfxRam
     ldr r0, lbl_08088048 @ =0x083ab6c0
     ldr r1, lbl_0808804c @ =0x06010000
     bl LZ77UncompVRAM

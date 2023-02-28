@@ -403,7 +403,7 @@ game_over_menu_init: @ 0x08077ba8
     ldr r0, lbl_08077d44 @ =0x03001382
     mov r1, r8
     strb r1, [r0]
-    bl ClearGFXRAM
+    bl ClearGfxRam
     bl ResetFreeOAM
     ldr r1, lbl_08077d48 @ =0x03005806
     ldr r0, lbl_08077d4c @ =0x03005807
@@ -624,7 +624,7 @@ sub_08077dd8: @ 0x08077dd8
     strh r4, [r0]
     ldr r0, lbl_08077ec8 @ =0x03001382
     strb r5, [r0]
-    bl ClearGFXRAM
+    bl ClearGfxRam
     bl ResetFreeOAM
     ldr r1, lbl_08077ecc @ =0x03005806
     ldr r0, lbl_08077ed0 @ =0x03005807
@@ -6271,7 +6271,7 @@ lbl_0807ab20:
 lbl_0807ab28: .4byte 0x087d80a0
 lbl_0807ab2c: .4byte 0x0845f440
 lbl_0807ab30:
-    bl sub_080033dc
+    bl unk_33dc
     ldr r2, lbl_0807ab50 @ =0x08754bc4
     ldr r1, [r2]
     movs r3, #0
@@ -9670,7 +9670,7 @@ file_select_menu_init: @ 0x0807c5e0
     strh r0, [r1]
     ldr r0, lbl_0807c7b0 @ =0x03001382
     strb r4, [r0]
-    bl ClearGFXRAM
+    bl ClearGfxRam
     bl ResetFreeOAM
     ldr r1, lbl_0807c7b4 @ =0x03005806
     ldr r0, lbl_0807c7b8 @ =0x03005807
@@ -14880,7 +14880,7 @@ sub_0807eff0: @ 0x0807eff0
     strh r4, [r6]
     ldr r0, lbl_0807f0c8 @ =0x03001382
     strb r5, [r0]
-    bl ClearGFXRAM
+    bl ClearGfxRam
     bl ResetFreeOAM
     ldr r1, lbl_0807f0cc @ =0x03005806
     ldr r0, lbl_0807f0d0 @ =0x03005807

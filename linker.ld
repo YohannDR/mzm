@@ -291,7 +291,7 @@ SECTIONS {
         src/init_helpers.o(.text);
         src/fixed_point.o(.text);
         src/callbacks.o(.text);
-        src/sub_08000c04.o(.text);
+        src/erase_sram_func.o(.text);
         asm/disasm_0x08000c48.o(.text);
         asm/disasm_0x08002a58.o(.text);
         asm/syscalls.o(.text);
@@ -404,6 +404,7 @@ SECTIONS {
         src/cutscenes/before_charlie.o(.text);
         src/cutscenes/statue_opening.o(.text);
         asm/disasm_0x08067080.o(.text);
+        src/menus/erase_sram.o(.text);
         src/menus/title_screen.o(.text);
         asm/disasm_0x080778c4.o(.text);
         src/intro.o(.text);
@@ -525,7 +526,9 @@ SECTIONS {
         src/data/cutscenes/getting_fully_powered_suit_data.o(.rodata);
         src/data/cutscenes/before_charlie_data.o(.rodata);
         src/data/cutscenes/statue_opening_data.o(.rodata);
-        /* 3f0390-446d68 */
+        /* 3f0390-411528 */
+        src/data/menus/erase_sram_data.o(.rodata);
+        /* 415460-446d68 */
         src/data/menus/title_screen_data.o(.rodata);
         /* 44f11c-45f45c */
         src/data/intro_data.o(.rodata);
@@ -546,7 +549,9 @@ SECTIONS {
         src/data/cutscenes/internal_getting_fully_powered_suit_data.o(.rodata);
         src/data/cutscenes/internal_before_charlie_data.o(.rodata);
         src/data/cutscenes/internal_statue_opening_data.o(.rodata);
-        /* 760090-760aa0 */
+        /* 760090-760420 */
+        src/data/menus/internal_erase_sram_data.o(.rodata)
+        /* 760458-760aa0 */
         src/data/menus/internal_title_screen_data.o(.rodata)
         /* 760aef-7f7734 */
     } >rom

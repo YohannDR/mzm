@@ -1105,7 +1105,7 @@ void TitleScreenInit(void)
 
     gNextOamSlot = 0;
 
-    ClearGFXRAM();
+    ClearGfxRam();
     ResetFreeOAM();
     
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;

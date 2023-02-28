@@ -218,7 +218,7 @@ void agbmain(void)
                 break;
 
             case GM_ERASE_SRAM:
-                if (erase_sram_main())
+                if (EraseSramSubroutine())
                 {
                     if (gGameModeSub2 == 1)
                         gResetGame = TRUE;

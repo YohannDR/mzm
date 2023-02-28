@@ -10,6 +10,7 @@
 #include "structs/ending_and_gallery.h"
 #include "structs/menus/pause_screen.h"
 #include "structs/menus/title_screen.h"
+#include "structs/menus/erase_sram.h"
 
 
 union NonGameplayRAM {
@@ -19,6 +20,7 @@ union NonGameplayRAM {
     struct EndingData ending;
     struct PauseScreenData pauseScreen;
     struct TitleScreenData titleScreen;
+    struct EraseSramData eraseSram;
     u8 inGame[1576];
 };
 

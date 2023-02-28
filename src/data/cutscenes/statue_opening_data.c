@@ -77,4 +77,4 @@ const u32 sStatueOpeningRoomGFX[2357] = INCBIN_U32("data/cutscenes/StatueOpening
 const u32 sStatueOpeningRoomTileTable[318] = INCBIN_U32("data/cutscenes/StatueOpening/Room.tt");
 const u32 sStatueOpening_3effc8[242] = INCBIN_U32("data/cutscenes/StatueOpening/3effc8.tt");
 
-const u8 sTempArray_3f0390[0x569d8] = INCBIN_U8("data/Blob_3f0390_446d68.bin");
+const u8 sTempArray_3f0390[0x21198] = INCBIN_U8("data/Blob_3f0390_411528.bin");

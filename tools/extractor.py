@@ -21,7 +21,8 @@ subDirs: array = [
     "cutscenes/BeforeCharlie/",
     "cutscenes/StatueOpening/",
     "menus/",
-    "menus/TitleScreen",
+    "menus/TitleScreen/",
+    "menus/EraseSram/",
 ]
 
 try:

@@ -19766,7 +19766,7 @@ lbl_0806135e:
     movs r0, #0
     strb r0, [r2]
 lbl_08061370:
-    bl ClearGFXRAM
+    bl ClearGfxRam
     ldr r2, lbl_080613fc @ =0x03000bf4
     ldr r0, lbl_08061400 @ =0x03000bf6
     movs r3, #0x80
