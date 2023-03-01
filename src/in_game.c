@@ -369,7 +369,7 @@ void InitAndLoadGenerics(void)
 
     if (gGameModeSub3 == 0 || gTourianEscapeCutsceneStage != 0)
     {
-        ClearGFXRAM();
+        ClearGfxRam();
         HUDGenericLoadCommonSpriteGFX();
     }
 

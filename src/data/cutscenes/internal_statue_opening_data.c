@@ -18,4 +18,4 @@ const struct CutsceneSubroutineData sStatueOpeningSubroutineData[3] = {
     }
 };
 
-const u8 sTempArray_760090[0x976a4] = INCBIN_U8("data/Blob_760090_7f7734.bin");
+const u8 sTempArray_760090[0x390] = INCBIN_U8("data/Blob_760090_760420.bin");

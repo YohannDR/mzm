@@ -6,9 +6,11 @@
 
 #include "structs/cutscene.h"
 #include "structs/intro.h"
-#include "structs/game_over.h"
+#include "structs/menus/game_over.h"
 #include "structs/ending_and_gallery.h"
 #include "structs/menus/pause_screen.h"
+#include "structs/menus/title_screen.h"
+#include "structs/menus/erase_sram.h"
 
 
 union NonGameplayRAM {
@@ -17,6 +19,8 @@ union NonGameplayRAM {
     struct GameOverData gameOver;
     struct EndingData ending;
     struct PauseScreenData pauseScreen;
+    struct TitleScreenData titleScreen;
+    struct EraseSramData eraseSram;
     u8 inGame[1576];
 };
 
@@ -33,6 +37,7 @@ extern u16 gBG2HOFS_NonGameplay;
 extern u16 gBG2VOFS_NonGameplay;
 extern u16 gBG3HOFS_NonGameplay;
 extern u16 gBG3VOFS_NonGameplay;
+
 extern u16 gCurrentOamRotation;
 extern u16 gCurrentOamScaling;
 

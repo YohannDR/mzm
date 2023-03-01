@@ -268,7 +268,7 @@ void CutsceneInit(void)
     if (gCutsceneToSkip != gCurrentCutscene)
         gCurrentCutscene = CUTSCENE_NONE;
 
-    ClearGFXRAM();
+    ClearGfxRam();
 
     gBG0HOFS_NonGameplay = gBG0VOFS_NonGameplay = 0x800;
     gBG1HOFS_NonGameplay = gBG1VOFS_NonGameplay = 0x800;

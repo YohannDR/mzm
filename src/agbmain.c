@@ -38,7 +38,7 @@ void agbmain(void)
                 break;
 
             case GM_TITLE:
-                if (titlescreen_main())
+                if (TitleScreenSubroutine())
                 {
                     if (gGameModeSub2 == 1)
                         gMainGameMode = GM_FILESELECT;
@@ -218,7 +218,7 @@ void agbmain(void)
                 break;
 
             case GM_ERASE_SRAM:
-                if (erase_sram_main())
+                if (EraseSramSubroutine())
                 {
                     if (gGameModeSub2 == 1)
                         gResetGame = TRUE;

@@ -15,6 +15,7 @@ struct GameOverDynamicPalette {
 
     u16 palette[6];
     u8 timerLimit;
+    u8 unk_13;
 };
 
 struct GameOverData {

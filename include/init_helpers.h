@@ -1,7 +1,7 @@
 #ifndef INIT_HELPERS_H
 #define INIT_HELPERS_H
 
-void ClearGFXRAM(void);
+void ClearGfxRam(void);
 void LoadInterruptCode(void);
 void ResetFreeOAM(void);
 

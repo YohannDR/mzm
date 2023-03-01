@@ -1371,8 +1371,8 @@ lbl_080033d0: .4byte 0x84400004
 lbl_080033d4: .4byte 0x040000c6
 lbl_080033d8: .4byte 0x040000d2
 
-    thumb_func_start sub_080033dc
-sub_080033dc: @ 0x080033dc
+    thumb_func_start unk_33dc
+unk_33dc: @ 0x080033dc
     push {r4, r5, lr}
     sub sp, #4
     ldr r5, lbl_08003440 @ =0x03001d00

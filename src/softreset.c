@@ -28,7 +28,7 @@ void SoftresetCheck(void)
 void Softreset(void)
 {
     sub_0805d034();
-    sub_080033dc();
+    unk_33dc();
 
     write16(REG_IME, FALSE);
     write16(REG_IE, 0);
@@ -41,7 +41,7 @@ void Softreset(void)
     dma_fill32(3, 0, EWRAM_BASE, 0x40000);
     dma_fill32(3, 0, IWRAM_BASE, 0x7e00);
 
-    ClearGFXRAM();
+    ClearGfxRam();
     LoadInterruptCode();
     CallbackSetVBlank(SoftresetVBlankCallback);
     read_sram();

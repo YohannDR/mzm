@@ -25,6 +25,7 @@ extern i8 gTourianEscapeCutsceneStage;
 extern vu16 gVBlankRequestFlag;
 extern u8 gDisableSoftreset;
 extern u8 gDebugFlag;
+extern u8 gSramErrorFlag;
 extern u8 gDisablePause;
 extern u8 gDisableScrolling;
 extern u8 gShipLandingFlag;

@@ -8,7 +8,6 @@ void init_sound(void);
 void read_sram(void);
 void start_new_demo(void);
 int softreset_main(void);
-int titlescreen_main(void);
 int fileselect_main(void);
 int map_screen_main(void);
 int gameover_main(void);
@@ -18,9 +17,8 @@ int tourian_escape_main(void);
 int cutscene_main(void);
 int gallery_main(void);
 int fusion_gallery_main(void);
-int erase_sram_main(void);
 
-void sub_080033dc(void);
+void unk_33dc(void);
 void QueueSound(u16 id, u32 unk); /* TODO: unk type */
 void StopOrFadeSound(u16 id, u32 unk); /* TODO: unk type */
 void UpdateAudio();
