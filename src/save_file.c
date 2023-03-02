@@ -5,6 +5,8 @@
 
 #include "data/shortcut_pointers.h"
 #include "data/save_file_data.h"
+#include "data/internal_save_file_data.h"
+#include "data/block_data.h"
 
 #include "constants/game_state.h"
 #include "constants/connection.h"
@@ -17,6 +19,7 @@
 #include "structs/minimap.h"
 #include "structs/sprite.h"
 #include "structs/save_file.h"
+#include "structs/visual_effects.h"
 
 #define SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS 0
 #define SRAM_OPERATION_SAVE_MOST_RECENT_FILE 5
@@ -447,9 +450,48 @@ u32 SramProcessEndingSave(void)
     return ended;
 }
 
+/**
+ * @brief 738f0 | f8 | Checks if a new best completion time should be set
+ * 
+ */
 void SramCheckSetNewBestCompletionTime(void)
 {
+    u32 flags;
+    u32 startValue;
+    i32 convertedBestTime;
+    i32 convertedIgt;
 
+    if (sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].energy != (gEquipment.maxEnergy / sTankIncreaseAmount[gDifficulty].energy))
+        flags = 1;
+    else
+        flags = 0;
+
+    if (sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].missile != (gEquipment.maxMissiles / sTankIncreaseAmount[gDifficulty].missile))
+        flags |= 2;
+
+    if (sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].superMissile != (gEquipment.maxSuperMissiles / sTankIncreaseAmount[gDifficulty].superMissile))
+        flags |= 4;
+
+    if (sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].powerBomb != (gEquipment.maxPowerBombs / sTankIncreaseAmount[gDifficulty].powerBomb))
+        flags |= 8;
+
+    if (flags == 0)
+        startValue = 6;
+    else
+        startValue = 0;
+
+    flags = startValue;
+
+    if (gLanguage != LANGUAGE_JAPANESE)
+        flags += 3;
+
+    flags += gDifficulty;
+    convertedBestTime = (gBestCompletionTimes[flags].hours * 3600) + (gBestCompletionTimes[flags].minutes * 60) +
+        (gBestCompletionTimes[flags].seconds);
+    convertedIgt = (gInGameTimer.hours * 3600) + (gInGameTimer.minutes * 60) + (gInGameTimer.seconds);
+
+    if (convertedBestTime > convertedIgt)
+        gBestCompletionTimes[flags] = gInGameTimer;
 }
 
 /**
@@ -859,19 +901,173 @@ void SramTestFlash(void)
         gSramCorruptFlag = flags;
 }
 
+/**
+ * @brief 743a4 | 1d0 | 
+ * 
+ */
 void unk_743a4(void)
 {
+    i32 i;
+    u32 flag;
 
+    for (i = 0; i < ARRAY_SIZE(gSaveFilesInfo); i++)
+        gSaveFilesInfo[i] = sSaveFileInfo_Empty;
+
+    gMostRecentSaveFile = 0;
+    gIsLoadingFile = FALSE;
+
+    for (i = 0; i < ARRAY_SIZE(gSaveFilesInfo); i++)
+    {
+        gMostRecentSaveFile = i;
+        unk_74574();
+
+        flag = gSaveFilesInfo[gMostRecentSaveFile].unk_1;
+
+        if (flag == 0)
+        {
+            DMATransfer(3, &sSramEwramPointer->files[gMostRecentSaveFile],
+                &sSramEwramPointer->filesCopy[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
+
+            do_sram_operation(4);
+            gSaveFilesInfo[i].exists = TRUE;
+        }
+        else if (flag == 1)
+        {
+            DMATransfer(3, &sSramEwramPointer->filesCopy[gMostRecentSaveFile],
+                &sSramEwramPointer->files[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
+
+            gSaveFilesInfo[i].exists = TRUE;
+        }
+        else if (flag == 2)
+        {
+            BitFill(3, USHORT_MAX, &sSramEwramPointer->files[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
+            BitFill(3, USHORT_MAX, &sSramEwramPointer->filesCopy[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
+        }
+        else if (flag > 2)
+        {
+            BitFill(3, USHORT_MAX, &sSramEwramPointer->files[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
+            do_sram_operation(3);
+            BitFill(3, USHORT_MAX, &sSramEwramPointer->filesCopy[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
+            do_sram_operation(4);
+            gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 0;
+        }
+        else
+        {
+            for (;;);
+        }
+    }
+
+    gMostRecentSaveFile = 0;
 }
 
+/**
+ * @brief 74574 | b0 | To document
+ * 
+ */
 void unk_74574(void)
 {
+    u32 sanityCheck1;
+    u32 sanityCheck2;
 
+    sanityCheck1 = unk_74624(FALSE);
+    sanityCheck2 = unk_74624(TRUE);
+
+    if (sanityCheck1 == 0)
+    {
+        gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 0;
+        return;
+    }
+
+    if (sanityCheck1 == 1)
+    {
+        gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 1;
+        if (sanityCheck2 != 0)
+            gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 2;
+        return;
+    }
+
+    gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 3;
+    if (sanityCheck2 == 0)
+        gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 1;
+    else if (sanityCheck2 == 1)
+        gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 2;
 }
 
-void unk_74624(u8 param_1)
+u32 unk_74624(u8 useCopy)
 {
+    // https://decomp.me/scratch/Uzj0U
 
+    struct SaveFile* pFile;
+    u32* ptr;
+    u32 checksum;
+    i32 result;
+    i32 i;
+
+    if (useCopy == FALSE)
+        pFile = &sSramEwramPointer->files[gMostRecentSaveFile];
+    else
+        pFile = &sSramEwramPointer->filesCopy[gMostRecentSaveFile];
+
+    ptr = (u32*)pFile;
+    checksum = 0;
+    for (i = SRAM_GET_CHECKSUM_SIZE(struct SaveFile, 8, u32); i >= 0; i--)
+    {
+        checksum += *ptr++;
+        checksum += *ptr++;
+        checksum += *ptr++;
+        checksum += *ptr++;
+        checksum += *ptr++;
+        checksum += *ptr++;
+        checksum += *ptr++;
+        checksum += *ptr++;
+    }
+
+    result = 0;
+    if (pFile->checksum != checksum || checksum != ~pFile->notChecksum)
+        result = 1;
+
+    checksum = 0;
+    for (i = 0; i < SRAM_TEXT_SIZE; i++)
+    {
+        if (sZERO_MISSION_010_Text[i] != pFile->ZERO_MISSION_010_Text[i])
+        {
+            checksum |= 1;
+            break;
+        }
+    }
+
+    for (i = 0; i < SRAM_TEXT_SIZE; i++)
+    {
+        if (sPlanetZebes_Text[i] != pFile->PlanetZebes_Text[i])
+        {
+            checksum |= 2;
+            break;
+        }
+    }
+
+    for (i = 0; i < SRAM_TEXT_SIZE; i++)
+    {
+        if (sSamusAran_Text[i] != pFile->SamusAran_Text[i])
+        {
+            checksum |= 4;
+            break;
+        }
+    }
+
+    if (checksum != 0)
+    {
+        if (checksum == (1 | 2 | 4))
+            result |= 2;
+        else
+            result |= 1;
+    }
+
+    if (result > 1)
+    {
+        BitFill(3, USHORT_MAX, pFile, sizeof(*pFile), 16);
+    }
+
+    return result;
 }
 
 /**
@@ -1214,13 +1410,111 @@ void SramWrite_Language(void)
     do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE);
 }
 
+/**
+ * @brief 74da4 | 1b4 | Reads the language from flash sram
+ * 
+ * @return u32 
+ */
 u32 SramRead_Language(void)
 {
+    u16 buffer;
+    struct SaveValue* pSave;
+    u32 error;
+    i32 i;
+    i32 j;
+    u16 checksum;
+    u16 actualChecksum;
+    u16* ptr;
 
+    for (i = 0; i < ARRAY_SIZE(gSram.languagesSave); i++)
+    {
+        pSave = &sSramEwramPointer->languagesSave[i];
+        ptr = (u16*)pSave;
+        if (pSave->magicNumber == 0x1F)
+            error = 0;
+        else
+            error = 1;
+
+        if (error == 0)
+        {
+            checksum = 0;
+            actualChecksum = pSave->checksum;
+            for (j = SRAM_GET_CHECKSUM_SIZE(struct SaveValue, 4, u16); j >= 0; j--)
+            {
+                checksum += *ptr++;
+                checksum += *ptr++;
+                checksum += *ptr++;
+                checksum += *ptr++;
+            }
+
+            if (actualChecksum != checksum)
+                error = 2;
+
+            if (error == 0)
+            {
+                for (j = 0; j < SRAM_TEXT_SIZE; j++)
+                {
+                    if (pSave->startText[j] != sLanguageSave_Text[0][j])
+                    {
+                        error = 3;
+                        break;
+                    }
+                    if (pSave->endText[j] != sLanguageSave_Text[1][j])
+                    {
+                        error = 4;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (i == 0)
+        {
+            if (error == 0)
+            {
+                dma_set(3, &sSramEwramPointer->languagesSave[0], &sSramEwramPointer->languagesSave[1],
+                    DMA_ENABLE << 16 | sizeof(sSramEwramPointer->languagesSave[1]) / 2);
+
+                do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE2);
+                break;
+            }
+        }
+        else if (error == 0)
+        {
+            dma_set(3, &sSramEwramPointer->languagesSave[1], &sSramEwramPointer->languagesSave[0],
+                DMA_ENABLE << 16 | sizeof(sSramEwramPointer->languagesSave[0]) / 2);
+
+            do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE);
+            break;
+        }
+        else
+        {
+            buffer = 0;
+            dma_set(3, &buffer, &sSramEwramPointer->languagesSave[0],
+                (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(sSramEwramPointer->languagesSave[0]) / 2);
+
+            do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE);
+
+            buffer = 0;
+            dma_set(3, &buffer, &sSramEwramPointer->languagesSave[1],
+                (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(sSramEwramPointer->languagesSave[1]) / 2);
+
+            do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE2);
+        }
+    }
+
+    if (!error)
+    {
+        gLanguage = pSave->value;
+        return FALSE;
+    }
+
+    gLanguage = LANGUAGE_JAPANESE;
+    return TRUE;
 }
 
 /**
- * @brief 74f58 | b8 | Writes the time attack to flash sram
+ * @brief 74f58 | b8 | Writes the time attack data to flash sram
  * 
  */
 void SramWrite_TimeAttack(void)
@@ -1243,8 +1537,8 @@ void SramWrite_TimeAttack(void)
     // Write start/end strings
     for (i = 0; i < SRAM_TEXT_SIZE; i++)
     {
-        pSave->startText[i] = sTimeAttackSave_Text[i];
-        pSave->endText[i] = sTimeAttackSave_Text[SRAM_TEXT_SIZE + i];
+        pSave->startText[i] = sTimeAttackSave_Text[0][i];
+        pSave->endText[i] = sTimeAttackSave_Text[1][i];
     }
 
     // Calculate checksum
@@ -1263,9 +1557,95 @@ void SramWrite_TimeAttack(void)
     do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK);
 }
 
+/**
+ * @brief 75010 | 1c8 | Reads the time attack data from flash sram
+ * 
+ */
 void SramRead_TimeAttack(void)
 {
+    struct SaveTimeAttack* pSave;
+    u32 error;
+    i32 i;
+    i32 j;
+    u16 checksum;
+    u16 actualChecksum;
+    u16* ptr;
 
+    for (i = 0; i < ARRAY_SIZE(gSram.timeAttackSaves); i++)
+    {
+        pSave = &sSramEwramPointer->timeAttackSaves[i];
+        ptr = (u16*)pSave;
+        if (pSave->magicNumber == 0x40)
+            error = 0;
+        else
+            error = 1;
+
+        if (error == 0)
+        {
+            checksum = 0;
+            actualChecksum = pSave->checksum;
+            for (j = SRAM_GET_CHECKSUM_SIZE(struct SaveTimeAttack, 4, u16); j >= 0; j--)
+            {
+                checksum += *ptr++;
+                checksum += *ptr++;
+                checksum += *ptr++;
+                checksum += *ptr++;
+            }
+
+            if (actualChecksum != checksum)
+                error = 2;
+
+            if (error == 0)
+            {
+                for (j = 0; j < SRAM_TEXT_SIZE; j++)
+                {
+                    if (pSave->startText[j] != sTimeAttackSave_Text[0][j])
+                    {
+                        error = 3;
+                        break;
+                    }
+                    if (pSave->endText[j] != sTimeAttackSave_Text[1][j])
+                    {
+                        error = 4;
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (i == 0)
+        {
+            if (error == 0)
+            {
+                dma_set(3, &sSramEwramPointer->timeAttackSaves[0], &sSramEwramPointer->timeAttackSaves[1],
+                    DMA_ENABLE << 16 | sizeof(sSramEwramPointer->timeAttackSaves[1]) / 2);
+
+                do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK2);
+                break;
+            }
+        }
+        else if (error == 0)
+        {
+            dma_set(3, &sSramEwramPointer->timeAttackSaves[1], &sSramEwramPointer->timeAttackSaves[0],
+                DMA_ENABLE << 16 | sizeof(sSramEwramPointer->timeAttackSaves[0]) / 2);
+
+            do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK);
+            break;
+        }
+        else
+        {
+            BitFill(3, USHORT_MAX, &sSramEwramPointer->timeAttackSaves[0], sizeof(sSramEwramPointer->timeAttackSaves[0]), 16);
+            do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK);
+
+            BitFill(3, USHORT_MAX, &sSramEwramPointer->timeAttackSaves[1], sizeof(sSramEwramPointer->timeAttackSaves[1]), 16);
+            do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK2);
+        }
+    }
+
+    if (!error)
+        gTimeAttackRecord = pSave->value;
+    else
+        BitFill(3, USHORT_MAX, &gTimeAttackRecord, sizeof(gTimeAttackRecord), 16);
 }
 
 
@@ -1316,10 +1696,59 @@ void SramLoad_DemoRamValues(void)
 
 }
 
-
+/**
+ * @brief 75494 | 110 | Deletes a save file
+ * 
+ * @param file Save file id
+ * @return u32 bool, ended
+ */
 u32 SramDeleteFile(u8 file)
 {
+    struct Sram* pSram;
 
+    pSram = &gSram;
+
+    if (!gDisableSoftreset)
+    {
+        gDisableSoftreset = TRUE;
+        gSramOperationStage = 0;
+    }
+
+    switch (gSramOperationStage)
+    {
+        case 0:
+            gSaveFilesInfo[file] = sSaveFileInfo_Empty;
+            gSaveFilesInfo[file].language = gLanguage;
+
+            BitFill(3, USHORT_MAX, &pSram->files[file], sizeof(pSram->files[file]), 16);
+            gSramOperationStage++;
+            break;
+
+        case 1:
+            gMostRecentSaveFile = file;
+            if (unk_fbc(0))
+                gSramOperationStage++;
+            break;
+
+        case 2:
+            BitFill(3, USHORT_MAX, &pSram->filesCopy[file], sizeof(pSram->filesCopy[file]), 16);
+            gSramOperationStage++;
+            break;
+
+        case 3:
+            gMostRecentSaveFile = file;
+            if (unk_fbc(1))
+                gSramOperationStage++;
+            break;
+
+        case 4:
+        default:
+            gDisableSoftreset = FALSE;
+            gSramOperationStage = 0;
+            break;
+    }
+
+    return gDisableSoftreset ^ TRUE;
 }
 
 /**
@@ -1385,7 +1814,7 @@ u32 SramCopyFile(u8 src, u8 dst)
 }
 
 
-void SramWrite_FileInfo_(void)
+void SramWrite_FileInfo(void)
 {
     // https://decomp.me/scratch/c9e6c
 
@@ -1481,9 +1910,59 @@ void unk_757c8(u8 file)
     gMostRecentSaveFile = previousFile;
 }
 
+/**
+ * @brief 7584c | 120 | To document
+ * 
+ * @param param_1 To document
+ */
 void unk_7584c(u8 param_1)
 {
+    gButtonAssignments = sDefaultButtonAssignments;
+    gMaxInGameTimerFlag = FALSE;
+    gShipLandingFlag = FALSE;
+    gColorFading.type = 2;
 
+    switch (param_1)
+    {
+        case 0:
+            gStartingInfo = sStartingInfo;
+            Sram_CheckLoadSaveFile();
+
+            gCurrentCutscene = 0;
+            break;
+
+        case 1:
+            gStartingInfo = sStartingInfo;
+            Sram_InitSaveFile();
+            gCurrentRoom = 0;
+            gLastDoorUsed = 0;
+            gMaxInGameTimerFlag = TRUE;
+            gSkipDoorTransition = FALSE;
+            gDebugFlag = FALSE;
+            gLanguage = LANGUAGE_ENGLISH;
+
+            gCurrentCutscene = 0;
+            break;
+
+        case 3:
+            gIsLoadingFile = gSaveFilesInfo[gMostRecentSaveFile].exists;
+            if (gIsLoadingFile)
+                SramLoadFile();
+
+            gCurrentCutscene = 0;
+            break;
+
+        case 2:
+            break;
+    }
+
+    gGameModeSub3 = 0;
+    gMonochromeBGFading = 0;
+    gDisableSoftreset = FALSE;
+    gSubGameModeStage = 0;
+    gPauseScreenFlag = PAUSE_SCREEN_NONE;
+    gDisablePause = FALSE;
+    gSamusDoorPositionOffset = 0;
 }
 
 /**

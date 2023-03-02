@@ -2,6 +2,8 @@
 #define SAVE_FILE_STRUCT_H
 
 #include "types.h"
+#include "macros.h"
+#include "gba.h"
 #include "structs/game_state.h"
 #include "structs/samus.h"
 #include "structs/scroll.h"
@@ -216,9 +218,10 @@ struct Sram {
 
     u8 unk_7f70[16];
     u8 MetZeroSramCheck_Text[SRAM_TEXT_SIZE];
-
-    u8 padding_7f90[112];
 };
+
+// Make sure that the size of the sram struct doesn't exceed the size of the flash sram
+STATIC_ASSERT(sizeof(struct Sram) <= SRAM_SIZE, SramStructSize);
 
 // Temp
 extern u32 gUnk_3000050[1];

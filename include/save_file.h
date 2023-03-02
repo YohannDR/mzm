@@ -25,7 +25,7 @@ void StringCopy(u8* dst, const u8* const src, u8 length);
 void SramTestFlash(void);
 void unk_743a4(void);
 void unk_74574(void);
-void unk_74624(u8 param_1);
+u32 unk_74624(u8 useCopy);
 
 void SramLoadFile(void);
 void SramLoadFile_Unused(void);

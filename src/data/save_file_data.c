@@ -37,7 +37,12 @@ const u8 sLanguageSave_Text[2][SRAM_TEXT_SIZE] = {
     "ENDKEY_LANGUAGE_"
 };
 
-const u8 sTimeAttackSave_Text[SRAM_TEXT_SIZE * 2 + 8] = "SUKPIFZAILU25976_StartKey_198129ATRUNEND";
+const u8 sTimeAttackSave_Text[2][SRAM_TEXT_SIZE] = {
+    "SUKPIFZAILU25976", 
+    "_StartKey_198129"
+};
+
+const u8 sATRUNED_Text[8] = "ATRUNEND";
 
 const struct ButtonAssignments sDefaultButtonAssignments = {
     .armMissiles = KEY_R,
