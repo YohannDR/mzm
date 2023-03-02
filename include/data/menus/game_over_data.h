@@ -5,10 +5,6 @@
 #include "structs/menus/game_over.h"
 #include "structs/cutscene.h"
 
-// Temp
-extern const u32 sFileSelectIconsGfx[1722];
-extern const u16 sFileSelectIconsPAL[96];
-
 extern const u16 sGameOverMenuPAL[16 * 5];
 extern const u32 sGameOverTextAndBackgroundGFX[2738];
 extern const u32 sGameOverTextPromptEnglishGFX[333];

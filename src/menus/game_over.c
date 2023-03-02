@@ -5,6 +5,7 @@
 #include "temp_globals.h"
 
 #include "data/menus/game_over_data.h"
+#include "data/menus/file_select_data.h"
 #include "data/shortcut_pointers.h"
 
 #include "constants/audio.h"
@@ -276,7 +277,7 @@ void GameOverInit(void)
     LZ77UncompVRAM(sGameOver_454520, VRAM_BASE);
     DMATransfer(3, VRAM_BASE + 0x1800, VRAM_BASE + 0x1000, 0x800, 0x20);
     LZ77UncompVRAM(sGameOverTextAndBackgroundGFX, VRAM_BASE + 0x4000);
-    LZ77UncompVRAM(sFileSelectIconsGfx, VRAM_BASE + 0x10000);
+    LZ77UncompVRAM(sFileSelectIconsGFX, VRAM_BASE + 0x10000);
     LZ77UncompVRAM(sGameOverTextPromptGfxPointers[gLanguage], VRAM_BASE + 0xA800);
 
     write16(REG_BG0CNT, 0x4);

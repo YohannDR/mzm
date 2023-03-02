@@ -36,7 +36,7 @@ struct SaveFileInfo {
     u8 igtMinutes;
     u8 igtSconds;
     u8 hasSaved;
-    u8 completedGame;
+    i8 completedGame;
     i8 introPlayed;
     i8 language;
     u8 difficulty;

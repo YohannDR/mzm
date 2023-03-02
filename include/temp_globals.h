@@ -11,6 +11,7 @@
 #include "structs/menus/pause_screen.h"
 #include "structs/menus/title_screen.h"
 #include "structs/menus/erase_sram.h"
+#include "structs/menus/file_select.h"
 
 
 union NonGameplayRAM {
@@ -21,6 +22,7 @@ union NonGameplayRAM {
     struct PauseScreenData pauseScreen;
     struct TitleScreenData titleScreen;
     struct EraseSramData eraseSram;
+    struct FileSelectData fileSelect;
     u8 inGame[1576];
 };
 
