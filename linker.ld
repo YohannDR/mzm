@@ -286,7 +286,7 @@ SECTIONS {
         asm/intr_main.o(.text);
         src/agbmain.o(.text);
         src/init_game.o(.text);
-        src/softreset.o(.text);
+        src/softreset_input.o(.text);
         src/syscall_wrappers.o(.text);
         src/update_input.o(.text);
         src/init_helpers.o(.text);

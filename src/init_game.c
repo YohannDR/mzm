@@ -4,7 +4,7 @@
 
 #include "gba.h"
 #include "io.h"
-#include "softreset.h"
+#include "softreset_input.h"
 #include "types.h"
 
 #include "constants/game_state.h"
