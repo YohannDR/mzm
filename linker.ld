@@ -408,6 +408,8 @@ SECTIONS {
         src/menus/erase_sram.o(.text);
         src/menus/title_screen.o(.text);
         asm/disasm_0x080778c4.o(.text);
+        src/softreset.o(.text);
+        asm/disasm_0x0807f12.o(.text);
         src/intro.o(.text);
         asm/disasm_0x0808117c.o(.text);
 

@@ -22,7 +22,7 @@ void agbmain(void)
         switch (gMainGameMode)
         {
             case GM_SOFTRESET:
-                if (softreset_main())
+                if (SoftresetSubroutine())
                 {
                     gMainGameMode = GM_INTRO;
                     gGameModeSub1 = 0;
