@@ -446,9 +446,9 @@ void GameOverUpdateLettersPalette(void)
 
             row = GAME_OVER_DATA.dynamicPalette.currentPaletteRow;
             i = 0;
-            while (i < (int)ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
+            while (i < ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
             {
-                if (row >= (int)ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
+                if (row >= ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
                     row = 0;
 
                 GAME_OVER_DATA.dynamicPalette.palette[i] = src[row];

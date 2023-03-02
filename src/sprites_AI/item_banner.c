@@ -410,7 +410,7 @@ void SaveYesNoCursor(void)
             break;
 
         case SAVE_YES_NO_CURSOR_POSE_SAVING:
-            if (save_file()) // Undefined
+            if (SramSaveFile())
                 gCurrentSprite.status = 0x0;
             break;
     }

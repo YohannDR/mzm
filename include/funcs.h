@@ -5,7 +5,7 @@
 
 void DMATransfer(u8 channel, void *src, void *dst, u32 len, u8 bitSize);
 void init_sound(void);
-void read_sram(void);
+void SramRead_All(void);
 void start_new_demo(void);
 int softreset_main(void);
 int fileselect_main(void);

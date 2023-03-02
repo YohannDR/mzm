@@ -3,14 +3,14 @@
 #include "gba.h"
 #include "io.h"
 
-static void SRAMWriteUncheckedInternal(u8 *src, u8 *dest, u32 size)
+static void SramWriteUncheckedInternal(u8 *src, u8 *dest, u32 size)
 {
     while (size-- != 0) {
         *dest++ = *src++;
     }
 }
 
-void SRAMWriteUnchecked(u8 *src, u8 *dest, u32 size)
+void SramWriteUnchecked(u8 *src, u8 *dest, u32 size)
 {
     u16 code[0x40];
     u16 *code_ptr;
@@ -22,12 +22,12 @@ void SRAMWriteUnchecked(u8 *src, u8 *dest, u32 size)
         REG_WAITCNT,
         read16(REG_WAITCNT) & ~WAIT_SRAM_CYCLES_MASK | WAIT_SRAM_8CYCLES);
 
-    func_ptr = (u16 *)SRAMWriteUncheckedInternal;
+    func_ptr = (u16 *)SramWriteUncheckedInternal;
     func_ptr = (u16 *)((u32)func_ptr & ~1);
     code_ptr = code;
 
     for (csize =
-             ((u32)SRAMWriteUnchecked - (u32)SRAMWriteUncheckedInternal)
+             ((u32)SramWriteUnchecked - (u32)SramWriteUncheckedInternal)
              / 2;
          csize > 0;
          --csize) {
@@ -38,7 +38,7 @@ void SRAMWriteUnchecked(u8 *src, u8 *dest, u32 size)
     func(src, dest, size);
 }
 
-void SRAMWrite(u8 *src, u8 *dest, u32 size)
+void SramWrite(u8 *src, u8 *dest, u32 size)
 {
     u16 w = read16(REG_WAITCNT) & ~WAIT_SRAM_CYCLES_MASK | WAIT_SRAM_8CYCLES;
     write16(REG_WAITCNT, w);
@@ -59,7 +59,7 @@ static u8* SRAMCheckInternal(u8 *src, u8 *dest, u32 size)
     return NULL;
 }
 
-u8* SRAMCheck(u8 *src, u8 *dest, u32 size)
+u8* SramCheck(u8 *src, u8 *dest, u32 size)
 {
     u16 code[0x60];
     u16 *code_ptr;
@@ -75,7 +75,7 @@ u8* SRAMCheck(u8 *src, u8 *dest, u32 size)
     func_ptr = (u16 *)((u32)func_ptr & ~1);
     code_ptr = code;
 
-    for (csize = ((u32)SRAMCheck - (u32)SRAMCheckInternal) / 2; csize > 0;
+    for (csize = ((u32)SramCheck - (u32)SRAMCheckInternal) / 2; csize > 0;
          --csize) {
         *code_ptr++ = *func_ptr++;
     }
@@ -84,14 +84,14 @@ u8* SRAMCheck(u8 *src, u8 *dest, u32 size)
     return func(src, dest, size);
 }
 
-u8* SRAMWriteChecked(u8 *src, u8 *dest, u32 size)
+u8* SramWriteChecked(u8 *src, u8 *dest, u32 size)
 {
     u8 *diff;
     u8 i;
 
     for (i = 0; i < 3; ++i) {
-        SRAMWrite(src, dest, size);
-        diff = SRAMCheck(src, dest, size);
+        SramWrite(src, dest, size);
+        diff = SramCheck(src, dest, size);
         if (!diff) {
             break;
         }

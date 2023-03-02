@@ -93,7 +93,7 @@ void TitleScreenResetOAM(void)
     pOam = TITLE_SCREEN_DATA.oam;
     i = 0;
 
-    while (i < (int)ARRAY_SIZE(TITLE_SCREEN_DATA.oam))
+    while (i < ARRAY_SIZE(TITLE_SCREEN_DATA.oam))
     {
         *pOam = *(struct MenuOamData*)0x840d028;
         // FIXME *pOam = sMenuOamData_Empty;

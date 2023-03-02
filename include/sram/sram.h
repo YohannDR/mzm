@@ -3,9 +3,9 @@
 
 #include "types.h"
 
-void SRAMWriteUnchecked(u8 *src, u8 *dest, u32 size);
-void SRAMWrite(u8 *src, u8 *dest, u32 size);
-u8 *SRAMCheck(u8 *src, u8 *dest, u32 size);
-u8 *SRAMWriteChecked(u8 *src, u8 *dest, u32 size);
+void SramWriteUnchecked(u8* src, u8* dest, u32 size);
+void SramWrite(u8* src, u8* dest, u32 size);
+u8* SramCheck(u8* src, u8* dest, u32 size);
+u8* SramWriteChecked(u8* src, u8* dest, u32 size);
 
 #endif /* SRAM_SRAM_H */

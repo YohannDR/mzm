@@ -24,7 +24,7 @@ SECTIONS {
         . = 0x00037c00; gHatchesOpened = .;
         . = 0x00037e00; gEventsTriggered = .;
         . = 0x00037e20; gMinimapTilesGFX = .;
-        . = 0x00038000; unk_02038000 = .;
+        . = 0x00038000; gSram = .;
     } >ewram
 
     iwram (NOLOAD) : ALIGN(4) {
@@ -45,6 +45,7 @@ SECTIONS {
         . = 0x0000002B; gSamusOnTopOfBackgrounds = .;
         . = 0x0000002C; gDifficulty = .;
         . = 0x0000002D; gUseMotherShipDoors = .;
+        . = 0x0000002E; gTimeAttackFlag = .;
         . = 0x0000002F; gCutsceneToSkip = .;
         . = 0x00000030; gMusicTrackInfo = .;
         . = 0x00000038; gCurrentDemo = .;
@@ -153,7 +154,7 @@ SECTIONS {
         . = 0x00000c06; gCurrentOamScaling = .;
         . = 0x00000c08; gLastAreaNameVisited = .;
         . = 0x00000c0c; gCurrentMessage = .;
-        . = 0x00000c1c; gSRAMCorruptFlag = .;
+        . = 0x00000c1c; gSramCorruptFlag = .;
         . = 0x00000c1d; gIsLoadingFile = .;
         . = 0x00000c70; gMainGameMode = .;
         . = 0x00000c72; gGameModeSub1 = .;
@@ -526,7 +527,8 @@ SECTIONS {
         src/data/cutscenes/getting_fully_powered_suit_data.o(.rodata);
         src/data/cutscenes/before_charlie_data.o(.rodata);
         src/data/cutscenes/statue_opening_data.o(.rodata);
-        /* 3f0390-411528 */
+        /* 3f0390-411400 */
+        src/data/save_file_data.o(.rodata);
         src/data/menus/erase_sram_data.o(.rodata);
         /* 415460-446d68 */
         src/data/menus/title_screen_data.o(.rodata);

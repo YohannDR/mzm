@@ -23,7 +23,7 @@ void InitializeGame(void)
     ClearGfxRam();
     LoadInterruptCode();
     CallbackSetVBlank(SoftresetVBlankCallback);
-    read_sram();
+    SramRead_All();
     init_sound();
 
     write16(REG_IE, IF_VBLANK | IF_DMA2 | IF_GAMEPAK);
