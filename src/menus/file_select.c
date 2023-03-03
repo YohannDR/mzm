@@ -759,7 +759,7 @@ void FileSelectDisplaySaveFileTimer(u8 file)
 
 }
 
-void FileSelectDisplaySaveFileMiscInfo(u8 file)
+void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
 {
 
 }

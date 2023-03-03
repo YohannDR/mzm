@@ -2,6 +2,7 @@
 #define FILE_SELECT_MENU_H
 
 #include "types.h"
+#include "structs/save_file.h"
 
 void FileSelectApplyStereo(void);
 void FileSelectProcessOAM(void);
@@ -59,7 +60,7 @@ void FileSelectVBlank_Empty(void);
 void FileSelectDisplaySaveFileInfo(void);
 void FileSelectDisplaySaveFileHealth(u8 file);
 void FileSelectDisplaySaveFileTimer(u8 file);
-void FileSelectDisplaySaveFileMiscInfo(u8 file);
+void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file);
 
 void unk_7d0b0(void);
 u8 unk_7d19c(u8 param_1, u8* pFileNumber);
