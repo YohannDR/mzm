@@ -55,7 +55,7 @@ struct FileSelectData {
 
     u8 unk_24;
     u8 unk_25;
-    u8 copyDestinationFile;
+    u8 copySourceFile;
     u8 currentFile;
     u8 eraseFile;
 
@@ -102,5 +102,7 @@ struct FileSelectData {
 
     struct MenuOamData optionsOam[11];
 };
+
+extern i8 gOptionsOptionSelected;
 
 #endif /* FILE_SELECT_STRUCT_H */

@@ -8,12 +8,12 @@ void FileSelectProcessOAM(void);
 void FileSelectResetOAM(void);
 void FileSelectUpdateCursor(u8 cursorPose, u8 position);
 
-void FileSelectFileCopyUpdateSamusHeadAndFileNumber(u8 param_1, u8 fileNumber);
-void FileSelectFileCopyUpdateArrow(u8 param_1, u8 dstFileNumber);
+void FileSelectUpdateCopyCursor(u8 cursorPose, u8 fileNumber);
+void FileSelectUpdateCopyArrow(u8 arrowPose, u8 dstFileNumber);
 
-void FileSelectFileEraseUpdateSamusHeadAndFileNumber(u8 param_1, u8 fileNumber);
+void FileSelectUpdateEraseCursor(u8 cursorPose, u8 fileNumber);
 
-void OptionsUpdateCursor(u8 action);
+void OptionsUpdateCursor(u8 cursorPose);
 void OptionsUpdateStereoOam(u16 flags);
 
 void FileScreenProcessText(void);

@@ -250,32 +250,325 @@ void FileSelectUpdateCursor(u8 cursorPose, u8 position)
     }
 }
 
-
-void FileSelectFileCopyUpdateSamusHeadAndFileNumber(u8 param_1, u8 fileNumber)
+/**
+ * @brief 78750 | 184 | Updates the copy cursor and file marker OAM
+ * 
+ * @param cursorPose Cursor pose
+ * @param fileNumber File number
+ */
+void FileSelectUpdateCopyCursor(u8 cursorPose, u8 fileNumber)
 {
+    u32 oamId;
 
+    if (fileNumber < FILE_SELECT_CURSOR_POSITION_COPY)
+        oamId = gSaveFilesInfo[fileNumber].suitType; // Cursor based on current suit
+    else
+        oamId = 0;
+
+    oamId = sFileSelectCursorOamData[fileNumber].oamIds[oamId];
+
+    switch (cursorPose)
+    {
+        case CURSOR_COPY_POSE_DEFAULT:
+            oamId++;
+
+        case CURSOR_COPY_POSE_MOVING:
+            // Update oam id and position
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_CURSOR], oamId);
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_CURSOR].xPosition = sFileSelectCursorOamData[fileNumber].xPosition;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_CURSOR].yPosition = sFileSelectCursorOamData[fileNumber].yPosition;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_CURSOR].boundBackground = 2;
+
+            // Update each file marker
+            // If on file and exists or intro played -> red marker, otherwise use idle marker
+
+            // File A
+            oamId = sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_A].unk_4;
+            if (fileNumber == FILE_SELECT_CURSOR_POSITION_FILE_A && (gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_A].exists ||
+                gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_A].introPlayed))
+                oamId = FILE_SELECT_OAM_ID_FILE_A_MARKER_SELECTED_RED;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER], oamId);
+
+            // File B
+            oamId = sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_B].unk_4;
+            if (fileNumber == FILE_SELECT_CURSOR_POSITION_FILE_B && (gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_B].exists ||
+                gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_B].introPlayed))
+                oamId = FILE_SELECT_OAM_ID_FILE_B_MARKER_SELECTED_RED;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER], oamId);
+
+            // File C
+            oamId = sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_C].unk_4;
+            if (fileNumber == FILE_SELECT_CURSOR_POSITION_FILE_C && (gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_C].exists ||
+                gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_C].introPlayed))
+                oamId = FILE_SELECT_OAM_ID_FILE_C_MARKER_SELECTED_RED;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER], oamId);
+            break;
+
+        case CURSOR_COPY_POSE_COPIED:
+            // Kill copy cursor OAM
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_CURSOR].idChanged = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_CURSOR].oamID = 0;
+
+            // Reset every file marker to non-selected 
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER],
+                sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_A].unk_4);
+
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER],
+                sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_B].unk_4);
+
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER],
+                sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_C].unk_4);
+            break;
+
+        case CURSOR_COPY_POSE_SELECTING_FILE:
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_CURSOR], oamId + 2);
+            break;
+    }
 }
 
-void FileSelectFileCopyUpdateArrow(u8 param_1, u8 dstFileNumber)
+/**
+ * @brief 788d4 | 140 | Updates the copy arraow and file marker OAM
+ * 
+ * @param arrowPose Arrow pose
+ * @param dstFileNumber Destination file number
+ */
+void FileSelectUpdateCopyArrow(u8 arrowPose, u8 dstFileNumber)
 {
+    u32 oamId;
 
+    // Update position
+    FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_ARROW].xPosition = sFileSelectCursorOamData[FILE_SELECT_DATA.copySourceFile].xPosition;
+    FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_ARROW].yPosition = sFileSelectCursorOamData[FILE_SELECT_DATA.copySourceFile].yPosition;
+
+    switch (arrowPose)
+    {
+        case ARROW_COPY_POSE_DEFAULT:
+        case ARROW_COPY_POSE_MOVING:
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_ARROW].boundBackground = 2;
+
+            // Update id
+            oamId = sFileSelectCopyFileArrowsOamIds[FILE_SELECT_DATA.copySourceFile][dstFileNumber];
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_ARROW], oamId);
+
+            // Update each file marker
+            // If on file -> green marker, otherwise use idle marker
+
+            // File A
+            if (FILE_SELECT_DATA.copySourceFile != FILE_SELECT_CURSOR_POSITION_FILE_A)
+            {
+                if (dstFileNumber != FILE_SELECT_CURSOR_POSITION_FILE_A)
+                    oamId = sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_A].unk_4;
+                else
+                    oamId = FILE_SELECT_OAM_ID_FILE_A_MARKER_SELECTED_GREEN;
+
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER], oamId);
+            }
+
+            // File B
+            if (FILE_SELECT_DATA.copySourceFile != FILE_SELECT_CURSOR_POSITION_FILE_B)
+            {
+                if (dstFileNumber != FILE_SELECT_CURSOR_POSITION_FILE_B)
+                    oamId = sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_B].unk_4;
+                else
+                    oamId = FILE_SELECT_OAM_ID_FILE_B_MARKER_SELECTED_GREEN;
+
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER], oamId);
+            }
+
+            // File C
+            if (FILE_SELECT_DATA.copySourceFile != FILE_SELECT_CURSOR_POSITION_FILE_C)
+            {
+                if (dstFileNumber != FILE_SELECT_CURSOR_POSITION_FILE_C)
+                    oamId = sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_C].unk_4;
+                else
+                    oamId = FILE_SELECT_OAM_ID_FILE_C_MARKER_SELECTED_GREEN;
+
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER], oamId);
+            }
+
+            break;
+
+        case ARROW_COPY_POSE_KILL:
+            // Kill arrow OAM
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_ARROW].idChanged = FALSE;
+            
+            // Reset every file marker
+            if (dstFileNumber == FILE_SELECT_CURSOR_POSITION_FILE_A)
+            {
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER],
+                    sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_A].unk_4);
+            }
+            
+            if (dstFileNumber == FILE_SELECT_CURSOR_POSITION_FILE_B)
+            {
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER],
+                    sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_B].unk_4);
+            }
+            
+            if (dstFileNumber == FILE_SELECT_CURSOR_POSITION_FILE_C)
+            {
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER],
+                    sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_C].unk_4);
+            }
+            break;
+
+        case ARROW_COPY_POSE_COPYING:
+            // Nothing to do
+            break;
+    }
 }
 
-
-void FileSelectFileEraseUpdateSamusHeadAndFileNumber(u8 param_1, u8 fileNumber)
+/**
+ * @brief 78a14 | 184 | Updates the erase cursor and file marker OAM
+ * 
+ * @param cursorPose Cursor pose
+ * @param fileNumber File number
+ */
+void FileSelectUpdateEraseCursor(u8 cursorPose, u8 fileNumber)
 {
+    u32 oamId;
 
+    if (fileNumber < FILE_SELECT_CURSOR_POSITION_COPY)
+        oamId = gSaveFilesInfo[fileNumber].suitType; // Cursor based on current suit
+    else
+        oamId = 0;
+
+    oamId = sFileSelectCursorOamData[fileNumber].oamIds[oamId];
+
+    switch (cursorPose)
+    {
+        case CURSOR_ERASE_POSE_DEFAULT:
+            oamId++;
+
+        case CURSOR_ERASE_POSE_MOVING:
+            // Update oam id and position
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_ERASE_CURSOR], oamId);
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_ERASE_CURSOR].xPosition = sFileSelectCursorOamData[fileNumber].xPosition;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_ERASE_CURSOR].yPosition = sFileSelectCursorOamData[fileNumber].yPosition;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_ERASE_CURSOR].boundBackground = 2;
+
+            // Update each file marker
+            // If on file and exists or intro played -> red marker, otherwise use idle marker
+
+            // File A
+            oamId = sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_A].unk_4;
+            if (fileNumber == FILE_SELECT_CURSOR_POSITION_FILE_A && (gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_A].exists ||
+                gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_A].introPlayed))
+                oamId = FILE_SELECT_OAM_ID_FILE_A_MARKER_SELECTED_RED;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER], oamId);
+
+            // File B
+            oamId = sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_B].unk_4;
+            if (fileNumber == FILE_SELECT_CURSOR_POSITION_FILE_B && (gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_B].exists ||
+                gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_B].introPlayed))
+                oamId = FILE_SELECT_OAM_ID_FILE_B_MARKER_SELECTED_RED;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER], oamId);
+
+            // File C
+            oamId = sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_C].unk_4;
+            if (fileNumber == FILE_SELECT_CURSOR_POSITION_FILE_C && (gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_C].exists ||
+                gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_C].introPlayed))
+                oamId = FILE_SELECT_OAM_ID_FILE_C_MARKER_SELECTED_RED;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER], oamId);
+            break;
+
+        case CURSOR_ERASE_POSE_ERASED:
+            // Kill erase cursor OAM
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_ERASE_CURSOR].idChanged = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_ERASE_CURSOR].oamID = 0;
+
+            // Reset every file marker to non-selected 
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER],
+                sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_A].unk_4);
+
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER],
+                sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_B].unk_4);
+
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER],
+                sFileSelectCursorOamData[FILE_SELECT_CURSOR_POSITION_FILE_C].unk_4);
+            break;
+
+        case CURSOR_ERASE_POSE_SELECTING_FILE:
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_ERASE_CURSOR], oamId + 2);
+            break;
+    }
 }
 
-
-void OptionsUpdateCursor(u8 action)
+/**
+ * @brief 78b98 | 108 | Updates the options cursor OAM
+ * 
+ * @param cursorPose Cursor pose
+ */
+void OptionsUpdateCursor(u8 cursorPose)
 {
+    switch (cursorPose)
+    {
+        case CURSOR_OPTIONS_POSE_ENTERING:
+            SoundPlay(0x1FA);
 
+        case CURSOR_OPTIONS_POSE_MOVING:
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_CURSOR].xPosition = sOptionsCursorPosition[gOptionsOptionSelected][0];
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_CURSOR].yPosition = sOptionsCursorPosition[gOptionsOptionSelected][1];
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_CURSOR].boundBackground = 2;
+
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_CURSOR].oamID != OPTIONS_OAM_ID_CURSOR)
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_CURSOR], OPTIONS_OAM_ID_CURSOR);
+            break;
+
+        case CURSOR_OPTIONS_POSE_DESELECTING:
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_CURSOR].oamID != OPTIONS_OAM_ID_CURSOR)
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_CURSOR], OPTIONS_OAM_ID_CURSOR);
+            break;
+
+        case CURSOR_OPTIONS_POSE_SELECTING:
+            SoundPlay(0x1FC);
+
+        case 4:
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_CURSOR].oamID != OPTIONS_OAM_ID_CURSOR_SELECTED)
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_CURSOR], OPTIONS_OAM_ID_CURSOR_SELECTED);
+    }
+
+    FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_CURSOR].priority = 2;
 }
 
+/**
+ * @brief 78ca0 | 100 | Updates the stereo symbols OAM
+ * 
+ * @param flags Update flags
+ */
 void OptionsUpdateStereoOam(u16 flags)
 {
+    u32 offset;
 
+    if (flags & (STEREO_UPDATE_FLAGS_1 | STEREO_UPDATE_FLAGS_SPEAKER_EFFECT))
+    {
+        if (flags & STEREO_UPDATE_FLAGS_1)
+            offset = 2;
+        else
+            offset = 3;
+
+        UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SPEAKER], sStereoOamData[gStereoFlag][offset]);
+
+        FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SPEAKER].xPosition = sStereoOamData[gStereoFlag][0];
+        FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SPEAKER].yPosition = sStereoOamData[gStereoFlag][1];
+        FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SPEAKER].priority = 2;
+    }
+
+    if (flags & STEREO_UPDATE_FLAGS_4)
+    {
+        FILE_SELECT_DATA.optionsOam[7].xPosition = BLOCK_SIZE * 10 + HALF_BLOCK_SIZE;
+        FILE_SELECT_DATA.optionsOam[7].yPosition = BLOCK_SIZE * 5;
+
+        FILE_SELECT_DATA.optionsOam[8].xPosition = FILE_SELECT_DATA.optionsOam[7].xPosition;
+        FILE_SELECT_DATA.optionsOam[8].yPosition = FILE_SELECT_DATA.optionsOam[7].yPosition;
+
+        FILE_SELECT_DATA.optionsOam[9].xPosition = FILE_SELECT_DATA.optionsOam[7].xPosition;
+        FILE_SELECT_DATA.optionsOam[9].yPosition = FILE_SELECT_DATA.optionsOam[7].yPosition;
+
+        FILE_SELECT_DATA.optionsOam[7].priority = 3;
+        FILE_SELECT_DATA.optionsOam[8].priority = 3;
+        FILE_SELECT_DATA.optionsOam[9].priority = 3;
+    }
 }
 
 
