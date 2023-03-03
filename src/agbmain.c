@@ -11,8 +11,14 @@ void agbmain(void)
 {
     InitializeGame();
 
-    while (gClearedEveryFrame = 0, UpdateAudio(), !gResetGame)
+    while (TRUE)
     {
+        gVblankActive = FALSE;
+        UpdateAudio();
+
+        if (gResetGame)
+            break;
+
         UpdateInput();
         SoftresetCheck();
 
@@ -238,8 +244,8 @@ void agbmain(void)
         }
         
 
-        gVBlankRequestFlag &= ~1;
-        gClearedEveryFrame = 1;
+        gVBlankRequestFlag &= ~TRUE;
+        gVblankActive = TRUE;
 
         do {
             SYSCALL(2); /* SYS_Halt */

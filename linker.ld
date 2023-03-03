@@ -160,7 +160,7 @@ SECTIONS {
         . = 0x00000c72; gGameModeSub1 = .;
         . = 0x00000c74; gGameModeSub2 = .;
         . = 0x00000c75; gGameModeSub3 = .;
-        . = 0x00000c76; gClearedEveryFrame = .;
+        . = 0x00000c76; gVblankActive = .;
         . = 0x00000c77; gFrameCounter8Bit = .;
         . = 0x00000c78; gVBlankRequestFlag = .;
         . = 0x00000c7c; gInterruptCode = .;

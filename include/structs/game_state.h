@@ -38,7 +38,7 @@ extern u16 gPreviousButtonInput;
 extern u16 gChangedInput;
 extern i8 gIsLoadingFile;
 extern i8 gPauseScreenFlag;
-extern i8 gClearedEveryFrame;
+extern i8 gVblankActive;
 extern u8 gFrameCounter8Bit;
 extern u16 gFrameCounter16Bit;
 extern u8 gDifficulty;
