@@ -62,7 +62,7 @@ void agbmain(void)
                 break;
 
             case GM_FILESELECT:
-                if (fileselect_main())
+                if (FileSelectMenuSubroutine())
                 {
                     if (gGameModeSub2 == 1)
                         gMainGameMode = GM_INGAME;

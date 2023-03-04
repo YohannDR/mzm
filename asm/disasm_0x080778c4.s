@@ -9035,8 +9035,8 @@ lbl_0807c112:
     bx r1
     .align 2, 0
 
-    thumb_func_start fileselect_main
-fileselect_main: @ 0x0807c124
+    thumb_func_start FileSelectMenuSubroutine
+FileSelectMenuSubroutine: @ 0x0807c124
     push {lr}
     ldr r2, lbl_0807c148 @ =0x08754bc4
     ldr r1, [r2]

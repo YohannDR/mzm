@@ -11,6 +11,7 @@
 #include "constants/audio.h"
 #include "constants/demo.h"
 #include "constants/game_over.h"
+#include "constants/menus/file_select.h"
 
 #include "structs/demo.h"
 #include "structs/display.h"
@@ -162,7 +163,7 @@ u32 GameOverProcessInput(void)
 
     if (gChangedInput & (KEY_A | KEY_START))
     {
-        play_menu_sound(12); // Undefined
+        FileSelectPlayMenuSound(MENU_SOUND_REQUEST_GAME_OVER_START_GAME);
         GameOverUpdateSamusHead(SAMUS_CURSOR_ACTION_SELECTING);
         return TRUE;
     }
@@ -189,7 +190,7 @@ u32 GameOverProcessInput(void)
         return FALSE;
 
     // Update cursor
-    play_menu_sound(11); // Undefined
+    FileSelectPlayMenuSound(MENU_SOUND_REQUEST_GAME_OVER_MENU_CURSOR);
     GameOverUpdateTextGfx();
     GameOverUpdateSamusHead(SAMUS_CURSOR_ACTION_MOVING);
 

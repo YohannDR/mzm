@@ -8,7 +8,6 @@
 
 extern const u16 sFileSelectPAL[7 * 16];
 extern const u16 sFileSelect_4548f8[2 * 16];
-extern const u16 sFileSelect_4548f8[2 * 16];
 extern const u16 sFileSelectIconsPAL[6 * 16];
 
 // ...

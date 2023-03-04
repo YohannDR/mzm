@@ -6,6 +6,25 @@
 
 #define FILE_SELECT_DATA sNonGameplayRamPointer->fileSelect
 
+// Temp?
+struct IoTransferInfo {
+    Func_T pFunction;
+    u8 unk_4;
+    u16 timer;
+    u8 active;
+    u8 unk_9;
+    u8 unk_A;
+    u8 result;
+    u8 errorFlag;
+    u16 unk_E;
+    i8 fusionGalleryImages;
+    u8 language;
+    u16 musicTrack;
+    u16 musicPriority;
+};
+
+extern struct IoTransferInfo gIoTransferInfo;
+
 typedef u32 (*OptionsFunc_T)(void);
 
 struct FileSelectionData {
@@ -36,8 +55,8 @@ struct FileSelectData {
     u16 bg0cnt;
     u16 bg1cnt;
     u16 bg2cnt;
+    u16 bg3cnt;
 
-    u16 unk_A;
     u8 unk_C;
     u8 colorToApply;
     u8 unk_E;
@@ -65,13 +84,14 @@ struct FileSelectData {
     u8 unk_36;
     u8 unk_37;
     u8 unk_38;
+    u8 unk_39;
     u8 unk_3A;
     u8 enabledMenus;
-    u16 unk_3C;
+    u16 timer;
     u8 currentSubMenu;
     u8 fileSelectCursorPosition;
     u8 subroutineStage;
-    u16 stage;
+    u16 subroutineTimer;
     u8 unk_44;
     u8 unk_45;
     u8 unk_46;
@@ -84,7 +104,7 @@ struct FileSelectData {
     u8 timeAttackBestTime100[6];
 
     u8 optionsUnlocked[7];
-    u8 currentSoundId;
+    u8 soundTestId;
     u8 unk_64;
     u8 unk_65;
     u8 unk_66;
