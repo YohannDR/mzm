@@ -130,14 +130,7 @@ struct SaveDemo {
 
     u32 visitedMinimapTiles[32];
     u32 hatchesOpened[8];
-    u8 unk_238;
-    u8 unk_239;
-    u8 unk_23A;
-    u8 unk_23B;
-    u8 unk_23C;
-    u8 unk_23D;
-    u8 unk_23E;
-    u8 unk_23F;
+    u8 text[8];
     u8 useMotherShipDoors;
 
     u8 padding_241[60];

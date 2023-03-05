@@ -1678,14 +1678,14 @@ void SramWrite_ToEwram_DemoRam(void)
     DMATransfer(3, &gVisitedMinimapTiles[gCurrentArea * MINIMAP_SIZE], pFile->visitedMinimapTiles, sizeof(pFile->visitedMinimapTiles), 0x10);
     DMATransfer(3, gHatchesOpened[gCurrentArea], pFile->hatchesOpened, sizeof(pFile->hatchesOpened), 0x10);
 
-    pFile->unk_238 = 0x41;
-    pFile->unk_239 = 0x54;
-    pFile->unk_23A = 0x52;
-    pFile->unk_23B = 0x55;
-    pFile->unk_23C = 0x4E;
-    pFile->unk_23D = 0x45;
-    pFile->unk_23E = 0x4E;
-    pFile->unk_23F = 0x44;
+    pFile->text[0] = 'A';
+    pFile->text[1] = 'T';
+    pFile->text[2] = 'R';
+    pFile->text[3] = 'U';
+    pFile->text[4] = 'N';
+    pFile->text[5] = 'E';
+    pFile->text[6] = 'N';
+    pFile->text[7] = 'D';
 
     pFile->useMotherShipDoors = gUseMotherShipDoors;
     do_sram_operation(SRAM_OPERATION_SAVE_UNUSED_SRAM);
