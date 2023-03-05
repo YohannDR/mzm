@@ -1896,9 +1896,9 @@ u8 OptionsSoundTestSubroutine(void)
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_ID],
                     OPTIONS_OAM_ID_SOUND_TEST_ID);
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_LEFT_ARROW],
-                    OPTIONS_OAM_ID_SOUND_TEST_LEFT_ARROW_IDLE);
+                    OPTIONS_OAM_ID_LEFT_ARROW_IDLE);
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_RIGHT_ARROW],
-                    OPTIONS_OAM_ID_SOUND_TEST_RIGHT_ARROW_IDLE);
+                    OPTIONS_OAM_ID_RIGHT_ARROW_IDLE);
                 FILE_SELECT_DATA.subroutineStage++;
             }
             break;
@@ -1930,7 +1930,7 @@ u8 OptionsSoundTestSubroutine(void)
 
                     // Set right arrow to move
                     UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_RIGHT_ARROW],
-                        OPTIONS_OAM_ID_SOUND_TEST_RIGHT_ARROW_MOVING);
+                        OPTIONS_OAM_ID_RIGHT_ARROW_MOVING);
                     FILE_SELECT_DATA.subroutineStage = 3;
                     action = 1;
                 }
@@ -1944,7 +1944,7 @@ u8 OptionsSoundTestSubroutine(void)
 
                     // Set left arrow to move
                     UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_LEFT_ARROW],
-                        OPTIONS_OAM_ID_SOUND_TEST_LEFT_ARROW_MOVING);
+                        OPTIONS_OAM_ID_LEFT_ARROW_MOVING);
                     FILE_SELECT_DATA.subroutineStage = 4;
                     action = -1;
                 }
@@ -1961,7 +1961,7 @@ u8 OptionsSoundTestSubroutine(void)
 
         case 3:
             // Wait for moving animation to end
-            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_RIGHT_ARROW].oamID != OPTIONS_OAM_ID_SOUND_TEST_RIGHT_ARROW_MOVING)
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_RIGHT_ARROW].oamID != OPTIONS_OAM_ID_RIGHT_ARROW_MOVING)
             {
                 // Sync with other arrow (makes them blink at the same time)
                 FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_RIGHT_ARROW].animationDurationCounter =
@@ -1975,7 +1975,7 @@ u8 OptionsSoundTestSubroutine(void)
 
         case 4:
             // Wait for moving animation to end
-            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_LEFT_ARROW].oamID != OPTIONS_OAM_ID_SOUND_TEST_LEFT_ARROW_MOVING)
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_LEFT_ARROW].oamID != OPTIONS_OAM_ID_LEFT_ARROW_MOVING)
             {
                 // Sync with other arrow (makes them blink at the same time)
                 FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_LEFT_ARROW].animationDurationCounter =
@@ -2065,9 +2065,255 @@ void OptionsSoundTestUpdateIdGfx(void)
     DMATransfer(3, &((u8*)sCharactersGFX)[number + 0x400], VRAM_BASE + 0x107E0, 32, 16);
 }
 
-u32 OptionsTimeAttackRecordsSubroutine(void)
+/**
+ * @brief 7b144 | 5d8 | Subroutine for the time attack records
+ * 
+ * @return u8 bool, ended
+ */
+u8 OptionsTimeAttackRecordsSubroutine(void)
 {
+    u32 action;
 
+    FILE_SELECT_DATA.subroutineTimer++;
+
+    switch (FILE_SELECT_DATA.subroutineStage)
+    {
+        case 0:
+            if (FILE_SELECT_DATA.unk_64 & 1)
+                unk_790cc(0, 0x1F);
+            
+            if (FILE_SELECT_DATA.unk_64 & 2)
+                unk_790cc(0, 0x20);
+
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].boundBackground = 1;
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].priority = 2;
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].xPosition = BLOCK_SIZE * 5;
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].yPosition = BLOCK_SIZE * 3;
+
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].boundBackground = 0;
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].priority = 1;
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].xPosition = BLOCK_SIZE * 4;
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].yPosition = BLOCK_SIZE * 2;
+
+            gBG1HOFS_NonGameplay = BLOCK_SIZE * 27 + QUARTER_BLOCK_SIZE + 8;
+            gBG1VOFS_NonGameplay = BLOCK_SIZE * 28;
+            gBG0HOFS_NonGameplay = BLOCK_SIZE * 25 + HALF_BLOCK_SIZE;
+            gBG0VOFS_NonGameplay = BLOCK_SIZE * 32;
+
+            DMATransfer(3, sEwramPointer + 0x4800, VRAM_BASE + 0xE000, 0x300, 16);
+
+            FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
+            FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
+
+            if (FILE_SELECT_DATA.unk_64 & 1 && FILE_SELECT_DATA.unk_64 & 2)
+            {
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW], OPTIONS_OAM_ID_LEFT_ARROW_IDLE);
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].boundBackground = 0;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].priority = 0;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].xPosition = BLOCK_SIZE + 0x1C;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].yPosition = BLOCK_SIZE + HALF_BLOCK_SIZE;
+
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW], OPTIONS_OAM_ID_RIGHT_ARROW_IDLE);
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].boundBackground = 0;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].priority = 0;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].xPosition = BLOCK_SIZE * 6 + HALF_BLOCK_SIZE + 4;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].yPosition = BLOCK_SIZE + HALF_BLOCK_SIZE;
+            }
+            else
+            {
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW], 0);
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW], 0);
+            }
+
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = TRUE;
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = TRUE;
+
+            FILE_SELECT_DATA.subroutineStage++;
+            FILE_SELECT_DATA.subroutineTimer = 0;
+            break;
+
+        case 1:
+            if (!unk_790cc(1, 0x1F))
+                break;
+            
+            if (!unk_790cc(1, 0x20))
+                break;
+
+            unk_7b854();
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 2:
+            if (FILE_SELECT_DATA.unk_64 & 1)
+            {
+                OptionTimeAttackLoadPasswrod(0);
+                OptionTimeAttackLoadPasswrod(1);
+            }
+            FILE_SELECT_DATA.subroutineStage = 4;
+            break;
+
+        case 3:
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 4:
+            if (FILE_SELECT_DATA.unk_64 & 2)
+            {
+                OptionTimeAttackLoadPasswrod(2);
+                OptionTimeAttackLoadPasswrod(3);
+            }
+            FILE_SELECT_DATA.subroutineStage = 6;
+            break;
+
+        case 5:
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 6:
+            unk_7b71c();
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL], OPTIONS_OAM_ID_HUGE_PANEL);
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL], OPTIONS_OAM_ID_LARGE_PANEL);
+
+            SoundPlay(0x1FD);
+            FILE_SELECT_DATA.subroutineStage = 7;
+            break;
+
+        case 7:
+            action = FALSE;
+
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].ended &&
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].ended)
+            {
+                if (FILE_SELECT_DATA.unk_65)
+                {
+                    if (unk_790cc(1, 0x1E))
+                    {
+                        DMATransfer(3, sEwramPointer + 0x4E00, VRAM_BASE + 0xE800, 0x300, 16);
+                        action = TRUE;
+                    }
+                }
+                else
+                {
+                    if (unk_790cc(1, 0x1D))
+                    {
+                        action = TRUE;
+                        DMATransfer(3, sEwramPointer + 0x4B00, VRAM_BASE + 0xE800, 0x300, 16);
+                    }
+                }
+            }
+
+            if (!action)
+                break;
+
+            if (FILE_SELECT_DATA.unk_65)
+            {
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = FALSE;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = TRUE;
+            }
+            else
+            {
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = TRUE;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = FALSE;
+            }
+
+            OptionTimeAttackLoadRecord(FILE_SELECT_DATA.unk_65);
+
+            FILE_SELECT_DATA.dispcnt |= (DCNT_BG0 | DCNT_BG1);
+            FILE_SELECT_DATA.subroutineTimer = 0;
+            FILE_SELECT_DATA.subroutineStage = 8;
+            break;
+
+        case 8:
+            if (FILE_SELECT_DATA.subroutineTimer > 10)
+            {
+                FILE_SELECT_DATA.subroutineTimer = 0;
+                FILE_SELECT_DATA.subroutineStage++;
+            }
+
+            if (gChangedInput & KEY_B)
+                FILE_SELECT_DATA.subroutineStage = 10;
+            break;
+
+        case 9:
+            if (!gChangedInput)
+                break;
+
+            if (gChangedInput & KEY_B)
+            {
+                FILE_SELECT_DATA.subroutineStage = 10;
+                break;
+            }
+            
+            if (FILE_SELECT_DATA.unk_64 != (1 | 2))
+                break;
+
+            if (!(gChangedInput & (KEY_LEFT | KEY_RIGHT)))
+                break;
+
+            action = FALSE;
+
+            if (FILE_SELECT_DATA.unk_65)
+            {
+                if (gChangedInput & KEY_LEFT)
+                {
+                    FILE_SELECT_DATA.unk_65 = FALSE;
+                    action = TRUE;
+                }
+            }
+            else
+            {
+                if (gChangedInput & KEY_RIGHT)
+                {
+                    FILE_SELECT_DATA.unk_65 = TRUE;
+                    action = TRUE;
+                }
+            }
+
+            if (!action)
+                break;
+
+            unk_7b71c();
+
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = TRUE;
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = TRUE;
+
+            SoundPlay(0x211);
+
+            FILE_SELECT_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1);
+            FILE_SELECT_DATA.subroutineStage = 7;
+
+            break;
+
+        case 10:
+            SoundPlay(0x1FE);
+
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = TRUE;
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = TRUE;
+
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].oamID++;
+            FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].oamID++;
+
+            FILE_SELECT_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1);
+
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 11:
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].idChanged |
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].idChanged)
+                break;
+
+            FILE_SELECT_DATA.subroutineTimer++;
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 12:
+            FILE_SELECT_DATA.subroutineTimer = 0;
+            FILE_SELECT_DATA.subroutineStage = 0;
+            return TRUE;
+    }
+
+    return FALSE;
 }
 
 /**
@@ -2098,10 +2344,323 @@ void OptionTimeAttackLoadPasswrod(u8 part)
 
 }
 
-
-u32 OptionsMetroidFusionLinkSubroutine(void)
+/**
+ * @brief 7b9e8 | 73c | Subroutine for the metroid fusion link
+ * 
+ * @return u8 bool, ended
+ */
+u8 OptionsMetroidFusionLinkSubroutine(void)
 {
+    FILE_SELECT_DATA.subroutineTimer++;
 
+    if (gIoTransferInfo.active == 1)
+        process_cable_link_connection(); // Undefined
+    else if (gIoTransferInfo.active == 2)
+        unk_89e30();
+    else
+        gIoTransferInfo.result = 0;
+
+    switch (FILE_SELECT_DATA.subroutineStage)
+    {
+        case 0:
+            if (gFileScreenOptionsUnlocked.fusionGalleryImages)
+            {
+                FILE_SELECT_DATA.subroutineStage = 1;
+            }
+            else
+            {
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].boundBackground = 1;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].priority = 2;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].xPosition = BLOCK_SIZE * 5;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].yPosition = BLOCK_SIZE * 3;
+
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_FUSION_LINK_GBAS].boundBackground = 1;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_FUSION_LINK_GBAS].priority = 0;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_FUSION_LINK_GBAS].xPosition = BLOCK_SIZE * 5;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_FUSION_LINK_GBAS].yPosition = BLOCK_SIZE * 3 + HALF_BLOCK_SIZE;
+
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].boundBackground = 0;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].priority = 2;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].xPosition = BLOCK_SIZE * 4;
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].yPosition = BLOCK_SIZE * 2;
+
+                unk_790cc(0, 0x19);
+                unk_790cc(0, 0x15);
+
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL], OPTIONS_OAM_ID_HUGE_PANEL);
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL], OPTIONS_OAM_ID_LARGE_PANEL);
+
+                gBG1HOFS_NonGameplay = 0x6D8;
+                gBG1VOFS_NonGameplay = 0x6F8;
+                gBG0HOFS_NonGameplay = 0x660,
+                gBG0VOFS_NonGameplay = 0x7E0;
+
+                FILE_SELECT_DATA.subroutineStage = 2;
+            }
+
+            FILE_SELECT_DATA.subroutineTimer = 0;
+            break;
+
+        case 1:
+            if (gChangedInput & KEY_B)
+            {
+                FILE_SELECT_DATA.subroutineTimer = 0;
+                FILE_SELECT_DATA.subroutineStage = 0;
+                return TRUE;
+            }
+
+            if (gChangedInput & KEY_A || FILE_SELECT_DATA.subroutineTimer > 10)
+            {
+                FILE_SELECT_DATA.subroutineTimer = 0;
+                FILE_SELECT_DATA.subroutineStage = 0;
+                return 2;
+            }
+            break;
+
+        case 2:
+            if ((FILE_SELECT_DATA.dispcnt & (DCNT_BG0 | DCNT_BG1)) == (DCNT_BG0 | DCNT_BG1))
+            {
+                gIoTransferInfo.active = 1;
+                FILE_SELECT_DATA.subroutineStage++;
+                break;
+            }
+
+            if (!(FILE_SELECT_DATA.dispcnt & DCNT_BG1) && FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].ended)
+            {
+                if (unk_790cc(1, 0x15))
+                {
+                    DMATransfer(3, sEwramPointer + 0x3C00, VRAM_BASE + 0xE800, 0x300, 16);
+                    FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
+                    FILE_SELECT_DATA.dispcnt |= DCNT_BG1;
+
+                    UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_FUSION_LINK_GBAS], OPTIONS_OAM_ID_GBA_LINKING);
+                }
+            }
+
+            if (!(FILE_SELECT_DATA.dispcnt & DCNT_BG0) && FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].ended)
+            {
+                if (unk_790cc(1, 0x19))
+                {
+                    DMATransfer(3, sEwramPointer + 0x4800, VRAM_BASE + 0xE000, 0x300, 16);
+                    FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
+                    FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
+                }
+            }
+            break;
+
+        case 3:
+            switch (gIoTransferInfo.result)
+            {
+                case 1:
+                    SramWrite_FileScreenOptionsUnlocked();
+                    FILE_SELECT_DATA.subroutineStage = 8;
+                    FILE_SELECT_DATA.subroutineTimer = 0;
+                    break;
+
+                case 4:
+                    FILE_SELECT_DATA.subroutineStage = 4;
+                    FILE_SELECT_DATA.subroutineTimer = 0;
+                    break;
+
+                case 5:
+                    FILE_SELECT_DATA.subroutineStage = 14;
+                    FILE_SELECT_DATA.subroutineTimer = 0;
+                    break;
+
+                case 3:
+                    FILE_SELECT_DATA.subroutineStage = 18;
+                    break;
+
+                case 2:
+                    FILE_SELECT_DATA.subroutineStage = 21;
+                    break;
+            }
+            break;
+
+        case 4:
+            FILE_SELECT_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1);
+            unk_790cc(0, 0x17);
+            unk_790cc(0, 0x18);
+
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_FUSION_LINK_GBAS], 0);
+
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].oamID == 0)
+                UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL], OPTIONS_OAM_ID_LARGE_PANEL);
+
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 5:
+            if (!FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].ended)
+                break;
+
+            if (!FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].ended)
+                break;
+
+            if (!unk_790cc(1, 0x18))
+                break;
+
+            if (unk_790cc(1, 0x17))
+            {
+                FILE_SELECT_DATA.dispcnt |= (DCNT_BG0 | DCNT_BG1);
+                FILE_SELECT_DATA.subroutineStage++;
+                FILE_SELECT_DATA.subroutineTimer = 0;
+            }
+            break;
+
+        case 6:
+            if (FILE_SELECT_DATA.subroutineTimer > 30)
+                FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 7:
+            if (gChangedInput & KEY_START)
+                gMainGameMode = GM_START_SOFTRESET;
+            break;
+
+        case 8:
+            FILE_SELECT_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1);
+
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_FUSION_LINK_GBAS], 0);
+
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].oamID != 0)
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].oamID++;
+
+            unk_790cc(0, 0x1A);
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 9:
+            if (unk_790cc(1, 0x1A))
+            {
+                FILE_SELECT_DATA.dispcnt |= DCNT_BG1;
+                FILE_SELECT_DATA.subroutineStage++;
+                FILE_SELECT_DATA.subroutineTimer = 0;
+            }
+            break;
+
+        case 10:
+            if (FILE_SELECT_DATA.subroutineTimer > 60)
+                FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 11:
+            if (gChangedInput & (KEY_A | KEY_START))
+            {
+                FILE_SELECT_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1);
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].oamID++;
+                FILE_SELECT_DATA.subroutineStage++;
+            }
+            break;
+
+        case 12:
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].oamID == 0)
+            {
+                FILE_SELECT_DATA.subroutineStage++;
+                FILE_SELECT_DATA.subroutineTimer = 0;
+            }
+            break;
+
+        case 13:
+            if (FILE_SELECT_DATA.subroutineTimer > 30)
+            {
+                OptionsSetupTiletable();
+                DMATransfer(3, sEwramPointer + 0x5100, VRAM_BASE + 0xF000, 0x800, 16);
+                FILE_SELECT_DATA.subroutineStage = 23;
+            }
+            break;
+
+        case 14:
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_FUSION_LINK_GBAS], 0);
+            FILE_SELECT_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1);
+            unk_790cc(0, 0x16);
+
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].oamID != 0)
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].oamID++;
+
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 15:
+            if (unk_790cc(1, 0x16))
+            {
+                FILE_SELECT_DATA.dispcnt |= DCNT_BG1;
+                FILE_SELECT_DATA.subroutineStage++;
+            }
+            break;
+
+        case 16:
+            if (gIoTransferInfo.result == 4)
+            {
+                FILE_SELECT_DATA.subroutineStage = 4;
+                break;
+            }
+
+            if (gChangedInput & (KEY_A | KEY_START))
+            {
+                gIoTransferInfo.unk_4 = 0;
+                FILE_SELECT_DATA.subroutineStage++;
+            }
+            break;
+
+        case 17:
+            if (gIoTransferInfo.result == 4)
+                FILE_SELECT_DATA.subroutineStage = 21;
+            break;
+
+        case 18:
+            FILE_SELECT_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1);
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_FUSION_LINK_GBAS], 0);
+
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].oamID != 0)
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].oamID++;
+
+            unk_790cc(0, 0x1B);
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 19:
+            if (unk_790cc(1, 0x1B))
+            {
+                FILE_SELECT_DATA.dispcnt |= DCNT_BG1;
+                FILE_SELECT_DATA.subroutineStage++;
+            }
+            break;
+
+        case 20:
+            if (gChangedInput & (KEY_A | KEY_START))
+                FILE_SELECT_DATA.subroutineStage = 21;
+            break;
+
+        case 21:
+            FILE_SELECT_DATA.dispcnt &= ~(DCNT_BG0 | DCNT_BG1);
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_FUSION_LINK_GBAS], 0);
+
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].oamID != 0)
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].oamID++;
+
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].oamID != 0)
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].oamID++;
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 22:
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].oamID != 0)
+                break;
+
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].oamID != 0)
+                break;
+
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 23:
+            FILE_SELECT_DATA.subroutineTimer = 0;
+            FILE_SELECT_DATA.subroutineStage = 0;
+            return TRUE;
+    }
+
+    return FALSE;
 }
 
 /**
@@ -2670,7 +3229,712 @@ u32 FileSelectCheckInputtingTimeAttackCode(void)
 
 u8 FileSelectProcessFileSelection(void)
 {
+    // https://decomp.me/scratch/VYid8
 
+    u32 leaving;
+    u32 offset;
+    i32 action;
+
+    leaving = FALSE;
+    FILE_SELECT_DATA.subroutineTimer++;
+
+    switch (FILE_SELECT_DATA.subroutineStage)
+    {
+        case 0:
+            gMostRecentSaveFile = FILE_SELECT_DATA.fileSelectCursorPosition;
+
+            offset = (FILE_SELECT_DATA.fileSelectCursorPosition + 1) * 3;
+            BitFill(3,0, sEwramPointer + 0x10C0, 0x240, 16);
+            DMATransfer(3, sEwramPointer + 0x800 + offset * 0x40, sEwramPointer + 0x1000 + offset * 0x40, 0xC0, 16);
+            DMATransfer(3, sEwramPointer + 0x1000, VRAM_BASE + 0xF000, 0x800, 16);
+
+            FILE_SELECT_DATA.dispcnt |= DCNT_BG2;
+            FILE_SELECT_DATA.dispcnt |= DCNT_WIN0;
+
+            write16(REG_WIN0H, 0x46AA);
+            write16(REG_WIN0V, 0x17);
+            write16(REG_WINOUT, 0x3F);
+            write8(REG_WININ, 0x1F);
+
+            gWrittenToBLDALPHA_H = 0;
+            gWrittenToBLDALPHA_L = 16;
+
+            FILE_SELECT_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG0_SECOND_TARGET_PIXEL |
+                BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL |
+                BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
+
+            FILE_SELECT_DATA.unk_3A = 0;
+
+            FILE_SELECT_DATA.fileSelectData = sFileSelectionData_Empty;
+
+            if (FILE_SELECT_DATA.fileSelectCursorPosition != FILE_SELECT_CURSOR_POSITION_FILE_A)
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_LOGO].notDrawn = TRUE;
+            
+            if (FILE_SELECT_DATA.fileSelectCursorPosition != FILE_SELECT_CURSOR_POSITION_FILE_B)
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_LOGO].notDrawn = TRUE;
+
+            if (FILE_SELECT_DATA.fileSelectCursorPosition != FILE_SELECT_CURSOR_POSITION_FILE_C)
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_LOGO].notDrawn = TRUE;
+
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 1:
+            action = TRUE;
+
+            if (gWrittenToBLDALPHA_L != 0)
+            {
+                action = FALSE;
+                if (gWrittenToBLDALPHA_L - 2 < 0)
+                    gWrittenToBLDALPHA_L = 0;
+                else
+                    gWrittenToBLDALPHA_L -= 2;
+            }
+
+            if (gWrittenToBLDALPHA_H != 16)
+            {
+                action = FALSE;
+                if (gWrittenToBLDALPHA_H + 2 > 16)
+                    gWrittenToBLDALPHA_H = 16;
+                else
+                    gWrittenToBLDALPHA_H += 2;
+            }
+
+            if (!action)
+                break;
+
+            if (FILE_SELECT_DATA.fileSelectCursorPosition != FILE_SELECT_CURSOR_POSITION_FILE_A)
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].notDrawn = TRUE;
+            
+            if (FILE_SELECT_DATA.fileSelectCursorPosition != FILE_SELECT_CURSOR_POSITION_FILE_B)
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].notDrawn = TRUE;
+
+            if (FILE_SELECT_DATA.fileSelectCursorPosition != FILE_SELECT_CURSOR_POSITION_FILE_C)
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER].notDrawn = TRUE;
+
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 2:
+            action = FILE_SELECT_DATA.fileSelectCursorPosition * 0x60 + 0x800;
+            if (action != gBG2VOFS_NonGameplay)
+            {
+                if (gBG2VOFS_NonGameplay + 12 > action)
+                    gBG2VOFS_NonGameplay = action;
+                else
+                    gBG2VOFS_NonGameplay += 12;
+
+                break;
+            }
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 3:
+            DMATransfer(3, sEwramPointer + 0x800, VRAM_BASE + 0xF000 + FILE_SELECT_DATA.fileSelectCursorPosition * 0xC0, 0xC0, 16);
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_WIN0;
+
+            FileSelectUpdateTilemap(TILEMAP_REQUEST_START_GAME_INIT);
+            unk_790cc(0, 0x0);
+            
+            FILE_SELECT_DATA.subroutineStage = 4;
+            break;
+
+        case 4:
+            if (!FileSelectUpdateTilemap(TILEMAP_REQUEST_START_GAME))
+                break;
+
+        case 5:
+            unk_7e3fc(0, FILE_SELECT_DATA.fileSelectData.unk_2);
+            FILE_SELECT_DATA.subroutineStage = 6;
+            break;
+
+        case 6:
+            FILE_SELECT_DATA.inputtingTimeAttack = FALSE;
+            FILE_SELECT_DATA.numberOfTimeAttackInputs = 0;
+            FILE_SELECT_DATA.timeAttackInputCooldown = 0;
+            FILE_SELECT_DATA.inputtedTimeAttack = FALSE;
+            FILE_SELECT_DATA.subroutineStage = 7;
+
+        case 7:
+            action = UCHAR_MAX;
+
+            if (gChangedInput & KEY_A)
+            {
+                action = 0x80;
+                FileSelectPlayMenuSound(MENU_SOUND_REQUEST_ACCEPT_CONFIRM_MENU);
+
+                if (!gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].completedGame &&
+                    (gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].exists ||
+                     gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].introPlayed))
+                {
+                    FILE_SELECT_DATA.unk_3A = 0;
+                    FILE_SELECT_DATA.subroutineStage = 34;
+                }
+                else
+                {
+                    FILE_SELECT_DATA.subroutineStage = 8;
+                }
+            }
+            else if (gChangedInput & KEY_B)
+            {
+                action = 0x81;
+                FILE_SELECT_DATA.subroutineStage = 39;
+            }
+            else if (gFileScreenOptionsUnlocked.timeAttack & TRUE && gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].completedGame)
+            {
+                if (FileSelectCheckInputtingTimeAttackCode())
+                {
+                    action = 0x80;
+                    FILE_SELECT_DATA.fileSelectData.unk_3 = 2;
+                    FILE_SELECT_DATA.inputtedTimeAttack = TRUE;
+                    FILE_SELECT_DATA.subroutineStage = 8;
+                }
+            }
+
+            if (action + 1 != 0)
+                unk_7e3fc(0, (u8)action);
+            break;
+
+        case 8:
+            if (gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].exists || gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].introPlayed)
+            {
+                if (gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].timeAttack || FILE_SELECT_DATA.inputtedTimeAttack)
+                    FILE_SELECT_DATA.unk_39 = 16;
+                else
+                    FILE_SELECT_DATA.unk_39 = 15;
+                FILE_SELECT_DATA.subroutineStage = 9;
+            }
+            else
+                FILE_SELECT_DATA.subroutineStage = 21;
+
+            FILE_SELECT_DATA.subroutineTimer = 0;
+            break;
+
+        case 9:
+            unk_790cc(0, FILE_SELECT_DATA.unk_39);
+            unk_790cc(0, 0x14);
+
+            FileSelectUpdateTilemap(0x1D);
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 10:
+            if (FileSelectUpdateTilemap(0x1E))
+            {
+                unk_7e3fc(5, FILE_SELECT_DATA.fileSelectData.unk_3);
+                FILE_SELECT_DATA.subroutineStage++;
+            }
+            break;
+
+        case 11:
+            action = UCHAR_MAX;
+
+            if (gChangedInput)
+            {
+                if (gChangedInput & KEY_A)
+                {
+                    action = 0x80;
+                    FILE_SELECT_DATA.subroutineTimer = 0;
+                    FileSelectPlayMenuSound(MENU_SOUND_REQUEST_ACCEPT_CONFIRM_MENU);
+                    FILE_SELECT_DATA.subroutineStage = 13;
+                }
+                else if (gChangedInput & KEY_B)
+                {
+                    FileSelectUpdateTilemap(0x1F);
+                    action = 0x81;
+                    FILE_SELECT_DATA.subroutineTimer = 0;
+                    FILE_SELECT_DATA.subroutineStage = 12;
+                }
+                else if (gChangedInput & KEY_UP)
+                {
+                    if (FILE_SELECT_DATA.fileSelectData.unk_3 != 0)
+                    {
+                        action = --FILE_SELECT_DATA.fileSelectData.unk_3;
+
+                        FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
+                    }
+                }
+                else if (gChangedInput & KEY_DOWN)
+                {
+                    if (FILE_SELECT_DATA.unk_39 == 0x10)
+                    {
+                        if (FILE_SELECT_DATA.fileSelectData.unk_3 < 2)
+                        {
+                            action = ++FILE_SELECT_DATA.fileSelectData.unk_3;
+
+                            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
+                        }
+                    }
+                    else if (FILE_SELECT_DATA.fileSelectData.unk_3 == 0)
+                    {
+                        action = ++FILE_SELECT_DATA.fileSelectData.unk_3;
+
+                        FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
+                    }
+                }
+            }
+
+            if (action + 1 != 0)
+                unk_7e3fc(5, (u8)action);
+            break;
+
+        case 12:
+            if (FileSelectUpdateTilemap(0x20))
+            {
+                if (FILE_SELECT_DATA.fileSelectData.unk_3 == 2)
+                    FILE_SELECT_DATA.fileSelectData.unk_3 = 0;
+                FILE_SELECT_DATA.subroutineStage = 5;
+            }
+            break;
+
+        case 13:
+            FILE_SELECT_DATA.subroutineTimer = 0;
+
+            if (FILE_SELECT_DATA.fileSelectData.unk_3 == 0)
+            {
+                FILE_SELECT_DATA.unk_3A = 1;
+                FILE_SELECT_DATA.subroutineStage = 34;
+            }
+            else
+            {
+                FILE_SELECT_DATA.subroutineStage = 14;
+            }
+            break;
+
+        case 14:
+            if (FILE_SELECT_DATA.subroutineTimer > 10)
+                FILE_SELECT_DATA.subroutineStage = 15;
+            break;
+
+        case 15:
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 16:
+            if (FileSelectUpdateTilemap(0x22))
+            {
+                FILE_SELECT_DATA.fileSelectData.unk_4 = sFileSelectionData_Empty.unk_4;
+                unk_7e3fc(6, FILE_SELECT_DATA.fileSelectData.unk_4);
+                FILE_SELECT_DATA.subroutineStage++;
+            }
+            break;
+
+        case 17:
+            action = UCHAR_MAX;
+
+            if (gChangedInput)
+            {
+                if (gChangedInput & KEY_A)
+                {
+                    FILE_SELECT_DATA.subroutineTimer = 0;
+                    action = 0x80;
+
+                    if (FILE_SELECT_DATA.fileSelectData.unk_4 != 0)
+                        SoundPlay(0x209);
+                    else
+                        FileSelectPlayMenuSound(MENU_SOUND_REQUEST_ACCEPT_CONFIRM_MENU);
+
+                    FILE_SELECT_DATA.subroutineStage = 18;
+                }
+                else if (gChangedInput & KEY_B)
+                {
+                    FILE_SELECT_DATA.subroutineTimer = 0;
+                    action = 0x81;
+                    SoundPlay(0x209);
+                    FILE_SELECT_DATA.subroutineStage = 19;
+                }
+                else if (gChangedInput & KEY_LEFT)
+                {
+                    if (FILE_SELECT_DATA.fileSelectData.unk_4 != 0)
+                    {
+                        action = 0;
+                        FILE_SELECT_DATA.fileSelectData.unk_4 = 0;
+                        FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
+                    }
+                }
+                else if (gChangedInput & KEY_RIGHT)
+                {
+                    if (FILE_SELECT_DATA.fileSelectData.unk_4 == 0)
+                    {
+                        action = 1;
+                        FILE_SELECT_DATA.fileSelectData.unk_4 = 1;
+                        FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
+                    }
+                }
+            }
+
+            if (action + 1 != 0)
+                unk_7e3fc(6, (u8)action);
+            break;
+
+        case 18:
+            if (FILE_SELECT_DATA.subroutineTimer <= 10)
+                break;
+
+            if (FILE_SELECT_DATA.fileSelectData.unk_4 != 0)
+            {
+                FILE_SELECT_DATA.subroutineStage = 19;
+                break;
+            }
+
+            if (FILE_SELECT_DATA.fileSelectData.unk_3 != 2)
+            {
+                unk_7e3fc(6, 0x81);
+                FileSelectUpdateTilemap(0x23);
+                FILE_SELECT_DATA.subroutineStage = 20;
+                break;
+            }
+
+            FILE_SELECT_DATA.unk_3A = FILE_SELECT_DATA.fileSelectData.unk_3;
+            FILE_SELECT_DATA.subroutineStage = 34;
+            break;
+
+        case 19:
+            FileSelectUpdateTilemap(0x25);
+            unk_7e3fc(5, FILE_SELECT_DATA.fileSelectData.unk_3);
+            FILE_SELECT_DATA.subroutineStage = 11;
+            break;
+
+        case 20:
+            if (FileSelectUpdateTilemap(0x24))
+                FILE_SELECT_DATA.subroutineStage = 21;
+            break;
+
+        case 21:
+            FILE_SELECT_DATA.subroutineStage = 28;
+
+            if (FILE_SELECT_DATA.fileSelectData.unk_3 == 2)
+            {
+                FILE_SELECT_DATA.fileSelectData.difficulty = 1;
+            }
+            else
+            {
+                if (gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].completedGame & 0x36)
+                    FILE_SELECT_DATA.unk_38 = 0x13;
+                else
+                    FILE_SELECT_DATA.unk_38 = 0x12;
+
+                unk_790cc(0, FILE_SELECT_DATA.unk_38);
+            }
+            break;
+
+        case 22:
+            FileSelectUpdateTilemap(0x2);
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 23:
+            if (FileSelectUpdateTilemap(0x3))
+            {
+                unk_7e3fc(1, FILE_SELECT_DATA.fileSelectData.unk_5);
+                FILE_SELECT_DATA.subroutineStage++;
+            }
+            break;
+
+        case 24:
+            action = UCHAR_MAX;
+
+            if (gChangedInput)
+            {
+                if (gChangedInput & KEY_A)
+                {
+                    action = 0x80;
+                    FILE_SELECT_DATA.subroutineTimer = 0;
+                    FileSelectPlayMenuSound(MENU_SOUND_REQUEST_ACCEPT_CONFIRM_MENU);
+                    FILE_SELECT_DATA.subroutineStage = 26;
+                }
+                else if (gChangedInput & KEY_B)
+                {
+                    FileSelectUpdateTilemap(0x4);
+                    action = 0x81;
+                    FILE_SELECT_DATA.subroutineTimer = 0;
+                    FILE_SELECT_DATA.subroutineStage = 25;
+                }
+                else if (gChangedInput & KEY_UP)
+                {
+                    if (FILE_SELECT_DATA.fileSelectData.unk_5 != 0)
+                    {
+                        action = 0;
+                        FILE_SELECT_DATA.fileSelectData.unk_5 = 0;
+                        FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
+                    }
+                }
+                else if (gChangedInput & KEY_DOWN)
+                {
+                    if (FILE_SELECT_DATA.fileSelectData.unk_5 == 0)
+                    {
+                        action = 1;
+                        FILE_SELECT_DATA.fileSelectData.unk_5 = 1;
+                        FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
+                    }
+                }
+            }
+
+            if (action + 1 != 0)
+                unk_7e3fc(1, (u8)action);
+            break;
+
+        case 25:
+            if (!FileSelectUpdateTilemap(0x5))
+                break;
+
+            if (gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].completedGame == 0)
+            {
+                FILE_SELECT_DATA.subroutineStage = 5;
+                break;
+            }
+
+            FILE_SELECT_DATA.subroutineStage = 8;
+            break;
+
+        case 26:
+            if (FILE_SELECT_DATA.subroutineTimer <= 10)
+                break;
+
+            if (FILE_SELECT_DATA.fileSelectData.unk_3 == 2)
+            {
+                FILE_SELECT_DATA.unk_3A = 3;
+                FILE_SELECT_DATA.subroutineStage = 34;
+                break;
+            }
+
+            FileSelectUpdateTilemap(0x4);
+            unk_7e3fc(1, 0x81);
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 27:
+            if (FileSelectUpdateTilemap(0x5))
+            {
+                FILE_SELECT_DATA.subroutineStage = 28;
+                FILE_SELECT_DATA.fileSelectData.difficulty = FILE_SELECT_DATA.fileSelectData.unk_5 ^ 1;
+            }
+            break;
+
+        case 28:
+            FileSelectUpdateTilemap(TILEMAP_REQUEST_DIFFICULTY_SPAWN_INIT);
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 29:
+            if (FileSelectUpdateTilemap(TILEMAP_REQUEST_DIFFICULTY_SPAWN))
+            {
+                unk_7e3fc(2, FILE_SELECT_DATA.fileSelectData.difficulty);
+                FILE_SELECT_DATA.subroutineStage++;
+            }
+            break;
+
+        case 30:
+            action = UCHAR_MAX;
+
+            if (gChangedInput)
+            {
+                if (gChangedInput & KEY_A)
+                {
+                    action = 0x80;
+                    FILE_SELECT_DATA.subroutineTimer = 0;
+                    FILE_SELECT_DATA.unk_3A = 4;
+                    FILE_SELECT_DATA.subroutineStage = 34;
+                }
+                else if (gChangedInput & KEY_B)
+                {
+                    FileSelectUpdateTilemap(TILEMAP_REQUEST_DIFFICULTY_DESPAWN_INIT);
+                    action = 0x81;
+                    FILE_SELECT_DATA.subroutineTimer = 0;
+                    FILE_SELECT_DATA.subroutineStage = 31;
+                }
+                else if (gChangedInput & KEY_UP)
+                {
+                    if (FILE_SELECT_DATA.fileSelectData.difficulty != 0)
+                    {
+                        action = --FILE_SELECT_DATA.fileSelectData.difficulty;
+                        FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
+                    }
+                }
+                else if (gChangedInput & KEY_DOWN)
+                {
+                    if (FILE_SELECT_DATA.unk_38 == 0x13)
+                    {
+                        if (FILE_SELECT_DATA.fileSelectData.difficulty <= 1)
+                        {
+                            action = ++FILE_SELECT_DATA.fileSelectData.difficulty;
+                            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
+                        }
+                    }
+                    else if (FILE_SELECT_DATA.fileSelectData.difficulty == 0)
+                    {
+                        action = ++FILE_SELECT_DATA.fileSelectData.difficulty;
+                        FileSelectPlayMenuSound(MENU_SOUND_REQUEST_SUB_MENU_CURSOR);
+                    }
+                }
+            }
+
+            if (action + 1 != 0)
+                unk_7e3fc(2, (u8)action);
+            break;
+
+        case 31:
+            if (FileSelectUpdateTilemap(TILEMAP_REQUEST_DIFFICULTY_DESPAWN))
+            {
+                if (gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].exists)
+                    FILE_SELECT_DATA.subroutineStage = 8;
+                else
+                    FILE_SELECT_DATA.subroutineStage = 6;
+            }
+            break;
+
+        case 34:
+            FileSelectUpdateCursor(CURSOR_POSE_STARTING_GAME, FILE_SELECT_DATA.fileSelectCursorPosition);
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_START_GAME);
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 35:
+            if (gChangedInput & KEY_B)
+            {
+                FILE_SELECT_DATA.subroutineStage = 37;
+                break;
+            }
+
+            if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_CURSOR].ended)
+            {
+                FILE_SELECT_DATA.subroutineTimer = 0;
+                FILE_SELECT_DATA.subroutineStage++;
+            }
+            break;
+
+        case 36:
+            if (gChangedInput & KEY_B)
+            {
+                FILE_SELECT_DATA.subroutineStage = 37;
+                break;
+            }
+
+            if (FILE_SELECT_DATA.subroutineTimer > 16)
+                leaving = 2;
+            break;
+
+        case 37:
+            FileSelectUpdateCursor(0x8, FILE_SELECT_DATA.fileSelectCursorPosition);
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_CLOSE_SUB_MENU2);
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 38:
+            if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_CURSOR].oamID != sFileSelectCursorOamData[FILE_SELECT_DATA.fileSelectCursorPosition].oamIds[gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].suitType] + 3)
+                break;
+
+            switch (FILE_SELECT_DATA.unk_3A)
+            {
+                case 0:
+                    FILE_SELECT_DATA.subroutineStage = 5;
+                    break;
+
+                case 1:
+                    unk_7e3fc(5, FILE_SELECT_DATA.fileSelectData.unk_3);
+                    FILE_SELECT_DATA.subroutineStage = 11;
+                    break;
+
+                case 2:
+                    unk_7e3fc(6, FILE_SELECT_DATA.fileSelectData.unk_4);
+                    FILE_SELECT_DATA.subroutineStage = 17;
+                    break;
+
+                case 3:
+                    unk_7e3fc(1, FILE_SELECT_DATA.fileSelectData.unk_5);
+                    FILE_SELECT_DATA.subroutineStage = 24;
+                    break;
+
+                case 4:
+                    unk_7e3fc(2, FILE_SELECT_DATA.fileSelectData.difficulty);
+                    FILE_SELECT_DATA.subroutineStage = 30;
+                    break;
+            }
+
+            break;
+
+        case 39:
+            FILE_SELECT_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+                BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL |
+                BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].oamID = FILE_SELECT_OAM_ID_SMALL_PANEL + 1;
+
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_CLOSE_SUB_MENU);
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 40:
+            if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].oamID == 0)
+            {
+                FILE_SELECT_DATA.dispcnt |= DCNT_WIN0;
+                FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_18;
+                gBG1HOFS_NonGameplay = BLOCK_SIZE * 32;
+                gBG1VOFS_NonGameplay = BLOCK_SIZE * 32;
+                FILE_SELECT_DATA.subroutineStage++;
+            }
+            break;
+
+        case 41:
+            BitFill(3, 0, VRAM_BASE + 0xF000 + FILE_SELECT_DATA.fileSelectCursorPosition * 0xC0, 0xC0, 16);
+            FILE_SELECT_DATA.subroutineStage++;
+
+        case 42:
+            action = BLOCK_SIZE * 32;
+            if (action != gBG2VOFS_NonGameplay)
+            {
+                if (gBG2VOFS_NonGameplay - 12 < action)
+                    gBG2VOFS_NonGameplay = action;
+                else
+                    gBG2VOFS_NonGameplay -= 12;
+                break;
+            }
+
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].notDrawn = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].notDrawn = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER].notDrawn = FALSE;
+
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 43:
+            action = TRUE;
+
+            if (gWrittenToBLDALPHA_H != 0)
+            {
+                action = FALSE;
+                if (gWrittenToBLDALPHA_H - 2 < 0)
+                    gWrittenToBLDALPHA_H = 0;
+                else
+                    gWrittenToBLDALPHA_H -= 2;
+            }
+
+            if (gWrittenToBLDALPHA_L != 16)
+            {
+                action = FALSE;
+                if (gWrittenToBLDALPHA_L + 2 > 16)
+                    gWrittenToBLDALPHA_L = 16;
+                else
+                    gWrittenToBLDALPHA_L += 2;
+            }
+            if (!action)
+                break;
+
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_BG2;
+
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_LOGO].notDrawn = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_LOGO].notDrawn = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_LOGO].notDrawn = FALSE;
+
+            FILE_SELECT_DATA.subroutineStage++;
+            break;
+
+        case 44:
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_WIN0;
+            leaving = TRUE;
+            break;
+    }
+
+    return leaving;
 }
 
 void unk_7e3fc(u8 param_1, u8 param_2)
@@ -2680,7 +3944,337 @@ void unk_7e3fc(u8 param_1, u8 param_2)
 
 u32 FileSelectUpdateTilemap(u8 request)
 {
+    // https://decomp.me/scratch/ZaBhq
 
+    register u32 ended asm("r6");
+    u32 temp;
+
+    ended = TRUE;
+
+    switch (request)
+    {
+        case TILEMAP_REQUEST_START_GAME_INIT:
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].xPosition = BLOCK_SIZE * 4;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].yPosition = BLOCK_SIZE * 2;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL], FILE_SELECT_OAM_ID_SMALL_PANEL);
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_OPEN_SUB_MENU);
+            gBG1HOFS_NonGameplay = BLOCK_SIZE * 31;
+            gBG1VOFS_NonGameplay = BLOCK_SIZE * 29 + HALF_BLOCK_SIZE + 8;
+
+            DMATransfer(3, sEwramPointer + 0x3000, VRAM_BASE + 0xE800, 0x300, 16);
+            break;
+
+        case TILEMAP_REQUEST_START_GAME:
+            if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].ended && unk_790cc(1, 0x0))
+            {
+                FILE_SELECT_DATA.bldcnt = 0;
+                FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
+                break;
+            }
+            ended = FALSE;
+            break;
+        
+        case 2:
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].xPosition = BLOCK_SIZE * 5;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].yPosition = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL], FILE_SELECT_OAM_ID_MEDIUM_PANEL);
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_OPEN_SUB_MENU);
+            gBG0HOFS_NonGameplay = BLOCK_SIZE * 28;
+            gBG0VOFS_NonGameplay = BLOCK_SIZE * 28 + HALF_BLOCK_SIZE;
+
+            DMATransfer(3, sEwramPointer + 0x3900, VRAM_BASE + 0xE000, 0x300, 16);
+            break;
+
+        case 3:
+            if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].ended && unk_790cc(1, 0x11))
+            {
+                FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
+                FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
+                break;
+            }
+            ended = FALSE;
+            break;
+
+        case 4:
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_BG0;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].oamID = FILE_SELECT_OAM_ID_MEDIUM_PANEL + 1;
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_CLOSE_SUB_MENU);
+            break;
+
+        case TILEMAP_REQUEST_DIFFICULTY_SPAWN_INIT:
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].xPosition = BLOCK_SIZE * 5;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].yPosition = BLOCK_SIZE * 3;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL], FILE_SELECT_OAM_ID_LARGE_PANEL);
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_OPEN_SUB_MENU);
+            gBG0HOFS_NonGameplay = BLOCK_SIZE * 28;
+            gBG0VOFS_NonGameplay = BLOCK_SIZE * 28 + HALF_BLOCK_SIZE;
+            break;
+
+        case TILEMAP_REQUEST_DIFFICULTY_SPAWN:
+            if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].ended && unk_790cc(1, FILE_SELECT_DATA.unk_38))
+            {
+                unk_7eedc(sEwramPointer + 0x3C00);
+                DMATransfer(3, sEwramPointer + 0x3C00, VRAM_BASE + 0xE000, 0x300, 16);
+                FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
+                FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
+                break;
+            }
+            ended = FALSE;
+            break;
+
+        case TILEMAP_REQUEST_DIFFICULTY_DESPAWN_INIT:
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_BG0;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].oamID = FILE_SELECT_OAM_ID_LARGE_PANEL + 1;
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_CLOSE_SUB_MENU);
+            break;
+
+        case TILEMAP_REQUEST_ERASE_SPAWN_INIT:
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].xPosition = BLOCK_SIZE * 5;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].yPosition = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL], FILE_SELECT_OAM_ID_MEDIUM_PANEL);
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_OPEN_SUB_MENU);
+
+            gBG1HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
+            gBG1VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
+
+            DMATransfer(3, sEwramPointer + 0x3F00, VRAM_BASE + 0xE800, 0x300, 16);
+
+            FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_BG1;
+            FILE_SELECT_DATA.bg2cnt = FILE_SELECT_DATA.unk_1A;
+            FILE_SELECT_DATA.dispcnt |= DCNT_BG2;
+            break;
+
+        case TILEMAP_REQUEST_ERASE_SPAWN:
+            if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].ended && unk_790cc(1, 0x5))
+            {
+                FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
+                FILE_SELECT_DATA.dispcnt |= DCNT_BG1;
+                break;
+            }
+            ended = FALSE;
+            break;
+
+        case TILEMAP_REQUEST_ERASE_DESPAWN_INIT:
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_BG1;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].oamID = FILE_SELECT_OAM_ID_MEDIUM_PANEL + 1;
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_CLOSE_SUB_MENU);
+            break;
+
+        case TILEMAP_REQUEST_ERASE_YES_NO_SPAWN_INIT:
+            gBG0HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
+            gBG0VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
+
+            DMATransfer(3, sEwramPointer + 0x4200, VRAM_BASE + 0xE000, 0x300, 16);
+            break;
+
+        case TILEMAP_REQUEST_ERASE_YES_NO_SPAWN:
+            if (unk_790cc(1, 0x6))
+            {
+                FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
+                FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
+                FILE_SELECT_DATA.dispcnt &= ~DCNT_BG1;
+                break;
+            }
+            ended = FALSE;
+            break;
+
+        case TILEMAP_REQUEST_ERASE_YES_NO_DESPAWN_INIT:
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_BG0;
+            FILE_SELECT_DATA.dispcnt |= DCNT_BG1;
+            break;
+
+        case TILEMAP_REQUEST_COPY_SPAWN_INIT:
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].xPosition = BLOCK_SIZE * 5;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].yPosition = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL], FILE_SELECT_OAM_ID_MEDIUM_PANEL);
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_OPEN_SUB_MENU);
+
+            gBG1HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
+            gBG1VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
+
+            DMATransfer(3, sEwramPointer + 0x3F00, VRAM_BASE + 0xE800, 0x300, 16);
+            FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_BG1;
+            FILE_SELECT_DATA.bg2cnt = FILE_SELECT_DATA.unk_1A;
+            FILE_SELECT_DATA.dispcnt |= DCNT_BG2;
+            break;
+
+        case TILEMAP_REQUEST_COPY_SPAWN:
+            if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].ended && unk_790cc(1, 0x1))
+            {
+                FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
+                FILE_SELECT_DATA.dispcnt |= DCNT_BG1;
+                break;
+            }
+            ended = FALSE;
+            break;
+
+        case TILEMAP_REQUEST_COPY_DESPAWN_INIT:
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_BG1;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].oamID = FILE_SELECT_OAM_ID_MEDIUM_PANEL + 1;
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_CLOSE_SUB_MENU);
+            break;
+
+        case TILEMAP_REQUEST_ERASE_DESPAWN:
+        case TILEMAP_REQUEST_COPY_DESPAWN:
+            if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SMALL_PANEL].oamID == 0)
+            {
+                FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_18;
+                FILE_SELECT_DATA.bg2cnt = FILE_SELECT_DATA.unk_16;
+            
+                FILE_SELECT_DATA.dispcnt &= ~DCNT_BG2;
+                FILE_SELECT_DATA.dispcnt |= DCNT_BG1;
+
+                gBG1HOFS_NonGameplay = BLOCK_SIZE * 32;
+                gBG1VOFS_NonGameplay = BLOCK_SIZE * 32;
+            }
+            else
+            {
+                ended = FALSE;
+                break;
+            }
+
+        case TILEMAP_REQUEST_ERASE_YES_NO_DESPAWN:
+        case TILEMAP_REQUEST_COPY_OVERRIDE_DESPAWN:
+            ended = TRUE;
+            break;
+
+        case TILEMAP_REQUEST_COPY_OVERRIDE_SPAWN_INIT:
+            gBG0HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
+            gBG0VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
+
+            DMATransfer(3, sEwramPointer + 0x4200, VRAM_BASE + 0xE000, 0x300, 16);
+            break;
+
+        case TILEMAP_REQUEST_COPY_OVERRIDE_SPAWN:
+            if (unk_790cc(1, 0x3))
+            {
+                FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
+                FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
+                FILE_SELECT_DATA.dispcnt &= ~DCNT_BG1;
+                break;
+            }
+            ended = FALSE;
+            break;
+
+        case TILEMAP_REQUEST_COPY_OVERRIDE_DESPAWN_INIT:
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_BG0;
+            FILE_SELECT_DATA.dispcnt |= DCNT_BG1;
+            break;
+
+        case TILEMAP_REQUEST_COPY_DESTINATION_DESPAWN:
+            DMATransfer(3, sEwramPointer + 0x3F00, VRAM_BASE + 0xE800, 0x300, 16);
+            break;
+
+        case TILEMAP_REQUEST_COPY_DESTINATION_SPAWN:
+            DMATransfer(3, sEwramPointer + 0x4500, VRAM_BASE + 0xE800, 0x300, 16);
+            break;
+
+        case 0x1C:
+            DMATransfer(3, sEwramPointer + 0x4200, VRAM_BASE + 0xE800, 0x300, 16);
+            break;
+
+        case 0x1D:
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].xPosition = BLOCK_SIZE * 5;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].yPosition = BLOCK_SIZE * 3;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL], FILE_SELECT_OAM_ID_LARGE_PANEL);
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_OPEN_SUB_MENU);
+
+            gBG0HOFS_NonGameplay = BLOCK_SIZE * 28;
+            gBG0VOFS_NonGameplay = BLOCK_SIZE * 28 + HALF_BLOCK_SIZE;
+
+            DMATransfer(3, sEwramPointer + 0x3300, VRAM_BASE + 0xE000, 0x300, 16);
+            break;
+
+        case 0x1E:
+            if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].ended && unk_790cc(1, FILE_SELECT_DATA.unk_39))
+            {
+                FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
+                FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
+                break;
+            }
+            ended = FALSE;
+            break;
+
+        case 0x1F:
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_BG0;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].oamID = FILE_SELECT_OAM_ID_LARGE_PANEL + 1;
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_CLOSE_SUB_MENU);
+            break;
+
+        case 0x22:
+            if (unk_790cc(1, FILE_SELECT_DATA.unk_39))
+            {
+                DMATransfer(3, sEwramPointer + 0x3600, VRAM_BASE + 0xE000, 0x300, 16);
+                break;
+            }
+            ended = FALSE;
+            break;
+
+        case 0x23:
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_BG0;
+            FILE_SELECT_DATA.fileScreenOam[0].oamID = 0;
+            FILE_SELECT_DATA.fileScreenOam[0].idChanged = FALSE;
+
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].oamID = FILE_SELECT_OAM_ID_LARGE_PANEL + 1;
+            FileSelectPlayMenuSound(MENU_SOUND_REQUEST_CLOSE_SUB_MENU);
+            break;
+
+        case 0x25:
+            FILE_SELECT_DATA.fileScreenOam[0].oamID = 0;
+            FILE_SELECT_DATA.fileScreenOam[0].idChanged = FALSE;
+
+            DMATransfer(3, sEwramPointer + 0x3300, VRAM_BASE + 0xE000, 0x300, 16);
+            break;
+
+        case 0x26:
+            SoundPlay(0x1FD);
+
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].xPosition = BLOCK_SIZE * 5;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].yPosition = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
+            UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL], FILE_SELECT_OAM_ID_MEDIUM_PANEL);
+
+            gBG0HOFS_NonGameplay = BLOCK_SIZE * 29 + HALF_BLOCK_SIZE;
+            gBG0VOFS_NonGameplay = BLOCK_SIZE * 29 + HALF_BLOCK_SIZE;
+
+            if (FILE_SELECT_DATA.unk_47 == 1)
+                DMATransfer(3, sEwramPointer + 0x4200, VRAM_BASE + 0xE000, 0x300, 16);
+            else if (FILE_SELECT_DATA.unk_47 == 2)
+                DMATransfer(3, sEwramPointer + 0x4500, VRAM_BASE + 0xE000, 0x300, 16);
+            else
+                DMATransfer(3, sEwramPointer + 0x3F00, VRAM_BASE + 0xE000, 0x300, 16);
+            break;
+
+        case 0x27:
+            if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].ended)
+            {
+                FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
+                FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
+                break;
+            }
+            ended = FALSE;
+            break;
+
+        case 0x28:
+            SoundPlay(0x1FE);
+            FILE_SELECT_DATA.dispcnt &= ~DCNT_BG0;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].oamID = FILE_SELECT_OAM_ID_MEDIUM_PANEL + 1;
+            break;
+
+        case 5:
+        case TILEMAP_REQUEST_DIFFICULTY_DESPAWN:
+        case 0x20:
+        case 0x24:
+        case 0x29:
+            temp = FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].oamID;
+            ended = TRUE;
+            if (temp != 0)
+                ended = FALSE;
+            break;
+    }
+
+    return ended;
 }
 
 void unk_7eedc(u16* pTilemap)

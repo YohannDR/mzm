@@ -38,14 +38,14 @@ u8 OptionsStereoSubroutine(void);
 u8 OptionsSoundTestSubroutine(void);
 u32 OptionsSoundTestCheckNotAlreadyPlaying(void);
 void OptionsSoundTestUpdateIdGfx(void);
-u32 OptionsTimeAttackRecordsSubroutine(void);
+u8 OptionsTimeAttackRecordsSubroutine(void);
 void unk_7b71c(void);
 
 void OptionTimeAttackLoadRecord(u8 id);
 void unk_7b854(void);
 void OptionTimeAttackLoadPasswrod(u8 part);
 
-u32 OptionsMetroidFusionLinkSubroutine(void);
+u8 OptionsMetroidFusionLinkSubroutine(void);
 u32 FileSelectMenuSubroutine(void);
 u32 FileSelectFading(void);
 
