@@ -1649,16 +1649,16 @@ void SramRead_TimeAttack(void)
 }
 
 
-void SramWrite_ToEwram_Unused(void)
+void SramWrite_ToEwram_DemoRam(void)
 {
     // https://decomp.me/scratch/wgziF
 
-    struct SaveFile_Unused* pFile;
+    struct SaveDemo* pFile;
     u32 value;
 
     value = USHORT_MAX;
-    pFile = &gSram.file_unused;
-    BitFill(3, value, pFile, sizeof(struct SaveFile_Unused), 0x10);
+    pFile = &gSram.demoSave;
+    BitFill(3, value, pFile, sizeof(struct SaveDemo), 0x10);
 
     pFile->currentArea = gCurrentArea;
     pFile->lastDoorUsed = gLastDoorUsed;
@@ -1691,9 +1691,37 @@ void SramWrite_ToEwram_Unused(void)
     do_sram_operation(SRAM_OPERATION_SAVE_UNUSED_SRAM);
 }
 
-void SramLoad_DemoRamValues(void)
+void SramLoad_DemoRamValues(u8 loadSamusData, u8 demoNumber)
 {
+    // https://decomp.me/scratch/SKFGT
 
+    const struct SaveDemo* pDemo;
+
+    pDemo = sDemoRamDataPointers[demoNumber];
+
+    if (loadSamusData == FALSE)
+    {
+        gCurrentArea = pDemo->currentArea;
+        gLastDoorUsed = pDemo->lastDoorUsed;
+        gUseMotherShipDoors = pDemo->useMotherShipDoors;
+
+        DMATransfer(3, pDemo->visitedMinimapTiles, &gVisitedMinimapTiles[gCurrentArea * MINIMAP_SIZE], sizeof(pDemo->visitedMinimapTiles), 16);
+        DMATransfer(3, pDemo->hatchesOpened, gHatchesOpened[gCurrentArea], sizeof(pDemo->hatchesOpened), 16);
+    } 
+    else if (loadSamusData == TRUE)
+    {
+        gSamusData = pDemo->samusData;
+        gSamusWeaponInfo = pDemo->samusWeaponInfo;
+        gSamusEcho = pDemo->samusEcho;
+        gScrewSpeedAnimation = pDemo->screwSpeedAnimation;
+        gEquipment = pDemo->equipment;
+        gSamusHazardDamage = pDemo->hazardDamage;
+        gSamusEnvironmentalEffects[0] = pDemo->environmentalEffects[0];
+        gSamusEnvironmentalEffects[1] = pDemo->environmentalEffects[1];
+        gSamusEnvironmentalEffects[2] = pDemo->environmentalEffects[2];
+        gSamusEnvironmentalEffects[3] = pDemo->environmentalEffects[3];
+        gSamusEnvironmentalEffects[4] = pDemo->environmentalEffects[4];
+    }
 }
 
 /**

@@ -113,7 +113,7 @@ struct SaveFile {
     u32 eventsTriggered[8];
 };
 
-struct SaveFile_Unused {
+struct SaveDemo {
     u8 currentArea;
     u8 lastDoorUsed;
 
@@ -212,7 +212,7 @@ struct Sram {
 
     u8 padding_7480[896];
 
-    struct SaveFile_Unused file_unused;
+    struct SaveDemo demoSave;
 
     u8 padding_7a80[1264];
 

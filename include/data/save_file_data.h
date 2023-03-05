@@ -4,6 +4,9 @@
 #include "types.h"
 #include "structs/save_file.h"
 
+// Temp
+extern const struct SaveDemo* const sDemoRamDataPointers[16];
+
 extern const u8 sMetZeroSramCheck_Text[SRAM_TEXT_SIZE];
 extern const u8 sZERO_MISSION_010_Text[SRAM_TEXT_SIZE];
 extern const u8 sPlanetZebes_Text[SRAM_TEXT_SIZE];

@@ -45,8 +45,8 @@ u32 SramRead_Language(void);
 void SramWrite_TimeAttack(void);
 void SramRead_TimeAttack(void);
 
-void SramWrite_ToEwram_Unused(void);
-void SramLoad_DemoRamValues(void);
+void SramWrite_ToEwram_DemoRam(void);
+void SramLoad_DemoRamValues(u8 loadSamusData, u8 demoNumber);
 
 u32 SramDeleteFile(u8 file);
 u32 SramCopyFile(u8 src, u8 dst);
