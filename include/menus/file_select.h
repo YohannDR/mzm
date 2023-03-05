@@ -23,11 +23,11 @@ u32 unk_790cc(u8 param_1, u8 param_2);
 void FileSelectFileCopyChooseBaseDestinationFile(void);
 u32 FileSelectCopyFileSubroutine(void);
 u32 FileSelectEraseFileSubroutine(void);
-u32 unk_79b50(void);
+u32 FileSelectCorruptedFileSubroutine(void);
 void unk_79ecc(void);
 void OptionsSetupTiletable(void);
 void FileSelectCopyTimeAttackTime(void);
-u32 FileSelectOptionTransition(u8 leavingOptions);
+u8 FileSelectOptionTransition(u8 leavingOptions);
 
 u8 OptionsSubroutine(void);
 void FileSelectResetIOTransferInfo(void);

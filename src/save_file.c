@@ -902,7 +902,7 @@ void SramTestFlash(void)
 }
 
 /**
- * @brief 743a4 | 1d0 | 
+ * @brief 743a4 | 1d0 | To document
  * 
  */
 void unk_743a4(void)
@@ -921,7 +921,7 @@ void unk_743a4(void)
         gMostRecentSaveFile = i;
         unk_74574();
 
-        flag = gSaveFilesInfo[gMostRecentSaveFile].unk_1;
+        flag = gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag;
 
         if (flag == 0)
         {
@@ -931,14 +931,14 @@ void unk_743a4(void)
             do_sram_operation(4);
             gSaveFilesInfo[i].exists = TRUE;
         }
-        else if (flag == 1)
+        else if (flag == CORRUPTED_FILE_FLAG_CURRENT)
         {
             DMATransfer(3, &sSramEwramPointer->filesCopy[gMostRecentSaveFile],
                 &sSramEwramPointer->files[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
 
             gSaveFilesInfo[i].exists = TRUE;
         }
-        else if (flag == 2)
+        else if (flag == CORRUPTED_FILE_FLAG_CURRENT_AND_BACKUP)
         {
             BitFill(3, USHORT_MAX, &sSramEwramPointer->files[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
             BitFill(3, USHORT_MAX, &sSramEwramPointer->filesCopy[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
@@ -949,7 +949,7 @@ void unk_743a4(void)
             do_sram_operation(3);
             BitFill(3, USHORT_MAX, &sSramEwramPointer->filesCopy[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
             do_sram_operation(4);
-            gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 0;
+            gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag = 0;
         }
         else
         {
@@ -974,23 +974,23 @@ void unk_74574(void)
 
     if (sanityCheck1 == 0)
     {
-        gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 0;
+        gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag = 0;
         return;
     }
 
     if (sanityCheck1 == 1)
     {
-        gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 1;
+        gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag = CORRUPTED_FILE_FLAG_CURRENT;
         if (sanityCheck2 != 0)
-            gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 2;
+            gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag = CORRUPTED_FILE_FLAG_CURRENT_AND_BACKUP;
         return;
     }
 
-    gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 3;
+    gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag = 3;
     if (sanityCheck2 == 0)
-        gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 1;
+        gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag = CORRUPTED_FILE_FLAG_CURRENT;
     else if (sanityCheck2 == 1)
-        gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 2;
+        gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag = CORRUPTED_FILE_FLAG_CURRENT_AND_BACKUP;
 }
 
 u32 unk_74624(u8 useCopy)
@@ -1917,13 +1917,13 @@ void unk_757c8(u8 file)
     previousFile = gMostRecentSaveFile;
     gMostRecentSaveFile = file;
 
-    switch (gSaveFilesInfo[gMostRecentSaveFile].unk_1)
+    switch (gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag)
     {
-        case 1:
+        case CORRUPTED_FILE_FLAG_CURRENT:
             do_sram_operation(3);
             break;
 
-        case 2:
+        case CORRUPTED_FILE_FLAG_CURRENT_AND_BACKUP:
             do_sram_operation(3);
             do_sram_operation(4);
             break;
@@ -1934,7 +1934,7 @@ void unk_757c8(u8 file)
             break;
     }
 
-    gSaveFilesInfo[gMostRecentSaveFile].unk_1 = 0;
+    gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag = 0;
     gMostRecentSaveFile = previousFile;
 }
 

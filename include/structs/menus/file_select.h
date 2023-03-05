@@ -113,9 +113,9 @@ struct FileSelectData {
     u8 fileSelectCursorPosition;
     u8 subroutineStage;
     u16 subroutineTimer;
-    u8 unk_44;
-    u8 unk_45;
-    u8 unk_46;
+    u8 corruptMessageFileA;
+    u8 corruptMessageFileB;
+    u8 corruptMessageFileC;
     u8 unk_47;
     u8 unk_48;
 

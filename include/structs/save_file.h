@@ -12,6 +12,9 @@
 #include "structs/time_attack.h"
 #include "structs/demo.h"
 
+#define CORRUPTED_FILE_FLAG_CURRENT 1
+#define CORRUPTED_FILE_FLAG_CURRENT_AND_BACKUP 2
+
 #define SRAM_TEXT_SIZE 16
 
 #define SRAM_GET_CHECKSUM_SIZE(type, iteration, checksumType) (sizeof(type) / sizeof(checksumType) / iteration - 1)
@@ -25,7 +28,7 @@ struct StartingInfo {
 
 struct SaveFileInfo {
     u8 exists;
-    u8 unk_1;
+    u8 corruptionFlag;
     u8 currentArea;
     u16 currentEnergy;
     u16 maxEnergy;
