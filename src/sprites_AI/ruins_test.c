@@ -981,7 +981,7 @@ void RuinsTestDespawn(void)
         EventFunction(EVENT_ACTION_SETTING, EVENT_FULLY_POWERED_SUIT_OBTAINED);
         gInGameTimerAtBosses[2] = gInGameTimer;
         // Start getting fully powered cutscene
-        start_effect_for_cutscene(0x4); // Undefined
+        start_effect_for_cutscene(0x4);
     }
 }
 

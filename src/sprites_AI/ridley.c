@@ -606,7 +606,7 @@ void RidleyCheckPlayCutscene(void)
             gCurrentSprite.arrayOffset = 0x0;
             gCurrentSprite.oamScaling = 0x12C;
 
-            start_effect_for_cutscene(0x5); // Undefined
+            start_effect_for_cutscene(0x5);
         }
     }
 }
@@ -1748,7 +1748,7 @@ void RidleyDying(void)
                 gCurrentSprite.workVariable2--;
 
             if (gCurrentSprite.workVariable2 == 0x1)
-                start_effect_for_cutscene(0x6); // Undefined
+                start_effect_for_cutscene(0x6);
             else if (gCurrentSprite.workVariable2 == 0x0)
                 FadeMusic(0x96);
         }

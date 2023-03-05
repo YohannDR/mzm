@@ -376,7 +376,7 @@ u8 ConnectionCheckAreaConnection(u16 yPosition, u16 xPosition)
     else
         gSamusDoorPositionOffset = (pDoor->yEnd + 0x1) * BLOCK_SIZE - gSamusData.yPosition - 0x1;
 
-    start_special_background_fading(0x6); // No transition | Undefined
+    ColorFadingStart(0x6); // No transition
     gGameModeSub1 = SUB_GAME_MODE_LOADING_ROOM;
     pDoor = sAreaDoorsPointers[gCurrentArea] + gLastDoorUsed;
 
@@ -908,7 +908,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
             {
                 gCurrentCutscene = CUTSCENE_MOTHER_BRAIN_CLOSE_UP;
 
-                start_special_background_fading(0x2);
+                ColorFadingStart(0x2);
                 SoundFade(0x10E, 0xA);
                 FadeMusic(0xA);
             }
@@ -919,7 +919,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
             {
                 gCurrentCutscene = CUTSCENE_RIDLEY_IN_SPACE;
 
-                start_special_background_fading(0x2);
+                ColorFadingStart(0x2);
                 SoundFade(0x10E, 0xA);
                 FadeMusic(0xA);
             }
@@ -930,7 +930,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
             {
                 gCurrentCutscene = CUTSCENE_RIDLEY_LANDING;
 
-                start_special_background_fading(0x2);
+                ColorFadingStart(0x2);
                 SoundFade(0x10E, 0xA);
                 FadeMusic(0xA);
             }
@@ -941,7 +941,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
             {
                 gCurrentCutscene = CUTSCENE_ENTER_TOURIAN;
 
-                start_special_background_fading(0x2);
+                ColorFadingStart(0x2);
                 SoundFade(0x10E, 0xA);
                 FadeMusic(0xA);
             }

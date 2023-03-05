@@ -310,7 +310,7 @@ void EscapeShip(void)
                     SoundPlay(0x250);
                 }
                 else if (timer == 0xC)
-                    start_effect_for_cutscene(0x8); // Undefined
+                    start_effect_for_cutscene(0x8);
             }
             else
             {
@@ -413,7 +413,7 @@ void EscapeShip(void)
             if (gCurrentSprite.yPositionSpawn == 0x0)
             {
                 gCurrentSprite.pose = ESCAPE_SHIP_POSE_ESCAPED;
-                start_effect_for_cutscene(0x1); // Undefined
+                start_effect_for_cutscene(0x1);
             }
             break;
 

@@ -1528,7 +1528,7 @@ void KraidDying(void)
         {
             gCurrentSprite.workVariable2--;
             if (gCurrentSprite.workVariable2 == 0x1)
-                start_effect_for_cutscene(0x6); // Statue opening || Undefined
+                start_effect_for_cutscene(0x6); // Statue opening
             else if (gCurrentSprite.workVariable2 == 0x0)
                 SoundPlay(0x1D2);
         }

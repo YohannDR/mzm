@@ -503,7 +503,7 @@ lbl_08057ce4:
 lbl_08057cea:
     adds r0, r1, #0
 lbl_08057cec:
-    bl start_special_background_fading
+    bl ColorFadingStart
     ldr r1, lbl_08057d00 @ =0x03000005
     movs r0, #0
     strb r0, [r1]
@@ -9324,7 +9324,7 @@ lbl_0805c05c:
     bl sub_0805b340
     movs r0, #0x16
 lbl_0805c062:
-    bl start_special_background_fading
+    bl ColorFadingStart
     ldr r1, lbl_0805c070 @ =0x03000c72
     movs r0, #3
     strh r0, [r1]
@@ -9334,8 +9334,8 @@ lbl_0805c06c:
     .align 2, 0
 lbl_0805c070: .4byte 0x03000c72
 
-    thumb_func_start start_special_background_fading
-start_special_background_fading: @ 0x0805c074
+    thumb_func_start ColorFadingStart
+ColorFadingStart: @ 0x0805c074
     ldr r1, lbl_0805c088 @ =0x03005520
     movs r2, #0
     strb r0, [r1]
@@ -9783,7 +9783,7 @@ lbl_0805c418:
     strb r4, [r0, #4]
     strb r4, [r0, #2]
     movs r0, #2
-    bl start_special_background_fading
+    bl ColorFadingStart
     ldr r2, lbl_0805c448 @ =0x04000054
     ldr r1, lbl_0805c44c @ =0x03000088
     ldrb r0, [r1, #6]
@@ -10538,7 +10538,7 @@ lbl_0805c9fc:
     movs r0, #0xc
     strb r0, [r1]
     movs r0, #2
-    bl start_special_background_fading
+    bl ColorFadingStart
     ldr r1, lbl_0805ca48 @ =0x0300070c
     movs r0, #6
     strb r0, [r1, #0xf]
@@ -10634,7 +10634,7 @@ lbl_0805cab8:
     movs r0, #9
     strb r0, [r1]
     movs r0, #2
-    bl start_special_background_fading
+    bl ColorFadingStart
     movs r0, #1
     b lbl_0805cad2
     .align 2, 0
@@ -10719,7 +10719,7 @@ lbl_0805cb58:
     movs r0, #6
     strb r0, [r1]
     movs r0, #2
-    bl start_special_background_fading
+    bl ColorFadingStart
     movs r0, #1
     b lbl_0805cb72
     .align 2, 0
@@ -10782,7 +10782,7 @@ lbl_0805cbcc:
     strb r1, [r0]
     bl sub_0805c2ec
     movs r0, #2
-    bl start_special_background_fading
+    bl ColorFadingStart
     ldr r0, lbl_0805cbf8 @ =0x0300002c
     ldrb r0, [r0]
     cmp r0, #1
@@ -10873,7 +10873,7 @@ lbl_0805cc74:
     movs r0, #0xe
     strb r0, [r1]
     movs r0, #2
-    bl start_special_background_fading
+    bl ColorFadingStart
     movs r0, #1
     b lbl_0805cc8e
     .align 2, 0
@@ -11282,7 +11282,7 @@ lbl_0805cf98:
     cmp r2, #1
     bne lbl_0805cfb8
     movs r0, #0x18
-    bl start_special_background_fading
+    bl ColorFadingStart
     ldr r1, lbl_0805cfb4 @ =0x0300006b
     ldrb r0, [r1]
     cmp r0, #0
@@ -11296,7 +11296,7 @@ lbl_0805cfb8:
     cmp r2, #2
     bne lbl_0805cfc4
     movs r0, #0x17
-    bl start_special_background_fading
+    bl ColorFadingStart
     b lbl_0805cfc6
 lbl_0805cfc4:
     strb r4, [r5]
@@ -14186,7 +14186,7 @@ lbl_0805e6d8:
     strh r0, [r3, #2]
     movs r0, #0x14
 lbl_0805e6e2:
-    bl start_special_background_fading
+    bl ColorFadingStart
     ldr r1, lbl_0805e6f4 @ =0x03000c72
     movs r0, #3
     strh r0, [r1]
@@ -15225,7 +15225,7 @@ lbl_0805eee0:
     strh r1, [r0]
 lbl_0805eef0:
     movs r0, #6
-    bl start_special_background_fading
+    bl ColorFadingStart
     ldr r1, lbl_0805ef34 @ =0x03000c72
     movs r0, #3
     strh r0, [r1]
@@ -15308,7 +15308,7 @@ lbl_0805ef84:
     movs r2, #4
 lbl_0805ef94:
     adds r0, r2, #0
-    bl start_special_background_fading
+    bl ColorFadingStart
     pop {r0}
     bx r0
     .align 2, 0
@@ -16485,7 +16485,7 @@ lbl_0805f884:
 lbl_0805f89c:
     strb r1, [r0]
     movs r0, #2
-    bl start_special_background_fading
+    bl ColorFadingStart
     movs r0, #0x87
     lsls r0, r0, #1
     movs r1, #0xa
@@ -16509,7 +16509,7 @@ lbl_0805f8bc:
     movs r1, #0xa
     strb r1, [r0]
     movs r0, #2
-    bl start_special_background_fading
+    bl ColorFadingStart
     movs r0, #0x87
     lsls r0, r0, #1
     movs r1, #0xa
@@ -18199,7 +18199,7 @@ lbl_080605ec:
     orrs r0, r1
     strh r0, [r4]
     movs r0, #8
-    bl start_special_background_fading
+    bl ColorFadingStart
     ldr r0, lbl_08060718 @ =0x0300004a
     mov r3, r8
     strb r3, [r0]
@@ -19161,7 +19161,7 @@ lbl_08060e60:
     cmp r0, #1
     bne lbl_08060e8e
     movs r0, #2
-    bl start_special_background_fading
+    bl ColorFadingStart
     ldr r1, lbl_08060ea8 @ =0x03000054
     movs r0, #6
     strb r0, [r1]
@@ -19331,7 +19331,7 @@ lbl_08060fda:
     lsls r0, r0, #4
     adds r0, r0, r5
     ldrb r0, [r0, #0xc]
-    bl start_special_background_fading
+    bl ColorFadingStart
     movs r0, #0
     ldrsb r0, [r4, r0]
     lsls r0, r0, #4

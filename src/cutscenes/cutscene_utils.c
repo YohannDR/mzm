@@ -93,7 +93,7 @@ void CutsceneEnd(void)
             }
     }
 
-    start_special_background_fading(sCutsceneData[gCurrentCutscene].bgFading);
+    ColorFadingStart(sCutsceneData[gCurrentCutscene].bgFading);
     if (sCutsceneData[gCurrentCutscene].event != EVENT_NONE)
         EventFunction(EVENT_ACTION_SETTING, sCutsceneData[gCurrentCutscene].event);
 

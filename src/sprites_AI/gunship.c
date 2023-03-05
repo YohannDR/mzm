@@ -251,7 +251,7 @@ void GunshipLanding(void)
         if (gCurrentSprite.timer == 0x1E)
         {
             // Start intro
-            start_effect_for_cutscene(0x7); // Undefined
+            start_effect_for_cutscene(0x7);
             gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
         }
     }
@@ -714,7 +714,7 @@ void GunshipFlying(void)
     {
         if (gCurrentSprite.timer == 0x32)
         {
-            start_effect_for_cutscene(0x3); // Undefined
+            start_effect_for_cutscene(0x3);
             gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
         }
 
