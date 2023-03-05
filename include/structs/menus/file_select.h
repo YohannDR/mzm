@@ -49,6 +49,27 @@ struct OptionsSubroutineInfo {
     u8 gameMode;
 };
 
+struct FileSelectEwram {
+    u16 unk_0[512];
+    u16 unk_400[512];
+    u16 tiletable[512];
+    u16 unk_1000[32][32];
+
+    u16 smallWide1_panelTT[256];
+    u16 large1_panelTT[384];
+    u16 large2_panelTT[384];
+
+    u16 smallWide2_panelTT[320];
+    u16 large3_panelTT[384];
+    u16 small1_panelTT[256];
+
+    // padding
+
+    u16 medium1_panelTT[640];
+    u16 medium2_panelTT[640];
+    u16 medium3_panelTT[640];
+};
+
 struct FileSelectData {
     u16 dispcnt;
     u16 bldcnt;
@@ -57,12 +78,12 @@ struct FileSelectData {
     u16 bg2cnt;
     u16 bg3cnt;
 
-    u8 unk_C;
+    u8 fadingStage;
     u8 colorToApply;
     u8 unk_E;
-    u16 unk_10;
-    u8 unk_12;
-    u8 unk_13;
+    u16 fadingTimer;
+    u8 fadingIntensity;
+    u8 fadingFrequency;
     u16 unk_14;
     u16 unk_16;
     u16 unk_18;
@@ -105,8 +126,8 @@ struct FileSelectData {
 
     u8 optionsUnlocked[7];
     u8 soundTestId;
-    u8 unk_64;
-    u8 unk_65;
+    u8 timeAttackRecordFlags;
+    u8 timeAttack100Only;
     u8 unk_66;
     u8 unk_67;
     u16 unk_68;

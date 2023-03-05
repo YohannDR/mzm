@@ -1162,9 +1162,120 @@ void unk_79ecc(void)
 
 }
 
+/**
+ * @brief 79fb8 | 1ec | Sets up the options tile table and determines which options are unlocked
+ * 
+ */
 void OptionsSetupTiletable(void)
 {
+    u8 i;
+    i32 j;
+    u8* pOptions;
+    u16* dst;
 
+    // Decomp tile table
+    CallLZ77UncompWRAM(sFileSelectOptionsTileTable, sEwramPointer + 0x5100);
+
+    // Clear all the options
+    for (i = 0; i < ARRAY_SIZE(FILE_SELECT_DATA.optionsUnlocked); i++)
+        FILE_SELECT_DATA.optionsUnlocked[i] = OPTION_NONE;
+
+    pOptions = FILE_SELECT_DATA.optionsUnlocked;
+    // Allow stereo select by default
+    *pOptions++ = OPTION_STEREO_SELECT;
+
+    for (i = OPTION_SOUND_TEST; i <= ARRAY_SIZE(FILE_SELECT_DATA.optionsUnlocked); i++)
+    {
+        switch (i)
+        {
+            case OPTION_SOUND_TEST:
+                // Check beat the game in hard mode
+                if (gFileScreenOptionsUnlocked.soundTestAndOgMetroid & (1 << DIFF_HARD))
+                    *pOptions++ = i;
+                break;
+
+            case OPTION_TIME_ATTACK:
+                FILE_SELECT_DATA.timeAttackRecordFlags = 0;
+                FILE_SELECT_DATA.timeAttack100Only = FALSE;
+
+                // Check has 100% record
+                if (gTimeAttackRecord.igt100.hours != UCHAR_MAX)
+                {
+                    FILE_SELECT_DATA.timeAttackRecordFlags |= 2;
+                    FILE_SELECT_DATA.timeAttack100Only = TRUE;
+                }
+
+                // Check has any% record
+                if (gTimeAttackRecord.igt.hours != UCHAR_MAX)
+                {
+                    FILE_SELECT_DATA.timeAttackRecordFlags |= 1;
+                    FILE_SELECT_DATA.timeAttack100Only = FALSE;
+                }
+
+                if (FILE_SELECT_DATA.timeAttackRecordFlags)
+                    *pOptions++ = i;
+                break;
+
+            case OPTION_GALLERY:
+                // Check has any image
+                if (gFileScreenOptionsUnlocked.galleryImages == 0)
+                    break;
+
+                *pOptions++ = i;
+
+                if (gFileScreenOptionsUnlocked.galleryImages == UCHAR_MAX)
+                {
+                    // All the images are unlocked, change text palette to yellow
+                    dst = (u16*)(sEwramPointer + 0x5100) + sOptionsOptionsTilemapOffsets[OPTION_GALLERY];
+                    j = 0;
+                    while (j < 64)
+                    {
+                        *dst = (*dst & 0xFFF) | 0xE000;
+                        j++;
+                        dst++;
+                    }
+                }
+                break;
+
+            case OPTION_FUSION_GALLERY:
+                // Check has any image
+                if (gFileScreenOptionsUnlocked.fusionGalleryImages)
+                    *pOptions = i;
+                break;
+
+            case OPTION_FUSION_LINK:
+                if (*pOptions == OPTION_FUSION_GALLERY)
+                    pOptions++; // Has the fusion gallery unlocked, don't enable link
+                else
+                    *pOptions++ = i; // Doesn't have the fusion gallery unlocked, enable link
+                break;
+
+            case OPTION_NES_METROID:
+                // Check has either any image beat the game in any difficulty
+                if (gFileScreenOptionsUnlocked.galleryImages)
+                    *pOptions++ = i;
+                else if (gFileScreenOptionsUnlocked.soundTestAndOgMetroid)
+                    *pOptions++ = i;
+                break;
+        }
+
+        // Check not overflowing
+        if (pOptions >= FILE_SELECT_DATA.optionsUnlocked + ARRAY_SIZE(FILE_SELECT_DATA.optionsUnlocked) - 1)
+            break;
+    }
+
+    // Setup tiletable for the whole screen
+    i = 0;
+    while (FILE_SELECT_DATA.optionsUnlocked[i] != OPTION_NONE)
+    {
+        if (sOptionsOptionsTilemapOffsets[FILE_SELECT_DATA.optionsUnlocked[i]] != 0)
+        {
+            DMATransfer(3, (u16*)(sEwramPointer + 0x5100) + sOptionsOptionsTilemapOffsets[FILE_SELECT_DATA.optionsUnlocked[i]],
+                sEwramPointer + 0x5200 + i * 0x80, 0x80, 16);
+        }
+
+        i++;
+    }
 }
 
 /**
@@ -1175,7 +1286,7 @@ void FileSelectCopyTimeAttackTime(void)
 {
     i32 value;
 
-    if (FILE_SELECT_DATA.unk_64 == 0)
+    if (FILE_SELECT_DATA.timeAttackRecordFlags == 0)
         return;
 
     unk_7f60c(&FILE_SELECT_DATA.unk_48);
@@ -2079,10 +2190,10 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
     switch (FILE_SELECT_DATA.subroutineStage)
     {
         case 0:
-            if (FILE_SELECT_DATA.unk_64 & 1)
+            if (FILE_SELECT_DATA.timeAttackRecordFlags & 1)
                 unk_790cc(0, 0x1F);
             
-            if (FILE_SELECT_DATA.unk_64 & 2)
+            if (FILE_SELECT_DATA.timeAttackRecordFlags & 2)
                 unk_790cc(0, 0x20);
 
             FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].boundBackground = 1;
@@ -2105,7 +2216,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
             FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
 
-            if (FILE_SELECT_DATA.unk_64 & 1 && FILE_SELECT_DATA.unk_64 & 2)
+            if (FILE_SELECT_DATA.timeAttackRecordFlags & 1 && FILE_SELECT_DATA.timeAttackRecordFlags & 2)
             {
                 UpdateMenuOamDataID(&FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW], OPTIONS_OAM_ID_LEFT_ARROW_IDLE);
                 FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].boundBackground = 0;
@@ -2144,7 +2255,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             break;
 
         case 2:
-            if (FILE_SELECT_DATA.unk_64 & 1)
+            if (FILE_SELECT_DATA.timeAttackRecordFlags & 1)
             {
                 OptionTimeAttackLoadPasswrod(0);
                 OptionTimeAttackLoadPasswrod(1);
@@ -2157,7 +2268,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             break;
 
         case 4:
-            if (FILE_SELECT_DATA.unk_64 & 2)
+            if (FILE_SELECT_DATA.timeAttackRecordFlags & 2)
             {
                 OptionTimeAttackLoadPasswrod(2);
                 OptionTimeAttackLoadPasswrod(3);
@@ -2184,7 +2295,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].ended &&
                 FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].ended)
             {
-                if (FILE_SELECT_DATA.unk_65)
+                if (FILE_SELECT_DATA.timeAttack100Only)
                 {
                     if (unk_790cc(1, 0x1E))
                     {
@@ -2205,7 +2316,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             if (!action)
                 break;
 
-            if (FILE_SELECT_DATA.unk_65)
+            if (FILE_SELECT_DATA.timeAttack100Only)
             {
                 FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_LEFT_ARROW].notDrawn = FALSE;
                 FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = TRUE;
@@ -2216,7 +2327,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
                 FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_TIME_ATTACK_RIGHT_ARROW].notDrawn = FALSE;
             }
 
-            OptionTimeAttackLoadRecord(FILE_SELECT_DATA.unk_65);
+            OptionTimeAttackLoadRecord(FILE_SELECT_DATA.timeAttack100Only);
 
             FILE_SELECT_DATA.dispcnt |= (DCNT_BG0 | DCNT_BG1);
             FILE_SELECT_DATA.subroutineTimer = 0;
@@ -2244,7 +2355,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
                 break;
             }
             
-            if (FILE_SELECT_DATA.unk_64 != (1 | 2))
+            if (FILE_SELECT_DATA.timeAttackRecordFlags != (1 | 2))
                 break;
 
             if (!(gChangedInput & (KEY_LEFT | KEY_RIGHT)))
@@ -2252,11 +2363,11 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
 
             action = FALSE;
 
-            if (FILE_SELECT_DATA.unk_65)
+            if (FILE_SELECT_DATA.timeAttack100Only)
             {
                 if (gChangedInput & KEY_LEFT)
                 {
-                    FILE_SELECT_DATA.unk_65 = FALSE;
+                    FILE_SELECT_DATA.timeAttack100Only = FALSE;
                     action = TRUE;
                 }
             }
@@ -2264,7 +2375,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             {
                 if (gChangedInput & KEY_RIGHT)
                 {
-                    FILE_SELECT_DATA.unk_65 = TRUE;
+                    FILE_SELECT_DATA.timeAttack100Only = TRUE;
                     action = TRUE;
                 }
             }
@@ -2322,7 +2433,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
  */
 void unk_7b71c(void)
 {
-    if (FILE_SELECT_DATA.unk_65)
+    if (FILE_SELECT_DATA.timeAttack100Only)
         unk_790cc(0, 0x1E);
     else
         unk_790cc(0, 0x1D);
@@ -2766,9 +2877,116 @@ u32 FileSelectMenuSubroutine(void)
     return FALSE;
 }
 
+/**
+ * @brief 7c300 | 1b0 | Handles the fadings (in and out) of the file select menu
+ * 
+ * @return u32 bool, ended
+ */
 u32 FileSelectFading(void)
 {
+    u32 ended;
+    u16* src;
+    u16* dst;
 
+    ended = FALSE;
+
+    FILE_SELECT_DATA.fadingTimer++;
+
+    switch (FILE_SELECT_DATA.fadingStage)
+    {
+        case 0:
+            if (FILE_SELECT_DATA.unk_E)
+                break;
+
+            if (FILE_SELECT_DATA.fadingTimer < FILE_SELECT_DATA.fadingFrequency)
+                break;
+
+            if (FILE_SELECT_DATA.colorToApply < 32)
+            {
+                src = sEwramPointer + 0x000;
+                dst = sEwramPointer + 0x400;
+                ApplySpecialBackgroundFadingColor(0, FILE_SELECT_DATA.colorToApply, &src, &dst, USHORT_MAX);
+                src = sEwramPointer + 0x200;
+                dst = sEwramPointer + 0x600;
+                ApplySpecialBackgroundFadingColor(0, FILE_SELECT_DATA.colorToApply, &src, &dst, USHORT_MAX);
+
+                FILE_SELECT_DATA.unk_E = TRUE;
+                if (FILE_SELECT_DATA.colorToApply == 31)
+                {
+                    FILE_SELECT_DATA.colorToApply++;
+                }
+                else
+                {
+                    if (FILE_SELECT_DATA.colorToApply + FILE_SELECT_DATA.fadingIntensity > 31)
+                        FILE_SELECT_DATA.colorToApply = 31;
+                    else
+                        FILE_SELECT_DATA.colorToApply += FILE_SELECT_DATA.fadingIntensity;
+                }
+                break;
+            }
+
+            DMATransfer(3, sEwramPointer, sEwramPointer + 0x400, 0x400, 16);
+            FILE_SELECT_DATA.unk_E = TRUE;
+            FILE_SELECT_DATA.fadingStage++;
+            break;
+
+        case 1:
+            if (!FILE_SELECT_DATA.unk_E)
+            {
+                FILE_SELECT_DATA.colorToApply = 0;
+                FILE_SELECT_DATA.fadingStage = 0;
+                ended = TRUE;
+            }
+            break;
+
+        case 2:
+            if (FILE_SELECT_DATA.unk_E)
+                break;
+
+            if (FILE_SELECT_DATA.fadingTimer < FILE_SELECT_DATA.fadingFrequency)
+                break;
+
+            FILE_SELECT_DATA.fadingTimer = 0;
+            if (FILE_SELECT_DATA.colorToApply < 32)
+            {
+                src = sEwramPointer + 0x000;
+                dst = sEwramPointer + 0x400;
+                ApplySpecialBackgroundFadingColor(2, FILE_SELECT_DATA.colorToApply, &src, &dst, USHORT_MAX);
+                src = sEwramPointer + 0x200;
+                dst = sEwramPointer + 0x600;
+                ApplySpecialBackgroundFadingColor(2, FILE_SELECT_DATA.colorToApply, &src, &dst, USHORT_MAX);
+
+                FILE_SELECT_DATA.unk_E = TRUE;
+                if (FILE_SELECT_DATA.colorToApply == 31)
+                {
+                    FILE_SELECT_DATA.colorToApply++;
+                }
+                else
+                {
+                    if (FILE_SELECT_DATA.colorToApply + FILE_SELECT_DATA.fadingIntensity > 31)
+                        FILE_SELECT_DATA.colorToApply = 31;
+                    else
+                        FILE_SELECT_DATA.colorToApply += FILE_SELECT_DATA.fadingIntensity;
+                }
+                break;
+            }
+
+            BitFill(3, 0, sEwramPointer + 0x400, 0x400, 16);
+            FILE_SELECT_DATA.unk_E = TRUE;
+            FILE_SELECT_DATA.fadingStage++;
+            break;
+
+        case 3:
+            if (!FILE_SELECT_DATA.unk_E)
+            {
+                FILE_SELECT_DATA.colorToApply = 0;
+                FILE_SELECT_DATA.fadingStage = 0;
+                ended = TRUE;
+            }
+            break;
+    }
+
+    return ended;
 }
 
 /**
@@ -2780,7 +2998,7 @@ void unk_7c4b0(u8 param_1)
 {
     FILE_SELECT_DATA.colorToApply = 0;
     FILE_SELECT_DATA.unk_E = 0;
-    FILE_SELECT_DATA.unk_10 = 0;
+    FILE_SELECT_DATA.fadingTimer = 0;
 
     if (!param_1)
     {
@@ -2788,17 +3006,17 @@ void unk_7c4b0(u8 param_1)
         BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
         DMATransfer(3, PALRAM_BASE, sEwramPointer + 0x400, PALRAM_SIZE, 16);
 
-        FILE_SELECT_DATA.unk_C = 0;
-        FILE_SELECT_DATA.unk_12 = 8;
-        FILE_SELECT_DATA.unk_13 = 0;
+        FILE_SELECT_DATA.fadingStage = 0;
+        FILE_SELECT_DATA.fadingIntensity = 8;
+        FILE_SELECT_DATA.fadingFrequency = 0;
     }
     else
     {
         DMATransfer(3, PALRAM_BASE, sEwramPointer, PALRAM_SIZE, 16);
 
-        FILE_SELECT_DATA.unk_C = 2;
-        FILE_SELECT_DATA.unk_12 = 8;
-        FILE_SELECT_DATA.unk_13 = 0;
+        FILE_SELECT_DATA.fadingStage = 2;
+        FILE_SELECT_DATA.fadingIntensity = 8;
+        FILE_SELECT_DATA.fadingFrequency = 0;
     }
 }
 
