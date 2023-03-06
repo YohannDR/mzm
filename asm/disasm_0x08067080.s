@@ -6401,7 +6401,7 @@ lbl_0806a260:
     movs r1, #1
     orrs r0, r1
     strb r0, [r2, #3]
-    bl sub_08060d38
+    bl end_demo
     ldr r1, lbl_0806a290 @ =0x03000bf0
     movs r0, #9
     b lbl_0806a2a6
@@ -25653,8 +25653,8 @@ lbl_080737c0: .4byte 0x03000020
 lbl_080737c4: .4byte 0x03000154
 lbl_080737c8: .4byte 0x08411430
 
-    thumb_func_start sub_080737cc
-sub_080737cc: @ 0x080737cc
+    thumb_func_start SramProcessEndingSave
+SramProcessEndingSave: @ 0x080737cc
     push {r4, r5, lr}
     sub sp, #4
     movs r5, #0

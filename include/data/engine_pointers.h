@@ -6,6 +6,7 @@
 #include "structs/connection.h"
 #include "structs/projectile.h"
 #include "structs/particle.h"
+#include "structs/color_effects.h"
 
 extern const ProjFunc_T sProcessProjectileFunctionPointers[16];
 
@@ -18,6 +19,8 @@ extern const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_ARE
 // More...
 
 // 75fd88
+
+extern const ColorFadingFunc_T sColorFadingSubroutinePointers[4];
 
 /**
  * @brief Haze data for each room effect

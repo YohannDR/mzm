@@ -21,7 +21,7 @@ struct ColorFading {
 };
 
 struct ColorFadingData {
-    u8 unk_0;
+    u8 isWhite;
     ColorFadingUnkFunc_T unk_4;
     u8 unk_8;
     ColorFadingUnkFunc_T unk_C;
@@ -31,8 +31,15 @@ struct ColorFadingData {
     u8 unk_16;
 };
 
+struct ColorFadingColorInfo {
+    const u8* const colorArray;
+    u8 size;
+};
+
 // Globals
 
 extern struct ColorFading gColorFading;
+extern u16 gBg1CntDuringDoorTransition;
+extern u16 gBg3CntDuringDoorTransition;
 
 #endif

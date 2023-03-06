@@ -1822,7 +1822,7 @@ lbl_08039734:
     ldr r0, [r0]
     str r0, [r1, #8]
     movs r0, #4
-    bl start_effect_for_cutscene
+    bl StartEffectForCutscene
 lbl_0803975e:
     add sp, #0xc
     pop {r4}

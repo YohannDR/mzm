@@ -723,7 +723,7 @@ void RoomUpdateGFXInfo(void)
         gDisableDoorAndTanks |= 0x80;
 
     if (gMonochromeBgFading != 0)
-        apply_background_fading(); // Undefined
+        ColorFadingApplyMonochrome();
     else
     {
         MinimapUpdate();

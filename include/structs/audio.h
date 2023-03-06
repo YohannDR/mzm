@@ -7,8 +7,8 @@
 
 struct MusicTrackInfo {
     u16 currentRoomTrack;
-    u8 pauseScreenFlag;
-    u8 takingNormalTransition;
+    i8 pauseScreenFlag;
+    i8 takingNormalTransition;
     i8 unk;
 };
 

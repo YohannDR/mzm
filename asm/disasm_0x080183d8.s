@@ -3168,7 +3168,7 @@ lbl_08019c74:
     cmp r0, #1
     bne lbl_08019c92
     movs r0, #6
-    bl start_effect_for_cutscene
+    bl StartEffectForCutscene
     b lbl_08019c9e
 lbl_08019c92:
     cmp r0, #0

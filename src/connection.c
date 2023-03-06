@@ -7,6 +7,7 @@
 #include "data/hatch_data.h"
 
 #include "constants/connection.h"
+#include "constants/color_fading.h"
 #include "constants/clipdata.h"
 #include "constants/cutscene.h"
 #include "constants/event.h"
@@ -908,7 +909,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
             {
                 gCurrentCutscene = CUTSCENE_MOTHER_BRAIN_CLOSE_UP;
 
-                ColorFadingStart(0x2);
+                ColorFadingStart(COLOR_FADING_CANCEL);
                 SoundFade(0x10E, 0xA);
                 FadeMusic(0xA);
             }
@@ -919,7 +920,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
             {
                 gCurrentCutscene = CUTSCENE_RIDLEY_IN_SPACE;
 
-                ColorFadingStart(0x2);
+                ColorFadingStart(COLOR_FADING_CANCEL);
                 SoundFade(0x10E, 0xA);
                 FadeMusic(0xA);
             }
@@ -930,7 +931,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
             {
                 gCurrentCutscene = CUTSCENE_RIDLEY_LANDING;
 
-                ColorFadingStart(0x2);
+                ColorFadingStart(COLOR_FADING_CANCEL);
                 SoundFade(0x10E, 0xA);
                 FadeMusic(0xA);
             }
@@ -941,7 +942,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
             {
                 gCurrentCutscene = CUTSCENE_ENTER_TOURIAN;
 
-                ColorFadingStart(0x2);
+                ColorFadingStart(COLOR_FADING_CANCEL);
                 SoundFade(0x10E, 0xA);
                 FadeMusic(0xA);
             }

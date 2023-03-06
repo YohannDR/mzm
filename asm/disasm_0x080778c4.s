@@ -52,7 +52,7 @@ lbl_08077920:
     ldr r0, lbl_08077958 @ =0x0194f780
     bl sub_080027f8
     movs r0, #0xa
-    bl sub_08002acc
+    bl FadeAllSounds
     movs r0, #0xa
     bl FadeMusic
     ldr r0, lbl_0807795c @ =0x030013d2

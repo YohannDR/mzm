@@ -66,7 +66,7 @@ lbl_080811d8:
     movs r0, #1
     strb r0, [r1]
     movs r0, #0xa
-    bl sub_08002acc
+    bl FadeAllSounds
     movs r0, #0xa
     bl FadeMusic
     b lbl_0808122a

@@ -6,7 +6,7 @@
 u8 ColorFadingUpdate(void);
 u8 unk_5bd58(u8 param_1, u8 color);
 u8 unk_5bdc8(u8 param_1, u8 color);
-u8 unk_5bd7c(u8 param_1, u8 color);
+u8 unk_5be7c(u8 param_1, u8 color);
 u8 ColorFadingSubroutine_Empty(u8 param_1, u8 color);
 void ColorFadingTransferPaletteOnTransition(void);
 void StartEffectForCutscene(u8 request);

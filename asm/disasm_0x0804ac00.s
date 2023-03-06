@@ -730,7 +730,7 @@ lbl_0804b1dc:
     b lbl_0804b33e
 lbl_0804b1e2:
     movs r0, #8
-    bl start_effect_for_cutscene
+    bl StartEffectForCutscene
     b lbl_0804b33e
 lbl_0804b1ea:
     adds r2, r3, #0
@@ -900,7 +900,7 @@ lbl_0804b31c:
     movs r0, #0x28
     strb r0, [r1]
     movs r0, #1
-    bl start_effect_for_cutscene
+    bl StartEffectForCutscene
 lbl_0804b33e:
     ldr r5, lbl_0804b384 @ =0x03000738
     adds r4, r5, #0

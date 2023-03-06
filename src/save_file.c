@@ -8,8 +8,9 @@
 #include "data/internal_save_file_data.h"
 #include "data/block_data.h"
 
-#include "constants/game_state.h"
+#include "constants/color_fading.h"
 #include "constants/connection.h"
+#include "constants/game_state.h"
 #include "constants/samus.h"
 
 #include "structs/audio.h"
@@ -2006,7 +2007,7 @@ void Sram_CheckLoadSaveFile(void)
         // No save file, create one and setup data
         Sram_InitSaveFile();
 
-        gColorFading.type = 0x15; // TODO enum
+        gColorFading.type = COLOR_FADING_LANDING_SHIP; // TODO enum
 
         gEquipment.downloadedMapStatus = 0;
         gCurrentArea = gStartingInfo.startingArea;
