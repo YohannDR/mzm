@@ -310,7 +310,7 @@ void MellowInit(struct SpriteData* pSprite)
         else
         {
             pSprite->pOam = sMellowOAM_SamusDetected;
-            pSprite->bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+            pSprite->bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
             pSprite->drawOrder = 0x3;
             pSprite->workVariable = 0x0;
             pSprite->workVariable2 = 0x1;
@@ -380,7 +380,7 @@ void MellowIdle(struct SpriteData* pSprite)
         pSprite->animationDurationCounter = 0x0;
         pSprite->currentAnimationFrame = 0x0;
 
-        pSprite->bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+        pSprite->bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
         pSprite->drawOrder = 0x3;
     }
 }

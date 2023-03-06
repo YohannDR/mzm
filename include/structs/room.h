@@ -8,7 +8,7 @@ struct Haze {
     void* pAffected;
     u16 unk;
     u8 size;
-    u8 flag;
+    u8 flag; // TODO Bitfield
 };
 
 extern struct Haze gHazeInfo;

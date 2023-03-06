@@ -756,9 +756,9 @@ void ConnectionLoadDoors(void)
         if (bldalpha)
         {
             TransparencyUpdateBLDALPHA(bldalpha & 0xFF, bldalpha, 1, 1);
-            gIORegistersBackup.BLDALPHA_NonGameplay_EVB = gBldalphaData1.evbCoef;
-            gIORegistersBackup.BLDALPHA_NonGameplay_EVA = gBldalphaData1.evaCoef;
-            write16((REG_BASE + 0x52), gIORegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIORegistersBackup.BLDALPHA_NonGameplay_EVA);;
+            gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = gBldalphaData1.evbCoef;
+            gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = gBldalphaData1.evaCoef;
+            write16((REG_BASE + 0x52), gIoRegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIoRegistersBackup.BLDALPHA_NonGameplay_EVA);;
         }
     }
 }
@@ -769,7 +769,7 @@ void ConnectionLoadDoors(void)
  */
 void ConnectionLockHatchesWithTimer(void)
 {
-    gHatchesState.hatchesLockedWithTimer = 0xFFFF;
+    gHatchesState.hatchesLockedWithTimer = USHORT_MAX;
     ConnectionLockHatches(FALSE);
     gDoorUnlockTimer = 0x2;
 }

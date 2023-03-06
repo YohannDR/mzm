@@ -34,7 +34,7 @@ void FallingChozoPillar(void)
             gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
 
             gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+            gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
 
             gCurrentSprite.pOam = sFallingChozoPillarOAM_Falling;
             gCurrentSprite.currentAnimationFrame = 0x0;

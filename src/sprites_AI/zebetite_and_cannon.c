@@ -316,7 +316,7 @@ void Cannon(void)
         gCurrentSprite.samusCollision = SSC_NONE;
         gCurrentSprite.drawOrder = 5;
 
-        gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 3;
+        gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 3;
         gCurrentSprite.pose = 9;
 
         gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;

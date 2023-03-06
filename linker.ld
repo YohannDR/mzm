@@ -40,7 +40,7 @@ SECTIONS {
         . = 0x0000000f; gWrittenToWINOUT_L = .;
         . = 0x00000010; gWrittenTo0x05000000 = .;
         . = 0x00000020; gLanguage = .;
-        . = 0x00000029; gMonochromeBGFading = .;
+        . = 0x00000029; gMonochromeBgFading = .;
         . = 0x0000002A; gWhichBGPositionIsWrittenToBG3OFS = .;
         . = 0x0000002B; gSamusOnTopOfBackgrounds = .;
         . = 0x0000002C; gDifficulty = .;
@@ -84,7 +84,7 @@ SECTIONS {
         . = 0x0000007e; gTourianEscapeCutsceneStage = .;
         . = 0x0000007f; gUnk_300007f = .;
         . = 0x00000080; gHazeInfo = .;
-        . = 0x00000088; gIORegistersBackup = .;
+        . = 0x00000088; gIoRegistersBackup = .;
         . = 0x0000009C; gBGPointersAndDimensions = .;
         . = 0x000000BC; gCurrentRoomEntry = .;
         . = 0x000000DC; gCurrentAffectingClipdata = .;

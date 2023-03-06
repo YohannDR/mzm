@@ -3249,7 +3249,7 @@ void SpacePirateLaserExplodingInit(void)
         gCurrentSprite.pose = SPACE_PIRATE_LASER_POSE_EXPLODING;
         gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
 
-        gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+        gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
         SoundPlayNotAlreadyPlaying(0x25F);
     }
 }

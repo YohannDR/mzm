@@ -1985,7 +1985,7 @@ void unk_7584c(u8 param_1)
     }
 
     gGameModeSub3 = 0;
-    gMonochromeBGFading = 0;
+    gMonochromeBgFading = 0;
     gDisableSoftreset = FALSE;
     gSubGameModeStage = 0;
     gPauseScreenFlag = PAUSE_SCREEN_NONE;

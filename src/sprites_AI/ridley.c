@@ -2464,7 +2464,7 @@ void RidleyFireballInit(void)
     gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
     gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.drawOrder = 0x2;
     
     if (gCurrentSprite.spriteID == SSPRITE_RIDLEY_BIG_FIREBALL)

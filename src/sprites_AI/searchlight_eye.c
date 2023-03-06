@@ -429,7 +429,7 @@ void SearchlightEyeProjectile(void)
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
             gCurrentSprite.drawOrder = 0x3;
-            gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+            gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
 
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {

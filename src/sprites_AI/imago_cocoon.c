@@ -919,7 +919,7 @@ void ImagoCocoonSporeInit(void)
     gCurrentSprite.pose = IMAGO_COCOON_SPORE_POSE_SPAWNING;
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.drawOrder = 0x3;
-    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
 
     gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;

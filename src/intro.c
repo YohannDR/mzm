@@ -955,7 +955,7 @@ u8 IntroFuzz(void)
                 gGameModeSub1++;
                 gGameModeSub2 = 1;
                 FadeAllSounds(10);
-                MusicFade(10);
+                FadeMusic(10);
             }
             else if (sIntroSubroutinesFunctionsPointer[INTRO_DATA.stage]())
             {

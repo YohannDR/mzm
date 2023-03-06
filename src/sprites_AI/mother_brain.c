@@ -797,7 +797,7 @@ void MotherBrainBeam(void)
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.samusCollision = SSC_MOTHER_BRAIN_BEAM;
             gCurrentSprite.drawOrder = 0x3;
-            gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+            gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
             gCurrentSprite.health = 0x1;
             gCurrentSprite.timer = 0x10;
 
@@ -882,7 +882,7 @@ void MotherBrainGlassBreaking(void)
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 0x3;
-            gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+            gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
             break;
 
         case 0x9:

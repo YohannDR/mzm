@@ -60,6 +60,6 @@ extern u16 gDISPCNTBackup;
 extern u16 gWrittenToDISPCNT;
 extern u8 gWrittenToWININ_H;
 extern u8 gWrittenToWINOUT_L;
-extern struct IORegistersBackup gIORegistersBackup;
+extern struct IORegistersBackup gIoRegistersBackup;
 
 #endif

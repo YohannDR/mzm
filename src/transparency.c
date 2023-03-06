@@ -28,19 +28,19 @@ void TransparencySetRoomEffectsTransparency(void)
         {
             coef = TransparencyCheckIsDarkRoom();
             if (coef != 0)
-                gIORegistersBackup.DISPCNT_NonGameplay = (gIORegistersBackup.DISPCNT_NonGameplay | DCNT_BG0) & coef;
+                gIoRegistersBackup.DISPCNT_NonGameplay = (gIoRegistersBackup.DISPCNT_NonGameplay | DCNT_BG0) & coef;
         }
 
-        write16(REG_BG1CNT, gIORegistersBackup.BG1CNT);
-        write16(REG_BG2CNT, gIORegistersBackup.BG2CNT);
+        write16(REG_BG1CNT, gIoRegistersBackup.BG1CNT);
+        write16(REG_BG2CNT, gIoRegistersBackup.BG2CNT);
 
-        write8(0x400004a, gIORegistersBackup.WINOUT_L);
-        write8(0x4000049, gIORegistersBackup.WININ_H);
+        write8(0x400004a, gIoRegistersBackup.WINOUT_L);
+        write8(0x4000049, gIoRegistersBackup.WININ_H);
 
         write16(0x4000042, gSuitFlashEffect.left << 8 | gSuitFlashEffect.right);
         write16(0x4000046, gSuitFlashEffect.top << 8 | gSuitFlashEffect.bottom);
 
-        write16(REG_BLDALPHA, gIORegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIORegistersBackup.BLDALPHA_NonGameplay_EVA);
+        write16(REG_BLDALPHA, gIoRegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIoRegistersBackup.BLDALPHA_NonGameplay_EVA);
         return;
     }
 
@@ -232,26 +232,26 @@ void TransparencySetRoomEffectsTransparency(void)
 
     if (eva == 0)
     {
-        gIORegistersBackup.BLDALPHA_NonGameplay_EVB = evb;
-        gIORegistersBackup.BLDALPHA_NonGameplay_EVA = 0x10 - gIORegistersBackup.BLDALPHA_NonGameplay_EVB;
+        gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = evb;
+        gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = 0x10 - gIoRegistersBackup.BLDALPHA_NonGameplay_EVB;
 
         gDefaultTransparency.unknown_1 = 0;
     }
     else
     {
-        gIORegistersBackup.BLDALPHA_NonGameplay_EVB = 0x10;
-        gIORegistersBackup.BLDALPHA_NonGameplay_EVA = eva;
+        gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = 0x10;
+        gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = eva;
 
         gDefaultTransparency.unknown_1 = 1;
     }
 
-    gDefaultTransparency.evaCoef = gIORegistersBackup.BLDALPHA_NonGameplay_EVA;
-    gDefaultTransparency.evbCoef = gIORegistersBackup.BLDALPHA_NonGameplay_EVB;
+    gDefaultTransparency.evaCoef = gIoRegistersBackup.BLDALPHA_NonGameplay_EVA;
+    gDefaultTransparency.evbCoef = gIoRegistersBackup.BLDALPHA_NonGameplay_EVB;
 
     gBldalphaData1.evaCoef = gDefaultTransparency.evaCoef;
     gBldalphaData1.evbCoef = gDefaultTransparency.evbCoef;
 
-    write16(REG_BLDALPHA, gIORegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIORegistersBackup.BLDALPHA_NonGameplay_EVA);
+    write16(REG_BLDALPHA, gIoRegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIoRegistersBackup.BLDALPHA_NonGameplay_EVA);
 
     gWrittenToBLDALPHA = 0;
     gWrittenToBLDY = -1;
@@ -267,8 +267,8 @@ void TransparencySetRoomEffectsTransparency(void)
     write16(0x4000040, 0);
     write16(0x4000044, 0);
 
-    gIORegistersBackup.WININ_H = 0x3F;
-    gIORegistersBackup.WINOUT_L = 0x20;
+    gIoRegistersBackup.WININ_H = 0x3F;
+    gIoRegistersBackup.WINOUT_L = 0x20;
 
     write8(0x400004a, 0x20);
     write8(0x4000049, 0x3F);
@@ -279,11 +279,11 @@ void TransparencySetRoomEffectsTransparency(void)
     write16(REG_BG1CNT, bgCnt[1]);
     write16(REG_BG2CNT, bgCnt[2]);
 
-    gIORegistersBackup.BG0CNT = bgCnt[0];
-    gIORegistersBackup.unknown_12 = bgCnt[0];
-    gIORegistersBackup.BG1CNT = bgCnt[1];
-    gIORegistersBackup.BG2CNT = bgCnt[2];
-    gIORegistersBackup.BG3CNT = bgCnt[3];
+    gIoRegistersBackup.BG0CNT = bgCnt[0];
+    gIoRegistersBackup.unknown_12 = bgCnt[0];
+    gIoRegistersBackup.BG1CNT = bgCnt[1];
+    gIoRegistersBackup.BG2CNT = bgCnt[2];
+    gIoRegistersBackup.BG3CNT = bgCnt[3];
 
     if (gCurrentRoomEntry.transparency < 8)
         gDefaultTransparency.unknown_4 = 0x3f40;
@@ -307,7 +307,7 @@ void TransparencySetRoomEffectsTransparency(void)
     if (coef)
         dispcnt &= coef;
 
-    gIORegistersBackup.DISPCNT_NonGameplay = dispcnt;
+    gIoRegistersBackup.DISPCNT_NonGameplay = dispcnt;
 }
 
 u16 TransparencyGetBGSizeFlag(u8 size)
@@ -356,7 +356,7 @@ void TransparencyUpdateBLDCNT(u8 action, u16 value)
 {
     u16 effects = value & (BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
 
-    gIORegistersBackup.BLDCNT_NonGameplay = value;
+    gIoRegistersBackup.BLDCNT_NonGameplay = value;
 
     switch (action)
     {
@@ -379,14 +379,14 @@ void TransparencyUpdateBLDCNT(u8 action, u16 value)
                 return;
 
         case 3:
-            write16(REG_BLDCNT, gIORegistersBackup.BLDCNT_NonGameplay);
+            write16(REG_BLDCNT, gIoRegistersBackup.BLDCNT_NonGameplay);
 
         default:
             return;
     }
 
     if (gGameModeSub1 == 2 || effects != BLDCNT_BRIGHTNESS_INCREASE_EFFECT)
-        gWrittenToBLDCNT = gIORegistersBackup.BLDCNT_NonGameplay;
+        gWrittenToBLDCNT = gIoRegistersBackup.BLDCNT_NonGameplay;
 }
 
 void TransparencySpriteUpdateBLDY(u8 value, i8 delay, u8 intensity)
@@ -488,49 +488,49 @@ void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
     if (pBldalpha->intensity == 0)
         pBldalpha->intensity = 1;
 
-    if (pBldalpha->evaCoef != gIORegistersBackup.BLDALPHA_NonGameplay_EVA)
+    if (pBldalpha->evaCoef != gIoRegistersBackup.BLDALPHA_NonGameplay_EVA)
     {
         newValue = pBldalpha->intensity;
-        if (pBldalpha->evaCoef < gIORegistersBackup.BLDALPHA_NonGameplay_EVA)
+        if (pBldalpha->evaCoef < gIoRegistersBackup.BLDALPHA_NonGameplay_EVA)
         {
-            newValue = gIORegistersBackup.BLDALPHA_NonGameplay_EVA - newValue;
+            newValue = gIoRegistersBackup.BLDALPHA_NonGameplay_EVA - newValue;
             if (newValue < pBldalpha->evaCoef)
                 newValue = pBldalpha->evaCoef;
         }
         else
         {
-            newValue = gIORegistersBackup.BLDALPHA_NonGameplay_EVA + newValue;
+            newValue = gIoRegistersBackup.BLDALPHA_NonGameplay_EVA + newValue;
             if (newValue > pBldalpha->evaCoef)
                 newValue = pBldalpha->evaCoef;
         }
 
-        gIORegistersBackup.BLDALPHA_NonGameplay_EVA = newValue;
+        gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = newValue;
         newValue = TRUE;
     }
 
-    if (pBldalpha->evbCoef != gIORegistersBackup.BLDALPHA_NonGameplay_EVB)
+    if (pBldalpha->evbCoef != gIoRegistersBackup.BLDALPHA_NonGameplay_EVB)
     {
         newValue = pBldalpha->intensity;
-        if (pBldalpha->evbCoef < gIORegistersBackup.BLDALPHA_NonGameplay_EVB)
+        if (pBldalpha->evbCoef < gIoRegistersBackup.BLDALPHA_NonGameplay_EVB)
         {
-            newValue = gIORegistersBackup.BLDALPHA_NonGameplay_EVB - newValue;
+            newValue = gIoRegistersBackup.BLDALPHA_NonGameplay_EVB - newValue;
             if (newValue < pBldalpha->evbCoef)
                 newValue = pBldalpha->evbCoef;
         }
         else
         {
-            newValue = gIORegistersBackup.BLDALPHA_NonGameplay_EVB + newValue;
+            newValue = gIoRegistersBackup.BLDALPHA_NonGameplay_EVB + newValue;
             if (newValue > pBldalpha->evbCoef)
                 newValue = pBldalpha->evbCoef;
         }
 
-        gIORegistersBackup.BLDALPHA_NonGameplay_EVB = newValue;
+        gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = newValue;
         newValue = TRUE;
     }
 
     if (newValue)
     {
-        gWrittenToBLDALPHA = gIORegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIORegistersBackup.BLDALPHA_NonGameplay_EVA;
+        gWrittenToBLDALPHA = gIoRegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIoRegistersBackup.BLDALPHA_NonGameplay_EVA;
         if (pBldalpha->activeFlag == TRUE)
         {
             pBldalpha->activeFlag |= 2;
@@ -570,29 +570,29 @@ void TransparencyApplyNewBLDY(struct BldyData* pBldy)
     if (pBldy->intensity == 0)
         pBldy->intensity = 1;
 
-    if (pBldy->value != gIORegistersBackup.BLDY_NonGameplay)
+    if (pBldy->value != gIoRegistersBackup.BLDY_NonGameplay)
     {
         newValue = pBldy->intensity;
-        if (pBldy->value < gIORegistersBackup.BLDY_NonGameplay)
+        if (pBldy->value < gIoRegistersBackup.BLDY_NonGameplay)
         {
-            newValue = gIORegistersBackup.BLDY_NonGameplay - newValue;
+            newValue = gIoRegistersBackup.BLDY_NonGameplay - newValue;
             if (newValue < pBldy->value)
                 newValue = pBldy->value;
         }
         else
         {
-            newValue = gIORegistersBackup.BLDY_NonGameplay + newValue;
+            newValue = gIoRegistersBackup.BLDY_NonGameplay + newValue;
             if (newValue > pBldy->value)
                 newValue = pBldy->value;
         }
     
-        gIORegistersBackup.BLDY_NonGameplay = newValue;
+        gIoRegistersBackup.BLDY_NonGameplay = newValue;
         newValue = TRUE;
     }
 
     if (newValue)
     {
-        gWrittenToBLDY = gIORegistersBackup.BLDY_NonGameplay;
+        gWrittenToBLDY = gIoRegistersBackup.BLDY_NonGameplay;
         if (pBldy->activeFlag == TRUE)
         {
             pBldy->activeFlag |= 2;

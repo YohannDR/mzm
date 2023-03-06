@@ -41,7 +41,7 @@ u32 GameOverSubroutine(void)
 
                 UpdateSOUNDCNT_H(0x194F780);
                 FadeAllSounds(10);
-                MusicFade(10);
+                FadeMusic(10);
                 gDemoState = DEMO_STATE_NONE;
                 gGameModeSub2 = 2;
                 return TRUE;
@@ -106,7 +106,7 @@ u32 GameOverSubroutine(void)
                 BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
             GAME_OVER_DATA.dispcnt ^= DCNT_WIN1;
-            MusicFade(20);
+            FadeMusic(20);
             gGameModeSub1++;
             break;
 

@@ -74,7 +74,7 @@ void GadoraInit(void)
 
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
         gCurrentSprite.drawOrder = 0x5;
-        gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+        gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
         gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
 
         // Change palette if ridley gadora
@@ -356,7 +356,7 @@ void GadoraEye(void)
     switch (gCurrentSprite.pose)
     {
         case 0x0:
-            gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+            gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
 
             if (gSpriteData[ramSlot].spriteID == PSPRITE_GADORA_KRAID)
                 gCurrentSprite.health = 0x1;
@@ -445,7 +445,7 @@ void GadoraBeam(void)
             gCurrentSprite.pose = GADORA_BEAM_POSE_MOVING;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
             gCurrentSprite.drawOrder = 0x3;
-            gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+            gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
             gCurrentSprite.health = 0x1;
             gCurrentSprite.timer = 0x10; // Delay before it starts actually moving
             gCurrentSprite.hitboxLeftOffset = -0x4;

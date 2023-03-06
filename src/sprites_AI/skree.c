@@ -233,7 +233,7 @@ void SkreeExplosionInit(void)
     gCurrentSprite.pose = 0x9;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.drawOrder = 0x3;
-    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
     
     gCurrentSprite.yPosition += 0x28;
     gCurrentSprite.status |= (SPRITE_STATUS_DOUBLE_SIZE | SPRITE_STATUS_ROTATION_SCALING);

@@ -55,5 +55,6 @@ extern u8 gSubGameModeStage;
 
 extern u8 gHasSaved;
 extern i8 gMostRecentSaveFile;
+extern u8 gCompletedGameFlagCopy;
 
 #endif

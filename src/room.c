@@ -722,7 +722,7 @@ void RoomUpdateGFXInfo(void)
     else
         gDisableDoorAndTanks |= 0x80;
 
-    if (gMonochromeBGFading != 0)
+    if (gMonochromeBgFading != 0)
         apply_background_fading(); // Undefined
     else
     {

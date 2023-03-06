@@ -263,7 +263,7 @@ void PowerBombExplosionEnd(void)
     if (gCurrentPowerBomb.stage == 0)
     {
         write16(REG_BLDY, 0);
-        gWrittenToBLDCNT = gIORegistersBackup.BLDCNT_NonGameplay;
+        gWrittenToBLDCNT = gIoRegistersBackup.BLDCNT_NonGameplay;
 
         if (sHazeData[gCurrentRoomEntry.visualEffect][3] == 2)
             gWrittenToBLDALPHA = 0x10;
@@ -280,16 +280,16 @@ void PowerBombExplosionEnd(void)
         // Set transparent color
         write16(PALRAM_BASE, 0);
 
-        gWrittenToWININ_H = gIORegistersBackup.WININ_H;
-        gWrittenToWINOUT_L = gIORegistersBackup.WINOUT_L;
+        gWrittenToWININ_H = gIoRegistersBackup.WININ_H;
+        gWrittenToWINOUT_L = gIoRegistersBackup.WINOUT_L;
 
         // Get BGCNT backups
-        write16(REG_BG0CNT, gIORegistersBackup.BG0CNT);
-        write16(REG_BG1CNT, gIORegistersBackup.BG1CNT);
-        write16(REG_BG2CNT, gIORegistersBackup.BG2CNT);
-        write16(REG_BG3CNT, gIORegistersBackup.BG3CNT);
+        write16(REG_BG0CNT, gIoRegistersBackup.BG0CNT);
+        write16(REG_BG1CNT, gIoRegistersBackup.BG1CNT);
+        write16(REG_BG2CNT, gIoRegistersBackup.BG2CNT);
+        write16(REG_BG3CNT, gIoRegistersBackup.BG3CNT);
 
-        gWrittenToDISPCNT = gIORegistersBackup.DISPCNT_NonGameplay;
+        gWrittenToDISPCNT = gIoRegistersBackup.DISPCNT_NonGameplay;
         gCurrentPowerBomb.stage = 1;
     }
     else if (gCurrentPowerBomb.stage == 1)
@@ -299,18 +299,18 @@ void PowerBombExplosionEnd(void)
         evb = read16(REG_BLDALPHA) >> 8;
         done = TRUE;
 
-        if (gIORegistersBackup.BLDALPHA_NonGameplay_EVB != evb)
+        if (gIoRegistersBackup.BLDALPHA_NonGameplay_EVB != evb)
         {
-            if (gIORegistersBackup.BLDALPHA_NonGameplay_EVB < evb)
+            if (gIoRegistersBackup.BLDALPHA_NonGameplay_EVB < evb)
                 evb--;
             else
                 evb++;
             done = FALSE;
         }
 
-        if (gIORegistersBackup.BLDALPHA_NonGameplay_EVA != eva)
+        if (gIoRegistersBackup.BLDALPHA_NonGameplay_EVA != eva)
         {
-            if (gIORegistersBackup.BLDALPHA_NonGameplay_EVA < eva)
+            if (gIoRegistersBackup.BLDALPHA_NonGameplay_EVA < eva)
                 eva--;
             else
                 eva++;

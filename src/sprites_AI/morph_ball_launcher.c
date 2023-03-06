@@ -64,7 +64,7 @@ void MorphBallLauncherInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.pose = MORPH_BALL_LAUNCHER_POSE_IDLE;
-    gCurrentSprite.bgPriority = ((gIORegistersBackup.BG1CNT & 0x3) + 0x1) & 0x3;
+    gCurrentSprite.bgPriority = ((gIoRegistersBackup.BG1CNT & 0x3) + 0x1) & 0x3;
     gCurrentSprite.drawOrder = 0x2;
 
     // Spawn back
@@ -210,7 +210,7 @@ void MorphBallLauncherPart(void)
                 gCurrentSprite.drawDistanceBottomOffset = 0x0;
                 gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
-                gCurrentSprite.bgPriority = ((gIORegistersBackup.BG1CNT & 0x3) + 0x1) & 0x3;
+                gCurrentSprite.bgPriority = ((gIoRegistersBackup.BG1CNT & 0x3) + 0x1) & 0x3;
                 gCurrentSprite.drawOrder = 0xC;
                 gCurrentSprite.pose = MORPH_BALL_LAUNCHER_PART_POSE_IDLE;
             }
@@ -221,7 +221,7 @@ void MorphBallLauncherPart(void)
                 gCurrentSprite.drawDistanceBottomOffset = 0x18;
                 gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
 
-                gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+                gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
                 gCurrentSprite.drawOrder = 0x1;
                 gCurrentSprite.pose = MORPH_BALL_LAUNCHER_PART_POSE_ENERGY;
                 gCurrentSprite.timer = 0x3C;

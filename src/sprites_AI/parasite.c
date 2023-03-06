@@ -1008,7 +1008,7 @@ void ParasiteDyingInit(struct SpriteData* pSprite)
     pSprite->currentAnimationFrame = 0x0;
     pSprite->animationDurationCounter = 0x0;
 
-    pSprite->bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+    pSprite->bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
 }
 
 /**
