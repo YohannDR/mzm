@@ -8,6 +8,7 @@
 
 #include "structs/power_bomb_explosion.h"
 #include "structs/game_state.h"
+#include "structs/in_game_cutscene.h"
 #include "structs/display.h"
 #include "structs/samus.h"
 #include "structs/room.h"

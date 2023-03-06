@@ -10,6 +10,7 @@
 #include "structs/bg_clip.h"
 #include "structs/clipdata.h"
 #include "structs/display.h"
+#include "structs/in_game_cutscene.h"
 #include "structs/game_state.h"
 #include "structs/room.h"
 #include "structs/power_bomb_explosion.h"

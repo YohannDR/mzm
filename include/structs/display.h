@@ -18,28 +18,6 @@ struct IORegistersBackup {
     u16 unknown_12;
 };
 
-struct SuitFlashEffect {
-    u8 left;
-    u8 right;
-    u8 top;
-    u8 bottom;
-    u8 timer;
-};
-
-// Temp
-struct InGameCutscene {
-    u16 timer;
-    u8 stage;
-    u8 cutsceneNumber;
-    u8 cutsceneNumber_Copy;
-    u8 unknown;
-    Func_T pSubroutine;
-};
-extern struct InGameCutscene gInGameCutscene;
-
-
-extern struct SuitFlashEffect gSuitFlashEffect;
-
 extern u16 gWrittenToWIN1H;
 extern u16 gWrittenToWIN1V;
 extern u16 gWrittenToBLDCNT;

@@ -18,6 +18,7 @@
 
 #include "structs/audio.h"
 #include "structs/bg_clip.h"
+#include "structs/in_game_cutscene.h"
 #include "structs/color_effects.h"
 #include "structs/clipdata.h"
 #include "structs/cutscene.h"
