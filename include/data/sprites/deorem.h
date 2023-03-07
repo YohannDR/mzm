@@ -208,7 +208,7 @@ const struct FrameData DeoremUnkOAMData_082d7894[5] = { /* 0x082d7894 */
     { NULL, 0x0 }
 };
 
-const struct FrameData DeoremUnkOAMData_082d78bc[5] = { /* 0x082d7894 */
+const struct FrameData DeoremUnkOAMData_082d78bc[5] = { /* 0x082d78bc */
     { DeoremUnkOAM_082d7570, 0xC },
     { DeoremUnkOAM_082d757e, 0xC },
     { DeoremUnkOAM_082d758c, 0xC },
@@ -216,7 +216,7 @@ const struct FrameData DeoremUnkOAMData_082d78bc[5] = { /* 0x082d7894 */
     { NULL, 0x0 }
 };
 
-const struct FrameData DeoremUnkOAMData_082d78e4[5] = { /* 0x082d7894 */
+const struct FrameData DeoremUnkOAMData_082d78e4[5] = { /* 0x082d78e4 */
     { DeoremUnkOAM_082d759a, 0xC },
     { DeoremUnkOAM_082d75b4, 0xC },
     { DeoremUnkOAM_082d75ce, 0xC },
