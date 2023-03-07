@@ -1459,7 +1459,7 @@ void AcidWormSpitExplodingGFXInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.pose = 0x43;
-    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     SoundPlay(0x1B8);
 }

@@ -41,7 +41,7 @@ void CheckTransferFadedPalette(void)
 
 }
 
-void CallApplySpecialBackgroundFadingColor(void)
+void CallApplySpecialBackgroundFadingColor(u8 color)
 {
 
 }

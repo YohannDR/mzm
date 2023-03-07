@@ -110,8 +110,8 @@ lbl_08002abe:
 lbl_08002ac4: .4byte 0x00000009
 lbl_08002ac8: .4byte 0x0808f254
 
-    thumb_func_start sub_08002acc
-sub_08002acc: @ 0x08002acc
+    thumb_func_start FadeAllSounds
+FadeAllSounds: @ 0x08002acc
     push {r4, r5, lr}
     adds r4, r0, #0
     lsls r4, r4, #0x10
@@ -1980,8 +1980,8 @@ lbl_0800386c: .4byte 0x0808f254
 lbl_08003870: .4byte 0x0808f2c0
 lbl_08003874: .4byte 0x03001d00
 
-    thumb_func_start check_play_new_music_track
-check_play_new_music_track: @ 0x08003878
+    thumb_func_start CheckPlayTransitionMusicTrack
+CheckPlayTransitionMusicTrack: @ 0x08003878
     push {r4, r5, lr}
     ldr r4, lbl_08003898 @ =0x03001d00
     adds r0, r4, #0
@@ -2155,8 +2155,8 @@ lbl_080039c2:
     bx r1
     .align 2, 0
 
-    thumb_func_start sub_080039c8
-sub_080039c8: @ 0x080039c8
+    thumb_func_start unk_39c8
+unk_39c8: @ 0x080039c8
     push {r4, lr}
     ldr r0, lbl_080039ec @ =0x03001d00
     adds r0, #0x21
@@ -2385,8 +2385,8 @@ lbl_08003b72:
     .align 2, 0
 lbl_08003b78: .4byte 0x0808f254
 
-    thumb_func_start sub_08003b7c
-sub_08003b7c: @ 0x08003b7c
+    thumb_func_start FadeCurrentInsertMusicQueueCurrent
+FadeCurrentInsertMusicQueueCurrent: @ 0x08003b7c
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10

@@ -6,6 +6,7 @@
 #include "data/sprite_data.h"
 
 #include "constants/audio.h"
+#include "constants/color_fading.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
@@ -606,7 +607,7 @@ void RidleyCheckPlayCutscene(void)
             gCurrentSprite.arrayOffset = 0x0;
             gCurrentSprite.oamScaling = 0x12C;
 
-            start_effect_for_cutscene(0x5); // Undefined
+            StartEffectForCutscene(EFFECT_CUTSCENE_RIDLEY_SPAWN);
         }
     }
 }
@@ -1748,7 +1749,7 @@ void RidleyDying(void)
                 gCurrentSprite.workVariable2--;
 
             if (gCurrentSprite.workVariable2 == 0x1)
-                start_effect_for_cutscene(0x6); // Undefined
+                StartEffectForCutscene(EFFECT_CUTSCENE_STATUE_OPENING);
             else if (gCurrentSprite.workVariable2 == 0x0)
                 FadeMusic(0x96);
         }
@@ -2464,7 +2465,7 @@ void RidleyFireballInit(void)
     gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
     gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.drawOrder = 0x2;
     
     if (gCurrentSprite.spriteID == SSPRITE_RIDLEY_BIG_FIREBALL)

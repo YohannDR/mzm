@@ -7,6 +7,7 @@
 
 #include "particle.h"
 #include "projectile.h"
+#include "color_fading.h"
 
 #include "constants/connection.h"
 #include "constants/room.h"
@@ -118,7 +119,14 @@ const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_AREAS - 1]
 
 const u8* const sScrollPointer_Empty = sScroll_Empty;
 
-const u8 sTempArray_75fae4[0x2A4] = INCBIN_U8("data/Blob_75fae4_75fd88.bin");
+const u8 sTempArray_75fae4[0x294] = INCBIN_U8("data/Blob_75fae4_75fd78.bin");
+
+const ColorFadingFunc_T sColorFadingSubroutinePointers[4] = {
+    ColorFadingSubroutine_Empty,
+    unk_5bd58,
+    unk_5bdc8,
+    unk_5be7c
+};
 
 /**
  * @brief Haze data for each room effect

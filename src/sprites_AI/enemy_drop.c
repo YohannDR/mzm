@@ -26,7 +26,7 @@ void EnemyDropInit(void)
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
 
-    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.drawOrder = 0x1;
 
     // Set OAM and collision

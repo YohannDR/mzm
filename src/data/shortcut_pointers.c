@@ -15,7 +15,7 @@ u32* sVisitedMinimapTilesPointer = gVisitedMinimapTiles;
 FORCE_RODATA
 union NonGameplayRAM* sNonGameplayRamPointer = &gNonGameplayRAM;
 FORCE_RODATA
-void* sSramEwramPointer = EWRAM_BASE + 0x38000;
+struct Sram* sSramEwramPointer = EWRAM_BASE + 0x38000;
 FORCE_RODATA
 void* sSramFlashPointer = SRAM_BASE;
 

@@ -6,6 +6,7 @@
 #include "data/sprite_data.h"
 
 #include "constants/audio.h"
+#include "constants/color_fading.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
@@ -1528,7 +1529,7 @@ void KraidDying(void)
         {
             gCurrentSprite.workVariable2--;
             if (gCurrentSprite.workVariable2 == 0x1)
-                start_effect_for_cutscene(0x6); // Statue opening || Undefined
+                StartEffectForCutscene(EFFECT_CUTSCENE_STATUE_OPENING); // Statue opening
             else if (gCurrentSprite.workVariable2 == 0x0)
                 SoundPlay(0x1D2);
         }

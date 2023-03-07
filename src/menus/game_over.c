@@ -5,11 +5,13 @@
 #include "temp_globals.h"
 
 #include "data/menus/game_over_data.h"
+#include "data/menus/file_select_data.h"
 #include "data/shortcut_pointers.h"
 
 #include "constants/audio.h"
 #include "constants/demo.h"
 #include "constants/game_over.h"
+#include "constants/menus/file_select.h"
 
 #include "structs/demo.h"
 #include "structs/display.h"
@@ -39,7 +41,7 @@ u32 GameOverSubroutine(void)
 
                 UpdateSOUNDCNT_H(0x194F780);
                 FadeAllSounds(10);
-                MusicFade(10);
+                FadeMusic(10);
                 gDemoState = DEMO_STATE_NONE;
                 gGameModeSub2 = 2;
                 return TRUE;
@@ -104,7 +106,7 @@ u32 GameOverSubroutine(void)
                 BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
 
             GAME_OVER_DATA.dispcnt ^= DCNT_WIN1;
-            MusicFade(20);
+            FadeMusic(20);
             gGameModeSub1++;
             break;
 
@@ -161,7 +163,7 @@ u32 GameOverProcessInput(void)
 
     if (gChangedInput & (KEY_A | KEY_START))
     {
-        play_menu_sound(12); // Undefined
+        FileSelectPlayMenuSound(MENU_SOUND_REQUEST_GAME_OVER_START_GAME);
         GameOverUpdateSamusHead(SAMUS_CURSOR_ACTION_SELECTING);
         return TRUE;
     }
@@ -188,7 +190,7 @@ u32 GameOverProcessInput(void)
         return FALSE;
 
     // Update cursor
-    play_menu_sound(11); // Undefined
+    FileSelectPlayMenuSound(MENU_SOUND_REQUEST_GAME_OVER_MENU_CURSOR);
     GameOverUpdateTextGfx();
     GameOverUpdateSamusHead(SAMUS_CURSOR_ACTION_MOVING);
 
@@ -276,7 +278,7 @@ void GameOverInit(void)
     LZ77UncompVRAM(sGameOver_454520, VRAM_BASE);
     DMATransfer(3, VRAM_BASE + 0x1800, VRAM_BASE + 0x1000, 0x800, 0x20);
     LZ77UncompVRAM(sGameOverTextAndBackgroundGFX, VRAM_BASE + 0x4000);
-    LZ77UncompVRAM(sFileSelectIconsGfx, VRAM_BASE + 0x10000);
+    LZ77UncompVRAM(sFileSelectIconsGFX, VRAM_BASE + 0x10000);
     LZ77UncompVRAM(sGameOverTextPromptGfxPointers[gLanguage], VRAM_BASE + 0xA800);
 
     write16(REG_BG0CNT, 0x4);
@@ -446,9 +448,9 @@ void GameOverUpdateLettersPalette(void)
 
             row = GAME_OVER_DATA.dynamicPalette.currentPaletteRow;
             i = 0;
-            while (i < (int)ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
+            while (i < ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
             {
-                if (row >= (int)ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
+                if (row >= ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
                     row = 0;
 
                 GAME_OVER_DATA.dynamicPalette.palette[i] = src[row];

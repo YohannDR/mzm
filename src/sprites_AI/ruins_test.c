@@ -6,6 +6,7 @@
 #include "data/generic_data.h"
 
 #include "constants/audio.h"
+#include "constants/color_fading.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
@@ -981,7 +982,7 @@ void RuinsTestDespawn(void)
         EventFunction(EVENT_ACTION_SETTING, EVENT_FULLY_POWERED_SUIT_OBTAINED);
         gInGameTimerAtBosses[2] = gInGameTimer;
         // Start getting fully powered cutscene
-        start_effect_for_cutscene(0x4); // Undefined
+        StartEffectForCutscene(EFFECT_CUTSCENE_GETTING_FULLY_POWERED);
     }
 }
 

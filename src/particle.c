@@ -7,6 +7,7 @@
 #include "data/particle_data.h"
 #include "data/visual_effects_data.h"
 
+#include "constants/color_fading.h"
 #include "constants/escape.h"
 #include "constants/particle.h"
 #include "constants/samus.h"
@@ -1697,7 +1698,7 @@ void ParticleEscape(struct ParticleEffect* pParticle)
                 gPreventMovementTimer = 0x3E8;
                 pParticle->stage = 0x3;
                 pParticle->frameCounter = 0xFF;
-                start_effect_for_cutscene(0x2);
+                StartEffectForCutscene(EFFECT_CUTSCENE_ESCAPE_FAILED);
             }
             else if (gCurrentEscapeStatus == ESCAPE_STATUS_HAPPENNING && EscapeCheckHasEscaped())
             {

@@ -1,64 +1,109 @@
 #include "softreset.h"
 #include "gba.h"
+#include "callbacks.h"
 
-#include "constants/game_state.h"
-#include "structs/audio.h"
+#include "data/shortcut_pointers.h"
+
+#include "constants/cutscene.h"
+
+#include "structs/display.h"
 #include "structs/game_state.h"
+#include "structs/cutscene.h"
 
-#define SOFTRESET_KEYS (KEY_A | KEY_B | KEY_START | KEY_SELECT)
-
-void SoftresetVBlankCallback(void)
+/**
+ * @brief 7ef9c | 54 | Subroutine for a softreset
+ * 
+ * @return u32 bool, ended
+ */
+u32 SoftresetSubroutine(void)
 {
-    /* probably left over from some debugging code */
-    volatile u8 c = 0;
+    switch (gGameModeSub1)
+    {
+        case 0:
+            SoftresetInit();
+            gGameModeSub1++;
+            break;
+
+        case 1:
+            if (gWrittenToBLDY_NonGameplay - 4 < 1)
+                gWrittenToBLDY_NonGameplay = 0;
+            else
+                gWrittenToBLDY_NonGameplay -= 4;
+            
+            if (gWrittenToBLDY_NonGameplay == 0)
+                gGameModeSub1++;
+            break;
+
+        case 2:
+            return TRUE;
+    }
+
+    return FALSE;
 }
 
-void SoftresetCheck(void)
+/**
+ * @brief 7eff0 | 110 | Initializes a soft reset
+ * 
+ */
+void SoftresetInit(void)
 {
-    if (gMainGameMode == GM_START_SOFTRESET)
-        return;
+    // The use of non gameplay ram in this function is inconsequential
 
-    if (gDisableSoftreset)
-        return;
+    u32 buffer;
 
-    if ((gButtonInput & SOFTRESET_KEYS) == SOFTRESET_KEYS)
-        gMainGameMode = GM_START_SOFTRESET;
-}
+    CallbackSetVBlank(SoftresetVBlank_Empty);
+    
+    buffer = 0;
+    dma_set(3, &buffer, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);    
 
-void Softreset(void)
-{
-    sub_0805d034();
-    unk_33dc();
+    write16(REG_BLDCNT, CUTSCENE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
+        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
+        BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
 
-    write16(REG_IME, FALSE);
-    write16(REG_IE, 0);
-    write16(REG_DISPSTAT, 0);
-    PLTT_BG[0] = 0;
-    write16(REG_DISPCNT, 0);
-    write16(REG_BLDY, 0x10);
-    write16(REG_BLDCNT, 0xff);
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 16);
+    write16(REG_DISPCNT, CUTSCENE_DATA.dispcnt = 0);
 
-    dma_fill32(3, 0, EWRAM_BASE, 0x40000);
-    dma_fill32(3, 0, IWRAM_BASE, 0x7e00);
-
+    gNextOamSlot = 0;
     ClearGfxRam();
-    LoadInterruptCode();
-    CallbackSetVBlank(SoftresetVBlankCallback);
-    read_sram();
-    init_sound();
+    ResetFreeOAM();
 
-    write16(REG_IE, IF_VBLANK | IF_DMA2 | IF_GAMEPAK);
-    write16(REG_DISPSTAT, DSTAT_IF_VBLANK);
+    gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
+    write16(PALRAM_BASE, 0);
+    gGameModeSub3 = 0;
 
-    gMainGameMode = GM_INTRO;
-    gGameModeSub1 = 0;
-    gGameModeSub2 = 0;
-    gResetGame = 0;
-    gStereoFlag = 0;
-    gButtonInput = KEY_NONE;
-    gPreviousButtonInput = KEY_NONE;
-    gChangedInput = KEY_NONE;
+    gBG0HOFS_NonGameplay = gBG0VOFS_NonGameplay = 0;
+    gBG1HOFS_NonGameplay = gBG1VOFS_NonGameplay = 0;
+    gBG2HOFS_NonGameplay = gBG2VOFS_NonGameplay = 0;
+    gBG3HOFS_NonGameplay = gBG3VOFS_NonGameplay = 0;
 
-    write16(REG_IF, 0xffff);
-    write16(REG_IME, TRUE);
+    write16(REG_BG0HOFS, 0);
+    write16(REG_BG0VOFS, 0);
+    write16(REG_BG1HOFS, 0);
+    write16(REG_BG1VOFS, 0);
+    write16(REG_BG2HOFS, 0);
+    write16(REG_BG2VOFS, 0);
+    write16(REG_BG3HOFS, 0);
+    write16(REG_BG3VOFS, 0);
+    
+    write16(REG_DISPCNT, CUTSCENE_DATA.dispcnt = 0);
+
+    CallbackSetVBlank(SoftresetVBlank);
+}
+
+/**
+ * @brief 7f100 | 14 | V-blank code for a softreset
+ * 
+ */
+void SoftresetVBlank(void)
+{
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
+}
+
+/**
+ * @brief 7f114 | c | Empty v-blank for a softreset
+ * 
+ */
+void SoftresetVBlank_Empty(void)
+{
+    vu8 c = 0;
 }

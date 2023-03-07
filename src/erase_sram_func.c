@@ -4,11 +4,12 @@
 #include "memory.h"
 #include "sram/sram.h"
 #include "types.h"
+#include "structs/save_file.h"
 
-void EraseSRAM(void)
+void EraseSram(void)
 {
-    BitFill(3, 0xffff, &unk_02038000, SRAM_SIZE, 16);
-    if (gSRAMCorruptFlag == 0) {
-        SRAMWriteChecked(unk_02038000, SRAM_BASE, SRAM_SIZE);
+    BitFill(3, 0xffff, &gSram, SRAM_SIZE, 16);
+    if (!gSramCorruptFlag) {
+        SramWriteChecked((u8*)&gSram, SRAM_BASE, SRAM_SIZE);
     }
 }

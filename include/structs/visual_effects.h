@@ -14,8 +14,10 @@ struct BackgroundEffect {
 
 extern struct BackgroundEffect gBackgroundEffect;
 
-extern u8 gMonochromeBGFading;
+extern u8 gMonochromeBgFading;
 extern i8 gDisableAnimatedPalette;
 extern u8 gDisableAnimatedGraphicsTimer;
+
+extern u8 gCurrentHazeValue;
 
 #endif

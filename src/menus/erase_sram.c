@@ -110,7 +110,7 @@ u32 EraseSramSubroutine(void)
 
         case 7:
             unk_33dc();
-            EraseSRAM();
+            EraseSram();
             leaving = TRUE;
     }
 
@@ -383,7 +383,7 @@ void EraseSramResetOAM(void)
     ERASE_SRAM_DATA.currentOption = ERASE_SRAM_OPTION_QUESTION_NO;
     ERASE_SRAM_DATA.nextOption = ERASE_SRAM_OPTION_CHANGED_FLAG | ERASE_SRAM_OPTION_QUESTION_NO;
 
-    for (i = 0; i < (int)ARRAY_SIZE(ERASE_SRAM_DATA.oam); i++)
+    for (i = 0; i < ARRAY_SIZE(ERASE_SRAM_DATA.oam); i++)
     {
         ERASE_SRAM_DATA.oam[i] = *(struct MenuOamData*)0x840d048;
         // FIXME *pOam = sEraseSramMenuOamData_Empty;

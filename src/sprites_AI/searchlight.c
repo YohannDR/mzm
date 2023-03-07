@@ -35,7 +35,7 @@ void Searchlight(void)
 
                 gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
                 gCurrentSprite.pose = SEARCHLIGHT_POSE_IDLE;
-                gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+                gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
                 gCurrentSprite.drawOrder = 0x1;
 
                 // Set initial direction based on sprite ID

@@ -8,7 +8,10 @@
 #define bomb_chain_type_to_flag(type) (1 << type)
 
 #define check_samus_turning() ((pData->direction ^ (KEY_RIGHT | KEY_LEFT)) & gButtonInput)
-#define ARRAY_SIZE(a) (sizeof((a)) / sizeof((a)[0]))
+#define ARRAY_SIZE(a) ((int)(sizeof((a)) / sizeof((a)[0])))
+#define OFFSET_OF(type, element) ((int)&(((type *)0)->element))
+
+#define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
 
 #define RED(c) ((c) & COLOR_MASK)
 #define GREEN(c) (((c) & (COLOR_MASK << 5)) >> 5)

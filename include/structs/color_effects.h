@@ -3,6 +3,11 @@
 
 #include "types.h"
 
+// Typedef
+
+typedef u8 (*ColorFadingFunc_T)(u8, u8);
+typedef u8 (*ColorFadingUnkFunc_T)(void);
+
 // Structs
 
 struct ColorFading {
@@ -15,11 +20,26 @@ struct ColorFading {
     u16 unk_6;
 };
 
-// Typedef
+struct ColorFadingData {
+    u8 isWhite;
+    ColorFadingUnkFunc_T unk_4;
+    u8 unk_8;
+    ColorFadingUnkFunc_T unk_C;
+    u8 unk_10;
+    u16 bgColorMask;
+    u16 objColorMask;
+    u8 unk_16;
+};
 
+struct ColorFadingColorInfo {
+    const u8* const colorArray;
+    u8 size;
+};
 
 // Globals
 
 extern struct ColorFading gColorFading;
+extern u16 gBg1CntDuringDoorTransition;
+extern u16 gBg3CntDuringDoorTransition;
 
 #endif

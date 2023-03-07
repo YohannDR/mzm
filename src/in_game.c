@@ -89,7 +89,7 @@ u32 InGameMainLoop(void)
 
         case SUB_GAME_MODE_LOADING_ROOM:
             IOWriteRegistersDuringTransition();
-            if (process_fading_effect())
+            if (ColorFadingProcess())
             {
                 gGameModeSub1 = 0;
                 if (gPauseScreenFlag != PAUSE_SCREEN_NONE || gCurrentCutscene != 0 || gTourianEscapeCutsceneStage != 0)
@@ -374,7 +374,7 @@ void InitAndLoadGenerics(void)
     }
 
     gWrittenToBLDY_NonGameplay = 0x10;
-    hide_screen_during_load(); // Undefined
+    ColorFadingHideScreenDuringLoad(); // Undefined
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE || gCurrentCutscene != 0)

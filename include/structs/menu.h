@@ -14,12 +14,14 @@ struct MenuOamData {
     u8 animationDurationCounter;
     u8 currentAnimationFrame;
     u8 oamID;
+    // B
     u16 priority:2;
     u16 unk_B_4:2;
     u16 ended:1;
     u16 notDrawn:1;
     u16 idChanged:2;
 
+    // C
     u8 boundBackground:4;
     i16 unk_E;
 };

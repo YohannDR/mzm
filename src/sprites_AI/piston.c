@@ -135,7 +135,7 @@ void PistonInit(void)
     gCurrentSprite.samusCollision = SSC_NONE;
     gCurrentSprite.health = 0x100;
     gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
-    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
 
     PistonChangeFourCCAA(CAA_MAKE_NON_POWER_GRIP); // Set hitbox
 }

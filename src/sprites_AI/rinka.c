@@ -37,7 +37,7 @@ void RinkaInit(void)
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.drawOrder = 0x3;
-    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.workVariable = 0x0;
 
     if (gCurrentSprite.spriteID != PSPRITE_RINKA_GREEN && gCurrentSprite.spriteID != PSPRITE_RINKA_ORANGE)

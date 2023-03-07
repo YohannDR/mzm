@@ -1546,7 +1546,7 @@ lbl_08055f64: .4byte 0x03000006
 unk_55f68: @ 0x08055f68
     push {lr}
     bl update_animated_palette_after_transition_or_reload
-    bl transfer_faded_palette_on_transition
+    bl ColorFadingTransferPaletteOnTransition
     bl check_play_loading_jingle
     pop {r0}
     bx r0
@@ -2295,7 +2295,7 @@ lbl_080565d8:
     adds r3, #1
     movs r0, #1
     adds r1, r3, #0
-    bl rle_decompress
+    bl RoomRLEDecompress
     b lbl_08056648
     .align 2, 0
 lbl_08056604: .4byte 0x0875fac4
@@ -2334,7 +2334,7 @@ lbl_08056648:
     adds r3, #1
     movs r0, #1
     adds r1, r3, #0
-    bl rle_decompress
+    bl RoomRLEDecompress
     ldr r3, [sp, #0x10]
     ldr r2, lbl_080566b8 @ =0x0202d800
     str r2, [r4, #8]
@@ -2346,7 +2346,7 @@ lbl_08056648:
     adds r3, #1
     movs r0, #1
     adds r1, r3, #0
-    bl rle_decompress
+    bl RoomRLEDecompress
     ldr r0, lbl_080566bc @ =0x030000bc
     ldrb r1, [r0, #3]
     movs r0, #0x10
@@ -2364,7 +2364,7 @@ lbl_08056648:
     adds r3, #1
     movs r0, #1
     adds r1, r3, #0
-    bl rle_decompress
+    bl RoomRLEDecompress
 lbl_080566a4:
     add sp, #0x40
     pop {r4}
@@ -2470,7 +2470,7 @@ lbl_08056762:
     strb r2, [r0]
     bl sub_080749e4
 lbl_08056774:
-    bl bg30_fs_related
+    bl unk_5c158
     ldr r0, lbl_08056974 @ =0x03000bf0
     movs r3, #0
     ldrsb r3, [r0, r3]
@@ -3146,8 +3146,8 @@ lbl_08056d02:
     .align 2, 0
 lbl_08056d14: .4byte 0x0202a800
 
-    thumb_func_start rle_decompress
-rle_decompress: @ 0x08056d18
+    thumb_func_start RoomRLEDecompress
+RoomRLEDecompress: @ 0x08056d18
     push {r4, r5, r6, lr}
     sub sp, #4
     adds r4, r1, #0
@@ -3330,7 +3330,7 @@ lbl_08056e52:
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_08056e68
-    bl apply_background_fading
+    bl ColorFadingApplyMonochrome
     b lbl_08056e70
     .align 2, 0
 lbl_08056e60: .4byte 0x03000048
@@ -3588,7 +3588,7 @@ lbl_08057042:
     bl process_bomb_chains
     bl sub_08060434
     bl check_unlock_doors
-    bl sub_0805e760
+    bl ConnectionUpdateHatches
 lbl_0805706c:
     bl ProcessHaze
     cmp r0, #0

@@ -6401,7 +6401,7 @@ lbl_0806a260:
     movs r1, #1
     orrs r0, r1
     strb r0, [r2, #3]
-    bl sub_08060d38
+    bl end_demo
     ldr r1, lbl_0806a290 @ =0x03000bf0
     movs r0, #9
     b lbl_0806a2a6
@@ -25010,8 +25010,8 @@ lbl_08073292:
     .align 2, 0
 lbl_08073298: .4byte 0x08754bc4
 
-    thumb_func_start read_sram
-read_sram: @ 0x0807329c
+    thumb_func_start SramRead_All
+SramRead_All: @ 0x0807329c
     push {r4, r5, lr}
     movs r4, #3
     ldr r5, lbl_080732b8 @ =0x03000c1c
@@ -25265,7 +25265,7 @@ lbl_080734a4:
 lbl_080734b0: .4byte 0x08754bc8
 lbl_080734b4: .4byte 0x00006d40
 lbl_080734b8:
-    bl EraseSRAM
+    bl EraseSram
     ldr r1, lbl_080734e0 @ =0x0841147c
     ldr r2, lbl_080734e4 @ =0x03000014
     movs r0, #0x10
@@ -25653,8 +25653,8 @@ lbl_080737c0: .4byte 0x03000020
 lbl_080737c4: .4byte 0x03000154
 lbl_080737c8: .4byte 0x08411430
 
-    thumb_func_start sub_080737cc
-sub_080737cc: @ 0x080737cc
+    thumb_func_start SramProcessEndingSave
+SramProcessEndingSave: @ 0x080737cc
     push {r4, r5, lr}
     sub sp, #4
     movs r5, #0
@@ -26127,8 +26127,8 @@ lbl_08073b9a:
     pop {r1}
     bx r1
 
-    thumb_func_start save_file
-save_file: @ 0x08073ba4
+    thumb_func_start SramSaveFile
+SramSaveFile: @ 0x08073ba4
     push {lr}
     sub sp, #4
     ldr r1, lbl_08073bd4 @ =0x03000043
@@ -27003,14 +27003,14 @@ sub_08074304: @ 0x08074304
     ldr r4, lbl_0807436c @ =0x0e007f80
     adds r1, r4, #0
     movs r2, #0x10
-    bl SRAMWriteChecked
+    bl SramWriteChecked
     rsbs r1, r0, #0
     orrs r1, r0
     lsrs r5, r1, #0x1f
     adds r0, r4, #0
     mov r1, sp
     movs r2, #0x10
-    bl SRAMWriteUnchecked
+    bl SramWriteUnchecked
     movs r2, #0
 lbl_0807432c:
     mov r0, sp
@@ -27025,7 +27025,7 @@ lbl_0807432c:
     mov r0, sp
     adds r1, r4, #0
     movs r2, #0x10
-    bl SRAMWriteChecked
+    bl SramWriteChecked
     cmp r0, #0
     beq lbl_08074350
     movs r0, #2
@@ -27034,7 +27034,7 @@ lbl_08074350:
     adds r0, r4, #0
     mov r1, sp
     movs r2, #0x10
-    bl SRAMWriteUnchecked
+    bl SramWriteUnchecked
     movs r2, #0
     mov r0, sp
     ldrb r1, [r0]

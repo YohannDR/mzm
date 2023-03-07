@@ -11,8 +11,14 @@ void agbmain(void)
 {
     InitializeGame();
 
-    while (gClearedEveryFrame = 0, UpdateAudio(), !gResetGame)
+    while (TRUE)
     {
+        gVblankActive = FALSE;
+        UpdateAudio();
+
+        if (gResetGame)
+            break;
+
         UpdateInput();
         SoftresetCheck();
 
@@ -22,7 +28,7 @@ void agbmain(void)
         switch (gMainGameMode)
         {
             case GM_SOFTRESET:
-                if (softreset_main())
+                if (SoftresetSubroutine())
                 {
                     gMainGameMode = GM_INTRO;
                     gGameModeSub1 = 0;
@@ -56,7 +62,7 @@ void agbmain(void)
                 break;
 
             case GM_FILESELECT:
-                if (fileselect_main())
+                if (FileSelectMenuSubroutine())
                 {
                     if (gGameModeSub2 == 1)
                         gMainGameMode = GM_INGAME;
@@ -238,8 +244,8 @@ void agbmain(void)
         }
         
 
-        gVBlankRequestFlag &= ~1;
-        gClearedEveryFrame = 1;
+        gVBlankRequestFlag &= ~TRUE;
+        gVblankActive = TRUE;
 
         do {
             SYSCALL(2); /* SYS_Halt */

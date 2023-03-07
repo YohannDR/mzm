@@ -18,6 +18,7 @@
 
 #include "structs/audio.h"
 #include "structs/bg_clip.h"
+#include "structs/in_game_cutscene.h"
 #include "structs/color_effects.h"
 #include "structs/clipdata.h"
 #include "structs/cutscene.h"
@@ -722,8 +723,8 @@ void RoomUpdateGFXInfo(void)
     else
         gDisableDoorAndTanks |= 0x80;
 
-    if (gMonochromeBGFading != 0)
-        apply_background_fading(); // Undefined
+    if (gMonochromeBgFading != 0)
+        ColorFadingApplyMonochrome();
     else
     {
         MinimapUpdate();

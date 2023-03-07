@@ -128,7 +128,7 @@ void UnknownItemBlock(void)
                     {
                         // Initialize light
                         gSpriteData[activated].status &= ~SPRITE_STATUS_NOT_DRAWN;
-                        gSpriteData[activated].bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+                        gSpriteData[activated].bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
                         gSpriteData[activated].drawOrder = 0x1;
                         
                         gSpriteData[activated].hitboxTopOffset = 0x0;
@@ -154,7 +154,7 @@ void UnknownItemBlock(void)
         default:
             // Hit by something, set exploding behavior
             gCurrentSprite.pose = UNKNOWN_ITEM_BLOCK_POSE_EXPLODING;
-            gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+            gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
 
             gCurrentSprite.pOam = sUnknownItemBlockOAM_Exploding;
             gCurrentSprite.animationDurationCounter = 0x0;

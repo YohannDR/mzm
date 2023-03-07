@@ -552,7 +552,7 @@ void ProjectileDraw(struct ProjectileData* pProj)
         xFlip = pProj->status & PROJ_STATUS_XFLIP;
         yFlip = pProj->status & PROJ_STATUS_YFLIP;
 
-        bgPriority = (gIORegistersBackup.BG1CNT & 3);
+        bgPriority = (gIoRegistersBackup.BG1CNT & 3);
         if (pProj->status & PROJ_STATUS_HIGH_PRIORITY)
             bgPriority = 0x0;
         else

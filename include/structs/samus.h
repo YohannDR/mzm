@@ -138,6 +138,7 @@ struct SamusEcho {
     u8 timer;
     u8 position;
     u8 distance;
+    u32 padding_4;
     u16 previous64XPositions[64];
     u16 previous64YPositions[64];
     u16 previousPositionCounter;

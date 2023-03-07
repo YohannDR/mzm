@@ -126,7 +126,7 @@ void KraidStatueInit(void)
     gCurrentSprite.hitboxLeftOffset = 0x0;
     gCurrentSprite.hitboxRightOffset = 0x0;
 
-    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.drawOrder = 0x1;
     gCurrentSprite.samusCollision = SSC_NONE;
 
@@ -338,7 +338,7 @@ void RidleyStatueInit(void)
     gCurrentSprite.hitboxLeftOffset = 0x0;
     gCurrentSprite.hitboxRightOffset = 0x0;
 
-    gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
     gCurrentSprite.drawOrder = 0x1;
     gCurrentSprite.samusCollision = SSC_NONE;
 

@@ -4,7 +4,7 @@
 
 #include "gba.h"
 #include "io.h"
-#include "softreset.h"
+#include "softreset_input.h"
 #include "types.h"
 
 #include "constants/game_state.h"
@@ -23,7 +23,7 @@ void InitializeGame(void)
     ClearGfxRam();
     LoadInterruptCode();
     CallbackSetVBlank(SoftresetVBlankCallback);
-    read_sram();
+    SramRead_All();
     init_sound();
 
     write16(REG_IE, IF_VBLANK | IF_DMA2 | IF_GAMEPAK);

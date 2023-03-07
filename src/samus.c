@@ -1524,7 +1524,7 @@ void SamusChangeToHurtPose(struct SamusData* pData, struct SamusData* pCopy, str
     else
     {
         gDisableScrolling = 0x1;
-        gMonochromeBGFading = 0x1;
+        gMonochromeBgFading = 0x1;
         pData->pose = SPOSE_DYING;
         new_x_velo = ((gBG1XPosition + 0x1E0) - pData->xPosition);
         new_x_velo >>= 0x1;
@@ -4568,7 +4568,7 @@ u8 SamusDying(struct SamusData* pData)
         switch (pData->timer++)
         {
             case 0x4:
-                gMonochromeBGFading = 0x2;
+                gMonochromeBgFading = 0x2;
             
             case 0xC:
             case 0x14:

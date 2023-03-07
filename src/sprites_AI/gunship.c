@@ -4,6 +4,7 @@
 
 #include "data/sprites/gunship.h"
 
+#include "constants/color_fading.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 #include "constants/event.h"
@@ -251,7 +252,7 @@ void GunshipLanding(void)
         if (gCurrentSprite.timer == 0x1E)
         {
             // Start intro
-            start_effect_for_cutscene(0x7); // Undefined
+            StartEffectForCutscene(EFFECT_CUTSCENE_INTRO_TEXT);
             gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
         }
     }
@@ -714,7 +715,7 @@ void GunshipFlying(void)
     {
         if (gCurrentSprite.timer == 0x32)
         {
-            start_effect_for_cutscene(0x3); // Undefined
+            StartEffectForCutscene(EFFECT_CUTSCENE_EXITING_ZEBES);
             gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
         }
 

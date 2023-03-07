@@ -7,6 +7,7 @@
 #include "data/hatch_data.h"
 
 #include "constants/connection.h"
+#include "constants/color_fading.h"
 #include "constants/clipdata.h"
 #include "constants/cutscene.h"
 #include "constants/event.h"
@@ -376,7 +377,7 @@ u8 ConnectionCheckAreaConnection(u16 yPosition, u16 xPosition)
     else
         gSamusDoorPositionOffset = (pDoor->yEnd + 0x1) * BLOCK_SIZE - gSamusData.yPosition - 0x1;
 
-    start_special_background_fading(0x6); // No transition | Undefined
+    ColorFadingStart(0x6); // No transition
     gGameModeSub1 = SUB_GAME_MODE_LOADING_ROOM;
     pDoor = sAreaDoorsPointers[gCurrentArea] + gLastDoorUsed;
 
@@ -756,9 +757,9 @@ void ConnectionLoadDoors(void)
         if (bldalpha)
         {
             TransparencyUpdateBLDALPHA(bldalpha & 0xFF, bldalpha, 1, 1);
-            gIORegistersBackup.BLDALPHA_NonGameplay_EVB = gBldalphaData1.evbCoef;
-            gIORegistersBackup.BLDALPHA_NonGameplay_EVA = gBldalphaData1.evaCoef;
-            write16((REG_BASE + 0x52), gIORegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIORegistersBackup.BLDALPHA_NonGameplay_EVA);;
+            gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = gBldalphaData1.evbCoef;
+            gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = gBldalphaData1.evaCoef;
+            write16((REG_BASE + 0x52), gIoRegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIoRegistersBackup.BLDALPHA_NonGameplay_EVA);;
         }
     }
 }
@@ -769,7 +770,7 @@ void ConnectionLoadDoors(void)
  */
 void ConnectionLockHatchesWithTimer(void)
 {
-    gHatchesState.hatchesLockedWithTimer = 0xFFFF;
+    gHatchesState.hatchesLockedWithTimer = USHORT_MAX;
     ConnectionLockHatches(FALSE);
     gDoorUnlockTimer = 0x2;
 }
@@ -908,7 +909,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
             {
                 gCurrentCutscene = CUTSCENE_MOTHER_BRAIN_CLOSE_UP;
 
-                start_special_background_fading(0x2);
+                ColorFadingStart(COLOR_FADING_CANCEL);
                 SoundFade(0x10E, 0xA);
                 FadeMusic(0xA);
             }
@@ -919,7 +920,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
             {
                 gCurrentCutscene = CUTSCENE_RIDLEY_IN_SPACE;
 
-                start_special_background_fading(0x2);
+                ColorFadingStart(COLOR_FADING_CANCEL);
                 SoundFade(0x10E, 0xA);
                 FadeMusic(0xA);
             }
@@ -930,7 +931,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
             {
                 gCurrentCutscene = CUTSCENE_RIDLEY_LANDING;
 
-                start_special_background_fading(0x2);
+                ColorFadingStart(COLOR_FADING_CANCEL);
                 SoundFade(0x10E, 0xA);
                 FadeMusic(0xA);
             }
@@ -941,7 +942,7 @@ void ConnectionCheckPlayCutsceneDuringElevator(void)
             {
                 gCurrentCutscene = CUTSCENE_ENTER_TOURIAN;
 
-                start_special_background_fading(0x2);
+                ColorFadingStart(COLOR_FADING_CANCEL);
                 SoundFade(0x10E, 0xA);
                 FadeMusic(0xA);
             }

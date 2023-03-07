@@ -16,6 +16,9 @@ struct FileScreenOptionsUnlocked {
     u16 galleryImages;
     u16 fusionGalleryImages;
     u8 soundTestAndOgMetroid;
+    u8 unk_5;
+    u8 unk_6;
+    u8 unk_7;
     u32 timeAttack;
 };
 
@@ -29,12 +32,13 @@ extern u8 gSramErrorFlag;
 extern u8 gDisablePause;
 extern u8 gDisableScrolling;
 extern u8 gShipLandingFlag;
+extern u8 gTimeAttackFlag;
 extern u16 gButtonInput;
 extern u16 gPreviousButtonInput;
 extern u16 gChangedInput;
 extern i8 gIsLoadingFile;
 extern i8 gPauseScreenFlag;
-extern i8 gClearedEveryFrame;
+extern i8 gVblankActive;
 extern u8 gFrameCounter8Bit;
 extern u16 gFrameCounter16Bit;
 extern u8 gDifficulty;
@@ -48,5 +52,9 @@ extern i16 gGameModeSub1;
 extern i8 gGameModeSub2;
 extern i8 gGameModeSub3;
 extern u8 gSubGameModeStage;
+
+extern u8 gHasSaved;
+extern i8 gMostRecentSaveFile;
+extern u8 gCompletedGameFlagCopy;
 
 #endif

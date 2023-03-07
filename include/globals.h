@@ -28,11 +28,8 @@ union TileData {
 
 ///
 
-extern u8 unk_02038000[];
-
 extern struct BG2Movement gBG2Movement;
 extern u16 gInterruptCode[0x100];
-extern u8 gSRAMCorruptFlag;
 
 extern void *sp_sys;
 extern void *sp_irq;

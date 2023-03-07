@@ -794,7 +794,7 @@ void AtomicElectricityMove(void)
     if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition) != COLLISION_AIR)
     {
         // Colliding with solid, set exploding behavior
-        gCurrentSprite.bgPriority = gIORegistersBackup.BG1CNT & 0x3;
+        gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
         gCurrentSprite.pose = ATOMIC_ELECTRICITY_POSE_EXPLODING;
 
         gCurrentSprite.hitboxTopOffset = -0x60;
