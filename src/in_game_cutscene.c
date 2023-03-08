@@ -6,6 +6,7 @@
 #include "data/samus_close_up_data.h"
 
 #include "constants/audio.h"
+#include "constants/animated_graphics.h"
 #include "constants/room.h"
 #include "constants/color_fading.h"
 #include "constants/menus/pause_screen.h"
@@ -612,11 +613,11 @@ void MakeBackgroundFlash(u8 type)
     switch (type)
     {
         case BG_FLASH_SLIGHT_YELLOW:
-            start_special_background_effect(2);
+            BackgroundEffectStart(BACKGROUND_EFFECT_SLIGHT_YELLOW);
             break;
 
         case BG_FLASH_HEAVY_YELLOW:
-            start_special_background_effect(3);
+            BackgroundEffectStart(BACKGROUND_EFFECT_HEAVY_YELLOW);
             break;
 
         case BG_FLASH_CHOZO_LONG_TRANSPARENCY:
@@ -627,7 +628,7 @@ void MakeBackgroundFlash(u8 type)
             break;
 
         case BG_FLASH_QUICK_YELLOW:
-            start_special_background_effect(6);
+            BackgroundEffectStart(BACKGROUND_EFFECT_QUICK_FLASH);
             break;
     }
 }
@@ -904,7 +905,7 @@ void UpdateAnimatedPaletteAfterTransitionOrReload(void)
     {
         gInGameCutscene.stage = 0;
         gInGameCutscene.timer = 0;
-        check_disable_animated_palette_on_transition(); // Undefined
+        AnimatedPaletteCheckDisableOnTransition(); // Undefined
     }
 }
 

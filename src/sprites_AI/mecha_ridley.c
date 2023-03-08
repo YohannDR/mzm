@@ -18,7 +18,7 @@
 #include "structs/in_game_timer.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"
-#include "structs/visual_effects.h"
+#include "structs/animated_graphics.h"
 
 #define HEALTH_THRESHOLD_FULL 0
 #define HEALTH_THRESHOLD_COVER_DAMAGED 1

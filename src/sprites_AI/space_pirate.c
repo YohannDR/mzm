@@ -17,7 +17,7 @@
 #include "structs/display.h"
 #include "structs/game_state.h"
 #include "structs/room.h"
-#include "structs/visual_effects.h"
+#include "structs/animated_graphics.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"
 

@@ -27,7 +27,7 @@ void LoadRoomCutscene(u8 area, u8 room, u16 bgX, u16 bgY)
     RoomRemoveNeverReformBlocksAndCollectedTanks();
     TransparencySetRoomEffectsTransparency();
     ScrollBG3();
-    check_play_lightning_effect(); // Undefined
+    AnimatedGraphicsCheckPlayLightningEffect(); // Undefined
     RoomUpdateBackgroundsPosition();
     ConnectionLoadDoors();
     ConnectionCheckHatchLockEvents();
@@ -36,7 +36,7 @@ void LoadRoomCutscene(u8 area, u8 room, u16 bgX, u16 bgY)
     RoomSetInitialTilemap(1);
     RoomSetInitialTilemap(2);
 
-    load_animated_graphics(); // Undefined
+    AnimatedGraphicsLoad(); // Undefined
 
     DMATransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 0x10);
 

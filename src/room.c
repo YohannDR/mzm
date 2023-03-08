@@ -17,6 +17,7 @@
 #include "constants/room.h"
 
 #include "structs/audio.h"
+#include "structs/animated_graphics.h"
 #include "structs/bg_clip.h"
 #include "structs/in_game_cutscene.h"
 #include "structs/color_effects.h"
@@ -108,14 +109,14 @@ void RoomLoad(void)
     }
 
     // Load states, entities
-    check_play_lightning_effect(); // Undefined
+    AnimatedGraphicsCheckPlayLightningEffect(); // Undefined
     RoomUpdateBackgroundsPosition();
     ConnectionLoadDoors();
     ConnectionCheckHatchLockEvents();
     RoomSetInitialTilemap(0x0);
     RoomSetInitialTilemap(0x1);
     RoomSetInitialTilemap(0x2);
-    load_animated_graphics(); // Undefined
+    AnimatedGraphicsLoad(); // Undefined
     reset_tanks_animation(); // Undefined
     set_bg_haze_effect(); // Undefined
     process_haze(); // Undefined
@@ -763,13 +764,13 @@ void RoomUpdateAnimatedGraphicsAndPalettes(void)
     }
 
     if (!dontUpdateBgEffect && gBackgroundEffect.type != 0 && gCurrentPowerBomb.animationState == 0)
-        check_apply_background_effect_color(); // Undefined
+        BackgroundEffectUpdate(); // Undefined
 
     if (!dontUpdateGraphics)
     {
-        update_animated_graphics(); // Undefined
-        update_tanks_animation(); // Undefined
-        update_animated_palette(); // Undefined
+        AnimatedGraphicsUpdate(); // Undefined
+        AnimatedGraphicsTanksAnimationUpdate(); // Undefined
+        AnimatedPaletteUpdate(); // Undefined
         RoomUpdateHatchFlashingAnimation();
     }
 }

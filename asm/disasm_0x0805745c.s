@@ -236,7 +236,7 @@ lbl_08057aa0:
     strh r0, [r2]
 lbl_08057ab0:
     bl sub_0805b3fc
-    bl sub_0805dd5c
+    bl AnimatedGraphicsTransfer
     pop {r4}
     pop {r0}
     bx r0
@@ -340,7 +340,7 @@ lbl_08057b7a:
     strh r0, [r2]
 lbl_08057b8a:
     bl sub_0805b3fc
-    bl sub_0805dd5c
+    bl AnimatedGraphicsTransfer
     pop {r4}
     pop {r0}
     bx r0
@@ -548,7 +548,7 @@ load_room_cutscene_escape: @ 0x08057d04
     bl remove_never_reform_blocks_and_collected_tank
     bl TransparencySetRoomEffectsTransparency
     bl ScrollBG3
-    bl check_play_lightning_effect
+    bl AnimatedGraphicsCheckPlayLightningEffect
     bl update_backgrounds_pos
     bl load_doors
     bl check_hatch_lock_events
@@ -558,7 +558,7 @@ load_room_cutscene_escape: @ 0x08057d04
     bl sub_08056b28
     movs r0, #2
     bl sub_08056b28
-    bl load_animated_graphics
+    bl AnimatedGraphicsLoad
     ldr r1, lbl_08057dbc @ =0x02007000
     ldr r2, lbl_08057dc0 @ =0x06003000
     movs r3, #0x80
@@ -8225,8 +8225,8 @@ lbl_0805b820:
     pop {r0}
     bx r0
 
-    thumb_func_start sub_0805b830
-sub_0805b830: @ 0x0805b830
+    thumb_func_start ApplySpecialBackgroundEffectColorOnBG
+ApplySpecialBackgroundEffectColorOnBG: @ 0x0805b830
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -8386,8 +8386,8 @@ lbl_0805b960: .4byte 0x02035800
 lbl_0805b964: .4byte 0x02035000
 lbl_0805b968: .4byte 0x03005520
 
-    thumb_func_start sub_0805b96c
-sub_0805b96c: @ 0x0805b96c
+    thumb_func_start ApplySpecialBackgroundEffectColorOnOBJ
+ApplySpecialBackgroundEffectColorOnOBJ: @ 0x0805b96c
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

@@ -639,6 +639,12 @@ close_up/Eyes3.gfx;1376;0x36a0a0;4
 close_up/Background.tt;385;0x36b620;4
 close_up/Eyes.tt;98;0x36bc24;4
 
+# Animated tiles
+
+animated_tiles/Tiles.gfx;12800;0x74f8b4;1
+animated_tiles/Tanks.gfx;2048;0x752ab4;1
+animated_tiles/Liquids.gfx;6144;0x7532b4;1
+
 # Misc
 
 EscapeTimerDigits.gfx;2048;0x33d794;1
@@ -831,16 +837,15 @@ Blob_908e0_2b0c93.bin;2229171;0x908e0;1
 Blob_2ceaa8_2cfd9f.bin;4856;0x2ceaa8;1
 Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
-Blob_345ff8_360130.bin;106808;0x345ff8;1
+Blob_345ff8_35f948.bin;104784;0x345ff8;1
 Blob_3603e8_367924.bin;30012;0x3603e8;1
 Blob_375cc4_386f60.bin;70300;0x375cc4;1
 Blob_3f0390_411400.bin;135280;0x3f0390;1
 Blob_415460_446d68.bin;203016;0x415460;1
 Blob_44f11c_45f45c.bin;66368;0x44f11c;1
-Blob_479400_754bb4.bin;2996148;0x479400;1
+Blob_479400_74f8b4.bin;2974900;0x479400;1
 Blob_754bd0_75e6a8.bin;39640;0x754bd0;1
 Blob_75fae4_75fd78.bin;660;0x75fae4;1
-Blob_75fdbc_75fde0.bin;36;0x75fdbc;1
 Blob_75fdfc_75fe5c.bin;96;0x75fdfc;1
 Blob_760090_760420.bin;912;0x760090;1
 Blob_760458_760aa0.bin;1608;0x760458;1

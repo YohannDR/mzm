@@ -1695,7 +1695,7 @@ lbl_08056074:
     bl sub_08058ec4
     bl ScrollProcessGeneral
 lbl_080560c8:
-    bl check_play_lightning_effect
+    bl AnimatedGraphicsCheckPlayLightningEffect
     bl update_backgrounds_pos
     bl load_doors
     bl check_hatch_lock_events
@@ -1705,8 +1705,8 @@ lbl_080560c8:
     bl sub_08056b28
     movs r0, #2
     bl sub_08056b28
-    bl load_animated_graphics
-    bl ResetTanksAnimation
+    bl AnimatedGraphicsLoad
+    bl AnimatedGraphicsTanksAnimationReset
     bl SetBGHazeEffect
     bl ProcessHaze
     bl MinimapCheckOnTransition
@@ -3390,13 +3390,13 @@ lbl_08056eb2:
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_08056eca
-    bl check_apply_background_effect_color
+    bl BackgroundEffectUpdate
 lbl_08056eca:
     cmp r4, #0
     bne lbl_08056ede
-    bl update_animated_graphics
-    bl update_tanks_animation
-    bl update_animated_palette
+    bl AnimatedGraphicsUpdate
+    bl AnimatedGraphicsTanksAnimationUpdate
+    bl AnimatedPaletteUpdate
     bl RoomUpdateHatchFlashingAnimation
 lbl_08056ede:
     pop {r4}

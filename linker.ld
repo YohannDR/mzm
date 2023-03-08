@@ -57,6 +57,7 @@ SECTIONS {
         . = 0x00000042; gSkipDoorTransition = .;
         . = 0x00000043; gDisableSoftreset = .;
         . = 0x00000044; gCollectingTank = .;
+        . = 0x00000046; gAnimatedGraphicsToUpdate = .;
         . = 0x00000048; gDisableDoorAndTanks = .;
         . = 0x00000049; gDisablePause = .;
         . = 0x0000004A; gHideHud = .;
@@ -262,11 +263,16 @@ SECTIONS {
         . = 0x000056d4; gBldalphaData2 = .;
         . = 0x000056dc; gBLDYData1 = .;
         . = 0x000056e4; gBLDYData2 = .;
+        . = 0x000056ec; gAnimatedPaletteTiming = .;
+        . = 0x000056f0; gHatchFlashingAnimation = .;
         . = 0x000056f4; gAnimatedGraphicsEntry = .;
+        . = 0x000056f8; gBackgroundEffect = .;
         . = 0x00005700; gScrollCounter = .;
         . = 0x00005704; gClipdataCodePointer = .;
         . = 0x00005708; gCurrentRoomScrollDataPointer = .;
         . = 0x00005714; gUnk_3005714 = .;
+        . = 0x00005730; gAnimatedGraphicsData = .;
+        . = 0x000057F0; gTankAnimations = .;
         . = 0x00005806; gOamXOffset_NonGameplay = .;
         . = 0x00005807; gOamYOffset_NonGameplay = .;
 
@@ -408,6 +414,8 @@ SECTIONS {
         asm/disasm_0x0805745c.o(.text);
         src/color_fading.o(.text);
         asm/disasm_0x0805cfe0.o(.text);
+        src/animated_graphics.o(.text);
+        asm/disasm_0x0805e760.o(.text);
         src/in_game_cutscene.o(.text);
         src/event.o(.text);
         asm/disasm_0x08060928.o(.text);
@@ -533,7 +541,8 @@ SECTIONS {
         src/data/clipdata_data.o(.rodata);
         src/data/block_data.o(.rodata);
         src/data/color_fading_data.o(.rodata);
-        /* 345d00-360130 */
+        /* 345d00-35f948 */
+        src/data/animated_graphics_data.o(.rodata);
         src/data/hatch_data.o(.rodata);
         src/data/in_game_cutscene_data.o(.rodata);
         /* 3603e8-367924 */
@@ -555,7 +564,8 @@ SECTIONS {
         src/data/menus/title_screen_data.o(.rodata);
         /* 44f11c-45f45c */
         src/data/intro_data.o(.rodata);
-        /* 479400-754bb4 */
+        /* 479400-74f8b4 */
+        src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         /* 754bd0-75e6a8 */
         src/data/samus_sprites_pointers.o(.rodata);

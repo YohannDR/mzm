@@ -8,6 +8,7 @@
 #include "data/common_pals.h"
 
 #include "constants/audio.h"
+#include "constants/animated_graphics.h"
 #include "constants/connection.h"
 #include "constants/color_fading.h"
 #include "constants/cutscene.h"
@@ -258,7 +259,7 @@ void StartEffectForCutscene(u8 request)
             break;
 
         case EFFECT_CUTSCENE_EXITING_ZEBES:
-            start_special_background_effect(4);
+            BackgroundEffectStart(BACKGROUND_EFFECT_EXIT_ZEBES_FADE);
             break;
 
         case EFFECT_CUTSCENE_GETTING_FULLY_POWERED:
@@ -280,7 +281,7 @@ void StartEffectForCutscene(u8 request)
             break;
 
         case EFFECT_CUTSCENE_INTRO_TEXT:
-            start_special_background_effect(5);
+            BackgroundEffectStart(BACKGROUND_EFFECT_INTRO_TEXT_FADE);
             break;
 
         case EFFECT_CUTSCENE_SAMUS_IN_BLUE_SHIP:

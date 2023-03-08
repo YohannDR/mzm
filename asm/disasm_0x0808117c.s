@@ -181,7 +181,7 @@ vblank_code_during_intro: @ 0x08081248
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
-    bl sub_0805dd5c
+    bl AnimatedGraphicsTransfer
     pop {r0}
     bx r0
     .align 2, 0
@@ -2070,7 +2070,7 @@ lbl_0808222a:
     ldrh r0, [r0, #6]
     cmp r0, #0xef
     bhi lbl_08082238
-    bl update_animated_graphics
+    bl AnimatedGraphicsUpdate
 lbl_08082238:
     mov r0, r8
     cmp r0, #0

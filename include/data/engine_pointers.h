@@ -31,9 +31,8 @@ extern const ColorFadingFunc_T sColorFadingSubroutinePointers[4];
  */
 extern const u8 sHazeData[13][4];
 
-// More ...
 
-// 75fde0
+extern const u16* const sBackgroundEffectBehaviorPointers[9];
 
 extern const struct HatchLockEvent* const sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1];
 
