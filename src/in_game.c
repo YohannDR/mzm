@@ -53,14 +53,14 @@ u32 InGameMainLoop(void)
             break;
 
         case SUB_GAME_MODE_DOOR_TRANSITION:
-            IOWriteRegisters();
+            IoWriteRegisters();
             if (unk_5c3ac()) // Undefined
                 gGameModeSub1++;
             break;
 
         case SUB_GAME_MODE_PLAYING:
             DemoMainLoop();
-            IOWriteRegisters();
+            IoWriteRegisters();
 
             if ((gChangedInput & gButtonAssignments.pause || gPauseScreenFlag != PAUSE_SCREEN_NONE) && process_pause_button_press()) // Undefined
                 gGameModeSub1++;
@@ -88,7 +88,7 @@ u32 InGameMainLoop(void)
             break;
 
         case SUB_GAME_MODE_LOADING_ROOM:
-            IOWriteRegistersDuringTransition();
+            IoWriteRegistersDuringTransition();
             if (ColorFadingProcess())
             {
                 gGameModeSub1 = 0;
@@ -98,7 +98,7 @@ u32 InGameMainLoop(void)
             break;
 
         case 5:
-            IOWriteRegisters();
+            IoWriteRegisters();
             SamusUpdate();
             RoomUpdateGFXInfo();
             break;

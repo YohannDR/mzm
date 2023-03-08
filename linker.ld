@@ -39,6 +39,7 @@ SECTIONS {
         . = 0x0000000e; gWrittenToWININ_H = .;
         . = 0x0000000f; gWrittenToWINOUT_L = .;
         . = 0x00000010; gWrittenTo0x05000000 = .;
+        . = 0x00000012; gWrittenToBLDY = .;
         . = 0x00000020; gLanguage = .;
         . = 0x00000024; gGameCompletion = .;
         . = 0x00000028; gCompletedGameFlagCopy = .;
@@ -79,7 +80,7 @@ SECTIONS {
         . = 0x00000071; gScreenShakeXOffset = .;
         . = 0x00000073; gScreenShakeYOffset = .;
         . = 0x00000074; gScreenShakeRelated = .;
-        . = 0x00000074; gDISPCNTBackup = .;
+        . = 0x00000076; gDISPCNTBackup = .;
         . = 0x00000078; gSpriteset = .;
         . = 0x00000079; gCurrentClipdataAffectingAction = .;
         . = 0x0000007A; gSpritesetEntryUsed = .;
@@ -103,6 +104,7 @@ SECTIONS {
         . = 0x00000118; gCurrentScrolls = .;
         . = 0x00000130; gCurrentPowerBomb = .;
         . = 0x00000144; gCamera = .;
+        . = 0x0000014c; gMaxInGameTimerFlag = .;
         . = 0x00000150; gInGameTimer = .;
         . = 0x00000184; gInGameTimerAtBosses = .;
         . = 0x00000198; gLastElevatorUsed = .;
@@ -412,6 +414,9 @@ SECTIONS {
         asm/disasm_0x08055344.o(.text);
         src/power_bomb_explosion.o(.text);
         asm/disasm_0x0805745c.o(.text);
+        src/in_game_timer.o(.text);
+        src/display.o(.text);
+        asm/disasm_0x08057c4c.o(.text);
         src/color_fading.o(.text);
         asm/disasm_0x0805cfe0.o(.text);
         src/animated_graphics.o(.text);

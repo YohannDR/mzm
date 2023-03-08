@@ -3419,7 +3419,7 @@ lbl_08019e6a:
     movs r1, #0x80
     lsls r1, r1, #3
     movs r0, #0
-    bl update_dispcnt
+    bl IoUpdateDISPCNT
     ldr r1, lbl_08019ec0 @ =0x03000184
     ldr r0, lbl_08019ec4 @ =0x03000150
     ldr r0, [r0]
