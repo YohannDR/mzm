@@ -629,6 +629,16 @@ intro/MotherBrain.tt;577;0x473768;4
 intro/Fuzz.gfx.lz;5224;0x47406c;4
 intro/47920c.tt;125;0x47920c;4
 
+# Samus close up
+
+close_up/Palette.pal;96;0x367924;2
+close_up/CloseUp.gfx.lz;2319;0x3679e4;4
+close_up/Eyes1.gfx;80;0x369e20;4
+close_up/Eyes2.gfx;80;0x369f60;4
+close_up/Eyes3.gfx;1376;0x36a0a0;4
+close_up/Background.tt;385;0x36b620;4
+close_up/Eyes.tt;98;0x36bc24;4
+
 # Misc
 
 EscapeTimerDigits.gfx;2048;0x33d794;1
@@ -822,7 +832,7 @@ Blob_2ceaa8_2cfd9f.bin;4856;0x2ceaa8;1
 Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
 Blob_345ff8_360130.bin;106808;0x345ff8;1
-Blob_3602e8_36bdac.bin;47812;0x3602e8;1
+Blob_3603e8_367924.bin;30012;0x3603e8;1
 Blob_375cc4_386f60.bin;70300;0x375cc4;1
 Blob_3f0390_411400.bin;135280;0x3f0390;1
 Blob_415460_446d68.bin;203016;0x415460;1

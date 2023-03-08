@@ -837,5 +837,3 @@ const u16 sNumberOfHatchLockEventsPerArea[MAX_AMOUNT_OF_AREAS] = {
     [AREA_CHOZODIA] = 15,
     [AREA_INVALID] = 0
 };
-
-const u8 sTemparray_3602e8[0xbac4] = INCBIN_U8("data/Blob_3602e8_36bdac.bin");

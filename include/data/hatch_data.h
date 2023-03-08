@@ -27,6 +27,6 @@ extern const u16 sHatchesTilemapValues[MAX_AMOUNT_OF_HATCH_TYPES];
 
 extern const u16 sNumberOfHatchLockEventsPerArea[MAX_AMOUNT_OF_AREAS];
 
-// 3602e8
+// 3603e8
 
 #endif

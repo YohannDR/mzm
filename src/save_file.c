@@ -17,6 +17,7 @@
 #include "structs/bg_clip.h"
 #include "structs/color_effects.h"
 #include "structs/game_state.h"
+#include "structs/in_game_cutscene.h"
 #include "structs/minimap.h"
 #include "structs/sprite.h"
 #include "structs/save_file.h"
@@ -744,7 +745,7 @@ void SramWrite_ToEwram(void)
 
     pFile->musicInfo = musicInfo;
     for (i = 0; i < 1; i++)
-        pFile->unk_24C[i] = gUnk_3000050[i];
+        pFile->inGameCutscenesTriggered[i] = gInGameCutscenesTriggered[i];
 
     StringCopy(pFile->SamusAran_Text, sSamusAran_Text, SRAM_TEXT_SIZE);
 
@@ -825,15 +826,15 @@ void SramRead_FromEwram(void)
     gAlarmTimer = pFile->alarmTimer;
     gInGameTimer = pFile->inGameTimer;
 
-    for (i = 0; i < 12; i++)
+    for (i = 0; i < ARRAY_SIZE(gBestCompletionTimes); i++)
         gBestCompletionTimes[i] = pFile->bestCompletionTimes[i];
 
     for (i = 0; i < MAX_AMOUNT_OF_IGT_AT_BOSSES; i++)
         gInGameTimerAtBosses[i] = pFile->inGameTimerAtBosses[i];
 
     musicInfo = pFile->musicInfo;
-    for (i = 0; i < 1; i++)
-        gUnk_3000050[i] = pFile->unk_24C[i];
+    for (i = 0; i < ARRAY_SIZE(gInGameCutscenesTriggered); i++)
+        gInGameCutscenesTriggered[i] = pFile->inGameCutscenesTriggered[i];
 
     gMusicInfo.musicTrack = musicInfo.musicTrack;
     gMusicInfo.unknown_1E = musicInfo.unk_2;

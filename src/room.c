@@ -61,7 +61,7 @@ void RoomLoad(void)
             gSamusData.yPosition = 0x1FF;
 
             gInGameCutscene.stage = 0;
-            gInGameCutscene.cutsceneNumber_Copy = 0x9;
+            gInGameCutscene.queriedCutscene = 0x9;
             start_in_game_cutscene(9); // Undefined
 
             gDisablePause = TRUE;
@@ -78,7 +78,7 @@ void RoomLoad(void)
         gSamusData.yPosition = 0x7BF;
 
         gInGameCutscene.stage = 0;
-        gInGameCutscene.cutsceneNumber_Copy = 0xA;
+        gInGameCutscene.queriedCutscene = 0xA;
         start_in_game_cutscene(10); // Undefined
 
         gDisablePause = TRUE;
@@ -96,7 +96,7 @@ void RoomLoad(void)
     gPreviousXPosition = gSamusData.xPosition;
     gPreviousYPosition = gSamusData.yPosition;
     TransparencySetRoomEffectsTransparency();
-    load_first_room(); // Undefined
+    InGameCutsceneCheckPlayOnTransition();
 
     if (gPauseScreenFlag == PAUSE_SCREEN_NONE && !gIsLoadingFile)
     {
@@ -131,7 +131,7 @@ void RoomLoad(void)
         gPreviousYPosition = gSamusData.yPosition;
     }
 
-    sub_08060800(); // Undefined
+    InGameCutsceneCheckStartQueried(); // Undefined
 
     // Update rain sound effect
     if (gRainSoundEffect != RAIN_SOUND_NONE)
@@ -440,7 +440,7 @@ void RoomReset(void)
 
     gDISPCNTBackup = 0;
     gInGameCutscene.cutsceneNumber = 0;
-    gInGameCutscene.cutsceneNumber_Copy = 0;
+    gInGameCutscene.queriedCutscene = 0;
 
     gEffectYPosition = 0;
     gHatchesState.unlocking = FALSE;
@@ -565,7 +565,7 @@ void RoomSetBackgroundScrolling(void)
     else if (gCurrentRoomEntry.visualEffect == EFFECT_SNOWFLAKES_COLD)
         gBG0Movement.type = BG0_MOVEMENT_SNOWFLAKES;
 
-    gInGameCutscene.cutsceneNumber_Copy = 0;
+    gInGameCutscene.queriedCutscene = 0;
 }
 
 void RoomSetInitialTilemap(u8 bgNumber)

@@ -6,6 +6,7 @@
 #include "data/sprite_data.h"
 
 #include "constants/audio.h"
+#include "constants/in_game_cutscene.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/particle.h"
@@ -389,7 +390,7 @@ void MotherBrainDeath(void)
         gSpriteData[eyeRamSlot].paletteRow = gCurrentSprite.paletteRow;
         gSpriteData[bottomRamSlot].paletteRow = gCurrentSprite.paletteRow;
         if (!(gCurrentSprite.invincibilityStunFlashTimer & 0x3F))
-            make_background_flash(0x3); // Quick flash || Undefined
+            MakeBackgroundFlash(BG_FLASH_QUICK_YELLOW);
     }
     else
     {
@@ -402,7 +403,7 @@ void MotherBrainDeath(void)
         ParticleSet(gSubSpriteData1.yPosition + 0x3C, gSubSpriteData1.xPosition + 0x50, PE_MAIN_BOSS_DEATH);
         gInGameTimerAtBosses[1] = gInGameTimer;
         SoundPlay(0x2C0); // Mother brain death explosion
-        make_background_flash(0x3); // Quick flash || Undefined
+        MakeBackgroundFlash(BG_FLASH_QUICK_YELLOW);
     }
 }
 

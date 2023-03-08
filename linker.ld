@@ -63,6 +63,7 @@ SECTIONS {
         . = 0x0000004B; gShipLandingFlag = .;
         . = 0x0000004C; gDisableClipdataChangingTransparency = .;
         . = 0x0000004D; gDisableAnimatedPalette = .;
+        . = 0x00000050; gInGameCutscenesTriggered = .;
         . = 0x00000054; gCurrentArea = .;
         . = 0x00000055; gCurrentRoom = .;
         . = 0x00000056; gLastDoorUsed = .;
@@ -104,6 +105,7 @@ SECTIONS {
         . = 0x00000150; gInGameTimer = .;
         . = 0x00000184; gInGameTimerAtBosses = .;
         . = 0x00000198; gLastElevatorUsed = .;
+        . = 0x0000019C; gInGameCutscene = .;
         . = 0x000001A8; gAlarmTimer = .;
         . = 0x000001AC; gSpriteData = .;
         . = 0x000006EC; gSpritesetSpritesID = .;
@@ -145,6 +147,7 @@ SECTIONS {
         . = 0x00000BEE; gArmCannonX = .;
         . = 0x00000bf0; gPauseScreenFlag = .;
         . = 0x00000bf1; gAreaBeforeTransition = .;
+        . = 0x00000bf2; gCurrentItemBeingAcquired = .;
         . = 0x00000bf4; gBG0HOFS_NonGameplay = .;
         . = 0x00000bf6; gBG0VOFS_NonGameplay = .;
         . = 0x00000bf8; gBG1HOFS_NonGameplay = .;
@@ -254,6 +257,7 @@ SECTIONS {
         . = 0x000056a8; gLastTankCollected = .;
         . = 0x000056ac; gBombchains = .;
         . = 0x000056bc; gActiveBombChainTypes = .;
+        . = 0x000056c4; gDefaultTransparency = .;
         . = 0x000056cc; gBldalphaData1 = .;
         . = 0x000056d4; gBldalphaData2 = .;
         . = 0x000056dc; gBLDYData1 = .;
@@ -404,6 +408,9 @@ SECTIONS {
         asm/disasm_0x0805745c.o(.text);
         src/color_fading.o(.text);
         asm/disasm_0x0805cfe0.o(.text);
+        src/in_game_cutscene.o(.text);
+        src/event.o(.text);
+        asm/disasm_0x08060928.o(.text);
         src/cutscenes/kraid_rising.o(.text);
         src/cutscenes/story_text_cutscene.o(.text);
         asm/disasm_0x08063008.o(.text);
@@ -528,7 +535,9 @@ SECTIONS {
         src/data/color_fading_data.o(.rodata);
         /* 345d00-360130 */
         src/data/hatch_data.o(.rodata);
-        /* 3602e8-36bdac */
+        src/data/in_game_cutscene_data.o(.rodata);
+        /* 3603e8-367924 */
+        src/data/samus_close_up_data.o(.rodata);
         src/data/cutscenes/cutscenes_data.o(.rodata);
         src/data/cutscenes/kraid_rising_data.o(.rodata);
         src/data/cutscenes/story_text_cutscene_data.o(.rodata);

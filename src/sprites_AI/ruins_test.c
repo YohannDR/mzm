@@ -1843,7 +1843,7 @@ void RuinsTestGhostOutline(void)
             if (gCurrentSprite.roomSlot != RUINS_TEST_GHOST_OUTLINE_PART_OUTLINE && gCurrentSprite.currentAnimationFrame == 0x4 &&
                 gCurrentSprite.animationDurationCounter == 0x8)
             {
-                make_background_flash(0x3); // Undefined || Quick flash
+                MakeBackgroundFlash(0x3); // Undefined || Quick flash
 
                 // Spawn lightning
                 if (gCurrentSprite.roomSlot == RUINS_TEST_GHOST_OUTLINE_PART_SHOOTING_GROUND_LIGHTNING)
