@@ -26,4 +26,6 @@ extern u8 gUnk_3005729;
 
 extern HazeFunc_T gHazeProcessCodePointer;
 
+extern u8 gCurrentHazeValue;
+
 #endif /* HAZE_STRUCT_H */

@@ -5,6 +5,4 @@
 
 extern u8 gMonochromeBgFading;
 
-extern u8 gCurrentHazeValue;
-
 #endif
