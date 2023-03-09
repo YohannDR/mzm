@@ -64,7 +64,7 @@ u32 InGameMainLoop(void)
             DemoMainLoop();
             IoWriteRegisters();
 
-            if ((gChangedInput & gButtonAssignments.pause || gPauseScreenFlag != PAUSE_SCREEN_NONE) && process_pause_button_press()) // Undefined
+            if ((gChangedInput & gButtonAssignments.pause || gPauseScreenFlag != PAUSE_SCREEN_NONE) && ProcessPauseButtonPress())
                 gGameModeSub1++;
 
             if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)

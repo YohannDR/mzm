@@ -141,8 +141,8 @@ lbl_08060a3c: .4byte 0x03000c1d
 lbl_08060a40: .4byte 0x030013d4
 lbl_08060a44: .4byte 0x03000049
 
-    thumb_func_start sub_08060a48
-sub_08060a48: @ 0x08060a48
+    thumb_func_start UpdateMusicWhenPausing
+UpdateMusicWhenPausing: @ 0x08060a48
     push {lr}
     ldr r2, lbl_08060a6c @ =0x03000030
     movs r0, #0

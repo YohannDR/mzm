@@ -416,7 +416,8 @@ SECTIONS {
         asm/disasm_0x0805745c.o(.text);
         src/in_game_timer.o(.text);
         src/display.o(.text);
-        asm/disasm_0x08057c4c.o(.text);
+        src/process_pause_press.o(.text);
+        asm/disasm_0x08057d04.o(.text);
         src/color_fading.o(.text);
         asm/disasm_0x0805cfe0.o(.text);
         src/animated_graphics.o(.text);
