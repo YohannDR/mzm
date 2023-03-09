@@ -8,8 +8,8 @@ gNumMusicPlayers = 9;
 
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
-        . = 0x00026300; gHazeDataValues = .;
-        . = 0x00026d00; gPreviousHazeDataValues = .;
+        . = 0x00026300; gHazeValues = .;
+        . = 0x00026d00; gPreviousHazeValues = .;
         . = 0x00027780; gMakeSolidBlocks = .;
         . = 0x00027800; gDecompClipdataMap = .;
         . = 0x0002a800; gDecompBG0Map = .;

@@ -17,9 +17,6 @@ struct TilesetTransparentColor {
 
 extern struct TilesetTransparentColor gTilesetTransparentColor;
 
-extern u16 gHazeDataValues[1280];
-extern u16 gPreviousHazeDataValues[1280];
-
 // ---
 
 struct RoomEntry {

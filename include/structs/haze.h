@@ -9,11 +9,12 @@ struct Haze {
     void* pAffected;
     u16 unk;
     u8 size;
-    u8 flag;
+    u8 enabled:7;
+    u8 active:1;
 };
 
 struct HazeLoop {
-    u16 timer;
+    i16 timer;
     u8 unk_2;
     u8 unk_3;
 };
@@ -24,8 +25,13 @@ extern struct HazeLoop gHazeLoops[3];
 extern u8 gUnk_3005728;
 extern u8 gUnk_3005729;
 
+extern u8 gUnk_3005514;
+
 extern HazeFunc_T gHazeProcessCodePointer;
 
 extern u8 gCurrentHazeValue;
+
+extern u16 gHazeValues[1280];
+extern u16 gPreviousHazeValues[1280];
 
 #endif /* HAZE_STRUCT_H */

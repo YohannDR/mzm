@@ -379,8 +379,8 @@ void unk_5c190(void)
 
     gDisableDrawingSprites = FALSE;
 
-    if (gHazeInfo.flag & HAZE_FLAG_NO_ACTIVE_FLAG)
-        gHazeInfo.flag |= HAZE_FLAG_ACTIVE_FLAG;
+    if (gHazeInfo.enabled)
+        gHazeInfo.active = TRUE;
 
     TransparencyUpdateBLDCNT(2, gIoRegistersBackup.BLDCNT_NonGameplay);
     write16(REG_DISPCNT, gIoRegistersBackup.DISPCNT_NonGameplay);
@@ -1206,9 +1206,9 @@ u8 ColorFading_UpdateDoorTransition(void)
 
                 gBackgroundPositions.doorTransition.y = gBackgroundPositions.bg[3].y;
                 gBackgroundPositions.doorTransition.x = gBackgroundPositions.bg[3].x;
-            
-                if (gHazeInfo.flag & HAZE_FLAG_NO_ACTIVE_FLAG)
-                    gHazeInfo.flag |= HAZE_FLAG_ACTIVE_FLAG;
+
+                if (gHazeInfo.enabled)
+                    gHazeInfo.active = TRUE;
 
                 TransparencyUpdateBLDCNT(2, gIoRegistersBackup.BLDCNT_NonGameplay);
                 write16(REG_DISPCNT, gIoRegistersBackup.DISPCNT_NonGameplay);

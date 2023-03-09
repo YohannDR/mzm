@@ -872,8 +872,8 @@ void RoomUpdate(void)
     if (process_haze())
     {
         process_haze();
-        if (gHazeInfo.flag & HAZE_FLAG_NO_ACTIVE_FLAG)
-            gHazeInfo.flag |= HAZE_FLAG_ACTIVE_FLAG;
+        if (gHazeInfo.enabled)
+            gHazeInfo.active = TRUE;
     }
 
     PowerBombExplosionProcess();

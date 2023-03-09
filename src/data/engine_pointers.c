@@ -138,7 +138,8 @@ const ColorFadingFunc_T sColorFadingSubroutinePointers[4] = {
  * 2 : BG0 water moving flag
  * 3 : Power bomb related
  */
-const u8 sHazeData[13][4] = {
+FORCE_RODATA
+u8 sHazeData[13][4] = {
     [EFFECT_NONE] = {
         HAZE_VALUE_NONE, EFFECT_NONE, FALSE, 0
     },
