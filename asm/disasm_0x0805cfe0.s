@@ -32,7 +32,7 @@ SetBGHazeEffect: @ 0x0805cfe0
     strb r0, [r2]
 lbl_0805d016:
     ldrb r0, [r5]
-    bl SetupHazeCode
+    bl HazeSetupCode
     pop {r4, r5}
     pop {r0}
     bx r0
@@ -153,8 +153,8 @@ lbl_0805d10c: .4byte 0x08345ff8
 lbl_0805d110: .4byte 0x02026d00
 lbl_0805d114: .4byte 0x0300006b
 
-    thumb_func_start SetupHazeCode
-SetupHazeCode: @ 0x0805d118
+    thumb_func_start HazeSetupCode
+HazeSetupCode: @ 0x0805d118
     push {r4, lr}
     sub sp, #4
     ldr r4, lbl_0805d144 @ =0x0300006b
@@ -747,7 +747,7 @@ lbl_0805d61e:
     movs r0, #8
     strb r0, [r1]
     movs r0, #8
-    bl SetupHazeCode
+    bl HazeSetupCode
     ldr r1, lbl_0805d650 @ =0x03000130
     movs r0, #4
     strb r0, [r1]
@@ -820,7 +820,7 @@ lbl_0805d6b8:
     strb r0, [r1]
     strb r2, [r1, #1]
     movs r0, #9
-    bl SetupHazeCode
+    bl HazeSetupCode
     ldr r0, lbl_0805d6fc @ =0x030056f4
     ldrb r0, [r0]
     cmp r0, #0

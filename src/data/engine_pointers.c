@@ -11,6 +11,7 @@
 #include "color_fading.h"
 
 #include "constants/animated_graphics.h"
+#include "constants/haze.h"
 #include "constants/connection.h"
 #include "constants/room.h"
 #include "constants/particle.h"

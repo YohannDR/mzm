@@ -16,9 +16,11 @@
 #include "data/hud_data.h"
 
 #include "constants/demo.h"
+#include "constants/haze.h"
 #include "constants/game_state.h"
 
 #include "structs/bg_clip.h"
+#include "structs/haze.h"
 #include "structs/cutscene.h"
 #include "structs/demo.h"
 #include "structs/display.h"
@@ -224,7 +226,7 @@ void VBlankCodeInGameLoad(void)
 
     dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
-    if (gHazeInfo.flag & 0x80)
+    if (gHazeInfo.flag & HAZE_FLAG_ACTIVE_FLAG)
     {
         dma_set(0, gHazeDataValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
         
@@ -303,7 +305,7 @@ void VBlankCodeInGame(void)
 
     dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
-    if (gHazeInfo.flag & 0x80)
+    if (gHazeInfo.flag & HAZE_FLAG_ACTIVE_FLAG)
     {
         dma_set(0, gHazeDataValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
         

@@ -8,6 +8,7 @@
 #include "data/common_pals.h"
 
 #include "constants/audio.h"
+#include "constants/haze.h"
 #include "constants/animated_graphics.h"
 #include "constants/connection.h"
 #include "constants/color_fading.h"
@@ -23,6 +24,7 @@
 #include "structs/demo.h"
 #include "structs/display.h"
 #include "structs/game_state.h"
+#include "structs/haze.h"
 #include "structs/save_file.h"
 #include "structs/sprite.h"
 #include "structs/visual_effects.h"
@@ -377,8 +379,8 @@ void unk_5c190(void)
 
     gDisableDrawingSprites = FALSE;
 
-    if (gHazeInfo.flag & 0x7F)
-        gHazeInfo.flag |= 0x80;
+    if (gHazeInfo.flag & HAZE_FLAG_NO_ACTIVE_FLAG)
+        gHazeInfo.flag |= HAZE_FLAG_ACTIVE_FLAG;
 
     TransparencyUpdateBLDCNT(2, gIoRegistersBackup.BLDCNT_NonGameplay);
     write16(REG_DISPCNT, gIoRegistersBackup.DISPCNT_NonGameplay);
@@ -1205,8 +1207,8 @@ u8 ColorFading_UpdateDoorTransition(void)
                 gBackgroundPositions.doorTransition.y = gBackgroundPositions.bg[3].y;
                 gBackgroundPositions.doorTransition.x = gBackgroundPositions.bg[3].x;
             
-                if (gHazeInfo.flag & 0x7F)
-                    gHazeInfo.flag |= 0x80;
+                if (gHazeInfo.flag & HAZE_FLAG_NO_ACTIVE_FLAG)
+                    gHazeInfo.flag |= HAZE_FLAG_ACTIVE_FLAG;
 
                 TransparencyUpdateBLDCNT(2, gIoRegistersBackup.BLDCNT_NonGameplay);
                 write16(REG_DISPCNT, gIoRegistersBackup.DISPCNT_NonGameplay);

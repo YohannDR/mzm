@@ -9,6 +9,7 @@
 #include "data/rooms_data.h"
 
 #include "constants/audio.h"
+#include "constants/haze.h"
 #include "constants/connection.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
@@ -17,6 +18,7 @@
 #include "constants/room.h"
 
 #include "structs/audio.h"
+#include "structs/haze.h"
 #include "structs/animated_graphics.h"
 #include "structs/bg_clip.h"
 #include "structs/in_game_cutscene.h"
@@ -870,8 +872,8 @@ void RoomUpdate(void)
     if (process_haze())
     {
         process_haze();
-        if (gHazeInfo.flag & 0x7F)
-            gHazeInfo.flag |= 0x80;
+        if (gHazeInfo.flag & HAZE_FLAG_NO_ACTIVE_FLAG)
+            gHazeInfo.flag |= HAZE_FLAG_ACTIVE_FLAG;
     }
 
     PowerBombExplosionProcess();
