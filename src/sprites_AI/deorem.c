@@ -1362,17 +1362,17 @@ void DeoremSegmentRightIdleAnim(void)
         if (gSpriteData[ramSlot].pose == DEOREM_POSE_MAIN)
         {
             gCurrentSprite.pose = 0x33; // TODO: Pose names
-            gCurrentSprite.timer = 0x19;
+            gCurrentSprite.timer = 25;
         }
         else if (gSpriteData[ramSlot].pose == DEOREM_POSE_RETRACTING)
         {
             gCurrentSprite.pose = 0x35; // TODO: Pose names
-            gCurrentSprite.timer = 0x19;
+            gCurrentSprite.timer = 25;
         }
         else if (gSpriteData[ramSlot].pose == DEOREM_POSE_LEAVING_ANIM)
         {
             gCurrentSprite.pose = 0x46; // TODO: Pose names
-            gCurrentSprite.timer = 0x2e;
+            gCurrentSprite.timer = 46;
         }
     }
 }
