@@ -103,7 +103,7 @@ struct SaveFile {
     struct SaveMusicInfo musicInfo;
     u32 unk_248;
 
-    u32 unk_24C[1];
+    u32 inGameCutscenesTriggered[1];
 
     u8 SamusAran_Text[SRAM_TEXT_SIZE];
 
@@ -218,9 +218,6 @@ struct Sram {
 
 // Make sure that the size of the sram struct doesn't exceed the size of the flash sram
 STATIC_ASSERT(sizeof(struct Sram) <= SRAM_SIZE, SramStructSize);
-
-// Temp
-extern u32 gUnk_3000050[1];
 
 extern u8 gSramOperationStage;
 extern u8 gSramCorruptFlag;

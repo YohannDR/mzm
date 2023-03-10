@@ -25050,7 +25050,7 @@ lbl_080732d2:
     ldr r1, lbl_080732fc @ =0x03000020
     movs r0, #2
     strb r0, [r1]
-    bl sub_08074cf8
+    bl SramWrite_Language
 lbl_080732f4:
     pop {r4, r5}
     pop {r0}
@@ -25395,8 +25395,8 @@ sub_08073584: @ 0x08073584
 lbl_080735a8: .4byte 0x08754bc8
 lbl_080735ac: .4byte 0x03000014
 
-    thumb_func_start sub_080735b0
-sub_080735b0: @ 0x080735b0
+    thumb_func_start SramProcessIntroSave
+SramProcessIntroSave: @ 0x080735b0
     push {r4, r5, lr}
     sub sp, #4
     ldr r1, lbl_080735d8 @ =0x03000043
@@ -28263,8 +28263,8 @@ lbl_08074cec: .4byte 0x040000d4
 lbl_08074cf0: .4byte 0x00006e40
 lbl_08074cf4: .4byte 0x81000020
 
-    thumb_func_start sub_08074cf8
-sub_08074cf8: @ 0x08074cf8
+    thumb_func_start SramWrite_Language
+SramWrite_Language: @ 0x08074cf8
     push {r4, r5, r6, r7, lr}
     ldr r0, lbl_08074d88 @ =0x08754bc8
     ldr r4, [r0]

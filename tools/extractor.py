@@ -10,6 +10,8 @@ subDirs: array = [
     "weapons/",
     "common/",
     "intro/",
+    "animated_tiles/",
+    "close_up/",
     "cutscenes/",
     "cutscenes/KraidRising/",
     "cutscenes/StoryText/",

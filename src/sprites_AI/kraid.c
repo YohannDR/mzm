@@ -1619,7 +1619,7 @@ void KraidBeforeDeath(void)
         // Set dead
         SpriteUtilSpriteDeath(DEATH_NORMAL, gSubSpriteData1.yPosition - (BLOCK_SIZE * 3), gSubSpriteData1.xPosition, FALSE, PE_MAIN_BOSS_DEATH);
         FadeCurrentMusicAndQueueNextMusic(0x14, MUSIC_BOSS_KILLED, 0x0); // Boss killed
-        IOUpdateDISPCNT(FALSE, DCNT_BG2); // Remove BG2
+        IoUpdateDISPCNT(FALSE, DCNT_BG2); // Remove BG2
         gInGameTimerAtBosses[0] = gInGameTimer;
     }
 }

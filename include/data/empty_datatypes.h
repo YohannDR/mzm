@@ -8,7 +8,7 @@
 #include "structs/scroll.h"
 #include "structs/room.h"
 #include "structs/power_bomb_explosion.h"
-#include "structs/visual_effects.h"
+#include "structs/animated_graphics.h"
 
 // 345868
 

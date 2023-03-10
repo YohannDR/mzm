@@ -303,4 +303,4 @@ const struct ColorFadingColorInfo sColorFadingColorInfo[5] = {
     }
 };
 
-const u8 sTempArray_345ff8[0x1a138] = INCBIN_U8("data/Blob_345ff8_360130.bin");
+const u8 sTempArray_345ff8[0x19950] = INCBIN_U8("data/Blob_345ff8_35f948.bin");

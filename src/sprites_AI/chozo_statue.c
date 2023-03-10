@@ -5,6 +5,7 @@
 #include "data/sprites/chozo_statue.h"
 
 #include "constants/audio.h"
+#include "constants/in_game_cutscene.h"
 #include "constants/clipdata.h"
 #include "constants/game_state.h"
 #include "constants/sprite.h"
@@ -436,7 +437,7 @@ void ChozoStatueRegisterHint(void)
 
     if (gCurrentSprite.spriteID == PSPRITE_CHOZO_STATUE_LONG_HINT)
     {
-        make_background_flash(0x1); // Undefined || Update transparency for long beam statue
+        MakeBackgroundFlash(BG_FLASH_CHOZO_LONG_TRANSPARENCY);
         gCurrentSprite.timer += 0x28;
     }
 
@@ -472,7 +473,7 @@ void ChozoStatueHintFlashing(void)
         {
             if (gCurrentSprite.timer == 0x77)
             {
-                make_background_flash(0x0); // Undefined || Slight yellow flash
+                MakeBackgroundFlash(BG_FLASH_SLIGHT_YELLOW);
                 SoundPlay(0x11B); // Chozo hint
             }
             else if (gCurrentSprite.timer > 0x77)

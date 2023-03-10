@@ -4,6 +4,7 @@
 #include "data/engine_pointers.h"
 
 #include "constants/clipdata.h"
+#include "constants/haze.h"
 #include "constants/game_state.h"
 #include "constants/room.h"
 
@@ -236,7 +237,7 @@ void PowerBombExplosionBegin(void)
         gCurrentPowerBomb.powerBombPlaced = FALSE;
         dma_set(3, PALRAM_BASE, EWRAM_BASE + (0x9000), DMA_ENABLE << 0x10 | 0x100);
         unk_02035400 = 0x0;
-        SetupHazeCode(HAZE_VALUE_POWER_BOMB_EXPANDING); // Undefined
+        HazeSetupCode(HAZE_VALUE_POWER_BOMB_EXPANDING);
         gCurrentPowerBomb.stage = 0x0;
         gCurrentPowerBomb.semiMinorAxis = 0x4;
         gCurrentPowerBomb.hitboxLeftOffset = 0x0;

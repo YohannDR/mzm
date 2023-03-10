@@ -40,7 +40,7 @@ struct EndingData {
     u8 unk_17D;
     u16 oamXPositions[30];
     u16 oamYPositions[30];
-    u16* oamFramePointers[30];
+    const u16* oamFramePointers[30];
     u8 padding_270[79];
     u16 dispcnt;
     u16 bldcnt;

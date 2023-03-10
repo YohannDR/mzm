@@ -2,6 +2,7 @@
 #include "macros.h"
 
 #include "data/clipdata_data.h"
+#include "data/animated_graphics_data.h"
 #include "data/hatch_data.h"
 #include "data/rooms_data.h"
 
@@ -9,6 +10,8 @@
 #include "projectile.h"
 #include "color_fading.h"
 
+#include "constants/animated_graphics.h"
+#include "constants/haze.h"
 #include "constants/connection.h"
 #include "constants/room.h"
 #include "constants/particle.h"
@@ -135,7 +138,8 @@ const ColorFadingFunc_T sColorFadingSubroutinePointers[4] = {
  * 2 : BG0 water moving flag
  * 3 : Power bomb related
  */
-const u8 sHazeData[13][4] = {
+FORCE_RODATA
+u8 sHazeData[13][4] = {
     [EFFECT_NONE] = {
         HAZE_VALUE_NONE, EFFECT_NONE, FALSE, 0
     },
@@ -177,7 +181,18 @@ const u8 sHazeData[13][4] = {
     }
 };
 
-const u8 sTempArray_75fdbc[0x24] = INCBIN_U8("data/Blob_75fdbc_75fde0.bin");
+// FIXME use pointer to u16[3]
+const u16* const sBackgroundEffectBehaviorPointers[9] = {
+    [0] = (const u16* const)sBackgroundEffectBehavior_Lightning,
+    [BACKGROUND_EFFECT_LIGHTNING] = (const u16* const)sBackgroundEffectBehavior_Lightning,
+    [BACKGROUND_EFFECT_SLIGHT_YELLOW] = (const u16* const)sBackgroundEffectBehavior_SlightYellow,
+    [BACKGROUND_EFFECT_HEAVY_YELLOW] = (const u16* const)sBackgroundEffectBehavior_HeavyYellow,
+    [BACKGROUND_EFFECT_EXIT_ZEBES_FADE] = (const u16* const)sBackgroundEffectBehavior_ExitZebes,
+    [BACKGROUND_EFFECT_INTRO_TEXT_FADE] = (const u16* const)sBackgroundEffectBehavior_IntroText,
+    [BACKGROUND_EFFECT_QUICK_FLASH] = (const u16* const)sBackgroundEffectBehavior_QuickFlash,
+    [BACKGROUND_EFFECT_ALL_BLACK] = (const u16* const)sBackgroundEffectBehavior_AllBlackWhite,
+    [BACKGROUND_EFFECT_ALL_WHITE] = (const u16* const)sBackgroundEffectBehavior_AllBlackWhite,
+};
 
 const struct HatchLockEvent* const sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1] = {
     [AREA_BRINSTAR] = sHatchLockEventsBrinstar,

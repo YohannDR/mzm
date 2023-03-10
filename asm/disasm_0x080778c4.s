@@ -9613,7 +9613,7 @@ sub_0807c5a4: @ 0x0807c5a4
 lbl_0807c5b8:
     cmp r1, #0
     beq lbl_0807c5c0
-    bl sub_08074cf8
+    bl SramWrite_Language
 lbl_0807c5c0:
     adds r3, r4, #0
     ldr r2, lbl_0807c5dc @ =0x03000c24

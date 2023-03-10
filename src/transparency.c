@@ -25,7 +25,7 @@ void TransparencySetRoomEffectsTransparency(void)
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
     {
-        if (gInGameCutscene.cutsceneNumber_Copy == 0)
+        if (gInGameCutscene.queriedCutscene == 0)
         {
             coef = TransparencyCheckIsDarkRoom();
             if (coef != 0)
@@ -615,7 +615,7 @@ void unk_55e60(void)
  */
 void unk_55f68(void)
 {
-    update_animated_palette_after_transition_or_reload(); // Undefined
+    UpdateAnimatedPaletteAfterTransitionOrReload();
     ColorFadingTransferPaletteOnTransition(); // Undefined
     check_play_loading_jingle(); // Undefind
 }

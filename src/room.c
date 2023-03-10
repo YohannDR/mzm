@@ -9,6 +9,7 @@
 #include "data/rooms_data.h"
 
 #include "constants/audio.h"
+#include "constants/haze.h"
 #include "constants/connection.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
@@ -17,6 +18,8 @@
 #include "constants/room.h"
 
 #include "structs/audio.h"
+#include "structs/haze.h"
+#include "structs/animated_graphics.h"
 #include "structs/bg_clip.h"
 #include "structs/in_game_cutscene.h"
 #include "structs/color_effects.h"
@@ -61,7 +64,7 @@ void RoomLoad(void)
             gSamusData.yPosition = 0x1FF;
 
             gInGameCutscene.stage = 0;
-            gInGameCutscene.cutsceneNumber_Copy = 0x9;
+            gInGameCutscene.queriedCutscene = 0x9;
             start_in_game_cutscene(9); // Undefined
 
             gDisablePause = TRUE;
@@ -78,7 +81,7 @@ void RoomLoad(void)
         gSamusData.yPosition = 0x7BF;
 
         gInGameCutscene.stage = 0;
-        gInGameCutscene.cutsceneNumber_Copy = 0xA;
+        gInGameCutscene.queriedCutscene = 0xA;
         start_in_game_cutscene(10); // Undefined
 
         gDisablePause = TRUE;
@@ -96,7 +99,7 @@ void RoomLoad(void)
     gPreviousXPosition = gSamusData.xPosition;
     gPreviousYPosition = gSamusData.yPosition;
     TransparencySetRoomEffectsTransparency();
-    load_first_room(); // Undefined
+    InGameCutsceneCheckPlayOnTransition();
 
     if (gPauseScreenFlag == PAUSE_SCREEN_NONE && !gIsLoadingFile)
     {
@@ -108,14 +111,14 @@ void RoomLoad(void)
     }
 
     // Load states, entities
-    check_play_lightning_effect(); // Undefined
+    AnimatedGraphicsCheckPlayLightningEffect(); // Undefined
     RoomUpdateBackgroundsPosition();
     ConnectionLoadDoors();
     ConnectionCheckHatchLockEvents();
     RoomSetInitialTilemap(0x0);
     RoomSetInitialTilemap(0x1);
     RoomSetInitialTilemap(0x2);
-    load_animated_graphics(); // Undefined
+    AnimatedGraphicsLoad(); // Undefined
     reset_tanks_animation(); // Undefined
     set_bg_haze_effect(); // Undefined
     process_haze(); // Undefined
@@ -131,7 +134,7 @@ void RoomLoad(void)
         gPreviousYPosition = gSamusData.yPosition;
     }
 
-    sub_08060800(); // Undefined
+    InGameCutsceneCheckStartQueried(); // Undefined
 
     // Update rain sound effect
     if (gRainSoundEffect != RAIN_SOUND_NONE)
@@ -440,7 +443,7 @@ void RoomReset(void)
 
     gDISPCNTBackup = 0;
     gInGameCutscene.cutsceneNumber = 0;
-    gInGameCutscene.cutsceneNumber_Copy = 0;
+    gInGameCutscene.queriedCutscene = 0;
 
     gEffectYPosition = 0;
     gHatchesState.unlocking = FALSE;
@@ -565,7 +568,7 @@ void RoomSetBackgroundScrolling(void)
     else if (gCurrentRoomEntry.visualEffect == EFFECT_SNOWFLAKES_COLD)
         gBG0Movement.type = BG0_MOVEMENT_SNOWFLAKES;
 
-    gInGameCutscene.cutsceneNumber_Copy = 0;
+    gInGameCutscene.queriedCutscene = 0;
 }
 
 void RoomSetInitialTilemap(u8 bgNumber)
@@ -763,13 +766,13 @@ void RoomUpdateAnimatedGraphicsAndPalettes(void)
     }
 
     if (!dontUpdateBgEffect && gBackgroundEffect.type != 0 && gCurrentPowerBomb.animationState == 0)
-        check_apply_background_effect_color(); // Undefined
+        BackgroundEffectUpdate(); // Undefined
 
     if (!dontUpdateGraphics)
     {
-        update_animated_graphics(); // Undefined
-        update_tanks_animation(); // Undefined
-        update_animated_palette(); // Undefined
+        AnimatedGraphicsUpdate(); // Undefined
+        AnimatedGraphicsTanksAnimationUpdate(); // Undefined
+        AnimatedPaletteUpdate(); // Undefined
         RoomUpdateHatchFlashingAnimation();
     }
 }
@@ -869,8 +872,8 @@ void RoomUpdate(void)
     if (process_haze())
     {
         process_haze();
-        if (gHazeInfo.flag & 0x7F)
-            gHazeInfo.flag |= 0x80;
+        if (gHazeInfo.enabled)
+            gHazeInfo.active = TRUE;
     }
 
     PowerBombExplosionProcess();

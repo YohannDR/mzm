@@ -4,6 +4,7 @@
 #include "data/sprites/unknown_item_chozo_statue.h"
 
 #include "constants/audio.h"
+#include "constants/in_game_cutscene.h"
 #include "constants/clipdata.h"
 #include "constants/game_state.h"
 #include "constants/sprite.h"
@@ -216,7 +217,7 @@ void UnknownItemChozoStatueHintFlashing(void)
         {
             if (gCurrentSprite.timer == 0x77)
             {
-                make_background_flash(0x0); // Undefined || Slight yellow flash
+                MakeBackgroundFlash(BG_FLASH_SLIGHT_YELLOW);
                 SoundPlay(0x11B); // Chozo hint
             }
             else if (gCurrentSprite.timer > 0x77)

@@ -74,7 +74,7 @@ void ApplyMonochromeToPalette(const u16* src, u16* dst, i8 additionalValue)
 
         r = RED(color);
         g = GREEN(color);
-        BLUE(color);
+        BLUE(color, b);
 
         // Get average
         result = (r + g + b) / 3 + additionalValue;
@@ -176,7 +176,7 @@ u16 ApplyFadeOnColor(u8 type, u16 color, u8 currentColor)
 
     red = RED(color);
     green = GREEN(color);
-    BLUE(color);
+    BLUE(color, b);
 
     switch (type)
     {

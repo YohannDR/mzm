@@ -16,9 +16,11 @@
 #include "data/hud_data.h"
 
 #include "constants/demo.h"
+#include "constants/haze.h"
 #include "constants/game_state.h"
 
 #include "structs/bg_clip.h"
+#include "structs/haze.h"
 #include "structs/cutscene.h"
 #include "structs/demo.h"
 #include "structs/display.h"
@@ -53,16 +55,16 @@ u32 InGameMainLoop(void)
             break;
 
         case SUB_GAME_MODE_DOOR_TRANSITION:
-            IOWriteRegisters();
+            IoWriteRegisters();
             if (unk_5c3ac()) // Undefined
                 gGameModeSub1++;
             break;
 
         case SUB_GAME_MODE_PLAYING:
             DemoMainLoop();
-            IOWriteRegisters();
+            IoWriteRegisters();
 
-            if ((gChangedInput & gButtonAssignments.pause || gPauseScreenFlag != PAUSE_SCREEN_NONE) && process_pause_button_press()) // Undefined
+            if ((gChangedInput & gButtonAssignments.pause || gPauseScreenFlag != PAUSE_SCREEN_NONE) && ProcessPauseButtonPress())
                 gGameModeSub1++;
 
             if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
@@ -88,7 +90,7 @@ u32 InGameMainLoop(void)
             break;
 
         case SUB_GAME_MODE_LOADING_ROOM:
-            IOWriteRegistersDuringTransition();
+            IoWriteRegistersDuringTransition();
             if (ColorFadingProcess())
             {
                 gGameModeSub1 = 0;
@@ -98,7 +100,7 @@ u32 InGameMainLoop(void)
             break;
 
         case 5:
-            IOWriteRegisters();
+            IoWriteRegisters();
             SamusUpdate();
             RoomUpdateGFXInfo();
             break;
@@ -224,28 +226,28 @@ void VBlankCodeInGameLoad(void)
 
     dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
-    if (gHazeInfo.flag & 0x80)
+    if (gHazeInfo.active)
     {
-        dma_set(0, gHazeDataValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
+        dma_set(0, gHazeValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
         
         buffer = 0;
         buffer = 0;
         buffer = 0;
         buffer = 0;
         
-        dma_set(0, gHazeDataValues, gHazeInfo.pAffected, DMA_DEST_RELOAD << 16 | gHazeInfo.size / 2);
+        dma_set(0, gHazeValues, gHazeInfo.pAffected, DMA_DEST_RELOAD << 16 | gHazeInfo.size / 2);
 
         buffer = 0;
         
         if (!(gVBlankRequestFlag & 1))
         {
             buffer = 0;
-            dma_set(3, gPreviousHazeDataValues, gHazeDataValues, DMA_ENABLE << 16 | gHazeInfo.unk / 2);
+            dma_set(3, gPreviousHazeValues, gHazeValues, DMA_ENABLE << 16 | gHazeInfo.unk / 2);
             write16(PALRAM_BASE, gWrittenTo0x05000000);
         }
 
         buffer = 0;
-        dma_set(0, gHazeDataValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_START_HBLANK | DMA_REPEAT | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
+        dma_set(0, gHazeValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_START_HBLANK | DMA_REPEAT | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
     }
 
     TransferSamusGraphics(FALSE, &gSamusPhysics);
@@ -303,28 +305,28 @@ void VBlankCodeInGame(void)
 
     dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
-    if (gHazeInfo.flag & 0x80)
+    if (gHazeInfo.active)
     {
-        dma_set(0, gHazeDataValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
+        dma_set(0, gHazeValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
         
         buffer = 0;
         buffer = 0;
         buffer = 0;
         buffer = 0;
         
-        dma_set(0, gHazeDataValues, gHazeInfo.pAffected, DMA_DEST_RELOAD << 16 | gHazeInfo.size / 2);
+        dma_set(0, gHazeValues, gHazeInfo.pAffected, DMA_DEST_RELOAD << 16 | gHazeInfo.size / 2);
 
         buffer = 0;
         
         if (!(gVBlankRequestFlag & 1))
         {
             buffer = 0;
-            dma_set(3, gPreviousHazeDataValues, gHazeDataValues, DMA_ENABLE << 16 | gHazeInfo.unk / 2);
+            dma_set(3, gPreviousHazeValues, gHazeValues, DMA_ENABLE << 16 | gHazeInfo.unk / 2);
             write16(PALRAM_BASE, gWrittenTo0x05000000);
         }
 
         buffer = 0;
-        dma_set(0, gHazeDataValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_START_HBLANK | DMA_REPEAT | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
+        dma_set(0, gHazeValues, gHazeInfo.pAffected, (DMA_ENABLE | DMA_START_HBLANK | DMA_REPEAT | DMA_DEST_RELOAD) << 16 | gHazeInfo.size / 2);
     }
 
     TransferSamusGraphics(TRUE, &gSamusPhysics);

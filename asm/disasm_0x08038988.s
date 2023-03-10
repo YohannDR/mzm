@@ -3781,7 +3781,7 @@ lbl_0803a820:
     cmp r0, #8
     bne lbl_0803a888
     movs r0, #3
-    bl make_background_flash
+    bl MakeBackgroundFlash
     ldrb r0, [r4, #0x1e]
     cmp r0, #1
     bne lbl_0803a864
