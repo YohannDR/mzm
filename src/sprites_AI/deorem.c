@@ -1496,9 +1496,38 @@ void DeoremSegmentGoingDown(void)
     gCurrentSprite.xPosition += xMovement;
 }
 
+/**
+ * @brief 22920 | 8c | Handles the segments going up when Deorem is going down
+ * 
+ */
 void DeoremSegmentGoingUp(void)
 {
+    u32 xMovement, workVariable2;
+    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
 
+    if (gCurrentSprite.timer != 0)
+    {
+        gCurrentSprite.timer--;
+        gCurrentSprite.yPosition -= 4;
+    }
+
+    if (gSpriteData[ramSlot].timer != 0)
+    {
+        if ((gCurrentSprite.roomSlot < 6) || (gCurrentSprite.roomSlot == 18))
+            gCurrentSprite.pose = 0xf; // TODO: Pose names
+        else
+            gCurrentSprite.pose = 0x11;
+    }
+            
+    workVariable2 = gCurrentSprite.workVariable2;
+    xMovement = DeoremSegment_xVelocity[workVariable2];
+    if (xMovement == 0x7FFF)
+    {
+        xMovement = DeoremSegment_xVelocity[0];
+        workVariable2 = 0;
+    }
+    gCurrentSprite.workVariable2 = workVariable2 + 1;
+    gCurrentSprite.xPosition += xMovement;
 }
 
 void DeoremSegmentAboveHeadMovement(void)
