@@ -404,12 +404,15 @@ void EndScreenInit(void)
     EndScreenVBlank();
 }
 
+/**
+ * @brief 86050 | 764 | Handles the entire samus posing sequence
+ * 
+ * @return u8 bool, ended
+ */
 u8 EndScreenSamusPosing(void)
 {
-    // https://decomp.me/scratch/nSTRG
-
     u8 ended;
-    u8 temp;
+    u32 temp;
 
     ended = FALSE;
 
@@ -543,15 +546,15 @@ u8 EndScreenSamusPosing(void)
             break;
 
         case 3:
-            temp = ++ENDING_DATA.unk_160[0];
-            if (ENDING_DATA.unk_160[0] >= 16)
+            ++ENDING_DATA.unk_160[0];
+            temp = ENDING_DATA.unk_160[0];
+            if ((u8)temp >= 16)
             {
                 ENDING_DATA.unk_160[0] = 0;
                 ENDING_DATA.unk_124[1] = 16;
                 break;
             }
-
-            dma_set(3, sEndingWhitePalPointers[temp / 4],
+            dma_set(3, sEndingWhitePalPointers[(u8)temp / 4],
                 PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sEndingPosingPAL_White1));
             break;
 
