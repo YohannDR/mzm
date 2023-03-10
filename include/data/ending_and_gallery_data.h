@@ -19,6 +19,10 @@ extern const u16* const sEndingImagesPalPointers[NUMBER_OF_ENDING_IMAGES];
 
 // ...
 
+extern const u16* const sEndingWhitePalPointers[4];
+
+// ...
+
 extern const u32 sEndingImageTextGFX[803];
 extern const u32 sEndingImageTextJapGFX[511];
 
@@ -33,9 +37,42 @@ extern const u16 sCreditsChozoWallPAL[15 * 16];
 
 // ...
 
+extern const u16 sEndingPosingPAL[13 * 16];
+extern const u16 sEndingPosingPAL_White1[5 * 16];
+extern const u16 sEndingPosingPAL_White2[5 * 16];
+extern const u16 sEndingPosingPAL_White3[5 * 16];
+extern const u16 sEndingPosingPAL_White4[5 * 16];
+
+// ...
+
 extern const u32 sCreditsCharactersGFX[615];
 
 // ...
+
+extern const u32 sEndingNumbersMiscGX[218];
+extern const u32 sEndingSamusPosingSpaceBackgroundGFX[2938];
+extern const u32 sEndingSamusPosingSpaceBackgroundTileTable[412];
+extern const u32 sEndingSamusPosingSpaceBackgroundTileTable[412];
+extern const u32 sEndingLightGFX[743];
+extern const u32 sEndingLightTileTable[145];
+
+extern const u32 sEndingSamusPosingGFX_1[1481];
+extern const u32 sEndingSamusPosingTileTable_1[209];
+extern const u32 sEndingSamusPosingGFX_2[1562];
+extern const u32 sEndingSamusPosingTileTable_2[230];
+extern const u32 sEndingSamusPosingGFX_3[1712];
+extern const u32 sEndingSamusPosingTileTable_3[238];
+extern const u32 sEndingSamusPosingGFX_4[1692];
+extern const u32 sEndingSamusPosingTileTable_4[221];
+extern const u32 sEndingSamusPosingGFX_5[1279];
+extern const u32 sEndingSamusPosingTileTable_5[181];
+
+extern const u32 sEndingSamusPosingSuitlessGFX[1167];
+extern const u32 sEndingSamusPosingSuitlessTileTable[135];
+extern const u32 sEndingSamusPosingFullSuitGFX[1557];
+extern const u32 sEndingSamusPosingFullSuitTileTable[226];
+extern const u32 sEndingSamusPosingHelmetOffGFX[1568];
+extern const u32 sEndingSamusPosingHelmetOffTileTable[226];
 
 extern const u32 sCreditsChozoWallBackgroundGFX[7710];
 extern const u32 sCreditsChozoWallBackgroundTileTable[551];

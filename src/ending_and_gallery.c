@@ -329,14 +329,381 @@ u8 CreditsChozoWallZoom(void)
     return ended;
 }
 
+/**
+ * @brief 85e08 | 248 | Initializes the end screen (samus posing)
+ * 
+ */
 void EndScreenInit(void)
 {
+    u32 zero;
 
+    write16(REG_IME, FALSE);
+    write16(REG_DISPSTAT, read16(REG_DISPSTAT) & ~DSTAT_IF_HBLANK);
+    write16(REG_IE, read16(REG_IE) & ~IF_HBLANK);
+    write16(REG_IF, IF_HBLANK);
+
+    write16(REG_IME, TRUE);
+    write16(REG_DISPCNT, 0);
+
+    write16(REG_IME, FALSE);
+    CallbackSetVBlank(EndScreenVBlank);
+    write16(REG_IME, TRUE);
+
+    LZ77UncompVRAM(sEndingSamusPosingSpaceBackgroundGFX, VRAM_BASE + 0x3000);
+    LZ77UncompVRAM(sEndingLightGFX, VRAM_BASE + 0xB000);
+    LZ77UncompVRAM(sEndingSamusPosingGFX_1, VRAM_BASE);
+    LZ77UncompVRAM(sEndingSamusPosingGFX_2, VRAM_BASE + 0x8000);
+
+    LZ77UncompVRAM(sEndingSamusPosingSpaceBackgroundTileTable, VRAM_BASE + 0xF800);
+    LZ77UncompVRAM(sEndingLightTileTable, VRAM_BASE + 0xF000);
+    LZ77UncompVRAM(sEndingSamusPosingTileTable_1, VRAM_BASE + 0xD000);
+    LZ77UncompVRAM(sEndingSamusPosingTileTable_2, VRAM_BASE + 0xE000);
+
+    BitFill(3, 0, VRAM_BASE + 0xD800, 0x800, 32);
+    BitFill(3, 0, VRAM_BASE + 0xE800, 0x800, 32);
+
+    dma_set(3, sEndingPosingPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sEndingPosingPAL));
+
+    write16(REG_BG0CNT, 0x1E08);
+    write16(REG_BG1CNT, 0x5A01);
+    write16(REG_BG2CNT, 0x5C0A);
+    write16(REG_BG3CNT, 0x1F03);
+    
+    gNextOamSlot = 0;
+    ResetFreeOAM();
+    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+
+    gBG0XPosition = 0;
+    gBG0YPosition = 0;
+    gBG1XPosition = 0x100;
+    gBG1YPosition = 0;
+    gBG2XPosition = 0x100;
+    gBG2YPosition = 0;
+    gBG3XPosition = 0;
+    gBG3YPosition = 0;
+
+    write16(REG_BG0HOFS, 0);
+    write16(REG_BG0VOFS, 0);
+    write16(REG_BG1HOFS, 0x100);
+    write16(REG_BG1VOFS, 0);
+    write16(REG_BG2HOFS, 0x100);
+    write16(REG_BG2VOFS, 0);
+    write16(REG_BG3HOFS, 0);
+    write16(REG_BG3VOFS, 0);
+
+    zero = 0;
+    dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+
+    ENDING_DATA.endingNumber = GetPercentAndEndingNumber() & 7;
+    ENDING_DATA.dispcnt = DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ;
+
+    gWrittenToBLDALPHA_L = 16;
+    gWrittenToBLDALPHA_H = 0;
+    gWrittenToBLDY_NonGameplay = 16;
+
+    EndScreenVBlank();
 }
 
 u8 EndScreenSamusPosing(void)
 {
+    // https://decomp.me/scratch/nSTRG
 
+    u8 ended;
+    u8 temp;
+
+    ended = FALSE;
+
+    ENDING_DATA.endScreenTimer++;
+
+    switch (ENDING_DATA.unk_1)
+    {
+        case 4:
+            if (ENDING_DATA.timer++ <= 7)
+                break;
+
+        case 0:
+            gBG1XPosition += 8;
+            if (gBG1XPosition >= BLOCK_SIZE * 8)
+            {
+                gBG1XPosition = 0;
+                ENDING_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+                    BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL;
+                ENDING_DATA.timer = 0;
+                ENDING_DATA.unk_1++;
+            }
+            break;
+
+        case 1:
+        case 3:
+        case 5:
+            if (ENDING_DATA.timer++ > 24)
+            {
+                ENDING_DATA.unk_124[0] = 1;
+                ENDING_DATA.timer = 0;
+                ENDING_DATA.unk_1++;
+            }
+            break;
+
+        case 2:
+        case 6:
+            if (ENDING_DATA.timer++ > 7)
+            {
+                gBG2XPosition += 8;
+                if (gBG2XPosition >= BLOCK_SIZE * 8)
+                {
+                    gBG2XPosition = BLOCK_SIZE * 8;
+                    ENDING_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+                        BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL;
+                    ENDING_DATA.timer = 0;
+                    ENDING_DATA.unk_1++;
+                }
+            }
+            break;
+
+        case 7:
+            if (ENDING_DATA.timer++ > 64)
+            {
+                ENDING_DATA.unk_124[0] = 1;
+                ENDING_DATA.timer = 0;
+                ENDING_DATA.unk_1++;
+            }
+            break;
+
+        case 8:
+            if (ENDING_DATA.timer++ > 23)
+            {
+                if (gBG1XPosition >= 10)
+                {
+                    gBG1XPosition -= 10;
+                }
+                else
+                {
+                    gBG1XPosition = 0;
+                    ENDING_DATA.timer = 0;
+                    ENDING_DATA.unk_1++;
+                }
+            }
+            break;
+
+        case 9:
+            if (ENDING_DATA.timer++ > 31)
+            {
+                ENDING_DATA.dispcnt = DCNT_BG1 | DCNT_BG2 | DCNT_BG3;
+                
+                if (ENDING_DATA.endingNumber != 0)
+                {
+                    ENDING_DATA.unk_124[0] = 3;
+                }
+                else
+                {
+                    ENDING_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+                        BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL;
+                    ENDING_DATA.unk_124[0] = 1;
+                }
+                
+                ENDING_DATA.timer = 0;
+                ENDING_DATA.unk_1++;
+            }
+            break;
+
+        case 10:
+            if (ENDING_DATA.timer++ > 288)
+                ENDING_DATA.unk_124[1] = 32;
+            break;
+    }
+
+    switch (ENDING_DATA.unk_124[0])
+    {
+        case 1:
+            if (ENDING_DATA.endScreenTimer & 1)
+            {
+                if (gWrittenToBLDALPHA_L != 0)
+                    gWrittenToBLDALPHA_L--;
+                else
+                {
+                    ENDING_DATA.unk_124[0] = 0;
+                    ENDING_DATA.unk_124[1]++;
+                }
+
+                gWrittenToBLDALPHA_H = 16 - gWrittenToBLDALPHA_L;
+            }
+            break;
+
+        case 2:
+            if (ENDING_DATA.endScreenTimer & 3)
+                break;
+
+            if (gWrittenToBLDALPHA_L < 16)
+                gWrittenToBLDALPHA_L++;
+            else
+            {
+                ENDING_DATA.unk_124[0] = 0;
+                ENDING_DATA.unk_124[1]++;
+            }
+            break;
+
+        case 3:
+            temp = ++ENDING_DATA.unk_160[0];
+            if (ENDING_DATA.unk_160[0] >= 16)
+            {
+                ENDING_DATA.unk_160[0] = 0;
+                ENDING_DATA.unk_124[1] = 16;
+                break;
+            }
+
+            dma_set(3, sEndingWhitePalPointers[temp / 4],
+                PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sEndingPosingPAL_White1));
+            break;
+
+        case 4:
+            if (!(ENDING_DATA.endScreenTimer & 1))
+                break;
+
+            if (gWrittenToBLDY_NonGameplay < 16)
+                gWrittenToBLDY_NonGameplay++;
+            else
+                ENDING_DATA.unk_124[1]++;
+            break;
+
+        case 5:
+            if (ENDING_DATA.endScreenTimer & 3)
+                break;
+
+            if (gWrittenToBLDY_NonGameplay)
+                gWrittenToBLDY_NonGameplay--;
+            else
+            {
+                ENDING_DATA.unk_124[0] = 0;
+                ENDING_DATA.unk_124[1]++;
+            }
+            break;
+    }
+
+    switch (ENDING_DATA.unk_124[1])
+    {
+        case 1:
+            write16(REG_BG1CNT, 0x5A02);
+            write16(REG_BG2CNT, 0x5C09);
+
+            LZ77UncompVRAM(sEndingSamusPosingGFX_3, VRAM_BASE);
+            LZ77UncompVRAM(sEndingSamusPosingTileTable_3, VRAM_BASE + 0xD000);
+
+            ENDING_DATA.bldcnt = 0;
+            gWrittenToBLDALPHA_L = 16;
+            gWrittenToBLDALPHA_H = 0;
+            gBG1XPosition = BLOCK_SIZE * 4;
+            ENDING_DATA.unk_124[1]++;
+            break;
+
+        case 3:
+            write16(REG_BG1CNT, 0x5A01);
+            write16(REG_BG2CNT, 0x5C0A);
+
+            LZ77UncompVRAM(sEndingSamusPosingGFX_4, VRAM_BASE + 0x8000);
+            LZ77UncompVRAM(sEndingSamusPosingTileTable_4, VRAM_BASE + 0xE000);
+
+            ENDING_DATA.bldcnt = 0;
+            gWrittenToBLDALPHA_L = 16;
+            gWrittenToBLDALPHA_H = 0;
+            gBG2XPosition = BLOCK_SIZE * 4;
+            ENDING_DATA.unk_124[1]++;
+            break;
+
+        case 5:
+            write16(REG_BG1CNT, 0x5A02);
+            write16(REG_BG2CNT, 0x5C09);
+
+            LZ77UncompVRAM(sEndingSamusPosingGFX_5, VRAM_BASE);
+            LZ77UncompVRAM(sEndingSamusPosingTileTable_5, VRAM_BASE + 0xD000);
+
+            ENDING_DATA.bldcnt = 0;
+            gWrittenToBLDALPHA_L = 16;
+            gWrittenToBLDALPHA_H = 0;
+            gBG1XPosition = BLOCK_SIZE * 4;
+            ENDING_DATA.unk_124[1]++;
+            break;
+
+        case 7:
+            write16(REG_BG1CNT, 0x5A01);
+            write16(REG_BG2CNT, 0x5C0A);
+
+            if (ENDING_DATA.endingNumber == 0)
+            {
+                LZ77UncompVRAM(sEndingSamusPosingFullSuitGFX, VRAM_BASE + 0x8000);
+                LZ77UncompVRAM(sEndingSamusPosingFullSuitTileTable, VRAM_BASE + 0xE000);
+            }
+            else if (ENDING_DATA.endingNumber == 1)
+            {
+                LZ77UncompVRAM(sEndingSamusPosingHelmetOffGFX, VRAM_BASE + 0x8000);
+                LZ77UncompVRAM(sEndingSamusPosingHelmetOffTileTable, VRAM_BASE + 0xE000);
+            }
+            else
+            {
+                LZ77UncompVRAM(sEndingSamusPosingSuitlessGFX, VRAM_BASE + 0x8000);
+                LZ77UncompVRAM(sEndingSamusPosingSuitlessTileTable, VRAM_BASE + 0xE000);
+            }
+
+            ENDING_DATA.dispcnt = DCNT_BG1 | DCNT_BG3;
+            ENDING_DATA.bldcnt = 0;
+            gWrittenToBLDALPHA_L = 16;
+            gWrittenToBLDALPHA_H = 0;
+            gBG2XPosition = 0;
+
+            ENDING_DATA.unk_124[1]++;
+            break;
+
+        case 9:
+            ENDING_DATA.dispcnt = DCNT_BG0 | DCNT_BG2 | DCNT_BG3;
+            ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+                BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL;
+            
+            gWrittenToBLDALPHA_L = 0;
+            gWrittenToBLDALPHA_H = 16;
+            ENDING_DATA.unk_124[0] = 2;
+            ENDING_DATA.unk_124[1]++;
+            break;
+
+        case 16:
+            ENDING_DATA.dispcnt = DCNT_BG1 | DCNT_BG2 | DCNT_BG3;
+            ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
+                BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
+                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            
+            ENDING_DATA.unk_124[0]++;
+            ENDING_DATA.unk_124[1]++;
+            break;
+
+        case 18:
+            ENDING_DATA.dispcnt = DCNT_BG2 | DCNT_BG3;
+            ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
+                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
+                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            
+            ENDING_DATA.unk_124[0]++;
+            ENDING_DATA.unk_124[1]++;
+            break;
+
+        case 19:
+            dma_set(3, sEndingPosingPAL, PALRAM_BASE, DMA_ENABLE << 16 | 0x50);
+            ENDING_DATA.unk_124[1]++;
+            break;
+
+        case 32:
+            ENDING_DATA.dispcnt = DCNT_BG2 | DCNT_BG3;
+            ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
+                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
+                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+
+            gWrittenToBLDALPHA_L = 16;
+            gWrittenToBLDALPHA_H = 0;
+            ended++;
+            break;
+    }
+
+    if (!(ENDING_DATA.endScreenTimer & 7))
+        gBG3XPosition++;
+
+    return ended;
 }
 
 /**
@@ -446,9 +813,109 @@ void EndingImageDisplayText(void)
 
 }
 
+/**
+ * @brief 86c8c | 1ec | Handles the ending image displaying
+ * 
+ * @return u8 bool, ended
+ */
 u8 EndingImageDisplay(void)
 {
+    u8 ended;
+    u8 i;
 
+    ended = FALSE;
+
+    switch (ENDING_DATA.timer++)
+    {
+        case 0:
+            ENDING_DATA.unk_8++;
+            break;
+
+        case 30:
+            EndingImageLoadTextOAM(0);
+            ENDING_DATA.unk_1 = TRUE;
+            break;
+
+        case 110:
+            EndingImageDisplayLinePermanently(0);
+            break;
+
+        case 180:
+            EndingImageDisplayLinePermanently(1);
+            if (gEndingFlags & 1)
+                ENDING_DATA.unk_141++;
+            break;
+
+        case 330:
+            EndingImageLoadTextOAM(1);
+            break;
+
+        case 375:
+            if (ENDING_DATA.language == LANGUAGE_JAPANESE || ENDING_DATA.language == LANGUAGE_ENGLISH ||
+                ENDING_DATA.language == LANGUAGE_ITALIAN)
+                EndingImageDisplayLinePermanently(2);
+            break;
+
+        case 380:
+            if (ENDING_DATA.language == LANGUAGE_JAPANESE || ENDING_DATA.language == LANGUAGE_ENGLISH ||
+                ENDING_DATA.language == LANGUAGE_ITALIAN)
+                EndingImageLoadTextOAM(2);
+            break;
+
+        case 460:
+            EndingImageDisplayLinePermanently(3);
+            break;
+
+        case 530:
+            EndingImageDisplayLinePermanently(4);
+            break;
+
+        case 780:
+            if (ENDING_DATA.language != LANGUAGE_HIRAGANA)
+                EndingImageDisplayLinePermanently(5);
+            break;
+
+        case 1376:
+            if (gChangedInput & (KEY_A | KEY_B | KEY_START))
+                FadeMusic(256);
+            else
+                ENDING_DATA.timer--;
+            break;
+
+        case 1664:
+            ended = TRUE;
+    }
+
+    if (ENDING_DATA.unk_8)
+    {
+        if (gBG0YPosition > 6)
+        {
+            gBG0YPosition -= 6;
+            gBG1YPosition -= 6;
+        }
+        else
+        {
+            gBG0YPosition = 0;
+            gBG1YPosition = 0;
+            ENDING_DATA.unk_8 = FALSE;
+        }
+    }
+
+    if (ENDING_DATA.timer > 1380)
+        return ended;
+
+    if (ENDING_DATA.timer > 809 && gButtonInput & (KEY_R | KEY_L))
+        return ended;
+
+    if (ENDING_DATA.unk_1 == TRUE)
+    {
+        for (i = 6; i < ENDING_DATA.oamLength; i++)
+            EndingImageCheckDisplayLetter(i);
+    }
+
+    EndingImageDisplayText();
+
+    return ended;
 }
 
 void UnlockedOptionsInit(void)
