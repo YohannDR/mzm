@@ -1188,9 +1188,45 @@ void DeoremSegmentSpawnGoingDown(void)
     }
 }
 
+/**
+ * @brief 223ec | 9c80 | Handles the movement when Deorem is spawning, going down
+ * and the other side has started spawning
+ * 
+ */
 void DeoremSegmentSpawnGoingDownAfter(void)
 {
+    // https://decomp.me/scratch/eJVb6
+    
+    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u16 movement = 16;
 
+    if (gSpriteData[ramSlot].pose == DEOREM_POSE_AFTER_SPAWN)
+        movement = 8;
+
+    gCurrentSprite.yPosition += movement;
+
+    gCurrentSprite.timer--;
+    if (gCurrentSprite.timer == 0)
+    {
+        gCurrentSprite.timer = 100 / movement;
+        gCurrentSprite.yPosition -= movement * gCurrentSprite.timer;
+        gCurrentSprite.currentAnimationFrame++;
+        if (gCurrentSprite.currentAnimationFrame > 3)
+            gCurrentSprite.currentAnimationFrame = 0;
+    }
+
+    if (gSpriteData[ramSlot].pose == DEOREM_POSE_MAIN)
+    {
+        gCurrentSprite.workVariable2 = gCurrentSprite.roomSlot << 2;
+        gCurrentSprite.pose = 0xF; // TODO: Pose names
+        if (gCurrentSprite.roomSlot == 5)
+        {
+            SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x12,
+                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                gCurrentSprite.yPosition - 100, gCurrentSprite.xPosition, 0);
+            //  ^^^^^^^ This right here ^^^^^^^
+        }
+    }
 }
 
 void DeoremSegmentSpawnGoingUp(void)
@@ -1344,7 +1380,7 @@ void Deorem(void)
         case DEOREM_POSE_SPAWN_HEAD_BODY:
             DeoremSpawnHeadBody();
             break;
-        case 0x25:
+        case DEOREM_POSE_AFTER_SPAWN:
             DeoremAfterSpawn();
             break;
         case DEOREM_POSE_MAIN:
