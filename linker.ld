@@ -348,7 +348,8 @@ SECTIONS {
         src/sprites_AI/squeept.o(.text);
         src/sprites_AI/map_station.o(.text);
         src/sprites_AI/save_platform.o(.text);
-        asm/disasm_0x08020564.o(.text);
+        src/sprites_AI/dragon.o(.text);
+        asm/disasm_0x08020c7c.o(.text);
         src/sprites_AI/dessgeega.o(.text);
         src/sprites_AI/waver.o(.text);
         asm/disasm_0x08024a10.o(.text);
