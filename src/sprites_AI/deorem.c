@@ -1344,17 +1344,17 @@ void DeoremSegmentRightIdleAnim(void)
         }
         else
         {
-            u32 xVelocity, workVariable2;
+            u32 xMovement, workVariable2;
             
             workVariable2 = gCurrentSprite.workVariable2;
-            xVelocity = DeoremSegment_xVelocity[workVariable2];
-            if (xVelocity == 0x7FFF)
+            xMovement = DeoremSegment_xVelocity[workVariable2];
+            if (xMovement == 0x7FFF)
             {
-                xVelocity = DeoremSegment_xVelocity[0];
+                xMovement = DeoremSegment_xVelocity[0];
                 workVariable2 = 0;
             }
             gCurrentSprite.workVariable2 = workVariable2 + 1;
-            gCurrentSprite.xPosition += xVelocity;
+            gCurrentSprite.xPosition += xMovement;
         }
     }
     else
@@ -1462,10 +1462,38 @@ void DeoremSegmentLeftIdleAnim(void)
     }
 }
 
-
+/**
+ * @brief 22894 | 8c | Handles the segments going down when Deorem is going down
+ * 
+ */
 void DeoremSegmentGoingDown(void)
 {
+    u32 xMovement, workVariable2;
+    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
 
+    if (gCurrentSprite.timer != 0)
+    {
+        gCurrentSprite.timer--;
+        gCurrentSprite.yPosition += 4;
+    }
+
+    if (gSpriteData[ramSlot].timer != 0)
+    {
+        if ((gCurrentSprite.roomSlot < 6) || (gCurrentSprite.roomSlot == 18))
+            gCurrentSprite.pose = 0xf; // TODO: Pose names
+        else
+            gCurrentSprite.pose = 0x11;
+    }
+            
+    workVariable2 = gCurrentSprite.workVariable2;
+    xMovement = DeoremSegment_xVelocity[workVariable2];
+    if (xMovement == 0x7FFF)
+    {
+        xMovement = DeoremSegment_xVelocity[0];
+        workVariable2 = 0;
+    }
+    gCurrentSprite.workVariable2 = workVariable2 + 1;
+    gCurrentSprite.xPosition += xMovement;
 }
 
 void DeoremSegmentGoingUp(void)
