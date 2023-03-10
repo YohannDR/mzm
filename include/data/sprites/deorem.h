@@ -6,6 +6,14 @@
 
 /* OAM data */
 
+const short DeoremSegment_xVelocity[33] = { /* 0x082d5ba0 */
+    1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
+    -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0,
+    0x7FFF
+};
+
+/* ... */
+
 const u16 DeoremUnkOAM_082d7558[4] = { /* 0x082d7558 */
     0x1,
     OBJ_SHAPE_HORIZONTAL | 0xf0, OBJ_SIZE_64x32 | 0x1df, OBJ_SPRITE_OAM | 0x1210
