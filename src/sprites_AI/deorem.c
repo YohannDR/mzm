@@ -1229,9 +1229,33 @@ void DeoremSegmentSpawnGoingDownAfter(void)
     }
 }
 
+/**
+ * @brief 224b4 | 90 | Handles the movement when Deorem is spawning and going up
+ * 
+ */
 void DeoremSegmentSpawnGoingUp(void)
 {
+    i32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    
+    if (gCurrentSprite.roomSlot == 6)
+        gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition + 0xA8;
+    else
+    {
+        i32 yPosition = gSpriteData[ramSlot].yPosition + 0xA8;
+        gCurrentSprite.yPosition = yPosition + (gCurrentSprite.roomSlot - 6) * 100;
+    }
 
+    if (gSpriteData[ramSlot].pose == DEOREM_POSE_SPAWN_HEAD_BODY)
+    {
+        gCurrentSprite.pose = 0x23; // TODO: Pose names
+        gCurrentSprite.timer = 6;
+
+        if (gCurrentSprite.roomSlot == 6)
+        {
+            gCurrentSprite.pOam = DeoremUnkOAMData_082d7894;
+            gCurrentSprite.drawOrder = 4;
+        }
+    }
 }
 
 void DeoremSegmentSpawnGoingUpAfter(void)
