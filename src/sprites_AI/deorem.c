@@ -1195,14 +1195,11 @@ void DeoremSegmentSpawnGoingDown(void)
  */
 void DeoremSegmentSpawnGoingDownAfter(void)
 {
-    // https://decomp.me/scratch/eJVb6
-    
     u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
-    u16 movement = 16;
 
+    u16 movement = 16;
     if (gSpriteData[ramSlot].pose == DEOREM_POSE_AFTER_SPAWN)
         movement = 8;
-
     gCurrentSprite.yPosition += movement;
 
     gCurrentSprite.timer--;
@@ -1217,14 +1214,13 @@ void DeoremSegmentSpawnGoingDownAfter(void)
 
     if (gSpriteData[ramSlot].pose == DEOREM_POSE_MAIN)
     {
-        gCurrentSprite.workVariable2 = gCurrentSprite.roomSlot << 2;
+        gCurrentSprite.workVariable2 = gCurrentSprite.roomSlot * 4;
         gCurrentSprite.pose = 0xF; // TODO: Pose names
         if (gCurrentSprite.roomSlot == 5)
         {
             SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x12,
                 gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
                 gCurrentSprite.yPosition - 100, gCurrentSprite.xPosition, 0);
-            //  ^^^^^^^ This right here ^^^^^^^
         }
     }
 }
