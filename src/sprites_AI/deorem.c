@@ -1307,7 +1307,7 @@ void DeoremSegmentRightIdleAnim(void)
     {
         if (gSpriteData[ramSlot].pose == DEOREM_POSE_THORNS_1)
         {
-            u16 spritesetGFXSlot, primarySpriteRAMSlot, yPosition, xMovement, statusToAdd;
+            u16 spritesetGFXSlot, primarySpriteRAMSlot, yPosition, xPosition, statusToAdd;
             
             gCurrentSprite.animationDurationCounter += 4;
             spritesetGFXSlot = gCurrentSprite.spritesetGFXSlot;
@@ -1316,31 +1316,31 @@ void DeoremSegmentRightIdleAnim(void)
             
             if (gBossWork.work3 != 0)
             {
-                xMovement = gCurrentSprite.xPosition - 3 * HALF_BLOCK_SIZE;
+                xPosition = gCurrentSprite.xPosition - 3 * HALF_BLOCK_SIZE;
                 statusToAdd = 0;
             }
             else
             {
-                xMovement = gCurrentSprite.xPosition + 3 * HALF_BLOCK_SIZE;
+                xPosition = gCurrentSprite.xPosition + 3 * HALF_BLOCK_SIZE;
                 statusToAdd = SPRITE_STATUS_XFLIP;
             }
     
             if (gCurrentSprite.roomSlot == 1 && deoremTimer == 241)
                 SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 0,
                     spritesetGFXSlot, primarySpriteRAMSlot,
-                    yPosition, xMovement, statusToAdd);
+                    yPosition, xPosition, statusToAdd);
             else if (gCurrentSprite.roomSlot == 2 && deoremTimer == 181)
                 SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 1,
                     spritesetGFXSlot, primarySpriteRAMSlot,
-                    yPosition, xMovement, statusToAdd);
+                    yPosition, xPosition, statusToAdd);
             else if (gCurrentSprite.roomSlot == 3 && deoremTimer == 101)
                 SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 2,
                     spritesetGFXSlot, primarySpriteRAMSlot,
-                    yPosition, xMovement, statusToAdd);
+                    yPosition, xPosition, statusToAdd);
             else if (gCurrentSprite.roomSlot == 4 && deoremTimer == 21)
                 SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 3,
                     spritesetGFXSlot, primarySpriteRAMSlot,
-                    yPosition, xMovement, statusToAdd);
+                    yPosition, xPosition, statusToAdd);
         }
         else
         {
@@ -1377,10 +1377,91 @@ void DeoremSegmentRightIdleAnim(void)
     }
 }
 
+/**
+ * @brief 22750 | 144 | Handles the idle animation and the thorn throwing of the segments on the left side
+ * 
+ */
 void DeoremSegmentLeftIdleAnim(void)
 {
-
+    u16 yPosition; // Unlike the previous function, this variable needs to be declared here for the function to match (reg swap)
+    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u8 deoremTimer = gSpriteData[ramSlot].timer;
+    
+    if (deoremTimer != 0)
+    {
+        if (gSpriteData[ramSlot].pose == DEOREM_POSE_THORNS_2)
+        {
+            u16 spritesetGFXSlot, primarySpriteRAMSlot, xPosition, statusToAdd;
+            
+            gCurrentSprite.animationDurationCounter += 4;
+            spritesetGFXSlot = gCurrentSprite.spritesetGFXSlot;
+            primarySpriteRAMSlot = gCurrentSprite.primarySpriteRAMSlot;
+            yPosition = gCurrentSprite.yPosition;
+            
+            if (gBossWork.work3 != 0)
+            {
+                xPosition = gCurrentSprite.xPosition + 3 * HALF_BLOCK_SIZE;
+                statusToAdd = SPRITE_STATUS_XFLIP;
+            }
+            else
+            {
+                xPosition = gCurrentSprite.xPosition - 3 * HALF_BLOCK_SIZE;
+                statusToAdd = 0;
+            }
+    
+            if (gCurrentSprite.roomSlot == 10 && deoremTimer == 241)
+                SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 0,
+                    spritesetGFXSlot, primarySpriteRAMSlot,
+                    yPosition, xPosition, statusToAdd);
+            else if (gCurrentSprite.roomSlot == 9 && deoremTimer == 181)
+                SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 1,
+                    spritesetGFXSlot, primarySpriteRAMSlot,
+                    yPosition, xPosition, statusToAdd);
+            else if (gCurrentSprite.roomSlot == 8 && deoremTimer == 101)
+                SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 2,
+                    spritesetGFXSlot, primarySpriteRAMSlot,
+                    yPosition, xPosition, statusToAdd);
+            else if (gCurrentSprite.roomSlot == 7 && deoremTimer == 21)
+                SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 3,
+                    spritesetGFXSlot, primarySpriteRAMSlot,
+                    yPosition, xPosition, statusToAdd);
+        }
+        else
+        {
+            u32 xVelocity, workVariable2;
+            
+            workVariable2 = gCurrentSprite.workVariable2;
+            xVelocity = DeoremSegment_xVelocity[workVariable2];
+            if (xVelocity == 0x7FFF)
+            {
+                xVelocity = DeoremSegment_xVelocity[0];
+                workVariable2 = 0;
+            }
+            gCurrentSprite.workVariable2 = workVariable2 + 1;
+            gCurrentSprite.xPosition += xVelocity;
+        }
+    }
+    else
+    {
+        if (gSpriteData[ramSlot].pose == DEOREM_POSE_MAIN)
+        {
+            gCurrentSprite.pose = 0x35; // TODO: Pose names
+            gCurrentSprite.timer = 0x19;
+        }
+        else if (gSpriteData[ramSlot].pose == DEOREM_POSE_RETRACTING)
+        {
+            gCurrentSprite.pose = 0x33; // TODO: Pose names
+            gCurrentSprite.timer = 0x19;
+        }
+        else if (gSpriteData[ramSlot].pose == DEOREM_POSE_LEAVING_ANIM)
+        {
+            gCurrentSprite.pose = 0x42; // TODO: Pose names
+            gCurrentSprite.timer = 6;
+            gCurrentSprite.workVariable = 0x4c;
+        }
+    }
 }
+
 
 void DeoremSegmentGoingDown(void)
 {
