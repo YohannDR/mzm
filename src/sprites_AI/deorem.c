@@ -1254,9 +1254,44 @@ void DeoremSegmentSpawnGoingUp(void)
     }
 }
 
+/**
+ * @brief 22544 | c8 | Handles the movement when Deorem is spawning, going up
+ * and the current side has finished spawning
+ * 
+ */
 void DeoremSegmentSpawnGoingUpAfter(void)
 {
+    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    
+    i32 movement = 16;
+    if (gSpriteData[ramSlot].pose == DEOREM_POSE_AFTER_SPAWN)
+    {
+        movement = 8;
+    }
+    gCurrentSprite.yPosition -= movement;
 
+    gCurrentSprite.timer--;
+    if (gCurrentSprite.timer == 0)
+    {
+        gCurrentSprite.timer = 100 / movement;
+        gCurrentSprite.yPosition += movement * gCurrentSprite.timer;
+        gCurrentSprite.currentAnimationFrame++;
+        if (gCurrentSprite.currentAnimationFrame > 3)
+            gCurrentSprite.currentAnimationFrame = 0;
+    }
+
+    if (gSpriteData[ramSlot].pose == DEOREM_POSE_MAIN)
+    {
+        gCurrentSprite.workVariable2 = (gCurrentSprite.roomSlot - 6) * 4;
+        gCurrentSprite.pose = 0x11; // TODO: Pose names
+        if (gCurrentSprite.roomSlot == 11)
+        {
+            SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x13,
+                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                gCurrentSprite.yPosition + 100, gCurrentSprite.xPosition, 0);
+            
+        }
+    }
 }
 
 void DeoremSegmentRightIdleAnim(void)
