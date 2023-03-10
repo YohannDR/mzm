@@ -261,15 +261,18 @@ void DragonFireballInit(void)
     SoundPlay(0x14C);
 }
 
+/**
+ * @brief 20954 | d8 | Handles the movement of a dragon fireball
+ * 
+ */
 void DragonFireballMove(void)
 {
-    // https://decomp.me/scratch/x48fr
-
-    /*u16 oldY;
+    u16 oldY;
     u8 offset;
     i32 yMovement;
     i32 xMovement;
     i32 rotation;
+    i32 newVel;
 
     xMovement = 0xC;
     oldY = gCurrentSprite.yPosition;
@@ -280,9 +283,9 @@ void DragonFireballMove(void)
 
     if (yMovement == SHORT_MAX)
     {
-        yMovement = sDragonFireballYMovement[offset - 1];
+        newVel = sDragonFireballYMovement[offset - 1];
         rotation = sDragonFireballOAMRotation[offset - 1];
-        gCurrentSprite.yPosition += yMovement;
+        gCurrentSprite.yPosition += newVel;
     }
     else
     {
@@ -308,7 +311,7 @@ void DragonFireballMove(void)
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck & 0xF0)
             gCurrentSprite.pose = DRAGON_FIREBALL_POSE_EXPLODING_INIT;
-    }*/
+    }
 }
 
 /**
