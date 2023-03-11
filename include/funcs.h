@@ -13,8 +13,6 @@ int chozodia_escape_main(void);
 int credits_main(void);
 int tourian_escape_main(void);
 int cutscene_main(void);
-int gallery_main(void);
-int fusion_gallery_main(void);
 
 void unk_33dc(void);
 void QueueSound(u16 id, u32 unk); /* TODO: unk type */

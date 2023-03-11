@@ -43,6 +43,8 @@ extern const u16 sEndingPosingPAL_White2[5 * 16];
 extern const u16 sEndingPosingPAL_White3[5 * 16];
 extern const u16 sEndingPosingPAL_White4[5 * 16];
 
+extern const u16 sUnlockedOptionsPAL[1 * 16];
+
 // ...
 
 extern const u32 sCreditsCharactersGFX[615];
@@ -82,5 +84,7 @@ extern const u32 sCreditsChozoWallBottomZoomedGFX[5160];
 extern const u32 sCreditsChozoWallBottomZoomedTileTable[368];
 extern const u32 sCreditsChozoDrawingGFX[4770];
 extern const u32 sCreditsChozoDrawingTileTable[368];
+
+extern const u32 sUnlockedOptionsTileTable[127];
 
 #endif /* ENDING_AND_GALLERY_DATA_H */

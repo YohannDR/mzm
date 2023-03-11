@@ -204,7 +204,7 @@ void agbmain(void)
                 break;
 
             case GM_GALLERY:
-                if (gallery_main())
+                if (GallerySubroutine())
                 {
                     gGameModeSub1 = 0;
                     gMainGameMode = GM_FILESELECT;
@@ -212,7 +212,7 @@ void agbmain(void)
                 break;
 
             case GM_FUSION_GALLERY:
-                if (fusion_gallery_main())
+                if (FusionGallerySubroutine())
                 {
                     gGameModeSub1 = 0;
                     gMainGameMode = GM_FILESELECT;

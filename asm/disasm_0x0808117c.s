@@ -7240,8 +7240,8 @@ lbl_08084b50:
 lbl_08084b58: .4byte 0x030013b6
 lbl_08084b5c: .4byte 0x030013ba
 
-    thumb_func_start fusion_gallery_main
-fusion_gallery_main: @ 0x08084b60
+    thumb_func_start FusionGallerySubroutine
+FusionGallerySubroutine: @ 0x08084b60
     push {r4, r5, r6, r7, lr}
     movs r6, #0
     ldr r0, lbl_08084b84 @ =0x08754bc4
@@ -12579,8 +12579,8 @@ lbl_08087764:
 lbl_08087770: .4byte 0x030013b6
 lbl_08087774: .4byte 0x030013ba
 
-    thumb_func_start gallery_main
-gallery_main: @ 0x08087778
+    thumb_func_start GallerySubroutine
+GallerySubroutine: @ 0x08087778
     push {r4, r5, r6, r7, lr}
     movs r6, #0
     ldr r0, lbl_0808779c @ =0x08754bc4

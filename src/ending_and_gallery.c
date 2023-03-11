@@ -5,7 +5,9 @@
 #include "data/ending_and_gallery_data.h"
 
 #include "constants/audio.h"
+#include "constants/ending_and_gallery.h"
 #include "constants/game_state.h"
+#include "constants/text.h"
 
 #include "structs/bg_clip.h"
 #include "structs/display.h"
@@ -845,7 +847,7 @@ u8 EndingImageDisplay(void)
 
         case 180:
             EndingImageDisplayLinePermanently(1);
-            if (gEndingFlags & 1)
+            if (gEndingFlags & ENDING_FLAG_NEW_TIME_ATTACK_RECORD)
                 ENDING_DATA.unk_141++;
             break;
 
@@ -921,14 +923,156 @@ u8 EndingImageDisplay(void)
     return ended;
 }
 
+/**
+ * @brief 86e78 | 158 | Initializes the unlocked options
+ * 
+ */
 void UnlockedOptionsInit(void)
 {
+    u32 zero;
 
+    write16(REG_IME, FALSE);
+    write16(REG_DISPSTAT, read16(REG_DISPSTAT) & ~DSTAT_IF_HBLANK);
+    write16(REG_IE, read16(REG_IE) & ~IF_HBLANK);
+    write16(REG_IF, IF_HBLANK);
+
+    write16(REG_IME, TRUE);
+    write16(REG_DISPCNT, 0);
+
+    write16(REG_IME, FALSE);
+    CallbackSetVBlank(UnlockedOptionsVBlank);
+    write16(REG_IME, TRUE);
+
+    zero = 0;
+    dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    ClearGfxRam();
+
+    LZ77UncompVRAM(sUnlockedOptionsTileTable, VRAM_BASE + 0x8000);
+    BitFill(3, -1, VRAM_BASE + 0x7FE0, 0x20, 32);
+    BitFill(3, 0xF3FFF3FF, VRAM_BASE + 0x8800, 0x800, 32);
+
+    dma_set(3, sUnlockedOptionsPAL, PALRAM_BASE + 0x1E0, DMA_ENABLE << 16 | ARRAY_SIZE(sUnlockedOptionsPAL));
+
+    write16(REG_BG0CNT, 0x1000);
+    write16(REG_BG1CNT, 0x1101);
+
+    gNextOamSlot = 0;
+    ResetFreeOAM();
+
+    write16(REG_BG0HOFS, 0);
+    write16(REG_BG0VOFS, 0);
+
+    ENDING_DATA.dispcnt = 0;
+    ENDING_DATA.bldcnt = 0;
+
+    gWrittenToBLDALPHA_L = 16;
+    gWrittenToBLDALPHA_H = 0;
+
+    gWrittenToBLDY_NonGameplay = 16;
+
+    EndScreenVBlank();
 }
 
+/**
+ * @brief 86fd0 | 20c | Handlkes the pop up displaying what's been unlocked
+ * 
+ * @return u8 0, 1 pop up ended, 2 ended
+ */
 u8 UnlockedOptionsPopUp(void)
 {
+    u32 msgNumber;
+    u8 ended;
 
+    ended = FALSE;
+
+    switch (ENDING_DATA.timer++)
+    {
+        case 0:
+            BitFill(3, 0, VRAM_BASE, 0x2000, 32);
+
+            if (gEndingFlags & ENDING_FLAG_FIRST_CLEAR)
+                msgNumber = FILE_SCREEN_TEXT_GALLERY_UNLOCK;
+            else if (gEndingFlags & ENDING_FLAG_FIRST_HARD_MODE_CLEAR)
+                msgNumber = FILE_SCREEN_TEXT_SOUND_TEST_UNLOCK;
+            else if (gEndingFlags & ENDING_FLAG_FIRST_TIME_ATTACK_CLEAR)
+                msgNumber = FILE_SCREEN_TEXT_TIME_ATTACK_RECORD_UNLOCK;
+            else
+                msgNumber = FILE_SCREEN_TEXT_NES_METROID_UNLOCK;
+
+            TextStartFileScreen(msgNumber);
+            ENDING_DATA.unk_124[0] = 0;
+            break;
+
+        case 32:
+            ENDING_DATA.dispcnt = DCNT_BG1 | DCNT_WIN0;
+            write16(REG_WININ, 3);
+            write16(REG_WINOUT, 0);
+            ENDING_DATA.unk_1++;
+
+            ENDING_DATA.oamXPositions[0] = 0x78;
+            ENDING_DATA.oamXPositions[1] = 0x78;
+            ENDING_DATA.oamYPositions[0] = 0x50;
+            ENDING_DATA.oamYPositions[1] = 0x50;
+            break;
+
+        case 128:
+            ENDING_DATA.timer--;
+            break;
+    }
+
+    if (ENDING_DATA.unk_124[0] == 0)
+        ENDING_DATA.unk_124[0] = TextProcessFileScreen();
+
+    if (ENDING_DATA.unk_1 == 1)
+    {
+        if (ENDING_DATA.oamXPositions[0] > 0x30)
+        {
+            ENDING_DATA.oamXPositions[0] -= 8;
+            ENDING_DATA.oamXPositions[1] += 8;
+            ENDING_DATA.oamYPositions[0] -= 4;
+            ENDING_DATA.oamYPositions[1] += 4;
+        }
+        else
+        {
+            ENDING_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_WIN0;
+
+            ENDING_DATA.oamXPositions[0] = 0x2C;
+            ENDING_DATA.oamXPositions[1] = 0xBC;
+            ENDING_DATA.oamYPositions[0] = 0x2C;
+            ENDING_DATA.oamYPositions[1] = 0x74;
+            ENDING_DATA.unk_1++;
+        }
+    }
+    else if (ENDING_DATA.unk_1 == 2)
+    {
+        if (gChangedInput & KEY_A)
+        {
+            ENDING_DATA.dispcnt = DCNT_BG1 | DCNT_WIN0;
+            ENDING_DATA.unk_1++;
+            ENDING_DATA.timer++;
+        }
+    }
+    else if (ENDING_DATA.unk_1 == 3)
+    {
+        if (ENDING_DATA.oamXPositions[0] < 0x70)
+        {
+            ENDING_DATA.oamXPositions[0] += 8;
+            ENDING_DATA.oamXPositions[1] -= 8;
+            ENDING_DATA.oamYPositions[0] += 4;
+            ENDING_DATA.oamYPositions[1] -= 4;
+        }
+        else
+        {
+            ENDING_DATA.dispcnt = 0;
+
+            if (gEndingFlags & ENDING_FLAG_FIRST_CLEAR)
+                ended++;
+            else
+                ended += 2;
+        }
+    }
+
+    return ended;
 }
 
 u32 CreditsSubroutine(void)
@@ -936,17 +1080,268 @@ u32 CreditsSubroutine(void)
 
 }
 
+/**
+ * @brief 873e4 | 238 | Initializes the gallery
+ * 
+ */
 void GalleryInit(void)
 {
+    u32 zero;
+    u32 endingNbr;
+    u32 i;
+    u32 bit;
 
+    write16(REG_IME, FALSE);
+    write16(REG_DISPSTAT, read16(REG_DISPSTAT) & ~DSTAT_IF_HBLANK);
+    write16(REG_IE, read16(REG_IE) & ~IF_HBLANK);
+    write16(REG_IF, IF_HBLANK);
+
+    write16(REG_IME, TRUE);
+    write16(REG_DISPCNT, 0);
+
+    write16(REG_IME, FALSE);
+    CallbackSetVBlank(GalleryVBlank);
+    write16(REG_IME, TRUE);
+
+    if (gGameModeSub1 == 0)
+    {
+        ClearGfxRam();
+
+        zero = 0;
+        dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    }
+
+    endingNbr = ENDING_DATA.endingNumber;
+
+    for (i = 0; i < 8; i++)
+    {
+        bit = 1 << endingNbr;
+        if (gFileScreenOptionsUnlocked.galleryImages & bit)
+            break;
+
+        if (ENDING_DATA.completionPercentage != 0)
+        {
+            if (endingNbr != 0)
+                endingNbr--;
+            else
+                endingNbr = 7;
+        }
+        else
+        {
+            if (endingNbr < 7)
+                endingNbr++;
+            else
+                endingNbr = 0;
+        }
+    }
+
+    ENDING_DATA.endingNumber = endingNbr;
+
+    LZ77UncompVRAM(sEndingImagesTopHalfGfxPointers[endingNbr], VRAM_BASE);
+    LZ77UncompVRAM(sEndingImagesLowerHalfGfxPointers[endingNbr], VRAM_BASE + 0x8000);
+    LZ77UncompVRAM(sEndingImagesTopHalfTileTablePointers[endingNbr], VRAM_BASE + 0xE000);
+    LZ77UncompVRAM(sEndingImagesLowerHalfTileTablePointers[endingNbr], VRAM_BASE + 0xF800);
+
+    BitFill(3, 0x4FF04FF, VRAM_BASE + 0xE800, 0x800, 32);
+
+    dma_set(3, sEndingImagesPalPointers[endingNbr], PALRAM_BASE, DMA_ENABLE << 16 | PALRAM_SIZE / 4);
+
+    write16(REG_BG0CNT, 0x9C00);
+    write16(REG_BG1CNT, 0x9E09);
+
+    gNextOamSlot = 0;
+    ResetFreeOAM();
+
+    gBG0XPosition = 0;
+    gBG0YPosition = 0x1000;
+    gBG1XPosition = 0;
+    gBG1YPosition = 0x1000;
+    gBG2XPosition = 0;
+    gBG2YPosition = 0;
+    gBG3XPosition = 0;
+    gBG3YPosition = 0;
+
+    write16(REG_BG0HOFS, 0);
+    write16(REG_BG0VOFS, 0x1000);
+    write16(REG_BG1HOFS, 0);
+    write16(REG_BG1VOFS, 0x1000);
+    write16(REG_BG2HOFS, 0);
+    write16(REG_BG2VOFS, 0);
+    write16(REG_BG3HOFS, 0);
+    write16(REG_BG3VOFS, 0);
+
+    ENDING_DATA.unk_8 = 0;
+
+    ENDING_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_OBJ;
+    ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
+        BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
+        BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+
+    GalleryVBlank();
 }
 
+#define GALLERY_RESET_BG_POS()\
+do {                          \
+gBG0YPosition = 0;            \
+gBG1YPosition = 0;            \
+} while(0);
+
+/**
+ * @brief 8761c | 15c | Handles the display of the gallery image
+ * 
+ * @return u32 
+ */
 u32 GalleryDisplay(void)
 {
+    u8 endingNbr;
+    u32 ended;
+    i32 velocity;
+    u32 change;
+    u8 complPercent;
+    u8 bit;
 
+    endingNbr = ENDING_DATA.endingNumber;
+    bit = 1 << endingNbr;
+    ended = FALSE;
+    change = FALSE;
+    complPercent = 0;
+
+    if (gChangedInput & KEY_B)
+    {
+        ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
+            BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
+            BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+
+        gWrittenToBLDY_NonGameplay = 0;
+        ended = TRUE;
+    }
+    else if (gChangedInput & (KEY_A | KEY_RIGHT))
+    {
+        if (endingNbr < 7)
+            endingNbr++;
+        else
+            endingNbr = 0;
+        
+        if (gFileScreenOptionsUnlocked.galleryImages > bit)
+            change++;
+    }
+    else if (gChangedInput & KEY_LEFT)
+    {
+        if (endingNbr != 0)
+            endingNbr--;
+        else
+            endingNbr = 7;
+
+        complPercent++;
+        if (gFileScreenOptionsUnlocked.galleryImages > bit)
+            change++;
+    }
+
+    
+    if (change)
+    {
+        ENDING_DATA.endingNumber = endingNbr;
+        ENDING_DATA.completionPercentage = complPercent;
+
+        ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_BG2_FIRST_TARGET_PIXEL |
+            BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL | BLDCNT_BACKDROP_FIRST_TARGET_PIXEL |
+            BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+
+        gWrittenToBLDY_NonGameplay = 0;
+        gGameModeSub1 = 5;
+    }
+
+    change = FALSE;
+    velocity = 8;
+
+    if (ENDING_DATA.unk_8 != 0)
+    {
+        if (gButtonInput & KEY_DOWN)
+            change = TRUE;
+
+        velocity = 12;
+    }
+
+    if (!change)
+    {
+        if (gBG0YPosition > velocity)
+        {
+            gBG0YPosition -= velocity;
+            gBG1YPosition -= velocity;
+        }
+        else
+        {
+            GALLERY_RESET_BG_POS();
+            ENDING_DATA.unk_8 = TRUE;
+        }
+    }
+    else
+    {
+        gBG0YPosition += velocity;
+        gBG1YPosition += velocity;
+
+        if (gBG0YPosition > BLOCK_SIZE * 64)
+        {
+            gBG0YPosition = BLOCK_SIZE * 64;
+            gBG1YPosition = BLOCK_SIZE * 64;
+        }
+    }
+
+    return ended;
 }
 
+/**
+ * @brief 87778 | d8 | Subroutine for the gallery
+ * 
+ * @return u32 
+ */
 u32 GallerySubroutine(void)
 {
+    u32 ended;
 
+    ended = FALSE;
+    ENDING_DATA.unk_6 = 0;
+
+    switch (gGameModeSub1)
+    {
+        case 0:
+        case 4:
+            GalleryInit();
+            gGameModeSub1 = 1;
+            break;
+
+        case 1:
+            if (gWrittenToBLDY_NonGameplay != 0)
+            {
+                gWrittenToBLDY_NonGameplay--;
+                break;
+            }
+
+            ENDING_DATA.bldcnt = 0;
+            gGameModeSub1++;
+            break;
+
+        case 2:
+            if (GalleryDisplay())
+                gGameModeSub1++;
+            break;
+
+        case 3:
+        case 5:
+            if (gWrittenToBLDY_NonGameplay < 16)
+            {
+                if (ENDING_DATA.timer++ & 1)
+                    gWrittenToBLDY_NonGameplay++;
+
+                break;
+            }
+
+            if (gGameModeSub1 == 3)
+                ended++;
+            else
+                gGameModeSub1 = 4;
+            break;
+    }
+
+    return ended;
 }
