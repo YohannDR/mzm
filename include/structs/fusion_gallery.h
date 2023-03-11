@@ -1,24 +1,23 @@
-#ifndef ENDING_AND_GALLERY_STRUCT_H
-#define ENDING_AND_GALLERY_STRUCT_H
+#ifndef FUSION_GALLERY_STRUCT_H
+#define FUSION_GALLERY_STRUCT_H
 
 #include "types.h"
 
-#define ENDING_DATA sNonGameplayRamPointer->ending
+#define FUSION_GALLERY_DATA sNonGameplayRamPointer->fusionGallery
 
-struct EndingImageOam {
-    u8 unk_0;
-    u8 spawnDelay;
-    u8 unk_2;
-    u16 xPosition;
-    u16 yPosition;
-    const u16* const pFrame;
+struct FusionGalleryImageEntry {
+    const u32* const pTopGfx;
+    const u32* const pBottomGfx;
+    const u32* const pTopTileTable;
+    const u32* const pBottomTileTable;
+    const u16* const pPalette;
 };
 
-struct EndingData {
+struct FusionGalleryData {
     u8 stage;
     u8 unk_1;
-    u8 endScreenTimer;
-    u16 timer;
+    u16 unk_2;
+    u16 unk_4;
     u8 unk_6;
     u16 unk_8;
     u16 unk_A;
@@ -26,10 +25,11 @@ struct EndingData {
     u16 unk_E;
     u16 creditLineTilemap_1[32];
     u16 creditLineTilemap_2[32];
-    u32 creditLineOffset_1;
-    u32 creditLineOffset_2;
-    u8 endingNumber;
-    u8 completionPercentage;
+    u32 unk_90;
+    u16 unk_94;
+    u16 unk_96;
+    u8 unk_98;
+    u8 currentImage;
     u8 language;
     u8 oamLength;
     u8 padding_9C[136];
@@ -55,4 +55,4 @@ struct EndingData {
     u16 bldcnt;
 };
 
-#endif /* ENDING_AND_GALLERY_STRUCT_H */
+#endif /* FUSION_GALLERY_STRUCT_H */

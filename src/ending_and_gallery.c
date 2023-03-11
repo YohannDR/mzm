@@ -15,73 +15,309 @@
 #include "structs/game_state.h"
 
 /**
- * @brief 847f8 | 78 | V-blank code for the fusion gallery
- * 
- */
-void FusionGalleryVBlank(void)
-{
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
-
-    write16(REG_DISPCNT, ENDING_DATA.dispcnt);
-    write16(REG_BLDCNT, ENDING_DATA.bldcnt);
-
-    write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
-
-    write16(REG_BG0VOFS, (gBG0YPosition / 16) & 0x1FF);
-    write16(REG_BG1VOFS, (gBG1YPosition / 16) & 0x1FF);
-}
-
-void FusionGalleryInit(void)
-{
-
-}
-
-u32 FusionGalleryDisplay(void)
-{
-
-}
-
-u32 FusionGallerySubroutine(void)
-{
-
-}
-
-/**
  * @brief 84c34 | 48 | Checks if an ending letter should display
  * 
  * @param offset Offset, to document
  */
-void EndingImageCheckDisplayLetter(u32 offset)
+void EndingImageUpdateLettersSpawnDelay(u32 offset)
 {
     if (!ENDING_DATA.unk_124[offset])
         return;
 
-    if (ENDING_DATA.unk_142[offset])
+    if (ENDING_DATA.endingLettersSpawnDelay[offset])
     {
-        ENDING_DATA.unk_142[offset]--;
-        if (ENDING_DATA.unk_142[offset] == 0)
+        ENDING_DATA.endingLettersSpawnDelay[offset]--;
+        if (ENDING_DATA.endingLettersSpawnDelay[offset] == 0)
             ENDING_DATA.unk_124[offset]++;
     }
 }
 
+/**
+ * @brief 84c7c | 26c | Loads a set of OAM for the ending image
+ * 
+ * @param set Set to load
+ */
 void EndingImageLoadTextOAM(u32 set)
 {
+    i32 i;
 
+    if (ENDING_DATA.language == LANGUAGE_HIRAGANA)
+    {
+        if (set == ENDING_IMAGE_OAM_SET_CLEAR_TIME)
+        {
+            ENDING_DATA.oamLength = ARRAY_SIZE(sEndingImageOam_ClearTime_Hiragana) + 6;
+
+            for (i = 0; i < ARRAY_SIZE(sEndingImageOam_ClearTime_Hiragana); i++)
+            {
+                ENDING_DATA.unk_124[i + 6] = sEndingImageOam_ClearTime_Hiragana[i].unk_0;
+                ENDING_DATA.endingLettersSpawnDelay[i + 6] = sEndingImageOam_ClearTime_Hiragana[i].spawnDelay;
+                ENDING_DATA.unk_160[i + 6] = sEndingImageOam_ClearTime_Hiragana[i].unk_2;
+
+                ENDING_DATA.oamXPositions[i + 6] = sEndingImageOam_ClearTime_Hiragana[i].xPosition;
+                ENDING_DATA.oamYPositions[i + 6] = sEndingImageOam_ClearTime_Hiragana[i].yPosition;
+
+                ENDING_DATA.oamFramePointers[i + 6] = sEndingImageOam_ClearTime_Hiragana[i].pFrame;
+            }
+        }
+        else
+        {
+            ENDING_DATA.oamLength = ARRAY_SIZE(sEndingImageOam_YourRate_Hiragana) + 6;
+
+            for (i = 0; i < ARRAY_SIZE(sEndingImageOam_YourRate_Hiragana); i++)
+            {
+                ENDING_DATA.unk_124[i + 6] = sEndingImageOam_YourRate_Hiragana[i].unk_0;
+                ENDING_DATA.endingLettersSpawnDelay[i + 6] = sEndingImageOam_YourRate_Hiragana[i].spawnDelay;
+                ENDING_DATA.unk_160[i + 6] = sEndingImageOam_YourRate_Hiragana[i].unk_2;
+
+                ENDING_DATA.oamXPositions[i + 6] = sEndingImageOam_YourRate_Hiragana[i].xPosition;
+                ENDING_DATA.oamYPositions[i + 6] = sEndingImageOam_YourRate_Hiragana[i].yPosition;
+
+                ENDING_DATA.oamFramePointers[i + 6] = sEndingImageOam_YourRate_Hiragana[i].pFrame;
+            }
+        }
+    }
+    else
+    {
+        if (set == ENDING_IMAGE_OAM_SET_CLEAR_TIME)
+        {
+            ENDING_DATA.oamLength = ARRAY_SIZE(sEndingImageOam_ClearTime_English) + 6;
+
+            for (i = 0; i < ARRAY_SIZE(sEndingImageOam_ClearTime_English); i++)
+            {
+                ENDING_DATA.unk_124[i + 6] = sEndingImageOam_ClearTime_English[i].unk_0;
+                ENDING_DATA.endingLettersSpawnDelay[i + 6] = sEndingImageOam_ClearTime_English[i].spawnDelay;
+                ENDING_DATA.unk_160[i + 6] = sEndingImageOam_ClearTime_English[i].unk_2;
+
+                ENDING_DATA.oamXPositions[i + 6] = sEndingImageOam_ClearTime_English[i].xPosition;
+                ENDING_DATA.oamYPositions[i + 6] = sEndingImageOam_ClearTime_English[i].yPosition;
+
+                ENDING_DATA.oamFramePointers[i + 6] = sEndingImageOam_ClearTime_English[i].pFrame;
+            }
+        }
+        else if (set == ENDING_IMAGE_OAM_SET_YOUR_RATE)
+        {
+            ENDING_DATA.oamLength = ARRAY_SIZE(sEndingImageOam_YourRate_English) + 6;
+
+            for (i = 0; i < ARRAY_SIZE(sEndingImageOam_YourRate_English); i++)
+            {
+                ENDING_DATA.unk_124[i + 6] = sEndingImageOam_YourRate_English[i].unk_0;
+                ENDING_DATA.endingLettersSpawnDelay[i + 6] = sEndingImageOam_YourRate_English[i].spawnDelay;
+                ENDING_DATA.unk_160[i + 6] = sEndingImageOam_YourRate_English[i].unk_2;
+
+                ENDING_DATA.oamXPositions[i + 6] = sEndingImageOam_YourRate_English[i].xPosition;
+                ENDING_DATA.oamYPositions[i + 6] = sEndingImageOam_YourRate_English[i].yPosition;
+
+                ENDING_DATA.oamFramePointers[i + 6] = sEndingImageOam_YourRate_English[i].pFrame;
+            }
+        }
+        else
+        {
+            ENDING_DATA.oamLength = ARRAY_SIZE(sEndingImageOam_Collecting_English) + 6;
+
+            for (i = 0; i < ARRAY_SIZE(sEndingImageOam_Collecting_English); i++)
+            {
+                ENDING_DATA.unk_124[i + 6] = sEndingImageOam_Collecting_English[i].unk_0;
+                ENDING_DATA.endingLettersSpawnDelay[i + 6] = sEndingImageOam_Collecting_English[i].spawnDelay;
+                ENDING_DATA.unk_160[i + 6] = sEndingImageOam_Collecting_English[i].unk_2;
+
+                ENDING_DATA.oamXPositions[i + 6] = sEndingImageOam_Collecting_English[i].xPosition;
+                ENDING_DATA.oamYPositions[i + 6] = sEndingImageOam_Collecting_English[i].yPosition;
+
+                ENDING_DATA.oamFramePointers[i + 6] = sEndingImageOam_Collecting_English[i].pFrame;
+            }
+        }
+    }
 }
 
+/**
+ * @brief 84ee8 | c8 | Display a line of text of an ending image permanetly
+ * 
+ * @param line Line
+ */
 void EndingImageDisplayLinePermanently(u32 line)
 {
+    i32 i;
 
+    if (ENDING_DATA.language == LANGUAGE_HIRAGANA)
+    {
+        ENDING_DATA.unk_124[line] = sEndingImageOam_54bf58[line].unk_0;
+        ENDING_DATA.endingLettersSpawnDelay[line] = sEndingImageOam_54bf58[line].spawnDelay;
+        ENDING_DATA.unk_160[line] = sEndingImageOam_54bf58[line].unk_2;
+        ENDING_DATA.oamXPositions[line] = sEndingImageOam_54bf58[line].xPosition;
+        ENDING_DATA.oamYPositions[line] = sEndingImageOam_54bf58[line].yPosition;
+        ENDING_DATA.oamFramePointers[line] = sEndingImageOam_54bf58[line].pFrame;
+    }
+    else
+    {
+        ENDING_DATA.unk_124[line] = sEndingImageOam_54bd54[line].unk_0;
+        ENDING_DATA.endingLettersSpawnDelay[line] = sEndingImageOam_54bd54[line].spawnDelay;
+        ENDING_DATA.unk_160[line] = sEndingImageOam_54bd54[line].unk_2;
+        ENDING_DATA.oamXPositions[line] = sEndingImageOam_54bd54[line].xPosition;
+        ENDING_DATA.oamYPositions[line] = sEndingImageOam_54bd54[line].yPosition;
+        ENDING_DATA.oamFramePointers[line] = sEndingImageOam_54bd54[line].pFrame;
+    }
+
+    for (i  = 0; i < ENDING_DATA.oamLength - 6; i++)
+        ENDING_DATA.unk_124[i + 6] = 0;
+
+    ENDING_DATA.oamLength = 6;
 }
 
 void EndingImageLoadIGTAndPercentageGraphics(void)
 {
+    // https://decomp.me/scratch/vLTLr
 
+    i32 hoursTens;
+    i32 hoursOnes;
+    i32 minutesTens;
+    i32 minutesOnes;
+    i32 secondsTens;
+    i32 secondsOnes;
+
+    i32 percentageHundreds;
+    i32 percentageTens;
+    i32 percentageOnes;
+
+    i32 offset;
+
+    hoursTens = 0;
+    hoursOnes = gInGameTimer.hours;
+
+    while (hoursOnes > 9)
+    {
+        hoursOnes -= 10;
+        hoursTens++;
+    }
+
+    minutesTens = 0;
+    minutesOnes = gInGameTimer.minutes;
+
+    while (minutesOnes > 9)
+    {
+        minutesOnes -= 10;
+        minutesTens++;
+    }
+
+    secondsTens = 0;
+    secondsOnes = gInGameTimer.seconds;
+
+    while (secondsOnes > 9)
+    {
+        secondsOnes -= 10;
+        secondsTens++;
+    }
+
+    if (hoursTens != 0)
+    {
+        offset = hoursTens * 64;
+        dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x10000, DMA_ENABLE << 16 | 32);
+        dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x10400, DMA_ENABLE << 16 | 32);
+    }
+
+    offset = hoursOnes * 64;
+    dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x10040, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x10440, DMA_ENABLE << 16 | 32);
+
+    offset = minutesTens * 64;
+    dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x100A0, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x104A0, DMA_ENABLE << 16 | 32);
+
+    offset = minutesOnes * 64;
+    dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x100E0, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x104E0, DMA_ENABLE << 16 | 32);
+
+    offset = secondsTens * 64;
+    dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x10140, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x10540, DMA_ENABLE << 16 | 32);
+
+    offset = secondsOnes * 64;
+    dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x10180, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x10580, DMA_ENABLE << 16 | 32);
+
+    percentageHundreds = 0;
+    percentageTens = 0;
+    percentageOnes = ENDING_DATA.completionPercentage;
+
+    while (percentageOnes >= 100)
+    {
+        percentageOnes -= 100;
+        percentageHundreds++;
+    }
+
+    while (percentageOnes >= 10)
+    {
+        percentageOnes -= 10;
+        percentageTens++;
+    }
+
+    if (percentageHundreds != 0)
+    {
+        offset = percentageHundreds * 64;
+        dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x101C0, DMA_ENABLE << 16 | 32);
+        dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x105C0, DMA_ENABLE << 16 | 32);
+    }
+    if (percentageTens != 0)
+    {
+        offset = percentageTens * 64;
+        dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x10200, DMA_ENABLE << 16 | 32);
+        dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x10600, DMA_ENABLE << 16 | 32);
+    }
+
+    offset = percentageOnes * 64;
+    dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x10240, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x10640, DMA_ENABLE << 16 | 32);
 }
 
+/**
+ * @brief 851b4 | 164 | V-blank code for gallery, ending image and credits
+ * 
+ */
 void GalleryVBlank(void)
 {
+    u32 buffer;
+    u32 bgPos;
 
+    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+
+    if (ENDING_DATA.unk_6 == 1)
+    {
+        dma_set(3, ENDING_DATA.creditLineTilemap_1, VRAM_BASE + ENDING_DATA.creditLineOffset_1,
+            DMA_ENABLE << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1));
+        dma_set(3, ENDING_DATA.creditLineTilemap_2, VRAM_BASE + ENDING_DATA.creditLineOffset_2,
+            DMA_ENABLE << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_2));
+
+        buffer = 0;
+        dma_set(3, &buffer, VRAM_BASE + 0x800 + ENDING_DATA.creditLineOffset_1,
+            (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1) / 2);
+        buffer = 0;
+        dma_set(3, &buffer, VRAM_BASE + 0x800 + ENDING_DATA.creditLineOffset_2,
+            (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_2) / 2);
+    }
+    else if (ENDING_DATA.unk_6 != 0)
+    {
+        dma_set(3, ENDING_DATA.creditLineTilemap_1, VRAM_BASE + 0x800 + ENDING_DATA.creditLineOffset_1,
+            DMA_ENABLE << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1));
+        dma_set(3, ENDING_DATA.creditLineTilemap_2, VRAM_BASE + 0x800 + ENDING_DATA.creditLineOffset_2,
+            DMA_ENABLE << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_2));
+
+        buffer = 0;
+        dma_set(3, &buffer, VRAM_BASE + ENDING_DATA.creditLineOffset_1,
+            (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1) / 2);
+        buffer = 0;
+        dma_set(3, &buffer, VRAM_BASE + ENDING_DATA.creditLineOffset_2,
+            (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_2) / 2);
+    }
+
+    write16(REG_DISPCNT, ENDING_DATA.dispcnt);
+    write16(REG_BLDCNT, ENDING_DATA.bldcnt);
+
+    write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
+
+    write16(REG_BG0VOFS, bgPos = gBG0YPosition / 16 & 0x1FF);
+    write16(REG_BG1VOFS, bgPos);
+    write16(REG_BG2VOFS, gBG2YPosition / 16 & 0x1FF);
+    write16(REG_BG3VOFS, gBG3YPosition / 16 & 0x1FF);
 }
 
 /**
@@ -184,9 +420,110 @@ u8 CreditsDisplayLine(u32 line)
 
 }
 
+/**
+ * @brief 859f4 | 18c | Displays the credits
+ * 
+ * @return u8 bool, ended
+ */
 u8 CreditsDisplay(void)
 {
+    u8 ended;
+    i32 temp;
+    u8 result;
 
+    u8 unk_0;
+    u8 unk_1;
+
+    if (ENDING_DATA.unk_1)
+    {
+        ended = FALSE;
+        switch (ENDING_DATA.timer++)
+        {
+            case 464:
+                ENDING_DATA.unk_1++;
+                break;
+
+            case 528:
+                ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG2_SECOND_TARGET_PIXEL;
+                gWrittenToBLDY_NonGameplay = 0;
+                ENDING_DATA.unk_1++;
+                break;
+
+            case 560:
+                ENDING_DATA.dispcnt = DCNT_BG2 | DCNT_BG3;
+                ENDING_DATA.bldcnt = 0;
+                ended = TRUE;
+                break;
+        }
+
+        if (ENDING_DATA.unk_1 == 2)
+        {
+            if (!(ENDING_DATA.endScreenTimer++ & 3))
+            {
+                if (gWrittenToBLDY_NonGameplay)
+                    gWrittenToBLDY_NonGameplay--;
+            }
+        }
+        else if (ENDING_DATA.unk_1 == 3)
+        {
+            if (ENDING_DATA.timer & 1)
+            {
+                if (gWrittenToBLDALPHA_L)
+                {
+                    gWrittenToBLDALPHA_L--;
+                    gWrittenToBLDALPHA_H = 16 - gWrittenToBLDALPHA_L;
+                }
+                else
+                    ENDING_DATA.unk_1++;
+            }
+        }
+
+        return ended;
+    }
+
+    if (ENDING_DATA.unk_E > 127)
+    {
+        ENDING_DATA.unk_E &= 127;
+
+        if (ENDING_DATA.unk_8 == ENDING_DATA.unk_A)
+        {
+            ended = CreditsDisplayLine(ENDING_DATA.currentCreditLine);
+            unk_0 = ended & 0xF0;
+            ended = ended & 0xF;
+
+            if (ended == 0x9)
+            {
+                ENDING_DATA.unk_1 = 1;
+            }
+            else
+            {
+                temp = ENDING_DATA.unk_A * 0x40 + 0x500;
+                if (temp > 0x7FF)
+                    temp &= 0x7FF;
+
+                ENDING_DATA.creditLineOffset_1 = temp + 0xF000;
+
+                temp = ENDING_DATA.unk_A * 0x40 + 0x540;
+                if (temp > 0x7FF)
+                    temp &= 0x7FF;
+
+                ENDING_DATA.creditLineOffset_2 = temp + 0xF000;
+
+                ENDING_DATA.unk_A += ended;
+                ENDING_DATA.currentCreditLine++;
+                ENDING_DATA.unk_6++;
+
+                if (unk_0 == 0x80)
+                    ENDING_DATA.unk_6++;
+            }
+        }
+
+        ENDING_DATA.unk_8++;
+    }
+
+    ENDING_DATA.unk_E += 7;
+    gBG0YPosition += 7;
+    return FALSE;
 }
 
 /**
@@ -837,7 +1174,7 @@ u8 EndingImageDisplay(void)
             break;
 
         case 30:
-            EndingImageLoadTextOAM(0);
+            EndingImageLoadTextOAM(ENDING_IMAGE_OAM_SET_CLEAR_TIME);
             ENDING_DATA.unk_1 = TRUE;
             break;
 
@@ -852,7 +1189,7 @@ u8 EndingImageDisplay(void)
             break;
 
         case 330:
-            EndingImageLoadTextOAM(1);
+            EndingImageLoadTextOAM(ENDING_IMAGE_OAM_SET_YOUR_RATE);
             break;
 
         case 375:
@@ -864,7 +1201,7 @@ u8 EndingImageDisplay(void)
         case 380:
             if (ENDING_DATA.language == LANGUAGE_JAPANESE || ENDING_DATA.language == LANGUAGE_ENGLISH ||
                 ENDING_DATA.language == LANGUAGE_ITALIAN)
-                EndingImageLoadTextOAM(2);
+                EndingImageLoadTextOAM(ENDING_IMAGE_OAM_SET_COLLECTING);
             break;
 
         case 460:
@@ -915,7 +1252,7 @@ u8 EndingImageDisplay(void)
     if (ENDING_DATA.unk_1 == TRUE)
     {
         for (i = 6; i < ENDING_DATA.oamLength; i++)
-            EndingImageCheckDisplayLetter(i);
+            EndingImageUpdateLettersSpawnDelay(i);
     }
 
     EndingImageDisplayText();
@@ -1179,12 +1516,6 @@ void GalleryInit(void)
 
     GalleryVBlank();
 }
-
-#define GALLERY_RESET_BG_POS()\
-do {                          \
-gBG0YPosition = 0;            \
-gBG1YPosition = 0;            \
-} while(0);
 
 /**
  * @brief 8761c | 15c | Handles the display of the gallery image

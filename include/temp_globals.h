@@ -12,6 +12,7 @@
 #include "structs/menus/title_screen.h"
 #include "structs/menus/erase_sram.h"
 #include "structs/menus/file_select.h"
+#include "structs/fusion_gallery.h"
 
 
 union NonGameplayRAM {
@@ -23,6 +24,7 @@ union NonGameplayRAM {
     struct TitleScreenData titleScreen;
     struct EraseSramData eraseSram;
     struct FileSelectData fileSelect;
+    struct FusionGalleryData fusionGallery;
     u8 inGame[1576];
 };
 

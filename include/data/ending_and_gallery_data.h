@@ -2,29 +2,15 @@
 #define ENDING_AND_GALLERY_DATA_H
 
 #include "types.h"
+#include "structs/ending_and_gallery.h"
 
 #define NUMBER_OF_ENDING_IMAGES 8
-
-// ...
 
 extern const u16 sEndingImageTextPAL[14 * 16];
 
 // ...
 
-extern const u32* const sEndingImagesTopHalfGfxPointers[NUMBER_OF_ENDING_IMAGES];
-extern const u32* const sEndingImagesLowerHalfGfxPointers[NUMBER_OF_ENDING_IMAGES];
-extern const u32* const sEndingImagesTopHalfTileTablePointers[NUMBER_OF_ENDING_IMAGES];
-extern const u32* const sEndingImagesLowerHalfTileTablePointers[NUMBER_OF_ENDING_IMAGES];
-extern const u16* const sEndingImagesPalPointers[NUMBER_OF_ENDING_IMAGES];
-
-// ...
-
 extern const u16* const sEndingWhitePalPointers[4];
-
-// ...
-
-extern const u32 sEndingImageTextGFX[803];
-extern const u32 sEndingImageTextJapGFX[511];
 
 // ...
 
@@ -45,11 +31,32 @@ extern const u16 sEndingPosingPAL_White4[5 * 16];
 
 extern const u16 sUnlockedOptionsPAL[1 * 16];
 
+extern const struct EndingImageOam sEndingImageOam_54bd54[6];
+extern const struct EndingImageOam sEndingImageOam_ClearTime_English[9];
+extern const struct EndingImageOam sEndingImageOam_YourRate_English[11];
+extern const struct EndingImageOam sEndingImageOam_Collecting_English[17];
+extern const struct EndingImageOam sEndingImageOam_54bf58[6];
+extern const struct EndingImageOam sEndingImageOam_ClearTime_Hiragana[6];
+extern const struct EndingImageOam sEndingImageOam_YourRate_Hiragana[11];
+extern const struct EndingImageOam sEndingImageOam_Collecting_Hiragana[17];
+
+extern const u32* const sEndingImagesTopHalfGfxPointers[NUMBER_OF_ENDING_IMAGES];
+extern const u32* const sEndingImagesLowerHalfGfxPointers[NUMBER_OF_ENDING_IMAGES];
+extern const u32* const sEndingImagesTopHalfTileTablePointers[NUMBER_OF_ENDING_IMAGES];
+extern const u32* const sEndingImagesLowerHalfTileTablePointers[NUMBER_OF_ENDING_IMAGES];
+extern const u16* const sEndingImagesPalPointers[NUMBER_OF_ENDING_IMAGES];
+
 // ...
 
 extern const u32 sCreditsCharactersGFX[615];
 
 // ...
+
+extern const u32 sEndingImageTextGFX[803];
+extern const u32 sEndingImageTextJapGFX[511];
+
+extern const u8 sEndingImageNumbersGFX_Upper[10 * 64];
+extern const u8 sEndingImageNumbersGFX_Lower[10 * 64];
 
 extern const u32 sEndingNumbersMiscGX[218];
 extern const u32 sEndingSamusPosingSpaceBackgroundGFX[2938];

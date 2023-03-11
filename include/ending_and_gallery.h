@@ -3,11 +3,7 @@
 
 #include "types.h"
 
-void FusionGalleryVBlank(void);
-void FusionGalleryInit(void);
-u32 FusionGalleryDisplay(void);
-u32 FusionGallerySubroutine(void);
-void EndingImageCheckDisplayLetter(u32 offset);
+void EndingImageUpdateLettersSpawnDelay(u32 offset);
 void EndingImageLoadTextOAM(u32 set);
 void EndingImageDisplayLinePermanently(u32 line);
 void EndingImageLoadIGTAndPercentageGraphics(void);

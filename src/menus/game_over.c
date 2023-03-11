@@ -338,7 +338,7 @@ void GameOverInit_Unused(void)
     UpdateSOUNDCNT_H(0x194F780);
     StopAllMusicsAndSounds();
 
-    write16(PALRAM_BASE, 0x7FFF);
+    write16(PALRAM_BASE, COLOR_WHITE);
 
     write16(REG_BG0CNT, 0);
     write16(REG_BG1CNT, 0);

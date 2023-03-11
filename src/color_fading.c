@@ -216,9 +216,9 @@ void ColorFadingTransferPaletteOnTransition(void)
         unk_5b304();
 
     if (sColorFadingData[gColorFading.type].isWhite)
-        value = 0x7FFF;
+        value = COLOR_WHITE;
     else
-        value = 0;
+        value = COLOR_BLACK;
     color = value;
 
     if (sColorFadingData[gColorFading.type].bgColorMask | sColorFadingData[gColorFading.type].objColorMask)
