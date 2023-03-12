@@ -217,7 +217,7 @@ u32 FusionGallerySubroutine(void)
     {
         case 0:
         case 4:
-            GalleryInit();
+            FusionGalleryInit();
             gGameModeSub1 = 1;
             break;
 
@@ -233,7 +233,7 @@ u32 FusionGallerySubroutine(void)
             break;
 
         case 2:
-            if (GalleryDisplay())
+            if (FusionGalleryDisplay())
                 gGameModeSub1++;
             break;
 

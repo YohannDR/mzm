@@ -443,6 +443,8 @@ SECTIONS {
         asm/disasm_0x0807f12.o(.text);
         src/intro.o(.text);
         asm/disasm_0x0808117c.o(.text);
+        src/fusion_gallery.o(.text);
+        asm/disasm_0x08084c34.o(.text);
 
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
@@ -571,7 +573,9 @@ SECTIONS {
         src/data/menus/title_screen_data.o(.rodata);
         /* 44f11c-45f45c */
         src/data/intro_data.o(.rodata);
-        /* 479400-74f8b4 */
+        /* 479400-4bfee4 */
+        src/data/fusion_gallery_data.o(.rodata);
+        /* 549b44-74f8b4 */
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         /* 754bd0-75e6a8 */

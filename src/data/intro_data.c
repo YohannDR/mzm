@@ -435,4 +435,4 @@ const u32 sIntroFuzzGFX[5224] = INCBIN_U32("data/intro/Fuzz.gfx.lz");
 const u32 sIntro_47920c[125] = INCBIN_U32("data/intro/47920c.tt");
 
 
-const u8 sTemparray_479400[0x2d64b4] = INCBIN_U8("data/Blob_479400_74f8b4.bin");
+const u8 sTemparray_479400[0x46ae4] = INCBIN_U8("data/Blob_479400_4bfee4.bin");

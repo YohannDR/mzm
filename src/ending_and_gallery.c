@@ -437,6 +437,7 @@ u8 CreditsDisplayLine(u32 line)
     u16 tile;
     u32 ret_0;
     u32 ret_1;
+    u8 tilemapOffset;
     const struct CreditsEntry* pCredits;
 
     pCredits = sCredits;
@@ -448,21 +449,61 @@ u8 CreditsDisplayLine(u32 line)
         ENDING_DATA.creditLineTilemap_2[i] = 0;
     }
 
-    if (pCredits->type != CREDIT_LINE_TYPE_BLUE)
-        tile = 13 << 12;
+    if (pCredits->type == CREDIT_LINE_TYPE_BLUE)
+        tile = 14 << 12;
     else if (pCredits->type == CREDIT_LINE_TYPE_RED)
         tile = 15 << 12;
     else
-        tile = 14 << 12;
+        tile = 13 << 12;
 
     ret_0 = 0;
     ret_1 = 0;
+    i = 0;
     
     switch (pCredits->type)
     {
         case CREDIT_LINE_TYPE_BLUE:
         case CREDIT_LINE_TYPE_RED:
         case CREDIT_LINE_TYPE_WHITE_SMALL:
+            tilemapOffset = 0;
+            while (tilemapOffset < ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1) - 2 && pCredits->text[tilemapOffset])
+                tilemapOffset++;
+
+            if (tilemapOffset & 1)
+            {
+                ret_1 = 0x80;
+                tilemapOffset--;
+            }
+
+            tilemapOffset = (0x1E - tilemapOffset) >> 1;
+
+            while (pCredits->text[i])
+            {
+                if ((u8)(pCredits->text[i] - 0x41) < 0x1A)
+                {
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = tile - 0x40 + pCredits->text[i];
+                }
+                else if ((u8)(pCredits->text[i] - 0x61) < 0x1A)
+                {
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = tile - 0x41 + pCredits->text[i];
+                }
+                else if (pCredits->text[i] == '.')
+                {
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = tile + 0x1B;
+                }
+                else if (pCredits->text[i] == ',')
+                {
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = tile + 0x1C;
+                }
+                else if (pCredits->text[i] == '&')
+                {
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = tile + 0x1D;
+                }
+
+                i++;
+                tilemapOffset++;
+            }
+            ret_0 = 1;
             break;
 
         case CREDIT_LINE_TYPE_END:
@@ -471,14 +512,14 @@ u8 CreditsDisplayLine(u32 line)
 
         case CREDIT_LINE_TYPE_ALL_RIGHTS:
             for (i = 0; i < 20; i++)
-                ENDING_DATA.creditLineTilemap_1[i + 6] = i + tile + 0xC0;
+                ENDING_DATA.creditLineTilemap_1[i + 5] = i + tile + 0xC0;
             ret_0 = 1;
             ret_1 = 0x10;
             break;
 
         case CREDIT_LINE_TYPE_THE_COPYRIGHT:
             for (i = 0; i < 20; i++)
-                ENDING_DATA.creditLineTilemap_1[i + 6] = i + tile + 0xE0;
+                ENDING_DATA.creditLineTilemap_1[i + 5] = i + tile + 0xE0;
             ret_0 = 1;
             break;
 
@@ -488,17 +529,63 @@ u8 CreditsDisplayLine(u32 line)
 
         case CREDIT_LINE_TYPE_SCENARIO:
             for (i = 0; i < 20; i++)
-                ENDING_DATA.creditLineTilemap_1[i + 6] = i + tile + 0x100;
+                ENDING_DATA.creditLineTilemap_1[i + 5] = i + tile + 0x100;
             ret_0 = 1;
             break;
 
         case CREDIT_LINE_TYPE_RESERVED:
             for (i = 0; i < 20; i++)
-                ENDING_DATA.creditLineTilemap_1[i + 6] = i + tile + 0x120;
+                ENDING_DATA.creditLineTilemap_1[i + 5] = i + tile + 0x120;
             ret_0 = 1;
             break;
 
         case CREDIT_LINE_TYPE_WHITE_BIG:
+            tilemapOffset = 0;
+            while (tilemapOffset < 0x1E && pCredits->text[tilemapOffset])
+                tilemapOffset++;
+
+            if (tilemapOffset & 1)
+            {
+                ret_1 = 0x80;
+                tilemapOffset--;
+            }
+
+            tilemapOffset = (0x1E - tilemapOffset) >> 1;
+
+            while (pCredits->text[i])
+            {
+                if ((u8)(pCredits->text[i] - 0x41) < 0x1A)
+                {
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = pCredits->text[i] + (tile - 0x1);
+                    ENDING_DATA.creditLineTilemap_2[tilemapOffset] = pCredits->text[i] + (tile + 0x1F);
+                }
+                else if ((u8)(pCredits->text[i] - 0x61) < 0x1A)
+                {
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = pCredits->text[i] + (tile + 0x1F);
+                    ENDING_DATA.creditLineTilemap_2[tilemapOffset] = pCredits->text[i] + (tile + 0x3F);
+                }
+                else if (pCredits->text[i] == '.')
+                {
+                    ENDING_DATA.creditLineTilemap_2[tilemapOffset] = tile + 0x7B;
+                }
+                else if (pCredits->text[i] == ',')
+                {
+                    ENDING_DATA.creditLineTilemap_2[tilemapOffset] = tile + 0x7C;
+                }
+                else if (pCredits->text[i] == '-')
+                {
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = tile + 0x5A;
+                }
+                else if (pCredits->text[i] == '+')
+                {
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = tile + 0x9A;
+                    ENDING_DATA.creditLineTilemap_2[tilemapOffset] = tile + 0xBA;
+                }
+
+                i++;
+                tilemapOffset++;
+            }
+            ret_0 = 2;
             break;
     }
 
