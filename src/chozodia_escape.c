@@ -99,9 +99,9 @@ void ChozodiaEscapeUpdateExplosionHaze(void)
 }
 
 /**
- * @brief 87aec | 11c | Calculates the
+ * @brief 87aec | 11c | Calculates the item count and ending number
  * 
- * @return u32 
+ * @return u32 Result
  */
 u32 ChozodiaEscapeGetItemCountAndEndingNumber(void)
 {
