@@ -102,46 +102,54 @@ void ChozodiaEscapeSetupHBlankRegisters(void)
 
 void ChozodiaEscapeUpdateExplosionHaze(void)
 {
-    // https://decomp.me/scratch/rhdVm
+    // https://decomp.me/scratch/RBYls
 
-    u32 slice;
-    i16 right;
-    i16 left;
-    i16 offset;
+    u32 slice, r5;
+    u32 subSlice;
+    i32 left;
+    i32 right;
+    i32 offset;
     i32 size;
     const i16* src;
-
+    u32 res;
+    u32 var_0;
+    u32 var_1;
+    
     slice = CHOZODIA_ESCAPE_DATA.unk_36c;
+    var_1 = slice;
     src = sHaze_PowerBomb_WindowValuesPointers[slice];
 
     if (slice < 4)
     {
-        offset = 0x4C;
+        var_0 = 0x4C;
         size = 0x54;
 
         slice = 0;
     }
-    else if (slice < 80)
+    else if (slice <= 80)
     {
-        offset = 80 - slice;
-        size = slice + 80;
+        var_0 = (i16)(80 - slice);
+        size = (i16)(slice + 80);
 
         slice = 0;
     }
     else
     {
-        offset = 0;
+        var_0 = 0;
         size = 0xA0;
-
-        slice = slice - 80;
+        ++slice; --slice;
+        slice = (i16)(var_1 - 80);
     }
 
     CHOZODIA_ESCAPE_DATA.unk_36e = (CHOZODIA_ESCAPE_DATA.unk_36e + 1) & 1;
 
+    offset = var_0;
+    subSlice = slice++;
     while (offset < size)
     {
-        right = (src[slice] * 12) / 10;
-        left = 120 - right;
+        res = (src[subSlice * 2] * 12) / 10;
+        left = (i16)(120 - res);
+        right = (i16)(res + 120);
 
         if (left < 0)
             left = 0;
@@ -149,9 +157,10 @@ void ChozodiaEscapeUpdateExplosionHaze(void)
         if (right > 0xF0)
             right = 0xF0;
 
-        CHOZODIA_ESCAPE_DATA.explosionHazeValues[CHOZODIA_ESCAPE_DATA.unk_36e][offset] = left << 8 | right;
+        CHOZODIA_ESCAPE_DATA.explosionHazeValues[CHOZODIA_ESCAPE_DATA.unk_36e][offset] = right | left << 8;
 
-        offset++;
+        offset = (i16)(offset + 1);
+        subSlice++;
     }
 }
 
