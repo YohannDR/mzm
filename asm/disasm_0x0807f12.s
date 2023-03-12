@@ -426,7 +426,7 @@ lbl_0807f414:
     bne lbl_0807f420
     b lbl_0807f5f4
 lbl_0807f420:
-    bl GetPercentAndEndingNumber
+    bl ChozodiaEscapeGetPercentAndEndingNumber
     adds r3, r0, #0
     movs r0, #0xff
     lsrs r1, r3, #0x18
@@ -1374,7 +1374,7 @@ check_set_new_time_attack_record: @ 0x0807fb48
     ldrb r0, [r0]
     lsls r0, r0, #8
     adds r5, r1, r0
-    bl GetPercentAndEndingNumber
+    bl ChozodiaEscapeGetPercentAndEndingNumber
     movs r1, #0xff
     lsrs r2, r0, #0x18
     mov sl, r2

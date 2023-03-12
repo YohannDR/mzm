@@ -2398,7 +2398,7 @@ end_screen_init: @ 0x08085e08
     ldr r0, lbl_0808603c @ =0x8500018a
     str r0, [r4, #8]
     ldr r0, [r4, #8]
-    bl GetPercentAndEndingNumber
+    bl ChozodiaEscapeGetPercentAndEndingNumber
     ldr r3, lbl_08086040 @ =0x08754bc4
     ldr r1, [r3]
     movs r2, #7
@@ -3372,7 +3372,7 @@ ending_image_init: @ 0x080867b4
     ldr r0, lbl_080868f0 @ =0x8500018a
     str r0, [r6, #8]
     ldr r0, [r6, #8]
-    bl GetPercentAndEndingNumber
+    bl ChozodiaEscapeGetPercentAndEndingNumber
     adds r4, r0, #0
     movs r0, #0xff
     lsrs r5, r4, #0x18
@@ -5660,8 +5660,8 @@ lbl_08087ada:
     .align 2, 0
 lbl_08087ae8: .4byte 0x0000036e
 
-    thumb_func_start GetPercentAndEndingNumber
-GetPercentAndEndingNumber: @ 0x08087aec
+    thumb_func_start ChozodiaEscapeGetPercentAndEndingNumber
+ChozodiaEscapeGetPercentAndEndingNumber: @ 0x08087aec
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -6300,7 +6300,7 @@ lbl_08087fd8:
     orrs r0, r1
     strb r0, [r5, #4]
     bl sub_0807f3fc
-    bl GetPercentAndEndingNumber
+    bl ChozodiaEscapeGetPercentAndEndingNumber
     movs r1, #0xf
     ands r1, r0
     lsls r4, r1

@@ -905,7 +905,7 @@ void EndScreenInit(void)
     zero = 0;
     dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
 
-    ENDING_DATA.endingNumber = GetPercentAndEndingNumber() & 7;
+    ENDING_DATA.endingNumber = ChozodiaEscapeGetPercentAndEndingNumber() & 7;
     ENDING_DATA.dispcnt = DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ;
 
     gWrittenToBLDALPHA_L = 16;
@@ -1250,7 +1250,7 @@ void EndingImageInit(void)
     zero = 0;
     dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
 
-    pen = GetPercentAndEndingNumber();
+    pen = ChozodiaEscapeGetPercentAndEndingNumber();
 
     mask = 0xFF;
     // TODO figure out how PEN is structured
