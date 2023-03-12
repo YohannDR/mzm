@@ -229,8 +229,6 @@ void RoomLoadTileset(void)
  */
 void RoomLoadEntry(void)
 {
-    // https://decomp.me/scratch/Hh7MS
-
     struct RoomEntryROM entry;
 
     entry = sAreaRoomEntryPointers[gCurrentArea][gCurrentRoom];
@@ -251,10 +249,7 @@ void RoomLoadEntry(void)
     gCurrentRoomEntry.visualEffect = entry.effect;
     gCurrentRoomEntry.musicTrack = entry.musicTrack;
 
-    if (entry.effectY != UCHAR_MAX)
-        gCurrentRoomEntry.effectY = entry.effectY * 64;
-    else
-        gCurrentRoomEntry.effectY = USHORT_MAX;
+    gCurrentRoomEntry.effectY = (entry.effectY != UCHAR_MAX) ? entry.effectY * 64 : USHORT_MAX;
 
     gSpritesetEntryUsed = 0;
     gCurrentRoomEntry.firstSpritesetEvent = entry.firstSpritesetEvent;
@@ -421,10 +416,10 @@ void RoomReset(void)
         gDoorPositionStart.y = 0;
         gCurrentItemBeingAcquired = 0;
 
-        save_most_recent_file_to_sram(); // Undefined
+        SramWrite_MostRecentSaveFile();
     }
 
-    unk_5c158(); // Undefined
+    unk_5c158();
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
         return;
