@@ -326,7 +326,7 @@ void EraseSramInit(void)
     while ((u16)(read16(REG_VCOUNT) - 0x15) < 0x8C);
 
     dma_set(3, sEraseSramMenuBackgroundPAL, PALRAM_BASE, DMA_ENABLE << 16 | 0xD0);
-    dma_set(3, sEraseSramMenuObjectsPAL, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | sizeof(sEraseSramMenuObjectsPAL) / 2);
+    dma_set(3, sEraseSramMenuObjectsPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sEraseSramMenuObjectsPAL) / 2);
     write16(PALRAM_BASE, 0);
 
     LZ77UncompVRAM(sEraseSramMenuFirstBoxGFX, VRAM_BASE + 0x1000);

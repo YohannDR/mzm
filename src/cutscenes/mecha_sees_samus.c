@@ -88,7 +88,7 @@ u8 MechaRidleySeesSamusInit(void)
 
     unk_61f0c();
     DMATransfer(3, sMechaSeesSamusPAL, PALRAM_BASE, sizeof(sMechaSeesSamusPAL), 0x10);
-    DMATransfer(3, PALRAM_BASE, PALRAM_BASE + 0x200, 0x200, 0x20);
+    DMATransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
 
     write16(PALRAM_BASE, 0);
 

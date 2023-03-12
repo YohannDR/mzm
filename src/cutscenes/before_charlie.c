@@ -366,7 +366,7 @@ u8 BeforeCharlieInit(void)
     unk_61f0c();
 
     DMATransfer(3, sBeforeCharlieChozoWallSidesPAL, PALRAM_BASE, sizeof(sBeforeCharlieChozoWallSidesPAL), 0x10);
-    BitFill(3, 0, PALRAM_BASE + 0x200, 0x200, 0x20);
+    BitFill(3, 0, PALRAM_OBJ, 0x200, 0x20);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sBeforeCharlieLeftSideOfChozoWallGFX, VRAM_BASE + sBeforeCharliePageData[0].graphicsPage * 0x4000);

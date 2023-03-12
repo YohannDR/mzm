@@ -1283,7 +1283,7 @@ void EndingImageInit(void)
     else
         LZ77UncompVRAM(sEndingImageTextGFX, VRAM_BASE + 0x11000);
 
-    dma_set(3, sEndingImageTextPAL, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | sizeof(sEndingImageTextPAL) / 2);
+    dma_set(3, sEndingImageTextPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sEndingImageTextPAL) / 2);
 
     EndingImageLoadIGTAndPercentageGraphics();
     write16(REG_BG0CNT, 0x9C00);

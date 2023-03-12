@@ -40,7 +40,7 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
             CallLZ77UncompVRAM(sMotherBrainCloseUpSamusTileTable, VRAM_BASE + sMotherBrainCloseUpPageData[4].tiletablePage * 0x800);
 
             // Load big eye graphics
-            DMATransfer(3, sMotherBrainCloseUpBigEyePAL, PALRAM_BASE + 0x200, sizeof(sMotherBrainCloseUpBigEyePAL), 0x10);
+            DMATransfer(3, sMotherBrainCloseUpBigEyePAL, PALRAM_OBJ, sizeof(sMotherBrainCloseUpBigEyePAL), 0x10);
             CallLZ77UncompVRAM(sMotherBrainCloseUpBigEyeGFX, VRAM_BASE + 0x10000);
 
             CutsceneSetBGCNTPageData(sMotherBrainCloseUpPageData[4]);
@@ -174,7 +174,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
             CallLZ77UncompVRAM(sMotherBrainCloseUpGlassTileTable, VRAM_BASE + sMotherBrainCloseUpPageData[1].tiletablePage * 0x800);
 
             // Load eye graphics
-            DMATransfer(3, sMotherBrainCloseUpEyePAL, PALRAM_BASE + 0x200, sizeof(sMotherBrainCloseUpEyePAL), 0x10);
+            DMATransfer(3, sMotherBrainCloseUpEyePAL, PALRAM_OBJ, sizeof(sMotherBrainCloseUpEyePAL), 0x10);
             CallLZ77UncompVRAM(sMotherBrainCloseUpEyeGFX, VRAM_BASE + 0x10000);
 
             CutsceneSetBGCNTPageData(sMotherBrainCloseUpPageData[2]);

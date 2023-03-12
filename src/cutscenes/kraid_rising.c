@@ -270,9 +270,9 @@ u8 KraidRisingInit(void)
     CallLZ77UncompVRAM(sKraidRisingKraidCloseUpGFX, VRAM_BASE + sKraidRisingPagesData[0].graphicsPage * 0x4000);
 
     if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
-        DMATransfer(3, sKraidRisingSamusVariaPAL, PALRAM_BASE + 0x200, 0x20, 0x10);
+        DMATransfer(3, sKraidRisingSamusVariaPAL, PALRAM_OBJ, 0x20, 0x10);
     else
-        DMATransfer(3, sKraidRisingSamusPAL, PALRAM_BASE + 0x200, 0x20, 0x10);
+        DMATransfer(3, sKraidRisingSamusPAL, PALRAM_OBJ, 0x20, 0x10);
 
     DMATransfer(3, sKraidRisingParticlesPAL, PALRAM_BASE + 0x220, 0x20, 0x10);
 

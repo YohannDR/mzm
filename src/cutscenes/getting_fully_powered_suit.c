@@ -261,7 +261,7 @@ u8 GettingFullyPoweredSuitInit(void)
 
     unk_61f0c();
     DMATransfer(3, sGettingFullyPoweredSuitPAL, PALRAM_BASE, 352, 0x10);
-    DMATransfer(3, PALRAM_BASE, PALRAM_BASE + 0x200, 0x200, 0x20);
+    DMATransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sGettingFullyPoweredSuitSamusGFX, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].graphicsPage * 0x4000);

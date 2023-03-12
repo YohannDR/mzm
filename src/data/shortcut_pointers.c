@@ -44,7 +44,7 @@ void* sEwramPointer = EWRAM_BASE;
 FORCE_RODATA
 void* sBgPalramPointer = PALRAM_BASE;
 FORCE_RODATA
-void* sObjPalramPointer = PALRAM_BASE + 0x200;
+void* sObjPalramPointer = PALRAM_OBJ;
 FORCE_RODATA
 u32* sVisitedMinimapTilesPointer = gVisitedMinimapTiles;
 FORCE_RODATA

@@ -43,7 +43,7 @@ void IntroFuzzVBlank(void)
     write16(REG_DISPCNT, INTRO_DATA.dispcnt);
     write16(REG_BLDCNT, INTRO_DATA.bldcnt);
 
-    dma_set(3, INTRO_DATA.fuzzPalette, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | sizeof(INTRO_DATA.fuzzPalette) / 2);
+    dma_set(3, INTRO_DATA.fuzzPalette, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(INTRO_DATA.fuzzPalette) / 2);
 }
 
 /**
@@ -82,7 +82,7 @@ void IntroInit(void)
     LZ77UncompVRAM(sIntroSpaceBackgroundTileTable, VRAM_BASE + 0x8000);
     LZ77UncompVRAM(sIntro_47920c, VRAM_BASE + 0x9000);
 
-    dma_set(3, sIntroTextAndShipPAL, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPAL) / 2);
+    dma_set(3, sIntroTextAndShipPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPAL) / 2);
     dma_set(3, sIntroTextAndShipPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPAL) / 2);
     dma_set(3, sIntroPAL_45f9d4, PALRAM_BASE + 0x1E0, DMA_ENABLE << 16 | sizeof(sIntroPAL_45f9d4) / 2);
 
@@ -688,7 +688,7 @@ u8 IntroViewOfZebes(void)
         case 2:
             LZ77UncompVRAM(sIntroViewOfZebesTileTable, VRAM_BASE + 0x8000);
             dma_set(3, sIntroViewOfZebesPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroViewOfZebesPAL) / 2);
-            dma_set(3, sIntroViewOfZebesPAL, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | sizeof(sIntroViewOfZebesPAL) / 2);
+            dma_set(3, sIntroViewOfZebesPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sIntroViewOfZebesPAL) / 2);
             gBG0XPosition = 0x10;
             break;
 

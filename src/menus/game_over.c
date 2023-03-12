@@ -271,7 +271,7 @@ void GameOverInit(void)
 
     DMATransfer(3, sGameOverMenuPAL, PALRAM_BASE, sizeof(sGameOverMenuPAL), 0x10);
     write16(PALRAM_BASE, 0);
-    dma_set(3, sFileSelectIconsPAL, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | sizeof(sFileSelectIconsPAL) / 2);
+    dma_set(3, sFileSelectIconsPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sFileSelectIconsPAL) / 2);
 
     LZ77UncompVRAM(sGameOverBackgroundTileTable, VRAM_BASE + 0x1800);
     LZ77UncompVRAM(sGameOverTextTileTable, VRAM_BASE + 0x800);

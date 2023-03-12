@@ -24,7 +24,7 @@ u8 RidleyLandingRidleyFlying(void)
     {
         case 0:
             DMATransfer(3, sRidleyLandingSkyBackgroundPAL, PALRAM_BASE, 0xA0, 0x10);
-			DMATransfer(3, sRidleyLandingRidleyAndRocksPAL, PALRAM_BASE + 0x200, 0x40, 0x10);
+			DMATransfer(3, sRidleyLandingRidleyAndRocksPAL, PALRAM_OBJ, 0x40, 0x10);
 			
             write16(PALRAM_BASE, 0);
 			
@@ -119,7 +119,7 @@ u8 RidleyLandingShipLanding(void)
     {
         case 0:
             DMATransfer(3, sCutsceneZebesPAL, PALRAM_BASE, sizeof(sCutsceneZebesPAL), 0x10);
-            DMATransfer(3, sCutsceneMotherShipPAL, PALRAM_BASE + 0x200, sizeof(sCutsceneMotherShipPAL), 0x10);
+            DMATransfer(3, sCutsceneMotherShipPAL, PALRAM_OBJ, sizeof(sCutsceneMotherShipPAL), 0x10);
 
             write16(PALRAM_BASE, 0);
 
@@ -401,7 +401,7 @@ u8 RidleyLandingInit(void)
     unk_61f0c();
 
     DMATransfer(3, sCutscene_3a09d4_PAL, PALRAM_BASE, sizeof(sCutscene_3a09d4_PAL), 0x10);
-    DMATransfer(3, PALRAM_BASE, PALRAM_BASE + 0x200, 0x200, 0x20);
+    DMATransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sRidleyLandingZebesBackgroundGFX, VRAM_BASE + sRidleyLandingPageData[0].graphicsPage * 0x4000);

@@ -32,7 +32,7 @@ u8 RidleyInSpaceShipLeaving(void)
             CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundGFX, VRAM_BASE + sRidleyInSpacePageData[0].graphicsPage * 0x4000);
             CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundTileTable, VRAM_BASE + sRidleyInSpacePageData[0].tiletablePage * 0x800);
 
-            DMATransfer(3, sRidleyInSpace_39dc70_PAL, PALRAM_BASE + 0x200, sizeof(sRidleyInSpace_39dc70_PAL), 0x10);
+            DMATransfer(3, sRidleyInSpace_39dc70_PAL, PALRAM_OBJ, sizeof(sRidleyInSpace_39dc70_PAL), 0x10);
             CallLZ77UncompVRAM(sRidleyInSpaceMotherShipLeavingGFX, VRAM_BASE + 0x10000);
 
             CutsceneSetBGCNTPageData(sRidleyInSpacePageData[0]);
@@ -547,7 +547,7 @@ u8 RidleyInSpaceInit(void)
     CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundGFX, VRAM_BASE + sRidleyInSpacePageData[0].graphicsPage * 0x4000);
     CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundTileTable, VRAM_BASE + sRidleyInSpacePageData[0].tiletablePage * 0x800);
 
-    DMATransfer(3, sRidleyInSpaceShipsPAL, PALRAM_BASE + 0x200, sizeof(sRidleyInSpaceShipsPAL), 0x10);
+    DMATransfer(3, sRidleyInSpaceShipsPAL, PALRAM_OBJ, sizeof(sRidleyInSpaceShipsPAL), 0x10);
     CallLZ77UncompVRAM(sRidleyInSpaceShipsGFX, VRAM_BASE + 0x10000);
 
     CutsceneSetBGCNTPageData(sRidleyInSpacePageData[0]);

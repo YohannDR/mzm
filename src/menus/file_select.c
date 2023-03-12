@@ -3289,7 +3289,7 @@ void FileSelectInit(void)
 
     DMATransfer(3, sFileSelectPAL, PALRAM_BASE, sizeof(sFileSelectPAL), 16);
     DMATransfer(3, sFileSelect_4548f8, PALRAM_BASE + 0x1C0, sizeof(sFileSelect_4548f8), 16);
-    DMATransfer(3, sFileSelectIconsPAL, PALRAM_BASE + 0x200, sizeof(sFileSelectIconsPAL), 16);
+    DMATransfer(3, sFileSelectIconsPAL, PALRAM_OBJ, sizeof(sFileSelectIconsPAL), 16);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sFileSelectCharactersGFX, VRAM_BASE + 0x400);

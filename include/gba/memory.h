@@ -10,6 +10,7 @@
 #define REG_BASE (void *)0x04000000
 
 #define PALRAM_BASE (void *)0x05000000
+#define PALRAM_OBJ (void *)0x05000200
 #define PALRAM_SIZE 0x400
 
 #define VRAM_BASE (void *)0x06000000

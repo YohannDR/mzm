@@ -1119,7 +1119,7 @@ void TitleScreenInit(void)
     StopAllMusicsAndSounds();
 
     DMATransfer(3, sTitleScreenPAL, PALRAM_BASE, 0x1E0, 0x10);
-    DMATransfer(3, sTitleScreenPAL, PALRAM_BASE + 0x200, 0x1E0, 0x10);
+    DMATransfer(3, sTitleScreenPAL, PALRAM_OBJ, 0x1E0, 0x10);
 
     write16(PALRAM_BASE, 0);
 

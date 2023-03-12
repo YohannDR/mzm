@@ -329,7 +329,7 @@ u8 EnterTourianInit(void)
     DMATransfer(3, sEnterTourianBackgroundPAL, PALRAM_BASE, sizeof(sEnterTourianBackgroundPAL), 0x10);
     write16(PALRAM_BASE, 0);
 
-    DMATransfer(3, sEnterTourianMetroidPAL, PALRAM_BASE + 0x200, sizeof(sEnterTourianMetroidPAL), 0x10);
+    DMATransfer(3, sEnterTourianMetroidPAL, PALRAM_OBJ, sizeof(sEnterTourianMetroidPAL), 0x10);
     DMATransfer(3, sMetroidPAL, PALRAM_BASE + 0x300, sizeof(sMetroidPAL), 0x10);
 
     CallLZ77UncompWRAM(sEnterTourianDeadSpacePirateGFX_1, VRAM_BASE + 0x10000);
@@ -401,7 +401,7 @@ u8 EnterTourianInit(void)
     CUTSCENE_DATA.unk_A = TRUE;
 
     PlayMusic(MUSIC_ENTERING_TOURIAN_CUTSCENE, 0);
-    DMATransfer(3, PALRAM_BASE + 0x200, sEwramPointer + 0x3A00, 0x200, 0x10);
+    DMATransfer(3, PALRAM_OBJ, sEwramPointer + 0x3A00, 0x200, 0x10);
     unk_61fa0(3);
 
     CUTSCENE_DATA.dispcnt = DCNT_OBJ | sEnterTourianPageData[0].bg | sEnterTourianPageData[1].bg;
