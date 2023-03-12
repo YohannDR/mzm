@@ -142,7 +142,7 @@ void agbmain(void)
                 break;
 
             case GM_CHOZODIA_ESCAPE:
-                if (chozodia_escape_main())
+                if (ChozodiaEscapeSubroutine())
                 {
                     gGameModeSub1 = 0;
                     gMainGameMode = GM_CREDITS;

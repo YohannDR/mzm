@@ -9,7 +9,6 @@ void SramRead_All(void);
 void start_new_demo(void);
 int map_screen_main(void);
 int gameover_main(void);
-int chozodia_escape_main(void);
 int credits_main(void);
 int tourian_escape_main(void);
 int cutscene_main(void);

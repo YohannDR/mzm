@@ -7959,8 +7959,8 @@ lbl_08088d50: .4byte 0x030013ae
 lbl_08088d54: .4byte 0x08754bc4
 lbl_08088d58: .4byte 0x030013bc
 
-    thumb_func_start chozodia_escape_main
-chozodia_escape_main: @ 0x08088d5c
+    thumb_func_start ChozodiaEscapeSubroutine
+ChozodiaEscapeSubroutine: @ 0x08088d5c
     push {r4, r5, r6, lr}
     movs r5, #0
     ldr r0, lbl_08088d78 @ =0x03001382
