@@ -14,6 +14,11 @@ struct EndingImageOam {
     const u16* const pFrame;
 };
 
+struct CreditsEntry {
+    u8 type;
+    u8 text[35];
+};
+
 struct EndingData {
     u8 stage;
     u8 unk_1;

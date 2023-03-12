@@ -429,11 +429,11 @@ void IntroShipFlyingTowardsCameraProcessOAM(void)
         *dst++ = *src++;
         dst++;
 
-        ProcessComplexOam(i, xPosition, yPosition, INTRO_DATA.rotation, INTRO_DATA.scaling, TRUE, 0); // Undefined
+        ProcessComplexOam(i, xPosition, yPosition, INTRO_DATA.rotation, INTRO_DATA.scaling, TRUE, 0);
     }
 
     gNextOamSlot = i;
-    CalculateOamPart4(INTRO_DATA.rotation, INTRO_DATA.scaling, 0); // Undefined
+    CalculateOamPart4(INTRO_DATA.rotation, INTRO_DATA.scaling, 0);
 }
 
 /**

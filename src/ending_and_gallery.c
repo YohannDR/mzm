@@ -3,6 +3,7 @@
 
 #include "data/shortcut_pointers.h"
 #include "data/ending_and_gallery_data.h"
+#include "data/internal_ending_and_gallery_data.h"
 
 #include "constants/audio.h"
 #include "constants/ending_and_gallery.h"
@@ -339,9 +340,22 @@ void EndScreenVBlank(void)
     write16(REG_BG3HOFS, gBG3XPosition & 0x1FF);
 }
 
+/**
+ * @brief 853c0 | a8 | V-blank code for the unlocked options
+ * 
+ */
 void UnlockedOptionsVBlank(void)
 {
+    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
+    write16(REG_DISPCNT, ENDING_DATA.dispcnt);
+    write16(REG_BLDCNT, ENDING_DATA.bldcnt);
+
+    write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
+
+    write16(REG_WIN0H, ENDING_DATA.oamXPositions[0] << 8 | ENDING_DATA.oamXPositions[1]);
+    write16(REG_WIN0V, ENDING_DATA.oamYPositions[0] << 8 | ENDING_DATA.oamYPositions[1]);
 }
 
 /**
@@ -417,7 +431,78 @@ void CreditsInit(void)
 
 u8 CreditsDisplayLine(u32 line)
 {
+    // https://decomp.me/scratch/tfc6g
 
+    u8 i;
+    u16 tile;
+    u32 ret_0;
+    u32 ret_1;
+    const struct CreditsEntry* pCredits;
+
+    pCredits = sCredits;
+    pCredits += line;
+    
+    for (i = 0; i < ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1); i++)
+    {
+        ENDING_DATA.creditLineTilemap_1[i] = 0;
+        ENDING_DATA.creditLineTilemap_2[i] = 0;
+    }
+
+    if (pCredits->type != CREDIT_LINE_TYPE_BLUE)
+        tile = 13 << 12;
+    else if (pCredits->type == CREDIT_LINE_TYPE_RED)
+        tile = 15 << 12;
+    else
+        tile = 14 << 12;
+
+    ret_0 = 0;
+    ret_1 = 0;
+    
+    switch (pCredits->type)
+    {
+        case CREDIT_LINE_TYPE_BLUE:
+        case CREDIT_LINE_TYPE_RED:
+        case CREDIT_LINE_TYPE_WHITE_SMALL:
+            break;
+
+        case CREDIT_LINE_TYPE_END:
+            ret_0 = 9;
+            break;
+
+        case CREDIT_LINE_TYPE_ALL_RIGHTS:
+            for (i = 0; i < 20; i++)
+                ENDING_DATA.creditLineTilemap_1[i + 6] = i + tile + 0xC0;
+            ret_0 = 1;
+            ret_1 = 0x10;
+            break;
+
+        case CREDIT_LINE_TYPE_THE_COPYRIGHT:
+            for (i = 0; i < 20; i++)
+                ENDING_DATA.creditLineTilemap_1[i + 6] = i + tile + 0xE0;
+            ret_0 = 1;
+            break;
+
+        case 5:
+            ret_0 = 1;
+            break;
+
+        case CREDIT_LINE_TYPE_SCENARIO:
+            for (i = 0; i < 20; i++)
+                ENDING_DATA.creditLineTilemap_1[i + 6] = i + tile + 0x100;
+            ret_0 = 1;
+            break;
+
+        case CREDIT_LINE_TYPE_RESERVED:
+            for (i = 0; i < 20; i++)
+                ENDING_DATA.creditLineTilemap_1[i + 6] = i + tile + 0x120;
+            ret_0 = 1;
+            break;
+
+        case CREDIT_LINE_TYPE_WHITE_BIG:
+            break;
+    }
+
+    return ret_0 | ret_1;
 }
 
 /**
@@ -1152,7 +1237,99 @@ void EndingImageInit(void)
 
 void EndingImageDisplayText(void)
 {
+    // https://decomp.me/scratch/ZtTF7
 
+    u16* dst;
+    const u16* src;
+    i32 i;
+    i32 nextSlot;
+    i32 currSlot;
+    u32 partCount;
+    u16 part;
+    u8 palette;
+
+    dst = (u16*)gOamData;
+    currSlot = 0;
+    nextSlot = 0;
+
+    for (i = 0; i < ENDING_DATA.oamLength; i++)
+    {
+        if (ENDING_DATA.unk_124[i] <= 1)
+            continue;
+
+        if (ENDING_DATA.unk_160[i] < 64)
+            ENDING_DATA.unk_160[i]++;
+
+        palette = 0;
+        if (i > 5)
+        {
+            if (ENDING_DATA.unk_160[i] < 4)
+                palette = 11;
+            else if (ENDING_DATA.unk_160[i] < 8)
+                palette = 12;
+            else if (ENDING_DATA.unk_160[i] < 12)
+                palette = 13;
+        }
+        else if (i == 5)
+        {
+            ENDING_DATA.unk_160[i] &= 0x3F;
+            palette = sEndingImage_54e2dc[ENDING_DATA.unk_160[i] / 8];
+        }
+
+        src = ENDING_DATA.oamFramePointers[i];
+        partCount = *src++;
+        currSlot += partCount & 0xFF;
+
+        for (; nextSlot < currSlot; nextSlot++)
+        {
+            part = *src++;
+            *dst++ = part;
+
+            gOamData[nextSlot].split.y = part + ENDING_DATA.oamYPositions[i];
+
+            part = *src++;
+            *dst++ = part;
+
+            gOamData[nextSlot].split.x = (part + ENDING_DATA.oamXPositions[i]) & 0x1FF;
+
+            *dst++ = *src++;
+            gOamData[nextSlot].split.paletteNum = palette;
+
+            dst++;
+        }
+    }
+
+    if (ENDING_DATA.unk_141)
+    {
+        if (ENDING_DATA.unk_17D++ > 70)
+            ENDING_DATA.unk_17D = 0;
+
+        palette = sEndingImage_54e2e4[ENDING_DATA.unk_17D / 6];
+
+        src = sEndingImage_549eec;
+        partCount = *src++;
+        currSlot += partCount & 0xFF;
+
+        for (; nextSlot < currSlot; nextSlot++)
+        {
+            part = *src++;
+            *dst++ = part;
+
+            gOamData[nextSlot].split.y = part + 59;
+
+            part = *src++;
+            *dst++ = part;
+
+            gOamData[nextSlot].split.x = (part + 48) & 0x1FF;
+
+            *dst++ = *src++;
+            gOamData[nextSlot].split.paletteNum = palette;
+
+            dst++;
+        }
+    }
+
+    gNextOamSlot = nextSlot;
 }
 
 /**
@@ -1412,9 +1589,142 @@ u8 UnlockedOptionsPopUp(void)
     return ended;
 }
 
+/**
+ * @brief 871dc | 208 | Subroutine for the credits
+ * 
+ * @return u32 bool, ended
+ */
 u32 CreditsSubroutine(void)
 {
+    u32 ended;
+    u32 subroutineResult;
 
+    ended = FALSE;
+    ENDING_DATA.unk_6 = 0;
+    gNextOamSlot = 0;
+
+    switch (gGameModeSub1)
+    {
+        case 0:
+            CreditsInit();
+            gGameModeSub1++;
+            break;
+
+        case 2:
+            subroutineResult = sCreditsFunctionPointers[ENDING_DATA.stage]();
+            if (subroutineResult)
+            {
+                ENDING_DATA.stage++;
+                ENDING_DATA.unk_1 = 0;
+                ENDING_DATA.endScreenTimer = 0;
+                ENDING_DATA.timer = 0;
+
+                if (subroutineResult > 1)
+                    gGameModeSub1++;
+            }
+
+            ResetFreeOAM();
+            break;
+
+        case 7:
+        case 11:
+            if (gWrittenToBLDY_NonGameplay < 16)
+                gWrittenToBLDY_NonGameplay++;
+            else
+                gGameModeSub1++;
+            break;
+
+        case 4:
+            EndScreenInit();
+            gGameModeSub1++;
+            break;
+
+        case 6:
+            if (sEndScreenFunctionPointers[ENDING_DATA.stage]())
+                gGameModeSub1++;
+            break;
+
+        case 8:
+            EndingImageInit();
+            gGameModeSub1++;
+            break;
+
+        case 5:
+        case 9:
+        case 13:
+            if (gWrittenToBLDY_NonGameplay != 0)
+                gWrittenToBLDY_NonGameplay--;
+            else
+            {
+                ENDING_DATA.bldcnt = 0;
+                gGameModeSub1++;
+            }
+            break;
+
+        case 10:
+            if (sEndingImageFunctionPointers[ENDING_DATA.stage]())
+            {
+                if (gEndingFlags & (ENDING_FLAG_UNKNOWN | ENDING_FLAG_FIRST_TIME_ATTACK_CLEAR |
+                    ENDING_FLAG_FIRST_HARD_MODE_CLEAR | ENDING_FLAG_FIRST_CLEAR))
+                {
+                    ENDING_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
+                        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
+                        BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+
+                    gWrittenToBLDY_NonGameplay = 0;
+                    gGameModeSub1++;
+                }
+                else
+                {
+                    gDisableSoftreset = FALSE;
+                    ended++;
+                }
+            }
+
+            ResetFreeOAM();
+            break;
+
+        case 1:
+        case 3:
+            gGameModeSub1++;
+            break;
+
+        case 15:
+            if (gEndingFlags & (ENDING_FLAG_UNKNOWN | ENDING_FLAG_FIRST_TIME_ATTACK_CLEAR |
+                ENDING_FLAG_FIRST_HARD_MODE_CLEAR | ENDING_FLAG_FIRST_CLEAR))
+            {
+                gGameModeSub1++;
+                break;
+            }
+
+            gDisableSoftreset = FALSE;
+            ended++;
+            break;
+
+        case 12:
+            UnlockedOptionsInit();
+            gGameModeSub1++;
+            break;
+
+        case 14:
+            subroutineResult = sUnlockedOptionsFunctionPointers[ENDING_DATA.stage]();
+            if (subroutineResult)
+            {
+                gEndingFlags = 0;
+                ENDING_DATA.stage++;
+                ENDING_DATA.unk_1 = 0;
+                ENDING_DATA.endScreenTimer = 0;
+                ENDING_DATA.timer = 0;
+
+                if (subroutineResult > 1)
+                    gGameModeSub1++;
+            }
+
+            ResetFreeOAM();
+            break;
+    }
+
+    return ended;
 }
 
 /**

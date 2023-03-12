@@ -10,11 +10,11 @@ extern const u16 sEndingImageTextPAL[14 * 16];
 
 // ...
 
-extern const u16* const sEndingWhitePalPointers[4];
+extern const u32 sEndingImageNumbersMiscGFX[218];
 
 // ...
 
-extern const u32 sEndingImageNumbersMiscGFX[218];
+extern const u16 sEndingImage_549eec[19];
 
 // ...
 
@@ -46,7 +46,12 @@ extern const u32* const sEndingImagesTopHalfTileTablePointers[NUMBER_OF_ENDING_I
 extern const u32* const sEndingImagesLowerHalfTileTablePointers[NUMBER_OF_ENDING_IMAGES];
 extern const u16* const sEndingImagesPalPointers[NUMBER_OF_ENDING_IMAGES];
 
-// ...
+extern const struct CreditsEntry sCredits[240];
+
+extern const u16* const sEndingWhitePalPointers[4];
+
+extern const u8 sEndingImage_54e2dc[8];
+extern const u8 sEndingImage_54e2e4[12];
 
 extern const u32 sCreditsCharactersGFX[615];
 
