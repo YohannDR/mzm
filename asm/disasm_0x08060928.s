@@ -8,7 +8,7 @@ check_play_room_music_track: @ 0x08060928
     lsls r0, r0, #0x18
     lsls r1, r1, #0x18
     lsrs r4, r1, #0x18
-    ldr r2, lbl_0806095c @ =0x03000030
+    ldr r2, lbl_0806095c @ =gMusicTrackInfo
     ldr r1, lbl_08060960 @ =0x0875fac4
     lsrs r0, r0, #0x16
     adds r0, r0, r1
@@ -21,7 +21,7 @@ check_play_room_music_track: @ 0x08060928
     movs r0, #0
     strh r1, [r2]
     strb r0, [r2, #4]
-    ldr r0, lbl_08060964 @ =0x03000bf1
+    ldr r0, lbl_08060964 @ =gAreaBeforeTransition
     ldrb r0, [r0]
     adds r5, r2, #0
     cmp r0, #2
@@ -30,9 +30,9 @@ check_play_room_music_track: @ 0x08060928
     beq lbl_08060976
     b lbl_08060994
     .align 2, 0
-lbl_0806095c: .4byte 0x03000030
+lbl_0806095c: .4byte gMusicTrackInfo
 lbl_08060960: .4byte 0x0875fac4
-lbl_08060964: .4byte 0x03000bf1
+lbl_08060964: .4byte gAreaBeforeTransition
 lbl_08060968:
     lsls r0, r1, #0x10
     lsrs r0, r0, #0x10
@@ -42,11 +42,11 @@ lbl_08060968:
     strb r0, [r5, #4]
     b lbl_08060994
 lbl_08060976:
-    ldr r0, lbl_080609d0 @ =0x03001530
+    ldr r0, lbl_080609d0 @ =gEquipment
     ldrb r2, [r0, #0x12]
     cmp r2, #1
     bne lbl_08060994
-    ldr r0, lbl_080609d4 @ =0x030001a8
+    ldr r0, lbl_080609d4 @ =gAlarmTimer
     ldrh r0, [r0]
     cmp r0, #0
     beq lbl_08060994
@@ -62,7 +62,7 @@ lbl_08060994:
     ldrsb r0, [r5, r0]
     cmp r0, #0
     bne lbl_080609c4
-    ldr r1, lbl_080609d8 @ =0x0300007d
+    ldr r1, lbl_080609d8 @ =gCurrentCutscene
     movs r0, #0
     ldrsb r0, [r1, r0]
     cmp r0, #0
@@ -89,41 +89,41 @@ lbl_080609c4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080609d0: .4byte 0x03001530
-lbl_080609d4: .4byte 0x030001a8
-lbl_080609d8: .4byte 0x0300007d
+lbl_080609d0: .4byte gEquipment
+lbl_080609d4: .4byte gAlarmTimer
+lbl_080609d8: .4byte gCurrentCutscene
 lbl_080609dc: .4byte 0x0836bdac
 lbl_080609e0: .4byte 0x0300550e
 
     thumb_func_start check_play_loading_jingle
 check_play_loading_jingle: @ 0x080609e4
     push {lr}
-    ldr r1, lbl_08060a2c @ =0x03000030
-    ldr r0, lbl_08060a30 @ =0x030000bc
+    ldr r1, lbl_08060a2c @ =gMusicTrackInfo
+    ldr r0, lbl_08060a30 @ =gCurrentRoomEntry
     ldrh r0, [r0, #0x16]
     strh r0, [r1]
-    ldr r0, lbl_08060a34 @ =0x03000c75
+    ldr r0, lbl_08060a34 @ =gGameModeSub3
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
     cmp r0, #0
     bne lbl_08060a28
-    ldr r0, lbl_08060a38 @ =0x030013d2
+    ldr r0, lbl_08060a38 @ =gDemoState
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_08060a28
-    ldr r0, lbl_08060a3c @ =0x03000c1d
+    ldr r0, lbl_08060a3c @ =gIsLoadingFile
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
     cmp r0, #0
     beq lbl_08060a28
     bl sub_08003eb8
-    ldr r0, lbl_08060a40 @ =0x030013d4
+    ldr r0, lbl_08060a40 @ =gSamusData
     ldrb r0, [r0]
     cmp r0, #0x2c
     bne lbl_08060a28
-    ldr r1, lbl_08060a44 @ =0x03000049
+    ldr r1, lbl_08060a44 @ =gDisablePause
     movs r0, #1
     strb r0, [r1]
     movs r0, #0x36
@@ -133,21 +133,21 @@ lbl_08060a28:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08060a2c: .4byte 0x03000030
-lbl_08060a30: .4byte 0x030000bc
-lbl_08060a34: .4byte 0x03000c75
-lbl_08060a38: .4byte 0x030013d2
-lbl_08060a3c: .4byte 0x03000c1d
-lbl_08060a40: .4byte 0x030013d4
-lbl_08060a44: .4byte 0x03000049
+lbl_08060a2c: .4byte gMusicTrackInfo
+lbl_08060a30: .4byte gCurrentRoomEntry
+lbl_08060a34: .4byte gGameModeSub3
+lbl_08060a38: .4byte gDemoState
+lbl_08060a3c: .4byte gIsLoadingFile
+lbl_08060a40: .4byte gSamusData
+lbl_08060a44: .4byte gDisablePause
 
     thumb_func_start UpdateMusicWhenPausing
 UpdateMusicWhenPausing: @ 0x08060a48
     push {lr}
-    ldr r2, lbl_08060a6c @ =0x03000030
+    ldr r2, lbl_08060a6c @ =gMusicTrackInfo
     movs r0, #0
     strb r0, [r2, #2]
-    ldr r1, lbl_08060a70 @ =0x03000bf0
+    ldr r1, lbl_08060a70 @ =gPauseScreenFlag
     ldrb r0, [r1]
     subs r0, #1
     lsls r0, r0, #0x18
@@ -161,8 +161,8 @@ UpdateMusicWhenPausing: @ 0x08060a48
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08060a6c: .4byte 0x03000030
-lbl_08060a70: .4byte 0x03000bf0
+lbl_08060a6c: .4byte gMusicTrackInfo
+lbl_08060a70: .4byte gPauseScreenFlag
 lbl_08060a74: .4byte lbl_08060a78
 lbl_08060a78: @ jump table
     .4byte lbl_08060ab4 @ case 0
@@ -175,14 +175,14 @@ lbl_08060a78: @ jump table
     .4byte lbl_08060ab4 @ case 7
 lbl_08060a98:
     bl sub_08003f20
-    ldr r0, lbl_08060aa8 @ =0x03000030
-    ldr r1, lbl_08060aac @ =0x03000bf0
+    ldr r0, lbl_08060aa8 @ =gMusicTrackInfo
+    ldr r1, lbl_08060aac @ =gPauseScreenFlag
     ldrb r1, [r1]
     strb r1, [r0, #2]
     b lbl_08060ab4
     .align 2, 0
-lbl_08060aa8: .4byte 0x03000030
-lbl_08060aac: .4byte 0x03000bf0
+lbl_08060aa8: .4byte gMusicTrackInfo
+lbl_08060aac: .4byte gPauseScreenFlag
 lbl_08060ab0:
     ldrb r0, [r3]
     strb r0, [r2, #2]
@@ -193,7 +193,7 @@ lbl_08060ab4:
     thumb_func_start update_music_after_unpause
 update_music_after_unpause: @ 0x08060ab8
     push {lr}
-    ldr r0, lbl_08060ad4 @ =0x03000030
+    ldr r0, lbl_08060ad4 @ =gMusicTrackInfo
     ldrb r0, [r0, #2]
     subs r0, #1
     lsls r0, r0, #0x18
@@ -206,7 +206,7 @@ update_music_after_unpause: @ 0x08060ab8
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08060ad4: .4byte 0x03000030
+lbl_08060ad4: .4byte gMusicTrackInfo
 lbl_08060ad8: .4byte lbl_08060adc
 lbl_08060adc: @ jump table
     .4byte lbl_08060b10 @ case 0
@@ -243,7 +243,7 @@ sub_08060b14: @ 0x08060b14
     thumb_func_start start_new_demo
 start_new_demo: @ 0x08060b20
     push {lr}
-    ldr r3, lbl_08060b6c @ =0x03000038
+    ldr r3, lbl_08060b6c @ =gCurrentDemo
     ldrb r2, [r3, #3]
     movs r1, #0xf
     adds r0, r1, #0
@@ -259,8 +259,8 @@ start_new_demo: @ 0x08060b20
     movs r1, #1
     orrs r0, r1
     strb r0, [r3, #2]
-    ldr r2, lbl_08060b70 @ =0x03000c77
-    ldr r0, lbl_08060b74 @ =0x03000002
+    ldr r2, lbl_08060b70 @ =gFrameCounter8Bit
+    ldr r0, lbl_08060b74 @ =gFrameCounter16Bit
     ldrh r1, [r0]
     lsrs r1, r1, #8
     ldrb r2, [r2]
@@ -274,17 +274,17 @@ start_new_demo: @ 0x08060b20
     ands r0, r1
     strb r0, [r3]
 lbl_08060b5e:
-    ldr r1, lbl_08060b78 @ =0x030013d2
+    ldr r1, lbl_08060b78 @ =gDemoState
     movs r0, #3
     strb r0, [r1]
     bl init_new_demo
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08060b6c: .4byte 0x03000038
-lbl_08060b70: .4byte 0x03000c77
-lbl_08060b74: .4byte 0x03000002
-lbl_08060b78: .4byte 0x030013d2
+lbl_08060b6c: .4byte gCurrentDemo
+lbl_08060b70: .4byte gFrameCounter8Bit
+lbl_08060b74: .4byte gFrameCounter16Bit
+lbl_08060b78: .4byte gDemoState
 
     thumb_func_start init_new_demo
 init_new_demo: @ 0x08060b7c
@@ -295,7 +295,7 @@ init_new_demo: @ 0x08060b7c
     sub sp, #4
     ldr r0, lbl_08060b9c @ =sub_08060b14
     bl CallbackSetVBlank
-    ldr r5, lbl_08060ba0 @ =0x03000038
+    ldr r5, lbl_08060ba0 @ =gCurrentDemo
     ldrb r0, [r5, #3]
     movs r1, #0xf0
     ands r1, r0
@@ -305,7 +305,7 @@ init_new_demo: @ 0x08060b7c
     b lbl_08060bb4
     .align 2, 0
 lbl_08060b9c: .4byte sub_08060b14
-lbl_08060ba0: .4byte 0x03000038
+lbl_08060ba0: .4byte gCurrentDemo
 lbl_08060ba4:
     ldrb r0, [r5]
     cmp r0, #0xf
@@ -322,7 +322,7 @@ lbl_08060bb4:
     movs r0, #0
     adds r1, r7, #0
     bl load_demo_ram_values
-    ldr r0, lbl_08060c10 @ =0x030013d2
+    ldr r0, lbl_08060c10 @ =gDemoState
     mov sb, r0
     ldrb r0, [r0]
     cmp r0, #3
@@ -331,7 +331,7 @@ lbl_08060bb4:
     lsls r5, r7, #4
     adds r6, r5, r4
     ldr r1, [r6]
-    ldr r2, lbl_08060c18 @ =0x03004fca
+    ldr r2, lbl_08060c18 @ =gDemoInputData
     ldrh r3, [r6, #4]
     movs r0, #0x10
     mov r8, r0
@@ -341,7 +341,7 @@ lbl_08060bb4:
     adds r4, #8
     adds r5, r5, r4
     ldr r1, [r5]
-    ldr r2, lbl_08060c1c @ =0x030051ca
+    ldr r2, lbl_08060c1c @ =gDemoInputDuration
     ldrh r3, [r6, #0xc]
     mov r0, r8
     str r0, [sp]
@@ -360,10 +360,10 @@ lbl_08060bfe:
     b lbl_08060c66
     .align 2, 0
 lbl_08060c0c: .4byte 0x08363ce8
-lbl_08060c10: .4byte 0x030013d2
+lbl_08060c10: .4byte gDemoState
 lbl_08060c14: .4byte 0x08363be8
-lbl_08060c18: .4byte 0x03004fca
-lbl_08060c1c: .4byte 0x030051ca
+lbl_08060c18: .4byte gDemoInputData
+lbl_08060c1c: .4byte gDemoInputDuration
 lbl_08060c20:
     cmp r7, #0xa
     beq lbl_08060c56
@@ -399,10 +399,10 @@ lbl_08060c60:
     movs r0, #1
     str r0, [r1]
 lbl_08060c66:
-    ldr r0, lbl_08060ca8 @ =0x030053ca
+    ldr r0, lbl_08060ca8 @ =gDemoInputNumber
     movs r4, #0
     strh r4, [r0]
-    ldr r2, lbl_08060cac @ =0x03000038
+    ldr r2, lbl_08060cac @ =gCurrentDemo
     ldrb r1, [r2, #2]
     movs r0, #0xf
     ands r0, r1
@@ -416,9 +416,9 @@ lbl_08060c66:
     subs r0, #0x11
     ands r0, r1
     strb r0, [r2, #3]
-    ldr r0, lbl_08060cb0 @ =0x03000c77
+    ldr r0, lbl_08060cb0 @ =gFrameCounter8Bit
     strb r4, [r0]
-    ldr r0, lbl_08060cb4 @ =0x03000002
+    ldr r0, lbl_08060cb4 @ =gFrameCounter16Bit
     strh r3, [r0]
     ldr r0, lbl_08060cb8 @ =sub_08060b14
     bl CallbackSetVBlank
@@ -431,10 +431,10 @@ lbl_08060c66:
     bx r0
     .align 2, 0
 lbl_08060ca4: .4byte 0x0203383c
-lbl_08060ca8: .4byte 0x030053ca
-lbl_08060cac: .4byte 0x03000038
-lbl_08060cb0: .4byte 0x03000c77
-lbl_08060cb4: .4byte 0x03000002
+lbl_08060ca8: .4byte gDemoInputNumber
+lbl_08060cac: .4byte gCurrentDemo
+lbl_08060cb0: .4byte gFrameCounter8Bit
+lbl_08060cb4: .4byte gFrameCounter16Bit
 lbl_08060cb8: .4byte sub_08060b14
 
     thumb_func_start sub_08060cbc
@@ -442,7 +442,7 @@ sub_08060cbc: @ 0x08060cbc
     push {lr}
     lsls r0, r0, #0x18
     lsrs r3, r0, #0x18
-    ldr r2, lbl_08060cd4 @ =0x03000038
+    ldr r2, lbl_08060cd4 @ =gCurrentDemo
     ldrb r1, [r2, #3]
     movs r0, #0xf0
     ands r0, r1
@@ -451,7 +451,7 @@ sub_08060cbc: @ 0x08060cbc
     ldrb r1, [r2]
     b lbl_08060ce0
     .align 2, 0
-lbl_08060cd4: .4byte 0x03000038
+lbl_08060cd4: .4byte gCurrentDemo
 lbl_08060cd8:
     ldr r1, lbl_08060cec @ =0x08363ce8
     ldrb r0, [r2]
@@ -460,28 +460,28 @@ lbl_08060cd8:
 lbl_08060ce0:
     cmp r3, #0
     bne lbl_08060cf4
-    ldr r0, lbl_08060cf0 @ =0x03000055
+    ldr r0, lbl_08060cf0 @ =gCurrentRoom
     strb r3, [r0]
     b lbl_08060d22
     .align 2, 0
 lbl_08060cec: .4byte 0x08363ce8
-lbl_08060cf0: .4byte 0x03000055
+lbl_08060cf0: .4byte gCurrentRoom
 lbl_08060cf4:
     movs r0, #1
     bl load_demo_ram_values
-    ldr r2, lbl_08060d28 @ =0x03000038
+    ldr r2, lbl_08060d28 @ =gCurrentDemo
     ldrb r1, [r2, #2]
     movs r3, #0xf
     adds r0, r3, #0
     ands r0, r1
     strb r0, [r2, #2]
-    ldr r1, lbl_08060d2c @ =0x03000c77
+    ldr r1, lbl_08060d2c @ =gFrameCounter8Bit
     movs r0, #0
     strb r0, [r1]
-    ldr r1, lbl_08060d30 @ =0x03000002
+    ldr r1, lbl_08060d30 @ =gFrameCounter16Bit
     movs r0, #0
     strh r0, [r1]
-    ldr r0, lbl_08060d34 @ =0x030013d2
+    ldr r0, lbl_08060d34 @ =gDemoState
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_08060d22
@@ -493,32 +493,32 @@ lbl_08060d22:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08060d28: .4byte 0x03000038
-lbl_08060d2c: .4byte 0x03000c77
-lbl_08060d30: .4byte 0x03000002
-lbl_08060d34: .4byte 0x030013d2
+lbl_08060d28: .4byte gCurrentDemo
+lbl_08060d2c: .4byte gFrameCounter8Bit
+lbl_08060d30: .4byte gFrameCounter16Bit
+lbl_08060d34: .4byte gDemoState
 
     thumb_func_start end_demo
 end_demo: @ 0x08060d38
     push {r4, r5, r6, r7, lr}
-    ldr r0, lbl_08060d78 @ =0x03000038
+    ldr r0, lbl_08060d78 @ =gCurrentDemo
     movs r7, #0
     strb r7, [r0, #1]
-    ldr r1, lbl_08060d7c @ =0x030013d2
+    ldr r1, lbl_08060d7c @ =gDemoState
     ldrb r2, [r1]
     adds r3, r0, #0
     adds r5, r1, #0
     cmp r2, #1
     bne lbl_08060d9c
     ldr r0, lbl_08060d80 @ =0x040000d4
-    ldr r1, lbl_08060d84 @ =0x03004fca
+    ldr r1, lbl_08060d84 @ =gDemoInputData
     str r1, [r0]
     ldr r1, lbl_08060d88 @ =0x0203f080
     str r1, [r0, #4]
     ldr r2, lbl_08060d8c @ =0x80000100
     str r2, [r0, #8]
     ldr r1, [r0, #8]
-    ldr r1, lbl_08060d90 @ =0x030051ca
+    ldr r1, lbl_08060d90 @ =gDemoInputDuration
     str r1, [r0]
     ldr r1, lbl_08060d94 @ =0x0203f280
     str r1, [r0, #4]
@@ -526,23 +526,23 @@ end_demo: @ 0x08060d38
     ldr r0, [r0, #8]
     movs r0, #0xb
     bl sub_08000c48
-    ldr r1, lbl_08060d98 @ =0x03000c74
+    ldr r1, lbl_08060d98 @ =gGameModeSub2
     movs r0, #0x10
     strb r0, [r1]
     strb r7, [r5]
     b lbl_08060e22
     .align 2, 0
-lbl_08060d78: .4byte 0x03000038
-lbl_08060d7c: .4byte 0x030013d2
+lbl_08060d78: .4byte gCurrentDemo
+lbl_08060d7c: .4byte gDemoState
 lbl_08060d80: .4byte 0x040000d4
-lbl_08060d84: .4byte 0x03004fca
+lbl_08060d84: .4byte gDemoInputData
 lbl_08060d88: .4byte 0x0203f080
 lbl_08060d8c: .4byte 0x80000100
-lbl_08060d90: .4byte 0x030051ca
+lbl_08060d90: .4byte gDemoInputDuration
 lbl_08060d94: .4byte 0x0203f280
-lbl_08060d98: .4byte 0x03000c74
+lbl_08060d98: .4byte gGameModeSub2
 lbl_08060d9c:
-    ldr r6, lbl_08060db0 @ =0x03000c74
+    ldr r6, lbl_08060db0 @ =gGameModeSub2
     movs r0, #0xb
     strb r0, [r6]
     ldrb r0, [r3, #3]
@@ -553,7 +553,7 @@ lbl_08060d9c:
     strb r7, [r5]
     b lbl_08060dfe
     .align 2, 0
-lbl_08060db0: .4byte 0x03000c74
+lbl_08060db0: .4byte gGameModeSub2
 lbl_08060db4:
     movs r1, #0xf
     ands r1, r0
@@ -627,7 +627,7 @@ tourian_escape_main: @ 0x08060e2c
     push {r4, r5, lr}
     movs r4, #0
     ldr r1, lbl_08060e94 @ =0x0875fe3c
-    ldr r5, lbl_08060e98 @ =0x0300007e
+    ldr r5, lbl_08060e98 @ =gTourianEscapeCutsceneStage
     movs r0, #0
     ldrsb r0, [r5, r0]
     lsls r0, r0, #2
@@ -641,11 +641,11 @@ tourian_escape_main: @ 0x08060e2c
     lsls r0, r0, #0x13
     movs r1, #0
     strh r4, [r0]
-    ldr r0, lbl_08060e9c @ =0x03000005
+    ldr r0, lbl_08060e9c @ =gSubGameModeStage
     strb r1, [r0]
-    ldr r0, lbl_08060ea0 @ =0x03000c72
+    ldr r0, lbl_08060ea0 @ =gGameModeSub1
     strh r4, [r0]
-    ldr r1, lbl_08060ea4 @ =0x03000c74
+    ldr r1, lbl_08060ea4 @ =gGameModeSub2
     movs r0, #4
     strb r0, [r1]
     movs r4, #1
@@ -658,18 +658,18 @@ lbl_08060e60:
     bne lbl_08060e8e
     movs r0, #2
     bl ColorFadingStart
-    ldr r1, lbl_08060ea8 @ =0x03000054
+    ldr r1, lbl_08060ea8 @ =gCurrentArea
     movs r0, #6
     strb r0, [r1]
-    ldr r0, lbl_08060eac @ =0x03000055
+    ldr r0, lbl_08060eac @ =gCurrentRoom
     movs r1, #0
     strb r1, [r0]
-    ldr r0, lbl_08060eb0 @ =0x03000056
+    ldr r0, lbl_08060eb0 @ =gLastDoorUsed
     strb r1, [r0]
-    ldr r1, lbl_08060eb4 @ =0x0300007d
+    ldr r1, lbl_08060eb4 @ =gCurrentCutscene
     movs r0, #3
     strb r0, [r1]
-    ldr r1, lbl_08060ea4 @ =0x03000c74
+    ldr r1, lbl_08060ea4 @ =gGameModeSub2
     movs r0, #0xa
     strb r0, [r1]
 lbl_08060e8e:
@@ -677,14 +677,14 @@ lbl_08060e8e:
     b lbl_08060eba
     .align 2, 0
 lbl_08060e94: .4byte 0x0875fe3c
-lbl_08060e98: .4byte 0x0300007e
-lbl_08060e9c: .4byte 0x03000005
-lbl_08060ea0: .4byte 0x03000c72
-lbl_08060ea4: .4byte 0x03000c74
-lbl_08060ea8: .4byte 0x03000054
-lbl_08060eac: .4byte 0x03000055
-lbl_08060eb0: .4byte 0x03000056
-lbl_08060eb4: .4byte 0x0300007d
+lbl_08060e98: .4byte gTourianEscapeCutsceneStage
+lbl_08060e9c: .4byte gSubGameModeStage
+lbl_08060ea0: .4byte gGameModeSub1
+lbl_08060ea4: .4byte gGameModeSub2
+lbl_08060ea8: .4byte gCurrentArea
+lbl_08060eac: .4byte gCurrentRoom
+lbl_08060eb0: .4byte gLastDoorUsed
+lbl_08060eb4: .4byte gCurrentCutscene
 lbl_08060eb8:
     movs r0, #0
 lbl_08060eba:
@@ -695,7 +695,7 @@ lbl_08060eba:
     thumb_func_start sub_08060ec0
 sub_08060ec0: @ 0x08060ec0
     push {lr}
-    ldr r0, lbl_08060ed4 @ =0x0300007d
+    ldr r0, lbl_08060ed4 @ =gCurrentCutscene
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -705,7 +705,7 @@ sub_08060ec0: @ 0x08060ec0
     beq lbl_08060ee2
     b lbl_08060eea
     .align 2, 0
-lbl_08060ed4: .4byte 0x0300007d
+lbl_08060ed4: .4byte gCurrentCutscene
 lbl_08060ed8:
     movs r0, #0x34
     movs r1, #0
@@ -724,7 +724,7 @@ lbl_08060eea:
     thumb_func_start end_cutscene
 end_cutscene: @ 0x08060ef4
     push {r4, r5, lr}
-    ldr r0, lbl_08060f10 @ =0x0300007d
+    ldr r0, lbl_08060f10 @ =gCurrentCutscene
     ldrb r0, [r0]
     subs r0, #1
     lsls r0, r0, #0x18
@@ -737,7 +737,7 @@ end_cutscene: @ 0x08060ef4
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08060f10: .4byte 0x0300007d
+lbl_08060f10: .4byte gCurrentCutscene
 lbl_08060f14: .4byte lbl_08060f18
 lbl_08060f18: @ jump table
     .4byte lbl_08060f5c @ case 0
@@ -762,44 +762,44 @@ lbl_08060f48:
     .align 2, 0
 lbl_08060f58: .4byte 0x0836bdac
 lbl_08060f5c:
-    ldr r0, lbl_08060f74 @ =0x03000054
+    ldr r0, lbl_08060f74 @ =gCurrentArea
     movs r1, #0
     strb r1, [r0]
-    ldr r0, lbl_08060f78 @ =0x03000055
+    ldr r0, lbl_08060f78 @ =gCurrentRoom
     strb r1, [r0]
-    ldr r0, lbl_08060f7c @ =0x03000056
+    ldr r0, lbl_08060f7c @ =gLastDoorUsed
     strb r1, [r0]
-    ldr r0, lbl_08060f80 @ =0x03000c75
+    ldr r0, lbl_08060f80 @ =gGameModeSub3
     strb r1, [r0]
-    ldr r0, lbl_08060f84 @ =0x0300004b
+    ldr r0, lbl_08060f84 @ =gShipLandingFlag
     strb r1, [r0]
     b lbl_08060fda
     .align 2, 0
-lbl_08060f74: .4byte 0x03000054
-lbl_08060f78: .4byte 0x03000055
-lbl_08060f7c: .4byte 0x03000056
-lbl_08060f80: .4byte 0x03000c75
-lbl_08060f84: .4byte 0x0300004b
+lbl_08060f74: .4byte gCurrentArea
+lbl_08060f78: .4byte gCurrentRoom
+lbl_08060f7c: .4byte gLastDoorUsed
+lbl_08060f80: .4byte gGameModeSub3
+lbl_08060f84: .4byte gShipLandingFlag
 lbl_08060f88:
-    ldr r1, lbl_08060f90 @ =0x03000bf0
+    ldr r1, lbl_08060f90 @ =gPauseScreenFlag
     movs r0, #8
     strb r0, [r1]
     b lbl_08060fda
     .align 2, 0
-lbl_08060f90: .4byte 0x03000bf0
+lbl_08060f90: .4byte gPauseScreenFlag
 lbl_08060f94:
-    ldr r1, lbl_08060fa4 @ =0x03000bf0
+    ldr r1, lbl_08060fa4 @ =gPauseScreenFlag
     movs r0, #7
     strb r0, [r1]
-    ldr r1, lbl_08060fa8 @ =0x03000030
+    ldr r1, lbl_08060fa8 @ =gMusicTrackInfo
     movs r0, #7
     strb r0, [r1, #2]
     b lbl_08060fda
     .align 2, 0
-lbl_08060fa4: .4byte 0x03000bf0
-lbl_08060fa8: .4byte 0x03000030
+lbl_08060fa4: .4byte gPauseScreenFlag
+lbl_08060fa8: .4byte gMusicTrackInfo
 lbl_08060fac:
-    ldr r0, lbl_08060fc4 @ =0x03000054
+    ldr r0, lbl_08060fc4 @ =gCurrentArea
     ldrb r0, [r0]
     cmp r0, #1
     bne lbl_08060fc8
@@ -810,7 +810,7 @@ lbl_08060fac:
     bl sub_08003bd0
     b lbl_08060fda
     .align 2, 0
-lbl_08060fc4: .4byte 0x03000054
+lbl_08060fc4: .4byte gCurrentArea
 lbl_08060fc8:
     cmp r0, #3
     bne lbl_08060fda
@@ -821,7 +821,7 @@ lbl_08060fc8:
     bl sub_08003bd0
 lbl_08060fda:
     ldr r5, lbl_08061038 @ =0x0836bdac
-    ldr r4, lbl_0806103c @ =0x0300007d
+    ldr r4, lbl_0806103c @ =gCurrentCutscene
     movs r0, #0
     ldrsb r0, [r4, r0]
     lsls r0, r0, #4
@@ -852,7 +852,7 @@ lbl_08061002:
     lsls r0, r0, #1
     ldrh r1, [r1, #0xa]
     bl sub_08002de8
-    ldr r0, lbl_08061040 @ =0x03000030
+    ldr r0, lbl_08061040 @ =gMusicTrackInfo
     ldrh r0, [r0]
     movs r1, #0
     ldrsb r1, [r4, r1]
@@ -867,14 +867,14 @@ lbl_08061032:
     bx r0
     .align 2, 0
 lbl_08061038: .4byte 0x0836bdac
-lbl_0806103c: .4byte 0x0300007d
-lbl_08061040: .4byte 0x03000030
+lbl_0806103c: .4byte gCurrentCutscene
+lbl_08061040: .4byte gMusicTrackInfo
 
     thumb_func_start cutscene_main
 cutscene_main: @ 0x08061044
     push {r4, lr}
     sub sp, #4
-    ldr r0, lbl_0806105c @ =0x03000005
+    ldr r0, lbl_0806105c @ =gSubGameModeStage
     ldrb r0, [r0]
     cmp r0, #4
     bls lbl_08061052
@@ -886,7 +886,7 @@ lbl_08061052:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0806105c: .4byte 0x03000005
+lbl_0806105c: .4byte gSubGameModeStage
 lbl_08061060: .4byte lbl_08061064
 lbl_08061064: @ jump table
     .4byte lbl_08061078 @ case 0
@@ -898,7 +898,7 @@ lbl_08061078:
     ldr r0, lbl_080610a0 @ =sub_080612d4
     bl CallbackSetVBlank
     ldr r1, lbl_080610a4 @ =0x0836bdac
-    ldr r0, lbl_080610a8 @ =0x0300007d
+    ldr r0, lbl_080610a8 @ =gCurrentCutscene
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -909,22 +909,22 @@ lbl_08061078:
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_080610b0
-    ldr r1, lbl_080610ac @ =0x03000005
+    ldr r1, lbl_080610ac @ =gSubGameModeStage
     movs r0, #2
     strb r0, [r1]
     b lbl_0806121c
     .align 2, 0
 lbl_080610a0: .4byte sub_080612d4
 lbl_080610a4: .4byte 0x0836bdac
-lbl_080610a8: .4byte 0x0300007d
-lbl_080610ac: .4byte 0x03000005
+lbl_080610a8: .4byte gCurrentCutscene
+lbl_080610ac: .4byte gSubGameModeStage
 lbl_080610b0:
-    ldr r1, lbl_080610b8 @ =0x03000005
+    ldr r1, lbl_080610b8 @ =gSubGameModeStage
     movs r0, #1
     strb r0, [r1]
     b lbl_0806121c
     .align 2, 0
-lbl_080610b8: .4byte 0x03000005
+lbl_080610b8: .4byte gSubGameModeStage
 lbl_080610bc:
     bl sub_08061f60
     bl sub_080621d0
@@ -949,7 +949,7 @@ lbl_080610e0:
     strh r0, [r1, #2]
     bl sub_08061be4
     ldr r1, lbl_08061144 @ =0x0836bdac
-    ldr r4, lbl_08061148 @ =0x0300007d
+    ldr r4, lbl_08061148 @ =gCurrentCutscene
     movs r0, #0
     ldrsb r0, [r4, r0]
     lsls r0, r0, #4
@@ -962,13 +962,13 @@ lbl_080610e0:
     rsbs r1, r0, #0
     orrs r1, r0
     lsrs r2, r1, #0x1f
-    ldr r0, lbl_0806114c @ =0x0300002f
+    ldr r0, lbl_0806114c @ =gCutsceneToSkip
     ldrb r1, [r0]
     movs r0, #0
     ldrsb r0, [r4, r0]
     cmp r1, r0
     bne lbl_0806112a
-    ldr r0, lbl_08061150 @ =0x03001380
+    ldr r0, lbl_08061150 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #2
     ands r0, r1
@@ -984,7 +984,7 @@ lbl_0806112a:
     movs r0, #0
     strh r0, [r1, #0x1c]
 lbl_08061136:
-    ldr r1, lbl_08061154 @ =0x03000005
+    ldr r1, lbl_08061154 @ =gSubGameModeStage
     ldrb r0, [r1]
     adds r0, #1
     strb r0, [r1]
@@ -992,10 +992,10 @@ lbl_08061136:
     .align 2, 0
 lbl_08061140: .4byte 0x08754bc4
 lbl_08061144: .4byte 0x0836bdac
-lbl_08061148: .4byte 0x0300007d
-lbl_0806114c: .4byte 0x0300002f
-lbl_08061150: .4byte 0x03001380
-lbl_08061154: .4byte 0x03000005
+lbl_08061148: .4byte gCurrentCutscene
+lbl_0806114c: .4byte gCutsceneToSkip
+lbl_08061150: .4byte gChangedInput
+lbl_08061154: .4byte gSubGameModeStage
 lbl_08061158:
     ldr r0, lbl_0806117c @ =0x08754bc4
     ldr r0, [r0]
@@ -1054,7 +1054,7 @@ lbl_08061198:
     bl BitFill
     bl end_cutscene
     ldr r3, lbl_0806120c @ =0x0836bdac
-    ldr r2, lbl_08061210 @ =0x0300007d
+    ldr r2, lbl_08061210 @ =gCurrentCutscene
     movs r0, #0
     ldrsb r0, [r2, r0]
     lsls r0, r0, #4
@@ -1063,11 +1063,11 @@ lbl_08061198:
     lsrs r0, r0, #6
     cmp r0, #0
     beq lbl_080611ee
-    ldr r1, lbl_08061214 @ =0x0300002f
+    ldr r1, lbl_08061214 @ =gCutsceneToSkip
     ldrb r0, [r2]
     strb r0, [r1]
 lbl_080611ee:
-    ldr r1, lbl_08061218 @ =0x03000005
+    ldr r1, lbl_08061218 @ =gSubGameModeStage
     movs r0, #0
     strb r0, [r1]
     movs r0, #0
@@ -1084,9 +1084,9 @@ lbl_08061204:
     .align 2, 0
 lbl_08061208: .4byte 0x06010000
 lbl_0806120c: .4byte 0x0836bdac
-lbl_08061210: .4byte 0x0300007d
-lbl_08061214: .4byte 0x0300002f
-lbl_08061218: .4byte 0x03000005
+lbl_08061210: .4byte gCurrentCutscene
+lbl_08061214: .4byte gCutsceneToSkip
+lbl_08061218: .4byte gSubGameModeStage
 lbl_0806121c:
     movs r0, #0
 lbl_0806121e:
@@ -1104,7 +1104,7 @@ return_one_cutscene: @ 0x08061228
     thumb_func_start sub_0806122c
 sub_0806122c: @ 0x0806122c
     ldr r1, lbl_080612b0 @ =0x040000d4
-    ldr r0, lbl_080612b4 @ =0x03000e7c
+    ldr r0, lbl_080612b4 @ =gOamData
     str r0, [r1]
     movs r0, #0xe0
     lsls r0, r0, #0x13
@@ -1151,14 +1151,14 @@ sub_0806122c: @ 0x0806122c
     ldrh r0, [r2, #0x26]
     strh r0, [r1]
     adds r1, #0x46
-    ldr r0, lbl_080612c0 @ =0x030013ae
+    ldr r0, lbl_080612c0 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r0]
     strh r0, [r1]
     ldr r3, lbl_080612c4 @ =0x04000052
-    ldr r0, lbl_080612c8 @ =0x030013b2
+    ldr r0, lbl_080612c8 @ =gWrittenToBLDALPHA_H
     ldrh r0, [r0]
     lsls r0, r0, #8
-    ldr r1, lbl_080612cc @ =0x030013b0
+    ldr r1, lbl_080612cc @ =gWrittenToBLDALPHA_L
     ldrh r1, [r1]
     orrs r0, r1
     strh r0, [r3]
@@ -1171,13 +1171,13 @@ sub_0806122c: @ 0x0806122c
     bx lr
     .align 2, 0
 lbl_080612b0: .4byte 0x040000d4
-lbl_080612b4: .4byte 0x03000e7c
+lbl_080612b4: .4byte gOamData
 lbl_080612b8: .4byte 0x84000100
 lbl_080612bc: .4byte 0x08754bc4
-lbl_080612c0: .4byte 0x030013ae
+lbl_080612c0: .4byte gWrittenToBLDY_NonGameplay
 lbl_080612c4: .4byte 0x04000052
-lbl_080612c8: .4byte 0x030013b2
-lbl_080612cc: .4byte 0x030013b0
+lbl_080612c8: .4byte gWrittenToBLDALPHA_H
+lbl_080612cc: .4byte gWrittenToBLDALPHA_L
 lbl_080612d0: .4byte 0x04000050
 
     thumb_func_start sub_080612d4
@@ -1195,7 +1195,7 @@ sub_080612e0: @ 0x080612e0
     sub sp, #4
     ldr r0, lbl_080613c0 @ =sub_080612d4
     bl CallbackSetVBlank
-    ldr r2, lbl_080613c4 @ =0x030016c4
+    ldr r2, lbl_080613c4 @ =gNonGameplayRAM
     movs r3, #0xc5
     lsls r3, r3, #3
     movs r0, #0x20
@@ -1203,12 +1203,12 @@ sub_080612e0: @ 0x080612e0
     movs r0, #3
     movs r1, #0
     bl BitFill
-    ldr r2, lbl_080613c8 @ =0x03005806
-    ldr r1, lbl_080613cc @ =0x03005807
+    ldr r2, lbl_080613c8 @ =gOamXOffset_NonGameplay
+    ldr r1, lbl_080613cc @ =gOamYOffset_NonGameplay
     movs r0, #0
     strb r0, [r1]
     strb r0, [r2]
-    ldr r1, lbl_080613d0 @ =0x03001382
+    ldr r1, lbl_080613d0 @ =gNextOamSlot
     strb r0, [r1]
     bl ResetFreeOAM
     ldr r1, lbl_080613d4 @ =0x04000050
@@ -1219,7 +1219,7 @@ sub_080612e0: @ 0x080612e0
     strh r0, [r3, #0x1e]
     strh r0, [r1]
     ldr r2, lbl_080613dc @ =0x04000054
-    ldr r1, lbl_080613e0 @ =0x030013ae
+    ldr r1, lbl_080613e0 @ =gWrittenToBLDY_NonGameplay
     movs r0, #0x10
     strh r0, [r1]
     strh r0, [r2]
@@ -1228,7 +1228,7 @@ sub_080612e0: @ 0x080612e0
     strh r4, [r3, #0x1c]
     strh r4, [r0]
     ldr r1, lbl_080613e4 @ =0x0836bdac
-    ldr r0, lbl_080613e8 @ =0x0300007d
+    ldr r0, lbl_080613e8 @ =gCurrentCutscene
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -1239,7 +1239,7 @@ sub_080612e0: @ 0x080612e0
     beq lbl_0806135e
     cmp r3, #2
     bne lbl_0806134a
-    ldr r0, lbl_080613ec @ =0x03000bf0
+    ldr r0, lbl_080613ec @ =gPauseScreenFlag
     strb r3, [r0]
 lbl_0806134a:
     cmp r3, #2
@@ -1252,9 +1252,9 @@ lbl_0806134a:
     movs r0, #3
     bl DMATransfer
 lbl_0806135e:
-    ldr r2, lbl_080613f8 @ =0x0300002f
+    ldr r2, lbl_080613f8 @ =gCutsceneToSkip
     ldrb r1, [r2]
-    ldr r4, lbl_080613e8 @ =0x0300007d
+    ldr r4, lbl_080613e8 @ =gCurrentCutscene
     movs r0, #0
     ldrsb r0, [r4, r0]
     cmp r1, r0
@@ -1263,23 +1263,23 @@ lbl_0806135e:
     strb r0, [r2]
 lbl_08061370:
     bl ClearGfxRam
-    ldr r2, lbl_080613fc @ =0x03000bf4
-    ldr r0, lbl_08061400 @ =0x03000bf6
+    ldr r2, lbl_080613fc @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_08061400 @ =gBG0VOFS_NonGameplay
     movs r3, #0x80
     lsls r3, r3, #4
     adds r1, r3, #0
     strh r1, [r0]
     strh r1, [r2]
-    ldr r2, lbl_08061404 @ =0x03000bf8
-    ldr r0, lbl_08061408 @ =0x03000bfa
+    ldr r2, lbl_08061404 @ =gBG1HOFS_NonGameplay
+    ldr r0, lbl_08061408 @ =gBG1VOFS_NonGameplay
     strh r1, [r0]
     strh r1, [r2]
-    ldr r2, lbl_0806140c @ =0x03000bfc
-    ldr r0, lbl_08061410 @ =0x03000bfe
+    ldr r2, lbl_0806140c @ =gBG2HOFS_NonGameplay
+    ldr r0, lbl_08061410 @ =gBG2VOFS_NonGameplay
     strh r1, [r0]
     strh r1, [r2]
-    ldr r2, lbl_08061414 @ =0x03000c00
-    ldr r0, lbl_08061418 @ =0x03000c02
+    ldr r2, lbl_08061414 @ =gBG3HOFS_NonGameplay
+    ldr r0, lbl_08061418 @ =gBG3VOFS_NonGameplay
     strh r1, [r0]
     strh r1, [r2]
     ldr r2, lbl_080613d8 @ =0x08754bc4
@@ -1302,28 +1302,28 @@ lbl_08061370:
     bx r0
     .align 2, 0
 lbl_080613c0: .4byte sub_080612d4
-lbl_080613c4: .4byte 0x030016c4
-lbl_080613c8: .4byte 0x03005806
-lbl_080613cc: .4byte 0x03005807
-lbl_080613d0: .4byte 0x03001382
+lbl_080613c4: .4byte gNonGameplayRAM
+lbl_080613c8: .4byte gOamXOffset_NonGameplay
+lbl_080613cc: .4byte gOamYOffset_NonGameplay
+lbl_080613d0: .4byte gNextOamSlot
 lbl_080613d4: .4byte 0x04000050
 lbl_080613d8: .4byte 0x08754bc4
 lbl_080613dc: .4byte 0x04000054
-lbl_080613e0: .4byte 0x030013ae
+lbl_080613e0: .4byte gWrittenToBLDY_NonGameplay
 lbl_080613e4: .4byte 0x0836bdac
-lbl_080613e8: .4byte 0x0300007d
-lbl_080613ec: .4byte 0x03000bf0
+lbl_080613e8: .4byte gCurrentCutscene
+lbl_080613ec: .4byte gPauseScreenFlag
 lbl_080613f0: .4byte 0x06010000
 lbl_080613f4: .4byte 0x0201e000
-lbl_080613f8: .4byte 0x0300002f
-lbl_080613fc: .4byte 0x03000bf4
-lbl_08061400: .4byte 0x03000bf6
-lbl_08061404: .4byte 0x03000bf8
-lbl_08061408: .4byte 0x03000bfa
-lbl_0806140c: .4byte 0x03000bfc
-lbl_08061410: .4byte 0x03000bfe
-lbl_08061414: .4byte 0x03000c00
-lbl_08061418: .4byte 0x03000c02
+lbl_080613f8: .4byte gCutsceneToSkip
+lbl_080613fc: .4byte gBG0HOFS_NonGameplay
+lbl_08061400: .4byte gBG0VOFS_NonGameplay
+lbl_08061404: .4byte gBG1HOFS_NonGameplay
+lbl_08061408: .4byte gBG1VOFS_NonGameplay
+lbl_0806140c: .4byte gBG2HOFS_NonGameplay
+lbl_08061410: .4byte gBG2VOFS_NonGameplay
+lbl_08061414: .4byte gBG3HOFS_NonGameplay
+lbl_08061418: .4byte gBG3VOFS_NonGameplay
 
     thumb_func_start CutsceneSetBGCNTPageData
 CutsceneSetBGCNTPageData: @ 0x0806141c
@@ -1448,34 +1448,34 @@ CutsceneSetBackgroundPosition: @ 0x080614d4
     lsls r0, r0, #1
     cmp r1, r0
     bne lbl_080614fc
-    ldr r0, lbl_080614f8 @ =0x03000bf4
+    ldr r0, lbl_080614f8 @ =gBG0HOFS_NonGameplay
     b lbl_08061526
     .align 2, 0
-lbl_080614f8: .4byte 0x03000bf4
+lbl_080614f8: .4byte gBG0HOFS_NonGameplay
 lbl_080614fc:
     movs r0, #0x80
     lsls r0, r0, #2
     cmp r1, r0
     bne lbl_0806150c
-    ldr r0, lbl_08061508 @ =0x03000bf8
+    ldr r0, lbl_08061508 @ =gBG1HOFS_NonGameplay
     b lbl_08061526
     .align 2, 0
-lbl_08061508: .4byte 0x03000bf8
+lbl_08061508: .4byte gBG1HOFS_NonGameplay
 lbl_0806150c:
     movs r0, #0x80
     lsls r0, r0, #3
     cmp r1, r0
     bne lbl_0806151c
-    ldr r0, lbl_08061518 @ =0x03000bfc
+    ldr r0, lbl_08061518 @ =gBG2HOFS_NonGameplay
     b lbl_08061526
     .align 2, 0
-lbl_08061518: .4byte 0x03000bfc
+lbl_08061518: .4byte gBG2HOFS_NonGameplay
 lbl_0806151c:
     movs r0, #0x80
     lsls r0, r0, #4
     cmp r1, r0
     bne lbl_08061528
-    ldr r0, lbl_0806153c @ =0x03000c00
+    ldr r0, lbl_0806153c @ =gBG3HOFS_NonGameplay
 lbl_08061526:
     strh r2, [r0]
 lbl_08061528:
@@ -1487,42 +1487,42 @@ lbl_08061528:
     lsls r0, r0, #1
     cmp r1, r0
     bne lbl_08061544
-    ldr r0, lbl_08061540 @ =0x03000bf6
+    ldr r0, lbl_08061540 @ =gBG0VOFS_NonGameplay
     b lbl_0806156e
     .align 2, 0
-lbl_0806153c: .4byte 0x03000c00
-lbl_08061540: .4byte 0x03000bf6
+lbl_0806153c: .4byte gBG3HOFS_NonGameplay
+lbl_08061540: .4byte gBG0VOFS_NonGameplay
 lbl_08061544:
     movs r0, #0x80
     lsls r0, r0, #2
     cmp r1, r0
     bne lbl_08061554
-    ldr r0, lbl_08061550 @ =0x03000bfa
+    ldr r0, lbl_08061550 @ =gBG1VOFS_NonGameplay
     b lbl_0806156e
     .align 2, 0
-lbl_08061550: .4byte 0x03000bfa
+lbl_08061550: .4byte gBG1VOFS_NonGameplay
 lbl_08061554:
     movs r0, #0x80
     lsls r0, r0, #3
     cmp r1, r0
     bne lbl_08061564
-    ldr r0, lbl_08061560 @ =0x03000bfe
+    ldr r0, lbl_08061560 @ =gBG2VOFS_NonGameplay
     b lbl_0806156e
     .align 2, 0
-lbl_08061560: .4byte 0x03000bfe
+lbl_08061560: .4byte gBG2VOFS_NonGameplay
 lbl_08061564:
     movs r0, #0x80
     lsls r0, r0, #4
     cmp r1, r0
     bne lbl_08061570
-    ldr r0, lbl_08061574 @ =0x03000c02
+    ldr r0, lbl_08061574 @ =gBG3VOFS_NonGameplay
 lbl_0806156e:
     strh r2, [r0]
 lbl_08061570:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08061574: .4byte 0x03000c02
+lbl_08061574: .4byte gBG3VOFS_NonGameplay
 
     thumb_func_start CutsceneGetBGHOFSPointer
 CutsceneGetBGHOFSPointer: @ 0x08061578
@@ -1535,40 +1535,40 @@ CutsceneGetBGHOFSPointer: @ 0x08061578
     lsls r0, r0, #1
     cmp r1, r0
     bne lbl_08061594
-    ldr r2, lbl_08061590 @ =0x03000bf4
+    ldr r2, lbl_08061590 @ =gBG0HOFS_NonGameplay
     b lbl_080615be
     .align 2, 0
-lbl_08061590: .4byte 0x03000bf4
+lbl_08061590: .4byte gBG0HOFS_NonGameplay
 lbl_08061594:
     movs r0, #0x80
     lsls r0, r0, #2
     cmp r1, r0
     bne lbl_080615a4
-    ldr r2, lbl_080615a0 @ =0x03000bf8
+    ldr r2, lbl_080615a0 @ =gBG1HOFS_NonGameplay
     b lbl_080615be
     .align 2, 0
-lbl_080615a0: .4byte 0x03000bf8
+lbl_080615a0: .4byte gBG1HOFS_NonGameplay
 lbl_080615a4:
     movs r0, #0x80
     lsls r0, r0, #3
     cmp r1, r0
     bne lbl_080615b4
-    ldr r2, lbl_080615b0 @ =0x03000bfc
+    ldr r2, lbl_080615b0 @ =gBG2HOFS_NonGameplay
     b lbl_080615be
     .align 2, 0
-lbl_080615b0: .4byte 0x03000bfc
+lbl_080615b0: .4byte gBG2HOFS_NonGameplay
 lbl_080615b4:
     movs r0, #0x80
     lsls r0, r0, #4
     cmp r3, r0
     bne lbl_080615be
-    ldr r2, lbl_080615c4 @ =0x03000c00
+    ldr r2, lbl_080615c4 @ =gBG3HOFS_NonGameplay
 lbl_080615be:
     adds r0, r2, #0
     pop {r1}
     bx r1
     .align 2, 0
-lbl_080615c4: .4byte 0x03000c00
+lbl_080615c4: .4byte gBG3HOFS_NonGameplay
 
     thumb_func_start CutsceneGetBGVOFSPointer
 CutsceneGetBGVOFSPointer: @ 0x080615c8
@@ -1581,40 +1581,40 @@ CutsceneGetBGVOFSPointer: @ 0x080615c8
     lsls r0, r0, #1
     cmp r1, r0
     bne lbl_080615e4
-    ldr r2, lbl_080615e0 @ =0x03000bf6
+    ldr r2, lbl_080615e0 @ =gBG0VOFS_NonGameplay
     b lbl_0806160e
     .align 2, 0
-lbl_080615e0: .4byte 0x03000bf6
+lbl_080615e0: .4byte gBG0VOFS_NonGameplay
 lbl_080615e4:
     movs r0, #0x80
     lsls r0, r0, #2
     cmp r1, r0
     bne lbl_080615f4
-    ldr r2, lbl_080615f0 @ =0x03000bfa
+    ldr r2, lbl_080615f0 @ =gBG1VOFS_NonGameplay
     b lbl_0806160e
     .align 2, 0
-lbl_080615f0: .4byte 0x03000bfa
+lbl_080615f0: .4byte gBG1VOFS_NonGameplay
 lbl_080615f4:
     movs r0, #0x80
     lsls r0, r0, #3
     cmp r1, r0
     bne lbl_08061604
-    ldr r2, lbl_08061600 @ =0x03000bfe
+    ldr r2, lbl_08061600 @ =gBG2VOFS_NonGameplay
     b lbl_0806160e
     .align 2, 0
-lbl_08061600: .4byte 0x03000bfe
+lbl_08061600: .4byte gBG2VOFS_NonGameplay
 lbl_08061604:
     movs r0, #0x80
     lsls r0, r0, #4
     cmp r3, r0
     bne lbl_0806160e
-    ldr r2, lbl_08061614 @ =0x03000c02
+    ldr r2, lbl_08061614 @ =gBG3VOFS_NonGameplay
 lbl_0806160e:
     adds r0, r2, #0
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08061614: .4byte 0x03000c02
+lbl_08061614: .4byte gBG3VOFS_NonGameplay
 
     thumb_func_start CutsceneStartBackgroundScrolling
 CutsceneStartBackgroundScrolling: @ 0x0CutsceneStartBackgroundScrolling
@@ -1814,11 +1814,11 @@ lbl_08061788:
     lsls r0, r0, #2
     adds r1, #0x38
     adds r1, r1, r0
-    ldr r0, lbl_080617a0 @ =0x03000bf4
+    ldr r0, lbl_080617a0 @ =gBG0HOFS_NonGameplay
     b lbl_0806185c
     .align 2, 0
 lbl_0806179c: .4byte 0x08754bc4
-lbl_080617a0: .4byte 0x03000bf4
+lbl_080617a0: .4byte gBG0HOFS_NonGameplay
 lbl_080617a4:
     ldr r2, lbl_080617b8 @ =0x08754bc4
     ldr r1, [r2]
@@ -1827,11 +1827,11 @@ lbl_080617a4:
     lsls r0, r0, #2
     adds r1, #0x38
     adds r1, r1, r0
-    ldr r0, lbl_080617bc @ =0x03000bf6
+    ldr r0, lbl_080617bc @ =gBG0VOFS_NonGameplay
     b lbl_0806185c
     .align 2, 0
 lbl_080617b8: .4byte 0x08754bc4
-lbl_080617bc: .4byte 0x03000bf6
+lbl_080617bc: .4byte gBG0VOFS_NonGameplay
 lbl_080617c0:
     ldr r2, lbl_080617d4 @ =0x08754bc4
     ldr r1, [r2]
@@ -1840,11 +1840,11 @@ lbl_080617c0:
     lsls r0, r0, #2
     adds r1, #0x38
     adds r1, r1, r0
-    ldr r0, lbl_080617d8 @ =0x03000bf8
+    ldr r0, lbl_080617d8 @ =gBG1HOFS_NonGameplay
     b lbl_0806185c
     .align 2, 0
 lbl_080617d4: .4byte 0x08754bc4
-lbl_080617d8: .4byte 0x03000bf8
+lbl_080617d8: .4byte gBG1HOFS_NonGameplay
 lbl_080617dc:
     ldr r2, lbl_080617f0 @ =0x08754bc4
     ldr r1, [r2]
@@ -1853,11 +1853,11 @@ lbl_080617dc:
     lsls r0, r0, #2
     adds r1, #0x38
     adds r1, r1, r0
-    ldr r0, lbl_080617f4 @ =0x03000bfa
+    ldr r0, lbl_080617f4 @ =gBG1VOFS_NonGameplay
     b lbl_0806185c
     .align 2, 0
 lbl_080617f0: .4byte 0x08754bc4
-lbl_080617f4: .4byte 0x03000bfa
+lbl_080617f4: .4byte gBG1VOFS_NonGameplay
 lbl_080617f8:
     ldr r2, lbl_0806180c @ =0x08754bc4
     ldr r1, [r2]
@@ -1866,11 +1866,11 @@ lbl_080617f8:
     lsls r0, r0, #2
     adds r1, #0x38
     adds r1, r1, r0
-    ldr r0, lbl_08061810 @ =0x03000bfc
+    ldr r0, lbl_08061810 @ =gBG2HOFS_NonGameplay
     b lbl_0806185c
     .align 2, 0
 lbl_0806180c: .4byte 0x08754bc4
-lbl_08061810: .4byte 0x03000bfc
+lbl_08061810: .4byte gBG2HOFS_NonGameplay
 lbl_08061814:
     ldr r2, lbl_08061828 @ =0x08754bc4
     ldr r1, [r2]
@@ -1879,11 +1879,11 @@ lbl_08061814:
     lsls r0, r0, #2
     adds r1, #0x38
     adds r1, r1, r0
-    ldr r0, lbl_0806182c @ =0x03000bfe
+    ldr r0, lbl_0806182c @ =gBG2VOFS_NonGameplay
     b lbl_0806185c
     .align 2, 0
 lbl_08061828: .4byte 0x08754bc4
-lbl_0806182c: .4byte 0x03000bfe
+lbl_0806182c: .4byte gBG2VOFS_NonGameplay
 lbl_08061830:
     ldr r2, lbl_08061844 @ =0x08754bc4
     ldr r1, [r2]
@@ -1892,11 +1892,11 @@ lbl_08061830:
     lsls r0, r0, #2
     adds r1, #0x38
     adds r1, r1, r0
-    ldr r0, lbl_08061848 @ =0x03000c00
+    ldr r0, lbl_08061848 @ =gBG3HOFS_NonGameplay
     b lbl_0806185c
     .align 2, 0
 lbl_08061844: .4byte 0x08754bc4
-lbl_08061848: .4byte 0x03000c00
+lbl_08061848: .4byte gBG3HOFS_NonGameplay
 lbl_0806184c:
     ldr r2, lbl_08061888 @ =0x08754bc4
     ldr r1, [r2]
@@ -1905,7 +1905,7 @@ lbl_0806184c:
     lsls r0, r0, #2
     adds r1, #0x38
     adds r1, r1, r0
-    ldr r0, lbl_0806188c @ =0x03000c02
+    ldr r0, lbl_0806188c @ =gBG3VOFS_NonGameplay
 lbl_0806185c:
     str r0, [r1]
     mov r8, r2
@@ -1932,7 +1932,7 @@ lbl_08061880:
     b lbl_080618a2
     .align 2, 0
 lbl_08061888: .4byte 0x08754bc4
-lbl_0806188c: .4byte 0x03000c02
+lbl_0806188c: .4byte gBG3VOFS_NonGameplay
 lbl_08061890:
     mov r1, r8
     ldr r0, [r1]
@@ -2146,35 +2146,35 @@ lbl_080619ee:
 lbl_080619f8:
     ldr r4, lbl_08061a64 @ =0x08754bc4
     ldr r1, [r4]
-    ldr r0, lbl_08061a68 @ =0x03000bf4
+    ldr r0, lbl_08061a68 @ =gBG0HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1, #0x30]
-    ldr r0, lbl_08061a6c @ =0x03000bf6
+    ldr r0, lbl_08061a6c @ =gBG0VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1, #0x28]
-    ldr r0, lbl_08061a70 @ =0x03000bf8
+    ldr r0, lbl_08061a70 @ =gBG1HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1, #0x32]
-    ldr r0, lbl_08061a74 @ =0x03000bfa
+    ldr r0, lbl_08061a74 @ =gBG1VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1, #0x2a]
-    ldr r0, lbl_08061a78 @ =0x03000bfc
+    ldr r0, lbl_08061a78 @ =gBG2HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1, #0x34]
-    ldr r0, lbl_08061a7c @ =0x03000bfe
+    ldr r0, lbl_08061a7c @ =gBG2VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1, #0x2c]
-    ldr r0, lbl_08061a80 @ =0x03000c00
+    ldr r0, lbl_08061a80 @ =gBG3HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1, #0x36]
-    ldr r0, lbl_08061a84 @ =0x03000c02
+    ldr r0, lbl_08061a84 @ =gBG3VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1, #0x2e]
@@ -2199,14 +2199,14 @@ lbl_08061a5c:
     bx r0
     .align 2, 0
 lbl_08061a64: .4byte 0x08754bc4
-lbl_08061a68: .4byte 0x03000bf4
-lbl_08061a6c: .4byte 0x03000bf6
-lbl_08061a70: .4byte 0x03000bf8
-lbl_08061a74: .4byte 0x03000bfa
-lbl_08061a78: .4byte 0x03000bfc
-lbl_08061a7c: .4byte 0x03000bfe
-lbl_08061a80: .4byte 0x03000c00
-lbl_08061a84: .4byte 0x03000c02
+lbl_08061a68: .4byte gBG0HOFS_NonGameplay
+lbl_08061a6c: .4byte gBG0VOFS_NonGameplay
+lbl_08061a70: .4byte gBG1HOFS_NonGameplay
+lbl_08061a74: .4byte gBG1VOFS_NonGameplay
+lbl_08061a78: .4byte gBG2HOFS_NonGameplay
+lbl_08061a7c: .4byte gBG2VOFS_NonGameplay
+lbl_08061a80: .4byte gBG3HOFS_NonGameplay
+lbl_08061a84: .4byte gBG3VOFS_NonGameplay
 
     thumb_func_start sub_08061a88
 sub_08061a88: @ 0x08061a88
@@ -2432,7 +2432,7 @@ lbl_08061c1c:
     adds r0, #0xaf
     ldrb r0, [r0]
     strb r0, [r1]
-    ldr r0, lbl_08061c4c @ =0x030013ae
+    ldr r0, lbl_08061c4c @ =gWrittenToBLDY_NonGameplay
     ldr r1, [r7]
     adds r2, r1, #0
     adds r2, #0xa9
@@ -2452,7 +2452,7 @@ lbl_08061c1c:
     bgt lbl_08061c5c
     b lbl_08061c60
     .align 2, 0
-lbl_08061c4c: .4byte 0x030013ae
+lbl_08061c4c: .4byte gWrittenToBLDY_NonGameplay
 lbl_08061c50:
     ldrh r0, [r5]
     adds r1, #0xae
@@ -2513,7 +2513,7 @@ lbl_08061cb2:
     adds r0, #0xb5
     ldrb r0, [r0]
     strb r0, [r1]
-    ldr r0, lbl_08061ce0 @ =0x030013b0
+    ldr r0, lbl_08061ce0 @ =gWrittenToBLDALPHA_L
     ldr r1, [r7]
     adds r2, r1, #0
     adds r2, #0xaa
@@ -2533,7 +2533,7 @@ lbl_08061cb2:
     bgt lbl_08061cf0
     b lbl_08061cf4
     .align 2, 0
-lbl_08061ce0: .4byte 0x030013b0
+lbl_08061ce0: .4byte gWrittenToBLDALPHA_L
 lbl_08061ce4:
     ldrh r0, [r6]
     adds r1, #0xb4
@@ -2547,7 +2547,7 @@ lbl_08061cf0:
 lbl_08061cf4:
     strh r0, [r6]
 lbl_08061cf6:
-    ldr r0, lbl_08061d1c @ =0x030013b2
+    ldr r0, lbl_08061d1c @ =gWrittenToBLDALPHA_H
     ldr r1, [r7]
     adds r2, r1, #0
     adds r2, #0xab
@@ -2567,7 +2567,7 @@ lbl_08061cf6:
     bgt lbl_08061d2c
     b lbl_08061d30
     .align 2, 0
-lbl_08061d1c: .4byte 0x030013b2
+lbl_08061d1c: .4byte gWrittenToBLDALPHA_H
 lbl_08061d20:
     ldrh r0, [r5]
     adds r1, #0xb4
@@ -2728,13 +2728,13 @@ CutsceneReset: @ 0x08061e38
     mov r6, r8
     push {r6, r7}
     sub sp, #4
-    ldr r0, lbl_08061ef0 @ =0x030013ae
+    ldr r0, lbl_08061ef0 @ =gWrittenToBLDY_NonGameplay
     movs r2, #0
     strh r2, [r0]
-    ldr r1, lbl_08061ef4 @ =0x030013b0
+    ldr r1, lbl_08061ef4 @ =gWrittenToBLDALPHA_L
     movs r0, #0x10
     strh r0, [r1]
-    ldr r0, lbl_08061ef8 @ =0x030013b2
+    ldr r0, lbl_08061ef8 @ =gWrittenToBLDALPHA_H
     strh r2, [r0]
     ldr r1, lbl_08061efc @ =0x08754bc4
     ldr r0, [r1]
@@ -2745,9 +2745,9 @@ CutsceneReset: @ 0x08061e38
     strh r3, [r0, #0x1e]
     movs r2, #0
     adds r5, r1, #0
-    ldr r0, lbl_08061f00 @ =0x03000c04
+    ldr r0, lbl_08061f00 @ =gCurrentOamRotation
     mov r8, r0
-    ldr r1, lbl_08061f04 @ =0x03000c06
+    ldr r1, lbl_08061f04 @ =gCurrentOamScaling
     mov sb, r1
     mov ip, r5
     ldr r3, lbl_08061f08 @ =0x0840d058
@@ -2812,12 +2812,12 @@ lbl_08061e70:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08061ef0: .4byte 0x030013ae
-lbl_08061ef4: .4byte 0x030013b0
-lbl_08061ef8: .4byte 0x030013b2
+lbl_08061ef0: .4byte gWrittenToBLDY_NonGameplay
+lbl_08061ef4: .4byte gWrittenToBLDALPHA_L
+lbl_08061ef8: .4byte gWrittenToBLDALPHA_H
 lbl_08061efc: .4byte 0x08754bc4
-lbl_08061f00: .4byte 0x03000c04
-lbl_08061f04: .4byte 0x03000c06
+lbl_08061f00: .4byte gCurrentOamRotation
+lbl_08061f04: .4byte gCurrentOamScaling
 lbl_08061f08: .4byte 0x0840d058
 
     thumb_func_start unk_61f0c
@@ -2826,7 +2826,7 @@ unk_61f0c: @ 0x08061f0c
     ldr r2, [r0]
     movs r0, #0
     strh r0, [r2, #0x1c]
-    ldr r1, lbl_08061f24 @ =0x030013ae
+    ldr r1, lbl_08061f24 @ =gWrittenToBLDY_NonGameplay
     movs r0, #0x10
     strh r0, [r1]
     movs r0, #0xff
@@ -2834,7 +2834,7 @@ unk_61f0c: @ 0x08061f0c
     bx lr
     .align 2, 0
 lbl_08061f20: .4byte 0x08754bc4
-lbl_08061f24: .4byte 0x030013ae
+lbl_08061f24: .4byte gWrittenToBLDY_NonGameplay
 
     thumb_func_start unk_61f28
 unk_61f28: @ 0x08061f28
@@ -2842,7 +2842,7 @@ unk_61f28: @ 0x08061f28
     ldr r2, [r0]
     movs r0, #0
     strh r0, [r2, #0x1c]
-    ldr r1, lbl_08061f40 @ =0x030013ae
+    ldr r1, lbl_08061f40 @ =gWrittenToBLDY_NonGameplay
     movs r0, #0x10
     strh r0, [r1]
     movs r0, #0xbf
@@ -2850,7 +2850,7 @@ unk_61f28: @ 0x08061f28
     bx lr
     .align 2, 0
 lbl_08061f3c: .4byte 0x08754bc4
-lbl_08061f40: .4byte 0x030013ae
+lbl_08061f40: .4byte gWrittenToBLDY_NonGameplay
 
     thumb_func_start unk_61f44
 unk_61f44: @ 0x08061f44

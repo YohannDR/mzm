@@ -12,18 +12,18 @@ DisableChozodiaAlarm: @ 0x080287e4
     adds r1, r0, #0
     cmp r1, #0
     beq lbl_08028804
-    ldr r1, lbl_08028800 @ =0x030001a8
+    ldr r1, lbl_08028800 @ =gAlarmTimer
     movs r2, #0xf0
     lsls r2, r2, #1
     adds r0, r2, #0
     strh r0, [r1]
     b lbl_08028822
     .align 2, 0
-lbl_08028800: .4byte 0x030001a8
+lbl_08028800: .4byte gAlarmTimer
 lbl_08028804:
-    ldr r0, lbl_08028828 @ =0x030001a8
+    ldr r0, lbl_08028828 @ =gAlarmTimer
     strh r1, [r0]
-    ldr r1, lbl_0802882c @ =0x0300004d
+    ldr r1, lbl_0802882c @ =gDisableAnimatedPalette
     movs r2, #1
     rsbs r2, r2, #0
     adds r0, r2, #0
@@ -38,13 +38,13 @@ lbl_08028822:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08028828: .4byte 0x030001a8
-lbl_0802882c: .4byte 0x0300004d
+lbl_08028828: .4byte gAlarmTimer
+lbl_0802882c: .4byte gDisableAnimatedPalette
 
     thumb_func_start DecrementChozodiaAlarm
 DecrementChozodiaAlarm: @ 0x08028830
     push {lr}
-    ldr r1, lbl_0802884c @ =0x030001a8
+    ldr r1, lbl_0802884c @ =gAlarmTimer
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_0802886a
@@ -56,9 +56,9 @@ DecrementChozodiaAlarm: @ 0x08028830
     bl DisableChozodiaAlarm
     b lbl_0802886a
     .align 2, 0
-lbl_0802884c: .4byte 0x030001a8
+lbl_0802884c: .4byte gAlarmTimer
 lbl_08028850:
-    ldr r0, lbl_08028870 @ =0x0300004d
+    ldr r0, lbl_08028870 @ =gDisableAnimatedPalette
     movs r1, #0
     strb r1, [r0]
     movs r0, #3
@@ -73,7 +73,7 @@ lbl_0802886a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08028870: .4byte 0x0300004d
+lbl_08028870: .4byte gDisableAnimatedPalette
 
     thumb_func_start spawn_space_pirates_waiting
 spawn_space_pirates_waiting: @ 0x08028874
@@ -85,29 +85,29 @@ spawn_space_pirates_waiting: @ 0x08028874
     bl EventFunction
     cmp r0, #0
     beq lbl_08028898
-    ldr r1, lbl_08028894 @ =0x030001a8
+    ldr r1, lbl_08028894 @ =gAlarmTimer
     movs r2, #0xf0
     lsls r2, r2, #1
     adds r0, r2, #0
     strh r0, [r1]
     b lbl_080288a2
     .align 2, 0
-lbl_08028894: .4byte 0x030001a8
+lbl_08028894: .4byte gAlarmTimer
 lbl_08028898:
-    ldr r0, lbl_080288ac @ =0x030001a8
+    ldr r0, lbl_080288ac @ =gAlarmTimer
     ldrh r0, [r0]
     cmp r0, #0
     bne lbl_080288a2
     b lbl_080289a0
 lbl_080288a2:
     movs r2, #0
-    ldr r0, lbl_080288b0 @ =0x030006ec
+    ldr r0, lbl_080288b0 @ =gSpritesetSpritesID
     ldrb r3, [r0]
     adds r1, r0, #0
     b lbl_080288c2
     .align 2, 0
-lbl_080288ac: .4byte 0x030001a8
-lbl_080288b0: .4byte 0x030006ec
+lbl_080288ac: .4byte gAlarmTimer
+lbl_080288b0: .4byte gSpritesetSpritesID
 lbl_080288b4:
     adds r0, r2, #1
     lsls r0, r0, #0x18
@@ -126,10 +126,10 @@ lbl_080288cc:
     cmp r4, #0
     bne lbl_08028910
     movs r2, #0
-    ldr r1, lbl_080288d8 @ =0x030006ec
+    ldr r1, lbl_080288d8 @ =gSpritesetSpritesID
     b lbl_080288e2
     .align 2, 0
-lbl_080288d8: .4byte 0x030006ec
+lbl_080288d8: .4byte gSpritesetSpritesID
 lbl_080288dc:
     adds r0, r2, #1
     lsls r0, r0, #0x18
@@ -160,16 +160,16 @@ lbl_08028906:
     bl DisableChozodiaAlarm
     b lbl_080289a0
 lbl_08028910:
-    ldr r0, lbl_0802893c @ =0x030000f8
+    ldr r0, lbl_0802893c @ =gWaitingSpacePiratesPosition
     ldrh r4, [r0, #2]
     ldrh r2, [r0]
-    ldr r0, lbl_08028940 @ =0x03000057
+    ldr r0, lbl_08028940 @ =gLastDoorProperties
     ldrb r1, [r0]
     movs r0, #0xf
     ands r0, r1
     cmp r0, #2
     bne lbl_08028954
-    ldr r0, lbl_08028944 @ =0x03000078
+    ldr r0, lbl_08028944 @ =gSpriteset
     ldrb r0, [r0]
     cmp r0, #0x58
     beq lbl_0802892e
@@ -184,9 +184,9 @@ lbl_0802892e:
     movs r2, #5
     b lbl_08028980
     .align 2, 0
-lbl_0802893c: .4byte 0x030000f8
-lbl_08028940: .4byte 0x03000057
-lbl_08028944: .4byte 0x03000078
+lbl_0802893c: .4byte gWaitingSpacePiratesPosition
+lbl_08028940: .4byte gLastDoorProperties
+lbl_08028944: .4byte gSpriteset
 lbl_08028948:
     str r2, [sp]
     movs r0, #0
@@ -195,7 +195,7 @@ lbl_08028948:
     movs r1, #0x81
     b lbl_0802897e
 lbl_08028954:
-    ldr r0, lbl_08028970 @ =0x03000078
+    ldr r0, lbl_08028970 @ =gSpriteset
     ldrb r0, [r0]
     cmp r0, #0x58
     beq lbl_08028960
@@ -210,7 +210,7 @@ lbl_08028960:
     movs r2, #5
     b lbl_08028980
     .align 2, 0
-lbl_08028970: .4byte 0x03000078
+lbl_08028970: .4byte gSpriteset
 lbl_08028974:
     str r2, [sp]
     movs r0, #0
@@ -224,7 +224,7 @@ lbl_08028980:
     bl SpriteSpawnPrimary
     lsls r0, r0, #0x18
     lsrs r2, r0, #0x18
-    ldr r0, lbl_080289a8 @ =0x030001ac
+    ldr r0, lbl_080289a8 @ =gSpriteData
     lsls r1, r2, #3
     subs r1, r1, r2
     lsls r1, r1, #3
@@ -241,12 +241,12 @@ lbl_080289a0:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080289a8: .4byte 0x030001ac
+lbl_080289a8: .4byte gSpriteData
 
     thumb_func_start SpacePirateFlip
 SpacePirateFlip: @ 0x080289ac
     push {lr}
-    ldr r2, lbl_080289cc @ =0x03000738
+    ldr r2, lbl_080289cc @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -261,7 +261,7 @@ SpacePirateFlip: @ 0x080289ac
     movs r0, #0x40
     b lbl_080289e0
     .align 2, 0
-lbl_080289cc: .4byte 0x03000738
+lbl_080289cc: .4byte gCurrentSprite
 lbl_080289d0: .4byte 0x0000ffe8
 lbl_080289d4:
     ldr r0, lbl_080289e8 @ =0x0000ffbf
@@ -286,13 +286,13 @@ SpacePirateSamusDetection: @ 0x080289f0
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0x28
-    ldr r0, lbl_08028a24 @ =0x030013d4
+    ldr r0, lbl_08028a24 @ =gSamusData
     ldrh r1, [r0, #0x14]
     adds r1, #4
     lsls r1, r1, #0x10
     lsrs r3, r1, #0x10
     ldrh r4, [r0, #0x12]
-    ldr r0, lbl_08028a28 @ =0x03000738
+    ldr r0, lbl_08028a28 @ =gCurrentSprite
     ldrh r1, [r0, #2]
     str r1, [sp]
     ldrh r2, [r0, #4]
@@ -300,18 +300,18 @@ SpacePirateSamusDetection: @ 0x080289f0
     adds r7, r0, #0
     cmp r3, r1
     bls lbl_08028a30
-    ldr r1, lbl_08028a2c @ =0x030007f3
+    ldr r1, lbl_08028a2c @ =gSpriteDrawOrder
     movs r0, #1
     strb r0, [r1, #3]
     ldr r5, [sp]
     subs r0, r3, r5
     b lbl_08028a3a
     .align 2, 0
-lbl_08028a24: .4byte 0x030013d4
-lbl_08028a28: .4byte 0x03000738
-lbl_08028a2c: .4byte 0x030007f3
+lbl_08028a24: .4byte gSamusData
+lbl_08028a28: .4byte gCurrentSprite
+lbl_08028a2c: .4byte gSpriteDrawOrder
 lbl_08028a30:
-    ldr r1, lbl_08028a4c @ =0x030007f3
+    ldr r1, lbl_08028a4c @ =gSpriteDrawOrder
     movs r0, #0
     strb r0, [r1, #3]
     ldr r2, [sp]
@@ -327,7 +327,7 @@ lbl_08028a3a:
     subs r0, r4, r5
     b lbl_08028a58
     .align 2, 0
-lbl_08028a4c: .4byte 0x030007f3
+lbl_08028a4c: .4byte gSpriteDrawOrder
 lbl_08028a50:
     movs r0, #0
     strb r0, [r1, #4]
@@ -336,7 +336,7 @@ lbl_08028a50:
 lbl_08028a58:
     lsls r0, r0, #0x10
     lsrs r2, r0, #0x10
-    ldr r0, lbl_08028a80 @ =0x0300080c
+    ldr r0, lbl_08028a80 @ =gBossWork
     movs r5, #0
     strh r2, [r0, #2]
     movs r0, #0xa0
@@ -353,7 +353,7 @@ lbl_08028a58:
     strb r0, [r1]
     bl lbl_080293f2
     .align 2, 0
-lbl_08028a80: .4byte 0x0300080c
+lbl_08028a80: .4byte gBossWork
 lbl_08028a84:
     movs r0, #0x3c
     strb r0, [r1]
@@ -364,7 +364,7 @@ lbl_08028a8c:
     strb r5, [r1, #2]
     bl lbl_080293f2
 lbl_08028a96:
-    ldr r1, lbl_08028b0c @ =0x030007f3
+    ldr r1, lbl_08028b0c @ =gSpriteDrawOrder
     movs r0, #1
     strb r0, [r1, #2]
     adds r1, r7, #0
@@ -424,7 +424,7 @@ lbl_08028b00:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08028b0c: .4byte 0x030007f3
+lbl_08028b0c: .4byte gSpriteDrawOrder
 lbl_08028b10: .4byte 0x0000ffc0
 lbl_08028b14: .4byte 0xffc00000
 lbl_08028b18: .4byte lbl_08028b1c
@@ -513,7 +513,7 @@ lbl_08028c54:
     subs r0, r4, r5
     lsls r0, r0, #0x10
     lsrs r6, r0, #0x10
-    ldr r0, lbl_08028c74 @ =0x030007f3
+    ldr r0, lbl_08028c74 @ =gSpriteDrawOrder
     ldrb r0, [r0, #4]
     cmp r0, #1
     bne lbl_08028cd4
@@ -524,7 +524,7 @@ lbl_08028c54:
     movs r7, #0
     b lbl_08028c92
     .align 2, 0
-lbl_08028c74: .4byte 0x030007f3
+lbl_08028c74: .4byte gSpriteDrawOrder
 lbl_08028c78:
     mov r0, sb
     cmp r0, #0
@@ -548,7 +548,7 @@ lbl_08028c92:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_08028ccc @ =0x030007f1
+    ldr r0, lbl_08028ccc @ =gPreviousCollisionCheck
     ldrb r1, [r0]
     movs r0, #0xf0
     ands r0, r1
@@ -568,12 +568,12 @@ lbl_08028cbe:
     bne lbl_08028cc4
     b lbl_080293ec
 lbl_08028cc4:
-    ldr r0, lbl_08028cd0 @ =0x030007f3
+    ldr r0, lbl_08028cd0 @ =gSpriteDrawOrder
     movs r1, #0
     b lbl_080292f0
     .align 2, 0
-lbl_08028ccc: .4byte 0x030007f1
-lbl_08028cd0: .4byte 0x030007f3
+lbl_08028ccc: .4byte gPreviousCollisionCheck
+lbl_08028cd0: .4byte gSpriteDrawOrder
 lbl_08028cd4:
     ldr r4, [sp, #0x10]
     movs r5, #0x40
@@ -605,7 +605,7 @@ lbl_08028cfc:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_08028d34 @ =0x030007f1
+    ldr r0, lbl_08028d34 @ =gPreviousCollisionCheck
     ldrb r1, [r0]
     movs r0, #0xf0
     ands r0, r1
@@ -625,36 +625,36 @@ lbl_08028d28:
     bne lbl_08028d2e
     b lbl_080293ec
 lbl_08028d2e:
-    ldr r1, lbl_08028d38 @ =0x030007f3
+    ldr r1, lbl_08028d38 @ =gSpriteDrawOrder
     movs r0, #0
     b lbl_08029104
     .align 2, 0
-lbl_08028d34: .4byte 0x030007f1
-lbl_08028d38: .4byte 0x030007f3
+lbl_08028d34: .4byte gPreviousCollisionCheck
+lbl_08028d38: .4byte gSpriteDrawOrder
 lbl_08028d3c:
-    ldr r0, lbl_08028d54 @ =0x03000738
+    ldr r0, lbl_08028d54 @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #0x80
     lsls r0, r0, #2
     ands r0, r1
     cmp r0, #0
     beq lbl_08028d5c
-    ldr r1, lbl_08028d58 @ =0x030007f3
+    ldr r1, lbl_08028d58 @ =gSpriteDrawOrder
     ldrb r0, [r1, #4]
     cmp r0, #1
     bne lbl_08028d78
     b lbl_080293ee
     .align 2, 0
-lbl_08028d54: .4byte 0x03000738
-lbl_08028d58: .4byte 0x030007f3
+lbl_08028d54: .4byte gCurrentSprite
+lbl_08028d58: .4byte gSpriteDrawOrder
 lbl_08028d5c:
-    ldr r1, lbl_08028d68 @ =0x030007f3
+    ldr r1, lbl_08028d68 @ =gSpriteDrawOrder
     ldrb r0, [r1, #4]
     cmp r0, #0
     bne lbl_08028d78
     b lbl_080293f0
     .align 2, 0
-lbl_08028d68: .4byte 0x030007f3
+lbl_08028d68: .4byte gSpriteDrawOrder
 lbl_08028d6c:
     adds r4, r7, #0
     b lbl_08028df2
@@ -676,7 +676,7 @@ lbl_08028d7e:
     subs r0, r3, r0
     lsls r0, r0, #0x10
     lsrs r6, r0, #0x10
-    ldr r0, lbl_08028da8 @ =0x030007f3
+    ldr r0, lbl_08028da8 @ =gSpriteDrawOrder
     ldrb r0, [r0, #4]
     str r1, [sp, #0x18]
     cmp r0, #1
@@ -691,7 +691,7 @@ lbl_08028d9a:
     str r0, [sp, #0x1c]
     b lbl_08028dc6
     .align 2, 0
-lbl_08028da8: .4byte 0x030007f3
+lbl_08028da8: .4byte gSpriteDrawOrder
 lbl_08028dac:
     mov r0, sb
     cmp r0, #0
@@ -715,7 +715,7 @@ lbl_08028dc6:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_08028e0c @ =0x030007f1
+    ldr r0, lbl_08028e0c @ =gPreviousCollisionCheck
     ldrb r1, [r0]
     movs r0, #0xf0
     ands r0, r1
@@ -746,7 +746,7 @@ lbl_08028e02:
     movs r7, #0
     b lbl_08028e2a
     .align 2, 0
-lbl_08028e0c: .4byte 0x030007f1
+lbl_08028e0c: .4byte gPreviousCollisionCheck
 lbl_08028e10:
     mov r0, sb
     cmp r0, #0
@@ -772,7 +772,7 @@ lbl_08028e2a:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_08028e68 @ =0x030007f1
+    ldr r0, lbl_08028e68 @ =gPreviousCollisionCheck
     ldrb r1, [r0]
     movs r0, #0xf0
     ands r0, r1
@@ -796,7 +796,7 @@ lbl_08028e5a:
     movs r7, #0
     b lbl_08028e92
     .align 2, 0
-lbl_08028e68: .4byte 0x030007f1
+lbl_08028e68: .4byte gPreviousCollisionCheck
 lbl_08028e6c:
     cmp r5, sl
     bne lbl_08028e84
@@ -829,7 +829,7 @@ lbl_08028e92:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_08028ec0 @ =0x030007f1
+    ldr r0, lbl_08028ec0 @ =gPreviousCollisionCheck
     ldrb r1, [r0]
     movs r0, #0xf0
     ands r0, r1
@@ -841,12 +841,12 @@ lbl_08028eb4:
     bne lbl_08028eba
     b lbl_08028ffc
 lbl_08028eba:
-    ldr r0, lbl_08028ec4 @ =0x030007f3
+    ldr r0, lbl_08028ec4 @ =gSpriteDrawOrder
     movs r1, #0
     b lbl_080292f0
     .align 2, 0
-lbl_08028ec0: .4byte 0x030007f1
-lbl_08028ec4: .4byte 0x030007f3
+lbl_08028ec0: .4byte gPreviousCollisionCheck
+lbl_08028ec4: .4byte gSpriteDrawOrder
 lbl_08028ec8:
     adds r4, r7, #0
     b lbl_08028f2a
@@ -887,7 +887,7 @@ lbl_08028efe:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_08028f44 @ =0x030007f1
+    ldr r0, lbl_08028f44 @ =gPreviousCollisionCheck
     ldrb r1, [r0]
     movs r0, #0xf0
     ands r0, r1
@@ -918,7 +918,7 @@ lbl_08028f3a:
     movs r7, #0
     b lbl_08028f62
     .align 2, 0
-lbl_08028f44: .4byte 0x030007f1
+lbl_08028f44: .4byte gPreviousCollisionCheck
 lbl_08028f48:
     mov r3, sb
     cmp r3, #0
@@ -944,7 +944,7 @@ lbl_08028f62:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_08028fa0 @ =0x030007f1
+    ldr r0, lbl_08028fa0 @ =gPreviousCollisionCheck
     ldrb r1, [r0]
     movs r0, #0xf0
     ands r0, r1
@@ -968,7 +968,7 @@ lbl_08028f92:
     movs r7, #0
     b lbl_08028fc6
     .align 2, 0
-lbl_08028fa0: .4byte 0x030007f1
+lbl_08028fa0: .4byte gPreviousCollisionCheck
 lbl_08028fa4:
     cmp r5, sl
     bne lbl_08028fb8
@@ -998,7 +998,7 @@ lbl_08028fc6:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_08028ff4 @ =0x030007f1
+    ldr r0, lbl_08028ff4 @ =gPreviousCollisionCheck
     ldrb r1, [r0]
     movs r0, #0xf0
     ands r0, r1
@@ -1009,14 +1009,14 @@ lbl_08028fe8:
     cmp r2, #0
     beq lbl_08028ffc
 lbl_08028fec:
-    ldr r1, lbl_08028ff8 @ =0x030007f3
+    ldr r1, lbl_08028ff8 @ =gSpriteDrawOrder
     movs r0, #0
     b lbl_08029104
     .align 2, 0
-lbl_08028ff4: .4byte 0x030007f1
-lbl_08028ff8: .4byte 0x030007f3
+lbl_08028ff4: .4byte gPreviousCollisionCheck
+lbl_08028ff8: .4byte gSpriteDrawOrder
 lbl_08028ffc:
-    ldr r1, lbl_08029088 @ =0x030007f3
+    ldr r1, lbl_08029088 @ =gSpriteDrawOrder
     ldrb r0, [r1, #3]
     cmp r0, #0
     beq lbl_08029006
@@ -1039,7 +1039,7 @@ lbl_08029006:
     adds r1, #0x40
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r3, lbl_0802908c @ =0x030007f1
+    ldr r3, lbl_0802908c @ =gPreviousCollisionCheck
     ldrb r1, [r3]
     movs r0, #0xf0
     ands r0, r1
@@ -1058,7 +1058,7 @@ lbl_08029044:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r3, lbl_0802908c @ =0x030007f1
+    ldr r3, lbl_0802908c @ =gPreviousCollisionCheck
     ldrb r1, [r3]
     movs r0, #0xf0
     ands r0, r1
@@ -1077,7 +1077,7 @@ lbl_08029044:
     mov r0, r8
     adds r1, r5, #0
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r3, lbl_0802908c @ =0x030007f1
+    ldr r3, lbl_0802908c @ =gPreviousCollisionCheck
     ldrb r1, [r3]
     movs r0, #0xf0
     ands r0, r1
@@ -1086,8 +1086,8 @@ lbl_08029044:
     bne lbl_080290fa
     b lbl_080290dc
     .align 2, 0
-lbl_08029088: .4byte 0x030007f3
-lbl_0802908c: .4byte 0x030007f1
+lbl_08029088: .4byte gSpriteDrawOrder
+lbl_0802908c: .4byte gPreviousCollisionCheck
 lbl_08029090:
     movs r0, #0x40
     subs r4, r6, r0
@@ -1095,7 +1095,7 @@ lbl_08029090:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r3, lbl_080290bc @ =0x030007f1
+    ldr r3, lbl_080290bc @ =gPreviousCollisionCheck
     ldrb r1, [r3]
     movs r0, #0xf0
     ands r0, r1
@@ -1111,7 +1111,7 @@ lbl_08029090:
     bne lbl_080290fa
     b lbl_080290dc
     .align 2, 0
-lbl_080290bc: .4byte 0x030007f1
+lbl_080290bc: .4byte gPreviousCollisionCheck
 lbl_080290c0:
     cmp r5, sl
     bne lbl_080290e4
@@ -1149,14 +1149,14 @@ lbl_080290fa:
     bne lbl_08029100
     b lbl_080293ec
 lbl_08029100:
-    ldr r1, lbl_0802910c @ =0x030007f3
+    ldr r1, lbl_0802910c @ =gSpriteDrawOrder
     movs r0, #1
 lbl_08029104:
     strb r0, [r1]
     strb r0, [r1, #1]
     b lbl_080293f2
     .align 2, 0
-lbl_0802910c: .4byte 0x030007f3
+lbl_0802910c: .4byte gSpriteDrawOrder
 lbl_08029110:
     ldr r0, [sp]
     subs r0, #0xa0
@@ -1165,7 +1165,7 @@ lbl_08029110:
     subs r1, r3, r5
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r3, lbl_0802917c @ =0x030007f1
+    ldr r3, lbl_0802917c @ =gPreviousCollisionCheck
     ldrb r1, [r3]
     movs r0, #0xf0
     ands r0, r1
@@ -1184,7 +1184,7 @@ lbl_0802913a:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r3, lbl_0802917c @ =0x030007f1
+    ldr r3, lbl_0802917c @ =gPreviousCollisionCheck
     ldrb r1, [r3]
     movs r0, #0xf0
     ands r0, r1
@@ -1203,7 +1203,7 @@ lbl_0802913a:
     mov r0, r8
     adds r1, r5, #0
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r3, lbl_0802917c @ =0x030007f1
+    ldr r3, lbl_0802917c @ =gPreviousCollisionCheck
     ldrb r1, [r3]
     movs r0, #0xf0
     ands r0, r1
@@ -1212,7 +1212,7 @@ lbl_0802913a:
     bne lbl_080291ea
     b lbl_080291cc
     .align 2, 0
-lbl_0802917c: .4byte 0x030007f1
+lbl_0802917c: .4byte gPreviousCollisionCheck
 lbl_08029180:
     movs r0, #0x40
     subs r4, r6, r0
@@ -1220,7 +1220,7 @@ lbl_08029180:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r3, lbl_080291ac @ =0x030007f1
+    ldr r3, lbl_080291ac @ =gPreviousCollisionCheck
     ldrb r1, [r3]
     movs r0, #0xf0
     ands r0, r1
@@ -1236,7 +1236,7 @@ lbl_08029180:
     bne lbl_080291ea
     b lbl_080291cc
     .align 2, 0
-lbl_080291ac: .4byte 0x030007f1
+lbl_080291ac: .4byte gPreviousCollisionCheck
 lbl_080291b0:
     cmp r5, sl
     bne lbl_080291d4
@@ -1274,12 +1274,12 @@ lbl_080291ea:
     bne lbl_080291f0
     b lbl_080293ec
 lbl_080291f0:
-    ldr r0, lbl_080291f8 @ =0x030007f3
+    ldr r0, lbl_080291f8 @ =gSpriteDrawOrder
     movs r2, #0
     movs r1, #1
     b lbl_080293e0
     .align 2, 0
-lbl_080291f8: .4byte 0x030007f3
+lbl_080291f8: .4byte gSpriteDrawOrder
 lbl_080291fc:
     ldr r4, [sp, #0xc]
     movs r5, #0x40
@@ -1294,7 +1294,7 @@ lbl_080291fc:
     ldr r0, [sp]
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r3, lbl_08029274 @ =0x030007f1
+    ldr r3, lbl_08029274 @ =gPreviousCollisionCheck
     ldrb r1, [r3]
     movs r0, #0xf0
     ands r0, r1
@@ -1313,7 +1313,7 @@ lbl_08029232:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_08029274 @ =0x030007f1
+    ldr r0, lbl_08029274 @ =gPreviousCollisionCheck
     ldrb r1, [r0]
     movs r0, #0xf0
     ands r0, r1
@@ -1332,7 +1332,7 @@ lbl_08029232:
     mov r0, r8
     adds r1, r5, #0
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r4, lbl_08029274 @ =0x030007f1
+    ldr r4, lbl_08029274 @ =gPreviousCollisionCheck
     ldrb r1, [r4]
     movs r0, #0xf0
     ands r0, r1
@@ -1341,7 +1341,7 @@ lbl_08029232:
     bne lbl_080292e6
     b lbl_080292c4
     .align 2, 0
-lbl_08029274: .4byte 0x030007f1
+lbl_08029274: .4byte gPreviousCollisionCheck
 lbl_08029278:
     movs r0, #0x40
     subs r4, r6, r0
@@ -1349,7 +1349,7 @@ lbl_08029278:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r3, lbl_080292a4 @ =0x030007f1
+    ldr r3, lbl_080292a4 @ =gPreviousCollisionCheck
     ldrb r1, [r3]
     movs r0, #0xf0
     ands r0, r1
@@ -1365,7 +1365,7 @@ lbl_08029278:
     bne lbl_080292e6
     b lbl_080292c4
     .align 2, 0
-lbl_080292a4: .4byte 0x030007f1
+lbl_080292a4: .4byte gPreviousCollisionCheck
 lbl_080292a8:
     cmp r5, sl
     bne lbl_080292cc
@@ -1405,7 +1405,7 @@ lbl_080292e6:
     bne lbl_080292ec
     b lbl_080293ec
 lbl_080292ec:
-    ldr r0, lbl_080292f8 @ =0x030007f3
+    ldr r0, lbl_080292f8 @ =gSpriteDrawOrder
     movs r1, #2
 lbl_080292f0:
     strb r1, [r0]
@@ -1413,14 +1413,14 @@ lbl_080292f0:
     strb r1, [r0, #1]
     b lbl_080293f2
     .align 2, 0
-lbl_080292f8: .4byte 0x030007f3
+lbl_080292f8: .4byte gSpriteDrawOrder
 lbl_080292fc:
     ldr r1, [sp, #4]
     subs r1, #0x3c
     ldr r0, [sp]
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r3, lbl_08029364 @ =0x030007f1
+    ldr r3, lbl_08029364 @ =gPreviousCollisionCheck
     ldrb r1, [r3]
     movs r0, #0xf0
     ands r0, r1
@@ -1438,7 +1438,7 @@ lbl_08029322:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_08029364 @ =0x030007f1
+    ldr r0, lbl_08029364 @ =gPreviousCollisionCheck
     ldrb r1, [r0]
     movs r0, #0xf0
     ands r0, r1
@@ -1457,7 +1457,7 @@ lbl_08029322:
     mov r0, r8
     adds r1, r5, #0
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r4, lbl_08029364 @ =0x030007f1
+    ldr r4, lbl_08029364 @ =gPreviousCollisionCheck
     ldrb r1, [r4]
     movs r0, #0xf0
     ands r0, r1
@@ -1466,7 +1466,7 @@ lbl_08029322:
     bne lbl_080293d6
     b lbl_080293b4
     .align 2, 0
-lbl_08029364: .4byte 0x030007f1
+lbl_08029364: .4byte gPreviousCollisionCheck
 lbl_08029368:
     movs r0, #0x40
     subs r4, r6, r0
@@ -1474,7 +1474,7 @@ lbl_08029368:
     adds r1, r5, #0
     str r2, [sp, #0x24]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r3, lbl_08029394 @ =0x030007f1
+    ldr r3, lbl_08029394 @ =gPreviousCollisionCheck
     ldrb r1, [r3]
     movs r0, #0xf0
     ands r0, r1
@@ -1490,7 +1490,7 @@ lbl_08029368:
     bne lbl_080293d6
     b lbl_080293b4
     .align 2, 0
-lbl_08029394: .4byte 0x030007f1
+lbl_08029394: .4byte gPreviousCollisionCheck
 lbl_08029398:
     cmp r5, sl
     bne lbl_080293bc
@@ -1528,7 +1528,7 @@ lbl_080293bc:
 lbl_080293d6:
     cmp r2, #0
     beq lbl_080293ec
-    ldr r0, lbl_080293e8 @ =0x030007f3
+    ldr r0, lbl_080293e8 @ =gSpriteDrawOrder
     movs r2, #0
     movs r1, #2
 lbl_080293e0:
@@ -1536,9 +1536,9 @@ lbl_080293e0:
     strb r2, [r0, #1]
     b lbl_080293f2
     .align 2, 0
-lbl_080293e8: .4byte 0x030007f3
+lbl_080293e8: .4byte gSpriteDrawOrder
 lbl_080293ec:
-    ldr r1, lbl_08029404 @ =0x030007f3
+    ldr r1, lbl_08029404 @ =gSpriteDrawOrder
 lbl_080293ee:
     movs r0, #0
 lbl_080293f0:
@@ -1553,7 +1553,7 @@ lbl_080293f2:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08029404: .4byte 0x030007f3
+lbl_08029404: .4byte gSpriteDrawOrder
 
     thumb_func_start SpacePirateCheckCollidingWithLaser
 SpacePirateCheckCollidingWithLaser: @ 0x08029408
@@ -1563,7 +1563,7 @@ SpacePirateCheckCollidingWithLaser: @ 0x08029408
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0x10
-    ldr r3, lbl_080294b4 @ =0x03000738
+    ldr r3, lbl_080294b4 @ =gCurrentSprite
     ldrh r1, [r3]
     movs r0, #6
     ands r0, r1
@@ -1591,7 +1591,7 @@ SpacePirateCheckCollidingWithLaser: @ 0x08029408
     lsls r2, r2, #0x10
     lsrs r7, r2, #0x10
     movs r6, #4
-    ldr r4, lbl_080294b8 @ =0x030001ac
+    ldr r4, lbl_080294b8 @ =gSpriteData
     movs r1, #0xa8
     lsls r1, r1, #3
     adds r0, r4, r1
@@ -1643,13 +1643,13 @@ lbl_0802945c:
     strb r0, [r1]
     b lbl_080294ca
     .align 2, 0
-lbl_080294b4: .4byte 0x03000738
-lbl_080294b8: .4byte 0x030001ac
+lbl_080294b4: .4byte gCurrentSprite
+lbl_080294b8: .4byte gSpriteData
 lbl_080294bc: .4byte 0x0300075c
 lbl_080294c0:
     adds r5, #0x38
     adds r4, #0x38
-    ldr r0, lbl_080294dc @ =0x030006ec
+    ldr r0, lbl_080294dc @ =gSpritesetSpritesID
     cmp r4, r0
     blo lbl_0802945c
 lbl_080294ca:
@@ -1662,7 +1662,7 @@ lbl_080294ca:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080294dc: .4byte 0x030006ec
+lbl_080294dc: .4byte gSpritesetSpritesID
 
     thumb_func_start SpacePirateFireLaserGround
 SpacePirateFireLaserGround: @ 0x080294e0
@@ -1672,7 +1672,7 @@ SpacePirateFireLaserGround: @ 0x080294e0
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0x14
-    ldr r2, lbl_08029550 @ =0x03000738
+    ldr r2, lbl_08029550 @ =gCurrentSprite
     ldrb r7, [r2, #0x1f]
     str r7, [sp, #0xc]
     adds r0, r2, #0
@@ -1721,7 +1721,7 @@ SpacePirateFireLaserGround: @ 0x080294e0
     movs r1, #0
     b lbl_0802961c
     .align 2, 0
-lbl_08029550: .4byte 0x03000738
+lbl_08029550: .4byte gCurrentSprite
 lbl_08029554:
     cmp r0, #1
     bne lbl_08029580
@@ -1872,7 +1872,7 @@ SpacePirateFireLaserWall: @ 0x08029670
     mov r7, r8
     push {r7}
     sub sp, #0xc
-    ldr r0, lbl_080296c8 @ =0x03000738
+    ldr r0, lbl_080296c8 @ =gCurrentSprite
     ldrb r7, [r0, #0x1f]
     adds r1, r0, #0
     adds r1, #0x23
@@ -1910,7 +1910,7 @@ SpacePirateFireLaserWall: @ 0x08029670
     bl SpriteSpawnSecondary
     b lbl_080296fc
     .align 2, 0
-lbl_080296c8: .4byte 0x03000738
+lbl_080296c8: .4byte gCurrentSprite
 lbl_080296cc:
     adds r0, r6, #0
     subs r0, #0x94
@@ -1950,7 +1950,7 @@ sub_08029708: @ 0x08029708
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0x2c
-    ldr r1, lbl_0802984c @ =0x03000738
+    ldr r1, lbl_0802984c @ =gCurrentSprite
     ldrh r2, [r1]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -2015,7 +2015,7 @@ lbl_08029746:
     str r0, [sp, #0x18]
     movs r1, #0
     str r1, [sp, #0x10]
-    ldr r6, lbl_08029850 @ =0x030001ac
+    ldr r6, lbl_08029850 @ =gSpriteData
     movs r3, #0xa8
     lsls r3, r3, #3
     adds r0, r6, r3
@@ -2065,7 +2065,7 @@ lbl_080297ca:
     lsrs r5, r0, #0x10
     cmp sb, r2
     bne lbl_08029854
-    ldr r0, lbl_0802984c @ =0x03000738
+    ldr r0, lbl_0802984c @ =gCurrentSprite
     adds r0, #0x23
     ldrb r0, [r0]
     ldr r2, [sp, #0x10]
@@ -2113,8 +2113,8 @@ lbl_08029816:
     movs r0, #0x44
     b lbl_08029912
     .align 2, 0
-lbl_0802984c: .4byte 0x03000738
-lbl_08029850: .4byte 0x030001ac
+lbl_0802984c: .4byte gCurrentSprite
+lbl_08029850: .4byte gSpriteData
 lbl_08029854:
     mov r0, r8
     cmp r0, #0
@@ -2225,7 +2225,7 @@ lbl_08029914:
     str r0, [sp, #0x10]
     adds r7, #0x38
     adds r6, #0x38
-    ldr r0, lbl_0802993c @ =0x030006ec
+    ldr r0, lbl_0802993c @ =gSpritesetSpritesID
     cmp r6, r0
     bhs lbl_0802992a
     b lbl_080297a8
@@ -2241,7 +2241,7 @@ lbl_0802992c:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0802993c: .4byte 0x030006ec
+lbl_0802993c: .4byte gSpritesetSpritesID
 
     thumb_func_start sub_08029940
 sub_08029940: @ 0x08029940
@@ -2256,7 +2256,7 @@ sub_08029940: @ 0x08029940
     str r0, [sp, #0x10]
     movs r6, #0xf0
     rsbs r6, r6, #0
-    ldr r0, lbl_080299a8 @ =0x03000738
+    ldr r0, lbl_080299a8 @ =gCurrentSprite
     ldrh r5, [r0, #2]
     ldrh r1, [r0, #4]
     adds r0, r5, r6
@@ -2274,7 +2274,7 @@ sub_08029940: @ 0x08029940
     lsrs r7, r1, #0x10
     movs r4, #0
 lbl_08029978:
-    ldr r1, lbl_080299ac @ =0x030001ac
+    ldr r1, lbl_080299ac @ =gSpriteData
     lsls r2, r4, #3
     subs r0, r2, r4
     lsls r0, r0, #3
@@ -2298,8 +2298,8 @@ lbl_08029978:
     bls lbl_080299b6
     b lbl_080299ba
     .align 2, 0
-lbl_080299a8: .4byte 0x03000738
-lbl_080299ac: .4byte 0x030001ac
+lbl_080299a8: .4byte gCurrentSprite
+lbl_080299ac: .4byte gSpriteData
 lbl_080299b0:
     cmp r5, r3
     bhs lbl_080299b6
@@ -2310,7 +2310,7 @@ lbl_080299b6:
 lbl_080299ba:
     subs r0, r2, r4
     lsls r0, r0, #3
-    ldr r1, lbl_080299f8 @ =0x030001ac
+    ldr r1, lbl_080299f8 @ =gSpriteData
     adds r0, r0, r1
     ldrh r0, [r0, #4]
     adds r2, r3, r6
@@ -2339,7 +2339,7 @@ lbl_080299ba:
     movs r0, #1
     b lbl_08029a08
     .align 2, 0
-lbl_080299f8: .4byte 0x030001ac
+lbl_080299f8: .4byte gSpriteData
 lbl_080299fc:
     adds r0, r4, #1
     lsls r0, r0, #0x18
@@ -2360,19 +2360,19 @@ lbl_08029a08:
     thumb_func_start SpacePirateCheckSamusInShootingRange
 SpacePirateCheckSamusInShootingRange: @ 0x08029a18
     push {r4, lr}
-    ldr r0, lbl_08029a68 @ =0x030007f3
+    ldr r0, lbl_08029a68 @ =gSpriteDrawOrder
     ldrb r1, [r0, #2]
     adds r4, r0, #0
     cmp r1, #1
     bne lbl_08029ab6
-    ldr r0, lbl_08029a6c @ =0x03000738
+    ldr r0, lbl_08029a6c @ =gCurrentSprite
     ldrb r0, [r0, #0x1d]
     movs r1, #0x80
     lsls r1, r1, #2
     cmp r0, #0x55
     beq lbl_08029a3e
     subs r1, #0x80
-    ldr r0, lbl_08029a70 @ =0x030013d4
+    ldr r0, lbl_08029a70 @ =gSamusData
     movs r2, #0x16
     ldrsh r0, [r0, r2]
     cmp r0, #0
@@ -2389,7 +2389,7 @@ lbl_08029a4a:
     adds r0, r2, #0
     bl SpriteUtilCheckSamusNearSpriteLeftRight
     adds r3, r0, #0
-    ldr r2, lbl_08029a6c @ =0x03000738
+    ldr r2, lbl_08029a6c @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -2400,9 +2400,9 @@ lbl_08029a4a:
     bne lbl_08029a8c
     b lbl_08029a78
     .align 2, 0
-lbl_08029a68: .4byte 0x030007f3
-lbl_08029a6c: .4byte 0x03000738
-lbl_08029a70: .4byte 0x030013d4
+lbl_08029a68: .4byte gSpriteDrawOrder
+lbl_08029a6c: .4byte gCurrentSprite
+lbl_08029a70: .4byte gSamusData
 lbl_08029a74:
     cmp r3, #4
     bne lbl_08029a8c
@@ -2423,7 +2423,7 @@ lbl_08029a8c:
     adds r0, r1, #0
     bl SpriteUtilCheckSamusNearSpriteLeftRight
     adds r3, r0, #0
-    ldr r2, lbl_08029aac @ =0x03000738
+    ldr r2, lbl_08029aac @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -2434,13 +2434,13 @@ lbl_08029a8c:
     bne lbl_08029b60
     b lbl_08029b50
     .align 2, 0
-lbl_08029aac: .4byte 0x03000738
+lbl_08029aac: .4byte gCurrentSprite
 lbl_08029ab0:
     cmp r3, #8
     bne lbl_08029b60
     b lbl_08029b50
 lbl_08029ab6:
-    ldr r2, lbl_08029adc @ =0x03000738
+    ldr r2, lbl_08029adc @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -2459,7 +2459,7 @@ lbl_08029ab6:
     bne lbl_08029af4
     b lbl_08029b50
     .align 2, 0
-lbl_08029adc: .4byte 0x03000738
+lbl_08029adc: .4byte gCurrentSprite
 lbl_08029ae0:
     adds r0, r2, #0
     adds r0, #0x2b
@@ -2485,7 +2485,7 @@ lbl_08029af4:
     ldrb r0, [r4, #4]
     cmp r0, #0
     bne lbl_08029b60
-    ldr r0, lbl_08029b2c @ =0x030001a8
+    ldr r0, lbl_08029b2c @ =gAlarmTimer
     ldrh r0, [r0]
     cmp r0, #0
     bne lbl_08029b1e
@@ -2501,12 +2501,12 @@ lbl_08029b1e:
     bne lbl_08029b60
     b lbl_08029b52
     .align 2, 0
-lbl_08029b2c: .4byte 0x030001a8
+lbl_08029b2c: .4byte gAlarmTimer
 lbl_08029b30:
     ldrb r0, [r4, #4]
     cmp r0, #1
     bne lbl_08029b60
-    ldr r0, lbl_08029b5c @ =0x030001a8
+    ldr r0, lbl_08029b5c @ =gAlarmTimer
     ldrh r0, [r0]
     cmp r0, #0
     bne lbl_08029b46
@@ -2529,7 +2529,7 @@ lbl_08029b52:
     movs r0, #1
     b lbl_08029b62
     .align 2, 0
-lbl_08029b5c: .4byte 0x030001a8
+lbl_08029b5c: .4byte gAlarmTimer
 lbl_08029b60:
     movs r0, #0
 lbl_08029b62:
@@ -2540,11 +2540,11 @@ lbl_08029b62:
     thumb_func_start sub_08029b68
 sub_08029b68: @ 0x08029b68
     push {r4, r5, r6, lr}
-    ldr r2, lbl_08029bb4 @ =0x03000738
+    ldr r2, lbl_08029bb4 @ =gCurrentSprite
     adds r4, r2, #0
     adds r4, #0x24
     ldrb r6, [r4]
-    ldr r0, lbl_08029bb8 @ =0x030001a8
+    ldr r0, lbl_08029bb8 @ =gAlarmTimer
     ldrh r1, [r0]
     movs r0, #0xef
     lsls r0, r0, #1
@@ -2562,7 +2562,7 @@ lbl_08029b88:
     ands r0, r3
     cmp r0, #0
     beq lbl_08029c08
-    ldr r0, lbl_08029bbc @ =0x030007f3
+    ldr r0, lbl_08029bbc @ =gSpriteDrawOrder
     ldrb r1, [r0, #2]
     adds r5, r0, #0
     cmp r1, #1
@@ -2578,11 +2578,11 @@ lbl_08029b88:
     movs r0, #0x22
     b lbl_08029bd6
     .align 2, 0
-lbl_08029bb4: .4byte 0x03000738
-lbl_08029bb8: .4byte 0x030001a8
-lbl_08029bbc: .4byte 0x030007f3
+lbl_08029bb4: .4byte gCurrentSprite
+lbl_08029bb8: .4byte gAlarmTimer
+lbl_08029bbc: .4byte gSpriteDrawOrder
 lbl_08029bc0:
-    ldr r0, lbl_08029c00 @ =0x0300080c
+    ldr r0, lbl_08029c00 @ =gBossWork
     ldrh r1, [r0, #2]
     ldr r0, lbl_08029c04 @ =0x000002ff
     cmp r1, r0
@@ -2617,10 +2617,10 @@ lbl_08029bd8:
     movs r0, #0x44
     b lbl_08029c7a
     .align 2, 0
-lbl_08029c00: .4byte 0x0300080c
+lbl_08029c00: .4byte gBossWork
 lbl_08029c04: .4byte 0x000002ff
 lbl_08029c08:
-    ldr r0, lbl_08029c28 @ =0x030007f3
+    ldr r0, lbl_08029c28 @ =gSpriteDrawOrder
     ldrb r1, [r0, #2]
     adds r5, r0, #0
     cmp r1, #1
@@ -2636,9 +2636,9 @@ lbl_08029c08:
     movs r0, #0x22
     b lbl_08029c42
     .align 2, 0
-lbl_08029c28: .4byte 0x030007f3
+lbl_08029c28: .4byte gSpriteDrawOrder
 lbl_08029c2c:
-    ldr r0, lbl_08029c6c @ =0x0300080c
+    ldr r0, lbl_08029c6c @ =gBossWork
     ldrh r1, [r0, #2]
     ldr r0, lbl_08029c70 @ =0x000002ff
     cmp r1, r0
@@ -2673,7 +2673,7 @@ lbl_08029c44:
     movs r0, #0x44
     b lbl_08029c7a
     .align 2, 0
-lbl_08029c6c: .4byte 0x0300080c
+lbl_08029c6c: .4byte gBossWork
 lbl_08029c70: .4byte 0x000002ff
 lbl_08029c74:
     adds r1, r2, #0
@@ -2700,7 +2700,7 @@ lbl_08029c8c:
     thumb_func_start sub_08029c94
 sub_08029c94: @ 0x08029c94
     push {r4, r5, lr}
-    ldr r2, lbl_08029d08 @ =0x03000738
+    ldr r2, lbl_08029d08 @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x24
     ldrb r5, [r0]
@@ -2710,7 +2710,7 @@ sub_08029c94: @ 0x08029c94
     ands r0, r1
     cmp r0, #0
     bne lbl_08029cc0
-    ldr r0, lbl_08029d0c @ =0x030001a8
+    ldr r0, lbl_08029d0c @ =gAlarmTimer
     ldrh r1, [r0]
     movs r0, #0xef
     lsls r0, r0, #1
@@ -2728,7 +2728,7 @@ lbl_08029cc0:
     ands r0, r3
     cmp r0, #0
     beq lbl_08029d14
-    ldr r0, lbl_08029d10 @ =0x030007f3
+    ldr r0, lbl_08029d10 @ =gSpriteDrawOrder
     ldrb r1, [r0, #2]
     adds r4, r0, #0
     cmp r1, #1
@@ -2760,11 +2760,11 @@ lbl_08029ce6:
     bne lbl_08029d56
     b lbl_08029d4e
     .align 2, 0
-lbl_08029d08: .4byte 0x03000738
-lbl_08029d0c: .4byte 0x030001a8
-lbl_08029d10: .4byte 0x030007f3
+lbl_08029d08: .4byte gCurrentSprite
+lbl_08029d0c: .4byte gAlarmTimer
+lbl_08029d10: .4byte gSpriteDrawOrder
 lbl_08029d14:
-    ldr r0, lbl_08029d64 @ =0x030007f3
+    ldr r0, lbl_08029d64 @ =gSpriteDrawOrder
     ldrb r1, [r0, #2]
     adds r4, r0, #0
     cmp r1, #1
@@ -2808,7 +2808,7 @@ lbl_08029d56:
     movs r0, #1
     b lbl_08029d6a
     .align 2, 0
-lbl_08029d64: .4byte 0x030007f3
+lbl_08029d64: .4byte gSpriteDrawOrder
 lbl_08029d68:
     movs r0, #0
 lbl_08029d6a:
@@ -2821,7 +2821,7 @@ sub_08029d70: @ 0x08029d70
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
-    ldr r2, lbl_08029dd8 @ =0x03000738
+    ldr r2, lbl_08029dd8 @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x24
     ldrb r5, [r0]
@@ -2834,7 +2834,7 @@ sub_08029d70: @ 0x08029d70
     ands r0, r1
     cmp r0, #0
     bne lbl_08029da6
-    ldr r0, lbl_08029ddc @ =0x030001a8
+    ldr r0, lbl_08029ddc @ =gAlarmTimer
     ldrh r1, [r0]
     movs r0, #0xef
     lsls r0, r0, #1
@@ -2846,7 +2846,7 @@ sub_08029d70: @ 0x08029d70
     adds r0, #1
     strb r0, [r1]
 lbl_08029da6:
-    ldr r0, lbl_08029de0 @ =0x030007f3
+    ldr r0, lbl_08029de0 @ =gSpriteDrawOrder
     ldrb r0, [r0, #2]
     cmp r0, #1
     beq lbl_08029dbc
@@ -2873,9 +2873,9 @@ lbl_08029dbc:
     adds r0, #0x30
     b lbl_08029de8
     .align 2, 0
-lbl_08029dd8: .4byte 0x03000738
-lbl_08029ddc: .4byte 0x030001a8
-lbl_08029de0: .4byte 0x030007f3
+lbl_08029dd8: .4byte gCurrentSprite
+lbl_08029ddc: .4byte gAlarmTimer
+lbl_08029de0: .4byte gSpriteDrawOrder
 lbl_08029de4:
     adds r0, r4, #0
     subs r0, #0x30
@@ -2885,7 +2885,7 @@ lbl_08029de8:
     adds r0, r7, #0
     adds r1, r4, #0
     bl SpriteUtilGetCollisionAtPosition
-    ldr r6, lbl_08029e3c @ =0x030000dc
+    ldr r6, lbl_08029e3c @ =gCurrentAffectingClipdata
     ldrh r0, [r6]
     cmp r0, #9
     beq lbl_08029e9c
@@ -2896,12 +2896,12 @@ lbl_08029de8:
     ldrh r0, [r6]
     cmp r0, #9
     beq lbl_08029e9e
-    ldr r0, lbl_08029e40 @ =0x030007f3
+    ldr r0, lbl_08029e40 @ =gSpriteDrawOrder
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_08029e5a
-    ldr r2, lbl_08029e44 @ =0x030013d4
-    ldr r0, lbl_08029e48 @ =0x03001588
+    ldr r2, lbl_08029e44 @ =gSamusData
+    ldr r0, lbl_08029e48 @ =gSamusPhysics
     adds r0, #0x70
     movs r1, #0
     ldrsh r0, [r0, r1]
@@ -2921,10 +2921,10 @@ lbl_08029de8:
     subs r0, r0, r1
     b lbl_08029e4e
     .align 2, 0
-lbl_08029e3c: .4byte 0x030000dc
-lbl_08029e40: .4byte 0x030007f3
-lbl_08029e44: .4byte 0x030013d4
-lbl_08029e48: .4byte 0x03001588
+lbl_08029e3c: .4byte gCurrentAffectingClipdata
+lbl_08029e40: .4byte gSpriteDrawOrder
+lbl_08029e44: .4byte gSamusData
+lbl_08029e48: .4byte gSamusPhysics
 lbl_08029e4c:
     subs r0, r1, r0
 lbl_08029e4e:
@@ -2967,7 +2967,7 @@ lbl_08029e88:
     adds r0, r7, #0
     adds r1, r4, #0
     bl SpriteUtilGetCollisionAtPosition
-    ldr r0, lbl_08029ea8 @ =0x030000dc
+    ldr r0, lbl_08029ea8 @ =gCurrentAffectingClipdata
     ldrh r0, [r0]
     cmp r0, #9
     bne lbl_08029e9e
@@ -2979,7 +2979,7 @@ lbl_08029e9e:
     movs r0, #0
     b lbl_08029ee2
     .align 2, 0
-lbl_08029ea8: .4byte 0x030000dc
+lbl_08029ea8: .4byte gCurrentAffectingClipdata
 lbl_08029eac:
     mov r1, r8
     cmp r1, #0x19
@@ -2989,7 +2989,7 @@ lbl_08029eac:
 lbl_08029eb6:
     cmp r5, #0x12
     bne lbl_08029ed8
-    ldr r2, lbl_08029ed4 @ =0x03000738
+    ldr r2, lbl_08029ed4 @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x24
     movs r1, #0
@@ -3002,9 +3002,9 @@ lbl_08029eb6:
     strb r0, [r1]
     b lbl_08029ee0
     .align 2, 0
-lbl_08029ed4: .4byte 0x03000738
+lbl_08029ed4: .4byte gCurrentSprite
 lbl_08029ed8:
-    ldr r0, lbl_08029eec @ =0x03000738
+    ldr r0, lbl_08029eec @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x18
     strb r1, [r0]
@@ -3017,7 +3017,7 @@ lbl_08029ee2:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08029eec: .4byte 0x03000738
+lbl_08029eec: .4byte gCurrentSprite
 
     thumb_func_start sub_08029ef0
 sub_08029ef0: @ 0x08029ef0
@@ -3029,7 +3029,7 @@ sub_08029ef0: @ 0x08029ef0
     sub sp, #4
     movs r6, #0
     movs r1, #0
-    ldr r4, lbl_08029f84 @ =0x03000738
+    ldr r4, lbl_08029f84 @ =gCurrentSprite
     adds r0, r4, #0
     adds r0, #0x24
     ldrb r0, [r0]
@@ -3044,7 +3044,7 @@ sub_08029ef0: @ 0x08029ef0
     mov r1, sb
     bl SpriteUtilCheckVerticalCollisionAtPosition
     adds r2, r0, #0
-    ldr r5, lbl_08029f88 @ =0x030007f0
+    ldr r5, lbl_08029f88 @ =gPreviousVerticalCollisionCheck
     ldrb r1, [r5]
     movs r0, #0xf
     mov r8, r0
@@ -3071,12 +3071,12 @@ lbl_08029f52:
     strh r2, [r4, #2]
     lsls r0, r2, #0x10
     lsrs r7, r0, #0x10
-    ldr r0, lbl_08029f88 @ =0x030007f0
+    ldr r0, lbl_08029f88 @ =gPreviousVerticalCollisionCheck
     ldrb r3, [r0]
     cmp r3, #0
     bne lbl_08029fce
 lbl_08029f60:
-    ldr r4, lbl_08029f84 @ =0x03000738
+    ldr r4, lbl_08029f84 @ =gCurrentSprite
     ldrh r1, [r4]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -3087,15 +3087,15 @@ lbl_08029f60:
     subs r1, #0x10
     adds r0, r7, #0
     bl SpriteUtilCheckVerticalCollisionAtPosition
-    ldr r0, lbl_08029f88 @ =0x030007f0
+    ldr r0, lbl_08029f88 @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_08029f8c
     adds r1, r4, #0
     b lbl_0802a0ba
     .align 2, 0
-lbl_08029f84: .4byte 0x03000738
-lbl_08029f88: .4byte 0x030007f0
+lbl_08029f84: .4byte gCurrentSprite
+lbl_08029f88: .4byte gPreviousVerticalCollisionCheck
 lbl_08029f8c:
     cmp r0, #4
     beq lbl_08029fbe
@@ -3109,14 +3109,14 @@ lbl_08029f98:
     adds r1, #0x10
     adds r0, r7, #0
     bl SpriteUtilCheckVerticalCollisionAtPosition
-    ldr r0, lbl_08029fb0 @ =0x030007f0
+    ldr r0, lbl_08029fb0 @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_08029fb4
     adds r1, r4, #0
     b lbl_0802a0ba
     .align 2, 0
-lbl_08029fb0: .4byte 0x030007f0
+lbl_08029fb0: .4byte gPreviousVerticalCollisionCheck
 lbl_08029fb4:
     cmp r0, #5
     beq lbl_08029fbe
@@ -3132,7 +3132,7 @@ lbl_08029fbe:
     strh r2, [r4, #2]
     b lbl_0802a360
 lbl_08029fce:
-    ldr r2, lbl_0802a014 @ =0x03000738
+    ldr r2, lbl_0802a014 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -3160,14 +3160,14 @@ lbl_08029fec:
     ldr r1, [sp]
     cmp r1, #9
     bne lbl_0802a0a2
-    ldr r2, lbl_0802a014 @ =0x03000738
+    ldr r2, lbl_0802a014 @ =gCurrentSprite
     ldrh r0, [r2, #0x12]
     cmp r0, #0x14
     bls lbl_0802a0a2
     adds r1, r2, #0
     b lbl_0802a1c0
     .align 2, 0
-lbl_0802a014: .4byte 0x03000738
+lbl_0802a014: .4byte gCurrentSprite
 lbl_0802a018:
     adds r4, r7, #0
     subs r4, #0x20
@@ -3182,11 +3182,11 @@ lbl_0802a018:
     beq lbl_0802a032
     b lbl_0802a154
 lbl_0802a032:
-    ldr r0, lbl_0802a048 @ =0x030000dc
+    ldr r0, lbl_0802a048 @ =gCurrentAffectingClipdata
     ldrh r0, [r0]
     cmp r0, #8
     bne lbl_0802a064
-    ldr r1, lbl_0802a04c @ =0x03000738
+    ldr r1, lbl_0802a04c @ =gCurrentSprite
     ldrb r0, [r1, #0x1d]
     cmp r0, #0x53
     bne lbl_0802a050
@@ -3194,14 +3194,14 @@ lbl_0802a032:
     strh r0, [r1]
     b lbl_0802a0f8
     .align 2, 0
-lbl_0802a048: .4byte 0x030000dc
-lbl_0802a04c: .4byte 0x03000738
+lbl_0802a048: .4byte gCurrentAffectingClipdata
+lbl_0802a04c: .4byte gCurrentSprite
 lbl_0802a050:
-    ldr r0, lbl_0802a06c @ =0x030001a8
+    ldr r0, lbl_0802a06c @ =gAlarmTimer
     ldrh r2, [r0]
     cmp r2, #0
     bne lbl_0802a064
-    ldr r0, lbl_0802a070 @ =0x03000738
+    ldr r0, lbl_0802a070 @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #0x20
     ands r0, r1
@@ -3212,8 +3212,8 @@ lbl_0802a064:
     mov r1, r8
     b lbl_0802a13c
     .align 2, 0
-lbl_0802a06c: .4byte 0x030001a8
-lbl_0802a070: .4byte 0x03000738
+lbl_0802a06c: .4byte gAlarmTimer
+lbl_0802a070: .4byte gCurrentSprite
 lbl_0802a074:
     movs r0, #0xf0
     ands r0, r3
@@ -3233,33 +3233,33 @@ lbl_0802a07e:
     ldr r2, [sp]
     cmp r2, #9
     bne lbl_0802a0a2
-    ldr r1, lbl_0802a0c4 @ =0x03000738
+    ldr r1, lbl_0802a0c4 @ =gCurrentSprite
     ldrh r0, [r1, #0x12]
     cmp r0, #0x14
     bls lbl_0802a0a2
     b lbl_0802a1c0
 lbl_0802a0a2:
-    ldr r1, lbl_0802a0c8 @ =0x030007f3
+    ldr r1, lbl_0802a0c8 @ =gSpriteDrawOrder
     ldrb r0, [r1, #2]
     cmp r0, #1
     bne lbl_0802a0b8
     ldrb r0, [r1]
     cmp r0, #1
     bhi lbl_0802a0b8
-    ldr r1, lbl_0802a0c4 @ =0x03000738
+    ldr r1, lbl_0802a0c4 @ =gCurrentSprite
     adds r1, #0x2d
     movs r0, #2
     strb r0, [r1]
 lbl_0802a0b8:
-    ldr r1, lbl_0802a0c4 @ =0x03000738
+    ldr r1, lbl_0802a0c4 @ =gCurrentSprite
 lbl_0802a0ba:
     adds r1, #0x24
     movs r0, #0x42
     strb r0, [r1]
     b lbl_0802a360
     .align 2, 0
-lbl_0802a0c4: .4byte 0x03000738
-lbl_0802a0c8: .4byte 0x030007f3
+lbl_0802a0c4: .4byte gCurrentSprite
+lbl_0802a0c8: .4byte gSpriteDrawOrder
 lbl_0802a0cc:
     adds r4, r7, #0
     subs r4, #0x20
@@ -3272,18 +3272,18 @@ lbl_0802a0cc:
     lsrs r1, r0, #0x18
     cmp r1, #0x11
     bne lbl_0802a154
-    ldr r0, lbl_0802a108 @ =0x030000dc
+    ldr r0, lbl_0802a108 @ =gCurrentAffectingClipdata
     ldrh r0, [r0]
     cmp r0, #8
     bne lbl_0802a138
-    ldr r2, lbl_0802a10c @ =0x03000738
+    ldr r2, lbl_0802a10c @ =gCurrentSprite
     ldrb r0, [r2, #0x1d]
     cmp r0, #0x53
     bne lbl_0802a114
     mov r0, r8
     strh r0, [r2]
 lbl_0802a0f8:
-    ldr r0, lbl_0802a110 @ =0x030001a8
+    ldr r0, lbl_0802a110 @ =gAlarmTimer
     ldrh r0, [r0]
     cmp r0, #0
     bne lbl_0802a102
@@ -3292,27 +3292,27 @@ lbl_0802a102:
     bl DisableChozodiaAlarm
     b lbl_0802a360
     .align 2, 0
-lbl_0802a108: .4byte 0x030000dc
-lbl_0802a10c: .4byte 0x03000738
-lbl_0802a110: .4byte 0x030001a8
+lbl_0802a108: .4byte gCurrentAffectingClipdata
+lbl_0802a10c: .4byte gCurrentSprite
+lbl_0802a110: .4byte gAlarmTimer
 lbl_0802a114:
-    ldr r0, lbl_0802a130 @ =0x030001a8
+    ldr r0, lbl_0802a130 @ =gAlarmTimer
     ldrh r2, [r0]
     cmp r2, #0
     bne lbl_0802a138
-    ldr r0, lbl_0802a134 @ =0x03000738
+    ldr r0, lbl_0802a134 @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #0x20
     ands r0, r1
     cmp r0, #0
     beq lbl_0802a138
 lbl_0802a128:
-    ldr r1, lbl_0802a134 @ =0x03000738
+    ldr r1, lbl_0802a134 @ =gCurrentSprite
     strh r2, [r1]
     b lbl_0802a360
     .align 2, 0
-lbl_0802a130: .4byte 0x030001a8
-lbl_0802a134: .4byte 0x03000738
+lbl_0802a130: .4byte gAlarmTimer
+lbl_0802a134: .4byte gCurrentSprite
 lbl_0802a138:
     adds r0, r4, #0
     mov r1, sl
@@ -3381,7 +3381,7 @@ lbl_0802a1b0:
     bne lbl_0802a1b6
     b lbl_0802a360
 lbl_0802a1b6:
-    ldr r0, lbl_0802a1c8 @ =0x03000738
+    ldr r0, lbl_0802a1c8 @ =gCurrentSprite
     ldrh r1, [r0, #0x12]
     cmp r1, #0x14
     bls lbl_0802a1cc
@@ -3392,7 +3392,7 @@ lbl_0802a1c0:
     strb r0, [r1]
     b lbl_0802a360
     .align 2, 0
-lbl_0802a1c8: .4byte 0x03000738
+lbl_0802a1c8: .4byte gCurrentSprite
 lbl_0802a1cc:
     cmp r6, #0xf
     bhi lbl_0802a2b8
@@ -3421,68 +3421,68 @@ lbl_0802a1e0: @ jump table
     .4byte lbl_0802a280 @ case 14
     .4byte lbl_0802a2a0 @ case 15
 lbl_0802a220:
-    ldr r1, lbl_0802a22c @ =0x03000738
+    ldr r1, lbl_0802a22c @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x2d
     movs r0, #1
     b lbl_0802a2a8
     .align 2, 0
-lbl_0802a22c: .4byte 0x03000738
+lbl_0802a22c: .4byte gCurrentSprite
 lbl_0802a230:
-    ldr r0, lbl_0802a248 @ =0x030013d4
+    ldr r0, lbl_0802a248 @ =gSamusData
     ldrh r1, [r0, #0x14]
     adds r0, r7, #0
     subs r0, #0x60
     cmp r1, r0
     blt lbl_0802a250
-    ldr r2, lbl_0802a24c @ =0x03000738
+    ldr r2, lbl_0802a24c @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x4e
     b lbl_0802a2d4
     .align 2, 0
-lbl_0802a248: .4byte 0x030013d4
-lbl_0802a24c: .4byte 0x03000738
+lbl_0802a248: .4byte gSamusData
+lbl_0802a24c: .4byte gCurrentSprite
 lbl_0802a250:
-    ldr r1, lbl_0802a25c @ =0x03000738
+    ldr r1, lbl_0802a25c @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x2d
     movs r0, #2
     b lbl_0802a2a8
     .align 2, 0
-lbl_0802a25c: .4byte 0x03000738
+lbl_0802a25c: .4byte gCurrentSprite
 lbl_0802a260:
-    ldr r0, lbl_0802a278 @ =0x030013d4
+    ldr r0, lbl_0802a278 @ =gSamusData
     ldrh r1, [r0, #0x14]
     adds r0, r7, #0
     subs r0, #0xa0
     cmp r1, r0
     blt lbl_0802a2a0
-    ldr r2, lbl_0802a27c @ =0x03000738
+    ldr r2, lbl_0802a27c @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x4e
     b lbl_0802a2d4
     .align 2, 0
-lbl_0802a278: .4byte 0x030013d4
-lbl_0802a27c: .4byte 0x03000738
+lbl_0802a278: .4byte gSamusData
+lbl_0802a27c: .4byte gCurrentSprite
 lbl_0802a280:
-    ldr r0, lbl_0802a298 @ =0x030013d4
+    ldr r0, lbl_0802a298 @ =gSamusData
     ldrh r1, [r0, #0x14]
     adds r0, r7, #0
     subs r0, #0xe0
     cmp r1, r0
     blt lbl_0802a2a0
-    ldr r2, lbl_0802a29c @ =0x03000738
+    ldr r2, lbl_0802a29c @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x4e
     b lbl_0802a2d4
     .align 2, 0
-lbl_0802a298: .4byte 0x030013d4
-lbl_0802a29c: .4byte 0x03000738
+lbl_0802a298: .4byte gSamusData
+lbl_0802a29c: .4byte gCurrentSprite
 lbl_0802a2a0:
-    ldr r1, lbl_0802a2b4 @ =0x03000738
+    ldr r1, lbl_0802a2b4 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x2d
     movs r0, #3
@@ -3493,37 +3493,37 @@ lbl_0802a2a8:
     strb r0, [r2]
     b lbl_0802a2d6
     .align 2, 0
-lbl_0802a2b4: .4byte 0x03000738
+lbl_0802a2b4: .4byte gCurrentSprite
 lbl_0802a2b8:
     ldr r0, [sp]
     cmp r0, #9
     bne lbl_0802a2cc
-    ldr r2, lbl_0802a2c8 @ =0x03000738
+    ldr r2, lbl_0802a2c8 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x16
     b lbl_0802a2d4
     .align 2, 0
-lbl_0802a2c8: .4byte 0x03000738
+lbl_0802a2c8: .4byte gCurrentSprite
 lbl_0802a2cc:
-    ldr r2, lbl_0802a314 @ =0x03000738
+    ldr r2, lbl_0802a314 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x44
 lbl_0802a2d4:
     strb r0, [r1]
 lbl_0802a2d6:
-    ldr r0, lbl_0802a314 @ =0x03000738
+    ldr r0, lbl_0802a314 @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x42
     bne lbl_0802a360
-    ldr r0, lbl_0802a314 @ =0x03000738
+    ldr r0, lbl_0802a314 @ =gCurrentSprite
     adds r0, #0x2d
     ldrb r0, [r0]
     cmp r0, #1
     bls lbl_0802a360
-    ldr r2, lbl_0802a314 @ =0x03000738
+    ldr r2, lbl_0802a314 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -3543,7 +3543,7 @@ lbl_0802a2d6:
     adds r0, r7, r1
     b lbl_0802a334
     .align 2, 0
-lbl_0802a314: .4byte 0x03000738
+lbl_0802a314: .4byte gCurrentSprite
 lbl_0802a318: .4byte 0xfffffee0
 lbl_0802a31c:
     adds r0, r7, #0
@@ -3567,15 +3567,15 @@ lbl_0802a340:
     ldr r0, [sp]
     cmp r0, #9
     bne lbl_0802a358
-    ldr r0, lbl_0802a354 @ =0x03000738
+    ldr r0, lbl_0802a354 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x16
     b lbl_0802a35e
     .align 2, 0
 lbl_0802a350: .4byte 0xfffffee0
-lbl_0802a354: .4byte 0x03000738
+lbl_0802a354: .4byte gCurrentSprite
 lbl_0802a358:
-    ldr r0, lbl_0802a370 @ =0x03000738
+    ldr r0, lbl_0802a370 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x44
 lbl_0802a35e:
@@ -3590,7 +3590,7 @@ lbl_0802a360:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802a370: .4byte 0x03000738
+lbl_0802a370: .4byte gCurrentSprite
 
     thumb_func_start SpacePirateInit
 SpacePirateInit: @ 0x0802a374
@@ -3599,7 +3599,7 @@ SpacePirateInit: @ 0x0802a374
     mov r6, sb
     mov r5, r8
     push {r5, r6, r7}
-    ldr r4, lbl_0802a418 @ =0x03000738
+    ldr r4, lbl_0802a418 @ =gCurrentSprite
     ldrb r0, [r4, #0x1d]
     adds r5, r0, #0
     adds r2, r4, #0
@@ -3623,7 +3623,7 @@ SpacePirateInit: @ 0x0802a374
     strh r1, [r4, #0xc]
     ldr r0, lbl_0802a420 @ =0x082e4320
     str r0, [r4, #0x18]
-    ldr r0, lbl_0802a424 @ =0x0300083c
+    ldr r0, lbl_0802a424 @ =gSpriteRNG
     mov r8, r0
     ldrb r1, [r0]
     movs r0, #7
@@ -3676,10 +3676,10 @@ lbl_0802a3ec:
     subs r0, #0x88
     b lbl_0802a430
     .align 2, 0
-lbl_0802a418: .4byte 0x03000738
+lbl_0802a418: .4byte gCurrentSprite
 lbl_0802a41c: .4byte 0x0000ff60
 lbl_0802a420: .4byte 0x082e4320
-lbl_0802a424: .4byte 0x0300083c
+lbl_0802a424: .4byte gSpriteRNG
 lbl_0802a428: .4byte 0x082b0d68
 lbl_0802a42c:
     ldrh r0, [r4, #4]
@@ -3688,33 +3688,33 @@ lbl_0802a430:
     strh r0, [r4, #4]
     cmp r5, #0x53
     bne lbl_0802a444
-    ldr r2, lbl_0802a440 @ =0x03000738
+    ldr r2, lbl_0802a440 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2c
     movs r0, #0x78
     b lbl_0802a474
     .align 2, 0
-lbl_0802a440: .4byte 0x03000738
+lbl_0802a440: .4byte gCurrentSprite
 lbl_0802a444:
-    ldr r0, lbl_0802a460 @ =0x03000054
+    ldr r0, lbl_0802a460 @ =gCurrentArea
     ldrb r0, [r0]
     cmp r0, #6
     bne lbl_0802a46c
-    ldr r0, lbl_0802a464 @ =0x03000055
+    ldr r0, lbl_0802a464 @ =gCurrentRoom
     ldrb r0, [r0]
     cmp r0, #0x50
     bne lbl_0802a46c
-    ldr r2, lbl_0802a468 @ =0x03000738
+    ldr r2, lbl_0802a468 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2c
     movs r0, #0x6e
     b lbl_0802a474
     .align 2, 0
-lbl_0802a460: .4byte 0x03000054
-lbl_0802a464: .4byte 0x03000055
-lbl_0802a468: .4byte 0x03000738
+lbl_0802a460: .4byte gCurrentArea
+lbl_0802a464: .4byte gCurrentRoom
+lbl_0802a468: .4byte gCurrentSprite
 lbl_0802a46c:
-    ldr r2, lbl_0802a48c @ =0x03000738
+    ldr r2, lbl_0802a48c @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2c
     movs r0, #0x14
@@ -3731,7 +3731,7 @@ lbl_0802a474:
     strh r0, [r2]
     b lbl_0802a628
     .align 2, 0
-lbl_0802a48c: .4byte 0x03000738
+lbl_0802a48c: .4byte gCurrentSprite
 lbl_0802a490: .4byte 0x00008020
 lbl_0802a494:
     cmp r5, #0x53
@@ -3764,7 +3764,7 @@ lbl_0802a4be:
     adds r0, #0x28
 lbl_0802a4ca:
     strh r0, [r4, #4]
-    ldr r1, lbl_0802a4e8 @ =0x03000738
+    ldr r1, lbl_0802a4e8 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r0, #0x28
@@ -3777,7 +3777,7 @@ lbl_0802a4ca:
     b lbl_0802a628
     .align 2, 0
 lbl_0802a4e4: .4byte 0x0000fdff
-lbl_0802a4e8: .4byte 0x03000738
+lbl_0802a4e8: .4byte gCurrentSprite
 lbl_0802a4ec: .4byte 0x00008024
 lbl_0802a4f0:
     adds r1, r4, #0
@@ -3789,7 +3789,7 @@ lbl_0802a4f0:
     adds r0, r6, #0
     adds r1, r5, #0
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_0802a550 @ =0x030001a8
+    ldr r0, lbl_0802a550 @ =gAlarmTimer
     ldrh r1, [r0]
     cmp r1, #0
     beq lbl_0802a56c
@@ -3799,7 +3799,7 @@ lbl_0802a4f0:
     adds r1, r2, #0
     orrs r0, r1
     strh r0, [r4]
-    ldr r0, lbl_0802a554 @ =0x030007f1
+    ldr r0, lbl_0802a554 @ =gPreviousCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0802a558
@@ -3825,8 +3825,8 @@ lbl_0802a548:
     bl SpacePirateClimbingUpInit
     b lbl_0802a628
     .align 2, 0
-lbl_0802a550: .4byte 0x030001a8
-lbl_0802a554: .4byte 0x030007f1
+lbl_0802a550: .4byte gAlarmTimer
+lbl_0802a554: .4byte gPreviousCollisionCheck
 lbl_0802a558:
     bl SpriteUtilMakeSpriteFaceSamusDirection
     adds r1, r4, #0
@@ -3838,7 +3838,7 @@ lbl_0802a558:
     strb r0, [r3]
     b lbl_0802a628
 lbl_0802a56c:
-    ldr r2, lbl_0802a5bc @ =0x030000dc
+    ldr r2, lbl_0802a5bc @ =gCurrentAffectingClipdata
     mov sb, r2
     ldrh r0, [r2]
     cmp r0, #7
@@ -3877,7 +3877,7 @@ lbl_0802a56c:
     strh r0, [r4]
     b lbl_0802a628
     .align 2, 0
-lbl_0802a5bc: .4byte 0x030000dc
+lbl_0802a5bc: .4byte gCurrentAffectingClipdata
 lbl_0802a5c0: .4byte 0x082e4890
 lbl_0802a5c4:
     ldrh r1, [r4]
@@ -3888,7 +3888,7 @@ lbl_0802a5c4:
     .align 2, 0
 lbl_0802a5d0: .4byte 0x0000fdff
 lbl_0802a5d4:
-    ldr r0, lbl_0802a5f8 @ =0x030007f1
+    ldr r0, lbl_0802a5f8 @ =gPreviousCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0802a61c
@@ -3906,7 +3906,7 @@ lbl_0802a5d4:
     bne lbl_0802a548
     b lbl_0802a616
     .align 2, 0
-lbl_0802a5f8: .4byte 0x030007f1
+lbl_0802a5f8: .4byte gPreviousCollisionCheck
 lbl_0802a5fc:
     adds r1, r5, #0
     adds r1, #0x40
@@ -3943,7 +3943,7 @@ lbl_0802a62c:
 
     thumb_func_start SpacePirateFallingInit
 SpacePirateFallingInit: @ 0x0802a63c
-    ldr r3, lbl_0802a668 @ =0x03000738
+    ldr r3, lbl_0802a668 @ =gCurrentSprite
     adds r1, r3, #0
     adds r1, #0x24
     movs r2, #0
@@ -3965,7 +3965,7 @@ SpacePirateFallingInit: @ 0x0802a63c
     strh r0, [r3]
     bx lr
     .align 2, 0
-lbl_0802a668: .4byte 0x03000738
+lbl_0802a668: .4byte gCurrentSprite
 lbl_0802a66c: .4byte 0x0000ff60
 lbl_0802a670: .4byte 0x082e44d0
 lbl_0802a674: .4byte 0x0000bfff
@@ -3973,7 +3973,7 @@ lbl_0802a674: .4byte 0x0000bfff
     thumb_func_start SpacePirateFalling
 SpacePirateFalling: @ 0x0802a678
     push {r4, r5, r6, lr}
-    ldr r4, lbl_0802a6c0 @ =0x03000738
+    ldr r4, lbl_0802a6c0 @ =gCurrentSprite
     ldrh r1, [r4]
     movs r6, #0x80
     lsls r6, r6, #7
@@ -4001,16 +4001,16 @@ SpacePirateFalling: @ 0x0802a678
     ands r0, r2
     cmp r0, #0
     beq lbl_0802a6c8
-    ldr r0, lbl_0802a6c4 @ =0x030007f3
+    ldr r0, lbl_0802a6c4 @ =gSpriteDrawOrder
     ldrb r0, [r0, #4]
     cmp r0, #0
     bne lbl_0802a762
     b lbl_0802a6d0
     .align 2, 0
-lbl_0802a6c0: .4byte 0x03000738
-lbl_0802a6c4: .4byte 0x030007f3
+lbl_0802a6c0: .4byte gCurrentSprite
+lbl_0802a6c4: .4byte gSpriteDrawOrder
 lbl_0802a6c8:
-    ldr r0, lbl_0802a6d8 @ =0x030007f3
+    ldr r0, lbl_0802a6d8 @ =gSpriteDrawOrder
     ldrb r0, [r0, #4]
     cmp r0, #1
     bne lbl_0802a762
@@ -4019,7 +4019,7 @@ lbl_0802a6d0:
     strb r0, [r1]
     b lbl_0802a762
     .align 2, 0
-lbl_0802a6d8: .4byte 0x030007f3
+lbl_0802a6d8: .4byte gSpriteDrawOrder
 lbl_0802a6dc:
     adds r1, r4, #0
     adds r1, #0x24
@@ -4031,7 +4031,7 @@ lbl_0802a6e6:
     ldrh r1, [r4, #4]
     bl SpriteUtilCheckVerticalCollisionAtPositionSlopes
     adds r1, r0, #0
-    ldr r0, lbl_0802a71c @ =0x030007f0
+    ldr r0, lbl_0802a71c @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0802a728
@@ -4053,7 +4053,7 @@ lbl_0802a6e6:
     bl SoundPlayNotAlreadyPlaying
     b lbl_0802a762
     .align 2, 0
-lbl_0802a71c: .4byte 0x030007f0
+lbl_0802a71c: .4byte gPreviousVerticalCollisionCheck
 lbl_0802a720: .4byte 0x082e44e0
 lbl_0802a724: .4byte 0x00000167
 lbl_0802a728:
@@ -4093,7 +4093,7 @@ lbl_0802a762:
 
     thumb_func_start unk_2a768
 unk_2a768: @ 0x0802a768
-    ldr r0, lbl_0802a788 @ =0x03000738
+    ldr r0, lbl_0802a788 @ =gCurrentSprite
     adds r2, r0, #0
     adds r2, #0x24
     movs r3, #0
@@ -4110,13 +4110,13 @@ unk_2a768: @ 0x0802a768
     strb r2, [r0]
     bx lr
     .align 2, 0
-lbl_0802a788: .4byte 0x03000738
+lbl_0802a788: .4byte gCurrentSprite
 lbl_0802a78c: .4byte 0x0000ff60
 lbl_0802a790: .4byte 0x082e42f8
 
     thumb_func_start unk_2a794
 unk_2a794: @ 0x0802a794
-    ldr r0, lbl_0802a7b4 @ =0x03000738
+    ldr r0, lbl_0802a7b4 @ =gCurrentSprite
     adds r2, r0, #0
     adds r2, #0x24
     movs r3, #0
@@ -4133,7 +4133,7 @@ unk_2a794: @ 0x0802a794
     strb r2, [r0]
     bx lr
     .align 2, 0
-lbl_0802a7b4: .4byte 0x03000738
+lbl_0802a7b4: .4byte gCurrentSprite
 lbl_0802a7b8: .4byte 0x0000ff60
 lbl_0802a7bc: .4byte 0x082e48b8
 
@@ -4141,17 +4141,17 @@ lbl_0802a7bc: .4byte 0x082e48b8
 unk_2a7c0: @ 0x0802a7c0
     push {lr}
     bl unk_f594
-    ldr r0, lbl_0802a7d8 @ =0x030007f0
+    ldr r0, lbl_0802a7d8 @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0802a7e0
-    ldr r0, lbl_0802a7dc @ =0x03000738
+    ldr r0, lbl_0802a7dc @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x1e
     b lbl_0802a7f8
     .align 2, 0
-lbl_0802a7d8: .4byte 0x030007f0
-lbl_0802a7dc: .4byte 0x03000738
+lbl_0802a7d8: .4byte gPreviousVerticalCollisionCheck
+lbl_0802a7dc: .4byte gCurrentSprite
 lbl_0802a7e0:
     bl SpriteUtilCheckNearEndCurrentSpriteAnim
     cmp r0, #0
@@ -4160,7 +4160,7 @@ lbl_0802a7e0:
     lsls r0, r0, #0x18
     cmp r0, #0
     bne lbl_0802a7fa
-    ldr r0, lbl_0802a800 @ =0x03000738
+    ldr r0, lbl_0802a800 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #8
 lbl_0802a7f8:
@@ -4169,12 +4169,12 @@ lbl_0802a7fa:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802a800: .4byte 0x03000738
+lbl_0802a800: .4byte gCurrentSprite
 
     thumb_func_start SpacePirateWalkingInit
 SpacePirateWalkingInit: @ 0x0802a804
     push {lr}
-    ldr r2, lbl_0802a830 @ =0x03000738
+    ldr r2, lbl_0802a830 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r3, #0
@@ -4197,14 +4197,14 @@ lbl_0802a82c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802a830: .4byte 0x03000738
+lbl_0802a830: .4byte gCurrentSprite
 lbl_0802a834: .4byte 0x0000ff60
 lbl_0802a838: .4byte 0x082e4320
 
     thumb_func_start SpacePirateWalking
 SpacePirateWalking: @ 0x0802a83c
     push {r4, r5, r6, lr}
-    ldr r4, lbl_0802a880 @ =0x03000738
+    ldr r4, lbl_0802a880 @ =gCurrentSprite
     ldrb r0, [r4, #0x1c]
     adds r0, #1
     strb r0, [r4, #0x1c]
@@ -4234,7 +4234,7 @@ SpacePirateWalking: @ 0x0802a83c
     strh r6, [r4, #0x16]
     b lbl_0802a900
     .align 2, 0
-lbl_0802a880: .4byte 0x03000738
+lbl_0802a880: .4byte gCurrentSprite
 lbl_0802a884: .4byte 0x082e4320
 lbl_0802a888: .4byte 0x082e42f8
 lbl_0802a88c:
@@ -4274,7 +4274,7 @@ lbl_0802a8cc:
 lbl_0802a8d2:
     strb r0, [r4]
 lbl_0802a8d4:
-    ldr r2, lbl_0802a908 @ =0x03000738
+    ldr r2, lbl_0802a908 @ =gCurrentSprite
     ldrh r0, [r2, #0x12]
     cmp r0, #0xff
     bhi lbl_0802a8e0
@@ -4301,14 +4301,14 @@ lbl_0802a900:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802a908: .4byte 0x03000738
+lbl_0802a908: .4byte gCurrentSprite
 lbl_0802a90c: .4byte 0x00000165
 
     thumb_func_start SpacePirateIdle
 SpacePirateIdle: @ 0x0802a910
     push {r4, r5, r6, lr}
     movs r5, #0
-    ldr r4, lbl_0802a92c @ =0x03000738
+    ldr r4, lbl_0802a92c @ =gCurrentSprite
     adds r6, r4, #0
     adds r6, #0x2d
     ldrb r0, [r6]
@@ -4320,7 +4320,7 @@ SpacePirateIdle: @ 0x0802a910
     beq lbl_0802a936
     b lbl_0802aa20
     .align 2, 0
-lbl_0802a92c: .4byte 0x03000738
+lbl_0802a92c: .4byte gCurrentSprite
 lbl_0802a930:
     cmp r0, #2
     beq lbl_0802a9fc
@@ -4379,7 +4379,7 @@ lbl_0802a98c:
     strb r0, [r1]
     b lbl_0802a9ae
 lbl_0802a99c:
-    ldr r1, lbl_0802a9c4 @ =0x0300083c
+    ldr r1, lbl_0802a9c4 @ =gSpriteRNG
     adds r0, r4, #0
     adds r0, #0x23
     ldrb r0, [r0]
@@ -4392,7 +4392,7 @@ lbl_0802a9ae:
     cmp r5, #0
     beq lbl_0802aa20
 lbl_0802a9b2:
-    ldr r1, lbl_0802a9c8 @ =0x03000738
+    ldr r1, lbl_0802a9c8 @ =gCurrentSprite
     ldr r0, lbl_0802a9cc @ =0x082e43c8
     str r0, [r1, #0x18]
     movs r0, #0
@@ -4402,8 +4402,8 @@ lbl_0802a9b2:
     movs r0, #1
     b lbl_0802aa1e
     .align 2, 0
-lbl_0802a9c4: .4byte 0x0300083c
-lbl_0802a9c8: .4byte 0x03000738
+lbl_0802a9c4: .4byte gSpriteRNG
+lbl_0802a9c8: .4byte gCurrentSprite
 lbl_0802a9cc: .4byte 0x082e43c8
 lbl_0802a9d0:
     bl SpriteUtilCheckEndCurrentSpriteAnim
@@ -4434,7 +4434,7 @@ lbl_0802a9fc:
     str r0, [r4, #0x18]
     strb r5, [r4, #0x1c]
     strh r5, [r4, #0x16]
-    ldr r0, lbl_0802aa2c @ =0x0300083c
+    ldr r0, lbl_0802aa2c @ =gSpriteRNG
     ldrb r1, [r0]
     lsls r0, r1, #2
     adds r0, r0, r1
@@ -4450,17 +4450,17 @@ lbl_0802aa20:
     bx r0
     .align 2, 0
 lbl_0802aa28: .4byte 0x082e4890
-lbl_0802aa2c: .4byte 0x0300083c
+lbl_0802aa2c: .4byte gSpriteRNG
 
     thumb_func_start SpacePirateIdleAtDoor
 SpacePirateIdleAtDoor: @ 0x0802aa30
     push {lr}
-    ldr r2, lbl_0802aa54 @ =0x03000738
+    ldr r2, lbl_0802aa54 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x26
     movs r0, #1
     strb r0, [r1]
-    ldr r0, lbl_0802aa58 @ =0x030001a8
+    ldr r0, lbl_0802aa58 @ =gAlarmTimer
     ldrh r0, [r0]
     cmp r0, #0
     beq lbl_0802aa50
@@ -4474,12 +4474,12 @@ lbl_0802aa50:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802aa54: .4byte 0x03000738
-lbl_0802aa58: .4byte 0x030001a8
+lbl_0802aa54: .4byte gCurrentSprite
+lbl_0802aa58: .4byte gAlarmTimer
 
     thumb_func_start unk_2aa5c
 unk_2aa5c: @ 0x0802aa5c
-    ldr r3, lbl_0802aa80 @ =0x03000738
+    ldr r3, lbl_0802aa80 @ =gCurrentSprite
     ldr r0, lbl_0802aa84 @ =0x082e4890
     str r0, [r3, #0x18]
     adds r1, r3, #0
@@ -4497,31 +4497,31 @@ unk_2aa5c: @ 0x0802aa5c
     strb r0, [r1]
     bx lr
     .align 2, 0
-lbl_0802aa80: .4byte 0x03000738
+lbl_0802aa80: .4byte gCurrentSprite
 lbl_0802aa84: .4byte 0x082e4890
 
     thumb_func_start unk_2aa88
 unk_2aa88: @ 0x0802aa88
     push {r4, r5, lr}
     bl unk_f594
-    ldr r0, lbl_0802aaa0 @ =0x030007f0
+    ldr r0, lbl_0802aaa0 @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0802aaa8
-    ldr r0, lbl_0802aaa4 @ =0x03000738
+    ldr r0, lbl_0802aaa4 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x1e
     strb r1, [r0]
     b lbl_0802aae4
     .align 2, 0
-lbl_0802aaa0: .4byte 0x030007f0
-lbl_0802aaa4: .4byte 0x03000738
+lbl_0802aaa0: .4byte gPreviousVerticalCollisionCheck
+lbl_0802aaa4: .4byte gCurrentSprite
 lbl_0802aaa8:
     bl SpacePirateCheckSamusInShootingRange
     lsls r0, r0, #0x18
     cmp r0, #0
     bne lbl_0802aae4
-    ldr r5, lbl_0802aad0 @ =0x03000738
+    ldr r5, lbl_0802aad0 @ =gCurrentSprite
     adds r4, r5, #0
     adds r4, #0x2c
     ldrb r0, [r4]
@@ -4535,7 +4535,7 @@ lbl_0802aaa8:
     strb r0, [r4]
     b lbl_0802aae4
     .align 2, 0
-lbl_0802aad0: .4byte 0x03000738
+lbl_0802aad0: .4byte gCurrentSprite
 lbl_0802aad4:
     bl SpriteUtilCheckNearEndCurrentSpriteAnim
     cmp r0, #0
@@ -4552,7 +4552,7 @@ lbl_0802aae4:
 
     thumb_func_start unk_2aaec
 unk_2aaec: @ 0x0802aaec
-    ldr r0, lbl_0802ab08 @ =0x03000738
+    ldr r0, lbl_0802ab08 @ =gCurrentSprite
     ldr r1, lbl_0802ab0c @ =0x082e42f8
     str r1, [r0, #0x18]
     adds r2, r0, #0
@@ -4567,12 +4567,12 @@ unk_2aaec: @ 0x0802aaec
     strb r1, [r0]
     bx lr
     .align 2, 0
-lbl_0802ab08: .4byte 0x03000738
+lbl_0802ab08: .4byte gCurrentSprite
 lbl_0802ab0c: .4byte 0x082e42f8
 
     thumb_func_start unk_2ab10
 unk_2ab10: @ 0x0802ab10
-    ldr r0, lbl_0802ab2c @ =0x03000738
+    ldr r0, lbl_0802ab2c @ =gCurrentSprite
     ldr r1, lbl_0802ab30 @ =0x082e4890
     str r1, [r0, #0x18]
     adds r2, r0, #0
@@ -4587,12 +4587,12 @@ unk_2ab10: @ 0x0802ab10
     strb r1, [r0]
     bx lr
     .align 2, 0
-lbl_0802ab2c: .4byte 0x03000738
+lbl_0802ab2c: .4byte gCurrentSprite
 lbl_0802ab30: .4byte 0x082e4890
 
     thumb_func_start unk_2ab34
 unk_2ab34: @ 0x0802ab34
-    ldr r0, lbl_0802ab50 @ =0x03000738
+    ldr r0, lbl_0802ab50 @ =gCurrentSprite
     ldr r1, lbl_0802ab54 @ =0x082e48b8
     str r1, [r0, #0x18]
     adds r2, r0, #0
@@ -4607,30 +4607,30 @@ unk_2ab34: @ 0x0802ab34
     strb r1, [r0]
     bx lr
     .align 2, 0
-lbl_0802ab50: .4byte 0x03000738
+lbl_0802ab50: .4byte gCurrentSprite
 lbl_0802ab54: .4byte 0x082e48b8
 
     thumb_func_start sub_0802ab58
 sub_0802ab58: @ 0x0802ab58
     push {lr}
     bl unk_f594
-    ldr r0, lbl_0802ab70 @ =0x030007f0
+    ldr r0, lbl_0802ab70 @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0802ab78
-    ldr r0, lbl_0802ab74 @ =0x03000738
+    ldr r0, lbl_0802ab74 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x1e
     strb r1, [r0]
     b lbl_0802ab98
     .align 2, 0
-lbl_0802ab70: .4byte 0x030007f0
-lbl_0802ab74: .4byte 0x03000738
+lbl_0802ab70: .4byte gPreviousVerticalCollisionCheck
+lbl_0802ab74: .4byte gCurrentSprite
 lbl_0802ab78:
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0802ab98
-    ldr r1, lbl_0802ab9c @ =0x03000738
+    ldr r1, lbl_0802ab9c @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -4646,12 +4646,12 @@ lbl_0802ab98:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802ab9c: .4byte 0x03000738
+lbl_0802ab9c: .4byte gCurrentSprite
 lbl_0802aba0: .4byte 0x082e43c8
 
     thumb_func_start SpacePirateTurningAroundInit
 SpacePirateTurningAroundInit: @ 0x0802aba4
-    ldr r0, lbl_0802abc8 @ =0x03000738
+    ldr r0, lbl_0802abc8 @ =gCurrentSprite
     adds r2, r0, #0
     adds r2, #0x24
     movs r3, #0
@@ -4669,7 +4669,7 @@ SpacePirateTurningAroundInit: @ 0x0802aba4
     strb r2, [r0]
     bx lr
     .align 2, 0
-lbl_0802abc8: .4byte 0x03000738
+lbl_0802abc8: .4byte gCurrentSprite
 lbl_0802abcc: .4byte 0x0000ff60
 lbl_0802abd0: .4byte 0x082e43c8
 
@@ -4679,7 +4679,7 @@ SpacePirateTurningAroundFirstPart: @ 0x0802abd4
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0802ac02
-    ldr r2, lbl_0802ac08 @ =0x03000738
+    ldr r2, lbl_0802ac08 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r3, #0
@@ -4700,7 +4700,7 @@ lbl_0802ac02:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802ac08: .4byte 0x03000738
+lbl_0802ac08: .4byte gCurrentSprite
 lbl_0802ac0c: .4byte 0x082e43f0
 
     thumb_func_start SpacePirateTurningAroundSecondPart
@@ -4713,7 +4713,7 @@ SpacePirateTurningAroundSecondPart: @ 0x0802ac10
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0802ac4c
-    ldr r4, lbl_0802ac48 @ =0x03000738
+    ldr r4, lbl_0802ac48 @ =gCurrentSprite
     ldrh r1, [r4]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -4730,9 +4730,9 @@ SpacePirateTurningAroundSecondPart: @ 0x0802ac10
     strb r0, [r1]
     b lbl_0802ac54
     .align 2, 0
-lbl_0802ac48: .4byte 0x03000738
+lbl_0802ac48: .4byte gCurrentSprite
 lbl_0802ac4c:
-    ldr r0, lbl_0802ac5c @ =0x03000738
+    ldr r0, lbl_0802ac5c @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #8
     strb r1, [r0]
@@ -4741,11 +4741,11 @@ lbl_0802ac54:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802ac5c: .4byte 0x03000738
+lbl_0802ac5c: .4byte gCurrentSprite
 
     thumb_func_start SpacePirateTurningAroundAlertedInit
 SpacePirateTurningAroundAlertedInit: @ 0x0802ac60
-    ldr r0, lbl_0802ac80 @ =0x03000738
+    ldr r0, lbl_0802ac80 @ =gCurrentSprite
     adds r2, r0, #0
     adds r2, #0x24
     movs r3, #0
@@ -4762,14 +4762,14 @@ SpacePirateTurningAroundAlertedInit: @ 0x0802ac60
     strb r2, [r0]
     bx lr
     .align 2, 0
-lbl_0802ac80: .4byte 0x03000738
+lbl_0802ac80: .4byte gCurrentSprite
 lbl_0802ac84: .4byte 0x0000ff60
 lbl_0802ac88: .4byte 0x082e43c8
 
     thumb_func_start SpacePirateTurningAroundFirstPartAlerted
 SpacePirateTurningAroundFirstPartAlerted: @ 0x0802ac8c
     push {r4, r5, lr}
-    ldr r4, lbl_0802acc8 @ =0x03000738
+    ldr r4, lbl_0802acc8 @ =gCurrentSprite
     ldrb r0, [r4, #0x1c]
     adds r0, #1
     movs r5, #0
@@ -4797,13 +4797,13 @@ lbl_0802acc0:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802acc8: .4byte 0x03000738
+lbl_0802acc8: .4byte gCurrentSprite
 lbl_0802accc: .4byte 0x082e43f0
 
     thumb_func_start SpacePirateTurningAroundSecondPartAlerted
 SpacePirateTurningAroundSecondPartAlerted: @ 0x0802acd0
     push {r4, lr}
-    ldr r4, lbl_0802ad0c @ =0x03000738
+    ldr r4, lbl_0802ad0c @ =gCurrentSprite
     ldrb r0, [r4, #0x1c]
     adds r0, #1
     strb r0, [r4, #0x1c]
@@ -4829,7 +4829,7 @@ SpacePirateTurningAroundSecondPartAlerted: @ 0x0802acd0
     movs r0, #0x22
     b lbl_0802ad2a
     .align 2, 0
-lbl_0802ad0c: .4byte 0x03000738
+lbl_0802ad0c: .4byte gCurrentSprite
 lbl_0802ad10:
     ldrb r0, [r4, #0x1d]
     cmp r0, #0x55
@@ -4855,7 +4855,7 @@ lbl_0802ad2c:
     thumb_func_start SpacePirateWalkingAlertedInit
 SpacePirateWalkingAlertedInit: @ 0x0802ad34
     push {lr}
-    ldr r2, lbl_0802ad60 @ =0x03000738
+    ldr r2, lbl_0802ad60 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x23
@@ -4878,14 +4878,14 @@ lbl_0802ad5c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802ad60: .4byte 0x03000738
+lbl_0802ad60: .4byte gCurrentSprite
 lbl_0802ad64: .4byte 0x0000ff60
 lbl_0802ad68: .4byte 0x082e4320
 
     thumb_func_start SpacePirateWalkingAlerted
 SpacePirateWalkingAlerted: @ 0x0802ad6c
     push {r4, r5, r6, r7, lr}
-    ldr r4, lbl_0802ada8 @ =0x03000738
+    ldr r4, lbl_0802ada8 @ =gCurrentSprite
     ldrb r0, [r4, #0x1c]
     adds r0, #1
     strb r0, [r4, #0x1c]
@@ -4914,7 +4914,7 @@ lbl_0802ad9c:
     strb r0, [r7]
     b lbl_0802ae82
     .align 2, 0
-lbl_0802ada8: .4byte 0x03000738
+lbl_0802ada8: .4byte gCurrentSprite
 lbl_0802adac:
     bl sub_08029708
     lsls r0, r0, #0x18
@@ -4937,7 +4937,7 @@ lbl_0802add4:
     ldr r0, lbl_0802ae00 @ =0x082e42f8
     cmp r1, r0
     bne lbl_0802ae82
-    ldr r0, lbl_0802ae04 @ =0x030007f3
+    ldr r0, lbl_0802ae04 @ =gSpriteDrawOrder
     ldrb r0, [r0, #2]
     cmp r0, #1
     bne lbl_0802ae82
@@ -4957,7 +4957,7 @@ lbl_0802add4:
     b lbl_0802ae0c
     .align 2, 0
 lbl_0802ae00: .4byte 0x082e42f8
-lbl_0802ae04: .4byte 0x030007f3
+lbl_0802ae04: .4byte gSpriteDrawOrder
 lbl_0802ae08:
     cmp r2, #8
     bne lbl_0802ae82
@@ -5005,7 +5005,7 @@ lbl_0802ae5c:
     movs r0, #9
     strb r0, [r7]
 lbl_0802ae60:
-    ldr r2, lbl_0802ae88 @ =0x03000738
+    ldr r2, lbl_0802ae88 @ =gCurrentSprite
     ldrb r0, [r2, #0x1c]
     cmp r0, #5
     bls lbl_0802ae82
@@ -5026,13 +5026,13 @@ lbl_0802ae82:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802ae88: .4byte 0x03000738
+lbl_0802ae88: .4byte gCurrentSprite
 lbl_0802ae8c: .4byte 0x00000165
 
     thumb_func_start SpacePirateJumpingInit
 SpacePirateJumpingInit: @ 0x0802ae90
     push {lr}
-    ldr r3, lbl_0802aed4 @ =0x03000738
+    ldr r3, lbl_0802aed4 @ =gCurrentSprite
     adds r2, r3, #0
     adds r2, #0x24
     movs r1, #0
@@ -5058,19 +5058,19 @@ SpacePirateJumpingInit: @ 0x0802ae90
     ands r0, r1
     cmp r0, #0
     beq lbl_0802aee4
-    ldr r0, lbl_0802aee0 @ =0x030013d4
+    ldr r0, lbl_0802aee0 @ =gSamusData
     ldrh r0, [r0, #0x12]
     ldrh r1, [r3, #4]
     cmp r0, r1
     bhs lbl_0802aef4
     b lbl_0802aeee
     .align 2, 0
-lbl_0802aed4: .4byte 0x03000738
+lbl_0802aed4: .4byte gCurrentSprite
 lbl_0802aed8: .4byte 0x082e4450
 lbl_0802aedc: .4byte 0x0000bfff
-lbl_0802aee0: .4byte 0x030013d4
+lbl_0802aee0: .4byte gSamusData
 lbl_0802aee4:
-    ldr r0, lbl_0802aef8 @ =0x030013d4
+    ldr r0, lbl_0802aef8 @ =gSamusData
     ldrh r0, [r0, #0x12]
     ldrh r1, [r3, #4]
     cmp r0, r1
@@ -5083,13 +5083,13 @@ lbl_0802aef4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802aef8: .4byte 0x030013d4
+lbl_0802aef8: .4byte gSamusData
 
     thumb_func_start SpacePirateJumping
 SpacePirateJumping: @ 0x0802aefc
     push {r4, r5, r6, r7, lr}
     movs r7, #0
-    ldr r4, lbl_0802af4c @ =0x03000738
+    ldr r4, lbl_0802af4c @ =gCurrentSprite
     ldrh r1, [r4]
     movs r0, #0x80
     lsls r0, r0, #7
@@ -5127,7 +5127,7 @@ lbl_0802af44:
     strb r0, [r1]
     b lbl_0802b2f6
     .align 2, 0
-lbl_0802af4c: .4byte 0x03000738
+lbl_0802af4c: .4byte gCurrentSprite
 lbl_0802af50:
     bl sub_08029b68
     lsls r0, r0, #0x18
@@ -5216,7 +5216,7 @@ lbl_0802afe8:
 lbl_0802afec:
     movs r6, #0xc
 lbl_0802afee:
-    ldr r4, lbl_0802b048 @ =0x03000738
+    ldr r4, lbl_0802b048 @ =gCurrentSprite
     ldrh r1, [r4]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -5262,7 +5262,7 @@ lbl_0802b03e:
     adds r0, r0, r6
     b lbl_0802b096
     .align 2, 0
-lbl_0802b048: .4byte 0x03000738
+lbl_0802b048: .4byte gCurrentSprite
 lbl_0802b04c:
     ldrh r0, [r4, #2]
     subs r0, #0xa0
@@ -5304,7 +5304,7 @@ lbl_0802b08e:
 lbl_0802b096:
     strh r0, [r4, #4]
 lbl_0802b098:
-    ldr r1, lbl_0802b0cc @ =0x03000738
+    ldr r1, lbl_0802b0cc @ =gCurrentSprite
     ldrh r2, [r1]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -5316,7 +5316,7 @@ lbl_0802b098:
     bne lbl_0802b0ae
     b lbl_0802b1c8
 lbl_0802b0ae:
-    ldr r1, lbl_0802b0d0 @ =0x030013d4
+    ldr r1, lbl_0802b0d0 @ =gSamusData
     ldrh r0, [r5, #2]
     ldrh r3, [r1, #0x14]
     cmp r0, r3
@@ -5332,8 +5332,8 @@ lbl_0802b0ae:
     bls lbl_0802b0de
     b lbl_0802b1c8
     .align 2, 0
-lbl_0802b0cc: .4byte 0x03000738
-lbl_0802b0d0: .4byte 0x030013d4
+lbl_0802b0cc: .4byte gCurrentSprite
+lbl_0802b0d0: .4byte gSamusData
 lbl_0802b0d4:
     ldrh r0, [r5, #4]
     ldrh r1, [r1, #0x12]
@@ -5382,7 +5382,7 @@ lbl_0802b120:
     lsrs r0, r0, #0x18
     cmp r0, #0
     bne lbl_0802b140
-    ldr r2, lbl_0802b13c @ =0x03000738
+    ldr r2, lbl_0802b13c @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x48
@@ -5390,9 +5390,9 @@ lbl_0802b120:
     adds r5, r2, #0
     b lbl_0802b1b8
     .align 2, 0
-lbl_0802b13c: .4byte 0x03000738
+lbl_0802b13c: .4byte gCurrentSprite
 lbl_0802b140:
-    ldr r1, lbl_0802b174 @ =0x03000738
+    ldr r1, lbl_0802b174 @ =gCurrentSprite
     ldrh r2, [r1]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -5400,7 +5400,7 @@ lbl_0802b140:
     adds r5, r1, #0
     cmp r0, #0
     beq lbl_0802b198
-    ldr r0, lbl_0802b178 @ =0x030007f3
+    ldr r0, lbl_0802b178 @ =gSpriteDrawOrder
     ldrb r0, [r0, #3]
     cmp r0, #1
     bne lbl_0802b1b0
@@ -5409,7 +5409,7 @@ lbl_0802b140:
     ands r0, r2
     cmp r0, #0
     beq lbl_0802b180
-    ldr r1, lbl_0802b17c @ =0x030013d4
+    ldr r1, lbl_0802b17c @ =gSamusData
     ldrh r0, [r5, #4]
     ldrh r1, [r1, #0x12]
     cmp r0, r1
@@ -5419,11 +5419,11 @@ lbl_0802b140:
     movs r0, #0x5e
     b lbl_0802b1b6
     .align 2, 0
-lbl_0802b174: .4byte 0x03000738
-lbl_0802b178: .4byte 0x030007f3
-lbl_0802b17c: .4byte 0x030013d4
+lbl_0802b174: .4byte gCurrentSprite
+lbl_0802b178: .4byte gSpriteDrawOrder
+lbl_0802b17c: .4byte gSamusData
 lbl_0802b180:
-    ldr r1, lbl_0802b194 @ =0x030013d4
+    ldr r1, lbl_0802b194 @ =gSamusData
     ldrh r0, [r5, #4]
     ldrh r1, [r1, #0x12]
     cmp r0, r1
@@ -5433,9 +5433,9 @@ lbl_0802b180:
     movs r0, #0x5e
     b lbl_0802b1b6
     .align 2, 0
-lbl_0802b194: .4byte 0x030013d4
+lbl_0802b194: .4byte gSamusData
 lbl_0802b198:
-    ldr r0, lbl_0802b1ac @ =0x0300083c
+    ldr r0, lbl_0802b1ac @ =gSpriteRNG
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -5446,7 +5446,7 @@ lbl_0802b198:
     movs r0, #0x5e
     b lbl_0802b1b6
     .align 2, 0
-lbl_0802b1ac: .4byte 0x0300083c
+lbl_0802b1ac: .4byte gSpriteRNG
 lbl_0802b1b0:
     adds r1, r5, #0
     adds r1, #0x24
@@ -5463,7 +5463,7 @@ lbl_0802b1b8:
     .align 2, 0
 lbl_0802b1c4: .4byte 0x0000ffc0
 lbl_0802b1c8:
-    ldr r1, lbl_0802b210 @ =0x03000738
+    ldr r1, lbl_0802b210 @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x2f
     ldrb r0, [r0]
@@ -5478,7 +5478,7 @@ lbl_0802b1c8:
     lsls r0, r0, #1
     bl SoundPlayNotAlreadyPlaying
 lbl_0802b1e6:
-    ldr r1, lbl_0802b210 @ =0x03000738
+    ldr r1, lbl_0802b210 @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x2d
     ldrb r0, [r0]
@@ -5500,7 +5500,7 @@ lbl_0802b1e6:
     bhi lbl_0802b27e
     b lbl_0802b27a
     .align 2, 0
-lbl_0802b210: .4byte 0x03000738
+lbl_0802b210: .4byte gCurrentSprite
 lbl_0802b214: .4byte 0x082e1030
 lbl_0802b218:
     cmp r0, #2
@@ -5569,7 +5569,7 @@ lbl_0802b27e:
     ldrh r1, [r4, #4]
     bl SpriteUtilCheckVerticalCollisionAtPositionSlopes
     adds r1, r0, #0
-    ldr r0, lbl_0802b2cc @ =0x030007f0
+    ldr r0, lbl_0802b2cc @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0802b2f6
@@ -5595,7 +5595,7 @@ lbl_0802b27e:
     b lbl_0802b2f6
     .align 2, 0
 lbl_0802b2c8: .4byte 0x082e1020
-lbl_0802b2cc: .4byte 0x030007f0
+lbl_0802b2cc: .4byte gPreviousVerticalCollisionCheck
 lbl_0802b2d0: .4byte 0x082e44e0
 lbl_0802b2d4: .4byte 0x00000167
 lbl_0802b2d8:
@@ -5621,7 +5621,7 @@ lbl_0802b2f6:
     thumb_func_start SpacePirateChargingLaserInit
 SpacePirateChargingLaserInit: @ 0x0802b2fc
     push {lr}
-    ldr r2, lbl_0802b31c @ =0x03000738
+    ldr r2, lbl_0802b31c @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x35
@@ -5637,7 +5637,7 @@ SpacePirateChargingLaserInit: @ 0x0802b2fc
     ldr r0, lbl_0802b320 @ =0x082e4558
     b lbl_0802b332
     .align 2, 0
-lbl_0802b31c: .4byte 0x03000738
+lbl_0802b31c: .4byte gCurrentSprite
 lbl_0802b320: .4byte 0x082e4558
 lbl_0802b324:
     cmp r0, #2
@@ -5666,20 +5666,20 @@ lbl_0802b348: .4byte 0x082e4368
 SpacePirateChargingLaser: @ 0x0802b34c
     push {lr}
     bl unk_f594
-    ldr r0, lbl_0802b364 @ =0x030007f0
+    ldr r0, lbl_0802b364 @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0802b36c
-    ldr r0, lbl_0802b368 @ =0x03000738
+    ldr r0, lbl_0802b368 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x1e
     strb r1, [r0]
     b lbl_0802b38a
     .align 2, 0
-lbl_0802b364: .4byte 0x030007f0
-lbl_0802b368: .4byte 0x03000738
+lbl_0802b364: .4byte gPreviousVerticalCollisionCheck
+lbl_0802b368: .4byte gCurrentSprite
 lbl_0802b36c:
-    ldr r1, lbl_0802b380 @ =0x03000738
+    ldr r1, lbl_0802b380 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x2c
     ldrb r0, [r2]
@@ -5689,7 +5689,7 @@ lbl_0802b36c:
     strb r0, [r2]
     b lbl_0802b38a
     .align 2, 0
-lbl_0802b380: .4byte 0x03000738
+lbl_0802b380: .4byte gCurrentSprite
 lbl_0802b384:
     adds r1, #0x24
     movs r0, #0x36
@@ -5702,7 +5702,7 @@ lbl_0802b38a:
     thumb_func_start SpacePirateShootingLaserInit
 SpacePirateShootingLaserInit: @ 0x0802b390
     push {lr}
-    ldr r0, lbl_0802b3ac @ =0x03000738
+    ldr r0, lbl_0802b3ac @ =gCurrentSprite
     adds r2, r0, #0
     adds r2, #0x24
     movs r1, #0x37
@@ -5716,7 +5716,7 @@ SpacePirateShootingLaserInit: @ 0x0802b390
     ldr r0, lbl_0802b3b0 @ =0x082e4598
     b lbl_0802b3c2
     .align 2, 0
-lbl_0802b3ac: .4byte 0x03000738
+lbl_0802b3ac: .4byte gCurrentSprite
 lbl_0802b3b0: .4byte 0x082e4598
 lbl_0802b3b4:
     cmp r1, #2
@@ -5740,7 +5740,7 @@ lbl_0802b3d0: .4byte 0x082e4428
     thumb_func_start SpacePirateShootingLaser
 SpacePirateShootingLaser: @ 0x0802b3d4
     push {r4, r5, lr}
-    ldr r1, lbl_0802b400 @ =0x03000738
+    ldr r1, lbl_0802b400 @ =gCurrentSprite
     ldrh r0, [r1, #0x16]
     cmp r0, #2
     bne lbl_0802b3e8
@@ -5750,44 +5750,44 @@ SpacePirateShootingLaser: @ 0x0802b3d4
     bl SpacePirateFireLaserGround
 lbl_0802b3e8:
     bl unk_f594
-    ldr r0, lbl_0802b404 @ =0x030007f0
+    ldr r0, lbl_0802b404 @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0802b408
-    ldr r0, lbl_0802b400 @ =0x03000738
+    ldr r0, lbl_0802b400 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x1e
     strb r1, [r0]
     b lbl_0802b4ba
     .align 2, 0
-lbl_0802b400: .4byte 0x03000738
-lbl_0802b404: .4byte 0x030007f0
+lbl_0802b400: .4byte gCurrentSprite
+lbl_0802b404: .4byte gPreviousVerticalCollisionCheck
 lbl_0802b408:
     bl SpriteUtilCheckNearEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0802b4ba
-    ldr r0, lbl_0802b424 @ =0x030007f3
+    ldr r0, lbl_0802b424 @ =gSpriteDrawOrder
     ldrb r1, [r0, #2]
     adds r5, r0, #0
     cmp r1, #0
     bne lbl_0802b42c
-    ldr r0, lbl_0802b428 @ =0x03000738
+    ldr r0, lbl_0802b428 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x22
     strb r1, [r0]
     b lbl_0802b4ba
     .align 2, 0
-lbl_0802b424: .4byte 0x030007f3
-lbl_0802b428: .4byte 0x03000738
+lbl_0802b424: .4byte gSpriteDrawOrder
+lbl_0802b428: .4byte gCurrentSprite
 lbl_0802b42c:
-    ldr r0, lbl_0802b47c @ =0x03000738
+    ldr r0, lbl_0802b47c @ =gCurrentSprite
     ldrb r0, [r0, #0x1d]
     movs r1, #0x80
     lsls r1, r1, #2
     cmp r0, #0x55
     beq lbl_0802b446
     subs r1, #0x80
-    ldr r0, lbl_0802b480 @ =0x030013d4
+    ldr r0, lbl_0802b480 @ =gSamusData
     movs r2, #0x16
     ldrsh r0, [r0, r2]
     cmp r0, #0
@@ -5805,7 +5805,7 @@ lbl_0802b454:
     adds r0, r2, #0
     bl SpriteUtilCheckSamusNearSpriteLeftRight
     adds r3, r0, #0
-    ldr r2, lbl_0802b47c @ =0x03000738
+    ldr r2, lbl_0802b47c @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -5821,8 +5821,8 @@ lbl_0802b454:
     ldrb r1, [r4]
     b lbl_0802b4aa
     .align 2, 0
-lbl_0802b47c: .4byte 0x03000738
-lbl_0802b480: .4byte 0x030013d4
+lbl_0802b47c: .4byte gCurrentSprite
+lbl_0802b480: .4byte gSamusData
 lbl_0802b484:
     cmp r3, #4
     bne lbl_0802b4b2
@@ -5865,20 +5865,20 @@ lbl_0802b4ba:
 SpacePirateWaitingAtDoor: @ 0x0802b4c0
     push {r4, r5, r6, r7, lr}
     sub sp, #0xc
-    ldr r0, lbl_0802b4d4 @ =0x030001a8
+    ldr r0, lbl_0802b4d4 @ =gAlarmTimer
     ldrh r1, [r0]
     cmp r1, #0
     bne lbl_0802b4dc
-    ldr r0, lbl_0802b4d8 @ =0x03000738
+    ldr r0, lbl_0802b4d8 @ =gCurrentSprite
     strh r1, [r0]
     b lbl_0802b620
     .align 2, 0
-lbl_0802b4d4: .4byte 0x030001a8
-lbl_0802b4d8: .4byte 0x03000738
+lbl_0802b4d4: .4byte gAlarmTimer
+lbl_0802b4d8: .4byte gCurrentSprite
 lbl_0802b4dc:
     movs r7, #0
     movs r5, #0
-    ldr r1, lbl_0802b500 @ =0x03000738
+    ldr r1, lbl_0802b500 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x26
     movs r0, #1
@@ -5894,7 +5894,7 @@ lbl_0802b4dc:
     adds r0, #0x40
     b lbl_0802b508
     .align 2, 0
-lbl_0802b500: .4byte 0x03000738
+lbl_0802b500: .4byte gCurrentSprite
 lbl_0802b504:
     ldrh r0, [r6, #4]
     subs r0, #0x40
@@ -5905,7 +5905,7 @@ lbl_0802b508:
     ldrh r0, [r4, #2]
     bl SpriteUtilCheckVerticalCollisionAtPositionSlopes
     adds r1, r0, #0
-    ldr r0, lbl_0802b534 @ =0x030007f0
+    ldr r0, lbl_0802b534 @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0802b538
@@ -5921,7 +5921,7 @@ lbl_0802b508:
     strb r0, [r1]
     b lbl_0802b620
     .align 2, 0
-lbl_0802b534: .4byte 0x030007f0
+lbl_0802b534: .4byte gPreviousVerticalCollisionCheck
 lbl_0802b538:
     strh r1, [r4, #2]
     adds r1, r4, #0
@@ -5953,7 +5953,7 @@ lbl_0802b564:
 lbl_0802b568:
     lsls r0, r0, #0x10
     lsrs r1, r0, #0x10
-    ldr r4, lbl_0802b58c @ =0x03000738
+    ldr r4, lbl_0802b58c @ =gCurrentSprite
     ldrh r0, [r4, #2]
     subs r0, #0x20
     bl SpriteUtilGetCollisionAtPosition
@@ -5968,7 +5968,7 @@ lbl_0802b568:
     bhi lbl_0802b5a0
     b lbl_0802b59a
     .align 2, 0
-lbl_0802b58c: .4byte 0x03000738
+lbl_0802b58c: .4byte gCurrentSprite
 lbl_0802b590:
     adds r0, r4, #0
     adds r0, #0x2c
@@ -5983,7 +5983,7 @@ lbl_0802b59a:
 lbl_0802b5a0:
     cmp r5, #0
     beq lbl_0802b620
-    ldr r4, lbl_0802b600 @ =0x03000738
+    ldr r4, lbl_0802b600 @ =gCurrentSprite
     ldrb r0, [r4, #0x1d]
     cmp r0, #0x54
     bne lbl_0802b5bc
@@ -6028,7 +6028,7 @@ lbl_0802b5bc:
     bl SpriteSpawnSecondary
     b lbl_0802b620
     .align 2, 0
-lbl_0802b600: .4byte 0x03000738
+lbl_0802b600: .4byte gCurrentSprite
 lbl_0802b604:
     ldrb r2, [r4, #0x1f]
     adds r0, r4, #0
@@ -6052,7 +6052,7 @@ lbl_0802b620:
     thumb_func_start SpacePirateShootingAfterWaitingAtDoor
 SpacePirateShootingAfterWaitingAtDoor: @ 0x0802b628
     push {r4, lr}
-    ldr r2, lbl_0802b674 @ =0x03000738
+    ldr r2, lbl_0802b674 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x26
     movs r0, #1
@@ -6089,7 +6089,7 @@ SpacePirateShootingAfterWaitingAtDoor: @ 0x0802b628
     adds r0, #0x40
     b lbl_0802b680
     .align 2, 0
-lbl_0802b674: .4byte 0x03000738
+lbl_0802b674: .4byte gCurrentSprite
 lbl_0802b678: .4byte 0x00007ffb
 lbl_0802b67c:
     ldrh r0, [r4, #4]
@@ -6119,7 +6119,7 @@ lbl_0802b680:
 lbl_0802b6ac: .4byte 0x0000ffc0
 lbl_0802b6b0: .4byte 0x082e4680
 lbl_0802b6b4:
-    ldr r0, lbl_0802b6c4 @ =0x03000738
+    ldr r0, lbl_0802b6c4 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x23
     strb r1, [r0]
@@ -6128,11 +6128,11 @@ lbl_0802b6bc:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802b6c4: .4byte 0x03000738
+lbl_0802b6c4: .4byte gCurrentSprite
 
     thumb_func_start SpacePirateClimbingUpInit
 SpacePirateClimbingUpInit: @ 0x0802b6c8
-    ldr r0, lbl_0802b6fc @ =0x03000738
+    ldr r0, lbl_0802b6fc @ =gCurrentSprite
     mov ip, r0
     mov r1, ip
     adds r1, #0x24
@@ -6159,7 +6159,7 @@ SpacePirateClimbingUpInit: @ 0x0802b6c8
     strb r3, [r0]
     bx lr
     .align 2, 0
-lbl_0802b6fc: .4byte 0x03000738
+lbl_0802b6fc: .4byte gCurrentSprite
 lbl_0802b700: .4byte 0x082e45c0
 lbl_0802b704: .4byte 0x0000ffc0
 
@@ -6173,7 +6173,7 @@ SpacePirateClimbingUp: @ 0x0802b708
     beq lbl_0802b718
     b lbl_0802b8f6
 lbl_0802b718:
-    ldr r2, lbl_0802b750 @ =0x03000738
+    ldr r2, lbl_0802b750 @ =gCurrentSprite
     ldrh r5, [r2, #2]
     ldrh r6, [r2, #4]
     ldrh r1, [r2]
@@ -6203,7 +6203,7 @@ lbl_0802b742:
     strb r0, [r3]
     b lbl_0802b8f6
     .align 2, 0
-lbl_0802b750: .4byte 0x03000738
+lbl_0802b750: .4byte gCurrentSprite
 lbl_0802b754:
     ldrh r1, [r2]
     movs r0, #0x80
@@ -6227,7 +6227,7 @@ lbl_0802b772:
     lsrs r4, r0, #0x18
     cmp r4, #0
     bne lbl_0802b820
-    ldr r0, lbl_0802b798 @ =0x03000738
+    ldr r0, lbl_0802b798 @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -6240,7 +6240,7 @@ lbl_0802b772:
     adds r1, #0x30
     b lbl_0802b7a4
     .align 2, 0
-lbl_0802b798: .4byte 0x03000738
+lbl_0802b798: .4byte gCurrentSprite
 lbl_0802b79c:
     adds r0, r5, #0
     subs r0, #0x20
@@ -6252,7 +6252,7 @@ lbl_0802b7a4:
     lsrs r4, r0, #0x18
     cmp r4, #0
     beq lbl_0802b858
-    ldr r2, lbl_0802b7d0 @ =0x03000738
+    ldr r2, lbl_0802b7d0 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -6268,9 +6268,9 @@ lbl_0802b7a4:
     strb r0, [r1]
     b lbl_0802b820
     .align 2, 0
-lbl_0802b7d0: .4byte 0x03000738
+lbl_0802b7d0: .4byte gCurrentSprite
 lbl_0802b7d4:
-    ldr r0, lbl_0802b7ec @ =0x03000738
+    ldr r0, lbl_0802b7ec @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -6283,7 +6283,7 @@ lbl_0802b7d4:
     adds r1, #0x30
     b lbl_0802b7f8
     .align 2, 0
-lbl_0802b7ec: .4byte 0x03000738
+lbl_0802b7ec: .4byte gCurrentSprite
 lbl_0802b7f0:
     adds r0, r5, #0
     subs r0, #0x60
@@ -6295,7 +6295,7 @@ lbl_0802b7f8:
     lsrs r4, r0, #0x18
     cmp r4, #0
     bne lbl_0802b820
-    ldr r2, lbl_0802b81c @ =0x03000738
+    ldr r2, lbl_0802b81c @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2d
     movs r0, #1
@@ -6308,7 +6308,7 @@ lbl_0802b7f8:
     strh r0, [r2, #2]
     b lbl_0802b8f6
     .align 2, 0
-lbl_0802b81c: .4byte 0x03000738
+lbl_0802b81c: .4byte gCurrentSprite
 lbl_0802b820:
     adds r0, r5, #0
     subs r0, #0xc0
@@ -6317,7 +6317,7 @@ lbl_0802b820:
     adds r4, r0, #0
     cmp r4, #0
     beq lbl_0802b84c
-    ldr r3, lbl_0802b848 @ =0x03000738
+    ldr r3, lbl_0802b848 @ =gCurrentSprite
     adds r1, r3, #0
     adds r1, #0x24
     movs r2, #0
@@ -6330,7 +6330,7 @@ lbl_0802b820:
     strb r2, [r0]
     b lbl_0802b8f6
     .align 2, 0
-lbl_0802b848: .4byte 0x03000738
+lbl_0802b848: .4byte gCurrentSprite
 lbl_0802b84c:
     movs r0, #0
     bl sub_08029940
@@ -6338,7 +6338,7 @@ lbl_0802b84c:
     cmp r0, #0
     beq lbl_0802b874
 lbl_0802b858:
-    ldr r2, lbl_0802b870 @ =0x03000738
+    ldr r2, lbl_0802b870 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x12
@@ -6351,9 +6351,9 @@ lbl_0802b858:
     strb r0, [r1]
     b lbl_0802b8f6
     .align 2, 0
-lbl_0802b870: .4byte 0x03000738
+lbl_0802b870: .4byte gCurrentSprite
 lbl_0802b874:
-    ldr r2, lbl_0802b88c @ =0x03000738
+    ldr r2, lbl_0802b88c @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -6366,20 +6366,20 @@ lbl_0802b874:
     strb r0, [r2, #0x1c]
     b lbl_0802b8ce
     .align 2, 0
-lbl_0802b88c: .4byte 0x03000738
+lbl_0802b88c: .4byte gCurrentSprite
 lbl_0802b890:
     adds r1, r2, #0
     adds r1, #0x2c
     ldrb r0, [r1]
     cmp r0, #0
     bne lbl_0802b8c8
-    ldr r0, lbl_0802b8c0 @ =0x0300083c
+    ldr r0, lbl_0802b8c0 @ =gSpriteRNG
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
     cmp r0, #0
     bne lbl_0802b8cc
-    ldr r0, lbl_0802b8c4 @ =0x03000c77
+    ldr r0, lbl_0802b8c4 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     adds r0, r2, #0
     adds r0, #0x23
@@ -6393,8 +6393,8 @@ lbl_0802b890:
     strb r0, [r1]
     b lbl_0802b8f6
     .align 2, 0
-lbl_0802b8c0: .4byte 0x0300083c
-lbl_0802b8c4: .4byte 0x03000c77
+lbl_0802b8c0: .4byte gSpriteRNG
+lbl_0802b8c4: .4byte gFrameCounter8Bit
 lbl_0802b8c8:
     adds r0, #1
     strb r0, [r1]
@@ -6427,7 +6427,7 @@ lbl_0802b8f6:
 
     thumb_func_start SpacePirateClimbingDownInit
 SpacePirateClimbingDownInit: @ 0x0802b8fc
-    ldr r1, lbl_0802b924 @ =0x03000738
+    ldr r1, lbl_0802b924 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -6447,7 +6447,7 @@ SpacePirateClimbingDownInit: @ 0x0802b8fc
     strb r0, [r1]
     bx lr
     .align 2, 0
-lbl_0802b924: .4byte 0x03000738
+lbl_0802b924: .4byte gCurrentSprite
 lbl_0802b928: .4byte 0x082e4608
 lbl_0802b92c: .4byte 0x0000ffc0
 
@@ -6461,7 +6461,7 @@ SpacePirateClimbingDown: @ 0x0802b930
     beq lbl_0802b940
     b lbl_0802ba76
 lbl_0802b940:
-    ldr r4, lbl_0802b958 @ =0x03000738
+    ldr r4, lbl_0802b958 @ =gCurrentSprite
     ldrh r6, [r4, #2]
     ldrh r7, [r4, #4]
     adds r0, r6, #0
@@ -6473,7 +6473,7 @@ lbl_0802b940:
     adds r0, r4, #0
     b lbl_0802b9b4
     .align 2, 0
-lbl_0802b958: .4byte 0x03000738
+lbl_0802b958: .4byte gCurrentSprite
 lbl_0802b95c:
     ldrh r1, [r4]
     movs r0, #0x80
@@ -6494,7 +6494,7 @@ lbl_0802b972:
     lsrs r5, r0, #0x18
     cmp r5, #0
     bne lbl_0802b9c8
-    ldr r0, lbl_0802b998 @ =0x03000738
+    ldr r0, lbl_0802b998 @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -6507,7 +6507,7 @@ lbl_0802b972:
     adds r1, #0x30
     b lbl_0802b9a4
     .align 2, 0
-lbl_0802b998: .4byte 0x03000738
+lbl_0802b998: .4byte gCurrentSprite
 lbl_0802b99c:
     adds r0, r6, #0
     adds r0, #0x48
@@ -6519,7 +6519,7 @@ lbl_0802b9a4:
     lsrs r5, r0, #0x18
     cmp r5, #0
     bne lbl_0802b9c8
-    ldr r2, lbl_0802b9c4 @ =0x03000738
+    ldr r2, lbl_0802b9c4 @ =gCurrentSprite
     adds r0, r2, #0
 lbl_0802b9b4:
     adds r0, #0x24
@@ -6531,14 +6531,14 @@ lbl_0802b9b4:
     strb r5, [r0]
     b lbl_0802ba76
     .align 2, 0
-lbl_0802b9c4: .4byte 0x03000738
+lbl_0802b9c4: .4byte gCurrentSprite
 lbl_0802b9c8:
     movs r0, #1
     bl sub_08029940
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0802b9f4
-    ldr r3, lbl_0802b9f0 @ =0x03000738
+    ldr r3, lbl_0802b9f0 @ =gCurrentSprite
     adds r1, r3, #0
     adds r1, #0x24
     movs r2, #0
@@ -6552,9 +6552,9 @@ lbl_0802b9c8:
     strb r0, [r1]
     b lbl_0802ba76
     .align 2, 0
-lbl_0802b9f0: .4byte 0x03000738
+lbl_0802b9f0: .4byte gCurrentSprite
 lbl_0802b9f4:
-    ldr r2, lbl_0802ba0c @ =0x03000738
+    ldr r2, lbl_0802ba0c @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -6567,20 +6567,20 @@ lbl_0802b9f4:
     strb r0, [r2, #0x1c]
     b lbl_0802ba4e
     .align 2, 0
-lbl_0802ba0c: .4byte 0x03000738
+lbl_0802ba0c: .4byte gCurrentSprite
 lbl_0802ba10:
     adds r1, r2, #0
     adds r1, #0x2c
     ldrb r0, [r1]
     cmp r0, #0
     bne lbl_0802ba48
-    ldr r0, lbl_0802ba40 @ =0x0300083c
+    ldr r0, lbl_0802ba40 @ =gSpriteRNG
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
     cmp r0, #0
     beq lbl_0802ba4c
-    ldr r0, lbl_0802ba44 @ =0x03000c77
+    ldr r0, lbl_0802ba44 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     adds r0, r2, #0
     adds r0, #0x23
@@ -6594,8 +6594,8 @@ lbl_0802ba10:
     strb r0, [r1]
     b lbl_0802ba76
     .align 2, 0
-lbl_0802ba40: .4byte 0x0300083c
-lbl_0802ba44: .4byte 0x03000c77
+lbl_0802ba40: .4byte gSpriteRNG
+lbl_0802ba44: .4byte gFrameCounter8Bit
 lbl_0802ba48:
     adds r0, #1
     strb r0, [r1]
@@ -6628,7 +6628,7 @@ lbl_0802ba76:
 
     thumb_func_start unk_2ba7c
 unk_2ba7c: @ 0x0802ba7c
-    ldr r3, lbl_0802ba94 @ =0x03000738
+    ldr r3, lbl_0802ba94 @ =gCurrentSprite
     adds r1, r3, #0
     adds r1, #0x24
     movs r2, #0
@@ -6641,14 +6641,14 @@ unk_2ba7c: @ 0x0802ba7c
     strb r2, [r0]
     bx lr
     .align 2, 0
-lbl_0802ba94: .4byte 0x03000738
+lbl_0802ba94: .4byte gCurrentSprite
 
     thumb_func_start unk_2ba98
 unk_2ba98: @ 0x0802ba98
     push {r4, r5, r6, r7, lr}
     movs r7, #0
     movs r6, #0
-    ldr r2, lbl_0802bac8 @ =0x03000738
+    ldr r2, lbl_0802bac8 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -6671,7 +6671,7 @@ lbl_0802bab2:
     adds r1, #0x30
     b lbl_0802bad0
     .align 2, 0
-lbl_0802bac8: .4byte 0x03000738
+lbl_0802bac8: .4byte gCurrentSprite
 lbl_0802bacc:
     adds r1, r5, #0
     subs r1, #0x30
@@ -6682,7 +6682,7 @@ lbl_0802bad0:
     lsrs r2, r0, #0x18
     cmp r2, #0
     bne lbl_0802bb28
-    ldr r0, lbl_0802baf8 @ =0x03000738
+    ldr r0, lbl_0802baf8 @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -6695,7 +6695,7 @@ lbl_0802bad0:
     adds r1, #0x30
     b lbl_0802bb04
     .align 2, 0
-lbl_0802baf8: .4byte 0x03000738
+lbl_0802baf8: .4byte gCurrentSprite
 lbl_0802bafc:
     adds r0, r4, #0
     adds r0, #0x48
@@ -6707,7 +6707,7 @@ lbl_0802bb04:
     lsrs r2, r0, #0x18
     cmp r2, #0
     bne lbl_0802bb28
-    ldr r3, lbl_0802bb24 @ =0x03000738
+    ldr r3, lbl_0802bb24 @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x24
     movs r1, #0x12
@@ -6718,9 +6718,9 @@ lbl_0802bb04:
     strb r2, [r0]
     b lbl_0802bc4e
     .align 2, 0
-lbl_0802bb24: .4byte 0x03000738
+lbl_0802bb24: .4byte gCurrentSprite
 lbl_0802bb28:
-    ldr r0, lbl_0802bb40 @ =0x03000738
+    ldr r0, lbl_0802bb40 @ =gCurrentSprite
     adds r4, r0, #0
     adds r4, #0x2d
     ldrb r2, [r4]
@@ -6733,7 +6733,7 @@ lbl_0802bb28:
     beq lbl_0802bb4a
     b lbl_0802bc3c
     .align 2, 0
-lbl_0802bb40: .4byte 0x03000738
+lbl_0802bb40: .4byte gCurrentSprite
 lbl_0802bb44:
     cmp r2, #3
     beq lbl_0802bc28
@@ -6777,16 +6777,16 @@ lbl_0802bb88:
     ands r0, r1
     cmp r0, #0
     beq lbl_0802bba8
-    ldr r0, lbl_0802bba4 @ =0x030007f3
+    ldr r0, lbl_0802bba4 @ =gSpriteDrawOrder
     ldrb r0, [r0, #3]
     movs r4, #0x48
     cmp r0, #1
     bne lbl_0802bbb8
     b lbl_0802bbb6
     .align 2, 0
-lbl_0802bba4: .4byte 0x030007f3
+lbl_0802bba4: .4byte gSpriteDrawOrder
 lbl_0802bba8:
-    ldr r0, lbl_0802bbec @ =0x0300083c
+    ldr r0, lbl_0802bbec @ =gSpriteRNG
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -6807,7 +6807,7 @@ lbl_0802bbc2:
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0802bbf8
-    ldr r0, lbl_0802bbf0 @ =0x03000738
+    ldr r0, lbl_0802bbf0 @ =gCurrentSprite
     adds r2, r0, #0
     adds r2, #0x24
     movs r3, #0
@@ -6822,8 +6822,8 @@ lbl_0802bbc2:
     strb r1, [r0]
     b lbl_0802bbfe
     .align 2, 0
-lbl_0802bbec: .4byte 0x0300083c
-lbl_0802bbf0: .4byte 0x03000738
+lbl_0802bbec: .4byte gSpriteRNG
+lbl_0802bbf0: .4byte gCurrentSprite
 lbl_0802bbf4: .4byte 0x082e4830
 lbl_0802bbf8:
     adds r0, r7, #1
@@ -6832,7 +6832,7 @@ lbl_0802bbf8:
 lbl_0802bbfe:
     cmp r7, #0
     beq lbl_0802bc4e
-    ldr r2, lbl_0802bc20 @ =0x03000738
+    ldr r2, lbl_0802bc20 @ =gCurrentSprite
     adds r3, r2, #0
     adds r3, #0x2d
     ldrb r0, [r3]
@@ -6848,7 +6848,7 @@ lbl_0802bbfe:
     strh r1, [r2, #0x16]
     b lbl_0802bc4e
     .align 2, 0
-lbl_0802bc20: .4byte 0x03000738
+lbl_0802bc20: .4byte gCurrentSprite
 lbl_0802bc24: .4byte 0x082e4808
 lbl_0802bc28:
     bl SpriteUtilCheckNearEndCurrentSpriteAnim
@@ -6879,7 +6879,7 @@ lbl_0802bc54: .4byte 0x082e4780
 
     thumb_func_start SpacePirateClimbingChargingLaserInit
 SpacePirateClimbingChargingLaserInit: @ 0x0802bc58
-    ldr r1, lbl_0802bc70 @ =0x03000738
+    ldr r1, lbl_0802bc70 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -6891,7 +6891,7 @@ SpacePirateClimbingChargingLaserInit: @ 0x0802bc58
     strh r3, [r1, #0x16]
     bx lr
     .align 2, 0
-lbl_0802bc70: .4byte 0x03000738
+lbl_0802bc70: .4byte gCurrentSprite
 lbl_0802bc74: .4byte 0x082e47c8
 
     thumb_func_start SpacePirateClimbingChargingLaser
@@ -6900,7 +6900,7 @@ SpacePirateClimbingChargingLaser: @ 0x0802bc78
     bl SpriteUtilCheckNearEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0802bc8a
-    ldr r0, lbl_0802bc90 @ =0x03000738
+    ldr r0, lbl_0802bc90 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x3a
     strb r1, [r0]
@@ -6908,11 +6908,11 @@ lbl_0802bc8a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802bc90: .4byte 0x03000738
+lbl_0802bc90: .4byte gCurrentSprite
 
     thumb_func_start SpacePirateClimbingShootingLaserInit
 SpacePirateClimbingShootingLaserInit: @ 0x0802bc94
-    ldr r1, lbl_0802bcb4 @ =0x03000738
+    ldr r1, lbl_0802bcb4 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -6928,13 +6928,13 @@ SpacePirateClimbingShootingLaserInit: @ 0x0802bc94
     strb r0, [r1]
     bx lr
     .align 2, 0
-lbl_0802bcb4: .4byte 0x03000738
+lbl_0802bcb4: .4byte gCurrentSprite
 lbl_0802bcb8: .4byte 0x082e47e0
 
     thumb_func_start SpacePirateClimbingShootingLaser
 SpacePirateClimbingShootingLaser: @ 0x0802bcbc
     push {r4, r5, lr}
-    ldr r0, lbl_0802bcd8 @ =0x03000738
+    ldr r0, lbl_0802bcd8 @ =gCurrentSprite
     ldrh r4, [r0, #2]
     ldrh r5, [r0, #4]
     ldrh r1, [r0]
@@ -6947,7 +6947,7 @@ SpacePirateClimbingShootingLaser: @ 0x0802bcbc
     adds r1, #0x30
     b lbl_0802bce0
     .align 2, 0
-lbl_0802bcd8: .4byte 0x03000738
+lbl_0802bcd8: .4byte gCurrentSprite
 lbl_0802bcdc:
     adds r1, r5, #0
     subs r1, #0x30
@@ -6958,7 +6958,7 @@ lbl_0802bce0:
     lsrs r2, r0, #0x18
     cmp r2, #0
     bne lbl_0802bd38
-    ldr r0, lbl_0802bd08 @ =0x03000738
+    ldr r0, lbl_0802bd08 @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -6971,7 +6971,7 @@ lbl_0802bce0:
     adds r1, #0x30
     b lbl_0802bd14
     .align 2, 0
-lbl_0802bd08: .4byte 0x03000738
+lbl_0802bd08: .4byte gCurrentSprite
 lbl_0802bd0c:
     adds r0, r4, #0
     adds r0, #0x48
@@ -6983,7 +6983,7 @@ lbl_0802bd14:
     lsrs r2, r0, #0x18
     cmp r2, #0
     bne lbl_0802bd38
-    ldr r3, lbl_0802bd34 @ =0x03000738
+    ldr r3, lbl_0802bd34 @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x24
     movs r1, #0x12
@@ -6994,9 +6994,9 @@ lbl_0802bd14:
     strb r2, [r0]
     b lbl_0802bd6c
     .align 2, 0
-lbl_0802bd34: .4byte 0x03000738
+lbl_0802bd34: .4byte gCurrentSprite
 lbl_0802bd38:
-    ldr r1, lbl_0802bd74 @ =0x03000738
+    ldr r1, lbl_0802bd74 @ =gCurrentSprite
     ldrh r0, [r1, #0x16]
     cmp r0, #2
     bne lbl_0802bd4a
@@ -7008,7 +7008,7 @@ lbl_0802bd4a:
     bl SpriteUtilCheckNearEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0802bd6c
-    ldr r0, lbl_0802bd74 @ =0x03000738
+    ldr r0, lbl_0802bd74 @ =gCurrentSprite
     ldr r1, lbl_0802bd78 @ =0x082e47a0
     str r1, [r0, #0x18]
     movs r1, #0
@@ -7026,12 +7026,12 @@ lbl_0802bd6c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802bd74: .4byte 0x03000738
+lbl_0802bd74: .4byte gCurrentSprite
 lbl_0802bd78: .4byte 0x082e47a0
 
     thumb_func_start SpacePirateTurningAroundToWallJumpInit
 SpacePirateTurningAroundToWallJumpInit: @ 0x0802bd7c
-    ldr r1, lbl_0802bd94 @ =0x03000738
+    ldr r1, lbl_0802bd94 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -7043,13 +7043,13 @@ SpacePirateTurningAroundToWallJumpInit: @ 0x0802bd7c
     strh r3, [r1, #0x16]
     bx lr
     .align 2, 0
-lbl_0802bd94: .4byte 0x03000738
+lbl_0802bd94: .4byte gCurrentSprite
 lbl_0802bd98: .4byte 0x082e4780
 
     thumb_func_start SpacePirateTurningAroundToWallJump
 SpacePirateTurningAroundToWallJump: @ 0x0802bd9c
     push {r4, r5, lr}
-    ldr r4, lbl_0802bdbc @ =0x03000738
+    ldr r4, lbl_0802bdbc @ =gCurrentSprite
     adds r0, r4, #0
     adds r0, #0x2c
     ldrb r5, [r0]
@@ -7064,7 +7064,7 @@ SpacePirateTurningAroundToWallJump: @ 0x0802bd9c
     strb r0, [r1]
     b lbl_0802bdd8
     .align 2, 0
-lbl_0802bdbc: .4byte 0x03000738
+lbl_0802bdbc: .4byte gCurrentSprite
 lbl_0802bdc0:
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
@@ -7087,7 +7087,7 @@ lbl_0802bde0: .4byte 0x082e47a0
     thumb_func_start SpacePirateDelayBeforeLaunchingFromWall
 SpacePirateDelayBeforeLaunchingFromWall: @ 0x0802bde4
     push {r4, r5, lr}
-    ldr r0, lbl_0802be00 @ =0x03000738
+    ldr r0, lbl_0802be00 @ =gCurrentSprite
     ldrh r4, [r0, #2]
     ldrh r5, [r0, #4]
     ldrh r1, [r0]
@@ -7100,7 +7100,7 @@ SpacePirateDelayBeforeLaunchingFromWall: @ 0x0802bde4
     adds r1, #0x30
     b lbl_0802be08
     .align 2, 0
-lbl_0802be00: .4byte 0x03000738
+lbl_0802be00: .4byte gCurrentSprite
 lbl_0802be04:
     adds r1, r5, #0
     subs r1, #0x30
@@ -7111,7 +7111,7 @@ lbl_0802be08:
     lsrs r0, r0, #0x18
     cmp r0, #0
     bne lbl_0802be48
-    ldr r0, lbl_0802be30 @ =0x03000738
+    ldr r0, lbl_0802be30 @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -7124,7 +7124,7 @@ lbl_0802be08:
     adds r1, #0x30
     b lbl_0802be3c
     .align 2, 0
-lbl_0802be30: .4byte 0x03000738
+lbl_0802be30: .4byte gCurrentSprite
 lbl_0802be34:
     adds r0, r4, #0
     adds r0, #0x48
@@ -7141,7 +7141,7 @@ lbl_0802be48:
     cmp r0, #0
     beq lbl_0802be58
 lbl_0802be50:
-    ldr r0, lbl_0802be60 @ =0x03000738
+    ldr r0, lbl_0802be60 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x4a
     strb r1, [r0]
@@ -7150,11 +7150,11 @@ lbl_0802be58:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802be60: .4byte 0x03000738
+lbl_0802be60: .4byte gCurrentSprite
 
     thumb_func_start SpacePirateLaunchingFromWallInit
 SpacePirateLaunchingFromWallInit: @ 0x0802be64
-    ldr r1, lbl_0802be7c @ =0x03000738
+    ldr r1, lbl_0802be7c @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -7166,7 +7166,7 @@ SpacePirateLaunchingFromWallInit: @ 0x0802be64
     strh r3, [r1, #0x16]
     bx lr
     .align 2, 0
-lbl_0802be7c: .4byte 0x03000738
+lbl_0802be7c: .4byte gCurrentSprite
 lbl_0802be80: .4byte 0x082e4830
 
     thumb_func_start SpacePirateLaunchingFromWall
@@ -7175,7 +7175,7 @@ SpacePirateLaunchingFromWall: @ 0x0802be84
     bl SpriteUtilCheckNearEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0802bec2
-    ldr r3, lbl_0802bec8 @ =0x03000738
+    ldr r3, lbl_0802bec8 @ =gCurrentSprite
     adds r1, r3, #0
     adds r1, #0x24
     movs r2, #0
@@ -7204,13 +7204,13 @@ lbl_0802bec2:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802bec8: .4byte 0x03000738
+lbl_0802bec8: .4byte gCurrentSprite
 lbl_0802becc: .4byte 0x082e4850
 lbl_0802bed0: .4byte 0x0000bfff
 
     thumb_func_start SpacePirateStartingToCrawlInit
 SpacePirateStartingToCrawlInit: @ 0x0802bed4
-    ldr r1, lbl_0802beec @ =0x03000738
+    ldr r1, lbl_0802beec @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -7222,13 +7222,13 @@ SpacePirateStartingToCrawlInit: @ 0x0802bed4
     strh r3, [r1, #0x16]
     bx lr
     .align 2, 0
-lbl_0802beec: .4byte 0x03000738
+lbl_0802beec: .4byte gCurrentSprite
 lbl_0802bef0: .4byte 0x082e4650
 
     thumb_func_start SpacePirateStartingToCrawl
 SpacePirateStartingToCrawl: @ 0x0802bef4
     push {lr}
-    ldr r2, lbl_0802bf04 @ =0x03000738
+    ldr r2, lbl_0802bf04 @ =gCurrentSprite
     ldrh r0, [r2, #0x16]
     cmp r0, #1
     bne lbl_0802bf0c
@@ -7236,7 +7236,7 @@ SpacePirateStartingToCrawl: @ 0x0802bef4
     strh r0, [r2, #0xa]
     b lbl_0802bf62
     .align 2, 0
-lbl_0802bf04: .4byte 0x03000738
+lbl_0802bf04: .4byte gCurrentSprite
 lbl_0802bf08: .4byte 0x0000ff80
 lbl_0802bf0c:
     cmp r0, #2
@@ -7274,7 +7274,7 @@ lbl_0802bf46:
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0802bf62
-    ldr r1, lbl_0802bf68 @ =0x03000738
+    ldr r1, lbl_0802bf68 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -7288,7 +7288,7 @@ lbl_0802bf62:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802bf68: .4byte 0x03000738
+lbl_0802bf68: .4byte gCurrentSprite
 lbl_0802bf6c: .4byte 0x082e4680
 
     thumb_func_start SpacePirateCrawling
@@ -7300,7 +7300,7 @@ SpacePirateCrawling: @ 0x0802bf70
     beq lbl_0802bf7e
     b lbl_0802c09a
 lbl_0802bf7e:
-    ldr r0, lbl_0802bf9c @ =0x03000738
+    ldr r0, lbl_0802bf9c @ =gCurrentSprite
     ldrh r5, [r0, #2]
     ldrh r6, [r0, #4]
     ldrh r1, [r0]
@@ -7315,7 +7315,7 @@ lbl_0802bf7e:
     adds r1, #0x50
     b lbl_0802bfa8
     .align 2, 0
-lbl_0802bf9c: .4byte 0x03000738
+lbl_0802bf9c: .4byte gCurrentSprite
 lbl_0802bfa0:
     adds r0, r5, #0
     subs r0, #0x20
@@ -7327,15 +7327,15 @@ lbl_0802bfa8:
     lsrs r0, r0, #0x18
     cmp r0, #0
     beq lbl_0802bfc4
-    ldr r0, lbl_0802bfc0 @ =0x03000738
+    ldr r0, lbl_0802bfc0 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x58
     strb r1, [r0]
     b lbl_0802c09a
     .align 2, 0
-lbl_0802bfc0: .4byte 0x03000738
+lbl_0802bfc0: .4byte gCurrentSprite
 lbl_0802bfc4:
-    ldr r7, lbl_0802bff0 @ =0x03000738
+    ldr r7, lbl_0802bff0 @ =gCurrentSprite
     ldrh r1, [r7]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -7356,7 +7356,7 @@ lbl_0802bfc4:
     beq lbl_0802c010
     b lbl_0802c01a
     .align 2, 0
-lbl_0802bff0: .4byte 0x03000738
+lbl_0802bff0: .4byte gCurrentSprite
 lbl_0802bff4:
     adds r4, r6, #0
     subs r4, #0x54
@@ -7388,15 +7388,15 @@ lbl_0802c01a:
     bl SpriteUtilGetCollisionAtPosition
     cmp r0, #0
     bne lbl_0802c044
-    ldr r0, lbl_0802c040 @ =0x03000738
+    ldr r0, lbl_0802c040 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x56
     strb r1, [r0]
     b lbl_0802c09a
     .align 2, 0
-lbl_0802c040: .4byte 0x03000738
+lbl_0802c040: .4byte gCurrentSprite
 lbl_0802c044:
-    ldr r2, lbl_0802c05c @ =0x03000738
+    ldr r2, lbl_0802c05c @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -7409,7 +7409,7 @@ lbl_0802c044:
     strb r0, [r2, #0x1c]
     b lbl_0802c062
     .align 2, 0
-lbl_0802c05c: .4byte 0x03000738
+lbl_0802c05c: .4byte gCurrentSprite
 lbl_0802c060:
     movs r3, #1
 lbl_0802c062:
@@ -7451,7 +7451,7 @@ lbl_0802c0a0: .4byte 0x0000016b
 
     thumb_func_start SpacePirateTurningAroundWhileCrawlingInit
 SpacePirateTurningAroundWhileCrawlingInit: @ 0x0802c0a4
-    ldr r1, lbl_0802c0bc @ =0x03000738
+    ldr r1, lbl_0802c0bc @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -7463,7 +7463,7 @@ SpacePirateTurningAroundWhileCrawlingInit: @ 0x0802c0a4
     strh r3, [r1, #0x16]
     bx lr
     .align 2, 0
-lbl_0802c0bc: .4byte 0x03000738
+lbl_0802c0bc: .4byte gCurrentSprite
 lbl_0802c0c0: .4byte 0x082e46f8
 
     thumb_func_start SpacePirateTurningWhileCrawlingFirstPart
@@ -7472,7 +7472,7 @@ SpacePirateTurningWhileCrawlingFirstPart: @ 0x0802c0c4
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0802c0f2
-    ldr r2, lbl_0802c0f8 @ =0x03000738
+    ldr r2, lbl_0802c0f8 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r3, #0
@@ -7493,7 +7493,7 @@ lbl_0802c0f2:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802c0f8: .4byte 0x03000738
+lbl_0802c0f8: .4byte gCurrentSprite
 lbl_0802c0fc: .4byte 0x082e4728
 
     thumb_func_start SpacePirateTurningWhileCrawlingSecondPart
@@ -7502,7 +7502,7 @@ SpacePirateTurningWhileCrawlingSecondPart: @ 0x0802c100
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0802c11e
-    ldr r1, lbl_0802c124 @ =0x03000738
+    ldr r1, lbl_0802c124 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -7516,12 +7516,12 @@ lbl_0802c11e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802c124: .4byte 0x03000738
+lbl_0802c124: .4byte gCurrentSprite
 lbl_0802c128: .4byte 0x082e4680
 
     thumb_func_start SpacePirateStandingUpInit
 SpacePirateStandingUpInit: @ 0x0802c12c
-    ldr r1, lbl_0802c144 @ =0x03000738
+    ldr r1, lbl_0802c144 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -7533,13 +7533,13 @@ SpacePirateStandingUpInit: @ 0x0802c12c
     strh r3, [r1, #0x16]
     bx lr
     .align 2, 0
-lbl_0802c144: .4byte 0x03000738
+lbl_0802c144: .4byte gCurrentSprite
 lbl_0802c148: .4byte 0x082e46c8
 
     thumb_func_start SpacePirateStandingUp
 SpacePirateStandingUp: @ 0x0802c14c
     push {r4, lr}
-    ldr r4, lbl_0802c170 @ =0x03000738
+    ldr r4, lbl_0802c170 @ =gCurrentSprite
     ldrh r0, [r4, #0x16]
     cmp r0, #2
     bne lbl_0802c178
@@ -7556,7 +7556,7 @@ SpacePirateStandingUp: @ 0x0802c14c
     bne lbl_0802c192
     b lbl_0802c1a0
     .align 2, 0
-lbl_0802c170: .4byte 0x03000738
+lbl_0802c170: .4byte gCurrentSprite
 lbl_0802c174: .4byte 0x0000ffa0
 lbl_0802c178:
     cmp r0, #3
@@ -7635,7 +7635,7 @@ lbl_0802c1fc:
 
     thumb_func_start SpacePirateFallingWhileCrawlingInit
 SpacePirateFallingWhileCrawlingInit: @ 0x0802c204
-    ldr r1, lbl_0802c21c @ =0x03000738
+    ldr r1, lbl_0802c21c @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -7647,13 +7647,13 @@ SpacePirateFallingWhileCrawlingInit: @ 0x0802c204
     strh r3, [r1, #0x16]
     bx lr
     .align 2, 0
-lbl_0802c21c: .4byte 0x03000738
+lbl_0802c21c: .4byte gCurrentSprite
 lbl_0802c220: .4byte 0x082e46c8
 
     thumb_func_start SpacePirateFallingWhileCrawling
 SpacePirateFallingWhileCrawling: @ 0x0802c224
     push {lr}
-    ldr r0, lbl_0802c24c @ =0x03000738
+    ldr r0, lbl_0802c24c @ =gCurrentSprite
     mov ip, r0
     ldrh r0, [r0, #0x16]
     cmp r0, #2
@@ -7672,7 +7672,7 @@ SpacePirateFallingWhileCrawling: @ 0x0802c224
     bne lbl_0802c270
     b lbl_0802c280
     .align 2, 0
-lbl_0802c24c: .4byte 0x03000738
+lbl_0802c24c: .4byte gCurrentSprite
 lbl_0802c250: .4byte 0x0000ffa0
 lbl_0802c254:
     cmp r0, #3
@@ -7741,7 +7741,7 @@ lbl_0802c2cc: .4byte 0x0000bfff
 
     thumb_func_start SpacePirateCrawlingStoppedInit
 SpacePirateCrawlingStoppedInit: @ 0x0802c2d0
-    ldr r1, lbl_0802c2e8 @ =0x03000738
+    ldr r1, lbl_0802c2e8 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -7753,7 +7753,7 @@ SpacePirateCrawlingStoppedInit: @ 0x0802c2d0
     strh r3, [r1, #0x16]
     bx lr
     .align 2, 0
-lbl_0802c2e8: .4byte 0x03000738
+lbl_0802c2e8: .4byte gCurrentSprite
 lbl_0802c2ec: .4byte 0x082e4758
 
     thumb_func_start SpacePirateCrawlingStopped
@@ -7762,7 +7762,7 @@ SpacePirateCrawlingStopped: @ 0x0802c2f0
     bl SpriteUtilCheckNearEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0802c302
-    ldr r0, lbl_0802c308 @ =0x03000738
+    ldr r0, lbl_0802c308 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x52
     strb r1, [r0]
@@ -7770,7 +7770,7 @@ lbl_0802c302:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802c308: .4byte 0x03000738
+lbl_0802c308: .4byte gCurrentSprite
 
     thumb_func_start SpacePirateDeath
 SpacePirateDeath: @ 0x0802c30c
@@ -7779,7 +7779,7 @@ SpacePirateDeath: @ 0x0802c30c
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0802c32a
-    ldr r0, lbl_0802c394 @ =0x03000738
+    ldr r0, lbl_0802c394 @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #2
     ands r0, r1
@@ -7789,7 +7789,7 @@ SpacePirateDeath: @ 0x0802c30c
     lsls r0, r0, #1
     bl SoundPlay
 lbl_0802c32a:
-    ldr r0, lbl_0802c394 @ =0x03000738
+    ldr r0, lbl_0802c394 @ =gCurrentSprite
     ldrh r1, [r0, #2]
     subs r1, #0x60
     ldrh r2, [r0, #4]
@@ -7798,13 +7798,13 @@ lbl_0802c32a:
     movs r0, #0
     movs r3, #1
     bl SpriteUtilSpriteDeath
-    ldr r0, lbl_0802c398 @ =0x030001a8
+    ldr r0, lbl_0802c398 @ =gAlarmTimer
     ldrh r0, [r0]
     cmp r0, #0
     beq lbl_0802c38a
     movs r4, #0
     movs r7, #0x14
-    ldr r2, lbl_0802c39c @ =0x030001ac
+    ldr r2, lbl_0802c39c @ =gSpriteData
     movs r1, #0xa8
     lsls r1, r1, #3
     adds r0, r2, r1
@@ -7844,14 +7844,14 @@ lbl_0802c38a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802c394: .4byte 0x03000738
-lbl_0802c398: .4byte 0x030001a8
-lbl_0802c39c: .4byte 0x030001ac
+lbl_0802c394: .4byte gCurrentSprite
+lbl_0802c398: .4byte gAlarmTimer
+lbl_0802c39c: .4byte gSpriteData
 
     thumb_func_start SpacePirateHitByLaserInit
 SpacePirateHitByLaserInit: @ 0x0802c3a0
     push {r4, lr}
-    ldr r4, lbl_0802c3e4 @ =0x03000738
+    ldr r4, lbl_0802c3e4 @ =gCurrentSprite
     ldrh r1, [r4]
     movs r0, #2
     ands r0, r1
@@ -7885,12 +7885,12 @@ lbl_0802c3b6:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802c3e4: .4byte 0x03000738
+lbl_0802c3e4: .4byte gCurrentSprite
 
     thumb_func_start SpacePirateHitByLaser
 SpacePirateHitByLaser: @ 0x0802c3e8
     push {lr}
-    ldr r2, lbl_0802c430 @ =0x03000738
+    ldr r2, lbl_0802c430 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x26
     movs r0, #1
@@ -7925,7 +7925,7 @@ SpacePirateHitByLaser: @ 0x0802c3e8
     strb r1, [r0]
     b lbl_0802c448
     .align 2, 0
-lbl_0802c430: .4byte 0x03000738
+lbl_0802c430: .4byte gCurrentSprite
 lbl_0802c434:
     adds r0, r2, #0
     adds r0, #0x34
@@ -7943,7 +7943,7 @@ lbl_0802c448:
     thumb_func_start SpacePirateLaserInit
 SpacePirateLaserInit: @ 0x0802c44c
     push {r4, r5, r6, lr}
-    ldr r2, lbl_0802c4c4 @ =0x03000738
+    ldr r2, lbl_0802c4c4 @ =gCurrentSprite
     ldrh r0, [r2]
     ldr r3, lbl_0802c4c8 @ =0x0000fffb
     ands r3, r0
@@ -8002,7 +8002,7 @@ SpacePirateLaserInit: @ 0x0802c44c
     str r0, [r2, #0x18]
     b lbl_0802c528
     .align 2, 0
-lbl_0802c4c4: .4byte 0x03000738
+lbl_0802c4c4: .4byte gCurrentSprite
 lbl_0802c4c8: .4byte 0x0000fffb
 lbl_0802c4cc: .4byte 0x0000fff4
 lbl_0802c4d0: .4byte 0x082e43a8
@@ -8066,7 +8066,7 @@ lbl_0802c53a:
     thumb_func_start SpacePirateLaserExplodingInit
 SpacePirateLaserExplodingInit: @ 0x0802c540
     push {lr}
-    ldr r2, lbl_0802c558 @ =0x03000738
+    ldr r2, lbl_0802c558 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #2
     ands r0, r1
@@ -8077,7 +8077,7 @@ SpacePirateLaserExplodingInit: @ 0x0802c540
     strh r0, [r2]
     b lbl_0802c590
     .align 2, 0
-lbl_0802c558: .4byte 0x03000738
+lbl_0802c558: .4byte gCurrentSprite
 lbl_0802c55c:
     ldr r0, lbl_0802c594 @ =0x082e4908
     str r0, [r2, #0x18]
@@ -8095,7 +8095,7 @@ lbl_0802c55c:
     adds r1, #2
     movs r0, #1
     strb r0, [r1]
-    ldr r0, lbl_0802c598 @ =0x03000088
+    ldr r0, lbl_0802c598 @ =gIoRegistersBackup
     ldrb r1, [r0, #0xc]
     movs r0, #3
     ands r0, r1
@@ -8109,13 +8109,13 @@ lbl_0802c590:
     bx r0
     .align 2, 0
 lbl_0802c594: .4byte 0x082e4908
-lbl_0802c598: .4byte 0x03000088
+lbl_0802c598: .4byte gIoRegistersBackup
 lbl_0802c59c: .4byte 0x0000025f
 
     thumb_func_start SpacePirateLaserCheckExplodingAnimEnded
 SpacePirateLaserCheckExplodingAnimEnded: @ 0x0802c5a0
     push {r4, lr}
-    ldr r4, lbl_0802c5c0 @ =0x03000738
+    ldr r4, lbl_0802c5c0 @ =gCurrentSprite
     adds r1, r4, #0
     adds r1, #0x26
     movs r0, #1
@@ -8130,12 +8130,12 @@ lbl_0802c5b8:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802c5c0: .4byte 0x03000738
+lbl_0802c5c0: .4byte gCurrentSprite
 
     thumb_func_start SpacePirateLaserMove
 SpacePirateLaserMove: @ 0x0802c5c4
     push {r4, r5, lr}
-    ldr r0, lbl_0802c5f4 @ =0x03000738
+    ldr r0, lbl_0802c5f4 @ =gCurrentSprite
     adds r1, r0, #0
     adds r1, #0x2e
     ldrb r2, [r1]
@@ -8159,7 +8159,7 @@ lbl_0802c5d8:
     adds r0, #0x14
     b lbl_0802c634
     .align 2, 0
-lbl_0802c5f4: .4byte 0x03000738
+lbl_0802c5f4: .4byte gCurrentSprite
 lbl_0802c5f8:
     ldrh r0, [r4, #2]
     subs r0, #0xf
@@ -8197,7 +8197,7 @@ lbl_0802c630:
     subs r0, #0x14
 lbl_0802c634:
     strh r0, [r4, #4]
-    ldr r1, lbl_0802c658 @ =0x03000079
+    ldr r1, lbl_0802c658 @ =gCurrentClipdataAffectingAction
     movs r0, #8
     strb r0, [r1]
     adds r5, r4, #0
@@ -8213,7 +8213,7 @@ lbl_0802c634:
     strh r0, [r5]
     b lbl_0802c69c
     .align 2, 0
-lbl_0802c658: .4byte 0x03000079
+lbl_0802c658: .4byte gCurrentClipdataAffectingAction
 lbl_0802c65c:
     bl SpacePirateLaserExplodingInit
     b lbl_0802c69c
@@ -8259,7 +8259,7 @@ SpacePirate: @ 0x0802c6a4
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
-    ldr r4, lbl_0802c718 @ =0x03000738
+    ldr r4, lbl_0802c718 @ =gCurrentSprite
     ldrh r0, [r4]
     movs r6, #0x80
     lsls r6, r6, #3
@@ -8283,11 +8283,11 @@ lbl_0802c6ce:
     ldrb r5, [r2]
     cmp r5, #0
     beq lbl_0802c742
-    ldr r0, lbl_0802c71c @ =0x03001530
+    ldr r0, lbl_0802c71c @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_0802c738
-    ldr r0, lbl_0802c720 @ =0x03000c77
+    ldr r0, lbl_0802c720 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r3, #1
     adds r0, r3, #0
@@ -8317,9 +8317,9 @@ lbl_0802c6fe:
     strb r3, [r0]
     b lbl_0802c72e
     .align 2, 0
-lbl_0802c718: .4byte 0x03000738
-lbl_0802c71c: .4byte 0x03001530
-lbl_0802c720: .4byte 0x03000c77
+lbl_0802c718: .4byte gCurrentSprite
+lbl_0802c71c: .4byte gEquipment
+lbl_0802c720: .4byte gFrameCounter8Bit
 lbl_0802c724:
     adds r0, r4, #0
     adds r0, #0x20
@@ -8344,12 +8344,12 @@ lbl_0802c742:
     ands r0, r2
     cmp r0, #0
     beq lbl_0802c7bc
-    ldr r0, lbl_0802c784 @ =0x030007f3
+    ldr r0, lbl_0802c784 @ =gSpriteDrawOrder
     ldrb r1, [r0, #2]
     adds r3, r0, #0
     cmp r1, #1
     bne lbl_0802c7a6
-    ldr r0, lbl_0802c788 @ =0x030001a8
+    ldr r0, lbl_0802c788 @ =gAlarmTimer
     movs r5, #0xf0
     lsls r5, r5, #1
     adds r1, r5, #0
@@ -8371,8 +8371,8 @@ lbl_0802c742:
     beq lbl_0802c79a
     b lbl_0802c7a0
     .align 2, 0
-lbl_0802c784: .4byte 0x030007f3
-lbl_0802c788: .4byte 0x030001a8
+lbl_0802c784: .4byte gSpriteDrawOrder
+lbl_0802c788: .4byte gAlarmTimer
 lbl_0802c78c:
     ldrb r0, [r3, #1]
     cmp r0, #0
@@ -8390,7 +8390,7 @@ lbl_0802c7a0:
     strb r0, [r3, #2]
     b lbl_0802c7d0
 lbl_0802c7a6:
-    ldr r0, lbl_0802c7b4 @ =0x030001a8
+    ldr r0, lbl_0802c7b4 @ =gAlarmTimer
     ldrh r0, [r0]
     cmp r0, #0
     bne lbl_0802c7d0
@@ -8398,10 +8398,10 @@ lbl_0802c7a6:
     ands r0, r2
     b lbl_0802c7ce
     .align 2, 0
-lbl_0802c7b4: .4byte 0x030001a8
+lbl_0802c7b4: .4byte gAlarmTimer
 lbl_0802c7b8: .4byte 0x0000fbff
 lbl_0802c7bc:
-    ldr r0, lbl_0802c7ec @ =0x030001a8
+    ldr r0, lbl_0802c7ec @ =gAlarmTimer
     ldrh r0, [r0]
     cmp r0, #0
     beq lbl_0802c7d0
@@ -8415,7 +8415,7 @@ lbl_0802c7ce:
 lbl_0802c7d0:
     bl SpacePirateCheckCollidingWithLaser
 lbl_0802c7d4:
-    ldr r0, lbl_0802c7f0 @ =0x03000738
+    ldr r0, lbl_0802c7f0 @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x6c
@@ -8428,8 +8428,8 @@ lbl_0802c7e0:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0802c7ec: .4byte 0x030001a8
-lbl_0802c7f0: .4byte 0x03000738
+lbl_0802c7ec: .4byte gAlarmTimer
+lbl_0802c7f0: .4byte gCurrentSprite
 lbl_0802c7f4: .4byte lbl_0802c7f8
 lbl_0802c7f8: @ jump table
     .4byte lbl_0802c9ac @ case 0
@@ -8710,7 +8710,7 @@ lbl_0802caf6:
     mov r0, r8
     cmp r0, #0
     bne lbl_0802cb10
-    ldr r0, lbl_0802cb1c @ =0x03000738
+    ldr r0, lbl_0802cb1c @ =gCurrentSprite
     ldrh r1, [r0]
     ldr r0, lbl_0802cb20 @ =0x00008403
     ands r0, r1
@@ -8726,7 +8726,7 @@ lbl_0802cb10:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802cb1c: .4byte 0x03000738
+lbl_0802cb1c: .4byte gCurrentSprite
 lbl_0802cb20: .4byte 0x00008403
 lbl_0802cb24: .4byte 0x00000403
 lbl_0802cb28: .4byte 0x00000169
@@ -8734,7 +8734,7 @@ lbl_0802cb28: .4byte 0x00000169
     thumb_func_start SpacePirateLaser
 SpacePirateLaser: @ 0x0802cb2c
     push {lr}
-    ldr r0, lbl_0802cb44 @ =0x03000738
+    ldr r0, lbl_0802cb44 @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x42
@@ -8745,7 +8745,7 @@ SpacePirateLaser: @ 0x0802cb2c
     beq lbl_0802cb4e
     b lbl_0802cb60
     .align 2, 0
-lbl_0802cb44: .4byte 0x03000738
+lbl_0802cb44: .4byte gCurrentSprite
 lbl_0802cb48:
     cmp r0, #0x43
     beq lbl_0802cb5a
@@ -8773,9 +8773,9 @@ BlackSpacePirateProjectileCollision: @ 0x0802cb68
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0x14
-    ldr r0, lbl_0802cc1c @ =0x03001530
+    ldr r0, lbl_0802cc1c @ =gEquipment
     mov sl, r0
-    ldr r5, lbl_0802cc20 @ =0x03000738
+    ldr r5, lbl_0802cc20 @ =gCurrentSprite
     ldrh r1, [r5, #2]
     ldrh r2, [r5, #4]
     ldrh r0, [r5, #0xa]
@@ -8798,7 +8798,7 @@ BlackSpacePirateProjectileCollision: @ 0x0802cb68
     lsls r2, r2, #0x10
     lsrs r2, r2, #0x10
     str r2, [sp, #0x10]
-    ldr r6, lbl_0802cc24 @ =0x03000a2c
+    ldr r6, lbl_0802cc24 @ =gProjectileData
     movs r1, #0xe0
     lsls r1, r1, #1
     adds r0, r6, r1
@@ -8868,9 +8868,9 @@ lbl_0802cc08:
     beq lbl_0802cc36
     b lbl_0802cda2
     .align 2, 0
-lbl_0802cc1c: .4byte 0x03001530
-lbl_0802cc20: .4byte 0x03000738
-lbl_0802cc24: .4byte 0x03000a2c
+lbl_0802cc1c: .4byte gEquipment
+lbl_0802cc20: .4byte gCurrentSprite
+lbl_0802cc24: .4byte gProjectileData
 lbl_0802cc28:
     cmp r1, #0xc
     bne lbl_0802cc2e
@@ -9078,7 +9078,7 @@ lbl_0802cda2:
     bl ParticleSet
 lbl_0802cdb0:
     adds r6, #0x1c
-    ldr r0, lbl_0802cdcc @ =0x03000bec
+    ldr r0, lbl_0802cdcc @ =gArmCannonY
     cmp r6, r0
     bhs lbl_0802cdba
     b lbl_0802cbbe
@@ -9092,7 +9092,7 @@ lbl_0802cdba:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802cdcc: .4byte 0x03000bec
+lbl_0802cdcc: .4byte gArmCannonY
 
     thumb_func_start BlackSpacePirateCollidingWithLaser
 BlackSpacePirateCollidingWithLaser: @ 0x0802cdd0
@@ -9102,7 +9102,7 @@ BlackSpacePirateCollidingWithLaser: @ 0x0802cdd0
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0x20
-    ldr r3, lbl_0802ce88 @ =0x03000738
+    ldr r3, lbl_0802ce88 @ =gCurrentSprite
     ldrh r1, [r3]
     movs r0, #6
     ands r0, r1
@@ -9132,7 +9132,7 @@ BlackSpacePirateCollidingWithLaser: @ 0x0802cdd0
     mov sl, r2
     movs r0, #4
     mov sb, r0
-    ldr r6, lbl_0802ce8c @ =0x030001ac
+    ldr r6, lbl_0802ce8c @ =gSpriteData
     movs r1, #0xa8
     lsls r1, r1, #3
     adds r0, r6, r1
@@ -9188,13 +9188,13 @@ lbl_0802ce2a:
     bl ParticleSet
     b lbl_0802ce9c
     .align 2, 0
-lbl_0802ce88: .4byte 0x03000738
-lbl_0802ce8c: .4byte 0x030001ac
+lbl_0802ce88: .4byte gCurrentSprite
+lbl_0802ce8c: .4byte gSpriteData
 lbl_0802ce90:
     movs r7, #0x38
     add r8, r7
     adds r6, #0x38
-    ldr r0, lbl_0802ceac @ =0x030006ec
+    ldr r0, lbl_0802ceac @ =gSpritesetSpritesID
     cmp r6, r0
     blo lbl_0802ce2a
 lbl_0802ce9c:
@@ -9207,12 +9207,12 @@ lbl_0802ce9c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802ceac: .4byte 0x030006ec
+lbl_0802ceac: .4byte gSpritesetSpritesID
 
     thumb_func_start BlackSpacePirateInit
 BlackSpacePirateInit: @ 0x0802ceb0
     push {r4, r5, r6, lr}
-    ldr r0, lbl_0802cf6c @ =0x03000738
+    ldr r0, lbl_0802cf6c @ =gCurrentSprite
     mov ip, r0
     ldrh r0, [r0]
     ldr r3, lbl_0802cf70 @ =0x0000fffb
@@ -9267,7 +9267,7 @@ BlackSpacePirateInit: @ 0x0802ceb0
     str r0, [r1, #0x18]
     strh r4, [r1, #0x16]
     strb r5, [r1, #0x1c]
-    ldr r0, lbl_0802cf80 @ =0x0300083c
+    ldr r0, lbl_0802cf80 @ =gSpriteRNG
     ldrb r1, [r0]
     lsls r0, r1, #2
     adds r0, r0, r1
@@ -9306,12 +9306,12 @@ BlackSpacePirateInit: @ 0x0802ceb0
     strh r3, [r0]
     b lbl_0802cf88
     .align 2, 0
-lbl_0802cf6c: .4byte 0x03000738
+lbl_0802cf6c: .4byte gCurrentSprite
 lbl_0802cf70: .4byte 0x0000fffb
 lbl_0802cf74: .4byte 0x0000ff60
 lbl_0802cf78: .4byte 0x082b0d68
 lbl_0802cf7c: .4byte 0x082e4890
-lbl_0802cf80: .4byte 0x0300083c
+lbl_0802cf80: .4byte gSpriteRNG
 lbl_0802cf84:
     bl SpriteUtilMakeSpriteFaceSamusDirection
 lbl_0802cf88:
@@ -9324,7 +9324,7 @@ lbl_0802cf88:
     thumb_func_start BlackSpacePirateCheckStartActing
 BlackSpacePirateCheckStartActing: @ 0x0802cf94
     push {lr}
-    ldr r2, lbl_0802cfb0 @ =0x03000738
+    ldr r2, lbl_0802cfb0 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #2
     ands r0, r1
@@ -9338,12 +9338,12 @@ lbl_0802cfaa:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802cfb0: .4byte 0x03000738
+lbl_0802cfb0: .4byte gCurrentSprite
 
     thumb_func_start BlackSpacePirateShootingInit
 BlackSpacePirateShootingInit: @ 0x0802cfb4
     push {lr}
-    ldr r2, lbl_0802cfd4 @ =0x03000738
+    ldr r2, lbl_0802cfd4 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x35
@@ -9359,7 +9359,7 @@ BlackSpacePirateShootingInit: @ 0x0802cfb4
     ldr r0, lbl_0802cfd8 @ =0x082e4558
     b lbl_0802cfea
     .align 2, 0
-lbl_0802cfd4: .4byte 0x03000738
+lbl_0802cfd4: .4byte gCurrentSprite
 lbl_0802cfd8: .4byte 0x082e4558
 lbl_0802cfdc:
     cmp r0, #2
@@ -9387,12 +9387,12 @@ lbl_0802d000: .4byte 0x082e4368
     thumb_func_start space_pirate_shooting_timer
 space_pirate_shooting_timer: @ 0x0802d004
     push {r4, lr}
-    ldr r4, lbl_0802d024 @ =0x03000738
+    ldr r4, lbl_0802d024 @ =gCurrentSprite
     ldrb r0, [r4, #0x1c]
     adds r0, #1
     strb r0, [r4, #0x1c]
     bl unk_f594
-    ldr r0, lbl_0802d028 @ =0x030007f0
+    ldr r0, lbl_0802d028 @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0802d02c
@@ -9401,8 +9401,8 @@ space_pirate_shooting_timer: @ 0x0802d004
     movs r0, #0x1e
     b lbl_0802d040
     .align 2, 0
-lbl_0802d024: .4byte 0x03000738
-lbl_0802d028: .4byte 0x030007f0
+lbl_0802d024: .4byte gCurrentSprite
+lbl_0802d028: .4byte gPreviousVerticalCollisionCheck
 lbl_0802d02c:
     adds r1, r4, #0
     adds r1, #0x2c
@@ -9424,7 +9424,7 @@ lbl_0802d040:
     thumb_func_start black_space_pirate_shooting_gfx_init
 black_space_pirate_shooting_gfx_init: @ 0x0802d048
     push {lr}
-    ldr r0, lbl_0802d064 @ =0x03000738
+    ldr r0, lbl_0802d064 @ =gCurrentSprite
     adds r2, r0, #0
     adds r2, #0x24
     movs r1, #0x37
@@ -9438,7 +9438,7 @@ black_space_pirate_shooting_gfx_init: @ 0x0802d048
     ldr r0, lbl_0802d068 @ =0x082e4598
     b lbl_0802d07a
     .align 2, 0
-lbl_0802d064: .4byte 0x03000738
+lbl_0802d064: .4byte gCurrentSprite
 lbl_0802d068: .4byte 0x082e4598
 lbl_0802d06c:
     cmp r1, #2
@@ -9462,7 +9462,7 @@ lbl_0802d088: .4byte 0x082e4428
     thumb_func_start sub_0802d08c
 sub_0802d08c: @ 0x0802d08c
     push {r4, r5, lr}
-    ldr r0, lbl_0802d0c0 @ =0x03000738
+    ldr r0, lbl_0802d0c0 @ =gCurrentSprite
     ldrb r1, [r0, #0x1c]
     adds r1, #1
     strb r1, [r0, #0x1c]
@@ -9476,44 +9476,44 @@ sub_0802d08c: @ 0x0802d08c
     bl SpacePirateFireLaserGround
 lbl_0802d0a8:
     bl unk_f594
-    ldr r0, lbl_0802d0c4 @ =0x030007f0
+    ldr r0, lbl_0802d0c4 @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0802d0c8
-    ldr r0, lbl_0802d0c0 @ =0x03000738
+    ldr r0, lbl_0802d0c0 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x1e
     strb r1, [r0]
     b lbl_0802d17a
     .align 2, 0
-lbl_0802d0c0: .4byte 0x03000738
-lbl_0802d0c4: .4byte 0x030007f0
+lbl_0802d0c0: .4byte gCurrentSprite
+lbl_0802d0c4: .4byte gPreviousVerticalCollisionCheck
 lbl_0802d0c8:
     bl SpriteUtilCheckNearEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0802d17a
-    ldr r0, lbl_0802d0e4 @ =0x030007f3
+    ldr r0, lbl_0802d0e4 @ =gSpriteDrawOrder
     ldrb r1, [r0, #2]
     adds r5, r0, #0
     cmp r1, #0
     bne lbl_0802d0ec
-    ldr r0, lbl_0802d0e8 @ =0x03000738
+    ldr r0, lbl_0802d0e8 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x22
     strb r1, [r0]
     b lbl_0802d17a
     .align 2, 0
-lbl_0802d0e4: .4byte 0x030007f3
-lbl_0802d0e8: .4byte 0x03000738
+lbl_0802d0e4: .4byte gSpriteDrawOrder
+lbl_0802d0e8: .4byte gCurrentSprite
 lbl_0802d0ec:
-    ldr r0, lbl_0802d13c @ =0x03000738
+    ldr r0, lbl_0802d13c @ =gCurrentSprite
     ldrb r0, [r0, #0x1d]
     movs r1, #0x80
     lsls r1, r1, #2
     cmp r0, #0x55
     beq lbl_0802d106
     subs r1, #0x80
-    ldr r0, lbl_0802d140 @ =0x030013d4
+    ldr r0, lbl_0802d140 @ =gSamusData
     movs r2, #0x16
     ldrsh r0, [r0, r2]
     cmp r0, #0
@@ -9531,7 +9531,7 @@ lbl_0802d114:
     adds r0, r2, #0
     bl SpriteUtilCheckSamusNearSpriteLeftRight
     adds r3, r0, #0
-    ldr r2, lbl_0802d13c @ =0x03000738
+    ldr r2, lbl_0802d13c @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -9547,8 +9547,8 @@ lbl_0802d114:
     ldrb r1, [r4]
     b lbl_0802d16a
     .align 2, 0
-lbl_0802d13c: .4byte 0x03000738
-lbl_0802d140: .4byte 0x030013d4
+lbl_0802d13c: .4byte gCurrentSprite
+lbl_0802d140: .4byte gSamusData
 lbl_0802d144:
     cmp r3, #4
     bne lbl_0802d172
@@ -9591,7 +9591,7 @@ lbl_0802d17a:
 BlackSpacePirateJumping: @ 0x0802d180
     push {r4, r5, r6, r7, lr}
     movs r7, #0
-    ldr r4, lbl_0802d1cc @ =0x03000738
+    ldr r4, lbl_0802d1cc @ =gCurrentSprite
     ldrh r1, [r4]
     movs r0, #0x80
     lsls r0, r0, #7
@@ -9628,7 +9628,7 @@ lbl_0802d1c6:
     strb r0, [r2]
     b lbl_0802d5d6
     .align 2, 0
-lbl_0802d1cc: .4byte 0x03000738
+lbl_0802d1cc: .4byte gCurrentSprite
 lbl_0802d1d0:
     cmp r0, #0x42
     bne lbl_0802d200
@@ -9638,7 +9638,7 @@ lbl_0802d1d0:
     ands r0, r1
     cmp r0, #0
     beq lbl_0802d1f0
-    ldr r0, lbl_0802d1ec @ =0x030007f3
+    ldr r0, lbl_0802d1ec @ =gSpriteDrawOrder
     ldrb r0, [r0, #4]
     cmp r0, #0
     beq lbl_0802d1ea
@@ -9646,9 +9646,9 @@ lbl_0802d1d0:
 lbl_0802d1ea:
     b lbl_0802d206
     .align 2, 0
-lbl_0802d1ec: .4byte 0x030007f3
+lbl_0802d1ec: .4byte gSpriteDrawOrder
 lbl_0802d1f0:
-    ldr r0, lbl_0802d1fc @ =0x030007f3
+    ldr r0, lbl_0802d1fc @ =gSpriteDrawOrder
     ldrb r0, [r0, #4]
     cmp r0, #1
     beq lbl_0802d1fa
@@ -9656,7 +9656,7 @@ lbl_0802d1f0:
 lbl_0802d1fa:
     b lbl_0802d206
     .align 2, 0
-lbl_0802d1fc: .4byte 0x030007f3
+lbl_0802d1fc: .4byte gSpriteDrawOrder
 lbl_0802d200:
     cmp r0, #0x4e
     beq lbl_0802d206
@@ -9752,7 +9752,7 @@ lbl_0802d2a2:
 lbl_0802d2a6:
     movs r6, #0xc
 lbl_0802d2a8:
-    ldr r4, lbl_0802d304 @ =0x03000738
+    ldr r4, lbl_0802d304 @ =gCurrentSprite
     ldrh r1, [r4]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -9798,7 +9798,7 @@ lbl_0802d2f8:
     adds r0, r0, r6
     b lbl_0802d352
     .align 2, 0
-lbl_0802d304: .4byte 0x03000738
+lbl_0802d304: .4byte gCurrentSprite
 lbl_0802d308:
     ldrh r0, [r4, #2]
     subs r0, #0xa0
@@ -9840,7 +9840,7 @@ lbl_0802d34a:
 lbl_0802d352:
     strh r0, [r4, #4]
 lbl_0802d354:
-    ldr r1, lbl_0802d388 @ =0x03000738
+    ldr r1, lbl_0802d388 @ =gCurrentSprite
     ldrh r2, [r1]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -9852,7 +9852,7 @@ lbl_0802d354:
     bne lbl_0802d36a
     b lbl_0802d484
 lbl_0802d36a:
-    ldr r1, lbl_0802d38c @ =0x030013d4
+    ldr r1, lbl_0802d38c @ =gSamusData
     ldrh r0, [r5, #2]
     ldrh r3, [r1, #0x14]
     cmp r0, r3
@@ -9868,8 +9868,8 @@ lbl_0802d36a:
     bls lbl_0802d39a
     b lbl_0802d484
     .align 2, 0
-lbl_0802d388: .4byte 0x03000738
-lbl_0802d38c: .4byte 0x030013d4
+lbl_0802d388: .4byte gCurrentSprite
+lbl_0802d38c: .4byte gSamusData
 lbl_0802d390:
     ldrh r0, [r5, #4]
     ldrh r1, [r1, #0x12]
@@ -9918,7 +9918,7 @@ lbl_0802d3dc:
     lsrs r0, r0, #0x18
     cmp r0, #0
     bne lbl_0802d3fc
-    ldr r2, lbl_0802d3f8 @ =0x03000738
+    ldr r2, lbl_0802d3f8 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x48
@@ -9926,9 +9926,9 @@ lbl_0802d3dc:
     adds r5, r2, #0
     b lbl_0802d474
     .align 2, 0
-lbl_0802d3f8: .4byte 0x03000738
+lbl_0802d3f8: .4byte gCurrentSprite
 lbl_0802d3fc:
-    ldr r1, lbl_0802d430 @ =0x03000738
+    ldr r1, lbl_0802d430 @ =gCurrentSprite
     ldrh r2, [r1]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -9936,7 +9936,7 @@ lbl_0802d3fc:
     adds r5, r1, #0
     cmp r0, #0
     beq lbl_0802d454
-    ldr r0, lbl_0802d434 @ =0x030007f3
+    ldr r0, lbl_0802d434 @ =gSpriteDrawOrder
     ldrb r0, [r0, #3]
     cmp r0, #1
     bne lbl_0802d46c
@@ -9945,7 +9945,7 @@ lbl_0802d3fc:
     ands r0, r2
     cmp r0, #0
     beq lbl_0802d43c
-    ldr r1, lbl_0802d438 @ =0x030013d4
+    ldr r1, lbl_0802d438 @ =gSamusData
     ldrh r0, [r5, #4]
     ldrh r1, [r1, #0x12]
     cmp r0, r1
@@ -9955,11 +9955,11 @@ lbl_0802d3fc:
     movs r0, #0x5e
     b lbl_0802d472
     .align 2, 0
-lbl_0802d430: .4byte 0x03000738
-lbl_0802d434: .4byte 0x030007f3
-lbl_0802d438: .4byte 0x030013d4
+lbl_0802d430: .4byte gCurrentSprite
+lbl_0802d434: .4byte gSpriteDrawOrder
+lbl_0802d438: .4byte gSamusData
 lbl_0802d43c:
-    ldr r1, lbl_0802d450 @ =0x030013d4
+    ldr r1, lbl_0802d450 @ =gSamusData
     ldrh r0, [r5, #4]
     ldrh r1, [r1, #0x12]
     cmp r0, r1
@@ -9969,9 +9969,9 @@ lbl_0802d43c:
     movs r0, #0x5e
     b lbl_0802d472
     .align 2, 0
-lbl_0802d450: .4byte 0x030013d4
+lbl_0802d450: .4byte gSamusData
 lbl_0802d454:
-    ldr r0, lbl_0802d468 @ =0x0300083c
+    ldr r0, lbl_0802d468 @ =gSpriteRNG
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -9982,7 +9982,7 @@ lbl_0802d454:
     movs r0, #0x5e
     b lbl_0802d472
     .align 2, 0
-lbl_0802d468: .4byte 0x0300083c
+lbl_0802d468: .4byte gSpriteRNG
 lbl_0802d46c:
     adds r1, r5, #0
     adds r1, #0x24
@@ -9999,7 +9999,7 @@ lbl_0802d474:
     .align 2, 0
 lbl_0802d480: .4byte 0x0000ffc0
 lbl_0802d484:
-    ldr r1, lbl_0802d4cc @ =0x03000738
+    ldr r1, lbl_0802d4cc @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x2f
     ldrb r0, [r0]
@@ -10014,7 +10014,7 @@ lbl_0802d484:
     lsls r0, r0, #1
     bl SoundPlayNotAlreadyPlaying
 lbl_0802d4a2:
-    ldr r1, lbl_0802d4cc @ =0x03000738
+    ldr r1, lbl_0802d4cc @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x2d
     ldrb r0, [r0]
@@ -10036,7 +10036,7 @@ lbl_0802d4a2:
     bhi lbl_0802d55e
     b lbl_0802d55a
     .align 2, 0
-lbl_0802d4cc: .4byte 0x03000738
+lbl_0802d4cc: .4byte gCurrentSprite
 lbl_0802d4d0: .4byte 0x082e1030
 lbl_0802d4d4:
     cmp r0, #2
@@ -10124,7 +10124,7 @@ lbl_0802d55e:
     ldrh r1, [r4, #4]
     bl SpriteUtilCheckVerticalCollisionAtPositionSlopes
     adds r1, r0, #0
-    ldr r0, lbl_0802d5ac @ =0x030007f0
+    ldr r0, lbl_0802d5ac @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0802d5d6
@@ -10150,7 +10150,7 @@ lbl_0802d55e:
     b lbl_0802d5d6
     .align 2, 0
 lbl_0802d5a8: .4byte 0x082e1020
-lbl_0802d5ac: .4byte 0x030007f0
+lbl_0802d5ac: .4byte gPreviousVerticalCollisionCheck
 lbl_0802d5b0: .4byte 0x082e44e0
 lbl_0802d5b4: .4byte 0x00000167
 lbl_0802d5b8:
@@ -10180,7 +10180,7 @@ sub_0802d5dc: @ 0x0802d5dc
     push {r7}
     movs r0, #0
     mov r8, r0
-    ldr r4, lbl_0802d628 @ =0x03000738
+    ldr r4, lbl_0802d628 @ =gCurrentSprite
     ldrb r0, [r4, #0x1c]
     adds r0, #1
     strb r0, [r4, #0x1c]
@@ -10205,7 +10205,7 @@ lbl_0802d5fc:
     ands r0, r1
     cmp r0, #0
     beq lbl_0802d630
-    ldr r0, lbl_0802d62c @ =0x030007f3
+    ldr r0, lbl_0802d62c @ =gSpriteDrawOrder
     ldrb r0, [r0, #4]
     cmp r0, #0
     beq lbl_0802d624
@@ -10213,10 +10213,10 @@ lbl_0802d5fc:
 lbl_0802d624:
     b lbl_0802d646
     .align 2, 0
-lbl_0802d628: .4byte 0x03000738
-lbl_0802d62c: .4byte 0x030007f3
+lbl_0802d628: .4byte gCurrentSprite
+lbl_0802d62c: .4byte gSpriteDrawOrder
 lbl_0802d630:
-    ldr r0, lbl_0802d63c @ =0x030007f3
+    ldr r0, lbl_0802d63c @ =gSpriteDrawOrder
     ldrb r0, [r0, #4]
     cmp r0, #1
     beq lbl_0802d63a
@@ -10224,7 +10224,7 @@ lbl_0802d630:
 lbl_0802d63a:
     b lbl_0802d646
     .align 2, 0
-lbl_0802d63c: .4byte 0x030007f3
+lbl_0802d63c: .4byte gSpriteDrawOrder
 lbl_0802d640:
     cmp r0, #0x4e
     beq lbl_0802d646
@@ -10275,7 +10275,7 @@ lbl_0802d698:
     movs r0, #0x30
 lbl_0802d69e:
     strb r0, [r1]
-    ldr r0, lbl_0802d6b4 @ =0x03000738
+    ldr r0, lbl_0802d6b4 @ =gCurrentSprite
     adds r0, #0x2d
     movs r1, #4
     strb r1, [r0]
@@ -10283,7 +10283,7 @@ lbl_0802d69e:
     bl BlackSpacePirateJumping
     b lbl_0802d746
     .align 2, 0
-lbl_0802d6b4: .4byte 0x03000738
+lbl_0802d6b4: .4byte gCurrentSprite
 lbl_0802d6b8:
     ldr r1, [r4, #0x18]
     ldr r0, lbl_0802d6cc @ =0x082e4320
@@ -10337,7 +10337,7 @@ lbl_0802d720:
     movs r0, #9
     strb r0, [r7]
 lbl_0802d724:
-    ldr r2, lbl_0802d750 @ =0x03000738
+    ldr r2, lbl_0802d750 @ =gCurrentSprite
     ldrb r0, [r2, #0x1c]
     cmp r0, #5
     bls lbl_0802d746
@@ -10360,7 +10360,7 @@ lbl_0802d746:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802d750: .4byte 0x03000738
+lbl_0802d750: .4byte gCurrentSprite
 lbl_0802d754: .4byte 0x00000165
 
     thumb_func_start BlackSpacePirateDeath
@@ -10370,7 +10370,7 @@ BlackSpacePirateDeath: @ 0x0802d758
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0802d776
-    ldr r0, lbl_0802d790 @ =0x03000738
+    ldr r0, lbl_0802d790 @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #2
     ands r0, r1
@@ -10380,7 +10380,7 @@ BlackSpacePirateDeath: @ 0x0802d758
     lsls r0, r0, #1
     bl SoundPlay
 lbl_0802d776:
-    ldr r0, lbl_0802d790 @ =0x03000738
+    ldr r0, lbl_0802d790 @ =gCurrentSprite
     ldrh r1, [r0, #2]
     subs r1, #0x60
     ldrh r2, [r0, #4]
@@ -10393,12 +10393,12 @@ lbl_0802d776:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802d790: .4byte 0x03000738
+lbl_0802d790: .4byte gCurrentSprite
 
     thumb_func_start sub_0802d794
 sub_0802d794: @ 0x0802d794
     push {r4, lr}
-    ldr r4, lbl_0802d7d8 @ =0x03000738
+    ldr r4, lbl_0802d7d8 @ =gCurrentSprite
     ldrh r1, [r4]
     movs r0, #2
     ands r0, r1
@@ -10432,12 +10432,12 @@ lbl_0802d7aa:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802d7d8: .4byte 0x03000738
+lbl_0802d7d8: .4byte gCurrentSprite
 
     thumb_func_start sub_0802d7dc
 sub_0802d7dc: @ 0x0802d7dc
     push {lr}
-    ldr r2, lbl_0802d824 @ =0x03000738
+    ldr r2, lbl_0802d824 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x26
     movs r0, #1
@@ -10472,7 +10472,7 @@ sub_0802d7dc: @ 0x0802d7dc
     strb r1, [r0]
     b lbl_0802d83c
     .align 2, 0
-lbl_0802d824: .4byte 0x03000738
+lbl_0802d824: .4byte gCurrentSprite
 lbl_0802d828:
     adds r0, r2, #0
     adds r0, #0x34
@@ -10491,7 +10491,7 @@ lbl_0802d83c:
 BlackSpacePirate: @ 0x0802d840
     push {r4, r5, r6, r7, lr}
     bl BlackSpacePirateProjectileCollision
-    ldr r5, lbl_0802d888 @ =0x03000738
+    ldr r5, lbl_0802d888 @ =gCurrentSprite
     ldrh r0, [r5]
     movs r4, #0x80
     lsls r4, r4, #3
@@ -10512,22 +10512,22 @@ BlackSpacePirate: @ 0x0802d840
     ands r0, r1
     cmp r0, #0
     beq lbl_0802d8ac
-    ldr r0, lbl_0802d88c @ =0x030007f3
+    ldr r0, lbl_0802d88c @ =gSpriteDrawOrder
     ldrb r0, [r0, #2]
     cmp r0, #1
     bne lbl_0802d894
-    ldr r1, lbl_0802d890 @ =0x030001a8
+    ldr r1, lbl_0802d890 @ =gAlarmTimer
     movs r2, #0xf0
     lsls r2, r2, #1
     adds r0, r2, #0
     strh r0, [r1]
     b lbl_0802d8c0
     .align 2, 0
-lbl_0802d888: .4byte 0x03000738
-lbl_0802d88c: .4byte 0x030007f3
-lbl_0802d890: .4byte 0x030001a8
+lbl_0802d888: .4byte gCurrentSprite
+lbl_0802d88c: .4byte gSpriteDrawOrder
+lbl_0802d890: .4byte gAlarmTimer
 lbl_0802d894:
-    ldr r0, lbl_0802d8a4 @ =0x030001a8
+    ldr r0, lbl_0802d8a4 @ =gAlarmTimer
     ldrh r0, [r0]
     cmp r0, #0
     bne lbl_0802d8c0
@@ -10535,10 +10535,10 @@ lbl_0802d894:
     ands r0, r1
     b lbl_0802d8be
     .align 2, 0
-lbl_0802d8a4: .4byte 0x030001a8
+lbl_0802d8a4: .4byte gAlarmTimer
 lbl_0802d8a8: .4byte 0x0000fbff
 lbl_0802d8ac:
-    ldr r0, lbl_0802d8dc @ =0x030001a8
+    ldr r0, lbl_0802d8dc @ =gAlarmTimer
     ldrh r0, [r0]
     cmp r0, #0
     beq lbl_0802d8c0
@@ -10552,7 +10552,7 @@ lbl_0802d8be:
 lbl_0802d8c0:
     bl BlackSpacePirateCollidingWithLaser
 lbl_0802d8c4:
-    ldr r0, lbl_0802d8e0 @ =0x03000738
+    ldr r0, lbl_0802d8e0 @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x6c
@@ -10565,8 +10565,8 @@ lbl_0802d8d0:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0802d8dc: .4byte 0x030001a8
-lbl_0802d8e0: .4byte 0x03000738
+lbl_0802d8dc: .4byte gAlarmTimer
+lbl_0802d8e0: .4byte gCurrentSprite
 lbl_0802d8e4: .4byte lbl_0802d8e8
 lbl_0802d8e8: @ jump table
     .4byte lbl_0802da9c @ case 0
@@ -10754,7 +10754,7 @@ lbl_0802db2c:
     bl black_space_pirate_shooting_gfx_init
 lbl_0802db30:
     bl sub_0802d08c
-    ldr r4, lbl_0802db8c @ =0x03000738
+    ldr r4, lbl_0802db8c @ =gCurrentSprite
     adds r0, r4, #0
     adds r0, #0x24
     ldrb r0, [r0]
@@ -10796,7 +10796,7 @@ lbl_0802db48:
     strh r0, [r4, #6]
     b lbl_0802dc4a
     .align 2, 0
-lbl_0802db8c: .4byte 0x03000738
+lbl_0802db8c: .4byte gCurrentSprite
 lbl_0802db90: .4byte 0xfffffed4
 lbl_0802db94:
     bl SpacePirateJumpingInit
@@ -10892,7 +10892,7 @@ lbl_0802dc44:
 lbl_0802dc4a:
     cmp r7, #0
     bne lbl_0802dc62
-    ldr r0, lbl_0802dc68 @ =0x03000738
+    ldr r0, lbl_0802dc68 @ =gCurrentSprite
     ldrh r1, [r0]
     ldr r0, lbl_0802dc6c @ =0x00008403
     ands r0, r1
@@ -10906,7 +10906,7 @@ lbl_0802dc62:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802dc68: .4byte 0x03000738
+lbl_0802dc68: .4byte gCurrentSprite
 lbl_0802dc6c: .4byte 0x00008403
 lbl_0802dc70: .4byte 0x00000403
 lbl_0802dc74: .4byte 0x00000169

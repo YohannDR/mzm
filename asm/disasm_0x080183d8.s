@@ -5,13 +5,13 @@
     thumb_func_start kraid_mouth_determine_spike_pos
 kraid_mouth_determine_spike_pos: @ 0x080183d8
     push {r4, lr}
-    ldr r4, lbl_08018434 @ =0x0300070c
+    ldr r4, lbl_08018434 @ =gSubSpriteData1
     ldrh r0, [r4, #4]
     ldr r1, [r4]
     lsls r0, r0, #3
     adds r0, r0, r1
     ldr r3, [r0]
-    ldr r2, lbl_08018438 @ =0x03000738
+    ldr r2, lbl_08018438 @ =gCurrentSprite
     ldrb r1, [r2, #0x1e]
     lsls r0, r1, #1
     adds r0, r0, r1
@@ -52,8 +52,8 @@ lbl_0801840a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08018434: .4byte 0x0300070c
-lbl_08018438: .4byte 0x03000738
+lbl_08018434: .4byte gSubSpriteData1
+lbl_08018438: .4byte gCurrentSprite
 lbl_0801843c: .4byte 0x0875f564
 
     thumb_func_start KraidCheckProjectilesCollidingWithBelly
@@ -63,7 +63,7 @@ KraidCheckProjectilesCollidingWithBelly: @ 0x08018440
     mov r6, sb
     mov r5, r8
     push {r5, r6, r7}
-    ldr r2, lbl_08018500 @ =0x03000738
+    ldr r2, lbl_08018500 @ =gCurrentSprite
     ldrh r1, [r2, #2]
     ldrh r3, [r2, #4]
     ldrh r0, [r2, #0xa]
@@ -85,7 +85,7 @@ KraidCheckProjectilesCollidingWithBelly: @ 0x08018440
     adds r3, r3, r0
     lsls r3, r3, #0x10
     lsrs r7, r3, #0x10
-    ldr r6, lbl_08018504 @ =0x03000a2c
+    ldr r6, lbl_08018504 @ =gProjectileData
     movs r1, #0xe0
     lsls r1, r1, #1
     adds r0, r6, r1
@@ -139,7 +139,7 @@ lbl_080184c8:
     strb r0, [r6]
     ldrh r4, [r6, #8]
     ldrh r5, [r6, #0xa]
-    ldr r0, lbl_08018508 @ =0x0300083c
+    ldr r0, lbl_08018508 @ =gSpriteRNG
     ldrb r1, [r0]
     adds r0, r2, #0
     ands r0, r1
@@ -161,9 +161,9 @@ lbl_080184c8:
     bl SpriteDebrisInit
     b lbl_0801852a
     .align 2, 0
-lbl_08018500: .4byte 0x03000738
-lbl_08018504: .4byte 0x03000a2c
-lbl_08018508: .4byte 0x0300083c
+lbl_08018500: .4byte gCurrentSprite
+lbl_08018504: .4byte gProjectileData
+lbl_08018508: .4byte gSpriteRNG
 lbl_0801850c:
     adds r3, r5, #0
     adds r3, #0xc
@@ -248,7 +248,7 @@ lbl_080185c4:
     bl ParticleSet
 lbl_080185ce:
     adds r6, #0x1c
-    ldr r0, lbl_080185e8 @ =0x03000bec
+    ldr r0, lbl_080185e8 @ =gArmCannonY
     cmp r6, r0
     bhs lbl_080185d8
     b lbl_08018484
@@ -261,7 +261,7 @@ lbl_080185d8:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080185e8: .4byte 0x03000bec
+lbl_080185e8: .4byte gArmCannonY
 
     thumb_func_start KraidOpenCloseRoutineAndProjectileCollision
 KraidOpenCloseRoutineAndProjectileCollision: @ 0x080185ec
@@ -271,8 +271,8 @@ KraidOpenCloseRoutineAndProjectileCollision: @ 0x080185ec
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0xc
-    ldr r5, lbl_08018620 @ =0x03000738
-    ldr r2, lbl_08018624 @ =0x0300070c
+    ldr r5, lbl_08018620 @ =gCurrentSprite
+    ldr r2, lbl_08018624 @ =gSubSpriteData1
     ldrb r0, [r2, #0xe]
     cmp r0, #0
     beq lbl_08018606
@@ -292,8 +292,8 @@ lbl_08018606:
     str r0, [r5, #0x18]
     b lbl_080186d6
     .align 2, 0
-lbl_08018620: .4byte 0x03000738
-lbl_08018624: .4byte 0x0300070c
+lbl_08018620: .4byte gCurrentSprite
+lbl_08018624: .4byte gSubSpriteData1
 lbl_08018628: .4byte 0x082cab14
 lbl_0801862c: .4byte 0x082cab9c
 lbl_08018630:
@@ -302,7 +302,7 @@ lbl_08018630:
     bne lbl_0801863a
     b lbl_0801872c
 lbl_0801863a:
-    ldr r0, lbl_08018648 @ =0x0300083c
+    ldr r0, lbl_08018648 @ =gSpriteRNG
     ldrb r0, [r0]
     cmp r0, #4
     bhi lbl_0801872c
@@ -310,7 +310,7 @@ lbl_0801863a:
     str r0, [r5, #0x18]
     b lbl_0801867a
     .align 2, 0
-lbl_08018648: .4byte 0x0300083c
+lbl_08018648: .4byte gSpriteRNG
 lbl_0801864c: .4byte 0x082cab44
 lbl_08018650:
     ldr r7, lbl_08018668 @ =0x082cab44
@@ -393,7 +393,7 @@ lbl_080186ec:
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0801872c
-    ldr r0, lbl_08018704 @ =0x0300083c
+    ldr r0, lbl_08018704 @ =gSpriteRNG
     ldrb r1, [r0]
     ldr r0, [sp]
     ands r0, r1
@@ -402,7 +402,7 @@ lbl_080186ec:
     str r6, [r5, #0x18]
     b lbl_0801870a
     .align 2, 0
-lbl_08018704: .4byte 0x0300083c
+lbl_08018704: .4byte gSpriteRNG
 lbl_08018708:
     str r7, [r5, #0x18]
 lbl_0801870a:
@@ -461,7 +461,7 @@ lbl_08018748:
     adds r1, r1, r0
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
-    ldr r7, lbl_08018800 @ =0x03000a2c
+    ldr r7, lbl_08018800 @ =gProjectileData
     movs r2, #0xe0
     lsls r2, r2, #1
     adds r0, r7, r2
@@ -547,7 +547,7 @@ lbl_080187f0:
     mov r8, r2
     b lbl_080188b2
     .align 2, 0
-lbl_08018800: .4byte 0x03000a2c
+lbl_08018800: .4byte gProjectileData
 lbl_08018804: .4byte 0x040000d4
 lbl_08018808:
     cmp r0, #0xd
@@ -577,7 +577,7 @@ lbl_08018832:
     cmp r0, #8
     bne lbl_08018854
     movs r3, #1
-    ldr r0, lbl_08018850 @ =0x03001530
+    ldr r0, lbl_08018850 @ =gEquipment
     ldrb r1, [r0, #0xd]
     adds r0, r3, #0
     ands r0, r1
@@ -590,12 +590,12 @@ lbl_08018848:
     mov r8, r0
     b lbl_080188b2
     .align 2, 0
-lbl_08018850: .4byte 0x03001530
+lbl_08018850: .4byte gEquipment
 lbl_08018854:
     cmp r0, #9
     bne lbl_0801889c
     movs r3, #1
-    ldr r0, lbl_08018878 @ =0x03001530
+    ldr r0, lbl_08018878 @ =gEquipment
     ldrb r1, [r0, #0xd]
     adds r0, r3, #0
     ands r0, r1
@@ -610,7 +610,7 @@ lbl_08018854:
     mov r8, r1
     b lbl_080188b2
     .align 2, 0
-lbl_08018878: .4byte 0x03001530
+lbl_08018878: .4byte gEquipment
 lbl_0801887c:
     movs r4, #0x10
     movs r2, #0x2d
@@ -669,7 +669,7 @@ lbl_080188d8:
     movs r3, #2
     orrs r0, r3
     strb r0, [r6]
-    ldr r1, lbl_08018924 @ =0x0300070c
+    ldr r1, lbl_08018924 @ =gSubSpriteData1
     movs r0, #0xb4
     strb r0, [r1, #0xe]
     movs r4, #0
@@ -702,7 +702,7 @@ lbl_080188ec:
     ldr r0, [r1, #8]
     b lbl_08018966
     .align 2, 0
-lbl_08018924: .4byte 0x0300070c
+lbl_08018924: .4byte gSubSpriteData1
 lbl_08018928: .4byte 0x082b0d68
 lbl_0801892c: .4byte 0x000007ce
 lbl_08018930: .4byte 0x082c8eb4
@@ -788,7 +788,7 @@ lbl_080189d6:
     movs r0, #2
     orrs r0, r1
     strb r0, [r3]
-    ldr r2, lbl_080189f4 @ =0x0300070c
+    ldr r2, lbl_080189f4 @ =gSubSpriteData1
     ldrh r0, [r5, #0x14]
     movs r1, #0
     strh r0, [r2, #0xa]
@@ -799,7 +799,7 @@ lbl_080189d6:
     bl ParticleSet
     b lbl_08018a48
     .align 2, 0
-lbl_080189f4: .4byte 0x0300070c
+lbl_080189f4: .4byte gSubSpriteData1
 lbl_080189f8:
     ldrb r0, [r7, #0xf]
     cmp r0, #0xc
@@ -840,7 +840,7 @@ lbl_08018a32:
     b lbl_08018a48
 lbl_08018a3e:
     adds r7, #0x1c
-    ldr r0, lbl_08018a58 @ =0x03000bec
+    ldr r0, lbl_08018a58 @ =gArmCannonY
     cmp r7, r0
     bhs lbl_08018a48
     b lbl_08018786
@@ -854,7 +854,7 @@ lbl_08018a48:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08018a58: .4byte 0x03000bec
+lbl_08018a58: .4byte gArmCannonY
 
     thumb_func_start KraidRandomSpriteDebrisOnCeiling
 KraidRandomSpriteDebrisOnCeiling: @ 0x08018a5c
@@ -865,11 +865,11 @@ KraidRandomSpriteDebrisOnCeiling: @ 0x08018a5c
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
     mov sb, r0
-    ldr r1, lbl_08018a84 @ =0x0300070c
+    ldr r1, lbl_08018a84 @ =gSubSpriteData1
     ldrh r0, [r1, #0xa]
     cmp r0, #0
     beq lbl_08018a90
-    ldr r1, lbl_08018a88 @ =0x030013d4
+    ldr r1, lbl_08018a88 @ =gSamusData
     ldr r2, lbl_08018a8c @ =0xfffffe40
     adds r0, r2, #0
     ldrh r2, [r1, #0x14]
@@ -879,11 +879,11 @@ KraidRandomSpriteDebrisOnCeiling: @ 0x08018a5c
     ldrh r4, [r1, #0x12]
     b lbl_08018aa2
     .align 2, 0
-lbl_08018a84: .4byte 0x0300070c
-lbl_08018a88: .4byte 0x030013d4
+lbl_08018a84: .4byte gSubSpriteData1
+lbl_08018a88: .4byte gSamusData
 lbl_08018a8c: .4byte 0xfffffe40
 lbl_08018a90:
-    ldr r0, lbl_08018ae8 @ =0x030013ba
+    ldr r0, lbl_08018ae8 @ =gBG1YPosition
     ldrh r0, [r0]
     subs r0, #0x3c
     lsls r0, r0, #0x10
@@ -893,9 +893,9 @@ lbl_08018a90:
     lsls r0, r0, #0x10
     lsrs r4, r0, #0x10
 lbl_08018aa2:
-    ldr r0, lbl_08018aec @ =0x0300083c
+    ldr r0, lbl_08018aec @ =gSpriteRNG
     ldrb r7, [r0]
-    ldr r0, lbl_08018af0 @ =0x03000c77
+    ldr r0, lbl_08018af0 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #7
     mov r8, r0
@@ -927,9 +927,9 @@ lbl_08018aa2:
     lsls r6, r0, #4
     b lbl_08018b22
     .align 2, 0
-lbl_08018ae8: .4byte 0x030013ba
-lbl_08018aec: .4byte 0x0300083c
-lbl_08018af0: .4byte 0x03000c77
+lbl_08018ae8: .4byte gBG1YPosition
+lbl_08018aec: .4byte gSpriteRNG
+lbl_08018af0: .4byte gFrameCounter8Bit
 lbl_08018af4: .4byte 0xfffffed4
 lbl_08018af8: .4byte 0xfffffd44
 lbl_08018afc:
@@ -1058,7 +1058,7 @@ lbl_08018bf8: .4byte 0xfffffef2
 
     thumb_func_start sub_08018bfc
 sub_08018bfc: @ 0x08018bfc
-    ldr r1, lbl_08018c10 @ =0x03000738
+    ldr r1, lbl_08018c10 @ =gCurrentSprite
     ldr r0, lbl_08018c14 @ =0x0000ffa0
     strh r0, [r1, #0xa]
     movs r0, #0x20
@@ -1069,13 +1069,13 @@ sub_08018bfc: @ 0x08018bfc
     strh r0, [r1, #0x10]
     bx lr
     .align 2, 0
-lbl_08018c10: .4byte 0x03000738
+lbl_08018c10: .4byte gCurrentSprite
 lbl_08018c14: .4byte 0x0000ffa0
 
     thumb_func_start KraidPartUpdateRightArmIdlingHitbox
 KraidPartUpdateRightArmIdlingHitbox: @ 0x08018c18
     push {lr}
-    ldr r0, lbl_08018c38 @ =0x03000738
+    ldr r0, lbl_08018c38 @ =gCurrentSprite
     ldrb r1, [r0, #0x1c]
     adds r2, r0, #0
     cmp r1, #1
@@ -1093,7 +1093,7 @@ lbl_08018c2e:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08018c38: .4byte 0x03000738
+lbl_08018c38: .4byte gCurrentSprite
 lbl_08018c3c: .4byte lbl_08018c40
 lbl_08018c40: @ jump table
     .4byte lbl_08018c68 @ case 0
@@ -1224,7 +1224,7 @@ lbl_08018d30: .4byte 0x0000ffa0
     thumb_func_start KraidPartUpdateRightArmAttackingHitbox
 KraidPartUpdateRightArmAttackingHitbox: @ 0x08018d34
     push {lr}
-    ldr r0, lbl_08018d54 @ =0x03000738
+    ldr r0, lbl_08018d54 @ =gCurrentSprite
     ldrb r1, [r0, #0x1c]
     adds r2, r0, #0
     cmp r1, #1
@@ -1242,7 +1242,7 @@ lbl_08018d4a:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08018d54: .4byte 0x03000738
+lbl_08018d54: .4byte gCurrentSprite
 lbl_08018d58: .4byte lbl_08018d5c
 lbl_08018d5c: @ jump table
     .4byte lbl_08018d8c @ case 0
@@ -1395,7 +1395,7 @@ lbl_08018e84:
     thumb_func_start sub_08018e88
 sub_08018e88: @ 0x08018e88
     push {lr}
-    ldr r1, lbl_08018ea8 @ =0x03000738
+    ldr r1, lbl_08018ea8 @ =gCurrentSprite
     ldrb r0, [r1, #0x1c]
     cmp r0, #1
     bne lbl_08018ea2
@@ -1411,13 +1411,13 @@ lbl_08018ea2:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08018ea8: .4byte 0x03000738
+lbl_08018ea8: .4byte gCurrentSprite
 lbl_08018eac: .4byte 0x0000ff60
 
     thumb_func_start KraidMouthUpdateLeftArmIdlingHitbox
 KraidMouthUpdateLeftArmIdlingHitbox: @ 0x08018eb0
     push {lr}
-    ldr r0, lbl_08018ed0 @ =0x03000738
+    ldr r0, lbl_08018ed0 @ =gCurrentSprite
     ldrb r1, [r0, #0x1c]
     adds r2, r0, #0
     cmp r1, #1
@@ -1435,7 +1435,7 @@ lbl_08018ec6:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08018ed0: .4byte 0x03000738
+lbl_08018ed0: .4byte gCurrentSprite
 lbl_08018ed4: .4byte lbl_08018ed8
 lbl_08018ed8: @ jump table
     .4byte lbl_08018f00 @ case 0
@@ -1560,7 +1560,7 @@ lbl_08018fc8: .4byte 0x0000ff60
     thumb_func_start sub_08018fcc
 sub_08018fcc: @ 0x08018fcc
     push {lr}
-    ldr r0, lbl_08018fec @ =0x03000738
+    ldr r0, lbl_08018fec @ =gCurrentSprite
     ldrb r1, [r0, #0x1c]
     adds r2, r0, #0
     cmp r1, #1
@@ -1578,7 +1578,7 @@ lbl_08018fe2:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08018fec: .4byte 0x03000738
+lbl_08018fec: .4byte gCurrentSprite
 lbl_08018ff0: .4byte lbl_08018ff4
 lbl_08018ff4: @ jump table
     .4byte lbl_0801901c @ case 0
@@ -1718,7 +1718,7 @@ lbl_08019100: .4byte 0x0000ff60
     thumb_func_start KraidMouthUpdateLeftArmAttackingHitbox
 KraidMouthUpdateLeftArmAttackingHitbox: @ 0x08019104
     push {lr}
-    ldr r0, lbl_08019124 @ =0x03000738
+    ldr r0, lbl_08019124 @ =gCurrentSprite
     ldrb r1, [r0, #0x1c]
     adds r2, r0, #0
     cmp r1, #1
@@ -1736,7 +1736,7 @@ lbl_0801911a:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08019124: .4byte 0x03000738
+lbl_08019124: .4byte gCurrentSprite
 lbl_08019128: .4byte lbl_0801912c
 lbl_0801912c: @ jump table
     .4byte lbl_0801917c @ case 0
@@ -1996,35 +1996,35 @@ lbl_0801932c: .4byte 0x0000ff60
 KraidMoveBG2ToRight: @ 0x08019330
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
-    ldr r2, lbl_08019348 @ =0x0300070c
+    ldr r2, lbl_08019348 @ =gSubSpriteData1
     ldrh r1, [r2, #8]
     adds r1, r1, r0
     strh r1, [r2, #8]
-    ldr r2, lbl_0801934c @ =0x030000fc
+    ldr r2, lbl_0801934c @ =gBG2Movement
     ldrh r1, [r2]
     subs r1, r1, r0
     strh r1, [r2]
     bx lr
     .align 2, 0
-lbl_08019348: .4byte 0x0300070c
-lbl_0801934c: .4byte 0x030000fc
+lbl_08019348: .4byte gSubSpriteData1
+lbl_0801934c: .4byte gBG2Movement
 
     thumb_func_start KraidMoveBG2ToLeft
 KraidMoveBG2ToLeft: @ 0x08019350
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
-    ldr r2, lbl_08019368 @ =0x0300070c
+    ldr r2, lbl_08019368 @ =gSubSpriteData1
     ldrh r1, [r2, #8]
     subs r1, r1, r0
     strh r1, [r2, #8]
-    ldr r2, lbl_0801936c @ =0x030000fc
+    ldr r2, lbl_0801936c @ =gBG2Movement
     ldrh r1, [r2]
     adds r1, r1, r0
     strh r1, [r2]
     bx lr
     .align 2, 0
-lbl_08019368: .4byte 0x0300070c
-lbl_0801936c: .4byte 0x030000fc
+lbl_08019368: .4byte gSubSpriteData1
+lbl_0801936c: .4byte gBG2Movement
 
     thumb_func_start KraidInit
 KraidInit: @ 0x08019370
@@ -2034,10 +2034,10 @@ KraidInit: @ 0x08019370
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0xc
-    ldr r1, lbl_08019574 @ =0x0300007b
+    ldr r1, lbl_08019574 @ =gDoorUnlockTimer
     movs r0, #1
     strb r0, [r1]
-    ldr r3, lbl_08019578 @ =0x03000738
+    ldr r3, lbl_08019578 @ =gCurrentSprite
     ldrh r1, [r3, #2]
     subs r1, #0x28
     movs r2, #0
@@ -2046,7 +2046,7 @@ KraidInit: @ 0x08019370
     ldrh r0, [r3, #4]
     subs r0, #0x20
     strh r0, [r3, #4]
-    ldr r4, lbl_0801957c @ =0x0300070c
+    ldr r4, lbl_0801957c @ =gSubSpriteData1
     mov r8, r4
     strh r1, [r4, #6]
     strh r0, [r4, #8]
@@ -2156,7 +2156,7 @@ KraidInit: @ 0x08019370
     bl SpriteSpawnSecondary
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
-    ldr r7, lbl_08019594 @ =0x030001ac
+    ldr r7, lbl_08019594 @ =gSpriteData
     lsls r1, r0, #3
     subs r1, r1, r0
     lsls r1, r1, #3
@@ -2263,7 +2263,7 @@ KraidInit: @ 0x08019370
     ldrh r0, [r4, #6]
     adds r0, #0x80
     strh r0, [r4, #6]
-    ldr r1, lbl_08019598 @ =0x030000fc
+    ldr r1, lbl_08019598 @ =gBG2Movement
     ldrh r0, [r1, #2]
     subs r0, #0x80
     strh r0, [r1, #2]
@@ -2276,26 +2276,26 @@ KraidInit: @ 0x08019370
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08019574: .4byte 0x0300007b
-lbl_08019578: .4byte 0x03000738
-lbl_0801957c: .4byte 0x0300070c
+lbl_08019574: .4byte gDoorUnlockTimer
+lbl_08019578: .4byte gCurrentSprite
+lbl_0801957c: .4byte gSubSpriteData1
 lbl_08019580: .4byte 0x0000ff90
 lbl_08019584: .4byte 0x082b0d68
 lbl_08019588: .4byte 0x000007ce
 lbl_0801958c: .4byte 0x082c61f0
 lbl_08019590: .4byte 0x082cac1c
-lbl_08019594: .4byte 0x030001ac
-lbl_08019598: .4byte 0x030000fc
+lbl_08019594: .4byte gSpriteData
+lbl_08019598: .4byte gBG2Movement
 
     thumb_func_start KraidMoveUp
 KraidMoveUp: @ 0x0801959c
     push {r4, r5, lr}
-    ldr r5, lbl_080195cc @ =0x03000738
+    ldr r5, lbl_080195cc @ =gCurrentSprite
     adds r0, r5, #0
     adds r0, #0x2d
     ldrb r0, [r0]
     bl KraidRandomSpriteDebrisOnCeiling
-    ldr r4, lbl_080195d0 @ =0x0300070c
+    ldr r4, lbl_080195d0 @ =gSubSpriteData1
     ldrh r1, [r4, #6]
     movs r0, #0xf
     ands r0, r1
@@ -2312,12 +2312,12 @@ lbl_080195be:
     movs r0, #1
     b lbl_080195e2
     .align 2, 0
-lbl_080195cc: .4byte 0x03000738
-lbl_080195d0: .4byte 0x0300070c
+lbl_080195cc: .4byte gCurrentSprite
+lbl_080195d0: .4byte gSubSpriteData1
 lbl_080195d4:
     subs r0, #1
     strh r0, [r4, #6]
-    ldr r1, lbl_080195e8 @ =0x030000fc
+    ldr r1, lbl_080195e8 @ =gBG2Movement
     ldrh r0, [r1, #2]
     adds r0, #1
     strh r0, [r1, #2]
@@ -2327,12 +2327,12 @@ lbl_080195e2:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_080195e8: .4byte 0x030000fc
+lbl_080195e8: .4byte gBG2Movement
 
     thumb_func_start KraidGoUp
 KraidGoUp: @ 0x080195ec
     push {r4, r5, lr}
-    ldr r4, lbl_08019634 @ =0x03000738
+    ldr r4, lbl_08019634 @ =gCurrentSprite
     adds r5, r4, #0
     adds r5, #0x2d
     ldrb r0, [r5]
@@ -2367,14 +2367,14 @@ lbl_0801962c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08019634: .4byte 0x03000738
+lbl_08019634: .4byte gCurrentSprite
 lbl_08019638: .4byte 0x000001bf
 lbl_0801963c: .4byte 0x082cac34
 
     thumb_func_start KraidCheckFullyUp
 KraidCheckFullyUp: @ 0x08019640
     push {r4, lr}
-    ldr r4, lbl_08019668 @ =0x03000738
+    ldr r4, lbl_08019668 @ =gCurrentSprite
     adds r1, r4, #0
     adds r1, #0x2d
     ldrb r0, [r1]
@@ -2393,12 +2393,12 @@ lbl_08019660:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08019668: .4byte 0x03000738
+lbl_08019668: .4byte gCurrentSprite
 
     thumb_func_start sub_0801966c
 sub_0801966c: @ 0x0801966c
     push {r4, r5, r6, r7, lr}
-    ldr r5, lbl_080196b4 @ =0x03000738
+    ldr r5, lbl_080196b4 @ =gCurrentSprite
     ldrh r1, [r5]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -2408,7 +2408,7 @@ sub_0801966c: @ 0x0801966c
     bne lbl_08019680
     b lbl_080197c4
 lbl_08019680:
-    ldr r4, lbl_080196b8 @ =0x0300070c
+    ldr r4, lbl_080196b8 @ =gSubSpriteData1
     ldr r0, lbl_080196bc @ =0x082b0d68
     ldr r1, lbl_080196c0 @ =0x000007ce
     adds r0, r0, r1
@@ -2420,7 +2420,7 @@ lbl_08019680:
     lsrs r0, r0, #0x10
     cmp r1, r0
     bhs lbl_080196a4
-    ldr r0, lbl_080196c4 @ =0x0300002c
+    ldr r0, lbl_080196c4 @ =gDifficulty
     ldrb r0, [r0]
     movs r2, #0xc0
     cmp r0, #0
@@ -2436,11 +2436,11 @@ lbl_080196a6:
     movs r0, #2
     b lbl_0801980a
     .align 2, 0
-lbl_080196b4: .4byte 0x03000738
-lbl_080196b8: .4byte 0x0300070c
+lbl_080196b4: .4byte gCurrentSprite
+lbl_080196b8: .4byte gSubSpriteData1
 lbl_080196bc: .4byte 0x082b0d68
 lbl_080196c0: .4byte 0x000007ce
-lbl_080196c4: .4byte 0x0300002c
+lbl_080196c4: .4byte gDifficulty
 lbl_080196c8:
     ldrh r0, [r4, #4]
     cmp r0, #4
@@ -2465,7 +2465,7 @@ lbl_080196d0:
     bne lbl_080196f6
     b lbl_08019808
 lbl_080196f6:
-    ldr r7, lbl_080197b8 @ =0x03000079
+    ldr r7, lbl_080197b8 @ =gCurrentClipdataAffectingAction
     movs r6, #1
     strb r6, [r7]
     adds r0, r5, #0
@@ -2549,11 +2549,11 @@ lbl_080196f6:
     bl SpriteDebrisInit
     b lbl_08019808
     .align 2, 0
-lbl_080197b8: .4byte 0x03000079
+lbl_080197b8: .4byte gCurrentClipdataAffectingAction
 lbl_080197bc: .4byte 0x000009b6
 lbl_080197c0: .4byte 0x000009c8
 lbl_080197c4:
-    ldr r4, lbl_080197f0 @ =0x0300070c
+    ldr r4, lbl_080197f0 @ =gSubSpriteData1
     ldr r0, lbl_080197f4 @ =0x082b0d68
     ldr r1, lbl_080197f8 @ =0x000007ce
     adds r0, r0, r1
@@ -2576,7 +2576,7 @@ lbl_080197e2:
     movs r0, #1
     b lbl_0801980a
     .align 2, 0
-lbl_080197f0: .4byte 0x0300070c
+lbl_080197f0: .4byte gSubSpriteData1
 lbl_080197f4: .4byte 0x082b0d68
 lbl_080197f8: .4byte 0x000007ce
 lbl_080197fc:
@@ -2595,22 +2595,22 @@ lbl_0801980a:
     thumb_func_start KraidFirstStepInit
 KraidFirstStepInit: @ 0x08019810
     push {lr}
-    ldr r2, lbl_08019828 @ =0x03000738
+    ldr r2, lbl_08019828 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
     ands r0, r1
     cmp r0, #0
     beq lbl_08019834
-    ldr r1, lbl_0801982c @ =0x0300070c
+    ldr r1, lbl_0801982c @ =gSubSpriteData1
     ldr r0, lbl_08019830 @ =0x082c6240
     b lbl_08019838
     .align 2, 0
-lbl_08019828: .4byte 0x03000738
-lbl_0801982c: .4byte 0x0300070c
+lbl_08019828: .4byte gCurrentSprite
+lbl_0801982c: .4byte gSubSpriteData1
 lbl_08019830: .4byte 0x082c6240
 lbl_08019834:
-    ldr r1, lbl_0801984c @ =0x0300070c
+    ldr r1, lbl_0801984c @ =gSubSpriteData1
     ldr r0, lbl_08019850 @ =0x082c62e8
 lbl_08019838:
     str r0, [r1]
@@ -2624,7 +2624,7 @@ lbl_08019838:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801984c: .4byte 0x0300070c
+lbl_0801984c: .4byte gSubSpriteData1
 lbl_08019850: .4byte 0x082c62e8
 
     thumb_func_start kraid_feet_movement_same_direction_as_pos_update
@@ -2636,7 +2636,7 @@ kraid_feet_movement_same_direction_as_pos_update: @ 0x08019854
     bl SpriteUtilCheckNearEndSubSprite1Anim
     cmp r0, #0
     beq lbl_0801992c
-    ldr r0, lbl_08019898 @ =0x0300070c
+    ldr r0, lbl_08019898 @ =gSubSpriteData1
     ldrb r2, [r0, #0xd]
     adds r1, r2, #0
     adds r4, r0, #0
@@ -2646,7 +2646,7 @@ kraid_feet_movement_same_direction_as_pos_update: @ 0x08019854
     bhi lbl_080198a4
     adds r0, r2, #1
     strb r0, [r4, #0xd]
-    ldr r1, lbl_0801989c @ =0x03000738
+    ldr r1, lbl_0801989c @ =gCurrentSprite
     ldrh r2, [r1]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -2662,13 +2662,13 @@ lbl_0801988e:
     strb r0, [r1]
     b lbl_0801992c
     .align 2, 0
-lbl_08019898: .4byte 0x0300070c
-lbl_0801989c: .4byte 0x03000738
+lbl_08019898: .4byte gSubSpriteData1
+lbl_0801989c: .4byte gCurrentSprite
 lbl_080198a0: .4byte 0x0000fdff
 lbl_080198a4:
     movs r0, #0
     strb r0, [r4, #0xd]
-    ldr r1, lbl_080198b8 @ =0x03000738
+    ldr r1, lbl_080198b8 @ =gCurrentSprite
     ldrh r2, [r1]
     movs r3, #0x80
     lsls r3, r3, #2
@@ -2677,7 +2677,7 @@ lbl_080198a4:
     strh r0, [r1]
     b lbl_08019910
     .align 2, 0
-lbl_080198b8: .4byte 0x03000738
+lbl_080198b8: .4byte gCurrentSprite
 lbl_080198bc:
     ldr r2, lbl_080198d8 @ =0x082b0d68
     ldr r1, lbl_080198dc @ =0x000007ce
@@ -2688,7 +2688,7 @@ lbl_080198bc:
     adds r3, r2, #0
     cmp r1, r0
     bhs lbl_080198e4
-    ldr r2, lbl_080198e0 @ =0x03000738
+    ldr r2, lbl_080198e0 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x22
@@ -2696,9 +2696,9 @@ lbl_080198bc:
     .align 2, 0
 lbl_080198d8: .4byte 0x082b0d68
 lbl_080198dc: .4byte 0x000007ce
-lbl_080198e0: .4byte 0x03000738
+lbl_080198e0: .4byte gCurrentSprite
 lbl_080198e4:
-    ldr r2, lbl_08019918 @ =0x03000738
+    ldr r2, lbl_08019918 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x10
@@ -2726,7 +2726,7 @@ lbl_08019910:
     strb r0, [r1]
     b lbl_0801992c
     .align 2, 0
-lbl_08019918: .4byte 0x03000738
+lbl_08019918: .4byte gCurrentSprite
 lbl_0801991c: .4byte 0x000007ce
 lbl_08019920:
     ldrh r0, [r5]
@@ -2744,22 +2744,22 @@ lbl_0801992c:
     thumb_func_start KraidMoveFeet_to_opposite_direction_as_pos
 KraidMoveFeet_to_opposite_direction_as_pos: @ 0x08019934
     push {lr}
-    ldr r2, lbl_0801994c @ =0x03000738
+    ldr r2, lbl_0801994c @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
     ands r0, r1
     cmp r0, #0
     beq lbl_08019958
-    ldr r1, lbl_08019950 @ =0x0300070c
+    ldr r1, lbl_08019950 @ =gSubSpriteData1
     ldr r0, lbl_08019954 @ =0x082c6278
     b lbl_0801995c
     .align 2, 0
-lbl_0801994c: .4byte 0x03000738
-lbl_08019950: .4byte 0x0300070c
+lbl_0801994c: .4byte gCurrentSprite
+lbl_08019950: .4byte gSubSpriteData1
 lbl_08019954: .4byte 0x082c6278
 lbl_08019958:
-    ldr r1, lbl_08019970 @ =0x0300070c
+    ldr r1, lbl_08019970 @ =gSubSpriteData1
     ldr r0, lbl_08019974 @ =0x082c62b0
 lbl_0801995c:
     str r0, [r1]
@@ -2773,7 +2773,7 @@ lbl_0801995c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08019970: .4byte 0x0300070c
+lbl_08019970: .4byte gSubSpriteData1
 lbl_08019974: .4byte 0x082c62b0
 
     thumb_func_start kraid_feet_movement_oppsite_direction_as_pos_update
@@ -2785,7 +2785,7 @@ kraid_feet_movement_oppsite_direction_as_pos_update: @ 0x08019978
     bl SpriteUtilCheckNearEndSubSprite1Anim
     cmp r0, #0
     beq lbl_08019a50
-    ldr r0, lbl_080199bc @ =0x0300070c
+    ldr r0, lbl_080199bc @ =gSubSpriteData1
     ldrb r2, [r0, #0xd]
     adds r1, r2, #0
     adds r4, r0, #0
@@ -2795,7 +2795,7 @@ kraid_feet_movement_oppsite_direction_as_pos_update: @ 0x08019978
     bhi lbl_080199c8
     adds r0, r2, #1
     strb r0, [r4, #0xd]
-    ldr r1, lbl_080199c0 @ =0x03000738
+    ldr r1, lbl_080199c0 @ =gCurrentSprite
     ldrh r2, [r1]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -2811,13 +2811,13 @@ lbl_080199b2:
     strb r0, [r1]
     b lbl_08019a50
     .align 2, 0
-lbl_080199bc: .4byte 0x0300070c
-lbl_080199c0: .4byte 0x03000738
+lbl_080199bc: .4byte gSubSpriteData1
+lbl_080199c0: .4byte gCurrentSprite
 lbl_080199c4: .4byte 0x0000fdff
 lbl_080199c8:
     movs r0, #0
     strb r0, [r4, #0xd]
-    ldr r1, lbl_080199dc @ =0x03000738
+    ldr r1, lbl_080199dc @ =gCurrentSprite
     ldrh r2, [r1]
     movs r3, #0x80
     lsls r3, r3, #2
@@ -2826,7 +2826,7 @@ lbl_080199c8:
     strh r0, [r1]
     b lbl_08019a34
     .align 2, 0
-lbl_080199dc: .4byte 0x03000738
+lbl_080199dc: .4byte gCurrentSprite
 lbl_080199e0:
     ldr r2, lbl_080199fc @ =0x082b0d68
     ldr r1, lbl_08019a00 @ =0x000007ce
@@ -2837,7 +2837,7 @@ lbl_080199e0:
     adds r3, r2, #0
     cmp r1, r0
     bhs lbl_08019a08
-    ldr r2, lbl_08019a04 @ =0x03000738
+    ldr r2, lbl_08019a04 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #8
@@ -2845,9 +2845,9 @@ lbl_080199e0:
     .align 2, 0
 lbl_080199fc: .4byte 0x082b0d68
 lbl_08019a00: .4byte 0x000007ce
-lbl_08019a04: .4byte 0x03000738
+lbl_08019a04: .4byte gCurrentSprite
 lbl_08019a08:
-    ldr r2, lbl_08019a3c @ =0x03000738
+    ldr r2, lbl_08019a3c @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0xe
@@ -2875,7 +2875,7 @@ lbl_08019a34:
     strb r0, [r1]
     b lbl_08019a50
     .align 2, 0
-lbl_08019a3c: .4byte 0x03000738
+lbl_08019a3c: .4byte gCurrentSprite
 lbl_08019a40: .4byte 0x000007ce
 lbl_08019a44:
     ldrh r0, [r5]
@@ -2892,21 +2892,21 @@ lbl_08019a50:
 
     thumb_func_start KraidStandingInit
 KraidStandingInit: @ 0x08019a58
-    ldr r1, lbl_08019a70 @ =0x0300070c
+    ldr r1, lbl_08019a70 @ =gSubSpriteData1
     ldr r0, lbl_08019a74 @ =0x082c6200
     str r0, [r1]
     movs r0, #0
     strb r0, [r1, #0xc]
     strh r0, [r1, #4]
-    ldr r0, lbl_08019a78 @ =0x03000738
+    ldr r0, lbl_08019a78 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0xf
     strb r1, [r0]
     bx lr
     .align 2, 0
-lbl_08019a70: .4byte 0x0300070c
+lbl_08019a70: .4byte gSubSpriteData1
 lbl_08019a74: .4byte 0x082c6200
-lbl_08019a78: .4byte 0x03000738
+lbl_08019a78: .4byte gCurrentSprite
 
     thumb_func_start KraidStanding
 KraidStanding: @ 0x08019a7c
@@ -2914,12 +2914,12 @@ KraidStanding: @ 0x08019a7c
     bl SpriteUtilCheckNearEndSubSprite1Anim
     cmp r0, #0
     beq lbl_08019aa4
-    ldr r2, lbl_08019aa8 @ =0x03000738
+    ldr r2, lbl_08019aa8 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #8
     strb r0, [r1]
-    ldr r1, lbl_08019aac @ =0x0300070c
+    ldr r1, lbl_08019aac @ =gSubSpriteData1
     ldrb r0, [r1, #0xd]
     cmp r0, #1
     bne lbl_08019aa4
@@ -2933,27 +2933,27 @@ lbl_08019aa4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08019aa8: .4byte 0x03000738
-lbl_08019aac: .4byte 0x0300070c
+lbl_08019aa8: .4byte gCurrentSprite
+lbl_08019aac: .4byte gSubSpriteData1
 lbl_08019ab0: .4byte 0x0000fdff
 
     thumb_func_start kraid_after_moving_feet_same_direction_as_pos
 kraid_after_moving_feet_same_direction_as_pos: @ 0x08019ab4
-    ldr r1, lbl_08019acc @ =0x0300070c
+    ldr r1, lbl_08019acc @ =gSubSpriteData1
     ldr r0, lbl_08019ad0 @ =0x082c6220
     str r0, [r1]
     movs r0, #0
     strb r0, [r1, #0xc]
     strh r0, [r1, #4]
-    ldr r0, lbl_08019ad4 @ =0x03000738
+    ldr r0, lbl_08019ad4 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x11
     strb r1, [r0]
     bx lr
     .align 2, 0
-lbl_08019acc: .4byte 0x0300070c
+lbl_08019acc: .4byte gSubSpriteData1
 lbl_08019ad0: .4byte 0x082c6220
-lbl_08019ad4: .4byte 0x03000738
+lbl_08019ad4: .4byte gCurrentSprite
 
     thumb_func_start kraid_before_start_moving_feet_opposite_direction_as_pos
 kraid_before_start_moving_feet_opposite_direction_as_pos: @ 0x08019ad8
@@ -2961,12 +2961,12 @@ kraid_before_start_moving_feet_opposite_direction_as_pos: @ 0x08019ad8
     bl SpriteUtilCheckNearEndSubSprite1Anim
     cmp r0, #0
     beq lbl_08019b00
-    ldr r2, lbl_08019b04 @ =0x03000738
+    ldr r2, lbl_08019b04 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x22
     strb r0, [r1]
-    ldr r1, lbl_08019b08 @ =0x0300070c
+    ldr r1, lbl_08019b08 @ =gSubSpriteData1
     ldrb r0, [r1, #0xd]
     cmp r0, #1
     bne lbl_08019b00
@@ -2980,19 +2980,19 @@ lbl_08019b00:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08019b04: .4byte 0x03000738
-lbl_08019b08: .4byte 0x0300070c
+lbl_08019b04: .4byte gCurrentSprite
+lbl_08019b08: .4byte gSubSpriteData1
 lbl_08019b0c: .4byte 0x0000fdff
 
     thumb_func_start KraidPreventSamusGoingThrough
 KraidPreventSamusGoingThrough: @ 0x08019b10
     push {lr}
-    ldr r0, lbl_08019b2c @ =0x0300070c
+    ldr r0, lbl_08019b2c @ =gSubSpriteData1
     ldrh r0, [r0, #8]
     adds r0, #0xc0
     lsls r0, r0, #0x10
     lsrs r1, r0, #0x10
-    ldr r2, lbl_08019b30 @ =0x030013d4
+    ldr r2, lbl_08019b30 @ =gSamusData
     ldrh r0, [r2, #0x12]
     cmp r0, r1
     bhs lbl_08019b26
@@ -3001,13 +3001,13 @@ lbl_08019b26:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08019b2c: .4byte 0x0300070c
-lbl_08019b30: .4byte 0x030013d4
+lbl_08019b2c: .4byte gSubSpriteData1
+lbl_08019b30: .4byte gSamusData
 
     thumb_func_start KraidDyingInit
 KraidDyingInit: @ 0x08019b34
     push {r4, lr}
-    ldr r0, lbl_08019b54 @ =0x0300070c
+    ldr r0, lbl_08019b54 @ =gSubSpriteData1
     ldr r2, [r0]
     ldr r1, lbl_08019b58 @ =0x082c6200
     adds r3, r0, #0
@@ -3023,7 +3023,7 @@ lbl_08019b4e:
     ldr r0, lbl_08019b64 @ =0x082c6320
     b lbl_08019b6a
     .align 2, 0
-lbl_08019b54: .4byte 0x0300070c
+lbl_08019b54: .4byte gSubSpriteData1
 lbl_08019b58: .4byte 0x082c6200
 lbl_08019b5c: .4byte 0x082c6278
 lbl_08019b60: .4byte 0x082c62b0
@@ -3035,7 +3035,7 @@ lbl_08019b6a:
     movs r2, #0
     strb r2, [r3, #0xc]
     strh r2, [r3, #4]
-    ldr r0, lbl_08019bd8 @ =0x03000738
+    ldr r0, lbl_08019bd8 @ =gCurrentSprite
     ldr r1, [r0, #0x18]
     ldr r4, lbl_08019bdc @ =0x082cab9c
     adds r3, r0, #0
@@ -3084,14 +3084,14 @@ lbl_08019b8c:
     bx r0
     .align 2, 0
 lbl_08019bd4: .4byte 0x082c6330
-lbl_08019bd8: .4byte 0x03000738
+lbl_08019bd8: .4byte gCurrentSprite
 lbl_08019bdc: .4byte 0x082cab9c
 lbl_08019be0: .4byte 0x082cabe4
 
     thumb_func_start KraidDying
 KraidDying: @ 0x08019be4
     push {r4, r5, r6, r7, lr}
-    ldr r4, lbl_08019c64 @ =0x03000738
+    ldr r4, lbl_08019c64 @ =gCurrentSprite
     ldr r1, [r4, #0x18]
     ldr r0, lbl_08019c68 @ =0x082cab9c
     cmp r1, r0
@@ -3105,7 +3105,7 @@ KraidDying: @ 0x08019be4
     strb r0, [r4, #0x1c]
     strh r0, [r4, #0x16]
 lbl_08019c02:
-    ldr r6, lbl_08019c64 @ =0x03000738
+    ldr r6, lbl_08019c64 @ =gCurrentSprite
     adds r7, r6, #0
     adds r7, #0x2d
     ldrb r0, [r7]
@@ -3124,7 +3124,7 @@ lbl_08019c02:
     bne lbl_08019c52
     movs r5, #0xa0
     lsls r5, r5, #4
-    ldr r4, lbl_08019c70 @ =0x0300070c
+    ldr r4, lbl_08019c70 @ =gSubSpriteData1
     ldrb r1, [r7]
     lsls r1, r1, #1
     subs r1, #0xc0
@@ -3151,10 +3151,10 @@ lbl_08019c52:
     strb r0, [r1]
     b lbl_08019d3a
     .align 2, 0
-lbl_08019c64: .4byte 0x03000738
+lbl_08019c64: .4byte gCurrentSprite
 lbl_08019c68: .4byte 0x082cab9c
 lbl_08019c6c: .4byte 0x082cabe4
-lbl_08019c70: .4byte 0x0300070c
+lbl_08019c70: .4byte gSubSpriteData1
 lbl_08019c74:
     adds r1, r6, #0
     adds r1, #0x2e
@@ -3177,7 +3177,7 @@ lbl_08019c92:
     lsls r0, r0, #1
     bl SoundPlay
 lbl_08019c9e:
-    ldr r5, lbl_08019d1c @ =0x03000738
+    ldr r5, lbl_08019d1c @ =gCurrentSprite
     adds r4, r5, #0
     adds r4, #0x2d
     ldrb r1, [r4]
@@ -3189,7 +3189,7 @@ lbl_08019c9e:
     movs r0, #0x14
     movs r1, #0x81
     bl ScreenShakeStartVertical
-    ldr r0, lbl_08019d20 @ =0x0300083c
+    ldr r0, lbl_08019d20 @ =gSpriteRNG
     ldrb r0, [r0]
     lsls r0, r0, #4
     subs r0, #0x64
@@ -3209,7 +3209,7 @@ lbl_08019cd2:
     cmp r0, #0
     bne lbl_08019cf6
     ldrh r0, [r5, #2]
-    ldr r1, lbl_08019d20 @ =0x0300083c
+    ldr r1, lbl_08019d20 @ =gSpriteRNG
     ldrb r1, [r1]
     lsls r1, r1, #4
     subs r1, #0x8c
@@ -3220,7 +3220,7 @@ lbl_08019cd2:
     movs r2, #0x22
     bl ParticleSet
 lbl_08019cf6:
-    ldr r4, lbl_08019d24 @ =0x0300070c
+    ldr r4, lbl_08019d24 @ =gSubSpriteData1
     ldrh r0, [r4, #6]
     ldrh r1, [r4, #8]
     bl SpriteUtilGetCollisionAtPosition
@@ -3237,15 +3237,15 @@ lbl_08019cf6:
     bl SoundPlay
     b lbl_08019d3a
     .align 2, 0
-lbl_08019d1c: .4byte 0x03000738
-lbl_08019d20: .4byte 0x0300083c
-lbl_08019d24: .4byte 0x0300070c
+lbl_08019d1c: .4byte gCurrentSprite
+lbl_08019d20: .4byte gSpriteRNG
+lbl_08019d24: .4byte gSubSpriteData1
 lbl_08019d28: .4byte 0x000001d1
 lbl_08019d2c:
     ldrh r0, [r4, #6]
     adds r0, #1
     strh r0, [r4, #6]
-    ldr r1, lbl_08019d40 @ =0x030000fc
+    ldr r1, lbl_08019d40 @ =gBG2Movement
     ldrh r0, [r1, #2]
     subs r0, #1
     strh r0, [r1, #2]
@@ -3254,7 +3254,7 @@ lbl_08019d3a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08019d40: .4byte 0x030000fc
+lbl_08019d40: .4byte gBG2Movement
 
     thumb_func_start KraidBeforeDeath
 KraidBeforeDeath: @ 0x08019d44
@@ -3262,7 +3262,7 @@ KraidBeforeDeath: @ 0x08019d44
     mov r7, r8
     push {r7}
     sub sp, #4
-    ldr r6, lbl_08019db8 @ =0x03000738
+    ldr r6, lbl_08019db8 @ =gCurrentSprite
     adds r5, r6, #0
     adds r5, #0x2d
     ldrb r0, [r5]
@@ -3272,7 +3272,7 @@ KraidBeforeDeath: @ 0x08019d44
     adds r1, #0x26
     movs r0, #1
     strb r0, [r1]
-    ldr r0, lbl_08019dbc @ =0x0300083c
+    ldr r0, lbl_08019dbc @ =gSpriteRNG
     ldrb r4, [r0]
     mov r8, r4
     ldrb r0, [r5]
@@ -3312,8 +3312,8 @@ KraidBeforeDeath: @ 0x08019d44
     bl ParticleSet
     b lbl_08019dee
     .align 2, 0
-lbl_08019db8: .4byte 0x03000738
-lbl_08019dbc: .4byte 0x0300083c
+lbl_08019db8: .4byte gCurrentSprite
+lbl_08019dbc: .4byte gSpriteRNG
 lbl_08019dc0:
     mov r1, r8
     lsls r0, r1, #4
@@ -3348,8 +3348,8 @@ lbl_08019dee:
     movs r0, #0xa0
     lsls r0, r0, #4
     mov r8, r0
-    ldr r6, lbl_08019e30 @ =0x0300070c
-    ldr r4, lbl_08019e34 @ =0x03000738
+    ldr r6, lbl_08019e30 @ =gSubSpriteData1
+    ldr r4, lbl_08019e34 @ =gCurrentSprite
     adds r4, #0x2c
     ldrb r1, [r4]
     lsls r1, r1, #1
@@ -3369,14 +3369,14 @@ lbl_08019dee:
     bl ParticleSet
     b lbl_08019e6a
     .align 2, 0
-lbl_08019e30: .4byte 0x0300070c
-lbl_08019e34: .4byte 0x03000738
+lbl_08019e30: .4byte gSubSpriteData1
+lbl_08019e34: .4byte gCurrentSprite
 lbl_08019e38: .4byte 0xfffffee8
 lbl_08019e3c:
     movs r6, #0xa0
     lsls r6, r6, #4
-    ldr r5, lbl_08019eb8 @ =0x0300070c
-    ldr r4, lbl_08019ebc @ =0x03000738
+    ldr r5, lbl_08019eb8 @ =gSubSpriteData1
+    ldr r4, lbl_08019ebc @ =gCurrentSprite
     adds r4, #0x2c
     ldrb r1, [r4]
     lsls r1, r1, #1
@@ -3395,7 +3395,7 @@ lbl_08019e3c:
     movs r2, #0x20
     bl ParticleSet
 lbl_08019e6a:
-    ldr r1, lbl_08019ebc @ =0x03000738
+    ldr r1, lbl_08019ebc @ =gCurrentSprite
     adds r1, #0x2c
     ldrb r0, [r1]
     subs r0, #1
@@ -3403,7 +3403,7 @@ lbl_08019e6a:
     lsls r0, r0, #0x18
     cmp r0, #0
     bne lbl_08019eaa
-    ldr r0, lbl_08019eb8 @ =0x0300070c
+    ldr r0, lbl_08019eb8 @ =gSubSpriteData1
     ldrh r1, [r0, #6]
     subs r1, #0xc0
     ldrh r2, [r0, #8]
@@ -3420,8 +3420,8 @@ lbl_08019e6a:
     lsls r1, r1, #3
     movs r0, #0
     bl IoUpdateDISPCNT
-    ldr r1, lbl_08019ec0 @ =0x03000184
-    ldr r0, lbl_08019ec4 @ =0x03000150
+    ldr r1, lbl_08019ec0 @ =gInGameTimerAtBosses
+    ldr r0, lbl_08019ec4 @ =gInGameTimer
     ldr r0, [r0]
     str r0, [r1]
 lbl_08019eaa:
@@ -3432,15 +3432,15 @@ lbl_08019eaa:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08019eb8: .4byte 0x0300070c
-lbl_08019ebc: .4byte 0x03000738
-lbl_08019ec0: .4byte 0x03000184
-lbl_08019ec4: .4byte 0x03000150
+lbl_08019eb8: .4byte gSubSpriteData1
+lbl_08019ebc: .4byte gCurrentSprite
+lbl_08019ec0: .4byte gInGameTimerAtBosses
+lbl_08019ec4: .4byte gInGameTimer
 
     thumb_func_start KraidPartInit
 KraidPartInit: @ 0x08019ec8
     push {lr}
-    ldr r2, lbl_08019ef8 @ =0x03000738
+    ldr r2, lbl_08019ef8 @ =gCurrentSprite
     movs r0, #0xfa
     lsls r0, r0, #2
     strh r0, [r2, #0x14]
@@ -3464,7 +3464,7 @@ lbl_08019eec:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08019ef8: .4byte 0x03000738
+lbl_08019ef8: .4byte gCurrentSprite
 lbl_08019efc: .4byte 0x0000fffb
 lbl_08019f00: .4byte lbl_08019f04
 lbl_08019f04: @ jump table
@@ -3873,11 +3873,11 @@ lbl_0801a222:
 KraidPartThrowNails: @ 0x0801a228
     push {r4, r5, lr}
     sub sp, #0xc
-    ldr r2, lbl_0801a280 @ =0x03000738
+    ldr r2, lbl_0801a280 @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x23
     ldrb r3, [r0]
-    ldr r1, lbl_0801a284 @ =0x030001ac
+    ldr r1, lbl_0801a284 @ =gSpriteData
     lsls r0, r3, #3
     subs r0, r0, r3
     lsls r0, r0, #3
@@ -3891,7 +3891,7 @@ KraidPartThrowNails: @ 0x0801a228
     ldr r0, lbl_0801a288 @ =0x082cac6c
     cmp r1, r0
     bne lbl_0801a298
-    ldr r0, lbl_0801a28c @ =0x03000c77
+    ldr r0, lbl_0801a28c @ =gFrameCounter8Bit
     ldrb r0, [r0]
     movs r5, #0x7f
     ands r5, r0
@@ -3900,7 +3900,7 @@ KraidPartThrowNails: @ 0x0801a228
     bl SpriteUtilCountDrops
     lsls r0, r0, #0x18
     lsrs r2, r0, #0x18
-    ldr r0, lbl_0801a290 @ =0x0300002c
+    ldr r0, lbl_0801a290 @ =gDifficulty
     ldrb r0, [r0]
     movs r1, #3
     cmp r0, #0
@@ -3915,11 +3915,11 @@ lbl_0801a270:
     strh r5, [r4, #0x16]
     b lbl_0801a300
     .align 2, 0
-lbl_0801a280: .4byte 0x03000738
-lbl_0801a284: .4byte 0x030001ac
+lbl_0801a280: .4byte gCurrentSprite
+lbl_0801a284: .4byte gSpriteData
 lbl_0801a288: .4byte 0x082cac6c
-lbl_0801a28c: .4byte 0x03000c77
-lbl_0801a290: .4byte 0x0300002c
+lbl_0801a28c: .4byte gFrameCounter8Bit
+lbl_0801a290: .4byte gDifficulty
 lbl_0801a294: .4byte 0x082cad1c
 lbl_0801a298:
     ldrh r0, [r4, #0x16]
@@ -3967,7 +3967,7 @@ lbl_0801a2ec:
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0801a300
-    ldr r0, lbl_0801a308 @ =0x03000738
+    ldr r0, lbl_0801a308 @ =gCurrentSprite
     ldr r1, lbl_0801a30c @ =0x082cac6c
     str r1, [r0, #0x18]
     movs r1, #0
@@ -3979,19 +3979,19 @@ lbl_0801a300:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801a308: .4byte 0x03000738
+lbl_0801a308: .4byte gCurrentSprite
 lbl_0801a30c: .4byte 0x082cac6c
 
     thumb_func_start KraidPartCheckAttack
 KraidPartCheckAttack: @ 0x0801a310
     push {r4, r5, r6, r7, lr}
-    ldr r5, lbl_0801a350 @ =0x03000738
+    ldr r5, lbl_0801a350 @ =gCurrentSprite
     adds r0, r5, #0
     adds r0, #0x23
     ldrb r6, [r0]
     movs r3, #0
     movs r7, #0
-    ldr r1, lbl_0801a354 @ =0x030001ac
+    ldr r1, lbl_0801a354 @ =gSpriteData
     lsls r0, r6, #3
     subs r0, r0, r6
     lsls r0, r0, #3
@@ -4016,8 +4016,8 @@ KraidPartCheckAttack: @ 0x0801a310
     strh r7, [r5, #0x16]
     b lbl_0801a3c4
     .align 2, 0
-lbl_0801a350: .4byte 0x03000738
-lbl_0801a354: .4byte 0x030001ac
+lbl_0801a350: .4byte gCurrentSprite
+lbl_0801a354: .4byte gSpriteData
 lbl_0801a358: .4byte 0x0000f7ff
 lbl_0801a35c: .4byte 0x082cadd4
 lbl_0801a360:
@@ -4037,7 +4037,7 @@ lbl_0801a36e:
     movs r0, #0xb4
 lbl_0801a37c:
     strb r0, [r4]
-    ldr r0, lbl_0801a3cc @ =0x0300070c
+    ldr r0, lbl_0801a3cc @ =gSubSpriteData1
     ldrh r2, [r0, #0xa]
     ldr r0, lbl_0801a3d0 @ =0x082b0d68
     ldr r1, lbl_0801a3d4 @ =0x000007ce
@@ -4056,13 +4056,13 @@ lbl_0801a37c:
 lbl_0801a39e:
     cmp r7, #0
     beq lbl_0801a3c4
-    ldr r1, lbl_0801a3d8 @ =0x03000738
+    ldr r1, lbl_0801a3d8 @ =gCurrentSprite
     ldr r0, lbl_0801a3dc @ =0x082cae2c
     str r0, [r1, #0x18]
     movs r0, #0
     strb r0, [r1, #0x1c]
     strh r0, [r1, #0x16]
-    ldr r0, lbl_0801a3e0 @ =0x030001ac
+    ldr r0, lbl_0801a3e0 @ =gSpriteData
     lsls r1, r6, #3
     subs r1, r1, r6
     lsls r1, r1, #3
@@ -4078,12 +4078,12 @@ lbl_0801a3c4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801a3cc: .4byte 0x0300070c
+lbl_0801a3cc: .4byte gSubSpriteData1
 lbl_0801a3d0: .4byte 0x082b0d68
 lbl_0801a3d4: .4byte 0x000007ce
-lbl_0801a3d8: .4byte 0x03000738
+lbl_0801a3d8: .4byte gCurrentSprite
 lbl_0801a3dc: .4byte 0x082cae2c
-lbl_0801a3e0: .4byte 0x030001ac
+lbl_0801a3e0: .4byte gSpriteData
 
     thumb_func_start raid_mouth_call_kraid_check_prokectiles_colliding_with_belly
 raid_mouth_call_kraid_check_prokectiles_colliding_with_belly: @ 0x0801a3e4
@@ -4100,7 +4100,7 @@ KraidPartCheckShouldSpawnSpikes: @ 0x0801a3f0
     mov r6, sb
     mov r5, r8
     push {r5, r6, r7}
-    ldr r6, lbl_0801a4b4 @ =0x03000738
+    ldr r6, lbl_0801a4b4 @ =gCurrentSprite
     adds r0, r6, #0
     adds r0, #0x23
     ldrb r7, [r0]
@@ -4110,7 +4110,7 @@ KraidPartCheckShouldSpawnSpikes: @ 0x0801a3f0
     lsls r0, r7, #3
     subs r0, r0, r7
     lsls r0, r0, #3
-    ldr r1, lbl_0801a4b8 @ =0x030001ac
+    ldr r1, lbl_0801a4b8 @ =gSpriteData
     adds r4, r0, r1
     adds r0, r4, #0
     adds r0, #0x24
@@ -4118,7 +4118,7 @@ KraidPartCheckShouldSpawnSpikes: @ 0x0801a3f0
     cmp r0, #7
     bls lbl_0801a4fe
     bl KraidCheckProjectilesCollidingWithBelly
-    ldr r2, lbl_0801a4bc @ =0x0300070c
+    ldr r2, lbl_0801a4bc @ =gSubSpriteData1
     mov sb, r2
     ldr r0, lbl_0801a4c0 @ =0x082b0d68
     ldr r1, lbl_0801a4c4 @ =0x000007ce
@@ -4146,7 +4146,7 @@ lbl_0801a444:
     adds r0, r0, r1
     cmp r2, r0
     blt lbl_0801a464
-    ldr r0, lbl_0801a4c8 @ =0x030013d4
+    ldr r0, lbl_0801a4c8 @ =gSamusData
     ldrh r1, [r0, #0x14]
     ldrh r0, [r6, #2]
     subs r0, #0x80
@@ -4155,7 +4155,7 @@ lbl_0801a444:
 lbl_0801a464:
     movs r5, #0x1c
     movs r3, #0
-    ldr r6, lbl_0801a4b8 @ =0x030001ac
+    ldr r6, lbl_0801a4b8 @ =gSpriteData
     adds r4, r6, #0
 lbl_0801a46c:
     lsls r0, r3, #3
@@ -4191,17 +4191,17 @@ lbl_0801a492:
     ldr r0, lbl_0801a4cc @ =0x0000ffdf
     ands r0, r2
     strh r0, [r1]
-    ldr r1, lbl_0801a4b4 @ =0x03000738
+    ldr r1, lbl_0801a4b4 @ =gCurrentSprite
     movs r0, #1
     strh r0, [r1, #6]
     b lbl_0801a4f8
     .align 2, 0
-lbl_0801a4b4: .4byte 0x03000738
-lbl_0801a4b8: .4byte 0x030001ac
-lbl_0801a4bc: .4byte 0x0300070c
+lbl_0801a4b4: .4byte gCurrentSprite
+lbl_0801a4b8: .4byte gSpriteData
+lbl_0801a4bc: .4byte gSubSpriteData1
 lbl_0801a4c0: .4byte 0x082b0d68
 lbl_0801a4c4: .4byte 0x000007ce
-lbl_0801a4c8: .4byte 0x030013d4
+lbl_0801a4c8: .4byte gSamusData
 lbl_0801a4cc: .4byte 0x0000ffdf
 lbl_0801a4d0:
     mov r0, sl
@@ -4244,7 +4244,7 @@ KraidMouthSpawnSpike: @ 0x0801a50c
     push {r4, r5, r6, r7, lr}
     sub sp, #0xc
     bl KraidCheckProjectilesCollidingWithBelly
-    ldr r4, lbl_0801a590 @ =0x03000738
+    ldr r4, lbl_0801a590 @ =gCurrentSprite
     ldrh r0, [r4, #6]
     subs r0, #1
     strh r0, [r4, #6]
@@ -4260,7 +4260,7 @@ KraidMouthSpawnSpike: @ 0x0801a50c
     adds r5, r0, #0
     cmp r5, #7
     bne lbl_0801a546
-    ldr r1, lbl_0801a594 @ =0x030001ac
+    ldr r1, lbl_0801a594 @ =gSpriteData
     lsls r0, r2, #3
     subs r0, r0, r2
     lsls r0, r0, #3
@@ -4286,7 +4286,7 @@ lbl_0801a546:
     lsrs r0, r0, #0x18
     cmp r0, #0x17
     bhi lbl_0801a57e
-    ldr r2, lbl_0801a594 @ =0x030001ac
+    ldr r2, lbl_0801a594 @ =gSpriteData
     lsls r1, r0, #3
     subs r1, r1, r0
     lsls r1, r1, #3
@@ -4308,13 +4308,13 @@ lbl_0801a586:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801a590: .4byte 0x03000738
-lbl_0801a594: .4byte 0x030001ac
+lbl_0801a590: .4byte gCurrentSprite
+lbl_0801a594: .4byte gSpriteData
 
     thumb_func_start KraidPartDyingInit
 KraidPartDyingInit: @ 0x0801a598
     push {lr}
-    ldr r1, lbl_0801a5b0 @ =0x03000738
+    ldr r1, lbl_0801a5b0 @ =gCurrentSprite
     ldrb r0, [r1, #0x1e]
     adds r2, r1, #0
     cmp r0, #0xb
@@ -4325,7 +4325,7 @@ KraidPartDyingInit: @ 0x0801a598
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0801a5b0: .4byte 0x03000738
+lbl_0801a5b0: .4byte gCurrentSprite
 lbl_0801a5b4: .4byte lbl_0801a5b8
 lbl_0801a5b8: @ jump table
     .4byte lbl_0801a63c @ case 0
@@ -4398,7 +4398,7 @@ lbl_0801a642:
     thumb_func_start KraidPartDyingSinking
 KraidPartDyingSinking: @ 0x0801a648
     push {r4, r5, lr}
-    ldr r4, lbl_0801a66c @ =0x03000738
+    ldr r4, lbl_0801a66c @ =gCurrentSprite
     ldrh r0, [r4, #6]
     adds r5, r0, #0
     cmp r5, #0
@@ -4416,7 +4416,7 @@ lbl_0801a662:
     strb r0, [r4, #0x1c]
     b lbl_0801a6bc
     .align 2, 0
-lbl_0801a66c: .4byte 0x03000738
+lbl_0801a66c: .4byte gCurrentSprite
 lbl_0801a670:
     ldrb r0, [r4, #0x1e]
     cmp r0, #0xa
@@ -4466,7 +4466,7 @@ lbl_0801a6c4: .4byte 0x082cac6c
 KraidPartDyingStationary: @ 0x0801a6c8
     push {lr}
     sub sp, #4
-    ldr r0, lbl_0801a70c @ =0x03000738
+    ldr r0, lbl_0801a70c @ =gCurrentSprite
     ldrb r1, [r0, #0x1e]
     adds r3, r0, #0
     cmp r1, #0xa
@@ -4481,7 +4481,7 @@ lbl_0801a6e0:
     adds r0, r3, #0
     adds r0, #0x23
     ldrb r1, [r0]
-    ldr r2, lbl_0801a710 @ =0x030001ac
+    ldr r2, lbl_0801a710 @ =gSpriteData
     lsls r0, r1, #3
     subs r0, r0, r1
     lsls r0, r0, #3
@@ -4502,8 +4502,8 @@ lbl_0801a700:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0801a70c: .4byte 0x03000738
-lbl_0801a710: .4byte 0x030001ac
+lbl_0801a70c: .4byte gCurrentSprite
+lbl_0801a710: .4byte gSpriteData
 lbl_0801a714: .4byte lbl_0801a718
 lbl_0801a718: @ jump table
     .4byte lbl_0801a748 @ case 0
@@ -4519,7 +4519,7 @@ lbl_0801a718: @ jump table
     .4byte lbl_0801a7f8 @ case 10
     .4byte lbl_0801a828 @ case 11
 lbl_0801a748:
-    ldr r0, lbl_0801a758 @ =0x0300070c
+    ldr r0, lbl_0801a758 @ =gSubSpriteData1
     ldrh r1, [r0, #6]
     subs r1, #0x40
     ldrh r2, [r0, #8]
@@ -4527,9 +4527,9 @@ lbl_0801a748:
     movs r0, #0x20
     b lbl_0801a834
     .align 2, 0
-lbl_0801a758: .4byte 0x0300070c
+lbl_0801a758: .4byte gSubSpriteData1
 lbl_0801a75c:
-    ldr r0, lbl_0801a76c @ =0x0300070c
+    ldr r0, lbl_0801a76c @ =gSubSpriteData1
     ldrh r1, [r0, #6]
     subs r1, #0x80
     ldrh r2, [r0, #8]
@@ -4538,9 +4538,9 @@ lbl_0801a75c:
     adds r2, r2, r0
     b lbl_0801a832
     .align 2, 0
-lbl_0801a76c: .4byte 0x0300070c
+lbl_0801a76c: .4byte gSubSpriteData1
 lbl_0801a770:
-    ldr r0, lbl_0801a780 @ =0x0300070c
+    ldr r0, lbl_0801a780 @ =gSubSpriteData1
     ldrh r1, [r0, #6]
     subs r1, #0xc0
     ldrh r2, [r0, #8]
@@ -4549,10 +4549,10 @@ lbl_0801a770:
     movs r0, #0x20
     b lbl_0801a834
     .align 2, 0
-lbl_0801a780: .4byte 0x0300070c
+lbl_0801a780: .4byte gSubSpriteData1
 lbl_0801a784: .4byte 0xfffffe80
 lbl_0801a788:
-    ldr r0, lbl_0801a79c @ =0x0300070c
+    ldr r0, lbl_0801a79c @ =gSubSpriteData1
     ldrh r1, [r0, #6]
     ldr r2, lbl_0801a7a0 @ =0xffffff00
     adds r1, r1, r2
@@ -4563,10 +4563,10 @@ lbl_0801a788:
     movs r0, #0x20
     b lbl_0801a834
     .align 2, 0
-lbl_0801a79c: .4byte 0x0300070c
+lbl_0801a79c: .4byte gSubSpriteData1
 lbl_0801a7a0: .4byte 0xffffff00
 lbl_0801a7a4:
-    ldr r0, lbl_0801a7b4 @ =0x0300070c
+    ldr r0, lbl_0801a7b4 @ =gSubSpriteData1
     ldrh r1, [r0, #6]
     ldr r2, lbl_0801a7b8 @ =0xfffffec0
     adds r1, r1, r2
@@ -4575,10 +4575,10 @@ lbl_0801a7a4:
     movs r0, #0x22
     b lbl_0801a834
     .align 2, 0
-lbl_0801a7b4: .4byte 0x0300070c
+lbl_0801a7b4: .4byte gSubSpriteData1
 lbl_0801a7b8: .4byte 0xfffffec0
 lbl_0801a7bc:
-    ldr r0, lbl_0801a7cc @ =0x0300070c
+    ldr r0, lbl_0801a7cc @ =gSubSpriteData1
     ldrh r1, [r0, #6]
     subs r1, #0x40
     ldrh r2, [r0, #8]
@@ -4586,9 +4586,9 @@ lbl_0801a7bc:
     movs r0, #0x20
     b lbl_0801a834
     .align 2, 0
-lbl_0801a7cc: .4byte 0x0300070c
+lbl_0801a7cc: .4byte gSubSpriteData1
 lbl_0801a7d0:
-    ldr r0, lbl_0801a7e0 @ =0x0300070c
+    ldr r0, lbl_0801a7e0 @ =gSubSpriteData1
     ldrh r1, [r0, #6]
     subs r1, #0x80
     ldrh r2, [r0, #8]
@@ -4597,19 +4597,19 @@ lbl_0801a7d0:
     movs r0, #0x20
     b lbl_0801a834
     .align 2, 0
-lbl_0801a7e0: .4byte 0x0300070c
+lbl_0801a7e0: .4byte gSubSpriteData1
 lbl_0801a7e4: .4byte 0xfffffec0
 lbl_0801a7e8:
-    ldr r0, lbl_0801a7f4 @ =0x0300070c
+    ldr r0, lbl_0801a7f4 @ =gSubSpriteData1
     ldrh r1, [r0, #6]
     subs r1, #0xc0
     ldrh r2, [r0, #8]
     adds r2, #0xc0
     b lbl_0801a832
     .align 2, 0
-lbl_0801a7f4: .4byte 0x0300070c
+lbl_0801a7f4: .4byte gSubSpriteData1
 lbl_0801a7f8:
-    ldr r0, lbl_0801a808 @ =0x0300070c
+    ldr r0, lbl_0801a808 @ =gSubSpriteData1
     ldrh r1, [r0, #6]
     ldr r2, lbl_0801a80c @ =0xffffff00
     adds r1, r1, r2
@@ -4618,10 +4618,10 @@ lbl_0801a7f8:
     movs r0, #0x20
     b lbl_0801a834
     .align 2, 0
-lbl_0801a808: .4byte 0x0300070c
+lbl_0801a808: .4byte gSubSpriteData1
 lbl_0801a80c: .4byte 0xffffff00
 lbl_0801a810:
-    ldr r0, lbl_0801a820 @ =0x0300070c
+    ldr r0, lbl_0801a820 @ =gSubSpriteData1
     ldrh r1, [r0, #6]
     ldr r2, lbl_0801a824 @ =0xfffffec0
     adds r1, r1, r2
@@ -4630,10 +4630,10 @@ lbl_0801a810:
     movs r0, #0x20
     b lbl_0801a834
     .align 2, 0
-lbl_0801a820: .4byte 0x0300070c
+lbl_0801a820: .4byte gSubSpriteData1
 lbl_0801a824: .4byte 0xfffffec0
 lbl_0801a828:
-    ldr r0, lbl_0801a840 @ =0x0300070c
+    ldr r0, lbl_0801a840 @ =gSubSpriteData1
     ldrh r1, [r0, #6]
     subs r1, #0x40
     ldrh r2, [r0, #8]
@@ -4647,7 +4647,7 @@ lbl_0801a834:
     bl SpriteUtilSpriteDeath
     b lbl_0801a848
     .align 2, 0
-lbl_0801a840: .4byte 0x0300070c
+lbl_0801a840: .4byte gSubSpriteData1
 lbl_0801a844:
     movs r0, #0
     strh r0, [r3]
@@ -4667,14 +4667,14 @@ KraidNailMovement: @ 0x0801a850
     sub sp, #0xc
     movs r0, #4
     str r0, [sp]
-    ldr r0, lbl_0801a888 @ =0x0300002c
+    ldr r0, lbl_0801a888 @ =gDifficulty
     ldrb r0, [r0]
     cmp r0, #2
     bne lbl_0801a86c
     movs r1, #8
     str r1, [sp]
 lbl_0801a86c:
-    ldr r1, lbl_0801a88c @ =0x03000738
+    ldr r1, lbl_0801a88c @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x2d
     ldrb r0, [r2]
@@ -4688,8 +4688,8 @@ lbl_0801a86c:
     strh r0, [r5]
     b lbl_0801aa2a
     .align 2, 0
-lbl_0801a888: .4byte 0x0300002c
-lbl_0801a88c: .4byte 0x03000738
+lbl_0801a888: .4byte gDifficulty
+lbl_0801a88c: .4byte gCurrentSprite
 lbl_0801a890:
     ldr r1, [sp]
     muls r0, r1, r0
@@ -4908,18 +4908,18 @@ lbl_0801aa2a:
     thumb_func_start Kraid
 Kraid: @ 0x0801aa3c
     push {r4, r5, r6, lr}
-    ldr r0, lbl_0801aa6c @ =0x03000738
+    ldr r0, lbl_0801aa6c @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0801aa54
-    ldr r0, lbl_0801aa70 @ =0x0300070c
+    ldr r0, lbl_0801aa70 @ =gSubSpriteData1
     ldrh r0, [r0, #0xa]
     cmp r0, #0
     beq lbl_0801aa54
     bl KraidOpenCloseRoutineAndProjectileCollision
 lbl_0801aa54:
-    ldr r0, lbl_0801aa6c @ =0x03000738
+    ldr r0, lbl_0801aa6c @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x68
@@ -4932,8 +4932,8 @@ lbl_0801aa60:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0801aa6c: .4byte 0x03000738
-lbl_0801aa70: .4byte 0x0300070c
+lbl_0801aa6c: .4byte gCurrentSprite
+lbl_0801aa70: .4byte gSubSpriteData1
 lbl_0801aa74: .4byte lbl_0801aa78
 lbl_0801aa78: @ jump table
     .4byte lbl_0801ac1c @ case 0
@@ -5078,7 +5078,7 @@ lbl_0801ac5a:
 lbl_0801ac60:
     bl KraidBeforeDeath
 lbl_0801ac64:
-    ldr r5, lbl_0801acac @ =0x03000738
+    ldr r5, lbl_0801acac @ =gCurrentSprite
     ldrb r0, [r5, #0x1d]
     cmp r0, #0x6f
     beq lbl_0801ac6e
@@ -5086,7 +5086,7 @@ lbl_0801ac64:
 lbl_0801ac6e:
     bl SpriteUtilUpdateSubSprite1Anim
     bl SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position
-    ldr r6, lbl_0801acb0 @ =0x0300070c
+    ldr r6, lbl_0801acb0 @ =gSubSpriteData1
     ldrb r0, [r6, #0xc]
     cmp r0, #1
     beq lbl_0801ac80
@@ -5112,18 +5112,18 @@ lbl_0801ac9c:
     beq lbl_0801aca2
     b lbl_0801ae26
 lbl_0801aca2:
-    ldr r1, lbl_0801acc0 @ =0x030000fc
+    ldr r1, lbl_0801acc0 @ =gBG2Movement
     ldrh r0, [r1, #2]
     adds r0, #4
     strh r0, [r1, #2]
     b lbl_0801ae26
     .align 2, 0
-lbl_0801acac: .4byte 0x03000738
-lbl_0801acb0: .4byte 0x0300070c
+lbl_0801acac: .4byte gCurrentSprite
+lbl_0801acb0: .4byte gSubSpriteData1
 lbl_0801acb4: .4byte 0x082c61f0
 lbl_0801acb8: .4byte 0x082c6200
 lbl_0801acbc: .4byte 0x082c6220
-lbl_0801acc0: .4byte 0x030000fc
+lbl_0801acc0: .4byte gBG2Movement
 lbl_0801acc4:
     ldr r4, lbl_0801ace8 @ =0x082c6240
     cmp r1, r4
@@ -5140,7 +5140,7 @@ lbl_0801acd0:
     cmp r0, #3
     bne lbl_0801acf4
 lbl_0801acde:
-    ldr r1, lbl_0801acf0 @ =0x030000fc
+    ldr r1, lbl_0801acf0 @ =gBG2Movement
     ldrh r0, [r1]
     subs r0, #4
     strh r0, [r1]
@@ -5148,7 +5148,7 @@ lbl_0801acde:
     .align 2, 0
 lbl_0801ace8: .4byte 0x082c6240
 lbl_0801acec: .4byte 0x082c62e8
-lbl_0801acf0: .4byte 0x030000fc
+lbl_0801acf0: .4byte gBG2Movement
 lbl_0801acf4:
     cmp r0, #4
     beq lbl_0801ad98
@@ -5156,7 +5156,7 @@ lbl_0801acf4:
     beq lbl_0801acfe
     b lbl_0801ae26
 lbl_0801acfe:
-    ldr r1, lbl_0801ad38 @ =0x030000fc
+    ldr r1, lbl_0801ad38 @ =gBG2Movement
     ldrh r0, [r1, #2]
     adds r0, #4
     strh r0, [r1, #2]
@@ -5183,9 +5183,9 @@ lbl_0801acfe:
     subs r1, #0x90
     b lbl_0801ade8
     .align 2, 0
-lbl_0801ad38: .4byte 0x030000fc
+lbl_0801ad38: .4byte gBG2Movement
 lbl_0801ad3c:
-    ldr r5, lbl_0801ad60 @ =0x03000738
+    ldr r5, lbl_0801ad60 @ =gCurrentSprite
     ldrh r0, [r5, #6]
     movs r4, #0xf0
     lsls r4, r4, #1
@@ -5202,7 +5202,7 @@ lbl_0801ad3c:
     adds r1, r1, r2
     b lbl_0801ade8
     .align 2, 0
-lbl_0801ad60: .4byte 0x03000738
+lbl_0801ad60: .4byte gCurrentSprite
 lbl_0801ad64:
     ldr r0, lbl_0801ad88 @ =0x082c6278
     cmp r1, r0
@@ -5219,7 +5219,7 @@ lbl_0801ad70:
     cmp r0, #3
     bne lbl_0801ad94
 lbl_0801ad7e:
-    ldr r1, lbl_0801ad90 @ =0x030000fc
+    ldr r1, lbl_0801ad90 @ =gBG2Movement
     ldrh r0, [r1]
     adds r0, #4
     strh r0, [r1]
@@ -5227,22 +5227,22 @@ lbl_0801ad7e:
     .align 2, 0
 lbl_0801ad88: .4byte 0x082c6278
 lbl_0801ad8c: .4byte 0x082c62b0
-lbl_0801ad90: .4byte 0x030000fc
+lbl_0801ad90: .4byte gBG2Movement
 lbl_0801ad94:
     cmp r0, #4
     bne lbl_0801ada8
 lbl_0801ad98:
-    ldr r1, lbl_0801ada4 @ =0x030000fc
+    ldr r1, lbl_0801ada4 @ =gBG2Movement
     ldrh r0, [r1, #2]
     subs r0, #4
     strh r0, [r1, #2]
     b lbl_0801ae26
     .align 2, 0
-lbl_0801ada4: .4byte 0x030000fc
+lbl_0801ada4: .4byte gBG2Movement
 lbl_0801ada8:
     cmp r0, #5
     bne lbl_0801ae26
-    ldr r1, lbl_0801adf0 @ =0x030000fc
+    ldr r1, lbl_0801adf0 @ =gBG2Movement
     ldrh r0, [r1, #2]
     adds r0, #4
     strh r0, [r1, #2]
@@ -5256,7 +5256,7 @@ lbl_0801ada8:
     ldr r0, lbl_0801adf4 @ =0x082c62b0
     cmp r1, r0
     bne lbl_0801adfc
-    ldr r5, lbl_0801adf8 @ =0x03000738
+    ldr r5, lbl_0801adf8 @ =gCurrentSprite
     ldrh r0, [r5, #6]
     movs r4, #0xf0
     lsls r4, r4, #1
@@ -5274,11 +5274,11 @@ lbl_0801ade8:
     bl ParticleSet
     b lbl_0801ae26
     .align 2, 0
-lbl_0801adf0: .4byte 0x030000fc
+lbl_0801adf0: .4byte gBG2Movement
 lbl_0801adf4: .4byte 0x082c62b0
-lbl_0801adf8: .4byte 0x03000738
+lbl_0801adf8: .4byte gCurrentSprite
 lbl_0801adfc:
-    ldr r5, lbl_0801ae74 @ =0x03000738
+    ldr r5, lbl_0801ae74 @ =gCurrentSprite
     ldrh r0, [r5, #6]
     movs r4, #0xf0
     lsls r4, r4, #1
@@ -5298,7 +5298,7 @@ lbl_0801adfc:
     movs r2, #0x38
     bl ParticleSet
 lbl_0801ae26:
-    ldr r1, lbl_0801ae78 @ =0x0300070c
+    ldr r1, lbl_0801ae78 @ =gSubSpriteData1
     ldrb r0, [r1, #0xd]
     cmp r0, #0
     beq lbl_0801ae34
@@ -5306,10 +5306,10 @@ lbl_0801ae26:
     adds r0, #4
     strb r0, [r1, #0xc]
 lbl_0801ae34:
-    ldr r1, lbl_0801ae7c @ =0x03000100
+    ldr r1, lbl_0801ae7c @ =gLockScreen
     movs r0, #1
     strb r0, [r1]
-    ldr r2, lbl_0801ae80 @ =0x030013d4
+    ldr r2, lbl_0801ae80 @ =gSamusData
     ldrh r0, [r2, #0x14]
     strh r0, [r1, #4]
     ldr r3, lbl_0801ae84 @ =0xfffffec0
@@ -5317,7 +5317,7 @@ lbl_0801ae34:
     ldrh r2, [r2, #0x12]
     adds r0, r0, r2
     strh r0, [r1, #2]
-    ldr r3, lbl_0801ae74 @ =0x03000738
+    ldr r3, lbl_0801ae74 @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x20
     ldrb r2, [r0]
@@ -5339,10 +5339,10 @@ lbl_0801ae34:
     strh r0, [r3]
     b lbl_0801aea6
     .align 2, 0
-lbl_0801ae74: .4byte 0x03000738
-lbl_0801ae78: .4byte 0x0300070c
-lbl_0801ae7c: .4byte 0x03000100
-lbl_0801ae80: .4byte 0x030013d4
+lbl_0801ae74: .4byte gCurrentSprite
+lbl_0801ae78: .4byte gSubSpriteData1
+lbl_0801ae7c: .4byte gLockScreen
+lbl_0801ae80: .4byte gSamusData
 lbl_0801ae84: .4byte 0xfffffec0
 lbl_0801ae88:
     ldrh r1, [r3]
@@ -5358,7 +5358,7 @@ lbl_0801ae88:
     .align 2, 0
 lbl_0801ae9c: .4byte 0x0000fbff
 lbl_0801aea0:
-    ldr r1, lbl_0801aeac @ =0x03000100
+    ldr r1, lbl_0801aeac @ =gLockScreen
     movs r0, #0
     strb r0, [r1]
 lbl_0801aea6:
@@ -5366,16 +5366,16 @@ lbl_0801aea6:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801aeac: .4byte 0x03000100
+lbl_0801aeac: .4byte gLockScreen
 
     thumb_func_start KraidPart
 KraidPart: @ 0x0801aeb0
     push {r4, lr}
-    ldr r3, lbl_0801af18 @ =0x03000738
+    ldr r3, lbl_0801af18 @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x23
     ldrb r1, [r0]
-    ldr r2, lbl_0801af1c @ =0x030001ac
+    ldr r2, lbl_0801af1c @ =gSpriteData
     lsls r0, r1, #3
     subs r0, r0, r1
     lsls r0, r0, #3
@@ -5387,7 +5387,7 @@ KraidPart: @ 0x0801aeb0
     strb r1, [r0]
     subs r0, #0x14
     strb r1, [r0]
-    ldr r0, lbl_0801af20 @ =0x0300070c
+    ldr r0, lbl_0801af20 @ =gSubSpriteData1
     ldrh r0, [r0, #0xa]
     cmp r0, #0
     bne lbl_0801aefa
@@ -5408,7 +5408,7 @@ KraidPart: @ 0x0801aeb0
     orrs r0, r1
     strh r0, [r3]
 lbl_0801aefa:
-    ldr r0, lbl_0801af18 @ =0x03000738
+    ldr r0, lbl_0801af18 @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x43
@@ -5423,9 +5423,9 @@ lbl_0801aefa:
     beq lbl_0801af46
     b lbl_0801af7a
     .align 2, 0
-lbl_0801af18: .4byte 0x03000738
-lbl_0801af1c: .4byte 0x030001ac
-lbl_0801af20: .4byte 0x0300070c
+lbl_0801af18: .4byte gCurrentSprite
+lbl_0801af1c: .4byte gSpriteData
+lbl_0801af20: .4byte gSubSpriteData1
 lbl_0801af24:
     cmp r0, #0x12
     beq lbl_0801af52
@@ -5473,7 +5473,7 @@ lbl_0801af70:
 lbl_0801af76:
     bl KraidPartDyingStationary
 lbl_0801af7a:
-    ldr r4, lbl_0801af98 @ =0x03000738
+    ldr r4, lbl_0801af98 @ =gCurrentSprite
     ldrb r0, [r4, #0x1d]
     cmp r0, #3
     bne lbl_0801b03c
@@ -5487,7 +5487,7 @@ lbl_0801af7a:
     bl KraidPartUpdateRightArmIdlingHitbox
     b lbl_0801b016
     .align 2, 0
-lbl_0801af98: .4byte 0x03000738
+lbl_0801af98: .4byte gCurrentSprite
 lbl_0801af9c: .4byte 0x082cadd4
 lbl_0801afa0:
     ldr r0, lbl_0801afac @ =0x082cae2c
@@ -5555,7 +5555,7 @@ lbl_0801b016:
     b lbl_0801b03c
 lbl_0801b01c:
     bl kraid_mouth_determine_spike_pos
-    ldr r0, lbl_0801b044 @ =0x0300070c
+    ldr r0, lbl_0801b044 @ =gSubSpriteData1
     ldrb r0, [r0, #0xd]
     cmp r0, #0
     beq lbl_0801b03c
@@ -5575,7 +5575,7 @@ lbl_0801b03c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801b044: .4byte 0x0300070c
+lbl_0801b044: .4byte gSubSpriteData1
 
     thumb_func_start KraidSpike
 KraidSpike: @ 0x0801b048
@@ -5583,9 +5583,9 @@ KraidSpike: @ 0x0801b048
     mov r7, sb
     mov r6, r8
     push {r6, r7}
-    ldr r0, lbl_0801b0a8 @ =0x0300070c
+    ldr r0, lbl_0801b0a8 @ =gSubSpriteData1
     ldrh r0, [r0, #0xa]
-    ldr r4, lbl_0801b0ac @ =0x03000738
+    ldr r4, lbl_0801b0ac @ =gCurrentSprite
     cmp r0, #0
     bne lbl_0801b062
     adds r1, r4, #0
@@ -5598,7 +5598,7 @@ lbl_0801b062:
     ldrb r6, [r0]
     adds r2, r4, #0
     adds r2, #0x34
-    ldr r0, lbl_0801b0b0 @ =0x030001ac
+    ldr r0, lbl_0801b0b0 @ =gSpriteData
     lsls r1, r6, #3
     subs r1, r1, r6
     lsls r1, r1, #3
@@ -5630,9 +5630,9 @@ lbl_0801b098:
     beq lbl_0801b11e
     b lbl_0801b4b4
     .align 2, 0
-lbl_0801b0a8: .4byte 0x0300070c
-lbl_0801b0ac: .4byte 0x03000738
-lbl_0801b0b0: .4byte 0x030001ac
+lbl_0801b0a8: .4byte gSubSpriteData1
+lbl_0801b0ac: .4byte gCurrentSprite
+lbl_0801b0b0: .4byte gSpriteData
 lbl_0801b0b4:
     cmp r5, #0x25
     bne lbl_0801b0ba
@@ -5689,7 +5689,7 @@ lbl_0801b0bc:
     ldr r0, lbl_0801b144 @ =0x000001c7
     bl SoundPlay
 lbl_0801b11e:
-    ldr r1, lbl_0801b148 @ =0x03000738
+    ldr r1, lbl_0801b148 @ =gCurrentSprite
     ldrh r0, [r1, #0x16]
     adds r2, r0, #0
     cmp r0, #4
@@ -5705,7 +5705,7 @@ lbl_0801b138: .4byte 0x082b1be4
 lbl_0801b13c: .4byte 0x0000ffe0
 lbl_0801b140: .4byte 0x082cb2bc
 lbl_0801b144: .4byte 0x000001c7
-lbl_0801b148: .4byte 0x03000738
+lbl_0801b148: .4byte gCurrentSprite
 lbl_0801b14c:
     cmp r0, #2
     bne lbl_0801b156
@@ -5750,8 +5750,8 @@ lbl_0801b188:
     lsls r0, r0, #1
     bl SoundPlay
 lbl_0801b19a:
-    ldr r2, lbl_0801b1b0 @ =0x03000738
-    ldr r1, lbl_0801b1b4 @ =0x030001ac
+    ldr r2, lbl_0801b1b0 @ =gCurrentSprite
+    ldr r1, lbl_0801b1b4 @ =gSpriteData
     lsls r0, r6, #3
     subs r0, r0, r6
     lsls r0, r0, #3
@@ -5762,8 +5762,8 @@ lbl_0801b19a:
     strh r0, [r2, #4]
     b lbl_0801b4e2
     .align 2, 0
-lbl_0801b1b0: .4byte 0x03000738
-lbl_0801b1b4: .4byte 0x030001ac
+lbl_0801b1b0: .4byte gCurrentSprite
+lbl_0801b1b4: .4byte gSpriteData
 lbl_0801b1b8:
     adds r1, r4, #0
     adds r1, #0x2c
@@ -5779,14 +5779,14 @@ lbl_0801b1b8:
     movs r0, #4
     strb r0, [r1]
 lbl_0801b1d2:
-    ldr r0, lbl_0801b2bc @ =0x03000738
+    ldr r0, lbl_0801b2bc @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #0x80
     lsls r0, r0, #5
     ands r0, r1
     cmp r0, #0
     beq lbl_0801b1f8
-    ldr r4, lbl_0801b2c0 @ =0x030013d4
+    ldr r4, lbl_0801b2c0 @ =gSamusData
     ldrh r0, [r4, #0x14]
     subs r0, #0x20
     ldrh r1, [r4, #0x12]
@@ -5798,7 +5798,7 @@ lbl_0801b1d2:
     adds r0, #8
     strh r0, [r4, #0x12]
 lbl_0801b1f8:
-    ldr r5, lbl_0801b2bc @ =0x03000738
+    ldr r5, lbl_0801b2bc @ =gCurrentSprite
     ldrh r0, [r5, #4]
     adds r1, r0, #0
     adds r1, #8
@@ -5830,7 +5830,7 @@ lbl_0801b226:
     blt lbl_0801b234
     b lbl_0801b368
 lbl_0801b234:
-    ldr r0, lbl_0801b2c4 @ =0x03000079
+    ldr r0, lbl_0801b2c4 @ =gCurrentClipdataAffectingAction
     mov sb, r0
     movs r1, #1
     mov r8, r1
@@ -5842,7 +5842,7 @@ lbl_0801b234:
     adds r1, r7, #0
     movs r2, #0x20
     bl ParticleSet
-    ldr r4, lbl_0801b2c8 @ =0x0300083c
+    ldr r4, lbl_0801b2c8 @ =gSpriteRNG
     ldrb r2, [r4]
     adds r2, #0x1a
     subs r2, r6, r2
@@ -5877,7 +5877,7 @@ lbl_0801b234:
     ldrb r0, [r5, #0x1e]
     cmp r0, #2
     bne lbl_0801b2d4
-    ldr r2, lbl_0801b2cc @ =0x0300070c
+    ldr r2, lbl_0801b2cc @ =gSubSpriteData1
     ldrb r1, [r2, #0xf]
     movs r0, #1
     ands r0, r1
@@ -5892,16 +5892,16 @@ lbl_0801b2ac:
     bl SoundPlay
     b lbl_0801b4e2
     .align 2, 0
-lbl_0801b2bc: .4byte 0x03000738
-lbl_0801b2c0: .4byte 0x030013d4
-lbl_0801b2c4: .4byte 0x03000079
-lbl_0801b2c8: .4byte 0x0300083c
-lbl_0801b2cc: .4byte 0x0300070c
+lbl_0801b2bc: .4byte gCurrentSprite
+lbl_0801b2c0: .4byte gSamusData
+lbl_0801b2c4: .4byte gCurrentClipdataAffectingAction
+lbl_0801b2c8: .4byte gSpriteRNG
+lbl_0801b2cc: .4byte gSubSpriteData1
 lbl_0801b2d0: .4byte 0x000001c9
 lbl_0801b2d4:
     cmp r0, #4
     bne lbl_0801b314
-    ldr r2, lbl_0801b310 @ =0x0300070c
+    ldr r2, lbl_0801b310 @ =gSubSpriteData1
     ldrb r1, [r2, #0xf]
     movs r0, #2
     ands r0, r1
@@ -5928,13 +5928,13 @@ lbl_0801b2f2:
     subs r4, #0x80
     b lbl_0801b34e
     .align 2, 0
-lbl_0801b310: .4byte 0x0300070c
+lbl_0801b310: .4byte gSubSpriteData1
 lbl_0801b314:
     cmp r0, #7
     beq lbl_0801b31a
     b lbl_0801b4e2
 lbl_0801b31a:
-    ldr r2, lbl_0801b364 @ =0x0300070c
+    ldr r2, lbl_0801b364 @ =gSubSpriteData1
     ldrb r1, [r2, #0xf]
     movs r0, #4
     ands r0, r1
@@ -5969,7 +5969,7 @@ lbl_0801b34e:
     bl ParticleSet
     b lbl_0801b4e2
     .align 2, 0
-lbl_0801b364: .4byte 0x0300070c
+lbl_0801b364: .4byte gSubSpriteData1
 lbl_0801b368:
     ldrb r0, [r5, #0x1e]
     cmp r0, #2
@@ -5991,7 +5991,7 @@ lbl_0801b378:
     bl SpriteUtilGetCollisionAtPosition
     cmp r0, #0
     beq lbl_0801b3a8
-    ldr r1, lbl_0801b45c @ =0x03000079
+    ldr r1, lbl_0801b45c @ =gCurrentClipdataAffectingAction
     movs r0, #1
     strb r0, [r1]
     adds r0, r4, #0
@@ -6009,7 +6009,7 @@ lbl_0801b3a8:
     bl SpriteUtilGetCollisionAtPosition
     cmp r0, #0
     beq lbl_0801b3d0
-    ldr r1, lbl_0801b45c @ =0x03000079
+    ldr r1, lbl_0801b45c @ =gCurrentClipdataAffectingAction
     movs r0, #1
     strb r0, [r1]
     adds r0, r4, #0
@@ -6027,7 +6027,7 @@ lbl_0801b3d0:
     bl SpriteUtilGetCollisionAtPosition
     cmp r0, #0
     beq lbl_0801b3f8
-    ldr r1, lbl_0801b45c @ =0x03000079
+    ldr r1, lbl_0801b45c @ =gCurrentClipdataAffectingAction
     movs r0, #1
     strb r0, [r1]
     adds r0, r4, #0
@@ -6038,7 +6038,7 @@ lbl_0801b3d0:
     movs r2, #0x20
     bl ParticleSet
 lbl_0801b3f8:
-    ldr r4, lbl_0801b460 @ =0x0300083c
+    ldr r4, lbl_0801b460 @ =gSpriteRNG
     ldrb r2, [r4]
     subs r2, r6, r2
     adds r3, r7, #0
@@ -6069,7 +6069,7 @@ lbl_0801b3f8:
     movs r0, #0
     movs r1, #4
     bl SpriteDebrisInit
-    ldr r1, lbl_0801b464 @ =0x03000738
+    ldr r1, lbl_0801b464 @ =gCurrentSprite
     movs r0, #0xb4
     lsls r0, r0, #1
     strh r0, [r1, #6]
@@ -6084,9 +6084,9 @@ lbl_0801b3f8:
     bl SoundPlay
     b lbl_0801b4e2
     .align 2, 0
-lbl_0801b45c: .4byte 0x03000079
-lbl_0801b460: .4byte 0x0300083c
-lbl_0801b464: .4byte 0x03000738
+lbl_0801b45c: .4byte gCurrentClipdataAffectingAction
+lbl_0801b460: .4byte gSpriteRNG
+lbl_0801b464: .4byte gCurrentSprite
 lbl_0801b468: .4byte 0x000001cb
 lbl_0801b46c:
     ldrh r0, [r4, #6]
@@ -6132,7 +6132,7 @@ lbl_0801b4b4:
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0801b4ca
-    ldr r1, lbl_0801b4f0 @ =0x030013d4
+    ldr r1, lbl_0801b4f0 @ =gSamusData
     ldrb r0, [r1, #1]
     cmp r0, #1
     bne lbl_0801b4ca
@@ -6157,13 +6157,13 @@ lbl_0801b4e2:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801b4f0: .4byte 0x030013d4
+lbl_0801b4f0: .4byte gSamusData
 
     thumb_func_start KraidNail
 KraidNail: @ 0x0801b4f4
     push {r4, r5, r6, lr}
     sub sp, #4
-    ldr r0, lbl_0801b520 @ =0x03000738
+    ldr r0, lbl_0801b520 @ =gCurrentSprite
     adds r5, r0, #0
     adds r5, #0x24
     ldrb r3, [r5]
@@ -6183,7 +6183,7 @@ lbl_0801b50c:
     bl SpriteUtilSpriteDeath
     b lbl_0801b6b0
     .align 2, 0
-lbl_0801b520: .4byte 0x03000738
+lbl_0801b520: .4byte gCurrentSprite
 lbl_0801b524:
     ldrh r1, [r4]
     ldr r0, lbl_0801b5b8 @ =0x0000fffb
@@ -6251,7 +6251,7 @@ lbl_0801b524:
     ldrb r0, [r4, #0x1e]
     cmp r0, #0
     beq lbl_0801b5cc
-    ldr r1, lbl_0801b5c8 @ =0x030013d4
+    ldr r1, lbl_0801b5c8 @ =gSamusData
     ldrh r3, [r1, #0x14]
     adds r2, r4, #0
     adds r2, #0x2a
@@ -6263,9 +6263,9 @@ lbl_0801b5b8: .4byte 0x0000fffb
 lbl_0801b5bc: .4byte 0x082b1be4
 lbl_0801b5c0: .4byte 0x0000ffe4
 lbl_0801b5c4: .4byte 0x082cb28c
-lbl_0801b5c8: .4byte 0x030013d4
+lbl_0801b5c8: .4byte gSamusData
 lbl_0801b5cc:
-    ldr r1, lbl_0801b5f4 @ =0x030013d4
+    ldr r1, lbl_0801b5f4 @ =gSamusData
     ldrh r0, [r1, #0x14]
     subs r0, #0xa0
     lsls r0, r0, #0x10
@@ -6287,7 +6287,7 @@ lbl_0801b5dc:
     ands r0, r1
     b lbl_0801b606
     .align 2, 0
-lbl_0801b5f4: .4byte 0x030013d4
+lbl_0801b5f4: .4byte gSamusData
 lbl_0801b5f8: .4byte 0x0000fbff
 lbl_0801b5fc:
     ldrh r1, [r4]
@@ -6337,7 +6337,7 @@ lbl_0801b650:
     strh r0, [r5]
     b lbl_0801b6b0
 lbl_0801b656:
-    ldr r0, lbl_0801b670 @ =0x0300002c
+    ldr r0, lbl_0801b670 @ =gDifficulty
     ldrb r0, [r0]
     cmp r0, #2
     bne lbl_0801b67e
@@ -6350,7 +6350,7 @@ lbl_0801b656:
     adds r0, #0x14
     b lbl_0801b696
     .align 2, 0
-lbl_0801b670: .4byte 0x0300002c
+lbl_0801b670: .4byte gDifficulty
 lbl_0801b674:
     adds r1, r5, #0
     adds r1, #0x2a
@@ -6373,7 +6373,7 @@ lbl_0801b68e:
     adds r0, #0xe
 lbl_0801b696:
     strb r0, [r1]
-    ldr r1, lbl_0801b6a8 @ =0x03000738
+    ldr r1, lbl_0801b6a8 @ =gCurrentSprite
     ldrh r0, [r1, #0x14]
     cmp r0, #0
     bne lbl_0801b6ac
@@ -6382,7 +6382,7 @@ lbl_0801b696:
     strb r0, [r1]
     b lbl_0801b6b0
     .align 2, 0
-lbl_0801b6a8: .4byte 0x03000738
+lbl_0801b6a8: .4byte gCurrentSprite
 lbl_0801b6ac:
     bl KraidNailMovement
 lbl_0801b6b0:

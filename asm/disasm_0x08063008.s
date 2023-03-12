@@ -40,7 +40,7 @@ lbl_08063044:
     bl DMATransfer
     movs r0, #0
     strh r0, [r4]
-    ldr r0, lbl_0806307c @ =0x03001530
+    ldr r0, lbl_0806307c @ =gEquipment
     ldrb r1, [r0, #0xf]
     adds r0, r5, #0
     ands r0, r1
@@ -55,7 +55,7 @@ lbl_08063044:
     b lbl_08063096
     .align 2, 0
 lbl_08063078: .4byte 0x08376144
-lbl_0806307c: .4byte 0x03001530
+lbl_0806307c: .4byte gEquipment
 lbl_08063080: .4byte 0x08376284
 lbl_08063084: .4byte 0x050000a0
 lbl_08063088:
@@ -374,10 +374,10 @@ lbl_080632c4:
     movs r0, #3
     adds r1, r4, #0
     bl CutsceneSetBackgroundPosition
-    ldr r1, lbl_08063390 @ =0x030013b0
+    ldr r1, lbl_08063390 @ =gWrittenToBLDALPHA_L
     movs r0, #6
     strh r0, [r1]
-    ldr r1, lbl_08063394 @ =0x030013b2
+    ldr r1, lbl_08063394 @ =gWrittenToBLDALPHA_H
     movs r0, #0xc
     strh r0, [r1]
     ldr r0, lbl_08063398 @ =0x08754bc4
@@ -404,8 +404,8 @@ lbl_08063380: .4byte 0x08376324
 lbl_08063384: .4byte 0x05000200
 lbl_08063388: .4byte 0x0837e2e0
 lbl_0806338c: .4byte 0x06010000
-lbl_08063390: .4byte 0x030013b0
-lbl_08063394: .4byte 0x030013b2
+lbl_08063390: .4byte gWrittenToBLDALPHA_L
+lbl_08063394: .4byte gWrittenToBLDALPHA_H
 lbl_08063398: .4byte 0x08754bc4
 lbl_0806339c: .4byte 0x00003844
 lbl_080633a0:
@@ -527,13 +527,13 @@ lbl_0806348c:
     adds r4, #1
     cmp r4, #5
     ble lbl_08063476
-    ldr r0, lbl_080634b8 @ =0x03000c77
+    ldr r0, lbl_080634b8 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #7
     ands r0, r1
     cmp r0, #0
     bne lbl_080634aa
-    ldr r0, lbl_080634bc @ =0x030013b2
+    ldr r0, lbl_080634bc @ =gWrittenToBLDALPHA_H
     ldrh r1, [r0]
     movs r2, #1
     eors r1, r2
@@ -546,8 +546,8 @@ lbl_080634aa:
     bx r1
     .align 2, 0
 lbl_080634b4: .4byte 0x08754bc4
-lbl_080634b8: .4byte 0x03000c77
-lbl_080634bc: .4byte 0x030013b2
+lbl_080634b8: .4byte gFrameCounter8Bit
+lbl_080634bc: .4byte gWrittenToBLDALPHA_H
 
     thumb_func_start mother_brain_close_up_tank_view
 mother_brain_close_up_tank_view: @ 0x080634c0
@@ -689,7 +689,7 @@ mother_brain_close_up_init: @ 0x08063584
     movs r6, #0
     movs r0, #0xff
     strh r0, [r1, #0x1e]
-    ldr r0, lbl_08063638 @ =0x030013ae
+    ldr r0, lbl_08063638 @ =gWrittenToBLDY_NonGameplay
     mov r1, r8
     strh r1, [r0]
     ldrh r4, [r4, #4]
@@ -724,7 +724,7 @@ lbl_08063628: .4byte 0x08382b00
 lbl_0806362c: .4byte 0x08375d20
 lbl_08063630: .4byte 0x083868a0
 lbl_08063634: .4byte 0x08754bc4
-lbl_08063638: .4byte 0x030013ae
+lbl_08063638: .4byte gWrittenToBLDY_NonGameplay
 
     thumb_func_start mother_brain_close_up_subroutine
 mother_brain_close_up_subroutine: @ 0x0806363c
@@ -754,7 +754,7 @@ lbl_0806366c: .4byte 0x08754bc4
     thumb_func_start sub_08063670
 sub_08063670: @ 0x08063670
     push {lr}
-    ldr r1, lbl_08063698 @ =0x03001382
+    ldr r1, lbl_08063698 @ =gNextOamSlot
     movs r0, #0
     strb r0, [r1]
     ldr r2, lbl_0806369c @ =0x0875ff40
@@ -771,7 +771,7 @@ sub_08063670: @ 0x08063670
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08063698: .4byte 0x03001382
+lbl_08063698: .4byte gNextOamSlot
 lbl_0806369c: .4byte 0x0875ff40
 lbl_080636a0: .4byte 0x08754bc4
 lbl_080636a4: .4byte 0x08375d4c
@@ -921,7 +921,7 @@ sub_080637b0: @ 0x080637b0
     movs r1, #0x80
     lsls r1, r1, #4
     adds r0, r0, r1
-    ldr r1, lbl_080637d8 @ =0x03000c02
+    ldr r1, lbl_080637d8 @ =gBG3VOFS_NonGameplay
     ldrh r1, [r1]
     subs r1, r0, r1
     movs r0, #0x90
@@ -932,7 +932,7 @@ sub_080637b0: @ 0x080637b0
     movs r0, #0x3f
     b lbl_08063802
     .align 2, 0
-lbl_080637d8: .4byte 0x03000c02
+lbl_080637d8: .4byte gBG3VOFS_NonGameplay
 lbl_080637dc:
     movs r0, #0xc0
     lsls r0, r0, #2
@@ -1132,7 +1132,7 @@ lbl_080638cc:
     mov sl, r0
     ldr r1, lbl_08063a10 @ =0x0808c99c
     mov r8, r1
-    ldr r7, lbl_08063a14 @ =0x03000c77
+    ldr r7, lbl_08063a14 @ =gFrameCounter8Bit
     movs r4, #0xa8
     lsls r4, r4, #1
     movs r2, #0xff
@@ -1204,7 +1204,7 @@ lbl_08063a04: .4byte 0x06010000
 lbl_08063a08: .4byte 0x08754bc4
 lbl_08063a0c: .4byte 0x0875ff70
 lbl_08063a10: .4byte 0x0808c99c
-lbl_08063a14: .4byte 0x03000c77
+lbl_08063a14: .4byte gFrameCounter8Bit
 lbl_08063a18: .4byte 0x0000027f
 lbl_08063a1c:
     adds r0, r5, r4
@@ -1384,7 +1384,7 @@ lbl_08063b6c:
     bne lbl_08063bd2
     movs r0, #5
     strb r0, [r2, #0xa]
-    ldr r1, lbl_08063b94 @ =0x03000c06
+    ldr r1, lbl_08063b94 @ =gCurrentOamScaling
     movs r3, #0x80
     lsls r3, r3, #1
     adds r0, r3, #0
@@ -1398,7 +1398,7 @@ lbl_08063b6c:
     .align 2, 0
 lbl_08063b8c: .4byte 0x0000fffd
 lbl_08063b90: .4byte 0xff900000
-lbl_08063b94: .4byte 0x03000c06
+lbl_08063b94: .4byte gCurrentOamScaling
 lbl_08063b98:
     movs r0, #0xc
     ands r0, r1
@@ -1413,7 +1413,7 @@ lbl_08063b98:
     strh r0, [r2, #2]
 lbl_08063bae:
     strh r3, [r2, #0x10]
-    ldr r1, lbl_08063bd8 @ =0x03000c06
+    ldr r1, lbl_08063bd8 @ =gCurrentOamScaling
     ldrh r0, [r1]
     ldr r3, lbl_08063bdc @ =0x000001ff
     cmp r0, r3
@@ -1435,7 +1435,7 @@ lbl_08063bd2:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08063bd8: .4byte 0x03000c06
+lbl_08063bd8: .4byte gCurrentOamScaling
 lbl_08063bdc: .4byte 0x000001ff
 
     thumb_func_start ridley_in_space_ridley_suspicious
@@ -1549,10 +1549,10 @@ lbl_08063c24:
     movs r2, #0
     ldr r0, lbl_08063d14 @ =0x00002c42
     strh r0, [r1, #0x1e]
-    ldr r0, lbl_08063d18 @ =0x030013b2
+    ldr r0, lbl_08063d18 @ =gWrittenToBLDALPHA_H
     mov r3, sb
     strh r3, [r0]
-    ldr r0, lbl_08063d1c @ =0x030013b0
+    ldr r0, lbl_08063d1c @ =gWrittenToBLDALPHA_L
     strh r2, [r0]
     mov r0, r8
     orrs r6, r0
@@ -1570,8 +1570,8 @@ lbl_08063d08: .4byte 0x0839f1ac
 lbl_08063d0c: .4byte 0x0839f628
 lbl_08063d10: .4byte 0x08754bc4
 lbl_08063d14: .4byte 0x00002c42
-lbl_08063d18: .4byte 0x030013b2
-lbl_08063d1c: .4byte 0x030013b0
+lbl_08063d18: .4byte gWrittenToBLDALPHA_H
+lbl_08063d1c: .4byte gWrittenToBLDALPHA_L
 lbl_08063d20:
     ldr r0, [r4]
     ldrh r0, [r0, #0x1e]
@@ -2074,7 +2074,7 @@ lbl_08064112:
     adds r0, r0, r2
     bl sub_08064168
     bl sub_08064498
-    ldr r0, lbl_08064160 @ =0x03000c77
+    ldr r0, lbl_08064160 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #7
     ands r0, r1
@@ -2094,7 +2094,7 @@ lbl_08064152:
     bx r1
     .align 2, 0
 lbl_0806415c: .4byte 0x08754bc4
-lbl_08064160: .4byte 0x03000c77
+lbl_08064160: .4byte gFrameCounter8Bit
 lbl_08064164: .4byte 0x08386f70
 
     thumb_func_start sub_08064168
@@ -2336,7 +2336,7 @@ ridley_in_space_cutscene_init: @ 0x080642bc
     mov r1, r8
     bl CutsceneSetBackgroundPosition
     bl CutsceneReset
-    ldr r0, lbl_08064408 @ =0x030013ae
+    ldr r0, lbl_08064408 @ =gWrittenToBLDY_NonGameplay
     mov r1, sb
     strh r1, [r0]
     ldr r5, lbl_0806440c @ =0x08754bc4
@@ -2427,7 +2427,7 @@ lbl_080643f8: .4byte 0x0839d8b0
 lbl_080643fc: .4byte 0x05000200
 lbl_08064400: .4byte 0x08387088
 lbl_08064404: .4byte 0x06010000
-lbl_08064408: .4byte 0x030013ae
+lbl_08064408: .4byte gWrittenToBLDY_NonGameplay
 lbl_0806440c: .4byte 0x08754bc4
 lbl_08064410: .4byte 0x0875ff74
 lbl_08064414: .4byte 0x0000028d
@@ -2460,7 +2460,7 @@ lbl_08064448: .4byte 0x08754bc4
     thumb_func_start sub_0806444c
 sub_0806444c: @ 0x0806444c
     push {lr}
-    ldr r1, lbl_08064480 @ =0x03001382
+    ldr r1, lbl_08064480 @ =gNextOamSlot
     movs r0, #0
     strb r0, [r1]
     ldr r2, lbl_08064484 @ =0x0875ff88
@@ -2474,21 +2474,21 @@ sub_0806444c: @ 0x0806444c
     ldr r2, lbl_0806448c @ =0x08387030
     bl process_cutscene_oam
     bl ResetFreeOAM
-    ldr r0, lbl_08064490 @ =0x03000c04
+    ldr r0, lbl_08064490 @ =gCurrentOamRotation
     ldrh r0, [r0]
-    ldr r1, lbl_08064494 @ =0x03000c06
+    ldr r1, lbl_08064494 @ =gCurrentOamScaling
     ldrh r1, [r1]
     movs r2, #0
     bl CalculateOamPart4
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08064480: .4byte 0x03001382
+lbl_08064480: .4byte gNextOamSlot
 lbl_08064484: .4byte 0x0875ff88
 lbl_08064488: .4byte 0x08754bc4
 lbl_0806448c: .4byte 0x08387030
-lbl_08064490: .4byte 0x03000c04
-lbl_08064494: .4byte 0x03000c06
+lbl_08064490: .4byte gCurrentOamRotation
+lbl_08064494: .4byte gCurrentOamScaling
 
     thumb_func_start sub_08064498
 sub_08064498: @ 0x08064498
@@ -2527,7 +2527,7 @@ lbl_080644bc:
     ldr r3, [r2]
     adds r0, r3, r7
     mov ip, r0
-    ldr r0, lbl_08064570 @ =0x03000c77
+    ldr r0, lbl_08064570 @ =gFrameCounter8Bit
     ldrb r0, [r0]
     adds r0, r0, r6
     mov r1, sb
@@ -2600,7 +2600,7 @@ lbl_0806454a:
     .align 2, 0
 lbl_08064568: .4byte 0x08754bc4
 lbl_0806456c: .4byte 0x0808c99c
-lbl_08064570: .4byte 0x03000c77
+lbl_08064570: .4byte gFrameCounter8Bit
 lbl_08064574:
     adds r6, #1
     cmp r6, #0x1c
@@ -2797,7 +2797,7 @@ lbl_080646b8:
     strh r0, [r1]
     ldr r0, lbl_0806473c @ =0x0808c99c
     mov sb, r0
-    ldr r7, lbl_08064740 @ =0x03000c77
+    ldr r7, lbl_08064740 @ =gFrameCounter8Bit
     ldrb r0, [r7]
     adds r0, r0, r5
     movs r6, #0xff
@@ -2840,7 +2840,7 @@ lbl_08064726:
 lbl_08064734: .4byte 0x08754bc4
 lbl_08064738: .4byte 0x0000ffa8
 lbl_0806473c: .4byte 0x0808c99c
-lbl_08064740: .4byte 0x03000c77
+lbl_08064740: .4byte gFrameCounter8Bit
 lbl_08064744:
     adds r5, #1
     cmp r5, #0xe

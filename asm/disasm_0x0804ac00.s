@@ -7,7 +7,7 @@ sub_0804ac00: @ 0x0804ac00
     push {r4, r5, lr}
     lsls r0, r0, #0x18
     lsrs r4, r0, #0x18
-    ldr r2, lbl_0804ac40 @ =0x03000738
+    ldr r2, lbl_0804ac40 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2e
     ldrb r0, [r1]
@@ -37,7 +37,7 @@ lbl_0804ac34:
     strb r5, [r2]
     b lbl_0804ac58
     .align 2, 0
-lbl_0804ac40: .4byte 0x03000738
+lbl_0804ac40: .4byte gCurrentSprite
 lbl_0804ac44:
     cmp r1, #1
     bhi lbl_0804ac4c
@@ -82,7 +82,7 @@ lbl_0804ac90: .4byte 0x80000010
     thumb_func_start EscapeShipSetIgnoreSamus
 EscapeShipSetIgnoreSamus: @ 0x0804ac94
     push {r4, r5, lr}
-    ldr r2, lbl_0804acc4 @ =0x030001ac
+    ldr r2, lbl_0804acc4 @ =gSpriteData
     movs r1, #0xa8
     lsls r1, r1, #3
     adds r0, r2, r1
@@ -109,13 +109,13 @@ lbl_0804acbe:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0804acc4: .4byte 0x030001ac
+lbl_0804acc4: .4byte gSpriteData
 
     thumb_func_start EscapeShipSetPirateDrawOrder
 EscapeShipSetPirateDrawOrder: @ 0x0804acc8
     push {r4, r5, r6, r7, lr}
     movs r7, #0x14
-    ldr r3, lbl_0804ad04 @ =0x030001ac
+    ldr r3, lbl_0804ad04 @ =gSpriteData
     movs r1, #0xa8
     lsls r1, r1, #3
     adds r0, r3, r1
@@ -146,7 +146,7 @@ lbl_0804acfc:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0804ad04: .4byte 0x030001ac
+lbl_0804ad04: .4byte gSpriteData
 
     thumb_func_start EscapeShipPirateCollision
 EscapeShipPirateCollision: @ 0x0804ad08
@@ -156,7 +156,7 @@ EscapeShipPirateCollision: @ 0x0804ad08
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0x10
-    ldr r2, lbl_0804ada4 @ =0x03000738
+    ldr r2, lbl_0804ada4 @ =gCurrentSprite
     ldrh r1, [r2, #2]
     ldrh r3, [r2, #4]
     ldrh r0, [r2, #0xa]
@@ -178,7 +178,7 @@ EscapeShipPirateCollision: @ 0x0804ad08
     adds r3, r3, r0
     lsls r3, r3, #0x10
     lsrs r7, r3, #0x10
-    ldr r6, lbl_0804ada8 @ =0x030001ac
+    ldr r6, lbl_0804ada8 @ =gSpriteData
     movs r1, #0xa8
     lsls r1, r1, #3
     adds r0, r6, r1
@@ -228,12 +228,12 @@ lbl_0804ad50:
     strb r0, [r5, #0x1a]
     b lbl_0804adb6
     .align 2, 0
-lbl_0804ada4: .4byte 0x03000738
-lbl_0804ada8: .4byte 0x030001ac
+lbl_0804ada4: .4byte gCurrentSprite
+lbl_0804ada8: .4byte gSpriteData
 lbl_0804adac:
     adds r5, #0x38
     adds r6, #0x38
-    ldr r0, lbl_0804adc8 @ =0x030006ec
+    ldr r0, lbl_0804adc8 @ =gSpritesetSpritesID
     cmp r6, r0
     blo lbl_0804ad50
 lbl_0804adb6:
@@ -246,7 +246,7 @@ lbl_0804adb6:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0804adc8: .4byte 0x030006ec
+lbl_0804adc8: .4byte gSpritesetSpritesID
 
     thumb_func_start EscapeShipCheckCollidingWithLaser
 EscapeShipCheckCollidingWithLaser: @ 0x0804adcc
@@ -256,7 +256,7 @@ EscapeShipCheckCollidingWithLaser: @ 0x0804adcc
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0x14
-    ldr r2, lbl_0804ae6c @ =0x03000738
+    ldr r2, lbl_0804ae6c @ =gCurrentSprite
     ldrh r1, [r2, #2]
     ldrh r3, [r2, #4]
     ldrh r0, [r2, #0xa]
@@ -280,7 +280,7 @@ EscapeShipCheckCollidingWithLaser: @ 0x0804adcc
     lsrs r3, r3, #0x10
     mov r8, r3
     movs r7, #4
-    ldr r6, lbl_0804ae70 @ =0x030001ac
+    ldr r6, lbl_0804ae70 @ =gSpriteData
     movs r1, #0xa8
     lsls r1, r1, #3
     adds r0, r6, r1
@@ -330,11 +330,11 @@ lbl_0804ae14:
     bl ParticleSet
     b lbl_0804ae7c
     .align 2, 0
-lbl_0804ae6c: .4byte 0x03000738
-lbl_0804ae70: .4byte 0x030001ac
+lbl_0804ae6c: .4byte gCurrentSprite
+lbl_0804ae70: .4byte gSpriteData
 lbl_0804ae74:
     adds r6, #0x38
-    ldr r0, lbl_0804ae8c @ =0x030006ec
+    ldr r0, lbl_0804ae8c @ =gSpritesetSpritesID
     cmp r6, r0
     blo lbl_0804ae14
 lbl_0804ae7c:
@@ -347,7 +347,7 @@ lbl_0804ae7c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0804ae8c: .4byte 0x030006ec
+lbl_0804ae8c: .4byte gSpritesetSpritesID
 
     thumb_func_start EscapeShip
 EscapeShip: @ 0x0804ae90
@@ -355,7 +355,7 @@ EscapeShip: @ 0x0804ae90
     mov r7, r8
     push {r7}
     sub sp, #0xc
-    ldr r0, lbl_0804aeb8 @ =0x03000738
+    ldr r0, lbl_0804aeb8 @ =gCurrentSprite
     ldrh r1, [r0, #2]
     mov r8, r1
     ldrh r7, [r0, #4]
@@ -373,7 +373,7 @@ lbl_0804aeae:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0804aeb8: .4byte 0x03000738
+lbl_0804aeb8: .4byte gCurrentSprite
 lbl_0804aebc: .4byte lbl_0804aec0
 lbl_0804aec0: @ jump table
     .4byte lbl_0804af60 @ case 0
@@ -417,7 +417,7 @@ lbl_0804aec0: @ jump table
     .4byte lbl_0804b224 @ case 38
     .4byte lbl_0804b30c @ case 39
 lbl_0804af60:
-    ldr r5, lbl_0804afd4 @ =0x03000738
+    ldr r5, lbl_0804afd4 @ =gCurrentSprite
     adds r1, r5, #0
     adds r1, #0x27
     movs r4, #0
@@ -450,7 +450,7 @@ lbl_0804af60:
     adds r1, #2
     movs r0, #8
     strb r0, [r1]
-    ldr r0, lbl_0804afe0 @ =0x0300070c
+    ldr r0, lbl_0804afe0 @ =gSubSpriteData1
     strb r2, [r0, #0xf]
     ldrb r2, [r5, #0x1f]
     adds r6, r5, #0
@@ -474,10 +474,10 @@ lbl_0804af60:
     bl SpriteSpawnSecondary
     b lbl_0804b33e
     .align 2, 0
-lbl_0804afd4: .4byte 0x03000738
+lbl_0804afd4: .4byte gCurrentSprite
 lbl_0804afd8: .4byte 0x0000ffd4
 lbl_0804afdc: .4byte 0x0831c370
-lbl_0804afe0: .4byte 0x0300070c
+lbl_0804afe0: .4byte gSubSpriteData1
 lbl_0804afe4:
     movs r0, #3
     movs r1, #0x4a
@@ -486,7 +486,7 @@ lbl_0804afe4:
     bne lbl_0804aff2
     b lbl_0804b33e
 lbl_0804aff2:
-    ldr r2, lbl_0804b050 @ =0x030013d4
+    ldr r2, lbl_0804b050 @ =gSamusData
     ldrh r0, [r2, #0x14]
     cmp r0, r8
     bls lbl_0804affc
@@ -510,7 +510,7 @@ lbl_0804b012:
     ble lbl_0804b01a
     b lbl_0804b33e
 lbl_0804b01a:
-    ldr r2, lbl_0804b054 @ =0x03000738
+    ldr r2, lbl_0804b054 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r4, #0
@@ -535,12 +535,12 @@ lbl_0804b01a:
     bl SoundPlay
     b lbl_0804b33e
     .align 2, 0
-lbl_0804b050: .4byte 0x030013d4
-lbl_0804b054: .4byte 0x03000738
+lbl_0804b050: .4byte gSamusData
+lbl_0804b054: .4byte gCurrentSprite
 lbl_0804b058: .4byte 0x0831c380
 lbl_0804b05c: .4byte 0x0000024e
 lbl_0804b060:
-    ldr r2, lbl_0804b07c @ =0x03000738
+    ldr r2, lbl_0804b07c @ =gCurrentSprite
     ldrh r0, [r2, #0x16]
     cmp r0, #6
     bhi lbl_0804b06a
@@ -555,9 +555,9 @@ lbl_0804b06a:
     strb r0, [r1]
     b lbl_0804b33e
     .align 2, 0
-lbl_0804b07c: .4byte 0x03000738
+lbl_0804b07c: .4byte gCurrentSprite
 lbl_0804b080:
-    ldr r2, lbl_0804b0d4 @ =0x03000738
+    ldr r2, lbl_0804b0d4 @ =gCurrentSprite
     ldrh r3, [r2]
     movs r0, #0x80
     lsls r0, r0, #5
@@ -586,7 +586,7 @@ lbl_0804b090:
     adds r0, r2, #0
     adds r0, #0x25
     strb r3, [r0]
-    ldr r1, lbl_0804b0dc @ =0x030013d4
+    ldr r1, lbl_0804b0dc @ =gSamusData
     ldrb r0, [r1, #6]
     cmp r0, #0
     beq lbl_0804b0c2
@@ -601,9 +601,9 @@ lbl_0804b0c2:
     bl SamusSetPose
     b lbl_0804b0e6
     .align 2, 0
-lbl_0804b0d4: .4byte 0x03000738
+lbl_0804b0d4: .4byte gCurrentSprite
 lbl_0804b0d8: .4byte 0x0000efff
-lbl_0804b0dc: .4byte 0x030013d4
+lbl_0804b0dc: .4byte gSamusData
 lbl_0804b0e0:
     movs r0, #0x42
     bl SamusSetPose
@@ -611,7 +611,7 @@ lbl_0804b0e6:
     movs r0, #1
     movs r1, #0x4b
     bl EventFunction
-    ldr r1, lbl_0804b104 @ =0x03000738
+    ldr r1, lbl_0804b104 @ =gCurrentSprite
     movs r2, #0
     ldr r0, lbl_0804b108 @ =0x0000ff60
     strh r0, [r1, #0xa]
@@ -622,10 +622,10 @@ lbl_0804b0e6:
     strh r0, [r1, #0x10]
     b lbl_0804b33e
     .align 2, 0
-lbl_0804b104: .4byte 0x03000738
+lbl_0804b104: .4byte gCurrentSprite
 lbl_0804b108: .4byte 0x0000ff60
 lbl_0804b10c:
-    ldr r2, lbl_0804b13c @ =0x03000738
+    ldr r2, lbl_0804b13c @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2c
     ldrb r0, [r1]
@@ -649,7 +649,7 @@ lbl_0804b122:
     bl SoundPlay
     b lbl_0804b33e
     .align 2, 0
-lbl_0804b13c: .4byte 0x03000738
+lbl_0804b13c: .4byte gCurrentSprite
 lbl_0804b140: .4byte 0x0831c3c8
 lbl_0804b144: .4byte 0x0000024f
 lbl_0804b148:
@@ -658,7 +658,7 @@ lbl_0804b148:
     bne lbl_0804b152
     b lbl_0804b33e
 lbl_0804b152:
-    ldr r3, lbl_0804b188 @ =0x03000738
+    ldr r3, lbl_0804b188 @ =gCurrentSprite
     ldr r0, lbl_0804b18c @ =0x0831c370
     str r0, [r3, #0x18]
     movs r2, #0
@@ -680,14 +680,14 @@ lbl_0804b152:
     strb r2, [r0]
     adds r0, #1
     strb r2, [r0]
-    ldr r1, lbl_0804b190 @ =0x0300070c
+    ldr r1, lbl_0804b190 @ =gSubSpriteData1
     movs r0, #1
     strb r0, [r1, #0xf]
     b lbl_0804b33e
     .align 2, 0
-lbl_0804b188: .4byte 0x03000738
+lbl_0804b188: .4byte gCurrentSprite
 lbl_0804b18c: .4byte 0x0831c370
-lbl_0804b190: .4byte 0x0300070c
+lbl_0804b190: .4byte gSubSpriteData1
 lbl_0804b194:
     adds r3, r5, #0
     adds r4, r3, #0
@@ -764,7 +764,7 @@ lbl_0804b218:
     strh r0, [r5, #4]
     b lbl_0804b2a2
 lbl_0804b224:
-    ldr r2, lbl_0804b250 @ =0x03000738
+    ldr r2, lbl_0804b250 @ =gCurrentSprite
     adds r3, r2, #0
     adds r3, #0x2c
     ldrb r0, [r3]
@@ -785,7 +785,7 @@ lbl_0804b224:
     bl SoundPlay
     b lbl_0804b26a
     .align 2, 0
-lbl_0804b250: .4byte 0x03000738
+lbl_0804b250: .4byte gCurrentSprite
 lbl_0804b254: .4byte 0x0831c410
 lbl_0804b258: .4byte 0x00000251
 lbl_0804b25c:
@@ -793,18 +793,18 @@ lbl_0804b25c:
     lsrs r0, r0, #0x18
     cmp r0, #0x64
     bne lbl_0804b26a
-    ldr r1, lbl_0804b274 @ =0x0300070c
+    ldr r1, lbl_0804b274 @ =gSubSpriteData1
     movs r0, #2
     strb r0, [r1, #0xf]
 lbl_0804b26a:
-    ldr r1, lbl_0804b278 @ =0x03000738
+    ldr r1, lbl_0804b278 @ =gCurrentSprite
     ldrh r0, [r1, #2]
     subs r0, #2
     strh r0, [r1, #2]
     b lbl_0804b2a2
     .align 2, 0
-lbl_0804b274: .4byte 0x0300070c
-lbl_0804b278: .4byte 0x03000738
+lbl_0804b274: .4byte gSubSpriteData1
+lbl_0804b278: .4byte gCurrentSprite
 lbl_0804b27c:
     adds r3, r2, #0
     adds r3, #0x2d
@@ -825,7 +825,7 @@ lbl_0804b27c:
     ldr r0, lbl_0804b2f8 @ =0x00000252
     bl SoundPlay
 lbl_0804b2a2:
-    ldr r3, lbl_0804b2fc @ =0x03000738
+    ldr r3, lbl_0804b2fc @ =gCurrentSprite
     adds r5, r3, #0
     adds r5, #0x2f
     ldrb r2, [r5]
@@ -871,12 +871,12 @@ lbl_0804b2e4:
     b lbl_0804b33e
     .align 2, 0
 lbl_0804b2f8: .4byte 0x00000252
-lbl_0804b2fc: .4byte 0x03000738
+lbl_0804b2fc: .4byte gCurrentSprite
 lbl_0804b300: .4byte 0x0831a548
 lbl_0804b304: .4byte 0x00007fff
 lbl_0804b308: .4byte 0x0831a5ca
 lbl_0804b30c:
-    ldr r1, lbl_0804b384 @ =0x03000738
+    ldr r1, lbl_0804b384 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x2d
     ldrb r0, [r2]
@@ -902,13 +902,13 @@ lbl_0804b31c:
     movs r0, #1
     bl StartEffectForCutscene
 lbl_0804b33e:
-    ldr r5, lbl_0804b384 @ =0x03000738
+    ldr r5, lbl_0804b384 @ =gCurrentSprite
     adds r4, r5, #0
     adds r4, #0x24
     ldrb r0, [r4]
     cmp r0, #0x22
     bls lbl_0804b378
-    ldr r1, lbl_0804b388 @ =0x030013d4
+    ldr r1, lbl_0804b388 @ =gSamusData
     mov r0, r8
     subs r0, #0x2b
     strh r0, [r1, #0x14]
@@ -935,17 +935,17 @@ lbl_0804b378:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0804b384: .4byte 0x03000738
-lbl_0804b388: .4byte 0x030013d4
+lbl_0804b384: .4byte gCurrentSprite
+lbl_0804b388: .4byte gSamusData
 
     thumb_func_start EscapeShipPart
 EscapeShipPart: @ 0x0804b38c
     push {r4, r5, lr}
-    ldr r3, lbl_0804b3c0 @ =0x03000738
+    ldr r3, lbl_0804b3c0 @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x23
     ldrb r4, [r0]
-    ldr r2, lbl_0804b3c4 @ =0x030001ac
+    ldr r2, lbl_0804b3c4 @ =gSpriteData
     lsls r0, r4, #3
     subs r0, r0, r4
     lsls r0, r0, #3
@@ -967,8 +967,8 @@ lbl_0804b3b4:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0804b3c0: .4byte 0x03000738
-lbl_0804b3c4: .4byte 0x030001ac
+lbl_0804b3c0: .4byte gCurrentSprite
+lbl_0804b3c4: .4byte gSpriteData
 lbl_0804b3c8: .4byte lbl_0804b3cc
 lbl_0804b3cc: @ jump table
     .4byte lbl_0804b498 @ case 0

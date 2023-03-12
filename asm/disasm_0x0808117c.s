@@ -6,9 +6,9 @@
 IntroSubroutine: @ 0x0808117c
     push {r4, r5, lr}
     movs r5, #0
-    ldr r0, lbl_08081198 @ =0x03001382
+    ldr r0, lbl_08081198 @ =gNextOamSlot
     strb r5, [r0]
-    ldr r4, lbl_0808119c @ =0x03000c72
+    ldr r4, lbl_0808119c @ =gGameModeSub1
     movs r1, #0
     ldrsh r0, [r4, r1]
     cmp r0, #1
@@ -19,8 +19,8 @@ IntroSubroutine: @ 0x0808117c
     beq lbl_080811aa
     b lbl_0808123e
     .align 2, 0
-lbl_08081198: .4byte 0x03001382
-lbl_0808119c: .4byte 0x03000c72
+lbl_08081198: .4byte gNextOamSlot
+lbl_0808119c: .4byte gGameModeSub1
 lbl_080811a0:
     cmp r0, #2
     beq lbl_080811d8
@@ -31,7 +31,7 @@ lbl_080811aa:
     bl IntroInit
     b lbl_080811cc
 lbl_080811b0:
-    ldr r1, lbl_080811c0 @ =0x030013ae
+    ldr r1, lbl_080811c0 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_080811c4
@@ -39,7 +39,7 @@ lbl_080811b0:
     strh r0, [r1]
     b lbl_0808123e
     .align 2, 0
-lbl_080811c0: .4byte 0x030013ae
+lbl_080811c0: .4byte gWrittenToBLDY_NonGameplay
 lbl_080811c4:
     ldr r0, lbl_080811d4 @ =0x08754bc4
     ldr r0, [r0]
@@ -53,7 +53,7 @@ lbl_080811cc:
     .align 2, 0
 lbl_080811d4: .4byte 0x08754bc4
 lbl_080811d8:
-    ldr r0, lbl_08081200 @ =0x03001380
+    ldr r0, lbl_08081200 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #0xb
     ands r0, r1
@@ -62,7 +62,7 @@ lbl_080811d8:
     ldrh r0, [r4]
     adds r0, #1
     strh r0, [r4]
-    ldr r1, lbl_08081204 @ =0x03000c74
+    ldr r1, lbl_08081204 @ =gGameModeSub2
     movs r0, #1
     strb r0, [r1]
     movs r0, #0xa
@@ -71,8 +71,8 @@ lbl_080811d8:
     bl FadeMusic
     b lbl_0808122a
     .align 2, 0
-lbl_08081200: .4byte 0x03001380
-lbl_08081204: .4byte 0x03000c74
+lbl_08081200: .4byte gChangedInput
+lbl_08081204: .4byte gGameModeSub2
 lbl_08081208:
     ldr r1, lbl_08081230 @ =0x08760ca8
     ldr r0, lbl_08081234 @ =0x08754bc4
@@ -88,7 +88,7 @@ lbl_08081208:
     ldrh r0, [r4]
     adds r0, #1
     strh r0, [r4]
-    ldr r0, lbl_08081238 @ =0x03000c74
+    ldr r0, lbl_08081238 @ =gGameModeSub2
     strb r5, [r0]
 lbl_0808122a:
     bl ResetFreeOAM
@@ -96,7 +96,7 @@ lbl_0808122a:
     .align 2, 0
 lbl_08081230: .4byte 0x08760ca8
 lbl_08081234: .4byte 0x08754bc4
-lbl_08081238: .4byte 0x03000c74
+lbl_08081238: .4byte gGameModeSub2
 lbl_0808123c:
     movs r5, #1
 lbl_0808123e:
@@ -110,7 +110,7 @@ lbl_0808123e:
 vblank_code_during_intro: @ 0x08081248
     push {lr}
     ldr r1, lbl_080812e4 @ =0x040000d4
-    ldr r0, lbl_080812e8 @ =0x03000e7c
+    ldr r0, lbl_080812e8 @ =gOamData
     str r0, [r1]
     movs r0, #0xe0
     lsls r0, r0, #0x13
@@ -131,53 +131,53 @@ vblank_code_during_intro: @ 0x08081248
     ldrh r0, [r1]
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_080812f4 @ =0x03000088
+    ldr r0, lbl_080812f4 @ =gIoRegistersBackup
     ldrb r1, [r0, #5]
     lsls r1, r1, #8
     ldrb r0, [r0, #4]
     orrs r0, r1
     strh r0, [r2]
     ldr r1, lbl_080812f8 @ =0x04000054
-    ldr r0, lbl_080812fc @ =0x030013ae
+    ldr r0, lbl_080812fc @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r0]
     strh r0, [r1]
     subs r1, #0x44
-    ldr r0, lbl_08081300 @ =0x030013b4
+    ldr r0, lbl_08081300 @ =gBG0XPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_08081304 @ =0x030013b6
+    ldr r0, lbl_08081304 @ =gBG0YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_08081308 @ =0x030013b8
+    ldr r0, lbl_08081308 @ =gBG1XPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0808130c @ =0x030013ba
+    ldr r0, lbl_0808130c @ =gBG1YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_08081310 @ =0x030013bc
+    ldr r0, lbl_08081310 @ =gBG2XPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_08081314 @ =0x030013be
+    ldr r0, lbl_08081314 @ =gBG2YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_08081318 @ =0x030013c0
+    ldr r0, lbl_08081318 @ =gBG3XPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0808131c @ =0x030013c2
+    ldr r0, lbl_0808131c @ =gBG3YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
@@ -186,25 +186,25 @@ vblank_code_during_intro: @ 0x08081248
     bx r0
     .align 2, 0
 lbl_080812e4: .4byte 0x040000d4
-lbl_080812e8: .4byte 0x03000e7c
+lbl_080812e8: .4byte gOamData
 lbl_080812ec: .4byte 0x84000100
 lbl_080812f0: .4byte 0x08754bc4
-lbl_080812f4: .4byte 0x03000088
+lbl_080812f4: .4byte gIoRegistersBackup
 lbl_080812f8: .4byte 0x04000054
-lbl_080812fc: .4byte 0x030013ae
-lbl_08081300: .4byte 0x030013b4
-lbl_08081304: .4byte 0x030013b6
-lbl_08081308: .4byte 0x030013b8
-lbl_0808130c: .4byte 0x030013ba
-lbl_08081310: .4byte 0x030013bc
-lbl_08081314: .4byte 0x030013be
-lbl_08081318: .4byte 0x030013c0
-lbl_0808131c: .4byte 0x030013c2
+lbl_080812fc: .4byte gWrittenToBLDY_NonGameplay
+lbl_08081300: .4byte gBG0XPosition
+lbl_08081304: .4byte gBG0YPosition
+lbl_08081308: .4byte gBG1XPosition
+lbl_0808130c: .4byte gBG1YPosition
+lbl_08081310: .4byte gBG2XPosition
+lbl_08081314: .4byte gBG2YPosition
+lbl_08081318: .4byte gBG3XPosition
+lbl_0808131c: .4byte gBG3YPosition
 
     thumb_func_start sub_08081320
 sub_08081320: @ 0x08081320
     ldr r1, lbl_080813c8 @ =0x040000d4
-    ldr r0, lbl_080813cc @ =0x03000e7c
+    ldr r0, lbl_080813cc @ =gOamData
     str r0, [r1]
     movs r0, #0xe0
     lsls r0, r0, #0x13
@@ -225,45 +225,45 @@ sub_08081320: @ 0x08081320
     ldrh r0, [r0]
     strh r0, [r1]
     ldr r2, lbl_080813d8 @ =0x04000052
-    ldr r0, lbl_080813dc @ =0x030013b2
+    ldr r0, lbl_080813dc @ =gWrittenToBLDALPHA_H
     ldrh r0, [r0]
     lsls r0, r0, #8
-    ldr r1, lbl_080813e0 @ =0x030013b0
+    ldr r1, lbl_080813e0 @ =gWrittenToBLDALPHA_L
     ldrh r1, [r1]
     orrs r0, r1
     strh r0, [r2]
     ldr r1, lbl_080813e4 @ =0x04000054
-    ldr r0, lbl_080813e8 @ =0x030013ae
+    ldr r0, lbl_080813e8 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r0]
     strh r0, [r1]
     ldr r3, lbl_080813ec @ =0x04000010
-    ldr r0, lbl_080813f0 @ =0x030013b4
+    ldr r0, lbl_080813f0 @ =gBG0XPosition
     ldrh r2, [r0]
     ldr r1, lbl_080813f4 @ =0x000001ff
     adds r0, r1, #0
     ands r0, r2
     strh r0, [r3]
     ldr r2, lbl_080813f8 @ =0x04000012
-    ldr r0, lbl_080813fc @ =0x030013b6
+    ldr r0, lbl_080813fc @ =gBG0YPosition
     ldrb r0, [r0]
     strh r0, [r2]
     adds r3, #4
-    ldr r0, lbl_08081400 @ =0x030013b8
+    ldr r0, lbl_08081400 @ =gBG1XPosition
     ldrh r2, [r0]
     adds r0, r1, #0
     ands r0, r2
     strh r0, [r3]
     ldr r2, lbl_08081404 @ =0x04000016
-    ldr r0, lbl_08081408 @ =0x030013ba
+    ldr r0, lbl_08081408 @ =gBG1YPosition
     ldrb r0, [r0]
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0808140c @ =0x030013bc
+    ldr r0, lbl_0808140c @ =gBG2XPosition
     ldrh r0, [r0]
     ands r1, r0
     strh r1, [r2]
     ldr r1, lbl_08081410 @ =0x0400001a
-    ldr r0, lbl_08081414 @ =0x030013be
+    ldr r0, lbl_08081414 @ =gBG2YPosition
     ldrb r0, [r0]
     strh r0, [r1]
     adds r2, #0x28
@@ -289,25 +289,25 @@ sub_08081320: @ 0x08081320
     bx lr
     .align 2, 0
 lbl_080813c8: .4byte 0x040000d4
-lbl_080813cc: .4byte 0x03000e7c
+lbl_080813cc: .4byte gOamData
 lbl_080813d0: .4byte 0x84000100
 lbl_080813d4: .4byte 0x08754bc4
 lbl_080813d8: .4byte 0x04000052
-lbl_080813dc: .4byte 0x030013b2
-lbl_080813e0: .4byte 0x030013b0
+lbl_080813dc: .4byte gWrittenToBLDALPHA_H
+lbl_080813e0: .4byte gWrittenToBLDALPHA_L
 lbl_080813e4: .4byte 0x04000054
-lbl_080813e8: .4byte 0x030013ae
+lbl_080813e8: .4byte gWrittenToBLDY_NonGameplay
 lbl_080813ec: .4byte 0x04000010
-lbl_080813f0: .4byte 0x030013b4
+lbl_080813f0: .4byte gBG0XPosition
 lbl_080813f4: .4byte 0x000001ff
 lbl_080813f8: .4byte 0x04000012
-lbl_080813fc: .4byte 0x030013b6
-lbl_08081400: .4byte 0x030013b8
+lbl_080813fc: .4byte gBG0YPosition
+lbl_08081400: .4byte gBG1XPosition
 lbl_08081404: .4byte 0x04000016
-lbl_08081408: .4byte 0x030013ba
-lbl_0808140c: .4byte 0x030013bc
+lbl_08081408: .4byte gBG1YPosition
+lbl_0808140c: .4byte gBG2XPosition
 lbl_08081410: .4byte 0x0400001a
-lbl_08081414: .4byte 0x030013be
+lbl_08081414: .4byte gBG2YPosition
 
     thumb_func_start sub_08081418
 sub_08081418: @ 0x08081418
@@ -324,10 +324,10 @@ sub_08081418: @ 0x08081418
     ldrh r0, [r1]
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_080814c4 @ =0x030013b2
+    ldr r0, lbl_080814c4 @ =gWrittenToBLDALPHA_H
     ldrh r0, [r0]
     lsls r0, r0, #8
-    ldr r1, lbl_080814c8 @ =0x030013b0
+    ldr r1, lbl_080814c8 @ =gWrittenToBLDALPHA_L
     ldrh r1, [r1]
     orrs r0, r1
     strh r0, [r2]
@@ -365,40 +365,40 @@ sub_08081418: @ 0x08081418
     asrs r0, r0, #0x10
     strh r0, [r1]
     ldr r3, lbl_080814ec @ =0x04000010
-    ldr r0, lbl_080814f0 @ =0x030013b4
+    ldr r0, lbl_080814f0 @ =gBG0XPosition
     ldrh r2, [r0]
     ldr r1, lbl_080814f4 @ =0x000001ff
     adds r0, r1, #0
     ands r0, r2
     strh r0, [r3]
     ldr r2, lbl_080814f8 @ =0x04000012
-    ldr r0, lbl_080814fc @ =0x030013b6
+    ldr r0, lbl_080814fc @ =gBG0YPosition
     ldrb r0, [r0]
     strh r0, [r2]
     adds r3, #4
-    ldr r0, lbl_08081500 @ =0x030013b8
+    ldr r0, lbl_08081500 @ =gBG1XPosition
     ldrh r2, [r0]
     adds r0, r1, #0
     ands r0, r2
     strh r0, [r3]
     ldr r2, lbl_08081504 @ =0x04000016
-    ldr r0, lbl_08081508 @ =0x030013ba
+    ldr r0, lbl_08081508 @ =gBG1YPosition
     ldrb r0, [r0]
     strh r0, [r2]
     adds r2, #2
-    ldr r0, lbl_0808150c @ =0x030013bc
+    ldr r0, lbl_0808150c @ =gBG2XPosition
     ldrh r0, [r0]
     ands r1, r0
     strh r1, [r2]
     ldr r1, lbl_08081510 @ =0x0400001a
-    ldr r0, lbl_08081514 @ =0x030013be
+    ldr r0, lbl_08081514 @ =gBG2YPosition
     ldrb r0, [r0]
     strh r0, [r1]
     bx lr
     .align 2, 0
 lbl_080814c0: .4byte 0x08754bc4
-lbl_080814c4: .4byte 0x030013b2
-lbl_080814c8: .4byte 0x030013b0
+lbl_080814c4: .4byte gWrittenToBLDALPHA_H
+lbl_080814c8: .4byte gWrittenToBLDALPHA_L
 lbl_080814cc: .4byte 0x04000020
 lbl_080814d0: .4byte 0x030013a6
 lbl_080814d4: .4byte 0x030013a8
@@ -408,16 +408,16 @@ lbl_080814e0: .4byte 0x03001394
 lbl_080814e4: .4byte 0x0fff0000
 lbl_080814e8: .4byte 0x03001398
 lbl_080814ec: .4byte 0x04000010
-lbl_080814f0: .4byte 0x030013b4
+lbl_080814f0: .4byte gBG0XPosition
 lbl_080814f4: .4byte 0x000001ff
 lbl_080814f8: .4byte 0x04000012
-lbl_080814fc: .4byte 0x030013b6
-lbl_08081500: .4byte 0x030013b8
+lbl_080814fc: .4byte gBG0YPosition
+lbl_08081500: .4byte gBG1XPosition
 lbl_08081504: .4byte 0x04000016
-lbl_08081508: .4byte 0x030013ba
-lbl_0808150c: .4byte 0x030013bc
+lbl_08081508: .4byte gBG1YPosition
+lbl_0808150c: .4byte gBG2XPosition
 lbl_08081510: .4byte 0x0400001a
-lbl_08081514: .4byte 0x030013be
+lbl_08081514: .4byte gBG2YPosition
 
     thumb_func_start tourian_escape_process_oam
 tourian_escape_process_oam: @ 0x08081518
@@ -427,7 +427,7 @@ tourian_escape_process_oam: @ 0x08081518
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #4
-    ldr r5, lbl_0808166c @ =0x03000e7c
+    ldr r5, lbl_0808166c @ =gOamData
     movs r0, #0
     mov ip, r0
     movs r7, #0
@@ -458,7 +458,7 @@ lbl_08081556:
     strh r2, [r5]
     adds r5, #2
     lsls r3, r7, #3
-    ldr r1, lbl_0808166c @ =0x03000e7c
+    ldr r1, lbl_0808166c @ =gOamData
     adds r3, r3, r1
     ldrb r1, [r3, #1]
     movs r0, #0xd
@@ -539,7 +539,7 @@ lbl_080815f2:
     strh r2, [r5]
     adds r5, #2
     lsls r3, r7, #3
-    ldr r1, lbl_0808166c @ =0x03000e7c
+    ldr r1, lbl_0808166c @ =gOamData
     adds r3, r3, r1
     mov r1, r8
     adds r0, r2, r1
@@ -585,7 +585,7 @@ lbl_0808164c:
     lsrs r6, r0, #0x10
     cmp r6, #9
     bls lbl_080815a4
-    ldr r0, lbl_08081680 @ =0x03001382
+    ldr r0, lbl_08081680 @ =gNextOamSlot
     strb r7, [r0]
     add sp, #4
     pop {r3, r4, r5}
@@ -596,12 +596,12 @@ lbl_0808164c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0808166c: .4byte 0x03000e7c
+lbl_0808166c: .4byte gOamData
 lbl_08081670: .4byte 0x08754bc4
 lbl_08081674: .4byte 0x08375cc4
 lbl_08081678: .4byte 0xfffffe00
 lbl_0808167c: .4byte 0x000001ff
-lbl_08081680: .4byte 0x03001382
+lbl_08081680: .4byte gNextOamSlot
 
     thumb_func_start tourian_escape_samus_surrounded_calculate_bg2_pos
 tourian_escape_samus_surrounded_calculate_bg2_pos: @ 0x08081684
@@ -899,7 +899,7 @@ sub_080818cc: @ 0x080818cc
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0x10
-    ldr r5, lbl_08081ac4 @ =0x03000e7c
+    ldr r5, lbl_08081ac4 @ =gOamData
     ldr r0, lbl_08081ac8 @ =0x08754bc4
     ldr r1, [r0]
     ldrb r0, [r1, #8]
@@ -1093,7 +1093,7 @@ lbl_08081a4a:
     strh r1, [r5]
     adds r5, #2
     lsls r3, r7, #3
-    ldr r2, lbl_08081ac4 @ =0x03000e7c
+    ldr r2, lbl_08081ac4 @ =gOamData
     adds r3, r3, r2
     mov r2, ip
     adds r0, r1, r2
@@ -1140,7 +1140,7 @@ lbl_08081aa4:
     mov r8, r0
     cmp r0, #9
     bls lbl_080819f8
-    ldr r0, lbl_08081ad4 @ =0x03001382
+    ldr r0, lbl_08081ad4 @ =gNextOamSlot
     strb r7, [r0]
     add sp, #0x10
     pop {r3, r4, r5}
@@ -1151,11 +1151,11 @@ lbl_08081aa4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08081ac4: .4byte 0x03000e7c
+lbl_08081ac4: .4byte gOamData
 lbl_08081ac8: .4byte 0x08754bc4
 lbl_08081acc: .4byte 0x000001ff
 lbl_08081ad0: .4byte 0xfffffe00
-lbl_08081ad4: .4byte 0x03001382
+lbl_08081ad4: .4byte gNextOamSlot
 
     thumb_func_start sub_08081ad8
 sub_08081ad8: @ 0x08081ad8
@@ -1322,7 +1322,7 @@ lbl_08081c02:
     ldr r0, lbl_08081cf0 @ =0x80000010
     str r0, [r1, #8]
     ldr r0, [r1, #8]
-    ldr r5, lbl_08081cf4 @ =0x03000e7c
+    ldr r5, lbl_08081cf4 @ =gOamData
     movs r0, #0
     mov r8, r0
     movs r6, #0
@@ -1374,7 +1374,7 @@ lbl_08081c6a:
     strh r1, [r5]
     adds r5, #2
     lsls r3, r6, #3
-    ldr r0, lbl_08081cf4 @ =0x03000e7c
+    ldr r0, lbl_08081cf4 @ =gOamData
     adds r3, r3, r0
     adds r0, r1, r7
     strb r0, [r3]
@@ -1412,7 +1412,7 @@ lbl_08081cb4:
     lsrs r3, r0, #0x10
     cmp r3, #3
     bls lbl_08081c1a
-    ldr r4, lbl_08081d00 @ =0x03001382
+    ldr r4, lbl_08081d00 @ =gNextOamSlot
     strb r6, [r4]
     add sp, #4
     pop {r3, r4, r5}
@@ -1431,10 +1431,10 @@ lbl_08081ce4: .4byte 0x08479f00
 lbl_08081ce8: .4byte 0x040000d4
 lbl_08081cec: .4byte 0x050002a0
 lbl_08081cf0: .4byte 0x80000010
-lbl_08081cf4: .4byte 0x03000e7c
+lbl_08081cf4: .4byte gOamData
 lbl_08081cf8: .4byte 0xfffffe00
 lbl_08081cfc: .4byte 0x000001ff
-lbl_08081d00: .4byte 0x03001382
+lbl_08081d00: .4byte gNextOamSlot
 
     thumb_func_start tourian_escape_init
 tourian_escape_init: @ 0x08081d04
@@ -1467,12 +1467,12 @@ tourian_escape_init: @ 0x08081d04
     strh r5, [r0]
     adds r0, #0x50
     strh r5, [r0]
-    ldr r1, lbl_08081df0 @ =0x030013b0
+    ldr r1, lbl_08081df0 @ =gWrittenToBLDALPHA_L
     movs r0, #0x10
     strh r0, [r1]
-    ldr r0, lbl_08081df4 @ =0x030013b2
+    ldr r0, lbl_08081df4 @ =gWrittenToBLDALPHA_H
     strh r5, [r0]
-    ldr r0, lbl_08081df8 @ =0x030013ae
+    ldr r0, lbl_08081df8 @ =gWrittenToBLDY_NonGameplay
     strh r5, [r0]
     strh r5, [r6]
     movs r0, #0
@@ -1485,7 +1485,7 @@ tourian_escape_init: @ 0x08081d04
     ldr r4, lbl_08081dfc @ =0x040000d4
     mov r0, sp
     str r0, [r4]
-    ldr r0, lbl_08081e00 @ =0x030016c4
+    ldr r0, lbl_08081e00 @ =gNonGameplayRAM
     str r0, [r4, #4]
     ldr r0, lbl_08081e04 @ =0x8500018a
     str r0, [r4, #8]
@@ -1518,7 +1518,7 @@ tourian_escape_init: @ 0x08081d04
     bl CallbackSetVBlank
     mov r0, r8
     strh r0, [r6]
-    ldr r0, lbl_08081e28 @ =0x03001382
+    ldr r0, lbl_08081e28 @ =gNextOamSlot
     strb r5, [r0]
     bl ResetFreeOAM
     ldr r0, lbl_08081e2c @ =0x08754bc4
@@ -1542,11 +1542,11 @@ lbl_08081de0: .4byte 0x0000ffef
 lbl_08081de4: .4byte 0x04000200
 lbl_08081de8: .4byte 0x0000fffd
 lbl_08081dec: .4byte 0x04000202
-lbl_08081df0: .4byte 0x030013b0
-lbl_08081df4: .4byte 0x030013b2
-lbl_08081df8: .4byte 0x030013ae
+lbl_08081df0: .4byte gWrittenToBLDALPHA_L
+lbl_08081df4: .4byte gWrittenToBLDALPHA_H
+lbl_08081df8: .4byte gWrittenToBLDY_NonGameplay
 lbl_08081dfc: .4byte 0x040000d4
-lbl_08081e00: .4byte 0x030016c4
+lbl_08081e00: .4byte gNonGameplayRAM
 lbl_08081e04: .4byte 0x8500018a
 lbl_08081e08: .4byte 0x08480148
 lbl_08081e0c: .4byte 0x06010000
@@ -1556,7 +1556,7 @@ lbl_08081e18: .4byte 0x08479520
 lbl_08081e1c: .4byte 0x05000200
 lbl_08081e20: .4byte 0x80000060
 lbl_08081e24: .4byte vblank_code_during_intro
-lbl_08081e28: .4byte 0x03001382
+lbl_08081e28: .4byte gNextOamSlot
 lbl_08081e2c: .4byte 0x08754bc4
 
     thumb_func_start tourian_escape_zebes_exploding
@@ -1979,18 +1979,18 @@ lbl_0808213c:
     lsrs r4, r0, #0x10
     cmp r4, #8
     bls lbl_0808213c
-    ldr r0, lbl_0808218c @ =0x030013b4
+    ldr r0, lbl_0808218c @ =gBG0XPosition
     movs r1, #0
     strh r1, [r0]
-    ldr r0, lbl_08082190 @ =0x030013b6
+    ldr r0, lbl_08082190 @ =gBG0YPosition
     strh r1, [r0]
-    ldr r0, lbl_08082194 @ =0x030013b8
+    ldr r0, lbl_08082194 @ =gBG1XPosition
     strh r1, [r0]
-    ldr r0, lbl_08082198 @ =0x030013ba
+    ldr r0, lbl_08082198 @ =gBG1YPosition
     strh r1, [r0]
-    ldr r0, lbl_0808219c @ =0x030013bc
+    ldr r0, lbl_0808219c @ =gBG2XPosition
     strh r1, [r0]
-    ldr r0, lbl_080821a0 @ =0x030013be
+    ldr r0, lbl_080821a0 @ =gBG2YPosition
     strh r1, [r0]
     movs r0, #0
     movs r1, #0x14
@@ -2000,12 +2000,12 @@ lbl_0808213c:
     .align 2, 0
 lbl_08082184: .4byte 0x0848e048
 lbl_08082188: .4byte 0x06010000
-lbl_0808218c: .4byte 0x030013b4
-lbl_08082190: .4byte 0x030013b6
-lbl_08082194: .4byte 0x030013b8
-lbl_08082198: .4byte 0x030013ba
-lbl_0808219c: .4byte 0x030013bc
-lbl_080821a0: .4byte 0x030013be
+lbl_0808218c: .4byte gBG0XPosition
+lbl_08082190: .4byte gBG0YPosition
+lbl_08082194: .4byte gBG1XPosition
+lbl_08082198: .4byte gBG1YPosition
+lbl_0808219c: .4byte gBG2XPosition
+lbl_080821a0: .4byte gBG2YPosition
 lbl_080821a4:
     ldr r0, lbl_080821f8 @ =0x0848d744
     ldr r1, lbl_080821fc @ =0x0600f000
@@ -2034,10 +2034,10 @@ lbl_080821a4:
     movs r1, #0x88
     lsls r1, r1, #5
     strh r1, [r0]
-    ldr r1, lbl_08082214 @ =0x030013b0
+    ldr r1, lbl_08082214 @ =gWrittenToBLDALPHA_L
     movs r0, #0xa
     strh r0, [r1]
-    ldr r1, lbl_08082218 @ =0x030013b2
+    ldr r1, lbl_08082218 @ =gWrittenToBLDALPHA_H
     movs r0, #6
     strh r0, [r1]
     movs r0, #2
@@ -2054,13 +2054,13 @@ lbl_08082204: .4byte 0x08479400
 lbl_08082208: .4byte 0x80000090
 lbl_0808220c: .4byte 0x05000200
 lbl_08082210: .4byte 0x04000008
-lbl_08082214: .4byte 0x030013b0
-lbl_08082218: .4byte 0x030013b2
+lbl_08082214: .4byte gWrittenToBLDALPHA_L
+lbl_08082218: .4byte gWrittenToBLDALPHA_H
 lbl_0808221c:
-    ldr r0, lbl_08082284 @ =0x030013b4
+    ldr r0, lbl_08082284 @ =gBG0XPosition
     mov r1, sb
     strh r1, [r0]
-    ldr r0, lbl_08082288 @ =0x030013b6
+    ldr r0, lbl_08082288 @ =gBG0YPosition
     strh r1, [r0]
     movs r2, #1
     mov sb, r2
@@ -2083,7 +2083,7 @@ lbl_08082238:
     movs r0, #0xfc
     lsls r0, r0, #6
     strh r0, [r4]
-    ldr r0, lbl_08082290 @ =0x030013ae
+    ldr r0, lbl_08082290 @ =gWrittenToBLDY_NonGameplay
     strh r1, [r0]
     strb r3, [r2, #1]
 lbl_08082254:
@@ -2101,7 +2101,7 @@ lbl_08082254:
     lsrs r0, r0, #0x18
     cmp r0, #5
     bls lbl_080822ae
-    ldr r1, lbl_08082290 @ =0x030013ae
+    ldr r1, lbl_08082290 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r1]
     cmp r0, #0xf
     bhi lbl_0808227c
@@ -2113,10 +2113,10 @@ lbl_0808227c:
     strb r0, [r1, #5]
     b lbl_080822ae
     .align 2, 0
-lbl_08082284: .4byte 0x030013b4
-lbl_08082288: .4byte 0x030013b6
+lbl_08082284: .4byte gBG0XPosition
+lbl_08082288: .4byte gBG0YPosition
 lbl_0808228c: .4byte 0x08754bc4
-lbl_08082290: .4byte 0x030013ae
+lbl_08082290: .4byte gWrittenToBLDY_NonGameplay
 lbl_08082294:
     ldrb r1, [r2, #5]
     adds r0, r1, #1
@@ -2125,7 +2125,7 @@ lbl_08082294:
     ands r0, r1
     cmp r0, #0
     beq lbl_080822ae
-    ldr r1, lbl_080822c8 @ =0x030013ae
+    ldr r1, lbl_080822c8 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r1]
     cmp r0, #0xf
     bhi lbl_080822ae
@@ -2146,7 +2146,7 @@ lbl_080822ae:
     ldr r0, lbl_080822d0 @ =0x0847a4e0
     b lbl_080822d6
     .align 2, 0
-lbl_080822c8: .4byte 0x030013ae
+lbl_080822c8: .4byte gWrittenToBLDY_NonGameplay
 lbl_080822cc: .4byte 0x08754bc4
 lbl_080822d0: .4byte 0x0847a4e0
 lbl_080822d4:
@@ -2175,7 +2175,7 @@ lbl_080822f2:
     ldrb r0, [r1]
     cmp r0, #0xb
     bls lbl_08082324
-    ldr r1, lbl_08082320 @ =0x030013b4
+    ldr r1, lbl_08082320 @ =gBG0XPosition
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
@@ -2189,7 +2189,7 @@ lbl_080822f2:
     b lbl_08082610
     .align 2, 0
 lbl_0808231c: .4byte 0x0847a540
-lbl_08082320: .4byte 0x030013b4
+lbl_08082320: .4byte gBG0XPosition
 lbl_08082324:
     adds r0, #1
     mov r1, ip
@@ -2502,76 +2502,76 @@ lbl_08082544:
     ands r4, r0
     cmp r4, #1
     bne lbl_080825b4
-    ldr r1, lbl_08082644 @ =0x030013b4
+    ldr r1, lbl_08082644 @ =gBG0XPosition
     ldrh r0, [r1]
     adds r0, #8
     strh r0, [r1]
-    ldr r1, lbl_08082648 @ =0x030013b6
+    ldr r1, lbl_08082648 @ =gBG0YPosition
     ldrh r0, [r1]
     subs r0, #8
     strh r0, [r1]
-    ldr r1, lbl_0808264c @ =0x030013b8
+    ldr r1, lbl_0808264c @ =gBG1XPosition
     ldrh r0, [r1]
     adds r0, #8
     strh r0, [r1]
-    ldr r1, lbl_08082650 @ =0x030013ba
+    ldr r1, lbl_08082650 @ =gBG1YPosition
     ldrh r0, [r1]
     subs r0, #8
     strh r0, [r1]
-    ldr r1, lbl_08082654 @ =0x030013bc
+    ldr r1, lbl_08082654 @ =gBG2XPosition
     ldrh r0, [r1]
     adds r0, #8
     strh r0, [r1]
-    ldr r1, lbl_08082658 @ =0x030013be
+    ldr r1, lbl_08082658 @ =gBG2YPosition
     ldrh r0, [r1]
     subs r0, #8
     strh r0, [r1]
 lbl_080825b4:
     cmp r4, #3
     bne lbl_080825c8
-    ldr r1, lbl_0808265c @ =0x030013c0
+    ldr r1, lbl_0808265c @ =gBG3XPosition
     ldrh r0, [r1]
     adds r0, #8
     strh r0, [r1]
-    ldr r1, lbl_08082660 @ =0x030013c2
+    ldr r1, lbl_08082660 @ =gBG3YPosition
     ldrh r0, [r1]
     subs r0, #8
     strh r0, [r1]
 lbl_080825c8:
     cmp r4, #4
     bne lbl_080825fc
-    ldr r1, lbl_08082644 @ =0x030013b4
+    ldr r1, lbl_08082644 @ =gBG0XPosition
     ldrh r0, [r1]
     subs r0, #8
     strh r0, [r1]
-    ldr r1, lbl_08082648 @ =0x030013b6
+    ldr r1, lbl_08082648 @ =gBG0YPosition
     ldrh r0, [r1]
     adds r0, #8
     strh r0, [r1]
-    ldr r1, lbl_0808264c @ =0x030013b8
+    ldr r1, lbl_0808264c @ =gBG1XPosition
     ldrh r0, [r1]
     subs r0, #8
     strh r0, [r1]
-    ldr r1, lbl_08082650 @ =0x030013ba
+    ldr r1, lbl_08082650 @ =gBG1YPosition
     ldrh r0, [r1]
     adds r0, #8
     strh r0, [r1]
-    ldr r1, lbl_08082654 @ =0x030013bc
+    ldr r1, lbl_08082654 @ =gBG2XPosition
     ldrh r0, [r1]
     subs r0, #8
     strh r0, [r1]
-    ldr r1, lbl_08082658 @ =0x030013be
+    ldr r1, lbl_08082658 @ =gBG2YPosition
     ldrh r0, [r1]
     adds r0, #8
     strh r0, [r1]
 lbl_080825fc:
     cmp r4, #6
     bne lbl_08082610
-    ldr r1, lbl_0808265c @ =0x030013c0
+    ldr r1, lbl_0808265c @ =gBG3XPosition
     ldrh r0, [r1]
     subs r0, #8
     strh r0, [r1]
-    ldr r1, lbl_08082660 @ =0x030013c2
+    ldr r1, lbl_08082660 @ =gBG3YPosition
     ldrh r0, [r1]
     adds r0, #8
     strh r0, [r1]
@@ -2593,14 +2593,14 @@ lbl_08082634: .4byte 0x0847ccbc
 lbl_08082638: .4byte 0x0847cf10
 lbl_0808263c: .4byte 0x0847cf30
 lbl_08082640: .4byte 0x0847cec0
-lbl_08082644: .4byte 0x030013b4
-lbl_08082648: .4byte 0x030013b6
-lbl_0808264c: .4byte 0x030013b8
-lbl_08082650: .4byte 0x030013ba
-lbl_08082654: .4byte 0x030013bc
-lbl_08082658: .4byte 0x030013be
-lbl_0808265c: .4byte 0x030013c0
-lbl_08082660: .4byte 0x030013c2
+lbl_08082644: .4byte gBG0XPosition
+lbl_08082648: .4byte gBG0YPosition
+lbl_0808264c: .4byte gBG1XPosition
+lbl_08082650: .4byte gBG1YPosition
+lbl_08082654: .4byte gBG2XPosition
+lbl_08082658: .4byte gBG2YPosition
+lbl_0808265c: .4byte gBG3XPosition
+lbl_08082660: .4byte gBG3YPosition
 
     thumb_func_start tourian_escape_samus_in_her_ship
 tourian_escape_samus_in_her_ship: @ 0x08082664
@@ -2687,7 +2687,7 @@ lbl_080826ec:
     ldr r0, lbl_08082720 @ =0x0847f884
     ldr r1, lbl_08082724 @ =0x0600f000
     bl LZ77UncompVRAM
-    ldr r0, lbl_08082728 @ =0x03001530
+    ldr r0, lbl_08082728 @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #0x10
     ands r0, r1
@@ -2706,7 +2706,7 @@ lbl_08082718: .4byte 0x08484d5c
 lbl_0808271c: .4byte 0x06007000
 lbl_08082720: .4byte 0x0847f884
 lbl_08082724: .4byte 0x0600f000
-lbl_08082728: .4byte 0x03001530
+lbl_08082728: .4byte gEquipment
 lbl_0808272c: .4byte 0x040000d4
 lbl_08082730: .4byte 0x084796c0
 lbl_08082734: .4byte 0x80000070
@@ -2741,21 +2741,21 @@ lbl_08082754:
     movs r0, #0xfc
     lsls r0, r0, #6
     strh r0, [r1]
-    ldr r1, lbl_08082794 @ =0x030013b0
+    ldr r1, lbl_08082794 @ =gWrittenToBLDALPHA_L
     movs r0, #0x10
     strh r0, [r1]
-    ldr r0, lbl_08082798 @ =0x030013b2
+    ldr r0, lbl_08082798 @ =gWrittenToBLDALPHA_H
     strh r5, [r0]
-    ldr r0, lbl_0808279c @ =0x030013ae
+    ldr r0, lbl_0808279c @ =gWrittenToBLDY_NonGameplay
     strh r5, [r0]
     b lbl_080828be
     .align 2, 0
 lbl_08082788: .4byte 0x04000008
 lbl_0808278c: .4byte 0x00001e08
 lbl_08082790: .4byte 0x00000e01
-lbl_08082794: .4byte 0x030013b0
-lbl_08082798: .4byte 0x030013b2
-lbl_0808279c: .4byte 0x030013ae
+lbl_08082794: .4byte gWrittenToBLDALPHA_L
+lbl_08082798: .4byte gWrittenToBLDALPHA_H
+lbl_0808279c: .4byte gWrittenToBLDY_NonGameplay
 lbl_080827a0:
     adds r2, r3, #0
     adds r2, #0xc0
@@ -2769,7 +2769,7 @@ lbl_080827a0:
     adds r1, #0xc2
     movs r0, #0xbf
     strh r0, [r1]
-    ldr r1, lbl_080827f4 @ =0x030013ae
+    ldr r1, lbl_080827f4 @ =gWrittenToBLDY_NonGameplay
     movs r0, #0xa
     strh r0, [r1]
     ldr r1, lbl_080827f8 @ =0x04000048
@@ -2798,7 +2798,7 @@ lbl_080827a0:
     bl SoundPlay
     b lbl_080828be
     .align 2, 0
-lbl_080827f4: .4byte 0x030013ae
+lbl_080827f4: .4byte gWrittenToBLDY_NonGameplay
 lbl_080827f8: .4byte 0x04000048
 lbl_080827fc: .4byte 0x00000245
 lbl_08082800:
@@ -2855,7 +2855,7 @@ lbl_0808286c:
     adds r1, #0xc2
     ldr r0, lbl_08082888 @ =0x00000241
     strh r0, [r1]
-    ldr r1, lbl_0808288c @ =0x030013b0
+    ldr r1, lbl_0808288c @ =gWrittenToBLDALPHA_L
     movs r0, #0x10
     strh r0, [r1]
     ldrb r0, [r3, #2]
@@ -2866,7 +2866,7 @@ lbl_0808286c:
     b lbl_080828be
     .align 2, 0
 lbl_08082888: .4byte 0x00000241
-lbl_0808288c: .4byte 0x030013b0
+lbl_0808288c: .4byte gWrittenToBLDALPHA_L
 lbl_08082890: .4byte 0x00000247
 lbl_08082894:
     ldr r1, lbl_080828a0 @ =0x0400000a
@@ -2883,12 +2883,12 @@ lbl_080828a4:
     strh r5, [r0]
     adds r0, #2
     strh r5, [r0]
-    ldr r1, lbl_080828ec @ =0x030013b0
+    ldr r1, lbl_080828ec @ =gWrittenToBLDALPHA_L
     movs r0, #0x10
     strh r0, [r1]
-    ldr r0, lbl_080828f0 @ =0x030013b2
+    ldr r0, lbl_080828f0 @ =gWrittenToBLDALPHA_H
     strh r5, [r0]
-    ldr r0, lbl_080828f4 @ =0x030013ae
+    ldr r0, lbl_080828f4 @ =gWrittenToBLDY_NonGameplay
     strh r5, [r0]
     movs r5, #1
 lbl_080828be:
@@ -2916,9 +2916,9 @@ lbl_080828be:
     adds r0, #3
     b lbl_0808290e
     .align 2, 0
-lbl_080828ec: .4byte 0x030013b0
-lbl_080828f0: .4byte 0x030013b2
-lbl_080828f4: .4byte 0x030013ae
+lbl_080828ec: .4byte gWrittenToBLDALPHA_L
+lbl_080828f0: .4byte gWrittenToBLDALPHA_H
+lbl_080828f4: .4byte gWrittenToBLDY_NonGameplay
 lbl_080828f8: .4byte 0x08754bc4
 lbl_080828fc:
     ldr r1, [r4]
@@ -2981,7 +2981,7 @@ lbl_0808295a:
     ands r0, r1
     cmp r0, #0
     beq lbl_080829be
-    ldr r1, lbl_08082978 @ =0x030013ae
+    ldr r1, lbl_08082978 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r1]
     cmp r0, #0xf
     bhi lbl_080829be
@@ -2989,7 +2989,7 @@ lbl_0808295a:
     strh r0, [r1]
     b lbl_080829be
     .align 2, 0
-lbl_08082978: .4byte 0x030013ae
+lbl_08082978: .4byte gWrittenToBLDY_NonGameplay
 lbl_0808297c:
     cmp r2, #2
     bne lbl_0808299c
@@ -2998,7 +2998,7 @@ lbl_0808297c:
     ands r0, r1
     cmp r0, #0
     beq lbl_080829be
-    ldr r1, lbl_08082998 @ =0x030013ae
+    ldr r1, lbl_08082998 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_080829be
@@ -3006,7 +3006,7 @@ lbl_0808297c:
     strh r0, [r1]
     b lbl_080829be
     .align 2, 0
-lbl_08082998: .4byte 0x030013ae
+lbl_08082998: .4byte gWrittenToBLDY_NonGameplay
 lbl_0808299c:
     cmp r2, #0
     beq lbl_080829be
@@ -3015,13 +3015,13 @@ lbl_0808299c:
     ands r0, r1
     cmp r0, #0
     bne lbl_080829be
-    ldr r1, lbl_080829c8 @ =0x030013b0
+    ldr r1, lbl_080829c8 @ =gWrittenToBLDALPHA_L
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_080829be
     subs r0, #1
     strh r0, [r1]
-    ldr r2, lbl_080829cc @ =0x030013b2
+    ldr r2, lbl_080829cc @ =gWrittenToBLDALPHA_H
     movs r1, #0x10
     subs r1, r1, r0
     strh r1, [r2]
@@ -3031,8 +3031,8 @@ lbl_080829be:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_080829c8: .4byte 0x030013b0
-lbl_080829cc: .4byte 0x030013b2
+lbl_080829c8: .4byte gWrittenToBLDALPHA_L
+lbl_080829cc: .4byte gWrittenToBLDALPHA_H
 
     thumb_func_start tourian_escape_samus_looking_around
 tourian_escape_samus_looking_around: @ 0x080829d0
@@ -3127,10 +3127,10 @@ lbl_08082af0:
     ldr r0, lbl_08082b3c @ =0x08498028
     ldr r1, lbl_08082b40 @ =0x06010000
     bl LZ77UncompVRAM
-    ldr r0, lbl_08082b44 @ =0x030013b0
+    ldr r0, lbl_08082b44 @ =gWrittenToBLDALPHA_L
     movs r1, #8
     strh r1, [r0]
-    ldr r0, lbl_08082b48 @ =0x030013b2
+    ldr r0, lbl_08082b48 @ =gWrittenToBLDALPHA_H
     strh r1, [r0]
     ldr r1, lbl_08082b4c @ =0x08754bc4
     ldr r0, [r1]
@@ -3163,8 +3163,8 @@ lbl_08082af0:
     .align 2, 0
 lbl_08082b3c: .4byte 0x08498028
 lbl_08082b40: .4byte 0x06010000
-lbl_08082b44: .4byte 0x030013b0
-lbl_08082b48: .4byte 0x030013b2
+lbl_08082b44: .4byte gWrittenToBLDALPHA_L
+lbl_08082b48: .4byte gWrittenToBLDALPHA_H
 lbl_08082b4c: .4byte 0x08754bc4
 lbl_08082b50: .4byte 0x0847a554
 lbl_08082b54: .4byte 0x0847a56e
@@ -3356,14 +3356,14 @@ lbl_08082cbc:
     ldr r0, lbl_08082d0c @ =0x80000100
     str r0, [r1, #8]
     ldr r0, [r1, #8]
-    ldr r0, lbl_08082d10 @ =0x030013b4
+    ldr r0, lbl_08082d10 @ =gBG0XPosition
     strh r5, [r0]
-    ldr r0, lbl_08082d14 @ =0x030013b6
+    ldr r0, lbl_08082d14 @ =gBG0YPosition
     strh r5, [r0]
-    ldr r1, lbl_08082d18 @ =0x030013b0
+    ldr r1, lbl_08082d18 @ =gWrittenToBLDALPHA_L
     movs r0, #0x10
     strh r0, [r1]
-    ldr r0, lbl_08082d1c @ =0x030013b2
+    ldr r0, lbl_08082d1c @ =gWrittenToBLDALPHA_H
     strh r5, [r0]
     b lbl_08082d86
     .align 2, 0
@@ -3374,10 +3374,10 @@ lbl_08082d00: .4byte 0x06007800
 lbl_08082d04: .4byte 0x040000d4
 lbl_08082d08: .4byte 0x08479ac0
 lbl_08082d0c: .4byte 0x80000100
-lbl_08082d10: .4byte 0x030013b4
-lbl_08082d14: .4byte 0x030013b6
-lbl_08082d18: .4byte 0x030013b0
-lbl_08082d1c: .4byte 0x030013b2
+lbl_08082d10: .4byte gBG0XPosition
+lbl_08082d14: .4byte gBG0YPosition
+lbl_08082d18: .4byte gWrittenToBLDALPHA_L
+lbl_08082d1c: .4byte gWrittenToBLDALPHA_H
 lbl_08082d20:
     ldr r4, lbl_08082d30 @ =0x04000208
     strh r5, [r4]
@@ -3546,10 +3546,10 @@ lbl_08082e40:
     movs r0, #0x88
     lsls r0, r0, #5
     strh r0, [r1]
-    ldr r1, lbl_08082ec8 @ =0x030013b0
+    ldr r1, lbl_08082ec8 @ =gWrittenToBLDALPHA_L
     movs r0, #9
     strh r0, [r1]
-    ldr r1, lbl_08082ecc @ =0x030013b2
+    ldr r1, lbl_08082ecc @ =gWrittenToBLDALPHA_H
     movs r0, #7
     strh r0, [r1]
     movs r0, #1
@@ -3577,8 +3577,8 @@ lbl_08082eb8: .4byte 0x0845f914
 lbl_08082ebc: .4byte 0x80000070
 lbl_08082ec0: .4byte 0x05000200
 lbl_08082ec4: .4byte 0x04000008
-lbl_08082ec8: .4byte 0x030013b0
-lbl_08082ecc: .4byte 0x030013b2
+lbl_08082ec8: .4byte gWrittenToBLDALPHA_L
+lbl_08082ecc: .4byte gWrittenToBLDALPHA_H
 lbl_08082ed0:
     adds r0, r2, #0
     adds r0, #0xc0
@@ -3984,10 +3984,10 @@ lbl_08083160:
     lsrs r5, r0, #0x18
     cmp r5, #9
     bls lbl_08083160
-    ldr r0, lbl_080831fc @ =0x030013b4
+    ldr r0, lbl_080831fc @ =gBG0XPosition
     movs r1, #0
     strh r1, [r0]
-    ldr r0, lbl_08083200 @ =0x030013b6
+    ldr r0, lbl_08083200 @ =gBG0YPosition
     strh r1, [r0]
     b lbl_080832fc
     .align 2, 0
@@ -4005,8 +4005,8 @@ lbl_080831ec: .4byte 0x0847a642
 lbl_080831f0: .4byte 0x0847a662
 lbl_080831f4: .4byte 0x0847ce20
 lbl_080831f8: .4byte 0x08754bc4
-lbl_080831fc: .4byte 0x030013b4
-lbl_08083200: .4byte 0x030013b6
+lbl_080831fc: .4byte gBG0XPosition
+lbl_08083200: .4byte gBG0YPosition
 lbl_08083204:
     ldr r1, lbl_0808321c @ =0x04000008
     movs r3, #0xe0
@@ -4147,7 +4147,7 @@ lbl_080832fc:
     adds r4, r2, #0
     cmp r0, #0
     bne lbl_08083314
-    ldr r1, lbl_08083344 @ =0x030013b4
+    ldr r1, lbl_08083344 @ =gBG0XPosition
     ldrh r0, [r1]
     subs r0, #1
     strh r0, [r1]
@@ -4176,7 +4176,7 @@ lbl_08083316:
     b lbl_08083364
     .align 2, 0
 lbl_08083340: .4byte 0x08754bc4
-lbl_08083344: .4byte 0x030013b4
+lbl_08083344: .4byte gBG0XPosition
 lbl_08083348:
     cmp r0, #2
     bne lbl_08083366
@@ -4409,10 +4409,10 @@ lbl_0808343c:
     adds r0, r2, #0
     adds r0, #0xb0
     strh r1, [r0]
-    ldr r1, lbl_08083528 @ =0x030013b4
+    ldr r1, lbl_08083528 @ =gBG0XPosition
     movs r0, #0x30
     strh r0, [r1]
-    ldr r1, lbl_0808352c @ =0x030013b6
+    ldr r1, lbl_0808352c @ =gBG0YPosition
     movs r0, #0x50
     strh r0, [r1]
     b lbl_0808358a
@@ -4425,8 +4425,8 @@ lbl_08083518: .4byte 0x0847cfa4
 lbl_0808351c: .4byte 0x0847cfb4
 lbl_08083520: .4byte 0x0847cfc4
 lbl_08083524: .4byte 0x0847cfd4
-lbl_08083528: .4byte 0x030013b4
-lbl_0808352c: .4byte 0x030013b6
+lbl_08083528: .4byte gBG0XPosition
+lbl_0808352c: .4byte gBG0YPosition
 lbl_08083530:
     adds r1, r2, #0
     adds r1, #0xc0
@@ -4484,7 +4484,7 @@ lbl_0808358a:
     adds r5, r2, #0
     cmp r0, #0
     bne lbl_080835a2
-    ldr r1, lbl_08083640 @ =0x030013b6
+    ldr r1, lbl_08083640 @ =gBG0YPosition
     ldrh r0, [r1]
     subs r0, #1
     strh r0, [r1]
@@ -4573,7 +4573,7 @@ lbl_080835f6:
     b lbl_08083684
     .align 2, 0
 lbl_0808363c: .4byte 0x08754bc4
-lbl_08083640: .4byte 0x030013b6
+lbl_08083640: .4byte gBG0YPosition
 lbl_08083644:
     cmp r0, #2
     beq lbl_08083678
@@ -4936,14 +4936,14 @@ lbl_080838d4:
     adds r0, #0xc2
     movs r1, #0xff
     strh r1, [r0]
-    ldr r1, lbl_080838f4 @ =0x030013ae
+    ldr r1, lbl_080838f4 @ =gWrittenToBLDY_NonGameplay
     movs r0, #0x10
     strh r0, [r1]
     b lbl_08083a38
     .align 2, 0
 lbl_080838ec: .4byte 0x084a3b34
 lbl_080838f0: .4byte 0x06010000
-lbl_080838f4: .4byte 0x030013ae
+lbl_080838f4: .4byte gWrittenToBLDY_NonGameplay
 lbl_080838f8:
     ldr r0, lbl_08083928 @ =0x084a72dc
     ldr r1, lbl_0808392c @ =0x0600f000
@@ -4956,10 +4956,10 @@ lbl_080838f8:
     ldr r0, lbl_0808393c @ =0x80000050
     str r0, [r1, #8]
     ldr r0, [r1, #8]
-    ldr r1, lbl_08083940 @ =0x030013b4
+    ldr r1, lbl_08083940 @ =gBG0XPosition
     movs r0, #0x60
     strh r0, [r1]
-    ldr r1, lbl_08083944 @ =0x030013b6
+    ldr r1, lbl_08083944 @ =gBG0YPosition
     movs r0, #0x30
     strh r0, [r1]
     ldr r1, [r4]
@@ -4974,8 +4974,8 @@ lbl_08083930: .4byte 0x040000d4
 lbl_08083934: .4byte 0x08479a20
 lbl_08083938: .4byte 0x05000200
 lbl_0808393c: .4byte 0x80000050
-lbl_08083940: .4byte 0x030013b4
-lbl_08083944: .4byte 0x030013b6
+lbl_08083940: .4byte gBG0XPosition
+lbl_08083944: .4byte gBG0YPosition
 lbl_08083948:
     ldr r1, lbl_08083978 @ =0x04000008
     movs r2, #0xe0
@@ -5102,7 +5102,7 @@ lbl_08083a38:
     adds r7, r0, #0
     cmp r1, #0
     beq lbl_08083a72
-    ldr r5, lbl_08083a64 @ =0x030013ae
+    ldr r5, lbl_08083a64 @ =gWrittenToBLDY_NonGameplay
     ldrh r4, [r5]
     adds r3, r4, #0
     cmp r3, #0
@@ -5117,7 +5117,7 @@ lbl_08083a38:
     b lbl_08083a72
     .align 2, 0
 lbl_08083a60: .4byte 0x08754bc4
-lbl_08083a64: .4byte 0x030013ae
+lbl_08083a64: .4byte gWrittenToBLDY_NonGameplay
 lbl_08083a68:
     adds r1, r2, #0
     adds r1, #0xc2
@@ -5131,7 +5131,7 @@ lbl_08083a72:
     ands r0, r1
     cmp r0, #0
     bne lbl_08083a86
-    ldr r1, lbl_08083afc @ =0x030013b4
+    ldr r1, lbl_08083afc @ =gBG0XPosition
     ldrh r0, [r1]
     subs r0, #1
     strh r0, [r1]
@@ -5197,7 +5197,7 @@ lbl_08083abe:
     strh r0, [r1]
     b lbl_08083d04
     .align 2, 0
-lbl_08083afc: .4byte 0x030013b4
+lbl_08083afc: .4byte gBG0XPosition
 lbl_08083b00: .4byte 0x08754bc4
 lbl_08083b04:
     cmp r2, #3
@@ -5526,25 +5526,25 @@ lbl_08083d68:
     ldr r0, lbl_08083d88 @ =0x084ad56c
     ldr r1, lbl_08083d8c @ =0x06010000
     bl LZ77UncompVRAM
-    ldr r1, lbl_08083d90 @ =0x030013b4
+    ldr r1, lbl_08083d90 @ =gBG0XPosition
     movs r0, #0x10
     strh r0, [r1]
-    ldr r0, lbl_08083d94 @ =0x030013b6
+    ldr r0, lbl_08083d94 @ =gBG0YPosition
     strh r5, [r0]
-    ldr r1, lbl_08083d98 @ =0x030013b0
+    ldr r1, lbl_08083d98 @ =gWrittenToBLDALPHA_L
     movs r0, #9
     strh r0, [r1]
-    ldr r1, lbl_08083d9c @ =0x030013b2
+    ldr r1, lbl_08083d9c @ =gWrittenToBLDALPHA_H
     movs r0, #7
     strh r0, [r1]
     b lbl_08083e74
     .align 2, 0
 lbl_08083d88: .4byte 0x084ad56c
 lbl_08083d8c: .4byte 0x06010000
-lbl_08083d90: .4byte 0x030013b4
-lbl_08083d94: .4byte 0x030013b6
-lbl_08083d98: .4byte 0x030013b0
-lbl_08083d9c: .4byte 0x030013b2
+lbl_08083d90: .4byte gBG0XPosition
+lbl_08083d94: .4byte gBG0YPosition
+lbl_08083d98: .4byte gWrittenToBLDALPHA_L
+lbl_08083d9c: .4byte gWrittenToBLDALPHA_H
 lbl_08083da0:
     ldr r0, lbl_08083dec @ =0x0848d744
     ldr r1, lbl_08083df0 @ =0x0600f000
@@ -5658,7 +5658,7 @@ lbl_08083e74:
     ldr r1, [r3]
     movs r0, #0
     strb r0, [r1, #5]
-    ldr r1, lbl_08083ea4 @ =0x030013b4
+    ldr r1, lbl_08083ea4 @ =gBG0XPosition
     ldrh r0, [r1]
     subs r0, #1
     strh r0, [r1]
@@ -5670,7 +5670,7 @@ lbl_08083e94:
     bx r1
     .align 2, 0
 lbl_08083ea0: .4byte 0x08754bc4
-lbl_08083ea4: .4byte 0x030013b4
+lbl_08083ea4: .4byte gBG0XPosition
 
     thumb_func_start tourian_escape_samus_crashing
 tourian_escape_samus_crashing: @ 0x08083ea8
@@ -5803,9 +5803,9 @@ lbl_08083f80:
     adds r1, #0x79
     movs r0, #2
     strb r0, [r1]
-    ldr r0, lbl_08083fd4 @ =0x030013b4
+    ldr r0, lbl_08083fd4 @ =gBG0XPosition
     strh r5, [r0]
-    ldr r0, lbl_08083fd8 @ =0x030013b6
+    ldr r0, lbl_08083fd8 @ =gBG0YPosition
     strh r5, [r0]
     ldr r0, lbl_08083fdc @ =0x00000249
     bl SoundPlay
@@ -5816,8 +5816,8 @@ lbl_08083fc4: .4byte 0x0847a060
 lbl_08083fc8: .4byte 0x05000200
 lbl_08083fcc: .4byte 0x80000100
 lbl_08083fd0: .4byte 0x0847aa96
-lbl_08083fd4: .4byte 0x030013b4
-lbl_08083fd8: .4byte 0x030013b6
+lbl_08083fd4: .4byte gBG0XPosition
+lbl_08083fd8: .4byte gBG0YPosition
 lbl_08083fdc: .4byte 0x00000249
 lbl_08083fe0:
     ldr r1, lbl_08084000 @ =0x04000008
@@ -5906,7 +5906,7 @@ lbl_0808407a:
     ands r0, r1
     cmp r0, #0
     beq lbl_0808409c
-    ldr r1, lbl_080840fc @ =0x030013ae
+    ldr r1, lbl_080840fc @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r1]
     cmp r0, #0xf
     bhi lbl_0808409c
@@ -5961,7 +5961,7 @@ lbl_080840ea:
     bx r1
     .align 2, 0
 lbl_080840f8: .4byte 0x08754bc4
-lbl_080840fc: .4byte 0x030013ae
+lbl_080840fc: .4byte gWrittenToBLDY_NonGameplay
 lbl_08084100: .4byte 0x0847cfe4
 
     thumb_func_start tourian_escape_samus_looking_at_sky
@@ -6072,11 +6072,11 @@ lbl_080841a4:
     str r1, [r0, #4]
     str r2, [r0, #8]
     ldr r0, [r0, #8]
-    ldr r0, lbl_08084210 @ =0x030013b6
+    ldr r0, lbl_08084210 @ =gBG0YPosition
     strh r5, [r0]
-    ldr r0, lbl_08084214 @ =0x030013ba
+    ldr r0, lbl_08084214 @ =gBG1YPosition
     strh r5, [r0]
-    ldr r1, lbl_08084218 @ =0x030013be
+    ldr r1, lbl_08084218 @ =gBG2YPosition
     movs r0, #0x60
     strh r0, [r1]
     b lbl_080842ce
@@ -6091,9 +6091,9 @@ lbl_08084200: .4byte 0x040000d4
 lbl_08084204: .4byte 0x0847a260
 lbl_08084208: .4byte 0x800000a0
 lbl_0808420c: .4byte 0x05000200
-lbl_08084210: .4byte 0x030013b6
-lbl_08084214: .4byte 0x030013ba
-lbl_08084218: .4byte 0x030013be
+lbl_08084210: .4byte gBG0YPosition
+lbl_08084214: .4byte gBG1YPosition
+lbl_08084218: .4byte gBG2YPosition
 lbl_0808421c:
     ldr r1, lbl_0808424c @ =0x04000008
     ldr r3, lbl_08084250 @ =0x00001c0a
@@ -6178,9 +6178,9 @@ lbl_080842b8:
     adds r0, r2, #0
     adds r0, #0xc0
     strh r5, [r0]
-    ldr r0, lbl_080842f0 @ =0x030013b6
+    ldr r0, lbl_080842f0 @ =gBG0YPosition
     strh r5, [r0]
-    ldr r0, lbl_080842f4 @ =0x030013ba
+    ldr r0, lbl_080842f4 @ =gBG1YPosition
     strh r5, [r0]
     movs r5, #1
 lbl_080842ce:
@@ -6193,7 +6193,7 @@ lbl_080842ce:
     ands r1, r0
     cmp r1, #0
     beq lbl_08084338
-    ldr r3, lbl_080842fc @ =0x030013ae
+    ldr r3, lbl_080842fc @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r3]
     adds r1, r0, #0
     cmp r1, #0
@@ -6202,10 +6202,10 @@ lbl_080842ce:
     strh r0, [r3]
     b lbl_08084338
     .align 2, 0
-lbl_080842f0: .4byte 0x030013b6
-lbl_080842f4: .4byte 0x030013ba
+lbl_080842f0: .4byte gBG0YPosition
+lbl_080842f4: .4byte gBG1YPosition
 lbl_080842f8: .4byte 0x08754bc4
-lbl_080842fc: .4byte 0x030013ae
+lbl_080842fc: .4byte gWrittenToBLDY_NonGameplay
 lbl_08084300:
     adds r0, r2, #0
     adds r0, #0xc2
@@ -6214,17 +6214,17 @@ lbl_08084300:
 lbl_08084308:
     cmp r1, #2
     bne lbl_08084338
-    ldr r0, lbl_0808437c @ =0x030013b6
+    ldr r0, lbl_0808437c @ =gBG0YPosition
     ldrh r1, [r0]
     adds r1, #1
     strh r1, [r0]
-    ldr r2, lbl_08084380 @ =0x030013ba
+    ldr r2, lbl_08084380 @ =gBG1YPosition
     ldrh r0, [r2]
     adds r0, #1
     strh r0, [r2]
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
-    ldr r2, lbl_08084384 @ =0x030013be
+    ldr r2, lbl_08084384 @ =gBG2YPosition
     cmp r1, #0x5f
     bls lbl_0808432c
     ldrh r0, [r2]
@@ -6273,9 +6273,9 @@ lbl_08084364:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0808437c: .4byte 0x030013b6
-lbl_08084380: .4byte 0x030013ba
-lbl_08084384: .4byte 0x030013be
+lbl_0808437c: .4byte gBG0YPosition
+lbl_08084380: .4byte gBG1YPosition
+lbl_08084384: .4byte gBG2YPosition
 lbl_08084388: .4byte 0x08754bc4
 
     thumb_func_start tourian_escape_samus_looking_at_mother_ship
@@ -6375,10 +6375,10 @@ lbl_0808441c:
     ldr r0, lbl_08084464 @ =0x800000a0
     str r0, [r1, #8]
     ldr r0, [r1, #8]
-    ldr r1, lbl_08084468 @ =0x030013b4
+    ldr r1, lbl_08084468 @ =gBG0XPosition
     movs r0, #0x10
     strh r0, [r1]
-    ldr r0, lbl_0808446c @ =0x030013b8
+    ldr r0, lbl_0808446c @ =gBG1XPosition
     strh r7, [r0]
     b lbl_0808459a
     .align 2, 0
@@ -6389,8 +6389,8 @@ lbl_08084458: .4byte 0x0600f000
 lbl_0808445c: .4byte 0x040000d4
 lbl_08084460: .4byte 0x0847a3a0
 lbl_08084464: .4byte 0x800000a0
-lbl_08084468: .4byte 0x030013b4
-lbl_0808446c: .4byte 0x030013b8
+lbl_08084468: .4byte gBG0XPosition
+lbl_0808446c: .4byte gBG1XPosition
 lbl_08084470:
     ldr r4, lbl_08084508 @ =0x06010000
     movs r3, #0x80
@@ -6457,13 +6457,13 @@ lbl_080844ae:
     lsrs r5, r0, #0x18
     cmp r5, #9
     bls lbl_080844ae
-    ldr r0, lbl_08084530 @ =0x030013b0
+    ldr r0, lbl_08084530 @ =gWrittenToBLDALPHA_L
     movs r2, #0
     strh r2, [r0]
-    ldr r1, lbl_08084534 @ =0x030013b2
+    ldr r1, lbl_08084534 @ =gWrittenToBLDALPHA_H
     movs r0, #0x10
     strh r0, [r1]
-    ldr r0, lbl_08084538 @ =0x030013ae
+    ldr r0, lbl_08084538 @ =gWrittenToBLDY_NonGameplay
     strh r2, [r0]
     b lbl_0808459a
     .align 2, 0
@@ -6477,9 +6477,9 @@ lbl_08084520: .4byte 0x08375738
 lbl_08084524: .4byte 0x050003e0
 lbl_08084528: .4byte 0x0847cff4
 lbl_0808452c: .4byte 0x0847cffe
-lbl_08084530: .4byte 0x030013b0
-lbl_08084534: .4byte 0x030013b2
-lbl_08084538: .4byte 0x030013ae
+lbl_08084530: .4byte gWrittenToBLDALPHA_L
+lbl_08084534: .4byte gWrittenToBLDALPHA_H
+lbl_08084538: .4byte gWrittenToBLDY_NonGameplay
 lbl_0808453c:
     ldr r1, lbl_0808456c @ =0x04000008
     movs r2, #0xe0
@@ -6533,7 +6533,7 @@ lbl_0808459a:
     ldr r0, lbl_080845dc @ =0x000001bf
     cmp r1, r0
     bls lbl_080845b4
-    ldr r0, lbl_080845e0 @ =0x03001380
+    ldr r0, lbl_080845e0 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #3
     ands r0, r1
@@ -6560,7 +6560,7 @@ lbl_080845b4:
     .align 2, 0
 lbl_080845d8: .4byte 0x08754bc4
 lbl_080845dc: .4byte 0x000001bf
-lbl_080845e0: .4byte 0x03001380
+lbl_080845e0: .4byte gChangedInput
 lbl_080845e4:
     cmp r3, #3
     bne lbl_0808460a
@@ -6571,13 +6571,13 @@ lbl_080845e4:
     ands r3, r2
     cmp r3, #0
     bne lbl_0808460a
-    ldr r1, lbl_08084684 @ =0x030013b0
+    ldr r1, lbl_08084684 @ =gWrittenToBLDALPHA_L
     ldrh r0, [r1]
     cmp r0, #0xf
     bhi lbl_0808460a
     adds r0, #1
     strh r0, [r1]
-    ldr r2, lbl_08084688 @ =0x030013b2
+    ldr r2, lbl_08084688 @ =gWrittenToBLDALPHA_H
     movs r1, #0x10
     subs r1, r1, r0
     strh r1, [r2]
@@ -6595,18 +6595,18 @@ lbl_0808460a:
     ands r5, r1
     cmp r5, #0
     bne lbl_08084634
-    ldr r1, lbl_08084690 @ =0x030013b4
+    ldr r1, lbl_08084690 @ =gBG0XPosition
     ldrh r0, [r1]
     subs r0, #1
     strh r0, [r1]
-    ldr r1, lbl_08084694 @ =0x030013b8
+    ldr r1, lbl_08084694 @ =gBG1XPosition
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
 lbl_08084634:
     cmp r5, #8
     bne lbl_08084640
-    ldr r1, lbl_08084694 @ =0x030013b8
+    ldr r1, lbl_08084694 @ =gBG1XPosition
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
@@ -6620,7 +6620,7 @@ lbl_08084640:
     ands r0, r1
     cmp r0, #0
     beq lbl_0808465e
-    ldr r1, lbl_08084698 @ =0x030013ae
+    ldr r1, lbl_08084698 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r1]
     cmp r0, #3
     bhi lbl_0808465e
@@ -6647,12 +6647,12 @@ lbl_08084662:
     strb r0, [r1]
     b lbl_080846f8
     .align 2, 0
-lbl_08084684: .4byte 0x030013b0
-lbl_08084688: .4byte 0x030013b2
+lbl_08084684: .4byte gWrittenToBLDALPHA_L
+lbl_08084688: .4byte gWrittenToBLDALPHA_H
 lbl_0808468c: .4byte 0x08754bc4
-lbl_08084690: .4byte 0x030013b4
-lbl_08084694: .4byte 0x030013b8
-lbl_08084698: .4byte 0x030013ae
+lbl_08084690: .4byte gBG0XPosition
+lbl_08084694: .4byte gBG1XPosition
+lbl_08084698: .4byte gWrittenToBLDY_NonGameplay
 lbl_0808469c:
     lsls r3, r5, #1
     adds r0, r2, #0
@@ -6721,9 +6721,9 @@ lbl_08084710: .4byte 0x0847ac18
 tourian_escape_call_subroutines: @ 0x08084714
     push {r4, r5, r6, lr}
     movs r6, #0
-    ldr r0, lbl_08084730 @ =0x03001382
+    ldr r0, lbl_08084730 @ =gNextOamSlot
     strb r6, [r0]
-    ldr r5, lbl_08084734 @ =0x03000c72
+    ldr r5, lbl_08084734 @ =gGameModeSub1
     movs r1, #0
     ldrsh r0, [r5, r1]
     cmp r0, #1
@@ -6734,8 +6734,8 @@ tourian_escape_call_subroutines: @ 0x08084714
     beq lbl_08084742
     b lbl_080847ee
     .align 2, 0
-lbl_08084730: .4byte 0x03001382
-lbl_08084734: .4byte 0x03000c72
+lbl_08084730: .4byte gNextOamSlot
+lbl_08084734: .4byte gGameModeSub1
 lbl_08084738:
     cmp r0, #2
     beq lbl_08084770
@@ -6746,7 +6746,7 @@ lbl_08084742:
     bl tourian_escape_init
     b lbl_08084764
 lbl_08084748:
-    ldr r1, lbl_08084758 @ =0x030013ae
+    ldr r1, lbl_08084758 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_0808475c
@@ -6754,7 +6754,7 @@ lbl_08084748:
     strh r0, [r1]
     b lbl_080847ee
     .align 2, 0
-lbl_08084758: .4byte 0x030013ae
+lbl_08084758: .4byte gWrittenToBLDY_NonGameplay
 lbl_0808475c:
     ldr r0, lbl_0808476c @ =0x08754bc4
     ldr r0, [r0]

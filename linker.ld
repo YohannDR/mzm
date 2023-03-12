@@ -40,6 +40,7 @@ SECTIONS {
         . = 0x0000000f; gWrittenToWINOUT_L = .;
         . = 0x00000010; gWrittenTo0x05000000 = .;
         . = 0x00000012; gWrittenToBLDY = .;
+        . = 0x00000014; gFileScreenOptionsUnlocked = .;
         . = 0x00000020; gLanguage = .;
         . = 0x00000024; gGameCompletion = .;
         . = 0x00000028; gCompletedGameFlagCopy = .;
@@ -73,6 +74,7 @@ SECTIONS {
         . = 0x00000058; gDisplayLocationText = .;
         . = 0x00000059; gMinimapX = .;
         . = 0x0000005A; gMinimapY = .;
+        . = 0x0000005b; gNumberOfNeverReformBlocks = .;
         . = 0x00000063; gNumberOfItemsCollected = .;
         . = 0x0000006b; gCurrentHazeValue = .;
         . = 0x0000006C; gEffectYPosition = .;
@@ -120,7 +122,7 @@ SECTIONS {
         . = 0x00000770; gSpriteDebris = .;
         . = 0x000007F0; gPreviousVerticalCollisionCheck = .;
         . = 0x000007F1; gPreviousCollisionCheck = .;
-        . = 0x000007F1; gCollisionDebris = .;
+        . = 0x000007F2; gIgnoreSamusAndSpriteCollision = .;
         . = 0x000007F3; gSpriteDrawOrder = .;
         . = 0x0000080C; gBossWork = .;
         . = 0x0000083C; gSpriteRNG = .;
@@ -165,6 +167,9 @@ SECTIONS {
         . = 0x00000c0c; gCurrentMessage = .;
         . = 0x00000c1c; gSramCorruptFlag = .;
         . = 0x00000c1d; gIsLoadingFile = .;
+        . = 0x00000c1e; gMostRecentSaveFile = .;
+        . = 0x00000c1f; gHasSaved = .;
+        . = 0x00000c20; gUnk_3000c20 = .;
         . = 0x00000c21; gSramOperationStage = .;
         . = 0x00000c70; gMainGameMode = .;
         . = 0x00000c72; gGameModeSub1 = .;
@@ -204,9 +209,12 @@ SECTIONS {
         . = 0x00001588; gSamusPhysics = .;
         . = 0x00001600; gPreviousXPosition = .;
         . = 0x00001602; gPreviousYPosition = .;
+        . = 0x00001604; gEndingFlags = .;
         . = 0x00001606; gPreventMovementTimer = .;
         . = 0x00001608; gDisableDrawingSamusAndScrolling = .;
+        . = 0x0000160c; gTimeAttackData = .;
         . = 0x0000168C; gButtonAssignments = .;
+        . = 0x00001694; gTimeAttackRecord = .;
         . = 0x000016C4; gNonGameplayRAM = .;
         . = 0x00001cec; gVBlankCallback = .;
         . = 0x00001cf0; gHBlankCallback = .;
@@ -214,11 +222,12 @@ SECTIONS {
         . = 0x00001cf8; gSerialCommunicationCallback = .;
         . = 0x00001cfc; gTimer3Callback = .;
         . = 0x00001d00; gMusicInfo = .;
-        . = 0x00002924; sound_data = .;
+        . = 0x00002924; gSoundData = .;
 
         . = 0x00003834; gSoundChannelBackup = .;
         . = 0x000039bc; gSoundChannelTrack2Backup = .;
         . = 0x00003b44; gSoundQueue = .;
+        . = 0x000041e8; gSoundCodeBPointer = .;
         . = 0x00004348; gTrack0Variables = .;
         . = 0x00004708; gTrack1Variables = .;
         . = 0x00004a28; gTrack2Variables = .;
@@ -251,6 +260,7 @@ SECTIONS {
         . = 0x0000550C; gSamusDoorPositionOffset = .;
         . = 0x00005510; gBg3CntDuringDoorTransition = .;
         . = 0x00005512; gBg1CntDuringDoorTransition = .;
+        . = 0x00005514; gUnk_3005514 = .;
         . = 0x00005515; gScreenYOffset = .;
         . = 0x00005516; gScreenXOffset = .;
         . = 0x00005518; gRainSoundEffect = .;
@@ -273,10 +283,21 @@ SECTIONS {
         . = 0x00005704; gClipdataCodePointer = .;
         . = 0x00005708; gCurrentRoomScrollDataPointer = .;
         . = 0x00005714; gUnk_3005714 = .;
+        . = 0x0000571c; gHazeLoops = .;
+        . = 0x00005728; gUnk_3005728 = .;
+        . = 0x00005729; gUnk_3005729 = .;
+        . = 0x0000572c; gHazeProcessCodePointer = .;
         . = 0x00005730; gAnimatedGraphicsData = .;
         . = 0x000057F0; gTankAnimations = .;
         . = 0x00005806; gOamXOffset_NonGameplay = .;
         . = 0x00005807; gOamYOffset_NonGameplay = .;
+
+        . = 0x000058aa; gUnk_30058aa = .;
+        . = 0x000058ac; gUnk_30058ac = .;
+        . = 0x000058ae; gUnk_30058ae = .;
+        . = 0x000058af; gUnk_30058af = .;
+        . = 0x000058b0; gUnk_30058b0 = .;
+        . = 0x000058b1; gUnk_30058b1 = .;
 
         . = 0x000058e0; src/libgcc/fp-bit-base.o(.bss);
         . = 0x000058f8; src/libgcc/float.o(.bss);

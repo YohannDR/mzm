@@ -6,9 +6,9 @@
     thumb_func_start RuinsTestCalculateDelay
 RuinsTestCalculateDelay: @ 0x08038988
     lsls r0, r0, #0x18
-    ldr r3, lbl_080389a0 @ =0x0300080c
+    ldr r3, lbl_080389a0 @ =gBossWork
     ldr r2, lbl_080389a4 @ =0x0808c99c
-    ldr r1, lbl_080389a8 @ =0x03000c77
+    ldr r1, lbl_080389a8 @ =gFrameCounter8Bit
     ldrb r1, [r1]
     adds r1, r1, r2
     lsrs r0, r0, #0x18
@@ -17,9 +17,9 @@ RuinsTestCalculateDelay: @ 0x08038988
     strh r0, [r3, #8]
     bx lr
     .align 2, 0
-lbl_080389a0: .4byte 0x0300080c
+lbl_080389a0: .4byte gBossWork
 lbl_080389a4: .4byte 0x0808c99c
-lbl_080389a8: .4byte 0x03000c77
+lbl_080389a8: .4byte gFrameCounter8Bit
 
     thumb_func_start RuinsTestChangeCCAA
 RuinsTestChangeCCAA: @ 0x080389ac
@@ -27,7 +27,7 @@ RuinsTestChangeCCAA: @ 0x080389ac
     adds r5, r0, #0
     lsls r5, r5, #0x18
     lsrs r5, r5, #0x18
-    ldr r0, lbl_08038a6c @ =0x0300080c
+    ldr r0, lbl_08038a6c @ =gBossWork
     ldr r1, lbl_08038a70 @ =0xfffffe60
     adds r4, r1, #0
     ldrh r1, [r0]
@@ -35,7 +35,7 @@ RuinsTestChangeCCAA: @ 0x080389ac
     lsls r4, r4, #0x10
     lsrs r4, r4, #0x10
     ldrh r7, [r0, #2]
-    ldr r6, lbl_08038a74 @ =0x03000079
+    ldr r6, lbl_08038a74 @ =gCurrentClipdataAffectingAction
     strb r5, [r6]
     adds r0, r4, #0
     adds r1, r7, #0
@@ -107,9 +107,9 @@ RuinsTestChangeCCAA: @ 0x080389ac
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08038a6c: .4byte 0x0300080c
+lbl_08038a6c: .4byte gBossWork
 lbl_08038a70: .4byte 0xfffffe60
-lbl_08038a74: .4byte 0x03000079
+lbl_08038a74: .4byte gCurrentClipdataAffectingAction
 lbl_08038a78: .4byte 0xffffff00
 lbl_08038a7c: .4byte 0xfffffec0
 lbl_08038a80: .4byte 0xfffffe80
@@ -147,7 +147,7 @@ ruins_test_move_to_pos: @ 0x08038a84
     subs r0, r2, r1
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10
-    ldr r1, lbl_08038ad0 @ =0x03000738
+    ldr r1, lbl_08038ad0 @ =gCurrentSprite
     ldrh r2, [r1]
     movs r4, #0x80
     lsls r4, r4, #3
@@ -155,13 +155,13 @@ ruins_test_move_to_pos: @ 0x08038a84
     orrs r0, r2
     b lbl_08038ae4
     .align 2, 0
-lbl_08038ad0: .4byte 0x03000738
+lbl_08038ad0: .4byte gCurrentSprite
 lbl_08038ad4:
     mov r1, r8
     subs r0, r1, r2
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10
-    ldr r1, lbl_08038b04 @ =0x03000738
+    ldr r1, lbl_08038b04 @ =gCurrentSprite
     ldrh r2, [r1]
     ldr r0, lbl_08038b08 @ =0x0000fbff
     ands r0, r2
@@ -173,7 +173,7 @@ lbl_08038ae4:
     subs r0, r3, r2
     lsls r0, r0, #0x10
     lsrs r6, r0, #0x10
-    ldr r4, lbl_08038b04 @ =0x03000738
+    ldr r4, lbl_08038b04 @ =gCurrentSprite
     ldrh r1, [r4]
     movs r2, #0x80
     lsls r2, r2, #2
@@ -182,21 +182,21 @@ lbl_08038ae4:
     strh r0, [r4]
     b lbl_08038b20
     .align 2, 0
-lbl_08038b04: .4byte 0x03000738
+lbl_08038b04: .4byte gCurrentSprite
 lbl_08038b08: .4byte 0x0000fbff
 lbl_08038b0c:
     mov r4, sb
     subs r0, r4, r3
     lsls r0, r0, #0x10
     lsrs r6, r0, #0x10
-    ldr r0, lbl_08038b78 @ =0x03000738
+    ldr r0, lbl_08038b78 @ =gCurrentSprite
     ldrh r1, [r0]
     ldr r0, lbl_08038b7c @ =0x0000fdff
     ands r0, r1
-    ldr r1, lbl_08038b78 @ =0x03000738
+    ldr r1, lbl_08038b78 @ =gCurrentSprite
     strh r0, [r1]
 lbl_08038b20:
-    ldr r2, lbl_08038b78 @ =0x03000738
+    ldr r2, lbl_08038b78 @ =gCurrentSprite
     mov sl, r2
     ldrh r1, [r2]
     movs r0, #0x80
@@ -237,7 +237,7 @@ lbl_08038b20:
     strh r0, [r2, #4]
     b lbl_08038c40
     .align 2, 0
-lbl_08038b78: .4byte 0x03000738
+lbl_08038b78: .4byte gCurrentSprite
 lbl_08038b7c: .4byte 0x0000fdff
 lbl_08038b80:
     adds r0, r6, #0
@@ -319,7 +319,7 @@ lbl_08038c02:
     asrs r0, r0, #0xa
     mov r1, r8
     subs r0, r1, r0
-    ldr r2, lbl_08038c50 @ =0x03000738
+    ldr r2, lbl_08038c50 @ =gCurrentSprite
     strh r0, [r2, #2]
     lsls r0, r6, #0xa
     adds r1, r4, #0
@@ -328,7 +328,7 @@ lbl_08038c02:
     asrs r0, r0, #0xa
     mov r4, sb
     subs r0, r4, r0
-    ldr r1, lbl_08038c50 @ =0x03000738
+    ldr r1, lbl_08038c50 @ =gCurrentSprite
     strh r0, [r1, #4]
 lbl_08038c40:
     pop {r3, r4, r5}
@@ -339,12 +339,12 @@ lbl_08038c40:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08038c50: .4byte 0x03000738
+lbl_08038c50: .4byte gCurrentSprite
 
     thumb_func_start RuinsTestProjectileCollision
 RuinsTestProjectileCollision: @ 0x08038c54
     push {r4, r5, r6, r7, lr}
-    ldr r0, lbl_08038cf0 @ =0x0300002c
+    ldr r0, lbl_08038cf0 @ =gDifficulty
     ldrb r0, [r0]
     movs r4, #0x19
     cmp r0, #0
@@ -354,7 +354,7 @@ RuinsTestProjectileCollision: @ 0x08038c54
     bne lbl_08038c68
     movs r4, #0x64
 lbl_08038c68:
-    ldr r2, lbl_08038cf4 @ =0x03000738
+    ldr r2, lbl_08038cf4 @ =gCurrentSprite
     ldrh r1, [r2, #2]
     ldrh r3, [r2, #4]
     ldrh r0, [r2, #0xa]
@@ -374,13 +374,13 @@ lbl_08038c68:
     adds r3, r3, r0
     lsls r3, r3, #0x10
     lsrs r5, r3, #0x10
-    ldr r1, lbl_08038cf8 @ =0x03000a2c
+    ldr r1, lbl_08038cf8 @ =gProjectileData
     movs r2, #0xe0
     lsls r2, r2, #1
     adds r0, r1, r2
     cmp r1, r0
     bhs lbl_08038d1c
-    ldr r3, lbl_08038cfc @ =0x030013d4
+    ldr r3, lbl_08038cfc @ =gSamusData
 lbl_08038c9e:
     ldrb r2, [r1]
     movs r0, #1
@@ -416,7 +416,7 @@ lbl_08038cc0:
     ldrb r2, [r3, #6]
     cmp r2, #0
     bne lbl_08038d14
-    ldr r1, lbl_08038d00 @ =0x03001530
+    ldr r1, lbl_08038d00 @ =gEquipment
     ldrh r0, [r1, #6]
     cmp r0, r4
     bls lbl_08038d04
@@ -424,11 +424,11 @@ lbl_08038cc0:
     strh r0, [r1, #6]
     b lbl_08038d06
     .align 2, 0
-lbl_08038cf0: .4byte 0x0300002c
-lbl_08038cf4: .4byte 0x03000738
-lbl_08038cf8: .4byte 0x03000a2c
-lbl_08038cfc: .4byte 0x030013d4
-lbl_08038d00: .4byte 0x03001530
+lbl_08038cf0: .4byte gDifficulty
+lbl_08038cf4: .4byte gCurrentSprite
+lbl_08038cf8: .4byte gProjectileData
+lbl_08038cfc: .4byte gSamusData
+lbl_08038d00: .4byte gEquipment
 lbl_08038d04:
     strh r2, [r1, #6]
 lbl_08038d06:
@@ -440,7 +440,7 @@ lbl_08038d06:
     b lbl_08038d1e
 lbl_08038d14:
     adds r1, #0x1c
-    ldr r0, lbl_08038d24 @ =0x03000bec
+    ldr r0, lbl_08038d24 @ =gArmCannonY
     cmp r1, r0
     blo lbl_08038c9e
 lbl_08038d1c:
@@ -450,12 +450,12 @@ lbl_08038d1e:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08038d24: .4byte 0x03000bec
+lbl_08038d24: .4byte gArmCannonY
 
     thumb_func_start RuinsTestCheckHitByChargedPistol
 RuinsTestCheckHitByChargedPistol: @ 0x08038d28
     push {lr}
-    ldr r2, lbl_08038d58 @ =0x03000a2c
+    ldr r2, lbl_08038d58 @ =gProjectileData
     movs r1, #0xe0
     lsls r1, r1, #1
     adds r0, r2, r1
@@ -480,10 +480,10 @@ lbl_08038d36:
     movs r0, #1
     b lbl_08038d66
     .align 2, 0
-lbl_08038d58: .4byte 0x03000a2c
+lbl_08038d58: .4byte gProjectileData
 lbl_08038d5c:
     adds r2, #0x1c
-    ldr r0, lbl_08038d6c @ =0x03000bec
+    ldr r0, lbl_08038d6c @ =gArmCannonY
     cmp r2, r0
     blo lbl_08038d36
 lbl_08038d64:
@@ -492,12 +492,12 @@ lbl_08038d66:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08038d6c: .4byte 0x03000bec
+lbl_08038d6c: .4byte gArmCannonY
 
     thumb_func_start RuinsTestCheckSymbolShooted
 RuinsTestCheckSymbolShooted: @ 0x08038d70
     push {r4, r5, r6, r7, lr}
-    ldr r4, lbl_08038dd4 @ =0x03000738
+    ldr r4, lbl_08038dd4 @ =gCurrentSprite
     adds r5, r4, #0
     adds r5, #0x2b
     ldrb r0, [r5]
@@ -518,7 +518,7 @@ RuinsTestCheckSymbolShooted: @ 0x08038d70
     strh r2, [r4]
     movs r0, #0x64
     strh r0, [r4, #0x14]
-    ldr r3, lbl_08038ddc @ =0x0300070c
+    ldr r3, lbl_08038ddc @ =gSubSpriteData1
     ldrh r0, [r3, #0xa]
     adds r0, #1
     strh r0, [r3, #0xa]
@@ -546,9 +546,9 @@ RuinsTestCheckSymbolShooted: @ 0x08038d70
     movs r0, #1
     b lbl_08038dec
     .align 2, 0
-lbl_08038dd4: .4byte 0x03000738
+lbl_08038dd4: .4byte gCurrentSprite
 lbl_08038dd8: .4byte 0x000001d9
-lbl_08038ddc: .4byte 0x0300070c
+lbl_08038ddc: .4byte gSubSpriteData1
 lbl_08038de0:
     movs r0, #0x80
     strb r0, [r3, #0xd]
@@ -565,21 +565,21 @@ lbl_08038dec:
     thumb_func_start RuinsTestCheckSamusHurting
 RuinsTestCheckSamusHurting: @ 0x08038df4
     push {lr}
-    ldr r2, lbl_08038e10 @ =0x03000738
+    ldr r2, lbl_08038e10 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x20
     ands r0, r1
     cmp r0, #0
     beq lbl_08038e1e
-    ldr r0, lbl_08038e14 @ =0x030013d4
+    ldr r0, lbl_08038e14 @ =gSamusData
     ldrb r0, [r0]
     cmp r0, #0x2f
     bne lbl_08038e18
     movs r0, #1
     b lbl_08038e20
     .align 2, 0
-lbl_08038e10: .4byte 0x03000738
-lbl_08038e14: .4byte 0x030013d4
+lbl_08038e10: .4byte gCurrentSprite
+lbl_08038e14: .4byte gSamusData
 lbl_08038e18:
     ldr r0, lbl_08038e24 @ =0x0000ffdf
     ands r0, r1
@@ -596,7 +596,7 @@ lbl_08038e24: .4byte 0x0000ffdf
 sub_08038e28: @ 0x08038e28
     push {r4, r5, lr}
     sub sp, #0xc
-    ldr r4, lbl_08038e4c @ =0x0300070c
+    ldr r4, lbl_08038e4c @ =gSubSpriteData1
     ldrb r1, [r4, #0xd]
     movs r0, #0x7f
     ands r0, r1
@@ -612,13 +612,13 @@ sub_08038e28: @ 0x08038e28
     subs r0, #1
     b lbl_08038e52
     .align 2, 0
-lbl_08038e4c: .4byte 0x0300070c
+lbl_08038e4c: .4byte gSubSpriteData1
 lbl_08038e50:
     subs r0, r1, #1
 lbl_08038e52:
     strb r0, [r4, #0xd]
 lbl_08038e54:
-    ldr r3, lbl_08038e9c @ =0x03000738
+    ldr r3, lbl_08038e9c @ =gCurrentSprite
     ldrh r1, [r3]
     movs r0, #0x80
     lsls r0, r0, #8
@@ -633,7 +633,7 @@ lbl_08038e54:
     adds r0, r3, #0
     adds r0, #0x23
     ldrb r3, [r0]
-    ldr r4, lbl_08038ea4 @ =0x0300070c
+    ldr r4, lbl_08038ea4 @ =gSubSpriteData1
     ldrh r0, [r4, #6]
     str r0, [sp]
     ldrh r0, [r4, #8]
@@ -645,7 +645,7 @@ lbl_08038e54:
     lsrs r2, r0, #0x18
     cmp r2, #0x17
     bhi lbl_08038f38
-    ldr r0, lbl_08038ea8 @ =0x030001ac
+    ldr r0, lbl_08038ea8 @ =gSpriteData
     lsls r1, r2, #3
     subs r1, r1, r2
     lsls r1, r1, #3
@@ -654,12 +654,12 @@ lbl_08038e54:
     strh r0, [r1, #0x14]
     b lbl_08038f38
     .align 2, 0
-lbl_08038e9c: .4byte 0x03000738
+lbl_08038e9c: .4byte gCurrentSprite
 lbl_08038ea0: .4byte 0x00007fff
-lbl_08038ea4: .4byte 0x0300070c
-lbl_08038ea8: .4byte 0x030001ac
+lbl_08038ea4: .4byte gSubSpriteData1
+lbl_08038ea8: .4byte gSpriteData
 lbl_08038eac:
-    ldr r5, lbl_08038ee8 @ =0x03000738
+    ldr r5, lbl_08038ee8 @ =gCurrentSprite
     ldrh r1, [r5]
     movs r2, #0x80
     lsls r2, r2, #8
@@ -676,7 +676,7 @@ lbl_08038ec2:
     ands r0, r1
     cmp r0, #0
     bne lbl_08038f38
-    ldr r1, lbl_08038eec @ =0x0300080c
+    ldr r1, lbl_08038eec @ =gBossWork
     ldrh r0, [r1, #4]
     cmp r0, #0
     bne lbl_08038ef0
@@ -689,8 +689,8 @@ lbl_08038ec2:
     movs r0, #1
     b lbl_08038f3a
     .align 2, 0
-lbl_08038ee8: .4byte 0x03000738
-lbl_08038eec: .4byte 0x0300080c
+lbl_08038ee8: .4byte gCurrentSprite
+lbl_08038eec: .4byte gBossWork
 lbl_08038ef0:
     ldrh r0, [r1, #8]
     cmp r0, #0
@@ -744,7 +744,7 @@ RuinsTestGhostMove: @ 0x08038f44
     push {r4, r5, lr}
     lsls r0, r0, #0x18
     lsrs r4, r0, #0x18
-    ldr r2, lbl_08038f64 @ =0x03000738
+    ldr r2, lbl_08038f64 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -758,7 +758,7 @@ RuinsTestGhostMove: @ 0x08038f44
     adds r0, r4, r0
     b lbl_08038f70
     .align 2, 0
-lbl_08038f64: .4byte 0x03000738
+lbl_08038f64: .4byte gCurrentSprite
 lbl_08038f68:
     adds r1, r3, #0
     adds r1, #0x2d
@@ -831,7 +831,7 @@ RuinsTestInit: @ 0x08038fe0
     mov r7, r8
     push {r7}
     sub sp, #0xc
-    ldr r7, lbl_080390b0 @ =0x03000738
+    ldr r7, lbl_080390b0 @ =gCurrentSprite
     adds r0, r7, #0
     adds r0, #0x27
     movs r1, #0
@@ -883,12 +883,12 @@ RuinsTestInit: @ 0x08038fe0
     strh r0, [r7, #2]
     ldrh r4, [r7, #2]
     ldrh r6, [r7, #4]
-    ldr r5, lbl_080390bc @ =0x0300080c
+    ldr r5, lbl_080390bc @ =gBossWork
     strh r4, [r5]
     strh r6, [r5, #2]
     strh r4, [r7, #6]
     strh r6, [r7, #8]
-    ldr r0, lbl_080390c0 @ =0x0300070c
+    ldr r0, lbl_080390c0 @ =gSubSpriteData1
     strh r4, [r0, #6]
     strh r6, [r0, #8]
     strb r2, [r0, #0xf]
@@ -912,7 +912,7 @@ RuinsTestInit: @ 0x08038fe0
     bl SpriteSpawnSecondary
     movs r0, #0x3e
     bl SamusSetPose
-    ldr r0, lbl_080390c4 @ =0x030013d4
+    ldr r0, lbl_080390c4 @ =gSamusData
     ldr r1, lbl_080390c8 @ =0x0000012f
     adds r4, r4, r1
     strh r4, [r0, #0x14]
@@ -929,18 +929,18 @@ RuinsTestInit: @ 0x08038fe0
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080390b0: .4byte 0x03000738
+lbl_080390b0: .4byte gCurrentSprite
 lbl_080390b4: .4byte 0x0000ffbc
 lbl_080390b8: .4byte 0x082f60dc
-lbl_080390bc: .4byte 0x0300080c
-lbl_080390c0: .4byte 0x0300070c
-lbl_080390c4: .4byte 0x030013d4
+lbl_080390bc: .4byte gBossWork
+lbl_080390c0: .4byte gSubSpriteData1
+lbl_080390c4: .4byte gSamusData
 lbl_080390c8: .4byte 0x0000012f
 
     thumb_func_start sub_080390cc
 sub_080390cc: @ 0x080390cc
     push {lr}
-    ldr r3, lbl_080390e0 @ =0x03000738
+    ldr r3, lbl_080390e0 @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x2c
     ldrb r2, [r0]
@@ -949,7 +949,7 @@ sub_080390cc: @ 0x080390cc
     strb r2, [r3, #0x1c]
     b lbl_08039100
     .align 2, 0
-lbl_080390e0: .4byte 0x03000738
+lbl_080390e0: .4byte gCurrentSprite
 lbl_080390e4:
     cmp r2, #2
     bne lbl_08039100
@@ -975,7 +975,7 @@ lbl_08039108: .4byte 0x000001d5
 RuinsTestTurningIntoReflection: @ 0x0803910c
     push {lr}
     sub sp, #0xc
-    ldr r1, lbl_0803913c @ =0x03000738
+    ldr r1, lbl_0803913c @ =gCurrentSprite
     ldrh r0, [r1, #0x16]
     cmp r0, #7
     bne lbl_08039162
@@ -997,7 +997,7 @@ RuinsTestTurningIntoReflection: @ 0x0803910c
     bl SpriteSpawnSecondary
     b lbl_08039162
     .align 2, 0
-lbl_0803913c: .4byte 0x03000738
+lbl_0803913c: .4byte gCurrentSprite
 lbl_08039140:
     cmp r0, #4
     bne lbl_08039162
@@ -1019,7 +1019,7 @@ lbl_08039162:
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_08039186
-    ldr r0, lbl_0803918c @ =0x03000738
+    ldr r0, lbl_0803918c @ =gCurrentSprite
     ldr r1, lbl_08039190 @ =0x082f5ec4
     str r1, [r0, #0x18]
     movs r2, #0
@@ -1038,13 +1038,13 @@ lbl_08039186:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803918c: .4byte 0x03000738
+lbl_0803918c: .4byte gCurrentSprite
 lbl_08039190: .4byte 0x082f5ec4
 
     thumb_func_start sub_08039194
 sub_08039194: @ 0x08039194
     push {lr}
-    ldr r1, lbl_080391bc @ =0x03000738
+    ldr r1, lbl_080391bc @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x2c
     ldrb r0, [r2]
@@ -1056,7 +1056,7 @@ sub_08039194: @ 0x08039194
     lsrs r2, r0, #0x18
     cmp r2, #0
     bne lbl_080391b8
-    ldr r0, lbl_080391c0 @ =0x030013d4
+    ldr r0, lbl_080391c0 @ =gSamusData
     strh r2, [r0, #0xc]
     adds r1, #0x24
     movs r0, #4
@@ -1065,21 +1065,21 @@ lbl_080391b8:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080391bc: .4byte 0x03000738
-lbl_080391c0: .4byte 0x030013d4
+lbl_080391bc: .4byte gCurrentSprite
+lbl_080391c0: .4byte gSamusData
 
     thumb_func_start RuinsTestCheckSamusNotFacingBackground
 RuinsTestCheckSamusNotFacingBackground: @ 0x080391c4
     push {lr}
-    ldr r0, lbl_080391e4 @ =0x030013d4
+    ldr r0, lbl_080391e4 @ =gSamusData
     ldrb r0, [r0]
     cmp r0, #0x3e
     beq lbl_080391de
-    ldr r0, lbl_080391e8 @ =0x03000738
+    ldr r0, lbl_080391e8 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #8
     strb r1, [r0]
-    ldr r1, lbl_080391ec @ =0x0300080c
+    ldr r1, lbl_080391ec @ =gBossWork
     movs r0, #0xe1
     lsls r0, r0, #3
     strh r0, [r1, #4]
@@ -1087,9 +1087,9 @@ lbl_080391de:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080391e4: .4byte 0x030013d4
-lbl_080391e8: .4byte 0x03000738
-lbl_080391ec: .4byte 0x0300080c
+lbl_080391e4: .4byte gSamusData
+lbl_080391e8: .4byte gCurrentSprite
+lbl_080391ec: .4byte gBossWork
 
     thumb_func_start sub_080391f0
 sub_080391f0: @ 0x080391f0
@@ -1103,12 +1103,12 @@ sub_080391f0: @ 0x080391f0
     lsls r0, r0, #0x18
     cmp r0, #0
     bne lbl_08039212
-    ldr r0, lbl_0803922c @ =0x0300070c
+    ldr r0, lbl_0803922c @ =gSubSpriteData1
     ldrh r0, [r0, #0xa]
     cmp r0, #0
     beq lbl_08039226
 lbl_08039212:
-    ldr r1, lbl_08039230 @ =0x03000738
+    ldr r1, lbl_08039230 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r0, #9
@@ -1121,23 +1121,23 @@ lbl_08039226:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803922c: .4byte 0x0300070c
-lbl_08039230: .4byte 0x03000738
+lbl_0803922c: .4byte gSubSpriteData1
+lbl_08039230: .4byte gCurrentSprite
 
     thumb_func_start RuinsTestSpawnGhost
 RuinsTestSpawnGhost: @ 0x08039234
     push {r4, lr}
     sub sp, #0xc
-    ldr r0, lbl_08039278 @ =0x0300070c
+    ldr r0, lbl_08039278 @ =gSubSpriteData1
     ldrh r0, [r0, #0xa]
     cmp r0, #0
     beq lbl_08039248
-    ldr r0, lbl_0803927c @ =0x0300080c
+    ldr r0, lbl_0803927c @ =gBossWork
     ldrh r0, [r0, #0xc]
     cmp r0, #0
     beq lbl_080392ba
 lbl_08039248:
-    ldr r0, lbl_08039280 @ =0x03000738
+    ldr r0, lbl_08039280 @ =gCurrentSprite
     mov ip, r0
     mov r1, ip
     adds r1, #0x2c
@@ -1162,9 +1162,9 @@ lbl_08039248:
     movs r0, #0x3e
     b lbl_0803929e
     .align 2, 0
-lbl_08039278: .4byte 0x0300070c
-lbl_0803927c: .4byte 0x0300080c
-lbl_08039280: .4byte 0x03000738
+lbl_08039278: .4byte gSubSpriteData1
+lbl_0803927c: .4byte gBossWork
+lbl_08039280: .4byte gCurrentSprite
 lbl_08039284:
     cmp r0, #0x40
     bne lbl_080392a6
@@ -1190,7 +1190,7 @@ lbl_080392a6:
     adds r1, #0x24
     movs r0, #0x22
     strb r0, [r1]
-    ldr r1, lbl_080392c4 @ =0x0300080c
+    ldr r1, lbl_080392c4 @ =gBossWork
     movs r0, #0x96
     lsls r0, r0, #3
     strh r0, [r1, #4]
@@ -1200,11 +1200,11 @@ lbl_080392ba:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080392c4: .4byte 0x0300080c
+lbl_080392c4: .4byte gBossWork
 
     thumb_func_start RuinsTestMovingInit
 RuinsTestMovingInit: @ 0x080392c8
-    ldr r2, lbl_080392ec @ =0x03000738
+    ldr r2, lbl_080392ec @ =gCurrentSprite
     adds r3, r2, #0
     adds r3, #0x2d
     movs r1, #0
@@ -1223,7 +1223,7 @@ RuinsTestMovingInit: @ 0x080392c8
     strh r0, [r2]
     bx lr
     .align 2, 0
-lbl_080392ec: .4byte 0x03000738
+lbl_080392ec: .4byte gCurrentSprite
 
     thumb_func_start RuinsTestMoveCirclePattern
 RuinsTestMoveCirclePattern: @ 0x080392f0
@@ -1233,12 +1233,12 @@ RuinsTestMoveCirclePattern: @ 0x080392f0
     cmp r0, #0
     bne lbl_080393e4
     bl RuinsTestCheckSymbolShooted
-    ldr r0, lbl_0803931c @ =0x0300080c
+    ldr r0, lbl_0803931c @ =gBossWork
     ldrh r1, [r0, #4]
     ldr r0, lbl_08039320 @ =0x00000257
     cmp r1, r0
     bhi lbl_08039328
-    ldr r0, lbl_08039324 @ =0x03000c77
+    ldr r0, lbl_08039324 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #3
     ands r0, r1
@@ -1248,30 +1248,30 @@ RuinsTestMoveCirclePattern: @ 0x080392f0
     movs r3, #2
     b lbl_0803932a
     .align 2, 0
-lbl_0803931c: .4byte 0x0300080c
+lbl_0803931c: .4byte gBossWork
 lbl_08039320: .4byte 0x00000257
-lbl_08039324: .4byte 0x03000c77
+lbl_08039324: .4byte gFrameCounter8Bit
 lbl_08039328:
     movs r3, #1
 lbl_0803932a:
-    ldr r2, lbl_08039340 @ =0x03000738
+    ldr r2, lbl_08039340 @ =gCurrentSprite
     ldrh r0, [r2, #0x12]
     cmp r0, #0xbf
     bhi lbl_08039348
     adds r0, #3
     movs r1, #0
     strh r0, [r2, #0x12]
-    ldr r0, lbl_08039344 @ =0x0300080c
+    ldr r0, lbl_08039344 @ =gBossWork
     strh r1, [r0, #0xa]
     adds r6, r0, #0
     b lbl_0803934e
     .align 2, 0
-lbl_08039340: .4byte 0x03000738
-lbl_08039344: .4byte 0x0300080c
+lbl_08039340: .4byte gCurrentSprite
+lbl_08039344: .4byte gBossWork
 lbl_08039348:
     movs r0, #0xc0
     strh r0, [r2, #0x12]
-    ldr r6, lbl_080393c4 @ =0x0300080c
+    ldr r6, lbl_080393c4 @ =gBossWork
 lbl_0803934e:
     ldrh r0, [r6, #6]
     cmp r0, #0
@@ -1279,8 +1279,8 @@ lbl_0803934e:
     adds r0, r3, #0
     bl RuinsTestGhostMove
 lbl_0803935a:
-    ldr r5, lbl_080393c8 @ =0x0300070c
-    ldr r4, lbl_080393cc @ =0x03000738
+    ldr r5, lbl_080393c8 @ =gSubSpriteData1
+    ldr r4, lbl_080393cc @ =gCurrentSprite
     ldrh r0, [r4, #2]
     movs r7, #0
     strh r0, [r5, #6]
@@ -1333,9 +1333,9 @@ lbl_08039378:
     subs r0, #0xc0
     b lbl_080393e2
     .align 2, 0
-lbl_080393c4: .4byte 0x0300080c
-lbl_080393c8: .4byte 0x0300070c
-lbl_080393cc: .4byte 0x03000738
+lbl_080393c4: .4byte gBossWork
+lbl_080393c8: .4byte gSubSpriteData1
+lbl_080393cc: .4byte gCurrentSprite
 lbl_080393d0: .4byte 0x0000f7ff
 lbl_080393d4:
     movs r0, #0x80
@@ -1356,7 +1356,7 @@ lbl_080393e4:
     thumb_func_start RuinsTestMoveAtomPattern
 RuinsTestMoveAtomPattern: @ 0x080393ec
     push {r4, r5, r6, lr}
-    ldr r4, lbl_08039430 @ =0x0300080c
+    ldr r4, lbl_08039430 @ =gBossWork
     ldrh r0, [r4, #4]
     cmp r0, #0
     bne lbl_080393fa
@@ -1379,7 +1379,7 @@ lbl_08039414:
     ldrh r1, [r4, #4]
     cmp r1, #1
     bhi lbl_08039438
-    ldr r0, lbl_08039434 @ =0x03000c77
+    ldr r0, lbl_08039434 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #3
     ands r0, r1
@@ -1391,13 +1391,13 @@ lbl_0803942a:
     movs r4, #0xfc
     b lbl_08039450
     .align 2, 0
-lbl_08039430: .4byte 0x0300080c
-lbl_08039434: .4byte 0x03000c77
+lbl_08039430: .4byte gBossWork
+lbl_08039434: .4byte gFrameCounter8Bit
 lbl_08039438:
     ldr r0, lbl_0803949c @ =0x00000257
     cmp r1, r0
     bls lbl_0803944c
-    ldr r0, lbl_080394a0 @ =0x03000c77
+    ldr r0, lbl_080394a0 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -1409,14 +1409,14 @@ lbl_0803944c:
 lbl_0803944e:
     movs r4, #0xfe
 lbl_08039450:
-    ldr r0, lbl_080394a4 @ =0x0300080c
+    ldr r0, lbl_080394a4 @ =gBossWork
     ldrh r0, [r0, #6]
     cmp r0, #0
     bne lbl_0803945e
     adds r0, r1, #0
     bl RuinsTestGhostMove
 lbl_0803945e:
-    ldr r0, lbl_080394a8 @ =0x03000738
+    ldr r0, lbl_080394a8 @ =gCurrentSprite
     movs r1, #0x2d
     adds r1, r1, r0
     mov ip, r1
@@ -1449,9 +1449,9 @@ lbl_08039488:
     b lbl_080395a4
     .align 2, 0
 lbl_0803949c: .4byte 0x00000257
-lbl_080394a0: .4byte 0x03000c77
-lbl_080394a4: .4byte 0x0300080c
-lbl_080394a8: .4byte 0x03000738
+lbl_080394a0: .4byte gFrameCounter8Bit
+lbl_080394a4: .4byte gBossWork
+lbl_080394a8: .4byte gCurrentSprite
 lbl_080394ac:
     cmp r3, #0
     beq lbl_080394b2
@@ -1637,7 +1637,7 @@ lbl_080395ea:
     adds r0, #1
     strb r0, [r1]
 lbl_080395f8:
-    ldr r0, lbl_0803960c @ =0x0300070c
+    ldr r0, lbl_0803960c @ =gSubSpriteData1
     ldrh r1, [r4, #2]
     strh r1, [r0, #6]
     ldrh r1, [r4, #4]
@@ -1648,13 +1648,13 @@ lbl_08039606:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803960c: .4byte 0x0300070c
+lbl_0803960c: .4byte gSubSpriteData1
 
     thumb_func_start RuinsTestMoveToCenter
 RuinsTestMoveToCenter: @ 0x08039610
     push {r4, r5, r6, lr}
     sub sp, #8
-    ldr r2, lbl_08039638 @ =0x03000738
+    ldr r2, lbl_08039638 @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x2b
     ldrb r1, [r0]
@@ -1663,7 +1663,7 @@ RuinsTestMoveToCenter: @ 0x08039610
     adds r4, r2, #0
     cmp r0, #0
     bne lbl_08039696
-    ldr r0, lbl_0803963c @ =0x0300080c
+    ldr r0, lbl_0803963c @ =gBossWork
     ldrh r5, [r0]
     ldrh r6, [r0, #2]
     ldrh r0, [r4, #4]
@@ -1672,8 +1672,8 @@ RuinsTestMoveToCenter: @ 0x08039610
     subs r0, r6, r0
     b lbl_08039642
     .align 2, 0
-lbl_08039638: .4byte 0x03000738
-lbl_0803963c: .4byte 0x0300080c
+lbl_08039638: .4byte gCurrentSprite
+lbl_0803963c: .4byte gBossWork
 lbl_08039640:
     subs r0, r0, r6
 lbl_08039642:
@@ -1699,14 +1699,14 @@ lbl_08039652:
     adds r1, #0x24
     movs r0, #0x68
     strb r0, [r1]
-    ldr r1, lbl_08039674 @ =0x0300070c
+    ldr r1, lbl_08039674 @ =gSubSpriteData1
     movs r0, #2
     strb r0, [r1, #0xf]
     b lbl_08039696
     .align 2, 0
-lbl_08039674: .4byte 0x0300070c
+lbl_08039674: .4byte gSubSpriteData1
 lbl_08039678:
-    ldr r1, lbl_080396a0 @ =0x0300070c
+    ldr r1, lbl_080396a0 @ =gSubSpriteData1
     ldrh r0, [r1, #6]
     ldrh r1, [r1, #8]
     ldrh r2, [r4, #0x12]
@@ -1726,16 +1726,16 @@ lbl_08039696:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080396a0: .4byte 0x0300070c
+lbl_080396a0: .4byte gSubSpriteData1
 
     thumb_func_start sub_080396a4
 sub_080396a4: @ 0x080396a4
     push {lr}
-    ldr r0, lbl_080396c8 @ =0x0300070c
+    ldr r0, lbl_080396c8 @ =gSubSpriteData1
     ldrb r0, [r0, #0xf]
     cmp r0, #4
     bne lbl_080396c4
-    ldr r2, lbl_080396cc @ =0x03000738
+    ldr r2, lbl_080396cc @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #0x69
@@ -1750,14 +1750,14 @@ lbl_080396c4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080396c8: .4byte 0x0300070c
-lbl_080396cc: .4byte 0x03000738
+lbl_080396c8: .4byte gSubSpriteData1
+lbl_080396cc: .4byte gCurrentSprite
 
     thumb_func_start RuinsTestDespawn
 RuinsTestDespawn: @ 0x080396d0
     push {r4, lr}
     sub sp, #0xc
-    ldr r1, lbl_080396f8 @ =0x03000738
+    ldr r1, lbl_080396f8 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x2c
     ldrb r0, [r2]
@@ -1776,7 +1776,7 @@ RuinsTestDespawn: @ 0x080396d0
     strb r0, [r1, #0x1c]
     b lbl_0803975e
     .align 2, 0
-lbl_080396f8: .4byte 0x03000738
+lbl_080396f8: .4byte gCurrentSprite
 lbl_080396fc: .4byte 0x082f6064
 lbl_08039700:
     adds r2, r1, #0
@@ -1805,7 +1805,7 @@ lbl_08039700:
     bl SpriteSpawnSecondary
     b lbl_0803975e
 lbl_08039734:
-    ldr r0, lbl_08039768 @ =0x0300070c
+    ldr r0, lbl_08039768 @ =gSubSpriteData1
     ldrb r0, [r0, #0xf]
     cmp r0, #5
     bne lbl_0803975e
@@ -1817,8 +1817,8 @@ lbl_08039734:
     movs r0, #1
     movs r1, #0x43
     bl EventFunction
-    ldr r1, lbl_0803976c @ =0x03000184
-    ldr r0, lbl_08039770 @ =0x03000150
+    ldr r1, lbl_0803976c @ =gInGameTimerAtBosses
+    ldr r0, lbl_08039770 @ =gInGameTimer
     ldr r0, [r0]
     str r0, [r1, #8]
     movs r0, #4
@@ -1829,14 +1829,14 @@ lbl_0803975e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08039768: .4byte 0x0300070c
-lbl_0803976c: .4byte 0x03000184
-lbl_08039770: .4byte 0x03000150
+lbl_08039768: .4byte gSubSpriteData1
+lbl_0803976c: .4byte gInGameTimerAtBosses
+lbl_08039770: .4byte gInGameTimer
 
     thumb_func_start RuinsTestGhostInit
 RuinsTestGhostInit: @ 0x08039774
     push {r4, r5, r6, r7, lr}
-    ldr r5, lbl_08039808 @ =0x03000738
+    ldr r5, lbl_08039808 @ =gCurrentSprite
     ldrh r0, [r5]
     ldr r1, lbl_0803980c @ =0x0000fffb
     ands r1, r0
@@ -1907,7 +1907,7 @@ RuinsTestGhostInit: @ 0x08039774
     adds r0, #1
     b lbl_0803987a
     .align 2, 0
-lbl_08039808: .4byte 0x03000738
+lbl_08039808: .4byte gCurrentSprite
 lbl_0803980c: .4byte 0x0000fffb
 lbl_08039810: .4byte 0x0000ff60
 lbl_08039814: .4byte 0x082f5d2c
@@ -1972,7 +1972,7 @@ lbl_08039888: .4byte 0x082f5fe4
     thumb_func_start RuinsTestGhostSpawn
 RuinsTestGhostSpawn: @ 0x0803988c
     push {lr}
-    ldr r2, lbl_080398bc @ =0x03000738
+    ldr r2, lbl_080398bc @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2e
     ldrb r0, [r1]
@@ -1996,7 +1996,7 @@ RuinsTestGhostSpawn: @ 0x0803988c
     movs r0, #0x10
     b lbl_080398d2
     .align 2, 0
-lbl_080398bc: .4byte 0x03000738
+lbl_080398bc: .4byte gCurrentSprite
 lbl_080398c0:
     adds r1, r2, #0
     adds r1, #0x2d
@@ -2034,12 +2034,12 @@ lbl_080398fc: .4byte 0x000001d7
     thumb_func_start ruins_test_ghost_sync_pos
 ruins_test_ghost_sync_pos: @ 0x08039900
     push {r4, lr}
-    ldr r0, lbl_0803994c @ =0x0300070c
+    ldr r0, lbl_0803994c @ =gSubSpriteData1
     ldrb r1, [r0, #0xf]
     adds r4, r0, #0
     cmp r1, #2
     bls lbl_0803996c
-    ldr r2, lbl_08039950 @ =0x03000738
+    ldr r2, lbl_08039950 @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x2b
     ldrb r0, [r0]
@@ -2071,8 +2071,8 @@ ruins_test_ghost_sync_pos: @ 0x08039900
     bl TransparencySpriteUpdateBLDALPHA
     b lbl_080399ee
     .align 2, 0
-lbl_0803994c: .4byte 0x0300070c
-lbl_08039950: .4byte 0x03000738
+lbl_0803994c: .4byte gSubSpriteData1
+lbl_08039950: .4byte gCurrentSprite
 lbl_08039954:
     adds r1, r2, #0
     adds r1, #0x24
@@ -2086,11 +2086,11 @@ lbl_08039954:
     bl TransparencyUpdateBLDCNT
     b lbl_080399ee
 lbl_0803996c:
-    ldr r3, lbl_080399a0 @ =0x03000738
+    ldr r3, lbl_080399a0 @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x23
     ldrb r1, [r0]
-    ldr r2, lbl_080399a4 @ =0x030001ac
+    ldr r2, lbl_080399a4 @ =gSpriteData
     lsls r0, r1, #3
     subs r0, r0, r1
     lsls r0, r0, #3
@@ -2112,8 +2112,8 @@ lbl_0803996c:
     ands r0, r1
     b lbl_080399b6
     .align 2, 0
-lbl_080399a0: .4byte 0x03000738
-lbl_080399a4: .4byte 0x030001ac
+lbl_080399a0: .4byte gCurrentSprite
+lbl_080399a4: .4byte gSpriteData
 lbl_080399a8: .4byte 0x0000dfff
 lbl_080399ac:
     ldrh r0, [r3]
@@ -2160,7 +2160,7 @@ lbl_080399f8: .4byte 0x000001df
     thumb_func_start RuinsTestGhostDespawn
 RuinsTestGhostDespawn: @ 0x080399fc
     push {r4, lr}
-    ldr r2, lbl_08039a34 @ =0x03000738
+    ldr r2, lbl_08039a34 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2c
     ldrb r0, [r1]
@@ -2187,7 +2187,7 @@ RuinsTestGhostDespawn: @ 0x080399fc
     bl TransparencySpriteUpdateBLDALPHA
     b lbl_08039a3a
     .align 2, 0
-lbl_08039a34: .4byte 0x03000738
+lbl_08039a34: .4byte gCurrentSprite
 lbl_08039a38:
     strh r3, [r2]
 lbl_08039a3a:
@@ -2199,7 +2199,7 @@ lbl_08039a3a:
 RuinsTestGhostMoveSymbolToPlace: @ 0x08039a40
     push {r4, r5, r6, lr}
     sub sp, #8
-    ldr r2, lbl_08039a7c @ =0x03000738
+    ldr r2, lbl_08039a7c @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2c
     ldrb r0, [r1]
@@ -2229,7 +2229,7 @@ lbl_08039a70:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08039a7c: .4byte 0x03000738
+lbl_08039a7c: .4byte gCurrentSprite
 lbl_08039a80: .4byte lbl_08039a84
 lbl_08039a84: @ jump table
     .4byte lbl_08039ab4 @ case 0
@@ -2330,7 +2330,7 @@ lbl_08039b60:
     str r0, [r1, #8]
     ldr r0, [r1, #8]
 lbl_08039b6c:
-    ldr r0, lbl_08039b98 @ =0x0300080c
+    ldr r0, lbl_08039b98 @ =gBossWork
     ldrh r4, [r0]
     ldrh r5, [r0, #2]
     mov r1, ip
@@ -2349,7 +2349,7 @@ lbl_08039b88: .4byte 0x040000d4
 lbl_08039b8c: .4byte 0x082f475c
 lbl_08039b90: .4byte 0x050003c0
 lbl_08039b94: .4byte 0x80000008
-lbl_08039b98: .4byte 0x0300080c
+lbl_08039b98: .4byte gBossWork
 lbl_08039b9c: .4byte 0xfffffea0
 lbl_08039ba0:
     cmp r0, #2
@@ -2466,7 +2466,7 @@ lbl_08039c6a:
     thumb_func_start RuinsTestGhostSymbolPlacing
 RuinsTestGhostSymbolPlacing: @ 0x08039c74
     push {lr}
-    ldr r1, lbl_08039c94 @ =0x03000738
+    ldr r1, lbl_08039c94 @ =gCurrentSprite
     ldrb r0, [r1, #0x1c]
     cmp r0, #1
     beq lbl_08039c80
@@ -2483,7 +2483,7 @@ lbl_08039c88:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08039c94: .4byte 0x03000738
+lbl_08039c94: .4byte gCurrentSprite
 lbl_08039c98: .4byte lbl_08039c9c
 lbl_08039c9c: @ jump table
     .4byte lbl_08039d80 @ case 0
@@ -2590,7 +2590,7 @@ lbl_08039d90:
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_08039de6
-    ldr r2, lbl_08039dc8 @ =0x03000738
+    ldr r2, lbl_08039dc8 @ =gCurrentSprite
     ldr r0, lbl_08039dcc @ =0x082f5d74
     str r0, [r2, #0x18]
     movs r1, #0
@@ -2610,7 +2610,7 @@ lbl_08039db8: .4byte 0x040000d4
 lbl_08039dbc: .4byte 0x082f471c
 lbl_08039dc0: .4byte 0x050003c0
 lbl_08039dc4: .4byte 0x80000008
-lbl_08039dc8: .4byte 0x03000738
+lbl_08039dc8: .4byte gCurrentSprite
 lbl_08039dcc: .4byte 0x082f5d74
 lbl_08039dd0:
     ldrb r0, [r2, #0x1e]
@@ -2622,7 +2622,7 @@ lbl_08039dda:
     movs r0, #0x27
 lbl_08039ddc:
     strb r0, [r1]
-    ldr r1, lbl_08039dec @ =0x0300080c
+    ldr r1, lbl_08039dec @ =gBossWork
     ldrh r0, [r1, #0xc]
     adds r0, #1
     strh r0, [r1, #0xc]
@@ -2630,18 +2630,18 @@ lbl_08039de6:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08039dec: .4byte 0x0300080c
+lbl_08039dec: .4byte gBossWork
 
     thumb_func_start RuinsTestGhostSymbolSetGhostDisappearing
 RuinsTestGhostSymbolSetGhostDisappearing: @ 0x08039df0
     push {lr}
-    ldr r1, lbl_08039e0c @ =0x0300070c
+    ldr r1, lbl_08039e0c @ =gSubSpriteData1
     ldrb r0, [r1, #0xf]
     cmp r0, #3
     bne lbl_08039e06
     movs r0, #4
     strb r0, [r1, #0xf]
-    ldr r0, lbl_08039e10 @ =0x03000738
+    ldr r0, lbl_08039e10 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x27
     strb r1, [r0]
@@ -2649,17 +2649,17 @@ lbl_08039e06:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08039e0c: .4byte 0x0300070c
-lbl_08039e10: .4byte 0x03000738
+lbl_08039e0c: .4byte gSubSpriteData1
+lbl_08039e10: .4byte gCurrentSprite
 
     thumb_func_start sub_08039e14
 sub_08039e14: @ 0x08039e14
     push {lr}
-    ldr r0, lbl_08039e34 @ =0x0300070c
+    ldr r0, lbl_08039e34 @ =gSubSpriteData1
     ldrb r0, [r0, #0xf]
     cmp r0, #4
     bne lbl_08039e2e
-    ldr r1, lbl_08039e38 @ =0x03000738
+    ldr r1, lbl_08039e38 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x2c
     movs r0, #0x50
@@ -2671,13 +2671,13 @@ lbl_08039e2e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08039e34: .4byte 0x0300070c
-lbl_08039e38: .4byte 0x03000738
+lbl_08039e34: .4byte gSubSpriteData1
+lbl_08039e38: .4byte gCurrentSprite
 
     thumb_func_start sub_08039e3c
 sub_08039e3c: @ 0x08039e3c
     push {lr}
-    ldr r2, lbl_08039e70 @ =0x03000738
+    ldr r2, lbl_08039e70 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2c
     ldrb r0, [r1]
@@ -2702,14 +2702,14 @@ lbl_08039e6a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08039e70: .4byte 0x03000738
+lbl_08039e70: .4byte gCurrentSprite
 lbl_08039e74: .4byte 0x082f5ff4
 
     thumb_func_start RuinsTest
 RuinsTest: @ 0x08039e78
     push {r4, lr}
     sub sp, #0xc
-    ldr r0, lbl_08039e94 @ =0x03000738
+    ldr r0, lbl_08039e94 @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x69
@@ -2722,7 +2722,7 @@ lbl_08039e88:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08039e94: .4byte 0x03000738
+lbl_08039e94: .4byte gCurrentSprite
 lbl_08039e98: .4byte lbl_08039e9c
 lbl_08039e9c: @ jump table
     .4byte lbl_0803a044 @ case 0
@@ -2869,29 +2869,29 @@ lbl_0803a084:
 lbl_0803a08a:
     bl RuinsTestDespawn
 lbl_0803a08e:
-    ldr r0, lbl_0803a140 @ =0x0300070c
+    ldr r0, lbl_0803a140 @ =gSubSpriteData1
     ldrb r0, [r0, #0xf]
     cmp r0, #0
     bne lbl_0803a164
-    ldr r4, lbl_0803a144 @ =0x0300080c
+    ldr r4, lbl_0803a144 @ =gBossWork
     ldrh r0, [r4, #6]
     cmp r0, #0
     bne lbl_0803a106
     ldrh r0, [r4, #0xc]
     cmp r0, #2
     bls lbl_0803a0d4
-    ldr r0, lbl_0803a148 @ =0x03000c77
+    ldr r0, lbl_0803a148 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     cmp r1, #0
     bne lbl_0803a0d4
-    ldr r0, lbl_0803a14c @ =0x0300002c
+    ldr r0, lbl_0803a14c @ =gDifficulty
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0803a0d4
     strh r1, [r4, #0xa]
     movs r0, #1
     strh r0, [r4, #6]
-    ldr r0, lbl_0803a150 @ =0x03000738
+    ldr r0, lbl_0803a150 @ =gCurrentSprite
     ldrb r2, [r0, #0x1f]
     adds r0, #0x23
     ldrb r3, [r0]
@@ -2904,11 +2904,11 @@ lbl_0803a08e:
     movs r1, #1
     bl SpriteSpawnSecondary
 lbl_0803a0d4:
-    ldr r4, lbl_0803a144 @ =0x0300080c
+    ldr r4, lbl_0803a144 @ =gBossWork
     ldrh r0, [r4, #0xa]
     cmp r0, #0x1e
     bls lbl_0803a106
-    ldr r0, lbl_0803a148 @ =0x03000c77
+    ldr r0, lbl_0803a148 @ =gFrameCounter8Bit
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0803a106
@@ -2916,7 +2916,7 @@ lbl_0803a0d4:
     strh r1, [r4, #0xa]
     movs r0, #1
     strh r0, [r4, #6]
-    ldr r0, lbl_0803a150 @ =0x03000738
+    ldr r0, lbl_0803a150 @ =gCurrentSprite
     ldrb r2, [r0, #0x1f]
     adds r0, #0x23
     ldrb r3, [r0]
@@ -2929,7 +2929,7 @@ lbl_0803a0d4:
     movs r1, #2
     bl SpriteSpawnSecondary
 lbl_0803a106:
-    ldr r0, lbl_0803a144 @ =0x0300080c
+    ldr r0, lbl_0803a144 @ =gBossWork
     ldrh r1, [r0, #4]
     adds r2, r0, #0
     cmp r1, #0
@@ -2937,7 +2937,7 @@ lbl_0803a106:
     subs r0, r1, #1
     strh r0, [r2, #4]
 lbl_0803a114:
-    ldr r0, lbl_0803a150 @ =0x03000738
+    ldr r0, lbl_0803a150 @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x22
@@ -2945,13 +2945,13 @@ lbl_0803a114:
     ldrh r0, [r2, #0xc]
     cmp r0, #0
     beq lbl_0803a164
-    ldr r3, lbl_0803a154 @ =0x030013d4
-    ldr r1, lbl_0803a158 @ =0x03001600
+    ldr r3, lbl_0803a154 @ =gSamusData
+    ldr r1, lbl_0803a158 @ =gPreviousXPosition
     ldrh r0, [r3, #0x12]
     ldrh r1, [r1]
     cmp r0, r1
     bne lbl_0803a160
-    ldr r1, lbl_0803a15c @ =0x03001602
+    ldr r1, lbl_0803a15c @ =gPreviousYPosition
     ldrh r0, [r3, #0x14]
     ldrh r1, [r1]
     cmp r0, r1
@@ -2960,14 +2960,14 @@ lbl_0803a114:
     adds r0, #1
     b lbl_0803a162
     .align 2, 0
-lbl_0803a140: .4byte 0x0300070c
-lbl_0803a144: .4byte 0x0300080c
-lbl_0803a148: .4byte 0x03000c77
-lbl_0803a14c: .4byte 0x0300002c
-lbl_0803a150: .4byte 0x03000738
-lbl_0803a154: .4byte 0x030013d4
-lbl_0803a158: .4byte 0x03001600
-lbl_0803a15c: .4byte 0x03001602
+lbl_0803a140: .4byte gSubSpriteData1
+lbl_0803a144: .4byte gBossWork
+lbl_0803a148: .4byte gFrameCounter8Bit
+lbl_0803a14c: .4byte gDifficulty
+lbl_0803a150: .4byte gCurrentSprite
+lbl_0803a154: .4byte gSamusData
+lbl_0803a158: .4byte gPreviousXPosition
+lbl_0803a15c: .4byte gPreviousYPosition
 lbl_0803a160:
     movs r0, #0
 lbl_0803a162:
@@ -2981,7 +2981,7 @@ lbl_0803a164:
     thumb_func_start RuinsTestSymbol
 RuinsTestSymbol: @ 0x0803a16c
     push {lr}
-    ldr r1, lbl_0803a18c @ =0x03000738
+    ldr r1, lbl_0803a18c @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x23
     ldrb r3, [r0]
@@ -2998,7 +2998,7 @@ lbl_0803a182:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0803a18c: .4byte 0x03000738
+lbl_0803a18c: .4byte gCurrentSprite
 lbl_0803a190: .4byte lbl_0803a194
 lbl_0803a194: @ jump table
     .4byte lbl_0803a22c @ case 0
@@ -3080,14 +3080,14 @@ lbl_0803a22c:
     subs r1, #0xa
     movs r0, #0xd
     strb r0, [r1]
-    ldr r1, lbl_0803a28c @ =0x03000049
+    ldr r1, lbl_0803a28c @ =gDisablePause
     movs r0, #1
     strb r0, [r1]
     b lbl_0803a4e6
     .align 2, 0
 lbl_0803a284: .4byte 0x0000fffb
 lbl_0803a288: .4byte 0x082f5d84
-lbl_0803a28c: .4byte 0x03000049
+lbl_0803a28c: .4byte gDisablePause
 lbl_0803a290:
     mov r1, ip
     adds r1, #0x2c
@@ -3217,7 +3217,7 @@ lbl_0803a3a8:
     bne lbl_0803a3b2
     b lbl_0803a4e6
 lbl_0803a3b2:
-    ldr r0, lbl_0803a3e0 @ =0x03000738
+    ldr r0, lbl_0803a3e0 @ =gCurrentSprite
     ldr r1, lbl_0803a3e4 @ =0x082f5df4
     str r1, [r0, #0x18]
     movs r2, #0
@@ -3237,7 +3237,7 @@ lbl_0803a3d0: .4byte 0x040000d4
 lbl_0803a3d4: .4byte 0x082f477c
 lbl_0803a3d8: .4byte 0x050003c0
 lbl_0803a3dc: .4byte 0x80000008
-lbl_0803a3e0: .4byte 0x03000738
+lbl_0803a3e0: .4byte gCurrentSprite
 lbl_0803a3e4: .4byte 0x082f5df4
 lbl_0803a3e8:
     mov r2, ip
@@ -3294,7 +3294,7 @@ lbl_0803a450:
     lsrs r0, r0, #0x18
     cmp r0, #0x3c
     bne lbl_0803a470
-    ldr r0, lbl_0803a46c @ =0x030001ac
+    ldr r0, lbl_0803a46c @ =gSpriteData
     lsls r1, r3, #3
     subs r1, r1, r3
     lsls r1, r1, #3
@@ -3304,11 +3304,11 @@ lbl_0803a450:
     strb r0, [r1]
     b lbl_0803a4e6
     .align 2, 0
-lbl_0803a46c: .4byte 0x030001ac
+lbl_0803a46c: .4byte gSpriteData
 lbl_0803a470:
     cmp r0, #0x6e
     bne lbl_0803a4e6
-    ldr r0, lbl_0803a488 @ =0x030001ac
+    ldr r0, lbl_0803a488 @ =gSpriteData
     lsls r1, r3, #3
     subs r1, r1, r3
     lsls r1, r1, #3
@@ -3318,7 +3318,7 @@ lbl_0803a470:
     strb r0, [r1]
     b lbl_0803a4e6
     .align 2, 0
-lbl_0803a488: .4byte 0x030001ac
+lbl_0803a488: .4byte gSpriteData
 lbl_0803a48c:
     mov r2, ip
     ldrb r0, [r2, #0x1c]
@@ -3364,7 +3364,7 @@ lbl_0803a4d8:
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0803a4e6
-    ldr r1, lbl_0803a4fc @ =0x03000738
+    ldr r1, lbl_0803a4fc @ =gCurrentSprite
     movs r0, #0
     strh r0, [r1]
 lbl_0803a4e6:
@@ -3375,12 +3375,12 @@ lbl_0803a4ec: .4byte 0x040000d4
 lbl_0803a4f0: .4byte 0x082f471c
 lbl_0803a4f4: .4byte 0x050003c0
 lbl_0803a4f8: .4byte 0x80000008
-lbl_0803a4fc: .4byte 0x03000738
+lbl_0803a4fc: .4byte gCurrentSprite
 
     thumb_func_start RuinsTestSamusReflectionStart
 RuinsTestSamusReflectionStart: @ 0x0803a500
     push {r4, r5, lr}
-    ldr r2, lbl_0803a51c @ =0x03000738
+    ldr r2, lbl_0803a51c @ =gCurrentSprite
     adds r4, r2, #0
     adds r4, #0x24
     ldrb r3, [r4]
@@ -3393,7 +3393,7 @@ RuinsTestSamusReflectionStart: @ 0x0803a500
     beq lbl_0803a528
     b lbl_0803a6b0
     .align 2, 0
-lbl_0803a51c: .4byte 0x03000738
+lbl_0803a51c: .4byte gCurrentSprite
 lbl_0803a520:
     cmp r3, #9
     bne lbl_0803a526
@@ -3495,11 +3495,11 @@ lbl_0803a5dc:
     str r0, [r2, #8]
     ldr r0, [r2, #8]
 lbl_0803a5f0:
-    ldr r2, lbl_0803a63c @ =0x030013d4
+    ldr r2, lbl_0803a63c @ =gSamusData
     ldrb r0, [r2]
     cmp r0, #0x3e
     beq lbl_0803a6b0
-    ldr r1, lbl_0803a640 @ =0x03000049
+    ldr r1, lbl_0803a640 @ =gDisablePause
     movs r0, #0
     strb r0, [r1]
     mov r1, ip
@@ -3529,8 +3529,8 @@ lbl_0803a62c: .4byte 0x040000d4
 lbl_0803a630: .4byte 0x082f47bc
 lbl_0803a634: .4byte 0x050003e0
 lbl_0803a638: .4byte 0x80000010
-lbl_0803a63c: .4byte 0x030013d4
-lbl_0803a640: .4byte 0x03000049
+lbl_0803a63c: .4byte gSamusData
+lbl_0803a640: .4byte gDisablePause
 lbl_0803a644: .4byte 0x082f3c5c
 lbl_0803a648: .4byte 0x06014280
 lbl_0803a64c: .4byte 0x800000c0
@@ -3586,7 +3586,7 @@ lbl_0803a6b0:
     thumb_func_start RuinsTestReflectionCover
 RuinsTestReflectionCover: @ 0x0803a6b8
     push {r4, r5, lr}
-    ldr r3, lbl_0803a6d8 @ =0x03000738
+    ldr r3, lbl_0803a6d8 @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x23
     ldrb r2, [r0]
@@ -3602,7 +3602,7 @@ RuinsTestReflectionCover: @ 0x0803a6b8
     beq lbl_0803a6e2
     b lbl_0803a778
     .align 2, 0
-lbl_0803a6d8: .4byte 0x03000738
+lbl_0803a6d8: .4byte gCurrentSprite
 lbl_0803a6dc:
     cmp r4, #9
     beq lbl_0803a774
@@ -3645,7 +3645,7 @@ lbl_0803a6e2:
 lbl_0803a724: .4byte 0x0000fffb
 lbl_0803a728: .4byte 0x082f5eac
 lbl_0803a72c:
-    ldr r1, lbl_0803a750 @ =0x030001ac
+    ldr r1, lbl_0803a750 @ =gSpriteData
     lsls r0, r2, #3
     subs r0, r0, r2
     lsls r0, r0, #3
@@ -3654,7 +3654,7 @@ lbl_0803a72c:
     strh r1, [r3, #2]
     ldrh r0, [r0, #4]
     strh r0, [r3, #4]
-    ldr r0, lbl_0803a754 @ =0x0300070c
+    ldr r0, lbl_0803a754 @ =gSubSpriteData1
     ldrb r1, [r0, #0xd]
     adds r2, r0, #0
     cmp r1, #0
@@ -3664,8 +3664,8 @@ lbl_0803a72c:
     ands r0, r1
     b lbl_0803a762
     .align 2, 0
-lbl_0803a750: .4byte 0x030001ac
-lbl_0803a754: .4byte 0x0300070c
+lbl_0803a750: .4byte gSpriteData
+lbl_0803a754: .4byte gSubSpriteData1
 lbl_0803a758: .4byte 0x0000fffb
 lbl_0803a75c:
     ldrh r0, [r3]
@@ -3694,7 +3694,7 @@ lbl_0803a778:
 RuinsTestGhostOutline: @ 0x0803a780
     push {r4, lr}
     sub sp, #0xc
-    ldr r4, lbl_0803a798 @ =0x03000738
+    ldr r4, lbl_0803a798 @ =gCurrentSprite
     adds r0, r4, #0
     adds r0, #0x24
     ldrb r3, [r0]
@@ -3704,7 +3704,7 @@ RuinsTestGhostOutline: @ 0x0803a780
     beq lbl_0803a820
     b lbl_0803a8a0
     .align 2, 0
-lbl_0803a798: .4byte 0x03000738
+lbl_0803a798: .4byte gCurrentSprite
 lbl_0803a79c:
     ldrh r1, [r4]
     ldr r0, lbl_0803a7dc @ =0x0000fffb
@@ -3762,14 +3762,14 @@ lbl_0803a7f8:
     lsls r0, r0, #1
     bl SoundPlay
 lbl_0803a80c:
-    ldr r0, lbl_0803a81c @ =0x03000738
+    ldr r0, lbl_0803a81c @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #9
     strb r1, [r0]
     b lbl_0803a8a0
     .align 2, 0
 lbl_0803a818: .4byte 0x082f5ce4
-lbl_0803a81c: .4byte 0x03000738
+lbl_0803a81c: .4byte gCurrentSprite
 lbl_0803a820:
     ldrb r0, [r4, #0x1e]
     cmp r0, #0
@@ -3789,7 +3789,7 @@ lbl_0803a820:
     adds r0, r4, #0
     adds r0, #0x23
     ldrb r3, [r0]
-    ldr r1, lbl_0803a860 @ =0x0300080c
+    ldr r1, lbl_0803a860 @ =gBossWork
     ldrh r0, [r1]
     str r0, [sp]
     ldrh r0, [r1, #2]
@@ -3801,7 +3801,7 @@ lbl_0803a820:
     bl SpriteSpawnSecondary
     b lbl_0803a888
     .align 2, 0
-lbl_0803a860: .4byte 0x0300080c
+lbl_0803a860: .4byte gBossWork
 lbl_0803a864:
     cmp r0, #2
     bne lbl_0803a888
@@ -3809,10 +3809,10 @@ lbl_0803a864:
     adds r0, r4, #0
     adds r0, #0x23
     ldrb r3, [r0]
-    ldr r0, lbl_0803a8a8 @ =0x0300080c
+    ldr r0, lbl_0803a8a8 @ =gBossWork
     ldrh r0, [r0]
     str r0, [sp]
-    ldr r0, lbl_0803a8ac @ =0x030013d4
+    ldr r0, lbl_0803a8ac @ =gSamusData
     ldrh r0, [r0, #0x12]
     str r0, [sp, #4]
     movs r0, #0
@@ -3824,13 +3824,13 @@ lbl_0803a888:
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0803a8a0
-    ldr r0, lbl_0803a8b0 @ =0x03000738
+    ldr r0, lbl_0803a8b0 @ =gCurrentSprite
     movs r1, #0
     strh r1, [r0]
     ldrb r0, [r0, #0x1e]
     cmp r0, #0
     beq lbl_0803a8a0
-    ldr r0, lbl_0803a8a8 @ =0x0300080c
+    ldr r0, lbl_0803a8a8 @ =gBossWork
     strh r1, [r0, #6]
 lbl_0803a8a0:
     add sp, #0xc
@@ -3838,16 +3838,16 @@ lbl_0803a8a0:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803a8a8: .4byte 0x0300080c
-lbl_0803a8ac: .4byte 0x030013d4
-lbl_0803a8b0: .4byte 0x03000738
+lbl_0803a8a8: .4byte gBossWork
+lbl_0803a8ac: .4byte gSamusData
+lbl_0803a8b0: .4byte gCurrentSprite
 
     thumb_func_start RuinsTestShootableSymbol
 RuinsTestShootableSymbol: @ 0x0803a8b4
     push {r4, r5, lr}
     sub sp, #0xc
-    ldr r2, lbl_0803a900 @ =0x03000738
-    ldr r1, lbl_0803a904 @ =0x0300070c
+    ldr r2, lbl_0803a900 @ =gCurrentSprite
+    ldr r1, lbl_0803a904 @ =gSubSpriteData1
     ldrh r0, [r1, #6]
     strh r0, [r2, #2]
     ldrh r0, [r1, #8]
@@ -3885,8 +3885,8 @@ lbl_0803a8f6:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0803a900: .4byte 0x03000738
-lbl_0803a904: .4byte 0x0300070c
+lbl_0803a900: .4byte gCurrentSprite
+lbl_0803a904: .4byte gSubSpriteData1
 lbl_0803a908: .4byte 0x082f5f9c
 lbl_0803a90c: .4byte lbl_0803a910
 lbl_0803a910: @ jump table
@@ -4065,10 +4065,10 @@ lbl_0803aab4:
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0803aade
-    ldr r4, lbl_0803aaf8 @ =0x0300070c
+    ldr r4, lbl_0803aaf8 @ =gSubSpriteData1
     movs r5, #0
     strb r5, [r4, #0xd]
-    ldr r0, lbl_0803aafc @ =0x03000738
+    ldr r0, lbl_0803aafc @ =gCurrentSprite
     strh r5, [r0]
     ldrh r1, [r4, #0xa]
     ldrb r2, [r0, #0x1f]
@@ -4091,13 +4091,13 @@ lbl_0803aae8: .4byte 0x040000d4
 lbl_0803aaec: .4byte 0x082f471c
 lbl_0803aaf0: .4byte 0x050003c0
 lbl_0803aaf4: .4byte 0x80000008
-lbl_0803aaf8: .4byte 0x0300070c
-lbl_0803aafc: .4byte 0x03000738
+lbl_0803aaf8: .4byte gSubSpriteData1
+lbl_0803aafc: .4byte gCurrentSprite
 
     thumb_func_start RuinsTestGhost
 RuinsTestGhost: @ 0x0803ab00
     push {lr}
-    ldr r0, lbl_0803ab18 @ =0x03000738
+    ldr r0, lbl_0803ab18 @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x43
@@ -4110,7 +4110,7 @@ lbl_0803ab0e:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0803ab18: .4byte 0x03000738
+lbl_0803ab18: .4byte gCurrentSprite
 lbl_0803ab1c: .4byte lbl_0803ab20
 lbl_0803ab20: @ jump table
     .4byte lbl_0803ac30 @ case 0
@@ -4215,7 +4215,7 @@ lbl_0803ac64:
 RuinsTestSamusReflectionEnd: @ 0x0803ac68
     push {r4, r5, lr}
     sub sp, #8
-    ldr r0, lbl_0803acb0 @ =0x0300070c
+    ldr r0, lbl_0803acb0 @ =gSubSpriteData1
     ldrb r1, [r0, #0xf]
     adds r2, r0, #0
     cmp r1, #4
@@ -4229,10 +4229,10 @@ lbl_0803ac7e:
     beq lbl_0803ac84
     b lbl_0803b034
 lbl_0803ac84:
-    ldr r2, lbl_0803acb4 @ =0x03000738
+    ldr r2, lbl_0803acb4 @ =gCurrentSprite
     movs r4, #0
     strh r4, [r2]
-    ldr r3, lbl_0803acb8 @ =0x030001ac
+    ldr r3, lbl_0803acb8 @ =gSpriteData
     adds r0, r2, #0
     adds r0, #0x23
     ldrb r1, [r0]
@@ -4251,11 +4251,11 @@ lbl_0803ac84:
     bl SpriteSpawnPrimary
     b lbl_0803b034
     .align 2, 0
-lbl_0803acb0: .4byte 0x0300070c
-lbl_0803acb4: .4byte 0x03000738
-lbl_0803acb8: .4byte 0x030001ac
+lbl_0803acb0: .4byte gSubSpriteData1
+lbl_0803acb4: .4byte gCurrentSprite
+lbl_0803acb8: .4byte gSpriteData
 lbl_0803acbc:
-    ldr r1, lbl_0803acd8 @ =0x03000738
+    ldr r1, lbl_0803acd8 @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x24
     ldrb r0, [r0]
@@ -4270,7 +4270,7 @@ lbl_0803accc:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0803acd8: .4byte 0x03000738
+lbl_0803acd8: .4byte gCurrentSprite
 lbl_0803acdc: .4byte lbl_0803ace0
 lbl_0803ace0: @ jump table
     .4byte lbl_0803ad78 @ case 0
@@ -4477,7 +4477,7 @@ lbl_0803aecc:
     ldrh r2, [r4, #4]
     adds r0, r2, #0
     subs r0, #0xc
-    ldr r4, lbl_0803af0c @ =0x030013d4
+    ldr r4, lbl_0803af0c @ =gSamusData
     ldrh r1, [r4, #0x12]
     cmp r0, r1
     blt lbl_0803aedc
@@ -4489,7 +4489,7 @@ lbl_0803aedc:
     b lbl_0803b034
 lbl_0803aee4:
     ldrh r1, [r4, #0x14]
-    ldr r0, lbl_0803af10 @ =0x0300080c
+    ldr r0, lbl_0803af10 @ =gBossWork
     ldrh r0, [r0]
     ldr r3, lbl_0803af14 @ =0x0000012f
     adds r0, r0, r3
@@ -4506,13 +4506,13 @@ lbl_0803aef4:
     ldrb r0, [r5]
     adds r0, #1
     strb r0, [r5]
-    ldr r0, lbl_0803af18 @ =0x03000049
+    ldr r0, lbl_0803af18 @ =gDisablePause
     b lbl_0803b032
     .align 2, 0
-lbl_0803af0c: .4byte 0x030013d4
-lbl_0803af10: .4byte 0x0300080c
+lbl_0803af0c: .4byte gSamusData
+lbl_0803af10: .4byte gBossWork
 lbl_0803af14: .4byte 0x0000012f
-lbl_0803af18: .4byte 0x03000049
+lbl_0803af18: .4byte gDisablePause
 lbl_0803af1c:
     adds r2, r4, #0
     adds r2, #0x2c
@@ -4651,7 +4651,7 @@ lbl_0803b034:
 
     thumb_func_start RuinsTestLightningOnGroundInit
 RuinsTestLightningOnGroundInit: @ 0x0803b03c
-    ldr r0, lbl_0803b060 @ =0x03000738
+    ldr r0, lbl_0803b060 @ =gCurrentSprite
     ldr r1, lbl_0803b064 @ =0x082f61cc
     str r1, [r0, #0x18]
     movs r1, #0
@@ -4670,7 +4670,7 @@ RuinsTestLightningOnGroundInit: @ 0x0803b03c
     strb r1, [r0]
     bx lr
     .align 2, 0
-lbl_0803b060: .4byte 0x03000738
+lbl_0803b060: .4byte gCurrentSprite
 lbl_0803b064: .4byte 0x082f61cc
 lbl_0803b068: .4byte 0x0000fff0
 
@@ -4679,19 +4679,19 @@ RuinsTestLightning: @ 0x0803b06c
     push {r4, r5, lr}
     sub sp, #0xc
     movs r4, #0x10
-    ldr r0, lbl_0803b084 @ =0x0300070c
+    ldr r0, lbl_0803b084 @ =gSubSpriteData1
     ldrb r0, [r0, #0xf]
     cmp r0, #0
     beq lbl_0803b08c
-    ldr r1, lbl_0803b088 @ =0x03000738
+    ldr r1, lbl_0803b088 @ =gCurrentSprite
     movs r0, #0
     strh r0, [r1]
     b lbl_0803b360
     .align 2, 0
-lbl_0803b084: .4byte 0x0300070c
-lbl_0803b088: .4byte 0x03000738
+lbl_0803b084: .4byte gSubSpriteData1
+lbl_0803b088: .4byte gCurrentSprite
 lbl_0803b08c:
-    ldr r1, lbl_0803b0a8 @ =0x03000738
+    ldr r1, lbl_0803b0a8 @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x24
     ldrb r0, [r0]
@@ -4706,7 +4706,7 @@ lbl_0803b09c:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0803b0a8: .4byte 0x03000738
+lbl_0803b0a8: .4byte gCurrentSprite
 lbl_0803b0ac: .4byte lbl_0803b0b0
 lbl_0803b0b0: @ jump table
     .4byte lbl_0803b150 @ case 0
@@ -4750,7 +4750,7 @@ lbl_0803b0b0: @ jump table
     .4byte lbl_0803b360 @ case 38
     .4byte lbl_0803b328 @ case 39
 lbl_0803b150:
-    ldr r4, lbl_0803b1a0 @ =0x03000738
+    ldr r4, lbl_0803b1a0 @ =gCurrentSprite
     ldrh r1, [r4]
     ldr r0, lbl_0803b1a4 @ =0x0000fffb
     ands r0, r1
@@ -4790,7 +4790,7 @@ lbl_0803b150:
     strb r0, [r1]
     b lbl_0803b1b6
     .align 2, 0
-lbl_0803b1a0: .4byte 0x03000738
+lbl_0803b1a0: .4byte gCurrentSprite
 lbl_0803b1a4: .4byte 0x0000fffb
 lbl_0803b1a8: .4byte 0x082f6124
 lbl_0803b1ac:
@@ -4799,19 +4799,19 @@ lbl_0803b1ac:
     adds r0, #0x2c
     strb r5, [r0]
 lbl_0803b1b6:
-    ldr r0, lbl_0803b1c0 @ =0x03000738
+    ldr r0, lbl_0803b1c0 @ =gCurrentSprite
     adds r0, #0x22
     movs r1, #1
     strb r1, [r0]
     b lbl_0803b360
     .align 2, 0
-lbl_0803b1c0: .4byte 0x03000738
+lbl_0803b1c0: .4byte gCurrentSprite
 lbl_0803b1c4:
     ldrh r0, [r5, #2]
     ldrh r1, [r5, #4]
     bl SpriteUtilCheckVerticalCollisionAtPositionSlopes
     adds r1, r0, #0
-    ldr r0, lbl_0803b1f4 @ =0x030007f0
+    ldr r0, lbl_0803b1f4 @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0803b21c
@@ -4829,7 +4829,7 @@ lbl_0803b1c4:
     bl SoundPlay
     b lbl_0803b360
     .align 2, 0
-lbl_0803b1f4: .4byte 0x030007f0
+lbl_0803b1f4: .4byte gPreviousVerticalCollisionCheck
 lbl_0803b1f8: .4byte 0x000001dd
 lbl_0803b1fc:
     ldr r0, lbl_0803b218 @ =0x082f6184
@@ -4880,7 +4880,7 @@ lbl_0803b24c:
     b lbl_0803b360
 lbl_0803b256:
     bl RuinsTestLightningOnGroundInit
-    ldr r1, lbl_0803b27c @ =0x03000738
+    ldr r1, lbl_0803b27c @ =gCurrentSprite
     ldrb r2, [r1, #0x1f]
     adds r0, r1, #0
     adds r0, #0x23
@@ -4896,9 +4896,9 @@ lbl_0803b256:
     bl SpriteSpawnSecondary
     b lbl_0803b360
     .align 2, 0
-lbl_0803b27c: .4byte 0x03000738
+lbl_0803b27c: .4byte gCurrentSprite
 lbl_0803b280:
-    ldr r1, lbl_0803b2b4 @ =0x03000738
+    ldr r1, lbl_0803b2b4 @ =gCurrentSprite
     ldrb r0, [r1, #0x1e]
     cmp r0, #0
     bne lbl_0803b2a0
@@ -4914,7 +4914,7 @@ lbl_0803b280:
     lsls r0, r0, #1
     bl SoundPlay
 lbl_0803b2a0:
-    ldr r2, lbl_0803b2b4 @ =0x03000738
+    ldr r2, lbl_0803b2b4 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x40
     ands r0, r1
@@ -4925,7 +4925,7 @@ lbl_0803b2a0:
     adds r0, r4, r0
     b lbl_0803b2bc
     .align 2, 0
-lbl_0803b2b4: .4byte 0x03000738
+lbl_0803b2b4: .4byte gCurrentSprite
 lbl_0803b2b8:
     ldrh r0, [r5, #4]
     subs r0, r0, r4
@@ -4981,7 +4981,7 @@ lbl_0803b318:
     .align 2, 0
 lbl_0803b324: .4byte 0x0000ffc0
 lbl_0803b328:
-    ldr r1, lbl_0803b368 @ =0x03000738
+    ldr r1, lbl_0803b368 @ =gCurrentSprite
     ldrb r0, [r1, #0x1e]
     cmp r0, #0
     bne lbl_0803b348
@@ -4997,7 +4997,7 @@ lbl_0803b328:
     lsls r0, r0, #1
     bl SoundPlay
 lbl_0803b348:
-    ldr r2, lbl_0803b368 @ =0x03000738
+    ldr r2, lbl_0803b368 @ =gCurrentSprite
     ldrh r0, [r2, #2]
     subs r0, r0, r4
     strh r0, [r2, #2]
@@ -5015,4 +5015,4 @@ lbl_0803b360:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803b368: .4byte 0x03000738
+lbl_0803b368: .4byte gCurrentSprite

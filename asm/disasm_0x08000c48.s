@@ -10,7 +10,7 @@ sub_08000c48: @ 0x08000c48
     lsrs r1, r0, #0x18
     adds r2, r1, #0
     movs r4, #0
-    ldr r0, lbl_08000c68 @ =0x03000c1c
+    ldr r0, lbl_08000c68 @ =gSramCorruptFlag
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_08000cb8
@@ -20,7 +20,7 @@ sub_08000c48: @ 0x08000c48
     beq lbl_08000c80
     b lbl_08000faa
     .align 2, 0
-lbl_08000c68: .4byte 0x03000c1c
+lbl_08000c68: .4byte gSramCorruptFlag
 lbl_08000c6c:
     ldr r1, lbl_08000c78 @ =0x0000ffff
     ldr r2, lbl_08000c7c @ =0x02038000
@@ -33,7 +33,7 @@ lbl_08000c7c: .4byte 0x02038000
 lbl_08000c80:
     ldr r1, lbl_08000cac @ =0x0000ffff
     ldr r3, lbl_08000cb0 @ =0x08754bc8
-    ldr r0, lbl_08000cb4 @ =0x03000c1e
+    ldr r0, lbl_08000cb4 @ =gMostRecentSaveFile
     movs r2, #0
     ldrsb r2, [r0, r2]
     lsls r0, r2, #3
@@ -55,7 +55,7 @@ lbl_08000c9e:
     .align 2, 0
 lbl_08000cac: .4byte 0x0000ffff
 lbl_08000cb0: .4byte 0x08754bc8
-lbl_08000cb4: .4byte 0x03000c1e
+lbl_08000cb4: .4byte gMostRecentSaveFile
 lbl_08000cb8:
     cmp r2, #0x10
     bls lbl_08000cbe
@@ -151,7 +151,7 @@ lbl_08000d98: .4byte 0x00006d40
 lbl_08000d9c: .4byte 0x08754bcc
 lbl_08000da0:
     ldr r1, lbl_08000dcc @ =0x08754bc8
-    ldr r0, lbl_08000dd0 @ =0x03000c1e
+    ldr r0, lbl_08000dd0 @ =gMostRecentSaveFile
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -172,11 +172,11 @@ lbl_08000da0:
     b lbl_08000fa8
     .align 2, 0
 lbl_08000dcc: .4byte 0x08754bc8
-lbl_08000dd0: .4byte 0x03000c1e
+lbl_08000dd0: .4byte gMostRecentSaveFile
 lbl_08000dd4: .4byte 0x08754bcc
 lbl_08000dd8:
     ldr r1, lbl_08000e04 @ =0x08754bc8
-    ldr r0, lbl_08000e08 @ =0x03000c1e
+    ldr r0, lbl_08000e08 @ =gMostRecentSaveFile
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -198,7 +198,7 @@ lbl_08000dd8:
     b lbl_08000fa8
     .align 2, 0
 lbl_08000e04: .4byte 0x08754bc8
-lbl_08000e08: .4byte 0x03000c1e
+lbl_08000e08: .4byte gMostRecentSaveFile
 lbl_08000e0c: .4byte 0x000036e0
 lbl_08000e10: .4byte 0x08754bcc
 lbl_08000e14:
@@ -352,7 +352,7 @@ lbl_08000f4c:
 lbl_08000f5c: .4byte 0x02038000
 lbl_08000f60:
     ldr r1, lbl_08000f8c @ =0x08754bcc
-    ldr r0, lbl_08000f90 @ =0x03000c1e
+    ldr r0, lbl_08000f90 @ =gMostRecentSaveFile
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -373,7 +373,7 @@ lbl_08000f60:
     b lbl_08000faa
     .align 2, 0
 lbl_08000f8c: .4byte 0x08754bcc
-lbl_08000f90: .4byte 0x03000c1e
+lbl_08000f90: .4byte gMostRecentSaveFile
 lbl_08000f94: .4byte 0x08754bc8
 lbl_08000f98:
     ldr r0, lbl_08000fb4 @ =0x08754bcc
@@ -403,7 +403,7 @@ sub_08000fbc: @ 0x08000fbc
     adds r2, r1, #0
     movs r5, #0x80
     lsls r5, r5, #2
-    ldr r0, lbl_08000ff0 @ =0x03000c20
+    ldr r0, lbl_08000ff0 @ =gUnk_3000c20
     ldrb r0, [r0]
     lsls r4, r0, #9
     movs r0, #0x91
@@ -413,7 +413,7 @@ sub_08000fbc: @ 0x08000fbc
     ldr r0, lbl_08000ff4 @ =0xffffede0
     adds r5, r4, r0
 lbl_08000fda:
-    ldr r0, lbl_08000ff8 @ =0x03000c1c
+    ldr r0, lbl_08000ff8 @ =gSramCorruptFlag
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0800108e
@@ -425,16 +425,16 @@ lbl_08000fda:
     beq lbl_08001002
     b lbl_0800108e
     .align 2, 0
-lbl_08000ff0: .4byte 0x03000c20
+lbl_08000ff0: .4byte gUnk_3000c20
 lbl_08000ff4: .4byte 0xffffede0
-lbl_08000ff8: .4byte 0x03000c1c
+lbl_08000ff8: .4byte gSramCorruptFlag
 lbl_08000ffc:
     cmp r2, #2
     beq lbl_08001064
     b lbl_0800108e
 lbl_08001002:
     ldr r1, lbl_0800101c @ =0x08754bc8
-    ldr r0, lbl_08001020 @ =0x03000c1e
+    ldr r0, lbl_08001020 @ =gMostRecentSaveFile
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -447,10 +447,10 @@ lbl_08001002:
     b lbl_0800103c
     .align 2, 0
 lbl_0800101c: .4byte 0x08754bc8
-lbl_08001020: .4byte 0x03000c1e
+lbl_08001020: .4byte gMostRecentSaveFile
 lbl_08001024:
     ldr r1, lbl_08001054 @ =0x08754bc8
-    ldr r0, lbl_08001058 @ =0x03000c1e
+    ldr r0, lbl_08001058 @ =gMostRecentSaveFile
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -474,12 +474,12 @@ lbl_0800103c:
     b lbl_0800108e
     .align 2, 0
 lbl_08001054: .4byte 0x08754bc8
-lbl_08001058: .4byte 0x03000c1e
+lbl_08001058: .4byte gMostRecentSaveFile
 lbl_0800105c: .4byte 0x000036e0
 lbl_08001060: .4byte 0x08754bcc
 lbl_08001064:
     ldr r1, lbl_080010b0 @ =0x08754bcc
-    ldr r0, lbl_080010b4 @ =0x03000c1e
+    ldr r0, lbl_080010b4 @ =gMostRecentSaveFile
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -506,7 +506,7 @@ lbl_0800108e:
     bgt lbl_0800109a
     movs r2, #1
 lbl_0800109a:
-    ldr r1, lbl_080010c0 @ =0x03000c20
+    ldr r1, lbl_080010c0 @ =gUnk_3000c20
     ldrb r0, [r1]
     adds r0, r0, r2
     muls r0, r2, r0
@@ -519,10 +519,10 @@ lbl_0800109a:
     bx r1
     .align 2, 0
 lbl_080010b0: .4byte 0x08754bcc
-lbl_080010b4: .4byte 0x03000c1e
+lbl_080010b4: .4byte gMostRecentSaveFile
 lbl_080010b8: .4byte 0x08754bc8
 lbl_080010bc: .4byte 0x0000121f
-lbl_080010c0: .4byte 0x03000c20
+lbl_080010c0: .4byte gUnk_3000c20
 
     thumb_func_start sub_080010c4
 sub_080010c4: @ 0x080010c4
@@ -532,7 +532,7 @@ sub_080010c4: @ 0x080010c4
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #8
-    ldr r0, lbl_08001134 @ =0x03001d00
+    ldr r0, lbl_08001134 @ =gMusicInfo
     ldrb r1, [r0, #9]
     str r1, [sp]
     adds r2, r0, #0
@@ -586,7 +586,7 @@ lbl_0800112e:
     strb r0, [r2, #0x11]
     b lbl_080011b4
     .align 2, 0
-lbl_08001134: .4byte 0x03001d00
+lbl_08001134: .4byte gMusicInfo
 lbl_08001138: .4byte 0x04000006
 lbl_0800113c:
     ldrb r0, [r2, #0x11]
@@ -660,12 +660,12 @@ lbl_080011b4:
     bne lbl_080011ba
     b lbl_08001430
 lbl_080011ba:
-    ldr r6, lbl_08001204 @ =sound_data
+    ldr r6, lbl_08001204 @ =gSoundData
     mov r0, sl
     adds r1, r0, r6
     ldr r0, lbl_08001208 @ =0xfffff400
     adds r5, r6, r0
-    ldr r0, lbl_0800120c @ =0x030041e8
+    ldr r0, lbl_0800120c @ =gSoundCodeBPointer
     mov r8, r0
     lsls r3, r7, #0x1b
     lsrs r3, r3, #0x18
@@ -696,9 +696,9 @@ lbl_080011f2:
     str r1, [sp, #4]
     b lbl_080013da
     .align 2, 0
-lbl_08001204: .4byte sound_data
+lbl_08001204: .4byte gSoundData
 lbl_08001208: .4byte 0xfffff400
-lbl_0800120c: .4byte 0x030041e8
+lbl_0800120c: .4byte gSoundCodeBPointer
 lbl_08001210: .4byte 0xfffff3dc
 lbl_08001214:
     movs r0, #0x34
@@ -910,7 +910,7 @@ lbl_0800139a:
     strb r5, [r4, #0x10]
     lsls r1, r5, #0x10
     asrs r1, r1, #0x10
-    ldr r2, lbl_08001440 @ =0x03001d00
+    ldr r2, lbl_08001440 @ =gMusicInfo
     ldrb r0, [r2, #6]
     adds r0, #1
     muls r1, r0, r1
@@ -940,7 +940,7 @@ lbl_080013d4:
     lsls r0, r1, #0x10
     lsrs r2, r0, #0x10
 lbl_080013da:
-    ldr r0, lbl_08001440 @ =0x03001d00
+    ldr r0, lbl_08001440 @ =gMusicInfo
     ldrb r0, [r0, #5]
     cmp r2, r0
     bhs lbl_080013fc
@@ -960,7 +960,7 @@ lbl_080013f4:
     bhs lbl_080013fc
     b lbl_08001214
 lbl_080013fc:
-    ldr r4, lbl_0800144c @ =sound_data
+    ldr r4, lbl_0800144c @ =gSoundData
     mov r0, sl
     adds r1, r0, r4
     ldr r0, lbl_08001450 @ =0xfffff400
@@ -994,10 +994,10 @@ lbl_08001430:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08001440: .4byte 0x03001d00
+lbl_08001440: .4byte gMusicInfo
 lbl_08001444: .4byte 0x03003b8c
 lbl_08001448: .4byte 0x04000006
-lbl_0800144c: .4byte sound_data
+lbl_0800144c: .4byte gSoundData
 lbl_08001450: .4byte 0xfffff400
 lbl_08001454: .4byte 0x03004290
 
@@ -2148,7 +2148,7 @@ lbl_08001c98:
     ldrb r2, [r5, #0x18]
     bl Midikey2Freq
     str r0, [r4, #0x1c]
-    ldr r1, lbl_08001cb4 @ =0x03001d00
+    ldr r1, lbl_08001cb4 @ =gMusicInfo
     ldrh r2, [r1, #0x12]
     cmp r0, r2
     bne lbl_08001cb8
@@ -2156,7 +2156,7 @@ lbl_08001c98:
     lsls r0, r0, #7
     b lbl_08001cbe
     .align 2, 0
-lbl_08001cb4: .4byte 0x03001d00
+lbl_08001cb4: .4byte gMusicInfo
 lbl_08001cb8:
     ldr r1, [r1, #0x18]
     bl sub_08004abc
@@ -2295,7 +2295,7 @@ lbl_08001d9e:
     ldrb r2, [r5, #0x18]
     bl Midikey2Freq
     str r0, [r4, #0x1c]
-    ldr r1, lbl_08001dbc @ =0x03001d00
+    ldr r1, lbl_08001dbc @ =gMusicInfo
     ldrh r2, [r1, #0x12]
     cmp r0, r2
     bne lbl_08001dc0
@@ -2303,7 +2303,7 @@ lbl_08001d9e:
     lsls r0, r0, #7
     b lbl_08001dc6
     .align 2, 0
-lbl_08001dbc: .4byte 0x03001d00
+lbl_08001dbc: .4byte gMusicInfo
 lbl_08001dc0:
     ldr r1, [r1, #0x18]
     bl sub_08004abc
@@ -2387,13 +2387,13 @@ sub_08001e2c: @ 0x08001e2c
     str r3, [sp]
     b lbl_08001e66
 lbl_08001e4c:
-    ldr r2, lbl_08001e58 @ =0x03001d00
+    ldr r2, lbl_08001e58 @ =gMusicInfo
     ldr r3, lbl_08001e5c @ =0x00001824
     adds r0, r2, r3
     adds r6, r1, r0
     b lbl_08001f14
     .align 2, 0
-lbl_08001e58: .4byte 0x03001d00
+lbl_08001e58: .4byte gMusicInfo
 lbl_08001e5c: .4byte 0x00001824
 lbl_08001e60:
     lsls r0, r0, #0x18
@@ -2406,11 +2406,11 @@ lbl_08001e66:
     mov r8, r0
     movs r6, #0
     movs r2, #0
-    ldr r1, lbl_08001eb8 @ =0x03001d00
+    ldr r1, lbl_08001eb8 @ =gMusicInfo
     ldrb r1, [r1, #5]
     cmp r6, r1
     bhs lbl_08001f10
-    ldr r4, lbl_08001eb8 @ =0x03001d00
+    ldr r4, lbl_08001eb8 @ =gMusicInfo
     movs r3, #0x34
     mov ip, r3
     ldr r0, lbl_08001ebc @ =0x0000184c
@@ -2443,7 +2443,7 @@ lbl_08001eaa:
     mov r8, r1
     b lbl_08001eee
     .align 2, 0
-lbl_08001eb8: .4byte 0x03001d00
+lbl_08001eb8: .4byte gMusicInfo
 lbl_08001ebc: .4byte 0x0000184c
 lbl_08001ec0: .4byte 0x00001824
 lbl_08001ec4:
@@ -2453,7 +2453,7 @@ lbl_08001ec4:
 lbl_08001eca:
     mov r3, ip
     muls r3, r2, r3
-    ldr r1, lbl_08001f30 @ =0x03001d00
+    ldr r1, lbl_08001f30 @ =gMusicInfo
     adds r0, r3, r1
     ldr r1, lbl_08001f34 @ =0x00001826
     adds r0, r0, r1
@@ -2506,7 +2506,7 @@ lbl_08001f1e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08001f30: .4byte 0x03001d00
+lbl_08001f30: .4byte gMusicInfo
 lbl_08001f34: .4byte 0x00001826
 lbl_08001f38: .4byte 0x03003524
 
@@ -3438,7 +3438,7 @@ init_sound: @ 0x08002564
     mov r7, r8
     push {r7}
     sub sp, #4
-    ldr r5, lbl_0800276c @ =0x03001d00
+    ldr r5, lbl_0800276c @ =gMusicInfo
     ldrb r4, [r5, #1]
     cmp r4, #0
     beq lbl_08002576
@@ -3496,7 +3496,7 @@ lbl_08002576:
     ldr r0, lbl_08002798 @ =0x8000032c
     str r0, [r2, #8]
     ldr r0, [r2, #8]
-    ldr r1, lbl_0800279c @ =0x030041e8
+    ldr r1, lbl_0800279c @ =gSoundCodeBPointer
     ldr r0, lbl_080027a0 @ =0x030041ed
     str r0, [r1]
     ldr r1, lbl_080027a4 @ =call_soundcode_b
@@ -3612,7 +3612,7 @@ lbl_080026b6:
     mov r0, r8
     bl sub_080027f8
     movs r3, #0
-    ldr r2, lbl_0800276c @ =0x03001d00
+    ldr r2, lbl_0800276c @ =gMusicInfo
     ldrb r0, [r2, #5]
     cmp r3, r0
     bhs lbl_080026f6
@@ -3643,14 +3643,14 @@ lbl_080026d8:
     blo lbl_080026d8
 lbl_080026f6:
     movs r3, #0
-    ldr r1, lbl_0800276c @ =0x03001d00
+    ldr r1, lbl_0800276c @ =gMusicInfo
     mov r8, r1
     ldr r2, lbl_080027c4 @ =0x00000009
     mov ip, r2
     mov r2, sp
     movs r6, #0
     ldr r1, lbl_080027d4 @ =0x040000d4
-    ldr r5, lbl_080027e8 @ =0x03003834
+    ldr r5, lbl_080027e8 @ =gSoundChannelBackup
     ldr r4, lbl_080027ec @ =0x8100001c
 lbl_0800270a:
     strh r6, [r2]
@@ -3678,7 +3678,7 @@ lbl_0800270a:
     movs r7, #0
     ldr r1, lbl_080027d4 @ =0x040000d4
     adds r2, r0, #0
-    ldr r6, lbl_080027f0 @ =0x03003b44
+    ldr r6, lbl_080027f0 @ =gSoundQueue
     ldr r5, lbl_080027f4 @ =0x81000004
 lbl_08002740:
     strh r7, [r4]
@@ -3706,7 +3706,7 @@ lbl_08002760:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0800276c: .4byte 0x03001d00
+lbl_0800276c: .4byte gMusicInfo
 lbl_08002770: .4byte 0x04000200
 lbl_08002774: .4byte 0x04000084
 lbl_08002778: .4byte 0x04000082
@@ -3718,7 +3718,7 @@ lbl_0800278c: .4byte 0x03003b8c
 lbl_08002790: .4byte 0x03003b91
 lbl_08002794: .4byte call_soundcode_a
 lbl_08002798: .4byte 0x8000032c
-lbl_0800279c: .4byte 0x030041e8
+lbl_0800279c: .4byte gSoundCodeBPointer
 lbl_080027a0: .4byte 0x030041ed
 lbl_080027a4: .4byte call_soundcode_b
 lbl_080027a8: .4byte 0x80000052
@@ -3737,16 +3737,16 @@ lbl_080027d8: .4byte 0x0808f254
 lbl_080027dc: .4byte 0x81000016
 lbl_080027e0: .4byte 0x00001824
 lbl_080027e4: .4byte 0x8100001a
-lbl_080027e8: .4byte 0x03003834
+lbl_080027e8: .4byte gSoundChannelBackup
 lbl_080027ec: .4byte 0x8100001c
-lbl_080027f0: .4byte 0x03003b44
+lbl_080027f0: .4byte gSoundQueue
 lbl_080027f4: .4byte 0x81000004
 
     thumb_func_start sub_080027f8
 sub_080027f8: @ 0x080027f8
     push {r4, r5, r6, r7, lr}
     adds r4, r0, #0
-    ldr r0, lbl_080028a8 @ =0x03001d00
+    ldr r0, lbl_080028a8 @ =gMusicInfo
     ldrb r1, [r0, #1]
     adds r2, r0, #0
     cmp r1, #0
@@ -3800,7 +3800,7 @@ lbl_08002856:
     ands r0, r4
     cmp r0, #0
     beq lbl_0800286e
-    ldr r1, lbl_080028a8 @ =0x03001d00
+    ldr r1, lbl_080028a8 @ =gMusicInfo
     lsrs r0, r0, #0x10
     strb r0, [r1, #7]
     cmp r0, #0
@@ -3838,7 +3838,7 @@ lbl_08002886:
     movs r1, #1
     b lbl_080028d4
     .align 2, 0
-lbl_080028a8: .4byte 0x03001d00
+lbl_080028a8: .4byte gMusicInfo
 lbl_080028ac: .4byte 0x00001824
 lbl_080028b0: .4byte 0x04000089
 lbl_080028b4: .4byte 0x04000082
@@ -3860,7 +3860,7 @@ lbl_080028d4:
     orrs r0, r1
     strh r0, [r2]
 lbl_080028d8:
-    ldr r1, lbl_080028f0 @ =0x03001d00
+    ldr r1, lbl_080028f0 @ =gMusicInfo
     movs r0, #0
     strb r0, [r1, #1]
 lbl_080028de:
@@ -3871,7 +3871,7 @@ lbl_080028de:
 lbl_080028e4: .4byte 0x04000082
 lbl_080028e8: .4byte 0x0000fffe
 lbl_080028ec: .4byte 0x00003302
-lbl_080028f0: .4byte 0x03001d00
+lbl_080028f0: .4byte gMusicInfo
 
     thumb_func_start sub_080028f4
 sub_080028f4: @ 0x080028f4
@@ -3897,7 +3897,7 @@ sub_080028f4: @ 0x080028f4
     movs r0, #0
     mov sl, r0
     str r0, [sp]
-    ldr r6, lbl_080029e8 @ =sound_data
+    ldr r6, lbl_080029e8 @ =gSoundData
     ldr r2, lbl_080029ec @ =0x01000300
     mov r0, sp
     adds r1, r6, #0
@@ -3992,7 +3992,7 @@ lbl_080029d8: .4byte 0x040000c4
 lbl_080029dc: .4byte 0x84400004
 lbl_080029e0: .4byte 0x040000c6
 lbl_080029e4: .4byte 0x040000d2
-lbl_080029e8: .4byte sound_data
+lbl_080029e8: .4byte gSoundData
 lbl_080029ec: .4byte 0x01000300
 lbl_080029f0: .4byte 0xfffff3dc
 lbl_080029f4: .4byte 0x0808cc60

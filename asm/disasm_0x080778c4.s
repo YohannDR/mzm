@@ -11,7 +11,7 @@ gameover_main: @ 0x080778c4
     ldrh r0, [r1, #2]
     adds r0, #1
     strh r0, [r1, #2]
-    ldr r0, lbl_080778f0 @ =0x03000c72
+    ldr r0, lbl_080778f0 @ =gGameModeSub1
     movs r3, #0
     ldrsh r1, [r0, r3]
     adds r3, r0, #0
@@ -26,7 +26,7 @@ lbl_080778e0:
     mov pc, r0
     .align 2, 0
 lbl_080778ec: .4byte 0x08754bc4
-lbl_080778f0: .4byte 0x03000c72
+lbl_080778f0: .4byte gGameModeSub1
 lbl_080778f4: .4byte lbl_080778f8
 lbl_080778f8: @ jump table
     .4byte lbl_08077920 @ case 0
@@ -40,7 +40,7 @@ lbl_080778f8: @ jump table
     .4byte lbl_08077a90 @ case 8
     .4byte lbl_08077aa8 @ case 9
 lbl_08077920:
-    ldr r1, lbl_08077954 @ =0x03000038
+    ldr r1, lbl_08077954 @ =gCurrentDemo
     ldrb r4, [r1, #1]
     cmp r4, #0
     beq lbl_08077964
@@ -55,31 +55,31 @@ lbl_08077920:
     bl FadeAllSounds
     movs r0, #0xa
     bl FadeMusic
-    ldr r0, lbl_0807795c @ =0x030013d2
+    ldr r0, lbl_0807795c @ =gDemoState
     strb r4, [r0]
-    ldr r1, lbl_08077960 @ =0x03000c74
+    ldr r1, lbl_08077960 @ =gGameModeSub2
     movs r0, #2
     strb r0, [r1]
     movs r0, #1
     b lbl_08077aca
     .align 2, 0
-lbl_08077954: .4byte 0x03000038
+lbl_08077954: .4byte gCurrentDemo
 lbl_08077958: .4byte 0x0194f780
-lbl_0807795c: .4byte 0x030013d2
-lbl_08077960: .4byte 0x03000c74
+lbl_0807795c: .4byte gDemoState
+lbl_08077960: .4byte gGameModeSub2
 lbl_08077964:
     bl game_over_menu_init
     ldr r0, lbl_08077974 @ =0x08754bc4
     ldr r0, [r0]
     strh r4, [r0, #2]
-    ldr r1, lbl_08077978 @ =0x03000c72
+    ldr r1, lbl_08077978 @ =gGameModeSub1
     ldrh r0, [r1]
     b lbl_08077ab0
     .align 2, 0
 lbl_08077974: .4byte 0x08754bc4
-lbl_08077978: .4byte 0x03000c72
+lbl_08077978: .4byte gGameModeSub1
 lbl_0807797c:
-    ldr r1, lbl_0807798c @ =0x030013ae
+    ldr r1, lbl_0807798c @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r1]
     cmp r0, #2
     bls lbl_08077990
@@ -87,7 +87,7 @@ lbl_0807797c:
     strh r0, [r1]
     b lbl_08077ac4
     .align 2, 0
-lbl_0807798c: .4byte 0x030013ae
+lbl_0807798c: .4byte gWrittenToBLDY_NonGameplay
 lbl_08077990:
     ldr r1, [r2]
     ldrh r2, [r1, #0xc]
@@ -100,7 +100,7 @@ lbl_08077990:
     strh r0, [r1, #0xe]
     b lbl_08077a82
 lbl_080779a4:
-    ldr r1, lbl_080779c0 @ =0x030013ae
+    ldr r1, lbl_080779c0 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r1]
     cmp r0, #5
     bhi lbl_080779c4
@@ -116,7 +116,7 @@ lbl_080779ba:
     strh r0, [r1]
     b lbl_08077ac4
     .align 2, 0
-lbl_080779c0: .4byte 0x030013ae
+lbl_080779c0: .4byte gWrittenToBLDY_NonGameplay
 lbl_080779c4:
     ldr r1, [r2]
     movs r0, #0x81
@@ -124,11 +124,11 @@ lbl_080779c4:
     movs r0, #0x53
     movs r1, #0
     bl PlayMusic
-    ldr r1, lbl_080779d8 @ =0x03000c72
+    ldr r1, lbl_080779d8 @ =gGameModeSub1
     ldrh r0, [r1]
     b lbl_08077ab0
     .align 2, 0
-lbl_080779d8: .4byte 0x03000c72
+lbl_080779d8: .4byte gGameModeSub1
 lbl_080779dc:
     bl game_over_menu_detect_input
     cmp r0, #0
@@ -137,14 +137,14 @@ lbl_080779dc:
     ldr r1, [r0]
     movs r0, #0
     strh r0, [r1, #2]
-    ldr r1, lbl_080779fc @ =0x03000c72
+    ldr r1, lbl_080779fc @ =gGameModeSub1
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
     b lbl_08077a1a
     .align 2, 0
 lbl_080779f8: .4byte 0x08754bc4
-lbl_080779fc: .4byte 0x03000c72
+lbl_080779fc: .4byte gGameModeSub1
 lbl_08077a00:
     ldr r2, [r2]
     adds r0, r2, #0
@@ -164,7 +164,7 @@ lbl_08077a1a:
     b lbl_08077ac4
 lbl_08077a20:
     bl game_over_menu_letters_anim
-    ldr r1, lbl_08077a4c @ =0x030013ae
+    ldr r1, lbl_08077a4c @ =gWrittenToBLDY_NonGameplay
     movs r0, #4
     strh r0, [r1]
     ldr r0, lbl_08077a50 @ =0x08754bc4
@@ -179,33 +179,33 @@ lbl_08077a20:
     strh r0, [r2, #0xc]
     movs r0, #0x14
     bl FadeMusic
-    ldr r1, lbl_08077a54 @ =0x03000c72
+    ldr r1, lbl_08077a54 @ =gGameModeSub1
     ldrh r0, [r1]
     b lbl_08077ab0
     .align 2, 0
-lbl_08077a4c: .4byte 0x030013ae
+lbl_08077a4c: .4byte gWrittenToBLDY_NonGameplay
 lbl_08077a50: .4byte 0x08754bc4
-lbl_08077a54: .4byte 0x03000c72
+lbl_08077a54: .4byte gGameModeSub1
 lbl_08077a58:
-    ldr r1, lbl_08077a64 @ =0x030013ae
+    ldr r1, lbl_08077a64 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r1]
     cmp r0, #0xf
     bls lbl_08077ab0
     b lbl_08077a82
     .align 2, 0
-lbl_08077a64: .4byte 0x030013ae
+lbl_08077a64: .4byte gWrittenToBLDY_NonGameplay
 lbl_08077a68:
     ldr r0, [r2]
     ldrb r1, [r0, #8]
     cmp r1, #1
     bne lbl_08077a7c
-    ldr r0, lbl_08077a78 @ =0x03000c74
+    ldr r0, lbl_08077a78 @ =gGameModeSub2
     strb r1, [r0]
     b lbl_08077ac2
     .align 2, 0
-lbl_08077a78: .4byte 0x03000c74
+lbl_08077a78: .4byte gGameModeSub2
 lbl_08077a7c:
-    ldr r1, lbl_08077a8c @ =0x03000c74
+    ldr r1, lbl_08077a8c @ =gGameModeSub2
     movs r0, #4
     strb r0, [r1]
 lbl_08077a82:
@@ -214,20 +214,20 @@ lbl_08077a82:
     strh r0, [r3]
     b lbl_08077ac4
     .align 2, 0
-lbl_08077a8c: .4byte 0x03000c74
+lbl_08077a8c: .4byte gGameModeSub2
 lbl_08077a90:
     movs r0, #0
     bl sub_08075c04
-    ldr r0, lbl_08077aa0 @ =0x03000020
-    ldr r1, lbl_08077aa4 @ =0x03000024
+    ldr r0, lbl_08077aa0 @ =gLanguage
+    ldr r1, lbl_08077aa4 @ =gGameCompletion
     ldrb r1, [r1, #2]
     strb r1, [r0]
     b lbl_08077ac2
     .align 2, 0
-lbl_08077aa0: .4byte 0x03000020
-lbl_08077aa4: .4byte 0x03000024
+lbl_08077aa0: .4byte gLanguage
+lbl_08077aa4: .4byte gGameCompletion
 lbl_08077aa8:
-    ldr r1, lbl_08077ab8 @ =0x030013ae
+    ldr r1, lbl_08077ab8 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r1]
     cmp r0, #0xf
     bhi lbl_08077abc
@@ -236,9 +236,9 @@ lbl_08077ab0:
     strh r0, [r1]
     b lbl_08077ac4
     .align 2, 0
-lbl_08077ab8: .4byte 0x030013ae
+lbl_08077ab8: .4byte gWrittenToBLDY_NonGameplay
 lbl_08077abc:
-    ldr r1, lbl_08077ad0 @ =0x03000c74
+    ldr r1, lbl_08077ad0 @ =gGameModeSub2
     movs r0, #0x10
     strb r0, [r1]
 lbl_08077ac2:
@@ -251,13 +251,13 @@ lbl_08077aca:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08077ad0: .4byte 0x03000c74
+lbl_08077ad0: .4byte gGameModeSub2
 
     thumb_func_start game_over_menu_detect_input
 game_over_menu_detect_input: @ 0x08077ad4
     push {lr}
     movs r2, #0
-    ldr r0, lbl_08077af4 @ =0x03001380
+    ldr r0, lbl_08077af4 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #9
     ands r0, r1
@@ -270,7 +270,7 @@ game_over_menu_detect_input: @ 0x08077ad4
     movs r0, #1
     b lbl_08077b42
     .align 2, 0
-lbl_08077af4: .4byte 0x03001380
+lbl_08077af4: .4byte gChangedInput
 lbl_08077af8:
     movs r0, #0x40
     ands r0, r1
@@ -378,7 +378,7 @@ game_over_menu_init: @ 0x08077ba8
     ldr r4, lbl_08077d2c @ =0x040000d4
     add r0, sp, #4
     str r0, [r4]
-    ldr r0, lbl_08077d30 @ =0x030016c4
+    ldr r0, lbl_08077d30 @ =gNonGameplayRAM
     str r0, [r4, #4]
     ldr r0, lbl_08077d34 @ =0x8500018a
     str r0, [r4, #8]
@@ -393,20 +393,20 @@ game_over_menu_init: @ 0x08077ba8
     strh r0, [r1, #0xe]
     strh r0, [r2]
     adds r2, #4
-    ldr r1, lbl_08077d40 @ =0x030013ae
+    ldr r1, lbl_08077d40 @ =gWrittenToBLDY_NonGameplay
     movs r0, #0x10
     strh r0, [r1]
     strh r0, [r2]
     movs r0, #0x80
     lsls r0, r0, #0x13
     strh r6, [r0]
-    ldr r0, lbl_08077d44 @ =0x03001382
+    ldr r0, lbl_08077d44 @ =gNextOamSlot
     mov r1, r8
     strb r1, [r0]
     bl ClearGfxRam
     bl ResetFreeOAM
-    ldr r1, lbl_08077d48 @ =0x03005806
-    ldr r0, lbl_08077d4c @ =0x03005807
+    ldr r1, lbl_08077d48 @ =gOamXOffset_NonGameplay
+    ldr r0, lbl_08077d4c @ =gOamYOffset_NonGameplay
     mov r2, r8
     strb r2, [r0]
     strb r2, [r1]
@@ -456,7 +456,7 @@ game_over_menu_init: @ 0x08077ba8
     ldr r1, lbl_08077d84 @ =0x06010000
     bl LZ77UncompVRAM
     ldr r1, lbl_08077d88 @ =0x08760af0
-    ldr r0, lbl_08077d8c @ =0x03000020
+    ldr r0, lbl_08077d8c @ =gLanguage
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -497,23 +497,23 @@ game_over_menu_init: @ 0x08077ba8
     stm r1!, {r2, r3, r4}
     ldm r0!, {r2, r4}
     stm r1!, {r2, r4}
-    ldr r0, lbl_08077dac @ =0x03000c75
+    ldr r0, lbl_08077dac @ =gGameModeSub3
     mov r3, r8
     strb r3, [r0]
-    ldr r1, lbl_08077db0 @ =0x03000bf4
-    ldr r0, lbl_08077db4 @ =0x03000bf6
+    ldr r1, lbl_08077db0 @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_08077db4 @ =gBG0VOFS_NonGameplay
     strh r6, [r0]
     strh r6, [r1]
-    ldr r1, lbl_08077db8 @ =0x03000bf8
-    ldr r0, lbl_08077dbc @ =0x03000bfa
+    ldr r1, lbl_08077db8 @ =gBG1HOFS_NonGameplay
+    ldr r0, lbl_08077dbc @ =gBG1VOFS_NonGameplay
     strh r6, [r0]
     strh r6, [r1]
-    ldr r1, lbl_08077dc0 @ =0x03000c00
-    ldr r0, lbl_08077dc4 @ =0x03000c02
+    ldr r1, lbl_08077dc0 @ =gBG3HOFS_NonGameplay
+    ldr r0, lbl_08077dc4 @ =gBG3VOFS_NonGameplay
     strh r6, [r0]
     strh r6, [r1]
-    ldr r1, lbl_08077dc8 @ =0x03000bfc
-    ldr r0, lbl_08077dcc @ =0x03000bfe
+    ldr r1, lbl_08077dc8 @ =gBG2HOFS_NonGameplay
+    ldr r0, lbl_08077dcc @ =gBG2VOFS_NonGameplay
     strh r6, [r0]
     strh r6, [r1]
     mov r4, sb
@@ -544,14 +544,14 @@ game_over_menu_init: @ 0x08077ba8
     .align 2, 0
 lbl_08077d28: .4byte sub_08077fe8
 lbl_08077d2c: .4byte 0x040000d4
-lbl_08077d30: .4byte 0x030016c4
+lbl_08077d30: .4byte gNonGameplayRAM
 lbl_08077d34: .4byte 0x8500018a
 lbl_08077d38: .4byte 0x04000050
 lbl_08077d3c: .4byte 0x08754bc4
-lbl_08077d40: .4byte 0x030013ae
-lbl_08077d44: .4byte 0x03001382
-lbl_08077d48: .4byte 0x03005806
-lbl_08077d4c: .4byte 0x03005807
+lbl_08077d40: .4byte gWrittenToBLDY_NonGameplay
+lbl_08077d44: .4byte gNextOamSlot
+lbl_08077d48: .4byte gOamXOffset_NonGameplay
+lbl_08077d4c: .4byte gOamYOffset_NonGameplay
 lbl_08077d50: .4byte 0x0844f11c
 lbl_08077d54: .4byte 0x08454938
 lbl_08077d58: .4byte 0x05000200
@@ -567,7 +567,7 @@ lbl_08077d7c: .4byte 0x06004000
 lbl_08077d80: .4byte 0x0845c0f4
 lbl_08077d84: .4byte 0x06010000
 lbl_08077d88: .4byte 0x08760af0
-lbl_08077d8c: .4byte 0x03000020
+lbl_08077d8c: .4byte gLanguage
 lbl_08077d90: .4byte 0x0600a800
 lbl_08077d94: .4byte 0x04000008
 lbl_08077d98: .4byte 0x00000105
@@ -575,15 +575,15 @@ lbl_08077d9c: .4byte 0x00000206
 lbl_08077da0: .4byte 0x00000307
 lbl_08077da4: .4byte 0x0400004a
 lbl_08077da8: .4byte 0x084547a0
-lbl_08077dac: .4byte 0x03000c75
-lbl_08077db0: .4byte 0x03000bf4
-lbl_08077db4: .4byte 0x03000bf6
-lbl_08077db8: .4byte 0x03000bf8
-lbl_08077dbc: .4byte 0x03000bfa
-lbl_08077dc0: .4byte 0x03000c00
-lbl_08077dc4: .4byte 0x03000c02
-lbl_08077dc8: .4byte 0x03000bfc
-lbl_08077dcc: .4byte 0x03000bfe
+lbl_08077dac: .4byte gGameModeSub3
+lbl_08077db0: .4byte gBG0HOFS_NonGameplay
+lbl_08077db4: .4byte gBG0VOFS_NonGameplay
+lbl_08077db8: .4byte gBG1HOFS_NonGameplay
+lbl_08077dbc: .4byte gBG1VOFS_NonGameplay
+lbl_08077dc0: .4byte gBG3HOFS_NonGameplay
+lbl_08077dc4: .4byte gBG3VOFS_NonGameplay
+lbl_08077dc8: .4byte gBG2HOFS_NonGameplay
+lbl_08077dcc: .4byte gBG2VOFS_NonGameplay
 lbl_08077dd0: .4byte 0x0840d028
 lbl_08077dd4: .4byte sub_08077f0c
 
@@ -600,7 +600,7 @@ sub_08077dd8: @ 0x08077dd8
     ldr r1, lbl_08077eb4 @ =0x040000d4
     mov r0, sp
     str r0, [r1]
-    ldr r0, lbl_08077eb8 @ =0x030016c4
+    ldr r0, lbl_08077eb8 @ =gNonGameplayRAM
     str r0, [r1, #4]
     ldr r0, lbl_08077ebc @ =0x8500018a
     str r0, [r1, #8]
@@ -613,7 +613,7 @@ sub_08077dd8: @ 0x08077dd8
     strh r0, [r2, #0xe]
     strh r0, [r1]
     adds r1, #4
-    ldr r3, lbl_08077ec4 @ =0x030013ae
+    ldr r3, lbl_08077ec4 @ =gWrittenToBLDY_NonGameplay
     mov r8, r3
     movs r0, #0x10
     strh r0, [r3]
@@ -622,12 +622,12 @@ sub_08077dd8: @ 0x08077dd8
     lsls r0, r0, #0x13
     strh r4, [r2, #0xc]
     strh r4, [r0]
-    ldr r0, lbl_08077ec8 @ =0x03001382
+    ldr r0, lbl_08077ec8 @ =gNextOamSlot
     strb r5, [r0]
     bl ClearGfxRam
     bl ResetFreeOAM
-    ldr r1, lbl_08077ecc @ =0x03005806
-    ldr r0, lbl_08077ed0 @ =0x03005807
+    ldr r1, lbl_08077ecc @ =gOamXOffset_NonGameplay
+    ldr r0, lbl_08077ed0 @ =gOamYOffset_NonGameplay
     strb r5, [r0]
     strb r5, [r1]
     ldr r0, lbl_08077ed4 @ =0x0194f780
@@ -646,22 +646,22 @@ sub_08077dd8: @ 0x08077dd8
     strh r4, [r0]
     adds r0, #2
     strh r4, [r0]
-    ldr r0, lbl_08077ee0 @ =0x03000c75
+    ldr r0, lbl_08077ee0 @ =gGameModeSub3
     strb r5, [r0]
-    ldr r1, lbl_08077ee4 @ =0x03000bf4
-    ldr r0, lbl_08077ee8 @ =0x03000bf6
+    ldr r1, lbl_08077ee4 @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_08077ee8 @ =gBG0VOFS_NonGameplay
     strh r4, [r0]
     strh r4, [r1]
-    ldr r1, lbl_08077eec @ =0x03000bf8
-    ldr r0, lbl_08077ef0 @ =0x03000bfa
+    ldr r1, lbl_08077eec @ =gBG1HOFS_NonGameplay
+    ldr r0, lbl_08077ef0 @ =gBG1VOFS_NonGameplay
     strh r4, [r0]
     strh r4, [r1]
-    ldr r1, lbl_08077ef4 @ =0x03000bfc
-    ldr r0, lbl_08077ef8 @ =0x03000bfe
+    ldr r1, lbl_08077ef4 @ =gBG2HOFS_NonGameplay
+    ldr r0, lbl_08077ef8 @ =gBG2VOFS_NonGameplay
     strh r4, [r0]
     strh r4, [r1]
-    ldr r1, lbl_08077efc @ =0x03000c00
-    ldr r0, lbl_08077f00 @ =0x03000c02
+    ldr r1, lbl_08077efc @ =gBG3HOFS_NonGameplay
+    ldr r0, lbl_08077f00 @ =gBG3VOFS_NonGameplay
     strh r4, [r0]
     strh r4, [r1]
     ldr r1, [r6]
@@ -692,32 +692,32 @@ sub_08077dd8: @ 0x08077dd8
     .align 2, 0
 lbl_08077eb0: .4byte sub_08077fe8
 lbl_08077eb4: .4byte 0x040000d4
-lbl_08077eb8: .4byte 0x030016c4
+lbl_08077eb8: .4byte gNonGameplayRAM
 lbl_08077ebc: .4byte 0x8500018a
 lbl_08077ec0: .4byte 0x08754bc4
-lbl_08077ec4: .4byte 0x030013ae
-lbl_08077ec8: .4byte 0x03001382
-lbl_08077ecc: .4byte 0x03005806
-lbl_08077ed0: .4byte 0x03005807
+lbl_08077ec4: .4byte gWrittenToBLDY_NonGameplay
+lbl_08077ec8: .4byte gNextOamSlot
+lbl_08077ecc: .4byte gOamXOffset_NonGameplay
+lbl_08077ed0: .4byte gOamYOffset_NonGameplay
 lbl_08077ed4: .4byte 0x0194f780
 lbl_08077ed8: .4byte 0x00007fff
 lbl_08077edc: .4byte 0x04000008
-lbl_08077ee0: .4byte 0x03000c75
-lbl_08077ee4: .4byte 0x03000bf4
-lbl_08077ee8: .4byte 0x03000bf6
-lbl_08077eec: .4byte 0x03000bf8
-lbl_08077ef0: .4byte 0x03000bfa
-lbl_08077ef4: .4byte 0x03000bfc
-lbl_08077ef8: .4byte 0x03000bfe
-lbl_08077efc: .4byte 0x03000c00
-lbl_08077f00: .4byte 0x03000c02
+lbl_08077ee0: .4byte gGameModeSub3
+lbl_08077ee4: .4byte gBG0HOFS_NonGameplay
+lbl_08077ee8: .4byte gBG0VOFS_NonGameplay
+lbl_08077eec: .4byte gBG1HOFS_NonGameplay
+lbl_08077ef0: .4byte gBG1VOFS_NonGameplay
+lbl_08077ef4: .4byte gBG2HOFS_NonGameplay
+lbl_08077ef8: .4byte gBG2VOFS_NonGameplay
+lbl_08077efc: .4byte gBG3HOFS_NonGameplay
+lbl_08077f00: .4byte gBG3VOFS_NonGameplay
 lbl_08077f04: .4byte 0x0840d028
 lbl_08077f08: .4byte sub_08077f0c
 
     thumb_func_start sub_08077f0c
 sub_08077f0c: @ 0x08077f0c
     ldr r1, lbl_08077fa4 @ =0x040000d4
-    ldr r0, lbl_08077fa8 @ =0x03000e7c
+    ldr r0, lbl_08077fa8 @ =gOamData
     str r0, [r1]
     movs r0, #0xe0
     lsls r0, r0, #0x13
@@ -726,42 +726,42 @@ sub_08077f0c: @ 0x08077f0c
     str r0, [r1, #8]
     ldr r0, [r1, #8]
     subs r1, #0xc4
-    ldr r0, lbl_08077fb0 @ =0x03000bf4
+    ldr r0, lbl_08077fb0 @ =gBG0HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_08077fb4 @ =0x03000bf6
+    ldr r0, lbl_08077fb4 @ =gBG0VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_08077fb8 @ =0x03000bf8
+    ldr r0, lbl_08077fb8 @ =gBG1HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_08077fbc @ =0x03000bfa
+    ldr r0, lbl_08077fbc @ =gBG1VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_08077fc0 @ =0x03000bfc
+    ldr r0, lbl_08077fc0 @ =gBG2HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_08077fc4 @ =0x03000bfe
+    ldr r0, lbl_08077fc4 @ =gBG2VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_08077fc8 @ =0x03000c00
+    ldr r0, lbl_08077fc8 @ =gBG3HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_08077fcc @ =0x03000c02
+    ldr r0, lbl_08077fcc @ =gBG3VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
@@ -771,14 +771,14 @@ sub_08077f0c: @ 0x08077f0c
     ldrh r0, [r2, #0xc]
     strh r0, [r1]
     adds r1, #0x54
-    ldr r0, lbl_08077fd4 @ =0x030013ae
+    ldr r0, lbl_08077fd4 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r0]
     strh r0, [r1]
     ldr r3, lbl_08077fd8 @ =0x04000052
-    ldr r0, lbl_08077fdc @ =0x030013b2
+    ldr r0, lbl_08077fdc @ =gWrittenToBLDALPHA_H
     ldrh r0, [r0]
     lsls r0, r0, #8
-    ldr r1, lbl_08077fe0 @ =0x030013b0
+    ldr r1, lbl_08077fe0 @ =gWrittenToBLDALPHA_L
     ldrh r1, [r1]
     orrs r0, r1
     strh r0, [r3]
@@ -794,21 +794,21 @@ sub_08077f0c: @ 0x08077f0c
     bx lr
     .align 2, 0
 lbl_08077fa4: .4byte 0x040000d4
-lbl_08077fa8: .4byte 0x03000e7c
+lbl_08077fa8: .4byte gOamData
 lbl_08077fac: .4byte 0x84000100
-lbl_08077fb0: .4byte 0x03000bf4
-lbl_08077fb4: .4byte 0x03000bf6
-lbl_08077fb8: .4byte 0x03000bf8
-lbl_08077fbc: .4byte 0x03000bfa
-lbl_08077fc0: .4byte 0x03000bfc
-lbl_08077fc4: .4byte 0x03000bfe
-lbl_08077fc8: .4byte 0x03000c00
-lbl_08077fcc: .4byte 0x03000c02
+lbl_08077fb0: .4byte gBG0HOFS_NonGameplay
+lbl_08077fb4: .4byte gBG0VOFS_NonGameplay
+lbl_08077fb8: .4byte gBG1HOFS_NonGameplay
+lbl_08077fbc: .4byte gBG1VOFS_NonGameplay
+lbl_08077fc0: .4byte gBG2HOFS_NonGameplay
+lbl_08077fc4: .4byte gBG2VOFS_NonGameplay
+lbl_08077fc8: .4byte gBG3HOFS_NonGameplay
+lbl_08077fcc: .4byte gBG3VOFS_NonGameplay
 lbl_08077fd0: .4byte 0x08754bc4
-lbl_08077fd4: .4byte 0x030013ae
+lbl_08077fd4: .4byte gWrittenToBLDY_NonGameplay
 lbl_08077fd8: .4byte 0x04000052
-lbl_08077fdc: .4byte 0x030013b2
-lbl_08077fe0: .4byte 0x030013b0
+lbl_08077fdc: .4byte gWrittenToBLDALPHA_H
+lbl_08077fe0: .4byte gWrittenToBLDALPHA_L
 lbl_08077fe4: .4byte 0x04000050
 
     thumb_func_start sub_08077fe8
@@ -1037,7 +1037,7 @@ game_over_menu_samus_head: @ 0x08078174
     ldr r3, [r5]
     adds r3, #0x38
     ldr r4, lbl_080781c8 @ =0x084547c6
-    ldr r1, lbl_080781cc @ =0x03001530
+    ldr r1, lbl_080781cc @ =gEquipment
     ldrb r2, [r1, #0x12]
     lsls r1, r2, #1
     adds r1, r1, r2
@@ -1048,7 +1048,7 @@ game_over_menu_samus_head: @ 0x08078174
     bl UpdateMenuOamDataID
     ldr r5, [r5]
     ldr r1, lbl_080781d0 @ =0x084547b4
-    ldr r0, lbl_080781d4 @ =0x03000020
+    ldr r0, lbl_080781d4 @ =gLanguage
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -1071,9 +1071,9 @@ game_over_menu_samus_head: @ 0x08078174
     .align 2, 0
 lbl_080781c4: .4byte 0x08754bc4
 lbl_080781c8: .4byte 0x084547c6
-lbl_080781cc: .4byte 0x03001530
+lbl_080781cc: .4byte gEquipment
 lbl_080781d0: .4byte 0x084547b4
-lbl_080781d4: .4byte 0x03000020
+lbl_080781d4: .4byte gLanguage
 lbl_080781d8: .4byte 0x084547c2
 lbl_080781dc: .4byte 0x00007e92
 lbl_080781e0:
@@ -1094,7 +1094,7 @@ lbl_080781f8: .4byte 0x08754bc4
     thumb_func_start game_over_menu_process_oam
 game_over_menu_process_oam: @ 0x080781fc
     push {lr}
-    ldr r1, lbl_0807821c @ =0x03001382
+    ldr r1, lbl_0807821c @ =gNextOamSlot
     movs r0, #0
     strb r0, [r1]
     ldr r0, lbl_08078220 @ =0x08754bc4
@@ -1107,14 +1107,14 @@ game_over_menu_process_oam: @ 0x080781fc
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0807821c: .4byte 0x03001382
+lbl_0807821c: .4byte gNextOamSlot
 lbl_08078220: .4byte 0x08754bc4
 lbl_08078224: .4byte 0x084547d0
 
     thumb_func_start sub_08078228
 sub_08078228: @ 0x08078228
     push {lr}
-    ldr r0, lbl_08078248 @ =0x03000004
+    ldr r0, lbl_08078248 @ =gStereoFlag
     ldrb r1, [r0]
     cmp r1, #1
     bhi lbl_08078242
@@ -1130,15 +1130,15 @@ lbl_08078242:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08078248: .4byte 0x03000004
+lbl_08078248: .4byte gStereoFlag
 
     thumb_func_start file_select_menu_process_oam
 file_select_menu_process_oam: @ 0x0807824c
     push {lr}
-    ldr r0, lbl_08078278 @ =0x03001382
+    ldr r0, lbl_08078278 @ =gNextOamSlot
     movs r1, #0
     strb r1, [r0]
-    ldr r0, lbl_0807827c @ =0x03000c72
+    ldr r0, lbl_0807827c @ =gGameModeSub1
     movs r1, #0
     ldrsh r0, [r0, r1]
     cmp r0, #0
@@ -1156,8 +1156,8 @@ lbl_08078266:
     bl process_menu_oam
     b lbl_0807829a
     .align 2, 0
-lbl_08078278: .4byte 0x03001382
-lbl_0807827c: .4byte 0x03000c72
+lbl_08078278: .4byte gNextOamSlot
+lbl_0807827c: .4byte gGameModeSub1
 lbl_08078280: .4byte 0x08754bc4
 lbl_08078284: .4byte 0x0845f1dc
 lbl_08078288:
@@ -2472,7 +2472,7 @@ lbl_08078cbe:
     adds r0, r0, r6
     ldr r4, lbl_08078d84 @ =0x08760b9c
     lsls r2, r2, #1
-    ldr r5, lbl_08078d88 @ =0x03000004
+    ldr r5, lbl_08078d88 @ =gStereoFlag
     ldrb r1, [r5]
     lsls r1, r1, #3
     adds r2, r2, r1
@@ -2564,7 +2564,7 @@ lbl_08078d74:
     .align 2, 0
 lbl_08078d80: .4byte 0x08754bc4
 lbl_08078d84: .4byte 0x08760b9c
-lbl_08078d88: .4byte 0x03000004
+lbl_08078d88: .4byte gStereoFlag
 lbl_08078d8c: .4byte 0x00000216
 lbl_08078d90: .4byte 0x0000021f
 lbl_08078d94: .4byte 0x00000226
@@ -2603,7 +2603,7 @@ lbl_08078dcc: @ jump table
     .4byte lbl_08078f8c @ case 5
     .4byte lbl_08079046 @ case 6
 lbl_08078de8:
-    ldr r2, lbl_08078e48 @ =0x03000c0c
+    ldr r2, lbl_08078e48 @ =gCurrentMessage
     adds r1, r2, #0
     ldr r0, lbl_08078e4c @ =0x0845f430
     ldm r0!, {r3, r4, r5}
@@ -2653,7 +2653,7 @@ lbl_08078e20:
     ldr r0, lbl_08078e5c @ =0x81000800
     b lbl_08078ed6
     .align 2, 0
-lbl_08078e48: .4byte 0x03000c0c
+lbl_08078e48: .4byte gCurrentMessage
 lbl_08078e4c: .4byte 0x0845f430
 lbl_08078e50: .4byte 0x0845f3cc
 lbl_08078e54: .4byte 0x040000d4
@@ -2847,7 +2847,7 @@ lbl_08078fbe:
     lsls r0, r0, #3
     adds r4, r4, r0
 lbl_08078fd6:
-    ldr r1, lbl_08079030 @ =0x03000c0c
+    ldr r1, lbl_08079030 @ =gCurrentMessage
     movs r0, #0
     strh r0, [r1, #2]
     ldr r1, lbl_08079034 @ =0x0876079c
@@ -2855,7 +2855,7 @@ lbl_08078fd6:
     ldr r7, lbl_08079028 @ =0x0845f3cc
     ldr r5, lbl_0807902c @ =0x08754bc4
 lbl_08078fe4:
-    ldr r0, lbl_08079038 @ =0x03000020
+    ldr r0, lbl_08079038 @ =gLanguage
     movs r2, #0
     ldrsb r2, [r0, r2]
     lsls r2, r2, #2
@@ -2871,7 +2871,7 @@ lbl_08078fe4:
     lsls r0, r0, #2
     adds r0, r0, r1
     ldr r1, [r0]
-    ldr r0, lbl_08079030 @ =0x03000c0c
+    ldr r0, lbl_08079030 @ =gCurrentMessage
     adds r2, r4, #0
     bl TextProcessCurrentMessage
     lsls r0, r0, #0x18
@@ -2891,9 +2891,9 @@ lbl_0807901a:
 lbl_08079024: .4byte 0x08760bdc
 lbl_08079028: .4byte 0x0845f3cc
 lbl_0807902c: .4byte 0x08754bc4
-lbl_08079030: .4byte 0x03000c0c
+lbl_08079030: .4byte gCurrentMessage
 lbl_08079034: .4byte 0x0876079c
-lbl_08079038: .4byte 0x03000020
+lbl_08079038: .4byte gLanguage
 lbl_0807903c:
     ldr r0, [r5]
     adds r0, #0x34
@@ -3251,7 +3251,7 @@ lbl_080792f6:
 lbl_080792fc: .4byte 0x08754bc4
 lbl_08079300:
     movs r4, #0
-    ldr r5, lbl_08079320 @ =0x03001380
+    ldr r5, lbl_08079320 @ =gChangedInput
     ldrh r0, [r5]
     cmp r0, #0
     beq lbl_08079354
@@ -3265,7 +3265,7 @@ lbl_08079300:
     movs r4, #1
     b lbl_0807935a
     .align 2, 0
-lbl_08079320: .4byte 0x03001380
+lbl_08079320: .4byte gChangedInput
 lbl_08079324:
     ldrh r1, [r5]
     movs r3, #2
@@ -3361,7 +3361,7 @@ lbl_080793c8:
     b lbl_08079766
 lbl_080793e8:
     movs r4, #0
-    ldr r5, lbl_08079408 @ =0x03001380
+    ldr r5, lbl_08079408 @ =gChangedInput
     ldrh r0, [r5]
     cmp r0, #0
     beq lbl_08079420
@@ -3375,7 +3375,7 @@ lbl_080793e8:
     movs r4, #1
     b lbl_08079460
     .align 2, 0
-lbl_08079408: .4byte 0x03001380
+lbl_08079408: .4byte gChangedInput
 lbl_0807940c:
     ldrh r1, [r5]
     movs r0, #2
@@ -3500,7 +3500,7 @@ lbl_080794f8:
 lbl_0807950c: .4byte 0x08754bc4
 lbl_08079510:
     movs r4, #0xff
-    ldr r0, lbl_08079538 @ =0x03001380
+    ldr r0, lbl_08079538 @ =gChangedInput
     ldrh r1, [r0]
     cmp r1, #0
     beq lbl_080795a0
@@ -3519,7 +3519,7 @@ lbl_08079510:
     strb r0, [r1]
     b lbl_080795a0
     .align 2, 0
-lbl_08079538: .4byte 0x03001380
+lbl_08079538: .4byte gChangedInput
 lbl_0807953c:
     movs r0, #0xa
     bl sub_0807ef7c
@@ -3631,7 +3631,7 @@ lbl_0807960a:
     .align 2, 0
 lbl_08079618: .4byte 0x08754bc4
 lbl_0807961c:
-    ldr r0, lbl_08079648 @ =0x03001380
+    ldr r0, lbl_08079648 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #3
     ands r0, r1
@@ -3652,7 +3652,7 @@ lbl_0807962a:
     strb r1, [r0]
     b lbl_08079794
     .align 2, 0
-lbl_08079648: .4byte 0x03001380
+lbl_08079648: .4byte gChangedInput
 lbl_0807964c:
     ldr r1, [r6]
     adds r0, r1, #0
@@ -3895,7 +3895,7 @@ lbl_0807984c:
 lbl_08079854: .4byte 0x08754bc4
 lbl_08079858:
     movs r4, #0
-    ldr r6, lbl_08079878 @ =0x03001380
+    ldr r6, lbl_08079878 @ =gChangedInput
     ldrh r0, [r6]
     cmp r0, #0
     beq lbl_080798ac
@@ -3909,7 +3909,7 @@ lbl_08079858:
     movs r4, #1
     b lbl_080798b2
     .align 2, 0
-lbl_08079878: .4byte 0x03001380
+lbl_08079878: .4byte gChangedInput
 lbl_0807987c:
     ldrh r1, [r6]
     movs r3, #2
@@ -4001,7 +4001,7 @@ lbl_08079928: .4byte 0x08754bc4
 lbl_0807992c: .4byte 0x08760b38
 lbl_08079930:
     movs r4, #0xff
-    ldr r0, lbl_08079958 @ =0x03001380
+    ldr r0, lbl_08079958 @ =gChangedInput
     ldrh r1, [r0]
     cmp r1, #0
     beq lbl_080799c6
@@ -4020,7 +4020,7 @@ lbl_08079930:
     strb r0, [r1]
     b lbl_080799c6
     .align 2, 0
-lbl_08079958: .4byte 0x03001380
+lbl_08079958: .4byte gChangedInput
 lbl_0807995c:
     movs r4, #0x80
     ldr r0, lbl_08079970 @ =0x0000020d
@@ -4489,7 +4489,7 @@ lbl_08079cfc:
 lbl_08079d0a:
     b lbl_08079e3e
 lbl_08079d0c:
-    ldr r0, lbl_08079d30 @ =0x03001380
+    ldr r0, lbl_08079d30 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -4497,10 +4497,10 @@ lbl_08079d0c:
     bne lbl_08079d1a
     b lbl_08079ec0
 lbl_08079d1a:
-    ldr r1, lbl_08079d34 @ =0x03000c20
+    ldr r1, lbl_08079d34 @ =gUnk_3000c20
     movs r0, #0
     strb r0, [r1]
-    ldr r2, lbl_08079d38 @ =0x03000c1e
+    ldr r2, lbl_08079d38 @ =gMostRecentSaveFile
     ldr r1, [r4]
     adds r0, r1, #0
     adds r0, #0x47
@@ -4508,9 +4508,9 @@ lbl_08079d1a:
     strb r0, [r2]
     b lbl_08079e3e
     .align 2, 0
-lbl_08079d30: .4byte 0x03001380
-lbl_08079d34: .4byte 0x03000c20
-lbl_08079d38: .4byte 0x03000c1e
+lbl_08079d30: .4byte gChangedInput
+lbl_08079d34: .4byte gUnk_3000c20
+lbl_08079d38: .4byte gMostRecentSaveFile
 lbl_08079d3c:
     movs r0, #0
     bl sub_08000fbc
@@ -4518,11 +4518,11 @@ lbl_08079d3c:
     bne lbl_08079d48
     b lbl_08079ec0
 lbl_08079d48:
-    ldr r1, lbl_08079d74 @ =0x03000c20
+    ldr r1, lbl_08079d74 @ =gUnk_3000c20
     movs r0, #0
     strb r0, [r1]
     ldr r2, lbl_08079d78 @ =0x03000c24
-    ldr r0, lbl_08079d7c @ =0x03000c1e
+    ldr r0, lbl_08079d7c @ =gMostRecentSaveFile
     movs r1, #0
     ldrsb r1, [r0, r1]
     lsls r0, r1, #1
@@ -4541,9 +4541,9 @@ lbl_08079d48:
     strb r1, [r0]
     b lbl_08079ec0
     .align 2, 0
-lbl_08079d74: .4byte 0x03000c20
+lbl_08079d74: .4byte gUnk_3000c20
 lbl_08079d78: .4byte 0x03000c24
-lbl_08079d7c: .4byte 0x03000c1e
+lbl_08079d7c: .4byte gMostRecentSaveFile
 lbl_08079d80: .4byte 0x08754bc4
 lbl_08079d84:
     movs r0, #1
@@ -4552,12 +4552,12 @@ lbl_08079d84:
     bne lbl_08079d90
     b lbl_08079ec0
 lbl_08079d90:
-    ldr r1, lbl_08079d98 @ =0x03000c20
+    ldr r1, lbl_08079d98 @ =gUnk_3000c20
     movs r0, #0
     strb r0, [r1]
     b lbl_08079e3a
     .align 2, 0
-lbl_08079d98: .4byte 0x03000c20
+lbl_08079d98: .4byte gUnk_3000c20
 lbl_08079d9c:
     ldr r0, [r4]
     adds r0, #0x47
@@ -4662,7 +4662,7 @@ lbl_08079e68:
     movs r0, #2
     movs r1, #0xff
     bl sub_080790cc
-    ldr r2, lbl_08079e90 @ =0x03000c1e
+    ldr r2, lbl_08079e90 @ =gMostRecentSaveFile
     ldr r3, lbl_08079e94 @ =0x08754bc4
     ldr r1, [r3]
     adds r0, r1, #0
@@ -4680,7 +4680,7 @@ lbl_08079e7e:
     strh r2, [r0]
     b lbl_08079ec0
     .align 2, 0
-lbl_08079e90: .4byte 0x03000c1e
+lbl_08079e90: .4byte gMostRecentSaveFile
 lbl_08079e94: .4byte 0x08754bc4
 lbl_08079e98:
     ldr r2, [r4]
@@ -4882,13 +4882,13 @@ lbl_0807a018: @ jump table
     .4byte lbl_0807a104 @ case 4
     .4byte lbl_0807a10c @ case 5
 lbl_0807a030:
-    ldr r0, lbl_0807a03c @ =0x03000014
+    ldr r0, lbl_0807a03c @ =gFileScreenOptionsUnlocked
     ldrb r1, [r0, #4]
     movs r0, #4
     ands r0, r1
     b lbl_0807a116
     .align 2, 0
-lbl_0807a03c: .4byte 0x03000014
+lbl_0807a03c: .4byte gFileScreenOptionsUnlocked
 lbl_0807a040:
     mov r1, ip
     ldr r0, [r1]
@@ -4899,7 +4899,7 @@ lbl_0807a040:
     ldr r0, [r1]
     adds r0, #0x65
     strb r3, [r0]
-    ldr r6, lbl_0807a09c @ =0x03001694
+    ldr r6, lbl_0807a09c @ =gTimeAttackRecord
     adds r0, r6, #0
     adds r0, #0x2c
     ldrb r0, [r0]
@@ -4938,9 +4938,9 @@ lbl_0807a090:
     ldrb r0, [r0]
     b lbl_0807a116
     .align 2, 0
-lbl_0807a09c: .4byte 0x03001694
+lbl_0807a09c: .4byte gTimeAttackRecord
 lbl_0807a0a0:
-    ldr r1, lbl_0807a0e4 @ =0x03000014
+    ldr r1, lbl_0807a0e4 @ =gFileScreenOptionsUnlocked
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_0807a11e
@@ -4975,26 +4975,26 @@ lbl_0807a0ce:
     bge lbl_0807a0ce
     b lbl_0807a11e
     .align 2, 0
-lbl_0807a0e4: .4byte 0x03000014
+lbl_0807a0e4: .4byte gFileScreenOptionsUnlocked
 lbl_0807a0e8: .4byte 0x08754bb4
 lbl_0807a0ec: .4byte 0x08760bec
 lbl_0807a0f0: .4byte 0x00000fff
 lbl_0807a0f4:
-    ldr r0, lbl_0807a100 @ =0x03000014
+    ldr r0, lbl_0807a100 @ =gFileScreenOptionsUnlocked
     ldrh r0, [r0, #2]
     cmp r0, #0
     beq lbl_0807a11e
     strb r5, [r4]
     b lbl_0807a11e
     .align 2, 0
-lbl_0807a100: .4byte 0x03000014
+lbl_0807a100: .4byte gFileScreenOptionsUnlocked
 lbl_0807a104:
     ldrb r0, [r4]
     cmp r0, #5
     beq lbl_0807a11c
     b lbl_0807a11a
 lbl_0807a10c:
-    ldr r1, lbl_0807a198 @ =0x03000014
+    ldr r1, lbl_0807a198 @ =gFileScreenOptionsUnlocked
     ldrh r0, [r1]
     cmp r0, #0
     bne lbl_0807a11a
@@ -5072,7 +5072,7 @@ lbl_0807a190:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0807a198: .4byte 0x03000014
+lbl_0807a198: .4byte gFileScreenOptionsUnlocked
 lbl_0807a19c: .4byte 0x08760bec
 lbl_0807a1a0: .4byte 0x08754bb4
 
@@ -5089,7 +5089,7 @@ copy_time_attack_time: @ 0x0807a1a4
     adds r0, r1, #0
     adds r0, #0x48
     bl sub_0807f60c
-    ldr r6, lbl_0807a2b8 @ =0x03001694
+    ldr r6, lbl_0807a2b8 @ =gTimeAttackRecord
     ldrb r0, [r6, #0x14]
     movs r5, #0x63
     cmp r0, #0x62
@@ -5210,7 +5210,7 @@ lbl_0807a2ae:
     bx r0
     .align 2, 0
 lbl_0807a2b4: .4byte 0x08754bc4
-lbl_0807a2b8: .4byte 0x03001694
+lbl_0807a2b8: .4byte gTimeAttackRecord
 
     thumb_func_start sub_0807a2bc
 sub_0807a2bc: @ 0x0807a2bc
@@ -5283,10 +5283,10 @@ lbl_0807a346:
     bhi lbl_0807a354
     b lbl_0807a7d4
 lbl_0807a354:
-    ldr r0, lbl_0807a42c @ =0x030013b2
+    ldr r0, lbl_0807a42c @ =gWrittenToBLDALPHA_H
     movs r4, #0
     strh r4, [r0]
-    ldr r1, lbl_0807a430 @ =0x030013b0
+    ldr r1, lbl_0807a430 @ =gWrittenToBLDALPHA_L
     movs r0, #0x10
     strh r0, [r1]
     movs r0, #0
@@ -5373,9 +5373,9 @@ lbl_0807a354:
     adds r1, r3, #0
     orrs r0, r1
     strh r0, [r2]
-    ldr r0, lbl_0807a44c @ =0x03000bf4
+    ldr r0, lbl_0807a44c @ =gBG0HOFS_NonGameplay
     strh r6, [r0]
-    ldr r1, lbl_0807a450 @ =0x03000bf6
+    ldr r1, lbl_0807a450 @ =gBG0VOFS_NonGameplay
     movs r3, #0xc0
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -5390,19 +5390,19 @@ lbl_0807a354:
     strb r0, [r2]
     b lbl_0807a7d4
     .align 2, 0
-lbl_0807a42c: .4byte 0x030013b2
-lbl_0807a430: .4byte 0x030013b0
+lbl_0807a42c: .4byte gWrittenToBLDALPHA_H
+lbl_0807a430: .4byte gWrittenToBLDALPHA_L
 lbl_0807a434: .4byte 0x00003f42
 lbl_0807a438: .4byte 0x0000010f
 lbl_0807a43c: .4byte 0x0000011f
 lbl_0807a440: .4byte 0x0000013f
 lbl_0807a444: .4byte 0x0600e000
 lbl_0807a448: .4byte 0x08754bb4
-lbl_0807a44c: .4byte 0x03000bf4
-lbl_0807a450: .4byte 0x03000bf6
+lbl_0807a44c: .4byte gBG0HOFS_NonGameplay
+lbl_0807a450: .4byte gBG0VOFS_NonGameplay
 lbl_0807a454:
     movs r2, #1
-    ldr r1, lbl_0807a46c @ =0x030013b0
+    ldr r1, lbl_0807a46c @ =gWrittenToBLDALPHA_L
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_0807a472
@@ -5413,11 +5413,11 @@ lbl_0807a454:
     strh r2, [r1]
     b lbl_0807a472
     .align 2, 0
-lbl_0807a46c: .4byte 0x030013b0
+lbl_0807a46c: .4byte gWrittenToBLDALPHA_L
 lbl_0807a470:
     strh r0, [r1]
 lbl_0807a472:
-    ldr r1, lbl_0807a4c8 @ =0x030013b2
+    ldr r1, lbl_0807a4c8 @ =gWrittenToBLDALPHA_H
     ldrh r0, [r1]
     cmp r0, #0x10
     beq lbl_0807a486
@@ -5463,11 +5463,11 @@ lbl_0807a48c:
     strh r0, [r1]
     b lbl_0807a77e
     .align 2, 0
-lbl_0807a4c8: .4byte 0x030013b2
+lbl_0807a4c8: .4byte gWrittenToBLDALPHA_H
 lbl_0807a4cc: .4byte 0x0000010f
 lbl_0807a4d0: .4byte 0x0000fdff
 lbl_0807a4d4:
-    ldr r1, lbl_0807a500 @ =0x03000bf6
+    ldr r1, lbl_0807a500 @ =gBG0VOFS_NonGameplay
     ldrh r0, [r1]
     ldr r2, lbl_0807a504 @ =0x000007ff
     cmp r0, r2
@@ -5489,7 +5489,7 @@ lbl_0807a4ec:
     ldr r1, [r0]
     b lbl_0807a77e
     .align 2, 0
-lbl_0807a500: .4byte 0x03000bf6
+lbl_0807a500: .4byte gBG0VOFS_NonGameplay
 lbl_0807a504: .4byte 0x000007ff
 lbl_0807a508: .4byte 0x08754bc4
 lbl_0807a50c:
@@ -5504,7 +5504,7 @@ lbl_0807a51c: .4byte 0x08754bc4
 lbl_0807a520: .4byte 0x00003f54
 lbl_0807a524:
     movs r2, #1
-    ldr r1, lbl_0807a550 @ =0x030013b0
+    ldr r1, lbl_0807a550 @ =gWrittenToBLDALPHA_L
     ldrh r0, [r1]
     cmp r0, #0x10
     beq lbl_0807a53a
@@ -5516,7 +5516,7 @@ lbl_0807a524:
 lbl_0807a538:
     strh r0, [r1]
 lbl_0807a53a:
-    ldr r1, lbl_0807a554 @ =0x030013b2
+    ldr r1, lbl_0807a554 @ =gWrittenToBLDALPHA_H
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_0807a55a
@@ -5527,8 +5527,8 @@ lbl_0807a53a:
     strh r2, [r1]
     b lbl_0807a55a
     .align 2, 0
-lbl_0807a550: .4byte 0x030013b0
-lbl_0807a554: .4byte 0x030013b2
+lbl_0807a550: .4byte gWrittenToBLDALPHA_L
+lbl_0807a554: .4byte gWrittenToBLDALPHA_H
 lbl_0807a558:
     strh r0, [r1]
 lbl_0807a55a:
@@ -5577,21 +5577,21 @@ lbl_0807a584:
     adds r2, r6, #0
     movs r3, #0xc0
     bl DMATransfer
-    ldr r1, lbl_0807a5ec @ =0x03000bf4
-    ldr r0, lbl_0807a5f0 @ =0x03000bf6
+    ldr r1, lbl_0807a5ec @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_0807a5f0 @ =gBG0VOFS_NonGameplay
     strh r4, [r0]
     strh r4, [r1]
     ldr r1, [r7]
     movs r2, #0
     ldr r0, lbl_0807a5f4 @ =0x00003f54
     strh r0, [r1, #2]
-    ldr r0, lbl_0807a5f8 @ =0x030013b2
+    ldr r0, lbl_0807a5f8 @ =gWrittenToBLDALPHA_H
     strh r2, [r0]
-    ldr r0, lbl_0807a5fc @ =0x030013b0
+    ldr r0, lbl_0807a5fc @ =gWrittenToBLDALPHA_L
     strh r5, [r0]
-    ldr r0, lbl_0807a600 @ =0x03000bf8
+    ldr r0, lbl_0807a600 @ =gBG1HOFS_NonGameplay
     strh r4, [r0]
-    ldr r0, lbl_0807a604 @ =0x03000bfa
+    ldr r0, lbl_0807a604 @ =gBG1VOFS_NonGameplay
     strh r4, [r0]
     ldrh r0, [r1, #0x1e]
     strh r0, [r1, #4]
@@ -5605,16 +5605,16 @@ lbl_0807a584:
     .align 2, 0
 lbl_0807a5e4: .4byte 0x0600e000
 lbl_0807a5e8: .4byte 0x08754bb4
-lbl_0807a5ec: .4byte 0x03000bf4
-lbl_0807a5f0: .4byte 0x03000bf6
+lbl_0807a5ec: .4byte gBG0HOFS_NonGameplay
+lbl_0807a5f0: .4byte gBG0VOFS_NonGameplay
 lbl_0807a5f4: .4byte 0x00003f54
-lbl_0807a5f8: .4byte 0x030013b2
-lbl_0807a5fc: .4byte 0x030013b0
-lbl_0807a600: .4byte 0x03000bf8
-lbl_0807a604: .4byte 0x03000bfa
+lbl_0807a5f8: .4byte gWrittenToBLDALPHA_H
+lbl_0807a5fc: .4byte gWrittenToBLDALPHA_L
+lbl_0807a600: .4byte gBG1HOFS_NonGameplay
+lbl_0807a604: .4byte gBG1VOFS_NonGameplay
 lbl_0807a608:
     movs r2, #1
-    ldr r1, lbl_0807a620 @ =0x030013b0
+    ldr r1, lbl_0807a620 @ =gWrittenToBLDALPHA_L
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_0807a626
@@ -5625,11 +5625,11 @@ lbl_0807a608:
     strh r2, [r1]
     b lbl_0807a626
     .align 2, 0
-lbl_0807a620: .4byte 0x030013b0
+lbl_0807a620: .4byte gWrittenToBLDALPHA_L
 lbl_0807a624:
     strh r0, [r1]
 lbl_0807a626:
-    ldr r1, lbl_0807a644 @ =0x030013b2
+    ldr r1, lbl_0807a644 @ =gWrittenToBLDALPHA_H
     ldrh r0, [r1]
     cmp r0, #0x10
     beq lbl_0807a63a
@@ -5647,9 +5647,9 @@ lbl_0807a63a:
 lbl_0807a640:
     b lbl_0807a77c
     .align 2, 0
-lbl_0807a644: .4byte 0x030013b2
+lbl_0807a644: .4byte gWrittenToBLDALPHA_H
 lbl_0807a648:
-    ldr r2, lbl_0807a668 @ =0x03000bf6
+    ldr r2, lbl_0807a668 @ =gBG0VOFS_NonGameplay
     ldrh r0, [r2]
     movs r1, #0xc0
     lsls r1, r1, #3
@@ -5666,7 +5666,7 @@ lbl_0807a662:
     strh r1, [r2]
     b lbl_0807a77c
     .align 2, 0
-lbl_0807a668: .4byte 0x03000bf6
+lbl_0807a668: .4byte gBG0VOFS_NonGameplay
 lbl_0807a66c:
     ldr r0, [r7]
     adds r0, #0x3f
@@ -5725,7 +5725,7 @@ lbl_0807a6dc: .4byte 0x0000011f
 lbl_0807a6e0: .4byte 0x00003f42
 lbl_0807a6e4:
     movs r2, #1
-    ldr r1, lbl_0807a6fc @ =0x030013b2
+    ldr r1, lbl_0807a6fc @ =gWrittenToBLDALPHA_H
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_0807a702
@@ -5736,11 +5736,11 @@ lbl_0807a6e4:
     strh r2, [r1]
     b lbl_0807a702
     .align 2, 0
-lbl_0807a6fc: .4byte 0x030013b2
+lbl_0807a6fc: .4byte gWrittenToBLDALPHA_H
 lbl_0807a700:
     strh r0, [r1]
 lbl_0807a702:
-    ldr r1, lbl_0807a788 @ =0x030013b0
+    ldr r1, lbl_0807a788 @ =gWrittenToBLDALPHA_L
     ldrh r0, [r1]
     cmp r0, #0x10
     beq lbl_0807a716
@@ -5812,7 +5812,7 @@ lbl_0807a77e:
     strb r0, [r1]
     b lbl_0807a7d4
     .align 2, 0
-lbl_0807a788: .4byte 0x030013b0
+lbl_0807a788: .4byte gWrittenToBLDALPHA_L
 lbl_0807a78c: .4byte 0x0000010f
 lbl_0807a790: .4byte 0x0000011f
 lbl_0807a794: .4byte 0x0000013f
@@ -5825,22 +5825,22 @@ lbl_0807a7a0:
     ands r0, r1
     movs r3, #0
     strh r0, [r2]
-    ldr r0, lbl_0807a7c8 @ =0x03000bf4
+    ldr r0, lbl_0807a7c8 @ =gBG0HOFS_NonGameplay
     movs r2, #0x80
     lsls r2, r2, #4
     adds r1, r2, #0
     strh r1, [r0]
-    ldr r0, lbl_0807a7cc @ =0x03000bf6
+    ldr r0, lbl_0807a7cc @ =gBG0VOFS_NonGameplay
     strh r1, [r0]
-    ldr r0, lbl_0807a7d0 @ =0x03000c74
+    ldr r0, lbl_0807a7d0 @ =gGameModeSub2
     strb r3, [r0]
     movs r0, #1
     b lbl_0807a7d6
     .align 2, 0
 lbl_0807a7c4: .4byte 0x0000feff
-lbl_0807a7c8: .4byte 0x03000bf4
-lbl_0807a7cc: .4byte 0x03000bf6
-lbl_0807a7d0: .4byte 0x03000c74
+lbl_0807a7c8: .4byte gBG0HOFS_NonGameplay
+lbl_0807a7cc: .4byte gBG0VOFS_NonGameplay
+lbl_0807a7d0: .4byte gGameModeSub2
 lbl_0807a7d4:
     movs r0, #0
 lbl_0807a7d6:
@@ -5934,7 +5934,7 @@ lbl_0807a87a:
     b lbl_0807aa20
 lbl_0807a88a:
     bl check_for_maintained_input
-    ldr r0, lbl_0807a8b8 @ =0x03001380
+    ldr r0, lbl_0807a8b8 @ =gChangedInput
     ldrh r1, [r0]
     cmp r1, #0
     bne lbl_0807a898
@@ -5955,7 +5955,7 @@ lbl_0807a898:
     strb r1, [r0]
     b lbl_0807aa20
     .align 2, 0
-lbl_0807a8b8: .4byte 0x03001380
+lbl_0807a8b8: .4byte gChangedInput
 lbl_0807a8bc: .4byte 0x00000209
 lbl_0807a8c0: .4byte 0x08754bc4
 lbl_0807a8c4:
@@ -6060,7 +6060,7 @@ lbl_0807a96c:
     beq lbl_0807aa20
     cmp r0, #2
     bne lbl_0807a9b8
-    ldr r2, lbl_0807a9b4 @ =0x03000c74
+    ldr r2, lbl_0807a9b4 @ =gGameModeSub2
     ldr r0, [r4]
     movs r1, #0
     ldrsb r1, [r5, r1]
@@ -6076,9 +6076,9 @@ lbl_0807a96c:
     .align 2, 0
 lbl_0807a9ac: .4byte 0x08760bfc
 lbl_0807a9b0: .4byte 0x03000bf3
-lbl_0807a9b4: .4byte 0x03000c74
+lbl_0807a9b4: .4byte gGameModeSub2
 lbl_0807a9b8:
-    ldr r1, lbl_0807a9d0 @ =0x03000c74
+    ldr r1, lbl_0807a9d0 @ =gGameModeSub2
     movs r0, #0
     strb r0, [r1]
 lbl_0807a9be:
@@ -6092,7 +6092,7 @@ lbl_0807a9be:
     movs r1, #5
     b lbl_0807a9e6
     .align 2, 0
-lbl_0807a9d0: .4byte 0x03000c74
+lbl_0807a9d0: .4byte gGameModeSub2
 lbl_0807a9d4: .4byte 0x08754bc4
 lbl_0807a9d8:
     movs r0, #3
@@ -6117,12 +6117,12 @@ lbl_0807a9f8:
     strb r4, [r0]
     movs r0, #0xa
     bl sub_0800427c
-    ldr r0, lbl_0807aa10 @ =0x03000c74
+    ldr r0, lbl_0807aa10 @ =gGameModeSub2
     strb r4, [r0]
     movs r0, #1
     b lbl_0807aa26
     .align 2, 0
-lbl_0807aa10: .4byte 0x03000c74
+lbl_0807aa10: .4byte gGameModeSub2
 lbl_0807aa14:
     ldr r0, [r4]
     ldrh r0, [r0, #0x3c]
@@ -6206,7 +6206,7 @@ lbl_0807aaa4: @ jump table
     .4byte lbl_0807ab58 @ case 3
     .4byte lbl_0807ab98 @ case 4
 lbl_0807aab8:
-    ldr r0, lbl_0807aadc @ =0x03001380
+    ldr r0, lbl_0807aadc @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #2
     ands r0, r1
@@ -6226,7 +6226,7 @@ lbl_0807aad8:
     movs r0, #1
     b lbl_0807abb2
     .align 2, 0
-lbl_0807aadc: .4byte 0x03001380
+lbl_0807aadc: .4byte gChangedInput
 lbl_0807aae0:
     ldr r1, [r4]
     adds r0, r1, #0
@@ -6277,7 +6277,7 @@ lbl_0807ab30:
     movs r3, #0
     movs r0, #0xff
     strh r0, [r1, #2]
-    ldr r0, lbl_0807ab54 @ =0x030013ae
+    ldr r0, lbl_0807ab54 @ =gWrittenToBLDY_NonGameplay
     strh r3, [r0]
     adds r1, #0x40
     ldrb r0, [r1]
@@ -6287,9 +6287,9 @@ lbl_0807ab30:
     b lbl_0807ab8a
     .align 2, 0
 lbl_0807ab50: .4byte 0x08754bc4
-lbl_0807ab54: .4byte 0x030013ae
+lbl_0807ab54: .4byte gWrittenToBLDY_NonGameplay
 lbl_0807ab58:
-    ldr r2, lbl_0807ab90 @ =0x030013ae
+    ldr r2, lbl_0807ab90 @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r2]
     adds r0, #2
     strh r0, [r2]
@@ -6319,7 +6319,7 @@ lbl_0807ab8a:
     strh r3, [r0]
     b lbl_0807abb0
     .align 2, 0
-lbl_0807ab90: .4byte 0x030013ae
+lbl_0807ab90: .4byte gWrittenToBLDY_NonGameplay
 lbl_0807ab94: .4byte 0x0000e0ff
 lbl_0807ab98:
     ldr r1, lbl_0807abb8 @ =0x04000208
@@ -6353,7 +6353,7 @@ sub_0807abc4: @ 0x0807abc4
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
-    ldr r0, lbl_0807abec @ =0x03001380
+    ldr r0, lbl_0807abec @ =gChangedInput
     ldrh r1, [r0]
     cmp r1, #0
     beq lbl_0807abf0
@@ -6365,7 +6365,7 @@ sub_0807abc4: @ 0x0807abc4
     b lbl_0807abf2
     .align 2, 0
 lbl_0807abe8: .4byte 0x08754bc4
-lbl_0807abec: .4byte 0x03001380
+lbl_0807abec: .4byte gChangedInput
 lbl_0807abf0:
     movs r0, #0
 lbl_0807abf2:
@@ -6384,7 +6384,7 @@ sub_0807abf8: @ 0x0807abf8
     adds r5, r0, #1
     movs r6, #0
     strh r5, [r1]
-    ldr r0, lbl_0807ac2c @ =0x03001380
+    ldr r0, lbl_0807ac2c @ =gChangedInput
     ldrh r2, [r0]
     movs r0, #2
     ands r0, r2
@@ -6401,7 +6401,7 @@ sub_0807abf8: @ 0x0807abf8
     b lbl_0807ac4e
     .align 2, 0
 lbl_0807ac28: .4byte 0x08754bc4
-lbl_0807ac2c: .4byte 0x03001380
+lbl_0807ac2c: .4byte gChangedInput
 lbl_0807ac30:
     movs r0, #1
     ands r0, r2
@@ -6454,7 +6454,7 @@ lbl_0807ac7e:
     b lbl_0807acee
 lbl_0807ac86:
     movs r5, #0
-    ldr r0, lbl_0807aca4 @ =0x03001380
+    ldr r0, lbl_0807aca4 @ =gChangedInput
     ldrh r1, [r0]
     cmp r1, #0
     beq lbl_0807ad08
@@ -6467,9 +6467,9 @@ lbl_0807ac86:
     bl SoundPlay
     b lbl_0807acee
     .align 2, 0
-lbl_0807aca4: .4byte 0x03001380
+lbl_0807aca4: .4byte gChangedInput
 lbl_0807aca8:
-    ldr r3, lbl_0807acbc @ =0x03000004
+    ldr r3, lbl_0807acbc @ =gStereoFlag
     ldrb r0, [r3]
     cmp r0, #0
     bne lbl_0807acc0
@@ -6480,7 +6480,7 @@ lbl_0807aca8:
     strb r2, [r3]
     b lbl_0807acd0
     .align 2, 0
-lbl_0807acbc: .4byte 0x03000004
+lbl_0807acbc: .4byte gStereoFlag
 lbl_0807acc0:
     movs r0, #0x20
     ands r0, r1
@@ -6645,7 +6645,7 @@ lbl_0807adea:
 lbl_0807ae18: .4byte 0x0000025f
 lbl_0807ae1c:
     movs r5, #0
-    ldr r0, lbl_0807ae38 @ =0x03001380
+    ldr r0, lbl_0807ae38 @ =gChangedInput
     ldrh r1, [r0]
     cmp r1, #0
     beq lbl_0807aed6
@@ -6659,7 +6659,7 @@ lbl_0807ae1c:
     strb r1, [r0]
     b lbl_0807aed6
     .align 2, 0
-lbl_0807ae38: .4byte 0x03001380
+lbl_0807ae38: .4byte gChangedInput
 lbl_0807ae3c:
     movs r0, #1
     ands r0, r1
@@ -6897,7 +6897,7 @@ lbl_0807b002:
 sub_0807b008: @ 0x0807b008
     push {r4, r5, r6, r7, lr}
     movs r7, #0
-    ldr r4, lbl_0807b088 @ =0x03001d00
+    ldr r4, lbl_0807b088 @ =gMusicInfo
     ldr r5, lbl_0807b08c @ =0x08760bac
     ldr r2, lbl_0807b090 @ =0x08754bc4
     ldr r0, [r2]
@@ -6963,7 +6963,7 @@ lbl_0807b07e:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0807b088: .4byte 0x03001d00
+lbl_0807b088: .4byte gMusicInfo
 lbl_0807b08c: .4byte 0x08760bac
 lbl_0807b090: .4byte 0x08754bc4
 
@@ -7177,22 +7177,22 @@ lbl_0807b1e4:
     adds r1, r2, r0
     movs r0, #0x80
     strh r0, [r1]
-    ldr r1, lbl_0807b340 @ =0x03000bf8
+    ldr r1, lbl_0807b340 @ =gBG1HOFS_NonGameplay
     movs r2, #0xdb
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807b344 @ =0x03000bfa
+    ldr r1, lbl_0807b344 @ =gBG1VOFS_NonGameplay
     movs r3, #0xe0
     lsls r3, r3, #3
     adds r0, r3, #0
     strh r0, [r1]
-    ldr r1, lbl_0807b348 @ =0x03000bf4
+    ldr r1, lbl_0807b348 @ =gBG0HOFS_NonGameplay
     movs r4, #0xcc
     lsls r4, r4, #3
     adds r0, r4, #0
     strh r0, [r1]
-    ldr r1, lbl_0807b34c @ =0x03000bf6
+    ldr r1, lbl_0807b34c @ =gBG0VOFS_NonGameplay
     movs r2, #0x80
     lsls r2, r2, #4
     adds r0, r2, #0
@@ -7287,10 +7287,10 @@ lbl_0807b1e4:
     .align 2, 0
 lbl_0807b338: .4byte 0x08754bc4
 lbl_0807b33c: .4byte 0x000001ff
-lbl_0807b340: .4byte 0x03000bf8
-lbl_0807b344: .4byte 0x03000bfa
-lbl_0807b348: .4byte 0x03000bf4
-lbl_0807b34c: .4byte 0x03000bf6
+lbl_0807b340: .4byte gBG1HOFS_NonGameplay
+lbl_0807b344: .4byte gBG1VOFS_NonGameplay
+lbl_0807b348: .4byte gBG0HOFS_NonGameplay
+lbl_0807b34c: .4byte gBG0VOFS_NonGameplay
 lbl_0807b350: .4byte 0x08754bb4
 lbl_0807b354: .4byte 0x0600e000
 lbl_0807b358: .4byte 0x000001cf
@@ -7577,7 +7577,7 @@ lbl_0807b594:
     adds r0, #1
     strb r0, [r1]
 lbl_0807b5ac:
-    ldr r0, lbl_0807b5bc @ =0x03001380
+    ldr r0, lbl_0807b5bc @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #2
     ands r0, r1
@@ -7587,9 +7587,9 @@ lbl_0807b5ac:
 lbl_0807b5ba:
     b lbl_0807b5d2
     .align 2, 0
-lbl_0807b5bc: .4byte 0x03001380
+lbl_0807b5bc: .4byte gChangedInput
 lbl_0807b5c0:
-    ldr r0, lbl_0807b5dc @ =0x03001380
+    ldr r0, lbl_0807b5dc @ =gChangedInput
     ldrh r3, [r0]
     cmp r3, #0
     bne lbl_0807b5ca
@@ -7606,7 +7606,7 @@ lbl_0807b5d2:
     strb r1, [r0]
     b lbl_0807b70c
     .align 2, 0
-lbl_0807b5dc: .4byte 0x03001380
+lbl_0807b5dc: .4byte gChangedInput
 lbl_0807b5e0:
     ldr r1, [r4]
     adds r0, r1, #0
@@ -7939,7 +7939,7 @@ sub_0807b854: @ 0x0807b854
     ldr r0, [r0]
     adds r0, #0x48
     mov sb, r0
-    ldr r0, lbl_0807b914 @ =0x03000014
+    ldr r0, lbl_0807b914 @ =gFileScreenOptionsUnlocked
     ldr r0, [r0, #8]
     movs r1, #1
     ands r0, r1
@@ -8023,7 +8023,7 @@ lbl_0807b892:
     bx r0
     .align 2, 0
 lbl_0807b910: .4byte 0x08754bc4
-lbl_0807b914: .4byte 0x03000014
+lbl_0807b914: .4byte gFileScreenOptionsUnlocked
 lbl_0807b918: .4byte 0x08760c44
 lbl_0807b91c: .4byte 0x06006100
 lbl_0807b920: .4byte 0x06006500
@@ -8050,7 +8050,7 @@ lbl_0807b948: .4byte 0x000078c0
 lbl_0807b94c: .4byte 0x030016ac
 lbl_0807b950:
     ldr r7, lbl_0807b9d8 @ =0x000068c0
-    ldr r0, lbl_0807b9dc @ =0x03001694
+    ldr r0, lbl_0807b9dc @ =gTimeAttackRecord
 lbl_0807b954:
     mov sb, r0
     movs r0, #1
@@ -8121,7 +8121,7 @@ lbl_0807b98c:
     bx r0
     .align 2, 0
 lbl_0807b9d8: .4byte 0x000068c0
-lbl_0807b9dc: .4byte 0x03001694
+lbl_0807b9dc: .4byte gTimeAttackRecord
 lbl_0807b9e0: .4byte 0x08415460
 lbl_0807b9e4: .4byte 0x08415860
 
@@ -8200,7 +8200,7 @@ lbl_0807ba48: @ jump table
     .4byte lbl_0807c0d8 @ case 22
     .4byte lbl_0807c0fc @ case 23
 lbl_0807baa8:
-    ldr r0, lbl_0807babc @ =0x03000014
+    ldr r0, lbl_0807babc @ =gFileScreenOptionsUnlocked
     ldrh r0, [r0, #2]
     cmp r0, #0
     beq lbl_0807bac4
@@ -8210,7 +8210,7 @@ lbl_0807baa8:
     movs r1, #1
     b lbl_0807bbce
     .align 2, 0
-lbl_0807babc: .4byte 0x03000014
+lbl_0807babc: .4byte gFileScreenOptionsUnlocked
 lbl_0807bac0: .4byte 0x08754bc4
 lbl_0807bac4:
     ldr r5, lbl_0807bbdc @ =0x08754bc4
@@ -8319,22 +8319,22 @@ lbl_0807bac4:
     adds r0, r0, r4
     movs r1, #0x10
     bl UpdateMenuOamDataID
-    ldr r1, lbl_0807bbec @ =0x03000bf8
+    ldr r1, lbl_0807bbec @ =gBG1HOFS_NonGameplay
     movs r2, #0xdb
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807bbf0 @ =0x03000bfa
+    ldr r1, lbl_0807bbf0 @ =gBG1VOFS_NonGameplay
     movs r3, #0xdf
     lsls r3, r3, #3
     adds r0, r3, #0
     strh r0, [r1]
-    ldr r1, lbl_0807bbf4 @ =0x03000bf4
+    ldr r1, lbl_0807bbf4 @ =gBG0HOFS_NonGameplay
     movs r4, #0xcc
     lsls r4, r4, #3
     adds r0, r4, #0
     strh r0, [r1]
-    ldr r1, lbl_0807bbf8 @ =0x03000bf6
+    ldr r1, lbl_0807bbf8 @ =gBG0VOFS_NonGameplay
     movs r2, #0xfc
     lsls r2, r2, #3
     adds r0, r2, #0
@@ -8355,12 +8355,12 @@ lbl_0807bbdc: .4byte 0x08754bc4
 lbl_0807bbe0: .4byte 0x000001ff
 lbl_0807bbe4: .4byte 0x000001bf
 lbl_0807bbe8: .4byte 0x000001ef
-lbl_0807bbec: .4byte 0x03000bf8
-lbl_0807bbf0: .4byte 0x03000bfa
-lbl_0807bbf4: .4byte 0x03000bf4
-lbl_0807bbf8: .4byte 0x03000bf6
+lbl_0807bbec: .4byte gBG1HOFS_NonGameplay
+lbl_0807bbf0: .4byte gBG1VOFS_NonGameplay
+lbl_0807bbf4: .4byte gBG0HOFS_NonGameplay
+lbl_0807bbf8: .4byte gBG0VOFS_NonGameplay
 lbl_0807bbfc:
-    ldr r0, lbl_0807bc34 @ =0x03001380
+    ldr r0, lbl_0807bc34 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #2
     ands r0, r1
@@ -8391,7 +8391,7 @@ lbl_0807bc22:
     movs r0, #2
     b lbl_0807c112
     .align 2, 0
-lbl_0807bc34: .4byte 0x03001380
+lbl_0807bc34: .4byte gChangedInput
 lbl_0807bc38:
     ldr r2, [r4]
     ldrh r1, [r2]
@@ -8658,7 +8658,7 @@ lbl_0807be40:
 lbl_0807be4e:
     b lbl_0807c0f2
 lbl_0807be50:
-    ldr r0, lbl_0807be68 @ =0x03001380
+    ldr r0, lbl_0807be68 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #8
     ands r0, r1
@@ -8666,13 +8666,13 @@ lbl_0807be50:
     bne lbl_0807be5e
     b lbl_0807c110
 lbl_0807be5e:
-    ldr r1, lbl_0807be6c @ =0x03000c70
+    ldr r1, lbl_0807be6c @ =gMainGameMode
     movs r0, #0xe
     strh r0, [r1]
     b lbl_0807c110
     .align 2, 0
-lbl_0807be68: .4byte 0x03001380
-lbl_0807be6c: .4byte 0x03000c70
+lbl_0807be68: .4byte gChangedInput
+lbl_0807be6c: .4byte gMainGameMode
 lbl_0807be70:
     ldr r0, [r4]
     ldrh r2, [r0]
@@ -8739,7 +8739,7 @@ lbl_0807bedc:
 lbl_0807beea:
     b lbl_0807c0f2
 lbl_0807beec:
-    ldr r0, lbl_0807bf14 @ =0x03001380
+    ldr r0, lbl_0807bf14 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #9
     ands r0, r1
@@ -8761,7 +8761,7 @@ lbl_0807befa:
     ldr r1, [r4]
     b lbl_0807c0f2
     .align 2, 0
-lbl_0807bf14: .4byte 0x03001380
+lbl_0807bf14: .4byte gChangedInput
 lbl_0807bf18: .4byte 0x0000fcff
 lbl_0807bf1c:
     ldr r1, [r4]
@@ -8872,7 +8872,7 @@ lbl_0807bfdc:
     .align 2, 0
 lbl_0807bfec: .4byte 0x03005808
 lbl_0807bff0:
-    ldr r0, lbl_0807c008 @ =0x03001380
+    ldr r0, lbl_0807c008 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #9
     ands r0, r1
@@ -8885,7 +8885,7 @@ lbl_0807bffe:
     ldr r1, [r4]
     b lbl_0807c0f2
     .align 2, 0
-lbl_0807c008: .4byte 0x03001380
+lbl_0807c008: .4byte gChangedInput
 lbl_0807c00c:
     ldr r0, lbl_0807c018 @ =0x03005808
     ldrb r0, [r0, #0xb]
@@ -8942,7 +8942,7 @@ lbl_0807c054:
     .align 2, 0
 lbl_0807c074: .4byte 0x08754bc4
 lbl_0807c078:
-    ldr r0, lbl_0807c090 @ =0x03001380
+    ldr r0, lbl_0807c090 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #9
     ands r0, r1
@@ -8955,7 +8955,7 @@ lbl_0807c084:
     strb r1, [r0]
     b lbl_0807c110
     .align 2, 0
-lbl_0807c090: .4byte 0x03001380
+lbl_0807c090: .4byte gChangedInput
 lbl_0807c094:
     ldr r0, [r4]
     ldrh r2, [r0]
@@ -9043,7 +9043,7 @@ FileSelectMenuSubroutine: @ 0x0807c124
     ldrh r0, [r1, #0x3c]
     adds r0, #1
     strh r0, [r1, #0x3c]
-    ldr r0, lbl_0807c14c @ =0x03000c72
+    ldr r0, lbl_0807c14c @ =gGameModeSub1
     movs r3, #0
     ldrsh r1, [r0, r3]
     adds r3, r0, #0
@@ -9058,7 +9058,7 @@ lbl_0807c13e:
     mov pc, r0
     .align 2, 0
 lbl_0807c148: .4byte 0x08754bc4
-lbl_0807c14c: .4byte 0x03000c72
+lbl_0807c14c: .4byte gGameModeSub1
 lbl_0807c150: .4byte lbl_0807c154
 lbl_0807c154: @ jump table
     .4byte lbl_0807c184 @ case 0
@@ -9074,21 +9074,21 @@ lbl_0807c154: @ jump table
     .4byte lbl_0807c24c @ case 10
     .4byte lbl_0807c2a4 @ case 11
 lbl_0807c184:
-    ldr r0, lbl_0807c19c @ =0x03000c74
+    ldr r0, lbl_0807c19c @ =gGameModeSub2
     movs r1, #0
     strb r1, [r0]
-    ldr r0, lbl_0807c1a0 @ =0x0300002f
+    ldr r0, lbl_0807c1a0 @ =gCutsceneToSkip
     strb r1, [r0]
     bl file_select_menu_init
-    ldr r1, lbl_0807c1a4 @ =0x03000c72
+    ldr r1, lbl_0807c1a4 @ =gGameModeSub1
     ldrh r0, [r1]
     subs r0, #1
     strh r0, [r1]
     b lbl_0807c2f6
     .align 2, 0
-lbl_0807c19c: .4byte 0x03000c74
-lbl_0807c1a0: .4byte 0x0300002f
-lbl_0807c1a4: .4byte 0x03000c72
+lbl_0807c19c: .4byte gGameModeSub2
+lbl_0807c1a0: .4byte gCutsceneToSkip
+lbl_0807c1a4: .4byte gGameModeSub1
 lbl_0807c1a8:
     bl sub_0807c568
     bl file_select_fading
@@ -9096,15 +9096,15 @@ lbl_0807c1a8:
     bne lbl_0807c1b6
     b lbl_0807c2f6
 lbl_0807c1b6:
-    ldr r1, lbl_0807c1c4 @ =0x03000c72
+    ldr r1, lbl_0807c1c4 @ =gGameModeSub1
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
-    ldr r1, lbl_0807c1c8 @ =0x03000c74
+    ldr r1, lbl_0807c1c8 @ =gGameModeSub2
     b lbl_0807c23c
     .align 2, 0
-lbl_0807c1c4: .4byte 0x03000c72
-lbl_0807c1c8: .4byte 0x03000c74
+lbl_0807c1c4: .4byte gGameModeSub1
+lbl_0807c1c8: .4byte gGameModeSub2
 lbl_0807c1cc:
     bl sub_0807d27c
     lsls r0, r0, #0x18
@@ -9116,40 +9116,40 @@ lbl_0807c1d8:
     ldr r1, [r0]
     movs r0, #0
     strh r0, [r1, #0x3c]
-    ldr r0, lbl_0807c1f8 @ =0x03000c74
+    ldr r0, lbl_0807c1f8 @ =gGameModeSub2
     movs r2, #0
     ldrsb r2, [r0, r2]
     adds r3, r0, #0
     cmp r2, #1
     bne lbl_0807c200
-    ldr r1, lbl_0807c1fc @ =0x03000c72
+    ldr r1, lbl_0807c1fc @ =gGameModeSub1
     movs r0, #7
     b lbl_0807c22a
     .align 2, 0
 lbl_0807c1f4: .4byte 0x08754bc4
-lbl_0807c1f8: .4byte 0x03000c74
-lbl_0807c1fc: .4byte 0x03000c72
+lbl_0807c1f8: .4byte gGameModeSub2
+lbl_0807c1fc: .4byte gGameModeSub1
 lbl_0807c200:
     cmp r2, #2
     bne lbl_0807c210
-    ldr r1, lbl_0807c20c @ =0x03000c72
+    ldr r1, lbl_0807c20c @ =gGameModeSub1
     movs r0, #4
     b lbl_0807c22a
     .align 2, 0
-lbl_0807c20c: .4byte 0x03000c72
+lbl_0807c20c: .4byte gGameModeSub1
 lbl_0807c210:
     cmp r2, #3
     bne lbl_0807c220
-    ldr r0, lbl_0807c21c @ =0x03000c72
+    ldr r0, lbl_0807c21c @ =gGameModeSub1
     strh r2, [r0]
     b lbl_0807c22c
     .align 2, 0
-lbl_0807c21c: .4byte 0x03000c72
+lbl_0807c21c: .4byte gGameModeSub1
 lbl_0807c220:
     adds r1, #0x3e
     movs r0, #0
     strb r0, [r1]
-    ldr r1, lbl_0807c244 @ =0x03000c72
+    ldr r1, lbl_0807c244 @ =gGameModeSub1
     movs r0, #0xa
 lbl_0807c22a:
     strh r0, [r1]
@@ -9166,29 +9166,29 @@ lbl_0807c23c:
     strb r0, [r1]
     b lbl_0807c2f6
     .align 2, 0
-lbl_0807c244: .4byte 0x03000c72
+lbl_0807c244: .4byte gGameModeSub1
 lbl_0807c248: .4byte 0x03000bf3
 lbl_0807c24c:
     bl settings_subroutine
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0807c2f6
-    ldr r0, lbl_0807c270 @ =0x03000c74
+    ldr r0, lbl_0807c270 @ =gGameModeSub2
     movs r3, #0
     ldrsb r3, [r0, r3]
     cmp r3, #0
     beq lbl_0807c278
     movs r0, #1
     bl sub_0807c4b0
-    ldr r1, lbl_0807c274 @ =0x03000c72
+    ldr r1, lbl_0807c274 @ =gGameModeSub1
     movs r0, #0xb
     strh r0, [r1]
     b lbl_0807c2f6
     .align 2, 0
-lbl_0807c270: .4byte 0x03000c74
-lbl_0807c274: .4byte 0x03000c72
+lbl_0807c270: .4byte gGameModeSub2
+lbl_0807c274: .4byte gGameModeSub1
 lbl_0807c278:
-    ldr r1, lbl_0807c29c @ =0x03000c72
+    ldr r1, lbl_0807c29c @ =gGameModeSub1
     movs r0, #2
     strh r0, [r1]
     ldr r2, lbl_0807c2a0 @ =0x08754bc4
@@ -9206,7 +9206,7 @@ lbl_0807c278:
     strh r3, [r0]
     b lbl_0807c2f6
     .align 2, 0
-lbl_0807c29c: .4byte 0x03000c72
+lbl_0807c29c: .4byte gGameModeSub1
 lbl_0807c2a0: .4byte 0x08754bc4
 lbl_0807c2a4:
     bl sub_0807c568
@@ -9224,14 +9224,14 @@ lbl_0807c2b4:
     ldr r1, [r0]
     movs r0, #0
     strh r0, [r1, #0x3c]
-    ldr r1, lbl_0807c2d8 @ =0x03000c72
+    ldr r1, lbl_0807c2d8 @ =gGameModeSub1
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
     b lbl_0807c2f6
     .align 2, 0
 lbl_0807c2d4: .4byte 0x08754bc4
-lbl_0807c2d8: .4byte 0x03000c72
+lbl_0807c2d8: .4byte gGameModeSub1
 lbl_0807c2dc:
     ldr r0, [r2]
     ldrh r0, [r0, #0x3c]
@@ -9602,7 +9602,7 @@ lbl_0807c5a0: .4byte 0x08754bb4
 sub_0807c5a4: @ 0x0807c5a4
     push {r4, lr}
     movs r1, #0
-    ldr r4, lbl_0807c5d8 @ =0x03000020
+    ldr r4, lbl_0807c5d8 @ =gLanguage
     movs r0, #0
     ldrsb r0, [r4, r0]
     cmp r0, #2
@@ -9629,7 +9629,7 @@ lbl_0807c5c6:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0807c5d8: .4byte 0x03000020
+lbl_0807c5d8: .4byte gLanguage
 lbl_0807c5dc: .4byte 0x03000c24
 
     thumb_func_start file_select_menu_init
@@ -9641,7 +9641,7 @@ file_select_menu_init: @ 0x0807c5e0
     sub sp, #4
     ldr r0, lbl_0807c798 @ =sub_0807cb20
     bl CallbackSetVBlank
-    ldr r2, lbl_0807c79c @ =0x030016c4
+    ldr r2, lbl_0807c79c @ =gNonGameplayRAM
     movs r3, #0xc5
     lsls r3, r3, #3
     movs r0, #0x20
@@ -9660,7 +9660,7 @@ file_select_menu_init: @ 0x0807c5e0
     strh r2, [r3]
     strh r2, [r0]
     ldr r2, lbl_0807c7a4 @ =0x04000054
-    ldr r1, lbl_0807c7a8 @ =0x030013ae
+    ldr r1, lbl_0807c7a8 @ =gWrittenToBLDY_NonGameplay
     movs r0, #0x10
     strh r0, [r1]
     strh r0, [r2]
@@ -9668,17 +9668,17 @@ file_select_menu_init: @ 0x0807c5e0
     movs r0, #0xff
     strh r0, [r3, #2]
     strh r0, [r1]
-    ldr r0, lbl_0807c7b0 @ =0x03001382
+    ldr r0, lbl_0807c7b0 @ =gNextOamSlot
     strb r4, [r0]
     bl ClearGfxRam
     bl ResetFreeOAM
-    ldr r1, lbl_0807c7b4 @ =0x03005806
-    ldr r0, lbl_0807c7b8 @ =0x03005807
+    ldr r1, lbl_0807c7b4 @ =gOamXOffset_NonGameplay
+    ldr r0, lbl_0807c7b8 @ =gOamYOffset_NonGameplay
     strb r4, [r0]
     strb r4, [r1]
-    ldr r0, lbl_0807c7bc @ =0x03000001
+    ldr r0, lbl_0807c7bc @ =gSramErrorFlag
     strb r4, [r0]
-    ldr r0, lbl_0807c7c0 @ =0x03000000
+    ldr r0, lbl_0807c7c0 @ =gDebugFlag
     strb r4, [r0]
     ldr r6, lbl_0807c7c4 @ =0x08754bb4
     ldr r2, [r6]
@@ -9697,7 +9697,7 @@ file_select_menu_init: @ 0x0807c5e0
     bl sub_080756c0
     bl sub_0807c5a4
     ldr r0, [r7]
-    ldr r2, lbl_0807c7c8 @ =0x03000c1e
+    ldr r2, lbl_0807c7c8 @ =gMostRecentSaveFile
     ldrb r1, [r2]
     adds r0, #0x24
     strb r1, [r0]
@@ -9760,7 +9760,7 @@ file_select_menu_init: @ 0x0807c5e0
     mov r3, sb
     bl BitFill
     ldr r1, lbl_0807c7f8 @ =0x08760b24
-    ldr r0, lbl_0807c7fc @ =0x03000020
+    ldr r0, lbl_0807c7fc @ =gLanguage
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -9807,7 +9807,7 @@ file_select_menu_init: @ 0x0807c5e0
     bl DMATransfer
     bl sub_08074c08
     bl sub_08078228
-    ldr r3, lbl_0807c820 @ =0x03000c72
+    ldr r3, lbl_0807c820 @ =gGameModeSub1
     movs r0, #2
     strh r0, [r3]
     ldr r1, lbl_0807c824 @ =0x03000c24
@@ -9830,18 +9830,18 @@ lbl_0807c78c:
     b lbl_0807c872
     .align 2, 0
 lbl_0807c798: .4byte sub_0807cb20
-lbl_0807c79c: .4byte 0x030016c4
+lbl_0807c79c: .4byte gNonGameplayRAM
 lbl_0807c7a0: .4byte 0x08754bc4
 lbl_0807c7a4: .4byte 0x04000054
-lbl_0807c7a8: .4byte 0x030013ae
+lbl_0807c7a8: .4byte gWrittenToBLDY_NonGameplay
 lbl_0807c7ac: .4byte 0x04000050
-lbl_0807c7b0: .4byte 0x03001382
-lbl_0807c7b4: .4byte 0x03005806
-lbl_0807c7b8: .4byte 0x03005807
-lbl_0807c7bc: .4byte 0x03000001
-lbl_0807c7c0: .4byte 0x03000000
+lbl_0807c7b0: .4byte gNextOamSlot
+lbl_0807c7b4: .4byte gOamXOffset_NonGameplay
+lbl_0807c7b8: .4byte gOamYOffset_NonGameplay
+lbl_0807c7bc: .4byte gSramErrorFlag
+lbl_0807c7c0: .4byte gDebugFlag
 lbl_0807c7c4: .4byte 0x08754bb4
-lbl_0807c7c8: .4byte 0x03000c1e
+lbl_0807c7c8: .4byte gMostRecentSaveFile
 lbl_0807c7cc: .4byte 0x08454818
 lbl_0807c7d0: .4byte 0x084548f8
 lbl_0807c7d4: .4byte 0x050001c0
@@ -9854,7 +9854,7 @@ lbl_0807c7ec: .4byte 0x06008000
 lbl_0807c7f0: .4byte 0x0845c0f4
 lbl_0807c7f4: .4byte 0x06010000
 lbl_0807c7f8: .4byte 0x08760b24
-lbl_0807c7fc: .4byte 0x03000020
+lbl_0807c7fc: .4byte gLanguage
 lbl_0807c800: .4byte 0x06000c00
 lbl_0807c804: .4byte 0x0845dbdc
 lbl_0807c808: .4byte 0x0600f800
@@ -9863,7 +9863,7 @@ lbl_0807c810: .4byte 0x0845e6dc
 lbl_0807c814: .4byte 0x0845ea80
 lbl_0807c818: .4byte 0x0845ee24
 lbl_0807c81c: .4byte 0x0600d800
-lbl_0807c820: .4byte 0x03000c72
+lbl_0807c820: .4byte gGameModeSub1
 lbl_0807c824: .4byte 0x03000c24
 lbl_0807c828:
     ldr r0, [r7]
@@ -9904,23 +9904,23 @@ lbl_0807c85c:
     movs r1, #0
 lbl_0807c872:
     strb r1, [r0]
-    ldr r2, lbl_0807c970 @ =0x03000bf4
-    ldr r0, lbl_0807c974 @ =0x03000bf6
+    ldr r2, lbl_0807c970 @ =gBG0HOFS_NonGameplay
+    ldr r0, lbl_0807c974 @ =gBG0VOFS_NonGameplay
     movs r3, #0x80
     lsls r3, r3, #4
     adds r1, r3, #0
     strh r1, [r0]
     strh r1, [r2]
-    ldr r2, lbl_0807c978 @ =0x03000bf8
-    ldr r0, lbl_0807c97c @ =0x03000bfa
+    ldr r2, lbl_0807c978 @ =gBG1HOFS_NonGameplay
+    ldr r0, lbl_0807c97c @ =gBG1VOFS_NonGameplay
     strh r1, [r0]
     strh r1, [r2]
-    ldr r2, lbl_0807c980 @ =0x03000bfc
-    ldr r0, lbl_0807c984 @ =0x03000bfe
+    ldr r2, lbl_0807c980 @ =gBG2HOFS_NonGameplay
+    ldr r0, lbl_0807c984 @ =gBG2VOFS_NonGameplay
     strh r1, [r0]
     strh r1, [r2]
-    ldr r2, lbl_0807c988 @ =0x03000c00
-    ldr r0, lbl_0807c98c @ =0x03000c02
+    ldr r2, lbl_0807c988 @ =gBG3HOFS_NonGameplay
+    ldr r0, lbl_0807c98c @ =gBG3VOFS_NonGameplay
     strh r1, [r0]
     strh r1, [r2]
     ldr r5, lbl_0807c96c @ =0x08754bc4
@@ -9990,7 +9990,7 @@ lbl_0807c872:
     ldrb r1, [r0]
     movs r0, #0
     bl sub_08078504
-    ldr r0, lbl_0807c9b4 @ =0x03000c72
+    ldr r0, lbl_0807c9b4 @ =gGameModeSub1
     movs r1, #0
     ldrsh r0, [r0, r1]
     cmp r0, #2
@@ -10026,14 +10026,14 @@ lbl_0807c872:
     .align 2, 0
 lbl_0807c968: .4byte 0x03000bf3
 lbl_0807c96c: .4byte 0x08754bc4
-lbl_0807c970: .4byte 0x03000bf4
-lbl_0807c974: .4byte 0x03000bf6
-lbl_0807c978: .4byte 0x03000bf8
-lbl_0807c97c: .4byte 0x03000bfa
-lbl_0807c980: .4byte 0x03000bfc
-lbl_0807c984: .4byte 0x03000bfe
-lbl_0807c988: .4byte 0x03000c00
-lbl_0807c98c: .4byte 0x03000c02
+lbl_0807c970: .4byte gBG0HOFS_NonGameplay
+lbl_0807c974: .4byte gBG0VOFS_NonGameplay
+lbl_0807c978: .4byte gBG1HOFS_NonGameplay
+lbl_0807c97c: .4byte gBG1VOFS_NonGameplay
+lbl_0807c980: .4byte gBG2HOFS_NonGameplay
+lbl_0807c984: .4byte gBG2VOFS_NonGameplay
+lbl_0807c988: .4byte gBG3HOFS_NonGameplay
+lbl_0807c98c: .4byte gBG3VOFS_NonGameplay
 lbl_0807c990: .4byte 0x00001f0b
 lbl_0807c994: .4byte 0x00001e02
 lbl_0807c998: .4byte 0x00001b01
@@ -10043,7 +10043,7 @@ lbl_0807c9a4: .4byte 0x0400000a
 lbl_0807c9a8: .4byte 0x0000ffff
 lbl_0807c9ac: .4byte 0x0400000e
 lbl_0807c9b0: .4byte 0x08760b38
-lbl_0807c9b4: .4byte 0x03000c72
+lbl_0807c9b4: .4byte gGameModeSub1
 lbl_0807c9b8:
     bl sub_08079ecc
     movs r0, #0
@@ -10064,7 +10064,7 @@ lbl_0807c9da:
     movs r0, #0
     bl sub_0807c4b0
     ldr r2, lbl_0807ca18 @ =0x04000054
-    ldr r1, lbl_0807ca1c @ =0x030013ae
+    ldr r1, lbl_0807ca1c @ =gWrittenToBLDY_NonGameplay
     movs r0, #0
     strh r0, [r1]
     strh r0, [r2]
@@ -10087,7 +10087,7 @@ lbl_0807c9da:
     .align 2, 0
 lbl_0807ca14: .4byte 0x0000fdff
 lbl_0807ca18: .4byte 0x04000054
-lbl_0807ca1c: .4byte 0x030013ae
+lbl_0807ca1c: .4byte gWrittenToBLDY_NonGameplay
 lbl_0807ca20: .4byte 0x08754bc4
 lbl_0807ca24: .4byte sub_0807ca28
 
@@ -10101,7 +10101,7 @@ sub_0807ca28: @ 0x0807ca28
     bl sub_0808a730
 lbl_0807ca36:
     ldr r1, lbl_0807cadc @ =0x040000d4
-    ldr r0, lbl_0807cae0 @ =0x03000e7c
+    ldr r0, lbl_0807cae0 @ =gOamData
     str r0, [r1]
     movs r0, #0xe0
     lsls r0, r0, #0x13
@@ -10110,42 +10110,42 @@ lbl_0807ca36:
     str r0, [r1, #8]
     ldr r0, [r1, #8]
     subs r1, #0xc4
-    ldr r0, lbl_0807cae8 @ =0x03000bf4
+    ldr r0, lbl_0807cae8 @ =gBG0HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807caec @ =0x03000bf6
+    ldr r0, lbl_0807caec @ =gBG0VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807caf0 @ =0x03000bf8
+    ldr r0, lbl_0807caf0 @ =gBG1HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807caf4 @ =0x03000bfa
+    ldr r0, lbl_0807caf4 @ =gBG1VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807caf8 @ =0x03000bfc
+    ldr r0, lbl_0807caf8 @ =gBG2HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807cafc @ =0x03000bfe
+    ldr r0, lbl_0807cafc @ =gBG2VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807cb00 @ =0x03000c00
+    ldr r0, lbl_0807cb00 @ =gBG3HOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_0807cb04 @ =0x03000c02
+    ldr r0, lbl_0807cb04 @ =gBG3VOFS_NonGameplay
     ldrh r0, [r0]
     lsrs r0, r0, #2
     strh r0, [r1]
@@ -10155,14 +10155,14 @@ lbl_0807ca36:
     ldrh r0, [r2]
     strh r0, [r1]
     adds r1, #0x54
-    ldr r0, lbl_0807cb0c @ =0x030013ae
+    ldr r0, lbl_0807cb0c @ =gWrittenToBLDY_NonGameplay
     ldrh r0, [r0]
     strh r0, [r1]
     ldr r3, lbl_0807cb10 @ =0x04000052
-    ldr r0, lbl_0807cb14 @ =0x030013b2
+    ldr r0, lbl_0807cb14 @ =gWrittenToBLDALPHA_H
     ldrh r0, [r0]
     lsls r0, r0, #8
-    ldr r1, lbl_0807cb18 @ =0x030013b0
+    ldr r1, lbl_0807cb18 @ =gWrittenToBLDALPHA_L
     ldrh r1, [r1]
     orrs r0, r1
     strh r0, [r3]
@@ -10183,21 +10183,21 @@ lbl_0807ca36:
     .align 2, 0
 lbl_0807cad8: .4byte 0x03005808
 lbl_0807cadc: .4byte 0x040000d4
-lbl_0807cae0: .4byte 0x03000e7c
+lbl_0807cae0: .4byte gOamData
 lbl_0807cae4: .4byte 0x84000100
-lbl_0807cae8: .4byte 0x03000bf4
-lbl_0807caec: .4byte 0x03000bf6
-lbl_0807caf0: .4byte 0x03000bf8
-lbl_0807caf4: .4byte 0x03000bfa
-lbl_0807caf8: .4byte 0x03000bfc
-lbl_0807cafc: .4byte 0x03000bfe
-lbl_0807cb00: .4byte 0x03000c00
-lbl_0807cb04: .4byte 0x03000c02
+lbl_0807cae8: .4byte gBG0HOFS_NonGameplay
+lbl_0807caec: .4byte gBG0VOFS_NonGameplay
+lbl_0807caf0: .4byte gBG1HOFS_NonGameplay
+lbl_0807caf4: .4byte gBG1VOFS_NonGameplay
+lbl_0807caf8: .4byte gBG2HOFS_NonGameplay
+lbl_0807cafc: .4byte gBG2VOFS_NonGameplay
+lbl_0807cb00: .4byte gBG3HOFS_NonGameplay
+lbl_0807cb04: .4byte gBG3VOFS_NonGameplay
 lbl_0807cb08: .4byte 0x08754bc4
-lbl_0807cb0c: .4byte 0x030013ae
+lbl_0807cb0c: .4byte gWrittenToBLDY_NonGameplay
 lbl_0807cb10: .4byte 0x04000052
-lbl_0807cb14: .4byte 0x030013b2
-lbl_0807cb18: .4byte 0x030013b0
+lbl_0807cb14: .4byte gWrittenToBLDALPHA_H
+lbl_0807cb18: .4byte gWrittenToBLDALPHA_L
 lbl_0807cb1c: .4byte 0x04000050
 
     thumb_func_start sub_0807cb20
@@ -10484,7 +10484,7 @@ lbl_0807cd7e:
     ldrb r0, [r2, #1]
     cmp r0, #0
     bne lbl_0807cda0
-    ldr r0, lbl_0807cd9c @ =0x03001530
+    ldr r0, lbl_0807cd9c @ =gEquipment
     ldrh r1, [r2, #4]
     strh r1, [r0, #6]
     ldrh r1, [r2, #6]
@@ -10494,7 +10494,7 @@ lbl_0807cd7e:
     b lbl_0807cdba
     .align 2, 0
 lbl_0807cd98: .4byte 0x03000c24
-lbl_0807cd9c: .4byte 0x03001530
+lbl_0807cd9c: .4byte gEquipment
 lbl_0807cda0:
     subs r0, r3, #1
     lsls r2, r0, #3
@@ -11039,7 +11039,7 @@ sub_0807d19c: @ 0x0807d19c
     adds r5, r1, #0
     lsls r0, r0, #0x18
     lsrs r4, r0, #0x18
-    ldr r0, lbl_0807d1b8 @ =0x03001380
+    ldr r0, lbl_0807d1b8 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #0x40
     ands r0, r1
@@ -11049,7 +11049,7 @@ sub_0807d19c: @ 0x0807d19c
     rsbs r3, r3, #0
     b lbl_0807d1ca
     .align 2, 0
-lbl_0807d1b8: .4byte 0x03001380
+lbl_0807d1b8: .4byte gChangedInput
 lbl_0807d1bc:
     movs r0, #0x80
     ands r0, r1
@@ -11194,7 +11194,7 @@ lbl_0807d2a0: @ jump table
 lbl_0807d2bc:
     movs r4, #0
     bl check_for_maintained_input
-    ldr r5, lbl_0807d2e0 @ =0x03001380
+    ldr r5, lbl_0807d2e0 @ =gChangedInput
     ldrh r0, [r5]
     cmp r0, #0
     beq lbl_0807d300
@@ -11209,7 +11209,7 @@ lbl_0807d2bc:
     movs r4, #1
     b lbl_0807d306
     .align 2, 0
-lbl_0807d2e0: .4byte 0x03001380
+lbl_0807d2e0: .4byte gChangedInput
 lbl_0807d2e4: .4byte 0x08754bc4
 lbl_0807d2e8:
     ldrh r1, [r5]
@@ -11257,11 +11257,11 @@ lbl_0807d338:
     bne lbl_0807d34c
     movs r0, #0
     bl FadeMusic
-    ldr r1, lbl_0807d348 @ =0x03000c74
+    ldr r1, lbl_0807d348 @ =gGameModeSub2
     movs r0, #3
     b lbl_0807d554
     .align 2, 0
-lbl_0807d348: .4byte 0x03000c74
+lbl_0807d348: .4byte gGameModeSub2
 lbl_0807d34c:
     cmp r4, #3
     beq lbl_0807d352
@@ -11387,7 +11387,7 @@ lbl_0807d43a:
     adds r0, #0x3a
     ldrb r0, [r0]
     ldr r5, lbl_0807d4c0 @ =0x03000c24
-    ldr r4, lbl_0807d4c4 @ =0x03000c1e
+    ldr r4, lbl_0807d4c4 @ =gMostRecentSaveFile
     cmp r0, #0
     blt lbl_0807d496
     cmp r0, #1
@@ -11428,7 +11428,7 @@ lbl_0807d43a:
 lbl_0807d494:
     strb r2, [r1, #0x15]
 lbl_0807d496:
-    ldr r2, lbl_0807d4c8 @ =0x03000c74
+    ldr r2, lbl_0807d4c8 @ =gGameModeSub2
     movs r0, #0
     ldrsb r0, [r4, r0]
     lsls r1, r0, #1
@@ -11449,8 +11449,8 @@ lbl_0807d4ae:
     .align 2, 0
 lbl_0807d4bc: .4byte 0x08754bc4
 lbl_0807d4c0: .4byte 0x03000c24
-lbl_0807d4c4: .4byte 0x03000c1e
-lbl_0807d4c8: .4byte 0x03000c74
+lbl_0807d4c4: .4byte gMostRecentSaveFile
+lbl_0807d4c8: .4byte gGameModeSub2
 lbl_0807d4cc:
     ldr r4, lbl_0807d4e0 @ =0x08754bc4
     ldr r0, [r4]
@@ -11510,14 +11510,14 @@ lbl_0807d544:
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0807d576
-    ldr r1, lbl_0807d55c @ =0x03000c74
+    ldr r1, lbl_0807d55c @ =gGameModeSub2
     movs r0, #0
 lbl_0807d554:
     strb r0, [r1]
     movs r0, #1
     b lbl_0807d57c
     .align 2, 0
-lbl_0807d55c: .4byte 0x03000c74
+lbl_0807d55c: .4byte gGameModeSub2
 lbl_0807d560:
     movs r0, #1
     bl sub_0807a2bc
@@ -11543,7 +11543,7 @@ lbl_0807d584: .4byte 0x08754bc4
     thumb_func_start check_inputting_time_attack_code
 check_inputting_time_attack_code: @ 0x0807d588
     push {r4, r5, r6, r7, lr}
-    ldr r0, lbl_0807d5ac @ =0x03001380
+    ldr r0, lbl_0807d5ac @ =gChangedInput
     ldrh r2, [r0]
     adds r6, r2, #0
     ldr r5, lbl_0807d5b0 @ =0x08754bc4
@@ -11561,7 +11561,7 @@ check_inputting_time_attack_code: @ 0x0807d588
     strh r0, [r1]
     b lbl_0807d622
     .align 2, 0
-lbl_0807d5ac: .4byte 0x03001380
+lbl_0807d5ac: .4byte gChangedInput
 lbl_0807d5b0: .4byte 0x08754bc4
 lbl_0807d5b4:
     ldr r0, lbl_0807d5c8 @ =0x0845f452
@@ -11707,7 +11707,7 @@ lbl_0807d66c: @ jump table
     .4byte lbl_0807e34c @ case 43
     .4byte lbl_0807e3d8 @ case 44
 lbl_0807d720:
-    ldr r2, lbl_0807d824 @ =0x03000c1e
+    ldr r2, lbl_0807d824 @ =gMostRecentSaveFile
     ldr r0, [r7]
     adds r0, #0x3f
     ldrb r1, [r0]
@@ -11779,9 +11779,9 @@ lbl_0807d720:
     subs r1, #2
     movs r0, #0x1f
     strb r0, [r1]
-    ldr r0, lbl_0807d838 @ =0x030013b2
+    ldr r0, lbl_0807d838 @ =gWrittenToBLDALPHA_H
     strh r3, [r0]
-    ldr r0, lbl_0807d83c @ =0x030013b0
+    ldr r0, lbl_0807d83c @ =gWrittenToBLDALPHA_L
     mov r1, r8
     strh r1, [r0]
     ldr r0, lbl_0807d840 @ =0x00003f42
@@ -11835,13 +11835,13 @@ lbl_0807d812:
     strb r0, [r2]
     bl lbl_0807e3b6
     .align 2, 0
-lbl_0807d824: .4byte 0x03000c1e
+lbl_0807d824: .4byte gMostRecentSaveFile
 lbl_0807d828: .4byte 0x08754bb4
 lbl_0807d82c: .4byte 0x0600f000
 lbl_0807d830: .4byte 0x04000040
 lbl_0807d834: .4byte 0x000046aa
-lbl_0807d838: .4byte 0x030013b2
-lbl_0807d83c: .4byte 0x030013b0
+lbl_0807d838: .4byte gWrittenToBLDALPHA_H
+lbl_0807d83c: .4byte gWrittenToBLDALPHA_L
 lbl_0807d840: .4byte 0x00003f42
 lbl_0807d844: .4byte 0x08760b38
 lbl_0807d848: .4byte 0x0000013f
@@ -11849,7 +11849,7 @@ lbl_0807d84c: .4byte 0x0000014f
 lbl_0807d850: .4byte 0x0000015f
 lbl_0807d854:
     movs r5, #1
-    ldr r1, lbl_0807d86c @ =0x030013b0
+    ldr r1, lbl_0807d86c @ =gWrittenToBLDALPHA_L
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_0807d872
@@ -11860,11 +11860,11 @@ lbl_0807d854:
     strh r5, [r1]
     b lbl_0807d872
     .align 2, 0
-lbl_0807d86c: .4byte 0x030013b0
+lbl_0807d86c: .4byte gWrittenToBLDALPHA_L
 lbl_0807d870:
     strh r0, [r1]
 lbl_0807d872:
-    ldr r1, lbl_0807d8e0 @ =0x030013b2
+    ldr r1, lbl_0807d8e0 @ =gWrittenToBLDALPHA_H
     ldrh r0, [r1]
     cmp r0, #0x10
     beq lbl_0807d886
@@ -11922,7 +11922,7 @@ lbl_0807d8ce:
     strb r0, [r2]
     bl lbl_0807e3b6
     .align 2, 0
-lbl_0807d8e0: .4byte 0x030013b2
+lbl_0807d8e0: .4byte gWrittenToBLDALPHA_H
 lbl_0807d8e4: .4byte 0x0000010f
 lbl_0807d8e8: .4byte 0x0000011f
 lbl_0807d8ec:
@@ -11936,7 +11936,7 @@ lbl_0807d8ec:
     movs r1, #0x80
     lsls r1, r1, #4
     adds r5, r0, r1
-    ldr r1, lbl_0807d918 @ =0x03000bfe
+    ldr r1, lbl_0807d918 @ =gBG2VOFS_NonGameplay
     ldrh r0, [r1]
     cmp r5, r0
     beq lbl_0807d91c
@@ -11947,7 +11947,7 @@ lbl_0807d8ec:
 lbl_0807d912:
     bl lbl_0807e30c
     .align 2, 0
-lbl_0807d918: .4byte 0x03000bfe
+lbl_0807d918: .4byte gBG2VOFS_NonGameplay
 lbl_0807d91c:
     adds r1, r2, #0
     bl lbl_0807e3b8
@@ -12030,7 +12030,7 @@ lbl_0807d9a4:
     strb r1, [r0]
 lbl_0807d9c8:
     movs r5, #0xff
-    ldr r0, lbl_0807da18 @ =0x03001380
+    ldr r0, lbl_0807da18 @ =gChangedInput
     ldrh r1, [r0]
     movs r2, #1
     adds r0, r2, #0
@@ -12070,7 +12070,7 @@ lbl_0807da0a:
     movs r1, #0x22
     b lbl_0807da84
     .align 2, 0
-lbl_0807da18: .4byte 0x03001380
+lbl_0807da18: .4byte gChangedInput
 lbl_0807da1c: .4byte 0x03000c24
 lbl_0807da20: .4byte 0x08754bc4
 lbl_0807da24:
@@ -12090,7 +12090,7 @@ lbl_0807da2e:
     movs r1, #0x27
     b lbl_0807da84
 lbl_0807da40:
-    ldr r0, lbl_0807daa0 @ =0x03000014
+    ldr r0, lbl_0807daa0 @ =gFileScreenOptionsUnlocked
     ldr r0, [r0, #8]
     ands r0, r2
     cmp r0, #0
@@ -12137,7 +12137,7 @@ lbl_0807da90:
     bl sub_0807e3fc
     bl lbl_0807e3e6
     .align 2, 0
-lbl_0807daa0: .4byte 0x03000014
+lbl_0807daa0: .4byte gFileScreenOptionsUnlocked
 lbl_0807daa4: .4byte 0x03000c24
 lbl_0807daa8:
     ldr r2, lbl_0807dae0 @ =0x03000c24
@@ -12225,7 +12225,7 @@ lbl_0807db36:
 lbl_0807db4c: .4byte 0x08754bc4
 lbl_0807db50:
     movs r5, #0xff
-    ldr r0, lbl_0807db7c @ =0x03001380
+    ldr r0, lbl_0807db7c @ =gChangedInput
     ldrh r1, [r0]
     cmp r1, #0
     beq lbl_0807dc02
@@ -12246,7 +12246,7 @@ lbl_0807db50:
     strb r1, [r0]
     b lbl_0807dc02
     .align 2, 0
-lbl_0807db7c: .4byte 0x03001380
+lbl_0807db7c: .4byte gChangedInput
 lbl_0807db80:
     movs r0, #2
     ands r0, r1
@@ -12402,7 +12402,7 @@ lbl_0807dca4: .4byte 0x08754bc4
 lbl_0807dca8: .4byte 0x08760b38
 lbl_0807dcac:
     movs r5, #0xff
-    ldr r0, lbl_0807dcdc @ =0x03001380
+    ldr r0, lbl_0807dcdc @ =gChangedInput
     ldrh r1, [r0]
     cmp r1, #0
     beq lbl_0807dd64
@@ -12425,7 +12425,7 @@ lbl_0807dcac:
     bl SoundPlay
     b lbl_0807dcee
     .align 2, 0
-lbl_0807dcdc: .4byte 0x03001380
+lbl_0807dcdc: .4byte gChangedInput
 lbl_0807dce0: .4byte 0x08754bc4
 lbl_0807dce4: .4byte 0x00000209
 lbl_0807dce8:
@@ -12644,7 +12644,7 @@ lbl_0807de74:
 lbl_0807de88: .4byte 0x08754bc4
 lbl_0807de8c:
     movs r5, #0xff
-    ldr r0, lbl_0807deb8 @ =0x03001380
+    ldr r0, lbl_0807deb8 @ =gChangedInput
     ldrh r1, [r0]
     cmp r1, #0
     beq lbl_0807df24
@@ -12665,7 +12665,7 @@ lbl_0807de8c:
     strb r1, [r0]
     b lbl_0807df24
     .align 2, 0
-lbl_0807deb8: .4byte 0x03001380
+lbl_0807deb8: .4byte gChangedInput
 lbl_0807debc:
     movs r0, #2
     ands r0, r1
@@ -12841,7 +12841,7 @@ lbl_0807dff8:
 lbl_0807e00c: .4byte 0x08754bc4
 lbl_0807e010:
     movs r5, #0xff
-    ldr r0, lbl_0807e040 @ =0x03001380
+    ldr r0, lbl_0807e040 @ =gChangedInput
     ldrh r1, [r0]
     cmp r1, #0
     beq lbl_0807e0c6
@@ -12864,7 +12864,7 @@ lbl_0807e010:
     strb r1, [r0]
     b lbl_0807e0c6
     .align 2, 0
-lbl_0807e040: .4byte 0x03001380
+lbl_0807e040: .4byte gChangedInput
 lbl_0807e044:
     movs r0, #2
     ands r0, r1
@@ -12987,7 +12987,7 @@ lbl_0807e11e:
     bl sub_0807ef7c
     b lbl_0807e3b6
 lbl_0807e132:
-    ldr r0, lbl_0807e160 @ =0x03001380
+    ldr r0, lbl_0807e160 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #2
     ands r0, r1
@@ -13011,9 +13011,9 @@ lbl_0807e154:
     adds r1, r2, #0
     b lbl_0807e3b8
     .align 2, 0
-lbl_0807e160: .4byte 0x03001380
+lbl_0807e160: .4byte gChangedInput
 lbl_0807e164:
-    ldr r0, lbl_0807e17c @ =0x03001380
+    ldr r0, lbl_0807e17c @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #2
     ands r0, r1
@@ -13026,7 +13026,7 @@ lbl_0807e170:
     strb r1, [r0]
     b lbl_0807e3e6
     .align 2, 0
-lbl_0807e17c: .4byte 0x03001380
+lbl_0807e17c: .4byte gChangedInput
 lbl_0807e180:
     ldr r0, [r7]
     adds r0, #0x42
@@ -13176,18 +13176,18 @@ lbl_0807e298:
     strh r0, [r2]
     ldrh r0, [r2, #0x18]
     strh r0, [r2, #6]
-    ldr r0, lbl_0807e2bc @ =0x03000bf8
+    ldr r0, lbl_0807e2bc @ =gBG1HOFS_NonGameplay
     movs r5, #0x80
     lsls r5, r5, #4
     adds r1, r5, #0
     strh r1, [r0]
-    ldr r0, lbl_0807e2c0 @ =0x03000bfa
+    ldr r0, lbl_0807e2c0 @ =gBG1VOFS_NonGameplay
     strh r1, [r0]
     adds r1, r2, #0
     b lbl_0807e3b8
     .align 2, 0
-lbl_0807e2bc: .4byte 0x03000bf8
-lbl_0807e2c0: .4byte 0x03000bfa
+lbl_0807e2bc: .4byte gBG1HOFS_NonGameplay
+lbl_0807e2c0: .4byte gBG1VOFS_NonGameplay
 lbl_0807e2c4:
     ldr r0, [r7]
     adds r0, #0x3f
@@ -13211,7 +13211,7 @@ lbl_0807e2c4:
 lbl_0807e2ec:
     movs r5, #0x80
     lsls r5, r5, #4
-    ldr r1, lbl_0807e308 @ =0x03000bfe
+    ldr r1, lbl_0807e308 @ =gBG2VOFS_NonGameplay
     ldrh r0, [r1]
     cmp r5, r0
     beq lbl_0807e310
@@ -13225,7 +13225,7 @@ sub_0807e2fe: @ 0x0807e2fe
     b lbl_0807e3e6
     .align 2, 0
 lbl_0807e304: .4byte 0x0600f000
-lbl_0807e308: .4byte 0x03000bfe
+lbl_0807e308: .4byte gBG2VOFS_NonGameplay
 lbl_0807e30c:
     strh r0, [r1]
     b lbl_0807e3e6
@@ -13260,7 +13260,7 @@ lbl_0807e344: .4byte 0x0000010f
 lbl_0807e348: .4byte 0x0000011f
 lbl_0807e34c:
     movs r5, #1
-    ldr r1, lbl_0807e364 @ =0x030013b2
+    ldr r1, lbl_0807e364 @ =gWrittenToBLDALPHA_H
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_0807e36a
@@ -13271,11 +13271,11 @@ lbl_0807e34c:
     strh r5, [r1]
     b lbl_0807e36a
     .align 2, 0
-lbl_0807e364: .4byte 0x030013b2
+lbl_0807e364: .4byte gWrittenToBLDALPHA_H
 lbl_0807e368:
     strh r0, [r1]
 lbl_0807e36a:
-    ldr r1, lbl_0807e3c4 @ =0x030013b0
+    ldr r1, lbl_0807e3c4 @ =gWrittenToBLDALPHA_L
     ldrh r0, [r1]
     cmp r0, #0x10
     beq lbl_0807e37e
@@ -13324,7 +13324,7 @@ lbl_0807e3b8:
     strb r0, [r1]
     b lbl_0807e3e6
     .align 2, 0
-lbl_0807e3c4: .4byte 0x030013b0
+lbl_0807e3c4: .4byte gWrittenToBLDALPHA_L
 lbl_0807e3c8: .4byte 0x0000fbff
 lbl_0807e3cc: .4byte 0x0000013f
 lbl_0807e3d0: .4byte 0x0000014f
@@ -13820,12 +13820,12 @@ lbl_0807e7a4:
     bl UpdateMenuOamDataID
     movs r0, #5
     bl sub_0807ef7c
-    ldr r1, lbl_0807e7f0 @ =0x03000bf8
+    ldr r1, lbl_0807e7f0 @ =gBG1HOFS_NonGameplay
     movs r2, #0xf8
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807e7f4 @ =0x03000bfa
+    ldr r1, lbl_0807e7f4 @ =gBG1VOFS_NonGameplay
     movs r3, #0xed
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -13839,8 +13839,8 @@ lbl_0807e7a4:
     b lbl_0807ee54
     .align 2, 0
 lbl_0807e7ec: .4byte 0x08754bc4
-lbl_0807e7f0: .4byte 0x03000bf8
-lbl_0807e7f4: .4byte 0x03000bfa
+lbl_0807e7f0: .4byte gBG1HOFS_NonGameplay
+lbl_0807e7f4: .4byte gBG1VOFS_NonGameplay
 lbl_0807e7f8: .4byte 0x08754bb4
 lbl_0807e7fc: .4byte 0x0600e800
 lbl_0807e800:
@@ -13886,12 +13886,12 @@ lbl_0807e838:
     bl UpdateMenuOamDataID
     movs r0, #5
     bl sub_0807ef7c
-    ldr r1, lbl_0807e87c @ =0x03000bf4
+    ldr r1, lbl_0807e87c @ =gBG0HOFS_NonGameplay
     movs r2, #0xe0
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807e880 @ =0x03000bf6
+    ldr r1, lbl_0807e880 @ =gBG0VOFS_NonGameplay
     movs r3, #0xe4
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -13904,8 +13904,8 @@ lbl_0807e838:
     b lbl_0807ee52
     .align 2, 0
 lbl_0807e878: .4byte 0x08754bc4
-lbl_0807e87c: .4byte 0x03000bf4
-lbl_0807e880: .4byte 0x03000bf6
+lbl_0807e87c: .4byte gBG0HOFS_NonGameplay
+lbl_0807e880: .4byte gBG0VOFS_NonGameplay
 lbl_0807e884: .4byte 0x08754bb4
 lbl_0807e888:
     ldr r4, lbl_0807e8ac @ =0x08754bc4
@@ -13957,12 +13957,12 @@ lbl_0807e8cc:
     bl UpdateMenuOamDataID
     movs r0, #5
     bl sub_0807ef7c
-    ldr r1, lbl_0807e908 @ =0x03000bf4
+    ldr r1, lbl_0807e908 @ =gBG0HOFS_NonGameplay
     movs r2, #0xe0
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807e90c @ =0x03000bf6
+    ldr r1, lbl_0807e90c @ =gBG0VOFS_NonGameplay
     movs r3, #0xe4
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -13970,8 +13970,8 @@ lbl_0807e8cc:
     b lbl_0807eec8
     .align 2, 0
 lbl_0807e904: .4byte 0x08754bc4
-lbl_0807e908: .4byte 0x03000bf4
-lbl_0807e90c: .4byte 0x03000bf6
+lbl_0807e908: .4byte gBG0HOFS_NonGameplay
+lbl_0807e90c: .4byte gBG0VOFS_NonGameplay
 lbl_0807e910:
     ldr r0, lbl_0807e960 @ =0x08754bc4
     mov r8, r0
@@ -14047,12 +14047,12 @@ lbl_0807e988:
     bl UpdateMenuOamDataID
     movs r0, #5
     bl sub_0807ef7c
-    ldr r1, lbl_0807e9f8 @ =0x03000bf8
+    ldr r1, lbl_0807e9f8 @ =gBG1HOFS_NonGameplay
     movs r2, #0xd9
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807e9fc @ =0x03000bfa
+    ldr r1, lbl_0807e9fc @ =gBG1VOFS_NonGameplay
     movs r3, #0xd5
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -14083,8 +14083,8 @@ lbl_0807e988:
     b lbl_0807ee8a
     .align 2, 0
 lbl_0807e9f4: .4byte 0x08754bc4
-lbl_0807e9f8: .4byte 0x03000bf8
-lbl_0807e9fc: .4byte 0x03000bfa
+lbl_0807e9f8: .4byte gBG1HOFS_NonGameplay
+lbl_0807e9fc: .4byte gBG1VOFS_NonGameplay
 lbl_0807ea00: .4byte 0x08754bb4
 lbl_0807ea04: .4byte 0x0600e800
 lbl_0807ea08: .4byte 0x0000fdff
@@ -14134,12 +14134,12 @@ lbl_0807ea44:
 lbl_0807ea5c: .4byte 0x08754bc4
 lbl_0807ea60: .4byte 0x0000fdff
 lbl_0807ea64:
-    ldr r1, lbl_0807ea84 @ =0x03000bf4
+    ldr r1, lbl_0807ea84 @ =gBG0HOFS_NonGameplay
     movs r3, #0xd9
     lsls r3, r3, #3
     adds r0, r3, #0
     strh r0, [r1]
-    ldr r1, lbl_0807ea88 @ =0x03000bf6
+    ldr r1, lbl_0807ea88 @ =gBG0VOFS_NonGameplay
     movs r2, #0xd5
     lsls r2, r2, #3
     adds r0, r2, #0
@@ -14150,8 +14150,8 @@ lbl_0807ea64:
     lsls r3, r3, #7
     b lbl_0807ee50
     .align 2, 0
-lbl_0807ea84: .4byte 0x03000bf4
-lbl_0807ea88: .4byte 0x03000bf6
+lbl_0807ea84: .4byte gBG0HOFS_NonGameplay
+lbl_0807ea88: .4byte gBG0VOFS_NonGameplay
 lbl_0807ea8c: .4byte 0x08754bb4
 lbl_0807ea90:
     movs r0, #1
@@ -14192,12 +14192,12 @@ lbl_0807eabc:
     bl UpdateMenuOamDataID
     movs r0, #5
     bl sub_0807ef7c
-    ldr r1, lbl_0807eb2c @ =0x03000bf8
+    ldr r1, lbl_0807eb2c @ =gBG1HOFS_NonGameplay
     movs r2, #0xd9
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807eb30 @ =0x03000bfa
+    ldr r1, lbl_0807eb30 @ =gBG1VOFS_NonGameplay
     movs r3, #0xd5
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -14228,8 +14228,8 @@ lbl_0807eabc:
     b lbl_0807ee8a
     .align 2, 0
 lbl_0807eb28: .4byte 0x08754bc4
-lbl_0807eb2c: .4byte 0x03000bf8
-lbl_0807eb30: .4byte 0x03000bfa
+lbl_0807eb2c: .4byte gBG1HOFS_NonGameplay
+lbl_0807eb30: .4byte gBG1VOFS_NonGameplay
 lbl_0807eb34: .4byte 0x08754bb4
 lbl_0807eb38: .4byte 0x0600e800
 lbl_0807eb3c: .4byte 0x0000fdff
@@ -14301,12 +14301,12 @@ lbl_0807ebaa:
     adds r1, r3, #0
     orrs r0, r1
     strh r0, [r2]
-    ldr r0, lbl_0807ebdc @ =0x03000bf8
+    ldr r0, lbl_0807ebdc @ =gBG1HOFS_NonGameplay
     movs r2, #0x80
     lsls r2, r2, #4
     adds r1, r2, #0
     strh r1, [r0]
-    ldr r0, lbl_0807ebe0 @ =0x03000bfa
+    ldr r0, lbl_0807ebe0 @ =gBG1VOFS_NonGameplay
     strh r1, [r0]
 lbl_0807ebd0:
     movs r6, #1
@@ -14314,15 +14314,15 @@ lbl_0807ebd0:
     .align 2, 0
 lbl_0807ebd4: .4byte 0x08754bc4
 lbl_0807ebd8: .4byte 0x0000fbff
-lbl_0807ebdc: .4byte 0x03000bf8
-lbl_0807ebe0: .4byte 0x03000bfa
+lbl_0807ebdc: .4byte gBG1HOFS_NonGameplay
+lbl_0807ebe0: .4byte gBG1VOFS_NonGameplay
 lbl_0807ebe4:
-    ldr r1, lbl_0807ec04 @ =0x03000bf4
+    ldr r1, lbl_0807ec04 @ =gBG0HOFS_NonGameplay
     movs r3, #0xd9
     lsls r3, r3, #3
     adds r0, r3, #0
     strh r0, [r1]
-    ldr r1, lbl_0807ec08 @ =0x03000bf6
+    ldr r1, lbl_0807ec08 @ =gBG0VOFS_NonGameplay
     movs r2, #0xd5
     lsls r2, r2, #3
     adds r0, r2, #0
@@ -14333,8 +14333,8 @@ lbl_0807ebe4:
     lsls r3, r3, #7
     b lbl_0807ee50
     .align 2, 0
-lbl_0807ec04: .4byte 0x03000bf4
-lbl_0807ec08: .4byte 0x03000bf6
+lbl_0807ec04: .4byte gBG0HOFS_NonGameplay
+lbl_0807ec08: .4byte gBG0VOFS_NonGameplay
 lbl_0807ec0c: .4byte 0x08754bb4
 lbl_0807ec10:
     movs r0, #1
@@ -14421,12 +14421,12 @@ lbl_0807eca4:
     bl UpdateMenuOamDataID
     movs r0, #5
     bl sub_0807ef7c
-    ldr r1, lbl_0807ece8 @ =0x03000bf4
+    ldr r1, lbl_0807ece8 @ =gBG0HOFS_NonGameplay
     movs r2, #0xe0
     lsls r2, r2, #3
     adds r0, r2, #0
     strh r0, [r1]
-    ldr r1, lbl_0807ecec @ =0x03000bf6
+    ldr r1, lbl_0807ecec @ =gBG0VOFS_NonGameplay
     movs r3, #0xe4
     lsls r3, r3, #3
     adds r0, r3, #0
@@ -14439,8 +14439,8 @@ lbl_0807eca4:
     b lbl_0807ee52
     .align 2, 0
 lbl_0807ece4: .4byte 0x08754bc4
-lbl_0807ece8: .4byte 0x03000bf4
-lbl_0807ecec: .4byte 0x03000bf6
+lbl_0807ece8: .4byte gBG0HOFS_NonGameplay
+lbl_0807ecec: .4byte gBG0VOFS_NonGameplay
 lbl_0807ecf0: .4byte 0x08754bb4
 lbl_0807ecf4:
     ldr r4, lbl_0807ed30 @ =0x08754bc4
@@ -14574,12 +14574,12 @@ lbl_0807eddc:
     strh r1, [r0]
     movs r1, #0x26
     bl UpdateMenuOamDataID
-    ldr r0, lbl_0807ee28 @ =0x03000bf4
+    ldr r0, lbl_0807ee28 @ =gBG0HOFS_NonGameplay
     movs r3, #0xec
     lsls r3, r3, #3
     adds r1, r3, #0
     strh r1, [r0]
-    ldr r0, lbl_0807ee2c @ =0x03000bf6
+    ldr r0, lbl_0807ee2c @ =gBG0VOFS_NonGameplay
     strh r1, [r0]
     ldr r0, [r4]
     adds r0, #0x47
@@ -14595,8 +14595,8 @@ lbl_0807eddc:
     .align 2, 0
 lbl_0807ee20: .4byte 0x000001fd
 lbl_0807ee24: .4byte 0x08754bc4
-lbl_0807ee28: .4byte 0x03000bf4
-lbl_0807ee2c: .4byte 0x03000bf6
+lbl_0807ee28: .4byte gBG0HOFS_NonGameplay
+lbl_0807ee2c: .4byte gBG0VOFS_NonGameplay
 lbl_0807ee30: .4byte 0x08754bb4
 lbl_0807ee34:
     cmp r0, #2

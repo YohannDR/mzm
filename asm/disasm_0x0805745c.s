@@ -28,7 +28,7 @@ GadoraHatchUpdate: @ 0x0805790c
     lsls r1, r1, #0x10
     mov ip, r1
     mov sb, r3
-    ldr r3, lbl_08057990 @ =0x0300545c
+    ldr r3, lbl_08057990 @ =gHatchData
     movs r0, #2
     rsbs r0, r0, #0
     mov sl, r0
@@ -73,7 +73,7 @@ lbl_08057974:
     strb r0, [r3]
     b lbl_0805799c
     .align 2, 0
-lbl_08057990: .4byte 0x0300545c
+lbl_08057990: .4byte gHatchData
 lbl_08057994:
     adds r3, #8
     adds r4, #1

@@ -17,7 +17,7 @@ samus_check_screw_speedboost_affecting_environment: @ 0x08005368
     beq lbl_0800538e
     cmp r0, #0xb
     bne lbl_08005390
-    ldr r0, lbl_08005418 @ =0x03001530
+    ldr r0, lbl_08005418 @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #8
     ands r0, r1
@@ -94,7 +94,7 @@ lbl_0800540c:
     bl samus_apply_screw_speedbooster_damage_to_environment
     b lbl_0800543e
     .align 2, 0
-lbl_08005418: .4byte 0x03001530
+lbl_08005418: .4byte gEquipment
 lbl_0800541c: .4byte 0xffc00000
 lbl_08005420:
     cmp r7, #0
@@ -612,7 +612,7 @@ sub_080057ec: @ 0x080057ec
     push {r5, r6, r7}
     adds r6, r0, #0
     lsls r1, r1, #0x10
-    ldr r0, lbl_08005898 @ =0x03001588
+    ldr r0, lbl_08005898 @ =gSamusPhysics
     mov sl, r0
     asrs r1, r1, #0x10
     ldrh r0, [r6, #0x14]
@@ -690,7 +690,7 @@ lbl_08005886:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08005898: .4byte 0x03001588
+lbl_08005898: .4byte gSamusPhysics
 lbl_0800589c: .4byte 0x0823a566
 
     thumb_func_start sub_080058a0
@@ -751,7 +751,7 @@ lbl_080058e2:
     adds r0, #1
     strb r0, [r1]
 lbl_0800590c:
-    ldr r0, lbl_080059a0 @ =0x030013f4
+    ldr r0, lbl_080059a0 @ =gSamusDataCopy
     strb r2, [r0, #0xa]
     ldrh r0, [r6, #0x1a]
     cmp r0, #0
@@ -824,7 +824,7 @@ lbl_0800594c:
     movs r0, #0xfe
     b lbl_08005ac4
     .align 2, 0
-lbl_080059a0: .4byte 0x030013f4
+lbl_080059a0: .4byte gSamusDataCopy
 lbl_080059a4:
     ldrh r0, [r5]
     strh r0, [r6, #0x14]
@@ -999,7 +999,7 @@ sub_08005ad8: @ 0x08005ad8
     mov r8, r1
     ldrh r0, [r4, #0x12]
     ldr r6, lbl_08005b50 @ =0x0000ffc0
-    ldr r7, lbl_08005b54 @ =0x03001600
+    ldr r7, lbl_08005b54 @ =gPreviousXPosition
     ldrh r2, [r7]
     adds r1, r6, #0
     ands r1, r0
@@ -1052,7 +1052,7 @@ sub_08005ad8: @ 0x08005ad8
     b lbl_08005b78
     .align 2, 0
 lbl_08005b50: .4byte 0x0000ffc0
-lbl_08005b54: .4byte 0x03001600
+lbl_08005b54: .4byte gPreviousXPosition
 lbl_08005b58:
     cmp r0, #1
     bne lbl_08005b7e
@@ -1240,7 +1240,7 @@ lbl_08005ca8:
     ldr r1, lbl_08005d2c @ =0x0000ffc0
     ands r1, r0
     str r1, [sp, #0x14]
-    ldr r0, lbl_08005d30 @ =0x03001602
+    ldr r0, lbl_08005d30 @ =gPreviousYPosition
     ldrh r0, [r0]
     ldr r2, lbl_08005d2c @ =0x0000ffc0
     mov sl, r2
@@ -1301,7 +1301,7 @@ lbl_08005ca8:
     b lbl_08005de6
     .align 2, 0
 lbl_08005d2c: .4byte 0x0000ffc0
-lbl_08005d30: .4byte 0x03001602
+lbl_08005d30: .4byte gPreviousYPosition
 lbl_08005d34:
     strh r1, [r6, #0x1a]
     mov r2, r8
@@ -1543,12 +1543,12 @@ lbl_08005ed8:
     adds r0, #0x3f
 lbl_08005eec:
     strh r0, [r6, #0x12]
-    ldr r1, lbl_08005ef8 @ =0x03001600
+    ldr r1, lbl_08005ef8 @ =gPreviousXPosition
     strh r0, [r1]
     b lbl_08005f24
     .align 2, 0
 lbl_08005ef4: .4byte 0x0000ffc0
-lbl_08005ef8: .4byte 0x03001600
+lbl_08005ef8: .4byte gPreviousXPosition
 lbl_08005efc:
     movs r0, #6
     ands r1, r0
@@ -1664,13 +1664,13 @@ lbl_08005fcc:
     beq lbl_08005fd4
     b lbl_080060dc
 lbl_08005fd4:
-    ldr r2, lbl_080060b8 @ =0x03001530
+    ldr r2, lbl_080060b8 @ =gEquipment
     ldrb r1, [r2, #0xf]
     movs r0, #0x80
     ands r0, r1
     cmp r0, #0
     beq lbl_080060dc
-    ldr r0, lbl_080060bc @ =0x0300137c
+    ldr r0, lbl_080060bc @ =gButtonInput
     ldrh r0, [r0]
     ldrh r1, [r5, #0xe]
     ands r0, r1
@@ -1764,7 +1764,7 @@ lbl_08006078:
     beq lbl_080060dc
     cmp r6, #0
     bne lbl_080060dc
-    ldr r2, lbl_080060b8 @ =0x03001530
+    ldr r2, lbl_080060b8 @ =gEquipment
     ldrb r0, [r2, #0x12]
     cmp r0, #2
     bne lbl_080060c0
@@ -1774,8 +1774,8 @@ lbl_08006078:
     bl SoundPlay
     b lbl_080060dc
     .align 2, 0
-lbl_080060b8: .4byte 0x03001530
-lbl_080060bc: .4byte 0x0300137c
+lbl_080060b8: .4byte gEquipment
+lbl_080060bc: .4byte gButtonInput
 lbl_080060c0:
     movs r1, #0x15
     mov sl, r1
@@ -1856,11 +1856,11 @@ lbl_08006100: @ jump table
     .4byte lbl_080061de @ case 42
     .4byte lbl_080061de @ case 43
 lbl_080061b0:
-    ldr r0, lbl_080061c8 @ =0x03001530
+    ldr r0, lbl_080061c8 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_080061e2
-    ldr r0, lbl_080061cc @ =0x030013f4
+    ldr r0, lbl_080061cc @ =gSamusDataCopy
     ldrb r0, [r0, #0xa]
     cmp r0, #1
     bne lbl_080061e2
@@ -1868,8 +1868,8 @@ lbl_080061b0:
     mov sl, r2
     b lbl_080061e2
     .align 2, 0
-lbl_080061c8: .4byte 0x03001530
-lbl_080061cc: .4byte 0x030013f4
+lbl_080061c8: .4byte gEquipment
+lbl_080061cc: .4byte gSamusDataCopy
 lbl_080061d0:
     movs r0, #8
     strb r0, [r5, #7]
@@ -1919,7 +1919,7 @@ samus_apply_environment_effects: @ 0x08006214
     sub sp, #0x10
     adds r6, r0, #0
     mov sb, r2
-    ldr r0, lbl_08006270 @ =0x03001588
+    ldr r0, lbl_08006270 @ =gSamusPhysics
     mov sl, r0
     movs r7, #0
     movs r2, #1
@@ -1928,7 +1928,7 @@ samus_apply_environment_effects: @ 0x08006214
     bne lbl_08006278
     movs r3, #0
     str r3, [sp, #8]
-    ldr r1, lbl_08006274 @ =0x0300154c
+    ldr r1, lbl_08006274 @ =gSamusEnvironmentalEffects
     ldrb r0, [r1]
     cmp r0, #0
     beq lbl_0800625c
@@ -1960,8 +1960,8 @@ lbl_08006262:
     str r0, [sp, #4]
     b lbl_0800627e
     .align 2, 0
-lbl_08006270: .4byte 0x03001588
-lbl_08006274: .4byte 0x0300154c
+lbl_08006270: .4byte gSamusPhysics
+lbl_08006274: .4byte gSamusEnvironmentalEffects
 lbl_08006278:
     lsls r0, r1, #0x18
     lsrs r0, r0, #0x18
@@ -2020,7 +2020,7 @@ lbl_080062c8:
     mov r2, sb
     cmp r2, #0
     bne lbl_0800630c
-    ldr r0, lbl_08006300 @ =0x03001530
+    ldr r0, lbl_08006300 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_08006304
@@ -2028,13 +2028,13 @@ lbl_080062c8:
     bl SoundPlay
     b lbl_08006366
     .align 2, 0
-lbl_08006300: .4byte 0x03001530
+lbl_08006300: .4byte gEquipment
 lbl_08006304:
     movs r0, #0x68
     bl SoundPlay
     b lbl_08006366
 lbl_0800630c:
-    ldr r0, lbl_0800631c @ =0x03001530
+    ldr r0, lbl_0800631c @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_08006320
@@ -2042,7 +2042,7 @@ lbl_0800630c:
     bl SoundPlay
     b lbl_08006366
     .align 2, 0
-lbl_0800631c: .4byte 0x03001530
+lbl_0800631c: .4byte gEquipment
 lbl_08006320:
     movs r0, #0x69
     bl SoundPlay
@@ -2098,7 +2098,7 @@ lbl_0800636c:
     adds r0, r7, #1
     lsls r0, r0, #0x18
     lsrs r7, r0, #0x18
-    ldr r0, lbl_0800639c @ =0x03001530
+    ldr r0, lbl_0800639c @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_080063a0
@@ -2106,7 +2106,7 @@ lbl_0800636c:
     bl SoundPlay
     b lbl_0800641a
     .align 2, 0
-lbl_0800639c: .4byte 0x03001530
+lbl_0800639c: .4byte gEquipment
 lbl_080063a0:
     movs r0, #0x74
     bl SoundPlay
@@ -2148,7 +2148,7 @@ lbl_080063d8:
     bl SoundPlay
     b lbl_0800641a
 lbl_080063ea:
-    ldr r0, lbl_080063fc @ =0x030013f4
+    ldr r0, lbl_080063fc @ =gSamusDataCopy
     ldrh r0, [r0, #0xc]
     cmp r0, #0
     beq lbl_08006400
@@ -2156,9 +2156,9 @@ lbl_080063ea:
     bl SoundPlay
     b lbl_0800641a
     .align 2, 0
-lbl_080063fc: .4byte 0x030013f4
+lbl_080063fc: .4byte gSamusDataCopy
 lbl_08006400:
-    ldr r0, lbl_08006410 @ =0x03001530
+    ldr r0, lbl_08006410 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     beq lbl_08006414
@@ -2166,7 +2166,7 @@ lbl_08006400:
     bl SoundPlay
     b lbl_0800641a
     .align 2, 0
-lbl_08006410: .4byte 0x03001530
+lbl_08006410: .4byte gEquipment
 lbl_08006414:
     movs r0, #0x99
     bl SoundPlay
@@ -2178,7 +2178,7 @@ lbl_0800641a:
 lbl_08006422:
     ldrh r0, [r6, #0x14]
     str r0, [sp, #0xc]
-    ldr r0, lbl_08006474 @ =0x03001602
+    ldr r0, lbl_08006474 @ =gPreviousYPosition
     ldrh r0, [r0]
     mov sl, r0
     mov r1, sb
@@ -2216,7 +2216,7 @@ lbl_08006446:
     str r3, [sp]
     b lbl_080064d4
     .align 2, 0
-lbl_08006474: .4byte 0x03001602
+lbl_08006474: .4byte gPreviousYPosition
 lbl_08006478:
     cmp r5, #2
     beq lbl_08006486
@@ -2287,23 +2287,23 @@ lbl_080064da:
 lbl_080064ea:
     ldrh r0, [r6, #0x12]
     mov r8, r0
-    ldr r1, lbl_080064fc @ =0x0300006c
+    ldr r1, lbl_080064fc @ =gEffectYPosition
     ldrh r0, [r1]
     cmp r0, #0
     beq lbl_08006500
     adds r4, r0, #0
     b lbl_080065b4
     .align 2, 0
-lbl_080064fc: .4byte 0x0300006c
+lbl_080064fc: .4byte gEffectYPosition
 lbl_08006500:
     ldr r1, [sp, #0xc]
     cmp r1, sl
     bhs lbl_08006510
-    ldr r0, lbl_0800650c @ =0x03001602
+    ldr r0, lbl_0800650c @ =gPreviousYPosition
     ldrh r0, [r0]
     b lbl_08006512
     .align 2, 0
-lbl_0800650c: .4byte 0x03001602
+lbl_0800650c: .4byte gPreviousYPosition
 lbl_08006510:
     ldrh r0, [r6, #0x14]
 lbl_08006512:
@@ -2398,7 +2398,7 @@ lbl_080065b4:
     ands r7, r0
     cmp r7, #0
     beq lbl_080065da
-    ldr r0, lbl_080065ec @ =0x0300154c
+    ldr r0, lbl_080065ec @ =gSamusEnvironmentalEffects
     ldr r2, [sp, #8]
     lsls r1, r2, #1
     adds r1, r1, r2
@@ -2423,7 +2423,7 @@ lbl_080065da:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080065ec: .4byte 0x0300154c
+lbl_080065ec: .4byte gSamusEnvironmentalEffects
 
     thumb_func_start samus_update_environment_effects
 samus_update_environment_effects: @ 0x080065f0
@@ -2439,8 +2439,8 @@ samus_update_environment_effects: @ 0x080065f0
     bne lbl_08006606
     b lbl_08006940
 lbl_08006606:
-    ldr r4, lbl_0800661c @ =0x03001588
-    ldr r6, lbl_08006620 @ =0x0300154c
+    ldr r4, lbl_0800661c @ =gSamusPhysics
+    ldr r6, lbl_08006620 @ =gSamusEnvironmentalEffects
     mov r1, r8
     ldrb r0, [r1]
     cmp r0, #0x32
@@ -2451,8 +2451,8 @@ lbl_08006606:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0800661c: .4byte 0x03001588
-lbl_08006620: .4byte 0x0300154c
+lbl_0800661c: .4byte gSamusPhysics
+lbl_08006620: .4byte gSamusEnvironmentalEffects
 lbl_08006624: .4byte lbl_08006628
 lbl_08006628: @ jump table
     .4byte lbl_08006700 @ case 0
@@ -2613,7 +2613,7 @@ lbl_080067a4:
     bne lbl_080067d8
     cmp r7, #2
     beq lbl_080067d8
-    ldr r0, lbl_080067d4 @ =0x03001530
+    ldr r0, lbl_080067d4 @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #0x20
     ands r0, r1
@@ -2623,13 +2623,13 @@ lbl_080067a4:
     str r3, [sp]
     b lbl_0800680e
     .align 2, 0
-lbl_080067d4: .4byte 0x03001530
+lbl_080067d4: .4byte gEquipment
 lbl_080067d8:
     cmp r5, #3
     bne lbl_080067f8
     cmp r7, #3
     beq lbl_080067f8
-    ldr r0, lbl_080067f4 @ =0x03001530
+    ldr r0, lbl_080067f4 @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #0x30
     ands r0, r1
@@ -2639,7 +2639,7 @@ lbl_080067d8:
     str r0, [sp]
     b lbl_08006804
     .align 2, 0
-lbl_080067f4: .4byte 0x03001530
+lbl_080067f4: .4byte gEquipment
 lbl_080067f8:
     cmp r5, #4
     bne lbl_0800680a
@@ -2664,14 +2664,14 @@ lbl_0800680e:
     mov r1, r8
     ldrh r0, [r1, #0x12]
     strh r0, [r6, #4]
-    ldr r0, lbl_0800682c @ =0x0300006c
+    ldr r0, lbl_0800682c @ =gEffectYPosition
     ldrh r0, [r0]
     cmp r0, #0
     beq lbl_08006830
     strh r0, [r6, #6]
     b lbl_0800684c
     .align 2, 0
-lbl_0800682c: .4byte 0x0300006c
+lbl_0800682c: .4byte gEffectYPosition
 lbl_08006830:
     subs r0, r2, #2
     cmp r0, #2
@@ -2691,7 +2691,7 @@ lbl_0800684c:
     movs r0, #0x7d
     bl SoundPlay
 lbl_08006852:
-    ldr r6, lbl_080068b8 @ =0x0300154c
+    ldr r6, lbl_080068b8 @ =gSamusEnvironmentalEffects
     movs r4, #0
 lbl_08006856:
     ldrb r3, [r6]
@@ -2744,7 +2744,7 @@ lbl_08006898:
     mov pc, r0
     .align 2, 0
 lbl_080068b4: .4byte 0x0000ffc0
-lbl_080068b8: .4byte 0x0300154c
+lbl_080068b8: .4byte gSamusEnvironmentalEffects
 lbl_080068bc: .4byte 0x0823a56c
 lbl_080068c0: .4byte lbl_080068c4
 lbl_080068c4: @ jump table
@@ -2813,7 +2813,7 @@ SamusUpdateJumpVelocity: @ 0x08006950
     push {r4, r5, r6, lr}
     adds r4, r0, #0
     adds r5, r1, #0
-    ldr r6, lbl_08006978 @ =0x03001530
+    ldr r6, lbl_08006978 @ =gEquipment
     ldrh r0, [r5, #0x16]
     strh r0, [r4, #0x16]
     ldrb r0, [r5, #2]
@@ -2832,7 +2832,7 @@ lbl_0800696e:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08006978: .4byte 0x03001530
+lbl_08006978: .4byte gEquipment
 lbl_0800697c: .4byte lbl_08006980
 lbl_08006980: @ jump table
     .4byte lbl_08006a30 @ case 0
@@ -2951,7 +2951,7 @@ lbl_08006aa8:
 lbl_08006aaa:
     strh r0, [r4, #0x18]
 lbl_08006aac:
-    ldr r0, lbl_08006ac4 @ =0x03001588
+    ldr r0, lbl_08006ac4 @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #0
@@ -2962,7 +2962,7 @@ lbl_08006aac:
     bl SoundPlay
     b lbl_08006bc2
     .align 2, 0
-lbl_08006ac4: .4byte 0x03001588
+lbl_08006ac4: .4byte gSamusPhysics
 lbl_08006ac8:
     ldrb r0, [r2, #0x12]
     cmp r0, #2
@@ -3066,7 +3066,7 @@ lbl_08006b76:
     ldrb r0, [r5, #4]
     cmp r0, #1
     bne lbl_08006bba
-    ldr r0, lbl_08006b98 @ =0x0300137c
+    ldr r0, lbl_08006b98 @ =gButtonInput
     ldrh r1, [r0]
     movs r0, #0x30
     ands r0, r1
@@ -3077,7 +3077,7 @@ lbl_08006b76:
     b lbl_08006b9e
     .align 2, 0
 lbl_08006b94: .4byte 0x0823a554
-lbl_08006b98: .4byte 0x0300137c
+lbl_08006b98: .4byte gButtonInput
 lbl_08006b9c:
     strb r2, [r4]
 lbl_08006b9e:
@@ -3110,7 +3110,7 @@ lbl_08006bc2:
     ldrb r0, [r4]
     cmp r0, #8
     bne lbl_08006c04
-    ldr r0, lbl_08006be8 @ =0x03001588
+    ldr r0, lbl_08006be8 @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #0
@@ -3123,7 +3123,7 @@ lbl_08006bc2:
     bl SoundPlay
     b lbl_08006c26
     .align 2, 0
-lbl_08006be8: .4byte 0x03001588
+lbl_08006be8: .4byte gSamusPhysics
 lbl_08006bec:
     cmp r0, #0xe8
     bne lbl_08006bf8
@@ -3139,7 +3139,7 @@ lbl_08006bf8:
 lbl_08006c04:
     cmp r0, #0x14
     bne lbl_08006c26
-    ldr r0, lbl_08006c1c @ =0x03001588
+    ldr r0, lbl_08006c1c @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #0
@@ -3149,7 +3149,7 @@ lbl_08006c12:
     bl SoundPlay
     b lbl_08006c26
     .align 2, 0
-lbl_08006c1c: .4byte 0x03001588
+lbl_08006c1c: .4byte gSamusPhysics
 lbl_08006c20:
     movs r0, #0x70
     bl SoundPlay
@@ -3257,14 +3257,14 @@ lbl_08006d34:
     ldrh r0, [r5, #0xc]
     adds r0, #1
     strh r0, [r5, #0xc]
-    ldr r0, lbl_08006d74 @ =0x0300137c
+    ldr r0, lbl_08006d74 @ =gButtonInput
     ldrh r1, [r0]
     movs r2, #1
     adds r0, r2, #0
     ands r0, r1
     cmp r0, #0
     beq lbl_08006d80
-    ldr r0, lbl_08006d78 @ =0x03001530
+    ldr r0, lbl_08006d78 @ =gEquipment
     ldrb r1, [r0, #0xf]
     adds r0, r2, #0
     ands r0, r1
@@ -3285,8 +3285,8 @@ lbl_08006d34:
     strb r0, [r4, #4]
     b lbl_08006db8
     .align 2, 0
-lbl_08006d74: .4byte 0x0300137c
-lbl_08006d78: .4byte 0x03001530
+lbl_08006d74: .4byte gButtonInput
+lbl_08006d78: .4byte gEquipment
 lbl_08006d7c: .4byte 0x0823a554
 lbl_08006d80:
     movs r0, #0x18
@@ -3295,7 +3295,7 @@ lbl_08006d80:
     rsbs r0, r0, #0
     cmp r1, r0
     bge lbl_08006db8
-    ldr r0, lbl_08006db4 @ =0x03001588
+    ldr r0, lbl_08006db4 @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #0
@@ -3314,12 +3314,12 @@ lbl_08006d80:
     strh r0, [r4, #0x18]
     b lbl_08006e54
     .align 2, 0
-lbl_08006db4: .4byte 0x03001588
+lbl_08006db4: .4byte gSamusPhysics
 lbl_08006db8:
     movs r0, #0x11
     b lbl_08006e52
 lbl_08006dbc:
-    ldr r0, lbl_08006dd4 @ =0x0300137c
+    ldr r0, lbl_08006dd4 @ =gButtonInput
     ldrh r0, [r0]
     ldrh r1, [r4, #0xe]
     ands r0, r1
@@ -3332,7 +3332,7 @@ lbl_08006dbc:
     movs r0, #0xa0
     b lbl_08006dda
     .align 2, 0
-lbl_08006dd4: .4byte 0x0300137c
+lbl_08006dd4: .4byte gButtonInput
 lbl_08006dd8:
     ldr r0, lbl_08006de8 @ =0x0000ff60
 lbl_08006dda:
@@ -3417,7 +3417,7 @@ lbl_08006e54:
 lbl_08006e6a:
     cmp r2, #0xa
     bne lbl_08006e9c
-    ldr r0, lbl_08006e80 @ =0x03001588
+    ldr r0, lbl_08006e80 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -3426,7 +3426,7 @@ lbl_08006e6a:
     strb r0, [r4, #0x1d]
     b lbl_08006e90
     .align 2, 0
-lbl_08006e80: .4byte 0x03001588
+lbl_08006e80: .4byte gSamusPhysics
 lbl_08006e84:
     lsls r0, r1, #0x18
     lsrs r0, r0, #0x18
@@ -3456,7 +3456,7 @@ SamusChangeToHurtPose: @ 0x08006eac
     adds r4, r0, #0
     adds r5, r1, #0
     adds r6, r2, #0
-    ldr r0, lbl_08006ed4 @ =0x03001530
+    ldr r0, lbl_08006ed4 @ =gEquipment
     ldrh r0, [r0, #6]
     cmp r0, #0
     bne lbl_08006ebe
@@ -3473,7 +3473,7 @@ lbl_08006ebe:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08006ed4: .4byte 0x03001530
+lbl_08006ed4: .4byte gEquipment
 lbl_08006ed8: .4byte lbl_08006edc
 lbl_08006edc: @ jump table
     .4byte lbl_08006f88 @ case 0
@@ -3569,14 +3569,14 @@ lbl_08006fce:
     .align 2, 0
 lbl_08006fdc: .4byte 0x0823a554
 lbl_08006fe0:
-    ldr r0, lbl_08007034 @ =0x0300003d
+    ldr r0, lbl_08007034 @ =gDisableScrolling
     movs r1, #1
     strb r1, [r0]
-    ldr r0, lbl_08007038 @ =0x03000029
+    ldr r0, lbl_08007038 @ =gMonochromeBgFading
     strb r1, [r0]
     movs r0, #0x33
     strb r0, [r4]
-    ldr r1, lbl_0800703c @ =0x030013b8
+    ldr r1, lbl_0800703c @ =gBG1XPosition
     movs r2, #0xf0
     lsls r2, r2, #1
     adds r0, r2, #0
@@ -3587,7 +3587,7 @@ lbl_08006fe0:
     lsls r0, r0, #0x10
     asrs r0, r0, #0x11
     strh r0, [r4, #0x16]
-    ldr r1, lbl_08007040 @ =0x030013ba
+    ldr r1, lbl_08007040 @ =gBG1YPosition
     subs r2, #0x50
     adds r0, r2, #0
     ldrh r1, [r1]
@@ -3597,7 +3597,7 @@ lbl_08006fe0:
     lsls r0, r0, #0x10
     asrs r0, r0, #0x14
     strh r0, [r4, #0x18]
-    ldr r1, lbl_08007044 @ =0x03000c72
+    ldr r1, lbl_08007044 @ =gGameModeSub1
     movs r0, #5
     strh r0, [r1]
 lbl_0800701e:
@@ -3613,11 +3613,11 @@ lbl_0800701e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08007034: .4byte 0x0300003d
-lbl_08007038: .4byte 0x03000029
-lbl_0800703c: .4byte 0x030013b8
-lbl_08007040: .4byte 0x030013ba
-lbl_08007044: .4byte 0x03000c72
+lbl_08007034: .4byte gDisableScrolling
+lbl_08007038: .4byte gMonochromeBgFading
+lbl_0800703c: .4byte gBG1XPosition
+lbl_08007040: .4byte gBG1YPosition
+lbl_08007044: .4byte gGameModeSub1
 
     thumb_func_start SamusChangeToKnockbackPose
 SamusChangeToKnockbackPose: @ 0x08007048
@@ -3815,8 +3815,8 @@ lbl_08007184: @ jump table
     .4byte lbl_080074e2 @ case 65
     .4byte lbl_080074d0 @ case 66
 lbl_08007290:
-    ldr r0, lbl_080072b0 @ =0x0300137c
-    ldr r2, lbl_080072b4 @ =0x0300168c
+    ldr r0, lbl_080072b0 @ =gButtonInput
+    ldr r2, lbl_080072b4 @ =gButtonAssignments
     ldrh r1, [r0]
     ldrh r0, [r2, #2]
     ands r0, r1
@@ -3833,8 +3833,8 @@ lbl_080072aa:
     movs r0, #5
     b lbl_080074e0
     .align 2, 0
-lbl_080072b0: .4byte 0x0300137c
-lbl_080072b4: .4byte 0x0300168c
+lbl_080072b0: .4byte gButtonInput
+lbl_080072b4: .4byte gButtonAssignments
 lbl_080072b8:
     ldrb r0, [r5, #2]
     strb r0, [r4, #2]
@@ -3862,7 +3862,7 @@ lbl_080072e0:
     movs r0, #0
     b lbl_080074e0
 lbl_080072e4:
-    ldr r0, lbl_080072fc @ =0x03001588
+    ldr r0, lbl_080072fc @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     strb r0, [r4, #0xa]
@@ -3873,9 +3873,9 @@ lbl_080072e4:
     bl SoundPlay
     b lbl_0800731a
     .align 2, 0
-lbl_080072fc: .4byte 0x03001588
+lbl_080072fc: .4byte gSamusPhysics
 lbl_08007300:
-    ldr r0, lbl_08007310 @ =0x03001530
+    ldr r0, lbl_08007310 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     beq lbl_08007314
@@ -3883,7 +3883,7 @@ lbl_08007300:
     bl SoundPlay
     b lbl_0800731a
     .align 2, 0
-lbl_08007310: .4byte 0x03001530
+lbl_08007310: .4byte gEquipment
 lbl_08007314:
     movs r0, #0x9c
     bl SoundPlay
@@ -3917,8 +3917,8 @@ lbl_0800734c:
     ldrb r0, [r5, #4]
     cmp r0, #0xf0
     beq lbl_080073d8
-    ldr r0, lbl_08007374 @ =0x0300137c
-    ldr r1, lbl_08007378 @ =0x0300168c
+    ldr r0, lbl_08007374 @ =gButtonInput
+    ldr r1, lbl_08007378 @ =gButtonAssignments
     ldrh r2, [r0]
     ldrh r0, [r1, #2]
     ands r0, r2
@@ -3934,8 +3934,8 @@ lbl_0800734c:
     movs r0, #0xa0
     b lbl_0800737e
     .align 2, 0
-lbl_08007374: .4byte 0x0300137c
-lbl_08007378: .4byte 0x0300168c
+lbl_08007374: .4byte gButtonInput
+lbl_08007378: .4byte gButtonAssignments
 lbl_0800737c:
     ldr r0, lbl_08007384 @ =0x0000ff60
 lbl_0800737e:
@@ -3998,12 +3998,12 @@ lbl_080073dc:
     strb r0, [r4, #5]
     strb r1, [r4, #8]
     strb r1, [r6]
-    ldr r1, lbl_080073f0 @ =0x03001528
+    ldr r1, lbl_080073f0 @ =gScrewSpeedAnimation
     movs r0, #1
     strb r0, [r1]
     b lbl_080074e2
     .align 2, 0
-lbl_080073f0: .4byte 0x03001528
+lbl_080073f0: .4byte gScrewSpeedAnimation
 lbl_080073f4:
     ldrb r0, [r5, #4]
     strb r0, [r4, #4]
@@ -4022,7 +4022,7 @@ lbl_08007408:
     strb r0, [r4, #4]
     b lbl_08007418
 lbl_08007412:
-    ldr r1, lbl_08007420 @ =0x03001528
+    ldr r1, lbl_08007420 @ =gScrewSpeedAnimation
     movs r0, #1
     strb r0, [r1]
 lbl_08007418:
@@ -4030,7 +4030,7 @@ lbl_08007418:
     bl SoundPlay
     b lbl_080074e2
     .align 2, 0
-lbl_08007420: .4byte 0x03001528
+lbl_08007420: .4byte gScrewSpeedAnimation
 lbl_08007424:
     ldrh r1, [r4, #0x14]
     movs r0, #0x3f
@@ -4051,13 +4051,13 @@ lbl_08007442:
     strh r0, [r4, #0x14]
     movs r0, #0
     strb r0, [r6]
-    ldr r1, lbl_08007454 @ =0x0300141c
+    ldr r1, lbl_08007454 @ =gSamusEcho
     strb r0, [r1]
     strb r0, [r1, #1]
     b lbl_080074e2
     .align 2, 0
 lbl_08007450: .4byte 0x0000ffc0
-lbl_08007454: .4byte 0x0300141c
+lbl_08007454: .4byte gSamusEcho
 lbl_08007458:
     ldrh r1, [r5, #0x10]
     strh r1, [r4, #0x10]
@@ -4090,7 +4090,7 @@ lbl_08007482:
     bls lbl_080074de
     movs r0, #0
     strb r0, [r6]
-    ldr r0, lbl_080074a4 @ =0x03001530
+    ldr r0, lbl_080074a4 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_080074a8
@@ -4098,7 +4098,7 @@ lbl_08007482:
     bl SoundPlay
     b lbl_080074e2
     .align 2, 0
-lbl_080074a4: .4byte 0x03001530
+lbl_080074a4: .4byte gEquipment
 lbl_080074a8:
     movs r0, #0x7a
     bl SoundPlay
@@ -4148,9 +4148,9 @@ lbl_080074e2:
 SamusSetPose: @ 0x080074e8
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x18
-    ldr r5, lbl_08007524 @ =0x030013d4
-    ldr r6, lbl_08007528 @ =0x030013f4
-    ldr r7, lbl_0800752c @ =0x03001414
+    ldr r5, lbl_08007524 @ =gSamusData
+    ldr r6, lbl_08007528 @ =gSamusDataCopy
+    ldr r7, lbl_0800752c @ =gSamusWeaponInfo
     lsrs r4, r0, #0x18
     movs r1, #0xe0
     lsls r1, r1, #0x13
@@ -4178,9 +4178,9 @@ lbl_08007514:
     beq lbl_0800753a
     b lbl_08007562
     .align 2, 0
-lbl_08007524: .4byte 0x030013d4
-lbl_08007528: .4byte 0x030013f4
-lbl_0800752c: .4byte 0x03001414
+lbl_08007524: .4byte gSamusData
+lbl_08007528: .4byte gSamusDataCopy
+lbl_0800752c: .4byte gSamusWeaponInfo
 lbl_08007530:
     cmp r0, #0x25
     beq lbl_0800754c
@@ -4260,9 +4260,9 @@ lbl_080075b4:
     thumb_func_start SamusCopyData
 SamusCopyData: @ 0x080075bc
     push {r4, r5, r6, lr}
-    ldr r2, lbl_08007610 @ =0x030013d4
-    ldr r3, lbl_08007614 @ =0x03001528
-    ldr r0, lbl_08007618 @ =0x030013f4
+    ldr r2, lbl_08007610 @ =gSamusData
+    ldr r3, lbl_08007614 @ =gScrewSpeedAnimation
+    ldr r0, lbl_08007618 @ =gSamusDataCopy
     adds r1, r2, #0
     ldm r1!, {r4, r5, r6}
     stm r0!, {r4, r5, r6}
@@ -4304,17 +4304,17 @@ lbl_08007606:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08007610: .4byte 0x030013d4
-lbl_08007614: .4byte 0x03001528
-lbl_08007618: .4byte 0x030013f4
+lbl_08007610: .4byte gSamusData
+lbl_08007614: .4byte gScrewSpeedAnimation
+lbl_08007618: .4byte gSamusDataCopy
 
     thumb_func_start SamusUpdatePhysics
 SamusUpdatePhysics: @ 0x0800761c
     push {r4, r5, r6, r7, lr}
-    ldr r6, lbl_08007644 @ =0x030013d4
-    ldr r7, lbl_08007648 @ =0x03001530
-    ldr r4, lbl_0800764c @ =0x03001588
-    ldr r1, lbl_08007650 @ =0x03004fc9
+    ldr r6, lbl_08007644 @ =gSamusData
+    ldr r7, lbl_08007648 @ =gEquipment
+    ldr r4, lbl_0800764c @ =gSamusPhysics
+    ldr r1, lbl_08007650 @ =gUnk_03004fc9
     movs r0, #0
     strb r0, [r1]
     ldrb r0, [r6]
@@ -4331,10 +4331,10 @@ lbl_08007638:
     lsrs r0, r0, #0x10
     b lbl_08007656
     .align 2, 0
-lbl_08007644: .4byte 0x030013d4
-lbl_08007648: .4byte 0x03001530
-lbl_0800764c: .4byte 0x03001588
-lbl_08007650: .4byte 0x03004fc9
+lbl_08007644: .4byte gSamusData
+lbl_08007648: .4byte gEquipment
+lbl_0800764c: .4byte gSamusPhysics
+lbl_08007650: .4byte gUnk_03004fc9
 lbl_08007654:
     ldrh r0, [r6, #0x14]
 lbl_08007656:
@@ -4356,7 +4356,7 @@ lbl_08007656:
     movs r5, #1
     b lbl_08007684
 lbl_0800767a:
-    ldr r0, lbl_080076cc @ =0x03001530
+    ldr r0, lbl_080076cc @ =gEquipment
     ldrb r0, [r0, #0x13]
     cmp r0, #0
     beq lbl_08007684
@@ -4399,7 +4399,7 @@ lbl_08007684:
     strb r0, [r6, #5]
     b lbl_08007714
     .align 2, 0
-lbl_080076cc: .4byte 0x03001530
+lbl_080076cc: .4byte gEquipment
 lbl_080076d0:
     adds r0, r4, #0
     adds r0, #0x5e
@@ -4499,7 +4499,7 @@ SamusCopyPalette: @ 0x08007770
     adds r2, r3, r2
     cmp r3, r2
     bge lbl_08007792
-    ldr r1, lbl_08007798 @ =0x030053e0
+    ldr r1, lbl_08007798 @ =gSamusPalette
     lsls r0, r3, #1
     adds r1, r0, r1
     subs r3, r2, r3
@@ -4516,13 +4516,13 @@ lbl_08007792:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08007798: .4byte 0x030053e0
+lbl_08007798: .4byte gSamusPalette
 
     thumb_func_start SamusUpdate
 SamusUpdate: @ 0x0800779c
     push {r4, lr}
-    ldr r4, lbl_080077dc @ =0x030013d4
-    ldr r0, lbl_080077e0 @ =0x03000c72
+    ldr r4, lbl_080077dc @ =gSamusData
+    ldr r0, lbl_080077e0 @ =gGameModeSub1
     movs r1, #0
     ldrsh r0, [r0, r1]
     cmp r0, #1
@@ -4541,7 +4541,7 @@ lbl_080077b0:
     beq lbl_080077c8
     bl SamusSetPose
 lbl_080077c8:
-    ldr r1, lbl_080077e4 @ =0x03001588
+    ldr r1, lbl_080077e4 @ =gSamusPhysics
     adds r0, r4, #0
     bl sub_0800b8a8
     adds r0, r4, #0
@@ -4550,15 +4550,15 @@ lbl_080077c8:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080077dc: .4byte 0x030013d4
-lbl_080077e0: .4byte 0x03000c72
-lbl_080077e4: .4byte 0x03001588
+lbl_080077dc: .4byte gSamusData
+lbl_080077e0: .4byte gGameModeSub1
+lbl_080077e4: .4byte gSamusPhysics
 
     thumb_func_start SamusUpdateHitboxMovingDirection
 SamusUpdateHitboxMovingDirection: @ 0x080077e8
     push {r4, r5, lr}
-    ldr r5, lbl_08007818 @ =0x030013d4
-    ldr r4, lbl_0800781c @ =0x03001588
+    ldr r5, lbl_08007818 @ =gSamusData
+    ldr r4, lbl_0800781c @ =gSamusPhysics
     adds r0, r4, #0
     adds r0, #0x58
     movs r1, #0
@@ -4572,7 +4572,7 @@ SamusUpdateHitboxMovingDirection: @ 0x080077e8
     strb r1, [r2]
     subs r0, #0xb
     strb r1, [r0]
-    ldr r0, lbl_08007820 @ =0x03001600
+    ldr r0, lbl_08007820 @ =gPreviousXPosition
     ldrh r1, [r5, #0x12]
     ldrh r0, [r0]
     cmp r1, r0
@@ -4580,9 +4580,9 @@ SamusUpdateHitboxMovingDirection: @ 0x080077e8
     movs r0, #2
     b lbl_0800782a
     .align 2, 0
-lbl_08007818: .4byte 0x030013d4
-lbl_0800781c: .4byte 0x03001588
-lbl_08007820: .4byte 0x03001600
+lbl_08007818: .4byte gSamusData
+lbl_0800781c: .4byte gSamusPhysics
+lbl_08007820: .4byte gPreviousXPosition
 lbl_08007824:
     cmp r1, r0
     bhs lbl_0800782c
@@ -4590,11 +4590,11 @@ lbl_08007824:
 lbl_0800782a:
     strb r0, [r2]
 lbl_0800782c:
-    ldr r0, lbl_08007848 @ =0x03004fc9
+    ldr r0, lbl_08007848 @ =gUnk_03004fc9
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0800785c
-    ldr r0, lbl_0800784c @ =0x03001602
+    ldr r0, lbl_0800784c @ =gPreviousYPosition
     ldrh r1, [r5, #0x14]
     ldrh r0, [r0]
     cmp r1, r0
@@ -4604,8 +4604,8 @@ lbl_0800782c:
     movs r0, #2
     b lbl_0800785a
     .align 2, 0
-lbl_08007848: .4byte 0x03004fc9
-lbl_0800784c: .4byte 0x03001602
+lbl_08007848: .4byte gUnk_03004fc9
+lbl_0800784c: .4byte gPreviousYPosition
 lbl_08007850:
     cmp r1, r0
     bhs lbl_0800785c
@@ -4683,8 +4683,8 @@ lbl_080078dc: .4byte 0x0823a554
     thumb_func_start SamusCallGFXFunctions
 SamusCallGFXFunctions: @ 0x080078e0
     push {r4, lr}
-    ldr r4, lbl_08007914 @ =0x030013d4
-    ldr r0, lbl_08007918 @ =0x03000c72
+    ldr r4, lbl_08007914 @ =gSamusData
+    ldr r0, lbl_08007918 @ =gGameModeSub1
     movs r1, #0
     ldrsh r0, [r0, r1]
     cmp r0, #2
@@ -4708,8 +4708,8 @@ lbl_08007902:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08007914: .4byte 0x030013d4
-lbl_08007918: .4byte 0x03000c72
+lbl_08007914: .4byte gSamusData
+lbl_08007918: .4byte gGameModeSub1
 
     thumb_func_start SamusCallCheckLowHealth
 SamusCallCheckLowHealth: @ 0x0800791c
@@ -4722,7 +4722,7 @@ SamusCallCheckLowHealth: @ 0x0800791c
     thumb_func_start call_update_arm_cannon
 call_update_arm_cannon: @ 0x08007928
     push {lr}
-    ldr r0, lbl_08007944 @ =0x030013d4
+    ldr r0, lbl_08007944 @ =gSamusData
     ldrh r1, [r0, #0xe]
     movs r0, #0x10
     ands r0, r1
@@ -4736,14 +4736,14 @@ lbl_0800793a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08007944: .4byte 0x030013d4
+lbl_08007944: .4byte gSamusData
 
     thumb_func_start samus_bombjump
 samus_bombjump: @ 0x08007948
     push {r4, lr}
     lsls r0, r0, #0x18
     lsrs r2, r0, #0x18
-    ldr r0, lbl_0800799c @ =0x03001588
+    ldr r0, lbl_0800799c @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #0
@@ -4753,7 +4753,7 @@ samus_bombjump: @ 0x08007948
     ands r0, r2
     cmp r0, #9
     bls lbl_08007984
-    ldr r1, lbl_080079a0 @ =0x030013d4
+    ldr r1, lbl_080079a0 @ =gSamusData
     ldrb r0, [r1]
     cmp r0, #0x10
     blt lbl_08007984
@@ -4774,7 +4774,7 @@ lbl_08007984:
     cmp r3, #0
     beq lbl_08007996
 lbl_08007988:
-    ldr r1, lbl_080079a0 @ =0x030013d4
+    ldr r1, lbl_080079a0 @ =gSamusData
     movs r0, #0x7f
     ands r0, r2
     strb r0, [r1, #4]
@@ -4785,16 +4785,16 @@ lbl_08007996:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0800799c: .4byte 0x03001588
-lbl_080079a0: .4byte 0x030013d4
+lbl_0800799c: .4byte gSamusPhysics
+lbl_080079a0: .4byte gSamusData
 
     thumb_func_start samus_update_aim
 samus_update_aim: @ 0x080079a4
     push {r4, r5, lr}
     adds r4, r0, #0
-    ldr r5, lbl_080079cc @ =0x03001414
-    ldr r2, lbl_080079d0 @ =0x0300137c
-    ldr r0, lbl_080079d4 @ =0x0300168c
+    ldr r5, lbl_080079cc @ =gSamusWeaponInfo
+    ldr r2, lbl_080079d0 @ =gButtonInput
+    ldr r0, lbl_080079d4 @ =gButtonAssignments
     ldrh r1, [r2]
     ldrh r0, [r0, #2]
     ands r0, r1
@@ -4813,9 +4813,9 @@ lbl_080079c2:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_080079cc: .4byte 0x03001414
-lbl_080079d0: .4byte 0x0300137c
-lbl_080079d4: .4byte 0x0300168c
+lbl_080079cc: .4byte gSamusWeaponInfo
+lbl_080079d0: .4byte gButtonInput
+lbl_080079d4: .4byte gButtonAssignments
 lbl_080079d8: .4byte lbl_080079dc
 lbl_080079dc: @ jump table
     .4byte lbl_08007ad0 @ case 0
@@ -5005,7 +5005,7 @@ lbl_08007c2a:
     bhi lbl_08007c32
     strb r1, [r4, #2]
 lbl_08007c32:
-    ldr r0, lbl_08007c50 @ =0x03001530
+    ldr r0, lbl_08007c50 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     beq lbl_08007cec
@@ -5020,7 +5020,7 @@ lbl_08007c32:
     beq lbl_08007cec
     b lbl_08007c64
     .align 2, 0
-lbl_08007c50: .4byte 0x03001530
+lbl_08007c50: .4byte gEquipment
 lbl_08007c54:
     ldrb r0, [r4, #0xa]
     cmp r0, #0
@@ -5132,7 +5132,7 @@ SamusCheckFireBeamMissile: @ 0x08007cf8
     ldrb r0, [r3, #1]
     cmp r0, #0
     bne lbl_08007d4a
-    ldr r0, lbl_08007d30 @ =0x03001380
+    ldr r0, lbl_08007d30 @ =gChangedInput
     ldrh r1, [r0]
     movs r5, #2
     adds r0, r5, #0
@@ -5149,7 +5149,7 @@ SamusCheckFireBeamMissile: @ 0x08007cf8
     strb r0, [r3, #1]
     b lbl_08007d44
     .align 2, 0
-lbl_08007d30: .4byte 0x03001380
+lbl_08007d30: .4byte gChangedInput
 lbl_08007d34:
     adds r0, r5, #0
     ands r0, r1
@@ -5170,7 +5170,7 @@ lbl_08007d4a:
     ldrb r0, [r3, #2]
     cmp r0, #0
     bne lbl_08007d9c
-    ldr r0, lbl_08007d78 @ =0x0300137c
+    ldr r0, lbl_08007d78 @ =gButtonInput
     ldrh r1, [r0]
     movs r0, #2
     ands r0, r1
@@ -5188,7 +5188,7 @@ lbl_08007d4a:
     strb r0, [r3, #5]
     b lbl_08007d9e
     .align 2, 0
-lbl_08007d78: .4byte 0x0300137c
+lbl_08007d78: .4byte gButtonInput
 lbl_08007d7c:
     movs r0, #0x40
     strb r0, [r3, #5]
@@ -5248,7 +5248,7 @@ lbl_08007dc8:
     ldrb r3, [r2, #1]
     cmp r3, #0
     bne lbl_08007e0a
-    ldr r0, lbl_08007df8 @ =0x03001380
+    ldr r0, lbl_08007df8 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #2
     ands r0, r1
@@ -5265,7 +5265,7 @@ lbl_08007dc8:
     lsrs r4, r0, #0x18
     b lbl_08007e00
     .align 2, 0
-lbl_08007df8: .4byte 0x03001380
+lbl_08007df8: .4byte gChangedInput
 lbl_08007dfc:
     movs r0, #1
     strb r0, [r2, #1]
@@ -5294,7 +5294,7 @@ SamusCheckNewProjectile: @ 0x08007e20
     push {r4, r5, lr}
     adds r4, r0, #0
     adds r3, r1, #0
-    ldr r5, lbl_08007e48 @ =0x03001588
+    ldr r5, lbl_08007e48 @ =gSamusPhysics
     adds r0, r5, #0
     adds r0, #0x5c
     movs r1, #0
@@ -5312,7 +5312,7 @@ SamusCheckNewProjectile: @ 0x08007e20
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08007e48: .4byte 0x03001588
+lbl_08007e48: .4byte gSamusPhysics
 lbl_08007e4c: .4byte lbl_08007e50
 lbl_08007e50: @ jump table
     .4byte lbl_08008050 @ case 0
@@ -5444,7 +5444,7 @@ lbl_08008008:
     strb r0, [r1]
     b lbl_08008054
 lbl_08008010:
-    ldr r0, lbl_08008040 @ =0x03001380
+    ldr r0, lbl_08008040 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #2
     ands r0, r1
@@ -5468,7 +5468,7 @@ lbl_08008010:
     strb r0, [r3, #1]
     b lbl_08008046
     .align 2, 0
-lbl_08008040: .4byte 0x03001380
+lbl_08008040: .4byte gChangedInput
 lbl_08008044:
     strb r2, [r3, #1]
 lbl_08008046:
@@ -5491,7 +5491,7 @@ samus_check_a_button_pressed: @ 0x0800805c
     push {lr}
     adds r2, r0, #0
     movs r3, #0
-    ldr r0, lbl_0800807c @ =0x03001380
+    ldr r0, lbl_0800807c @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -5505,7 +5505,7 @@ lbl_08008074:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0800807c: .4byte 0x03001380
+lbl_0800807c: .4byte gChangedInput
 
     thumb_func_start SamusSetHighlightedWeapon
 SamusSetHighlightedWeapon: @ 0x08008080
@@ -5527,7 +5527,7 @@ lbl_08008094:
     strb r0, [r4, #3]
     b lbl_080080ba
 lbl_080080a0:
-    ldr r0, lbl_080080cc @ =0x03001380
+    ldr r0, lbl_080080cc @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #4
     ands r0, r1
@@ -5550,7 +5550,7 @@ lbl_080080ba:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_080080cc: .4byte 0x03001380
+lbl_080080cc: .4byte gChangedInput
 lbl_080080d0: .4byte lbl_080080d4
 lbl_080080d4: @ jump table
     .4byte lbl_0800815c @ case 0
@@ -5588,8 +5588,8 @@ lbl_080080d4: @ jump table
     .4byte lbl_0800815c @ case 32
     .4byte lbl_0800815c @ case 33
 lbl_0800815c:
-    ldr r0, lbl_08008174 @ =0x0300137c
-    ldr r1, lbl_08008178 @ =0x0300168c
+    ldr r0, lbl_08008174 @ =gButtonInput
+    ldr r1, lbl_08008178 @ =gButtonAssignments
     ldrh r2, [r0]
     ldrh r0, [r1]
     ands r0, r2
@@ -5601,11 +5601,11 @@ lbl_0800815c:
     movs r6, #4
     b lbl_080081aa
     .align 2, 0
-lbl_08008174: .4byte 0x0300137c
-lbl_08008178: .4byte 0x0300168c
+lbl_08008174: .4byte gButtonInput
+lbl_08008178: .4byte gButtonAssignments
 lbl_0800817c:
-    ldr r0, lbl_0800819c @ =0x0300137c
-    ldr r1, lbl_080081a0 @ =0x0300168c
+    ldr r0, lbl_0800819c @ =gButtonInput
+    ldr r1, lbl_080081a0 @ =gButtonAssignments
     ldrh r2, [r0]
     ldrh r0, [r1]
     ands r0, r2
@@ -5620,8 +5620,8 @@ lbl_0800817c:
     movs r6, #1
     b lbl_080081aa
     .align 2, 0
-lbl_0800819c: .4byte 0x0300137c
-lbl_080081a0: .4byte 0x0300168c
+lbl_0800819c: .4byte gButtonInput
+lbl_080081a0: .4byte gButtonAssignments
 lbl_080081a4:
     movs r6, #2
 lbl_080081a6:
@@ -5657,7 +5657,7 @@ lbl_080081d4:
     beq lbl_08008234
     b lbl_08008270
 lbl_080081da:
-    ldr r0, lbl_080081fc @ =0x03001588
+    ldr r0, lbl_080081fc @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #0
@@ -5675,7 +5675,7 @@ lbl_080081da:
     strb r0, [r2]
     b lbl_08008270
     .align 2, 0
-lbl_080081fc: .4byte 0x03001588
+lbl_080081fc: .4byte gSamusPhysics
 lbl_08008200:
     ldrb r1, [r1, #0xf]
     movs r0, #8
@@ -5693,7 +5693,7 @@ lbl_08008214:
     ands r0, r1
     cmp r0, #0
     beq lbl_08008226
-    ldr r0, lbl_08008230 @ =0x03001588
+    ldr r0, lbl_08008230 @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #0
@@ -5704,9 +5704,9 @@ lbl_08008226:
     strb r3, [r2, #0x1d]
     b lbl_08008270
     .align 2, 0
-lbl_08008230: .4byte 0x03001588
+lbl_08008230: .4byte gSamusPhysics
 lbl_08008234:
-    ldr r0, lbl_08008248 @ =0x03001588
+    ldr r0, lbl_08008248 @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #0
@@ -5717,7 +5717,7 @@ lbl_08008234:
     strb r1, [r2, #0x1d]
     b lbl_0800826a
     .align 2, 0
-lbl_08008248: .4byte 0x03001588
+lbl_08008248: .4byte gSamusPhysics
 lbl_0800824c:
     ldrb r1, [r1, #0xf]
     movs r0, #8
@@ -5737,14 +5737,14 @@ lbl_08008264:
     movs r0, #0
     strb r0, [r2, #0x1d]
 lbl_0800826a:
-    ldr r1, lbl_08008274 @ =0x03001528
+    ldr r1, lbl_08008274 @ =gScrewSpeedAnimation
     movs r0, #0
     strb r0, [r1]
 lbl_08008270:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08008274: .4byte 0x03001528
+lbl_08008274: .4byte gScrewSpeedAnimation
 
     thumb_func_start sub_08008278
 sub_08008278: @ 0x08008278
@@ -6052,14 +6052,14 @@ sub_0800847c: @ 0x0800847c
     adds r2, r0, #0
     lsls r1, r1, #0x18
     lsrs r4, r1, #0x18
-    ldr r0, lbl_08008490 @ =0x03001530
+    ldr r0, lbl_08008490 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_08008498
     ldr r1, lbl_08008494 @ =0x082399b0
     b lbl_0800849a
     .align 2, 0
-lbl_08008490: .4byte 0x03001530
+lbl_08008490: .4byte gEquipment
 lbl_08008494: .4byte 0x082399b0
 lbl_08008498:
     ldr r1, lbl_080084cc @ =0x08238b74
@@ -6106,7 +6106,7 @@ lbl_080084d6:
 SamusRunning: @ 0x080084dc
     push {r4, r5, lr}
     adds r4, r0, #0
-    ldr r0, lbl_080084f4 @ =0x03001380
+    ldr r0, lbl_080084f4 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -6117,14 +6117,14 @@ SamusRunning: @ 0x080084dc
     movs r0, #0xfe
     b lbl_080085aa
     .align 2, 0
-lbl_080084f4: .4byte 0x03001380
+lbl_080084f4: .4byte gChangedInput
 lbl_080084f8:
-    ldr r2, lbl_08008528 @ =0x03001588
+    ldr r2, lbl_08008528 @ =gSamusPhysics
     adds r0, r2, #0
     adds r0, #0x60
     movs r1, #0
     ldrsh r5, [r0, r1]
-    ldr r0, lbl_0800852c @ =0x03001530
+    ldr r0, lbl_0800852c @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #2
     ands r0, r1
@@ -6143,8 +6143,8 @@ lbl_080084f8:
     movs r5, #0xa0
     b lbl_08008536
     .align 2, 0
-lbl_08008528: .4byte 0x03001588
-lbl_0800852c: .4byte 0x03001530
+lbl_08008528: .4byte gSamusPhysics
+lbl_0800852c: .4byte gEquipment
 lbl_08008530:
     cmp r1, #0x77
     bls lbl_08008536
@@ -6167,7 +6167,7 @@ lbl_0800854e:
 lbl_08008550:
     strb r0, [r4, #0xa]
 lbl_08008552:
-    ldr r0, lbl_0800857c @ =0x0300137c
+    ldr r0, lbl_0800857c @ =gButtonInput
     ldrh r3, [r0]
     ldrh r1, [r4, #0xe]
     adds r0, r3, #0
@@ -6186,7 +6186,7 @@ lbl_08008552:
     movs r0, #0xff
     b lbl_080085aa
     .align 2, 0
-lbl_0800857c: .4byte 0x0300137c
+lbl_0800857c: .4byte gButtonInput
 lbl_08008580:
     ldrb r0, [r4, #5]
     cmp r0, #0
@@ -6221,8 +6221,8 @@ lbl_080085aa:
 SamusRunningGFX: @ 0x080085b0
     push {r4, r5, lr}
     adds r2, r0, #0
-    ldr r5, lbl_080085c8 @ =0x03001528
-    ldr r4, lbl_080085cc @ =0x03001588
+    ldr r5, lbl_080085c8 @ =gScrewSpeedAnimation
+    ldr r4, lbl_080085cc @ =gSamusPhysics
     ldrb r1, [r2, #5]
     cmp r1, #0
     bne lbl_080085d4
@@ -6231,8 +6231,8 @@ SamusRunningGFX: @ 0x080085b0
     strb r1, [r5]
     b lbl_080085dc
     .align 2, 0
-lbl_080085c8: .4byte 0x03001528
-lbl_080085cc: .4byte 0x03001588
+lbl_080085c8: .4byte gScrewSpeedAnimation
+lbl_080085cc: .4byte gSamusPhysics
 lbl_080085d0: .4byte 0x08238d8c
 lbl_080085d4:
     ldr r0, lbl_08008618 @ =0x08238dac
@@ -6284,7 +6284,7 @@ lbl_08008626:
     ldrb r0, [r4]
     cmp r0, #0
     bne lbl_08008666
-    ldr r0, lbl_0800863c @ =0x03001530
+    ldr r0, lbl_0800863c @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     beq lbl_08008640
@@ -6292,7 +6292,7 @@ lbl_08008626:
     bl SoundPlay
     b lbl_0800868a
     .align 2, 0
-lbl_0800863c: .4byte 0x03001530
+lbl_0800863c: .4byte gEquipment
 lbl_08008640:
     movs r0, #0x96
     bl SoundPlay
@@ -6318,7 +6318,7 @@ lbl_08008666:
     bl SoundPlay
     b lbl_0800868a
 lbl_0800866e:
-    ldr r0, lbl_08008680 @ =0x03001530
+    ldr r0, lbl_08008680 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     beq lbl_08008684
@@ -6326,7 +6326,7 @@ lbl_0800866e:
     bl SoundPlay
     b lbl_0800868a
     .align 2, 0
-lbl_08008680: .4byte 0x03001530
+lbl_08008680: .4byte gEquipment
 lbl_08008684:
     movs r0, #0x97
     bl SoundPlay
@@ -6374,13 +6374,13 @@ lbl_080086d0: .4byte 0x08288e20
 SamusStanding: @ 0x080086d4
     push {r4, r5, r6, lr}
     adds r4, r0, #0
-    ldr r0, lbl_08008718 @ =0x0300137c
+    ldr r0, lbl_08008718 @ =gButtonInput
     ldrh r1, [r0]
     movs r0, #0x30
     ands r0, r1
     cmp r0, #0
     bne lbl_08008724
-    ldr r0, lbl_0800871c @ =0x03001380
+    ldr r0, lbl_0800871c @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -6405,8 +6405,8 @@ SamusStanding: @ 0x080086d4
     movs r0, #0x21
     b lbl_08008816
     .align 2, 0
-lbl_08008718: .4byte 0x0300137c
-lbl_0800871c: .4byte 0x03001380
+lbl_08008718: .4byte gButtonInput
+lbl_0800871c: .4byte gChangedInput
 lbl_08008720: .4byte 0x0823a554
 lbl_08008724:
     adds r0, r4, #0
@@ -6417,7 +6417,7 @@ lbl_08008724:
     movs r0, #0xfe
     b lbl_08008816
 lbl_08008734:
-    ldr r0, lbl_08008748 @ =0x0300137c
+    ldr r0, lbl_08008748 @ =gButtonInput
     ldrh r2, [r0]
     ldrh r1, [r4, #0xe]
     adds r0, r2, #0
@@ -6427,9 +6427,9 @@ lbl_08008734:
     movs r0, #0
     b lbl_08008816
     .align 2, 0
-lbl_08008748: .4byte 0x0300137c
+lbl_08008748: .4byte gButtonInput
 lbl_0800874c:
-    ldr r0, lbl_0800875c @ =0x03001588
+    ldr r0, lbl_0800875c @ =gSamusPhysics
     adds r6, r0, #0
     adds r6, #0x5c
     ldrb r0, [r6]
@@ -6438,7 +6438,7 @@ lbl_0800874c:
     movs r0, #3
     b lbl_08008816
     .align 2, 0
-lbl_0800875c: .4byte 0x03001588
+lbl_0800875c: .4byte gSamusPhysics
 lbl_08008760:
     movs r0, #0x30
     eors r0, r1
@@ -6448,7 +6448,7 @@ lbl_08008760:
     movs r0, #2
     b lbl_08008816
 lbl_0800876e:
-    ldr r0, lbl_080087b8 @ =0x03001380
+    ldr r0, lbl_080087b8 @ =gChangedInput
     ldrh r1, [r0]
     movs r5, #0x80
     adds r0, r5, #0
@@ -6464,7 +6464,7 @@ lbl_0800876e:
     asrs r0, r0, #0x10
     cmp r0, #1
     beq lbl_080087f0
-    ldr r0, lbl_080087bc @ =0x03001414
+    ldr r0, lbl_080087bc @ =gSamusWeaponInfo
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0800879e
@@ -6472,7 +6472,7 @@ lbl_0800876e:
     cmp r0, #2
     bne lbl_08008804
 lbl_0800879e:
-    ldr r4, lbl_080087c0 @ =0x03001530
+    ldr r4, lbl_080087c0 @ =gEquipment
     ldrb r0, [r4, #0x12]
     cmp r0, #2
     beq lbl_080087ac
@@ -6485,9 +6485,9 @@ lbl_080087ac:
     movs r0, #6
     b lbl_08008816
     .align 2, 0
-lbl_080087b8: .4byte 0x03001380
-lbl_080087bc: .4byte 0x03001414
-lbl_080087c0: .4byte 0x03001530
+lbl_080087b8: .4byte gChangedInput
+lbl_080087bc: .4byte gSamusWeaponInfo
+lbl_080087c0: .4byte gEquipment
 lbl_080087c4:
     ldrb r0, [r4, #0x12]
     cmp r0, #2
@@ -6561,13 +6561,13 @@ lbl_08008832:
 SamusTurningAround: @ 0x0800883c
     push {r4, lr}
     adds r4, r0, #0
-    ldr r0, lbl_08008880 @ =0x0300137c
+    ldr r0, lbl_08008880 @ =gButtonInput
     ldrh r1, [r0]
     movs r0, #0x30
     ands r0, r1
     cmp r0, #0
     bne lbl_0800888c
-    ldr r0, lbl_08008884 @ =0x03001380
+    ldr r0, lbl_08008884 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -6592,8 +6592,8 @@ SamusTurningAround: @ 0x0800883c
     movs r0, #0x21
     b lbl_080088f2
     .align 2, 0
-lbl_08008880: .4byte 0x0300137c
-lbl_08008884: .4byte 0x03001380
+lbl_08008880: .4byte gButtonInput
+lbl_08008884: .4byte gChangedInput
 lbl_08008888: .4byte 0x0823a554
 lbl_0800888c:
     adds r0, r4, #0
@@ -6604,13 +6604,13 @@ lbl_0800888c:
     movs r0, #0xfe
     b lbl_080088f2
 lbl_0800889c:
-    ldr r0, lbl_080088dc @ =0x03001380
+    ldr r0, lbl_080088dc @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #0x80
     ands r0, r1
     cmp r0, #0
     beq lbl_080088c8
-    ldr r0, lbl_080088e0 @ =0x03001414
+    ldr r0, lbl_080088e0 @ =gSamusWeaponInfo
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_080088b6
@@ -6620,14 +6620,14 @@ lbl_0800889c:
 lbl_080088b6:
     movs r0, #5
     strb r0, [r4]
-    ldr r0, lbl_080088e4 @ =0x03001530
+    ldr r0, lbl_080088e4 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     beq lbl_080088c8
     movs r0, #0x79
     bl SoundPlay
 lbl_080088c8:
-    ldr r0, lbl_080088e8 @ =0x03001588
+    ldr r0, lbl_080088e8 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -6638,10 +6638,10 @@ lbl_080088c8:
     movs r0, #6
     b lbl_080088f2
     .align 2, 0
-lbl_080088dc: .4byte 0x03001380
-lbl_080088e0: .4byte 0x03001414
-lbl_080088e4: .4byte 0x03001530
-lbl_080088e8: .4byte 0x03001588
+lbl_080088dc: .4byte gChangedInput
+lbl_080088e0: .4byte gSamusWeaponInfo
+lbl_080088e4: .4byte gEquipment
+lbl_080088e8: .4byte gSamusPhysics
 lbl_080088ec:
     movs r0, #3
     b lbl_080088f2
@@ -6662,7 +6662,7 @@ SamusTurningAroundGFX: @ 0x080088f8
     lsrs r0, r0, #0x18
     cmp r0, #2
     bne lbl_08008938
-    ldr r2, lbl_08008920 @ =0x0300137c
+    ldr r2, lbl_08008920 @ =gButtonInput
     ldrh r0, [r4, #0xe]
     movs r1, #0x30
     eors r0, r1
@@ -6673,16 +6673,16 @@ SamusTurningAroundGFX: @ 0x080088f8
     movs r0, #0
     b lbl_0800893a
     .align 2, 0
-lbl_08008920: .4byte 0x0300137c
+lbl_08008920: .4byte gButtonInput
 lbl_08008924:
-    ldr r0, lbl_08008930 @ =0x03001530
+    ldr r0, lbl_08008930 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_08008934
     movs r0, #0x3b
     b lbl_0800893a
     .align 2, 0
-lbl_08008930: .4byte 0x03001530
+lbl_08008930: .4byte gEquipment
 lbl_08008934:
     movs r0, #1
     b lbl_0800893a
@@ -6715,13 +6715,13 @@ lbl_08008956:
 SamusCrouching: @ 0x0800895c
     push {r4, r5, r6, r7, lr}
     adds r4, r0, #0
-    ldr r0, lbl_080089a0 @ =0x0300137c
+    ldr r0, lbl_080089a0 @ =gButtonInput
     ldrh r1, [r0]
     movs r0, #0x30
     ands r0, r1
     cmp r0, #0
     bne lbl_080089ac
-    ldr r0, lbl_080089a4 @ =0x03001380
+    ldr r0, lbl_080089a4 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -6746,8 +6746,8 @@ SamusCrouching: @ 0x0800895c
     movs r0, #0x21
     b lbl_08008b0c
     .align 2, 0
-lbl_080089a0: .4byte 0x0300137c
-lbl_080089a4: .4byte 0x03001380
+lbl_080089a0: .4byte gButtonInput
+lbl_080089a4: .4byte gChangedInput
 lbl_080089a8: .4byte 0x0823a554
 lbl_080089ac:
     ldr r6, lbl_080089cc @ =0x0823a554
@@ -6802,7 +6802,7 @@ lbl_08008a06:
     .align 2, 0
 lbl_08008a0c: .4byte 0x0000ffc0
 lbl_08008a10:
-    ldr r2, lbl_08008a4c @ =0x03001380
+    ldr r2, lbl_08008a4c @ =gChangedInput
     ldrh r1, [r2]
     movs r0, #0x40
     ands r0, r1
@@ -6812,7 +6812,7 @@ lbl_08008a10:
     ands r0, r5
     cmp r0, #0
     bne lbl_08008a58
-    ldr r0, lbl_08008a50 @ =0x03001414
+    ldr r0, lbl_08008a50 @ =gSamusWeaponInfo
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_08008a32
@@ -6829,28 +6829,28 @@ lbl_08008a3a:
 lbl_08008a3c:
     movs r0, #6
     strh r0, [r4, #0xc]
-    ldr r0, lbl_08008a54 @ =0x03001530
+    ldr r0, lbl_08008a54 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     beq lbl_08008afc
     b lbl_08008b04
     .align 2, 0
-lbl_08008a4c: .4byte 0x03001380
-lbl_08008a50: .4byte 0x03001414
-lbl_08008a54: .4byte 0x03001530
+lbl_08008a4c: .4byte gChangedInput
+lbl_08008a50: .4byte gSamusWeaponInfo
+lbl_08008a54: .4byte gEquipment
 lbl_08008a58:
     ldrh r1, [r2]
     movs r0, #0x80
     ands r0, r1
     cmp r0, #0
     beq lbl_08008a90
-    ldr r0, lbl_08008a88 @ =0x03001530
+    ldr r0, lbl_08008a88 @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #0x40
     ands r0, r1
     cmp r0, #0
     beq lbl_08008a90
-    ldr r0, lbl_08008a8c @ =0x03001414
+    ldr r0, lbl_08008a8c @ =gSamusWeaponInfo
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_08008a7c
@@ -6863,8 +6863,8 @@ lbl_08008a7c:
     movs r0, #0x10
     b lbl_08008b0c
     .align 2, 0
-lbl_08008a88: .4byte 0x03001530
-lbl_08008a8c: .4byte 0x03001414
+lbl_08008a88: .4byte gEquipment
+lbl_08008a8c: .4byte gSamusWeaponInfo
 lbl_08008a90:
     adds r0, r4, #0
     bl samus_update_aim
@@ -6874,7 +6874,7 @@ lbl_08008a90:
     movs r0, #0
     strb r0, [r4, #2]
 lbl_08008aa0:
-    ldr r0, lbl_08008ab0 @ =0x03001588
+    ldr r0, lbl_08008ab0 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -6882,9 +6882,9 @@ lbl_08008aa0:
     movs r0, #6
     b lbl_08008b0c
     .align 2, 0
-lbl_08008ab0: .4byte 0x03001588
+lbl_08008ab0: .4byte gSamusPhysics
 lbl_08008ab4:
-    ldr r1, lbl_08008ac8 @ =0x0300137c
+    ldr r1, lbl_08008ac8 @ =gButtonInput
     ldrh r2, [r4, #0xe]
     movs r0, #0x30
     eors r0, r2
@@ -6895,7 +6895,7 @@ lbl_08008ab4:
     movs r0, #5
     b lbl_08008b0c
     .align 2, 0
-lbl_08008ac8: .4byte 0x0300137c
+lbl_08008ac8: .4byte gButtonInput
 lbl_08008acc:
     adds r0, r1, #0
     ands r0, r2
@@ -6919,7 +6919,7 @@ lbl_08008acc:
 lbl_08008af2:
     strh r7, [r4, #0x12]
 lbl_08008af4:
-    ldr r0, lbl_08008b00 @ =0x03001530
+    ldr r0, lbl_08008b00 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_08008b04
@@ -6927,7 +6927,7 @@ lbl_08008afc:
     movs r0, #0x3b
     b lbl_08008b0c
     .align 2, 0
-lbl_08008b00: .4byte 0x03001530
+lbl_08008b00: .4byte gEquipment
 lbl_08008b04:
     movs r0, #1
     b lbl_08008b0c
@@ -6945,13 +6945,13 @@ lbl_08008b0c:
 SamusTurningAroundAndCrouching: @ 0x08008b14
     push {r4, r5, r6, r7, lr}
     adds r5, r0, #0
-    ldr r0, lbl_08008b58 @ =0x0300137c
+    ldr r0, lbl_08008b58 @ =gButtonInput
     ldrh r1, [r0]
     movs r0, #0x30
     ands r0, r1
     cmp r0, #0
     bne lbl_08008b64
-    ldr r0, lbl_08008b5c @ =0x03001380
+    ldr r0, lbl_08008b5c @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -6976,8 +6976,8 @@ SamusTurningAroundAndCrouching: @ 0x08008b14
     movs r0, #0x21
     b lbl_08008c1e
     .align 2, 0
-lbl_08008b58: .4byte 0x0300137c
-lbl_08008b5c: .4byte 0x03001380
+lbl_08008b58: .4byte gButtonInput
+lbl_08008b5c: .4byte gChangedInput
 lbl_08008b60: .4byte 0x0823a554
 lbl_08008b64:
     ldr r6, lbl_08008b84 @ =0x0823a554
@@ -7032,7 +7032,7 @@ lbl_08008bbe:
     .align 2, 0
 lbl_08008bc4: .4byte 0x0000ffc0
 lbl_08008bc8:
-    ldr r0, lbl_08008c0c @ =0x03001380
+    ldr r0, lbl_08008c0c @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #0x40
     ands r0, r1
@@ -7042,7 +7042,7 @@ lbl_08008bc8:
     ands r0, r4
     cmp r0, #0
     bne lbl_08008bf8
-    ldr r0, lbl_08008c10 @ =0x03001414
+    ldr r0, lbl_08008c10 @ =gSamusWeaponInfo
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_08008bea
@@ -7060,7 +7060,7 @@ lbl_08008bf4:
     movs r0, #2
     strb r0, [r5]
 lbl_08008bf8:
-    ldr r0, lbl_08008c14 @ =0x03001588
+    ldr r0, lbl_08008c14 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -7071,9 +7071,9 @@ lbl_08008bf8:
     movs r0, #3
     b lbl_08008c1e
     .align 2, 0
-lbl_08008c0c: .4byte 0x03001380
-lbl_08008c10: .4byte 0x03001414
-lbl_08008c14: .4byte 0x03001588
+lbl_08008c0c: .4byte gChangedInput
+lbl_08008c10: .4byte gSamusWeaponInfo
+lbl_08008c14: .4byte gSamusPhysics
 lbl_08008c18:
     movs r0, #6
     b lbl_08008c1e
@@ -7093,14 +7093,14 @@ SamusTurningAroundAndCrouchingGFX: @ 0x08008c24
     lsrs r0, r0, #0x18
     cmp r0, #2
     bne lbl_08008c48
-    ldr r0, lbl_08008c40 @ =0x03001530
+    ldr r0, lbl_08008c40 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_08008c44
     movs r0, #0x3c
     b lbl_08008c4a
     .align 2, 0
-lbl_08008c40: .4byte 0x03001530
+lbl_08008c40: .4byte gEquipment
 lbl_08008c44:
     movs r0, #4
     b lbl_08008c4a
@@ -7133,7 +7133,7 @@ lbl_08008c66:
 SamusSkidding: @ 0x08008c6c
     push {lr}
     adds r2, r0, #0
-    ldr r0, lbl_08008c84 @ =0x03001380
+    ldr r0, lbl_08008c84 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -7144,9 +7144,9 @@ SamusSkidding: @ 0x08008c6c
     movs r0, #0xfe
     b lbl_08008cf2
     .align 2, 0
-lbl_08008c84: .4byte 0x03001380
+lbl_08008c84: .4byte gChangedInput
 lbl_08008c88:
-    ldr r0, lbl_08008c9c @ =0x0300137c
+    ldr r0, lbl_08008c9c @ =gButtonInput
     ldrh r1, [r0]
     ldrh r3, [r2, #0xe]
     adds r0, r1, #0
@@ -7156,7 +7156,7 @@ lbl_08008c88:
     movs r0, #0
     b lbl_08008cf2
     .align 2, 0
-lbl_08008c9c: .4byte 0x0300137c
+lbl_08008c9c: .4byte gButtonInput
 lbl_08008ca0:
     movs r0, #0xf0
     ands r0, r1
@@ -7164,18 +7164,18 @@ lbl_08008ca0:
     bne lbl_08008ccc
     movs r0, #0xb4
     strb r0, [r2, #8]
-    ldr r1, lbl_08008cc0 @ =0x03001528
+    ldr r1, lbl_08008cc0 @ =gScrewSpeedAnimation
     movs r0, #8
     strb r0, [r1]
-    ldr r0, lbl_08008cc4 @ =0x03001530
+    ldr r0, lbl_08008cc4 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_08008cc8
     movs r0, #0x3c
     b lbl_08008cf2
     .align 2, 0
-lbl_08008cc0: .4byte 0x03001528
-lbl_08008cc4: .4byte 0x03001530
+lbl_08008cc0: .4byte gScrewSpeedAnimation
+lbl_08008cc4: .4byte gEquipment
 lbl_08008cc8:
     movs r0, #4
     b lbl_08008cf2
@@ -7211,7 +7211,7 @@ lbl_08008cf2:
 SamusMidAir: @ 0x08008cf8
     push {r4, r5, r6, lr}
     adds r4, r0, #0
-    ldr r2, lbl_08008d24 @ =0x03001380
+    ldr r2, lbl_08008d24 @ =gChangedInput
     ldrh r1, [r2]
     movs r0, #0x80
     ands r0, r1
@@ -7220,7 +7220,7 @@ SamusMidAir: @ 0x08008cf8
     ldrb r0, [r4, #2]
     cmp r0, #4
     bne lbl_08008d2c
-    ldr r0, lbl_08008d28 @ =0x03001530
+    ldr r0, lbl_08008d28 @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #0x40
     ands r0, r1
@@ -7231,8 +7231,8 @@ SamusMidAir: @ 0x08008cf8
     movs r0, #0x14
     b lbl_08008dec
     .align 2, 0
-lbl_08008d24: .4byte 0x03001380
-lbl_08008d28: .4byte 0x03001530
+lbl_08008d24: .4byte gChangedInput
+lbl_08008d28: .4byte gEquipment
 lbl_08008d2c:
     ldrh r1, [r2]
     movs r0, #1
@@ -7245,7 +7245,7 @@ lbl_08008d2c:
     movs r0, #0x21
     b lbl_08008dec
 lbl_08008d40:
-    ldr r0, lbl_08008d58 @ =0x0300137c
+    ldr r0, lbl_08008d58 @ =gButtonInput
     ldrh r0, [r0]
     movs r1, #0xc0
     ands r1, r0
@@ -7257,15 +7257,15 @@ lbl_08008d40:
     strb r1, [r4, #0x1c]
     b lbl_08008dea
     .align 2, 0
-lbl_08008d58: .4byte 0x0300137c
+lbl_08008d58: .4byte gButtonInput
 lbl_08008d5c:
     movs r6, #0
-    ldr r5, lbl_08008d88 @ =0x03001588
+    ldr r5, lbl_08008d88 @ =gSamusPhysics
     adds r0, r5, #0
     adds r0, #0x68
     movs r1, #0
     ldrsh r2, [r0, r1]
-    ldr r0, lbl_08008d8c @ =0x0300137c
+    ldr r0, lbl_08008d8c @ =gButtonInput
     ldrh r3, [r0]
     ldrh r1, [r4, #0xe]
     adds r0, r3, #0
@@ -7281,8 +7281,8 @@ lbl_08008d5c:
     bl sub_08008278
     b lbl_08008dc6
     .align 2, 0
-lbl_08008d88: .4byte 0x03001588
-lbl_08008d8c: .4byte 0x0300137c
+lbl_08008d88: .4byte gSamusPhysics
+lbl_08008d8c: .4byte gButtonInput
 lbl_08008d90:
     movs r0, #0x30
     eors r0, r1
@@ -7322,7 +7322,7 @@ lbl_08008dc6:
     movs r0, #9
     b lbl_08008dec
 lbl_08008dd4:
-    ldr r0, lbl_08008df4 @ =0x0300137c
+    ldr r0, lbl_08008df4 @ =gButtonInput
     ldrh r0, [r0]
     movs r1, #1
     ands r1, r0
@@ -7340,7 +7340,7 @@ lbl_08008dec:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08008df4: .4byte 0x0300137c
+lbl_08008df4: .4byte gButtonInput
 
     thumb_func_start SamusMidAirGFX
 SamusMidAirGFX: @ 0x08008df8
@@ -7383,7 +7383,7 @@ lbl_08008e2e:
 SamusTurningAroundMidAir: @ 0x08008e38
     push {lr}
     adds r2, r0, #0
-    ldr r0, lbl_08008e54 @ =0x03001380
+    ldr r0, lbl_08008e54 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -7395,9 +7395,9 @@ SamusTurningAroundMidAir: @ 0x08008e38
     movs r0, #0x21
     b lbl_08008eb0
     .align 2, 0
-lbl_08008e54: .4byte 0x03001380
+lbl_08008e54: .4byte gChangedInput
 lbl_08008e58:
-    ldr r0, lbl_08008e7c @ =0x0300137c
+    ldr r0, lbl_08008e7c @ =gButtonInput
     ldrh r1, [r0]
     movs r0, #0xc0
     ands r0, r1
@@ -7415,9 +7415,9 @@ lbl_08008e58:
     strb r1, [r2, #3]
     b lbl_08008eae
     .align 2, 0
-lbl_08008e7c: .4byte 0x0300137c
+lbl_08008e7c: .4byte gButtonInput
 lbl_08008e80:
-    ldr r0, lbl_08008e94 @ =0x03001588
+    ldr r0, lbl_08008e94 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -7427,9 +7427,9 @@ lbl_08008e80:
     movs r0, #0xfe
     b lbl_08008eb0
     .align 2, 0
-lbl_08008e94: .4byte 0x03001588
+lbl_08008e94: .4byte gSamusPhysics
 lbl_08008e98:
-    ldr r0, lbl_08008eb4 @ =0x0300137c
+    ldr r0, lbl_08008eb4 @ =gButtonInput
     ldrh r0, [r0]
     movs r1, #1
     ands r1, r0
@@ -7446,7 +7446,7 @@ lbl_08008eb0:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08008eb4: .4byte 0x0300137c
+lbl_08008eb4: .4byte gButtonInput
 
     thumb_func_start SamusTurningAroundMidAirGFX
 SamusTurningAroundMidAirGFX: @ 0x08008eb8
@@ -7493,7 +7493,7 @@ lbl_08008ef2:
 SamusSpinning: @ 0x08008efc
     push {r4, r5, lr}
     adds r4, r0, #0
-    ldr r0, lbl_08008f10 @ =0x03001588
+    ldr r0, lbl_08008f10 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -7501,9 +7501,9 @@ SamusSpinning: @ 0x08008efc
     movs r0, #0
     b lbl_08008f2a
     .align 2, 0
-lbl_08008f10: .4byte 0x03001588
+lbl_08008f10: .4byte gSamusPhysics
 lbl_08008f14:
-    ldr r0, lbl_08008f30 @ =0x0300137c
+    ldr r0, lbl_08008f30 @ =gButtonInput
     ldrh r1, [r0]
     movs r0, #0x30
     ands r0, r1
@@ -7519,16 +7519,16 @@ lbl_08008f2a:
     movs r0, #0xfe
     b lbl_08009030
     .align 2, 0
-lbl_08008f30: .4byte 0x0300137c
+lbl_08008f30: .4byte gButtonInput
 lbl_08008f34:
     adds r0, r4, #0
     bl samus_update_aim
-    ldr r1, lbl_08008f80 @ =0x03001588
+    ldr r1, lbl_08008f80 @ =gSamusPhysics
     adds r0, r1, #0
     adds r0, #0x68
     movs r2, #0
     ldrsh r5, [r0, r2]
-    ldr r0, lbl_08008f84 @ =0x03001530
+    ldr r0, lbl_08008f84 @ =gEquipment
     ldrb r2, [r0, #0xf]
     movs r0, #4
     ands r0, r2
@@ -7539,7 +7539,7 @@ lbl_08008f34:
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_08008f92
-    ldr r0, lbl_08008f88 @ =0x03001380
+    ldr r0, lbl_08008f88 @ =gChangedInput
     ldrh r1, [r0]
     movs r3, #1
     adds r0, r3, #0
@@ -7559,9 +7559,9 @@ lbl_08008f34:
     movs r0, #0xe8
     b lbl_08008f8e
     .align 2, 0
-lbl_08008f80: .4byte 0x03001588
-lbl_08008f84: .4byte 0x03001530
-lbl_08008f88: .4byte 0x03001380
+lbl_08008f80: .4byte gSamusPhysics
+lbl_08008f84: .4byte gEquipment
+lbl_08008f88: .4byte gChangedInput
 lbl_08008f8c:
     movs r0, #0xc0
 lbl_08008f8e:
@@ -7578,7 +7578,7 @@ lbl_08008f92:
     ands r0, r2
     cmp r0, #0
     beq lbl_08008fe6
-    ldr r0, lbl_08008fe0 @ =0x03001380
+    ldr r0, lbl_08008fe0 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -7607,11 +7607,11 @@ lbl_08008fbe:
     movs r0, #0xd
     b lbl_08009030
     .align 2, 0
-lbl_08008fe0: .4byte 0x03001380
+lbl_08008fe0: .4byte gChangedInput
 lbl_08008fe4:
     movs r5, #1
 lbl_08008fe6:
-    ldr r2, lbl_08009004 @ =0x0300137c
+    ldr r2, lbl_08009004 @ =gButtonInput
     ldrh r1, [r4, #0xe]
     movs r0, #0x30
     adds r3, r1, #0
@@ -7626,9 +7626,9 @@ lbl_08008fe6:
     strh r0, [r4, #0x16]
     b lbl_08009018
     .align 2, 0
-lbl_08009004: .4byte 0x0300137c
+lbl_08009004: .4byte gButtonInput
 lbl_08009008:
-    ldr r0, lbl_08009038 @ =0x03001588
+    ldr r0, lbl_08009038 @ =gSamusPhysics
     adds r0, #0x6a
     movs r2, #0
     ldrsh r1, [r0, r2]
@@ -7636,7 +7636,7 @@ lbl_08009008:
     adds r2, r4, #0
     bl sub_08008278
 lbl_08009018:
-    ldr r0, lbl_0800903c @ =0x0300137c
+    ldr r0, lbl_0800903c @ =gButtonInput
     ldrh r0, [r0]
     movs r1, #1
     ands r1, r0
@@ -7654,14 +7654,14 @@ lbl_08009030:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08009038: .4byte 0x03001588
-lbl_0800903c: .4byte 0x0300137c
+lbl_08009038: .4byte gSamusPhysics
+lbl_0800903c: .4byte gButtonInput
 
     thumb_func_start SamusSpinningGFX
 SamusSpinningGFX: @ 0x08009040
     push {r4, r5, lr}
     adds r4, r0, #0
-    ldr r0, lbl_08009074 @ =0x03001588
+    ldr r0, lbl_08009074 @ =gSamusPhysics
     adds r5, r0, #0
     adds r5, #0x5b
     ldrb r1, [r5]
@@ -7684,9 +7684,9 @@ lbl_0800905e:
     bl SoundPlay
     b lbl_08009092
     .align 2, 0
-lbl_08009074: .4byte 0x03001588
+lbl_08009074: .4byte gSamusPhysics
 lbl_08009078:
-    ldr r0, lbl_08009088 @ =0x03001530
+    ldr r0, lbl_08009088 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     beq lbl_0800908c
@@ -7694,7 +7694,7 @@ lbl_08009078:
     bl SoundPlay
     b lbl_08009092
     .align 2, 0
-lbl_08009088: .4byte 0x03001530
+lbl_08009088: .4byte gEquipment
 lbl_0800908c:
     movs r0, #0x98
     bl SoundPlay
@@ -7709,7 +7709,7 @@ lbl_08009092:
 SamusStartingWallJump: @ 0x0800909c
     push {lr}
     adds r3, r0, #0
-    ldr r0, lbl_080090b4 @ =0x03001588
+    ldr r0, lbl_080090b4 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -7719,9 +7719,9 @@ SamusStartingWallJump: @ 0x0800909c
     movs r0, #0xfe
     b lbl_080090da
     .align 2, 0
-lbl_080090b4: .4byte 0x03001588
+lbl_080090b4: .4byte gSamusPhysics
 lbl_080090b8:
-    ldr r0, lbl_080090d4 @ =0x0300137c
+    ldr r0, lbl_080090d4 @ =gButtonInput
     ldrh r2, [r0]
     movs r1, #0x30
     ands r1, r2
@@ -7735,7 +7735,7 @@ lbl_080090b8:
     movs r0, #0xfe
     b lbl_080090da
     .align 2, 0
-lbl_080090d4: .4byte 0x0300137c
+lbl_080090d4: .4byte gButtonInput
 lbl_080090d8:
     movs r0, #0xff
 lbl_080090da:
@@ -7772,7 +7772,7 @@ SamusSpaceJumpingGFX: @ 0x08009104
     ldrh r0, [r4, #0x1c]
     cmp r0, #1
     bne lbl_0800912a
-    ldr r0, lbl_08009120 @ =0x03001588
+    ldr r0, lbl_08009120 @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #0
@@ -7781,12 +7781,12 @@ SamusSpaceJumpingGFX: @ 0x08009104
     bl SoundPlay
     b lbl_0800912a
     .align 2, 0
-lbl_08009120: .4byte 0x03001588
+lbl_08009120: .4byte gSamusPhysics
 lbl_08009124:
     movs r0, #0x6b
     bl SoundPlay
 lbl_0800912a:
-    ldr r0, lbl_0800914c @ =0x03001588
+    ldr r0, lbl_0800914c @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r1, [r0]
     adds r0, r4, #0
@@ -7803,13 +7803,13 @@ lbl_08009142:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0800914c: .4byte 0x03001588
+lbl_0800914c: .4byte gSamusPhysics
 
     thumb_func_start SamusScrewAttackingGFX
 SamusScrewAttackingGFX: @ 0x08009150
     push {r4, r5, lr}
     adds r4, r0, #0
-    ldr r0, lbl_08009174 @ =0x03001530
+    ldr r0, lbl_08009174 @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #4
     ands r0, r1
@@ -7824,7 +7824,7 @@ SamusScrewAttackingGFX: @ 0x08009150
     bl SoundPlay
     b lbl_0800918c
     .align 2, 0
-lbl_08009174: .4byte 0x03001530
+lbl_08009174: .4byte gEquipment
 lbl_08009178: .4byte 0x08238ef4
 lbl_0800917c:
     ldr r0, lbl_08009200 @ =0x08238ef4
@@ -7839,7 +7839,7 @@ lbl_0800918c:
     lsls r0, r0, #4
     adds r5, r5, r0
     ldrb r1, [r5, #0xc]
-    ldr r0, lbl_08009204 @ =0x03001588
+    ldr r0, lbl_08009204 @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #0
@@ -7860,7 +7860,7 @@ lbl_080091a2:
     bne lbl_080091ba
     strb r0, [r4, #0x1d]
 lbl_080091ba:
-    ldr r3, lbl_08009208 @ =0x03001528
+    ldr r3, lbl_08009208 @ =gScrewSpeedAnimation
     movs r0, #1
     strb r0, [r3]
     ldrb r1, [r3, #1]
@@ -7898,15 +7898,15 @@ lbl_080091f8:
     bx r1
     .align 2, 0
 lbl_08009200: .4byte 0x08238ef4
-lbl_08009204: .4byte 0x03001588
-lbl_08009208: .4byte 0x03001528
+lbl_08009204: .4byte gSamusPhysics
+lbl_08009208: .4byte gScrewSpeedAnimation
 lbl_0800920c: .4byte 0x08289084
 
     thumb_func_start SamusMorphing
 SamusMorphing: @ 0x08009210
     push {lr}
     adds r2, r0, #0
-    ldr r0, lbl_0800922c @ =0x03001380
+    ldr r0, lbl_0800922c @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #0x40
     ands r0, r1
@@ -7919,7 +7919,7 @@ lbl_08009224:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0800922c: .4byte 0x03001380
+lbl_0800922c: .4byte gChangedInput
 
     thumb_func_start SamusMorphingGFX
 SamusMorphingGFX: @ 0x08009230
@@ -7959,14 +7959,14 @@ lbl_08009260:
     strb r0, [r4, #4]
     b lbl_080093aa
 lbl_0800926a:
-    ldr r0, lbl_080092ac @ =0x03001380
+    ldr r0, lbl_080092ac @ =gChangedInput
     ldrh r1, [r0]
     movs r2, #1
     adds r0, r2, #0
     ands r0, r1
     cmp r0, #0
     beq lbl_080092b8
-    ldr r0, lbl_080092b0 @ =0x03001530
+    ldr r0, lbl_080092b0 @ =gEquipment
     ldrb r1, [r0, #0xf]
     adds r0, r2, #0
     ands r0, r1
@@ -7991,8 +7991,8 @@ lbl_0800926a:
     movs r0, #0x25
     b lbl_080093ac
     .align 2, 0
-lbl_080092ac: .4byte 0x03001380
-lbl_080092b0: .4byte 0x03001530
+lbl_080092ac: .4byte gChangedInput
+lbl_080092b0: .4byte gEquipment
 lbl_080092b4: .4byte 0x0823a554
 lbl_080092b8:
     adds r0, r4, #0
@@ -8003,14 +8003,14 @@ lbl_080092b8:
     ldrb r1, [r4, #4]
     cmp r1, #1
     bne lbl_0800925c
-    ldr r0, lbl_080092e8 @ =0x03001530
+    ldr r0, lbl_080092e8 @ =gEquipment
     ldrb r0, [r0, #0xf]
     ands r0, r1
     cmp r0, #0
     bne lbl_0800925c
     strb r0, [r4, #4]
 lbl_080092d6:
-    ldr r0, lbl_080092ec @ =0x0300137c
+    ldr r0, lbl_080092ec @ =gButtonInput
     ldrh r0, [r0]
     movs r1, #0x30
     ands r1, r0
@@ -8020,10 +8020,10 @@ lbl_080092d6:
     movs r0, #0x12
     b lbl_080093ac
     .align 2, 0
-lbl_080092e8: .4byte 0x03001530
-lbl_080092ec: .4byte 0x0300137c
+lbl_080092e8: .4byte gEquipment
+lbl_080092ec: .4byte gButtonInput
 lbl_080092f0:
-    ldr r0, lbl_0800932c @ =0x03001380
+    ldr r0, lbl_0800932c @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #0x40
     ands r0, r1
@@ -8048,14 +8048,14 @@ lbl_080092f0:
     subs r1, r2, r1
     adds r1, #0x40
     strh r1, [r4, #0x12]
-    ldr r0, lbl_08009338 @ =0x03001600
+    ldr r0, lbl_08009338 @ =gPreviousXPosition
     strh r1, [r0]
     b lbl_0800935e
     .align 2, 0
-lbl_0800932c: .4byte 0x03001380
+lbl_0800932c: .4byte gChangedInput
 lbl_08009330: .4byte 0x0823a554
 lbl_08009334: .4byte 0x0000ffc0
-lbl_08009338: .4byte 0x03001600
+lbl_08009338: .4byte gPreviousXPosition
 lbl_0800933c:
     cmp r0, #8
     bne lbl_0800935a
@@ -8069,14 +8069,14 @@ lbl_0800933c:
     subs r1, r2, r1
     subs r1, #1
     strh r1, [r4, #0x12]
-    ldr r0, lbl_08009374 @ =0x03001600
+    ldr r0, lbl_08009374 @ =gPreviousXPosition
     strh r1, [r0]
     movs r0, #0
 lbl_0800935a:
     cmp r0, #0
     bne lbl_08009386
 lbl_0800935e:
-    ldr r0, lbl_08009378 @ =0x03001588
+    ldr r0, lbl_08009378 @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #0
@@ -8086,8 +8086,8 @@ lbl_0800935e:
     b lbl_08009382
     .align 2, 0
 lbl_08009370: .4byte 0x0000ffc0
-lbl_08009374: .4byte 0x03001600
-lbl_08009378: .4byte 0x03001588
+lbl_08009374: .4byte gPreviousXPosition
+lbl_08009378: .4byte gSamusPhysics
 lbl_0800937c:
     movs r0, #0x78
     bl SoundPlay
@@ -8100,7 +8100,7 @@ lbl_08009386:
     beq lbl_080093aa
     subs r0, #1
     strb r0, [r4, #0xa]
-    ldr r0, lbl_080093b4 @ =0x0300137c
+    ldr r0, lbl_080093b4 @ =gButtonInput
     ldrh r1, [r0]
     movs r0, #0xf0
     ands r0, r1
@@ -8110,7 +8110,7 @@ lbl_08009386:
     strb r0, [r4, #8]
     movs r0, #0
     strb r0, [r4, #0xa]
-    ldr r1, lbl_080093b8 @ =0x03001528
+    ldr r1, lbl_080093b8 @ =gScrewSpeedAnimation
     movs r0, #8
     strb r0, [r1]
 lbl_080093aa:
@@ -8120,21 +8120,21 @@ lbl_080093ac:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_080093b4: .4byte 0x0300137c
-lbl_080093b8: .4byte 0x03001528
+lbl_080093b4: .4byte gButtonInput
+lbl_080093b8: .4byte gScrewSpeedAnimation
 
     thumb_func_start SamusRolling
 SamusRolling: @ 0x080093bc
     push {r4, lr}
     adds r4, r0, #0
-    ldr r0, lbl_080093e4 @ =0x03001380
+    ldr r0, lbl_080093e4 @ =gChangedInput
     ldrh r1, [r0]
     movs r2, #1
     adds r0, r2, #0
     ands r0, r1
     cmp r0, #0
     beq lbl_080093ec
-    ldr r0, lbl_080093e8 @ =0x03001530
+    ldr r0, lbl_080093e8 @ =gEquipment
     ldrb r1, [r0, #0xf]
     adds r0, r2, #0
     ands r0, r1
@@ -8145,8 +8145,8 @@ SamusRolling: @ 0x080093bc
     movs r0, #0xfe
     b lbl_08009482
     .align 2, 0
-lbl_080093e4: .4byte 0x03001380
-lbl_080093e8: .4byte 0x03001530
+lbl_080093e4: .4byte gChangedInput
+lbl_080093e8: .4byte gEquipment
 lbl_080093ec:
     ldr r0, lbl_0800941c @ =0x0823a554
     movs r2, #4
@@ -8156,13 +8156,13 @@ lbl_080093ec:
     lsls r0, r0, #0x18
     cmp r0, #0
     bne lbl_08009432
-    ldr r0, lbl_08009420 @ =0x03001380
+    ldr r0, lbl_08009420 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #0x40
     ands r0, r1
     cmp r0, #0
     beq lbl_08009432
-    ldr r0, lbl_08009424 @ =0x03001588
+    ldr r0, lbl_08009424 @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #0
@@ -8172,8 +8172,8 @@ lbl_080093ec:
     b lbl_0800942e
     .align 2, 0
 lbl_0800941c: .4byte 0x0823a554
-lbl_08009420: .4byte 0x03001380
-lbl_08009424: .4byte 0x03001588
+lbl_08009420: .4byte gChangedInput
+lbl_08009424: .4byte gSamusPhysics
 lbl_08009428:
     movs r0, #0x78
     bl SoundPlay
@@ -8181,14 +8181,14 @@ lbl_0800942e:
     movs r0, #0x13
     b lbl_08009482
 lbl_08009432:
-    ldr r0, lbl_08009468 @ =0x0300137c
+    ldr r0, lbl_08009468 @ =gButtonInput
     ldrh r2, [r0]
     ldrh r1, [r4, #0xe]
     adds r0, r2, #0
     ands r0, r1
     cmp r0, #0
     beq lbl_08009470
-    ldr r2, lbl_0800946c @ =0x03001588
+    ldr r2, lbl_0800946c @ =gSamusPhysics
     adds r0, r2, #0
     adds r0, #0x60
     movs r3, #0
@@ -8209,8 +8209,8 @@ lbl_08009456:
     movs r0, #0xff
     b lbl_08009482
     .align 2, 0
-lbl_08009468: .4byte 0x0300137c
-lbl_0800946c: .4byte 0x03001588
+lbl_08009468: .4byte gButtonInput
+lbl_0800946c: .4byte gSamusPhysics
 lbl_08009470:
     movs r0, #0x30
     eors r0, r1
@@ -8271,7 +8271,7 @@ SamusUnmorphing: @ 0x080094c0
     lsls r0, r0, #0x18
     cmp r0, #0
     bne lbl_080094fc
-    ldr r0, lbl_080094f0 @ =0x03001380
+    ldr r0, lbl_080094f0 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -8283,7 +8283,7 @@ SamusUnmorphing: @ 0x080094c0
     b lbl_08009502
     .align 2, 0
 lbl_080094ec: .4byte 0x0823a554
-lbl_080094f0: .4byte 0x03001380
+lbl_080094f0: .4byte gChangedInput
 lbl_080094f4:
     movs r0, #0x80
     ands r0, r1
@@ -8325,7 +8325,7 @@ lbl_08009524:
 SamusMorphballMidAir: @ 0x0800952c
     push {r4, lr}
     adds r4, r0, #0
-    ldr r0, lbl_08009560 @ =0x03001380
+    ldr r0, lbl_08009560 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #0x40
     ands r0, r1
@@ -8339,7 +8339,7 @@ SamusMorphballMidAir: @ 0x0800952c
     lsls r0, r0, #0x18
     cmp r0, #0
     bne lbl_0800957a
-    ldr r0, lbl_08009568 @ =0x03001588
+    ldr r0, lbl_08009568 @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r0, [r0]
     cmp r0, #1
@@ -8348,9 +8348,9 @@ SamusMorphballMidAir: @ 0x0800952c
     bl SoundPlay
     b lbl_08009572
     .align 2, 0
-lbl_08009560: .4byte 0x03001380
+lbl_08009560: .4byte gChangedInput
 lbl_08009564: .4byte 0x0823a554
-lbl_08009568: .4byte 0x03001588
+lbl_08009568: .4byte gSamusPhysics
 lbl_0800956c:
     movs r0, #0x78
     bl SoundPlay
@@ -8363,7 +8363,7 @@ lbl_0800957a:
     ldrb r0, [r4, #4]
     cmp r0, #0
     bne lbl_0800959c
-    ldr r0, lbl_08009598 @ =0x0300137c
+    ldr r0, lbl_08009598 @ =gButtonInput
     ldrh r0, [r0]
     movs r1, #1
     ands r1, r0
@@ -8376,7 +8376,7 @@ lbl_0800957a:
     strh r1, [r4, #0x18]
     b lbl_080095a8
     .align 2, 0
-lbl_08009598: .4byte 0x0300137c
+lbl_08009598: .4byte gButtonInput
 lbl_0800959c:
     movs r1, #0x18
     ldrsh r0, [r4, r1]
@@ -8394,7 +8394,7 @@ lbl_080095a8:
     cmp r0, #0
     bne lbl_080095c6
 lbl_080095b8:
-    ldr r0, lbl_080095e0 @ =0x0300137c
+    ldr r0, lbl_080095e0 @ =gButtonInput
     ldrh r2, [r0]
     ldrh r1, [r4, #0xe]
     adds r3, r2, #0
@@ -8402,7 +8402,7 @@ lbl_080095b8:
     cmp r3, #0
     beq lbl_080095e8
 lbl_080095c6:
-    ldr r1, lbl_080095e4 @ =0x03001588
+    ldr r1, lbl_080095e4 @ =gSamusPhysics
     adds r0, r1, #0
     adds r0, #0x68
     movs r2, #0
@@ -8414,8 +8414,8 @@ lbl_080095c6:
     bl sub_08008278
     b lbl_080095fa
     .align 2, 0
-lbl_080095e0: .4byte 0x0300137c
-lbl_080095e4: .4byte 0x03001588
+lbl_080095e0: .4byte gButtonInput
+lbl_080095e4: .4byte gSamusPhysics
 lbl_080095e8:
     movs r0, #0x30
     eors r1, r0
@@ -8439,7 +8439,7 @@ lbl_080095fc:
 SamusHangingOnLedge: @ 0x08009604
     push {r4, r5, r6, lr}
     adds r5, r0, #0
-    ldr r0, lbl_08009618 @ =0x03000114
+    ldr r0, lbl_08009618 @ =gScreenShakeX
     ldrb r0, [r0]
     cmp r0, #0x1d
     bls lbl_0800961c
@@ -8450,7 +8450,7 @@ lbl_08009614:
     movs r0, #0xfe
     b lbl_0800976a
     .align 2, 0
-lbl_08009618: .4byte 0x03000114
+lbl_08009618: .4byte gScreenShakeX
 lbl_0800961c:
     ldrh r1, [r5, #0xe]
     movs r0, #0x10
@@ -8483,13 +8483,13 @@ lbl_08009630:
     bl sub_08057df8
     adds r3, r0, #0
     ands r3, r4
-    ldr r0, lbl_08009680 @ =0x03001380
+    ldr r0, lbl_08009680 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
     cmp r0, #0
     beq lbl_080096c6
-    ldr r0, lbl_08009684 @ =0x0300137c
+    ldr r0, lbl_08009684 @ =gButtonInput
     ldrh r1, [r0]
     ldrh r2, [r5, #0xe]
     ands r1, r2
@@ -8503,10 +8503,10 @@ lbl_08009630:
     movs r0, #0x1a
     b lbl_0800976a
     .align 2, 0
-lbl_08009680: .4byte 0x03001380
-lbl_08009684: .4byte 0x0300137c
+lbl_08009680: .4byte gChangedInput
+lbl_08009684: .4byte gButtonInput
 lbl_08009688:
-    ldr r0, lbl_08009698 @ =0x03001530
+    ldr r0, lbl_08009698 @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #0x40
     ands r0, r1
@@ -8515,7 +8515,7 @@ lbl_08009688:
     movs r0, #0x1c
     b lbl_0800976a
     .align 2, 0
-lbl_08009698: .4byte 0x03001530
+lbl_08009698: .4byte gEquipment
 lbl_0800969c:
     movs r0, #0x30
     eors r0, r2
@@ -8541,7 +8541,7 @@ lbl_080096bc:
     strh r0, [r5, #0x18]
     b lbl_08009614
 lbl_080096c6:
-    ldr r0, lbl_080096e8 @ =0x03001588
+    ldr r0, lbl_080096e8 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -8550,7 +8550,7 @@ lbl_080096c6:
     movs r1, #0x30
     eors r0, r1
     strh r0, [r5, #0xe]
-    ldr r0, lbl_080096ec @ =0x0300137c
+    ldr r0, lbl_080096ec @ =gButtonInput
     ldrh r1, [r0]
     movs r0, #0x80
     ands r0, r1
@@ -8559,8 +8559,8 @@ lbl_080096c6:
     movs r0, #4
     b lbl_080096f2
     .align 2, 0
-lbl_080096e8: .4byte 0x03001588
-lbl_080096ec: .4byte 0x0300137c
+lbl_080096e8: .4byte gSamusPhysics
+lbl_080096ec: .4byte gButtonInput
 lbl_080096f0:
     movs r0, #3
 lbl_080096f2:
@@ -8568,11 +8568,11 @@ lbl_080096f2:
     movs r0, #0x19
     b lbl_0800976a
 lbl_080096f8:
-    ldr r0, lbl_08009720 @ =0x03001530
+    ldr r0, lbl_08009720 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     beq lbl_08009734
-    ldr r0, lbl_08009724 @ =0x03001414
+    ldr r0, lbl_08009724 @ =gSamusWeaponInfo
     ldrb r0, [r0, #5]
     cmp r0, #0
     beq lbl_08009734
@@ -8580,7 +8580,7 @@ lbl_080096f8:
     movs r1, #0x30
     eors r0, r1
     strh r0, [r5, #0xe]
-    ldr r0, lbl_08009728 @ =0x0300137c
+    ldr r0, lbl_08009728 @ =gButtonInput
     ldrh r1, [r0]
     movs r0, #0x80
     ands r0, r1
@@ -8589,9 +8589,9 @@ lbl_080096f8:
     movs r0, #4
     b lbl_0800972e
     .align 2, 0
-lbl_08009720: .4byte 0x03001530
-lbl_08009724: .4byte 0x03001414
-lbl_08009728: .4byte 0x0300137c
+lbl_08009720: .4byte gEquipment
+lbl_08009724: .4byte gSamusWeaponInfo
+lbl_08009728: .4byte gButtonInput
 lbl_0800972c:
     movs r0, #3
 lbl_0800972e:
@@ -8599,8 +8599,8 @@ lbl_0800972e:
     movs r0, #0x18
     b lbl_0800976a
 lbl_08009734:
-    ldr r0, lbl_08009760 @ =0x0300137c
-    ldr r1, lbl_08009764 @ =0x0300168c
+    ldr r0, lbl_08009760 @ =gButtonInput
+    ldr r1, lbl_08009764 @ =gButtonAssignments
     ldrh r3, [r0]
     ldrh r0, [r1, #2]
     ands r0, r3
@@ -8623,8 +8623,8 @@ lbl_08009756:
     movs r0, #0x16
     b lbl_0800976a
     .align 2, 0
-lbl_08009760: .4byte 0x0300137c
-lbl_08009764: .4byte 0x0300168c
+lbl_08009760: .4byte gButtonInput
+lbl_08009764: .4byte gButtonAssignments
 lbl_08009768:
     movs r0, #0xff
 lbl_0800976a:
@@ -8636,7 +8636,7 @@ lbl_0800976a:
 SamusHangingOnLedgeGFX: @ 0x08009770
     push {r4, lr}
     adds r4, r0, #0
-    ldr r0, lbl_08009794 @ =0x03001588
+    ldr r0, lbl_08009794 @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r1, [r0]
     adds r0, r4, #0
@@ -8653,20 +8653,20 @@ lbl_0800978c:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08009794: .4byte 0x03001588
+lbl_08009794: .4byte gSamusPhysics
 
     thumb_func_start SamusTurningToAimWhileHanging
 SamusTurningToAimWhileHanging: @ 0x08009798
     push {r4, r5, r6, lr}
     adds r5, r0, #0
-    ldr r0, lbl_080097a8 @ =0x03000114
+    ldr r0, lbl_080097a8 @ =gScreenShakeX
     ldrb r0, [r0]
     cmp r0, #0x1d
     bls lbl_080097ac
     movs r0, #0
     b lbl_0800983e
     .align 2, 0
-lbl_080097a8: .4byte 0x03000114
+lbl_080097a8: .4byte gScreenShakeX
 lbl_080097ac:
     ldrh r1, [r5, #0xe]
     movs r0, #0x20
@@ -8699,13 +8699,13 @@ lbl_080097c0:
     bl sub_08057df8
     adds r3, r0, #0
     ands r3, r4
-    ldr r0, lbl_08009818 @ =0x03001380
+    ldr r0, lbl_08009818 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
     cmp r0, #0
     beq lbl_08009844
-    ldr r1, lbl_0800981c @ =0x0300137c
+    ldr r1, lbl_0800981c @ =gButtonInput
     ldrh r2, [r5, #0xe]
     movs r0, #0x30
     adds r4, r2, #0
@@ -8723,10 +8723,10 @@ lbl_080097c0:
     movs r0, #0x1a
     b lbl_0800985a
     .align 2, 0
-lbl_08009818: .4byte 0x03001380
-lbl_0800981c: .4byte 0x0300137c
+lbl_08009818: .4byte gChangedInput
+lbl_0800981c: .4byte gButtonInput
 lbl_08009820:
-    ldr r0, lbl_08009838 @ =0x03001530
+    ldr r0, lbl_08009838 @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #0x40
     ands r0, r1
@@ -8738,7 +8738,7 @@ lbl_08009820:
     movs r0, #0x1c
     b lbl_0800985a
     .align 2, 0
-lbl_08009838: .4byte 0x03001530
+lbl_08009838: .4byte gEquipment
 lbl_0800983c:
     movs r0, #1
 lbl_0800983e:
@@ -8746,7 +8746,7 @@ lbl_0800983e:
     movs r0, #0xfe
     b lbl_0800985a
 lbl_08009844:
-    ldr r0, lbl_08009854 @ =0x03001588
+    ldr r0, lbl_08009854 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -8754,7 +8754,7 @@ lbl_08009844:
     movs r0, #0xff
     b lbl_0800985a
     .align 2, 0
-lbl_08009854: .4byte 0x03001588
+lbl_08009854: .4byte gSamusPhysics
 lbl_08009858:
     movs r0, #0x19
 lbl_0800985a:
@@ -8765,7 +8765,7 @@ lbl_0800985a:
     thumb_func_start SamusTurningToAimWhileHangingGFX
 SamusTurningToAimWhileHangingGFX: @ 0x08009860
     push {lr}
-    ldr r1, lbl_08009878 @ =0x03001588
+    ldr r1, lbl_08009878 @ =gSamusPhysics
     adds r1, #0x5b
     ldrb r1, [r1]
     bl sub_0800847c
@@ -8776,7 +8776,7 @@ SamusTurningToAimWhileHangingGFX: @ 0x08009860
     movs r0, #0xff
     b lbl_0800987e
     .align 2, 0
-lbl_08009878: .4byte 0x03001588
+lbl_08009878: .4byte gSamusPhysics
 lbl_0800987c:
     movs r0, #0x18
 lbl_0800987e:
@@ -8788,7 +8788,7 @@ lbl_0800987e:
 SamusHidingArmCannonWhileHangingGFX: @ 0x08009884
     push {r4, lr}
     adds r4, r0, #0
-    ldr r0, lbl_080098a0 @ =0x03001588
+    ldr r0, lbl_080098a0 @ =gSamusPhysics
     adds r0, #0x5b
     ldrb r1, [r0]
     adds r0, r4, #0
@@ -8800,7 +8800,7 @@ SamusHidingArmCannonWhileHangingGFX: @ 0x08009884
     movs r0, #0xff
     b lbl_080098ae
     .align 2, 0
-lbl_080098a0: .4byte 0x03001588
+lbl_080098a0: .4byte gSamusPhysics
 lbl_080098a4:
     ldrh r0, [r4, #0xe]
     movs r1, #0x30
@@ -8818,18 +8818,18 @@ SamusAimingWhileHanging: @ 0x080098b4
     mov r7, r8
     push {r7}
     adds r5, r0, #0
-    ldr r0, lbl_080098c8 @ =0x03000114
+    ldr r0, lbl_080098c8 @ =gScreenShakeX
     ldrb r0, [r0]
     cmp r0, #0x1d
     bls lbl_080098cc
     movs r0, #0
     b lbl_08009982
     .align 2, 0
-lbl_080098c8: .4byte 0x03000114
+lbl_080098c8: .4byte gScreenShakeX
 lbl_080098cc:
     adds r0, r5, #0
     bl samus_update_aim
-    ldr r0, lbl_080098e0 @ =0x03001588
+    ldr r0, lbl_080098e0 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -8837,7 +8837,7 @@ lbl_080098cc:
     movs r0, #0x19
     b lbl_08009a34
     .align 2, 0
-lbl_080098e0: .4byte 0x03001588
+lbl_080098e0: .4byte gSamusPhysics
 lbl_080098e4:
     ldrh r1, [r5, #0xe]
     movs r0, #0x20
@@ -8871,13 +8871,13 @@ lbl_080098f8:
     bl sub_08057df8
     adds r7, r0, #0
     ands r7, r4
-    ldr r0, lbl_08009958 @ =0x03001380
+    ldr r0, lbl_08009958 @ =gChangedInput
     ldrh r4, [r0]
     movs r0, #1
     ands r0, r4
     cmp r0, #0
     beq lbl_08009988
-    ldr r3, lbl_0800995c @ =0x0300137c
+    ldr r3, lbl_0800995c @ =gButtonInput
     ldrh r2, [r5, #0xe]
     movs r0, #0x30
     adds r6, r2, #0
@@ -8898,10 +8898,10 @@ lbl_080098f8:
     movs r0, #0x1a
     b lbl_08009a34
     .align 2, 0
-lbl_08009958: .4byte 0x03001380
-lbl_0800995c: .4byte 0x0300137c
+lbl_08009958: .4byte gChangedInput
+lbl_0800995c: .4byte gButtonInput
 lbl_08009960:
-    ldr r0, lbl_08009974 @ =0x03001530
+    ldr r0, lbl_08009974 @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #0x40
     ands r0, r1
@@ -8911,7 +8911,7 @@ lbl_08009960:
     eors r0, r4
     b lbl_08009a22
     .align 2, 0
-lbl_08009974: .4byte 0x03001530
+lbl_08009974: .4byte gEquipment
 lbl_08009978:
     ldrh r0, [r2]
     ands r0, r4
@@ -8924,8 +8924,8 @@ lbl_08009982:
     b lbl_08009a34
 lbl_08009988:
     movs r6, #0
-    ldr r2, lbl_080099bc @ =0x0300137c
-    ldr r0, lbl_080099c0 @ =0x0300168c
+    ldr r2, lbl_080099bc @ =gButtonInput
+    ldr r0, lbl_080099c0 @ =gButtonAssignments
     ldrh r1, [r2]
     ldrh r0, [r0, #2]
     ands r0, r1
@@ -8938,11 +8938,11 @@ lbl_08009988:
     adds r4, r1, #0
     cmp r0, #0
     beq lbl_080099d0
-    ldr r0, lbl_080099c4 @ =0x03001530
+    ldr r0, lbl_080099c4 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     beq lbl_080099b6
-    ldr r0, lbl_080099c8 @ =0x03001414
+    ldr r0, lbl_080099c8 @ =gSamusWeaponInfo
     ldrb r0, [r0, #5]
     cmp r0, #0
     bne lbl_080099cc
@@ -8950,10 +8950,10 @@ lbl_080099b6:
     movs r0, #0x17
     b lbl_08009a34
     .align 2, 0
-lbl_080099bc: .4byte 0x0300137c
-lbl_080099c0: .4byte 0x0300168c
-lbl_080099c4: .4byte 0x03001530
-lbl_080099c8: .4byte 0x03001414
+lbl_080099bc: .4byte gButtonInput
+lbl_080099c0: .4byte gButtonAssignments
+lbl_080099c4: .4byte gEquipment
+lbl_080099c8: .4byte gSamusWeaponInfo
 lbl_080099cc:
     movs r0, #3
     strb r0, [r5, #2]
@@ -8990,7 +8990,7 @@ lbl_080099e4:
     movs r0, #0x1a
     b lbl_08009a34
 lbl_08009a0c:
-    ldr r0, lbl_08009a28 @ =0x03001530
+    ldr r0, lbl_08009a28 @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #0x40
     ands r0, r1
@@ -9006,7 +9006,7 @@ lbl_08009a22:
     movs r0, #0x1c
     b lbl_08009a34
     .align 2, 0
-lbl_08009a28: .4byte 0x03001530
+lbl_08009a28: .4byte gEquipment
 lbl_08009a2c:
     strb r0, [r5, #0xa]
     b lbl_08009a32
@@ -9101,14 +9101,14 @@ SamusPullingSelfForwardGFX: @ 0x08009ab4
     lsrs r0, r0, #0x18
     cmp r0, #2
     bne lbl_08009ad8
-    ldr r0, lbl_08009ad0 @ =0x03001530
+    ldr r0, lbl_08009ad0 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_08009ad4
     movs r0, #0x3b
     b lbl_08009ada
     .align 2, 0
-lbl_08009ad0: .4byte 0x03001530
+lbl_08009ad0: .4byte gEquipment
 lbl_08009ad4:
     movs r0, #1
     b lbl_08009ada
@@ -9181,7 +9181,7 @@ SamusUsingAnElevator: @ 0x08009b28
     ands r0, r1
     cmp r0, #0
     beq lbl_08009b74
-    ldr r0, lbl_08009b70 @ =0x03001602
+    ldr r0, lbl_08009b70 @ =gPreviousYPosition
     ldrh r0, [r0]
     ldrh r1, [r4, #0x12]
     bl check_hazard_at_pos
@@ -9196,7 +9196,7 @@ SamusUsingAnElevator: @ 0x08009b28
     strh r0, [r4, #0x14]
     b lbl_08009b90
     .align 2, 0
-lbl_08009b70: .4byte 0x03001602
+lbl_08009b70: .4byte gPreviousYPosition
 lbl_08009b74:
     movs r0, #0x80
     ands r0, r1
@@ -9284,7 +9284,7 @@ lbl_08009bfe:
 SamusFacingTheForeground: @ 0x08009c04
     push {lr}
     adds r2, r0, #0
-    ldr r0, lbl_08009c20 @ =0x0300137c
+    ldr r0, lbl_08009c20 @ =gButtonInput
     ldrh r0, [r0]
     movs r1, #0x30
     ands r1, r0
@@ -9297,7 +9297,7 @@ SamusFacingTheForeground: @ 0x08009c04
     movs r0, #0x1f
     b lbl_08009c26
     .align 2, 0
-lbl_08009c20: .4byte 0x0300137c
+lbl_08009c20: .4byte gButtonInput
 lbl_08009c24:
     movs r0, #0xff
 lbl_08009c26:
@@ -9324,14 +9324,14 @@ lbl_08009c40:
     movs r0, #0x2c
     b lbl_08009c62
 lbl_08009c4a:
-    ldr r0, lbl_08009c58 @ =0x03001530
+    ldr r0, lbl_08009c58 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_08009c5c
     movs r0, #0x3b
     b lbl_08009c62
     .align 2, 0
-lbl_08009c58: .4byte 0x03001530
+lbl_08009c58: .4byte gEquipment
 lbl_08009c5c:
     movs r0, #1
     b lbl_08009c62
@@ -9352,7 +9352,7 @@ SamusDelayBeforeShinesparkingGFX: @ 0x08009c68
     lsrs r0, r0, #0x18
     cmp r0, #2
     bne lbl_08009c98
-    ldr r2, lbl_08009c94 @ =0x0300137c
+    ldr r2, lbl_08009c94 @ =gButtonInput
     ldrh r0, [r4, #0xe]
     movs r1, #0x30
     eors r0, r1
@@ -9366,7 +9366,7 @@ lbl_08009c8e:
     movs r0, #0x22
     b lbl_08009c9a
     .align 2, 0
-lbl_08009c94: .4byte 0x0300137c
+lbl_08009c94: .4byte gButtonInput
 lbl_08009c98:
     movs r0, #0xff
 lbl_08009c9a:
@@ -9446,14 +9446,14 @@ lbl_08009cf2:
     strh r0, [r4, #0x1a]
     ldrh r0, [r6]
     strh r0, [r4, #0x14]
-    ldr r1, lbl_08009d30 @ =0x03004fc9
+    ldr r1, lbl_08009d30 @ =gUnk_03004fc9
     ldrb r0, [r1]
     adds r0, #1
     strb r0, [r1]
     movs r0, #0xfd
     b lbl_08009d48
     .align 2, 0
-lbl_08009d30: .4byte 0x03004fc9
+lbl_08009d30: .4byte gUnk_03004fc9
 lbl_08009d34:
     movs r0, #0x1e
     movs r1, #1
@@ -9507,7 +9507,7 @@ lbl_08009d6e:
     bne lbl_08009d8e
     strb r3, [r1, #0x1d]
 lbl_08009d8e:
-    ldr r3, lbl_08009dd4 @ =0x03001528
+    ldr r3, lbl_08009dd4 @ =gScrewSpeedAnimation
     ldrb r0, [r3, #1]
     adds r0, #1
     strb r0, [r3, #1]
@@ -9543,7 +9543,7 @@ lbl_08009dc8:
     bx r1
     .align 2, 0
 lbl_08009dd0: .4byte 0x08238f64
-lbl_08009dd4: .4byte 0x03001528
+lbl_08009dd4: .4byte gScrewSpeedAnimation
 lbl_08009dd8: .4byte 0x08288f94
 
     thumb_func_start SamusShinesparkCollisionGFX
@@ -9583,7 +9583,7 @@ lbl_08009e06:
 SamusDelayBeforeBallsparking: @ 0x08009e0c
     push {r4, lr}
     adds r4, r0, #0
-    ldr r2, lbl_08009e30 @ =0x0300137c
+    ldr r2, lbl_08009e30 @ =gButtonInput
     ldrh r1, [r4, #0xe]
     movs r0, #0x30
     adds r3, r1, #0
@@ -9600,7 +9600,7 @@ lbl_08009e26:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08009e30: .4byte 0x0300137c
+lbl_08009e30: .4byte gButtonInput
 
     thumb_func_start SamusDelayBeforeBallsparkingGFX
 SamusDelayBeforeBallsparkingGFX: @ 0x08009c68
@@ -9637,7 +9637,7 @@ lbl_08009e6c:
     ldrb r0, [r4, #4]
     cmp r0, #0xf0
     beq lbl_08009eaa
-    ldr r3, lbl_08009eb4 @ =0x03001528
+    ldr r3, lbl_08009eb4 @ =gScrewSpeedAnimation
     ldrb r0, [r3, #1]
     adds r0, #1
     strb r0, [r3, #1]
@@ -9672,7 +9672,7 @@ lbl_08009eac:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08009eb4: .4byte 0x03001528
+lbl_08009eb4: .4byte gScrewSpeedAnimation
 lbl_08009eb8: .4byte 0x08288f28
 
     thumb_func_start SamusBallsparkingGFX
@@ -9701,7 +9701,7 @@ SamusBallsparkingGFX: @ 0x08009ebc
     bne lbl_08009eea
     strb r0, [r2, #0x1d]
 lbl_08009eea:
-    ldr r3, lbl_08009f30 @ =0x03001528
+    ldr r3, lbl_08009f30 @ =gScrewSpeedAnimation
     ldrb r0, [r3, #1]
     adds r0, #1
     strb r0, [r3, #1]
@@ -9737,7 +9737,7 @@ lbl_08009f24:
     bx r1
     .align 2, 0
 lbl_08009f2c: .4byte 0x08238b74
-lbl_08009f30: .4byte 0x03001528
+lbl_08009f30: .4byte gScrewSpeedAnimation
 lbl_08009f34: .4byte 0x08288f94
 
     thumb_func_start SamusBallsparkCollisionGFX
@@ -9759,7 +9759,7 @@ lbl_08009f46:
 SamusOnZipline: @ 0x08009f4c
     push {lr}
     adds r3, r0, #0
-    ldr r0, lbl_08009f60 @ =0x03001380
+    ldr r0, lbl_08009f60 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -9768,9 +9768,9 @@ SamusOnZipline: @ 0x08009f4c
     movs r0, #0xfe
     b lbl_08009fa0
     .align 2, 0
-lbl_08009f60: .4byte 0x03001380
+lbl_08009f60: .4byte gChangedInput
 lbl_08009f64:
-    ldr r0, lbl_08009f74 @ =0x03001588
+    ldr r0, lbl_08009f74 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -9778,12 +9778,12 @@ lbl_08009f64:
     movs r0, #0x29
     b lbl_08009fa0
     .align 2, 0
-lbl_08009f74: .4byte 0x03001588
+lbl_08009f74: .4byte gSamusPhysics
 lbl_08009f78:
     ldrb r0, [r3]
     cmp r0, #0x28
     bne lbl_08009f9e
-    ldr r2, lbl_08009f94 @ =0x0300137c
+    ldr r2, lbl_08009f94 @ =gButtonInput
     ldrh r0, [r3, #0xe]
     movs r1, #0x30
     eors r0, r1
@@ -9794,7 +9794,7 @@ lbl_08009f78:
     movs r0, #0x2a
     b lbl_08009fa0
     .align 2, 0
-lbl_08009f94: .4byte 0x0300137c
+lbl_08009f94: .4byte gButtonInput
 lbl_08009f98:
     adds r0, r3, #0
     bl samus_update_aim
@@ -9826,7 +9826,7 @@ lbl_08009fba:
 SamusMorphballOnZipline: @ 0x08009fc0
     push {lr}
     adds r2, r0, #0
-    ldr r0, lbl_08009fd4 @ =0x03001380
+    ldr r0, lbl_08009fd4 @ =gChangedInput
     ldrh r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -9835,9 +9835,9 @@ SamusMorphballOnZipline: @ 0x08009fc0
     movs r0, #0xfe
     b lbl_08009fe8
     .align 2, 0
-lbl_08009fd4: .4byte 0x03001380
+lbl_08009fd4: .4byte gChangedInput
 lbl_08009fd8:
-    ldr r0, lbl_08009fec @ =0x0300137c
+    ldr r0, lbl_08009fec @ =gButtonInput
     ldrh r0, [r0]
     movs r1, #0x30
     ands r1, r0
@@ -9850,7 +9850,7 @@ lbl_08009fe8:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08009fec: .4byte 0x0300137c
+lbl_08009fec: .4byte gButtonInput
 
     thumb_func_start SamusSavingLoadingGame
 SamusSavingLoadingGame: @ 0x08009ff0
@@ -9907,7 +9907,7 @@ SamusGettingHurt: @ 0x0800a024
     lsrs r0, r0, #0x10
     cmp r0, #9
     bhi lbl_0800a052
-    ldr r0, lbl_0800a07c @ =0x03001588
+    ldr r0, lbl_0800a07c @ =gSamusPhysics
     adds r0, #0x62
     strh r3, [r0]
     movs r3, #1
@@ -9934,7 +9934,7 @@ lbl_0800a052:
     movs r0, #8
     b lbl_0800a086
     .align 2, 0
-lbl_0800a07c: .4byte 0x03001588
+lbl_0800a07c: .4byte gSamusPhysics
 lbl_0800a080:
     movs r0, #0x14
     b lbl_0800a086
@@ -10027,12 +10027,12 @@ lbl_0800a100:
     cmp r0, #0
     beq lbl_0800a172
 lbl_0800a116:
-    ldr r0, lbl_0800a138 @ =0x030013b8
+    ldr r0, lbl_0800a138 @ =gBG1XPosition
     ldrh r0, [r0]
     movs r3, #0xf0
     lsls r3, r3, #1
     adds r2, r0, r3
-    ldr r0, lbl_0800a13c @ =0x030013ba
+    ldr r0, lbl_0800a13c @ =gBG1YPosition
     ldrh r0, [r0]
     movs r6, #0xc8
     lsls r6, r6, #1
@@ -10044,8 +10044,8 @@ lbl_0800a116:
     blo lbl_0800a14c
     b lbl_0800a14a
     .align 2, 0
-lbl_0800a138: .4byte 0x030013b8
-lbl_0800a13c: .4byte 0x030013ba
+lbl_0800a138: .4byte gBG1XPosition
+lbl_0800a13c: .4byte gBG1YPosition
 lbl_0800a140:
     cmp r1, #0
     bge lbl_0800a14c
@@ -10118,7 +10118,7 @@ lbl_0800a1b0:
     beq lbl_0800a1cc
     b lbl_0800a1d8
 lbl_0800a1ba:
-    ldr r1, lbl_0800a1c8 @ =0x03000029
+    ldr r1, lbl_0800a1c8 @ =gMonochromeBgFading
     movs r0, #2
     strb r0, [r1]
 lbl_0800a1c0:
@@ -10127,12 +10127,12 @@ lbl_0800a1c0:
     strb r0, [r4, #7]
     b lbl_0800a1d8
     .align 2, 0
-lbl_0800a1c8: .4byte 0x03000029
+lbl_0800a1c8: .4byte gMonochromeBgFading
 lbl_0800a1cc:
-    ldr r1, lbl_0800a1e0 @ =0x03000c70
+    ldr r1, lbl_0800a1e0 @ =gMainGameMode
     movs r0, #6
     strh r0, [r1]
-    ldr r1, lbl_0800a1e4 @ =0x03000c72
+    ldr r1, lbl_0800a1e4 @ =gGameModeSub1
     movs r0, #0
     strh r0, [r1]
 lbl_0800a1d8:
@@ -10141,8 +10141,8 @@ lbl_0800a1d8:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0800a1e0: .4byte 0x03000c70
-lbl_0800a1e4: .4byte 0x03000c72
+lbl_0800a1e0: .4byte gMainGameMode
+lbl_0800a1e4: .4byte gGameModeSub1
 
     thumb_func_start SamusCrouchingToCrawlGFX
 SamusCrouchingToCrawlGFX: @ 0x0800a1e8
@@ -10195,7 +10195,7 @@ SamusCrawlingStopped: @ 0x0800a21c
     .align 2, 0
 lbl_0800a23c: .4byte 0x0823a554
 lbl_0800a240:
-    ldr r0, lbl_0800a250 @ =0x03001588
+    ldr r0, lbl_0800a250 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -10203,9 +10203,9 @@ lbl_0800a240:
     movs r0, #0x3a
     b lbl_0800a27c
     .align 2, 0
-lbl_0800a250: .4byte 0x03001588
+lbl_0800a250: .4byte gSamusPhysics
 lbl_0800a254:
-    ldr r0, lbl_0800a268 @ =0x0300137c
+    ldr r0, lbl_0800a268 @ =gButtonInput
     ldrh r2, [r0]
     ldrh r1, [r4, #0xe]
     adds r0, r2, #0
@@ -10215,7 +10215,7 @@ lbl_0800a254:
     movs r0, #0x37
     b lbl_0800a27c
     .align 2, 0
-lbl_0800a268: .4byte 0x0300137c
+lbl_0800a268: .4byte gButtonInput
 lbl_0800a26c:
     movs r0, #0x30
     eors r0, r1
@@ -10267,7 +10267,7 @@ SamusCrawling: @ 0x0800a2a0
     .align 2, 0
 lbl_0800a2bc: .4byte 0x0823a554
 lbl_0800a2c0:
-    ldr r3, lbl_0800a2d0 @ =0x03001588
+    ldr r3, lbl_0800a2d0 @ =gSamusPhysics
     adds r0, r3, #0
     adds r0, #0x5c
     ldrb r0, [r0]
@@ -10276,9 +10276,9 @@ lbl_0800a2c0:
     movs r0, #0x3a
     b lbl_0800a30e
     .align 2, 0
-lbl_0800a2d0: .4byte 0x03001588
+lbl_0800a2d0: .4byte gSamusPhysics
 lbl_0800a2d4:
-    ldr r0, lbl_0800a2f8 @ =0x0300137c
+    ldr r0, lbl_0800a2f8 @ =gButtonInput
     ldrh r2, [r0]
     ldrh r1, [r4, #0xe]
     adds r0, r2, #0
@@ -10295,7 +10295,7 @@ lbl_0800a2d4:
     movs r0, #0xff
     b lbl_0800a30e
     .align 2, 0
-lbl_0800a2f8: .4byte 0x0300137c
+lbl_0800a2f8: .4byte gButtonInput
 lbl_0800a2fc:
     movs r0, #0x30
     eors r0, r1
@@ -10353,7 +10353,7 @@ lbl_0800a350:
     thumb_func_start SamusTurningAroundWhileCrawling
 SamusTurningAroundWhileCrawling: @ 0x0800a358
     push {lr}
-    ldr r0, lbl_0800a368 @ =0x03001588
+    ldr r0, lbl_0800a368 @ =gSamusPhysics
     adds r0, #0x5c
     ldrb r0, [r0]
     cmp r0, #0
@@ -10361,7 +10361,7 @@ SamusTurningAroundWhileCrawling: @ 0x0800a358
     movs r0, #0xff
     b lbl_0800a36e
     .align 2, 0
-lbl_0800a368: .4byte 0x03001588
+lbl_0800a368: .4byte gSamusPhysics
 lbl_0800a36c:
     movs r0, #0x3a
 lbl_0800a36e:
@@ -10409,7 +10409,7 @@ lbl_0800a3a6:
 SamusFacingTheBackground: @ 0x0800a3ac
     push {lr}
     adds r2, r0, #0
-    ldr r0, lbl_0800a3c8 @ =0x0300137c
+    ldr r0, lbl_0800a3c8 @ =gButtonInput
     ldrh r0, [r0]
     movs r1, #0x30
     ands r1, r0
@@ -10422,7 +10422,7 @@ SamusFacingTheBackground: @ 0x0800a3ac
     movs r0, #0x3f
     b lbl_0800a3ce
     .align 2, 0
-lbl_0800a3c8: .4byte 0x0300137c
+lbl_0800a3c8: .4byte gButtonInput
 lbl_0800a3cc:
     movs r0, #0xff
 lbl_0800a3ce:
@@ -10440,7 +10440,7 @@ SamusTurningFromFacingTheBackgroundGFX: @ 0x0800a3d4
     lsrs r0, r0, #0x18
     cmp r0, #2
     bne lbl_0800a420
-    ldr r2, lbl_0800a3fc @ =0x0300137c
+    ldr r2, lbl_0800a3fc @ =gButtonInput
     ldrh r0, [r4, #0xe]
     movs r1, #0x30
     eors r0, r1
@@ -10451,7 +10451,7 @@ SamusTurningFromFacingTheBackgroundGFX: @ 0x0800a3d4
     movs r0, #0
     b lbl_0800a422
     .align 2, 0
-lbl_0800a3fc: .4byte 0x0300137c
+lbl_0800a3fc: .4byte gButtonInput
 lbl_0800a400:
     ldrh r0, [r4, #0xc]
     cmp r0, #0
@@ -10459,14 +10459,14 @@ lbl_0800a400:
     movs r0, #0x3e
     b lbl_0800a422
 lbl_0800a40a:
-    ldr r0, lbl_0800a418 @ =0x03001530
+    ldr r0, lbl_0800a418 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     bne lbl_0800a41c
     movs r0, #0x3b
     b lbl_0800a422
     .align 2, 0
-lbl_0800a418: .4byte 0x03001530
+lbl_0800a418: .4byte gEquipment
 lbl_0800a41c:
     movs r0, #1
     b lbl_0800a422
@@ -10499,9 +10499,9 @@ lbl_0800a43e:
 samus_execute_pose: @ 0x0800a444
     push {r4, r5, r6, lr}
     adds r5, r0, #0
-    ldr r6, lbl_0800a460 @ =0x03001414
-    ldr r4, lbl_0800a464 @ =0x03001530
-    ldr r2, lbl_0800a468 @ =0x03001544
+    ldr r6, lbl_0800a460 @ =gSamusWeaponInfo
+    ldr r4, lbl_0800a464 @ =gEquipment
+    ldr r2, lbl_0800a468 @ =gSamusHazardDamage
     adds r1, r4, #0
     bl samus_apply_hazard_damage
     lsls r0, r0, #0x18
@@ -10510,9 +10510,9 @@ samus_execute_pose: @ 0x0800a444
     movs r0, #0xfa
     b lbl_0800a4f2
     .align 2, 0
-lbl_0800a460: .4byte 0x03001414
-lbl_0800a464: .4byte 0x03001530
-lbl_0800a468: .4byte 0x03001544
+lbl_0800a460: .4byte gSamusWeaponInfo
+lbl_0800a464: .4byte gEquipment
+lbl_0800a468: .4byte gSamusHazardDamage
 lbl_0800a46c:
     ldrb r0, [r6, #4]
     cmp r0, #0
@@ -10591,7 +10591,7 @@ lbl_0800a4fc: .4byte 0x0875e7b4
 samus_update_velocity_pos: @ 0x0800a500
     push {r4, r5, r6, lr}
     adds r4, r0, #0
-    ldr r3, lbl_0800a530 @ =0x03001588
+    ldr r3, lbl_0800a530 @ =gSamusPhysics
     ldr r1, lbl_0800a534 @ =0x08239464
     ldrb r2, [r4]
     lsls r0, r2, #1
@@ -10614,7 +10614,7 @@ lbl_0800a524:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0800a530: .4byte 0x03001588
+lbl_0800a530: .4byte gSamusPhysics
 lbl_0800a534: .4byte 0x08239464
 lbl_0800a538: .4byte lbl_0800a53c
 lbl_0800a53c: @ jump table
@@ -10761,12 +10761,12 @@ SamusUpdateGraphicsOAM: @ 0x0800a688
     mov sb, r0
     lsls r1, r1, #0x18
     lsrs r4, r1, #0x18
-    ldr r0, lbl_0800a6c4 @ =0x03001414
+    ldr r0, lbl_0800a6c4 @ =gSamusWeaponInfo
     mov r8, r0
-    ldr r6, lbl_0800a6c8 @ =0x03001530
-    ldr r1, lbl_0800a6cc @ =0x03001588
+    ldr r6, lbl_0800a6c8 @ =gEquipment
+    ldr r1, lbl_0800a6cc @ =gSamusPhysics
     mov ip, r1
-    ldr r3, lbl_0800a6d0 @ =0x0300141c
+    ldr r3, lbl_0800a6d0 @ =gSamusEcho
     mov r2, sb
     ldrb r2, [r2]
     mov sl, r2
@@ -10782,10 +10782,10 @@ SamusUpdateGraphicsOAM: @ 0x0800a688
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0800a6c4: .4byte 0x03001414
-lbl_0800a6c8: .4byte 0x03001530
-lbl_0800a6cc: .4byte 0x03001588
-lbl_0800a6d0: .4byte 0x0300141c
+lbl_0800a6c4: .4byte gSamusWeaponInfo
+lbl_0800a6c8: .4byte gEquipment
+lbl_0800a6cc: .4byte gSamusPhysics
+lbl_0800a6d0: .4byte gSamusEcho
 lbl_0800a6d4: .4byte lbl_0800a6d8
 lbl_0800a6d8: @ jump table
     .4byte lbl_0800a70c @ case 0
@@ -10851,13 +10851,13 @@ lbl_0800a752:
     adds r0, r3, #0
     adds r0, #8
     adds r0, r0, r2
-    ldr r1, lbl_0800a7c8 @ =0x03001600
+    ldr r1, lbl_0800a7c8 @ =gPreviousXPosition
     ldrh r1, [r1]
     strh r1, [r0]
     adds r0, r3, #0
     adds r0, #0x88
     adds r0, r0, r2
-    ldr r1, lbl_0800a7cc @ =0x03001602
+    ldr r1, lbl_0800a7cc @ =gPreviousYPosition
     ldrh r1, [r1]
     strh r1, [r0]
     ldrh r2, [r5]
@@ -10903,8 +10903,8 @@ lbl_0800a7bc:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0800a7c8: .4byte 0x03001600
-lbl_0800a7cc: .4byte 0x03001602
+lbl_0800a7c8: .4byte gPreviousXPosition
+lbl_0800a7cc: .4byte gPreviousYPosition
 lbl_0800a7d0: .4byte lbl_0800a7d4
 lbl_0800a7d4: @ jump table
     .4byte lbl_0800a8c8 @ case 0
@@ -12232,7 +12232,7 @@ lbl_0800b290:
     mov r1, ip
     adds r1, #0x48
     strh r0, [r1]
-    ldr r4, lbl_0800b314 @ =0x03001528
+    ldr r4, lbl_0800b314 @ =gScrewSpeedAnimation
     ldrb r0, [r4]
     adds r7, r2, #0
     mov r8, r1
@@ -12242,7 +12242,7 @@ lbl_0800b290:
     adds r0, #1
     strb r0, [r4, #1]
     ldr r4, lbl_0800b318 @ =0x082890f0
-    ldr r1, lbl_0800b314 @ =0x03001528
+    ldr r1, lbl_0800b314 @ =gScrewSpeedAnimation
     ldrb r2, [r1, #2]
     lsls r1, r2, #1
     adds r1, r1, r2
@@ -12253,7 +12253,7 @@ lbl_0800b290:
     ldrb r1, [r1, #8]
     cmp r0, r1
     blo lbl_0800b2ec
-    ldr r2, lbl_0800b314 @ =0x03001528
+    ldr r2, lbl_0800b314 @ =gScrewSpeedAnimation
     strb r5, [r2, #1]
     ldrb r0, [r2, #2]
     adds r0, #1
@@ -12268,7 +12268,7 @@ lbl_0800b290:
     bne lbl_0800b2ec
     strb r5, [r2]
 lbl_0800b2ec:
-    ldr r4, lbl_0800b314 @ =0x03001528
+    ldr r4, lbl_0800b314 @ =gScrewSpeedAnimation
     ldrb r0, [r4]
     cmp r0, #0
     bne lbl_0800b2f6
@@ -12289,7 +12289,7 @@ lbl_0800b302:
     .align 2, 0
 lbl_0800b30c: .4byte 0x0823a394
 lbl_0800b310: .4byte 0x0823a3a8
-lbl_0800b314: .4byte 0x03001528
+lbl_0800b314: .4byte gScrewSpeedAnimation
 lbl_0800b318: .4byte 0x082890f0
 lbl_0800b31c: .4byte lbl_0800b320
 lbl_0800b320: @ jump table
@@ -12378,14 +12378,14 @@ lbl_0800b400:
     .align 2, 0
 lbl_0800b410: .4byte 0x08288f28
 lbl_0800b414:
-    ldr r1, lbl_0800b464 @ =0x03001528
+    ldr r1, lbl_0800b464 @ =gScrewSpeedAnimation
     ldrb r0, [r1]
     cmp r0, #8
     bne lbl_0800b420
     ldr r2, lbl_0800b468 @ =0x082890f0
     str r2, [sp]
 lbl_0800b420:
-    ldr r3, lbl_0800b464 @ =0x03001528
+    ldr r3, lbl_0800b464 @ =gScrewSpeedAnimation
     ldrb r1, [r3, #2]
     lsls r0, r1, #1
     adds r0, r0, r1
@@ -12420,7 +12420,7 @@ lbl_0800b452:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0800b464: .4byte 0x03001528
+lbl_0800b464: .4byte gScrewSpeedAnimation
 lbl_0800b468: .4byte 0x082890f0
 
     thumb_func_start samus_update_anim_timers_and_palette
@@ -12432,10 +12432,10 @@ samus_update_anim_timers_and_palette: @ 0x0800b46c
     push {r5, r6, r7}
     sub sp, #8
     adds r5, r0, #0
-    ldr r1, lbl_0800b4d8 @ =0x03005440
+    ldr r1, lbl_0800b4d8 @ =gSamusPaletteSize
     movs r0, #0x40
     strh r0, [r1]
-    ldr r1, lbl_0800b4dc @ =0x03001414
+    ldr r1, lbl_0800b4dc @ =gSamusWeaponInfo
     ldrb r0, [r1, #6]
     cmp r0, #0
     beq lbl_0800b48c
@@ -12448,14 +12448,14 @@ lbl_0800b48c:
     subs r0, #1
     strb r0, [r5, #9]
 lbl_0800b496:
-    ldr r2, lbl_0800b4e0 @ =0x03001530
+    ldr r2, lbl_0800b4e0 @ =gEquipment
     ldrb r0, [r2, #0x12]
     adds r1, r0, #0
     mov r2, sp
     strb r0, [r2, #4]
     cmp r1, #1
     bne lbl_0800b554
-    ldr r0, lbl_0800b4e0 @ =0x03001530
+    ldr r0, lbl_0800b4e0 @ =gEquipment
     ldrb r1, [r0, #0xf]
     movs r0, #0x20
     ands r0, r1
@@ -12481,9 +12481,9 @@ lbl_0800b496:
     ldr r0, lbl_0800b504 @ =0x0823a2dc
     b lbl_0800b624
     .align 2, 0
-lbl_0800b4d8: .4byte 0x03005440
-lbl_0800b4dc: .4byte 0x03001414
-lbl_0800b4e0: .4byte 0x03001530
+lbl_0800b4d8: .4byte gSamusPaletteSize
+lbl_0800b4dc: .4byte gSamusWeaponInfo
+lbl_0800b4e0: .4byte gEquipment
 lbl_0800b4e4: .4byte 0x082383c8
 lbl_0800b4e8: .4byte 0x08238428
 lbl_0800b4ec: .4byte 0x082384c8
@@ -12526,7 +12526,7 @@ lbl_0800b550: .4byte 0x0823a2bc
 lbl_0800b554:
     cmp r1, #0
     bne lbl_0800b600
-    ldr r2, lbl_0800b58c @ =0x03001530
+    ldr r2, lbl_0800b58c @ =gEquipment
     ldrb r1, [r2, #0xf]
     movs r0, #0x10
     ands r0, r1
@@ -12552,7 +12552,7 @@ lbl_0800b554:
     ldr r0, lbl_0800b5b0 @ =0x0823a29c
     b lbl_0800b624
     .align 2, 0
-lbl_0800b58c: .4byte 0x03001530
+lbl_0800b58c: .4byte gEquipment
 lbl_0800b590: .4byte 0x08237be8
 lbl_0800b594: .4byte 0x08237c48
 lbl_0800b598: .4byte 0x08237ce8
@@ -12677,7 +12677,7 @@ lbl_0800b6a0:
     beq lbl_0800b6c4
     subs r0, #1
     strb r0, [r5, #6]
-    ldr r0, lbl_0800b6c0 @ =0x03000c77
+    ldr r0, lbl_0800b6c0 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #3
     ands r0, r1
@@ -12690,9 +12690,9 @@ lbl_0800b6bc:
     adds r4, r6, #0
     b lbl_0800b7c8
     .align 2, 0
-lbl_0800b6c0: .4byte 0x03000c77
+lbl_0800b6c0: .4byte gFrameCounter8Bit
 lbl_0800b6c4:
-    ldr r0, lbl_0800b710 @ =0x03001544
+    ldr r0, lbl_0800b710 @ =gSamusHazardDamage
     ldrb r2, [r0, #4]
     cmp r2, #0
     beq lbl_0800b6d4
@@ -12708,7 +12708,7 @@ lbl_0800b6d4:
     cmp r0, #0
     beq lbl_0800b718
 lbl_0800b6e0:
-    ldr r0, lbl_0800b714 @ =0x03000c77
+    ldr r0, lbl_0800b714 @ =gFrameCounter8Bit
     ldrb r0, [r0]
     movs r1, #6
     bl __umodsi3
@@ -12732,8 +12732,8 @@ lbl_0800b702:
     bl SamusCopyPalette
     b lbl_0800b7d6
     .align 2, 0
-lbl_0800b710: .4byte 0x03001544
-lbl_0800b714: .4byte 0x03000c77
+lbl_0800b710: .4byte gSamusHazardDamage
+lbl_0800b714: .4byte gFrameCounter8Bit
 lbl_0800b718:
     lsls r0, r4, #0x18
     lsrs r0, r0, #0x18
@@ -12777,11 +12777,11 @@ lbl_0800b756:
     adds r4, #0x40
     b lbl_0800b7d6
 lbl_0800b766:
-    ldr r1, lbl_0800b780 @ =0x03001414
+    ldr r1, lbl_0800b780 @ =gSamusWeaponInfo
     ldrb r0, [r1, #6]
     cmp r0, #0
     beq lbl_0800b7b2
-    ldr r2, lbl_0800b784 @ =0x03001530
+    ldr r2, lbl_0800b784 @ =gEquipment
     ldrb r1, [r2, #0xd]
     movs r0, #2
     ands r0, r1
@@ -12791,8 +12791,8 @@ lbl_0800b766:
     adds r4, #0x40
     b lbl_0800b7c8
     .align 2, 0
-lbl_0800b780: .4byte 0x03001414
-lbl_0800b784: .4byte 0x03001530
+lbl_0800b780: .4byte gSamusWeaponInfo
+lbl_0800b784: .4byte gEquipment
 lbl_0800b788:
     movs r0, #8
     ands r0, r1
@@ -12850,7 +12850,7 @@ lbl_0800b7e2:
     lsrs r0, r0, #0x18
     cmp r0, #2
     beq lbl_0800b84e
-    ldr r2, lbl_0800b814 @ =0x03001414
+    ldr r2, lbl_0800b814 @ =gSamusWeaponInfo
     ldrb r0, [r2, #5]
     cmp r0, #0x40
     blo lbl_0800b84e
@@ -12858,7 +12858,7 @@ lbl_0800b7e2:
     asrs r2, r0, #2
     cmp r2, #3
     beq lbl_0800b84e
-    ldr r0, lbl_0800b818 @ =0x03001530
+    ldr r0, lbl_0800b818 @ =gEquipment
     ldrb r1, [r0, #0xd]
     movs r0, #2
     ands r0, r1
@@ -12868,8 +12868,8 @@ lbl_0800b7e2:
     adds r4, #0x80
     b lbl_0800b846
     .align 2, 0
-lbl_0800b814: .4byte 0x03001414
-lbl_0800b818: .4byte 0x03001530
+lbl_0800b814: .4byte gSamusWeaponInfo
+lbl_0800b818: .4byte gEquipment
 lbl_0800b81c:
     movs r0, #8
     ands r0, r1
@@ -12917,19 +12917,19 @@ lbl_0800b858:
     thumb_func_start check_play_low_health_sound
 check_play_low_health_sound: @ 0x0800b868
     push {lr}
-    ldr r1, lbl_0800b898 @ =0x030013d4
-    ldr r0, lbl_0800b89c @ =0x03001530
+    ldr r1, lbl_0800b898 @ =gSamusData
+    ldr r0, lbl_0800b89c @ =gEquipment
     ldrb r0, [r0, #0x11]
     cmp r0, #0
     beq lbl_0800b894
     ldrb r0, [r1]
     cmp r0, #0x33
     beq lbl_0800b894
-    ldr r0, lbl_0800b8a0 @ =0x03001606
+    ldr r0, lbl_0800b8a0 @ =gPreventMovementTimer
     ldrh r0, [r0]
     cmp r0, #0
     bne lbl_0800b894
-    ldr r0, lbl_0800b8a4 @ =0x03000c77
+    ldr r0, lbl_0800b8a4 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #0xf
     ands r0, r1
@@ -12941,10 +12941,10 @@ lbl_0800b894:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0800b898: .4byte 0x030013d4
-lbl_0800b89c: .4byte 0x03001530
-lbl_0800b8a0: .4byte 0x03001606
-lbl_0800b8a4: .4byte 0x03000c77
+lbl_0800b898: .4byte gSamusData
+lbl_0800b89c: .4byte gEquipment
+lbl_0800b8a0: .4byte gPreventMovementTimer
+lbl_0800b8a4: .4byte gFrameCounter8Bit
 
     thumb_func_start sub_0800b8a8
 sub_0800b8a8: @ 0x0800b8a8
@@ -13005,9 +13005,9 @@ update_cannon_oam: @ 0x0800b910
     push {r4, r5, r6, lr}
     lsls r0, r0, #0x18
     lsrs r3, r0, #0x18
-    ldr r6, lbl_0800b934 @ =0x030013d4
-    ldr r4, lbl_0800b938 @ =0x03001530
-    ldr r0, lbl_0800b93c @ =0x03001588
+    ldr r6, lbl_0800b934 @ =gSamusData
+    ldr r4, lbl_0800b938 @ =gEquipment
+    ldr r0, lbl_0800b93c @ =gSamusPhysics
     mov ip, r0
     ldrb r5, [r6]
     ldrb r2, [r6, #2]
@@ -13021,9 +13021,9 @@ lbl_0800b928:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0800b934: .4byte 0x030013d4
-lbl_0800b938: .4byte 0x03001530
-lbl_0800b93c: .4byte 0x03001588
+lbl_0800b934: .4byte gSamusData
+lbl_0800b938: .4byte gEquipment
+lbl_0800b93c: .4byte gSamusPhysics
 lbl_0800b940: .4byte lbl_0800b944
 lbl_0800b944: @ jump table
     .4byte lbl_0800ba38 @ case 0
@@ -13438,13 +13438,13 @@ SamusInit: @ 0x0800bcb8
     mov r7, r8
     push {r7}
     sub sp, #4
-    ldr r0, lbl_0800bd84 @ =0x03000bf0
+    ldr r0, lbl_0800bd84 @ =gPauseScreenFlag
     movs r3, #0
     ldrsb r3, [r0, r3]
-    ldr r5, lbl_0800bd88 @ =0x03000c75
+    ldr r5, lbl_0800bd88 @ =gGameModeSub3
     cmp r3, #0
     bne lbl_0800bd00
-    ldr r2, lbl_0800bd8c @ =0x0300141c
+    ldr r2, lbl_0800bd8c @ =gSamusEcho
     movs r1, #0x84
     lsls r1, r1, #1
     adds r0, r2, r1
@@ -13455,7 +13455,7 @@ SamusInit: @ 0x0800bcb8
     adds r0, r2, r3
     strb r1, [r0]
     movs r2, #0
-    ldr r4, lbl_0800bd90 @ =0x0300154c
+    ldr r4, lbl_0800bd90 @ =gSamusEnvironmentalEffects
     mov ip, r4
     ldr r3, lbl_0800bd94 @ =0x08238b68
 lbl_0800bce8:
@@ -13477,7 +13477,7 @@ lbl_0800bd00:
     asrs r5, r5, #0x18
     cmp r5, #0
     bne lbl_0800bdce
-    ldr r0, lbl_0800bd98 @ =0x03000c1d
+    ldr r0, lbl_0800bd98 @ =gIsLoadingFile
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
@@ -13487,34 +13487,34 @@ lbl_0800bd00:
     ldr r0, lbl_0800bd9c @ =0x040000d4
     mov r6, sp
     str r6, [r0]
-    ldr r4, lbl_0800bda0 @ =0x030013d4
+    ldr r4, lbl_0800bda0 @ =gSamusData
     str r4, [r0, #4]
     ldr r1, lbl_0800bda4 @ =0x85000008
     str r1, [r0, #8]
     ldr r1, [r0, #8]
     str r5, [sp]
     str r6, [r0]
-    ldr r3, lbl_0800bda8 @ =0x03001530
+    ldr r3, lbl_0800bda8 @ =gEquipment
     str r3, [r0, #4]
     ldr r1, lbl_0800bdac @ =0x85000005
     str r1, [r0, #8]
     ldr r1, [r0, #8]
     str r5, [sp]
     str r6, [r0]
-    ldr r1, lbl_0800bdb0 @ =0x03001414
+    ldr r1, lbl_0800bdb0 @ =gSamusWeaponInfo
     str r1, [r0, #4]
     ldr r2, lbl_0800bdb4 @ =0x85000002
     str r2, [r0, #8]
     ldr r1, [r0, #8]
     str r5, [sp]
     str r6, [r0]
-    ldr r1, lbl_0800bdb8 @ =0x03001528
+    ldr r1, lbl_0800bdb8 @ =gScrewSpeedAnimation
     str r1, [r0, #4]
     str r2, [r0, #8]
     ldr r0, [r0, #8]
     movs r2, #0
     mov r8, r3
-    ldr r3, lbl_0800bd90 @ =0x0300154c
+    ldr r3, lbl_0800bd90 @ =gSamusEnvironmentalEffects
     ldr r7, lbl_0800bd94 @ =0x08238b68
     mov ip, r7
 lbl_0800bd5a:
@@ -13540,26 +13540,26 @@ lbl_0800bd5a:
     strh r0, [r1, #6]
     b lbl_0800bdce
     .align 2, 0
-lbl_0800bd84: .4byte 0x03000bf0
-lbl_0800bd88: .4byte 0x03000c75
-lbl_0800bd8c: .4byte 0x0300141c
-lbl_0800bd90: .4byte 0x0300154c
+lbl_0800bd84: .4byte gPauseScreenFlag
+lbl_0800bd88: .4byte gGameModeSub3
+lbl_0800bd8c: .4byte gSamusEcho
+lbl_0800bd90: .4byte gSamusEnvironmentalEffects
 lbl_0800bd94: .4byte 0x08238b68
-lbl_0800bd98: .4byte 0x03000c1d
+lbl_0800bd98: .4byte gIsLoadingFile
 lbl_0800bd9c: .4byte 0x040000d4
-lbl_0800bda0: .4byte 0x030013d4
+lbl_0800bda0: .4byte gSamusData
 lbl_0800bda4: .4byte 0x85000008
-lbl_0800bda8: .4byte 0x03001530
+lbl_0800bda8: .4byte gEquipment
 lbl_0800bdac: .4byte 0x85000005
-lbl_0800bdb0: .4byte 0x03001414
+lbl_0800bdb0: .4byte gSamusWeaponInfo
 lbl_0800bdb4: .4byte 0x85000002
-lbl_0800bdb8: .4byte 0x03001528
+lbl_0800bdb8: .4byte gScrewSpeedAnimation
 lbl_0800bdbc:
     str r5, [sp]
     ldr r1, lbl_0800bddc @ =0x040000d4
     mov r3, sp
     str r3, [r1]
-    ldr r0, lbl_0800bde0 @ =0x03001588
+    ldr r0, lbl_0800bde0 @ =gSamusPhysics
     str r0, [r1, #4]
     ldr r0, lbl_0800bde4 @ =0x8500001e
     str r0, [r1, #8]
@@ -13573,7 +13573,7 @@ lbl_0800bdce:
     bx r0
     .align 2, 0
 lbl_0800bddc: .4byte 0x040000d4
-lbl_0800bde0: .4byte 0x03001588
+lbl_0800bde0: .4byte gSamusPhysics
 lbl_0800bde4: .4byte 0x8500001e
 
     thumb_func_start SamusDraw
@@ -13586,16 +13586,16 @@ SamusDraw: @ 0x0800bde8
     sub sp, #0xc
     movs r0, #2
     str r0, [sp]
-    ldr r0, lbl_0800be1c @ =0x030013d4
+    ldr r0, lbl_0800be1c @ =gSamusData
     ldrb r1, [r0]
     cmp r1, #0x33
     bne lbl_0800be2c
     movs r1, #0
     str r1, [sp]
-    ldr r0, lbl_0800be20 @ =0x03001382
+    ldr r0, lbl_0800be20 @ =gNextOamSlot
     strb r1, [r0]
-    ldr r3, lbl_0800be24 @ =0x03000e7c
-    ldr r2, lbl_0800be28 @ =0x0300154c
+    ldr r3, lbl_0800be24 @ =gOamData
+    ldr r2, lbl_0800be28 @ =gSamusEnvironmentalEffects
     adds r0, r2, #0
     adds r0, #0x30
 lbl_0800be10:
@@ -13605,27 +13605,27 @@ lbl_0800be10:
     bge lbl_0800be10
     b lbl_0800be3a
     .align 2, 0
-lbl_0800be1c: .4byte 0x030013d4
-lbl_0800be20: .4byte 0x03001382
-lbl_0800be24: .4byte 0x03000e7c
-lbl_0800be28: .4byte 0x0300154c
+lbl_0800be1c: .4byte gSamusData
+lbl_0800be20: .4byte gNextOamSlot
+lbl_0800be24: .4byte gOamData
+lbl_0800be28: .4byte gSamusEnvironmentalEffects
 lbl_0800be2c:
-    ldr r0, lbl_0800c1b8 @ =0x0300002b
+    ldr r0, lbl_0800c1b8 @ =gSamusOnTopOfBackgrounds
     ldrb r0, [r0]
-    ldr r3, lbl_0800c1bc @ =0x03000e7c
+    ldr r3, lbl_0800c1bc @ =gOamData
     cmp r0, #0
     beq lbl_0800be3a
     movs r0, #1
     str r0, [sp]
 lbl_0800be3a:
-    ldr r1, lbl_0800c1c0 @ =0x03001382
+    ldr r1, lbl_0800c1c0 @ =gNextOamSlot
     ldrb r0, [r1]
     cmp r0, #0x6a
     bls lbl_0800be46
     movs r0, #0x6a
     strb r0, [r1]
 lbl_0800be46:
-    ldr r2, lbl_0800c1c0 @ =0x03001382
+    ldr r2, lbl_0800c1c0 @ =gNextOamSlot
     ldrb r1, [r2]
     lsls r0, r1, #3
     adds r5, r0, r3
@@ -13638,14 +13638,14 @@ lbl_0800be58:
     lsls r0, r2, #1
     adds r0, r0, r2
     lsls r1, r0, #2
-    ldr r0, lbl_0800c1c4 @ =0x0300154c
+    ldr r0, lbl_0800c1c4 @ =gSamusEnvironmentalEffects
     adds r3, r1, r0
     ldrb r0, [r3]
     adds r2, #1
     str r2, [sp, #8]
     cmp r0, #0
     beq lbl_0800befe
-    ldr r0, lbl_0800c1c4 @ =0x0300154c
+    ldr r0, lbl_0800c1c4 @ =gSamusEnvironmentalEffects
     adds r0, #8
     adds r0, r1, r0
     ldr r4, [r0]
@@ -13658,14 +13658,14 @@ lbl_0800be58:
     lsrs r7, r0, #0x10
     ldrh r1, [r3, #4]
     lsrs r1, r1, #2
-    ldr r2, lbl_0800c1c8 @ =0x030013b8
+    ldr r2, lbl_0800c1c8 @ =gBG1XPosition
     ldrh r0, [r2]
     lsrs r0, r0, #2
     subs r0, r1, r0
     mov sb, r0
     ldrh r1, [r3, #6]
     lsrs r1, r1, #2
-    ldr r3, lbl_0800c1cc @ =0x030013ba
+    ldr r3, lbl_0800c1cc @ =gBG1YPosition
     ldrh r0, [r3]
     lsrs r0, r0, #2
     subs r1, r1, r0
@@ -13686,7 +13686,7 @@ lbl_0800beb2:
     strh r1, [r5]
     adds r5, #2
     lsls r3, r6, #3
-    ldr r2, lbl_0800c1bc @ =0x03000e7c
+    ldr r2, lbl_0800c1bc @ =gOamData
     adds r3, r3, r2
     mov r2, r8
     adds r0, r1, r2
@@ -13725,17 +13725,17 @@ lbl_0800befe:
     asrs r2, r0, #0x10
     cmp r2, #4
     ble lbl_0800be58
-    ldr r3, lbl_0800c1d8 @ =0x030013d4
+    ldr r3, lbl_0800c1d8 @ =gSamusData
     ldrh r1, [r3, #0x12]
     lsrs r1, r1, #2
-    ldr r2, lbl_0800c1c8 @ =0x030013b8
+    ldr r2, lbl_0800c1c8 @ =gBG1XPosition
     ldrh r0, [r2]
     lsrs r0, r0, #2
     subs r0, r1, r0
     mov sb, r0
     ldrh r0, [r3, #0x14]
     lsrs r0, r0, #2
-    ldr r3, lbl_0800c1cc @ =0x030013ba
+    ldr r3, lbl_0800c1cc @ =gBG1YPosition
     ldrh r1, [r3]
     lsrs r1, r1, #2
     subs r0, r0, r1
@@ -13743,14 +13743,14 @@ lbl_0800befe:
     lsls r0, r0, #0x10
     asrs r0, r0, #0x10
     mov r8, r0
-    ldr r0, lbl_0800c1dc @ =0x03001588
+    ldr r0, lbl_0800c1dc @ =gSamusPhysics
     adds r0, #0x36
     ldrb r1, [r0]
     movs r0, #0x20
     ands r0, r1
     cmp r0, #0
     beq lbl_0800bfa2
-    ldr r0, lbl_0800c1dc @ =0x03001588
+    ldr r0, lbl_0800c1dc @ =gSamusPhysics
     ldr r4, [r0, #0x38]
     ldrh r0, [r4]
     adds r0, r7, r0
@@ -13771,7 +13771,7 @@ lbl_0800bf58:
     strh r1, [r5]
     adds r5, #2
     lsls r3, r6, #3
-    ldr r0, lbl_0800c1bc @ =0x03000e7c
+    ldr r0, lbl_0800c1bc @ =gOamData
     adds r3, r3, r0
     mov r2, r8
     adds r0, r1, r2
@@ -13804,7 +13804,7 @@ lbl_0800bf58:
     cmp r6, r7
     blo lbl_0800bf58
 lbl_0800bfa2:
-    ldr r2, lbl_0800c1dc @ =0x03001588
+    ldr r2, lbl_0800c1dc @ =gSamusPhysics
     ldrh r1, [r2, #0x22]
     movs r0, #0x80
     lsls r0, r0, #6
@@ -13833,7 +13833,7 @@ lbl_0800bfd0:
     strh r1, [r5]
     adds r5, #2
     lsls r3, r6, #3
-    ldr r2, lbl_0800c1bc @ =0x03000e7c
+    ldr r2, lbl_0800c1bc @ =gOamData
     adds r3, r3, r2
     mov r2, r8
     adds r0, r1, r2
@@ -13866,7 +13866,7 @@ lbl_0800bfd0:
     cmp r6, r7
     blo lbl_0800bfd0
 lbl_0800c01a:
-    ldr r2, lbl_0800c1dc @ =0x03001588
+    ldr r2, lbl_0800c1dc @ =gSamusPhysics
     ldr r4, [r2]
     ldrh r0, [r4]
     adds r0, r7, r0
@@ -13887,7 +13887,7 @@ lbl_0800c038:
     strh r1, [r5]
     adds r5, #2
     lsls r3, r6, #3
-    ldr r2, lbl_0800c1bc @ =0x03000e7c
+    ldr r2, lbl_0800c1bc @ =gOamData
     adds r3, r3, r2
     mov r2, r8
     adds r0, r1, r2
@@ -13920,7 +13920,7 @@ lbl_0800c038:
     cmp r6, r7
     blo lbl_0800c038
 lbl_0800c082:
-    ldr r2, lbl_0800c1dc @ =0x03001588
+    ldr r2, lbl_0800c1dc @ =gSamusPhysics
     ldrh r1, [r2, #0x22]
     movs r0, #0x80
     lsls r0, r0, #5
@@ -13949,7 +13949,7 @@ lbl_0800c0b0:
     strh r1, [r5]
     adds r5, #2
     lsls r3, r6, #3
-    ldr r2, lbl_0800c1bc @ =0x03000e7c
+    ldr r2, lbl_0800c1bc @ =gOamData
     adds r3, r3, r2
     mov r2, r8
     adds r0, r1, r2
@@ -13982,14 +13982,14 @@ lbl_0800c0b0:
     cmp r6, r7
     blo lbl_0800c0b0
 lbl_0800c0fa:
-    ldr r0, lbl_0800c1dc @ =0x03001588
+    ldr r0, lbl_0800c1dc @ =gSamusPhysics
     adds r0, #0x36
     ldrb r1, [r0]
     movs r0, #0x10
     ands r0, r1
     cmp r0, #0
     beq lbl_0800c17a
-    ldr r2, lbl_0800c1dc @ =0x03001588
+    ldr r2, lbl_0800c1dc @ =gSamusPhysics
     ldr r4, [r2, #0x38]
     ldrh r1, [r4]
     adds r4, #2
@@ -14016,7 +14016,7 @@ lbl_0800c130:
     strh r1, [r5]
     adds r5, #2
     lsls r3, r6, #3
-    ldr r2, lbl_0800c1bc @ =0x03000e7c
+    ldr r2, lbl_0800c1bc @ =gOamData
     adds r3, r3, r2
     mov r2, r8
     adds r0, r1, r2
@@ -14049,7 +14049,7 @@ lbl_0800c130:
     cmp r6, r7
     blo lbl_0800c130
 lbl_0800c17a:
-    ldr r1, lbl_0800c1e0 @ =0x0300141c
+    ldr r1, lbl_0800c1e0 @ =gSamusEcho
     ldrb r0, [r1]
     mov ip, r1
     cmp r0, #0
@@ -14078,25 +14078,25 @@ lbl_0800c186:
     bne lbl_0800c1e6
     cmp r2, #0
     bge lbl_0800c1e6
-    ldr r0, lbl_0800c1c0 @ =0x03001382
+    ldr r0, lbl_0800c1c0 @ =gNextOamSlot
     strb r7, [r0]
     b lbl_0800c1e4
     .align 2, 0
-lbl_0800c1b8: .4byte 0x0300002b
-lbl_0800c1bc: .4byte 0x03000e7c
-lbl_0800c1c0: .4byte 0x03001382
-lbl_0800c1c4: .4byte 0x0300154c
-lbl_0800c1c8: .4byte 0x030013b8
-lbl_0800c1cc: .4byte 0x030013ba
+lbl_0800c1b8: .4byte gSamusOnTopOfBackgrounds
+lbl_0800c1bc: .4byte gOamData
+lbl_0800c1c0: .4byte gNextOamSlot
+lbl_0800c1c4: .4byte gSamusEnvironmentalEffects
+lbl_0800c1c8: .4byte gBG1XPosition
+lbl_0800c1cc: .4byte gBG1YPosition
 lbl_0800c1d0: .4byte 0x000001ff
 lbl_0800c1d4: .4byte 0xfffffe00
-lbl_0800c1d8: .4byte 0x030013d4
-lbl_0800c1dc: .4byte 0x03001588
-lbl_0800c1e0: .4byte 0x0300141c
+lbl_0800c1d8: .4byte gSamusData
+lbl_0800c1dc: .4byte gSamusPhysics
+lbl_0800c1e0: .4byte gSamusEcho
 lbl_0800c1e4:
     b lbl_0800c2ae
 lbl_0800c1e6:
-    ldr r1, lbl_0800c200 @ =0x03001588
+    ldr r1, lbl_0800c200 @ =gSamusPhysics
     ldr r4, [r1]
     ldrh r1, [r4]
     adds r4, #2
@@ -14105,12 +14105,12 @@ lbl_0800c1e6:
     adds r0, r7, r1
     cmp r0, #0x80
     ble lbl_0800c208
-    ldr r2, lbl_0800c204 @ =0x03001382
+    ldr r2, lbl_0800c204 @ =gNextOamSlot
     strb r7, [r2]
     b lbl_0800c2ae
     .align 2, 0
-lbl_0800c200: .4byte 0x03001588
-lbl_0800c204: .4byte 0x03001382
+lbl_0800c200: .4byte gSamusPhysics
+lbl_0800c204: .4byte gNextOamSlot
 lbl_0800c208:
     lsls r0, r0, #0x10
     lsrs r7, r0, #0x10
@@ -14122,7 +14122,7 @@ lbl_0800c208:
     adds r0, r2, r0
     ldrh r1, [r0]
     lsrs r1, r1, #2
-    ldr r3, lbl_0800c2c0 @ =0x030013b8
+    ldr r3, lbl_0800c2c0 @ =gBG1XPosition
     ldrh r0, [r3]
     lsrs r0, r0, #2
     subs r0, r1, r0
@@ -14132,7 +14132,7 @@ lbl_0800c208:
     adds r2, r2, r0
     ldrh r0, [r2]
     lsrs r0, r0, #2
-    ldr r2, lbl_0800c2c4 @ =0x030013ba
+    ldr r2, lbl_0800c2c4 @ =gBG1YPosition
     ldrh r1, [r2]
     lsrs r1, r1, #2
     subs r0, r0, r1
@@ -14151,7 +14151,7 @@ lbl_0800c24a:
     strh r1, [r5]
     adds r5, #2
     lsls r3, r6, #3
-    ldr r0, lbl_0800c2c8 @ =0x03000e7c
+    ldr r0, lbl_0800c2c8 @ =gOamData
     adds r3, r3, r0
     mov r2, r8
     adds r0, r1, r2
@@ -14196,7 +14196,7 @@ lbl_0800c29e:
     ands r0, r1
     strb r0, [r2, #2]
 lbl_0800c2aa:
-    ldr r3, lbl_0800c2d4 @ =0x03001382
+    ldr r3, lbl_0800c2d4 @ =gNextOamSlot
     strb r7, [r3]
 lbl_0800c2ae:
     add sp, #0xc
@@ -14208,9 +14208,9 @@ lbl_0800c2ae:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0800c2c0: .4byte 0x030013b8
-lbl_0800c2c4: .4byte 0x030013ba
-lbl_0800c2c8: .4byte 0x03000e7c
+lbl_0800c2c0: .4byte gBG1XPosition
+lbl_0800c2c4: .4byte gBG1YPosition
+lbl_0800c2c8: .4byte gOamData
 lbl_0800c2cc: .4byte 0x000001ff
 lbl_0800c2d0: .4byte 0xfffffe00
-lbl_0800c2d4: .4byte 0x03001382
+lbl_0800c2d4: .4byte gNextOamSlot
