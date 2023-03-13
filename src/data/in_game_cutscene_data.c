@@ -167,5 +167,3 @@ const struct InGameCutsceneData sInGameCutsceneData[32] = {
         .pSubroutine = NULL
     }
 };
-
-const u8 sTemparray_3603e8[0x753c] = INCBIN_U8("data/Blob_3603e8_367924.bin");

@@ -5,6 +5,7 @@ This is a work in progress decompilation of Metroid - Zero Mission.
 2236/2721 functions decompiled (82.18%, 485 left)
 Progress can be seen here : https://docs.google.com/spreadsheets/d/1X8XarD5evY8ZI7r_GQqh1pYmdVMbBcINYfRBUlogmKY/edit#gid=0
 
+**THE ROM IS TEMPORARLY NON-MATCHING**
 **This decomp is not shiftable, don't use it as a base to work on anything**
 
 This produces the following ROMs:

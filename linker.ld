@@ -635,7 +635,8 @@ SECTIONS {
         src/data/animated_graphics_data.o(.rodata);
         src/data/hatch_data.o(.rodata);
         src/data/in_game_cutscene_data.o(.rodata);
-        /* 3603e8-367924 */
+        src/data/demo_data.o(.rodata);
+        /* 363cf8-367924 */
         src/data/samus_close_up_data.o(.rodata);
         src/data/cutscenes/cutscenes_data.o(.rodata);
         src/data/cutscenes/kraid_rising_data.o(.rodata);

@@ -120,6 +120,9 @@ struct SaveDemo {
     u8 currentArea;
     u8 lastDoorUsed;
 
+    u8 unk_2;
+    u8 unk_3;
+
     struct SamusData samusData;
     struct WeaponInfo samusWeaponInfo;
     struct SamusEcho samusEcho;
@@ -128,12 +131,12 @@ struct SaveDemo {
     struct HazardDamage hazardDamage;
     struct EnvironmentalEffect environmentalEffects[5];
 
-    u32 visitedMinimapTiles[32];
-    u32 hatchesOpened[8];
+    u8 visitedMinimapTiles[128];
+    u8 hatchesOpened[32];
     u8 text[8];
     u8 useMotherShipDoors;
 
-    u8 padding_241[60];
+    u8 padding_241[63];
 };
 
 struct SaveFileScreenOptions {

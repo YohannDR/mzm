@@ -10,6 +10,13 @@ struct Demo {
     u32 unk_3:4;
 };
 
+struct DemoEntry {
+    const u16* const pInputs;
+    u16 inputsSize;
+    const u16* const pDuration;
+    u16 durationSize;
+};
+
 extern u8 gDemoState;
 extern struct Demo gCurrentDemo;
 
