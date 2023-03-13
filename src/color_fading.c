@@ -771,10 +771,12 @@ u8 ColorFading_BeforeDemoEnding(void)
     {
         case 0:
             ColorFadingStartDoorTransition();
-            if (gColorFading.type == COLOR_FADING_DEMO_ENDING_WITH_INPUT)
-                gCurrentDemo.unk_3 = 1;
 
-            end_demo(); // Undefined
+            // Set input ended flag
+            if (gColorFading.type == COLOR_FADING_DEMO_ENDING_WITH_INPUT)
+                gCurrentDemo.endedWithInput = TRUE;
+
+            DemoEnd();
             gColorFading.stage++;
             break;
 

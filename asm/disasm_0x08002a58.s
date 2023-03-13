@@ -2304,8 +2304,8 @@ lbl_08003ada:
     .align 2, 0
 lbl_08003ae0: .4byte gMusicInfo
 
-    thumb_func_start sub_08003ae4
-sub_08003ae4: @ 0x08003ae4
+    thumb_func_start FadeMusicForDemo
+FadeMusicForDemo: @ 0x08003ae4
     push {lr}
     lsls r0, r0, #0x10
     lsrs r2, r0, #0x10

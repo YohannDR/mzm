@@ -34,10 +34,10 @@ u32 GameOverSubroutine(void)
     switch (gGameModeSub1)
     {
         case 0:
-            if (gCurrentDemo.playing)
+            if (gCurrentDemo.active)
             {
                 gCurrentDemo.number++;
-                gCurrentDemo.playing = FALSE;
+                gCurrentDemo.active = FALSE;
 
                 UpdateSOUNDCNT_H(0x194F780);
                 FadeAllSounds(10);

@@ -5,9 +5,11 @@
 
 struct Demo {
     u8 number;
-    u8 playing;
-    u32 status:8;
-    u32 unk_3:4;
+    u8 active;
+    u16 unk_2_0:4;
+    u16 loading:4;
+    u16 endedWithInput:4;
+    u16 noDemoShuffle:4;
 };
 
 struct DemoEntry {

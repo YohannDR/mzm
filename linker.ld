@@ -25,6 +25,9 @@ SECTIONS {
         . = 0x00037e00; gEventsTriggered = .;
         . = 0x00037e20; gMinimapTilesGFX = .;
         . = 0x00038000; gSram = .;
+
+        . = 0x0003f080; gSramDemoInputData = .;
+        . = 0x0003f280; gSramDemoInputDuration = .;
     } >ewram
 
     iwram (NOLOAD) : ALIGN(4) {
@@ -507,6 +510,8 @@ SECTIONS {
         src/in_game_cutscene.o(.text);
         src/event.o(.text);
         asm/disasm_0x08060928.o(.text);
+        src/demo.o(.text);
+        asm/disasm_0x08060e28.o(.text);
         src/cutscenes/kraid_rising.o(.text);
         src/cutscenes/story_text_cutscene.o(.text);
         asm/disasm_0x08063008.o(.text);

@@ -2459,7 +2459,7 @@ lbl_080566fe:
     cmp r0, #0
     beq lbl_08056762
     movs r0, #0
-    bl sub_08060cbc
+    bl unk_60cbc
 lbl_08056762:
     ldr r1, lbl_0805696c @ =gDoorPositionStart
     movs r2, #0
@@ -2675,7 +2675,7 @@ lbl_080568c8:
     cmp r0, #0
     beq lbl_0805690a
     movs r0, #1
-    bl sub_08060cbc
+    bl unk_60cbc
 lbl_0805690a:
     ldr r2, lbl_080569c8 @ =gWaitingSpacePiratesPosition
     ldrh r1, [r4, #0x12]

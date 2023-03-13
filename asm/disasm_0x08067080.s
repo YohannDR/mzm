@@ -6401,7 +6401,7 @@ lbl_0806a260:
     movs r1, #1
     orrs r0, r1
     strb r0, [r2, #3]
-    bl end_demo
+    bl DemoEnd
     ldr r1, lbl_0806a290 @ =gPauseScreenFlag
     movs r0, #9
     b lbl_0806a2a6
@@ -25034,9 +25034,9 @@ lbl_080732bc:
     beq lbl_080732d2
 lbl_080732c2:
     movs r0, #0xe
-    bl sub_08000c48
+    bl do_sram_operation
     movs r0, #0x10
-    bl sub_08000c48
+    bl do_sram_operation
     cmp r0, #0
     bne lbl_080732bc
 lbl_080732d2:
@@ -25125,7 +25125,7 @@ lbl_08073360:
     mvns r0, r1
     str r0, [r4, #4]
     movs r0, #0
-    bl sub_08000c48
+    bl do_sram_operation
     pop {r4, r5, r6}
     pop {r0}
     bx r0
@@ -25204,7 +25204,7 @@ lbl_08073418:
     bl DMATransfer
     movs r6, #0
     movs r0, #0
-    bl sub_08000c48
+    bl do_sram_operation
     b lbl_080734a4
 lbl_08073432:
     ldr r3, lbl_0807346c @ =0x00006d40
@@ -25216,7 +25216,7 @@ lbl_08073432:
     bl DMATransfer
     movs r6, #0
     movs r0, #0
-    bl sub_08000c48
+    bl do_sram_operation
     mov r0, r8
     cmp r0, #0
     beq lbl_080734a4
@@ -25229,7 +25229,7 @@ lbl_08073432:
     movs r3, #0x40
     bl DMATransfer
     movs r0, #1
-    bl sub_08000c48
+    bl do_sram_operation
     b lbl_080734a4
     .align 2, 0
 lbl_0807346c: .4byte 0x00006d40
@@ -25244,7 +25244,7 @@ lbl_08073470:
     movs r3, #0x40
     bl DMATransfer
     movs r0, #1
-    bl sub_08000c48
+    bl do_sram_operation
     cmp r7, #0
     beq lbl_080734a4
     ldr r1, [r4]
@@ -25255,7 +25255,7 @@ lbl_08073470:
     movs r3, #0x40
     bl DMATransfer
     movs r0, #2
-    bl sub_08000c48
+    bl do_sram_operation
 lbl_080734a4:
     cmp r6, #0
     bne lbl_080734b8
@@ -27148,7 +27148,7 @@ lbl_080743f0:
     lsls r3, r3, #5
     bl DMATransfer
     movs r0, #4
-    bl sub_08000c48
+    bl do_sram_operation
     movs r0, #1
     ldr r1, [sp, #4]
     strb r0, [r1]
@@ -27238,7 +27238,7 @@ lbl_080744d8:
     mov r3, sb
     bl BitFill
     movs r0, #3
-    bl sub_08000c48
+    bl do_sram_operation
     mov r2, r8
     movs r1, #0
     ldrsb r1, [r2, r1]
@@ -27257,7 +27257,7 @@ lbl_080744d8:
     mov r3, sb
     bl BitFill
     movs r0, #4
-    bl sub_08000c48
+    bl do_sram_operation
     mov r4, r8
     movs r1, #0
     ldrsb r1, [r4, r1]
@@ -27930,7 +27930,7 @@ lbl_08074a28:
     mvns r0, r1
     strh r0, [r5, #4]
     movs r0, #5
-    bl sub_08000c48
+    bl do_sram_operation
     pop {r4, r5}
     pop {r0}
     bx r0
@@ -28128,7 +28128,7 @@ lbl_08074bae:
     mvns r0, r1
     strh r0, [r5, #4]
     movs r0, #8
-    bl sub_08000c48
+    bl do_sram_operation
     pop {r4, r5}
     pop {r0}
     bx r0
@@ -28335,7 +28335,7 @@ lbl_08074d48:
     mvns r0, r1
     strh r0, [r5, #4]
     movs r0, #6
-    bl sub_08000c48
+    bl do_sram_operation
     pop {r4, r5, r6, r7}
     pop {r0}
     bx r0
@@ -28472,7 +28472,7 @@ lbl_08074e6e:
     str r0, [r6, #8]
     ldr r0, [r6, #8]
     movs r0, #7
-    bl sub_08000c48
+    bl do_sram_operation
     b lbl_08074eee
     .align 2, 0
 lbl_08074e98: .4byte 0x00006dc0
@@ -28493,7 +28493,7 @@ lbl_08074ea0:
     str r2, [r6, #8]
     ldr r0, [r6, #8]
     movs r0, #6
-    bl sub_08000c48
+    bl do_sram_operation
     mov r0, sp
     movs r1, #0
     strh r1, [r0]
@@ -28508,7 +28508,7 @@ lbl_08074ea0:
     str r2, [r6, #8]
     ldr r0, [r6, #8]
     movs r0, #7
-    bl sub_08000c48
+    bl do_sram_operation
 lbl_08074ee2:
     movs r0, #1
     add r8, r0
@@ -28544,7 +28544,7 @@ lbl_08074f04:
     str r0, [r1, #8]
     ldr r0, [r1, #8]
     movs r0, #6
-    bl sub_08000c48
+    bl do_sram_operation
     b lbl_08074eee
     .align 2, 0
 lbl_08074f2c: .4byte 0x040000d4
@@ -28644,7 +28644,7 @@ lbl_08074fb2:
     mvns r0, r1
     strh r0, [r5, #0x14]
     movs r0, #9
-    bl sub_08000c48
+    bl do_sram_operation
     pop {r4, r5, r6, r7}
     pop {r0}
     bx r0
@@ -28782,7 +28782,7 @@ lbl_080750d4:
     str r0, [r4, #8]
     ldr r0, [r4, #8]
     movs r0, #0xa
-    bl sub_08000c48
+    bl do_sram_operation
     b lbl_08075156
     .align 2, 0
 lbl_08075104: .4byte 0x80000080
@@ -28803,7 +28803,7 @@ lbl_08075108:
     adds r3, r5, #0
     bl BitFill
     movs r0, #9
-    bl sub_08000c48
+    bl do_sram_operation
     mov r0, sb
     ldr r2, [r0]
     movs r1, #0xdf
@@ -28815,7 +28815,7 @@ lbl_08075108:
     adds r3, r5, #0
     bl BitFill
     movs r0, #0xa
-    bl sub_08000c48
+    bl do_sram_operation
 lbl_0807514a:
     movs r2, #1
     add r8, r2
@@ -28858,7 +28858,7 @@ lbl_0807517c:
     str r0, [r1, #8]
     ldr r0, [r1, #8]
     movs r0, #9
-    bl sub_08000c48
+    bl do_sram_operation
     b lbl_08075156
     .align 2, 0
 lbl_080751a4: .4byte 0x040000d4
@@ -29035,7 +29035,7 @@ sub_080751d8: @ 0x080751d8
     adds r4, r4, r0
     strb r1, [r4]
     movs r0, #0xd
-    bl sub_08000c48
+    bl do_sram_operation
     add sp, #4
     pop {r4, r5, r6, r7}
     pop {r0}
@@ -29062,8 +29062,8 @@ lbl_08075358: .4byte 0x0000023e
 lbl_0807535c: .4byte 0x0000023f
 lbl_08075360: .4byte gUseMotherShipDoors
 
-    thumb_func_start load_demo_ram_values
-load_demo_ram_values: @ 0x08075364
+    thumb_func_start SramLoad_DemoRamValues
+SramLoad_DemoRamValues: @ 0x08075364
     push {r4, r5, r6, lr}
     sub sp, #4
     lsls r0, r0, #0x18
@@ -29649,13 +29649,13 @@ lbl_08075800: @ jump table
     .4byte lbl_08075828 @ case 4
 lbl_08075814:
     movs r0, #3
-    bl sub_08000c48
+    bl do_sram_operation
     b lbl_08075828
 lbl_0807581c:
     movs r0, #3
-    bl sub_08000c48
+    bl do_sram_operation
     movs r0, #4
-    bl sub_08000c48
+    bl do_sram_operation
 lbl_08075828:
     ldr r3, lbl_08075844 @ =gSaveFilesInfo
     ldr r2, lbl_08075848 @ =gMostRecentSaveFile
@@ -29675,8 +29675,8 @@ lbl_08075828:
 lbl_08075844: .4byte gSaveFilesInfo
 lbl_08075848: .4byte gMostRecentSaveFile
 
-    thumb_func_start sub_0807584c
-sub_0807584c: @ 0x0807584c
+    thumb_func_start unk_7584c
+unk_7584c: @ 0x0807584c
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x18
     lsrs r4, r0, #0x18
@@ -30105,7 +30105,7 @@ sub_08075c04: @ 0x08075c04
     ldr r0, lbl_08075c28 @ =0x08075bf9
     bl CallbackSetVBlank
     adds r0, r4, #0
-    bl sub_0807584c
+    bl unk_7584c
     ldr r0, lbl_08075c2c @ =gIsLoadingFile
     ldrb r0, [r0]
     lsls r0, r0, #0x18

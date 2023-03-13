@@ -1,5 +1,5 @@
-#ifndef DEMO_H
-#define DEMO_H
+#ifndef DEMO_INPUT_H
+#define DEMO_INPUT_H
 
 #include "types.h"
 
@@ -9,4 +9,4 @@ void UpdateDemoInput(void);
 void CopyDemoInput(void);
 void DemoResetInputAndDuration(void);
 
-#endif /* DEMO_H */
+#endif /* DEMO_INPUT_H */

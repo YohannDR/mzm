@@ -2,8 +2,8 @@
 
     .syntax unified
 
-    thumb_func_start sub_08000c48
-sub_08000c48: @ 0x08000c48
+    thumb_func_start do_sram_operation
+do_sram_operation: @ 0x08000c48
     push {r4, r5, r6, r7, lr}
     sub sp, #4
     lsls r0, r0, #0x18

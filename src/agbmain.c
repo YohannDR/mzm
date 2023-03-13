@@ -50,7 +50,7 @@ void agbmain(void)
                         gMainGameMode = GM_FILESELECT;
                     else if (gGameModeSub2 == 2)
                     {
-                        start_new_demo();
+                        DemoStart();
                         gMainGameMode = GM_DEMO;
                     }
                     else
@@ -191,10 +191,10 @@ void agbmain(void)
                         if (gDemoState == 0)
                         {
                             gMainGameMode = gGameModeSub2;
-                            gGameModeSub2 = gCurrentDemo.unk_3;
+                            gGameModeSub2 = gCurrentDemo.endedWithInput;
                         }
                         else {
-                            start_new_demo();
+                            DemoStart();
                             gMainGameMode = GM_DEMO;
                         }
                     }

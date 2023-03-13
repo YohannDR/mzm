@@ -409,8 +409,8 @@ void RoomReset(void)
         gLastElevatorUsed = sLastElevatorUsed_Empty;
         gRainSoundEffect = RAIN_SOUND_NONE;
 
-        if (!gIsLoadingFile && gCurrentDemo.status & 0xF0)
-            init_demo_related(FALSE);
+        if (!gIsLoadingFile && gCurrentDemo.loading)
+            unk_60cbc(FALSE);
     
         gDoorPositionStart.x = 0;
         gDoorPositionStart.y = 0;
@@ -504,8 +504,8 @@ void RoomReset(void)
     gSamusData.xPosition = xOffset * BLOCK_SIZE + (pDoor->xExit + 8) * 4;
     gSamusData.yPosition = (yOffset) * BLOCK_SIZE + pDoor->yExit * 4 - 1;
 
-    if (gCurrentDemo.status & 0xF0)
-        init_demo_related(TRUE);
+    if (gCurrentDemo.loading)
+        unk_60cbc(TRUE);
 
     gWaitingSpacePiratesPosition.x = gSamusData.xPosition;
     gWaitingSpacePiratesPosition.y = gSamusData.yPosition;

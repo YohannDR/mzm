@@ -5,8 +5,6 @@
 
 void DMATransfer(u8 channel, void *src, void *dst, u32 len, u8 bitSize);
 void init_sound(void);
-void SramRead_All(void);
-void start_new_demo(void);
 int map_screen_main(void);
 int gameover_main(void);
 int credits_main(void);
