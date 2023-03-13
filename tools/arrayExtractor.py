@@ -17,9 +17,9 @@ def Func():
     result = ""
 
     for x in range(1, size + 1):
-        result += str(int.from_bytes(file.read(1), "little"))
+        result += str(sign(int.from_bytes(file.read(2), "little")))
 
-        if x % 3 == 0 and x != 0:
+        if x % 10 == 0 and x != 0:
             result += ",\n"
         else:
             result += ", "

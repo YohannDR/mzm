@@ -1,39 +1,30 @@
 from io import BufferedReader
 
-def extractStats(file: BufferedReader):
-    result = "{\n\t.pTileGraphics = (const u8*)"
-    result += hex(int.from_bytes(file.read(4), "little"))
-    result += ",\n\t.pPalette = (const u16*)"
-    result += hex(int.from_bytes(file.read(4), "little"))
-    result += ",\n\t.pBackgroundGraphics = (const u8*)"
-    result += hex(int.from_bytes(file.read(4), "little"))
-    result += ",\n\t.pTilemap = (const u8*)"
-    result += hex(int.from_bytes(file.read(4), "little"))
-    result += ",\n\t.animatedTileset = "
-    result += str(int.from_bytes(file.read(1), "little"))
-    result += ",\n\t.animatedPalette = "
-    result += str(int.from_bytes(file.read(1), "little"))
-    result += "\n},\n"
-    file.read(2)
-    return result
+def sign(value):
+    if value > 0x7FFF:
+        value = -(0x10000 - value)
+
+    return value
 
 file = open("../mzm_us_baserom.gba", "rb")
 
 def Func():
-    size = 79
-
-    addr = 0x33dfdc
+    addr = 0x3461fc
 
     file.seek(addr)
 
-    result = ""
+    result = "const i16* const sHaze_PowerBomb_WindowValuesPointers[161] = {\n\t"
     
-    for x in range(0, size):
-        result += extractStats(file)
+    for x in range(5, 161):
+        result += "sHaze_PowerBomb_Values"
+        result += str(x)
+        result += ",\n\t"
+
+    result += "};"
 
     return result
 
-f = open("tilesets.txt", "w")
+f = open("haze.txt", "w")
 f.write(Func())
 f.close()
 

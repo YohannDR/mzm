@@ -631,7 +631,7 @@ SECTIONS {
         src/data/clipdata_data.o(.rodata);
         src/data/block_data.o(.rodata);
         src/data/color_fading_data.o(.rodata);
-        /* 345d00-35f948 */
+        src/data/haze_data.o(.rodata);
         src/data/animated_graphics_data.o(.rodata);
         src/data/hatch_data.o(.rodata);
         src/data/in_game_cutscene_data.o(.rodata);
