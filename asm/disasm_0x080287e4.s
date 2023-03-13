@@ -1639,13 +1639,13 @@ lbl_0802945c:
     movs r0, #0x42
     strb r0, [r5]
     movs r0, #0x6b
-    ldr r1, lbl_080294bc @ =0x0300075c
+    ldr r1, lbl_080294bc @ =gCurrentSprite+0x24
     strb r0, [r1]
     b lbl_080294ca
     .align 2, 0
 lbl_080294b4: .4byte gCurrentSprite
 lbl_080294b8: .4byte gSpriteData
-lbl_080294bc: .4byte 0x0300075c
+lbl_080294bc: .4byte gCurrentSprite+0x24
 lbl_080294c0:
     adds r5, #0x38
     adds r4, #0x38

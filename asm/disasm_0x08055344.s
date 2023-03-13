@@ -20,7 +20,7 @@ ScreenShakeStartVertical: @ 0x08055344
     strb r1, [r3, #1]
     strb r4, [r3, #2]
     strb r1, [r3, #3]
-    ldr r0, lbl_08055374 @ =0x03000072
+    ldr r0, lbl_08055374 @ =gScreenShakeYOffset
     strb r1, [r0]
 lbl_08055368:
     ldrb r0, [r3]
@@ -29,7 +29,7 @@ lbl_08055368:
     bx r1
     .align 2, 0
 lbl_08055370: .4byte gScreenShakeY
-lbl_08055374: .4byte 0x03000072
+lbl_08055374: .4byte gScreenShakeYOffset
 
     thumb_func_start ScreenShakeStartHorizontal
 ScreenShakeStartHorizontal: @ 0x08055378
@@ -90,7 +90,7 @@ lbl_080553d8: .4byte gScreenShakeXOffset
 update_vertical_screen_shake: @ 0x080553dc
     push {r4, r5, r6, lr}
     movs r2, #0
-    ldr r6, lbl_080553f4 @ =0x03000072
+    ldr r6, lbl_080553f4 @ =gScreenShakeYOffset
     strb r2, [r6]
     ldr r4, lbl_080553f8 @ =gScreenShakeY
     ldrb r0, [r4]
@@ -100,7 +100,7 @@ update_vertical_screen_shake: @ 0x080553dc
     movs r0, #0
     b lbl_0805543e
     .align 2, 0
-lbl_080553f4: .4byte 0x03000072
+lbl_080553f4: .4byte gScreenShakeYOffset
 lbl_080553f8: .4byte gScreenShakeY
 lbl_080553fc:
     subs r5, r0, #1
@@ -637,7 +637,7 @@ lbl_080558a4:
     rsbs r3, r3, #0
     adds r0, r3, #0
     strb r0, [r1]
-    ldr r1, lbl_08055964 @ =0x030056c0
+    ldr r1, lbl_08055964 @ =gTransparencyRelated
     ldr r0, lbl_08055968 @ =0x083458c4
     ldr r0, [r0]
     str r0, [r1]
@@ -704,7 +704,7 @@ lbl_08055954: .4byte gBldalphaData1
 lbl_08055958: .4byte 0x04000052
 lbl_0805595c: .4byte gWrittenToBLDALPHA
 lbl_08055960: .4byte gWrittenToBLDY
-lbl_08055964: .4byte 0x030056c0
+lbl_08055964: .4byte gTransparencyRelated
 lbl_08055968: .4byte 0x083458c4
 lbl_0805596c: .4byte gSuitFlashEffect
 lbl_08055970: .4byte 0x04000048
@@ -1167,7 +1167,7 @@ lbl_08055cb0:
     adds r0, r3, #0
     bl TransparencyApplyNewBLDALPHA
 lbl_08055cc2:
-    ldr r0, lbl_08055cd8 @ =0x030056c0
+    ldr r0, lbl_08055cd8 @ =gTransparencyRelated
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_08055cce
@@ -1177,7 +1177,7 @@ lbl_08055cce:
     bx r0
     .align 2, 0
 lbl_08055cd4: .4byte gBldalphaData1
-lbl_08055cd8: .4byte 0x030056c0
+lbl_08055cd8: .4byte gTransparencyRelated
 
     thumb_func_start TransparencyApplyNewBLDALPHA
 TransparencyApplyNewBLDALPHA: @ 0x08055cdc
@@ -1406,7 +1406,7 @@ sub_08055e60: @ 0x08055e60
     beq lbl_08055e9c
     cmp r3, #1
     bne lbl_08055f5e
-    ldr r1, lbl_08055e90 @ =0x030056c0
+    ldr r1, lbl_08055e90 @ =gTransparencyRelated
     movs r0, #0
     strb r0, [r1, #2]
     movs r0, #2
@@ -1423,11 +1423,11 @@ sub_08055e60: @ 0x08055e60
     b lbl_08055f5e
     .align 2, 0
 lbl_08055e8c: .4byte gCurrentPowerBomb
-lbl_08055e90: .4byte 0x030056c0
+lbl_08055e90: .4byte gTransparencyRelated
 lbl_08055e94: .4byte gIoRegistersBackup
 lbl_08055e98: .4byte gWrittenToBLDALPHA
 lbl_08055e9c:
-    ldr r2, lbl_08055ef0 @ =0x030056c0
+    ldr r2, lbl_08055ef0 @ =gTransparencyRelated
     ldrb r0, [r2, #2]
     adds r1, r0, #1
     strb r1, [r2, #2]
@@ -1472,7 +1472,7 @@ lbl_08055ee0:
     movs r0, #0
     b lbl_08055efe
     .align 2, 0
-lbl_08055ef0: .4byte 0x030056c0
+lbl_08055ef0: .4byte gTransparencyRelated
 lbl_08055ef4: .4byte gIoRegistersBackup
 lbl_08055ef8:
     cmp r0, #0x10
@@ -1978,7 +1978,7 @@ lbl_0805634c:
     movs r3, #0x5e
     bl DMATransfer
 lbl_08056368:
-    ldr r2, lbl_080563e8 @ =0x030054fc
+    ldr r2, lbl_080563e8 @ =gTilesetTransparentColor
     ldr r0, [sp, #8]
     ldrh r0, [r0]
     movs r1, #0
@@ -2036,7 +2036,7 @@ lbl_080563d8: .4byte 0x085d940c
 lbl_080563dc: .4byte 0x06004800
 lbl_080563e0: .4byte 0x085dfe22
 lbl_080563e4: .4byte 0x05000002
-lbl_080563e8: .4byte 0x030054fc
+lbl_080563e8: .4byte gTilesetTransparentColor
 lbl_080563ec: .4byte 0x0600fde0
 lbl_080563f0: .4byte 0x0600ffe0
 lbl_080563f4: .4byte gPauseScreenFlag
@@ -2563,7 +2563,7 @@ lbl_08056784:
     str r0, [r1]
     ldr r0, lbl_080569e8 @ =gEffectYPositionOffset
     strh r3, [r0]
-    ldr r2, lbl_080569ec @ =0x03005504
+    ldr r2, lbl_080569ec @ =gUnusedStruct_3005504
     ldr r0, lbl_080569f0 @ =0x083458b8
     ldr r1, [r0, #4]
     ldr r0, [r0]
@@ -2581,12 +2581,12 @@ lbl_08056784:
     ldr r6, lbl_08056930 @ =0x083458a4
     mov sl, r6
     ldr r6, lbl_08056a00 @ =gActiveBombChainTypes
-    ldr r7, lbl_08056a04 @ =0x03000045
+    ldr r7, lbl_08056a04 @ =gDisableAnimatedGraphicsTimer
     ldr r0, lbl_08056a08 @ =gScreenShakeY
     mov ip, r0
     ldr r1, lbl_08056a0c @ =gScreenShakeXOffset
     mov r8, r1
-    ldr r4, lbl_08056a10 @ =0x03000072
+    ldr r4, lbl_08056a10 @ =gScreenShakeYOffset
     mov sb, r4
     ldr r4, lbl_08056a14 @ =gBrokenBlocks
     ldr r0, lbl_08056a18 @ =0x08345884
@@ -2742,16 +2742,16 @@ lbl_080569dc: .4byte 0x0834587c
 lbl_080569e0: .4byte gWaterMovement
 lbl_080569e4: .4byte 0x083458c0
 lbl_080569e8: .4byte gEffectYPositionOffset
-lbl_080569ec: .4byte 0x03005504
+lbl_080569ec: .4byte gUnusedStruct_3005504
 lbl_080569f0: .4byte 0x083458b8
 lbl_080569f4: .4byte gBG0Movement
 lbl_080569f8: .4byte 0x083458a8
 lbl_080569fc: .4byte gBG2Movement
 lbl_08056a00: .4byte gActiveBombChainTypes
-lbl_08056a04: .4byte 0x03000045
+lbl_08056a04: .4byte gDisableAnimatedGraphicsTimer
 lbl_08056a08: .4byte gScreenShakeY
 lbl_08056a0c: .4byte gScreenShakeXOffset
-lbl_08056a10: .4byte 0x03000072
+lbl_08056a10: .4byte gScreenShakeYOffset
 lbl_08056a14: .4byte gBrokenBlocks
 lbl_08056a18: .4byte 0x08345884
 lbl_08056a1c: .4byte gBombchains
@@ -3371,7 +3371,7 @@ lbl_08056e98:
     beq lbl_08056ea2
     movs r4, #1
 lbl_08056ea2:
-    ldr r1, lbl_08056ee8 @ =0x03000045
+    ldr r1, lbl_08056ee8 @ =gDisableAnimatedGraphicsTimer
     ldrb r0, [r1]
     cmp r0, #0
     beq lbl_08056eb2
@@ -3404,7 +3404,7 @@ lbl_08056ede:
     bx r0
     .align 2, 0
 lbl_08056ee4: .4byte gPreventMovementTimer
-lbl_08056ee8: .4byte 0x03000045
+lbl_08056ee8: .4byte gDisableAnimatedGraphicsTimer
 lbl_08056eec: .4byte gBackgroundEffect
 lbl_08056ef0: .4byte gCurrentPowerBomb
 

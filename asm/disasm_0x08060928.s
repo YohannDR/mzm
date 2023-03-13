@@ -83,7 +83,7 @@ lbl_080609ba:
     movs r0, #1
     strb r0, [r5, #3]
 lbl_080609c4:
-    ldr r0, lbl_080609e0 @ =0x0300550e
+    ldr r0, lbl_080609e0 @ =gDestinationRoom
     strb r4, [r0]
     pop {r4, r5}
     pop {r0}
@@ -93,7 +93,7 @@ lbl_080609d0: .4byte gEquipment
 lbl_080609d4: .4byte gAlarmTimer
 lbl_080609d8: .4byte gCurrentCutscene
 lbl_080609dc: .4byte 0x0836bdac
-lbl_080609e0: .4byte 0x0300550e
+lbl_080609e0: .4byte gDestinationRoom
 
     thumb_func_start check_play_loading_jingle
 check_play_loading_jingle: @ 0x080609e4

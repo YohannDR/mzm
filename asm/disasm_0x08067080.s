@@ -10092,7 +10092,7 @@ lbl_0806c0dc: .4byte 0x08754bc4
     thumb_func_start check_for_maintained_input
 check_for_maintained_input: @ 0x0806c0e0
     push {r4, lr}
-    ldr r1, lbl_0806c104 @ =0x03005804
+    ldr r1, lbl_0806c104 @ =gUnk_3005804
     ldr r2, lbl_0806c108 @ =gChangedInput
     ldrh r0, [r2]
     strh r0, [r1]
@@ -10103,19 +10103,19 @@ check_for_maintained_input: @ 0x0806c0e0
     adds r4, r1, #0
     cmp r3, #0
     beq lbl_0806c114
-    ldr r1, lbl_0806c110 @ =0x03005800
+    ldr r1, lbl_0806c110 @ =gMaintainedInputData
     ldrb r0, [r1]
     adds r0, #1
     strb r0, [r1]
     adds r3, r1, #0
     b lbl_0806c11c
     .align 2, 0
-lbl_0806c104: .4byte 0x03005804
+lbl_0806c104: .4byte gUnk_3005804
 lbl_0806c108: .4byte gChangedInput
 lbl_0806c10c: .4byte gButtonInput
-lbl_0806c110: .4byte 0x03005800
+lbl_0806c110: .4byte gMaintainedInputData
 lbl_0806c114:
-    ldr r0, lbl_0806c14c @ =0x03005800
+    ldr r0, lbl_0806c14c @ =gMaintainedInputData
     strb r3, [r0]
     strb r3, [r0, #1]
     adds r3, r0, #0
@@ -10145,7 +10145,7 @@ lbl_0806c144:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0806c14c: .4byte 0x03005800
+lbl_0806c14c: .4byte gMaintainedInputData
 lbl_0806c150: .4byte 0x0840d66c
 
     thumb_func_start update_minimap
@@ -18462,13 +18462,13 @@ lbl_080700a6:
     ldr r0, [r0]
     adds r4, r0, #0
     adds r4, #0xc4
-    ldr r2, lbl_080700c4 @ =0x0300153d
+    ldr r2, lbl_080700c4 @ =gEquipment+0xD
     mov r8, r2
     b lbl_08070120
     .align 2, 0
 lbl_080700bc: .4byte 0x0840d0f0
 lbl_080700c0: .4byte 0x08754bc4
-lbl_080700c4: .4byte 0x0300153d
+lbl_080700c4: .4byte gEquipment+0xD
 lbl_080700c8:
     ldr r1, lbl_080700dc @ =0x0840d0f5
     ldrb r0, [r2, #2]
@@ -18478,12 +18478,12 @@ lbl_080700c8:
     ldr r0, [r0]
     adds r4, r0, #0
     adds r4, #0xd1
-    ldr r0, lbl_080700e4 @ =0x0300153d
+    ldr r0, lbl_080700e4 @ =gEquipment+0xD
     b lbl_0807011e
     .align 2, 0
 lbl_080700dc: .4byte 0x0840d0f5
 lbl_080700e0: .4byte 0x08754bc4
-lbl_080700e4: .4byte 0x0300153d
+lbl_080700e4: .4byte gEquipment+0xD
 lbl_080700e8:
     ldr r1, lbl_08070100 @ =0x0840d0f6
     ldrb r0, [r2, #2]
@@ -18493,13 +18493,13 @@ lbl_080700e8:
     ldr r0, [r0]
     adds r4, r0, #0
     adds r4, #0xc9
-    ldr r2, lbl_08070108 @ =0x0300153f
+    ldr r2, lbl_08070108 @ =gEquipment+0xF
     mov r8, r2
     b lbl_08070120
     .align 2, 0
 lbl_08070100: .4byte 0x0840d0f6
 lbl_08070104: .4byte 0x08754bc4
-lbl_08070108: .4byte 0x0300153f
+lbl_08070108: .4byte gEquipment+0xF
 lbl_0807010c:
     ldr r1, lbl_0807013c @ =0x0840d0f8
     ldrb r0, [r2, #2]
@@ -18509,7 +18509,7 @@ lbl_0807010c:
     ldr r0, [r0]
     adds r4, r0, #0
     adds r4, #0xcb
-    ldr r0, lbl_08070144 @ =0x0300153f
+    ldr r0, lbl_08070144 @ =gEquipment+0xF
 lbl_0807011e:
     mov r8, r0
 lbl_08070120:
@@ -18530,7 +18530,7 @@ lbl_08070120:
     .align 2, 0
 lbl_0807013c: .4byte 0x0840d0f8
 lbl_08070140: .4byte 0x08754bc4
-lbl_08070144: .4byte 0x0300153f
+lbl_08070144: .4byte gEquipment+0xF
 lbl_08070148:
     movs r3, #0
     ldr r1, lbl_08070158 @ =0x0840d0fe
@@ -19138,7 +19138,7 @@ lbl_080705e4:
 lbl_080705f2:
     lsls r1, r4, #0x18
     lsrs r1, r1, #0x18
-    ldr r2, lbl_080706a0 @ =0x0300153d
+    ldr r2, lbl_080706a0 @ =gEquipment+0xD
     ldrb r0, [r2]
     ldrb r2, [r5]
     ands r2, r0
@@ -19222,7 +19222,7 @@ lbl_08070690: .4byte gEquipment
 lbl_08070694: .4byte gPauseScreenFlag
 lbl_08070698: .4byte 0x0840de91
 lbl_0807069c: .4byte 0x0840de50
-lbl_080706a0: .4byte 0x0300153d
+lbl_080706a0: .4byte gEquipment+0xD
 
     thumb_func_start sub_080706a4
 sub_080706a4: @ 0x080706a4
@@ -19327,7 +19327,7 @@ lbl_0807074e:
 lbl_0807075c:
     lsls r1, r4, #0x18
     lsrs r1, r1, #0x18
-    ldr r2, lbl_0807080c @ =0x0300153f
+    ldr r2, lbl_0807080c @ =gEquipment+0xF
     ldrb r0, [r2]
     ldrb r2, [r5]
     ands r2, r0
@@ -19411,7 +19411,7 @@ lbl_080707fc: .4byte gEquipment
 lbl_08070800: .4byte gPauseScreenFlag
 lbl_08070804: .4byte 0x0840de91
 lbl_08070808: .4byte 0x0840de50
-lbl_0807080c: .4byte 0x0300153f
+lbl_0807080c: .4byte gEquipment+0xF
 
     thumb_func_start sub_08070810
 sub_08070810: @ 0x08070810
@@ -20451,7 +20451,7 @@ sub_08070fb0: @ 0x08070fb0
     adds r4, r0, #0
     cmp r1, #5
     bls lbl_08070fca
-    ldr r0, lbl_08070fe0 @ =0x03005804
+    ldr r0, lbl_08070fe0 @ =gUnk_3005804
     ldrh r1, [r0]
     rsbs r0, r1, #0
     orrs r0, r1
@@ -20468,7 +20468,7 @@ lbl_08070fd0:
     b lbl_080711c8
     .align 2, 0
 lbl_08070fdc: .4byte 0x08754bc4
-lbl_08070fe0: .4byte 0x03005804
+lbl_08070fe0: .4byte gUnk_3005804
 lbl_08070fe4:
     ldrb r0, [r2, #8]
     cmp r0, #7
@@ -21964,14 +21964,14 @@ lbl_08071b78:
     ldrb r0, [r0, #1]
     adds r1, r1, r0
     ldrb r6, [r1]
-    ldr r5, lbl_08071b98 @ =0x0300153d
+    ldr r5, lbl_08071b98 @ =gEquipment+0xD
     cmp r6, #8
     bne lbl_08071c1a
     ldrb r0, [r5, #5]
     b lbl_08071c14
     .align 2, 0
 lbl_08071b94: .4byte 0x08754bc4
-lbl_08071b98: .4byte 0x0300153d
+lbl_08071b98: .4byte gEquipment+0xD
 lbl_08071b9c:
     ldr r2, lbl_08071bc0 @ =0x08754bc4
     cmp r4, #8
@@ -22003,7 +22003,7 @@ lbl_08071bc8:
     ldrb r0, [r0, #1]
     adds r1, r1, r0
     ldrb r6, [r1]
-    ldr r5, lbl_08071bf8 @ =0x0300153f
+    ldr r5, lbl_08071bf8 @ =gEquipment+0xF
     cmp r6, #0x20
     bne lbl_08071be6
     ldrb r0, [r5, #3]
@@ -22020,7 +22020,7 @@ lbl_08071be6:
     b lbl_08071c18
     .align 2, 0
 lbl_08071bf4: .4byte 0x08754bc4
-lbl_08071bf8: .4byte 0x0300153f
+lbl_08071bf8: .4byte gEquipment+0xF
 lbl_08071bfc:
     ldr r2, lbl_08071c40 @ =0x08754bc4
     ldr r1, [r2]
@@ -22030,7 +22030,7 @@ lbl_08071bfc:
     ldrb r0, [r0, #1]
     adds r1, r1, r0
     ldrb r6, [r1]
-    ldr r5, lbl_08071c44 @ =0x0300153f
+    ldr r5, lbl_08071c44 @ =gEquipment+0xF
     cmp r6, #4
     bne lbl_08071c1a
     ldrb r0, [r5, #3]
@@ -22062,7 +22062,7 @@ lbl_08071c36:
     b lbl_08071d8a
     .align 2, 0
 lbl_08071c40: .4byte 0x08754bc4
-lbl_08071c44: .4byte 0x0300153f
+lbl_08071c44: .4byte gEquipment+0xF
 lbl_08071c48: .4byte gPauseScreenFlag
 lbl_08071c4c:
     cmp r7, #0
@@ -25432,7 +25432,7 @@ lbl_080735f8:
     ldr r5, lbl_08073648 @ =gGameCompletion
     movs r3, #1
     strb r3, [r5, #1]
-    ldr r4, lbl_0807364c @ =0x03000c24
+    ldr r4, lbl_0807364c @ =gSaveFilesInfo
     ldr r2, lbl_08073650 @ =gMostRecentSaveFile
     movs r1, #0
     ldrsb r1, [r2, r1]
@@ -25470,7 +25470,7 @@ lbl_080735f8:
     b lbl_080736a2
     .align 2, 0
 lbl_08073648: .4byte gGameCompletion
-lbl_0807364c: .4byte 0x03000c24
+lbl_0807364c: .4byte gSaveFilesInfo
 lbl_08073650: .4byte gMostRecentSaveFile
 lbl_08073654: .4byte 0x08754bc8
 lbl_08073658:
@@ -25584,7 +25584,7 @@ sub_080736d8: @ 0x080736d8
     ldr r0, lbl_080737c0 @ =gLanguage
     ldrb r0, [r0]
     strb r0, [r4, #0x1a]
-    ldr r2, lbl_080737c4 @ =0x03000154
+    ldr r2, lbl_080737c4 @ =gBestCompletionTimes
     movs r0, #0x80
     lsls r0, r0, #2
     adds r1, r4, r0
@@ -25650,7 +25650,7 @@ lbl_080737b4: .4byte gGameCompletion
 lbl_080737b8: .4byte gDifficulty
 lbl_080737bc: .4byte gTimeAttackFlag
 lbl_080737c0: .4byte gLanguage
-lbl_080737c4: .4byte 0x03000154
+lbl_080737c4: .4byte gBestCompletionTimes
 lbl_080737c8: .4byte 0x08411430
 
     thumb_func_start SramProcessEndingSave
@@ -25729,7 +25729,7 @@ lbl_08073868:
     bl sub_08000fbc
     cmp r0, #0
     beq lbl_080738e6
-    ldr r2, lbl_0807388c @ =0x03000c24
+    ldr r2, lbl_0807388c @ =gSaveFilesInfo
     ldr r0, lbl_08073890 @ =gMostRecentSaveFile
     movs r1, #0
     ldrsb r1, [r0, r1]
@@ -25742,7 +25742,7 @@ lbl_08073868:
     strb r1, [r0, #0x11]
     b lbl_080738c6
     .align 2, 0
-lbl_0807388c: .4byte 0x03000c24
+lbl_0807388c: .4byte gSaveFilesInfo
 lbl_08073890: .4byte gMostRecentSaveFile
 lbl_08073894: .4byte gGameCompletion
 lbl_08073898:
@@ -25862,7 +25862,7 @@ lbl_08073968:
     adds r5, #3
 lbl_08073978:
     add r5, sb
-    ldr r1, lbl_080739e0 @ =0x03000154
+    ldr r1, lbl_080739e0 @ =gBestCompletionTimes
     lsls r0, r5, #2
     adds r4, r0, r1
     ldrb r0, [r4]
@@ -25909,7 +25909,7 @@ lbl_080739d0: .4byte gEquipment
 lbl_080739d4: .4byte 0x083459c4
 lbl_080739d8: .4byte gDifficulty
 lbl_080739dc: .4byte gLanguage
-lbl_080739e0: .4byte 0x03000154
+lbl_080739e0: .4byte gBestCompletionTimes
 lbl_080739e4: .4byte gInGameTimer
 
     thumb_func_start sub_080739e8
@@ -25936,7 +25936,7 @@ sub_080739e8: @ 0x080739e8
     strb r0, [r4, #0x18]
     adds r6, r2, #0
     adds r5, r3, #0
-    ldr r2, lbl_08073a80 @ =0x03000154
+    ldr r2, lbl_08073a80 @ =gBestCompletionTimes
     movs r0, #0x80
     lsls r0, r0, #2
     adds r1, r4, r0
@@ -25989,7 +25989,7 @@ lbl_08073a40:
 lbl_08073a74: .4byte 0x08754bc8
 lbl_08073a78: .4byte gMostRecentSaveFile
 lbl_08073a7c: .4byte gGameCompletion
-lbl_08073a80: .4byte 0x03000154
+lbl_08073a80: .4byte gBestCompletionTimes
 
     thumb_func_start sub_08073a84
 sub_08073a84: @ 0x08073a84
@@ -26066,7 +26066,7 @@ lbl_08073b1c:
     bl sub_08000fbc
     cmp r0, #0
     beq lbl_08073b9a
-    ldr r2, lbl_08073b40 @ =0x03000c24
+    ldr r2, lbl_08073b40 @ =gSaveFilesInfo
     ldr r0, lbl_08073b44 @ =gMostRecentSaveFile
     movs r1, #0
     ldrsb r1, [r0, r1]
@@ -26079,7 +26079,7 @@ lbl_08073b1c:
     strb r1, [r0, #0x11]
     b lbl_08073b7a
     .align 2, 0
-lbl_08073b40: .4byte 0x03000c24
+lbl_08073b40: .4byte gSaveFilesInfo
 lbl_08073b44: .4byte gMostRecentSaveFile
 lbl_08073b48: .4byte gGameCompletion
 lbl_08073b4c:
@@ -26207,7 +26207,7 @@ lbl_08073c50:
     bl sub_08000fbc
     cmp r0, #0
     beq lbl_08073cd2
-    ldr r2, lbl_08073c78 @ =0x03000c24
+    ldr r2, lbl_08073c78 @ =gSaveFilesInfo
     ldr r0, lbl_08073c7c @ =gMostRecentSaveFile
     movs r1, #0
     ldrsb r1, [r0, r1]
@@ -26222,7 +26222,7 @@ lbl_08073c50:
     adds r0, #1
     b lbl_08073cd0
     .align 2, 0
-lbl_08073c78: .4byte 0x03000c24
+lbl_08073c78: .4byte gSaveFilesInfo
 lbl_08073c7c: .4byte gMostRecentSaveFile
 lbl_08073c80: .4byte gSramOperationStage
 lbl_08073c84:
@@ -26524,7 +26524,7 @@ lbl_08073e10:
     ldr r0, lbl_08074020 @ =gInGameTimer
     ldr r0, [r0]
     str r0, [r1]
-    ldr r2, lbl_08074024 @ =0x03000154
+    ldr r2, lbl_08074024 @ =gBestCompletionTimes
     adds r7, #0xa
     adds r1, r4, r7
     movs r3, #0xb
@@ -26653,7 +26653,7 @@ lbl_08074014: .4byte gPreventMovementTimer
 lbl_08074018: .4byte gDisableDrawingSamusAndScrolling
 lbl_0807401c: .4byte gAlarmTimer
 lbl_08074020: .4byte gInGameTimer
-lbl_08074024: .4byte 0x03000154
+lbl_08074024: .4byte gBestCompletionTimes
 lbl_08074028: .4byte 0x08411430
 lbl_0807402c: .4byte gInGameTimerAtBosses
 lbl_08074030: .4byte gInGameCutscenesTriggered
@@ -26877,7 +26877,7 @@ lbl_08074118:
     movs r0, #0x80
     lsls r0, r0, #2
     adds r1, r4, r0
-    ldr r3, lbl_080742d0 @ =0x03000154
+    ldr r3, lbl_080742d0 @ =gBestCompletionTimes
     movs r2, #0xb
 lbl_080741e8:
     ldm r1!, {r0}
@@ -26964,7 +26964,7 @@ lbl_080742c0: .4byte gPreventMovementTimer
 lbl_080742c4: .4byte gDisableDrawingSamusAndScrolling
 lbl_080742c8: .4byte gAlarmTimer
 lbl_080742cc: .4byte gInGameTimer
-lbl_080742d0: .4byte 0x03000154
+lbl_080742d0: .4byte gBestCompletionTimes
 lbl_080742d4: .4byte gMusicInfo
 lbl_080742d8: .4byte gInGameTimerAtBosses
 lbl_080742dc: .4byte gInGameCutscenesTriggered
@@ -27087,7 +27087,7 @@ sub_080743a4: @ 0x080743a4
     ldr r1, lbl_08074444 @ =gIsLoadingFile
     mov sb, r1
     ldr r3, lbl_08074448 @ =0x08760408
-    ldr r2, lbl_0807444c @ =0x03000c24
+    ldr r2, lbl_0807444c @ =gSaveFilesInfo
     movs r5, #2
 lbl_080743be:
     adds r1, r2, #0
@@ -27108,7 +27108,7 @@ lbl_080743be:
     movs r5, #0
     ldr r7, lbl_08074450 @ =0x08754bc8
     movs r6, #0x10
-    ldr r3, lbl_0807444c @ =0x03000c24
+    ldr r3, lbl_0807444c @ =gSaveFilesInfo
     str r3, [sp, #4]
     ldr r4, lbl_08074454 @ =0x0000ffff
     mov sl, r4
@@ -27125,7 +27125,7 @@ lbl_080743f0:
     lsls r0, r1, #1
     adds r0, r0, r1
     lsls r0, r0, #3
-    ldr r3, lbl_0807444c @ =0x03000c24
+    ldr r3, lbl_0807444c @ =gSaveFilesInfo
     adds r0, r0, r3
     ldrb r4, [r0, #1]
     cmp r4, #0
@@ -27157,7 +27157,7 @@ lbl_080743f0:
 lbl_08074440: .4byte gMostRecentSaveFile
 lbl_08074444: .4byte gIsLoadingFile
 lbl_08074448: .4byte 0x08760408
-lbl_0807444c: .4byte 0x03000c24
+lbl_0807444c: .4byte gSaveFilesInfo
 lbl_08074450: .4byte 0x08754bc8
 lbl_08074454: .4byte 0x0000ffff
 lbl_08074458: .4byte 0x000036e0
@@ -27264,14 +27264,14 @@ lbl_080744d8:
     lsls r0, r1, #1
     adds r0, r0, r1
     lsls r0, r0, #3
-    ldr r1, lbl_08074544 @ =0x03000c24
+    ldr r1, lbl_08074544 @ =gSaveFilesInfo
     adds r0, r0, r1
     movs r1, #0
     strb r1, [r0, #1]
     b lbl_0807454a
     .align 2, 0
 lbl_08074540: .4byte 0x000036e0
-lbl_08074544: .4byte 0x03000c24
+lbl_08074544: .4byte gSaveFilesInfo
 lbl_08074548:
     b lbl_08074548
 lbl_0807454a:
@@ -27308,7 +27308,7 @@ sub_08074574: @ 0x08074574
     adds r2, r0, #0
     cmp r4, #0
     bne lbl_080745a8
-    ldr r2, lbl_080745a0 @ =0x03000c24
+    ldr r2, lbl_080745a0 @ =gSaveFilesInfo
     ldr r0, lbl_080745a4 @ =gMostRecentSaveFile
     movs r1, #0
     ldrsb r1, [r0, r1]
@@ -27319,12 +27319,12 @@ sub_08074574: @ 0x08074574
     strb r4, [r0, #1]
     b lbl_0807461c
     .align 2, 0
-lbl_080745a0: .4byte 0x03000c24
+lbl_080745a0: .4byte gSaveFilesInfo
 lbl_080745a4: .4byte gMostRecentSaveFile
 lbl_080745a8:
     cmp r4, #1
     bne lbl_080745d8
-    ldr r5, lbl_080745d0 @ =0x03000c24
+    ldr r5, lbl_080745d0 @ =gSaveFilesInfo
     ldr r3, lbl_080745d4 @ =gMostRecentSaveFile
     movs r1, #0
     ldrsb r1, [r3, r1]
@@ -27343,10 +27343,10 @@ lbl_080745a8:
     adds r1, r1, r5
     b lbl_08074618
     .align 2, 0
-lbl_080745d0: .4byte 0x03000c24
+lbl_080745d0: .4byte gSaveFilesInfo
 lbl_080745d4: .4byte gMostRecentSaveFile
 lbl_080745d8:
-    ldr r4, lbl_08074600 @ =0x03000c24
+    ldr r4, lbl_08074600 @ =gSaveFilesInfo
     ldr r3, lbl_08074604 @ =gMostRecentSaveFile
     movs r0, #0
     ldrsb r0, [r3, r0]
@@ -27367,7 +27367,7 @@ lbl_080745d8:
     movs r0, #1
     b lbl_0807461a
     .align 2, 0
-lbl_08074600: .4byte 0x03000c24
+lbl_08074600: .4byte gSaveFilesInfo
 lbl_08074604: .4byte gMostRecentSaveFile
 lbl_08074608:
     cmp r2, #1
@@ -29240,7 +29240,7 @@ lbl_080754d0: @ jump table
     .4byte lbl_08075568 @ case 3
     .4byte lbl_08075588 @ case 4
 lbl_080754e4:
-    ldr r0, lbl_08075520 @ =0x03000c24
+    ldr r0, lbl_08075520 @ =gSaveFilesInfo
     lsls r2, r3, #1
     adds r2, r2, r3
     lsls r2, r2, #3
@@ -29270,7 +29270,7 @@ lbl_080754e4:
     bl BitFill
     b lbl_08075576
     .align 2, 0
-lbl_08075520: .4byte 0x03000c24
+lbl_08075520: .4byte gSaveFilesInfo
 lbl_08075524: .4byte 0x08760408
 lbl_08075528: .4byte gLanguage
 lbl_0807552c: .4byte 0x0000ffff
@@ -29373,7 +29373,7 @@ lbl_080755e4: @ jump table
     .4byte lbl_08075680 @ case 3
     .4byte lbl_080756a4 @ case 4
 lbl_080755f8:
-    ldr r2, lbl_08075630 @ =0x03000c24
+    ldr r2, lbl_08075630 @ =gSaveFilesInfo
     lsls r1, r3, #1
     adds r1, r1, r3
     lsls r1, r1, #3
@@ -29401,7 +29401,7 @@ lbl_080755f8:
     adds r2, #0x80
     b lbl_0807565c
     .align 2, 0
-lbl_08075630: .4byte 0x03000c24
+lbl_08075630: .4byte gSaveFilesInfo
 lbl_08075634:
     ldr r5, lbl_0807563c @ =gMostRecentSaveFile
     strb r3, [r5]
@@ -29482,7 +29482,7 @@ sub_080756c0: @ 0x080756c0
     push {r7}
     ldr r0, lbl_0807574c @ =0x02038000
     movs r6, #0
-    ldr r1, lbl_08075750 @ =0x03000c24
+    ldr r1, lbl_08075750 @ =gSaveFilesInfo
     adds r5, r0, #0
     adds r5, #0xbc
     adds r4, r0, #0
@@ -29550,7 +29550,7 @@ lbl_080756e2:
     b lbl_08075756
     .align 2, 0
 lbl_0807574c: .4byte 0x02038000
-lbl_08075750: .4byte 0x03000c24
+lbl_08075750: .4byte gSaveFilesInfo
 lbl_08075754:
     strb r0, [r1, #0x14]
 lbl_08075756:
@@ -29621,7 +29621,7 @@ sub_080757c8: @ 0x080757c8
     movs r4, #0
     ldrsb r4, [r1, r4]
     strb r0, [r1]
-    ldr r2, lbl_080757f8 @ =0x03000c24
+    ldr r2, lbl_080757f8 @ =gSaveFilesInfo
     ldrb r1, [r1]
     lsls r1, r1, #0x18
     asrs r1, r1, #0x18
@@ -29639,7 +29639,7 @@ sub_080757c8: @ 0x080757c8
     mov pc, r0
     .align 2, 0
 lbl_080757f4: .4byte gMostRecentSaveFile
-lbl_080757f8: .4byte 0x03000c24
+lbl_080757f8: .4byte gSaveFilesInfo
 lbl_080757fc: .4byte lbl_08075800
 lbl_08075800: @ jump table
     .4byte lbl_08075828 @ case 0
@@ -29657,7 +29657,7 @@ lbl_0807581c:
     movs r0, #4
     bl sub_08000c48
 lbl_08075828:
-    ldr r3, lbl_08075844 @ =0x03000c24
+    ldr r3, lbl_08075844 @ =gSaveFilesInfo
     ldr r2, lbl_08075848 @ =gMostRecentSaveFile
     movs r1, #0
     ldrsb r1, [r2, r1]
@@ -29672,7 +29672,7 @@ lbl_08075828:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08075844: .4byte 0x03000c24
+lbl_08075844: .4byte gSaveFilesInfo
 lbl_08075848: .4byte gMostRecentSaveFile
 
     thumb_func_start sub_0807584c
@@ -29715,17 +29715,17 @@ lbl_08075894:
     beq lbl_080758f4
     b lbl_08075918
 lbl_0807589e:
-    ldr r1, lbl_080758ac @ =0x03000c6c
+    ldr r1, lbl_080758ac @ =gStartingInfo
     ldr r0, lbl_080758b0 @ =0x08411524
     ldr r0, [r0]
     str r0, [r1]
     bl check_load_save_file
     b lbl_08075914
     .align 2, 0
-lbl_080758ac: .4byte 0x03000c6c
+lbl_080758ac: .4byte gStartingInfo
 lbl_080758b0: .4byte 0x08411524
 lbl_080758b4:
-    ldr r1, lbl_080758d8 @ =0x03000c6c
+    ldr r1, lbl_080758d8 @ =gStartingInfo
     ldr r0, lbl_080758dc @ =0x08411524
     ldr r0, [r0]
     str r0, [r1]
@@ -29743,7 +29743,7 @@ lbl_080758b4:
     strb r6, [r0]
     b lbl_08075914
     .align 2, 0
-lbl_080758d8: .4byte 0x03000c6c
+lbl_080758d8: .4byte gStartingInfo
 lbl_080758dc: .4byte 0x08411524
 lbl_080758e0: .4byte gCurrentRoom
 lbl_080758e4: .4byte gLastDoorUsed
@@ -29752,7 +29752,7 @@ lbl_080758ec: .4byte gDebugFlag
 lbl_080758f0: .4byte gLanguage
 lbl_080758f4:
     ldr r3, lbl_08075940 @ =gIsLoadingFile
-    ldr r2, lbl_08075944 @ =0x03000c24
+    ldr r2, lbl_08075944 @ =gSaveFilesInfo
     ldr r0, lbl_08075948 @ =gMostRecentSaveFile
     movs r1, #0
     ldrsb r1, [r0, r1]
@@ -29791,7 +29791,7 @@ lbl_08075918:
     bx r0
     .align 2, 0
 lbl_08075940: .4byte gIsLoadingFile
-lbl_08075944: .4byte 0x03000c24
+lbl_08075944: .4byte gSaveFilesInfo
 lbl_08075948: .4byte gMostRecentSaveFile
 lbl_0807594c: .4byte gCurrentCutscene
 lbl_08075950: .4byte gGameModeSub3
@@ -29806,7 +29806,7 @@ lbl_08075968: .4byte gSamusDoorPositionOffset
 check_load_save_file: @ 0x0807596c
     push {r4, r5, r6, lr}
     ldr r2, lbl_08075a10 @ =gIsLoadingFile
-    ldr r6, lbl_08075a14 @ =0x03000c24
+    ldr r6, lbl_08075a14 @ =gSaveFilesInfo
     ldr r5, lbl_08075a18 @ =gMostRecentSaveFile
     movs r1, #0
     ldrsb r1, [r5, r1]
@@ -29827,7 +29827,7 @@ check_load_save_file: @ 0x0807596c
     ldr r0, lbl_08075a20 @ =gEquipment
     strb r4, [r0, #0x10]
     ldr r2, lbl_08075a24 @ =gCurrentArea
-    ldr r0, lbl_08075a28 @ =0x03000c6c
+    ldr r0, lbl_08075a28 @ =gStartingInfo
     ldrb r1, [r0]
     strb r1, [r2]
     ldr r0, lbl_08075a2c @ =gAreaBeforeTransition
@@ -29887,12 +29887,12 @@ check_load_save_file: @ 0x0807596c
     b lbl_08075a50
     .align 2, 0
 lbl_08075a10: .4byte gIsLoadingFile
-lbl_08075a14: .4byte 0x03000c24
+lbl_08075a14: .4byte gSaveFilesInfo
 lbl_08075a18: .4byte gMostRecentSaveFile
 lbl_08075a1c: .4byte gColorFading
 lbl_08075a20: .4byte gEquipment
 lbl_08075a24: .4byte gCurrentArea
-lbl_08075a28: .4byte 0x03000c6c
+lbl_08075a28: .4byte gStartingInfo
 lbl_08075a2c: .4byte gAreaBeforeTransition
 lbl_08075a30: .4byte gCurrentRoom
 lbl_08075a34: .4byte gLastDoorUsed
@@ -29905,7 +29905,7 @@ lbl_08075a4c:
     bl sub_0807478c
 lbl_08075a50:
     ldr r3, lbl_08075a7c @ =gGameCompletion
-    ldr r2, lbl_08075a80 @ =0x03000c24
+    ldr r2, lbl_08075a80 @ =gSaveFilesInfo
     ldr r0, lbl_08075a84 @ =gMostRecentSaveFile
     movs r1, #0
     ldrsb r1, [r0, r1]
@@ -29927,7 +29927,7 @@ lbl_08075a50:
     bx r0
     .align 2, 0
 lbl_08075a7c: .4byte gGameCompletion
-lbl_08075a80: .4byte 0x03000c24
+lbl_08075a80: .4byte gSaveFilesInfo
 lbl_08075a84: .4byte gMostRecentSaveFile
 lbl_08075a88: .4byte gLanguage
 lbl_08075a8c: .4byte gSkipDoorTransition
@@ -30005,7 +30005,7 @@ lbl_08075b08:
     mov sl, r1
     ldr r2, lbl_08075bdc @ =gIsLoadingFile
     mov sb, r2
-    ldr r2, lbl_08075be0 @ =0x03000154
+    ldr r2, lbl_08075be0 @ =gBestCompletionTimes
     ldr r0, lbl_08075be4 @ =0x0841151c
     ldr r0, [r0]
     adds r1, r2, #0
@@ -30086,7 +30086,7 @@ lbl_08075bd0: .4byte 0x08411518
 lbl_08075bd4: .4byte gDisableDrawingSamusAndScrolling
 lbl_08075bd8: .4byte gDifficulty
 lbl_08075bdc: .4byte gIsLoadingFile
-lbl_08075be0: .4byte 0x03000154
+lbl_08075be0: .4byte gBestCompletionTimes
 lbl_08075be4: .4byte 0x0841151c
 lbl_08075be8: .4byte gInGameTimerAtBosses
 lbl_08075bec: .4byte 0x083602e8

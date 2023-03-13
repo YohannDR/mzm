@@ -1334,7 +1334,7 @@ lbl_080782c6:
     adds r2, #0x20
     adds r0, r0, r2
     strb r1, [r0]
-    ldr r3, lbl_080784fc @ =0x03000c24
+    ldr r3, lbl_080784fc @ =gSaveFilesInfo
     movs r0, #0x11
     ldrsb r0, [r3, r0]
     cmp r0, #0
@@ -1472,7 +1472,7 @@ lbl_080784ec: .4byte 0x0000012f
 lbl_080784f0: .4byte 0x0000013f
 lbl_080784f4: .4byte 0x0000014f
 lbl_080784f8: .4byte 0x0000015f
-lbl_080784fc: .4byte 0x03000c24
+lbl_080784fc: .4byte gSaveFilesInfo
 lbl_08078500: .4byte 0x0000ffff
 
     thumb_func_start sub_08078504
@@ -1484,7 +1484,7 @@ sub_08078504: @ 0x08078504
     lsrs r5, r1, #0x18
     cmp r5, #2
     bhi lbl_08078524
-    ldr r1, lbl_08078520 @ =0x03000c24
+    ldr r1, lbl_08078520 @ =gSaveFilesInfo
     lsls r0, r5, #1
     adds r0, r0, r5
     lsls r0, r0, #3
@@ -1492,7 +1492,7 @@ sub_08078504: @ 0x08078504
     ldrb r3, [r0, #0xc]
     b lbl_08078526
     .align 2, 0
-lbl_08078520: .4byte 0x03000c24
+lbl_08078520: .4byte gSaveFilesInfo
 lbl_08078524:
     movs r3, #0
 lbl_08078526:
@@ -1770,7 +1770,7 @@ sub_08078750: @ 0x08078750
     lsrs r5, r1, #0x18
     cmp r5, #2
     bhi lbl_08078770
-    ldr r1, lbl_0807876c @ =0x03000c24
+    ldr r1, lbl_0807876c @ =gSaveFilesInfo
     lsls r0, r5, #1
     adds r0, r0, r5
     lsls r0, r0, #3
@@ -1778,7 +1778,7 @@ sub_08078750: @ 0x08078750
     ldrb r1, [r0, #0xc]
     b lbl_08078772
     .align 2, 0
-lbl_0807876c: .4byte 0x03000c24
+lbl_0807876c: .4byte gSaveFilesInfo
 lbl_08078770:
     movs r1, #0
 lbl_08078772:
@@ -1837,7 +1837,7 @@ lbl_080787a2:
     ldrb r1, [r3, #4]
     cmp r5, #0
     bne lbl_080787ee
-    ldr r2, lbl_08078870 @ =0x03000c24
+    ldr r2, lbl_08078870 @ =gSaveFilesInfo
     ldrb r0, [r2]
     cmp r0, #0
     bne lbl_080787ec
@@ -1858,7 +1858,7 @@ lbl_080787ee:
     ldrb r1, [r0, #0xc]
     cmp r5, #1
     bne lbl_0807881c
-    ldr r2, lbl_08078870 @ =0x03000c24
+    ldr r2, lbl_08078870 @ =gSaveFilesInfo
     ldrb r0, [r2, #0x18]
     cmp r0, #0
     bne lbl_0807881a
@@ -1884,7 +1884,7 @@ lbl_0807881c:
     ldrb r1, [r0, #0x14]
     cmp r5, #2
     bne lbl_08078852
-    ldr r2, lbl_08078870 @ =0x03000c24
+    ldr r2, lbl_08078870 @ =gSaveFilesInfo
     adds r0, r2, #0
     adds r0, #0x30
     ldrb r0, [r0]
@@ -1912,7 +1912,7 @@ lbl_08078852:
     .align 2, 0
 lbl_08078868: .4byte 0x08754bc4
 lbl_0807886c: .4byte 0x08760b40
-lbl_08078870: .4byte 0x03000c24
+lbl_08078870: .4byte gSaveFilesInfo
 lbl_08078874:
     ldr r4, lbl_080788b4 @ =0x08754bc4
     ldr r1, [r4]
@@ -2132,7 +2132,7 @@ sub_08078a14: @ 0x08078a14
     lsrs r5, r1, #0x18
     cmp r5, #2
     bhi lbl_08078a34
-    ldr r1, lbl_08078a30 @ =0x03000c24
+    ldr r1, lbl_08078a30 @ =gSaveFilesInfo
     lsls r0, r5, #1
     adds r0, r0, r5
     lsls r0, r0, #3
@@ -2140,7 +2140,7 @@ sub_08078a14: @ 0x08078a14
     ldrb r1, [r0, #0xc]
     b lbl_08078a36
     .align 2, 0
-lbl_08078a30: .4byte 0x03000c24
+lbl_08078a30: .4byte gSaveFilesInfo
 lbl_08078a34:
     movs r1, #0
 lbl_08078a36:
@@ -2199,7 +2199,7 @@ lbl_08078a66:
     ldrb r1, [r3, #4]
     cmp r5, #0
     bne lbl_08078ab2
-    ldr r2, lbl_08078b34 @ =0x03000c24
+    ldr r2, lbl_08078b34 @ =gSaveFilesInfo
     ldrb r0, [r2]
     cmp r0, #0
     bne lbl_08078ab0
@@ -2220,7 +2220,7 @@ lbl_08078ab2:
     ldrb r1, [r0, #0xc]
     cmp r5, #1
     bne lbl_08078ae0
-    ldr r2, lbl_08078b34 @ =0x03000c24
+    ldr r2, lbl_08078b34 @ =gSaveFilesInfo
     ldrb r0, [r2, #0x18]
     cmp r0, #0
     bne lbl_08078ade
@@ -2246,7 +2246,7 @@ lbl_08078ae0:
     ldrb r1, [r0, #0x14]
     cmp r5, #2
     bne lbl_08078b16
-    ldr r2, lbl_08078b34 @ =0x03000c24
+    ldr r2, lbl_08078b34 @ =gSaveFilesInfo
     adds r0, r2, #0
     adds r0, #0x30
     ldrb r0, [r0]
@@ -2274,7 +2274,7 @@ lbl_08078b16:
     .align 2, 0
 lbl_08078b2c: .4byte 0x08754bc4
 lbl_08078b30: .4byte 0x08760b40
-lbl_08078b34: .4byte 0x03000c24
+lbl_08078b34: .4byte gSaveFilesInfo
 lbl_08078b38:
     ldr r4, lbl_08078b78 @ =0x08754bc4
     ldr r1, [r4]
@@ -2349,7 +2349,7 @@ lbl_08078bcc:
     ldr r5, lbl_08078c1c @ =0x08754bc4
     ldr r3, [r5]
     ldr r2, lbl_08078c20 @ =0x08760b80
-    ldr r4, lbl_08078c24 @ =0x03000bf3
+    ldr r4, lbl_08078c24 @ =gOptionsOptionSelected
     movs r0, #0
     ldrsb r0, [r4, r0]
     lsls r0, r0, #2
@@ -2388,7 +2388,7 @@ lbl_08078bcc:
     .align 2, 0
 lbl_08078c1c: .4byte 0x08754bc4
 lbl_08078c20: .4byte 0x08760b80
-lbl_08078c24: .4byte 0x03000bf3
+lbl_08078c24: .4byte gOptionsOptionSelected
 lbl_08078c28: .4byte 0x00000206
 lbl_08078c2c: .4byte 0x0000020e
 lbl_08078c30:
@@ -3072,7 +3072,7 @@ sub_08079178: @ 0x08079178
     push {lr}
     movs r2, #1
     rsbs r2, r2, #0
-    ldr r1, lbl_08079194 @ =0x03000c24
+    ldr r1, lbl_08079194 @ =gSaveFilesInfo
     ldrb r0, [r1]
     cmp r0, #0
     bne lbl_0807919c
@@ -3084,7 +3084,7 @@ sub_08079178: @ 0x08079178
     ldr r3, lbl_08079198 @ =0x08754bc4
     b lbl_08079200
     .align 2, 0
-lbl_08079194: .4byte 0x03000c24
+lbl_08079194: .4byte gSaveFilesInfo
 lbl_08079198: .4byte 0x08754bc4
 lbl_0807919c:
     ldrb r0, [r1, #0x18]
@@ -3321,7 +3321,7 @@ lbl_0807937e:
     ldrb r1, [r0]
     movs r0, #2
     bl sub_08078750
-    ldr r2, lbl_080793c0 @ =0x03000c24
+    ldr r2, lbl_080793c0 @ =gSaveFilesInfo
     ldr r0, [r4]
     adds r0, #0x26
     ldrb r1, [r0]
@@ -3344,7 +3344,7 @@ lbl_0807937e:
     b lbl_08079794
     .align 2, 0
 lbl_080793bc: .4byte 0x08754bc4
-lbl_080793c0: .4byte 0x03000c24
+lbl_080793c0: .4byte gSaveFilesInfo
 lbl_080793c4: .4byte 0x00000209
 lbl_080793c8:
     movs r0, #8
@@ -3731,7 +3731,7 @@ lbl_080796bc:
     lsls r0, r1, #1
     adds r0, r0, r1
     lsls r0, r0, #3
-    ldr r4, lbl_08079770 @ =0x03000c24
+    ldr r4, lbl_08079770 @ =gSaveFilesInfo
     adds r0, r0, r4
     bl sub_0807cf98
     ldr r3, [r5]
@@ -3795,7 +3795,7 @@ lbl_08079766:
     strb r0, [r1]
     b lbl_08079794
     .align 2, 0
-lbl_08079770: .4byte 0x03000c24
+lbl_08079770: .4byte gSaveFilesInfo
 lbl_08079774: .4byte 0x08760b79
 lbl_08079778: .4byte 0x08754bb4
 lbl_0807977c: .4byte 0x0600d800
@@ -4183,7 +4183,7 @@ lbl_08079a7c:
     lsls r0, r1, #1
     adds r0, r0, r1
     lsls r0, r0, #3
-    ldr r4, lbl_08079b20 @ =0x03000c24
+    ldr r4, lbl_08079b20 @ =gSaveFilesInfo
     adds r0, r0, r4
     bl sub_0807cf98
     ldr r2, [r5]
@@ -4241,7 +4241,7 @@ lbl_08079b12:
     b lbl_08079b44
     .align 2, 0
 lbl_08079b1c: .4byte 0x08754bc4
-lbl_08079b20: .4byte 0x03000c24
+lbl_08079b20: .4byte gSaveFilesInfo
 lbl_08079b24: .4byte 0x08760b79
 lbl_08079b28: .4byte 0x08754bb4
 lbl_08079b2c: .4byte 0x0600d800
@@ -4311,7 +4311,7 @@ lbl_08079bb0:
     strb r0, [r2]
     adds r1, #0x44
     strb r0, [r1]
-    ldr r0, lbl_08079bd4 @ =0x03000c24
+    ldr r0, lbl_08079bd4 @ =gSaveFilesInfo
     ldrb r1, [r0, #1]
     adds r2, r0, #0
     cmp r1, #1
@@ -4321,7 +4321,7 @@ lbl_08079bb0:
     movs r1, #7
     b lbl_08079be2
     .align 2, 0
-lbl_08079bd4: .4byte 0x03000c24
+lbl_08079bd4: .4byte gSaveFilesInfo
 lbl_08079bd8:
     cmp r1, #2
     bne lbl_08079be4
@@ -4521,7 +4521,7 @@ lbl_08079d48:
     ldr r1, lbl_08079d74 @ =gUnk_3000c20
     movs r0, #0
     strb r0, [r1]
-    ldr r2, lbl_08079d78 @ =0x03000c24
+    ldr r2, lbl_08079d78 @ =gSaveFilesInfo
     ldr r0, lbl_08079d7c @ =gMostRecentSaveFile
     movs r1, #0
     ldrsb r1, [r0, r1]
@@ -4542,7 +4542,7 @@ lbl_08079d48:
     b lbl_08079ec0
     .align 2, 0
 lbl_08079d74: .4byte gUnk_3000c20
-lbl_08079d78: .4byte 0x03000c24
+lbl_08079d78: .4byte gSaveFilesInfo
 lbl_08079d7c: .4byte gMostRecentSaveFile
 lbl_08079d80: .4byte 0x08754bc4
 lbl_08079d84:
@@ -4573,7 +4573,7 @@ lbl_08079d9c:
     lsls r0, r1, #1
     adds r0, r0, r1
     lsls r0, r0, #3
-    ldr r2, lbl_08079ddc @ =0x03000c24
+    ldr r2, lbl_08079ddc @ =gSaveFilesInfo
     adds r0, r0, r2
     bl sub_0807cf98
     bl sub_0807d0b0
@@ -4587,7 +4587,7 @@ lbl_08079d9c:
     strb r3, [r0]
     b lbl_08079df2
     .align 2, 0
-lbl_08079ddc: .4byte 0x03000c24
+lbl_08079ddc: .4byte gSaveFilesInfo
 lbl_08079de0:
     cmp r3, #1
     bne lbl_08079dea
@@ -5881,7 +5881,7 @@ lbl_0807a808: @ jump table
     .4byte lbl_0807aa14 @ case 5
 lbl_0807a820:
     ldr r0, [r4]
-    ldr r2, lbl_0807a868 @ =0x03000bf3
+    ldr r2, lbl_0807a868 @ =gOptionsOptionSelected
     movs r1, #0
     ldrsb r1, [r2, r1]
     adds r0, #0x5c
@@ -5916,7 +5916,7 @@ lbl_0807a844:
     strb r0, [r1]
     b lbl_0807aa20
     .align 2, 0
-lbl_0807a868: .4byte 0x03000bf3
+lbl_0807a868: .4byte gOptionsOptionSelected
 lbl_0807a86c: .4byte 0x08754bc4
 lbl_0807a870:
     ldr r0, [r4]
@@ -5965,7 +5965,7 @@ lbl_0807a8c4:
     beq lbl_0807a918
     ldr r5, lbl_0807a910 @ =0x08754bc4
     ldr r0, [r5]
-    ldr r1, lbl_0807a914 @ =0x03000bf3
+    ldr r1, lbl_0807a914 @ =gOptionsOptionSelected
     ldrb r1, [r1]
     lsls r1, r1, #0x18
     asrs r1, r1, #0x18
@@ -5997,13 +5997,13 @@ lbl_0807a8e4:
     b lbl_0807aa20
     .align 2, 0
 lbl_0807a910: .4byte 0x08754bc4
-lbl_0807a914: .4byte 0x03000bf3
+lbl_0807a914: .4byte gOptionsOptionSelected
 lbl_0807a918:
     movs r0, #0x40
     ands r0, r1
     cmp r0, #0
     beq lbl_0807a938
-    ldr r1, lbl_0807a934 @ =0x03000bf3
+    ldr r1, lbl_0807a934 @ =gOptionsOptionSelected
     ldrb r2, [r1]
     movs r0, #0
     ldrsb r0, [r1, r0]
@@ -6015,7 +6015,7 @@ lbl_0807a92e:
     strb r0, [r1]
     b lbl_0807a95a
     .align 2, 0
-lbl_0807a934: .4byte 0x03000bf3
+lbl_0807a934: .4byte gOptionsOptionSelected
 lbl_0807a938:
     movs r0, #0x80
     ands r0, r1
@@ -6023,7 +6023,7 @@ lbl_0807a938:
     beq lbl_0807aa20
     ldr r0, lbl_0807a964 @ =0x08754bc4
     ldr r0, [r0]
-    ldr r2, lbl_0807a968 @ =0x03000bf3
+    ldr r2, lbl_0807a968 @ =gOptionsOptionSelected
     movs r1, #0
     ldrsb r1, [r2, r1]
     adds r0, r0, r1
@@ -6040,11 +6040,11 @@ lbl_0807a95a:
     b lbl_0807aa20
     .align 2, 0
 lbl_0807a964: .4byte 0x08754bc4
-lbl_0807a968: .4byte 0x03000bf3
+lbl_0807a968: .4byte gOptionsOptionSelected
 lbl_0807a96c:
     ldr r6, lbl_0807a9ac @ =0x08760bfc
     ldr r0, [r4]
-    ldr r5, lbl_0807a9b0 @ =0x03000bf3
+    ldr r5, lbl_0807a9b0 @ =gOptionsOptionSelected
     movs r1, #0
     ldrsb r1, [r5, r1]
     adds r0, #0x5c
@@ -6075,7 +6075,7 @@ lbl_0807a96c:
     b lbl_0807a9be
     .align 2, 0
 lbl_0807a9ac: .4byte 0x08760bfc
-lbl_0807a9b0: .4byte 0x03000bf3
+lbl_0807a9b0: .4byte gOptionsOptionSelected
 lbl_0807a9b4: .4byte gGameModeSub2
 lbl_0807a9b8:
     ldr r1, lbl_0807a9d0 @ =gGameModeSub2
@@ -6143,7 +6143,7 @@ reset_io_transfter_info: @ 0x0807aa2c
     push {r4, r5, lr}
     ldr r0, lbl_0807aa60 @ =0x08754bc4
     ldr r0, [r0]
-    ldr r1, lbl_0807aa64 @ =0x03000bf3
+    ldr r1, lbl_0807aa64 @ =gOptionsOptionSelected
     ldrb r1, [r1]
     lsls r1, r1, #0x18
     asrs r1, r1, #0x18
@@ -6154,7 +6154,7 @@ reset_io_transfter_info: @ 0x0807aa2c
     bgt lbl_0807aa5a
     cmp r0, #5
     blt lbl_0807aa5a
-    ldr r2, lbl_0807aa68 @ =0x03005808
+    ldr r2, lbl_0807aa68 @ =gIoTransferInfo
     adds r1, r2, #0
     ldr r0, lbl_0807aa6c @ =0x085d914c
     ldm r0!, {r3, r4, r5}
@@ -6169,8 +6169,8 @@ lbl_0807aa5a:
     bx r0
     .align 2, 0
 lbl_0807aa60: .4byte 0x08754bc4
-lbl_0807aa64: .4byte 0x03000bf3
-lbl_0807aa68: .4byte 0x03005808
+lbl_0807aa64: .4byte gOptionsOptionSelected
+lbl_0807aa68: .4byte gIoTransferInfo
 lbl_0807aa6c: .4byte 0x085d914c
 lbl_0807aa70: .4byte file_select_menu_process_oam
 
@@ -8043,11 +8043,11 @@ load_time_attack_password_for_record: @ 0x0807b92c
     cmp r1, #1
     bls lbl_0807b950
     ldr r7, lbl_0807b948 @ =0x000078c0
-    ldr r0, lbl_0807b94c @ =0x030016ac
+    ldr r0, lbl_0807b94c @ =gTimeAttackRecord+0x18
     b lbl_0807b954
     .align 2, 0
 lbl_0807b948: .4byte 0x000078c0
-lbl_0807b94c: .4byte 0x030016ac
+lbl_0807b94c: .4byte gTimeAttackRecord+0x18
 lbl_0807b950:
     ldr r7, lbl_0807b9d8 @ =0x000068c0
     ldr r0, lbl_0807b9dc @ =gTimeAttackRecord
@@ -8139,7 +8139,7 @@ metroid_fusion_link_subroutine: @ 0x0807b9e8
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
-    ldr r1, lbl_0807ba14 @ =0x03005808
+    ldr r1, lbl_0807ba14 @ =gIoTransferInfo
     ldrb r0, [r1, #8]
     cmp r0, #1
     bne lbl_0807ba18
@@ -8147,7 +8147,7 @@ metroid_fusion_link_subroutine: @ 0x0807b9e8
     b lbl_0807ba26
     .align 2, 0
 lbl_0807ba10: .4byte 0x08754bc4
-lbl_0807ba14: .4byte 0x03005808
+lbl_0807ba14: .4byte gIoTransferInfo
 lbl_0807ba18:
     cmp r0, #2
     bne lbl_0807ba22
@@ -8401,13 +8401,13 @@ lbl_0807bc38:
     ands r0, r1
     cmp r0, r5
     bne lbl_0807bc58
-    ldr r1, lbl_0807bc54 @ =0x03005808
+    ldr r1, lbl_0807bc54 @ =gIoTransferInfo
     movs r0, #1
     strb r0, [r1, #8]
     adds r1, r2, #0
     b lbl_0807c0f2
     .align 2, 0
-lbl_0807bc54: .4byte 0x03005808
+lbl_0807bc54: .4byte gIoTransferInfo
 lbl_0807bc58:
     movs r7, #0x80
     lsls r7, r7, #2
@@ -8506,7 +8506,7 @@ lbl_0807bd18: .4byte 0x08754bc4
 lbl_0807bd1c: .4byte 0x000001ef
 lbl_0807bd20: .4byte 0x0600e000
 lbl_0807bd24:
-    ldr r0, lbl_0807bd3c @ =0x03005808
+    ldr r0, lbl_0807bd3c @ =gIoTransferInfo
     ldrb r0, [r0, #0xb]
     subs r0, #1
     cmp r0, #4
@@ -8519,7 +8519,7 @@ lbl_0807bd30:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0807bd3c: .4byte 0x03005808
+lbl_0807bd3c: .4byte gIoTransferInfo
 lbl_0807bd40: .4byte lbl_0807bd44
 lbl_0807bd44: @ jump table
     .4byte lbl_0807bd58 @ case 0
@@ -8861,7 +8861,7 @@ lbl_0807bfc6:
     .align 2, 0
 lbl_0807bfd8: .4byte 0x08754bc4
 lbl_0807bfdc:
-    ldr r2, lbl_0807bfec @ =0x03005808
+    ldr r2, lbl_0807bfec @ =gIoTransferInfo
     ldrb r1, [r2, #0xb]
     cmp r1, #4
     bne lbl_0807bff0
@@ -8870,7 +8870,7 @@ lbl_0807bfdc:
     strb r1, [r0]
     b lbl_0807c110
     .align 2, 0
-lbl_0807bfec: .4byte 0x03005808
+lbl_0807bfec: .4byte gIoTransferInfo
 lbl_0807bff0:
     ldr r0, lbl_0807c008 @ =gChangedInput
     ldrh r1, [r0]
@@ -8887,7 +8887,7 @@ lbl_0807bffe:
     .align 2, 0
 lbl_0807c008: .4byte gChangedInput
 lbl_0807c00c:
-    ldr r0, lbl_0807c018 @ =0x03005808
+    ldr r0, lbl_0807c018 @ =gIoTransferInfo
     ldrb r0, [r0, #0xb]
     cmp r0, #4
     beq lbl_0807c016
@@ -8895,7 +8895,7 @@ lbl_0807c00c:
 lbl_0807c016:
     b lbl_0807c084
     .align 2, 0
-lbl_0807c018: .4byte 0x03005808
+lbl_0807c018: .4byte gIoTransferInfo
 lbl_0807c01c:
     ldr r0, [r4]
     ldrh r2, [r0]
@@ -9160,14 +9160,14 @@ lbl_0807c22c:
     beq lbl_0807c2f6
     movs r0, #1
     bl sub_0807c4b0
-    ldr r1, lbl_0807c248 @ =0x03000bf3
+    ldr r1, lbl_0807c248 @ =gOptionsOptionSelected
 lbl_0807c23c:
     movs r0, #0
     strb r0, [r1]
     b lbl_0807c2f6
     .align 2, 0
 lbl_0807c244: .4byte gGameModeSub1
-lbl_0807c248: .4byte 0x03000bf3
+lbl_0807c248: .4byte gOptionsOptionSelected
 lbl_0807c24c:
     bl settings_subroutine
     lsls r0, r0, #0x18
@@ -9616,7 +9616,7 @@ lbl_0807c5b8:
     bl SramWrite_Language
 lbl_0807c5c0:
     adds r3, r4, #0
-    ldr r2, lbl_0807c5dc @ =0x03000c24
+    ldr r2, lbl_0807c5dc @ =gSaveFilesInfo
     movs r1, #2
 lbl_0807c5c6:
     ldrb r0, [r3]
@@ -9630,7 +9630,7 @@ lbl_0807c5c6:
     bx r0
     .align 2, 0
 lbl_0807c5d8: .4byte gLanguage
-lbl_0807c5dc: .4byte 0x03000c24
+lbl_0807c5dc: .4byte gSaveFilesInfo
 
     thumb_func_start file_select_menu_init
 file_select_menu_init: @ 0x0807c5e0
@@ -9810,7 +9810,7 @@ file_select_menu_init: @ 0x0807c5e0
     ldr r3, lbl_0807c820 @ =gGameModeSub1
     movs r0, #2
     strh r0, [r3]
-    ldr r1, lbl_0807c824 @ =0x03000c24
+    ldr r1, lbl_0807c824 @ =gSaveFilesInfo
     ldrb r0, [r1, #1]
     cmp r0, #0
     bne lbl_0807c78c
@@ -9864,10 +9864,10 @@ lbl_0807c814: .4byte 0x0845ea80
 lbl_0807c818: .4byte 0x0845ee24
 lbl_0807c81c: .4byte 0x0600d800
 lbl_0807c820: .4byte gGameModeSub1
-lbl_0807c824: .4byte 0x03000c24
+lbl_0807c824: .4byte gSaveFilesInfo
 lbl_0807c828:
     ldr r0, [r7]
-    ldr r2, lbl_0807c858 @ =0x03000bf3
+    ldr r2, lbl_0807c858 @ =gOptionsOptionSelected
     movs r1, #0
     ldrsb r1, [r2, r1]
     adds r0, #0x5c
@@ -9890,12 +9890,12 @@ lbl_0807c828:
     movs r1, #1
     b lbl_0807c872
     .align 2, 0
-lbl_0807c858: .4byte 0x03000bf3
+lbl_0807c858: .4byte gOptionsOptionSelected
 lbl_0807c85c:
     movs r0, #9
     movs r1, #2
     bl PlayMusic
-    ldr r1, lbl_0807c968 @ =0x03000bf3
+    ldr r1, lbl_0807c968 @ =gOptionsOptionSelected
     movs r0, #0
     strb r0, [r1]
     ldr r0, lbl_0807c96c @ =0x08754bc4
@@ -10024,7 +10024,7 @@ lbl_0807c872:
     strb r0, [r1]
     b lbl_0807c9da
     .align 2, 0
-lbl_0807c968: .4byte 0x03000bf3
+lbl_0807c968: .4byte gOptionsOptionSelected
 lbl_0807c96c: .4byte 0x08754bc4
 lbl_0807c970: .4byte gBG0HOFS_NonGameplay
 lbl_0807c974: .4byte gBG0VOFS_NonGameplay
@@ -10094,7 +10094,7 @@ lbl_0807ca24: .4byte sub_0807ca28
     thumb_func_start sub_0807ca28
 sub_0807ca28: @ 0x0807ca28
     push {lr}
-    ldr r0, lbl_0807cad8 @ =0x03005808
+    ldr r0, lbl_0807cad8 @ =gIoTransferInfo
     ldrb r0, [r0, #4]
     cmp r0, #0
     beq lbl_0807ca36
@@ -10181,7 +10181,7 @@ lbl_0807ca36:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0807cad8: .4byte 0x03005808
+lbl_0807cad8: .4byte gIoTransferInfo
 lbl_0807cadc: .4byte 0x040000d4
 lbl_0807cae0: .4byte gOamData
 lbl_0807cae4: .4byte 0x84000100
@@ -10221,7 +10221,7 @@ display_save_file_info: @ 0x0807cb2c
     bl display_save_file_health
     movs r0, #0
     bl sub_0807cdc4
-    ldr r4, lbl_0807cd48 @ =0x03000c24
+    ldr r4, lbl_0807cd48 @ =gSaveFilesInfo
     adds r0, r4, #0
     movs r1, #0
     bl sub_0807cf98
@@ -10451,7 +10451,7 @@ display_save_file_info: @ 0x0807cb2c
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0807cd48: .4byte 0x03000c24
+lbl_0807cd48: .4byte gSaveFilesInfo
 lbl_0807cd4c: .4byte 0x08754bb4
 
     thumb_func_start display_save_file_health
@@ -10468,7 +10468,7 @@ display_save_file_health: @ 0x0807cd50
     bne lbl_0807cd66
     movs r3, #2
 lbl_0807cd66:
-    ldr r0, lbl_0807cd98 @ =0x03000c24
+    ldr r0, lbl_0807cd98 @ =gSaveFilesInfo
     lsls r1, r2, #1
     adds r1, r1, r2
     lsls r1, r1, #3
@@ -10493,7 +10493,7 @@ lbl_0807cd7e:
     bl HUDDrawEnergy
     b lbl_0807cdba
     .align 2, 0
-lbl_0807cd98: .4byte 0x03000c24
+lbl_0807cd98: .4byte gSaveFilesInfo
 lbl_0807cd9c: .4byte gEquipment
 lbl_0807cda0:
     subs r0, r3, #1
@@ -10544,7 +10544,7 @@ lbl_0807cdec:
     lsls r0, r0, #6
     adds r0, #0xdc
     adds r7, r7, r0
-    ldr r1, lbl_0807cf1c @ =0x03000c24
+    ldr r1, lbl_0807cf1c @ =gSaveFilesInfo
     lsls r0, r3, #1
     adds r0, r0, r3
     lsls r0, r0, #3
@@ -10687,7 +10687,7 @@ lbl_0807ce22:
     b lbl_0807cf7e
     .align 2, 0
 lbl_0807cf18: .4byte 0x08754bb4
-lbl_0807cf1c: .4byte 0x03000c24
+lbl_0807cf1c: .4byte gSaveFilesInfo
 lbl_0807cf20:
     ldr r2, lbl_0807cf90 @ =0x000001cb
     adds r0, r2, #0
@@ -10915,7 +10915,7 @@ sub_0807d0b0: @ 0x0807d0b0
     adds r0, #0x3b
     movs r1, #0
     strb r1, [r0]
-    ldr r1, lbl_0807d15c @ =0x03000c24
+    ldr r1, lbl_0807d15c @ =gSaveFilesInfo
     ldrb r0, [r1, #1]
     adds r6, r2, #0
     adds r3, r1, #0
@@ -11000,7 +11000,7 @@ lbl_0807d136:
     b lbl_0807d166
     .align 2, 0
 lbl_0807d158: .4byte 0x08754bc4
-lbl_0807d15c: .4byte 0x03000c24
+lbl_0807d15c: .4byte gSaveFilesInfo
 lbl_0807d160: .4byte 0x08754bb4
 lbl_0807d164:
     movs r4, #1
@@ -11386,7 +11386,7 @@ lbl_0807d43a:
     ldr r0, [r3]
     adds r0, #0x3a
     ldrb r0, [r0]
-    ldr r5, lbl_0807d4c0 @ =0x03000c24
+    ldr r5, lbl_0807d4c0 @ =gSaveFilesInfo
     ldr r4, lbl_0807d4c4 @ =gMostRecentSaveFile
     cmp r0, #0
     blt lbl_0807d496
@@ -11448,7 +11448,7 @@ lbl_0807d4ae:
     b lbl_0807d57c
     .align 2, 0
 lbl_0807d4bc: .4byte 0x08754bc4
-lbl_0807d4c0: .4byte 0x03000c24
+lbl_0807d4c0: .4byte gSaveFilesInfo
 lbl_0807d4c4: .4byte gMostRecentSaveFile
 lbl_0807d4c8: .4byte gGameModeSub2
 lbl_0807d4cc:
@@ -12040,7 +12040,7 @@ lbl_0807d9c8:
     movs r5, #0x80
     movs r0, #1
     bl sub_0807ef7c
-    ldr r2, lbl_0807da1c @ =0x03000c24
+    ldr r2, lbl_0807da1c @ =gSaveFilesInfo
     ldr r4, lbl_0807da20 @ =0x08754bc4
     ldr r3, [r4]
     adds r0, r3, #0
@@ -12071,7 +12071,7 @@ lbl_0807da0a:
     b lbl_0807da84
     .align 2, 0
 lbl_0807da18: .4byte gChangedInput
-lbl_0807da1c: .4byte 0x03000c24
+lbl_0807da1c: .4byte gSaveFilesInfo
 lbl_0807da20: .4byte 0x08754bc4
 lbl_0807da24:
     adds r1, r3, #0
@@ -12095,7 +12095,7 @@ lbl_0807da40:
     ands r0, r2
     cmp r0, #0
     beq lbl_0807da86
-    ldr r2, lbl_0807daa4 @ =0x03000c24
+    ldr r2, lbl_0807daa4 @ =gSaveFilesInfo
     ldr r0, [r7]
     adds r0, #0x3f
     ldrb r1, [r0]
@@ -12138,9 +12138,9 @@ lbl_0807da90:
     bl lbl_0807e3e6
     .align 2, 0
 lbl_0807daa0: .4byte gFileScreenOptionsUnlocked
-lbl_0807daa4: .4byte 0x03000c24
+lbl_0807daa4: .4byte gSaveFilesInfo
 lbl_0807daa8:
-    ldr r2, lbl_0807dae0 @ =0x03000c24
+    ldr r2, lbl_0807dae0 @ =gSaveFilesInfo
     ldr r3, [r7]
     adds r0, r3, #0
     adds r0, #0x3f
@@ -12171,7 +12171,7 @@ lbl_0807dad8:
     movs r0, #0x10
     b lbl_0807daea
     .align 2, 0
-lbl_0807dae0: .4byte 0x03000c24
+lbl_0807dae0: .4byte gSaveFilesInfo
 lbl_0807dae4:
     adds r1, r3, #0
     adds r1, #0x39
@@ -12586,7 +12586,7 @@ lbl_0807ddfc:
     strb r0, [r1]
     b lbl_0807e3e6
 lbl_0807de1a:
-    ldr r2, lbl_0807de3c @ =0x03000c24
+    ldr r2, lbl_0807de3c @ =gSaveFilesInfo
     adds r0, r3, #0
     adds r0, #0x3f
     ldrb r1, [r0]
@@ -12604,7 +12604,7 @@ lbl_0807de1a:
     movs r0, #0x13
     b lbl_0807de46
     .align 2, 0
-lbl_0807de3c: .4byte 0x03000c24
+lbl_0807de3c: .4byte gSaveFilesInfo
 lbl_0807de40:
     adds r1, r3, #0
     adds r1, #0x38
@@ -12735,7 +12735,7 @@ lbl_0807df38:
     bne lbl_0807df44
     b lbl_0807e3e6
 lbl_0807df44:
-    ldr r2, lbl_0807df70 @ =0x03000c24
+    ldr r2, lbl_0807df70 @ =gSaveFilesInfo
     ldr r0, lbl_0807df74 @ =0x08754bc4
     ldr r3, [r0]
     adds r0, r3, #0
@@ -12758,7 +12758,7 @@ lbl_0807df64:
     strb r0, [r1]
     b lbl_0807e3e6
     .align 2, 0
-lbl_0807df70: .4byte 0x03000c24
+lbl_0807df70: .4byte gSaveFilesInfo
 lbl_0807df74: .4byte 0x08754bc4
 lbl_0807df78:
     ldr r1, [r7]
@@ -12949,7 +12949,7 @@ lbl_0807e0da:
     bne lbl_0807e0e6
     b lbl_0807e3e6
 lbl_0807e0e6:
-    ldr r2, lbl_0807e10c @ =0x03000c24
+    ldr r2, lbl_0807e10c @ =gSaveFilesInfo
     ldr r0, lbl_0807e110 @ =0x08754bc4
     ldr r3, [r0]
     adds r0, r3, #0
@@ -12969,7 +12969,7 @@ lbl_0807e100:
     strb r0, [r1]
     b lbl_0807e3e6
     .align 2, 0
-lbl_0807e10c: .4byte 0x03000c24
+lbl_0807e10c: .4byte gSaveFilesInfo
 lbl_0807e110: .4byte 0x08754bc4
 lbl_0807e114:
     adds r1, r3, #0
@@ -13052,7 +13052,7 @@ lbl_0807e1a4:
     adds r0, #0xee
     ldrb r4, [r0]
     ldr r2, lbl_0807e1e8 @ =0x08760b40
-    ldr r3, lbl_0807e1ec @ =0x03000c24
+    ldr r3, lbl_0807e1ec @ =gSaveFilesInfo
     subs r0, #0xaf
     ldrb r1, [r0]
     lsls r0, r1, #1
@@ -13084,7 +13084,7 @@ lbl_0807e1dc:
     mov pc, r0
     .align 2, 0
 lbl_0807e1e8: .4byte 0x08760b40
-lbl_0807e1ec: .4byte 0x03000c24
+lbl_0807e1ec: .4byte gSaveFilesInfo
 lbl_0807e1f0: .4byte lbl_0807e1f4
 lbl_0807e1f4: @ jump table
     .4byte lbl_0807e208 @ case 0
@@ -14695,7 +14695,7 @@ sub_0807eedc: @ 0x0807eedc
     mov r7, r8
     push {r7}
     mov ip, r0
-    ldr r2, lbl_0807ef70 @ =0x03000c24
+    ldr r2, lbl_0807ef70 @ =gSaveFilesInfo
     ldr r0, lbl_0807ef74 @ =0x08754bc4
     ldr r0, [r0]
     adds r0, #0x3f
@@ -14769,7 +14769,7 @@ lbl_0807ef42:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0807ef70: .4byte 0x03000c24
+lbl_0807ef70: .4byte gSaveFilesInfo
 lbl_0807ef74: .4byte 0x08754bc4
 lbl_0807ef78: .4byte 0x000003ff
 

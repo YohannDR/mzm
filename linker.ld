@@ -59,6 +59,7 @@ SECTIONS {
         . = 0x00000042; gSkipDoorTransition = .;
         . = 0x00000043; gDisableSoftreset = .;
         . = 0x00000044; gCollectingTank = .;
+        . = 0x00000045; gDisableAnimatedGraphicsTimer = .;
         . = 0x00000046; gAnimatedGraphicsToUpdate = .;
         . = 0x00000048; gDisableDoorAndTanks = .;
         . = 0x00000049; gDisablePause = .;
@@ -80,7 +81,7 @@ SECTIONS {
         . = 0x0000006C; gEffectYPosition = .;
         . = 0x0000006E; gEffectYPositionOffset = .;
         . = 0x00000071; gScreenShakeXOffset = .;
-        . = 0x00000073; gScreenShakeYOffset = .;
+        . = 0x00000072; gScreenShakeYOffset = .;
         . = 0x00000074; gScreenShakeRelated = .;
         . = 0x00000076; gDISPCNTBackup = .;
         . = 0x00000078; gSpriteset = .;
@@ -108,6 +109,7 @@ SECTIONS {
         . = 0x00000144; gCamera = .;
         . = 0x0000014c; gMaxInGameTimerFlag = .;
         . = 0x00000150; gInGameTimer = .;
+        . = 0x00000154; gBestCompletionTimes = .;
         . = 0x00000184; gInGameTimerAtBosses = .;
         . = 0x00000198; gLastElevatorUsed = .;
         . = 0x0000019C; gInGameCutscene = .;
@@ -153,6 +155,7 @@ SECTIONS {
         . = 0x00000bf0; gPauseScreenFlag = .;
         . = 0x00000bf1; gAreaBeforeTransition = .;
         . = 0x00000bf2; gCurrentItemBeingAcquired = .;
+        . = 0x00000bf3; gOptionsOptionSelected = .;
         . = 0x00000bf4; gBG0HOFS_NonGameplay = .;
         . = 0x00000bf6; gBG0VOFS_NonGameplay = .;
         . = 0x00000bf8; gBG1HOFS_NonGameplay = .;
@@ -171,6 +174,8 @@ SECTIONS {
         . = 0x00000c1f; gHasSaved = .;
         . = 0x00000c20; gUnk_3000c20 = .;
         . = 0x00000c21; gSramOperationStage = .;
+        . = 0x00000c24; gSaveFilesInfo = .;
+        . = 0x00000c6c; gStartingInfo = .;
         . = 0x00000c70; gMainGameMode = .;
         . = 0x00000c72; gGameModeSub1 = .;
         . = 0x00000c74; gGameModeSub2 = .;
@@ -184,8 +189,17 @@ SECTIONS {
         . = 0x0000137e; gPreviousButtonInput = .;
         . = 0x00001380; gChangedInput = .;
         . = 0x00001382; gNextOamSlot = .;
+        . = 0x00001394; gWrittenToBG2X = .;
+        . = 0x00001398; gWrittenToBG2Y = .;
         . = 0x0000139c; gWrittenToMOSAIC_H = .;
         . = 0x0000139e; gWrittenToMOSAIC_L = .;
+        . = 0x000013A0; gBg2Scaling = .;
+        . = 0x000013A2; gUnk_30013a2 = .;
+        . = 0x000013A4; gBg2Rotation = .;
+        . = 0x000013A6; gWrittenToBG2PA = .;
+        . = 0x000013A8; gWrittenToBG2PB = .;
+        . = 0x000013Aa; gWrittenToBG2PC = .;
+        . = 0x000013Ac; gWrittenToBG2PD = .;
         . = 0x000013AE; gWrittenToBLDY_NonGameplay = .;
         . = 0x000013B0; gWrittenToBLDALPHA_L = .;
         . = 0x000013B2; gWrittenToBLDALPHA_H = .;
@@ -224,10 +238,18 @@ SECTIONS {
         . = 0x00001d00; gMusicInfo = .;
         . = 0x00002924; gSoundData = .;
 
+        . = 0x00003524; gSoundChannels = .;
+        . = 0x0000376c; gUnk_300376c = .;
+        . = 0x00003794; gPsgSounds = .;
         . = 0x00003834; gSoundChannelBackup = .;
         . = 0x000039bc; gSoundChannelTrack2Backup = .;
         . = 0x00003b44; gSoundQueue = .;
+        . = 0x00003b8c; gSoundCodeAPointer = .;
+        . = 0x00003b90; gSoundCodeA = .;
         . = 0x000041e8; gSoundCodeBPointer = .;
+        . = 0x000041ec; gSoundCodeB = .;
+        . = 0x00004290; gSoundCodeCPointer = .;
+        . = 0x00004294; gSoundCodeC = .;
         . = 0x00004348; gTrack0Variables = .;
         . = 0x00004708; gTrack1Variables = .;
         . = 0x00004a28; gTrack2Variables = .;
@@ -257,7 +279,10 @@ SECTIONS {
         . = 0x000054E4; gHatchesState = .;
         . = 0x000054EC; gBG3Movement = .;
         . = 0x000054F4; gBG0Movement = .;
+        . = 0x000054Fc; gTilesetTransparentColor = .;
+        . = 0x00005504; gUnusedStruct_3005504 = .;
         . = 0x0000550C; gSamusDoorPositionOffset = .;
+        . = 0x0000550e; gDestinationRoom = .;
         . = 0x00005510; gBg3CntDuringDoorTransition = .;
         . = 0x00005512; gBg1CntDuringDoorTransition = .;
         . = 0x00005514; gUnk_3005514 = .;
@@ -270,6 +295,7 @@ SECTIONS {
         . = 0x000056a8; gLastTankCollected = .;
         . = 0x000056ac; gBombchains = .;
         . = 0x000056bc; gActiveBombChainTypes = .;
+        . = 0x000056c0; gTransparencyRelated = .;
         . = 0x000056c4; gDefaultTransparency = .;
         . = 0x000056cc; gBldalphaData1 = .;
         . = 0x000056d4; gBldalphaData2 = .;
@@ -289,15 +315,46 @@ SECTIONS {
         . = 0x0000572c; gHazeProcessCodePointer = .;
         . = 0x00005730; gAnimatedGraphicsData = .;
         . = 0x000057F0; gTankAnimations = .;
+        . = 0x00005800; gMaintainedInputData = .;
+        . = 0x00005804; gUnk_3005804 = .;
         . = 0x00005806; gOamXOffset_NonGameplay = .;
         . = 0x00005807; gOamYOffset_NonGameplay = .;
 
+        . = 0x00005808; gIoTransferInfo = .;
+        . = 0x00005820; gMultiBootParamData = .;
+        . = 0x0000586c; gDataSentPointer = .;
+        . = 0x00005870; gDataSentSize = .;
+        . = 0x00005874; gUnk_3005874 = .;
+        . = 0x00005880; gUnk_3005880 = .;
+        . = 0x00005884; gUnk_3005884 = .;
+        . = 0x00005888; gUnk_3005888 = .;
+        . = 0x00005890; gUnk_3005890 = .;
+        . = 0x000058a8; gUnk_30058a8 = .;
         . = 0x000058aa; gUnk_30058aa = .;
         . = 0x000058ac; gUnk_30058ac = .;
         . = 0x000058ae; gUnk_30058ae = .;
         . = 0x000058af; gUnk_30058af = .;
         . = 0x000058b0; gUnk_30058b0 = .;
         . = 0x000058b1; gUnk_30058b1 = .;
+        . = 0x000058b2; gRegIme_Backup = .;
+        . = 0x000058b4; gRegIe_Backup = .;
+        . = 0x000058b6; gRegTm3Cnt_H_Backup = .;
+        . = 0x000058b8; gRegSiocnt_Backup = .;
+        . = 0x000058ba; gRegRcnt_Backup = .;
+        . = 0x000058bc; gUnk_30058bc = .;
+        . = 0x000058c0; gUnk_30058c0 = .;
+        . = 0x000058c4; gUnk_30058c4 = .;
+        . = 0x000058cc; gUnk_30058cc = .;
+        . = 0x000058cd; gUnk_30058cd = .;
+        . = 0x000058ce; gUnk_30058ce = .;
+        . = 0x000058cf; gUnk_30058cf = .;
+        . = 0x000058d0; gUnk_30058d0 = .;
+        . = 0x000058d2; gUnk_30058d2 = .;
+        . = 0x000058d3; gUnk_30058d3 = .;
+        . = 0x000058d5; gUnk_30058d5 = .;
+        . = 0x000058d6; gUnk_30058d6 = .;
+        . = 0x000058d8; gUnk_30058d8 = .;
+        . = 0x000058da; gUnk_30058da = .;
 
         . = 0x000058e0; src/libgcc/fp-bit-base.o(.bss);
         . = 0x000058f8; src/libgcc/float.o(.bss);
@@ -311,6 +368,9 @@ SECTIONS {
         . = 0x00005AD0; gTrackData2 = .;
         . = 0x00005B10; gTrackData5 = .;
 
+        . = 0x00005b50; gUnk_3005b50 = .;
+        . = 0x00005b54; gUnk_3005b54 = .;
+        . = 0x00005b60; gUnk_3005b60 = .;
 
 
         . = 0x00007e60; sp_sys = .;

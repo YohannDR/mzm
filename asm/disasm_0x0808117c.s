@@ -332,23 +332,23 @@ sub_08081418: @ 0x08081418
     orrs r0, r1
     strh r0, [r2]
     ldr r1, lbl_080814cc @ =0x04000020
-    ldr r0, lbl_080814d0 @ =0x030013a6
+    ldr r0, lbl_080814d0 @ =gWrittenToBG2PA
     ldrh r0, [r0]
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_080814d4 @ =0x030013a8
+    ldr r0, lbl_080814d4 @ =gWrittenToBG2PB
     ldrh r0, [r0]
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_080814d8 @ =0x030013aa
+    ldr r0, lbl_080814d8 @ =gWrittenToBG2PC
     ldrh r0, [r0]
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_080814dc @ =0x030013ac
+    ldr r0, lbl_080814dc @ =gWrittenToBG2PD
     ldrh r0, [r0]
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_080814e0 @ =0x03001394
+    ldr r0, lbl_080814e0 @ =gWrittenToBG2X
     ldr r0, [r0]
     strh r0, [r1]
     adds r1, #2
@@ -357,7 +357,7 @@ sub_08081418: @ 0x08081418
     asrs r0, r0, #0x10
     strh r0, [r1]
     adds r1, #2
-    ldr r0, lbl_080814e8 @ =0x03001398
+    ldr r0, lbl_080814e8 @ =gWrittenToBG2Y
     ldr r0, [r0]
     strh r0, [r1]
     adds r1, #2
@@ -400,13 +400,13 @@ lbl_080814c0: .4byte 0x08754bc4
 lbl_080814c4: .4byte gWrittenToBLDALPHA_H
 lbl_080814c8: .4byte gWrittenToBLDALPHA_L
 lbl_080814cc: .4byte 0x04000020
-lbl_080814d0: .4byte 0x030013a6
-lbl_080814d4: .4byte 0x030013a8
-lbl_080814d8: .4byte 0x030013aa
-lbl_080814dc: .4byte 0x030013ac
-lbl_080814e0: .4byte 0x03001394
+lbl_080814d0: .4byte gWrittenToBG2PA
+lbl_080814d4: .4byte gWrittenToBG2PB
+lbl_080814d8: .4byte gWrittenToBG2PC
+lbl_080814dc: .4byte gWrittenToBG2PD
+lbl_080814e0: .4byte gWrittenToBG2X
 lbl_080814e4: .4byte 0x0fff0000
-lbl_080814e8: .4byte 0x03001398
+lbl_080814e8: .4byte gWrittenToBG2Y
 lbl_080814ec: .4byte 0x04000010
 lbl_080814f0: .4byte gBG0XPosition
 lbl_080814f4: .4byte 0x000001ff
@@ -610,14 +610,14 @@ tourian_escape_samus_surrounded_calculate_bg2_pos: @ 0x08081684
     mov r5, r8
     push {r5, r6}
     ldr r6, lbl_08081760 @ =0x0808c71c
-    ldr r5, lbl_08081764 @ =0x030013a4
+    ldr r5, lbl_08081764 @ =gBg2Rotation
     ldrh r0, [r5]
     adds r0, #0x40
     lsls r0, r0, #1
     adds r0, r0, r6
     movs r1, #0
     ldrsh r4, [r0, r1]
-    ldr r2, lbl_08081768 @ =0x030013a0
+    ldr r2, lbl_08081768 @ =gBg2Scaling
     mov r8, r2
     movs r1, #0
     ldrsh r0, [r2, r1]
@@ -627,7 +627,7 @@ tourian_escape_samus_surrounded_calculate_bg2_pos: @ 0x08081684
     asrs r1, r1, #0x10
     adds r0, r4, #0
     bl FixedMultiplication
-    ldr r2, lbl_0808176c @ =0x030013a6
+    ldr r2, lbl_0808176c @ =gWrittenToBG2PA
     mov sb, r2
     strh r0, [r2]
     ldrh r0, [r5]
@@ -644,7 +644,7 @@ tourian_escape_samus_surrounded_calculate_bg2_pos: @ 0x08081684
     asrs r1, r1, #0x10
     adds r0, r4, #0
     bl FixedMultiplication
-    ldr r2, lbl_08081770 @ =0x030013a8
+    ldr r2, lbl_08081770 @ =gWrittenToBG2PB
     mov r8, r2
     strh r0, [r2]
     ldrh r0, [r5]
@@ -654,7 +654,7 @@ tourian_escape_samus_surrounded_calculate_bg2_pos: @ 0x08081684
     rsbs r4, r4, #0
     lsls r4, r4, #0x10
     asrs r4, r4, #0x10
-    ldr r0, lbl_08081774 @ =0x030013a2
+    ldr r0, lbl_08081774 @ =gUnk_30013a2
     movs r6, #0
     ldrsh r0, [r0, r6]
     bl FixedInverse
@@ -663,13 +663,13 @@ tourian_escape_samus_surrounded_calculate_bg2_pos: @ 0x08081684
     asrs r1, r1, #0x10
     adds r0, r4, #0
     bl FixedMultiplication
-    ldr r5, lbl_08081778 @ =0x030013aa
+    ldr r5, lbl_08081778 @ =gWrittenToBG2PC
     strh r0, [r5]
-    ldr r3, lbl_0808177c @ =0x030013ac
+    ldr r3, lbl_0808177c @ =gWrittenToBG2PD
     mov r1, sb
     ldrh r0, [r1]
     strh r0, [r3]
-    ldr r4, lbl_08081780 @ =0x03001394
+    ldr r4, lbl_08081780 @ =gWrittenToBG2X
     mov r2, r8
     movs r6, #0
     ldrsh r1, [r2, r6]
@@ -687,7 +687,7 @@ tourian_escape_samus_surrounded_calculate_bg2_pos: @ 0x08081684
     lsls r0, r0, #3
     subs r1, r1, r0
     str r1, [r4]
-    ldr r4, lbl_08081784 @ =0x03001398
+    ldr r4, lbl_08081784 @ =gWrittenToBG2Y
     movs r0, #0
     ldrsh r1, [r3, r0]
     lsls r0, r1, #2
@@ -711,15 +711,15 @@ tourian_escape_samus_surrounded_calculate_bg2_pos: @ 0x08081684
     bx r0
     .align 2, 0
 lbl_08081760: .4byte 0x0808c71c
-lbl_08081764: .4byte 0x030013a4
-lbl_08081768: .4byte 0x030013a0
-lbl_0808176c: .4byte 0x030013a6
-lbl_08081770: .4byte 0x030013a8
-lbl_08081774: .4byte 0x030013a2
-lbl_08081778: .4byte 0x030013aa
-lbl_0808177c: .4byte 0x030013ac
-lbl_08081780: .4byte 0x03001394
-lbl_08081784: .4byte 0x03001398
+lbl_08081764: .4byte gBg2Rotation
+lbl_08081768: .4byte gBg2Scaling
+lbl_0808176c: .4byte gWrittenToBG2PA
+lbl_08081770: .4byte gWrittenToBG2PB
+lbl_08081774: .4byte gUnk_30013a2
+lbl_08081778: .4byte gWrittenToBG2PC
+lbl_0808177c: .4byte gWrittenToBG2PD
+lbl_08081780: .4byte gWrittenToBG2X
+lbl_08081784: .4byte gWrittenToBG2Y
 
     thumb_func_start sub_08081788
 sub_08081788: @ 0x08081788
@@ -3247,14 +3247,14 @@ lbl_08082bf4:
     strh r1, [r2]
     adds r0, #0xc2
     strh r1, [r0]
-    ldr r0, lbl_08082c4c @ =0x030013a4
+    ldr r0, lbl_08082c4c @ =gBg2Rotation
     strh r1, [r0]
-    ldr r0, lbl_08082c50 @ =0x030013a0
+    ldr r0, lbl_08082c50 @ =gBg2Scaling
     movs r2, #0xc0
     lsls r2, r2, #3
     adds r1, r2, #0
     strh r1, [r0]
-    ldr r0, lbl_08082c54 @ =0x030013a2
+    ldr r0, lbl_08082c54 @ =gUnk_30013a2
     strh r1, [r0]
     adds r0, r5, #1
     lsls r0, r0, #0x18
@@ -3284,9 +3284,9 @@ lbl_08082c3c:
     bx r1
     .align 2, 0
 lbl_08082c48: .4byte 0x08754bc4
-lbl_08082c4c: .4byte 0x030013a4
-lbl_08082c50: .4byte 0x030013a0
-lbl_08082c54: .4byte 0x030013a2
+lbl_08082c4c: .4byte gBg2Rotation
+lbl_08082c50: .4byte gBg2Scaling
+lbl_08082c54: .4byte gUnk_30013a2
 
     thumb_func_start tourian_escape_samus_surrounded
 tourian_escape_samus_surrounded: @ 0x08082c58
@@ -3433,7 +3433,7 @@ lbl_08082d86:
     ldrb r0, [r0, #2]
     cmp r0, #0
     beq lbl_08082dbe
-    ldr r2, lbl_08082db0 @ =0x030013a0
+    ldr r2, lbl_08082db0 @ =gBg2Scaling
     ldrh r0, [r2]
     movs r1, #0x80
     lsls r1, r1, #1
@@ -3441,18 +3441,18 @@ lbl_08082d86:
     bls lbl_08082db8
     subs r0, #0x50
     strh r0, [r2]
-    ldr r1, lbl_08082db4 @ =0x030013a2
+    ldr r1, lbl_08082db4 @ =gUnk_30013a2
     ldrh r0, [r1]
     subs r0, #0x50
     strh r0, [r1]
     b lbl_08082dbe
     .align 2, 0
 lbl_08082dac: .4byte 0x08754bc4
-lbl_08082db0: .4byte 0x030013a0
-lbl_08082db4: .4byte 0x030013a2
+lbl_08082db0: .4byte gBg2Scaling
+lbl_08082db4: .4byte gUnk_30013a2
 lbl_08082db8:
     strh r1, [r2]
-    ldr r0, lbl_08082dcc @ =0x030013a2
+    ldr r0, lbl_08082dcc @ =gUnk_30013a2
     strh r1, [r0]
 lbl_08082dbe:
     bl tourian_escape_samus_surrounded_calculate_bg2_pos
@@ -3461,7 +3461,7 @@ lbl_08082dbe:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08082dcc: .4byte 0x030013a2
+lbl_08082dcc: .4byte gUnk_30013a2
 
     thumb_func_start tourian_escape_samus_flying_in
 tourian_escape_samus_flying_in: @ 0x08082dd0
