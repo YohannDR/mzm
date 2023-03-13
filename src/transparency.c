@@ -617,5 +617,5 @@ void unk_55f68(void)
 {
     UpdateAnimatedPaletteAfterTransitionOrReload();
     ColorFadingTransferPaletteOnTransition(); // Undefined
-    check_play_loading_jingle(); // Undefind
+    CheckPlayLoadingJingle();
 }

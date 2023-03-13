@@ -492,7 +492,7 @@ u32 unk_5c3ac(void)
 
             case 2:
                 if (gMusicTrackInfo.pauseScreenFlag)
-                    update_music_after_unpause(); // Undefined
+                    UpdateMusicAfterPause(); // Undefined
                 break;
         }
 

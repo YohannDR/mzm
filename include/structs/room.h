@@ -141,6 +141,8 @@ extern struct BackgroundPositions gBackgroundPositions;
 
 extern struct Unused_3005504 gUnusedStruct_3005504;
 
+extern u8 gDestinationRoom;
+
 // Temp
 extern i8 gCurrentItemBeingAcquired;
 

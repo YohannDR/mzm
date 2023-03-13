@@ -1547,7 +1547,7 @@ unk_55f68: @ 0x08055f68
     push {lr}
     bl UpdateAnimatedPaletteAfterTransitionOrReload
     bl ColorFadingTransferPaletteOnTransition
-    bl check_play_loading_jingle
+    bl CheckPlayLoadingJingle
     pop {r0}
     bx r0
     .align 2, 0

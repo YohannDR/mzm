@@ -765,7 +765,7 @@ lbl_0805ed20:
     mov r2, sl
     ldrb r0, [r2]
     ldrb r1, [r4, #1]
-    bl check_play_room_music_track
+    bl CheckPlayRoomMusicTrack
     movs r5, #1
     b lbl_0805ed82
     .align 2, 0
@@ -998,7 +998,7 @@ lbl_0805eef0:
     bl check_play_cutscene_during_elevator
     ldrb r0, [r4]
     ldrb r1, [r5, #1]
-    bl check_play_room_music_track
+    bl CheckPlayRoomMusicTrack
     movs r0, #1
 lbl_0805ef22:
     pop {r3, r4, r5}

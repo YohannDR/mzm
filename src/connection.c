@@ -292,7 +292,7 @@ u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
 
                 pDoor = sAreaDoorsPointers[gCurrentArea] + gLastDoorUsed;
                 ConnectionCheckPlayCutsceneDuringTransition(gCurrentArea, pDoor->sourceRoom + 0x1);
-                check_play_room_music_track(gCurrentArea, pDoor->sourceRoom);
+                CheckPlayRoomMusicTrack(gCurrentArea, pDoor->sourceRoom);
 
                 state = TRUE;
                 break;
@@ -382,7 +382,7 @@ u8 ConnectionCheckAreaConnection(u16 yPosition, u16 xPosition)
     pDoor = sAreaDoorsPointers[gCurrentArea] + gLastDoorUsed;
 
     ConnectionCheckPlayCutsceneDuringElevator();
-    check_play_room_music_track(gCurrentArea, pDoor->sourceRoom);
+    CheckPlayRoomMusicTrack(gCurrentArea, pDoor->sourceRoom);
     return TRUE;
 }
 

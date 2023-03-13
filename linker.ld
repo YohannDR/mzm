@@ -509,7 +509,7 @@ SECTIONS {
         asm/disasm_0x0805e760.o(.text);
         src/in_game_cutscene.o(.text);
         src/event.o(.text);
-        asm/disasm_0x08060928.o(.text);
+        src/room_music.o(.text);
         src/demo.o(.text);
         asm/disasm_0x08060e28.o(.text);
         src/cutscenes/kraid_rising.o(.text);

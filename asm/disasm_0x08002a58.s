@@ -1765,8 +1765,8 @@ lbl_080036ba:
     .align 2, 0
 lbl_080036cc: .4byte gSoundChannelBackup
 
-    thumb_func_start update_music_track
-update_music_track: @ 0x080036d0
+    thumb_func_start CheckSetNewMusicTrack
+CheckSetNewMusicTrack: @ 0x080036d0
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
@@ -2810,8 +2810,8 @@ lbl_08003eb0:
     bx r0
     .align 2, 0
 
-    thumb_func_start sub_08003eb8
-sub_08003eb8: @ 0x08003eb8
+    thumb_func_start PlayCurrentMusicTrack
+PlayCurrentMusicTrack: @ 0x08003eb8
     push {r4, r5, r6, lr}
     ldr r1, lbl_08003ef0 @ =gMusicInfo
     ldrb r2, [r1, #1]
@@ -2862,8 +2862,8 @@ lbl_08003f12:
 lbl_08003f18: .4byte 0x0808f2c0
 lbl_08003f1c: .4byte gMusicInfo
 
-    thumb_func_start sub_08003f20
-sub_08003f20: @ 0x08003f20
+    thumb_func_start DecreaseMusicVolume
+DecreaseMusicVolume: @ 0x08003f20
     push {r4, r5, r6, lr}
     movs r0, #0x63
     bl SoundPlay
@@ -2896,8 +2896,8 @@ lbl_08003f60: .4byte 0x0808f254
 lbl_08003f64: .4byte 0x0000ffff
 lbl_08003f68: .4byte 0x00000050
 
-    thumb_func_start sub_08003f6c
-sub_08003f6c: @ 0x08003f6c
+    thumb_func_start ResetMusicVolume
+ResetMusicVolume: @ 0x08003f6c
     push {r4, r5, r6, lr}
     ldr r4, lbl_08003fa0 @ =0x0808f254
     ldr r0, [r4]
