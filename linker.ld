@@ -398,7 +398,7 @@ SECTIONS {
         asm/syscalls.o(.text);
         asm/disasm_0x080051d4.o(.text);
         asm/disasm_0x08005368.o(.text);
-        src/demo.o(.text);
+        src/demo_input.o(.text);
         src/in_game.o(.text);
         asm/disasm_0x0800c4b4.o(.text);
         src/sprite_debris.o(.text);

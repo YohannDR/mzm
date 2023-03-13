@@ -1,4 +1,4 @@
-#include "demo.h"
+#include "demo_input.h"
 #include "gba.h"
 
 #include "constants/demo.h"

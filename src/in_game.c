@@ -5,7 +5,7 @@
 #include "projectile.h"
 #include "samus.h"
 #include "sprite.h"
-#include "demo.h"
+#include "demo_input.h"
 #include "particle.h"
 #include "room.h"
 #include "scroll.h"
