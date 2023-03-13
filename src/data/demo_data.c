@@ -3990,126 +3990,1208 @@ const struct SaveDemo sDemo9_Ram = {
 };
 
 const struct SaveDemo sDemo10_Ram = {
+    .currentArea = AREA_KRAID,
+    .lastDoorUsed = 100,
 
+    .unk_2 = UCHAR_MAX,
+    .unk_3 = UCHAR_MAX,
+
+    .samusData = {
+        .pose = SPOSE_RUNNING,
+        .standingStatus = STANDING_GROUND,
+        .armCannonDirection = ACD_FORWARD,
+        .turning = FALSE,
+        .forcedMovement = 0,
+        .speedboostingShinesparking = FALSE,
+        .invincibilityTimer = 0,
+        .walljumpTimer = 0,
+        .shinesparkTimer = 0,
+        .unmorphPaletteTimer = 0,
+        .timer = 0,
+        .lastWallTouchedMidAir = 0,
+        .direction = KEY_LEFT,
+        .elevatorDirection = KEY_NONE,
+        .xPosition = BLOCK_SIZE * 14 - QUARTER_BLOCK_SIZE,
+        .yPosition = BLOCK_SIZE * 9 - 1,
+        .xVelocity = -(BLOCK_SIZE + HALF_BLOCK_SIZE),
+        .yVelocity = 0,
+        .currentSlope = 0,
+        .animationDurationCounter = 1,
+        .currentAnimationFrame = 9
+    },
+
+    .samusWeaponInfo = {
+        .diagonalAim = DIAG_AIM_NONE,
+        .newProjectile = 0,
+        .weaponHighlighted = WH_NONE,
+        .missilesSelected = FALSE,
+        .cooldown = 0,
+        .chargeCounter = 0,
+        .beamReleasePaletteTimer = 0
+    },
+
+    .samusEcho = {
+        .active = FALSE,
+        .timer = 0,
+        .position = 0,
+        .distance = 2,
+        .previous64XPositions = {
+			928, 928, 928, 928, 928, 928, 928, 928,
+			928, 928, 928, 916, 904, 892, 892, 892,
+			892, 892, 892, 892, 892, 892, 892, 892,
+			892, 928, 928, 928, 928, 928, 928, 928,
+			928, 928, 928, 928, 928, 928, 928, 928,
+			928, 928, 928, 928, 928, 928, 928, 928,
+			928, 928, 928, 928, 928, 928, 928, 928,
+			928, 928, 928, 928, 928, 928, 928, 928
+        },
+        .previous64YPositions = {
+			575, 575, 575, 575, 575, 575, 575, 575,
+			575, 575, 575, 575, 575, 575, 575, 575,
+			575, 575, 575, 575, 575, 575, 575, 575,
+			575, 575, 575, 575, 575, 575, 575, 575,
+			575, 575, 575, 575, 575, 575, 575, 575,
+			575, 575, 575, 575, 575, 575, 575, 575,
+			575, 575, 575, 575, 575, 575, 575, 575,
+			575, 575, 575, 575, 575, 575, 575, 575
+        },
+        .previousPositionCounter = 89,
+        .unknown = 1
+    },
+
+    .screwSpeedAnimation = {
+        .flag = 0,
+        .animationDurationCounter = 0,
+        .currentAnimationFrame = 0,
+        .unknown = 0
+    },
+
+    .equipment = {
+        .maxEnergy = 299,
+        .maxMissiles = 30,
+        .maxSuperMissiles = 0,
+        .maxPowerBombs = 0,
+        .currentEnergy = 285,
+        .currentMissiles = 29,
+        .currentSuperMissiles = 0,
+        .currentPowerBombs = 0,
+        .beamBombs = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
+        .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
+        .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
+        .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
+        .downloadedMapStatus = 0,
+        .lowHealth = FALSE,
+        .suitType = SUIT_NORMAL,
+        .grabbedByMetroid = FALSE
+    },
+
+    .hazardDamage = {
+        .damageTimer = 0,
+        .knockbackTimer = 0,
+        .paletteTimer = 0
+    },
+
+    .environmentalEffects = {
+        [0] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [1] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [2] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [3] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 3,
+            .yPosition = BLOCK_SIZE * 11,
+            .pOamFrame = NULL
+        },
+        [4] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 3,
+            .yPosition = BLOCK_SIZE * 11,
+            .pOamFrame = NULL
+        },
+    },
+
+    .visitedMinimapTiles = {
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x8, 0x0, 0x0, 0x0, 0xf8, 0x0, 0x0, 0x0, 0xc8, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+    },
+
+    .hatchesOpened = {
+		0xff, 0xcf, 0xb9, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0x9f, 0xef, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+    },
+
+    .text = "ATRUNEND",
+
+    .useMotherShipDoors = FALSE,
+
+    .padding_241 = {
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+    }
 };
 
 const struct SaveDemo sDemo11_Ram = {
+    .currentArea = AREA_BRINSTAR,
+    .lastDoorUsed = 5,
 
+    .unk_2 = UCHAR_MAX,
+    .unk_3 = UCHAR_MAX,
+
+    .samusData = {
+        .pose = SPOSE_RUNNING,
+        .standingStatus = STANDING_GROUND,
+        .armCannonDirection = ACD_NONE,
+        .turning = FALSE,
+        .forcedMovement = 0,
+        .speedboostingShinesparking = FALSE,
+        .invincibilityTimer = 0,
+        .walljumpTimer = 0,
+        .shinesparkTimer = 0,
+        .unmorphPaletteTimer = 0,
+        .timer = 0,
+        .lastWallTouchedMidAir = 0,
+        .direction = KEY_RIGHT,
+        .elevatorDirection = KEY_NONE,
+        .xPosition = BLOCK_SIZE * 10 + 14,
+        .yPosition = BLOCK_SIZE * 11 - 1,
+        .xVelocity = BLOCK_SIZE + HALF_BLOCK_SIZE,
+        .yVelocity = 0,
+        .currentSlope = 0,
+        .animationDurationCounter = 1,
+        .currentAnimationFrame = 7
+    },
+
+    .samusWeaponInfo = {
+        .diagonalAim = DIAG_AIM_NONE,
+        .newProjectile = 0,
+        .weaponHighlighted = WH_NONE,
+        .missilesSelected = FALSE,
+        .cooldown = 0,
+        .chargeCounter = 0,
+        .beamReleasePaletteTimer = 0
+    },
+
+    .samusEcho = {
+        .active = FALSE,
+        .timer = 0,
+        .position = 0,
+        .distance = 2,
+        .previous64XPositions = {
+			618, 630, 642, 642, 642, 642, 642, 642,
+			642, 642, 642, 642, 642, 642, 605, 602,
+			598, 593, 587, 580, 572, 563, 553, 542,
+			540, 540, 540, 540, 540, 540, 540, 540,
+			540, 540, 540, 540, 540, 540, 540, 540,
+			540, 540, 540, 540, 540, 540, 540, 540,
+			540, 540, 540, 540, 540, 541, 543, 546,
+			550, 555, 561, 568, 576, 585, 595, 606
+        },
+        .previous64YPositions = {
+			703, 703, 703, 703, 703, 703, 703, 703,
+			703, 703, 703, 703, 703, 703, 703, 703,
+			703, 703, 703, 703, 703, 703, 703, 703,
+			703, 703, 703, 703, 703, 703, 703, 703,
+			703, 703, 703, 703, 703, 703, 703, 703,
+			703, 703, 703, 703, 703, 703, 703, 703,
+			703, 703, 703, 703, 703, 703, 703, 703,
+			703, 703, 703, 703, 703, 703, 703, 703
+        },
+        .previousPositionCounter = 142,
+        .unknown = 1
+    },
+
+    .screwSpeedAnimation = {
+        .flag = 0,
+        .animationDurationCounter = 0,
+        .currentAnimationFrame = 0,
+        .unknown = 0
+    },
+
+    .equipment = {
+        .maxEnergy = 99,
+        .maxMissiles = 0,
+        .maxSuperMissiles = 0,
+        .maxPowerBombs = 0,
+        .currentEnergy = 99,
+        .currentMissiles = 0,
+        .currentSuperMissiles = 0,
+        .currentPowerBombs = 0,
+        .beamBombs = 0,
+        .beamBombsActivation = 0,
+        .suitMisc = SMF_MORPH_BALL,
+        .suitMiscActivation = SMF_MORPH_BALL,
+        .downloadedMapStatus = 0,
+        .lowHealth = FALSE,
+        .suitType = SUIT_NORMAL,
+        .grabbedByMetroid = FALSE
+    },
+
+    .hazardDamage = {
+        .damageTimer = 0,
+        .knockbackTimer = 0,
+        .paletteTimer = 0
+    },
+
+    .environmentalEffects = {
+        [0] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [1] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [2] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [3] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [4] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+    },
+
+    .visitedMinimapTiles = {
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x7f, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+    },
+
+    .hatchesOpened = {
+		0xf5, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+    },
+
+    .text = "ATRUNEND",
+
+    .useMotherShipDoors = FALSE,
+
+    .padding_241 = {
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+    }
 };
 
 const struct SaveDemo sDemo12_Ram = {
+    .currentArea = AREA_CRATERIA,
+    .lastDoorUsed = 16,
 
+    .unk_2 = UCHAR_MAX,
+    .unk_3 = UCHAR_MAX,
+
+    .samusData = {
+        .pose = SPOSE_RUNNING,
+        .standingStatus = STANDING_GROUND,
+        .armCannonDirection = ACD_NONE,
+        .turning = FALSE,
+        .forcedMovement = 0,
+        .speedboostingShinesparking = FALSE,
+        .invincibilityTimer = 0,
+        .walljumpTimer = 0,
+        .shinesparkTimer = 0,
+        .unmorphPaletteTimer = 0,
+        .timer = 0,
+        .lastWallTouchedMidAir = 0,
+        .direction = KEY_RIGHT,
+        .elevatorDirection = KEY_NONE,
+        .xPosition = BLOCK_SIZE * 9 - QUARTER_BLOCK_SIZE - 3,
+        .yPosition = BLOCK_SIZE * 10 - 1,
+        .xVelocity = BLOCK_SIZE + HALF_BLOCK_SIZE,
+        .yVelocity = 0,
+        .currentSlope = 0,
+        .animationDurationCounter = 0,
+        .currentAnimationFrame = 9
+    },
+
+    .samusWeaponInfo = {
+        .diagonalAim = DIAG_AIM_NONE,
+        .newProjectile = 0,
+        .weaponHighlighted = WH_NONE,
+        .missilesSelected = FALSE,
+        .cooldown = 0,
+        .chargeCounter = 0,
+        .beamReleasePaletteTimer = 0
+    },
+
+    .samusEcho = {
+        .active = FALSE,
+        .timer = 0,
+        .position = 2,
+        .distance = 2,
+        .previous64XPositions = {
+			407, 407, 407, 407, 407, 407, 407, 407,
+			407, 407, 407, 407, 407, 407, 407, 407,
+			407, 407, 407, 407, 407, 407, 407, 407,
+			407, 407, 407, 407, 407, 407, 407, 407,
+			407, 407, 407, 408, 410, 413, 417, 422,
+			428, 435, 443, 452, 462, 473, 485, 497,
+			509, 521, 533, 545, 545, 545, 545, 545,
+			545, 545, 545, 545, 545, 545, 545, 407
+        },
+        .previous64YPositions = {
+			639, 639, 639, 639, 639, 639, 639, 639,
+			639, 639, 639, 639, 639, 639, 639, 639,
+			639, 639, 639, 639, 639, 639, 639, 639,
+			639, 639, 639, 639, 639, 639, 639, 639,
+			639, 639, 639, 639, 639, 639, 639, 639,
+			639, 639, 639, 639, 639, 639, 639, 639,
+			639, 639, 639, 639, 639, 639, 639, 639,
+			639, 639, 639, 639, 639, 639, 639, 639
+        },
+        .previousPositionCounter = 255,
+        .unknown = 1
+    },
+
+    .screwSpeedAnimation = {
+        .flag = 0,
+        .animationDurationCounter = 0,
+        .currentAnimationFrame = 0,
+        .unknown = 0
+    },
+
+    .equipment = {
+        .maxEnergy = 199,
+        .maxMissiles = 25,
+        .maxSuperMissiles = 0,
+        .maxPowerBombs = 0,
+        .currentEnergy = 199,
+        .currentMissiles = 23,
+        .currentSuperMissiles = 0,
+        .currentPowerBombs = 0,
+        .beamBombs = BBF_LONG_BEAM | BBF_BOMBS,
+        .beamBombsActivation = BBF_LONG_BEAM | BBF_BOMBS,
+        .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
+        .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
+        .downloadedMapStatus = 0,
+        .lowHealth = FALSE,
+        .suitType = SUIT_NORMAL,
+        .grabbedByMetroid = FALSE
+    },
+
+    .hazardDamage = {
+        .damageTimer = 0,
+        .knockbackTimer = 0,
+        .paletteTimer = 0
+    },
+
+    .environmentalEffects = {
+        [0] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [1] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [2] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [3] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = BLOCK_SIZE * 15 + HALF_BLOCK_SIZE + 6,
+            .yPosition = BLOCK_SIZE * 21 + HALF_BLOCK_SIZE + 4,
+            .pOamFrame = NULL
+        },
+        [4] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+    },
+
+    .visitedMinimapTiles = {
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x2, 0x0, 0x0, 0x0, 0x6, 0x0, 0x0, 0x80, 0x7, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+    },
+
+    .hatchesOpened = {
+			0xff, 0xff, 0xfa, 0xff, 0xff, 0xff, 0xff, 0xff,
+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+			0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+    },
+
+    .text = "ATRUNEND",
+
+    .useMotherShipDoors = FALSE,
+
+    .padding_241 = {
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+    }
 };
 
 const struct SaveDemo sDemo13_Ram = {
+    .currentArea = AREA_CRATERIA,
+    .lastDoorUsed = 19,
 
+    .unk_2 = UCHAR_MAX,
+    .unk_3 = UCHAR_MAX,
+
+    .samusData = {
+        .pose = SPOSE_STANDING,
+        .standingStatus = STANDING_GROUND,
+        .armCannonDirection = ACD_FORWARD,
+        .turning = FALSE,
+        .forcedMovement = 0,
+        .speedboostingShinesparking = FALSE,
+        .invincibilityTimer = 0,
+        .walljumpTimer = 0,
+        .shinesparkTimer = 0,
+        .unmorphPaletteTimer = 0,
+        .timer = 0,
+        .lastWallTouchedMidAir = 0,
+        .direction = KEY_RIGHT,
+        .elevatorDirection = KEY_NONE,
+        .xPosition = BLOCK_SIZE * 50 - QUARTER_BLOCK_SIZE - 2,
+        .yPosition = BLOCK_SIZE * 28 - 1,
+        .xVelocity = 0,
+        .yVelocity = 0,
+        .currentSlope = 0,
+        .animationDurationCounter = 4,
+        .currentAnimationFrame = 2
+    },
+
+    .samusWeaponInfo = {
+        .diagonalAim = DIAG_AIM_NONE,
+        .newProjectile = 0,
+        .weaponHighlighted = WH_NONE,
+        .missilesSelected = FALSE,
+        .cooldown = 0,
+        .chargeCounter = 0,
+        .beamReleasePaletteTimer = 0
+    },
+
+    .samusEcho = {
+        .active = FALSE,
+        .timer = 0,
+        .position = 0,
+        .distance = 2,
+        .previous64XPositions = {
+			3182, 3182, 3182, 3182, 3182, 3182, 3137, 3137,
+			3137, 3137, 3137, 3137, 3137, 3137, 3138, 3140,
+			3143, 3147, 3152, 3158, 3165, 3173, 3182, 3182,
+			3182, 3182, 3182, 3182, 3182, 3182, 3182, 3182,
+			3182, 3182, 3182, 3182, 3182, 3182, 3182, 3182,
+			3182, 3182, 3182, 3182, 3182, 3182, 3182, 3182,
+			3182, 3182, 3182, 3182, 3182, 3182, 3182, 3182,
+			3182, 3182, 3182, 3182, 3182, 3182, 3182, 3182
+        },
+        .previous64YPositions = {
+			1791, 1791, 1791, 1791, 1791, 1791, 1791, 1791,
+			1791, 1791, 1791, 1791, 1791, 1791, 1791, 1791,
+			1791, 1791, 1791, 1791, 1791, 1791, 1791, 1791,
+			1791, 1791, 1791, 1791, 1791, 1791, 1791, 1791,
+			1791, 1791, 1791, 1791, 1791, 1791, 1791, 1791,
+			1791, 1791, 1791, 1791, 1791, 1791, 1791, 1791,
+			1791, 1791, 1791, 1791, 1791, 1791, 1791, 1791,
+			1791, 1791, 1791, 1791, 1791, 1791, 1791, 1791
+        },
+        .previousPositionCounter = 198,
+        .unknown = 1
+    },
+
+    .screwSpeedAnimation = {
+        .flag = 0,
+        .animationDurationCounter = 0,
+        .currentAnimationFrame = 0,
+        .unknown = 0
+    },
+
+    .equipment = {
+        .maxEnergy = 699,
+        .maxMissiles = 40,
+        .maxSuperMissiles = 4,
+        .maxPowerBombs = 2,
+        .currentEnergy = 699,
+        .currentMissiles = 40,
+        .currentSuperMissiles = 4,
+        .currentPowerBombs = 2,
+        .beamBombs = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_WAVE_BEAM | BBF_PLASMA_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
+        .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_WAVE_BEAM | BBF_PLASMA_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
+        .suitMisc = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_SPACE_JUMP | SMF_SCREW_ATTACK | SMF_VARIA_SUIT |
+			SMF_GRAVITY_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
+        .suitMiscActivation = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_SPACE_JUMP | SMF_SCREW_ATTACK | SMF_VARIA_SUIT |
+			SMF_GRAVITY_SUIT | SMF_MORPH_BALL | SMF_POWER_GRIP,
+        .downloadedMapStatus = 0,
+        .lowHealth = FALSE,
+        .suitType = SUIT_FULLY_POWERED,
+        .grabbedByMetroid = FALSE
+    },
+
+    .hazardDamage = {
+        .damageTimer = 0,
+        .knockbackTimer = 0,
+        .paletteTimer = 0
+    },
+
+    .environmentalEffects = {
+        [0] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [1] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [2] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [3] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [4] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+    },
+
+    .visitedMinimapTiles = {
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x3c, 0x0, 0x0, 0x0, 0x7e, 0x0,
+		0x0, 0x0, 0x7e, 0x0, 0x0, 0x0, 0x6e, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+    },
+
+    .hatchesOpened = {
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+    },
+
+    .text = "ATRUNEND",
+
+    .useMotherShipDoors = FALSE,
+
+    .padding_241 = {
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+    }
 };
 
 const struct SaveDemo sDemo14_Ram = {
+    .currentArea = AREA_NORFAIR,
+    .lastDoorUsed = 2,
 
+    .unk_2 = UCHAR_MAX,
+    .unk_3 = UCHAR_MAX,
+
+    .samusData = {
+        .pose = SPOSE_RUNNING,
+        .standingStatus = STANDING_GROUND,
+        .armCannonDirection = ACD_FORWARD,
+        .turning = FALSE,
+        .forcedMovement = 0,
+        .speedboostingShinesparking = FALSE,
+        .invincibilityTimer = 0,
+        .walljumpTimer = 0,
+        .shinesparkTimer = 0,
+        .unmorphPaletteTimer = 0,
+        .timer = 137,
+        .lastWallTouchedMidAir = 0,
+        .direction = KEY_LEFT,
+        .elevatorDirection = KEY_NONE,
+        .xPosition = BLOCK_SIZE * 11 + 8,
+        .yPosition = BLOCK_SIZE * 29 - 1,
+        .xVelocity = -(BLOCK_SIZE * 2 + 12),
+        .yVelocity = 0,
+        .currentSlope = 0,
+        .animationDurationCounter = 1,
+        .currentAnimationFrame = 3
+    },
+
+    .samusWeaponInfo = {
+        .diagonalAim = DIAG_AIM_NONE,
+        .newProjectile = 0,
+        .weaponHighlighted = WH_NONE,
+        .missilesSelected = FALSE,
+        .cooldown = 0,
+        .chargeCounter = 0,
+        .beamReleasePaletteTimer = 0
+    },
+
+    .samusEcho = {
+        .active = FALSE,
+        .timer = 0,
+        .position = 0,
+        .distance = 4,
+        .previous64XPositions = {
+			928, 928, 928, 928, 928, 910, 892, 874,
+			856, 838, 820, 802, 784, 766, 748, 730,
+			730, 730, 730, 730, 730, 730, 730, 730,
+			730, 730, 730, 928, 928, 928, 928, 928,
+			928, 928, 928, 928, 928, 928, 928, 928,
+			928, 928, 928, 928, 928, 928, 928, 928,
+			928, 928, 928, 928, 928, 928, 928, 928,
+			928, 928, 928, 928, 928, 928, 928, 928
+        },
+        .previous64YPositions = {
+			1855, 1855, 1855, 1855, 1855, 1855, 1855, 1855,
+			1855, 1855, 1855, 1855, 1855, 1855, 1855, 1855,
+			1855, 1855, 1855, 1855, 1855, 1855, 1855, 1855,
+			1855, 1855, 1855, 1855, 1855, 1855, 1855, 1855,
+			1855, 1855, 1855, 1855, 1855, 1855, 1855, 1855,
+			1855, 1855, 1855, 1855, 1855, 1855, 1855, 1855,
+			1855, 1855, 1855, 1855, 1855, 1855, 1855, 1855,
+			1855, 1855, 1855, 1855, 1855, 1855, 1855, 1855
+        },
+        .previousPositionCounter = 91,
+        .unknown = 1
+    },
+
+    .screwSpeedAnimation = {
+        .flag = 0,
+        .animationDurationCounter = 0,
+        .currentAnimationFrame = 0,
+        .unknown = 0
+    },
+
+    .equipment = {
+        .maxEnergy = 399,
+        .maxMissiles = 80,
+        .maxSuperMissiles = 0,
+        .maxPowerBombs = 0,
+        .currentEnergy = 399,
+        .currentMissiles = 78,
+        .currentSuperMissiles = 0,
+        .currentPowerBombs = 0,
+        .beamBombs = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
+        .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
+        .suitMisc = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_MORPH_BALL | SMF_POWER_GRIP,
+        .suitMiscActivation = SMF_HIGH_JUMP | SMF_SPEEDBOOSTER | SMF_MORPH_BALL | SMF_POWER_GRIP,
+        .downloadedMapStatus = 0,
+        .lowHealth = FALSE,
+        .suitType = SUIT_NORMAL,
+        .grabbedByMetroid = FALSE
+    },
+
+    .hazardDamage = {
+        .damageTimer = 0,
+        .knockbackTimer = 0,
+        .paletteTimer = 0
+    },
+
+    .environmentalEffects = {
+        [0] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [1] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [2] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [3] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [4] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+    },
+
+    .visitedMinimapTiles = {
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x20, 0x40, 0x3, 0x0, 0xe0, 0xff, 0x3, 0x0, 0x20, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+    },
+
+    .hatchesOpened = {
+		0xc1, 0xfe, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0x9f, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+    },
+
+    .text = "ATRUNEND",
+
+    .useMotherShipDoors = FALSE,
+
+    .padding_241 = {
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+    }
 };
 
 const struct SaveDemo sDemo15_Ram = {
+    .currentArea = AREA_KRAID,
+    .lastDoorUsed = 24,
 
+    .unk_2 = UCHAR_MAX,
+    .unk_3 = UCHAR_MAX,
+
+    .samusData = {
+        .pose = SPOSE_ROLLING,
+        .standingStatus = STANDING_GROUND,
+        .armCannonDirection = ACD_FORWARD,
+        .turning = FALSE,
+        .forcedMovement = 0,
+        .speedboostingShinesparking = FALSE,
+        .invincibilityTimer = 0,
+        .walljumpTimer = 0,
+        .shinesparkTimer = 0,
+        .unmorphPaletteTimer = 0,
+        .timer = 0,
+        .lastWallTouchedMidAir = 0,
+        .direction = KEY_LEFT,
+        .elevatorDirection = KEY_NONE,
+        .xPosition = BLOCK_SIZE * 24 + 13,
+        .yPosition = BLOCK_SIZE * 6 - 1,
+        .xVelocity = -(BLOCK_SIZE + HALF_BLOCK_SIZE),
+        .yVelocity = 0,
+        .currentSlope = 0,
+        .animationDurationCounter = 1,
+        .currentAnimationFrame = 5
+    },
+
+    .samusWeaponInfo = {
+        .diagonalAim = DIAG_AIM_NONE,
+        .newProjectile = 0,
+        .weaponHighlighted = WH_NONE,
+        .missilesSelected = FALSE,
+        .cooldown = 0,
+        .chargeCounter = 0,
+        .beamReleasePaletteTimer = 0
+    },
+
+    .samusEcho = {
+        .active = FALSE,
+        .timer = 0,
+        .position = 0,
+        .distance = 2,
+        .previous64XPositions = {
+			1675, 1675, 1675, 1674, 1672, 1669, 1665, 1660,
+			1654, 1647, 1639, 1630, 1620, 1609, 1597, 1585,
+			1573, 1561, 1561, 1561, 1561, 1561, 1561, 1561,
+			1561, 1561, 1561, 1561, 1561, 1675, 1675, 1675,
+			1675, 1675, 1675, 1675, 1675, 1675, 1675, 1675,
+			1675, 1675, 1675, 1675, 1675, 1675, 1675, 1675,
+			1675, 1675, 1675, 1675, 1675, 1675, 1675, 1675,
+			1675, 1675, 1675, 1675, 1675, 1675, 1675, 1675
+        },
+        .previous64YPositions = {
+			383, 383, 383, 383, 383, 383, 383, 383,
+			383, 383, 383, 383, 383, 383, 383, 383,
+			383, 383, 383, 383, 383, 383, 383, 383,
+			383, 383, 383, 383, 383, 383, 383, 383,
+			383, 383, 383, 383, 383, 383, 383, 383,
+			383, 383, 383, 383, 383, 383, 383, 383,
+			383, 383, 383, 383, 383, 383, 383, 383,
+			383, 383, 383, 383, 383, 383, 383, 383
+        },
+        .previousPositionCounter = 221,
+        .unknown = 1
+    },
+
+    .screwSpeedAnimation = {
+        .flag = 0,
+        .animationDurationCounter = 0,
+        .currentAnimationFrame = 0,
+        .unknown = 0
+    },
+
+    .equipment = {
+        .maxEnergy = 299,
+        .maxMissiles = 35,
+        .maxSuperMissiles = 0,
+        .maxPowerBombs = 0,
+        .currentEnergy = 281,
+        .currentMissiles = 27,
+        .currentSuperMissiles = 0,
+        .currentPowerBombs = 0,
+        .beamBombs = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
+        .beamBombsActivation = BBF_LONG_BEAM | BBF_ICE_BEAM | BBF_CHARGE_BEAM | BBF_BOMBS,
+        .suitMisc = SMF_MORPH_BALL | SMF_POWER_GRIP,
+        .suitMiscActivation = SMF_MORPH_BALL | SMF_POWER_GRIP,
+        .downloadedMapStatus = 0,
+        .lowHealth = FALSE,
+        .suitType = SUIT_NORMAL,
+        .grabbedByMetroid = FALSE
+    },
+
+    .hazardDamage = {
+        .damageTimer = 0,
+        .knockbackTimer = 0,
+        .paletteTimer = 0
+    },
+
+    .environmentalEffects = {
+        [0] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [1] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [2] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [3] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+        [4] = {
+            .type = ENV_EFFECT_NONE,
+            .animationDurationCounter = 0,
+            .currentAnimationFrame = 0,
+            .breathingTimer = 0,
+            .xPosition = 0,
+            .yPosition = 0,
+            .pOamFrame = NULL
+        },
+    },
+
+    .visitedMinimapTiles = {
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x20, 0x0, 0x0, 0x0, 0x38, 0x0, 0x0, 0x0, 0x18, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0,
+		0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0
+    },
+
+    .hatchesOpened = {
+		0xff, 0xff, 0xff, 0xfb, 0xff, 0xff, 0xff, 0xbf,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff,
+		0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff, 0xff
+    },
+
+    .text = "ATRUNEND",
+
+    .useMotherShipDoors = FALSE,
+
+    .padding_241 = {
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX,
+        UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
+    }
 };
 
 
 const struct DemoEntry sDemoEntries[MAX_AMOUNT_OF_DEMOS] = {
     [0] = {
         .pInputs = sDemo0_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo0_Inputs),
+        .inputsSize = sizeof(sDemo0_Inputs),
         .pDuration = sDemo0_Durations,
-        .durationSize = ARRAY_SIZE(sDemo0_Durations)
+        .durationSize = sizeof(sDemo0_Durations)
     },
     [1] = {
         .pInputs = sDemo1_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo1_Inputs),
+        .inputsSize = sizeof(sDemo1_Inputs),
         .pDuration = sDemo1_Durations,
-        .durationSize = ARRAY_SIZE(sDemo1_Durations)
+        .durationSize = sizeof(sDemo1_Durations)
     },
     [2] = {
         .pInputs = sDemo2_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo2_Inputs),
+        .inputsSize = sizeof(sDemo2_Inputs),
         .pDuration = sDemo2_Durations,
-        .durationSize = ARRAY_SIZE(sDemo2_Durations)
+        .durationSize = sizeof(sDemo2_Durations)
     },
     [3] = {
         .pInputs = sDemo3_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo3_Inputs),
+        .inputsSize = sizeof(sDemo3_Inputs),
         .pDuration = sDemo3_Durations,
-        .durationSize = ARRAY_SIZE(sDemo3_Durations)
+        .durationSize = sizeof(sDemo3_Durations)
     },
     [4] = {
         .pInputs = sDemo4_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo4_Inputs),
+        .inputsSize = sizeof(sDemo4_Inputs),
         .pDuration = sDemo4_Durations,
-        .durationSize = ARRAY_SIZE(sDemo4_Durations)
+        .durationSize = sizeof(sDemo4_Durations)
     },
     [5] = {
         .pInputs = sDemo5_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo5_Inputs),
+        .inputsSize = sizeof(sDemo5_Inputs),
         .pDuration = sDemo5_Durations,
-        .durationSize = ARRAY_SIZE(sDemo5_Durations)
+        .durationSize = sizeof(sDemo5_Durations)
     },
     [6] = {
         .pInputs = sDemo6_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo6_Inputs),
+        .inputsSize = sizeof(sDemo6_Inputs),
         .pDuration = sDemo6_Durations,
-        .durationSize = ARRAY_SIZE(sDemo6_Durations)
+        .durationSize = sizeof(sDemo6_Durations)
     },
     [7] = {
         .pInputs = sDemo7_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo7_Inputs),
+        .inputsSize = sizeof(sDemo7_Inputs),
         .pDuration = sDemo7_Durations,
-        .durationSize = ARRAY_SIZE(sDemo7_Durations)
+        .durationSize = sizeof(sDemo7_Durations)
     },
     [8] = {
         .pInputs = sDemo8_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo8_Inputs),
+        .inputsSize = sizeof(sDemo8_Inputs),
         .pDuration = sDemo8_Durations,
-        .durationSize = ARRAY_SIZE(sDemo8_Durations)
+        .durationSize = sizeof(sDemo8_Durations)
     },
     [9] = {
         .pInputs = sDemo9_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo9_Inputs),
+        .inputsSize = sizeof(sDemo9_Inputs),
         .pDuration = sDemo9_Durations,
-        .durationSize = ARRAY_SIZE(sDemo9_Durations)
+        .durationSize = sizeof(sDemo9_Durations)
     },
     [10] = {
         .pInputs = sDemo10_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo10_Inputs),
+        .inputsSize = sizeof(sDemo10_Inputs),
         .pDuration = sDemo10_Durations,
-        .durationSize = ARRAY_SIZE(sDemo10_Durations)
+        .durationSize = sizeof(sDemo10_Durations)
     },
     [11] = {
         .pInputs = sDemo11_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo11_Inputs),
+        .inputsSize = sizeof(sDemo11_Inputs),
         .pDuration = sDemo11_Durations,
-        .durationSize = ARRAY_SIZE(sDemo11_Durations)
+        .durationSize = sizeof(sDemo11_Durations)
     },
     [12] = {
         .pInputs = sDemo12_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo12_Inputs),
+        .inputsSize = sizeof(sDemo12_Inputs),
         .pDuration = sDemo12_Durations,
-        .durationSize = ARRAY_SIZE(sDemo12_Durations)
+        .durationSize = sizeof(sDemo12_Durations)
     },
     [13] = {
         .pInputs = sDemo13_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo13_Inputs),
+        .inputsSize = sizeof(sDemo13_Inputs),
         .pDuration = sDemo13_Durations,
-        .durationSize = ARRAY_SIZE(sDemo13_Durations)
+        .durationSize = sizeof(sDemo13_Durations)
     },
     [14] = {
         .pInputs = sDemo14_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo14_Inputs),
+        .inputsSize = sizeof(sDemo14_Inputs),
         .pDuration = sDemo14_Durations,
-        .durationSize = ARRAY_SIZE(sDemo14_Durations)
+        .durationSize = sizeof(sDemo14_Durations)
     },
     [15] = {
         .pInputs = sDemo15_Inputs,
-        .inputsSize = ARRAY_SIZE(sDemo15_Inputs),
+        .inputsSize = sizeof(sDemo15_Inputs),
         .pDuration = sDemo15_Durations,
-        .durationSize = ARRAY_SIZE(sDemo15_Durations)
+        .durationSize = sizeof(sDemo15_Durations)
     }
 };
 
