@@ -145,6 +145,11 @@ struct SamusEcho {
     u8 unknown;
 };
 
+struct ArmCannonOffset {
+    i16 y;
+    i16 x;
+};
+
 // Typedefs
 
 typedef u8 (*SamusFunc_T)(struct SamusData*);

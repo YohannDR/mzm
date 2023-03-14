@@ -6,6 +6,7 @@
 #include "temp_globals.h"
 
 #include "data/samus_sprites_pointers.h"
+#include "data/samus/samus_palette_data.h"
 
 #include "constants/clipdata.h"
 #include "constants/game_state.h"
@@ -2052,7 +2053,7 @@ i16 SamusChangeVelocityOnSlope(struct SamusData* pData)
  * @param offset Destination offset
  * @param nbrColors Number of colors to copy
  */
-void SamusCopyPalette(u16* src, i32 offset, i32 nbrColors)
+void SamusCopyPalette(const u16* src, i32 offset, i32 nbrColors)
 {
     i32 i;
 
@@ -4773,7 +4774,7 @@ u8 SamusExecutePoseSubroutine(struct SamusData* pData)
 }
 
 /**
- * @brief Updates the position and the vecolity of samus
+ * @brief Updates the position and the velocity of samus
  * 
  * @param pData Samus Data Pointer
  */
@@ -4789,7 +4790,269 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
 
 void SamusUpdatePalette(struct SamusData* pData)
 {
+    // https://decomp.me/scratch/LhP1o
 
+    const u16* pDefaultPal;
+    const u16* pReleasePal;
+    const u16* pFlashingPal;
+    const u16* pSpeedboostPal;
+    const u16* pUnmorphPal;
+    const u16* pChargingPal;
+    const u16* pSavingPal;
+    const u16* pDyingPal;
+    const u16* pMapDownloadPal;
+    const u16* pBufferPal;
+    u16 caf;
+    u32 offset;
+    i32 rng;
+    u8 chargeCounter;
+    u8 limit;
+
+    gSamusPaletteSize = 4 * 16;
+
+    if (gSamusWeaponInfo.beamReleasePaletteTimer != 0)
+        gSamusWeaponInfo.beamReleasePaletteTimer--;
+
+    if (pData->unmorphPaletteTimer)
+        pData->unmorphPaletteTimer--;
+
+    if (gEquipment.suitType == SUIT_FULLY_POWERED)
+    {
+        if (gEquipment.suitMiscActivation & SMF_GRAVITY_SUIT)
+        {
+            pDefaultPal = sSamusPal_GravitySuit_Default;
+            pReleasePal = sSamusPal_GravitySuit_BeamRelease;
+            pFlashingPal = sSamusPal_GravitySuit_Flashing;
+            pSpeedboostPal = sSamusPal_GravitySuit_Speedboost;
+            pUnmorphPal = sSamusPal_GravitySuit_Unmorph;
+            pChargingPal = sSamusPal_GravitySuit_ChargingBeam;
+            pSavingPal = sSamusPal_GravitySuit_SavingPointers[pData->currentAnimationFrame];
+            pDyingPal = sSamusPal_GravitySuit_Dying;
+            pMapDownloadPal = sSamusPal_GravitySuit_DownloadingMapPointers[pData->currentAnimationFrame];
+        }
+        else
+        {
+            pDefaultPal = sSamusPal_FullSuit_Default;
+            pReleasePal = sSamusPal_FullSuit_BeamRelease;
+            pFlashingPal = sSamusPal_FullSuit_Flashing;
+            pSpeedboostPal = sSamusPal_FullSuit_Speedboost;
+            pUnmorphPal = sSamusPal_FullSuit_Unmorph;
+            pChargingPal = sSamusPal_FullSuit_ChargingBeam;
+            pSavingPal = sSamusPal_FullSuit_SavingPointers[pData->currentAnimationFrame];
+            pDyingPal = sSamusPal_FullSuit_Dying;
+            pMapDownloadPal = sSamusPal_FullSuit_DownloadingMapPointers[pData->currentAnimationFrame];
+        }
+    }
+    else if (gEquipment.suitType == SUIT_NORMAL)
+    {
+
+        if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
+        {
+            pDefaultPal = sSamusPal_VariaSuit_Default;
+            pReleasePal = sSamusPal_VariaSuit_BeamRelease;
+            pFlashingPal = sSamusPal_VariaSuit_Flashing;
+            pSpeedboostPal = sSamusPal_VariaSuit_Speedboost;
+            pUnmorphPal = sSamusPal_VariaSuit_Unmorph;
+            pChargingPal = sSamusPal_VariaSuit_ChargingBeam;
+            pSavingPal = sSamusPal_VariaSuit_SavingPointers[pData->currentAnimationFrame];
+            pDyingPal = sSamusPal_VariaSuit_Dying;
+            pMapDownloadPal = sSamusPal_VariaSuit_DownloadingMapPointers[pData->currentAnimationFrame];
+        }
+        else
+        {
+            pDefaultPal = sSamusPal_PowerSuit_Default;
+            pReleasePal = sSamusPal_PowerSuit_BeamRelease;
+            pFlashingPal = sSamusPal_PowerSuit_Flashing;
+            pSpeedboostPal = sSamusPal_PowerSuit_Speedboost;
+            pUnmorphPal = sSamusPal_PowerSuit_Unmorph;
+            pChargingPal = sSamusPal_PowerSuit_ChargingBeam;
+            pSavingPal = sSamusPal_PowerSuit_SavingPointers[pData->currentAnimationFrame];
+            pDyingPal = sSamusPal_PowerSuit_Dying;
+            pMapDownloadPal = sSamusPal_PowerSuit_DownloadingMapPointers[pData->currentAnimationFrame];
+        }
+    }
+    else
+    {
+        pDefaultPal = sSamusPal_Suitless_Default;
+        pReleasePal = sSamusPal_Suitless_BeamRelease;
+        pFlashingPal = sSamusPal_Suitless_Flashing;
+        pSpeedboostPal = sSamusPal_PowerSuit_Speedboost;
+        pUnmorphPal = sSamusPal_PowerSuit_Unmorph;
+        pChargingPal = sSamusPal_Suitless_ChargingBeam;
+        pSavingPal = sSamusPal_Suitless_SavingPointers[pData->currentAnimationFrame];
+        pDyingPal = sSamusPal_Generic_Dying;
+        pMapDownloadPal = sSamusPal_Suitless_DownloadingMapPointers[pData->currentAnimationFrame];
+    }
+
+    if (pData->pose == SPOSE_DYING)
+    {
+        pBufferPal = sSamusPal_PowerSuit_Dying;
+        SamusCopyPalette(pBufferPal, 0, 16);
+
+        if (pData->walljumpTimer == 0)
+        {
+            caf = pData->currentAnimationFrame;
+
+            if (caf == 11 || caf == 15)
+                pBufferPal += 16 * 2;
+            else if (caf == 12 || caf == 14)
+                pBufferPal += 16 * 4;
+            else if (caf == 13)
+                pBufferPal += 16 * 6;
+            else if (caf > 10)
+                pBufferPal += 16 * 1;
+            else
+                pBufferPal = pDyingPal;
+        }
+        else
+        {
+            pBufferPal += pData->walljumpTimer * 16;
+        }
+
+        SamusCopyPalette(pBufferPal, 16, 16);
+        return;
+    }
+    
+    if (pData->invincibilityTimer != 0)
+    {
+        pData->invincibilityTimer--;
+
+        if ((gFrameCounter8Bit & 3) <= 1)
+            pBufferPal = pFlashingPal;
+        else
+            pBufferPal = pFlashingPal + 16;
+
+        SamusCopyPalette(pBufferPal, 0, 16);
+        pBufferPal = pDefaultPal + 16;
+        SamusCopyPalette(pBufferPal, 16, 16);
+        return;
+    }
+    
+    if (gSamusHazardDamage.paletteTimer != 0 && (gSamusHazardDamage.paletteTimer & 0xF) > 7)
+    {
+        pBufferPal = pFlashingPal + 16;
+        SamusCopyPalette(pBufferPal, 0, 16);
+        pBufferPal = pDefaultPal + 16;
+        SamusCopyPalette(pBufferPal, 16, 16);
+        return;
+    }
+    
+    if (pData->speedboostingShinesparking || pData->shinesparkTimer)
+    {
+        rng = gFrameCounter8Bit % 6;
+
+        if (rng >= 0)
+        {
+            pBufferPal = pSpeedboostPal;
+            if (rng > 1)
+                pBufferPal = pSpeedboostPal + 16;
+
+            if (rng > 3)
+                pBufferPal = pSpeedboostPal + 16 * 2;
+        }
+        else
+            pBufferPal = pSpeedboostPal + 16 * 2;
+
+        SamusCopyPalette(pBufferPal, 0, 16);
+        SamusCopyPalette(pBufferPal, 16, 16);
+        return;
+    }
+    
+    if (pData->pose == SPOSE_SCREW_ATTACKING)
+    {
+        if (pData->currentAnimationFrame & 1)
+            pBufferPal = pFlashingPal + 16;
+        else
+            pBufferPal = pDefaultPal;
+        
+        SamusCopyPalette(pBufferPal, 0, 16);
+        pBufferPal = pDefaultPal + 16;
+        SamusCopyPalette(pBufferPal, 16, 16);
+        return;
+    }
+    
+    if (pData->pose == SPOSE_SAVING_LOADING_GAME)
+    {
+        pBufferPal = pSavingPal;
+        SamusCopyPalette(pBufferPal, 0, 16);
+        pBufferPal = pDefaultPal + 16 * 2;
+        SamusCopyPalette(pBufferPal, 16, 16);
+        return;
+    }
+    
+    if (pData->pose == SPOSE_DOWNLOADING_MAP_DATA)
+    {
+        if (pData->timer)
+            pBufferPal = pDefaultPal;
+        else
+            pBufferPal = pMapDownloadPal;
+
+        SamusCopyPalette(pBufferPal, 0, 16);
+        pBufferPal = pDefaultPal + 16 * 2;
+        SamusCopyPalette(pBufferPal, 16, 16);
+        return;
+    }
+    
+    if (gSamusWeaponInfo.beamReleasePaletteTimer != 0)
+    {
+        if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
+            pBufferPal = pReleasePal + 16 * 2;
+        else if (gEquipment.beamBombsActivation & BBF_PLASMA_BEAM)
+            pBufferPal = pReleasePal + 16 * 4;
+        else if (gEquipment.beamBombsActivation & BBF_WAVE_BEAM)
+            pBufferPal = pReleasePal + 16 * 3;
+        else if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
+            pBufferPal = pReleasePal + 16 * 1;
+        else
+            pBufferPal = pReleasePal;
+
+        SamusCopyPalette(pBufferPal, 0, 16);
+        pBufferPal = pDefaultPal + 16;
+        SamusCopyPalette(pBufferPal, 16, 16);
+        return;
+    }
+    
+    if (pData->unmorphPaletteTimer)
+    {
+        if ((u8)(pData->unmorphPaletteTimer - 5) > 4)
+            pBufferPal = pUnmorphPal;
+        else
+            pBufferPal = pUnmorphPal + 16;
+
+        SamusCopyPalette(pBufferPal, 0, 16);
+        pBufferPal = pDefaultPal + 16;
+        SamusCopyPalette(pBufferPal, 16, 16);
+        return;
+    }
+    
+    pBufferPal = pDefaultPal;
+    if (gEquipment.suitType != SUIT_SUITLESS)
+    {
+        chargeCounter = gSamusWeaponInfo.chargeCounter;
+        limit = 64;
+        if (chargeCounter >= limit)
+        {
+            offset = (chargeCounter - 64) >> 2;
+    
+            if (offset != 3)
+            {
+                if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
+                    pBufferPal = pChargingPal + 16 * 4;
+                else if (gEquipment.beamBombsActivation & BBF_PLASMA_BEAM)
+                    pBufferPal = pChargingPal + 16 * 8;
+                else if (gEquipment.beamBombsActivation & BBF_WAVE_BEAM)
+                    pBufferPal = pChargingPal + 16 * 6;
+                else if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
+                    pBufferPal = pChargingPal + 16 * 2;
+                else
+                    pBufferPal = pChargingPal;
+    
+                pBufferPal += (offset & 1) * 16;
+            }
+        }
+        
+        SamusCopyPalette(pBufferPal, 0, 16 * 2);
+    }
 }
 
 void SamusCheckPlayLowHealthSound(void)
@@ -4800,7 +5063,7 @@ void SamusCheckPlayLowHealthSound(void)
     pData = &gSamusData;
     pEquipment = &gEquipment;
 
-    if (pEquipment->lowHealth && pData->pose != SPOSE_DYING && gPreventMovementTimer == 0x0 && !(gFrameCounter8Bit & 0xF))
+    if (pEquipment->lowHealth && pData->pose != SPOSE_DYING && gPreventMovementTimer == 0 && !(gFrameCounter8Bit & 0xF))
         SoundPlay(0x82);
 }
 

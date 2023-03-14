@@ -27,7 +27,7 @@ void SamusSetPose(u8 pose);
 void SamusCopyData(struct SamusData* pData);
 void SamusUpdatePhysics(struct SamusData* pData);
 i16 SamusChangeVelocityOnSlope(struct SamusData* pData);
-void SamusCopyPalette(u16* src, i32 offset, i32 nbrColors);
+void SamusCopyPalette(const u16* src, i32 offset, i32 nbrColors);
 void SamusUpdate(void);
 void SamusUpdateHitboxMovingDirection(void);
 void SamusCallGFXFunctions(void);

@@ -223,8 +223,6 @@ const struct SaveDemo* const sDemoRamDataPointers[MAX_AMOUNT_OF_DEMOS] = {
     [15] = &sDemo15_Ram,
 };
 
-typedef u8 (*TourianEscapeFunc_T)(void);
-
 const TourianEscapeFunc_T sTourianEscapeFunctionPointers[2] = {
     (TourianEscapeFunc_T)0x8060e29,
     (TourianEscapeFunc_T)0x8084715,
