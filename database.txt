@@ -891,6 +891,18 @@ cutscenes/StatueOpening/Room.gfx.lz;2357;0x3ed5fc;4
 cutscenes/StatueOpening/Room.tt;318;0x3efad0;4
 cutscenes/StatueOpening/3effc8.tt;242;0x3effc8;4
 
+# Enter tourian
+
+cutscenes/EnterTourian/Background.pal;160;0x3f0410;2
+cutscenes/EnterTourian/Metroid.pal;96;0x3f0550;2
+cutscenes/EnterTourian/Background.gfx.lz;3110;0x3f0610;4
+cutscenes/EnterTourian/Foreground.gfx.lz;2483;0x3f36a8;4
+cutscenes/EnterTourian/DeadSpacePirate_1.gfx.lz;55;0x3f5d74;4
+cutscenes/EnterTourian/DeadSpacePirate_2.gfx.lz;77;0x3f5e50;4
+cutscenes/EnterTourian/DeadSpacePirate_3.gfx.lz;32;0x3f5f84;4
+cutscenes/EnterTourian/Background.tt;385;0x3f6004;4
+cutscenes/EnterTourian/Foreground.tt;385;0x3f6608;4
+
 ## Menus
 
 # Title screen
@@ -969,7 +981,7 @@ Blob_2ceaa8_2cfd9f.bin;4856;0x2ceaa8;1
 Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
 Blob_375cc4_386f60.bin;70300;0x375cc4;1
-Blob_3f0390_411400.bin;135280;0x3f0390;1
+Blob_3f6c0c_411400.bin;108532;0x3f6c0c;1
 Blob_415460_446d68.bin;203016;0x415460;1
 Blob_44f11c_45f45c.bin;66368;0x44f11c;1
 Blob_479400_4bfee4.bin;289508;0x479400;1

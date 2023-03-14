@@ -23,6 +23,7 @@ subDirs: array = [
     "cutscenes/GettingFullyPoweredSuit/",
     "cutscenes/BeforeCharlie/",
     "cutscenes/StatueOpening/",
+    "cutscenes/EnterTourian/",
     "menus/",
     "menus/TitleScreen/",
     "menus/EraseSram/",

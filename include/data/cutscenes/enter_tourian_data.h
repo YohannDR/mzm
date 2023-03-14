@@ -3,7 +3,7 @@
 
 #include "structs/cutscene.h"
 
-extern const struct CutscenePageData sEnterTourianPageData[9];
+extern const struct CutscenePageData sEnterTourianPageData[2];
 extern const struct OamArray sEnterTourianOam[7];
 
 extern const u16 sEnterTourianBackgroundPAL[10 * 16];

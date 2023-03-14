@@ -656,7 +656,8 @@ SECTIONS {
         src/data/cutscenes/getting_fully_powered_suit_data.o(.rodata);
         src/data/cutscenes/before_charlie_data.o(.rodata);
         src/data/cutscenes/statue_opening_data.o(.rodata);
-        /* 3f0390-411400 */
+        src/data/cutscenes/enter_tourian_data.o(.rodata);
+        /* 3f6c0c-411400 */
         src/data/save_file_data.o(.rodata);
         src/data/menus/erase_sram_data.o(.rodata);
         /* 415460-446d68 */

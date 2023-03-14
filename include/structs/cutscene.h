@@ -6,7 +6,7 @@
 
 // Temp place
 struct OamArray {
-    const struct FrameData* pOam;
+    const struct FrameData* const pOam;
     u8 preAction;
 };
 
