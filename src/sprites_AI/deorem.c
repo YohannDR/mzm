@@ -79,10 +79,10 @@ u8 DeoremCheckLeaving(u8 ramSlot)
     {
         gCurrentSprite.pose = 0x42;
 
-        if ((gCurrentSprite.pOam != DeoremPliersClosedOAMData)
-            && (gCurrentSprite.pOam != DeoremPliersClosingOAMData))
+        if ((gCurrentSprite.pOam != sDeoremPliersOAM_Closed)
+            && (gCurrentSprite.pOam != sDeoremPliersOAM_Closing))
         {
-            gCurrentSprite.pOam = DeoremPliersClosingOAMData;
+            gCurrentSprite.pOam = sDeoremPliersOAM_Closing;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.hitboxBottomOffset = 0x40;
@@ -197,7 +197,7 @@ void DeoremInit(void)
     gCurrentSprite.drawDistanceTopOffset = 0x20;
     gCurrentSprite.drawDistanceBottomOffset = 0x20;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
-    gCurrentSprite.pOam = DeoremBaseOAMData;
+    gCurrentSprite.pOam = sDeoremOAM_Base;
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
@@ -515,7 +515,7 @@ void DeoremAfterSpawn(void)
             else
                 gCurrentSprite.timer = 0x3C;
 
-            gCurrentSprite.pOam = DeoremPliersOpeningOAMData;
+            gCurrentSprite.pOam = sDeoremPliersOAM_Opening;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.hitboxBottomOffset = 0;
@@ -545,18 +545,18 @@ void DeoremMainLoop(void)
     {
         if (!DeoremCheckLeaving(gCurrentSprite.arrayOffset))
         {
-            if (gCurrentSprite.pOam == DeoremPliersClosingOAMData)
+            if (gCurrentSprite.pOam == sDeoremPliersOAM_Closing)
             {
                 if (SpriteUtilCheckEndCurrentSpriteAnim())
                 {
-                    gCurrentSprite.pOam = DeoremPliersClosedOAMData;
+                    gCurrentSprite.pOam = sDeoremPliersOAM_Closed;
                     gCurrentSprite.animationDurationCounter = 0;
                     gCurrentSprite.currentAnimationFrame = 0;
                 }
             }
-            else if (gCurrentSprite.pOam == DeoremPliersOpeningOAMData && SpriteUtilCheckEndCurrentSpriteAnim())
+            else if (gCurrentSprite.pOam == sDeoremPliersOAM_Opening && SpriteUtilCheckEndCurrentSpriteAnim())
             {
-                gCurrentSprite.pOam = DeoremPliersOpenedOAMData;
+                gCurrentSprite.pOam = sDeoremPliersOAM_Opened;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
             }                
@@ -565,7 +565,7 @@ void DeoremMainLoop(void)
             if (gCurrentSprite.timer == 0)
             {
                 SpriteUtilMakeSpriteFaceSamusDirection();
-                gCurrentSprite.pOam = DeoremOAMData_unk2;
+                gCurrentSprite.pOam = sDeoremUnk2OAM;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.status &= ~SPRITE_STATUS_MOSAIC;
@@ -592,9 +592,9 @@ void DeoremMainLoop(void)
                     StartVerticalScreenShake(0x14, 0x81);
                 }
             }
-            else if (gCurrentSprite.timer == 0x17 && gCurrentSprite.pOam == DeoremPliersOpenedOAMData)
+            else if (gCurrentSprite.timer == 0x17 && gCurrentSprite.pOam == sDeoremPliersOAM_Opened)
             {
-                gCurrentSprite.pOam = DeoremPliersClosingOAMData;
+                gCurrentSprite.pOam = sDeoremPliersOAM_Closing;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE;
@@ -606,13 +606,13 @@ void DeoremMainLoop(void)
     }
     else
     {
-        if (gCurrentSprite.pOam == DeoremOAMData_unk2)
+        if (gCurrentSprite.pOam == sDeoremUnk2OAM)
         {
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 if ((gCurrentSprite.status & SPRITE_STATUS_MOSAIC) != 0)
                 {
-                    gCurrentSprite.pOam = DeoremOAMData_unk3;
+                    gCurrentSprite.pOam = sDeoremUnk3OAM;
                     gCurrentSprite.animationDurationCounter = 0;
                     gCurrentSprite.currentAnimationFrame = 0;
                     return;
@@ -663,7 +663,7 @@ void DeoremMainLoop(void)
             {
                 gCurrentSprite.pose = DEOREM_POSE_RETRACTING;
                 gCurrentSprite.timer = 0x1E;
-                gCurrentSprite.pOam = DeoremPliersOpeningOAMData;
+                gCurrentSprite.pOam = sDeoremPliersOAM_Opening;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.hitboxBottomOffset = 0;
@@ -686,10 +686,10 @@ void DeoremRetracting(void)
 
     if (gCurrentSprite.timer != 0)
     {
-        if (gCurrentSprite.pOam == DeoremPliersClosedOAMData
+        if (gCurrentSprite.pOam == sDeoremPliersOAM_Closed
             && SpriteUtilCheckEndCurrentSpriteAnim())
         {
-            gCurrentSprite.pOam = DeoremPliersOpenedOAMData;
+            gCurrentSprite.pOam = sDeoremPliersOAM_Opened;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE);
@@ -772,19 +772,19 @@ void DeoremThrowingThorns(void)
 
     if (gCurrentSprite.timer < changeAnimTime)
     {
-        if (gCurrentSprite.pOam == DeoremPliersOpenedOAMData)
+        if (gCurrentSprite.pOam == sDeoremPliersOAM_Opened)
         {
-            gCurrentSprite.pOam = DeoremPliersClosingOAMData;
+            gCurrentSprite.pOam = sDeoremPliersOAM_Closing;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE;
             gSpriteData[spriteOffset].status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             SoundPlay(0x199);
         }
-        else if (gCurrentSprite.pOam == DeoremPliersClosingOAMData
+        else if (gCurrentSprite.pOam == sDeoremPliersOAM_Closing
             && SpriteUtilCheckEndCurrentSpriteAnim())
         {
-            gCurrentSprite.pOam = DeoremPliersClosedOAMData;
+            gCurrentSprite.pOam = sDeoremPliersOAM_Closed;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
         }
@@ -803,10 +803,10 @@ void DeoremThrowingThorns(void)
  */
 void DeoremAfterThorns(void)
 {
-    if (gCurrentSprite.pOam == DeoremPliersClosingOAMData
+    if (gCurrentSprite.pOam == sDeoremPliersOAM_Closing
         && SpriteUtilCheckEndCurrentSpriteAnim())
     {
-        gCurrentSprite.pOam = DeoremPliersClosedOAMData;
+        gCurrentSprite.pOam = sDeoremPliersOAM_Closed;
         gCurrentSprite.animationDurationCounter = 0;
         gCurrentSprite.currentAnimationFrame = 0;
     }
@@ -825,7 +825,7 @@ void DeoremAfterThorns(void)
  */
 void DeoremDying(void)
 {
-    gCurrentSprite.pOam = DeoremOAMData_unk4;
+    gCurrentSprite.pOam = sDeoremUnk4OAM;
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.pose = DEOREM_POSE_DYING_GOING_DOWN;
@@ -888,17 +888,17 @@ void DeoremDeath(void)
  */
 void DeoremCheckLeavingCeilingAnimEnded(void)
 {
-    if (gCurrentSprite.pOam == DeoremPliersClosingOAMData
-        || gCurrentSprite.pOam == DeoremPliersClosedOAMData)
+    if (gCurrentSprite.pOam == sDeoremPliersOAM_Closing
+        || gCurrentSprite.pOam == sDeoremPliersOAM_Closed)
     {
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
-            gCurrentSprite.pOam = DeoremBaseOAMData;
+            gCurrentSprite.pOam = sDeoremOAM_Base;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
         }
     }
-    else if (gCurrentSprite.pOam == DeoremBaseOAMData)
+    else if (gCurrentSprite.pOam == sDeoremOAM_Base)
     {
         gCurrentSprite.pose = DEOREM_POSE_LEAVING;
         gCurrentSprite.timer = 0x3C;
@@ -1079,7 +1079,7 @@ void DeoremSegmentInit(void)
         gCurrentSprite.hitboxBottomOffset = 3 * HALF_BLOCK_SIZE;
         gCurrentSprite.hitboxLeftOffset = -3 * QUARTER_BLOCK_SIZE;
         gCurrentSprite.hitboxRightOffset = 3 * QUARTER_BLOCK_SIZE;
-        gCurrentSprite.pOam = DeoremUnkOAMData_082d78e4;
+        gCurrentSprite.pOam = sDeoremUnkOAMData_082d78e4;
     }
     else if ((roomSlot == 0) || (roomSlot == 6) || (roomSlot == 12))
     {
@@ -1090,7 +1090,7 @@ void DeoremSegmentInit(void)
         gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE;
         gCurrentSprite.hitboxLeftOffset = -3 * HALF_BLOCK_SIZE;
         gCurrentSprite.hitboxRightOffset = 3 * HALF_BLOCK_SIZE;
-        gCurrentSprite.pOam = DeoremUnkOAMData_082d78bc;
+        gCurrentSprite.pOam = sDeoremUnkOAMData_082d78bc;
         gCurrentSprite.drawOrder = 11;
     }
     else
@@ -1102,7 +1102,7 @@ void DeoremSegmentInit(void)
         gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE;
         gCurrentSprite.hitboxLeftOffset = -3 * HALF_BLOCK_SIZE;
         gCurrentSprite.hitboxRightOffset = 3 * HALF_BLOCK_SIZE;
-        gCurrentSprite.pOam = DeoremUnkOAMData_082d7894;   
+        gCurrentSprite.pOam = sDeoremUnkOAMData_082d7894;   
     }
 
     if (roomSlot < 6)
@@ -1182,7 +1182,7 @@ void DeoremSegmentSpawnGoingDown(void)
         
         if (gCurrentSprite.roomSlot == 0)
         {
-            gCurrentSprite.pOam = DeoremUnkOAMData_082d7894;
+            gCurrentSprite.pOam = sDeoremUnkOAMData_082d7894;
             gCurrentSprite.drawOrder = 4;
         }
     }
@@ -1248,7 +1248,7 @@ void DeoremSegmentSpawnGoingUp(void)
 
         if (gCurrentSprite.roomSlot == 6)
         {
-            gCurrentSprite.pOam = DeoremUnkOAMData_082d7894;
+            gCurrentSprite.pOam = sDeoremUnkOAMData_082d7894;
             gCurrentSprite.drawOrder = 4;
         }
     }
@@ -1347,10 +1347,10 @@ void DeoremSegmentRightIdleAnim(void)
             u32 xMovement, workVariable2;
             
             workVariable2 = gCurrentSprite.workVariable2;
-            xMovement = DeoremSegment_xVelocity[workVariable2];
-            if (xMovement == 0x7FFF)
+            xMovement = sDeoremSegmentXVelocity[workVariable2];
+            if (xMovement == SHORT_MAX)
             {
-                xMovement = DeoremSegment_xVelocity[0];
+                xMovement = sDeoremSegmentXVelocity[0];
                 workVariable2 = 0;
             }
             gCurrentSprite.workVariable2 = workVariable2 + 1;
@@ -1431,10 +1431,10 @@ void DeoremSegmentLeftIdleAnim(void)
             u32 xVelocity, workVariable2;
             
             workVariable2 = gCurrentSprite.workVariable2;
-            xVelocity = DeoremSegment_xVelocity[workVariable2];
-            if (xVelocity == 0x7FFF)
+            xVelocity = sDeoremSegmentXVelocity[workVariable2];
+            if (xVelocity == SHORT_MAX)
             {
-                xVelocity = DeoremSegment_xVelocity[0];
+                xVelocity = sDeoremSegmentXVelocity[0];
                 workVariable2 = 0;
             }
             gCurrentSprite.workVariable2 = workVariable2 + 1;
@@ -1486,10 +1486,10 @@ void DeoremSegmentGoingDown(void)
     }
             
     workVariable2 = gCurrentSprite.workVariable2;
-    xMovement = DeoremSegment_xVelocity[workVariable2];
-    if (xMovement == 0x7FFF)
+    xMovement = sDeoremSegmentXVelocity[workVariable2];
+    if (xMovement == SHORT_MAX)
     {
-        xMovement = DeoremSegment_xVelocity[0];
+        xMovement = sDeoremSegmentXVelocity[0];
         workVariable2 = 0;
     }
     gCurrentSprite.workVariable2 = workVariable2 + 1;
@@ -1520,10 +1520,10 @@ void DeoremSegmentGoingUp(void)
     }
             
     workVariable2 = gCurrentSprite.workVariable2;
-    xMovement = DeoremSegment_xVelocity[workVariable2];
-    if (xMovement == 0x7FFF)
+    xMovement = sDeoremSegmentXVelocity[workVariable2];
+    if (xMovement == SHORT_MAX)
     {
-        xMovement = DeoremSegment_xVelocity[0];
+        xMovement = sDeoremSegmentXVelocity[0];
         workVariable2 = 0;
     }
     gCurrentSprite.workVariable2 = workVariable2 + 1;
@@ -1757,7 +1757,7 @@ void DeoremEye(void)
             gSpriteData[ramSlot].invincibilityStunFlashTimer = gCurrentSprite.invincibilityStunFlashTimer;
             if (isft == 0x10)
             {
-                gSpriteData[ramSlot].pOam = DeoremPliersClosedOAMData;
+                gSpriteData[ramSlot].pOam = sDeoremPliersOAM_Closed;
                 gSpriteData[ramSlot].animationDurationCounter = 0x0;
                 gSpriteData[ramSlot].currentAnimationFrame = 0x0;
                 gSpriteData[ramSlot].hitboxBottomOffset = 0x40;
