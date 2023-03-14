@@ -204,4 +204,43 @@ const struct HatchLockEvent* const sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS 
     [AREA_CHOZODIA] = sHatchLockEventsChozodia
 };
 
-const u8 sTempArray_75fdfc[0x60] = INCBIN_U8("data/Blob_75fdfc_75fe5c.bin");
+const struct SaveDemo* const sDemoRamDataPointers[MAX_AMOUNT_OF_DEMOS] = {
+    [0] = &sDemo0_Ram,
+    [1] = &sDemo1_Ram,
+    [2] = &sDemo2_Ram,
+    [3] = &sDemo3_Ram,
+    [4] = &sDemo4_Ram,
+    [5] = &sDemo5_Ram,
+    [6] = &sDemo6_Ram,
+    [7] = &sDemo7_Ram,
+    [8] = &sDemo8_Ram,
+    [9] = &sDemo9_Ram,
+    [10] = &sDemo10_Ram,
+    [11] = &sDemo11_Ram,
+    [12] = &sDemo12_Ram,
+    [13] = &sDemo13_Ram,
+    [14] = &sDemo14_Ram,
+    [15] = &sDemo15_Ram,
+};
+
+typedef u8 (*TourianEscapeFunc_T)(void);
+
+const TourianEscapeFunc_T sTourianEscapeFunctionPointers[2] = {
+    (TourianEscapeFunc_T)0x8060e29,
+    (TourianEscapeFunc_T)0x8084715,
+};
+
+const i8 sCutscene_75fe44[4] = {
+    -1, 1, 0, 0
+};
+
+const i8* const sCutscene_75fe48[4] = {
+    sCutscene_75fe44,
+    sCutscene_75fe44,
+    sCutscene_75fe44,
+    sCutscene_75fe44
+};
+
+const u8 sCutscene_75fe58[4] = {
+    2, 2, 2, 2
+};

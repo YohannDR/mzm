@@ -7,6 +7,7 @@
 #include "data/save_file_data.h"
 #include "data/internal_save_file_data.h"
 #include "data/block_data.h"
+#include "data/engine_pointers.h"
 
 #include "constants/color_fading.h"
 #include "constants/connection.h"
@@ -16,6 +17,7 @@
 #include "structs/audio.h"
 #include "structs/bg_clip.h"
 #include "structs/color_effects.h"
+#include "structs/demo.h"
 #include "structs/game_state.h"
 #include "structs/in_game_cutscene.h"
 #include "structs/minimap.h"

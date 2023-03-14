@@ -673,7 +673,7 @@ SECTIONS {
         src/data/samus_sprites_pointers.o(.rodata);
         src/data/frame_data_pointers.o(.rodata);
         src/data/engine_pointers.o(.rodata);
-        /* 75fdfc-75fe5c */
+
         src/data/cutscenes/internal_kraid_rising_data.o(.rodata);
         src/data/cutscenes/internal_story_text_cutscene_data.o(.rodata);
         src/data/cutscenes/internal_mother_brain_close_up_data.o(.rodata);

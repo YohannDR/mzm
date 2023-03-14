@@ -3,6 +3,8 @@
 
 #include "types.h"
 
+#include "data/demo_data.h"
+
 #include "structs/connection.h"
 #include "structs/projectile.h"
 #include "structs/particle.h"
@@ -36,8 +38,15 @@ extern const u16* const sBackgroundEffectBehaviorPointers[9];
 
 extern const struct HatchLockEvent* const sHatchLockEventsPointers[MAX_AMOUNT_OF_AREAS - 1];
 
-// More ...
+extern const struct SaveDemo* const sDemoRamDataPointers[MAX_AMOUNT_OF_DEMOS];
 
-// 75fdfc
+// Temp
+typedef u8 (*TourianEscapeFunc_T)(void);
+
+extern const TourianEscapeFunc_T sTourianEscapeFunctionPointers[2];
+
+extern const i8* const sCutscene_75fe48[4];
+
+extern const u8 sCutscene_75fe58[4];
 
 #endif /* ENGINE_POINTERS_H */
