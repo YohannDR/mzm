@@ -5199,5 +5199,3 @@ const struct DemoEntry sDemoEntries[MAX_AMOUNT_OF_DEMOS] = {
 const u8 sDemoNumbers[MAX_AMOUNT_OF_DEMOS] = {
     0, 3, 5, 8, 11, 12, 14, 1, 2, 4, 6, 7, 9, 15, 13, 10
 };
-
-const u8 sTemparray_3603e8[0x3c2c] = INCBIN_U8("data/Blob_363cf8_367924.bin");
