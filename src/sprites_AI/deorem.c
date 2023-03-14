@@ -1231,7 +1231,7 @@ void DeoremSegmentSpawnGoingDownAfter(void)
  */
 void DeoremSegmentSpawnGoingUp(void)
 {
-    i32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
     
     if (gCurrentSprite.roomSlot == 6)
         gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition + 0xA8;
@@ -1530,9 +1530,49 @@ void DeoremSegmentGoingUp(void)
     gCurrentSprite.xPosition += xMovement;
 }
 
+/**
+ * @brief 229ac | b4 | Handles the movement for the segments above the head
+ * 
+ */
 void DeoremSegmentAboveHeadMovement(void)
 {
+    u16 deoremXPos, xPosition, posOffset, movement;
+    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
 
+    if (gCurrentSprite.roomSlot == 12)
+    {
+        gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - 0xA8;
+        deoremXPos = gSpriteData[ramSlot].xPosition;
+    }
+    else
+    {
+        i32 yPosition = gSpriteData[ramSlot].yPosition - 0xA8;
+        gCurrentSprite.yPosition = yPosition - (gCurrentSprite.roomSlot - 12) * 100;
+        deoremXPos = gSpriteData[gCurrentSprite.timer].xPosition;
+    }
+
+    xPosition = gCurrentSprite.xPosition;
+
+    if (xPosition > deoremXPos)
+        posOffset = xPosition - deoremXPos;
+    else
+        posOffset = deoremXPos - xPosition;
+
+    if (posOffset < 3)
+        movement = 1;
+    else
+        movement = posOffset / 4;
+
+    if (xPosition < deoremXPos)
+        gCurrentSprite.xPosition += movement;
+    else if (xPosition > deoremXPos)
+        gCurrentSprite.xPosition -= movement;
+    
+    if (gSpriteData[ramSlot].pose == DEOREM_POSE_LEAVING_ANIM)
+    {
+        gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition;
+        gCurrentSprite.pose = 0x4A; // TODO: Pose names
+    }
 }
 
 void DeoremSegmentLeftLeaving(void)
