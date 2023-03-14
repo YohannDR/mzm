@@ -1196,14 +1196,69 @@ void SpriteUtilMakeSpriteFaceAwawFromSamusDirection(void)
         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
 }
 
+/**
+ * @brief f978 | 6c | To document
+ * 
+ * @param movement Movement
+ */
 void unk_f978(i16 movement)
 {
+    i32 velocity;
 
+    velocity = movement;
+    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+    {
+        if (gPreviousCollisionCheck == COLLISION_RIGHT_STEEP_FLOOR_SLOPE)
+            velocity = (i16)(velocity * 2 / 3);
+    }
+    else
+    {
+        if (gPreviousCollisionCheck == COLLISION_LEFT_STEEP_FLOOR_SLOPE)
+            velocity = (i16)(velocity * 2 / 3);
+    }
+
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+        gCurrentSprite.xPosition += velocity;
+    else
+        gCurrentSprite.xPosition -= velocity;
 }
 
+/**
+ * @brief f9e4 | 98 | To document
+ * 
+ * @param movement Movement
+ */
 void unk_f9e7(i16 movement)
 {
+    i32 velocity;
 
+    velocity = movement;
+    SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+    {
+        if (gPreviousCollisionCheck == COLLISION_RIGHT_STEEP_FLOOR_SLOPE)
+            velocity = (i16)(velocity * 2 / 3);
+        else if (gPreviousCollisionCheck == COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE)
+            velocity = (i16)(velocity * 3 / 4);
+    }
+    else
+    {
+        if (gPreviousCollisionCheck == COLLISION_LEFT_STEEP_FLOOR_SLOPE)
+            velocity = (i16)(velocity * 2 / 3);
+        else if (gPreviousCollisionCheck == COLLISION_LEFT_SLIGHT_FLOOR_SLOPE)
+            velocity = (i16)(velocity * 3 / 4);
+    }
+
+    if (velocity == 0)
+        velocity = 1;
+
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        gCurrentSprite.xPosition += velocity;
+    else
+        gCurrentSprite.xPosition -= velocity;
 }
 
 u8 SpriteUtilMakeSpriteFaceSamusRotation(i16 oamRotation, i16 samusY, i16 samusX, i16 spriteY, i16 spriteX)
