@@ -150,6 +150,24 @@ struct ArmCannonOffset {
     i16 x;
 };
 
+struct SamusAnimationData {
+    const u8* const pTopGfx;
+    const u8* const pBottomGfx;
+    const u16* const pOam;
+    u8 timer;
+};
+
+struct ArmCannonAnimationData {
+    const struct ArmCannonOffset* const pOffset;
+    const u16* const pOam;
+};
+
+struct SamusEffectAnimationData {
+    const u8* const pGraphics;
+    const u16* const pOam;
+    u8 timer;
+};
+
 // Typedefs
 
 typedef u8 (*SamusFunc_T)(struct SamusData*);
@@ -175,4 +193,4 @@ extern u16 gSamusPalette[16 * 2];
 extern u16 gSamusPaletteSize;
 extern i16 gSamusDoorPositionOffset;
 
-#endif
+#endif /* SAMUS_STRUCT_H */

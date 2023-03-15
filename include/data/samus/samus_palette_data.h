@@ -56,17 +56,4 @@ extern const u16 sSamusPal_Suitless_ChargingBeam[10 * 16];
 extern const u16 sSamusPal_Suitless_DownloadingMap[2 * 16];
 extern const u16 sSamusPal_Suitless_Frozen[3 * 16];
 
-// Temp
-extern const u16* const sSamusPal_PowerSuit_SavingPointers[11];
-extern const u16* const sSamusPal_VariaSuit_SavingPointers[11];
-extern const u16* const sSamusPal_FullSuit_SavingPointers[11];
-extern const u16* const sSamusPal_GravitySuit_SavingPointers[11];
-extern const u16* const sSamusPal_Suitless_SavingPointers[11];
-
-extern const u16* const sSamusPal_PowerSuit_DownloadingMapPointers[8];
-extern const u16* const sSamusPal_VariaSuit_DownloadingMapPointers[8];
-extern const u16* const sSamusPal_FullSuit_DownloadingMapPointers[8];
-extern const u16* const sSamusPal_GravitySuit_DownloadingMapPointers[8];
-extern const u16* const sSamusPal_Suitless_DownloadingMapPointers[8];
-
 #endif /* SAMUS_PALETTE_DATA_H */
