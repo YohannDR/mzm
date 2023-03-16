@@ -62,26 +62,26 @@ struct SamusData {
 };
 
 struct SamusPhysics {
-    u16* pBodyOam;
-    u8* pShouldersGfx;
+    const u16* pBodyOam;
+    const u8* pShouldersGfx;
     u16 shoulderGfxSize;
-    u8* pTorsoGfx;
+    const u8* pTorsoGfx;
     u16 torsoGfxSize;
-    u8* pLegsGfx;
+    const u8* pLegsGfx;
     u16 legsGfxSize;
-    u8* pBodyLowerHalfGfx;
+    const u8* pBodyLowerHalfGfx;
     u16 bodyLowerHalfGfxSize;
     u16 unk_22;
-    u16* pArmCannonOAM;
-    u8* pArmCannonGfxUpper;
+    const u16* pArmCannonOAM;
+    const u8* pArmCannonGfxUpper;
     u16 armCannonGfxUpperSize;
-    u8* pArmCannonGfxLower;
+    const u8* pArmCannonGfxLower;
     u16 armCannonGfxLowerSize;
     u8 unk_36;
-    u16* pScrewSpeedOAM;
-    u8* pScrewSpeedGfx;
+    const u16* pScrewSpeedOAM;
+    const u8* pScrewSpeedGfx;
     u16 screwSpeedGfxSize;
-    u8* pScrewShinesparkGfx;
+    const u8* pScrewShinesparkGfx;
     u16 screwShinesparkGfxSize;
     u16 armCannonXPositionOffset;
     u16 armCannonYPositionOffset;

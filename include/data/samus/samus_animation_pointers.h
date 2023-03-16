@@ -137,8 +137,8 @@ extern const u16* const sSamusPal_Suitless_DownloadingMapPointers[8];
 
 extern const u8* const sArmCannonGfxPointers_Upper_Standing[5];
 extern const u8* const sArmCannonGfxPointers_Lower_Standing[5];
-extern const u8* const sArmCannonGfxPointers_Armed_Upper_Standing[5];
-extern const u8* const sArmCannonGfxPointers_Armed_Lower_Standing[5];
+extern const u8* const sArmCannonGfxPointers_Upper_Armed_Standing[5];
+extern const u8* const sArmCannonGfxPointers_Lower_Armed_Standing[5];
 
 extern const u8* const sArmCannonGfxPointers_Upper_Right_Default[5];
 extern const u8* const sArmCannonGfxPointers_Lower_Right_Default[5];

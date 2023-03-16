@@ -8,6 +8,7 @@
 #include "data/samus_sprites_pointers.h"
 #include "data/samus/samus_palette_data.h"
 #include "data/samus/samus_animation_pointers.h"
+#include "data/samus/samus_graphics.h"
 
 #include "constants/clipdata.h"
 #include "constants/game_state.h"
@@ -4893,7 +4894,313 @@ void SamusUpdateVelocityPosition(struct SamusData* pData)
 
 void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
 {
+    // https://decomp.me/scratch/6Xjle
 
+    struct WeaponInfo* pWeapon;
+    struct Equipment* pEquipment;
+    struct SamusPhysics* pPhysics;
+    struct SamusEcho* pEcho;
+    const struct SamusAnimationData* pAnim;
+    const struct ArmCannonAnimationData* pArmCannonAnim;
+    u8 pose;
+    u8 acd;
+    u16 ppc;
+
+    pWeapon = &gSamusWeaponInfo;
+    pEquipment = &gEquipment;
+    pPhysics = &gSamusPhysics;
+    pEcho = &gSamusEcho;
+
+    pose = pData->pose;
+    acd = pData->armCannonDirection;
+
+    switch (pose)
+    {
+        case SPOSE_MIDAIR:
+        case SPOSE_SPINNING:
+        case SPOSE_SPACE_JUMPING:
+        case SPOSE_SCREW_ATTACKING:
+        case SPOSE_MORPH_BALL_MIDAIR:
+            if (!pPhysics->slowedByLiquid && pData->yVelocity > 80)
+            {
+                pEcho->active = TRUE;
+                pEcho->timer = 6;
+                pEcho->distance = 2;
+            }
+    }
+
+    if (pData->speedboostingShinesparking)
+    {
+        pEcho->active = TRUE;
+        pEcho->timer = 16;
+        pEcho->distance = 4;
+    }
+    else
+    {
+        if (pEcho->timer != 0)
+            pEcho->timer--;
+        else
+            pEcho->active = FALSE;
+    }
+
+    ppc = pEcho->previousPositionCounter & (ARRAY_SIZE(pEcho->previous64XPositions) - 1);
+
+    pEcho->previous64XPositions[ppc] = gPreviousXPosition;
+    pEcho->previous64YPositions[ppc] = gPreviousYPosition;
+
+    if (pEcho->previousPositionCounter++ > 0x100)
+        pEcho->previousPositionCounter = ppc - 0x7F;
+
+    if (pEcho->previousPositionCounter > ARRAY_SIZE(pEcho->previous64XPositions))
+        pEcho->unknown = TRUE;
+
+    if (pData->pose == SPOSE_DOWNLOADING_MAP_DATA && pData->timer != 0)
+        pose = SPOSE_STANDING;
+
+    switch (pose)
+    {
+        case SPOSE_RUNNING:
+            if (acd > 4)
+                acd -= 2;
+
+            if (pEquipment->suitType == SUIT_SUITLESS)
+            {
+                pAnim = sSamusAnimPointers_Suitless_Running[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suitless_Running[acd][direction];
+            }
+            else if (!pData->speedboostingShinesparking)
+            {
+                if (pEquipment->suitType != SUIT_NORMAL)
+                    pAnim = sSamusAnimPointers_FullSuit_Running[acd][direction];
+                else
+                    pAnim = sSamusAnimPointers_PowerSuit_Running[acd][direction];
+
+                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Running[acd][direction];
+            }
+            else
+            {
+                if (pEquipment->suitType != SUIT_NORMAL)
+                    pAnim = sSamusAnimPointers_FullSuit_Running_Speedboosting[acd][direction];
+                else
+                    pAnim = sSamusAnimPointers_PowerSuit_Running_Speedboosting[acd][direction];
+
+                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Running_Speedboosting[acd][direction];
+            }
+            break;
+
+        case SPOSE_STANDING:
+            if (pEquipment->suitType == SUIT_SUITLESS)
+            {
+                pAnim = sSamusAnimPointers_Suitless_Standing[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suitless_Standing[acd][direction];
+            }
+            else
+            {
+                if (pEquipment->suitType != SUIT_NORMAL)
+                    pAnim = sSamusAnimPointers_FullSuit_Standing[acd][direction];
+                else
+                    pAnim = sSamusAnimPointers_PowerSuit_Standing[acd][direction];
+
+                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Standing[acd][direction];
+            }
+            break;
+
+        case SPOSE_TURNING_AROUND:
+            if (pEquipment->suitType == SUIT_SUITLESS)
+            {
+                pAnim = sSamusAnimPointers_Suitless_TurningAround[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suitless_TurningAround[acd][direction];
+            }
+            else
+            {
+                if (pEquipment->suitType != SUIT_NORMAL)
+                    pAnim = sSamusAnimPointers_FullSuit_TurningAround[acd][direction];
+                else
+                    pAnim = sSamusAnimPointers_PowerSuit_TurningAround[acd][direction];
+
+                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_TurningAround[acd][direction];
+            }
+            break;
+
+        case SPOSE_SHOOTING:
+            if (pEquipment->suitType == SUIT_SUITLESS)
+            {
+                pAnim = sSamusAnimPointers_Suitless_Shooting[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suitless_Shooting[acd][direction];
+            }
+            else
+            {
+                if (pEquipment->suitType != SUIT_NORMAL)
+                    pAnim = sSamusAnimPointers_FullSuit_Shooting[acd][direction];
+                else
+                    pAnim = sSamusAnimPointers_PowerSuit_Shooting[acd][direction];
+
+                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Shooting[acd][direction];
+            }
+            break;
+
+        case SPOSE_CROUCHING:
+            if (pEquipment->suitType == SUIT_SUITLESS)
+            {
+                pAnim = sSamusAnimPointers_Suitless_Crouching[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suitless_Crouching[acd][direction];
+            }
+            else
+            {
+                if (pEquipment->suitType != SUIT_NORMAL)
+                    pAnim = sSamusAnimPointers_FullSuit_Crouching[acd][direction];
+                else
+                    pAnim = sSamusAnimPointers_PowerSuit_Crouching[acd][direction];
+
+                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Crouching[acd][direction];
+            }
+            break;
+
+        case SPOSE_TURNING_AROUND_AND_CROUCHING:
+            if (pEquipment->suitType == SUIT_SUITLESS)
+            {
+                pAnim = sSamusAnimPointers_Suitless_TurningAroundAndCrouching[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suitless_TurningAroundAndCrouching[acd][direction];
+            }
+            else
+            {
+                if (pEquipment->suitType != SUIT_NORMAL)
+                    pAnim = sSamusAnimPointers_FullSuit_TurningAroundAndCrouching[acd][direction];
+                else
+                    pAnim = sSamusAnimPointers_PowerSuit_TurningAroundAndCrouching[acd][direction];
+
+                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_TurningAroundAndCrouching[acd][direction];
+            }
+            break;
+
+        case SPOSE_SHOOTING_AND_CROUCHING:
+            if (pEquipment->suitType == SUIT_SUITLESS)
+            {
+                pAnim = sSamusAnimPointers_Suitless_ShootingAndCrouching[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suitless_ShootingAndCrouching[acd][direction];
+            }
+            else
+            {
+                if (pEquipment->suitType != SUIT_NORMAL)
+                    pAnim = sSamusAnimPointers_FullSuit_ShootingAndCrouching[acd][direction];
+                else
+                    pAnim = sSamusAnimPointers_PowerSuit_ShootingAndCrouching[acd][direction];
+
+                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_ShootingAndCrouching[acd][direction];
+            }
+            break;
+
+        case SPOSE_SKIDDING:
+            if (pWeapon->weaponHighlighted & (WH_MISSILE | WH_SUPER_MISSILE))
+                acd++;
+
+            if (pEquipment->suitType != SUIT_NORMAL)
+                pAnim = sSamusAnimPointers_FullSuit_Skidding[acd][direction];
+            else
+                pAnim = sSamusAnimPointers_PowerSuit_Skidding[acd][direction];
+
+            pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_All[acd][direction];
+            break;
+
+        case SPOSE_MIDAIR:
+            if (pEquipment->suitType == SUIT_SUITLESS)
+            {
+                pAnim = sSamusAnimPointers_Suitless_MidAir[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suitless_MidAir[acd][direction];
+            }
+            else
+            {
+                if (pEquipment->suitType != SUIT_NORMAL)
+                    pAnim = sSamusAnimPointers_FullSuit_MidAir[acd][direction];
+                else
+                    pAnim = sSamusAnimPointers_PowerSuit_MidAir[acd][direction];
+
+                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_MidAir[acd][direction];
+            }
+            break;
+
+        case SPOSE_TURNING_AROUND_MIDAIR:
+            if (pEquipment->suitType == SUIT_SUITLESS)
+            {
+                pAnim = sSamusAnimPointers_Suitless_TurningAroundMidAir[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suitless_TurningAroundMidAir[acd][direction];
+            }
+            else
+            {
+                if (pEquipment->suitType != SUIT_NORMAL)
+                    pAnim = sSamusAnimPointers_FullSuit_TurningAroundMidAir[acd][direction];
+                else
+                    pAnim = sSamusAnimPointers_PowerSuit_TurningAroundMidAir[acd][direction];
+
+                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_TurningAroundMidAir[acd][direction];
+            }
+            break;
+
+        case SPOSE_LANDING:
+            if (pEquipment->suitType == SUIT_SUITLESS)
+            {
+                pAnim = sSamusAnimPointers_Suitless_Landing[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suitless_Landing[acd][direction];
+            }
+            else
+            {
+                if (pEquipment->suitType != SUIT_NORMAL)
+                    pAnim = sSamusAnimPointers_FullSuit_Landing[acd][direction];
+                else
+                    pAnim = sSamusAnimPointers_PowerSuit_Landing[acd][direction];
+
+                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Landing[acd][direction];
+            }
+            break;
+
+        case SPOSE_SCREW_ATTACKING:
+            break;
+
+        case SPOSE_AIMING_WHILE_HANGING:
+            break;
+
+        case SPOSE_SHOOTING_WHILE_HANGING:
+            break;
+
+        case SPOSE_USING_AN_ELEVATOR:
+            break;
+
+        case SPOSE_SHINESPARKING:
+        case SPOSE_SHINESPARK_COLLISION:
+            break;
+
+        case SPOSE_ON_ZIPLINE:
+            break;
+
+        case SPOSE_SHOOTING_ON_ZIPLINE:
+            break;
+
+        case SPOSE_TURNING_ON_ZIPLINE:
+            break;
+
+        case SPOSE_CRAWLING_STOPPED:
+            break;
+
+        case SPOSE_UNCROUCHING_SUITLESS:
+            break;
+
+        case SPOSE_CROUCHING_SUITLESS:
+            break;
+
+        case SPOSE_SAVING_LOADING_GAME:
+            break;
+        
+        default:
+            break;
+    }
+
+    pAnim = &pAnim[pData->currentAnimationFrame];
+
+    pPhysics->pBodyOam = pAnim->pOam;
+    pPhysics->shoulderGfxSize = pAnim->pTopGfx[0] * 32;
+    pPhysics->torsoGfxSize = pAnim->pTopGfx[1] * 32;
+    pPhysics->pShouldersGfx = &pAnim->pTopGfx[2];
+    pPhysics->pTorsoGfx = &pAnim->pTopGfx[2 + pPhysics->shoulderGfxSize];
 }
 
 void SamusUpdatePalette(struct SamusData* pData)
