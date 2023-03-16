@@ -1575,9 +1575,48 @@ void DeoremSegmentAboveHeadMovement(void)
     }
 }
 
+/**
+ * @brief 22a60 | b4 | Handles the left side leaving
+ * 
+ */
 void DeoremSegmentLeftLeaving(void)
 {
+    gCurrentSprite.yPosition = gCurrentSprite.yPosition - 16;
+    
+    if (--gCurrentSprite.timer == 0)
+    {
+        gCurrentSprite.timer = 6;
+        gCurrentSprite.yPosition += 0x60;
+        gCurrentSprite.currentAnimationFrame++;
+        if (gCurrentSprite.currentAnimationFrame > 3)
+            gCurrentSprite.currentAnimationFrame = 0;
 
+        if (gCurrentSprite.workVariable == 0)
+        {
+            if (gCurrentSprite.roomSlot == 19)
+            {
+                gCurrentSprite.drawDistanceTopOffset = 16;
+                gCurrentSprite.drawDistanceBottomOffset = 48;
+                gCurrentSprite.drawDistanceHorizontalOffset = 24;
+                
+                gCurrentSprite.hitboxTopOffset = -3 * BLOCK_SIZE / 4;
+                gCurrentSprite.hitboxBottomOffset = 5 * BLOCK_SIZE / 2;
+                gCurrentSprite.hitboxLeftOffset = -BLOCK_SIZE;
+                gCurrentSprite.hitboxRightOffset = BLOCK_SIZE;
+
+                gCurrentSprite.pOam = sDeoremUnkOAMData_082d78e4;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
+                gCurrentSprite.timer = 56;
+            }
+            else
+                gCurrentSprite.timer = 46;
+            gCurrentSprite.pose = 0x43; // TODO: Pose names
+        }
+    }
+    
+    if (gCurrentSprite.workVariable != 0)
+        gCurrentSprite.workVariable--;
 }
 
 void DeoremSegmentLeftLeavingEnd(void)
