@@ -21,6 +21,8 @@
 #define COLOR_BLACK COLOR(0x0, 0x0, 0x0)
 #define COLOR_MASK 0x1F
 
+#define OAM_DATA_SIZE(nbrOfParts) (1 + nbrOfParts * 3)
+
 #define PI 128
 #define sin(a) (sSineTable[(a)])
 #define cos(a) (sSineTable[(a) + PI / 2])

@@ -5416,7 +5416,261 @@ void SamusInit(void)
     }
 }
 
+/**
+ * @brief bde8 | 4f0 | Draws samus
+ * 
+ */
 void SamusDraw(void)
 {
+    u8 priority;
+    i32 i;
+    u16* dst;
+    const u16* src;
+    u16 nextSlot;
+    u16 currSlot;
+    i32 j;
+    u32 xPosition;
+    u32 yPosition;
+    u16 part1;
+    u16 part2;
+    i32 ppc;
+    i32 futureSlot;
 
+    priority = 2;
+
+    if (gSamusData.pose == SPOSE_DYING)
+    {
+        priority = 0;
+        gNextOamSlot = 0;
+
+        for (i = 0; i < ARRAY_SIZE(gSamusEnvironmentalEffects); i++)
+            gSamusEnvironmentalEffects[i].type = 0;
+    }
+    else if (gSamusOnTopOfBackgrounds)
+        priority = 1;
+
+    if (gNextOamSlot > 0x6A)
+        gNextOamSlot = 0x6A;
+
+    dst = (u16*)(gOamData + gNextOamSlot);
+    nextSlot = gNextOamSlot;
+    currSlot = gNextOamSlot;
+
+    for (j = 0; j < ARRAY_SIZE(gSamusEnvironmentalEffects); j = (i16)(j + 1))
+    {
+        if (gSamusEnvironmentalEffects[j].type == 0)
+            continue;
+
+        src = gSamusEnvironmentalEffects[j].pOamFrame;
+        part1 = *src++;
+        nextSlot += part1 & 0xFF;
+
+        xPosition = (i16)(gSamusEnvironmentalEffects[j].xPosition / 4 - gBG1XPosition / 4);
+        yPosition = (i16)(gSamusEnvironmentalEffects[j].yPosition / 4 - gBG1YPosition / 4 + 2);
+
+        for (; currSlot < nextSlot; currSlot++)
+        {
+            part1 = *src++;
+            *dst++ = part1;
+
+            gOamData[currSlot].split.y = part1 + yPosition;
+
+            part2 = *src++;
+            *dst++ = part2;
+
+            gOamData[currSlot].split.x = (part2 + xPosition) & 0x1FF;
+
+            *dst++ = *src++;
+
+            gOamData[currSlot].split.priority = priority;
+            
+            dst++;
+        }
+    }
+
+    xPosition = (i16)(gSamusData.xPosition / 4 - gBG1XPosition / 4);
+    yPosition = (i16)(gSamusData.yPosition / 4 - gBG1YPosition / 4 + 2);
+
+    if (gSamusPhysics.unk_36 & 0x20)
+    {
+        src = gSamusPhysics.pScrewSpeedOAM;
+        nextSlot += *src++;
+
+        for (; currSlot < nextSlot; currSlot++)
+        {
+            part1 = *src++;
+            *dst++ = part1;
+
+            gOamData[currSlot].split.y = part1 + yPosition;
+
+            part2 = *src++;
+            *dst++ = part2;
+
+            gOamData[currSlot].split.x = (part2 + xPosition) & 0x1FF;
+
+            *dst++ = *src++;
+
+            gOamData[currSlot].split.priority = priority;
+            
+            dst++;
+        }
+    }
+
+    if (gSamusPhysics.unk_22 & 0x2000)
+    {
+        src = gSamusPhysics.pArmCannonOAM;
+        part1 = *src++;
+        nextSlot += part1 & 0xFF;
+
+        for (; currSlot < nextSlot; currSlot++)
+        {
+            part1 = *src++;
+            *dst++ = part1;
+
+            gOamData[currSlot].split.y = part1 + yPosition;
+
+            part2 = *src++;
+            *dst++ = part2;
+
+            gOamData[currSlot].split.x = (part2 + xPosition) & 0x1FF;
+
+            *dst++ = *src++;
+
+            gOamData[currSlot].split.priority = priority;
+            
+            dst++;
+        }
+    }
+
+    src = gSamusPhysics.pBodyOam;
+    nextSlot += *src++;
+
+    for (; currSlot < nextSlot; currSlot++)
+    {
+        part1 = *src++;
+        *dst++ = part1;
+
+        gOamData[currSlot].split.y = part1 + yPosition;
+
+            part2 = *src++;
+            *dst++ = part2;
+
+            gOamData[currSlot].split.x = (part2 + xPosition) & 0x1FF;
+
+        *dst++ = *src++;
+
+        gOamData[currSlot].split.priority = priority;
+        
+        dst++;
+    }
+
+    if (gSamusPhysics.unk_22 & 0x1000)
+    {
+        src = gSamusPhysics.pArmCannonOAM;
+        part1 = *src++;
+        nextSlot += part1 & 0xFF;
+
+        for (; currSlot < nextSlot; currSlot++)
+        {
+            part1 = *src++;
+            *dst++ = part1;
+
+            gOamData[currSlot].split.y = part1 + yPosition;
+
+            part2 = *src++;
+            *dst++ = part2;
+
+            gOamData[currSlot].split.x = (part2 + xPosition) & 0x1FF;
+
+            *dst++ = *src++;
+
+            gOamData[currSlot].split.priority = priority;
+            
+            dst++;
+        }
+    }
+
+    if (gSamusPhysics.unk_36 & 0x10)
+    {
+        src = gSamusPhysics.pScrewSpeedOAM;
+        part1 = *src++;
+        futureSlot = nextSlot + (part1 & 0xFF);
+        if (futureSlot > 0x80)
+        {
+            gNextOamSlot = nextSlot;
+            return;
+        }
+
+        nextSlot = futureSlot;
+
+        for (; currSlot < nextSlot; currSlot++)
+        {
+            part1 = *src++;
+            *dst++ = part1;
+
+            gOamData[currSlot].split.y = part1 + yPosition;
+
+            part2 = *src++;
+            *dst++ = part2;
+
+            gOamData[currSlot].split.x = (part2 + xPosition) & 0x1FF;
+
+            *dst++ = *src++;
+
+            gOamData[currSlot].split.priority = priority;
+            
+            dst++;
+        }
+    }
+
+    if (gSamusEcho.active)
+    {
+        ppc = (i16)(gSamusEcho.previousPositionCounter - (gSamusEcho.distance * gSamusEcho.position) - 3);
+
+        if (gSamusEcho.unknown == 0 && ppc < 0)
+        {
+            gNextOamSlot = nextSlot;
+            return;
+        }
+
+        src = gSamusPhysics.pBodyOam;
+        part1 = *src++;
+        futureSlot = nextSlot + (part1 & 0xFF);
+        if (futureSlot > 0x80)
+        {
+            gNextOamSlot = nextSlot;
+            return;
+        }
+
+        nextSlot = futureSlot;
+
+        ppc &= ARRAY_SIZE(gSamusEcho.previous64XPositions) - 1;
+        
+        xPosition = (i16)(gSamusEcho.previous64XPositions[ppc] / 4 - gBG1XPosition / 4);
+        yPosition = (i16)(gSamusEcho.previous64YPositions[ppc] / 4 - gBG1YPosition / 4 + 2);
+
+        for (; currSlot < nextSlot; currSlot++)
+        {
+            part1 = *src++;
+            *dst++ = part1;
+
+            gOamData[currSlot].split.y = part1 + yPosition;
+
+            part2 = *src++;
+            *dst++ = part2;
+
+            gOamData[currSlot].split.x = (part2 + xPosition) & 0x1FF;
+
+            *dst++ = *src++;
+
+            gOamData[currSlot].split.priority = priority;
+            gOamData[currSlot].split.paletteNum = 1;
+            
+            dst++;
+        }
+
+        gSamusEcho.position = (gSamusEcho.position + 1) & 3;
+    }
+
+    gNextOamSlot = nextSlot;
 }

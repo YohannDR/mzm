@@ -71,12 +71,13 @@ struct SamusPhysics {
     u16 legsGfxSize;
     u8* pBodyLowerHalfGfx;
     u16 bodyLowerHalfGfxSize;
-    u16 unk;
+    u16 unk_22;
     u16* pArmCannonOAM;
     u8* pArmCannonGfxUpper;
     u16 armCannonGfxUpperSize;
     u8* pArmCannonGfxLower;
     u16 armCannonGfxLowerSize;
+    u8 unk_36;
     u16* pScrewSpeedOAM;
     u8* pScrewSpeedGfx;
     u16 screwSpeedGfxSize;
@@ -142,7 +143,7 @@ struct SamusEcho {
     u16 previous64XPositions[64];
     u16 previous64YPositions[64];
     u16 previousPositionCounter;
-    u8 unknown;
+    i8 unknown;
 };
 
 struct ArmCannonOffset {
