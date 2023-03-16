@@ -52,7 +52,7 @@ extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSu
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_ShootingOnZipline[5][2];
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_TurningOnZipline[5][2];
 
-extern const i16 sSamusVisualData[4][4];
+extern const u8 sSamusVisualData[MAX_AMOUNT_OF_SAMUS_POSES][3];
 
 
 // Full suit

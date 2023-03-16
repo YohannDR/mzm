@@ -2010,34 +2010,35 @@ void SamusUpdatePhysics(struct SamusData* pData)
         pData->currentSlope = SLOPE_NONE;
 }
 
+/**
+ * @brief 772c | 44 | Changes the velocity of samus based on the slope status
+ * 
+ * @param pData Samus data pointer
+ * @return i16 New velocity
+ */
 i16 SamusChangeVelocityOnSlope(struct SamusData* pData)
 {
-    i32 velocity, decreased_velocity;
+    i32 velocity, decreasedVelocity;
 
-    velocity = (i32)pData->xVelocity;
+    velocity = pData->xVelocity;
+    
     if (pData->direction & pData->currentSlope)
     {
         if (pData->currentSlope & SLOPE_STEEP)
-        {
-            decreased_velocity = velocity * 3 / 5;
-        }
+            decreasedVelocity = velocity * 3 / 5;
         else
-        {
-            decreased_velocity = velocity * 4 / 5;
-        }
-        velocity = (i16)decreased_velocity;
+            decreasedVelocity = velocity * 4 / 5;
+
+        velocity = (i16)decreasedVelocity;
     }
     else
     {
         if (velocity > 0xA0)
-        {
             velocity = 0xA0;
-        }
         else if (velocity < -0xA0)
-        {
             velocity = -0xA0;
-        }
     }
+    
     return velocity;
 }
 
@@ -4809,13 +4810,85 @@ u8 SamusExecutePoseSubroutine(struct SamusData* pData)
 }
 
 /**
- * @brief Updates the position and the velocity of samus
+ * @brief a500 | 188 | Updates the position and the velocity of samus
  * 
  * @param pData Samus Data Pointer
  */
 void SamusUpdateVelocityPosition(struct SamusData* pData)
 {
+    i32 velocity;
+    i32 yVelocity;
 
+    gSamusPhysics.hitboxType = sSamusVisualData[pData->pose][1];
+
+    switch (pData->pose)
+    {
+        case SPOSE_MIDAIR:
+        case SPOSE_TURNING_AROUND_MIDAIR:
+        case SPOSE_SPINNING:
+        case SPOSE_STARTING_SPIN_JUMP:
+        case SPOSE_SPACE_JUMPING:
+        case SPOSE_SCREW_ATTACKING:
+        case SPOSE_MORPH_BALL_MIDAIR:
+        case SPOSE_GETTING_HURT:
+        case SPOSE_GETTING_KNOCKED_BACK:
+        case SPOSE_GETTING_HURT_IN_MORPH_BALL:
+        case SPOSE_GETTING_KNOCKED_BACK_IN_MORPH_BALL:
+            // Apply Y velocity
+            if (pData->yVelocity > gSamusPhysics.positiveYVelocityCap)
+            {
+                velocity = gSamusPhysics.positiveYVelocityCap >> 3;
+            }
+            else if (pData->yVelocity < -gSamusPhysics.negativeYVelocityCap)
+            {
+                velocity = -gSamusPhysics.negativeYVelocityCap >> 3;
+            }
+            else
+            {
+                velocity = pData->yVelocity >> 3;
+            }
+
+            if (pData->yVelocity >= -0xe7)
+            {
+                pData->yVelocity -= gSamusPhysics.yAcceleration;
+            }
+
+            pData->yPosition -= velocity;
+            break;
+
+        case SPOSE_SHINESPARKING:
+        case SPOSE_BALLSPARKING:
+            if (!(pData->forcedMovement & 1))
+            {
+                velocity = pData->yVelocity >> 3;
+                pData->yPosition -= velocity;
+            }
+            break;
+    }
+
+    // Apply X velocity
+    if (pData->standingStatus == STANDING_GROUND)
+    {
+        velocity = SamusChangeVelocityOnSlope(pData) >> 3;
+
+        if (pData->pose == SPOSE_RUNNING)
+        {
+            if (pData->direction & KEY_RIGHT)
+            {
+                if (velocity < 0)
+                    velocity = 0;
+            }
+            else
+            {
+                if (velocity > 0)
+                    velocity = 0;
+            }
+        }
+    }
+    else
+        velocity = pData->xVelocity >> 3;
+
+    pData->xPosition += velocity;
 }
 
 void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
