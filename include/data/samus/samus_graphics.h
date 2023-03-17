@@ -774,6 +774,9 @@ extern const struct SamusAnimationData sSamusAnim_27f430[12];
 // 288f28
 extern const struct SamusEffectAnimationData sSamusEffectAnim_DelayBeforeBallsparking[9];
 
+// 288f94
+extern const struct SamusEffectAnimationData sSamusEffectAnim_Left_Sidewards_Shinesparking[4];
+
 // 289084
 extern const struct SamusEffectAnimationData sSamusEffectAnim_ScrewAttacking[9];
 extern const struct SamusEffectAnimationData sSamusEffectAnim_StoringShinespark[7];

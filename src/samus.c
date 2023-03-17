@@ -3628,9 +3628,65 @@ u8 SamusSpaceJumpingGFX(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
+/**
+ * @brief 9150 | c0 | Screw attacking GFX subroutine
+ * 
+ * @param pData Samus data pointer
+ * @return u8 New pose
+ */
 u8 SamusScrewAttackingGFX(struct SamusData* pData)
 {
+    const struct SamusAnimationData* pAnim;
+    u8 timer;
 
+    if (gEquipment.suitMiscActivation & SMF_SPACE_JUMP)
+    {
+        pAnim = sSamusAnimPointers_PowerSuit_ScrewAttacking[1][0];
+
+        if (pData->animationDurationCounter == 1 && pData->currentAnimationFrame == 0)
+            SoundPlay(0x6D); // Screw attacking with space jumping
+    }
+    else
+    {
+        pAnim = sSamusAnimPointers_PowerSuit_ScrewAttacking[0][0];
+
+        if (pData->animationDurationCounter == 1 && pData->currentAnimationFrame == 0)
+            SoundPlay(0x6C); // Screw attacking
+    }
+
+    // Get current frame
+    pAnim = &pAnim[pData->currentAnimationFrame];
+
+    // Scale timer with slowed
+    timer = pAnim->timer;
+    if (gSamusPhysics.slowedByLiquid)
+        timer *= 2;
+
+    // Update samus animation
+    if (pData->animationDurationCounter >= timer)
+    {
+        pData->animationDurationCounter = 0;
+        pData->currentAnimationFrame++;
+
+        if (pAnim[1].timer == 0)
+            pData->currentAnimationFrame = 0;
+    }
+
+    gScrewSpeedAnimation.flag = SCREW_SPEED_FLAG_SCREW_ATTACKING;
+
+    // Update effect animation
+    gScrewSpeedAnimation.animationDurationCounter++;
+    if (gScrewSpeedAnimation.animationDurationCounter >=
+        sSamusEffectAnim_ScrewAttacking[gScrewSpeedAnimation.currentAnimationFrame].timer)
+    {
+        gScrewSpeedAnimation.animationDurationCounter = 0;
+        gScrewSpeedAnimation.currentAnimationFrame++;
+
+        if (sSamusEffectAnim_ScrewAttacking[gScrewSpeedAnimation.currentAnimationFrame].timer == 0)
+            gScrewSpeedAnimation.currentAnimationFrame = 0;
+    }
+
+    return SPOSE_NONE;
 }
 
 u8 SamusMorphing(struct SamusData* pData)
@@ -4261,9 +4317,41 @@ u8 SamusUsingAnElevator(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
+/**
+ * @brief 9bb4 | 50 | Using an elevator GFX subroutine
+ * 
+ * @param pData Samus data pointer
+ * @return u8 New pose
+ */
 u8 SamusUsingAnElevatorGFX(struct SamusData* pData)
 {
+    const struct SamusAnimationData* pAnim;
 
+    // Get animation for direction
+    if (pData->elevatorDirection & KEY_DOWN)
+        pAnim = sSamusAnimPointers_PowerSuit_UsingAnElevator[0][0];
+    else
+        pAnim = sSamusAnimPointers_PowerSuit_UsingAnElevator[1][0];
+
+    // Get current frame
+    pAnim = &pAnim[pData->currentAnimationFrame];
+
+    // Update samus animation
+    if (pData->animationDurationCounter >= pAnim->timer)
+    {
+        if (pData->currentAnimationFrame != 0)
+        {
+            pData->animationDurationCounter = 0;
+            pData->currentAnimationFrame++;
+
+            pAnim++;
+        }
+
+        if (pAnim->timer == 0)
+            return SPOSE_FACING_THE_FOREGROUND;
+    }
+
+    return SPOSE_NONE;
 }
 
 u8 SamusFacingTheForeground(struct SamusData* pData)
@@ -4378,9 +4466,54 @@ u8 SamusShinesparking(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
+/**
+ * @brief 9d50 | 8c | Samus shinesparking GFX subroutine
+ * 
+ * @param pData Samus data pointer
+ * @return u8 New pose
+ */
 u8 SamusShinesparkingGFX(struct SamusData* pData)
 {
+    const struct SamusAnimationData* pAnim;
+    u8 loopFrame;
 
+    if (pData->forcedMovement == FORCED_MOVEMENT_UPWARDS_SHINESPARK)
+    {
+        pAnim = sSamusAnimPointers_PowerSuit_Shinesparking[0][0];
+        loopFrame = 1;
+    }
+    else
+    {
+        pAnim = sSamusAnimPointers_PowerSuit_Shinesparking[1][0];
+        loopFrame = 2;
+    }
+
+    // Get current frame
+    pAnim = &pAnim[pData->currentAnimationFrame];
+
+    // Update samus animation
+    if (pData->animationDurationCounter >= pAnim->timer)
+    {
+        pData->animationDurationCounter = 0;
+        pData->currentAnimationFrame++;
+
+        if (pAnim[1].timer == 0)
+            pData->currentAnimationFrame = loopFrame;
+    }
+
+    // Update effect animation
+    gScrewSpeedAnimation.animationDurationCounter++;
+    if (gScrewSpeedAnimation.animationDurationCounter >=
+        sSamusEffectAnim_Left_Sidewards_Shinesparking[gScrewSpeedAnimation.currentAnimationFrame].timer)
+    {
+        gScrewSpeedAnimation.animationDurationCounter = 0;
+        gScrewSpeedAnimation.currentAnimationFrame++;
+
+        if (sSamusEffectAnim_Left_Sidewards_Shinesparking[gScrewSpeedAnimation.currentAnimationFrame].timer == 0)
+            gScrewSpeedAnimation.currentAnimationFrame = 0;
+    }
+
+    return SPOSE_NONE;
 }
 
 u8 SamusShinesparkCollisionGFX(struct SamusData* pData)
@@ -4413,14 +4546,86 @@ u8 SamusDelayBeforeBallsparking(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
+/**
+ * @brief 9e34 | 88 | Delay before ballsparking GFX subroutine
+ * 
+ * @param pData Samus Data Pointer
+ * @return u8 New pose
+ */
 u8 SamusDelayBeforeBallsparkingGFX(struct SamusData* pData)
 {
+    u8 animState;
 
+    // Check start ballsparking
+    if (pData->timer >= 60)
+        return SPOSE_BALLSPARKING;
+
+    // Check to small jump at the beginning
+    if (pData->timer == 0 && pData->forcedMovement != FORCED_MOVEMENT_LAUNCHED_BY_CANNON)
+        pData->yPosition -= HALF_BLOCK_SIZE;
+
+    // Increase timer
+    pData->timer++;
+
+    // Loop animation
+    animState = SamusUpdateAnimation(pData, FALSE);
+    if (animState == SAMUS_ANIM_STATE_ENDED)
+        pData->currentAnimationFrame = 0;
+
+    if (pData->forcedMovement == FORCED_MOVEMENT_LAUNCHED_BY_CANNON)
+        return SPOSE_NONE;
+
+    // Update effect animation
+    gScrewSpeedAnimation.animationDurationCounter++;
+    if (gScrewSpeedAnimation.animationDurationCounter >=
+        sSamusEffectAnim_DelayBeforeBallsparking[gScrewSpeedAnimation.currentAnimationFrame].timer)
+    {
+        gScrewSpeedAnimation.animationDurationCounter = 0;
+        gScrewSpeedAnimation.currentAnimationFrame++;
+
+        if (sSamusEffectAnim_DelayBeforeBallsparking[gScrewSpeedAnimation.currentAnimationFrame].timer == 0)
+            gScrewSpeedAnimation.currentAnimationFrame = 0;
+    }
+
+    return SPOSE_NONE;
 }
 
+/**
+ * @brief 9ebc | 7c | Ballsparking GFX subroutine
+ * 
+ * @param pData Samus Data Pointer
+ * @return u8 New pose
+ */
 u8 SamusBallsparkingGFX(struct SamusData* pData)
 {
+    const struct SamusAnimationData* pAnim;
 
+    pAnim = sSamusAnimPointers_PowerSuit[pData->pose][0];
+    pAnim = &pAnim[pData->currentAnimationFrame];
+
+    // Update samus animation
+    if (pData->animationDurationCounter >= pAnim->timer)
+    {
+        pData->animationDurationCounter = 0;
+        pData->currentAnimationFrame++;
+
+        if (pAnim[1].timer == 0)
+            pData->currentAnimationFrame = 0;
+    }
+
+    // Update effect animation
+    gScrewSpeedAnimation.animationDurationCounter++;
+    if (gScrewSpeedAnimation.animationDurationCounter >=
+        sSamusEffectAnim_Left_Sidewards_Shinesparking[gScrewSpeedAnimation.currentAnimationFrame].timer)
+    {
+        gScrewSpeedAnimation.animationDurationCounter = 0;
+        gScrewSpeedAnimation.currentAnimationFrame++;
+
+        if (sSamusEffectAnim_Left_Sidewards_Shinesparking[gScrewSpeedAnimation.currentAnimationFrame].timer == 0)
+            gScrewSpeedAnimation.currentAnimationFrame = 0;
+    }
+
+    return SPOSE_NONE;
 }
 
 u8 SamusBallsparkCollisionGFX(struct SamusData* pData)
@@ -5545,7 +5750,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             break;
 
         case SPOSE_DELAY_BEFORE_BALLSPARKING:
-            if (pData->forcedMovement != 0xF0)
+            if (pData->forcedMovement != FORCED_MOVEMENT_LAUNCHED_BY_CANNON)
             {
                 pEffectAnim = sSamusEffectAnim_DelayBeforeBallsparking;
                 break;

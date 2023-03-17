@@ -9603,7 +9603,7 @@ lbl_08009e26:
 lbl_08009e30: .4byte gButtonInput
 
     thumb_func_start SamusDelayBeforeBallsparkingGFX
-SamusDelayBeforeBallsparkingGFX: @ 0x08009c68
+SamusDelayBeforeBallsparkingGFX: @ 0x08009e34
     push {r4, r5, lr}
     adds r4, r0, #0
     ldrb r0, [r4, #0xa]
