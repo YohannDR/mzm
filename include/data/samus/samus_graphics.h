@@ -762,11 +762,230 @@ extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_ScrewAttacking
 extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_SpaceJumping[9];
 extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_SpaceJumping[9];
 
-// 250608 ...
+extern const u8 sSamusGfx_Top_PowerSuit_Left_Morphing_Frame0[SAMUS_GFX_SIZE(5, 3)];
+extern const u8 sSamusGfx_Top_PowerSuit_Right_Morphing_Frame0[SAMUS_GFX_SIZE(5, 3)];
+extern const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame0[SAMUS_GFX_SIZE(3, 2)];
 
+extern const u8 sSamusGfx_Top_PowerSuit_Right_Morphing_Frame1[SAMUS_GFX_SIZE(3, 2)];
+extern const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame6[SAMUS_GFX_SIZE(3, 2)];
+extern const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame5[SAMUS_GFX_SIZE(3, 2)];
+extern const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame4[SAMUS_GFX_SIZE(3, 2)];
+extern const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame3[SAMUS_GFX_SIZE(3, 2)];
+extern const u8 sSamusGfx_Top_PowerSuit_Right_Morphball_Frame2[SAMUS_GFX_SIZE(3, 2)];
 
-// 256484
+extern const u8 sSamusGfx_Top_PowerSuit_Left_Morphing_Frame1[SAMUS_GFX_SIZE(5, 3)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_TurningAround_Frame1[SAMUS_GFX_SIZE(4, 4)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_TurningAround_Frame0[SAMUS_GFX_SIZE(6, 6)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 4)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_DiagonalUp_TurningAround_Frame1[SAMUS_GFX_SIZE(4, 4)];
+extern const u8 sSamusGfx_Top_PowerSuit_DiagonalUp_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 4)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_DiagonalDown_TurningAround_Frame1[SAMUS_GFX_SIZE(5, 4)];
+extern const u8 sSamusGfx_Top_PowerSuit_DiagonalDown_TurningAround_Frame0[SAMUS_GFX_SIZE(6, 4)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_Up_TurningAround_Frame1[SAMUS_GFX_SIZE(4, 2)];
+extern const u8 sSamusGfx_Top_PowerSuit_Up_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 2)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_TurningAroundAndCrouching_Frame1[SAMUS_GFX_SIZE(4, 4)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_TurningAroundAndCrouching_Frame0[SAMUS_GFX_SIZE(3, 3)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_TurningAroundAndCrouching_Frame0[SAMUS_GFX_SIZE(4, 4)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_Down_TurningAroundMidAir_Frame1[SAMUS_GFX_SIZE(4, 4)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_Down_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)];
+extern const u8 sSamusGfx_Top_PowerSuit_Down_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)];
+
+extern const u8 sSamusGfx_Bottom_PowerSuit_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_FacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
+extern const u8 sSamusGfx_Top_PowerSuit_FacingTheForeground_Frame1[SAMUS_GFX_SIZE(9, 6)];
+extern const u8 sSamusGfx_Top_PowerSuit_FacingTheForeground_Frame2[SAMUS_GFX_SIZE(9, 6)];
+
+extern const u8 sSamusGfx_Bottom_PowerSuit_UsingAnElevator_Frame1[SAMUS_GFX_SIZE(12, 9)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_Left_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
+extern const u8 sSamusGfx_Top_PowerSuit_Right_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_TurningOnZipline_Frame1[SAMUS_GFX_SIZE(6, 5)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_TurningOnZipline_Frame0[SAMUS_GFX_SIZE(4, 4)];
+extern const u8 sSamusGfx_Top_PowerSuit_TurningOnZipline_Frame0[SAMUS_GFX_SIZE(5, 5)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_DiagonalDown_TurningOnZipline_Frame0[SAMUS_GFX_SIZE(6, 5)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_Down_TurningOnZipline_Frame1[SAMUS_GFX_SIZE(4, 3)];
+extern const u8 sSamusGfx_Top_PowerSuit_Down_TurningOnZipline_Frame0[SAMUS_GFX_SIZE(5, 4)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_MorphballMotionless_Frame0[SAMUS_GFX_SIZE(3, 2)];
+extern const u8 sSamusGfx_Top_PowerSuit_MorphballMotionless_Frame1[SAMUS_GFX_SIZE(3, 2)];
+extern const u8 sSamusGfx_Top_PowerSuit_MorphballMotionless_Frame2[SAMUS_GFX_SIZE(3, 2)];
+extern const u8 sSamusGfx_Top_PowerSuit_MorphballMotionless_Frame3[SAMUS_GFX_SIZE(3, 2)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_SaveLoadingGame_Frame1[SAMUS_GFX_SIZE(10, 6)];
+extern const u8 sSamusGfx_Top_PowerSuit_SaveLoadingGame_Frame2[SAMUS_GFX_SIZE(10, 6)];
+extern const u8 sSamusGfx_Top_PowerSuit_SaveLoadingGame_Frame3[SAMUS_GFX_SIZE(10, 6)];
+extern const u8 sSamusGfx_Top_PowerSuit_SaveLoadingGame_Frame4[SAMUS_GFX_SIZE(11, 6)];
+extern const u8 sSamusGfx_Top_PowerSuit_SaveLoadingGame_Frame5[SAMUS_GFX_SIZE(12, 6)];
+extern const u8 sSamusGfx_Top_PowerSuit_SaveLoadingGame_Frame6[SAMUS_GFX_SIZE(12, 6)];
+extern const u8 sSamusGfx_Top_PowerSuit_SaveLoadingGame_Frame7[SAMUS_GFX_SIZE(12, 6)];
+extern const u8 sSamusGfx_Top_PowerSuit_SaveLoadingGame_Frame8[SAMUS_GFX_SIZE(12, 6)];
+extern const u8 sSamusGfx_Top_PowerSuit_SaveLoadingGame_Frame9[SAMUS_GFX_SIZE(12, 6)];
+extern const u8 sSamusGfx_Top_PowerSuit_SaveLoadingGame_Frame10[SAMUS_GFX_SIZE(12, 6)];
+
+extern const u8 sSamusGfx_Top_PowerSuit_DownloadingMapData_Frame0[SAMUS_GFX_SIZE(10, 5)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame0[SAMUS_GFX_SIZE(2, 0)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame1[SAMUS_GFX_SIZE(3, 1)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame2[SAMUS_GFX_SIZE(3, 3)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame3[SAMUS_GFX_SIZE(4, 2)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame4[SAMUS_GFX_SIZE(4, 4)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame5[SAMUS_GFX_SIZE(8, 4)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame6[SAMUS_GFX_SIZE(4, 4)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_DownloadingMapData_Frame7[SAMUS_GFX_SIZE(4, 0)];
+
+extern const u16 sSamusOam_PowerSuit_Left_Morphing_Frame0[OAM_DATA_SIZE(3)];
+extern const u16 sSamusOam_PowerSuit_Left_Morphball_Frame0[OAM_DATA_SIZE(2)];
+extern const u16 sSamusOam_PowerSuit_Left_Morphing_Frame1[OAM_DATA_SIZE(2)];
+extern const u16 sSamusOam_PowerSuit_Left_Morphball_Frame2[OAM_DATA_SIZE(2)];
+
+extern const u16 sSamusOam_PowerSuit_Right_Morphing_Frame0[OAM_DATA_SIZE(3)];
+
+extern const u16 sSamusOam_PowerSuit_TurningAround_Frame1[OAM_DATA_SIZE(3)];
+extern const u16 sSamusOam_PowerSuit_TurningAround_Frame0[OAM_DATA_SIZE(3)];
+
+extern const u16 sSamusOam_PowerSuit_DiagonalUp_TurningAround_Frame1[OAM_DATA_SIZE(3)];
+extern const u16 sSamusOam_PowerSuit_DiagonalUp_TurningAround_Frame0[OAM_DATA_SIZE(3)];
+
+extern const u16 sSamusOam_PowerSuit_DiagonalDown_TurningAround_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusOam_PowerSuit_DiagonalDown_TurningAround_Frame0[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusOam_PowerSuit_Up_TurningAround_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusOam_PowerSuit_Up_TurningAround_Frame0[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusOam_PowerSuit_TurningAroundAndCrouching_Frame1[OAM_DATA_SIZE(3)];
+extern const u16 sSamusOam_PowerSuit_TurningAroundAndCrouching_Frame0[OAM_DATA_SIZE(3)];
+
+extern const u16 sSamusOam_PowerSuit_DiagonalUp_TurningAroundAndCrouching_Frame1[OAM_DATA_SIZE(3)];
+extern const u16 sSamusOam_PowerSuit_DiagonalUp_TurningAroundAndCrouching_Frame0[OAM_DATA_SIZE(3)];
+
+extern const u16 sSamusOam_PowerSuit_DiagonalDown_TurningAroundAndCrouching_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusOam_PowerSuit_DiagonalDown_TurningAroundAndCrouching_Frame0[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusOam_PowerSuit_Down_TurningAroundMidAir_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusOam_PowerSuit_Down_TurningAroundMidAir_Frame0[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusOam_PowerSuit_TurningAroundMidAir_Frame1[OAM_DATA_SIZE(3)];
+extern const u16 sSamusOam_PowerSuit_TurningAroundMidAir_Frame0[OAM_DATA_SIZE(3)];
+
+extern const u16 sSamusOam_PowerSuit_DiagonalUp_TurningAroundMidAir_Frame1[OAM_DATA_SIZE(3)];
+extern const u16 sSamusOam_PowerSuit_DiagonalUp_TurningAroundMidAir_Frame0[OAM_DATA_SIZE(3)];
+
+extern const u16 sSamusOam_PowerSuit_DiagonalDown_TurningAroundMidAir_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusOam_PowerSuit_DiagonalDown_TurningAroundMidAir_Frame0[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusOam_PowerSuit_Up_TurningAroundMidAir_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusOam_PowerSuit_Up_TurningAroundMidAir_Frame0[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusOam_PowerSuit_FacingTheForeground_Frame0[OAM_DATA_SIZE(6)];
+
+extern const u16 sSamusOam_PowerSuit_UsingAnElevator_Frame1[OAM_DATA_SIZE(8)];
+extern const u16 sSamusOam_PowerSuit_UsingAnElevator_Frame2[OAM_DATA_SIZE(8)];
+
+extern const u16 sSamusOam_PowerSuit_GoingUp_UsingAnElevator_Frame0[OAM_DATA_SIZE(8)];
+
+extern const u16 sSamusOam_PowerSuit_Left_TurningFromFacingTheForeground_Frame0[OAM_DATA_SIZE(6)];
+extern const u16 sSamusOam_PowerSuit_Right_TurningFromFacingTheForeground_Frame0[OAM_DATA_SIZE(6)];
+
+extern const u16 sSamusOam_PowerSuit_TurningOnZipline_Frame1[OAM_DATA_SIZE(6)];
+extern const u16 sSamusOam_PowerSuit_TurningOnZipline_Frame0[OAM_DATA_SIZE(5)];
+
+extern const u16 sSamusOam_PowerSuit_DiagonalDown_TurningOnZipline_Frame1[OAM_DATA_SIZE(6)];
+extern const u16 sSamusOam_PowerSuit_DiagonalDown_TurningOnZipline_Frame0[OAM_DATA_SIZE(6)];
+
+extern const u16 sSamusOam_PowerSuit_Down_TurningOnZipline_Frame1[OAM_DATA_SIZE(6)];
+extern const u16 sSamusOam_PowerSuit_Down_TurningOnZipline_Frame0[OAM_DATA_SIZE(6)];
+
+extern const u16 sSamusOam_PowerSuit_SavingLoadingGame_Frame1[OAM_DATA_SIZE(8)];
+extern const u16 sSamusOam_PowerSuit_SavingLoadingGame_Frame3[OAM_DATA_SIZE(8)];
+extern const u16 sSamusOam_PowerSuit_SavingLoadingGame_Frame4[OAM_DATA_SIZE(7)];
+extern const u16 sSamusOam_PowerSuit_SavingLoadingGame_Frame5[OAM_DATA_SIZE(8)];
+extern const u16 sSamusOam_PowerSuit_SavingLoadingGame_Frame7[OAM_DATA_SIZE(8)];
+extern const u16 sSamusOam_PowerSuit_SavingLoadingGame_Frame9[OAM_DATA_SIZE(8)];
+
+extern const u16 sSamusOam_PowerSuit_DownloadingMapData_Frame9[OAM_DATA_SIZE(4)];
+extern const u16 sSamusOam_PowerSuit_DownloadingMapData_Frame1[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_PowerSuit_DownloadingMapData_Frame2[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_PowerSuit_DownloadingMapData_Frame3[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_PowerSuit_DownloadingMapData_Frame4[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_PowerSuit_DownloadingMapData_Frame5[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_PowerSuit_DownloadingMapData_Frame6[OAM_DATA_SIZE(4)];
+extern const u16 sSamusOam_PowerSuit_DownloadingMapData_Frame7[OAM_DATA_SIZE(4)];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_Morphing[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_Morphball[9];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_Unmorphing[3];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Morphing[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Morphball[9];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Unmorphing[3];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_TurningAround[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalUp_TurningAround[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalDown_TurningAround[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_Up_TurningAround[3];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_TurningAround[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalUp_TurningAround[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalDown_TurningAround[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Up_TurningAround[3];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_TurningAroundAndCrouching[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalUp_TurningAroundAndCrouching[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalDown_TurningAroundAndCrouching[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_Down_TurningArounMidAir[3];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_TurningAroundAndCrouching[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalUp_TurningAroundAndCrouching[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalDown_TurningAroundAndCrouching[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Down_TurningArounMidAir[3];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalUp_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalDown_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_Up_TurningArounMidAir[3];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalUp_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalDown_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Up_TurningArounMidAir[3];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_FacingTheForeground[5];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_UsingAnElevator[4];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_GoingUp_UsingAnElevator[4];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_TurningFromFacingTheForeground[2];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_TurningFromFacingTheForeground[2];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_TurningOnZipline[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalDown_TurningOnZipline[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_Down_TurningOnZipline[3];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_TurningOnZipline[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalDown_TurningOnZipline[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Down_TurningOnZipline[3];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_MorphballMotioness[7];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_Ballsparking[9];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Ballsparking[9];
+
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_SavingLoadingGame[12];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_DownloadingMapData[9];
+
 extern const struct SamusAnimationData sSamusAnim_256484[12];
+
+// 256544 ...
 
 // 27f43
 extern const struct SamusAnimationData sSamusAnim_27f430[12];
