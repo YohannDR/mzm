@@ -3010,9 +3010,92 @@ u8 SamusRunning(struct SamusData* pData)
     }
 }
 
+/**
+ * @brief 85b0 | 124 | Running GFX subroutine
+ * 
+ * @param pData Samus data pointer
+ * @return u8 New pose
+ */
 u8 SamusRunningGFX(struct SamusData* pData)
 {
+    const struct SamusAnimationData* pAnim;
+    struct ScrewSpeedAnimation* pScrew;
+    struct SamusPhysics* pPhysics;
+    u8 timer;
 
+    pScrew = &gScrewSpeedAnimation;
+    pPhysics = &gSamusPhysics;
+
+    if (!pData->speedboostingShinesparking)
+    {
+        pAnim = sSamusAnimPointers_PowerSuit_Running[0][0];
+        pScrew->flag = 0;
+    }
+    else
+    {
+        pAnim = sSamusAnimPointers_PowerSuit_Running_Speedboosting[0][0];
+        pScrew->flag = SCREW_SPEED_FLAG_SPEEDBOOSTING;
+    }
+
+    pAnim = &pAnim[pData->currentAnimationFrame];
+    timer = pAnim->timer;
+    if (pPhysics->slowedByLiquid)   
+        timer *= 2;
+
+    if (pData->animationDurationCounter >= timer)
+    {
+        pData->animationDurationCounter = 0;
+        pData->currentAnimationFrame++;
+
+        if (pAnim[1].timer == 0)
+            pData->currentAnimationFrame = 0;
+
+        switch (pData->currentAnimationFrame)
+        {
+            case 1:
+                if (pPhysics->slowedByLiquid)
+                    SoundPlay(0x93);
+                else if (gEquipment.suitType != SUIT_SUITLESS)
+                    SoundPlay(0x64);
+                else
+                    SoundPlay(0x96);
+                break;
+
+            case 2:
+                SamusCheckSetEnvironmentalEffect(pData, 0, WANTING_RUNNING_EFFECT);
+                break;
+
+            case 7:
+                SamusCheckSetEnvironmentalEffect(pData, 0, WANTING_RUNNING_EFFECT_);
+                break;
+
+            case 6:
+                if (pPhysics->slowedByLiquid)
+                    SoundPlay(0x93);
+                else if (gEquipment.suitType != SUIT_SUITLESS)
+                    SoundPlay(0x65);
+                else
+                    SoundPlay(0x97);
+                break;
+        }
+    }
+
+    if (pScrew->flag == 0)
+        return SPOSE_NONE;
+
+    // Update effect animation
+    pScrew->animationDurationCounter++;
+    if (pScrew->animationDurationCounter >=
+        sSamusEffectAnim_Left_Speedboosting[pScrew->currentAnimationFrame].timer)
+    {
+        pScrew->animationDurationCounter = 0;
+        pScrew->currentAnimationFrame++;
+
+        if (sSamusEffectAnim_Left_Speedboosting[pScrew->currentAnimationFrame].timer == 0)
+            pScrew->currentAnimationFrame = 0;
+    }
+
+    return SPOSE_NONE;
 }
 
 /**
