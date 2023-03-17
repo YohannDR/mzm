@@ -22,8 +22,7 @@ extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_Skidd
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_MidAir[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_TurningAroundMidAir[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_Landing[4][2];
-extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_ScrewAttacking[1][2];
-extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_SpaceJumping[1][2];
+extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_ScrewAttacking[2][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_AimingWhileHanging[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_ShootingWhileHanging[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_UsingAnElevator[2][2];
@@ -71,8 +70,7 @@ extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_Skiddi
 extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_MidAir[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_TurningAroundMidAir[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_Landing[4][2];
-extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_ScrewAttacking[1][2];
-extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_SpaceJumping[1][2];
+extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_ScrewAttacking[2][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_AimingWhileHanging[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_ShootingWhileHanging[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_FullSuit_UsingAnElevator[2][2];

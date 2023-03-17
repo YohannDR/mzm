@@ -142,7 +142,7 @@ struct SamusEcho {
     u32 padding_4;
     u16 previous64XPositions[64];
     u16 previous64YPositions[64];
-    u16 previousPositionCounter;
+    i16 previousPositionCounter;
     i8 unknown;
 };
 

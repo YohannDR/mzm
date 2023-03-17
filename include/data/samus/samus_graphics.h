@@ -779,6 +779,6 @@ extern const struct SamusEffectAnimationData sSamusEffectAnim_ScrewAttacking[9];
 extern const struct SamusEffectAnimationData sSamusEffectAnim_StoringShinespark[7];
 
 // 2b0bf4
-extern const struct SamusAnimationData sSamusAnim_2b0bf4[12];
+extern const struct SamusAnimationData sSamusAnim_2b0bf4[2];
 
 #endif /* SAMUS_GRAPHICS_DATA_H */
