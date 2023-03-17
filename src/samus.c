@@ -23,10 +23,14 @@
 #include "structs/screen_shake.h"
 #include "structs/scroll.h"
 
+/**
+ * @brief 5368 | 10c | Checks for screw attack and speedbooster damage to the environment
+ * 
+ * @param pData Samus data pointer
+ * @param pPhysics Samus physics pointer
+ */
 void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
-    // https://decomp.me/scratch/GTfBG
-
     u16 action;
     u16 xLeft;
     u16 xRight;
@@ -52,7 +56,7 @@ void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, st
         yBottom = pData->yPosition;
         
         checkBlockBelow = FALSE;
-        if (pPhysics->hitboxTopOffset < -0x40)
+        if (pPhysics->hitboxTopOffset < -BLOCK_SIZE)
             checkBlockBelow = TRUE;
 
         BlockSamusApplyScrewSpeedboosterDamageToEnvironment(xLeft, yTop, action);
@@ -368,7 +372,6 @@ u8 SamusCheckCollisionAbove(struct SamusData* pData, i16 hitbox)
     if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
         result += SAMUS_COLLISION_DETECTION_LEFT_MOST;
 
-    // sSamusHitboxData pool probably inccorect
     clipdata = ClipdataProcessForSamus(yPosition, pData->xPosition + sSamusHitboxData[0][0]);
     if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
         result += SAMUS_COLLISION_DETECTION_MIDDLE_LEFT;
@@ -5874,23 +5877,28 @@ void SamusUpdatePalette(struct SamusData* pData)
     const u16* pDyingPal;
     const u16* pMapDownloadPal;
     const u16* pBufferPal;
+    struct Equipment* pEquipment;
+    struct WeaponInfo* pWeapon;
     u16 caf;
     u32 offset;
     i32 rng;
     u8 chargeCounter;
     u8 limit;
 
+    pWeapon = &gSamusWeaponInfo;
+    pEquipment = &gEquipment;
+
     gSamusPaletteSize = 4 * 16;
 
-    if (gSamusWeaponInfo.beamReleasePaletteTimer != 0)
-        gSamusWeaponInfo.beamReleasePaletteTimer--;
+    if (pWeapon->beamReleasePaletteTimer != 0)
+        pWeapon->beamReleasePaletteTimer--;
 
     if (pData->unmorphPaletteTimer)
         pData->unmorphPaletteTimer--;
 
-    if (gEquipment.suitType == SUIT_FULLY_POWERED)
+    if (pEquipment->suitType == SUIT_FULLY_POWERED)
     {
-        if (gEquipment.suitMiscActivation & SMF_GRAVITY_SUIT)
+        if (pEquipment->suitMiscActivation & SMF_GRAVITY_SUIT)
         {
             pDefaultPal = sSamusPal_GravitySuit_Default;
             pReleasePal = sSamusPal_GravitySuit_BeamRelease;
@@ -5915,10 +5923,10 @@ void SamusUpdatePalette(struct SamusData* pData)
             pMapDownloadPal = sSamusPal_FullSuit_DownloadingMapPointers[pData->currentAnimationFrame];
         }
     }
-    else if (gEquipment.suitType == SUIT_NORMAL)
+    else if (pEquipment->suitType == SUIT_NORMAL)
     {
 
-        if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
+        if (pEquipment->suitMiscActivation & SMF_VARIA_SUIT)
         {
             pDefaultPal = sSamusPal_VariaSuit_Default;
             pReleasePal = sSamusPal_VariaSuit_BeamRelease;
@@ -6065,15 +6073,15 @@ void SamusUpdatePalette(struct SamusData* pData)
         return;
     }
     
-    if (gSamusWeaponInfo.beamReleasePaletteTimer != 0)
+    if (pWeapon->beamReleasePaletteTimer != 0)
     {
-        if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
+        if (pEquipment->beamBombsActivation & BBF_ICE_BEAM)
             pBufferPal = pReleasePal + 16 * 2;
-        else if (gEquipment.beamBombsActivation & BBF_PLASMA_BEAM)
+        else if (pEquipment->beamBombsActivation & BBF_PLASMA_BEAM)
             pBufferPal = pReleasePal + 16 * 4;
-        else if (gEquipment.beamBombsActivation & BBF_WAVE_BEAM)
+        else if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
             pBufferPal = pReleasePal + 16 * 3;
-        else if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
+        else if (pEquipment->beamBombsActivation & BBF_LONG_BEAM)
             pBufferPal = pReleasePal + 16 * 1;
         else
             pBufferPal = pReleasePal;
@@ -6098,9 +6106,9 @@ void SamusUpdatePalette(struct SamusData* pData)
     }
     
     pBufferPal = pDefaultPal;
-    if (gEquipment.suitType != SUIT_SUITLESS)
+    if (pEquipment->suitType != SUIT_SUITLESS)
     {
-        chargeCounter = gSamusWeaponInfo.chargeCounter;
+        chargeCounter = pWeapon->chargeCounter;
         limit = 64;
         if (chargeCounter >= limit)
         {
@@ -6108,13 +6116,13 @@ void SamusUpdatePalette(struct SamusData* pData)
     
             if (offset != 3)
             {
-                if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
+                if (pEquipment->beamBombsActivation & BBF_ICE_BEAM)
                     pBufferPal = pChargingPal + 16 * 4;
-                else if (gEquipment.beamBombsActivation & BBF_PLASMA_BEAM)
+                else if (pEquipment->beamBombsActivation & BBF_PLASMA_BEAM)
                     pBufferPal = pChargingPal + 16 * 8;
-                else if (gEquipment.beamBombsActivation & BBF_WAVE_BEAM)
+                else if (pEquipment->beamBombsActivation & BBF_WAVE_BEAM)
                     pBufferPal = pChargingPal + 16 * 6;
-                else if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
+                else if (pEquipment->beamBombsActivation & BBF_LONG_BEAM)
                     pBufferPal = pChargingPal + 16 * 2;
                 else
                     pBufferPal = pChargingPal;
@@ -6122,9 +6130,9 @@ void SamusUpdatePalette(struct SamusData* pData)
                 pBufferPal += (offset & 1) * 16;
             }
         }
-        
-        SamusCopyPalette(pBufferPal, 0, 16 * 2);
     }
+
+    SamusCopyPalette(pBufferPal, 0, 16 * 2);
 }
 
 void SamusCheckPlayLowHealthSound(void)
