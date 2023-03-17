@@ -4892,14 +4892,19 @@ void SamusUpdateVelocityPosition(struct SamusData* pData)
     pData->xPosition += velocity;
 }
 
+/**
+ * @brief a688 | de4 | Updates the graphics and OAM of samus
+ * 
+ * @param pData Samus data pointer
+ * @param direction Facing direction
+ */
 void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
 {
-    // https://decomp.me/scratch/6Xjle
-
     struct WeaponInfo* pWeapon;
     struct Equipment* pEquipment;
     struct SamusPhysics* pPhysics;
     struct SamusEcho* pEcho;
+    struct ScrewSpeedAnimation* pScrew;
     const struct SamusAnimationData* pAnim;
     const struct ArmCannonAnimationData* pArmCannonAnim;
     const struct SamusEffectAnimationData* pEffectAnim;
@@ -4912,10 +4917,12 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
     pEquipment = &gEquipment;
     pPhysics = &gSamusPhysics;
     pEcho = &gSamusEcho;
+    pScrew = &gScrewSpeedAnimation;
 
     pose = pData->pose;
     acd = pData->armCannonDirection;
 
+    // Check enable echo
     switch (pose)
     {
         case SPOSE_MIDAIR:
@@ -4923,7 +4930,8 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
         case SPOSE_SPACE_JUMPING:
         case SPOSE_SCREW_ATTACKING:
         case SPOSE_MORPH_BALL_MIDAIR:
-            if (!pPhysics->slowedByLiquid && pData->yVelocity > 80)
+            // Not slowed and Y velocity of at least 2 blocks
+            if (!pPhysics->slowedByLiquid && pData->yVelocity > BLOCK_SIZE * 2)
             {
                 pEcho->active = TRUE;
                 pEcho->timer = 6;
@@ -4933,20 +4941,24 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
 
     if (pData->speedboostingShinesparking)
     {
+        // Enable echo if using speedbooster
         pEcho->active = TRUE;
         pEcho->timer = 16;
         pEcho->distance = 4;
     }
     else
     {
+        // Update echo timer
         if (pEcho->timer != 0)
             pEcho->timer--;
         else
             pEcho->active = FALSE;
     }
 
+    // Prevent buffer overflow
     ppc = pEcho->previousPositionCounter & (ARRAY_SIZE(pEcho->previous64XPositions) - 1);
 
+    // Fetch previous position
     pEcho->previous64XPositions[ppc] = gPreviousXPosition;
     pEcho->previous64YPositions[ppc] = gPreviousYPosition;
 
@@ -4956,14 +4968,18 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
     if (pEcho->previousPositionCounter >= ARRAY_SIZE(pEcho->previous64XPositions))
         pEcho->unknown = TRUE;
 
+    // Replace downloading map data with standing graphics if not actually downloading
     if (pData->pose == SPOSE_DOWNLOADING_MAP_DATA && pData->timer != 0)
         pose = SPOSE_STANDING;
 
+    // Fetch current main body graphics and OAM based on the current pose
+    // It's dependant on whether the pose has multiple versions, whatever the parameter may be
+    // For most of them, the parameter is the arm cannon direction, but it can also be the forced movement flag
     switch (pose)
     {
         case SPOSE_RUNNING:
-            if (acd > 4)
-                acd -= 2;
+            if (acd > ACD_DOWN)
+                acd -= ACD_DIAGONALLY_DOWN;
 
             if (pEquipment->suitType == SUIT_SUITLESS)
             {
@@ -4972,6 +4988,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             }
             else if (!pData->speedboostingShinesparking)
             {
+                // Normal running graphics
                 if (pEquipment->suitType != SUIT_NORMAL)
                     pAnim = sSamusAnimPointers_FullSuit_Running[acd][direction];
                 else
@@ -4981,6 +4998,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             }
             else
             {
+                // Speedboosting graphics
                 if (pEquipment->suitType != SUIT_NORMAL)
                     pAnim = sSamusAnimPointers_FullSuit_Running_Speedboosting[acd][direction];
                 else
@@ -5093,6 +5111,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             break;
 
         case SPOSE_SKIDDING:
+            // Versions non armed and armed
             if (pWeapon->weaponHighlighted & (WH_MISSILE | WH_SUPER_MISSILE))
                 acd++;
 
@@ -5158,6 +5177,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
         case SPOSE_SCREW_ATTACKING:
             if (pEquipment->suitMiscActivation & SMF_SPACE_JUMP)
             {
+                // Space jumping graphics
                 if (pEquipment->suitType != SUIT_NORMAL)
                     pAnim = sSamusAnimPointers_FullSuit_ScrewAttacking[1][direction];
                 else
@@ -5165,6 +5185,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             }
             else
             {
+                // Screw attack graphics
                 if (pEquipment->suitType != SUIT_NORMAL)
                     pAnim = sSamusAnimPointers_FullSuit_ScrewAttacking[0][direction];
                 else
@@ -5209,6 +5230,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             break;
 
         case SPOSE_USING_AN_ELEVATOR:
+            // Versions going down and going up
             if (pData->elevatorDirection & KEY_UP)
                 acd++;
 
@@ -5222,6 +5244,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
 
         case SPOSE_SHINESPARKING:
         case SPOSE_SHINESPARK_COLLISION:
+            // Versions based on the shinesparking direction
             acd = pData->forcedMovement;
 
             if (pEquipment->suitType != SUIT_NORMAL)
@@ -5328,16 +5351,19 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             break;
     }
 
+    // Offset by current frame
     pAnim = &pAnim[pData->currentAnimationFrame];
 
     pPhysics->pBodyOam = pAnim->pOam;
 
+    // Offset by current frame
     pGraphics = pAnim->pTopGfx;
     pPhysics->shoulderGfxSize = *pGraphics++ * 32;
     pPhysics->torsoGfxSize = *pGraphics++ * 32;
     pPhysics->pShouldersGfx = pGraphics;
     pPhysics->pTorsoGfx = &pGraphics[pPhysics->shoulderGfxSize];
 
+    // Update legs and body
     pGraphics = pAnim->pBottomGfx;
     pPhysics->legsGfxSize = *pGraphics++ * 32;
     pPhysics->bodyLowerHalfGfxSize = *pGraphics++ * 32;
@@ -5346,6 +5372,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
 
     pPhysics->unk_22 = 0;
 
+    // Set arm cannon graphics size
     if (pose == SPOSE_DYING)
     {
         pPhysics->armCannonGfxUpperSize = 0;
@@ -5357,11 +5384,13 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
         pPhysics->armCannonGfxLowerSize = 2 * 32;
     }
 
+    // Update arm cannon OAM
     pArmCannonAnim = &pArmCannonAnim[pData->currentAnimationFrame];
 
     pPhysics->pArmCannonOAM = pArmCannonAnim->pOam;
     pPhysics->unk_22 = *pPhysics->pArmCannonOAM;
 
+    // Fetch current arm cannon graphics based on the current pose and arm cannon direction
     switch (pose)
     {
         case SPOSE_AIMING_WHILE_HANGING:
@@ -5469,31 +5498,34 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             }
     }
 
+    // Reset effect graphics info
     pPhysics->unk_36 = 0;
     pPhysics->screwSpeedGfxSize = 0;
     pPhysics->screwShinesparkGfxSize = 0;
 
-    if (gScrewSpeedAnimation.flag == SCREW_SPEED_FLAG_STORING_SHINESPARK)
+    // Update storing shinespark animation if necessary
+    if (pScrew->flag == SCREW_SPEED_FLAG_STORING_SHINESPARK)
     {
-        gScrewSpeedAnimation.animationDurationCounter++;
-        if (gScrewSpeedAnimation.animationDurationCounter >=
-            sSamusEffectAnim_StoringShinespark[gScrewSpeedAnimation.currentAnimationFrame].timer)
+        pScrew->animationDurationCounter++;
+        if (pScrew->animationDurationCounter >=
+            sSamusEffectAnim_StoringShinespark[pScrew->currentAnimationFrame].timer)
         {
-            gScrewSpeedAnimation.animationDurationCounter = 0;
-            gScrewSpeedAnimation.currentAnimationFrame++;
+            pScrew->animationDurationCounter = 0;
+            pScrew->currentAnimationFrame++;
 
-            if (sSamusEffectAnim_StoringShinespark[gScrewSpeedAnimation.currentAnimationFrame].timer == 0)
+            if (sSamusEffectAnim_StoringShinespark[pScrew->currentAnimationFrame].timer == 0)
             {
-                gScrewSpeedAnimation.flag = 0;
+                pScrew->flag = 0;
             }
         }
     }
 
-    if (gScrewSpeedAnimation.flag == 0)
+    if (pScrew->flag == 0)
         return;
 
     pPhysics->unk_36 = 1 * 32;
 
+    // Fetch current effect graphics and OAM based on the current pose and the effect flag
     switch (pose)
     {
         case SPOSE_SCREW_ATTACKING:
@@ -5520,15 +5552,18 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             }
 
         default:
-            if (gScrewSpeedAnimation.flag == SCREW_SPEED_FLAG_STORING_SHINESPARK)
+            if (pScrew->flag == SCREW_SPEED_FLAG_STORING_SHINESPARK)
                 pEffectAnim = sSamusEffectAnim_StoringShinespark;
             break;
     }
 
-    pEffectAnim = &pEffectAnim[gScrewSpeedAnimation.currentAnimationFrame];
+    // Offset by current frame
+    pEffectAnim = &pEffectAnim[pScrew->currentAnimationFrame];
 
+    // Update OAM
     pPhysics->pScrewSpeedOAM = pEffectAnim->pOam;
 
+    // Update graphics
     pGraphics = pEffectAnim->pGraphics;
     pPhysics->screwSpeedGfxSize = *pGraphics++ * 32;
     pPhysics->screwShinesparkGfxSize = *pGraphics++ * 32;
