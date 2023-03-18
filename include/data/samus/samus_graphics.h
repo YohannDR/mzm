@@ -943,22 +943,22 @@ extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Up_TurningArou
 extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_TurningAroundAndCrouching[3];
 extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalUp_TurningAroundAndCrouching[3];
 extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalDown_TurningAroundAndCrouching[3];
-extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_Down_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_Down_TurningAroundMidAir[3];
 
 extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_TurningAroundAndCrouching[3];
 extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalUp_TurningAroundAndCrouching[3];
 extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalDown_TurningAroundAndCrouching[3];
-extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Down_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Down_TurningAroundMidAir[3];
 
-extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_TurningArounMidAir[3];
-extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalUp_TurningArounMidAir[3];
-extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalDown_TurningArounMidAir[3];
-extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_Up_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_TurningAroundMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalUp_TurningAroundMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_DiagonalDown_TurningAroundMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Left_Up_TurningAroundMidAir[3];
 
-extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_TurningArounMidAir[3];
-extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalUp_TurningArounMidAir[3];
-extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalDown_TurningArounMidAir[3];
-extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Up_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_TurningAroundMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalUp_TurningAroundMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_DiagonalDown_TurningAroundMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_PowerSuit_Right_Up_TurningAroundMidAir[3];
 
 extern const struct SamusAnimationData sSamusAnim_PowerSuit_FacingTheForeground[5];
 extern const struct SamusAnimationData sSamusAnim_PowerSuit_UsingAnElevator[4];
@@ -2234,22 +2234,22 @@ extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_Up_TurningAroun
 extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_TurningAroundAndCrouching[3];
 extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_DiagonalUp_TurningAroundAndCrouching[3];
 extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_DiagonalDown_TurningAroundAndCrouching[3];
-extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_Down_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_Down_TurningAroundMidAir[3];
 
 extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_TurningAroundAndCrouching[3];
 extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_DiagonalUp_TurningAroundAndCrouching[3];
 extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_DiagonalDown_TurningAroundAndCrouching[3];
-extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_Down_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_Down_TurningAroundMidAir[3];
 
-extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_TurningArounMidAir[3];
-extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_DiagonalUp_TurningArounMidAir[3];
-extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_DiagonalDown_TurningArounMidAir[3];
-extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_Up_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_TurningAroundMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_DiagonalUp_TurningAroundMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_DiagonalDown_TurningAroundMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_FullSuit_Left_Up_TurningAroundMidAir[3];
 
-extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_TurningArounMidAir[3];
-extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_DiagonalUp_TurningArounMidAir[3];
-extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_DiagonalDown_TurningArounMidAir[3];
-extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_Up_TurningArounMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_TurningAroundMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_DiagonalUp_TurningAroundMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_DiagonalDown_TurningAroundMidAir[3];
+extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_Up_TurningAroundMidAir[3];
 
 extern const struct SamusAnimationData sSamusAnim_FullSuit_FacingTheForeground[5];
 extern const struct SamusAnimationData sSamusAnim_FullSuit_UsingAnElevator[4];
@@ -3493,11 +3493,11 @@ extern const struct SamusAnimationData sSamusAnim_Suitless_Right_DiagonalDown_Ai
 extern const struct SamusAnimationData sSamusAnim_Suitless_Right_Up_AimingWhileHanging[5];
 extern const struct SamusAnimationData sSamusAnim_Suitless_Right_Down_AimingWhileHanging[5];
 
-extern const struct SamusAnimationData sSamusAnim_Suitless_Right_ShootinghileHanging[4];
-extern const struct SamusAnimationData sSamusAnim_Suitless_Right_DiagonalUp_ShootinghileHanging[4];
-extern const struct SamusAnimationData sSamusAnim_Suitless_Right_DiagonalDown_ShootinghileHanging[4];
-extern const struct SamusAnimationData sSamusAnim_Suitless_Right_Up_ShootinghileHanging[4];
-extern const struct SamusAnimationData sSamusAnim_Suitless_Right_Down_ShootinghileHanging[4];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Right_ShootingWhileHanging[4];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Right_DiagonalUp_ShootingWhileHanging[4];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Right_DiagonalDown_ShootingWhileHanging[4];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Right_Up_ShootingWhileHanging[4];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Right_Down_ShootingWhileHanging[4];
 
 extern const struct SamusAnimationData sSamusAnim_Suitless_Right_HangingOnLedge[5];
 extern const struct SamusAnimationData sSamusAnim_Suitless_Right_PullingYourselfUpFromHanging[4];
@@ -3511,14 +3511,14 @@ extern const struct SamusAnimationData sSamusAnim_Suitless_Left_DiagonalDown_Aim
 extern const struct SamusAnimationData sSamusAnim_Suitless_Left_Up_AimingWhileHanging[5];
 extern const struct SamusAnimationData sSamusAnim_Suitless_Left_Down_AimingWhileHanging[5];
 
-extern const struct SamusAnimationData sSamusAnim_Suitless_Left_ShootinghileHanging[4];
-extern const struct SamusAnimationData sSamusAnim_Suitless_Left_DiagonalUp_ShootinghileHanging[4];
-extern const struct SamusAnimationData sSamusAnim_Suitless_Left_DiagonalDown_ShootinghileHanging[4];
-extern const struct SamusAnimationData sSamusAnim_Suitless_Left_Up_ShootinghileHanging[4];
-extern const struct SamusAnimationData sSamusAnim_Suitless_Left_Down_ShootinghileHanging[4];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Left_ShootingWhileHanging[4];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Left_DiagonalUp_ShootingWhileHanging[4];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Left_DiagonalDown_ShootingWhileHanging[4];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Left_Up_ShootingWhileHanging[4];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Left_Down_ShootingWhileHanging[4];
 
-extern const struct SamusAnimationData sSamusAnim_Suitless_Left_HanginOnLedgeSuitless[6];
-extern const struct SamusAnimationData sSamusAnim_Suitless_Right_HanginOnLedgeSuitless[6];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Left_HangingOnLedgeSuitless[6];
+extern const struct SamusAnimationData sSamusAnim_Suitless_Right_HangingOnLedgeSuitless[6];
 
 extern const u8 sSamusGfx_Top_Suitless_TurningAround_Frame0[SAMUS_GFX_SIZE(4, 4)];
 extern const u8 sSamusGfx_Bottom_Suitless_TurningAround_Frame1[SAMUS_GFX_SIZE(6, 6)];

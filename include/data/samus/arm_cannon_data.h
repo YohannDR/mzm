@@ -12,17 +12,17 @@
 // of the arm cannon facing forward left, when samus is on a zipline
 // The Armed attribute can also be used, it indicates that the gfx have the arm cannon open
 
-extern const u8 sArmCannonGfx_Upper_Forward_Left_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Upper_DiagonalUp_Left_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Upper_DiagonalDown_Left_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Upper_Up_Left_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Upper_Down_Left_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Upper_Forward_Left_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Upper_DiagonalUp_Left_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Upper_DiagonalDown_Left_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Upper_Up_Left_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Upper_Down_Left_Default[SAMUS_ARM_CANNON_GFX_SIZE];
 
-extern const u8 sArmCannonGfx_Lower_Forward_Left_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Lower_DiagonalUp_Left_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Lower_DiagonalDown_Left_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Lower_Up_Left_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Lower_Down_Left_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Lower_Forward_Left_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Lower_DiagonalUp_Left_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Lower_DiagonalDown_Left_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Lower_Up_Left_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Lower_Down_Left_Default[SAMUS_ARM_CANNON_GFX_SIZE];
 
 extern const u8 sArmCannonGfx_Upper_Forward_Right_Default[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Upper_DiagonalUp_Right_Default[SAMUS_ARM_CANNON_GFX_SIZE];
@@ -39,17 +39,17 @@ extern const u8 sArmCannonGfx_Lower_Up_Standing[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Lower_Down_Standing[SAMUS_ARM_CANNON_GFX_SIZE];
 
 
-extern const u8 sArmCannonGfx_Upper_Forward_Left_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Upper_DiagonalUp_Left_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Upper_DiagonalDown_Left_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Upper_Up_Left_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Upper_Down_Left_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Upper_Forward_Left_Armed_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Upper_DiagonalUp_Left_Armed_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Upper_DiagonalDown_Left_Armed_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Upper_Up_Left_Armed_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Upper_Down_Left_Armed_Default[SAMUS_ARM_CANNON_GFX_SIZE];
 
-extern const u8 sArmCannonGfx_Lower_Forward_Left_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Lower_DiagonalUp_Left_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Lower_DiagonalDown_Left_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Lower_Up_Left_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Lower_Down_Left_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Lower_Forward_Left_Armed_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Lower_DiagonalUp_Left_Armed_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Lower_DiagonalDown_Left_Armed_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Lower_Up_Left_Armed_Default[SAMUS_ARM_CANNON_GFX_SIZE];
+extern const u8 sArmCannonGfx_Lower_Down_Left_Armed_Default[SAMUS_ARM_CANNON_GFX_SIZE];
 
 extern const u8 sArmCannonGfx_Upper_Forward_Right_Armed_Default[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Upper_DiagonalUp_Right_Armed_Default[SAMUS_ARM_CANNON_GFX_SIZE];

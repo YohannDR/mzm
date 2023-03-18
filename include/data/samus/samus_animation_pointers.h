@@ -97,7 +97,7 @@ extern const struct SamusAnimationData* const sSamusAnimPointers_Suitless_Landin
 extern const struct SamusAnimationData* const sSamusAnimPointers_Suitless_AimingWhileHanging[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_Suitless_ShootingWhileHanging[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_Suitless_UncrouchingSuitless[4][2];
-extern const struct SamusAnimationData* const sSamusAnimPointers_Suitless_CrouchingSuitless[4][2];
+extern const struct SamusAnimationData* const sSamusAnimPointers_Suitless_CrouchingSuitless[3][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_Suitless_CrawlingStopped[3][2];
 
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suitless_All[MAX_AMOUNT_OF_SAMUS_POSES][2];
@@ -172,8 +172,8 @@ extern const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Bal
 
 
 extern const i16 sSamusDrawDistanceOffsets[4][4];
-extern const i16 sSamusHitboxData[4][4];
+extern const i16 sSamusHitboxData[4][3];
 extern const struct FrameData* const sSamusEnvEffectsFrameDataPointers[18];
-const u16 sSamusPullingSelfUpVelocity[8];
+extern const u16 sSamusPullingSelfUpVelocity[4];
 
 #endif /* SAMUS_ANIMATION_POINTERS_DATA_H */

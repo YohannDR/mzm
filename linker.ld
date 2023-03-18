@@ -543,7 +543,12 @@ SECTIONS {
         src/data/generic_data.o(.rodata);
         /* 8cad0-8f253 */
         src/data/audio.o(.rodata);
-        /* 908e0-2b0c93 */
+        /* 908e0-2320e4 */
+        src/data/samus/samus_empty_data.o(.rodata);
+        /* 2320ec-2376a8 */
+        src/data/samus/samus_palette_data.o(.rodata);
+        /* 238b68-2b0c93 */
+
         src/data/sprite_data.o(.rodata);
         src/data/spriteset.o(.rodata);
         src/data/sprites/enemy_drop.o(.rodata);

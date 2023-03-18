@@ -29,6 +29,8 @@ subDirs: array = [
     "menus/EraseSram/",
     "rooms/",
     "rooms/debug/",
+    "samus/",
+    "samus/palettes/",
 ]
 
 try:

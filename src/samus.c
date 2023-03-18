@@ -5269,8 +5269,9 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
     switch (pose)
     {
         case SPOSE_RUNNING:
+            // Check for no ACD
             if (acd > ACD_DOWN)
-                acd -= ACD_DIAGONALLY_DOWN;
+                acd -= 2;
 
             if (pEquipment->suitType == SUIT_SUITLESS)
             {
