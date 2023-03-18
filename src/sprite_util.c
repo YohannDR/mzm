@@ -1263,7 +1263,75 @@ void unk_f9e7(i16 movement)
 
 u8 SpriteUtilMakeSpriteFaceSamusRotation(i16 oamRotation, i16 samusY, i16 samusX, i16 spriteY, i16 spriteX)
 {
-    // https://decomp.me/scratch/QMDVm
+    i16 var_0;
+    u16 var_1;
+    u16 intensity;
+
+    intensity = 2;
+
+    if (samusY < spriteY)
+    {
+        if (spriteX - BLOCK_SIZE < samusX && spriteX + BLOCK_SIZE > samusX)
+            var_0 = BLOCK_SIZE * 3;
+        else
+        {
+
+        }
+    }
+    else
+    {
+
+    }
+
+    if (var_0 == HALF_BLOCK_SIZE)
+    {
+        if ((u16)(oamRotation - HALF_BLOCK_SIZE - 1) < 0x7F)
+            oamRotation -= intensity;
+        else if ((u16)(oamRotation - HALF_BLOCK_SIZE) < 0x7F)
+            oamRotation += intensity;
+    }
+    else if (var_0 == BLOCK_SIZE)
+    {
+        if ((u16)(oamRotation - BLOCK_SIZE - 1) < 0x7F)
+            oamRotation -= intensity;
+        else if ((u16)(oamRotation - BLOCK_SIZE) < 0x7F)
+            oamRotation += intensity;
+    }
+    else if (var_0 == BLOCK_SIZE + HALF_BLOCK_SIZE)
+    {
+        if ((u16)(oamRotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) < 0x7F)
+            oamRotation -= intensity;
+        else if ((u16)(oamRotation - (BLOCK_SIZE + HALF_BLOCK_SIZE)) < 0x7F)
+            oamRotation += intensity;
+    }
+    else if (var_0 == BLOCK_SIZE * 2)
+    {
+        if ((u16)(oamRotation - 1) < 0x7F)
+            oamRotation += intensity;
+        else if ((u16)(oamRotation) < 0x7F)
+            oamRotation -= intensity;
+    }
+    else if (var_0 == BLOCK_SIZE * 2 + HALF_BLOCK_SIZE)
+    {
+        if ((u16)(oamRotation - HALF_BLOCK_SIZE - 1) < 0x7F)
+            oamRotation += intensity;
+        else if ((u16)(oamRotation) < 0x7F)
+            oamRotation -= intensity;
+    }
+    else if (var_0 == BLOCK_SIZE * 3)
+    {
+        if ((u16)(oamRotation - BLOCK_SIZE - 1) < 0x7F)
+            oamRotation += intensity;
+        else if ((u16)(oamRotation) < 0x7F)
+            oamRotation -= intensity;
+    }
+    else if (var_0 == BLOCK_SIZE * 3 + HALF_BLOCK_SIZE)
+    {
+        if ((u16)(oamRotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) < 0x7F)
+            oamRotation += intensity;
+        else if ((u16)(oamRotation) < 0x7F)
+            oamRotation -= intensity;
+    }
 
     return oamRotation;
 }
