@@ -2521,20 +2521,154 @@ extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_ShootingOnZipli
 extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_DiagonalDown_ShootingOnZipline[4];
 extern const struct SamusAnimationData sSamusAnim_FullSuit_Right_Down_ShootingOnZipline[4];
 
-// 28672a ...
+extern const u8 sSamusEffectGfx_Speedboosting_Frame0[SAMUS_GFX_SIZE(5, 0)];
+extern const u8 sSamusEffectGfx_Speedboosting_Frame1[SAMUS_GFX_SIZE(5, 0)];
+extern const u8 sSamusEffectGfx_Speedboosting_Frame2[SAMUS_GFX_SIZE(5, 0)];
+extern const u8 sSamusEffectGfx_Speedboosting_Frame3[SAMUS_GFX_SIZE(6, 0)];
+extern const u8 sSamusEffectGfx_Speedboosting_Frame4[SAMUS_GFX_SIZE(5, 0)];
+extern const u8 sSamusEffectGfx_Speedboosting_Frame5[SAMUS_GFX_SIZE(6, 0)];
+extern const u8 sSamusEffectGfx_Speedboosting_Frame6[SAMUS_GFX_SIZE(6, 0)];
+extern const u8 sSamusEffectGfx_Speedboosting_Frame7[SAMUS_GFX_SIZE(4, 0)];
+extern const u8 sSamusEffectGfx_Speedboosting_Frame8[SAMUS_GFX_SIZE(4, 0)];
+extern const u8 sSamusEffectGfx_Speedboosting_Frame9[SAMUS_GFX_SIZE(4, 0)];
 
-// 288e20
+extern const u8 sSamusEffectGfx_DelayBeforeSpeedboosting_Frame0[SAMUS_GFX_SIZE(1, 0)];
+extern const u8 sSamusEffectGfx_DelayBeforeSpeedboosting_Frame1[SAMUS_GFX_SIZE(2, 0)];
+extern const u8 sSamusEffectGfx_DelayBeforeSpeedboosting_Frame2[SAMUS_GFX_SIZE(4, 0)];
+extern const u8 sSamusEffectGfx_DelayBeforeSpeedboosting_Frame3[SAMUS_GFX_SIZE(5, 0)];
+extern const u8 sSamusEffectGfx_DelayBeforeSpeedboosting_Frame4[SAMUS_GFX_SIZE(8, 0)];
+extern const u8 sSamusEffectGfx_DelayBeforeSpeedboosting_Frame5[SAMUS_GFX_SIZE(10, 0)];
+extern const u8 sSamusEffectGfx_DelayBeforeSpeedboosting_Frame6[SAMUS_GFX_SIZE(6, 0)];
+extern const u8 sSamusEffectGfx_DelayBeforeSpeedboosting_Frame7[SAMUS_GFX_SIZE(3, 0)];
+
+extern const u8 sSamusEffectGfx_Sidewards_Shinesparking_Frame0[SAMUS_GFX_SIZE(6, 0)];
+extern const u8 sSamusEffectGfx_Sidewards_Shinesparking_Frame1[SAMUS_GFX_SIZE(4, 0)];
+extern const u8 sSamusEffectGfx_Sidewards_Shinesparking_Frame2[SAMUS_GFX_SIZE(4, 0)];
+
+extern const u8 sSamusEffectGfx_Diagonal_Shinesparking_Frame0[SAMUS_GFX_SIZE(9, 0)];
+extern const u8 sSamusEffectGfx_Diagonal_Shinesparking_Frame1[SAMUS_GFX_SIZE(4, 0)];
+extern const u8 sSamusEffectGfx_Diagonal_Shinesparking_Frame2[SAMUS_GFX_SIZE(7, 0)];
+
+extern const u8 sSamusEffectGfx_Up_Shinesparking_Frame0[SAMUS_GFX_SIZE(6, 4)];
+extern const u8 sSamusEffectGfx_Up_Shinesparking_Frame1[SAMUS_GFX_SIZE(3, 3)];
+extern const u8 sSamusEffectGfx_Up_Shinesparking_Frame2[SAMUS_GFX_SIZE(3, 3)];
+
+extern const u8 sSamusEffectGfx_ScrewAttacking_Frame0[SAMUS_GFX_SIZE(8, 8)];
+extern const u8 sSamusEffectGfx_ScrewAttacking_Frame2[SAMUS_GFX_SIZE(8, 8)];
+extern const u8 sSamusEffectGfx_ScrewAttacking_Frame4[SAMUS_GFX_SIZE(8, 8)];
+extern const u8 sSamusEffectGfx_ScrewAttacking_Frame6[SAMUS_GFX_SIZE(8, 8)];
+
+extern const u8 sSamusEffectGfx_StoringShinespark_Frame0[SAMUS_GFX_SIZE(2, 0)];
+extern const u8 sSamusEffectGfx_StoringShinespark_Frame1[SAMUS_GFX_SIZE(4, 2)];
+extern const u8 sSamusEffectGfx_StoringShinespark_Frame2[SAMUS_GFX_SIZE(4, 2)];
+extern const u8 sSamusEffectGfx_StoringShinespark_Frame3[SAMUS_GFX_SIZE(4, 0)];
+extern const u8 sSamusEffectGfx_StoringShinespark_Frame4[SAMUS_GFX_SIZE(2, 0)];
+extern const u8 sSamusEffectGfx_StoringShinespark_Frame5[SAMUS_GFX_SIZE(6, 2)];
+
+extern const u16 sSamusEffectOam_Left_Speedboosting_Frame0[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Left_Speedboosting_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Left_Speedboosting_Frame2[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Left_Speedboosting_Frame3[OAM_DATA_SIZE(5)];
+extern const u16 sSamusEffectOam_Left_Speedboosting_Frame4[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Left_Speedboosting_Frame5[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Left_Speedboosting_Frame6[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Left_Speedboosting_Frame7[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Left_Speedboosting_Frame8[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Left_Speedboosting_Frame9[OAM_DATA_SIZE(3)];
+
+extern const u16 sSamusEffectOam_Right_Speedboosting_Frame0[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Right_Speedboosting_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Right_Speedboosting_Frame2[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Right_Speedboosting_Frame3[OAM_DATA_SIZE(5)];
+extern const u16 sSamusEffectOam_Right_Speedboosting_Frame4[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Right_Speedboosting_Frame5[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Right_Speedboosting_Frame6[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Right_Speedboosting_Frame7[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Right_Speedboosting_Frame8[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Right_Speedboosting_Frame9[OAM_DATA_SIZE(3)];
+
+extern const u16 sSamusEffectOam_DelayBeforeBallsparking_Frame0[OAM_DATA_SIZE(1)];
+extern const u16 sSamusEffectOam_DelayBeforeBallsparking_Frame1[OAM_DATA_SIZE(2)];
+extern const u16 sSamusEffectOam_DelayBeforeBallsparking_Frame2[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_DelayBeforeBallsparking_Frame3[OAM_DATA_SIZE(7)];
+extern const u16 sSamusEffectOam_DelayBeforeBallsparking_Frame4[OAM_DATA_SIZE(6)];
+extern const u16 sSamusEffectOam_DelayBeforeBallsparking_Frame5[OAM_DATA_SIZE(9)];
+extern const u16 sSamusEffectOam_DelayBeforeBallsparking_Frame6[OAM_DATA_SIZE(9)];
+extern const u16 sSamusEffectOam_DelayBeforeBallsparking_Frame7[OAM_DATA_SIZE(6)];
+
+extern const u16 sSamusEffectOam_Left_Sidewards_Shinesparking_Frame0[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Left_Sidewards_Shinesparking_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Left_Sidewards_Shinesparking_Frame2[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusEffectOam_Left_Diagonal_Shinesparking_Frame0[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Left_Diagonal_Shinesparking_Frame1[OAM_DATA_SIZE(2)];
+extern const u16 sSamusEffectOam_Left_Diagonal_Shinesparking_Frame2[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusEffectOam_Up_Shinesparking_Frame0[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Up_Shinesparking_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Up_Shinesparking_Frame2[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusEffectOam_Right_Sidewards_Shinesparking_Frame0[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Right_Sidewards_Shinesparking_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Right_Sidewards_Shinesparking_Frame2[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusEffectOam_Right_Diagonal_Shinesparking_Frame0[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Right_Diagonal_Shinesparking_Frame1[OAM_DATA_SIZE(2)];
+extern const u16 sSamusEffectOam_Right_Diagonal_Shinesparking_Frame2[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusEffectOam_ScrewAttacking_Frame0[OAM_DATA_SIZE(2)];
+extern const u16 sSamusEffectOam_ScrewAttacking_Frame1[OAM_DATA_SIZE(2)];
+
+extern const u16 sSamusEffectOam_StoringShinespark_Frame0[OAM_DATA_SIZE(2)];
+extern const u16 sSamusEffectOam_StoringShinespark_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_StoringShinespark_Frame2[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_StoringShinespark_Frame3[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_StoringShinespark_Frame4[OAM_DATA_SIZE(2)];
+extern const u16 sSamusEffectOam_StoringShinespark_Frame5[OAM_DATA_SIZE(5)];
+
 extern const struct SamusEffectAnimationData sSamusEffectAnim_Left_Speedboosting[11];
+extern const struct SamusEffectAnimationData sSamusEffectAnim_Right_Speedboosting[11];
 
-// 288f28
 extern const struct SamusEffectAnimationData sSamusEffectAnim_DelayBeforeBallsparking[9];
 
-// 288f94
 extern const struct SamusEffectAnimationData sSamusEffectAnim_Left_Sidewards_Shinesparking[4];
+extern const struct SamusEffectAnimationData sSamusEffectAnim_Left_Diagonal_Shinesparking[4];
 
-// 289084
+extern const struct SamusEffectAnimationData sSamusEffectAnim_Up_Shinesparking[4];
+
+extern const struct SamusEffectAnimationData sSamusEffectAnim_Right_Sidewards_Shinesparking[4];
+extern const struct SamusEffectAnimationData sSamusEffectAnim_Right_Diagonal_Shinesparking[4];
+
 extern const struct SamusEffectAnimationData sSamusEffectAnim_ScrewAttacking[9];
 extern const struct SamusEffectAnimationData sSamusEffectAnim_StoringShinespark[7];
+
+extern const u16 sSamusEffectOam_Left_Sidewards_Ballsparking_Frame0[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Left_Sidewards_Ballsparking_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Left_Sidewards_Ballsparking_Frame2[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusEffectOam_Left_Diagonal_Ballsparking_Frame0[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Left_Diagonal_Ballsparking_Frame1[OAM_DATA_SIZE(2)];
+extern const u16 sSamusEffectOam_Left_Diagonal_Ballsparking_Frame2[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusEffectOam_Up_Ballsparking_Frame0[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Up_Ballsparking_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Up_Ballsparking_Frame2[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusEffectOam_Right_Sidewards_Ballsparking_Frame0[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Right_Sidewards_Ballsparking_Frame1[OAM_DATA_SIZE(4)];
+extern const u16 sSamusEffectOam_Right_Sidewards_Ballsparking_Frame2[OAM_DATA_SIZE(4)];
+
+extern const u16 sSamusEffectOam_Right_Diagonal_Ballsparking_Frame0[OAM_DATA_SIZE(3)];
+extern const u16 sSamusEffectOam_Right_Diagonal_Ballsparking_Frame1[OAM_DATA_SIZE(2)];
+extern const u16 sSamusEffectOam_Right_Diagonal_Ballsparking_Frame2[OAM_DATA_SIZE(4)];
+
+extern const struct SamusEffectAnimationData sSamusEffectAnim_Left_Sidewards_Ballsparking[4];
+extern const struct SamusEffectAnimationData sSamusEffectAnim_Left_Diagonal_Ballsparking[4];
+
+extern const struct SamusEffectAnimationData sSamusEffectAnim_Up_Ballsparking[4];
+
+extern const struct SamusEffectAnimationData sSamusEffectAnim_Right_Sidewards_Ballsparking[4];
+extern const struct SamusEffectAnimationData sSamusEffectAnim_Right_Diagonal_Ballsparking[4];
 
 // 2b0bf4
 extern const struct SamusAnimationData sSamusAnim_2b0bf4[2];
