@@ -1,6 +1,3 @@
-from cgitb import reset
-
-
 def ParsePart0(value):
     result = ""
 
