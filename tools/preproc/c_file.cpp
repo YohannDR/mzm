@@ -321,10 +321,13 @@ int ExtractData(const std::unique_ptr<unsigned char[]>& buffer, int offset, int 
 
 void CFile::TryConvertIncbin()
 {
-    std::string idents[6] = { "INCBIN_S8", "INCBIN_U8", "INCBIN_S16", "INCBIN_U16", "INCBIN_S32", "INCBIN_U32" };
+    std::string idents[6 * 2] = {
+        "INCBIN_S8", "INCBIN_U8", "_INCBIN_S8", "_INCBIN_U8", "INCBIN_S16", "INCBIN_U16",
+        "_INCBIN_S16", "_INCBIN_U16", "INCBIN_S32", "INCBIN_U32", "_INCBIN_S32", "_INCBIN_U32"
+    };
     int incbinType = -1;
 
-    for (int i = 0; i < 6; i++)
+    for (int i = 0; i < 6 * 2; i++)
     {
         if (CheckIdentifier(idents[i]))
         {
@@ -336,8 +339,9 @@ void CFile::TryConvertIncbin()
     if (incbinType == -1)
         return;
 
-    int size = 1 << (incbinType / 2);
-    bool isSigned = ((incbinType % 2) == 0);
+    int size = 1 << (incbinType / 4);
+    bool isSigned = ((incbinType % 4) == 0);
+    bool hasBrackets = (idents[incbinType][0] != '_');
 
     long oldPos = m_pos;
     long oldLineNum = m_lineNum;
@@ -355,7 +359,8 @@ void CFile::TryConvertIncbin()
 
     m_pos++;
 
-    std::printf("{");
+    if (hasBrackets)
+        std::printf("{");
 
     while (true)
     {
@@ -424,7 +429,8 @@ void CFile::TryConvertIncbin()
 
     m_pos++;
 
-    std::printf("}");
+    if (hasBrackets)
+        std::printf("}");
 }
 
 // Reports a diagnostic message.

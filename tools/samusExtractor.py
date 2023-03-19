@@ -99,16 +99,22 @@ def Func():
     
     line: str = header.readline()
     while line != '':
-        if line.find("u8 sSamusGfx") != -1:
+        if line.find("u8 sSamusGfx") != -1 or line.find("u8 sSamusEffectGfx") != -1:
             # Generate graphics
             splitted = line.split("[SAMUS_GFX_SIZE(")
-            name: str = splitted[0].split("extern const u8 sSamusGfx_")[1]
-            
+            name: str = ""
+            try:
+                name: str = splitted[0].split("extern const u8 sSamusGfx_")[1]
+            except:
+                name: str = splitted[0].split("extern const u8 sSamusEffectGfx_")[1]
+
             folderName: str = "samus/graphics/power_suit/"
             if name.find("FullSuit") != -1:
                 folderName = "samus/graphics/full_suit/"
             elif name.find("Suitless") != -1:
                 folderName = "samus/graphics/suitless/"
+            elif line.find("sSamusEffectGfx") != -1:
+                folderName = "samus/graphics/effects/"
 
             name = name.replace("_PowerSuit", "", 1)
             name = name.replace("_FullSuit", "", 1)
@@ -118,31 +124,32 @@ def Func():
 
             fileName: str = folderName.__add__(name)
 
-            result += line.replace("extern ", "").replace(";\n", "").__add__(' = INCBIN_U8("data/').__add__(fileName).__add__('");')
-
             sizeInfo: str = splitted[1].split(")")[0].split(", ")
             size: int = 2 + int(sizeInfo[0]) * 32 + int(sizeInfo[1]) * 32
 
             size1: int = int.from_bytes(file.read(1), "little")
             size2: int = int.from_bytes(file.read(1), "little")
+
+            result += line.replace("extern ", "").replace(";\n", "").__add__(' = {\n\t').__add__(str(size1)).__add__(", ").__add__(str(size2)).__add__(',\n\t_INCBIN_U8("data/').__add__(fileName).__add__('")\n};\n')
+
             if int(sizeInfo[0]) != size1 or int(sizeInfo[1]) != size2:
                 print("Wrong GFX size at : " + hex(addr) + " while reading " + line, end="")
                 print("Got : " + str(sizeInfo[0]) + " and " + str(sizeInfo[1]) + ", expected : " + str(size1) + " and " + str(size2))
                 return result
 
-            dbEntry: str = fileName.__add__(";").__add__(str(size)).__add__(";").__add__(hex(addr)).__add__(";1")
+            dbEntry: str = fileName.__add__(";").__add__(str(size - 2)).__add__(";").__add__(hex(addr + 2)).__add__(";1")
 
-            print()
+            # print()
             print(dbEntry)
-            print("Before : " + hex(addr))
+            # print("Before : " + hex(addr))
 
             addr += size
             file.seek(addr)
-            print("After : " + hex(addr))
+            # print("After : " + hex(addr))
 
-        elif line.find("u16 sSamusOam") != -1:
+        elif line.find("u16 sSamusOam") != -1 or line.find("u16 sSamusEffectOam") != -1:
             # Generate OAM
-            print("Reading OAM at : " + hex(addr))
+            # print("Reading OAM at : " + hex(addr) + " : " + line)
             size: str = int(line.split("[OAM_DATA_SIZE(")[1].split(")")[0])
             partCount: int = int.from_bytes(file.read(2), "little")
             oam: str = "\t" + hex(partCount) + ",\n\t"
@@ -182,26 +189,60 @@ def Func():
                 addr += pad
                 file.seek(addr)
 
-            print("Extracting anim at " + hex(addr))
+            # print("Extracting anim at " + hex(addr))
 
             name: str = line.replace("extern ", "", 1)
 
             size: int = int(line.split("[")[1].split("]")[0])
 
+            result += name.replace(";\n", " = {\n")
+
+            body: str = " = {\n\t\t.pTopGfx = ,\n\t\t.pBottomGfx = ,\n\t\t.pOam = ,\n\t\t.timer = "
+
+            for x in range(0, size):
+                if x != size - 1:
+                    file.read(12)
+                    timer: int = int.from_bytes(file.read(1), "little")
+                    file.read(3)
+                    result = result.__add__("\t[").__add__(str(x)).__add__("]").__add__(body).__add__(str(timer)).__add__(",\n\t},\n")
+                else:
+                    file.read(16)
+                    result = result.__add__("\t[").__add__(str(x)).__add__("] = SAMUS_ANIM_TERMINATOR\n")
+
             addr += size * 16
             file.seek(addr)
 
+            result += "};"
+
+        elif line.find("struct SamusEffectAnimationData sSamusEffectAnim") != -1:
+            # Generate anim data
+            pad: int = addr % 4
+            if pad != 0:
+                addr += pad
+                file.seek(addr)
+
+            # print("Extracting effect anim at " + hex(addr))
+
+            name: str = line.replace("extern ", "", 1)
+
+            size: int = int(line.split("[")[1].split("]")[0])
+
             result += name.replace(";\n", " = {\n")
 
-            body: str = " = {\n\t\t.pTopGfx = ,\n\t\t.pBottomGfx = ,\n\t\t.pOam = ,\n\t\t.timer = ,\n\t}"
+            body: str = " = {\n\t\t.pGraphics = ,\n\t\t.pOam = ,\n\t\t.timer = "
 
             for x in range(0, size):
-                result = result.__add__("\t[").__add__(str(x)).__add__("]").__add__(body)
-
                 if x != size - 1:
-                    result += ",\n"
+                    file.read(8)
+                    timer: int = int.from_bytes(file.read(1), "little")
+                    file.read(3)
+                    result = result.__add__("\t[").__add__(str(x)).__add__("]").__add__(body).__add__(str(timer)).__add__(",\n\t},\n")
                 else:
-                    result += "\n"
+                    file.read(12)
+                    result = result.__add__("\t[").__add__(str(x)).__add__("] = SAMUS_EFFECT_ANIM_TERMINATOR\n")
+
+            addr += size * 12
+            file.seek(addr)
 
             result += "};"
 
