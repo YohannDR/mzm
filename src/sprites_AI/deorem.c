@@ -1630,9 +1630,15 @@ void DeoremSegmentLeftLeavingEnd(void)
         gCurrentSprite.status = 0;
 }
 
+/**
+ * @brief 22b3c | 28 | Handles the end of the middle leaving, sets status to 0
+ * 
+ */
 void DeoremSegmentMiddleLeavingEnd(void)
 {
-
+    gCurrentSprite.yPosition += 0x10;
+    if (--gCurrentSprite.timer == 0)
+        gCurrentSprite.status = 0;
 }
 
 void DeoremSegmentMiddleLeaving(void)
