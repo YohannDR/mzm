@@ -1619,9 +1619,15 @@ void DeoremSegmentLeftLeaving(void)
         gCurrentSprite.workVariable--;
 }
 
+/**
+ * @brief 22b14 | 28 | Handles the end of the left side leaving, sets status to 0
+ * 
+ */
 void DeoremSegmentLeftLeavingEnd(void)
 {
-
+    gCurrentSprite.yPosition -= 0x10;
+    if (--gCurrentSprite.timer == 0)
+        gCurrentSprite.status = 0;
 }
 
 void DeoremSegmentMiddleLeavingEnd(void)
