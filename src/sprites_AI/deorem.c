@@ -1641,9 +1641,31 @@ void DeoremSegmentMiddleLeavingEnd(void)
         gCurrentSprite.status = 0;
 }
 
+/**
+ * @brief 22b64 | 90 | Handles the middle leaving
+ * 
+ */
 void DeoremSegmentMiddleLeaving(void)
 {
+    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
 
+    if (gCurrentSprite.roomSlot == 0xC)
+        gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - 0xA8;
+    else
+    {
+        i32 yPosition = gSpriteData[ramSlot].yPosition - 0xA8;
+        gCurrentSprite.yPosition = yPosition - (gCurrentSprite.roomSlot - 12) * 100;
+    }
+
+    if (gSpriteData[ramSlot].pose == DEOREM_POSE_LEAVING_IN_GROUND)
+    {
+        gCurrentSprite.pose = 0x4B; // TODO: Pose names
+        gCurrentSprite.timer = 6;
+        gCurrentSprite.workVariable = 0x14;
+
+        if (gCurrentSprite.roomSlot == 0xC)
+            gCurrentSprite.pOam = sDeoremUnkOAMData_082d7894;
+    }
 }
 
 void DeoremSegmentRighLeaving(void)
