@@ -1581,7 +1581,7 @@ void DeoremSegmentAboveHeadMovement(void)
  */
 void DeoremSegmentLeftLeaving(void)
 {
-    gCurrentSprite.yPosition = gCurrentSprite.yPosition - 16;
+    gCurrentSprite.yPosition = gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE;
     
     if (--gCurrentSprite.timer == 0)
     {
@@ -1668,9 +1668,43 @@ void DeoremSegmentMiddleLeaving(void)
     }
 }
 
+/**
+ * @brief 22bf4 | a0 | Handles the right side leaving
+ * 
+ */
 void DeoremSegmentRighLeaving(void)
 {
+    gCurrentSprite.yPosition = gCurrentSprite.yPosition + QUARTER_BLOCK_SIZE;
 
+    if (--gCurrentSprite.timer == 0)
+    {
+        gCurrentSprite.timer = 6;
+        gCurrentSprite.yPosition -= 0x60;
+        gCurrentSprite.currentAnimationFrame++;
+        if (gCurrentSprite.currentAnimationFrame > 3)
+            gCurrentSprite.currentAnimationFrame = 0;
+
+        if (--gCurrentSprite.workVariable == 0)
+        {
+            if (gCurrentSprite.roomSlot == 17)
+            {
+                gCurrentSprite.drawDistanceTopOffset = 0x10;
+                gCurrentSprite.drawDistanceBottomOffset = 0x30;
+                gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+                
+                gCurrentSprite.hitboxTopOffset = -3 * QUARTER_BLOCK_SIZE;
+                gCurrentSprite.hitboxBottomOffset = 5 * HALF_BLOCK_SIZE;
+                gCurrentSprite.hitboxLeftOffset = -BLOCK_SIZE;
+                gCurrentSprite.hitboxRightOffset = BLOCK_SIZE;
+
+                gCurrentSprite.pOam = sDeoremUnkOAMData_082d78e4;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
+            }
+            gCurrentSprite.pose = 0x4C; // TODO: Pose names
+            gCurrentSprite.timer = 0x2E;
+        }
+    }
 }
 
 void DeoremSegmentRighLeavingEnd(void)
