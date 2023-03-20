@@ -1718,9 +1718,71 @@ void DeoremSegmentRighLeavingEnd(void)
         gCurrentSprite.status = 0;
 }
 
+/**
+ * @brief 22cbc | f8 | Sets the timer depending on the room slot for how long it stays alive before
+ * exploding upon Deorem death
+ * 
+ */
 void DeoremSegmentSetTimerDying(void)
 {
-
+    u8 timer = 6;
+    
+    switch (gCurrentSprite.roomSlot)
+    {
+        case 13:
+            timer *= 2;
+            break;
+        case 14:
+            timer *= 3;
+            break;
+        case 6:
+            timer *= 4;
+            break;       
+        case 7:
+            timer *= 5;
+            break;
+        case 8:
+            timer *= 6;
+            break;
+        case 9:
+            timer *= 7;
+            break;
+        case 10:
+            timer *= 8;
+            break;
+        case 11:
+            timer *= 9;
+            break;
+        case 19:
+            timer *= 10;
+            break;
+         case 0:
+            timer *= 11;
+            break;
+        case 1:
+            timer *= 12;
+            break;
+        case 2:
+            timer *= 13;
+            break;
+        case 3:
+            timer *= 14;
+            break;
+        case 4:
+            timer *= 15;
+            break;
+        case 5:
+            timer *= 16;
+            break;
+        case 18:
+            timer *= 17;
+            break;
+    }
+    gCurrentSprite.timer = timer + 60;
+    
+    gCurrentSprite.pose = 0x67; // TODO: Pose names
+    gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
+    gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
 }
 
 void DeoremSegmentDying(void)
