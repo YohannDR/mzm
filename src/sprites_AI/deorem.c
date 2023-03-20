@@ -1625,7 +1625,7 @@ void DeoremSegmentLeftLeaving(void)
  */
 void DeoremSegmentLeftLeavingEnd(void)
 {
-    gCurrentSprite.yPosition -= 0x10;
+    gCurrentSprite.yPosition -= QUARTER_BLOCK_SIZE;
     if (--gCurrentSprite.timer == 0)
         gCurrentSprite.status = 0;
 }
@@ -1707,9 +1707,15 @@ void DeoremSegmentRighLeaving(void)
     }
 }
 
+/**
+ * @brief 22c94 | 28 | Handles the end of the right side leaving, sets status to 0
+ * 
+ */
 void DeoremSegmentRighLeavingEnd(void)
 {
-
+    gCurrentSprite.yPosition += QUARTER_BLOCK_SIZE;
+    if (--gCurrentSprite.timer == 0)
+        gCurrentSprite.status = 0;
 }
 
 void DeoremSegmentSetTimerDying(void)
