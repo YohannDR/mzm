@@ -2110,7 +2110,7 @@ extern const u8 sSamusGfx_Top_FullSuit_FacingTheForeground_Frame0[SAMUS_GFX_SIZE
 extern const u8 sSamusGfx_Top_FullSuit_FacingTheForeground_Frame1[SAMUS_GFX_SIZE(9, 6)];
 extern const u8 sSamusGfx_Top_FullSuit_FacingTheForeground_Frame2[SAMUS_GFX_SIZE(9, 6)];
 
-extern const u8 sSamusGfx_Bottom_FullSuit_UsingAnElevator_Frame1[SAMUS_GFX_SIZE(12, 9)];
+extern const u8 sSamusGfx_Top_FullSuit_UsingAnElevator_Frame1[SAMUS_GFX_SIZE(12, 9)];
 
 extern const u8 sSamusGfx_Top_FullSuit_Left_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
 extern const u8 sSamusGfx_Top_FullSuit_Right_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
@@ -2224,9 +2224,8 @@ extern const u16 sSamusOam_FullSuit_Down_TurningOnZipline_Frame0[OAM_DATA_SIZE(6
 
 extern const u16 sSamusOam_FullSuit_MorphballMotionless_Frame3[OAM_DATA_SIZE(2)];
 
-// ?
-// extern const u16 sSamusOam_FullSuit_Shinesparking_Frame4[OAM_DATA_SIZE(2)];
-// extern const u16 sSamusOam_FullSuit_Shinesparking_Frame2[OAM_DATA_SIZE(2)];
+extern const u16 sSamusOam_FullSuit_Ballsparking_Frame4[OAM_DATA_SIZE(2)];
+extern const u16 sSamusOam_FullSuit_Ballsparking_Frame2[OAM_DATA_SIZE(2)];
 
 extern const u16 sSamusOam_FullSuit_SavingLoadingGame_Frame1[OAM_DATA_SIZE(8)];
 extern const u16 sSamusOam_FullSuit_SavingLoadingGame_Frame3[OAM_DATA_SIZE(8)];

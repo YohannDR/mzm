@@ -1672,7 +1672,7 @@ samus/graphics/full_suit/Bottom_TurningAroundMidAir_Frame0.gfx;256;0x27ab20;1
 samus/graphics/full_suit/Top_FacingTheForeground_Frame0.gfx;480;0x27ac22;1
 samus/graphics/full_suit/Top_FacingTheForeground_Frame1.gfx;480;0x27ae04;1
 samus/graphics/full_suit/Top_FacingTheForeground_Frame2.gfx;480;0x27afe6;1
-samus/graphics/full_suit/Bottom_UsingAnElevator_Frame1.gfx;672;0x27b1c8;1
+samus/graphics/full_suit/Top_UsingAnElevator_Frame1.gfx;672;0x27b1c8;1
 samus/graphics/full_suit/Top_Left_TurningFromFacingTheForeground_Frame0.gfx;480;0x27b46a;1
 samus/graphics/full_suit/Top_Right_TurningFromFacingTheForeground_Frame0.gfx;480;0x27b64c;1
 samus/graphics/full_suit/Top_TurningOnZipline_Frame1.gfx;352;0x27b82e;1
