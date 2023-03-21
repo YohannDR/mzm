@@ -547,7 +547,8 @@ SECTIONS {
         src/data/samus/samus_empty_data.o(.rodata);
         /* 2320ec-2376a8 */
         src/data/samus/samus_palette_data.o(.rodata);
-        /* 238b68-2b0c93 */
+        /* 238b68-23a5bc */
+        /*src/data/samus/samus_graphics.o(.rodata);*/
 
         src/data/sprite_data.o(.rodata);
         src/data/spriteset.o(.rodata);

@@ -97,7 +97,7 @@ extern const u8 sSamusGfx_Bottom_PowerSuit_Up_Standing_Frame1[SAMUS_GFX_SIZE(6, 
 extern const u8 sSamusGfx_Top_PowerSuit_Left_Up_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)];
 extern const u8 sSamusGfx_Bottom_PowerSuit_Up_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)];
 
-extern const u8 sSamusGfx_Bottom_PowerSuit_Up_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)];
+extern const u8 sSamusGfx_Bottom_PowerSuit_Up_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)];
 
 extern const u8 sSamusGfx_Top_PowerSuit_Right_Standing_Frame1[SAMUS_GFX_SIZE(4, 2)];
 extern const u8 sSamusGfx_Top_PowerSuit_Right_Standing_Frame2[SAMUS_GFX_SIZE(4, 2)];
@@ -799,7 +799,7 @@ extern const u8 sSamusGfx_Top_PowerSuit_FacingTheForeground_Frame0[SAMUS_GFX_SIZ
 extern const u8 sSamusGfx_Top_PowerSuit_FacingTheForeground_Frame1[SAMUS_GFX_SIZE(9, 6)];
 extern const u8 sSamusGfx_Top_PowerSuit_FacingTheForeground_Frame2[SAMUS_GFX_SIZE(9, 6)];
 
-extern const u8 sSamusGfx_Bottom_PowerSuit_UsingAnElevator_Frame1[SAMUS_GFX_SIZE(12, 9)];
+extern const u8 sSamusGfx_Top_PowerSuit_UsingAnElevator_Frame1[SAMUS_GFX_SIZE(12, 9)];
 
 extern const u8 sSamusGfx_Top_PowerSuit_Left_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
 extern const u8 sSamusGfx_Top_PowerSuit_Right_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
@@ -1383,7 +1383,7 @@ extern const u8 sSamusGfx_Bottom_FullSuit_Up_Standing_Frame1[SAMUS_GFX_SIZE(6, 6
 extern const u8 sSamusGfx_Top_FullSuit_Left_Up_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)];
 extern const u8 sSamusGfx_Bottom_FullSuit_Up_Standing_Frame2[SAMUS_GFX_SIZE(6, 6)];
 
-extern const u8 sSamusGfx_Bottom_FullSuit_Up_Standing_Frame1[SAMUS_GFX_SIZE(6, 6)];
+extern const u8 sSamusGfx_Bottom_FullSuit_Up_Shooting_Frame1[SAMUS_GFX_SIZE(6, 6)];
 
 extern const u8 sSamusGfx_Top_FullSuit_Right_Standing_Frame1[SAMUS_GFX_SIZE(4, 4)];
 extern const u8 sSamusGfx_Top_FullSuit_Right_Standing_Frame2[SAMUS_GFX_SIZE(4, 4)];
@@ -3140,21 +3140,21 @@ extern const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame1[SAMUS_GFX_S
 extern const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame2[SAMUS_GFX_SIZE(6, 4)];
 extern const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame3[SAMUS_GFX_SIZE(8, 4)];
 extern const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_MidAir_Frame4[SAMUS_GFX_SIZE(8, 4)];
-extern const u8 sSamusGfx_Top_Suitless_Left_DiagonalUp_Landing_Frame3[SAMUS_GFX_SIZE(6, 6)];
+extern const u8 sSamusGfx_Bottom_Suitless_Left_DiagonalUp_Landing_Frame3[SAMUS_GFX_SIZE(6, 6)];
 
 extern const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame0[SAMUS_GFX_SIZE(6, 6)];
 extern const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame1[SAMUS_GFX_SIZE(6, 6)];
 extern const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame2[SAMUS_GFX_SIZE(6, 6)];
 extern const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame3[SAMUS_GFX_SIZE(8, 6)];
 extern const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_MidAir_Frame4[SAMUS_GFX_SIZE(8, 6)];
-extern const u8 sSamusGfx_Top_Suitless_Left_DiagonalDown_Landing_Frame3[SAMUS_GFX_SIZE(6, 6)];
+extern const u8 sSamusGfx_Bottom_Suitless_Left_DiagonalDown_Landing_Frame3[SAMUS_GFX_SIZE(6, 6)];
 
 extern const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame0[SAMUS_GFX_SIZE(6, 6)];
 extern const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame1[SAMUS_GFX_SIZE(6, 6)];
 extern const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame2[SAMUS_GFX_SIZE(6, 6)];
 extern const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame3[SAMUS_GFX_SIZE(6, 6)];
 extern const u8 sSamusGfx_Top_Suitless_Left_Up_MidAir_Frame4[SAMUS_GFX_SIZE(6, 6)];
-extern const u8 sSamusGfx_Top_Suitless_Left_Up_Landing_Frame3[SAMUS_GFX_SIZE(6, 6)];
+extern const u8 sSamusGfx_Bottom_Suitless_Left_Up_Landing_Frame3[SAMUS_GFX_SIZE(6, 6)];
 
 extern const u8 sSamusGfx_Top_Suitless_Left_Down_MidAir_Frame0[SAMUS_GFX_SIZE(5, 5)];
 extern const u8 sSamusGfx_Bottom_Suitless_Down_MidAir_Frame0[SAMUS_GFX_SIZE(4, 4)];
@@ -3292,15 +3292,15 @@ extern const u16 sSamusOam_Suitless_Right_DiagonalUp_Landing_Frame3[OAM_DATA_SIZ
 extern const u16 sSamusOam_Suitless_Right_DiagonalUp_Landing_Frame4[OAM_DATA_SIZE(5)];
 extern const u16 sSamusOam_Suitless_Right_DiagonalUp_Landing_Frame5[OAM_DATA_SIZE(5)];
 
-extern const u16 sSamusOam_Suitless_Right_DiagonalUp_MidAir_Frame0[OAM_DATA_SIZE(5)];
-extern const u16 sSamusOam_Suitless_Right_DiagonalUp_MidAir_Frame1[OAM_DATA_SIZE(5)];
-extern const u16 sSamusOam_Suitless_Right_DiagonalUp_MidAir_Frame2[OAM_DATA_SIZE(5)];
-extern const u16 sSamusOam_Suitless_Right_DiagonalUp_MidAir_Frame3[OAM_DATA_SIZE(6)];
+extern const u16 sSamusOam_Suitless_Right_DiagonalDown_MidAir_Frame0[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_Suitless_Right_DiagonalDown_MidAir_Frame1[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_Suitless_Right_DiagonalDown_MidAir_Frame2[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_Suitless_Right_DiagonalDown_MidAir_Frame3[OAM_DATA_SIZE(6)];
 
-extern const u16 sSamusOam_Suitless_Right_DiagonalUp_Landing_Frame0[OAM_DATA_SIZE(5)];
-extern const u16 sSamusOam_Suitless_Right_DiagonalUp_Landing_Frame1[OAM_DATA_SIZE(6)];
-extern const u16 sSamusOam_Suitless_Right_DiagonalUp_Landing_Frame2[OAM_DATA_SIZE(5)];
-extern const u16 sSamusOam_Suitless_Right_DiagonalUp_Landing_Frame3[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_Suitless_Right_DiagonalDown_Landing_Frame0[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_Suitless_Right_DiagonalDown_Landing_Frame1[OAM_DATA_SIZE(6)];
+extern const u16 sSamusOam_Suitless_Right_DiagonalDown_Landing_Frame2[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_Suitless_Right_DiagonalDown_Landing_Frame3[OAM_DATA_SIZE(5)];
 
 extern const u16 sSamusOam_Suitless_Right_Up_MidAir_Frame0[OAM_DATA_SIZE(5)];
 extern const u16 sSamusOam_Suitless_Right_Up_MidAir_Frame1[OAM_DATA_SIZE(5)];
@@ -3476,16 +3476,16 @@ extern const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame2[SAMUS
 extern const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame3[SAMUS_GFX_SIZE(6, 5)];
 extern const u8 sSamusGfx_Top_Suitless_Right_HangingOnLedgeSuitless_Frame4[SAMUS_GFX_SIZE(6, 5)];
 
-extern const u16 sSamusOam_Suitless_Right_HangingOnLedgeSuitless_Frame0[OAM_DATA_SIZE(6)];
+extern const u16 sSamusOam_Suitless_Left_HangingOnLedgeSuitless_Frame0[OAM_DATA_SIZE(6)];
 
-extern const u16 sSamusOam_Suitless_Right_PulingYourselfUpFromHanging_Frame0[OAM_DATA_SIZE(4)];
-extern const u16 sSamusOam_Suitless_Right_PulingYourselfUpFromHanging_Frame1[OAM_DATA_SIZE(5)];
-extern const u16 sSamusOam_Suitless_Right_PulingYourselfUpFromHanging_Frame2[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_Suitless_Left_PullingYourselfUpFromHanging_Frame0[OAM_DATA_SIZE(4)];
+extern const u16 sSamusOam_Suitless_Left_PullingYourselfUpFromHanging_Frame1[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_Suitless_Left_PullingYourselfUpFromHanging_Frame2[OAM_DATA_SIZE(5)];
 
-extern const u16 sSamusOam_Suitless_Right_PulingYourselfForwardFromHanging_Frame0[OAM_DATA_SIZE(7)];
-extern const u16 sSamusOam_Suitless_Right_PulingYourselfForwardFromHanging_Frame1[OAM_DATA_SIZE(5)];
-extern const u16 sSamusOam_Suitless_Right_PulingYourselfForwardFromHanging_Frame2[OAM_DATA_SIZE(5)];
-extern const u16 sSamusOam_Suitless_Right_PulingYourselfForwardFromHanging_Frame3[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_Suitless_Left_PullingYourselfForwardFromHanging_Frame0[OAM_DATA_SIZE(7)];
+extern const u16 sSamusOam_Suitless_Left_PullingYourselfForwardFromHanging_Frame1[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_Suitless_Left_PullingYourselfForwardFromHanging_Frame2[OAM_DATA_SIZE(5)];
+extern const u16 sSamusOam_Suitless_Left_PullingYourselfForwardFromHanging_Frame3[OAM_DATA_SIZE(5)];
 
 extern const u16 sSamusOam_Suitless_Right_TurningToAimWhileHanging_Frame0[OAM_DATA_SIZE(5)];
 
@@ -3617,12 +3617,12 @@ extern const u8 sSamusGfx_Top_Suitless_Down_TurningAroundMidAir_Frame1[SAMUS_GFX
 
 extern const u8 sSamusGfx_Bottom_Suitless_TurningAroundMidAir_Frame0[SAMUS_GFX_SIZE(4, 4)];
 
-extern const u8 sSamusGfx_Bottom_Suitless_FacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
-extern const u8 sSamusGfx_Bottom_Suitless_FacingTheForeground_Frame1[SAMUS_GFX_SIZE(9, 6)];
-extern const u8 sSamusGfx_Bottom_Suitless_FacingTheForeground_Frame2[SAMUS_GFX_SIZE(9, 6)];
+extern const u8 sSamusGfx_Top_Suitless_FacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
+extern const u8 sSamusGfx_Top_Suitless_FacingTheForeground_Frame1[SAMUS_GFX_SIZE(9, 6)];
+extern const u8 sSamusGfx_Top_Suitless_FacingTheForeground_Frame2[SAMUS_GFX_SIZE(9, 6)];
 
-extern const u8 sSamusGfx_Bottom_Suitless_Left_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
-extern const u8 sSamusGfx_Bottom_Suitless_Right_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
+extern const u8 sSamusGfx_Top_Suitless_Left_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
+extern const u8 sSamusGfx_Top_Suitless_Right_TurningFromFacingTheForeground_Frame0[SAMUS_GFX_SIZE(9, 6)];
 
 extern const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame1[SAMUS_GFX_SIZE(11, 6)];
 extern const u8 sSamusGfx_Top_Suitless_SavingLoadingGame_Frame2[SAMUS_GFX_SIZE(11, 6)];
@@ -3864,10 +3864,10 @@ extern const struct SamusAnimationData sSamusAnim_Suitless_Right_TurningAroundWh
 extern const struct SamusAnimationData sSamusAnim_Suitless_Left_StartingToCrawl[6];
 extern const struct SamusAnimationData sSamusAnim_Suitless_Right_StartingToCrawl[6];
 
-extern const struct SamusAnimationData sSamusAnim_Suitless_DownloadingMapData[6];
+extern const struct SamusAnimationData sSamusAnim_Suitless_DownloadingMapData[9];
 extern const struct SamusAnimationData sSamusAnim_2b0bf4[2];
 
-extern const struct SamusAnimationData sSamusAnim_Suitless_FacingTheBackground[5];
+extern const struct SamusAnimationData sSamusAnim_Suitless_FacingTheBackground[2];
 extern const struct SamusAnimationData sSamusAnim_Suitless_Left_TurningFromFacingTheBackground[2];
 extern const struct SamusAnimationData sSamusAnim_Suitless_Right_TurningFromFacingTheBackground[2];
 
