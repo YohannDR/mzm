@@ -1785,9 +1785,42 @@ void DeoremSegmentSetTimerDying(void)
     gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
 }
 
+/**
+ * @brief 22db4 | 94 | Handles the death of a Deorem segment
+ * 
+ */
 void DeoremSegmentDying(void)
 {
+    u16 xPos;
+    i32 newXPos;
+    u16 roomSlot;
+    u8 rng;
+    u8 random_movement;
 
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    xPos = gCurrentSprite.xPosition;
+    roomSlot = gCurrentSprite.roomSlot;
+    rng = gSpriteRNG;
+    random_movement = rng * 2;
+
+    if (roomSlot > 11)
+        random_movement += 48;
+
+    if ((roomSlot & 1) != 0)
+        newXPos = xPos + random_movement + roomSlot;
+    else
+        newXPos = xPos - (random_movement + roomSlot);
+    xPos = newXPos;
+
+    gCurrentSprite.timer--;
+    if (gCurrentSprite.timer == 0)
+    {
+        u16 yPos = gCurrentSprite.yPosition;
+        SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, xPos, FALSE, PE_SPRITE_EXPLOSION_BIG);
+
+        if ((yPos > gBossWork.work1 + 7 * BLOCK_SIZE) || (yPos < gBossWork.work1 + 2 * BLOCK_SIZE))
+            gCurrentSprite.status = 0;
+    }
 }
 
 void DeoremEyeInit(void)
