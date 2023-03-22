@@ -1222,7 +1222,7 @@ samus/graphics/power_suit/Top_Right_Spinning_Frame0.gfx;288;0x24bbee;1
 samus/graphics/power_suit/Top_Right_Spinning_Frame1.gfx;320;0x24bd10;1
 samus/graphics/power_suit/Top_Right_Spinning_Frame2.gfx;288;0x24be52;1
 samus/graphics/power_suit/Top_Right_Spinning_Frame3.gfx;320;0x24bf74;1
-samus/graphics/power_suit/Bottom_DelayBeforeShinepsarking_Frame3.gfx;192;0x24c0b6;1
+samus/graphics/power_suit/Bottom_DelayBeforeShinesparking_Frame3.gfx;192;0x24c0b6;1
 samus/graphics/power_suit/Top_Right_StartingWallJump_Frame0.gfx;384;0x24c178;1
 samus/graphics/power_suit/Top_Right_StartingWallJump_Frame1.gfx;384;0x24c2fa;1
 samus/graphics/power_suit/Top_Right_StartingWallJump_Frame2.gfx;256;0x24c47c;1
@@ -1615,8 +1615,8 @@ samus/graphics/full_suit/Top_Right_Spinning_Frame0.gfx;288;0x27468e;1
 samus/graphics/full_suit/Top_Right_Spinning_Frame1.gfx;320;0x2747b0;1
 samus/graphics/full_suit/Top_Right_Spinning_Frame2.gfx;288;0x2748f2;1
 samus/graphics/full_suit/Top_Right_Spinning_Frame3.gfx;320;0x274a14;1
-samus/graphics/full_suit/Bottom_DelayBeforeShinepsarking_Frame3.gfx;192;0x274b56;1
-samus/graphics/full_suit/Top_DelayBeforeShinepsarking_Frame3.gfx;352;0x274c18;1
+samus/graphics/full_suit/Bottom_DelayBeforeShinesparking_Frame3.gfx;192;0x274b56;1
+samus/graphics/full_suit/Top_DelayBeforeShinesparking_Frame3.gfx;352;0x274c18;1
 samus/graphics/full_suit/Top_Right_StartingWallJump_Frame0.gfx;384;0x274d7a;1
 samus/graphics/full_suit/Top_Right_StartingWallJump_Frame1.gfx;384;0x274efc;1
 samus/graphics/full_suit/Top_Right_StartingWallJump_Frame2.gfx;256;0x27507e;1
@@ -2239,8 +2239,7 @@ Blob_8ceec_8f253.bin;9064;0x8ceec;1
 Blob_8f2c0_908df.bin;5664;0x8f2c0;1
 Blob_908e0_2320e4.bin;1710084;0x908e0;1
 Blob_2320ec_2376a8.bin;21948;0x2320ec;1
-# Blob_238b68_23a5bc.bin;6740;0x238b68;1
-Blob_238b68_2b0c93.bin;491819;0x238b68;1
+Blob_238b68_23a5bc.bin;6740;0x238b68;1
 Blob_2ceaa8_2cfd9f.bin;4856;0x2ceaa8;1
 Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
