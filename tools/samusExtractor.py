@@ -1,7 +1,7 @@
 from io import BufferedReader
 
 file: BufferedReader = open("../mzm_us_baserom.gba", "rb")
-header: BufferedReader = open("../include/data/samus/samus_graphics.h", "r")
+header: BufferedReader = open("../include/data/samus/arm_cannon_data.h", "r")
 
 def ParsePart0(value):
     result = ""
@@ -91,7 +91,7 @@ def ParsePart2(value):
     return result
 
 def Func():
-    addr = 0x23a5bc
+    addr = 0x2320ec
 
     file.seek(addr)
 
@@ -99,45 +99,23 @@ def Func():
     
     line: str = header.readline()
     while line != '':
-        if line.find("u8 sSamusGfx") != -1 or line.find("u8 sSamusEffectGfx") != -1:
+        if line.find("u8 sArmCannonGfx") != -1:
             # Generate graphics
-            splitted = line.split("[SAMUS_GFX_SIZE(")
-            name: str = ""
-            try:
-                name: str = splitted[0].split("extern const u8 sSamusGfx_")[1]
-            except:
-                name: str = splitted[0].split("extern const u8 sSamusEffectGfx_")[1]
+            splitted = line.split("[SAMUS_ARM_CANNON_GFX_SIZE")
+            name: str = splitted[0].split("extern const u8 sArmCannonGfx_")[1]
 
-            folderName: str = "samus/graphics/power_suit/"
-            if name.find("FullSuit") != -1:
-                folderName = "samus/graphics/full_suit/"
-            elif name.find("Suitless") != -1:
-                folderName = "samus/graphics/suitless/"
-            elif line.find("sSamusEffectGfx") != -1:
-                folderName = "samus/graphics/effects/"
+            folderName: str = "samus/graphics/arm_cannon/"
 
-            name = name.replace("_PowerSuit", "", 1)
-            name = name.replace("_FullSuit", "", 1)
-            name = name.replace("_Suitless", "", 1)
             name = name.replace("extern ", "", 1)
             name = name.__add__(".gfx")
 
             fileName: str = folderName.__add__(name)
 
-            sizeInfo: str = splitted[1].split(")")[0].split(", ")
-            size: int = 2 + int(sizeInfo[0]) * 32 + int(sizeInfo[1]) * 32
+            size: int = 64
 
-            size1: int = int.from_bytes(file.read(1), "little")
-            size2: int = int.from_bytes(file.read(1), "little")
+            result += line.replace("extern ", "").replace(";\n", "").__add__(' = INCBIN_U8("data/').__add__(fileName).__add__('");')
 
-            result += line.replace("extern ", "").replace(";\n", "").__add__(' = {\n\t').__add__(str(size1)).__add__(", ").__add__(str(size2)).__add__(',\n\t_INCBIN_U8("data/').__add__(fileName).__add__('")\n};\n')
-
-            if int(sizeInfo[0]) != size1 or int(sizeInfo[1]) != size2:
-                print("Wrong GFX size at : " + hex(addr) + " while reading " + line, end="")
-                print("Got : " + str(sizeInfo[0]) + " and " + str(sizeInfo[1]) + ", expected : " + str(size1) + " and " + str(size2))
-                return result
-
-            dbEntry: str = fileName.__add__(";").__add__(str(size - 2)).__add__(";").__add__(hex(addr + 2)).__add__(";1")
+            dbEntry: str = fileName.__add__(";").__add__(str(size)).__add__(";").__add__(hex(addr)).__add__(";1")
 
             # print()
             print(dbEntry)
@@ -182,76 +160,12 @@ def Func():
 
             result += name.replace(";\n", " = {\n").__add__(oam).__add__("};\n")
 
-        elif line.find("struct SamusAnimationData sSamusAnim") != -1:
-            # Generate anim data
-            pad: int = addr % 4
-            if pad != 0:
-                addr += pad
-                file.seek(addr)
-
-            # print("Extracting anim at " + hex(addr))
-
-            name: str = line.replace("extern ", "", 1)
-
-            size: int = int(line.split("[")[1].split("]")[0])
-
-            result += name.replace(";\n", " = {\n")
-
-            body: str = " = {\n\t\t.pTopGfx = ,\n\t\t.pBottomGfx = ,\n\t\t.pOam = ,\n\t\t.timer = "
-
-            for x in range(0, size):
-                if x != size - 1:
-                    file.read(12)
-                    timer: int = int.from_bytes(file.read(1), "little")
-                    file.read(3)
-                    result = result.__add__("\t[").__add__(str(x)).__add__("]").__add__(body).__add__(str(timer)).__add__(",\n\t},\n")
-                else:
-                    file.read(16)
-                    result = result.__add__("\t[").__add__(str(x)).__add__("] = SAMUS_ANIM_TERMINATOR\n")
-
-            addr += size * 16
-            file.seek(addr)
-
-            result += "};"
-
-        elif line.find("struct SamusEffectAnimationData sSamusEffectAnim") != -1:
-            # Generate anim data
-            pad: int = addr % 4
-            if pad != 0:
-                addr += pad
-                file.seek(addr)
-
-            # print("Extracting effect anim at " + hex(addr))
-
-            name: str = line.replace("extern ", "", 1)
-
-            size: int = int(line.split("[")[1].split("]")[0])
-
-            result += name.replace(";\n", " = {\n")
-
-            body: str = " = {\n\t\t.pGraphics = ,\n\t\t.pOam = ,\n\t\t.timer = "
-
-            for x in range(0, size):
-                if x != size - 1:
-                    file.read(8)
-                    timer: int = int.from_bytes(file.read(1), "little")
-                    file.read(3)
-                    result = result.__add__("\t[").__add__(str(x)).__add__("]").__add__(body).__add__(str(timer)).__add__(",\n\t},\n")
-                else:
-                    file.read(12)
-                    result = result.__add__("\t[").__add__(str(x)).__add__("] = SAMUS_EFFECT_ANIM_TERMINATOR\n")
-
-            addr += size * 12
-            file.seek(addr)
-
-            result += "};"
 
         line = header.readline()
 
         result += "\n"
-
     return result
 
-f = open("samus_graphics.txt", "w")
+f = open("arm_cannon_data.txt", "w")
 f.write(Func())
 f.close()

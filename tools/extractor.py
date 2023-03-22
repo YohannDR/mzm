@@ -36,6 +36,7 @@ subDirs: array = [
     "samus/graphics/full_suit/",
     "samus/graphics/suitless/",
     "samus/graphics/effects/",
+    "samus/graphics/arm_cannon/",
 ]
 
 try:

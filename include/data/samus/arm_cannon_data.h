@@ -2,9 +2,11 @@
 #define SAMUS_ARM_CANNON_DATA_H
 
 #include "types.h"
+#include "macros.h"
+#include "structs/samus.h"
 
-// Size of header plus size of graphics
-#define SAMUS_ARM_CANNON_GFX_SIZE (2 + 62)
+// 2 tiles in size
+#define SAMUS_ARM_CANNON_GFX_SIZE (2 * 32)
 
 // Naming :
 // Part of the gfx, arm cannon direction, facing direction, pose
@@ -115,27 +117,19 @@ extern const u8 sArmCannonGfx_Lower_Up_Left_Armed_Hanging[SAMUS_ARM_CANNON_GFX_S
 extern const u8 sArmCannonGfx_Lower_Down_Left_Armed_Hanging[SAMUS_ARM_CANNON_GFX_SIZE];
 
 extern const u8 sArmCannonGfx_Upper_Forward_Right_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Upper_DiagonalUp_Right_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Upper_DiagonalDown_Right_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Upper_Up_Right_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Upper_Down_Right_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
 
 extern const u8 sArmCannonGfx_Lower_Forward_Right_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Lower_DiagonalUp_Right_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Lower_DiagonalDown_Right_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Lower_Up_Right_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Lower_Down_Right_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
 
 extern const u8 sArmCannonGfx_Upper_Forward_Right_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Upper_DiagonalUp_Right_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Upper_DiagonalDown_Right_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Upper_Up_Right_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Upper_Down_Right_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
 
 extern const u8 sArmCannonGfx_Lower_Forward_Right_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Lower_DiagonalUp_Right_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Lower_DiagonalDown_Right_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
-extern const u8 sArmCannonGfx_Lower_Up_Right_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Lower_Down_Right_Armed_OnZipline[SAMUS_ARM_CANNON_GFX_SIZE];
 
 extern const u8 sArmCannonGfx_Upper_Forward_Standing[SAMUS_ARM_CANNON_GFX_SIZE];
@@ -153,5 +147,7 @@ extern const u8 sArmCannonGfx_Upper_DiagonalDown_Armed_Standing[SAMUS_ARM_CANNON
 extern const u8 sArmCannonGfx_Lower_Forward_Armed_Standing[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Lower_DiagonalUp_Armed_Standing[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Lower_DiagonalDown_Armed_Standing[SAMUS_ARM_CANNON_GFX_SIZE];
+
+
 
 #endif /* SAMUS_ARM_CANNON_DATA_H */

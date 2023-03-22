@@ -2516,7 +2516,7 @@ const u8* const sArmCannonGfxPointers_Upper_Right_OnZipline[5] = {
 
 const u8* const sArmCannonGfxPointers_Lower_Right_OnZipline[5] = {
     [ACD_FORWARD] = sArmCannonGfx_Lower_Forward_Right_OnZipline,
-    [ACD_DIAGONALLY_UP] = sArmCannonGfx_Lower_DiagonalUp_Right_OnZipline,
+    [ACD_DIAGONALLY_UP] = sArmCannonGfx_Lower_DiagonalUp_Right_Armed_Hanging,
     [ACD_DIAGONALLY_DOWN] = sArmCannonGfx_Lower_DiagonalDown_Right_OnZipline,
     [ACD_UP] = sArmCannonGfx_Lower_Up_Right_OnZipline,
     [ACD_DOWN] = sArmCannonGfx_Lower_Down_Right_OnZipline
@@ -2524,17 +2524,17 @@ const u8* const sArmCannonGfxPointers_Lower_Right_OnZipline[5] = {
 
 const u8* const sArmCannonGfxPointers_Upper_Right_Armed_OnZipline[5] = {
     [ACD_FORWARD] = sArmCannonGfx_Upper_Forward_Right_Armed_OnZipline,
-    [ACD_DIAGONALLY_UP] = sArmCannonGfx_Upper_DiagonalUp_Right_Armed_OnZipline,
+    [ACD_DIAGONALLY_UP] = sArmCannonGfx_Upper_DiagonalUp_Right_Armed_Hanging,
     [ACD_DIAGONALLY_DOWN] = sArmCannonGfx_Upper_DiagonalDown_Right_Armed_OnZipline,
-    [ACD_UP] = sArmCannonGfx_Upper_Up_Right_Armed_OnZipline,
+    [ACD_UP] = sArmCannonGfx_Upper_Up_Right_Armed_Hanging,
     [ACD_DOWN] = sArmCannonGfx_Upper_Down_Right_Armed_OnZipline
 };
 
 const u8* const sArmCannonGfxPointers_Lower_Right_Armed_OnZipline[5] = {
     [ACD_FORWARD] = sArmCannonGfx_Lower_Forward_Right_Armed_OnZipline,
-    [ACD_DIAGONALLY_UP] = sArmCannonGfx_Lower_DiagonalUp_Right_Armed_OnZipline,
+    [ACD_DIAGONALLY_UP] = sArmCannonGfx_Lower_DiagonalUp_Right_Armed_Hanging,
     [ACD_DIAGONALLY_DOWN] = sArmCannonGfx_Lower_DiagonalDown_Right_Armed_OnZipline,
-    [ACD_UP] = sArmCannonGfx_Lower_Up_Right_Armed_OnZipline,
+    [ACD_UP] = sArmCannonGfx_Lower_Up_Right_Armed_Hanging,
     [ACD_DOWN] = sArmCannonGfx_Lower_Down_Right_Armed_OnZipline
 };
 
