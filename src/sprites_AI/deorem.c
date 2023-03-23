@@ -1823,9 +1823,52 @@ void DeoremSegmentDying(void)
     }
 }
 
+/**
+ * @brief 22e48 | e0 | Initialize a Deorem eye sprite
+ * 
+ */
 void DeoremEyeInit(void)
 {
+    gCurrentSprite.status |= SPRITE_STATUS_ROTATION_SCALING;
+    gCurrentSprite.oamScaling = 256;
+    gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+    gCurrentSprite.drawOrder = 11;
+    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
 
+    gCurrentSprite.drawDistanceTopOffset = 16;
+    gCurrentSprite.drawDistanceBottomOffset = 16;
+    gCurrentSprite.drawDistanceHorizontalOffset = 16;
+
+    gCurrentSprite.hitboxTopOffset = -64;
+    gCurrentSprite.hitboxBottomOffset = 48;
+    gCurrentSprite.hitboxLeftOffset = -40;
+    gCurrentSprite.hitboxRightOffset = 40;
+
+    gCurrentSprite.pOam = sDeoremEyeOAM_Base;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.frozenPaletteRowOffset = 4;
+    gCurrentSprite.samusCollision = SSC_NONE;
+    gCurrentSprite.pose = 8; // TODO: Pose names
+    
+    gCurrentSprite.yPositionSpawn = 0x708;
+
+    if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED)
+        && !EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED))
+        gCurrentSprite.yPositionSpawn /= 2;
+
+    if (gCurrentSprite.xPosition > gSamusData.xPosition)
+    {
+        gCurrentSprite.oamRotation = 128;
+        gCurrentSprite.timer = 128;
+    }
+    else
+    {
+        gCurrentSprite.oamRotation = 0;
+        gCurrentSprite.timer = 0;
+    }
+    
+    gCurrentSprite.workVariable2 = 0;
 }
 
 void DeoremEyeSetPose9(void)
