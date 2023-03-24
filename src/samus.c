@@ -392,14 +392,85 @@ u8 SamusCheckWalkingSidesCollision(struct SamusData* pData, struct SamusPhysics*
 
 }
 
+/**
+ * @brief 5ad8 | b4 | To document
+ * 
+ * @param pData Samus data pointer
+ * @param pPhysics Samus physics pointer
+ * @return u8 New pose
+ */
 u8 unk_5AD8(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
+    u16 yPosition;
+    u16 xPosition;
+    u16 slope;
 
+    if ((pData->xPosition & BLOCK_POSITION_FLAG) == (gPreviousXPosition & BLOCK_POSITION_FLAG) &&
+        pData->currentSlope == 0 && pData->standingStatus == STANDING_GROUND)
+    {
+        if (SamusSlopeRelated(pData->xPosition, pData->yPosition + 1,
+            &xPosition, &yPosition, &slope) == CLIPDATA_TYPE_AIR && slope == 0)
+        {
+            if (pPhysics->horizontalMovingDirection == HDMOVING_RIGHT)
+            {
+                if ((pData->xPosition & SUB_PIXEL_POSITION_FLAG) > 0x1D && (gPreviousXPosition & SUB_PIXEL_POSITION_FLAG) < 0x1F)
+                {
+                    pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) + 0x1E;
+                    return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+                }
+            }
+            else if (pPhysics->horizontalMovingDirection == HDMOVING_LEFT)
+            {
+                if ((pData->xPosition & SUB_PIXEL_POSITION_FLAG) < 0x22 && (gPreviousXPosition & SUB_PIXEL_POSITION_FLAG) > 0x20)
+                {
+                    pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) + 0x21;
+                    return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+                }
+            }
+        }
+    }
+
+    return SPOSE_NONE;
 }
 
+/**
+ * @brief 5b8c | c0 | Checks for block collision when not moving on the ground
+ * 
+ * @param pData Samus data pointer
+ * @param pPhysics Samus physics pointer
+ * @return u8 New pose
+ */
 u8 SamusCheckStandingOnGroundCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
+    u8 above;
+    u16 yPosition;
+    u16 xPosition;
+    u16 slope;
 
+    above = SamusCheckCollisionAbove(pData, pPhysics->hitboxTopOffset);
+    if (above == SAMUS_COLLISION_DETECTION_LEFT_MOST ||
+        above == (SAMUS_COLLISION_DETECTION_LEFT_MOST | SAMUS_COLLISION_DETECTION_MIDDLE_LEFT))
+    {
+        pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - pPhysics->hitboxLeftOffset;
+    }
+    else if (above == SAMUS_COLLISION_DETECTION_RIGHT_MOST ||
+        above == (SAMUS_COLLISION_DETECTION_RIGHT_MOST | SAMUS_COLLISION_DETECTION_MIDDLE_RIGHT))
+    {
+        pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - pPhysics->hitboxRightOffset + SUB_PIXEL_POSITION_FLAG;
+    }
+
+    if (pData->standingStatus != STANDING_ENEMY)
+    {
+        if (SamusSlopeRelated(pData->xPosition + pPhysics->hitboxLeftOffset, pData->yPosition + 1,
+            &xPosition, &yPosition, &slope) == CLIPDATA_TYPE_AIR)
+        {
+            if (SamusSlopeRelated(pData->xPosition + pPhysics->hitboxRightOffset, pData->yPosition + 1,
+                &xPosition, &yPosition, &slope) == CLIPDATA_TYPE_AIR)
+                return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+        }
+    }
+
+    return SPOSE_NONE;
 }
 
 u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)

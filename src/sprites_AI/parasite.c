@@ -567,11 +567,14 @@ void ParasiteJumpingDown(struct SpriteData* pSprite)
     }
 }
 
+/**
+ * @brief 3080c | c0 | Handles a parasite (multiple) jumping (going down)
+ * 
+ * @param pSprite Sprite data pointer
+ */
 void ParasiteMultipleJumpingDown(struct SpriteData* pSprite)
 {
-    // https://decomp.me/scratch/QQNcN
-
-    u16 yPosition;
+    i32 yPosition;
     u16 xPosition;
     u32 topEdge;
     i32 velocity;
@@ -591,14 +594,14 @@ void ParasiteMultipleJumpingDown(struct SpriteData* pSprite)
         xPosition = pSprite->xPosition;
 
         // Check ground
-        if (ClipdataProcess(yPosition, xPosition) & CLIPDATA_TYPE_SOLID_FLAG && yPosition > yPosition & BLOCK_POSITION_FLAG)
+        if (ClipdataProcess(yPosition, xPosition) & CLIPDATA_TYPE_SOLID_FLAG && yPosition >= (yPosition & BLOCK_POSITION_FLAG))
         {
             pSprite->pOam = sParasiteOAM_Landing;
             pSprite->currentAnimationFrame = 0x0;
             pSprite->animationDurationCounter = 0x0;
 
             pSprite->pose = PARASITE_POSE_LANDING;
-            pSprite->yPosition = yPosition & BLOCK_POSITION_FLAG;
+            pSprite->yPosition = (u16)yPosition & BLOCK_POSITION_FLAG;
         }
         else
         {
