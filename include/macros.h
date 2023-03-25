@@ -9,7 +9,7 @@
 
 #define check_samus_turning() ((pData->direction ^ (KEY_RIGHT | KEY_LEFT)) & gButtonInput)
 #define ARRAY_SIZE(a) ((int)(sizeof((a)) / sizeof((a)[0])))
-#define OFFSET_OF(type, element) ((int)&(((type *)0)->element))
+#define OFFSET_OF(type, element) ((int)&(((type*)0)->element))
 
 #define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
 
