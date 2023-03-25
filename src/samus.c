@@ -395,9 +395,168 @@ u8 SamusCheckCollisionAbove(struct SamusData* pData, i16 hitbox)
     return result;
 }
 
+/**
+ * @brief 58a0 | 238 | Checks for the sides collisions when walking
+ * 
+ * @param pData Samus data pointer
+ * @param pPhysics Samus physics pointer
+ * @return u8 New pose
+ */
 u8 SamusCheckWalkingSidesCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
+    u16 frontHitbox;
+    u16 backHitbox;
+    u16 slope;
 
+    u16 nextX;
+    u16 nextY;
+    u16 nextSlope;
+
+    u8 result;
+
+    if (pPhysics->horizontalMovingDirection == HDMOVING_LEFT)
+    {
+        slope = KEY_LEFT;
+        frontHitbox = pPhysics->hitboxLeftOffset;
+        backHitbox = pPhysics->hitboxRightOffset;
+    }
+    else
+    {
+        slope = KEY_RIGHT;
+        frontHitbox = pPhysics->hitboxRightOffset;
+        backHitbox = pPhysics->hitboxLeftOffset;
+    }
+
+    result = unk_5604(pData, pPhysics, pData->xPosition + frontHitbox, &nextX);
+
+    if (result != SAMUS_COLLISION_DETECTION_NONE)
+    {
+        pData->xPosition = nextX;
+        pPhysics->touchingSideBlock++;
+    }
+
+    gSamusDataCopy.timer = result;
+
+    if (pData->currentSlope == 0)
+    {
+        result = SamusCheckWalkingOnSlope(pData, pData->xPosition + frontHitbox);
+        
+        if (result == SAMUS_COLLISION_DETECTION_SLOPE)
+        {
+            SamusCheckCollisionAtPosition(pData->xPosition + frontHitbox, pData->yPosition,
+                &nextX, &nextY, &nextSlope);
+
+            pData->yPosition = nextY;
+            pData->currentSlope = nextSlope;
+            pData->standingStatus = STANDING_GROUND;
+        }
+        else if (result == (SAMUS_COLLISION_DETECTION_SLOPE | SAMUS_COLLISION_DETECTION_LEFT_MOST))
+        {
+            SamusCheckCollisionAtPosition(pData->xPosition + frontHitbox, pData->yPosition - BLOCK_SIZE,
+                &nextX, &nextY, &nextSlope);
+
+            pData->yPosition = nextY;
+            if (nextSlope == 0)
+                pData->yPosition = nextY + (BLOCK_SIZE - 1);
+
+            pData->currentSlope = nextSlope;
+            pData->standingStatus = STANDING_GROUND;
+        }
+        else
+        {
+            if (result != SAMUS_COLLISION_DETECTION_NONE)
+            {
+                pData->xPosition = nextX;
+                pPhysics->touchingSideBlock++;
+            }
+
+            if (pData->standingStatus == STANDING_ENEMY)
+                return SPOSE_NONE;
+
+            if (SamusCheckCollisionAtPosition(pData->xPosition + frontHitbox, pData->yPosition + 1,
+                &nextX, &nextY, &nextSlope) == CLIPDATA_TYPE_AIR)
+            {
+                result = SamusCheckCollisionAtPosition(pData->xPosition + backHitbox, pData->yPosition + 1,
+                    &nextX, &nextY, &nextSlope);
+
+                if (nextSlope == 0)
+                {
+                    if (result == CLIPDATA_TYPE_AIR)
+                        return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
+                }
+                else
+                {
+                    pData->yPosition = nextY;
+                    pData->currentSlope = nextSlope;
+                }
+            }
+
+            pData->standingStatus = STANDING_GROUND;
+        }
+    }
+    else if (pData->currentSlope & slope)
+    {
+        result = SamusCheckWalkingOnSlope(pData, pData->xPosition + frontHitbox);
+
+        if (result == SAMUS_COLLISION_DETECTION_SLOPE)
+        {
+            SamusCheckCollisionAtPosition(pData->xPosition + frontHitbox, pData->yPosition,
+                &nextX, &nextY, &nextSlope);
+
+            pData->yPosition = nextY;
+            pData->currentSlope = nextSlope;
+            pData->standingStatus = STANDING_GROUND;
+        }
+        else if (result != SAMUS_COLLISION_DETECTION_NONE)
+        {
+            SamusCheckCollisionAtPosition(pData->xPosition + frontHitbox, pData->yPosition - BLOCK_SIZE,
+                &nextX, &nextY, &nextSlope);
+
+            pData->yPosition = nextY;
+            if (nextSlope == 0)
+                pData->yPosition = nextY + (BLOCK_SIZE - 1);
+
+            pData->currentSlope = nextSlope;
+            pData->standingStatus = STANDING_GROUND;
+        }
+    }
+    else
+    {
+        result = SamusCheckCollisionAtPosition(pData->xPosition + backHitbox, pData->yPosition,
+            &nextX, &nextY, &nextSlope);
+        
+        if (nextSlope != 0)
+        {
+            pData->yPosition = nextY;
+            return SPOSE_NONE;
+        }
+
+        if (result == SAMUS_COLLISION_DETECTION_NONE)
+        {
+            result = SamusCheckCollisionAtPosition(pData->xPosition + backHitbox, pData->yPosition + BLOCK_SIZE,
+                &nextX, &nextY, &nextSlope);
+
+            pData->currentSlope = nextSlope;
+        
+            if (nextSlope != 0)
+            {
+                pData->yPosition = nextY;
+                return SPOSE_NONE;
+            }
+
+            if (result != SAMUS_COLLISION_DETECTION_NONE)
+            {
+                if (pPhysics->horizontalMovingDirection == HDMOVING_LEFT)
+                    pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - pPhysics->hitboxLeftOffset;
+                else
+                    pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - pPhysics->hitboxRightOffset + SUB_PIXEL_POSITION_FLAG;
+
+                pData->yPosition = nextY - 1;
+            }
+        }
+    }
+
+    return SPOSE_NONE;
 }
 
 /**
@@ -612,9 +771,71 @@ u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhy
     return SPOSE_LANDING_REQUEST;
 }
 
+/**
+ * @brief 5e1c | 11c | Checks for top collision
+ * 
+ * @param pData Samus data pointer
+ * @param pPhysics Samus physics pointer
+ * @return u8 New pose
+ */
 u8 SamusCheckTopCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
+    u16 hitbox;
+    u8 result;
+    u16 topOffset;
+    u16* pLeftHitbox;
 
+    u16 nextX;
+    u16 nextY;
+    u16 nextSlope;
+
+    if (pPhysics->horizontalMovingDirection == HDMOVING_LEFT)
+        hitbox = pPhysics->hitboxLeftOffset;
+    else
+        hitbox = pPhysics->hitboxRightOffset;
+    pLeftHitbox = &pPhysics->hitboxLeftOffset;
+
+    result = SamusCheckTopSideCollisionMidAir(pData, pPhysics, pData->xPosition + hitbox, &nextX);
+
+    if (result & SAMUS_COLLISION_DETECTION_SLOPE)
+    {
+        if (result & SAMUS_COLLISION_DETECTION_LEFT_MOST)
+            pData->xPosition = nextX;
+
+        SamusCheckCollisionAtPosition(pData->xPosition + hitbox, pData->yPosition, &nextX, &nextY, &nextSlope);
+        pData->yPosition = nextY;
+        pData->currentSlope = nextSlope;
+
+        return SPOSE_LANDING_REQUEST;
+    }
+    
+    if (result != SAMUS_COLLISION_DETECTION_NONE)
+    {
+        pData->xPosition = nextX;
+        pPhysics->touchingSideBlock++;
+    }
+
+    result = SamusCheckCollisionAbove(pData, pPhysics->hitboxTopOffset);
+    
+    if (result == SAMUS_COLLISION_DETECTION_LEFT_MOST)
+    {
+        pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - *pLeftHitbox;
+        gPreviousXPosition = pData->xPosition;
+    }
+    else if (result == SAMUS_COLLISION_DETECTION_RIGHT_MOST)
+    {
+        pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - pPhysics->hitboxRightOffset + SUB_PIXEL_POSITION_FLAG;
+        gPreviousXPosition = pData->xPosition;
+    }
+    else if (result & (SAMUS_COLLISION_DETECTION_MIDDLE_LEFT | SAMUS_COLLISION_DETECTION_MIDDLE_RIGHT))
+    {
+        topOffset = pData->yPosition + pPhysics->hitboxTopOffset;
+        pData->yPosition = (topOffset & BLOCK_POSITION_FLAG) - pPhysics->hitboxTopOffset + BLOCK_SIZE;
+        pData->yVelocity = 0;
+        pPhysics->touchingTopBlock++;
+    }
+
+    return SPOSE_NONE;
 }
 
 /**

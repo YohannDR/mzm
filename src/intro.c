@@ -68,8 +68,7 @@ void IntroInit(void)
     write16(REG_IME, TRUE);
 
     zero = 0;
-    // TODO define for 0x628 (max non gameplay RAM size)
-    dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_SRC_FIXED | DMA_32BIT) << 16 | 0x628 / 4);
+    dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_SRC_FIXED | DMA_32BIT) << 16 | sizeof(gNonGameplayRAM) / 4);
 
     INTRO_DATA.scaling = 0x20;
     INTRO_DATA.charDrawerX = 0x38;

@@ -364,16 +364,15 @@ void ParasiteExpulsedDown(struct SpriteData* pSprite)
     u16 yPosition;
     u16 xPosition;
     i32 blockTop;
-    i32 velocity;
-    i16 temp;
+    i16 velocity;
 
     oldY = pSprite->yPosition;
 
-    temp = velocity = pSprite->arrayOffset;
+    velocity = pSprite->arrayOffset;
     if (velocity < 0x14)
         pSprite->arrayOffset = velocity + 2;
 
-    pSprite->yPosition += temp;
+    pSprite->yPosition += velocity;
 
     yPosition = pSprite->yPosition;
     xPosition = pSprite->xPosition;
@@ -422,16 +421,15 @@ void ParasiteExpulsedDown(struct SpriteData* pSprite)
  */
 void ParasiteMultipleExpulsedDown(struct SpriteData* pSprite)
 {
-    i32 velocity;
+    i16 velocity;
     u32 yPosition;
     i32 xPosition;
-    i16 temp;
 
-    temp = velocity = pSprite->arrayOffset;
+    velocity = pSprite->arrayOffset;
     if (velocity < 20)
         pSprite->arrayOffset += 2;
     
-    pSprite->yPosition += temp;
+    pSprite->yPosition += velocity;
 
     yPosition = pSprite->yPosition;
     xPosition = pSprite->xPosition;

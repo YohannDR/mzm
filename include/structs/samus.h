@@ -91,7 +91,7 @@ struct SamusPhysics {
     i16 hitboxRightOffset;
     i16 hitboxTopOffset;
     u8 standingStatus;
-    u8 hitboxType; // TODO define
+    u8 hitboxType;
     u8 touchingSideBlock;
     u8 touchingTopBlock;
     u8 unknown;
