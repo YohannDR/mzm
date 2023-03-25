@@ -31,25 +31,25 @@ extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_OnZip
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_ShootingOnZipline[5][2];
 extern const struct SamusAnimationData* const sSamusAnimPointers_PowerSuit_TurningOnZipline[5][2];
 
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_All[MAX_AMOUNT_OF_SAMUS_POSES][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_Running[4][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_Running_Speedboosting[4][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_Standing[4][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_TurningAround[4][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_Shooting[4][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_Crouching[3][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_TurningAroundAndCrouching[3][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_ShootingAndCrouching[3][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_MidAir[5][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_TurningAroundMidAir[5][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_Landing[4][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_AimingWhileHanging[5][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_ShootingWhileHanging[5][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_UsingAnElevator[2][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_Shinesparking[3][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_OnZipline[5][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_ShootingOnZipline[5][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_PowerSuit_TurningOnZipline[5][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_All[MAX_AMOUNT_OF_SAMUS_POSES][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_Running[4][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_Running_Speedboosting[4][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_Standing[4][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_TurningAround[4][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_Shooting[4][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_Crouching[3][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_TurningAroundAndCrouching[3][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_ShootingAndCrouching[3][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_MidAir[5][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_TurningAroundMidAir[5][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_Landing[4][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_AimingWhileHanging[5][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_ShootingWhileHanging[5][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_UsingAnElevator[2][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_Shinesparking[3][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_OnZipline[5][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_ShootingOnZipline[5][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suit_TurningOnZipline[5][2];
 
 extern const u8 sSamusVisualData[MAX_AMOUNT_OF_SAMUS_POSES][3];
 
@@ -114,7 +114,7 @@ extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suitles
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suitless_AimingWhileHanging[5][2];
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suitless_ShootingWhileHanging[5][2];
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suitless_UncrouchingSuitless[4][2];
-extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suitless_CrouchingSuitless[4][2];
+extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suitless_CrouchingSuitless[5][2];
 extern const struct ArmCannonAnimationData* const sArmCannonAnimPointers_Suitless_CrawlingStopped[3][2];
 
 // Palette pointers

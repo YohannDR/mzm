@@ -148,6 +148,455 @@ extern const u8 sArmCannonGfx_Lower_Forward_Armed_Standing[SAMUS_ARM_CANNON_GFX_
 extern const u8 sArmCannonGfx_Lower_DiagonalUp_Armed_Standing[SAMUS_ARM_CANNON_GFX_SIZE];
 extern const u8 sArmCannonGfx_Lower_DiagonalDown_Armed_Standing[SAMUS_ARM_CANNON_GFX_SIZE];
 
+// ...
 
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_None_Running[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_None_Running[10];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Forward_Running[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_Running[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_Running[10];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Forward_Running[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_Running[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_Running[10];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Standing[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_Standing[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_Standing[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Up_Standing[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Shooting[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_Shooting[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_Shooting[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Up_Shooting[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Standing[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_Standing[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_Standing[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Up_Standing[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Shooting[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_Shooting[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_Shooting[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Up_Shooting[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Crouching[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_Crouching[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_Crouching[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_ShootingAndCrouching[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_ShootingAndCrouching[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_ShootingAndCrouching[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Crouching[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_Crouching[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_Crouching[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_ShootingAndCrouching[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_ShootingAndCrouching[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_ShootingAndCrouching[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_GettingHurt[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_GettingHurt[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_None_Running_Speedboosting[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Forward_Running_Speedboosting[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_Running_Speedboosting[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_Running_Speedboosting[10];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_None_Running_Speedboosting[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Forward_Running_Speedboosting[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_Running_Speedboosting[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_Running_Speedboosting[10];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Skidding[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Armed_Skidding[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Skidding[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Armed_Skidding[3];
+
+// ...
+
+// Unused
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_None_MidAir[8];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_MidAir[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Landing[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_MidAir[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_Landing[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_MidAir[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_Landing[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Up_MidAir[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Up_Landing[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Down_MidAir[5];
+
+// Unused
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_None_MidAir[8];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_MidAir[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Landing[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_MidAir[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_Landing[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_MidAir[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_Landing[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Up_MidAir[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Up_Landing[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Down_MidAir[5];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Spinning[8];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Spinning[8];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_StartingSpinJump[1];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_StartingSpinJump[1];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DelayBeforeShinesparking[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DelayBeforeShinesparking[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DelayAfterShinesparking[12];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DelayAfterShinesparking[12];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_StartingWallJump[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_StartingWallJump[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Shinesparking[9];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Shinesparking[9];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Sidewards_Shinesparking[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Sidewards_Shinesparking[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_ScrewAttacking[8];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_ScrewAttacking[8];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_SpaceJumping[8];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_SpaceJumping[8];
+
+// ...
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Morphing[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Morphball[8];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Unmorphing[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Morphing[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Morphball[8];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Unmorphing[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_TurningAround[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_TurningAround[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_TurningAround[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Up_TurningAround[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_TurningAround[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_TurningAround[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_TurningAround[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Up_TurningAround[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_TurningAroundAndCrouching[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_TurningAroundAndCrouching[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_TurningAroundAndCrouching[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Down_TurningAroundMidAir[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_TurningAroundAndCrouching[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_TurningAroundAndCrouching[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_TurningAroundAndCrouching[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Down_TurningAroundMidAir[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_TurningAroundMidAir[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_TurningAroundMidAir[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_TurningAroundMidAir[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Up_TurningAroundMidAir[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_TurningAroundMidAir[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_TurningAroundMidAir[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_TurningAroundMidAir[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Up_TurningAroundMidAir[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_FacingTheForeground[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_UsingAnElevator[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_GoingUp_UsingAnElevator[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_TurningFromFacingTheForeground[1];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_TurningFromFacingTheForeground[1];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_TurningOnZipline[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_TurningOnZipline[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Down_TurningOnZipline[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_TurningOnZipline[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_TurningOnZipline[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Down_TurningOnZipline[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_MorphballMotionless[6];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Ballsparking[8];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Ballsparking[8];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_SavingLoadingGame[11];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_DownloadingMapData[8];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Dying[25];
+
+// ...
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_HangingOnLedge[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_PullingYourselfUpFromHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_PullingYourselfForwardFromHanging[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_TurningToAimWhileHanging[1];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Up_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Down_AimingWhileHanging[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalUp_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Up_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Down_ShootingWhileHanging[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_HangingOnLedge[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_PullingYourselfUpFromHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_PullingYourselfForwardFromHanging[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_TurningToAimWhileHanging[1];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Up_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Down_AimingWhileHanging[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalUp_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Up_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Down_ShootingWhileHanging[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_OnZipline[1];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_OnZipline[1];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Down_OnZipline[1];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_ShootingOnZipline[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_DiagonalDown_ShootingOnZipline[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Left_Down_ShootingOnZipline[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_OnZipline[1];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_OnZipline[1];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Down_OnZipline[1];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_ShootingOnZipline[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_DiagonalDown_ShootingOnZipline[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suit_Right_Down_ShootingOnZipline[3];
+
+// ...
+
+// Suitless
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_None_Running[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_None_Running[10];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Forward_Running[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_Running[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_Running[10];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Forward_Running[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_Running[10];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_Running[10];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Standing[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_Standing[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_Standing[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Up_Standing[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Shooting[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_Shooting[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_Shooting[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Up_Shooting[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Standing[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_Standing[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_Standing[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Up_Standing[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Shooting[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_Shooting[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_Shooting[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Up_Shooting[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Crouching[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_Crouching[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_Crouching[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_ShootingAndCrouching[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_ShootingAndCrouching[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_ShootingAndCrouching[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Crouching[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_Crouching[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_Crouching[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_ShootingAndCrouching[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_ShootingAndCrouching[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_ShootingAndCrouching[3];
+
+// Unused
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_23658c[6];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_CrouchingSuitless[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_CrouchingSuitless[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_CrouchingSuitless[5];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_UncrouchingSuitless[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_UncrouchingSuitless[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_UncrouchingSuitless[5];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_CrouchingSuitless[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_CrouchingSuitless[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_CrouchingSuitless[5];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_UncrouchingSuitless[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_UncrouchingSuitless[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_UncrouchingSuitless[5];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Up_UncrouchingSuitless[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Up_UncrouchingSuitless[5];
+
+// ...
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_MidAir[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Landing[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_MidAir[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_Landing[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_MidAir[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_Landing[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Up_MidAir[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Up_Landing[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Down_MidAir[6];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_MidAir[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Landing[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_MidAir[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_Landing[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_MidAir[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_Landing[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Up_MidAir[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Up_Landing[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Down_MidAir[6];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Spinning[8];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Spinning[8];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_StartingSpinJump[1];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_StartingSpinJump[1];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_StartingWallJump[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_StartingWallJump[3];
+
+// ...
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_HangingOnLedge[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_PullingYourselfUpFromHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_PullingYourselfForwardFromHanging[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_TurningToAimWhileHanging[1];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Up_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Down_AimingWhileHanging[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Up_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Down_ShootingWhileHanging[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_HangingOnLedge[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_PullingYourselfUpFromHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_PullingYourselfForwardFromHanging[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_TurningToAimWhileHanging[1];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Up_AimingWhileHanging[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Down_AimingWhileHanging[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Up_ShootingWhileHanging[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Down_ShootingWhileHanging[3];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_HangingOnLedgeSuitless[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_HangingOnLedgeSuitless[5];
+
+// ...
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_TurningAround[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_TurningAround[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_TurningAround[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Up_TurningAround[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_TurningAround[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_TurningAround[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_TurningAround[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Up_TurningAround[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_TurningAroundAndCrouching[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_TurningAroundAndCrouching[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_TurningAroundAndCrouching[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Down_TurningAroundMidAir[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_TurningAroundAndCrouching[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_TurningAroundAndCrouching[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_TurningAroundAndCrouching[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Down_TurningAroundMidAir[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_TurningAroundMidAir[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalUp_TurningAroundMidAir[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_DiagonalDown_TurningAroundMidAir[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Up_TurningAroundMidAir[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_TurningAroundMidAir[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalUp_TurningAroundMidAir[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_DiagonalDown_TurningAroundMidAir[2];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Up_TurningAroundMidAir[2];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_FacingTheForeground[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_TurningFromFacingTheForeground[1];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_TurningFromFacingTheForeground[1];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_SavingLoadingGame[11];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_CrouchingToCrawl[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_CrawlingStopped[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_PistolUp_CrawlingStopped[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_ShootingWhileCrawling[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_Crawling[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_UncrouchingFromCrawling[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_CrouchingToCrawl[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_CrawlingStopped[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_PistolUp_CrawlingStopped[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_ShootingWhileCrawling[3];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_Crawling[6];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_UncrouchingFromCrawling[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_TurningAroundWhileCrawling[4];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_TurningAroundWhileCrawling[4];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_StartingToCrawl[5];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_StartingToCrawl[5];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_DownloadingMapData[9];
+
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_FacingTheBackground[1];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Left_TurningFromFacingTheBackground[1];
+extern const struct ArmCannonAnimationData sArmCannonAnim_Suitless_Right_TurningFromFacingTheBackground[1];
 
 #endif /* SAMUS_ARM_CANNON_DATA_H */

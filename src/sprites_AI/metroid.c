@@ -712,6 +712,7 @@ void MetroidSamusGrabbed(void)
         gSamusData.xPosition = gCurrentSprite.xPosition;
     else
         gCurrentSprite.xPosition = gSamusData.xPosition;
+
     gCurrentSprite.yPosition = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset;
 
     if (MetroidBombDetection())

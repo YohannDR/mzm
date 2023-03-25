@@ -2427,17 +2427,16 @@ void SamusCallGFXFunctions(void)
 {
     struct SamusData* pData;
     u8 direction;
-    u16 flag;
 
     pData = &gSamusData;
 
     if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
         SamusUpdateEnvironmentalEffect(pData);
 
-    flag = pData->direction & KEY_RIGHT;
-    direction = TRUE;
-    if (flag)
+    if (pData->direction & KEY_RIGHT)
         direction = FALSE;
+    else
+        direction = TRUE;
     
     SamusUpdateGraphicsOAM(pData, direction);
     SamusUpdatePalette(pData);
@@ -3156,7 +3155,7 @@ u8 SamusTakeHazardDamage(struct SamusData* pData, struct Equipment* pEquipment, 
 /**
  * @brief 8420 | 4c | Checks if Samus is shinesparking
  * 
- * @param pData 
+ * @param pData Samus data pointer
  */
 void SamusCheckShinesparking(struct SamusData* pData)
 {
@@ -5569,7 +5568,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_Running[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Running[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_Running[acd][direction];
             }
             else
             {
@@ -5579,7 +5578,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_Running_Speedboosting[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Running_Speedboosting[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_Running_Speedboosting[acd][direction];
             }
             break;
 
@@ -5596,7 +5595,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_Standing[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Standing[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_Standing[acd][direction];
             }
             break;
 
@@ -5613,7 +5612,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_TurningAround[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_TurningAround[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_TurningAround[acd][direction];
             }
             break;
 
@@ -5630,7 +5629,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_Shooting[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Shooting[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_Shooting[acd][direction];
             }
             break;
 
@@ -5647,7 +5646,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_Crouching[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Crouching[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_Crouching[acd][direction];
             }
             break;
 
@@ -5664,7 +5663,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_TurningAroundAndCrouching[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_TurningAroundAndCrouching[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_TurningAroundAndCrouching[acd][direction];
             }
             break;
 
@@ -5681,7 +5680,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_ShootingAndCrouching[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_ShootingAndCrouching[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_ShootingAndCrouching[acd][direction];
             }
             break;
 
@@ -5695,7 +5694,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             else
                 pAnim = sSamusAnimPointers_PowerSuit_Skidding[acd][direction];
 
-            pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_All[pose][direction];
+            pArmCannonAnim = sArmCannonAnimPointers_Suit_All[pose][direction];
             break;
 
         case SPOSE_MIDAIR:
@@ -5711,7 +5710,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_MidAir[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_MidAir[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_MidAir[acd][direction];
             }
             break;
 
@@ -5728,7 +5727,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_TurningAroundMidAir[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_TurningAroundMidAir[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_TurningAroundMidAir[acd][direction];
             }
             break;
 
@@ -5745,7 +5744,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_Landing[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Landing[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_Landing[acd][direction];
             }
             break;
 
@@ -5767,7 +5766,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                     pAnim = sSamusAnimPointers_PowerSuit_ScrewAttacking[0][direction];
             }
 
-            pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_All[pose][direction];
+            pArmCannonAnim = sArmCannonAnimPointers_Suit_All[pose][direction];
             break;
 
         case SPOSE_AIMING_WHILE_HANGING:
@@ -5783,7 +5782,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_AimingWhileHanging[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_AimingWhileHanging[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_AimingWhileHanging[acd][direction];
             }
             break;
 
@@ -5800,7 +5799,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit_ShootingWhileHanging[acd][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_ShootingWhileHanging[acd][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_ShootingWhileHanging[acd][direction];
             }
             break;
 
@@ -5814,7 +5813,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             else
                 pAnim = sSamusAnimPointers_PowerSuit_UsingAnElevator[acd][direction];
 
-            pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_UsingAnElevator[acd][direction];
+            pArmCannonAnim = sArmCannonAnimPointers_Suit_UsingAnElevator[acd][direction];
             break;
 
         case SPOSE_SHINESPARKING:
@@ -5827,7 +5826,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             else
                 pAnim = sSamusAnimPointers_PowerSuit_Shinesparking[acd][direction];
 
-            pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_Shinesparking[acd][direction];
+            pArmCannonAnim = sArmCannonAnimPointers_Suit_Shinesparking[acd][direction];
             break;
 
         case SPOSE_ON_ZIPLINE:
@@ -5836,7 +5835,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             else
                 pAnim = sSamusAnimPointers_PowerSuit_OnZipline[acd][direction];
 
-            pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_OnZipline[acd][direction];
+            pArmCannonAnim = sArmCannonAnimPointers_Suit_OnZipline[acd][direction];
             break;
 
         case SPOSE_SHOOTING_ON_ZIPLINE:
@@ -5845,7 +5844,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             else
                 pAnim = sSamusAnimPointers_PowerSuit_ShootingOnZipline[acd][direction];
 
-            pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_ShootingOnZipline[acd][direction];
+            pArmCannonAnim = sArmCannonAnimPointers_Suit_ShootingOnZipline[acd][direction];
             break;
 
         case SPOSE_TURNING_ON_ZIPLINE:
@@ -5854,7 +5853,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
             else
                 pAnim = sSamusAnimPointers_PowerSuit_TurningOnZipline[acd][direction];
 
-            pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_TurningOnZipline[acd][direction];
+            pArmCannonAnim = sArmCannonAnimPointers_Suit_TurningOnZipline[acd][direction];
             break;
 
         case SPOSE_CRAWLING_STOPPED:
@@ -5904,7 +5903,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                         pAnim = sSamusAnimPointers_PowerSuit[pose][direction];
                 }
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_All[pose][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_All[pose][direction];
             }
             break;
         
@@ -5921,7 +5920,7 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
                 else
                     pAnim = sSamusAnimPointers_PowerSuit[pose][direction];
 
-                pArmCannonAnim = sArmCannonAnimPointers_PowerSuit_All[pose][direction];
+                pArmCannonAnim = sArmCannonAnimPointers_Suit_All[pose][direction];
             }
             break;
     }
@@ -6483,11 +6482,11 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else if (!pData->speedboostingShinesparking)
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_Running[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_Running[acd][direction];
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_Running_Speedboosting[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_Running_Speedboosting[acd][direction];
             }
             break;
 
@@ -6498,7 +6497,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_Standing[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_Standing[acd][direction];
             }
             break;
 
@@ -6509,7 +6508,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_TurningAround[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_TurningAround[acd][direction];
             }
             break;
 
@@ -6520,7 +6519,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_Shooting[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_Shooting[acd][direction];
             }
             break;
 
@@ -6531,7 +6530,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_Crouching[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_Crouching[acd][direction];
             }
             break;
 
@@ -6542,7 +6541,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_TurningAroundAndCrouching[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_TurningAroundAndCrouching[acd][direction];
             }
             break;
 
@@ -6553,7 +6552,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_ShootingAndCrouching[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_ShootingAndCrouching[acd][direction];
             }
             break;
 
@@ -6564,7 +6563,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_MidAir[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_MidAir[acd][direction];
             }
             break;
 
@@ -6575,7 +6574,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_TurningAroundMidAir[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_TurningAroundMidAir[acd][direction];
             }
             break;
 
@@ -6586,7 +6585,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_Landing[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_Landing[acd][direction];
             }
             break;
 
@@ -6597,7 +6596,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_AimingWhileHanging[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_AimingWhileHanging[acd][direction];
             }
             break;
 
@@ -6608,7 +6607,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_ShootingWhileHanging[acd][direction];
+                pAnim = sArmCannonAnimPointers_Suit_ShootingWhileHanging[acd][direction];
             }
             break;
 
@@ -6616,25 +6615,25 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             if (pData->elevatorDirection & KEY_UP)
                 acd++;
 
-            pAnim = sArmCannonAnimPointers_PowerSuit_UsingAnElevator[acd][direction];
+            pAnim = sArmCannonAnimPointers_Suit_UsingAnElevator[acd][direction];
             break;
 
         case SPOSE_SHINESPARKING:
         case SPOSE_SHINESPARK_COLLISION:
             acd = pData->forcedMovement;
-            pAnim = sArmCannonAnimPointers_PowerSuit_Shinesparking[acd][direction];
+            pAnim = sArmCannonAnimPointers_Suit_Shinesparking[acd][direction];
             break;
 
         case SPOSE_ON_ZIPLINE:
-            pAnim = sArmCannonAnimPointers_PowerSuit_OnZipline[acd][direction];
+            pAnim = sArmCannonAnimPointers_Suit_OnZipline[acd][direction];
             break;
 
         case SPOSE_SHOOTING_ON_ZIPLINE:
-            pAnim = sArmCannonAnimPointers_PowerSuit_ShootingOnZipline[acd][direction];
+            pAnim = sArmCannonAnimPointers_Suit_ShootingOnZipline[acd][direction];
             break;
 
         case SPOSE_TURNING_ON_ZIPLINE:
-            pAnim = sArmCannonAnimPointers_PowerSuit_TurningOnZipline[acd][direction];
+            pAnim = sArmCannonAnimPointers_Suit_TurningOnZipline[acd][direction];
             break;
 
         case SPOSE_CRAWLING_STOPPED:
@@ -6657,7 +6656,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
             }
             else
             {
-                pAnim = sArmCannonAnimPointers_PowerSuit_All[pose][direction];
+                pAnim = sArmCannonAnimPointers_Suit_All[pose][direction];
             }
     }
 
