@@ -854,8 +854,6 @@ u32 ProjectileCheckHittingSolidBlock(u32 yPosition, u32 xPosition)
  */
 u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
 {
-    // https://decomp.me/scratch/qaar5
-
     u16 yPosition;
     u16 xPosition;
     u32 clipdata;
@@ -864,8 +862,6 @@ u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
     u16 collisionX;
     u32 clip;
     
-    u16 minus3F = 0xFFC1;
-
     yPosition = pProj->yPosition;
     xPosition = pProj->xPosition;
     collisionY = yPosition;
@@ -906,7 +902,7 @@ u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
 
         case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
             collisionY = (yPosition & BLOCK_POSITION_FLAG) | (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) + 0x1F);
-            collisionX = (xPosition & BLOCK_POSITION_FLAG) + (((yPosition & SUB_PIXEL_POSITION_FLAG) << 1) + minus3F);
+            collisionX = (xPosition & BLOCK_POSITION_FLAG) + (((yPosition & SUB_PIXEL_POSITION_FLAG) << 1) - 0x3F);
             result = COLLISION_LEFT_SLIGHT_FLOOR_SLOPE;
             break;
 

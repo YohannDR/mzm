@@ -86,10 +86,18 @@ void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, st
     }
 }
 
-u8 SamusSlopeRelated(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosition, u16* pSlope)
+/**
+ * @brief 5474 | 190 | Checks the collision at the position for samus
+ * 
+ * @param xPosition X position
+ * @param yPosition Y position
+ * @param pXPosition X position result pointer
+ * @param pYPosition Y position result pointer
+ * @param pSlope Slope result pointer
+ * @return u8 Collision result
+ */
+u8 SamusCheckCollisionAtPosition(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosition, u16* pSlope)
 {
-    // https://decomp.me/scratch/bv4B0
-
     u32 clipdata;
     u8 collision;
     u16 newX;
@@ -112,7 +120,7 @@ u8 SamusSlopeRelated(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosit
             break;
 
         case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
-            newY = (yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) - SUB_PIXEL_POSITION_FLAG);
+            newY = (yPosition & BLOCK_POSITION_FLAG) + SUB_PIXEL_POSITION_FLAG - ((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1);
             newX = (xPosition & BLOCK_POSITION_FLAG) - ((yPosition & SUB_PIXEL_POSITION_FLAG) * 2 - (SUB_PIXEL_POSITION_FLAG - 1 + BLOCK_SIZE));
             slopeType = SLOPE_SLIGHT | KEY_RIGHT;
             break;
@@ -408,7 +416,7 @@ u8 unk_5AD8(struct SamusData* pData, struct SamusPhysics* pPhysics)
     if ((pData->xPosition & BLOCK_POSITION_FLAG) == (gPreviousXPosition & BLOCK_POSITION_FLAG) &&
         pData->currentSlope == 0 && pData->standingStatus == STANDING_GROUND)
     {
-        if (SamusSlopeRelated(pData->xPosition, pData->yPosition + 1,
+        if (SamusCheckCollisionAtPosition(pData->xPosition, pData->yPosition + 1,
             &xPosition, &yPosition, &slope) == CLIPDATA_TYPE_AIR && slope == 0)
         {
             if (pPhysics->horizontalMovingDirection == HDMOVING_RIGHT)
@@ -461,10 +469,10 @@ u8 SamusCheckStandingOnGroundCollision(struct SamusData* pData, struct SamusPhys
 
     if (pData->standingStatus != STANDING_ENEMY)
     {
-        if (SamusSlopeRelated(pData->xPosition + pPhysics->hitboxLeftOffset, pData->yPosition + 1,
+        if (SamusCheckCollisionAtPosition(pData->xPosition + pPhysics->hitboxLeftOffset, pData->yPosition + 1,
             &xPosition, &yPosition, &slope) == CLIPDATA_TYPE_AIR)
         {
-            if (SamusSlopeRelated(pData->xPosition + pPhysics->hitboxRightOffset, pData->yPosition + 1,
+            if (SamusCheckCollisionAtPosition(pData->xPosition + pPhysics->hitboxRightOffset, pData->yPosition + 1,
                 &xPosition, &yPosition, &slope) == CLIPDATA_TYPE_AIR)
                 return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
         }
@@ -521,10 +529,10 @@ u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhy
     previousSubpixelY &= BLOCK_POSITION_FLAG;
 
     tempPtr = pLeftHitbox;
-    collisionLeft = SamusSlopeRelated(pData->xPosition + *pLeftHitbox, pData->yPosition, &resultXLeft, &resultYLeft, &resultSlopeLeft);
+    collisionLeft = SamusCheckCollisionAtPosition(pData->xPosition + *pLeftHitbox, pData->yPosition, &resultXLeft, &resultYLeft, &resultSlopeLeft);
     
     pRightHitbox = &pPhysics->hitboxRightOffset;
-    collisionRight = SamusSlopeRelated(pData->xPosition + *pRightHitbox, pData->yPosition, &resultXRight, &resultYRight, &resultSlopeRight);
+    collisionRight = SamusCheckCollisionAtPosition(pData->xPosition + *pRightHitbox, pData->yPosition, &resultXRight, &resultYRight, &resultSlopeRight);
 
     if (currentSubpixelY > previousSubpixelY)
     {
@@ -543,7 +551,7 @@ u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhy
                 return SPOSE_LANDING_REQUEST;
             }
 
-            SamusSlopeRelated(pData->xPosition + *tempPtr, pData->yPosition - BLOCK_SIZE,
+            SamusCheckCollisionAtPosition(pData->xPosition + *tempPtr, pData->yPosition - BLOCK_SIZE,
                 &resultXLeft, &resultYLeft, &resultSlopeLeft);
 
             pData->yPosition = resultYLeft;
@@ -559,7 +567,7 @@ u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhy
 
         if (resultSlopeRight == SLOPE_NONE)
         {
-            SamusSlopeRelated(pData->xPosition + *pRightHitbox, pData->yPosition - BLOCK_SIZE,
+            SamusCheckCollisionAtPosition(pData->xPosition + *pRightHitbox, pData->yPosition - BLOCK_SIZE,
                 &resultXLeft, &resultYLeft, &resultSlopeLeft);
 
             pData->yPosition = resultYLeft;
@@ -4608,7 +4616,7 @@ u8 SamusShinesparking(struct SamusData* pData)
         else
             xOffset = -0x1C;
 
-        if (SamusSlopeRelated(pData->xPosition + xOffset, pData->yPosition + 1, &nextX, &nextY, &nextSlope) && nextSlope)
+        if (SamusCheckCollisionAtPosition(pData->xPosition + xOffset, pData->yPosition + 1, &nextX, &nextY, &nextSlope) && nextSlope)
         {
             pData->currentSlope = nextSlope;
             pData->yPosition = nextY;
