@@ -1639,17 +1639,20 @@ void SramRead_TimeAttack(void)
         BitFill(3, USHORT_MAX, &gTimeAttackRecord, sizeof(gTimeAttackRecord), 16);
 }
 
-
+/**
+ * @brief 751d8 | 18c | Writes RAM values to the demo save in Sram
+ * 
+ */
 void SramWrite_ToEwram_DemoRam(void)
 {
-    // https://decomp.me/scratch/wgziF
-
     struct SaveDemo* pFile;
     u32 value;
 
     value = USHORT_MAX;
-    pFile = &gSram.demoSave;
-    BitFill(3, value, pFile, sizeof(struct SaveDemo), 0x10);
+
+    // TODO macro for 0x2038000
+    pFile = (struct SaveDemo*)(0x2038000 + OFFSET_OF(struct Sram, demoSave));
+    BitFill(3, value, pFile, sizeof(struct SaveDemo), 16);
 
     pFile->currentArea = gCurrentArea;
     pFile->lastDoorUsed = gLastDoorUsed;
@@ -1666,8 +1669,8 @@ void SramWrite_ToEwram_DemoRam(void)
     pFile->environmentalEffects[3] = gSamusEnvironmentalEffects[3];
     pFile->environmentalEffects[4] = gSamusEnvironmentalEffects[4];
 
-    DMATransfer(3, &gVisitedMinimapTiles[gCurrentArea * MINIMAP_SIZE], pFile->visitedMinimapTiles, sizeof(pFile->visitedMinimapTiles), 0x10);
-    DMATransfer(3, gHatchesOpened[gCurrentArea], pFile->hatchesOpened, sizeof(pFile->hatchesOpened), 0x10);
+    DMATransfer(3, &gVisitedMinimapTiles[gCurrentArea * MINIMAP_SIZE], pFile->visitedMinimapTiles, sizeof(pFile->visitedMinimapTiles), 16);
+    DMATransfer(3, gHatchesOpened[gCurrentArea], pFile->hatchesOpened, sizeof(pFile->hatchesOpened), 16);
 
     pFile->text[0] = 'A';
     pFile->text[1] = 'T';
@@ -1679,7 +1682,7 @@ void SramWrite_ToEwram_DemoRam(void)
     pFile->text[7] = 'D';
 
     pFile->useMotherShipDoors = gUseMotherShipDoors;
-    do_sram_operation(SRAM_OPERATION_SAVE_UNUSED_SRAM);
+    do_sram_operation(SRAM_OPERATION_SAVE_DEMO_RAM);
 }
 
 void SramLoad_DemoRamValues(u8 loadSamusData, u8 demoNumber)
