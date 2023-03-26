@@ -6,7 +6,7 @@
 sub_08084c34: @ 0x08084c34
     push {r4, r5, lr}
     adds r3, r0, #0
-    ldr r1, lbl_08084c78 @ =0x08754bc4
+    ldr r1, lbl_08084c78 @ =sNonGameplayRamPointer
     ldr r2, [r1]
     movs r4, #0x92
     lsls r4, r4, #1
@@ -40,13 +40,13 @@ lbl_08084c72:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08084c78: .4byte 0x08754bc4
+lbl_08084c78: .4byte sNonGameplayRamPointer
 
     thumb_func_start sub_08084c7c
 sub_08084c7c: @ 0x08084c7c
     push {r4, r5, r6, r7, lr}
     adds r2, r0, #0
-    ldr r3, lbl_08084d04 @ =0x08754bc4
+    ldr r3, lbl_08084d04 @ =sNonGameplayRamPointer
     ldr r1, [r3]
     adds r0, r1, #0
     adds r0, #0x9a
@@ -113,7 +113,7 @@ lbl_08084ca2:
     ble lbl_08084ca2
     b lbl_08084ede
     .align 2, 0
-lbl_08084d04: .4byte 0x08754bc4
+lbl_08084d04: .4byte sNonGameplayRamPointer
 lbl_08084d08: .4byte 0x0854bfa0
 lbl_08084d0c:
     adds r1, #0x9b
@@ -367,7 +367,7 @@ lbl_08084ee4: .4byte 0x0854be8c
 sub_08084ee8: @ 0x08084ee8
     push {r4, r5, r6, r7, lr}
     adds r6, r0, #0
-    ldr r1, lbl_08084f08 @ =0x08754bc4
+    ldr r1, lbl_08084f08 @ =sNonGameplayRamPointer
     ldr r2, [r1]
     adds r0, r2, #0
     adds r0, #0x9a
@@ -382,7 +382,7 @@ sub_08084ee8: @ 0x08084ee8
     ldr r5, lbl_08084f0c @ =0x0854bf58
     b lbl_08084f1a
     .align 2, 0
-lbl_08084f08: .4byte 0x08754bc4
+lbl_08084f08: .4byte sNonGameplayRamPointer
 lbl_08084f0c: .4byte 0x0854bf58
 lbl_08084f10:
     movs r0, #0x92
@@ -481,7 +481,7 @@ load_in_game_timer_ending_graphics: @ 0x08084fb0
     ldrb r4, [r0]
     ldr r6, lbl_080850cc @ =0x085a0a30
     ldr r7, lbl_080850d0 @ =0x085a0cb0
-    ldr r2, lbl_080850d4 @ =0x08754bc4
+    ldr r2, lbl_080850d4 @ =sNonGameplayRamPointer
     mov sl, r2
     cmp r4, #9
     ble lbl_08084fd4
@@ -622,7 +622,7 @@ lbl_080850bc:
 lbl_080850c8: .4byte gInGameTimer
 lbl_080850cc: .4byte 0x085a0a30
 lbl_080850d0: .4byte 0x085a0cb0
-lbl_080850d4: .4byte 0x08754bc4
+lbl_080850d4: .4byte sNonGameplayRamPointer
 lbl_080850d8: .4byte 0x040000d4
 lbl_080850dc: .4byte 0x06010000
 lbl_080850e0: .4byte 0x80000020
@@ -729,7 +729,7 @@ vblank_code_during_gallery: @ 0x080851b4
     ldr r0, lbl_0808521c @ =0x84000100
     str r0, [r6, #8]
     ldr r0, [r6, #8]
-    ldr r0, lbl_08085220 @ =0x08754bc4
+    ldr r0, lbl_08085220 @ =sNonGameplayRamPointer
     ldr r3, [r0]
     ldrb r2, [r3, #6]
     adds r7, r0, #0
@@ -769,7 +769,7 @@ vblank_code_during_gallery: @ 0x080851b4
 lbl_08085214: .4byte 0x040000d4
 lbl_08085218: .4byte gOamData
 lbl_0808521c: .4byte 0x84000100
-lbl_08085220: .4byte 0x08754bc4
+lbl_08085220: .4byte sNonGameplayRamPointer
 lbl_08085224: .4byte 0x80000020
 lbl_08085228: .4byte 0x06000800
 lbl_0808522c:
@@ -896,7 +896,7 @@ vblank_code_during_end_screen: @ 0x08085318
     ldr r0, [r1, #8]
     movs r2, #0x80
     lsls r2, r2, #0x13
-    ldr r0, lbl_08085390 @ =0x08754bc4
+    ldr r0, lbl_08085390 @ =sNonGameplayRamPointer
     ldr r1, [r0]
     movs r3, #0xb0
     lsls r3, r3, #2
@@ -943,7 +943,7 @@ vblank_code_during_end_screen: @ 0x08085318
 lbl_08085384: .4byte 0x040000d4
 lbl_08085388: .4byte gOamData
 lbl_0808538c: .4byte 0x84000100
-lbl_08085390: .4byte 0x08754bc4
+lbl_08085390: .4byte sNonGameplayRamPointer
 lbl_08085394: .4byte 0x000002c2
 lbl_08085398: .4byte gWrittenToBLDALPHA_H
 lbl_0808539c: .4byte gWrittenToBLDALPHA_L
@@ -969,7 +969,7 @@ vblank_code_during_unlocked_options: @ 0x080853c0
     str r0, [r1, #8]
     ldr r0, [r1, #8]
     subs r1, #0xd4
-    ldr r0, lbl_08085448 @ =0x08754bc4
+    ldr r0, lbl_08085448 @ =sNonGameplayRamPointer
     ldr r3, [r0]
     movs r2, #0xb0
     lsls r2, r2, #2
@@ -1023,7 +1023,7 @@ vblank_code_during_unlocked_options: @ 0x080853c0
 lbl_0808543c: .4byte 0x040000d4
 lbl_08085440: .4byte gOamData
 lbl_08085444: .4byte 0x84000100
-lbl_08085448: .4byte 0x08754bc4
+lbl_08085448: .4byte sNonGameplayRamPointer
 lbl_0808544c: .4byte 0x000002c2
 lbl_08085450: .4byte 0x04000052
 lbl_08085454: .4byte gWrittenToBLDALPHA_H
@@ -1157,7 +1157,7 @@ credits_init: @ 0x08085464
     strh r5, [r0]
     adds r0, #2
     strh r5, [r0]
-    ldr r0, lbl_08085648 @ =0x08754bc4
+    ldr r0, lbl_08085648 @ =sNonGameplayRamPointer
     ldr r1, [r0]
     movs r0, #0x80
     strh r0, [r1, #0xe]
@@ -1228,7 +1228,7 @@ lbl_08085638: .4byte gBG3YPosition
 lbl_0808563c: .4byte 0x04000010
 lbl_08085640: .4byte 0x04000014
 lbl_08085644: .4byte 0x04000016
-lbl_08085648: .4byte 0x08754bc4
+lbl_08085648: .4byte sNonGameplayRamPointer
 lbl_0808564c: .4byte 0x000002c2
 lbl_08085650: .4byte gWrittenToBLDALPHA_L
 lbl_08085654: .4byte gWrittenToBLDALPHA_H
@@ -1247,7 +1247,7 @@ display_credit_line: @ 0x0808565c
     lsls r1, r1, #2
     adds r4, r1, r4
     movs r6, #0
-    ldr r5, lbl_080856cc @ =0x08754bc4
+    ldr r5, lbl_080856cc @ =sNonGameplayRamPointer
     movs r3, #0
 lbl_08085676:
     ldr r1, [r5]
@@ -1294,7 +1294,7 @@ lbl_080856bc:
     mov pc, r0
     .align 2, 0
 lbl_080856c8: .4byte 0x0854c10c
-lbl_080856cc: .4byte 0x08754bc4
+lbl_080856cc: .4byte sNonGameplayRamPointer
 lbl_080856d0: .4byte lbl_080856d4
 lbl_080856d4: @ jump table
     .4byte lbl_0808570c @ case 0
@@ -1349,7 +1349,7 @@ lbl_0808573c:
     cmp r0, #0
     beq lbl_08085846
     adds r4, r1, #0
-    ldr r3, lbl_0808577c @ =0x08754bc4
+    ldr r3, lbl_0808577c @ =sNonGameplayRamPointer
     ldr r0, lbl_08085780 @ =0x0000ffc0
     add r0, ip
     mov r8, r0
@@ -1372,7 +1372,7 @@ lbl_0808575c:
     add r1, r8
     b lbl_080857da
     .align 2, 0
-lbl_0808577c: .4byte 0x08754bc4
+lbl_0808577c: .4byte sNonGameplayRamPointer
 lbl_08085780: .4byte 0x0000ffc0
 lbl_08085784: .4byte 0x0000ffbf
 lbl_08085788:
@@ -1441,7 +1441,7 @@ lbl_080857f6:
     movs r6, #0
     mov r0, ip
     adds r0, #0xc0
-    ldr r3, lbl_08085820 @ =0x08754bc4
+    ldr r3, lbl_08085820 @ =sNonGameplayRamPointer
     adds r2, r0, #0
 lbl_08085800:
     ldr r1, [r3]
@@ -1461,12 +1461,12 @@ lbl_08085800:
     mov sl, r1
     b lbl_080859de
     .align 2, 0
-lbl_08085820: .4byte 0x08754bc4
+lbl_08085820: .4byte sNonGameplayRamPointer
 lbl_08085824:
     movs r6, #0
     mov r0, ip
     adds r0, #0xe0
-    ldr r3, lbl_0808584c @ =0x08754bc4
+    ldr r3, lbl_0808584c @ =sNonGameplayRamPointer
     adds r2, r0, #0
 lbl_0808582e:
     ldr r1, [r3]
@@ -1485,10 +1485,10 @@ lbl_08085846:
     movs r2, #1
     b lbl_080859de
     .align 2, 0
-lbl_0808584c: .4byte 0x08754bc4
+lbl_0808584c: .4byte sNonGameplayRamPointer
 lbl_08085850:
     movs r6, #0
-    ldr r3, lbl_08085878 @ =0x08754bc4
+    ldr r3, lbl_08085878 @ =sNonGameplayRamPointer
     movs r4, #0x80
     lsls r4, r4, #1
     adds r0, r4, #0
@@ -1509,10 +1509,10 @@ lbl_0808585e:
     bls lbl_0808585e
     b lbl_08085846
     .align 2, 0
-lbl_08085878: .4byte 0x08754bc4
+lbl_08085878: .4byte sNonGameplayRamPointer
 lbl_0808587c:
     movs r6, #0
-    ldr r3, lbl_080858a4 @ =0x08754bc4
+    ldr r3, lbl_080858a4 @ =sNonGameplayRamPointer
     movs r4, #0x90
     lsls r4, r4, #1
     adds r0, r4, #0
@@ -1533,7 +1533,7 @@ lbl_0808588a:
     bls lbl_0808588a
     b lbl_08085846
     .align 2, 0
-lbl_080858a4: .4byte 0x08754bc4
+lbl_080858a4: .4byte sNonGameplayRamPointer
 lbl_080858a8:
     movs r7, #0
     ldrb r0, [r4, #1]
@@ -1571,7 +1571,7 @@ lbl_080858d8:
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_080859dc
-    ldr r0, lbl_08085928 @ =0x08754bc4
+    ldr r0, lbl_08085928 @ =sNonGameplayRamPointer
     mov r8, r0
     mov sb, r1
 lbl_080858f0:
@@ -1603,7 +1603,7 @@ lbl_080858f0:
     adds r0, r0, r1
     b lbl_080859c4
     .align 2, 0
-lbl_08085928: .4byte 0x08754bc4
+lbl_08085928: .4byte sNonGameplayRamPointer
 lbl_0808592c: .4byte 0x0000ffff
 lbl_08085930:
     adds r0, r1, #0
@@ -1716,7 +1716,7 @@ lbl_080859de:
     thumb_func_start display_credits
 display_credits: @ 0x080859f4
     push {r4, r5, r6, r7, lr}
-    ldr r0, lbl_08085a24 @ =0x08754bc4
+    ldr r0, lbl_08085a24 @ =sNonGameplayRamPointer
     ldr r2, [r0]
     ldrb r3, [r2, #1]
     adds r7, r0, #0
@@ -1739,7 +1739,7 @@ display_credits: @ 0x080859f4
     beq lbl_08085a32
     b lbl_08085a6c
     .align 2, 0
-lbl_08085a24: .4byte 0x08754bc4
+lbl_08085a24: .4byte sNonGameplayRamPointer
 lbl_08085a28:
     movs r0, #0x8c
     lsls r0, r0, #2
@@ -1925,7 +1925,7 @@ lbl_08085b7c: .4byte gBG0YPosition
 credits_chozo_wall_movement: @ 0x08085b80
     push {r4, lr}
     movs r4, #0
-    ldr r0, lbl_08085ba0 @ =0x08754bc4
+    ldr r0, lbl_08085ba0 @ =sNonGameplayRamPointer
     ldr r2, [r0]
     ldrh r0, [r2, #4]
     adds r1, r0, #1
@@ -1940,7 +1940,7 @@ credits_chozo_wall_movement: @ 0x08085b80
     beq lbl_08085bae
     b lbl_08085bce
     .align 2, 0
-lbl_08085ba0: .4byte 0x08754bc4
+lbl_08085ba0: .4byte sNonGameplayRamPointer
 lbl_08085ba4:
     movs r0, #0x80
     lsls r0, r0, #2
@@ -1965,7 +1965,7 @@ lbl_08085bc8:
     strh r4, [r0]
     movs r4, #1
 lbl_08085bce:
-    ldr r0, lbl_08085c04 @ =0x08754bc4
+    ldr r0, lbl_08085c04 @ =sNonGameplayRamPointer
     ldr r3, [r0]
     ldrb r0, [r3, #1]
     cmp r0, #0
@@ -1992,7 +1992,7 @@ lbl_08085bf6:
     bx r1
     .align 2, 0
 lbl_08085c00: .4byte 0x04000014
-lbl_08085c04: .4byte 0x08754bc4
+lbl_08085c04: .4byte sNonGameplayRamPointer
 lbl_08085c08: .4byte gBG2YPosition
 lbl_08085c0c: .4byte gBG3YPosition
 
@@ -2000,7 +2000,7 @@ lbl_08085c0c: .4byte gBG3YPosition
 credits_chozo_wall_zoom: @ 0x08085c10
     push {r4, r5, lr}
     movs r5, #0
-    ldr r4, lbl_08085c3c @ =0x08754bc4
+    ldr r4, lbl_08085c3c @ =sNonGameplayRamPointer
     ldr r2, [r4]
     ldrh r0, [r2, #4]
     adds r1, r0, #1
@@ -2021,7 +2021,7 @@ lbl_08085c28:
     beq lbl_08085c66
     b lbl_08085d80
     .align 2, 0
-lbl_08085c3c: .4byte 0x08754bc4
+lbl_08085c3c: .4byte sNonGameplayRamPointer
 lbl_08085c40:
     cmp r1, #0xc0
     beq lbl_08085cec
@@ -2175,7 +2175,7 @@ lbl_08085d64:
 lbl_08085d7e:
     movs r5, #2
 lbl_08085d80:
-    ldr r0, lbl_08085dac @ =0x08754bc4
+    ldr r0, lbl_08085dac @ =sNonGameplayRamPointer
     ldr r0, [r0]
     ldrb r1, [r0, #1]
     cmp r1, #1
@@ -2199,7 +2199,7 @@ lbl_08085da0:
     subs r0, #1
     b lbl_08085df8
     .align 2, 0
-lbl_08085dac: .4byte 0x08754bc4
+lbl_08085dac: .4byte sNonGameplayRamPointer
 lbl_08085db0: .4byte gWrittenToBLDALPHA_L
 lbl_08085db4: .4byte gWrittenToBLDALPHA_H
 lbl_08085db8:
@@ -2399,7 +2399,7 @@ end_screen_init: @ 0x08085e08
     str r0, [r4, #8]
     ldr r0, [r4, #8]
     bl ChozodiaEscapeGetPercentAndEndingNumber
-    ldr r3, lbl_08086040 @ =0x08754bc4
+    ldr r3, lbl_08086040 @ =sNonGameplayRamPointer
     ldr r1, [r3]
     movs r2, #7
     ands r0, r2
@@ -2473,7 +2473,7 @@ lbl_08086030: .4byte gBG3YPosition
 lbl_08086034: .4byte 0x04000010
 lbl_08086038: .4byte gNonGameplayRAM
 lbl_0808603c: .4byte 0x8500018a
-lbl_08086040: .4byte 0x08754bc4
+lbl_08086040: .4byte sNonGameplayRamPointer
 lbl_08086044: .4byte gWrittenToBLDALPHA_L
 lbl_08086048: .4byte gWrittenToBLDALPHA_H
 lbl_0808604c: .4byte gWrittenToBLDY_NonGameplay
@@ -2482,7 +2482,7 @@ lbl_0808604c: .4byte gWrittenToBLDY_NonGameplay
 end_screen_samus_posing: @ 0x08086050
     push {r4, r5, r6, lr}
     movs r6, #0
-    ldr r1, lbl_08086074 @ =0x08754bc4
+    ldr r1, lbl_08086074 @ =sNonGameplayRamPointer
     ldr r2, [r1]
     ldrb r0, [r2, #2]
     adds r0, #1
@@ -2500,7 +2500,7 @@ lbl_0808606a:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08086074: .4byte 0x08754bc4
+lbl_08086074: .4byte sNonGameplayRamPointer
 lbl_08086078: .4byte lbl_0808607c
 lbl_0808607c: @ jump table
     .4byte lbl_080860ba @ case 0
@@ -2958,7 +2958,7 @@ lbl_0808642c:
     ldr r0, lbl_08086484 @ =0x085aa5f8
     ldr r1, lbl_08086488 @ =0x0600d000
     bl LZ77UncompVRAM
-    ldr r0, lbl_0808648c @ =0x08754bc4
+    ldr r0, lbl_0808648c @ =sNonGameplayRamPointer
     ldr r3, [r0]
     ldr r1, lbl_08086490 @ =0x000002c2
     adds r0, r3, r1
@@ -2984,7 +2984,7 @@ lbl_0808647c: .4byte 0x00005c09
 lbl_08086480: .4byte 0x085a8b38
 lbl_08086484: .4byte 0x085aa5f8
 lbl_08086488: .4byte 0x0600d000
-lbl_0808648c: .4byte 0x08754bc4
+lbl_0808648c: .4byte sNonGameplayRamPointer
 lbl_08086490: .4byte 0x000002c2
 lbl_08086494: .4byte gWrittenToBLDALPHA_L
 lbl_08086498: .4byte gWrittenToBLDALPHA_H
@@ -3005,7 +3005,7 @@ lbl_080864a4:
     ldr r0, lbl_08086500 @ =0x085ac420
     ldr r1, lbl_08086504 @ =0x0600e000
     bl LZ77UncompVRAM
-    ldr r0, lbl_08086508 @ =0x08754bc4
+    ldr r0, lbl_08086508 @ =sNonGameplayRamPointer
     ldr r3, [r0]
     ldr r1, lbl_0808650c @ =0x000002c2
     adds r0, r3, r1
@@ -3032,7 +3032,7 @@ lbl_080864f8: .4byte 0x085aa9b0
 lbl_080864fc: .4byte 0x06008000
 lbl_08086500: .4byte 0x085ac420
 lbl_08086504: .4byte 0x0600e000
-lbl_08086508: .4byte 0x08754bc4
+lbl_08086508: .4byte sNonGameplayRamPointer
 lbl_0808650c: .4byte 0x000002c2
 lbl_08086510: .4byte gWrittenToBLDALPHA_L
 lbl_08086514: .4byte gWrittenToBLDALPHA_H
@@ -3054,7 +3054,7 @@ lbl_08086520:
     ldr r0, lbl_08086578 @ =0x085adb90
     ldr r1, lbl_0808657c @ =0x0600d000
     bl LZ77UncompVRAM
-    ldr r0, lbl_08086580 @ =0x08754bc4
+    ldr r0, lbl_08086580 @ =sNonGameplayRamPointer
     ldr r3, [r0]
     ldr r1, lbl_08086584 @ =0x000002c2
     adds r0, r3, r1
@@ -3080,7 +3080,7 @@ lbl_08086570: .4byte 0x00005c09
 lbl_08086574: .4byte 0x085ac794
 lbl_08086578: .4byte 0x085adb90
 lbl_0808657c: .4byte 0x0600d000
-lbl_08086580: .4byte 0x08754bc4
+lbl_08086580: .4byte sNonGameplayRamPointer
 lbl_08086584: .4byte 0x000002c2
 lbl_08086588: .4byte gWrittenToBLDALPHA_L
 lbl_0808658c: .4byte gWrittenToBLDALPHA_H
@@ -3095,7 +3095,7 @@ lbl_08086598:
     ldr r3, lbl_080865c8 @ =0x00005c0a
     adds r0, r3, #0
     strh r0, [r1]
-    ldr r0, lbl_080865cc @ =0x08754bc4
+    ldr r0, lbl_080865cc @ =sNonGameplayRamPointer
     ldr r0, [r0]
     adds r0, #0x98
     ldrb r0, [r0]
@@ -3110,7 +3110,7 @@ lbl_08086598:
 lbl_080865c0: .4byte 0x0400000a
 lbl_080865c4: .4byte 0x00005a01
 lbl_080865c8: .4byte 0x00005c0a
-lbl_080865cc: .4byte 0x08754bc4
+lbl_080865cc: .4byte sNonGameplayRamPointer
 lbl_080865d0: .4byte 0x085af2bc
 lbl_080865d4: .4byte 0x06008000
 lbl_080865d8: .4byte 0x085b0b10
@@ -3138,7 +3138,7 @@ lbl_08086604:
     ldr r1, lbl_0808664c @ =0x0600e000
     bl LZ77UncompVRAM
 lbl_08086614:
-    ldr r0, lbl_08086650 @ =0x08754bc4
+    ldr r0, lbl_08086650 @ =sNonGameplayRamPointer
     ldr r3, [r0]
     movs r0, #0xb0
     lsls r0, r0, #2
@@ -3165,14 +3165,14 @@ lbl_08086640: .4byte 0x085ade64
 lbl_08086644: .4byte 0x06008000
 lbl_08086648: .4byte 0x085af0a0
 lbl_0808664c: .4byte 0x0600e000
-lbl_08086650: .4byte 0x08754bc4
+lbl_08086650: .4byte sNonGameplayRamPointer
 lbl_08086654: .4byte 0x000002c2
 lbl_08086658: .4byte gWrittenToBLDALPHA_L
 lbl_0808665c: .4byte gWrittenToBLDALPHA_H
 lbl_08086660: .4byte gBG2XPosition
 lbl_08086664: .4byte 0x00000125
 lbl_08086668:
-    ldr r4, lbl_0808669c @ =0x08754bc4
+    ldr r4, lbl_0808669c @ =sNonGameplayRamPointer
     ldr r2, [r4]
     movs r3, #0xb0
     lsls r3, r3, #2
@@ -3198,13 +3198,13 @@ lbl_08086668:
     ldr r0, [r4]
     b lbl_08086736
     .align 2, 0
-lbl_0808669c: .4byte 0x08754bc4
+lbl_0808669c: .4byte sNonGameplayRamPointer
 lbl_080866a0: .4byte 0x000002c2
 lbl_080866a4: .4byte 0x00000c41
 lbl_080866a8: .4byte gWrittenToBLDALPHA_L
 lbl_080866ac: .4byte gWrittenToBLDALPHA_H
 lbl_080866b0:
-    ldr r3, lbl_080866dc @ =0x08754bc4
+    ldr r3, lbl_080866dc @ =sNonGameplayRamPointer
     ldr r1, [r3]
     movs r0, #0xb0
     lsls r0, r0, #2
@@ -3227,11 +3227,11 @@ lbl_080866b0:
     adds r1, r0, r3
     b lbl_0808673a
     .align 2, 0
-lbl_080866dc: .4byte 0x08754bc4
+lbl_080866dc: .4byte sNonGameplayRamPointer
 lbl_080866e0: .4byte 0x000002c2
 lbl_080866e4: .4byte 0x00000125
 lbl_080866e8:
-    ldr r3, lbl_08086714 @ =0x08754bc4
+    ldr r3, lbl_08086714 @ =sNonGameplayRamPointer
     ldr r1, [r3]
     movs r0, #0xb0
     lsls r0, r0, #2
@@ -3254,7 +3254,7 @@ lbl_080866e8:
     adds r1, r0, r3
     b lbl_0808673a
     .align 2, 0
-lbl_08086714: .4byte 0x08754bc4
+lbl_08086714: .4byte sNonGameplayRamPointer
 lbl_08086718: .4byte 0x000002c2
 lbl_0808671c: .4byte 0x00000125
 lbl_08086720:
@@ -3267,7 +3267,7 @@ lbl_08086720:
     ldr r0, lbl_0808674c @ =0x80000050
     str r0, [r1, #8]
     ldr r0, [r1, #8]
-    ldr r0, lbl_08086750 @ =0x08754bc4
+    ldr r0, lbl_08086750 @ =sNonGameplayRamPointer
     ldr r0, [r0]
 lbl_08086736:
     ldr r2, lbl_08086754 @ =0x00000125
@@ -3281,10 +3281,10 @@ lbl_0808673a:
 lbl_08086744: .4byte 0x040000d4
 lbl_08086748: .4byte 0x0854b914
 lbl_0808674c: .4byte 0x80000050
-lbl_08086750: .4byte 0x08754bc4
+lbl_08086750: .4byte sNonGameplayRamPointer
 lbl_08086754: .4byte 0x00000125
 lbl_08086758:
-    ldr r0, lbl_080867a0 @ =0x08754bc4
+    ldr r0, lbl_080867a0 @ =sNonGameplayRamPointer
     ldr r1, [r0]
     movs r3, #0xb0
     lsls r3, r3, #2
@@ -3306,7 +3306,7 @@ lbl_08086758:
     lsls r0, r0, #0x18
     lsrs r6, r0, #0x18
 lbl_08086782:
-    ldr r0, lbl_080867a0 @ =0x08754bc4
+    ldr r0, lbl_080867a0 @ =sNonGameplayRamPointer
     ldr r0, [r0]
     ldrb r1, [r0, #2]
     movs r0, #7
@@ -3323,7 +3323,7 @@ lbl_08086798:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_080867a0: .4byte 0x08754bc4
+lbl_080867a0: .4byte sNonGameplayRamPointer
 lbl_080867a4: .4byte 0x000002c2
 lbl_080867a8: .4byte gWrittenToBLDALPHA_L
 lbl_080867ac: .4byte gWrittenToBLDALPHA_H
@@ -3429,7 +3429,7 @@ ending_image_init: @ 0x080867b4
     ldr r0, lbl_0808691c @ =0x80000100
     str r0, [r6, #8]
     ldr r0, [r6, #8]
-    ldr r4, lbl_08086920 @ =0x08754bc4
+    ldr r4, lbl_08086920 @ =sNonGameplayRamPointer
     ldr r0, [r4]
     adds r5, r5, r7
     add r5, sl
@@ -3485,7 +3485,7 @@ lbl_08086910: .4byte 0x04ff04ff
 lbl_08086914: .4byte 0x0600e800
 lbl_08086918: .4byte 0x0854c0ec
 lbl_0808691c: .4byte 0x80000100
-lbl_08086920: .4byte 0x08754bc4
+lbl_08086920: .4byte sNonGameplayRamPointer
 lbl_08086924: .4byte 0x085a0f30
 lbl_08086928: .4byte 0x06010000
 lbl_0808692c: .4byte gLanguage
@@ -3554,7 +3554,7 @@ lbl_08086940:
     strh r1, [r0]
     adds r0, #2
     strh r1, [r0]
-    ldr r0, lbl_08086a3c @ =0x08754bc4
+    ldr r0, lbl_08086a3c @ =sNonGameplayRamPointer
     ldr r1, [r0]
     movs r0, #0xb0
     lsls r0, r0, #2
@@ -3602,7 +3602,7 @@ lbl_08086a2c: .4byte gBG2YPosition
 lbl_08086a30: .4byte gBG3XPosition
 lbl_08086a34: .4byte gBG3YPosition
 lbl_08086a38: .4byte 0x04000010
-lbl_08086a3c: .4byte 0x08754bc4
+lbl_08086a3c: .4byte sNonGameplayRamPointer
 lbl_08086a40: .4byte 0x000002c2
 lbl_08086a44: .4byte gWrittenToBLDALPHA_L
 lbl_08086a48: .4byte gWrittenToBLDALPHA_H
@@ -3620,7 +3620,7 @@ ending_image_display_text: @ 0x08086a50
     mov sl, r0
     movs r7, #0
     movs r4, #0
-    ldr r1, lbl_08086abc @ =0x08754bc4
+    ldr r1, lbl_08086abc @ =sNonGameplayRamPointer
     ldr r0, [r1]
     adds r0, #0x9b
     ldrb r0, [r0]
@@ -3628,7 +3628,7 @@ ending_image_display_text: @ 0x08086a50
     blt lbl_08086a72
     b lbl_08086ba0
 lbl_08086a72:
-    ldr r2, lbl_08086abc @ =0x08754bc4
+    ldr r2, lbl_08086abc @ =sNonGameplayRamPointer
     ldr r1, [r2]
     movs r2, #0x92
     lsls r2, r2, #1
@@ -3655,7 +3655,7 @@ lbl_08086a9c:
     mov ip, r0
     cmp r4, #5
     ble lbl_08086ad2
-    ldr r1, lbl_08086abc @ =0x08754bc4
+    ldr r1, lbl_08086abc @ =sNonGameplayRamPointer
     ldr r0, [r1]
     adds r0, r0, r2
     adds r0, r0, r4
@@ -3667,7 +3667,7 @@ lbl_08086a9c:
     b lbl_08086afa
     .align 2, 0
 lbl_08086ab8: .4byte gOamData
-lbl_08086abc: .4byte 0x08754bc4
+lbl_08086abc: .4byte sNonGameplayRamPointer
 lbl_08086ac0:
     cmp r0, #7
     bhi lbl_08086ac8
@@ -3682,7 +3682,7 @@ lbl_08086ac8:
 lbl_08086ad2:
     cmp r4, #5
     bne lbl_08086afa
-    ldr r2, lbl_08086c60 @ =0x08754bc4
+    ldr r2, lbl_08086c60 @ =sNonGameplayRamPointer
     ldr r0, [r2]
     ldr r1, lbl_08086c64 @ =0x00000165
     adds r2, r0, r1
@@ -3690,7 +3690,7 @@ lbl_08086ad2:
     movs r0, #0x3f
     ands r0, r1
     strb r0, [r2]
-    ldr r2, lbl_08086c60 @ =0x08754bc4
+    ldr r2, lbl_08086c60 @ =sNonGameplayRamPointer
     ldr r0, [r2]
     ldr r1, lbl_08086c64 @ =0x00000165
     adds r0, r0, r1
@@ -3702,7 +3702,7 @@ lbl_08086ad2:
 lbl_08086af8:
     mov ip, r0
 lbl_08086afa:
-    ldr r1, lbl_08086c60 @ =0x08754bc4
+    ldr r1, lbl_08086c60 @ =sNonGameplayRamPointer
     ldr r0, [r1]
     lsls r1, r4, #2
     movs r2, #0xfc
@@ -3719,7 +3719,7 @@ lbl_08086afa:
     mov sb, r0
     cmp r7, sl
     bge lbl_08086b90
-    ldr r1, lbl_08086c60 @ =0x08754bc4
+    ldr r1, lbl_08086c60 @ =sNonGameplayRamPointer
     mov r8, r1
     lsls r6, r4, #1
     lsls r0, r7, #3
@@ -3780,7 +3780,7 @@ lbl_08086b32:
     mov r7, sl
 lbl_08086b90:
     mov r4, sb
-    ldr r2, lbl_08086c60 @ =0x08754bc4
+    ldr r2, lbl_08086c60 @ =sNonGameplayRamPointer
     ldr r0, [r2]
     adds r0, #0x9b
     ldrb r0, [r0]
@@ -3788,7 +3788,7 @@ lbl_08086b90:
     bge lbl_08086ba0
     b lbl_08086a72
 lbl_08086ba0:
-    ldr r4, lbl_08086c60 @ =0x08754bc4
+    ldr r4, lbl_08086c60 @ =sNonGameplayRamPointer
     ldr r1, [r4]
     ldr r2, lbl_08086c78 @ =0x00000141
     adds r0, r1, r2
@@ -3810,7 +3810,7 @@ lbl_08086ba0:
     strb r0, [r1]
 lbl_08086bc8:
     ldr r4, lbl_08086c80 @ =0x0854e2e4
-    ldr r1, lbl_08086c60 @ =0x08754bc4
+    ldr r1, lbl_08086c60 @ =sNonGameplayRamPointer
     ldr r0, [r1]
     adds r0, r0, r3
     ldrb r0, [r0]
@@ -3886,7 +3886,7 @@ lbl_08086c4c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08086c60: .4byte 0x08754bc4
+lbl_08086c60: .4byte sNonGameplayRamPointer
 lbl_08086c64: .4byte 0x00000165
 lbl_08086c68: .4byte 0x0854e2dc
 lbl_08086c6c: .4byte gOamData
@@ -3902,7 +3902,7 @@ lbl_08086c88: .4byte gNextOamSlot
 ending_image_display: @ 0x08086c8c
     push {r4, r5, r6, lr}
     movs r6, #0
-    ldr r4, lbl_08086cbc @ =0x08754bc4
+    ldr r4, lbl_08086cbc @ =sNonGameplayRamPointer
     ldr r2, [r4]
     ldrh r3, [r2, #4]
     adds r0, r3, #1
@@ -3924,7 +3924,7 @@ ending_image_display: @ 0x08086c8c
     beq lbl_08086d18
     b lbl_08086dd6
     .align 2, 0
-lbl_08086cbc: .4byte 0x08754bc4
+lbl_08086cbc: .4byte sNonGameplayRamPointer
 lbl_08086cc0: .4byte 0x00000177
 lbl_08086cc4:
     cmp r1, #0xb4
@@ -4070,7 +4070,7 @@ lbl_08086dd0:
 lbl_08086dd4:
     movs r6, #1
 lbl_08086dd6:
-    ldr r0, lbl_08086df8 @ =0x08754bc4
+    ldr r0, lbl_08086df8 @ =sNonGameplayRamPointer
     ldr r2, [r0]
     ldrh r1, [r2, #8]
     adds r3, r0, #0
@@ -4088,7 +4088,7 @@ lbl_08086dd6:
     strh r0, [r1]
     b lbl_08086e10
     .align 2, 0
-lbl_08086df8: .4byte 0x08754bc4
+lbl_08086df8: .4byte sNonGameplayRamPointer
 lbl_08086dfc: .4byte gBG0YPosition
 lbl_08086e00: .4byte gBG1YPosition
 lbl_08086e04:
@@ -4239,7 +4239,7 @@ unlocked_options_init: @ 0x08086e78
     strh r6, [r0]
     adds r0, #2
     strh r6, [r0]
-    ldr r0, lbl_08086fbc @ =0x08754bc4
+    ldr r0, lbl_08086fbc @ =sNonGameplayRamPointer
     ldr r0, [r0]
     movs r2, #0xb0
     lsls r2, r2, #2
@@ -4286,7 +4286,7 @@ lbl_08086fac: .4byte 0x04000008
 lbl_08086fb0: .4byte 0x00001101
 lbl_08086fb4: .4byte gNextOamSlot
 lbl_08086fb8: .4byte 0x04000010
-lbl_08086fbc: .4byte 0x08754bc4
+lbl_08086fbc: .4byte sNonGameplayRamPointer
 lbl_08086fc0: .4byte 0x000002c2
 lbl_08086fc4: .4byte gWrittenToBLDALPHA_L
 lbl_08086fc8: .4byte gWrittenToBLDALPHA_H
@@ -4297,7 +4297,7 @@ unlocked_options_pop_up: @ 0x08086fd0
     push {r4, r5, lr}
     sub sp, #4
     movs r5, #0
-    ldr r3, lbl_08086ff4 @ =0x08754bc4
+    ldr r3, lbl_08086ff4 @ =sNonGameplayRamPointer
     ldr r2, [r3]
     ldrh r1, [r2, #4]
     adds r0, r1, #1
@@ -4312,7 +4312,7 @@ unlocked_options_pop_up: @ 0x08086fd0
     beq lbl_08086ffe
     b lbl_080870aa
     .align 2, 0
-lbl_08086ff4: .4byte 0x08754bc4
+lbl_08086ff4: .4byte sNonGameplayRamPointer
 lbl_08086ff8:
     cmp r0, #0x80
     beq lbl_080870a8
@@ -4354,7 +4354,7 @@ lbl_08087034:
 lbl_08087040:
     adds r0, r1, #0
     bl start_file_screen_text
-    ldr r0, lbl_08087058 @ =0x08754bc4
+    ldr r0, lbl_08087058 @ =sNonGameplayRamPointer
     ldr r0, [r0]
     movs r1, #0x92
     lsls r1, r1, #1
@@ -4363,7 +4363,7 @@ lbl_08087040:
     strb r1, [r0]
     b lbl_080870aa
     .align 2, 0
-lbl_08087058: .4byte 0x08754bc4
+lbl_08087058: .4byte sNonGameplayRamPointer
 lbl_0808705c:
     movs r0, #0xb0
     lsls r0, r0, #2
@@ -4404,7 +4404,7 @@ lbl_080870a4: .4byte 0x0400004a
 lbl_080870a8:
     strh r1, [r2, #4]
 lbl_080870aa:
-    ldr r4, lbl_08087108 @ =0x08754bc4
+    ldr r4, lbl_08087108 @ =sNonGameplayRamPointer
     ldr r0, [r4]
     movs r1, #0x92
     lsls r1, r1, #1
@@ -4452,7 +4452,7 @@ lbl_080870c8:
     strh r0, [r1]
     b lbl_080871d2
     .align 2, 0
-lbl_08087108: .4byte 0x08754bc4
+lbl_08087108: .4byte sNonGameplayRamPointer
 lbl_0808710c:
     movs r0, #0xb0
     lsls r0, r0, #2
@@ -4567,7 +4567,7 @@ lbl_080871d2:
 credits_main: @ 0x080871dc
     push {r4, r5, lr}
     movs r5, #0
-    ldr r1, lbl_08087204 @ =0x08754bc4
+    ldr r1, lbl_08087204 @ =sNonGameplayRamPointer
     ldr r0, [r1]
     strb r5, [r0, #6]
     ldr r0, lbl_08087208 @ =gNextOamSlot
@@ -4587,7 +4587,7 @@ lbl_080871fa:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08087204: .4byte 0x08754bc4
+lbl_08087204: .4byte sNonGameplayRamPointer
 lbl_08087208: .4byte gNextOamSlot
 lbl_0808720c: .4byte gGameModeSub1
 lbl_08087210: .4byte lbl_08087214
@@ -4857,7 +4857,7 @@ gallery_init: @ 0x080873e4
     str r0, [r1, #8]
     ldr r0, [r1, #8]
 lbl_08087440:
-    ldr r2, lbl_080874a4 @ =0x08754bc4
+    ldr r2, lbl_080874a4 @ =sNonGameplayRamPointer
     ldr r3, [r2]
     adds r0, r3, #0
     adds r0, #0x98
@@ -4897,7 +4897,7 @@ lbl_08087494: .4byte gGameModeSub1
 lbl_08087498: .4byte 0x040000d4
 lbl_0808749c: .4byte gNonGameplayRAM
 lbl_080874a0: .4byte 0x8500018a
-lbl_080874a4: .4byte 0x08754bc4
+lbl_080874a4: .4byte sNonGameplayRamPointer
 lbl_080874a8: .4byte gFileScreenOptionsUnlocked
 lbl_080874ac: .4byte 0x0854c06c
 lbl_080874b0:
@@ -5064,7 +5064,7 @@ gallery_display: @ 0x0808761c
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
-    ldr r1, lbl_08087660 @ =0x08754bc4
+    ldr r1, lbl_08087660 @ =sNonGameplayRamPointer
     ldr r5, [r1]
     adds r0, r5, #0
     adds r0, #0x98
@@ -5095,7 +5095,7 @@ gallery_display: @ 0x0808761c
     mov r8, r0
     b lbl_080876b2
     .align 2, 0
-lbl_08087660: .4byte 0x08754bc4
+lbl_08087660: .4byte sNonGameplayRamPointer
 lbl_08087664: .4byte gChangedInput
 lbl_08087668: .4byte 0x000002c2
 lbl_0808766c: .4byte gWrittenToBLDY_NonGameplay
@@ -5239,7 +5239,7 @@ lbl_08087774: .4byte gBG1YPosition
 GallerySubroutine: @ 0x08087778
     push {r4, r5, r6, r7, lr}
     movs r6, #0
-    ldr r0, lbl_0808779c @ =0x08754bc4
+    ldr r0, lbl_0808779c @ =sNonGameplayRamPointer
     ldr r1, [r0]
     strb r6, [r1, #6]
     ldr r1, lbl_080877a0 @ =gGameModeSub1
@@ -5255,7 +5255,7 @@ GallerySubroutine: @ 0x08087778
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0808779c: .4byte 0x08754bc4
+lbl_0808779c: .4byte sNonGameplayRamPointer
 lbl_080877a0: .4byte gGameModeSub1
 lbl_080877a4: .4byte lbl_080877a8
 lbl_080877a8: @ jump table
@@ -5353,7 +5353,7 @@ vblank_during_chozodia_escape: @ 0x0808784c
     str r0, [r1, #8]
     ldr r0, [r1, #8]
     subs r1, #0xd4
-    ldr r0, lbl_080878ec @ =0x08754bc4
+    ldr r0, lbl_080878ec @ =sNonGameplayRamPointer
     ldr r4, [r0]
     movs r2, #0xdc
     lsls r2, r2, #2
@@ -5420,7 +5420,7 @@ vblank_during_chozodia_escape: @ 0x0808784c
 lbl_080878e0: .4byte 0x040000d4
 lbl_080878e4: .4byte gOamData
 lbl_080878e8: .4byte 0x84000100
-lbl_080878ec: .4byte 0x08754bc4
+lbl_080878ec: .4byte sNonGameplayRamPointer
 lbl_080878f0: .4byte 0x04000052
 lbl_080878f4: .4byte gWrittenToBLDALPHA_H
 lbl_080878f8: .4byte gWrittenToBLDALPHA_L
@@ -5446,7 +5446,7 @@ sub_08087938: @ 0x08087938
     ldr r0, lbl_08087964 @ =0x04000006
     ldrh r3, [r0]
     ldr r4, lbl_08087968 @ =0x04000040
-    ldr r0, lbl_0808796c @ =0x08754bc4
+    ldr r0, lbl_0808796c @ =sNonGameplayRamPointer
     ldr r2, [r0]
     lsls r3, r3, #1
     ldr r1, lbl_08087970 @ =0x0000036f
@@ -5466,7 +5466,7 @@ sub_08087938: @ 0x08087938
     .align 2, 0
 lbl_08087964: .4byte 0x04000006
 lbl_08087968: .4byte 0x04000040
-lbl_0808796c: .4byte 0x08754bc4
+lbl_0808796c: .4byte sNonGameplayRamPointer
 lbl_08087970: .4byte 0x0000036f
 
     thumb_func_start sub_08087974
@@ -5475,7 +5475,7 @@ sub_08087974: @ 0x08087974
     ldr r2, lbl_08087998 @ =0x040000d4
     ldr r0, lbl_0808799c @ =sub_08087938
     str r0, [r2]
-    ldr r0, lbl_080879a0 @ =0x08754bc4
+    ldr r0, lbl_080879a0 @ =sNonGameplayRamPointer
     ldr r0, [r0]
     adds r1, r0, #0
     adds r1, #0x6c
@@ -5490,7 +5490,7 @@ sub_08087974: @ 0x08087974
     .align 2, 0
 lbl_08087998: .4byte 0x040000d4
 lbl_0808799c: .4byte sub_08087938
-lbl_080879a0: .4byte 0x08754bc4
+lbl_080879a0: .4byte sNonGameplayRamPointer
 lbl_080879a4: .4byte 0x80000020
 
     thumb_func_start sub_080879a8
@@ -5507,7 +5507,7 @@ sub_080879a8: @ 0x080879a8
     adds r1, #2
     movs r0, #0x1f
     strh r0, [r1]
-    ldr r0, lbl_080879f8 @ =0x08754bc4
+    ldr r0, lbl_080879f8 @ =sNonGameplayRamPointer
     ldr r2, [r0]
     movs r0, #0xdc
     lsls r0, r0, #2
@@ -5535,7 +5535,7 @@ sub_080879a8: @ 0x080879a8
     bx lr
     .align 2, 0
 lbl_080879f4: .4byte 0x04000040
-lbl_080879f8: .4byte 0x08754bc4
+lbl_080879f8: .4byte sNonGameplayRamPointer
 lbl_080879fc: .4byte 0x00002020
 lbl_08087a00: .4byte 0x04000208
 lbl_08087a04: .4byte 0x04000004
@@ -5547,7 +5547,7 @@ sub_08087a0c: @ 0x08087a0c
     mov r7, sb
     mov r6, r8
     push {r6, r7}
-    ldr r2, lbl_08087a38 @ =0x08754bc4
+    ldr r2, lbl_08087a38 @ =sNonGameplayRamPointer
     ldr r0, [r2]
     movs r1, #0xdb
     lsls r1, r1, #2
@@ -5565,7 +5565,7 @@ sub_08087a0c: @ 0x08087a0c
     movs r0, #0x54
     b lbl_08087a54
     .align 2, 0
-lbl_08087a38: .4byte 0x08754bc4
+lbl_08087a38: .4byte sNonGameplayRamPointer
 lbl_08087a3c: .4byte 0x0835f570
 lbl_08087a40:
     cmp r4, #0x50
@@ -5820,7 +5820,7 @@ chozodia_escape_process_oam: @ 0x08087c08
     movs r6, #0
     movs r7, #0
 lbl_08087c1e:
-    ldr r1, lbl_08087c74 @ =0x08754bc4
+    ldr r1, lbl_08087c74 @ =sNonGameplayRamPointer
     ldr r2, [r1]
     adds r0, r2, #6
     adds r0, r0, r7
@@ -5863,7 +5863,7 @@ lbl_08087c1e:
     b lbl_08087cc0
     .align 2, 0
 lbl_08087c70: .4byte gOamData
-lbl_08087c74: .4byte 0x08754bc4
+lbl_08087c74: .4byte sNonGameplayRamPointer
 lbl_08087c78:
     ldrh r1, [r4]
     adds r4, #2
@@ -5899,7 +5899,7 @@ lbl_08087c78:
     bhs lbl_08087cca
     cmp r7, #4
     bne lbl_08087c78
-    ldr r1, lbl_08087cf4 @ =0x08754bc4
+    ldr r1, lbl_08087cf4 @ =sNonGameplayRamPointer
     ldr r0, [r1]
 lbl_08087cc0:
     adds r0, #0x24
@@ -5927,7 +5927,7 @@ lbl_08087cca:
 lbl_08087ce8: .4byte gOamData
 lbl_08087cec: .4byte 0x000001ff
 lbl_08087cf0: .4byte 0xfffffe00
-lbl_08087cf4: .4byte 0x08754bc4
+lbl_08087cf4: .4byte sNonGameplayRamPointer
 lbl_08087cf8: .4byte gNextOamSlot
 
     thumb_func_start chozodia_escape_process_oam2
@@ -5942,7 +5942,7 @@ chozodia_escape_process_oam2: @ 0x08087cfc
     movs r0, #0
     mov r8, r0
     movs r6, #0
-    ldr r0, lbl_08087e3c @ =0x08754bc4
+    ldr r0, lbl_08087e3c @ =sNonGameplayRamPointer
     ldr r1, [r0]
     ldrb r0, [r1, #6]
     cmp r0, #0
@@ -5975,7 +5975,7 @@ lbl_08087d38:
     strh r0, [r5]
     adds r4, #2
     adds r5, #4
-    ldr r0, lbl_08087e3c @ =0x08754bc4
+    ldr r0, lbl_08087e3c @ =sNonGameplayRamPointer
     ldr r0, [r0]
     adds r0, #0x62
     movs r1, #0
@@ -5997,7 +5997,7 @@ lbl_08087d38:
     cmp r6, r8
     blo lbl_08087d38
 lbl_08087d7c:
-    ldr r0, lbl_08087e3c @ =0x08754bc4
+    ldr r0, lbl_08087e3c @ =sNonGameplayRamPointer
     ldr r0, [r0]
     adds r0, #0x62
     movs r7, #0
@@ -6008,7 +6008,7 @@ lbl_08087d7c:
 lbl_08087d8e:
     movs r3, #1
 lbl_08087d90:
-    ldr r0, lbl_08087e3c @ =0x08754bc4
+    ldr r0, lbl_08087e3c @ =sNonGameplayRamPointer
     ldr r2, [r0]
     adds r0, r2, #6
     adds r0, r0, r3
@@ -6096,7 +6096,7 @@ lbl_08087e1a:
     bx r0
     .align 2, 0
 lbl_08087e38: .4byte gOamData
-lbl_08087e3c: .4byte 0x08754bc4
+lbl_08087e3c: .4byte sNonGameplayRamPointer
 lbl_08087e40: .4byte 0x000001ff
 lbl_08087e44: .4byte 0xfffffe00
 lbl_08087e48: .4byte gNextOamSlot
@@ -6226,7 +6226,7 @@ chozodia_escape_init: @ 0x08087e4c
     ldr r0, [r2, #8]
     ldr r0, lbl_080880d0 @ =gNextOamSlot
     strb r5, [r0]
-    ldr r4, lbl_080880d4 @ =0x08754bc4
+    ldr r4, lbl_080880d4 @ =sNonGameplayRamPointer
     ldr r1, [r4]
     ldr r0, lbl_080880d8 @ =0x085c9bb6
     str r0, [r1, #0xc]
@@ -6374,7 +6374,7 @@ lbl_080880c4: .4byte 0x04000010
 lbl_080880c8: .4byte gNonGameplayRAM
 lbl_080880cc: .4byte 0x8500018a
 lbl_080880d0: .4byte gNextOamSlot
-lbl_080880d4: .4byte 0x08754bc4
+lbl_080880d4: .4byte sNonGameplayRamPointer
 lbl_080880d8: .4byte 0x085c9bb6
 lbl_080880dc: .4byte 0x085c9bd8
 lbl_080880e0: .4byte 0x085c9b78
@@ -6391,7 +6391,7 @@ lbl_08088104:
     movs r0, #1
 lbl_08088108:
     strb r0, [r1]
-    ldr r0, lbl_08088144 @ =0x08754bc4
+    ldr r0, lbl_08088144 @ =sNonGameplayRamPointer
     ldr r1, [r0]
     movs r3, #0xdc
     lsls r3, r3, #2
@@ -6418,7 +6418,7 @@ lbl_08088108:
     bx r0
     .align 2, 0
 lbl_08088140: .4byte gDisableSoftreset
-lbl_08088144: .4byte 0x08754bc4
+lbl_08088144: .4byte sNonGameplayRamPointer
 lbl_08088148: .4byte 0x00000372
 lbl_0808814c: .4byte gWrittenToBLDALPHA_L
 lbl_08088150: .4byte gWrittenToBLDALPHA_H
@@ -6428,7 +6428,7 @@ lbl_08088154: .4byte gWrittenToBLDY_NonGameplay
 chozodia_escape_escape_ship_leaving: @ 0x08088158
     push {r4, r5, r6, lr}
     movs r6, #0
-    ldr r3, lbl_08088178 @ =0x08754bc4
+    ldr r3, lbl_08088178 @ =sNonGameplayRamPointer
     ldr r2, [r3]
     ldrh r0, [r2, #4]
     adds r1, r0, #1
@@ -6443,7 +6443,7 @@ chozodia_escape_escape_ship_leaving: @ 0x08088158
     beq lbl_0808818c
     b lbl_080881d6
     .align 2, 0
-lbl_08088178: .4byte 0x08754bc4
+lbl_08088178: .4byte sNonGameplayRamPointer
 lbl_0808817c:
     movs r0, #0x93
     lsls r0, r0, #1
@@ -6491,7 +6491,7 @@ lbl_080881d0: .4byte 0x0000fff0
 lbl_080881d4:
     movs r6, #1
 lbl_080881d6:
-    ldr r0, lbl_08088200 @ =0x08754bc4
+    ldr r0, lbl_08088200 @ =sNonGameplayRamPointer
     ldr r2, [r0]
     ldrb r3, [r2, #6]
     adds r5, r0, #0
@@ -6512,7 +6512,7 @@ lbl_080881d6:
     movs r0, #7
     b lbl_0808820c
     .align 2, 0
-lbl_08088200: .4byte 0x08754bc4
+lbl_08088200: .4byte sNonGameplayRamPointer
 lbl_08088204:
     cmp r1, #0x38
     bls lbl_0808821c
@@ -6634,7 +6634,7 @@ lbl_080882d8: .4byte 0x085c9ef4
 chozodia_escape_mother_ship_heating_up: @ 0x080882dc
     push {r4, r5, lr}
     movs r5, #0
-    ldr r3, lbl_080882fc @ =0x08754bc4
+    ldr r3, lbl_080882fc @ =sNonGameplayRamPointer
     ldr r2, [r3]
     ldrh r0, [r2, #4]
     adds r1, r0, #1
@@ -6649,7 +6649,7 @@ chozodia_escape_mother_ship_heating_up: @ 0x080882dc
     beq lbl_0808830a
     b lbl_08088378
     .align 2, 0
-lbl_080882fc: .4byte 0x08754bc4
+lbl_080882fc: .4byte sNonGameplayRamPointer
 lbl_08088300:
     cmp r0, #0xa0
     beq lbl_08088334
@@ -6710,7 +6710,7 @@ lbl_08088354:
     movs r5, #1
 lbl_08088378:
     bl sub_08087a0c
-    ldr r3, lbl_08088444 @ =0x08754bc4
+    ldr r3, lbl_08088444 @ =sNonGameplayRamPointer
     ldr r2, [r3]
     ldrb r0, [r2, #1]
     cmp r0, #0
@@ -6733,7 +6733,7 @@ lbl_080883a0:
     movs r0, #0
     strb r0, [r1, #2]
 lbl_080883a6:
-    ldr r0, lbl_08088444 @ =0x08754bc4
+    ldr r0, lbl_08088444 @ =sNonGameplayRamPointer
     ldr r0, [r0]
     movs r2, #0xdb
     lsls r2, r2, #2
@@ -6748,7 +6748,7 @@ lbl_080883a6:
     movs r0, #0xa0
     strh r0, [r1]
 lbl_080883c2:
-    ldr r4, lbl_08088444 @ =0x08754bc4
+    ldr r4, lbl_08088444 @ =sNonGameplayRamPointer
     ldr r0, [r4]
     ldrh r0, [r0, #4]
     lsls r1, r0, #0x10
@@ -6810,7 +6810,7 @@ lbl_08088434: .4byte 0x0000ffef
 lbl_08088438: .4byte 0x04000200
 lbl_0808843c: .4byte 0x0000fffd
 lbl_08088440: .4byte 0x04000202
-lbl_08088444: .4byte 0x08754bc4
+lbl_08088444: .4byte sNonGameplayRamPointer
 lbl_08088448: .4byte gWrittenToBLDY_NonGameplay
 lbl_0808844c: .4byte 0x085ca0bc
 lbl_08088450: .4byte 0x085c9638
@@ -6917,7 +6917,7 @@ chozodia_escape_mother_ship_blowing_up: @ 0x08088508
     sub sp, #4
     movs r0, #0
     str r0, [sp]
-    ldr r4, lbl_08088540 @ =0x08754bc4
+    ldr r4, lbl_08088540 @ =sNonGameplayRamPointer
     ldr r2, [r4]
     ldrh r0, [r2, #4]
     adds r1, r0, #1
@@ -6938,7 +6938,7 @@ lbl_0808852c:
     beq lbl_0808857a
     b lbl_0808870a
     .align 2, 0
-lbl_08088540: .4byte 0x08754bc4
+lbl_08088540: .4byte sNonGameplayRamPointer
 lbl_08088544:
     cmp r1, #2
     beq lbl_080885a0
@@ -7154,7 +7154,7 @@ lbl_08088706:
     movs r2, #1
     str r2, [sp]
 lbl_0808870a:
-    ldr r0, lbl_080887c8 @ =0x08754bc4
+    ldr r0, lbl_080887c8 @ =sNonGameplayRamPointer
     ldr r3, [r0]
     ldrb r1, [r3, #1]
     adds r5, r0, #0
@@ -7257,7 +7257,7 @@ lbl_080887b4:
     movs r7, #0
     b lbl_080887f2
     .align 2, 0
-lbl_080887c8: .4byte 0x08754bc4
+lbl_080887c8: .4byte sNonGameplayRamPointer
 lbl_080887cc: .4byte gWrittenToBLDALPHA_L
 lbl_080887d0: .4byte gWrittenToBLDALPHA_H
 lbl_080887d4: .4byte gWrittenToBLDY_NonGameplay
@@ -7411,7 +7411,7 @@ lbl_080888f0: .4byte 0x085ca0da
 chozodia_escape_escape_ship_leaving_planet: @ 0x080888f4
     push {r4, r5, lr}
     movs r5, #0
-    ldr r4, lbl_0808891c @ =0x08754bc4
+    ldr r4, lbl_0808891c @ =sNonGameplayRamPointer
     ldr r2, [r4]
     ldrh r0, [r2, #4]
     adds r1, r0, #1
@@ -7430,7 +7430,7 @@ chozodia_escape_escape_ship_leaving_planet: @ 0x080888f4
     beq lbl_08088942
     b lbl_08088aae
     .align 2, 0
-lbl_0808891c: .4byte 0x08754bc4
+lbl_0808891c: .4byte sNonGameplayRamPointer
 lbl_08088920:
     movs r0, #0x80
     lsls r0, r0, #1
@@ -7614,7 +7614,7 @@ lbl_08088aa0:
     strh r0, [r1]
     movs r5, #1
 lbl_08088aae:
-    ldr r0, lbl_08088ad4 @ =0x08754bc4
+    ldr r0, lbl_08088ad4 @ =sNonGameplayRamPointer
     ldr r2, [r0]
     ldrb r3, [r2, #1]
     adds r4, r0, #0
@@ -7633,7 +7633,7 @@ lbl_08088aae:
     strh r0, [r1]
     b lbl_08088ae0
     .align 2, 0
-lbl_08088ad4: .4byte 0x08754bc4
+lbl_08088ad4: .4byte sNonGameplayRamPointer
 lbl_08088ad8: .4byte gWrittenToBLDY_NonGameplay
 lbl_08088adc:
     adds r0, r3, #1
@@ -7678,7 +7678,7 @@ lbl_08088b16:
     adds r1, #0x25
     strb r3, [r1]
 lbl_08088b28:
-    ldr r0, lbl_08088b58 @ =0x08754bc4
+    ldr r0, lbl_08088b58 @ =sNonGameplayRamPointer
     ldr r2, [r0]
     adds r0, r2, #0
     adds r0, #0x44
@@ -7701,7 +7701,7 @@ lbl_08088b28:
     bl chozodia_escape_process_oam
     b lbl_08088bce
     .align 2, 0
-lbl_08088b58: .4byte 0x08754bc4
+lbl_08088b58: .4byte sNonGameplayRamPointer
 lbl_08088b5c:
     cmp r0, #2
     bne lbl_08088bce
@@ -7762,7 +7762,7 @@ lbl_08088b8c:
 lbl_08088bca:
     bl chozodia_escape_process_oam2
 lbl_08088bce:
-    ldr r0, lbl_08088bf4 @ =0x08754bc4
+    ldr r0, lbl_08088bf4 @ =sNonGameplayRamPointer
     ldr r0, [r0]
     ldrh r1, [r0, #4]
     movs r0, #0xf
@@ -7783,7 +7783,7 @@ lbl_08088bec:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08088bf4: .4byte 0x08754bc4
+lbl_08088bf4: .4byte sNonGameplayRamPointer
 lbl_08088bf8: .4byte gBG1XPosition
 lbl_08088bfc: .4byte gBG2XPosition
 
@@ -7792,7 +7792,7 @@ chozodia_escape_mission_accomplished: @ 0x08088c00
     push {r4, r5, lr}
     sub sp, #4
     movs r5, #0
-    ldr r4, lbl_08088c24 @ =0x08754bc4
+    ldr r4, lbl_08088c24 @ =sNonGameplayRamPointer
     ldr r2, [r4]
     ldrh r0, [r2, #4]
     adds r1, r0, #1
@@ -7807,7 +7807,7 @@ chozodia_escape_mission_accomplished: @ 0x08088c00
     beq lbl_08088c36
     b lbl_08088cee
     .align 2, 0
-lbl_08088c24: .4byte 0x08754bc4
+lbl_08088c24: .4byte sNonGameplayRamPointer
 lbl_08088c28:
     cmp r1, #0x40
     beq lbl_08088c9a
@@ -7881,7 +7881,7 @@ lbl_08088cbc:
     ldr r0, lbl_08088cd8 @ =0x085ca00a
 lbl_08088cc0:
     str r0, [r1, #0x1c]
-    ldr r2, lbl_08088cdc @ =0x08754bc4
+    ldr r2, lbl_08088cdc @ =sNonGameplayRamPointer
     ldr r0, [r2]
     adds r0, #0x24
     movs r1, #1
@@ -7894,7 +7894,7 @@ lbl_08088cc0:
     b lbl_08088cee
     .align 2, 0
 lbl_08088cd8: .4byte 0x085ca00a
-lbl_08088cdc: .4byte 0x08754bc4
+lbl_08088cdc: .4byte sNonGameplayRamPointer
 lbl_08088ce0:
     ldr r1, lbl_08088d4c @ =0x00000372
     adds r0, r2, r1
@@ -7904,7 +7904,7 @@ lbl_08088ce0:
     strh r5, [r0]
     movs r5, #2
 lbl_08088cee:
-    ldr r3, lbl_08088d54 @ =0x08754bc4
+    ldr r3, lbl_08088d54 @ =sNonGameplayRamPointer
     ldr r1, [r3]
     ldrb r0, [r1, #0xa]
     cmp r0, #0
@@ -7933,7 +7933,7 @@ lbl_08088d1a:
     strb r1, [r0]
 lbl_08088d22:
     bl chozodia_escape_process_oam
-    ldr r0, lbl_08088d54 @ =0x08754bc4
+    ldr r0, lbl_08088d54 @ =sNonGameplayRamPointer
     ldr r1, [r0]
     ldrb r0, [r1, #1]
     cmp r0, #0
@@ -7956,7 +7956,7 @@ lbl_08088d42:
     .align 2, 0
 lbl_08088d4c: .4byte 0x00000372
 lbl_08088d50: .4byte gWrittenToBLDY_NonGameplay
-lbl_08088d54: .4byte 0x08754bc4
+lbl_08088d54: .4byte sNonGameplayRamPointer
 lbl_08088d58: .4byte gBG2XPosition
 
     thumb_func_start ChozodiaEscapeSubroutine
@@ -8000,7 +8000,7 @@ lbl_08088d92:
     .align 2, 0
 lbl_08088da0: .4byte gWrittenToBLDY_NonGameplay
 lbl_08088da4:
-    ldr r0, lbl_08088db8 @ =0x08754bc4
+    ldr r0, lbl_08088db8 @ =sNonGameplayRamPointer
     ldr r0, [r0]
     ldr r1, lbl_08088dbc @ =0x00000372
     adds r0, r0, r1
@@ -8011,11 +8011,11 @@ lbl_08088dae:
     strh r0, [r4]
     b lbl_08088e96
     .align 2, 0
-lbl_08088db8: .4byte 0x08754bc4
+lbl_08088db8: .4byte sNonGameplayRamPointer
 lbl_08088dbc: .4byte 0x00000372
 lbl_08088dc0:
     ldr r1, lbl_08088e58 @ =0x08760d14
-    ldr r4, lbl_08088e5c @ =0x08754bc4
+    ldr r4, lbl_08088e5c @ =sNonGameplayRamPointer
     ldr r0, [r4]
     ldrb r0, [r0]
     lsls r0, r0, #2
@@ -8093,7 +8093,7 @@ lbl_08088e52:
     b lbl_08088e96
     .align 2, 0
 lbl_08088e58: .4byte 0x08760d14
-lbl_08088e5c: .4byte 0x08754bc4
+lbl_08088e5c: .4byte sNonGameplayRamPointer
 lbl_08088e60: .4byte gBG0XPosition
 lbl_08088e64: .4byte gBG0YPosition
 lbl_08088e68: .4byte gBG1XPosition
