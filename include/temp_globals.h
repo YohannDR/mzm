@@ -14,6 +14,7 @@
 #include "structs/menus/file_select.h"
 #include "structs/fusion_gallery.h"
 #include "structs/chozodia_escape.h"
+#include "structs/tourian_escape.h"
 
 
 union NonGameplayRAM {
@@ -27,6 +28,7 @@ union NonGameplayRAM {
     struct FileSelectData fileSelect;
     struct FusionGalleryData fusionGallery;
     struct ChozodiaEscapeData chozodiaEscape;
+    struct TourianEscapeData tourianEscape;
     u8 inGame[1576];
 };
 

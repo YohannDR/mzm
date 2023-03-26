@@ -22,6 +22,14 @@
 #define REG_BG3HOFS (REG_BASE + 0x01C)
 #define REG_BG3VOFS (REG_BASE + 0x01E)
 
+#define REG_BG2PA (REG_BASE + 0x020)
+#define REG_BG2PB (REG_BASE + 0x022)
+#define REG_BG2PC (REG_BASE + 0x024)
+#define REG_BG2PD (REG_BASE + 0x026)
+
+#define REG_BG2X (REG_BASE + 0x028)
+#define REG_BG2Y (REG_BASE + 0x02C)
+
 #define REG_DISPSTAT (REG_BASE + 0x004)
 #define REG_WIN0H (REG_BASE + 0x040)
 #define REG_WIN1H (REG_BASE + 0x042)
