@@ -36,14 +36,15 @@ const struct CutscenePageData sKraidRisingPagesData[4] = {
 
 const struct CutsceneScreenShakeInfo sKraidRisingScreenShakeData = {
     .type = 1,
-    .unk_1 = 4,
-    .unk_2 = 0
+    .maxDelay = 4,
+    .set = 0
 };
 
 const struct CutsceneScrollingInfo sKraidRisingScrollingInfo = {
-    .unk_0 = 1,
-    .unk_2 = 80,
-    .unk_4 = 0x804
+    .direction = 1,
+    .length = 80,
+    .speed = 4,
+    .maxDelay = 8
 };
 
 const struct OamArray sKraidRisingCutsceneOAM[5] = {

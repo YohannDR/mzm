@@ -16,8 +16,8 @@ struct LastAreaName {
 };
 
 extern struct LastAreaName gLastAreaNameVisited;
-extern u32 gMinimapTilesWithObtainedItems[MAX_AMOUNT_OF_AREAS * MINIMAP_SIZE];
-extern u32 gVisitedMinimapTiles[MAX_AMOUNT_OF_AREAS * MINIMAP_SIZE];
+extern u32 gMinimapTilesWithObtainedItems[MAX_AMOUNT_OF_AREAS * MINIMAP_SIZE * 2];
+extern u32 gVisitedMinimapTiles[MAX_AMOUNT_OF_AREAS * MINIMAP_SIZE * 2];
 extern u16 gDecompressedMinimapVisitedTiles[MINIMAP_SIZE * MINIMAP_SIZE];
 extern u16 gDecompressedMinimapData[MINIMAP_SIZE * MINIMAP_SIZE];
 extern u8 gMinimapX;

@@ -185,7 +185,7 @@ u8 RidleyLandingShipLanding(void)
 
             if (!(CUTSCENE_DATA.dispcnt & sRidleyLandingPageData[2].bg))
             {
-                if (movement >= 2848 - sRidleyLandingScrollingInfo[1].unk_2 / 1.5)
+                if (movement >= 2848 - sRidleyLandingScrollingInfo[1].length / 1.5)
                 {
                     CUTSCENE_DATA.dispcnt |= sRidleyLandingPageData[2].bg;
                     CutsceneStartBackgroundScrolling(sRidleyLandingScrollingInfo[1], sRidleyLandingPageData[2].bg);
@@ -194,7 +194,7 @@ u8 RidleyLandingShipLanding(void)
 
             if (!(CUTSCENE_DATA.dispcnt & sRidleyLandingPageData[3].bg))
             {
-                if (movement >= 0xb20 - sRidleyLandingScrollingInfo[2].unk_2 / 2)
+                if (movement >= 0xb20 - sRidleyLandingScrollingInfo[2].length / 2)
                 {
                     CUTSCENE_DATA.dispcnt |= sRidleyLandingPageData[3].bg;
                     CutsceneStartBackgroundScrolling(sRidleyLandingScrollingInfo[2], sRidleyLandingPageData[3].bg);

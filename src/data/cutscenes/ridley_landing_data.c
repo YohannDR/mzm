@@ -43,19 +43,22 @@ const struct CutscenePageData sRidleyLandingPageData[5] = {
 
 const struct CutsceneScrollingInfo sRidleyLandingScrollingInfo[3] = {
     [0] = {
-        .unk_0 = 1,
-        .unk_2 = 0x318,
-        .unk_4 = 2
+        .direction = 1,
+        .length = 0x318,
+        .speed = 2,
+        .maxDelay = 0
     },
     [1] = {
-        .unk_0 = 1,
-        .unk_2 = 0x178,
-        .unk_4 = 3
+        .direction = 1,
+        .length = 0x178,
+        .speed = 3,
+        .maxDelay = 0
     },
     [2] = {
-        .unk_0 = 1,
-        .unk_2 = 0x158,
-        .unk_4 = 4
+        .direction = 1,
+        .length = 0x158,
+        .speed = 4,
+        .maxDelay = 0
     }
 };
 

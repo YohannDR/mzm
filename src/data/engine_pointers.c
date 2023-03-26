@@ -228,17 +228,20 @@ const TourianEscapeFunc_T sTourianEscapeFunctionPointers[2] = {
     (TourianEscapeFunc_T)0x8084715,
 };
 
-const i8 sCutscene_75fe44[4] = {
-    -1, 1, 0, 0
+const i8 sCutsceneScreenShakeOffsets_Set0[2] = {
+    -1, 1
 };
 
-const i8* const sCutscene_75fe48[4] = {
-    sCutscene_75fe44,
-    sCutscene_75fe44,
-    sCutscene_75fe44,
-    sCutscene_75fe44
+const i8* const sCutsceneScreenShakeOffsetSetPointers[4] = {
+    sCutsceneScreenShakeOffsets_Set0,
+    sCutsceneScreenShakeOffsets_Set0,
+    sCutsceneScreenShakeOffsets_Set0,
+    sCutsceneScreenShakeOffsets_Set0
 };
 
-const u8 sCutscene_75fe58[4] = {
-    2, 2, 2, 2
+const u8 sCutsceneScreenShakeOffsetSetSizes[4] = {
+    ARRAY_SIZE(sCutsceneScreenShakeOffsets_Set0),
+    ARRAY_SIZE(sCutsceneScreenShakeOffsets_Set0),
+    ARRAY_SIZE(sCutsceneScreenShakeOffsets_Set0),
+    ARRAY_SIZE(sCutsceneScreenShakeOffsets_Set0)
 };

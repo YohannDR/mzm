@@ -18,7 +18,7 @@ void CutsceneSetBGCNT(u16 value, u16 bg);
 void CutsceneSetBackgroundPosition(u8 type, u16 bg, u16 value);
 u16* CutsceneGetBGHOFSPointer(u16 bg);
 u16* CutsceneGetBGVOFSPointer(u16 bg);
-void CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData, u16 bg);
+u32 CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData, u16 bg);
 void CutsceneUpdateBackgroundScrolling(struct CutsceneScrolling* pScrolling);
 u8 CutsceneCheckBackgroundScrollingActive(u16 bg);
 void CutsceneUpdateBackgroundsPosition(u8 updateScrolling);

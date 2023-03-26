@@ -40,14 +40,15 @@ struct CutscenePageData {
 
 struct CutsceneScreenShakeInfo {
     u8 type;
-    u8 unk_1;
-    u16 unk_2;
+    u8 maxDelay;
+    u16 set;
 };
 
 struct CutsceneScrollingInfo {
-    u16 unk_0;
-    i16 unk_2;
-    u32 unk_4;
+    u8 direction;
+    i16 length;
+    i8 speed;
+    i8 maxDelay;
 };
 
 struct CutsceneInfo {
@@ -70,18 +71,18 @@ struct CutsceneSubroutineData {
 
 struct CutsceneScreenShake {
     u16 bg;
-    i8 loopCounter;
-    i8 unk_3;
-    u8 unk_4;
-    u8 unk_5;
+    i8 delay;
+    i8 maxDelay;
+    u8 set;
+    u8 currentSubSet;
 };
 
 struct CutsceneScrolling {
     u16* pPosition;
-    i16 unk_4;
-    i8 unk_6;
-    i8 unk_7;
-    i8 unk_8;
+    i16 lengthLeft;
+    i8 delay;
+    i8 speed;
+    i8 maxDelay;
 };
 
 struct CutscenePaletteData {
@@ -152,7 +153,7 @@ struct CutsceneTimeInfo {
 
 struct CutsceneData {
     struct CutsceneTimeInfo timeInfo;
-    u8 unk_8;
+    u8 unk_8; // TODO struct
     u8 unk_9;
     u8 unk_A;
     u8 unk_B;

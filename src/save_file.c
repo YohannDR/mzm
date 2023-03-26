@@ -7,6 +7,7 @@
 #include "data/save_file_data.h"
 #include "data/internal_save_file_data.h"
 #include "data/block_data.h"
+#include "data/in_game_cutscene_data.h"
 #include "data/engine_pointers.h"
 
 #include "constants/color_fading.h"
@@ -2032,7 +2033,54 @@ void Sram_CheckLoadSaveFile(void)
 
 void Sram_InitSaveFile(void)
 {
+    // https://decomp.me/scratch/uEm2z
 
+    i32 i;
+    i32 j;
+    u32 flags;
+    u32 flag;
+    
+    BitFill(3, 0, gVisitedMinimapTiles, sizeof(gVisitedMinimapTiles), 16);
+    BitFill(3, USHORT_MAX, gNeverReformBlocks, sizeof(gNeverReformBlocks), 16);
+    BitFill(3, USHORT_MAX, gItemsCollected, sizeof(gItemsCollected), 16);
+    BitFill(3, USHORT_MAX, gHatchesOpened, sizeof(gHatchesOpened), 16);
+    BitFill(3, 0, gEventsTriggered, sizeof(gEventsTriggered), 16);
+    BitFill(3, 0, gMinimapTilesWithObtainedItems, sizeof(gMinimapTilesWithObtainedItems), 16);
+
+    for (i = 0; i < MAX_AMOUNT_OF_AREAS; i++)
+    {
+        gNumberOfNeverReformBlocks[i] = 0;
+        gNumberOfItemsCollected[i] = 0;
+    }
+
+    gInGameTimer = sInGameTimer_Empty;
+
+    for (i = 0; i < ARRAY_SIZE(gBestCompletionTimes); i++)
+        gBestCompletionTimes[i] = sBestCompletionTime_Empty;
+
+    for (i = 0; i < ARRAY_SIZE(gInGameTimerAtBosses); i++)
+        gInGameTimerAtBosses[i] = sInGameTimer_Empty;
+
+    for (i = 0; i < ARRAY_SIZE(gInGameCutscenesTriggered); i++)
+    {
+        j = 0;
+        flags = 0;
+        for (; j < ARRAY_SIZE(sInGameCutsceneData); j++)
+        {
+            if (sInGameCutsceneData[i* 32 + j].unk_0)
+                flag = TRUE;
+            else
+                flag = FALSE;
+
+            flags |= flag << j;
+        }
+        gInGameCutscenesTriggered[i] = flags;
+    }
+
+    gDisableDrawingSamusAndScrolling = FALSE;
+    gDifficulty = DIFF_NORMAL;
+    gTimeAttackFlag = FALSE;
+    gIsLoadingFile = FALSE;
 }
 
 /**

@@ -1002,7 +1002,7 @@ lbl_0806160e:
 lbl_08061614: .4byte gBG3VOFS_NonGameplay
 
     thumb_func_start CutsceneStartBackgroundScrolling
-CutsceneStartBackgroundScrolling: @ 0x0CutsceneStartBackgroundScrolling
+CutsceneStartBackgroundScrolling: @ 0x08061618
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}

@@ -45,8 +45,8 @@ typedef u8 (*TourianEscapeFunc_T)(void);
 
 extern const TourianEscapeFunc_T sTourianEscapeFunctionPointers[2];
 
-extern const i8* const sCutscene_75fe48[4];
+extern const i8* const sCutsceneScreenShakeOffsetSetPointers[4];
 
-extern const u8 sCutscene_75fe58[4];
+extern const u8 sCutsceneScreenShakeOffsetSetSizes[4];
 
 #endif /* ENGINE_POINTERS_H */
