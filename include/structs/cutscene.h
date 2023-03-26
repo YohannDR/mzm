@@ -58,7 +58,7 @@ struct CutsceneInfo {
     u8 skippable:2;
     u8 storyText;
     CutsceneFunc_T pFunction;
-    u8 unk_8;
+    u8 preBgFading;
     u16 fadingTimer;
     u8 bgFading;
     u8 event;
@@ -173,13 +173,13 @@ struct CutsceneData {
     struct CutsceneScreenShake horizontalScreenShake;
     struct CutsceneScreenShake verticalScreenShake;
     struct CutsceneSpecialEffect specialEffect;
-    u16 unk_B8;
-    u8 unk_BA;
-    u8 unk_BB;
+    i16 unk_B8;
+    u8 fadingStage;
+    u8 fadingColor;
     u8 unk_BC;
-    u8 unk_BD;
+    u8 fadingIntensity;
     u8 unk_BE;
-    u8 unk_BF;
+    u8 fadingType;
     struct CutsceneGraphicsData graphicsData[4];
     struct CutsceneOamData oam[30];
 };

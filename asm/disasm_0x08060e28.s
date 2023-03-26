@@ -290,7 +290,7 @@ lbl_08061078:
     lsls r0, r0, #4
     adds r0, r0, r1
     ldrb r0, [r0, #8]
-    bl unk_61fa0
+    bl CutsceneStartBackgroundFading
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_080610b0
@@ -2288,8 +2288,8 @@ lbl_08061f90:
 lbl_08061f98: .4byte 0x08754bc4
 lbl_08061f9c: .4byte 0x08754bb4
 
-    thumb_func_start unk_61fa0
-unk_61fa0: @ 0x08061fa0
+    thumb_func_start CutsceneStartBackgroundFading
+CutsceneStartBackgroundFading: @ 0x08061fa0
     push {r4, r5, r6, r7, lr}
     sub sp, #4
     adds r4, r0, #0

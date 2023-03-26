@@ -2393,7 +2393,7 @@ ridley_in_space_cutscene_init: @ 0x080642bc
     ldr r0, lbl_08064414 @ =0x0000028d
     bl SoundPlay
     movs r0, #2
-    bl unk_61fa0
+    bl CutsceneStartBackgroundFading
     ldr r1, [r5]
     movs r4, #0x80
     lsls r4, r4, #5

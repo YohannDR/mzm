@@ -227,7 +227,7 @@ lbl_0806723c:
     bls lbl_08067266
     strh r1, [r4]
     movs r0, #8
-    bl unk_61fa0
+    bl CutsceneStartBackgroundFading
     ldr r0, lbl_080672a8 @ =0x08754bc4
     ldr r1, [r0]
     movs r0, #0
@@ -1532,7 +1532,7 @@ lbl_08067ba2:
     movs r0, #3
     bl DMATransfer
     movs r0, #3
-    bl unk_61fa0
+    bl CutsceneStartBackgroundFading
     ldr r2, [r7]
     ldrh r0, [r5, #4]
     movs r3, #0x80
@@ -2004,7 +2004,7 @@ samus_in_blue_ship_init: @ 0x08067f90
     orrs r0, r1
     strb r0, [r2]
     movs r0, #2
-    bl unk_61fa0
+    bl CutsceneStartBackgroundFading
     ldr r1, [r4]
     movs r2, #0x80
     lsls r2, r2, #5

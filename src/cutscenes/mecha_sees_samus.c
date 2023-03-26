@@ -113,7 +113,7 @@ u8 MechaRidleySeesSamusInit(void)
     CUTSCENE_DATA.oam[1].priority = priority + 1;
     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], 3);
 
-    unk_61fa0(2);
+    CutsceneStartBackgroundFading(2);
 
     CUTSCENE_DATA.dispcnt = bg | DCNT_OBJ;
     CUTSCENE_DATA.timeInfo.timer = 0;

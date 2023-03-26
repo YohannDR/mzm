@@ -44,7 +44,7 @@ u8 BeforeCharlieSamusCloseUp(void)
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sBeforeCharliePageData[6].bg, 0x800);
             CutsceneReset();
 
-            unk_61fa0(10);
+            CutsceneStartBackgroundFading(10);
             CUTSCENE_DATA.dispcnt = sBeforeCharliePageData[5].bg | sBeforeCharliePageData[8].bg |sBeforeCharliePageData[6].bg ;
             
             CUTSCENE_DATA.timeInfo.timer = 0;

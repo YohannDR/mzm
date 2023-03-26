@@ -182,7 +182,7 @@ u8 SamusInBlueShipInit(void)
     CUTSCENE_DATA.oam[0].priority = 0;
     CUTSCENE_DATA.oam[0].boundBackground = 3;
 
-    unk_61fa0(2);
+    CutsceneStartBackgroundFading(2);
     CUTSCENE_DATA.dispcnt = DCNT_OBJ | sSamusInBlueShipPageData[0].bg;
 
     CUTSCENE_DATA.timeInfo.stage++;

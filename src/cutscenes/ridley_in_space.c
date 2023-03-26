@@ -572,7 +572,7 @@ u8 RidleyInSpaceInit(void)
 
     PlayMusic(MUSIC_RIDLEY_IN_SPACE, 0);
     SoundPlay(0x28D);
-    unk_61fa0(2);
+    CutsceneStartBackgroundFading(2);
 
     CUTSCENE_DATA.dispcnt = sRidleyInSpacePageData[0].bg | DCNT_OBJ;
     CUTSCENE_DATA.timeInfo.timer = 0;

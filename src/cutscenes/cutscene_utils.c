@@ -1,6 +1,7 @@
+#include "cutscenes/cutscene_utils.h"
 #include "gba.h"
 #include "oam.h"
-#include "cutscenes/cutscene_utils.h"
+#include "color_effects.h"
 
 #include "data/cutscenes/cutscenes_data.h"
 #include "data/shortcut_pointers.h"
@@ -133,8 +134,8 @@ void CutsceneEnd(void)
 
     if (sCutsceneData[gCurrentCutscene].isElevator)
     {
-        play_fading_sound(0x10E, sCutsceneData[gCurrentCutscene].fadingTimer);
-        check_play_fading_music(gMusicTrackInfo.currentRoomTrack, sCutsceneData[gCurrentCutscene].fadingTimer, 0);
+        PlayFadingSound(0x10E, sCutsceneData[gCurrentCutscene].fadingTimer);
+        InitFadingMusic(gMusicTrackInfo.currentRoomTrack, sCutsceneData[gCurrentCutscene].fadingTimer, 0);
     }
 }
 
@@ -152,7 +153,7 @@ u8 CutsceneSubroutine(void)
     {
         case 0:
             CallbackSetVBlank(CutsceneLoadingVBlank);
-            if (unk_61fa0(sCutsceneData[gCurrentCutscene].unk_8))
+            if (CutsceneStartBackgroundFading(sCutsceneData[gCurrentCutscene].preBgFading))
                 gSubGameModeStage = 2;
             else
                 gSubGameModeStage = 1;
@@ -160,7 +161,7 @@ u8 CutsceneSubroutine(void)
 
         case 1:
             unk_61f60();
-            if (unk_621d0())
+            if (CutsceneUpdateFading())
                 gSubGameModeStage++;
             break;
             
@@ -195,7 +196,7 @@ u8 CutsceneSubroutine(void)
             break;
             
         case 4:
-            if (CUTSCENE_DATA.unk_BF == 3)
+            if (CUTSCENE_DATA.fadingType == 3)
                 BitFill(3, SHORT_MAX, PALRAM_BASE, PALRAM_SIZE, 0x10);
             else
                 BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 0x10);
@@ -800,9 +801,120 @@ void CutsceneStartScreenShake(struct CutsceneScreenShakeInfo shakeInfo, u16 bg)
     }
 }
 
+/**
+ * @brief 61be4 | 184 | Updates the cutscene special effect
+ * 
+ */
 void CutsceneUpdateSpecialEffect(void)
 {
+    // Check any effect active
+    if (!(CUTSCENE_DATA.specialEffect.status & (CUTSCENE_SPECIAL_EFFECT_STATUS_ON_BG | CUTSCENE_SPECIAL_EFFECT_STATUS_ON_SPRITE)))
+        return;
 
+    // Check update sprite effect
+    if (CUTSCENE_DATA.specialEffect.status & CUTSCENE_SPECIAL_EFFECT_STATUS_ON_SPRITE)
+    {
+        // Update timer
+        if (CUTSCENE_DATA.specialEffect.s_Timer > 0)
+        {
+            CUTSCENE_DATA.specialEffect.s_Timer--;
+            return;
+        }
+
+        // Reset timer
+        CUTSCENE_DATA.specialEffect.s_Timer = CUTSCENE_DATA.specialEffect.s_Interval;
+
+        // Update BLDY
+        if (gWrittenToBLDY_NonGameplay != CUTSCENE_DATA.specialEffect.s_WrittenToBLDY)
+        {
+            if (gWrittenToBLDY_NonGameplay < CUTSCENE_DATA.specialEffect.s_WrittenToBLDY)
+            {
+                if (gWrittenToBLDY_NonGameplay + CUTSCENE_DATA.specialEffect.s_Intensity > CUTSCENE_DATA.specialEffect.s_WrittenToBLDY)
+                    gWrittenToBLDY_NonGameplay = CUTSCENE_DATA.specialEffect.s_WrittenToBLDY;
+                else
+                    gWrittenToBLDY_NonGameplay += CUTSCENE_DATA.specialEffect.s_Intensity;
+            }
+            else
+            {
+                if (gWrittenToBLDY_NonGameplay - CUTSCENE_DATA.specialEffect.s_Intensity < CUTSCENE_DATA.specialEffect.s_WrittenToBLDY)
+                    gWrittenToBLDY_NonGameplay = CUTSCENE_DATA.specialEffect.s_WrittenToBLDY;
+                else
+                    gWrittenToBLDY_NonGameplay -= CUTSCENE_DATA.specialEffect.s_Intensity;
+            }
+        }
+
+        // Check reached destination value
+        if (gWrittenToBLDY_NonGameplay != CUTSCENE_DATA.specialEffect.s_WrittenToBLDY)
+            return;
+
+        // Mark effect as ended
+        CUTSCENE_DATA.specialEffect.status &= ~CUTSCENE_SPECIAL_EFFECT_STATUS_ON_SPRITE;
+        CUTSCENE_DATA.specialEffect.status |= CUTSCENE_SPECIAL_EFFECT_STATUS_SPRITE_ENDED;
+
+        if (CUTSCENE_DATA.specialEffect.status & CUTSCENE_SPECIAL_EFFECT_STATUS_ON_BG)
+            CUTSCENE_DATA.bldcnt = CUTSCENE_DATA.specialEffect.bg_WrittenToBLDCNT;
+    }
+    else
+    {
+        // Upate timer
+        if (CUTSCENE_DATA.specialEffect.bg_Timer > 0)
+        {
+            CUTSCENE_DATA.specialEffect.bg_Timer--;
+            return;
+        }
+
+        // Reset timer
+        CUTSCENE_DATA.specialEffect.bg_Timer = CUTSCENE_DATA.specialEffect.bg_Interval;
+
+        // Update BLDALPHA L
+        if (gWrittenToBLDALPHA_L != CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L)
+        {
+            if (gWrittenToBLDALPHA_L < CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L)
+            {
+                if (gWrittenToBLDALPHA_L + CUTSCENE_DATA.specialEffect.bg_Intensity > CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L)
+                    gWrittenToBLDALPHA_L = CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L;
+                else
+                    gWrittenToBLDALPHA_L += CUTSCENE_DATA.specialEffect.bg_Intensity;
+            }
+            else
+            {
+                if (gWrittenToBLDALPHA_L - CUTSCENE_DATA.specialEffect.bg_Intensity < CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L)
+                    gWrittenToBLDALPHA_L = CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L;
+                else
+                    gWrittenToBLDALPHA_L -= CUTSCENE_DATA.specialEffect.bg_Intensity;
+            }
+        }
+
+        // Update BLDALPHA H
+        if (gWrittenToBLDALPHA_H != CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H)
+        {
+            if (gWrittenToBLDALPHA_H < CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H)
+            {
+                if (gWrittenToBLDALPHA_H + CUTSCENE_DATA.specialEffect.bg_Intensity > CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H)
+                    gWrittenToBLDALPHA_H = CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H;
+                else
+                    gWrittenToBLDALPHA_H += CUTSCENE_DATA.specialEffect.bg_Intensity;
+            }
+            else
+            {
+                if (gWrittenToBLDALPHA_H - CUTSCENE_DATA.specialEffect.bg_Intensity < CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H)
+                    gWrittenToBLDALPHA_H = CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H;
+                else
+                    gWrittenToBLDALPHA_H -= CUTSCENE_DATA.specialEffect.bg_Intensity;
+            }
+        }
+
+        // Check reached destination values
+        if (gWrittenToBLDALPHA_L != CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_L)
+            return;
+
+        if (gWrittenToBLDALPHA_H != CUTSCENE_DATA.specialEffect.bg_WrittenToBLDALPHA_H)
+            return;
+
+        // Mark as ended
+        CUTSCENE_DATA.specialEffect.status &= ~CUTSCENE_SPECIAL_EFFECT_STATUS_ON_BG;
+        CUTSCENE_DATA.specialEffect.status |= CUTSCENE_SPECIAL_EFFECT_STATUS_BG_ENDED;
+    }
 }
 
 void CutsceneStartSpriteEffect(u16 bldcnt, u8 bldy, u8 interval, u8 intensity)
@@ -817,8 +929,7 @@ void CutsceneStartSpriteEffect(u16 bldcnt, u8 bldy, u8 interval, u8 intensity)
     CUTSCENE_DATA.specialEffect.s_Interval = interval;
     CUTSCENE_DATA.specialEffect.s_Timer = interval;
 
-    CUTSCENE_DATA.specialEffect.s_BLDCNT = bldcnt;
-    CUTSCENE_DATA.bldcnt = bldcnt;
+    CUTSCENE_DATA.bldcnt = CUTSCENE_DATA.specialEffect.s_BLDCNT = bldcnt;
 }
 
 void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u8 interval, u8 intensity)
@@ -908,7 +1019,7 @@ void unk_61f28(void)
 u32 unk_61f44(void)
 {
     unk_61f60();
-    if (unk_621d0())
+    if (CutsceneUpdateFading())
         return TRUE;
 
     return FALSE;
@@ -927,12 +1038,216 @@ void unk_61f60(void)
     }
 }
 
-u8 unk_61fa0(u8 param_1)
+/**
+ * @brief 61fa0 | 230 | Starts a cutscene background fading
+ * 
+ * @param type Type
+ * @return u8 To document
+ */
+u8 CutsceneStartBackgroundFading(u8 type)
 {
+    u8 result;
 
+    result = FALSE;
+
+    CUTSCENE_DATA.fadingColor = 0;
+    CUTSCENE_DATA.unk_BC = FALSE;
+    CUTSCENE_DATA.unk_B8 = 0;
+
+    DMATransfer(3, PALRAM_BASE, sEwramPointer, PALRAM_SIZE, 16);
+
+    switch (type)
+    {
+        case 1:
+            BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
+            DMATransfer(3, PALRAM_BASE, sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+
+            CUTSCENE_DATA.fadingStage = 0;
+            CUTSCENE_DATA.fadingIntensity = 2;
+            CUTSCENE_DATA.unk_BE = 0;
+            CUTSCENE_DATA.fadingType = FADING_TYPE_IN;
+            break;
+
+        case 2:
+            BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
+            DMATransfer(3, PALRAM_BASE, sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+
+            CUTSCENE_DATA.fadingStage = 0;
+            CUTSCENE_DATA.fadingIntensity = 1;
+            CUTSCENE_DATA.unk_BE = 4;
+            CUTSCENE_DATA.fadingType = FADING_TYPE_IN;
+            break;
+
+        case 3:
+            BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
+            DMATransfer(3, PALRAM_BASE, sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+
+            CUTSCENE_DATA.fadingStage = 0;
+            CUTSCENE_DATA.fadingIntensity = 1;
+            CUTSCENE_DATA.unk_BE = 8;
+            CUTSCENE_DATA.fadingType = FADING_TYPE_IN;
+            break;
+
+        case 5:
+            FadeMusic(20);
+
+        case 6:
+            CUTSCENE_DATA.fadingStage = 2;
+            CUTSCENE_DATA.fadingIntensity = 2;
+            CUTSCENE_DATA.unk_BE = 0;
+            CUTSCENE_DATA.fadingType = FADING_TYPE_OUT;
+            break;
+
+        case 7:
+            CUTSCENE_DATA.fadingStage = 2;
+            CUTSCENE_DATA.fadingIntensity = 1;
+            CUTSCENE_DATA.unk_BE = 4;
+            CUTSCENE_DATA.fadingType = FADING_TYPE_OUT;
+            break;
+
+        case 8:
+            CUTSCENE_DATA.fadingStage = 2;
+            CUTSCENE_DATA.fadingIntensity = 8;
+            CUTSCENE_DATA.unk_BE = 0;
+            CUTSCENE_DATA.fadingType = FADING_TYPE_OUT;
+            break;
+
+        case 9:
+            CUTSCENE_DATA.fadingStage = 2;
+            CUTSCENE_DATA.fadingIntensity = 2;
+            CUTSCENE_DATA.unk_BE = 0;
+            CUTSCENE_DATA.fadingType = FADING_TYPE_UNK;
+            break;
+
+        case 10:
+            CUTSCENE_DATA.fadingStage = 2;
+            CUTSCENE_DATA.fadingIntensity = 1;
+            CUTSCENE_DATA.unk_BE = 4;
+            CUTSCENE_DATA.fadingType = FADING_TYPE_UNK;
+            break;
+
+        default:
+            result = TRUE;
+    }
+
+    return result;
 }
 
-u8 unk_621d0(void)
+/**
+ * @brief 621d0 | 23c | Updates a cutscene fading
+ * 
+ * @return u8 bool, ended
+ */
+u8 CutsceneUpdateFading(void)
 {
+    u16* src;
+    u16* dst;
+    u8 ended;
 
+    ended = FALSE;
+    CUTSCENE_DATA.unk_B8++;
+
+    switch (CUTSCENE_DATA.fadingStage)
+    {
+        case 0:
+            if (CUTSCENE_DATA.unk_BC)
+                break;
+
+            if (CUTSCENE_DATA.unk_B8 < CUTSCENE_DATA.unk_BE)
+                break;
+
+            if (CUTSCENE_DATA.fadingColor < 32)
+            {
+                src = sEwramPointer;
+                dst = sEwramPointer + PALRAM_SIZE;
+                ApplySpecialBackgroundFadingColor(CUTSCENE_DATA.fadingType, CUTSCENE_DATA.fadingColor, &src, &dst, USHORT_MAX);
+
+                src = sEwramPointer + PALRAM_SIZE / 2;
+                dst = sEwramPointer + PALRAM_SIZE + PALRAM_SIZE / 2;
+                ApplySpecialBackgroundFadingColor(CUTSCENE_DATA.fadingType, CUTSCENE_DATA.fadingColor, &src, &dst, USHORT_MAX);
+
+                CUTSCENE_DATA.unk_BC = TRUE;
+
+                if (CUTSCENE_DATA.fadingColor == 31)
+                {
+                    CUTSCENE_DATA.fadingColor++;
+                    break;
+                }
+                
+                if (CUTSCENE_DATA.fadingColor + CUTSCENE_DATA.fadingIntensity > 31)
+                    CUTSCENE_DATA.fadingColor = 31;
+                else
+                    CUTSCENE_DATA.fadingColor += CUTSCENE_DATA.fadingIntensity;
+            }
+            else
+            {
+                DMATransfer(3, sEwramPointer, sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+                CUTSCENE_DATA.unk_BC = TRUE;
+                CUTSCENE_DATA.fadingStage++;
+            }
+            break;
+
+        case 1:
+            if (!CUTSCENE_DATA.unk_BC)
+            {
+                CUTSCENE_DATA.fadingColor = 0;
+                CUTSCENE_DATA.fadingStage = 0;
+                ended = TRUE;
+            }
+            break;
+
+        case 2:
+            if (CUTSCENE_DATA.unk_BC)
+                break;
+
+            if (CUTSCENE_DATA.unk_B8 < CUTSCENE_DATA.unk_BE)
+                break;
+
+            CUTSCENE_DATA.unk_B8 = 0;
+            if (CUTSCENE_DATA.fadingColor < 32)
+            {
+                src = sEwramPointer;
+                dst = sEwramPointer + PALRAM_SIZE;
+                ApplySpecialBackgroundFadingColor(CUTSCENE_DATA.fadingType, CUTSCENE_DATA.fadingColor, &src, &dst, USHORT_MAX);
+
+                src = sEwramPointer + PALRAM_SIZE / 2;
+                dst = sEwramPointer + PALRAM_SIZE + PALRAM_SIZE / 2;
+                ApplySpecialBackgroundFadingColor(CUTSCENE_DATA.fadingType, CUTSCENE_DATA.fadingColor, &src, &dst, USHORT_MAX);
+
+                CUTSCENE_DATA.unk_BC = TRUE;
+
+                if (CUTSCENE_DATA.fadingColor == 31)
+                {
+                    CUTSCENE_DATA.fadingColor++;
+                    break;
+                }
+                
+                if (CUTSCENE_DATA.fadingColor + CUTSCENE_DATA.fadingIntensity > 31)
+                    CUTSCENE_DATA.fadingColor = 31;
+                else
+                    CUTSCENE_DATA.fadingColor += CUTSCENE_DATA.fadingIntensity;
+            }
+            else
+            {
+                if (CUTSCENE_DATA.fadingType == 3)
+                    BitFill(3, COLOR_WHITE, sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+                else                
+                    BitFill(3, COLOR_BLACK, sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+
+                CUTSCENE_DATA.unk_BC = TRUE;
+                CUTSCENE_DATA.fadingStage = 3;
+            }
+            break;
+
+        case 3:
+            if (!CUTSCENE_DATA.unk_BC)
+            {
+                CUTSCENE_DATA.fadingColor = 0;
+                CUTSCENE_DATA.fadingStage = 0;
+                ended = TRUE;
+            }
+            break;
+    }
+
+    return ended;
 }

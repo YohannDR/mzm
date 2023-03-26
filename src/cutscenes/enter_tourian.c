@@ -111,7 +111,7 @@ u8 EnterTourianAnimation(void)
             if (gCurrentOamScaling > 0x200)
             {
                 gCurrentOamScaling = 0x200;
-                unk_61fa0(8);
+                CutsceneStartBackgroundFading(8);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -402,7 +402,7 @@ u8 EnterTourianInit(void)
 
     PlayMusic(MUSIC_ENTERING_TOURIAN_CUTSCENE, 0);
     DMATransfer(3, PALRAM_OBJ, sEwramPointer + 0x3A00, 0x200, 0x10);
-    unk_61fa0(3);
+    CutsceneStartBackgroundFading(3);
 
     CUTSCENE_DATA.dispcnt = DCNT_OBJ | sEnterTourianPageData[0].bg | sEnterTourianPageData[1].bg;
     CUTSCENE_DATA.timeInfo.timer = 0;
