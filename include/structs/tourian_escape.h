@@ -21,8 +21,8 @@ struct TourianEscapeData {
     u8 unk_13;
 
     const u16* oamFramePointers[TOURIAN_ESCAPE_MAX_OBJECTS];
-    u8 unk_3C[TOURIAN_ESCAPE_MAX_OBJECTS];
-    u8 unk_46[TOURIAN_ESCAPE_MAX_OBJECTS];
+    u8 oamFrames[TOURIAN_ESCAPE_MAX_OBJECTS];
+    u8 oamTimers[TOURIAN_ESCAPE_MAX_OBJECTS];
     u16 oamXPositions[TOURIAN_ESCAPE_MAX_OBJECTS];
     u16 oamYPositions[TOURIAN_ESCAPE_MAX_OBJECTS];
     u8 oamPriorities[TOURIAN_ESCAPE_MAX_OBJECTS];
@@ -46,10 +46,10 @@ struct TourianEscapeData {
 
     u16 dispcnt;
     u16 bldcnt;
-    u16 win0h_H;
-    u16 win0h_L;
-    u16 win0v_H;
-    u16 win0v_L;
+    i16 win0h_H;
+    i16 win0h_L;
+    i16 win0v_H;
+    i16 win0v_L;
 };
 
 
