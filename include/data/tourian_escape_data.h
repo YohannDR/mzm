@@ -35,6 +35,8 @@ extern const u16 sTourianEscape_47a958[OAM_DATA_SIZE(8)];
 extern const u16 sTourianEscape_47a98a[OAM_DATA_SIZE(2)];
 extern const u16 sTourianEscape_47aa96[OAM_DATA_SIZE(18)];
 extern const u16 sTourianEscape_47ab28[OAM_DATA_SIZE(18)];
+extern const u16 sTourianEscape_47abba[OAM_DATA_SIZE(2)];
+extern const u16 sTourianEscape_47abc8[OAM_DATA_SIZE(2)];
 
 extern const struct FrameData sTourianEscape_47cbe4[16];
 extern const struct FrameData sTourianEscape_47cc64[11];
@@ -47,12 +49,17 @@ extern const u16 sTourianEscape_47cf10[1][2];
 extern const u16 sTourianEscape_47cf30[1][2];
 extern const u16 sTourianEscape_47cf50[1][2];
 
+extern const u16 sTourianEscape_47ac10[4];
+extern const u16 sTourianEscape_47ac18[OAM_DATA_SIZE(2)];
 extern const u16 sTourianEscape_47ce80[8];
 extern const u16 sTourianEscape_47ce90[8];
 extern const u16 sTourianEscape_47cfa4[8];
 extern const u16 sTourianEscape_47cfb4[8];
 extern const u16 sTourianEscape_47cfc4[8];
 extern const u16 sTourianEscape_47cfd4[8];
+
+extern const u8 sTourianEscape_47cff4[10];
+extern const u16 sTourianEscape_47cffe[11];
 
 // ...
 
@@ -84,6 +91,8 @@ extern const u16 sTourianEscape_479f00[1 * 16];
 extern const u16 sTourianEscapeSamusCrashingForegroundPal[3 * 16];
 extern const u16 sTourianEscape_479f80[7 * 16];
 extern const u16 sTourianEscapeShipCrashingBackgroundAndShipPal[16 * 16];
+extern const u16 sTourianEscapeSamusLookingAtSkyPal[10 * 16];
+extern const u16 sTourianEscapeSamusLookingAtMotherShipPal[10 * 16];
 
 // ...
 
@@ -128,5 +137,22 @@ extern const u32 sTourianEscapeShipGoingToCrashGfx[1219];
 
 extern const u32 sTourianEscapeShipCrashingExplosionGfx[1826];
 extern const u32 sTourianEscapeShipCrashingExplosionTileTable[577];
+
+extern const u32 sTourianEscapeSamusLookingAtSkyPiratesShipGfx[867];
+extern const u32 sTourianEscapeSamusLookingAtSkySkyBackgroundGfx[3056];
+extern const u32 sTourianEscapeSamusLookingAtSkySkyBackgroundTileTable[399];
+extern const u32 sTourianEscapeSamusLookingAtSkyGfx[4060];
+extern const u32 sTourianEscapeSamusLookingAtSkyTopTileTable[430];
+extern const u32 sTourianEscapeSamusLookingAtSkyBottomTileTable[185];
+
+extern const u32 sTourianEscapeSamusLookingAtMotherShipGfx[2153];
+extern const u32 sTourianEscapeSamusLookingAtMotherShipTileTable[577];
+extern const u32 sTourianEscapeSamusLookingAtMotherShipMotherShipGfx[3112];
+extern const u32 sTourianEscapeSamusLookingAtMotherShipMotherShipTileTable[577];
+
+// ...
+
+extern const u32 sTourianEscapeRainGfx[14];
+extern const u16 sTourianEscapeRainPal[1 * 16];
 
 #endif /* TOURIAN_ESCAPE_DATA_H */
