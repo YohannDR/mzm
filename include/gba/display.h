@@ -45,11 +45,11 @@
 #define PLTT_BASE 0x05000000
 #define PLTT_BG ((vu16 *)(PLTT_BASE + 0x00))
 
-#define DCNT_MODE_1 1,
-#define DCNT_MODE_2 2,
-#define DCNT_MODE_3 3,
-#define DCNT_MODE_4 4,
-#define DCNT_MODE_5 5,
+#define DCNT_MODE_1 1
+#define DCNT_MODE_2 2
+#define DCNT_MODE_3 3
+#define DCNT_MODE_4 4
+#define DCNT_MODE_5 5
 
 #define DCNT_CGB (1 << 3)
 #define DCNT_PAGE (1 << 4)

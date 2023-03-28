@@ -32,11 +32,11 @@ struct TourianEscapeData {
 
     u8 padding_86[16];
 
-    u16 unk_96[TOURIAN_ESCAPE_MAX_OBJECTS];
+    i16 unk_96[TOURIAN_ESCAPE_MAX_OBJECTS];
 
     u8 padding_AA[4];
 
-    u16 unk_AE;
+    i16 unk_AE;
     u16 unk_B0;
 
     u8 padding_B2[12];

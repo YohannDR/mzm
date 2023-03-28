@@ -5,6 +5,7 @@
 #include "callbacks.h"
 
 #include "data/generic_data.h"
+#include "data/intro_data.h"
 #include "data/shortcut_pointers.h"
 #include "data/tourian_escape_data.h"
 #include "data/internal_tourian_escape_data.h"
@@ -200,9 +201,65 @@ void TourianEscapeCalculateBg2(void)
     gWrittenToBG2Y = (80 << 8) - gWrittenToBG2PC * 120 - gWrittenToBG2PD * 80;
 }
 
+/**
+ * @brief 81788 | 144 | To document
+ * 
+ * @param param_1 To document
+ */
 void unk_81788(u8 param_1)
 {
+    i32 i;
+    u32 var_0;
+    u32 offset;
 
+    for (i = 4; i < TOURIAN_ESCAPE_MAX_OBJECTS; i++)
+    {
+        offset = TOURIAN_ESCAPE_DATA.oamTimers[i] / 4;
+        if (TOURIAN_ESCAPE_DATA.unk_8[i] & 1)
+        {
+            TOURIAN_ESCAPE_DATA.oamFramePointers[i] = sTourianEscape_47ce00[offset];
+        }
+        else
+        {
+            TOURIAN_ESCAPE_DATA.oamFramePointers[i] = sTourianEscape_47ce10[offset];
+        }
+
+        var_0 = FALSE;
+        if (!param_1)
+        {
+            if (TOURIAN_ESCAPE_DATA.oamXPositions[i] < 256)
+            {
+                TOURIAN_ESCAPE_DATA.oamXPositions[i] += TOURIAN_ESCAPE_DATA.unk_96[i];
+            }
+            else
+            {
+                var_0 = TRUE;
+            }
+        }
+        else
+        {
+            if (TOURIAN_ESCAPE_DATA.oamYPositions[i] < 252)
+            {
+                TOURIAN_ESCAPE_DATA.oamYPositions[i] -= TOURIAN_ESCAPE_DATA.unk_96[i];
+            }
+            else
+            {
+                var_0 = TRUE;
+            }
+        }
+
+        if (var_0)
+        {
+            TOURIAN_ESCAPE_DATA.unk_8[i] ^= 3;
+            TOURIAN_ESCAPE_DATA.oamFrames[i] = (TOURIAN_ESCAPE_DATA.oamFrames[i] + 1) & 15;
+
+            TOURIAN_ESCAPE_DATA.oamXPositions[i] = sTourianEscape_47ce20[TOURIAN_ESCAPE_DATA.oamFrames[i]][0];
+            TOURIAN_ESCAPE_DATA.oamYPositions[i] = sTourianEscape_47ce20[TOURIAN_ESCAPE_DATA.oamFrames[i]][1];
+            TOURIAN_ESCAPE_DATA.unk_96[i] = sTourianEscape_47ce20[TOURIAN_ESCAPE_DATA.oamFrames[i]][2];
+        }
+
+        TOURIAN_ESCAPE_DATA.oamTimers[i] = (TOURIAN_ESCAPE_DATA.oamTimers[i] + 1) & 15;
+    }
 }
 
 /**
@@ -308,9 +365,114 @@ void unk_818cc(void)
     gNextOamSlot = currSlot;
 }
 
+/**
+ * @brief 81ad8 | 22c | To document
+ * 
+ */
 void unk_81ad8(void)
 {
+    const u16* src;
+    u16* dst;
+    u16 currSlot;
+    u16 nextSlot;
+    u16 yPosition;
+    u16 xPosition;
+    u16 part;
+    u8 offset;
+    u16 i;
+    const u16* pal;
 
+    if ((TOURIAN_ESCAPE_DATA.oamTimers[0] & 3) < 2)
+    {
+        TOURIAN_ESCAPE_DATA.oamXPositions[0] = 0x6D;
+        TOURIAN_ESCAPE_DATA.oamYPositions[0] = 0x46;
+    }
+    else
+    {
+        TOURIAN_ESCAPE_DATA.oamXPositions[0] = 0x6C;
+        TOURIAN_ESCAPE_DATA.oamYPositions[0] = 0x47;
+    }
+
+    TOURIAN_ESCAPE_DATA.oamTimers[0]++;
+
+    if (TOURIAN_ESCAPE_DATA.unk_8[1])
+    {
+        offset = TOURIAN_ESCAPE_DATA.oamTimers[1]++ / 4;
+        if (offset > 7)
+        {
+            TOURIAN_ESCAPE_DATA.oamTimers[1] = 0;
+            TOURIAN_ESCAPE_DATA.oamXPositions[1] = 0x6D;
+            TOURIAN_ESCAPE_DATA.oamYPositions[1] = 0x46;
+            offset = 0;
+        }
+
+        TOURIAN_ESCAPE_DATA.oamFramePointers[1] = sTourianEscape_47cea0[offset];
+        TOURIAN_ESCAPE_DATA.oamXPositions[1] += sTourianEscape_47ce80[offset];
+        TOURIAN_ESCAPE_DATA.oamYPositions[1] += sTourianEscape_47ce90[offset];
+    }
+
+    if (TOURIAN_ESCAPE_DATA.unk_8[2])
+    {
+        offset = TOURIAN_ESCAPE_DATA.oamTimers[2]++ / 4;
+        if (offset > 7)
+        {
+            TOURIAN_ESCAPE_DATA.oamTimers[2] = 0;
+            TOURIAN_ESCAPE_DATA.oamXPositions[2] = 0x6D;
+            TOURIAN_ESCAPE_DATA.oamYPositions[2] = 0x46;
+            offset = 0;
+        }
+
+        TOURIAN_ESCAPE_DATA.oamFramePointers[2] = sTourianEscape_47cea0[offset];
+        TOURIAN_ESCAPE_DATA.oamXPositions[2] += sTourianEscape_47ce80[offset];
+        TOURIAN_ESCAPE_DATA.oamYPositions[2] -= sTourianEscape_47ce90[offset];
+    }
+
+    if ((TOURIAN_ESCAPE_DATA.timer & 7) < 4)
+    {
+        pal = sTourianEscape_479f00 - 16;
+    }
+    else
+    {
+        pal = sTourianEscape_479f00;
+    }
+
+    dma_set(3, pal, PALRAM_OBJ + 0xA0, DMA_ENABLE << 16 | 16);
+
+    dst = (u16*)gOamData;
+    nextSlot = 0;
+    currSlot = 0;
+
+    for (i = 0; i < 4; i++)
+    {
+        if (!TOURIAN_ESCAPE_DATA.unk_8[i])
+            continue;
+
+        src = TOURIAN_ESCAPE_DATA.oamFramePointers[i];
+        part = *src++;
+        nextSlot += part & 0xFF;
+        
+        xPosition = TOURIAN_ESCAPE_DATA.oamXPositions[i];
+        yPosition = TOURIAN_ESCAPE_DATA.oamYPositions[i];
+
+        for (; currSlot < nextSlot; currSlot++)
+        {
+            part = *src++;
+            *dst++ = part;
+
+            gOamData[currSlot].split.y = part + yPosition;
+            gOamData[currSlot].split.objMode = 1;
+
+            part = *src++;
+            *dst++ = part;
+
+            gOamData[currSlot].split.x = (part + xPosition) & 0x1FF;
+
+            *dst++ = *src++;
+            dst++;
+        }
+    }
+
+    gNextOamSlot = currSlot;
 }
 
 /**
@@ -883,11 +1045,11 @@ u8 TourianEscapeSamusLookingAround(void)
     switch (TOURIAN_ESCAPE_DATA.timer++)
     {
         case 0:
-            LZ77UncompVRAM(sTourianEscapeSamusSamusInherShipLookingGfx, VRAM_BASE);
+            LZ77UncompVRAM(sTourianEscapeSamusSamusInHerShipLookingGfx, VRAM_BASE);
             break;
 
         case 1:
-            LZ77UncompVRAM(sTourianEscapeSamusSamusInherShipLookingGfx, VRAM_BASE + 0x10000);
+            LZ77UncompVRAM(sTourianEscapeSamusSamusInHerShipLookingGfx, VRAM_BASE + 0x10000);
 
             gWrittenToBLDALPHA_L = 8;
             gWrittenToBLDALPHA_H = 8;
@@ -904,8 +1066,8 @@ u8 TourianEscapeSamusLookingAround(void)
             break;
 
         case 2:
-            LZ77UncompVRAM(sTourianEscapeSamusSamusInherShipLookingLeftTileTable, VRAM_BASE + 0x8000);
-            LZ77UncompVRAM(sTourianEscapeSamusSamusInherShipLookingRightTileTable, VRAM_BASE + 0x8800);
+            LZ77UncompVRAM(sTourianEscapeSamusSamusInHerShipLookingLeftTileTable, VRAM_BASE + 0x8000);
+            LZ77UncompVRAM(sTourianEscapeSamusSamusInHerShipLookingRightTileTable, VRAM_BASE + 0x8800);
 
             dma_set(3, sTourianEscapeSamusLookingAroundPal, PALRAM_BASE,
                 DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusLookingAroundPal));
@@ -953,39 +1115,1007 @@ u8 TourianEscapeSamusLookingAround(void)
     return ended;
 }
 
+/**
+ * @brief 82c58 | 178 | Handles the samus being surrounded part
+ * 
+ * @return u8 bool, ended
+ */
 u8 TourianEscapeSamusSurrounded(void)
 {
+    u8 ended;
 
+    ended = FALSE;
+
+    switch (TOURIAN_ESCAPE_DATA.timer++)
+    {
+        case 0:
+            LZ77UncompVRAM(sTourianEscapeSamusSurroundedBackgroundGfx, VRAM_BASE);
+            break;
+
+        case 1:
+            LZ77UncompVRAM(sTourianEscape_49cb90, VRAM_BASE + 0x8000);
+            break;
+
+        case 2:
+            LZ77UncompVRAM(sTourianEscapeSamusSurroundedBackgroundTileTable, VRAM_BASE + 0x7000);
+            LZ77UncompVRAM(sTourianEscape_49fb70, VRAM_BASE + 0x7800);
+
+            dma_set(3, sTourianEscapeSamusSurroundedPal, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusSurroundedPal));
+
+            gBG0XPosition = 0;
+            gBG0YPosition = 0;
+
+            gWrittenToBLDALPHA_L = 16;
+            gWrittenToBLDALPHA_H = 0;
+            break;
+
+        case 3:
+            write16(REG_IME, FALSE);
+            CallbackSetVBlank(TourianEscapeVBLankSamusSurrounded);
+            write16(REG_IME, TRUE);
+            break;
+
+        case 4:
+            write16(REG_BG0CNT, 0xE01);
+            write16(REG_BG1CNT, 0xE02);
+            write16(REG_BG2CNT, 0x4F88);
+            TOURIAN_ESCAPE_DATA.dispcnt = DCNT_MODE_1 | DCNT_BG0 | DCNT_BG2 | DCNT_OBJ;
+            break;
+
+        case 32:
+            TOURIAN_ESCAPE_DATA.unk_2++;
+            break;
+
+        case 112:
+            TOURIAN_ESCAPE_DATA.dispcnt = 0;
+            TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL |
+                BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL |
+                BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
+            ended = TRUE;
+            break;
+    }
+
+    if (TOURIAN_ESCAPE_DATA.unk_2)
+    {
+        if (gBg2Scaling > 256)
+        {
+            gBg2Scaling -= 80;
+            gUnk_30013a2 -= 80;
+        }
+        else
+        {
+            gBg2Scaling = 256;
+            gUnk_30013a2 = 256;
+        }
+    }
+
+    TourianEscapeCalculateBg2();
+
+    return ended;
 }
 
+/**
+ * @brief 82dd0 | 1d0 | Handles the samus flying in part
+ * 
+ * @return u8 bool, ended
+ */
 u8 TourianEscapeSamusFlyingIn(void)
 {
+    u8 ended;
 
+    ended = FALSE;
+
+    switch (TOURIAN_ESCAPE_DATA.timer++)
+    {
+        case 0:
+            write16(REG_IME, FALSE);
+            CallbackSetVBlank(TourianEscapeVBLankZebesExploding);
+            write16(REG_IME, TRUE);
+
+            LZ77UncompVRAM(sIntroTextAndShipFlyingInGFX, VRAM_BASE + 0x10000);
+            SoundPlay(0x235);
+            break;
+
+        case 1:
+            LZ77UncompVRAM(sIntroSpaceBackgroundGFX, VRAM_BASE);
+            break;
+
+        case 2:
+            LZ77UncompVRAM(sIntroSpaceBackgroundTileTable, VRAM_BASE + 0xF000);
+
+            dma_set(3, sIntroTextAndShipPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPAL) / 2 + 16);
+            dma_set(3, sIntroTextAndShipPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPAL) / 2 + 16);
+
+            write16(REG_BG0CNT, 0x1E00);
+            TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_OBJ;
+
+            gWrittenToBLDALPHA_L = 9;
+            gWrittenToBLDALPHA_H = 7;
+
+            TOURIAN_ESCAPE_DATA.unk_8[0] = TRUE;
+            TOURIAN_ESCAPE_DATA.unk_82 = 32;
+            TOURIAN_ESCAPE_DATA.oamXPositions[0] = 0x78;
+            TOURIAN_ESCAPE_DATA.oamYPositions[0] = 0x1C;
+            TOURIAN_ESCAPE_DATA.oamTimers[0] = 0;
+            break;
+
+        case 32:
+            TOURIAN_ESCAPE_DATA.dispcnt = 0;
+            TOURIAN_ESCAPE_DATA.bldcnt = 0;
+
+            ended = TRUE;
+    }
+
+    if (TOURIAN_ESCAPE_DATA.unk_8[0])
+    {
+        if (TOURIAN_ESCAPE_DATA.oamTimers[0] < 4)
+            TOURIAN_ESCAPE_DATA.oamYPositions[0] += 8;
+        else if (TOURIAN_ESCAPE_DATA.oamTimers[0] < 8)
+            TOURIAN_ESCAPE_DATA.oamYPositions[0] += 6;
+        else if (TOURIAN_ESCAPE_DATA.oamTimers[0] < 16)
+            TOURIAN_ESCAPE_DATA.oamYPositions[0] += 3;
+        else if (TOURIAN_ESCAPE_DATA.oamTimers[0] < 20)
+            TOURIAN_ESCAPE_DATA.oamYPositions[0] += 1;
+        else if (TOURIAN_ESCAPE_DATA.oamTimers[0] < 28)
+            TOURIAN_ESCAPE_DATA.oamYPositions[0] -= 1;
+
+        if (TOURIAN_ESCAPE_DATA.unk_82 < 128)
+            TOURIAN_ESCAPE_DATA.unk_82 += 8;
+        else if (TOURIAN_ESCAPE_DATA.unk_82 < 320)
+            TOURIAN_ESCAPE_DATA.unk_82 += 16;
+        else if (TOURIAN_ESCAPE_DATA.unk_82 < 480)
+            TOURIAN_ESCAPE_DATA.unk_82 += 32;
+
+        if ((TOURIAN_ESCAPE_DATA.oamTimers[0]++ & 7) < 4)
+            TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sIntroShipFlyingTowardsCameraOAM_1;
+        else
+            TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sIntroShipFlyingTowardsCameraOAM_2;
+    }
+
+    unk_818cc();
+
+    return ended;
 }
 
+/**
+ * @brief 82fa0 | 424 | Handles the samus being chased by pirates part
+ * 
+ * @return u8 bool, ended
+ */
 u8 TourianEscapeSamusChasedByPirates(void)
 {
+    u8 ended;
+    u8 i;
 
+    ended = FALSE;
+
+    switch (TOURIAN_ESCAPE_DATA.timer++)
+    {
+        case 0:
+            LZ77UncompVRAM(sTourianEscapeSamusChasedBackgroundGfx, VRAM_BASE);
+            break;
+
+        case 1:
+            LZ77UncompVRAM(sTourianEscapeSamusSamusChasedShipsGfx, VRAM_BASE + 0x10000);
+            break;
+
+        case 2:
+            LZ77UncompVRAM(sTourianEscapeSamusChasedBackgroundTileTable, VRAM_BASE + 0xE000);
+
+            dma_set(3, sTourianEscapeSamusChasedBackgroundPal, PALRAM_BASE,
+                DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusChasedBackgroundPal));
+            dma_set(3, sTourianEscapeSamusChasedShipsPal, PALRAM_OBJ,
+                DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusChasedShipsPal));
+
+            TOURIAN_ESCAPE_DATA.unk_8[0] = FALSE;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sTourianEscape_47a602;
+            TOURIAN_ESCAPE_DATA.oamXPositions[0] = 0xDC;
+            TOURIAN_ESCAPE_DATA.oamYPositions[0] = 0xDC;
+            TOURIAN_ESCAPE_DATA.oamPriorities[0] = 0;
+
+            TOURIAN_ESCAPE_DATA.unk_8[1] = FALSE;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[1] = sTourianEscape_47a622;
+            TOURIAN_ESCAPE_DATA.oamXPositions[1] = 0x100;
+            TOURIAN_ESCAPE_DATA.oamYPositions[1] = 0xF0;
+            TOURIAN_ESCAPE_DATA.oamPriorities[1] = 0;
+
+            TOURIAN_ESCAPE_DATA.unk_8[2] = FALSE;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[2] = sTourianEscape_47a642;
+            TOURIAN_ESCAPE_DATA.oamXPositions[2] = 0xB4;
+            TOURIAN_ESCAPE_DATA.oamYPositions[2] = 0xF0;
+            TOURIAN_ESCAPE_DATA.oamPriorities[2] = 0;
+
+            TOURIAN_ESCAPE_DATA.unk_8[3] = FALSE;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[3] = sTourianEscape_47a662;
+            TOURIAN_ESCAPE_DATA.oamXPositions[3] = 0xD4;
+            TOURIAN_ESCAPE_DATA.oamYPositions[3] = 0xBE;
+            TOURIAN_ESCAPE_DATA.oamPriorities[3] = 0;
+
+            TOURIAN_ESCAPE_DATA.unk_8[4] = TRUE;
+            TOURIAN_ESCAPE_DATA.oamFrames[4] = 0;
+
+            TOURIAN_ESCAPE_DATA.unk_8[5] = 2;
+            TOURIAN_ESCAPE_DATA.oamFrames[5] = 6;
+
+            TOURIAN_ESCAPE_DATA.unk_8[6] = TRUE;
+            TOURIAN_ESCAPE_DATA.oamFrames[6] = 14;
+
+            TOURIAN_ESCAPE_DATA.unk_8[7] = TRUE;
+            TOURIAN_ESCAPE_DATA.oamFrames[7] = 9;
+
+            TOURIAN_ESCAPE_DATA.unk_8[8] = 2;
+            TOURIAN_ESCAPE_DATA.oamFrames[8] = 3;
+
+            TOURIAN_ESCAPE_DATA.unk_8[9] = 2;
+            TOURIAN_ESCAPE_DATA.oamFrames[9] = 11;
+
+            for (i = 4; i < TOURIAN_ESCAPE_MAX_OBJECTS; i++)
+            {
+                TOURIAN_ESCAPE_DATA.oamXPositions[i] = sTourianEscape_47ce20[TOURIAN_ESCAPE_DATA.oamFrames[i]][0];
+                TOURIAN_ESCAPE_DATA.oamYPositions[i] = sTourianEscape_47ce20[TOURIAN_ESCAPE_DATA.oamFrames[i]][1];
+                TOURIAN_ESCAPE_DATA.unk_96[i] = sTourianEscape_47ce20[TOURIAN_ESCAPE_DATA.oamFrames[i]][2];
+            }
+
+            gBG0XPosition = 0;
+            gBG0YPosition = 0;
+            break;
+
+        case 3:
+            write16(REG_BG0CNT, 0x1C00);
+            TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_OBJ;
+            break;
+
+        case 40:
+            TOURIAN_ESCAPE_DATA.unk_8[0] = TRUE;
+            SoundPlay(0x236);
+            break;
+
+        case 64:
+            TOURIAN_ESCAPE_DATA.unk_8[1] = TRUE;
+            TOURIAN_ESCAPE_DATA.unk_8[2] = TRUE;
+            TOURIAN_ESCAPE_DATA.unk_8[3] = TRUE;
+
+            SoundPlay(0x237);
+            break;
+
+        case 72:
+            TOURIAN_ESCAPE_DATA.unk_8[0] = FALSE;
+            TOURIAN_ESCAPE_DATA.oamXPositions[0] = BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE;
+            TOURIAN_ESCAPE_DATA.oamYPositions[0] = BLOCK_SIZE * 3 + HALF_BLOCK_SIZE;
+            break;
+
+        case 116:
+            TOURIAN_ESCAPE_DATA.unk_8[1] = FALSE;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[1] = sTourianEscape_47a5d4;
+            TOURIAN_ESCAPE_DATA.oamXPositions[1] = BLOCK_SIZE * 7 - QUARTER_BLOCK_SIZE;
+            TOURIAN_ESCAPE_DATA.oamYPositions[1] = BLOCK_SIZE * 3 + HALF_BLOCK_SIZE;
+
+            TOURIAN_ESCAPE_DATA.unk_8[2] = FALSE;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[2] = sTourianEscape_47a5f4;
+            TOURIAN_ESCAPE_DATA.oamXPositions[2] = BLOCK_SIZE * 8 - QUARTER_BLOCK_SIZE;
+            TOURIAN_ESCAPE_DATA.oamYPositions[2] = BLOCK_SIZE * 3 + HALF_BLOCK_SIZE;
+            break;
+
+        case 119:
+            TOURIAN_ESCAPE_DATA.unk_8[3] = FALSE;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[3] = sTourianEscape_47a5f4;
+            TOURIAN_ESCAPE_DATA.oamXPositions[3] = BLOCK_SIZE * 7 - QUARTER_BLOCK_SIZE;
+            TOURIAN_ESCAPE_DATA.oamYPositions[3] = BLOCK_SIZE * 3 + HALF_BLOCK_SIZE;
+            break;
+
+        case 160:
+            TOURIAN_ESCAPE_DATA.unk_8[0] = 2;
+            SoundPlay(0x238);
+            break;
+
+        case 176:
+            TOURIAN_ESCAPE_DATA.unk_8[1] = 2;
+            SoundPlay(0x239);
+            break;
+
+        case 182:
+            TOURIAN_ESCAPE_DATA.unk_8[2] = 2;
+            break;
+
+        case 184:
+            TOURIAN_ESCAPE_DATA.unk_8[3] = 2;
+            break;
+
+        case 177:
+            TOURIAN_ESCAPE_DATA.unk_8[0] = FALSE;
+            break;
+
+        case 192:
+            TOURIAN_ESCAPE_DATA.unk_8[1] = FALSE;
+            break;
+
+        case 198:
+            TOURIAN_ESCAPE_DATA.unk_8[2] = FALSE;
+            break;
+
+        case 200:
+            TOURIAN_ESCAPE_DATA.unk_8[3] = FALSE;
+            break;
+
+        case 256:
+            TOURIAN_ESCAPE_DATA.dispcnt = 0;
+            ended = TRUE;
+    }
+
+    if (!(TOURIAN_ESCAPE_DATA.timer & 7))
+        gBG0XPosition--;
+
+    for (i = 0; i < 4; i++)
+    {
+        if (TOURIAN_ESCAPE_DATA.unk_8[i] == 1)
+        {
+            TOURIAN_ESCAPE_DATA.oamXPositions[i] -= 6;
+            TOURIAN_ESCAPE_DATA.oamYPositions[i] += 6;
+        }
+        else if (TOURIAN_ESCAPE_DATA.unk_8[i] == 2)
+        {
+            TOURIAN_ESCAPE_DATA.oamXPositions[i] += 14;
+            TOURIAN_ESCAPE_DATA.oamYPositions[i] -= 14;
+        }
+    }
+
+    if (TOURIAN_ESCAPE_DATA.unk_8[4])
+        unk_81788(FALSE);
+
+    if (TOURIAN_ESCAPE_DATA.unk_8[0] == 2)
+    {
+        if (TOURIAN_ESCAPE_DATA.oamTimers[0] < 4)
+            TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sTourianEscape_47a588;
+        else
+            TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sTourianEscape_47a5ae;
+
+        TOURIAN_ESCAPE_DATA.oamTimers[0] = (TOURIAN_ESCAPE_DATA.oamTimers[0] + 1) & 7;
+    }
+
+    TourianEscapeProcessOam();
+    
+    return ended;
 }
 
+/**
+ * @brief 833c4 | 49c | Handles the samus chased by pirates firing part
+ * 
+ * @return u8 bool, ended
+ */
 u8 TourianEscapeSamusChasedByPiratesFiring(void)
 {
+    u8 ended;
+    i32 velocity;
+    u32 var_0;
+    u32 var_1;
 
+    ended = FALSE;
+
+    switch (TOURIAN_ESCAPE_DATA.timer++)
+    {
+        case 0:
+            LZ77UncompVRAM(sTourianEscapeShipsAndProjectilesGfx, VRAM_BASE + 0x10000);
+            break;
+
+        case 1:
+            dma_set(3, sTourianEscapeSamusChasedByPiratesFiringPal, PALRAM_OBJ,
+                DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusChasedByPiratesFiringPal));
+
+            TOURIAN_ESCAPE_DATA.unk_8[0] = TRUE;
+            TOURIAN_ESCAPE_DATA.oamXPositions[0] = 0x78;
+            TOURIAN_ESCAPE_DATA.oamYPositions[0] = BLOCK_SIZE + HALF_BLOCK_SIZE;
+            TOURIAN_ESCAPE_DATA.unk_82 = 0xC0;
+
+            TOURIAN_ESCAPE_DATA.unk_8[1] = TRUE;
+            TOURIAN_ESCAPE_DATA.oamXPositions[1] = 0x78;
+            TOURIAN_ESCAPE_DATA.oamYPositions[1] = HALF_BLOCK_SIZE;
+            TOURIAN_ESCAPE_DATA.oamScaling = 0x100;
+
+            TOURIAN_ESCAPE_DATA.unk_8[4] = TRUE;
+            TOURIAN_ESCAPE_DATA.unk_8[5] = 2;
+            TOURIAN_ESCAPE_DATA.unk_8[6] = 2;
+            TOURIAN_ESCAPE_DATA.unk_8[7] = TRUE;
+            TOURIAN_ESCAPE_DATA.unk_8[8] = 2;
+            TOURIAN_ESCAPE_DATA.unk_8[9] = TRUE;
+
+            TOURIAN_ESCAPE_DATA.oamXPositions[2] = TOURIAN_ESCAPE_DATA.oamXPositions[0] * 8;
+            TOURIAN_ESCAPE_DATA.oamYPositions[2] = TOURIAN_ESCAPE_DATA.oamYPositions[0] * 8;
+
+            TOURIAN_ESCAPE_DATA.unk_96[2] = sTourianEscape_47cfa4[TOURIAN_ESCAPE_DATA.oamFrames[3]];
+            TOURIAN_ESCAPE_DATA.unk_AE = sTourianEscape_47cfb4[TOURIAN_ESCAPE_DATA.oamFrames[3]];
+            TOURIAN_ESCAPE_DATA.unk_96[3] = sTourianEscape_47cfc4[TOURIAN_ESCAPE_DATA.oamFrames[3]];
+            TOURIAN_ESCAPE_DATA.unk_B0 = sTourianEscape_47cfd4[TOURIAN_ESCAPE_DATA.oamFrames[3]];
+
+            gBG0XPosition = BLOCK_SIZE - QUARTER_BLOCK_SIZE;
+            gBG0YPosition = BLOCK_SIZE + QUARTER_BLOCK_SIZE;
+            break;
+
+        case 2:
+            TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_OBJ;
+            SoundPlay(0x23A);
+            SoundPlay(0x248);
+            break;
+
+        case 120:
+            TOURIAN_ESCAPE_DATA.unk_8[1]++;
+            break;
+
+        case 160:
+            TOURIAN_ESCAPE_DATA.oamTimers[0] = 0;
+            TOURIAN_ESCAPE_DATA.oamFrames[0] = 0;
+
+        case 126:
+            TOURIAN_ESCAPE_DATA.unk_8[0]++;
+            break;
+
+        case 192:
+            TOURIAN_ESCAPE_DATA.dispcnt = 0;
+            break;
+
+        case 368:
+            SoundPlay(0x23B);
+            break;
+
+        case 384:
+            ended = TRUE;
+    }
+
+    if (!(TOURIAN_ESCAPE_DATA.timer & 7))
+        gBG0YPosition--;
+
+    if (TOURIAN_ESCAPE_DATA.unk_8[0])
+    {
+        if (TOURIAN_ESCAPE_DATA.unk_8[0] == 1)
+        {
+            velocity = TOURIAN_ESCAPE_DATA.unk_96[2];
+
+            if (velocity > 48)
+                velocity = 48;
+
+            if (velocity < -48)
+                velocity = -48;
+
+            TOURIAN_ESCAPE_DATA.oamXPositions[2] += velocity;
+            TOURIAN_ESCAPE_DATA.oamXPositions[0] = TOURIAN_ESCAPE_DATA.oamXPositions[2] >> 3;
+
+            velocity = TOURIAN_ESCAPE_DATA.unk_AE;
+
+            if (velocity > 24)
+                velocity = 24;
+
+            if (velocity < -24)
+                velocity = -24;
+
+            TOURIAN_ESCAPE_DATA.oamYPositions[2] += velocity;
+            TOURIAN_ESCAPE_DATA.oamYPositions[0] = TOURIAN_ESCAPE_DATA.oamYPositions[2] >> 3;
+
+            TOURIAN_ESCAPE_DATA.unk_96[2] += TOURIAN_ESCAPE_DATA.unk_96[3];
+            TOURIAN_ESCAPE_DATA.unk_AE += TOURIAN_ESCAPE_DATA.unk_B0;
+
+            var_0 = 0;
+
+            switch (TOURIAN_ESCAPE_DATA.oamFrames[2])
+            {
+                case 0:
+                    if (TOURIAN_ESCAPE_DATA.unk_96[2] >= 0)
+                        var_0 = 1;
+                    break;
+
+                case 1:
+                case 3:
+                    if (TOURIAN_ESCAPE_DATA.oamTimers[2]++ > 19)
+                    {
+                        TOURIAN_ESCAPE_DATA.oamTimers[2] = 0;
+                        var_0 = 2;
+                    }
+                    break;
+
+                case 2:
+                    if (TOURIAN_ESCAPE_DATA.unk_96[2] <= 0)
+                        var_0 = 1;
+                    break;
+            }
+
+            if (var_0 == 1)
+            {
+                TOURIAN_ESCAPE_DATA.oamFrames[2]++;
+                TOURIAN_ESCAPE_DATA.unk_96[3] = 0;
+                TOURIAN_ESCAPE_DATA.unk_B0 = 0;
+            }
+            
+            if (var_0 == 2)
+            {
+                if (TOURIAN_ESCAPE_DATA.oamFrames[2] < 3)
+                    TOURIAN_ESCAPE_DATA.oamFrames[2]++;
+                else
+                    TOURIAN_ESCAPE_DATA.oamFrames[2] = 0;
+
+                if (TOURIAN_ESCAPE_DATA.oamFrames[3] < 7)
+                    TOURIAN_ESCAPE_DATA.oamFrames[3]++;
+                else
+                    TOURIAN_ESCAPE_DATA.oamFrames[3] = 0;
+
+                TOURIAN_ESCAPE_DATA.unk_96[2] = sTourianEscape_47cfa4[TOURIAN_ESCAPE_DATA.oamFrames[3]];
+                TOURIAN_ESCAPE_DATA.unk_AE = sTourianEscape_47cfb4[TOURIAN_ESCAPE_DATA.oamFrames[3]];
+                TOURIAN_ESCAPE_DATA.unk_96[3] = sTourianEscape_47cfc4[TOURIAN_ESCAPE_DATA.oamFrames[3]];
+                TOURIAN_ESCAPE_DATA.unk_B0 = sTourianEscape_47cfd4[TOURIAN_ESCAPE_DATA.oamFrames[3]];
+            }
+
+            if (TOURIAN_ESCAPE_DATA.oamTimers[0] & 1)
+                TOURIAN_ESCAPE_DATA.unk_82++;
+        }
+
+        if (TOURIAN_ESCAPE_DATA.unk_8[0] < 3)
+        {
+            if (TOURIAN_ESCAPE_DATA.oamFrames[0] > 14)
+                TOURIAN_ESCAPE_DATA.oamFrames[0] = 0;
+        }
+        else
+        {
+            if (TOURIAN_ESCAPE_DATA.oamFrames[0] >= 23)
+                TOURIAN_ESCAPE_DATA.oamFrames[0] = 23;
+
+            if (TOURIAN_ESCAPE_DATA.oamTimers[0] < 4)
+                TOURIAN_ESCAPE_DATA.oamYPositions[0] += 4;
+            else if (TOURIAN_ESCAPE_DATA.oamTimers[0] < 8)
+                TOURIAN_ESCAPE_DATA.oamYPositions[0] += 2;
+            else
+                TOURIAN_ESCAPE_DATA.oamYPositions[0] += 1;
+
+            if (TOURIAN_ESCAPE_DATA.unk_82 < 0x1F8)
+                TOURIAN_ESCAPE_DATA.unk_82 += 8;
+        }
+        
+        var_1 = TOURIAN_ESCAPE_DATA.oamFrames[0] / 4;
+        TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sTourianEscape_47cf70[var_1];
+
+        TOURIAN_ESCAPE_DATA.oamFrames[0]++;
+        TOURIAN_ESCAPE_DATA.oamTimers[0]++;
+    }
+
+    if (TOURIAN_ESCAPE_DATA.unk_8[4])
+        unk_81788(TRUE);
+
+    if (TOURIAN_ESCAPE_DATA.unk_8[1])
+    {
+        var_1 = 0;
+        if (TOURIAN_ESCAPE_DATA.oamScaling > 0xA0)
+        {
+            if (TOURIAN_ESCAPE_DATA.oamFrames[1] > 26)
+                TOURIAN_ESCAPE_DATA.oamFrames[1] = 0;
+
+            var_1 = TOURIAN_ESCAPE_DATA.oamFrames[1] / 4;
+        }
+
+        TOURIAN_ESCAPE_DATA.oamFramePointers[1] = sTourianEscape_47cf88[var_1];
+
+        if (TOURIAN_ESCAPE_DATA.unk_8[1] == 1)
+            TOURIAN_ESCAPE_DATA.oamScaling -= 1;
+        else
+            TOURIAN_ESCAPE_DATA.oamScaling -= 2;
+
+        if (TOURIAN_ESCAPE_DATA.oamScaling < 8 )
+            TOURIAN_ESCAPE_DATA.unk_8[1] = FALSE;
+
+        TOURIAN_ESCAPE_DATA.oamFrames[1]++;
+        TOURIAN_ESCAPE_DATA.oamTimers[1]++;
+    }
+
+    unk_818cc();
+
+    return ended;
 }
 
+/**
+ * @brief 83860 | 4b0 | Handles the samus getting shot part
+ * 
+ * @return u8 bool, ended
+ */
 u8 TourianEscapeSamusGettingShot(void)
 {
+    u8 ended;
+    i32 velocity;
+    u16 position;
 
+    ended = FALSE;
+
+    switch (TOURIAN_ESCAPE_DATA.timer++)
+    {
+        case 0:
+            LZ77UncompVRAM(sTourianEscapeSamusGettingShotGfx, VRAM_BASE + 0x8000);
+            break;
+
+        case 1:
+            LZ77UncompVRAM(sTourianEscapeSamusGettingShotShipGfx, VRAM_BASE + 0x10000);
+            TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
+                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
+                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+            gWrittenToBLDY_NonGameplay = 16;
+            break;
+
+        case 2:
+            LZ77UncompVRAM(sTourianEscapeSamusGettingShotTileTable, VRAM_BASE + 0xF000);
+            dma_set(3, sTourianEscapeSamusGettingShotPal, PALRAM_OBJ, DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusGettingShotPal));
+
+            gBG0XPosition = BLOCK_SIZE + HALF_BLOCK_SIZE;
+            gBG0YPosition = BLOCK_SIZE - QUARTER_BLOCK_SIZE;
+            TOURIAN_ESCAPE_DATA.unk_1++;
+            break;
+
+        case 3:
+            write16(REG_BG0CNT, 0x1C00);
+            TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_OBJ;
+            TOURIAN_ESCAPE_DATA.unk_8[4] = TRUE;
+            TOURIAN_ESCAPE_DATA.unk_8[5] = 2;
+            TOURIAN_ESCAPE_DATA.unk_8[6] = 2;
+            TOURIAN_ESCAPE_DATA.unk_8[7] = TRUE;
+            TOURIAN_ESCAPE_DATA.unk_8[8] = 2;
+            TOURIAN_ESCAPE_DATA.unk_8[9] = TRUE;
+            break;
+
+        case 24:
+            TOURIAN_ESCAPE_DATA.unk_8[0]++;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sTourianEscape_47a904;
+            TOURIAN_ESCAPE_DATA.oamXPositions[0] = 0x12D;
+            TOURIAN_ESCAPE_DATA.oamYPositions[0] = 0xAE;
+            TOURIAN_ESCAPE_DATA.oamPriorities[0] = 0;
+
+            TOURIAN_ESCAPE_DATA.oamXPositions[1] = TOURIAN_ESCAPE_DATA.oamXPositions[0] * 32;
+            TOURIAN_ESCAPE_DATA.oamXPositions[2] = TOURIAN_ESCAPE_DATA.oamYPositions[0] * 32;
+
+            TOURIAN_ESCAPE_DATA.unk_96[1] = 0x38;
+            TOURIAN_ESCAPE_DATA.unk_96[2] = 0x1C;
+            break;
+
+        case 128:
+            TOURIAN_ESCAPE_DATA.unk_96[1] = 0;
+            TOURIAN_ESCAPE_DATA.unk_96[2] = 0;
+
+        case 136:
+            TOURIAN_ESCAPE_DATA.unk_8[0]++;
+            break;
+
+        case 336:
+            dma_set(3, sTourianEscapeSamusGettingShotPal, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusGettingShotPal));
+            write16(REG_BG1CNT, 0x1E09);
+            TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG1 | DCNT_OBJ;
+            TOURIAN_ESCAPE_DATA.unk_8[0] = 0;
+            SoundPlay(0x23C);
+            break;
+
+        case 400:
+            TOURIAN_ESCAPE_DATA.dispcnt = 0;
+            ended = TRUE;
+    }
+
+    if (TOURIAN_ESCAPE_DATA.unk_1)
+    {
+        if (gWrittenToBLDY_NonGameplay != 0)
+        {
+            if (!(TOURIAN_ESCAPE_DATA.timer & 7))
+                gWrittenToBLDY_NonGameplay--;
+        }
+        else
+        {
+            TOURIAN_ESCAPE_DATA.bldcnt = 0;
+            TOURIAN_ESCAPE_DATA.unk_1 = FALSE;
+        }
+    }
+
+    if (!(TOURIAN_ESCAPE_DATA.timer & 7))
+        gBG0XPosition--;
+
+    if (TOURIAN_ESCAPE_DATA.unk_8[4])
+        unk_81788(FALSE);
+
+    if (TOURIAN_ESCAPE_DATA.unk_8[0] == 1)
+    {
+        if (TOURIAN_ESCAPE_DATA.timer > 0x6F)
+        {
+            TOURIAN_ESCAPE_DATA.unk_96[1]--;
+            if (TOURIAN_ESCAPE_DATA.timer & 1)
+                TOURIAN_ESCAPE_DATA.unk_96[2]--;
+        }
+
+        position = TOURIAN_ESCAPE_DATA.oamXPositions[1] -= TOURIAN_ESCAPE_DATA.unk_96[1];
+        TOURIAN_ESCAPE_DATA.oamXPositions[2] -= TOURIAN_ESCAPE_DATA.unk_96[2];
+        TOURIAN_ESCAPE_DATA.oamXPositions[0] = TOURIAN_ESCAPE_DATA.oamXPositions[1] / 32;
+        TOURIAN_ESCAPE_DATA.oamYPositions[0] = TOURIAN_ESCAPE_DATA.oamXPositions[2] / 32;
+    }
+    else if (TOURIAN_ESCAPE_DATA.unk_8[0] == 3)
+    {
+        switch (TOURIAN_ESCAPE_DATA.oamFrames[1])
+        {
+            case 0:
+                TOURIAN_ESCAPE_DATA.unk_96[1]--;
+                if (TOURIAN_ESCAPE_DATA.unk_96[1] < -27)
+                    TOURIAN_ESCAPE_DATA.oamFrames[1]++;
+                break;
+
+            case 1:
+                TOURIAN_ESCAPE_DATA.unk_96[1]++;
+                if (TOURIAN_ESCAPE_DATA.unk_96[1] == 0)
+                    TOURIAN_ESCAPE_DATA.oamFrames[1]++;
+                break;
+
+            case 2:
+            case 5:
+                if (TOURIAN_ESCAPE_DATA.oamTimers[3]++ > 3)
+                {
+                    if (TOURIAN_ESCAPE_DATA.oamFrames[1] == 2)
+                        TOURIAN_ESCAPE_DATA.oamFrames[1]++;
+                    else
+                        TOURIAN_ESCAPE_DATA.oamFrames[1] = 0;
+
+                    TOURIAN_ESCAPE_DATA.oamTimers[3] = 0;
+                }
+                break;
+
+            case 3:
+                TOURIAN_ESCAPE_DATA.unk_96[1]++;
+                if (TOURIAN_ESCAPE_DATA.unk_96[1] > 39)
+                    TOURIAN_ESCAPE_DATA.oamFrames[1]++;
+                break;
+
+            case 4:
+                TOURIAN_ESCAPE_DATA.unk_96[1]--;
+                if (TOURIAN_ESCAPE_DATA.unk_96[1] == 0)
+                    TOURIAN_ESCAPE_DATA.oamFrames[1]++;
+                break;
+        }
+        
+        velocity = TOURIAN_ESCAPE_DATA.unk_96[1];
+        if (velocity > 16)
+            velocity = 16;
+    
+        if (velocity < -16)
+            velocity = -16;
+    
+        position = TOURIAN_ESCAPE_DATA.oamXPositions[1] += velocity;
+        TOURIAN_ESCAPE_DATA.oamXPositions[0] = position / 32;
+    
+        switch (TOURIAN_ESCAPE_DATA.oamFrames[2])
+        {
+                case 0:
+                    TOURIAN_ESCAPE_DATA.unk_96[2]--;
+                    if (TOURIAN_ESCAPE_DATA.unk_96[2] < -27)
+                        TOURIAN_ESCAPE_DATA.oamFrames[2]++;
+                    break;
+    
+                case 1:
+                    TOURIAN_ESCAPE_DATA.unk_96[2]++;
+                    if (TOURIAN_ESCAPE_DATA.unk_96[2] == 0)
+                        TOURIAN_ESCAPE_DATA.oamFrames[2]++;
+                    break;
+    
+                case 2:
+                case 5:
+                    if (TOURIAN_ESCAPE_DATA.oamTimers[4]++ > 3)
+                    {
+                        if (TOURIAN_ESCAPE_DATA.oamFrames[2] == 2)
+                            TOURIAN_ESCAPE_DATA.oamFrames[2]++;
+                        else
+                            TOURIAN_ESCAPE_DATA.oamFrames[2] = 0;
+    
+                        TOURIAN_ESCAPE_DATA.oamTimers[4] = 0;
+                    }
+                    break;
+    
+                case 3:
+                    TOURIAN_ESCAPE_DATA.unk_96[2]++;
+                    if (TOURIAN_ESCAPE_DATA.unk_96[2] > 19)
+                        TOURIAN_ESCAPE_DATA.oamFrames[2]++;
+                    break;
+    
+                case 4:
+                    TOURIAN_ESCAPE_DATA.unk_96[2]--;
+                    if (TOURIAN_ESCAPE_DATA.unk_96[2] == 0)
+                        TOURIAN_ESCAPE_DATA.oamFrames[2]++;
+                    break;
+        }
+    
+        velocity = TOURIAN_ESCAPE_DATA.unk_96[2];
+        if (velocity > 8)
+            velocity = 8;
+    
+        if (velocity < -8)
+            velocity = -8;
+    
+        position = TOURIAN_ESCAPE_DATA.oamXPositions[2] += velocity;
+        TOURIAN_ESCAPE_DATA.oamYPositions[0] = position / 32;
+    }
+
+    TourianEscapeProcessOam();
+
+    return ended;
 }
 
+/**
+ * @brief 83d10 | 198 | Handles the samus going to crash part
+ * 
+ * @return u8 bool, ended
+ */
 u8 TourianEscapeSamusGoingToCrash(void)
 {
+    u8 ended;
 
+    ended = FALSE;
+
+    switch (TOURIAN_ESCAPE_DATA.timer++)
+    {
+        case 0:
+            LZ77UncompVRAM(sTourianEscapeZebesGfx, VRAM_BASE);
+            break;
+
+        case 1:
+            LZ77UncompVRAM(sTourianEscapeShipGoingToCrashGfx, VRAM_BASE + 0x10000);
+            gBG0XPosition = 16;
+            gBG0YPosition = 0;
+
+            gWrittenToBLDALPHA_L = 9;
+            gWrittenToBLDALPHA_H = 7;
+            break;
+
+        case 2:
+            LZ77UncompVRAM(sTourianEscapeZebesTileTable, VRAM_BASE + 0xF000);
+
+            dma_set(3, sTourianEscapeExplodingPal, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeExplodingPal));
+            dma_set(3, sTourianEscapeSamusGoingToCrashPal, PALRAM_OBJ,
+                DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusGoingToCrashPal));
+
+            TOURIAN_ESCAPE_DATA.unk_8[0] = TRUE;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sTourianEscape_47a98a;
+            TOURIAN_ESCAPE_DATA.unk_8[3] = TRUE;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[3] = sTourianEscape_47a958;
+            TOURIAN_ESCAPE_DATA.oamXPositions[3] = 0x88;
+            TOURIAN_ESCAPE_DATA.oamYPositions[3] = 0x58;
+            break;
+
+        case 3:
+            write16(REG_BG0CNT, 0x1E00);
+            TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_OBJ;
+            TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG0_SECOND_TARGET_PIXEL |
+                BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL |
+                BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
+            SoundPlay(0x23D);
+            break;
+
+        case 6:
+            TOURIAN_ESCAPE_DATA.unk_8[1] = TRUE;
+            TOURIAN_ESCAPE_DATA.oamXPositions[1] = 0x6D;
+            TOURIAN_ESCAPE_DATA.oamYPositions[1] = 0x46;
+            break;
+
+        case 12:
+            TOURIAN_ESCAPE_DATA.unk_8[2] = TRUE;
+            TOURIAN_ESCAPE_DATA.oamXPositions[2] = 0x6D;
+            TOURIAN_ESCAPE_DATA.oamYPositions[2] = 0x46;
+            break;
+
+        case 80:
+            TOURIAN_ESCAPE_DATA.dispcnt = 0;
+            TOURIAN_ESCAPE_DATA.bldcnt = 0;
+            ended = TRUE;
+    }
+
+    if (TOURIAN_ESCAPE_DATA.unk_5++ > 4)
+    {
+        TOURIAN_ESCAPE_DATA.unk_5 = 0;
+        gBG0XPosition--;
+    }
+
+    unk_81ad8();
+
+    return ended;
 }
 
+/**
+ * @brief 83ea8 | 25c | Handles the samus crashing part
+ * 
+ * @return u8 bool, ended
+ */
 u8 TourianEscapeSamusCrashing(void)
 {
+    u8 ended;
 
+    ended = FALSE;
+
+    switch (TOURIAN_ESCAPE_DATA.timer++)
+    {
+        case 0:
+            LZ77UncompVRAM(sTourianEscapeShipCrashingForegroundGfx, VRAM_BASE);
+            break;
+
+        case 1:
+            LZ77UncompVRAM(sTourianEscapeShipCrashingExplosionGfx, VRAM_BASE + 0x8000);
+            break;
+
+        case 2:
+            LZ77UncompVRAM(sTourianEscapeShipCrashingBackgroundAndShipGfx, VRAM_BASE + 0x10000);
+            break;
+
+        case 3:
+            LZ77UncompVRAM(sTourianEscapeShipCrashingForegroundTileTable, VRAM_BASE + 0x7000);
+            LZ77UncompVRAM(sTourianEscapeShipCrashingExplosionTileTable, VRAM_BASE + 0xF000);
+
+            dma_set(3, sTourianEscapeSamusCrashingForegroundPal, PALRAM_BASE,
+                DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeSamusCrashingForegroundPal));
+            break;
+
+        case 4:
+            dma_set(3, sTourianEscapeShipCrashingBackgroundAndShipPal, PALRAM_OBJ,
+                DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscapeShipCrashingBackgroundAndShipPal));
+
+            TOURIAN_ESCAPE_DATA.unk_8[1] = TRUE;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[1] = sTourianEscape_47aa96;
+            TOURIAN_ESCAPE_DATA.oamXPositions[1] = 0x78;
+            TOURIAN_ESCAPE_DATA.oamYPositions[1] = 0x68;
+            TOURIAN_ESCAPE_DATA.oamPriorities[1] = 2;
+
+            gBG0XPosition = 0;
+            gBG0YPosition = 0;
+
+            SoundPlay(0x249);
+            break;
+
+        case 5:
+            write16(REG_BG0CNT, 0xE00);
+            write16(REG_BG1CNT, 0x1E09);
+            TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_OBJ;
+            break;
+
+        case 10:
+            TOURIAN_ESCAPE_DATA.unk_8[0] = TRUE;
+            TOURIAN_ESCAPE_DATA.oamXPositions[0] = 0xFA;
+            TOURIAN_ESCAPE_DATA.oamYPositions[0] = 0x10;
+            TOURIAN_ESCAPE_DATA.oamPriorities[0] = 2;
+            break;
+
+        case 64:
+            TOURIAN_ESCAPE_DATA.unk_8[0] = FALSE;
+            break;
+
+        case 104:
+            dma_set(3, sTourianEscape_479f80, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sTourianEscape_479f80));
+            TOURIAN_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_OBJ;
+            
+            TOURIAN_ESCAPE_DATA.unk_8[0] = FALSE;
+            TOURIAN_ESCAPE_DATA.oamFramePointers[1] = sTourianEscape_47ab28;
+            TOURIAN_ESCAPE_DATA.unk_2++;
+            TOURIAN_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
+                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
+                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+
+            SoundPlay(0x24A);
+            break;
+
+        case 288:
+            ended = TRUE;
+    }
+
+    if (TOURIAN_ESCAPE_DATA.unk_2)
+    {
+        if (TOURIAN_ESCAPE_DATA.unk_5 & 1)
+        {
+            if (gWrittenToBLDY_NonGameplay < 16)
+                gWrittenToBLDY_NonGameplay++;
+        }
+
+        TOURIAN_ESCAPE_DATA.unk_5++;
+    }
+
+    if (TOURIAN_ESCAPE_DATA.unk_8[0])
+    {
+        TOURIAN_ESCAPE_DATA.oamFrames[0] = (TOURIAN_ESCAPE_DATA.oamTimers[0] & 31) / 8;
+        TOURIAN_ESCAPE_DATA.oamFramePointers[0] = sTourianEscape_47cfe4[TOURIAN_ESCAPE_DATA.oamFrames[0]];
+        TOURIAN_ESCAPE_DATA.oamXPositions[0] -= 4;
+        TOURIAN_ESCAPE_DATA.oamYPositions[0] += 2;
+        TOURIAN_ESCAPE_DATA.oamTimers[0]++;
+    }
+
+    TourianEscapeProcessOam();
+
+    return ended;
 }
 
 u8 TourianEscapeSamusLookingAtSky(void)
@@ -999,9 +2129,9 @@ u8 TourianEscapeSamusLookingAtMotherShip(void)
 }
 
 /**
- * @brief 84714 | e4 | 
+ * @brief 84714 | e4 | Executes the current tourian escape subroutine
  * 
- * @return u8 
+ * @return u8 bool, ended
  */
 u8 TourianEscapeCallSubroutines(void)
 {
