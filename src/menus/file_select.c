@@ -14,6 +14,7 @@
 #include "constants/menus/file_select.h"
 
 #include "structs/audio.h"
+#include "structs/cable_link.h"
 #include "structs/display.h"
 #include "structs/game_state.h"
 #include "structs/menus/file_select.h"

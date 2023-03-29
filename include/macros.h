@@ -42,3 +42,4 @@
 #define _INCBIN_S32 INCBIN
 
 #define FORCE_RODATA __attribute__((section(".rodata")))
+#define NAKED_FUNCTION __attribute__((naked))
