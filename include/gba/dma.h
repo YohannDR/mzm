@@ -68,7 +68,7 @@
 #define DMA_INTR_ENABLE (1 << 14)
 #define DMA_ENABLE (1 << 15)
 
-#define CPU_SET_FILL (1 << 8)
+#define CPU_SET_SRC_FIXED (1 << 8)
 #define CPU_SET_32BIT (1 << 10)
 
 #endif /* GBA_DMA_H */

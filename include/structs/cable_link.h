@@ -40,6 +40,39 @@ struct IoTransferInfo {
     u16 musicPriority;
 };
 
+struct UnkStruct_3005b60 {
+    u8 unk_0;
+    u8 unk_1;
+    u8 unk_2;
+    u8 unk_3;
+    u16 sioIncomingData[4];
+    u8 unk_C;
+    u8 unk_D;
+    u8 unk_E;
+    u8 unk_F;
+    u8 unk_10;
+    u8 unk_11;
+    u8 unk_12;
+    u8 unk_13;
+    u8 unk_14;
+    u8 unk_15;
+    u8 unk_16;
+    u8 unk_17;
+    u8 unk_18;
+    u8 unk_19;
+    u8 unk_1A;
+    u8 unk_1B;
+    u16 unk_1C[2][32];
+    u8 unk_9C;
+    u8 unk_9D;
+    u8 unk_9E;
+    u8 unk_9F;
+    u16 unk_A0[2][2][32];
+    u8 unk_1A0;
+    u8 unk_1A1;
+    u8 unk_1A2;
+};
+
 extern struct IoTransferInfo gIoTransferInfo;
 
 extern struct MultiBootData gMultiBootParamData;
@@ -55,5 +88,12 @@ extern u16 gRegRcnt_Backup;
 extern u32 gUnk_3005874;
 extern u8 gUnk_3005884;
 extern u32 gUnk_3005880;
+
+extern struct UnkStruct_3005b60 gUnk_3005b60;
+extern u16 gUnk_30058d0;
+extern u8 gUnk_30058d2;
+extern u8 gUnk_30058d3;
+extern u8 gUnk_3005b54;
+extern u8 gUnk_30058d5;
 
 #endif /* CABLE_LINK_STRUCTS_H */

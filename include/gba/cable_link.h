@@ -7,6 +7,7 @@
 #define REG_TM3CNT_L (REG_BASE + 0x10C)
 #define REG_TM3CNT_H (REG_BASE + 0x10E)
 
+#define REG_SIO_MULTI (REG_BASE + 0x120)
 #define REG_SIO (REG_BASE + 0x128)
 #define REG_SIO_DATA8 (REG_BASE + 0x12A)
 #define REG_RNCT (REG_BASE + 0x134)
