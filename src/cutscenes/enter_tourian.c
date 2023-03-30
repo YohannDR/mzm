@@ -353,7 +353,7 @@ u8 EnterTourianInit(void)
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sEnterTourianPageData[1].bg, 0x800);
 
     CUTSCENE_DATA.oam[1].oamID = 6;
-    CUTSCENE_DATA.oam[1].idChanged = TRUE;
+    CUTSCENE_DATA.oam[1].exists = TRUE;
     CUTSCENE_DATA.oam[1].boundBackground = 3;
     CUTSCENE_DATA.oam[1].priority = sEnterTourianPageData[0].priority;
     CUTSCENE_DATA.oam[1].actions = 1;
@@ -370,7 +370,7 @@ u8 EnterTourianInit(void)
 
     
     CUTSCENE_DATA.oam[0].oamID = 2;
-    CUTSCENE_DATA.oam[0].idChanged = TRUE;
+    CUTSCENE_DATA.oam[0].exists = TRUE;
     CUTSCENE_DATA.oam[0].boundBackground = 3;
     CUTSCENE_DATA.oam[0].priority = sEnterTourianPageData[0].priority;
 

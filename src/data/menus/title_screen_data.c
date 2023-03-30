@@ -165,10 +165,10 @@ const struct MenuOamData sTitleScreenTopSparkleBaseOam = {
     .currentAnimationFrame = 0,
     .oamID = TITLE_SCREEN_OAM_ID_SPARKLE_IDLE,
     .priority = 0,
-    .unk_B_4 = 0,
+    .objMode = 0,
     .ended = FALSE,
     .notDrawn = FALSE,
-    .idChanged = TRUE,
+    .exists = TRUE,
     .boundBackground = 0,
     .unk_E = 0 
 };
@@ -184,10 +184,10 @@ const struct MenuOamData sTitleScreenBottomSparkleBaseOam = {
     .currentAnimationFrame = 0,
     .oamID = TITLE_SCREEN_OAM_ID_SPARKLE_IDLE,
     .priority = 0,
-    .unk_B_4 = 0,
+    .objMode = 0,
     .ended = FALSE,
     .notDrawn = FALSE,
-    .idChanged = TRUE,
+    .exists = TRUE,
     .boundBackground = 0,
     .unk_E = 0 
 };

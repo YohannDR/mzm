@@ -127,7 +127,7 @@ struct CutsceneOamData* KraidRisingUpdatePuff(struct CutsceneOamData* pOam, u8 p
     u8* data;
     i32 offset;
 
-    if (!pOam->idChanged)
+    if (!pOam->exists)
     {
         if (pOam->timer != 0)
             pOam->timer--;
@@ -157,7 +157,7 @@ struct CutsceneOamData* KraidRisingUpdateDebris(struct CutsceneOamData* pOam, u8
         pOam->timer--;
     else
     {
-        if (!pOam->idChanged)
+        if (!pOam->exists)
         {
             // Set spawn X (base + [0-0x3F])
             pOam->xPosition = sKraidRisingDebrisSpawnXPosition[debrisID] + (sRandomNumberTable[~((gFrameCounter8Bit + debrisID) & 0xFF)] & 0x3F);
@@ -182,7 +182,7 @@ struct CutsceneOamData* KraidRisingUpdateDebris(struct CutsceneOamData* pOam, u8
             pOam->yPosition += pOam->unk_10;
             if (pOam->yPosition > 0x2DF)
             {
-                pOam->idChanged = FALSE;
+                pOam->exists = FALSE;
                 // Set random timer
                 pOam->timer = (sRandomNumberTable[(gFrameCounter8Bit + debrisID) & 0xFF] & 0xF) + 1;
             }

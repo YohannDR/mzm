@@ -199,10 +199,10 @@ void GettingFullyPoweredSuitUpdateSparkleAroundRing(struct CutsceneOamData* pOam
             pOam->actions = 2;
         }
     }
-    else if (!pOam->idChanged)
+    else if (!pOam->exists)
         pOam->actions = 0;
     
-    if (pOam->idChanged)
+    if (pOam->exists)
     {
         pOam->xPosition = CUTSCENE_DATA.oam[6].xPosition + sGettingFullyPoweredSuitRingSparklesSpawnPositions[sparkleId][0];
         pOam->yPosition = CUTSCENE_DATA.oam[6].yPosition + sGettingFullyPoweredSuitRingSparklesSpawnPositions[sparkleId][1];
@@ -294,7 +294,7 @@ u8 GettingFullyPoweredSuitInit(void)
     CUTSCENE_DATA.oam[6].xPosition = BLOCK_SIZE * 8 - QUARTER_BLOCK_SIZE;
     CUTSCENE_DATA.oam[6].yPosition = BLOCK_SIZE * 22;
     CUTSCENE_DATA.oam[6].priority = sGettingFullyPoweredSuitPageData[0].priority;
-    CUTSCENE_DATA.oam[6].unk_B_4 = 0;
+    CUTSCENE_DATA.oam[6].objMode = 0;
     CUTSCENE_DATA.oam[6].boundBackground = 2;
 
     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[6], GETTING_FULLY_POWERED_SUIT_OAM_ID_RING_BOTTOM);

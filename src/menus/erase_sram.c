@@ -183,10 +183,10 @@ void EraseSramApplyInput(void)
             break;
     }
 
-    ERASE_SRAM_DATA.oam[1].idChanged = TRUE << 1;
-    ERASE_SRAM_DATA.oam[2].idChanged = TRUE << 1;
+    ERASE_SRAM_DATA.oam[1].exists = TRUE << 1;
+    ERASE_SRAM_DATA.oam[2].exists = TRUE << 1;
     ERASE_SRAM_DATA.oam[0].oamID = ERASE_SRAM_OAM_ID_CURSOR_IDLE;
-    ERASE_SRAM_DATA.oam[0].idChanged = TRUE << 1;
+    ERASE_SRAM_DATA.oam[0].exists = TRUE << 1;
 }
 
 /**
@@ -280,7 +280,7 @@ u32 EraseSramCheckForInput(void)
     if (exiting)
     {
         ERASE_SRAM_DATA.oam[0].oamID = ERASE_SRAM_OAM_ID_CURSOR_SELECTING;
-        ERASE_SRAM_DATA.oam[0].idChanged = TRUE << 1;
+        ERASE_SRAM_DATA.oam[0].exists = TRUE << 1;
         sound = 1;
     }
 
@@ -392,15 +392,15 @@ void EraseSramResetOAM(void)
     ERASE_SRAM_DATA.oam[2].oamID = sEraseSramQuestionWindowNoSelectedOamId;
     ERASE_SRAM_DATA.oam[2].yPosition = sEraseSramMenuCursorPosition[0][1];
     ERASE_SRAM_DATA.oam[2].xPosition = sEraseSramMenuCursorPosition[0][0];
-    ERASE_SRAM_DATA.oam[2].idChanged = TRUE;
+    ERASE_SRAM_DATA.oam[2].exists = TRUE;
 
     ERASE_SRAM_DATA.oam[1].oamID = 0;
     ERASE_SRAM_DATA.oam[1].yPosition = sEraseSramMenuCursorPosition[1][1];
     ERASE_SRAM_DATA.oam[1].xPosition = sEraseSramMenuCursorPosition[1][0];
-    ERASE_SRAM_DATA.oam[1].idChanged = TRUE;
+    ERASE_SRAM_DATA.oam[1].exists = TRUE;
 
     ERASE_SRAM_DATA.oam[0].oamID = ERASE_SRAM_OAM_ID_CURSOR_IDLE;
-    ERASE_SRAM_DATA.oam[0].idChanged = TRUE;
+    ERASE_SRAM_DATA.oam[0].exists = TRUE;
 }
 
 /**

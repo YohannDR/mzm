@@ -405,7 +405,7 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
         pOam->priority = sMotherBrainCloseUpPageData[2].priority;
         pOam->boundBackground = 3;
         pOam->oamID = 0;
-        pOam->idChanged = TRUE;
+        pOam->exists = TRUE;
     }
     else
     {
@@ -413,7 +413,7 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
         pOam->yPosition = BLOCK_SIZE * 5 + 4;
         pOam->priority = sMotherBrainCloseUpPageData[4].priority;
         pOam->boundBackground = 1;
-        pOam->unk_B_4 = 1;
+        pOam->objMode = 1;
         UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], 5);
         
         pOam[1].xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
@@ -422,7 +422,7 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
         pOam[1].priority = sMotherBrainCloseUpPageData[4].priority;
 
         pOam[1].boundBackground = 1;
-        pOam[1].unk_B_4 = 1;
+        pOam[1].objMode = 1;
     }
 }
 
@@ -437,7 +437,7 @@ void MotherBrainCloseUpUpdateBubble(struct CutsceneOamData* pOam)
     yPosition -= gBG3VOFS_NonGameplay;
 
     if (yPosition < -0x90)
-        pOam->idChanged = FALSE;
+        pOam->exists = FALSE;
     else if (yPosition > 0x300)
     {
         if (!(pOam->notDrawn))
@@ -459,7 +459,7 @@ u8 MotherBrainCloseUpInitBubbles(u8 packId)
 
     for (i = 0; i < 6; i++)
     {
-        if (CUTSCENE_DATA.oam[i].idChanged)
+        if (CUTSCENE_DATA.oam[i].exists)
             continue;
 
         CUTSCENE_DATA.oam[i].xPosition = sMotherBrainCloseUpBubblesSpawnPositions[packId][0];

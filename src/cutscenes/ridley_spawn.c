@@ -41,7 +41,7 @@ u8 RidleySpawnRidleyFlyingIn(void)
             CUTSCENE_DATA.oam[0].rotationScaling = TRUE;
             CUTSCENE_DATA.oam[0].notDrawn = FALSE;
             CUTSCENE_DATA.oam[0].priority = 0;
-            CUTSCENE_DATA.oam[0].unk_B_4 = FALSE;
+            CUTSCENE_DATA.oam[0].objMode = FALSE;
 
             gCurrentOamScaling = 0x120;
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING);
@@ -145,7 +145,7 @@ u8 RidleySpawnHelmetReflection(void)
 
             CUTSCENE_DATA.oam[0].priority = sRidleySpawnPageData[2].priority;
             CUTSCENE_DATA.oam[0].rotationScaling = TRUE;
-            CUTSCENE_DATA.oam[0].unk_B_4 = TRUE;
+            CUTSCENE_DATA.oam[0].objMode = TRUE;
 
             gCurrentOamScaling = 0x40;
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING_REFLECTION);
@@ -264,7 +264,7 @@ u8 RidleySpawnInit(void)
     CUTSCENE_DATA.oam[0].yPosition = sRidleySpawnRidleyPositions[2].y;
     CUTSCENE_DATA.oam[0].priority = sRidleySpawnPageData[0].priority;
     CUTSCENE_DATA.oam[0].rotationScaling = TRUE;
-    CUTSCENE_DATA.oam[0].unk_B_4 = TRUE;
+    CUTSCENE_DATA.oam[0].objMode = TRUE;
 
     gCurrentOamScaling = 0x100;
     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_SAMUS);

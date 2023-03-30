@@ -16,13 +16,14 @@ struct MenuOamData {
     u8 oamID;
     // B
     u16 priority:2;
-    u16 unk_B_4:2;
+    u16 objMode:2;
     u16 ended:1;
     u16 notDrawn:1;
-    u16 idChanged:2;
+    u16 exists:2;
 
     // C
     u8 boundBackground:4;
+    u8 rotationScaling:1;
     i16 unk_E;
 };
 

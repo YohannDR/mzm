@@ -32,7 +32,7 @@ u8 MechaRidleySeesSamusEyeOpen(void)
             break;
 
         case 2:
-            if (!CUTSCENE_DATA.oam[0].idChanged)
+            if (!CUTSCENE_DATA.oam[0].exists)
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;

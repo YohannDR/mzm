@@ -662,7 +662,7 @@ void TitleScreenProcessComets(struct TitleScrenOamTiming* pTiming, struct MenuOa
             pOam->currentAnimationFrame = 0;
             pOam->oamID = TITLE_SCREEN_OAM_ID_COMET_SPAWNING;
 
-            pOam->idChanged = TRUE;
+            pOam->exists = TRUE;
             pOam->boundBackground = 3;
             pOam->notDrawn = FALSE;
 
