@@ -16,9 +16,6 @@
 #include "structs/text.h"
 #include "structs/menus/pause_screen.h"
 
-// Temp
-extern u16 gUnk_03005804;
-
 #define STATUS_SCREEN_TILEMAP ((u16*)(sEwramPointer + 0x7000))
 
 void UpdateMinimapAnimatedPalette(void)
@@ -340,7 +337,7 @@ u32 StatusScreenSuitlessItems(void)
     ended = FALSE;
 
     if (PAUSE_SCREEN_DATA.subroutineInfo.stage > 5)
-        ended = gUnk_03005804 != 0;
+        ended = gUnk_3005804 != 0;
 
     if (ended)
         return ended;

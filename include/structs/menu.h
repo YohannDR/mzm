@@ -27,4 +27,14 @@ struct MenuOamData {
     i16 unk_E;
 };
 
+#define MAINTAINED_INPUT_KEYS (KEY_RIGHT | KEY_LEFT | KEY_UP | KEY_DOWN)
+
+struct MaintainedInput {
+    u8 delay;
+    u8 set;
+};
+
+extern struct MaintainedInput gMaintainedInputData;
+extern u16 gUnk_3005804;
+
 #endif /* MENU_OAM_H */

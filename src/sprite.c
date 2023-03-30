@@ -727,7 +727,7 @@ void SpriteLoadSpriteset(void)
     spriteset = gSpriteset;
     if (spriteset >= MAX_AMOUNT_OF_SPRITESET - 1)
     {
-        if (gCurrentArea > AREA_INVALID)
+        if (gCurrentArea > AREA_DEBUG)
             spriteset = MAX_AMOUNT_OF_SPRITESET - 1;
         else
             spriteset = 0;

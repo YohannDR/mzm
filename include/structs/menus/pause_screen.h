@@ -6,6 +6,14 @@
 
 #define PAUSE_SCREEN_DATA sNonGameplayRamPointer->pauseScreen
 
+struct PauseScreenAreaIconData {
+    u8 unk_0;
+    u8 nameOamId;
+    u8 highlightOamId;
+    u16 xPosition;
+    u16 yPosition;
+};
+
 struct PauseScreenSubroutineData {
     u8 currentSubroutine;
     u8 padding_1[3];
@@ -198,11 +206,13 @@ struct PauseScreenData {
 
     u16* mapsDataPointer;
 
-    struct MenuOamData miscOam[30];
+    struct MenuOamData miscOam[23];
+    struct MenuOamData unk_278[7];
     struct MenuOamData targetsOam[12];
     struct MenuOamData chozoHintOam[5];
     struct MenuOamData samusIconOam[1];
-    struct MenuOamData bossIconOam[2];
+    struct MenuOamData bossIconOam[1];
+    struct MenuOamData unk_418[1];
     struct MenuOamData areaNameOam[4];
     struct MenuOamData borderArrowsOam[4];
     struct MenuOamData worldMapOam[24];

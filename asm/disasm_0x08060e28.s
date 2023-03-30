@@ -2264,7 +2264,7 @@ sub_08061f60: @ 0x08061f60
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_08061f90
-    ldr r0, lbl_08061f9c @ =0x08754bb4
+    ldr r0, lbl_08061f9c @ =sEwramPointer
     ldr r1, [r0]
     movs r3, #0x80
     lsls r3, r3, #3
@@ -2286,7 +2286,7 @@ lbl_08061f90:
     bx r0
     .align 2, 0
 lbl_08061f98: .4byte sNonGameplayRamPointer
-lbl_08061f9c: .4byte 0x08754bb4
+lbl_08061f9c: .4byte sEwramPointer
 
     thumb_func_start CutsceneStartBackgroundFading
 CutsceneStartBackgroundFading: @ 0x08061fa0
@@ -2308,7 +2308,7 @@ CutsceneStartBackgroundFading: @ 0x08061fa0
     strh r7, [r0]
     movs r1, #0xa0
     lsls r1, r1, #0x13
-    ldr r0, lbl_08061fec @ =0x08754bb4
+    ldr r0, lbl_08061fec @ =sEwramPointer
     ldr r2, [r0]
     movs r3, #0x80
     lsls r3, r3, #3
@@ -2328,7 +2328,7 @@ lbl_08061fde:
     mov pc, r0
     .align 2, 0
 lbl_08061fe8: .4byte sNonGameplayRamPointer
-lbl_08061fec: .4byte 0x08754bb4
+lbl_08061fec: .4byte sEwramPointer
 lbl_08061ff0: .4byte lbl_08061ff4
 lbl_08061ff4: @ jump table
     .4byte lbl_0806201c @ case 0
@@ -2353,7 +2353,7 @@ lbl_0806201c:
     adds r2, r6, #0
     adds r3, r4, #0
     bl BitFill
-    ldr r0, lbl_08062060 @ =0x08754bb4
+    ldr r0, lbl_08062060 @ =sEwramPointer
     ldr r2, [r0]
     adds r2, r2, r4
     str r5, [sp]
@@ -2375,7 +2375,7 @@ lbl_0806201c:
     strb r3, [r0]
     b lbl_0806216e
     .align 2, 0
-lbl_08062060: .4byte 0x08754bb4
+lbl_08062060: .4byte sEwramPointer
 lbl_08062064: .4byte sNonGameplayRamPointer
 lbl_08062068:
     movs r6, #0xa0
@@ -2389,7 +2389,7 @@ lbl_08062068:
     adds r2, r6, #0
     adds r3, r4, #0
     bl BitFill
-    ldr r0, lbl_080620b0 @ =0x08754bb4
+    ldr r0, lbl_080620b0 @ =sEwramPointer
     ldr r2, [r0]
     adds r2, r2, r4
     str r5, [sp]
@@ -2412,7 +2412,7 @@ lbl_08062068:
     strb r1, [r0]
     b lbl_0806216e
     .align 2, 0
-lbl_080620b0: .4byte 0x08754bb4
+lbl_080620b0: .4byte sEwramPointer
 lbl_080620b4: .4byte sNonGameplayRamPointer
 lbl_080620b8:
     movs r6, #0xa0
@@ -2426,7 +2426,7 @@ lbl_080620b8:
     adds r2, r6, #0
     adds r3, r4, #0
     bl BitFill
-    ldr r0, lbl_08062100 @ =0x08754bb4
+    ldr r0, lbl_08062100 @ =sEwramPointer
     ldr r2, [r0]
     adds r2, r2, r4
     str r5, [sp]
@@ -2449,7 +2449,7 @@ lbl_080620b8:
     strb r1, [r0]
     b lbl_0806216e
     .align 2, 0
-lbl_08062100: .4byte 0x08754bb4
+lbl_08062100: .4byte sEwramPointer
 lbl_08062104: .4byte sNonGameplayRamPointer
 lbl_08062108:
     movs r0, #0x14
@@ -2619,7 +2619,7 @@ lbl_08062230:
     ldrb r0, [r1]
     cmp r0, #0x1f
     bhi lbl_080622b0
-    ldr r4, lbl_080622a8 @ =0x08754bb4
+    ldr r4, lbl_080622a8 @ =sEwramPointer
     ldr r0, [r4]
     str r0, [sp, #4]
     movs r3, #0x80
@@ -2673,10 +2673,10 @@ lbl_08062230:
     bgt lbl_08062380
     b lbl_08062368
     .align 2, 0
-lbl_080622a8: .4byte 0x08754bb4
+lbl_080622a8: .4byte sEwramPointer
 lbl_080622ac: .4byte 0x0000ffff
 lbl_080622b0:
-    ldr r0, lbl_080622d8 @ =0x08754bb4
+    ldr r0, lbl_080622d8 @ =sEwramPointer
     ldr r1, [r0]
     movs r3, #0x80
     lsls r3, r3, #3
@@ -2696,7 +2696,7 @@ lbl_080622b0:
     strb r0, [r1]
     b lbl_080623fe
     .align 2, 0
-lbl_080622d8: .4byte 0x08754bb4
+lbl_080622d8: .4byte sEwramPointer
 lbl_080622dc:
     adds r0, r2, #0
     adds r0, #0xbc
@@ -2721,7 +2721,7 @@ lbl_080622f8:
     ldrb r0, [r1]
     cmp r0, #0x1f
     bhi lbl_08062384
-    ldr r4, lbl_0806236c @ =0x08754bb4
+    ldr r4, lbl_0806236c @ =sEwramPointer
     ldr r0, [r4]
     str r0, [sp, #4]
     movs r3, #0x80
@@ -2773,7 +2773,7 @@ lbl_08062368:
     strb r0, [r2]
     b lbl_080623fe
     .align 2, 0
-lbl_0806236c: .4byte 0x08754bb4
+lbl_0806236c: .4byte sEwramPointer
 lbl_08062370: .4byte 0x0000ffff
 lbl_08062374:
     ldrb r0, [r2]
@@ -2792,7 +2792,7 @@ lbl_08062384:
     cmp r0, #3
     bne lbl_080623b0
     ldr r1, lbl_080623a8 @ =0x00007fff
-    ldr r0, lbl_080623ac @ =0x08754bb4
+    ldr r0, lbl_080623ac @ =sEwramPointer
     ldr r2, [r0]
     movs r3, #0x80
     lsls r3, r3, #3
@@ -2804,9 +2804,9 @@ lbl_08062384:
     b lbl_080623c6
     .align 2, 0
 lbl_080623a8: .4byte 0x00007fff
-lbl_080623ac: .4byte 0x08754bb4
+lbl_080623ac: .4byte sEwramPointer
 lbl_080623b0:
-    ldr r0, lbl_080623dc @ =0x08754bb4
+    ldr r0, lbl_080623dc @ =sEwramPointer
     ldr r2, [r0]
     movs r3, #0x80
     lsls r3, r3, #3
@@ -2828,7 +2828,7 @@ lbl_080623c6:
     strb r1, [r0]
     b lbl_080623fe
     .align 2, 0
-lbl_080623dc: .4byte 0x08754bb4
+lbl_080623dc: .4byte sEwramPointer
 lbl_080623e0: .4byte sNonGameplayRamPointer
 lbl_080623e4:
     adds r0, r2, #0

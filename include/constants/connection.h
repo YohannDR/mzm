@@ -5,7 +5,7 @@
 #define AREA_TOURIAN 0x4
 #define AREA_CRATERIA 0x5
 #define AREA_CHOZODIA 0x6
-#define AREA_INVALID 0x7
+#define AREA_DEBUG 0x7
 #define AREA_NONE 0xFF
 
 #define DOOR_TYPE_NONE 0x0

@@ -1854,7 +1854,7 @@ u8 OptionsSubroutine(void)
             break;
 
         case 2:
-            check_for_maintained_input(); // Undefined
+            CheckForMaintainedInput();
 
             if (!gChangedInput)
                 break;
@@ -3659,7 +3659,7 @@ u8 FileSelectUpdateSubMenu(void)
     {
         case 0:
             result = 0;
-            check_for_maintained_input();
+            CheckForMaintainedInput();
 
             if (gChangedInput)
             {

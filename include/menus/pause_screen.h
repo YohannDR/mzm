@@ -12,7 +12,7 @@ void PauseScreenCopyPalramToEwram_Unused(u8 param_1);
 void PauseScreenCopyBackgroundPalette_Unused(void);
 void PauseScreenUpdateMapArrows(void);
 void PauseScreenUpdateBossIcons(void);
-void PauseScreenDrawInfo(void);
+void PauseScreenDrawCompletionInfo(u8 dontDraw);
 u8 unk_68a58(u8 param_1);
 u8 PauseScreenDrawStatusScreenSamus(u8 param_1);
 void PauseScreenUpdateWireframeSamus(u8 param_1);

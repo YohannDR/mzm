@@ -5,7 +5,7 @@
 #include "input.h"
 
 struct GameCompletion {
-    u8 completedGame;
+    i8 completedGame;
     u8 introPlayed;
     u8 language;
 };

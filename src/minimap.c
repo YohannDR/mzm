@@ -4,6 +4,7 @@
 
 #include "data/unsorted.h"
 #include "data/shortcut_pointers.h"
+#include "data/menus/pause_screen_data.h"
 
 #include "constants/connection.h"
 #include "constants/game_state.h"
@@ -14,9 +15,6 @@
 #include "structs/minimap.h"
 #include "structs/samus.h"
 #include "structs/room.h"
-
-extern const u8 sBossIcons[7][5];
-extern const u16 sMapChunksToUpdate[3];
 
 /**
  * @brief 6c154 | 24 | Updates the minimap
