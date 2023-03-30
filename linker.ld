@@ -344,7 +344,7 @@ SECTIONS {
         . = 0x000058b6; gRegTm3Cnt_H_Backup = .;
         . = 0x000058b8; gRegSiocnt_Backup = .;
         . = 0x000058ba; gRegRcnt_Backup = .;
-        . = 0x000058bc; gUnk_30058bc = .;
+        . = 0x000058bc; gErrorFlag = .;
         . = 0x000058c0; gUnk_30058c0 = .;
         . = 0x000058c4; gUnk_30058c4 = .;
         . = 0x000058cc; gUnk_30058cc = .;
@@ -373,7 +373,7 @@ SECTIONS {
 
         . = 0x00005b50; gUnk_3005b50 = .;
         . = 0x00005b54; gUnk_3005b54 = .;
-        . = 0x00005b60; gUnk_3005b60 = .;
+        . = 0x00005b60; gCableLinkInfo = .;
 
 
         . = 0x00007e60; sp_sys = .;

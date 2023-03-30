@@ -3,6 +3,8 @@
 
 #include "types.h"
 
+typedef u16 (CableLinkBuffer1_T)[2][2];
+
 struct MultiBootData {
     u32 systemWork_1[5];
     u8 handshakeData;
@@ -35,12 +37,12 @@ struct IoTransferInfo {
     u8 errorFlag;
     u16 unk_E;
     i8 fusionGalleryImages;
-    u8 language;
+    i8 language;
     u16 musicTrack;
     u16 musicPriority;
 };
 
-struct UnkStruct_3005b60 {
+struct CableLinkInfo {
     u8 unk_0;
     u8 unk_1;
     u8 unk_2;
@@ -52,12 +54,11 @@ struct UnkStruct_3005b60 {
     u8 unk_F;
     u8 unk_10;
     u8 unk_11;
-    u8 unk_12;
-    u8 unk_13;
-    u8 unk_14;
-    u8 unk_15;
-    u8 unk_16;
-    u8 unk_17;
+    u8 hardwareErrorFlag;
+    u8 checksumErrorFlag;
+    u8 overflowErrorFlags;
+    u8 sioErrorFlags;
+    u16 unk_16;
     u8 unk_18;
     u8 unk_19;
     u8 unk_1A;
@@ -71,6 +72,21 @@ struct UnkStruct_3005b60 {
     u8 unk_1A0;
     u8 unk_1A1;
     u8 unk_1A2;
+};
+
+struct CableLink_3005890 {
+    u8 unk_0;
+    u8 unk_1;
+    u8 unk_2;
+    u8 unk_3;
+    u8 unk_4;
+    u8 unk_5;
+    u8 unk_6;
+    u8 unk_7;
+    const u32* unk_8;
+    u32 unk_C;
+    u32 unk_10;
+    u32 unk_14;
 };
 
 extern struct IoTransferInfo gIoTransferInfo;
@@ -89,11 +105,34 @@ extern u32 gUnk_3005874;
 extern u8 gUnk_3005884;
 extern u32 gUnk_3005880;
 
-extern struct UnkStruct_3005b60 gUnk_3005b60;
+extern u8 gUnk_30058aa;
+extern u16 gUnk_30058ac;
+extern u8 gUnk_30058ae;
+extern u8 gUnk_30058af;
+extern u8 gUnk_30058b0;
+extern u8 gUnk_30058b1;
+
+extern u16 gUnk_30058a8;
+extern struct CableLink_3005890 gUnk_3005890;
+
+extern u32 gErrorFlag;
+extern u16 gUnk_30058c0[2];
+extern CableLinkBuffer1_T gUnk_30058c4;
+
+extern struct CableLinkInfo gCableLinkInfo;
 extern u16 gUnk_30058d0;
 extern u8 gUnk_30058d2;
 extern u8 gUnk_30058d3;
 extern u8 gUnk_3005b54;
 extern u8 gUnk_30058d5;
+extern u8 gUnk_30058d6;
+extern u16 gUnk_30058d8;
+extern u16 gUnk_30058da;
+extern u8 gUnk_3005b50;
+
+extern u8 gUnk_30058cc;
+extern u8 gUnk_30058cd;
+extern u8 gUnk_30058ce;
+extern u8 gUnk_30058cf;
 
 #endif /* CABLE_LINK_STRUCTS_H */

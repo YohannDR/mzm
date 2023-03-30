@@ -5,6 +5,9 @@
 #include "music_wrappers.h"
 
 #include "data/cable_link_data.h"
+#include "data/io_transfer_data.h"
+
+#include "constants/cable_link.h"
 
 #include "structs/audio.h"
 #include "structs/game_state.h"
@@ -520,14 +523,82 @@ void unk_897d0(void)
     CableLinkCheckCurrentMemoryRegion(0x258);
 }
 
-u32 unk_8980c(u32 data, const u8* pData)
+u32 unk_8980c(u32 data, const u32* pData)
 {
+    // https://decomp.me/scratch/8jJet
 
+    u32 result;
+    u32 buffer;
+    i32 i;
+
+    CableLinkBackupIoRegs();
+
+    for (i = 0; i < 3;)
+    //for (;;)
+    {
+        gUnk_30058a8 = unk_899c8(1, data, pData, 0);
+
+        if (!(gUnk_30058a8 & 3) && gUnk_30058a8 & 0xC)
+        {
+            result = 0;
+            break;
+        }
+
+        if (gUnk_30058a8 & 0x20)
+        {
+            result = 1;
+            break;
+        }
+
+        if (gUnk_30058a8 & 0x10)
+        {
+            result = 2;
+            break;
+        }
+
+        if (gUnk_30058a8 & 0x40)
+        {
+            result = 3;
+            break;
+        }
+
+        if (gUnk_30058a8 & 0x80)
+        {
+            result = 4;
+            break;
+        }
+
+        if (gIoTransferInfo.pFunction)
+            gIoTransferInfo.pFunction();
+
+        VBlankIntrWait();
+    }
+
+    buffer = 0;
+    CpuSet(&buffer, &gUnk_3005890, (CPU_SET_32BIT | CPU_SET_SRC_FIXED) << 16 | sizeof(gUnk_3005890) / sizeof(u32));
+
+    CableLinkRetrieveIoRegs();
+
+    return result;
 }
 
+/**
+ * @brief 898b8 | 54 | To document
+ * 
+ */
 void unk_898b8(void)
 {
+    u32 buffer;
 
+    gUnk_30058aa = 0;
+    gUnk_30058ac = 0;
+    gUnk_30058ae = 0;
+    gUnk_30058af = 0;
+    gUnk_30058b0 = 0;
+    gUnk_30058b1 = 0;
+
+    buffer = 0;
+    CpuSet(&buffer, &gUnk_3005890, (CPU_SET_32BIT | CPU_SET_SRC_FIXED) << 16 | sizeof(gUnk_3005890) / sizeof(u32));
 }
 
 /**
@@ -576,19 +647,134 @@ void unk_899a4(void)
     write16(REG_SIO, read16(REG_SIO) | SIO_HIGH_DURING_INACTIVITY);
 }
 
-u16 unk_899c8(u32 param_1, u32 data, const u8* pData)
+/**
+ * @brief 899c8 | 174 | To document
+ * 
+ * @param param_1 To document
+ * @param data To document
+ * @param pData To document
+ * @param param_3 To document
+ * @return u16 To document
+ */
+u16 unk_899c8(u32 param_1, u32 data, const u32* pData, u32 param_3)
 {
+    switch (gUnk_3005890.unk_1)
+    {
+        case 0:
+            unk_898b8();
+            unk_8994c();
+            gUnk_3005890.unk_3 = TRUE;
+            gUnk_3005890.unk_1 = 1;
+            break;
 
+        case 1:
+            if (unk_89b3c(TRUE))
+                CableLinkSetSioCntStartBitActive();
+
+            if (gUnk_3005890.unk_5 != 0)
+                gUnk_3005890.unk_1 = 6;
+
+            gUnk_30058ae++;
+            if (gUnk_30058ae > 30)
+            {
+                gUnk_3005890.unk_5 = 4;
+                gUnk_3005890.unk_1 = 6;
+            }
+            break;
+
+        case 2:
+            unk_899a4();
+            unk_89b70(data, pData, param_3);
+            gUnk_3005890.unk_1 = 3;
+
+        case 3:
+            if (gUnk_3005890.unk_3 == 2)
+                break;
+
+            if (gUnk_3005890.unk_0 != 0)
+            {
+                gUnk_30058ac++;
+                if (gUnk_30058ac > 9)
+                {
+                    CableLinkSetSioCntStartBitActive();
+                    gUnk_3005890.unk_3 = 2;
+                    break;
+                }
+            }
+            
+            CableLinkSetSioCntStartBitActive();
+            gUnk_3005890.unk_3 = 2;
+            break;
+
+        case 4:
+            unk_8994c();
+            gUnk_3005890.unk_1 = 5;
+            break;
+
+        case 5:
+            if (gUnk_3005890.unk_0 == 1 && gUnk_30058ac > 9)
+                CableLinkSetSioCntStartBitActive();
+
+            gUnk_30058ac++;
+            if (gUnk_30058ac > 30)
+            {
+                gUnk_3005890.unk_5 = 1;
+                gUnk_3005890.unk_1 = 6;
+            }
+            break;
+
+        case 6:
+            if (gUnk_3005890.unk_3)
+            {
+                unk_8990c();
+                gUnk_3005890.unk_3 = FALSE;
+            }
+            break;
+    }
+
+    gUnk_3005890.unk_2 = gUnk_3005890.unk_C * 100 / gUnk_3005890.unk_10;
+
+    return gUnk_3005890.unk_3 | gUnk_3005890.unk_4 << 2 | gUnk_3005890.unk_5 << 4 | gUnk_3005890.unk_2 << 8;
 }
 
-u16 unk_89b3c(u32 param_1)
+/**
+ * @brief 89b3c | 34 | To document
+ * 
+ * @param param_1 To document
+ * @return u16 To document
+ */
+u16 unk_89b3c(u8 param_1)
 {
+    u32 result;
 
+    if ((read32(REG_SIO) & (SIO_HIGH_DURING_INACTIVITY | SIO_STATE_HIGH_OR_NONE)) == SIO_HIGH_DURING_INACTIVITY && param_1)
+    {
+        gUnk_3005890.unk_0 = TRUE;
+        return gUnk_3005890.unk_0;
+    }
+    else
+    {
+        gUnk_3005890.unk_0 = FALSE;
+        return gUnk_3005890.unk_0;
+    }
 }
 
-u16 unk_89b70(u32 data, u8* param_2)
+/**
+ * @brief 89b70 | 30 | To document
+ * 
+ * @param data To document
+ * @param param_2 To document
+ */
+void unk_89b70(u32 data, const u32* param_2, u32 param_3)
 {
+    write16(REG_SIO, read16(REG_SIO) | SIO_SHIFT_INTERNAL_CLOCK_FLAG);
+    
+    gUnk_3005890.unk_8 = param_2;
+    write32(REG_SIO_MULTI, data);
 
+    gUnk_3005890.unk_10 = (data / sizeof(u32)) + 1;
+
+    unk_89ba0();
 }
 
 /**
@@ -615,9 +801,116 @@ void unk_89bd4(void)
     CableLinkSetSioCntStartBitActive();
 }
 
+/**
+ * @brief 89be4 | 180 | To document
+ * 
+ */
 void unk_89be4(void)
 {
+    u16 buffer[4];
+    u32 control;
+    u16 i;
+    u32 data_1;
+    u32 data_2;
+    u32* ptr;
+    u16 var_0;
+    u16 var_1;
 
+    control = read32(REG_SIO);
+
+    switch (gUnk_3005890.unk_1)
+    {
+        case 1:
+            write16(REG_SIO_DATA8, 0x7C40);
+            ptr = REG_SIO_MULTI;
+            data_2 = read32(&ptr[1]);
+            data_1 = read32(&ptr[0]);
+            write32(&buffer[0], data_1);
+            write32(&buffer[2], data_2);
+
+            i = 0;
+            var_0 = 0;
+            var_1 = 0;
+
+            for (; i < ARRAY_SIZE(buffer); i++)
+            {
+                if (buffer[i] == 0x7C40)
+                    var_0++;
+                else if (buffer[i] != USHORT_MAX)
+                    var_1++;
+            }
+
+            gUnk_30058b0 = var_0;
+            gUnk_30058b1 = control << 0x1A >> 0x1E;
+
+            if (var_0 < 3)
+            {
+                if (var_0 > 1 && var_1 == 0)
+                    gUnk_3005890.unk_1 = 2;
+            }
+            else
+                gUnk_3005890.unk_5 = 8;
+            break;
+
+        case 3:
+            read32(REG_SIO_MULTI);
+
+            if (gUnk_3005890.unk_C < gUnk_3005890.unk_10)
+            {
+                write32(REG_SIO_MULTI, gUnk_3005890.unk_8[gUnk_3005890.unk_C]);
+                gUnk_3005890.unk_14 += gUnk_3005890.unk_8[gUnk_3005890.unk_C];
+            }
+            else if (gUnk_3005890.unk_C == gUnk_3005890.unk_10)
+            {
+                write32(REG_SIO_MULTI, gUnk_3005890.unk_14);
+            }
+            else
+            {
+                write32(REG_SIO_MULTI, 0);
+            }
+
+            gUnk_3005890.unk_C++;
+
+            if (gUnk_3005890.unk_C < gUnk_3005890.unk_10 + gUnk_30058b0)
+            {
+                write16(REG_TM3CNT_H, read16(REG_TM3CNT_H) | TIMER_CONTROL_ACTIVE);
+            }
+            else
+            {
+                gUnk_3005890.unk_1 = 4;
+                gUnk_30058ac = 0;
+            }
+            break;
+
+        case 5:
+            ptr = REG_SIO_MULTI;
+            data_2 = read32(&ptr[1]);
+            data_1 = read32(&ptr[0]);
+            write32(&buffer[0], data_1);
+            write32(&buffer[2], data_2);
+
+            i = 1;
+            var_0 = 1;
+
+            for (i; i < gUnk_30058b0; i++)
+            {
+                if (buffer[i] == 1)
+                    var_0++;
+                else if (buffer[i] == 2)
+                {
+                    gUnk_3005890.unk_4 = 2;
+                    gUnk_3005890.unk_1 = 6;
+                    break;
+                }
+
+                if (var_0 == gUnk_30058b0)
+                {
+                    gUnk_3005890.unk_4 = 1;
+                    gUnk_3005890.unk_1 = 6;
+                }
+            }
+            break;
+    }
 }
 
 /**
@@ -665,34 +958,289 @@ void CableLinkRetrieveIoRegs(void)
     write16(REG_RNCT, gRegRcnt_Backup);
 }
 
+/**
+ * @brief 89e30 | 164 | To document
+ * 
+ * @return u8 To document
+ */
 u8 unk_89e30(void)
 {
+    u16 buffer;
+    u16* ptr;
 
+    gIoTransferInfo.result = 0;
+    gIoTransferInfo.timer++;
+
+    switch (gIoTransferInfo.unk_A)
+    {
+        case 0:
+            ptr = &buffer;
+            buffer = 0;
+            dma_set(3, ptr, gUnk_30058c0, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(gUnk_30058c0));
+
+            buffer = 0;
+            dma_set(3, ptr, gUnk_30058c4, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | (ARRAY_SIZE(gUnk_30058c4) * ARRAY_SIZE(gUnk_30058c4[0])));
+
+            gErrorFlag = 0;
+            gUnk_30058cc = 0;
+            gUnk_30058cd = 0;
+            gUnk_30058ce = 0;
+            gUnk_30058cf = 0;
+
+            CallbackSetSerialCommunication(unk_8a7b0);
+            CallbackSetTimer3(unk_8a7a0);
+
+            unk_8a39c();
+
+            gIoTransferInfo.unk_E = 0x5500;
+            gIoTransferInfo.language = -1;
+            gIoTransferInfo.fusionGalleryImages = -1;
+            gIoTransferInfo.errorFlag = 0;
+            gIoTransferInfo.timer = 0;
+            gIoTransferInfo.unk_A++;
+            break;
+
+        case 1:
+            if (gIoTransferInfo.unk_4 == 0)
+            {
+                unk_8a260();
+                if (gIoTransferInfo.unk_E == 0x3300)
+                    gIoTransferInfo.unk_A = 2;
+                else if (gIoTransferInfo.errorFlag)
+                    gIoTransferInfo.unk_A = 3;
+                else
+                    gIoTransferInfo.unk_A = 4;
+            }
+            else
+            {
+                CableLinkCheckError();
+                if (gIoTransferInfo.unk_E == 0x3300 || gIoTransferInfo.errorFlag != 0)
+                    gIoTransferInfo.unk_4 = 0;
+                else if (gIoTransferInfo.timer > 60 * 3)
+                    gIoTransferInfo.unk_4 = gIoTransferInfo.errorFlag;
+            }
+            break;
+
+        case 2:
+            gFileScreenOptionsUnlocked.fusionGalleryImages = gIoTransferInfo.fusionGalleryImages;
+            gIoTransferInfo.result = 1;
+            break;
+
+        case 3:
+        case 4:
+            gIoTransferInfo.result = 4;
+            break;
+
+        case 5:
+            break;
+    }
+
+    return gIoTransferInfo.result;
 }
 
+/**
+ * @brief 89f94 | 198 | Checks if an error has occured
+ * 
+ * @return u8* Garbage, contains no value/undefined behavior
+ */
 u8* CableLinkCheckError(void)
 {
+    vu32 c;
+    u32* pError;
+    
+    gUnk_30058cc = gFrameCounter8Bit & 1;
+    pError = &gErrorFlag;
+    *pError = CableLinkDetectError(&gUnk_30058cc, gUnk_30058c0, gUnk_30058c4);
+    gUnk_30058ce = *pError & 3;
+    gUnk_30058cd = (*pError & 0x1C) >> 2;
+    gUnk_30058cf = (*pError & 0xE00) >> 9;
 
+    if (*pError & 0x40)
+    {
+        gIoTransferInfo.timer = 0;
+        unk_8a12c(gIoTransferInfo.unk_E);
+        unk_8a1d4();
+    }
+
+    if (*pError & CABLE_LINK_ERROR_ID_OVER)
+    {
+        gIoTransferInfo.errorFlag |= 1;
+        CableLinkDrawErrorStr(sErrorString_IdOver, VRAM_BASE + 0xE304, 12);
+    }
+
+    if (*pError & CABLE_LINK_ERROR_CHECKSUM)
+    {
+        gIoTransferInfo.errorFlag |= 2;
+        CableLinkDrawErrorStr(sErrorString_ChecksumError, VRAM_BASE + 0xE344, 12);
+    }
+
+    if (*pError & CABLE_LINK_ERROR_HARDWARE)
+    {
+        gIoTransferInfo.errorFlag |= 4;
+        CableLinkDrawErrorStr(sErrorString_HardwareError, VRAM_BASE + 0xE384, 12);
+    }
+
+    if (*pError & CABLE_LINK_ERROR_SEND_OVERFLOW)
+    {
+        gIoTransferInfo.errorFlag |= 8;
+        CableLinkDrawErrorStr(sErrorString_SendOverflow, VRAM_BASE + 0xE3C4, 12);
+    }
+
+    if (*pError & CABLE_LINK_ERROR_RECEIVE_OVERFLOW)
+    {
+        gIoTransferInfo.errorFlag |= 16;
+        CableLinkDrawErrorStr(sErrorString_ReceiveOverflow, VRAM_BASE + 0xE404, 12);
+    }
+
+    if (*pError & CABLE_LINK_ERROR_SIO_INTERNAL)
+    {
+        gIoTransferInfo.errorFlag |= 32;
+        CableLinkDrawErrorStr(sErrorString_SioInternal, VRAM_BASE + 0xE444, 12);
+    }
+
+    if (*pError & CABLE_LINK_ERROR_SIO_STOP)
+    {
+        gIoTransferInfo.errorFlag |= 64;
+        CableLinkDrawErrorStr(sErrorString_SioStop, VRAM_BASE + 0xE484, 12);
+    }
 }
 
+/**
+ * @brief 8a12c | a8 | To document
+ * 
+ * @param param_1 To document
+ */
 void unk_8a12c(u16 param_1)
 {
+    u32 value;
+    
+    switch (param_1)
+    {
+        case 0x8800:
+            gUnk_30058c0[0] |= param_1;
+            gUnk_30058c0[1] = gButtonInput;
 
+            // Buffer overflow
+            value = gChangedInput;
+            gUnk_30058c0[3] = gLanguage;
+            gUnk_30058c0[2] = value;
+            break;
+
+        case 0x5500:
+            gUnk_30058c0[0] |= param_1;
+            gUnk_30058c0[1] = gLanguage;
+            break;
+
+        case 0x4400:
+            gUnk_30058c0[0] |= param_1;
+            gUnk_30058c0[1] = 0;
+            break;
+
+        case 0x2200:
+            gUnk_30058c0[0] |= param_1;
+            gUnk_30058c0[1] = 1;
+            break;
+    }
 }
 
+/**
+ * @brief 8a1d4 | 8c | To document
+ * 
+ */
 void unk_8a1d4(void)
 {
+    u8 var;
 
+    if (gErrorFlag & 0x100)
+        return;
+
+    if (gUnk_30058c4[0][1] == 0x5500)
+    {
+        gIoTransferInfo.language = gUnk_30058c4[1][1];
+        if (gIoTransferInfo.language == gLanguage)
+            gIoTransferInfo.unk_E = 0x4400;
+    }
+
+    if (gUnk_30058c4[0][1] == 0x6600)
+    {
+        gIoTransferInfo.fusionGalleryImages = gUnk_30058c4[1][1];
+
+        var = gIoTransferInfo.fusionGalleryImages - 1;
+        if (var < 3)
+        {
+            gIoTransferInfo.unk_E = 0x2200;
+        }
+        else
+        {
+            gIoTransferInfo.unk_E = 0;
+            gIoTransferInfo.result = 5;
+        }
+    }
+
+    if (gUnk_30058c4[0][1] == 0x3300)
+        gIoTransferInfo.unk_E = 0x3300;
 }
 
+/**
+ * @brief 8a260 | 68 | To document
+ * 
+ */
 void unk_8a260(void)
 {
+    u32 buffer;
+    
+    gUnk_30058d0 = read16(REG_IME);
+    write16(REG_IME, FALSE);
+    write16(REG_IE, read16(REG_IE) & ~(IF_TIMER3 | IF_SERIAL));
+    write16(REG_IME, gUnk_30058d0);
 
+    write16(REG_SIO, SIO_NON_NORMAL_MODE);
+    write16(REG_TM3CNT_H, 0);
+    write16(REG_IF, IF_TIMER3 | IF_SERIAL);
+
+    buffer = 0;
+    CpuSet(&buffer, &gCableLinkInfo, (CPU_SET_32BIT | CPU_SET_SRC_FIXED) << 16 | sizeof(gCableLinkInfo) / sizeof(u32));
 }
 
 void unk_8a2c8(void)
 {
+    // https://decomp.me/scratch/YaVig
 
+    u32 buffer;
+    u32* ptr;
+    
+    gUnk_30058d0 = read16(REG_IME);
+    write16(REG_IME, FALSE);
+    write16(REG_IE, read16(REG_IE) & ~(IF_TIMER3 | IF_SERIAL));
+    write16(REG_IME, gUnk_30058d0);
+
+    write16(REG_RNCT, 0);
+    write16(REG_SIO, SIO_NON_NORMAL_MODE);
+    write16(REG_SIO, read16(REG_SIO) | SIO_SHIFT_INTERNAL_CLOCK_FLAG | SIO_SHIFT_INTERNAL_CLOCK_2MHZ | SIO_IRQ_ENABLE);
+
+    gUnk_30058d0 = read16(REG_IME);
+
+    write16(REG_IME, FALSE);
+    write16(REG_IE, read16(REG_IE) | IF_SERIAL);
+    write16(REG_IME, gUnk_30058d0);
+
+    write16(REG_SIO_DATA8, 0);
+
+    ptr = REG_SIO_MULTI;
+    write32(&ptr[0], 0);
+    write32(&ptr[1], 0);
+
+    buffer = 0;
+    CpuSet(&buffer, &gCableLinkInfo, (CPU_SET_32BIT | CPU_SET_SRC_FIXED) << 16 | sizeof(gCableLinkInfo) / sizeof(u32));
+
+    gUnk_30058d2 = 0;
+    gUnk_30058d3 = 0;
+    gUnk_30058d5 = 0;
+    gUnk_3005b50 = 0;
+    gUnk_3005b54 = 0;
+    gUnk_30058d6 = 0;
+    gUnk_30058d8 = 0;
+    gUnk_30058da = 0;
 }
 
 /**
@@ -705,9 +1253,107 @@ void unk_8a39c(void)
     unk_8a260();
 }
 
-u32 CableLinkDetectError(u8* param_1, u8* param_2, u16* param_3)
+/**
+ * @brief 8a3ac | 120 | Checks for errors
+ * 
+ * @param param_1 To document
+ * @param param_2 To document
+ * @param param_3 To document
+ * @return u32 Error flags
+ */
+u32 CableLinkDetectError(u8* param_1, u16* param_2, CableLinkBuffer1_T param_3)
 {
+    u32 error;
+    u32 errorFlag_0;
+    u32 errorFlag_1;
+    u32 errorFlag_hardware;
+    u32 errorFlag_checksum;
+    u32 errorFlag_overflow;
+    u32 errorFlag_sioInternal;
+    u32 temp;
 
+    switch (gCableLinkInfo.unk_1)
+    {
+        case 0:
+            unk_8a260();
+            gCableLinkInfo.unk_1 = 1;
+            break;
+
+        case 1:
+            if (*param_1 == 1)
+            {
+                unk_8a2c8();
+                gCableLinkInfo.unk_1 = 2;
+            }
+            break;
+
+        case 2:
+            switch (*param_1)
+            {
+                case 1:
+                    if (gCableLinkInfo.unk_0 != 0 && gCableLinkInfo.unk_3 > 1)
+                        gCableLinkInfo.unk_10 = 1;
+                    break;
+
+                case 2:
+                    gCableLinkInfo.unk_1 = 0;
+                    write16(REG_SIO_DATA8, 0);
+                    break;
+
+                default:
+                    unk_8a4cc();
+            }
+            break;
+
+        case 3:
+            unk_8a4f8();
+            gCableLinkInfo.unk_1 = 4;
+
+        case 4:
+            unk_8a548(param_2);
+            unk_8a628(param_3);
+            break;
+    }
+
+    *param_1 = 0;
+
+    error = gCableLinkInfo.unk_2 | (gCableLinkInfo.unk_3 << 2);
+    if (gCableLinkInfo.unk_0 == 8)
+        error |= 0x20;
+
+    errorFlag_0 = gCableLinkInfo.unk_C << 0x8;
+    errorFlag_1 = gCableLinkInfo.unk_11 << 0x9;
+    errorFlag_hardware = gCableLinkInfo.hardwareErrorFlag << CABLE_LINK_ERROR_SHIFT_HARDWARE;
+    errorFlag_checksum = gCableLinkInfo.checksumErrorFlag << CABLE_LINK_ERROR_SHIFT_CHECKSUM;
+    errorFlag_overflow = gCableLinkInfo.overflowErrorFlags << CABLE_LINK_ERROR_SHIFT_OVERFLOW;
+    errorFlag_sioInternal = gCableLinkInfo.sioErrorFlags << CABLE_LINK_ERROR_SHIFT_SIO;
+
+    if (gCableLinkInfo.unk_1 == 4)
+    {
+        temp = error | 0x40 | errorFlag_0;
+
+        temp |= errorFlag_1;
+        temp |= errorFlag_hardware;
+        temp |= errorFlag_checksum;
+        temp |= errorFlag_overflow;
+        temp |= errorFlag_sioInternal;
+    }
+    else
+    {
+        temp = error | errorFlag_0;
+
+        temp |= errorFlag_1;
+        temp |= errorFlag_hardware;
+        temp |= errorFlag_checksum;
+        temp |= errorFlag_overflow;
+        temp |= errorFlag_sioInternal;
+    }
+    error = temp;
+
+    if (gCableLinkInfo.unk_2 > 1)
+        error |= CABLE_LINK_ERROR_ID_OVER;
+
+    return error;
 }
 
 /**
@@ -716,10 +1362,10 @@ u32 CableLinkDetectError(u8* param_1, u8* param_2, u16* param_3)
  */
 void unk_8a4cc(void)
 {
-    if ((read32(REG_SIO) & (SIO_STATE_HIGH_OR_NONE | SIO_HIGH_DURING_INACTIVITY)) == SIO_HIGH_DURING_INACTIVITY && gUnk_3005b60.unk_2 == 0)
-        gUnk_3005b60.unk_0 = 8;
+    if ((read32(REG_SIO) & (SIO_STATE_HIGH_OR_NONE | SIO_HIGH_DURING_INACTIVITY)) == SIO_HIGH_DURING_INACTIVITY && gCableLinkInfo.unk_2 == 0)
+        gCableLinkInfo.unk_0 = 8;
     else
-        gUnk_3005b60.unk_0 = 0;
+        gCableLinkInfo.unk_0 = 0;
 }
 
 /**
@@ -728,7 +1374,7 @@ void unk_8a4cc(void)
  */
 void unk_8a4f8(void)
 {
-    if (gUnk_3005b60.unk_0 != 0)
+    if (gCableLinkInfo.unk_0 != 0)
     {
         write16(REG_TM3CNT_L, -132);
         write16(REG_TM3CNT_H, TIMER_CONTROL_IRQ_ENABLE | 1);
@@ -740,14 +1386,93 @@ void unk_8a4f8(void)
     }
 }
 
+/**
+ * @brief 8a548 | e0 | To document
+ * 
+ * @param param_1 To document
+ */
 void unk_8a548(u16* param_1)
 {
+    u8 offset;
+    u8 i;
 
+    gUnk_30058d0 = read16(REG_IME);
+    write16(REG_IME, FALSE);
+
+    if (gCableLinkInfo.unk_9D < ARRAY_SIZE(gCableLinkInfo.unk_A0[0][0]))
+    {
+        offset = gCableLinkInfo.unk_9C + gCableLinkInfo.unk_9D;
+        if (offset >= ARRAY_SIZE(gCableLinkInfo.unk_A0[0][0]))
+            offset -= ARRAY_SIZE(gCableLinkInfo.unk_A0[0][0]);
+
+        for (i = 0; i < ARRAY_SIZE(gCableLinkInfo.unk_A0); i++)
+        {
+            gUnk_30058d8 |= *param_1;
+            gCableLinkInfo.unk_1C[i][offset] = *param_1;
+            *param_1++ = 0;
+        }
+    }
+    else
+    {
+        // Send overflow error
+        gCableLinkInfo.overflowErrorFlags |= 1;
+    }
+
+    if (gUnk_30058d8)
+    {
+        gCableLinkInfo.unk_9D++;
+        gUnk_30058d8 = 0;
+    }
+
+    write16(REG_IME, gUnk_30058d0);
+    gUnk_3005b50 = gCableLinkInfo.unk_9D;
 }
 
-void unk_8a628(u16* param_1)
+/**
+ * @brief 8a628 | 108 | To document
+ * 
+ * @param param_1 To document
+ */
+void unk_8a628(CableLinkBuffer1_T param_1)
 {
+    u8 i;
+    u8 j;
 
+    gUnk_30058d0 = read16(REG_IME);
+    write16(REG_IME, FALSE);
+
+    if (gCableLinkInfo.unk_1A1 == 0)
+    {
+        for (i = 0; i < 2; i++)
+        {
+            for (j = 0; j < gCableLinkInfo.unk_3; j++)
+            {
+                param_1[i][j] = 0;
+            }
+        }
+
+        gCableLinkInfo.unk_C = TRUE;
+    }
+    else
+    {
+        for (i = 0; i < 2; i++)
+        {
+            for (j = 0; j < gCableLinkInfo.unk_3; j++)
+            {
+                param_1[i][j] = gCableLinkInfo.unk_A0[j][i][gCableLinkInfo.unk_1A0];
+            }
+        }
+
+        gCableLinkInfo.unk_1A1--;
+        gCableLinkInfo.unk_1A0++;
+
+        if (gCableLinkInfo.unk_1A0 >= ARRAY_SIZE(gCableLinkInfo.unk_A0[0][0]))
+            gCableLinkInfo.unk_1A0 = 0;
+
+        gCableLinkInfo.unk_C = FALSE;
+    }
+
+    write16(REG_IME, gUnk_30058d0);
 }
 
 /**
@@ -756,26 +1481,26 @@ void unk_8a628(u16* param_1)
  */
 void unk_8a730(void)
 {
-    if (gUnk_3005b60.unk_0)
+    if (gCableLinkInfo.unk_0)
     {
-        if (gUnk_3005b60.unk_1 != 2)
+        if (gCableLinkInfo.unk_1 != 2)
         {
-            if (gUnk_3005b60.unk_1 != 4)
+            if (gCableLinkInfo.unk_1 != 4)
                 return;
 
-            if (gUnk_3005b60.unk_D < 3)
+            if (gCableLinkInfo.unk_D < 3)
             {
-                if (gUnk_3005b60.unk_12 == 0)
-                    gUnk_3005b60.unk_15 = 1;
+                if (gCableLinkInfo.hardwareErrorFlag == 0)
+                    gCableLinkInfo.sioErrorFlags = 1;
                 else
                     CableLinkSetSioCntStartBitActive_Duplicate();
 
                 return;
             }
 
-            if (gUnk_3005b60.unk_15 == 0)
+            if (gCableLinkInfo.sioErrorFlags == 0)
             {
-                gUnk_3005b60.unk_D = 0;
+                gCableLinkInfo.unk_D = 0;
                 CableLinkSetSioCntStartBitActive_Duplicate();
             }
             return;
@@ -785,23 +1510,23 @@ void unk_8a730(void)
         return;
     }
     
-    if (gUnk_3005b60.unk_1 != 4 && gUnk_3005b60.unk_1 != 2)
+    if (gCableLinkInfo.unk_1 != 4 && gCableLinkInfo.unk_1 != 2)
         return;
 
     gUnk_30058d2++;
     if (gUnk_30058d2 <= 10)
         return;
 
-    if (gUnk_3005b60.unk_1 == 4)
+    if (gCableLinkInfo.unk_1 == 4)
     {
-        gUnk_3005b60.unk_15 = 2;
+        gCableLinkInfo.sioErrorFlags = 2;
     }
     
-    if (gUnk_3005b60.unk_1 == 2)
+    if (gCableLinkInfo.unk_1 == 2)
     {
-        gUnk_3005b60.unk_2 = 0;
-        gUnk_3005b60.unk_3 = 0;
-        gUnk_3005b60.unk_11 = 0;
+        gCableLinkInfo.unk_2 = 0;
+        gCableLinkInfo.unk_3 = 0;
+        gCableLinkInfo.unk_11 = 0;
     }
 }
 
@@ -824,13 +1549,13 @@ void unk_8a7b0(void)
     u32 control;
 
     control = read32(REG_SIO);
-    gUnk_3005b60.unk_2 = control << 0x1A >> 0x1E;
+    gCableLinkInfo.unk_2 = control << 0x1A >> 0x1E;
 
-    switch (gUnk_3005b60.unk_1)
+    switch (gCableLinkInfo.unk_1)
     {
         case 4:
             if (control & 0x40)
-                gUnk_3005b60.unk_12 = TRUE;
+                gCableLinkInfo.hardwareErrorFlag = TRUE;
 
             unk_8a94c();
             unk_8aa54();
@@ -841,23 +1566,23 @@ void unk_8a7b0(void)
             if (!unk_8a850())
                 break;
 
-            if (gUnk_3005b60.unk_0)
+            if (gCableLinkInfo.unk_0)
             {
-                gUnk_3005b60.unk_1 = 3;
-                gUnk_3005b60.unk_D = 2;
+                gCableLinkInfo.unk_1 = 3;
+                gCableLinkInfo.unk_D = 2;
             }
             else
             {
-                gUnk_3005b60.unk_1 = 4;
+                gCableLinkInfo.unk_1 = 4;
             }
             break;
     }
 
-    gUnk_3005b60.unk_D++;
+    gCableLinkInfo.unk_D++;
     gUnk_30058d2 = FALSE;
 
-    if (gUnk_3005b60.unk_D == 2)
-        gUnk_3005b54 = gUnk_3005b60.unk_1A1;
+    if (gCableLinkInfo.unk_D == 2)
+        gUnk_3005b54 = gCableLinkInfo.unk_1A1;
 }
 
 /**
@@ -869,12 +1594,14 @@ void CableLinkSetSioCntStartBitActive_Duplicate(void)
     write16(REG_SIO, read16(REG_SIO) | SIO_START_BIT_ACTIVE);
 }
 
+/**
+ * @brief 8a850 | fc | To document
+ * 
+ * @return u8 To document
+ */
 u8 unk_8a850(void)
 {
-    // https://decomp.me/scratch/nQQf8
-
     u16 data8;
-    u16 data;
     u8 i;
     u8 var_0;
     u32 data_0;
@@ -885,70 +1612,123 @@ u8 unk_8a850(void)
 
     data8 = USHORT_MAX;
 
-    if (gUnk_3005b60.unk_10 == 1)
+    if (gCableLinkInfo.unk_10 == 1)
         write16(REG_SIO_DATA8, 0x8FFF);
     else
         write16(REG_SIO_DATA8, 0x7C40);
 
-    gUnk_3005b60.unk_10 = 0;
+    gCableLinkInfo.unk_10 = 0;
 
     ptr = REG_SIO_MULTI;
     data_1 = ptr[1];
     data_0 = ptr[0];
 
-    *(u32*)&gUnk_3005b60.sioIncomingData[0] = data_0;
-    *(u32*)&gUnk_3005b60.sioIncomingData[2] = data_1;
+    write32(&gCableLinkInfo.sioIncomingData[0], data_0);
+    write32(&gCableLinkInfo.sioIncomingData[2], data_1);
 
     for (i = 0; i < 2; i++)
-    {
-        data = gUnk_3005b60.sioIncomingData[i];
-    
-        if ((data & -4) == 0x7C40 || data == 0x8FFF)
+    {    
+        if ((gCableLinkInfo.sioIncomingData[i] & -4) == 0x7C40 || gCableLinkInfo.sioIncomingData[i] == 0x8FFF)
         {
             var_0++;
 
-            if (data8 > data && data)
-                data8 = data;
+            if (data8 > gCableLinkInfo.sioIncomingData[i] && gCableLinkInfo.sioIncomingData[i])
+                data8 = gCableLinkInfo.sioIncomingData[i];
         }
-        else if (data != 0xFFFF)
+        else if (gCableLinkInfo.sioIncomingData[i] != 0xFFFF)
         {
             var_0 = 0;
             break;
         }
-        else if (i == gUnk_3005b60.unk_2)
+        else if (i == gCableLinkInfo.unk_2)
             var_0 = 0;
     }
 
-    gUnk_3005b60.unk_3 = var_0;
+    gCableLinkInfo.unk_3 = var_0;
 
-    if (gUnk_3005b60.unk_3 > 1)
+    if (gCableLinkInfo.unk_3 > 1)
     {
-        if (gUnk_3005b60.unk_3 == gUnk_30058d5 && gUnk_3005b60.sioIncomingData[0] == 0x8FFF)
+        if (gCableLinkInfo.unk_3 == gUnk_30058d5 && gCableLinkInfo.sioIncomingData[0] == 0x8FFF)
             return TRUE;
     
-        if (gUnk_3005b60.unk_3 > 1)
+        if (gCableLinkInfo.unk_3 > 1)
         {
-            data &= 3;
-            gUnk_3005b60.unk_11 = data + 1;
+            gCableLinkInfo.unk_11 = (data8 & 3) + 1;
         }
         else
         {
-            gUnk_3005b60.unk_11 = 0;
+            gCableLinkInfo.unk_11 = 0;
         }
     }
     else
     {
-        gUnk_3005b60.unk_11 = 0;
+        gCableLinkInfo.unk_11 = 0;
     }
 
-    gUnk_30058d5 = gUnk_3005b60.unk_3;
+    gUnk_30058d5 = gCableLinkInfo.unk_3;
 
     return FALSE;
 }
 
+/**
+ * @brief 8a94c | 108 | To document
+ * 
+ */
 void unk_8a94c(void)
 {
+    u16 buffer[4];
+    u32 data_0;
+    u32 data_1;
+    u32* ptr;
+    u8 i;
+    u8 offset;
 
+    ptr = REG_SIO_MULTI;
+    data_1 = ptr[1];
+    data_0 = ptr[0];
+
+    *(u32*)&buffer[0] = data_0;
+    *(u32*)&buffer[2] = data_1;
+
+    if (gCableLinkInfo.unk_18 == 0)
+    {
+        for (i = 0; i < gCableLinkInfo.unk_3; i++)
+        {
+            if (gCableLinkInfo.unk_16 != buffer[i] && gUnk_30058d6)
+                gCableLinkInfo.checksumErrorFlag = TRUE;
+        }
+
+        gCableLinkInfo.unk_16 = 0;
+        gUnk_30058d6 = TRUE;
+    }
+    else
+    {
+        offset = gCableLinkInfo.unk_1A0 + gCableLinkInfo.unk_1A1;
+        if (offset >= ARRAY_SIZE(gCableLinkInfo.unk_A0[0][0]))
+            offset = offset - ARRAY_SIZE(gCableLinkInfo.unk_A0[0][0]);
+
+        if (gCableLinkInfo.unk_1A1 < ARRAY_SIZE(gCableLinkInfo.unk_A0[0][0]))
+        {
+            for (i = 0; i < gCableLinkInfo.unk_3; i++)
+            {
+                gCableLinkInfo.unk_16 += buffer[i];
+                gUnk_30058da |= buffer[i];
+
+                gCableLinkInfo.unk_A0[i][gCableLinkInfo.unk_19][offset] = buffer[i];
+            }
+        }
+        else
+        {
+            gCableLinkInfo.overflowErrorFlags |= 2;
+        }
+
+        gCableLinkInfo.unk_19++;
+        if (gCableLinkInfo.unk_19 == 2 && gUnk_30058da != 0)
+        {
+            gCableLinkInfo.unk_1A1++;
+            gUnk_30058da = 0;
+        }
+    }
 }
 
 /**
@@ -957,17 +1737,17 @@ void unk_8a94c(void)
  */
 void unk_8aa54(void)
 {
-    if (gUnk_3005b60.unk_18 == 2)
+    if (gCableLinkInfo.unk_18 == 2)
     {
-        write16(REG_SIO_DATA8, gUnk_3005b60.unk_16);
+        write16(REG_SIO_DATA8, gCableLinkInfo.unk_16);
 
         if (!gUnk_30058d3)
         {
-            gUnk_3005b60.unk_9D--;
-            gUnk_3005b60.unk_9C++;
+            gCableLinkInfo.unk_9D--;
+            gCableLinkInfo.unk_9C++;
 
-            if (gUnk_3005b60.unk_9C > 31)
-                gUnk_3005b60.unk_9C = 0;
+            if (gCableLinkInfo.unk_9C > 31)
+                gCableLinkInfo.unk_9C = 0;
         }
         else
         {
@@ -976,7 +1756,7 @@ void unk_8aa54(void)
     }
     else
     {
-        if (gUnk_3005b60.unk_18 == 0 && gUnk_3005b60.unk_9D == 0)
+        if (gCableLinkInfo.unk_18 == 0 && gCableLinkInfo.unk_9D == 0)
             gUnk_30058d3 = TRUE;
 
         if (gUnk_30058d3)
@@ -985,10 +1765,10 @@ void unk_8aa54(void)
         }
         else
         {
-            write16(REG_SIO_DATA8, gUnk_3005b60.unk_1C[gUnk_3005b60.unk_18][gUnk_3005b60.unk_9C]);
+            write16(REG_SIO_DATA8, gCableLinkInfo.unk_1C[gCableLinkInfo.unk_18][gCableLinkInfo.unk_9C]);
         }
 
-        gUnk_3005b60.unk_18++;
+        gCableLinkInfo.unk_18++;
     }
 }
 
@@ -998,7 +1778,7 @@ void unk_8aa54(void)
  */
 void unk_8aaf0(void)
 {
-    if (gUnk_3005b60.unk_0)
+    if (gCableLinkInfo.unk_0)
     {
         write16(REG_TM3CNT_H, read16(REG_TM3CNT_H) & ~TIMER_CONTROL_ACTIVE);
         write16(REG_TM3CNT_L, -132);
@@ -1011,12 +1791,12 @@ void unk_8aaf0(void)
  */
 void unk_8ab24(void)
 {
-    if (gUnk_3005b60.unk_19 == 2)
+    if (gCableLinkInfo.unk_19 == 2)
     {
-        gUnk_3005b60.unk_18 = 0;
-        gUnk_3005b60.unk_19 = 0;
+        gCableLinkInfo.unk_18 = 0;
+        gCableLinkInfo.unk_19 = 0;
     }
-    else if (gUnk_3005b60.unk_0)
+    else if (gCableLinkInfo.unk_0)
     {
         write16(REG_TM3CNT_H, read16(REG_TM3CNT_H) | TIMER_CONTROL_ACTIVE);
     }
@@ -1031,14 +1811,14 @@ void unk_8ab54(void)
     u8 i;
     u8 j;
 
-    gUnk_3005b60.unk_9D = 0;
-    gUnk_3005b60.unk_9C = 0;
+    gCableLinkInfo.unk_9D = 0;
+    gCableLinkInfo.unk_9C = 0;
 
-    for (i = 0; i < ARRAY_SIZE(gUnk_3005b60.unk_1C); i++)
+    for (i = 0; i < ARRAY_SIZE(gCableLinkInfo.unk_1C); i++)
     {
-        for (j = 0; j < ARRAY_SIZE(gUnk_3005b60.unk_1C[0]); j++)
+        for (j = 0; j < ARRAY_SIZE(gCableLinkInfo.unk_1C[0]); j++)
         {
-            gUnk_3005b60.unk_1C[i][j] = 0xEFFF;
+            gCableLinkInfo.unk_1C[i][j] = 0xEFFF;
         }
     }
 }
@@ -1053,16 +1833,16 @@ void unk_8ab9c(void)
     u8 j;
     u8 k;
 
-    gUnk_3005b60.unk_1A1 = 0;
-    gUnk_3005b60.unk_1A0 = 0;
+    gCableLinkInfo.unk_1A1 = 0;
+    gCableLinkInfo.unk_1A0 = 0;
 
-    for (i = 0; i < ARRAY_SIZE(gUnk_3005b60.unk_A0); i++)
+    for (i = 0; i < ARRAY_SIZE(gCableLinkInfo.unk_A0); i++)
     {
-        for (j = 0; j < ARRAY_SIZE(gUnk_3005b60.unk_A0[0]); j++)
+        for (j = 0; j < ARRAY_SIZE(gCableLinkInfo.unk_A0[0]); j++)
         {
-            for (k = 0; k < ARRAY_SIZE(gUnk_3005b60.unk_A0[0][0]); k++)
+            for (k = 0; k < ARRAY_SIZE(gCableLinkInfo.unk_A0[0][0]); k++)
             {
-                gUnk_3005b60.unk_A0[i][j][k] = 0xEFFF;
+                gCableLinkInfo.unk_A0[i][j][k] = 0xEFFF;
             }
         }
     }

@@ -10196,7 +10196,7 @@ lbl_08089e74:
     ldr r0, lbl_08089eec @ =0x81000004
     str r0, [r1, #8]
     ldr r0, [r1, #8]
-    ldr r0, lbl_08089ef0 @ =gUnk_30058bc
+    ldr r0, lbl_08089ef0 @ =gErrorFlag
     movs r5, #0
     str r5, [r0]
     ldr r0, lbl_08089ef4 @ =gUnk_30058cc
@@ -10233,7 +10233,7 @@ lbl_08089ee0: .4byte gUnk_30058c0
 lbl_08089ee4: .4byte 0x81000002
 lbl_08089ee8: .4byte gUnk_30058c4
 lbl_08089eec: .4byte 0x81000004
-lbl_08089ef0: .4byte gUnk_30058bc
+lbl_08089ef0: .4byte gErrorFlag
 lbl_08089ef4: .4byte gUnk_30058cc
 lbl_08089ef8: .4byte gUnk_30058cd
 lbl_08089efc: .4byte gUnk_30058ce
@@ -10324,7 +10324,7 @@ check_error: @ 0x08089f94
     movs r1, #1
     ands r1, r2
     strb r1, [r0]
-    ldr r4, lbl_0808a0d8 @ =gUnk_30058bc
+    ldr r4, lbl_0808a0d8 @ =gErrorFlag
     ldr r1, lbl_0808a0dc @ =gUnk_30058c0
     ldr r2, lbl_0808a0e0 @ =gUnk_30058c4
     bl detect_error
@@ -10475,7 +10475,7 @@ lbl_0808a0c8:
     .align 2, 0
 lbl_0808a0d0: .4byte gUnk_30058cc
 lbl_0808a0d4: .4byte gFrameCounter8Bit
-lbl_0808a0d8: .4byte gUnk_30058bc
+lbl_0808a0d8: .4byte gErrorFlag
 lbl_0808a0dc: .4byte gUnk_30058c0
 lbl_0808a0e0: .4byte gUnk_30058c4
 lbl_0808a0e4: .4byte gUnk_30058ce
@@ -10587,7 +10587,7 @@ lbl_0808a1d0: .4byte gUnk_30058c0
     thumb_func_start sub_0808a1d4
 sub_0808a1d4: @ 0x0808a1d4
     push {lr}
-    ldr r0, lbl_0808a230 @ =gUnk_30058bc
+    ldr r0, lbl_0808a230 @ =gErrorFlag
     ldr r0, [r0]
     movs r1, #0x80
     lsls r1, r1, #1
@@ -10634,7 +10634,7 @@ lbl_0808a20e:
     strh r0, [r1, #0xe]
     b lbl_0808a248
     .align 2, 0
-lbl_0808a230: .4byte gUnk_30058bc
+lbl_0808a230: .4byte gErrorFlag
 lbl_0808a234: .4byte gUnk_30058c4
 lbl_0808a238: .4byte gIoTransferInfo
 lbl_0808a23c: .4byte gLanguage
@@ -10685,7 +10685,7 @@ sub_0808a260: @ 0x0808a260
     strh r0, [r1]
     movs r0, #0
     str r0, [sp]
-    ldr r1, lbl_0808a2c0 @ =gUnk_3005b60
+    ldr r1, lbl_0808a2c0 @ =gCableLinkInfo
     ldr r2, lbl_0808a2c4 @ =0x05000069
     mov r0, sp
     bl CpuSet
@@ -10700,7 +10700,7 @@ lbl_0808a2b0: .4byte 0x04000200
 lbl_0808a2b4: .4byte 0x0000ff3f
 lbl_0808a2b8: .4byte 0x04000128
 lbl_0808a2bc: .4byte 0x0400010e
-lbl_0808a2c0: .4byte gUnk_3005b60
+lbl_0808a2c0: .4byte gCableLinkInfo
 lbl_0808a2c4: .4byte 0x05000069
 
     thumb_func_start sub_0808a2c8
@@ -10747,7 +10747,7 @@ sub_0808a2c8: @ 0x0808a2c8
     str r1, [r2, #4]
     movs r5, #0
     str r5, [sp]
-    ldr r1, lbl_0808a374 @ =gUnk_3005b60
+    ldr r1, lbl_0808a374 @ =gCableLinkInfo
     ldr r2, lbl_0808a378 @ =0x05000069
     mov r0, sp
     bl CpuSet
@@ -10781,7 +10781,7 @@ lbl_0808a364: .4byte 0x04000128
 lbl_0808a368: .4byte 0x00004003
 lbl_0808a36c: .4byte 0x0400012a
 lbl_0808a370: .4byte 0x04000120
-lbl_0808a374: .4byte gUnk_3005b60
+lbl_0808a374: .4byte gCableLinkInfo
 lbl_0808a378: .4byte 0x05000069
 lbl_0808a37c: .4byte gUnk_30058d2
 lbl_0808a380: .4byte gUnk_30058d3
@@ -10807,7 +10807,7 @@ detect_error: @ 0x0808a3ac
     adds r4, r0, #0
     adds r5, r1, #0
     adds r6, r2, #0
-    ldr r0, lbl_0808a3c8 @ =gUnk_3005b60
+    ldr r0, lbl_0808a3c8 @ =gCableLinkInfo
     ldrb r0, [r0, #1]
     cmp r0, #4
     bhi lbl_0808a45e
@@ -10817,7 +10817,7 @@ detect_error: @ 0x0808a3ac
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0808a3c8: .4byte gUnk_3005b60
+lbl_0808a3c8: .4byte gCableLinkInfo
 lbl_0808a3cc: .4byte lbl_0808a3d0
 lbl_0808a3d0: @ jump table
     .4byte lbl_0808a3e4 @ case 0
@@ -10827,23 +10827,23 @@ lbl_0808a3d0: @ jump table
     .4byte lbl_0808a452 @ case 4
 lbl_0808a3e4:
     bl sub_0808a260
-    ldr r1, lbl_0808a3f0 @ =gUnk_3005b60
+    ldr r1, lbl_0808a3f0 @ =gCableLinkInfo
     movs r0, #1
     strb r0, [r1, #1]
     b lbl_0808a45e
     .align 2, 0
-lbl_0808a3f0: .4byte gUnk_3005b60
+lbl_0808a3f0: .4byte gCableLinkInfo
 lbl_0808a3f4:
     ldrb r0, [r4]
     cmp r0, #1
     bne lbl_0808a45e
     bl sub_0808a2c8
-    ldr r1, lbl_0808a408 @ =gUnk_3005b60
+    ldr r1, lbl_0808a408 @ =gCableLinkInfo
     movs r0, #2
     strb r0, [r1, #1]
     b lbl_0808a45e
     .align 2, 0
-lbl_0808a408: .4byte gUnk_3005b60
+lbl_0808a408: .4byte gCableLinkInfo
 lbl_0808a40c:
     ldrb r1, [r4]
     cmp r1, #1
@@ -10853,7 +10853,7 @@ lbl_0808a40c:
     bl sub_0808a4cc
     b lbl_0808a45e
 lbl_0808a41c:
-    ldr r2, lbl_0808a430 @ =gUnk_3005b60
+    ldr r2, lbl_0808a430 @ =gCableLinkInfo
     ldrb r0, [r2]
     cmp r0, #0
     beq lbl_0808a45e
@@ -10863,20 +10863,20 @@ lbl_0808a41c:
     strb r1, [r2, #0x10]
     b lbl_0808a45e
     .align 2, 0
-lbl_0808a430: .4byte gUnk_3005b60
+lbl_0808a430: .4byte gCableLinkInfo
 lbl_0808a434:
-    ldr r0, lbl_0808a440 @ =gUnk_3005b60
+    ldr r0, lbl_0808a440 @ =gCableLinkInfo
     movs r1, #0
     strb r1, [r0, #1]
     ldr r0, lbl_0808a444 @ =0x0400012a
     strh r1, [r0]
     b lbl_0808a45e
     .align 2, 0
-lbl_0808a440: .4byte gUnk_3005b60
+lbl_0808a440: .4byte gCableLinkInfo
 lbl_0808a444: .4byte 0x0400012a
 lbl_0808a448:
     bl sub_0808a4f8
-    ldr r1, lbl_0808a4a0 @ =gUnk_3005b60
+    ldr r1, lbl_0808a4a0 @ =gCableLinkInfo
     movs r0, #4
     strb r0, [r1, #1]
 lbl_0808a452:
@@ -10887,7 +10887,7 @@ lbl_0808a452:
 lbl_0808a45e:
     movs r0, #0
     strb r0, [r4]
-    ldr r1, lbl_0808a4a0 @ =gUnk_3005b60
+    ldr r1, lbl_0808a4a0 @ =gCableLinkInfo
     ldrb r2, [r1, #2]
     ldrb r0, [r1, #3]
     lsls r0, r0, #2
@@ -10919,7 +10919,7 @@ lbl_0808a476:
     orrs r0, r2
     b lbl_0808a4a8
     .align 2, 0
-lbl_0808a4a0: .4byte gUnk_3005b60
+lbl_0808a4a0: .4byte gCableLinkInfo
 lbl_0808a4a4:
     adds r0, r2, #0
     orrs r0, r3
@@ -10951,7 +10951,7 @@ sub_0808a4cc: @ 0x0808a4cc
     ldr r1, [r0]
     movs r0, #0xc
     ands r1, r0
-    ldr r2, lbl_0808a4ec @ =gUnk_3005b60
+    ldr r2, lbl_0808a4ec @ =gCableLinkInfo
     cmp r1, #8
     bne lbl_0808a4f0
     ldrb r0, [r2, #2]
@@ -10961,7 +10961,7 @@ sub_0808a4cc: @ 0x0808a4cc
     b lbl_0808a4f4
     .align 2, 0
 lbl_0808a4e8: .4byte 0x04000128
-lbl_0808a4ec: .4byte gUnk_3005b60
+lbl_0808a4ec: .4byte gCableLinkInfo
 lbl_0808a4f0:
     movs r0, #0
     strb r0, [r2]
@@ -10972,7 +10972,7 @@ lbl_0808a4f4:
     thumb_func_start sub_0808a4f8
 sub_0808a4f8: @ 0x0808a4f8
     push {r4, lr}
-    ldr r0, lbl_0808a530 @ =gUnk_3005b60
+    ldr r0, lbl_0808a530 @ =gCableLinkInfo
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0808a528
@@ -11000,7 +11000,7 @@ lbl_0808a528:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0808a530: .4byte gUnk_3005b60
+lbl_0808a530: .4byte gCableLinkInfo
 lbl_0808a534: .4byte 0x0400010c
 lbl_0808a538: .4byte 0x0000ff7c
 lbl_0808a53c: .4byte gUnk_30058d0
@@ -11021,7 +11021,7 @@ sub_0808a548: @ 0x0808a548
     strh r0, [r2]
     movs r0, #0
     strh r0, [r1]
-    ldr r1, lbl_0808a5c4 @ =gUnk_3005b60
+    ldr r1, lbl_0808a5c4 @ =gCableLinkInfo
     adds r0, r1, #0
     adds r0, #0x9d
     ldrb r3, [r0]
@@ -11071,7 +11071,7 @@ lbl_0808a59a:
     .align 2, 0
 lbl_0808a5bc: .4byte gUnk_30058d0
 lbl_0808a5c0: .4byte 0x04000208
-lbl_0808a5c4: .4byte gUnk_3005b60
+lbl_0808a5c4: .4byte gCableLinkInfo
 lbl_0808a5c8: .4byte gUnk_30058d8
 lbl_0808a5cc: .4byte gUnk_3005b50
 lbl_0808a5d0:
@@ -11134,7 +11134,7 @@ sub_0808a628: @ 0x0808a628
     strh r0, [r2]
     movs r0, #0
     strh r0, [r1]
-    ldr r0, lbl_0808a694 @ =gUnk_3005b60
+    ldr r0, lbl_0808a694 @ =gCableLinkInfo
     ldr r3, lbl_0808a698 @ =0x000001a1
     adds r1, r0, r3
     ldrb r1, [r1]
@@ -11177,7 +11177,7 @@ lbl_0808a67a:
     .align 2, 0
 lbl_0808a68c: .4byte gUnk_30058d0
 lbl_0808a690: .4byte 0x04000208
-lbl_0808a694: .4byte gUnk_3005b60
+lbl_0808a694: .4byte gCableLinkInfo
 lbl_0808a698: .4byte 0x000001a1
 lbl_0808a69c:
     movs r1, #0
@@ -11192,7 +11192,7 @@ lbl_0808a6a4:
     lsls r0, r1, #2
     mov r2, ip
     adds r7, r0, r2
-    ldr r2, lbl_0808a724 @ =gUnk_3005b60
+    ldr r2, lbl_0808a724 @ =gCableLinkInfo
     movs r4, #0xd0
     lsls r4, r4, #1
     adds r0, r2, r4
@@ -11254,14 +11254,14 @@ lbl_0808a70e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0808a724: .4byte gUnk_3005b60
+lbl_0808a724: .4byte gCableLinkInfo
 lbl_0808a728: .4byte 0x000001a1
 lbl_0808a72c: .4byte 0x04000208
 
     thumb_func_start sub_0808a730
 sub_0808a730: @ 0x0808a730
     push {r4, lr}
-    ldr r4, lbl_0808a758 @ =gUnk_3005b60
+    ldr r4, lbl_0808a758 @ =gCableLinkInfo
     ldrb r3, [r4]
     cmp r3, #0
     beq lbl_0808a76a
@@ -11280,7 +11280,7 @@ sub_0808a730: @ 0x0808a730
     strb r0, [r4, #0x15]
     b lbl_0808a796
     .align 2, 0
-lbl_0808a758: .4byte gUnk_3005b60
+lbl_0808a758: .4byte gCableLinkInfo
 lbl_0808a75c:
     ldrb r0, [r4, #0x15]
     cmp r0, #0
@@ -11335,7 +11335,7 @@ sub_0808a7b0: @ 0x0808a7b0
     push {r4, r5, lr}
     ldr r0, lbl_0808a7e4 @ =0x04000128
     ldr r1, [r0]
-    ldr r5, lbl_0808a7e8 @ =gUnk_3005b60
+    ldr r5, lbl_0808a7e8 @ =gCableLinkInfo
     lsls r0, r1, #0x1a
     lsrs r0, r0, #0x1e
     strb r0, [r5, #2]
@@ -11357,7 +11357,7 @@ lbl_0808a7d4:
     b lbl_0808a808
     .align 2, 0
 lbl_0808a7e4: .4byte 0x04000128
-lbl_0808a7e8: .4byte gUnk_3005b60
+lbl_0808a7e8: .4byte gCableLinkInfo
 lbl_0808a7ec:
     bl sub_0808a850
     lsls r0, r0, #0x18
@@ -11374,7 +11374,7 @@ lbl_0808a804:
     movs r0, #4
     strb r0, [r5, #1]
 lbl_0808a808:
-    ldr r3, lbl_0808a830 @ =gUnk_3005b60
+    ldr r3, lbl_0808a830 @ =gCableLinkInfo
     ldrb r0, [r3, #0xd]
     adds r0, #1
     movs r2, #0
@@ -11395,7 +11395,7 @@ lbl_0808a828:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0808a830: .4byte gUnk_3005b60
+lbl_0808a830: .4byte gCableLinkInfo
 lbl_0808a834: .4byte gUnk_30058d2
 lbl_0808a838: .4byte gUnk_3005b54
 lbl_0808a83c: .4byte 0x000001a1
@@ -11419,7 +11419,7 @@ sub_0808a850: @ 0x0808a850
     push {r6, r7}
     movs r7, #0
     ldr r5, lbl_0808a86c @ =0x0000ffff
-    ldr r0, lbl_0808a870 @ =gUnk_3005b60
+    ldr r0, lbl_0808a870 @ =gCableLinkInfo
     ldrb r1, [r0, #0x10]
     adds r4, r0, #0
     cmp r1, #1
@@ -11429,7 +11429,7 @@ sub_0808a850: @ 0x0808a850
     b lbl_0808a884
     .align 2, 0
 lbl_0808a86c: .4byte 0x0000ffff
-lbl_0808a870: .4byte gUnk_3005b60
+lbl_0808a870: .4byte gCableLinkInfo
 lbl_0808a874: .4byte 0x0400012a
 lbl_0808a878: .4byte 0x00008fff
 lbl_0808a87c:
@@ -11552,7 +11552,7 @@ sub_0808a94c: @ 0x0808a94c
     ldr r0, [r0]
     str r0, [sp]
     str r1, [sp, #4]
-    ldr r0, lbl_0808a9a4 @ =gUnk_3005b60
+    ldr r0, lbl_0808a9a4 @ =gCableLinkInfo
     ldrb r1, [r0, #0x18]
     adds r5, r0, #0
     cmp r1, #0
@@ -11592,7 +11592,7 @@ lbl_0808a996:
     b lbl_0808aa44
     .align 2, 0
 lbl_0808a9a0: .4byte 0x04000120
-lbl_0808a9a4: .4byte gUnk_3005b60
+lbl_0808a9a4: .4byte gCableLinkInfo
 lbl_0808a9a8: .4byte gUnk_30058d6
 lbl_0808a9ac:
     movs r1, #0xd0
@@ -11686,7 +11686,7 @@ lbl_0808aa50: .4byte 0x000001a1
     thumb_func_start sub_0808aa54
 sub_0808aa54: @ 0x0808aa54
     push {lr}
-    ldr r0, lbl_0808aa8c @ =gUnk_3005b60
+    ldr r0, lbl_0808aa8c @ =gCableLinkInfo
     ldrb r1, [r0, #0x18]
     adds r3, r0, #0
     cmp r1, #2
@@ -11714,7 +11714,7 @@ sub_0808aa54: @ 0x0808aa54
     strb r2, [r1]
     b lbl_0808aae8
     .align 2, 0
-lbl_0808aa8c: .4byte gUnk_3005b60
+lbl_0808aa8c: .4byte gCableLinkInfo
 lbl_0808aa90: .4byte 0x0400012a
 lbl_0808aa94: .4byte gUnk_30058d3
 lbl_0808aa98:
@@ -11770,7 +11770,7 @@ lbl_0808aaec: .4byte 0x0400012a
     thumb_func_start sub_0808aaf0
 sub_0808aaf0: @ 0x0808aaf0
     push {lr}
-    ldr r0, lbl_0808ab10 @ =gUnk_3005b60
+    ldr r0, lbl_0808ab10 @ =gCableLinkInfo
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0808ab0c
@@ -11787,7 +11787,7 @@ lbl_0808ab0c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0808ab10: .4byte gUnk_3005b60
+lbl_0808ab10: .4byte gCableLinkInfo
 lbl_0808ab14: .4byte 0x0400010e
 lbl_0808ab18: .4byte 0x0000ff7f
 lbl_0808ab1c: .4byte 0x0400010c
@@ -11796,7 +11796,7 @@ lbl_0808ab20: .4byte 0x0000ff7c
     thumb_func_start sub_0808ab24
 sub_0808ab24: @ 0x0808ab24
     push {lr}
-    ldr r1, lbl_0808ab38 @ =gUnk_3005b60
+    ldr r1, lbl_0808ab38 @ =gCableLinkInfo
     ldrb r0, [r1, #0x19]
     cmp r0, #2
     bne lbl_0808ab3c
@@ -11805,7 +11805,7 @@ sub_0808ab24: @ 0x0808ab24
     strb r0, [r1, #0x19]
     b lbl_0808ab4c
     .align 2, 0
-lbl_0808ab38: .4byte gUnk_3005b60
+lbl_0808ab38: .4byte gCableLinkInfo
 lbl_0808ab3c:
     ldrb r0, [r1]
     cmp r0, #0
@@ -11824,7 +11824,7 @@ lbl_0808ab50: .4byte 0x0400010e
     thumb_func_start sub_0808ab54
 sub_0808ab54: @ 0x0808ab54
     push {r4, r5, lr}
-    ldr r2, lbl_0808ab94 @ =gUnk_3005b60
+    ldr r2, lbl_0808ab94 @ =gCableLinkInfo
     adds r0, r2, #0
     adds r0, #0x9d
     movs r1, #0
@@ -11857,13 +11857,13 @@ lbl_0808ab72:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0808ab94: .4byte gUnk_3005b60
+lbl_0808ab94: .4byte gCableLinkInfo
 lbl_0808ab98: .4byte 0x0000efff
 
     thumb_func_start sub_0808ab9c
 sub_0808ab9c: @ 0x0808ab9c
     push {r4, r5, r6, r7, lr}
-    ldr r2, lbl_0808abec @ =gUnk_3005b60
+    ldr r2, lbl_0808abec @ =gCableLinkInfo
     ldr r1, lbl_0808abf0 @ =0x000001a1
     adds r0, r2, r1
     movs r1, #0
@@ -11906,6 +11906,6 @@ lbl_0808abc2:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0808abec: .4byte gUnk_3005b60
+lbl_0808abec: .4byte gCableLinkInfo
 lbl_0808abf0: .4byte 0x000001a1
 lbl_0808abf4: .4byte 0x0000efff
