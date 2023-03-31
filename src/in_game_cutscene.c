@@ -24,6 +24,7 @@
 #include "structs/samus.h"
 #include "structs/room.h"
 #include "structs/bg_clip.h"
+#include "structs/text.h"
 
 /**
  * @brief 5f8f4 | 464 | Handles the samus close up cutscene

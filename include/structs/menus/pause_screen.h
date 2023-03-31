@@ -98,9 +98,24 @@ struct BossFlameData {
 };
 
 struct PauseScreenEwramData {
-    u8 padding[0x9800];
+    u8 padding_0[0x4000];
+    u16 easySleepTextFormatted_1[1024];
+    u16 easySleepTextFormatted_2[1024];
+    u16 unk_5000[1024];
+    u16 unk_5800[1024];
+    u16 unk_6000[1024];
+    u8 padding_6800[0x800];
+    u16 statusScreenTilemap[1024];
+    u16 unk_7800[1024];
+    u16 unk_8000[1024];
+    u16 easySleepTilemap[1024];
+    u16 visorOverlayTilemap[1024];
     u16 mapScreenOverlayTilemap[1024];
     u16 worldMapOverlayTilemap[1024];
+    u16 equipmentNamesGfxBackup[1024];
+    u16 unk_b000[1024];
+    u16 unk_b800[1024];
+    u16 unk_c000[1024];
 };
 
 struct PauseScreenData {

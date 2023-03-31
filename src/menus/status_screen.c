@@ -16,8 +16,6 @@
 #include "structs/text.h"
 #include "structs/menus/pause_screen.h"
 
-#define STATUS_SCREEN_TILEMAP ((u16*)((void*)sEwramPointer + 0x7000))
-
 void UpdateMinimapAnimatedPalette(void)
 {
 
@@ -88,7 +86,7 @@ u32 StatusScreenDrawItems(u8 row)
         j = 0;
         while (j < sStatusScreenRowsData[i][2])
         {
-            *(((u16*)VRAM_BASE + 0x6000) + position) = STATUS_SCREEN_TILEMAP[position];
+            *(((u16*)VRAM_BASE + 0x6000) + position) = PAUSE_SCREEN_EWRAM.statusScreenTilemap[position];
 
             j++;
             position++;
@@ -118,15 +116,15 @@ void StatusScreenDraw(void)
 
     if (gEquipment.suitType == SUIT_SUITLESS)
     {
-        DMATransfer(3, (void*)sEwramPointer + 0x8000, STATUS_SCREEN_TILEMAP, 0x800, 0x10);
+        DMATransfer(3, (void*)sEwramPointer + 0x8000, PAUSE_SCREEN_EWRAM.statusScreenTilemap, 0x800, 0x10);
         BiFill(3, 0, &PAUSE_SCREEN_DATA.statusScreenData, sizeof(PAUSE_SCREEN_DATA.statusScreenData), 0x20);
-        StatusScreenSetPistolVisibility(STATUS_SCREEN_TILEMAP);
+        StatusScreenSetPistolVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
         StatusScreenDrawSingleTankAmount(ABILITY_GROUP_CURRENT_ENERGY, gEquipment.currentEnergy, 11, FALSE);
         StatusScreenDrawSingleTankAmount(ABILITY_GROUP_MAX_ENERGY, gEquipment.maxEnergy, 11, TRUE);
         return;
     }
 
-    DMATransfer(3, (void*)sEwramPointer + 0x7800, STATUS_SCREEN_TILEMAP, 0x800, 0x10);
+    DMATransfer(3, (void*)sEwramPointer + 0x7800, PAUSE_SCREEN_EWRAM.statusScreenTilemap, 0x800, 0x10);
 
     previousSlots[0] = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
     previousSlots[1] = PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot;
@@ -134,11 +132,11 @@ void StatusScreenDraw(void)
 
     BiFill(3, 0, &PAUSE_SCREEN_DATA.statusScreenData, sizeof(PAUSE_SCREEN_DATA.statusScreenData), 0x20);
 
-    StatusScreenSetBeamsVisibility(STATUS_SCREEN_TILEMAP);
-    StatusScreenSetSuitsVisibility(STATUS_SCREEN_TILEMAP);
-    StatusScreenSetBombsVisibility(STATUS_SCREEN_TILEMAP);
-    StatusScreenSetMiscVisibility(STATUS_SCREEN_TILEMAP);
-    StatusScreenSetMissilesVisibility(STATUS_SCREEN_TILEMAP);
+    StatusScreenSetBeamsVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
+    StatusScreenSetSuitsVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
+    StatusScreenSetBombsVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
+    StatusScreenSetMiscVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
+    StatusScreenSetMissilesVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
 
     StatusScreenDrawSingleTankAmount(ABILITY_GROUP_CURRENT_ENERGY, gEquipment.currentEnergy, 11, FALSE);
     StatusScreenDrawSingleTankAmount(ABILITY_GROUP_MAX_ENERGY, gEquipment.maxEnergy, 11, TRUE);
@@ -264,6 +262,7 @@ void StatusScreenEnableUnknownItem(u8 group, u8 row)
     i32 groupX;
     u32 dstPosition;
     u16* dst;
+    i32 i;
 
     switch (group)
     {
@@ -286,13 +285,9 @@ void StatusScreenEnableUnknownItem(u8 group, u8 row)
 
     tilemapPosition++;
 
-    while (groupX > 1)
+    for (i = 0; i < groupX - 1; )
     {
-        *dst = STATUS_SCREEN_TILEMAP[tilemapPosition];
-
-        groupX--;
-        dst++;
-        tilemapPosition++;
+        dst[i++] = PAUSE_SCREEN_EWRAM.statusScreenTilemap[tilemapPosition++];
     }
 }
 

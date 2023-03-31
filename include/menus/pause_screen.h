@@ -5,7 +5,7 @@
 #include "structs/menu.h"
 #include "structs/cutscene.h"
 
-u8 unk_68168(u16 param_1, u8 param_2, u8 param_3);
+u32 unk_68168(u16 param_1, u8 param_2, u8 param_3);
 u8 unk_681c8(void);
 u32 PauseScreenUpdateOrStartFading(u8 stage);
 void PauseScreenCopyPalramToEwram_Unused(u8 param_1);
@@ -14,7 +14,7 @@ void PauseScreenUpdateMapArrows(void);
 void PauseScreenUpdateBossIcons(void);
 void PauseScreenDrawCompletionInfo(u8 dontDraw);
 u8 unk_68a58(u8 param_1);
-u8 PauseScreenDrawStatusScreenSamus(u8 param_1);
+u8 PauseScreenUpdateStatusScreenOam(u8 param_1);
 void PauseScreenUpdateWireframeSamus(u8 param_1);
 void unk_68ec0(void);
 void PauseScreenUpdateWorldMapHighlight(u8 area);

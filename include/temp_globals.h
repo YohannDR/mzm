@@ -34,7 +34,6 @@ union NonGameplayRAM {
 
 union EwramData {
     struct PauseScreenEwramData pauseScreen;
-    void* voidPointer;
 };
 
 extern u16 unk_02035400;
