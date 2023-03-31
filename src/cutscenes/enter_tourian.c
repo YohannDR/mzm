@@ -300,7 +300,7 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
             pOam->unk_12++;
 
             velocity = 0x3AA0;
-            ApplySmoothPaletteTransition(sEwramPointer + 0x280, sEwramPointer + velocity, PALRAM_BASE + 0x280, pOam->unk_12);
+            ApplySmoothPaletteTransition((void*)sEwramPointer + 0x280, (void*)sEwramPointer + velocity, PALRAM_BASE + 0x280, pOam->unk_12);
             if (pOam->unk_12 > 30)
                 pOam->actions ^= 2;
         }
@@ -401,7 +401,7 @@ u8 EnterTourianInit(void)
     CUTSCENE_DATA.unk_A = TRUE;
 
     PlayMusic(MUSIC_ENTERING_TOURIAN_CUTSCENE, 0);
-    DMATransfer(3, PALRAM_OBJ, sEwramPointer + 0x3A00, 0x200, 0x10);
+    DMATransfer(3, PALRAM_OBJ, (void*)sEwramPointer + 0x3A00, 0x200, 0x10);
     CutsceneStartBackgroundFading(3);
 
     CUTSCENE_DATA.dispcnt = DCNT_OBJ | sEnterTourianPageData[0].bg | sEnterTourianPageData[1].bg;

@@ -12,10 +12,14 @@
 #include "constants/connection.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
+#include "constants/samus.h"
 #include "constants/menus/pause_screen.h"
+#include "constants/menus/status_screen.h"
 
 #include "structs/menus/pause_screen.h"
+#include "structs/demo.h"
 #include "structs/display.h"
+#include "structs/minimap.h"
 #include "structs/game_state.h"
 
 u8 unk_68168(u16 param_1, u8 param_2, u8 param_3)
@@ -42,13 +46,13 @@ void PauseScreenCopyPalramToEwram_Unused(u8 param_1)
 {
     if (!param_1)
     {
-        DMATransfer(3, PALRAM_BASE, sEwramPointer + 0x6800, PALRAM_SIZE, 16);
+        DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x6800, PALRAM_SIZE, 16);
         BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
-        DMATransfer(3, PALRAM_BASE, sEwramPointer + 0x6C00, PALRAM_SIZE, 16);
+        DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x6C00, PALRAM_SIZE, 16);
     }
     else
     {
-        DMATransfer(3, PALRAM_BASE, sEwramPointer + 0x6800, PALRAM_SIZE, 16);
+        DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x6800, PALRAM_SIZE, 16);
     }
 
     PAUSE_SCREEN_DATA.mapScreenFading.stage = 0;
@@ -62,7 +66,7 @@ void PauseScreenCopyBackgroundPalette_Unused(void)
 {
     if (PAUSE_SCREEN_DATA.mapScreenFading.unk_2)
     {
-        DMATransfer(3, sEwramPointer + 0x6C00, PALRAM_BASE, PALRAM_SIZE, 16);
+        DMATransfer(3, (void*)sEwramPointer + 0x6C00, PALRAM_BASE, PALRAM_SIZE, 16);
         PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = FALSE;
     }
 }
@@ -94,18 +98,18 @@ void PauseScreenUpdateMapArrows(void)
         PAUSE_SCREEN_DATA.canScrollRight = PAUSE_SCREEN_DATA.mapRightBorder > PAUSE_SCREEN_DATA.mapViewX;
 
         // Draw if can scroll
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[0]].notDrawn = PAUSE_SCREEN_DATA.canScrollRight ? FALSE : TRUE;
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[4]].notDrawn = PAUSE_SCREEN_DATA.canScrollLeft ? FALSE : TRUE;
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[8]].notDrawn = PAUSE_SCREEN_DATA.canScrollUp ? FALSE : TRUE;
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[12]].notDrawn = PAUSE_SCREEN_DATA.canScrollDown ? FALSE : TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[0][0]].notDrawn = PAUSE_SCREEN_DATA.canScrollRight ? FALSE : TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[1][0]].notDrawn = PAUSE_SCREEN_DATA.canScrollLeft ? FALSE : TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[2][0]].notDrawn = PAUSE_SCREEN_DATA.canScrollUp ? FALSE : TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[3][0]].notDrawn = PAUSE_SCREEN_DATA.canScrollDown ? FALSE : TRUE;
     }
     else
     {
         // Not on map screen, set not drawn
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[0]].notDrawn = TRUE;
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[4]].notDrawn = TRUE;
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[8]].notDrawn = TRUE;
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[12]].notDrawn = TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[0][0]].notDrawn = TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[1][0]].notDrawn = TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[2][0]].notDrawn = TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[3][0]].notDrawn = TRUE;
     }
 
     // Update world map area highlight
@@ -225,24 +229,298 @@ void PauseScreenDrawCompletionInfo(u8 dontDraw)
     }
 }
 
+/**
+ * @brief 68a58 | a8 | To document
+ * 
+ * @param param_1 To document
+ * @return u8 To document
+ */
 u8 unk_68a58(u8 param_1)
 {
+    u8 result;
 
+    result = FALSE;
+    if (gEquipment.suitType == SUIT_SUITLESS)
+    {
+        switch (param_1)
+        {
+            case 1:
+                PAUSE_SCREEN_DATA.miscOam[3].oamID = 0x29;
+                result = TRUE << 1;
+                break;
+
+            case 0:
+                result = TRUE << 1;
+                break;
+
+            case 2:
+                break;
+        }
+    }
+    else
+    {
+        switch (param_1)
+        {
+            case 2:
+                if (gEquipment.maxMissiles + gEquipment.maxSuperMissiles != 0)
+                    result = TRUE << 1;
+                break;
+
+            case 3:
+                if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0])
+                    result = TRUE << 1;
+                break;
+
+            case 5:
+                if (PAUSE_SCREEN_DATA.statusScreenData.miscActivation[0])
+                    result = TRUE << 1;
+                break;
+
+            case 0:
+            case 1:
+            case 4:
+                result = TRUE << 1;
+
+            case 6:
+        }
+    }
+
+    return result;
 }
 
+/**
+ * @brief 68af8 | 2c4 | Draws samus on the status screen
+ * 
+ * @param param_1 To document
+ * @return u8 To document
+ */
 u8 PauseScreenDrawStatusScreenSamus(u8 param_1)
 {
+    i32 i;
+    struct MenuOamData* pOam;
+    u8 result;
+    i32 size;
+    i16 xPosition;
 
+    result = FALSE;
+    pOam = &PAUSE_SCREEN_DATA.miscOam[2];
+    size = ARRAY_SIZE(sSamusWireframeData);
+
+    switch (param_1)
+    {
+        case 0:
+            for (i = 0; i < size; i++, pOam++)
+            {
+                pOam->oamID = sSamusWireframeData[i].oamId;
+                pOam->xPosition = sSamusWireframeData[i].xPosition;
+                pOam->yPosition = sSamusWireframeData[i].yPosition;
+                pOam->objMode = sSamusWireframeData[i].objMode;
+                pOam->exists = unk_68a58(i);
+            }
+
+            PauseScreenUpdateWireframeSamus(0);
+            break;
+
+        case 1:
+            for (i = 0; i < size; i++, pOam++)
+            {
+                pOam->oamID = sSamusWireframeData[i].oamId;
+                pOam->xPosition = sSamusWireframeData[i].xPosition + sSamusWireframeData[i].xOffset;
+                pOam->yPosition = sSamusWireframeData[i].yPosition;
+                pOam->objMode = sSamusWireframeData[i].objMode;
+                pOam->exists = unk_68a58(i);
+            }
+
+            PauseScreenUpdateWireframeSamus(1);
+            PAUSE_SCREEN_DATA.dispcnt |= DCNT_WINOBJ;
+            PAUSE_SCREEN_DATA.samusIconOam[0].exists = FALSE;
+            break;
+
+        case 2:
+            result = TRUE;
+            
+            for (i = 0; i < size - 1; i++, pOam++)
+            {
+                if (!pOam->exists)
+                    continue;
+
+                xPosition = sSamusWireframeData[i].xPosition;
+                if (pOam->xPosition != xPosition)
+                {
+                    result = FALSE;
+                    pOam->xPosition -= BLOCK_SIZE;
+                    if (pOam->xPosition < xPosition)
+                        pOam->xPosition = xPosition;
+                }
+            }
+            break;
+
+        case 3:
+            pOam->exists = FALSE;
+            pOam++;
+
+            for (i = 1; i < size - 1; i++, pOam++)
+            {
+                if (!pOam->exists)
+                    continue;
+
+                pOam->exists = TRUE << 1;
+                pOam->oamID++;
+                pOam->xPosition = sSamusWireframeData[i].unk_A;
+                pOam->yPosition = sSamusWireframeData[i].unk_C;
+            }
+            break;
+
+        case 4:
+            for (i = 0; i < size - 1; i++, pOam++)
+            {
+                if (!pOam->exists)
+                    continue;
+
+                pOam->objMode = 1;
+
+                if (i == 0)
+                    continue;
+
+                pOam->oamID++;
+                pOam->animationDurationCounter = 0;
+                if (pOam->currentAnimationFrame)
+                    pOam->currentAnimationFrame--;
+            }
+            break;
+
+        case 5:
+            PAUSE_SCREEN_DATA.miscOam[2].exists = FALSE;
+            PAUSE_SCREEN_DATA.miscOam[3].exists = FALSE;
+            PAUSE_SCREEN_DATA.miscOam[4].exists = FALSE;
+            PAUSE_SCREEN_DATA.miscOam[5].exists = FALSE;
+            PAUSE_SCREEN_DATA.miscOam[6].exists = FALSE;
+            PAUSE_SCREEN_DATA.miscOam[7].exists = FALSE;
+            PAUSE_SCREEN_DATA.miscOam[8].exists = FALSE;
+            PAUSE_SCREEN_DATA.miscOam[9].exists = FALSE;
+            PAUSE_SCREEN_DATA.dispcnt &= ~DCNT_WINOBJ;
+            PAUSE_SCREEN_DATA.samusIconOam[0].exists = TRUE << 1;
+            break;
+    }
+
+    return result;
 }
 
+/**
+ * @brief 68dbc | 104 | Updates the samus wireframe object
+ * 
+ * @param param_1 To document
+ */
 void PauseScreenUpdateWireframeSamus(u8 param_1)
 {
+    u8 oamId;
 
+    if (param_1 == 2)
+    {
+        if (PAUSE_SCREEN_DATA.subroutineInfo.unk_8 == FALSE)
+        {
+            PAUSE_SCREEN_DATA.subroutineInfo.unk_8 = TRUE;
+            PAUSE_SCREEN_DATA.subroutineInfo.unk_A = 0;
+        }
+        return;
+    }
+
+    if (gEquipment.suitType == SUIT_NORMAL)
+        oamId = 0x2C;
+    else if (gEquipment.suitType == SUIT_FULLY_POWERED)
+        oamId = 0x2D;
+    else if (gEquipment.suitType == SUIT_SUITLESS)
+        oamId = 0x2E;
+    else
+        oamId = 0x2C;
+
+    if (param_1 == 0 && gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS)
+        oamId = 0x2E;
+
+    PAUSE_SCREEN_DATA.miscOam[8].oamID = oamId;
+    PAUSE_SCREEN_DATA.miscOam[8].exists = TRUE << 1;
+
+    PAUSE_SCREEN_DATA.miscOam[9] = PAUSE_SCREEN_DATA.miscOam[8];
+    PAUSE_SCREEN_DATA.miscOam[9].objMode = 2;
+
+    oamId = 0;
+    if (PAUSE_SCREEN_DATA.miscOam[8].oamID == 0x2E)
+        oamId = 3;
+    else if (gEquipment.suitMiscActivation & SMF_GRAVITY_SUIT)
+        oamId = 2;
+    else if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
+        oamId = 1;
+
+    DMATransfer(3, &sSamusWireframePal[oamId * 16], sObjPalramPointer + 0x80, 16 * 2, 16);
 }
 
+/**
+ * @brief 68ec0 | 110 | To document
+ * 
+ */
 void unk_68ec0(void)
 {
+    PAUSE_SCREEN_DATA.subroutineInfo.unk_A++;
 
+    switch (PAUSE_SCREEN_DATA.subroutineInfo.unk_8)
+    {
+        case 0:
+            break;
+
+        case 1:
+            PAUSE_SCREEN_DATA.bldcnt &= ~BLDCNT_BG2_FIRST_TARGET_PIXEL;
+            write8(REG_WINOUT + 1, 0xD0);
+            PAUSE_SCREEN_DATA.subroutineInfo.unk_8++;
+            break;
+
+        case 2:
+            if (gWrittenToBLDALPHA_H < 16)
+                gWrittenToBLDALPHA_H += 2;
+
+            if (gWrittenToBLDALPHA_H > 16)
+                gWrittenToBLDALPHA_H = 16;
+
+            gWrittenToBLDALPHA_L = 16 - gWrittenToBLDALPHA_H;
+            if (gWrittenToBLDALPHA_L == 0)
+            {
+                PAUSE_SCREEN_DATA.subroutineInfo.unk_8++;
+                PAUSE_SCREEN_DATA.subroutineInfo.unk_A = 0;
+            }
+            break;
+
+        case 3:
+            PauseScreenUpdateWireframeSamus(1);
+            PAUSE_SCREEN_DATA.subroutineInfo.unk_8++;
+            PAUSE_SCREEN_DATA.subroutineInfo.unk_A = 0;
+            break;
+
+        case 4:
+            PAUSE_SCREEN_DATA.subroutineInfo.unk_8++;
+            PAUSE_SCREEN_DATA.subroutineInfo.unk_A = 0;
+
+        case 5:
+            if (gWrittenToBLDALPHA_L < 16)
+                gWrittenToBLDALPHA_L += 2;
+
+            if (gWrittenToBLDALPHA_L > 16)
+                gWrittenToBLDALPHA_L = 16;
+
+            gWrittenToBLDALPHA_H = 16 - gWrittenToBLDALPHA_L;
+            if (gWrittenToBLDALPHA_H == 0)
+            {
+                PAUSE_SCREEN_DATA.subroutineInfo.unk_8++;
+                PAUSE_SCREEN_DATA.subroutineInfo.unk_A = 0;
+            }
+            break;
+
+        case 6:
+            PAUSE_SCREEN_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+                BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL |
+                BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
+            write8(REG_WINOUT + 1, (WIN1_BG3 | WIN1_OBJ) >> 8);
+            PAUSE_SCREEN_DATA.subroutineInfo.unk_8 = 0;
+            break;
+    }
 }
 
 /**
@@ -257,24 +535,217 @@ void PauseScreenUpdateWorldMapHighlight(u8 area)
         area = AREA_DEBUG;
 
     // Update area name at the top
-    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.areaNameOam[0], sPauseScreenAreIconsData[area].nameOamId);
+    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.areaNameOam[0], sPauseScreenAreaIconsData[area].nameOamId);
     
     // Update hightlight border oam
-    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.areaNameOam[2], sPauseScreenAreIconsData[area].highlightOamId);
+    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.areaNameOam[2], sPauseScreenAreaIconsData[area].highlightOamId);
 
     // Update hightlight border position
-    PAUSE_SCREEN_DATA.areaNameOam[2].xPosition = sPauseScreenAreIconsData[area].xPosition;
-    PAUSE_SCREEN_DATA.areaNameOam[2].yPosition = sPauseScreenAreIconsData[area].yPosition;
+    PAUSE_SCREEN_DATA.areaNameOam[2].xPosition = sPauseScreenAreaIconsData[area].xPosition;
+    PAUSE_SCREEN_DATA.areaNameOam[2].yPosition = sPauseScreenAreaIconsData[area].yPosition;
 }
 
+/**
+ * @brief 69024 | 1e8 | Updates the world map oam
+ * 
+ * @param onWorldMap On world map
+ */
 void PauseScreenUpdateWorldMap(u8 onWorldMap)
 {
+    struct MenuOamData* pOam;
+    i32 i;
+    u32 status;
 
+    if (onWorldMap == FALSE)
+    {
+        pOam = &PAUSE_SCREEN_DATA.worldMapOam[0];
+        pOam->priority = 2;
+        pOam->oamID = gEquipment.suitType == SUIT_SUITLESS ? 0x11 : 0x10;
+        pOam->exists = TRUE;
+
+        pOam = &PAUSE_SCREEN_DATA.worldMapOam[1];
+        for (i = 0; i < 7; i++, pOam++)
+        {
+            pOam->xPosition = sWorldMapData[i].xPosition;
+            pOam->yPosition = sWorldMapData[i].yPosition;
+            pOam->priority = 2;
+        }
+
+        pOam = &PAUSE_SCREEN_DATA.worldMapOam[8];
+        for (i = 0; i < 16; i++, pOam++)
+        {
+            pOam->xPosition = sPauseScreen_40d1c0[i][0];
+            pOam->yPosition = sPauseScreen_40d1c0[i][1];
+            pOam->priority = 2;
+            pOam->exists = FALSE;
+
+            if ((PAUSE_SCREEN_DATA.activatedTargets >> i) & 1 && pOam->xPosition + pOam->yPosition != 0)
+                pOam->exists = TRUE;
+
+            pOam->oamID = pOam->exists ? 0xF : 0;
+        }
+    }
+    else if (onWorldMap == 2)
+    {
+        pOam = &PAUSE_SCREEN_DATA.worldMapOam[8];
+        for (i = 0; i < 16; i++, pOam++)
+        {
+            if ((PAUSE_SCREEN_DATA.activatedTargets >> i) & 1)
+            {
+                pOam->oamID = 0xF;
+                pOam->exists = TRUE;
+            }
+            else
+            {
+                pOam->oamID = 0;
+                pOam->exists = FALSE;
+            }
+        }
+    }
+
+    if (onWorldMap == FALSE)
+        status = TRUE;
+    else
+        status = TRUE << 1;
+ 
+    pOam = &PAUSE_SCREEN_DATA.worldMapOam[1];
+    for (i = 0; i < MAX_AMOUNT_OF_AREAS - 1; i++, pOam++)
+    {
+        if (PAUSE_SCREEN_DATA.currentArea != i)
+            pOam->oamID = sWorldMapData[i].unk_0;
+        else
+            pOam->oamID = sWorldMapData[i].unk_1;
+
+        pOam->exists = (PAUSE_SCREEN_DATA.areasViewables >> i) & 1 ? status : FALSE;
+    }
+
+    pOam = &PAUSE_SCREEN_DATA.worldMapOam[0];
+    pOam->xPosition = sWorldMapData[gCurrentArea].xPosition;
+    pOam->yPosition = sWorldMapData[gCurrentArea].yPosition - 0x18;
 }
 
 void PauseScreenLoadAreaNamesAndIcons(void)
 {
+    // https://decomp.me/scratch/w2KOM
 
+    i32 i;
+    struct MenuOamData* pOam;
+    const u16* ptr;
+
+    pOam = PAUSE_SCREEN_DATA.miscOam;
+    for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.miscOam); i++, pOam++)
+    {
+        // FIXME *pOam = sMenuOamData_Empty;
+        *pOam = *(struct MenuOamData*)0x840d028;
+    }
+
+    pOam = PAUSE_SCREEN_DATA.areaNameOam;
+    for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.areaNameOam); i++, pOam++)
+    {
+        // FIXME *pOam = sMenuOamData_Empty;
+        *pOam = *(struct MenuOamData*)0x840d028;
+    }
+
+    pOam = PAUSE_SCREEN_DATA.borderArrowsOam;
+    for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.borderArrowsOam); i++, pOam++)
+    {
+        // FIXME *pOam = sMenuOamData_Empty;
+        *pOam = *(struct MenuOamData*)0x840d028;
+    }
+    
+    pOam = PAUSE_SCREEN_DATA.worldMapOam;
+    for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.worldMapOam); i++, pOam++)
+    {
+        // FIXME *pOam = sMenuOamData_Empty;
+        *pOam = *(struct MenuOamData*)0x840d028;
+    }
+
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM)
+    {
+        PauseScreenDrawStatusScreenSamus(0);
+        return;
+    }
+    
+    PAUSE_SCREEN_DATA.samusIconOam[0].oamID = gEquipment.suitType != SUIT_SUITLESS ? 0x1 : 0x2;
+    PAUSE_SCREEN_DATA.samusIconOam[0].exists = TRUE;
+    PAUSE_SCREEN_DATA.samusIconOam[0].xPosition = gMinimapX * HALF_BLOCK_SIZE;
+    PAUSE_SCREEN_DATA.samusIconOam[0].yPosition = gMinimapY * HALF_BLOCK_SIZE;
+    PAUSE_SCREEN_DATA.samusIconOam[0].boundBackground = 3;
+    PAUSE_SCREEN_DATA.bossIconOam[0].boundBackground = 3;
+
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_ON_MAP_SCREEN)
+    {
+        PAUSE_SCREEN_DATA.samusIconOam[0].priority = 1;
+        PAUSE_SCREEN_DATA.bossIconOam[0].priority = 1;
+    }
+    else
+    {
+        PAUSE_SCREEN_DATA.samusIconOam[0].priority = 3;
+        PAUSE_SCREEN_DATA.bossIconOam[0].priority = 3;
+    }
+
+    if (PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine != PAUSE_SCREEN_SUBROUTINE_STATUS_SCREEN)
+    {
+        PAUSE_SCREEN_DATA.miscOam[0].oamID = 0;
+        PAUSE_SCREEN_DATA.miscOam[0].yPosition = 0;
+        PAUSE_SCREEN_DATA.miscOam[0].xPosition = 0;
+    }
+    
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
+    {
+        PAUSE_SCREEN_DATA.areaNameOam[0].oamID = sPauseScreen_40d180[PAUSE_SCREEN_DATA.currentArea];
+        PAUSE_SCREEN_DATA.areaNameOam[0].yPosition = sPauseSceren_40d17c[1];
+        PAUSE_SCREEN_DATA.areaNameOam[0].xPosition = sPauseSceren_40d17c[0];
+        PAUSE_SCREEN_DATA.areaNameOam[0].priority = 0;
+        PAUSE_SCREEN_DATA.areaNameOam[0].boundBackground = 4;
+        PAUSE_SCREEN_DATA.areaNameOam[0].exists = TRUE;
+    }
+    else if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DOWNLOADING_MAP)
+    {
+        if (gCurrentArea < AREA_DEBUG)
+            i = gCurrentArea;
+        else
+            i = AREA_DEBUG;
+
+        UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.areaNameOam[0], sPauseScreenAreaIconsData[i].unk_0);
+        PAUSE_SCREEN_DATA.areaNameOam[0].yPosition = 12;
+        PAUSE_SCREEN_DATA.areaNameOam[0].xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
+        PAUSE_SCREEN_DATA.areaNameOam[0].priority = 0;
+    }
+    else
+    {
+        PAUSE_SCREEN_DATA.areaNameOam[1].oamID = 0;
+        PAUSE_SCREEN_DATA.areaNameOam[1].yPosition = 0x18;
+        PAUSE_SCREEN_DATA.areaNameOam[1].xPosition = BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE;
+        PAUSE_SCREEN_DATA.areaNameOam[1].priority = 1;
+        PauseScreenUpdateWorldMapHighlight(gCurrentArea);
+
+        PAUSE_SCREEN_DATA.areaNameOam[0].yPosition = 12;
+        PAUSE_SCREEN_DATA.areaNameOam[0].xPosition = BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE;
+        PAUSE_SCREEN_DATA.areaNameOam[0].priority = 1;
+
+        PAUSE_SCREEN_DATA.areaNameOam[2].priority = 1;
+
+        PAUSE_SCREEN_DATA.areaNameOam[3].oamID = 0;
+        PAUSE_SCREEN_DATA.areaNameOam[3].yPosition = BLOCK_SIZE * 6 + QUARTER_BLOCK_SIZE + 8;
+        PAUSE_SCREEN_DATA.areaNameOam[3].xPosition = BLOCK_SIZE * 8 + HALF_BLOCK_SIZE;
+        PauseScreenUpdateWorldMap(0);
+    }
+
+    PauseScreenDrawCompletionInfo(FALSE);
+
+    for (i = 0; i < ARRAY_SIZE(sPauseScreen_40d0d0); i++)
+    {
+        if (gPauseScreenFlag == PAUSE_SCREEN_PAUSE_OR_CUTSCENE)
+        {
+            PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[i][0]].exists = TRUE;
+        }
+
+        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[i][0]].oamID = sPauseScreen_40d0d0[i][1];
+        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[i][0]].xPosition = sPauseScreen_40d0d0[i][2];
+        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[i][0]].yPosition = sPauseScreen_40d0d0[i][3];
+        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[i][0]].priority = 3;
+    }
 }
 
 /**
@@ -1201,9 +1672,99 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
     gNextOamSlot = nextSlot;
 }
 
+/**
+ * @brief 6a180 | 178 | Main subroutine for the pause screen
+ * 
+ * @return u32 bool, leaving
+ */
 u32 PauseScreenSubroutine(void)
 {
+    u32 leaving;
 
+    leaving = FALSE;
+
+    switch (gSubGameModeStage)
+    {
+        case 0:
+            if (gDemoState)
+            {
+                gButtonInput = gChangedInput = 0;
+                gSubGameModeStage = 5;
+            }
+            else
+            {
+                gSubGameModeStage = 1;
+            }
+            PauseScreenInit();
+            break;
+
+        case 2:
+            PauseScreenUpdateOrStartFading(0);
+            if (PauseScreenCallCurrentSubroutine())
+            {
+                PauseScreenUpdateOrStartFading(4);
+                gSubGameModeStage++;
+            }
+
+            if (PAUSE_SCREEN_DATA.mapScreenFading.stage == 0)
+                UpdateMinimapAnimatedPalette();
+
+            PauseScreenUpdateMapArrows();
+            PauseScreenProcessOam();
+            break;
+
+        case 4:
+            gSubGameModeStage = 0;
+            gGameModeSub2 = 4;
+            leaving = TRUE;
+            break;
+
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+            if (PauseScreenUpdateOrStartFading(0))
+                gSubGameModeStage++;
+            break;
+
+        case 6:
+            PauseScreenUpdateOrStartFading(0);
+            if (gButtonInput)
+            {
+                gCurrentDemo.endedWithInput = TRUE;
+                DemoEnd();
+                gPauseScreenFlag = PAUSE_SCREEN_UNKNOWN_9;
+                leaving = TRUE;
+                gSubGameModeStage = 7;
+            }
+            else
+            {
+                gButtonInput = gChangedInput = gButtonInput;
+                if (PauseScreenCallCurrentSubroutine())
+                {
+                    gGameModeSub2 = 11;
+                    leaving = TRUE;
+                    gSubGameModeStage = 7;
+                }
+            }
+
+            if (leaving)
+                PauseScreenUpdateOrStartFading(4);
+
+            if (PAUSE_SCREEN_DATA.mapScreenFading.stage == 0)
+                UpdateMinimapAnimatedPalette();
+
+            PauseScreenUpdateMapArrows();
+            PauseScreenProcessOam();
+            leaving = FALSE;
+            break;
+
+        case 8:
+            leaving = TRUE;
+            gSubGameModeStage = 0;
+    }
+
+    return leaving;
 }
 
 /**
@@ -1250,9 +1811,38 @@ void PauseScreenInit(void)
 
 }
 
+/**
+ * @brief 6aed4 | 138 | Determines which maps are viewables
+ * 
+ */
 void PauseScreenDetermineMapsViewable(void)
 {
+    i32 i;
 
+    PAUSE_SCREEN_DATA.areasViewables = gEquipment.downloadedMapStatus;
+    PAUSE_SCREEN_DATA.areasViewables |= PAUSE_SCREEN_DATA.areasWithVisitedTiles;
+    PAUSE_SCREEN_DATA.areasViewables |= PAUSE_SCREEN_DATA.areasWithHints;
+
+    PAUSE_SCREEN_DATA.areasViewablesTotal = (PAUSE_SCREEN_DATA.areasViewables >> AREA_BRINSTAR) & 1;
+    PAUSE_SCREEN_DATA.areasViewablesTotal += (PAUSE_SCREEN_DATA.areasViewables >> AREA_KRAID) & 1;
+    PAUSE_SCREEN_DATA.areasViewablesTotal += (PAUSE_SCREEN_DATA.areasViewables >> AREA_NORFAIR) & 1;
+    PAUSE_SCREEN_DATA.areasViewablesTotal += (PAUSE_SCREEN_DATA.areasViewables >> AREA_RIDLEY) & 1;
+    PAUSE_SCREEN_DATA.areasViewablesTotal += (PAUSE_SCREEN_DATA.areasViewables >> AREA_TOURIAN) & 1;
+    PAUSE_SCREEN_DATA.areasViewablesTotal += (PAUSE_SCREEN_DATA.areasViewables >> AREA_CRATERIA) & 1;
+    PAUSE_SCREEN_DATA.areasViewablesTotal += (PAUSE_SCREEN_DATA.areasViewables >> AREA_CHOZODIA) & 1;
+
+    if (PAUSE_SCREEN_DATA.areasViewablesTotal <= 1)
+    {
+        for (i = 0x24C; i < 0x252; i++)
+        {
+            PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap[i] = 0;
+            PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap[i + 32] = 0;
+            PAUSE_SCREEN_EWRAM.worldMapOverlayTilemap[i] = 9 << 12 | 0xD0;
+            PAUSE_SCREEN_EWRAM.worldMapOverlayTilemap[i + 32] = 9 << 12 | 0xD0;
+        }
+    }
+
+    PauseScreenUpdateBottomVisorOverlay(1, 1);
 }
 
 void PauseScreenUpdateBottomVisorOverlay(u8 param_1, u8 param_2)

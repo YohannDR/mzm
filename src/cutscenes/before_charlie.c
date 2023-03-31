@@ -149,8 +149,8 @@ u8 BeforeCharlieWallAndGreyVoice(void)
             DMATransfer(3, sBeforeCharlieChozoWallPAL, PALRAM_BASE, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
             write16(PALRAM_BASE, 0);
 
-            ApplyMonochromeToPalette(sBeforeCharlieChozoWallPAL, sEwramPointer + 0x3800, 0);
-            DMATransfer(3, sBeforeCharlieChozoWallPAL, sEwramPointer, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
+            ApplyMonochromeToPalette(sBeforeCharlieChozoWallPAL, (void*)sEwramPointer + 0x3800, 0);
+            DMATransfer(3, sBeforeCharlieChozoWallPAL, (void*)sEwramPointer, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
 
             CallLZ77UncompVRAM(sBeforeCharlieChozoWallBackgroundGFX, VRAM_BASE + sBeforeCharliePageData[2].graphicsPage * 0x4000);
             BitFill(3, 0, VRAM_BASE + sBeforeCharliePageData[2].tiletablePage * 0x800, 0x800, 0x20);
@@ -287,8 +287,8 @@ void BeforeCharlieWallAndGreyVoiceApplyMonochrome(struct CutsceneGraphicsData* p
     pGraphics->timer = pGraphics->maxTimer;
     pGraphics->paletteStage++;
 
-    ApplySmoothMonochromeToPalette(sEwramPointer, sEwramPointer + 0x3800, sEwramPointer + 0x400, pGraphics->paletteStage);
-    DMATransfer(3, sEwramPointer + 0x400, PALRAM_BASE, 0x200, 0x10);
+    ApplySmoothMonochromeToPalette((void*)sEwramPointer, (void*)sEwramPointer + 0x3800, (void*)sEwramPointer + 0x400, pGraphics->paletteStage);
+    DMATransfer(3, (void*)sEwramPointer + 0x400, PALRAM_BASE, 0x200, 0x10);
 
     if (pGraphics->paletteStage == 32)
         pGraphics->active = FALSE;

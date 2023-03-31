@@ -40,7 +40,7 @@ static const u8 sBuffer_754ab4[256] = {
 };
 
 FORCE_RODATA
-void* sEwramPointer = EWRAM_BASE;
+union EwramData* sEwramPointer = (union EwramData*)EWRAM_BASE;
 FORCE_RODATA
 void* sBgPalramPointer = PALRAM_BASE;
 FORCE_RODATA

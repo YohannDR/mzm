@@ -16,7 +16,7 @@
 #include "structs/text.h"
 #include "structs/menus/pause_screen.h"
 
-#define STATUS_SCREEN_TILEMAP ((u16*)(sEwramPointer + 0x7000))
+#define STATUS_SCREEN_TILEMAP ((u16*)((void*)sEwramPointer + 0x7000))
 
 void UpdateMinimapAnimatedPalette(void)
 {
@@ -118,7 +118,7 @@ void StatusScreenDraw(void)
 
     if (gEquipment.suitType == SUIT_SUITLESS)
     {
-        DMATransfer(3, sEwramPointer + 0x8000, STATUS_SCREEN_TILEMAP, 0x800, 0x10);
+        DMATransfer(3, (void*)sEwramPointer + 0x8000, STATUS_SCREEN_TILEMAP, 0x800, 0x10);
         BiFill(3, 0, &PAUSE_SCREEN_DATA.statusScreenData, sizeof(PAUSE_SCREEN_DATA.statusScreenData), 0x20);
         StatusScreenSetPistolVisibility(STATUS_SCREEN_TILEMAP);
         StatusScreenDrawSingleTankAmount(ABILITY_GROUP_CURRENT_ENERGY, gEquipment.currentEnergy, 11, FALSE);
@@ -126,7 +126,7 @@ void StatusScreenDraw(void)
         return;
     }
 
-    DMATransfer(3, sEwramPointer + 0x7800, STATUS_SCREEN_TILEMAP, 0x800, 0x10);
+    DMATransfer(3, (void*)sEwramPointer + 0x7800, STATUS_SCREEN_TILEMAP, 0x800, 0x10);
 
     previousSlots[0] = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
     previousSlots[1] = PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot;

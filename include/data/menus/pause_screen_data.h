@@ -6,10 +6,29 @@
 #include "structs/menus/pause_screen.h"
 #include "connection.h"
 
-extern const struct PauseScreenAreaIconData sPauseScreenAreIconsData[MAX_AMOUNT_OF_AREAS];
-extern const u16 sPauseScreen_40d0d0[16];
+extern const u16 sSamusWireframePal[4 * 16];
 
 // ...
+
+extern const struct PauseScreenAreaIconData sPauseScreenAreaIconsData[MAX_AMOUNT_OF_AREAS];
+extern const u16 sPauseScreen_40d0d0[4][4];
+
+extern const u8 sStatusScreenBeamFlagsOrder[5];
+extern const u8 sStatusScreenBombFlagsOrder[1];
+extern const u8 sStatusScreenSuitFlagsOrder[2];
+extern const u8 sStatusScreenMiscFlagsOrder[6];
+
+// ...
+
+extern const struct PauseScreenWireframeData sSamusWireframeData[7];
+
+// ...
+
+extern const u16 sPauseSceren_40d17c[2];
+extern const u8 sPauseScreen_40d180[MAX_AMOUNT_OF_AREAS];
+
+extern const struct WorldMapData sWorldMapData[MAX_AMOUNT_OF_AREAS];
+extern const u16 sPauseScreen_40d1c0[16][2];
 
 extern const u8 sBossIcons[7][5];
 extern const u16 sMapChunksToUpdate[3];

@@ -5,11 +5,29 @@
 #include "structs/menu.h"
 
 #define PAUSE_SCREEN_DATA sNonGameplayRamPointer->pauseScreen
+#define PAUSE_SCREEN_EWRAM sEwramPointer->pauseScreen
 
 struct PauseScreenAreaIconData {
     u8 unk_0;
     u8 nameOamId;
     u8 highlightOamId;
+    u16 xPosition;
+    u16 yPosition;
+};
+
+struct PauseScreenWireframeData {
+    u8 oamId;
+    u16 xPosition;
+    u16 yPosition;
+    u16 xOffset;
+    u8 objMode;
+    u16 unk_A;
+    u16 unk_C;
+};
+
+struct WorldMapData {
+    u8 unk_0;
+    u8 unk_1;
     u16 xPosition;
     u16 yPosition;
 };
@@ -77,6 +95,12 @@ struct BossFlameData {
     u8 unk_7;
     u16 xPosition;
     u16 yPosition;
+};
+
+struct PauseScreenEwramData {
+    u8 padding[0x9800];
+    u16 mapScreenOverlayTilemap[1024];
+    u16 worldMapOverlayTilemap[1024];
 };
 
 struct PauseScreenData {

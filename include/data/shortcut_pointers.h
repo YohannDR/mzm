@@ -5,7 +5,7 @@
 #include "temp_globals.h"
 #include "structs/save_file.h"
 
-extern void* sEwramPointer;
+extern union EwramData* sEwramPointer;
 extern void* sBgPalramPointer;
 extern void* sObjPalramPointer;
 extern u32* sVisitedMinimapTilesPointer;
