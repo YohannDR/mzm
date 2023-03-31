@@ -1908,9 +1908,218 @@ void PauseScreenGetMinimapData(u8 area, u16* dst)
 
 }
 
+/**
+ * @brief 6b240 | 2c4 | Calls the current pause screen subroutine
+ * 
+ * @return u32 bool, ended
+ */
 u32 PauseScreenCallCurrentSubroutine(void)
 {
+    u32 leaving;
 
+    leaving = FALSE;
+    CheckForMaintainedInput();
+
+    PAUSE_SCREEN_DATA.subroutineInfo.timer++;
+
+    switch (PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine)
+    {
+        case PAUSE_SCREEN_SUBROUTINE_MAP_SCREEN:
+            if (!(gChangedInput & (gButtonAssignments.pause | KEY_B)))
+            {
+                PauseScreenSubroutine();
+                break;
+            }
+            
+            if (PAUSE_SCREEN_DATA.onWorldMap)
+            {
+                PauseScreenSubroutine();
+                break;
+            }
+
+            leaving = TRUE;
+            break;
+
+        case PAUSE_SCREEN_SUBROUTINE_STATUS_SCREEN:
+            if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DEBUG)
+            {
+                if (!PAUSE_SCREEN_DATA.disableDebugMenu)
+                    PauseScreenMoveDebugCursor(TRUE);
+
+                leaving = FALSE;
+            }
+            else
+            {
+                StatusScreenSubroutine();
+            }
+            break;
+
+        case 2:
+            FadeMusic(160);
+            leaving = TRUE;
+            break;
+
+        case 3:
+            if (gChangedInput & (gButtonAssignments.pause | (KEY_A | KEY_B)) && !PAUSE_SCREEN_DATA.onWorldMap)
+            {
+                leaving = TRUE;
+                break;
+            }
+            
+            break;
+
+        case PAUSE_SCREEN_SUBROUTINE_SUITLESS_ITEMS:
+            if (StatusScreenSuitlessItems())
+            {
+                PauseScreenUpdateStatusScreenOam(4);
+                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = 0x5;
+            }
+            break;
+
+        case PAUSE_SCREEN_SUBROUTINE_FULLY_POWERED_ITEMS:
+            if (StatusScreenFullyPoweredItems())
+            {
+                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = 0x7;
+            }
+            break;
+
+        case 5:
+        case 7:
+            if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 12)
+                leaving = TRUE;
+            break;
+
+        case PAUSE_SCREEN_SUBROUTINE_CHOZO_STATUE_HINT:
+            if (chozo_statue_hint_subroutine())
+            {
+                PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = 0xE;
+            }
+            break;
+
+        case PAUSE_SCREEN_SUBROUTINE_MAP_DOWNLOAD:
+            if (map_download_subroutine())
+            {
+                PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = 0x12;
+            }
+            break;
+
+        case PAUSE_SCREEN_SUBROUTINE_EASY_SLEEP:
+            if (easy_sleep_subroutine())
+            {
+                PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_EASY_SLEEP_LEAVING;
+            }
+            break;
+
+        case PAUSE_SCREEN_SUBROUTINE_STATUS_SCREEN_INIT:
+            if (PAUSE_SCREEN_DATA.unk_7C)
+            {
+                unk_681c8();
+            }
+            else
+            {
+                if (PauseScreenStatusScreenInit())
+                {
+                    PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_STATUS_SCREEN;
+                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+                    PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                    PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                }
+            }
+            break;
+
+        case PAUSE_SCREEN_SUBROUTINE_STATUS_SCREEN_LEAVING:
+            if (PAUSE_SCREEN_DATA.unk_7C)
+            {
+                unk_681c8();
+            }
+            else
+            {
+                if (PauseScreenQuitStatusScreen())
+                {
+                    PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_MAP_SCREEN;
+                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+                    PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                    PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                }
+            }
+            break;
+
+        case 13:
+        case PAUSE_SCREEN_SUBROUTINE_CHOZO_STATUE_HINT_INIT:
+            PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_CHOZO_STATUE_HINT;
+            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+            PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            break;
+
+        case 18:
+            PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = 0x3;
+            PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+            PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            break;
+
+        case 14:
+            if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_ON_MAP_SCREEN)
+                PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = 0x2;
+            else
+                PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_MAP_SCREEN;
+            break;
+
+        case PAUSE_SCREEN_SUBROUTINE_EASY_SLEEP_INIT:
+            if (PAUSE_SCREEN_DATA.unk_7C)
+            {
+                unk_681c8();
+            }
+            else
+            {
+                if (PauseScreenEasySleepInit())
+                {
+                    PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_EASY_SLEEP;
+                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+                    PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                }
+            }
+            break;
+
+        case PAUSE_SCREEN_SUBROUTINE_EASY_SLEEP_LEAVING:
+            if (PAUSE_SCREEN_DATA.unk_7C)
+            {
+                unk_681c8();
+            }
+            else
+            {
+                if (PauseScreenQuitEasySleep())
+                {
+                    PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_MAP_SCREEN;
+                    PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+                    PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+                }
+            }
+            break;
+
+        case PAUSE_SCREEN_SUBROUTINE_SUITLESS_ITEMS_INIT:
+            if (PauseScreenSuitChangingStart())
+            {
+                PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_SUITLESS_ITEMS;
+                PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            }
+            break;
+
+        case PAUSE_SCREEN_SUBROUTINE_FULLY_POWERED_ITEMS_INIT:
+            if (PauseScreenSuitChangingStart())
+            {
+                PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_FULLY_POWERED_ITEMS;
+                PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+                PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+            }
+            break;
+    }
+
+    return leaving;
 }
 
 /**
@@ -1992,14 +2201,97 @@ void PauseScreenMoveDebugCursor(u8 allowOverflow)
     }
 }
 
+/**
+ * @brief 6b66c | 58 | [Unused] To document
+ * 
+ * @param param_1 To document
+ * @param param_2 To document
+ * @return u32 To document
+ */
 u32 unk_6b66c(u16* param_1, u16 param_2)
 {
+    u32 result;
+    i32 var_0;
+    i32 var_1;
 
+    result = FALSE;
+
+    if (*param_1 > param_2)
+        var_0 = -1;
+    else
+        var_0 = 1;
+
+    if (PAUSE_SCREEN_DATA.subroutineInfo.timer + 4 < 32)
+        *param_1 += var_0 * (PAUSE_SCREEN_DATA.subroutineInfo.timer + 4);
+    else
+        *param_1 += var_0 * 32;
+
+    if (var_0 > 0)
+    {
+        if (*param_1 >= param_2)
+        {
+            *param_1 = param_2;
+            result = TRUE;
+        }
+    }
+    else
+    {
+        var_1 = (i16)*param_1;
+        if (var_1 <= param_2)
+        {
+            *param_1 += (param_2 - var_1);
+            result = TRUE;
+        }
+    }
+
+    return result;
 }
 
+/**
+ * @brief 6b6c4 | 54 | [Unused] To document
+ * 
+ * @param param_1 To document
+ * @param param_2 To document
+ * @return u32 To document
+ */
 u32 unk_6b6c4(u16* param_1, u16 param_2)
 {
+    u32 result;
+    i32 var_0;
+    i32 var_1;
 
+    result = FALSE;
+
+    if (*param_1 > param_2)
+        var_0 = -1;
+    else
+        var_0 = 1;
+
+    if (PAUSE_SCREEN_DATA.subroutineInfo.timer + 4 < 32)
+        *param_1 += var_0 * (PAUSE_SCREEN_DATA.subroutineInfo.timer + 4);
+    else
+        *param_1 += var_0 * 32;
+
+    if (var_0 > 0)
+    {
+        if (*param_1 >= param_2)
+        {
+            result = TRUE;
+        }
+    }
+    else
+    {
+        var_1 = (i16)*param_1;
+        if (var_1 <= param_2)
+        {
+            result = TRUE;
+        }
+    }
+
+    if (result)
+        *param_1 = param_2;
+
+    return result;
 }
 
 /**
