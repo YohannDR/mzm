@@ -406,9 +406,9 @@ void PauseScreenDrawCompletionInfo(u8 dontDraw)
         return;
 
     // Count tanks and prepare VRAM with IGT and tanks
-    count_tanks_in_area();
-    draw_igt_and_tanks(FALSE, FALSE);
-    draw_igt_and_tanks(FALSE, TRUE);
+    PauseScreenCountTanksInArea();
+    PauseScreenDrawIgtAndTanks(FALSE, FALSE);
+    PauseScreenDrawIgtAndTanks(FALSE, TRUE);
 
     priority = 3;
 
@@ -893,8 +893,8 @@ void PauseScreenLoadAreaNamesAndIcons(void)
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
     {
         PAUSE_SCREEN_DATA.areaNameOam[0].oamID = sPauseScreen_40d180[PAUSE_SCREEN_DATA.currentArea];
-        PAUSE_SCREEN_DATA.areaNameOam[0].yPosition = sPauseSceren_40d17c[1];
-        PAUSE_SCREEN_DATA.areaNameOam[0].xPosition = sPauseSceren_40d17c[0];
+        PAUSE_SCREEN_DATA.areaNameOam[0].yPosition = sPauseScreen_40d17c[1];
+        PAUSE_SCREEN_DATA.areaNameOam[0].xPosition = sPauseScreen_40d17c[0];
         PAUSE_SCREEN_DATA.areaNameOam[0].priority = 0;
         PAUSE_SCREEN_DATA.areaNameOam[0].boundBackground = 4;
         PAUSE_SCREEN_DATA.areaNameOam[0].exists = TRUE;
@@ -2123,13 +2123,13 @@ u32 PauseScreenCallCurrentSubroutine(void)
         case PAUSE_SCREEN_SUBROUTINE_MAP_SCREEN:
             if (!(gChangedInput & (gButtonAssignments.pause | KEY_B)))
             {
-                PauseScreenSubroutine();
+                MapScreenSubroutine();
                 break;
             }
             
             if (PAUSE_SCREEN_DATA.onWorldMap)
             {
-                PauseScreenSubroutine();
+                MapScreenSubroutine();
                 break;
             }
 
@@ -2195,7 +2195,7 @@ u32 PauseScreenCallCurrentSubroutine(void)
             break;
 
         case PAUSE_SCREEN_SUBROUTINE_MAP_DOWNLOAD:
-            if (map_download_subroutine())
+            if (PauseScreenMapDownloadSubroutine())
             {
                 PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = 0x12;
             }

@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "structs/menu.h"
+#include "structs/connection.h"
 
 #define PAUSE_SCREEN_DATA sNonGameplayRamPointer->pauseScreen
 #define PAUSE_SCREEN_EWRAM sEwramPointer->pauseScreen
@@ -98,7 +99,7 @@ struct BossFlameData {
 };
 
 struct PauseScreenEwramData {
-    u8 padding_0[0x4000];
+    u16 mapTilemaps[MAX_AMOUNT_OF_AREAS][1024];
     u16 easySleepTextFormatted_1[1024];
     u16 easySleepTextFormatted_2[1024];
     u16 unk_5000[1024];
@@ -159,10 +160,10 @@ struct PauseScreenData {
 
     u8 energyTankTotal;
     u8 energyTankCurrent;
-    u8 misileTankTotal;
-    u8 misileTankCurrent;
-    u8 superMisileTankTotal;
-    u8 superMisileTankCurrent;
+    u8 missileTankTotal;
+    u8 missileTankCurrent;
+    u8 superMissileTankTotal;
+    u8 superMissileTankCurrent;
     u8 powerBombTankTotal;
     u8 powerBombTankCurrent;
     u8 tankStatus;
@@ -181,7 +182,7 @@ struct PauseScreenData {
     u8 unk_4B;
 
     u8 mapDownloadType;
-    u8 downloadLineOffset;
+    u8 downloadTimer;
     u8 downloadStage;
     u8 unk_4F;
     u8 currentDownloadedLine;
@@ -244,7 +245,7 @@ struct PauseScreenData {
 
     struct BossFlameData bossFlameData[2];
 
-    u16* mapsDataPointer;
+    u16 (*mapsDataPointer)[1024];
 
     struct MenuOamData miscOam[23];
     struct MenuOamData unk_278[7];
