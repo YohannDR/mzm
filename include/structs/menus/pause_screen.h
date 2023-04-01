@@ -104,7 +104,8 @@ struct PauseScreenEwramData {
     u16 unk_5000[1024];
     u16 unk_5800[1024];
     u16 unk_6000[1024];
-    u8 padding_6800[0x800];
+    u16 unk_6800[512];
+    u16 backgroundPalette[512];
     u16 statusScreenTilemap[1024];
     u16 unk_7800[1024];
     u16 unk_8000[1024];

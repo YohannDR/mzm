@@ -5,6 +5,7 @@
 #include "oam_id.h"
 #include "event.h"
 #include "text.h"
+#include "color_effects.h"
 #include "menus/status_screen.h"
 
 #include "data/shortcut_pointers.h"
@@ -25,19 +26,214 @@
 #include "structs/game_state.h"
 #include "structs/text.h"
 
-u32 unk_68168(u16 param_1, u8 param_2, u8 param_3)
+u32 unk_68168(u16 param_1, u8 param_2, u32 param_3)
 {
+    // https://decomp.me/scratch/7coJ2
 
+    i32 _param_3 = (i8)param_3;
+    
+    if (!PAUSE_SCREEN_DATA.unk_7C && param_2 != 0)
+    {
+        PAUSE_SCREEN_DATA.unk_7C++;
+        
+        PAUSE_SCREEN_DATA.unk_7D = param_2;
+        PAUSE_SCREEN_DATA.unk_7F = _param_3;
+
+        PAUSE_SCREEN_DATA.unk_80 = (param_1 >> 0) & 0x1F;
+        PAUSE_SCREEN_DATA.unk_81 = (param_1 >> 8) & 0x1F;
+        
+        PAUSE_SCREEN_DATA.unk_7E = 0;
+
+        return TRUE;
+    }
+
+    return FALSE;
 }
 
+/**
+ * @brief 681c8 | 124 | To document
+ * 
+ * @return u8 bool, ended
+ */
 u8 unk_681c8(void)
 {
+    u8 ended;
 
+    ended = FALSE;
+
+    if (PAUSE_SCREEN_DATA.unk_7C)
+    {
+        PAUSE_SCREEN_DATA.unk_7E++;
+        if (PAUSE_SCREEN_DATA.unk_7F <= PAUSE_SCREEN_DATA.unk_7E)
+        {
+            PAUSE_SCREEN_DATA.unk_7E = 0;
+
+            if (gWrittenToBLDALPHA_L != PAUSE_SCREEN_DATA.unk_80)
+            {
+                if (gWrittenToBLDALPHA_L > PAUSE_SCREEN_DATA.unk_80)
+                {
+                    if (gWrittenToBLDALPHA_L - PAUSE_SCREEN_DATA.unk_80 > PAUSE_SCREEN_DATA.unk_7D)
+                        gWrittenToBLDALPHA_L -= PAUSE_SCREEN_DATA.unk_7D;
+                    else
+                        gWrittenToBLDALPHA_L = PAUSE_SCREEN_DATA.unk_80;
+                }
+                else
+                {
+                    gWrittenToBLDALPHA_L += PAUSE_SCREEN_DATA.unk_7D;
+                    if (gWrittenToBLDALPHA_L > PAUSE_SCREEN_DATA.unk_80)
+                        gWrittenToBLDALPHA_L = PAUSE_SCREEN_DATA.unk_80;
+                }
+            }
+
+            if (gWrittenToBLDALPHA_H != PAUSE_SCREEN_DATA.unk_81)
+            {
+                if (gWrittenToBLDALPHA_H > PAUSE_SCREEN_DATA.unk_81)
+                {
+                    if (gWrittenToBLDALPHA_H - PAUSE_SCREEN_DATA.unk_81 > PAUSE_SCREEN_DATA.unk_7D)
+                        gWrittenToBLDALPHA_H -= PAUSE_SCREEN_DATA.unk_7D;
+                    else
+                        gWrittenToBLDALPHA_H = PAUSE_SCREEN_DATA.unk_81;
+                }
+                else
+                {
+                    gWrittenToBLDALPHA_H += PAUSE_SCREEN_DATA.unk_7D;
+                    if (gWrittenToBLDALPHA_H > PAUSE_SCREEN_DATA.unk_81)
+                        gWrittenToBLDALPHA_H = PAUSE_SCREEN_DATA.unk_81;
+                }
+            }
+
+            if (gWrittenToBLDALPHA_L == PAUSE_SCREEN_DATA.unk_80 && gWrittenToBLDALPHA_H == PAUSE_SCREEN_DATA.unk_81)
+            {
+                PAUSE_SCREEN_DATA.unk_7C = FALSE;
+                ended = TRUE;
+            }
+        }
+    }
+
+    return ended;
 }
 
+/**
+ * @brief 682ec | 2cc | Starts and updates the pause screen fading
+ * 
+ * @param stage Stage to start
+ * @return u32 bool, ended
+ */
 u32 PauseScreenUpdateOrStartFading(u8 stage)
 {
+    u16* src;
+    u16* dst;
 
+    if (stage)
+        PAUSE_SCREEN_DATA.mapScreenFading.stage = stage;
+
+    switch (PAUSE_SCREEN_DATA.mapScreenFading.stage)
+    {
+        case 0:
+            break;
+
+        case 1:
+            if (!PAUSE_SCREEN_DATA.mapScreenFading.unk_2)
+            {
+                PAUSE_SCREEN_DATA.mapScreenFading.colorToApply = 0;
+                PAUSE_SCREEN_DATA.mapScreenFading.stage = 0;
+                return TRUE;
+            }
+            break;
+
+        case PAUSE_SCREEN_FADING_IN_INIT:
+            DMATransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
+            BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
+            DMATransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_SIZE, 16);
+
+            PAUSE_SCREEN_DATA.mapScreenFading.colorToApply = 0;
+            PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = FALSE;
+            PAUSE_SCREEN_DATA.mapScreenFading.stage = PAUSE_SCREEN_FADING_IN;
+            break;
+
+        case PAUSE_SCREEN_FADING_IN:
+            if (PAUSE_SCREEN_DATA.mapScreenFading.unk_2)
+                break;
+
+            if (PAUSE_SCREEN_DATA.mapScreenFading.colorToApply < 32)
+            {
+                src = &PAUSE_SCREEN_EWRAM.unk_6800[0];
+                dst = &PAUSE_SCREEN_EWRAM.backgroundPalette[0];
+                ApplySpecialBackgroundFadingColor(FADING_TYPE_IN, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
+
+                src = &PAUSE_SCREEN_EWRAM.unk_6800[16 * 16];
+                dst = &PAUSE_SCREEN_EWRAM.backgroundPalette[16 * 16];
+                ApplySpecialBackgroundFadingColor(FADING_TYPE_IN, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
+
+                PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = TRUE;
+                if (PAUSE_SCREEN_DATA.mapScreenFading.colorToApply == 31)
+                {
+                    PAUSE_SCREEN_DATA.mapScreenFading.colorToApply++;
+                    break;
+                }
+
+                if (PAUSE_SCREEN_DATA.mapScreenFading.colorToApply + 2 > 31)
+                    PAUSE_SCREEN_DATA.mapScreenFading.colorToApply = 31;
+                else
+                    PAUSE_SCREEN_DATA.mapScreenFading.colorToApply += 2;
+            }
+            else
+            {
+                DMATransfer(3, PAUSE_SCREEN_EWRAM.unk_6800, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_SIZE, 16);
+                PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = TRUE;
+                PAUSE_SCREEN_DATA.mapScreenFading.stage = 1;
+            }
+            break;
+
+        case PAUSE_SCREEN_FADING_OUT_INIT:
+            DMATransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
+
+            PAUSE_SCREEN_DATA.mapScreenFading.colorToApply = 0;
+            PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = FALSE;
+            PAUSE_SCREEN_DATA.mapScreenFading.stage = PAUSE_SCREEN_FADING_OUT;
+            break;
+
+        case PAUSE_SCREEN_FADING_OUT:
+            if (PAUSE_SCREEN_DATA.mapScreenFading.unk_2)
+                break;
+            
+            if (PAUSE_SCREEN_DATA.mapScreenFading.colorToApply < 32)
+            {
+                src = &PAUSE_SCREEN_EWRAM.unk_6800[0];
+                dst = &PAUSE_SCREEN_EWRAM.backgroundPalette[0];
+                ApplySpecialBackgroundFadingColor(FADING_TYPE_OUT, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
+
+                src = &PAUSE_SCREEN_EWRAM.unk_6800[16 * 16];
+                dst = &PAUSE_SCREEN_EWRAM.backgroundPalette[16 * 16];
+                ApplySpecialBackgroundFadingColor(FADING_TYPE_OUT, PAUSE_SCREEN_DATA.mapScreenFading.colorToApply, &src, &dst, USHORT_MAX);
+
+                PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = TRUE;
+                if (PAUSE_SCREEN_DATA.mapScreenFading.colorToApply == 31)
+                {
+                    PAUSE_SCREEN_DATA.mapScreenFading.colorToApply++;
+                    break;
+                }
+
+                if (PAUSE_SCREEN_DATA.mapScreenFading.colorToApply + 2 > 31)
+                    PAUSE_SCREEN_DATA.mapScreenFading.colorToApply = 31;
+                else
+                    PAUSE_SCREEN_DATA.mapScreenFading.colorToApply += 2;
+            }
+            else
+            {
+                BitFill(3, 0, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_SIZE, 16);
+                PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = TRUE;
+                PAUSE_SCREEN_DATA.mapScreenFading.stage = 1;
+            }
+    }
+
+    if (PAUSE_SCREEN_DATA.mapScreenFading.unk_2)
+    {
+        DMATransfer(3, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_BASE, PALRAM_SIZE, 16);
+        PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = FALSE;
+    }
+
+    return FALSE;
 }
 
 /**
@@ -49,13 +245,13 @@ void PauseScreenCopyPalramToEwram_Unused(u8 param_1)
 {
     if (!param_1)
     {
-        DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x6800, PALRAM_SIZE, 16);
+        DMATransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
         BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
-        DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x6C00, PALRAM_SIZE, 16);
+        DMATransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
     }
     else
     {
-        DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x6800, PALRAM_SIZE, 16);
+        DMATransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
     }
 
     PAUSE_SCREEN_DATA.mapScreenFading.stage = 0;
@@ -69,7 +265,7 @@ void PauseScreenCopyBackgroundPalette_Unused(void)
 {
     if (PAUSE_SCREEN_DATA.mapScreenFading.unk_2)
     {
-        DMATransfer(3, (void*)sEwramPointer + 0x6C00, PALRAM_BASE, PALRAM_SIZE, 16);
+        DMATransfer(3, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_BASE, PALRAM_SIZE, 16);
         PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = FALSE;
     }
 }
@@ -1705,7 +1901,7 @@ u32 PauseScreenSubroutine(void)
             PauseScreenUpdateOrStartFading(0);
             if (PauseScreenCallCurrentSubroutine())
             {
-                PauseScreenUpdateOrStartFading(4);
+                PauseScreenUpdateOrStartFading(PAUSE_SCREEN_FADING_OUT_INIT);
                 gSubGameModeStage++;
             }
 
@@ -1752,7 +1948,7 @@ u32 PauseScreenSubroutine(void)
             }
 
             if (leaving)
-                PauseScreenUpdateOrStartFading(4);
+                PauseScreenUpdateOrStartFading(PAUSE_SCREEN_FADING_OUT_INIT);
 
             if (PAUSE_SCREEN_DATA.mapScreenFading.stage == 0)
                 UpdateMinimapAnimatedPalette();
