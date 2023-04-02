@@ -8,6 +8,20 @@
 #define PAUSE_SCREEN_DATA sNonGameplayRamPointer->pauseScreen
 #define PAUSE_SCREEN_EWRAM sEwramPointer->pauseScreen
 
+struct ChozoStatueTarget {
+    u8 statueArea;
+    u8 statueXStart;
+    u8 statueXEnd;
+    u8 statueYStart;
+    u8 statueYEnd;
+    u8 startIcon;
+
+    u8 targetArea;
+    u8 targetX;
+    u8 targetY;
+    u8 endIcon;
+};
+
 struct PauseScreenAreaIconData {
     u8 unk_0;
     u8 nameOamId;
@@ -53,8 +67,8 @@ struct ChozoHintRelated {
     u16 unk_2;
     u16 unk_4;
     u16 unk_6;
-    u16 unk_8;
-    u16 unk_A;
+    i16 unk_8;
+    i16 unk_A;
     i8 unk_C;
     i8 unk_D;
     u16 unk_E;
@@ -86,12 +100,11 @@ struct StatusScreenData {
 };
 
 struct BossFlameData {
-    u8 unk_0;
-    u8 unk_1;
-    u8 unk_2;
+    u16 yOffset;
+    u8 moving;
     u8 oamOffset;
     u8 unk_4;
-    u8 exists;
+    i8 movementDirection;
     u8 unk_6;
     u8 unk_7;
     u16 xPosition;
@@ -172,7 +185,7 @@ struct PauseScreenData {
 
     i8 unk_40;
     u8 unk_41;
-    u8 unk_42;
+    i8 unk_42;
     u16 activatedTargets;
     u8 unk_46;
     u8 unk_47;
@@ -222,8 +235,7 @@ struct PauseScreenData {
 
     u8 padding_82[10];
 
-    struct ChozoHintRelated unk_8C;
-    struct ChozoHintRelated unk_A0;
+    struct ChozoHintRelated unk_8C[2];
 
     u8 changingMinimapStage;
     u8 padding_B5[3];

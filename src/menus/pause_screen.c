@@ -2188,7 +2188,7 @@ u32 PauseScreenCallCurrentSubroutine(void)
             break;
 
         case PAUSE_SCREEN_SUBROUTINE_CHOZO_STATUE_HINT:
-            if (chozo_statue_hint_subroutine())
+            if (ChozoStatueHintSubroutine())
             {
                 PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = 0xE;
             }
@@ -2202,7 +2202,7 @@ u32 PauseScreenCallCurrentSubroutine(void)
             break;
 
         case PAUSE_SCREEN_SUBROUTINE_EASY_SLEEP:
-            if (easy_sleep_subroutine())
+            if (PauseScreenEasySleepSubroutine())
             {
                 PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_EASY_SLEEP_LEAVING;
             }

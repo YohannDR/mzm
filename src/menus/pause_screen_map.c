@@ -1145,7 +1145,7 @@ void MapScreenChangeMap(void)
             DMATransfer(3, PAUSE_SCREEN_DATA.mapsDataPointer[PAUSE_SCREEN_DATA.currentArea],
                 VRAM_BASE + 0xE000, sizeof(*PAUSE_SCREEN_DATA.mapsDataPointer), 16);
 
-            chozo_statue_hint_determine_path(TRUE);
+            ChozoHintDeterminePath(TRUE);
 
             unk_6db58(PAUSE_SCREEN_DATA.currentArea != gCurrentArea ? 2 : 0);
 
