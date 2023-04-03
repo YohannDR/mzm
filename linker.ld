@@ -515,6 +515,7 @@ SECTIONS {
         src/cutscenes/kraid_rising.o(.text);
         src/cutscenes/story_text_cutscene.o(.text);
         asm/disasm_0x08063008.o(.text);
+        src/cutscenes/ridley_in_space.o(.text);
         src/cutscenes/ridley_landing.o(.text);
         src/cutscenes/ridley_spawn.o(.text);
         src/cutscenes/mecha_sees_samus.o(.text);

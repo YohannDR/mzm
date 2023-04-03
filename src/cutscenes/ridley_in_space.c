@@ -219,6 +219,8 @@ u8 RidleyInSpaceRidleySuspicious(void)
 
         case 2:
             CutsceneStartBackgroundEffect(CUTSCENE_DATA.bldcnt, 16, 0, 2, 2);
+            CUTSCENE_DATA.timeInfo.timer = 0;
+            CUTSCENE_DATA.timeInfo.subStage++;
             break;
 
         case 3:
@@ -470,10 +472,13 @@ void RidleyInSpaceUpdateViewOfShip(struct CutsceneOamData* pOam)
         pOam->yPosition += sRidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 5) & 7];
 }
 
+/**
+ * @brief 641cc | 80 | Updates the right blue ship
+ * 
+ * @param pOam Cutscene oam data pointer
+ */
 void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam)
 {
-    // https://decomp.me/scratch/KYgw3
-
     i32 yVelocity;
     
     if (pOam->actions & 1)
@@ -490,12 +495,7 @@ void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam)
 
     if (pOam->actions & 2)
     {
-        if (pOam->unk_18 & 1)
-            yVelocity = -1;
-        else
-            yVelocity = 0;
-
-        pOam->unk_10 = yVelocity;
+        pOam->unk_10 = pOam->unk_18 & 1 ? -1 : 0;
         pOam->yPosition += pOam->unk_10;
     }
 
@@ -659,10 +659,14 @@ void RidleyInSpaceViewOfShipParticles(void)
     }
 }
 
+/**
+ * @brief 645dc | c0 | Updates a particle during the view of ship sequence
+ * 
+ * @param pOam Cutscene oam data pointer
+ * @return u32 Oam Id
+ */
 u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
 {
-    // https://decomp.me/scratch/BWCTd
-
     u32 oamId;
     i32 divisor;
     u32 xPosition;
@@ -678,11 +682,11 @@ u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
         if (pOam->unk_E | pOam->unk_10)
             pOam->actions = 1;
         else
-            pOam->exists = 0;
+            pOam->exists = FALSE;
     }
-    else if (pOam->timer < 100)
+    else if (pOam->unk_12 < 100)
     {
-        if (pOam->timer == 0x19 || pOam->timer == 0x32 || pOam->timer == 0x46)
+        if (pOam->unk_12 == 0x19 || pOam->unk_12 == 0x32 || pOam->unk_12 == 0x46)
             oamId = RIDLEY_IN_SPACE_OAM_ID_VIEW_OF_SHIP_PARTICLE2;
 
         divisor = -pOam->unk_12 + 0x64;
@@ -691,15 +695,15 @@ u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
         
         pOam->yPosition = pOam->unk_10 / divisor + 0x140;
 
-        if ((u16)(xPosition + 0xC0) > 0x400)
-            pOam->exists = 0;
+        if ((u16)(xPosition + 0x200) > 0x400)
+            pOam->exists = FALSE;
         else if (pOam->yPosition > 0x2A0)
-            pOam->exists = 0;
+            pOam->exists = FALSE;
         else if (pOam->yPosition < -0x20)
-            pOam->exists = 0;
+            pOam->exists = FALSE;
     }
     else
-        pOam->exists = 0;
+        pOam->exists = FALSE;
 
     pOam->timer++;
     return oamId;
@@ -748,7 +752,7 @@ void RidleyInSpaceShipLeavingParticles(void)
         if (!CUTSCENE_DATA.oam[i].exists)
             continue;
 
-        RidleyInSpaceViewOfShipUpdateParticle(&CUTSCENE_DATA.oam[i]);
+        RidleyInSpaceShipLeavingUpdateParticle(&CUTSCENE_DATA.oam[i]);
 
         if (CUTSCENE_DATA.oam[i].exists == 0)
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], 0);
