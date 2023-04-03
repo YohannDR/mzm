@@ -189,16 +189,21 @@ void EnterTourianScrollBackground(void)
     (*pPosition)--;
 }
 
+/**
+ * @brief 673e0 | 378 | Updates a metroid
+ * 
+ * @param pOam Cutscene oam data pointer
+ * @param metroidId Metroid oam
+ */
 void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
 {
-    // https://decomp.me/scratch/jYvuj
-
     u32 position;
     u32 notDrawn;
+    i32 var_0;
     struct CutsceneOamData* pShell;
-    u32 var_0;
     i32 var_1;
     i32 var_2;
+    i32 var_3;
 
     pShell = pOam - 1;
 
@@ -227,13 +232,13 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
                 pOam->xPosition -= pOam->unk_E;
                 pOam->unk_E = 0;
 
-                pOam->unk_16 = (sRandomNumberTable[(pOam->timer - metroidId) & 0xFF] & 0x1F) + 8;
             }
             else
             {
-                pOam->unk_E = ((sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 0x1F) + 8) & 1 ? -4 : 4;
+                pOam->unk_E = sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 1 ? -4 : 4;
                 pOam->xPosition += pOam->unk_E;
             }
+            pOam->unk_16 = (sRandomNumberTable[(pOam->timer - metroidId) & 0xFF] & 0x1F) + 8;
         }
 
         if (pOam->unk_18 != 0)
@@ -246,14 +251,14 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
             {
                 pOam->yPosition -= pOam->unk_10;
                 pOam->unk_10 = 0;
-
-                pOam->unk_18 = (sRandomNumberTable[(pOam->timer - metroidId) & 0xFF] & 0x3F) + 8;
             }
             else
             {
                 pOam->unk_10 = sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 2 ? -4 : 4;
                 pOam->yPosition += pOam->unk_10;
             }
+            
+            pOam->unk_18 = (sRandomNumberTable[(pOam->timer - metroidId) & 0xFF] & 0x3F) + 8;
 
             if (pOam->unk_18 == pOam->unk_16)
                 pOam->unk_18 += 16;
@@ -285,33 +290,34 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
         {
             pOam->unk_E = sEnterTourian_7600b4[metroidId][0] - pOam->xPosition;
 
-            var_2 = sRandomNumberTable[(metroidId * pOam->timer) & 0xFF] & 1 ? 1 : -1;
-            var_2 *= sRandomNumberTable[(metroidId + pOam->timer) & 0xFF] & 3;
+            var_2 = sRandomNumberTable[(pOam->timer * metroidId) & 0xFF] & 1 ? 1 : -1;
+            var_2 *= sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 3;
 
-            if (var_1 > 0)
+            if (pOam->unk_E > 0)
                 pOam->unk_E = var_2 * 4 + 0x20;
             else
                 pOam->unk_E = var_2 * 4 - 0x20;
         }
-        else if (pOam->unk_E > 0)
-        {
-            if (sEnterTourian_7600b4[metroidId][0] <= pOam->yPosition)
-                pOam->unk_E -= 2;
-
-            var_2 = pOam->unk_E / 12 + 1;
-            if (var_2 > var_1)
-                var_2 = var_1;
-
-            pOam->xPosition += var_2;
-        }
         else
         {
-            if (sEnterTourian_7600b4[metroidId][0] >= pOam->yPosition)
-                pOam->unk_E += 2;
+            if (pOam->unk_E > 0)
+            {
+                if (sEnterTourian_7600b4[metroidId][0] <= pOam->xPosition)
+                    pOam->unk_E -= 2;
 
-            var_2 = pOam->unk_E / 12 - 1;
-            if (var_2 > -var_1)
-                var_2 = -var_1;
+                var_2 = pOam->unk_E / 12 + 1;
+                if (var_2 > var_1)
+                    var_2 = var_1;
+            }
+            else
+            {
+                if (sEnterTourian_7600b4[metroidId][0] >= pOam->xPosition)
+                    pOam->unk_E += 2;
+
+                var_2 = pOam->unk_E / 12 - 1;
+                if (var_2 < -var_1)
+                    var_2 = -var_1;
+            }
 
             pOam->xPosition += var_2;
         }
@@ -321,6 +327,24 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
         {
             var_2 = sRandomNumberTable[(pOam->animationDurationCounter + pOam->currentAnimationFrame) & 0xFF] & 2 ? 1 : -1;
             var_2 *= sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 1;
+
+            if (sEnterTourian_7600b4[metroidId][1] < pOam->yPosition)
+                pOam->unk_10 = sEnterTourian_7600b4[metroidId][1] - (var_2 + 4) * 4 - pOam->yPosition;
+            else
+                pOam->unk_10 = sEnterTourian_7600b4[metroidId][1] + (var_2 + 4) * 4 - pOam->yPosition;
+        }
+        else if (pOam->unk_18 & 1)
+        {
+            if (pOam->unk_10 > 0)
+                pOam->unk_10--;
+            else
+                pOam->unk_10++;
+
+            var_3 = pOam->yPosition;
+            if (pOam->unk_10 <= 0)
+                pOam->yPosition = var_3 - var_0;
+            else
+                pOam->yPosition = var_3 + var_0;
         }
     }
 
@@ -328,58 +352,16 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
     pShell->xPosition = pOam->xPosition;
     
     position = *CutsceneGetBGHOFSPointer(sEnterTourianPageData[0].bg);
-    notDrawn = position - pOam->xPosition;
-    position = notDrawn + 0x7DF;
+    var_2 = position - pOam->xPosition;
+    position = var_2 + 0x7DF;
 
     if (position < 0xBDF)
-        notDrawn = FALSE;
+        var_2 = FALSE;
     else
-        notDrawn = TRUE;
+        var_2 = TRUE;
 
-    pOam->notDrawn = notDrawn;
-    pShell->notDrawn = notDrawn;
-}
-
-/**
- * @brief 67758 | 8c | Updates the metroid palette
- * 
- * @param pPalette Cutscene palette data pointer
- * @param grabbedPal bool, use grabbed pal
- */
-void EnterTourianSwitchMetroidPalette(struct CutscenePaletteData* pPalette, u8 grabbedPal)
-{
-    if (grabbedPal == TRUE)
-    {
-        if (pPalette->active)
-        {
-            pPalette->active = TRUE;
-            pPalette->timer = 0;
-            pPalette->paletteRow = 0;
-            pPalette->maxTimer = 32;
-            return;
-        }
-
-        if (pPalette->timer != 0)
-        {
-            pPalette->timer--;
-            return;
-        }
-
-        pPalette->timer = pPalette->maxTimer;
-        pPalette->paletteRow++;
-
-        if (pPalette->paletteRow >= ARRAY_SIZE(sMetroidPAL_SamusGrabbed) / 16)
-            pPalette->paletteRow = 0;
-
-        DMATransfer(3, &sMetroidPAL_SamusGrabbed[pPalette->paletteRow * 16], PALRAM_BASE + 0x380, 32, 0x10);
-        return;
-    }
-
-    if (pPalette->active)
-    {
-        pPalette->active = FALSE;
-        DMATransfer(3, &sMetroidOAM_Moving_Frame10[8], PALRAM_BASE + 0x380, 32, 0x10);
-    }
+    pOam->notDrawn = var_2;
+    pShell->notDrawn = var_2;
 }
 
 /**
