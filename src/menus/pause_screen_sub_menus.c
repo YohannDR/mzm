@@ -661,10 +661,13 @@ void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamDat
     }
 }
 
+/**
+ * @brief 72bb8 | 498 | Determines the chozo statue path
+ * 
+ * @param param_1 To document
+ */
 void ChozoHintDeterminePath(u8 param_1)
 {
-    // https://decomp.me/scratch/3aMj6
-
     struct MenuOamData oam;
     struct MenuOamData* pOam;
     const struct ChozoStatueTarget* pStatueTarget;
@@ -811,6 +814,7 @@ void ChozoHintDeterminePath(u8 param_1)
     }
     else if (PAUSE_SCREEN_DATA.activatedTargets != 0 && gCurrentArea < AREA_CHOZODIA)
     {
+        gCurrentArea = gCurrentArea;
         pTarget = sChozoStatueTargetPathPointers[gCurrentArea];
         if (pTarget != NULL)
         {
