@@ -627,7 +627,7 @@ u32 ChozoStatueHintSubroutine(void)
  * @param pOam Menu Oam data pointer
  * @param param_3 To document
  */
-void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamData* pOam, i8* param_3)
+void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamData* pOam, const i8* param_3)
 {
     if (sElevatorRoomPairs[param_3[0]].area1 == PAUSE_SCREEN_DATA.currentArea)
     {

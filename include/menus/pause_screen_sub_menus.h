@@ -9,7 +9,7 @@ u32 unk_72144(struct ChozoHintRelated* param_1);
 void ChozoStatueHintMovement(void);
 void ChozoStatueHintScrolling(void);
 u32 ChozoStatueHintSubroutine(void);
-void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamData* pOam, i8* param_3);
+void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamData* pOam, const i8* param_3);
 void ChozoHintDeterminePath(u8 param_1);
 i32 ChozoStatueHintCheckTargetIsActivated(u8 target);
 void PauseScreenCheckActivatedTargets(void);
