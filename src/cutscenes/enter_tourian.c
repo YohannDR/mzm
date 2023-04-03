@@ -365,6 +365,48 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
 }
 
 /**
+ * @brief 67758 | 8c | Updates the metroid palette
+ * 
+ * @param pPalette Cutscene palette data pointer
+ * @param grabbedPal bool, use grabbed pal
+ */
+void EnterTourianSwitchMetroidPalette(struct CutscenePaletteData* pPalette, u8 grabbedPal)
+{
+    if (grabbedPal == TRUE)
+    {
+        if (pPalette->active)
+        {
+            pPalette->active = TRUE;
+            pPalette->timer = 0;
+            pPalette->paletteRow = 0;
+            pPalette->maxTimer = 32;
+            return;
+        }
+
+        if (pPalette->timer != 0)
+        {
+            pPalette->timer--;
+            return;
+        }
+
+        pPalette->timer = pPalette->maxTimer;
+        pPalette->paletteRow++;
+
+        if (pPalette->paletteRow >= ARRAY_SIZE(sMetroidPAL_SamusGrabbed) / 16)
+            pPalette->paletteRow = 0;
+
+        DMATransfer(3, &sMetroidPAL_SamusGrabbed[pPalette->paletteRow * 16], PALRAM_BASE + 0x380, 32, 0x10);
+        return;
+    }
+
+    if (pPalette->active)
+    {
+        pPalette->active = FALSE;
+        DMATransfer(3, &sMetroidOAM_Moving_Frame10[8], PALRAM_BASE + 0x380, 32, 0x10);
+    }
+}
+
+/**
  * @brief 677e4 | 168 | Updates the pirate
  * 
  * @param pOam Cutscene oam data pointer
