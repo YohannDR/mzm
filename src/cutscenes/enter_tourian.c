@@ -236,13 +236,15 @@ void EnterTourianSwitchMetroidPalette(struct CutscenePaletteData* pPalette, u8 g
     }
 }
 
+/**
+ * @brief 677e4 | 168 | Updates the pirate
+ * 
+ * @param pOam Cutscene oam data pointer
+ */
 void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
 {
-    // https://decomp.me/scratch/k9SZe
-
-    u16 position;
-    u8 notDrawn;
-    i32 velocity;
+    u32 position;
+    u32 notDrawn;
 
     if (pOam->actions & 1)
     {
@@ -257,12 +259,7 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
             }
             else
             {
-                if (sRandomNumberTable[gFrameCounter8Bit] & 1)
-                    velocity = -4;
-                else
-                    velocity = 4;
-
-                pOam->unk_E = velocity;
+                pOam->unk_E = sRandomNumberTable[gFrameCounter8Bit] & 1 ? -4 : 4;
                 pOam->xPosition += pOam->unk_E;
             }
 
@@ -299,8 +296,7 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
             pOam->unk_1A = 0;
             pOam->unk_12++;
 
-            velocity = 0x3AA0;
-            ApplySmoothPaletteTransition((void*)sEwramPointer + 0x280, (void*)sEwramPointer + velocity, PALRAM_BASE + 0x280, pOam->unk_12);
+            ApplySmoothPaletteTransition(sEwramPointer + 0x280, sEwramPointer + 0x3AA0, PALRAM_BASE + 0x280, pOam->unk_12);
             if (pOam->unk_12 > 30)
                 pOam->actions ^= 2;
         }
@@ -308,11 +304,14 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
 
     pOam->actions &= ~1;
     position = *CutsceneGetBGHOFSPointer(sEnterTourianPageData[0].bg);
+    notDrawn = position - pOam->xPosition;
+    position = notDrawn + 0x5DF;
 
-    if (position - pOam->xPosition + 0x5DF < 0x6DE)
+    if (position <= 0x6DE)
         notDrawn = FALSE;
     else
         notDrawn = TRUE;
+
     pOam->notDrawn = notDrawn;
 }
 

@@ -137,7 +137,7 @@ struct CutsceneOamData {
     i16 unk_12;
     u16 timer;
     u16 unk_16;
-    i16 unk_18;
+    u16 unk_18;
     u16 unk_1A;
     u8 padding_1C[2];
     u8 unk_1E;
