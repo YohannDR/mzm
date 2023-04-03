@@ -363,6 +363,6 @@ u8 GettingFullyPoweredSuitSubroutine(void)
 void GettingFullyPoweredSuitProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sGettingFullyPoweredSuitSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sGettingFullyPoweredSuitCutsceneOAM);
+    ProcessCutsceneOam(sGettingFullyPoweredSuitSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sGettingFullyPoweredSuitCutsceneOAM);
     ResetFreeOAM();
 }

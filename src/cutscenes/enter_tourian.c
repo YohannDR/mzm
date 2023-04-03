@@ -191,7 +191,153 @@ void EnterTourianScrollBackground(void)
 
 void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
 {
+    // https://decomp.me/scratch/jYvuj
 
+    u32 position;
+    u32 notDrawn;
+    struct CutsceneOamData* pShell;
+    u32 var_0;
+    i32 var_1;
+    i32 var_2;
+
+    pShell = pOam - 1;
+
+    if (pOam->actions & 2)
+    {
+        UpdateCutsceneOamDataID(pOam, 3);
+        pOam->actions &= ~1;
+        pOam->actions ^= 2;
+        pOam->actions |= 4;
+        pOam->timer = 0;
+    }
+
+    if (pOam->actions & 1)
+    {
+        if (pOam->timer != USHORT_MAX)
+            pOam->timer++;
+
+        if (pOam->unk_16 != 0)
+        {
+            pOam->unk_16--;
+        }
+        else
+        {
+            if (pOam->unk_E != 0)
+            {
+                pOam->xPosition -= pOam->unk_E;
+                pOam->unk_E = 0;
+
+                pOam->unk_16 = (sRandomNumberTable[(pOam->timer - metroidId) & 0xFF] & 0x1F) + 8;
+            }
+            else
+            {
+                pOam->unk_E = ((sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 0x1F) + 8) & 1 ? -4 : 4;
+                pOam->xPosition += pOam->unk_E;
+            }
+        }
+
+        if (pOam->unk_18 != 0)
+        {
+            pOam->unk_18--;
+        }
+        else
+        {
+            if (pOam->unk_10 != 0)
+            {
+                pOam->yPosition -= pOam->unk_10;
+                pOam->unk_10 = 0;
+
+                pOam->unk_18 = (sRandomNumberTable[(pOam->timer - metroidId) & 0xFF] & 0x3F) + 8;
+            }
+            else
+            {
+                pOam->unk_10 = sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 2 ? -4 : 4;
+                pOam->yPosition += pOam->unk_10;
+            }
+
+            if (pOam->unk_18 == pOam->unk_16)
+                pOam->unk_18 += 16;
+        }
+    }
+    else if (pOam->actions & 4)
+    {
+        if (pOam->timer != USHORT_MAX)
+            pOam->timer++;
+
+        if (metroidId == 0)
+            var_0 = 0xB4;
+        else
+            var_0 = 0x3C;
+
+        if (pOam->timer < var_0)
+        {
+            var_1 = 1;
+            var_0 = 2;
+        }
+        else
+        {
+            var_1 = 2;
+            var_0 = 1;
+        }
+
+        pOam->unk_16++;
+        if (pOam->unk_E == 0)
+        {
+            pOam->unk_E = sEnterTourian_7600b4[metroidId][0] - pOam->xPosition;
+
+            var_2 = sRandomNumberTable[(metroidId * pOam->timer) & 0xFF] & 1 ? 1 : -1;
+            var_2 *= sRandomNumberTable[(metroidId + pOam->timer) & 0xFF] & 3;
+
+            if (var_1 > 0)
+                pOam->unk_E = var_2 * 4 + 0x20;
+            else
+                pOam->unk_E = var_2 * 4 - 0x20;
+        }
+        else if (pOam->unk_E > 0)
+        {
+            if (sEnterTourian_7600b4[metroidId][0] <= pOam->yPosition)
+                pOam->unk_E -= 2;
+
+            var_2 = pOam->unk_E / 12 + 1;
+            if (var_2 > var_1)
+                var_2 = var_1;
+
+            pOam->xPosition += var_2;
+        }
+        else
+        {
+            if (sEnterTourian_7600b4[metroidId][0] >= pOam->yPosition)
+                pOam->unk_E += 2;
+
+            var_2 = pOam->unk_E / 12 - 1;
+            if (var_2 > -var_1)
+                var_2 = -var_1;
+
+            pOam->xPosition += var_2;
+        }
+
+        pOam->unk_18++;
+        if (pOam->unk_10 == 0)
+        {
+            var_2 = sRandomNumberTable[(pOam->animationDurationCounter + pOam->currentAnimationFrame) & 0xFF] & 2 ? 1 : -1;
+            var_2 *= sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 1;
+        }
+    }
+
+    pShell->yPosition = pOam->yPosition;
+    pShell->xPosition = pOam->xPosition;
+    
+    position = *CutsceneGetBGHOFSPointer(sEnterTourianPageData[0].bg);
+    notDrawn = position - pOam->xPosition;
+    position = notDrawn + 0x7DF;
+
+    if (position < 0xBDF)
+        notDrawn = FALSE;
+    else
+        notDrawn = TRUE;
+
+    pOam->notDrawn = notDrawn;
+    pShell->notDrawn = notDrawn;
 }
 
 /**
@@ -430,7 +576,8 @@ u8 EnterTourianSubroutine(void)
 void EnterTourianProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sEnterTourianSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sEnterTourianOam);
+    ProcessCutsceneOam(sEnterTourianSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength,
+        CUTSCENE_DATA.oam, sEnterTourianOam);
     ResetFreeOAM();
     CalculateOamPart4(gCurrentOamRotation, gCurrentOamScaling, 0);
 }

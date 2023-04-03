@@ -215,6 +215,6 @@ u8 SamusInBlueShipSubroutine(void)
 void SamusInBlueShipProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sSamusInBlueShipSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sSamusInBlueShipOam);
+    ProcessCutsceneOam(sSamusInBlueShipSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sSamusInBlueShipOam);
     ResetFreeOAM();
 }

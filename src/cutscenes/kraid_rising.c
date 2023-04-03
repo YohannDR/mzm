@@ -326,6 +326,6 @@ void KraidRisingProcessOAM(void)
 {
     gNextOamSlot = 0;
 
-    process_cutscene_oam(sKraidRisingSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sKraidRisingCutsceneOAM); // Undefined
+    ProcessCutsceneOam(sKraidRisingSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sKraidRisingCutsceneOAM); // Undefined
     ResetFreeOAM();
 }

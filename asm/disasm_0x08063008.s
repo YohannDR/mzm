@@ -766,7 +766,7 @@ sub_08063670: @ 0x08063670
     ldrb r0, [r0, #4]
     adds r1, #0xf0
     ldr r2, lbl_080636a4 @ =0x08375d4c
-    bl process_cutscene_oam
+    bl ProcessCutsceneOam
     bl ResetFreeOAM
     pop {r0}
     bx r0

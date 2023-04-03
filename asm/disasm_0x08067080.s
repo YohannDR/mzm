@@ -1631,7 +1631,7 @@ sub_08067d40: @ 0x08067d40
     ldrb r0, [r0, #4]
     adds r1, #0xf0
     ldr r2, lbl_08067d80 @ =0x083f03b0
-    bl process_cutscene_oam
+    bl ProcessCutsceneOam
     bl ResetFreeOAM
     ldr r0, lbl_08067d84 @ =gCurrentOamRotation
     ldrh r0, [r0]
@@ -2079,7 +2079,7 @@ sub_080680f0: @ 0x080680f0
     ldrb r0, [r0, #4]
     adds r1, #0xf0
     ldr r2, lbl_08068124 @ =0x083f6c18
-    bl process_cutscene_oam
+    bl ProcessCutsceneOam
     bl ResetFreeOAM
     pop {r0}
     bx r0
@@ -5798,8 +5798,8 @@ lbl_08069dbc: .4byte 0x000001ff
 lbl_08069dc0: .4byte 0xfffffe00
 lbl_08069dc4: .4byte gNextOamSlot
 
-    thumb_func_start process_cutscene_oam
-process_cutscene_oam: @ 0x08069dc8
+    thumb_func_start ProcessCutsceneOam
+ProcessCutsceneOam: @ 0x08069dc8
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

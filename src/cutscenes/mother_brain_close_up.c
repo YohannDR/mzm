@@ -381,7 +381,7 @@ u8 MotherBrainCloseUpSubroutine(void)
 void MotherBrainCloseUpProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sMotherBrainCloseUpSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMotherBrainCloseUpCutsceneOAM);
+    ProcessCutsceneOam(sMotherBrainCloseUpSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMotherBrainCloseUpCutsceneOAM);
     ResetFreeOAM();
 }
 

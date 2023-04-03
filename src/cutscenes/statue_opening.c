@@ -221,6 +221,6 @@ u8 StatueOpeningSubroutine(void)
 void StatueOpeningProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sStatueOpeningSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sStatueOpeningOam);
+    ProcessCutsceneOam(sStatueOpeningSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sStatueOpeningOam);
     ResetFreeOAM();
 }

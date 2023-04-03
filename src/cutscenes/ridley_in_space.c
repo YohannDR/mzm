@@ -605,7 +605,7 @@ u8 RidleyInSpaceSubroutine(void)
 void RidleyInSpaceProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sRidleyInSpaceSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleyInSpaceCutsceneOAM);
+    ProcessCutsceneOam(sRidleyInSpaceSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleyInSpaceCutsceneOAM);
 
     ResetFreeOAM();
     CalculateOamPart4(gCurrentOamRotation, gCurrentOamScaling, 0);
