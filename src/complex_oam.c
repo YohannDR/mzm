@@ -79,32 +79,22 @@ u8 ProcessComplexOam(u32 oamSlot, i16 xPosition, i16 yPosition, u16 rotation, i1
 
 void CalculateOamPart4(u16 rotation, i16 scaling, u8 oamSlot)
 {
-    // https://decomp.me/scratch/jijJJ
-
-    i32 c;
-    i32 s;
-    i32 minusS;
     i32 dy1;
     i32 dmy1;
     i32 dx1;
     i32 dmx1;
     i32 dy2;
     i32 dmy2;
+    
+    dy1 = FixedMultiplication(cos(rotation), FixedInverse(scaling));
+   
+    dmy1 = FixedMultiplication(sin(rotation), FixedInverse(scaling));
+    dx1 = FixedMultiplication(-sin(rotation), FixedInverse(scaling));
 
-    c = cos(rotation);
-    dy1 = FixedMultiplication(c, FixedInverse(scaling));
+    dmx1 = FixedMultiplication(cos(rotation), FixedInverse(-scaling));
 
-    s = sin(rotation);
-    dmy1 = FixedMultiplication(s, FixedInverse(scaling));
-
-    minusS = -sin(rotation);
-    dx1 = FixedMultiplication(minusS, FixedInverse(scaling));
-
-    scaling = -scaling;
-    dmx1 = FixedMultiplication(c, FixedInverse(scaling));
-
-    dy2 = FixedMultiplication(s, FixedInverse(scaling));
-    dmy2 = FixedMultiplication(minusS, FixedInverse(scaling));
+    dy2 = FixedMultiplication(sin(rotation), FixedInverse(-scaling));
+    dmy2 = FixedMultiplication(-sin(rotation), FixedInverse(-scaling));
 
     gOamData[oamSlot].all.affineParam = dy1;
     gOamData[oamSlot + 1].all.affineParam = dmy1;

@@ -86,5 +86,3 @@ const u32 sEnterTourianDeadSpacePirateGFX_2[77] = INCBIN_U32("data/cutscenes/Ent
 const u32 sEnterTourianDeadSpacePirateGFX_3[32] = INCBIN_U32("data/cutscenes/EnterTourian/DeadSpacePirate_3.gfx.lz");
 const u32 sEnterTourianBackgroundTileTable[385] = INCBIN_U32("data/cutscenes/EnterTourian/Background.tt");
 const u32 sEnterTourianForegroundTileTable[385] = INCBIN_U32("data/cutscenes/EnterTourian/Foreground.tt");
-
-const u8 sTempArray_3f6c0c[0x1a7f4] = INCBIN_U8("data/Blob_3f6c0c_411400.bin");

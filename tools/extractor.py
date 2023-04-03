@@ -24,6 +24,7 @@ subDirs: array = [
     "cutscenes/BeforeCharlie/",
     "cutscenes/StatueOpening/",
     "cutscenes/EnterTourian/",
+    "cutscenes/SamusInBlueShip/",
     "menus/",
     "menus/TitleScreen/",
     "menus/EraseSram/",

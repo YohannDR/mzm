@@ -7600,8 +7600,8 @@ lbl_0805b752:
     bx r0
     .align 2, 0
 
-    thumb_func_start sub_0805b764
-sub_0805b764: @ 0x0805b764
+    thumb_func_start ApplySmoothPaletteTransition
+ApplySmoothPaletteTransition: @ 0x0805b764
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

@@ -522,7 +522,10 @@ SECTIONS {
         src/cutscenes/getting_fully_powered_suit.o(.text);
         src/cutscenes/before_charlie.o(.text);
         src/cutscenes/statue_opening.o(.text);
-        asm/disasm_0x08067080.o(.text);
+        src/cutscenes/enter_tourian.o(.text);
+        src/cutscenes/samus_in_blue_ship.o(.text);
+        src/oam_id.o(.text);
+        asm/disasm_0x08068168.o(.text);
         src/menus/erase_sram.o(.text);
         src/menus/title_screen.o(.text);
         asm/disasm_0x080778c4.o(.text);
@@ -664,7 +667,8 @@ SECTIONS {
         src/data/cutscenes/before_charlie_data.o(.rodata);
         src/data/cutscenes/statue_opening_data.o(.rodata);
         src/data/cutscenes/enter_tourian_data.o(.rodata);
-        /* 3f6c0c-411400 */
+        src/data/cutscenes/samus_in_blue_ship_data.o(.rodata);
+        /* 3fcef0-411400 */
         src/data/save_file_data.o(.rodata);
         src/data/menus/erase_sram_data.o(.rodata);
         /* 415460-446d68 */
@@ -691,6 +695,8 @@ SECTIONS {
         src/data/cutscenes/internal_getting_fully_powered_suit_data.o(.rodata);
         src/data/cutscenes/internal_before_charlie_data.o(.rodata);
         src/data/cutscenes/internal_statue_opening_data.o(.rodata);
+        src/data/cutscenes/internal_enter_tourian_data.o(.rodata);
+        src/data/cutscenes/internal_samus_in_blue_ship_data.o(.rodata);
         /* 760090-760420 */
         src/data/menus/internal_erase_sram_data.o(.rodata)
         /* 760458-760aa0 */

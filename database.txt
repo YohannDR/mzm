@@ -903,6 +903,13 @@ cutscenes/EnterTourian/DeadSpacePirate_3.gfx.lz;32;0x3f5f84;4
 cutscenes/EnterTourian/Background.tt;385;0x3f6004;4
 cutscenes/EnterTourian/Foreground.tt;385;0x3f6608;4
 
+# Samus in blue ship
+
+cutscenes/SamusInBlueShip/Ship.pal;144;0x3f7584;2
+cutscenes/SamusInBlueShip/Samus.gfx.lz;3641;0x3f76a4;4
+cutscenes/SamusInBlueShip/Controls.gfx.lz;1642;0x3faf88;4
+cutscenes/SamusInBlueShip/Ship.tt;368;0x3fc930;4
+
 ## Menus
 
 # Title screen
@@ -2351,13 +2358,13 @@ Blob_2ceaa8_2cfd9f.bin;4856;0x2ceaa8;1
 Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
 Blob_375cc4_386f60.bin;70300;0x375cc4;1
-Blob_3f6c0c_411400.bin;108532;0x3f6c0c;1
+Blob_3fcef0_411400.bin;83216;0x3fcef0;1
 Blob_415460_446d68.bin;203016;0x415460;1
 Blob_44f11c_45f45c.bin;66368;0x44f11c;1
 Blob_479400_4bfee4.bin;289508;0x479400;1
 Blob_549b44_74f8b4.bin;2121072;0x549b44;1
 Blob_754bd0_75e6a8.bin;39640;0x754bd0;1
 Blob_75fae4_75fd78.bin;660;0x75fae4;1
-Blob_760090_760420.bin;912;0x760090;1
+Blob_7600f8_760420.bin;808;0x7600f8;1
 Blob_760458_760aa0.bin;1608;0x760458;1
 Blob_760aef_7f7734.bin;617541;0x760aef;1

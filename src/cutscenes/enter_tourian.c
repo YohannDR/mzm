@@ -1,5 +1,6 @@
 #include "cutscenes/enter_tourian.h"
 #include "cutscenes/cutscene_utils.h"
+#include "color_effects.h"
 #include "macros.h"
 
 #include "data/shortcut_pointers.h"
@@ -466,7 +467,7 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
             pOam->unk_1A = 0;
             pOam->unk_12++;
 
-            ApplySmoothPaletteTransition(sEwramPointer + 0x280, sEwramPointer + 0x3AA0, PALRAM_BASE + 0x280, pOam->unk_12);
+            ApplySmoothPaletteTransition((void*)sEwramPointer + 0x280, (void*)sEwramPointer + 0x3AA0, PALRAM_BASE + 0x280, pOam->unk_12);
             if (pOam->unk_12 > 30)
                 pOam->actions ^= 2;
         }
@@ -501,16 +502,16 @@ u8 EnterTourianInit(void)
     DMATransfer(3, sEnterTourianMetroidPAL, PALRAM_OBJ, sizeof(sEnterTourianMetroidPAL), 0x10);
     DMATransfer(3, sMetroidPAL, PALRAM_BASE + 0x300, sizeof(sMetroidPAL), 0x10);
 
-    CallLZ77UncompWRAM(sEnterTourianDeadSpacePirateGFX_1, VRAM_BASE + 0x10000);
-    CallLZ77UncompWRAM(sEnterTourianDeadSpacePirateGFX_2, VRAM_BASE + 0x10400);
-    CallLZ77UncompWRAM(sEnterTourianDeadSpacePirateGFX_3, VRAM_BASE + 0x10800);
-    CallLZ77UncompWRAM(sMetroidGFX, VRAM_BASE + 0x14000);
+    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGFX_1, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGFX_2, VRAM_BASE + 0x10400);
+    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGFX_3, VRAM_BASE + 0x10800);
+    CallLZ77UncompVRAM(sMetroidGFX, VRAM_BASE + 0x14000);
     
-    CallLZ77UncompWRAM(sEnterTourianBackgroundGFX, VRAM_BASE + sEnterTourianPageData[0].graphicsPage * 0x4000);
-    CallLZ77UncompWRAM(sEnterTourianForegroundGFX, VRAM_BASE + sEnterTourianPageData[1].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sEnterTourianBackgroundGFX, VRAM_BASE + sEnterTourianPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sEnterTourianForegroundGFX, VRAM_BASE + sEnterTourianPageData[1].graphicsPage * 0x4000);
 
-    CallLZ77UncompWRAM(sEnterTourianBackgroundTileTable, VRAM_BASE + sEnterTourianPageData[0].tiletablePage * 0x800);
-    CallLZ77UncompWRAM(sEnterTourianForegroundTileTable, VRAM_BASE + sEnterTourianPageData[1].tiletablePage * 0x800);
+    CallLZ77UncompVRAM(sEnterTourianBackgroundTileTable, VRAM_BASE + sEnterTourianPageData[0].tiletablePage * 0x800);
+    CallLZ77UncompVRAM(sEnterTourianForegroundTileTable, VRAM_BASE + sEnterTourianPageData[1].tiletablePage * 0x800);
 
     CutsceneSetBGCNTPageData(sEnterTourianPageData[0]);
     CutsceneSetBGCNTPageData(sEnterTourianPageData[1]);
