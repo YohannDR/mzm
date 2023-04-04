@@ -6323,8 +6323,8 @@ lbl_0805ad80: .4byte 0x08345c48
 lbl_0805ad84: .4byte gSamusData
 lbl_0805ad88: .4byte gCollectingTank
 
-    thumb_func_start BGClipFinishCollectingTank
-BGClipFinishCollectingTank: @ 0x0805ad8c
+    thumb_func_start BgClipFinishCollectingTank
+BgClipFinishCollectingTank: @ 0x0805ad8c
     push {r4, r5, r6, lr}
     ldr r1, lbl_0805addc @ =gCollectingTank
     movs r0, #0
@@ -6885,8 +6885,8 @@ lbl_0805b1c8:
     bx r0
     .align 2, 0
 
-    thumb_func_start BGClipCallMotherBrainUpdateGlass
-BGClipCallMotherBrainUpdateGlass: @ 0x0805b1d8
+    thumb_func_start BgClipCallMotherBrainUpdateGlass
+BgClipCallMotherBrainUpdateGlass: @ 0x0805b1d8
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}

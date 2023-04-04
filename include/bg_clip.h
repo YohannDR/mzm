@@ -5,22 +5,22 @@
 
 // Functions
 
-void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition);
-void BGClipSetBG1BlockValue(u32 value, u16 yPosition, u16 xPosition);
-void BGClipSetRawBG1BlockValue(u32 value, u16 yPosition, u16 xPosition);
-void BGClipSetClipdataBlockValue(u16 value, u16 yPosition, u16 xPosition);
-void BGClipCheckTouchingSpecialClipdata(void);
-void BGClipApplyClipdataChangingTransparency(void);
-u16 BGClipGetNewBLDALPHAValue(u16 clip);
-void BGClipCheckWalkingOnCrumbleBlock(void);
-void BGClipCheckTouchingTransitionOnElevator(void);
-void BGClipCheckTouchingTransitionOrTank(void);
-void BGClipFinishCollectingTank(void);
-void BGClipFinishCollectingAbility(void);
-void BGClipCheckGrabbingCrumnbleBlock(u8 dontDestroy);
-u8 BGClipCheckOpeningHatch(u16 xPosition, u16 yPosition);
-void BGClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type);
-void BGClipRemoveCollectedTanks(void);
-void BGClipCallMotherBrainUpdateGlass(u8 stage);
+void BgClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition);
+void BgClipSetBG1BlockValue(u32 value, u16 yPosition, u16 xPosition);
+void BgClipSetRawBG1BlockValue(u32 value, u16 yPosition, u16 xPosition);
+void BgClipSetClipdataBlockValue(u16 value, u16 yPosition, u16 xPosition);
+void BgClipCheckTouchingSpecialClipdata(void);
+void BgClipApplyClipdataChangingTransparency(void);
+u16 BgClipGetNewBldalphaValue(u16 clip);
+void BgClipCheckWalkingOnCrumbleBlock(void);
+void BgClipCheckTouchingTransitionOnElevator(void);
+void BgClipCheckTouchingTransitionOrTank(void);
+void BgClipFinishCollectingTank(void);
+void BgClipFinishCollectingAbility(void);
+void BgClipCheckGrabbingCrumnbleBlock(u8 dontDestroy);
+u8 BgClipCheckOpeningHatch(u16 xPosition, u16 yPosition);
+void BgClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type);
+void BgClipRemoveCollectedTanks(void);
+void BgClipCallMotherBrainUpdateGlass(u8 stage);
 
 #endif /* BG_CLIP_H */

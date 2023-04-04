@@ -585,7 +585,7 @@ void MotherBrainPartGlassStage1(void)
     {
         gCurrentSprite.pose = MOTHER_BRAIN_PART_POSE_GLASS_STAGE_2;
         // Edit BG
-        BGClipCallMotherBrainUpdateGlass(0x1);
+        BgClipCallMotherBrainUpdateGlass(0x1);
         SoundPlay(0x2B5);
     }
 }
@@ -602,7 +602,7 @@ void MotherBrainPartGlassStage2(void)
     {
         gCurrentSprite.pose = MOTHER_BRAIN_PART_POSE_GLASS_STAGE_3;
         // Edit BG
-        BGClipCallMotherBrainUpdateGlass(0x2);
+        BgClipCallMotherBrainUpdateGlass(0x2);
         SoundPlay(0x2B6);
     }
 }
@@ -619,7 +619,7 @@ void MotherBrainPartGlassStage3(void)
     {
         gCurrentSprite.pose = MOTHER_BRAIN_PART_POSE_GLASS_BROKEN;
         // Edit BG
-        BGClipCallMotherBrainUpdateGlass(0x3);
+        BgClipCallMotherBrainUpdateGlass(0x3);
         SoundPlay(0x2B7);
     }
 }
@@ -646,7 +646,7 @@ void MotherBrainPartSpawnGlassBreaking(void)
     SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_GLASS_BREAKING, 0x0, gCurrentSprite.spritesetGFXSlot,
         gCurrentSprite.primarySpriteRAMSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
     // Remove in BG
-    BGClipCallMotherBrainUpdateGlass(0x4);
+    BgClipCallMotherBrainUpdateGlass(0x4);
     SoundPlay(0x2B8);
 }
 

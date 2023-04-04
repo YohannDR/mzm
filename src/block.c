@@ -174,8 +174,8 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
                 clipdata = sTankBehaviors[BEHAVIOR_TO_TANK(pClipBlock->behavior)].revealedClipdata;
                 if (clipdata != 0x0)
                 {
-                    BGClipSetBG1BlockValue(clipdata, pClipBlock->yPosition, pClipBlock->xPosition);
-                    BGClipSetClipdataBlockValue(clipdata, pClipBlock->yPosition, pClipBlock->xPosition);
+                    BgClipSetBG1BlockValue(clipdata, pClipBlock->yPosition, pClipBlock->xPosition);
+                    BgClipSetClipdataBlockValue(clipdata, pClipBlock->yPosition, pClipBlock->xPosition);
                     result = TRUE;
                 }
             }
@@ -322,6 +322,8 @@ u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
 
 void BlockRemoveNeverReformBlocks(void)
 {
+    // https://decomp.me/scratch/urzF4
+
     i32 i;
     i32 var_0;
     u8* pBlock;
@@ -385,8 +387,8 @@ u32 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock)
         if ((gCurrentClipdataAffectingAction == CAA_BOMB_PISTOL || (gCurrentClipdataAffectingAction == CAA_POWER_BOMB && !gCurrentPowerBomb.owner)) && pClipBlock->behavior != sReformingBlocksTilemapValue[blockType])
         {
             blockType = sReformingBlocksTilemapValue[blockType];
-            BGClipSetBG1BlockValue(blockType, pClipBlock->yPosition, pClipBlock->xPosition);
-            BGClipSetClipdataBlockValue(blockType, pClipBlock->yPosition, pClipBlock->xPosition);
+            BgClipSetBG1BlockValue(blockType, pClipBlock->yPosition, pClipBlock->xPosition);
+            BgClipSetClipdataBlockValue(blockType, pClipBlock->yPosition, pClipBlock->xPosition);
         }
 
         return FALSE;
@@ -428,7 +430,7 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
         case CAA_POWER_BOMB:
             // Check on hatch
             if (gTilemapAndClipPointers.pClipCollisions[trueClip] == CLIPDATA_TYPE_DOOR &&
-                BGClipCheckOpeningHatch(clipBlock.xPosition, clipBlock.yPosition) != 0x0)
+                BgClipCheckOpeningHatch(clipBlock.xPosition, clipBlock.yPosition) != 0x0)
                 result = TRUE;
             else
             {
@@ -463,27 +465,27 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
 
         case CAA_REMOVE_SOLID:
             if (!BlockUpdateMakeSolidBlocks(FALSE, xPosition, yPosition))
-                BGClipSetBG1BlockValue(0x0, yPosition, xPosition);
+                BgClipSetBG1BlockValue(0x0, yPosition, xPosition);
 
-            BGClipSetClipdataBlockValue(0x0, yPosition, xPosition);
+            BgClipSetClipdataBlockValue(0x0, yPosition, xPosition);
             break;
 
         case CAA_MAKE_SOLID_GRIPPABLE:
             result = BlockUpdateMakeSolidBlocks(TRUE, xPosition, yPosition);
             if (result)
-                BGClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID2, yPosition, xPosition);
+                BgClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID2, yPosition, xPosition);
             break;
 
         case CAA_MAKE_STOP_ENEMY:
             result = BlockUpdateMakeSolidBlocks(TRUE, xPosition, yPosition);
             if (result)
-                BGClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_STOP_ENEMY_AIR, yPosition, xPosition);
+                BgClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_STOP_ENEMY_AIR, yPosition, xPosition);
             break;
 
         case CAA_MAKE_NON_POWER_GRIP:
             result = BlockUpdateMakeSolidBlocks(TRUE, xPosition, yPosition);
             if (result)
-                BGClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_NON_POWER_GRIP, yPosition, xPosition);
+                BgClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_NON_POWER_GRIP, yPosition, xPosition);
             break;
     }
 
@@ -640,7 +642,7 @@ void BlockUpdateBrokenBlocks(void)
                             pBlock->stage = 0x2;
                         else
                         {
-                            BGClipSetClipdataBlockValue(sReformingBlocksTilemapValue[pBlock->type], pBlock->yPosition, pBlock->xPosition);
+                            BgClipSetClipdataBlockValue(sReformingBlocksTilemapValue[pBlock->type], pBlock->yPosition, pBlock->xPosition);
                             pBlock->broken = FALSE;
                             pBlock->stage = 0x0;
                             pBlock->type = BLOCK_TYPE_NONE;
@@ -888,7 +890,7 @@ void BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type)
         {
             if (!pBlock->broken && pBlock->stage >= stage)
             {
-                BGClipSetBG1BlockValue(0x0, pBlock->yPosition, pBlock->xPosition);
+                BgClipSetBG1BlockValue(0x0, pBlock->yPosition, pBlock->xPosition);
 
                 pBlock->broken = FALSE;
                 pBlock->stage = 0x2;

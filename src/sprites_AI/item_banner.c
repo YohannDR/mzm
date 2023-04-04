@@ -242,7 +242,7 @@ void ItemBannerStatic(void)
 void ItemBannerRemovalInit(void)
 {
     if (gCollectingTank)
-        BGClipFinishCollectingTank();
+        BgClipFinishCollectingTank();
     if (gCurrentSprite.pOam == sItemBannerOAM_OneLineStatic)
         gCurrentSprite.pOam = sItemBannerOAM_OneLineRemoving;
     else

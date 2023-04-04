@@ -367,7 +367,7 @@ void RoomLoadBackgrounds(void)
 void RoomRemoveNeverReformBlocksAndCollectedTanks(void)
 {
 	BlockRemoveNeverReformBlocks();
-	BGClipRemoveCollectedTanks();
+	BgClipRemoveCollectedTanks();
 }
 
 void RoomReset(void)
@@ -852,7 +852,7 @@ void RoomUpdate(void)
 
     if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
     {
-        BGClipCheckTouchingSpecialClipdata();
+        BgClipCheckTouchingSpecialClipdata();
 
         // Check still in "playing" mode
         if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
