@@ -322,7 +322,42 @@ u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
 
 void BlockRemoveNeverReformBlocks(void)
 {
+    i32 i;
+    i32 var_0;
+    u8* pBlock;
+    i32 limit;
 
+    if (gPauseScreenFlag)
+        i = TRUE;
+    else
+        i = FALSE;
+
+    if (gCurrentArea >= MAX_AMOUNT_OF_AREAS)
+        i = TRUE;
+
+    if (i)
+        return;
+
+    pBlock = gNeverReformBlocks[gCurrentArea];
+    limit = gNumberOfNeverReformBlocks[gCurrentArea] * 2;
+    for (var_0 = 0; i < limit; i += 2)
+    {
+        if (pBlock[i + 0] == 0)
+            var_0 = 1;
+
+        if (var_0 == 1)
+        {
+            if (pBlock[i + 1] == gCurrentRoom)
+                var_0 = 2;
+            else
+                var_0 = 0;
+        }
+        else if (var_0 == 2)
+        {
+            BlockRemoveNeverReformSingleBlock(pBlock[i + 0],
+                pBlock[i + 1]);
+        }
+    }
 }
 
 void BlockRemoveNeverReformSingleBlock(u16 xPosition, u16 yPosition)
