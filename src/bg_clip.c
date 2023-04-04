@@ -639,17 +639,14 @@ void BgClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
     limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
     overLimit = TRUE;
     pItem = (u8*)gItemsCollected[i];
-    i = 0;
-    for (; ; pItem += 4)
+
+    for (i = 0; i < limit; i++, pItem += 4)
     {
-        if (i >= limit)
-            break;
-        else if (pItem[0] == 0xFF)
+        if (pItem[0] == UCHAR_MAX)
         {
             overLimit = FALSE;
             break;
         }
-        i++;
     }
 
     if (!overLimit)
@@ -708,7 +705,30 @@ void BgClipRemoveCollectedTanks(void)
     }
 }
 
+/**
+ * @brief 5b1d8 | 74 | Calls the BgClipMotherBrainUpdateGlass on every block of the glass
+ * 
+ * @param stage Breaking stage
+ */
 void BgClipCallMotherBrainUpdateGlass(u8 stage)
 {
+    u16 i;
+    u16 j;
 
+    // Check in the mother brain room
+    if (gCurrentArea != AREA_TOURIAN)
+        return;
+
+    if (gCurrentRoom != 4)
+        return;
+
+    // Loop on every tile of the glass
+    for (i = 0; i < 5; i++) // Y
+    {
+        for (j = 0; j < 7; j++) // X
+        {
+            // Fetch the correct tile value, and the correct positions
+            BgClipMotherBrainUpdateGlass(0, sMotherBrainGlassBreakingBaseTilemapValues[stage] + i * 16 + j, i + 13, j + 4);
+        }
+    }
 }
