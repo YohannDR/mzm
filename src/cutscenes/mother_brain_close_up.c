@@ -129,7 +129,7 @@ void MotherBrainCloseUpUpdateElevatorReflection(struct CutsceneOamData* pOam)
     {
         // Set cooldown
         pOam->timer = 60;
-        pOam->actions = 2;
+        pOam->actions++;
         return;
     }
 
@@ -426,25 +426,36 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
     }
 }
 
+/**
+ * @brief 637b0 | 5c | Updates a bubble
+ * 
+ * @param pOam Cutscene oam data pointer
+ */
 void MotherBrainCloseUpUpdateBubble(struct CutsceneOamData* pOam)
 {
-    // https://decomp.me/scratch/14vAj
-
     i32 yPosition;
+    i32 temp;
 
     pOam->yPosition -= 4;
-    yPosition = (pOam->yPosition + BLOCK_SIZE * 32);
-    yPosition -= gBG3VOFS_NonGameplay;
+    yPosition = (pOam->yPosition);
+    temp = BLOCK_SIZE * 32;
+    yPosition += temp;
 
-    if (yPosition < -0x90)
+    temp = gBG3VOFS_NonGameplay;
+    temp = yPosition - temp;
+
+    if (temp < -0x90)
         pOam->exists = FALSE;
-    else if (yPosition > 0x300)
+    else if (temp > 0x300)
     {
-        if (!(pOam->notDrawn))
+        if (!pOam->notDrawn)
             pOam->notDrawn = TRUE;
     }
-    else if (pOam->notDrawn)
-        pOam->notDrawn = FALSE;
+    else
+    {
+        if (pOam->notDrawn)
+            pOam->notDrawn = FALSE;
+    }
 }
 
 /**

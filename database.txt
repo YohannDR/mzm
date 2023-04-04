@@ -772,6 +772,30 @@ cutscenes/StoryText/UnusedLetters.gfx.lz;645;0x374d24;4
 cutscenes/StoryText/Palette.pal;16;0x375738;2
 cutscenes/StoryText/Text.tt;347;0x375758;4
 
+# Mother brai close up
+
+cutscenes/MotherBrainCloseUp/Palette.pal;96;0x376084;2
+cutscenes/MotherBrainCloseUp/Background.pal;80;0x376144;2
+cutscenes/MotherBrainCloseUp/Samus.pal;80;0x3761e4;2
+cutscenes/MotherBrainCloseUp/SamusVaria.pal;80;0x376284;2
+cutscenes/MotherBrainCloseUp/Eye.pal;32;0x376324;2
+cutscenes/MotherBrainCloseUp/BigEye.pal;32;0x376364;2
+
+cutscenes/MotherBrainCloseUp/MotherBrain.gfx.lz;2722;0x3763a4;4
+cutscenes/MotherBrainCloseUp/Background.gfx.lz;2422;0x378e2c;4
+cutscenes/MotherBrainCloseUp/Samus.gfx.lz;2999;0x37b404;4
+cutscenes/MotherBrainCloseUp/Eye.gfx.lz;1134;0x37e2e0;4
+cutscenes/MotherBrainCloseUp/BigEye.gfx.lz;2309;0x37f498;4
+
+cutscenes/MotherBrainCloseUp/MotherBrain.tt;369;0x3818ac;4
+cutscenes/MotherBrainCloseUp/Background.tt;369;0x381e70;4
+cutscenes/MotherBrainCloseUp/Samus.tt;368;0x382434;4
+cutscenes/MotherBrainCloseUp/Glass.tt;67;0x3829f4;4
+
+cutscenes/MotherBrainCloseUp/TankView.gfx.lz;3944;0x382b00;4
+cutscenes/MotherBrainCloseUp/TankView.tt;368;0x3868a0;4
+cutscenes/MotherBrainCloseUp/TankView.pal;128;0x386e60;2
+
 # Ridley in space
 
 cutscenes/RidleyInSpace/Ship.gfx.lz;1565;0x387088;4
@@ -2357,7 +2381,6 @@ Blob_238b68_23a5bc.bin;6740;0x238b68;1
 Blob_2ceaa8_2cfd9f.bin;4856;0x2ceaa8;1
 Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
-Blob_375cc4_386f60.bin;70300;0x375cc4;1
 Blob_3fcef0_411400.bin;83216;0x3fcef0;1
 Blob_415460_446d68.bin;203016;0x415460;1
 Blob_44f11c_45f45c.bin;66368;0x44f11c;1

@@ -514,7 +514,7 @@ SECTIONS {
         asm/disasm_0x08060e28.o(.text);
         src/cutscenes/kraid_rising.o(.text);
         src/cutscenes/story_text_cutscene.o(.text);
-        asm/disasm_0x08063008.o(.text);
+        src/cutscenes/mother_brain_close_up.o(.text);
         src/cutscenes/ridley_in_space.o(.text);
         src/cutscenes/ridley_landing.o(.text);
         src/cutscenes/ridley_spawn.o(.text);
@@ -659,6 +659,7 @@ SECTIONS {
         src/data/cutscenes/cutscenes_data.o(.rodata);
         src/data/cutscenes/kraid_rising_data.o(.rodata);
         src/data/cutscenes/story_text_cutscene_data.o(.rodata);
+        src/data/cutscenes/mother_brain_close_up_data.o(.rodata);
         src/data/cutscenes/ridley_in_space_data.o(.rodata);
         src/data/cutscenes/ridley_landing_data.o(.rodata);
         src/data/cutscenes/ridley_spawn_data.o(.rodata);
