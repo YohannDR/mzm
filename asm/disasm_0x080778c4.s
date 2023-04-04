@@ -4513,7 +4513,7 @@ lbl_08079d34: .4byte gUnk_3000c20
 lbl_08079d38: .4byte gMostRecentSaveFile
 lbl_08079d3c:
     movs r0, #0
-    bl sub_08000fbc
+    bl unk_fbc
     cmp r0, #0
     bne lbl_08079d48
     b lbl_08079ec0
@@ -4547,7 +4547,7 @@ lbl_08079d7c: .4byte gMostRecentSaveFile
 lbl_08079d80: .4byte sNonGameplayRamPointer
 lbl_08079d84:
     movs r0, #1
-    bl sub_08000fbc
+    bl unk_fbc
     cmp r0, #0
     bne lbl_08079d90
     b lbl_08079ec0

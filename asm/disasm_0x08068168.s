@@ -22909,9 +22909,9 @@ lbl_080732bc:
     beq lbl_080732d2
 lbl_080732c2:
     movs r0, #0xe
-    bl do_sram_operation
+    bl DoSramOperation
     movs r0, #0x10
-    bl do_sram_operation
+    bl DoSramOperation
     cmp r0, #0
     bne lbl_080732bc
 lbl_080732d2:
@@ -23000,7 +23000,7 @@ lbl_08073360:
     mvns r0, r1
     str r0, [r4, #4]
     movs r0, #0
-    bl do_sram_operation
+    bl DoSramOperation
     pop {r4, r5, r6}
     pop {r0}
     bx r0
@@ -23079,7 +23079,7 @@ lbl_08073418:
     bl DMATransfer
     movs r6, #0
     movs r0, #0
-    bl do_sram_operation
+    bl DoSramOperation
     b lbl_080734a4
 lbl_08073432:
     ldr r3, lbl_0807346c @ =0x00006d40
@@ -23091,7 +23091,7 @@ lbl_08073432:
     bl DMATransfer
     movs r6, #0
     movs r0, #0
-    bl do_sram_operation
+    bl DoSramOperation
     mov r0, r8
     cmp r0, #0
     beq lbl_080734a4
@@ -23104,7 +23104,7 @@ lbl_08073432:
     movs r3, #0x40
     bl DMATransfer
     movs r0, #1
-    bl do_sram_operation
+    bl DoSramOperation
     b lbl_080734a4
     .align 2, 0
 lbl_0807346c: .4byte 0x00006d40
@@ -23119,7 +23119,7 @@ lbl_08073470:
     movs r3, #0x40
     bl DMATransfer
     movs r0, #1
-    bl do_sram_operation
+    bl DoSramOperation
     cmp r7, #0
     beq lbl_080734a4
     ldr r1, [r4]
@@ -23130,7 +23130,7 @@ lbl_08073470:
     movs r3, #0x40
     bl DMATransfer
     movs r0, #2
-    bl do_sram_operation
+    bl DoSramOperation
 lbl_080734a4:
     cmp r6, #0
     bne lbl_080734b8
@@ -23358,7 +23358,7 @@ lbl_08073658:
 lbl_08073664: .4byte gUnk_3000c20
 lbl_08073668:
     movs r0, #0
-    bl sub_08000fbc
+    bl unk_fbc
     cmp r0, #0
     beq lbl_080736c4
     b lbl_080736a2
@@ -23567,7 +23567,7 @@ lbl_08073808:
 lbl_08073818: .4byte gUnk_3000c20
 lbl_0807381c:
     movs r0, #2
-    bl sub_08000fbc
+    bl unk_fbc
     cmp r0, #0
     beq lbl_080738e6
     b lbl_080738c6
@@ -23601,7 +23601,7 @@ lbl_08073860: .4byte gDifficulty
 lbl_08073864: .4byte gUnk_3000c20
 lbl_08073868:
     movs r0, #0
-    bl sub_08000fbc
+    bl unk_fbc
     cmp r0, #0
     beq lbl_080738e6
     ldr r2, lbl_0807388c @ =gSaveFilesInfo
@@ -23905,7 +23905,7 @@ lbl_08073ac0:
 lbl_08073ad0: .4byte gUnk_3000c20
 lbl_08073ad4:
     movs r0, #2
-    bl sub_08000fbc
+    bl unk_fbc
     cmp r0, #0
     beq lbl_08073b9a
     b lbl_08073b7a
@@ -23938,7 +23938,7 @@ lbl_08073b14: .4byte gDifficulty
 lbl_08073b18: .4byte gUnk_3000c20
 lbl_08073b1c:
     movs r0, #0
-    bl sub_08000fbc
+    bl unk_fbc
     cmp r0, #0
     beq lbl_08073b9a
     ldr r2, lbl_08073b40 @ =gSaveFilesInfo
@@ -24044,7 +24044,7 @@ lbl_08073be8: @ jump table
     .4byte lbl_08073ccc @ case 5
 lbl_08073c00:
     movs r0, #4
-    bl sub_08000fbc
+    bl unk_fbc
     cmp r0, #0
     beq lbl_08073cd2
     ldr r1, lbl_08073c14 @ =gSramOperationStage
@@ -24079,7 +24079,7 @@ lbl_08073c48: .4byte gUnk_3000c20
 lbl_08073c4c: .4byte gSramOperationStage
 lbl_08073c50:
     movs r0, #0
-    bl sub_08000fbc
+    bl unk_fbc
     cmp r0, #0
     beq lbl_08073cd2
     ldr r2, lbl_08073c78 @ =gSaveFilesInfo
@@ -25023,7 +25023,7 @@ lbl_080743f0:
     lsls r3, r3, #5
     bl DMATransfer
     movs r0, #4
-    bl do_sram_operation
+    bl DoSramOperation
     movs r0, #1
     ldr r1, [sp, #4]
     strb r0, [r1]
@@ -25113,7 +25113,7 @@ lbl_080744d8:
     mov r3, sb
     bl BitFill
     movs r0, #3
-    bl do_sram_operation
+    bl DoSramOperation
     mov r2, r8
     movs r1, #0
     ldrsb r1, [r2, r1]
@@ -25132,7 +25132,7 @@ lbl_080744d8:
     mov r3, sb
     bl BitFill
     movs r0, #4
-    bl do_sram_operation
+    bl DoSramOperation
     mov r4, r8
     movs r1, #0
     ldrsb r1, [r4, r1]
@@ -25805,7 +25805,7 @@ lbl_08074a28:
     mvns r0, r1
     strh r0, [r5, #4]
     movs r0, #5
-    bl do_sram_operation
+    bl DoSramOperation
     pop {r4, r5}
     pop {r0}
     bx r0
@@ -26003,7 +26003,7 @@ lbl_08074bae:
     mvns r0, r1
     strh r0, [r5, #4]
     movs r0, #8
-    bl do_sram_operation
+    bl DoSramOperation
     pop {r4, r5}
     pop {r0}
     bx r0
@@ -26210,7 +26210,7 @@ lbl_08074d48:
     mvns r0, r1
     strh r0, [r5, #4]
     movs r0, #6
-    bl do_sram_operation
+    bl DoSramOperation
     pop {r4, r5, r6, r7}
     pop {r0}
     bx r0
@@ -26347,7 +26347,7 @@ lbl_08074e6e:
     str r0, [r6, #8]
     ldr r0, [r6, #8]
     movs r0, #7
-    bl do_sram_operation
+    bl DoSramOperation
     b lbl_08074eee
     .align 2, 0
 lbl_08074e98: .4byte 0x00006dc0
@@ -26368,7 +26368,7 @@ lbl_08074ea0:
     str r2, [r6, #8]
     ldr r0, [r6, #8]
     movs r0, #6
-    bl do_sram_operation
+    bl DoSramOperation
     mov r0, sp
     movs r1, #0
     strh r1, [r0]
@@ -26383,7 +26383,7 @@ lbl_08074ea0:
     str r2, [r6, #8]
     ldr r0, [r6, #8]
     movs r0, #7
-    bl do_sram_operation
+    bl DoSramOperation
 lbl_08074ee2:
     movs r0, #1
     add r8, r0
@@ -26419,7 +26419,7 @@ lbl_08074f04:
     str r0, [r1, #8]
     ldr r0, [r1, #8]
     movs r0, #6
-    bl do_sram_operation
+    bl DoSramOperation
     b lbl_08074eee
     .align 2, 0
 lbl_08074f2c: .4byte 0x040000d4
@@ -26519,7 +26519,7 @@ lbl_08074fb2:
     mvns r0, r1
     strh r0, [r5, #0x14]
     movs r0, #9
-    bl do_sram_operation
+    bl DoSramOperation
     pop {r4, r5, r6, r7}
     pop {r0}
     bx r0
@@ -26657,7 +26657,7 @@ lbl_080750d4:
     str r0, [r4, #8]
     ldr r0, [r4, #8]
     movs r0, #0xa
-    bl do_sram_operation
+    bl DoSramOperation
     b lbl_08075156
     .align 2, 0
 lbl_08075104: .4byte 0x80000080
@@ -26678,7 +26678,7 @@ lbl_08075108:
     adds r3, r5, #0
     bl BitFill
     movs r0, #9
-    bl do_sram_operation
+    bl DoSramOperation
     mov r0, sb
     ldr r2, [r0]
     movs r1, #0xdf
@@ -26690,7 +26690,7 @@ lbl_08075108:
     adds r3, r5, #0
     bl BitFill
     movs r0, #0xa
-    bl do_sram_operation
+    bl DoSramOperation
 lbl_0807514a:
     movs r2, #1
     add r8, r2
@@ -26733,7 +26733,7 @@ lbl_0807517c:
     str r0, [r1, #8]
     ldr r0, [r1, #8]
     movs r0, #9
-    bl do_sram_operation
+    bl DoSramOperation
     b lbl_08075156
     .align 2, 0
 lbl_080751a4: .4byte 0x040000d4
@@ -26910,7 +26910,7 @@ sub_080751d8: @ 0x080751d8
     adds r4, r4, r0
     strb r1, [r4]
     movs r0, #0xd
-    bl do_sram_operation
+    bl DoSramOperation
     add sp, #4
     pop {r4, r5, r6, r7}
     pop {r0}
@@ -27181,7 +27181,7 @@ lbl_08075568:
     strb r3, [r0]
     movs r0, #1
 lbl_0807556e:
-    bl sub_08000fbc
+    bl unk_fbc
     cmp r0, #0
     beq lbl_08075590
 lbl_08075576:
@@ -27320,7 +27320,7 @@ lbl_08075680:
     strb r3, [r5]
     movs r0, #1
 lbl_08075686:
-    bl sub_08000fbc
+    bl unk_fbc
     cmp r0, #0
     beq lbl_08075696
     ldr r1, lbl_080756a0 @ =gSramOperationStage
@@ -27524,13 +27524,13 @@ lbl_08075800: @ jump table
     .4byte lbl_08075828 @ case 4
 lbl_08075814:
     movs r0, #3
-    bl do_sram_operation
+    bl DoSramOperation
     b lbl_08075828
 lbl_0807581c:
     movs r0, #3
-    bl do_sram_operation
+    bl DoSramOperation
     movs r0, #4
-    bl do_sram_operation
+    bl DoSramOperation
 lbl_08075828:
     ldr r3, lbl_08075844 @ =gSaveFilesInfo
     ldr r2, lbl_08075848 @ =gMostRecentSaveFile

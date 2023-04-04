@@ -11,6 +11,6 @@ extern void* sObjPalramPointer;
 extern u32* sVisitedMinimapTilesPointer;
 extern union NonGameplayRAM* sNonGameplayRamPointer;
 extern struct Sram* sSramEwramPointer;
-extern void* sSramFlashPointer;
+extern struct Sram* sSramFlashPointer;
 
 #endif /* SHORTCUT_POINTERS_H */

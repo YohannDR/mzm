@@ -395,8 +395,8 @@ SECTIONS {
         src/init_helpers.o(.text);
         src/fixed_point.o(.text);
         src/callbacks.o(.text);
-        src/erase_sram_func.o(.text);
-        asm/disasm_0x08000c48.o(.text);
+        src/sram_misc.o(.text);
+        asm/disasm_0x080010c4.o(.text);
         asm/disasm_0x08002a58.o(.text);
         asm/syscalls.o(.text);
         asm/disasm_0x080051d4.o(.text);

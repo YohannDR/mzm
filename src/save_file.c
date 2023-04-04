@@ -26,8 +26,6 @@
 #include "structs/save_file.h"
 #include "structs/visual_effects.h"
 
-u8* do_sram_operation(u8);
-
 /**
  * @brief 7329c | 64 | Fully reads the flash save into Ewram
  * 
@@ -49,8 +47,8 @@ void SramRead_All(void)
 
     for (i = 3; i != 0; i--)
     {
-        do_sram_operation(SRAM_OPERATION_READ_ALL_FLASH);
-        if (do_sram_operation(SRAM_OPERATION_CHECK_ALL) == NULL)
+        DoSramOperation(SRAM_OPERATION_READ_ALL_FLASH);
+        if (DoSramOperation(SRAM_OPERATION_CHECK_ALL) == NULL)
             break;
     }
 
@@ -113,7 +111,7 @@ void SramWrite_FileScreenOptionsUnlocked(void)
     pOptions->checksum = checksum;
     pOptions->notChecksum = ~checksum;
 
-    do_sram_operation(SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS);
+    DoSramOperation(SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS);
 }
 
 /**
@@ -158,7 +156,7 @@ void SramRead_FileScreenOptionsUnlocked(void)
                 DMATransfer(3, &sSramEwramPointer->fileScreenOptions_fileB, &sSramEwramPointer->fileScreenOptions_fileA,
                     sizeof(sSramEwramPointer->fileScreenOptions_fileA), 0x10);
                 fileASanityCheck = 0;
-                do_sram_operation(SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS);
+                DoSramOperation(SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS);
             }
         }
         else
@@ -166,13 +164,13 @@ void SramRead_FileScreenOptionsUnlocked(void)
             DMATransfer(3, &sSramEwramPointer->fileScreenOptions_fileC, &sSramEwramPointer->fileScreenOptions_fileA,
                 sizeof(sSramEwramPointer->fileScreenOptions_fileA), 0x10);
             fileASanityCheck = 0;
-            do_sram_operation(SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS);
+            DoSramOperation(SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS);
 
             if (fileBSanityCheck)
             {
                 DMATransfer(3, &sSramEwramPointer->fileScreenOptions_fileA, &sSramEwramPointer->fileScreenOptions_fileB,
                     sizeof(sSramEwramPointer->fileScreenOptions_fileB), 0x10);
-                do_sram_operation(1);
+                DoSramOperation(1);
             }
         }
     }
@@ -180,12 +178,12 @@ void SramRead_FileScreenOptionsUnlocked(void)
     {
         DMATransfer(3, &sSramEwramPointer->fileScreenOptions_fileA, &sSramEwramPointer->fileScreenOptions_fileB,
             sizeof(sSramEwramPointer->fileScreenOptions_fileB), 0x10);
-        do_sram_operation(1);
+        DoSramOperation(1);
         if (fileCSanityCheck != 0)
         {
             DMATransfer(3, &sSramEwramPointer->fileScreenOptions_fileA, &sSramEwramPointer->fileScreenOptions_fileC,
                 sizeof(sSramEwramPointer->fileScreenOptions_fileC), 0x10);
-            do_sram_operation(2);
+            DoSramOperation(2);
         }
     }
 
@@ -920,7 +918,7 @@ void unk_743a4(void)
             DMATransfer(3, &sSramEwramPointer->files[gMostRecentSaveFile],
                 &sSramEwramPointer->filesCopy[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
 
-            do_sram_operation(4);
+            DoSramOperation(4);
             gSaveFilesInfo[i].exists = TRUE;
         }
         else if (flag == CORRUPTED_FILE_FLAG_CURRENT)
@@ -938,9 +936,9 @@ void unk_743a4(void)
         else if (flag > 2)
         {
             BitFill(3, USHORT_MAX, &sSramEwramPointer->files[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
-            do_sram_operation(3);
+            DoSramOperation(3);
             BitFill(3, USHORT_MAX, &sSramEwramPointer->filesCopy[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
-            do_sram_operation(4);
+            DoSramOperation(4);
             gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag = 0;
         }
         else
@@ -1168,7 +1166,7 @@ void SramWrite_MostRecentSaveFile(void)
     pSave->checksum = checksum;
     pSave->notChecksum = ~checksum;
 
-    do_sram_operation(SRAM_OPERATION_SAVE_MOST_RECENT_FILE);
+    DoSramOperation(SRAM_OPERATION_SAVE_MOST_RECENT_FILE);
 }
 
 /**
@@ -1281,7 +1279,7 @@ void SramWrite_SoundMode(void)
     pSave->checksum = checksum;
     pSave->notChecksum = ~checksum;
 
-    do_sram_operation(SRAM_OPERATION_SAVE_SOUND_MODE);
+    DoSramOperation(SRAM_OPERATION_SAVE_SOUND_MODE);
 }
 
 /**
@@ -1399,7 +1397,7 @@ void SramWrite_Language(void)
     pSave->checksum = checksum;
     pSave->notChecksum = ~checksum;
 
-    do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE);
+    DoSramOperation(SRAM_OPERATION_SAVE_LANGUAGE);
 }
 
 /**
@@ -1467,7 +1465,7 @@ u32 SramRead_Language(void)
                 dma_set(3, &sSramEwramPointer->languagesSave[0], &sSramEwramPointer->languagesSave[1],
                     DMA_ENABLE << 16 | sizeof(sSramEwramPointer->languagesSave[1]) / 2);
 
-                do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE2);
+                DoSramOperation(SRAM_OPERATION_SAVE_LANGUAGE2);
                 break;
             }
         }
@@ -1476,7 +1474,7 @@ u32 SramRead_Language(void)
             dma_set(3, &sSramEwramPointer->languagesSave[1], &sSramEwramPointer->languagesSave[0],
                 DMA_ENABLE << 16 | sizeof(sSramEwramPointer->languagesSave[0]) / 2);
 
-            do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE);
+            DoSramOperation(SRAM_OPERATION_SAVE_LANGUAGE);
             break;
         }
         else
@@ -1485,13 +1483,13 @@ u32 SramRead_Language(void)
             dma_set(3, &buffer, &sSramEwramPointer->languagesSave[0],
                 (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(sSramEwramPointer->languagesSave[0]) / 2);
 
-            do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE);
+            DoSramOperation(SRAM_OPERATION_SAVE_LANGUAGE);
 
             buffer = 0;
             dma_set(3, &buffer, &sSramEwramPointer->languagesSave[1],
                 (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(sSramEwramPointer->languagesSave[1]) / 2);
 
-            do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE2);
+            DoSramOperation(SRAM_OPERATION_SAVE_LANGUAGE2);
         }
     }
 
@@ -1546,7 +1544,7 @@ void SramWrite_TimeAttack(void)
     pSave->checksum = checksum;
     pSave->notChecksum = ~checksum;
 
-    do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK);
+    DoSramOperation(SRAM_OPERATION_SAVE_TIME_ATTACK);
 }
 
 /**
@@ -1612,7 +1610,7 @@ void SramRead_TimeAttack(void)
                 dma_set(3, &sSramEwramPointer->timeAttackSaves[0], &sSramEwramPointer->timeAttackSaves[1],
                     DMA_ENABLE << 16 | sizeof(sSramEwramPointer->timeAttackSaves[1]) / 2);
 
-                do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK2);
+                DoSramOperation(SRAM_OPERATION_SAVE_TIME_ATTACK2);
                 break;
             }
         }
@@ -1621,16 +1619,16 @@ void SramRead_TimeAttack(void)
             dma_set(3, &sSramEwramPointer->timeAttackSaves[1], &sSramEwramPointer->timeAttackSaves[0],
                 DMA_ENABLE << 16 | sizeof(sSramEwramPointer->timeAttackSaves[0]) / 2);
 
-            do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK);
+            DoSramOperation(SRAM_OPERATION_SAVE_TIME_ATTACK);
             break;
         }
         else
         {
             BitFill(3, USHORT_MAX, &sSramEwramPointer->timeAttackSaves[0], sizeof(sSramEwramPointer->timeAttackSaves[0]), 16);
-            do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK);
+            DoSramOperation(SRAM_OPERATION_SAVE_TIME_ATTACK);
 
             BitFill(3, USHORT_MAX, &sSramEwramPointer->timeAttackSaves[1], sizeof(sSramEwramPointer->timeAttackSaves[1]), 16);
-            do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK2);
+            DoSramOperation(SRAM_OPERATION_SAVE_TIME_ATTACK2);
         }
     }
 
@@ -1683,7 +1681,7 @@ void SramWrite_ToEwram_DemoRam(void)
     pFile->text[7] = 'D';
 
     pFile->useMotherShipDoors = gUseMotherShipDoors;
-    do_sram_operation(SRAM_OPERATION_SAVE_DEMO_RAM);
+    DoSramOperation(SRAM_OPERATION_SAVE_DEMO_RAM);
 }
 
 void SramLoad_DemoRamValues(u8 loadSamusData, u8 demoNumber)
@@ -1915,12 +1913,12 @@ void unk_757c8(u8 file)
     switch (gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag)
     {
         case CORRUPTED_FILE_FLAG_CURRENT:
-            do_sram_operation(3);
+            DoSramOperation(3);
             break;
 
         case CORRUPTED_FILE_FLAG_CURRENT_AND_BACKUP:
-            do_sram_operation(3);
-            do_sram_operation(4);
+            DoSramOperation(3);
+            DoSramOperation(4);
             break;
 
         case 0:

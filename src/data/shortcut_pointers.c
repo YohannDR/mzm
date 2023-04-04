@@ -52,6 +52,6 @@ union NonGameplayRAM* sNonGameplayRamPointer = &gNonGameplayRAM;
 FORCE_RODATA
 struct Sram* sSramEwramPointer = EWRAM_BASE + 0x38000;
 FORCE_RODATA
-void* sSramFlashPointer = SRAM_BASE;
+struct Sram* sSramFlashPointer = SRAM_BASE;
 
 const u8 sTempArray_754bd0[0x9ad8] = INCBIN_U8("data/Blob_754bd0_75e6a8.bin");

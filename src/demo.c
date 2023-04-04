@@ -165,7 +165,7 @@ void DemoEnd(void)
         dma_set(3, gDemoInputData, gSramDemoInputData, DMA_ENABLE << 16 | DEMO_MAX_DURATION);
         dma_set(3, gDemoInputDuration, gSramDemoInputDuration, DMA_ENABLE << 16 | DEMO_MAX_DURATION);
     
-        do_sram_operation(SRAM_OPERATION_SAVE_RECORDED_DEMO);
+        DoSramOperation(SRAM_OPERATION_SAVE_RECORDED_DEMO);
 
         // Debug leftover
         gGameModeSub2 = 16;

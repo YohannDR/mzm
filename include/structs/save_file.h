@@ -4,6 +4,8 @@
 #include "types.h"
 #include "macros.h"
 #include "gba.h"
+#include "sram_misc.h"
+
 #include "structs/game_state.h"
 #include "structs/samus.h"
 #include "structs/scroll.h"
@@ -11,19 +13,6 @@
 #include "structs/in_game_timer.h"
 #include "structs/time_attack.h"
 #include "structs/demo.h"
-
-#define SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS 0
-#define SRAM_OPERATION_SAVE_MOST_RECENT_FILE 5
-#define SRAM_OPERATION_SAVE_LANGUAGE 6
-#define SRAM_OPERATION_SAVE_LANGUAGE2 7
-#define SRAM_OPERATION_SAVE_SOUND_MODE 8
-#define SRAM_OPERATION_SAVE_TIME_ATTACK 9
-#define SRAM_OPERATION_SAVE_TIME_ATTACK2 10
-#define SRAM_OPERATION_SAVE_RECORDED_DEMO 11
-#define SRAM_OPERATION_SAVE_DEMO_RAM 13
-#define SRAM_OPERATION_READ_ALL_FLASH 14
-#define SRAM_OPERATION_READ_RECENT_FILE_UNCHECKED 15
-#define SRAM_OPERATION_CHECK_ALL 16
 
 #define CORRUPTED_FILE_FLAG_CURRENT 1
 #define CORRUPTED_FILE_FLAG_CURRENT_AND_BACKUP 2
@@ -114,7 +103,6 @@ struct SaveFile {
     struct InGameTimer inGameTimerAtBosses[MAX_AMOUNT_OF_IGT_AT_BOSSES];
 
     struct SaveMusicInfo musicInfo;
-    u32 unk_248;
 
     u32 inGameCutscenesTriggered[1];
 
