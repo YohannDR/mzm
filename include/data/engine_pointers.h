@@ -9,6 +9,7 @@
 #include "structs/projectile.h"
 #include "structs/particle.h"
 #include "structs/color_effects.h"
+#include "structs/block.h"
 
 extern const ProjFunc_T sProcessProjectileFunctionPointers[16];
 
@@ -21,6 +22,8 @@ extern const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_ARE
 // More...
 
 // 75fd88
+
+extern const BlockFunc_T sNonReformDestroyFunctionPointers[5];
 
 extern const ColorFadingFunc_T sColorFadingSubroutinePointers[4];
 

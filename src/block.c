@@ -3,6 +3,7 @@
 #include "gba.h"
 
 #include "data/block_data.h"
+#include "data/engine_pointers.h"
 
 #include "constants/block.h"
 #include "constants/clipdata.h"
@@ -183,9 +184,44 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
     return result;
 }
 
+/**
+ * @brief 592c4 | 6c | Handles the destruction of non reform blocks
+ * 
+ * @param pClipBlock Clipdata Block Data Pointer
+ * @return u32 bool, could destroy
+ */
 u32 BlockDestroyNonReformBlock(struct ClipdataBlockData* pClipBlock)
 {
+    u32 subType;
+    u32 result;
 
+    result = FALSE;
+    subType = sBlockBehaviors[pClipBlock->blockBehavior].subType;
+
+    switch (subType)
+    {
+        case BLOCK_SUB_TYPE_REFORM:
+        case BLOCK_SUB_TYPE_SQUARE_NO_REFORM:
+        case BLOCK_SUB_TYPE_BOMB_CHAIN:
+            // Nothing special to do
+            break;
+
+        case BLOCK_SUB_TYPE_NO_REFORM:
+        case BLOCK_SUB_TYPE_SQUARE_NEVER_REFORM:
+            // Store a never reform bock
+            result = BlockStoreSingleNeverReformBlock(pClipBlock->xPosition, pClipBlock->yPosition);
+            break;
+
+        default:
+            result = TRUE;
+    }
+
+    if (result)
+        return FALSE;
+
+    // Run special handler depending on the type
+    result = sNonReformDestroyFunctionPointers[subType](pClipBlock);
+    return result;
 }
 
 /**
