@@ -1289,7 +1289,33 @@ void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition)
     gCurrentClipdataAffectingAction = CAA_NONE;
 }
 
+/**
+ * @brief 5a3e0 | a4 | Removes the collision and graphics of a broken block 
+ * 
+ * @param yPosition Y position
+ * @param xPosition X position
+ */
 void BlockBrokenBlockRemoveCollision(u16 yPosition, u16 xPosition)
 {
+    u16 position;
+    u16* dst;
 
+    position = gBGPointersAndDimensions.clipdataWidth * yPosition + xPosition;
+    gBGPointersAndDimensions.pClipDecomp[position] = 0;
+    gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
+
+    if (gBG1YPosition / BLOCK_SIZE - 4 <= yPosition && yPosition <= gBG1YPosition / BLOCK_SIZE + 13 &&
+        gBG1XPosition / BLOCK_SIZE - 4 <= xPosition && xPosition <= gBG1XPosition / BLOCK_SIZE + 18)
+    {
+        dst = VRAM_BASE + 0x1000;
+        if (xPosition & 0x10)
+            dst = VRAM_BASE + 0x1800;
+
+        dst += (yPosition & 0xF) * BLOCK_SIZE + (xPosition & 0xF) * 2;
+
+        dst[0] = gTilemapAndClipPointers.pTilemap[0];
+        dst[1] = gTilemapAndClipPointers.pTilemap[1];
+        dst[32] = gTilemapAndClipPointers.pTilemap[2];
+        dst[33] = gTilemapAndClipPointers.pTilemap[3];
+    }
 }
