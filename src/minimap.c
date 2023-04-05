@@ -157,36 +157,38 @@ void MinimapCheckOnTransition(void)
     MinimapDraw();
 }
 
+/**
+ * @brief 6c518 | 9c | Updates the minimap for the explored tiles
+ * 
+ */
 void MinimapUpdateForExploredTiles(void)
 {
-    // https://decomp.me/scratch/adSdZ
-
     u32 offset;
     u32 tile;
     u16* map;
     u16* tiles;
 
-    if (!gShipLandingFlag)
-    {
-        offset = gMinimapX + gMinimapY * MINIMAP_SIZE;
-        tiles = gDecompressedMinimapVisitedTiles + offset;
-        
-        if (!(*tiles & 0xF000))
-        {
-            map = gDecompressedMinimapData + offset;
-            if (*map & 0xF000)
-                *tiles = *map;
-            else
-                *tiles = *map | 0x1000;
+    if (gShipLandingFlag)
+        return;
 
-            tile = (*map & 0x3FF) - 0x141;
-            if (tile < 0x4)
-            {
-                gLastAreaNameVisited.flags = TRUE;
-                gLastAreaNameVisited.area = gCurrentArea;
-                gLastAreaNameVisited.mapX = gMinimapX + 0x1;
-                gLastAreaNameVisited.mapY = gMinimapY + 0x1;
-            }
+    offset = gMinimapX + gMinimapY * MINIMAP_SIZE;
+    tiles = (u16*)0x2034000 + offset; // gDecompressedMinimapVisitedTiles
+    
+    if (!(*tiles & 0xF000))
+    {
+        map = (u16*)0x2034800 + offset; // gDecompressedMinimapData
+        if (*map & 0xF000)
+            *tiles = *map;
+        else
+            *tiles = *map | 0x1000;
+
+        tile = (*map & 0x3FF) - 0x141;
+        if (tile < 0x4)
+        {
+            gLastAreaNameVisited.flags = TRUE;
+            gLastAreaNameVisited.area = gCurrentArea;
+            gLastAreaNameVisited.mapX = gMinimapX + 0x1;
+            gLastAreaNameVisited.mapY = gMinimapY + 0x1;
         }
     }
 }
