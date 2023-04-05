@@ -356,15 +356,42 @@ void BlockRemoveNeverReformBlocks(void)
         }
         else if (var_0 == 2)
         {
-            BlockRemoveNeverReformSingleBlock(pBlock[i + 0],
-                pBlock[i + 1]);
+            BlockRemoveNeverReformSingleBlock(pBlock[i + 0], pBlock[i + 1]);
         }
     }
 }
 
-void BlockRemoveNeverReformSingleBlock(u16 xPosition, u16 yPosition)
+/**
+ * @brief 59580 | 64 | Removes a never reform block from the BG1 and clipdata
+ * 
+ * @param xPosition X position
+ * @param yPosition Y position
+ */
+void BlockRemoveNeverReformSingleBlock(u8 xPosition, u8 yPosition)
 {
+    u16 behavior;
+    u32 position;
 
+    position = gBGPointersAndDimensions.clipdataWidth * yPosition + xPosition;
+
+    behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[position]];
+    gBGPointersAndDimensions.pClipDecomp[position] = 0;
+
+    gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
+
+    if (behavior == CLIP_BEHAVIOR_TOP_LEFT_SHOT_BLOCK_NEVER_REFORM)
+    {
+        gBGPointersAndDimensions.pClipDecomp[position + 1] = 0;
+        gBGPointersAndDimensions.backgrounds[1].pDecomp[position + 1] = 0;
+
+        position += gBGPointersAndDimensions.clipdataWidth;
+        gBGPointersAndDimensions.pClipDecomp[position] = 0;
+        gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
+        position++;
+
+        gBGPointersAndDimensions.pClipDecomp[position] = 0;
+        gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
+    }
 }
 
 void BlockShiftNeverReformBlocks(void)
