@@ -372,23 +372,37 @@ void BlockShiftNeverReformBlocks(void)
 
 }
 
+/**
+ * @brief 59770 | 84 | Checks if a non bomb block should be destroyed
+ * 
+ * @param pClipBlock Clipdata block data pointer
+ * @return u32 bool, destroy
+ */
 u32 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock)
 {
-    // https://decomp.me/scratch/7cgi5
+    i32 blockType;
 
-    u32 blockType;
-
+    // Get block type
     blockType = sBlockBehaviors[pClipBlock->blockBehavior].type;
 
+    // Check for block weakness
     if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] & sBlockWeaknesses[blockType])
-        return TRUE;
-
-    if ((gCurrentClipdataAffectingAction == CAA_BOMB_PISTOL || (gCurrentClipdataAffectingAction == CAA_POWER_BOMB && 
-        !gCurrentPowerBomb.owner)) && pClipBlock->behavior != sReformingBlocksTilemapValue[blockType])
     {
-        blockType = sReformingBlocksTilemapValue[blockType];
-        BgClipSetBG1BlockValue(blockType, pClipBlock->yPosition, pClipBlock->xPosition);
-        BgClipSetClipdataBlockValue(blockType, pClipBlock->yPosition, pClipBlock->xPosition);
+        // Block is weak to current action, hence it that be destroyed
+        return TRUE;
+    }
+    
+    // Check weaknesses to reveal
+    if ((gCurrentClipdataAffectingAction != CAA_BOMB_PISTOL && (gCurrentClipdataAffectingAction != CAA_POWER_BOMB ||
+        gCurrentPowerBomb.owner)))
+        return FALSE;
+
+    // Check isn't already revealed
+    if (pClipBlock->behavior != sReformingBlocksTilemapValue[blockType])
+    {
+        // Reveal
+        BgClipSetBG1BlockValue(sReformingBlocksTilemapValue[blockType], pClipBlock->yPosition, pClipBlock->xPosition);
+        BgClipSetClipdataBlockValue(sReformingBlocksTilemapValue[blockType], pClipBlock->yPosition, pClipBlock->xPosition);
     }
 
     return FALSE;
@@ -398,7 +412,7 @@ u32 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock)
  * @brief 597f4 | 88 | Checks if a bomb block should be destroyed
  * 
  * @param pClipBlock Clipdata block data pointer
- * @return u32 
+ * @return u32 bool, destroy
  */
 u32 BlockCheckRevealOrDestroyBombBlock(struct ClipdataBlockData* pClipBlock)
 {
