@@ -427,43 +427,39 @@ void MinimapCopyTileXYFlippedGFX(u32* dst, u16* pTile, u8 palette)
     }
 }
 
+/**
+ * @brief 6ca44 | 6c | Updates the tiles of a minimap with obtained items
+ * 
+ * @param area Area
+ * @param dst Destination pointer
+ */
 void MinimapSetTilesWithObtainedItems(u8 area, u16* dst)
 {
-    // https://decomp.me/scratch/Eree5
-
     u32* src;
-    u32* src2;
-    u16* pDecomp;
     u32 tile;
-    u32 tempTile;
     i32 i;
     i32 j;
-    u32 temp;
 
     if (area >= MAX_AMOUNT_OF_AREAS)
         return;
 
-    src = gMinimapTilesWithObtainedItems + area * MINIMAP_SIZE;
+    // 0x2033800 = gMinimapTilesWithObtainedItems
+    src = (u32*)(0x2033800 + area * 512 / 4);
 
-    for (i = 0; i < MINIMAP_SIZE;)
+    for (i = 0; i < MINIMAP_SIZE; i++, src++)
     {
-        tile = *src++;
-        temp = i + 1;
-        src2 = src;
-        if (tile)
+        if (!*src)
+            continue;
+        
+        tile = *src;
+        for (j = 0; j < MINIMAP_SIZE && tile; j++)
         {
-            tempTile = tile;
-            for (j = 0; j < MINIMAP_SIZE && tempTile; j++)
+            if (tile & sExploredMinimapBitFlags[j])
             {
-                if (tempTile & sExploredMinimapBitFlags[j])
-                {
-                    tempTile ^= sExploredMinimapBitFlags[j];
-                    dst[i * MINIMAP_SIZE + j]++;
-                }
+                tile ^= sExploredMinimapBitFlags[j];
+                dst[i * MINIMAP_SIZE + j]++;
             }
         }
-        i = temp;
-        src = src2;
     }
 }
 

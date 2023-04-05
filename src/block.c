@@ -285,10 +285,15 @@ u8 BlockDestroySquareBlock(struct ClipdataBlockData* pClipBlock)
     return TRUE;
 }
 
+/**
+ * @brief 59480 | 80 | Stores a single never reform block in the save array
+ * 
+ * @param xPosition X position
+ * @param yPosition Y position
+ * @return u32 bool, couldn't store
+ */
 u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
 {
-    // https://decomp.me/scratch/wIffo
-
     u32 overLimit;
     u8* pBlock;
     i32 i;
@@ -299,12 +304,13 @@ u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
         return FALSE;
 
     overLimit = TRUE;
-    pBlock = gNeverReformBlocks[gCurrentArea];
+    // 0x2035c00 = gNeverReformBlocks
+    pBlock = (u8*)(0x2035c00 + gCurrentArea * 512);
     i = gNumberOfNeverReformBlocks[gCurrentArea] * 2;
 
     for (; i < 0x1FC; i += 2)
     {
-        if (pBlock[i] == 0xFF)
+        if (pBlock[i] == UCHAR_MAX)
         {
             overLimit = FALSE;
             break;
@@ -320,10 +326,12 @@ u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
     return overLimit;
 }
 
+/**
+ * @brief 59500 | 80 | Removes the broken never reform blocks of a room
+ * 
+ */
 void BlockRemoveNeverReformBlocks(void)
 {
-    // https://decomp.me/scratch/urzF4
-
     i32 i;
     i32 var_0;
     u8* pBlock;
@@ -340,7 +348,8 @@ void BlockRemoveNeverReformBlocks(void)
     if (i)
         return;
 
-    pBlock = gNeverReformBlocks[gCurrentArea];
+    // 0x2035c00 = gNeverReformBlocks
+    pBlock = (u8*)(0x2035c00 + gCurrentArea * 512);
     limit = gNumberOfNeverReformBlocks[gCurrentArea] * 2;
     for (var_0 = 0; i < limit; i += 2)
     {
@@ -356,7 +365,8 @@ void BlockRemoveNeverReformBlocks(void)
         }
         else if (var_0 == 2)
         {
-            BlockRemoveNeverReformSingleBlock(pBlock[i + 0], pBlock[i + 1]);
+            BlockRemoveNeverReformSingleBlock(pBlock[i + 0],
+                pBlock[i + 1]);
         }
     }
 }
