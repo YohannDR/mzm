@@ -460,20 +460,21 @@ void TransparencyApplyNewEffects(void)
         unk_55e60();
 }
 
+/**
+ * @brief 55cdc | d8 | Applies the bldalpha effect 
+ * 
+ * @param pBldy Bldalpha data pointer
+ */
 void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
 {
-    // https://decomp.me/scratch/6zyTC
-
     i32 newValue;
 
     newValue = FALSE;
     if (gWrittenToBLDALPHA != 0)
-        return;
-
-    if (gCurrentPowerBomb.animationState != 0)
-        return;
-
-    if (!(pBldalpha->activeFlag & 0x80))
+        newValue = TRUE;
+    else if (gCurrentPowerBomb.animationState != 0)
+        newValue = TRUE;
+    else if (pBldalpha->activeFlag & 0x80)
         newValue = TRUE;
 
     if (newValue)
@@ -542,20 +543,21 @@ void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
         pBldalpha->activeFlag = FALSE;
 }
 
+/**
+ * @brief 55db4 | ac | Applies the bldy effect 
+ * 
+ * @param pBldy Bldy data pointer
+ */
 void TransparencyApplyNewBLDY(struct BldyData* pBldy)
 {
-    // https://decomp.me/scratch/puH7O
-
     i32 newValue;
 
     newValue = FALSE;
     if (gWrittenToBLDY >= 0)
-        return;
-
-    if (gCurrentPowerBomb.animationState != 0)
-        return;
-
-    if (!(pBldy->activeFlag & 0x80))
+        newValue = TRUE;
+    else if (gCurrentPowerBomb.animationState != 0)
+        newValue = TRUE;
+    else if (pBldy->activeFlag & 0x80)
         newValue = TRUE;
 
     if (newValue)
