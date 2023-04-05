@@ -456,7 +456,7 @@ void TransparencyApplyNewEffects(void)
             TransparencyApplyNewBLDALPHA(&gBldalphaData1);
     }
 
-    if (gTransparencyRelated.unknown_0 != 0)
+    if (gTransparencyRelated.unk_0 != 0)
         unk_55e60();
 }
 
@@ -604,9 +604,102 @@ void TransparencyApplyNewBLDY(struct BldyData* pBldy)
         pBldy->activeFlag = FALSE;
 }
 
+/**
+ * @brief 55e60 | 108 | To document
+ * 
+ */
 void unk_55e60(void)
 {
+    i32 coef;
+    i32 eva;
+    i32 evb;
 
+    switch (gCurrentPowerBomb.animationState)
+    {
+        case 1:
+            gTransparencyRelated.unk_2 = 0;
+            gTransparencyRelated.unk_1 = 2;
+
+            coef = gIoRegistersBackup.BLDALPHA_NonGameplay_EVB + 2;
+            gWrittenToBLDALPHA = coef << 8 | (16 - coef);
+            break;
+
+        case 0:
+            gTransparencyRelated.unk_2++;
+            if (gTransparencyRelated.unk_0 != 2)
+            {
+                if (gTransparencyRelated.unk_2 < 20)
+                    break;
+
+                gTransparencyRelated.unk_2 = 0;
+                gTransparencyRelated.unk_1++;
+                gTransparencyRelated.unk_1 &= 7;
+
+                coef = gTransparencyRelated.unk_1 & 3;
+                if (gTransparencyRelated.unk_1 & 3)
+                {
+                    if (coef & 1)
+                        coef = 1;
+                    else
+                        coef = 2;
+                }
+
+                if (gTransparencyRelated.unk_1 & 4)
+                    coef = -coef;
+
+                eva = gIoRegistersBackup.BLDALPHA_NonGameplay_EVA;
+                evb = gIoRegistersBackup.BLDALPHA_NonGameplay_EVB;
+
+                evb += coef;
+                if (evb < 0)
+                    evb = 0;
+                else if (evb > 16)
+                    evb = 16;
+
+                eva -= coef;
+                if (eva < 0)
+                    eva = 0;
+                else if (eva > 16)
+                    eva = 16;
+
+                gWrittenToBLDALPHA = evb << 8 | eva;
+            }
+            else
+            {
+                if (gTransparencyRelated.unk_2 < 2)
+                    break;
+
+                gTransparencyRelated.unk_2 = 0;
+
+                gTransparencyRelated.unk_1++;
+                if (gTransparencyRelated.unk_1 > 3)
+                    gTransparencyRelated.unk_1 = 0;
+
+                coef = gTransparencyRelated.unk_1;
+                if (gTransparencyRelated.unk_1 > 2)
+                    coef = 4 - coef;
+
+                coef = -coef;
+
+                eva = gIoRegistersBackup.BLDALPHA_NonGameplay_EVA;
+                evb = gIoRegistersBackup.BLDALPHA_NonGameplay_EVB;
+
+                evb += coef;
+                if (evb < 0)
+                    evb = 0;
+                else if (evb > 16)
+                    evb = 16;
+
+                eva -= coef;
+                if (eva < 0)
+                    eva = 0;
+                else if (eva > 16)
+                    eva = 16;
+
+                gWrittenToBLDALPHA = evb << 8 | eva;
+            }
+            break;
+    }
 }
 
 /**
@@ -616,6 +709,6 @@ void unk_55e60(void)
 void unk_55f68(void)
 {
     UpdateAnimatedPaletteAfterTransitionOrReload();
-    ColorFadingTransferPaletteOnTransition(); // Undefined
+    ColorFadingTransferPaletteOnTransition();
     CheckPlayLoadingJingle();
 }

@@ -113,10 +113,10 @@ const struct WaterMovement sWaterMovement_Empty = {
 };
 
 const struct TransparencyRelated sTransparencyRelated_Empty = {
-    .unknown_0 = 0,
-    .unknown_1 = 0,
-    .unknown_2 = 0,
-    .unknown_3 = 0
+    .unk_0 = 0,
+    .unk_1 = 0,
+    .unk_2 = 0,
+    .unk_3 = 0
 };
 
 const struct LastElevatorUsed sLastElevatorUsed_Empty = {

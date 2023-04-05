@@ -25,10 +25,10 @@ struct BldyData {
 };
 
 struct TransparencyRelated {
-    u8 unknown_0;
-    u8 unknown_1;
-    u8 unknown_2;
-    u8 unknown_3;
+    u8 unk_0;
+    u8 unk_1;
+    u8 unk_2;
+    u8 unk_3;
 };
 
 struct DefaultTransparency {
