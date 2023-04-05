@@ -382,22 +382,63 @@ u32 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock)
 
     if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] & sBlockWeaknesses[blockType])
         return TRUE;
-    else
-    {
-        if ((gCurrentClipdataAffectingAction == CAA_BOMB_PISTOL || (gCurrentClipdataAffectingAction == CAA_POWER_BOMB && !gCurrentPowerBomb.owner)) && pClipBlock->behavior != sReformingBlocksTilemapValue[blockType])
-        {
-            blockType = sReformingBlocksTilemapValue[blockType];
-            BgClipSetBG1BlockValue(blockType, pClipBlock->yPosition, pClipBlock->xPosition);
-            BgClipSetClipdataBlockValue(blockType, pClipBlock->yPosition, pClipBlock->xPosition);
-        }
 
-        return FALSE;
+    if ((gCurrentClipdataAffectingAction == CAA_BOMB_PISTOL || (gCurrentClipdataAffectingAction == CAA_POWER_BOMB && 
+        !gCurrentPowerBomb.owner)) && pClipBlock->behavior != sReformingBlocksTilemapValue[blockType])
+    {
+        blockType = sReformingBlocksTilemapValue[blockType];
+        BgClipSetBG1BlockValue(blockType, pClipBlock->yPosition, pClipBlock->xPosition);
+        BgClipSetClipdataBlockValue(blockType, pClipBlock->yPosition, pClipBlock->xPosition);
     }
+
+    return FALSE;
 }
 
+/**
+ * @brief 597f4 | 88 | Checks if a bomb block should be destroyed
+ * 
+ * @param pClipBlock Clipdata block data pointer
+ * @return u32 
+ */
 u32 BlockCheckRevealOrDestroyBombBlock(struct ClipdataBlockData* pClipBlock)
 {
+    u32 blockType;
+    u16 value;
+    u32 reveal;
 
+    // Get block type
+    blockType = sBlockBehaviors[pClipBlock->blockBehavior].type;
+
+    // Check for block weakness
+    if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] & sBlockWeaknesses[blockType])
+    {
+        // Block is weak to current action, hence it that be destroyed
+        return TRUE;
+    }
+
+    // Check weaknesses to reveal and isn't already revealed
+    if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] &
+        (CAA_DAMAGE_TYPE_BEAM | CAA_DAMAGE_TYPE_MISSILE | CAA_DAMAGE_TYPE_SUPER_MISSILE) &&
+        pClipBlock->behavior != sReformingBlocksTilemapValue[blockType])
+    {
+        reveal = TRUE;
+        value = sReformingBlocksTilemapValue[blockType];
+
+        if (blockType > BLOCK_TYPE_BOMB_BLOCK_NEVER_REFORM)
+        {
+            // Handle the special case of bomb chain blocks
+            reveal = BLockRevealBombChainBlock(blockType, pClipBlock->xPosition, pClipBlock->yPosition);
+        }
+
+        if (!reveal)
+            return FALSE;
+
+        // Reveal block
+        BgClipSetBG1BlockValue(value, pClipBlock->yPosition, pClipBlock->xPosition);
+        BgClipSetClipdataBlockValue(value, pClipBlock->yPosition, pClipBlock->xPosition);
+    }
+
+    return FALSE;
 }
 
 /**
