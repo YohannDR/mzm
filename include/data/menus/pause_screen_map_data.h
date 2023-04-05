@@ -6,6 +6,9 @@
 #include "structs/menus/pause_screen.h"
 #include "connection.h"
 
+extern const u8 sPauseScreen_40d6fc[80];
+extern const u8 sPauseScreen_40d74c[80];
+
 extern const u8 sMinimapTilesGfx[5120];
 extern const u32 sPauseScreen_40f4c4[1792];
 extern const u32 sPauseScreenAreaNamesGfx[167];

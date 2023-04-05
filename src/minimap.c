@@ -5,6 +5,7 @@
 #include "data/unsorted.h"
 #include "data/shortcut_pointers.h"
 #include "data/menus/pause_screen_data.h"
+#include "data/menus/pause_screen_map_data.h"
 
 #include "constants/connection.h"
 #include "constants/game_state.h"
@@ -259,24 +260,171 @@ void MinimapDraw(void)
     }
 }
 
+/**
+ * @brief 6c6b4 | d8 | Copies the graphics of a map tile
+ * 
+ * @param dst Destination pointer
+ * @param pTile Tile pointer
+ * @param palette Palette
+ */
 void MinimapCopyTileGFX(u32* dst, u16* pTile, u8 palette)
 {
+    i32 i;
+    u32 value;
+    u32 tile;
 
+    for (i = 0; i < 8; i++)
+    {
+        tile = sMinimapTilesGfx[*pTile];
+        value = (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]);
+        (*pTile)++;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]) << 8;
+        (*pTile)++;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]) << 16;
+        (*pTile)++;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]) << 24;
+        (*pTile)++;
+
+        *dst++ = value;
+    }
 }
 
+/**
+ * @brief 6c78c | ec | Copies the graphics of a map tile (X flipped)
+ * 
+ * @param dst Destination pointer
+ * @param pTile Tile pointer
+ * @param palette Palette
+ */
 void MinimapCopyTileXFlippedGFX(u32* dst, u16* pTile, u8 palette)
 {
+    i32 i;
+    u32 value;
+    u32 tile;
 
+    for (i = 0; i < 8; i++)
+    {
+        *pTile += 3;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value = (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]);
+        (*pTile)--;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 8;
+        (*pTile)--;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 16;
+        (*pTile)--;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 24;
+
+        *dst++ = value;
+        
+        *pTile += 4;
+    }
 }
 
+/**
+ * @brief 6c878 | dc | Copies the graphics of a map tile (Y flipped)
+ * 
+ * @param dst Destination pointer
+ * @param pTile Tile pointer
+ * @param palette Palette
+ */
 void MinimapCopyTileYFlippedGFX(u32* dst, u16* pTile, u8 palette)
 {
+    i32 i;
+    u32 value;
+    u32 tile;
+    
+    *pTile += 28;
+    
+    for (i = 0; i < 8; i++)
+    {
+        tile = sMinimapTilesGfx[*pTile];
+        value = (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]);
+        (*pTile)++;
 
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]) << 8;
+        (*pTile)++;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]) << 16;
+        (*pTile)++;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]) << 24;
+
+        *dst++ = value;
+        *pTile -= 7;
+    }
 }
 
+/**
+ * @brief 6c954 | f0 | Copies the graphics of a map tile (X/Y flipped)
+ * 
+ * @param dst Destination pointer
+ * @param pTile Tile pointer
+ * @param palette Palette
+ */
 void MinimapCopyTileXYFlippedGFX(u32* dst, u16* pTile, u8 palette)
 {
+    i32 i;
+    u32 value;
+    u32 tile;
 
+    // Macro
+    do{
+        *pTile += 31;
+    }while(0);
+    
+    for (i = 0; i < 8; i++)
+    {
+        tile = sMinimapTilesGfx[*pTile];
+        value = (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]);
+        (*pTile)--;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 8;
+        (*pTile)--;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 16;
+        (*pTile)--;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 24;
+        (*pTile)--;
+
+        *dst++ = value;
+        
+    }
 }
 
 void MinimapSetTilesWithObtainedItems(u8 area, u16* dst)
