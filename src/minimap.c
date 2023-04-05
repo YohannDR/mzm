@@ -204,24 +204,24 @@ void MinimapDraw(void)
     u32 limit;
     u32* dst;
     u16 rawTile;
-    u8 flag;
     u16 tile;
     u8 palette;
     u32 flip;
     u16* src;
+    u32 offset;
+    u32 mask;
 
     if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_NONE)
         return;
     
-    src = gDecompressedMinimapVisitedTiles;
-    flag = gUpdateMinimapFlag;
-    dst = gMinimapTilesGFX + (flag - 1) * 24;
+    src = (u16*)0x2034000;
+    dst = (u32*)0x2037e20 + (gUpdateMinimapFlag - 1) * 24;
 
-    if (flag == MINIMAP_UPDATE_FLAG_LOWER_LINE)
+    if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_LOWER_LINE)
         yOffset = 0x1;
-    else if (flag == MINIMAP_UPDATE_FLAG_MIDDLE_LINE)
+    else if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_MIDDLE_LINE)
         yOffset = 0x0;
-    else if (flag == MINIMAP_UPDATE_FLAG_UPPER_LINE)
+    else if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_UPPER_LINE)
         yOffset = -0x1;
     else
     {
@@ -246,10 +246,10 @@ void MinimapDraw(void)
             yPosition = limit;
         }
 
-        rawTile = src[yPosition * MINIMAP_SIZE + xPosition];
-        flip = (rawTile & 0xC00) >> 0xA;
-        palette = rawTile >> 0xC;
-        tile = rawTile & 0x3ff;
+        offset = yPosition * MINIMAP_SIZE + xPosition;
+        flip = (src[offset] & 0xC00) >> 0xA;
+        palette = src[offset] >> 0xC;
+        tile = src[offset] & 0x3ff;
         
         if (gLanguage == LANGUAGE_HIRAGANA && tile > 0x140)
             tile += 0x20;
