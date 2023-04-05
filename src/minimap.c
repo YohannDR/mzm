@@ -468,10 +468,14 @@ void MinimapSetDownloadedTiles(u8 area, u16* dst)
 
 }
 
+/**
+ * @brief 6cbd8 | 90 | Updates the minimap for a collected item
+ * 
+ * @param xPosition X position
+ * @param yPosition Y position
+ */
 void MinimapUpdateForCollectedItem(u8 xPosition, u8 yPosition)
 {
-    // https://decomp.me/scratch/pFd7R
-
     u32 itemX;
     u32 itemY;
     u32 offset;
@@ -481,18 +485,18 @@ void MinimapUpdateForCollectedItem(u8 xPosition, u8 yPosition)
 
     if (gCurrentArea < MAX_AMOUNT_OF_AREAS)
     {
-        itemX = (xPosition - 0x2) / 0xF + gCurrentRoomEntry.mapX;
-        itemY = (yPosition - 0x2) / 0xA + gCurrentRoomEntry.mapY;
+        itemX = (xPosition - 2) / 15 + gCurrentRoomEntry.mapX;
+        itemY = (yPosition - 2) / 10 + gCurrentRoomEntry.mapY;
 
         offset = gCurrentArea * MINIMAP_SIZE;
-        ptr = gMinimapTilesWithObtainedItems + offset;
+        ptr = (u32*)(0x2033800) + offset; // gMinimapTilesWithObtainedItems
         ptr[itemY] |= sExploredMinimapBitFlags[itemX];
 
         
         itemX += itemY * MINIMAP_SIZE;
-        ptrU = gDecompressedMinimapVisitedTiles + itemX;
-        (*ptrU)++;
-        ptrU = gDecompressedMinimapData;
+        ptrU = (u16*)0x2034000; // gDecompressedMinimapVisitedTiles
+        ptrU[itemX]++;
+        ptrU = (u16*)0x2034800; // gDecompressedMinimapData
         ptrU[itemX]++;
 
         gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_LOWER_LINE;
