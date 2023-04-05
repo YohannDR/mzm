@@ -467,7 +467,54 @@ void MinimapSetTilesWithObtainedItems(u8 area, u16* dst)
 
 void MinimapSetDownloadedTiles(u8 area, u16* dst)
 {
+    // https://decomp.me/scratch/oSyZP
 
+    u32* pVisited;
+    i32 i;
+    i32 j;
+
+    pVisited = &sVisitedMinimapTilesPointer[area * MINIMAP_SIZE];
+
+    if ((gEquipment.downloadedMapStatus >> area) & 1 || (u8)(area - MAX_AMOUNT_OF_AREAS) <= 2)
+    {
+        for (i = 0; i < MINIMAP_SIZE; i++, pVisited++)
+        {
+            for (j = 0; j < MINIMAP_SIZE; j++, dst++)
+            {
+                if (sExploredMinimapBitFlags[j] & *pVisited)
+                {
+                    if (!(*dst & 0xF000))
+                        *dst |= 0x1000;
+                }
+                else if (*dst >= 0x3000)
+                {
+                    *dst = 0x140;
+                }
+                else if (*dst & 0x3000)
+                {
+                    *dst &= 0xFFF;
+                }
+            }
+        }
+    }
+    else
+    {
+        for (i = 0; i < MINIMAP_SIZE; i++, pVisited++)
+        {
+            for (j = 0; j < MINIMAP_SIZE; j++, dst++)
+            {
+                if (sExploredMinimapBitFlags[j] & *pVisited)
+                {
+                    if (!(*dst & 0xF000))
+                        *dst |= 0x1000;
+                }
+                else if (*dst & 0xF000)
+                {
+                    *dst = 0x140;
+                }
+            }
+        }
+    }
 }
 
 /**
