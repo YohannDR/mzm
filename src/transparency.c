@@ -390,30 +390,39 @@ void TransparencyUpdateBLDCNT(u8 action, u16 value)
         gWrittenToBLDCNT = gIoRegistersBackup.BLDCNT_NonGameplay;
 }
 
-void TransparencySpriteUpdateBLDY(u8 value, i8 delay, u8 intensity)
+/**
+ * @brief 55adc | 48 | Starts a bldy sprite effect
+ * 
+ * @param value Requested value
+ * @param delay Delay between increments
+ * @param intensity Intensity
+ */
+void TransparencySpriteUpdateBLDY(u8 value, u32 delay, u32 intensity)
 {
-    // https://decomp.me/scratch/SjDPH
+    u8 above;
+    i32 _delay;
+    i32 _intensity;
 
-    // Can't generate signed cast for delay
-    /*u8 above;
-
+    _delay = (i8)delay;
+    _intensity = (u8)intensity;
     above = FALSE;
     
     if (value > 0x10)
         above = TRUE;
 
     if (above)
-        gBLDYData2.activeFlag &= ~TRUE;
-    else
     {
-        gBLDYData2.delayMax = delay;
-        gBLDYData2.intensity = intensity;
-        gBLDYData2.value = value;
-        gBLDYData2.delay = above;
-        gBLDYData2.activeFlag = TRUE;
+        gBLDYData2.activeFlag &= ~TRUE;
+        return;
+    }
+    
+    gBLDYData2.delayMax = _delay;
+    gBLDYData2.intensity = _intensity;
+    gBLDYData2.value = value;
+    gBLDYData2.delay = above;
+    gBLDYData2.activeFlag = TRUE;
 
-        TransparencyApplyNewEffects();
-    }*/
+    TransprencyApplyNewEffects();
 }
 
 void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u8 intensity)
