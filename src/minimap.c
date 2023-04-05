@@ -537,14 +537,17 @@ void MinimapLoadTilesWithObtainedItems(void)
 
 }
 
+/**
+ * @brief 6cd84 | 174 | Updates a minimap chunk/boss icon
+ * 
+ * @param event Event linked
+ */
 void MinimapUpdateChunk(u8 event)
 {
-    // https://decomp.me/scratch/J8b8P
-
     i32 i;
     u16* pMinimap;
     u16* pVisited;
-    register u16* pMinimapLower asm("r2");
+    u16* pMinimapLower;
     u16* pVisitedLower;
     u16* ptr;
     u32 mask;
@@ -555,7 +558,7 @@ void MinimapUpdateChunk(u8 event)
             break;
     }
 
-    if (i >= 7)//ARRAY_SIZE(sBossIcons))
+    if (i >= (int)ARRAY_SIZE(sBossIcons))
         return;
 
     if (i != gCurrentArea)
@@ -563,8 +566,8 @@ void MinimapUpdateChunk(u8 event)
 
     i = sBossIcons[i][3] * MINIMAP_SIZE + sBossIcons[i][2];
 
-    pMinimap = &gDecompressedMinimapData[i];
-    pVisited = &gDecompressedMinimapVisitedTiles[i];
+    pMinimap = (u16*)0x2034800 + i;
+    pVisited = (u16*)0x2034000 + i;
 
     if (gCurrentArea == AREA_CRATERIA)
     {
