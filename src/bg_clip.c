@@ -660,10 +660,12 @@ void BgClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
     }
 }
 
+/**
+ * @brief 5b114 | c4 | Removes the collected tanks of a room
+ * 
+ */
 void BgClipRemoveCollectedTanks(void)
 {
-    // https://decomp.me/scratch/RQGNU
-
     struct ItemInfo* pItem;
     i32 i;
     i32 limit;
@@ -671,36 +673,37 @@ void BgClipRemoveCollectedTanks(void)
     u32 behavior;
     u32 temp;
 
-    if (gPauseScreenFlag == PAUSE_SCREEN_NONE && gCurrentArea < MAX_AMOUNT_OF_AREAS)
+    if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
+        return;
+
+    if (gCurrentArea > MAX_AMOUNT_OF_AREAS)
+        return;
+    
+    i = gCurrentArea;
+    limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
+    pItem = (u8*)0x2036c00 + i * MAX_AMOUNT_OF_ITEMS_PER_AREA * sizeof(struct ItemInfo);
+
+    for (i = 0; i < limit; i++, pItem++)
     {
-        i = gCurrentArea;
-        limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
-        pItem = gItemsCollected[i];
-        i = 0;
-
-        for (; i < limit; pItem++)
+        if (pItem->room == UCHAR_MAX)
+            return;
+        
+        if (pItem->room == gCurrentRoom && pItem->type >= 0)
         {
-            if (pItem->room == 0xFF)
-                return;
-            
-            if (pItem->room == gCurrentRoom && pItem->type >= 0)
+            position = gBGPointersAndDimensions.clipdataWidth * pItem->yPosition + pItem->xPosition;
+
+            behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[position]] -
+                CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK;
+            if (behavior <= BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK))
             {
-                position = gBGPointersAndDimensions.clipdataWidth * pItem->yPosition + pItem->xPosition;
-
-                behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[position]] - CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK;
-                if (behavior <= BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK))
-                {
-                    gBGPointersAndDimensions.pClipDecomp[position] = 0x43C;
-                    gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0x0;
-                }
-                else
-                {
-                    gBGPointersAndDimensions.pClipDecomp[position] = 0x0;
-                    gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0x0;
-                }
+                gBGPointersAndDimensions.pClipDecomp[position] = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_WATER;
+                gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
             }
-
-            i++;
+            else
+            {
+                gBGPointersAndDimensions.pClipDecomp[position] = 0;
+                gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
+            }
         }
     }
 }
