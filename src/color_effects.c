@@ -251,8 +251,7 @@ void ApplyMonochromeToPalette(const u16* src, u16* dst, i8 additionalValue)
     u16 g;
     u16 b;
 
-    i = 0;
-    while (i <= UCHAR_MAX)
+    for (i = 0; i <= UCHAR_MAX; i++, src++, dst++)
     {
         color = *src;
 
@@ -272,10 +271,6 @@ void ApplyMonochromeToPalette(const u16* src, u16* dst, i8 additionalValue)
         
         // Create grey color
         *dst = COLOR(result, result, result);
-
-        i++;
-        src++;
-        dst++;
     }
 }
 
