@@ -90,7 +90,7 @@ struct WaterMovement {
     u8 moving;
     u8 stage;
     u8 loopCounter;
-    u8 yOffset;
+    i8 yOffset;
 };
 
 struct BG0Movement {

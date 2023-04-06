@@ -2,12 +2,14 @@
 #include "gba.h"
 
 #include "data/clipdata_data.h"
+#include "data/engine_pointers.h"
 
 #include "constants/game_state.h"
 #include "constants/samus.h"
 #include "constants/room.h"
 
 #include "structs/bg_clip.h"
+#include "structs/display.h"
 #include "structs/game_state.h"
 #include "structs/color_effects.h"
 #include "structs/samus.h"
@@ -433,9 +435,144 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
     gBG1XPosition += xOffset;
 }
 
+/**
+ * @brief 58a18 | 2a8 | Updates the haze and effect position
+ * 
+ * @param pCoords Coordinates pointer
+ */
 void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
 {
+    u32 var_0;
+    i32 position;
+    i32 waterOffset;
+    u16 temp;
+    
+    var_0 = FALSE;
+    if (gCurrentRoomEntry.BG0Prop & BG_PROP_RLE_COMPRESSED)
+    {
+        if (gCurrentRoomEntry.BG0Prop == 0x11)
+        {
+            gBG0XPosition = gBG1XPosition / 2;
+            gBG0YPosition = gBG1YPosition;
+            
+            var_0 = TRUE;
+        }
+    }
+    else
+    {
+        if (gCurrentRoomEntry.effectY != USHORT_MAX)
+        {
+            gBG0XPosition = gBG1XPosition;
+            position = (gCurrentRoomEntry.effectY + gEffectYPositionOffset - gBG1YPosition) >> 2;
 
+            if (gWaterMovement.moving == TRUE)
+            {
+                if (gPreventMovementTimer == 0)
+                {
+                    if (gWaterMovement.loopCounter != 0)
+                        gWaterMovement.loopCounter--;
+                    else
+                    {
+                        gWaterMovement.stage++;
+                        if (gWaterMovement.stage > 7)
+                            gWaterMovement.stage = 0;
+
+                        gWaterMovement.loopCounter = sWaterLoopCounterArray[gWaterMovement.stage][1];
+                    }
+                }
+                waterOffset = sWaterLoopCounterArray[gWaterMovement.stage][0];
+            }
+            else
+                waterOffset = 0;
+
+            gWaterMovement.yOffset = (waterOffset - 8) * 4;
+            position += waterOffset;
+
+            if (position < 0)
+            {
+                if (gIoRegistersBackup.unknown_12 & 0xC000 && gIoRegistersBackup.BG0CNT & 0xC000)
+                {
+                    gIoRegistersBackup.unknown_12 &= ~0xC000;
+                    write16(REG_BG0CNT, gIoRegistersBackup.unknown_12);
+                }
+            }
+            else
+            {
+                if (!(gIoRegistersBackup.unknown_12 & 0xC000) && gIoRegistersBackup.BG0CNT & 0xC000)
+                {
+                    gIoRegistersBackup.unknown_12 |= (gIoRegistersBackup.BG0CNT & 0xC000);
+                    write16(REG_BG0CNT, read16(REG_BG0CNT) | gIoRegistersBackup.unknown_12);
+                }
+            }
+
+            if (position > BLOCK_SIZE * 4)
+                position = BLOCK_SIZE * 4;
+
+            gBG0YPosition = -position * 4;
+            var_0 = TRUE;
+        }
+        else
+        {
+            var_0 = TRUE;
+            switch (gCurrentRoomEntry.BG0Prop)
+            {
+                case BG_PROP_CLOSE_UP:
+                    gBG0XPosition = 0;
+                    gBG0YPosition = 0;
+                    break;
+
+                case 0x43:
+                case BG_PROP_DARK_ROOM:
+                    gBG0XPosition = gBG1XPosition - pCoords->x;
+                    gBG0YPosition = gBG1YPosition - pCoords->y + BLOCK_SIZE;
+                    break;
+
+                case 0x44:
+                    position = FALSE;
+
+                    gBG0XPosition = (gBG1XPosition - gWaitingSpacePiratesPosition.x) + BLOCK_SIZE * 32;
+                    gBG0YPosition = (gBG1YPosition - gWaitingSpacePiratesPosition.y) + BLOCK_SIZE * 17;
+
+                    temp = (gBG1XPosition - gWaitingSpacePiratesPosition.x) + BLOCK_SIZE * 20;
+                    if (temp > BLOCK_SIZE * 24)
+                        position = TRUE;
+
+                    temp = (gBG1YPosition - gWaitingSpacePiratesPosition.y) + BLOCK_SIZE * 13;
+                    if (temp > BLOCK_SIZE * 12)
+                        position = TRUE;
+
+                    if (position)
+                    {
+                        gBG0XPosition = BLOCK_SIZE * 8;
+                    }
+                    break;
+
+                default:
+                    var_0 = FALSE;
+            }
+        }
+    }
+
+    if (!var_0)
+    {
+        gBG0YPosition = gBG1YPosition;
+        gBG0XPosition = gBG1XPosition;
+    }
+
+    if (gCurrentRoomEntry.effectY == USHORT_MAX)
+    {
+        gEffectYPosition = 0;
+        gEffectYPositionOffset = 0;
+    }
+    else
+    {
+        position = gCurrentRoomEntry.effectY + gWaterMovement.yOffset + gEffectYPositionOffset;
+
+        if (position < 0)
+            position = 0;
+
+        gEffectYPosition = position;
+    }
 }
 
 /**

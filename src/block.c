@@ -365,8 +365,7 @@ void BlockRemoveNeverReformBlocks(void)
         }
         else if (var_0 == 2)
         {
-            BlockRemoveNeverReformSingleBlock(pBlock[i + 0],
-                pBlock[i + 1]);
+            BlockRemoveNeverReformSingleBlock(pBlock[i + 0], pBlock[i + 1]);
         }
     }
 }

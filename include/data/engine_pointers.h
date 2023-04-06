@@ -23,6 +23,8 @@ extern const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_ARE
 
 // 75fd88
 
+extern const i8 sWaterLoopCounterArray[8][2];
+
 extern const BlockFunc_T sNonReformDestroyFunctionPointers[5];
 
 extern const ColorFadingFunc_T sColorFadingSubroutinePointers[4];
