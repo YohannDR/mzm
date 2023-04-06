@@ -404,9 +404,76 @@ void BlockRemoveNeverReformSingleBlock(u8 xPosition, u8 yPosition)
     }
 }
 
+/**
+ * @brief 595e4 | 18c | Shifts and re-organizes the never reform blocks when transitionning
+ * 
+ */
 void BlockShiftNeverReformBlocks(void)
 {
+    u8* src;
+    u8* dst;
+    i32 amount;
+    i32 var_0;
+    i32 i;
 
+    src = (u8*)0x2035c00 + gAreaBeforeTransition * 512;
+    if (src[gNumberOfNeverReformBlocks[gAreaBeforeTransition] * 2] == UCHAR_MAX)
+        return;
+
+    dst = EWRAM_BASE;
+    DMATransfer(3, src, dst, 512, 16);
+    BitFill(3, USHORT_MAX, src, 512, 16);
+
+    var_0 = 0;
+    amount = 0;
+    i = 0;
+
+    while (amount < gNumberOfNeverReformBlocks[gAreaBeforeTransition] * 2)
+    {
+        if (dst[amount] == 0)
+        {
+            if (var_0 == 1)
+                var_0 = 10;
+            else if (var_0 == 0 && dst[i + 1] == gCurrentRoom)
+                var_0 = 1;
+        }
+
+        if (var_0 < 10)
+        {
+            src[i++] = dst[amount++];
+            src[i++] = dst[amount++];
+        }
+        else if (var_0 == 10)
+        {
+            dst = EWRAM_BASE + gNumberOfNeverReformBlocks[gAreaBeforeTransition] * 2;
+            while (*dst != UCHAR_MAX)
+            {
+                src[i++] = *dst++;
+                src[i++] = *dst++;
+            }
+
+            var_0 = 2;
+            dst = EWRAM_BASE;
+        }
+    }
+
+    if (var_0 != 2)
+    {
+        if (var_0 != 1)
+        {
+            src[i++] = 0;
+            src[i++] = gCurrentRoom;
+        }
+
+        dst = EWRAM_BASE + gNumberOfNeverReformBlocks[gAreaBeforeTransition] * 2;
+        while (*dst != UCHAR_MAX)
+        {
+            src[i++] = *dst++;
+            src[i++] = *dst++;
+        }
+    }
+
+    gNumberOfNeverReformBlocks[gAreaBeforeTransition] = i >> 1;
 }
 
 /**

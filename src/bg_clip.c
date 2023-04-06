@@ -686,7 +686,7 @@ void BgClipRemoveCollectedTanks(void)
     
     i = gCurrentArea;
     limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
-    pItem = (u8*)0x2036c00 + i * MAX_AMOUNT_OF_ITEMS_PER_AREA * sizeof(struct ItemInfo);
+    pItem = (struct ItemInfo*)0x2036c00 + i * MAX_AMOUNT_OF_ITEMS_PER_AREA;
 
     for (i = 0; i < limit; i++, pItem++)
     {
