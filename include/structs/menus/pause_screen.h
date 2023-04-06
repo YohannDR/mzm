@@ -47,6 +47,20 @@ struct WorldMapData {
     u16 yPosition;
 };
 
+struct MinimapAreaName {
+    u8 area1;
+    u8 mapX1;
+    u8 mapY1;
+    i8 xOffset1;
+    i8 yOffset1;
+
+    u8 area2;
+    u8 mapX2;
+    u8 mapY2;
+    i8 xOffset2;
+    i8 yOffset2;
+};
+
 struct PauseScreenSubroutineData {
     u8 currentSubroutine;
     u8 padding_1[3];

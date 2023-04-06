@@ -47,6 +47,8 @@ extern const u8 sMaintainedInputDelays[7];
 extern const u8 sMapScreenAreaIds[MAX_AMOUNT_OF_AREAS];
 extern const u8 sMapScreenAreasViewOrder[MAX_AMOUNT_OF_AREAS];
 
+extern const struct MinimapAreaName sMinimapAreaNames[10];
+
 // ...
 
 extern u8* const sPauseScreen_40d79c[5];

@@ -41,14 +41,110 @@ void MinimapSetTileAsExplored(void)
     u32 offset;
     if (!gShipLandingFlag)
     {
-        offset = gCurrentArea * 32 + gMinimapY; 
+        offset = gCurrentArea * MINIMAP_SIZE + gMinimapY; 
         sVisitedMinimapTilesPointer[offset] |= sExploredMinimapBitFlags[gMinimapX];
     }
 }
 
 void MinimapCheckSetAreaNameAsExplored(u8 afterTransition)
 {
+    // https://decomp.me/scratch/lc52R
 
+    u32 set;
+    i32 i;
+    u32 area;
+    u32 xPosition;
+    u32 yPosition;
+    u16* pMap;
+    u32 actualX;
+    u32 actualY;
+    u32* ptr;
+
+    if (gShipLandingFlag)
+        return;
+
+    if (gLastAreaNameVisited.flags == 0)
+        return;
+
+    set = 0;
+    i = 0;
+
+    if (afterTransition == TRUE)
+    {
+        if (gLastAreaNameVisited.flags & 0x80)
+        {
+            i = gLastAreaNameVisited.flags & 0x7F;
+            if (sMinimapAreaNames[i].area1 == gAreaBeforeTransition)
+                set = 1;
+            else if (sMinimapAreaNames[i].area2 == gAreaBeforeTransition)
+                set = 2;
+        }
+    }
+    else
+    {
+        for (i = 0; sMinimapAreaNames[i].area1 != UCHAR_MAX; i++)
+        {
+            if (sMinimapAreaNames[i].area1 == gLastAreaNameVisited.area)
+            {
+                if (gLastAreaNameVisited.mapX == sMinimapAreaNames[i].mapX1 && gLastAreaNameVisited.mapY == sMinimapAreaNames[i].mapY1)
+                    set = 1;
+            }
+            else if (sMinimapAreaNames[i].area2 == gLastAreaNameVisited.area)
+            {
+                if (gLastAreaNameVisited.mapX == sMinimapAreaNames[i].mapX2 && gLastAreaNameVisited.mapY == sMinimapAreaNames[i].mapY2)
+                    set = 2;
+            }
+
+            if (set != 0)
+                break;
+        }
+
+        if (set != 0)
+            gLastAreaNameVisited.flags = i | 0x80;
+    }
+
+    if (set == 1)
+    {
+        area = sMinimapAreaNames[i].area1;
+        xPosition = sMinimapAreaNames[i].mapX1;
+        actualX = xPosition + sMinimapAreaNames[i].xOffset1 - 1;
+        yPosition = sMinimapAreaNames[i].mapY1;
+        actualY = yPosition + sMinimapAreaNames[i].yOffset1 - 1;
+    }
+    else if (set == 2)
+    {
+        area = sMinimapAreaNames[i].area2;
+        xPosition = sMinimapAreaNames[i].mapX2;
+        actualX = xPosition + sMinimapAreaNames[i].xOffset2 - 1;
+        yPosition = sMinimapAreaNames[i].mapY2;
+        actualY = yPosition + sMinimapAreaNames[i].yOffset2 - 1;
+    }
+    else
+    {
+        gLastAreaNameVisited.flags = 0;
+        return;
+    }
+
+    xPosition--;
+    gLastAreaNameVisited.mapX = xPosition;
+    yPosition--;
+    gLastAreaNameVisited.mapY = yPosition;
+
+    pMap = (u16*)0x2034800 + (area * MINIMAP_SIZE + actualX + actualY);
+
+    for (i = 0; i < MINIMAP_SIZE; i++)
+    {
+        if ((pMap[i] & 0x3FF) - 0x141 <= 0x1D)
+        {
+            sVisitedMinimapTilesPointer[area * MINIMAP_SIZE + yPosition] |= sExploredMinimapBitFlags[actualX + i];
+        }
+    }
+
+    if (afterTransition)
+    {
+        sVisitedMinimapTilesPointer[area * MINIMAP_SIZE + gLastAreaNameVisited.mapY] |= sExploredMinimapBitFlags[gLastAreaNameVisited.mapX];
+        gLastAreaNameVisited.flags = 0;
+    }
 }
 
 /**
@@ -61,53 +157,53 @@ void MinimapCheckForUnexploredTile(void)
     u16 samusY;
     u16 clipPosition;
 
-    if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_NONE)
+    if (gUpdateMinimapFlag != MINIMAP_UPDATE_FLAG_NONE)
+        return;
+
+    samusX = gSamusData.xPosition - BLOCK_SIZE * 2;
+    samusY = gSamusData.yPosition - BLOCK_SIZE * 2;
+
+    if (samusX & 0x8000)
+        samusX = 0x0;
+    else
     {
-        samusX = gSamusData.xPosition - BLOCK_SIZE * 2;
-        samusY = gSamusData.yPosition - BLOCK_SIZE * 2;
+        clipPosition = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
+        clipPosition -= BLOCK_SIZE * 4;
 
-        if (samusX & 0x8000)
-            samusX = 0x0;
-        else
-        {
-            clipPosition = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
-            clipPosition -= BLOCK_SIZE * 4;
+        if (gSamusData.xPosition >= clipPosition)
+            samusX = clipPosition - 0x1;
+    }
 
-            if (gSamusData.xPosition >= clipPosition)
-                samusX = clipPosition - 0x1;
-        }
+    if (samusY & 0x8000)
+        samusY = 0x0;
+    else
+    {
+        clipPosition = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
+        clipPosition -= BLOCK_SIZE * 4;
 
-        if (samusY & 0x8000)
-            samusY = 0x0;
-        else
-        {
-            clipPosition = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
-            clipPosition -= BLOCK_SIZE * 4;
+        if (gSamusData.yPosition >= clipPosition)
+            samusY = clipPosition - 0x1;
+    }
 
-            if (gSamusData.yPosition >= clipPosition)
-                samusY = clipPosition - 0x1;
-        }
+    // Convert to block
+    samusX /= BLOCK_SIZE;
+    samusY /= BLOCK_SIZE;
 
-        // Convert to block
-        samusX >>= 0x6;
-        samusY >>= 0x6;
+    samusX /= 15;
+    samusY /= 10;
 
-        samusX /= 0xF;
-        samusY /= 0xA;
+    // Check update X coords
+    if (gMinimapX != samusX + gCurrentRoomEntry.mapX)
+    {
+        gMinimapX = samusX + gCurrentRoomEntry.mapX;
+        gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_LOWER_LINE;
+    }
 
-        // Check update X coords
-        if (gMinimapX != samusX + gCurrentRoomEntry.mapX)
-        {
-            gMinimapX = samusX + gCurrentRoomEntry.mapX;
-            gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_LOWER_LINE;
-        }
-
-        // Check update Y coords
-        if (gMinimapY != samusY + gCurrentRoomEntry.mapY)
-        {
-            gMinimapY = samusY + gCurrentRoomEntry.mapY;
-            gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_LOWER_LINE;
-        }
+    // Check update Y coords
+    if (gMinimapY != samusY + gCurrentRoomEntry.mapY)
+    {
+        gMinimapY = samusY + gCurrentRoomEntry.mapY;
+        gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_LOWER_LINE;
     }
 }
 
