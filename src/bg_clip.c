@@ -623,10 +623,15 @@ u8 BgClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
     return action;
 }
 
+/**
+ * @brief 5b0a0 | 74 | Regsiters a collected item in the save
+ * 
+ * @param xPosition X position
+ * @param yPosition Y position
+ * @param type Item type
+ */
 void BgClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
 {
-    // https://decomp.me/scratch/sixf9
-
     u8 overLimit;
     i32 i;
     u8* pItem;
@@ -638,7 +643,7 @@ void BgClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
     i = gCurrentArea;
     limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
     overLimit = TRUE;
-    pItem = (u8*)gItemsCollected[i];
+    pItem = (u8*)0x2036c00 + i * MAX_AMOUNT_OF_ITEMS_PER_AREA * sizeof(struct ItemInfo);
 
     for (i = 0; i < limit; i++, pItem += 4)
     {
