@@ -8,6 +8,7 @@
 #include "constants/game_state.h"
 
 #include "structs/color_effects.h"
+#include "structs/room.h"
 #include "structs/game_state.h"
 
 /**
@@ -174,9 +175,64 @@ void CallApplySpecialBackgroundFadingColor(u8 color)
     gColorFading.status = COLOR_FADING_STATUS_ON_BG | COLOR_FADING_STATUS_ON_OBJ;
 }
 
+/**
+ * @brief 5b584 | a0 | Handles the yellow on the screen during a power bomb explosion
+ * 
+ * @param paletteRow Palette row to start from
+ */
 void PowerBombYellowTint(u8 paletteRow)
 {
+    i32 length;
+    i32 i;
+    u16* pPalette;
+    u8 r;
+    u8 g;
+    u8 b;
 
+    if (gAnimatedGraphicsEntry.palette == 0)
+    {
+        // Affect all of palram
+        length = 16 * 16;
+    }
+    else
+    {
+        // Omit last row, where the animated palette is
+        length = 15 * 16;
+    }
+
+    // Get palram
+    DMATransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
+
+    // Get starting position
+    pPalette = (u16*)(EWRAM_BASE + 0x35000) + paletteRow * 16;
+
+    for (i = paletteRow * 16; i < length; i++, pPalette++)
+    {
+        // Ignore first color (transparent color)
+        if (i % 16 == 0)
+            continue;
+
+        // Get components
+        r = RED(*pPalette);
+        g = GREEN(*pPalette);
+        b = BLUE(*pPalette);
+
+        // Tint red and green
+        r += 5;
+        g += 5;
+
+        // Check for overflow
+        if (r > COLOR_MASK)
+            r = COLOR_MASK;
+
+        if (g > COLOR_MASK)
+            g = COLOR_MASK;
+
+        // Apply color
+        *pPalette = COLOR(r, g, b);
+    }
+
+    gColorFading.status |= COLOR_FADING_STATUS_ON_BG;
 }
 
 /**
@@ -202,7 +258,9 @@ void ApplyMonochromeToPalette(const u16* src, u16* dst, i8 additionalValue)
 
         r = RED(color);
         g = GREEN(color);
-        BLUE(color, b);
+        do {
+            b = BLUE(color);
+        }while(0);
 
         // Get average
         result = (r + g + b) / 3 + additionalValue;
@@ -304,7 +362,7 @@ u16 ApplyFadeOnColor(u8 type, u16 color, u8 currentColor)
 
     red = RED(color);
     green = GREEN(color);
-    BLUE(color, b);
+    b = BLUE(color);
 
     switch (type)
     {
@@ -323,7 +381,7 @@ u16 ApplyFadeOnColor(u8 type, u16 color, u8 currentColor)
         case FADING_TYPE_OUT:
             red = (red - ((currentColor * red) >> 5)) & COLOR_MASK;
             green = (green - ((currentColor * green) >> 5)) & COLOR_MASK;
-            b =( b - ((currentColor * b) >> 5) )& COLOR_MASK;
+            b = (b - ((currentColor * b) >> 5)) & COLOR_MASK;
             break;
 
         case FADING_TYPE_UNK:
