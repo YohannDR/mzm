@@ -19,6 +19,7 @@ extern const u16** const sStoryTextPointers[7];
 extern const u16** const sLocationTextpointers[7];
 extern const u16** const sMessageTextpointers[7];
 extern const u16** const sFileScreenTextPointers[7];
+extern const u16** const sDescriptionTextPointers[7];
 
 extern const u32 sCharactersGFX[1];
 extern const u32 sArray_760338[24];

@@ -6,6 +6,7 @@
 #include "data/shortcut_pointers.h"
 
 #include "constants/text.h"
+#include "constants/menus/pause_screen.h"
 
 #include "structs/game_state.h"
 #include "structs/menus/pause_screen.h"
@@ -568,9 +569,161 @@ u8 TextProcessFileScreenPopUp(void)
     return 0;
 }
 
+/**
+ * @brief 6f680 | 30c | Processes the description text
+ * 
+ */
 void TextProcessDescription(void)
 {
+    u8 result;
 
+    if (PAUSE_SCREEN_DATA.currentStatusSlot != PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot)
+    {
+        // Status slot changed, restart message
+        PAUSE_SCREEN_DATA.miscOam[1].exists = FALSE;
+        PAUSE_SCREEN_DATA.unk_56 = 0;
+        PAUSE_SCREEN_DATA.currentStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
+        PAUSE_SCREEN_DATA.currentEquipment = 0;
+
+        gCurrentMessage = sMessageDescription_Empty;
+    }
+
+    switch (PAUSE_SCREEN_DATA.unk_56)
+    {
+        case 0:
+            // Get message id
+            PAUSE_SCREEN_DATA.currentEquipment = StatusScreenGetCurrentEquipmentSelected(PAUSE_SCREEN_DATA.currentStatusSlot);
+            BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 16);
+
+            if (PAUSE_SCREEN_DATA.currentEquipment <= DESCRIPTION_TEXT_PISTOL)
+                PAUSE_SCREEN_DATA.unk_56++;
+            else
+                PAUSE_SCREEN_DATA.unk_56 = 0x80;
+            break;
+
+        case 1:
+            // Initial delay
+            gCurrentMessage.delay++;
+            if (gCurrentMessage.delay > gCurrentMessage.unk_9 || gChangedInput & KEY_A)
+            {
+                gCurrentMessage.unk_9 = 0;
+                PAUSE_SCREEN_DATA.unk_56++;
+                gCurrentMessage.delay = 0;
+            }
+            break;
+
+        case 2:
+            // Process message
+            result = TextProcessCurrentMessage(&gCurrentMessage,
+                sDescriptionTextPointers[gLanguage][PAUSE_SCREEN_DATA.currentEquipment], VRAM_BASE + 0x7800);
+
+            if (result == 2)
+            {
+                // Message ended
+                if (gCurrentMessage.line != 0)
+                {
+                    // Not on first line, so it's a multi line message
+                    result = 5;
+                    PAUSE_SCREEN_DATA.unk_56 = 4;
+                }
+                else
+                {
+                    // Single line message
+                    result = 0;
+                    PAUSE_SCREEN_DATA.unk_56 = 6;
+                }
+            }
+            else if (result == 1)
+            {
+                // New line
+                result = 4;
+                gCurrentMessage.delay = 0;
+
+                if (gDemoState != 0)
+                    PAUSE_SCREEN_DATA.unk_56 = 5;
+                else
+                    PAUSE_SCREEN_DATA.unk_56 = 3;
+            }
+            else
+            {
+                result = 0;
+            }
+
+            if (result != 0)
+            {
+                // Set right after the text
+                PAUSE_SCREEN_DATA.miscOam[1].xPosition = (gCurrentMessage.indent + 10) * 4;
+
+                if (result == 4)
+                {
+                    // Arrow pointing down
+                    PAUSE_SCREEN_DATA.miscOam[1].yPosition = BLOCK_SIZE * 9;
+                }
+                else
+                {
+                    // Arrow pointing up
+                    PAUSE_SCREEN_DATA.miscOam[1].yPosition = BLOCK_SIZE * 8 + HALF_BLOCK_SIZE + 4;
+                    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM)
+                        result = 0;
+                }
+
+                UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[1], result);
+            }
+            break;
+
+        case 3:
+            // Waiting for input to change line
+            if (gChangedInput & KEY_A || gDemoState != 0)
+            {
+                // Clear graphics buffer
+                BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 16);
+
+                // Set process message behavior
+                PAUSE_SCREEN_DATA.unk_56 = 1;
+
+                gCurrentMessage.delay = 0;
+                gCurrentMessage.indent = 0;
+                gCurrentMessage.unk_9 = 10;
+                PAUSE_SCREEN_DATA.miscOam[1].exists = FALSE;
+            }
+            break;
+
+        case 4:
+            // Waiting for input at the end of a message
+            if (gChangedInput & KEY_A)
+            {
+                // Clear graphics buffer
+                BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 16);
+
+                // Set process message behavior
+                PAUSE_SCREEN_DATA.unk_56 = 1;
+
+                // Fully reset
+                gCurrentMessage = sMessageDescription_Empty;
+                PAUSE_SCREEN_DATA.miscOam[1].exists = FALSE;
+            }
+            break;
+
+        case 5:
+            // During a demo, wait to change line
+            gCurrentMessage.delay++;
+            if (gCurrentMessage.delay > 30)
+            {
+                // Clear graphics buffer
+                BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 16);
+
+                // Set process message behavior
+                PAUSE_SCREEN_DATA.unk_56 = 1;
+
+                gCurrentMessage.delay = 0;
+                gCurrentMessage.indent = 0;
+                gCurrentMessage.unk_9 = 10;
+                PAUSE_SCREEN_DATA.miscOam[1].exists = FALSE;
+            }
+            break;
+
+        case 6:
+    }
 }
 
 u8 TextProcessCurrentMessage(struct Message* pMessage, const u16* pText, u32* dst)
