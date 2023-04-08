@@ -376,19 +376,17 @@ void unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
 
 }
 
+/**
+ * @brief 6f258 | 34 | Starts a new message
+ * 
+ * @param textID Text ID
+ * @param gfxSlot Graphics slot
+ */
 void TextStartMessage(u8 textID, u8 gfxSlot)
 {
-    // https://decomp.me/scratch/NdHu7
-
-    register u32 messageID asm("r1");
-    
     gCurrentMessage = sMessage_Empty;
-    
-    messageID = textID;
-    if (textID > 0x23)
-        messageID = 0x23;
 
-    gCurrentMessage.messageID = messageID;
+    gCurrentMessage.messageID = textID > MESSAGE_ENEMY_LOCATION_ABNORMAL ? MESSAGE_ENEMY_LOCATION_ABNORMAL : textID;
     gCurrentMessage.gfxSlot = gfxSlot;
 }
 
@@ -528,7 +526,6 @@ u8 TextProcessFileScreenPopUp(void)
 
     i32 i;
     u32* dst;
-    i32 flag;
 
     switch (gCurrentMessage.stage)
     {
@@ -551,16 +548,9 @@ u8 TextProcessFileScreenPopUp(void)
                     case 1:
                     case 4:
                         gCurrentMessage.indent = 0;
-                        flag = TRUE;
                         break;
-
-                    default:
-                        flag = FALSE;
                 }
 
-                if (flag)
-                    break;
-                
                 if (gCurrentMessage.line > 3)
                     break;
                 i--;
@@ -571,6 +561,8 @@ u8 TextProcessFileScreenPopUp(void)
             gCurrentMessage.line++;
             gCurrentMessage.stage++;
             return gCurrentMessage.line;
+
+        case 2:
     }
 
     return 0;
