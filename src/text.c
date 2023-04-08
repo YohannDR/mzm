@@ -1,11 +1,14 @@
 #include "text.h"
 #include "gba.h"
+#include "macros.h"
 
 #include "data/text_data.h"
+#include "data/shortcut_pointers.h"
 
 #include "constants/text.h"
 
 #include "structs/game_state.h"
+#include "structs/menus/pause_screen.h"
 
 /**
  * @brief 6e460 | 24 | Gets the width of a character
@@ -15,7 +18,7 @@
  */
 u32 TextGetCharacterWidth(u16 charID)
 {
-    if (charID >= 0x4A0)
+    if (charID >= ARRAY_SIZE(sCharacterWidths))
         return 10;
     else
         return sCharacterWidths[charID];
@@ -675,9 +678,58 @@ u8 TextProcessCurrentMessage(struct Message* pMessage, const u16* pText, u32* ds
     return state;
 }
 
+/**
+ * @brief 6facc | ec | Draws the "yes no" prompt of the easy sleep menu
+ * 
+ */
 void TextDrawYesNoEasySleep(void)
 {
+    const u16* pText;
+    u8 shouldDraw;
 
+    // Clear graphics buffer
+    BitFill(3, USHORT_MAX, PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1,
+        sizeof(PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1) * 5, 16);
+
+    // Signal that the main text can start drawing
+    PAUSE_SCREEN_DATA.easySleepTextState = 0;
+
+    // Get text pointer
+    pText = sMessageTextpointers[gLanguage][MESSAGE_EASY_SLEEP_PROMPT];
+
+    // Reset current message
+    BitFill(3, 0, &gCurrentMessage, sizeof(gCurrentMessage), 32);
+
+    while (*pText != CHAR_TERMINATOR)
+    {
+        shouldDraw = TRUE;
+        if (*pText == CHAR_NEW_LINE)
+        {
+            // Hardcode indent
+            if (gCurrentMessage.indent > 112)
+                return;
+
+            gCurrentMessage.indent = 112;
+            shouldDraw = FALSE;
+        }
+        else if (*pText & CHAR_WIDTH_MASK)
+        {
+            // Check for color change
+            if ((*pText & CHAR_TERMINATOR) == CHAR_COLOR_MASK)
+                gCurrentMessage.color = *pText;
+
+            shouldDraw = FALSE;
+        }
+
+        if (shouldDraw)
+        {
+            // Draw and update indent
+            TextDrawMessageCharacter(*pText, (u32*)PAUSE_SCREEN_EWRAM.unk_6000, gCurrentMessage.indent, gCurrentMessage.color);
+            gCurrentMessage.indent += TextGetCharacterWidth(*pText);
+        }
+
+        pText++;
+    }
 }
 
 void TextDrawEasySleep(void)
