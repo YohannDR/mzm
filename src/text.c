@@ -612,6 +612,7 @@ u8 TextProcessFileScreenPopUp(void)
 
     i32 i;
     u32* dst;
+    i32 flag;
 
     switch (gCurrentMessage.stage)
     {
@@ -624,7 +625,7 @@ u8 TextProcessFileScreenPopUp(void)
             }
 
             dst = VRAM_BASE + gCurrentMessage.line * 0x800;
-            while (i != 0)
+            for (; i != 0; i--)
             {
                 switch (TextProcessCurrentMessage(&gCurrentMessage, sFileScreenTextPointers[gLanguage][gCurrentMessage.messageID], dst))
                 {
@@ -634,21 +635,25 @@ u8 TextProcessFileScreenPopUp(void)
                     case 1:
                     case 4:
                         gCurrentMessage.indent = 0;
+                        flag = TRUE;
                         break;
+
+                    default:
+                        flag = FALSE;
                 }
 
-                if (gCurrentMessage.line > 3)
+                if (flag || gCurrentMessage.line > 3)
                     break;
-                i--;
             }
             break;
 
         case 1:
             gCurrentMessage.line++;
             gCurrentMessage.stage++;
-            return gCurrentMessage.line;
 
         case 2:
+        default:
+            return gCurrentMessage.line;
     }
 
     return 0;
