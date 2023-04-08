@@ -732,7 +732,61 @@ void TextDrawYesNoEasySleep(void)
     }
 }
 
+/**
+ * @brief 6fbb8 | 148 | Draws the easy sleep text
+ * 
+ */
 void TextDrawEasySleep(void)
 {
+    i32 i;
 
+    switch ((u8)PAUSE_SCREEN_DATA.easySleepTextState)
+    {
+        case 0:
+            // Reset current message
+            BitFill(3, 0, &gCurrentMessage, sizeof(gCurrentMessage), 32);
+            gCurrentMessage.isMessage = TRUE;
+            PAUSE_SCREEN_DATA.easySleepTextState++;
+
+        case 1:
+            // Process message
+            for (i = 3; i != -1; i--)
+            {
+                if (!TextProcessCurrentMessage(&gCurrentMessage, sMessageTextpointers[gLanguage][MESSAGE_ACTIVATE_EASY_SLEEP],
+                    (u32*)&PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1[gCurrentMessage.line * 1024]))
+                    continue;
+
+                gCurrentMessage.indent = 0;
+                if (gCurrentMessage.messageEnded)
+                {
+                    PAUSE_SCREEN_DATA.easySleepTextState++;
+                    break;
+                }
+            }
+            break;
+
+        case 2:
+            // Reset current message
+            BitFill(3, 0, &gCurrentMessage, sizeof(gCurrentMessage), 32);
+            gCurrentMessage.isMessage = TRUE;
+            PAUSE_SCREEN_DATA.easySleepTextState++;
+
+        case 3:
+            // Process message
+            for (i = 3; i != -1; i--)
+            {
+                if (!TextProcessCurrentMessage(&gCurrentMessage, sMessageTextpointers[gLanguage][MESSAGE_PRESS_SELECT_L_AND_R],
+                    (u32*)&PAUSE_SCREEN_EWRAM.unk_5000[gCurrentMessage.line * 1024]))
+                    continue;
+
+                gCurrentMessage.indent = 0;
+                if (gCurrentMessage.messageEnded)
+                {
+                    // Mark as ended
+                    PAUSE_SCREEN_DATA.easySleepTextState = 0x80;
+                    break;
+                }
+            }
+            break;
+    }
 }
