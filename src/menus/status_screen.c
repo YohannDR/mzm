@@ -1043,9 +1043,178 @@ u32 StatusScreenIsStatusSlotEnabled(u8 statusSlot)
     return enabled;
 }
 
+/**
+ * @brief 71b2c | 294 | Handles toggling an item
+ * 
+ * @param statusSlot Status slot
+ * @param action Toggling action
+ * @return u32 bool, is on (0xFF if can't toggle)
+ */
 u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
 {
+    // https://decomp.me/scratch/8lKgJ
 
+    u32 flag;
+    u8* pActivation;
+    u8 oamId;
+    u8 i;
+    u8 isActivated;
+    u8 temp;
+    register u32 temp2 asm("r0");
+    
+    flag = 0;
+    switch (sStatusScreenItemsData[statusSlot].group)
+    {
+        case ABILITY_GROUP_BEAMS:
+            flag = PAUSE_SCREEN_DATA.statusScreenData.beamBombActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
+            pActivation = &gEquipment.beamBombsActivation;
+
+            if (flag == BBF_PLASMA_BEAM)
+            {
+                if (gEquipment.suitType != SUIT_FULLY_POWERED)
+                    flag = 0;
+            }
+            break;
+
+        case ABILITY_GROUP_BOMBS:
+            if (statusSlot == 8 && gEquipment.suitMiscActivation & SMF_MORPH_BALL)
+            {
+                if (!(gEquipment.beamBombsActivation & BBF_BOMBS))
+                {
+                    flag = 0x80;
+                    pActivation = &gEquipment.beamBombsActivation;
+                }
+            }
+            break;
+
+        case ABILITY_GROUP_SUITS:
+            flag = PAUSE_SCREEN_DATA.statusScreenData.suitActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
+            pActivation = &gEquipment.suitMiscActivation;
+
+            if (flag == SMF_GRAVITY_SUIT)
+            {
+                if (gEquipment.suitType != SUIT_FULLY_POWERED)
+                    flag = 0;
+            }
+
+            if (flag != 0 && (*pActivation & flag))
+                flag = 0;
+            break;
+
+        case ABILITY_GROUP_MISC:
+            flag = PAUSE_SCREEN_DATA.statusScreenData.miscActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
+            pActivation = &gEquipment.suitMiscActivation;
+
+            if (flag == SMF_SPACE_JUMP)
+            {
+                if (gEquipment.suitType != SUIT_FULLY_POWERED)
+                    flag = 0;
+            }
+            break;
+
+        case ABILITY_GROUP_MISSILES:
+    }
+
+    if (!(PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_SUITLESS) && gPauseScreenFlag != PAUSE_SCREEN_ITEM_ACQUISITION)
+        flag = 0;
+
+    if (flag == 0)
+    {
+        oamId = 0;
+        isActivated = UCHAR_MAX;
+    }
+    else
+    {
+        if (action == ITEM_TOGGLE_CHECKING || action == ITEM_TOGGLE_CHECKING2)
+        {
+            if (*pActivation & flag)
+                isActivated = TRUE;
+            else
+                isActivated = FALSE;
+        }
+        else
+        {
+            if ((*pActivation ^= flag) & flag)
+                isActivated = TRUE;
+            else
+                isActivated = FALSE;
+
+            StatusScreenUpdateRow(sStatusScreenItemsData[statusSlot].group, sStatusScreenItemsData[statusSlot].row, isActivated, TRUE);
+
+            switch (sStatusScreenItemsData[statusSlot].group)
+            {
+                case ABILITY_GROUP_MISC:
+                    if (!(flag & SMF_MORPH_BALL))
+                        break;
+
+                    for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.statusScreenData.bombActivation); i++)
+                    {
+                        if (!(PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] & 1))
+                            continue;
+
+                        PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] &= 7;
+                        PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] |= isActivated << 3;
+
+                        temp = FALSE;
+                        if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] == 0xF)
+                            temp = TRUE;
+                        
+                        StatusScreenUpdateRow(ABILITY_GROUP_BOMBS, i + 1, temp, TRUE);
+                    }
+                    break;
+
+                case ABILITY_GROUP_SUITS:
+                    PauseScreenUpdateWireframeSamus(2);
+                    break;
+
+                case ABILITY_GROUP_BOMBS:
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] &= 0xD;
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] |= isActivated << 1;
+
+                    if (!(PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] & 1))
+                        break;
+
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] &= 0xD;
+                    temp = PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1];
+                    temp2 = (isActivated << 1);
+                    temp2 |= temp;
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] = temp2;
+
+                    temp = FALSE;
+                    if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] == 0xF)
+                        temp = TRUE;
+                    
+                    StatusScreenUpdateRow(ABILITY_GROUP_BOMBS, 2, temp, TRUE);
+                    break;
+            }
+        }
+
+        switch (sStatusScreenItemsData[statusSlot].group)
+        {
+            case ABILITY_GROUP_BOMBS:
+            case ABILITY_GROUP_SUITS:
+                isActivated = UCHAR_MAX;
+                break;
+
+            case ABILITY_GROUP_MISC:
+                if (flag == SMF_SPACE_JUMP && gEquipment.suitType != SUIT_FULLY_POWERED)
+                    isActivated = UCHAR_MAX;
+        }
+
+        if (isActivated == TRUE)
+            oamId = 0x11;
+        else if (isActivated == FALSE)
+            oamId = 0x12;
+        else
+            oamId = 0;
+    }
+
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM)
+        oamId = 0;
+
+    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.areaNameOam[3], oamId);
+
+    return isActivated;
 }
 
 /**
