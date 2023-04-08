@@ -1,4 +1,5 @@
 #include "menus/status_screen.h"
+#include "menus/pause_screen.h"
 #include "oam_id.h"
 
 #include "data/shortcut_pointers.h"
@@ -6,6 +7,7 @@
 
 #include "constants/demo.h"
 #include "constants/samus.h"
+#include "constants/text.h"
 #include "constants/game_state.h"
 #include "constants/menus/pause_screen.h"
 #include "constants/menus/status_screen.h"
@@ -66,30 +68,33 @@ u32 StatusScreenDrawItems(u8 row)
     // https://decomp.me/scratch/qX1cv
 
     i32 i;
-    u32 j;
+    i32 j;
     u32 position;
-    i32 temp;
+    u16* dst;
+    u32 temp;
 
     if (row >= 8)
         return TRUE;
 
-    for (i = 0; i < 6; i++)
+    for (i = 0; i < ARRAY_SIZE(sStatusScreenRowsData); i++)
     {
         if (row == 0 && sStatusScreenRowsData[i][0] == ABILITY_GROUP_SUITS)
             continue;
 
-        position = (sStatusScreenGroupsData[sStatusScreenRowsData[i][0]][0] + row) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[sStatusScreenRowsData[i][0]][2];
+        position = (sStatusScreenGroupsData[sStatusScreenRowsData[i][0]][0] + row) * HALF_BLOCK_SIZE +
+            sStatusScreenGroupsData[sStatusScreenRowsData[i][0]][2];
     
         if (sStatusScreenRowsData[i][1] <= row)
             continue;
 
-        j = 0;
-        while (j < sStatusScreenRowsData[i][2])
+        for (j = 0; ; j++, position++)
         {
-            *(((u16*)VRAM_BASE + 0x6000) + position) = PAUSE_SCREEN_EWRAM.statusScreenTilemap[position];
+            temp = sStatusScreenRowsData[i][2];
+            if (j >= sStatusScreenRowsData[i][2])
+                break;
 
-            j++;
-            position++;
+            dst = VRAM_BASE + 0xC000;
+            dst[position] = PAUSE_SCREEN_EWRAM.statusScreenTilemap[position];
         }
     }
     
@@ -544,7 +549,7 @@ u32 StatusScreenFullyPoweredItems(void)
             if (PAUSE_SCREEN_DATA.subroutineInfo.timer > 50)
             {
                 // Update to suit wireframe
-                status_screen_update_samus_wire_frame(2);
+                PauseScreenUpdateWireframeSamus(2);
                 PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
                 PAUSE_SCREEN_DATA.subroutineInfo.stage++;
             }
@@ -681,7 +686,7 @@ u32 StatusScreenFullyPoweredItems(void)
             {
                 // Update wireframe samus to gravity
                 gEquipment.suitMiscActivation |= SMF_GRAVITY_SUIT;
-                status_screen_update_samus_wire_frame(2);
+                PauseScreenUpdateWireframeSamus(2);
             }
             break;
 
@@ -793,9 +798,182 @@ void StatusScreenSubroutine(void)
     TextProcessDescription();
 }
 
+/**
+ * @brief 71894 | 1a8 | Gets the equipment ID/description text id for the provided status slot
+ * 
+ * @param statusSlot Status slot
+ * @return u8 Equipment id (description text id)
+ */
 u8 StatusScreenGetCurrentEquipmentSelected(u8 statusSlot)
 {
+    u8 result;
+    u32 activation;
+    u8 slot;
 
+    result = 0x80;
+
+    slot = statusSlot - 1;
+    if (slot > 16)
+        return 0x80;
+
+    if (gEquipment.suitType != SUIT_SUITLESS)
+    {
+        switch (sStatusScreenItemsData[statusSlot].group)
+        {
+            case ABILITY_GROUP_BEAMS:
+                // Get flag for the current slot
+                activation = PAUSE_SCREEN_DATA.statusScreenData.beamBombActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
+
+                // Check is activated
+                if (activation == 0)
+                    break;
+
+                // Scan every beam flag
+                if (activation & BBF_LONG_BEAM)
+                {
+                    result = DESCRIPTION_TEXT_LONG_BEAM;
+                    break;
+                }
+
+                if (activation & BBF_CHARGE_BEAM)
+                {
+                    result = DESCRIPTION_TEXT_CHARGE_BEAM;
+                    break;
+                }
+
+                if (activation & BBF_ICE_BEAM)
+                {
+                    result = DESCRIPTION_TEXT_ICE_BEAM;
+                    break;
+                }
+
+                if (activation & BBF_WAVE_BEAM)
+                {
+                    result = DESCRIPTION_TEXT_WAVE_BEAM;
+                    break;
+                }
+
+                if (activation & BBF_PLASMA_BEAM)
+                {
+                    // Handle unknown item
+                    if (gEquipment.suitType == SUIT_FULLY_POWERED)
+                        result = DESCRIPTION_TEXT_PLASMA_BEAM;
+                    else
+                        result = DESCRIPTION_TEXT_UNKNOWN_ITEM;
+                    break;
+                }
+                break;
+
+            case ABILITY_GROUP_MISSILES:
+                // Get flag for the current slot
+                activation = PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
+
+                // Check is activated
+                if (activation == 0)
+                    break;
+
+                // Check which slot is currently checked for
+                if (sStatusScreenItemsData[statusSlot].abilityOffset == 0)
+                    result = DESCRIPTION_TEXT_MISSILES;
+                else
+                    result = DESCRIPTION_TEXT_SUPER_MISSILES;
+                break;
+
+            case ABILITY_GROUP_BOMBS:
+                // Get flag for the current slot
+                activation = PAUSE_SCREEN_DATA.statusScreenData.bombActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
+
+                // Check is activated
+                if (activation == 0)
+                    break;
+
+                // Check which slot is currently checked for
+                if (sStatusScreenItemsData[statusSlot].abilityOffset == 0)
+                    result = DESCRIPTION_TEXT_BOMBS;
+                else
+                    result = DESCRIPTION_TEXT_POWER_BOMBS;
+                break;
+
+            case ABILITY_GROUP_SUITS:
+                activation = PAUSE_SCREEN_DATA.statusScreenData.suitActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
+                if (activation == 0)
+                    break;
+                
+                if (activation & SMF_VARIA_SUIT)
+                {
+                    result = DESCRIPTION_TEXT_VARIA_SUIT;
+                    break;
+                }
+
+                if (activation & SMF_GRAVITY_SUIT)
+                {
+                    // Handle unknown item
+                    if (gEquipment.suitType == SUIT_FULLY_POWERED)
+                        result = DESCRIPTION_TEXT_GRAVITY_SUIT;
+                    else
+                        result = DESCRIPTION_TEXT_UNKNOWN_ITEM;
+                    break;
+                }
+                break;
+
+            case ABILITY_GROUP_MISC:
+                // Get flag for the current slot
+                activation = PAUSE_SCREEN_DATA.statusScreenData.miscActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
+
+                // Check is activated
+                if (activation == 0)
+                    break;
+
+                // Scan every misc flag
+                if (activation & SMF_MORPH_BALL)
+                {
+                    result = DESCRIPTION_TEXT_MORPH_BALL;
+                    break;
+                }
+
+                if (activation & SMF_POWER_GRIP)
+                {
+                    result = DESCRIPTION_TEXT_POWER_GRIP;
+                    break;
+                }
+
+                if (activation & SMF_SPEEDBOOSTER)
+                {
+                    result = DESCRIPTION_TEXT_SPEEDBOOSTER;
+                    break;
+                }
+
+                if (activation & SMF_HIGH_JUMP)
+                {
+                    result = DESCRIPTION_TEXT_HIGH_JUMP;
+                    break;
+                }
+
+                if (activation & SMF_SCREW_ATTACK)
+                {
+                    result = DESCRIPTION_TEXT_SCREW_ATTACK;
+                    break;
+                }
+
+                if (activation & SMF_SPACE_JUMP)
+                {
+                    // Handle unknown item
+                    if (gEquipment.suitType == SUIT_FULLY_POWERED)
+                        result = DESCRIPTION_TEXT_SPACE_JUMP;
+                    else
+                        result = DESCRIPTION_TEXT_UNKNOWN_ITEM;
+                    break;
+                }
+                break;
+        }
+    }
+    else
+    {
+        // Is suitless, force pistol
+        result = DESCRIPTION_TEXT_PISTOL;
+    }
+
+    return result;
 }
 
 /**
