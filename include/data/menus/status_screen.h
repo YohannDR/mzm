@@ -14,6 +14,6 @@ extern const u8 sStatusScreenRowsData[6][3];
 
 // ...
 
-extern const u8* const sStatusScreenBeamBombFlagsOrderPointer;
+extern const u8* const sStatusScreenBeamFlagsOrderPointer;
 
 #endif /* STATUS_SCREEN_MENU_DATA_H */

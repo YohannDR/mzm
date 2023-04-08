@@ -20,6 +20,8 @@ extern const u8 sStatusScreenBombFlagsOrder[1];
 extern const u8 sStatusScreenSuitFlagsOrder[2];
 extern const u8 sStatusScreenMiscFlagsOrder[6];
 
+extern const u8 sPauseScreen_40d0fe[4];
+
 // ...
 
 extern const struct PauseScreenWireframeData sSamusWireframeData[7];

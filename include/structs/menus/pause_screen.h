@@ -102,7 +102,7 @@ struct StatusScreenData {
     u8 previousLeftStatusSlot;
     u8 previousRightStatusSlot;
 
-    u8 beamBombActivation[5];
+    u8 beamActivation[5];
     u8 suitActivation[2];
     u8 miscActivation[6];
     u8 bombActivation[2];

@@ -4,6 +4,7 @@
 
 #include "data/shortcut_pointers.h"
 #include "data/menus/status_screen.h"
+#include "data/menus/pause_screen_data.h"
 
 #include "constants/demo.h"
 #include "constants/samus.h"
@@ -188,12 +189,12 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
 
     row = 0;
 
-    pActivation = PAUSE_SCREEN_DATA.statusScreenData.beamBombActivation;
+    pActivation = PAUSE_SCREEN_DATA.statusScreenData.beamActivation;
 
     positionStart = (sStatusScreenGroupsData[0][0] + 1) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[0][2];
     positionEnd = positionStart + sStatusScreenUnknownItemsData[0][0] * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[0][2];
 
-    pActivation[0] = sStatusScreenBeamBombFlagsOrderPointer[0];
+    pActivation[0] = sStatusScreenBeamFlagsOrderPointer[0];
 
     size = sStatusScreenGroupsData[0][3] - positionEnd;
     while (size != 0)
@@ -231,7 +232,94 @@ void StatusScreenDrawSingleTankAmount(u8 group, u16 amout, u8 palette, u8 isMax)
 
 void StatusScreenSetBeamsVisibility(u16* pTilemap)
 {
+    // https://decomp.me/scratch/TvDyb
 
+    i32 i;
+    i32 j;
+    i32 var_0;
+    u16* src;
+    u16* dst;
+    u32 dstPosition;
+    u32 srcPosition;
+    u8* pVisibility;
+
+    pVisibility = PAUSE_SCREEN_DATA.statusScreenData.beamActivation;
+
+    for (i = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_BEAMS]; i++)
+        pVisibility[i] = 0;
+
+    for (i = 0, j = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_BEAMS]; i++)
+    {
+        var_0 = i;
+        srcPosition = 0;
+
+        if (sStatusScreenBeamFlagsOrderPointer[i] == BBF_PLASMA_BEAM &&
+            (gEquipment.suitType != SUIT_FULLY_POWERED || gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS))
+        {
+            var_0 = 9;
+            srcPosition = 10;
+        }
+
+        srcPosition += (sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][0] + var_0) * HALF_BLOCK_SIZE +
+            sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][2];
+
+        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + j) * HALF_BLOCK_SIZE +
+            sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
+
+        if (gEquipment.beamBombs & sStatusScreenBeamFlagsOrderPointer[i])
+        {
+            pVisibility[j] = sStatusScreenBeamFlagsOrderPointer[i];
+
+            var_0 = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - var_0;
+            j++;
+            if (var_0 >= 0)
+            {
+                src = &pTilemap[srcPosition];
+                dst = &pTilemap[dstPosition];
+                var_0++;
+                
+                for (; var_0 != 0; var_0--)
+                {
+                    *dst = *src;
+                    src++;
+                    dst++;
+                }
+            }
+
+            StatusScreenUpdateRow(ABILITY_GROUP_BEAMS, j,
+                gEquipment.beamBombsActivation & pVisibility[j], FALSE);
+        }
+    }
+
+    if (j != 0)
+    {
+        if (PAUSE_SCREEN_DATA.statusScreenData.unk_0 == 0)
+            PAUSE_SCREEN_DATA.statusScreenData.unk_0 = 0x80;
+
+        if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
+            PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
+
+        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + j) * HALF_BLOCK_SIZE +
+            sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
+
+        srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][1] * HALF_BLOCK_SIZE +
+            sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][2];
+
+        var_0 = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - var_0;
+        if (var_0 >= 0)
+        {
+            src = &pTilemap[srcPosition];
+            dst = &pTilemap[dstPosition];
+            i++;
+            
+            for (; var_0 != 0; var_0--)
+            {
+                *dst = *src;
+                src++;
+                dst++;
+            }
+        }
+    }
 }
 
 void StatusScreenSetSuitsVisibility(u16* pTilemap)
@@ -473,7 +561,7 @@ u32 StatusScreenFindUnknownItemSlot(u8 param_1)
         switch (sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group)
         {
             case ABILITY_GROUP_BEAMS:
-                pActivation = PAUSE_SCREEN_DATA.statusScreenData.beamBombActivation;
+                pActivation = PAUSE_SCREEN_DATA.statusScreenData.beamActivation;
                 item = BBF_PLASMA_BEAM;
                 break;
 
@@ -822,7 +910,7 @@ u8 StatusScreenGetCurrentEquipmentSelected(u8 statusSlot)
         {
             case ABILITY_GROUP_BEAMS:
                 // Get flag for the current slot
-                activation = PAUSE_SCREEN_DATA.statusScreenData.beamBombActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
+                activation = PAUSE_SCREEN_DATA.statusScreenData.beamActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
 
                 // Check is activated
                 if (activation == 0)
@@ -1015,7 +1103,7 @@ u32 StatusScreenIsStatusSlotEnabled(u8 statusSlot)
     switch (sStatusScreenItemsData[statusSlot].group)
     {
         case ABILITY_GROUP_BEAMS:
-            if (PAUSE_SCREEN_DATA.statusScreenData.beamBombActivation[sStatusScreenItemsData[statusSlot].abilityOffset])
+            if (PAUSE_SCREEN_DATA.statusScreenData.beamActivation[sStatusScreenItemsData[statusSlot].abilityOffset])
                 enabled = TRUE;
             break;
 
@@ -1066,7 +1154,7 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
     switch (sStatusScreenItemsData[statusSlot].group)
     {
         case ABILITY_GROUP_BEAMS:
-            flag = PAUSE_SCREEN_DATA.statusScreenData.beamBombActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
+            flag = PAUSE_SCREEN_DATA.statusScreenData.beamActivation[sStatusScreenItemsData[statusSlot].abilityOffset];
             pActivation = &gEquipment.beamBombsActivation;
 
             if (flag == BBF_PLASMA_BEAM)
