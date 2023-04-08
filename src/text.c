@@ -369,12 +369,97 @@ void TextDrawlocation(u8 locationText, u8 gfxSlot)
     TextDrawLocationTextCharacters(1, &pText);
 
     dma_set(3, EWRAM_BASE, VRAM_BASE + 0x14000 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
-    dma_set(3, EWRAM_BASE + 0X400, VRAM_BASE + 0x14400 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
+    dma_set(3, EWRAM_BASE + 0x400, VRAM_BASE + 0x14400 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
 }
 
-void unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
+/**
+ * @brief 6f0a8 | 1b0 | To document
+ * 
+ * @param textID Message ID
+ * @param gfxSlot Gfx slot
+ * @param param_3 To document
+ * @return u8 To document
+ */
+u8 unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
 {
+    i32 i;
+    i32 flag;
 
+    if (param_3 == 0xF)
+    {
+        gCurrentMessage = sMessage_Empty;
+        
+        gCurrentMessage.messageID = textID > MESSAGE_ENEMY_LOCATION_ABNORMAL ? MESSAGE_ENEMY_LOCATION_ABNORMAL : textID;
+        gCurrentMessage.gfxSlot = gfxSlot;
+    }
+
+    switch (gCurrentMessage.stage)
+    {
+        case 0:
+            BitFill(3, -1, VRAM_BASE + 0x14000 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
+            BitFill(3, -1, VRAM_BASE + 0x14400 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
+            gCurrentMessage.stage++;
+            break;
+
+        case 1:
+            BitFill(3, -1, VRAM_BASE + 0x14800 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
+            BitFill(3, -1, VRAM_BASE + 0x14C00 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
+            gCurrentMessage.stage++;
+            break;
+
+        case 2:
+            i = 8;
+            if (gCurrentMessage.line > 1 || gCurrentMessage.messageEnded)
+            {
+                gCurrentMessage.stage++;
+                i = 0;
+            }
+
+            if (param_3 == 1)
+            {
+                gCurrentMessage.stage++;
+                i = 0;
+            }
+
+            for (; i != 0; i--)
+            {
+                switch (TextProcessCurrentMessage(&gCurrentMessage, sMessageTextpointers[gLanguage][gCurrentMessage.messageID],
+                    VRAM_BASE + 0x14000 + gCurrentMessage.gfxSlot * 0x800 + gCurrentMessage.line * 0x800))
+                {
+                    case 2:
+                        gCurrentMessage.stage++;
+
+                    case 1:
+                    case 4:
+                        gCurrentMessage.indent = 0;
+                        flag = TRUE;
+                        break;
+
+                    default:
+                        flag = FALSE;
+                }
+
+                if (flag || gCurrentMessage.line > 1)
+                    break;
+            }
+            break;
+
+        case 3:
+            gCurrentMessage.line++;
+            if (gCurrentMessage.messageID <= MESSAGE_POWER_GRIP)
+            {
+                gCurrentItemBeingAcquired = gCurrentMessage.messageID;
+                if (gCurrentMessage.messageID >= MESSAGE_LONG_BEAM)
+                    BgClipFinishCollectingAbility();
+            }
+            gCurrentMessage.stage++;
+
+        case 4:
+        default:
+            return gCurrentMessage.line;
+    }
+
+    return 0;
 }
 
 /**
