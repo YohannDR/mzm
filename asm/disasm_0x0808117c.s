@@ -1510,7 +1510,7 @@ tourian_escape_init: @ 0x08081d04
     lsls r3, r3, #2
     movs r0, #4
     movs r1, #5
-    bl load_room_cutscene_escape
+    bl LoadRoomCutscene
     mov r0, sb
     strh r0, [r6]
     ldr r4, lbl_08081e24 @ =vblank_code_during_intro
@@ -1791,7 +1791,7 @@ lbl_08081fd8:
     movs r0, #4
     movs r1, #6
     movs r2, #0x80
-    bl load_room_cutscene_escape
+    bl LoadRoomCutscene
     movs r4, #4
     movs r2, #1
     mov r8, r2
@@ -1848,7 +1848,7 @@ lbl_08082048:
     movs r0, #5
     movs r1, #2
     movs r2, #0x80
-    bl load_room_cutscene_escape
+    bl LoadRoomCutscene
     movs r4, #4
     movs r1, #1
     mov r8, r1

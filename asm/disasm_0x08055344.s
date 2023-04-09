@@ -1555,7 +1555,7 @@ unk_55f68: @ 0x08055f68
     thumb_func_start RoomLoad
 RoomLoad: @ 0x08055f7c
     push {r4, r5, lr}
-    bl setup_clipdata_code
+    bl ClipdataSetupCode
     bl reset_info_on_transition
     ldr r0, lbl_08055fa0 @ =gPauseScreenFlag
     ldrb r0, [r0]
@@ -1563,7 +1563,7 @@ RoomLoad: @ 0x08055f7c
     asrs r0, r0, #0x18
     cmp r0, #0
     bne lbl_08055fa4
-    bl load_room_entry
+    bl RoomLoadEntry
     bl load_scrolls
     bl set_automatic_bg_scrolling
     b lbl_08056074
@@ -1660,9 +1660,9 @@ lbl_08056068:
     movs r1, #0x10
     bl PlayMusic
 lbl_08056074:
-    bl load_tileset
-    bl load_room_backgrounds
-    bl remove_never_reform_blocks_and_collected_tank
+    bl RoomLoadTileset
+    bl RoomLoadBackgrounds
+    bl RoomRemoveNeverReformBlocksAndCollectedTanks
     ldr r1, lbl_08056138 @ =gPreviousXPosition
     ldr r2, lbl_0805613c @ =gSamusData
     ldrh r0, [r2, #0x12]
@@ -1696,15 +1696,15 @@ lbl_08056074:
     bl ScrollProcessGeneral
 lbl_080560c8:
     bl AnimatedGraphicsCheckPlayLightningEffect
-    bl update_backgrounds_pos
-    bl load_doors
-    bl check_hatch_lock_events
+    bl RoomUpdateBackgroundsPosition
+    bl ConnectionLoadDoors
+    bl ConnectionCheckHatchLockEvents
     movs r0, #0
-    bl sub_08056b28
+    bl RoomSetInitialTilemap
     movs r0, #1
-    bl sub_08056b28
+    bl RoomSetInitialTilemap
     movs r0, #2
-    bl sub_08056b28
+    bl RoomSetInitialTilemap
     bl AnimatedGraphicsLoad
     bl AnimatedGraphicsTanksAnimationReset
     bl SetBGHazeEffect
@@ -1817,8 +1817,8 @@ lbl_080561dc: .4byte 0x00000121
 lbl_080561e0: .4byte gRainSoundEffect
 lbl_080561e4: .4byte 0x0000fffe
 
-    thumb_func_start load_tileset
-load_tileset: @ 0x080561e8
+    thumb_func_start RoomLoadTileset
+RoomLoadTileset: @ 0x080561e8
     push {r4, r5, r6, lr}
     sub sp, #0x18
     ldr r2, lbl_08056250 @ =0x0833dfdc
@@ -2044,8 +2044,8 @@ lbl_080563f8: .4byte gCurrentRoomEntry
 lbl_080563fc: .4byte gAnimatedGraphicsEntry
 lbl_08056400: .4byte 0x06002000
 
-    thumb_func_start load_room_entry
-load_room_entry: @ 0x08056404
+    thumb_func_start RoomLoadEntry
+RoomLoadEntry: @ 0x08056404
     push {r4, r5, lr}
     sub sp, #0x3c
     ldr r1, lbl_08056480 @ =0x0875fac4
@@ -2222,8 +2222,8 @@ lbl_08056560: .4byte gSpriteset
 lbl_08056564: .4byte gWaitingSpacePiratesPosition
 lbl_08056568: .4byte gBG0Movement
 
-    thumb_func_start load_room_backgrounds
-load_room_backgrounds: @ 0x0805656c
+    thumb_func_start RoomLoadBackgrounds
+RoomLoadBackgrounds: @ 0x0805656c
     push {r4, lr}
     sub sp, #0x40
     ldr r1, lbl_08056604 @ =0x0875fac4
@@ -2378,8 +2378,8 @@ lbl_080566b8: .4byte 0x0202d800
 lbl_080566bc: .4byte gCurrentRoomEntry
 lbl_080566c0: .4byte 0x02030800
 
-    thumb_func_start remove_never_reform_blocks_and_collected_tank
-remove_never_reform_blocks_and_collected_tank: @ 0x080566c4
+    thumb_func_start RoomRemoveNeverReformBlocksAndCollectedTanks
+RoomRemoveNeverReformBlocksAndCollectedTanks: @ 0x080566c4
     push {lr}
     bl remove_never_reform_blocks
     bl remove_collected_tanks
@@ -2890,8 +2890,8 @@ lbl_08056b16:
 lbl_08056b20: .4byte gBG0Movement
 lbl_08056b24: .4byte gInGameCutscene
 
-    thumb_func_start sub_08056b28
-sub_08056b28: @ 0x08056b28
+    thumb_func_start RoomSetInitialTilemap
+RoomSetInitialTilemap: @ 0x08056b28
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -3527,7 +3527,7 @@ RoomUpdate: @ 0x08056fd0
     ldrb r0, [r0, #1]
     cmp r0, #0
     bne lbl_08057042
-    bl update_backgrounds_pos
+    bl RoomUpdateBackgroundsPosition
     ldr r0, lbl_0805709c @ =gScrollCounter
     ldrb r1, [r0]
     adds r1, #1
@@ -3616,8 +3616,8 @@ lbl_080570a0: .4byte gCamera
 lbl_080570a4: .4byte gGameModeSub1
 lbl_080570a8: .4byte gHazeInfo
 
-    thumb_func_start update_backgrounds_pos
-update_backgrounds_pos: @ 0x080570ac
+    thumb_func_start RoomUpdateBackgroundsPosition
+RoomUpdateBackgroundsPosition: @ 0x080570ac
     push {r4, r5, r6, lr}
     bl update_vertical_screen_shake
     adds r5, r0, #0

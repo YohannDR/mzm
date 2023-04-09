@@ -1,6 +1,7 @@
 #include "gba.h"
 #include "clipdata.h"
 #include "macros.h"
+#include "block.h"
 #include "temp_globals.h"
 
 #include "data/clipdata_data.h"
@@ -39,8 +40,8 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
     u32 result;
 
     // Get tile position
-    collision.tileY = yPosition >> 0x6;
-    collision.tileX = xPosition >> 0x6;
+    collision.tileY = yPosition / BLOCK_SIZE;
+    collision.tileX = xPosition / BLOCK_SIZE;
 
     if (collision.tileX >= gBGPointersAndDimensions.clipdataWidth)
         result = CLIPDATA_TYPE_SOLID_FLAG | CLIPDATA_TYPE_SOLID;
@@ -49,7 +50,9 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
         if (collision.tileY < gBGPointersAndDimensions.clipdataHeight)
         {
             // Get clip type at position
-            collision.clipdataType = gTilemapAndClipPointers.pClipCollisions[gBGPointersAndDimensions.pClipDecomp[gBGPointersAndDimensions.clipdataWidth * collision.tileY + collision.tileX]];
+            collision.clipdataType = gTilemapAndClipPointers.pClipCollisions[gBGPointersAndDimensions.pClipDecomp[
+                gBGPointersAndDimensions.clipdataWidth * collision.tileY + collision.tileX]];
+
             // Get sub pixel
             collision.subPixelY = yPosition & SUB_PIXEL_POSITION_FLAG;
             collision.subPixelX = xPosition & SUB_PIXEL_POSITION_FLAG;
@@ -263,7 +266,7 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
  * 
  * @param yPosition Y Position (subpixels)
  * @param xPosition X Position (subpixels)
- * @return i32 Current affecting clipdata, first 16 bits are hazard, last 16 bits are movement
+ * @return u32 Affecting clipdata (movement << 16 | hazard)
  */
 u32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition)
 {
@@ -273,29 +276,37 @@ u32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition)
     gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
     gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
 
-    tileY = yPosition >> 0x6;
-    tileX = xPosition >> 0x6;
+    tileY = yPosition / BLOCK_SIZE;
+    tileX = xPosition / BLOCK_SIZE;
 
     if (tileY >= gBGPointersAndDimensions.clipdataHeight || tileX >= gBGPointersAndDimensions.clipdataWidth)
-        return 0x0;
+        return 0;
     else
-        return ClipdataUpdateCurrentAffecting(yPosition, tileY, tileX, 0x0);
+        return ClipdataUpdateCurrentAffecting(yPosition, tileY, tileX, FALSE);
 }
 
-u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 unk)
+/**
+ * @brief 580c0 | dc | Checks for the current affecting clipdata
+ * 
+ * @param yPosition Y position
+ * @param tileY Tile Y position
+ * @param tileX Tile X position
+ * @param dontCheckForElevator Don't check for elevator flag
+ * @return u32 Affecting clipdata (movement << 16 | hazard)
+ */
+u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 dontCheckForElevator)
 {
-    // https://decomp.me/scratch/DEj3d
-
     u32 behavior;
     u32 specialClip;
-    u32 hazardClip;
-    u32 effect;
 
-    behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[tileY * gBGPointersAndDimensions.clipdataWidth + tileX]];
+    // Get clipdata behavior of the current tile
+    behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[
+        tileY * gBGPointersAndDimensions.clipdataWidth + tileX]];
 
+    // Check for movement clipdata
     if (behavior != CLIP_BEHAVIOR_NONE)
     {
-        if ((i32)behavior <= 0xF)
+        if ((i32)behavior < ARRAY_SIZE(sMovementClipdataValues))
             specialClip = sMovementClipdataValues[behavior];
         else
             specialClip = CLIPDATA_MOVEMENT_NONE;
@@ -303,38 +314,48 @@ u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 unk)
     else
         specialClip = CLIPDATA_MOVEMENT_NONE;
 
-    if (!unk && (specialClip == CLIPDATA_MOVEMENT_ELEVATOR_DOWN_BLOCK || specialClip == CLIPDATA_MOVEMENT_ELEVATOR_UP_BLOCK)
+    // Check prevent use elevator
+    if (!dontCheckForElevator && (specialClip == CLIPDATA_MOVEMENT_ELEVATOR_DOWN_BLOCK || specialClip == CLIPDATA_MOVEMENT_ELEVATOR_UP_BLOCK)
         && gSamusData.pose != SPOSE_USING_AN_ELEVATOR && ClipdataCheckCantUseElevator(specialClip))
         specialClip = CLIPDATA_MOVEMENT_NONE;
 
     gCurrentAffectingClipdata.movement = specialClip;
-    hazardClip = HAZARD_TYPE_NONE;
+    specialClip = HAZARD_TYPE_NONE;
 
+    // Check for hazard behavior (tile based)
     if ((u32)BEHAVIOR_TO_HAZARD(behavior) <= BEHAVIOR_TO_HAZARD(CLIP_BEHAVIOR_ACID))
-        hazardClip = sHazardClipdataValues[BEHAVIOR_TO_HAZARD(behavior)];
+    {
+        // Directly get from the table
+        specialClip = sHazardClipdataValues[BEHAVIOR_TO_HAZARD(behavior)];
+    }
     else
     {
-        if (gCurrentRoomEntry.BG0Prop != 0)
+        // Check for hazard behavior (effect based)
+        if (gCurrentRoomEntry.BG0Prop != 0 && gCurrentRoomEntry.damageEffect != 0)
         {
-            effect = gCurrentRoomEntry.damageEffect;
-            if (effect != 0)
+            if (gCurrentRoomEntry.damageEffect < ARRAY_SIZE(sHazardsDefinitions))
             {
-                if (effect < 8)
+                // Check has an hazard below the effect
+                if (sHazardsDefinitions[gCurrentRoomEntry.damageEffect][1] == HAZARD_TYPE_NONE)
                 {
-                    if (sHazardsDefinitions[effect][1] != HAZARD_TYPE_NONE)
-                    {
-                        if (gEffectYPosition <= yPosition)
-                            hazardClip = sHazardsDefinitions[effect][1];
-                    }
+                    // No hazard below, return the one above
+                    specialClip = sHazardsDefinitions[gCurrentRoomEntry.damageEffect][0];
+                }
+                else
+                {
+                    // Get above or below hazard based on position
+                    if (gEffectYPosition <= yPosition)
+                        specialClip = sHazardsDefinitions[gCurrentRoomEntry.damageEffect][1];
                     else
-                        hazardClip = sHazardsDefinitions[effect][0];
+                        specialClip = sHazardsDefinitions[gCurrentRoomEntry.damageEffect][0];
                 }
             }
         }
     }
 
-    gCurrentAffectingClipdata.hazard = hazardClip;
+    gCurrentAffectingClipdata.hazard = specialClip;
 
+    // Return formatted clipdata
     return gCurrentAffectingClipdata.movement << 16 | gCurrentAffectingClipdata.hazard;
 }
 
@@ -402,8 +423,8 @@ u32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
     i32 tileX;
     u32 clipdata;
 
-    tileY = yPosition >> 0x6;
-    tileX = xPosition >> 0x6;
+    tileY = yPosition / BLOCK_SIZE;
+    tileX = xPosition / BLOCK_SIZE;
 
     if (tileY >= gBGPointersAndDimensions.clipdataHeight || tileX >= gBGPointersAndDimensions.clipdataWidth)
         return GROUND_EFFECT_NONE;

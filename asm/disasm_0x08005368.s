@@ -154,7 +154,7 @@ sub_08005474: @ 0x08005474
     lsrs r6, r1, #0x10
     adds r0, r6, #0
     adds r1, r5, #0
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     movs r1, #0x80
     lsls r1, r1, #0x11
     ands r1, r0
@@ -385,7 +385,7 @@ lbl_08005642:
     lsrs r5, r0, #0x10
     adds r0, r5, #0
     adds r1, r7, #0
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r2, r0, #0
     movs r0, #0xff
     ands r0, r2
@@ -414,7 +414,7 @@ lbl_08005674:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     adds r1, r7, #0
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r2, r0, #0
     movs r0, #0xff
     ands r0, r2
@@ -480,7 +480,7 @@ lbl_080056fe:
     ldrh r7, [r4, #0x14]
     adds r0, r7, #0
     mov r1, r8
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r1, r0, #0
     movs r0, #0x80
     lsls r0, r0, #0x11
@@ -506,7 +506,7 @@ lbl_0800572e:
     bne lbl_0800574a
     ldrh r0, [r4, #0x14]
     ldrh r1, [r4, #0x12]
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r1, r0, #0
     movs r0, #0xff
     ands r1, r0
@@ -529,7 +529,7 @@ lbl_0800574a:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     mov r1, r8
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r1, r0, #0
     movs r0, #0xff
     ands r0, r1
@@ -563,7 +563,7 @@ sub_08005794: @ 0x08005794
     lsrs r1, r1, #0x10
     movs r5, #0
     ldrh r0, [r4, #0x14]
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r1, r0, #0
     movs r0, #0x80
     lsls r0, r0, #0x11
@@ -587,7 +587,7 @@ lbl_080057c6:
     bne lbl_080057e2
     ldrh r0, [r4, #0x14]
     ldrh r1, [r4, #0x12]
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r1, r0, #0
     movs r0, #0xff
     ands r1, r0
@@ -628,7 +628,7 @@ sub_080057ec: @ 0x080057ec
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
     adds r0, r5, #0
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     movs r7, #0x80
     lsls r7, r7, #0x11
     ands r0, r7
@@ -642,7 +642,7 @@ sub_080057ec: @ 0x080057ec
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
     adds r0, r5, #0
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     ands r0, r7
     cmp r0, #0
     beq lbl_08005846
@@ -656,7 +656,7 @@ lbl_08005846:
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
     adds r0, r5, #0
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     ands r0, r7
     cmp r0, #0
     beq lbl_08005864
@@ -672,7 +672,7 @@ lbl_08005864:
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
     mov r0, sb
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     ands r0, r7
     cmp r0, #0
     beq lbl_08005886
@@ -1695,7 +1695,7 @@ lbl_08006006:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     ldrh r1, [r5, #0x12]
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r7, r0, #0
     cmp r7, #0
     bne lbl_080060dc
@@ -1704,7 +1704,7 @@ lbl_08006006:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     ldrh r1, [r5, #0x12]
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r7, r0, #0
     movs r4, #0x80
     lsls r4, r4, #0x11
@@ -1718,7 +1718,7 @@ lbl_08006006:
     adds r1, r1, r2
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     mov r8, r0
     ands r0, r4
     mov r8, r0
@@ -1731,7 +1731,7 @@ lbl_08006006:
     adds r1, r1, r2
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r6, r0, #0
     ands r6, r4
     ldrb r0, [r5]
@@ -1753,7 +1753,7 @@ lbl_08006078:
     adds r1, r1, r2
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     asrs r0, r0, #0x10
     cmp r7, #0
     bne lbl_080060dc
@@ -2008,7 +2008,7 @@ lbl_080062c8:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     adds r1, r4, #0
-    bl check_for_ground_effect_clipdata
+    bl ClipdataCheckGroundEffect
     adds r5, r0, #0
     cmp r5, #1
     bne lbl_08006328
@@ -2089,7 +2089,7 @@ lbl_0800636c:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     ldrh r1, [r6, #0x12]
-    bl check_for_ground_effect_clipdata
+    bl ClipdataCheckGroundEffect
     adds r5, r0, #0
     cmp r5, #1
     bne lbl_080063a8
@@ -2197,13 +2197,13 @@ lbl_08006422:
 lbl_08006446:
     ldrh r1, [r6, #0x12]
     ldr r0, [sp, #0xc]
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     adds r5, r0, #0
     movs r4, #0xff
     ands r5, r4
     ldrh r1, [r6, #0x12]
     mov r0, sl
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     ands r0, r4
     ldr r2, [sp, #0xc]
     cmp r2, sl
@@ -2353,7 +2353,7 @@ lbl_0800655e:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     ldrh r1, [r6, #0x12]
-    bl check_for_ground_effect_clipdata
+    bl ClipdataCheckGroundEffect
     adds r5, r0, #0
     cmp r5, #1
     bne lbl_08006578
@@ -2381,7 +2381,7 @@ lbl_08006590:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     ldrh r1, [r6, #0x12]
-    bl check_for_ground_effect_clipdata
+    bl ClipdataCheckGroundEffect
     adds r5, r0, #0
     cmp r5, #1
     bne lbl_080065b4
@@ -2524,7 +2524,7 @@ lbl_0800670a:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     ldrh r1, [r2, #0x12]
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     movs r1, #0xff
     ands r1, r0
     cmp r1, #1
@@ -2568,7 +2568,7 @@ lbl_0800675e:
     mov r2, r8
     ldrh r1, [r2, #0x12]
     mov r0, sb
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     adds r5, r0, #0
     movs r3, #0xff
     mov sl, r3
@@ -2581,7 +2581,7 @@ lbl_0800675e:
     lsrs r0, r0, #0x10
     mov r2, r8
     ldrh r1, [r2, #0x12]
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     adds r7, r0, #0
     mov r3, sl
     ands r7, r3
@@ -2604,7 +2604,7 @@ lbl_080067a4:
     mov r2, r8
     ldrh r1, [r2, #0x12]
     adds r0, r4, #0
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     adds r2, r0, #0
     movs r0, #0xff
     ands r2, r0
@@ -3305,7 +3305,7 @@ lbl_08006d80:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     ldrh r1, [r4, #0x12]
-    bl check_for_ground_effect_clipdata
+    bl ClipdataCheckGroundEffect
     cmp r0, #3
     beq lbl_08006db8
     movs r0, #1
@@ -4340,7 +4340,7 @@ lbl_08007654:
 lbl_08007656:
     movs r5, #0
     ldrh r1, [r6, #0x12]
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     adds r1, r0, #0
     movs r0, #0xff
     ands r1, r0
@@ -5822,7 +5822,7 @@ lbl_080082ea:
     movs r6, #0
     ldrh r1, [r3, #0x12]
     adds r0, r2, #0
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     adds r2, r0, #0
     movs r0, #0xff
     ands r2, r0
@@ -6460,7 +6460,7 @@ lbl_0800876e:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     ldrh r1, [r4, #0x12]
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     asrs r0, r0, #0x10
     cmp r0, #1
     beq lbl_080087f0
@@ -6508,7 +6508,7 @@ lbl_080087d2:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     ldrh r1, [r4, #0x12]
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     asrs r0, r0, #0x10
     cmp r0, #2
     bne lbl_08008804
@@ -7596,7 +7596,7 @@ lbl_08008fbe:
     adds r1, r1, r2
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     movs r1, #0x80
     lsls r1, r1, #0x11
     ands r1, r0
@@ -8470,7 +8470,7 @@ lbl_08009630:
     subs r0, #0xd0
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r6, r0, #0
     movs r4, #0x80
     lsls r4, r4, #0x11
@@ -8480,7 +8480,7 @@ lbl_08009630:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     ldrh r1, [r5, #0x12]
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r3, r0, #0
     ands r3, r4
     ldr r0, lbl_08009680 @ =gChangedInput
@@ -8686,7 +8686,7 @@ lbl_080097c0:
     subs r0, #0xd0
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r6, r0, #0
     movs r4, #0x80
     lsls r4, r4, #0x11
@@ -8696,7 +8696,7 @@ lbl_080097c0:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     ldrh r1, [r5, #0x12]
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r3, r0, #0
     ands r3, r4
     ldr r0, lbl_08009818 @ =gChangedInput
@@ -8857,7 +8857,7 @@ lbl_080098f8:
     subs r0, #0xd0
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     mov r8, r0
     movs r4, #0x80
     lsls r4, r4, #0x11
@@ -8868,7 +8868,7 @@ lbl_080098f8:
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     ldrh r1, [r5, #0x12]
-    bl sub_08057df8
+    bl ClipdataProcessForSamus
     adds r7, r0, #0
     ands r7, r4
     ldr r0, lbl_08009958 @ =gChangedInput
@@ -9174,7 +9174,7 @@ SamusUsingAnElevator: @ 0x08009b28
     strh r0, [r4, #0x14]
     ldrh r0, [r4, #0x14]
     ldrh r1, [r4, #0x12]
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     asrs r5, r0, #0x10
     ldrh r1, [r4, #0x10]
     movs r0, #0x40
@@ -9184,7 +9184,7 @@ SamusUsingAnElevator: @ 0x08009b28
     ldr r0, lbl_08009b70 @ =gPreviousYPosition
     ldrh r0, [r0]
     ldrh r1, [r4, #0x12]
-    bl check_hazard_at_pos
+    bl ClipdataCheckCurrentAffectingAtPosition
     asrs r0, r0, #0x10
     cmp r5, #1
     beq lbl_08009b8c

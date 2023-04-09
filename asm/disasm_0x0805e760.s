@@ -1459,8 +1459,8 @@ lbl_0805f284:
     bx r0
     .align 2, 0
 
-    thumb_func_start load_doors
-load_doors: @ 0x0805f294
+    thumb_func_start ConnectionLoadDoors
+ConnectionLoadDoors: @ 0x0805f294
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -1889,8 +1889,8 @@ lbl_0805f5cc: .4byte gHatchesState
 lbl_0805f5d0: .4byte 0x0000ffff
 lbl_0805f5d4: .4byte gDoorUnlockTimer
 
-    thumb_func_start check_hatch_lock_events
-check_hatch_lock_events: @ 0x0805f5d8
+    thumb_func_start ConnectionCheckHatchLockEvents
+ConnectionCheckHatchLockEvents: @ 0x0805f5d8
     push {r4, r5, r6, r7, lr}
     ldr r0, lbl_0805f6fc @ =gPauseScreenFlag
     ldrb r0, [r0]
