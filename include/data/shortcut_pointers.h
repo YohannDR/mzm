@@ -6,7 +6,7 @@
 #include "structs/save_file.h"
 
 extern union EwramData* sEwramPointer;
-extern void* sBgPalramPointer;
+extern u16* sBgPalramPointer;
 extern void* sObjPalramPointer;
 extern u32* sVisitedMinimapTilesPointer;
 extern union NonGameplayRAM* sNonGameplayRamPointer;

@@ -160,7 +160,7 @@ struct PauseScreenData {
     u8 hintTargetY;
 
     u16 unk_18;
-    u8 unk_1A;
+    i8 unk_1A;
     u16 unk_1C;
     u8 unk_1E;
 

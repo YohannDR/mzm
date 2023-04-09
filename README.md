@@ -2,7 +2,7 @@
 
 This is a work in progress decompilation of Metroid - Zero Mission.
 
-2468/2721 functions decompiled (90.70%, 253 left)
+2469/2721 functions decompiled (90.74%, 252 left)
 Progress can be seen here : https://docs.google.com/spreadsheets/d/1X8XarD5evY8ZI7r_GQqh1pYmdVMbBcINYfRBUlogmKY/edit#gid=0
 
 **This decomp is not shiftable, don't use it as a base to work on anything**

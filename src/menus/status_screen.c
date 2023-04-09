@@ -20,9 +20,66 @@
 #include "structs/text.h"
 #include "structs/menus/pause_screen.h"
 
+/**
+ * @brief 6fd00 | 118 | Updates the minimap animated palette
+ * 
+ */
 void UpdateMinimapAnimatedPalette(void)
 {
+    i32 value;
+    i32 temp;
+    
+    if (!PAUSE_SCREEN_DATA.onWorldMap)
+    {
+        PAUSE_SCREEN_DATA.unk_18++;
+        if (PAUSE_SCREEN_DATA.unk_18 >= sPauseScreen_40dcf0[PAUSE_SCREEN_DATA.unk_1A])
+        {
+            PAUSE_SCREEN_DATA.unk_18 = 0;
+            PAUSE_SCREEN_DATA.unk_1A++;
 
+            if (PAUSE_SCREEN_DATA.unk_1A > 3u)
+                PAUSE_SCREEN_DATA.unk_1A = 0;
+
+            value = sPauseScreen_40dcb0[PAUSE_SCREEN_DATA.unk_1A];
+            sBgPalramPointer[18] = value;
+            sBgPalramPointer[19] = value;
+            value = sPauseScreen_40dc90[PAUSE_SCREEN_DATA.unk_1A];
+            sBgPalramPointer[50] = value;
+            sBgPalramPointer[51] = value;
+            value = sPauseScreen_40dcd0[PAUSE_SCREEN_DATA.unk_1A];
+            sBgPalramPointer[34] = value;
+            sBgPalramPointer[35] = value;
+            sBgPalramPointer[66] = value;
+            sBgPalramPointer[67] = value;
+        }
+    }
+
+    if (PAUSE_SCREEN_DATA.currentArea >= MAX_AMOUNT_OF_AREAS)
+        return;
+
+    PAUSE_SCREEN_DATA.unk_1C++;
+    value = PAUSE_SCREEN_DATA.unk_1E;
+    if (value < 0)
+        value = -value;
+
+    if (PAUSE_SCREEN_DATA.unk_1C >= sPauseScreen_40dcf4[value])
+    {
+        PAUSE_SCREEN_DATA.unk_1C = 0;
+        PAUSE_SCREEN_DATA.unk_1E++;
+
+        temp = 16;
+        if (PAUSE_SCREEN_DATA.unk_1E >= temp)
+        {
+            temp = -14;
+            PAUSE_SCREEN_DATA.unk_1E = temp;
+        }
+
+        value = PAUSE_SCREEN_DATA.unk_1E;
+        if (value < 0)
+            value = -value;
+
+            sBgPalramPointer[sMinimapAnimatedPaletteOffsets[PAUSE_SCREEN_DATA.currentArea]] = sMinimapAnimatedPalette[value];
+    }
 }
 
 /**

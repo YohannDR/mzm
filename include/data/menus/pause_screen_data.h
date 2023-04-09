@@ -61,4 +61,12 @@ extern const struct MinimapAreaName sMinimapAreaNames[10];
 
 extern u8* const sPauseScreen_40d79c[5];
 
+// ...
+
+extern u16 sPauseScreen_40dc90[1 * 16];
+extern u16 sPauseScreen_40dcb0[1 * 16];
+extern u16 sPauseScreen_40dcd0[1 * 16];
+extern u8 sPauseScreen_40dcf0[4];
+extern u8 sPauseScreen_40dcf4[16];
+
 #endif /* PAUSE_SCREEN_DATA_H */
