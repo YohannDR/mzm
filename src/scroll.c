@@ -357,7 +357,7 @@ void ScrollProcessGeneral(void)
     if (!gDisableScrolling)
     {
         if (gUnk_300007f != 0 && gGameModeSub1 == 6)
-            sub_08059008(&coords);
+            ScrollMaybeScrollBG1Related(&coords);
         else if (gCurrentRoomEntry.scrollsFlag == ROOM_SCROLLS_FLAG_HAS_SCROLLS)
             ScrollProcess(&coords);
         else
@@ -766,7 +766,7 @@ void ScrollBG2(struct RawCoordsX* pCoords)
     {
         if (gCurrentRoomEntry.BG2Prop & 0x20)
         {
-            if (gCurrentRoomEntry.BG2Prop == 0x31)
+            if (gCurrentRoomEntry.BG2Prop == BG_PROP_MOVING)
             {
                 position = gBG1XPosition + gBG2Movement.xOffset;
                 if (position < 0)
@@ -805,7 +805,36 @@ void ScrollBG2(struct RawCoordsX* pCoords)
     }
 }
 
+/**
+ * @brief 59008 | a8 | To document
+ * 
+ * @param pCoords Coords pointer
+ */
 void ScrollMaybeScrollBG1Related(struct RawCoordsX* pCoords)
 {
+    if (pCoords->x < BLOCK_SIZE * 7 + HALF_BLOCK_SIZE)
+    {
+        gBG1XPosition = 0;
+    }
+    else if (pCoords->x > gBGPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE))
+    {
+        gBG1XPosition = gBGPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE - ((BLOCK_SIZE * 7 + HALF_BLOCK_SIZE) * 2);
+    }
+    else
+    {
+        gBG1XPosition = pCoords->x - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE);
+    }
 
+    if (pCoords->y < BLOCK_SIZE * 6)
+    {
+        gBG1YPosition = 0;
+    }
+    else if (pCoords->y > gBGPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE - (BLOCK_SIZE * 3))
+    {
+        gBG1YPosition = gBGPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE - (BLOCK_SIZE * 9);
+    }
+    else
+    {
+        gBG1YPosition = pCoords->y - (BLOCK_SIZE * 6);
+    }
 }
