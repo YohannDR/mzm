@@ -6,6 +6,7 @@
 #include "data/menus/status_screen.h"
 #include "data/menus/pause_screen_data.h"
 
+#include "constants/connection.h"
 #include "constants/demo.h"
 #include "constants/samus.h"
 #include "constants/text.h"
@@ -24,9 +25,33 @@ void UpdateMinimapAnimatedPalette(void)
 
 }
 
+/**
+ * @brief 6fe18 | cc | Loads the pause screen background palette (To document)
+ * 
+ */
 void LoadPauseScreenBgPalette(void)
 {
+    i32 i;
 
+    BitFill(3, sPauseScreen_3fcef0[79], &PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS]],
+        16 + 2, 16);
+
+    for (i = 0; i < MAX_AMOUNT_OF_AREAS - 1; i++)
+    {
+        if ((PAUSE_SCREEN_DATA.areasViewables >> i) & 1)
+            continue;
+
+        PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[i]] = 0;
+    }
+
+    if (gCurrentArea < MAX_AMOUNT_OF_AREAS)
+        PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[gCurrentArea]] = sMinimapAnimatedPalette[0];
+
+    PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[AREA_DEBUG]] = 0;
+    PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS]] = 0;
+
+    DMATransfer(3, &PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS]],
+        PALRAM_BASE + sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS] * sizeof(u16), 16 + 2, 16);
 }
 
 /**

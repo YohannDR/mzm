@@ -12,6 +12,11 @@ extern const u16 sSamusWireframePal[4 * 16];
 
 // ...
 
+extern const u16 sPauseScreen_3fcef0[11 * 16];
+extern const u8 sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS + 1];
+
+// ...
+
 extern const struct PauseScreenAreaIconData sPauseScreenAreaIconsData[MAX_AMOUNT_OF_AREAS];
 extern const u16 sPauseScreen_40d0d0[4][4];
 
