@@ -21,6 +21,7 @@ extern const u8 sStatusScreenSuitFlagsOrder[2];
 extern const u8 sStatusScreenMiscFlagsOrder[6];
 
 extern const u8 sPauseScreen_40d0fe[4];
+extern const u16 sPauseScreen_40d102[5];
 
 // ...
 

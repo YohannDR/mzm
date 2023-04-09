@@ -225,9 +225,79 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
     }
 }
 
+/**
+ * @brief 70414 | 120 | Draws a single status screen tank amount
+ * 
+ * @param group Status screen group
+ * @param amout Amount
+ * @param palette Palette
+ * @param isMax Is the max
+ */
 void StatusScreenDrawSingleTankAmount(u8 group, u16 amout, u8 palette, u8 isMax)
 {
+    u16 baseTile;
+    u16* pTilemap;
+    u32 position;
+    i32 size;
+    i32 value;
+    i32 i;
+    u32 var_0;
+    i32 var_1;
 
+    if (group == ABILITY_GROUP_CURRENT_ENERGY || group == ABILITY_GROUP_MAX_ENERGY)
+        baseTile = 0xB2E0;
+    else
+        baseTile = 0xB08C;
+
+    pTilemap = PAUSE_SCREEN_EWRAM.statusScreenTilemap;
+    position = sStatusScreenGroupsData[group][0] * HALF_BLOCK_SIZE + sStatusScreenGroupsData[group][2];
+    pTilemap = &pTilemap[position];
+    var_1 = sStatusScreenGroupsData[group][3] - sStatusScreenGroupsData[group][2];
+    value = sPauseScreen_40d102[var_1];
+    var_1++;
+
+    var_0 = FALSE;
+    i = 0;
+
+    for (; value > 0; value /= 10, i++)
+    {
+        size = amout / value % 10;
+        if (size == 0)
+        {
+            size = 128;
+            if (value != 1 && !var_0)
+            {
+                if (!isMax)
+                    size = baseTile & 0xFFF;
+                else
+                {
+                    i--;
+                    continue;
+                }
+            }
+        }
+        else
+        {
+            var_0 = TRUE;
+            size += 128;
+        }
+
+        if (size != 0)
+        {
+            pTilemap[i] = palette << 0xC | size;
+        }
+        else
+        {
+            i--;
+        }
+
+    }
+
+    while (var_1 != i)
+    {
+        pTilemap[i] = (baseTile & 0xFFF) | palette << 0xC;
+        i++;
+    }
 }
 
 void StatusScreenSetBeamsVisibility(u16* pTilemap)
