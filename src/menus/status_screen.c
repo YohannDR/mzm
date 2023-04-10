@@ -1596,5 +1596,125 @@ void StatusScreenMoveCursor(void)
 
 u32 StatusScreenGetDestinationSlot(i8 offset, u8 previousSlot)
 {
+    // https://decomp.me/scratch/JSj7i
 
+    i32 newSlot;
+    i32 var_0;
+    i32 var_1;
+    i32 var_2;
+    i32 off;
+
+    off = offset;
+    newSlot = previousSlot;
+
+    if (offset == 0)
+        return newSlot;
+
+    if (offset >= 2)
+    {
+        if (previousSlot > 7)
+            PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot = previousSlot;
+        else
+            PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot = previousSlot;
+
+        if (previousSlot > 7)
+        {
+            newSlot = PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot;
+            if (newSlot != 0)
+                return newSlot;
+
+            var_0 = 7;
+            var_1 = 1;
+
+            if (previousSlot >= 12)
+            {
+                newSlot = 6;
+                off = -1;
+            }
+            else
+            {
+                newSlot = 1;
+                off = 1;
+            }
+        }
+        else
+        {
+            newSlot = PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot;
+            if (newSlot != 0)
+                return newSlot;
+
+            var_0 = 17;
+            var_1 = 8;
+
+            if (previousSlot > 5)
+            {
+                newSlot = 12;
+                off = -1;
+            }
+            else
+            {
+                newSlot = 8;
+                off = 1;
+            }
+        }
+
+        var_2 = newSlot;
+
+        do
+        {
+            if (StatusScreenIsStatusSlotEnabled(newSlot))
+                break;
+            
+            newSlot += off;
+
+            if (newSlot < var_1)
+                newSlot = var_0;
+            else if (newSlot > var_0)
+                newSlot = var_1;
+            
+            if (newSlot == var_2)
+            {
+                newSlot = previousSlot;
+                break;
+            }
+        }
+        while (TRUE);
+    }
+    else
+    {
+        if (previousSlot > 7)
+        {
+            var_0 = 17;
+            var_1 = 8;
+        }
+        else
+        {
+            var_0 = 7;
+            var_1 = 1;
+        }
+
+        if (off != 1)
+            off = -1; // ?
+
+        var_2 = newSlot;
+
+        do
+        {
+            newSlot += off;
+
+            if (newSlot < var_1)
+                newSlot = var_0;
+            else if (newSlot > var_0)
+                newSlot = var_1;
+            
+            if (newSlot == var_2)
+            {
+                newSlot = previousSlot;
+                break;
+            }
+        }
+        while (!StatusScreenIsStatusSlotEnabled(newSlot));
+    }
+
+    return newSlot;
 }
