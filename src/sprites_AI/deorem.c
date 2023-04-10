@@ -1871,6 +1871,10 @@ void DeoremEyeInit(void)
     gCurrentSprite.workVariable2 = 0;
 }
 
+/**
+ * @brief 22f28 | 10 | Sets the pose to 9
+ * 
+ */
 void DeoremEyeSetPose9(void)
 {
     gCurrentSprite.pose = 0x9;
@@ -1907,7 +1911,7 @@ void DeoremEyeMainLoop(void)
     }
 
     DeoremEyeMove();
-    
+
     if ((
             EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED) ||
             EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED) ||
