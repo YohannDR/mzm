@@ -1881,9 +1881,39 @@ void DeoremEyeMove(void)
 
 }
 
+/**
+ * @brief 230d4 | 9c | Main loop for the deorem eye
+ * 
+ */
 void DeoremEyeMainLoop(void)
 {
+    if (gCurrentSprite.pOam == sDeoremEyeOAM_Base)
+    {
+        u8 rand;
+        
+        if (SpriteUtilCheckEndCurrentSpriteAnim() && (rand = gSpriteRNG) < 10)
+        {
+            gCurrentSprite.pOam = sDeoremUnkOAMData_082d791C;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
+            gCurrentSprite.workVariable2 = (rand + 8) * 4;
+        }
+    }
+    else if (gCurrentSprite.workVariable2 != 0 && gCurrentSprite.workVariable2-- == 1)
+    {
+        gCurrentSprite.pOam = sDeoremEyeOAM_Base;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+    }
 
+    DeoremEyeMove();
+    
+    if ((
+            EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED) ||
+            EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED) ||
+            gCurrentSprite.health != 0x3C
+        ) && gCurrentSprite.yPositionSpawn != 0)
+        gCurrentSprite.yPositionSpawn--;
 }
 
 void DeoremEyeDyingGFXInit(void)
