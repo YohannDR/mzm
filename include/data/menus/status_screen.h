@@ -7,6 +7,7 @@
 extern const u8 sStatusScreenGroupsData[13][5];
 extern const u8 sStatusScreenUnknownItemsData[10][5];
 extern const struct StatusScreenItemData sStatusScreenItemsData[18];
+extern const struct StatusScreenItemAcquisitionData sStatusScreenItemsAcquisitionData[22];
 
 // ...
 

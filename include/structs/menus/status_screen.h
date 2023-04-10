@@ -9,4 +9,11 @@ struct StatusScreenItemData {
     u8 row;
 };
 
+struct StatusScreenItemAcquisitionData {
+    u8 unk_0;
+    u8 group;
+    u8 abilityOffset;
+    u8 unk_3;
+};
+
 #endif /* STATUS_SCREEN_MENU_STRUCT_H */

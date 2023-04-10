@@ -189,9 +189,86 @@ u32 StatusScreenDrawItems(u8 row)
     return j;
 }
 
+/**
+ * @brief 70020 | 160 | Gets the status slot for a new item
+ * 
+ * @param param_1 To document
+ * @param item Item
+ * @return u8 Status slot
+ */
 u8 StatusScreenGetSlotForNewItem(u8 param_1, u8 item)
 {
+    u8* pActivation;
+    u8* pStatusActivation;
+    u8 slot;
+    u8 flag;
+    i32 i;
 
+    if (item >= ARRAY_SIZE(sStatusScreenItemsAcquisitionData))
+        return 0;
+
+    if (param_1 == 0)
+        return sStatusScreenItemsAcquisitionData[item].unk_0;
+
+    if (param_1 == 1)
+    {
+        if (sStatusScreenItemsAcquisitionData[item].unk_0 < 2)
+            return 0;
+    }
+    else if (sStatusScreenItemsAcquisitionData[item].unk_0 != 3)
+        return sStatusScreenItemsAcquisitionData[item].unk_3;
+
+    flag = 0;
+    slot = sStatusScreenItemsAcquisitionData[item].unk_3;
+
+    switch (sStatusScreenItemsAcquisitionData[item].group)
+    {
+        case ABILITY_GROUP_BEAMS:
+            flag = sStatusScreenBeamFlagsOrder[sStatusScreenItemsAcquisitionData[item].abilityOffset];
+            pStatusActivation = PAUSE_SCREEN_DATA.statusScreenData.beamActivation;
+            pActivation = &gEquipment.beamBombsActivation;
+            break;
+
+        case ABILITY_GROUP_BOMBS:
+            flag = sStatusScreenBombFlagsOrder[sStatusScreenItemsAcquisitionData[item].abilityOffset];
+            pStatusActivation = PAUSE_SCREEN_DATA.statusScreenData.bombActivation;
+            pActivation = &gEquipment.beamBombsActivation;
+            break;
+
+        case ABILITY_GROUP_SUITS:
+            flag = sStatusScreenSuitFlagsOrder[sStatusScreenItemsAcquisitionData[item].abilityOffset];
+            pStatusActivation = PAUSE_SCREEN_DATA.statusScreenData.suitActivation;
+            pActivation = &gEquipment.suitMiscActivation;
+            break;
+
+        case ABILITY_GROUP_MISC:
+            flag = sStatusScreenMiscFlagsOrder[sStatusScreenItemsAcquisitionData[item].abilityOffset];
+            pStatusActivation = PAUSE_SCREEN_DATA.statusScreenData.miscActivation;
+            pActivation = &gEquipment.suitMiscActivation;
+            break;
+    }
+
+    if (param_1 == 1)
+    {
+        if (*pActivation & flag)
+            slot = 1;
+        else
+            slot = 0;
+        *pActivation &= ~flag;
+    }
+    else
+    {
+        for (i = 0; i < sPauseScreen_40d0fe[sStatusScreenItemsAcquisitionData[item].group]; i++)
+        {
+            if (*pStatusActivation == flag)
+                break;
+
+            pStatusActivation++;
+            slot++;
+        }
+    }
+
+    return slot;
 }
 
 /**
