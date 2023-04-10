@@ -565,7 +565,7 @@ void DeoremMainLoop(void)
             if (gCurrentSprite.timer == 0)
             {
                 SpriteUtilMakeSpriteFaceSamusDirection();
-                gCurrentSprite.pOam = sDeoremUnk2OAM;
+                gCurrentSprite.pOam = sDeoremUnkOAMData_082d79fc;
                 gCurrentSprite.animationDurationCounter = 0;
                 gCurrentSprite.currentAnimationFrame = 0;
                 gCurrentSprite.status &= ~SPRITE_STATUS_MOSAIC;
@@ -606,13 +606,13 @@ void DeoremMainLoop(void)
     }
     else
     {
-        if (gCurrentSprite.pOam == sDeoremUnk2OAM)
+        if (gCurrentSprite.pOam == sDeoremUnkOAMData_082d79fc)
         {
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 if ((gCurrentSprite.status & SPRITE_STATUS_MOSAIC) != 0)
                 {
-                    gCurrentSprite.pOam = sDeoremUnk3OAM;
+                    gCurrentSprite.pOam = sDeoremUnkOAMData_082d7a44;
                     gCurrentSprite.animationDurationCounter = 0;
                     gCurrentSprite.currentAnimationFrame = 0;
                     return;
@@ -825,7 +825,7 @@ void DeoremAfterThorns(void)
  */
 void DeoremDying(void)
 {
-    gCurrentSprite.pOam = sDeoremUnk4OAM;
+    gCurrentSprite.pOam = sDeoremUnkOAMData_082d7aac;
     gCurrentSprite.animationDurationCounter = 0;
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.pose = DEOREM_POSE_DYING_GOING_DOWN;
