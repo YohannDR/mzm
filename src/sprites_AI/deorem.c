@@ -4,6 +4,8 @@
 #include "data/sprites/deorem.h"
 #include "data/sprite_data.h"
 
+#include "clipdata.h"
+
 #include "constants/audio.h"
 #include "constants/clipdata.h"
 #include "constants/event.h"
@@ -18,9 +20,34 @@
 #include "structs/scroll.h"
 #include "structs/sprite.h"
 
+/**
+ * @brief 20c7c | 84 | Changes the current clipdata affecting action and calls ProcessClipdata
+ * Used to place solid clipdata on the left part of Deorem to prevent damage boosting
+ * and to remove this solid clipdata when it dies
+ * 
+ * @param caa Clipdata Affecting Action
+ */
 void DeoremChangeLeftCCAA(u8 caa)
 {
+    u16 yPosition = gBossWork.work1;
+    u16 xPosition = gBossWork.work2;
 
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + 2 * BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + 3 * BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + 4 * BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + 5 * BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + 6 * BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + 7 * BLOCK_SIZE, xPosition);
 }
 
 void DeoremChangeRightCCAA(u8 caa)
