@@ -1882,7 +1882,155 @@ void DeoremEyeSetPose9(void)
 
 void DeoremEyeMove(void)
 {
+/*
+    // https://decomp.me/scratch/9RWtk
 
+    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u16 timer = gCurrentSprite.timer;
+    i32 samusYPosOffset = (gSamusData.yPosition - 0x48);
+    i32 samusXPos = gSamusData.xPosition;
+    i32 deoremXPos = gSpriteData[ramSlot].xPosition;
+    i32 deoremYPos = gSpriteData[ramSlot].yPosition;
+
+    if (samusYPosOffset < deoremYPos)
+    {
+        if (deoremXPos < samusXPos)
+        {
+            deoremYPos-= samusYPosOffset;
+            deoremXPos = 0xE0;
+
+            fc2:
+            if (deoremYPos > 0x3F && deoremXPos != 0)
+            {
+                goto fd2;
+            }
+        }
+        else
+        {
+            deoremXPos = 0xA0;
+            if (deoremYPos - samusYPosOffset < 0x40)
+            {
+                deoremXPos = 0x80;
+                goto fe8;
+            }
+            fd2:
+            if (deoremXPos != 0)
+            {
+                goto fe8;
+            }
+        }
+        if (0x7E < timer - 1)
+        {
+            if (0x7F < timer)
+            {
+                gCurrentSprite.timer += 2;
+            }
+            goto end;
+        }
+    }
+    else
+    {
+        if ((samusXPos <= deoremXPos - 0x40) || (deoremXPos + 0x40 <= samusXPos))
+        {
+            if (samusXPos <= deoremXPos)
+            {
+                deoremXPos = 0x60;
+                if (samusYPosOffset - deoremYPos < 0x40)
+                {
+                    deoremXPos = 0x80;
+                }
+                goto fd2;
+            }
+            deoremYPos = samusYPosOffset - deoremYPos;
+            deoremXPos = 0x20;
+            goto fc2;
+        }
+        deoremXPos = 0x40;
+        fe8:
+        if (deoremXPos == 0x20)
+        {
+            if (0x7E < timer - 0x21)
+            {
+                if (0x7F < timer - 0x20)
+                {
+                    gCurrentSprite.timer += 2;
+                }
+                goto end;
+            }
+        }
+        else if (deoremXPos == 0x40)
+        {
+            if (0x7E < timer - 0x41)
+            {
+                if (0x7F < timer - 0x40)
+                {
+                    gCurrentSprite.timer += 2;
+                }
+                goto end;
+            }
+        }
+        else if (deoremXPos == 0x60)
+        {
+            if (0x7E < timer - 0x61)
+            {
+                if (0x7F < timer - 0x60)
+                {
+                    gCurrentSprite.timer += 2;
+                }
+                goto end;
+            }
+        }
+        else if (deoremXPos == 0x80)
+        {
+            if (timer - 1 < 0x7F1)
+            {
+                if (0x7F < timer - 0x40)
+                {
+                    gCurrentSprite.timer += 2;
+                    goto end;
+                }
+                if (timer < 0x81) goto end;
+            }
+        }
+        else
+        {
+            if (deoremXPos == 0xA0)
+            {
+                timer -= 0x21;
+                if (timer < 0x7F)
+                {
+                    gCurrentSprite.timer += 2;
+                    goto end;
+                }
+            }
+            else if (deoremXPos == 0xC0)
+            {
+                timer -= 0x41;
+                if (timer < 0x7F)
+                {
+                    gCurrentSprite.timer += 2;
+                    goto end;
+                }
+            }
+            else
+            {
+                if (deoremXPos != 0xE0) goto end;
+                timer -= 0x61;
+                if (timer < 0x7F)
+                {
+                    gCurrentSprite.timer += 2;
+                    goto end;
+                }
+            }
+            if (timer < 0x80) goto end;
+        }
+    }
+    gCurrentSprite.timer -= 2;
+    end:
+    gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - 0x1C;
+    gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition - 4;
+    gCurrentSprite.oamRotation = gCurrentSprite.timer;
+*/
 }
 
 /**
