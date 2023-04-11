@@ -50,9 +50,34 @@ void DeoremChangeLeftCCAA(u8 caa)
     ClipdataProcess(yPosition + 7 * BLOCK_SIZE, xPosition);
 }
 
+/**
+ * @brief 20d00 | 90 | Changes the current clipdata affecting action and calls ProcessClipdata
+ * Used to place solid clipdata on the right part of Deorem to prevent damage boosting
+ * and to remove this solid clipdata when it dies
+ * 
+ * @param caa Clipdata Affecting Action
+ */
 void DeoremChangeRightCCAA(u8 caa)
 {
+    u16 yPosition = gBossWork.work1;
+    u16 xPosition = gBossWork.work2 + 13 * BLOCK_SIZE;
 
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + 2 * BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + 3 * BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + 4 * BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + 5 * BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + 6 * BLOCK_SIZE, xPosition);
+    gCurrentClipdataAffectingAction = caa;
+    ClipdataProcess(yPosition + 7 * BLOCK_SIZE, xPosition);
 }
 
 void DeoremMoveDiagonally(u8 velocity, u16 dstPosition)
