@@ -1920,9 +1920,19 @@ void DeoremEyeMainLoop(void)
         gCurrentSprite.yPositionSpawn--;
 }
 
+/**
+ * @brief 23170 | 38 | Initialize the GFX for the eye dying (also sets Deorem pose to 62)
+ * 
+ */
 void DeoremEyeDyingGFXInit(void)
 {
-
+    u8 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    
+    gSpriteData[ramSlot].pose = DEOREM_POSE_DYING;
+    gCurrentSprite.pose = 0x67; // TODO: Pose names
+    gCurrentSprite.pOam = sDeoremUnkOAMData_082d791C;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 }
 
 void DeoremEyeDyingSpinningAnim(void)
