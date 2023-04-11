@@ -2083,9 +2083,27 @@ void DeoremEyeDyingGFXInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 }
 
+/**
+ * @brief 231a8 | 80 | Handles the eye spinning when Deorem is dying (body still here)
+ * 
+ */
 void DeoremEyeDyingSpinningAnim(void)
 {
+    u8 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    
+    gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - 24;
+    gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition - 4;
 
+    if (gSpriteData[ramSlot].pose == DEOREM_POSE_DEATH && gSpriteData[ramSlot].timer < 0x1F)
+        gCurrentSprite.oamRotation += 8;
+    else
+        gCurrentSprite.oamRotation += 4;
+    
+    if (gSpriteData[ramSlot].pose == DEOREM_POSE_DEATH && gSpriteData[ramSlot].timer < 2)
+    {
+        gCurrentSprite.pose = 0x68; // TODO: Pose names
+        gCurrentSprite.timer = 0x78;
+    }
 }
 
 void DeoremEyeDyingMovingAnim(void)
