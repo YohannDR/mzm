@@ -13,14 +13,17 @@
 #include "structs/samus.h"
 #include "structs/room.h"
 
+/**
+ * @brief 554ac | 54c | Sets the room transparency and backgrounds effects
+ * 
+ */
 void TransparencySetRoomEffectsTransparency(void)
 {
-    // https://decomp.me/scratch/iOkAi
-
     u8 evb;
     u8 eva;
     u32 coef;
     u16 dispcnt;
+    u16 dcnt;
     u16 bgCnt[4];
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
@@ -29,7 +32,10 @@ void TransparencySetRoomEffectsTransparency(void)
         {
             coef = TransparencyCheckIsDarkRoom();
             if (coef != 0)
-                gIoRegistersBackup.DISPCNT_NonGameplay = (gIoRegistersBackup.DISPCNT_NonGameplay | DCNT_BG0) & coef;
+            {
+                dcnt = DCNT_BG0 | gIoRegistersBackup.DISPCNT_NonGameplay;
+                gIoRegistersBackup.DISPCNT_NonGameplay = dcnt & coef;
+            }
         }
 
         write16(REG_BG1CNT, gIoRegistersBackup.BG1CNT);
@@ -66,10 +72,17 @@ void TransparencySetRoomEffectsTransparency(void)
     bgCnt[1] = 0x4000 | 0x200 | 4;
     bgCnt[2] = 0x4000 | 0x400 | 4;
 
-    bgCnt[3] = 0x200 | 0x400 | 0x2 | 0x1;
-    gCurrentRoomEntry.BG3Prop; // ?
-    bgCnt[3] |= 8;
-    bgCnt[3] |= TransparencyGetBGSizeFlag(gCurrentRoomEntry.BG3Size);
+    switch (gCurrentRoomEntry.BG3Prop)
+    {
+        case 0: // The value of this case doesn't matter
+            bgCnt[3] |= 8;
+            break;
+
+        default:
+            bgCnt[3] |= 8;
+    }
+
+    bgCnt[3] = TransparencyGetBGSizeFlag(gCurrentRoomEntry.BG3Size) | bgCnt[3];
 
     switch (gCurrentRoomEntry.transparency)
     {
