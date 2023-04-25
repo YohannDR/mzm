@@ -131,9 +131,46 @@ void DeoremMoveDiagonally(u8 velocity, u16 dstPosition)
     */
 }
 
+/**
+ * @brief 20e64 | 11c | Handles the spawning of random sprite debris before the fight
+ * 
+ * @param rng Random number to use (one of the 3 used internally) (it is either Timer1 or gFrameCounter8Bit)
+ */
 void DeoremRandomSpriteDebris(u8 rng)
 {
-    
+    u16 yPosOffset = gBossWork.work1 + HALF_BLOCK_SIZE;
+    u16 xPosOffset = gBossWork.work2 + 6 * BLOCK_SIZE + HALF_BLOCK_SIZE;
+    u8 rng1 = gSpriteRNG;
+    u8 rng2 = gFrameCounter8Bit;
+
+    if ((rng1 & 1) == 1)
+        SpriteDebrisInit(0, 5, yPosOffset - 0x6C + rng1, xPosOffset + 0x14 + rng1 * 0x20);
+    else
+        SpriteDebrisInit(0, 7, yPosOffset - 0x64 + rng1, xPosOffset + 0x1A + rng1 * 0x10);
+
+    if (rng1 >= 8)
+        SpriteDebrisInit(0, 8, yPosOffset - 0x50 + rng1, xPosOffset - 0x12 - rng1 * 2);
+    else
+    {
+        SpriteDebrisInit(0, 6, yPosOffset - 0x5A + rng1, xPosOffset - 0x12 - rng1 * 4);
+        SpriteDebrisInit(0, 5, yPosOffset - 0x78, xPosOffset + rng2 * -2);
+    }
+
+    if ((rng & 0x20) == 0)
+    {
+        if ((rng1 & 1) == 1)
+            SpriteDebrisInit(0, 6, yPosOffset - 0xA0, xPosOffset + rng2 * -2);
+        else
+            SpriteDebrisInit(0, 8, yPosOffset - 0x28, xPosOffset + rng2 * -2);
+
+        if (rng1 >= 0xC)
+        {
+            SpriteDebrisInit(0, 5, yPosOffset - 0xA, xPosOffset + rng2 * 2);
+            SpriteDebrisInit(0, 6, yPosOffset - 0x78 + rng1, xPosOffset + rng1 * -8);
+        }
+        else
+            SpriteDebrisInit(0, 7, yPosOffset - 0x3C, xPosOffset + rng2 * 2);
+    }
 }
 
 /**
