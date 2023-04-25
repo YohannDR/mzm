@@ -82,12 +82,58 @@ void DeoremChangeRightCCAA(u8 caa)
 
 void DeoremMoveDiagonally(u8 velocity, u16 dstPosition)
 {
+    /*
+    // https://decomp.me/scratch/z24LN (91.13%)
 
+    if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT) != 0)
+    {
+        u8 *wv = &gCurrentSprite.workVariable;
+        if (*wv == 0)
+        {
+            if (dstPosition - 4 <= gCurrentSprite.xPosition)
+            {
+                if (gCurrentSprite.workVariable2 < velocity)
+                    gCurrentSprite.workVariable2++;
+                if (gBossWork.work2 + 10 * BLOCK_SIZE < gCurrentSprite.xPosition)
+                    gCurrentSprite.xPosition += gCurrentSprite.workVariable2 / 2;
+                return;
+            }
+            // This line down below should go here and be compiled into a jump; but
+            // that doesn't currently happen and the matching percentage is lower.
+            //gCurrentSprite.workVariable2 = gCurrentSprite.workVariable;
+            return;
+        }
+        else if (*wv > 1)
+            gCurrentSprite.workVariable--;
+    
+        if (gCurrentSprite.xPosition < gBossWork.work2 + 10 * BLOCK_SIZE)
+            gCurrentSprite.xPosition += gCurrentSprite.workVariable / 2;
+    }
+    else
+    {
+        u8 *wv = &gCurrentSprite.workVariable;
+        if (*wv == 0)
+        {
+            if (dstPosition + 4 < gCurrentSprite.xPosition)
+            {
+                gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
+                return;
+            }
+            if (gCurrentSprite.workVariable2 < velocity)
+                    gCurrentSprite.workVariable2++;
+        }
+        else if (*wv > 1)
+            gCurrentSprite.workVariable--;
+        
+        if (gCurrentSprite.xPosition > gBossWork.work2 + 3 * BLOCK_SIZE)
+            gCurrentSprite.xPosition -= *wv / 2;
+    }
+    */
 }
 
 void DeoremRandomSpriteDebris(u8 rng)
 {
-
+    
 }
 
 /**
@@ -1205,7 +1251,7 @@ void DeoremSegmentInit(void)
  */
 void DeoremSegmentSpawnGoingDown(void)
 {
-    // https://decomp.me/scratch/9ESud
+    // https://decomp.me/scratch/9ESud (96.40%)
     
     u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
 
@@ -1216,11 +1262,12 @@ void DeoremSegmentSpawnGoingDown(void)
     else
     {
         #ifndef NONMATCHING
+        // TODO
+        // (This currently doesn't match either; not even with inline asm we made it work)
         u32 a = gSpriteData[ramSlot].yPosition - 0xA8;
         u32 b = gCurrentSprite.roomSlot * 100;
         gCurrentSprite.yPosition = a - b;
         #else
-        // TODO
         u32 a = gSpriteData[ramSlot].yPosition - 0xA8;
         u32 b = gCurrentSprite.roomSlot * 100;
         gCurrentSprite.yPosition = a - b;
@@ -1935,7 +1982,9 @@ void DeoremEyeSetPose9(void)
 void DeoremEyeMove(void)
 {
 /*
-    // https://decomp.me/scratch/9RWtk
+    // https://decomp.me/scratch/9RWtk (27.90%)
+    // The Ghidra decomp just has too many gotos
+    // i.e. the compiled function's flow is too messy
 
     u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
     u16 timer = gCurrentSprite.timer;
