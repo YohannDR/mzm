@@ -2244,9 +2244,44 @@ void DeoremEyeDyingSpinningAnim(void)
     }
 }
 
+/**
+ * @brief 23228 | b0 | Handles the eye spinning and moving when Deorem is dying (body dying/not here)
+ * Calls DeoremSpawnChargeBeam
+ * 
+ */
 void DeoremEyeDyingMovingAnim(void)
 {
+    u16 xPos;
+    u8 timer;
 
+    gCurrentSprite.oamRotation += 0xC;
+    if (gCurrentSprite.timer < 100)
+        gCurrentSprite.yPosition--;
+
+    xPos = gBossWork.work2 + 6 * BLOCK_SIZE + HALF_BLOCK_SIZE;
+    if (gCurrentSprite.xPosition < xPos - 2)
+        gCurrentSprite.xPosition += 2;
+    else if (gCurrentSprite.xPosition > xPos + 2)
+        gCurrentSprite.xPosition -= 2;
+
+    timer = --gCurrentSprite.timer;
+    if ((timer & 3) == 0)
+    {
+        if ((timer & 4) != 0)
+        {
+            gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+        }
+        else
+        {
+            gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
+            if (timer == 0)
+            {
+                gCurrentSprite.status = 0;
+                DeoremSpawnChargeBeam(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+                SoundPlay(0x221);
+            }
+        }
+    }
 }
 
 void DeoremThornInit(void)
