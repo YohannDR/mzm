@@ -371,7 +371,7 @@ void DeoremSpawnGoingDown(void)
             if (!(gCurrentSprite.timer & 0x1f))
             {
                 DeoremRandomSpriteDebris(gCurrentSprite.timer);
-                PlaySound(400);
+                SoundPlay(400);
             }
         }
     }
@@ -386,7 +386,7 @@ void DeoremSpawnGoingDown(void)
             if (!(gCurrentSprite.timer & 0x1f))
             {
                 DeoremRandomSpriteDebris(gCurrentSprite.timer);
-                PlaySound(400);
+                SoundPlay(400);
             }
         }
     }
@@ -425,7 +425,7 @@ void DeoremSpawnGoingDown(void)
         SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0, gfxRow, ramSlot, yPosition, xPosition, 0);
         
         ScreenShakeStartVertical(0x28, 0x81);
-        PlaySound(0x193);
+        SoundPlay(0x193);
         
         DeoremLeftChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE);
         DeoremRightChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE);
@@ -463,8 +463,8 @@ void DeoremSpawnGoingDownAnim(void)
         if (timer == 0)
         {
             ParticleSet(yPosition + BLOCK_SIZE, xPosition, PE_TWO_MEDIUM_DUST);
-            PlaySound(0x191);
-            PlaySound(0x19C);
+            SoundPlay(0x191);
+            SoundPlay(0x19C);
             MusicPlay(MUSIC_WORMS_BATTLE, 0x0);
         }
     }
@@ -486,7 +486,7 @@ void DeoremSpawnGoingDownAnim(void)
         }
 
         StartVerticalScreenShake(0x28, 0x81);
-        PlaySound(0x193);
+        SoundPlay(0x193);
     }
 }
 
@@ -573,7 +573,7 @@ void DeoremSpawnGoingUpAnim(void)
         }
 
         StartVerticalScreenShake(0x28, 0x81);
-        PlaySound(0x193);
+        SoundPlay(0x193);
     }
 }
 
