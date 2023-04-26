@@ -2332,9 +2332,32 @@ void DeoremThornInit(void)
     gCurrentSprite.yPosition -= 0xC;
 }
 
+/**
+ * @brief 233b4 | 70 | Handles the spinning animation when the thorn is spawning, before is moves
+ * 
+ */
 void DeoremThornSpawning(void)
 {
+    u8 arrayOffset;
+    
+    gCurrentSprite.arrayOffset--;
+    if (gCurrentSprite.arrayOffset == 0)
+    {
+        gCurrentSprite.pose = 0x23; // TODO: Pose names
+        SoundPlay(0x197);
+    }
+    
+    arrayOffset = gCurrentSprite.arrayOffset; // This line needs to be here to avoid a reg swap
+    // (Curiously, and as seen in the line below, the arrayOffset variable doesn't actually need to be used)
+    if ((gCurrentSprite.arrayOffset & 1) != 0)
+        gCurrentSprite.drawOrder = 5;
+    else
+        gCurrentSprite.drawOrder = 3;
 
+    if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT) != 0)
+        gCurrentSprite.oamRotation += 0x20;
+    else
+        gCurrentSprite.oamRotation -= 0x20;
 }
 
 void DeoremThornMovement(void)
