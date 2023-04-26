@@ -2284,9 +2284,52 @@ void DeoremEyeDyingMovingAnim(void)
     }
 }
 
+/**
+ * @brief 232d8 | dc | Initialize a Deorem thorn sprite
+ * 
+ */
 void DeoremThornInit(void)
 {
+    gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+    
+    gCurrentSprite.oamScaling = 0x100;
+    gCurrentSprite.oamRotation = 0;
+    
+    gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+    gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
+    
+    gCurrentSprite.drawDistanceTopOffset = 8;
+    gCurrentSprite.drawDistanceBottomOffset = 8;
+    gCurrentSprite.drawDistanceHorizontalOffset = 8;
+    
+    gCurrentSprite.hitboxTopOffset = -0x1C;
+    gCurrentSprite.hitboxBottomOffset = 0x1C;
+    gCurrentSprite.hitboxLeftOffset = -0x18;
+    gCurrentSprite.hitboxRightOffset = 0x18;
+    
+    gCurrentSprite.pOam = sDeoremThornOAM_Base;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
+    gCurrentSprite.arrayOffset = 0x14;
+    gCurrentSprite.pose = 9; // TODO: Pose names
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
+    gCurrentSprite.drawOrder = 3;
+    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+    
+    if ((gCurrentSprite.status & SPRITE_STATUS_XFLIP) != 0)
+    {
+        gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+        gCurrentSprite.oamRotation = 0x80;
+    }
+    else
+    {
+        gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+        gCurrentSprite.oamRotation = 0;
+    }
+    gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
+    
+    gCurrentSprite.yPosition -= 0xC;
 }
 
 void DeoremThornSpawning(void)
