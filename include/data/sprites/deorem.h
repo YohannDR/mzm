@@ -12,6 +12,14 @@ const short sDeoremSegmentXVelocity[33] = { /* 0x082d5ba0 */
     SHORT_MAX
 };
 
+const short sDeoremThornYVelocity[40] = { /* 0x82d5be2 */
+    -8, -7, -6, -5, -4, -3, -2, -1,
+    0, 0, 0, 0, 0, 0, 0, 0,
+    1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8, 9, 9,
+    10, 10, 10, 10, 10,
+    SHORT_MAX
+};
+
 /* ... */
 
 const u16 sDeoremUnkOAM_082d7558[4] = { /* 0x082d7558 */

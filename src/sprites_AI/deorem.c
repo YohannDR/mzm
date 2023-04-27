@@ -2360,9 +2360,69 @@ void DeoremThornSpawning(void)
         gCurrentSprite.oamRotation -= 0x20;
 }
 
+/**
+ * @brief 23424 | fc | Handles the movement of the Deorem thorn
+ * 
+ */
 void DeoremThornMovement(void)
 {
+    u8 arrayOffset = gCurrentSprite.arrayOffset;
+    i32 movement = sDeoremThornYVelocity[arrayOffset];
+    i32 newYPos, xMovement;
+    
+    if (movement == SHORT_MAX)
+        newYPos = gCurrentSprite.yPosition + sDeoremThornYVelocity[arrayOffset - 1];
+    else
+    {
+        arrayOffset++;
+        gCurrentSprite.arrayOffset = arrayOffset;
+        newYPos = gCurrentSprite.yPosition + movement;
+    }
+    gCurrentSprite.yPosition = newYPos;
 
+    xMovement = 4;
+    if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT) != 0)
+    {
+        i32 newXPos;
+        
+        if (arrayOffset >= 0x24)
+            gCurrentSprite.oamRotation = 0xB8;
+        else if (arrayOffset >= 0x21)
+            gCurrentSprite.oamRotation = 0xB0;
+        else if (arrayOffset >= 0x1D)
+            if (gCurrentSprite.oamRotation >= 0xA0)
+                gCurrentSprite.oamRotation = 0xA0;
+            else
+                gCurrentSprite.oamRotation += 8;
+        else
+            gCurrentSprite.oamRotation += 0x10;
+
+        newXPos = xMovement + gCurrentSprite.xPosition; // Why (needed to avoid reg swap)
+        gCurrentSprite.xPosition = newXPos;
+    }
+    else
+    {
+        if (arrayOffset >= 0x24)
+            gCurrentSprite.oamRotation = 200;
+        else if (arrayOffset >= 0x21)
+            gCurrentSprite.oamRotation = 0xD0;
+        else if (arrayOffset >= 0x1D)
+            if (gCurrentSprite.oamRotation < 0xE1)
+                gCurrentSprite.oamRotation = 0xE0;
+            else
+                gCurrentSprite.oamRotation -= 8;
+        else
+            gCurrentSprite.oamRotation -= 0x10;
+        
+        gCurrentSprite.xPosition -= xMovement;
+    }
+
+    if ((0x20 < arrayOffset))
+    {
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x20, gCurrentSprite.xPosition);
+        if (gPreviousCollisionCheck != COLLISION_AIR)
+            gCurrentSprite.status = 0;
+    }
 }
 
 /**
