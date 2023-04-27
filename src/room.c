@@ -31,6 +31,7 @@
 #include "structs/scroll.h"
 #include "structs/room.h"
 #include "structs/samus.h"
+#include "structs/text.h"
 #include "structs/screen_shake.h"
 #include "structs/visual_effects.h"
 
@@ -176,7 +177,7 @@ void RoomLoadTileset(void)
 
     DMATransfer(3, entry.pTilemap + 2, gTilemap, sizeof(gTilemap) * 4, 0x10);
 
-    if (gCurrentArea > AREA_INVALID)
+    if (gCurrentArea > AREA_DEBUG)
     {
         DMATransfer(3, sClipdataCollisionTypes_Debug, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 0x10);
         DMATransfer(3, sClipdataBehaviorTypes_Debug, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 0x10);
@@ -229,8 +230,6 @@ void RoomLoadTileset(void)
  */
 void RoomLoadEntry(void)
 {
-    // https://decomp.me/scratch/Hh7MS
-
     struct RoomEntryROM entry;
 
     entry = sAreaRoomEntryPointers[gCurrentArea][gCurrentRoom];
@@ -251,10 +250,7 @@ void RoomLoadEntry(void)
     gCurrentRoomEntry.visualEffect = entry.effect;
     gCurrentRoomEntry.musicTrack = entry.musicTrack;
 
-    if (entry.effectY != UCHAR_MAX)
-        gCurrentRoomEntry.effectY = entry.effectY * 64;
-    else
-        gCurrentRoomEntry.effectY = USHORT_MAX;
+    gCurrentRoomEntry.effectY = (entry.effectY != UCHAR_MAX) ? entry.effectY * 64 : USHORT_MAX;
 
     gSpritesetEntryUsed = 0;
     gCurrentRoomEntry.firstSpritesetEvent = entry.firstSpritesetEvent;
@@ -371,7 +367,7 @@ void RoomLoadBackgrounds(void)
 void RoomRemoveNeverReformBlocksAndCollectedTanks(void)
 {
 	BlockRemoveNeverReformBlocks();
-	BGClipRemoveCollectedTanks();
+	BgClipRemoveCollectedTanks();
 }
 
 void RoomReset(void)
@@ -414,17 +410,17 @@ void RoomReset(void)
         gLastElevatorUsed = sLastElevatorUsed_Empty;
         gRainSoundEffect = RAIN_SOUND_NONE;
 
-        if (!gIsLoadingFile && gCurrentDemo.status & 0xF0)
-            init_demo_related(FALSE);
+        if (!gIsLoadingFile && gCurrentDemo.loading)
+            unk_60cbc(FALSE);
     
         gDoorPositionStart.x = 0;
         gDoorPositionStart.y = 0;
         gCurrentItemBeingAcquired = 0;
 
-        save_most_recent_file_to_sram(); // Undefined
+        SramWrite_MostRecentSaveFile();
     }
 
-    unk_5c158(); // Undefined
+    unk_5c158();
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
         return;
@@ -509,8 +505,8 @@ void RoomReset(void)
     gSamusData.xPosition = xOffset * BLOCK_SIZE + (pDoor->xExit + 8) * 4;
     gSamusData.yPosition = (yOffset) * BLOCK_SIZE + pDoor->yExit * 4 - 1;
 
-    if (gCurrentDemo.status & 0xF0)
-        init_demo_related(TRUE);
+    if (gCurrentDemo.loading)
+        unk_60cbc(TRUE);
 
     gWaitingSpacePiratesPosition.x = gSamusData.xPosition;
     gWaitingSpacePiratesPosition.y = gSamusData.yPosition;
@@ -856,7 +852,7 @@ void RoomUpdate(void)
 
     if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
     {
-        BGClipCheckTouchingSpecialClipdata();
+        BgClipCheckTouchingSpecialClipdata();
 
         // Check still in "playing" mode
         if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)

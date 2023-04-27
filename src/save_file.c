@@ -7,6 +7,8 @@
 #include "data/save_file_data.h"
 #include "data/internal_save_file_data.h"
 #include "data/block_data.h"
+#include "data/in_game_cutscene_data.h"
+#include "data/engine_pointers.h"
 
 #include "constants/color_fading.h"
 #include "constants/connection.h"
@@ -16,27 +18,13 @@
 #include "structs/audio.h"
 #include "structs/bg_clip.h"
 #include "structs/color_effects.h"
+#include "structs/demo.h"
 #include "structs/game_state.h"
 #include "structs/in_game_cutscene.h"
 #include "structs/minimap.h"
 #include "structs/sprite.h"
 #include "structs/save_file.h"
 #include "structs/visual_effects.h"
-
-#define SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS 0
-#define SRAM_OPERATION_SAVE_MOST_RECENT_FILE 5
-#define SRAM_OPERATION_SAVE_LANGUAGE 6
-#define SRAM_OPERATION_SAVE_LANGUAGE2 7
-#define SRAM_OPERATION_SAVE_SOUND_MODE 8
-#define SRAM_OPERATION_SAVE_TIME_ATTACK 9
-#define SRAM_OPERATION_SAVE_TIME_ATTACK2 10
-#define SRAM_OPERATION_SAVE_RECORDED_DEMO 11
-#define SRAM_OPERATION_SAVE_UNUSED_SRAM 13
-#define SRAM_OPERATION_READ_ALL_FLASH 14
-#define SRAM_OPERATION_READ_RECENT_FILE_UNCHECKED 15
-#define SRAM_OPERATION_CHECK_ALL 16
-
-u8* do_sram_operation(u8);
 
 /**
  * @brief 7329c | 64 | Fully reads the flash save into Ewram
@@ -59,8 +47,8 @@ void SramRead_All(void)
 
     for (i = 3; i != 0; i--)
     {
-        do_sram_operation(SRAM_OPERATION_READ_ALL_FLASH);
-        if (do_sram_operation(SRAM_OPERATION_CHECK_ALL) == NULL)
+        DoSramOperation(SRAM_OPERATION_READ_ALL_FLASH);
+        if (DoSramOperation(SRAM_OPERATION_CHECK_ALL) == NULL)
             break;
     }
 
@@ -123,7 +111,7 @@ void SramWrite_FileScreenOptionsUnlocked(void)
     pOptions->checksum = checksum;
     pOptions->notChecksum = ~checksum;
 
-    do_sram_operation(SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS);
+    DoSramOperation(SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS);
 }
 
 /**
@@ -168,7 +156,7 @@ void SramRead_FileScreenOptionsUnlocked(void)
                 DMATransfer(3, &sSramEwramPointer->fileScreenOptions_fileB, &sSramEwramPointer->fileScreenOptions_fileA,
                     sizeof(sSramEwramPointer->fileScreenOptions_fileA), 0x10);
                 fileASanityCheck = 0;
-                do_sram_operation(SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS);
+                DoSramOperation(SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS);
             }
         }
         else
@@ -176,13 +164,13 @@ void SramRead_FileScreenOptionsUnlocked(void)
             DMATransfer(3, &sSramEwramPointer->fileScreenOptions_fileC, &sSramEwramPointer->fileScreenOptions_fileA,
                 sizeof(sSramEwramPointer->fileScreenOptions_fileA), 0x10);
             fileASanityCheck = 0;
-            do_sram_operation(SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS);
+            DoSramOperation(SRAM_OPERATION_WRITE_FILE_SCREEN_OPTIONS);
 
             if (fileBSanityCheck)
             {
                 DMATransfer(3, &sSramEwramPointer->fileScreenOptions_fileA, &sSramEwramPointer->fileScreenOptions_fileB,
                     sizeof(sSramEwramPointer->fileScreenOptions_fileB), 0x10);
-                do_sram_operation(1);
+                DoSramOperation(1);
             }
         }
     }
@@ -190,12 +178,12 @@ void SramRead_FileScreenOptionsUnlocked(void)
     {
         DMATransfer(3, &sSramEwramPointer->fileScreenOptions_fileA, &sSramEwramPointer->fileScreenOptions_fileB,
             sizeof(sSramEwramPointer->fileScreenOptions_fileB), 0x10);
-        do_sram_operation(1);
+        DoSramOperation(1);
         if (fileCSanityCheck != 0)
         {
             DMATransfer(3, &sSramEwramPointer->fileScreenOptions_fileA, &sSramEwramPointer->fileScreenOptions_fileC,
                 sizeof(sSramEwramPointer->fileScreenOptions_fileC), 0x10);
-            do_sram_operation(2);
+            DoSramOperation(2);
         }
     }
 
@@ -930,7 +918,7 @@ void unk_743a4(void)
             DMATransfer(3, &sSramEwramPointer->files[gMostRecentSaveFile],
                 &sSramEwramPointer->filesCopy[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
 
-            do_sram_operation(4);
+            DoSramOperation(4);
             gSaveFilesInfo[i].exists = TRUE;
         }
         else if (flag == CORRUPTED_FILE_FLAG_CURRENT)
@@ -948,9 +936,9 @@ void unk_743a4(void)
         else if (flag > 2)
         {
             BitFill(3, USHORT_MAX, &sSramEwramPointer->files[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
-            do_sram_operation(3);
+            DoSramOperation(3);
             BitFill(3, USHORT_MAX, &sSramEwramPointer->filesCopy[gMostRecentSaveFile], sizeof(struct SaveFile), 16);
-            do_sram_operation(4);
+            DoSramOperation(4);
             gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag = 0;
         }
         else
@@ -1178,7 +1166,7 @@ void SramWrite_MostRecentSaveFile(void)
     pSave->checksum = checksum;
     pSave->notChecksum = ~checksum;
 
-    do_sram_operation(SRAM_OPERATION_SAVE_MOST_RECENT_FILE);
+    DoSramOperation(SRAM_OPERATION_SAVE_MOST_RECENT_FILE);
 }
 
 /**
@@ -1291,7 +1279,7 @@ void SramWrite_SoundMode(void)
     pSave->checksum = checksum;
     pSave->notChecksum = ~checksum;
 
-    do_sram_operation(SRAM_OPERATION_SAVE_SOUND_MODE);
+    DoSramOperation(SRAM_OPERATION_SAVE_SOUND_MODE);
 }
 
 /**
@@ -1409,7 +1397,7 @@ void SramWrite_Language(void)
     pSave->checksum = checksum;
     pSave->notChecksum = ~checksum;
 
-    do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE);
+    DoSramOperation(SRAM_OPERATION_SAVE_LANGUAGE);
 }
 
 /**
@@ -1477,7 +1465,7 @@ u32 SramRead_Language(void)
                 dma_set(3, &sSramEwramPointer->languagesSave[0], &sSramEwramPointer->languagesSave[1],
                     DMA_ENABLE << 16 | sizeof(sSramEwramPointer->languagesSave[1]) / 2);
 
-                do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE2);
+                DoSramOperation(SRAM_OPERATION_SAVE_LANGUAGE2);
                 break;
             }
         }
@@ -1486,7 +1474,7 @@ u32 SramRead_Language(void)
             dma_set(3, &sSramEwramPointer->languagesSave[1], &sSramEwramPointer->languagesSave[0],
                 DMA_ENABLE << 16 | sizeof(sSramEwramPointer->languagesSave[0]) / 2);
 
-            do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE);
+            DoSramOperation(SRAM_OPERATION_SAVE_LANGUAGE);
             break;
         }
         else
@@ -1495,13 +1483,13 @@ u32 SramRead_Language(void)
             dma_set(3, &buffer, &sSramEwramPointer->languagesSave[0],
                 (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(sSramEwramPointer->languagesSave[0]) / 2);
 
-            do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE);
+            DoSramOperation(SRAM_OPERATION_SAVE_LANGUAGE);
 
             buffer = 0;
             dma_set(3, &buffer, &sSramEwramPointer->languagesSave[1],
                 (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(sSramEwramPointer->languagesSave[1]) / 2);
 
-            do_sram_operation(SRAM_OPERATION_SAVE_LANGUAGE2);
+            DoSramOperation(SRAM_OPERATION_SAVE_LANGUAGE2);
         }
     }
 
@@ -1556,7 +1544,7 @@ void SramWrite_TimeAttack(void)
     pSave->checksum = checksum;
     pSave->notChecksum = ~checksum;
 
-    do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK);
+    DoSramOperation(SRAM_OPERATION_SAVE_TIME_ATTACK);
 }
 
 /**
@@ -1622,7 +1610,7 @@ void SramRead_TimeAttack(void)
                 dma_set(3, &sSramEwramPointer->timeAttackSaves[0], &sSramEwramPointer->timeAttackSaves[1],
                     DMA_ENABLE << 16 | sizeof(sSramEwramPointer->timeAttackSaves[1]) / 2);
 
-                do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK2);
+                DoSramOperation(SRAM_OPERATION_SAVE_TIME_ATTACK2);
                 break;
             }
         }
@@ -1631,16 +1619,16 @@ void SramRead_TimeAttack(void)
             dma_set(3, &sSramEwramPointer->timeAttackSaves[1], &sSramEwramPointer->timeAttackSaves[0],
                 DMA_ENABLE << 16 | sizeof(sSramEwramPointer->timeAttackSaves[0]) / 2);
 
-            do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK);
+            DoSramOperation(SRAM_OPERATION_SAVE_TIME_ATTACK);
             break;
         }
         else
         {
             BitFill(3, USHORT_MAX, &sSramEwramPointer->timeAttackSaves[0], sizeof(sSramEwramPointer->timeAttackSaves[0]), 16);
-            do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK);
+            DoSramOperation(SRAM_OPERATION_SAVE_TIME_ATTACK);
 
             BitFill(3, USHORT_MAX, &sSramEwramPointer->timeAttackSaves[1], sizeof(sSramEwramPointer->timeAttackSaves[1]), 16);
-            do_sram_operation(SRAM_OPERATION_SAVE_TIME_ATTACK2);
+            DoSramOperation(SRAM_OPERATION_SAVE_TIME_ATTACK2);
         }
     }
 
@@ -1650,17 +1638,20 @@ void SramRead_TimeAttack(void)
         BitFill(3, USHORT_MAX, &gTimeAttackRecord, sizeof(gTimeAttackRecord), 16);
 }
 
-
+/**
+ * @brief 751d8 | 18c | Writes RAM values to the demo save in Sram
+ * 
+ */
 void SramWrite_ToEwram_DemoRam(void)
 {
-    // https://decomp.me/scratch/wgziF
-
     struct SaveDemo* pFile;
     u32 value;
 
     value = USHORT_MAX;
-    pFile = &gSram.demoSave;
-    BitFill(3, value, pFile, sizeof(struct SaveDemo), 0x10);
+
+    // TODO macro for 0x2038000
+    pFile = (struct SaveDemo*)(0x2038000 + OFFSET_OF(struct Sram, demoSave));
+    BitFill(3, value, pFile, sizeof(struct SaveDemo), 16);
 
     pFile->currentArea = gCurrentArea;
     pFile->lastDoorUsed = gLastDoorUsed;
@@ -1677,8 +1668,8 @@ void SramWrite_ToEwram_DemoRam(void)
     pFile->environmentalEffects[3] = gSamusEnvironmentalEffects[3];
     pFile->environmentalEffects[4] = gSamusEnvironmentalEffects[4];
 
-    DMATransfer(3, &gVisitedMinimapTiles[gCurrentArea * MINIMAP_SIZE], pFile->visitedMinimapTiles, sizeof(pFile->visitedMinimapTiles), 0x10);
-    DMATransfer(3, gHatchesOpened[gCurrentArea], pFile->hatchesOpened, sizeof(pFile->hatchesOpened), 0x10);
+    DMATransfer(3, &gVisitedMinimapTiles[gCurrentArea * MINIMAP_SIZE], pFile->visitedMinimapTiles, sizeof(pFile->visitedMinimapTiles), 16);
+    DMATransfer(3, gHatchesOpened[gCurrentArea], pFile->hatchesOpened, sizeof(pFile->hatchesOpened), 16);
 
     pFile->text[0] = 'A';
     pFile->text[1] = 'T';
@@ -1690,7 +1681,7 @@ void SramWrite_ToEwram_DemoRam(void)
     pFile->text[7] = 'D';
 
     pFile->useMotherShipDoors = gUseMotherShipDoors;
-    do_sram_operation(SRAM_OPERATION_SAVE_UNUSED_SRAM);
+    DoSramOperation(SRAM_OPERATION_SAVE_DEMO_RAM);
 }
 
 void SramLoad_DemoRamValues(u8 loadSamusData, u8 demoNumber)
@@ -1922,12 +1913,12 @@ void unk_757c8(u8 file)
     switch (gSaveFilesInfo[gMostRecentSaveFile].corruptionFlag)
     {
         case CORRUPTED_FILE_FLAG_CURRENT:
-            do_sram_operation(3);
+            DoSramOperation(3);
             break;
 
         case CORRUPTED_FILE_FLAG_CURRENT_AND_BACKUP:
-            do_sram_operation(3);
-            do_sram_operation(4);
+            DoSramOperation(3);
+            DoSramOperation(4);
             break;
 
         case 0:
@@ -2040,7 +2031,54 @@ void Sram_CheckLoadSaveFile(void)
 
 void Sram_InitSaveFile(void)
 {
+    // https://decomp.me/scratch/uEm2z
 
+    i32 i;
+    i32 j;
+    u32 flags;
+    u32 flag;
+    
+    BitFill(3, 0, gVisitedMinimapTiles, sizeof(gVisitedMinimapTiles), 16);
+    BitFill(3, USHORT_MAX, gNeverReformBlocks, sizeof(gNeverReformBlocks), 16);
+    BitFill(3, USHORT_MAX, gItemsCollected, sizeof(gItemsCollected), 16);
+    BitFill(3, USHORT_MAX, gHatchesOpened, sizeof(gHatchesOpened), 16);
+    BitFill(3, 0, gEventsTriggered, sizeof(gEventsTriggered), 16);
+    BitFill(3, 0, gMinimapTilesWithObtainedItems, sizeof(gMinimapTilesWithObtainedItems), 16);
+
+    for (i = 0; i < MAX_AMOUNT_OF_AREAS; i++)
+    {
+        gNumberOfNeverReformBlocks[i] = 0;
+        gNumberOfItemsCollected[i] = 0;
+    }
+
+    gInGameTimer = sInGameTimer_Empty;
+
+    for (i = 0; i < ARRAY_SIZE(gBestCompletionTimes); i++)
+        gBestCompletionTimes[i] = sBestCompletionTime_Empty;
+
+    for (i = 0; i < ARRAY_SIZE(gInGameTimerAtBosses); i++)
+        gInGameTimerAtBosses[i] = sInGameTimer_Empty;
+
+    for (i = 0; i < ARRAY_SIZE(gInGameCutscenesTriggered); i++)
+    {
+        j = 0;
+        flags = 0;
+        for (; j < ARRAY_SIZE(sInGameCutsceneData); j++)
+        {
+            if (sInGameCutsceneData[i* 32 + j].unk_0)
+                flag = TRUE;
+            else
+                flag = FALSE;
+
+            flags |= flag << j;
+        }
+        gInGameCutscenesTriggered[i] = flags;
+    }
+
+    gDisableDrawingSamusAndScrolling = FALSE;
+    gDifficulty = DIFF_NORMAL;
+    gTimeAttackFlag = FALSE;
+    gIsLoadingFile = FALSE;
 }
 
 /**

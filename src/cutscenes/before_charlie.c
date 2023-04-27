@@ -44,7 +44,7 @@ u8 BeforeCharlieSamusCloseUp(void)
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sBeforeCharliePageData[6].bg, 0x800);
             CutsceneReset();
 
-            unk_61fa0(10);
+            CutsceneStartBackgroundFading(10);
             CUTSCENE_DATA.dispcnt = sBeforeCharliePageData[5].bg | sBeforeCharliePageData[8].bg |sBeforeCharliePageData[6].bg ;
             
             CUTSCENE_DATA.timeInfo.timer = 0;
@@ -149,8 +149,8 @@ u8 BeforeCharlieWallAndGreyVoice(void)
             DMATransfer(3, sBeforeCharlieChozoWallPAL, PALRAM_BASE, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
             write16(PALRAM_BASE, 0);
 
-            ApplyMonochromeToPalette(sBeforeCharlieChozoWallPAL, sEwramPointer + 0x3800, 0);
-            DMATransfer(3, sBeforeCharlieChozoWallPAL, sEwramPointer, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
+            ApplyMonochromeToPalette(sBeforeCharlieChozoWallPAL, (void*)sEwramPointer + 0x3800, 0);
+            DMATransfer(3, sBeforeCharlieChozoWallPAL, (void*)sEwramPointer, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
 
             CallLZ77UncompVRAM(sBeforeCharlieChozoWallBackgroundGFX, VRAM_BASE + sBeforeCharliePageData[2].graphicsPage * 0x4000);
             BitFill(3, 0, VRAM_BASE + sBeforeCharliePageData[2].tiletablePage * 0x800, 0x800, 0x20);
@@ -287,8 +287,8 @@ void BeforeCharlieWallAndGreyVoiceApplyMonochrome(struct CutsceneGraphicsData* p
     pGraphics->timer = pGraphics->maxTimer;
     pGraphics->paletteStage++;
 
-    ApplySmoothMonochromeToPalette(sEwramPointer, sEwramPointer + 0x3800, sEwramPointer + 0x400, pGraphics->paletteStage);
-    DMATransfer(3, sEwramPointer + 0x400, PALRAM_BASE, 0x200, 0x10);
+    ApplySmoothMonochromeToPalette((void*)sEwramPointer, (void*)sEwramPointer + 0x3800, (void*)sEwramPointer + 0x400, pGraphics->paletteStage);
+    DMATransfer(3, (void*)sEwramPointer + 0x400, PALRAM_BASE, 0x200, 0x10);
 
     if (pGraphics->paletteStage == 32)
         pGraphics->active = FALSE;
@@ -366,7 +366,7 @@ u8 BeforeCharlieInit(void)
     unk_61f0c();
 
     DMATransfer(3, sBeforeCharlieChozoWallSidesPAL, PALRAM_BASE, sizeof(sBeforeCharlieChozoWallSidesPAL), 0x10);
-    BitFill(3, 0, PALRAM_BASE + 0x200, 0x200, 0x20);
+    BitFill(3, 0, PALRAM_OBJ, 0x200, 0x20);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sBeforeCharlieLeftSideOfChozoWallGFX, VRAM_BASE + sBeforeCharliePageData[0].graphicsPage * 0x4000);

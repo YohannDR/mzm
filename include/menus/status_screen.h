@@ -1,5 +1,5 @@
-#ifndef STATUE_SCREEN_MENU_H
-#define STATUE_SCREEN_MENU_H
+#ifndef STATUS_SCREEN_MENU_H
+#define STATUS_SCREEN_MENU_H
 
 #include "types.h"
 
@@ -32,4 +32,4 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action);
 void StatusScreenMoveCursor(void);
 u32 StatusScreenGetDestinationSlot(i8 offset, u8 previousSlot);
 
-#endif /* STATUE_SCREEN_MENU_H */
+#endif /* STATUS_SCREEN_MENU_H */

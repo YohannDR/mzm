@@ -136,12 +136,12 @@ u32 TitleScreenFadingIn(void)
 
             if (TITLE_SCREEN_DATA.colorToApply < 32)
             {
-                src = sEwramPointer + 0x8000;
-                dst = sEwramPointer + 0x8400;
+                src = (void*)sEwramPointer + 0x8000;
+                dst = (void*)sEwramPointer + 0x8400;
                 ApplySpecialBackgroundFadingColor(0, TITLE_SCREEN_DATA.colorToApply, &src, &dst, 0xFFFF);
 
-                src = sEwramPointer + 0x8200;
-                dst = sEwramPointer + 0x8600;
+                src = (void*)sEwramPointer + 0x8200;
+                dst = (void*)sEwramPointer + 0x8600;
                 ApplySpecialBackgroundFadingColor(0, TITLE_SCREEN_DATA.colorToApply, &src, &dst, 0xFFFF);
 
                 TITLE_SCREEN_DATA.unk_12 = TRUE;
@@ -159,7 +159,7 @@ u32 TitleScreenFadingIn(void)
                 break;
             }
             
-            DMATransfer(3, sEwramPointer + 0x8000, sEwramPointer + 0x8400, 0x400, 0x10);
+            DMATransfer(3, (void*)sEwramPointer + 0x8000, (void*)sEwramPointer + 0x8400, 0x400, 0x10);
             TITLE_SCREEN_DATA.unk_12 = TRUE;
             TITLE_SCREEN_DATA.unk_10++;
             break;
@@ -211,12 +211,12 @@ u32 TitleScreenFadingOut(u8 intensity, u8 delay)
             TITLE_SCREEN_DATA.unk_14 = 0;
             if (TITLE_SCREEN_DATA.colorToApply < 32)
             {
-                src = sEwramPointer + 0x8000;
-                dst = sEwramPointer + 0x8400;
+                src = (void*)sEwramPointer + 0x8000;
+                dst = (void*)sEwramPointer + 0x8400;
                 ApplySpecialBackgroundFadingColor(2, TITLE_SCREEN_DATA.colorToApply, &src, &dst, 0xFFFF);
 
-                src = sEwramPointer + 0x8200;
-                dst = sEwramPointer + 0x8600;
+                src = (void*)sEwramPointer + 0x8200;
+                dst = (void*)sEwramPointer + 0x8600;
                 ApplySpecialBackgroundFadingColor(2, TITLE_SCREEN_DATA.colorToApply, &src, &dst, 0xFFFF);
 
                 TITLE_SCREEN_DATA.unk_12 = TRUE;
@@ -234,7 +234,7 @@ u32 TitleScreenFadingOut(u8 intensity, u8 delay)
                 break;
             }
             
-            BitFill(3, 0, sEwramPointer + 0x8400, 0x400, 0x10);
+            BitFill(3, 0, (void*)sEwramPointer + 0x8400, 0x400, 0x10);
             TITLE_SCREEN_DATA.unk_12 = TRUE;
             TITLE_SCREEN_DATA.unk_10++;
             break;
@@ -260,12 +260,12 @@ void unk_76710(u8 param_1)
 {
     if (!param_1)
     {
-        DMATransfer(3, PALRAM_BASE, sEwramPointer + 0x8000, 0x400, 0x10);
+        DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x8000, 0x400, 0x10);
         BitFill(3, 0, PALRAM_BASE, 0x400, 0x10);
-        DMATransfer(3, PALRAM_BASE, sEwramPointer + 0x8400, 0x400, 0x10);
+        DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x8400, 0x400, 0x10);
     }
     else
-        DMATransfer(3, PALRAM_BASE, sEwramPointer + 0x8000, 0x400, 0x10);
+        DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x8000, 0x400, 0x10);
 
     TITLE_SCREEN_DATA.unk_10 = 0;
 }
@@ -278,7 +278,7 @@ void unk_767a4(void)
 {
     if (TITLE_SCREEN_DATA.unk_12)
     {
-        DMATransfer(3, sEwramPointer + 0x8400, PALRAM_BASE, 0x400, 0x10);
+        DMATransfer(3, (void*)sEwramPointer + 0x8400, PALRAM_BASE, 0x400, 0x10);
         TITLE_SCREEN_DATA.unk_12 = FALSE;
     }
 }
@@ -378,25 +378,25 @@ void unk_76978(u8 param_1)
 {
     if (param_1 & 1)
     {
-        DMATransfer(3, sEwramPointer + 0x4000, VRAM_BASE + 0x4000, 0x800, 0x10);
-        DMATransfer(3, sEwramPointer + 0x4800, VRAM_BASE + 0x4800, 0x800, 0x10);
+        DMATransfer(3, (void*)sEwramPointer + 0x4000, VRAM_BASE + 0x4000, 0x800, 0x10);
+        DMATransfer(3, (void*)sEwramPointer + 0x4800, VRAM_BASE + 0x4800, 0x800, 0x10);
     }
 
     if (param_1 & 2)
     {
-        DMATransfer(3, sEwramPointer + 0x5000, VRAM_BASE + 0x5000, 0x800, 0x10);
-        DMATransfer(3, sEwramPointer + 0x5800, VRAM_BASE + 0x5800, 0x800, 0x10);
+        DMATransfer(3, (void*)sEwramPointer + 0x5000, VRAM_BASE + 0x5000, 0x800, 0x10);
+        DMATransfer(3, (void*)sEwramPointer + 0x5800, VRAM_BASE + 0x5800, 0x800, 0x10);
     }
 
     if (param_1 & 4)
     {
-        DMATransfer(3, sEwramPointer + 0x6000, VRAM_BASE + 0x6000, 0x800, 0x10);
-        DMATransfer(3, sEwramPointer + 0x6800, VRAM_BASE + 0x6800, 0x800, 0x10);
+        DMATransfer(3, (void*)sEwramPointer + 0x6000, VRAM_BASE + 0x6000, 0x800, 0x10);
+        DMATransfer(3, (void*)sEwramPointer + 0x6800, VRAM_BASE + 0x6800, 0x800, 0x10);
     }
 
     if (param_1 & 8)
     {
-        DMATransfer(3, sEwramPointer + 0x7000, VRAM_BASE + 0x7000, 0x400, 0x10);
+        DMATransfer(3, (void*)sEwramPointer + 0x7000, VRAM_BASE + 0x7000, 0x400, 0x10);
         TITLE_SCREEN_DATA.unk_24 = gBG3VOFS_NonGameplay = BLOCK_SIZE * 12 + HALF_BLOCK_SIZE;
     }
 }
@@ -584,7 +584,7 @@ void TitleScreenTransferGroundGraphics(void)
             {
                 var_0 = (gBG3VOFS_NonGameplay - 0x160) >> 5;
                 var_1 = (TITLE_SCREEN_DATA.unk_24 - 0x160) >> 5;
-                src = sEwramPointer + 0x4000;
+                src = (void*)sEwramPointer + 0x4000;
             }
         }
         else
@@ -593,7 +593,7 @@ void TitleScreenTransferGroundGraphics(void)
             {
                 var_0 = 13 - ((0x1E0 - gBG3VOFS_NonGameplay) >> 5);
                 var_1 = 13 - ((0x1E0 - TITLE_SCREEN_DATA.unk_24) >> 5);
-                src = sEwramPointer;
+                src = (void*)sEwramPointer;
             }
         }
     }
@@ -662,7 +662,7 @@ void TitleScreenProcessComets(struct TitleScrenOamTiming* pTiming, struct MenuOa
             pOam->currentAnimationFrame = 0;
             pOam->oamID = TITLE_SCREEN_OAM_ID_COMET_SPAWNING;
 
-            pOam->idChanged = TRUE;
+            pOam->exists = TRUE;
             pOam->boundBackground = 3;
             pOam->notDrawn = FALSE;
 
@@ -1119,7 +1119,7 @@ void TitleScreenInit(void)
     StopAllMusicsAndSounds();
 
     DMATransfer(3, sTitleScreenPAL, PALRAM_BASE, 0x1E0, 0x10);
-    DMATransfer(3, sTitleScreenPAL, PALRAM_BASE + 0x200, 0x1E0, 0x10);
+    DMATransfer(3, sTitleScreenPAL, PALRAM_OBJ, 0x1E0, 0x10);
 
     write16(PALRAM_BASE, 0);
 
@@ -1131,9 +1131,9 @@ void TitleScreenInit(void)
     CallLZ77UncompVRAM(sTitleScreenTitleGFX, VRAM_BASE + 0xC000);
     CallLZ77UncompVRAM(sTitleScreenSpaceBackgroundGFX, VRAM_BASE + 0x4000);
     CallLZ77UncompVRAM(sTitleScreenSpaceBackgroundDecorationGFX, VRAM_BASE + 0xA400);
-    CallLZ77UncompWRAM(sTitleScreenSpaceAndGroundBackgroundGFX, sEwramPointer + 0x4000);
+    CallLZ77UncompWRAM(sTitleScreenSpaceAndGroundBackgroundGFX, (void*)sEwramPointer + 0x4000);
 
-    DMATransfer(3, VRAM_BASE + 0x4000, sEwramPointer, 0x4000, 0x10);
+    DMATransfer(3, VRAM_BASE + 0x4000, (void*)sEwramPointer, 0x4000, 0x10);
 
     CallLZ77UncompVRAM(sTitleScreenSparklesGFX, VRAM_BASE + 0x10000);
 

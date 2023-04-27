@@ -5,7 +5,7 @@
     thumb_func_start ZiplineCheckColliding
 ZiplineCheckColliding: @ 0x0801d318
     push {r4, r5, r6, r7, lr}
-    ldr r6, lbl_0801d350 @ =0x03000738
+    ldr r6, lbl_0801d350 @ =gCurrentSprite
     ldrh r0, [r6, #2]
     subs r0, #0x20
     lsls r0, r0, #0x10
@@ -22,7 +22,7 @@ ZiplineCheckColliding: @ 0x0801d318
     adds r1, #0x2c
     adds r0, r5, #0
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r7, lbl_0801d354 @ =0x030000dc
+    ldr r7, lbl_0801d354 @ =gCurrentAffectingClipdata
     ldrh r0, [r7]
     cmp r0, #7
     bne lbl_0801d35c
@@ -32,8 +32,8 @@ ZiplineCheckColliding: @ 0x0801d318
     strh r0, [r6]
     b lbl_0801d39c
     .align 2, 0
-lbl_0801d350: .4byte 0x03000738
-lbl_0801d354: .4byte 0x030000dc
+lbl_0801d350: .4byte gCurrentSprite
+lbl_0801d354: .4byte gCurrentAffectingClipdata
 lbl_0801d358: .4byte 0x0000fdff
 lbl_0801d35c:
     adds r1, r4, #0
@@ -78,7 +78,7 @@ ZiplineMoving: @ 0x0801d3a4
     push {r4, r5, r6, lr}
     movs r6, #0
     movs r5, #0
-    ldr r0, lbl_0801d3c0 @ =0x03000738
+    ldr r0, lbl_0801d3c0 @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #0x80
     lsls r0, r0, #4
@@ -89,19 +89,19 @@ ZiplineMoving: @ 0x0801d3a4
     movs r4, #0xc
     b lbl_0801d3c6
     .align 2, 0
-lbl_0801d3c0: .4byte 0x03000738
+lbl_0801d3c0: .4byte gCurrentSprite
 lbl_0801d3c4:
     movs r4, #0x10
 lbl_0801d3c6:
     bl ZiplineCheckColliding
-    ldr r0, lbl_0801d3f4 @ =0x030000dc
+    ldr r0, lbl_0801d3f4 @ =gCurrentAffectingClipdata
     ldrh r0, [r0]
     cmp r0, #7
     bne lbl_0801d404
     adds r0, r6, #1
     lsls r0, r0, #0x18
     lsrs r6, r0, #0x18
-    ldr r1, lbl_0801d3f8 @ =0x03000738
+    ldr r1, lbl_0801d3f8 @ =gCurrentSprite
     ldrh r2, [r1, #4]
     ldr r0, lbl_0801d3fc @ =0x0000ffc0
     ands r0, r2
@@ -111,16 +111,16 @@ lbl_0801d3c6:
     adds r2, r1, #0
     cmp r5, #0
     beq lbl_0801d43e
-    ldr r0, lbl_0801d400 @ =0x030013d4
+    ldr r0, lbl_0801d400 @ =gSamusData
     strh r3, [r0, #0x12]
     b lbl_0801d43e
     .align 2, 0
-lbl_0801d3f4: .4byte 0x030000dc
-lbl_0801d3f8: .4byte 0x03000738
+lbl_0801d3f4: .4byte gCurrentAffectingClipdata
+lbl_0801d3f8: .4byte gCurrentSprite
 lbl_0801d3fc: .4byte 0x0000ffc0
-lbl_0801d400: .4byte 0x030013d4
+lbl_0801d400: .4byte gSamusData
 lbl_0801d404:
-    ldr r2, lbl_0801d424 @ =0x03000738
+    ldr r2, lbl_0801d424 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -132,20 +132,20 @@ lbl_0801d404:
     strh r0, [r2, #4]
     cmp r5, #0
     beq lbl_0801d43e
-    ldr r1, lbl_0801d428 @ =0x030013d4
+    ldr r1, lbl_0801d428 @ =gSamusData
     ldrh r0, [r1, #0x12]
     adds r0, r4, r0
     b lbl_0801d43c
     .align 2, 0
-lbl_0801d424: .4byte 0x03000738
-lbl_0801d428: .4byte 0x030013d4
+lbl_0801d424: .4byte gCurrentSprite
+lbl_0801d428: .4byte gSamusData
 lbl_0801d42c:
     ldrh r0, [r2, #4]
     subs r0, r0, r4
     strh r0, [r2, #4]
     cmp r5, #0
     beq lbl_0801d43e
-    ldr r1, lbl_0801d464 @ =0x030013d4
+    ldr r1, lbl_0801d464 @ =gSamusData
     ldrh r0, [r1, #0x12]
     subs r0, r0, r4
 lbl_0801d43c:
@@ -171,13 +171,13 @@ lbl_0801d45c:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0801d464: .4byte 0x030013d4
+lbl_0801d464: .4byte gSamusData
 lbl_0801d468: .4byte 0x0000f7ff
 
     thumb_func_start ZiplineUpdateOAM
 ZiplineUpdateOAM: @ 0x0801d46c
     push {r4, r5, r6, lr}
-    ldr r4, lbl_0801d4a4 @ =0x03000738
+    ldr r4, lbl_0801d4a4 @ =gCurrentSprite
     ldrh r1, [r4]
     movs r0, #0x80
     lsls r0, r0, #4
@@ -205,7 +205,7 @@ lbl_0801d482:
     beq lbl_0801d4b2
     b lbl_0801d63e
     .align 2, 0
-lbl_0801d4a4: .4byte 0x03000738
+lbl_0801d4a4: .4byte gCurrentSprite
 lbl_0801d4a8:
     cmp r1, #2
     beq lbl_0801d504
@@ -431,7 +431,7 @@ lbl_0801d644: .4byte 0x082ce918
     thumb_func_start ZiplineInit
 ZiplineInit: @ 0x0801d648
     push {r4, r5, r6, lr}
-    ldr r5, lbl_0801d6c0 @ =0x03000738
+    ldr r5, lbl_0801d6c0 @ =gCurrentSprite
     movs r3, #0
     movs r4, #0
     ldr r0, lbl_0801d6c4 @ =0x0000ffc0
@@ -488,7 +488,7 @@ ZiplineInit: @ 0x0801d648
     ldr r0, lbl_0801d6cc @ =0x082ce978
     b lbl_0801d6d2
     .align 2, 0
-lbl_0801d6c0: .4byte 0x03000738
+lbl_0801d6c0: .4byte gCurrentSprite
 lbl_0801d6c4: .4byte 0x0000ffc0
 lbl_0801d6c8: .4byte 0x0000fffc
 lbl_0801d6cc: .4byte 0x082ce978
@@ -496,7 +496,7 @@ lbl_0801d6d0:
     ldr r0, lbl_0801d6e4 @ =0x082ce918
 lbl_0801d6d2:
     str r0, [r5, #0x18]
-    ldr r0, lbl_0801d6e8 @ =0x03000738
+    ldr r0, lbl_0801d6e8 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #9
     strb r1, [r0]
@@ -505,7 +505,7 @@ lbl_0801d6d2:
     bx r0
     .align 2, 0
 lbl_0801d6e4: .4byte 0x082ce918
-lbl_0801d6e8: .4byte 0x03000738
+lbl_0801d6e8: .4byte gCurrentSprite
 
     thumb_func_start ZiplineUpdate
 ZiplineUpdate: @ 0x0801d6ec
@@ -513,7 +513,7 @@ ZiplineUpdate: @ 0x0801d6ec
     bl SpriteUtilCheckOnZipline
     cmp r0, #0
     bne lbl_0801d710
-    ldr r1, lbl_0801d768 @ =0x03000738
+    ldr r1, lbl_0801d768 @ =gCurrentSprite
     ldrh r2, [r1]
     movs r0, #0x80
     lsls r0, r0, #4
@@ -528,7 +528,7 @@ ZiplineUpdate: @ 0x0801d6ec
     strb r0, [r1]
 lbl_0801d710:
     bl ZiplineUpdateOAM
-    ldr r4, lbl_0801d768 @ =0x03000738
+    ldr r4, lbl_0801d768 @ =gCurrentSprite
     ldrh r0, [r4, #0x14]
     cmp r0, #2
     bne lbl_0801d760
@@ -569,7 +569,7 @@ lbl_0801d760:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801d768: .4byte 0x03000738
+lbl_0801d768: .4byte gCurrentSprite
 lbl_0801d76c: .4byte 0x0000f7ff
 
     thumb_func_start ZiplineButtonInit
@@ -580,14 +580,14 @@ ZiplineButtonInit: @ 0x0801d770
     bl EventFunction
     cmp r0, #0
     beq lbl_0801d78c
-    ldr r1, lbl_0801d784 @ =0x03000738
+    ldr r1, lbl_0801d784 @ =gCurrentSprite
     ldr r0, lbl_0801d788 @ =0x082cea38
     b lbl_0801d790
     .align 2, 0
-lbl_0801d784: .4byte 0x03000738
+lbl_0801d784: .4byte gCurrentSprite
 lbl_0801d788: .4byte 0x082cea38
 lbl_0801d78c:
-    ldr r1, lbl_0801d7fc @ =0x03000738
+    ldr r1, lbl_0801d7fc @ =gCurrentSprite
     ldr r0, lbl_0801d800 @ =0x082cea28
 lbl_0801d790:
     str r0, [r1, #0x18]
@@ -644,13 +644,13 @@ lbl_0801d790:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801d7fc: .4byte 0x03000738
+lbl_0801d7fc: .4byte gCurrentSprite
 lbl_0801d800: .4byte 0x082cea28
 lbl_0801d804: .4byte 0x0000ffec
 
     thumb_func_start ZiplineButtonIdleInit
 ZiplineButtonIdleInit: @ 0x0801d808
-    ldr r1, lbl_0801d820 @ =0x03000738
+    ldr r1, lbl_0801d820 @ =gCurrentSprite
     adds r3, r1, #0
     adds r3, #0x24
     movs r2, #0
@@ -662,7 +662,7 @@ ZiplineButtonIdleInit: @ 0x0801d808
     str r0, [r1, #0x18]
     bx lr
     .align 2, 0
-lbl_0801d820: .4byte 0x03000738
+lbl_0801d820: .4byte gCurrentSprite
 lbl_0801d824: .4byte 0x082cea38
 
     thumb_func_start ZiplineButtonBindZipline
@@ -674,14 +674,14 @@ ZiplineButtonBindZipline: @ 0x0801d828
     lsrs r0, r0, #0x18
     cmp r0, #0xff
     bne lbl_0801d844
-    ldr r1, lbl_0801d840 @ =0x03000738
+    ldr r1, lbl_0801d840 @ =gCurrentSprite
     movs r0, #0
     strh r0, [r1]
     b lbl_0801d86c
     .align 2, 0
-lbl_0801d840: .4byte 0x03000738
+lbl_0801d840: .4byte gCurrentSprite
 lbl_0801d844:
-    ldr r4, lbl_0801d860 @ =0x03000738
+    ldr r4, lbl_0801d860 @ =gCurrentSprite
     adds r1, r4, #0
     adds r1, #0x2d
     strb r0, [r1]
@@ -693,7 +693,7 @@ lbl_0801d844:
     bl ZiplineButtonIdleInit
     b lbl_0801d86c
     .align 2, 0
-lbl_0801d860: .4byte 0x03000738
+lbl_0801d860: .4byte gCurrentSprite
 lbl_0801d864:
     adds r1, r4, #0
     adds r1, #0x24
@@ -723,7 +723,7 @@ lbl_0801d886:
 ZiplineButtonIdle: @ 0x0801d88c
     push {r4, lr}
     movs r4, #0
-    ldr r0, lbl_0801d8bc @ =0x03000738
+    ldr r0, lbl_0801d8bc @ =gCurrentSprite
     adds r1, r0, #0
     adds r1, #0x2d
     ldrb r2, [r1]
@@ -733,7 +733,7 @@ ZiplineButtonIdle: @ 0x0801d88c
     ands r0, r1
     cmp r0, #0
     beq lbl_0801d8c8
-    ldr r1, lbl_0801d8c0 @ =0x030001ac
+    ldr r1, lbl_0801d8c0 @ =gSpriteData
     lsls r0, r2, #3
     subs r0, r0, r2
     lsls r0, r0, #3
@@ -745,11 +745,11 @@ ZiplineButtonIdle: @ 0x0801d88c
     bl SoundPlay
     b lbl_0801d8da
     .align 2, 0
-lbl_0801d8bc: .4byte 0x03000738
-lbl_0801d8c0: .4byte 0x030001ac
+lbl_0801d8bc: .4byte gCurrentSprite
+lbl_0801d8c0: .4byte gSpriteData
 lbl_0801d8c4: .4byte 0x00000111
 lbl_0801d8c8:
-    ldr r0, lbl_0801d8f8 @ =0x030001ac
+    ldr r0, lbl_0801d8f8 @ =gSpriteData
     lsls r1, r2, #3
     subs r1, r1, r2
     lsls r1, r1, #3
@@ -761,7 +761,7 @@ lbl_0801d8c8:
 lbl_0801d8da:
     cmp r4, #0
     beq lbl_0801d8f2
-    ldr r1, lbl_0801d8fc @ =0x03000738
+    ldr r1, lbl_0801d8fc @ =gCurrentSprite
     adds r3, r1, #0
     adds r3, #0x24
     movs r2, #0
@@ -776,17 +776,17 @@ lbl_0801d8f2:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801d8f8: .4byte 0x030001ac
-lbl_0801d8fc: .4byte 0x03000738
+lbl_0801d8f8: .4byte gSpriteData
+lbl_0801d8fc: .4byte gCurrentSprite
 lbl_0801d900: .4byte 0x082cea70
 
     thumb_func_start ZiplineButtonZiplineMoving
 ZiplineButtonZiplineMoving: @ 0x0801d904
     push {lr}
-    ldr r0, lbl_0801d924 @ =0x03000738
+    ldr r0, lbl_0801d924 @ =gCurrentSprite
     adds r0, #0x2d
     ldrb r1, [r0]
-    ldr r2, lbl_0801d928 @ =0x030001ac
+    ldr r2, lbl_0801d928 @ =gSpriteData
     lsls r0, r1, #3
     subs r0, r0, r1
     lsls r0, r0, #3
@@ -799,13 +799,13 @@ lbl_0801d920:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801d924: .4byte 0x03000738
-lbl_0801d928: .4byte 0x030001ac
+lbl_0801d924: .4byte gCurrentSprite
+lbl_0801d928: .4byte gSpriteData
 
     thumb_func_start Zipline
 Zipline: @ 0x0801d92c
     push {lr}
-    ldr r0, lbl_0801d940 @ =0x03000738
+    ldr r0, lbl_0801d940 @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0
@@ -814,7 +814,7 @@ Zipline: @ 0x0801d92c
     beq lbl_0801d94a
     b lbl_0801d94e
     .align 2, 0
-lbl_0801d940: .4byte 0x03000738
+lbl_0801d940: .4byte gCurrentSprite
 lbl_0801d944:
     bl ZiplineInit
     b lbl_0801d94e
@@ -828,7 +828,7 @@ lbl_0801d94e:
     thumb_func_start ZiplineButton
 ZiplineButton: @ 0x0801d954
     push {lr}
-    ldr r0, lbl_0801d96c @ =0x03000738
+    ldr r0, lbl_0801d96c @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x23
@@ -839,7 +839,7 @@ ZiplineButton: @ 0x0801d954
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0801d96c: .4byte 0x03000738
+lbl_0801d96c: .4byte gCurrentSprite
 lbl_0801d970: .4byte lbl_0801d974
 lbl_0801d974: @ jump table
     .4byte lbl_0801da04 @ case 0
@@ -900,7 +900,7 @@ lbl_0801da20:
 SovaCheckCollidingWithAir: @ 0x0801da24
     push {r4, r5, r6, lr}
     movs r6, #0
-    ldr r4, lbl_0801da58 @ =0x03000738
+    ldr r4, lbl_0801da58 @ =gCurrentSprite
     ldrh r1, [r4]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -915,7 +915,7 @@ SovaCheckCollidingWithAir: @ 0x0801da24
     subs r0, #0x20
     ldrh r1, [r4, #4]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r5, lbl_0801da5c @ =0x030007f1
+    ldr r5, lbl_0801da5c @ =gPreviousCollisionCheck
     ldrb r0, [r5]
     cmp r0, #0
     bne lbl_0801dad0
@@ -924,15 +924,15 @@ SovaCheckCollidingWithAir: @ 0x0801da24
     ldrh r1, [r4, #4]
     b lbl_0801dac4
     .align 2, 0
-lbl_0801da58: .4byte 0x03000738
-lbl_0801da5c: .4byte 0x030007f1
+lbl_0801da58: .4byte gCurrentSprite
+lbl_0801da5c: .4byte gPreviousCollisionCheck
 lbl_0801da60:
     ldrh r0, [r4, #2]
     subs r0, #0x20
     ldrh r1, [r4, #4]
     subs r1, #4
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r5, lbl_0801da80 @ =0x030007f1
+    ldr r5, lbl_0801da80 @ =gPreviousCollisionCheck
     ldrb r0, [r5]
     cmp r0, #0
     bne lbl_0801dad0
@@ -942,7 +942,7 @@ lbl_0801da60:
     subs r1, #4
     b lbl_0801dac4
     .align 2, 0
-lbl_0801da80: .4byte 0x030007f1
+lbl_0801da80: .4byte gPreviousCollisionCheck
 lbl_0801da84:
     adds r0, r4, #0
     adds r0, #0x2e
@@ -954,7 +954,7 @@ lbl_0801da84:
     ldrh r1, [r4, #4]
     subs r1, #0x20
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r5, lbl_0801daa8 @ =0x030007f1
+    ldr r5, lbl_0801daa8 @ =gPreviousCollisionCheck
     ldrb r0, [r5]
     cmp r0, #0
     bne lbl_0801dad0
@@ -962,13 +962,13 @@ lbl_0801da84:
     subs r0, #4
     b lbl_0801dac0
     .align 2, 0
-lbl_0801daa8: .4byte 0x030007f1
+lbl_0801daa8: .4byte gPreviousCollisionCheck
 lbl_0801daac:
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
     subs r1, #0x20
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r5, lbl_0801dad8 @ =0x030007f1
+    ldr r5, lbl_0801dad8 @ =gPreviousCollisionCheck
     ldrb r0, [r5]
     cmp r0, #0
     bne lbl_0801dad0
@@ -988,12 +988,12 @@ lbl_0801dad0:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0801dad8: .4byte 0x030007f1
+lbl_0801dad8: .4byte gPreviousCollisionCheck
 
     thumb_func_start SovaUpdateHitbox
 SovaUpdateHitbox: @ 0x0801dadc
     push {lr}
-    ldr r1, lbl_0801db04 @ =0x03000738
+    ldr r1, lbl_0801db04 @ =gCurrentSprite
     ldrh r2, [r1]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -1013,7 +1013,7 @@ SovaUpdateHitbox: @ 0x0801dadc
     movs r0, #4
     b lbl_0801db4e
     .align 2, 0
-lbl_0801db04: .4byte 0x03000738
+lbl_0801db04: .4byte gCurrentSprite
 lbl_0801db08: .4byte 0x0000ffe4
 lbl_0801db0c: .4byte 0x0000ffcc
 lbl_0801db10:
@@ -1060,7 +1060,7 @@ lbl_0801db58: .4byte 0x0000ffe4
     thumb_func_start SovaSetCrawlingOAM
 SovaSetCrawlingOAM: @ 0x0801db5c
     push {lr}
-    ldr r1, lbl_0801db7c @ =0x03000738
+    ldr r1, lbl_0801db7c @ =gCurrentSprite
     ldrh r2, [r1]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -1076,7 +1076,7 @@ SovaSetCrawlingOAM: @ 0x0801db5c
     str r0, [r1, #0x18]
     b lbl_0801dbc6
     .align 2, 0
-lbl_0801db7c: .4byte 0x03000738
+lbl_0801db7c: .4byte gCurrentSprite
 lbl_0801db80: .4byte 0x082cfc78
 lbl_0801db84:
     ldr r0, lbl_0801db8c @ =0x082cfc40
@@ -1126,7 +1126,7 @@ lbl_0801dbd0: .4byte 0x0000ffbf
     thumb_func_start SovaInit
 SovaInit: @ 0x0801dbd4
     push {r4, r5, r6, r7, lr}
-    ldr r4, lbl_0801dc0c @ =0x03000738
+    ldr r4, lbl_0801dc0c @ =gCurrentSprite
     adds r7, r4, #0
     adds r7, #0x2e
     movs r0, #0
@@ -1139,7 +1139,7 @@ SovaInit: @ 0x0801dbd4
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r5, lbl_0801dc10 @ =0x030007f1
+    ldr r5, lbl_0801dc10 @ =gPreviousCollisionCheck
     ldrb r1, [r5]
     movs r6, #0xf0
     adds r0, r6, #0
@@ -1152,8 +1152,8 @@ SovaInit: @ 0x0801dbd4
     strh r0, [r4]
     b lbl_0801dca8
     .align 2, 0
-lbl_0801dc0c: .4byte 0x03000738
-lbl_0801dc10: .4byte 0x030007f1
+lbl_0801dc0c: .4byte gCurrentSprite
+lbl_0801dc10: .4byte gPreviousCollisionCheck
 lbl_0801dc14: .4byte 0x0000fbff
 lbl_0801dc18:
     ldrh r0, [r4, #2]
@@ -1230,7 +1230,7 @@ lbl_0801dc8c:
 lbl_0801dca6:
     strh r0, [r4, #4]
 lbl_0801dca8:
-    ldr r2, lbl_0801dcc8 @ =0x03000738
+    ldr r2, lbl_0801dcc8 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -1247,7 +1247,7 @@ lbl_0801dca8:
     orrs r0, r1
     b lbl_0801dcd0
     .align 2, 0
-lbl_0801dcc8: .4byte 0x03000738
+lbl_0801dcc8: .4byte gCurrentSprite
 lbl_0801dccc:
     ldr r0, lbl_0801dd1c @ =0x0000ffbf
     ands r0, r1
@@ -1297,21 +1297,21 @@ lbl_0801dd20: .4byte 0x082b0d68
 SovaIdleInit: @ 0x0801dd24
     push {lr}
     bl SovaSetCrawlingOAM
-    ldr r0, lbl_0801dd38 @ =0x03000738
+    ldr r0, lbl_0801dd38 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #9
     strb r1, [r0]
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801dd38: .4byte 0x03000738
+lbl_0801dd38: .4byte gCurrentSprite
 
     thumb_func_start SovaMove
 SovaMove: @ 0x0801dd3c
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
-    ldr r0, lbl_0801dd54 @ =0x03000738
+    ldr r0, lbl_0801dd54 @ =gCurrentSprite
     ldrh r0, [r0, #0x16]
     cmp r0, #3
     beq lbl_0801dd66
@@ -1321,7 +1321,7 @@ SovaMove: @ 0x0801dd3c
     beq lbl_0801dd62
     b lbl_0801dd76
     .align 2, 0
-lbl_0801dd54: .4byte 0x03000738
+lbl_0801dd54: .4byte gCurrentSprite
 lbl_0801dd58:
     cmp r0, #4
     beq lbl_0801dd6c
@@ -1347,7 +1347,7 @@ lbl_0801dd76:
 lbl_0801dd78:
     mov r8, r0
 lbl_0801dd7a:
-    ldr r0, lbl_0801dda8 @ =0x03000738
+    ldr r0, lbl_0801dda8 @ =gCurrentSprite
     ldrb r0, [r0, #0x1d]
     cmp r0, #0x33
     bne lbl_0801dd92
@@ -1365,17 +1365,17 @@ lbl_0801dd92:
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0801ddac
-    ldr r0, lbl_0801dda8 @ =0x03000738
+    ldr r0, lbl_0801dda8 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x1e
     b lbl_0801e1d2
     .align 2, 0
-lbl_0801dda8: .4byte 0x03000738
+lbl_0801dda8: .4byte gCurrentSprite
 lbl_0801ddac:
     bl SpriteUtilIsSpriteOnScreenAndScreenShake
     cmp r0, #0
     beq lbl_0801dddc
-    ldr r2, lbl_0801ddd8 @ =0x03000738
+    ldr r2, lbl_0801ddd8 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -1395,9 +1395,9 @@ lbl_0801ddce:
     strb r0, [r1]
     b lbl_0801e1d4
     .align 2, 0
-lbl_0801ddd8: .4byte 0x03000738
+lbl_0801ddd8: .4byte gCurrentSprite
 lbl_0801dddc:
-    ldr r4, lbl_0801de1c @ =0x03000738
+    ldr r4, lbl_0801de1c @ =gCurrentSprite
     ldrh r1, [r4]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -1419,7 +1419,7 @@ lbl_0801ddec:
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r7, lbl_0801de20 @ =0x030007f1
+    ldr r7, lbl_0801de20 @ =gPreviousCollisionCheck
     ldrb r1, [r7]
     movs r0, #0xf0
     ands r0, r1
@@ -1430,8 +1430,8 @@ lbl_0801ddec:
     orrs r0, r1
     b lbl_0801de8c
     .align 2, 0
-lbl_0801de1c: .4byte 0x03000738
-lbl_0801de20: .4byte 0x030007f1
+lbl_0801de1c: .4byte gCurrentSprite
+lbl_0801de20: .4byte gPreviousCollisionCheck
 lbl_0801de24:
     ldrh r0, [r4, #2]
     adds r0, #0x1c
@@ -1452,7 +1452,7 @@ lbl_0801de44:
     subs r0, #4
     ldrh r1, [r4, #4]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r7, lbl_0801de70 @ =0x030007f1
+    ldr r7, lbl_0801de70 @ =gPreviousCollisionCheck
     ldrb r1, [r7]
     movs r0, #0xf0
     ands r0, r1
@@ -1470,7 +1470,7 @@ lbl_0801de60:
     strb r0, [r1]
     b lbl_0801e1c8
     .align 2, 0
-lbl_0801de70: .4byte 0x030007f1
+lbl_0801de70: .4byte gPreviousCollisionCheck
 lbl_0801de74:
     ldrh r0, [r4, #2]
     subs r0, #0x1c
@@ -1504,7 +1504,7 @@ lbl_0801dea0:
     ldrh r1, [r4, #4]
     subs r1, #4
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r6, lbl_0801decc @ =0x030007f1
+    ldr r6, lbl_0801decc @ =gPreviousCollisionCheck
     ldrb r1, [r6]
     movs r0, #0xf0
     ands r0, r1
@@ -1515,7 +1515,7 @@ lbl_0801dea0:
     ands r0, r1
     b lbl_0801df3e
     .align 2, 0
-lbl_0801decc: .4byte 0x030007f1
+lbl_0801decc: .4byte gPreviousCollisionCheck
 lbl_0801ded0: .4byte 0x0000fdff
 lbl_0801ded4:
     ldrh r0, [r4, #2]
@@ -1540,7 +1540,7 @@ lbl_0801def4:
     ldrh r1, [r4, #4]
     subs r1, #4
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r6, lbl_0801df20 @ =0x030007f1
+    ldr r6, lbl_0801df20 @ =gPreviousCollisionCheck
     ldrb r1, [r6]
     movs r0, #0xf0
     ands r0, r1
@@ -1558,7 +1558,7 @@ lbl_0801df12:
     strb r0, [r1]
     b lbl_0801e1c8
     .align 2, 0
-lbl_0801df20: .4byte 0x030007f1
+lbl_0801df20: .4byte gPreviousCollisionCheck
 lbl_0801df24: .4byte 0x0000fdff
 lbl_0801df28:
     ldrh r0, [r4, #2]
@@ -1601,7 +1601,7 @@ lbl_0801df56:
     subs r0, #4
     ldrh r1, [r4, #4]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r6, lbl_0801df8c @ =0x030007f1
+    ldr r6, lbl_0801df8c @ =gPreviousCollisionCheck
     ldrb r1, [r6]
     movs r0, #0xf
     ands r0, r1
@@ -1612,7 +1612,7 @@ lbl_0801df56:
     ands r0, r1
     b lbl_0801dffc
     .align 2, 0
-lbl_0801df8c: .4byte 0x030007f1
+lbl_0801df8c: .4byte gPreviousCollisionCheck
 lbl_0801df90: .4byte 0x0000fdff
 lbl_0801df94:
     ldrh r0, [r4, #2]
@@ -1634,7 +1634,7 @@ lbl_0801dfae:
     ldrh r1, [r4, #4]
     subs r1, #4
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r6, lbl_0801dfdc @ =0x030007f1
+    ldr r6, lbl_0801dfdc @ =gPreviousCollisionCheck
     ldrb r1, [r6]
     movs r0, #0xf
     ands r0, r1
@@ -1652,7 +1652,7 @@ lbl_0801dfcc:
     strb r0, [r1]
     b lbl_0801e1c8
     .align 2, 0
-lbl_0801dfdc: .4byte 0x030007f1
+lbl_0801dfdc: .4byte gPreviousCollisionCheck
 lbl_0801dfe0: .4byte 0x0000fdff
 lbl_0801dfe4:
     ldrh r0, [r4, #2]
@@ -1677,7 +1677,7 @@ lbl_0801dffc:
     b lbl_0801e1c8
 lbl_0801e00a:
     bl unk_f594
-    ldr r0, lbl_0801e044 @ =0x030007f0
+    ldr r0, lbl_0801e044 @ =gPreviousVerticalCollisionCheck
     ldrb r2, [r0]
     adds r1, r2, #0
     cmp r1, #0
@@ -1705,7 +1705,7 @@ lbl_0801e022:
     orrs r0, r1
     b lbl_0801e050
     .align 2, 0
-lbl_0801e044: .4byte 0x030007f0
+lbl_0801e044: .4byte gPreviousVerticalCollisionCheck
 lbl_0801e048: .4byte 0x082cfb98
 lbl_0801e04c:
     ldr r0, lbl_0801e08c @ =0x0000ffbf
@@ -1713,7 +1713,7 @@ lbl_0801e04c:
 lbl_0801e050:
     strh r0, [r4]
 lbl_0801e052:
-    ldr r4, lbl_0801e090 @ =0x03000738
+    ldr r4, lbl_0801e090 @ =gCurrentSprite
     ldrh r1, [r4]
     movs r6, #0x80
     lsls r6, r6, #2
@@ -1724,7 +1724,7 @@ lbl_0801e052:
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r7, lbl_0801e094 @ =0x030007f1
+    ldr r7, lbl_0801e094 @ =gPreviousCollisionCheck
     ldrb r0, [r7]
     cmp r0, #0
     bne lbl_0801e098
@@ -1742,8 +1742,8 @@ lbl_0801e052:
     b lbl_0801e1c8
     .align 2, 0
 lbl_0801e08c: .4byte 0x0000ffbf
-lbl_0801e090: .4byte 0x03000738
-lbl_0801e094: .4byte 0x030007f1
+lbl_0801e090: .4byte gCurrentSprite
+lbl_0801e094: .4byte gPreviousCollisionCheck
 lbl_0801e098:
     ldrh r0, [r4, #2]
     subs r0, #4
@@ -1764,7 +1764,7 @@ lbl_0801e0b8:
     ldrh r1, [r4, #4]
     subs r1, #4
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r7, lbl_0801e0e4 @ =0x030007f1
+    ldr r7, lbl_0801e0e4 @ =gPreviousCollisionCheck
     ldrb r0, [r7]
     cmp r0, #0
     bne lbl_0801e0e8
@@ -1782,7 +1782,7 @@ lbl_0801e0d0:
     strb r0, [r1]
     b lbl_0801e1c8
     .align 2, 0
-lbl_0801e0e4: .4byte 0x030007f1
+lbl_0801e0e4: .4byte gPreviousCollisionCheck
 lbl_0801e0e8:
     ldrh r0, [r4, #2]
     subs r0, #4
@@ -1904,7 +1904,7 @@ lbl_0801e1c6:
 lbl_0801e1c8:
     cmp r5, #0
     beq lbl_0801e1d4
-    ldr r0, lbl_0801e1e8 @ =0x03000738
+    ldr r0, lbl_0801e1e8 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0xa
 lbl_0801e1d2:
@@ -1918,12 +1918,12 @@ lbl_0801e1d4:
     .align 2, 0
 lbl_0801e1e0: .4byte 0x082cfbd0
 lbl_0801e1e4: .4byte 0x0000ffbf
-lbl_0801e1e8: .4byte 0x03000738
+lbl_0801e1e8: .4byte gCurrentSprite
 
     thumb_func_start SovaTurningAroundInit
 SovaTurningAroundInit: @ 0x0801e1ec
     push {r4, lr}
-    ldr r3, lbl_0801e218 @ =0x03000738
+    ldr r3, lbl_0801e218 @ =gCurrentSprite
     adds r1, r3, #0
     adds r1, #0x24
     movs r4, #0
@@ -1945,7 +1945,7 @@ lbl_0801e20c:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0801e218: .4byte 0x03000738
+lbl_0801e218: .4byte gCurrentSprite
 lbl_0801e21c: .4byte lbl_0801e220
 lbl_0801e220: @ jump table
     .4byte lbl_0801e240 @ case 0
@@ -2144,7 +2144,7 @@ SovaTurningAround: @ 0x0801e380
     bne lbl_0801e38c
     b lbl_0801e56c
 lbl_0801e38c:
-    ldr r3, lbl_0801e3bc @ =0x03000738
+    ldr r3, lbl_0801e3bc @ =gCurrentSprite
     adds r1, r3, #0
     adds r1, #0x24
     movs r0, #9
@@ -2170,7 +2170,7 @@ lbl_0801e3b2:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0801e3bc: .4byte 0x03000738
+lbl_0801e3bc: .4byte gCurrentSprite
 lbl_0801e3c0: .4byte 0x0000feff
 lbl_0801e3c4: .4byte lbl_0801e3c8
 lbl_0801e3c8: @ jump table
@@ -2391,7 +2391,7 @@ lbl_0801e56c:
     thumb_func_start SovaLandingInit
 SovaLandingInit: @ 0x0801e570
     push {r4, lr}
-    ldr r4, lbl_0801e59c @ =0x03000738
+    ldr r4, lbl_0801e59c @ =gCurrentSprite
     adds r1, r4, #0
     adds r1, #0x24
     movs r2, #0
@@ -2412,7 +2412,7 @@ SovaLandingInit: @ 0x0801e570
     orrs r0, r1
     b lbl_0801e5a8
     .align 2, 0
-lbl_0801e59c: .4byte 0x03000738
+lbl_0801e59c: .4byte gCurrentSprite
 lbl_0801e5a0: .4byte 0x082cfd68
 lbl_0801e5a4:
     ldr r0, lbl_0801e5b0 @ =0x0000ffbf
@@ -2432,17 +2432,17 @@ SovaLandingInit_anim: @ 0x0801e5b4
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0801e5cc
-    ldr r0, lbl_0801e5c8 @ =0x03000738
+    ldr r0, lbl_0801e5c8 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x1e
     b lbl_0801e5da
     .align 2, 0
-lbl_0801e5c8: .4byte 0x03000738
+lbl_0801e5c8: .4byte gCurrentSprite
 lbl_0801e5cc:
     bl SpriteUtilCheckNearEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0801e5dc
-    ldr r0, lbl_0801e5e0 @ =0x03000738
+    ldr r0, lbl_0801e5e0 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #8
 lbl_0801e5da:
@@ -2451,12 +2451,12 @@ lbl_0801e5dc:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0801e5e0: .4byte 0x03000738
+lbl_0801e5e0: .4byte gCurrentSprite
 
     thumb_func_start SovaFallingInit
 SovaFallingInit: @ 0x0801e5e4
     push {r4, r5, r6, lr}
-    ldr r1, lbl_0801e608 @ =0x03000738
+    ldr r1, lbl_0801e608 @ =gCurrentSprite
     ldrh r2, [r1]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -2473,7 +2473,7 @@ SovaFallingInit: @ 0x0801e5e4
     strh r0, [r6, #4]
     b lbl_0801e624
     .align 2, 0
-lbl_0801e608: .4byte 0x03000738
+lbl_0801e608: .4byte gCurrentSprite
 lbl_0801e60c:
     ldrh r0, [r6, #4]
     adds r0, #0x20
@@ -2519,7 +2519,7 @@ lbl_0801e658: .4byte 0x082cfd68
     thumb_func_start SovaFalling
 SovaFalling: @ 0x0801e65c
     push {r4, r5, r6, lr}
-    ldr r0, lbl_0801e68c @ =0x03000738
+    ldr r0, lbl_0801e68c @ =gCurrentSprite
     ldrh r6, [r0, #2]
     movs r1, #0x2f
     adds r1, r1, r0
@@ -2542,7 +2542,7 @@ SovaFalling: @ 0x0801e65c
     adds r0, r6, r0
     b lbl_0801e6a2
     .align 2, 0
-lbl_0801e68c: .4byte 0x03000738
+lbl_0801e68c: .4byte gCurrentSprite
 lbl_0801e690: .4byte 0x082b0d04
 lbl_0801e694: .4byte 0x00007fff
 lbl_0801e698:
@@ -2557,7 +2557,7 @@ lbl_0801e6a2:
     ldrh r1, [r4, #4]
     bl SpriteUtilCheckVerticalCollisionAtPositionSlopes
     adds r1, r0, #0
-    ldr r0, lbl_0801e6c0 @ =0x030007f0
+    ldr r0, lbl_0801e6c0 @ =gPreviousVerticalCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0801e6c4
@@ -2565,7 +2565,7 @@ lbl_0801e6a2:
     bl SovaLandingInit
     b lbl_0801e6d0
     .align 2, 0
-lbl_0801e6c0: .4byte 0x030007f0
+lbl_0801e6c0: .4byte gPreviousVerticalCollisionCheck
 lbl_0801e6c4:
     ldrh r1, [r4, #2]
     ldrh r2, [r4, #4]
@@ -2582,7 +2582,7 @@ lbl_0801e6d0:
 SovaDeath: @ 0x0801e6d8
     push {r4, lr}
     sub sp, #4
-    ldr r3, lbl_0801e6fc @ =0x03000738
+    ldr r3, lbl_0801e6fc @ =gCurrentSprite
     ldrh r1, [r3, #2]
     ldrh r2, [r3, #4]
     ldrh r4, [r3]
@@ -2599,7 +2599,7 @@ SovaDeath: @ 0x0801e6d8
     subs r0, #0x28
     b lbl_0801e704
     .align 2, 0
-lbl_0801e6fc: .4byte 0x03000738
+lbl_0801e6fc: .4byte gCurrentSprite
 lbl_0801e700:
     adds r0, r2, #0
     adds r0, #0x28
@@ -2637,7 +2637,7 @@ lbl_0801e722:
     thumb_func_start Sova
 Sova: @ 0x0801e738
     push {r4, lr}
-    ldr r1, lbl_0801e778 @ =0x03000738
+    ldr r1, lbl_0801e778 @ =gCurrentSprite
     adds r3, r1, #0
     adds r3, #0x32
     ldrb r2, [r3]
@@ -2658,7 +2658,7 @@ Sova: @ 0x0801e738
     lsls r0, r0, #1
     bl SoundPlayNotAlreadyPlaying
 lbl_0801e764:
-    ldr r4, lbl_0801e778 @ =0x03000738
+    ldr r4, lbl_0801e778 @ =gCurrentSprite
     adds r0, r4, #0
     adds r0, #0x30
     ldrb r0, [r0]
@@ -2667,7 +2667,7 @@ lbl_0801e764:
     bl SpriteUtilUpdateFreezeTimer
     b lbl_0801e84e
     .align 2, 0
-lbl_0801e778: .4byte 0x03000738
+lbl_0801e778: .4byte gCurrentSprite
 lbl_0801e77c:
     bl SpriteUtilIsSpriteStunned
     cmp r0, #0

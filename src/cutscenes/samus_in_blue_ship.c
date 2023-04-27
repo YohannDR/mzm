@@ -155,7 +155,7 @@ u8 SamusInBlueShipInit(void)
 {
     unk_61f0c();
 
-    DMATransfer(3, sSamusInBlueShipPAL, PALRAM_BASE + 0x200, sizeof(sSamusInBlueShipPAL), 0x10);
+    DMATransfer(3, sSamusInBlueShipPAL, PALRAM_OBJ, sizeof(sSamusInBlueShipPAL), 0x10);
     DMATransfer(3, sSamusInBlueShipPAL, PALRAM_BASE, sizeof(sSamusInBlueShipPAL), 0x10);
     write16(PALRAM_BASE, 0);
 
@@ -182,7 +182,7 @@ u8 SamusInBlueShipInit(void)
     CUTSCENE_DATA.oam[0].priority = 0;
     CUTSCENE_DATA.oam[0].boundBackground = 3;
 
-    unk_61fa0(2);
+    CutsceneStartBackgroundFading(2);
     CUTSCENE_DATA.dispcnt = DCNT_OBJ | sSamusInBlueShipPageData[0].bg;
 
     CUTSCENE_DATA.timeInfo.stage++;
@@ -215,6 +215,6 @@ u8 SamusInBlueShipSubroutine(void)
 void SamusInBlueShipProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sSamusInBlueShipSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sSamusInBlueShipOam);
+    ProcessCutsceneOam(sSamusInBlueShipSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sSamusInBlueShipOam);
     ResetFreeOAM();
 }

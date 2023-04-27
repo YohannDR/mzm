@@ -5,14 +5,16 @@
 
 const struct CutsceneScrollingInfo sRidleyInSpaceScrollingInfo[2] = {
     [0] = {
-        .unk_0 = 1,
-        .unk_2 = -BLOCK_SIZE * 10,
-        .unk_4 = 0xFC
+        .direction = 1,
+        .length = -BLOCK_SIZE * 10,
+        .speed = -4,
+        .maxDelay = 0
     },
     [1] = {
-        .unk_0 = 0,
-        .unk_2 = -BLOCK_SIZE,
-        .unk_4 = 0x2FC
+        .direction = 0,
+        .length = -BLOCK_SIZE,
+        .speed = -4,
+        .maxDelay = 2
     }
 };
 

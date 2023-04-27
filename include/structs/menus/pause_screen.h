@@ -3,8 +3,63 @@
 
 #include "types.h"
 #include "structs/menu.h"
+#include "structs/connection.h"
 
 #define PAUSE_SCREEN_DATA sNonGameplayRamPointer->pauseScreen
+#define PAUSE_SCREEN_EWRAM sEwramPointer->pauseScreen
+
+struct ChozoStatueTarget {
+    u8 statueArea;
+    u8 statueXStart;
+    u8 statueXEnd;
+    u8 statueYStart;
+    u8 statueYEnd;
+    u8 startIcon;
+
+    u8 targetArea;
+    u8 targetX;
+    u8 targetY;
+    u8 endIcon;
+};
+
+struct PauseScreenAreaIconData {
+    u8 unk_0;
+    u8 nameOamId;
+    u8 highlightOamId;
+    u16 xPosition;
+    u16 yPosition;
+};
+
+struct PauseScreenWireframeData {
+    u8 oamId;
+    u16 xPosition;
+    u16 yPosition;
+    u16 xOffset;
+    u8 objMode;
+    u16 unk_A;
+    u16 unk_C;
+};
+
+struct WorldMapData {
+    u8 unk_0;
+    u8 unk_1;
+    u16 xPosition;
+    u16 yPosition;
+};
+
+struct MinimapAreaName {
+    u8 area1;
+    u8 mapX1;
+    u8 mapY1;
+    i8 xOffset1;
+    i8 yOffset1;
+
+    u8 area2;
+    u8 mapX2;
+    u8 mapY2;
+    i8 xOffset2;
+    i8 yOffset2;
+};
 
 struct PauseScreenSubroutineData {
     u8 currentSubroutine;
@@ -26,8 +81,8 @@ struct ChozoHintRelated {
     u16 unk_2;
     u16 unk_4;
     u16 unk_6;
-    u16 unk_8;
-    u16 unk_A;
+    i16 unk_8;
+    i16 unk_A;
     i8 unk_C;
     i8 unk_D;
     u16 unk_E;
@@ -47,7 +102,7 @@ struct StatusScreenData {
     u8 previousLeftStatusSlot;
     u8 previousRightStatusSlot;
 
-    u8 beamBombActivation[5];
+    u8 beamActivation[5];
     u8 suitActivation[2];
     u8 miscActivation[6];
     u8 bombActivation[2];
@@ -59,16 +114,37 @@ struct StatusScreenData {
 };
 
 struct BossFlameData {
-    u8 unk_0;
-    u8 unk_1;
-    u8 unk_2;
+    u16 yOffset;
+    u8 moving;
     u8 oamOffset;
     u8 unk_4;
-    u8 exists;
+    i8 movementDirection;
     u8 unk_6;
     u8 unk_7;
     u16 xPosition;
     u16 yPosition;
+};
+
+struct PauseScreenEwramData {
+    u16 mapTilemaps[MAX_AMOUNT_OF_AREAS][1024];
+    u16 easySleepTextFormatted_1[1024];
+    u16 easySleepTextFormatted_2[1024];
+    u16 unk_5000[1024];
+    u16 unk_5800[1024];
+    u16 unk_6000[1024];
+    u16 unk_6800[512];
+    u16 backgroundPalette[512];
+    u16 statusScreenTilemap[1024];
+    u16 unk_7800[1024];
+    u16 unk_8000[1024];
+    u16 easySleepTilemap[1024];
+    u16 visorOverlayTilemap[1024];
+    u16 mapScreenOverlayTilemap[1024];
+    u16 worldMapOverlayTilemap[1024];
+    u16 equipmentNamesGfxBackup[1024];
+    u16 unk_b000[1024];
+    u16 unk_b800[1024];
+    u16 unk_c000[1024];
 };
 
 struct PauseScreenData {
@@ -84,7 +160,7 @@ struct PauseScreenData {
     u8 hintTargetY;
 
     u16 unk_18;
-    u8 unk_1A;
+    i8 unk_1A;
     u16 unk_1C;
     u8 unk_1E;
 
@@ -111,10 +187,10 @@ struct PauseScreenData {
 
     u8 energyTankTotal;
     u8 energyTankCurrent;
-    u8 misileTankTotal;
-    u8 misileTankCurrent;
-    u8 superMisileTankTotal;
-    u8 superMisileTankCurrent;
+    u8 missileTankTotal;
+    u8 missileTankCurrent;
+    u8 superMissileTankTotal;
+    u8 superMissileTankCurrent;
     u8 powerBombTankTotal;
     u8 powerBombTankCurrent;
     u8 tankStatus;
@@ -123,7 +199,7 @@ struct PauseScreenData {
 
     i8 unk_40;
     u8 unk_41;
-    u8 unk_42;
+    i8 unk_42;
     u16 activatedTargets;
     u8 unk_46;
     u8 unk_47;
@@ -133,7 +209,7 @@ struct PauseScreenData {
     u8 unk_4B;
 
     u8 mapDownloadType;
-    u8 downloadLineOffset;
+    u8 downloadTimer;
     u8 downloadStage;
     u8 unk_4F;
     u8 currentDownloadedLine;
@@ -173,8 +249,7 @@ struct PauseScreenData {
 
     u8 padding_82[10];
 
-    struct ChozoHintRelated unk_8C;
-    struct ChozoHintRelated unk_A0;
+    struct ChozoHintRelated unk_8C[2];
 
     u8 changingMinimapStage;
     u8 padding_B5[3];
@@ -196,13 +271,15 @@ struct PauseScreenData {
 
     struct BossFlameData bossFlameData[2];
 
-    u16* mapsDataPointer;
+    u16 (*mapsDataPointer)[1024];
 
-    struct MenuOamData miscOam[30];
+    struct MenuOamData miscOam[23];
+    struct MenuOamData unk_278[7];
     struct MenuOamData targetsOam[12];
     struct MenuOamData chozoHintOam[5];
     struct MenuOamData samusIconOam[1];
-    struct MenuOamData bossIconOam[2];
+    struct MenuOamData bossIconOam[1];
+    struct MenuOamData unk_418[1];
     struct MenuOamData areaNameOam[4];
     struct MenuOamData borderArrowsOam[4];
     struct MenuOamData worldMapOam[24];

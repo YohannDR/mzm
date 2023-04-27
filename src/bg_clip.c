@@ -1,6 +1,7 @@
 #include "gba.h"
 #include "bg_clip.h"
 #include "transparency.h"
+#include "macros.h"
 
 #include "data/block_data.h"
 
@@ -19,12 +20,12 @@
 #include "structs/game_state.h"
 #include "structs/samus.h"
 
-void BGClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition)
+void BgClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition)
 {
 
 }
 
-void BGClipSetBG1BlockValue(u32 value, u16 yPosition, u16 xPosition)
+void BgClipSetBG1BlockValue(u32 value, u16 yPosition, u16 xPosition)
 {
     // https://decomp.me/scratch/1BdqX
 
@@ -66,7 +67,7 @@ void BGClipSetBG1BlockValue(u32 value, u16 yPosition, u16 xPosition)
  * @param yPosition Y Position
  * @param xPosition X Position
  */
-void BGClipSetRawBG1BlockValue(u32 value, u16 yPosition, u16 xPosition)
+void BgClipSetRawBG1BlockValue(u32 value, u16 yPosition, u16 xPosition)
 {
     gBGPointersAndDimensions.backgrounds[1].pDecomp[gBGPointersAndDimensions.backgrounds[1].width * yPosition + xPosition] = value;
 }
@@ -78,7 +79,7 @@ void BGClipSetRawBG1BlockValue(u32 value, u16 yPosition, u16 xPosition)
  * @param yPosition Y Position
  * @param xPosition X Position
  */
-void BGClipSetClipdataBlockValue(u16 value, u16 yPosition, u16 xPosition)
+void BgClipSetClipdataBlockValue(u16 value, u16 yPosition, u16 xPosition)
 {
     gBGPointersAndDimensions.pClipDecomp[gBGPointersAndDimensions.clipdataWidth * yPosition + xPosition] = value;
 }
@@ -87,83 +88,93 @@ void BGClipSetClipdataBlockValue(u16 value, u16 yPosition, u16 xPosition)
  * @brief 5a670 | 58 | Calls other functions related to checking special clipdata
  * 
  */
-void BGClipCheckTouchingSpecialClipdata(void)
+void BgClipCheckTouchingSpecialClipdata(void)
 {
-    BGClipCheckGrabbingCrumnbleBlock(FALSE);
+    BgClipCheckGrabbingCrumnbleBlock(FALSE);
     if (gSamusData.pose == SPOSE_USING_AN_ELEVATOR)
-        BGClipCheckTouchingTransitionOnElevator();
+        BgClipCheckTouchingTransitionOnElevator();
     else if (!gDisableDoorAndTanks)
     {
         if (gFrameCounter8Bit & 0x1)
-            BGClipCheckTouchingTransitionOrTank();
+            BgClipCheckTouchingTransitionOrTank();
         else if (!gDisableClipdataChangingTransparency)
-            BGClipApplyClipdataChangingTransparency();
+            BgClipApplyClipdataChangingTransparency();
         
-        BGClipCheckWalkingOnCrumbleBlock();
+        BgClipCheckWalkingOnCrumbleBlock();
     }
 }
 
-void BGClipApplyClipdataChangingTransparency(void)
+void BgClipApplyClipdataChangingTransparency(void)
 {
     // https://decomp.me/scratch/qCOUj
 
-    u32 bldalpha;
     u16 clipdata;
-    i32 xPosition;
-    i32 yPosition;
-    i32 clipLimit;
+    u32 xPosition;
+    u32 yPosition;
+    i32 position;
 
-    xPosition = gSamusData.xPosition;
-    clipLimit = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
-    if (xPosition > clipLimit)
-        xPosition = clipLimit;
+    position = gSamusData.xPosition;
+    if (position > gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE)
+        position = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
 
-    xPosition >>= 6;
+    xPosition = position >> 6;
 
-    yPosition = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 1);
-    if (yPosition < 0)
-        yPosition = 0;
+    position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 1);
+    if (position < 0)
+        position = 0;
     else
     {
-        clipLimit = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
-        if (yPosition > clipLimit)
-            yPosition = clipLimit;
+        if (position > gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE)
+            position = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
     }
 
-    yPosition >>= 6;
+    yPosition = position >> 6;
 
     clipdata = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[yPosition * gBGPointersAndDimensions.clipdataWidth + xPosition]];
     if (clipdata == CLIP_BEHAVIOR_NONE)
         return;
 
-    bldalpha = BGClipGetNewBLDALPHAValue(clipdata);
-    if (bldalpha == 0)
+    clipdata = BgClipGetNewBldalphaValue(clipdata);
+    if (clipdata == 0)
         return;
     
-    if (bldalpha == USHORT_MAX)
+    if (clipdata == USHORT_MAX)
         TransparencyUpdateBLDALPHA(gDefaultTransparency.evaCoef, gDefaultTransparency.evbCoef, 1, 1);
     else
-        TransparencyUpdateBLDALPHA(bldalpha & UCHAR_MAX, bldalpha >> 8, 1, 1);
+        TransparencyUpdateBLDALPHA(clipdata & UCHAR_MAX, (clipdata & 0xFF00) >> 8, 1, 1);
 }
 
-u16 BGClipGetNewBLDALPHAValue(u16 clip)
+/**
+ * @brief 5a770 | 30 | Tries to get a bldalpha value based on a clipdata behavior
+ * 
+ * @param clip Clipdata behavior
+ * @return u16 Bldalpha value (eva on first 8 bits, then evb on next 8 bits)
+ */
+u16 BgClipGetNewBldalphaValue(u16 clip)
 {
-    // https://decomp.me/scratch/0ipWe
-
     u16 bldalpha;
-    u32 behavior = BEHAVIOR_TO_BLDALPHA(clip);
 
-    if (behavior < BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_DEFAULT_TRANSPARENCY))
-        bldalpha = sBldalphaValuesForClipdata[behavior];
+    // Check is a bldapha change behavior (trigger transparent, opaque, brighter)
+    if ((u16)BEHAVIOR_TO_BLDALPHA(clip) < BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_DEFAULT_TRANSPARENCY))
+    {
+        // Fetch the correct value
+        bldalpha = sBldalphaValuesForClipdata[BEHAVIOR_TO_BLDALPHA(clip)];
+    }
     else if (clip == CLIP_BEHAVIOR_BG0_TRIGGER_DEFAULT_TRANSPARENCY)
+    {
+        // Request the default transparency to take over
         bldalpha = USHORT_MAX;
+    }
     else
+    {
+        // Not an appropriate behavior, return nothing
         bldalpha = 0;
+    }
     
     return bldalpha;
 }
 
-void BGClipCheckWalkingOnCrumbleBlock(void)
+void BgClipCheckWalkingOnCrumbleBlock(void)
 {
     // https://decomp.me/scratch/agN3y
 
@@ -212,20 +223,20 @@ void BGClipCheckWalkingOnCrumbleBlock(void)
             {
                 if (BlockStoreBrokenReformBlock(BLOCK_TYPE_SLOW_CRUMBLE, xPosition, yPosition, TRUE))
                 {
-                    BGClipSetBG1BlockValue(0x401, yPosition, xPosition);
-                    BGClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID, yPosition, xPosition);
+                    BgClipSetBG1BlockValue(0x401, yPosition, xPosition);
+                    BgClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID, yPosition, xPosition);
                 }
             }
         }
     }*/
 }
 
-void BGClipCheckTouchingTransitionOnElevator(void)
+void BgClipCheckTouchingTransitionOnElevator(void)
 {
 
 }
 
-void BGClipCheckTouchingTransitionOrTank(void)
+void BgClipCheckTouchingTransitionOrTank(void)
 {
     // https://decomp.me/scratch/68qvD
 
@@ -438,7 +449,7 @@ void BGClipCheckTouchingTransitionOrTank(void)
  * @brief 5ad8c | 60 | Finishes the collection of a tank
  * 
  */
-void BGClipFinishCollectingTank(void)
+void BgClipFinishCollectingTank(void)
 {
     u32 clipdata;
     u32 tank;
@@ -454,16 +465,16 @@ void BGClipFinishCollectingTank(void)
         else
             clipdata = 0x0;
 
-        BGClipSetBG1BlockValue(0x0, gLastTankCollected.yPosition, gLastTankCollected.xPosition);
-        BGClipSetBG1BlockValue(clipdata, gLastTankCollected.yPosition, gLastTankCollected.xPosition);
-        BGClipSetItemAsCollected(gLastTankCollected.xPosition, gLastTankCollected.yPosition, sTankBehaviors[tank].itemType);
+        BgClipSetBG1BlockValue(0x0, gLastTankCollected.yPosition, gLastTankCollected.xPosition);
+        BgClipSetBG1BlockValue(clipdata, gLastTankCollected.yPosition, gLastTankCollected.xPosition);
+        BgClipSetItemAsCollected(gLastTankCollected.xPosition, gLastTankCollected.yPosition, sTankBehaviors[tank].itemType);
         MinimapUpdateForCollectedItem(gLastTankCollected.xPosition, gLastTankCollected.yPosition);
     }
 }
 
-void BGClipFinishCollectingAbility(void)
+void BgClipFinishCollectingAbility(void)
 {
-    BGClipSetItemAsCollected(gSamusData.xPosition >> 0x6, gSamusData.yPosition >> 0x6, ITEM_TYPE_ABILITY);
+    BgClipSetItemAsCollected(gSamusData.xPosition >> 0x6, gSamusData.yPosition >> 0x6, ITEM_TYPE_ABILITY);
     MinimapUpdateForCollectedItem((u8)(gSamusData.xPosition >> 0x6), (u8)(gSamusData.yPosition >> 0x6));
 }
 
@@ -472,7 +483,7 @@ void BGClipFinishCollectingAbility(void)
  * 
  * @param dontDestroy 
  */
-void BGClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
+void BgClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
 {
     u8 setPose;
     i32 yOffset;
@@ -516,8 +527,8 @@ void BGClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
             // Destroy block
             if (BlockStoreBrokenReformBlock(BLOCK_TYPE_SLOW_CRUMBLE, xPosition, yPosition, TRUE))
             {
-                BGClipSetBG1BlockValue(0x401, yPosition, xPosition);
-                BGClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID, yPosition, xPosition);
+                BgClipSetBG1BlockValue(0x401, yPosition, xPosition);
+                BgClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID, yPosition, xPosition);
                 setPose = FALSE;
             }
         }
@@ -539,7 +550,7 @@ void BGClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
  * @param yPosition Y Position
  * @return u8 Hatch opening action
  */
-u8 BGClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
+u8 BgClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
 {
     i32 i;
     u8 action;
@@ -612,10 +623,15 @@ u8 BGClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
     return action;
 }
 
-void BGClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
+/**
+ * @brief 5b0a0 | 74 | Regsiters a collected item in the save
+ * 
+ * @param xPosition X position
+ * @param yPosition Y position
+ * @param type Item type
+ */
+void BgClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
 {
-    // https://decomp.me/scratch/sixf9
-
     u8 overLimit;
     i32 i;
     u8* pItem;
@@ -627,18 +643,15 @@ void BGClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
     i = gCurrentArea;
     limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
     overLimit = TRUE;
-    pItem = (u8*)gItemsCollected[i];
-    i = 0;
-    for (; ; pItem += 4)
+    pItem = (u8*)0x2036c00 + i * MAX_AMOUNT_OF_ITEMS_PER_AREA * sizeof(struct ItemInfo);
+
+    for (i = 0; i < limit; i++, pItem += 4)
     {
-        if (i >= limit)
-            break;
-        else if (pItem[0] == 0xFF)
+        if (pItem[0] == UCHAR_MAX)
         {
             overLimit = FALSE;
             break;
         }
-        i++;
     }
 
     if (!overLimit)
@@ -652,10 +665,12 @@ void BGClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
     }
 }
 
-void BGClipRemoveCollectedTanks(void)
+/**
+ * @brief 5b114 | c4 | Removes the collected tanks of a room
+ * 
+ */
+void BgClipRemoveCollectedTanks(void)
 {
-    // https://decomp.me/scratch/RQGNU
-
     struct ItemInfo* pItem;
     i32 i;
     i32 limit;
@@ -663,41 +678,65 @@ void BGClipRemoveCollectedTanks(void)
     u32 behavior;
     u32 temp;
 
-    if (gPauseScreenFlag == PAUSE_SCREEN_NONE && gCurrentArea < MAX_AMOUNT_OF_AREAS)
+    if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
+        return;
+
+    if (gCurrentArea > MAX_AMOUNT_OF_AREAS)
+        return;
+    
+    i = gCurrentArea;
+    limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
+    pItem = (struct ItemInfo*)0x2036c00 + i * MAX_AMOUNT_OF_ITEMS_PER_AREA;
+
+    for (i = 0; i < limit; i++, pItem++)
     {
-        i = gCurrentArea;
-        limit = MAX_AMOUNT_OF_ITEMS_PER_AREA;
-        pItem = gItemsCollected[i];
-        i = 0;
-
-        for (; i < limit; pItem++)
+        if (pItem->room == UCHAR_MAX)
+            return;
+        
+        if (pItem->room == gCurrentRoom && pItem->type >= 0)
         {
-            if (pItem->room == 0xFF)
-                return;
-            
-            if (pItem->room == gCurrentRoom && pItem->type >= 0)
+            position = gBGPointersAndDimensions.clipdataWidth * pItem->yPosition + pItem->xPosition;
+
+            behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[position]] -
+                CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK;
+            if (behavior <= BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK))
             {
-                position = gBGPointersAndDimensions.clipdataWidth * pItem->yPosition + pItem->xPosition;
-
-                behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[position]] - CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK;
-                if (behavior <= BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK))
-                {
-                    gBGPointersAndDimensions.pClipDecomp[position] = 0x43C;
-                    gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0x0;
-                }
-                else
-                {
-                    gBGPointersAndDimensions.pClipDecomp[position] = 0x0;
-                    gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0x0;
-                }
+                gBGPointersAndDimensions.pClipDecomp[position] = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_WATER;
+                gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
             }
-
-            i++;
+            else
+            {
+                gBGPointersAndDimensions.pClipDecomp[position] = 0;
+                gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
+            }
         }
     }
 }
 
-void BGClipCallMotherBrainUpdateGlass(u8 stage)
+/**
+ * @brief 5b1d8 | 74 | Calls the BgClipMotherBrainUpdateGlass on every block of the glass
+ * 
+ * @param stage Breaking stage
+ */
+void BgClipCallMotherBrainUpdateGlass(u8 stage)
 {
+    u16 i;
+    u16 j;
 
+    // Check in the mother brain room
+    if (gCurrentArea != AREA_TOURIAN)
+        return;
+
+    if (gCurrentRoom != 4)
+        return;
+
+    // Loop on every tile of the glass
+    for (i = 0; i < 5; i++) // Y
+    {
+        for (j = 0; j < 7; j++) // X
+        {
+            // Fetch the correct tile value, and the correct positions
+            BgClipMotherBrainUpdateGlass(0, sMotherBrainGlassBreakingBaseTilemapValues[stage] + i * 16 + j, i + 13, j + 4);
+        }
+    }
 }

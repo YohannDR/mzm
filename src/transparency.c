@@ -13,14 +13,17 @@
 #include "structs/samus.h"
 #include "structs/room.h"
 
+/**
+ * @brief 554ac | 54c | Sets the room transparency and backgrounds effects
+ * 
+ */
 void TransparencySetRoomEffectsTransparency(void)
 {
-    // https://decomp.me/scratch/iOkAi
-
     u8 evb;
     u8 eva;
     u32 coef;
     u16 dispcnt;
+    u16 dcnt;
     u16 bgCnt[4];
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
@@ -29,7 +32,10 @@ void TransparencySetRoomEffectsTransparency(void)
         {
             coef = TransparencyCheckIsDarkRoom();
             if (coef != 0)
-                gIoRegistersBackup.DISPCNT_NonGameplay = (gIoRegistersBackup.DISPCNT_NonGameplay | DCNT_BG0) & coef;
+            {
+                dcnt = DCNT_BG0 | gIoRegistersBackup.DISPCNT_NonGameplay;
+                gIoRegistersBackup.DISPCNT_NonGameplay = dcnt & coef;
+            }
         }
 
         write16(REG_BG1CNT, gIoRegistersBackup.BG1CNT);
@@ -66,10 +72,17 @@ void TransparencySetRoomEffectsTransparency(void)
     bgCnt[1] = 0x4000 | 0x200 | 4;
     bgCnt[2] = 0x4000 | 0x400 | 4;
 
-    bgCnt[3] = 0x200 | 0x400 | 0x2 | 0x1;
-    gCurrentRoomEntry.BG3Prop; // ?
-    bgCnt[3] |= 8;
-    bgCnt[3] |= TransparencyGetBGSizeFlag(gCurrentRoomEntry.BG3Size);
+    switch (gCurrentRoomEntry.BG3Prop)
+    {
+        case 0: // The value of this case doesn't matter
+            bgCnt[3] |= 8;
+            break;
+
+        default:
+            bgCnt[3] |= 8;
+    }
+
+    bgCnt[3] = TransparencyGetBGSizeFlag(gCurrentRoomEntry.BG3Size) | bgCnt[3];
 
     switch (gCurrentRoomEntry.transparency)
     {
@@ -390,30 +403,39 @@ void TransparencyUpdateBLDCNT(u8 action, u16 value)
         gWrittenToBLDCNT = gIoRegistersBackup.BLDCNT_NonGameplay;
 }
 
-void TransparencySpriteUpdateBLDY(u8 value, i8 delay, u8 intensity)
+/**
+ * @brief 55adc | 48 | Starts a bldy sprite effect
+ * 
+ * @param value Requested value
+ * @param delay Delay between increments
+ * @param intensity Intensity
+ */
+void TransparencySpriteUpdateBLDY(u8 value, u32 delay, u32 intensity)
 {
-    // https://decomp.me/scratch/SjDPH
+    u8 above;
+    i32 _delay;
+    i32 _intensity;
 
-    // Can't generate signed cast for delay
-    /*u8 above;
-
+    _delay = (i8)delay;
+    _intensity = (u8)intensity;
     above = FALSE;
     
     if (value > 0x10)
         above = TRUE;
 
     if (above)
-        gBLDYData2.activeFlag &= ~TRUE;
-    else
     {
-        gBLDYData2.delayMax = delay;
-        gBLDYData2.intensity = intensity;
-        gBLDYData2.value = value;
-        gBLDYData2.delay = above;
-        gBLDYData2.activeFlag = TRUE;
+        gBLDYData2.activeFlag &= ~TRUE;
+        return;
+    }
+    
+    gBLDYData2.delayMax = _delay;
+    gBLDYData2.intensity = _intensity;
+    gBLDYData2.value = value;
+    gBLDYData2.delay = above;
+    gBLDYData2.activeFlag = TRUE;
 
-        TransparencyApplyNewEffects();
-    }*/
+    TransprencyApplyNewEffects();
 }
 
 void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u8 intensity)
@@ -456,24 +478,25 @@ void TransparencyApplyNewEffects(void)
             TransparencyApplyNewBLDALPHA(&gBldalphaData1);
     }
 
-    if (gTransparencyRelated.unknown_0 != 0)
+    if (gTransparencyRelated.unk_0 != 0)
         unk_55e60();
 }
 
+/**
+ * @brief 55cdc | d8 | Applies the bldalpha effect 
+ * 
+ * @param pBldy Bldalpha data pointer
+ */
 void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
 {
-    // https://decomp.me/scratch/6zyTC
-
     i32 newValue;
 
     newValue = FALSE;
     if (gWrittenToBLDALPHA != 0)
-        return;
-
-    if (gCurrentPowerBomb.animationState != 0)
-        return;
-
-    if (!(pBldalpha->activeFlag & 0x80))
+        newValue = TRUE;
+    else if (gCurrentPowerBomb.animationState != 0)
+        newValue = TRUE;
+    else if (pBldalpha->activeFlag & 0x80)
         newValue = TRUE;
 
     if (newValue)
@@ -542,20 +565,21 @@ void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
         pBldalpha->activeFlag = FALSE;
 }
 
+/**
+ * @brief 55db4 | ac | Applies the bldy effect 
+ * 
+ * @param pBldy Bldy data pointer
+ */
 void TransparencyApplyNewBLDY(struct BldyData* pBldy)
 {
-    // https://decomp.me/scratch/puH7O
-
     i32 newValue;
 
     newValue = FALSE;
     if (gWrittenToBLDY >= 0)
-        return;
-
-    if (gCurrentPowerBomb.animationState != 0)
-        return;
-
-    if (!(pBldy->activeFlag & 0x80))
+        newValue = TRUE;
+    else if (gCurrentPowerBomb.animationState != 0)
+        newValue = TRUE;
+    else if (pBldy->activeFlag & 0x80)
         newValue = TRUE;
 
     if (newValue)
@@ -604,9 +628,102 @@ void TransparencyApplyNewBLDY(struct BldyData* pBldy)
         pBldy->activeFlag = FALSE;
 }
 
+/**
+ * @brief 55e60 | 108 | To document
+ * 
+ */
 void unk_55e60(void)
 {
+    i32 coef;
+    i32 eva;
+    i32 evb;
 
+    switch (gCurrentPowerBomb.animationState)
+    {
+        case 1:
+            gTransparencyRelated.unk_2 = 0;
+            gTransparencyRelated.unk_1 = 2;
+
+            coef = gIoRegistersBackup.BLDALPHA_NonGameplay_EVB + 2;
+            gWrittenToBLDALPHA = coef << 8 | (16 - coef);
+            break;
+
+        case 0:
+            gTransparencyRelated.unk_2++;
+            if (gTransparencyRelated.unk_0 != 2)
+            {
+                if (gTransparencyRelated.unk_2 < 20)
+                    break;
+
+                gTransparencyRelated.unk_2 = 0;
+                gTransparencyRelated.unk_1++;
+                gTransparencyRelated.unk_1 &= 7;
+
+                coef = gTransparencyRelated.unk_1 & 3;
+                if (gTransparencyRelated.unk_1 & 3)
+                {
+                    if (coef & 1)
+                        coef = 1;
+                    else
+                        coef = 2;
+                }
+
+                if (gTransparencyRelated.unk_1 & 4)
+                    coef = -coef;
+
+                eva = gIoRegistersBackup.BLDALPHA_NonGameplay_EVA;
+                evb = gIoRegistersBackup.BLDALPHA_NonGameplay_EVB;
+
+                evb += coef;
+                if (evb < 0)
+                    evb = 0;
+                else if (evb > 16)
+                    evb = 16;
+
+                eva -= coef;
+                if (eva < 0)
+                    eva = 0;
+                else if (eva > 16)
+                    eva = 16;
+
+                gWrittenToBLDALPHA = evb << 8 | eva;
+            }
+            else
+            {
+                if (gTransparencyRelated.unk_2 < 2)
+                    break;
+
+                gTransparencyRelated.unk_2 = 0;
+
+                gTransparencyRelated.unk_1++;
+                if (gTransparencyRelated.unk_1 > 3)
+                    gTransparencyRelated.unk_1 = 0;
+
+                coef = gTransparencyRelated.unk_1;
+                if (gTransparencyRelated.unk_1 > 2)
+                    coef = 4 - coef;
+
+                coef = -coef;
+
+                eva = gIoRegistersBackup.BLDALPHA_NonGameplay_EVA;
+                evb = gIoRegistersBackup.BLDALPHA_NonGameplay_EVB;
+
+                evb += coef;
+                if (evb < 0)
+                    evb = 0;
+                else if (evb > 16)
+                    evb = 16;
+
+                eva -= coef;
+                if (eva < 0)
+                    eva = 0;
+                else if (eva > 16)
+                    eva = 16;
+
+                gWrittenToBLDALPHA = evb << 8 | eva;
+            }
+            break;
+    }
 }
 
 /**
@@ -616,6 +733,6 @@ void unk_55e60(void)
 void unk_55f68(void)
 {
     UpdateAnimatedPaletteAfterTransitionOrReload();
-    ColorFadingTransferPaletteOnTransition(); // Undefined
-    check_play_loading_jingle(); // Undefind
+    ColorFadingTransferPaletteOnTransition();
+    CheckPlayLoadingJingle();
 }

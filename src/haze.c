@@ -270,12 +270,12 @@ void HazeCalculateGradient(void)
         color1 = read16(PALRAM_BASE + 0xE0 + i);
         r1 = RED(color1);
         g1 = GREEN(color1);
-        BLUE(color1, b1);
+        b1 = BLUE(color1);
 
         color2 = read16(PALRAM_BASE + 0xE2 + i);
         r2 = RED(color2) - r1;
         g2 = GREEN(color2) - g1;
-        BLUE(color2, b2); b2 -= b1;
+        b2 = BLUE(color2); b2 -= b1;
 
         j = 0;
 

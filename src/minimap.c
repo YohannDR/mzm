@@ -4,6 +4,8 @@
 
 #include "data/unsorted.h"
 #include "data/shortcut_pointers.h"
+#include "data/menus/pause_screen_data.h"
+#include "data/menus/pause_screen_map_data.h"
 
 #include "constants/connection.h"
 #include "constants/game_state.h"
@@ -14,9 +16,6 @@
 #include "structs/minimap.h"
 #include "structs/samus.h"
 #include "structs/room.h"
-
-extern const u8 sBossIcons[7][5];
-extern const u16 sMapChunksToUpdate[3];
 
 /**
  * @brief 6c154 | 24 | Updates the minimap
@@ -42,14 +41,110 @@ void MinimapSetTileAsExplored(void)
     u32 offset;
     if (!gShipLandingFlag)
     {
-        offset = gCurrentArea * 32 + gMinimapY; 
+        offset = gCurrentArea * MINIMAP_SIZE + gMinimapY; 
         sVisitedMinimapTilesPointer[offset] |= sExploredMinimapBitFlags[gMinimapX];
     }
 }
 
 void MinimapCheckSetAreaNameAsExplored(u8 afterTransition)
 {
+    // https://decomp.me/scratch/lc52R
 
+    u32 set;
+    i32 i;
+    u32 area;
+    u32 xPosition;
+    u32 yPosition;
+    u16* pMap;
+    u32 actualX;
+    u32 actualY;
+    u32* ptr;
+
+    if (gShipLandingFlag)
+        return;
+
+    if (gLastAreaNameVisited.flags == 0)
+        return;
+
+    set = 0;
+    i = 0;
+
+    if (afterTransition == TRUE)
+    {
+        if (gLastAreaNameVisited.flags & 0x80)
+        {
+            i = gLastAreaNameVisited.flags & 0x7F;
+            if (sMinimapAreaNames[i].area1 == gAreaBeforeTransition)
+                set = 1;
+            else if (sMinimapAreaNames[i].area2 == gAreaBeforeTransition)
+                set = 2;
+        }
+    }
+    else
+    {
+        for (i = 0; sMinimapAreaNames[i].area1 != UCHAR_MAX; i++)
+        {
+            if (sMinimapAreaNames[i].area1 == gLastAreaNameVisited.area)
+            {
+                if (gLastAreaNameVisited.mapX == sMinimapAreaNames[i].mapX1 && gLastAreaNameVisited.mapY == sMinimapAreaNames[i].mapY1)
+                    set = 1;
+            }
+            else if (sMinimapAreaNames[i].area2 == gLastAreaNameVisited.area)
+            {
+                if (gLastAreaNameVisited.mapX == sMinimapAreaNames[i].mapX2 && gLastAreaNameVisited.mapY == sMinimapAreaNames[i].mapY2)
+                    set = 2;
+            }
+
+            if (set != 0)
+                break;
+        }
+
+        if (set != 0)
+            gLastAreaNameVisited.flags = i | 0x80;
+    }
+
+    if (set == 1)
+    {
+        area = sMinimapAreaNames[i].area1;
+        xPosition = sMinimapAreaNames[i].mapX1;
+        actualX = xPosition + sMinimapAreaNames[i].xOffset1 - 1;
+        yPosition = sMinimapAreaNames[i].mapY1;
+        actualY = yPosition + sMinimapAreaNames[i].yOffset1 - 1;
+    }
+    else if (set == 2)
+    {
+        area = sMinimapAreaNames[i].area2;
+        xPosition = sMinimapAreaNames[i].mapX2;
+        actualX = xPosition + sMinimapAreaNames[i].xOffset2 - 1;
+        yPosition = sMinimapAreaNames[i].mapY2;
+        actualY = yPosition + sMinimapAreaNames[i].yOffset2 - 1;
+    }
+    else
+    {
+        gLastAreaNameVisited.flags = 0;
+        return;
+    }
+
+    xPosition--;
+    gLastAreaNameVisited.mapX = xPosition;
+    yPosition--;
+    gLastAreaNameVisited.mapY = yPosition;
+
+    pMap = (u16*)0x2034800 + (area * MINIMAP_SIZE + actualX + actualY);
+
+    for (i = 0; i < MINIMAP_SIZE; i++)
+    {
+        if ((pMap[i] & 0x3FF) - 0x141 <= 0x1D)
+        {
+            sVisitedMinimapTilesPointer[area * MINIMAP_SIZE + yPosition] |= sExploredMinimapBitFlags[actualX + i];
+        }
+    }
+
+    if (afterTransition)
+    {
+        sVisitedMinimapTilesPointer[area * MINIMAP_SIZE + gLastAreaNameVisited.mapY] |= sExploredMinimapBitFlags[gLastAreaNameVisited.mapX];
+        gLastAreaNameVisited.flags = 0;
+    }
 }
 
 /**
@@ -62,53 +157,53 @@ void MinimapCheckForUnexploredTile(void)
     u16 samusY;
     u16 clipPosition;
 
-    if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_NONE)
+    if (gUpdateMinimapFlag != MINIMAP_UPDATE_FLAG_NONE)
+        return;
+
+    samusX = gSamusData.xPosition - BLOCK_SIZE * 2;
+    samusY = gSamusData.yPosition - BLOCK_SIZE * 2;
+
+    if (samusX & 0x8000)
+        samusX = 0x0;
+    else
     {
-        samusX = gSamusData.xPosition - BLOCK_SIZE * 2;
-        samusY = gSamusData.yPosition - BLOCK_SIZE * 2;
+        clipPosition = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
+        clipPosition -= BLOCK_SIZE * 4;
 
-        if (samusX & 0x8000)
-            samusX = 0x0;
-        else
-        {
-            clipPosition = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
-            clipPosition -= BLOCK_SIZE * 4;
+        if (gSamusData.xPosition >= clipPosition)
+            samusX = clipPosition - 0x1;
+    }
 
-            if (gSamusData.xPosition >= clipPosition)
-                samusX = clipPosition - 0x1;
-        }
+    if (samusY & 0x8000)
+        samusY = 0x0;
+    else
+    {
+        clipPosition = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
+        clipPosition -= BLOCK_SIZE * 4;
 
-        if (samusY & 0x8000)
-            samusY = 0x0;
-        else
-        {
-            clipPosition = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
-            clipPosition -= BLOCK_SIZE * 4;
+        if (gSamusData.yPosition >= clipPosition)
+            samusY = clipPosition - 0x1;
+    }
 
-            if (gSamusData.yPosition >= clipPosition)
-                samusY = clipPosition - 0x1;
-        }
+    // Convert to block
+    samusX /= BLOCK_SIZE;
+    samusY /= BLOCK_SIZE;
 
-        // Convert to block
-        samusX >>= 0x6;
-        samusY >>= 0x6;
+    samusX /= 15;
+    samusY /= 10;
 
-        samusX /= 0xF;
-        samusY /= 0xA;
+    // Check update X coords
+    if (gMinimapX != samusX + gCurrentRoomEntry.mapX)
+    {
+        gMinimapX = samusX + gCurrentRoomEntry.mapX;
+        gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_LOWER_LINE;
+    }
 
-        // Check update X coords
-        if (gMinimapX != samusX + gCurrentRoomEntry.mapX)
-        {
-            gMinimapX = samusX + gCurrentRoomEntry.mapX;
-            gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_LOWER_LINE;
-        }
-
-        // Check update Y coords
-        if (gMinimapY != samusY + gCurrentRoomEntry.mapY)
-        {
-            gMinimapY = samusY + gCurrentRoomEntry.mapY;
-            gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_LOWER_LINE;
-        }
+    // Check update Y coords
+    if (gMinimapY != samusY + gCurrentRoomEntry.mapY)
+    {
+        gMinimapY = samusY + gCurrentRoomEntry.mapY;
+        gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_LOWER_LINE;
     }
 }
 
@@ -158,36 +253,38 @@ void MinimapCheckOnTransition(void)
     MinimapDraw();
 }
 
+/**
+ * @brief 6c518 | 9c | Updates the minimap for the explored tiles
+ * 
+ */
 void MinimapUpdateForExploredTiles(void)
 {
-    // https://decomp.me/scratch/adSdZ
-
     u32 offset;
     u32 tile;
     u16* map;
     u16* tiles;
 
-    if (!gShipLandingFlag)
-    {
-        offset = gMinimapX + gMinimapY * MINIMAP_SIZE;
-        tiles = gDecompressedMinimapVisitedTiles + offset;
-        
-        if (!(*tiles & 0xF000))
-        {
-            map = gDecompressedMinimapData + offset;
-            if (*map & 0xF000)
-                *tiles = *map;
-            else
-                *tiles = *map | 0x1000;
+    if (gShipLandingFlag)
+        return;
 
-            tile = (*map & 0x3FF) - 0x141;
-            if (tile < 0x4)
-            {
-                gLastAreaNameVisited.flags = TRUE;
-                gLastAreaNameVisited.area = gCurrentArea;
-                gLastAreaNameVisited.mapX = gMinimapX + 0x1;
-                gLastAreaNameVisited.mapY = gMinimapY + 0x1;
-            }
+    offset = gMinimapX + gMinimapY * MINIMAP_SIZE;
+    tiles = (u16*)0x2034000 + offset; // gDecompressedMinimapVisitedTiles
+    
+    if (!(*tiles & 0xF000))
+    {
+        map = (u16*)0x2034800 + offset; // gDecompressedMinimapData
+        if (*map & 0xF000)
+            *tiles = *map;
+        else
+            *tiles = *map | 0x1000;
+
+        tile = (*map & 0x3FF) - 0x141;
+        if (tile < 0x4)
+        {
+            gLastAreaNameVisited.flags = TRUE;
+            gLastAreaNameVisited.area = gCurrentArea;
+            gLastAreaNameVisited.mapX = gMinimapX + 0x1;
+            gLastAreaNameVisited.mapY = gMinimapY + 0x1;
         }
     }
 }
@@ -203,24 +300,24 @@ void MinimapDraw(void)
     u32 limit;
     u32* dst;
     u16 rawTile;
-    u8 flag;
     u16 tile;
     u8 palette;
     u32 flip;
     u16* src;
+    u32 offset;
+    u32 mask;
 
     if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_NONE)
         return;
     
-    src = gDecompressedMinimapVisitedTiles;
-    flag = gUpdateMinimapFlag;
-    dst = gMinimapTilesGFX + (flag - 1) * 24;
+    src = (u16*)0x2034000;
+    dst = (u32*)0x2037e20 + (gUpdateMinimapFlag - 1) * 24;
 
-    if (flag == MINIMAP_UPDATE_FLAG_LOWER_LINE)
+    if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_LOWER_LINE)
         yOffset = 0x1;
-    else if (flag == MINIMAP_UPDATE_FLAG_MIDDLE_LINE)
+    else if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_MIDDLE_LINE)
         yOffset = 0x0;
-    else if (flag == MINIMAP_UPDATE_FLAG_UPPER_LINE)
+    else if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_UPPER_LINE)
         yOffset = -0x1;
     else
     {
@@ -245,10 +342,10 @@ void MinimapDraw(void)
             yPosition = limit;
         }
 
-        rawTile = src[yPosition * MINIMAP_SIZE + xPosition];
-        flip = (rawTile & 0xC00) >> 0xA;
-        palette = rawTile >> 0xC;
-        tile = rawTile & 0x3ff;
+        offset = yPosition * MINIMAP_SIZE + xPosition;
+        flip = (src[offset] & 0xC00) >> 0xA;
+        palette = src[offset] >> 0xC;
+        tile = src[offset] & 0x3ff;
         
         if (gLanguage == LANGUAGE_HIRAGANA && tile > 0x140)
             tile += 0x20;
@@ -261,75 +358,269 @@ void MinimapDraw(void)
     }
 }
 
+/**
+ * @brief 6c6b4 | d8 | Copies the graphics of a map tile
+ * 
+ * @param dst Destination pointer
+ * @param pTile Tile pointer
+ * @param palette Palette
+ */
 void MinimapCopyTileGFX(u32* dst, u16* pTile, u8 palette)
 {
+    i32 i;
+    u32 value;
+    u32 tile;
 
+    for (i = 0; i < 8; i++)
+    {
+        tile = sMinimapTilesGfx[*pTile];
+        value = (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]);
+        (*pTile)++;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]) << 8;
+        (*pTile)++;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]) << 16;
+        (*pTile)++;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]) << 24;
+        (*pTile)++;
+
+        *dst++ = value;
+    }
 }
 
+/**
+ * @brief 6c78c | ec | Copies the graphics of a map tile (X flipped)
+ * 
+ * @param dst Destination pointer
+ * @param pTile Tile pointer
+ * @param palette Palette
+ */
 void MinimapCopyTileXFlippedGFX(u32* dst, u16* pTile, u8 palette)
 {
+    i32 i;
+    u32 value;
+    u32 tile;
 
+    for (i = 0; i < 8; i++)
+    {
+        *pTile += 3;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value = (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]);
+        (*pTile)--;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 8;
+        (*pTile)--;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 16;
+        (*pTile)--;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 24;
+
+        *dst++ = value;
+        
+        *pTile += 4;
+    }
 }
 
+/**
+ * @brief 6c878 | dc | Copies the graphics of a map tile (Y flipped)
+ * 
+ * @param dst Destination pointer
+ * @param pTile Tile pointer
+ * @param palette Palette
+ */
 void MinimapCopyTileYFlippedGFX(u32* dst, u16* pTile, u8 palette)
 {
+    i32 i;
+    u32 value;
+    u32 tile;
+    
+    *pTile += 28;
+    
+    for (i = 0; i < 8; i++)
+    {
+        tile = sMinimapTilesGfx[*pTile];
+        value = (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]);
+        (*pTile)++;
 
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]) << 8;
+        (*pTile)++;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]) << 16;
+        (*pTile)++;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile / 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile % 16) + (palette << 4)]) << 24;
+
+        *dst++ = value;
+        *pTile -= 7;
+    }
 }
 
+/**
+ * @brief 6c954 | f0 | Copies the graphics of a map tile (X/Y flipped)
+ * 
+ * @param dst Destination pointer
+ * @param pTile Tile pointer
+ * @param palette Palette
+ */
 void MinimapCopyTileXYFlippedGFX(u32* dst, u16* pTile, u8 palette)
 {
+    i32 i;
+    u32 value;
+    u32 tile;
 
+    // Macro
+    do{
+        *pTile += 31;
+    }while(0);
+    
+    for (i = 0; i < 8; i++)
+    {
+        tile = sMinimapTilesGfx[*pTile];
+        value = (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]);
+        (*pTile)--;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 8;
+        (*pTile)--;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 16;
+        (*pTile)--;
+
+        tile = sMinimapTilesGfx[*pTile];
+        value |= (sPauseScreen_40d74c[(tile % 16) + (palette << 4)] |
+            sPauseScreen_40d6fc[(tile / 16) + (palette << 4)]) << 24;
+        (*pTile)--;
+
+        *dst++ = value;
+        
+    }
 }
 
+/**
+ * @brief 6ca44 | 6c | Updates the tiles of a minimap with obtained items
+ * 
+ * @param area Area
+ * @param dst Destination pointer
+ */
 void MinimapSetTilesWithObtainedItems(u8 area, u16* dst)
 {
-    // https://decomp.me/scratch/Eree5
-
     u32* src;
-    u32* src2;
-    u16* pDecomp;
     u32 tile;
-    u32 tempTile;
     i32 i;
     i32 j;
-    u32 temp;
 
     if (area >= MAX_AMOUNT_OF_AREAS)
         return;
 
-    src = gMinimapTilesWithObtainedItems + area * MINIMAP_SIZE;
+    // 0x2033800 = gMinimapTilesWithObtainedItems
+    src = (u32*)(0x2033800 + area * 512 / 4);
 
-    for (i = 0; i < MINIMAP_SIZE;)
+    for (i = 0; i < MINIMAP_SIZE; i++, src++)
     {
-        tile = *src++;
-        temp = i + 1;
-        src2 = src;
-        if (tile)
+        if (!*src)
+            continue;
+        
+        tile = *src;
+        for (j = 0; j < MINIMAP_SIZE && tile; j++)
         {
-            tempTile = tile;
-            for (j = 0; j < MINIMAP_SIZE && tempTile; j++)
+            if (tile & sExploredMinimapBitFlags[j])
             {
-                if (tempTile & sExploredMinimapBitFlags[j])
-                {
-                    tempTile ^= sExploredMinimapBitFlags[j];
-                    dst[i * MINIMAP_SIZE + j]++;
-                }
+                tile ^= sExploredMinimapBitFlags[j];
+                dst[i * MINIMAP_SIZE + j]++;
             }
         }
-        i = temp;
-        src = src2;
     }
 }
 
 void MinimapSetDownloadedTiles(u8 area, u16* dst)
 {
+    // https://decomp.me/scratch/oSyZP
 
+    u32* pVisited;
+    i32 i;
+    i32 j;
+
+    pVisited = &sVisitedMinimapTilesPointer[area * MINIMAP_SIZE];
+
+    if ((gEquipment.downloadedMapStatus >> area) & 1 || (u8)(area - MAX_AMOUNT_OF_AREAS) <= 2)
+    {
+        for (i = 0; i < MINIMAP_SIZE; i++, pVisited++)
+        {
+            for (j = 0; j < MINIMAP_SIZE; j++, dst++)
+            {
+                if (sExploredMinimapBitFlags[j] & *pVisited)
+                {
+                    if (!(*dst & 0xF000))
+                        *dst |= 0x1000;
+                }
+                else if (*dst >= 0x3000)
+                {
+                    *dst = 0x140;
+                }
+                else if (*dst & 0x3000)
+                {
+                    *dst &= 0xFFF;
+                }
+            }
+        }
+    }
+    else
+    {
+        for (i = 0; i < MINIMAP_SIZE; i++, pVisited++)
+        {
+            for (j = 0; j < MINIMAP_SIZE; j++, dst++)
+            {
+                if (sExploredMinimapBitFlags[j] & *pVisited)
+                {
+                    if (!(*dst & 0xF000))
+                        *dst |= 0x1000;
+                }
+                else if (*dst & 0xF000)
+                {
+                    *dst = 0x140;
+                }
+            }
+        }
+    }
 }
 
+/**
+ * @brief 6cbd8 | 90 | Updates the minimap for a collected item
+ * 
+ * @param xPosition X position
+ * @param yPosition Y position
+ */
 void MinimapUpdateForCollectedItem(u8 xPosition, u8 yPosition)
 {
-    // https://decomp.me/scratch/pFd7R
-
     u32 itemX;
     u32 itemY;
     u32 offset;
@@ -339,18 +630,18 @@ void MinimapUpdateForCollectedItem(u8 xPosition, u8 yPosition)
 
     if (gCurrentArea < MAX_AMOUNT_OF_AREAS)
     {
-        itemX = (xPosition - 0x2) / 0xF + gCurrentRoomEntry.mapX;
-        itemY = (yPosition - 0x2) / 0xA + gCurrentRoomEntry.mapY;
+        itemX = (xPosition - 2) / 15 + gCurrentRoomEntry.mapX;
+        itemY = (yPosition - 2) / 10 + gCurrentRoomEntry.mapY;
 
         offset = gCurrentArea * MINIMAP_SIZE;
-        ptr = gMinimapTilesWithObtainedItems + offset;
+        ptr = (u32*)(0x2033800) + offset; // gMinimapTilesWithObtainedItems
         ptr[itemY] |= sExploredMinimapBitFlags[itemX];
 
         
         itemX += itemY * MINIMAP_SIZE;
-        ptrU = gDecompressedMinimapVisitedTiles + itemX;
-        (*ptrU)++;
-        ptrU = gDecompressedMinimapData;
+        ptrU = (u16*)0x2034000; // gDecompressedMinimapVisitedTiles
+        ptrU[itemX]++;
+        ptrU = (u16*)0x2034800; // gDecompressedMinimapData
         ptrU[itemX]++;
 
         gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_LOWER_LINE;
@@ -391,14 +682,17 @@ void MinimapLoadTilesWithObtainedItems(void)
 
 }
 
+/**
+ * @brief 6cd84 | 174 | Updates a minimap chunk/boss icon
+ * 
+ * @param event Event linked
+ */
 void MinimapUpdateChunk(u8 event)
 {
-    // https://decomp.me/scratch/J8b8P
-
     i32 i;
     u16* pMinimap;
     u16* pVisited;
-    register u16* pMinimapLower asm("r2");
+    u16* pMinimapLower;
     u16* pVisitedLower;
     u16* ptr;
     u32 mask;
@@ -409,7 +703,7 @@ void MinimapUpdateChunk(u8 event)
             break;
     }
 
-    if (i >= 7)//ARRAY_SIZE(sBossIcons))
+    if (i >= (int)ARRAY_SIZE(sBossIcons))
         return;
 
     if (i != gCurrentArea)
@@ -417,8 +711,8 @@ void MinimapUpdateChunk(u8 event)
 
     i = sBossIcons[i][3] * MINIMAP_SIZE + sBossIcons[i][2];
 
-    pMinimap = &gDecompressedMinimapData[i];
-    pVisited = &gDecompressedMinimapVisitedTiles[i];
+    pMinimap = (u16*)0x2034800 + i;
+    pVisited = (u16*)0x2034000 + i;
 
     if (gCurrentArea == AREA_CRATERIA)
     {

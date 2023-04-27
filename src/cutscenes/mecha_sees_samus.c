@@ -32,7 +32,7 @@ u8 MechaRidleySeesSamusEyeOpen(void)
             break;
 
         case 2:
-            if (!CUTSCENE_DATA.oam[0].idChanged)
+            if (!CUTSCENE_DATA.oam[0].exists)
             {
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -88,7 +88,7 @@ u8 MechaRidleySeesSamusInit(void)
 
     unk_61f0c();
     DMATransfer(3, sMechaSeesSamusPAL, PALRAM_BASE, sizeof(sMechaSeesSamusPAL), 0x10);
-    DMATransfer(3, PALRAM_BASE, PALRAM_BASE + 0x200, 0x200, 0x20);
+    DMATransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
 
     write16(PALRAM_BASE, 0);
 
@@ -113,7 +113,7 @@ u8 MechaRidleySeesSamusInit(void)
     CUTSCENE_DATA.oam[1].priority = priority + 1;
     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], 3);
 
-    unk_61fa0(2);
+    CutsceneStartBackgroundFading(2);
 
     CUTSCENE_DATA.dispcnt = bg | DCNT_OBJ;
     CUTSCENE_DATA.timeInfo.timer = 0;
@@ -146,6 +146,6 @@ u8 MechaRidleySeesSamusSubroutine(void)
 void MechaRidleySeesSamusProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sMechaSeesSamusSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMechaSeesSamusCutsceneOAM); // Undefined
+    ProcessCutsceneOam(sMechaSeesSamusSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMechaSeesSamusCutsceneOAM); // Undefined
     ResetFreeOAM();
 }

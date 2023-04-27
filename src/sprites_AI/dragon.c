@@ -1,11 +1,15 @@
 #include "sprites_AI/dragon.h"
+
 #include "data/sprites/dragon.h"
 #include "data/sprite_data.h"
+
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/display.h"
+#include "structs/samus.h"
 #include "structs/sprite.h"
 
 /**
@@ -70,11 +74,13 @@ void DragonIdleInit(void)
     gCurrentSprite.timer = 0x64;
 }
 
+/**
+ * @brief 20650 | d0 | Handles the dragon going up
+ * 
+ */
 void DragonGoUp(void)
 {
-    // https://decomp.me/scratch/5xAh9
-
-    /*u8 nslr;
+    u8 nslr;
     u16 xPosition;
     u16 yPosition;
 
@@ -93,39 +99,40 @@ void DragonGoUp(void)
 
     if (nslr == NSLR_RIGHT)
     {
-        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        if (!(gCurrentSprite.status & SPRITE_STATUS_XFLIP))
         {
-            if (gCurrentSprite.timer == 0x0)
-            {
-                yPosition = gCurrentSprite.yPosition - 0x88;
-                xPosition = gCurrentSprite.xPosition + 0x48;
-
-                SpriteUtilCheckCollisionAtPosition(yPosition, xPosition);
-                if (gPreviousCollisionCheck == COLLISION_AIR)
-                    gCurrentSprite.pose = DRAGON_POSE_WARNING_INIT;
-            }
-        }
-        else
             gCurrentSprite.pose = DRAGON_POSE_TURN_AROUND_INIT;
+            return;
+        }
     }
     else if (nslr == NSLR_LEFT)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-            gCurrentSprite.pose = DRAGON_POSE_TURN_AROUND_INIT;
-        else
         {
-            if (gCurrentSprite.timer == 0x0)
-            {
-                yPosition = gCurrentSprite.yPosition - 0x88;
-                xPosition = gCurrentSprite.xPosition - 0x48;
-
-                SpriteUtilCheckCollisionAtPosition(yPosition, xPosition);
-                if (gPreviousCollisionCheck == COLLISION_AIR)
-                    gCurrentSprite.pose = DRAGON_POSE_WARNING_INIT;
-            }
+            gCurrentSprite.pose = DRAGON_POSE_TURN_AROUND_INIT;
+            return;
         }
-    }*/
+    }
+    else
+    {
+        return;
+    }
+
+    if (gCurrentSprite.timer == 0x0)
+    {
+        yPosition = gCurrentSprite.yPosition - 0x88;
+
+        if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            xPosition = gCurrentSprite.xPosition + 0x48;
+        else
+            xPosition = gCurrentSprite.xPosition - 0x48;
+
+        SpriteUtilCheckCollisionAtPosition(yPosition, xPosition);
+        if (gPreviousCollisionCheck == COLLISION_AIR)
+            gCurrentSprite.pose = DRAGON_POSE_WARNING_INIT;
+    }
 }
+
 
 /**
  * @brief 20720 | 20 | Initializes a dragon to be turning around
@@ -163,7 +170,7 @@ void DragonCheckTurningAroundFirstHalfAnimEnded(void)
 void DragonCheckTurningAroundSecondHalfAnimEnded(void)
 {
     DragonYMovement();
-    if (SpriteUtilCheckEndCurrentSpriteAnim())
+    if (SpriteUtilCheckNearEndCurrentSpriteAnim())
         gCurrentSprite.pose = DRAGON_POSE_WARNING_INIT;
 }
 
@@ -261,15 +268,18 @@ void DragonFireballInit(void)
     SoundPlay(0x14C);
 }
 
+/**
+ * @brief 20954 | d8 | Handles the movement of a dragon fireball
+ * 
+ */
 void DragonFireballMove(void)
 {
-    // https://decomp.me/scratch/x48fr
-
-    /*u16 oldY;
+    u16 oldY;
     u8 offset;
     i32 yMovement;
     i32 xMovement;
     i32 rotation;
+    i32 newVel;
 
     xMovement = 0xC;
     oldY = gCurrentSprite.yPosition;
@@ -280,9 +290,9 @@ void DragonFireballMove(void)
 
     if (yMovement == SHORT_MAX)
     {
-        yMovement = sDragonFireballYMovement[offset - 1];
+        newVel = sDragonFireballYMovement[offset - 1];
         rotation = sDragonFireballOAMRotation[offset - 1];
-        gCurrentSprite.yPosition += yMovement;
+        gCurrentSprite.yPosition += newVel;
     }
     else
     {
@@ -308,7 +318,7 @@ void DragonFireballMove(void)
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck & 0xF0)
             gCurrentSprite.pose = DRAGON_FIREBALL_POSE_EXPLODING_INIT;
-    }*/
+    }
 }
 
 /**

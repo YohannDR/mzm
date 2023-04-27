@@ -95,7 +95,7 @@ struct HatchFlashingAnimation {
 #define MAX_AMOUNT_OF_HATCH_TYPES 8
 #define MAX_AMOUNT_OF_EVENT_BASED_CONNECTIONS 41
 
-extern u32 gHatchesOpened[MAX_AMOUNT_OF_AREAS][8];
+extern u32 gHatchesOpened[MAX_AMOUNT_OF_AREAS][16];
 
 extern u8 gWhichBGPositionIsWrittenToBG3OFS;
 extern struct RawCoordsX gDoorPositionStart;

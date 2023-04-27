@@ -11,7 +11,7 @@ MetroidCheckAirCollision: @ 0x08035360
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
     movs r7, #0
-    ldr r0, lbl_0803539c @ =0x03001588
+    ldr r0, lbl_0803539c @ =gSamusPhysics
     adds r0, #0x4e
     ldrb r0, [r0]
     cmp r0, #2
@@ -22,7 +22,7 @@ MetroidCheckAirCollision: @ 0x08035360
     adds r5, #0x3c
     adds r1, r5, #0
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r6, lbl_080353a0 @ =0x030007f1
+    ldr r6, lbl_080353a0 @ =gPreviousCollisionCheck
     ldrb r0, [r6]
     cmp r0, #0
     bne lbl_080353ce
@@ -33,8 +33,8 @@ MetroidCheckAirCollision: @ 0x08035360
     ldrb r0, [r6]
     b lbl_080353ca
     .align 2, 0
-lbl_0803539c: .4byte 0x03001588
-lbl_080353a0: .4byte 0x030007f1
+lbl_0803539c: .4byte gSamusPhysics
+lbl_080353a0: .4byte gPreviousCollisionCheck
 lbl_080353a4:
     cmp r0, #1
     bne lbl_080353d0
@@ -44,7 +44,7 @@ lbl_080353a4:
     subs r4, #0x3c
     adds r1, r4, #0
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r5, lbl_080353d8 @ =0x030007f1
+    ldr r5, lbl_080353d8 @ =gPreviousCollisionCheck
     ldrb r0, [r5]
     cmp r0, #0
     bne lbl_080353ce
@@ -64,7 +64,7 @@ lbl_080353d0:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_080353d8: .4byte 0x030007f1
+lbl_080353d8: .4byte gPreviousCollisionCheck
 
     thumb_func_start MetroidMove
 MetroidMove: @ 0x080353dc
@@ -93,7 +93,7 @@ MetroidMove: @ 0x080353dc
     movs r0, #0
     str r0, [sp, #0x10]
     mov sl, r0
-    ldr r0, lbl_08035454 @ =0x03000738
+    ldr r0, lbl_08035454 @ =gCurrentSprite
     ldrh r6, [r0, #2]
     ldrh r7, [r0, #4]
     ldrh r1, [r0]
@@ -109,7 +109,7 @@ MetroidMove: @ 0x080353dc
     adds r0, r4, #0
     adds r1, r5, #0
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r1, lbl_08035458 @ =0x030007f1
+    ldr r1, lbl_08035458 @ =gPreviousCollisionCheck
     mov r8, r1
     ldrb r0, [r1]
     cmp r0, #0
@@ -127,8 +127,8 @@ lbl_0803544c:
     str r3, [sp, #0x10]
     b lbl_08035496
     .align 2, 0
-lbl_08035454: .4byte 0x03000738
-lbl_08035458: .4byte 0x030007f1
+lbl_08035454: .4byte gCurrentSprite
+lbl_08035458: .4byte gPreviousCollisionCheck
 lbl_0803545c:
     adds r4, r6, #0
     subs r4, #0x30
@@ -137,7 +137,7 @@ lbl_0803545c:
     adds r0, r4, #0
     adds r1, r5, #0
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_0803547c @ =0x030007f1
+    ldr r0, lbl_0803547c @ =gPreviousCollisionCheck
     mov r8, r0
     ldrb r0, [r0]
     cmp r0, #0
@@ -146,7 +146,7 @@ lbl_0803545c:
     str r1, [sp, #0x10]
     b lbl_08035496
     .align 2, 0
-lbl_0803547c: .4byte 0x030007f1
+lbl_0803547c: .4byte gPreviousCollisionCheck
 lbl_08035480:
     adds r0, r6, #0
     adds r0, #0x10
@@ -159,7 +159,7 @@ lbl_08035480:
     movs r0, #1
     str r0, [sp, #0x10]
 lbl_08035496:
-    ldr r0, lbl_08035514 @ =0x03000738
+    ldr r0, lbl_08035514 @ =gCurrentSprite
     ldrh r1, [r0]
     movs r0, #0x80
     lsls r0, r0, #3
@@ -173,7 +173,7 @@ lbl_080354a8:
     subs r1, #0x20
     adds r0, r4, #0
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r5, lbl_08035518 @ =0x030007f1
+    ldr r5, lbl_08035518 @ =gPreviousCollisionCheck
     ldrb r0, [r5]
     cmp r0, #0
     bne lbl_080354ca
@@ -192,7 +192,7 @@ lbl_080354ca:
     mov sl, r0
 lbl_080354d4:
     movs r5, #0
-    ldr r2, lbl_08035514 @ =0x03000738
+    ldr r2, lbl_08035514 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -224,10 +224,10 @@ lbl_0803550e:
     ldrb r0, [r1]
     b lbl_08035532
     .align 2, 0
-lbl_08035514: .4byte 0x03000738
-lbl_08035518: .4byte 0x030007f1
+lbl_08035514: .4byte gCurrentSprite
+lbl_08035518: .4byte gPreviousCollisionCheck
 lbl_0803551c:
-    ldr r0, lbl_08035540 @ =0x03000c77
+    ldr r0, lbl_08035540 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -247,7 +247,7 @@ lbl_08035532:
     strh r0, [r2, #4]
     b lbl_080355b2
     .align 2, 0
-lbl_08035540: .4byte 0x03000c77
+lbl_08035540: .4byte gFrameCounter8Bit
 lbl_08035544:
     movs r5, #2
     b lbl_080355b6
@@ -286,7 +286,7 @@ lbl_0803557c:
     asrs r1, r0
     b lbl_080355a0
 lbl_08035584:
-    ldr r0, lbl_080355a8 @ =0x03000c77
+    ldr r0, lbl_080355a8 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -307,7 +307,7 @@ lbl_080355a0:
     strh r0, [r2, #4]
     b lbl_080355b2
     .align 2, 0
-lbl_080355a8: .4byte 0x03000c77
+lbl_080355a8: .4byte gFrameCounter8Bit
 lbl_080355ac:
     movs r5, #1
     b lbl_080355b6
@@ -371,7 +371,7 @@ lbl_08035614:
     ldrb r0, [r1]
     b lbl_0803562e
 lbl_08035618:
-    ldr r0, lbl_0803563c @ =0x03000c77
+    ldr r0, lbl_0803563c @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -391,7 +391,7 @@ lbl_0803562e:
     strh r0, [r2, #2]
     b lbl_080356ae
     .align 2, 0
-lbl_0803563c: .4byte 0x03000c77
+lbl_0803563c: .4byte gFrameCounter8Bit
 lbl_08035640:
     movs r5, #2
     b lbl_080356b2
@@ -430,7 +430,7 @@ lbl_08035678:
     asrs r1, r0
     b lbl_0803569c
 lbl_08035680:
-    ldr r0, lbl_080356a4 @ =0x03000c77
+    ldr r0, lbl_080356a4 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -451,7 +451,7 @@ lbl_0803569c:
     strh r0, [r2, #2]
     b lbl_080356ae
     .align 2, 0
-lbl_080356a4: .4byte 0x03000c77
+lbl_080356a4: .4byte gFrameCounter8Bit
 lbl_080356a8:
     movs r5, #1
     b lbl_080356b2
@@ -500,7 +500,7 @@ MetroidBombDetection: @ 0x080356e8
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0x14
-    ldr r2, lbl_08035780 @ =0x03000738
+    ldr r2, lbl_08035780 @ =gCurrentSprite
     ldrh r1, [r2, #2]
     ldrh r3, [r2, #4]
     ldrh r0, [r2, #0xa]
@@ -529,7 +529,7 @@ lbl_08035726:
     lsls r0, r6, #3
     subs r0, r0, r6
     lsls r0, r0, #2
-    ldr r1, lbl_08035784 @ =0x03000a2c
+    ldr r1, lbl_08035784 @ =gProjectileData
     adds r5, r0, r1
     ldrb r0, [r5, #0xf]
     cmp r0, #0xe
@@ -570,8 +570,8 @@ lbl_08035726:
     movs r0, #1
     b lbl_08035794
     .align 2, 0
-lbl_08035780: .4byte 0x03000738
-lbl_08035784: .4byte 0x03000a2c
+lbl_08035780: .4byte gCurrentSprite
+lbl_08035784: .4byte gProjectileData
 lbl_08035788:
     adds r0, r6, #1
     lsls r0, r0, #0x18
@@ -600,7 +600,7 @@ MetroidCheckBouncingOnMetroid: @ 0x080357a4
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     mov r8, r0
-    ldr r1, lbl_080357ec @ =0x03000738
+    ldr r1, lbl_080357ec @ =gCurrentSprite
     ldrh r0, [r1, #2]
     subs r0, #0x10
     lsls r0, r0, #0x10
@@ -628,7 +628,7 @@ MetroidCheckBouncingOnMetroid: @ 0x080357a4
     lsrs r5, r0, #0x18
     b lbl_080357f2
     .align 2, 0
-lbl_080357ec: .4byte 0x03000738
+lbl_080357ec: .4byte gCurrentSprite
 lbl_080357f0:
     movs r5, #0
 lbl_080357f2:
@@ -643,7 +643,7 @@ lbl_080357fe:
     lsls r0, r5, #3
     subs r1, r0, r5
     lsls r1, r1, #3
-    ldr r2, lbl_08035890 @ =0x030001ac
+    ldr r2, lbl_08035890 @ =gSpriteData
     adds r4, r1, r2
     ldrh r1, [r4]
     movs r2, #1
@@ -716,7 +716,7 @@ lbl_0803583a:
     ands r0, r1
     b lbl_080358b6
     .align 2, 0
-lbl_08035890: .4byte 0x030001ac
+lbl_08035890: .4byte gSpriteData
 lbl_08035894: .4byte 0x0000fbff
 lbl_08035898:
     ldrh r0, [r4, #2]
@@ -749,7 +749,7 @@ lbl_080358c6:
     mov r1, sl
     subs r0, r1, r5
     lsls r0, r0, #3
-    ldr r2, lbl_080358f8 @ =0x030001ac
+    ldr r2, lbl_080358f8 @ =gSpriteData
     adds r4, r0, r2
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
@@ -767,13 +767,13 @@ lbl_080358c6:
     ands r0, r1
     b lbl_08035928
     .align 2, 0
-lbl_080358f8: .4byte 0x030001ac
+lbl_080358f8: .4byte gSpriteData
 lbl_080358fc: .4byte 0x0000fdff
 lbl_08035900:
     mov r1, sl
     subs r0, r1, r5
     lsls r0, r0, #3
-    ldr r2, lbl_0803593c @ =0x030001ac
+    ldr r2, lbl_0803593c @ =gSpriteData
     adds r4, r0, r2
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
@@ -800,7 +800,7 @@ lbl_08035928:
     strb r2, [r0]
     b lbl_0803594c
     .align 2, 0
-lbl_0803593c: .4byte 0x030001ac
+lbl_0803593c: .4byte gSpriteData
 lbl_08035940:
     adds r0, r5, #1
     lsls r0, r0, #0x18
@@ -822,7 +822,7 @@ lbl_0803594c:
 MetroidCheckSamusGrabbed: @ 0x0803595c
     push {r4, lr}
     movs r3, #0
-    ldr r4, lbl_0803598c @ =0x030001ac
+    ldr r4, lbl_0803598c @ =gSpriteData
 lbl_08035962:
     lsls r0, r3, #3
     subs r0, r0, r3
@@ -846,7 +846,7 @@ lbl_08035962:
     movs r0, #1
     b lbl_0803599c
     .align 2, 0
-lbl_0803598c: .4byte 0x030001ac
+lbl_0803598c: .4byte gSpriteData
 lbl_08035990:
     adds r0, r3, #1
     lsls r0, r0, #0x18
@@ -863,7 +863,7 @@ lbl_0803599c:
     thumb_func_start sub_080359a4
 sub_080359a4: @ 0x080359a4
     push {lr}
-    ldr r1, lbl_080359cc @ =0x03000738
+    ldr r1, lbl_080359cc @ =gCurrentSprite
     ldrh r0, [r1, #0x16]
     cmp r0, #0
     bne lbl_080359c6
@@ -882,14 +882,14 @@ lbl_080359c6:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080359cc: .4byte 0x03000738
+lbl_080359cc: .4byte gCurrentSprite
 
     thumb_func_start MetroidInit
 MetroidInit: @ 0x080359d0
     push {r4, r5, r6, lr}
     sub sp, #0xc
     movs r4, #0
-    ldr r0, lbl_080359ec @ =0x03000055
+    ldr r0, lbl_080359ec @ =gCurrentRoom
     ldrb r0, [r0]
     subs r0, #1
     cmp r0, #0x12
@@ -900,7 +900,7 @@ MetroidInit: @ 0x080359d0
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_080359ec: .4byte 0x03000055
+lbl_080359ec: .4byte gCurrentRoom
 lbl_080359f0: .4byte lbl_080359f4
 lbl_080359f4: @ jump table
     .4byte lbl_08035a46 @ case 0
@@ -958,18 +958,18 @@ lbl_08035a72:
 lbl_08035a74:
     cmp r4, #0
     bne lbl_08035a84
-    ldr r0, lbl_08035a80 @ =0x03000738
+    ldr r0, lbl_08035a80 @ =gCurrentSprite
     strh r4, [r0]
     b lbl_08035b38
     .align 2, 0
-lbl_08035a80: .4byte 0x03000738
+lbl_08035a80: .4byte gCurrentSprite
 lbl_08035a84:
     cmp r4, #1
     bne lbl_08035a8c
-    ldr r0, lbl_08035b40 @ =0x0300007b
+    ldr r0, lbl_08035b40 @ =gDoorUnlockTimer
     strb r4, [r0]
 lbl_08035a8c:
-    ldr r5, lbl_08035b44 @ =0x03000738
+    ldr r5, lbl_08035b44 @ =gCurrentSprite
     ldrh r1, [r5]
     movs r0, #0x20
     movs r6, #0
@@ -1060,8 +1060,8 @@ lbl_08035b38:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08035b40: .4byte 0x0300007b
-lbl_08035b44: .4byte 0x03000738
+lbl_08035b40: .4byte gDoorUnlockTimer
+lbl_08035b44: .4byte gCurrentSprite
 lbl_08035b48: .4byte 0x0000ffd8
 lbl_08035b4c: .4byte 0x082edd20
 lbl_08035b50: .4byte 0x082b0d68
@@ -1069,7 +1069,7 @@ lbl_08035b50: .4byte 0x082b0d68
     thumb_func_start metroid_gfx_init
 metroid_gfx_init: @ 0x08035b54
     push {lr}
-    ldr r2, lbl_08035b90 @ =0x03000738
+    ldr r2, lbl_08035b90 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #2
     ands r0, r1
@@ -1089,7 +1089,7 @@ metroid_gfx_init: @ 0x08035b54
     adds r1, #0x29
     movs r0, #0x14
     strb r0, [r1]
-    ldr r0, lbl_08035b94 @ =0x0300083c
+    ldr r0, lbl_08035b94 @ =gSpriteRNG
     ldrb r0, [r0]
     lsls r0, r0, #2
     adds r0, #1
@@ -1099,13 +1099,13 @@ lbl_08035b8a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08035b90: .4byte 0x03000738
-lbl_08035b94: .4byte 0x0300083c
+lbl_08035b90: .4byte gCurrentSprite
+lbl_08035b94: .4byte gSpriteRNG
 
     thumb_func_start MetroidSpawning
 MetroidSpawning: @ 0x08035b98
     push {r4, r5, r6, r7, lr}
-    ldr r3, lbl_08035c00 @ =0x03000738
+    ldr r3, lbl_08035c00 @ =gCurrentSprite
     movs r0, #0x2f
     adds r0, r0, r3
     mov ip, r0
@@ -1159,7 +1159,7 @@ lbl_08035be4:
     subs r0, #1
     b lbl_08035c62
     .align 2, 0
-lbl_08035c00: .4byte 0x03000738
+lbl_08035c00: .4byte gCurrentSprite
 lbl_08035c04: .4byte 0x082ecb60
 lbl_08035c08: .4byte 0x00007fff
 lbl_08035c0c: .4byte 0x082ecbe2
@@ -1219,7 +1219,7 @@ lbl_08035c70: .4byte 0x082edc20
 
     thumb_func_start MetroidMovingInit
 MetroidMovingInit: @ 0x08035c74
-    ldr r3, lbl_08035ca0 @ =0x03000738
+    ldr r3, lbl_08035ca0 @ =gCurrentSprite
     adds r1, r3, #0
     adds r1, #0x24
     movs r2, #0
@@ -1241,7 +1241,7 @@ MetroidMovingInit: @ 0x08035c74
     strh r2, [r3, #0x16]
     bx lr
     .align 2, 0
-lbl_08035ca0: .4byte 0x03000738
+lbl_08035ca0: .4byte gCurrentSprite
 lbl_08035ca4: .4byte 0x082edc20
 
     thumb_func_start MetroidMovement
@@ -1249,7 +1249,7 @@ MetroidMovement: @ 0x08035ca8
     push {r4, lr}
     sub sp, #4
     bl sub_080359a4
-    ldr r4, lbl_08035cd4 @ =0x03000738
+    ldr r4, lbl_08035cd4 @ =gCurrentSprite
     ldrh r1, [r4]
     movs r0, #0x80
     lsls r0, r0, #4
@@ -1266,7 +1266,7 @@ MetroidMovement: @ 0x08035ca8
     strh r0, [r4]
     b lbl_08035cf2
     .align 2, 0
-lbl_08035cd4: .4byte 0x03000738
+lbl_08035cd4: .4byte gCurrentSprite
 lbl_08035cd8: .4byte 0x0000f7ff
 lbl_08035cdc:
     adds r1, r4, #0
@@ -1283,8 +1283,8 @@ lbl_08035cdc:
 lbl_08035cf2:
     movs r0, #1
     bl MetroidCheckBouncingOnMetroid
-    ldr r1, lbl_08035d20 @ =0x030013d4
-    ldr r0, lbl_08035d24 @ =0x03001588
+    ldr r1, lbl_08035d20 @ =gSamusData
+    ldr r0, lbl_08035d24 @ =gSamusPhysics
     adds r0, #0x70
     ldrh r0, [r0]
     ldrh r2, [r1, #0x14]
@@ -1303,12 +1303,12 @@ lbl_08035d16:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08035d20: .4byte 0x030013d4
-lbl_08035d24: .4byte 0x03001588
+lbl_08035d20: .4byte gSamusData
+lbl_08035d24: .4byte gSamusPhysics
 
     thumb_func_start MetroidSamusGrabbedInit
 MetroidSamusGrabbedInit: @ 0x08035d28
-    ldr r0, lbl_08035d60 @ =0x03000738
+    ldr r0, lbl_08035d60 @ =gCurrentSprite
     mov ip, r0
     mov r1, ip
     adds r1, #0x24
@@ -1331,14 +1331,14 @@ MetroidSamusGrabbedInit: @ 0x08035d28
     mov r0, ip
     adds r0, #0x2a
     strb r3, [r0]
-    ldr r1, lbl_08035d68 @ =0x03001530
+    ldr r1, lbl_08035d68 @ =gEquipment
     movs r0, #1
     strb r0, [r1, #0x13]
     bx lr
     .align 2, 0
-lbl_08035d60: .4byte 0x03000738
+lbl_08035d60: .4byte gCurrentSprite
 lbl_08035d64: .4byte 0x082edca8
-lbl_08035d68: .4byte 0x03001530
+lbl_08035d68: .4byte gEquipment
 
     thumb_func_start MetroidSamusGrabbed
 MetroidSamusGrabbed: @ 0x08035d6c
@@ -1346,7 +1346,7 @@ MetroidSamusGrabbed: @ 0x08035d6c
     bl sub_080359a4
     movs r0, #2
     bl MetroidCheckBouncingOnMetroid
-    ldr r3, lbl_08035dd0 @ =0x03000738
+    ldr r3, lbl_08035dd0 @ =gCurrentSprite
     adds r1, r3, #0
     adds r1, #0x2c
     ldrb r0, [r1]
@@ -1380,31 +1380,31 @@ lbl_08035da2:
     str r0, [r2, #8]
     ldr r0, [r2, #8]
 lbl_08035db8:
-    ldr r4, lbl_08035dd0 @ =0x03000738
+    ldr r4, lbl_08035dd0 @ =gCurrentSprite
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
     bl MetroidCheckAirCollision
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_08035de8
-    ldr r1, lbl_08035de4 @ =0x030013d4
+    ldr r1, lbl_08035de4 @ =gSamusData
     ldrh r0, [r4, #4]
     strh r0, [r1, #0x12]
     b lbl_08035dee
     .align 2, 0
-lbl_08035dd0: .4byte 0x03000738
+lbl_08035dd0: .4byte gCurrentSprite
 lbl_08035dd4: .4byte 0x040000d4
 lbl_08035dd8: .4byte 0x082ed988
 lbl_08035ddc: .4byte 0x05000380
 lbl_08035de0: .4byte 0x80000008
-lbl_08035de4: .4byte 0x030013d4
+lbl_08035de4: .4byte gSamusData
 lbl_08035de8:
-    ldr r1, lbl_08035e5c @ =0x030013d4
+    ldr r1, lbl_08035e5c @ =gSamusData
     ldrh r0, [r1, #0x12]
     strh r0, [r4, #4]
 lbl_08035dee:
-    ldr r4, lbl_08035e60 @ =0x03000738
-    ldr r0, lbl_08035e64 @ =0x03001588
+    ldr r4, lbl_08035e60 @ =gCurrentSprite
+    ldr r0, lbl_08035e64 @ =gSamusPhysics
     adds r0, #0x70
     ldrh r0, [r0]
     ldrh r1, [r1, #0x14]
@@ -1415,7 +1415,7 @@ lbl_08035dee:
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_08035e78
-    ldr r0, lbl_08035e68 @ =0x0300083c
+    ldr r0, lbl_08035e68 @ =gSpriteRNG
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -1455,17 +1455,17 @@ lbl_08035e18:
     adds r0, r4, #0
     adds r0, #0x33
     strb r5, [r0]
-    ldr r0, lbl_08035e74 @ =0x03001530
+    ldr r0, lbl_08035e74 @ =gEquipment
     strb r5, [r0, #0x13]
     b lbl_08035eca
     .align 2, 0
-lbl_08035e5c: .4byte 0x030013d4
-lbl_08035e60: .4byte 0x03000738
-lbl_08035e64: .4byte 0x03001588
-lbl_08035e68: .4byte 0x0300083c
+lbl_08035e5c: .4byte gSamusData
+lbl_08035e60: .4byte gCurrentSprite
+lbl_08035e64: .4byte gSamusPhysics
+lbl_08035e68: .4byte gSpriteRNG
 lbl_08035e6c: .4byte 0x00007bff
 lbl_08035e70: .4byte 0x082edc20
-lbl_08035e74: .4byte 0x03001530
+lbl_08035e74: .4byte gEquipment
 lbl_08035e78:
     adds r0, r4, #0
     adds r0, #0x2a
@@ -1476,7 +1476,7 @@ lbl_08035e78:
     bne lbl_08035ec0
     movs r0, #0x81
     bl SoundPlayNotAlreadyPlaying
-    ldr r0, lbl_08035ea0 @ =0x03001530
+    ldr r0, lbl_08035ea0 @ =gEquipment
     ldrb r0, [r0, #0xf]
     movs r2, #0x30
     ands r2, r0
@@ -1486,7 +1486,7 @@ lbl_08035e78:
     bl SoundPlay
     b lbl_08035ec0
     .align 2, 0
-lbl_08035ea0: .4byte 0x03001530
+lbl_08035ea0: .4byte gEquipment
 lbl_08035ea4: .4byte 0x0000016d
 lbl_08035ea8:
     cmp r2, #0x30
@@ -1501,7 +1501,7 @@ lbl_08035eb8:
     lsls r0, r0, #1
     bl SoundPlay
 lbl_08035ec0:
-    ldr r1, lbl_08035ed0 @ =0x03000738
+    ldr r1, lbl_08035ed0 @ =gCurrentSprite
     adds r1, #0x2a
     ldrb r0, [r1]
     adds r0, #1
@@ -1511,15 +1511,15 @@ lbl_08035eca:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08035ed0: .4byte 0x03000738
+lbl_08035ed0: .4byte gCurrentSprite
 
     thumb_func_start MetroidDeath
 MetroidDeath: @ 0x08035ed4
     push {r4, r5, r6, r7, lr}
     sub sp, #4
-    ldr r0, lbl_08035ef0 @ =0x0300083c
+    ldr r0, lbl_08035ef0 @ =gSpriteRNG
     ldrb r2, [r0]
-    ldr r0, lbl_08035ef4 @ =0x03000738
+    ldr r0, lbl_08035ef4 @ =gCurrentSprite
     ldrh r3, [r0, #2]
     ldrh r4, [r0, #4]
     ldrh r1, [r0]
@@ -1530,8 +1530,8 @@ MetroidDeath: @ 0x08035ed4
     adds r0, r3, r2
     b lbl_08035f02
     .align 2, 0
-lbl_08035ef0: .4byte 0x0300083c
-lbl_08035ef4: .4byte 0x03000738
+lbl_08035ef0: .4byte gSpriteRNG
+lbl_08035ef4: .4byte gCurrentSprite
 lbl_08035ef8:
     adds r0, r3, #1
     lsls r0, r0, #0x18
@@ -1557,7 +1557,7 @@ lbl_08035f02:
     movs r5, #1
     movs r4, #0x80
     movs r3, #0
-    ldr r1, lbl_08035f78 @ =0x030001ac
+    ldr r1, lbl_08035f78 @ =gSpriteData
     movs r2, #0xa8
     lsls r2, r2, #3
     adds r0, r1, r2
@@ -1586,13 +1586,13 @@ lbl_08035f50:
 lbl_08035f56:
     adds r2, #0x38
     adds r1, #0x38
-    ldr r0, lbl_08035f7c @ =0x030006ec
+    ldr r0, lbl_08035f7c @ =gSpritesetSpritesID
     cmp r1, r0
     blo lbl_08035f36
 lbl_08035f60:
     cmp r3, #0
     bne lbl_08036004
-    ldr r0, lbl_08035f80 @ =0x03000055
+    ldr r0, lbl_08035f80 @ =gCurrentRoom
     ldrb r0, [r0]
     subs r0, #1
     cmp r0, #0x12
@@ -1603,9 +1603,9 @@ lbl_08035f60:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08035f78: .4byte 0x030001ac
-lbl_08035f7c: .4byte 0x030006ec
-lbl_08035f80: .4byte 0x03000055
+lbl_08035f78: .4byte gSpriteData
+lbl_08035f7c: .4byte gSpritesetSpritesID
+lbl_08035f80: .4byte gCurrentRoom
 lbl_08035f84: .4byte lbl_08035f88
 lbl_08035f88: @ jump table
     .4byte lbl_08035fda @ case 0
@@ -1652,7 +1652,7 @@ lbl_08035ff2:
     movs r1, #0x3c
 lbl_08035ff6:
     bl EventFunction
-    ldr r1, lbl_0803600c @ =0x0300007b
+    ldr r1, lbl_0803600c @ =gDoorUnlockTimer
     movs r2, #0x14
     rsbs r2, r2, #0
     adds r0, r2, #0
@@ -1663,12 +1663,12 @@ lbl_08036004:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803600c: .4byte 0x0300007b
+lbl_0803600c: .4byte gDoorUnlockTimer
 
     thumb_func_start Metroid
 Metroid: @ 0x08036010
     push {r4, lr}
-    ldr r1, lbl_08036040 @ =0x03000738
+    ldr r1, lbl_08036040 @ =gCurrentSprite
     adds r3, r1, #0
     adds r3, #0x32
     ldrb r2, [r3]
@@ -1690,7 +1690,7 @@ Metroid: @ 0x08036010
     bl SoundPlayNotAlreadyPlaying
     b lbl_08036072
     .align 2, 0
-lbl_08036040: .4byte 0x03000738
+lbl_08036040: .4byte gCurrentSprite
 lbl_08036044:
     adds r0, r1, #0
     adds r0, #0x2b
@@ -1715,7 +1715,7 @@ lbl_0803606c: .4byte 0x00000171
 lbl_08036070:
     strh r0, [r1, #6]
 lbl_08036072:
-    ldr r2, lbl_080360a4 @ =0x03000738
+    ldr r2, lbl_080360a4 @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x30
     ldrb r0, [r0]
@@ -1731,26 +1731,26 @@ lbl_08036072:
     strh r0, [r2, #0x10]
     movs r0, #1
     bl MetroidCheckBouncingOnMetroid
-    ldr r0, lbl_080360b0 @ =0x0300002c
+    ldr r0, lbl_080360b0 @ =gDifficulty
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_080360b4
     bl SpriteUtilUnfreezeAnimEasy
     b lbl_080360b8
     .align 2, 0
-lbl_080360a4: .4byte 0x03000738
+lbl_080360a4: .4byte gCurrentSprite
 lbl_080360a8: .4byte 0x0000ffd0
 lbl_080360ac: .4byte 0x0000ffc0
-lbl_080360b0: .4byte 0x0300002c
+lbl_080360b0: .4byte gDifficulty
 lbl_080360b4:
     bl SpriteUtilMetroidUnfreezeAnim
 lbl_080360b8:
-    ldr r1, lbl_080360c0 @ =0x03000738
+    ldr r1, lbl_080360c0 @ =gCurrentSprite
     movs r0, #0x65
     strb r0, [r1, #0x1d]
     b lbl_08036162
     .align 2, 0
-lbl_080360c0: .4byte 0x03000738
+lbl_080360c0: .4byte gCurrentSprite
 lbl_080360c4:
     ldrb r0, [r2, #0x1d]
     cmp r0, #0x65
@@ -1772,7 +1772,7 @@ lbl_080360c4:
     movs r0, #8
     strb r0, [r1]
 lbl_080360ea:
-    ldr r0, lbl_0803610c @ =0x03000738
+    ldr r0, lbl_0803610c @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #8
@@ -1788,7 +1788,7 @@ lbl_080360ea:
     b lbl_08036158
     .align 2, 0
 lbl_08036108: .4byte 0x0000ffd8
-lbl_0803610c: .4byte 0x03000738
+lbl_0803610c: .4byte gCurrentSprite
 lbl_08036110:
     cmp r0, #2
     beq lbl_0803613a
@@ -1829,7 +1829,7 @@ lbl_0803614e:
 lbl_08036154:
     bl MetroidDeath
 lbl_08036158:
-    ldr r2, lbl_08036168 @ =0x03000738
+    ldr r2, lbl_08036168 @ =gCurrentSprite
     ldrh r1, [r2]
     ldr r0, lbl_0803616c @ =0x0000f7ff
     ands r0, r1
@@ -1839,14 +1839,14 @@ lbl_08036162:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08036168: .4byte 0x03000738
+lbl_08036168: .4byte gCurrentSprite
 lbl_0803616c: .4byte 0x0000f7ff
 
     thumb_func_start MetroidShell
 MetroidShell: @ 0x08036170
     push {r4, r5, r6, r7, lr}
     sub sp, #4
-    ldr r3, lbl_080361b8 @ =0x03000738
+    ldr r3, lbl_080361b8 @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x23
     ldrb r6, [r0]
@@ -1854,7 +1854,7 @@ MetroidShell: @ 0x08036170
     adds r1, #0x26
     movs r0, #1
     strb r0, [r1]
-    ldr r2, lbl_080361bc @ =0x030001ac
+    ldr r2, lbl_080361bc @ =gSpriteData
     lsls r0, r6, #3
     subs r0, r0, r6
     lsls r0, r0, #3
@@ -1869,7 +1869,7 @@ MetroidShell: @ 0x08036170
     mov ip, r2
     cmp r0, #0
     bne lbl_080361ee
-    ldr r0, lbl_080361c0 @ =0x0300083c
+    ldr r0, lbl_080361c0 @ =gSpriteRNG
     ldrb r2, [r0]
     ldrh r4, [r3, #2]
     ldrh r6, [r3, #4]
@@ -1881,9 +1881,9 @@ MetroidShell: @ 0x08036170
     subs r0, r4, r2
     b lbl_080361c6
     .align 2, 0
-lbl_080361b8: .4byte 0x03000738
-lbl_080361bc: .4byte 0x030001ac
-lbl_080361c0: .4byte 0x0300083c
+lbl_080361b8: .4byte gCurrentSprite
+lbl_080361bc: .4byte gSpriteData
+lbl_080361c0: .4byte gSpriteRNG
 lbl_080361c4:
     adds r0, r4, r2
 lbl_080361c6:
@@ -1978,7 +1978,7 @@ lbl_08036270: .4byte 0x0000fffb
     thumb_func_start MetroidDoorLock
 MetroidDoorLock: @ 0x08036274
     push {r4, r5, r6, lr}
-    ldr r4, lbl_080362cc @ =0x03000738
+    ldr r4, lbl_080362cc @ =gCurrentSprite
     adds r0, r4, #0
     adds r0, #0x26
     movs r5, #1
@@ -2017,14 +2017,14 @@ MetroidDoorLock: @ 0x08036274
     bl SpriteUtilCountPrimarySprites
     cmp r0, #0
     beq lbl_080362dc
-    ldr r0, lbl_080362d8 @ =0x0300007b
+    ldr r0, lbl_080362d8 @ =gDoorUnlockTimer
     strb r5, [r0]
     b lbl_08036300
     .align 2, 0
-lbl_080362cc: .4byte 0x03000738
+lbl_080362cc: .4byte gCurrentSprite
 lbl_080362d0: .4byte 0x00008004
 lbl_080362d4: .4byte 0x082b2750
-lbl_080362d8: .4byte 0x0300007b
+lbl_080362d8: .4byte gDoorUnlockTimer
 lbl_080362dc:
     strh r0, [r4]
     b lbl_08036300
@@ -2038,7 +2038,7 @@ lbl_080362e0:
     cmp r0, #0
     bne lbl_08036300
     strh r0, [r4]
-    ldr r1, lbl_08036308 @ =0x0300007b
+    ldr r1, lbl_08036308 @ =gDoorUnlockTimer
     movs r2, #0x14
     rsbs r2, r2, #0
     adds r0, r2, #0
@@ -2048,4 +2048,4 @@ lbl_08036300:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08036308: .4byte 0x0300007b
+lbl_08036308: .4byte gDoorUnlockTimer

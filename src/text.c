@@ -1,11 +1,15 @@
 #include "text.h"
 #include "gba.h"
+#include "macros.h"
 
 #include "data/text_data.h"
+#include "data/shortcut_pointers.h"
 
 #include "constants/text.h"
+#include "constants/menus/pause_screen.h"
 
 #include "structs/game_state.h"
+#include "structs/menus/pause_screen.h"
 
 /**
  * @brief 6e460 | 24 | Gets the width of a character
@@ -15,7 +19,7 @@
  */
 u32 TextGetCharacterWidth(u16 charID)
 {
-    if (charID >= 0x4A0)
+    if (charID >= ARRAY_SIZE(sCharacterWidths))
         return 10;
     else
         return sCharacterWidths[charID];
@@ -365,27 +369,110 @@ void TextDrawlocation(u8 locationText, u8 gfxSlot)
     TextDrawLocationTextCharacters(1, &pText);
 
     dma_set(3, EWRAM_BASE, VRAM_BASE + 0x14000 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
-    dma_set(3, EWRAM_BASE + 0X400, VRAM_BASE + 0x14400 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
+    dma_set(3, EWRAM_BASE + 0x400, VRAM_BASE + 0x14400 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
 }
 
-void unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
+/**
+ * @brief 6f0a8 | 1b0 | To document
+ * 
+ * @param textID Message ID
+ * @param gfxSlot Gfx slot
+ * @param param_3 To document
+ * @return u8 To document
+ */
+u8 unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
 {
+    i32 i;
+    i32 flag;
 
+    if (param_3 == 0xF)
+    {
+        gCurrentMessage = sMessage_Empty;
+        
+        gCurrentMessage.messageID = textID > MESSAGE_ENEMY_LOCATION_ABNORMAL ? MESSAGE_ENEMY_LOCATION_ABNORMAL : textID;
+        gCurrentMessage.gfxSlot = gfxSlot;
+    }
+
+    switch (gCurrentMessage.stage)
+    {
+        case 0:
+            BitFill(3, -1, VRAM_BASE + 0x14000 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
+            BitFill(3, -1, VRAM_BASE + 0x14400 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
+            gCurrentMessage.stage++;
+            break;
+
+        case 1:
+            BitFill(3, -1, VRAM_BASE + 0x14800 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
+            BitFill(3, -1, VRAM_BASE + 0x14C00 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
+            gCurrentMessage.stage++;
+            break;
+
+        case 2:
+            i = 8;
+            if (gCurrentMessage.line > 1 || gCurrentMessage.messageEnded)
+            {
+                gCurrentMessage.stage++;
+                i = 0;
+            }
+
+            if (param_3 == 1)
+            {
+                gCurrentMessage.stage++;
+                i = 0;
+            }
+
+            for (; i != 0; i--)
+            {
+                switch (TextProcessCurrentMessage(&gCurrentMessage, sMessageTextpointers[gLanguage][gCurrentMessage.messageID],
+                    VRAM_BASE + 0x14000 + gCurrentMessage.gfxSlot * 0x800 + gCurrentMessage.line * 0x800))
+                {
+                    case 2:
+                        gCurrentMessage.stage++;
+
+                    case 1:
+                    case 4:
+                        gCurrentMessage.indent = 0;
+                        flag = TRUE;
+                        break;
+
+                    default:
+                        flag = FALSE;
+                }
+
+                if (flag || gCurrentMessage.line > 1)
+                    break;
+            }
+            break;
+
+        case 3:
+            gCurrentMessage.line++;
+            if (gCurrentMessage.messageID <= MESSAGE_POWER_GRIP)
+            {
+                gCurrentItemBeingAcquired = gCurrentMessage.messageID;
+                if (gCurrentMessage.messageID >= MESSAGE_LONG_BEAM)
+                    BgClipFinishCollectingAbility();
+            }
+            gCurrentMessage.stage++;
+
+        case 4:
+        default:
+            return gCurrentMessage.line;
+    }
+
+    return 0;
 }
 
+/**
+ * @brief 6f258 | 34 | Starts a new message
+ * 
+ * @param textID Text ID
+ * @param gfxSlot Graphics slot
+ */
 void TextStartMessage(u8 textID, u8 gfxSlot)
 {
-    // https://decomp.me/scratch/NdHu7
-
-    register u32 messageID asm("r1");
-    
     gCurrentMessage = sMessage_Empty;
-    
-    messageID = textID;
-    if (textID > 0x23)
-        messageID = 0x23;
 
-    gCurrentMessage.messageID = messageID;
+    gCurrentMessage.messageID = textID > MESSAGE_ENEMY_LOCATION_ABNORMAL ? MESSAGE_ENEMY_LOCATION_ABNORMAL : textID;
     gCurrentMessage.gfxSlot = gfxSlot;
 }
 
@@ -538,7 +625,7 @@ u8 TextProcessFileScreenPopUp(void)
             }
 
             dst = VRAM_BASE + gCurrentMessage.line * 0x800;
-            while (i != 0)
+            for (; i != 0; i--)
             {
                 switch (TextProcessCurrentMessage(&gCurrentMessage, sFileScreenTextPointers[gLanguage][gCurrentMessage.messageID], dst))
                 {
@@ -555,27 +642,178 @@ u8 TextProcessFileScreenPopUp(void)
                         flag = FALSE;
                 }
 
-                if (flag)
+                if (flag || gCurrentMessage.line > 3)
                     break;
-                
-                if (gCurrentMessage.line > 3)
-                    break;
-                i--;
             }
             break;
 
         case 1:
             gCurrentMessage.line++;
             gCurrentMessage.stage++;
+
+        case 2:
+        default:
             return gCurrentMessage.line;
     }
 
     return 0;
 }
 
+/**
+ * @brief 6f680 | 30c | Processes the description text
+ * 
+ */
 void TextProcessDescription(void)
 {
+    u8 result;
 
+    if (PAUSE_SCREEN_DATA.currentStatusSlot != PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot)
+    {
+        // Status slot changed, restart message
+        PAUSE_SCREEN_DATA.miscOam[1].exists = FALSE;
+        PAUSE_SCREEN_DATA.unk_56 = 0;
+        PAUSE_SCREEN_DATA.currentStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
+        PAUSE_SCREEN_DATA.currentEquipment = 0;
+
+        gCurrentMessage = sMessageDescription_Empty;
+    }
+
+    switch (PAUSE_SCREEN_DATA.unk_56)
+    {
+        case 0:
+            // Get message id
+            PAUSE_SCREEN_DATA.currentEquipment = StatusScreenGetCurrentEquipmentSelected(PAUSE_SCREEN_DATA.currentStatusSlot);
+            BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 16);
+
+            if (PAUSE_SCREEN_DATA.currentEquipment <= DESCRIPTION_TEXT_PISTOL)
+                PAUSE_SCREEN_DATA.unk_56++;
+            else
+                PAUSE_SCREEN_DATA.unk_56 = 0x80;
+            break;
+
+        case 1:
+            // Initial delay
+            gCurrentMessage.delay++;
+            if (gCurrentMessage.delay > gCurrentMessage.unk_9 || gChangedInput & KEY_A)
+            {
+                gCurrentMessage.unk_9 = 0;
+                PAUSE_SCREEN_DATA.unk_56++;
+                gCurrentMessage.delay = 0;
+            }
+            break;
+
+        case 2:
+            // Process message
+            result = TextProcessCurrentMessage(&gCurrentMessage,
+                sDescriptionTextPointers[gLanguage][PAUSE_SCREEN_DATA.currentEquipment], VRAM_BASE + 0x7800);
+
+            if (result == 2)
+            {
+                // Message ended
+                if (gCurrentMessage.line != 0)
+                {
+                    // Not on first line, so it's a multi line message
+                    result = 5;
+                    PAUSE_SCREEN_DATA.unk_56 = 4;
+                }
+                else
+                {
+                    // Single line message
+                    result = 0;
+                    PAUSE_SCREEN_DATA.unk_56 = 6;
+                }
+            }
+            else if (result == 1)
+            {
+                // New line
+                result = 4;
+                gCurrentMessage.delay = 0;
+
+                if (gDemoState != 0)
+                    PAUSE_SCREEN_DATA.unk_56 = 5;
+                else
+                    PAUSE_SCREEN_DATA.unk_56 = 3;
+            }
+            else
+            {
+                result = 0;
+            }
+
+            if (result != 0)
+            {
+                // Set right after the text
+                PAUSE_SCREEN_DATA.miscOam[1].xPosition = (gCurrentMessage.indent + 10) * 4;
+
+                if (result == 4)
+                {
+                    // Arrow pointing down
+                    PAUSE_SCREEN_DATA.miscOam[1].yPosition = BLOCK_SIZE * 9;
+                }
+                else
+                {
+                    // Arrow pointing up
+                    PAUSE_SCREEN_DATA.miscOam[1].yPosition = BLOCK_SIZE * 8 + HALF_BLOCK_SIZE + 4;
+                    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM)
+                        result = 0;
+                }
+
+                UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[1], result);
+            }
+            break;
+
+        case 3:
+            // Waiting for input to change line
+            if (gChangedInput & KEY_A || gDemoState != 0)
+            {
+                // Clear graphics buffer
+                BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 16);
+
+                // Set process message behavior
+                PAUSE_SCREEN_DATA.unk_56 = 1;
+
+                gCurrentMessage.delay = 0;
+                gCurrentMessage.indent = 0;
+                gCurrentMessage.unk_9 = 10;
+                PAUSE_SCREEN_DATA.miscOam[1].exists = FALSE;
+            }
+            break;
+
+        case 4:
+            // Waiting for input at the end of a message
+            if (gChangedInput & KEY_A)
+            {
+                // Clear graphics buffer
+                BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 16);
+
+                // Set process message behavior
+                PAUSE_SCREEN_DATA.unk_56 = 1;
+
+                // Fully reset
+                gCurrentMessage = sMessageDescription_Empty;
+                PAUSE_SCREEN_DATA.miscOam[1].exists = FALSE;
+            }
+            break;
+
+        case 5:
+            // During a demo, wait to change line
+            gCurrentMessage.delay++;
+            if (gCurrentMessage.delay > 30)
+            {
+                // Clear graphics buffer
+                BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 16);
+
+                // Set process message behavior
+                PAUSE_SCREEN_DATA.unk_56 = 1;
+
+                gCurrentMessage.delay = 0;
+                gCurrentMessage.indent = 0;
+                gCurrentMessage.unk_9 = 10;
+                PAUSE_SCREEN_DATA.miscOam[1].exists = FALSE;
+            }
+            break;
+
+        case 6:
+    }
 }
 
 u8 TextProcessCurrentMessage(struct Message* pMessage, const u16* pText, u32* dst)
@@ -675,12 +913,115 @@ u8 TextProcessCurrentMessage(struct Message* pMessage, const u16* pText, u32* ds
     return state;
 }
 
+/**
+ * @brief 6facc | ec | Draws the "yes no" prompt of the easy sleep menu
+ * 
+ */
 void TextDrawYesNoEasySleep(void)
 {
+    const u16* pText;
+    u8 shouldDraw;
 
+    // Clear graphics buffer
+    BitFill(3, USHORT_MAX, PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1,
+        sizeof(PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1) * 5, 16);
+
+    // Signal that the main text can start drawing
+    PAUSE_SCREEN_DATA.easySleepTextState = 0;
+
+    // Get text pointer
+    pText = sMessageTextpointers[gLanguage][MESSAGE_EASY_SLEEP_PROMPT];
+
+    // Reset current message
+    BitFill(3, 0, &gCurrentMessage, sizeof(gCurrentMessage), 32);
+
+    while (*pText != CHAR_TERMINATOR)
+    {
+        shouldDraw = TRUE;
+        if (*pText == CHAR_NEW_LINE)
+        {
+            // Hardcode indent
+            if (gCurrentMessage.indent > 112)
+                return;
+
+            gCurrentMessage.indent = 112;
+            shouldDraw = FALSE;
+        }
+        else if (*pText & CHAR_WIDTH_MASK)
+        {
+            // Check for color change
+            if ((*pText & CHAR_TERMINATOR) == CHAR_COLOR_MASK)
+                gCurrentMessage.color = *pText;
+
+            shouldDraw = FALSE;
+        }
+
+        if (shouldDraw)
+        {
+            // Draw and update indent
+            TextDrawMessageCharacter(*pText, (u32*)PAUSE_SCREEN_EWRAM.unk_6000, gCurrentMessage.indent, gCurrentMessage.color);
+            gCurrentMessage.indent += TextGetCharacterWidth(*pText);
+        }
+
+        pText++;
+    }
 }
 
+/**
+ * @brief 6fbb8 | 148 | Draws the easy sleep text
+ * 
+ */
 void TextDrawEasySleep(void)
 {
+    i32 i;
 
+    switch ((u8)PAUSE_SCREEN_DATA.easySleepTextState)
+    {
+        case 0:
+            // Reset current message
+            BitFill(3, 0, &gCurrentMessage, sizeof(gCurrentMessage), 32);
+            gCurrentMessage.isMessage = TRUE;
+            PAUSE_SCREEN_DATA.easySleepTextState++;
+
+        case 1:
+            // Process message
+            for (i = 3; i != -1; i--)
+            {
+                if (!TextProcessCurrentMessage(&gCurrentMessage, sMessageTextpointers[gLanguage][MESSAGE_ACTIVATE_EASY_SLEEP],
+                    (u32*)&PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1[gCurrentMessage.line * 1024]))
+                    continue;
+
+                gCurrentMessage.indent = 0;
+                if (gCurrentMessage.messageEnded)
+                {
+                    PAUSE_SCREEN_DATA.easySleepTextState++;
+                    break;
+                }
+            }
+            break;
+
+        case 2:
+            // Reset current message
+            BitFill(3, 0, &gCurrentMessage, sizeof(gCurrentMessage), 32);
+            gCurrentMessage.isMessage = TRUE;
+            PAUSE_SCREEN_DATA.easySleepTextState++;
+
+        case 3:
+            // Process message
+            for (i = 3; i != -1; i--)
+            {
+                if (!TextProcessCurrentMessage(&gCurrentMessage, sMessageTextpointers[gLanguage][MESSAGE_PRESS_SELECT_L_AND_R],
+                    (u32*)&PAUSE_SCREEN_EWRAM.unk_5000[gCurrentMessage.line * 1024]))
+                    continue;
+
+                gCurrentMessage.indent = 0;
+                if (gCurrentMessage.messageEnded)
+                {
+                    // Mark as ended
+                    PAUSE_SCREEN_DATA.easySleepTextState = 0x80;
+                    break;
+                }
+            }
+            break;
+    }
 }

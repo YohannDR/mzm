@@ -5,12 +5,12 @@
 #include "temp_globals.h"
 #include "structs/save_file.h"
 
-extern void* sEwramPointer;
-extern void* sBgPalramPointer;
+extern union EwramData* sEwramPointer;
+extern u16* sBgPalramPointer;
 extern void* sObjPalramPointer;
 extern u32* sVisitedMinimapTilesPointer;
 extern union NonGameplayRAM* sNonGameplayRamPointer;
 extern struct Sram* sSramEwramPointer;
-extern void* sSramFlashPointer;
+extern struct Sram* sSramFlashPointer;
 
 #endif /* SHORTCUT_POINTERS_H */

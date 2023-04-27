@@ -7,7 +7,7 @@ sub_0803d860: @ 0x0803d860
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
-    ldr r2, lbl_0803d884 @ =0x03000738
+    ldr r2, lbl_0803d884 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -23,13 +23,13 @@ sub_0803d860: @ 0x0803d860
     lsrs r5, r0, #0x18
     b lbl_0803d88e
     .align 2, 0
-lbl_0803d884: .4byte 0x03000738
+lbl_0803d884: .4byte gCurrentSprite
 lbl_0803d888:
     mov r0, ip
     adds r0, #0x2a
     ldrb r5, [r0]
 lbl_0803d88e:
-    ldr r0, lbl_0803d8d4 @ =0x0300070c
+    ldr r0, lbl_0803d8d4 @ =gSubSpriteData1
     ldrb r1, [r0, #0xf]
     movs r6, #0x80
     lsls r6, r6, #1
@@ -66,7 +66,7 @@ lbl_0803d8ba:
     muls r0, r1, r0
     b lbl_0803d8e2
     .align 2, 0
-lbl_0803d8d4: .4byte 0x0300070c
+lbl_0803d8d4: .4byte gSubSpriteData1
 lbl_0803d8d8: .4byte 0x082fab90
 lbl_0803d8dc: .4byte 0x00007fff
 lbl_0803d8e0:
@@ -157,7 +157,7 @@ lbl_0803d96c:
     thumb_func_start AcidWormRandomXMovement
 AcidWormRandomXMovement: @ 0x0803d978
     push {r4, r5, lr}
-    ldr r3, lbl_0803d9ac @ =0x03000738
+    ldr r3, lbl_0803d9ac @ =gCurrentSprite
     movs r0, #0x2e
     adds r0, r0, r3
     mov ip, r0
@@ -184,7 +184,7 @@ lbl_0803d99a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803d9ac: .4byte 0x03000738
+lbl_0803d9ac: .4byte gCurrentSprite
 lbl_0803d9b0: .4byte 0x082fabd2
 lbl_0803d9b4: .4byte 0x00007fff
 
@@ -202,7 +202,7 @@ AcidWormChangeTwoGroundCCAA: @ 0x0803d9b8
     lsrs r4, r4, #0x10
     lsls r5, r5, #0x10
     lsrs r5, r5, #0x10
-    ldr r0, lbl_0803d9fc @ =0x03000079
+    ldr r0, lbl_0803d9fc @ =gCurrentClipdataAffectingAction
     mov r8, r0
     strb r6, [r0]
     adds r4, #0x40
@@ -222,7 +222,7 @@ AcidWormChangeTwoGroundCCAA: @ 0x0803d9b8
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803d9fc: .4byte 0x03000079
+lbl_0803d9fc: .4byte gCurrentClipdataAffectingAction
 
     thumb_func_start AcidWormChangeBigBlockDownCCAA
 AcidWormChangeBigBlockDownCCAA: @ 0x0803da00
@@ -230,10 +230,10 @@ AcidWormChangeBigBlockDownCCAA: @ 0x0803da00
     adds r4, r0, #0
     lsls r4, r4, #0x18
     lsrs r4, r4, #0x18
-    ldr r0, lbl_0803da48 @ =0x03000738
+    ldr r0, lbl_0803da48 @ =gCurrentSprite
     ldrh r6, [r0, #6]
     ldrh r7, [r0, #8]
-    ldr r5, lbl_0803da4c @ =0x03000079
+    ldr r5, lbl_0803da4c @ =gCurrentClipdataAffectingAction
     strb r4, [r5]
     adds r1, r7, #0
     subs r1, #0x20
@@ -260,8 +260,8 @@ lbl_0803da42:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803da48: .4byte 0x03000738
-lbl_0803da4c: .4byte 0x03000079
+lbl_0803da48: .4byte gCurrentSprite
+lbl_0803da4c: .4byte gCurrentClipdataAffectingAction
 
     thumb_func_start AcidWormChangeBigBlockMiddleCCAA
 AcidWormChangeBigBlockMiddleCCAA: @ 0x0803da50
@@ -269,13 +269,13 @@ AcidWormChangeBigBlockMiddleCCAA: @ 0x0803da50
     adds r4, r0, #0
     lsls r4, r4, #0x18
     lsrs r4, r4, #0x18
-    ldr r1, lbl_0803daa0 @ =0x03000738
+    ldr r1, lbl_0803daa0 @ =gCurrentSprite
     ldrh r0, [r1, #6]
     subs r0, #0x40
     lsls r0, r0, #0x10
     lsrs r6, r0, #0x10
     ldrh r7, [r1, #8]
-    ldr r5, lbl_0803daa4 @ =0x03000079
+    ldr r5, lbl_0803daa4 @ =gCurrentClipdataAffectingAction
     strb r4, [r5]
     adds r1, r7, #0
     subs r1, #0x20
@@ -302,8 +302,8 @@ lbl_0803da98:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803daa0: .4byte 0x03000738
-lbl_0803daa4: .4byte 0x03000079
+lbl_0803daa0: .4byte gCurrentSprite
+lbl_0803daa4: .4byte gCurrentClipdataAffectingAction
 
     thumb_func_start AcidWormChangeBigBlockTopCCAA
 AcidWormChangeBigBlockTopCCAA: @ 0x0803daa8
@@ -313,13 +313,13 @@ AcidWormChangeBigBlockTopCCAA: @ 0x0803daa8
     adds r4, r0, #0
     lsls r4, r4, #0x18
     lsrs r4, r4, #0x18
-    ldr r1, lbl_0803db84 @ =0x03000738
+    ldr r1, lbl_0803db84 @ =gCurrentSprite
     ldrh r0, [r1, #6]
     subs r0, #0x80
     lsls r0, r0, #0x10
     lsrs r6, r0, #0x10
     ldrh r7, [r1, #8]
-    ldr r5, lbl_0803db88 @ =0x03000079
+    ldr r5, lbl_0803db88 @ =gCurrentClipdataAffectingAction
     strb r4, [r5]
     movs r0, #0x20
     rsbs r0, r0, #0
@@ -406,13 +406,13 @@ lbl_0803db78:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803db84: .4byte 0x03000738
-lbl_0803db88: .4byte 0x03000079
+lbl_0803db84: .4byte gCurrentSprite
+lbl_0803db88: .4byte gCurrentClipdataAffectingAction
 
     thumb_func_start AcidWormPlaySound
 AcidWormPlaySound: @ 0x0803db8c
     push {lr}
-    ldr r0, lbl_0803dba0 @ =0x0300070c
+    ldr r0, lbl_0803dba0 @ =gSubSpriteData1
     ldrb r0, [r0, #0xf]
     cmp r0, #0
     bne lbl_0803dba4
@@ -421,7 +421,7 @@ AcidWormPlaySound: @ 0x0803db8c
     bl SoundPlay
     b lbl_0803dbac
     .align 2, 0
-lbl_0803dba0: .4byte 0x0300070c
+lbl_0803dba0: .4byte gSubSpriteData1
 lbl_0803dba4:
     movs r0, #0xd6
     lsls r0, r0, #1
@@ -433,7 +433,7 @@ lbl_0803dbac:
     thumb_func_start AcidWormCollidingWithSamusWhenExtending
 AcidWormCollidingWithSamusWhenExtending: @ 0x0803dbb0
     push {lr}
-    ldr r3, lbl_0803dbc4 @ =0x03000738
+    ldr r3, lbl_0803dbc4 @ =gCurrentSprite
     ldrh r1, [r3]
     movs r0, #0x80
     lsls r0, r0, #4
@@ -443,7 +443,7 @@ AcidWormCollidingWithSamusWhenExtending: @ 0x0803dbb0
     movs r0, #0
     b lbl_0803dbe8
     .align 2, 0
-lbl_0803dbc4: .4byte 0x03000738
+lbl_0803dbc4: .4byte gCurrentSprite
 lbl_0803dbc8:
     ldr r0, lbl_0803dbec @ =0x0000f7ff
     ands r0, r1
@@ -475,7 +475,7 @@ AcidWormInit: @ 0x0803dbf4
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0xc
-    ldr r4, lbl_0803dcdc @ =0x03000738
+    ldr r4, lbl_0803dcdc @ =gCurrentSprite
     ldr r0, lbl_0803dce0 @ =0x0000ffd0
     strh r0, [r4, #0xa]
     movs r1, #0x38
@@ -546,7 +546,7 @@ AcidWormInit: @ 0x0803dbf4
     mov r8, r6
     ldrh r5, [r4, #4]
     mov sb, r5
-    ldr r2, lbl_0803dcec @ =0x0300070c
+    ldr r2, lbl_0803dcec @ =gSubSpriteData1
     mov sl, r2
     strh r6, [r2, #6]
     strh r5, [r2, #8]
@@ -561,7 +561,7 @@ AcidWormInit: @ 0x0803dbf4
     adds r7, r0, #0
     cmp r7, #0
     beq lbl_0803dcf4
-    ldr r1, lbl_0803dcf0 @ =0x0300006e
+    ldr r1, lbl_0803dcf0 @ =gEffectYPositionOffset
     movs r2, #0x98
     lsls r2, r2, #2
     adds r0, r2, #0
@@ -580,12 +580,12 @@ AcidWormInit: @ 0x0803dbf4
     strh r0, [r4]
     b lbl_0803de02
     .align 2, 0
-lbl_0803dcdc: .4byte 0x03000738
+lbl_0803dcdc: .4byte gCurrentSprite
 lbl_0803dce0: .4byte 0x0000ffd0
 lbl_0803dce4: .4byte 0x082fc110
 lbl_0803dce8: .4byte 0x082b0d68
-lbl_0803dcec: .4byte 0x0300070c
-lbl_0803dcf0: .4byte 0x0300006e
+lbl_0803dcec: .4byte gSubSpriteData1
+lbl_0803dcf0: .4byte gEffectYPositionOffset
 lbl_0803dcf4:
     movs r0, #3
     movs r1, #0x2e
@@ -595,7 +595,7 @@ lbl_0803dcf4:
     strh r7, [r4]
     b lbl_0803de02
 lbl_0803dd04:
-    ldr r0, lbl_0803de14 @ =0x0300007b
+    ldr r0, lbl_0803de14 @ =gDoorUnlockTimer
     movs r1, #1
     strb r1, [r0]
     ldrh r0, [r4, #6]
@@ -723,7 +723,7 @@ lbl_0803de02:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803de14: .4byte 0x0300007b
+lbl_0803de14: .4byte gDoorUnlockTimer
 
     thumb_func_start acid_worm_check_SamusOnZipline
 AcidWormCheckSamusOnZipline: @ 0x0803de18
@@ -731,7 +731,7 @@ AcidWormCheckSamusOnZipline: @ 0x0803de18
     bl SpriteUtilCheckOnZipline
     cmp r0, #0
     beq lbl_0803de30
-    ldr r0, lbl_0803de34 @ =0x03000738
+    ldr r0, lbl_0803de34 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #0x42
     strb r1, [r0]
@@ -741,7 +741,7 @@ lbl_0803de30:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803de34: .4byte 0x03000738
+lbl_0803de34: .4byte gCurrentSprite
 
     thumb_func_start AcidWormSpawnStart
 AcidWormSpawnStart: @ 0x0803de38
@@ -749,9 +749,9 @@ AcidWormSpawnStart: @ 0x0803de38
     bl SpriteUtilCheckOnZipline
     cmp r0, #0
     beq lbl_0803dea4
-    ldr r0, lbl_0803dea8 @ =0x030013d4
+    ldr r0, lbl_0803dea8 @ =gSamusData
     ldrh r2, [r0, #0x12]
-    ldr r3, lbl_0803deac @ =0x03000738
+    ldr r3, lbl_0803deac @ =gCurrentSprite
     ldrh r1, [r3, #8]
     adds r0, r1, #0
     subs r0, #0x8c
@@ -766,7 +766,7 @@ AcidWormSpawnStart: @ 0x0803de38
     ands r0, r1
     movs r2, #0
     strh r0, [r3]
-    ldr r1, lbl_0803deb4 @ =0x0300070c
+    ldr r1, lbl_0803deb4 @ =gSubSpriteData1
     movs r0, #1
     strb r0, [r1, #0xe]
     adds r1, r3, #0
@@ -796,16 +796,16 @@ lbl_0803dea4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803dea8: .4byte 0x030013d4
-lbl_0803deac: .4byte 0x03000738
+lbl_0803dea8: .4byte gSamusData
+lbl_0803deac: .4byte gCurrentSprite
 lbl_0803deb0: .4byte 0x00007fff
-lbl_0803deb4: .4byte 0x0300070c
+lbl_0803deb4: .4byte gSubSpriteData1
 lbl_0803deb8: .4byte 0x000001a7
 
     thumb_func_start AcidWormSpawnExtending
 AcidWormSpawnExtending: @ 0x0803debc
     push {r4, lr}
-    ldr r4, lbl_0803dee8 @ =0x03000738
+    ldr r4, lbl_0803dee8 @ =gCurrentSprite
     ldrh r3, [r4, #2]
     ldrh r0, [r4, #6]
     ldr r1, lbl_0803deec @ =0xfffffe40
@@ -826,7 +826,7 @@ AcidWormSpawnExtending: @ 0x0803debc
     bl SoundPlay
     b lbl_0803df46
     .align 2, 0
-lbl_0803dee8: .4byte 0x03000738
+lbl_0803dee8: .4byte gCurrentSprite
 lbl_0803deec: .4byte 0xfffffe40
 lbl_0803def0: .4byte 0x082fc388
 lbl_0803def4:
@@ -843,7 +843,7 @@ lbl_0803def4:
     ldr r0, lbl_0803df34 @ =0x000001bb
     bl SoundPlay
 lbl_0803df10:
-    ldr r1, lbl_0803df38 @ =0x0300006e
+    ldr r1, lbl_0803df38 @ =gEffectYPositionOffset
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
@@ -861,7 +861,7 @@ lbl_0803df10:
     b lbl_0803df46
     .align 2, 0
 lbl_0803df34: .4byte 0x000001bb
-lbl_0803df38: .4byte 0x0300006e
+lbl_0803df38: .4byte gEffectYPositionOffset
 lbl_0803df3c:
     cmp r0, #8
     bne lbl_0803df46
@@ -879,7 +879,7 @@ AcidWormSpawnStayingOnTop: @ 0x0803df4c
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0803df74
-    ldr r1, lbl_0803df78 @ =0x03000738
+    ldr r1, lbl_0803df78 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x24
     movs r3, #0
@@ -895,7 +895,7 @@ lbl_0803df74:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803df78: .4byte 0x03000738
+lbl_0803df78: .4byte gCurrentSprite
 lbl_0803df7c: .4byte 0x082fc1c8
 lbl_0803df80: .4byte 0x000001a9
 
@@ -903,7 +903,7 @@ lbl_0803df80: .4byte 0x000001a9
 AcidWormSpawnRetracting: @ 0x0803df84
     push {lr}
     bl AcidWormRandomXMovement
-    ldr r3, lbl_0803dfbc @ =0x03000738
+    ldr r3, lbl_0803dfbc @ =gCurrentSprite
     ldrh r0, [r3, #2]
     ldrh r1, [r3, #6]
     cmp r0, r1
@@ -928,7 +928,7 @@ AcidWormSpawnRetracting: @ 0x0803df84
     strb r0, [r1]
     b lbl_0803dff0
     .align 2, 0
-lbl_0803dfbc: .4byte 0x03000738
+lbl_0803dfbc: .4byte gCurrentSprite
 lbl_0803dfc0:
     ldrh r0, [r3, #2]
     adds r1, r0, #0
@@ -943,13 +943,13 @@ lbl_0803dfc0:
     ldr r0, lbl_0803dff4 @ =0x000001bb
     bl SoundPlay
 lbl_0803dfdc:
-    ldr r0, lbl_0803dff8 @ =0x0300006c
-    ldr r1, lbl_0803dffc @ =0x0300070c
+    ldr r0, lbl_0803dff8 @ =gEffectYPosition
+    ldr r1, lbl_0803dffc @ =gSubSpriteData1
     ldrh r0, [r0]
     ldrh r1, [r1, #0xa]
     cmp r0, r1
     bls lbl_0803dff0
-    ldr r1, lbl_0803e000 @ =0x0300006e
+    ldr r1, lbl_0803e000 @ =gEffectYPositionOffset
     ldrh r0, [r1]
     subs r0, #1
     strh r0, [r1]
@@ -958,13 +958,13 @@ lbl_0803dff0:
     bx r0
     .align 2, 0
 lbl_0803dff4: .4byte 0x000001bb
-lbl_0803dff8: .4byte 0x0300006c
-lbl_0803dffc: .4byte 0x0300070c
-lbl_0803e000: .4byte 0x0300006e
+lbl_0803dff8: .4byte gEffectYPosition
+lbl_0803dffc: .4byte gSubSpriteData1
+lbl_0803e000: .4byte gEffectYPositionOffset
 
     thumb_func_start sub_0803e004
 sub_0803e004: @ 0x0803e004
-    ldr r1, lbl_0803e028 @ =0x03000738
+    ldr r1, lbl_0803e028 @ =gCurrentSprite
     ldr r0, lbl_0803e02c @ =0x082fc110
     str r0, [r1, #0x18]
     movs r0, #0
@@ -982,27 +982,27 @@ sub_0803e004: @ 0x0803e004
     strh r0, [r1]
     bx lr
     .align 2, 0
-lbl_0803e028: .4byte 0x03000738
+lbl_0803e028: .4byte gCurrentSprite
 lbl_0803e02c: .4byte 0x082fc110
 
     thumb_func_start AcidWormIdle
 AcidWormIdle: @ 0x0803e030
     push {r4, r5, r6, r7, lr}
-    ldr r3, lbl_0803e068 @ =0x0300006c
-    ldr r0, lbl_0803e06c @ =0x0300070c
+    ldr r3, lbl_0803e068 @ =gEffectYPosition
+    ldr r0, lbl_0803e06c @ =gSubSpriteData1
     ldrh r1, [r3]
     adds r6, r0, #0
     ldrh r0, [r6, #0xa]
     cmp r1, r0
     bls lbl_0803e048
-    ldr r1, lbl_0803e070 @ =0x0300006e
+    ldr r1, lbl_0803e070 @ =gEffectYPositionOffset
     ldrh r0, [r1]
     subs r0, #1
     strh r0, [r1]
 lbl_0803e048:
-    ldr r7, lbl_0803e074 @ =0x030013d4
+    ldr r7, lbl_0803e074 @ =gSamusData
     ldrh r2, [r7, #0x14]
-    ldr r0, lbl_0803e078 @ =0x03000738
+    ldr r0, lbl_0803e078 @ =gCurrentSprite
     ldrh r5, [r0, #2]
     adds r4, r0, #0
     ldrh r3, [r3]
@@ -1017,11 +1017,11 @@ lbl_0803e05c:
     strb r0, [r1]
     b lbl_0803e0dc
     .align 2, 0
-lbl_0803e068: .4byte 0x0300006c
-lbl_0803e06c: .4byte 0x0300070c
-lbl_0803e070: .4byte 0x0300006e
-lbl_0803e074: .4byte 0x030013d4
-lbl_0803e078: .4byte 0x03000738
+lbl_0803e068: .4byte gEffectYPosition
+lbl_0803e06c: .4byte gSubSpriteData1
+lbl_0803e070: .4byte gEffectYPositionOffset
+lbl_0803e074: .4byte gSamusData
+lbl_0803e078: .4byte gCurrentSprite
 lbl_0803e07c:
     adds r1, r4, #0
     adds r1, #0x2c
@@ -1087,7 +1087,7 @@ acid_worm_check_end_warning_anim: @ 0x0803e0f0
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0803e144
-    ldr r2, lbl_0803e130 @ =0x03000738
+    ldr r2, lbl_0803e130 @ =gCurrentSprite
     ldr r0, lbl_0803e134 @ =0x082fc138
     str r0, [r2, #0x18]
     movs r3, #0
@@ -1100,31 +1100,31 @@ acid_worm_check_end_warning_anim: @ 0x0803e0f0
     adds r1, #8
     movs r0, #8
     strb r0, [r1]
-    ldr r0, lbl_0803e138 @ =0x0300070c
+    ldr r0, lbl_0803e138 @ =gSubSpriteData1
     ldrh r1, [r0, #0xa]
     ldrh r0, [r2, #6]
     subs r0, #0xc0
     cmp r1, r0
     bne lbl_0803e140
-    ldr r1, lbl_0803e13c @ =0x0300006e
+    ldr r1, lbl_0803e13c @ =gEffectYPositionOffset
     movs r2, #0x40
     rsbs r2, r2, #0
     adds r0, r2, #0
     strh r0, [r1]
     b lbl_0803e144
     .align 2, 0
-lbl_0803e130: .4byte 0x03000738
+lbl_0803e130: .4byte gCurrentSprite
 lbl_0803e134: .4byte 0x082fc138
-lbl_0803e138: .4byte 0x0300070c
-lbl_0803e13c: .4byte 0x0300006e
+lbl_0803e138: .4byte gSubSpriteData1
+lbl_0803e13c: .4byte gEffectYPositionOffset
 lbl_0803e140:
-    ldr r0, lbl_0803e148 @ =0x0300006e
+    ldr r0, lbl_0803e148 @ =gEffectYPositionOffset
     strh r3, [r0]
 lbl_0803e144:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803e148: .4byte 0x0300006e
+lbl_0803e148: .4byte gEffectYPositionOffset
 
     thumb_func_start AcidWormExtend
 AcidWormExtend: @ 0x0803e14c
@@ -1132,7 +1132,7 @@ AcidWormExtend: @ 0x0803e14c
     mov r7, r8
     push {r7}
     ldr r3, lbl_0803e194 @ =0x082b0d68
-    ldr r2, lbl_0803e198 @ =0x03000738
+    ldr r2, lbl_0803e198 @ =gCurrentSprite
     ldrb r1, [r2, #0x1d]
     lsls r0, r1, #3
     adds r0, r0, r1
@@ -1152,7 +1152,7 @@ AcidWormExtend: @ 0x0803e14c
     beq lbl_0803e17a
     b lbl_0803e49a
 lbl_0803e17a:
-    ldr r0, lbl_0803e19c @ =0x0300070c
+    ldr r0, lbl_0803e19c @ =gSubSpriteData1
     ldrb r0, [r0, #0xf]
     cmp r0, #0
     bne lbl_0803e1c0
@@ -1165,8 +1165,8 @@ lbl_0803e17a:
     b lbl_0803e49a
     .align 2, 0
 lbl_0803e194: .4byte 0x082b0d68
-lbl_0803e198: .4byte 0x03000738
-lbl_0803e19c: .4byte 0x0300070c
+lbl_0803e198: .4byte gCurrentSprite
+lbl_0803e19c: .4byte gSubSpriteData1
 lbl_0803e1a0: .4byte 0x000001af
 lbl_0803e1a4:
     lsrs r0, r7, #1
@@ -1189,11 +1189,11 @@ lbl_0803e1c0:
     .align 2, 0
 lbl_0803e1c8: .4byte 0x000001ab
 lbl_0803e1cc:
-    ldr r1, lbl_0803e1ec @ =0x0300006e
+    ldr r1, lbl_0803e1ec @ =gEffectYPositionOffset
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
-    ldr r0, lbl_0803e1f0 @ =0x0300070c
+    ldr r0, lbl_0803e1f0 @ =gSubSpriteData1
     ldrb r1, [r0, #0xf]
     adds r5, r0, #0
     cmp r1, #0
@@ -1206,8 +1206,8 @@ lbl_0803e1cc:
     movs r2, #4
     b lbl_0803e202
     .align 2, 0
-lbl_0803e1ec: .4byte 0x0300006e
-lbl_0803e1f0: .4byte 0x0300070c
+lbl_0803e1ec: .4byte gEffectYPositionOffset
+lbl_0803e1f0: .4byte gSubSpriteData1
 lbl_0803e1f4:
     lsrs r0, r7, #1
     movs r2, #2
@@ -1317,7 +1317,7 @@ lbl_0803e2b0:
     adds r1, #0x24
     movs r0, #0xf
     strb r0, [r1]
-    ldr r0, lbl_0803e2e0 @ =0x0300070c
+    ldr r0, lbl_0803e2e0 @ =gSubSpriteData1
     ldrb r0, [r0, #0xf]
     cmp r0, #0
     beq lbl_0803e2c2
@@ -1337,14 +1337,14 @@ lbl_0803e2c2:
     b lbl_0803e2e8
     .align 2, 0
 lbl_0803e2dc: .4byte 0x000001bb
-lbl_0803e2e0: .4byte 0x0300070c
+lbl_0803e2e0: .4byte gSubSpriteData1
 lbl_0803e2e4:
     adds r0, r5, #0
     subs r0, #0x40
 lbl_0803e2e8:
     lsls r0, r0, #0x10
     lsrs r5, r0, #0x10
-    ldr r1, lbl_0803e37c @ =0x03000738
+    ldr r1, lbl_0803e37c @ =gCurrentSprite
     mov r8, r1
     ldrh r1, [r1, #0x14]
     lsrs r0, r7, #2
@@ -1407,7 +1407,7 @@ lbl_0803e2e8:
     bl SoundPlay
     b lbl_0803e440
     .align 2, 0
-lbl_0803e37c: .4byte 0x03000738
+lbl_0803e37c: .4byte gCurrentSprite
 lbl_0803e380: .4byte 0x000001b3
 lbl_0803e384:
     lsrs r0, r7, #1
@@ -1492,11 +1492,11 @@ lbl_0803e3f6:
     ldr r0, lbl_0803e458 @ =0x000001b1
     bl SoundPlay
 lbl_0803e440:
-    ldr r0, lbl_0803e45c @ =0x0300002c
+    ldr r0, lbl_0803e45c @ =gDifficulty
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0803e464
-    ldr r2, lbl_0803e460 @ =0x03000738
+    ldr r2, lbl_0803e460 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2c
     ldrb r0, [r1]
@@ -1506,10 +1506,10 @@ lbl_0803e440:
     b lbl_0803e476
     .align 2, 0
 lbl_0803e458: .4byte 0x000001b1
-lbl_0803e45c: .4byte 0x0300002c
-lbl_0803e460: .4byte 0x03000738
+lbl_0803e45c: .4byte gDifficulty
+lbl_0803e460: .4byte gCurrentSprite
 lbl_0803e464:
-    ldr r3, lbl_0803e484 @ =0x03000738
+    ldr r3, lbl_0803e484 @ =gCurrentSprite
     mov r8, r3
     cmp r0, #2
     bne lbl_0803e476
@@ -1527,7 +1527,7 @@ lbl_0803e476:
     strb r0, [r1]
     b lbl_0803e492
     .align 2, 0
-lbl_0803e484: .4byte 0x03000738
+lbl_0803e484: .4byte gCurrentSprite
 lbl_0803e488: .4byte 0x082fc1c8
 lbl_0803e48c:
     ldr r0, lbl_0803e4a4 @ =0x082fc150
@@ -1553,7 +1553,7 @@ AcidWormExtended: @ 0x0803e4a8
     sub sp, #0xc
     movs r5, #0
     bl sub_0803d860
-    ldr r0, lbl_0803e504 @ =0x0300070c
+    ldr r0, lbl_0803e504 @ =gSubSpriteData1
     ldrb r0, [r0, #0xf]
     cmp r0, #0
     bne lbl_0803e50c
@@ -1563,7 +1563,7 @@ AcidWormExtended: @ 0x0803e4a8
     beq lbl_0803e4c6
     b lbl_0803e6a8
 lbl_0803e4c6:
-    ldr r4, lbl_0803e508 @ =0x03000738
+    ldr r4, lbl_0803e508 @ =gCurrentSprite
     adds r5, r4, #0
     adds r5, #0x2d
     ldrb r1, [r5]
@@ -1594,12 +1594,12 @@ lbl_0803e4f6:
     bl AcidWormPlaySound
     b lbl_0803e6a8
     .align 2, 0
-lbl_0803e504: .4byte 0x0300070c
-lbl_0803e508: .4byte 0x03000738
+lbl_0803e504: .4byte gSubSpriteData1
+lbl_0803e508: .4byte gCurrentSprite
 lbl_0803e50c:
-    ldr r0, lbl_0803e52c @ =0x030013d4
+    ldr r0, lbl_0803e52c @ =gSamusData
     ldrh r2, [r0, #0x12]
-    ldr r0, lbl_0803e530 @ =0x03000738
+    ldr r0, lbl_0803e530 @ =gCurrentSprite
     ldrh r1, [r0, #8]
     ldr r3, lbl_0803e534 @ =0xfffffe40
     adds r0, r1, r3
@@ -1613,8 +1613,8 @@ lbl_0803e50c:
     movs r5, #1
     b lbl_0803e546
     .align 2, 0
-lbl_0803e52c: .4byte 0x030013d4
-lbl_0803e530: .4byte 0x03000738
+lbl_0803e52c: .4byte gSamusData
+lbl_0803e530: .4byte gCurrentSprite
 lbl_0803e534: .4byte 0xfffffe40
 lbl_0803e538:
     bl SpriteUtilCheckEndCurrentSpriteAnim
@@ -1624,7 +1624,7 @@ lbl_0803e538:
     lsls r0, r0, #0x18
     lsrs r5, r0, #0x18
 lbl_0803e546:
-    ldr r1, lbl_0803e560 @ =0x03000738
+    ldr r1, lbl_0803e560 @ =gCurrentSprite
     ldrh r0, [r1, #0x16]
     mov ip, r1
     cmp r0, #1
@@ -1637,7 +1637,7 @@ lbl_0803e546:
     bl SoundPlay
     b lbl_0803e68e
     .align 2, 0
-lbl_0803e560: .4byte 0x03000738
+lbl_0803e560: .4byte gCurrentSprite
 lbl_0803e564:
     mov r1, ip
     ldrh r0, [r1, #0x16]
@@ -1793,7 +1793,7 @@ lbl_0803e670:
 lbl_0803e68e:
     cmp r5, #0
     beq lbl_0803e6a8
-    ldr r1, lbl_0803e6b0 @ =0x03000738
+    ldr r1, lbl_0803e6b0 @ =gCurrentSprite
     ldr r0, lbl_0803e6b4 @ =0x082fc1c8
     str r0, [r1, #0x18]
     movs r0, #0
@@ -1809,7 +1809,7 @@ lbl_0803e6a8:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803e6b0: .4byte 0x03000738
+lbl_0803e6b0: .4byte gCurrentSprite
 lbl_0803e6b4: .4byte 0x082fc1c8
 
     thumb_func_start AcidWormRetracting
@@ -1817,7 +1817,7 @@ AcidWormRetracting: @ 0x0803e6b8
     push {r4, r5, r6, r7, lr}
     movs r4, #2
     movs r7, #0
-    ldr r2, lbl_0803e6e4 @ =0x03000738
+    ldr r2, lbl_0803e6e4 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -1836,12 +1836,12 @@ AcidWormRetracting: @ 0x0803e6b8
     movs r0, #0
     b lbl_0803e6ea
     .align 2, 0
-lbl_0803e6e4: .4byte 0x03000738
+lbl_0803e6e4: .4byte gCurrentSprite
 lbl_0803e6e8:
     subs r0, #2
 lbl_0803e6ea:
     strb r0, [r1]
-    ldr r0, lbl_0803e700 @ =0x0300070c
+    ldr r0, lbl_0803e700 @ =gSubSpriteData1
     ldrh r1, [r0, #8]
     ldrh r2, [r5, #8]
     adds r3, r0, #0
@@ -1851,7 +1851,7 @@ lbl_0803e6ea:
     strh r0, [r3, #8]
     b lbl_0803e738
     .align 2, 0
-lbl_0803e700: .4byte 0x0300070c
+lbl_0803e700: .4byte gSubSpriteData1
 lbl_0803e704:
     adds r1, r5, #0
     adds r1, #0x2a
@@ -1865,7 +1865,7 @@ lbl_0803e714:
     adds r0, #2
     strb r0, [r1]
 lbl_0803e718:
-    ldr r0, lbl_0803e72c @ =0x0300070c
+    ldr r0, lbl_0803e72c @ =gSubSpriteData1
     ldrh r1, [r0, #8]
     ldrh r2, [r5, #8]
     adds r3, r0, #0
@@ -1875,7 +1875,7 @@ lbl_0803e718:
     strh r0, [r3, #8]
     b lbl_0803e738
     .align 2, 0
-lbl_0803e72c: .4byte 0x0300070c
+lbl_0803e72c: .4byte gSubSpriteData1
 lbl_0803e730:
     adds r0, r7, #1
     lsls r0, r0, #0x18
@@ -1895,12 +1895,12 @@ lbl_0803e746:
     lsls r0, r0, #0x18
     lsrs r7, r0, #0x18
 lbl_0803e74e:
-    ldr r0, lbl_0803e7f8 @ =0x0300006c
+    ldr r0, lbl_0803e7f8 @ =gEffectYPosition
     ldrh r0, [r0]
     ldrh r3, [r3, #0xa]
     cmp r0, r3
     bls lbl_0803e760
-    ldr r1, lbl_0803e7fc @ =0x0300006e
+    ldr r1, lbl_0803e7fc @ =gEffectYPositionOffset
     ldrh r0, [r1]
     subs r0, #1
     strh r0, [r1]
@@ -1918,7 +1918,7 @@ lbl_0803e760:
     ldr r0, lbl_0803e800 @ =0x000001bb
     bl SoundPlay
 lbl_0803e77e:
-    ldr r4, lbl_0803e804 @ =0x030013d4
+    ldr r4, lbl_0803e804 @ =gSamusData
     ldrh r3, [r4, #0x14]
     ldrh r6, [r5, #2]
     cmp r7, #3
@@ -1934,7 +1934,7 @@ lbl_0803e77e:
     lsrs r0, r0, #1
     cmp r1, r0
     bhi lbl_0803e83c
-    ldr r0, lbl_0803e80c @ =0x0300002c
+    ldr r0, lbl_0803e80c @ =gDifficulty
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_0803e83c
@@ -1978,22 +1978,22 @@ lbl_0803e77e:
     bl SoundPlay
     b lbl_0803e856
     .align 2, 0
-lbl_0803e7f8: .4byte 0x0300006c
-lbl_0803e7fc: .4byte 0x0300006e
+lbl_0803e7f8: .4byte gEffectYPosition
+lbl_0803e7fc: .4byte gEffectYPositionOffset
 lbl_0803e800: .4byte 0x000001bb
-lbl_0803e804: .4byte 0x030013d4
+lbl_0803e804: .4byte gSamusData
 lbl_0803e808: .4byte 0x082b0d68
-lbl_0803e80c: .4byte 0x0300002c
+lbl_0803e80c: .4byte gDifficulty
 lbl_0803e810: .4byte 0xfffffe40
 lbl_0803e814: .4byte 0x082fc138
 lbl_0803e818: .4byte 0x000001b9
 lbl_0803e81c:
-    ldr r2, lbl_0803e834 @ =0x03000738
+    ldr r2, lbl_0803e834 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #8
     strb r0, [r1]
-    ldr r0, lbl_0803e838 @ =0x0300083c
+    ldr r0, lbl_0803e838 @ =gSpriteRNG
     ldrb r1, [r0]
     movs r0, #7
     ands r0, r1
@@ -2001,15 +2001,15 @@ lbl_0803e81c:
     adds r0, #0x3c
     b lbl_0803e852
     .align 2, 0
-lbl_0803e834: .4byte 0x03000738
-lbl_0803e838: .4byte 0x0300083c
+lbl_0803e834: .4byte gCurrentSprite
+lbl_0803e838: .4byte gSpriteRNG
 lbl_0803e83c:
-    ldr r2, lbl_0803e85c @ =0x03000738
+    ldr r2, lbl_0803e85c @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #8
     strb r0, [r1]
-    ldr r0, lbl_0803e860 @ =0x0300083c
+    ldr r0, lbl_0803e860 @ =gSpriteRNG
     ldrb r1, [r0]
     movs r0, #7
     ands r0, r1
@@ -2023,13 +2023,13 @@ lbl_0803e856:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803e85c: .4byte 0x03000738
-lbl_0803e860: .4byte 0x0300083c
+lbl_0803e85c: .4byte gCurrentSprite
+lbl_0803e860: .4byte gSpriteRNG
 
     thumb_func_start AcidWormRaiseAcid
 AcidWormRaiseAcid: @ 0x0803e864
     push {lr}
-    ldr r0, lbl_0803e88c @ =0x03000c77
+    ldr r0, lbl_0803e88c @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #0xf
     ands r0, r1
@@ -2039,7 +2039,7 @@ AcidWormRaiseAcid: @ 0x0803e864
     movs r1, #0x81
     bl ScreenShakeStartHorizontal
 lbl_0803e87a:
-    ldr r2, lbl_0803e890 @ =0x03000738
+    ldr r2, lbl_0803e890 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2c
     ldrb r0, [r1]
@@ -2049,14 +2049,14 @@ lbl_0803e87a:
     strb r0, [r1]
     b lbl_0803e8ba
     .align 2, 0
-lbl_0803e88c: .4byte 0x03000c77
-lbl_0803e890: .4byte 0x03000738
+lbl_0803e88c: .4byte gFrameCounter8Bit
+lbl_0803e890: .4byte gCurrentSprite
 lbl_0803e894:
-    ldr r1, lbl_0803e8c0 @ =0x0300006e
+    ldr r1, lbl_0803e8c0 @ =gEffectYPositionOffset
     ldrh r0, [r1]
     subs r0, #1
     strh r0, [r1]
-    ldr r0, lbl_0803e8c4 @ =0x0300006c
+    ldr r0, lbl_0803e8c4 @ =gEffectYPosition
     ldrh r1, [r0]
     ldrh r0, [r2, #6]
     ldr r3, lbl_0803e8c8 @ =0xfffffec0
@@ -2074,18 +2074,18 @@ lbl_0803e8ba:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803e8c0: .4byte 0x0300006e
-lbl_0803e8c4: .4byte 0x0300006c
+lbl_0803e8c0: .4byte gEffectYPositionOffset
+lbl_0803e8c4: .4byte gEffectYPosition
 lbl_0803e8c8: .4byte 0xfffffec0
 
     thumb_func_start AcidWormAcidGoDown
 AcidWormAcidGoDown: @ 0x0803e8cc
     push {r4, lr}
-    ldr r4, lbl_0803e928 @ =0x0300006e
+    ldr r4, lbl_0803e928 @ =gEffectYPositionOffset
     ldrh r0, [r4]
     adds r0, #1
     strh r0, [r4]
-    ldr r0, lbl_0803e92c @ =0x03000c77
+    ldr r0, lbl_0803e92c @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #0xf
     ands r0, r1
@@ -2095,9 +2095,9 @@ AcidWormAcidGoDown: @ 0x0803e8cc
     movs r1, #0x81
     bl ScreenShakeStartHorizontal
 lbl_0803e8ea:
-    ldr r0, lbl_0803e930 @ =0x0300006c
+    ldr r0, lbl_0803e930 @ =gEffectYPosition
     ldrh r1, [r0]
-    ldr r2, lbl_0803e934 @ =0x03000738
+    ldr r2, lbl_0803e934 @ =gCurrentSprite
     ldrh r0, [r2, #6]
     subs r0, #0xc0
     cmp r1, r0
@@ -2113,7 +2113,7 @@ lbl_0803e8ea:
     rsbs r1, r1, #0
     adds r0, r1, #0
     strh r0, [r4]
-    ldr r3, lbl_0803e938 @ =0x0300070c
+    ldr r3, lbl_0803e938 @ =gSubSpriteData1
     ldrh r1, [r3, #0xa]
     ldrh r2, [r2, #6]
     adds r0, r2, #0
@@ -2127,15 +2127,15 @@ lbl_0803e920:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803e928: .4byte 0x0300006e
-lbl_0803e92c: .4byte 0x03000c77
-lbl_0803e930: .4byte 0x0300006c
-lbl_0803e934: .4byte 0x03000738
-lbl_0803e938: .4byte 0x0300070c
+lbl_0803e928: .4byte gEffectYPositionOffset
+lbl_0803e92c: .4byte gFrameCounter8Bit
+lbl_0803e930: .4byte gEffectYPosition
+lbl_0803e934: .4byte gCurrentSprite
+lbl_0803e938: .4byte gSubSpriteData1
 
     thumb_func_start AcidWormDeathGFXInit
 AcidWormDeathGFXInit: @ 0x0803e93c
-    ldr r0, lbl_0803e958 @ =0x03000738
+    ldr r0, lbl_0803e958 @ =gCurrentSprite
     ldr r1, lbl_0803e95c @ =0x082fc138
     str r1, [r0, #0x18]
     movs r1, #0
@@ -2150,13 +2150,13 @@ AcidWormDeathGFXInit: @ 0x0803e93c
     strb r1, [r0]
     bx lr
     .align 2, 0
-lbl_0803e958: .4byte 0x03000738
+lbl_0803e958: .4byte gCurrentSprite
 lbl_0803e95c: .4byte 0x082fc138
 
     thumb_func_start AcidWormDeathFlashingAnim
 AcidWormDeathFlashingAnim: @ 0x0803e960
     push {r4, r5, lr}
-    ldr r4, lbl_0803e9b0 @ =0x03000738
+    ldr r4, lbl_0803e9b0 @ =gCurrentSprite
     adds r0, r4, #0
     adds r0, #0x26
     movs r5, #1
@@ -2194,7 +2194,7 @@ AcidWormDeathFlashingAnim: @ 0x0803e960
     strb r1, [r0]
     b lbl_0803e9e2
     .align 2, 0
-lbl_0803e9b0: .4byte 0x03000738
+lbl_0803e9b0: .4byte gCurrentSprite
 lbl_0803e9b4:
     adds r0, r4, #0
     adds r0, #0x34
@@ -2226,16 +2226,16 @@ lbl_0803e9e2:
     thumb_func_start AcidWormDying
 AcidWormDying: @ 0x0803e9e8
     push {r4, lr}
-    ldr r0, lbl_0803ea10 @ =0x0300006c
+    ldr r0, lbl_0803ea10 @ =gEffectYPosition
     ldrh r1, [r0]
-    ldr r3, lbl_0803ea14 @ =0x03000738
+    ldr r3, lbl_0803ea14 @ =gCurrentSprite
     ldrh r2, [r3, #6]
     movs r4, #0xf0
     lsls r4, r4, #1
     adds r0, r2, r4
     cmp r1, r0
     ble lbl_0803ea1c
-    ldr r0, lbl_0803ea18 @ =0x0300070c
+    ldr r0, lbl_0803ea18 @ =gSubSpriteData1
     ldrb r0, [r0, #0xe]
     cmp r0, #0
     bne lbl_0803eaa8
@@ -2245,23 +2245,23 @@ AcidWormDying: @ 0x0803e9e8
     bl PlayMusic
     b lbl_0803eaa8
     .align 2, 0
-lbl_0803ea10: .4byte 0x0300006c
-lbl_0803ea14: .4byte 0x03000738
-lbl_0803ea18: .4byte 0x0300070c
+lbl_0803ea10: .4byte gEffectYPosition
+lbl_0803ea14: .4byte gCurrentSprite
+lbl_0803ea18: .4byte gSubSpriteData1
 lbl_0803ea1c:
-    ldr r0, lbl_0803ea48 @ =0x0300070c
+    ldr r0, lbl_0803ea48 @ =gSubSpriteData1
     ldrb r0, [r0, #0xe]
     cmp r0, #0
     bne lbl_0803ea5c
     cmp r1, r2
     bhs lbl_0803ea54
-    ldr r0, lbl_0803ea4c @ =0x03000c77
+    ldr r0, lbl_0803ea4c @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #0x1f
     ands r0, r1
     cmp r0, #0
     bne lbl_0803ea5c
-    ldr r0, lbl_0803ea50 @ =0x0300083c
+    ldr r0, lbl_0803ea50 @ =gSpriteRNG
     ldrb r0, [r0]
     lsls r0, r0, #3
     adds r0, #0x48
@@ -2271,16 +2271,16 @@ lbl_0803ea1c:
     bl ParticleSet
     b lbl_0803ea5c
     .align 2, 0
-lbl_0803ea48: .4byte 0x0300070c
-lbl_0803ea4c: .4byte 0x03000c77
-lbl_0803ea50: .4byte 0x0300083c
+lbl_0803ea48: .4byte gSubSpriteData1
+lbl_0803ea4c: .4byte gFrameCounter8Bit
+lbl_0803ea50: .4byte gSpriteRNG
 lbl_0803ea54:
-    ldr r1, lbl_0803ea7c @ =0x0300006e
+    ldr r1, lbl_0803ea7c @ =gEffectYPositionOffset
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
 lbl_0803ea5c:
-    ldr r0, lbl_0803ea80 @ =0x03000738
+    ldr r0, lbl_0803ea80 @ =gCurrentSprite
     adds r1, r0, #0
     adds r1, #0x2c
     ldrb r0, [r1]
@@ -2296,14 +2296,14 @@ lbl_0803ea5c:
     bl SoundPlay
     b lbl_0803eaa8
     .align 2, 0
-lbl_0803ea7c: .4byte 0x0300006e
-lbl_0803ea80: .4byte 0x03000738
+lbl_0803ea7c: .4byte gEffectYPositionOffset
+lbl_0803ea80: .4byte gCurrentSprite
 lbl_0803ea84:
-    ldr r1, lbl_0803eab0 @ =0x0300006e
+    ldr r1, lbl_0803eab0 @ =gEffectYPositionOffset
     ldrh r0, [r1]
     adds r0, #1
     strh r0, [r1]
-    ldr r0, lbl_0803eab4 @ =0x03000c77
+    ldr r0, lbl_0803eab4 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #0xf
     ands r0, r1
@@ -2320,13 +2320,13 @@ lbl_0803eaa8:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803eab0: .4byte 0x0300006e
-lbl_0803eab4: .4byte 0x03000c77
+lbl_0803eab0: .4byte gEffectYPositionOffset
+lbl_0803eab4: .4byte gFrameCounter8Bit
 
     thumb_func_start AcidWormBodyInit
 AcidWormBodyInit: @ 0x0803eab8
     push {r4, lr}
-    ldr r0, lbl_0803eb2c @ =0x03000738
+    ldr r0, lbl_0803eb2c @ =gCurrentSprite
     mov ip, r0
     ldrh r1, [r0]
     ldr r0, lbl_0803eb30 @ =0x0000fffb
@@ -2384,7 +2384,7 @@ lbl_0803eb20:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0803eb2c: .4byte 0x03000738
+lbl_0803eb2c: .4byte gCurrentSprite
 lbl_0803eb30: .4byte 0x0000fffb
 lbl_0803eb34: .4byte lbl_0803eb38
 lbl_0803eb38: @ jump table
@@ -2618,11 +2618,11 @@ lbl_0803ed08:
     thumb_func_start AcidWormBodyMove
 AcidWormBodyMove: @ 0x0803ed10
     push {r4, r5, lr}
-    ldr r4, lbl_0803ed4c @ =0x03000738
+    ldr r4, lbl_0803ed4c @ =gCurrentSprite
     adds r0, r4, #0
     adds r0, #0x23
     ldrb r5, [r0]
-    ldr r1, lbl_0803ed50 @ =0x030001ac
+    ldr r1, lbl_0803ed50 @ =gSpriteData
     lsls r0, r5, #3
     subs r0, r0, r5
     lsls r0, r0, #3
@@ -2647,8 +2647,8 @@ AcidWormBodyMove: @ 0x0803ed10
     bl SpriteUtilCheckOutOfRoomEffect
     b lbl_0803eda8
     .align 2, 0
-lbl_0803ed4c: .4byte 0x03000738
-lbl_0803ed50: .4byte 0x030001ac
+lbl_0803ed4c: .4byte gCurrentSprite
+lbl_0803ed50: .4byte gSpriteData
 lbl_0803ed54:
     cmp r0, #0x47
     bne lbl_0803ed7c
@@ -2692,7 +2692,7 @@ lbl_0803ed86:
     adds r0, #0x2a
     strb r2, [r0]
 lbl_0803eda8:
-    ldr r1, lbl_0803ee0c @ =0x030001ac
+    ldr r1, lbl_0803ee0c @ =gSpriteData
     lsls r0, r5, #3
     subs r0, r0, r5
     lsls r0, r0, #3
@@ -2700,7 +2700,7 @@ lbl_0803eda8:
     adds r0, r3, #0
     adds r0, #0x24
     ldrb r0, [r0]
-    ldr r4, lbl_0803ee10 @ =0x03000738
+    ldr r4, lbl_0803ee10 @ =gCurrentSprite
     cmp r0, #0x42
     bls lbl_0803edc6
     ldrh r1, [r4]
@@ -2744,8 +2744,8 @@ lbl_0803ee04:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803ee0c: .4byte 0x030001ac
-lbl_0803ee10: .4byte 0x03000738
+lbl_0803ee0c: .4byte gSpriteData
+lbl_0803ee10: .4byte gCurrentSprite
 lbl_0803ee14: .4byte 0x00007fff
 lbl_0803ee18: .4byte 0x000003ff
 
@@ -2755,7 +2755,7 @@ AcidWormBodyMainLoop: @ 0x0803ee1c
     mov r7, sb
     mov r6, r8
     push {r6, r7}
-    ldr r2, lbl_0803ee5c @ =0x03000738
+    ldr r2, lbl_0803ee5c @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x23
     ldrb r0, [r0]
@@ -2764,7 +2764,7 @@ AcidWormBodyMainLoop: @ 0x0803ee1c
     adds r0, #0x2c
     ldrb r5, [r0]
     adds r6, r5, #0
-    ldr r1, lbl_0803ee60 @ =0x030001ac
+    ldr r1, lbl_0803ee60 @ =gSpriteData
     mov r3, r8
     lsls r0, r3, #3
     subs r0, r0, r3
@@ -2784,8 +2784,8 @@ AcidWormBodyMainLoop: @ 0x0803ee1c
     strh r3, [r2, #0x14]
     b lbl_0803effa
     .align 2, 0
-lbl_0803ee5c: .4byte 0x03000738
-lbl_0803ee60: .4byte 0x030001ac
+lbl_0803ee5c: .4byte gCurrentSprite
+lbl_0803ee60: .4byte gSpriteData
 lbl_0803ee64:
     ldrh r1, [r4]
     movs r3, #0x80
@@ -2828,7 +2828,7 @@ lbl_0803ee94:
     mov sb, r2
     cmp r0, #0
     bne lbl_0803ef02
-    ldr r4, lbl_0803eee4 @ =0x03000738
+    ldr r4, lbl_0803eee4 @ =gCurrentSprite
     ldrh r6, [r4, #2]
     adds r7, r6, #0
     bl sub_0803d860
@@ -2850,7 +2850,7 @@ lbl_0803ee94:
     b lbl_0803ef02
     .align 2, 0
 lbl_0803eee0: .4byte 0x0000fdff
-lbl_0803eee4: .4byte 0x03000738
+lbl_0803eee4: .4byte gCurrentSprite
 lbl_0803eee8:
     cmp r0, #0x27
     bne lbl_0803ef02
@@ -2865,7 +2865,7 @@ lbl_0803eee8:
     movs r3, #3
     bl SpriteUtilCheckInRoomEffect
 lbl_0803ef02:
-    ldr r4, lbl_0803ef70 @ =0x03000738
+    ldr r4, lbl_0803ef70 @ =gCurrentSprite
     ldrb r6, [r4, #0x1e]
     cmp r6, #2
     beq lbl_0803ef0c
@@ -2875,7 +2875,7 @@ lbl_0803ef0c:
     ldr r0, lbl_0803ef74 @ =0x000003ff
     cmp r1, r0
     bhi lbl_0803efcc
-    ldr r1, lbl_0803ef78 @ =0x030001ac
+    ldr r1, lbl_0803ef78 @ =gSpriteData
     mov r2, sb
     mov r3, r8
     subs r0, r2, r3
@@ -2922,9 +2922,9 @@ lbl_0803ef0c:
     strb r6, [r0]
     b lbl_0803ef8e
     .align 2, 0
-lbl_0803ef70: .4byte 0x03000738
+lbl_0803ef70: .4byte gCurrentSprite
 lbl_0803ef74: .4byte 0x000003ff
-lbl_0803ef78: .4byte 0x030001ac
+lbl_0803ef78: .4byte gSpriteData
 lbl_0803ef7c: .4byte 0x082b0d68
 lbl_0803ef80:
     lsrs r0, r1, #1
@@ -2966,7 +2966,7 @@ lbl_0803ef98:
     .align 2, 0
 lbl_0803efc8: .4byte 0x000001bd
 lbl_0803efcc:
-    ldr r0, lbl_0803efec @ =0x030001ac
+    ldr r0, lbl_0803efec @ =gSpriteData
     mov r2, sb
     mov r3, r8
     subs r1, r2, r3
@@ -2976,17 +2976,17 @@ lbl_0803efcc:
     ldrb r0, [r1]
     cmp r0, #0
     beq lbl_0803eff8
-    ldr r2, lbl_0803eff0 @ =0x03000738
+    ldr r2, lbl_0803eff0 @ =gCurrentSprite
     ldrh r1, [r2]
     ldr r0, lbl_0803eff4 @ =0x00007fff
     ands r0, r1
     b lbl_0803f004
     .align 2, 0
-lbl_0803efec: .4byte 0x030001ac
-lbl_0803eff0: .4byte 0x03000738
+lbl_0803efec: .4byte gSpriteData
+lbl_0803eff0: .4byte gCurrentSprite
 lbl_0803eff4: .4byte 0x00007fff
 lbl_0803eff8:
-    ldr r2, lbl_0803f014 @ =0x03000738
+    ldr r2, lbl_0803f014 @ =gCurrentSprite
 lbl_0803effa:
     ldrh r1, [r2]
     movs r3, #0x80
@@ -3003,13 +3003,13 @@ lbl_0803f006:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803f014: .4byte 0x03000738
+lbl_0803f014: .4byte gCurrentSprite
 
     thumb_func_start AcidWormBodyDeath
 AcidWormBodyDeath: @ 0x0803f018
     push {r4, r5, lr}
     sub sp, #4
-    ldr r5, lbl_0803f054 @ =0x03000738
+    ldr r5, lbl_0803f054 @ =gCurrentSprite
     adds r0, r5, #0
     adds r0, #0x23
     ldrb r4, [r0]
@@ -3018,7 +3018,7 @@ AcidWormBodyDeath: @ 0x0803f018
     movs r0, #1
     strb r0, [r1]
     bl sub_0803d860
-    ldr r1, lbl_0803f058 @ =0x030001ac
+    ldr r1, lbl_0803f058 @ =gSpriteData
     lsls r0, r4, #3
     subs r0, r0, r4
     lsls r0, r0, #3
@@ -3036,8 +3036,8 @@ AcidWormBodyDeath: @ 0x0803f018
     strb r1, [r0]
     b lbl_0803f0cc
     .align 2, 0
-lbl_0803f054: .4byte 0x03000738
-lbl_0803f058: .4byte 0x030001ac
+lbl_0803f054: .4byte gCurrentSprite
+lbl_0803f058: .4byte gSpriteData
 lbl_0803f05c:
     adds r1, r5, #0
     adds r1, #0x2c
@@ -3055,7 +3055,7 @@ lbl_0803f05c:
     movs r5, #0x20
     cmp r0, #9
     bne lbl_0803f0bc
-    ldr r0, lbl_0803f0d4 @ =0x0300070c
+    ldr r0, lbl_0803f0d4 @ =gSubSpriteData1
     strb r1, [r0, #0xe]
     ldrh r0, [r4, #6]
     adds r0, #0x60
@@ -3074,7 +3074,7 @@ lbl_0803f05c:
     movs r0, #1
     movs r1, #0x1c
     bl EventFunction
-    ldr r1, lbl_0803f0d8 @ =0x0300007b
+    ldr r1, lbl_0803f0d8 @ =gDoorUnlockTimer
     movs r2, #0x14
     rsbs r2, r2, #0
     adds r0, r2, #0
@@ -3083,7 +3083,7 @@ lbl_0803f05c:
     lsls r0, r0, #1
     bl FadeMusic
 lbl_0803f0bc:
-    ldr r0, lbl_0803f0dc @ =0x03000738
+    ldr r0, lbl_0803f0dc @ =gCurrentSprite
     ldrh r1, [r0, #2]
     ldrh r2, [r0, #4]
     str r5, [sp]
@@ -3096,14 +3096,14 @@ lbl_0803f0cc:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803f0d4: .4byte 0x0300070c
-lbl_0803f0d8: .4byte 0x0300007b
-lbl_0803f0dc: .4byte 0x03000738
+lbl_0803f0d4: .4byte gSubSpriteData1
+lbl_0803f0d8: .4byte gDoorUnlockTimer
+lbl_0803f0dc: .4byte gCurrentSprite
 
     thumb_func_start AcidWormSpitInit
 AcidWormSpitInit: @ 0x0803f0e0
     push {r4, lr}
-    ldr r0, lbl_0803f158 @ =0x03000738
+    ldr r0, lbl_0803f158 @ =gCurrentSprite
     mov ip, r0
     ldrh r1, [r0]
     ldr r0, lbl_0803f15c @ =0x0000fffb
@@ -3163,7 +3163,7 @@ AcidWormSpitInit: @ 0x0803f0e0
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803f158: .4byte 0x03000738
+lbl_0803f158: .4byte gCurrentSprite
 lbl_0803f15c: .4byte 0x0000fffb
 lbl_0803f160: .4byte 0x0000fff0
 lbl_0803f164: .4byte 0x082fc2c8
@@ -3172,7 +3172,7 @@ lbl_0803f168: .4byte 0x082b1be4
     thumb_func_start AcidWormSpitMove
 AcidWormSpitMove: @ 0x0803f16c
     push {r4, r5, r6, r7, lr}
-    ldr r0, lbl_0803f1a0 @ =0x03000738
+    ldr r0, lbl_0803f1a0 @ =gCurrentSprite
     ldrb r1, [r0, #0x1e]
     adds r4, r0, #0
     cmp r1, #2
@@ -3198,7 +3198,7 @@ AcidWormSpitMove: @ 0x0803f16c
     adds r0, r0, r7
     b lbl_0803f218
     .align 2, 0
-lbl_0803f1a0: .4byte 0x03000738
+lbl_0803f1a0: .4byte gCurrentSprite
 lbl_0803f1a4: .4byte 0x082fab14
 lbl_0803f1a8: .4byte 0x00007fff
 lbl_0803f1ac:
@@ -3272,7 +3272,7 @@ lbl_0803f22a:
 lbl_0803f22e:
     strh r0, [r4, #4]
     adds r3, r4, #0
-    ldr r0, lbl_0803f254 @ =0x0300006c
+    ldr r0, lbl_0803f254 @ =gEffectYPosition
     ldrh r5, [r0]
     ldrh r0, [r3, #2]
     cmp r0, r5
@@ -3289,13 +3289,13 @@ lbl_0803f22e:
     movs r0, #0x45
     b lbl_0803f276
     .align 2, 0
-lbl_0803f254: .4byte 0x0300006c
+lbl_0803f254: .4byte gEffectYPosition
 lbl_0803f258: .4byte 0x082fc2e8
 lbl_0803f25c:
     ldrh r0, [r4, #2]
     ldrh r1, [r4, #4]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_0803f280 @ =0x030007f1
+    ldr r0, lbl_0803f280 @ =gPreviousCollisionCheck
     ldrb r1, [r0]
     movs r0, #0xf0
     ands r0, r1
@@ -3311,12 +3311,12 @@ lbl_0803f278:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803f280: .4byte 0x030007f1
+lbl_0803f280: .4byte gPreviousCollisionCheck
 
     thumb_func_start AcidWormSpitExplodingGFXInit
 AcidWormSpitExplodingGFXInit: @ 0x0803f284
     push {lr}
-    ldr r2, lbl_0803f2c0 @ =0x03000738
+    ldr r2, lbl_0803f2c0 @ =gCurrentSprite
     ldr r0, lbl_0803f2c4 @ =0x082fc2e8
     str r0, [r2, #0x18]
     movs r0, #0
@@ -3326,7 +3326,7 @@ AcidWormSpitExplodingGFXInit: @ 0x0803f284
     adds r1, #0x24
     movs r0, #0x43
     strb r0, [r1]
-    ldr r0, lbl_0803f2c8 @ =0x03000088
+    ldr r0, lbl_0803f2c8 @ =gIoRegistersBackup
     ldrb r1, [r0, #0xc]
     movs r0, #3
     ands r0, r1
@@ -3345,14 +3345,14 @@ AcidWormSpitExplodingGFXInit: @ 0x0803f284
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803f2c0: .4byte 0x03000738
+lbl_0803f2c0: .4byte gCurrentSprite
 lbl_0803f2c4: .4byte 0x082fc2e8
-lbl_0803f2c8: .4byte 0x03000088
+lbl_0803f2c8: .4byte gIoRegistersBackup
 
     thumb_func_start acid_worm_check_exploding_anim_ended
 acid_worm_check_exploding_anim_ended: @ 0x0803f2cc
     push {r4, lr}
-    ldr r4, lbl_0803f2ec @ =0x03000738
+    ldr r4, lbl_0803f2ec @ =gCurrentSprite
     adds r1, r4, #0
     adds r1, #0x26
     movs r0, #1
@@ -3367,13 +3367,13 @@ lbl_0803f2e4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803f2ec: .4byte 0x03000738
+lbl_0803f2ec: .4byte gCurrentSprite
 
     thumb_func_start acid_worm_check_exploding_on_acid_anim_ended
 acid_worm_check_exploding_on_acid_anim_ended: @ 0x0803f2f0
     push {r4, lr}
-    ldr r4, lbl_0803f314 @ =0x03000738
-    ldr r0, lbl_0803f318 @ =0x0300006c
+    ldr r4, lbl_0803f314 @ =gCurrentSprite
+    ldr r0, lbl_0803f318 @ =gEffectYPosition
     ldrh r0, [r0]
     strh r0, [r4, #2]
     adds r1, r4, #0
@@ -3390,13 +3390,13 @@ lbl_0803f30e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803f314: .4byte 0x03000738
-lbl_0803f318: .4byte 0x0300006c
+lbl_0803f314: .4byte gCurrentSprite
+lbl_0803f318: .4byte gEffectYPosition
 
     thumb_func_start AcidWorm
 AcidWorm: @ 0x0803f31c
     push {lr}
-    ldr r0, lbl_0803f334 @ =0x03000738
+    ldr r0, lbl_0803f334 @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x68
@@ -3409,7 +3409,7 @@ lbl_0803f32a:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0803f334: .4byte 0x03000738
+lbl_0803f334: .4byte gCurrentSprite
 lbl_0803f338: .4byte lbl_0803f33c
 lbl_0803f33c: @ jump table
     .4byte lbl_0803f4e0 @ case 0
@@ -3567,14 +3567,14 @@ lbl_0803f538:
 lbl_0803f53e:
     bl AcidWormDying
 lbl_0803f542:
-    ldr r0, lbl_0803f564 @ =0x0300070c
+    ldr r0, lbl_0803f564 @ =gSubSpriteData1
     ldrb r1, [r0, #0xe]
     cmp r1, #0
     beq lbl_0803f574
-    ldr r1, lbl_0803f568 @ =0x03000100
+    ldr r1, lbl_0803f568 @ =gLockScreen
     movs r0, #2
     strb r0, [r1]
-    ldr r2, lbl_0803f56c @ =0x03000738
+    ldr r2, lbl_0803f56c @ =gCurrentSprite
     ldr r3, lbl_0803f570 @ =0xffffff00
     adds r0, r3, #0
     ldrh r3, [r2, #6]
@@ -3584,27 +3584,27 @@ lbl_0803f542:
     strh r0, [r1, #2]
     b lbl_0803f578
     .align 2, 0
-lbl_0803f564: .4byte 0x0300070c
-lbl_0803f568: .4byte 0x03000100
-lbl_0803f56c: .4byte 0x03000738
+lbl_0803f564: .4byte gSubSpriteData1
+lbl_0803f568: .4byte gLockScreen
+lbl_0803f56c: .4byte gCurrentSprite
 lbl_0803f570: .4byte 0xffffff00
 lbl_0803f574:
-    ldr r0, lbl_0803f57c @ =0x03000100
+    ldr r0, lbl_0803f57c @ =gLockScreen
     strb r1, [r0]
 lbl_0803f578:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0803f57c: .4byte 0x03000100
+lbl_0803f57c: .4byte gLockScreen
 
     thumb_func_start AcidWormBody
 AcidWormBody: @ 0x0803f580
     push {r4, r5, r6, lr}
-    ldr r3, lbl_0803f5d4 @ =0x03000738
+    ldr r3, lbl_0803f5d4 @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x23
     ldrb r1, [r0]
-    ldr r2, lbl_0803f5d8 @ =0x030001ac
+    ldr r2, lbl_0803f5d8 @ =gSpriteData
     lsls r0, r1, #3
     subs r0, r0, r1
     lsls r0, r0, #3
@@ -3642,8 +3642,8 @@ AcidWormBody: @ 0x0803f580
     strb r0, [r2, #0x1c]
     b lbl_0803f5e8
     .align 2, 0
-lbl_0803f5d4: .4byte 0x03000738
-lbl_0803f5d8: .4byte 0x030001ac
+lbl_0803f5d4: .4byte gCurrentSprite
+lbl_0803f5d8: .4byte gSpriteData
 lbl_0803f5dc:
     ldrb r5, [r5]
     cmp r4, r5
@@ -3689,7 +3689,7 @@ lbl_0803f61c:
 AcidWormSpit: @ 0x0803f624
     push {lr}
     sub sp, #4
-    ldr r1, lbl_0803f648 @ =0x03000738
+    ldr r1, lbl_0803f648 @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x24
     ldrb r0, [r0]
@@ -3706,7 +3706,7 @@ AcidWormSpit: @ 0x0803f624
     beq lbl_0803f658
     b lbl_0803f66e
     .align 2, 0
-lbl_0803f648: .4byte 0x03000738
+lbl_0803f648: .4byte gCurrentSprite
 lbl_0803f64c:
     cmp r0, #0x45
     beq lbl_0803f668

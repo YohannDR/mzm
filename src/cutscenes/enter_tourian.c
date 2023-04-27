@@ -1,5 +1,6 @@
 #include "cutscenes/enter_tourian.h"
 #include "cutscenes/cutscene_utils.h"
+#include "color_effects.h"
 #include "macros.h"
 
 #include "data/shortcut_pointers.h"
@@ -111,7 +112,7 @@ u8 EnterTourianAnimation(void)
             if (gCurrentOamScaling > 0x200)
             {
                 gCurrentOamScaling = 0x200;
-                unk_61fa0(8);
+                CutsceneStartBackgroundFading(8);
                 CUTSCENE_DATA.timeInfo.timer = 0;
                 CUTSCENE_DATA.timeInfo.subStage++;
             }
@@ -189,9 +190,179 @@ void EnterTourianScrollBackground(void)
     (*pPosition)--;
 }
 
+/**
+ * @brief 673e0 | 378 | Updates a metroid
+ * 
+ * @param pOam Cutscene oam data pointer
+ * @param metroidId Metroid oam
+ */
 void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
 {
+    u32 position;
+    u32 notDrawn;
+    i32 var_0;
+    struct CutsceneOamData* pShell;
+    i32 var_1;
+    i32 var_2;
+    i32 var_3;
 
+    pShell = pOam - 1;
+
+    if (pOam->actions & 2)
+    {
+        UpdateCutsceneOamDataID(pOam, 3);
+        pOam->actions &= ~1;
+        pOam->actions ^= 2;
+        pOam->actions |= 4;
+        pOam->timer = 0;
+    }
+
+    if (pOam->actions & 1)
+    {
+        if (pOam->timer != USHORT_MAX)
+            pOam->timer++;
+
+        if (pOam->unk_16 != 0)
+        {
+            pOam->unk_16--;
+        }
+        else
+        {
+            if (pOam->unk_E != 0)
+            {
+                pOam->xPosition -= pOam->unk_E;
+                pOam->unk_E = 0;
+
+            }
+            else
+            {
+                pOam->unk_E = sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 1 ? -4 : 4;
+                pOam->xPosition += pOam->unk_E;
+            }
+            pOam->unk_16 = (sRandomNumberTable[(pOam->timer - metroidId) & 0xFF] & 0x1F) + 8;
+        }
+
+        if (pOam->unk_18 != 0)
+        {
+            pOam->unk_18--;
+        }
+        else
+        {
+            if (pOam->unk_10 != 0)
+            {
+                pOam->yPosition -= pOam->unk_10;
+                pOam->unk_10 = 0;
+            }
+            else
+            {
+                pOam->unk_10 = sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 2 ? -4 : 4;
+                pOam->yPosition += pOam->unk_10;
+            }
+            
+            pOam->unk_18 = (sRandomNumberTable[(pOam->timer - metroidId) & 0xFF] & 0x3F) + 8;
+
+            if (pOam->unk_18 == pOam->unk_16)
+                pOam->unk_18 += 16;
+        }
+    }
+    else if (pOam->actions & 4)
+    {
+        if (pOam->timer != USHORT_MAX)
+            pOam->timer++;
+
+        if (metroidId == 0)
+            var_0 = 0xB4;
+        else
+            var_0 = 0x3C;
+
+        if (pOam->timer < var_0)
+        {
+            var_1 = 1;
+            var_0 = 2;
+        }
+        else
+        {
+            var_1 = 2;
+            var_0 = 1;
+        }
+
+        pOam->unk_16++;
+        if (pOam->unk_E == 0)
+        {
+            pOam->unk_E = sEnterTourian_7600b4[metroidId][0] - pOam->xPosition;
+
+            var_2 = sRandomNumberTable[(pOam->timer * metroidId) & 0xFF] & 1 ? 1 : -1;
+            var_2 *= sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 3;
+
+            if (pOam->unk_E > 0)
+                pOam->unk_E = var_2 * 4 + 0x20;
+            else
+                pOam->unk_E = var_2 * 4 - 0x20;
+        }
+        else
+        {
+            if (pOam->unk_E > 0)
+            {
+                if (sEnterTourian_7600b4[metroidId][0] <= pOam->xPosition)
+                    pOam->unk_E -= 2;
+
+                var_2 = pOam->unk_E / 12 + 1;
+                if (var_2 > var_1)
+                    var_2 = var_1;
+            }
+            else
+            {
+                if (sEnterTourian_7600b4[metroidId][0] >= pOam->xPosition)
+                    pOam->unk_E += 2;
+
+                var_2 = pOam->unk_E / 12 - 1;
+                if (var_2 < -var_1)
+                    var_2 = -var_1;
+            }
+
+            pOam->xPosition += var_2;
+        }
+
+        pOam->unk_18++;
+        if (pOam->unk_10 == 0)
+        {
+            var_2 = sRandomNumberTable[(pOam->animationDurationCounter + pOam->currentAnimationFrame) & 0xFF] & 2 ? 1 : -1;
+            var_2 *= sRandomNumberTable[(pOam->timer + metroidId) & 0xFF] & 1;
+
+            if (sEnterTourian_7600b4[metroidId][1] < pOam->yPosition)
+                pOam->unk_10 = sEnterTourian_7600b4[metroidId][1] - (var_2 + 4) * 4 - pOam->yPosition;
+            else
+                pOam->unk_10 = sEnterTourian_7600b4[metroidId][1] + (var_2 + 4) * 4 - pOam->yPosition;
+        }
+        else if (pOam->unk_18 & 1)
+        {
+            if (pOam->unk_10 > 0)
+                pOam->unk_10--;
+            else
+                pOam->unk_10++;
+
+            var_3 = pOam->yPosition;
+            if (pOam->unk_10 <= 0)
+                pOam->yPosition = var_3 - var_0;
+            else
+                pOam->yPosition = var_3 + var_0;
+        }
+    }
+
+    pShell->yPosition = pOam->yPosition;
+    pShell->xPosition = pOam->xPosition;
+    
+    position = *CutsceneGetBGHOFSPointer(sEnterTourianPageData[0].bg);
+    var_2 = position - pOam->xPosition;
+    position = var_2 + 0x7DF;
+
+    if (position < 0xBDF)
+        var_2 = FALSE;
+    else
+        var_2 = TRUE;
+
+    pOam->notDrawn = var_2;
+    pShell->notDrawn = var_2;
 }
 
 /**
@@ -236,13 +407,15 @@ void EnterTourianSwitchMetroidPalette(struct CutscenePaletteData* pPalette, u8 g
     }
 }
 
+/**
+ * @brief 677e4 | 168 | Updates the pirate
+ * 
+ * @param pOam Cutscene oam data pointer
+ */
 void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
 {
-    // https://decomp.me/scratch/k9SZe
-
-    u16 position;
-    u8 notDrawn;
-    i32 velocity;
+    u32 position;
+    u32 notDrawn;
 
     if (pOam->actions & 1)
     {
@@ -257,12 +430,7 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
             }
             else
             {
-                if (sRandomNumberTable[gFrameCounter8Bit] & 1)
-                    velocity = -4;
-                else
-                    velocity = 4;
-
-                pOam->unk_E = velocity;
+                pOam->unk_E = sRandomNumberTable[gFrameCounter8Bit] & 1 ? -4 : 4;
                 pOam->xPosition += pOam->unk_E;
             }
 
@@ -299,8 +467,7 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
             pOam->unk_1A = 0;
             pOam->unk_12++;
 
-            velocity = 0x3AA0;
-            ApplySmoothPaletteTransition(sEwramPointer + 0x280, sEwramPointer + velocity, PALRAM_BASE + 0x280, pOam->unk_12);
+            ApplySmoothPaletteTransition((void*)sEwramPointer + 0x280, (void*)sEwramPointer + 0x3AA0, PALRAM_BASE + 0x280, pOam->unk_12);
             if (pOam->unk_12 > 30)
                 pOam->actions ^= 2;
         }
@@ -308,11 +475,14 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
 
     pOam->actions &= ~1;
     position = *CutsceneGetBGHOFSPointer(sEnterTourianPageData[0].bg);
+    notDrawn = position - pOam->xPosition;
+    position = notDrawn + 0x5DF;
 
-    if (position - pOam->xPosition + 0x5DF < 0x6DE)
+    if (position <= 0x6DE)
         notDrawn = FALSE;
     else
         notDrawn = TRUE;
+
     pOam->notDrawn = notDrawn;
 }
 
@@ -329,19 +499,19 @@ u8 EnterTourianInit(void)
     DMATransfer(3, sEnterTourianBackgroundPAL, PALRAM_BASE, sizeof(sEnterTourianBackgroundPAL), 0x10);
     write16(PALRAM_BASE, 0);
 
-    DMATransfer(3, sEnterTourianMetroidPAL, PALRAM_BASE + 0x200, sizeof(sEnterTourianMetroidPAL), 0x10);
+    DMATransfer(3, sEnterTourianMetroidPAL, PALRAM_OBJ, sizeof(sEnterTourianMetroidPAL), 0x10);
     DMATransfer(3, sMetroidPAL, PALRAM_BASE + 0x300, sizeof(sMetroidPAL), 0x10);
 
-    CallLZ77UncompWRAM(sEnterTourianDeadSpacePirateGFX_1, VRAM_BASE + 0x10000);
-    CallLZ77UncompWRAM(sEnterTourianDeadSpacePirateGFX_2, VRAM_BASE + 0x10400);
-    CallLZ77UncompWRAM(sEnterTourianDeadSpacePirateGFX_3, VRAM_BASE + 0x10800);
-    CallLZ77UncompWRAM(sMetroidGFX, VRAM_BASE + 0x14000);
+    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGFX_1, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGFX_2, VRAM_BASE + 0x10400);
+    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGFX_3, VRAM_BASE + 0x10800);
+    CallLZ77UncompVRAM(sMetroidGFX, VRAM_BASE + 0x14000);
     
-    CallLZ77UncompWRAM(sEnterTourianBackgroundGFX, VRAM_BASE + sEnterTourianPageData[0].graphicsPage * 0x4000);
-    CallLZ77UncompWRAM(sEnterTourianForegroundGFX, VRAM_BASE + sEnterTourianPageData[1].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sEnterTourianBackgroundGFX, VRAM_BASE + sEnterTourianPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sEnterTourianForegroundGFX, VRAM_BASE + sEnterTourianPageData[1].graphicsPage * 0x4000);
 
-    CallLZ77UncompWRAM(sEnterTourianBackgroundTileTable, VRAM_BASE + sEnterTourianPageData[0].tiletablePage * 0x800);
-    CallLZ77UncompWRAM(sEnterTourianForegroundTileTable, VRAM_BASE + sEnterTourianPageData[1].tiletablePage * 0x800);
+    CallLZ77UncompVRAM(sEnterTourianBackgroundTileTable, VRAM_BASE + sEnterTourianPageData[0].tiletablePage * 0x800);
+    CallLZ77UncompVRAM(sEnterTourianForegroundTileTable, VRAM_BASE + sEnterTourianPageData[1].tiletablePage * 0x800);
 
     CutsceneSetBGCNTPageData(sEnterTourianPageData[0]);
     CutsceneSetBGCNTPageData(sEnterTourianPageData[1]);
@@ -353,7 +523,7 @@ u8 EnterTourianInit(void)
     CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS, sEnterTourianPageData[1].bg, 0x800);
 
     CUTSCENE_DATA.oam[1].oamID = 6;
-    CUTSCENE_DATA.oam[1].idChanged = TRUE;
+    CUTSCENE_DATA.oam[1].exists = TRUE;
     CUTSCENE_DATA.oam[1].boundBackground = 3;
     CUTSCENE_DATA.oam[1].priority = sEnterTourianPageData[0].priority;
     CUTSCENE_DATA.oam[1].actions = 1;
@@ -370,7 +540,7 @@ u8 EnterTourianInit(void)
 
     
     CUTSCENE_DATA.oam[0].oamID = 2;
-    CUTSCENE_DATA.oam[0].idChanged = TRUE;
+    CUTSCENE_DATA.oam[0].exists = TRUE;
     CUTSCENE_DATA.oam[0].boundBackground = 3;
     CUTSCENE_DATA.oam[0].priority = sEnterTourianPageData[0].priority;
 
@@ -401,8 +571,8 @@ u8 EnterTourianInit(void)
     CUTSCENE_DATA.unk_A = TRUE;
 
     PlayMusic(MUSIC_ENTERING_TOURIAN_CUTSCENE, 0);
-    DMATransfer(3, PALRAM_BASE + 0x200, sEwramPointer + 0x3A00, 0x200, 0x10);
-    unk_61fa0(3);
+    DMATransfer(3, PALRAM_OBJ, (void*)sEwramPointer + 0x3A00, 0x200, 0x10);
+    CutsceneStartBackgroundFading(3);
 
     CUTSCENE_DATA.dispcnt = DCNT_OBJ | sEnterTourianPageData[0].bg | sEnterTourianPageData[1].bg;
     CUTSCENE_DATA.timeInfo.timer = 0;
@@ -431,7 +601,8 @@ u8 EnterTourianSubroutine(void)
 void EnterTourianProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sEnterTourianSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sEnterTourianOam);
+    ProcessCutsceneOam(sEnterTourianSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength,
+        CUTSCENE_DATA.oam, sEnterTourianOam);
     ResetFreeOAM();
     CalculateOamPart4(gCurrentOamRotation, gCurrentOamScaling, 0);
 }

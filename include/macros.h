@@ -9,17 +9,19 @@
 
 #define check_samus_turning() ((pData->direction ^ (KEY_RIGHT | KEY_LEFT)) & gButtonInput)
 #define ARRAY_SIZE(a) ((int)(sizeof((a)) / sizeof((a)[0])))
-#define OFFSET_OF(type, element) ((int)&(((type *)0)->element))
+#define OFFSET_OF(type, element) ((int)&(((type*)0)->element))
 
 #define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
 
 #define RED(c) ((c) & COLOR_MASK)
 #define GREEN(c) (((c) & (COLOR_MASK << 5)) >> 5)
-#define BLUE(c, b) do{b=((c) & (COLOR_MASK << 10)) >> 10;}while(0)
+#define BLUE(c) (((c) & 0x7C00) >> 10)
 #define COLOR(r, g, b) (((b) << 10) | ((g) << 5) | (r))
 #define COLOR_WHITE COLOR(0x1F, 0x1F, 0x1F)
 #define COLOR_BLACK COLOR(0x0, 0x0, 0x0)
 #define COLOR_MASK 0x1F
+
+#define OAM_DATA_SIZE(nbrOfParts) (1 + nbrOfParts * 3)
 
 #define PI 128
 #define sin(a) (sSineTable[(a)])
@@ -32,5 +34,12 @@
 #define INCBIN_S8   INCBIN
 #define INCBIN_S16  INCBIN
 #define INCBIN_S32  INCBIN
+#define _INCBIN_U8  INCBIN
+#define _INCBIN_U16 INCBIN
+#define _INCBIN_U32 INCBIN
+#define _INCBIN_S8  INCBIN
+#define _INCBIN_S16 INCBIN
+#define _INCBIN_S32 INCBIN
 
 #define FORCE_RODATA __attribute__((section(".rodata")))
+#define NAKED_FUNCTION __attribute__((naked))

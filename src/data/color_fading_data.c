@@ -302,5 +302,3 @@ const struct ColorFadingColorInfo sColorFadingColorInfo[5] = {
         .size = ARRAY_SIZE(sColorFading_345fcc)
     }
 };
-
-const u8 sTempArray_345ff8[0x19950] = INCBIN_U8("data/Blob_345ff8_35f948.bin");

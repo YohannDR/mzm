@@ -5,7 +5,7 @@
 #include "structs/samus.h"
 
 void SamusCheckScrewSpeedboosterAffectingEnvironment(struct SamusData* pData, struct SamusPhysics* pPhysics);
-u8 SamusSlopeRelated(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosition, u16* pSlope);
+u8 SamusCheckCollisionAtPosition(u16 xPosition, u16 yPosition, u16* pXPosition, u16* pYPosition, u16* pSlope);
 u8 unk_5604(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 xPosition, u16* pPosition);
 u8 SamusCheckTopSideCollisionMidAir(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 xPosition, u16* pPosition);
 u8 SamusCheckWalkingOnSlope(struct SamusData* pData, u16 xPosition);
@@ -27,7 +27,7 @@ void SamusSetPose(u8 pose);
 void SamusCopyData(struct SamusData* pData);
 void SamusUpdatePhysics(struct SamusData* pData);
 i16 SamusChangeVelocityOnSlope(struct SamusData* pData);
-void SamusCopyPalette(u16* src, i32 offset, i32 nbrColors);
+void SamusCopyPalette(const u16* src, i32 offset, i32 nbrColors);
 void SamusUpdate(void);
 void SamusUpdateHitboxMovingDirection(void);
 void SamusCallGFXFunctions(void);

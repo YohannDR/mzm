@@ -25,6 +25,9 @@ SECTIONS {
         . = 0x00037e00; gEventsTriggered = .;
         . = 0x00037e20; gMinimapTilesGFX = .;
         . = 0x00038000; gSram = .;
+
+        . = 0x0003f080; gSramDemoInputData = .;
+        . = 0x0003f280; gSramDemoInputDuration = .;
     } >ewram
 
     iwram (NOLOAD) : ALIGN(4) {
@@ -40,6 +43,7 @@ SECTIONS {
         . = 0x0000000f; gWrittenToWINOUT_L = .;
         . = 0x00000010; gWrittenTo0x05000000 = .;
         . = 0x00000012; gWrittenToBLDY = .;
+        . = 0x00000014; gFileScreenOptionsUnlocked = .;
         . = 0x00000020; gLanguage = .;
         . = 0x00000024; gGameCompletion = .;
         . = 0x00000028; gCompletedGameFlagCopy = .;
@@ -58,6 +62,7 @@ SECTIONS {
         . = 0x00000042; gSkipDoorTransition = .;
         . = 0x00000043; gDisableSoftreset = .;
         . = 0x00000044; gCollectingTank = .;
+        . = 0x00000045; gDisableAnimatedGraphicsTimer = .;
         . = 0x00000046; gAnimatedGraphicsToUpdate = .;
         . = 0x00000048; gDisableDoorAndTanks = .;
         . = 0x00000049; gDisablePause = .;
@@ -73,12 +78,13 @@ SECTIONS {
         . = 0x00000058; gDisplayLocationText = .;
         . = 0x00000059; gMinimapX = .;
         . = 0x0000005A; gMinimapY = .;
+        . = 0x0000005b; gNumberOfNeverReformBlocks = .;
         . = 0x00000063; gNumberOfItemsCollected = .;
         . = 0x0000006b; gCurrentHazeValue = .;
         . = 0x0000006C; gEffectYPosition = .;
         . = 0x0000006E; gEffectYPositionOffset = .;
         . = 0x00000071; gScreenShakeXOffset = .;
-        . = 0x00000073; gScreenShakeYOffset = .;
+        . = 0x00000072; gScreenShakeYOffset = .;
         . = 0x00000074; gScreenShakeRelated = .;
         . = 0x00000076; gDISPCNTBackup = .;
         . = 0x00000078; gSpriteset = .;
@@ -106,6 +112,7 @@ SECTIONS {
         . = 0x00000144; gCamera = .;
         . = 0x0000014c; gMaxInGameTimerFlag = .;
         . = 0x00000150; gInGameTimer = .;
+        . = 0x00000154; gBestCompletionTimes = .;
         . = 0x00000184; gInGameTimerAtBosses = .;
         . = 0x00000198; gLastElevatorUsed = .;
         . = 0x0000019C; gInGameCutscene = .;
@@ -120,7 +127,7 @@ SECTIONS {
         . = 0x00000770; gSpriteDebris = .;
         . = 0x000007F0; gPreviousVerticalCollisionCheck = .;
         . = 0x000007F1; gPreviousCollisionCheck = .;
-        . = 0x000007F1; gCollisionDebris = .;
+        . = 0x000007F2; gIgnoreSamusAndSpriteCollision = .;
         . = 0x000007F3; gSpriteDrawOrder = .;
         . = 0x0000080C; gBossWork = .;
         . = 0x0000083C; gSpriteRNG = .;
@@ -151,6 +158,7 @@ SECTIONS {
         . = 0x00000bf0; gPauseScreenFlag = .;
         . = 0x00000bf1; gAreaBeforeTransition = .;
         . = 0x00000bf2; gCurrentItemBeingAcquired = .;
+        . = 0x00000bf3; gOptionsOptionSelected = .;
         . = 0x00000bf4; gBG0HOFS_NonGameplay = .;
         . = 0x00000bf6; gBG0VOFS_NonGameplay = .;
         . = 0x00000bf8; gBG1HOFS_NonGameplay = .;
@@ -165,7 +173,12 @@ SECTIONS {
         . = 0x00000c0c; gCurrentMessage = .;
         . = 0x00000c1c; gSramCorruptFlag = .;
         . = 0x00000c1d; gIsLoadingFile = .;
+        . = 0x00000c1e; gMostRecentSaveFile = .;
+        . = 0x00000c1f; gHasSaved = .;
+        . = 0x00000c20; gUnk_3000c20 = .;
         . = 0x00000c21; gSramOperationStage = .;
+        . = 0x00000c24; gSaveFilesInfo = .;
+        . = 0x00000c6c; gStartingInfo = .;
         . = 0x00000c70; gMainGameMode = .;
         . = 0x00000c72; gGameModeSub1 = .;
         . = 0x00000c74; gGameModeSub2 = .;
@@ -179,8 +192,17 @@ SECTIONS {
         . = 0x0000137e; gPreviousButtonInput = .;
         . = 0x00001380; gChangedInput = .;
         . = 0x00001382; gNextOamSlot = .;
+        . = 0x00001394; gWrittenToBG2X = .;
+        . = 0x00001398; gWrittenToBG2Y = .;
         . = 0x0000139c; gWrittenToMOSAIC_H = .;
         . = 0x0000139e; gWrittenToMOSAIC_L = .;
+        . = 0x000013A0; gBg2Scaling = .;
+        . = 0x000013A2; gUnk_30013a2 = .;
+        . = 0x000013A4; gBg2Rotation = .;
+        . = 0x000013A6; gWrittenToBG2PA = .;
+        . = 0x000013A8; gWrittenToBG2PB = .;
+        . = 0x000013Aa; gWrittenToBG2PC = .;
+        . = 0x000013Ac; gWrittenToBG2PD = .;
         . = 0x000013AE; gWrittenToBLDY_NonGameplay = .;
         . = 0x000013B0; gWrittenToBLDALPHA_L = .;
         . = 0x000013B2; gWrittenToBLDALPHA_H = .;
@@ -204,9 +226,12 @@ SECTIONS {
         . = 0x00001588; gSamusPhysics = .;
         . = 0x00001600; gPreviousXPosition = .;
         . = 0x00001602; gPreviousYPosition = .;
+        . = 0x00001604; gEndingFlags = .;
         . = 0x00001606; gPreventMovementTimer = .;
         . = 0x00001608; gDisableDrawingSamusAndScrolling = .;
+        . = 0x0000160c; gTimeAttackData = .;
         . = 0x0000168C; gButtonAssignments = .;
+        . = 0x00001694; gTimeAttackRecord = .;
         . = 0x000016C4; gNonGameplayRAM = .;
         . = 0x00001cec; gVBlankCallback = .;
         . = 0x00001cf0; gHBlankCallback = .;
@@ -214,11 +239,20 @@ SECTIONS {
         . = 0x00001cf8; gSerialCommunicationCallback = .;
         . = 0x00001cfc; gTimer3Callback = .;
         . = 0x00001d00; gMusicInfo = .;
-        . = 0x00002924; sound_data = .;
+        . = 0x00002924; gSoundData = .;
 
+        . = 0x00003524; gSoundChannels = .;
+        . = 0x0000376c; gUnk_300376c = .;
+        . = 0x00003794; gPsgSounds = .;
         . = 0x00003834; gSoundChannelBackup = .;
         . = 0x000039bc; gSoundChannelTrack2Backup = .;
         . = 0x00003b44; gSoundQueue = .;
+        . = 0x00003b8c; gSoundCodeAPointer = .;
+        . = 0x00003b90; gSoundCodeA = .;
+        . = 0x000041e8; gSoundCodeBPointer = .;
+        . = 0x000041ec; gSoundCodeB = .;
+        . = 0x00004290; gSoundCodeCPointer = .;
+        . = 0x00004294; gSoundCodeC = .;
         . = 0x00004348; gTrack0Variables = .;
         . = 0x00004708; gTrack1Variables = .;
         . = 0x00004a28; gTrack2Variables = .;
@@ -248,9 +282,13 @@ SECTIONS {
         . = 0x000054E4; gHatchesState = .;
         . = 0x000054EC; gBG3Movement = .;
         . = 0x000054F4; gBG0Movement = .;
+        . = 0x000054Fc; gTilesetTransparentColor = .;
+        . = 0x00005504; gUnusedStruct_3005504 = .;
         . = 0x0000550C; gSamusDoorPositionOffset = .;
+        . = 0x0000550e; gDestinationRoom = .;
         . = 0x00005510; gBg3CntDuringDoorTransition = .;
         . = 0x00005512; gBg1CntDuringDoorTransition = .;
+        . = 0x00005514; gUnk_3005514 = .;
         . = 0x00005515; gScreenYOffset = .;
         . = 0x00005516; gScreenXOffset = .;
         . = 0x00005518; gRainSoundEffect = .;
@@ -260,6 +298,7 @@ SECTIONS {
         . = 0x000056a8; gLastTankCollected = .;
         . = 0x000056ac; gBombchains = .;
         . = 0x000056bc; gActiveBombChainTypes = .;
+        . = 0x000056c0; gTransparencyRelated = .;
         . = 0x000056c4; gDefaultTransparency = .;
         . = 0x000056cc; gBldalphaData1 = .;
         . = 0x000056d4; gBldalphaData2 = .;
@@ -273,10 +312,52 @@ SECTIONS {
         . = 0x00005704; gClipdataCodePointer = .;
         . = 0x00005708; gCurrentRoomScrollDataPointer = .;
         . = 0x00005714; gUnk_3005714 = .;
+        . = 0x0000571c; gHazeLoops = .;
+        . = 0x00005728; gUnk_3005728 = .;
+        . = 0x00005729; gUnk_3005729 = .;
+        . = 0x0000572c; gHazeProcessCodePointer = .;
         . = 0x00005730; gAnimatedGraphicsData = .;
         . = 0x000057F0; gTankAnimations = .;
+        . = 0x00005800; gMaintainedInputData = .;
+        . = 0x00005804; gUnk_3005804 = .;
         . = 0x00005806; gOamXOffset_NonGameplay = .;
         . = 0x00005807; gOamYOffset_NonGameplay = .;
+
+        . = 0x00005808; gIoTransferInfo = .;
+        . = 0x00005820; gMultiBootParamData = .;
+        . = 0x0000586c; gDataSentPointer = .;
+        . = 0x00005870; gDataSentSize = .;
+        . = 0x00005874; gUnk_3005874 = .;
+        . = 0x00005880; gUnk_3005880 = .;
+        . = 0x00005884; gUnk_3005884 = .;
+        . = 0x00005888; gUnk_3005888 = .;
+        . = 0x00005890; gUnk_3005890 = .;
+        . = 0x000058a8; gUnk_30058a8 = .;
+        . = 0x000058aa; gUnk_30058aa = .;
+        . = 0x000058ac; gUnk_30058ac = .;
+        . = 0x000058ae; gUnk_30058ae = .;
+        . = 0x000058af; gUnk_30058af = .;
+        . = 0x000058b0; gUnk_30058b0 = .;
+        . = 0x000058b1; gUnk_30058b1 = .;
+        . = 0x000058b2; gRegIme_Backup = .;
+        . = 0x000058b4; gRegIe_Backup = .;
+        . = 0x000058b6; gRegTm3Cnt_H_Backup = .;
+        . = 0x000058b8; gRegSiocnt_Backup = .;
+        . = 0x000058ba; gRegRcnt_Backup = .;
+        . = 0x000058bc; gErrorFlag = .;
+        . = 0x000058c0; gUnk_30058c0 = .;
+        . = 0x000058c4; gUnk_30058c4 = .;
+        . = 0x000058cc; gUnk_30058cc = .;
+        . = 0x000058cd; gUnk_30058cd = .;
+        . = 0x000058ce; gUnk_30058ce = .;
+        . = 0x000058cf; gUnk_30058cf = .;
+        . = 0x000058d0; gUnk_30058d0 = .;
+        . = 0x000058d2; gUnk_30058d2 = .;
+        . = 0x000058d3; gUnk_30058d3 = .;
+        . = 0x000058d5; gUnk_30058d5 = .;
+        . = 0x000058d6; gUnk_30058d6 = .;
+        . = 0x000058d8; gUnk_30058d8 = .;
+        . = 0x000058da; gUnk_30058da = .;
 
         . = 0x000058e0; src/libgcc/fp-bit-base.o(.bss);
         . = 0x000058f8; src/libgcc/float.o(.bss);
@@ -290,6 +371,9 @@ SECTIONS {
         . = 0x00005AD0; gTrackData2 = .;
         . = 0x00005B10; gTrackData5 = .;
 
+        . = 0x00005b50; gUnk_3005b50 = .;
+        . = 0x00005b54; gUnk_3005b54 = .;
+        . = 0x00005b60; gCableLinkInfo = .;
 
 
         . = 0x00007e60; sp_sys = .;
@@ -311,13 +395,13 @@ SECTIONS {
         src/init_helpers.o(.text);
         src/fixed_point.o(.text);
         src/callbacks.o(.text);
-        src/erase_sram_func.o(.text);
-        asm/disasm_0x08000c48.o(.text);
+        src/sram_misc.o(.text);
+        asm/disasm_0x080010c4.o(.text);
         asm/disasm_0x08002a58.o(.text);
         asm/syscalls.o(.text);
         asm/disasm_0x080051d4.o(.text);
         asm/disasm_0x08005368.o(.text);
-        src/demo.o(.text);
+        src/demo_input.o(.text);
         src/in_game.o(.text);
         asm/disasm_0x0800c4b4.o(.text);
         src/sprite_debris.o(.text);
@@ -348,7 +432,8 @@ SECTIONS {
         src/sprites_AI/squeept.o(.text);
         src/sprites_AI/map_station.o(.text);
         src/sprites_AI/save_platform.o(.text);
-        asm/disasm_0x08020564.o(.text);
+        src/sprites_AI/dragon.o(.text);
+        asm/disasm_0x08020c7c.o(.text);
         src/sprites_AI/dessgeega.o(.text);
         src/sprites_AI/waver.o(.text);
         asm/disasm_0x08024a10.o(.text);
@@ -417,24 +502,32 @@ SECTIONS {
         src/in_game_timer.o(.text);
         src/display.o(.text);
         src/process_pause_press.o(.text);
-        asm/disasm_0x08057d04.o(.text);
+        src/room_cutscene.o(.text);
+        src/clipdata.o(.text);
+        asm/disasm_0x080582c4.o(.text);
         src/color_fading.o(.text);
         asm/disasm_0x0805cfe0.o(.text);
         src/animated_graphics.o(.text);
         asm/disasm_0x0805e760.o(.text);
         src/in_game_cutscene.o(.text);
         src/event.o(.text);
-        asm/disasm_0x08060928.o(.text);
+        src/room_music.o(.text);
+        src/demo.o(.text);
+        asm/disasm_0x08060e28.o(.text);
         src/cutscenes/kraid_rising.o(.text);
         src/cutscenes/story_text_cutscene.o(.text);
-        asm/disasm_0x08063008.o(.text);
+        src/cutscenes/mother_brain_close_up.o(.text);
+        src/cutscenes/ridley_in_space.o(.text);
         src/cutscenes/ridley_landing.o(.text);
         src/cutscenes/ridley_spawn.o(.text);
         src/cutscenes/mecha_sees_samus.o(.text);
         src/cutscenes/getting_fully_powered_suit.o(.text);
         src/cutscenes/before_charlie.o(.text);
         src/cutscenes/statue_opening.o(.text);
-        asm/disasm_0x08067080.o(.text);
+        src/cutscenes/enter_tourian.o(.text);
+        src/cutscenes/samus_in_blue_ship.o(.text);
+        src/oam_id.o(.text);
+        asm/disasm_0x08068168.o(.text);
         src/menus/erase_sram.o(.text);
         src/menus/title_screen.o(.text);
         asm/disasm_0x080778c4.o(.text);
@@ -442,6 +535,8 @@ SECTIONS {
         asm/disasm_0x0807f12.o(.text);
         src/intro.o(.text);
         asm/disasm_0x0808117c.o(.text);
+        src/fusion_gallery.o(.text);
+        asm/disasm_0x08084c34.o(.text);
 
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
@@ -454,7 +549,13 @@ SECTIONS {
         src/data/generic_data.o(.rodata);
         /* 8cad0-8f253 */
         src/data/audio.o(.rodata);
-        /* 908e0-2b0c93 */
+        /* 908e0-2320e4 */
+        src/data/samus/samus_empty_data.o(.rodata);
+        /* 2320ec-2376a8 */
+        src/data/samus/samus_palette_data.o(.rodata);
+        /* 238b68-23a5bc */
+        src/data/samus/samus_graphics.o(.rodata);
+
         src/data/sprite_data.o(.rodata);
         src/data/spriteset.o(.rodata);
         src/data/sprites/enemy_drop.o(.rodata);
@@ -547,15 +648,20 @@ SECTIONS {
         src/data/clipdata_data.o(.rodata);
         src/data/block_data.o(.rodata);
         src/data/color_fading_data.o(.rodata);
-        /* 345d00-35f948 */
+        src/data/haze_data.o(.rodata);
         src/data/animated_graphics_data.o(.rodata);
         src/data/hatch_data.o(.rodata);
         src/data/in_game_cutscene_data.o(.rodata);
-        /* 3603e8-367924 */
+        src/data/demo_data.o(.rodata);
+        src/data/default_background_data.o(.rodata);
+        src/data/clipdata_types_tilemap.o(.rodata);
+        src/data/rooms/debug_rooms_data.o(.rodata);
+
         src/data/samus_close_up_data.o(.rodata);
         src/data/cutscenes/cutscenes_data.o(.rodata);
         src/data/cutscenes/kraid_rising_data.o(.rodata);
         src/data/cutscenes/story_text_cutscene_data.o(.rodata);
+        src/data/cutscenes/mother_brain_close_up_data.o(.rodata);
         src/data/cutscenes/ridley_in_space_data.o(.rodata);
         src/data/cutscenes/ridley_landing_data.o(.rodata);
         src/data/cutscenes/ridley_spawn_data.o(.rodata);
@@ -563,21 +669,25 @@ SECTIONS {
         src/data/cutscenes/getting_fully_powered_suit_data.o(.rodata);
         src/data/cutscenes/before_charlie_data.o(.rodata);
         src/data/cutscenes/statue_opening_data.o(.rodata);
-        /* 3f0390-411400 */
+        src/data/cutscenes/enter_tourian_data.o(.rodata);
+        src/data/cutscenes/samus_in_blue_ship_data.o(.rodata);
+        /* 3fcef0-411400 */
         src/data/save_file_data.o(.rodata);
         src/data/menus/erase_sram_data.o(.rodata);
         /* 415460-446d68 */
         src/data/menus/title_screen_data.o(.rodata);
         /* 44f11c-45f45c */
         src/data/intro_data.o(.rodata);
-        /* 479400-74f8b4 */
+        /* 479400-4bfee4 */
+        src/data/fusion_gallery_data.o(.rodata);
+        /* 549b44-74f8b4 */
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         /* 754bd0-75e6a8 */
         src/data/samus_sprites_pointers.o(.rodata);
         src/data/frame_data_pointers.o(.rodata);
         src/data/engine_pointers.o(.rodata);
-        /* 75fdfc-75fe5c */
+
         src/data/cutscenes/internal_kraid_rising_data.o(.rodata);
         src/data/cutscenes/internal_story_text_cutscene_data.o(.rodata);
         src/data/cutscenes/internal_mother_brain_close_up_data.o(.rodata);
@@ -588,6 +698,8 @@ SECTIONS {
         src/data/cutscenes/internal_getting_fully_powered_suit_data.o(.rodata);
         src/data/cutscenes/internal_before_charlie_data.o(.rodata);
         src/data/cutscenes/internal_statue_opening_data.o(.rodata);
+        src/data/cutscenes/internal_enter_tourian_data.o(.rodata);
+        src/data/cutscenes/internal_samus_in_blue_ship_data.o(.rodata);
         /* 760090-760420 */
         src/data/menus/internal_erase_sram_data.o(.rodata)
         /* 760458-760aa0 */

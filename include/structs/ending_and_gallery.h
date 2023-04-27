@@ -5,6 +5,20 @@
 
 #define ENDING_DATA sNonGameplayRamPointer->ending
 
+struct EndingImageOam {
+    u8 unk_0;
+    u8 spawnDelay;
+    u8 unk_2;
+    u16 xPosition;
+    u16 yPosition;
+    const u16* const pFrame;
+};
+
+struct CreditsEntry {
+    u8 type;
+    u8 text[35];
+};
+
 struct EndingData {
     u8 stage;
     u8 unk_1;
@@ -17,8 +31,8 @@ struct EndingData {
     u16 unk_E;
     u16 creditLineTilemap_1[32];
     u16 creditLineTilemap_2[32];
-    u32 unk_90;
-    u32 unk_94;
+    u32 creditLineOffset_1;
+    u32 creditLineOffset_2;
     u8 endingNumber;
     u8 completionPercentage;
     u8 language;
@@ -28,7 +42,7 @@ struct EndingData {
     u8 unk_12A[17];
     u8 padding_13B[6];
     u8 unk_141;
-    u8 unk_142[6];
+    u8 endingLettersSpawnDelay[6];
     u8 unk_148[17];
     u8 padding_159[7];
     u8 unk_160[6];

@@ -24,7 +24,7 @@ u8 RidleyLandingRidleyFlying(void)
     {
         case 0:
             DMATransfer(3, sRidleyLandingSkyBackgroundPAL, PALRAM_BASE, 0xA0, 0x10);
-			DMATransfer(3, sRidleyLandingRidleyAndRocksPAL, PALRAM_BASE + 0x200, 0x40, 0x10);
+			DMATransfer(3, sRidleyLandingRidleyAndRocksPAL, PALRAM_OBJ, 0x40, 0x10);
 			
             write16(PALRAM_BASE, 0);
 			
@@ -119,7 +119,7 @@ u8 RidleyLandingShipLanding(void)
     {
         case 0:
             DMATransfer(3, sCutsceneZebesPAL, PALRAM_BASE, sizeof(sCutsceneZebesPAL), 0x10);
-            DMATransfer(3, sCutsceneMotherShipPAL, PALRAM_BASE + 0x200, sizeof(sCutsceneMotherShipPAL), 0x10);
+            DMATransfer(3, sCutsceneMotherShipPAL, PALRAM_OBJ, sizeof(sCutsceneMotherShipPAL), 0x10);
 
             write16(PALRAM_BASE, 0);
 
@@ -185,7 +185,7 @@ u8 RidleyLandingShipLanding(void)
 
             if (!(CUTSCENE_DATA.dispcnt & sRidleyLandingPageData[2].bg))
             {
-                if (movement >= 2848 - sRidleyLandingScrollingInfo[1].unk_2 / 1.5)
+                if (movement >= 2848 - sRidleyLandingScrollingInfo[1].length / 1.5)
                 {
                     CUTSCENE_DATA.dispcnt |= sRidleyLandingPageData[2].bg;
                     CutsceneStartBackgroundScrolling(sRidleyLandingScrollingInfo[1], sRidleyLandingPageData[2].bg);
@@ -194,7 +194,7 @@ u8 RidleyLandingShipLanding(void)
 
             if (!(CUTSCENE_DATA.dispcnt & sRidleyLandingPageData[3].bg))
             {
-                if (movement >= 0xb20 - sRidleyLandingScrollingInfo[2].unk_2 / 2)
+                if (movement >= 0xb20 - sRidleyLandingScrollingInfo[2].length / 2)
                 {
                     CUTSCENE_DATA.dispcnt |= sRidleyLandingPageData[3].bg;
                     CutsceneStartBackgroundScrolling(sRidleyLandingScrollingInfo[2], sRidleyLandingPageData[3].bg);
@@ -401,7 +401,7 @@ u8 RidleyLandingInit(void)
     unk_61f0c();
 
     DMATransfer(3, sCutscene_3a09d4_PAL, PALRAM_BASE, sizeof(sCutscene_3a09d4_PAL), 0x10);
-    DMATransfer(3, PALRAM_BASE, PALRAM_BASE + 0x200, 0x200, 0x20);
+    DMATransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sRidleyLandingZebesBackgroundGFX, VRAM_BASE + sRidleyLandingPageData[0].graphicsPage * 0x4000);
@@ -468,7 +468,7 @@ void RidleyLandingProcessOAM(void)
 {
     gNextOamSlot = 0;
 
-    process_cutscene_oam(sRidleyLandingSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleyLandingCutsceneOAM);
+    ProcessCutsceneOam(sRidleyLandingSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleyLandingCutsceneOAM);
     ResetFreeOAM();
     CalculateOamPart4(gCurrentOamRotation, gCurrentOamScaling, 0);
 }

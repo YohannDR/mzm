@@ -40,7 +40,7 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
             CallLZ77UncompVRAM(sMotherBrainCloseUpSamusTileTable, VRAM_BASE + sMotherBrainCloseUpPageData[4].tiletablePage * 0x800);
 
             // Load big eye graphics
-            DMATransfer(3, sMotherBrainCloseUpBigEyePAL, PALRAM_BASE + 0x200, sizeof(sMotherBrainCloseUpBigEyePAL), 0x10);
+            DMATransfer(3, sMotherBrainCloseUpBigEyePAL, PALRAM_OBJ, sizeof(sMotherBrainCloseUpBigEyePAL), 0x10);
             CallLZ77UncompVRAM(sMotherBrainCloseUpBigEyeGFX, VRAM_BASE + 0x10000);
 
             CutsceneSetBGCNTPageData(sMotherBrainCloseUpPageData[4]);
@@ -129,7 +129,7 @@ void MotherBrainCloseUpUpdateElevatorReflection(struct CutsceneOamData* pOam)
     {
         // Set cooldown
         pOam->timer = 60;
-        pOam->actions = 2;
+        pOam->actions++;
         return;
     }
 
@@ -174,7 +174,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
             CallLZ77UncompVRAM(sMotherBrainCloseUpGlassTileTable, VRAM_BASE + sMotherBrainCloseUpPageData[1].tiletablePage * 0x800);
 
             // Load eye graphics
-            DMATransfer(3, sMotherBrainCloseUpEyePAL, PALRAM_BASE + 0x200, sizeof(sMotherBrainCloseUpEyePAL), 0x10);
+            DMATransfer(3, sMotherBrainCloseUpEyePAL, PALRAM_OBJ, sizeof(sMotherBrainCloseUpEyePAL), 0x10);
             CallLZ77UncompVRAM(sMotherBrainCloseUpEyeGFX, VRAM_BASE + 0x10000);
 
             CutsceneSetBGCNTPageData(sMotherBrainCloseUpPageData[2]);
@@ -381,7 +381,7 @@ u8 MotherBrainCloseUpSubroutine(void)
 void MotherBrainCloseUpProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sMotherBrainCloseUpSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMotherBrainCloseUpCutsceneOAM);
+    ProcessCutsceneOam(sMotherBrainCloseUpSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sMotherBrainCloseUpCutsceneOAM);
     ResetFreeOAM();
 }
 
@@ -405,7 +405,7 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
         pOam->priority = sMotherBrainCloseUpPageData[2].priority;
         pOam->boundBackground = 3;
         pOam->oamID = 0;
-        pOam->idChanged = TRUE;
+        pOam->exists = TRUE;
     }
     else
     {
@@ -413,7 +413,7 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
         pOam->yPosition = BLOCK_SIZE * 5 + 4;
         pOam->priority = sMotherBrainCloseUpPageData[4].priority;
         pOam->boundBackground = 1;
-        pOam->unk_B_4 = 1;
+        pOam->objMode = 1;
         UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[1], 5);
         
         pOam[1].xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
@@ -422,29 +422,40 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
         pOam[1].priority = sMotherBrainCloseUpPageData[4].priority;
 
         pOam[1].boundBackground = 1;
-        pOam[1].unk_B_4 = 1;
+        pOam[1].objMode = 1;
     }
 }
 
+/**
+ * @brief 637b0 | 5c | Updates a bubble
+ * 
+ * @param pOam Cutscene oam data pointer
+ */
 void MotherBrainCloseUpUpdateBubble(struct CutsceneOamData* pOam)
 {
-    // https://decomp.me/scratch/14vAj
-
     i32 yPosition;
+    i32 temp;
 
     pOam->yPosition -= 4;
-    yPosition = (pOam->yPosition + BLOCK_SIZE * 32);
-    yPosition -= gBG3VOFS_NonGameplay;
+    yPosition = (pOam->yPosition);
+    temp = BLOCK_SIZE * 32;
+    yPosition += temp;
 
-    if (yPosition < -0x90)
-        pOam->idChanged = FALSE;
-    else if (yPosition > 0x300)
+    temp = gBG3VOFS_NonGameplay;
+    temp = yPosition - temp;
+
+    if (temp < -0x90)
+        pOam->exists = FALSE;
+    else if (temp > 0x300)
     {
-        if (!(pOam->notDrawn))
+        if (!pOam->notDrawn)
             pOam->notDrawn = TRUE;
     }
-    else if (pOam->notDrawn)
-        pOam->notDrawn = FALSE;
+    else
+    {
+        if (pOam->notDrawn)
+            pOam->notDrawn = FALSE;
+    }
 }
 
 /**
@@ -459,7 +470,7 @@ u8 MotherBrainCloseUpInitBubbles(u8 packId)
 
     for (i = 0; i < 6; i++)
     {
-        if (CUTSCENE_DATA.oam[i].idChanged)
+        if (CUTSCENE_DATA.oam[i].exists)
             continue;
 
         CUTSCENE_DATA.oam[i].xPosition = sMotherBrainCloseUpBubblesSpawnPositions[packId][0];

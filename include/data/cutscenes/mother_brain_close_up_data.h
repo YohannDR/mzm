@@ -11,8 +11,6 @@ extern const struct CutsceneScreenShakeInfo sMotherBrainCloseUpScreenShakeInfo;
 
 extern const struct OamArray sMotherBrainCloseUpCutsceneOAM[7];
 
-// ...
-
 extern const u16 sMotherBrainCloseUpPAL[6 * 16];
 extern const u16 sMotherBrainCloseUpBackgroundPAL[5 * 16];
 extern const u16 sMotherBrainCloseUpSamusPAL[5 * 16];

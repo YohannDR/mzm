@@ -22,6 +22,14 @@
 #define REG_BG3HOFS (REG_BASE + 0x01C)
 #define REG_BG3VOFS (REG_BASE + 0x01E)
 
+#define REG_BG2PA (REG_BASE + 0x020)
+#define REG_BG2PB (REG_BASE + 0x022)
+#define REG_BG2PC (REG_BASE + 0x024)
+#define REG_BG2PD (REG_BASE + 0x026)
+
+#define REG_BG2X (REG_BASE + 0x028)
+#define REG_BG2Y (REG_BASE + 0x02C)
+
 #define REG_DISPSTAT (REG_BASE + 0x004)
 #define REG_WIN0H (REG_BASE + 0x040)
 #define REG_WIN1H (REG_BASE + 0x042)
@@ -37,11 +45,11 @@
 #define PLTT_BASE 0x05000000
 #define PLTT_BG ((vu16 *)(PLTT_BASE + 0x00))
 
-#define DCNT_MODE_1 1,
-#define DCNT_MODE_2 2,
-#define DCNT_MODE_3 3,
-#define DCNT_MODE_4 4,
-#define DCNT_MODE_5 5,
+#define DCNT_MODE_1 1
+#define DCNT_MODE_2 2
+#define DCNT_MODE_3 3
+#define DCNT_MODE_4 4
+#define DCNT_MODE_5 5
 
 #define DCNT_CGB (1 << 3)
 #define DCNT_PAGE (1 << 4)
@@ -79,5 +87,18 @@
 #define BLDCNT_BG3_SECOND_TARGET_PIXEL 0x800
 #define BLDCNT_OBJ_SECOND_TARGET_PIXEL 0x1000
 #define BLDCNT_BACKDROP_SECOND_TARGET_PIXEL 0x2000
+
+#define WIN0_BG0 0x1
+#define WIN0_BG1 0x2
+#define WIN0_BG2 0x4
+#define WIN0_BG3 0x8
+#define WIN0_OBJ 0x10
+#define WIN0_COLOR_EFFECT 0x20
+#define WIN1_BG0 0x100
+#define WIN1_BG1 0x200
+#define WIN1_BG2 0x400
+#define WIN1_BG3 0x800
+#define WIN1_OBJ 0x1000
+#define WIN1_COLOR_EFFECT 0x2000
 
 #endif /* GBA_DISPLAY_H */

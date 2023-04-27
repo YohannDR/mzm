@@ -5,7 +5,7 @@
 #include "projectile.h"
 #include "samus.h"
 #include "sprite.h"
-#include "demo.h"
+#include "demo_input.h"
 #include "particle.h"
 #include "room.h"
 #include "scroll.h"
@@ -213,7 +213,7 @@ void TransferSamusGraphics(u32 updatePalette, struct SamusPhysics* pPhysics)
         dma_set(3, pPhysics->pScrewShinesparkGfx, VRAM_BASE + 0x10C40, DMA_ENABLE << 16 | pPhysics->screwShinesparkGfxSize / 2);
 
     if (updatePalette)
-        dma_set(3, gSamusPalette, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | gSamusPaletteSize / 2);
+        dma_set(3, gSamusPalette, PALRAM_OBJ, DMA_ENABLE << 16 | gSamusPaletteSize / 2);
 }
 
 /**
@@ -401,7 +401,7 @@ void InitAndLoadGenerics(void)
     }
 
     SamusCallGFXFunctions();
-    dma_set(3, gSamusPalette, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | gSamusPaletteSize / 2);
+    dma_set(3, gSamusPalette, PALRAM_OBJ, DMA_ENABLE << 16 | gSamusPaletteSize / 2);
 
     unk_c9ec();
 

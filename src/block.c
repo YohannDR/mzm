@@ -3,6 +3,7 @@
 #include "gba.h"
 
 #include "data/block_data.h"
+#include "data/engine_pointers.h"
 
 #include "constants/block.h"
 #include "constants/clipdata.h"
@@ -173,8 +174,8 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
                 clipdata = sTankBehaviors[BEHAVIOR_TO_TANK(pClipBlock->behavior)].revealedClipdata;
                 if (clipdata != 0x0)
                 {
-                    BGClipSetBG1BlockValue(clipdata, pClipBlock->yPosition, pClipBlock->xPosition);
-                    BGClipSetClipdataBlockValue(clipdata, pClipBlock->yPosition, pClipBlock->xPosition);
+                    BgClipSetBG1BlockValue(clipdata, pClipBlock->yPosition, pClipBlock->xPosition);
+                    BgClipSetClipdataBlockValue(clipdata, pClipBlock->yPosition, pClipBlock->xPosition);
                     result = TRUE;
                 }
             }
@@ -183,9 +184,44 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
     return result;
 }
 
+/**
+ * @brief 592c4 | 6c | Handles the destruction of non reform blocks
+ * 
+ * @param pClipBlock Clipdata Block Data Pointer
+ * @return u32 bool, could destroy
+ */
 u32 BlockDestroyNonReformBlock(struct ClipdataBlockData* pClipBlock)
 {
+    u32 subType;
+    u32 result;
 
+    result = FALSE;
+    subType = sBlockBehaviors[pClipBlock->blockBehavior].subType;
+
+    switch (subType)
+    {
+        case BLOCK_SUB_TYPE_REFORM:
+        case BLOCK_SUB_TYPE_SQUARE_NO_REFORM:
+        case BLOCK_SUB_TYPE_BOMB_CHAIN:
+            // Nothing special to do
+            break;
+
+        case BLOCK_SUB_TYPE_NO_REFORM:
+        case BLOCK_SUB_TYPE_SQUARE_NEVER_REFORM:
+            // Store a never reform bock
+            result = BlockStoreSingleNeverReformBlock(pClipBlock->xPosition, pClipBlock->yPosition);
+            break;
+
+        default:
+            result = TRUE;
+    }
+
+    if (result)
+        return FALSE;
+
+    // Run special handler depending on the type
+    result = sNonReformDestroyFunctionPointers[subType](pClipBlock);
+    return result;
 }
 
 /**
@@ -249,10 +285,15 @@ u8 BlockDestroySquareBlock(struct ClipdataBlockData* pClipBlock)
     return TRUE;
 }
 
+/**
+ * @brief 59480 | 80 | Stores a single never reform block in the save array
+ * 
+ * @param xPosition X position
+ * @param yPosition Y position
+ * @return u32 bool, couldn't store
+ */
 u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
 {
-    // https://decomp.me/scratch/wIffo
-
     u32 overLimit;
     u8* pBlock;
     i32 i;
@@ -263,12 +304,13 @@ u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
         return FALSE;
 
     overLimit = TRUE;
-    pBlock = gNeverReformBlocks[gCurrentArea];
+    // 0x2035c00 = gNeverReformBlocks
+    pBlock = (u8*)(0x2035c00 + gCurrentArea * 512);
     i = gNumberOfNeverReformBlocks[gCurrentArea] * 2;
 
     for (; i < 0x1FC; i += 2)
     {
-        if (pBlock[i] == 0xFF)
+        if (pBlock[i] == UCHAR_MAX)
         {
             overLimit = FALSE;
             break;
@@ -284,47 +326,236 @@ u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
     return overLimit;
 }
 
+/**
+ * @brief 59500 | 80 | Removes the broken never reform blocks of a room
+ * 
+ */
 void BlockRemoveNeverReformBlocks(void)
 {
+    i32 i;
+    i32 var_0;
+    u8* pBlock;
+    i32 limit;
 
-}
-
-void BlockRemoveNeverReformSingleBlock(u16 xPosition, u16 yPosition)
-{
-
-}
-
-void BlockShiftNeverReformBlocks(void)
-{
-
-}
-
-u32 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock)
-{
-    // https://decomp.me/scratch/7cgi5
-
-    u32 blockType;
-
-    blockType = sBlockBehaviors[pClipBlock->blockBehavior].type;
-
-    if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] & sBlockWeaknesses[blockType])
-        return TRUE;
+    if (gPauseScreenFlag)
+        i = TRUE;
     else
-    {
-        if ((gCurrentClipdataAffectingAction == CAA_BOMB_PISTOL || (gCurrentClipdataAffectingAction == CAA_POWER_BOMB && !gCurrentPowerBomb.owner)) && pClipBlock->behavior != sReformingBlocksTilemapValue[blockType])
-        {
-            blockType = sReformingBlocksTilemapValue[blockType];
-            BGClipSetBG1BlockValue(blockType, pClipBlock->yPosition, pClipBlock->xPosition);
-            BGClipSetClipdataBlockValue(blockType, pClipBlock->yPosition, pClipBlock->xPosition);
-        }
+        i = FALSE;
 
-        return FALSE;
+    if (gCurrentArea >= MAX_AMOUNT_OF_AREAS)
+        i = TRUE;
+
+    if (i)
+        return;
+
+    // 0x2035c00 = gNeverReformBlocks
+    pBlock = (u8*)(0x2035c00 + gCurrentArea * 512);
+    limit = gNumberOfNeverReformBlocks[gCurrentArea] * 2;
+    for (var_0 = 0; i < limit; i += 2)
+    {
+        if (pBlock[i + 0] == 0)
+            var_0 = 1;
+
+        if (var_0 == 1)
+        {
+            if (pBlock[i + 1] == gCurrentRoom)
+                var_0 = 2;
+            else
+                var_0 = 0;
+        }
+        else if (var_0 == 2)
+        {
+            BlockRemoveNeverReformSingleBlock(pBlock[i + 0], pBlock[i + 1]);
+        }
     }
 }
 
+/**
+ * @brief 59580 | 64 | Removes a never reform block from the BG1 and clipdata
+ * 
+ * @param xPosition X position
+ * @param yPosition Y position
+ */
+void BlockRemoveNeverReformSingleBlock(u8 xPosition, u8 yPosition)
+{
+    u16 behavior;
+    u32 position;
+
+    position = gBGPointersAndDimensions.clipdataWidth * yPosition + xPosition;
+
+    behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[position]];
+    gBGPointersAndDimensions.pClipDecomp[position] = 0;
+
+    gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
+
+    if (behavior == CLIP_BEHAVIOR_TOP_LEFT_SHOT_BLOCK_NEVER_REFORM)
+    {
+        gBGPointersAndDimensions.pClipDecomp[position + 1] = 0;
+        gBGPointersAndDimensions.backgrounds[1].pDecomp[position + 1] = 0;
+
+        position += gBGPointersAndDimensions.clipdataWidth;
+        gBGPointersAndDimensions.pClipDecomp[position] = 0;
+        gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
+        position++;
+
+        gBGPointersAndDimensions.pClipDecomp[position] = 0;
+        gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
+    }
+}
+
+/**
+ * @brief 595e4 | 18c | Shifts and re-organizes the never reform blocks when transitionning
+ * 
+ */
+void BlockShiftNeverReformBlocks(void)
+{
+    u8* src;
+    u8* dst;
+    i32 amount;
+    i32 var_0;
+    i32 i;
+
+    src = (u8*)0x2035c00 + gAreaBeforeTransition * 512;
+    if (src[gNumberOfNeverReformBlocks[gAreaBeforeTransition] * 2] == UCHAR_MAX)
+        return;
+
+    dst = EWRAM_BASE;
+    DMATransfer(3, src, dst, 512, 16);
+    BitFill(3, USHORT_MAX, src, 512, 16);
+
+    var_0 = 0;
+    amount = 0;
+    i = 0;
+
+    while (amount < gNumberOfNeverReformBlocks[gAreaBeforeTransition] * 2)
+    {
+        if (dst[amount] == 0)
+        {
+            if (var_0 == 1)
+                var_0 = 10;
+            else if (var_0 == 0 && dst[i + 1] == gCurrentRoom)
+                var_0 = 1;
+        }
+
+        if (var_0 < 10)
+        {
+            src[i++] = dst[amount++];
+            src[i++] = dst[amount++];
+        }
+        else if (var_0 == 10)
+        {
+            dst = EWRAM_BASE + gNumberOfNeverReformBlocks[gAreaBeforeTransition] * 2;
+            while (*dst != UCHAR_MAX)
+            {
+                src[i++] = *dst++;
+                src[i++] = *dst++;
+            }
+
+            var_0 = 2;
+            dst = EWRAM_BASE;
+        }
+    }
+
+    if (var_0 != 2)
+    {
+        if (var_0 != 1)
+        {
+            src[i++] = 0;
+            src[i++] = gCurrentRoom;
+        }
+
+        dst = EWRAM_BASE + gNumberOfNeverReformBlocks[gAreaBeforeTransition] * 2;
+        while (*dst != UCHAR_MAX)
+        {
+            src[i++] = *dst++;
+            src[i++] = *dst++;
+        }
+    }
+
+    gNumberOfNeverReformBlocks[gAreaBeforeTransition] = i >> 1;
+}
+
+/**
+ * @brief 59770 | 84 | Checks if a non bomb block should be destroyed
+ * 
+ * @param pClipBlock Clipdata block data pointer
+ * @return u32 bool, destroy
+ */
+u32 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock)
+{
+    i32 blockType;
+
+    // Get block type
+    blockType = sBlockBehaviors[pClipBlock->blockBehavior].type;
+
+    // Check for block weakness
+    if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] & sBlockWeaknesses[blockType])
+    {
+        // Block is weak to current action, hence it that be destroyed
+        return TRUE;
+    }
+    
+    // Check weaknesses to reveal
+    if ((gCurrentClipdataAffectingAction != CAA_BOMB_PISTOL && (gCurrentClipdataAffectingAction != CAA_POWER_BOMB ||
+        gCurrentPowerBomb.owner)))
+        return FALSE;
+
+    // Check isn't already revealed
+    if (pClipBlock->behavior != sReformingBlocksTilemapValue[blockType])
+    {
+        // Reveal
+        BgClipSetBG1BlockValue(sReformingBlocksTilemapValue[blockType], pClipBlock->yPosition, pClipBlock->xPosition);
+        BgClipSetClipdataBlockValue(sReformingBlocksTilemapValue[blockType], pClipBlock->yPosition, pClipBlock->xPosition);
+    }
+
+    return FALSE;
+}
+
+/**
+ * @brief 597f4 | 88 | Checks if a bomb block should be destroyed
+ * 
+ * @param pClipBlock Clipdata block data pointer
+ * @return u32 bool, destroy
+ */
 u32 BlockCheckRevealOrDestroyBombBlock(struct ClipdataBlockData* pClipBlock)
 {
+    u32 blockType;
+    u16 value;
+    u32 reveal;
 
+    // Get block type
+    blockType = sBlockBehaviors[pClipBlock->blockBehavior].type;
+
+    // Check for block weakness
+    if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] & sBlockWeaknesses[blockType])
+    {
+        // Block is weak to current action, hence it that be destroyed
+        return TRUE;
+    }
+
+    // Check weaknesses to reveal and isn't already revealed
+    if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] &
+        (CAA_DAMAGE_TYPE_BEAM | CAA_DAMAGE_TYPE_MISSILE | CAA_DAMAGE_TYPE_SUPER_MISSILE) &&
+        pClipBlock->behavior != sReformingBlocksTilemapValue[blockType])
+    {
+        reveal = TRUE;
+        value = sReformingBlocksTilemapValue[blockType];
+
+        if (blockType > BLOCK_TYPE_BOMB_BLOCK_NEVER_REFORM)
+        {
+            // Handle the special case of bomb chain blocks
+            reveal = BLockRevealBombChainBlock(blockType, pClipBlock->xPosition, pClipBlock->yPosition);
+        }
+
+        if (!reveal)
+            return FALSE;
+
+        // Reveal block
+        BgClipSetBG1BlockValue(value, pClipBlock->yPosition, pClipBlock->xPosition);
+        BgClipSetClipdataBlockValue(value, pClipBlock->yPosition, pClipBlock->xPosition);
+    }
+
+    return FALSE;
 }
 
 /**
@@ -357,7 +588,7 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
         case CAA_POWER_BOMB:
             // Check on hatch
             if (gTilemapAndClipPointers.pClipCollisions[trueClip] == CLIPDATA_TYPE_DOOR &&
-                BGClipCheckOpeningHatch(clipBlock.xPosition, clipBlock.yPosition) != 0x0)
+                BgClipCheckOpeningHatch(clipBlock.xPosition, clipBlock.yPosition) != 0x0)
                 result = TRUE;
             else
             {
@@ -392,27 +623,27 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
 
         case CAA_REMOVE_SOLID:
             if (!BlockUpdateMakeSolidBlocks(FALSE, xPosition, yPosition))
-                BGClipSetBG1BlockValue(0x0, yPosition, xPosition);
+                BgClipSetBG1BlockValue(0x0, yPosition, xPosition);
 
-            BGClipSetClipdataBlockValue(0x0, yPosition, xPosition);
+            BgClipSetClipdataBlockValue(0x0, yPosition, xPosition);
             break;
 
         case CAA_MAKE_SOLID_GRIPPABLE:
             result = BlockUpdateMakeSolidBlocks(TRUE, xPosition, yPosition);
             if (result)
-                BGClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID2, yPosition, xPosition);
+                BgClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID2, yPosition, xPosition);
             break;
 
         case CAA_MAKE_STOP_ENEMY:
             result = BlockUpdateMakeSolidBlocks(TRUE, xPosition, yPosition);
             if (result)
-                BGClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_STOP_ENEMY_AIR, yPosition, xPosition);
+                BgClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_STOP_ENEMY_AIR, yPosition, xPosition);
             break;
 
         case CAA_MAKE_NON_POWER_GRIP:
             result = BlockUpdateMakeSolidBlocks(TRUE, xPosition, yPosition);
             if (result)
-                BGClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_NON_POWER_GRIP, yPosition, xPosition);
+                BgClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_NON_POWER_GRIP, yPosition, xPosition);
             break;
     }
 
@@ -569,7 +800,7 @@ void BlockUpdateBrokenBlocks(void)
                             pBlock->stage = 0x2;
                         else
                         {
-                            BGClipSetClipdataBlockValue(sReformingBlocksTilemapValue[pBlock->type], pBlock->yPosition, pBlock->xPosition);
+                            BgClipSetClipdataBlockValue(sReformingBlocksTilemapValue[pBlock->type], pBlock->yPosition, pBlock->xPosition);
                             pBlock->broken = FALSE;
                             pBlock->stage = 0x0;
                             pBlock->type = BLOCK_TYPE_NONE;
@@ -817,7 +1048,7 @@ void BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type)
         {
             if (!pBlock->broken && pBlock->stage >= stage)
             {
-                BGClipSetBG1BlockValue(0x0, pBlock->yPosition, pBlock->xPosition);
+                BgClipSetBG1BlockValue(0x0, pBlock->yPosition, pBlock->xPosition);
 
                 pBlock->broken = FALSE;
                 pBlock->stage = 0x2;
@@ -1134,7 +1365,33 @@ void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition)
     gCurrentClipdataAffectingAction = CAA_NONE;
 }
 
+/**
+ * @brief 5a3e0 | a4 | Removes the collision and graphics of a broken block 
+ * 
+ * @param yPosition Y position
+ * @param xPosition X position
+ */
 void BlockBrokenBlockRemoveCollision(u16 yPosition, u16 xPosition)
 {
+    u16 position;
+    u16* dst;
 
+    position = gBGPointersAndDimensions.clipdataWidth * yPosition + xPosition;
+    gBGPointersAndDimensions.pClipDecomp[position] = 0;
+    gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
+
+    if (gBG1YPosition / BLOCK_SIZE - 4 <= yPosition && yPosition <= gBG1YPosition / BLOCK_SIZE + 13 &&
+        gBG1XPosition / BLOCK_SIZE - 4 <= xPosition && xPosition <= gBG1XPosition / BLOCK_SIZE + 18)
+    {
+        dst = VRAM_BASE + 0x1000;
+        if (xPosition & 0x10)
+            dst = VRAM_BASE + 0x1800;
+
+        dst += (yPosition & 0xF) * BLOCK_SIZE + (xPosition & 0xF) * 2;
+
+        dst[0] = gTilemapAndClipPointers.pTilemap[0];
+        dst[1] = gTilemapAndClipPointers.pTilemap[1];
+        dst[32] = gTilemapAndClipPointers.pTilemap[2];
+        dst[33] = gTilemapAndClipPointers.pTilemap[3];
+    }
 }

@@ -6,9 +6,9 @@
 SetBGHazeEffect: @ 0x0805cfe0
     push {r4, r5, lr}
     bl reset_haze_loops
-    ldr r5, lbl_0805d024 @ =0x0300006b
+    ldr r5, lbl_0805d024 @ =gCurrentHazeValue
     ldr r4, lbl_0805d028 @ =0x0875fd88
-    ldr r3, lbl_0805d02c @ =0x030000bc
+    ldr r3, lbl_0805d02c @ =gCurrentRoomEntry
     ldrb r0, [r3, #0x10]
     lsls r0, r0, #2
     adds r0, r0, r4
@@ -23,7 +23,7 @@ SetBGHazeEffect: @ 0x0805cfe0
     adds r0, r0, r1
     ldrb r0, [r0]
     strb r0, [r3, #0x14]
-    ldr r2, lbl_0805d030 @ =0x0300551c
+    ldr r2, lbl_0805d030 @ =gWaterMovement
     ldrb r0, [r3, #0x10]
     lsls r0, r0, #2
     adds r1, r4, #2
@@ -37,16 +37,16 @@ lbl_0805d016:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805d024: .4byte 0x0300006b
+lbl_0805d024: .4byte gCurrentHazeValue
 lbl_0805d028: .4byte 0x0875fd88
-lbl_0805d02c: .4byte 0x030000bc
-lbl_0805d030: .4byte 0x0300551c
+lbl_0805d02c: .4byte gCurrentRoomEntry
+lbl_0805d030: .4byte gWaterMovement
 
     thumb_func_start sub_0805d034
 sub_0805d034: @ 0x0805d034
     push {r4, r5, r6, r7, lr}
     sub sp, #4
-    ldr r6, lbl_0805d088 @ =0x03000080
+    ldr r6, lbl_0805d088 @ =gHazeInfo
     ldrb r7, [r6, #7]
     movs r0, #0x80
     ands r0, r7
@@ -87,7 +87,7 @@ lbl_0805d07e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805d088: .4byte 0x03000080
+lbl_0805d088: .4byte gHazeInfo
 lbl_0805d08c: .4byte 0x040000b0
 lbl_0805d090: .4byte 0x02026300
 lbl_0805d094: .4byte 0x80600000
@@ -97,7 +97,7 @@ lbl_0805d098: .4byte 0x08345ff8
 unk_5d09c: @ 0x0805d09c
     push {r4, r5, r6, r7, lr}
     sub sp, #4
-    ldr r6, lbl_0805d0fc @ =0x03000080
+    ldr r6, lbl_0805d0fc @ =gHazeInfo
     ldrb r7, [r6, #7]
     movs r0, #0x80
     ands r0, r7
@@ -137,7 +137,7 @@ unk_5d09c: @ 0x0805d09c
     strb r0, [r6, #6]
     ldr r0, lbl_0805d110 @ =0x02026d00
     str r0, [r6]
-    ldr r0, lbl_0805d114 @ =0x0300006b
+    ldr r0, lbl_0805d114 @ =gCurrentHazeValue
     strb r1, [r0]
 lbl_0805d0f4:
     add sp, #4
@@ -145,21 +145,21 @@ lbl_0805d0f4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805d0fc: .4byte 0x03000080
+lbl_0805d0fc: .4byte gHazeInfo
 lbl_0805d100: .4byte 0x040000b0
 lbl_0805d104: .4byte 0x02026300
 lbl_0805d108: .4byte 0x80600000
 lbl_0805d10c: .4byte 0x08345ff8
 lbl_0805d110: .4byte 0x02026d00
-lbl_0805d114: .4byte 0x0300006b
+lbl_0805d114: .4byte gCurrentHazeValue
 
     thumb_func_start HazeSetupCode
 HazeSetupCode: @ 0x0805d118
     push {r4, lr}
     sub sp, #4
-    ldr r4, lbl_0805d144 @ =0x0300006b
+    ldr r4, lbl_0805d144 @ =gCurrentHazeValue
     strb r0, [r4]
-    ldr r2, lbl_0805d148 @ =0x03000080
+    ldr r2, lbl_0805d148 @ =gHazeInfo
     ldrb r1, [r2, #7]
     movs r0, #0x80
     rsbs r0, r0, #0
@@ -178,8 +178,8 @@ lbl_0805d13a:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0805d144: .4byte 0x0300006b
-lbl_0805d148: .4byte 0x03000080
+lbl_0805d144: .4byte gCurrentHazeValue
+lbl_0805d148: .4byte gHazeInfo
 lbl_0805d14c: .4byte lbl_0805d150
 lbl_0805d150: @ jump table
     .4byte lbl_0805d178 @ case 0
@@ -194,7 +194,7 @@ lbl_0805d150: @ jump table
     .4byte lbl_0805d3c4 @ case 9
 lbl_0805d178:
     bl gradient_related
-    ldr r2, lbl_0805d1a0 @ =0x03000080
+    ldr r2, lbl_0805d1a0 @ =gHazeInfo
     ldrb r1, [r2, #7]
     movs r0, #0x80
     rsbs r0, r0, #0
@@ -212,7 +212,7 @@ lbl_0805d178:
     str r0, [r2]
     b lbl_0805d3ca
     .align 2, 0
-lbl_0805d1a0: .4byte 0x03000080
+lbl_0805d1a0: .4byte gHazeInfo
 lbl_0805d1a4:
     ldr r1, lbl_0805d1a8 @ =haze_bg3
     b lbl_0805d1b6
@@ -226,7 +226,7 @@ lbl_0805d1b0: .4byte haze_bg3_strong_effect_weak_outside
 lbl_0805d1b4:
     ldr r1, lbl_0805d1f0 @ =haze_bg3_none_effect_weak_outside
 lbl_0805d1b6:
-    ldr r4, lbl_0805d1f4 @ =0x03001944
+    ldr r4, lbl_0805d1f4 @ =gNonGameplayRAM+0x280
     movs r3, #0x80
     lsls r3, r3, #2
     movs r0, #0x10
@@ -234,10 +234,10 @@ lbl_0805d1b6:
     movs r0, #3
     adds r2, r4, #0
     bl DMATransfer
-    ldr r0, lbl_0805d1f8 @ =0x0300572c
+    ldr r0, lbl_0805d1f8 @ =gHazeProcessCodePointer
     adds r4, #1
     str r4, [r0]
-    ldr r2, lbl_0805d1fc @ =0x03000080
+    ldr r2, lbl_0805d1fc @ =gHazeInfo
     ldrb r1, [r2, #7]
     movs r0, #0x80
     rsbs r0, r0, #0
@@ -255,13 +255,13 @@ lbl_0805d1b6:
     b lbl_0805d3ca
     .align 2, 0
 lbl_0805d1f0: .4byte haze_bg3_none_effect_weak_outside
-lbl_0805d1f4: .4byte 0x03001944
-lbl_0805d1f8: .4byte 0x0300572c
-lbl_0805d1fc: .4byte 0x03000080
+lbl_0805d1f4: .4byte gNonGameplayRAM+0x280
+lbl_0805d1f8: .4byte gHazeProcessCodePointer
+lbl_0805d1fc: .4byte gHazeInfo
 lbl_0805d200: .4byte 0x0400001c
 lbl_0805d204:
     ldr r1, lbl_0805d240 @ =haze_bg3_bg2_strong_effect_weak_outside_medium_everywhere
-    ldr r4, lbl_0805d244 @ =0x03001944
+    ldr r4, lbl_0805d244 @ =gNonGameplayRAM+0x280
     movs r3, #0x80
     lsls r3, r3, #2
     movs r0, #0x10
@@ -269,10 +269,10 @@ lbl_0805d204:
     movs r0, #3
     adds r2, r4, #0
     bl DMATransfer
-    ldr r0, lbl_0805d248 @ =0x0300572c
+    ldr r0, lbl_0805d248 @ =gHazeProcessCodePointer
     adds r4, #1
     str r4, [r0]
-    ldr r2, lbl_0805d24c @ =0x03000080
+    ldr r2, lbl_0805d24c @ =gHazeInfo
     ldrb r1, [r2, #7]
     movs r0, #0x80
     rsbs r0, r0, #0
@@ -290,13 +290,13 @@ lbl_0805d204:
     b lbl_0805d3ca
     .align 2, 0
 lbl_0805d240: .4byte haze_bg3_bg2_strong_effect_weak_outside_medium_everywhere
-lbl_0805d244: .4byte 0x03001944
-lbl_0805d248: .4byte 0x0300572c
-lbl_0805d24c: .4byte 0x03000080
+lbl_0805d244: .4byte gNonGameplayRAM+0x280
+lbl_0805d248: .4byte gHazeProcessCodePointer
+lbl_0805d24c: .4byte gHazeInfo
 lbl_0805d250: .4byte 0x04000018
 lbl_0805d254:
     ldr r1, lbl_0805d290 @ =sub_0805da40
-    ldr r4, lbl_0805d294 @ =0x03001944
+    ldr r4, lbl_0805d294 @ =gNonGameplayRAM+0x280
     movs r3, #0x80
     lsls r3, r3, #2
     movs r0, #0x10
@@ -304,10 +304,10 @@ lbl_0805d254:
     movs r0, #3
     adds r2, r4, #0
     bl DMATransfer
-    ldr r0, lbl_0805d298 @ =0x0300572c
+    ldr r0, lbl_0805d298 @ =gHazeProcessCodePointer
     adds r4, #1
     str r4, [r0]
-    ldr r2, lbl_0805d29c @ =0x03000080
+    ldr r2, lbl_0805d29c @ =gHazeInfo
     ldrb r1, [r2, #7]
     movs r0, #0x80
     rsbs r0, r0, #0
@@ -325,32 +325,32 @@ lbl_0805d254:
     b lbl_0805d3ca
     .align 2, 0
 lbl_0805d290: .4byte sub_0805da40
-lbl_0805d294: .4byte 0x03001944
-lbl_0805d298: .4byte 0x0300572c
-lbl_0805d29c: .4byte 0x03000080
+lbl_0805d294: .4byte gNonGameplayRAM+0x280
+lbl_0805d298: .4byte gHazeProcessCodePointer
+lbl_0805d29c: .4byte gHazeInfo
 lbl_0805d2a0: .4byte 0x04000014
 lbl_0805d2a4:
-    ldr r1, lbl_0805d338 @ =0x0300000e
+    ldr r1, lbl_0805d338 @ =gWrittenToWININ_H
     movs r0, #0x1f
     strb r0, [r1]
-    ldr r1, lbl_0805d33c @ =0x0300000f
+    ldr r1, lbl_0805d33c @ =gWrittenToWINOUT_L
     movs r0, #0x37
     strb r0, [r1]
-    ldr r1, lbl_0805d340 @ =0x0300544c
+    ldr r1, lbl_0805d340 @ =gWrittenToBLDCNT
     movs r0, #0xcf
     strh r0, [r1]
     ldr r1, lbl_0805d344 @ =0x04000054
     movs r0, #0xc
     strh r0, [r1]
-    ldr r1, lbl_0805d348 @ =0x0300544a
+    ldr r1, lbl_0805d348 @ =gWrittenToWIN1V
     movs r0, #0xa0
     strh r0, [r1]
-    ldr r1, lbl_0805d34c @ =0x03005448
+    ldr r1, lbl_0805d34c @ =gWrittenToWIN1H
     movs r0, #0
     strh r0, [r1]
     movs r0, #0
     bl power_bomb_yellow_tint
-    ldr r0, lbl_0805d350 @ =0x03000088
+    ldr r0, lbl_0805d350 @ =gIoRegistersBackup
     ldrh r1, [r0]
     movs r3, #0x80
     lsls r3, r3, #1
@@ -358,11 +358,11 @@ lbl_0805d2a4:
     ands r0, r1
     cmp r0, #0
     beq lbl_0805d2f4
-    ldr r0, lbl_0805d354 @ =0x030000bc
+    ldr r0, lbl_0805d354 @ =gCurrentRoomEntry
     ldrb r0, [r0, #1]
     cmp r0, #0x12
     beq lbl_0805d2f4
-    ldr r2, lbl_0805d358 @ =0x0300000a
+    ldr r2, lbl_0805d358 @ =gWrittenToDISPCNT
     movs r0, #0x80
     lsls r0, r0, #0x13
     ldrh r1, [r0]
@@ -370,12 +370,12 @@ lbl_0805d2a4:
     eors r0, r1
     strh r0, [r2]
 lbl_0805d2f4:
-    ldr r1, lbl_0805d35c @ =0x03000010
+    ldr r1, lbl_0805d35c @ =gWrittenTo0x05000000
     ldr r2, lbl_0805d360 @ =0x00007fff
     adds r0, r2, #0
     strh r0, [r1]
     ldr r1, lbl_0805d364 @ =haze_power_bomb_expanding
-    ldr r4, lbl_0805d368 @ =0x03001944
+    ldr r4, lbl_0805d368 @ =gNonGameplayRAM+0x280
     movs r3, #0x80
     lsls r3, r3, #2
     movs r0, #0x10
@@ -383,10 +383,10 @@ lbl_0805d2f4:
     movs r0, #3
     adds r2, r4, #0
     bl DMATransfer
-    ldr r0, lbl_0805d36c @ =0x0300572c
+    ldr r0, lbl_0805d36c @ =gHazeProcessCodePointer
     adds r4, #1
     str r4, [r0]
-    ldr r2, lbl_0805d370 @ =0x03000080
+    ldr r2, lbl_0805d370 @ =gHazeInfo
     ldrb r0, [r2, #7]
     movs r1, #0x80
     rsbs r1, r1, #0
@@ -403,25 +403,25 @@ lbl_0805d2f4:
     str r0, [r2]
     b lbl_0805d3a2
     .align 2, 0
-lbl_0805d338: .4byte 0x0300000e
-lbl_0805d33c: .4byte 0x0300000f
-lbl_0805d340: .4byte 0x0300544c
+lbl_0805d338: .4byte gWrittenToWININ_H
+lbl_0805d33c: .4byte gWrittenToWINOUT_L
+lbl_0805d340: .4byte gWrittenToBLDCNT
 lbl_0805d344: .4byte 0x04000054
-lbl_0805d348: .4byte 0x0300544a
-lbl_0805d34c: .4byte 0x03005448
-lbl_0805d350: .4byte 0x03000088
-lbl_0805d354: .4byte 0x030000bc
-lbl_0805d358: .4byte 0x0300000a
-lbl_0805d35c: .4byte 0x03000010
+lbl_0805d348: .4byte gWrittenToWIN1V
+lbl_0805d34c: .4byte gWrittenToWIN1H
+lbl_0805d350: .4byte gIoRegistersBackup
+lbl_0805d354: .4byte gCurrentRoomEntry
+lbl_0805d358: .4byte gWrittenToDISPCNT
+lbl_0805d35c: .4byte gWrittenTo0x05000000
 lbl_0805d360: .4byte 0x00007fff
 lbl_0805d364: .4byte haze_power_bomb_expanding
-lbl_0805d368: .4byte 0x03001944
-lbl_0805d36c: .4byte 0x0300572c
-lbl_0805d370: .4byte 0x03000080
+lbl_0805d368: .4byte gNonGameplayRAM+0x280
+lbl_0805d36c: .4byte gHazeProcessCodePointer
+lbl_0805d370: .4byte gHazeInfo
 lbl_0805d374: .4byte 0x04000042
 lbl_0805d378:
     ldr r1, lbl_0805d3b4 @ =haze_power_bomb_retracting
-    ldr r4, lbl_0805d3b8 @ =0x03001944
+    ldr r4, lbl_0805d3b8 @ =gNonGameplayRAM+0x280
     movs r3, #0x80
     lsls r3, r3, #2
     movs r0, #0x10
@@ -429,10 +429,10 @@ lbl_0805d378:
     movs r0, #3
     adds r2, r4, #0
     bl DMATransfer
-    ldr r0, lbl_0805d3bc @ =0x0300572c
+    ldr r0, lbl_0805d3bc @ =gHazeProcessCodePointer
     adds r4, #1
     str r4, [r0]
-    ldr r2, lbl_0805d3c0 @ =0x03000080
+    ldr r2, lbl_0805d3c0 @ =gHazeInfo
     ldrb r0, [r2, #7]
     movs r1, #0x80
     rsbs r1, r1, #0
@@ -451,11 +451,11 @@ lbl_0805d3a2:
     b lbl_0805d3ca
     .align 2, 0
 lbl_0805d3b4: .4byte haze_power_bomb_retracting
-lbl_0805d3b8: .4byte 0x03001944
-lbl_0805d3bc: .4byte 0x0300572c
-lbl_0805d3c0: .4byte 0x03000080
+lbl_0805d3b8: .4byte gNonGameplayRAM+0x280
+lbl_0805d3bc: .4byte gHazeProcessCodePointer
+lbl_0805d3c0: .4byte gHazeInfo
 lbl_0805d3c4:
-    ldr r1, lbl_0805d3d4 @ =0x0300006b
+    ldr r1, lbl_0805d3d4 @ =gCurrentHazeValue
     movs r0, #0
     strb r0, [r1]
 lbl_0805d3ca:
@@ -464,37 +464,37 @@ lbl_0805d3ca:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805d3d4: .4byte 0x0300006b
+lbl_0805d3d4: .4byte gCurrentHazeValue
 
     thumb_func_start reset_haze_loops
 reset_haze_loops: @ 0x0805d3d8
     push {lr}
-    ldr r0, lbl_0805d400 @ =0x03000bf0
+    ldr r0, lbl_0805d400 @ =gPauseScreenFlag
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
     cmp r0, #0
     bne lbl_0805d3f2
-    ldr r1, lbl_0805d404 @ =0x0300571c
+    ldr r1, lbl_0805d404 @ =gHazeLoops
     ldr r0, lbl_0805d408 @ =0x0835f944
     ldr r0, [r0]
     str r0, [r1]
     str r0, [r1, #4]
     str r0, [r1, #8]
 lbl_0805d3f2:
-    ldr r0, lbl_0805d40c @ =0x03005728
+    ldr r0, lbl_0805d40c @ =gUnk_3005728
     movs r1, #0
     strb r1, [r0]
-    ldr r0, lbl_0805d410 @ =0x03005729
+    ldr r0, lbl_0805d410 @ =gUnk_3005729
     strb r1, [r0]
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805d400: .4byte 0x03000bf0
-lbl_0805d404: .4byte 0x0300571c
+lbl_0805d400: .4byte gPauseScreenFlag
+lbl_0805d404: .4byte gHazeLoops
 lbl_0805d408: .4byte 0x0835f944
-lbl_0805d40c: .4byte 0x03005728
-lbl_0805d410: .4byte 0x03005729
+lbl_0805d40c: .4byte gUnk_3005728
+lbl_0805d410: .4byte gUnk_3005729
 
     thumb_func_start gradient_related
 gradient_related: @ 0x0805d414
@@ -704,7 +704,7 @@ lbl_0805d5b8: .4byte 0x050001c0
 ProcessHaze: @ 0x0805d5bc
     push {r4, lr}
     movs r4, #0
-    ldr r0, lbl_0805d5d4 @ =0x0300006b
+    ldr r0, lbl_0805d5d4 @ =gCurrentHazeValue
     ldrb r0, [r0]
     cmp r0, #8
     bls lbl_0805d5ca
@@ -716,7 +716,7 @@ lbl_0805d5ca:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0805d5d4: .4byte 0x0300006b
+lbl_0805d5d4: .4byte gCurrentHazeValue
 lbl_0805d5d8: .4byte lbl_0805d5dc
 lbl_0805d5dc: @ jump table
     .4byte lbl_0805d748 @ case 0
@@ -729,29 +729,29 @@ lbl_0805d5dc: @ jump table
     .4byte lbl_0805d610 @ case 7
     .4byte lbl_0805d6b8 @ case 8
 lbl_0805d600:
-    ldr r0, lbl_0805d60c @ =0x0300572c
+    ldr r0, lbl_0805d60c @ =gHazeProcessCodePointer
     ldr r0, [r0]
     bl _call_via_r0
     b lbl_0805d748
     .align 2, 0
-lbl_0805d60c: .4byte 0x0300572c
+lbl_0805d60c: .4byte gHazeProcessCodePointer
 lbl_0805d610:
-    ldr r0, lbl_0805d648 @ =0x0300572c
+    ldr r0, lbl_0805d648 @ =gHazeProcessCodePointer
     ldr r0, [r0]
     bl _call_via_r0
     cmp r0, #0
     bne lbl_0805d61e
     b lbl_0805d748
 lbl_0805d61e:
-    ldr r1, lbl_0805d64c @ =0x0300006b
+    ldr r1, lbl_0805d64c @ =gCurrentHazeValue
     movs r0, #8
     strb r0, [r1]
     movs r0, #8
     bl HazeSetupCode
-    ldr r1, lbl_0805d650 @ =0x03000130
+    ldr r1, lbl_0805d650 @ =gCurrentPowerBomb
     movs r0, #4
     strb r0, [r1]
-    ldr r0, lbl_0805d654 @ =0x030056f4
+    ldr r0, lbl_0805d654 @ =gAnimatedGraphicsEntry
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0805d668
@@ -763,10 +763,10 @@ lbl_0805d61e:
     ldr r0, lbl_0805d664 @ =0x80000100
     b lbl_0805d674
     .align 2, 0
-lbl_0805d648: .4byte 0x0300572c
-lbl_0805d64c: .4byte 0x0300006b
-lbl_0805d650: .4byte 0x03000130
-lbl_0805d654: .4byte 0x030056f4
+lbl_0805d648: .4byte gHazeProcessCodePointer
+lbl_0805d64c: .4byte gCurrentHazeValue
+lbl_0805d650: .4byte gCurrentPowerBomb
+lbl_0805d654: .4byte gAnimatedGraphicsEntry
 lbl_0805d658: .4byte 0x040000d4
 lbl_0805d65c: .4byte 0x02009000
 lbl_0805d660: .4byte 0x02035000
@@ -781,19 +781,19 @@ lbl_0805d668:
 lbl_0805d674:
     str r0, [r1, #8]
     ldr r0, [r1, #8]
-    ldr r2, lbl_0805d6a8 @ =0x03005520
+    ldr r2, lbl_0805d6a8 @ =gColorFading
     ldrb r1, [r2, #4]
     movs r0, #1
     movs r3, #0
     orrs r0, r1
     strb r0, [r2, #4]
-    ldr r1, lbl_0805d6ac @ =0x0300000e
+    ldr r1, lbl_0805d6ac @ =gWrittenToWININ_H
     movs r0, #0x37
     strb r0, [r1]
-    ldr r1, lbl_0805d6b0 @ =0x0300000f
+    ldr r1, lbl_0805d6b0 @ =gWrittenToWINOUT_L
     movs r0, #0x1f
     strb r0, [r1]
-    ldr r0, lbl_0805d6b4 @ =0x03000010
+    ldr r0, lbl_0805d6b4 @ =gWrittenTo0x05000000
     strh r3, [r0]
     b lbl_0805d748
     .align 2, 0
@@ -801,27 +801,27 @@ lbl_0805d698: .4byte 0x040000d4
 lbl_0805d69c: .4byte 0x02009000
 lbl_0805d6a0: .4byte 0x02035000
 lbl_0805d6a4: .4byte 0x800000f0
-lbl_0805d6a8: .4byte 0x03005520
-lbl_0805d6ac: .4byte 0x0300000e
-lbl_0805d6b0: .4byte 0x0300000f
-lbl_0805d6b4: .4byte 0x03000010
+lbl_0805d6a8: .4byte gColorFading
+lbl_0805d6ac: .4byte gWrittenToWININ_H
+lbl_0805d6b0: .4byte gWrittenToWINOUT_L
+lbl_0805d6b4: .4byte gWrittenTo0x05000000
 lbl_0805d6b8:
-    ldr r0, lbl_0805d6f0 @ =0x0300572c
+    ldr r0, lbl_0805d6f0 @ =gHazeProcessCodePointer
     ldr r0, [r0]
     bl _call_via_r0
     cmp r0, #0
     beq lbl_0805d748
-    ldr r0, lbl_0805d6f4 @ =0x03000088
+    ldr r0, lbl_0805d6f4 @ =gIoRegistersBackup
     ldrh r1, [r0, #0xa]
     movs r2, #0
     strh r1, [r0, #0x12]
-    ldr r1, lbl_0805d6f8 @ =0x03000130
+    ldr r1, lbl_0805d6f8 @ =gCurrentPowerBomb
     movs r0, #5
     strb r0, [r1]
     strb r2, [r1, #1]
     movs r0, #9
     bl HazeSetupCode
-    ldr r0, lbl_0805d6fc @ =0x030056f4
+    ldr r0, lbl_0805d6fc @ =gAnimatedGraphicsEntry
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0805d710
@@ -833,10 +833,10 @@ lbl_0805d6b8:
     ldr r0, lbl_0805d70c @ =0x80000100
     b lbl_0805d71c
     .align 2, 0
-lbl_0805d6f0: .4byte 0x0300572c
-lbl_0805d6f4: .4byte 0x03000088
-lbl_0805d6f8: .4byte 0x03000130
-lbl_0805d6fc: .4byte 0x030056f4
+lbl_0805d6f0: .4byte gHazeProcessCodePointer
+lbl_0805d6f4: .4byte gIoRegistersBackup
+lbl_0805d6f8: .4byte gCurrentPowerBomb
+lbl_0805d6fc: .4byte gAnimatedGraphicsEntry
 lbl_0805d700: .4byte 0x040000d4
 lbl_0805d704: .4byte 0x02009000
 lbl_0805d708: .4byte 0x02035000
@@ -851,7 +851,7 @@ lbl_0805d710:
 lbl_0805d71c:
     str r0, [r1, #8]
     ldr r0, [r1, #8]
-    ldr r2, lbl_0805d740 @ =0x03005520
+    ldr r2, lbl_0805d740 @ =gColorFading
     ldrb r1, [r2, #4]
     movs r0, #1
     orrs r0, r1
@@ -863,7 +863,7 @@ lbl_0805d730: .4byte 0x040000d4
 lbl_0805d734: .4byte 0x02009000
 lbl_0805d738: .4byte 0x02035000
 lbl_0805d73c: .4byte 0x800000f0
-lbl_0805d740: .4byte 0x03005520
+lbl_0805d740: .4byte gColorFading
 lbl_0805d744:
     bl sub_0805da40
 lbl_0805d748:
@@ -871,7 +871,7 @@ lbl_0805d748:
     beq lbl_0805d75a
 lbl_0805d74c:
     bl SetBGHazeEffect
-    ldr r0, lbl_0805d764 @ =0x0300006b
+    ldr r0, lbl_0805d764 @ =gCurrentHazeValue
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0805d75a
@@ -882,14 +882,14 @@ lbl_0805d75a:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0805d764: .4byte 0x0300006b
+lbl_0805d764: .4byte gCurrentHazeValue
 
     thumb_func_start haze_bg3
 haze_bg3: @ 0x0805d768
     push {r4, r5, r6, r7, lr}
     ldr r6, lbl_0805d7b4 @ =0x02026d00
     movs r3, #0
-    ldr r2, lbl_0805d7b8 @ =0x0300571c
+    ldr r2, lbl_0805d7b8 @ =gHazeLoops
     strb r3, [r2, #0xb]
     strb r3, [r2, #7]
     ldr r0, lbl_0805d7bc @ =0x0834607c
@@ -907,15 +907,15 @@ haze_bg3: @ 0x0805d768
     strb r0, [r2, #3]
     strh r3, [r2]
 lbl_0805d790:
-    ldr r1, lbl_0805d7c0 @ =0x03005728
+    ldr r1, lbl_0805d7c0 @ =gUnk_3005728
     ldrb r0, [r2, #3]
     ldrb r2, [r1]
     adds r0, r0, r2
     strb r0, [r1]
-    ldr r0, lbl_0805d7c4 @ =0x0300006c
+    ldr r0, lbl_0805d7c4 @ =gEffectYPosition
     ldrh r1, [r0]
     lsrs r1, r1, #2
-    ldr r0, lbl_0805d7c8 @ =0x030013ba
+    ldr r0, lbl_0805d7c8 @ =gBG1YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     subs r1, r1, r0
@@ -926,11 +926,11 @@ lbl_0805d790:
     b lbl_0805d7d2
     .align 2, 0
 lbl_0805d7b4: .4byte 0x02026d00
-lbl_0805d7b8: .4byte 0x0300571c
+lbl_0805d7b8: .4byte gHazeLoops
 lbl_0805d7bc: .4byte 0x0834607c
-lbl_0805d7c0: .4byte 0x03005728
-lbl_0805d7c4: .4byte 0x0300006c
-lbl_0805d7c8: .4byte 0x030013ba
+lbl_0805d7c0: .4byte gUnk_3005728
+lbl_0805d7c4: .4byte gEffectYPosition
+lbl_0805d7c8: .4byte gBG1YPosition
 lbl_0805d7cc:
     cmp r1, #0
     bge lbl_0805d7d2
@@ -939,7 +939,7 @@ lbl_0805d7d2:
     movs r3, #0
     cmp r3, r1
     bge lbl_0805d7ec
-    ldr r4, lbl_0805d820 @ =0x030000e4
+    ldr r4, lbl_0805d820 @ =gBackgroundPositions
     adds r2, r6, #0
     adds r3, r1, #0
 lbl_0805d7de:
@@ -953,8 +953,8 @@ lbl_0805d7de:
 lbl_0805d7ec:
     cmp r3, #0x9f
     bgt lbl_0805d81a
-    ldr r5, lbl_0805d824 @ =0x03005728
-    ldr r4, lbl_0805d820 @ =0x030000e4
+    ldr r5, lbl_0805d824 @ =gUnk_3005728
+    ldr r4, lbl_0805d820 @ =gBackgroundPositions
     lsls r0, r3, #1
     adds r2, r0, r6
 lbl_0805d7f8:
@@ -980,8 +980,8 @@ lbl_0805d81a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805d820: .4byte 0x030000e4
-lbl_0805d824: .4byte 0x03005728
+lbl_0805d820: .4byte gBackgroundPositions
+lbl_0805d824: .4byte gUnk_3005728
 
     thumb_func_start haze_bg3_strong_effect_weak_outside
 haze_bg3_strong_effect_weak_outside: @ 0x0805d828
@@ -993,7 +993,7 @@ haze_bg3_strong_effect_weak_outside: @ 0x0805d828
     ldr r0, lbl_0805d8a4 @ =0x02026d00
     mov ip, r0
     movs r3, #0
-    ldr r2, lbl_0805d8a8 @ =0x0300571c
+    ldr r2, lbl_0805d8a8 @ =gHazeLoops
     strb r3, [r2, #0xb]
     ldr r5, lbl_0805d8ac @ =0x0834607c
     mov sb, r5
@@ -1027,20 +1027,20 @@ lbl_0805d85a:
     strb r0, [r2, #7]
     strh r3, [r2, #4]
 lbl_0805d878:
-    ldr r1, lbl_0805d8b4 @ =0x03005728
+    ldr r1, lbl_0805d8b4 @ =gUnk_3005728
     ldrb r0, [r2, #3]
     ldrb r3, [r1]
     adds r0, r0, r3
     strb r0, [r1]
-    ldr r1, lbl_0805d8b8 @ =0x03005729
+    ldr r1, lbl_0805d8b8 @ =gUnk_3005729
     ldrb r0, [r2, #7]
     ldrb r5, [r1]
     adds r0, r0, r5
     strb r0, [r1]
-    ldr r0, lbl_0805d8bc @ =0x0300006c
+    ldr r0, lbl_0805d8bc @ =gEffectYPosition
     ldrh r1, [r0]
     lsrs r1, r1, #2
-    ldr r0, lbl_0805d8c0 @ =0x030013ba
+    ldr r0, lbl_0805d8c0 @ =gBG1YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     subs r1, r1, r0
@@ -1051,13 +1051,13 @@ lbl_0805d878:
     b lbl_0805d8ca
     .align 2, 0
 lbl_0805d8a4: .4byte 0x02026d00
-lbl_0805d8a8: .4byte 0x0300571c
+lbl_0805d8a8: .4byte gHazeLoops
 lbl_0805d8ac: .4byte 0x0834607c
 lbl_0805d8b0: .4byte 0x0835f914
-lbl_0805d8b4: .4byte 0x03005728
-lbl_0805d8b8: .4byte 0x03005729
-lbl_0805d8bc: .4byte 0x0300006c
-lbl_0805d8c0: .4byte 0x030013ba
+lbl_0805d8b4: .4byte gUnk_3005728
+lbl_0805d8b8: .4byte gUnk_3005729
+lbl_0805d8bc: .4byte gEffectYPosition
+lbl_0805d8c0: .4byte gBG1YPosition
 lbl_0805d8c4:
     cmp r1, #0
     bge lbl_0805d8ca
@@ -1066,8 +1066,8 @@ lbl_0805d8ca:
     movs r3, #0
     cmp r3, r1
     bge lbl_0805d8f6
-    ldr r5, lbl_0805d934 @ =0x03005729
-    ldr r4, lbl_0805d938 @ =0x030000e4
+    ldr r5, lbl_0805d934 @ =gUnk_3005729
+    ldr r4, lbl_0805d938 @ =gBackgroundPositions
     mov r2, ip
 lbl_0805d8d6:
     ldrh r0, [r4, #0xe]
@@ -1089,8 +1089,8 @@ lbl_0805d8d6:
 lbl_0805d8f6:
     cmp r3, #0x9f
     bgt lbl_0805d926
-    ldr r4, lbl_0805d93c @ =0x03005728
-    ldr r2, lbl_0805d938 @ =0x030000e4
+    ldr r4, lbl_0805d93c @ =gUnk_3005728
+    ldr r2, lbl_0805d938 @ =gBackgroundPositions
     lsls r0, r3, #1
     mov r5, ip
     adds r1, r0, r5
@@ -1121,15 +1121,15 @@ lbl_0805d926:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805d934: .4byte 0x03005729
-lbl_0805d938: .4byte 0x030000e4
-lbl_0805d93c: .4byte 0x03005728
+lbl_0805d934: .4byte gUnk_3005729
+lbl_0805d938: .4byte gBackgroundPositions
+lbl_0805d93c: .4byte gUnk_3005728
 
     thumb_func_start haze_bg3_none_effect_weak_outside
 haze_bg3_none_effect_weak_outside: @ 0x0805d940
     push {r4, r5, r6, r7, lr}
     movs r3, #0
-    ldr r2, lbl_0805d99c @ =0x0300571c
+    ldr r2, lbl_0805d99c @ =gHazeLoops
     strb r3, [r2, #0xb]
     strb r3, [r2, #7]
     ldr r6, lbl_0805d9a0 @ =0x0835f924
@@ -1146,13 +1146,13 @@ haze_bg3_none_effect_weak_outside: @ 0x0805d940
     strb r0, [r2, #3]
     strh r3, [r2]
 lbl_0805d964:
-    ldr r1, lbl_0805d9a4 @ =0x03005728
+    ldr r1, lbl_0805d9a4 @ =gUnk_3005728
     ldrb r0, [r2, #3]
     ldrb r2, [r1]
     adds r0, r0, r2
     strb r0, [r1]
     adds r4, r1, #0
-    ldr r1, lbl_0805d9a8 @ =0x030000e4
+    ldr r1, lbl_0805d9a8 @ =gBackgroundPositions
     ldr r2, lbl_0805d9ac @ =0x02026d00
 lbl_0805d974:
     ldrh r0, [r1, #0xe]
@@ -1175,17 +1175,17 @@ lbl_0805d974:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805d99c: .4byte 0x0300571c
+lbl_0805d99c: .4byte gHazeLoops
 lbl_0805d9a0: .4byte 0x0835f924
-lbl_0805d9a4: .4byte 0x03005728
-lbl_0805d9a8: .4byte 0x030000e4
+lbl_0805d9a4: .4byte gUnk_3005728
+lbl_0805d9a8: .4byte gBackgroundPositions
 lbl_0805d9ac: .4byte 0x02026d00
 
     thumb_func_start haze_bg3_bg2_strong_effect_weak_outside_medium_everywhere
 haze_bg3_bg2_strong_effect_weak_outside_medium_everywhere: @ 0x0805d9b0
     push {r4, r5, r6, r7, lr}
     movs r4, #0
-    ldr r2, lbl_0805da2c @ =0x0300571c
+    ldr r2, lbl_0805da2c @ =gHazeLoops
     strb r4, [r2, #7]
     ldr r6, lbl_0805da30 @ =0x0835f924
     movs r5, #0x1f
@@ -1201,13 +1201,13 @@ haze_bg3_bg2_strong_effect_weak_outside_medium_everywhere: @ 0x0805d9b0
     strb r0, [r2, #3]
     strh r4, [r2]
 lbl_0805d9d2:
-    ldr r1, lbl_0805da34 @ =0x03005728
+    ldr r1, lbl_0805da34 @ =gUnk_3005728
     ldrb r0, [r2, #3]
     ldrb r2, [r1]
     adds r0, r0, r2
     strb r0, [r1]
     ldr r2, lbl_0805da38 @ =0x02026d00
-    ldr r3, lbl_0805da3c @ =0x030000e4
+    ldr r3, lbl_0805da3c @ =gBackgroundPositions
 lbl_0805d9e0:
     ldrh r0, [r3, #0xa]
     adds r0, r0, r4
@@ -1248,21 +1248,21 @@ lbl_0805d9e0:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805da2c: .4byte 0x0300571c
+lbl_0805da2c: .4byte gHazeLoops
 lbl_0805da30: .4byte 0x0835f924
-lbl_0805da34: .4byte 0x03005728
+lbl_0805da34: .4byte gUnk_3005728
 lbl_0805da38: .4byte 0x02026d00
-lbl_0805da3c: .4byte 0x030000e4
+lbl_0805da3c: .4byte gBackgroundPositions
 
     thumb_func_start sub_0805da40
 sub_0805da40: @ 0x0805da40
     push {r4, r5, r6, r7, lr}
     movs r5, #0
-    ldr r1, lbl_0805da6c @ =0x0300571c
+    ldr r1, lbl_0805da6c @ =gHazeLoops
     ldrh r0, [r1, #8]
     adds r2, r0, #1
     strh r2, [r1, #8]
-    ldr r0, lbl_0805da70 @ =0x03005514
+    ldr r0, lbl_0805da70 @ =gUnk_3005514
     ldrb r0, [r0]
     adds r3, r1, #0
     cmp r0, #1
@@ -1278,8 +1278,8 @@ sub_0805da40: @ 0x0805da40
     adds r0, #1
     b lbl_0805da86
     .align 2, 0
-lbl_0805da6c: .4byte 0x0300571c
-lbl_0805da70: .4byte 0x03005514
+lbl_0805da6c: .4byte gHazeLoops
+lbl_0805da70: .4byte gUnk_3005514
 lbl_0805da74:
     lsls r0, r2, #0x10
     asrs r0, r0, #0x10
@@ -1313,7 +1313,7 @@ lbl_0805da88:
     strb r0, [r2, #3]
     strh r1, [r2]
 lbl_0805daae:
-    ldr r0, lbl_0805db20 @ =0x03005728
+    ldr r0, lbl_0805db20 @ =gUnk_3005728
     ldrb r1, [r0]
     ldrb r2, [r3, #3]
     subs r1, r1, r2
@@ -1321,7 +1321,7 @@ lbl_0805daae:
     ldr r2, lbl_0805db24 @ =0x02026d00
     movs r5, #0
     adds r6, r0, #0
-    ldr r3, lbl_0805db28 @ =0x030000e4
+    ldr r3, lbl_0805db28 @ =gBackgroundPositions
 lbl_0805dac0:
     ldrh r0, [r3, #6]
     adds r0, r0, r5
@@ -1370,16 +1370,16 @@ lbl_0805dac0:
     bx r0
     .align 2, 0
 lbl_0805db1c: .4byte 0x0835f7f4
-lbl_0805db20: .4byte 0x03005728
+lbl_0805db20: .4byte gUnk_3005728
 lbl_0805db24: .4byte 0x02026d00
-lbl_0805db28: .4byte 0x030000e4
+lbl_0805db28: .4byte gBackgroundPositions
 
     thumb_func_start haze_power_bomb_expanding
 haze_power_bomb_expanding: @ 0x0805db2c
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
-    ldr r0, lbl_0805db84 @ =0x03000130
+    ldr r0, lbl_0805db84 @ =gCurrentPowerBomb
     ldrb r1, [r0, #0x12]
     mov ip, r0
     cmp r1, #0
@@ -1396,13 +1396,13 @@ lbl_0805db3e:
     adds r7, r1, #0
     mov r1, ip
     ldrh r0, [r1, #4]
-    ldr r1, lbl_0805db8c @ =0x030013b8
+    ldr r1, lbl_0805db8c @ =gBG1XPosition
     ldrh r1, [r1]
     subs r0, r0, r1
     asrs r6, r0, #2
     mov r2, ip
     ldrh r0, [r2, #6]
-    ldr r1, lbl_0805db90 @ =0x030013ba
+    ldr r1, lbl_0805db90 @ =gBG1YPosition
     ldrh r1, [r1]
     subs r0, r0, r1
     asrs r2, r0, #2
@@ -1422,10 +1422,10 @@ lbl_0805db6c:
     movs r1, #0x9f
     b lbl_0805db9e
     .align 2, 0
-lbl_0805db84: .4byte 0x03000130
+lbl_0805db84: .4byte gCurrentPowerBomb
 lbl_0805db88: .4byte 0x0835f570
-lbl_0805db8c: .4byte 0x030013b8
-lbl_0805db90: .4byte 0x030013ba
+lbl_0805db8c: .4byte gBG1XPosition
+lbl_0805db90: .4byte gBG1YPosition
 lbl_0805db94: .4byte 0x02026d00
 lbl_0805db98:
     cmp r1, #0
@@ -1532,7 +1532,7 @@ haze_power_bomb_retracting: @ 0x0805dc44
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
-    ldr r0, lbl_0805dc9c @ =0x03000130
+    ldr r0, lbl_0805dc9c @ =gCurrentPowerBomb
     ldrb r1, [r0, #0x12]
     mov ip, r0
     cmp r1, #0
@@ -1549,13 +1549,13 @@ lbl_0805dc56:
     adds r7, r1, #0
     mov r1, ip
     ldrh r0, [r1, #4]
-    ldr r1, lbl_0805dca4 @ =0x030013b8
+    ldr r1, lbl_0805dca4 @ =gBG1XPosition
     ldrh r1, [r1]
     subs r0, r0, r1
     asrs r6, r0, #2
     mov r2, ip
     ldrh r0, [r2, #6]
-    ldr r1, lbl_0805dca8 @ =0x030013ba
+    ldr r1, lbl_0805dca8 @ =gBG1YPosition
     ldrh r1, [r1]
     subs r0, r0, r1
     asrs r2, r0, #2
@@ -1575,10 +1575,10 @@ lbl_0805dc84:
     movs r1, #0x9f
     b lbl_0805dcb6
     .align 2, 0
-lbl_0805dc9c: .4byte 0x03000130
+lbl_0805dc9c: .4byte gCurrentPowerBomb
 lbl_0805dca0: .4byte 0x0835f570
-lbl_0805dca4: .4byte 0x030013b8
-lbl_0805dca8: .4byte 0x030013ba
+lbl_0805dca4: .4byte gBG1XPosition
+lbl_0805dca8: .4byte gBG1YPosition
 lbl_0805dcac: .4byte 0x02026d00
 lbl_0805dcb0:
     cmp r1, #0

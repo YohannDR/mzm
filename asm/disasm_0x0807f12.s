@@ -332,7 +332,7 @@ is_save_file_not_legit: @ 0x0807f370
     push {r4, r5, lr}
     sub sp, #0x10
     movs r4, #0
-    ldr r5, lbl_0807f3e0 @ =0x03000184
+    ldr r5, lbl_0807f3e0 @ =gInGameTimerAtBosses
 lbl_0807f378:
     lsls r2, r4, #2
     mov r0, sp
@@ -390,7 +390,7 @@ lbl_0807f3da:
     movs r0, #0
     b lbl_0807f3f2
     .align 2, 0
-lbl_0807f3e0: .4byte 0x03000184
+lbl_0807f3e0: .4byte gInGameTimerAtBosses
 lbl_0807f3e4: .4byte 0x0845fd14
 lbl_0807f3e8:
     lsls r0, r4, #0x18
@@ -412,7 +412,7 @@ sub_0807f3fc: @ 0x0807f3fc
     mov r6, r8
     push {r6, r7}
     sub sp, #0x30
-    ldr r7, lbl_0807f604 @ =0x03000014
+    ldr r7, lbl_0807f604 @ =gFileScreenOptionsUnlocked
     ldr r0, [r7, #8]
     movs r1, #1
     ands r0, r1
@@ -426,7 +426,7 @@ lbl_0807f414:
     bne lbl_0807f420
     b lbl_0807f5f4
 lbl_0807f420:
-    bl GetPercentAndEndingNumber
+    bl ChozodiaEscapeGetPercentAndEndingNumber
     adds r3, r0, #0
     movs r0, #0xff
     lsrs r1, r3, #0x18
@@ -481,7 +481,7 @@ lbl_0807f46e:
     cmp r4, #3
     bls lbl_0807f46e
     movs r4, #0
-    ldr r6, lbl_0807f608 @ =0x03000184
+    ldr r6, lbl_0807f608 @ =gInGameTimerAtBosses
 lbl_0807f482:
     lsls r2, r4, #2
     adds r2, r2, r6
@@ -679,14 +679,14 @@ lbl_0807f5f4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0807f604: .4byte 0x03000014
-lbl_0807f608: .4byte 0x03000184
+lbl_0807f604: .4byte gFileScreenOptionsUnlocked
+lbl_0807f608: .4byte gInGameTimerAtBosses
 
     thumb_func_start sub_0807f60c
 sub_0807f60c: @ 0x0807f60c
     push {r4, r5, r6, lr}
     adds r6, r0, #0
-    ldr r0, lbl_0807f620 @ =0x03000014
+    ldr r0, lbl_0807f620 @ =gFileScreenOptionsUnlocked
     ldr r1, [r0, #8]
     movs r0, #1
     ands r0, r1
@@ -695,7 +695,7 @@ sub_0807f60c: @ 0x0807f60c
     movs r0, #0
     b lbl_0807f688
     .align 2, 0
-lbl_0807f620: .4byte 0x03000014
+lbl_0807f620: .4byte gFileScreenOptionsUnlocked
 lbl_0807f624:
     adds r3, r1, #0
     movs r4, #0
@@ -1342,7 +1342,7 @@ check_set_new_time_attack_record: @ 0x0807fb48
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0xc
-    ldr r2, lbl_0807fbf8 @ =0x03000150
+    ldr r2, lbl_0807fbf8 @ =gInGameTimer
     ldrb r1, [r2]
     lsls r1, r1, #0x18
     ldrb r0, [r2, #1]
@@ -1351,7 +1351,7 @@ check_set_new_time_attack_record: @ 0x0807fb48
     ldrb r0, [r2, #2]
     lsls r0, r0, #8
     adds r6, r1, r0
-    ldr r2, lbl_0807fbfc @ =0x03001694
+    ldr r2, lbl_0807fbfc @ =gTimeAttackRecord
     ldrb r1, [r2, #0x14]
     lsls r1, r1, #0x18
     ldrb r0, [r2, #0x15]
@@ -1374,7 +1374,7 @@ check_set_new_time_attack_record: @ 0x0807fb48
     ldrb r0, [r0]
     lsls r0, r0, #8
     adds r5, r1, r0
-    bl GetPercentAndEndingNumber
+    bl ChozodiaEscapeGetPercentAndEndingNumber
     movs r1, #0xff
     lsrs r2, r0, #0x18
     mov sl, r2
@@ -1426,12 +1426,12 @@ lbl_0807fbec:
     movs r0, #0
     b lbl_0807fd38
     .align 2, 0
-lbl_0807fbf8: .4byte 0x03000150
-lbl_0807fbfc: .4byte 0x03001694
+lbl_0807fbf8: .4byte gInGameTimer
+lbl_0807fbfc: .4byte gTimeAttackRecord
 lbl_0807fc00:
     movs r0, #0
     mov ip, r0
-    ldr r0, lbl_0807fd48 @ =0x03000014
+    ldr r0, lbl_0807fd48 @ =gFileScreenOptionsUnlocked
     ldr r0, [r0, #8]
     movs r1, #1
     ands r0, r1
@@ -1463,7 +1463,7 @@ lbl_0807fc3c:
     movs r1, #0
     mov ip, r1
 lbl_0807fc40:
-    ldr r5, lbl_0807fd4c @ =0x03000184
+    ldr r5, lbl_0807fd4c @ =gInGameTimerAtBosses
     ldrb r0, [r5, #3]
     movs r3, #0xf
     adds r4, r3, #0
@@ -1481,11 +1481,11 @@ lbl_0807fc40:
     adds r0, r3, #0
     ands r0, r1
     orrs r2, r0
-    ldr r6, lbl_0807fd50 @ =0x0300160c
-    ldr r0, lbl_0807fd48 @ =0x03000014
+    ldr r6, lbl_0807fd50 @ =gTimeAttackData
+    ldr r0, lbl_0807fd48 @ =gFileScreenOptionsUnlocked
     ldr r0, [r0, #8]
     str r0, [r6]
-    ldr r5, lbl_0807fd54 @ =0x03000150
+    ldr r5, lbl_0807fd54 @ =gInGameTimer
     ldrb r0, [r5]
     strb r0, [r6, #4]
     ldrb r0, [r5, #1]
@@ -1506,7 +1506,7 @@ lbl_0807fc40:
     strb r0, [r6, #0xc]
     strb r4, [r6, #0xd]
     strb r2, [r6, #0xe]
-    ldr r0, lbl_0807fd58 @ =0x03000c77
+    ldr r0, lbl_0807fd58 @ =gFrameCounter8Bit
     ldrb r0, [r0]
     ands r3, r0
     strb r3, [r6, #0xf]
@@ -1518,7 +1518,7 @@ lbl_0807fc40:
     cmp r0, #0
     beq lbl_0807fcda
     movs r2, #0
-    ldr r3, lbl_0807fd5c @ =0x03001694
+    ldr r3, lbl_0807fd5c @ =gTimeAttackRecord
     adds r4, r3, #0
     adds r7, r6, #0
     adds r7, #0x10
@@ -1547,8 +1547,8 @@ lbl_0807fcda:
     cmp r0, #0
     beq lbl_0807fd22
     movs r2, #0
-    ldr r5, lbl_0807fd54 @ =0x03000150
-    ldr r3, lbl_0807fd5c @ =0x03001694
+    ldr r5, lbl_0807fd54 @ =gInGameTimer
+    ldr r3, lbl_0807fd5c @ =gTimeAttackRecord
     adds r7, r3, #0
     adds r7, #0x18
     adds r4, r6, #0
@@ -1583,7 +1583,7 @@ lbl_0807fd22:
     cmp r0, #0
     beq lbl_0807fd36
     bl backup_time_attack_for_sram
-    ldr r0, lbl_0807fd60 @ =0x03001604
+    ldr r0, lbl_0807fd60 @ =gEndingFlags
     ldrb r1, [r0]
     movs r2, #1
     orrs r1, r2
@@ -1600,13 +1600,13 @@ lbl_0807fd38:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0807fd48: .4byte 0x03000014
-lbl_0807fd4c: .4byte 0x03000184
-lbl_0807fd50: .4byte 0x0300160c
-lbl_0807fd54: .4byte 0x03000150
-lbl_0807fd58: .4byte 0x03000c77
-lbl_0807fd5c: .4byte 0x03001694
-lbl_0807fd60: .4byte 0x03001604
+lbl_0807fd48: .4byte gFileScreenOptionsUnlocked
+lbl_0807fd4c: .4byte gInGameTimerAtBosses
+lbl_0807fd50: .4byte gTimeAttackData
+lbl_0807fd54: .4byte gInGameTimer
+lbl_0807fd58: .4byte gFrameCounter8Bit
+lbl_0807fd5c: .4byte gTimeAttackRecord
+lbl_0807fd60: .4byte gEndingFlags
 
     thumb_func_start ProcessComplexOam
 ProcessComplexOam: @ 0x0807fd64
@@ -1643,7 +1643,7 @@ ProcessComplexOam: @ 0x0807fd64
     str r2, [sp, #0xc]
     ldr r1, [sp]
     lsls r0, r1, #3
-    ldr r5, lbl_0807fe84 @ =0x03000e7c
+    ldr r5, lbl_0807fe84 @ =gOamData
     adds r7, r0, r5
     ldrb r0, [r7, #1]
     mov sb, r0
@@ -1755,7 +1755,7 @@ ProcessComplexOam: @ 0x0807fd64
     subs r0, r6, r1
     b lbl_0807feb0
     .align 2, 0
-lbl_0807fe84: .4byte 0x03000e7c
+lbl_0807fe84: .4byte gOamData
 lbl_0807fe88: .4byte 0x0845fd24
 lbl_0807fe8c: .4byte 0x0845fd30
 lbl_0807fe90: .4byte 0x000001ff
@@ -1778,7 +1778,7 @@ lbl_0807feb0:
     asrs r6, r0, #0x10
     ldr r0, [sp]
     lsls r3, r0, #3
-    ldr r1, lbl_0807feec @ =0x03000e7c
+    ldr r1, lbl_0807feec @ =gOamData
     adds r7, r3, r1
     ldr r0, [sp, #8]
     adds r1, r5, r0
@@ -1805,7 +1805,7 @@ lbl_0807feb0:
     adds r0, #3
     b lbl_0807ff08
     .align 2, 0
-lbl_0807feec: .4byte 0x03000e7c
+lbl_0807feec: .4byte gOamData
 lbl_0807fef0: .4byte 0x000001ff
 lbl_0807fef4: .4byte 0xfffffe00
 lbl_0807fef8:
@@ -1839,7 +1839,7 @@ lbl_0807ff1a:
     orrs r0, r1
     strb r0, [r7, #3]
 lbl_0807ff2c:
-    ldr r5, lbl_0807ff54 @ =0x03000e7c
+    ldr r5, lbl_0807ff54 @ =gOamData
     adds r2, r3, r5
     ldrb r1, [r2, #3]
     movs r0, #0x11
@@ -1859,7 +1859,7 @@ lbl_0807ff2c:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0807ff54: .4byte 0x03000e7c
+lbl_0807ff54: .4byte gOamData
 
     thumb_func_start CalculateOamPart4
 CalculateOamPart4: @ 0x0807ff58
@@ -1962,7 +1962,7 @@ CalculateOamPart4: @ 0x0807ff58
     bl FixedMultiplication
     lsls r0, r0, #0x10
     asrs r0, r0, #0x10
-    ldr r2, lbl_080800f0 @ =0x03000e7c
+    ldr r2, lbl_080800f0 @ =gOamData
     lsls r1, r7, #3
     adds r1, r1, r2
     mov r4, r8
@@ -2055,4 +2055,4 @@ CalculateOamPart4: @ 0x0807ff58
     bx r0
     .align 2, 0
 lbl_080800ec: .4byte 0x0808c71c
-lbl_080800f0: .4byte 0x03000e7c
+lbl_080800f0: .4byte gOamData

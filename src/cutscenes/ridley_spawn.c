@@ -23,7 +23,7 @@ u8 RidleySpawnRidleyFlyingIn(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DMATransfer(3, sRidleySpawnRidleyScreamingPAL, PALRAM_BASE + 0x200, sizeof(sRidleySpawnRidleyScreamingPAL), 0x10);
+            DMATransfer(3, sRidleySpawnRidleyScreamingPAL, PALRAM_OBJ, sizeof(sRidleySpawnRidleyScreamingPAL), 0x10);
             CallLZ77UncompVRAM(sRidleySpawnScreamingGFX, VRAM_BASE + 0x10000);
             
             CallLZ77UncompVRAM(sRidleySpawnBackgroundGFX, VRAM_BASE + sRidleySpawnPageData[3].graphicsPage * 0x4000);
@@ -41,7 +41,7 @@ u8 RidleySpawnRidleyFlyingIn(void)
             CUTSCENE_DATA.oam[0].rotationScaling = TRUE;
             CUTSCENE_DATA.oam[0].notDrawn = FALSE;
             CUTSCENE_DATA.oam[0].priority = 0;
-            CUTSCENE_DATA.oam[0].unk_B_4 = FALSE;
+            CUTSCENE_DATA.oam[0].objMode = FALSE;
 
             gCurrentOamScaling = 0x120;
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING);
@@ -145,7 +145,7 @@ u8 RidleySpawnHelmetReflection(void)
 
             CUTSCENE_DATA.oam[0].priority = sRidleySpawnPageData[2].priority;
             CUTSCENE_DATA.oam[0].rotationScaling = TRUE;
-            CUTSCENE_DATA.oam[0].unk_B_4 = TRUE;
+            CUTSCENE_DATA.oam[0].objMode = TRUE;
 
             gCurrentOamScaling = 0x40;
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_RIDLEY_FLYING_REFLECTION);
@@ -234,9 +234,9 @@ u8 RidleySpawnInit(void)
     unk_61f0c();
 
     if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
-        DMATransfer(3, sRidleySpawnSamusVariaPAL, PALRAM_BASE + 0x200, sizeof(sRidleySpawnSamusVariaPAL), 0x10);
+        DMATransfer(3, sRidleySpawnSamusVariaPAL, PALRAM_OBJ, sizeof(sRidleySpawnSamusVariaPAL), 0x10);
     else
-        DMATransfer(3, sRidleySpawnSamusPAL, PALRAM_BASE + 0x200, sizeof(sRidleySpawnSamusPAL), 0x10);
+        DMATransfer(3, sRidleySpawnSamusPAL, PALRAM_OBJ, sizeof(sRidleySpawnSamusPAL), 0x10);
 
     DMATransfer(3, sRidleySpawnBackgroundPAL, PALRAM_BASE, sizeof(sRidleySpawnBackgroundPAL), 0x10);
     write16(PALRAM_BASE, 0);
@@ -264,7 +264,7 @@ u8 RidleySpawnInit(void)
     CUTSCENE_DATA.oam[0].yPosition = sRidleySpawnRidleyPositions[2].y;
     CUTSCENE_DATA.oam[0].priority = sRidleySpawnPageData[0].priority;
     CUTSCENE_DATA.oam[0].rotationScaling = TRUE;
-    CUTSCENE_DATA.oam[0].unk_B_4 = TRUE;
+    CUTSCENE_DATA.oam[0].objMode = TRUE;
 
     gCurrentOamScaling = 0x100;
     UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[0], RIDLEY_SPAWN_OAM_ID_SAMUS);
@@ -302,7 +302,7 @@ u8 RidleySpawnSubroutine(void)
 void RidleySpawnProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sRidleySpawnSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleySpawnOam);
+    ProcessCutsceneOam(sRidleySpawnSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleySpawnOam);
     ResetFreeOAM();
     CalculateOamPart4(gCurrentOamRotation, gCurrentOamScaling, 0);
 }

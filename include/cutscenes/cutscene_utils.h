@@ -18,7 +18,7 @@ void CutsceneSetBGCNT(u16 value, u16 bg);
 void CutsceneSetBackgroundPosition(u8 type, u16 bg, u16 value);
 u16* CutsceneGetBGHOFSPointer(u16 bg);
 u16* CutsceneGetBGVOFSPointer(u16 bg);
-void CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData, u16 bg);
+u32 CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData, u16 bg);
 void CutsceneUpdateBackgroundScrolling(struct CutsceneScrolling* pScrolling);
 u8 CutsceneCheckBackgroundScrollingActive(u16 bg);
 void CutsceneUpdateBackgroundsPosition(u8 updateScrolling);
@@ -32,7 +32,7 @@ void unk_61f0c(void);
 void unk_61f28(void);
 u32 unk_61f44(void);
 void unk_61f60(void);
-u8 unk_61fa0(u8 param_1);
-u8 unk_621d0(void);
+u8 CutsceneStartBackgroundFading(u8 type);
+u8 CutsceneUpdateFading(void);
 
 #endif

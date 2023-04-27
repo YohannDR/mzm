@@ -14,6 +14,7 @@
 #include "constants/menus/file_select.h"
 
 #include "structs/audio.h"
+#include "structs/cable_link.h"
 #include "structs/display.h"
 #include "structs/game_state.h"
 #include "structs/menus/file_select.h"
@@ -119,13 +120,13 @@ void FileSelectResetOAM(void)
 
     // Check enable metroid logos (completed save file indicator)
     if (gSaveFilesInfo[0].completedGame)
-        FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_LOGO].idChanged = TRUE;
+        FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_LOGO].exists = TRUE;
 
     if (gSaveFilesInfo[1].completedGame)
-        FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_LOGO].idChanged = TRUE;
+        FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_LOGO].exists = TRUE;
 
     if (gSaveFilesInfo[2].completedGame)
-        FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_LOGO].idChanged = TRUE;
+        FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_LOGO].exists = TRUE;
 
     if (gSaveFilesInfo[0].corruptionFlag)
         FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_LOGO].notDrawn = TRUE;
@@ -219,32 +220,32 @@ void FileSelectUpdateCursor(u8 cursorPose, u8 position)
 
             if (position != FILE_SELECT_CURSOR_POSITION_FILE_A)
             {
-                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].unk_B_4 = 1;
-                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_LOGO].unk_B_4 = 1;
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].objMode = 1;
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_LOGO].objMode = 1;
             }
 
             if (position != FILE_SELECT_CURSOR_POSITION_FILE_B)
             {
-                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].unk_B_4 = 1;
-                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_LOGO].unk_B_4 = 1;
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].objMode = 1;
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_LOGO].objMode = 1;
             }
 
             if (position != FILE_SELECT_CURSOR_POSITION_FILE_C)
             {
-                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER].unk_B_4 = 1;
-                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_LOGO].unk_B_4 = 1;
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER].objMode = 1;
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_LOGO].objMode = 1;
             }
             break;
 
         case CURSOR_POSE_DESELECTING_FILE:
             UpdateMenuOamDataID(&FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_CURSOR], ++oamId);
 
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].unk_B_4 = 0;
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].unk_B_4 = 0;
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER].unk_B_4 = 0;
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_LOGO].unk_B_4 = 0;
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_LOGO].unk_B_4 = 0;
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_LOGO].unk_B_4 = 0;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].objMode = 0;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].objMode = 0;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER].objMode = 0;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_LOGO].objMode = 0;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_LOGO].objMode = 0;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_LOGO].objMode = 0;
             break;
 
         case CURSOR_POSE_STARTING_GAME:
@@ -312,7 +313,7 @@ void FileSelectUpdateCopyCursor(u8 cursorPose, u8 fileNumber)
 
         case CURSOR_COPY_POSE_COPIED:
             // Kill copy cursor OAM
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].idChanged = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].exists = FALSE;
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].oamID = 0;
 
             // Reset every file marker to non-selected 
@@ -396,7 +397,7 @@ void FileSelectUpdateCopyArrow(u8 arrowPose, u8 dstFileNumber)
 
         case ARROW_COPY_POSE_KILL:
             // Kill arrow OAM
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_ARROW].idChanged = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_COPY_ARROW].exists = FALSE;
             
             // Reset every file marker
             if (dstFileNumber == FILE_SELECT_CURSOR_POSITION_FILE_A)
@@ -480,7 +481,7 @@ void FileSelectUpdateEraseCursor(u8 cursorPose, u8 fileNumber)
 
         case CURSOR_ERASE_POSE_ERASED:
             // Kill erase cursor OAM
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].idChanged = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].exists = FALSE;
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].oamID = 0;
 
             // Reset every file marker to non-selected 
@@ -932,11 +933,11 @@ u32 FileSelectCopyFileSubroutine(void)
                 FileSelectDisplaySaveFileTimer(FILE_SELECT_DATA.currentFile);
                 FileSelectDisplaySaveFileMiscInfo(&gSaveFilesInfo[FILE_SELECT_DATA.currentFile], FILE_SELECT_DATA.currentFile);
 
-                FILE_SELECT_DATA.fileScreenOam[sFileSelect_760b79[FILE_SELECT_DATA.currentFile][1]].idChanged =
+                FILE_SELECT_DATA.fileScreenOam[sFileSelect_760b79[FILE_SELECT_DATA.currentFile][1]].exists =
                     gSaveFilesInfo[FILE_SELECT_DATA.currentFile].completedGame ? 2 : 0;
             
                 FileScreenSetEnabledMenuFlags();
-                DMATransfer(3, sEwramPointer + 0x800, VRAM_BASE + 0xD800, 0x800, 16);
+                DMATransfer(3, (void*)sEwramPointer + 0x800, VRAM_BASE + 0xD800, 0x800, 16);
             }
 
             FileSelectUpdateCopyCursor(CURSOR_COPY_POSE_COPIED, FILE_SELECT_DATA.copySourceFile);
@@ -1128,10 +1129,10 @@ u32 FileSelectEraseFileSubroutine(void)
                 FileSelectDisplaySaveFileMiscInfo(&gSaveFilesInfo[FILE_SELECT_DATA.eraseFile], FILE_SELECT_DATA.eraseFile);
 
                 if (!gSaveFilesInfo[FILE_SELECT_DATA.eraseFile].completedGame)
-                    FILE_SELECT_DATA.fileScreenOam[sFileSelect_760b79[FILE_SELECT_DATA.eraseFile][1]].idChanged = FALSE;
+                    FILE_SELECT_DATA.fileScreenOam[sFileSelect_760b79[FILE_SELECT_DATA.eraseFile][1]].exists = FALSE;
             
                 FileScreenSetEnabledMenuFlags();
-                DMATransfer(3, sEwramPointer + 0x800, VRAM_BASE + 0xD800, 0x800, 16);
+                DMATransfer(3, (void*)sEwramPointer + 0x800, VRAM_BASE + 0xD800, 0x800, 16);
             }
 
             FileSelectUpdateEraseCursor(CURSOR_ERASE_POSE_ERASED, FILE_SELECT_DATA.eraseFile);
@@ -1294,7 +1295,7 @@ u32 FileSelectCorruptedFileSubroutine(void)
             else
                 FILE_SELECT_DATA.corruptMessageFileC = 0;
 
-            DMATransfer(3, sEwramPointer + 0x800, VRAM_BASE + 0xD800, 0x800, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x800, VRAM_BASE + 0xD800, 0x800, 16);
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_DATA.unk_47 + FILE_SELECT_OAM_FILE_A_LOGO].notDrawn = FALSE;
 
             FILE_SELECT_DATA.subroutineStage++;
@@ -1336,15 +1337,15 @@ u32 FileSelectCorruptedFileSubroutine(void)
  */
 void unk_79ecc(void)
 {
-    DMATransfer(3, sEwramPointer + 0x5100, VRAM_BASE + 0xF000, 0x800, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x5100, VRAM_BASE + 0xF000, 0x800, 16);
 
     FILE_SELECT_DATA.bg2cnt = FILE_SELECT_DATA.unk_20;
     FILE_SELECT_DATA.dispcnt |= (DCNT_BG2 | DCNT_OBJ);
 
-    FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].unk_B_4 = 1;
-    FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].unk_B_4 = 1;
-    FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER ].unk_B_4 = 1;
-    FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_CURSOR].unk_B_4 = 1;
+    FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].objMode = 1;
+    FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].objMode = 1;
+    FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER ].objMode = 1;
+    FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_CURSOR].objMode = 1;
 
     FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_LOGO].notDrawn = TRUE;
     FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_LOGO].notDrawn = TRUE;
@@ -1368,7 +1369,7 @@ void OptionsSetupTiletable(void)
     u16* dst;
 
     // Decomp tile table
-    CallLZ77UncompWRAM(sFileSelectOptionsTileTable, sEwramPointer + 0x5100);
+    CallLZ77UncompWRAM(sFileSelectOptionsTileTable, (void*)sEwramPointer + 0x5100);
 
     // Clear all the options
     for (i = 0; i < ARRAY_SIZE(FILE_SELECT_DATA.optionsUnlocked); i++)
@@ -1420,7 +1421,7 @@ void OptionsSetupTiletable(void)
                 if (gFileScreenOptionsUnlocked.galleryImages == UCHAR_MAX)
                 {
                     // All the images are unlocked, change text palette to yellow
-                    dst = (u16*)(sEwramPointer + 0x5100) + sOptionsOptionsTilemapOffsets[OPTION_GALLERY];
+                    dst = (u16*)((void*)sEwramPointer + 0x5100) + sOptionsOptionsTilemapOffsets[OPTION_GALLERY];
                     j = 0;
                     while (j < 64)
                     {
@@ -1464,8 +1465,8 @@ void OptionsSetupTiletable(void)
     {
         if (sOptionsOptionsTilemapOffsets[FILE_SELECT_DATA.optionsUnlocked[i]] != 0)
         {
-            DMATransfer(3, (u16*)(sEwramPointer + 0x5100) + sOptionsOptionsTilemapOffsets[FILE_SELECT_DATA.optionsUnlocked[i]],
-                sEwramPointer + 0x5200 + i * 0x80, 0x80, 16);
+            DMATransfer(3, (u16*)((void*)sEwramPointer + 0x5100) + sOptionsOptionsTilemapOffsets[FILE_SELECT_DATA.optionsUnlocked[i]],
+                (void*)sEwramPointer + 0x5200 + i * 0x80, 0x80, 16);
         }
 
         i++;
@@ -1562,17 +1563,17 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
                 BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL |
                 BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
 
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].unk_B_4 = TRUE;
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].unk_B_4 = TRUE;
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER].unk_B_4 = TRUE;
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_CURSOR].unk_B_4 = TRUE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].objMode = TRUE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].objMode = TRUE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER].objMode = TRUE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_CURSOR].objMode = TRUE;
 
             FILE_SELECT_DATA.fileScreenOam[12].notDrawn = TRUE;
             FILE_SELECT_DATA.fileScreenOam[13].notDrawn = TRUE;
             FILE_SELECT_DATA.fileScreenOam[14].notDrawn = TRUE;
 
             BitFill(3, 0, VRAM_BASE + 0xE000, 0x800, 16);
-            DMATransfer(3, sEwramPointer + 0x5100, VRAM_BASE + 0xE000, 0xC0, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x5100, VRAM_BASE + 0xE000, 0xC0, 16);
 
             FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
             FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
@@ -1685,7 +1686,7 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
                 break;
 
             BitFill(3, 0, VRAM_BASE + 0xE000, 0x800, 16);
-            DMATransfer(3, sEwramPointer + 0x5100, VRAM_BASE + 0xE000, 0xC0, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x5100, VRAM_BASE + 0xE000, 0xC0, 16);
 
             gBG0HOFS_NonGameplay = gBG0VOFS_NonGameplay = BLOCK_SIZE * 32;
 
@@ -1794,10 +1795,10 @@ u8 FileSelectOptionTransition(u8 leavingOptions)
             if (!fadeEnded)
                 break;
 
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].unk_B_4 = FALSE;
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].unk_B_4 = FALSE;
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER].unk_B_4 = FALSE;
-            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_CURSOR].unk_B_4 = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_A_MARKER].objMode = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_B_MARKER].objMode = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_FILE_C_MARKER].objMode = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_CURSOR].objMode = FALSE;
 
             FILE_SELECT_DATA.fileScreenOam[12].notDrawn = FALSE;
             FILE_SELECT_DATA.fileScreenOam[13].notDrawn = FALSE;
@@ -1853,7 +1854,7 @@ u8 OptionsSubroutine(void)
             break;
 
         case 2:
-            check_for_maintained_input(); // Undefined
+            CheckForMaintainedInput();
 
             if (!gChangedInput)
                 break;
@@ -2312,7 +2313,7 @@ u8 OptionsSoundTestSubroutine(void)
 
         case 7:
             // Wait for panel to disappear
-            if (!FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_PANEL].idChanged)
+            if (!FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_SOUND_TEST_PANEL].exists)
                 FILE_SELECT_DATA.subroutineStage++;
             break;
 
@@ -2405,7 +2406,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             gBG0HOFS_NonGameplay = BLOCK_SIZE * 25 + HALF_BLOCK_SIZE;
             gBG0VOFS_NonGameplay = BLOCK_SIZE * 32;
 
-            DMATransfer(3, sEwramPointer + 0x4800, VRAM_BASE + 0xE000, 0x300, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x4800, VRAM_BASE + 0xE000, 0x300, 16);
 
             FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
             FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
@@ -2493,7 +2494,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
                 {
                     if (unk_790cc(1, 0x1E))
                     {
-                        DMATransfer(3, sEwramPointer + 0x4E00, VRAM_BASE + 0xE800, 0x300, 16);
+                        DMATransfer(3, (void*)sEwramPointer + 0x4E00, VRAM_BASE + 0xE800, 0x300, 16);
                         action = TRUE;
                     }
                 }
@@ -2502,7 +2503,7 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
                     if (unk_790cc(1, 0x1D))
                     {
                         action = TRUE;
-                        DMATransfer(3, sEwramPointer + 0x4B00, VRAM_BASE + 0xE800, 0x300, 16);
+                        DMATransfer(3, (void*)sEwramPointer + 0x4B00, VRAM_BASE + 0xE800, 0x300, 16);
                     }
                 }
             }
@@ -2604,8 +2605,8 @@ u8 OptionsTimeAttackRecordsSubroutine(void)
             break;
 
         case 11:
-            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].idChanged |
-                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].idChanged)
+            if (FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_LARGE_PANEL].exists |
+                FILE_SELECT_DATA.optionsOam[OPTIONS_OAM_HUGE_PANEL].exists)
                 break;
 
             FILE_SELECT_DATA.subroutineTimer++;
@@ -2734,7 +2735,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
             {
                 if (unk_790cc(1, 0x15))
                 {
-                    DMATransfer(3, sEwramPointer + 0x3C00, VRAM_BASE + 0xE800, 0x300, 16);
+                    DMATransfer(3, (void*)sEwramPointer + 0x3C00, VRAM_BASE + 0xE800, 0x300, 16);
                     FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
                     FILE_SELECT_DATA.dispcnt |= DCNT_BG1;
 
@@ -2746,7 +2747,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
             {
                 if (unk_790cc(1, 0x19))
                 {
-                    DMATransfer(3, sEwramPointer + 0x4800, VRAM_BASE + 0xE000, 0x300, 16);
+                    DMATransfer(3, (void*)sEwramPointer + 0x4800, VRAM_BASE + 0xE000, 0x300, 16);
                     FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
                     FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
                 }
@@ -2870,7 +2871,7 @@ u8 OptionsMetroidFusionLinkSubroutine(void)
             if (FILE_SELECT_DATA.subroutineTimer > 30)
             {
                 OptionsSetupTiletable();
-                DMATransfer(3, sEwramPointer + 0x5100, VRAM_BASE + 0xF000, 0x800, 16);
+                DMATransfer(3, (void*)sEwramPointer + 0x5100, VRAM_BASE + 0xF000, 0x800, 16);
                 FILE_SELECT_DATA.subroutineStage = 23;
             }
             break;
@@ -3097,11 +3098,11 @@ u32 FileSelectFading(void)
 
             if (FILE_SELECT_DATA.colorToApply < 32)
             {
-                src = sEwramPointer + 0x000;
-                dst = sEwramPointer + 0x400;
+                src = (void*)sEwramPointer + 0x000;
+                dst = (void*)sEwramPointer + 0x400;
                 ApplySpecialBackgroundFadingColor(0, FILE_SELECT_DATA.colorToApply, &src, &dst, USHORT_MAX);
-                src = sEwramPointer + 0x200;
-                dst = sEwramPointer + 0x600;
+                src = (void*)sEwramPointer + 0x200;
+                dst = (void*)sEwramPointer + 0x600;
                 ApplySpecialBackgroundFadingColor(0, FILE_SELECT_DATA.colorToApply, &src, &dst, USHORT_MAX);
 
                 FILE_SELECT_DATA.unk_E = TRUE;
@@ -3119,7 +3120,7 @@ u32 FileSelectFading(void)
                 break;
             }
 
-            DMATransfer(3, sEwramPointer, sEwramPointer + 0x400, 0x400, 16);
+            DMATransfer(3, (void*)sEwramPointer, (void*)sEwramPointer + 0x400, 0x400, 16);
             FILE_SELECT_DATA.unk_E = TRUE;
             FILE_SELECT_DATA.fadingStage++;
             break;
@@ -3143,11 +3144,11 @@ u32 FileSelectFading(void)
             FILE_SELECT_DATA.fadingTimer = 0;
             if (FILE_SELECT_DATA.colorToApply < 32)
             {
-                src = sEwramPointer + 0x000;
-                dst = sEwramPointer + 0x400;
+                src = (void*)sEwramPointer + 0x000;
+                dst = (void*)sEwramPointer + 0x400;
                 ApplySpecialBackgroundFadingColor(2, FILE_SELECT_DATA.colorToApply, &src, &dst, USHORT_MAX);
-                src = sEwramPointer + 0x200;
-                dst = sEwramPointer + 0x600;
+                src = (void*)sEwramPointer + 0x200;
+                dst = (void*)sEwramPointer + 0x600;
                 ApplySpecialBackgroundFadingColor(2, FILE_SELECT_DATA.colorToApply, &src, &dst, USHORT_MAX);
 
                 FILE_SELECT_DATA.unk_E = TRUE;
@@ -3165,7 +3166,7 @@ u32 FileSelectFading(void)
                 break;
             }
 
-            BitFill(3, 0, sEwramPointer + 0x400, 0x400, 16);
+            BitFill(3, 0, (void*)sEwramPointer + 0x400, 0x400, 16);
             FILE_SELECT_DATA.unk_E = TRUE;
             FILE_SELECT_DATA.fadingStage++;
             break;
@@ -3196,9 +3197,9 @@ void unk_7c4b0(u8 param_1)
 
     if (!param_1)
     {
-        DMATransfer(3, PALRAM_BASE, sEwramPointer, PALRAM_SIZE, 16);
+        DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer, PALRAM_SIZE, 16);
         BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
-        DMATransfer(3, PALRAM_BASE, sEwramPointer + 0x400, PALRAM_SIZE, 16);
+        DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + 0x400, PALRAM_SIZE, 16);
 
         FILE_SELECT_DATA.fadingStage = 0;
         FILE_SELECT_DATA.fadingIntensity = 8;
@@ -3206,7 +3207,7 @@ void unk_7c4b0(u8 param_1)
     }
     else
     {
-        DMATransfer(3, PALRAM_BASE, sEwramPointer, PALRAM_SIZE, 16);
+        DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer, PALRAM_SIZE, 16);
 
         FILE_SELECT_DATA.fadingStage = 2;
         FILE_SELECT_DATA.fadingIntensity = 8;
@@ -3222,7 +3223,7 @@ void unk_7c568(void)
 {
     if (FILE_SELECT_DATA.unk_E)
     {
-        DMATransfer(3, sEwramPointer + 0x400, PALRAM_BASE, PALRAM_SIZE, 16);
+        DMATransfer(3, (void*)sEwramPointer + 0x400, PALRAM_BASE, PALRAM_SIZE, 16);
         FILE_SELECT_DATA.unk_E = FALSE;
     }
 }
@@ -3276,7 +3277,7 @@ void FileSelectInit(void)
     gSramErrorFlag = FALSE;
     gDebugFlag = FALSE;
 
-    BitFill(3, 0, sEwramPointer + 0x1000, 0x800, 16);
+    BitFill(3, 0, (void*)sEwramPointer + 0x1000, 0x800, 16);
     SramWrite_FileInfo();
     unk_7c5a4();
 
@@ -3289,7 +3290,7 @@ void FileSelectInit(void)
 
     DMATransfer(3, sFileSelectPAL, PALRAM_BASE, sizeof(sFileSelectPAL), 16);
     DMATransfer(3, sFileSelect_4548f8, PALRAM_BASE + 0x1C0, sizeof(sFileSelect_4548f8), 16);
-    DMATransfer(3, sFileSelectIconsPAL, PALRAM_BASE + 0x200, sizeof(sFileSelectIconsPAL), 16);
+    DMATransfer(3, sFileSelectIconsPAL, PALRAM_OBJ, sizeof(sFileSelectIconsPAL), 16);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sFileSelectCharactersGFX, VRAM_BASE + 0x400);
@@ -3300,15 +3301,15 @@ void FileSelectInit(void)
     CallLZ77UncompVRAM(sFileSelectTextGfxPointers[gLanguage - 2], VRAM_BASE + 0xC00);
     CallLZ77UncompVRAM(sFileSelectChozoBackgroundTileTable, VRAM_BASE + 0xF800);
 
-    CallLZ77UncompWRAM(sFileSelectMenuTileTable, sEwramPointer + 0x800);
-    CallLZ77UncompWRAM(sFileSelect3BigPanelsTileTable, sEwramPointer + 0x2800);
-    CallLZ77UncompWRAM(sFileSelect1Small2BigPanelsTileTable, sEwramPointer + 0x1800);
-    CallLZ77UncompWRAM(sFileSelect2Big1SmallPanelsTileTable, sEwramPointer + 0x2000);
+    CallLZ77UncompWRAM(sFileSelectMenuTileTable, (void*)sEwramPointer + 0x800);
+    CallLZ77UncompWRAM(sFileSelect3BigPanelsTileTable, (void*)sEwramPointer + 0x2800);
+    CallLZ77UncompWRAM(sFileSelect1Small2BigPanelsTileTable, (void*)sEwramPointer + 0x1800);
+    CallLZ77UncompWRAM(sFileSelect2Big1SmallPanelsTileTable, (void*)sEwramPointer + 0x2000);
 
     OptionsSetupTiletable();
     FileSelectCopyTimeAttackTime();
     FileSelectDisplaySaveFileInfo();
-    DMATransfer(3, sEwramPointer + 0x800, VRAM_BASE + 0xD800, 0x800, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x800, VRAM_BASE + 0xD800, 0x800, 16);
     SramRead_SoundMode();
     FileSelectApplyStereo();
 
@@ -3450,33 +3451,33 @@ void FileSelectDisplaySaveFileInfo(void)
 
     FileScreenSetEnabledMenuFlags();
 
-    BitFill(3, 0, sEwramPointer + 0x3000, 0x300, 16);
-    BitFill(3, 0, sEwramPointer + 0x3300, 0x300, 16);
-    BitFill(3, 0, sEwramPointer + 0x3600, 0x300, 16);
+    BitFill(3, 0, (void*)sEwramPointer + 0x3000, 0x300, 16);
+    BitFill(3, 0, (void*)sEwramPointer + 0x3300, 0x300, 16);
+    BitFill(3, 0, (void*)sEwramPointer + 0x3600, 0x300, 16);
 
-    DMATransfer(3, sEwramPointer + 0x1800, sEwramPointer + 0x3000, 0x200, 16);
-    DMATransfer(3, sEwramPointer + 0x1A00, sEwramPointer + 0x3300, 0x300, 16);
-    DMATransfer(3, sEwramPointer + 0x1D00, sEwramPointer + 0x3600, 0x300, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x1800, (void*)sEwramPointer + 0x3000, 0x200, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x1A00, (void*)sEwramPointer + 0x3300, 0x300, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x1D00, (void*)sEwramPointer + 0x3600, 0x300, 16);
 
-    BitFill(3, 0, sEwramPointer + 0x3900, 0x300, 16);
-    BitFill(3, 0, sEwramPointer + 0x3C00, 0x300, 16);
+    BitFill(3, 0, (void*)sEwramPointer + 0x3900, 0x300, 16);
+    BitFill(3, 0, (void*)sEwramPointer + 0x3C00, 0x300, 16);
 
-    DMATransfer(3, sEwramPointer + 0x2000, sEwramPointer + 0x3900, 0x280, 16);
-    DMATransfer(3, sEwramPointer + 0x2280, sEwramPointer + 0x3C00, 0x300, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x2000, (void*)sEwramPointer + 0x3900, 0x280, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x2280, (void*)sEwramPointer + 0x3C00, 0x300, 16);
 
-    BitFill(3, 0, sEwramPointer + 0x3F00, 0x300, 16);
-    BitFill(3, 0, sEwramPointer + 0x4200, 0x300, 16);
-    BitFill(3, 0, sEwramPointer + 0x4500, 0x300, 16);
+    BitFill(3, 0, (void*)sEwramPointer + 0x3F00, 0x300, 16);
+    BitFill(3, 0, (void*)sEwramPointer + 0x4200, 0x300, 16);
+    BitFill(3, 0, (void*)sEwramPointer + 0x4500, 0x300, 16);
 
-    DMATransfer(3, sEwramPointer + 0x2800, sEwramPointer + 0x3F00, 0x280, 16);
-    DMATransfer(3, sEwramPointer + 0x2A80, sEwramPointer + 0x4200, 0x280, 16);
-    DMATransfer(3, sEwramPointer + 0x2D00, sEwramPointer + 0x4500, 0x280, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x2800, (void*)sEwramPointer + 0x3F00, 0x280, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x2A80, (void*)sEwramPointer + 0x4200, 0x280, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x2D00, (void*)sEwramPointer + 0x4500, 0x280, 16);
 
-    BitFill(3, 0, sEwramPointer + 0x4800, 0x300, 16);
+    BitFill(3, 0, (void*)sEwramPointer + 0x4800, 0x300, 16);
 
-    DMATransfer(3, sEwramPointer + 0x2580, sEwramPointer + 0x4800, 0x200, 16);
-    DMATransfer(3, sEwramPointer + 0x3300, sEwramPointer + 0x4B00, 0x300, 16);
-    DMATransfer(3, sEwramPointer + 0x3600, sEwramPointer + 0x4E00, 0x300, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x2580, (void*)sEwramPointer + 0x4800, 0x200, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x3300, (void*)sEwramPointer + 0x4B00, 0x300, 16);
+    DMATransfer(3, (void*)sEwramPointer + 0x3600, (void*)sEwramPointer + 0x4E00, 0x300, 16);
 }
 
 /**
@@ -3549,7 +3550,7 @@ void FileScreenSetEnabledMenuFlags(void)
         (gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_C].exists || gSaveFilesInfo[FILE_SELECT_CURSOR_POSITION_FILE_C].introPlayed))
         FILE_SELECT_DATA.enabledMenus |= MENU_FLAG_FILE_C;
 
-    src = sEwramPointer + 0xB40;
+    src = (void*)sEwramPointer + 0xB40;
 
     if (FILE_SELECT_DATA.enabledMenus)
     {
@@ -3658,7 +3659,7 @@ u8 FileSelectUpdateSubMenu(void)
     {
         case 0:
             result = 0;
-            check_for_maintained_input();
+            CheckForMaintainedInput();
 
             if (gChangedInput)
             {
@@ -3887,9 +3888,9 @@ u8 FileSelectProcessFileSelection(void)
             gMostRecentSaveFile = FILE_SELECT_DATA.fileSelectCursorPosition;
 
             offset = (FILE_SELECT_DATA.fileSelectCursorPosition + 1) * 3;
-            BitFill(3,0, sEwramPointer + 0x10C0, 0x240, 16);
-            DMATransfer(3, sEwramPointer + 0x800 + offset * 0x40, sEwramPointer + 0x1000 + offset * 0x40, 0xC0, 16);
-            DMATransfer(3, sEwramPointer + 0x1000, VRAM_BASE + 0xF000, 0x800, 16);
+            BitFill(3,0, (void*)sEwramPointer + 0x10C0, 0x240, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x800 + offset * 0x40, (void*)sEwramPointer + 0x1000 + offset * 0x40, 0xC0, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x1000, VRAM_BASE + 0xF000, 0x800, 16);
 
             FILE_SELECT_DATA.dispcnt |= DCNT_BG2;
             FILE_SELECT_DATA.dispcnt |= DCNT_WIN0;
@@ -3973,7 +3974,7 @@ u8 FileSelectProcessFileSelection(void)
             break;
 
         case 3:
-            DMATransfer(3, sEwramPointer + 0x800, VRAM_BASE + 0xF000 + FILE_SELECT_DATA.fileSelectCursorPosition * 0xC0, 0xC0, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x800, VRAM_BASE + 0xF000 + FILE_SELECT_DATA.fileSelectCursorPosition * 0xC0, 0xC0, 16);
             FILE_SELECT_DATA.dispcnt &= ~DCNT_WIN0;
 
             FileSelectUpdateTilemap(TILEMAP_REQUEST_START_GAME_INIT);
@@ -4600,7 +4601,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
             if (param_2 == 0x81)
             {
                 FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].oamID = 0;
-                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].idChanged = FALSE;
+                FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_SUB_CURSOR].exists = FALSE;
                 break;
             }
 
@@ -4626,7 +4627,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
             if (param_2 == 0x81)
             {
                 FILE_SELECT_DATA.fileScreenOam[3].oamID = 0;
-                FILE_SELECT_DATA.fileScreenOam[3].idChanged = FALSE;
+                FILE_SELECT_DATA.fileScreenOam[3].exists = FALSE;
                 break;
             }
 
@@ -4656,7 +4657,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
             if (param_2 == 0x81)
             {
                 FILE_SELECT_DATA.fileScreenOam[3].oamID = 0;
-                FILE_SELECT_DATA.fileScreenOam[3].idChanged = FALSE;
+                FILE_SELECT_DATA.fileScreenOam[3].exists = FALSE;
                 break;
             }
 
@@ -4689,7 +4690,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
             if (param_2 == 0x81)
             {
                 FILE_SELECT_DATA.fileScreenOam[3].oamID = 0;
-                FILE_SELECT_DATA.fileScreenOam[3].idChanged = FALSE;
+                FILE_SELECT_DATA.fileScreenOam[3].exists = FALSE;
                 break;
             }
 
@@ -4719,7 +4720,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
             if (param_2 == 0x81)
             {
                 FILE_SELECT_DATA.fileScreenOam[3].oamID = 0;
-                FILE_SELECT_DATA.fileScreenOam[3].idChanged = FALSE;
+                FILE_SELECT_DATA.fileScreenOam[3].exists = FALSE;
                 break;
             }
 
@@ -4751,7 +4752,7 @@ void unk_7e3fc(u8 param_1, u8 param_2)
             if (param_2 == 0x81)
             {
                 FILE_SELECT_DATA.fileScreenOam[3].oamID = 0;
-                FILE_SELECT_DATA.fileScreenOam[3].idChanged = FALSE;
+                FILE_SELECT_DATA.fileScreenOam[3].exists = FALSE;
                 break;
             }
 
@@ -4799,7 +4800,7 @@ u32 FileSelectUpdateTilemap(u8 request)
             gBG1HOFS_NonGameplay = BLOCK_SIZE * 31;
             gBG1VOFS_NonGameplay = BLOCK_SIZE * 29 + HALF_BLOCK_SIZE + 8;
 
-            DMATransfer(3, sEwramPointer + 0x3000, VRAM_BASE + 0xE800, 0x300, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x3000, VRAM_BASE + 0xE800, 0x300, 16);
             break;
 
         case TILEMAP_REQUEST_START_GAME:
@@ -4820,7 +4821,7 @@ u32 FileSelectUpdateTilemap(u8 request)
             gBG0HOFS_NonGameplay = BLOCK_SIZE * 28;
             gBG0VOFS_NonGameplay = BLOCK_SIZE * 28 + HALF_BLOCK_SIZE;
 
-            DMATransfer(3, sEwramPointer + 0x3900, VRAM_BASE + 0xE000, 0x300, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x3900, VRAM_BASE + 0xE000, 0x300, 16);
             break;
 
         case 3:
@@ -4851,8 +4852,8 @@ u32 FileSelectUpdateTilemap(u8 request)
         case TILEMAP_REQUEST_DIFFICULTY_SPAWN:
             if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].ended && unk_790cc(1, FILE_SELECT_DATA.unk_38))
             {
-                unk_7eedc(sEwramPointer + 0x3C00);
-                DMATransfer(3, sEwramPointer + 0x3C00, VRAM_BASE + 0xE000, 0x300, 16);
+                unk_7eedc((void*)sEwramPointer + 0x3C00);
+                DMATransfer(3, (void*)sEwramPointer + 0x3C00, VRAM_BASE + 0xE000, 0x300, 16);
                 FILE_SELECT_DATA.bg0cnt = FILE_SELECT_DATA.unk_1E;
                 FILE_SELECT_DATA.dispcnt |= DCNT_BG0;
                 break;
@@ -4875,7 +4876,7 @@ u32 FileSelectUpdateTilemap(u8 request)
             gBG1HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
             gBG1VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
 
-            DMATransfer(3, sEwramPointer + 0x3F00, VRAM_BASE + 0xE800, 0x300, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x3F00, VRAM_BASE + 0xE800, 0x300, 16);
 
             FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
             FILE_SELECT_DATA.dispcnt &= ~DCNT_BG1;
@@ -4903,7 +4904,7 @@ u32 FileSelectUpdateTilemap(u8 request)
             gBG0HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
             gBG0VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
 
-            DMATransfer(3, sEwramPointer + 0x4200, VRAM_BASE + 0xE000, 0x300, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x4200, VRAM_BASE + 0xE000, 0x300, 16);
             break;
 
         case TILEMAP_REQUEST_ERASE_YES_NO_SPAWN:
@@ -4931,7 +4932,7 @@ u32 FileSelectUpdateTilemap(u8 request)
             gBG1HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
             gBG1VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
 
-            DMATransfer(3, sEwramPointer + 0x3F00, VRAM_BASE + 0xE800, 0x300, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x3F00, VRAM_BASE + 0xE800, 0x300, 16);
             FILE_SELECT_DATA.bg1cnt = FILE_SELECT_DATA.unk_1C;
             FILE_SELECT_DATA.dispcnt &= ~DCNT_BG1;
             FILE_SELECT_DATA.bg2cnt = FILE_SELECT_DATA.unk_1A;
@@ -4982,7 +4983,7 @@ u32 FileSelectUpdateTilemap(u8 request)
             gBG0HOFS_NonGameplay = BLOCK_SIZE * 27 + 8;
             gBG0VOFS_NonGameplay = BLOCK_SIZE * 26 + HALF_BLOCK_SIZE + 8;
 
-            DMATransfer(3, sEwramPointer + 0x4200, VRAM_BASE + 0xE000, 0x300, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x4200, VRAM_BASE + 0xE000, 0x300, 16);
             break;
 
         case TILEMAP_REQUEST_COPY_OVERRIDE_SPAWN:
@@ -5002,15 +5003,15 @@ u32 FileSelectUpdateTilemap(u8 request)
             break;
 
         case TILEMAP_REQUEST_COPY_DESTINATION_DESPAWN:
-            DMATransfer(3, sEwramPointer + 0x3F00, VRAM_BASE + 0xE800, 0x300, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x3F00, VRAM_BASE + 0xE800, 0x300, 16);
             break;
 
         case TILEMAP_REQUEST_COPY_DESTINATION_SPAWN:
-            DMATransfer(3, sEwramPointer + 0x4500, VRAM_BASE + 0xE800, 0x300, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x4500, VRAM_BASE + 0xE800, 0x300, 16);
             break;
 
         case 0x1C:
-            DMATransfer(3, sEwramPointer + 0x4200, VRAM_BASE + 0xE800, 0x300, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x4200, VRAM_BASE + 0xE800, 0x300, 16);
             break;
 
         case 0x1D:
@@ -5022,7 +5023,7 @@ u32 FileSelectUpdateTilemap(u8 request)
             gBG0HOFS_NonGameplay = BLOCK_SIZE * 28;
             gBG0VOFS_NonGameplay = BLOCK_SIZE * 28 + HALF_BLOCK_SIZE;
 
-            DMATransfer(3, sEwramPointer + 0x3300, VRAM_BASE + 0xE000, 0x300, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x3300, VRAM_BASE + 0xE000, 0x300, 16);
             break;
 
         case 0x1E:
@@ -5044,7 +5045,7 @@ u32 FileSelectUpdateTilemap(u8 request)
         case 0x22:
             if (unk_790cc(1, FILE_SELECT_DATA.unk_39))
             {
-                DMATransfer(3, sEwramPointer + 0x3600, VRAM_BASE + 0xE000, 0x300, 16);
+                DMATransfer(3, (void*)sEwramPointer + 0x3600, VRAM_BASE + 0xE000, 0x300, 16);
                 break;
             }
             ended = FALSE;
@@ -5053,7 +5054,7 @@ u32 FileSelectUpdateTilemap(u8 request)
         case 0x23:
             FILE_SELECT_DATA.dispcnt &= ~DCNT_BG0;
             FILE_SELECT_DATA.fileScreenOam[0].oamID = 0;
-            FILE_SELECT_DATA.fileScreenOam[0].idChanged = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[0].exists = FALSE;
 
             FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].oamID = FILE_SELECT_OAM_ID_LARGE_PANEL + 1;
             FileSelectPlayMenuSound(MENU_SOUND_REQUEST_CLOSE_SUB_MENU);
@@ -5061,9 +5062,9 @@ u32 FileSelectUpdateTilemap(u8 request)
 
         case 0x25:
             FILE_SELECT_DATA.fileScreenOam[0].oamID = 0;
-            FILE_SELECT_DATA.fileScreenOam[0].idChanged = FALSE;
+            FILE_SELECT_DATA.fileScreenOam[0].exists = FALSE;
 
-            DMATransfer(3, sEwramPointer + 0x3300, VRAM_BASE + 0xE000, 0x300, 16);
+            DMATransfer(3, (void*)sEwramPointer + 0x3300, VRAM_BASE + 0xE000, 0x300, 16);
             break;
 
         case 0x26:
@@ -5077,11 +5078,11 @@ u32 FileSelectUpdateTilemap(u8 request)
             gBG0VOFS_NonGameplay = BLOCK_SIZE * 29 + HALF_BLOCK_SIZE;
 
             if (FILE_SELECT_DATA.unk_47 == 1)
-                DMATransfer(3, sEwramPointer + 0x4200, VRAM_BASE + 0xE000, 0x300, 16);
+                DMATransfer(3, (void*)sEwramPointer + 0x4200, VRAM_BASE + 0xE000, 0x300, 16);
             else if (FILE_SELECT_DATA.unk_47 == 2)
-                DMATransfer(3, sEwramPointer + 0x4500, VRAM_BASE + 0xE000, 0x300, 16);
+                DMATransfer(3, (void*)sEwramPointer + 0x4500, VRAM_BASE + 0xE000, 0x300, 16);
             else
-                DMATransfer(3, sEwramPointer + 0x3F00, VRAM_BASE + 0xE000, 0x300, 16);
+                DMATransfer(3, (void*)sEwramPointer + 0x3F00, VRAM_BASE + 0xE000, 0x300, 16);
             break;
 
         case 0x27:

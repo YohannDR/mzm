@@ -34,10 +34,10 @@ u32 GameOverSubroutine(void)
     switch (gGameModeSub1)
     {
         case 0:
-            if (gCurrentDemo.playing)
+            if (gCurrentDemo.active)
             {
                 gCurrentDemo.number++;
-                gCurrentDemo.playing = FALSE;
+                gCurrentDemo.active = FALSE;
 
                 UpdateSOUNDCNT_H(0x194F780);
                 FadeAllSounds(10);
@@ -271,7 +271,7 @@ void GameOverInit(void)
 
     DMATransfer(3, sGameOverMenuPAL, PALRAM_BASE, sizeof(sGameOverMenuPAL), 0x10);
     write16(PALRAM_BASE, 0);
-    dma_set(3, sFileSelectIconsPAL, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | sizeof(sFileSelectIconsPAL) / 2);
+    dma_set(3, sFileSelectIconsPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sFileSelectIconsPAL) / 2);
 
     LZ77UncompVRAM(sGameOverBackgroundTileTable, VRAM_BASE + 0x1800);
     LZ77UncompVRAM(sGameOverTextTileTable, VRAM_BASE + 0x800);
@@ -338,7 +338,7 @@ void GameOverInit_Unused(void)
     UpdateSOUNDCNT_H(0x194F780);
     StopAllMusicsAndSounds();
 
-    write16(PALRAM_BASE, 0x7FFF);
+    write16(PALRAM_BASE, COLOR_WHITE);
 
     write16(REG_BG0CNT, 0);
     write16(REG_BG1CNT, 0);

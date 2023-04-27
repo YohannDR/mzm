@@ -12,5 +12,6 @@
 #include "gba/keys.h"
 #include "gba/memory.h"
 #include "gba/waitstate.h"
+#include "gba/cable_link.h"
 
 #endif /* GBA_H */

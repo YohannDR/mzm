@@ -4,6 +4,8 @@
 #include "types.h"
 #include "macros.h"
 #include "gba.h"
+#include "sram_misc.h"
+
 #include "structs/game_state.h"
 #include "structs/samus.h"
 #include "structs/scroll.h"
@@ -101,7 +103,6 @@ struct SaveFile {
     struct InGameTimer inGameTimerAtBosses[MAX_AMOUNT_OF_IGT_AT_BOSSES];
 
     struct SaveMusicInfo musicInfo;
-    u32 unk_248;
 
     u32 inGameCutscenesTriggered[1];
 
@@ -120,6 +121,9 @@ struct SaveDemo {
     u8 currentArea;
     u8 lastDoorUsed;
 
+    u8 unk_2;
+    u8 unk_3;
+
     struct SamusData samusData;
     struct WeaponInfo samusWeaponInfo;
     struct SamusEcho samusEcho;
@@ -128,12 +132,12 @@ struct SaveDemo {
     struct HazardDamage hazardDamage;
     struct EnvironmentalEffect environmentalEffects[5];
 
-    u32 visitedMinimapTiles[32];
-    u32 hatchesOpened[8];
+    u8 visitedMinimapTiles[128];
+    u8 hatchesOpened[32];
     u8 text[8];
     u8 useMotherShipDoors;
 
-    u8 padding_241[60];
+    u8 padding_241[63];
 };
 
 struct SaveFileScreenOptions {
@@ -226,5 +230,9 @@ extern struct Sram gSram;
 extern u8 gUnk_3000c20;
 extern struct SaveFileInfo gSaveFilesInfo[3];
 extern struct StartingInfo gStartingInfo;
+
+// Place holder symbols?
+extern u16 gSramDemoInputData[DEMO_MAX_DURATION];
+extern u16 gSramDemoInputDuration[DEMO_MAX_DURATION];
 
 #endif /* SAVE_FILE_STRUCT_H */

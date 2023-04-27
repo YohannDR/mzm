@@ -5,7 +5,7 @@
     thumb_func_start HiveSpawnParticle
 HiveSpawnParticle: @ 0x08024a10
     push {r4, r5, lr}
-    ldr r0, lbl_08024a38 @ =0x03000738
+    ldr r0, lbl_08024a38 @ =gCurrentSprite
     ldrh r4, [r0, #2]
     ldrh r5, [r0, #4]
     adds r0, r4, #0
@@ -22,7 +22,7 @@ HiveSpawnParticle: @ 0x08024a10
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08024a38: .4byte 0x03000738
+lbl_08024a38: .4byte gCurrentSprite
 
     thumb_func_start HiveInit
 HiveInit: @ 0x08024a3c
@@ -36,14 +36,14 @@ HiveInit: @ 0x08024a3c
     adds r7, r0, #0
     cmp r7, #0
     beq lbl_08024a60
-    ldr r1, lbl_08024a5c @ =0x03000738
+    ldr r1, lbl_08024a5c @ =gCurrentSprite
     movs r0, #0
     strh r0, [r1]
     b lbl_08024b3e
     .align 2, 0
-lbl_08024a5c: .4byte 0x03000738
+lbl_08024a5c: .4byte gCurrentSprite
 lbl_08024a60:
-    ldr r0, lbl_08024b4c @ =0x03000738
+    ldr r0, lbl_08024b4c @ =gCurrentSprite
     mov ip, r0
     adds r0, #0x27
     movs r1, #0x28
@@ -157,7 +157,7 @@ lbl_08024b3e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08024b4c: .4byte 0x03000738
+lbl_08024b4c: .4byte gCurrentSprite
 lbl_08024b50: .4byte 0x0000ff80
 lbl_08024b54: .4byte 0x0000ffd0
 lbl_08024b58: .4byte 0x082da8ec
@@ -169,9 +169,9 @@ hive_count_mellow: @ 0x08024b60
     movs r4, #0
     movs r0, #0x12
     mov ip, r0
-    ldr r0, lbl_08024bac @ =0x03000738
+    ldr r0, lbl_08024bac @ =gCurrentSprite
     ldrb r5, [r0, #0x1e]
-    ldr r2, lbl_08024bb0 @ =0x030001ac
+    ldr r2, lbl_08024bb0 @ =gSpriteData
     movs r1, #0xa8
     lsls r1, r1, #3
     adds r0, r2, r1
@@ -207,8 +207,8 @@ lbl_08024ba4:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08024bac: .4byte 0x03000738
-lbl_08024bb0: .4byte 0x030001ac
+lbl_08024bac: .4byte gCurrentSprite
+lbl_08024bb0: .4byte gSpriteData
 
     thumb_func_start HivePhase1
 HivePhase1: @ 0x08024bb4
@@ -219,7 +219,7 @@ HivePhase1: @ 0x08024bb4
     lsrs r0, r0, #0x18
     cmp r0, #3
     bhi lbl_08024bda
-    ldr r0, lbl_08024c20 @ =0x03000738
+    ldr r0, lbl_08024c20 @ =gCurrentSprite
     ldrb r1, [r0, #0x1e]
     ldrb r2, [r0, #0x1f]
     ldrh r3, [r0, #2]
@@ -230,7 +230,7 @@ HivePhase1: @ 0x08024bb4
     movs r0, #0x4a
     bl SpriteSpawnPrimary
 lbl_08024bda:
-    ldr r3, lbl_08024c20 @ =0x03000738
+    ldr r3, lbl_08024c20 @ =gCurrentSprite
     ldr r2, lbl_08024c24 @ =0x082b0d68
     ldrb r1, [r3, #0x1d]
     lsls r0, r1, #3
@@ -264,7 +264,7 @@ lbl_08024c18:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08024c20: .4byte 0x03000738
+lbl_08024c20: .4byte gCurrentSprite
 lbl_08024c24: .4byte 0x082b0d68
 lbl_08024c28: .4byte 0x082da9a4
 
@@ -277,7 +277,7 @@ HivePhase2: @ 0x08024c2c
     lsrs r0, r0, #0x18
     cmp r0, #3
     bhi lbl_08024c52
-    ldr r0, lbl_08024c98 @ =0x03000738
+    ldr r0, lbl_08024c98 @ =gCurrentSprite
     ldrb r1, [r0, #0x1e]
     ldrb r2, [r0, #0x1f]
     ldrh r3, [r0, #2]
@@ -288,7 +288,7 @@ HivePhase2: @ 0x08024c2c
     movs r0, #0x4a
     bl SpriteSpawnPrimary
 lbl_08024c52:
-    ldr r3, lbl_08024c98 @ =0x03000738
+    ldr r3, lbl_08024c98 @ =gCurrentSprite
     ldr r2, lbl_08024c9c @ =0x082b0d68
     ldrb r1, [r3, #0x1d]
     lsls r0, r1, #3
@@ -322,7 +322,7 @@ lbl_08024c90:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08024c98: .4byte 0x03000738
+lbl_08024c98: .4byte gCurrentSprite
 lbl_08024c9c: .4byte 0x082b0d68
 lbl_08024ca0: .4byte 0x082daa04
 
@@ -335,7 +335,7 @@ HivePhase3: @ 0x08024ca4
     lsrs r0, r0, #0x18
     cmp r0, #3
     bhi lbl_08024cca
-    ldr r0, lbl_08024cd0 @ =0x03000738
+    ldr r0, lbl_08024cd0 @ =gCurrentSprite
     ldrb r1, [r0, #0x1e]
     ldrb r2, [r0, #0x1f]
     ldrh r3, [r0, #2]
@@ -350,7 +350,7 @@ lbl_08024cca:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08024cd0: .4byte 0x03000738
+lbl_08024cd0: .4byte gCurrentSprite
 
     thumb_func_start HiveDying
 HiveDying: @ 0x08024cd4
@@ -360,7 +360,7 @@ HiveDying: @ 0x08024cd4
     sub sp, #4
     movs r2, #0
     movs r5, #0x4b
-    ldr r3, lbl_08024da4 @ =0x030001ac
+    ldr r3, lbl_08024da4 @ =gSpriteData
     movs r1, #0xa8
     lsls r1, r1, #3
     adds r0, r3, r1
@@ -402,10 +402,10 @@ lbl_08024d1e:
 lbl_08024d2a:
     movs r2, #9
     mov ip, r2
-    ldr r0, lbl_08024da8 @ =0x03000738
+    ldr r0, lbl_08024da8 @ =gCurrentSprite
     ldrb r5, [r0, #0x1e]
     movs r7, #0x12
-    ldr r3, lbl_08024da4 @ =0x030001ac
+    ldr r3, lbl_08024da4 @ =gSpriteData
     movs r2, #0xa8
     lsls r2, r2, #3
     adds r1, r3, r2
@@ -464,8 +464,8 @@ lbl_08024d8e:
     bl SpriteUtilSpriteDeath
     b lbl_08024dca
     .align 2, 0
-lbl_08024da4: .4byte 0x030001ac
-lbl_08024da8: .4byte 0x03000738
+lbl_08024da4: .4byte gSpriteData
+lbl_08024da8: .4byte gCurrentSprite
 lbl_08024dac:
     movs r0, #0x67
     strb r0, [r1]
@@ -493,18 +493,18 @@ lbl_08024ddc: .4byte 0x00000161
 
     thumb_func_start HiveIgnoreSamusCollision
 HiveIgnoreSamusCollision: @ 0x08024de0
-    ldr r0, lbl_08024dec @ =0x03000738
+    ldr r0, lbl_08024dec @ =gCurrentSprite
     adds r0, #0x26
     movs r1, #1
     strb r1, [r0]
     bx lr
     .align 2, 0
-lbl_08024dec: .4byte 0x03000738
+lbl_08024dec: .4byte gCurrentSprite
 
     thumb_func_start HiveRootsInit
 HiveRootsInit: @ 0x08024df0
     push {r4, lr}
-    ldr r0, lbl_08024e44 @ =0x03000738
+    ldr r0, lbl_08024e44 @ =gCurrentSprite
     mov ip, r0
     ldrh r1, [r0]
     ldr r0, lbl_08024e48 @ =0x0000fffb
@@ -546,18 +546,18 @@ HiveRootsInit: @ 0x08024df0
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08024e44: .4byte 0x03000738
+lbl_08024e44: .4byte gCurrentSprite
 lbl_08024e48: .4byte 0x0000fffb
 lbl_08024e4c: .4byte 0x0000fffc
 lbl_08024e50: .4byte 0x082da984
 
     thumb_func_start HiveRootsMove
 HiveRootsMove: @ 0x08024e54
-    ldr r2, lbl_08024e70 @ =0x03000738
+    ldr r2, lbl_08024e70 @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x23
     ldrb r1, [r0]
-    ldr r3, lbl_08024e74 @ =0x030001ac
+    ldr r3, lbl_08024e74 @ =gSpriteData
     lsls r0, r1, #3
     subs r0, r0, r1
     lsls r0, r0, #3
@@ -568,8 +568,8 @@ HiveRootsMove: @ 0x08024e54
     strh r0, [r2, #4]
     bx lr
     .align 2, 0
-lbl_08024e70: .4byte 0x03000738
-lbl_08024e74: .4byte 0x030001ac
+lbl_08024e70: .4byte gCurrentSprite
+lbl_08024e74: .4byte gSpriteData
 
     thumb_func_start MellowInit
 MellowInit: @ 0x08024e78
@@ -628,7 +628,7 @@ lbl_08024e8e:
     adds r1, #0x24
     movs r0, #9
     strb r0, [r1]
-    ldr r0, lbl_08024f14 @ =0x0300083c
+    ldr r0, lbl_08024f14 @ =gSpriteRNG
     ldrb r1, [r0]
     lsls r0, r1, #2
     adds r2, r4, #0
@@ -647,7 +647,7 @@ lbl_08024f04: .4byte 0x0000fffb
 lbl_08024f08: .4byte 0x0000fff4
 lbl_08024f0c: .4byte 0x082b0d68
 lbl_08024f10: .4byte 0x082da88c
-lbl_08024f14: .4byte 0x0300083c
+lbl_08024f14: .4byte gSpriteRNG
 lbl_08024f18:
     adds r1, r4, #0
     adds r1, #0x2e
@@ -673,7 +673,7 @@ lbl_08024f34:
 lbl_08024f3e:
     ldr r0, lbl_08024f9c @ =0x082da8bc
     str r0, [r4, #0x18]
-    ldr r0, lbl_08024fa0 @ =0x03000088
+    ldr r0, lbl_08024fa0 @ =gIoRegistersBackup
     ldrb r2, [r0, #0xc]
     movs r1, #3
     adds r0, r1, #0
@@ -693,7 +693,7 @@ lbl_08024f3e:
     strb r5, [r0]
     adds r0, #3
     strb r2, [r0]
-    ldr r0, lbl_08024fa4 @ =0x0300083c
+    ldr r0, lbl_08024fa4 @ =gSpriteRNG
     ldrb r0, [r0]
     ands r1, r0
     strh r1, [r4, #8]
@@ -704,8 +704,8 @@ lbl_08024f3e:
     strh r3, [r4, #0x12]
     bl SpriteUtilMakeSpriteFaceSamusDirection
     ldrh r2, [r4, #2]
-    ldr r1, lbl_08024fa8 @ =0x030013d4
-    ldr r0, lbl_08024fac @ =0x03001588
+    ldr r1, lbl_08024fa8 @ =gSamusData
+    ldr r0, lbl_08024fac @ =gSamusPhysics
     adds r0, #0x70
     movs r3, #0
     ldrsh r0, [r0, r3]
@@ -719,10 +719,10 @@ lbl_08024f3e:
     b lbl_08024fbe
     .align 2, 0
 lbl_08024f9c: .4byte 0x082da8bc
-lbl_08024fa0: .4byte 0x03000088
-lbl_08024fa4: .4byte 0x0300083c
-lbl_08024fa8: .4byte 0x030013d4
-lbl_08024fac: .4byte 0x03001588
+lbl_08024fa0: .4byte gIoRegistersBackup
+lbl_08024fa4: .4byte gSpriteRNG
+lbl_08024fa8: .4byte gSamusData
+lbl_08024fac: .4byte gSamusPhysics
 lbl_08024fb0: .4byte 0x0000fbff
 lbl_08024fb4:
     ldrh r0, [r4]
@@ -819,7 +819,7 @@ lbl_08025040:
     str r0, [r4, #0x18]
     strb r2, [r4, #0x1c]
     strh r2, [r4, #0x16]
-    ldr r0, lbl_08025084 @ =0x03000088
+    ldr r0, lbl_08025084 @ =gIoRegistersBackup
     ldrb r1, [r0, #0xc]
     movs r2, #3
     adds r0, r2, #0
@@ -836,13 +836,13 @@ lbl_08025078:
     bx r0
     .align 2, 0
 lbl_08025080: .4byte 0x082da8bc
-lbl_08025084: .4byte 0x03000088
+lbl_08025084: .4byte gIoRegistersBackup
 
     thumb_func_start MellowFleeing
 MellowFleeing: @ 0x08025088
     push {lr}
     adds r1, r0, #0
-    ldr r0, lbl_080250a8 @ =0x0300083c
+    ldr r0, lbl_080250a8 @ =gSpriteRNG
     ldrb r0, [r0]
     lsrs r3, r0, #2
     adds r2, r3, #0
@@ -856,7 +856,7 @@ MellowFleeing: @ 0x08025088
     adds r0, r0, r2
     b lbl_080250b0
     .align 2, 0
-lbl_080250a8: .4byte 0x0300083c
+lbl_080250a8: .4byte gSpriteRNG
 lbl_080250ac:
     ldrh r0, [r1, #4]
     subs r0, r0, r2
@@ -903,8 +903,8 @@ MellowSamusDetectedInit: @ 0x080250d0
     strh r0, [r4, #0x12]
     bl SpriteUtilMakeSpriteFaceSamusDirection
     ldrh r2, [r4, #2]
-    ldr r1, lbl_08025118 @ =0x030013d4
-    ldr r0, lbl_0802511c @ =0x03001588
+    ldr r1, lbl_08025118 @ =gSamusData
+    ldr r0, lbl_0802511c @ =gSamusPhysics
     adds r0, #0x70
     movs r3, #0
     ldrsh r0, [r0, r3]
@@ -917,8 +917,8 @@ MellowSamusDetectedInit: @ 0x080250d0
     ands r0, r1
     b lbl_0802512e
     .align 2, 0
-lbl_08025118: .4byte 0x030013d4
-lbl_0802511c: .4byte 0x03001588
+lbl_08025118: .4byte gSamusData
+lbl_0802511c: .4byte gSamusPhysics
 lbl_08025120: .4byte 0x0000fbff
 lbl_08025124:
     ldrh r0, [r4]
@@ -974,12 +974,12 @@ MellowMove: @ 0x08025138
     lsls r1, r0, #3
     subs r1, r1, r0
     lsls r1, r1, #3
-    ldr r0, lbl_080251dc @ =0x030001ac
+    ldr r0, lbl_080251dc @ =gSpriteData
     adds r2, r1, r0
     movs r1, #0xa8
     lsls r1, r1, #3
     adds r0, r0, r1
-    ldr r1, lbl_080251e0 @ =0x030013d4
+    ldr r1, lbl_080251e0 @ =gSamusData
     mov sb, r1
     cmp r2, r0
     bhs lbl_08025202
@@ -1019,8 +1019,8 @@ lbl_0802519c:
     subs r0, r6, #4
     b lbl_080251e6
     .align 2, 0
-lbl_080251dc: .4byte 0x030001ac
-lbl_080251e0: .4byte 0x030013d4
+lbl_080251dc: .4byte gSpriteData
+lbl_080251e0: .4byte gSamusData
 lbl_080251e4:
     adds r0, r6, #4
 lbl_080251e6:
@@ -1036,7 +1036,7 @@ lbl_080251e6:
 lbl_080251f8:
     adds r3, #0x38
     adds r2, #0x38
-    ldr r0, lbl_08025238 @ =0x030006ec
+    ldr r0, lbl_08025238 @ =gSpritesetSpritesID
     cmp r2, r0
     blo lbl_0802519c
 lbl_08025202:
@@ -1045,7 +1045,7 @@ lbl_08025202:
     cmp r0, #0x88
     bne lbl_08025298
     movs r7, #0x14
-    ldr r1, lbl_0802523c @ =0x0300083c
+    ldr r1, lbl_0802523c @ =gSpriteRNG
     ldrb r0, [r1]
     adds r0, #0x1e
     lsls r0, r0, #0x18
@@ -1067,8 +1067,8 @@ lbl_08025202:
     beq lbl_08025270
     b lbl_08025304
     .align 2, 0
-lbl_08025238: .4byte 0x030006ec
-lbl_0802523c: .4byte 0x0300083c
+lbl_08025238: .4byte gSpritesetSpritesID
+lbl_0802523c: .4byte gSpriteRNG
 lbl_08025240:
     ldrh r0, [r2, #4]
     subs r0, #4
@@ -1119,7 +1119,7 @@ lbl_08025290:
     adds r0, r4, r2
     b lbl_08025300
 lbl_08025298:
-    ldr r0, lbl_080252c0 @ =0x03001588
+    ldr r0, lbl_080252c0 @ =gSamusPhysics
     adds r0, #0x70
     ldrh r0, [r0]
     mov r1, sb
@@ -1139,7 +1139,7 @@ lbl_08025298:
     beq lbl_080252e0
     b lbl_08025304
     .align 2, 0
-lbl_080252c0: .4byte 0x03001588
+lbl_080252c0: .4byte gSamusPhysics
 lbl_080252c4:
     adds r0, r6, #0
     subs r0, #0x20
@@ -1487,7 +1487,7 @@ lbl_08025522:
     thumb_func_start Hive
 Hive: @ 0x08025534
     push {r4, r5, lr}
-    ldr r4, lbl_0802555c @ =0x03000738
+    ldr r4, lbl_0802555c @ =gCurrentSprite
     adds r5, r4, #0
     adds r5, #0x30
     ldrb r0, [r5]
@@ -1505,7 +1505,7 @@ Hive: @ 0x08025534
     strb r1, [r0]
     b lbl_080255b2
     .align 2, 0
-lbl_0802555c: .4byte 0x03000738
+lbl_0802555c: .4byte gCurrentSprite
 lbl_08025560:
     bl SpriteUtilIsSpriteStunned
     cmp r0, #0
@@ -1557,7 +1557,7 @@ lbl_080255b2:
     thumb_func_start HiveRoots
 HiveRoots: @ 0x080255b8
     push {r4, r5, r6, lr}
-    ldr r2, lbl_08025614 @ =0x03000738
+    ldr r2, lbl_08025614 @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x23
     ldrb r4, [r0]
@@ -1566,7 +1566,7 @@ HiveRoots: @ 0x080255b8
     movs r5, #0
     movs r0, #1
     strb r0, [r1]
-    ldr r1, lbl_08025618 @ =0x030001ac
+    ldr r1, lbl_08025618 @ =gSpriteData
     lsls r0, r4, #3
     subs r0, r0, r4
     lsls r0, r0, #3
@@ -1602,8 +1602,8 @@ HiveRoots: @ 0x080255b8
     strh r5, [r0]
     b lbl_0802565c
     .align 2, 0
-lbl_08025614: .4byte 0x03000738
-lbl_08025618: .4byte 0x030001ac
+lbl_08025614: .4byte gCurrentSprite
+lbl_08025618: .4byte gSpriteData
 lbl_0802561c: .4byte 0x082b0d68
 lbl_08025620:
     mov r1, ip
@@ -1647,7 +1647,7 @@ lbl_0802565c:
 Mellow: @ 0x08025664
     push {r4, lr}
     sub sp, #4
-    ldr r4, lbl_080256a0 @ =0x03000738
+    ldr r4, lbl_080256a0 @ =gCurrentSprite
     adds r2, r4, #0
     adds r2, #0x32
     ldrb r1, [r2]
@@ -1675,7 +1675,7 @@ lbl_08025690:
     bl SpriteUtilUpdateFreezeTimer
     b lbl_080257ae
     .align 2, 0
-lbl_080256a0: .4byte 0x03000738
+lbl_080256a0: .4byte gCurrentSprite
 lbl_080256a4: .4byte 0x0000015f
 lbl_080256a8:
     adds r0, r4, #0
@@ -1785,7 +1785,7 @@ MellowSwarm: @ 0x080257b8
     push {r4, r5, r6, r7, lr}
     sub sp, #8
     movs r6, #0
-    ldr r1, lbl_080257e4 @ =0x03000738
+    ldr r1, lbl_080257e4 @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x26
     movs r5, #1
@@ -1804,7 +1804,7 @@ MellowSwarm: @ 0x080257b8
     strh r6, [r4]
     b lbl_0802598c
     .align 2, 0
-lbl_080257e4: .4byte 0x03000738
+lbl_080257e4: .4byte gCurrentSprite
 lbl_080257e8:
     ldrh r1, [r4]
     ldr r2, lbl_08025858 @ =0x00008004
@@ -1833,10 +1833,10 @@ lbl_080257e8:
     strb r2, [r4, #0x1c]
     movs r3, #9
     strb r3, [r7]
-    ldr r0, lbl_08025864 @ =0x030013d4
+    ldr r0, lbl_08025864 @ =gSamusData
     ldrh r1, [r0, #0x12]
     lsrs r1, r1, #2
-    ldr r0, lbl_08025868 @ =0x030013b8
+    ldr r0, lbl_08025868 @ =gBG1XPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     subs r1, r1, r0
@@ -1852,7 +1852,7 @@ lbl_08025838:
     ldrb r0, [r4, #0x1d]
     cmp r0, #0x85
     bne lbl_080258ac
-    ldr r0, lbl_0802586c @ =0x03001530
+    ldr r0, lbl_0802586c @ =gEquipment
     ldrh r1, [r0, #6]
     ldr r0, lbl_08025870 @ =0x0000018f
     cmp r1, r0
@@ -1866,9 +1866,9 @@ lbl_08025838:
 lbl_08025858: .4byte 0x00008004
 lbl_0802585c: .4byte 0x0000fffc
 lbl_08025860: .4byte 0x082da88c
-lbl_08025864: .4byte 0x030013d4
-lbl_08025868: .4byte 0x030013b8
-lbl_0802586c: .4byte 0x03001530
+lbl_08025864: .4byte gSamusData
+lbl_08025868: .4byte gBG1XPosition
+lbl_0802586c: .4byte gEquipment
 lbl_08025870: .4byte 0x0000018f
 lbl_08025874:
     ldr r0, lbl_08025884 @ =0x0000012b
@@ -1923,7 +1923,7 @@ lbl_080258b6:
     b lbl_0802598c
 lbl_080258ce:
     movs r7, #0x12
-    ldr r2, lbl_08025920 @ =0x030001ac
+    ldr r2, lbl_08025920 @ =gSpriteData
     movs r1, #0xa8
     lsls r1, r1, #3
     adds r0, r2, r1
@@ -1967,7 +1967,7 @@ lbl_08025900:
     strh r0, [r4]
     b lbl_0802598c
     .align 2, 0
-lbl_08025920: .4byte 0x030001ac
+lbl_08025920: .4byte gSpriteData
 lbl_08025924:
     cmp r6, #0x13
     bhi lbl_0802598c
@@ -1979,8 +1979,8 @@ lbl_0802592c:
     ands r0, r1
     cmp r0, #0
     beq lbl_08025950
-    ldr r0, lbl_08025948 @ =0x030013d4
-    ldr r2, lbl_0802594c @ =0x0300083c
+    ldr r0, lbl_08025948 @ =gSamusData
+    ldr r2, lbl_0802594c @ =gSpriteRNG
     ldrb r1, [r2]
     lsls r1, r1, #5
     ldrh r0, [r0, #0x12]
@@ -1989,11 +1989,11 @@ lbl_0802592c:
     lsrs r5, r1, #0x10
     b lbl_08025960
     .align 2, 0
-lbl_08025948: .4byte 0x030013d4
-lbl_0802594c: .4byte 0x0300083c
+lbl_08025948: .4byte gSamusData
+lbl_0802594c: .4byte gSpriteRNG
 lbl_08025950:
-    ldr r0, lbl_08025994 @ =0x030013d4
-    ldr r2, lbl_08025998 @ =0x0300083c
+    ldr r0, lbl_08025994 @ =gSamusData
+    ldr r2, lbl_08025998 @ =gSpriteRNG
     ldrb r1, [r2]
     lsls r1, r1, #5
     ldrh r0, [r0, #0x12]
@@ -2008,7 +2008,7 @@ lbl_08025960:
     beq lbl_0802596c
     movs r5, #0
 lbl_0802596c:
-    ldr r1, lbl_0802599c @ =0x030013ba
+    ldr r1, lbl_0802599c @ =gBG1YPosition
     ldrb r0, [r2]
     lsls r0, r0, #1
     adds r0, #0x10
@@ -2029,6 +2029,6 @@ lbl_0802598c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08025994: .4byte 0x030013d4
-lbl_08025998: .4byte 0x0300083c
-lbl_0802599c: .4byte 0x030013ba
+lbl_08025994: .4byte gSamusData
+lbl_08025998: .4byte gSpriteRNG
+lbl_0802599c: .4byte gBG1YPosition

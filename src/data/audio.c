@@ -69,4 +69,4 @@ const struct TrackGroupROMData sMusicTrackDataROM[9] = {
 const u8 sTempArray_8f2c0[0x1620] = INCBIN_U8("data/Blob_8f2c0_908df.bin");
 // const struct SoundEntry sSoundDataEntries[708] = {0};
 
-const u8 sTempArray_908e0[0x2203b4] = INCBIN_U8("data/Blob_908e0_2b0c93.bin");
+const u8 sTempArray_908e0[0x1a1804] = INCBIN_U8("data/Blob_908e0_2320e4.bin");

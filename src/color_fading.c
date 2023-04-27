@@ -216,9 +216,9 @@ void ColorFadingTransferPaletteOnTransition(void)
         unk_5b304();
 
     if (sColorFadingData[gColorFading.type].isWhite)
-        value = 0x7FFF;
+        value = COLOR_WHITE;
     else
-        value = 0;
+        value = COLOR_BLACK;
     color = value;
 
     if (sColorFadingData[gColorFading.type].bgColorMask | sColorFadingData[gColorFading.type].objColorMask)
@@ -492,7 +492,7 @@ u32 unk_5c3ac(void)
 
             case 2:
                 if (gMusicTrackInfo.pauseScreenFlag)
-                    update_music_after_unpause(); // Undefined
+                    UpdateMusicAfterPause(); // Undefined
                 break;
         }
 
@@ -771,10 +771,12 @@ u8 ColorFading_BeforeDemoEnding(void)
     {
         case 0:
             ColorFadingStartDoorTransition();
-            if (gColorFading.type == COLOR_FADING_DEMO_ENDING_WITH_INPUT)
-                gCurrentDemo.unk_3 = 1;
 
-            end_demo(); // Undefined
+            // Set input ended flag
+            if (gColorFading.type == COLOR_FADING_DEMO_ENDING_WITH_INPUT)
+                gCurrentDemo.endedWithInput = TRUE;
+
+            DemoEnd();
             gColorFading.stage++;
             break;
 

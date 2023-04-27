@@ -12,6 +12,9 @@
 #include "structs/menus/title_screen.h"
 #include "structs/menus/erase_sram.h"
 #include "structs/menus/file_select.h"
+#include "structs/fusion_gallery.h"
+#include "structs/chozodia_escape.h"
+#include "structs/tourian_escape.h"
 
 
 union NonGameplayRAM {
@@ -23,7 +26,14 @@ union NonGameplayRAM {
     struct TitleScreenData titleScreen;
     struct EraseSramData eraseSram;
     struct FileSelectData fileSelect;
+    struct FusionGalleryData fusionGallery;
+    struct ChozodiaEscapeData chozodiaEscape;
+    struct TourianEscapeData tourianEscape;
     u8 inGame[1576];
+};
+
+union EwramData {
+    struct PauseScreenEwramData pauseScreen;
 };
 
 extern u16 unk_02035400;

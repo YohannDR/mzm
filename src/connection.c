@@ -104,60 +104,57 @@ void ConnectionUpdateHatches(void)
     }
 }
 
-void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatch)
+void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr)
 {
     // https://decomp.me/scratch/q1BYt
 
     u32 value;
     i8 direction;
     i32 caf;
+    u32 tilemapValue;
 
-    direction = gHatchData[hatch].facingRight;
+    value = gHatchData[hatchNbr].facingRight ? 0x416 : 0x411;
 
-    value = 0x411;
-    if (direction < 0x0)
-        value = 0x416;
+    caf = gHatchData[hatchNbr].currentAnimationFrame - 0x1;
 
-    caf = gHatchData[hatch].currentAnimationFrame - 0x1;
-
-    if (gHatchData[hatch].opening == 0x3)
+    if (gHatchData[hatchNbr].opening == 0x3)
     {
         caf = 0x2 - caf;
         if (caf < 0x0)
         {
             caf = 0x0;
-            value = direction + sHatchesTilemapValues[gHatchData[hatch].type];
+            value = gHatchData[hatchNbr].facingRight + sHatchesTilemapValues[gHatchData[hatchNbr].type];
         }
         else
         {
-            if (gHatchData[hatch].type != 0x0)
+            if (gHatchData[hatchNbr].type != 0x0)
                 caf += 0x40;
         }
     }
     
-    if (gHatchData[hatch].type == 0x0)
+    if (gHatchData[hatchNbr].type == 0x0)
         caf += 0x80;
 
-    value += caf;
+    tilemapValue = value + caf;
     if (dontSetRaw)
     {
-        BGClipSetBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
-        BGClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
-        BGClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
-        BGClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
+        BgClipSetBG1BlockValue(tilemapValue, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
+        BgClipSetBG1BlockValue(tilemapValue + 0x10, gHatchData[hatchNbr].yPosition + 0x1, gHatchData[hatchNbr].xPosition);
+        BgClipSetBG1BlockValue(tilemapValue + 0x20, gHatchData[hatchNbr].yPosition + 0x2, gHatchData[hatchNbr].xPosition);
+        BgClipSetBG1BlockValue(tilemapValue + 0x30, gHatchData[hatchNbr].yPosition + 0x3, gHatchData[hatchNbr].xPosition);
     }
     else
     {
-        BGClipSetRawBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
-        BGClipSetRawBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
-        BGClipSetRawBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
-        BGClipSetRawBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
+        BgClipSetRawBG1BlockValue(tilemapValue, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
+        BgClipSetRawBG1BlockValue(tilemapValue + 0x10, gHatchData[hatchNbr].yPosition + 0x1, gHatchData[hatchNbr].xPosition);
+        BgClipSetRawBG1BlockValue(tilemapValue + 0x20, gHatchData[hatchNbr].yPosition + 0x2, gHatchData[hatchNbr].xPosition);
+        BgClipSetRawBG1BlockValue(tilemapValue + 0x30, gHatchData[hatchNbr].yPosition + 0x3, gHatchData[hatchNbr].xPosition);
     }
 
-    BGClipSetClipdataBlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
-    BGClipSetClipdataBlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
-    BGClipSetClipdataBlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
-    BGClipSetClipdataBlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
+    BgClipSetClipdataBlockValue(tilemapValue, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
+    BgClipSetClipdataBlockValue(tilemapValue + 0x10, gHatchData[hatchNbr].yPosition + 0x1, gHatchData[hatchNbr].xPosition);
+    BgClipSetClipdataBlockValue(tilemapValue + 0x20, gHatchData[hatchNbr].yPosition + 0x2, gHatchData[hatchNbr].xPosition);
+    BgClipSetClipdataBlockValue(tilemapValue + 0x30, gHatchData[hatchNbr].yPosition + 0x3, gHatchData[hatchNbr].xPosition);
 }
 
 /**
@@ -187,10 +184,10 @@ void ConnectionHatchFlashingAnimation(u8 hatch)
         value++;
 
     // Update GFX
-    BGClipSetBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
-    BGClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
-    BGClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
-    BGClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
+    BgClipSetBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
+    BgClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
+    BgClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
+    BgClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
 
     // Update timer
     if (gHatchData[hatch].flashingTimer >= 0x4)
@@ -218,15 +215,15 @@ void ConnectionOverrideOpenedHatch(u8 hatch, u32 type)
     // Change hatch behavior
     value = sHatchesTilemapValues[gHatchData[hatch].type] + gHatchData[hatch].facingRight;
 
-    BGClipSetBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
-    BGClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
-    BGClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
-    BGClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
+    BgClipSetBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
+    BgClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
+    BgClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
+    BgClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
 
-    BGClipSetClipdataBlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
-    BGClipSetClipdataBlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
-    BGClipSetClipdataBlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
-    BGClipSetClipdataBlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
+    BgClipSetClipdataBlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
+    BgClipSetClipdataBlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
+    BgClipSetClipdataBlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
+    BgClipSetClipdataBlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
 
     gHatchData[hatch].opening = FALSE;
     gHatchData[hatch].currentAnimationFrame = 0x0;
@@ -292,7 +289,7 @@ u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
 
                 pDoor = sAreaDoorsPointers[gCurrentArea] + gLastDoorUsed;
                 ConnectionCheckPlayCutsceneDuringTransition(gCurrentArea, pDoor->sourceRoom + 0x1);
-                check_play_room_music_track(gCurrentArea, pDoor->sourceRoom);
+                CheckPlayRoomMusicTrack(gCurrentArea, pDoor->sourceRoom);
 
                 state = TRUE;
                 break;
@@ -382,7 +379,7 @@ u8 ConnectionCheckAreaConnection(u16 yPosition, u16 xPosition)
     pDoor = sAreaDoorsPointers[gCurrentArea] + gLastDoorUsed;
 
     ConnectionCheckPlayCutsceneDuringElevator();
-    check_play_room_music_track(gCurrentArea, pDoor->sourceRoom);
+    CheckPlayRoomMusicTrack(gCurrentArea, pDoor->sourceRoom);
     return TRUE;
 }
 
@@ -512,40 +509,41 @@ void ConnectionHatchStartLockAnimation(u8 dontSetRaw, u8 hatch, u8 status)
     ConnectionUpdateHatchAnimation(dontSetRaw, hatch); 
 }
 
+/**
+ * @brief 5f120 | 174 | Locks the hatches
+ * 
+ * @param isEvent bool, is event lock
+ */
 void ConnectionLockHatches(u8 isEvent)
 {
-    // https://decomp.me/scratch/g6iQK
-
-    u16 currentHatches;
     i32 i;
     u16 lockedHatches;
-    u8 hatch;
+    i32 hatch;
     
     i = 0x0;
-    currentHatches = 0x0;
+    lockedHatches = 0x0;
     
     for (; i < MAX_AMOUNT_OF_HATCHES; i++)
     {
         if (gHatchData[i].exists)
-            currentHatches |= (1 << i);
+            lockedHatches |= (1 << i);
     }
 
     if (!isEvent)
-        gHatchesState.hatchesLockedWithTimer &= currentHatches;
+        gHatchesState.hatchesLockedWithTimer &= lockedHatches;
     else
     {
-        gHatchesState.hatchesLockedWithEvent &= currentHatches;
-        gHatchesState.unk2 &= currentHatches;
+        gHatchesState.hatchesLockedWithEvent &= lockedHatches;
+        gHatchesState.unk2 &= lockedHatches;
     }
 
     if (!isEvent)
     {
-        gHatchesState.hatchesLockedWithTimer &= ~(gHatchesState.hatchesLockedWithEvent | gHatchesState.unk2);
-        lockedHatches = gHatchesState.hatchesLockedWithTimer;
+        lockedHatches = gHatchesState.hatchesLockedWithTimer &= ~(gHatchesState.hatchesLockedWithEvent | gHatchesState.unk2);
 
         i = 0;
         hatch = 0;
-        for (0; i < MAX_AMOUNT_OF_HATCHES; i++)
+        for (; i < MAX_AMOUNT_OF_HATCHES; i++)
         {
             if ((lockedHatches >> i) & 0x1)
             {
@@ -566,22 +564,22 @@ void ConnectionLockHatches(u8 isEvent)
         
         i = 0;
         hatch = 0;
-        for (0; i < MAX_AMOUNT_OF_HATCHES; i++)
+        for (; i < MAX_AMOUNT_OF_HATCHES; i++)
         {
             if ((lockedHatches >> i) & 0x1)
             {
                 if ((gHatchesState.unk2 >> i) & 0x1)
                 {
-                    gHatchData[i].locked = TRUE;
-                    gHatchData[i].type = HATCH_LOCKED;
+                    gHatchData[hatch].locked = TRUE;
+                    gHatchData[hatch].type = HATCH_LOCKED;
                 }
                 else
                 {
-                    gHatchData[i].locked = 0x32;
-                    gHatchData[i].type = HATCH_LOCKED_AND_LOCK_DESTINATION;
+                    gHatchData[hatch].locked = 0x32;
+                    gHatchData[hatch].type = HATCH_LOCKED_AND_LOCK_DESTINATION;
                 }
 
-                if (gHatchData[i].sourceDoor != gLastDoorUsed)
+                if (gHatchData[hatch].sourceDoor != gLastDoorUsed)
                     ConnectionHatchStartLockAnimation(TRUE, hatch, FALSE);
                 else
                     ConnectionHatchStartLockAnimation(TRUE, hatch, 0x3);
@@ -753,7 +751,7 @@ void ConnectionLoadDoors(void)
 
         bldalpha = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[i *
             gBGPointersAndDimensions.clipdataWidth + currDoor]];
-        bldalpha = BGClipGetNewBLDALPHAValue(bldalpha);
+        bldalpha = BgClipGetNewBldalphaValue(bldalpha);
         if (bldalpha)
         {
             TransparencyUpdateBLDALPHA(bldalpha & 0xFF, bldalpha, 1, 1);

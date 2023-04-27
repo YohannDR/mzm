@@ -5,6 +5,7 @@
 #include "types.h"
 
 #define REG_KEY_INPUT (REG_BASE + 0x130)
+#define REG_KEY_CONTROL (REG_BASE + 0x132)
 
 #define KEY_NONE 0
 #define KEY_A (1 << 0)
@@ -18,5 +19,9 @@
 #define KEY_R (1 << 8)
 #define KEY_L (1 << 9)
 #define KEY_MASK 0x3ff
+
+#define KEY_CONTROL_ENABLE (1 << 14)
+#define KEY_CONTROL_ANY_INPUT (0 << 15)
+#define KEY_CONTROL_ALL_INPUTS (1 << 15)
 
 #endif /* GBA_KEYS_H */

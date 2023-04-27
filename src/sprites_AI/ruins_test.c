@@ -382,6 +382,8 @@ u8 RuinsTestUpdateSymbol(void)
 
 void RuinsTestGhostMove(u8 dAngle)
 {
+    // https://decomp.me/scratch/clUGQ
+
     i32 radius;
     i16 s;
     i16 c;

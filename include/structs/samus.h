@@ -62,25 +62,26 @@ struct SamusData {
 };
 
 struct SamusPhysics {
-    u16* pBodyOam;
-    u8* pShouldersGfx;
+    const u16* pBodyOam;
+    const u8* pShouldersGfx;
     u16 shoulderGfxSize;
-    u8* pTorsoGfx;
+    const u8* pTorsoGfx;
     u16 torsoGfxSize;
-    u8* pLegsGfx;
+    const u8* pLegsGfx;
     u16 legsGfxSize;
-    u8* pBodyLowerHalfGfx;
+    const u8* pBodyLowerHalfGfx;
     u16 bodyLowerHalfGfxSize;
-    u16 unk;
-    u16* pArmCannonOAM;
-    u8* pArmCannonGfxUpper;
+    u16 unk_22;
+    const u16* pArmCannonOAM;
+    const u8* pArmCannonGfxUpper;
     u16 armCannonGfxUpperSize;
-    u8* pArmCannonGfxLower;
+    const u8* pArmCannonGfxLower;
     u16 armCannonGfxLowerSize;
-    u16* pScrewSpeedOAM;
-    u8* pScrewSpeedGfx;
+    u8 unk_36;
+    const u16* pScrewSpeedOAM;
+    const u8* pScrewSpeedGfx;
     u16 screwSpeedGfxSize;
-    u8* pScrewShinesparkGfx;
+    const u8* pScrewShinesparkGfx;
     u16 screwShinesparkGfxSize;
     u16 armCannonXPositionOffset;
     u16 armCannonYPositionOffset;
@@ -90,7 +91,7 @@ struct SamusPhysics {
     i16 hitboxRightOffset;
     i16 hitboxTopOffset;
     u8 standingStatus;
-    u8 hitboxType; // TODO define
+    u8 hitboxType;
     u8 touchingSideBlock;
     u8 touchingTopBlock;
     u8 unknown;
@@ -141,8 +142,31 @@ struct SamusEcho {
     u32 padding_4;
     u16 previous64XPositions[64];
     u16 previous64YPositions[64];
-    u16 previousPositionCounter;
-    u8 unknown;
+    i16 previousPositionCounter;
+    i8 unknown;
+};
+
+struct ArmCannonOffset {
+    i16 y;
+    i16 x;
+};
+
+struct SamusAnimationData {
+    const u8* const pTopGfx;
+    const u8* const pBottomGfx;
+    const u16* const pOam;
+    u8 timer;
+};
+
+struct ArmCannonAnimationData {
+    const struct ArmCannonOffset* const pOffset;
+    const u16* const pOam;
+};
+
+struct SamusEffectAnimationData {
+    const u8* const pGraphics;
+    const u16* const pOam;
+    u8 timer;
 };
 
 // Typedefs
@@ -170,4 +194,4 @@ extern u16 gSamusPalette[16 * 2];
 extern u16 gSamusPaletteSize;
 extern i16 gSamusDoorPositionOffset;
 
-#endif
+#endif /* SAMUS_STRUCT_H */

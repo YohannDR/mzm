@@ -2,947 +2,16 @@
 
     .syntax unified
 
-    
-    thumb_func_start DragonYMovement
-DragonYMovement: @ 0x08020564
-    push {r4, r5, lr}
-    ldr r2, lbl_08020594 @ =0x03000738
-    ldrh r3, [r2, #2]
-    adds r5, r3, #0
-    ldrh r4, [r2, #6]
-    ldrh r1, [r2]
-    movs r0, #0x80
-    lsls r0, r0, #3
-    ands r0, r1
-    cmp r0, #0
-    beq lbl_08020598
-    adds r0, r4, #0
-    subs r0, #0x7f
-    cmp r0, r3
-    bge lbl_08020586
-    subs r0, r3, #2
-    strh r0, [r2, #2]
-lbl_08020586:
-    ldrh r1, [r2, #2]
-    ldrh r2, [r2, #4]
-    adds r0, r3, #0
-    movs r3, #1
-    bl SpriteUtilCheckOutOfRoomEffect
-    b lbl_080205ae
-    .align 2, 0
-lbl_08020594: .4byte 0x03000738
-lbl_08020598:
-    subs r0, r4, #2
-    cmp r0, r3
-    ble lbl_080205a2
-    adds r0, r3, #2
-    strh r0, [r2, #2]
-lbl_080205a2:
-    ldrh r1, [r2, #2]
-    ldrh r2, [r2, #4]
-    adds r0, r5, #0
-    movs r3, #1
-    bl SpriteUtilCheckInRoomEffect
-lbl_080205ae:
-    pop {r4, r5}
-    pop {r0}
-    bx r0
-
-    thumb_func_start DragonInit
-DragonInit: @ 0x080205b4
-    push {r4, lr}
-    ldr r4, lbl_08020614 @ =0x03000738
-    movs r2, #0
-    movs r3, #0
-    ldr r0, lbl_08020618 @ =0x0000ffc0
-    strh r0, [r4, #0xa]
-    movs r0, #0x50
-    strh r0, [r4, #0xc]
-    ldr r0, lbl_0802061c @ =0x0000ffe8
-    strh r0, [r4, #0xe]
-    movs r1, #0x18
-    movs r0, #0x18
-    strh r0, [r4, #0x10]
-    adds r0, r4, #0
-    adds r0, #0x27
-    strb r1, [r0]
-    adds r0, #1
-    strb r1, [r0]
-    adds r0, #1
-    strb r1, [r0]
-    ldr r0, lbl_08020620 @ =0x082d5ad8
-    str r0, [r4, #0x18]
-    strb r2, [r4, #0x1c]
-    strh r3, [r4, #0x16]
-    adds r1, r4, #0
-    adds r1, #0x25
-    movs r0, #4
-    strb r0, [r1]
-    ldr r2, lbl_08020624 @ =0x082b0d68
-    ldrb r1, [r4, #0x1d]
-    lsls r0, r1, #3
-    adds r0, r0, r1
-    lsls r0, r0, #1
-    adds r0, r0, r2
-    ldrh r0, [r0]
-    strh r0, [r4, #0x14]
-    bl SpriteUtilMakeSpriteFaceSamusXFlip
-    adds r1, r4, #0
-    adds r1, #0x24
-    movs r0, #8
-    strb r0, [r1]
-    ldrh r0, [r4, #2]
-    strh r0, [r4, #6]
-    pop {r4}
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_08020614: .4byte 0x03000738
-lbl_08020618: .4byte 0x0000ffc0
-lbl_0802061c: .4byte 0x0000ffe8
-lbl_08020620: .4byte 0x082d5ad8
-lbl_08020624: .4byte 0x082b0d68
-
-    thumb_func_start DragonIdleInit
-DragonIdleInit: @ 0x08020628
-    ldr r0, lbl_08020648 @ =0x03000738
-    adds r2, r0, #0
-    adds r2, #0x24
-    movs r3, #0
-    movs r1, #9
-    strb r1, [r2]
-    ldr r1, lbl_0802064c @ =0x082d5ad8
-    str r1, [r0, #0x18]
-    movs r1, #0
-    strh r3, [r0, #0x16]
-    strb r1, [r0, #0x1c]
-    adds r0, #0x2c
-    movs r1, #0x64
-    strb r1, [r0]
-    bx lr
-    .align 2, 0
-lbl_08020648: .4byte 0x03000738
-lbl_0802064c: .4byte 0x082d5ad8
-
-    thumb_func_start DragonGoUp
-DragonGoUp: @ 0x08020650
-    push {r4, lr}
-    ldr r4, lbl_080206a8 @ =0x03000738
-    adds r1, r4, #0
-    adds r1, #0x2c
-    ldrb r0, [r1]
-    cmp r0, #0
-    beq lbl_08020662
-    subs r0, #1
-    strb r0, [r1]
-lbl_08020662:
-    bl DragonYMovement
-    ldrh r1, [r4]
-    ldr r0, lbl_080206ac @ =0x0000fbff
-    ands r0, r1
-    strh r0, [r4]
-    ldr r0, lbl_080206b0 @ =0x030013d4
-    ldrh r0, [r0, #0x14]
-    ldrh r1, [r4, #2]
-    cmp r0, r1
-    bhi lbl_08020712
-    movs r1, #0xc0
-    lsls r1, r1, #1
-    adds r0, r1, #0
-    bl SpriteUtilCheckSamusNearSpriteLeftRight
-    lsls r0, r0, #0x18
-    lsrs r2, r0, #0x18
-    cmp r2, #0
-    beq lbl_08020696
-    ldrh r0, [r4]
-    movs r3, #0x80
-    lsls r3, r3, #3
-    adds r1, r3, #0
-    orrs r0, r1
-    strh r0, [r4]
-lbl_08020696:
-    cmp r2, #8
-    bne lbl_080206b4
-    ldrh r1, [r4]
-    movs r0, #0x40
-    ands r0, r1
-    cmp r0, #0
-    bne lbl_080206cc
-    b lbl_080206c2
-    .align 2, 0
-lbl_080206a8: .4byte 0x03000738
-lbl_080206ac: .4byte 0x0000fbff
-lbl_080206b0: .4byte 0x030013d4
-lbl_080206b4:
-    cmp r2, #4
-    bne lbl_08020712
-    ldrh r1, [r4]
-    movs r0, #0x40
-    ands r0, r1
-    cmp r0, #0
-    beq lbl_080206cc
-lbl_080206c2:
-    adds r1, r4, #0
-    adds r1, #0x24
-    movs r0, #0xa
-    strb r0, [r1]
-    b lbl_08020712
-lbl_080206cc:
-    ldr r2, lbl_080206f0 @ =0x03000738
-    adds r0, r2, #0
-    adds r0, #0x2c
-    ldrb r0, [r0]
-    cmp r0, #0
-    bne lbl_08020712
-    ldrh r0, [r2, #2]
-    subs r0, #0x88
-    lsls r0, r0, #0x10
-    lsrs r3, r0, #0x10
-    ldrh r1, [r2]
-    movs r0, #0x40
-    ands r0, r1
-    cmp r0, #0
-    beq lbl_080206f4
-    ldrh r0, [r2, #4]
-    adds r0, #0x48
-    b lbl_080206f8
-    .align 2, 0
-lbl_080206f0: .4byte 0x03000738
-lbl_080206f4:
-    ldrh r0, [r2, #4]
-    subs r0, #0x48
-lbl_080206f8:
-    lsls r0, r0, #0x10
-    lsrs r1, r0, #0x10
-    adds r0, r3, #0
-    bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_08020718 @ =0x030007f1
-    ldrb r0, [r0]
-    cmp r0, #0
-    bne lbl_08020712
-    ldr r0, lbl_0802071c @ =0x03000738
-    adds r0, #0x24
-    movs r1, #0x34
-    strb r1, [r0]
-lbl_08020712:
-    pop {r4}
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_08020718: .4byte 0x030007f1
-lbl_0802071c: .4byte 0x03000738
-
-    thumb_func_start dragon_turning_around_gfx_init
-dragon_turning_around_gfx_init: @ 0x08020720
-    ldr r1, lbl_08020738 @ =0x03000738
-    adds r2, r1, #0
-    adds r2, #0x24
-    movs r3, #0
-    movs r0, #0xb
-    strb r0, [r2]
-    ldr r0, lbl_0802073c @ =0x082d5b28
-    str r0, [r1, #0x18]
-    movs r0, #0
-    strh r3, [r1, #0x16]
-    strb r0, [r1, #0x1c]
-    bx lr
-    .align 2, 0
-lbl_08020738: .4byte 0x03000738
-lbl_0802073c: .4byte 0x082d5b28
-
-    thumb_func_start DragonCheckTurningAroundFirstHalfAnimEnded
-DragonCheckTurningAroundFirstHalfAnimEnded: @ 0x08020740
-    push {lr}
-    bl DragonYMovement
-    bl SpriteUtilCheckEndCurrentSpriteAnim
-    cmp r0, #0
-    beq lbl_0802076c
-    ldr r2, lbl_08020770 @ =0x03000738
-    adds r1, r2, #0
-    adds r1, #0x24
-    movs r3, #0
-    movs r0, #0xc
-    strb r0, [r1]
-    ldr r0, lbl_08020774 @ =0x082d5b40
-    str r0, [r2, #0x18]
-    movs r0, #0
-    strh r3, [r2, #0x16]
-    strb r0, [r2, #0x1c]
-    ldrh r0, [r2]
-    movs r1, #0x40
-    eors r0, r1
-    strh r0, [r2]
-lbl_0802076c:
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_08020770: .4byte 0x03000738
-lbl_08020774: .4byte 0x082d5b40
-
-    thumb_func_start DragonCheckTurningAroundSecondHalfAnimEnded
-DragonCheckTurningAroundSecondHalfAnimEnded: @ 0x08020778
-    push {lr}
-    bl DragonYMovement
-    bl SpriteUtilCheckNearEndCurrentSpriteAnim
-    cmp r0, #0
-    beq lbl_0802078e
-    ldr r0, lbl_08020794 @ =0x03000738
-    adds r0, #0x24
-    movs r1, #0x34
-    strb r1, [r0]
-lbl_0802078e:
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_08020794: .4byte 0x03000738
-
-    thumb_func_start DragonWarningInit
-DragonWarningInit: @ 0x08020798
-    ldr r0, lbl_080207b8 @ =0x03000738
-    adds r2, r0, #0
-    adds r2, #0x24
-    movs r3, #0
-    movs r1, #0x35
-    strb r1, [r2]
-    ldr r1, lbl_080207bc @ =0x082d5af8
-    str r1, [r0, #0x18]
-    movs r1, #0
-    strh r3, [r0, #0x16]
-    strb r1, [r0, #0x1c]
-    adds r0, #0x2c
-    movs r1, #0x1e
-    strb r1, [r0]
-    bx lr
-    .align 2, 0
-lbl_080207b8: .4byte 0x03000738
-lbl_080207bc: .4byte 0x082d5af8
-
-    thumb_func_start DragonWarning
-DragonWarning: @ 0x080207c0
-    push {r4, lr}
-    bl DragonYMovement
-    ldr r2, lbl_080207f8 @ =0x03000738
-    adds r4, r2, #0
-    adds r4, #0x2c
-    ldrb r0, [r4]
-    subs r0, #1
-    strb r0, [r4]
-    lsls r0, r0, #0x18
-    lsrs r3, r0, #0x18
-    cmp r3, #0
-    bne lbl_080207f0
-    adds r1, r2, #0
-    adds r1, #0x24
-    movs r0, #0x37
-    strb r0, [r1]
-    ldr r0, lbl_080207fc @ =0x082d5b10
-    str r0, [r2, #0x18]
-    movs r0, #0
-    strh r3, [r2, #0x16]
-    strb r0, [r2, #0x1c]
-    movs r0, #8
-    strb r0, [r4]
-lbl_080207f0:
-    pop {r4}
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_080207f8: .4byte 0x03000738
-lbl_080207fc: .4byte 0x082d5b10
-
-    thumb_func_start DragonSpit
-DragonSpit: @ 0x08020800
-    push {r4, r5, lr}
-    sub sp, #0xc
-    ldr r4, lbl_08020834 @ =0x03000738
-    adds r1, r4, #0
-    adds r1, #0x2c
-    ldrb r0, [r1]
-    subs r0, #1
-    strb r0, [r1]
-    lsls r0, r0, #0x18
-    cmp r0, #0
-    bne lbl_08020862
-    bl DragonIdleInit
-    ldrh r0, [r4, #2]
-    subs r0, #0x48
-    lsls r0, r0, #0x10
-    lsrs r5, r0, #0x10
-    ldrh r1, [r4]
-    movs r0, #0x40
-    ands r0, r1
-    cmp r0, #0
-    beq lbl_08020838
-    ldrh r0, [r4, #4]
-    adds r0, #0x28
-    b lbl_0802083c
-    .align 2, 0
-lbl_08020834: .4byte 0x03000738
-lbl_08020838:
-    ldrh r0, [r4, #4]
-    subs r0, #0x28
-lbl_0802083c:
-    lsls r0, r0, #0x10
-    lsrs r1, r0, #0x10
-    ldr r0, lbl_0802086c @ =0x03000738
-    ldrb r2, [r0, #0x1f]
-    adds r3, r0, #0
-    adds r3, #0x23
-    ldrb r3, [r3]
-    str r5, [sp]
-    str r1, [sp, #4]
-    ldrh r1, [r0]
-    movs r0, #0x40
-    ands r0, r1
-    lsls r0, r0, #0x10
-    lsrs r0, r0, #0x10
-    str r0, [sp, #8]
-    movs r0, #8
-    movs r1, #0
-    bl SpriteSpawnSecondary
-lbl_08020862:
-    add sp, #0xc
-    pop {r4, r5}
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_0802086c: .4byte 0x03000738
-
-    thumb_func_start DragonFireballInit
-DragonFireballInit: @ 0x08020870
-    push {r4, r5, lr}
-    ldr r3, lbl_0802090c @ =0x03000738
-    ldrh r0, [r3]
-    ldr r4, lbl_08020910 @ =0x0000fffb
-    ands r4, r0
-    movs r5, #0
-    movs r2, #0
-    strh r4, [r3]
-    movs r0, #0x32
-    adds r0, r0, r3
-    mov ip, r0
-    ldrb r1, [r0]
-    movs r0, #4
-    orrs r0, r1
-    mov r1, ip
-    strb r0, [r1]
-    adds r0, r3, #0
-    adds r0, #0x27
-    movs r1, #8
-    strb r1, [r0]
-    adds r0, #1
-    strb r1, [r0]
-    adds r0, #1
-    strb r1, [r0]
-    ldr r1, lbl_08020914 @ =0x0000fff0
-    strh r1, [r3, #0xa]
-    movs r0, #0x10
-    strh r0, [r3, #0xc]
-    strh r1, [r3, #0xe]
-    strh r0, [r3, #0x10]
-    ldr r0, lbl_08020918 @ =0x082d5b58
-    str r0, [r3, #0x18]
-    strb r5, [r3, #0x1c]
-    strh r2, [r3, #0x16]
-    adds r1, r3, #0
-    adds r1, #0x24
-    movs r0, #9
-    strb r0, [r1]
-    adds r1, #1
-    movs r0, #6
-    strb r0, [r1]
-    subs r1, #3
-    movs r0, #3
-    strb r0, [r1]
-    ldr r1, lbl_0802091c @ =0x03000088
-    ldrb r1, [r1, #0xc]
-    ands r0, r1
-    adds r1, r3, #0
-    adds r1, #0x21
-    strb r0, [r1]
-    ldr r2, lbl_08020920 @ =0x082b1be4
-    ldrb r1, [r3, #0x1d]
-    lsls r0, r1, #3
-    adds r0, r0, r1
-    lsls r0, r0, #1
-    adds r0, r0, r2
-    ldrh r0, [r0]
-    strh r0, [r3, #0x14]
-    movs r0, #0x40
-    ands r0, r4
-    cmp r0, #0
-    beq lbl_08020928
-    movs r0, #0x80
-    lsls r0, r0, #2
-    adds r1, r0, #0
-    adds r0, r4, #0
-    orrs r0, r1
-    strh r0, [r3]
-    adds r1, r3, #0
-    adds r1, #0x2a
-    movs r0, #0x40
-    strb r0, [r1]
-    ldrh r1, [r3]
-    ldr r0, lbl_08020924 @ =0x0000ffbf
-    ands r0, r1
-    strh r0, [r3]
-    b lbl_0802092e
-    .align 2, 0
-lbl_0802090c: .4byte 0x03000738
-lbl_08020910: .4byte 0x0000fffb
-lbl_08020914: .4byte 0x0000fff0
-lbl_08020918: .4byte 0x082d5b58
-lbl_0802091c: .4byte 0x03000088
-lbl_08020920: .4byte 0x082b1be4
-lbl_08020924: .4byte 0x0000ffbf
-lbl_08020928:
-    adds r0, r3, #0
-    adds r0, #0x2a
-    strb r5, [r0]
-lbl_0802092e:
-    ldrh r1, [r3]
-    movs r0, #0x80
-    movs r2, #0
-    orrs r0, r1
-    strh r0, [r3]
-    movs r0, #0x80
-    lsls r0, r0, #1
-    strh r0, [r3, #0x12]
-    adds r0, r3, #0
-    adds r0, #0x2f
-    strb r2, [r0]
-    movs r0, #0xa6
-    lsls r0, r0, #1
-    bl SoundPlay
-    pop {r4, r5}
-    pop {r0}
-    bx r0
-    .align 2, 0
-
-    thumb_func_start DragonFireballMove
-DragonFireballMove: @ 0x08020954
-    push {r4, r5, r6, r7, lr}
-    mov r7, sb
-    mov r6, r8
-    push {r6, r7}
-    movs r0, #0xc
-    mov sb, r0
-    ldr r2, lbl_080209a0 @ =0x03000738
-    ldrh r1, [r2, #2]
-    mov r8, r1
-    movs r4, #0x2f
-    adds r4, r4, r2
-    mov ip, r4
-    ldrb r3, [r4]
-    ldr r7, lbl_080209a4 @ =0x082d5134
-    lsls r0, r3, #1
-    adds r1, r0, r7
-    movs r4, #0
-    ldrsh r1, [r1, r4]
-    ldr r6, lbl_080209a8 @ =0x082d5184
-    adds r0, r0, r6
-    movs r4, #0
-    ldrsh r5, [r0, r4]
-    ldr r0, lbl_080209ac @ =0x00007fff
-    adds r4, r2, #0
-    cmp r1, r0
-    bne lbl_080209b0
-    subs r0, r3, #1
-    lsls r0, r0, #1
-    adds r1, r0, r7
-    movs r2, #0
-    ldrsh r1, [r1, r2]
-    adds r0, r0, r6
-    movs r2, #0
-    ldrsh r5, [r0, r2]
-    add r1, r8
-    strh r1, [r4, #2]
-    b lbl_080209bc
-    .align 2, 0
-lbl_080209a0: .4byte 0x03000738
-lbl_080209a4: .4byte 0x082d5134
-lbl_080209a8: .4byte 0x082d5184
-lbl_080209ac: .4byte 0x00007fff
-lbl_080209b0:
-    adds r0, r3, #1
-    mov r2, ip
-    strb r0, [r2]
-    ldrh r0, [r4, #2]
-    adds r0, r0, r1
-    strh r0, [r4, #2]
-lbl_080209bc:
-    ldrh r1, [r4]
-    movs r0, #0x80
-    lsls r0, r0, #2
-    ands r0, r1
-    cmp r0, #0
-    beq lbl_080209d4
-    ldrh r0, [r4, #4]
-    add r0, sb
-    strh r0, [r4, #4]
-    adds r0, r5, #0
-    adds r0, #0x40
-    b lbl_080209de
-lbl_080209d4:
-    ldrh r0, [r4, #4]
-    mov r1, sb
-    subs r0, r0, r1
-    strh r0, [r4, #4]
-    rsbs r0, r5, #0
-lbl_080209de:
-    adds r1, r4, #0
-    adds r1, #0x2a
-    strb r0, [r1]
-    adds r5, r4, #0
-    ldrh r1, [r5, #2]
-    ldrh r2, [r5, #4]
-    mov r0, r8
-    movs r3, #0
-    bl SpriteUtilCheckInRoomEffect
-    cmp r0, #0
-    beq lbl_080209fa
-    adds r1, r5, #0
-    b lbl_08020a10
-lbl_080209fa:
-    ldrh r0, [r4, #2]
-    ldrh r1, [r4, #4]
-    bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_08020a24 @ =0x030007f1
-    ldrb r1, [r0]
-    movs r0, #0xf0
-    ands r0, r1
-    cmp r0, #0
-    beq lbl_08020a16
-    adds r1, r4, #0
-lbl_08020a10:
-    adds r1, #0x24
-    movs r0, #0x42
-    strb r0, [r1]
-lbl_08020a16:
-    pop {r3, r4}
-    mov r8, r3
-    mov sb, r4
-    pop {r4, r5, r6, r7}
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_08020a24: .4byte 0x030007f1
-
-    thumb_func_start DragonFireballExplodingInit
-DragonFireballExplodingInit: @ 0x08020a28
-    ldr r2, lbl_08020a58 @ =0x03000738
-    adds r3, r2, #0
-    adds r3, #0x26
-    movs r1, #0
-    movs r0, #1
-    strb r0, [r3]
-    ldr r0, lbl_08020a5c @ =0x082d5b78
-    str r0, [r2, #0x18]
-    strb r1, [r2, #0x1c]
-    strh r1, [r2, #0x16]
-    adds r1, r2, #0
-    adds r1, #0x24
-    movs r0, #0x43
-    strb r0, [r1]
-    ldrh r1, [r2]
-    ldr r0, lbl_08020a60 @ =0x0000ff7f
-    ands r0, r1
-    movs r3, #0x80
-    lsls r3, r3, #8
-    adds r1, r3, #0
-    orrs r0, r1
-    strh r0, [r2]
-    bx lr
-    .align 2, 0
-lbl_08020a58: .4byte 0x03000738
-lbl_08020a5c: .4byte 0x082d5b78
-lbl_08020a60: .4byte 0x0000ff7f
-
-    thumb_func_start DragonFireballCheckExplodingAnimEnded
-DragonFireballCheckExplodingAnimEnded: @ 0x08020a64
-    push {r4, lr}
-    ldr r4, lbl_08020a84 @ =0x03000738
-    adds r1, r4, #0
-    adds r1, #0x26
-    movs r0, #1
-    strb r0, [r1]
-    bl SpriteUtilCheckEndCurrentSpriteAnim
-    cmp r0, #0
-    beq lbl_08020a7c
-    movs r0, #0
-    strh r0, [r4]
-lbl_08020a7c:
-    pop {r4}
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_08020a84: .4byte 0x03000738
-
-    thumb_func_start Dragon
-Dragon: @ 0x08020a88
-    push {r4, lr}
-    sub sp, #4
-    ldr r1, lbl_08020ac8 @ =0x03000738
-    adds r3, r1, #0
-    adds r3, #0x32
-    ldrb r2, [r3]
-    movs r4, #2
-    adds r0, r4, #0
-    ands r0, r2
-    cmp r0, #0
-    beq lbl_08020ab4
-    movs r0, #0xfd
-    ands r0, r2
-    strb r0, [r3]
-    ldrh r1, [r1]
-    adds r0, r4, #0
-    ands r0, r1
-    cmp r0, #0
-    beq lbl_08020ab4
-    ldr r0, lbl_08020acc @ =0x0000014d
-    bl SoundPlayNotAlreadyPlaying
-lbl_08020ab4:
-    ldr r4, lbl_08020ac8 @ =0x03000738
-    adds r0, r4, #0
-    adds r0, #0x30
-    ldrb r0, [r0]
-    cmp r0, #0
-    beq lbl_08020ad0
-    bl SpriteUtilUpdateFreezeTimer
-    b lbl_08020c16
-    .align 2, 0
-lbl_08020ac8: .4byte 0x03000738
-lbl_08020acc: .4byte 0x0000014d
-lbl_08020ad0:
-    bl SpriteUtilIsSpriteStunned
-    cmp r0, #0
-    beq lbl_08020ada
-    b lbl_08020c16
-lbl_08020ada:
-    adds r0, r4, #0
-    adds r0, #0x24
-    ldrb r0, [r0]
-    cmp r0, #0x37
-    bls lbl_08020ae6
-    b lbl_08020c04
-lbl_08020ae6:
-    lsls r0, r0, #2
-    ldr r1, lbl_08020af0 @ =lbl_08020af4
-    adds r0, r0, r1
-    ldr r0, [r0]
-    mov pc, r0
-    .align 2, 0
-lbl_08020af0: .4byte lbl_08020af4
-lbl_08020af4: @ jump table
-    .4byte lbl_08020bd4 @ case 0
-    .4byte lbl_08020c04 @ case 1
-    .4byte lbl_08020c04 @ case 2
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r2, r3, #0xf
-    lsrs r2, r0, #0x20
-    lsrs r6, r3, #0xf
-    lsrs r2, r0, #0x20
-    lsrs r4, r4, #0xf
-    lsrs r2, r0, #0x20
-    lsrs r0, r5, #0xf
-    lsrs r2, r0, #0x20
-    lsrs r6, r5, #0xf
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r4, r6, #0xf
-    lsrs r2, r0, #0x20
-    lsrs r0, r7, #0xf
-    lsrs r2, r0, #0x20
-    lsrs r4, r0, #0x10
-    lsrs r2, r0, #0x20
-    lsrs r6, r7, #0xf
-    lsrs r2, r0, #0x20
-lbl_08020bd4:
-    bl DragonInit
-    b lbl_08020c16
-lbl_08020bda:
-    bl DragonIdleInit
-lbl_08020bde:
-    bl DragonGoUp
-    b lbl_08020c16
-lbl_08020be4:
-    bl dragon_turning_around_gfx_init
-lbl_08020be8:
-    bl DragonCheckTurningAroundFirstHalfAnimEnded
-    b lbl_08020c16
-lbl_08020bee:
-    bl DragonCheckTurningAroundSecondHalfAnimEnded
-    b lbl_08020c16
-lbl_08020bf4:
-    bl DragonWarningInit
-lbl_08020bf8:
-    bl DragonWarning
-    b lbl_08020c16
-lbl_08020bfe:
-    bl DragonSpit
-    b lbl_08020c16
-lbl_08020c04:
-    ldr r0, lbl_08020c20 @ =0x03000738
-    ldrh r1, [r0, #2]
-    ldrh r2, [r0, #4]
-    movs r0, #0x21
-    str r0, [sp]
-    movs r0, #0
-    movs r3, #1
-    bl SpriteUtilSpriteDeath
-lbl_08020c16:
-    add sp, #4
-    pop {r4}
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_08020c20: .4byte 0x03000738
-
-    thumb_func_start DragonFireball
-DragonFireball: @ 0x08020c24
-    push {lr}
-    sub sp, #4
-    ldr r1, lbl_08020c44 @ =0x03000738
-    adds r0, r1, #0
-    adds r0, #0x24
-    ldrb r0, [r0]
-    adds r2, r1, #0
-    cmp r0, #0x42
-    beq lbl_08020c58
-    cmp r0, #0x42
-    bgt lbl_08020c48
-    cmp r0, #0
-    beq lbl_08020c4e
-    cmp r0, #9
-    beq lbl_08020c52
-    b lbl_08020c64
-    .align 2, 0
-lbl_08020c44: .4byte 0x03000738
-lbl_08020c48:
-    cmp r0, #0x43
-    beq lbl_08020c5e
-    b lbl_08020c64
-lbl_08020c4e:
-    bl DragonFireballInit
-lbl_08020c52:
-    bl DragonFireballMove
-    b lbl_08020c74
-lbl_08020c58:
-    bl DragonFireballExplodingInit
-    b lbl_08020c74
-lbl_08020c5e:
-    bl DragonFireballCheckExplodingAnimEnded
-    b lbl_08020c74
-lbl_08020c64:
-    ldrh r1, [r2, #2]
-    ldrh r2, [r2, #4]
-    movs r0, #0x1f
-    str r0, [sp]
-    movs r0, #0
-    movs r3, #1
-    bl SpriteUtilSpriteDeath
-lbl_08020c74:
-    add sp, #4
-    pop {r0}
-    bx r0
-    .align 2, 0
-
     thumb_func_start deorem_left_change_ccaa
 deorem_left_change_ccaa: @ 0x08020c7c
     push {r4, r5, r6, r7, lr}
     adds r4, r0, #0
     lsls r4, r4, #0x18
     lsrs r4, r4, #0x18
-    ldr r0, lbl_08020cf8 @ =0x0300080c
+    ldr r0, lbl_08020cf8 @ =gBossWork
     ldrh r7, [r0]
     ldrh r6, [r0, #2]
-    ldr r5, lbl_08020cfc @ =0x03000079
+    ldr r5, lbl_08020cfc @ =gCurrentClipdataAffectingAction
     strb r4, [r5]
     adds r0, r7, #0
     adds r1, r6, #0
@@ -990,8 +59,8 @@ deorem_left_change_ccaa: @ 0x08020c7c
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08020cf8: .4byte 0x0300080c
-lbl_08020cfc: .4byte 0x03000079
+lbl_08020cf8: .4byte gBossWork
+lbl_08020cfc: .4byte gCurrentClipdataAffectingAction
 
     thumb_func_start deorem_right_change_ccaa
 deorem_right_change_ccaa: @ 0x08020d00
@@ -999,7 +68,7 @@ deorem_right_change_ccaa: @ 0x08020d00
     adds r5, r0, #0
     lsls r5, r5, #0x18
     lsrs r5, r5, #0x18
-    ldr r0, lbl_08020d88 @ =0x0300080c
+    ldr r0, lbl_08020d88 @ =gBossWork
     ldrh r7, [r0]
     movs r1, #0xd0
     lsls r1, r1, #2
@@ -1008,7 +77,7 @@ deorem_right_change_ccaa: @ 0x08020d00
     adds r4, r4, r0
     lsls r4, r4, #0x10
     lsrs r4, r4, #0x10
-    ldr r6, lbl_08020d8c @ =0x03000079
+    ldr r6, lbl_08020d8c @ =gCurrentClipdataAffectingAction
     strb r5, [r6]
     adds r0, r7, #0
     adds r1, r4, #0
@@ -1056,8 +125,8 @@ deorem_right_change_ccaa: @ 0x08020d00
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08020d88: .4byte 0x0300080c
-lbl_08020d8c: .4byte 0x03000079
+lbl_08020d88: .4byte gBossWork
+lbl_08020d8c: .4byte gCurrentClipdataAffectingAction
 
     thumb_func_start sub_08020d90
 sub_08020d90: @ 0x08020d90
@@ -1068,7 +137,7 @@ sub_08020d90: @ 0x08020d90
     lsls r1, r1, #0x10
     lsrs r4, r1, #0x10
     adds r5, r4, #0
-    ldr r2, lbl_08020de4 @ =0x03000738
+    ldr r2, lbl_08020de4 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -1093,7 +162,7 @@ sub_08020d90: @ 0x08020d90
     adds r0, #1
     strb r0, [r3]
 lbl_08020dce:
-    ldr r0, lbl_08020de8 @ =0x0300080c
+    ldr r0, lbl_08020de8 @ =gBossWork
     ldrh r0, [r0, #2]
     movs r4, #0xa0
     lsls r4, r4, #2
@@ -1105,8 +174,8 @@ lbl_08020dce:
     adds r0, r1, r0
     b lbl_08020e58
     .align 2, 0
-lbl_08020de4: .4byte 0x03000738
-lbl_08020de8: .4byte 0x0300080c
+lbl_08020de4: .4byte gCurrentSprite
+lbl_08020de8: .4byte gBossWork
 lbl_08020dec:
     cmp r1, #1
     bls lbl_08020df4
@@ -1114,7 +183,7 @@ lbl_08020dec:
     strb r0, [r3]
 lbl_08020df4:
     ldrh r1, [r2, #4]
-    ldr r0, lbl_08020e0c @ =0x0300080c
+    ldr r0, lbl_08020e0c @ =gBossWork
     ldrh r0, [r0, #2]
     movs r4, #0xa0
     lsls r4, r4, #2
@@ -1126,7 +195,7 @@ lbl_08020df4:
     adds r0, r1, r0
     b lbl_08020e58
     .align 2, 0
-lbl_08020e0c: .4byte 0x0300080c
+lbl_08020e0c: .4byte gBossWork
 lbl_08020e10:
     adds r3, r2, #0
     adds r3, #0x2d
@@ -1161,7 +230,7 @@ lbl_08020e3e:
 lbl_08020e46:
     ldrh r1, [r2, #4]
 lbl_08020e48:
-    ldr r0, lbl_08020e60 @ =0x0300080c
+    ldr r0, lbl_08020e60 @ =gBossWork
     ldrh r0, [r0, #2]
     adds r0, #0xc0
     cmp r1, r0
@@ -1176,7 +245,7 @@ lbl_08020e5a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08020e60: .4byte 0x0300080c
+lbl_08020e60: .4byte gBossWork
 
     thumb_func_start DeoremRandomSpriteDebris
 DeoremRandomSpriteDebris: @ 0x08020e64
@@ -1186,7 +255,7 @@ DeoremRandomSpriteDebris: @ 0x08020e64
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
     mov r8, r0
-    ldr r1, lbl_08020eb0 @ =0x0300080c
+    ldr r1, lbl_08020eb0 @ =gBossWork
     ldrh r0, [r1]
     adds r0, #0x20
     lsls r0, r0, #0x10
@@ -1198,9 +267,9 @@ DeoremRandomSpriteDebris: @ 0x08020e64
     adds r0, r0, r1
     lsls r0, r0, #0x10
     lsrs r6, r0, #0x10
-    ldr r0, lbl_08020eb4 @ =0x0300083c
+    ldr r0, lbl_08020eb4 @ =gSpriteRNG
     ldrb r5, [r0]
-    ldr r0, lbl_08020eb8 @ =0x03000c77
+    ldr r0, lbl_08020eb8 @ =gFrameCounter8Bit
     ldrb r4, [r0]
     movs r0, #1
     ands r0, r5
@@ -1217,9 +286,9 @@ DeoremRandomSpriteDebris: @ 0x08020e64
     bl SpriteDebrisInit
     b lbl_08020ed0
     .align 2, 0
-lbl_08020eb0: .4byte 0x0300080c
-lbl_08020eb4: .4byte 0x0300083c
-lbl_08020eb8: .4byte 0x03000c77
+lbl_08020eb0: .4byte gBossWork
+lbl_08020eb4: .4byte gSpriteRNG
+lbl_08020eb8: .4byte gFrameCounter8Bit
 lbl_08020ebc:
     adds r2, r5, #0
     subs r2, #0x64
@@ -1410,7 +479,7 @@ DeoremCheckLeaving: @ 0x08021028
     push {r4, lr}
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
-    ldr r2, lbl_08021078 @ =0x030001ac
+    ldr r2, lbl_08021078 @ =gSpriteData
     lsls r1, r0, #3
     subs r1, r1, r0
     lsls r1, r1, #3
@@ -1418,7 +487,7 @@ DeoremCheckLeaving: @ 0x08021028
     ldrh r2, [r4, #6]
     cmp r2, #0
     bne lbl_0802108c
-    ldr r3, lbl_0802107c @ =0x03000738
+    ldr r3, lbl_0802107c @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x24
     movs r1, #0x42
@@ -1447,8 +516,8 @@ lbl_08021072:
     movs r0, #1
     b lbl_0802108e
     .align 2, 0
-lbl_08021078: .4byte 0x030001ac
-lbl_0802107c: .4byte 0x03000738
+lbl_08021078: .4byte gSpriteData
+lbl_0802107c: .4byte gCurrentSprite
 lbl_08021080: .4byte 0x082d7a84
 lbl_08021084: .4byte 0x082d79d4
 lbl_08021088: .4byte 0x00000199
@@ -1468,7 +537,7 @@ DeoremSpawnChargeBeam: @ 0x08021094
     lsrs r3, r3, #0x10
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
-    ldr r0, lbl_080210d0 @ =0x03000738
+    ldr r0, lbl_080210d0 @ =gCurrentSprite
     ldrb r4, [r0, #0x1f]
     str r1, [sp]
     movs r0, #0
@@ -1489,33 +558,33 @@ DeoremSpawnChargeBeam: @ 0x08021094
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080210d0: .4byte 0x03000738
+lbl_080210d0: .4byte gCurrentSprite
 
     thumb_func_start DeoremSetEyeOpeningTimer
 DeoremSetEyeOpeningTimer: @ 0x080210d4
     push {lr}
-    ldr r0, lbl_080210e8 @ =0x0300002c
+    ldr r0, lbl_080210e8 @ =gDifficulty
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_080210f0
-    ldr r0, lbl_080210ec @ =0x03000738
+    ldr r0, lbl_080210ec @ =gCurrentSprite
     adds r0, #0x2c
     movs r1, #0x78
     b lbl_08021106
     .align 2, 0
-lbl_080210e8: .4byte 0x0300002c
-lbl_080210ec: .4byte 0x03000738
+lbl_080210e8: .4byte gDifficulty
+lbl_080210ec: .4byte gCurrentSprite
 lbl_080210f0:
     cmp r0, #2
     bne lbl_08021100
-    ldr r0, lbl_080210fc @ =0x03000738
+    ldr r0, lbl_080210fc @ =gCurrentSprite
     adds r0, #0x2c
     movs r1, #0x28
     b lbl_08021106
     .align 2, 0
-lbl_080210fc: .4byte 0x03000738
+lbl_080210fc: .4byte gCurrentSprite
 lbl_08021100:
-    ldr r0, lbl_0802110c @ =0x03000738
+    ldr r0, lbl_0802110c @ =gCurrentSprite
     adds r0, #0x2c
     movs r1, #0x50
 lbl_08021106:
@@ -1523,12 +592,12 @@ lbl_08021106:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802110c: .4byte 0x03000738
+lbl_0802110c: .4byte gCurrentSprite
 
     thumb_func_start DeoremCallSpawnChargeBeam
 DeoremCallSpawnChargeBeam: @ 0x08021110
     push {r4, lr}
-    ldr r4, lbl_08021138 @ =0x03000738
+    ldr r4, lbl_08021138 @ =gCurrentSprite
     ldrh r0, [r4, #2]
     adds r0, #0xb0
     lsls r0, r0, #0x10
@@ -1547,12 +616,12 @@ DeoremCallSpawnChargeBeam: @ 0x08021110
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08021138: .4byte 0x03000738
+lbl_08021138: .4byte gCurrentSprite
 
     thumb_func_start DeoremInit
 DeoremInit: @ 0x0802113c
     push {r4, r5, lr}
-    ldr r4, lbl_08021178 @ =0x03000738
+    ldr r4, lbl_08021178 @ =gCurrentSprite
     ldrb r0, [r4, #0x1d]
     cmp r0, #0x42
     bne lbl_08021180
@@ -1566,7 +635,7 @@ DeoremInit: @ 0x0802113c
     bl EventFunction
     cmp r0, #0
     beq lbl_080211c8
-    ldr r0, lbl_0802117c @ =0x03001530
+    ldr r0, lbl_0802117c @ =gEquipment
     ldrb r1, [r0, #0xc]
     movs r0, #0x10
     ands r0, r1
@@ -1579,8 +648,8 @@ DeoremInit: @ 0x0802113c
     beq lbl_080211b0
     b lbl_080211c8
     .align 2, 0
-lbl_08021178: .4byte 0x03000738
-lbl_0802117c: .4byte 0x03001530
+lbl_08021178: .4byte gCurrentSprite
+lbl_0802117c: .4byte gEquipment
 lbl_08021180:
     movs r0, #3
     movs r1, #0x1a
@@ -1592,7 +661,7 @@ lbl_08021180:
     bl EventFunction
     cmp r0, #0
     beq lbl_080211c8
-    ldr r0, lbl_080211c4 @ =0x03001530
+    ldr r0, lbl_080211c4 @ =gEquipment
     ldrb r1, [r0, #0xc]
     movs r0, #0x10
     ands r0, r1
@@ -1614,17 +683,17 @@ lbl_080211b0:
     strh r0, [r4]
     b lbl_0802124a
     .align 2, 0
-lbl_080211c4: .4byte 0x03001530
+lbl_080211c4: .4byte gEquipment
 lbl_080211c8:
-    ldr r1, lbl_080211d0 @ =0x03000738
+    ldr r1, lbl_080211d0 @ =gCurrentSprite
     movs r0, #0
     strh r0, [r1]
     b lbl_0802124a
     .align 2, 0
-lbl_080211d0: .4byte 0x03000738
+lbl_080211d0: .4byte gCurrentSprite
 lbl_080211d4:
-    ldr r2, lbl_08021250 @ =0x0300080c
-    ldr r0, lbl_08021254 @ =0x03000738
+    ldr r2, lbl_08021250 @ =gBossWork
+    ldr r0, lbl_08021254 @ =gCurrentSprite
     mov ip, r0
     ldrh r1, [r0, #2]
     adds r0, r1, #0
@@ -1687,8 +756,8 @@ lbl_0802124a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08021250: .4byte 0x0300080c
-lbl_08021254: .4byte 0x03000738
+lbl_08021250: .4byte gBossWork
+lbl_08021254: .4byte gCurrentSprite
 lbl_08021258: .4byte 0x0000ffa0
 lbl_0802125c: .4byte 0x082d795c
 lbl_08021260: .4byte 0x082b0d68
@@ -1699,7 +768,7 @@ DeoremSpawnGoingDown: @ 0x08021264
     mov r7, r8
     push {r7}
     sub sp, #0xc
-    ldr r0, lbl_080212b4 @ =0x0300080c
+    ldr r0, lbl_080212b4 @ =gBossWork
     mov r8, r0
     movs r1, #0xd0
     lsls r1, r1, #1
@@ -1709,16 +778,16 @@ DeoremSpawnGoingDown: @ 0x08021264
     adds r6, r0, r2
     lsls r0, r6, #0x10
     lsrs r7, r0, #0x10
-    ldr r3, lbl_080212b8 @ =0x030013d4
+    ldr r3, lbl_080212b8 @ =gSamusData
     ldrh r1, [r3, #0x12]
     adds r4, r1, #0
-    ldr r2, lbl_080212bc @ =0x03000738
+    ldr r2, lbl_080212bc @ =gCurrentSprite
     adds r5, r2, #0
     adds r5, #0x2c
     ldrb r0, [r5]
     adds r0, #1
     strb r0, [r5]
-    ldr r0, lbl_080212c0 @ =0x03001530
+    ldr r0, lbl_080212c0 @ =gEquipment
     ldrh r0, [r0, #2]
     cmp r0, #0
     bne lbl_080212c8
@@ -1737,10 +806,10 @@ lbl_080212a4:
 lbl_080212b0:
     b lbl_080212ec
     .align 2, 0
-lbl_080212b4: .4byte 0x0300080c
-lbl_080212b8: .4byte 0x030013d4
-lbl_080212bc: .4byte 0x03000738
-lbl_080212c0: .4byte 0x03001530
+lbl_080212b4: .4byte gBossWork
+lbl_080212b8: .4byte gSamusData
+lbl_080212bc: .4byte gCurrentSprite
+lbl_080212c0: .4byte gEquipment
 lbl_080212c4: .4byte 0xfffffc00
 lbl_080212c8:
     adds r0, r7, #0
@@ -1764,7 +833,7 @@ lbl_080212e0:
     blt lbl_080212ec
     b lbl_0802140c
 lbl_080212ec:
-    ldr r0, lbl_0802131c @ =0x0300083c
+    ldr r0, lbl_0802131c @ =gSpriteRNG
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_080212fc
@@ -1787,9 +856,9 @@ lbl_08021308:
     b lbl_0802140c
     .align 2, 0
 lbl_08021318: .4byte 0xfffffc00
-lbl_0802131c: .4byte 0x0300083c
+lbl_0802131c: .4byte gSpriteRNG
 lbl_08021320:
-    ldr r1, lbl_0802134c @ =0x03000100
+    ldr r1, lbl_0802134c @ =gLockScreen
     movs r4, #1
     strb r4, [r1]
     ldrh r0, [r3, #0x14]
@@ -1812,7 +881,7 @@ lbl_08021320:
     strh r0, [r2, #4]
     b lbl_08021354
     .align 2, 0
-lbl_0802134c: .4byte 0x03000100
+lbl_0802134c: .4byte gLockScreen
 lbl_08021350:
     mov r1, r8
     strh r0, [r1, #4]
@@ -1912,9 +981,9 @@ lbl_08021418: .4byte 0x00000193
     thumb_func_start DeoremSpawnGoingDownAnim
 DeoremSpawnGoingDownAnim: @ 0x0802141c
     push {r4, r5, r6, r7, lr}
-    ldr r0, lbl_08021460 @ =0x0300080c
+    ldr r0, lbl_08021460 @ =gBossWork
     ldrh r6, [r0]
-    ldr r1, lbl_08021464 @ =0x03000738
+    ldr r1, lbl_08021464 @ =gCurrentSprite
     ldrh r5, [r1, #8]
     adds r7, r5, #0
     ldrh r0, [r1, #2]
@@ -1944,8 +1013,8 @@ DeoremSpawnGoingDownAnim: @ 0x0802141c
     bl ParticleSet
     b lbl_080214a4
     .align 2, 0
-lbl_08021460: .4byte 0x0300080c
-lbl_08021464: .4byte 0x03000738
+lbl_08021460: .4byte gBossWork
+lbl_08021464: .4byte gCurrentSprite
 lbl_08021468:
     movs r0, #0x2e
     subs r0, r0, r3
@@ -1973,7 +1042,7 @@ lbl_08021468:
     movs r1, #0
     bl PlayMusic
 lbl_080214a4:
-    ldr r2, lbl_080214e0 @ =0x03000738
+    ldr r2, lbl_080214e0 @ =gCurrentSprite
     adds r3, r2, #0
     adds r3, #0x2c
     ldrb r0, [r3]
@@ -1994,7 +1063,7 @@ lbl_080214a4:
     adds r0, r3, #0
     orrs r0, r1
     strh r0, [r2]
-    ldr r0, lbl_080214e4 @ =0x0300080c
+    ldr r0, lbl_080214e4 @ =gBossWork
     ldrh r0, [r0, #4]
     cmp r0, #0
     beq lbl_080214ec
@@ -2002,8 +1071,8 @@ lbl_080214a4:
     b lbl_080214f0
     .align 2, 0
 lbl_080214dc: .4byte 0x00000191
-lbl_080214e0: .4byte 0x03000738
-lbl_080214e4: .4byte 0x0300080c
+lbl_080214e0: .4byte gCurrentSprite
+lbl_080214e4: .4byte gBossWork
 lbl_080214e8: .4byte 0xfffffcc0
 lbl_080214ec:
     movs r1, #0xd0
@@ -2031,7 +1100,7 @@ DeoremSpawnGoingUp: @ 0x08021510
     mov r7, r8
     push {r7}
     sub sp, #0xc
-    ldr r2, lbl_080215d8 @ =0x03000738
+    ldr r2, lbl_080215d8 @ =gCurrentSprite
     adds r3, r2, #0
     adds r3, #0x2c
     ldrb r0, [r3]
@@ -2121,16 +1190,16 @@ lbl_080215cc:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080215d8: .4byte 0x03000738
+lbl_080215d8: .4byte gCurrentSprite
 lbl_080215dc: .4byte 0x00000193
 
     thumb_func_start DeoremSpawnGoingUpAnim
 DeoremSpawnGoingUpAnim: @ 0x080215e0
     push {r4, r5, r6, r7, lr}
-    ldr r0, lbl_08021620 @ =0x0300080c
+    ldr r0, lbl_08021620 @ =gBossWork
     ldrh r2, [r0]
     adds r7, r2, #0
-    ldr r1, lbl_08021624 @ =0x03000738
+    ldr r1, lbl_08021624 @ =gCurrentSprite
     ldrh r5, [r1, #4]
     adds r6, r5, #0
     ldrh r0, [r1, #2]
@@ -2157,8 +1226,8 @@ DeoremSpawnGoingUpAnim: @ 0x080215e0
     bl ParticleSet
     b lbl_08021654
     .align 2, 0
-lbl_08021620: .4byte 0x0300080c
-lbl_08021624: .4byte 0x03000738
+lbl_08021620: .4byte gBossWork
+lbl_08021624: .4byte gCurrentSprite
 lbl_08021628:
     movs r0, #0x32
     subs r0, r0, r3
@@ -2181,7 +1250,7 @@ lbl_08021628:
     movs r2, #0x36
     bl ParticleSet
 lbl_08021654:
-    ldr r2, lbl_0802168c @ =0x03000738
+    ldr r2, lbl_0802168c @ =gCurrentSprite
     adds r3, r2, #0
     adds r3, #0x2c
     ldrb r0, [r3]
@@ -2202,7 +1271,7 @@ lbl_08021654:
     strb r0, [r1]
     movs r0, #0x3c
     strb r0, [r3]
-    ldr r0, lbl_08021694 @ =0x0300080c
+    ldr r0, lbl_08021694 @ =gBossWork
     ldrh r0, [r0, #4]
     cmp r0, #0
     beq lbl_08021698
@@ -2210,9 +1279,9 @@ lbl_08021654:
     lsls r1, r1, #1
     b lbl_0802169a
     .align 2, 0
-lbl_0802168c: .4byte 0x03000738
+lbl_0802168c: .4byte gCurrentSprite
 lbl_08021690: .4byte 0x0000feff
-lbl_08021694: .4byte 0x0300080c
+lbl_08021694: .4byte gBossWork
 lbl_08021698:
     ldr r1, lbl_080216b8 @ =0xfffffe60
 lbl_0802169a:
@@ -2241,7 +1310,7 @@ DeoremSpawnHeadBody: @ 0x080216c0
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0x10
-    ldr r7, lbl_080217b0 @ =0x03000738
+    ldr r7, lbl_080217b0 @ =gCurrentSprite
     adds r4, r7, #0
     adds r4, #0x2c
     ldrb r1, [r4]
@@ -2316,7 +1385,7 @@ lbl_080216e2:
     ldr r2, [sp, #0xc]
     mov r3, sb
     bl SpriteSpawnSecondary
-    ldr r2, lbl_080217b8 @ =0x030001ac
+    ldr r2, lbl_080217b8 @ =gSpriteData
     lsls r1, r4, #3
     subs r1, r1, r4
     lsls r1, r1, #3
@@ -2351,9 +1420,9 @@ lbl_080216e2:
     strh r0, [r7]
     b lbl_080217c2
     .align 2, 0
-lbl_080217b0: .4byte 0x03000738
+lbl_080217b0: .4byte gCurrentSprite
 lbl_080217b4: .4byte 0x0000fffb
-lbl_080217b8: .4byte 0x030001ac
+lbl_080217b8: .4byte gSpriteData
 lbl_080217bc:
     adds r0, r7, #0
     adds r0, #0x2f
@@ -2372,11 +1441,11 @@ lbl_080217c2:
     thumb_func_start DeoremAfterSpawn
 DeoremAfterSpawn: @ 0x080217d4
     push {r4, r5, lr}
-    ldr r4, lbl_08021804 @ =0x03000738
+    ldr r4, lbl_08021804 @ =gCurrentSprite
     adds r0, r4, #0
     adds r0, #0x2f
     ldrb r5, [r0]
-    ldr r2, lbl_08021808 @ =0x03000c77
+    ldr r2, lbl_08021808 @ =gFrameCounter8Bit
     ldrb r1, [r2]
     movs r0, #0x1f
     ands r0, r1
@@ -2395,8 +1464,8 @@ lbl_080217f0:
     strh r0, [r4, #2]
     b lbl_08021868
     .align 2, 0
-lbl_08021804: .4byte 0x03000738
-lbl_08021808: .4byte 0x03000c77
+lbl_08021804: .4byte gCurrentSprite
+lbl_08021808: .4byte gFrameCounter8Bit
 lbl_0802180c:
     adds r2, r4, #0
     adds r2, #0x2c
@@ -2410,14 +1479,14 @@ lbl_0802180c:
     adds r0, #0x24
     movs r1, #0x26
     strb r1, [r0]
-    ldr r0, lbl_08021830 @ =0x0300002c
+    ldr r0, lbl_08021830 @ =gDifficulty
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_08021834
     movs r0, #0x5a
     b lbl_0802183e
     .align 2, 0
-lbl_08021830: .4byte 0x0300002c
+lbl_08021830: .4byte gDifficulty
 lbl_08021834:
     cmp r0, #2
     bne lbl_0802183c
@@ -2427,14 +1496,14 @@ lbl_0802183c:
     movs r0, #0x3c
 lbl_0802183e:
     strb r0, [r2]
-    ldr r1, lbl_08021870 @ =0x03000738
+    ldr r1, lbl_08021870 @ =gCurrentSprite
     ldr r0, lbl_08021874 @ =0x082d7984
     str r0, [r1, #0x18]
     movs r0, #0
     strb r0, [r1, #0x1c]
     strh r0, [r1, #0x16]
     strh r0, [r1, #0xc]
-    ldr r0, lbl_08021878 @ =0x030001ac
+    ldr r0, lbl_08021878 @ =gSpriteData
     lsls r1, r5, #3
     subs r1, r1, r5
     lsls r1, r1, #3
@@ -2451,9 +1520,9 @@ lbl_08021868:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08021870: .4byte 0x03000738
+lbl_08021870: .4byte gCurrentSprite
 lbl_08021874: .4byte 0x082d7984
-lbl_08021878: .4byte 0x030001ac
+lbl_08021878: .4byte gSpriteData
 lbl_0802187c: .4byte 0x00007fff
 
     thumb_func_start sub_08021880
@@ -2461,11 +1530,11 @@ sub_08021880: @ 0x08021880
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
-    ldr r1, lbl_080218dc @ =0x03000738
+    ldr r1, lbl_080218dc @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x2f
     ldrb r6, [r0]
-    ldr r2, lbl_080218e0 @ =0x030001ac
+    ldr r2, lbl_080218e0 @ =gSpriteData
     lsls r0, r6, #3
     subs r0, r0, r6
     lsls r0, r0, #3
@@ -2506,8 +1575,8 @@ lbl_080218c8:
     ldr r0, lbl_080218e8 @ =0x082d7a84
     b lbl_080218fc
     .align 2, 0
-lbl_080218dc: .4byte 0x03000738
-lbl_080218e0: .4byte 0x030001ac
+lbl_080218dc: .4byte gCurrentSprite
+lbl_080218e0: .4byte gSpriteData
 lbl_080218e4: .4byte 0x082d79d4
 lbl_080218e8: .4byte 0x082d7a84
 lbl_080218ec:
@@ -2523,7 +1592,7 @@ lbl_080218fc:
     strb r4, [r5, #0x1c]
     strh r4, [r5, #0x16]
 lbl_08021902:
-    ldr r4, lbl_08021954 @ =0x03000738
+    ldr r4, lbl_08021954 @ =gCurrentSprite
     adds r7, r4, #0
     adds r7, #0x2c
     ldrb r0, [r7]
@@ -2560,7 +1629,7 @@ lbl_08021902:
     .align 2, 0
 lbl_0802194c: .4byte 0x082d7984
 lbl_08021950: .4byte 0x082d7a5c
-lbl_08021954: .4byte 0x03000738
+lbl_08021954: .4byte gCurrentSprite
 lbl_08021958: .4byte 0x082d79fc
 lbl_0802195c: .4byte 0x0000ffdf
 lbl_08021960: .4byte 0x0000019d
@@ -2568,7 +1637,7 @@ lbl_08021964:
     ldrh r3, [r4, #4]
     adds r1, r3, #0
     subs r1, #0x60
-    ldr r0, lbl_08021990 @ =0x030013d4
+    ldr r0, lbl_08021990 @ =gSamusData
     ldrh r2, [r0, #0x12]
     adds r5, r0, #0
     cmp r1, r2
@@ -2588,9 +1657,9 @@ lbl_08021984:
     strb r0, [r7]
     b lbl_08021aee
     .align 2, 0
-lbl_08021990: .4byte 0x030013d4
+lbl_08021990: .4byte gSamusData
 lbl_08021994:
-    ldr r1, lbl_080219ac @ =0x03000738
+    ldr r1, lbl_080219ac @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x2d
     movs r0, #0
@@ -2602,7 +1671,7 @@ lbl_08021994:
     strh r0, [r1, #0x12]
     b lbl_08021a68
     .align 2, 0
-lbl_080219ac: .4byte 0x03000738
+lbl_080219ac: .4byte gCurrentSprite
 lbl_080219b0:
     cmp r0, #0x17
     beq lbl_080219b6
@@ -2620,7 +1689,7 @@ lbl_080219c0:
     strh r5, [r4, #0x16]
     movs r0, #0x40
     strh r0, [r4, #0xc]
-    ldr r0, lbl_080219f4 @ =0x030001ac
+    ldr r0, lbl_080219f4 @ =gSpriteData
     lsls r1, r6, #3
     subs r1, r1, r6
     lsls r1, r1, #3
@@ -2637,7 +1706,7 @@ lbl_080219c0:
     .align 2, 0
 lbl_080219ec: .4byte 0x082d7a5c
 lbl_080219f0: .4byte 0x082d79d4
-lbl_080219f4: .4byte 0x030001ac
+lbl_080219f4: .4byte gSpriteData
 lbl_080219f8: .4byte 0x00000199
 lbl_080219fc:
     adds r4, r5, #0
@@ -2708,7 +1777,7 @@ lbl_08021a72:
     lsls r5, r5, #1
     movs r2, #8
 lbl_08021a80:
-    ldr r3, lbl_08021aac @ =0x03000738
+    ldr r3, lbl_08021aac @ =gCurrentSprite
     ldrh r1, [r3, #2]
     ldrh r0, [r3, #6]
     adds r0, r0, r5
@@ -2730,7 +1799,7 @@ lbl_08021a80:
     bl SoundPlay
     b lbl_08021aee
     .align 2, 0
-lbl_08021aac: .4byte 0x03000738
+lbl_08021aac: .4byte gCurrentSprite
 lbl_08021ab0:
     movs r0, #0xcf
     lsls r0, r0, #1
@@ -2750,7 +1819,7 @@ lbl_08021aba:
     strb r2, [r3, #0x1c]
     strh r2, [r3, #0x16]
     strh r2, [r3, #0xc]
-    ldr r0, lbl_08021afc @ =0x030001ac
+    ldr r0, lbl_08021afc @ =gSpriteData
     lsls r1, r6, #3
     subs r1, r1, r6
     lsls r1, r1, #3
@@ -2770,18 +1839,18 @@ lbl_08021aee:
     bx r0
     .align 2, 0
 lbl_08021af8: .4byte 0x082d7984
-lbl_08021afc: .4byte 0x030001ac
+lbl_08021afc: .4byte gSpriteData
 lbl_08021b00: .4byte 0x00007fff
 
     thumb_func_start DeoremRetracting
 DeoremRetracting: @ 0x08021b04
     push {r4, r5, lr}
-    ldr r4, lbl_08021b78 @ =0x03000738
+    ldr r4, lbl_08021b78 @ =gCurrentSprite
     adds r0, r4, #0
     adds r0, #0x2f
     ldrb r0, [r0]
     adds r2, r0, #0
-    ldr r1, lbl_08021b7c @ =0x030001ac
+    ldr r1, lbl_08021b7c @ =gSpriteData
     lsls r0, r2, #3
     subs r0, r0, r2
     lsls r0, r0, #3
@@ -2809,7 +1878,7 @@ DeoremRetracting: @ 0x08021b04
     movs r0, #0x90
     strh r0, [r4, #0x10]
 lbl_08021b48:
-    ldr r2, lbl_08021b78 @ =0x03000738
+    ldr r2, lbl_08021b78 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2c
     ldrb r0, [r1]
@@ -2827,18 +1896,18 @@ lbl_08021b48:
     beq lbl_08021b6a
     b lbl_08021c68
 lbl_08021b6a:
-    ldr r0, lbl_08021b8c @ =0x030013d4
+    ldr r0, lbl_08021b8c @ =gSamusData
     ldrh r1, [r0, #0x12]
     movs r0, #0x10
     bl sub_08020d90
     b lbl_08021c68
     .align 2, 0
-lbl_08021b78: .4byte 0x03000738
-lbl_08021b7c: .4byte 0x030001ac
+lbl_08021b78: .4byte gCurrentSprite
+lbl_08021b7c: .4byte gSpriteData
 lbl_08021b80: .4byte 0x082d7984
 lbl_08021b84: .4byte 0x082d7a5c
 lbl_08021b88: .4byte 0x0000ff70
-lbl_08021b8c: .4byte 0x030013d4
+lbl_08021b8c: .4byte gSamusData
 lbl_08021b90:
     cmp r0, #0
     bne lbl_08021c68
@@ -2875,22 +1944,22 @@ lbl_08021bac:
     bne lbl_08021c68
     cmp r5, #0x3c
     beq lbl_08021be6
-    ldr r0, lbl_08021c0c @ =0x0300083c
+    ldr r0, lbl_08021c0c @ =gSpriteRNG
     ldrb r0, [r0]
     cmp r0, #0xa
     bhi lbl_08021be6
     cmp r5, #0x14
     bhi lbl_08021c5c
 lbl_08021be6:
-    ldr r0, lbl_08021c10 @ =0x0300080c
+    ldr r0, lbl_08021c10 @ =gBossWork
     ldrh r0, [r0, #4]
     cmp r0, #0
     beq lbl_08021c20
-    ldr r2, lbl_08021c14 @ =0x03000738
+    ldr r2, lbl_08021c14 @ =gCurrentSprite
     ldrh r0, [r2, #8]
     ldr r1, lbl_08021c18 @ =0xfffffe60
     adds r0, r0, r1
-    ldr r1, lbl_08021c1c @ =0x030013d4
+    ldr r1, lbl_08021c1c @ =gSamusData
     ldrh r1, [r1, #0x12]
     cmp r0, r1
     bgt lbl_08021c44
@@ -2900,18 +1969,18 @@ lbl_08021be6:
     b lbl_08021c4a
     .align 2, 0
 lbl_08021c08: .4byte 0x0000ffa0
-lbl_08021c0c: .4byte 0x0300083c
-lbl_08021c10: .4byte 0x0300080c
-lbl_08021c14: .4byte 0x03000738
+lbl_08021c0c: .4byte gSpriteRNG
+lbl_08021c10: .4byte gBossWork
+lbl_08021c14: .4byte gCurrentSprite
 lbl_08021c18: .4byte 0xfffffe60
-lbl_08021c1c: .4byte 0x030013d4
+lbl_08021c1c: .4byte gSamusData
 lbl_08021c20:
-    ldr r2, lbl_08021c3c @ =0x03000738
+    ldr r2, lbl_08021c3c @ =gCurrentSprite
     ldrh r0, [r2, #8]
     movs r1, #0xd0
     lsls r1, r1, #1
     adds r0, r0, r1
-    ldr r1, lbl_08021c40 @ =0x030013d4
+    ldr r1, lbl_08021c40 @ =gSamusData
     ldrh r1, [r1, #0x12]
     cmp r0, r1
     ble lbl_08021c44
@@ -2920,8 +1989,8 @@ lbl_08021c20:
     movs r0, #0x28
     b lbl_08021c4a
     .align 2, 0
-lbl_08021c3c: .4byte 0x03000738
-lbl_08021c40: .4byte 0x030013d4
+lbl_08021c3c: .4byte gCurrentSprite
+lbl_08021c40: .4byte gSamusData
 lbl_08021c44:
     adds r1, r2, #0
     adds r1, #0x24
@@ -2954,11 +2023,11 @@ DeoremThrowingThorns: @ 0x08021c70
     mov r7, sb
     mov r6, r8
     push {r6, r7}
-    ldr r2, lbl_08021d08 @ =0x03000738
+    ldr r2, lbl_08021d08 @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x2f
     ldrb r6, [r0]
-    ldr r1, lbl_08021d0c @ =0x030001ac
+    ldr r1, lbl_08021d0c @ =gSpriteData
     lsls r0, r6, #3
     subs r0, r0, r6
     lsls r0, r0, #3
@@ -3012,7 +2081,7 @@ lbl_08021cc4:
     strh r7, [r4, #0x16]
     movs r0, #0x40
     strh r0, [r4, #0xc]
-    ldr r0, lbl_08021d0c @ =0x030001ac
+    ldr r0, lbl_08021d0c @ =gSpriteData
     lsls r1, r6, #3
     subs r1, r1, r6
     lsls r1, r1, #3
@@ -3027,8 +2096,8 @@ lbl_08021cc4:
     bl SoundPlay
     b lbl_08021d34
     .align 2, 0
-lbl_08021d08: .4byte 0x03000738
-lbl_08021d0c: .4byte 0x030001ac
+lbl_08021d08: .4byte gCurrentSprite
+lbl_08021d0c: .4byte gSpriteData
 lbl_08021d10: .4byte 0x082d7a5c
 lbl_08021d14: .4byte 0x082d79d4
 lbl_08021d18: .4byte 0x00000199
@@ -3045,7 +2114,7 @@ lbl_08021d1c:
     strb r7, [r1, #0x1c]
     strh r7, [r1, #0x16]
 lbl_08021d34:
-    ldr r1, lbl_08021d60 @ =0x03000738
+    ldr r1, lbl_08021d60 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x2c
     ldrb r0, [r2]
@@ -3067,12 +2136,12 @@ lbl_08021d4c:
     .align 2, 0
 lbl_08021d58: .4byte 0x082d79d4
 lbl_08021d5c: .4byte 0x082d7a84
-lbl_08021d60: .4byte 0x03000738
+lbl_08021d60: .4byte gCurrentSprite
 
     thumb_func_start DeoremAfterThorns
 DeoremAfterThorns: @ 0x08021d64
     push {r4, lr}
-    ldr r4, lbl_08021da4 @ =0x03000738
+    ldr r4, lbl_08021da4 @ =gCurrentSprite
     ldr r1, [r4, #0x18]
     ldr r0, lbl_08021da8 @ =0x082d79d4
     cmp r1, r0
@@ -3086,7 +2155,7 @@ DeoremAfterThorns: @ 0x08021d64
     strb r0, [r4, #0x1c]
     strh r0, [r4, #0x16]
 lbl_08021d82:
-    ldr r2, lbl_08021da4 @ =0x03000738
+    ldr r2, lbl_08021da4 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2c
     ldrb r0, [r1]
@@ -3104,14 +2173,14 @@ lbl_08021d9e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08021da4: .4byte 0x03000738
+lbl_08021da4: .4byte gCurrentSprite
 lbl_08021da8: .4byte 0x082d79d4
 lbl_08021dac: .4byte 0x082d7a84
 
     thumb_func_start DeoremDying
 DeoremDying: @ 0x08021db0
     push {r4, r5, lr}
-    ldr r5, lbl_08021e18 @ =0x03000738
+    ldr r5, lbl_08021e18 @ =gCurrentSprite
     ldr r0, lbl_08021e1c @ =0x082d7aac
     str r0, [r5, #0x18]
     movs r0, #0
@@ -3132,7 +2201,7 @@ DeoremDying: @ 0x08021db0
     bl deorem_left_change_ccaa
     movs r0, #1
     bl deorem_right_change_ccaa
-    ldr r0, lbl_08021e20 @ =0x03000100
+    ldr r0, lbl_08021e20 @ =gLockScreen
     strb r4, [r0]
     movs r0, #1
     movs r1, #0x19
@@ -3157,15 +2226,15 @@ lbl_08021e02:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08021e18: .4byte 0x03000738
+lbl_08021e18: .4byte gCurrentSprite
 lbl_08021e1c: .4byte 0x082d7aac
-lbl_08021e20: .4byte 0x03000100
+lbl_08021e20: .4byte gLockScreen
 lbl_08021e24: .4byte 0x0000019b
 
     thumb_func_start DeoremDyingGoingDown
 DeoremDyingGoingDown: @ 0x08021e28
     push {lr}
-    ldr r2, lbl_08021e48 @ =0x03000738
+    ldr r2, lbl_08021e48 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x26
     movs r0, #1
@@ -3181,7 +2250,7 @@ DeoremDyingGoingDown: @ 0x08021e28
     strh r0, [r2, #2]
     b lbl_08021e70
     .align 2, 0
-lbl_08021e48: .4byte 0x03000738
+lbl_08021e48: .4byte gCurrentSprite
 lbl_08021e4c:
     adds r1, r2, #0
     adds r1, #0x24
@@ -3209,7 +2278,7 @@ lbl_08021e70:
 DeoremDeath: @ 0x08021e74
     push {lr}
     sub sp, #4
-    ldr r2, lbl_08021ea8 @ =0x03000738
+    ldr r2, lbl_08021ea8 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x26
     movs r0, #1
@@ -3234,12 +2303,12 @@ lbl_08021ea2:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08021ea8: .4byte 0x03000738
+lbl_08021ea8: .4byte gCurrentSprite
 
     thumb_func_start DeoremCheckLeaving_to_ceiling_anim_ended
 DeoremCheckLeaving_to_ceiling_anim_ended: @ 0x08021eac
     push {r4, lr}
-    ldr r4, lbl_08021ed4 @ =0x03000738
+    ldr r4, lbl_08021ed4 @ =gCurrentSprite
     ldr r1, [r4, #0x18]
     ldr r0, lbl_08021ed8 @ =0x082d79d4
     cmp r1, r0
@@ -3258,7 +2327,7 @@ lbl_08021ebe:
     strh r0, [r4, #0x16]
     b lbl_08021f00
     .align 2, 0
-lbl_08021ed4: .4byte 0x03000738
+lbl_08021ed4: .4byte gCurrentSprite
 lbl_08021ed8: .4byte 0x082d79d4
 lbl_08021edc: .4byte 0x082d7a84
 lbl_08021ee0: .4byte 0x082d795c
@@ -3292,7 +2361,7 @@ DeoremLeaving: @ 0x08021f0c
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0xc
-    ldr r1, lbl_08021f2c @ =0x03000738
+    ldr r1, lbl_08021f2c @ =gCurrentSprite
     ldrh r2, [r1, #2]
     ldrh r0, [r1, #6]
     subs r0, #0x40
@@ -3303,10 +2372,10 @@ DeoremLeaving: @ 0x08021f0c
     strh r0, [r7, #2]
     b lbl_0802207a
     .align 2, 0
-lbl_08021f2c: .4byte 0x03000738
+lbl_08021f2c: .4byte gCurrentSprite
 lbl_08021f30:
     movs r3, #0
-    ldr r4, lbl_08021fb8 @ =0x030001ac
+    ldr r4, lbl_08021fb8 @ =gSpriteData
 lbl_08021f34:
     lsls r0, r3, #3
     subs r0, r0, r3
@@ -3344,7 +2413,7 @@ lbl_08021f62:
     cmp r0, #0
     beq lbl_08021fc0
     adds r2, r0, #0
-    ldr r3, lbl_08021fbc @ =0x0300080c
+    ldr r3, lbl_08021fbc @ =gBossWork
     ldrh r0, [r3]
     subs r0, #0x20
     lsls r0, r0, #0x10
@@ -3364,7 +2433,7 @@ lbl_08021f62:
     lsrs r3, r0, #0x18
     cmp r3, #0
     bne lbl_0802207a
-    ldr r2, lbl_08021fb8 @ =0x030001ac
+    ldr r2, lbl_08021fb8 @ =gSpriteData
     adds r0, r7, #0
     adds r0, #0x2f
     ldrb r1, [r0]
@@ -3375,10 +2444,10 @@ lbl_08021f62:
     strh r3, [r0]
     b lbl_0802207a
     .align 2, 0
-lbl_08021fb8: .4byte 0x030001ac
-lbl_08021fbc: .4byte 0x0300080c
+lbl_08021fb8: .4byte gSpriteData
+lbl_08021fbc: .4byte gBossWork
 lbl_08021fc0:
-    ldr r1, lbl_08022050 @ =0x0300080c
+    ldr r1, lbl_08022050 @ =gBossWork
     movs r2, #0xd0
     lsls r2, r2, #1
     adds r0, r2, #0
@@ -3429,7 +2498,7 @@ lbl_08021fc0:
     bl deorem_left_change_ccaa
     movs r0, #1
     bl deorem_right_change_ccaa
-    ldr r0, lbl_08022054 @ =0x03000100
+    ldr r0, lbl_08022054 @ =gLockScreen
     mov r1, sb
     strb r1, [r0]
     ldrb r0, [r7, #0x1d]
@@ -3443,8 +2512,8 @@ lbl_08021fc0:
     bl EventFunction
     b lbl_08022068
     .align 2, 0
-lbl_08022050: .4byte 0x0300080c
-lbl_08022054: .4byte 0x03000100
+lbl_08022050: .4byte gBossWork
+lbl_08022054: .4byte gLockScreen
 lbl_08022058:
     movs r0, #0
     movs r1, #0x19
@@ -3474,7 +2543,7 @@ lbl_0802207a:
     thumb_func_start DeoremLeavingAnim
 DeoremLeavingAnim: @ 0x0802208c
     push {lr}
-    ldr r2, lbl_080220c8 @ =0x03000c77
+    ldr r2, lbl_080220c8 @ =gFrameCounter8Bit
     ldrb r1, [r2]
     movs r0, #0xf
     ands r0, r1
@@ -3491,7 +2560,7 @@ lbl_080220a8:
     movs r1, #0x81
     bl ScreenShakeStartVertical
 lbl_080220b0:
-    ldr r2, lbl_080220cc @ =0x03000738
+    ldr r2, lbl_080220cc @ =gCurrentSprite
     ldrh r1, [r2, #2]
     ldrh r0, [r2, #6]
     movs r3, #0xb0
@@ -3504,8 +2573,8 @@ lbl_080220b0:
     strh r0, [r2, #2]
     b lbl_080220e8
     .align 2, 0
-lbl_080220c8: .4byte 0x03000c77
-lbl_080220cc: .4byte 0x03000738
+lbl_080220c8: .4byte gFrameCounter8Bit
+lbl_080220cc: .4byte gCurrentSprite
 lbl_080220d0:
     ldrh r1, [r2]
     ldr r3, lbl_080220ec @ =0x00008004
@@ -3528,11 +2597,11 @@ lbl_080220ec: .4byte 0x00008004
     thumb_func_start DeoremLeavingInGroundDebris
 DeoremLeavingInGroundDebris: @ 0x080220f0
     push {lr}
-    ldr r0, lbl_08022138 @ =0x03000738
+    ldr r0, lbl_08022138 @ =gCurrentSprite
     adds r0, #0x26
     movs r1, #1
     strb r1, [r0]
-    ldr r2, lbl_0802213c @ =0x03000c77
+    ldr r2, lbl_0802213c @ =gFrameCounter8Bit
     ldrb r1, [r2]
     movs r0, #0xf
     ands r0, r1
@@ -3549,7 +2618,7 @@ lbl_08022114:
     movs r1, #0x81
     bl ScreenShakeStartVertical
 lbl_0802211c:
-    ldr r2, lbl_08022138 @ =0x03000738
+    ldr r2, lbl_08022138 @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x2d
     ldrb r0, [r1]
@@ -3564,13 +2633,13 @@ lbl_08022132:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08022138: .4byte 0x03000738
-lbl_0802213c: .4byte 0x03000c77
+lbl_08022138: .4byte gCurrentSprite
+lbl_0802213c: .4byte gFrameCounter8Bit
 
     thumb_func_start DeoremSegmentInit
 DeoremSegmentInit: @ 0x08022140
     push {r4, lr}
-    ldr r0, lbl_0802217c @ =0x03000738
+    ldr r0, lbl_0802217c @ =gCurrentSprite
     mov ip, r0
     adds r0, #0x33
     movs r3, #0
@@ -3599,7 +2668,7 @@ DeoremSegmentInit: @ 0x08022140
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0802217c: .4byte 0x03000738
+lbl_0802217c: .4byte gCurrentSprite
 lbl_08022180: .4byte 0x0000fffb
 lbl_08022184: .4byte lbl_08022188
 lbl_08022188: @ jump table
@@ -3833,7 +2902,7 @@ lbl_08022356:
     thumb_func_start DeoremSegmentSpawnGoingDown
 DeoremSegmentSpawnGoingDown: @ 0x0802235c
     push {r4, r5, r6, lr}
-    ldr r1, lbl_08022384 @ =0x03000738
+    ldr r1, lbl_08022384 @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x23
     ldrb r5, [r0]
@@ -3841,7 +2910,7 @@ DeoremSegmentSpawnGoingDown: @ 0x0802235c
     mov ip, r1
     cmp r0, #0
     bne lbl_0802238c
-    ldr r1, lbl_08022388 @ =0x030001ac
+    ldr r1, lbl_08022388 @ =gSpriteData
     lsls r2, r5, #3
     subs r0, r2, r5
     lsls r0, r0, #3
@@ -3852,10 +2921,10 @@ DeoremSegmentSpawnGoingDown: @ 0x0802235c
     strh r0, [r3, #2]
     b lbl_080223b0
     .align 2, 0
-lbl_08022384: .4byte 0x03000738
-lbl_08022388: .4byte 0x030001ac
+lbl_08022384: .4byte gCurrentSprite
+lbl_08022388: .4byte gSpriteData
 lbl_0802238c:
-    ldr r3, lbl_080223e4 @ =0x030001ac
+    ldr r3, lbl_080223e4 @ =gSpriteData
     lsls r4, r5, #3
     subs r0, r4, r5
     lsls r0, r0, #3
@@ -3902,7 +2971,7 @@ lbl_080223de:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080223e4: .4byte 0x030001ac
+lbl_080223e4: .4byte gSpriteData
 lbl_080223e8: .4byte 0x082d7894
 
     thumb_func_start DeoremSegmentSpawnGoingDownAfter
@@ -3912,12 +2981,12 @@ DeoremSegmentSpawnGoingDownAfter: @ 0x080223ec
     mov r6, r8
     push {r6, r7}
     sub sp, #0xc
-    ldr r2, lbl_080224ac @ =0x03000738
+    ldr r2, lbl_080224ac @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x23
     ldrb r6, [r0]
     movs r7, #0x10
-    ldr r0, lbl_080224b0 @ =0x030001ac
+    ldr r0, lbl_080224b0 @ =gSpriteData
     lsls r1, r6, #3
     subs r1, r1, r6
     lsls r1, r1, #3
@@ -4005,13 +3074,13 @@ lbl_0802249e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080224ac: .4byte 0x03000738
-lbl_080224b0: .4byte 0x030001ac
+lbl_080224ac: .4byte gCurrentSprite
+lbl_080224b0: .4byte gSpriteData
 
     thumb_func_start DeoremSegmentSpawnGoingUp
 DeoremSegmentSpawnGoingUp: @ 0x080224b4
     push {r4, r5, lr}
-    ldr r1, lbl_080224dc @ =0x03000738
+    ldr r1, lbl_080224dc @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x23
     ldrb r5, [r0]
@@ -4019,7 +3088,7 @@ DeoremSegmentSpawnGoingUp: @ 0x080224b4
     mov ip, r1
     cmp r0, #6
     bne lbl_080224e4
-    ldr r1, lbl_080224e0 @ =0x030001ac
+    ldr r1, lbl_080224e0 @ =gSpriteData
     lsls r2, r5, #3
     subs r0, r2, r5
     lsls r0, r0, #3
@@ -4030,10 +3099,10 @@ DeoremSegmentSpawnGoingUp: @ 0x080224b4
     strh r0, [r3, #2]
     b lbl_08022506
     .align 2, 0
-lbl_080224dc: .4byte 0x03000738
-lbl_080224e0: .4byte 0x030001ac
+lbl_080224dc: .4byte gCurrentSprite
+lbl_080224e0: .4byte gSpriteData
 lbl_080224e4:
-    ldr r3, lbl_0802253c @ =0x030001ac
+    ldr r3, lbl_0802253c @ =gSpriteData
     lsls r4, r5, #3
     subs r0, r4, r5
     lsls r0, r0, #3
@@ -4079,7 +3148,7 @@ lbl_08022534:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802253c: .4byte 0x030001ac
+lbl_0802253c: .4byte gSpriteData
 lbl_08022540: .4byte 0x082d7894
 
     thumb_func_start DeoremSegmentSpawnGoingUpAfter
@@ -4089,12 +3158,12 @@ DeoremSegmentSpawnGoingUpAfter: @ 0x08022544
     mov r6, r8
     push {r6, r7}
     sub sp, #0xc
-    ldr r2, lbl_08022604 @ =0x03000738
+    ldr r2, lbl_08022604 @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x23
     ldrb r6, [r0]
     movs r7, #0x10
-    ldr r0, lbl_08022608 @ =0x030001ac
+    ldr r0, lbl_08022608 @ =gSpriteData
     lsls r1, r6, #3
     subs r1, r1, r6
     lsls r1, r1, #3
@@ -4182,19 +3251,19 @@ lbl_080225f6:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08022604: .4byte 0x03000738
-lbl_08022608: .4byte 0x030001ac
+lbl_08022604: .4byte gCurrentSprite
+lbl_08022608: .4byte gSpriteData
 
     thumb_func_start DeoremSegmentRightIdleAnim
 DeoremSegmentRightIdleAnim: @ 0x0802260c
     push {r4, r5, r6, r7, lr}
     sub sp, #0xc
-    ldr r0, lbl_08022660 @ =0x03000738
+    ldr r0, lbl_08022660 @ =gCurrentSprite
     mov ip, r0
     mov r5, ip
     adds r5, #0x23
     ldrb r1, [r5]
-    ldr r2, lbl_08022664 @ =0x030001ac
+    ldr r2, lbl_08022664 @ =gSpriteData
     lsls r0, r1, #3
     subs r0, r0, r1
     lsls r0, r0, #3
@@ -4218,7 +3287,7 @@ DeoremSegmentRightIdleAnim: @ 0x0802260c
     adds r0, #0x18
     lsls r0, r0, #0x10
     lsrs r2, r0, #0x10
-    ldr r0, lbl_08022668 @ =0x0300080c
+    ldr r0, lbl_08022668 @ =gBossWork
     ldrh r0, [r0, #4]
     cmp r0, #0
     beq lbl_0802266c
@@ -4229,9 +3298,9 @@ DeoremSegmentRightIdleAnim: @ 0x0802260c
     movs r5, #0
     b lbl_08022678
     .align 2, 0
-lbl_08022660: .4byte 0x03000738
-lbl_08022664: .4byte 0x030001ac
-lbl_08022668: .4byte 0x0300080c
+lbl_08022660: .4byte gCurrentSprite
+lbl_08022664: .4byte gSpriteData
+lbl_08022668: .4byte gBossWork
 lbl_0802266c:
     mov r1, ip
     ldrh r0, [r1, #4]
@@ -4361,12 +3430,12 @@ lbl_08022748:
 DeoremSegmentLeftIdleAnim: @ 0x08022750
     push {r4, r5, r6, r7, lr}
     sub sp, #0xc
-    ldr r0, lbl_0802279c @ =0x03000738
+    ldr r0, lbl_0802279c @ =gCurrentSprite
     mov ip, r0
     mov r5, ip
     adds r5, #0x23
     ldrb r1, [r5]
-    ldr r2, lbl_080227a0 @ =0x030001ac
+    ldr r2, lbl_080227a0 @ =gSpriteData
     lsls r0, r1, #3
     subs r0, r0, r1
     lsls r0, r0, #3
@@ -4387,7 +3456,7 @@ DeoremSegmentLeftIdleAnim: @ 0x08022750
     ldrb r6, [r4, #0x1f]
     ldrb r7, [r5]
     ldrh r2, [r4, #2]
-    ldr r0, lbl_080227a4 @ =0x0300080c
+    ldr r0, lbl_080227a4 @ =gBossWork
     ldrh r0, [r0, #4]
     cmp r0, #0
     beq lbl_080227a8
@@ -4398,9 +3467,9 @@ DeoremSegmentLeftIdleAnim: @ 0x08022750
     movs r5, #0x40
     b lbl_080227b4
     .align 2, 0
-lbl_0802279c: .4byte 0x03000738
-lbl_080227a0: .4byte 0x030001ac
-lbl_080227a4: .4byte 0x0300080c
+lbl_0802279c: .4byte gCurrentSprite
+lbl_080227a0: .4byte gSpriteData
+lbl_080227a4: .4byte gBossWork
 lbl_080227a8:
     mov r1, ip
     ldrh r0, [r1, #4]
@@ -4533,7 +3602,7 @@ lbl_0802288a:
     thumb_func_start DeoremSegmentGoingDown
 DeoremSegmentGoingDown: @ 0x08022894
     push {r4, r5, lr}
-    ldr r1, lbl_080228d8 @ =0x03000738
+    ldr r1, lbl_080228d8 @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x23
     ldrb r2, [r0]
@@ -4549,7 +3618,7 @@ DeoremSegmentGoingDown: @ 0x08022894
     adds r0, #4
     strh r0, [r3, #2]
 lbl_080228b4:
-    ldr r0, lbl_080228dc @ =0x030001ac
+    ldr r0, lbl_080228dc @ =gSpriteData
     lsls r1, r2, #3
     subs r1, r1, r2
     lsls r1, r1, #3
@@ -4569,8 +3638,8 @@ lbl_080228d0:
     movs r0, #0xf
     b lbl_080228e6
     .align 2, 0
-lbl_080228d8: .4byte 0x03000738
-lbl_080228dc: .4byte 0x030001ac
+lbl_080228d8: .4byte gCurrentSprite
+lbl_080228dc: .4byte gSpriteData
 lbl_080228e0:
     adds r1, r3, #0
     adds r1, #0x24
@@ -4610,7 +3679,7 @@ lbl_0802291c: .4byte 0x00007fff
     thumb_func_start DeoremSegmentGoingUp
 DeoremSegmentGoingUp: @ 0x08022920
     push {r4, r5, lr}
-    ldr r1, lbl_08022964 @ =0x03000738
+    ldr r1, lbl_08022964 @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x23
     ldrb r2, [r0]
@@ -4626,7 +3695,7 @@ DeoremSegmentGoingUp: @ 0x08022920
     subs r0, #4
     strh r0, [r3, #2]
 lbl_08022940:
-    ldr r0, lbl_08022968 @ =0x030001ac
+    ldr r0, lbl_08022968 @ =gSpriteData
     lsls r1, r2, #3
     subs r1, r1, r2
     lsls r1, r1, #3
@@ -4646,8 +3715,8 @@ lbl_0802295c:
     movs r0, #0xf
     b lbl_08022972
     .align 2, 0
-lbl_08022964: .4byte 0x03000738
-lbl_08022968: .4byte 0x030001ac
+lbl_08022964: .4byte gCurrentSprite
+lbl_08022968: .4byte gSpriteData
 lbl_0802296c:
     adds r1, r3, #0
     adds r1, #0x24
@@ -4687,7 +3756,7 @@ lbl_080229a8: .4byte 0x00007fff
     thumb_func_start DeoremSegmentAboveHeadMovement
 DeoremSegmentAboveHeadMovement: @ 0x080229ac
     push {r4, r5, r6, r7, lr}
-    ldr r0, lbl_080229d4 @ =0x03000738
+    ldr r0, lbl_080229d4 @ =gCurrentSprite
     adds r1, r0, #0
     adds r1, #0x23
     ldrb r7, [r1]
@@ -4695,7 +3764,7 @@ DeoremSegmentAboveHeadMovement: @ 0x080229ac
     adds r6, r0, #0
     cmp r1, #0xc
     bne lbl_080229dc
-    ldr r2, lbl_080229d8 @ =0x030001ac
+    ldr r2, lbl_080229d8 @ =gSpriteData
     lsls r3, r7, #3
     subs r1, r3, r7
     lsls r1, r1, #3
@@ -4707,10 +3776,10 @@ DeoremSegmentAboveHeadMovement: @ 0x080229ac
     mov ip, r2
     b lbl_08022a0a
     .align 2, 0
-lbl_080229d4: .4byte 0x03000738
-lbl_080229d8: .4byte 0x030001ac
+lbl_080229d4: .4byte gCurrentSprite
+lbl_080229d8: .4byte gSpriteData
 lbl_080229dc:
-    ldr r3, lbl_08022a14 @ =0x030001ac
+    ldr r3, lbl_08022a14 @ =gSpriteData
     lsls r4, r7, #3
     subs r0, r4, r7
     lsls r0, r0, #3
@@ -4740,7 +3809,7 @@ lbl_08022a0a:
     subs r0, r1, r5
     b lbl_08022a1a
     .align 2, 0
-lbl_08022a14: .4byte 0x030001ac
+lbl_08022a14: .4byte gSpriteData
 lbl_08022a18:
     subs r0, r5, r1
 lbl_08022a1a:
@@ -4789,7 +3858,7 @@ lbl_08022a5a:
     thumb_func_start DeoremSegmentLeftLeaving
 DeoremSegmentLeftLeaving: @ 0x08022a60
     push {r4, r5, lr}
-    ldr r1, lbl_08022adc @ =0x03000738
+    ldr r1, lbl_08022adc @ =gCurrentSprite
     ldrh r4, [r1, #2]
     adds r0, r4, #0
     subs r0, #0x10
@@ -4852,7 +3921,7 @@ lbl_08022a9a:
     movs r0, #0x38
     b lbl_08022aee
     .align 2, 0
-lbl_08022adc: .4byte 0x03000738
+lbl_08022adc: .4byte gCurrentSprite
 lbl_08022ae0: .4byte 0x0000ffd0
 lbl_08022ae4: .4byte 0x0000ffc0
 lbl_08022ae8: .4byte 0x082d78e4
@@ -4885,7 +3954,7 @@ lbl_08022b0c:
     thumb_func_start DeoremSegmentLeftLeavingEnd
 DeoremSegmentLeftLeavingEnd: @ 0x08022b14
     push {lr}
-    ldr r2, lbl_08022b38 @ =0x03000738
+    ldr r2, lbl_08022b38 @ =gCurrentSprite
     ldrh r0, [r2, #2]
     subs r0, #0x10
     strh r0, [r2, #2]
@@ -4903,12 +3972,12 @@ lbl_08022b32:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08022b38: .4byte 0x03000738
+lbl_08022b38: .4byte gCurrentSprite
 
     thumb_func_start DeoremSegmentMiddleLeavingEnd
 DeoremSegmentMiddleLeavingEnd: @ 0x08022b3c
     push {lr}
-    ldr r2, lbl_08022b60 @ =0x03000738
+    ldr r2, lbl_08022b60 @ =gCurrentSprite
     ldrh r0, [r2, #2]
     adds r0, #0x10
     strh r0, [r2, #2]
@@ -4926,12 +3995,12 @@ lbl_08022b5a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08022b60: .4byte 0x03000738
+lbl_08022b60: .4byte gCurrentSprite
 
     thumb_func_start DeoremSegmentMiddleLeaving
 DeoremSegmentMiddleLeaving: @ 0x08022b64
     push {r4, r5, lr}
-    ldr r1, lbl_08022b8c @ =0x03000738
+    ldr r1, lbl_08022b8c @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x23
     ldrb r5, [r0]
@@ -4939,7 +4008,7 @@ DeoremSegmentMiddleLeaving: @ 0x08022b64
     mov ip, r1
     cmp r0, #0xc
     bne lbl_08022b94
-    ldr r1, lbl_08022b90 @ =0x030001ac
+    ldr r1, lbl_08022b90 @ =gSpriteData
     lsls r2, r5, #3
     subs r0, r2, r5
     lsls r0, r0, #3
@@ -4950,10 +4019,10 @@ DeoremSegmentMiddleLeaving: @ 0x08022b64
     strh r0, [r3, #2]
     b lbl_08022bb6
     .align 2, 0
-lbl_08022b8c: .4byte 0x03000738
-lbl_08022b90: .4byte 0x030001ac
+lbl_08022b8c: .4byte gCurrentSprite
+lbl_08022b90: .4byte gSpriteData
 lbl_08022b94:
-    ldr r3, lbl_08022bec @ =0x030001ac
+    ldr r3, lbl_08022bec @ =gSpriteData
     lsls r4, r5, #3
     subs r0, r4, r5
     lsls r0, r0, #3
@@ -4999,13 +4068,13 @@ lbl_08022be4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08022bec: .4byte 0x030001ac
+lbl_08022bec: .4byte gSpriteData
 lbl_08022bf0: .4byte 0x082d7894
 
     thumb_func_start DeoremSegmentRighLeaving
 DeoremSegmentRighLeaving: @ 0x08022bf4
     push {r4, r5, lr}
-    ldr r2, lbl_08022c84 @ =0x03000738
+    ldr r2, lbl_08022c84 @ =gCurrentSprite
     ldrh r3, [r2, #2]
     adds r0, r3, #0
     adds r0, #0x10
@@ -5080,7 +4149,7 @@ lbl_08022c7e:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08022c84: .4byte 0x03000738
+lbl_08022c84: .4byte gCurrentSprite
 lbl_08022c88: .4byte 0x0000ffd0
 lbl_08022c8c: .4byte 0x0000ffc0
 lbl_08022c90: .4byte 0x082d78e4
@@ -5088,7 +4157,7 @@ lbl_08022c90: .4byte 0x082d78e4
     thumb_func_start DeoremSegmentRighLeavingEnd
 DeoremSegmentRighLeavingEnd: @ 0x08022c94
     push {lr}
-    ldr r2, lbl_08022cb8 @ =0x03000738
+    ldr r2, lbl_08022cb8 @ =gCurrentSprite
     ldrh r0, [r2, #2]
     adds r0, #0x10
     strh r0, [r2, #2]
@@ -5106,13 +4175,13 @@ lbl_08022cb2:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08022cb8: .4byte 0x03000738
+lbl_08022cb8: .4byte gCurrentSprite
 
     thumb_func_start DeoremSegmentSetTimerDying
 DeoremSegmentSetTimerDying: @ 0x08022cbc
     push {lr}
     movs r2, #6
-    ldr r1, lbl_08022cd4 @ =0x03000738
+    ldr r1, lbl_08022cd4 @ =gCurrentSprite
     ldrb r0, [r1, #0x1e]
     adds r3, r1, #0
     cmp r0, #0x13
@@ -5123,7 +4192,7 @@ DeoremSegmentSetTimerDying: @ 0x08022cbc
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08022cd4: .4byte 0x03000738
+lbl_08022cd4: .4byte gCurrentSprite
 lbl_08022cd8: .4byte lbl_08022cdc
 lbl_08022cdc: @ jump table
     .4byte lbl_08022d5a @ case 0
@@ -5239,7 +4308,7 @@ lbl_08022d88:
 DeoremSegmentDying: @ 0x08022db4
     push {r4, r5, r6, r7, lr}
     sub sp, #4
-    ldr r1, lbl_08022dec @ =0x03000738
+    ldr r1, lbl_08022dec @ =gCurrentSprite
     adds r0, r1, #0
     adds r0, #0x26
     movs r6, #1
@@ -5247,7 +4316,7 @@ DeoremSegmentDying: @ 0x08022db4
     ldrh r5, [r1, #4]
     ldrb r3, [r1, #0x1e]
     adds r4, r3, #0
-    ldr r0, lbl_08022df0 @ =0x0300083c
+    ldr r0, lbl_08022df0 @ =gSpriteRNG
     ldrb r0, [r0]
     lsls r0, r0, #0x19
     lsrs r2, r0, #0x18
@@ -5267,8 +4336,8 @@ lbl_08022dde:
     adds r0, r0, r3
     b lbl_08022df8
     .align 2, 0
-lbl_08022dec: .4byte 0x03000738
-lbl_08022df0: .4byte 0x0300083c
+lbl_08022dec: .4byte gCurrentSprite
+lbl_08022df0: .4byte gSpriteRNG
 lbl_08022df4:
     adds r0, r2, r4
     subs r0, r5, r0
@@ -5293,7 +4362,7 @@ lbl_08022df8:
     adds r2, r5, #0
     movs r3, #0
     bl SpriteUtilSpriteDeath
-    ldr r0, lbl_08022e44 @ =0x0300080c
+    ldr r0, lbl_08022e44 @ =gBossWork
     ldrh r1, [r0]
     movs r2, #0xe0
     lsls r2, r2, #1
@@ -5312,12 +4381,12 @@ lbl_08022e3a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08022e44: .4byte 0x0300080c
+lbl_08022e44: .4byte gBossWork
 
     thumb_func_start DeoremEyeInit
 DeoremEyeInit: @ 0x08022e48
     push {r4, r5, r6, lr}
-    ldr r6, lbl_08022ef0 @ =0x03000738
+    ldr r6, lbl_08022ef0 @ =gCurrentSprite
     ldrh r0, [r6]
     movs r4, #8
     movs r3, #0
@@ -5388,8 +4457,8 @@ DeoremEyeInit: @ 0x08022e48
     lsrs r0, r0, #1
     strh r0, [r6, #6]
 lbl_08022eda:
-    ldr r2, lbl_08022ef0 @ =0x03000738
-    ldr r1, lbl_08022f08 @ =0x030013d4
+    ldr r2, lbl_08022ef0 @ =gCurrentSprite
+    ldr r1, lbl_08022f08 @ =gSamusData
     ldrh r0, [r2, #4]
     ldrh r1, [r1, #0x12]
     cmp r0, r1
@@ -5399,13 +4468,13 @@ lbl_08022eda:
     movs r1, #0x80
     b lbl_08022f12
     .align 2, 0
-lbl_08022ef0: .4byte 0x03000738
+lbl_08022ef0: .4byte gCurrentSprite
 lbl_08022ef4: .4byte 0x0000fffb
 lbl_08022ef8: .4byte 0x082b1be4
 lbl_08022efc: .4byte 0x0000ffc0
 lbl_08022f00: .4byte 0x0000ffd8
 lbl_08022f04: .4byte 0x082d792c
-lbl_08022f08: .4byte 0x030013d4
+lbl_08022f08: .4byte gSamusData
 lbl_08022f0c:
     adds r0, r2, #0
     adds r0, #0x2a
@@ -5425,13 +4494,13 @@ lbl_08022f12:
 
     thumb_func_start DeoremEyeSetPose9
 DeoremEyeSetPose9: @ 0x08022f28
-    ldr r0, lbl_08022f34 @ =0x03000738
+    ldr r0, lbl_08022f34 @ =gCurrentSprite
     adds r0, #0x24
     movs r1, #9
     strb r1, [r0]
     bx lr
     .align 2, 0
-lbl_08022f34: .4byte 0x03000738
+lbl_08022f34: .4byte gCurrentSprite
 
     thumb_func_start DeoremEyeMove
 DeoremEyeMove: @ 0x08022f38
@@ -5440,7 +4509,7 @@ DeoremEyeMove: @ 0x08022f38
     mov r6, r8
     push {r6, r7}
     movs r7, #2
-    ldr r2, lbl_08022f90 @ =0x03000738
+    ldr r2, lbl_08022f90 @ =gCurrentSprite
     adds r0, r2, #0
     adds r0, #0x23
     ldrb r0, [r0]
@@ -5448,14 +4517,14 @@ DeoremEyeMove: @ 0x08022f38
     adds r0, r2, #0
     adds r0, #0x2c
     ldrb r3, [r0]
-    ldr r1, lbl_08022f94 @ =0x030013d4
+    ldr r1, lbl_08022f94 @ =gSamusData
     ldrh r0, [r1, #0x14]
     subs r0, #0x48
     lsls r0, r0, #0x10
     asrs r6, r0, #0x10
     movs r0, #0x12
     ldrsh r4, [r1, r0]
-    ldr r1, lbl_08022f98 @ =0x030001ac
+    ldr r1, lbl_08022f98 @ =gSpriteData
     mov sb, r1
     mov r1, r8
     lsls r0, r1, #3
@@ -5480,9 +4549,9 @@ lbl_08022f84:
     movs r1, #0xe0
     b lbl_08022fc2
     .align 2, 0
-lbl_08022f90: .4byte 0x03000738
-lbl_08022f94: .4byte 0x030013d4
-lbl_08022f98: .4byte 0x030001ac
+lbl_08022f90: .4byte gCurrentSprite
+lbl_08022f94: .4byte gSamusData
+lbl_08022f98: .4byte gSpriteData
 lbl_08022f9c:
     subs r0, r5, r6
     movs r1, #0xa0
@@ -5662,7 +4731,7 @@ lbl_080230a6:
     thumb_func_start sub_080230d4
 sub_080230d4: @ 0x080230d4
     push {r4, lr}
-    ldr r4, lbl_08023108 @ =0x03000738
+    ldr r4, lbl_08023108 @ =gCurrentSprite
     ldr r0, [r4, #0x18]
     ldr r2, lbl_0802310c @ =0x082d792c
     cmp r0, r2
@@ -5670,7 +4739,7 @@ sub_080230d4: @ 0x080230d4
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_08023134
-    ldr r0, lbl_08023110 @ =0x0300083c
+    ldr r0, lbl_08023110 @ =gSpriteRNG
     ldrb r1, [r0]
     cmp r1, #9
     bhi lbl_08023134
@@ -5687,9 +4756,9 @@ sub_080230d4: @ 0x080230d4
     strb r0, [r1]
     b lbl_08023134
     .align 2, 0
-lbl_08023108: .4byte 0x03000738
+lbl_08023108: .4byte gCurrentSprite
 lbl_0802310c: .4byte 0x082d792c
-lbl_08023110: .4byte 0x0300083c
+lbl_08023110: .4byte gSpriteRNG
 lbl_08023114: .4byte 0x082d791c
 lbl_08023118:
     adds r1, r4, #0
@@ -5718,12 +4787,12 @@ lbl_08023134:
     bl EventFunction
     cmp r0, #0
     bne lbl_08023158
-    ldr r0, lbl_0802316c @ =0x03000738
+    ldr r0, lbl_0802316c @ =gCurrentSprite
     ldrh r0, [r0, #0x14]
     cmp r0, #0x3c
     beq lbl_08023164
 lbl_08023158:
-    ldr r1, lbl_0802316c @ =0x03000738
+    ldr r1, lbl_0802316c @ =gCurrentSprite
     ldrh r0, [r1, #6]
     cmp r0, #0
     beq lbl_08023164
@@ -5734,15 +4803,15 @@ lbl_08023164:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802316c: .4byte 0x03000738
+lbl_0802316c: .4byte gCurrentSprite
 
     thumb_func_start DeoremEyeDyingGFXInit
 DeoremEyeDyingGFXInit: @ 0x08023170
-    ldr r3, lbl_0802319c @ =0x03000738
+    ldr r3, lbl_0802319c @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x23
     ldrb r1, [r0]
-    ldr r2, lbl_080231a0 @ =0x030001ac
+    ldr r2, lbl_080231a0 @ =gSpriteData
     lsls r0, r1, #3
     subs r0, r0, r1
     lsls r0, r0, #3
@@ -5761,18 +4830,18 @@ DeoremEyeDyingGFXInit: @ 0x08023170
     strh r2, [r3, #0x16]
     bx lr
     .align 2, 0
-lbl_0802319c: .4byte 0x03000738
-lbl_080231a0: .4byte 0x030001ac
+lbl_0802319c: .4byte gCurrentSprite
+lbl_080231a0: .4byte gSpriteData
 lbl_080231a4: .4byte 0x082d791c
 
     thumb_func_start DeoremEyeDyingSpinningAnim
 DeoremEyeDyingSpinningAnim: @ 0x080231a8
     push {r4, lr}
-    ldr r3, lbl_080231e8 @ =0x03000738
+    ldr r3, lbl_080231e8 @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x23
     ldrb r4, [r0]
-    ldr r1, lbl_080231ec @ =0x030001ac
+    ldr r1, lbl_080231ec @ =gSpriteData
     lsls r0, r4, #3
     subs r0, r0, r4
     lsls r0, r0, #3
@@ -5799,8 +4868,8 @@ DeoremEyeDyingSpinningAnim: @ 0x080231a8
     adds r0, #8
     b lbl_080231f8
     .align 2, 0
-lbl_080231e8: .4byte 0x03000738
-lbl_080231ec: .4byte 0x030001ac
+lbl_080231e8: .4byte gCurrentSprite
+lbl_080231ec: .4byte gSpriteData
 lbl_080231f0:
     adds r2, r3, #0
     adds r2, #0x2a
@@ -5836,7 +4905,7 @@ lbl_08023222:
     thumb_func_start DeoremEyeDyingMovingAnim
 DeoremEyeDyingMovingAnim: @ 0x08023228
     push {r4, lr}
-    ldr r1, lbl_08023264 @ =0x03000738
+    ldr r1, lbl_08023264 @ =gCurrentSprite
     adds r2, r1, #0
     adds r2, #0x2a
     ldrb r0, [r2]
@@ -5852,7 +4921,7 @@ DeoremEyeDyingMovingAnim: @ 0x08023228
     subs r0, #1
     strh r0, [r3, #2]
 lbl_08023248:
-    ldr r0, lbl_08023268 @ =0x0300080c
+    ldr r0, lbl_08023268 @ =gBossWork
     movs r2, #0xd0
     lsls r2, r2, #1
     adds r1, r2, #0
@@ -5867,8 +4936,8 @@ lbl_08023248:
     adds r0, r2, #2
     b lbl_08023274
     .align 2, 0
-lbl_08023264: .4byte 0x03000738
-lbl_08023268: .4byte 0x0300080c
+lbl_08023264: .4byte gCurrentSprite
+lbl_08023268: .4byte gBossWork
 lbl_0802326c:
     adds r0, r1, #2
     cmp r2, r0
@@ -5929,7 +4998,7 @@ lbl_080232d4: .4byte 0x00000221
     thumb_func_start DeoremThornInit
 DeoremThornInit: @ 0x080232d8
     push {r4, r5, r6, lr}
-    ldr r3, lbl_08023378 @ =0x03000738
+    ldr r3, lbl_08023378 @ =gCurrentSprite
     ldrh r1, [r3]
     movs r0, #0x80
     movs r5, #0
@@ -6009,7 +5078,7 @@ DeoremThornInit: @ 0x080232d8
     strb r0, [r6]
     b lbl_08023398
     .align 2, 0
-lbl_08023378: .4byte 0x03000738
+lbl_08023378: .4byte gCurrentSprite
 lbl_0802337c: .4byte 0x0000fffb
 lbl_08023380: .4byte 0x0000ffe4
 lbl_08023384: .4byte 0x0000ffe8
@@ -6038,7 +5107,7 @@ lbl_080233b0: .4byte 0x0000ffbf
     thumb_func_start DeoremThornSpawning
 DeoremThornSpawning: @ 0x080233b4
     push {r4, r5, lr}
-    ldr r4, lbl_080233e8 @ =0x03000738
+    ldr r4, lbl_080233e8 @ =gCurrentSprite
     adds r5, r4, #0
     adds r5, #0x2f
     ldrb r0, [r5]
@@ -6064,7 +5133,7 @@ lbl_080233d6:
     movs r0, #5
     b lbl_080233f6
     .align 2, 0
-lbl_080233e8: .4byte 0x03000738
+lbl_080233e8: .4byte gCurrentSprite
 lbl_080233ec: .4byte 0x00000197
 lbl_080233f0:
     adds r1, r4, #0
@@ -6072,7 +5141,7 @@ lbl_080233f0:
     movs r0, #3
 lbl_080233f6:
     strb r0, [r1]
-    ldr r2, lbl_08023410 @ =0x03000738
+    ldr r2, lbl_08023410 @ =gCurrentSprite
     ldrh r1, [r2]
     movs r0, #0x80
     lsls r0, r0, #2
@@ -6085,7 +5154,7 @@ lbl_080233f6:
     adds r0, #0x20
     b lbl_0802341c
     .align 2, 0
-lbl_08023410: .4byte 0x03000738
+lbl_08023410: .4byte gCurrentSprite
 lbl_08023414:
     adds r1, r2, #0
     adds r1, #0x2a
@@ -6100,7 +5169,7 @@ lbl_0802341c:
     thumb_func_start DeoremThornMovement
 DeoremThornMovement: @ 0x08023424
     push {r4, r5, lr}
-    ldr r1, lbl_08023454 @ =0x03000738
+    ldr r1, lbl_08023454 @ =gCurrentSprite
     movs r0, #0x2f
     adds r0, r0, r1
     mov ip, r0
@@ -6123,7 +5192,7 @@ DeoremThornMovement: @ 0x08023424
     adds r0, r0, r1
     b lbl_0802346e
     .align 2, 0
-lbl_08023454: .4byte 0x03000738
+lbl_08023454: .4byte gCurrentSprite
 lbl_08023458: .4byte 0x082d5be2
 lbl_0802345c: .4byte 0x00007fff
 lbl_08023460:
@@ -6223,7 +5292,7 @@ lbl_080234f8:
     subs r0, #0x20
     ldrh r1, [r4, #4]
     bl SpriteUtilCheckCollisionAtPosition
-    ldr r0, lbl_0802351c @ =0x030007f1
+    ldr r0, lbl_0802351c @ =gPreviousCollisionCheck
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_08023514
@@ -6234,12 +5303,12 @@ lbl_08023514:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0802351c: .4byte 0x030007f1
+lbl_0802351c: .4byte gPreviousCollisionCheck
 
     thumb_func_start Deorem
 Deorem: @ 0x08023520
     push {lr}
-    ldr r0, lbl_08023538 @ =0x03000738
+    ldr r0, lbl_08023538 @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x68
@@ -6252,7 +5321,7 @@ lbl_0802352e:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_08023538: .4byte 0x03000738
+lbl_08023538: .4byte gCurrentSprite
 lbl_0802353c: .4byte lbl_08023540
 lbl_08023540: @ jump table
     .4byte lbl_080236e4 @ case 0
@@ -6423,11 +5492,11 @@ lbl_08023752:
     thumb_func_start DeoremSegment
 DeoremSegment: @ 0x08023758
     push {r4, r5, lr}
-    ldr r3, lbl_080237dc @ =0x03000738
+    ldr r3, lbl_080237dc @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x23
     ldrb r2, [r0]
-    ldr r0, lbl_080237e0 @ =0x030001ac
+    ldr r0, lbl_080237e0 @ =gSpriteData
     lsls r1, r2, #3
     subs r1, r1, r2
     lsls r1, r1, #3
@@ -6491,8 +5560,8 @@ lbl_080237aa:
     strb r0, [r3, #0x1c]
     b lbl_080237f4
     .align 2, 0
-lbl_080237dc: .4byte 0x03000738
-lbl_080237e0: .4byte 0x030001ac
+lbl_080237dc: .4byte gCurrentSprite
+lbl_080237e0: .4byte gSpriteData
 lbl_080237e4:
     ldrb r5, [r5]
     cmp r4, r5
@@ -6683,7 +5752,7 @@ lbl_08023a18:
     thumb_func_start DeoremEye
 DeoremEye: @ 0x08023a20
     push {r4, r5, r6, r7, lr}
-    ldr r3, lbl_08023ac0 @ =0x03000738
+    ldr r3, lbl_08023ac0 @ =gCurrentSprite
     adds r1, r3, #0
     adds r1, #0x26
     movs r7, #0
@@ -6703,7 +5772,7 @@ DeoremEye: @ 0x08023a20
     ands r1, r5
     cmp r1, #0
     beq lbl_08023a9c
-    ldr r6, lbl_08023ac4 @ =0x030001ac
+    ldr r6, lbl_08023ac4 @ =gSpriteData
     lsls r0, r2, #3
     subs r0, r0, r2
     lsls r4, r0, #3
@@ -6745,7 +5814,7 @@ lbl_08023a88:
     lsls r0, r0, #1
     bl SoundPlay
 lbl_08023a9c:
-    ldr r0, lbl_08023ac0 @ =0x03000738
+    ldr r0, lbl_08023ac0 @ =gCurrentSprite
     adds r0, #0x24
     ldrb r0, [r0]
     cmp r0, #0x67
@@ -6764,8 +5833,8 @@ lbl_08023a9c:
     beq lbl_08023ad8
     b lbl_08023af8
     .align 2, 0
-lbl_08023ac0: .4byte 0x03000738
-lbl_08023ac4: .4byte 0x030001ac
+lbl_08023ac0: .4byte gCurrentSprite
+lbl_08023ac4: .4byte gSpriteData
 lbl_08023ac8: .4byte 0x082d7a84
 lbl_08023acc:
     cmp r0, #9

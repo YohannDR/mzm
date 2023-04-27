@@ -32,7 +32,7 @@ u8 RidleyInSpaceShipLeaving(void)
             CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundGFX, VRAM_BASE + sRidleyInSpacePageData[0].graphicsPage * 0x4000);
             CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundTileTable, VRAM_BASE + sRidleyInSpacePageData[0].tiletablePage * 0x800);
 
-            DMATransfer(3, sRidleyInSpace_39dc70_PAL, PALRAM_BASE + 0x200, sizeof(sRidleyInSpace_39dc70_PAL), 0x10);
+            DMATransfer(3, sRidleyInSpace_39dc70_PAL, PALRAM_OBJ, sizeof(sRidleyInSpace_39dc70_PAL), 0x10);
             CallLZ77UncompVRAM(sRidleyInSpaceMotherShipLeavingGFX, VRAM_BASE + 0x10000);
 
             CutsceneSetBGCNTPageData(sRidleyInSpacePageData[0]);
@@ -219,6 +219,8 @@ u8 RidleyInSpaceRidleySuspicious(void)
 
         case 2:
             CutsceneStartBackgroundEffect(CUTSCENE_DATA.bldcnt, 16, 0, 2, 2);
+            CUTSCENE_DATA.timeInfo.timer = 0;
+            CUTSCENE_DATA.timeInfo.subStage++;
             break;
 
         case 3:
@@ -404,8 +406,8 @@ u8 RidleyInSpaceViewOfShip(void)
         case 4:
             if (CUTSCENE_DATA.timeInfo.timer > 60 * 2)
             {
-                CUTSCENE_DATA.oam[0].unk_B_4 = TRUE;
-                CUTSCENE_DATA.oam[1].unk_B_4 = TRUE;
+                CUTSCENE_DATA.oam[0].objMode = TRUE;
+                CUTSCENE_DATA.oam[1].objMode = TRUE;
 
                 CutsceneStartBackgroundEffect(BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG3_SECOND_TARGET_PIXEL |
                     BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL, 14, 0, 32, 1);
@@ -470,10 +472,13 @@ void RidleyInSpaceUpdateViewOfShip(struct CutsceneOamData* pOam)
         pOam->yPosition += sRidleyInSpaceShipsYMovementOffsets[((u16)pOam->unk_18 >> 5) & 7];
 }
 
+/**
+ * @brief 641cc | 80 | Updates the right blue ship
+ * 
+ * @param pOam Cutscene oam data pointer
+ */
 void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam)
 {
-    // https://decomp.me/scratch/KYgw3
-
     i32 yVelocity;
     
     if (pOam->actions & 1)
@@ -490,12 +495,7 @@ void RidleyInSpaceUpdateRightBlueShip(struct CutsceneOamData* pOam)
 
     if (pOam->actions & 2)
     {
-        if (pOam->unk_18 & 1)
-            yVelocity = -1;
-        else
-            yVelocity = 0;
-
-        pOam->unk_10 = yVelocity;
+        pOam->unk_10 = pOam->unk_18 & 1 ? -1 : 0;
         pOam->yPosition += pOam->unk_10;
     }
 
@@ -547,7 +547,7 @@ u8 RidleyInSpaceInit(void)
     CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundGFX, VRAM_BASE + sRidleyInSpacePageData[0].graphicsPage * 0x4000);
     CallLZ77UncompVRAM(sRidleyInSpaceSpaceBackgroundTileTable, VRAM_BASE + sRidleyInSpacePageData[0].tiletablePage * 0x800);
 
-    DMATransfer(3, sRidleyInSpaceShipsPAL, PALRAM_BASE + 0x200, sizeof(sRidleyInSpaceShipsPAL), 0x10);
+    DMATransfer(3, sRidleyInSpaceShipsPAL, PALRAM_OBJ, sizeof(sRidleyInSpaceShipsPAL), 0x10);
     CallLZ77UncompVRAM(sRidleyInSpaceShipsGFX, VRAM_BASE + 0x10000);
 
     CutsceneSetBGCNTPageData(sRidleyInSpacePageData[0]);
@@ -572,7 +572,7 @@ u8 RidleyInSpaceInit(void)
 
     PlayMusic(MUSIC_RIDLEY_IN_SPACE, 0);
     SoundPlay(0x28D);
-    unk_61fa0(2);
+    CutsceneStartBackgroundFading(2);
 
     CUTSCENE_DATA.dispcnt = sRidleyInSpacePageData[0].bg | DCNT_OBJ;
     CUTSCENE_DATA.timeInfo.timer = 0;
@@ -605,7 +605,7 @@ u8 RidleyInSpaceSubroutine(void)
 void RidleyInSpaceProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_cutscene_oam(sRidleyInSpaceSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleyInSpaceCutsceneOAM);
+    ProcessCutsceneOam(sRidleyInSpaceSubroutineData[CUTSCENE_DATA.timeInfo.stage].oamLength, CUTSCENE_DATA.oam, sRidleyInSpaceCutsceneOAM);
 
     ResetFreeOAM();
     CalculateOamPart4(gCurrentOamRotation, gCurrentOamScaling, 0);
@@ -624,7 +624,7 @@ void RidleyInSpaceViewOfShipParticles(void)
     {
         for (i = 3; i < 29; i++)
         {
-            if (CUTSCENE_DATA.oam[i].idChanged)
+            if (CUTSCENE_DATA.oam[i].exists)
                 continue;
 
             CUTSCENE_DATA.oam[i].actions = 0;
@@ -647,22 +647,26 @@ void RidleyInSpaceViewOfShipParticles(void)
 
     for (i = 3; i < 29; i++)
     {
-        if (!CUTSCENE_DATA.oam[i].idChanged)
+        if (!CUTSCENE_DATA.oam[i].exists)
             continue;
 
         oamId = RidleyInSpaceViewOfShipUpdateParticle(&CUTSCENE_DATA.oam[i]);
         if (oamId != 0)
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], oamId);
 
-        if (CUTSCENE_DATA.oam[i].idChanged == 0)
+        if (CUTSCENE_DATA.oam[i].exists == 0)
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], 0);
     }
 }
 
+/**
+ * @brief 645dc | c0 | Updates a particle during the view of ship sequence
+ * 
+ * @param pOam Cutscene oam data pointer
+ * @return u32 Oam Id
+ */
 u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
 {
-    // https://decomp.me/scratch/BWCTd
-
     u32 oamId;
     i32 divisor;
     u32 xPosition;
@@ -678,11 +682,11 @@ u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
         if (pOam->unk_E | pOam->unk_10)
             pOam->actions = 1;
         else
-            pOam->idChanged = 0;
+            pOam->exists = FALSE;
     }
-    else if (pOam->timer < 100)
+    else if (pOam->unk_12 < 100)
     {
-        if (pOam->timer == 0x19 || pOam->timer == 0x32 || pOam->timer == 0x46)
+        if (pOam->unk_12 == 0x19 || pOam->unk_12 == 0x32 || pOam->unk_12 == 0x46)
             oamId = RIDLEY_IN_SPACE_OAM_ID_VIEW_OF_SHIP_PARTICLE2;
 
         divisor = -pOam->unk_12 + 0x64;
@@ -691,15 +695,15 @@ u32 RidleyInSpaceViewOfShipUpdateParticle(struct CutsceneOamData* pOam)
         
         pOam->yPosition = pOam->unk_10 / divisor + 0x140;
 
-        if ((u16)(xPosition + 0xC0) > 0x400)
-            pOam->idChanged = 0;
+        if ((u16)(xPosition + 0x200) > 0x400)
+            pOam->exists = FALSE;
         else if (pOam->yPosition > 0x2A0)
-            pOam->idChanged = 0;
+            pOam->exists = FALSE;
         else if (pOam->yPosition < -0x20)
-            pOam->idChanged = 0;
+            pOam->exists = FALSE;
     }
     else
-        pOam->idChanged = 0;
+        pOam->exists = FALSE;
 
     pOam->timer++;
     return oamId;
@@ -718,7 +722,7 @@ void RidleyInSpaceShipLeavingParticles(void)
     {
         for (i = 3; i < 15; i++)
         {
-            if (CUTSCENE_DATA.oam[i].idChanged)
+            if (CUTSCENE_DATA.oam[i].exists)
                 continue;
 
             CUTSCENE_DATA.oam[i].actions = 0;
@@ -745,12 +749,12 @@ void RidleyInSpaceShipLeavingParticles(void)
 
     for (i = 3; i < 15; i++)
     {
-        if (!CUTSCENE_DATA.oam[i].idChanged)
+        if (!CUTSCENE_DATA.oam[i].exists)
             continue;
 
-        RidleyInSpaceViewOfShipUpdateParticle(&CUTSCENE_DATA.oam[i]);
+        RidleyInSpaceShipLeavingUpdateParticle(&CUTSCENE_DATA.oam[i]);
 
-        if (CUTSCENE_DATA.oam[i].idChanged == 0)
+        if (CUTSCENE_DATA.oam[i].exists == 0)
             UpdateCutsceneOamDataID(&CUTSCENE_DATA.oam[i], 0);
     }
 }
@@ -772,6 +776,6 @@ struct CutsceneOamData* RidleyInSpaceShipLeavingUpdateParticle(struct CutsceneOa
     {
         pOam->xPosition += pOam->unk_E;
         if (pOam->xPosition > 0x3E0)
-            pOam->idChanged = 0;
+            pOam->exists = 0;
     }
 }

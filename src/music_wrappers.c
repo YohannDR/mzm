@@ -58,7 +58,7 @@ void unk_33dc(void)
     write16(REG_DMA2_CNT + 2, DMA_SRC_FIXED | DMA_32BIT);
 
     value = 0;
-    CpuSet(&value, gMusicInfo.soundRawData, (CPU_SET_FILL | CPU_SET_32BIT) << 16 | 0x300);
+    CpuSet(&value, gMusicInfo.soundRawData, (CPU_SET_SRC_FIXED | CPU_SET_32BIT) << 16 | 0x300);
     write8(0x4000084, 0);
 
     gMusicInfo.occupied = FALSE;
@@ -83,7 +83,7 @@ void unk_3458(void)
     write16(REG_DMA2_CNT + 2, DMA_SRC_FIXED | DMA_32BIT);
 
     value = 0;
-    CpuSet(&value, gMusicInfo.soundRawData, (CPU_SET_FILL | CPU_SET_32BIT) << 16 | 0x300);
+    CpuSet(&value, gMusicInfo.soundRawData, (CPU_SET_SRC_FIXED | CPU_SET_32BIT) << 16 | 0x300);
 
     gMusicInfo.occupied = FALSE;
 }

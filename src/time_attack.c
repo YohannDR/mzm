@@ -4,6 +4,8 @@
 #include "data/intro_data.h"
 #include "data/time_attack_data.h"
 
+#include "constants/ending_and_gallery.h"
+
 #include "structs/in_game_timer.h"
 #include "structs/game_state.h"
 
@@ -292,7 +294,7 @@ void CheckUnlockTimeAttack(void)
     if (gFileScreenOptionsUnlocked.timeAttack & 1 || !TimeAttackCheckSaveFileValidity())
         return;
 
-    pen = GetPercentAndEndingNumber();
+    pen = ChozodiaEscapeGetPercentAndEndingNumber();
 
     mask = 0xFF;
     // TODO figure out how PEN is structured
@@ -751,7 +753,7 @@ u8 TimeAttackCheckSetNewRecord(void)
     converted100RecordIgt = (gTimeAttackRecord.igt100.hours << 24) + (gTimeAttackRecord.igt100.minutes << 16) +
         (gTimeAttackRecord.igt100.seconds << 8);
 
-    pen = GetPercentAndEndingNumber();
+    pen = ChozodiaEscapeGetPercentAndEndingNumber();
 
     mask = 0xFF;
     // TODO figure out how PEN is structured
@@ -844,7 +846,7 @@ u8 TimeAttackCheckSetNewRecord(void)
         // Save new times
         save_time_attack_to_sram();
         // New time attack record flag
-        gEndingFlags |= 1;
+        gEndingFlags |= ENDING_FLAG_NEW_TIME_ATTACK_RECORD;
     }
 
     return TRUE;

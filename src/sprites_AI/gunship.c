@@ -670,8 +670,6 @@ void GunshipStartEscaping(void)
  */
 void GunshipTakingOff(void)
 {
-    // https://decomp.me/scratch/RUB2J
-
     u8 offset;
     i32 movement;
 

@@ -5,11 +5,11 @@
      thumb_func_start set_beam_particle_effect
 set_beam_particle_effect: @ 0x0804ed08
     push {r4, r5, lr}
-    ldr r0, lbl_0804ed30 @ =0x03000bec
+    ldr r0, lbl_0804ed30 @ =gArmCannonY
     ldrh r5, [r0]
-    ldr r0, lbl_0804ed34 @ =0x03000bee
+    ldr r0, lbl_0804ed34 @ =gArmCannonX
     ldrh r4, [r0]
-    ldr r2, lbl_0804ed38 @ =0x030013d4
+    ldr r2, lbl_0804ed38 @ =gSamusData
     ldrh r1, [r2, #0xe]
     movs r0, #0x10
     ands r0, r1
@@ -24,9 +24,9 @@ set_beam_particle_effect: @ 0x0804ed08
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0804ed30: .4byte 0x03000bec
-lbl_0804ed34: .4byte 0x03000bee
-lbl_0804ed38: .4byte 0x030013d4
+lbl_0804ed30: .4byte gArmCannonY
+lbl_0804ed34: .4byte gArmCannonX
+lbl_0804ed38: .4byte gSamusData
 lbl_0804ed3c: .4byte lbl_0804ed40
 lbl_0804ed40: @ jump table
     .4byte lbl_0804ed7c @ case 0
@@ -80,7 +80,7 @@ check_number_of_projectiles: @ 0x0804ed94
     lsls r1, r1, #0x18
     lsrs r4, r1, #0x18
     movs r3, #0
-    ldr r2, lbl_0804edd0 @ =0x03000a2c
+    ldr r2, lbl_0804edd0 @ =gProjectileData
     movs r1, #0xe0
     lsls r1, r1, #1
     adds r0, r2, r1
@@ -105,7 +105,7 @@ lbl_0804edb0:
     movs r0, #0
     b lbl_0804eddc
     .align 2, 0
-lbl_0804edd0: .4byte 0x03000a2c
+lbl_0804edd0: .4byte gProjectileData
 lbl_0804edd4:
     adds r2, #0x1c
     cmp r2, r6
@@ -132,14 +132,14 @@ initialize_projectile: @ 0x0804ede4
     lsls r2, r2, #0x10
     lsrs r2, r2, #0x10
     mov r8, r2
-    ldr r3, lbl_0804ee60 @ =0x03000a2c
+    ldr r3, lbl_0804ee60 @ =gProjectileData
     movs r1, #0xe0
     lsls r1, r1, #1
     adds r0, r3, r1
     cmp r3, r0
     bhs lbl_0804ee74
     movs r5, #1
-    ldr r0, lbl_0804ee64 @ =0x030013d4
+    ldr r0, lbl_0804ee64 @ =gSamusData
     mov ip, r0
     movs r7, #0
     ldr r1, lbl_0804ee68 @ =0x0000ffff
@@ -186,12 +186,12 @@ lbl_0804ee36:
     movs r0, #1
     b lbl_0804ee76
     .align 2, 0
-lbl_0804ee60: .4byte 0x03000a2c
-lbl_0804ee64: .4byte 0x030013d4
+lbl_0804ee60: .4byte gProjectileData
+lbl_0804ee64: .4byte gSamusData
 lbl_0804ee68: .4byte 0x0000ffff
 lbl_0804ee6c:
     adds r3, #0x1c
-    ldr r0, lbl_0804ee84 @ =0x03000bec
+    ldr r0, lbl_0804ee84 @ =gArmCannonY
     cmp r3, r0
     blo lbl_0804ee14
 lbl_0804ee74:
@@ -204,12 +204,12 @@ lbl_0804ee76:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_0804ee84: .4byte 0x03000bec
+lbl_0804ee84: .4byte gArmCannonY
 
     thumb_func_start ProjectileUpdate
 ProjectileUpdate: @ 0x0804ee88
     push {r4, r5, lr}
-    ldr r0, lbl_0804ef18 @ =0x03000c72
+    ldr r0, lbl_0804ef18 @ =gGameModeSub1
     movs r1, #0
     ldrsh r0, [r0, r1]
     cmp r0, #2
@@ -217,10 +217,10 @@ ProjectileUpdate: @ 0x0804ee88
     b lbl_0804f2e6
 lbl_0804ee96:
     bl call_update_arm_cannon
-    ldr r4, lbl_0804ef1c @ =0x03000bec
-    ldr r3, lbl_0804ef20 @ =0x030013d4
+    ldr r4, lbl_0804ef1c @ =gArmCannonY
+    ldr r3, lbl_0804ef20 @ =gSamusData
     ldrh r0, [r3, #0x14]
-    ldr r1, lbl_0804ef24 @ =0x03001588
+    ldr r1, lbl_0804ef24 @ =gSamusPhysics
     adds r2, r1, #0
     adds r2, #0x4c
     lsrs r0, r0, #2
@@ -228,7 +228,7 @@ lbl_0804ee96:
     adds r0, r0, r2
     lsls r0, r0, #2
     strh r0, [r4]
-    ldr r2, lbl_0804ef28 @ =0x03000bee
+    ldr r2, lbl_0804ef28 @ =gArmCannonX
     ldrh r0, [r3, #0x12]
     adds r1, #0x4a
     lsrs r0, r0, #2
@@ -236,18 +236,18 @@ lbl_0804ee96:
     adds r0, r0, r1
     lsls r0, r0, #2
     strh r0, [r2]
-    ldr r0, lbl_0804ef2c @ =0x03001414
+    ldr r0, lbl_0804ef2c @ =gSamusWeaponInfo
     ldrb r0, [r0, #5]
     cmp r0, #0x10
     bne lbl_0804ef02
-    ldr r0, lbl_0804ef30 @ =0x03001530
+    ldr r0, lbl_0804ef30 @ =gEquipment
     ldrb r0, [r0, #0x12]
     cmp r0, #2
     beq lbl_0804ef02
     movs r4, #0
     movs r3, #0
     movs r5, #1
-    ldr r2, lbl_0804ef34 @ =0x03000840
+    ldr r2, lbl_0804ef34 @ =gParticleEffects
 lbl_0804eed8:
     ldrb r1, [r2]
     adds r0, r5, #0
@@ -265,14 +265,14 @@ lbl_0804eee8:
 lbl_0804eef0:
     cmp r4, #0
     bne lbl_0804ef02
-    ldr r0, lbl_0804ef1c @ =0x03000bec
+    ldr r0, lbl_0804ef1c @ =gArmCannonY
     ldrh r0, [r0]
-    ldr r1, lbl_0804ef28 @ =0x03000bee
+    ldr r1, lbl_0804ef28 @ =gArmCannonX
     ldrh r1, [r1]
     movs r2, #0x3b
     bl ParticleSet
 lbl_0804ef02:
-    ldr r0, lbl_0804ef2c @ =0x03001414
+    ldr r0, lbl_0804ef2c @ =gSamusWeaponInfo
     ldrb r0, [r0, #1]
     subs r0, #1
     cmp r0, #5
@@ -285,14 +285,14 @@ lbl_0804ef0e:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0804ef18: .4byte 0x03000c72
-lbl_0804ef1c: .4byte 0x03000bec
-lbl_0804ef20: .4byte 0x030013d4
-lbl_0804ef24: .4byte 0x03001588
-lbl_0804ef28: .4byte 0x03000bee
-lbl_0804ef2c: .4byte 0x03001414
-lbl_0804ef30: .4byte 0x03001530
-lbl_0804ef34: .4byte 0x03000840
+lbl_0804ef18: .4byte gGameModeSub1
+lbl_0804ef1c: .4byte gArmCannonY
+lbl_0804ef20: .4byte gSamusData
+lbl_0804ef24: .4byte gSamusPhysics
+lbl_0804ef28: .4byte gArmCannonX
+lbl_0804ef2c: .4byte gSamusWeaponInfo
+lbl_0804ef30: .4byte gEquipment
+lbl_0804ef34: .4byte gParticleEffects
 lbl_0804ef38: .4byte lbl_0804ef3c
 lbl_0804ef3c: @ jump table
     .4byte lbl_0804f06a @ case 0
@@ -307,7 +307,7 @@ lbl_0804ef54:
     lsrs r4, r0, #0x18
     b lbl_0804eef0
 lbl_0804ef5c:
-    ldr r1, lbl_0804efa0 @ =0x03001530
+    ldr r1, lbl_0804efa0 @ =gEquipment
     ldrb r0, [r1, #0x12]
     cmp r0, #2
     bne lbl_0804efb0
@@ -319,9 +319,9 @@ lbl_0804ef5c:
     bne lbl_0804ef74
     b lbl_0804f2a2
 lbl_0804ef74:
-    ldr r0, lbl_0804efa4 @ =0x03000bec
+    ldr r0, lbl_0804efa4 @ =gArmCannonY
     ldrh r1, [r0]
-    ldr r0, lbl_0804efa8 @ =0x03000bee
+    ldr r0, lbl_0804efa8 @ =gArmCannonX
     ldrh r2, [r0]
     movs r0, #0xb
     bl initialize_projectile
@@ -330,7 +330,7 @@ lbl_0804ef74:
     bne lbl_0804ef8a
     b lbl_0804f2a2
 lbl_0804ef8a:
-    ldr r4, lbl_0804efac @ =0x03001414
+    ldr r4, lbl_0804efac @ =gSamusWeaponInfo
     movs r0, #7
     strb r0, [r4, #4]
     bl set_beam_particle_effect
@@ -340,10 +340,10 @@ lbl_0804ef8a:
     bl SoundPlay
     b lbl_0804f2a2
     .align 2, 0
-lbl_0804efa0: .4byte 0x03001530
-lbl_0804efa4: .4byte 0x03000bec
-lbl_0804efa8: .4byte 0x03000bee
-lbl_0804efac: .4byte 0x03001414
+lbl_0804efa0: .4byte gEquipment
+lbl_0804efa4: .4byte gArmCannonY
+lbl_0804efa8: .4byte gArmCannonX
+lbl_0804efac: .4byte gSamusWeaponInfo
 lbl_0804efb0:
     ldrb r1, [r1, #0xd]
     movs r0, #8
@@ -448,7 +448,7 @@ lbl_0804f064:
     movs r1, #2
     b lbl_0804f178
 lbl_0804f06a:
-    ldr r1, lbl_0804f0b0 @ =0x03001530
+    ldr r1, lbl_0804f0b0 @ =gEquipment
     ldrb r0, [r1, #0x12]
     cmp r0, #2
     bne lbl_0804f0c0
@@ -460,9 +460,9 @@ lbl_0804f06a:
     bne lbl_0804f082
     b lbl_0804f2a2
 lbl_0804f082:
-    ldr r0, lbl_0804f0b4 @ =0x03000bec
+    ldr r0, lbl_0804f0b4 @ =gArmCannonY
     ldrh r1, [r0]
-    ldr r0, lbl_0804f0b8 @ =0x03000bee
+    ldr r0, lbl_0804f0b8 @ =gArmCannonX
     ldrh r2, [r0]
     movs r0, #5
     bl initialize_projectile
@@ -471,7 +471,7 @@ lbl_0804f082:
     bne lbl_0804f098
     b lbl_0804f2a2
 lbl_0804f098:
-    ldr r4, lbl_0804f0bc @ =0x03001414
+    ldr r4, lbl_0804f0bc @ =gSamusWeaponInfo
     movs r0, #7
     strb r0, [r4, #4]
     bl set_beam_particle_effect
@@ -481,10 +481,10 @@ lbl_0804f098:
     bl SoundPlay
     b lbl_0804f2a2
     .align 2, 0
-lbl_0804f0b0: .4byte 0x03001530
-lbl_0804f0b4: .4byte 0x03000bec
-lbl_0804f0b8: .4byte 0x03000bee
-lbl_0804f0bc: .4byte 0x03001414
+lbl_0804f0b0: .4byte gEquipment
+lbl_0804f0b4: .4byte gArmCannonY
+lbl_0804f0b8: .4byte gArmCannonX
+lbl_0804f0bc: .4byte gSamusWeaponInfo
 lbl_0804f0c0:
     ldrb r1, [r1, #0xd]
     movs r0, #8
@@ -594,9 +594,9 @@ lbl_0804f178:
     bne lbl_0804f184
     b lbl_0804f2a2
 lbl_0804f184:
-    ldr r0, lbl_0804f1b0 @ =0x03000bec
+    ldr r0, lbl_0804f1b0 @ =gArmCannonY
     ldrh r1, [r0]
-    ldr r0, lbl_0804f1b4 @ =0x03000bee
+    ldr r0, lbl_0804f1b4 @ =gArmCannonX
     ldrh r2, [r0]
     adds r0, r4, #0
     bl initialize_projectile
@@ -605,7 +605,7 @@ lbl_0804f184:
     bne lbl_0804f19a
     b lbl_0804f2a2
 lbl_0804f19a:
-    ldr r4, lbl_0804f1b8 @ =0x03001414
+    ldr r4, lbl_0804f1b8 @ =gSamusWeaponInfo
     movs r0, #7
     strb r0, [r4, #4]
     bl set_beam_particle_effect
@@ -615,9 +615,9 @@ lbl_0804f19a:
     bl SoundPlay
     b lbl_0804f2a2
     .align 2, 0
-lbl_0804f1b0: .4byte 0x03000bec
-lbl_0804f1b4: .4byte 0x03000bee
-lbl_0804f1b8: .4byte 0x03001414
+lbl_0804f1b0: .4byte gArmCannonY
+lbl_0804f1b4: .4byte gArmCannonX
+lbl_0804f1b8: .4byte gSamusWeaponInfo
 lbl_0804f1bc:
     movs r0, #0xc
     movs r1, #4
@@ -625,16 +625,16 @@ lbl_0804f1bc:
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0804f2a2
-    ldr r0, lbl_0804f1f4 @ =0x03000bec
+    ldr r0, lbl_0804f1f4 @ =gArmCannonY
     ldrh r1, [r0]
-    ldr r0, lbl_0804f1f8 @ =0x03000bee
+    ldr r0, lbl_0804f1f8 @ =gArmCannonX
     ldrh r2, [r0]
     movs r0, #0xc
     bl initialize_projectile
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0804f2a2
-    ldr r1, lbl_0804f1fc @ =0x03001414
+    ldr r1, lbl_0804f1fc @ =gSamusWeaponInfo
     movs r0, #9
     strb r0, [r1, #4]
     movs r0, #0xf8
@@ -643,9 +643,9 @@ lbl_0804f1bc:
     bl SoundPlay
     b lbl_0804f2a2
     .align 2, 0
-lbl_0804f1f4: .4byte 0x03000bec
-lbl_0804f1f8: .4byte 0x03000bee
-lbl_0804f1fc: .4byte 0x03001414
+lbl_0804f1f4: .4byte gArmCannonY
+lbl_0804f1f8: .4byte gArmCannonX
+lbl_0804f1fc: .4byte gSamusWeaponInfo
 lbl_0804f200:
     movs r0, #0xd
     movs r1, #4
@@ -653,16 +653,16 @@ lbl_0804f200:
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0804f2a2
-    ldr r0, lbl_0804f238 @ =0x03000bec
+    ldr r0, lbl_0804f238 @ =gArmCannonY
     ldrh r1, [r0]
-    ldr r0, lbl_0804f23c @ =0x03000bee
+    ldr r0, lbl_0804f23c @ =gArmCannonX
     ldrh r2, [r0]
     movs r0, #0xd
     bl initialize_projectile
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0804f2a2
-    ldr r1, lbl_0804f240 @ =0x03001414
+    ldr r1, lbl_0804f240 @ =gSamusWeaponInfo
     movs r0, #0xb
     strb r0, [r1, #4]
     movs r0, #0xfb
@@ -671,9 +671,9 @@ lbl_0804f200:
     bl SoundPlay
     b lbl_0804f2a2
     .align 2, 0
-lbl_0804f238: .4byte 0x03000bec
-lbl_0804f23c: .4byte 0x03000bee
-lbl_0804f240: .4byte 0x03001414
+lbl_0804f238: .4byte gArmCannonY
+lbl_0804f23c: .4byte gArmCannonX
+lbl_0804f240: .4byte gSamusWeaponInfo
 lbl_0804f244:
     movs r0, #0xe
     movs r1, #4
@@ -681,7 +681,7 @@ lbl_0804f244:
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0804f2a2
-    ldr r0, lbl_0804f26c @ =0x030013d4
+    ldr r0, lbl_0804f26c @ =gSamusData
     ldrh r1, [r0, #0x14]
     ldrh r2, [r0, #0x12]
     movs r0, #0xe
@@ -689,12 +689,12 @@ lbl_0804f244:
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0804f2a2
-    ldr r1, lbl_0804f270 @ =0x03001414
+    ldr r1, lbl_0804f270 @ =gSamusWeaponInfo
     movs r0, #7
     b lbl_0804f2a0
     .align 2, 0
-lbl_0804f26c: .4byte 0x030013d4
-lbl_0804f270: .4byte 0x03001414
+lbl_0804f26c: .4byte gSamusData
+lbl_0804f270: .4byte gSamusWeaponInfo
 lbl_0804f274:
     movs r0, #0xf
     movs r1, #1
@@ -702,11 +702,11 @@ lbl_0804f274:
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0804f2a2
-    ldr r0, lbl_0804f2ec @ =0x03000130
+    ldr r0, lbl_0804f2ec @ =gCurrentPowerBomb
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_0804f2a2
-    ldr r0, lbl_0804f2f0 @ =0x030013d4
+    ldr r0, lbl_0804f2f0 @ =gSamusData
     ldrh r1, [r0, #0x14]
     ldrh r2, [r0, #0x12]
     movs r0, #0xf
@@ -714,17 +714,17 @@ lbl_0804f274:
     lsls r0, r0, #0x18
     cmp r0, #0
     beq lbl_0804f2a2
-    ldr r1, lbl_0804f2f4 @ =0x03001414
+    ldr r1, lbl_0804f2f4 @ =gSamusWeaponInfo
     movs r0, #5
 lbl_0804f2a0:
     strb r0, [r1, #4]
 lbl_0804f2a2:
-    ldr r1, lbl_0804f2f4 @ =0x03001414
+    ldr r1, lbl_0804f2f4 @ =gSamusWeaponInfo
     movs r0, #0
     strb r0, [r1, #1]
 lbl_0804f2a8:
     bl check_ProjectileHitSprite
-    ldr r4, lbl_0804f2f8 @ =0x03000a2c
+    ldr r4, lbl_0804f2f8 @ =gProjectileData
     movs r1, #0xe0
     lsls r1, r1, #1
     adds r0, r4, r1
@@ -749,7 +749,7 @@ lbl_0804f2ba:
     bl check_despawn_projectile
 lbl_0804f2de:
     adds r4, #0x1c
-    ldr r0, lbl_0804f300 @ =0x03000bec
+    ldr r0, lbl_0804f300 @ =gArmCannonY
     cmp r4, r0
     blo lbl_0804f2ba
 lbl_0804f2e6:
@@ -757,12 +757,12 @@ lbl_0804f2e6:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0804f2ec: .4byte 0x03000130
-lbl_0804f2f0: .4byte 0x030013d4
-lbl_0804f2f4: .4byte 0x03001414
-lbl_0804f2f8: .4byte 0x03000a2c
+lbl_0804f2ec: .4byte gCurrentPowerBomb
+lbl_0804f2f0: .4byte gSamusData
+lbl_0804f2f4: .4byte gSamusWeaponInfo
+lbl_0804f2f8: .4byte gProjectileData
 lbl_0804f2fc: .4byte 0x0875f974
-lbl_0804f300: .4byte 0x03000bec
+lbl_0804f300: .4byte gArmCannonY
 
     thumb_func_start update_projectile_anim
 update_projectile_anim: @ 0x0804f304
@@ -799,12 +799,12 @@ lbl_0804f338:
     thumb_func_start ProjectileDrawAllStatusFalse
 ProjectileDrawAllStatusFalse: @ 0x0804f33c
     push {r4, lr}
-    ldr r0, lbl_0804f374 @ =0x03000c72
+    ldr r0, lbl_0804f374 @ =gGameModeSub1
     movs r1, #0
     ldrsh r0, [r0, r1]
     cmp r0, #2
     bne lbl_0804f36c
-    ldr r4, lbl_0804f378 @ =0x03000a2c
+    ldr r4, lbl_0804f378 @ =gProjectileData
     movs r1, #0xe0
     lsls r1, r1, #1
     adds r0, r4, r1
@@ -820,7 +820,7 @@ lbl_0804f354:
     bl draw_projectile
 lbl_0804f364:
     adds r4, #0x1c
-    ldr r0, lbl_0804f37c @ =0x03000bec
+    ldr r0, lbl_0804f37c @ =gArmCannonY
     cmp r4, r0
     blo lbl_0804f354
 lbl_0804f36c:
@@ -828,19 +828,19 @@ lbl_0804f36c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0804f374: .4byte 0x03000c72
-lbl_0804f378: .4byte 0x03000a2c
-lbl_0804f37c: .4byte 0x03000bec
+lbl_0804f374: .4byte gGameModeSub1
+lbl_0804f378: .4byte gProjectileData
+lbl_0804f37c: .4byte gArmCannonY
 
     thumb_func_start ProjectileDrawAllStatusTrue
 ProjectileDrawAllStatusTrue: @ 0x0804f380
     push {r4, lr}
-    ldr r0, lbl_0804f3b8 @ =0x03000c72
+    ldr r0, lbl_0804f3b8 @ =gGameModeSub1
     movs r1, #0
     ldrsh r0, [r0, r1]
     cmp r0, #2
     bne lbl_0804f3b0
-    ldr r4, lbl_0804f3bc @ =0x03000a2c
+    ldr r4, lbl_0804f3bc @ =gProjectileData
     movs r1, #0xe0
     lsls r1, r1, #1
     adds r0, r4, r1
@@ -856,7 +856,7 @@ lbl_0804f398:
     bl draw_projectile
 lbl_0804f3a8:
     adds r4, #0x1c
-    ldr r0, lbl_0804f3c0 @ =0x03000bec
+    ldr r0, lbl_0804f3c0 @ =gArmCannonY
     cmp r4, r0
     blo lbl_0804f398
 lbl_0804f3b0:
@@ -864,9 +864,9 @@ lbl_0804f3b0:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0804f3b8: .4byte 0x03000c72
-lbl_0804f3bc: .4byte 0x03000a2c
-lbl_0804f3c0: .4byte 0x03000bec
+lbl_0804f3b8: .4byte gGameModeSub1
+lbl_0804f3bc: .4byte gProjectileData
+lbl_0804f3c0: .4byte gArmCannonY
 
     thumb_func_start draw_projectile
 draw_projectile: @ 0x0804f3c4
@@ -877,7 +877,7 @@ draw_projectile: @ 0x0804f3c4
     push {r5, r6, r7}
     sub sp, #0x18
     adds r3, r0, #0
-    ldr r2, lbl_0804f448 @ =0x03001382
+    ldr r2, lbl_0804f448 @ =gNextOamSlot
     ldrb r0, [r2]
     str r0, [sp, #4]
     ldrh r0, [r3, #0xc]
@@ -896,11 +896,11 @@ draw_projectile: @ 0x0804f3c4
 lbl_0804f3f2:
     ldr r1, [sp, #4]
     lsls r0, r1, #3
-    ldr r2, lbl_0804f44c @ =0x03000e7c
+    ldr r2, lbl_0804f44c @ =gOamData
     adds r4, r0, r2
     ldrh r1, [r3, #8]
     lsrs r1, r1, #2
-    ldr r0, lbl_0804f450 @ =0x030013ba
+    ldr r0, lbl_0804f450 @ =gBG1YPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     subs r1, r1, r0
@@ -909,7 +909,7 @@ lbl_0804f3f2:
     str r1, [sp]
     ldrh r1, [r3, #0xa]
     lsrs r1, r1, #2
-    ldr r0, lbl_0804f454 @ =0x030013b8
+    ldr r0, lbl_0804f454 @ =gBG1XPosition
     ldrh r0, [r0]
     lsrs r0, r0, #2
     subs r1, r1, r0
@@ -927,7 +927,7 @@ lbl_0804f3f2:
     lsls r0, r0, #0x18
     lsrs r0, r0, #0x18
     str r0, [sp, #0xc]
-    ldr r0, lbl_0804f458 @ =0x03000088
+    ldr r0, lbl_0804f458 @ =gIoRegistersBackup
     ldrh r0, [r0, #0xc]
     movs r3, #3
     ands r3, r0
@@ -938,11 +938,11 @@ lbl_0804f3f2:
     movs r3, #0
     b lbl_0804f45e
     .align 2, 0
-lbl_0804f448: .4byte 0x03001382
-lbl_0804f44c: .4byte 0x03000e7c
-lbl_0804f450: .4byte 0x030013ba
-lbl_0804f454: .4byte 0x030013b8
-lbl_0804f458: .4byte 0x03000088
+lbl_0804f448: .4byte gNextOamSlot
+lbl_0804f44c: .4byte gOamData
+lbl_0804f450: .4byte gBG1YPosition
+lbl_0804f454: .4byte gBG1XPosition
+lbl_0804f458: .4byte gIoRegistersBackup
 lbl_0804f45c:
     adds r3, #1
 lbl_0804f45e:
@@ -968,7 +968,7 @@ lbl_0804f478:
     ldr r0, [sp, #4]
     add r0, ip
     lsls r0, r0, #3
-    ldr r1, lbl_0804f560 @ =0x03000e7c
+    ldr r1, lbl_0804f560 @ =gOamData
     adds r3, r0, r1
     ldr r1, [sp]
     adds r0, r7, r1
@@ -1069,7 +1069,7 @@ lbl_0804f53e:
 lbl_0804f548:
     mov r1, sp
     ldrb r0, [r1, #0x14]
-    ldr r1, lbl_0804f574 @ =0x03001382
+    ldr r1, lbl_0804f574 @ =gNextOamSlot
     strb r0, [r1]
 lbl_0804f550:
     add sp, #0x18
@@ -1081,12 +1081,12 @@ lbl_0804f550:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0804f560: .4byte 0x03000e7c
+lbl_0804f560: .4byte gOamData
 lbl_0804f564: .4byte 0x000001ff
 lbl_0804f568: .4byte 0xfffffe00
 lbl_0804f56c: .4byte 0x082b0c94
 lbl_0804f570: .4byte 0x082b0ca0
-lbl_0804f574: .4byte 0x03001382
+lbl_0804f574: .4byte gNextOamSlot
 
     thumb_func_start check_despawn_projectile
 check_despawn_projectile: @ 0x0804f578
@@ -1104,7 +1104,7 @@ check_despawn_projectile: @ 0x0804f578
     ands r0, r1
     cmp r0, #0
     beq lbl_0804f65e
-    ldr r0, lbl_0804f604 @ =0x030013ba
+    ldr r0, lbl_0804f604 @ =gBG1YPosition
     ldrh r7, [r6, #8]
     ldrh r4, [r6, #0xa]
     mov ip, r4
@@ -1130,7 +1130,7 @@ check_despawn_projectile: @ 0x0804f578
     lsls r1, r1, #0x10
     lsrs r1, r1, #0x10
     mov r8, r1
-    ldr r1, lbl_0804f608 @ =0x030013b8
+    ldr r1, lbl_0804f608 @ =gBG1XPosition
     ldrh r1, [r1]
     adds r0, r2, r1
     lsls r0, r0, #0x10
@@ -1161,8 +1161,8 @@ check_despawn_projectile: @ 0x0804f578
     orrs r0, r4
     b lbl_0804f65c
     .align 2, 0
-lbl_0804f604: .4byte 0x030013ba
-lbl_0804f608: .4byte 0x030013b8
+lbl_0804f604: .4byte gBG1YPosition
+lbl_0804f608: .4byte gBG1XPosition
 lbl_0804f60c:
     ldrb r0, [r6]
     movs r1, #0xfd
@@ -1171,7 +1171,7 @@ lbl_0804f60c:
     ldrb r0, [r6, #0xf]
     cmp r0, #0xd
     bhi lbl_0804f65e
-    ldr r1, lbl_0804f630 @ =0x030013d4
+    ldr r1, lbl_0804f630 @ =gSamusData
     ldrh r0, [r1, #0x14]
     subs r0, #0x48
     lsls r0, r0, #0x10
@@ -1182,7 +1182,7 @@ lbl_0804f60c:
     subs r0, r7, r5
     b lbl_0804f636
     .align 2, 0
-lbl_0804f630: .4byte 0x030013d4
+lbl_0804f630: .4byte gSamusData
 lbl_0804f634:
     subs r0, r5, r7
 lbl_0804f636:
@@ -1224,7 +1224,7 @@ lbl_0804f65e:
     thumb_func_start load_beam_graphics
 load_beam_graphics: @ 0x0804f670
     push {lr}
-    ldr r1, lbl_0804f6b8 @ =0x03001530
+    ldr r1, lbl_0804f6b8 @ =gEquipment
     ldrb r0, [r1, #0x12]
     cmp r0, #2
     bne lbl_0804f6e8
@@ -1259,7 +1259,7 @@ load_beam_graphics: @ 0x0804f670
     movs r0, #0x50
     b lbl_0804f8d2
     .align 2, 0
-lbl_0804f6b8: .4byte 0x03001530
+lbl_0804f6b8: .4byte gEquipment
 lbl_0804f6bc: .4byte 0x040000d4
 lbl_0804f6c0: .4byte 0x0832b078
 lbl_0804f6c4: .4byte 0x06011000
@@ -1518,13 +1518,13 @@ lbl_0804f91c: .4byte 0x80000006
 ProjectileCallLoadGraphicsAndClearProjectiles: @ 0x0804f920
     push {lr}
     bl load_beam_graphics
-    ldr r0, lbl_0804f94c @ =0x03000bf0
+    ldr r0, lbl_0804f94c @ =gPauseScreenFlag
     ldrb r0, [r0]
     lsls r0, r0, #0x18
     asrs r0, r0, #0x18
     cmp r0, #0
     bne lbl_0804f948
-    ldr r0, lbl_0804f950 @ =0x03000a2c
+    ldr r0, lbl_0804f950 @ =gProjectileData
     movs r2, #0xe0
     lsls r2, r2, #1
     adds r1, r0, r2
@@ -1540,8 +1540,8 @@ lbl_0804f948:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0804f94c: .4byte 0x03000bf0
-lbl_0804f950: .4byte 0x03000a2c
+lbl_0804f94c: .4byte gPauseScreenFlag
+lbl_0804f950: .4byte gProjectileData
 
     thumb_func_start move_projectile
 move_projectile: @ 0x0804f954
@@ -1623,7 +1623,7 @@ lbl_0804f9de:
     subs r0, r0, r2
 lbl_0804f9e2:
     strh r0, [r4, #0xa]
-    ldr r0, lbl_0804fa04 @ =0x030013d4
+    ldr r0, lbl_0804fa04 @ =gSamusData
     ldrh r0, [r0, #0x16]
     lsls r0, r0, #0x10
     asrs r3, r0, #0x10
@@ -1639,7 +1639,7 @@ lbl_0804f9e2:
     adds r0, r0, r2
     b lbl_0804fa10
     .align 2, 0
-lbl_0804fa04: .4byte 0x030013d4
+lbl_0804fa04: .4byte gSamusData
 lbl_0804fa08:
     cmp r3, #0
     bge lbl_0804fa12
@@ -1945,7 +1945,7 @@ set_projectile_trail: @ 0x0804fc38
     adds r4, r0, #0
     lsls r1, r1, #0x18
     lsrs r6, r1, #0x18
-    ldr r0, lbl_0804fc60 @ =0x03000c77
+    ldr r0, lbl_0804fc60 @ =gFrameCounter8Bit
     ldrb r0, [r0]
     ands r0, r2
     cmp r0, #0
@@ -1962,7 +1962,7 @@ set_projectile_trail: @ 0x0804fc38
     beq lbl_0804fc7e
     b lbl_0804fcba
     .align 2, 0
-lbl_0804fc60: .4byte 0x03000c77
+lbl_0804fc60: .4byte gFrameCounter8Bit
 lbl_0804fc64:
     cmp r0, #3
     beq lbl_0804fc6e
@@ -2104,7 +2104,7 @@ check_projectile_hit_block: @ 0x0804fd48
     adds r4, r0, #0
     lsls r2, r2, #0x18
     lsrs r5, r2, #0x18
-    ldr r0, lbl_0804fd70 @ =0x03000079
+    ldr r0, lbl_0804fd70 @ =gCurrentClipdataAffectingAction
     strb r1, [r0]
     ldrh r3, [r4, #8]
     ldrh r2, [r4, #0xa]
@@ -2120,7 +2120,7 @@ check_projectile_hit_block: @ 0x0804fd48
     subs r0, #8
     b lbl_0804fd78
     .align 2, 0
-lbl_0804fd70: .4byte 0x03000079
+lbl_0804fd70: .4byte gCurrentClipdataAffectingAction
 lbl_0804fd74:
     adds r0, r2, #0
     adds r0, #8
@@ -2152,9 +2152,9 @@ check_ProjectileHitSprite: @ 0x0804fd9c
     mov r5, r8
     push {r5, r6, r7}
     sub sp, #0x30
-    ldr r0, lbl_0804fe94 @ =0x03001530
+    ldr r0, lbl_0804fe94 @ =gEquipment
     mov sb, r0
-    ldr r2, lbl_0804fe98 @ =0x03000130
+    ldr r2, lbl_0804fe98 @ =gCurrentPowerBomb
     ldrb r0, [r2]
     cmp r0, #0
     beq lbl_0804fe62
@@ -2186,7 +2186,7 @@ check_ProjectileHitSprite: @ 0x0804fd9c
     mov sl, r0
     ldr r2, lbl_0804fe9c @ =0x00008001
     str r2, [sp, #0x14]
-    ldr r6, lbl_0804fea0 @ =0x030001ac
+    ldr r6, lbl_0804fea0 @ =gSpriteData
     movs r3, #0xa8
     lsls r3, r3, #3
     adds r0, r6, r3
@@ -2242,20 +2242,20 @@ lbl_0804fdf8:
     bl power_bomb_deal_damage
 lbl_0804fe5a:
     adds r6, #0x38
-    ldr r0, lbl_0804fea4 @ =0x030006ec
+    ldr r0, lbl_0804fea4 @ =gSpritesetSpritesID
     cmp r6, r0
     blo lbl_0804fdf8
 lbl_0804fe62:
     ldr r1, lbl_0804fe9c @ =0x00008001
     str r1, [sp, #0x14]
     movs r2, #0
-    ldr r6, lbl_0804fea0 @ =0x030001ac
+    ldr r6, lbl_0804fea0 @ =gSpriteData
     movs r3, #0xa8
     lsls r3, r3, #3
     adds r0, r6, r3
     cmp r6, r0
     bhs lbl_0804febe
-    ldr r3, lbl_0804fea8 @ =0x030007f3
+    ldr r3, lbl_0804fea8 @ =gSpriteDrawOrder
     adds r4, r0, #0
 lbl_0804fe78:
     ldrh r0, [r6]
@@ -2272,12 +2272,12 @@ lbl_0804fe78:
     ldrb r0, [r0]
     b lbl_0804feb0
     .align 2, 0
-lbl_0804fe94: .4byte 0x03001530
-lbl_0804fe98: .4byte 0x03000130
+lbl_0804fe94: .4byte gEquipment
+lbl_0804fe98: .4byte gCurrentPowerBomb
 lbl_0804fe9c: .4byte 0x00008001
-lbl_0804fea0: .4byte 0x030001ac
-lbl_0804fea4: .4byte 0x030006ec
-lbl_0804fea8: .4byte 0x030007f3
+lbl_0804fea0: .4byte gSpriteData
+lbl_0804fea4: .4byte gSpritesetSpritesID
+lbl_0804fea8: .4byte gSpriteDrawOrder
 lbl_0804feac:
     adds r1, r2, r3
     movs r0, #0
@@ -2294,7 +2294,7 @@ lbl_0804febe:
     str r2, [sp, #0x10]
 lbl_0804fec2:
     movs r2, #0
-    ldr r6, lbl_0804ff94 @ =0x030001ac
+    ldr r6, lbl_0804ff94 @ =gSpriteData
     movs r3, #0xa8
     lsls r3, r3, #3
     adds r0, r6, r3
@@ -2305,7 +2305,7 @@ lbl_0804fec2:
     blo lbl_0804fed8
     b lbl_08050348
 lbl_0804fed8:
-    ldr r0, lbl_0804ff98 @ =0x030007f3
+    ldr r0, lbl_0804ff98 @ =gSpriteDrawOrder
     adds r0, r2, r0
     ldrb r0, [r0]
     adds r3, r6, #0
@@ -2342,7 +2342,7 @@ lbl_0804fef0:
     mov sl, r0
     movs r2, #0x11
     str r2, [sp, #0x14]
-    ldr r3, lbl_0804ff9c @ =0x03000a2c
+    ldr r3, lbl_0804ff9c @ =gProjectileData
     mov r8, r3
     movs r0, #0xe0
     lsls r0, r0, #1
@@ -2403,9 +2403,9 @@ lbl_0804ff88:
     ldr r0, [r0]
     mov pc, r0
     .align 2, 0
-lbl_0804ff94: .4byte 0x030001ac
-lbl_0804ff98: .4byte 0x030007f3
-lbl_0804ff9c: .4byte 0x03000a2c
+lbl_0804ff94: .4byte gSpriteData
+lbl_0804ff98: .4byte gSpriteDrawOrder
+lbl_0804ff9c: .4byte gProjectileData
 lbl_0804ffa0: .4byte lbl_0804ffa4
 lbl_0804ffa4: @ jump table
     .4byte lbl_0804ffe0 @ case 0
@@ -2854,7 +2854,7 @@ lbl_08050322:
 lbl_0805032c:
     movs r2, #0x1c
     add r8, r2
-    ldr r0, lbl_08050368 @ =0x03000bec
+    ldr r0, lbl_08050368 @ =gArmCannonY
     cmp r8, r0
     bhs lbl_08050338
     b lbl_0804ff30
@@ -2863,7 +2863,7 @@ lbl_08050338:
     lsls r0, r3, #0x18
     lsrs r2, r0, #0x18
     ldr r6, [sp, #0x2c]
-    ldr r0, lbl_0805036c @ =0x030006ec
+    ldr r0, lbl_0805036c @ =gSpritesetSpritesID
     cmp r6, r0
     bhs lbl_08050348
     b lbl_0804fed8
@@ -2885,8 +2885,8 @@ lbl_08050356:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08050368: .4byte 0x03000bec
-lbl_0805036c: .4byte 0x030006ec
+lbl_08050368: .4byte gArmCannonY
+lbl_0805036c: .4byte gSpritesetSpritesID
 
     thumb_func_start get_sprite_weakness
 get_sprite_weakness: @ 0x08050370
@@ -2953,7 +2953,7 @@ lbl_080503bc:
     adds r4, r2, #0
     cmp r0, #0
     beq lbl_080503f0
-    ldr r2, lbl_08050420 @ =0x030013d4
+    ldr r2, lbl_08050420 @ =gSamusData
     ldrb r0, [r2, #1]
     cmp r0, #1
     bne lbl_080503f0
@@ -2987,7 +2987,7 @@ lbl_08050400:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08050420: .4byte 0x030013d4
+lbl_08050420: .4byte gSamusData
 
     thumb_func_start ProjectileDealDamage
 ProjectileDealDamage: @ 0x08050424
@@ -3024,7 +3024,7 @@ lbl_0805043e:
     adds r4, r2, #0
     cmp r0, #0
     beq lbl_08050472
-    ldr r2, lbl_080504a8 @ =0x030013d4
+    ldr r2, lbl_080504a8 @ =gSamusData
     ldrb r0, [r2, #1]
     cmp r0, #1
     bne lbl_08050472
@@ -3060,7 +3060,7 @@ lbl_08050486:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_080504a8: .4byte 0x030013d4
+lbl_080504a8: .4byte gSamusData
 
     thumb_func_start ProjectileHitSpriteImmuneToProjectiles
 ProjectileHitSpriteImmuneToProjectiles: @ 0x080504ac
@@ -3156,7 +3156,7 @@ lbl_08050534:
     ldrb r0, [r1]
     cmp r0, #0
     beq lbl_08050562
-    ldr r2, lbl_08050578 @ =0x030013d4
+    ldr r2, lbl_08050578 @ =gSamusData
     ldrb r0, [r2, #1]
     cmp r0, #1
     bne lbl_08050562
@@ -3176,7 +3176,7 @@ lbl_08050572:
     movs r2, #0x11
     b lbl_0805057e
     .align 2, 0
-lbl_08050578: .4byte 0x030013d4
+lbl_08050578: .4byte gSamusData
 lbl_0805057c:
     movs r2, #3
 lbl_0805057e:
@@ -3457,7 +3457,7 @@ lbl_0805078a:
     cmp r0, #0
     beq lbl_080507ce
     lsrs r1, r1, #0x18
-    ldr r0, lbl_080507c0 @ =0x03000c77
+    ldr r0, lbl_080507c0 @ =gFrameCounter8Bit
     ldrb r0, [r0]
     ands r0, r1
     cmp r0, #0
@@ -3469,7 +3469,7 @@ lbl_0805078a:
     lsrs r0, r0, #0x18
     b lbl_080507e2
     .align 2, 0
-lbl_080507c0: .4byte 0x03000c77
+lbl_080507c0: .4byte gFrameCounter8Bit
 lbl_080507c4:
     adds r0, r4, #0
     adds r1, r6, #0
@@ -3712,7 +3712,7 @@ kraid_start_tumbling_missile: @ 0x08050974
     strb r2, [r3]
     strb r1, [r3, #0xe]
     strh r1, [r3, #0xc]
-    ldr r1, lbl_080509a8 @ =0x03000738
+    ldr r1, lbl_080509a8 @ =gCurrentSprite
     ldrh r0, [r3, #0xa]
     ldrh r1, [r1, #4]
     cmp r0, r1
@@ -3721,7 +3721,7 @@ kraid_start_tumbling_missile: @ 0x08050974
     orrs r2, r0
     b lbl_080509b0
     .align 2, 0
-lbl_080509a8: .4byte 0x03000738
+lbl_080509a8: .4byte gCurrentSprite
 lbl_080509ac:
     movs r0, #0xbf
     ands r2, r0
@@ -3957,7 +3957,7 @@ ProjectileProcessNormalBeam: @ 0x08050b64
     ldrb r0, [r4, #0x11]
     cmp r0, #2
     bne lbl_08050b8c
-    ldr r0, lbl_08050b88 @ =0x03000079
+    ldr r0, lbl_08050b88 @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -3969,11 +3969,11 @@ ProjectileProcessNormalBeam: @ 0x08050b64
     bl move_projectile
     b lbl_08050c3c
     .align 2, 0
-lbl_08050b88: .4byte 0x03000079
+lbl_08050b88: .4byte gCurrentClipdataAffectingAction
 lbl_08050b8c:
     cmp r0, #1
     bne lbl_08050bc4
-    ldr r0, lbl_08050bb0 @ =0x03000079
+    ldr r0, lbl_08050bb0 @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -3989,7 +3989,7 @@ lbl_08050ba0:
     bl ParticleSet
     b lbl_08050c4e
     .align 2, 0
-lbl_08050bb0: .4byte 0x03000079
+lbl_08050bb0: .4byte gCurrentClipdataAffectingAction
 lbl_08050bb4:
     ldrb r0, [r4, #0x11]
     adds r0, #1
@@ -4085,7 +4085,7 @@ ProjectileProcessLongBeam: @ 0x08050c5c
     ldrb r0, [r4, #0x11]
     cmp r0, #2
     bne lbl_08050c84
-    ldr r0, lbl_08050c80 @ =0x03000079
+    ldr r0, lbl_08050c80 @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -4097,11 +4097,11 @@ ProjectileProcessLongBeam: @ 0x08050c5c
     bl move_projectile
     b lbl_08050d34
     .align 2, 0
-lbl_08050c80: .4byte 0x03000079
+lbl_08050c80: .4byte gCurrentClipdataAffectingAction
 lbl_08050c84:
     cmp r0, #1
     bne lbl_08050cbc
-    ldr r0, lbl_08050ca8 @ =0x03000079
+    ldr r0, lbl_08050ca8 @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -4117,7 +4117,7 @@ lbl_08050c98:
     bl ParticleSet
     b lbl_08050d3a
     .align 2, 0
-lbl_08050ca8: .4byte 0x03000079
+lbl_08050ca8: .4byte gCurrentClipdataAffectingAction
 lbl_08050cac:
     ldrb r0, [r4, #0x11]
     adds r0, #1
@@ -4207,7 +4207,7 @@ ProjectileProcessIceBeam: @ 0x08050d48
     ldrb r0, [r4, #0x11]
     cmp r0, #2
     bne lbl_08050d8c
-    ldr r0, lbl_08050d7c @ =0x03000079
+    ldr r0, lbl_08050d7c @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -4226,7 +4226,7 @@ ProjectileProcessIceBeam: @ 0x08050d48
     movs r1, #0x17
     b lbl_08050d84
     .align 2, 0
-lbl_08050d7c: .4byte 0x03000079
+lbl_08050d7c: .4byte gCurrentClipdataAffectingAction
 lbl_08050d80:
     adds r0, r4, #0
     movs r1, #0x16
@@ -4237,7 +4237,7 @@ lbl_08050d84:
 lbl_08050d8c:
     cmp r0, #1
     bne lbl_08050dc4
-    ldr r0, lbl_08050db0 @ =0x03000079
+    ldr r0, lbl_08050db0 @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -4253,7 +4253,7 @@ lbl_08050da0:
     bl ParticleSet
     b lbl_08050e58
     .align 2, 0
-lbl_08050db0: .4byte 0x03000079
+lbl_08050db0: .4byte gCurrentClipdataAffectingAction
 lbl_08050db4:
     ldrb r0, [r4, #0x11]
     adds r0, #1
@@ -4328,7 +4328,7 @@ lbl_08050e3c:
     ldrb r0, [r4, #0x13]
     adds r2, r0, #1
     strb r2, [r4, #0x13]
-    ldr r0, lbl_08050e68 @ =0x03001530
+    ldr r0, lbl_08050e68 @ =gEquipment
     ldrb r0, [r0, #0xd]
     movs r1, #1
     ands r1, r0
@@ -4346,7 +4346,7 @@ lbl_08050e58:
     .align 2, 0
 lbl_08050e60: .4byte 0x08328e2c
 lbl_08050e64: .4byte 0x0000ffec
-lbl_08050e68: .4byte 0x03001530
+lbl_08050e68: .4byte gEquipment
 
     thumb_func_start check_wave_beam_colliding_with_blocks
 check_wave_beam_colliding_with_blocks: @ 0x08050e6c
@@ -4382,7 +4382,7 @@ lbl_08050ea8:
     ands r0, r1
     cmp r0, #0
     beq lbl_08050ef8
-    ldr r0, lbl_08050ef4 @ =0x03000079
+    ldr r0, lbl_08050ef4 @ =gCurrentClipdataAffectingAction
     mov r8, r0
     strb r7, [r0]
     adds r0, r4, #0
@@ -4415,9 +4415,9 @@ lbl_08050ee4:
     subs r1, #0x2d
     b lbl_0805104a
     .align 2, 0
-lbl_08050ef4: .4byte 0x03000079
+lbl_08050ef4: .4byte gCurrentClipdataAffectingAction
 lbl_08050ef8:
-    ldr r0, lbl_08050f38 @ =0x03000079
+    ldr r0, lbl_08050f38 @ =gCurrentClipdataAffectingAction
     mov r8, r0
     strb r7, [r0]
     adds r0, r4, #0
@@ -4450,14 +4450,14 @@ lbl_08050f2a:
     adds r1, #0x2d
     b lbl_0805104a
     .align 2, 0
-lbl_08050f38: .4byte 0x03000079
+lbl_08050f38: .4byte gCurrentClipdataAffectingAction
 lbl_08050f3c:
     ldrb r1, [r2]
     movs r0, #0x40
     ands r0, r1
     cmp r0, #0
     beq lbl_08050f8c
-    ldr r0, lbl_08050f88 @ =0x03000079
+    ldr r0, lbl_08050f88 @ =gCurrentClipdataAffectingAction
     mov r8, r0
     strb r7, [r0]
     adds r0, r4, #0
@@ -4490,9 +4490,9 @@ lbl_08050f78:
     adds r1, #0x2d
     b lbl_0805104a
     .align 2, 0
-lbl_08050f88: .4byte 0x03000079
+lbl_08050f88: .4byte gCurrentClipdataAffectingAction
 lbl_08050f8c:
-    ldr r0, lbl_08050fcc @ =0x03000079
+    ldr r0, lbl_08050fcc @ =gCurrentClipdataAffectingAction
     mov r8, r0
     strb r7, [r0]
     adds r0, r4, #0
@@ -4525,9 +4525,9 @@ lbl_08050fbe:
     subs r1, #0x2d
     b lbl_0805104a
     .align 2, 0
-lbl_08050fcc: .4byte 0x03000079
+lbl_08050fcc: .4byte gCurrentClipdataAffectingAction
 lbl_08050fd0:
-    ldr r0, lbl_0805100c @ =0x03000079
+    ldr r0, lbl_0805100c @ =gCurrentClipdataAffectingAction
     mov r8, r0
     strb r7, [r0]
     adds r0, r4, #0
@@ -4558,9 +4558,9 @@ lbl_08051000:
     adds r0, r4, #0
     b lbl_0805104a
     .align 2, 0
-lbl_0805100c: .4byte 0x03000079
+lbl_0805100c: .4byte gCurrentClipdataAffectingAction
 lbl_08051010:
-    ldr r0, lbl_08051064 @ =0x03000079
+    ldr r0, lbl_08051064 @ =gCurrentClipdataAffectingAction
     mov r8, r0
     strb r7, [r0]
     adds r0, r4, #0
@@ -4604,7 +4604,7 @@ lbl_08051058:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08051064: .4byte 0x03000079
+lbl_08051064: .4byte gCurrentClipdataAffectingAction
 
     thumb_func_start ProjectileProcessWaveBeam
 ProjectileProcessWaveBeam: @ 0x08051068
@@ -4618,7 +4618,7 @@ ProjectileProcessWaveBeam: @ 0x08051068
     adds r0, r4, #0
     movs r1, #0x1c
     bl move_projectile
-    ldr r0, lbl_0805109c @ =0x03001530
+    ldr r0, lbl_0805109c @ =gEquipment
     ldrb r0, [r0, #0xd]
     ands r5, r0
     cmp r5, #0
@@ -4632,7 +4632,7 @@ ProjectileProcessWaveBeam: @ 0x08051068
     movs r1, #0x17
     b lbl_080510a4
     .align 2, 0
-lbl_0805109c: .4byte 0x03001530
+lbl_0805109c: .4byte gEquipment
 lbl_080510a0:
     adds r0, r4, #0
     movs r1, #0x16
@@ -4735,7 +4735,7 @@ lbl_08051166:
     ldrb r0, [r4, #0x13]
     adds r2, r0, #1
     strb r2, [r4, #0x13]
-    ldr r0, lbl_08051194 @ =0x03001530
+    ldr r0, lbl_08051194 @ =gEquipment
     ldrb r0, [r0, #0xd]
     movs r1, #1
     ands r1, r0
@@ -4754,13 +4754,13 @@ lbl_08051182:
 lbl_08051188: .4byte 0x08329c6c
 lbl_0805118c: .4byte 0x0000ffc0
 lbl_08051190: .4byte 0x0000ffec
-lbl_08051194: .4byte 0x03001530
+lbl_08051194: .4byte gEquipment
 
     thumb_func_start ProjectileProcessPlasmaBeam
 ProjectileProcessPlasmaBeam: @ 0x08051198
     push {r4, r5, r6, lr}
     adds r4, r0, #0
-    ldr r0, lbl_080511cc @ =0x03001530
+    ldr r0, lbl_080511cc @ =gEquipment
     ldrb r1, [r0, #0xd]
     movs r0, #4
     ands r0, r1
@@ -4768,7 +4768,7 @@ ProjectileProcessPlasmaBeam: @ 0x08051198
     lsrs r6, r0, #0x18
     cmp r6, #0
     bne lbl_080511d4
-    ldr r0, lbl_080511d0 @ =0x03000079
+    ldr r0, lbl_080511d0 @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -4782,8 +4782,8 @@ ProjectileProcessPlasmaBeam: @ 0x08051198
     bl ParticleSet
     b lbl_08051346
     .align 2, 0
-lbl_080511cc: .4byte 0x03001530
-lbl_080511d0: .4byte 0x03000079
+lbl_080511cc: .4byte gEquipment
+lbl_080511d0: .4byte gCurrentClipdataAffectingAction
 lbl_080511d4:
     adds r0, r4, #0
     bl check_wave_beam_colliding_with_blocks
@@ -4795,7 +4795,7 @@ lbl_080511da:
     adds r0, r4, #0
     movs r1, #0x20
     bl move_projectile
-    ldr r0, lbl_08051208 @ =0x03001530
+    ldr r0, lbl_08051208 @ =gEquipment
     ldrb r0, [r0, #0xd]
     ands r5, r0
     cmp r5, #0
@@ -4811,7 +4811,7 @@ lbl_080511f6:
     movs r1, #0x17
     b lbl_08051210
     .align 2, 0
-lbl_08051208: .4byte 0x03001530
+lbl_08051208: .4byte gEquipment
 lbl_0805120c:
     adds r0, r4, #0
     movs r1, #0x16
@@ -4958,7 +4958,7 @@ lbl_0805132a:
     ldrb r0, [r4, #0x13]
     adds r2, r0, #1
     strb r2, [r4, #0x13]
-    ldr r0, lbl_08051350 @ =0x03001530
+    ldr r0, lbl_08051350 @ =gEquipment
     ldrb r0, [r0, #0xd]
     movs r1, #1
     ands r1, r0
@@ -4975,7 +4975,7 @@ lbl_08051346:
     bx r0
     .align 2, 0
 lbl_0805134c: .4byte 0x0000ffec
-lbl_08051350: .4byte 0x03001530
+lbl_08051350: .4byte gEquipment
 
     thumb_func_start ProjectileProcessPistol
 ProjectileProcessPistol: @ 0x08051354
@@ -4984,7 +4984,7 @@ ProjectileProcessPistol: @ 0x08051354
     ldrb r0, [r4, #0x11]
     cmp r0, #2
     bne lbl_0805137c
-    ldr r0, lbl_08051378 @ =0x03000079
+    ldr r0, lbl_08051378 @ =gCurrentClipdataAffectingAction
     movs r1, #8
     strb r1, [r0]
     adds r0, r4, #0
@@ -4996,11 +4996,11 @@ ProjectileProcessPistol: @ 0x08051354
     bl move_projectile
     b lbl_0805142c
     .align 2, 0
-lbl_08051378: .4byte 0x03000079
+lbl_08051378: .4byte gCurrentClipdataAffectingAction
 lbl_0805137c:
     cmp r0, #1
     bne lbl_080513b4
-    ldr r0, lbl_080513a0 @ =0x03000079
+    ldr r0, lbl_080513a0 @ =gCurrentClipdataAffectingAction
     movs r1, #8
     strb r1, [r0]
     adds r0, r4, #0
@@ -5016,7 +5016,7 @@ lbl_08051390:
     bl ParticleSet
     b lbl_08051432
     .align 2, 0
-lbl_080513a0: .4byte 0x03000079
+lbl_080513a0: .4byte gCurrentClipdataAffectingAction
 lbl_080513a4:
     ldrb r0, [r4, #0x11]
     adds r0, #1
@@ -5106,7 +5106,7 @@ ProjectileProcessChargedNormalBeam: @ 0x08051440
     ldrb r0, [r4, #0x11]
     cmp r0, #2
     bne lbl_08051468
-    ldr r0, lbl_08051464 @ =0x03000079
+    ldr r0, lbl_08051464 @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -5118,11 +5118,11 @@ ProjectileProcessChargedNormalBeam: @ 0x08051440
     bl move_projectile
     b lbl_08051518
     .align 2, 0
-lbl_08051464: .4byte 0x03000079
+lbl_08051464: .4byte gCurrentClipdataAffectingAction
 lbl_08051468:
     cmp r0, #1
     bne lbl_080514a0
-    ldr r0, lbl_0805148c @ =0x03000079
+    ldr r0, lbl_0805148c @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -5138,7 +5138,7 @@ lbl_0805147c:
     bl ParticleSet
     b lbl_0805152a
     .align 2, 0
-lbl_0805148c: .4byte 0x03000079
+lbl_0805148c: .4byte gCurrentClipdataAffectingAction
 lbl_08051490:
     ldrb r0, [r4, #0x11]
     adds r0, #1
@@ -5234,7 +5234,7 @@ ProjectileProcessChargedLongBeam: @ 0x08051538
     ldrb r0, [r4, #0x11]
     cmp r0, #2
     bne lbl_0805156c
-    ldr r0, lbl_08051568 @ =0x03000079
+    ldr r0, lbl_08051568 @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -5250,11 +5250,11 @@ ProjectileProcessChargedLongBeam: @ 0x08051538
     bl set_projectile_trail
     b lbl_0805161c
     .align 2, 0
-lbl_08051568: .4byte 0x03000079
+lbl_08051568: .4byte gCurrentClipdataAffectingAction
 lbl_0805156c:
     cmp r0, #1
     bne lbl_080515a4
-    ldr r0, lbl_08051590 @ =0x03000079
+    ldr r0, lbl_08051590 @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -5270,7 +5270,7 @@ lbl_08051580:
     bl ParticleSet
     b lbl_08051622
     .align 2, 0
-lbl_08051590: .4byte 0x03000079
+lbl_08051590: .4byte gCurrentClipdataAffectingAction
 lbl_08051594:
     ldrb r0, [r4, #0x11]
     adds r0, #1
@@ -5360,7 +5360,7 @@ ProjectileProcessChargedIceBeam: @ 0x08051630
     ldrb r0, [r4, #0x11]
     cmp r0, #2
     bne lbl_08051682
-    ldr r0, lbl_08051668 @ =0x03000079
+    ldr r0, lbl_08051668 @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -5381,7 +5381,7 @@ ProjectileProcessChargedIceBeam: @ 0x08051630
     bl set_projectile_trail
     b lbl_08051676
     .align 2, 0
-lbl_08051668: .4byte 0x03000079
+lbl_08051668: .4byte gCurrentClipdataAffectingAction
 lbl_0805166c:
     adds r0, r4, #0
     movs r1, #0x16
@@ -5396,7 +5396,7 @@ lbl_08051676:
 lbl_08051682:
     cmp r0, #1
     bne lbl_080516bc
-    ldr r0, lbl_080516a8 @ =0x03000079
+    ldr r0, lbl_080516a8 @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -5412,7 +5412,7 @@ lbl_08051696:
     bl ParticleSet
     b lbl_08051750
     .align 2, 0
-lbl_080516a8: .4byte 0x03000079
+lbl_080516a8: .4byte gCurrentClipdataAffectingAction
 lbl_080516ac:
     ldrb r0, [r4, #0x11]
     adds r0, #1
@@ -5487,7 +5487,7 @@ lbl_08051734:
     ldrb r0, [r4, #0x13]
     adds r2, r0, #1
     strb r2, [r4, #0x13]
-    ldr r0, lbl_08051760 @ =0x03001530
+    ldr r0, lbl_08051760 @ =gEquipment
     ldrb r0, [r0, #0xd]
     movs r1, #1
     ands r1, r0
@@ -5505,7 +5505,7 @@ lbl_08051750:
     .align 2, 0
 lbl_08051758: .4byte 0x08328ebc
 lbl_0805175c: .4byte 0x0000ffe8
-lbl_08051760: .4byte 0x03001530
+lbl_08051760: .4byte gEquipment
 
     thumb_func_start ProjectileProcessChargedWaveBeam
 ProjectileProcessChargedWaveBeam: @ 0x08051764
@@ -5519,7 +5519,7 @@ ProjectileProcessChargedWaveBeam: @ 0x08051764
     adds r0, r4, #0
     movs r1, #0x1c
     bl move_projectile
-    ldr r0, lbl_0805179c @ =0x03001530
+    ldr r0, lbl_0805179c @ =gEquipment
     ldrb r0, [r0, #0xd]
     ands r5, r0
     cmp r5, #0
@@ -5535,7 +5535,7 @@ ProjectileProcessChargedWaveBeam: @ 0x08051764
     bl set_projectile_trail
     b lbl_080517aa
     .align 2, 0
-lbl_0805179c: .4byte 0x03001530
+lbl_0805179c: .4byte gEquipment
 lbl_080517a0:
     adds r0, r4, #0
     movs r1, #0x16
@@ -5642,7 +5642,7 @@ lbl_0805186e:
     ldrb r0, [r4, #0x13]
     adds r2, r0, #1
     strb r2, [r4, #0x13]
-    ldr r0, lbl_0805189c @ =0x03001530
+    ldr r0, lbl_0805189c @ =gEquipment
     ldrb r0, [r0, #0xd]
     movs r1, #1
     ands r1, r0
@@ -5661,13 +5661,13 @@ lbl_0805188a:
 lbl_08051890: .4byte 0x08329dec
 lbl_08051894: .4byte 0x0000ffb8
 lbl_08051898: .4byte 0x0000ffec
-lbl_0805189c: .4byte 0x03001530
+lbl_0805189c: .4byte gEquipment
 
     thumb_func_start ProjectileProcessChargedPlasmaBeam
 ProjectileProcessChargedPlasmaBeam: @ 0x080518a0
     push {r4, r5, r6, lr}
     adds r4, r0, #0
-    ldr r0, lbl_080518d4 @ =0x03001530
+    ldr r0, lbl_080518d4 @ =gEquipment
     ldrb r1, [r0, #0xd]
     movs r0, #4
     ands r0, r1
@@ -5675,7 +5675,7 @@ ProjectileProcessChargedPlasmaBeam: @ 0x080518a0
     lsrs r6, r0, #0x18
     cmp r6, #0
     bne lbl_080518dc
-    ldr r0, lbl_080518d8 @ =0x03000079
+    ldr r0, lbl_080518d8 @ =gCurrentClipdataAffectingAction
     movs r1, #7
     strb r1, [r0]
     adds r0, r4, #0
@@ -5689,8 +5689,8 @@ ProjectileProcessChargedPlasmaBeam: @ 0x080518a0
     bl ParticleSet
     b lbl_08051a6c
     .align 2, 0
-lbl_080518d4: .4byte 0x03001530
-lbl_080518d8: .4byte 0x03000079
+lbl_080518d4: .4byte gEquipment
+lbl_080518d8: .4byte gCurrentClipdataAffectingAction
 lbl_080518dc:
     adds r0, r4, #0
     bl check_wave_beam_colliding_with_blocks
@@ -5702,7 +5702,7 @@ lbl_080518e2:
     adds r0, r4, #0
     movs r1, #0x20
     bl move_projectile
-    ldr r0, lbl_08051914 @ =0x03001530
+    ldr r0, lbl_08051914 @ =gEquipment
     ldrb r0, [r0, #0xd]
     ands r5, r0
     cmp r5, #0
@@ -5718,7 +5718,7 @@ lbl_080518e2:
     bl set_projectile_trail
     b lbl_08051922
     .align 2, 0
-lbl_08051914: .4byte 0x03001530
+lbl_08051914: .4byte gEquipment
 lbl_08051918:
     adds r0, r4, #0
     movs r1, #0x16
@@ -5881,7 +5881,7 @@ lbl_08051a50:
     ldrb r0, [r4, #0x13]
     adds r2, r0, #1
     strb r2, [r4, #0x13]
-    ldr r0, lbl_08051a78 @ =0x03001530
+    ldr r0, lbl_08051a78 @ =gEquipment
     ldrb r0, [r0, #0xd]
     movs r1, #1
     ands r1, r0
@@ -5898,7 +5898,7 @@ lbl_08051a6c:
     bx r0
     .align 2, 0
 lbl_08051a74: .4byte 0x0000ffe8
-lbl_08051a78: .4byte 0x03001530
+lbl_08051a78: .4byte gEquipment
 
     thumb_func_start ProjectileProcessChargedPistol
 ProjectileProcessChargedPistol: @ 0x08051a7c
@@ -5907,7 +5907,7 @@ ProjectileProcessChargedPistol: @ 0x08051a7c
     ldrb r0, [r4, #0x11]
     cmp r0, #2
     bne lbl_08051ab0
-    ldr r0, lbl_08051aac @ =0x03000079
+    ldr r0, lbl_08051aac @ =gCurrentClipdataAffectingAction
     movs r1, #8
     strb r1, [r0]
     adds r0, r4, #0
@@ -5923,11 +5923,11 @@ ProjectileProcessChargedPistol: @ 0x08051a7c
     bl set_projectile_trail
     b lbl_08051b60
     .align 2, 0
-lbl_08051aac: .4byte 0x03000079
+lbl_08051aac: .4byte gCurrentClipdataAffectingAction
 lbl_08051ab0:
     cmp r0, #1
     bne lbl_08051ae8
-    ldr r0, lbl_08051ad4 @ =0x03000079
+    ldr r0, lbl_08051ad4 @ =gCurrentClipdataAffectingAction
     movs r1, #8
     strb r1, [r0]
     adds r0, r4, #0
@@ -5943,7 +5943,7 @@ lbl_08051ac4:
     bl ParticleSet
     b lbl_08051b66
     .align 2, 0
-lbl_08051ad4: .4byte 0x03000079
+lbl_08051ad4: .4byte gCurrentClipdataAffectingAction
 lbl_08051ad8:
     ldrb r0, [r4, #0x11]
     adds r0, #1
@@ -6030,7 +6030,7 @@ lbl_08051b70: .4byte 0x0000fff4
 decrement_missile_counter: @ 0x08051b74
     push {lr}
     adds r3, r0, #0
-    ldr r1, lbl_08051ba4 @ =0x03001530
+    ldr r1, lbl_08051ba4 @ =gEquipment
     ldrh r0, [r1, #8]
     cmp r0, #0
     beq lbl_08051b94
@@ -6039,7 +6039,7 @@ decrement_missile_counter: @ 0x08051b74
     lsls r0, r0, #0x10
     cmp r0, #0
     bne lbl_08051b94
-    ldr r0, lbl_08051ba8 @ =0x03001414
+    ldr r0, lbl_08051ba8 @ =gSamusWeaponInfo
     ldrb r1, [r0, #2]
     movs r2, #1
     eors r1, r2
@@ -6054,8 +6054,8 @@ lbl_08051b94:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08051ba4: .4byte 0x03001530
-lbl_08051ba8: .4byte 0x03001414
+lbl_08051ba4: .4byte gEquipment
+lbl_08051ba8: .4byte gSamusWeaponInfo
 
     thumb_func_start ProjectileProcessMissile
 ProjectileProcessMissile: @ 0x08051bac
@@ -6064,7 +6064,7 @@ ProjectileProcessMissile: @ 0x08051bac
     ldrb r0, [r4, #0x11]
     cmp r0, #2
     bne lbl_08051bec
-    ldr r0, lbl_08051be8 @ =0x03000079
+    ldr r0, lbl_08051be8 @ =gCurrentClipdataAffectingAction
     movs r1, #9
     strb r1, [r0]
     adds r0, r4, #0
@@ -6087,11 +6087,11 @@ lbl_08051bda:
     bl set_projectile_trail
     b lbl_08051cbe
     .align 2, 0
-lbl_08051be8: .4byte 0x03000079
+lbl_08051be8: .4byte gCurrentClipdataAffectingAction
 lbl_08051bec:
     cmp r0, #1
     bne lbl_08051c24
-    ldr r0, lbl_08051c10 @ =0x03000079
+    ldr r0, lbl_08051c10 @ =gCurrentClipdataAffectingAction
     movs r1, #9
     strb r1, [r0]
     adds r0, r4, #0
@@ -6107,7 +6107,7 @@ lbl_08051c00:
     bl ParticleSet
     b lbl_08051cbe
     .align 2, 0
-lbl_08051c10: .4byte 0x03000079
+lbl_08051c10: .4byte gCurrentClipdataAffectingAction
 lbl_08051c14:
     ldrb r0, [r4, #0x11]
     adds r0, #1
@@ -6201,7 +6201,7 @@ lbl_08051cbe:
 decrement_super_missile_counter: @ 0x08051cc4
     push {lr}
     adds r3, r0, #0
-    ldr r1, lbl_08051cf4 @ =0x03001530
+    ldr r1, lbl_08051cf4 @ =gEquipment
     ldrb r0, [r1, #0xa]
     cmp r0, #0
     beq lbl_08051ce4
@@ -6210,7 +6210,7 @@ decrement_super_missile_counter: @ 0x08051cc4
     lsls r0, r0, #0x18
     cmp r0, #0
     bne lbl_08051ce4
-    ldr r0, lbl_08051cf8 @ =0x03001414
+    ldr r0, lbl_08051cf8 @ =gSamusWeaponInfo
     ldrb r1, [r0, #2]
     movs r2, #2
     eors r1, r2
@@ -6225,8 +6225,8 @@ lbl_08051ce4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08051cf4: .4byte 0x03001530
-lbl_08051cf8: .4byte 0x03001414
+lbl_08051cf4: .4byte gEquipment
+lbl_08051cf8: .4byte gSamusWeaponInfo
 
     thumb_func_start ProjectileProcessSuperMissile
 ProjectileProcessSuperMissile: @ 0x08051cfc
@@ -6235,7 +6235,7 @@ ProjectileProcessSuperMissile: @ 0x08051cfc
     ldrb r0, [r4, #0x11]
     cmp r0, #2
     bne lbl_08051d3c
-    ldr r0, lbl_08051d38 @ =0x03000079
+    ldr r0, lbl_08051d38 @ =gCurrentClipdataAffectingAction
     movs r1, #0xa
     strb r1, [r0]
     adds r0, r4, #0
@@ -6258,11 +6258,11 @@ lbl_08051d2a:
     bl set_projectile_trail
     b lbl_08051e0e
     .align 2, 0
-lbl_08051d38: .4byte 0x03000079
+lbl_08051d38: .4byte gCurrentClipdataAffectingAction
 lbl_08051d3c:
     cmp r0, #1
     bne lbl_08051d74
-    ldr r0, lbl_08051d60 @ =0x03000079
+    ldr r0, lbl_08051d60 @ =gCurrentClipdataAffectingAction
     movs r1, #0xa
     strb r1, [r0]
     adds r0, r4, #0
@@ -6278,7 +6278,7 @@ lbl_08051d50:
     bl ParticleSet
     b lbl_08051e0e
     .align 2, 0
-lbl_08051d60: .4byte 0x03000079
+lbl_08051d60: .4byte gCurrentClipdataAffectingAction
 lbl_08051d64:
     ldrb r0, [r4, #0x11]
     adds r0, #1
@@ -6376,10 +6376,10 @@ morph_ball_launcher_launch_samus: @ 0x08051e14
     push {r6, r7}
     sub sp, #0x10
     adds r5, r0, #0
-    ldr r7, lbl_08051ec4 @ =0x030013d4
+    ldr r7, lbl_08051ec4 @ =gSamusData
     ldrh r1, [r7, #0x14]
     ldrh r3, [r7, #0x12]
-    ldr r4, lbl_08051ec8 @ =0x03001588
+    ldr r4, lbl_08051ec8 @ =gSamusPhysics
     adds r0, r4, #0
     adds r0, #0x70
     ldrh r0, [r0]
@@ -6457,8 +6457,8 @@ lbl_08051eb4:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08051ec4: .4byte 0x030013d4
-lbl_08051ec8: .4byte 0x03001588
+lbl_08051ec4: .4byte gSamusData
+lbl_08051ec8: .4byte gSamusPhysics
 
     thumb_func_start check_samus_bomb_bounce
 check_samus_bomb_bounce: @ 0x08051ecc
@@ -6469,7 +6469,7 @@ check_samus_bomb_bounce: @ 0x08051ecc
     push {r5, r6, r7}
     sub sp, #0x1c
     mov r8, r0
-    ldr r0, lbl_08051fc4 @ =0x030013d4
+    ldr r0, lbl_08051fc4 @ =gSamusData
     ldrh r4, [r0, #0x14]
     str r4, [sp, #0x10]
     ldrh r5, [r0, #0x12]
@@ -6491,10 +6491,10 @@ check_samus_bomb_bounce: @ 0x08051ecc
     cmp r0, #0
     bne lbl_08051fe8
 lbl_08051f08:
-    ldr r0, lbl_08051fc8 @ =0x03001600
+    ldr r0, lbl_08051fc8 @ =gPreviousXPosition
     ldrh r0, [r0]
     str r0, [sp, #0x18]
-    ldr r3, lbl_08051fcc @ =0x03001588
+    ldr r3, lbl_08051fcc @ =gSamusPhysics
     adds r0, r3, #0
     adds r0, #0x70
     ldrh r0, [r0]
@@ -6560,7 +6560,7 @@ lbl_08051f08:
     adds r0, r7, r0
     lsls r0, r0, #0x10
     lsrs r4, r0, #0x10
-    ldr r1, lbl_08051fc4 @ =0x030013d4
+    ldr r1, lbl_08051fc4 @ =gSamusData
     ldrb r0, [r1, #6]
     cmp r0, #0
     bne lbl_08051fe8
@@ -6584,9 +6584,9 @@ lbl_08051fa8:
     bl samus_bombjump
     b lbl_08051fe8
     .align 2, 0
-lbl_08051fc4: .4byte 0x030013d4
-lbl_08051fc8: .4byte 0x03001600
-lbl_08051fcc: .4byte 0x03001588
+lbl_08051fc4: .4byte gSamusData
+lbl_08051fc8: .4byte gPreviousXPosition
+lbl_08051fcc: .4byte gSamusPhysics
 lbl_08051fd0:
     ldr r6, [sp, #0x18]
     cmp r4, r6
@@ -6680,7 +6680,7 @@ lbl_08052088:
     lsrs r1, r0, #0x18
     cmp r1, #0xf
     bne lbl_080520b4
-    ldr r1, lbl_080520b0 @ =0x03000079
+    ldr r1, lbl_080520b0 @ =gCurrentClipdataAffectingAction
     movs r0, #8
     strb r0, [r1]
     ldrh r0, [r4, #8]
@@ -6694,22 +6694,22 @@ lbl_08052088:
     ands r0, r1
     b lbl_080521e8
     .align 2, 0
-lbl_080520b0: .4byte 0x03000079
+lbl_080520b0: .4byte gCurrentClipdataAffectingAction
 lbl_080520b4:
     cmp r1, #0xe
     bne lbl_080520c8
-    ldr r1, lbl_080520c4 @ =0x03000079
+    ldr r1, lbl_080520c4 @ =gCurrentClipdataAffectingAction
     movs r0, #8
     strb r0, [r1]
     ldrh r0, [r4, #8]
     adds r0, #0x38
     b lbl_08052136
     .align 2, 0
-lbl_080520c4: .4byte 0x03000079
+lbl_080520c4: .4byte gCurrentClipdataAffectingAction
 lbl_080520c8:
     cmp r1, #0xd
     bne lbl_080520e4
-    ldr r1, lbl_080520e0 @ =0x03000079
+    ldr r1, lbl_080520e0 @ =gCurrentClipdataAffectingAction
     movs r0, #8
     strb r0, [r1]
     ldrh r0, [r4, #8]
@@ -6719,11 +6719,11 @@ lbl_080520c8:
     bl ClipdataProcess
     b lbl_080521ea
     .align 2, 0
-lbl_080520e0: .4byte 0x03000079
+lbl_080520e0: .4byte gCurrentClipdataAffectingAction
 lbl_080520e4:
     cmp r1, #0xc
     bne lbl_08052100
-    ldr r1, lbl_080520fc @ =0x03000079
+    ldr r1, lbl_080520fc @ =gCurrentClipdataAffectingAction
     movs r0, #8
     strb r0, [r1]
     ldrh r0, [r4, #8]
@@ -6733,33 +6733,33 @@ lbl_080520e4:
     bl ClipdataProcess
     b lbl_080521ea
     .align 2, 0
-lbl_080520fc: .4byte 0x03000079
+lbl_080520fc: .4byte gCurrentClipdataAffectingAction
 lbl_08052100:
     cmp r1, #0xb
     bne lbl_08052114
-    ldr r1, lbl_08052110 @ =0x03000079
+    ldr r1, lbl_08052110 @ =gCurrentClipdataAffectingAction
     movs r0, #8
     strb r0, [r1]
     ldrh r0, [r4, #8]
     adds r0, #0x38
     b lbl_08052150
     .align 2, 0
-lbl_08052110: .4byte 0x03000079
+lbl_08052110: .4byte gCurrentClipdataAffectingAction
 lbl_08052114:
     cmp r1, #0xa
     bne lbl_08052128
-    ldr r1, lbl_08052124 @ =0x03000079
+    ldr r1, lbl_08052124 @ =gCurrentClipdataAffectingAction
     movs r0, #8
     strb r0, [r1]
     ldrh r0, [r4, #8]
     adds r0, #0x38
     b lbl_0805216e
     .align 2, 0
-lbl_08052124: .4byte 0x03000079
+lbl_08052124: .4byte gCurrentClipdataAffectingAction
 lbl_08052128:
     cmp r1, #9
     bne lbl_08052144
-    ldr r1, lbl_08052140 @ =0x03000079
+    ldr r1, lbl_08052140 @ =gCurrentClipdataAffectingAction
     movs r0, #8
     strb r0, [r1]
     ldrh r0, [r4, #8]
@@ -6769,11 +6769,11 @@ lbl_08052136:
     bl ClipdataProcess
     b lbl_080521ea
     .align 2, 0
-lbl_08052140: .4byte 0x03000079
+lbl_08052140: .4byte gCurrentClipdataAffectingAction
 lbl_08052144:
     cmp r1, #8
     bne lbl_08052160
-    ldr r0, lbl_0805215c @ =0x03000079
+    ldr r0, lbl_0805215c @ =gCurrentClipdataAffectingAction
     strb r1, [r0]
     ldrh r0, [r4, #8]
     subs r0, #0x48
@@ -6783,11 +6783,11 @@ lbl_08052150:
     bl ClipdataProcess
     b lbl_080521ea
     .align 2, 0
-lbl_0805215c: .4byte 0x03000079
+lbl_0805215c: .4byte gCurrentClipdataAffectingAction
 lbl_08052160:
     cmp r1, #7
     bne lbl_080521ea
-    ldr r1, lbl_08052178 @ =0x03000079
+    ldr r1, lbl_08052178 @ =gCurrentClipdataAffectingAction
     movs r0, #8
     strb r0, [r1]
     ldrh r0, [r4, #8]
@@ -6798,7 +6798,7 @@ lbl_0805216e:
     bl ClipdataProcess
     b lbl_080521ea
     .align 2, 0
-lbl_08052178: .4byte 0x03000079
+lbl_08052178: .4byte gCurrentClipdataAffectingAction
 lbl_0805217c:
     ldr r0, lbl_08052188 @ =0x08326d40
     str r0, [r4, #4]
@@ -6884,7 +6884,7 @@ lbl_08052208:
     beq lbl_080522d8
     b lbl_080522fc
 lbl_0805220e:
-    ldr r1, lbl_08052298 @ =0x03001530
+    ldr r1, lbl_08052298 @ =gEquipment
     ldrb r0, [r1, #0xb]
     cmp r0, #0
     beq lbl_0805222a
@@ -6893,7 +6893,7 @@ lbl_0805220e:
     lsls r0, r0, #0x18
     cmp r0, #0
     bne lbl_0805222a
-    ldr r0, lbl_0805229c @ =0x03001414
+    ldr r0, lbl_0805229c @ =gSamusWeaponInfo
     ldrb r1, [r0, #2]
     movs r2, #4
     eors r1, r2
@@ -6923,7 +6923,7 @@ lbl_0805222a:
     ldrb r0, [r4, #0x11]
     adds r0, #1
     strb r0, [r4, #0x11]
-    ldr r3, lbl_080522a8 @ =0x030001ac
+    ldr r3, lbl_080522a8 @ =gSpriteData
     movs r1, #0xa8
     lsls r1, r1, #3
     adds r0, r3, r1
@@ -6952,17 +6952,17 @@ lbl_08052288:
     movs r0, #0x80
     lsls r0, r0, #1
     bl SoundPlay
-    ldr r1, lbl_080522ac @ =0x03000130
+    ldr r1, lbl_080522ac @ =gCurrentPowerBomb
     movs r0, #1
     strb r0, [r1, #0x10]
     b lbl_080522fc
     .align 2, 0
-lbl_08052298: .4byte 0x03001530
-lbl_0805229c: .4byte 0x03001414
+lbl_08052298: .4byte gEquipment
+lbl_0805229c: .4byte gSamusWeaponInfo
 lbl_080522a0: .4byte 0x08326d90
 lbl_080522a4: .4byte 0x0000fff0
-lbl_080522a8: .4byte 0x030001ac
-lbl_080522ac: .4byte 0x03000130
+lbl_080522a8: .4byte gSpriteData
+lbl_080522ac: .4byte gCurrentPowerBomb
 lbl_080522b0:
     ldrb r0, [r4, #0x13]
     subs r0, #1
@@ -6984,7 +6984,7 @@ lbl_080522b0:
     .align 2, 0
 lbl_080522d4: .4byte 0x08326db0
 lbl_080522d8:
-    ldr r0, lbl_08052304 @ =0x03000c72
+    ldr r0, lbl_08052304 @ =gGameModeSub1
     movs r1, #0
     ldrsh r0, [r0, r1]
     cmp r0, #2
@@ -7006,4 +7006,4 @@ lbl_080522fc:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08052304: .4byte 0x03000c72
+lbl_08052304: .4byte gGameModeSub1

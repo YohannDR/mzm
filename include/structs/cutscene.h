@@ -6,7 +6,7 @@
 
 // Temp place
 struct OamArray {
-    const struct FrameData* pOam;
+    const struct FrameData* const pOam;
     u8 preAction;
 };
 
@@ -40,25 +40,25 @@ struct CutscenePageData {
 
 struct CutsceneScreenShakeInfo {
     u8 type;
-    u8 unk_1;
-    u16 unk_2;
+    u8 maxDelay;
+    u16 set;
 };
 
 struct CutsceneScrollingInfo {
-    u16 unk_0;
-    i16 unk_2;
-    u32 unk_4;
+    u8 direction;
+    i16 length;
+    i8 speed;
+    i8 maxDelay;
 };
 
 struct CutsceneInfo {
     u8 unk_0;
-    u8 type:2;
-    u8 unk:2;
+    u8 type:4;
     u8 isElevator:2;
     u8 skippable:2;
     u8 storyText;
     CutsceneFunc_T pFunction;
-    u8 unk_8;
+    u8 preBgFading;
     u16 fadingTimer;
     u8 bgFading;
     u8 event;
@@ -71,18 +71,18 @@ struct CutsceneSubroutineData {
 
 struct CutsceneScreenShake {
     u16 bg;
-    i8 loopCounter;
-    i8 unk_3;
-    u8 unk_4;
-    u8 unk_5;
+    i8 delay;
+    i8 maxDelay;
+    u8 set;
+    u8 currentSubSet;
 };
 
 struct CutsceneScrolling {
     u16* pPosition;
-    i16 unk_4;
-    i8 unk_6;
-    i8 unk_7;
-    i8 unk_8;
+    i16 lengthLeft;
+    i8 delay;
+    i8 speed;
+    i8 maxDelay;
 };
 
 struct CutscenePaletteData {
@@ -125,10 +125,10 @@ struct CutsceneOamData {
     u8 currentAnimationFrame;
     u8 oamID;
     u16 priority:2;
-    u16 unk_B_4:2;
+    u16 objMode:2;
     u16 ended:1;
     u16 notDrawn:1;
-    u16 idChanged:2;
+    u16 exists:2;
     u8 boundBackground:4;
     u8 rotationScaling:1;
     u8 actions;
@@ -137,7 +137,7 @@ struct CutsceneOamData {
     i16 unk_12;
     u16 timer;
     u16 unk_16;
-    i16 unk_18;
+    u16 unk_18;
     u16 unk_1A;
     u8 padding_1C[2];
     u8 unk_1E;
@@ -153,7 +153,7 @@ struct CutsceneTimeInfo {
 
 struct CutsceneData {
     struct CutsceneTimeInfo timeInfo;
-    u8 unk_8;
+    u8 unk_8; // TODO struct
     u8 unk_9;
     u8 unk_A;
     u8 unk_B;
@@ -173,13 +173,13 @@ struct CutsceneData {
     struct CutsceneScreenShake horizontalScreenShake;
     struct CutsceneScreenShake verticalScreenShake;
     struct CutsceneSpecialEffect specialEffect;
-    u16 unk_B8;
-    u8 unk_BA;
-    u8 unk_BB;
+    i16 unk_B8;
+    u8 fadingStage;
+    u8 fadingColor;
     u8 unk_BC;
-    u8 unk_BD;
+    u8 fadingIntensity;
     u8 unk_BE;
-    u8 unk_BF;
+    u8 fadingType;
     struct CutsceneGraphicsData graphicsData[4];
     struct CutsceneOamData oam[30];
 };

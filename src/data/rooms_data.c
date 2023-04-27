@@ -4,6 +4,7 @@
 
 #include "constants/connection.h"
 
+// Temp
 const u8 sEnemyRoomData_Empty[3] = {
 	UCHAR_MAX, UCHAR_MAX, UCHAR_MAX
 };
