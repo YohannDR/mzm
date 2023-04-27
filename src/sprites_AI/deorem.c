@@ -2493,9 +2493,92 @@ void Deorem(void)
     }
 }
 
+/**
+ * @brief 23758 | 2c8 | Deorem segment AI
+ * 
+ */
 void DeoremSegment(void)
 {
+    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u8 deoremAbsolutePaletteRow;
 
+    if (gSpriteData[ramSlot].pose > 0x61) // TODO: Pose names
+    {
+        gCurrentSprite.ignoreSamusCollisionTimer = 1;
+        if (gSpriteData[ramSlot].pose == 0x68 && gCurrentSprite.pose < 0x62)
+            gCurrentSprite.pose = 0x62;
+    }
+
+    deoremAbsolutePaletteRow = gSpriteData[ramSlot].absolutePaletteRow;
+    if (deoremAbsolutePaletteRow == 2)
+        gCurrentSprite.absolutePaletteRow = deoremAbsolutePaletteRow;
+
+    if (gSpriteData[ramSlot].paletteRow ==
+        (0xE - (gSpriteData[ramSlot].spritesetGFXSlot + gSpriteData[ramSlot].frozenPaletteRowOffset)))
+    {
+        gCurrentSprite.paletteRow =
+            (0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset));
+        gCurrentSprite.animationDurationCounter++;
+    }
+    else if (gSpriteData[ramSlot].paletteRow == gSpriteData[ramSlot].absolutePaletteRow)
+        gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
+
+    switch (gCurrentSprite.pose)
+    {
+        case 0x0:
+            DeoremSegmentInit();
+            break;
+        case 8:
+            DeoremSegmentSpawnGoingDown();
+            break;
+        case 9:
+            DeoremSegmentSpawnGoingDownAfter();
+            break;
+        case 0xF:
+            DeoremSegmentRightIdleAnim();
+            break;
+        case 0x22:
+            DeoremSegmentSpawnGoingUp();
+            break;
+        case 0x23:
+            DeoremSegmentSpawnGoingUpAfter();
+            break;
+        case 0x11:
+            DeoremSegmentLeftIdleAnim();
+            break;
+        case 0x33:
+            DeoremSegmentGoingDown();
+            break;
+        case 0x35:
+            DeoremSegmentGoingUp();
+            break;
+        case 0x24:
+            DeoremSegmentAboveHeadMovement();
+            break;
+        case 0x62:
+            DeoremSegmentSetTimerDying();
+        case 0x67:
+            DeoremSegmentDying();
+            break;
+        case 0x42:
+            DeoremSegmentLeftLeaving();
+            break;
+        case 0x43:
+            DeoremSegmentLeftLeavingEnd();
+            break;
+        case 0x46:
+            DeoremSegmentMiddleLeavingEnd();
+            break;
+        case 0x4A:
+            DeoremSegmentMiddleLeaving();
+            break;
+        case 0x4B:
+            DeoremSegmentRightLeaving();
+            break;
+        case 0x4C:
+            DeoremSegmentRightLeavingEnd();
+            break;
+    }
 }
 
 /**
