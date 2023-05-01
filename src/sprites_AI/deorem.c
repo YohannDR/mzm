@@ -2039,159 +2039,136 @@ void DeoremEyeSetPose9(void)
     gCurrentSprite.pose = 0x9;
 }
 
+/**
+ * @brief 22f38 | 19c | Handles the movement of the eye
+ * 
+ */
 void DeoremEyeMove(void)
 {
-/*
-    // https://decomp.me/scratch/9RWtk (27.90%)
-    // The Ghidra decomp just has too many gotos
-    // i.e. the compiled function's flow is too messy
+    u8 ramSlot;
+    i32 samusY;
+    i32 samusX;
+    i32 spriteY;
+    i32 spriteX;
+    i32 result;
+    i32 rotation;
+    u32 deltaRotation;
+    i32 temp;
 
-    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
-    u16 timer = gCurrentSprite.timer;
-    i32 samusYPosOffset = (gSamusData.yPosition - 0x48);
-    i32 samusXPos = gSamusData.xPosition;
-    i32 deoremXPos = gSpriteData[ramSlot].xPosition;
-    i32 deoremYPos = gSpriteData[ramSlot].yPosition;
+    deltaRotation = 2;
+    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    rotation = gCurrentSprite.timer;
+    samusY = (i16)(gSamusData.yPosition - (BLOCK_SIZE + 8));
+    samusX = (i16)gSamusData.xPosition;
+    spriteY = (i16)gSpriteData[ramSlot].yPosition;
+    spriteX = (i16)gSpriteData[ramSlot].xPosition;
 
-    if (samusYPosOffset < deoremYPos)
+    if (samusY < spriteY)
     {
-        if (deoremXPos < samusXPos)
-        {
-            deoremYPos-= samusYPosOffset;
-            deoremXPos = 0xE0;
+        if (spriteX - BLOCK_SIZE < samusX && spriteX + BLOCK_SIZE > samusX)
+            result = 0x40;
 
-            fc2:
-            if (deoremYPos > 0x3F && deoremXPos != 0)
-            {
-                goto fd2;
-            }
+        if (samusX > spriteX)
+        {
+            if (spriteY - samusY < BLOCK_SIZE)
+                result = 0;
+            else
+                result = 0xE0;
         }
         else
         {
-            deoremXPos = 0xA0;
-            if (deoremYPos - samusYPosOffset < 0x40)
-            {
-                deoremXPos = 0x80;
-                goto fe8;
-            }
-            fd2:
-            if (deoremXPos != 0)
-            {
-                goto fe8;
-            }
-        }
-        if (0x7E < timer - 1)
-        {
-            if (0x7F < timer)
-            {
-                gCurrentSprite.timer += 2;
-            }
-            goto end;
+            if (spriteY - samusY < BLOCK_SIZE)
+                result = 0x80;
+            else
+                result = 0xA0;
         }
     }
     else
     {
-        if ((samusXPos <= deoremXPos - 0x40) || (deoremXPos + 0x40 <= samusXPos))
+        if (spriteX - BLOCK_SIZE < samusX && spriteX + BLOCK_SIZE > samusX)
         {
-            if (samusXPos <= deoremXPos)
-            {
-                deoremXPos = 0x60;
-                if (samusYPosOffset - deoremYPos < 0x40)
-                {
-                    deoremXPos = 0x80;
-                }
-                goto fd2;
-            }
-            deoremYPos = samusYPosOffset - deoremYPos;
-            deoremXPos = 0x20;
-            goto fc2;
-        }
-        deoremXPos = 0x40;
-        fe8:
-        if (deoremXPos == 0x20)
-        {
-            if (0x7E < timer - 0x21)
-            {
-                if (0x7F < timer - 0x20)
-                {
-                    gCurrentSprite.timer += 2;
-                }
-                goto end;
-            }
-        }
-        else if (deoremXPos == 0x40)
-        {
-            if (0x7E < timer - 0x41)
-            {
-                if (0x7F < timer - 0x40)
-                {
-                    gCurrentSprite.timer += 2;
-                }
-                goto end;
-            }
-        }
-        else if (deoremXPos == 0x60)
-        {
-            if (0x7E < timer - 0x61)
-            {
-                if (0x7F < timer - 0x60)
-                {
-                    gCurrentSprite.timer += 2;
-                }
-                goto end;
-            }
-        }
-        else if (deoremXPos == 0x80)
-        {
-            if (timer - 1 < 0x7F1)
-            {
-                if (0x7F < timer - 0x40)
-                {
-                    gCurrentSprite.timer += 2;
-                    goto end;
-                }
-                if (timer < 0x81) goto end;
-            }
+            result = 0x40;
         }
         else
         {
-            if (deoremXPos == 0xA0)
+            if (samusX > spriteX)
             {
-                timer -= 0x21;
-                if (timer < 0x7F)
-                {
-                    gCurrentSprite.timer += 2;
-                    goto end;
-                }
-            }
-            else if (deoremXPos == 0xC0)
-            {
-                timer -= 0x41;
-                if (timer < 0x7F)
-                {
-                    gCurrentSprite.timer += 2;
-                    goto end;
-                }
+                if (samusY - spriteY < BLOCK_SIZE)
+                    result = 0;
+                else
+                    result = 0x20;
             }
             else
             {
-                if (deoremXPos != 0xE0) goto end;
-                timer -= 0x61;
-                if (timer < 0x7F)
-                {
-                    gCurrentSprite.timer += 2;
-                    goto end;
-                }
+                if (samusY - spriteY < BLOCK_SIZE)
+                    result = 0x80;
+                else
+                    result = 0x60;
             }
-            if (timer < 0x80) goto end;
         }
     }
-    gCurrentSprite.timer -= 2;
-    end:
-    gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - 0x1C;
+
+    if (result == 0)
+    {
+        if ((u16)(rotation - 1) < 0x7F)
+            rotation = (i16)(rotation - deltaRotation);
+        else if (rotation > 0x7F)
+            rotation = (i16)(rotation + deltaRotation);
+    }
+    else if (result == 0x20)
+    {
+        if ((u16)(rotation - 0x21) < 0x7F)
+            rotation = (i16)(rotation - deltaRotation);
+        else if ((u16)(rotation - 0x20) > 0x7F)
+            rotation = (i16)(rotation + deltaRotation);
+    }
+    else if (result == 0x40)
+    {
+        if ((u16)(rotation - 0x41) < 0x7F)
+            rotation = (i16)(rotation - deltaRotation);
+        else if ((u16)(rotation - 0x40) > 0x7F)
+            rotation = (i16)(rotation + deltaRotation);
+    }
+    else if (result == 0x60)
+    {
+        if ((u16)(rotation - 0x61) < 0x7F)
+            rotation = (i16)(rotation - deltaRotation);
+        else if ((u16)(rotation - 0x60) > 0x7F)
+            rotation = (i16)(rotation + deltaRotation);
+    }
+    else if (result == 0x80)
+    {
+        if ((u16)(rotation - 0x1) < 0x7F)
+            rotation = (i16)(rotation + deltaRotation);
+        else if (rotation > 0x80)
+            rotation = (i16)(rotation - deltaRotation);
+    }
+    else if (result == 0xA0)
+    {
+        if ((u16)(rotation - 0x21) < 0x7F)
+            rotation = (i16)(rotation + deltaRotation);
+        else if ((u16)(rotation - 0x21) > 0x7F)
+            rotation = (i16)(rotation - deltaRotation);
+    }
+    else if (result == 0xC0)
+    {
+        if ((u16)(rotation - 0x41) < 0x7F)
+            rotation = (i16)(rotation + deltaRotation);
+        else if ((u16)(rotation - 0x41) > 0x7F)
+            rotation = (i16)(rotation - deltaRotation);
+    }
+    else if (result == 0xE0)
+    {
+        if ((u16)(rotation - 0x61) < 0x7F)
+            rotation = (i16)(rotation + deltaRotation);
+        else if ((u16)(rotation - 0x61) > 0x7F)
+            rotation = (i16)(rotation - deltaRotation);
+    }
+
+    gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - 28;
     gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition - 4;
-    gCurrentSprite.oamRotation = gCurrentSprite.timer;
-*/
+    gCurrentSprite.timer = rotation;
+    gCurrentSprite.oamRotation = rotation;
 }
 
 /**
