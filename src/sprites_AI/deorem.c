@@ -80,55 +80,78 @@ void DeoremChangeRightCCAA(u8 caa)
     ClipdataProcess(yPosition + 7 * BLOCK_SIZE, xPosition);
 }
 
+/**
+ * @brief 20d90 | d4 | Handles deorem moving diagonally
+ * 
+ * @param velocity Velocity
+ * @param dstPosition Destination X position
+ */
 void DeoremMoveDiagonally(u8 velocity, u16 dstPosition)
 {
-    /*
-    // https://decomp.me/scratch/z24LN (91.13%)
-
-    if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT) != 0)
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        u8 *wv = &gCurrentSprite.workVariable;
-        if (*wv == 0)
+        if (gCurrentSprite.workVariable == 0)
         {
-            if (dstPosition - 4 <= gCurrentSprite.xPosition)
+            if (gCurrentSprite.xPosition > dstPosition - 4)
+            {
+                gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
+            }
+            else
             {
                 if (gCurrentSprite.workVariable2 < velocity)
                     gCurrentSprite.workVariable2++;
-                if (gBossWork.work2 + 10 * BLOCK_SIZE < gCurrentSprite.xPosition)
-                    gCurrentSprite.xPosition += gCurrentSprite.workVariable2 / 2;
-                return;
+
+                if (gCurrentSprite.xPosition < gBossWork.work2 + BLOCK_SIZE * 10)
+                {
+                    i32 speed = gCurrentSprite.workVariable2;
+                    gCurrentSprite.xPosition += (speed / 2);
+                }
             }
-            // This line down below should go here and be compiled into a jump; but
-            // that doesn't currently happen and the matching percentage is lower.
-            //gCurrentSprite.workVariable2 = gCurrentSprite.workVariable;
-            return;
         }
-        else if (*wv > 1)
-            gCurrentSprite.workVariable--;
-    
-        if (gCurrentSprite.xPosition < gBossWork.work2 + 10 * BLOCK_SIZE)
-            gCurrentSprite.xPosition += gCurrentSprite.workVariable / 2;
+        else
+        {
+            if (gCurrentSprite.workVariable > 1)
+                gCurrentSprite.workVariable--;
+
+            if (gCurrentSprite.xPosition < gBossWork.work2 + BLOCK_SIZE * 10)
+            {
+                i32 speed = gCurrentSprite.workVariable;
+                gCurrentSprite.xPosition += (speed / 2);
+            }
+        }
     }
     else
     {
-        u8 *wv = &gCurrentSprite.workVariable;
-        if (*wv == 0)
+        if (gCurrentSprite.workVariable == 0)
         {
-            if (dstPosition + 4 < gCurrentSprite.xPosition)
+            if (gCurrentSprite.xPosition < dstPosition + 4)
             {
                 gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
-                return;
             }
-            if (gCurrentSprite.workVariable2 < velocity)
+            else
+            {
+                if (gCurrentSprite.workVariable2 < velocity)
                     gCurrentSprite.workVariable2++;
+
+                if (gCurrentSprite.xPosition > gBossWork.work2 + BLOCK_SIZE * 3)
+                {
+                    i32 speed = gCurrentSprite.workVariable2;
+                    gCurrentSprite.xPosition -= (speed / 2);
+                }
+            }
         }
-        else if (*wv > 1)
-            gCurrentSprite.workVariable--;
-        
-        if (gCurrentSprite.xPosition > gBossWork.work2 + 3 * BLOCK_SIZE)
-            gCurrentSprite.xPosition -= *wv / 2;
+        else
+        {
+            if (gCurrentSprite.workVariable > 1)
+                gCurrentSprite.workVariable--;
+
+            if (gCurrentSprite.xPosition > gBossWork.work2 + BLOCK_SIZE * 3)
+            {
+                i32 speed = gCurrentSprite.workVariable;
+                gCurrentSprite.xPosition -= (speed / 2);
+            }
+        }
     }
-    */
 }
 
 /**
