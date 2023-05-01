@@ -34,18 +34,25 @@ void DeoremChangeLeftCCAA(u8 caa)
 
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition, xPosition);
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + BLOCK_SIZE, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + 2 * BLOCK_SIZE, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + 3 * BLOCK_SIZE, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + 4 * BLOCK_SIZE, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + 5 * BLOCK_SIZE, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + 6 * BLOCK_SIZE, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + 7 * BLOCK_SIZE, xPosition);
 }
@@ -64,18 +71,25 @@ void DeoremChangeRightCCAA(u8 caa)
 
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + BLOCK_SIZE, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + 2 * BLOCK_SIZE, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + 3 * BLOCK_SIZE, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + 4 * BLOCK_SIZE, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + 5 * BLOCK_SIZE, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + 6 * BLOCK_SIZE, xPosition);
+    
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + 7 * BLOCK_SIZE, xPosition);
 }
@@ -211,14 +225,17 @@ void DeoremSpriteDebrisSpawn(u16 yPosition, u16 xPosition, u8 timer)
             SpriteDebrisInit(0x0, 0x11, yPosition - 0x40, xPosition);
             SpriteDebrisInit(0x0, 0x12, yPosition - 0x10, xPosition + 0x3E);
             break;
+
         case 0x3:
             SpriteDebrisInit(0x0, 0x13, yPosition + 0x28, xPosition - 0x5C);
             SpriteDebrisInit(0x0, 0x4, yPosition, xPosition + 0x1E);
             break;
+
         case 0x7:
             SpriteDebrisInit(0x0, 0x11, yPosition + 0x14, xPosition - 0x14);
             SpriteDebrisInit(0x0, 0x12, yPosition - 0x14, xPosition + 0x6E);
             break;
+
         case 0xC:
             SpriteDebrisInit(0x0, 0x13, yPosition + 0x28, xPosition + 0x1E);
             SpriteDebrisInit(0x0, 0x4, yPosition - 0x10, xPosition - 0x64);
@@ -277,11 +294,11 @@ void DeoremSpawnChargeBeam(u16 yPosition, u16 xPosition)
 void DeoremSetEyeOpeningTimer(void)
 {
     if (gDifficulty == DIFF_EASY)
-        gCurrentSprite.timer = 0x78; // Easy
+        gCurrentSprite.timer = 120; // Easy
     else if (gDifficulty == DIFF_HARD)
-        gCurrentSprite.timer = 0x28; // Hard
+        gCurrentSprite.timer = 40; // Hard
     else
-        gCurrentSprite.timer = 0x50; // Normal
+        gCurrentSprite.timer = 80; // Normal
 }
 
 /**
@@ -290,8 +307,9 @@ void DeoremSetEyeOpeningTimer(void)
  */
 void DeoremCallSpawnChargeBeam(void)
 {
-    DeoremSpawnChargeBeam(gCurrentSprite.yPosition + 0xB0, gCurrentSprite.xPosition + 0x1A0);
-    gCurrentSprite.status = 0x0;
+    DeoremSpawnChargeBeam(gCurrentSprite.yPosition + BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE,
+        gCurrentSprite.xPosition + BLOCK_SIZE * 6 + HALF_BLOCK_SIZE);
+    gCurrentSprite.status = 0;
 }
 
 /**
@@ -304,15 +322,12 @@ void DeoremInit(void)
         if (EventFunction(EVENT_ACTION_CHECKING,
             EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED))
         {
-        
-            if (EventFunction(EVENT_ACTION_CHECKING,
-                EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED)
-                && !(gEquipment.beamBombs & BBF_CHARGE_BEAM) 
-                
-                && !EventFunction(EVENT_ACTION_CHECKING,
-                    EVENT_DEOREM_KILLED_AT_SECOND_LOCATION)) {
-                    gCurrentSprite.pose = DEOREM_POSE_CALL_SPAWN_CHARGE_BEAM;
-                    gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
+            if (EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED) &&
+                !(gEquipment.beamBombs & BBF_CHARGE_BEAM) &&
+                !EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_KILLED_AT_SECOND_LOCATION))
+            {
+                gCurrentSprite.pose = DEOREM_POSE_CALL_SPAWN_CHARGE_BEAM;
+                gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
             }
             else
             {
@@ -323,16 +338,12 @@ void DeoremInit(void)
     }
     else
     {
-        if (EventFunction(EVENT_ACTION_CHECKING,
-            EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED))
+        if (EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED))
         {
         
-            if (EventFuction(EVENT_ACTION_CHECKING,
-                EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED)
-                && !(gEquipment.beamBombs & BBF_CHARGE_BEAM)
-                
-                && EventFunction(EVENT_ACTION_CHECKING,
-                EVENT_DEOREM_KILLED_AT_SECOND_LOCATION))
+            if (EventFuction(EVENT_ACTION_CHECKING, EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED) &&
+                !(gEquipment.beamBombs & BBF_CHARGE_BEAM) &&
+                EventFunction(EVENT_ACTION_CHECKING, EVENT_DEOREM_KILLED_AT_SECOND_LOCATION))
             {
                 gCurrentSprite.pose = DEOREM_POSE_CALL_SPAWN_CHARGE_BEAM;
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
@@ -492,7 +503,7 @@ void DeoremSpawnGoingDownAnim(void)
         }
     }
 
-    --gCurrentSprite.timer;
+    gCurrentSprite.timer--;
     if (gCurrentSprite.timer == 0)
     {
         gCurrentSprite.pose = 0x22;
@@ -610,12 +621,12 @@ void DeoremSpawnHeadBody(void)
     u8 ramSlot;
     u16 yPosition;
     u16 xPosition;
-    u8 segment_E_slot;
-    u8 segment_D_slot;
-    u8 segment_C_slot;
-    u8 eye_slot;
+    u8 segmentESlot;
+    u8 segmentDSlot;
+    u8 segmentCSlot;
+    u8 eyeSlot;
 
-    if ((gCurrentSprite.timer & 0x1F) == 0x0)
+    if (!(gCurrentSprite.timer & 0x1F))
         DeoremRandomSpriteDebris(gCurrentSprite.timer);
 
     gCurrentSprite.timer--;
@@ -625,20 +636,24 @@ void DeoremSpawnHeadBody(void)
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn;
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.timer = 0xB;
+        
         gfxSlot = gCurrentSprite.spritesetGFXSlot;
         ramSlot = gCurrentSprite.primarySpriteRAMSlot;
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
-        segment_E_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xE, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
-        segment_D_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xD, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
-        segment_C_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xC, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
-        gSpriteData[segment_D_slot].timer = segment_C_slot;
-        gSpriteData[segment_E_slot].timer = segment_D_slot;
-        eye_slot = SpriteSpawnSecondary(SSPRITE_DEOREM_EYE, 0x0, gfxSlot, ramSlot, yPosition - 0x1C, xPosition - 0x4, 0x0);
-        if (eye_slot == 0xFF)
+
+        segmentESlot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xE, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+        segmentDSlot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xD, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+        segmentCSlot = SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xC, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+
+        gSpriteData[segmentDSlot].timer = segmentCSlot;
+        gSpriteData[segmentESlot].timer = segmentDSlot;
+
+        eyeSlot = SpriteSpawnSecondary(SSPRITE_DEOREM_EYE, 0x0, gfxSlot, ramSlot, yPosition - 0x1C, xPosition - 0x4, 0x0);
+        if (eyeSlot == UCHAR_MAX)
             gCurrentSprite.status = 0x0;
         else
-            gCurrentSprite.arrayOffset = eye_slot;
+            gCurrentSprite.arrayOffset = eyeSlot;
     }
 }
 
@@ -648,8 +663,7 @@ void DeoremSpawnHeadBody(void)
  */
 void DeoremAfterSpawn(void)
 {
-    struct SpriteData *spriteData;
-    u8 spriteOffset = gCurrentSprite.arrayOffset;
+    u8 ramSlot = gCurrentSprite.arrayOffset;
     
     if ((gFrameCounter8Bit & 0x1f) == 0)
         DeoremRandomSpriteDebris(gFrameCounter8Bit);
@@ -667,19 +681,18 @@ void DeoremAfterSpawn(void)
             gCurrentSprite.pose = DEOREM_POSE_MAIN;
 
             if (gDifficulty == DIFF_EASY)
-                gCurrentSprite.timer = 0x5A;
+                gCurrentSprite.timer = 90;
             else if (gDifficulty == DIFF_HARD)
-                gCurrentSprite.timer = 0x22;
+                gCurrentSprite.timer = 34;
             else
-                gCurrentSprite.timer = 0x3C;
+                gCurrentSprite.timer = 60;
 
             gCurrentSprite.pOam = sDeoremPliersOAM_Opening;
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
             gCurrentSprite.hitboxBottomOffset = 0;
             
-            spriteData = gSpriteData;
-            spriteData[spriteOffset].status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
+            gSpriteData[ramSlot].status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
 
             SoundPlay(0x198);
         }
@@ -730,13 +743,13 @@ void DeoremMainLoop(void)
                 SoundPlay(0x19D);
                 gCurrentSprite.oamRotation = 0;
             
-                if (health == 0x3C)
+                if (health == 60)
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
                     gCurrentSprite.timer = 8;
                 }
-                else if ((gCurrentSprite.xPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE) < gSamusData.xPosition)
-                    && (gCurrentSprite.xPosition + BLOCK_SIZE + HALF_BLOCK_SIZE > gSamusData.xPosition))
+                else if ((gCurrentSprite.xPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE) < gSamusData.xPosition) &&
+                    (gCurrentSprite.xPosition + BLOCK_SIZE + HALF_BLOCK_SIZE > gSamusData.xPosition))
                 {
                     gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
                     gCurrentSprite.timer = 8;
@@ -809,7 +822,9 @@ void DeoremMainLoop(void)
             if (gCurrentSprite.yPosition < gCurrentSprite.yPositionSpawn + yRange)
             {
                 gCurrentSprite.yPosition += movement;
-                if (gCurrentSprite.oamRotation != 0) return;
+                if (gCurrentSprite.oamRotation != 0)
+                    return;
+
                 gCurrentSprite.oamRotation += 1;
                 
                 if (8 < movement)
@@ -915,15 +930,16 @@ void DeoremThrowingThorns(void)
     u16 health = gSpriteData[spriteOffset].health;
 
     gCurrentSprite.timer--;
-    changeAnimTime = 0xE6;
-    if (0x14 < health)
+    changeAnimTime = 230;
+    if (health > 20)
     {
-        changeAnimTime = 0x1E;
-        if (health < 0x29)
-            changeAnimTime = 0xD2;
+        if (health < 41)
+            changeAnimTime = 210;
+        else
+            changeAnimTime = 30;
     }
 
-    if (!(gCurrentSprite.oamRotation & 0xF))
+    if (!(gCurrentSprite.oamRotation & 15))
         SoundPlay(0x196);
 
     gCurrentSprite.oamRotation++;
@@ -993,16 +1009,14 @@ void DeoremDying(void)
     DeoremRightChangeCCAA(CAA_REMOVE_SOLID);
 
     gLockScreen.lock = FALSE;
-    EventFunction(EVENT_ACTION_SETTING,
-        EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED);
-    EventFunction(EVENT_ACTION_SETTING,
-        EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED);
+    EventFunction(EVENT_ACTION_SETTING, EVENT_DEOREM_ENCOUNTERED_AT_FIRST_LOCATION_OR_KILLED);
+    EventFunction(EVENT_ACTION_SETTING, EVENT_DEOREM_ENCOUNTERED_AT_SECOND_LOCATION_OR_KILLED);
 
     if (gCurrentSprite.spriteID == PSPRITE_DEOREM_SECOND_LOCATION)
     {
-        EventFuncion(EVENT_ACTION_SETTING,
-            EVENT_DEOREM_KILLED_AT_SECOND_LOCATION);
+        EventFuncion(EVENT_ACTION_SETTING, EVENT_DEOREM_KILLED_AT_SECOND_LOCATION);
     }
+
     SoundPlay(0x19B);
     FadeCurrentMusicAndQueueNextMusic(0x32, MUSIC_BRINSTAR, 0);
 }
@@ -1015,7 +1029,7 @@ void DeoremDyingGoingDown(void)
 {
     gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
-    if (gCurrentSprite.yPosition < gCurrentSprite.yPositionSpawn + 0x1D0)
+    if (gCurrentSprite.yPosition < gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE)
     {
         gCurrentSprite.yPosition += 4;
     }
@@ -1037,7 +1051,10 @@ void DeoremDeath(void)
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     gCurrentSprite.timer--;
     if (gCurrentSprite.timer == 0x0)
-        SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition + 0x40, FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+    {
+        SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition + BLOCK_SIZE,
+            FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+    }
 }
 
 /**
@@ -1046,8 +1063,7 @@ void DeoremDeath(void)
  */
 void DeoremCheckLeavingCeilingAnimEnded(void)
 {
-    if (gCurrentSprite.pOam == sDeoremPliersOAM_Closing
-        || gCurrentSprite.pOam == sDeoremPliersOAM_Closed)
+    if (gCurrentSprite.pOam == sDeoremPliersOAM_Closing || gCurrentSprite.pOam == sDeoremPliersOAM_Closed)
     {
         if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
@@ -1071,6 +1087,7 @@ void DeoremCheckLeavingCeilingAnimEnded(void)
 void DeoremLeaving(void)
 {
     u16 yPosition = gCurrentSprite.yPosition;
+        u8 i;
 
     if (gCurrentSprite.yPosition > gCurrentSprite.yPositionSpawn - BLOCK_SIZE)
     {
@@ -1078,18 +1095,17 @@ void DeoremLeaving(void)
     }
     else
     {
-        u8 i;
-        for (i = 0; i < MAX_AMOUNT_OF_SPRITES; ++i)
-            if (gSpriteData[i].status & SPRITE_STATUS_EXISTS
-                && !(gSpriteData[i].properties & SP_SECONDARY_SPRITE)
-                && (u8)(gSpriteData[i].spriteID - PSPRITE_LARGE_ENERGY_DROP) < 5) // Sprite is drop
+        for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
+        {
+            if (gSpriteData[i].status & SPRITE_STATUS_EXISTS && !(gSpriteData[i].properties & SP_SECONDARY_SPRITE) &&
+                (u8)(gSpriteData[i].spriteID - PSPRITE_LARGE_ENERGY_DROP) < 5) // Sprite is drop
                 return;
+        }
 
         if (gCurrentSprite.timer != 0)
         {
             u8 timer = gCurrentSprite.timer;
-            DeoremSpriteDebrisSpawn(gBossWork.work1 - HALF_BLOCK_SIZE,
-                gBossWork.work2 + BLOCK_SIZE * 6 + HALF_BLOCK_SIZE, timer);
+            DeoremSpriteDebrisSpawn(gBossWork.work1 - HALF_BLOCK_SIZE, gBossWork.work2 + BLOCK_SIZE * 6 + HALF_BLOCK_SIZE, timer);
             gCurrentSprite.timer--;
     
             if (gCurrentSprite.timer == 0)
@@ -1199,33 +1215,36 @@ void DeoremSegmentInit(void)
 
     switch (roomSlot)
     {
-    case 1:
-    case 5:
-    case 7:
-    case 11:
-    case 13:
-    case 17:
-        gCurrentSprite.currentAnimationFrame = 1;
-        break;
-    case 2:
-    case 8:
-    case 12:
-    case 16:
-    case 18:
-    case 19:
-        gCurrentSprite.currentAnimationFrame = 2;
-        break;
-    case 3:
-    case 9:
-    case 15:
-        gCurrentSprite.currentAnimationFrame = 3;
-        break;
-    case 0:
-    case 4:
-    case 10:
-    case 14:
-        gCurrentSprite.currentAnimationFrame = 0;
-        break;
+        case 1:
+        case 5:
+        case 7:
+        case 11:
+        case 13:
+        case 17:
+            gCurrentSprite.currentAnimationFrame = 1;
+            break;
+            
+        case 2:
+        case 8:
+        case 12:
+        case 16:
+        case 18:
+        case 19:
+            gCurrentSprite.currentAnimationFrame = 2;
+            break;
+
+        case 3:
+        case 9:
+        case 15:
+            gCurrentSprite.currentAnimationFrame = 3;
+            break;
+
+        case 0:
+        case 4:
+        case 10:
+        case 14:
+            gCurrentSprite.currentAnimationFrame = 0;
+            break;
     }
 
     if (roomSlot == 18)
@@ -1311,8 +1330,8 @@ void DeoremSegmentInit(void)
  */
 void DeoremSegmentSpawnGoingDown(void)
 {
-    // https://decomp.me/scratch/9ESud (96.40%)
-    
+    // https://decomp.me/scratch/bFhC3
+
     u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
 
     if (gCurrentSprite.roomSlot == 0)
@@ -1321,17 +1340,9 @@ void DeoremSegmentSpawnGoingDown(void)
     }
     else
     {
-        #ifndef NONMATCHING
-        // TODO
-        // (This currently doesn't match either; not even with inline asm we made it work)
         u32 a = gSpriteData[ramSlot].yPosition - 0xA8;
         u32 b = gCurrentSprite.roomSlot * 100;
         gCurrentSprite.yPosition = a - b;
-        #else
-        u32 a = gSpriteData[ramSlot].yPosition - 0xA8;
-        u32 b = gCurrentSprite.roomSlot * 100;
-        gCurrentSprite.yPosition = a - b;
-        #endif
     }
 
     if (gSpriteData[ramSlot].pose == DEOREM_POSE_SPAWN_GOING_UP)
