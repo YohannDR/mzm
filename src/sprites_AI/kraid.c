@@ -1964,8 +1964,8 @@ void KraidPartCheckShouldSpawnSpikes(void)
     u8 ramSlot;
     u8 roomSlot;
     u8 lowHealth;
-    u8 count;
-    u8 spriteID;
+    u8 i;
+    i32 spriteID;
 
     ramSlot = gCurrentSprite.primarySpriteRAMSlot;
     roomSlot = gCurrentSprite.roomSlot;
@@ -1984,34 +1984,38 @@ void KraidPartCheckShouldSpawnSpikes(void)
             if (gSubSpriteData1.health < (i32)(sPrimarySpriteStats[PSPRITE_KRAID][0] / 4 * 3) || gSamusData.yPosition >= (gCurrentSprite.yPosition - (BLOCK_SIZE * 2)))
             {
                 spriteID = PSPRITE_MISSILE_DROP;
-                count = 0x0;
-                for (count = 0x0; count < MAX_AMOUNT_OF_SPRITES; count++)
+                for (i = 0x0; i < MAX_AMOUNT_OF_SPRITES; i++)
                 {
-                    if (gSpriteData[count].status & SPRITE_STATUS_EXISTS && gSpriteData[count].properties & SP_SECONDARY_SPRITE && gSpriteData[count].spriteID == spriteID)
+                    if (gSpriteData[i].status & SPRITE_STATUS_EXISTS && gSpriteData[i].properties & SP_SECONDARY_SPRITE && gSpriteData[i].spriteID == spriteID)
                         return;
                 }
 
                 gSpriteData[ramSlot].status &= ~SPRITE_STATUS_MOSAIC;
                 gCurrentSprite.yPositionSpawn = 0x1;
-                gCurrentSprite.pose = KRAID_PART_POSE_SPAWN_SPIKES;
             }
+            else
+                return;
         }
         else if (roomSlot == KRAID_PART_MIDDLE_HOLE_LEFT)
         {
             if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_MOSAIC))
             {
                 gCurrentSprite.yPositionSpawn = 0x3C;
-                gCurrentSprite.pose = KRAID_PART_POSE_SPAWN_SPIKES;
             }
+            else
+                return;
         }
         else
         {
             if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_MOSAIC) && lowHealth)
             {
                 gCurrentSprite.yPositionSpawn = 0x78;
-                gCurrentSprite.pose = KRAID_PART_POSE_SPAWN_SPIKES;
             }
+            else
+                return;
         }
+
+        gCurrentSprite.pose = KRAID_PART_POSE_SPAWN_SPIKES;
     }
 }
 
