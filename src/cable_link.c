@@ -523,18 +523,22 @@ void unk_897d0(void)
     CableLinkCheckCurrentMemoryRegion(0x258);
 }
 
+/**
+ * @brief 8980c | ac | To document
+ * 
+ * @param data To document
+ * @param pData To document
+ * @return u32 To document
+ */
 u32 unk_8980c(u32 data, const u32* pData)
 {
-    // https://decomp.me/scratch/8jJet
-
     u32 result;
     u32 buffer;
     i32 i;
 
     CableLinkBackupIoRegs();
 
-    for (i = 0; i < 3;)
-    //for (;;)
+    while (TRUE)
     {
         gUnk_30058a8 = unk_899c8(1, data, pData, 0);
 
