@@ -924,7 +924,7 @@ void RoomUpdateBackgroundsPosition(void)
 
 void RoomUpdateVerticalTilemap(i8 offset)
 {
-    // https://decomp.me/scratch/X1hX1
+    // https://decomp.me/scratch/wGbln
 
     i32 properties;
     u16 yPosition;

@@ -2,6 +2,7 @@
 #include "temp_globals.h"
 #include "gba.h"
 #include "macros.h"
+#include "minimap.h"
 #include "oam_id.h"
 #include "event.h"
 #include "text.h"
@@ -10,6 +11,7 @@
 
 #include "data/shortcut_pointers.h"
 #include "data/menus/pause_screen_data.h"
+#include "data/menus/status_screen.h"
 #include "data/menus/internal_pause_screen_data.h"
 
 #include "constants/connection.h"
@@ -2101,7 +2103,62 @@ void PauseScreenUpdateBottomVisorOverlay(u8 param_1, u8 param_2)
 
 void PauseScreenGetMinimapData(u8 area, u16* dst)
 {
+    // https://decomp.me/scratch/tGtxZ
 
+    u32 position;
+    i32 i;
+    u16* buffer;
+    u16* buffer2;
+
+    CallLZ77UncompWRAM(sMinimapDataPointers[area], dst);
+    MinimapSetTilesWithObtainedItems(area, dst);
+
+    if (sBossIcons[area][0] && EventFunction(EVENT_ACTION_CHECKING, sBossIcons[area][0]))
+    {
+        position = sBossIcons[area][2] + sBossIcons[area][3] * MINIMAP_SIZE;
+
+        if (area == AREA_CRATERIA)
+        {
+            buffer = &dst[position];
+
+            if ((*buffer & 0x3FF) == sMapChunksToUpdate[2])
+            {
+                for (i = 0; i < 3; i++)
+                    buffer[i]++;
+            }
+        }
+        else if (area == AREA_KRAID)
+        {
+            buffer = &dst[position];
+
+            if ((*buffer & 0x3FF) == sMapChunksToUpdate[0])
+            {
+                for (i = 0; i < 2; i++)
+                    buffer[i] += MINIMAP_SIZE;
+                    
+                buffer2 = &dst[position + MINIMAP_SIZE];
+                for (i = 0; i < 2; i++)
+                    buffer2[i] += MINIMAP_SIZE;
+            }
+        }
+        else if (area == AREA_RIDLEY)
+        {
+            buffer = &dst[position];
+
+            if ((*buffer & 0x3FF) == sMapChunksToUpdate[1])
+            {
+                for (i = 0; i < 2; i++)
+                    buffer[i] += MINIMAP_SIZE;
+                    
+                buffer2 = &dst[position + MINIMAP_SIZE];
+                for (i = 0; i < 2; i++)
+                    buffer2[i] += MINIMAP_SIZE;
+            }
+        }
+    }
+
+    if (area == AREA_BRINSTAR && EventFunction(EVENT_ACTION_CHECKING, EVENT_SKIPPED_VARIA_SUIT))
+        dst[MINIMAP_SIZE * 2 + 14]++;
 }
 
 /**
