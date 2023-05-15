@@ -20,6 +20,7 @@
 #define SPACE_PIRATE_POSE_TURNING_AROUND_TO_WALL_JUMP_INIT 0x12
 #define SPACE_PIRATE_POSE_TURNING_AROUND_TO_WALL_JUMP 0x13
 #define SPACE_PIRATE_POSE_DELAY_BEFORE_LAUNCHING_FROM_WALL 0x15
+#define SPACE_PIRATE_POSE_0x19 0x19
 #define SPACE_PIRATE_POSE_FALLING_INIT 0x1E
 #define SPACE_PIRATE_POSE_FALLING 0x1F
 #define SPACE_PIRATE_POSE_WALKING_ALERTED_INIT 0x22
@@ -103,7 +104,7 @@ void unk_2aa88(void);
 void unk_2aaec(void);
 void unk_2ab10(void);
 void unk_2ab34(void);
-void sub_0802ab58(void);
+void unk_2ab58(void);
 void SpacePirateTurningAroundInit(void);
 void SpacePirateTurningAroundFirstPart(void);
 void SpacePirateTurningAroundSecondPart(void);

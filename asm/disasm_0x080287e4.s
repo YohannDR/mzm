@@ -4610,8 +4610,8 @@ unk_2ab34: @ 0x0802ab34
 lbl_0802ab50: .4byte gCurrentSprite
 lbl_0802ab54: .4byte 0x082e48b8
 
-    thumb_func_start sub_0802ab58
-sub_0802ab58: @ 0x0802ab58
+    thumb_func_start unk_2ab58
+unk_2ab58: @ 0x0802ab58
     push {lr}
     bl unk_f594
     ldr r0, lbl_0802ab70 @ =gPreviousVerticalCollisionCheck
@@ -8584,7 +8584,7 @@ lbl_0802c9f6:
 lbl_0802c9fc:
     bl unk_2ab34
 lbl_0802ca00:
-    bl sub_0802ab58
+    bl unk_2ab58
     b lbl_0802caf6
 lbl_0802ca06:
     bl unk_2ab10
@@ -10724,7 +10724,7 @@ lbl_0802daec:
 lbl_0802daf2:
     bl unk_2ab34
 lbl_0802daf6:
-    bl sub_0802ab58
+    bl unk_2ab58
     b lbl_0802dc4a
 lbl_0802dafc:
     bl unk_2ab10

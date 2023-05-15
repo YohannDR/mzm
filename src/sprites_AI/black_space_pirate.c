@@ -613,21 +613,21 @@ void BlackSpacePirate(void)
         
         case 0x1C:
             unk_2ab34();
-            sub_0802ab58();
+            unk_2ab58();
             break;
 
         case 0x10:
             unk_2aaec();
-            sub_0802ab58();
+            unk_2ab58();
             break;
         
         case 0x11:
-            sub_0802ab58();
+            unk_2ab58();
             break;
 
         case 0x14:
             unk_2ab10();
-            sub_0802ab58();
+            unk_2ab58();
             break;
 
         case SPACE_PIRATE_POSE_TURNING_AROUND_INIT:

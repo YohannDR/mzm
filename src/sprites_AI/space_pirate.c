@@ -1201,6 +1201,8 @@ void SpacePirateFallingInit(void)
  */
 void SpacePirateFalling(void)
 {
+    // https://decomp.me/scratch/nqd7z
+
     u32 blockTop;
     u8 offset;
     register u8* pOffset asm("r5");
@@ -1568,9 +1570,29 @@ void unk_2ab34(void)
     gCurrentSprite.workVariable2 = 0x0;
 }
 
-void sub_0802ab58(void)
+/**
+ * @brief 2ab58 | 4c | To document
+ * 
+ */
+void unk_2ab58(void)
 {
+    unk_f594();
 
+    if (gPreviousVerticalCollisionCheck == COLLISION_AIR)
+    {
+        gCurrentSprite.pose = SPACE_PIRATE_POSE_FALLING_INIT;
+        return;
+    }
+
+    if (SpriteUtilCheckEndCurrentSpriteAnim())
+    {
+        gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_FIRST_PART;
+        gCurrentSprite.oamScaling = 0;
+
+        gCurrentSprite.pOam = sSpacePirateOAM_TurningAroundFirstPart;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+    }
 }
 
 /**
@@ -2568,14 +2590,150 @@ void SpacePirateClimbingDown(void)
         SoundPlayNotAlreadyPlaying(0x16C);
 }
 
+/**
+ * @brief 2ba7c | 1c | To document
+ * 
+ */
 void unk_2ba7c(void)
 {
-
+    gCurrentSprite.pose = SPACE_PIRATE_POSE_0x19;
+    gCurrentSprite.workVariable = 0;
+    gCurrentSprite.arrayOffset = 0;
 }
 
+/**
+ * @brief 2ba98 | 1c0 | To document
+ * 
+ */
 void unk_2ba98(void)
 {
+    u16 yPosition;
+    u16 xPosition;
+    u8 collision;
+    u8 pose;
+    u8 goingDown;
+    u8 colliding;
 
+    colliding = FALSE;
+    goingDown = FALSE;
+
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        gCurrentSprite.animationDurationCounter++;
+
+    yPosition = gCurrentSprite.yPosition;
+    xPosition = gCurrentSprite.xPosition;
+
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+    {
+        collision = SpriteUtilGetCollisionAtPosition(yPosition, xPosition + (BLOCK_SIZE - QUARTER_BLOCK_SIZE));
+    }
+    else
+    {
+        collision = SpriteUtilGetCollisionAtPosition(yPosition, xPosition - (BLOCK_SIZE - QUARTER_BLOCK_SIZE));
+    }
+
+    if (collision == COLLISION_AIR)
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+        {
+            collision = SpriteUtilGetCollisionAtPosition(yPosition + BLOCK_SIZE + 8,
+                xPosition + (BLOCK_SIZE - QUARTER_BLOCK_SIZE));
+        }
+        else
+        {
+            collision = SpriteUtilGetCollisionAtPosition(yPosition + BLOCK_SIZE + 8,
+                xPosition - (BLOCK_SIZE - QUARTER_BLOCK_SIZE));
+        }
+
+        if (collision == COLLISION_AIR)
+        {
+            gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_TO_WALL_JUMP_INIT;
+            gCurrentSprite.workVariable = 0;
+            gCurrentSprite.timer = 0;
+            return;
+        }
+    }
+
+    switch (gCurrentSprite.workVariable)
+    {
+        case 1:
+            if (SpriteUtilCheckEndCurrentSpriteAnim())
+            {
+                gCurrentSprite.pOam = sSpacePirateOAM_AimingWhileClimbing;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
+                gCurrentSprite.workVariable++;
+            }
+            break;
+
+        case 2:
+            if (SpriteUtilCheckEndCurrentSpriteAnim())
+            {
+                pose = SpacePirateClimbingCheckWallJumpOrFire();
+
+                if (pose == SPACE_PIRATE_POSE_CLIMBING_CHARGING_LASER_INIT)
+                {
+                    gCurrentSprite.pose = SPACE_PIRATE_POSE_CLIMBING_CHARGING_LASER_INIT;
+                    break;
+                }
+
+                if (pose == 0)
+                {
+                    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+                    {
+                        if (gSpriteDrawOrder[3] == TRUE)
+                            pose = SPACE_PIRATE_POSE_CLIMBING_DOWN_INIT;
+                        else
+                            pose = SPACE_PIRATE_POSE_CLIMBING_UP_INIT;
+                    }
+                    else
+                    {
+                        if (gSpriteRNG & 1)
+                            pose = SPACE_PIRATE_POSE_CLIMBING_DOWN_INIT;
+                        else
+                            pose = SPACE_PIRATE_POSE_CLIMBING_UP_INIT;
+                    }
+                }
+
+                if (pose == SPACE_PIRATE_POSE_CLIMBING_DOWN_INIT)
+                    goingDown++;
+
+                if (SpacePirateCheckCollidingWithPirateWhenClimbing(goingDown))
+                {
+                    gCurrentSprite.pose = SPACE_PIRATE_POSE_LAUNCHING_FROM_WALL;
+                    gCurrentSprite.pOam = sSpacePirateOAM_LaunchingFromWall;
+                    gCurrentSprite.animationDurationCounter = 0;
+                    gCurrentSprite.currentAnimationFrame = 0;
+                    gCurrentSprite.workVariable = 0;
+                }
+                else
+                {
+                    colliding++;
+                }
+
+                if (colliding)
+                {
+                    gCurrentSprite.workVariable++;
+                    gCurrentSprite.timer = pose;
+                    gCurrentSprite.pOam = sSpacePirateOAM_ClimbingRetractingAim;
+                    gCurrentSprite.animationDurationCounter = 0;
+                    gCurrentSprite.currentAnimationFrame = 0;
+                }
+            }
+            break;
+
+        case 3:
+            if (SpriteUtilCheckEndCurrentSpriteAnim())
+                gCurrentSprite.pose = gCurrentSprite.timer;
+            break;
+
+        default:
+            gCurrentSprite.pOam = sSpacePirateOAM_TurningToAimWhileClimbing;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
+            gCurrentSprite.workVariable = 1;
+            break;
+    }
 }
 
 /**
@@ -2671,7 +2829,7 @@ void SpacePirateTurningAroundToWallJumpInit(void)
 {
     gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_TO_WALL_JUMP;
 
-    gCurrentSprite.pOam = sSpacePirateOAM_TurnbingToAimWhileClimbing;
+    gCurrentSprite.pOam = sSpacePirateOAM_TurningToAimWhileClimbing;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 }
@@ -3488,19 +3646,19 @@ void SpacePirate(void)
 
         case 0x10:
             unk_2aaec();
-            sub_0802ab58();
+            unk_2ab58();
             break;
 
         case 0x1C:
             unk_2ab34();
 
         case 0x11:
-            sub_0802ab58();
+            unk_2ab58();
             break;
 
         case 0x16:
             unk_2ab10();
-            sub_0802ab58();
+            unk_2ab58();
             break;
 
         case 0xA:

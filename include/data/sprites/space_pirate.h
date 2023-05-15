@@ -309,7 +309,7 @@ extern const struct FrameData sSpacePirateOAM_TurningAroundWhileCrawlingSecondPa
 
 extern const struct FrameData sSpacePirateOAM_CrawlingStopped[5];
 
-extern const struct FrameData sSpacePirateOAM_TurnbingToAimWhileClimbing[4];
+extern const struct FrameData sSpacePirateOAM_TurningToAimWhileClimbing[4];
 
 extern const struct FrameData sSpacePirateOAM_AimingWhileClimbing[5];
 

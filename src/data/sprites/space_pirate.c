@@ -2429,7 +2429,7 @@ const struct FrameData sSpacePirateOAM_CrawlingStopped[5] = {
     0x0
 };
 
-const struct FrameData sSpacePirateOAM_TurnbingToAimWhileClimbing[4] = {
+const struct FrameData sSpacePirateOAM_TurningToAimWhileClimbing[4] = {
     sSpacePirateOAM_ClimbingUp_Frame0,
     0x1,
     sSpacePirateOAM_TurningToAimWhileClimbing_Frame1,
