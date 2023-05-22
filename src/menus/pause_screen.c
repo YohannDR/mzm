@@ -2101,62 +2101,65 @@ void PauseScreenUpdateBottomVisorOverlay(u8 param_1, u8 param_2)
     }
 }
 
+/**
+ * @brief 6b0f8 | 148 | Gets the minimap for the provided area
+ * 
+ * @param area Area
+ * @param dst Destination pointer
+ */
 void PauseScreenGetMinimapData(u8 area, u16* dst)
 {
-    // https://decomp.me/scratch/tGtxZ
-
     u32 position;
     i32 i;
-    u16* buffer;
-    u16* buffer2;
 
+    // Decompress base minimap
     CallLZ77UncompWRAM(sMinimapDataPointers[area], dst);
+
+    // Add obtained items
     MinimapSetTilesWithObtainedItems(area, dst);
 
-    if (sBossIcons[area][0] && EventFunction(EVENT_ACTION_CHECKING, sBossIcons[area][0]))
+    // Check update boss icons
+    position = sBossIcons[area][0]; // Event
+    if (position && EventFunction(EVENT_ACTION_CHECKING, position))
     {
         position = sBossIcons[area][2] + sBossIcons[area][3] * MINIMAP_SIZE;
 
         if (area == AREA_CRATERIA)
         {
-            buffer = &dst[position];
-
-            if ((*buffer & 0x3FF) == sMapChunksToUpdate[2])
+            // Ship, 3x1 tiles
+            if ((dst[position] & 0x3FF) == sMapChunksToUpdate[2])
             {
                 for (i = 0; i < 3; i++)
-                    buffer[i]++;
+                    dst[position + i]++;
             }
         }
         else if (area == AREA_KRAID)
         {
-            buffer = &dst[position];
-
-            if ((*buffer & 0x3FF) == sMapChunksToUpdate[0])
+            // Kraid icon, 2x2 tiles
+            if ((dst[position] & 0x3FF) == sMapChunksToUpdate[0])
             {
                 for (i = 0; i < 2; i++)
-                    buffer[i] += MINIMAP_SIZE;
+                    dst[position + i] += MINIMAP_SIZE;
                     
-                buffer2 = &dst[position + MINIMAP_SIZE];
-                for (i = 0; i < 2; i++)
-                    buffer2[i] += MINIMAP_SIZE;
+                for (i = MINIMAP_SIZE; i < MINIMAP_SIZE + 2; i++)
+                    dst[position + i] += MINIMAP_SIZE;
             }
         }
         else if (area == AREA_RIDLEY)
         {
-            buffer = &dst[position];
-
-            if ((*buffer & 0x3FF) == sMapChunksToUpdate[1])
+            // Ridley icon, 2x2 tiles
+            if ((dst[position] & 0x3FF) == sMapChunksToUpdate[1])
             {
                 for (i = 0; i < 2; i++)
-                    buffer[i] += MINIMAP_SIZE;
+                    dst[position + i] += MINIMAP_SIZE;
                     
-                buffer2 = &dst[position + MINIMAP_SIZE];
-                for (i = 0; i < 2; i++)
-                    buffer2[i] += MINIMAP_SIZE;
+                for (i = MINIMAP_SIZE; i < MINIMAP_SIZE + 2; i++)
+                    dst[position + i] += MINIMAP_SIZE;
             }
         }
     }
 
+    // Check update the varia statue tile if varia suit was skipped
     if (area == AREA_BRINSTAR && EventFunction(EVENT_ACTION_CHECKING, EVENT_SKIPPED_VARIA_SUIT))
         dst[MINIMAP_SIZE * 2 + 14]++;
 }
