@@ -1684,10 +1684,14 @@ void SramWrite_ToEwram_DemoRam(void)
     DoSramOperation(SRAM_OPERATION_SAVE_DEMO_RAM);
 }
 
+/**
+ * @brief 75364 | 130 | Loads the demo ram values
+ * 
+ * @param loadSamusData Load samus data flag
+ * @param demoNumber Demo number
+ */
 void SramLoad_DemoRamValues(u8 loadSamusData, u8 demoNumber)
 {
-    // https://decomp.me/scratch/SKFGT
-
     const struct SaveDemo* pDemo;
 
     pDemo = sDemoRamDataPointers[demoNumber];
@@ -1698,8 +1702,11 @@ void SramLoad_DemoRamValues(u8 loadSamusData, u8 demoNumber)
         gLastDoorUsed = pDemo->lastDoorUsed;
         gUseMotherShipDoors = pDemo->useMotherShipDoors;
 
-        DMATransfer(3, pDemo->visitedMinimapTiles, &gVisitedMinimapTiles[gCurrentArea * MINIMAP_SIZE], sizeof(pDemo->visitedMinimapTiles), 16);
-        DMATransfer(3, pDemo->hatchesOpened, gHatchesOpened[gCurrentArea], sizeof(pDemo->hatchesOpened), 16);
+        // 0x02037400 = gVisitedMinimapTiles
+        DMATransfer(3, pDemo->visitedMinimapTiles, (u32*)0x02037400 + gCurrentArea * MINIMAP_SIZE,
+            sizeof(pDemo->visitedMinimapTiles), 16);
+        // 0x2037c00 = gHatchesOpened
+        DMATransfer(3, pDemo->hatchesOpened, (u16*)0x2037c00 + gCurrentArea * 16, sizeof(pDemo->hatchesOpened), 16);
     } 
     else if (loadSamusData == TRUE)
     {
