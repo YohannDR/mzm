@@ -4,6 +4,9 @@
 #include "memory.h"
 #include "types.h"
 
+#define REG_TM0CNT_L (REG_BASE + 0x100)
+#define REG_TM0CNT_H (REG_BASE + 0x102)
+
 #define REG_TM3CNT_L (REG_BASE + 0x10C)
 #define REG_TM3CNT_H (REG_BASE + 0x10E)
 

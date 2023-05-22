@@ -239,10 +239,7 @@ struct MusicInfo {
     u8 sampleRate;
     u8 unknown_11;
     u16 maybe_frequency;
-    u8 unknown_14;
-    u8 unknown_15;
-    u8 unknown_16;
-    u8 unknown_17;
+    u32 unknown_14;
     u32 pitch;
     u16 musicTrack;
     u16 unknown_1E;

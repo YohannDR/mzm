@@ -9,7 +9,11 @@
 #define REG_DMA2 (REG_BASE + 0x0c8)
 #define REG_DMA3 (REG_BASE + 0x0d4)
 
+#define REG_DMA1_SRC (REG_DMA1 + 0)
+#define REG_DMA1_DST (REG_DMA1 + 4)
 #define REG_DMA1_CNT (REG_DMA1 + 8)
+#define REG_DMA2_SRC (REG_DMA2 + 0)
+#define REG_DMA2_DST (REG_DMA2 + 4)
 #define REG_DMA2_CNT (REG_DMA2 + 8)
 
 #define dma_set(channel, src, dst, cnt)                                        \

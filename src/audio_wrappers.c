@@ -99,9 +99,55 @@ void UpdateSOUNDCNT_H(u32 action)
 
 }
 
+/**
+ * @brief 28f4 | 124 | Sets up the DMA transfers to the fifo channels
+ * 
+ */
 void SetupSoundTransfer(void)
 {
+    u32 buffer;
+    u16 unk_0;
+    u16 unk_1;
+    u32 unk_2;
 
+    write32(REG_DMA1_CNT, (DMA_ENABLE | DMA_32BIT | DMA_DEST_FIXED) << 16 | sizeof(u32));
+    write32(REG_DMA2_CNT, (DMA_ENABLE | DMA_32BIT | DMA_DEST_FIXED) << 16 | sizeof(u32));
+    write16(REG_DMA1_CNT + 2, DMA_32BIT);
+    write16(REG_DMA2_CNT + 2, DMA_32BIT);
+
+    buffer = 0;
+    CpuFastSet(&buffer, gMusicInfo.soundRawData, CPU_SET_SRC_FIXED << 16 | sizeof(gMusicInfo.soundRawData) / sizeof(u32));
+
+    gMusicInfo.maybe_frequency = sNativeSmapleRate[gMusicInfo.unknown_7];
+    gMusicInfo.pitch = sMusicPitchData[gMusicInfo.unknown_7];
+
+    unk_0 = sAudio_8ccc8[gMusicInfo.unknown_7];
+    gMusicInfo.unknown_14 = unk_0;
+
+    unk_1 = unk_0 / 16;
+    gMusicInfo.unknown_C = unk_1;
+    unk_2 = 0x60 / gMusicInfo.unknown_C;
+    gMusicInfo.unknown_D = unk_2;
+    gMusicInfo.unknown_E = unk_2 * unk_1;
+    gMusicInfo.sampleRate = gMusicInfo.unknown_E - 1;
+    gMusicInfo.unknown_11 = unk_1 * 2;
+
+    write32(REG_DMA1_SRC, (u32)&gMusicInfo.soundRawData[0]);
+    write32(REG_DMA2_SRC, (u32)&gMusicInfo.soundRawData[1536]);
+
+    write32(REG_DMA1_DST, (u32)REG_FIFO_A);
+    write32(REG_DMA2_DST, (u32)REG_FIFO_B);
+
+    write16(REG_DMA1_CNT + 2, DMA_ENABLE | DMA_START_HBLANK | DMA_START_VBLANK | DMA_32BIT | DMA_REPEAT);
+    write16(REG_DMA2_CNT + 2, DMA_ENABLE | DMA_INTR_ENABLE | DMA_START_HBLANK | DMA_START_VBLANK | DMA_32BIT | DMA_REPEAT);
+
+    write16(REG_TM0CNT_H, 0);
+    write16(REG_TM0CNT_L, -(0x44940 / unk_0));
+
+    while (read8(REG_VCOUNT) == 0x9F) {}
+    while (read8(REG_VCOUNT) != 0x9F) {}
+
+    write16(REG_TM0CNT_H, 0x80);
 }
 
 /**
