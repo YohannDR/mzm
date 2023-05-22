@@ -138,7 +138,7 @@ lbl_080011b4:
     bne lbl_080011ba
     b lbl_08001430
 lbl_080011ba:
-    ldr r6, lbl_08001204 @ =gSoundData
+    ldr r6, lbl_08001204 @ =gMusicInfo+0xC24
     mov r0, sl
     adds r1, r0, r6
     ldr r0, lbl_08001208 @ =0xfffff400
@@ -174,14 +174,14 @@ lbl_080011f2:
     str r1, [sp, #4]
     b lbl_080013da
     .align 2, 0
-lbl_08001204: .4byte gSoundData
+lbl_08001204: .4byte gMusicInfo+0xC24
 lbl_08001208: .4byte 0xfffff400
 lbl_0800120c: .4byte gSoundCodeBPointer
 lbl_08001210: .4byte 0xfffff3dc
 lbl_08001214:
     movs r0, #0x34
     muls r0, r2, r0
-    ldr r1, lbl_08001254 @ =gSoundChannels
+    ldr r1, lbl_08001254 @ =gMusicInfo+0x1824
     adds r4, r0, r1
     ldrb r0, [r4]
     adds r2, #1
@@ -214,7 +214,7 @@ lbl_0800123c:
     str r0, [r4, #0x18]
     b lbl_0800125e
     .align 2, 0
-lbl_08001254: .4byte gSoundChannels
+lbl_08001254: .4byte gMusicInfo+0x1824
 lbl_08001258: .4byte 0xffffe7dc
 lbl_0800125c:
     str r6, [r4, #0x18]
@@ -438,7 +438,7 @@ lbl_080013f4:
     bhs lbl_080013fc
     b lbl_08001214
 lbl_080013fc:
-    ldr r4, lbl_0800144c @ =gSoundData
+    ldr r4, lbl_0800144c @ =gMusicInfo+0xC24
     mov r0, sl
     adds r1, r0, r4
     ldr r0, lbl_08001450 @ =0xfffff400
@@ -475,7 +475,7 @@ lbl_08001430:
 lbl_08001440: .4byte gMusicInfo
 lbl_08001444: .4byte gSoundCodeAPointer
 lbl_08001448: .4byte 0x04000006
-lbl_0800144c: .4byte gSoundData
+lbl_0800144c: .4byte gMusicInfo+0xC24
 lbl_08001450: .4byte 0xfffff400
 lbl_08001454: .4byte gSoundCodeCPointer
 
@@ -1957,7 +1957,7 @@ lbl_08001eee:
     mov r3, sl
     adds r1, r0, r3
     ldr r5, [r1]
-    ldr r1, lbl_08001f38 @ =gSoundChannels
+    ldr r1, lbl_08001f38 @ =gMusicInfo+0x1824
     adds r6, r0, r1
 lbl_08001f04:
     adds r0, r2, #1
@@ -1986,7 +1986,7 @@ lbl_08001f1e:
     .align 2, 0
 lbl_08001f30: .4byte gMusicInfo
 lbl_08001f34: .4byte 0x00001826
-lbl_08001f38: .4byte gSoundChannels
+lbl_08001f38: .4byte gMusicInfo+0x1824
 
     thumb_func_start sub_08001f3c
 sub_08001f3c: @ 0x08001f3c
@@ -3375,7 +3375,7 @@ sub_080028f4: @ 0x080028f4
     movs r0, #0
     mov sl, r0
     str r0, [sp]
-    ldr r6, lbl_080029e8 @ =gSoundData
+    ldr r6, lbl_080029e8 @ =gMusicInfo+0xC24
     ldr r2, lbl_080029ec @ =0x01000300
     mov r0, sp
     adds r1, r6, #0
@@ -3470,7 +3470,7 @@ lbl_080029d8: .4byte 0x040000c4
 lbl_080029dc: .4byte 0x84400004
 lbl_080029e0: .4byte 0x040000c6
 lbl_080029e4: .4byte 0x040000d2
-lbl_080029e8: .4byte gSoundData
+lbl_080029e8: .4byte gMusicInfo+0xC24
 lbl_080029ec: .4byte 0x01000300
 lbl_080029f0: .4byte 0xfffff3dc
 lbl_080029f4: .4byte 0x0808cc60

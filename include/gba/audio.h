@@ -20,6 +20,9 @@
 #define REG_SOUNDCNT_L (REG_BASE + 0x80)
 #define REG_SOUNDCNT_H (REG_BASE + 0x82)
 
+#define REG_SOUNDCNT_X (REG_BASE + 0x84)
+#define REG_SOUNDBIAS (REG_BASE + 0x88)
+
 #define SOUNDCNT_RESTART_SOUND (1 << 15)
 
 #endif /* GBA_AUDIO_H */

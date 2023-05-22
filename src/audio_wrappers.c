@@ -1,9 +1,97 @@
 #include "audio_wrappers.h"
 #include "data/audio.h"
 
+#include "gba.h"
+#include "macros.h"
+
+extern void call_soundcode_a(void);
+extern void call_soundcode_b(void);
+extern void call_soundcode_c(void);
+
+/**
+ * @brief 2564 | 294 | Initializes the audio
+ * 
+ */
 void InitializeAudio(void)
 {
+    vu16 zero;
+    u8 i;
 
+    if (gMusicInfo.occupied)
+        return;
+
+    gMusicInfo.occupied = TRUE;
+
+    write16(REG_IE, read16(REG_IE) | IF_DMA2);
+    write8(REG_SOUNDCNT_X, 0x80);
+    write16(REG_SOUNDCNT_H, 0xA90E);
+
+    write8(REG_SOUNDBIAS + 1, (read8(REG_SOUNDBIAS + 1) & 0x3F) | 0x40);
+
+    write8(REG_BASE + 0x63, 0x8);
+    write8(REG_BASE + 0x65, 0x80);
+    write8(REG_BASE + 0x69, 0x8);
+    write8(REG_BASE + 0x6D, 0x80);
+    write8(REG_BASE + 0x79, 0x8);
+    write8(REG_BASE + 0x7D, 0x80);
+
+    write8(REG_SOUND3CNT_L, 0x0);
+    write8(REG_SOUNDCNT_L, 0x77);
+
+    gSoundCodeAPointer = gSoundCodeA + 1;
+    dma_set(3, call_soundcode_a, gSoundCodeA, DMA_ENABLE << 16 | sizeof(gSoundCodeA) / 2);
+
+    gSoundCodeBPointer = gSoundCodeB + 1;
+    dma_set(3, call_soundcode_b, gSoundCodeB, DMA_ENABLE << 16 | sizeof(gSoundCodeB) / 2);
+
+    gSoundCodeCPointer = gSoundCodeC + 1;
+    dma_set(3, call_soundcode_c, gSoundCodeC, DMA_ENABLE << 16 | sizeof(gSoundCodeC) / 2);
+
+    zero = 0;
+    dma_set(3, &zero, &gMusicInfo, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0xE);
+
+    gMusicInfo.unknown_9 = (u8)gUnk_Audio0x64;
+
+    for (i = 0; i < 4; i++)
+    {
+        zero = 0;
+        dma_set(3, &zero, &gPsgSounds[i], (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(struct PSGSoundData) / 2);
+    }
+
+    for (i = 0; i < (u16)gNumMusicPlayers; i++)
+    {
+        zero = 0;
+        dma_set(3, &zero, sMusicTrackDataROM[i].pTrack, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x16);
+    }
+
+    for (i = 0; i < (u16)gNumMusicPlayers; i++)
+    {
+        sMusicTrackDataROM[i].pTrack->pVariables = sMusicTrackDataROM[i].pVariables;
+        sMusicTrackDataROM[i].pTrack->maxAmountOfTracks = sMusicTrackDataROM[i].maxAmountOfTracks;
+        sMusicTrackDataROM[i].pTrack->unknown_1D = sMusicTrackDataROM[i].unknonw_A;
+    }
+
+    UpdateSOUNDCNT_H((u32)gUnk_Audio0x194F700);
+
+    for (i = 0; i < gMusicInfo.maxSoundChannels; i++)
+    {
+        zero = 0;
+        dma_set(3, &zero, &gMusicInfo.soundChannels[i], (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(struct SoundChannel) / 2);
+    }
+
+    for (i = 0; i < ARRAY_SIZE(gSoundChannelBackup); i++)
+    {
+        zero = 0;
+        dma_set(3, &zero, &gSoundChannelBackup[i], (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(struct SoundChannelBackup) / 2);
+    }
+
+    for (i = 0; i < (u16)gNumMusicPlayers; i++)
+    {
+        zero = 0;
+        dma_set(3, &zero, &gSoundQueue[i], (DMA_ENABLE | DMA_SRC_FIXED) << 16 | sizeof(struct SoundQueue) / 2);
+    }
+
+    gMusicInfo.occupied = FALSE;
 }
 
 void UpdateSOUNDCNT_H(u32 action)

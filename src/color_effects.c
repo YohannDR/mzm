@@ -305,13 +305,17 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
         {
             colorMono = *srcMonochrome;
             monoR = RED(colorMono);
-            monoG = (colorMono >> 5) & COLOR_MASK;
-            monoB = (colorMono >> 10) & COLOR_MASK;
+            colorMono >>= 5;
+            monoG = colorMono & COLOR_MASK;
+            colorMono >>= 5;
+            monoB = colorMono & COLOR_MASK;
     
             colorBase = *srcBase;
             baseR = RED(colorBase);
-            baseG = (colorBase >> 5) & COLOR_MASK;
-            baseB = (colorBase >> 10) & COLOR_MASK;
+            colorBase >>= 5;
+            baseG = colorBase & COLOR_MASK;
+            colorBase >>= 5;
+            baseB = colorBase & COLOR_MASK;
 
             newR = (stage * (monoR - baseR) / 32);
             newG = (stage * (monoG - baseG) / 32);
@@ -329,7 +333,54 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
 
 void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage)
 {
+    i32 i;
+    i32 rEnd;
+    i32 gEnd;
+    i32 bEnd;
+    u8 r;
+    u8 g;
+    u8 b;
+    i32 color;
 
+    if (stage == 0)
+    {
+        DMATransfer(3, srcStart, dst, 16 * 2, 16);
+        return;
+    }
+
+    if (stage >= 0x1F)
+    {
+        DMATransfer(3, srcEnd, dst, 16 * 2, 16);
+        return;
+    }
+
+    for (i = 0; i <= 0x1F; )
+    {
+        color = *srcEnd;
+        rEnd = RED(color);
+        color >>= 5;
+        gEnd = color & COLOR_MASK;
+        color >>= 5;
+        bEnd = color & COLOR_MASK;
+
+        color = *srcStart;
+        r = RED(color);
+        color >>= 5;
+        g = color & COLOR_MASK;
+        color >>= 5;
+        b = color & COLOR_MASK;
+
+        r += (rEnd - r) * stage / 32;
+        g += (gEnd - g) * stage / 32;
+        b += (bEnd - b) * stage / 32;
+
+        *dst = COLOR(r, g, b);
+
+        i++;
+        srcStart++;
+        dst++;
+        srcEnd++;
+    }
 }
 
 void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage)

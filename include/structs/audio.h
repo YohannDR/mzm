@@ -251,6 +251,7 @@ struct MusicInfo {
     u16 musicTrackOnTransition;
     u32 musicRawData[768];
     u8 soundRawData[3072];
+    struct SoundChannel soundChannels[11];
 };
 
 
@@ -260,6 +261,8 @@ extern struct MusicTrackInfo gMusicTrackInfo;
 extern struct MusicInfo gMusicInfo;
 
 extern char gNumMusicPlayers[];
+extern char gUnk_Audio0x64[];
+extern char gUnk_Audio0x194F700[];
 
 extern struct TrackData gTrackData0;
 extern struct TrackData gTrackData1;
@@ -284,5 +287,15 @@ extern struct TrackVariables gTrack5Variables[2];
 extern struct TrackVariables gTrack6Variables[3];
 extern struct TrackVariables gTrack7Variables[1];
 extern struct TrackVariables gTrack8Variables[6];
+
+// TODO type
+extern void* gSoundCodeAPointer;
+extern u8 gSoundCodeA[1624];
+extern void* gSoundCodeBPointer;
+extern u8 gSoundCodeB[164];
+extern void* gSoundCodeCPointer;
+extern u8 gSoundCodeC[176];
+
+extern struct PSGSoundData gPsgSounds[4];
 
 #endif

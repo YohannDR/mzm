@@ -5,6 +5,8 @@ MEMORY {
 }
 
 gNumMusicPlayers = 9;
+gUnk_Audio0x64 = 0x64;
+gUnk_Audio0x194F700 = 0x194F700;
 
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {
@@ -239,9 +241,7 @@ SECTIONS {
         . = 0x00001cf8; gSerialCommunicationCallback = .;
         . = 0x00001cfc; gTimer3Callback = .;
         . = 0x00001d00; gMusicInfo = .;
-        . = 0x00002924; gSoundData = .;
 
-        . = 0x00003524; gSoundChannels = .;
         . = 0x0000376c; gUnk_300376c = .;
         . = 0x00003794; gPsgSounds = .;
         . = 0x00003834; gSoundChannelBackup = .;
