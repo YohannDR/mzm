@@ -1,10 +1,13 @@
 #include "sprites_AI/zoomer.h"
+
 #include "data/sprites/zoomer.h"
-#include "constants/particle.h"
 #include "data/sprite_data.h"
+
+#include "constants/particle.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/game_state.h"
 #include "structs/sprite.h"
 
@@ -106,8 +109,8 @@ void ZoomerSetCrawlingOAM(void)
     else
         gCurrentSprite.pOam = sZoomerOAM_OnGround;
 
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 }
 
 /**
