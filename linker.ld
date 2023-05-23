@@ -427,7 +427,7 @@ SECTIONS {
         src/sprites_AI/skree.o(.text);
         src/sprites_AI/reo.o(.text);
         src/sprites_AI/zipline.o(.text);
-        asm/disasm_0x0801da24.o(.text);
+        src/sprites_AI/sova.o(.text);
         src/sprites_AI/multiviola.o(.text);
         src/sprites_AI/geruta.o(.text);
         src/sprites_AI/squeept.o(.text);

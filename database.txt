@@ -76,7 +76,7 @@ sprites/ChozoStatueVariaSuit.pal;80;0x2bf2cc;2
 # Sova
 
 sprites/Sova.gfx.lz;851;0x2ceaa8;4
-sprites/Soav.pal;48;0x2cf7f4;2
+sprites/Sova.pal;48;0x2cf7f4;2
 
 # Multiviola
 
@@ -2378,7 +2378,6 @@ Blob_8f2c0_908df.bin;5664;0x8f2c0;1
 Blob_908e0_2320e4.bin;1710084;0x908e0;1
 Blob_2320ec_2376a8.bin;21948;0x2320ec;1
 Blob_238b68_23a5bc.bin;6740;0x238b68;1
-Blob_2ceaa8_2cfd9f.bin;4856;0x2ceaa8;1
 Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
 Blob_3fcef0_411400.bin;83216;0x3fcef0;1
