@@ -7,6 +7,7 @@ MEMORY {
 gNumMusicPlayers = 9;
 gUnk_Audio0x64 = 0x64;
 gUnk_Audio0x194F700 = 0x194F700;
+gUnk_Audio0x50 = 0x50;
 
 SECTIONS {
     ewram (NOLOAD) : ALIGN(4) {

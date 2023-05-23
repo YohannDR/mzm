@@ -653,9 +653,20 @@ void PlayCurrentMusicTrack(void)
     init_track(pTrack, pHeader);
     gMusicInfo.occupied = FALSE;
 }
+
+/**
+ * @brief 3f20 | 4c | Decreases the music volume when paused
+ * 
+ */
 void DecreaseMusicVolume(void)
 {
+    SoundPlay(0x63);
+    unk_34ac(FALSE);
 
+    gMusicInfo.volumeDownFlag |= (1 << 7);
+    
+    unk_3058(sMusicTrackDataROM[0].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
+    unk_3058(sMusicTrackDataROM[1].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
 }
 
 /**
@@ -664,10 +675,10 @@ void DecreaseMusicVolume(void)
  */
 void ResetMusicVolume(void)
 {
-    unk_3058(sMusicTrackDataROM[0].pTrack, 0xFFFF, 0x100);
-    unk_3058(sMusicTrackDataROM[1].pTrack, 0xFFFF, 0x100);
+    unk_3058(sMusicTrackDataROM[0].pTrack, USHORT_MAX, 0x100);
+    unk_3058(sMusicTrackDataROM[1].pTrack, USHORT_MAX, 0x100);
 
-    gMusicInfo.volumeDownFlag &= 0x7F;
+    gMusicInfo.volumeDownFlag &= ~(1 << 7);
     unk_35d0(FALSE);
 }
 
