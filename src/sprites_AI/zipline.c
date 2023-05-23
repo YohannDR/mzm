@@ -106,10 +106,12 @@ u8 ZiplineMoving(void)
     return releasing;
 }
 
+/**
+ * @brief 1d46c | 1dc | Updates the OAM of the zipline
+ * 
+ */
 void ZiplineUpdateOAM(void)
 {
-    // https://decomp.me/scratch/x2aM6
-
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
@@ -169,6 +171,16 @@ void ZiplineUpdateOAM(void)
                     break;
 
                 case ZIPLINE_ANIMATION_STATE_GRABBING:
+                    if (SpriteUtilCheckEndCurrentSpriteAnim())
+                    {
+                        gCurrentSprite.pOam = sZiplineOAM_OffSamusGrabbed;
+                        gCurrentSprite.animationDurationCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0x0;
+
+                        gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_GRABBED;
+                    }
+                    break;
+                
                 case ZIPLINE_ANIMATION_STATE_RELEASING:
                     if (SpriteUtilCheckEndCurrentSpriteAnim())
                     {
@@ -205,6 +217,16 @@ void ZiplineUpdateOAM(void)
                     break;
 
                 case ZIPLINE_ANIMATION_STATE_GRABBING:
+                    if (SpriteUtilCheckEndCurrentSpriteAnim())
+                    {
+                        gCurrentSprite.pOam = sZiplineOAM_OnIdle;
+                        gCurrentSprite.animationDurationCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0x0;
+
+                        gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_RELEASED;
+                    }
+                    break;
+                
                 case ZIPLINE_ANIMATION_STATE_RELEASING:
                     if (SpriteUtilCheckEndCurrentSpriteAnim())
                     {
@@ -217,9 +239,9 @@ void ZiplineUpdateOAM(void)
                     break;
 
                 case ZIPLINE_ANIMATION_STATE_RELEASED:
-                    if (gCurrentSprite.pOam != sZiplineOAM_OnSamusGrabbed)
+                    if (gCurrentSprite.pOam != sZiplineOAM_OnIdle)
                     {
-                        gCurrentSprite.pOam = sZiplineOAM_OnSamusGrabbed;
+                        gCurrentSprite.pOam = sZiplineOAM_OnIdle;
                         gCurrentSprite.animationDurationCounter = 0x0;
                         gCurrentSprite.currentAnimationFrame = 0x0;
                     }
@@ -238,6 +260,16 @@ void ZiplineUpdateOAM(void)
                     break;
 
                 case ZIPLINE_ANIMATION_STATE_GRABBING:
+                    if (SpriteUtilCheckEndCurrentSpriteAnim())
+                    {
+                        gCurrentSprite.pOam = sZiplineOAM_OffIdle;
+                        gCurrentSprite.animationDurationCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0x0;
+
+                        gCurrentSprite.workVariable = ZIPLINE_ANIMATION_STATE_RELEASED;
+                    }
+                    break;
+                
                 case ZIPLINE_ANIMATION_STATE_RELEASING:
                     if (SpriteUtilCheckEndCurrentSpriteAnim())
                     {
