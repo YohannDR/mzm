@@ -2974,10 +2974,15 @@ void SamusSetSpinningPose(struct SamusData* pData, struct Equipment* pEquipment)
     }
 }
 
+/**
+ * @brief 8278 | 40 | Applies an X acceleration
+ * 
+ * @param acceleration Acceleration
+ * @param velocity Max velocity
+ * @param pData Samus data pointer
+ */
 void SamusApplyXAcceleration(i32 acceleration, i32 velocity, struct SamusData* pData)
 {
-    // https://decomp.me/scratch/FkAya
-
     i32 xVelocity;
     i32 xAcceleration;
     i32 temp;
@@ -2987,7 +2992,7 @@ void SamusApplyXAcceleration(i32 acceleration, i32 velocity, struct SamusData* p
 
     if (pData->direction & KEY_RIGHT)
     {
-        temp = (u16)pData->xVelocity + xAcceleration;
+        temp = xAcceleration + (u16)pData->xVelocity;
         pData->xVelocity = temp;
         if ((i16)temp > xVelocity)
             pData->xVelocity = xVelocity;
