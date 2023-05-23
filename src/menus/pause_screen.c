@@ -7,12 +7,16 @@
 #include "event.h"
 #include "text.h"
 #include "color_effects.h"
+#include "callbacks.h"
 #include "menus/status_screen.h"
+#include "menus/pause_screen_map.h"
+#include "menus/pause_screen_sub_menus.h"
 
 #include "data/shortcut_pointers.h"
 #include "data/menus/pause_screen_data.h"
 #include "data/menus/status_screen.h"
 #include "data/menus/internal_pause_screen_data.h"
+#include "data/menus/pause_screen_map_data.h"
 
 #include "constants/connection.h"
 #include "constants/event.h"
@@ -2007,9 +2011,369 @@ void PauseScreenVBlank_Empty(void)
     vu8 c = 0;
 }
 
+/**
+ * @brief 6a434 | aa0 | Initializes the pause screen
+ * 
+ */
 void PauseScreenInit(void)
 {
+    CallbackSetVBlank(PauseScreenVBlank_Empty);
+    
+    write16(REG_BLDCNT, BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
+        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
+        BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT);
+    
+    write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 16);
+    write16(REG_DISPCNT, 0);
 
+    gNextOamSlot = 0;
+    BitFill(3, 0, &gNonGameplayRAM, sizeof(union NonGameplayRAM), 32);
+    ResetFreeOam();
+    
+    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+
+    PAUSE_SCREEN_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
+        BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
+        BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+    PAUSE_SCREEN_DATA.dispcnt = 0;
+
+    if (gCurrentCutscene == 0)
+    {
+        DMATransfer(3, VRAM_BASE + 0x10000, EWRAM_BASE + 0x1E000, 0x8000, 16);
+    }
+
+    PAUSE_SCREEN_DATA.currentArea = gCurrentArea;
+    PAUSE_SCREEN_DATA.mapX = gMinimapX;
+    PAUSE_SCREEN_DATA.mapY = gMinimapY;
+    PAUSE_SCREEN_DATA.typeFlags = 0;
+
+    switch (gPauseScreenFlag)
+    {
+        case PAUSE_SCREEN_CHOZO_HINT:
+            PAUSE_SCREEN_DATA.typeFlags |= PAUSE_SCREEN_TYPE_ON_MAP_SCREEN | PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT;
+            break;
+
+        case PAUSE_SCREEN_UNKNOWN_3:
+            PAUSE_SCREEN_DATA.typeFlags |= PAUSE_SCREEN_TYPE_UNKNOWN;
+            break;
+
+        case PAUSE_SCREEN_MAP_DOWNLOAD:
+            PAUSE_SCREEN_DATA.typeFlags |= PAUSE_SCREEN_TYPE_ON_MAP_SCREEN | PAUSE_SCREEN_TYPE_DOWNLOADING_MAP;
+            break;
+
+        case PAUSE_SCREEN_ITEM_ACQUISITION:
+            PAUSE_SCREEN_DATA.typeFlags |= PAUSE_SCREEN_TYPE_ON_STATUS_SCREEN | PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM;
+            break;
+
+        case PAUSE_SCREEN_SUITLESS_ITEMS:
+            UpdateSuitType(SUIT_SUITLESS);
+            gSamusData.pose = SPOSE_FACING_THE_FOREGROUND;
+            gSamusData.direction = KEY_LEFT;
+            gSamusData.currentAnimationFrame = 0;
+            gSamusData.lastWallTouchedMidAir = FALSE;
+
+            // TODO pistol
+            gCurrentItemBeingAcquired = ITEM_ACQUISITION_LONG_BEAM;
+            PAUSE_SCREEN_DATA.typeFlags = PAUSE_SCREEN_TYPE_ON_STATUS_SCREEN | PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM | PAUSE_SCREEN_TYPE_GETTING_SUITLESS;
+            break;
+
+        case PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS:
+            UpdateSuitType(SUIT_FULLY_POWERED);
+            PAUSE_SCREEN_DATA.typeFlags = PAUSE_SCREEN_TYPE_ON_STATUS_SCREEN | PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM | PAUSE_SCREEN_TYPE_GETTING_FULLY_POWERED;
+            break;
+    }
+
+    DMATransfer(3, sTankIconsPal, PALRAM_OBJ, sizeof(sTankIconsPal), 16);
+    DMATransfer(3, sMinimapTilesPal, PALRAM_BASE, sizeof(sMinimapTilesPal), 16);
+    DMATransfer(3, sPauseScreen_3fcef0, PALRAM_BASE + 0xA0, sizeof(sPauseScreen_3fcef0), 16);
+    sBgPalramPointer[0] = 0;
+
+    DMATransfer(3, sMinimapTilesGfx, VRAM_BASE + 0x8000, 0x3000, 16);
+    DMATransfer(3, VRAM_BASE + 0xA820, VRAM_BASE + 0xAC20, 0x3E0, 32);
+
+    CallLZ77UncompVRAM(sTankIconsGfx, VRAM_BASE + 0x13000);
+    CallLZ77UncompVRAM(sMapScreenAreaNamesGfxPointers[gLanguage], VRAM_BASE + 0x10800);
+    CallLZ77UncompVRAM(sMapScreenUnknownItemsNamesGfxPointers[gLanguage], VRAM_BASE + 0x11400);
+    CallLZ77UncompVRAM(sMapScreenChozoStatueAreaNamesGfxPointers[gLanguage], VRAM_BASE + 0x11800);
+
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
+    {
+        CallLZ77UncompVRAM(sChozoHintBackgroundGfx, VRAM_BASE);
+        CallLZ77UncompVRAM(sMapScreenAreaNamesGfx, VRAM_BASE + 0xA800);
+    }
+    else
+    {
+        CallLZ77UncompVRAM(sMotifBehindWireframeSamusGfx, VRAM_BASE);
+        CallLZ77UncompVRAM(sPauseScreenHudGfx, VRAM_BASE + 0x1000);
+        CallLZ77UncompVRAM(sMinimapLettersGfx, VRAM_BASE + 0x7400);
+        CallLZ77UncompVRAM(sMapScreenEquipmentNamesGfxPointers[gLanguage], VRAM_BASE + 0x6000);
+        CallLZ77UncompVRAM(sMapScreenMenuNamesGfxPointers[gLanguage], VRAM_BASE + 0xC00);
+        DMATransfer(3, VRAM_BASE + 0x6000, VRAM_BASE + 0x10000, 0x800, 32);
+    }
+
+    BitFill(3, 0x1140, VRAM_BASE + 0xE800, 0x1800, 16);
+    // 0x2034000 = gDecompressedMinimapVisitedTiles
+    DMATransfer(3, 0x2034000, VRAM_BASE + 0xE000, sizeof(gDecompressedMinimapVisitedTiles), 16);
+
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
+    {
+        CallLZ77UncompVRAM(sChozoHintBackgroundTileTable, VRAM_BASE + 0xB800);
+        BitFill(3, 0x115F, VRAM_BASE + 0xC000, 0x800, 16);
+    }
+    else
+    {
+        CallLZ77UncompWRAM(sMapScreenVisorOverlayTilemap, PAUSE_SCREEN_EWRAM.visorOverlayTilemap);
+        DMATransfer(3, PAUSE_SCREEN_EWRAM.visorOverlayTilemap, VRAM_BASE + 0xC800,
+            sizeof(PAUSE_SCREEN_EWRAM.visorOverlayTilemap), 16);
+        PauseScreenUpdateBottomVisorOverlay(2, 2);
+
+        if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DOWNLOADING_MAP)
+        {
+            PauseScreenUpdateTopVisorOverlay(UCHAR_MAX);
+        }
+        else
+        {
+            if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DEBUG)
+            {
+                CallLZ77UncompVRAM(sDebugMenuTileParts, VRAM_BASE + 0xB000);
+                BitFill(3, 0xF000, PAUSE_SCREEN_EWRAM.unk_d000, sizeof(PAUSE_SCREEN_EWRAM.unk_d000), 16);
+            }
+
+            CallLZ77UncompWRAM(sStatusScreenTilemap, PAUSE_SCREEN_EWRAM.unk_7800);
+            CallLZ77UncompWRAM(sStatusScreenBackgroundTilemap, PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap);
+            
+            if (gEquipment.suitType == SUIT_SUITLESS)
+            {
+                DMATransfer(3, PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap, VRAM_BASE + 0xC000, 0x500, 16);
+            }
+            else
+            {
+                DMATransfer(3, PAUSE_SCREEN_EWRAM.unk_7800, VRAM_BASE + 0xC000, 0x500, 16);
+            }
+
+            CallLZ77UncompWRAM(sMapScreenOverlayTilemap, PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap);
+            CallLZ77UncompWRAM(sWorldMapOverlayTilemap, PAUSE_SCREEN_EWRAM.worldMapOverlayTilemap);
+            PAUSE_SCREEN_DATA.onWorldMap = FALSE;
+
+            CallLZ77UncompVRAM(sMapScreenTextBg0TileTable, VRAM_BASE + 0xD800);
+            CallLZ77UncompWRAM(sEasySleepTilemap, PAUSE_SCREEN_EWRAM.easySleepTilemap);
+        }
+    }
+
+    gBG0HOFS_NonGameplay = gBG0VOFS_NonGameplay = 0;
+    gBG1HOFS_NonGameplay = gBG1VOFS_NonGameplay = 0;
+    gBG2HOFS_NonGameplay = gBG2VOFS_NonGameplay = 0;
+    gBG3HOFS_NonGameplay = gBG3VOFS_NonGameplay = 0;
+
+    PAUSE_SCREEN_DATA.subroutineInfo.stage = 0;
+    PAUSE_SCREEN_DATA.subroutineInfo.timer = 0;
+    PAUSE_SCREEN_DATA.subroutineInfo = sMapScreenSubroutineInfo_Empty;
+
+    gBG1VOFS_NonGameplay = BLOCK_SIZE * 16;
+
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
+    {
+        PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_CHOZO_STATUE_HINT_INIT;
+    }
+    else if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DOWNLOADING_MAP)
+    {
+        gEquipment.downloadedMapStatus |= (1 << gCurrentArea);
+        PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_MAP_DOWNLOAD;
+
+        //0x2034000 = gDecompressedMinimapData
+        PauseScreenGetMinimapData(gCurrentArea, (u16*)0x2034000);
+        MinimapSetDownloadedTiles(gCurrentArea, (u16*)0x2034000);
+        PauseScreenInitMapDownload();
+    }
+    else if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_FULLY_POWERED)
+    {
+        PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_FULLY_POWERED_ITEMS_INIT;
+    }
+    else if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM)
+    {
+        PAUSE_SCREEN_DATA.subroutineInfo.currentSubroutine = PAUSE_SCREEN_SUBROUTINE_SUITLESS_ITEMS_INIT;
+        StatusScreenGetSlotForNewItem(1, gCurrentItemBeingAcquired);
+    }
+
+    PauseScreenGetAllMinimapData(UCHAR_MAX);
+    if (PAUSE_SCREEN_DATA.typeFlags)
+    {
+    }
+    StatusScreenDraw();
+    ChozoHintDeterminePath(FALSE);
+    unk_6db58(0);
+    TextDrawYesNoEasySleep();
+
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_ON_MAP_SCREEN)
+    {
+        PAUSE_SCREEN_DATA.areasWithVisitedTiles = 0;
+        PAUSE_SCREEN_DATA.areasWithHints = 0;
+        PAUSE_SCREEN_DATA.areasViewables = 0;
+        PAUSE_SCREEN_DATA.areasViewablesTotal = 0;
+    }
+    else
+    {
+        PauseScreenMapCheckExploredAreas();
+        PauseScreenCheckAreasWithTargets();
+        PauseScreenDetermineMapsViewable();
+        LoadPauseScreenBgPalette();
+        DMATransfer(3, PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap, VRAM_BASE + 0xD000,
+            sizeof(PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap), 16);
+    }
+
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_ON_MAP_SCREEN)
+    {
+        gBG1HOFS_NonGameplay = QUARTER_BLOCK_SIZE;
+        gBG1VOFS_NonGameplay = QUARTER_BLOCK_SIZE;
+    }
+
+    gWrittenToBLDY_NonGameplay = gWrittenToBLDALPHA_H = 0;
+    gWrittenToBLDALPHA_L = 16;
+
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
+    {
+        PAUSE_SCREEN_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+            BLDCNT_BG0_SECOND_TARGET_PIXEL | BLDCNT_BG1_SECOND_TARGET_PIXEL | BLDCNT_BG2_SECOND_TARGET_PIXEL |
+            BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
+
+        PAUSE_SCREEN_DATA.unk_68 = 0x709;
+        gWrittenToBLDALPHA_H = 7;
+        gWrittenToBLDALPHA_L = 9;
+    }
+    else if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM)
+    {
+        PAUSE_SCREEN_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+            BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL |
+            BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
+
+        PAUSE_SCREEN_DATA.unk_68 = 22;
+        gWrittenToBLDALPHA_H = 0;
+        gWrittenToBLDALPHA_L = 22;
+    }
+    else
+    {
+        PAUSE_SCREEN_DATA.bldcnt = BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+            BLDCNT_BG3_SECOND_TARGET_PIXEL | BLDCNT_OBJ_SECOND_TARGET_PIXEL | BLDCNT_BACKDROP_SECOND_TARGET_PIXEL;
+
+        PAUSE_SCREEN_DATA.unk_68 = 0x60A;
+        gWrittenToBLDALPHA_H = 6;
+        gWrittenToBLDALPHA_L = 10; 
+    }
+
+    write8(REG_WINOUT, WIN0_BG0 | WIN0_BG1 | WIN0_BG2 | WIN0_BG3 | WIN0_OBJ | WIN0_COLOR_EFFECT);
+    write8(REG_WINOUT + 1, WIN0_BG3 | WIN0_OBJ);
+    gWrittenToMOSAIC_L = 0;
+
+    write16(REG_BG0HOFS, (gBG0HOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG0VOFS, (gBG0VOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG1HOFS, (gBG1HOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG1VOFS, (gBG1VOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG2HOFS, (gBG2HOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG2VOFS, (gBG2VOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG3HOFS, (gBG3HOFS_NonGameplay / 4) & 0x1FF);
+    write16(REG_BG3VOFS, (gBG3VOFS_NonGameplay / 4) & 0x1FF);
+
+    write16(REG_MOSAIC, 0);
+    write16(REG_BLDCNT, PAUSE_SCREEN_DATA.bldcnt);
+    write16(REG_BLDALPHA, gWrittenToBLDALPHA_H << 8 | gWrittenToBLDALPHA_L);
+
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
+    {
+        PAUSE_SCREEN_DATA.dispcnt = DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ;
+        PAUSE_SCREEN_DATA.unk_6A = 0;
+        PAUSE_SCREEN_DATA.unk_70 = 0;
+        PAUSE_SCREEN_DATA.unk_72 = 0;
+        PAUSE_SCREEN_DATA.unk_74 = 0;
+        PAUSE_SCREEN_DATA.unk_76 = 0;
+        PAUSE_SCREEN_DATA.unk_78 = 0;
+        PAUSE_SCREEN_DATA.unk_7A = 0;
+        PAUSE_SCREEN_DATA.unk_6E = 0;
+        
+        PAUSE_SCREEN_DATA.unk_6C = 0xDC48 | sPauseScreen_40d088[1];
+        PAUSE_SCREEN_DATA.bg3cnt = PAUSE_SCREEN_DATA.unk_6C;
+        PAUSE_SCREEN_DATA.bg2cnt = 0x1700 | sPauseScreen_40d088[3];
+        PAUSE_SCREEN_DATA.bg1cnt = 0x1808 | sPauseScreen_40d088[2];
+        PAUSE_SCREEN_DATA.bg0cnt = 0;
+    }
+    else if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DOWNLOADING_MAP)
+    {
+        PAUSE_SCREEN_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ;
+        PAUSE_SCREEN_DATA.unk_6A = 0;
+        PAUSE_SCREEN_DATA.unk_70 = 0x1900 | sPauseScreen_40d088[0];
+        PAUSE_SCREEN_DATA.unk_72 = 0;
+        PAUSE_SCREEN_DATA.unk_74 = 0;
+        PAUSE_SCREEN_DATA.unk_76 = 0;
+        PAUSE_SCREEN_DATA.unk_78 = 0;
+        PAUSE_SCREEN_DATA.unk_7A = 0;
+        PAUSE_SCREEN_DATA.unk_6E = 0;
+        PAUSE_SCREEN_DATA.unk_6C = 0xDC48 | sPauseScreen_40d088[1];
+        PAUSE_SCREEN_DATA.bg3cnt = PAUSE_SCREEN_DATA.unk_6C;
+        PAUSE_SCREEN_DATA.bg2cnt = 0x1700 | sPauseScreen_40d088[3];
+        PAUSE_SCREEN_DATA.bg1cnt = 0x1808 | sPauseScreen_40d088[2];
+        PAUSE_SCREEN_DATA.bg0cnt = PAUSE_SCREEN_DATA.unk_70;
+    }
+    else
+    {
+        PAUSE_SCREEN_DATA.dispcnt = DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ;
+        PAUSE_SCREEN_DATA.unk_6A = 0x1B04 | sPauseScreen_40d088[0];
+        PAUSE_SCREEN_DATA.unk_6C = 0xDC08 | sPauseScreen_40d088[3];
+        PAUSE_SCREEN_DATA.unk_6E = 0x1F08 | sPauseScreen_40d088[3];
+        PAUSE_SCREEN_DATA.unk_70 = 0x1900 | sPauseScreen_40d088[1];
+        PAUSE_SCREEN_DATA.unk_72 = 0x1A00 | sPauseScreen_40d088[2];
+        PAUSE_SCREEN_DATA.unk_74 = 0x1800 | sPauseScreen_40d088[2];
+        PAUSE_SCREEN_DATA.unk_76 = PAUSE_SCREEN_DATA.unk_72;
+
+        if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DEBUG)
+        {
+            PAUSE_SCREEN_DATA.unk_78 = 0x1600 | sPauseScreen_40d088[2];
+            PAUSE_SCREEN_DATA.unk_7A = 0x1608 | sPauseScreen_40d088[2];
+        }
+        else
+        {
+            PAUSE_SCREEN_DATA.unk_78 = 0;
+            PAUSE_SCREEN_DATA.unk_7A = 0;
+        }
+
+        PAUSE_SCREEN_DATA.bg3cnt = PAUSE_SCREEN_DATA.unk_6C;
+        PAUSE_SCREEN_DATA.bg1cnt = PAUSE_SCREEN_DATA.unk_70;
+        PAUSE_SCREEN_DATA.bg0cnt = PAUSE_SCREEN_DATA.unk_6A;
+
+        if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM)
+        {
+            PAUSE_SCREEN_DATA.dispcnt = DCNT_BG2 | DCNT_OBJ | DCNT_WINOBJ;
+            PAUSE_SCREEN_DATA.bg2cnt = PAUSE_SCREEN_DATA.unk_74;
+        }
+        else
+        {
+            PAUSE_SCREEN_DATA.bg2cnt = PAUSE_SCREEN_DATA.unk_72;
+        }
+    }
+
+    write16(REG_BG0CNT, PAUSE_SCREEN_DATA.bg0cnt);
+    write16(REG_BG1CNT, PAUSE_SCREEN_DATA.bg1cnt);
+    write16(REG_BG2CNT, PAUSE_SCREEN_DATA.bg2cnt);
+    write16(REG_BG3CNT, PAUSE_SCREEN_DATA.bg3cnt);
+
+    PauseScreenLoadAreaNamesAndIcons();
+
+    gOamYOffset_NonGameplay = 4;
+    gOamXOffset_NonGameplay = 4;
+
+    PauseScreenUpdateMapArrows();
+    PauseScreenUpdateBossIcons();
+
+    if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DOWNLOADING_MAP && PAUSE_SCREEN_DATA.bossIconOam[0].oamID != 3)
+    {
+        PAUSE_SCREEN_DATA.bossIconOam[0].notDrawn = TRUE;
+    }
+
+    PauseScreenProcessOam();
+    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+
+    PauseScreenUpdateOrStartFading(PAUSE_SCREEN_FADING_IN_INIT);
+    
+    CallbackSetVBlank(PauseScreenVBlank);
+    write16(REG_DISPCNT, PAUSE_SCREEN_DATA.dispcnt);
 }
 
 /**
@@ -2654,7 +3018,7 @@ i32 PauseScreenStatusScreenInit(void)
             // Background tilemap?
             if (gEquipment.suitType == SUIT_SUITLESS)
             {
-                DMATransfer(3, PAUSE_SCREEN_EWRAM.unk_8000, VRAM_BASE + 0xC000, 0x500, 32);
+                DMATransfer(3, PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap, VRAM_BASE + 0xC000, 0x500, 32);
             }
             else
             {

@@ -136,7 +136,7 @@ struct PauseScreenEwramData {
     u16 backgroundPalette[512];
     u16 statusScreenTilemap[1024];
     u16 unk_7800[1024];
-    u16 unk_8000[1024];
+    u16 statusScreenBackgroundTilemap[1024];
     u16 easySleepTilemap[1024];
     u16 visorOverlayTilemap[1024];
     u16 mapScreenOverlayTilemap[1024];
@@ -145,6 +145,8 @@ struct PauseScreenEwramData {
     u16 unk_b000[1024];
     u16 unk_b800[1024];
     u16 unk_c000[1024];
+    u16 unk_c800[1024];
+    u16 unk_d000[1024];
 };
 
 struct PauseScreenData {

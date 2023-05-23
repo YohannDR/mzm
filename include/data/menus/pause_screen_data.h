@@ -6,9 +6,20 @@
 #include "structs/menus/pause_screen.h"
 #include "connection.h"
 
+#include "constants/game_state.h"
+
+
+extern const u16 sTankIconsPal[16 * 16];
+
 extern const u16 sPauseScreen_3fd252[5 * 16 - 1];
 extern const u16 sMinimapAnimatedPalette[1 * 16];
 extern const u16 sSamusWireframePal[4 * 16];
+
+// ...
+
+extern const u32 sMotifBehindWireframeSamusGfx[278];
+extern const u32 sPauseScreenHudGfx[1404];
+extern const u32 sMinimapLettersGfx[60];
 
 // ...
 
@@ -16,6 +27,25 @@ extern const u16 sPauseScreen_3fcef0[11 * 16];
 extern const u8 sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS + 1];
 
 // ...
+
+extern const u32 sTankIconsGfx[1786];
+
+extern const u32 sChozoHintBackgroundGfx[3618];
+
+
+extern const u32 sDebugMenuTileParts[175];
+extern const u32 sMapScreenVisorOverlayTilemap[122];
+extern const u32 sMapScreenOverlayTilemap[125];
+extern const u32 sWorldMapOverlayTilemap[206];
+extern const u32 sStatusScreenTilemap[264];
+extern const u32 sEasySleepTilemap[196];
+extern const u32 sStatusScreenBackgroundTilemap[169];
+extern const u32 sMapScreenTextBg0TileTable[92];
+extern const u32 sChozoHintBackgroundTileTable[577];
+
+// ...
+
+extern const u16 sPauseScreen_40d088[4];
 
 extern const struct PauseScreenAreaIconData sPauseScreenAreaIconsData[MAX_AMOUNT_OF_AREAS];
 extern const u16 sPauseScreen_40d0d0[4][4];
@@ -68,5 +98,16 @@ extern u16 sPauseScreen_40dcb0[1 * 16];
 extern u16 sPauseScreen_40dcd0[1 * 16];
 extern u8 sPauseScreen_40dcf0[4];
 extern u8 sPauseScreen_40dcf4[16];
+
+// ...
+// Internal
+
+extern const u32* const sMapScreenAreaNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES];
+extern const u32* const sMapScreenChozoStatueAreaNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES];
+extern const u32* const sMapScreenUnknownItemsNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES];
+extern const u32* const sMapScreenEquipmentNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES];
+extern const u32* const sMapScreenMenuNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES];
+
+extern const struct PauseScreenSubroutineData sMapScreenSubroutineInfo_Empty;
 
 #endif /* PAUSE_SCREEN_DATA_H */

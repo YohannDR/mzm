@@ -23,6 +23,8 @@
 #define LANGUAGE_ITALIAN 5
 #define LANGUAGE_SPANISH 6
 
+#define MAX_AMOUNT_OF_LANGUAGES 7
+
 
 #define GM_SOFTRESET 0
 #define GM_INTRO 1
