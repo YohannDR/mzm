@@ -93,9 +93,61 @@ void unk_34ac(u8 param_1)
     
 }
 
+/**
+ * @brief 35d0 | 100 | To document
+ * 
+ * @param param_1 To document
+ */
 void unk_35d0(u8 param_1)
 {
+    u8 i;
+    u8 start;
+    u8 j;
+    u8 currChannel;
+    struct TrackData* pTrack;
+    struct TrackVariables* pVariables;
+    struct SoundChannel* pChannel;
 
+    currChannel = 0;
+    if (param_1 == FALSE)
+        start = 2;
+    else
+        start = 1;
+
+    for (i = start; i < (u16)gNumMusicPlayers; i++)
+    {
+        if ((i == 2 && param_1 == FALSE) || (0x14A >> i) & 1)
+        {
+            pTrack = sMusicTrackDataROM[i].pTrack;
+            if (pTrack->occupied)
+                continue;
+
+            pTrack->occupied = TRUE;
+
+            if (pTrack->unknown_1E & TRUE)
+            {
+                pTrack->unknown_1E &= ~TRUE;
+
+                for (j = 0, pVariables = pTrack->pVariables; j < pTrack->amountOfTracks; j++, pVariables++)
+                {
+                    if (!(pVariables->channel & 0xC0))
+                    {
+                        if (pVariables->pChannel == NULL)
+                            continue;
+                        
+                        for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pChannel->pChannel2)
+                        {
+                            unk_20a4(pChannel);
+                            *pChannel = gSoundChannelBackup[currChannel].channel;
+                            currChannel++;
+                        }
+                    }
+                }
+            }
+
+            pTrack->occupied = FALSE;
+        }
+    }
 }
 
 void CheckSetNewMusicTrack(u16 musicTrack)
