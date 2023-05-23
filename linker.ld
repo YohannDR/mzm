@@ -576,14 +576,14 @@ SECTIONS {
         src/data/sprites/skree.o(.rodata);
         src/data/sprites/reo.o(.rodata);
         src/data/sprites/zipline.o(.rodata);
-        src/data/sprites/sova.o(.rodata); /* Empty */
+        src/data/sprites/sova.o(.rodata);
         src/data/sprites/multiviola.o(.rodata);
         src/data/sprites/geruta.o(.rodata);
         src/data/sprites/squeept.o(.rodata);
         src/data/sprites/map_station.o(.rodata);
         src/data/sprites/save_platform.o(.rodata);
         src/data/sprites/dragon.o(.rodata);
-        src/data/sprites/deorem.o(.rodata); /* Empty */
+        src/data/sprites/deorem.o(.rodata); /* Incomplete */
         src/data/sprites/dessgeega.o(.rodata);
         src/data/sprites/waver.o(.rodata);
         src/data/sprites/hive.o(.rodata);

@@ -79,6 +79,8 @@ u8 ProcessComplexOam(u32 oamSlot, i16 xPosition, i16 yPosition, u16 rotation, i1
 
 void CalculateOamPart4(u16 rotation, i16 scaling, u8 oamSlot)
 {
+    // https://decomp.me/scratch/jijJJ
+
     i32 dy1;
     i32 dmy1;
     i32 dx1;
