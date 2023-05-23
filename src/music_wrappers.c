@@ -88,9 +88,73 @@ void unk_3458(void)
     gMusicInfo.occupied = FALSE;
 }
 
+/**
+ * @brief 34ac | 124 | To document
+ * 
+ * @param param_1 To document
+ */
 void unk_34ac(u8 param_1)
 {
-    
+    u8 i;
+    u8 start;
+    u8 j;
+    u8 currChannel;
+    struct TrackData* pTrack;
+    struct TrackVariables* pVariables;
+    struct SoundChannel* pChannel;
+    struct SoundChannel* pChannelNext;
+
+    currChannel = 0;
+    if (param_1 == FALSE)
+        start = 2;
+    else
+        start = 1;
+
+    for (i = start; i < (u16)gNumMusicPlayers; i++)
+    {
+        if ((i == 2 && param_1 == FALSE) || (0x14A >> i) & 1)
+        {
+            pTrack = sMusicTrackDataROM[i].pTrack;
+            if (pTrack->occupied)
+                continue;
+
+            pTrack->occupied = TRUE;
+
+            if (!(pTrack->unknown_1E & TRUE) && pTrack->flags & 2)
+            {
+                pTrack->unknown_1E = TRUE;
+
+                for (j = 0, pVariables = pTrack->pVariables; j < pTrack->amountOfTracks; j++, pVariables++)
+                {
+                    if (!(pVariables->channel & 0xC0))
+                    {
+                        if (pVariables->pSoundPSG != NULL)
+                        {
+                            clear_registers_for_psg(pVariables->pSoundPSG, (u8)((pVariables->channel & 7) - 1));
+                        }
+
+                        if (pVariables->pChannel == NULL)
+                            continue;
+                        
+                        for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pChannelNext)
+                        {
+                            gSoundChannelBackup[currChannel].pChannel = pChannel;
+                            gSoundChannelBackup[currChannel].channel = *pChannel;
+                            currChannel++;
+
+                            pChannel->unknown_0 = 0;
+                            pChannel->pVariables = NULL;
+                            pChannelNext = pChannel->pChannel2;
+                            pChannel->pChannel2 = NULL;
+                            pChannel->pChannel1 = NULL;
+                        }
+                    }
+                }
+            }
+
+            pTrack->occupied = FALSE;
+        }
+    }
 }
 
 /**
