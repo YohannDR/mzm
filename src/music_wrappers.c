@@ -576,9 +576,48 @@ void InsertMusicAndQueueCurrent(u16 musicTrack, u8 param_2)
     gMusicInfo.occupied = FALSE;
 }
 
+/**
+ * @brief 3d4c | d8 | Replays the current music that was queue'd
+ * 
+ * @param queueFlags Queue flags
+ */
 void ReplayQueuedMusic(u8 queueFlags)
 {
+    u16 music;
+    struct TrackData* pTrack;
+    const u8* pHeader;
 
+    if (gMusicInfo.occupied)
+        return;
+    
+    gMusicInfo.occupied = TRUE;
+
+    if (!(queueFlags & 0x40))
+        unk_35d0(TRUE);
+
+    pTrack = sMusicTrackDataROM[0].pTrack;
+
+    gMusicInfo.unknown_20 = 0;
+    if ((u16)(gMusicInfo.musicTrack - 0x5A) < 0xA)
+        music = DetermineNewMusicTrack(gMusicInfo.musicTrack);
+    else
+        music = gMusicInfo.musicTrack;
+
+    pHeader = sSoundDataEntries[music].pHeader;
+    gMusicInfo.occupied = FALSE;
+    init_track(pTrack, pHeader);
+
+    if (queueFlags & 0x40)
+        DelayMusicStart(pTrack, 60);
+
+    if (gMusicInfo.volumeDownFlag & (1 << 7))
+    {
+        unk_3058(sMusicTrackDataROM[0].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
+        unk_3058(sMusicTrackDataROM[1].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
+        unk_3058(sMusicTrackDataROM[7].pTrack, USHORT_MAX, (u16)gUnk_Audio0x50);
+    }
+
+    gMusicInfo.occupied = FALSE;
 }
 
 /**
