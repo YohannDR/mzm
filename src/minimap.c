@@ -2,10 +2,10 @@
 #include "gba.h"
 #include "macros.h"
 
-#include "data/unsorted.h"
 #include "data/shortcut_pointers.h"
 #include "data/menus/pause_screen_data.h"
 #include "data/menus/pause_screen_map_data.h"
+#include "data/menus/internal_pause_screen_data.h"
 
 #include "constants/connection.h"
 #include "constants/game_state.h"

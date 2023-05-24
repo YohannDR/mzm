@@ -303,18 +303,18 @@ void PauseScreenUpdateMapArrows(void)
         PAUSE_SCREEN_DATA.canScrollRight = PAUSE_SCREEN_DATA.mapRightBorder > PAUSE_SCREEN_DATA.mapViewX;
 
         // Draw if can scroll
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[0][0]].notDrawn = PAUSE_SCREEN_DATA.canScrollRight ? FALSE : TRUE;
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[1][0]].notDrawn = PAUSE_SCREEN_DATA.canScrollLeft ? FALSE : TRUE;
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[2][0]].notDrawn = PAUSE_SCREEN_DATA.canScrollUp ? FALSE : TRUE;
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[3][0]].notDrawn = PAUSE_SCREEN_DATA.canScrollDown ? FALSE : TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[0][0]].notDrawn = PAUSE_SCREEN_DATA.canScrollRight ? FALSE : TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[1][0]].notDrawn = PAUSE_SCREEN_DATA.canScrollLeft ? FALSE : TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[2][0]].notDrawn = PAUSE_SCREEN_DATA.canScrollUp ? FALSE : TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[3][0]].notDrawn = PAUSE_SCREEN_DATA.canScrollDown ? FALSE : TRUE;
     }
     else
     {
         // Not on map screen, set not drawn
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[0][0]].notDrawn = TRUE;
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[1][0]].notDrawn = TRUE;
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[2][0]].notDrawn = TRUE;
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[3][0]].notDrawn = TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[0][0]].notDrawn = TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[1][0]].notDrawn = TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[2][0]].notDrawn = TRUE;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[3][0]].notDrawn = TRUE;
     }
 
     // Update world map area highlight
@@ -839,31 +839,19 @@ void PauseScreenLoadAreaNamesAndIcons(void)
 
     pOam = PAUSE_SCREEN_DATA.miscOam;
     for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.miscOam); i++, pOam++)
-    {
-        // FIXME *pOam = sMenuOamData_Empty;
-        *pOam = *(struct MenuOamData*)0x840d028;
-    }
+        *pOam = sMenuOamData_Empty;
 
     pOam = PAUSE_SCREEN_DATA.areaNameOam;
     for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.areaNameOam); i++, pOam++)
-    {
-        // FIXME *pOam = sMenuOamData_Empty;
-        *pOam = *(struct MenuOamData*)0x840d028;
-    }
+        *pOam = sMenuOamData_Empty;
 
     pOam = PAUSE_SCREEN_DATA.borderArrowsOam;
     for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.borderArrowsOam); i++, pOam++)
-    {
-        // FIXME *pOam = sMenuOamData_Empty;
-        *pOam = *(struct MenuOamData*)0x840d028;
-    }
+        *pOam = sMenuOamData_Empty;
     
     pOam = PAUSE_SCREEN_DATA.worldMapOam;
     for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.worldMapOam); i++, pOam++)
-    {
-        // FIXME *pOam = sMenuOamData_Empty;
-        *pOam = *(struct MenuOamData*)0x840d028;
-    }
+        *pOam = sMenuOamData_Empty;
 
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM)
     {
@@ -939,17 +927,17 @@ void PauseScreenLoadAreaNamesAndIcons(void)
 
     PauseScreenDrawCompletionInfo(FALSE);
 
-    for (i = 0; i < ARRAY_SIZE(sPauseScreen_40d0d0); i++)
+    for (i = 0; i < ARRAY_SIZE(sMapScreenArrowsData); i++)
     {
         if (gPauseScreenFlag == PAUSE_SCREEN_PAUSE_OR_CUTSCENE)
         {
-            PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[i][0]].exists = TRUE;
+            PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].exists = TRUE;
         }
 
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[i][0]].oamID = sPauseScreen_40d0d0[i][1];
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[i][0]].xPosition = sPauseScreen_40d0d0[i][2];
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[i][0]].yPosition = sPauseScreen_40d0d0[i][3];
-        PAUSE_SCREEN_DATA.borderArrowsOam[sPauseScreen_40d0d0[i][0]].priority = 3;
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].oamID = sMapScreenArrowsData[i][1];
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].xPosition = sMapScreenArrowsData[i][2];
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].yPosition = sMapScreenArrowsData[i][3];
+        PAUSE_SCREEN_DATA.borderArrowsOam[sMapScreenArrowsData[i][0]].priority = 3;
     }
 }
 
@@ -3426,7 +3414,7 @@ void CheckForMaintainedInput(void)
         gMaintainedInputData.delay = 0;
 
         // Update set
-        if (gMaintainedInputData.set < ARRAY_SIZE(sMaintainedInputDelays) - 1)
+        if (gMaintainedInputData.set < ARRAY_SIZE(sMaintainedInputDelays) - 2)
             gMaintainedInputData.set++;
     }
 }

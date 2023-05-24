@@ -29,6 +29,7 @@ subDirs: array = [
     "menus/",
     "menus/TitleScreen/",
     "menus/EraseSram/",
+    "menus/PauseScreen/",
     "rooms/",
     "rooms/debug/",
     "samus/",

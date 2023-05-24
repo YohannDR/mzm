@@ -7,6 +7,7 @@
 #include "data/menus/game_over_data.h"
 #include "data/menus/file_select_data.h"
 #include "data/shortcut_pointers.h"
+#include "data/menus/pause_screen_data.h"
 
 #include "constants/audio.h"
 #include "constants/demo.h"
@@ -303,8 +304,7 @@ void GameOverInit(void)
 
     GameOverUpdateTextGfx();
 
-    // FIXME GAME_OVER_DATA.oam[0] = sMenuOamData_Empty;
-    GAME_OVER_DATA.oam[0] = *(struct MenuOamData*)0x840d028;
+    GAME_OVER_DATA.oam[0] = sMenuOamData_Empty;
 
     GameOverUpdateSamusHead(SAMUS_CURSOR_ACTION_LOADING);
     CallbackSetVBlank(GameOverVBlank);
@@ -361,8 +361,7 @@ void GameOverInit_Unused(void)
 
     GameOverUpdateTextGfx();
 
-    // FIXME GAME_OVER_DATA.oam[0] = sMenuOamData_Empty;
-    GAME_OVER_DATA.oam[0] = *(struct MenuOamData*)0x840d028;
+    GAME_OVER_DATA.oam[0] = sMenuOamData_Empty;
 
     CallbackSetVBlank(GameOverVBlank);
 }

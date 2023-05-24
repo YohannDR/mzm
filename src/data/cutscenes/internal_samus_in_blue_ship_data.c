@@ -20,5 +20,3 @@ const struct CutsceneSubroutineData sSamusInBlueShipSubroutineData[3] = {
         .oamLength = 1
     }
 };
-
-const u8 sTempArray_7600f8[0x328] = INCBIN_U8("data/Blob_7600f8_760420.bin");

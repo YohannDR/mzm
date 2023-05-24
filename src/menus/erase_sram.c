@@ -1,10 +1,12 @@
 #include "menus/erase_sram.h"
 #include "macros.h"
 #include "callbacks.h"
+
 #include "data/shortcut_pointers.h"
 #include "data/menus/erase_sram_data.h"
 #include "data/menus/internal_erase_sram_data.h"
 #include "data/menus/title_screen_data.h"
+#include "data/menus/pause_screen_data.h"
 
 #include "constants/audio.h"
 #include "constants/game_state.h"
@@ -384,10 +386,7 @@ void EraseSramResetOAM(void)
     ERASE_SRAM_DATA.nextOption = ERASE_SRAM_OPTION_CHANGED_FLAG | ERASE_SRAM_OPTION_QUESTION_NO;
 
     for (i = 0; i < ARRAY_SIZE(ERASE_SRAM_DATA.oam); i++)
-    {
-        ERASE_SRAM_DATA.oam[i] = *(struct MenuOamData*)0x840d048;
-        // FIXME *pOam = sEraseSramMenuOamData_Empty;
-    }
+        ERASE_SRAM_DATA.oam[i] = sMenuOamDataEraseSram_Empty;
 
     ERASE_SRAM_DATA.oam[2].oamID = sEraseSramQuestionWindowNoSelectedOamId;
     ERASE_SRAM_DATA.oam[2].yPosition = sEraseSramMenuCursorPosition[0][1];

@@ -6,10 +6,6 @@
 #include "structs/menus/title_screen.h"
 #include "structs/menu.h"
 
-// Temp
-extern const struct MenuOamData sMenuOamData_Empty;
-
-
 extern const u16 sTitleScreenPAL[15 * 16];
 extern const u16 sTitleScreenPromptPAL[5 * 16];
 

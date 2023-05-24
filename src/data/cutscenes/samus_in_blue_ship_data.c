@@ -483,5 +483,3 @@ const u16 sSamusInBlueShipPAL[9 * 16] = INCBIN_U16("data/cutscenes/SamusInBlueSh
 const u32 sSamusInBlueShipSamusGFX[3641] = INCBIN_U32("data/cutscenes/SamusInBlueShip/Samus.gfx.lz");
 const u32 sSamusInBlueShipControlsGFX[1642] = INCBIN_U32("data/cutscenes/SamusInBlueShip/Controls.gfx.lz");
 const u32 sSamusInBlueShipSamusTileTable[368] = INCBIN_U32("data/cutscenes/SamusInBlueShip/Ship.tt");
-
-const u8 sTempArray_3fcef0[0x14510] = INCBIN_U8("data/Blob_3fcef0_411400.bin");

@@ -675,8 +675,7 @@ void ChozoHintDeterminePath(u8 param_1)
     const i8* pTarget;
     const u8* ptr;
 
-    // FIXME
-    DMATransfer(3, 0x840d038, &oam, sizeof(oam), 16);
+    DMATransfer(3, sMenuOamDataChozoHint_Empty, &oam, sizeof(oam), 16);
 
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_ON_MAP_SCREEN)
         oam.priority = 0;

@@ -4,6 +4,7 @@
 #include "color_effects.h"
 
 #include "data/cutscenes/cutscenes_data.h"
+#include "data/menus/pause_screen_data.h"
 #include "data/shortcut_pointers.h"
 #include "data/engine_pointers.h"
 
@@ -969,10 +970,7 @@ void CutsceneReset(void)
 
     // Clear OAM
     for (i = 0; i < ARRAY_SIZE(CUTSCENE_DATA.oam); i++)
-    {
-        // FIXME CUTSCENE_DATA.oam[i] = sCutsceneOam_Empty;
-        CUTSCENE_DATA.oam[i] = *(struct CutsceneOamData*)0x840d058;
-    }
+        CUTSCENE_DATA.oam[i] = sCutsceneOam_Empty;
 
     // Set default rotation and scaling
     gCurrentOamRotation = 0;

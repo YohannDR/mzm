@@ -6,6 +6,7 @@
 #include "data/block_data.h"
 #include "data/menus/pause_screen_data.h"
 #include "data/menus/pause_screen_map_data.h"
+#include "data/menus/internal_pause_screen_data.h"
 
 #include "constants/block.h"
 #include "constants/connection.h"
@@ -233,7 +234,7 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
             sPauseScreen_40d79c[3] + HALF_BLOCK_SIZE * 2, HALF_BLOCK_SIZE, 32);
 
         // Draw checkmarks when you have all of the tanks
-        for (i = 0; i < 3; i++)
+        for (i = 3; i >= 0; i--)
         {
             if ((PAUSE_SCREEN_DATA.tankStatus >> i) & 1)
             {

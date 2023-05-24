@@ -4,16 +4,6 @@
 #include "types.h"
 #include "structs/text.h"
 
-extern const u8 sCharacterWidths[1184];
-
-extern const struct Message sMessage_Empty;
-
-extern const struct Message sMessageStoryText_Empty;
-
-extern const struct Message sMessageFileScreen_Empty;
-
-extern const struct Message sMessageDescription_Empty;
-
 // Temp
 extern const u16** const sStoryTextPointers[7];
 extern const u16** const sLocationTextpointers[7];

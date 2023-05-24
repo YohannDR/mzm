@@ -675,7 +675,9 @@ SECTIONS {
         src/data/cutscenes/statue_opening_data.o(.rodata);
         src/data/cutscenes/enter_tourian_data.o(.rodata);
         src/data/cutscenes/samus_in_blue_ship_data.o(.rodata);
-        /* 3fcef0-411400 */
+        src/data/menus/pause_screen_data.o(.rodata);
+        /* 40dd0b_40e0c4 */
+        src/data/menus/pause_screen_map_data.o(.rodata);
         src/data/save_file_data.o(.rodata);
         src/data/menus/erase_sram_data.o(.rodata);
         /* 415460-446d68 */
@@ -704,7 +706,8 @@ SECTIONS {
         src/data/cutscenes/internal_statue_opening_data.o(.rodata);
         src/data/cutscenes/internal_enter_tourian_data.o(.rodata);
         src/data/cutscenes/internal_samus_in_blue_ship_data.o(.rodata);
-        /* 760090-760420 */
+        src/data/menus/internal_pause_screen_data.o(.rodata);
+        /* 7602d4-760420 */
         src/data/menus/internal_erase_sram_data.o(.rodata)
         /* 760458-760aa0 */
         src/data/menus/internal_title_screen_data.o(.rodata)

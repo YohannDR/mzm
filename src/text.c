@@ -4,6 +4,7 @@
 
 #include "data/text_data.h"
 #include "data/shortcut_pointers.h"
+#include "data/menus/pause_screen_data.h"
 
 #include "constants/text.h"
 #include "constants/menus/pause_screen.h"

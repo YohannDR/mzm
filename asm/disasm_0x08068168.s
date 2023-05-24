@@ -4882,7 +4882,7 @@ lbl_0806a7dc:
     bl DMATransfer
     movs r0, #2
     movs r1, #2
-    bl sub_0806b00c
+    bl PauseScreenUpdateBottomVisorOverlay
     mov r1, r8
     ldr r0, [r1]
     ldrh r1, [r0]
@@ -5817,7 +5817,7 @@ lbl_0806afbe:
 lbl_0806afe2:
     movs r0, #1
     movs r1, #1
-    bl sub_0806b00c
+    bl PauseScreenUpdateBottomVisorOverlay
     pop {r3, r4, r5}
     mov r8, r3
     mov sb, r4
@@ -5832,8 +5832,8 @@ lbl_0806b000: .4byte 0x00000251
 lbl_0806b004: .4byte sEwramPointer
 lbl_0806b008: .4byte 0x000090d0
 
-    thumb_func_start sub_0806b00c
-sub_0806b00c: @ 0x0806b00c
+    thumb_func_start PauseScreenUpdateBottomVisorOverlay
+PauseScreenUpdateBottomVisorOverlay: @ 0x0806b00c
     push {r4, r5, lr}
     sub sp, #4
     lsls r0, r0, #0x18
@@ -7010,7 +7010,7 @@ lbl_0806b8f4:
     beq lbl_0806b9d6
     movs r0, #2
     movs r1, #2
-    bl sub_0806b00c
+    bl PauseScreenUpdateBottomVisorOverlay
     movs r4, #0x80
     lsls r4, r4, #1
     b lbl_0806b9da
@@ -7348,7 +7348,7 @@ lbl_0806bbc0: .4byte 0x0000ff7f
 lbl_0806bbc4:
     movs r0, #1
     movs r1, #1
-    bl sub_0806b00c
+    bl PauseScreenUpdateBottomVisorOverlay
     movs r4, #1
     rsbs r4, r4, #0
 lbl_0806bbd0:
@@ -7451,7 +7451,7 @@ lbl_0806bc98:
 lbl_0806bc9e:
     movs r0, #2
     movs r1, #2
-    bl sub_0806b00c
+    bl PauseScreenUpdateBottomVisorOverlay
     movs r0, #0x10
     bl sub_0806b718
     ldr r0, lbl_0806bcbc @ =sNonGameplayRamPointer
@@ -7938,7 +7938,7 @@ lbl_0806c0a8: .4byte sNonGameplayRamPointer
 lbl_0806c0ac:
     movs r0, #1
     movs r1, #1
-    bl sub_0806b00c
+    bl PauseScreenUpdateBottomVisorOverlay
     ldr r2, lbl_0806c0c4 @ =sNonGameplayRamPointer
     ldr r0, [r2]
     movs r1, #0
@@ -8705,8 +8705,8 @@ lbl_0806c6a8: .4byte 0x000003ff
 lbl_0806c6ac: .4byte gLanguage
 lbl_0806c6b0: .4byte 0x08760298
 
-    thumb_func_start sub_0806c6b4
-sub_0806c6b4: @ 0x0806c6b4
+    thumb_func_start MinimapCopyTileGFX
+MinimapCopyTileGFX: @ 0x0806c6b4
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -8814,8 +8814,8 @@ lbl_0806c780: .4byte 0x0840e0c4
 lbl_0806c784: .4byte 0x0840d74c
 lbl_0806c788: .4byte 0x0840d6fc
 
-    thumb_func_start sub_0806c78c
-sub_0806c78c: @ 0x0806c78c
+    thumb_func_start MinimapCopyTileXFlippedGFX
+MinimapCopyTileXFlippedGFX: @ 0x0806c78c
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -8934,8 +8934,8 @@ lbl_0806c86c: .4byte 0x0840e0c4
 lbl_0806c870: .4byte 0x0840d74c
 lbl_0806c874: .4byte 0x0840d6fc
 
-    thumb_func_start sub_0806c878
-sub_0806c878: @ 0x0806c878
+    thumb_func_start MinimapCopyTileYFlippedGFX
+MinimapCopyTileYFlippedGFX: @ 0x0806c878
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -9045,8 +9045,8 @@ lbl_0806c948: .4byte 0x0840e0c4
 lbl_0806c94c: .4byte 0x0840d74c
 lbl_0806c950: .4byte 0x0840d6fc
 
-    thumb_func_start sub_0806c954
-sub_0806c954: @ 0x0806c954
+    thumb_func_start MinimapCopyTileXYFlippedGFX
+MinimapCopyTileXYFlippedGFX: @ 0x0806c954
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

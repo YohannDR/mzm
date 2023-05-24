@@ -6,6 +6,7 @@
 #include "data/shortcut_pointers.h"
 #include "data/menus/title_screen_data.h"
 #include "data/menus/internal_title_screen_data.h"
+#include "data/menus/pause_screen_data.h"
 
 #include "constants/menus/title_screen.h"
 #include "constants/audio.h"
@@ -95,8 +96,7 @@ void TitleScreenResetOAM(void)
 
     while (i < ARRAY_SIZE(TITLE_SCREEN_DATA.oam))
     {
-        *pOam = *(struct MenuOamData*)0x840d028;
-        // FIXME *pOam = sMenuOamData_Empty;
+        *pOam = sMenuOamData_Empty;
 
         i++;
         pOam++;
