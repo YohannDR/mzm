@@ -1096,10 +1096,12 @@ void MapScreenTogglehWorldMap(u8 forceOff)
     PauseScreenUpdateBottomVisorOverlay(1, 0);
 }
 
+/**
+ * @brief 6e2d0 | 190 | Handles changing the currently viewed minimap
+ * 
+ */
 void MapScreenChangeMap(void)
 {
-    // https://decomp.me/scratch/44Tfn
-
     u32 i;
     i32 j;
     u8 area;
@@ -1109,32 +1111,44 @@ void MapScreenChangeMap(void)
     switch (PAUSE_SCREEN_DATA.changingMinimapStage)
     {
         case 1:
+            // Get current area index
             for (i = 0; i < MAX_AMOUNT_OF_AREAS - 1; i++)
             {
                 if (PAUSE_SCREEN_DATA.currentArea == sMapScreenAreasViewOrder[i])
                     break;
             }
             
+            // Leftover debug code?
             while (i >= AREA_DEBUG);
 
-            viewables = 0;
-            area = 0;
-            while (!((viewables >> area) & 1))
+            while (TRUE)
             {
+                // Pre increment i, no need to check for the current area
                 i++;
+
+                // Wrap around
                 if (i >= AREA_DEBUG)
                     i = AREA_BRINSTAR;
 
+                // Get viewables and area to test
                 viewables = PAUSE_SCREEN_DATA.areasViewables;
                 area = sMapScreenAreasViewOrder[i];
+
+                // Check if the area can be viewed
+                if ((viewables >> area) & 1)
+                {
+                    // Set as new area and exit
+                    PAUSE_SCREEN_DATA.currentArea = area;
+                    break;
+                }
             }
 
-            PAUSE_SCREEN_DATA.currentArea = area;
-
+            // Clear targets OAM
             pOam = PAUSE_SCREEN_DATA.targetsOam;
             for (j = 0; j < ARRAY_SIZE(PAUSE_SCREEN_DATA.targetsOam); j++, pOam++)
                 pOam->exists = FALSE;
 
+            // Disable samus icon
             PAUSE_SCREEN_DATA.samusIconOam[0].exists = FALSE;
             PAUSE_SCREEN_DATA.bg3cnt = PAUSE_SCREEN_DATA.unk_6E;
             SoundPlay(0x204);
@@ -1142,31 +1156,41 @@ void MapScreenChangeMap(void)
             break;
 
         case 2:
+            // Transfer minimap data
             DMATransfer(3, PAUSE_SCREEN_DATA.mapsDataPointer[PAUSE_SCREEN_DATA.currentArea],
                 VRAM_BASE + 0xE000, sizeof(*PAUSE_SCREEN_DATA.mapsDataPointer), 16);
 
+            // Update chozo hints
             ChozoHintDeterminePath(TRUE);
 
+            // Arrows related probably
             unk_6db58(PAUSE_SCREEN_DATA.currentArea != gCurrentArea ? 2 : 0);
 
             PAUSE_SCREEN_DATA.samusIconOam[0].exists = TRUE << 1;
             
+            // Update highlight
             PauseScreenUpdateWorldMapHighlight(PAUSE_SCREEN_DATA.currentArea);
+
+            // Update world map
             if (PAUSE_SCREEN_DATA.onWorldMap)
                 PauseScreenUpdateWorldMap(TRUE);
             
             PAUSE_SCREEN_DATA.bg3cnt = PAUSE_SCREEN_DATA.unk_6C;
+
+            // Update palette and boss icons
             LoadPauseScreenBgPalette();
             PauseScreenUpdateBossIcons();
             PAUSE_SCREEN_DATA.changingMinimapStage++;
             break;
 
         case 3:
+            // Update IGT
             PauseScreenCountTanksInArea();
             PauseScreenDrawIgtAndTanks(FALSE, FALSE);
             PAUSE_SCREEN_DATA.changingMinimapStage++;
 
         case 4:
+            // Update tanks
             PauseScreenDrawIgtAndTanks(FALSE, TRUE);
             PAUSE_SCREEN_DATA.changingMinimapStage = 0;
     }

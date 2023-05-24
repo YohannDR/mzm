@@ -530,6 +530,8 @@ SECTIONS {
         src/cutscenes/samus_in_blue_ship.o(.text);
         src/oam_id.o(.text);
         asm/disasm_0x08068168.o(.text);
+        src/menus/pause_screen_map.o(.text);
+        asm/disasm_0x0806e460.o(.text);
         src/menus/erase_sram.o(.text);
         src/menus/title_screen.o(.text);
         asm/disasm_0x080778c4.o(.text);

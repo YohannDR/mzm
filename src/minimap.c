@@ -220,7 +220,7 @@ void MinimapCheckOnTransition(void)
 
         // Get new minimap
         gAreaBeforeTransition = gCurrentArea;
-        get_minimap_data(gAreaBeforeTransition, gDecompressedMinimapData); // Undefined
+        PauseScreenGetMinimapData(gAreaBeforeTransition, gDecompressedMinimapData); // Undefined
 
         dma_set(3, gDecompressedMinimapData, gDecompressedMinimapVisitedTiles, (DMA_ENABLE << 16) | MINIMAP_SIZE * MINIMAP_SIZE);
 
