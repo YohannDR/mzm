@@ -985,10 +985,10 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
 {
     // https://decomp.me/scratch/4n6pN
 
-    /*u16 xPosition;
+    u16 xPosition;
     u16 yPosition;
     u16 movement;
-    u8 status;
+    u16 tmp;
 
     if (gFrameCounter8Bit & delay)
         return;
@@ -1009,18 +1009,16 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
             break;
 
         case ACD_DIAGONALLY_UP:
-            status = PROJ_STATUS_XFLIP;
             yPosition += 0x18;
-            if (status & pProj->status)
+            if (pProj->status & PROJ_STATUS_XFLIP)
                 xPosition -= 0x18;
             else
                 xPosition += 0x18;
             break;
 
         case ACD_DIAGONALLY_DOWN:
-            status = PROJ_STATUS_XFLIP;
             yPosition -= 0x18;
-            if (status & pProj->status)
+            if (pProj->status & PROJ_STATUS_XFLIP)
                 xPosition -= 0x18;
             else
                 xPosition += 0x18;
@@ -1034,7 +1032,7 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
             break;
     }
 
-    ParticleSet(yPosition, xPosition, effect);*/
+    ParticleSet(yPosition, xPosition, effect);
 }
 
 /**
@@ -1048,27 +1046,28 @@ void ProjectileMoveTumbling(struct ProjectileData* pProj)
     i16 movement;
     u32 newPosition;
 
-    if ((pProj->status & PROJ_STATUS_ON_SCREEN) == 0x0)
+    if (!(pProj->status & PROJ_STATUS_ON_SCREEN))
+    {
         pProj->status = 0x0;
+        return;
+    }
+
+    timer = pProj->timer;
+    movement = sTumblingMissileSpeed[timer];
+    if (movement == SHORT_MAX)
+        newPosition = sTumblingMissileSpeed[timer - 1] + pProj->yPosition;
     else
     {
-        timer = pProj->timer;
-        movement = sTumblingMissileSpeed[timer];
-        if (movement == SHORT_MAX)
-            newPosition = sTumblingMissileSpeed[timer - 1] + pProj->yPosition;
-        else
-        {
-            pProj->timer = timer + 1;
-            newPosition = pProj->yPosition + movement;
-        }
-        pProj->yPosition = newPosition;
-
-        if (pProj->status & PROJ_STATUS_XFLIP)
-            newPosition = pProj->xPosition + 0x4;
-        else
-            newPosition = pProj->xPosition - 0x4;
-        pProj->xPosition = newPosition;
+        pProj->timer = timer + 1;
+        newPosition = pProj->yPosition + movement;
     }
+    pProj->yPosition = newPosition;
+
+    if (pProj->status & PROJ_STATUS_XFLIP)
+        newPosition = pProj->xPosition + 0x4;
+    else
+        newPosition = pProj->xPosition - 0x4;
+    pProj->xPosition = newPosition;
 }
 
 /**

@@ -1939,8 +1939,8 @@ lbl_0804fc2e:
     pop {r1}
     bx r1
 
-    thumb_func_start set_projectile_trail
-set_projectile_trail: @ 0x0804fc38
+    thumb_func_start ProjectileSetTrail
+ProjectileSetTrail: @ 0x0804fc38
     push {r4, r5, r6, lr}
     adds r4, r0, #0
     lsls r1, r1, #0x18
@@ -4232,7 +4232,7 @@ lbl_08050d80:
     movs r1, #0x16
 lbl_08050d84:
     movs r2, #3
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_08050e3c
 lbl_08050d8c:
     cmp r0, #1
@@ -4638,7 +4638,7 @@ lbl_080510a0:
     movs r1, #0x16
 lbl_080510a4:
     movs r2, #3
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_08051166
 lbl_080510ac:
     cmp r5, #1
@@ -4817,7 +4817,7 @@ lbl_0805120c:
     movs r1, #0x16
 lbl_08051210:
     movs r2, #3
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_0805132a
 lbl_08051218:
     cmp r5, #1
@@ -5247,7 +5247,7 @@ ProjectileProcessChargedLongBeam: @ 0x08051538
     adds r0, r4, #0
     movs r1, #0x18
     movs r2, #7
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_0805161c
     .align 2, 0
 lbl_08051568: .4byte gCurrentClipdataAffectingAction
@@ -5378,7 +5378,7 @@ ProjectileProcessChargedIceBeam: @ 0x08051630
     adds r0, r4, #0
     movs r1, #0x17
     movs r2, #3
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_08051676
     .align 2, 0
 lbl_08051668: .4byte gCurrentClipdataAffectingAction
@@ -5386,12 +5386,12 @@ lbl_0805166c:
     adds r0, r4, #0
     movs r1, #0x16
     movs r2, #3
-    bl set_projectile_trail
+    bl ProjectileSetTrail
 lbl_08051676:
     adds r0, r4, #0
     movs r1, #0x19
     movs r2, #7
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_08051734
 lbl_08051682:
     cmp r0, #1
@@ -5532,7 +5532,7 @@ ProjectileProcessChargedWaveBeam: @ 0x08051764
     adds r0, r4, #0
     movs r1, #0x17
     movs r2, #3
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_080517aa
     .align 2, 0
 lbl_0805179c: .4byte gEquipment
@@ -5540,12 +5540,12 @@ lbl_080517a0:
     adds r0, r4, #0
     movs r1, #0x16
     movs r2, #3
-    bl set_projectile_trail
+    bl ProjectileSetTrail
 lbl_080517aa:
     adds r0, r4, #0
     movs r1, #0x1a
     movs r2, #7
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_0805186e
 lbl_080517b6:
     cmp r5, #1
@@ -5715,7 +5715,7 @@ lbl_080518e2:
     adds r0, r4, #0
     movs r1, #0x17
     movs r2, #3
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_08051922
     .align 2, 0
 lbl_08051914: .4byte gEquipment
@@ -5723,7 +5723,7 @@ lbl_08051918:
     adds r0, r4, #0
     movs r1, #0x16
     movs r2, #3
-    bl set_projectile_trail
+    bl ProjectileSetTrail
 lbl_08051922:
     cmp r6, #0
     beq lbl_08051936
@@ -5741,7 +5741,7 @@ lbl_08051936:
     movs r1, #0x1b
 lbl_0805193a:
     movs r2, #7
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_08051a50
 lbl_08051942:
     cmp r5, #1
@@ -5920,7 +5920,7 @@ ProjectileProcessChargedPistol: @ 0x08051a7c
     adds r0, r4, #0
     movs r1, #0x1d
     movs r2, #7
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_08051b60
     .align 2, 0
 lbl_08051aac: .4byte gCurrentClipdataAffectingAction
@@ -6084,7 +6084,7 @@ lbl_08051bda:
     adds r0, r4, #0
     movs r1, #0x14
     movs r2, #7
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_08051cbe
     .align 2, 0
 lbl_08051be8: .4byte gCurrentClipdataAffectingAction
@@ -6255,7 +6255,7 @@ lbl_08051d2a:
     adds r0, r4, #0
     movs r1, #0x15
     movs r2, #3
-    bl set_projectile_trail
+    bl ProjectileSetTrail
     b lbl_08051e0e
     .align 2, 0
 lbl_08051d38: .4byte gCurrentClipdataAffectingAction

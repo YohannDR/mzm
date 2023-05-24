@@ -500,7 +500,7 @@ SECTIONS {
         src/particle.o(.text);
         asm/disasm_0x08055344.o(.text);
         src/power_bomb_explosion.o(.text);
-        asm/disasm_0x0805745c.o(.text);
+        src/gadora_hatch.o(.text);
         src/in_game_timer.o(.text);
         src/display.o(.text);
         src/process_pause_press.o(.text);
