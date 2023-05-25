@@ -636,7 +636,7 @@ void StatusScreenInitCursorAndItems(void)
         StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
 
         if (!(PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM))
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 6);
+            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
 
         StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_CHECKING);
     }
@@ -672,7 +672,7 @@ u32 StatusScreenSuitlessItems(void)
     
                 if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot != 0)
                 {
-                    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 6);
+                    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
                     togglingResult = StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_CHECKING2);
                 
                     if (togglingResult < 0)
@@ -909,7 +909,7 @@ u32 StatusScreenFullyPoweredItems(void)
             
             // Enable cursor
             StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 13);
+            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING_DESTROY);
 
             if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= 8)
                 PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
@@ -949,11 +949,11 @@ u32 StatusScreenFullyPoweredItems(void)
         case FULLY_POWERED_ITEMS_ENABLE_UNKNOWN_ITEM_INIT:
             // Get OAM id for the "enabling" item animation
             if (sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group == ABILITY_GROUP_BEAMS)
-                result = 0x2F;
+                result = MISC_OAM_ID_PLASMA_UNKNOWN;
             else if (sStatusScreenItemsData[PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot].group == ABILITY_GROUP_SUITS)
-                result = 0x33;
+                result = MISC_OAM_ID_GRAVITY_UNKNOWN;
             else
-                result = 0x31;
+                result = MISC_OAM_ID_SPACE_JUMP_UNKNOWN;
 
             UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[10], result);
 
@@ -987,7 +987,7 @@ u32 StatusScreenFullyPoweredItems(void)
             
             // Update cursor
             StatusScreenUpdateCursorPosition(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot);
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 6);
+            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
             SoundPlay(0x1F7);
 
             if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot >= 8)
@@ -1520,9 +1520,9 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
         }
 
         if (isActivated == TRUE)
-            oamId = 0x11;
+            oamId = OVERLAY_OAM_ID_SELECT_ON;
         else if (isActivated == FALSE)
-            oamId = 0x12;
+            oamId = OVERLAY_OAM_ID_SELECT_OFF;
         else
             oamId = 0;
     }
@@ -1530,7 +1530,7 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_NEW_ITEM)
         oamId = 0;
 
-    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.areaNameOam[3], oamId);
+    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[3], oamId);
 
     return isActivated;
 }
@@ -1546,7 +1546,7 @@ void StatusScreenMoveCursor(void)
     u8 prevSlot;
     
     // Check isn't doing the "focusing" animation
-    if (PAUSE_SCREEN_DATA.miscOam[0].oamID == 6)
+    if (PAUSE_SCREEN_DATA.miscOam[0].oamID == MISC_OAM_ID_ITEM_CURSOR_FOCUSING)
         return;
 
     statusSlot = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
@@ -1590,7 +1590,7 @@ void StatusScreenMoveCursor(void)
         PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = statusSlot;
         StatusScreenUpdateCursorPosition(statusSlot);
         StatusScreenToggleItem(PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot, ITEM_TOGGLE_CHECKING);
-        UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], 6);
+        UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[0], MISC_OAM_ID_ITEM_CURSOR_FOCUSING);
         SoundPlay(0x1F6);
     }
 }

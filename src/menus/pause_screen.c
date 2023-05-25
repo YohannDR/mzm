@@ -320,11 +320,11 @@ void PauseScreenUpdateMapArrows(void)
     // Update world map area highlight
     if (var_0 == 1)
     {
-        PAUSE_SCREEN_DATA.areaNameOam[2].notDrawn = PAUSE_SCREEN_DATA.onWorldMap ? TRUE : FALSE;
+        PAUSE_SCREEN_DATA.overlayOam[2].notDrawn = PAUSE_SCREEN_DATA.onWorldMap ? TRUE : FALSE;
     }
     else
     {
-        PAUSE_SCREEN_DATA.areaNameOam[2].notDrawn = TRUE;
+        PAUSE_SCREEN_DATA.overlayOam[2].notDrawn = TRUE;
     }
 }
 
@@ -358,7 +358,7 @@ void PauseScreenUpdateBossIcons(void)
             if (PAUSE_SCREEN_DATA.currentArea != AREA_CRATERIA)
             {
                 // Boss dead id, flag id changed
-                PAUSE_SCREEN_DATA.bossIconOam[0].oamID = 3;
+                PAUSE_SCREEN_DATA.bossIconOam[0].oamID = BOSS_ICON_OAM_ID_CROSSMARK;
                 status = TRUE << 1;
             }
             else
@@ -450,7 +450,7 @@ u8 unk_68a58(u8 param_1)
         switch (param_1)
         {
             case 1:
-                PAUSE_SCREEN_DATA.miscOam[3].oamID = 0x29;
+                PAUSE_SCREEN_DATA.miscOam[3].oamID = MISC_OAM_ID_GUN_HEADER;
                 result = TRUE << 1;
                 break;
 
@@ -631,16 +631,16 @@ void PauseScreenUpdateWireframeSamus(u8 param_1)
     }
 
     if (gEquipment.suitType == SUIT_NORMAL)
-        oamId = 0x2C;
+        oamId = MISC_OAM_ID_SAMUS_POWER_SUIT_WIREFRAME;
     else if (gEquipment.suitType == SUIT_FULLY_POWERED)
-        oamId = 0x2D;
+        oamId = MISC_OAM_ID_SAMUS_FULL_SUIT_WIREFRAME;
     else if (gEquipment.suitType == SUIT_SUITLESS)
-        oamId = 0x2E;
+        oamId = MISC_OAM_ID_SAMUS_SUITLESS_WIREFRAME;
     else
-        oamId = 0x2C;
+        oamId = MISC_OAM_ID_SAMUS_POWER_SUIT_WIREFRAME;
 
     if (param_1 == 0 && gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS)
-        oamId = 0x2E;
+        oamId = MISC_OAM_ID_SAMUS_SUITLESS_WIREFRAME;
 
     PAUSE_SCREEN_DATA.miscOam[8].oamID = oamId;
     PAUSE_SCREEN_DATA.miscOam[8].exists = TRUE << 1;
@@ -649,7 +649,7 @@ void PauseScreenUpdateWireframeSamus(u8 param_1)
     PAUSE_SCREEN_DATA.miscOam[9].objMode = 2;
 
     oamId = 0;
-    if (PAUSE_SCREEN_DATA.miscOam[8].oamID == 0x2E)
+    if (PAUSE_SCREEN_DATA.miscOam[8].oamID == MISC_OAM_ID_SAMUS_SUITLESS_WIREFRAME)
         oamId = 3;
     else if (gEquipment.suitMiscActivation & SMF_GRAVITY_SUIT)
         oamId = 2;
@@ -740,14 +740,14 @@ void PauseScreenUpdateWorldMapHighlight(u8 area)
         area = AREA_DEBUG;
 
     // Update area name at the top
-    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.areaNameOam[0], sPauseScreenAreaIconsData[area].nameOamId);
+    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[0], sPauseScreenAreaIconsData[area].nameSpawningOamId);
     
     // Update hightlight border oam
-    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.areaNameOam[2], sPauseScreenAreaIconsData[area].highlightOamId);
+    UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[2], sPauseScreenAreaIconsData[area].outlineOamId);
 
     // Update hightlight border position
-    PAUSE_SCREEN_DATA.areaNameOam[2].xPosition = sPauseScreenAreaIconsData[area].xPosition;
-    PAUSE_SCREEN_DATA.areaNameOam[2].yPosition = sPauseScreenAreaIconsData[area].yPosition;
+    PAUSE_SCREEN_DATA.overlayOam[2].xPosition = sPauseScreenAreaIconsData[area].xPosition;
+    PAUSE_SCREEN_DATA.overlayOam[2].yPosition = sPauseScreenAreaIconsData[area].yPosition;
 }
 
 /**
@@ -765,7 +765,7 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
     {
         pOam = &PAUSE_SCREEN_DATA.worldMapOam[0];
         pOam->priority = 2;
-        pOam->oamID = gEquipment.suitType == SUIT_SUITLESS ? 0x11 : 0x10;
+        pOam->oamID = gEquipment.suitType == SUIT_SUITLESS ? WORLD_MAP_OAM_ID_SAMUS_ICON_SUITLESS : WORLD_MAP_OAM_ID_SAMUS_ICON_SUIT;
         pOam->exists = TRUE;
 
         pOam = &PAUSE_SCREEN_DATA.worldMapOam[1];
@@ -779,15 +779,15 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
         pOam = &PAUSE_SCREEN_DATA.worldMapOam[8];
         for (i = 0; i < 16; i++, pOam++)
         {
-            pOam->xPosition = sPauseScreen_40d1c0[i][0];
-            pOam->yPosition = sPauseScreen_40d1c0[i][1];
+            pOam->xPosition = sWorldMapTargetPositions[i][0];
+            pOam->yPosition = sWorldMapTargetPositions[i][1];
             pOam->priority = 2;
             pOam->exists = FALSE;
 
             if ((PAUSE_SCREEN_DATA.activatedTargets >> i) & 1 && pOam->xPosition + pOam->yPosition != 0)
                 pOam->exists = TRUE;
 
-            pOam->oamID = pOam->exists ? 0xF : 0;
+            pOam->oamID = pOam->exists ? WORLD_MAP_OAM_ID_TARGET : 0;
         }
     }
     else if (onWorldMap == 2)
@@ -797,7 +797,7 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
         {
             if ((PAUSE_SCREEN_DATA.activatedTargets >> i) & 1)
             {
-                pOam->oamID = 0xF;
+                pOam->oamID = WORLD_MAP_OAM_ID_TARGET;
                 pOam->exists = TRUE;
             }
             else
@@ -817,9 +817,9 @@ void PauseScreenUpdateWorldMap(u8 onWorldMap)
     for (i = 0; i < MAX_AMOUNT_OF_AREAS - 1; i++, pOam++)
     {
         if (PAUSE_SCREEN_DATA.currentArea != i)
-            pOam->oamID = sWorldMapData[i].unk_0;
+            pOam->oamID = sWorldMapData[i].nameOamId;
         else
-            pOam->oamID = sWorldMapData[i].unk_1;
+            pOam->oamID = sWorldMapData[i].outlinedOamId;
 
         pOam->exists = (PAUSE_SCREEN_DATA.areasViewables >> i) & 1 ? status : FALSE;
     }
@@ -841,8 +841,8 @@ void PauseScreenLoadAreaNamesAndIcons(void)
     for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.miscOam); i++, pOam++)
         *pOam = sMenuOamData_Empty;
 
-    pOam = PAUSE_SCREEN_DATA.areaNameOam;
-    for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.areaNameOam); i++, pOam++)
+    pOam = PAUSE_SCREEN_DATA.overlayOam;
+    for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.overlayOam); i++, pOam++)
         *pOam = sMenuOamData_Empty;
 
     pOam = PAUSE_SCREEN_DATA.borderArrowsOam;
@@ -859,7 +859,7 @@ void PauseScreenLoadAreaNamesAndIcons(void)
         return;
     }
     
-    PAUSE_SCREEN_DATA.samusIconOam[0].oamID = gEquipment.suitType != SUIT_SUITLESS ? 0x1 : 0x2;
+    PAUSE_SCREEN_DATA.samusIconOam[0].oamID = gEquipment.suitType != SUIT_SUITLESS ? SAMUS_ICON_OAM_ID_SUIT : SAMUS_ICON_OAM_ID_SUITLESS;
     PAUSE_SCREEN_DATA.samusIconOam[0].exists = TRUE;
     PAUSE_SCREEN_DATA.samusIconOam[0].xPosition = gMinimapX * HALF_BLOCK_SIZE;
     PAUSE_SCREEN_DATA.samusIconOam[0].yPosition = gMinimapY * HALF_BLOCK_SIZE;
@@ -886,12 +886,12 @@ void PauseScreenLoadAreaNamesAndIcons(void)
     
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
     {
-        PAUSE_SCREEN_DATA.areaNameOam[0].oamID = sPauseScreen_40d180[PAUSE_SCREEN_DATA.currentArea];
-        PAUSE_SCREEN_DATA.areaNameOam[0].yPosition = sPauseScreen_40d17c[1];
-        PAUSE_SCREEN_DATA.areaNameOam[0].xPosition = sPauseScreen_40d17c[0];
-        PAUSE_SCREEN_DATA.areaNameOam[0].priority = 0;
-        PAUSE_SCREEN_DATA.areaNameOam[0].boundBackground = 4;
-        PAUSE_SCREEN_DATA.areaNameOam[0].exists = TRUE;
+        PAUSE_SCREEN_DATA.overlayOam[0].oamID = sChozoHintAreaNamesOamIds[PAUSE_SCREEN_DATA.currentArea];
+        PAUSE_SCREEN_DATA.overlayOam[0].yPosition = sChozoHintAreaNamesPosition[1];
+        PAUSE_SCREEN_DATA.overlayOam[0].xPosition = sChozoHintAreaNamesPosition[0];
+        PAUSE_SCREEN_DATA.overlayOam[0].priority = 0;
+        PAUSE_SCREEN_DATA.overlayOam[0].boundBackground = 4;
+        PAUSE_SCREEN_DATA.overlayOam[0].exists = TRUE;
     }
     else if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_DOWNLOADING_MAP)
     {
@@ -900,28 +900,28 @@ void PauseScreenLoadAreaNamesAndIcons(void)
         else
             i = AREA_DEBUG;
 
-        UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.areaNameOam[0], sPauseScreenAreaIconsData[i].unk_0);
-        PAUSE_SCREEN_DATA.areaNameOam[0].yPosition = 12;
-        PAUSE_SCREEN_DATA.areaNameOam[0].xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
-        PAUSE_SCREEN_DATA.areaNameOam[0].priority = 0;
+        UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[0], sPauseScreenAreaIconsData[i].nameOamId);
+        PAUSE_SCREEN_DATA.overlayOam[0].yPosition = 12;
+        PAUSE_SCREEN_DATA.overlayOam[0].xPosition = BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
+        PAUSE_SCREEN_DATA.overlayOam[0].priority = 0;
     }
     else
     {
-        PAUSE_SCREEN_DATA.areaNameOam[1].oamID = 0;
-        PAUSE_SCREEN_DATA.areaNameOam[1].yPosition = 0x18;
-        PAUSE_SCREEN_DATA.areaNameOam[1].xPosition = BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE;
-        PAUSE_SCREEN_DATA.areaNameOam[1].priority = 1;
+        PAUSE_SCREEN_DATA.overlayOam[1].oamID = 0;
+        PAUSE_SCREEN_DATA.overlayOam[1].yPosition = QUARTER_BLOCK_SIZE + 8;
+        PAUSE_SCREEN_DATA.overlayOam[1].xPosition = BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE;
+        PAUSE_SCREEN_DATA.overlayOam[1].priority = 1;
         PauseScreenUpdateWorldMapHighlight(gCurrentArea);
 
-        PAUSE_SCREEN_DATA.areaNameOam[0].yPosition = 12;
-        PAUSE_SCREEN_DATA.areaNameOam[0].xPosition = BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE;
-        PAUSE_SCREEN_DATA.areaNameOam[0].priority = 1;
+        PAUSE_SCREEN_DATA.overlayOam[0].yPosition = 12;
+        PAUSE_SCREEN_DATA.overlayOam[0].xPosition = BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE;
+        PAUSE_SCREEN_DATA.overlayOam[0].priority = 1;
 
-        PAUSE_SCREEN_DATA.areaNameOam[2].priority = 1;
+        PAUSE_SCREEN_DATA.overlayOam[2].priority = 1;
 
-        PAUSE_SCREEN_DATA.areaNameOam[3].oamID = 0;
-        PAUSE_SCREEN_DATA.areaNameOam[3].yPosition = BLOCK_SIZE * 6 + QUARTER_BLOCK_SIZE + 8;
-        PAUSE_SCREEN_DATA.areaNameOam[3].xPosition = BLOCK_SIZE * 8 + HALF_BLOCK_SIZE;
+        PAUSE_SCREEN_DATA.overlayOam[3].oamID = 0;
+        PAUSE_SCREEN_DATA.overlayOam[3].yPosition = BLOCK_SIZE * 6 + QUARTER_BLOCK_SIZE + 8;
+        PAUSE_SCREEN_DATA.overlayOam[3].xPosition = BLOCK_SIZE * 8 + HALF_BLOCK_SIZE;
         PauseScreenUpdateWorldMap(0);
     }
 
@@ -950,7 +950,7 @@ void PauseScreenProcessOam(void)
     gNextOamSlot = 0;
 
     // Always process area name oam
-    ProcessMenuOam(ARRAY_SIZE(PAUSE_SCREEN_DATA.areaNameOam), PAUSE_SCREEN_DATA.areaNameOam, sPauseScreenAreaNameOam);
+    ProcessMenuOam(ARRAY_SIZE(PAUSE_SCREEN_DATA.overlayOam), PAUSE_SCREEN_DATA.overlayOam, sPauseScreenOverlayOam);
 
     // Check process border arrows or world map oam
     if (PAUSE_SCREEN_DATA.onWorldMap)
@@ -2913,12 +2913,12 @@ void PauseScreenUpdateTopVisorOverlay(u8 oamId)
 
     if (oamId != UCHAR_MAX)
     {
-        UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.areaNameOam[1], oamId);
+        UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[1], oamId);
     }
 
-    if (oamId == 0xF)
+    if (oamId == OVERLAY_OAM_ID_R_PROMPT_PRESSED)
         offset = 1;
-    else if (oamId == 0x10)
+    else if (oamId == OVERLAY_OAM_ID_L_PROMPT_PRESSED)
         offset = 2;
     else if (oamId == 0)
         offset = 0;
@@ -3019,7 +3019,7 @@ i32 PauseScreenStatusScreenInit(void)
 
         case 1:
             // Update top overlay
-            PauseScreenUpdateTopVisorOverlay(0xF);
+            PauseScreenUpdateTopVisorOverlay(OVERLAY_OAM_ID_R_PROMPT_PRESSED);
             stage = UCHAR_MAX + 1;
             SoundPlay(0x1F4);
             break;
@@ -3083,7 +3083,7 @@ i32 PauseScreenStatusScreenInit(void)
         case 9:
             PAUSE_SCREEN_DATA.bg2cnt = PAUSE_SCREEN_DATA.unk_78;
             PAUSE_SCREEN_DATA.dispcnt &= ~DCNT_BG1;
-            PAUSE_SCREEN_DATA.areaNameOam[0].exists = FALSE;
+            PAUSE_SCREEN_DATA.overlayOam[0].exists = FALSE;
             stage = -1;
     }
 
@@ -3142,7 +3142,7 @@ i32 PauseScreenQuitStatusScreen(void)
             if (unk_68168(0x1000, 2, 0))
             {
                 PAUSE_SCREEN_DATA.dispcnt &= ~DCNT_BG0;
-                PAUSE_SCREEN_DATA.areaNameOam[3].exists = FALSE;
+                PAUSE_SCREEN_DATA.overlayOam[3].exists = FALSE;
                 stage = UCHAR_MAX + 1;
             }
             break;
@@ -3160,7 +3160,7 @@ i32 PauseScreenQuitStatusScreen(void)
             gWrittenToBLDALPHA_H = 16;
             gWrittenToBLDALPHA_L = 0;
             PAUSE_SCREEN_DATA.dispcnt |= DCNT_BG1;
-            PAUSE_SCREEN_DATA.areaNameOam[0].exists = TRUE;
+            PAUSE_SCREEN_DATA.overlayOam[0].exists = TRUE;
             PAUSE_SCREEN_DATA.subroutineInfo.stage++;
 
         case 6:
@@ -3222,7 +3222,7 @@ i32 PauseScreenEasySleepInit(void)
 
         case 1: 
             PauseScreenUpdateBottomVisorOverlay(2, 2);
-            PauseScreenUpdateTopVisorOverlay(0x10);
+            PauseScreenUpdateTopVisorOverlay(OVERLAY_OAM_ID_L_PROMPT_PRESSED);
             PAUSE_SCREEN_DATA.dispcnt &= ~DCNT_BG2;
             break;
 
@@ -3302,7 +3302,7 @@ i32 PauseScreenEasySleepInit(void)
 
         case 11:
             // Setup cursor
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[1], 2);
+            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.miscOam[1], MISC_OAM_ID_RIGHT_CURSOR);
             PAUSE_SCREEN_DATA.miscOam[1].xPosition = BLOCK_SIZE * 8 + QUARTER_BLOCK_SIZE;
             PAUSE_SCREEN_DATA.miscOam[1].yPosition = BLOCK_SIZE * 4 + QUARTER_BLOCK_SIZE;
             PAUSE_SCREEN_DATA.miscOam[1].objMode = 1;

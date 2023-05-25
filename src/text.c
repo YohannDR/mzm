@@ -714,7 +714,7 @@ void TextProcessDescription(void)
                 if (gCurrentMessage.line != 0)
                 {
                     // Not on first line, so it's a multi line message
-                    result = 5;
+                    result = MISC_OAM_ID_TEXT_MARKER_UP;
                     PAUSE_SCREEN_DATA.unk_56 = 4;
                 }
                 else
@@ -727,7 +727,7 @@ void TextProcessDescription(void)
             else if (result == 1)
             {
                 // New line
-                result = 4;
+                result = MISC_OAM_ID_TEXT_MARKER_DOWN;
                 gCurrentMessage.delay = 0;
 
                 if (gDemoState != 0)

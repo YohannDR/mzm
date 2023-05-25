@@ -396,7 +396,7 @@ u32 PauseScreenMapDownloadInstantWithLine_Unused(void)
             if (PAUSE_SCREEN_DATA.downloadTimer > 8)
             {
                 // Setup line
-                PAUSE_SCREEN_DATA.miscOam[2].oamID = 0xB;
+                PAUSE_SCREEN_DATA.miscOam[2].oamID = MISC_OAM_ID_MAP_DOWNLOAD_LINE;
                 PAUSE_SCREEN_DATA.miscOam[2].animationDurationCounter = 0;
                 PAUSE_SCREEN_DATA.miscOam[2].currentAnimationFrame = 0;
                 PAUSE_SCREEN_DATA.miscOam[2].xPosition = BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE;
@@ -470,7 +470,7 @@ u32 PauseScreenMapDownload(void)
                 break;
 
             // Setup line
-            PAUSE_SCREEN_DATA.miscOam[2].oamID = 0xB;
+            PAUSE_SCREEN_DATA.miscOam[2].oamID = MISC_OAM_ID_MAP_DOWNLOAD_LINE;
             PAUSE_SCREEN_DATA.miscOam[2].animationDurationCounter = 0;
             PAUSE_SCREEN_DATA.miscOam[2].currentAnimationFrame = 0;
             PAUSE_SCREEN_DATA.miscOam[2].xPosition = BLOCK_SIZE * 7 + QUARTER_BLOCK_SIZE;
@@ -565,7 +565,7 @@ u32 PauseScreenMapDownload(void)
                 PAUSE_SCREEN_DATA.miscOam[sMapDownloadLineTrailOamOffsets[i]].yPosition = PAUSE_SCREEN_DATA.miscOam[2].yPosition - 4;
 
                 // Setup trail
-                PAUSE_SCREEN_DATA.miscOam[sMapDownloadLineTrailOamOffsets[i]].oamID = 0xA;
+                PAUSE_SCREEN_DATA.miscOam[sMapDownloadLineTrailOamOffsets[i]].oamID = MISC_OAM_ID_MAP_DOWNLOAD_LINE_TRAIL;
                 PAUSE_SCREEN_DATA.miscOam[sMapDownloadLineTrailOamOffsets[i]].animationDurationCounter = 0;
                 PAUSE_SCREEN_DATA.miscOam[sMapDownloadLineTrailOamOffsets[i]].currentAnimationFrame = 0;
                 PAUSE_SCREEN_DATA.miscOam[sMapDownloadLineTrailOamOffsets[i]].exists = TRUE;

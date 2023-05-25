@@ -23,9 +23,9 @@ struct ChozoStatueTarget {
 };
 
 struct PauseScreenAreaIconData {
-    u8 unk_0;
     u8 nameOamId;
-    u8 highlightOamId;
+    u8 nameSpawningOamId;
+    u8 outlineOamId;
     u16 xPosition;
     u16 yPosition;
 };
@@ -41,8 +41,8 @@ struct PauseScreenWireframeData {
 };
 
 struct WorldMapData {
-    u8 unk_0;
-    u8 unk_1;
+    u8 nameOamId;
+    u8 outlinedOamId;
     u16 xPosition;
     u16 yPosition;
 };
@@ -282,7 +282,7 @@ struct PauseScreenData {
     struct MenuOamData samusIconOam[1];
     struct MenuOamData bossIconOam[1];
     struct MenuOamData unk_418[1];
-    struct MenuOamData areaNameOam[4];
+    struct MenuOamData overlayOam[4];
     struct MenuOamData borderArrowsOam[4];
     struct MenuOamData worldMapOam[24];
 };

@@ -576,7 +576,7 @@ u32 ChozoStatueHintSubroutine(void)
 
             ChozoHintDeterminePath(TRUE);
             unk_6db58(1);
-            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.areaNameOam[0], sPauseScreen_40d180[PAUSE_SCREEN_DATA.currentArea]);
+            UpdateMenuOamDataID(&PAUSE_SCREEN_DATA.overlayOam[0], sChozoHintAreaNamesOamIds[PAUSE_SCREEN_DATA.currentArea]);
             PauseScreenUpdateBossIcons();
 
             PAUSE_SCREEN_DATA.subroutineInfo.stage++;
@@ -844,10 +844,10 @@ void ChozoHintDeterminePath(u8 param_1)
                         pOam->yPosition = (sElevatorRoomPairs[pTarget[i + 0]].mapY1 + 4) * HALF_BLOCK_SIZE;
                         pOam->exists = TRUE;
     
-                        if (pTarget[i +  1] < 0)
-                            pOam->oamID = 0x2;
+                        if (pTarget[i + 1] < 0)
+                            pOam->oamID = TARGET_OAM_ID_UP_ARROW;
                         else
-                            pOam->oamID = 0x3;
+                            pOam->oamID = TARGET_OAM_ID_DOWN_ARROW;
     
                         pOam++;
                     }
@@ -859,9 +859,9 @@ void ChozoHintDeterminePath(u8 param_1)
                         pOam->exists = TRUE;
     
                         if (pTarget[i + 1] < 0)
-                            pOam->oamID = 0x2;
+                            pOam->oamID = TARGET_OAM_ID_UP_ARROW;
                         else
-                            pOam->oamID = 0x3;
+                            pOam->oamID = TARGET_OAM_ID_DOWN_ARROW;
     
                         pOam++;
                     }
@@ -1001,7 +1001,7 @@ void PauseScreenDrawBossFlames(void)
         for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.targetsOam); i++)
         {
             // Check object exists
-            if (PAUSE_SCREEN_DATA.targetsOam[i].oamID != 0xA)
+            if (PAUSE_SCREEN_DATA.targetsOam[i].oamID != TARGET_OAM_GREEN_FLAME_MOVING)
                 continue;
 
             // Register in boss flame data 0
@@ -1021,7 +1021,7 @@ void PauseScreenDrawBossFlames(void)
         for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.targetsOam); i++)
         {
             // Check object exists
-            if (PAUSE_SCREEN_DATA.targetsOam[i].oamID != 0xE)
+            if (PAUSE_SCREEN_DATA.targetsOam[i].oamID != TARGET_OAM_PURPLE_FLAME_MOVING)
                 continue;
 
             // Register in boss flame data 1

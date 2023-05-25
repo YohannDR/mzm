@@ -70,23 +70,23 @@ const u32* const sMapScreenMenuNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES] = {
 FORCE_RODATA
 u16 sPauseScreenCompletionInfoOamData[6][5] = {
     {
-        10, 0xE, HALF_BLOCK_SIZE, BLOCK_SIZE * 8 + HALF_BLOCK_SIZE,
+        10, MISC_OAM_ID_IN_GAME_TIMER, HALF_BLOCK_SIZE, BLOCK_SIZE * 8 + HALF_BLOCK_SIZE,
         0
     },
     {
-        11, 0xF, HALF_BLOCK_SIZE, BLOCK_SIZE + HALF_BLOCK_SIZE,
+        11, MISC_OAM_ID_ENERGY_TANKS, HALF_BLOCK_SIZE, BLOCK_SIZE + HALF_BLOCK_SIZE,
         0
     },
     {
-        12, 0x10, HALF_BLOCK_SIZE, BLOCK_SIZE * 2,
+        12, MISC_OAM_ID_MISSILE_TANKS, HALF_BLOCK_SIZE, BLOCK_SIZE * 2,
         0
     },
     {
-        13, 0x11, HALF_BLOCK_SIZE, BLOCK_SIZE * 2 + HALF_BLOCK_SIZE,
+        13, MISC_OAM_ID_SUPER_MISSILE_TANKS, HALF_BLOCK_SIZE, BLOCK_SIZE * 2 + HALF_BLOCK_SIZE,
         0
     },
     {
-        14, 0x12, HALF_BLOCK_SIZE, BLOCK_SIZE * 3,
+        14, MISC_OAM_ID_POWER_BOMB_TANKS, HALF_BLOCK_SIZE, BLOCK_SIZE * 3,
         0
     },
     {

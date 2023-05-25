@@ -87,19 +87,19 @@ extern const u16 sPauseScreen_40d102[5];
 
 extern const struct PauseScreenWireframeData sSamusWireframeData[7];
 
-extern const u16 sPauseScreen_40d17c[2];
-extern const u8 sPauseScreen_40d180[MAX_AMOUNT_OF_AREAS];
+extern const u16 sChozoHintAreaNamesPosition[2];
+extern const u8 sChozoHintAreaNamesOamIds[MAX_AMOUNT_OF_AREAS];
 
 extern const struct WorldMapData sWorldMapData[MAX_AMOUNT_OF_AREAS - 1];
-extern const u16 sPauseScreen_40d1c0[16][2];
+extern const u16 sWorldMapTargetPositions[16][2];
 
 extern const u8 sBossIcons[MAX_AMOUNT_OF_AREAS - 1][5];
 extern const u16 sMapChunksToUpdate[3];
 
 extern const struct OamArray sPauseScreenMiscOam[56];
-extern const struct OamArray sPauseScreenAreaNameOam[33];
+extern const struct OamArray sPauseScreenOverlayOam[33];
 extern const struct OamArray sPauseScreenBorderArrowsOam[5];
-extern const struct OamArray sPauseScreenSamusIconOam[5];
+extern const struct OamArray sPauseScreenSamusIconOam[3];
 extern const struct OamArray sPauseScreenBossIconsOam[5];
 extern const struct OamArray sPauseScreenTargetsOam[16];
 extern const struct OamArray sPauseScreenWorldMapOam[18];
