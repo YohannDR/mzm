@@ -204,7 +204,6 @@ void ChozoStatueHintMovement(void)
 
     i32 norm;
     i32 var_2;
-    u32 var_3;
 
     switch (PAUSE_SCREEN_DATA.unk_47)
     {
@@ -219,8 +218,8 @@ void ChozoStatueHintMovement(void)
             PAUSE_SCREEN_DATA.unk_8C[0].unk_6 = PAUSE_SCREEN_DATA.hintTargetX * HALF_BLOCK_SIZE;
             PAUSE_SCREEN_DATA.unk_8C[0].unk_4 = PAUSE_SCREEN_DATA.hintTargetY * HALF_BLOCK_SIZE;
 
-            PAUSE_SCREEN_DATA.chozoHintOam[0].yPosition = PAUSE_SCREEN_DATA.unk_8C[0].unk_2;
-            PAUSE_SCREEN_DATA.chozoHintOam[0].xPosition = PAUSE_SCREEN_DATA.unk_8C[0].unk_0;
+            PAUSE_SCREEN_DATA.chozoHintOam[0].yPosition = PAUSE_SCREEN_DATA.unk_8C[0].unk_0;
+            PAUSE_SCREEN_DATA.chozoHintOam[0].xPosition = PAUSE_SCREEN_DATA.unk_8C[0].unk_2;
             PAUSE_SCREEN_DATA.chozoHintOam[0].oamID = sChozoStatueTargets[PAUSE_SCREEN_DATA.unk_40].startIcon;
 
             PAUSE_SCREEN_DATA.unk_8C[0].unk_A = PAUSE_SCREEN_DATA.unk_8C[0].unk_6 - PAUSE_SCREEN_DATA.unk_8C[0].unk_2;
@@ -311,11 +310,9 @@ void ChozoStatueHintMovement(void)
             else
                 PAUSE_SCREEN_DATA.unk_8C[0].unk_12 += 5;
 
-            var_3 = PAUSE_SCREEN_DATA.unk_48;
-            if (!(var_3 & 7))
+            if (PAUSE_SCREEN_DATA.unk_48 % 8 == 0)
             {
-                norm = var_3 / 8;
-                norm &= 3;
+                norm = (PAUSE_SCREEN_DATA.unk_48 / 8) % 4;
                 norm++;
                 PAUSE_SCREEN_DATA.chozoHintOam[norm] = PAUSE_SCREEN_DATA.chozoHintOam[0];
 
@@ -640,9 +637,9 @@ void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamDat
         pOam->yPosition = (*pYPosition + 4) * HALF_BLOCK_SIZE;
 
         if (param_3[1] < 0)
-            pOam->oamID = 2;
+            pOam->oamID = TARGET_OAM_ID_UP_ARROW;
         else
-            pOam->oamID = 3;
+            pOam->oamID = TARGET_OAM_ID_DOWN_ARROW;
     }
     else
     {
@@ -655,9 +652,9 @@ void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamDat
         pOam->yPosition = (*pYPosition - 3) * HALF_BLOCK_SIZE;
 
         if (param_3[1] < 0)
-            pOam->oamID = 2;
+            pOam->oamID = TARGET_OAM_ID_UP_ARROW;
         else
-            pOam->oamID = 3;
+            pOam->oamID = TARGET_OAM_ID_DOWN_ARROW;
     }
 }
 
