@@ -12,16 +12,22 @@ struct MusicTrackInfo {
     i8 unk;
 };
 
-struct Voice {
-
-};
-
 struct Envelope {
     u8 attack;
     u8 decay;
     u8 sustain;
     u8 release;
 };
+
+struct Voice {
+    u8 instrumentType;
+    u8 pitch;
+    u8 unk_2;
+    u8 unk_3;
+    u32* pSample;
+    struct Envelope envelope;
+};
+
 
 struct SoundQueue {
     u8 exists;
@@ -294,6 +300,7 @@ extern u8 gSoundCodeB[164];
 extern void* gSoundCodeCPointer;
 extern u8 gSoundCodeC[176];
 
+extern struct PSGSoundData gUnk_300376c[];
 extern struct PSGSoundData gPsgSounds[4];
 
 #endif

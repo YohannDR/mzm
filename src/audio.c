@@ -1,5 +1,6 @@
 #include "audio.h"
 #include "macros.h"
+#include "gba.h"
 #include "syscalls.h"
 
 void UpdateMusic(void)
@@ -193,7 +194,61 @@ void unk_1de8(struct TrackVariables* pVariables)
 
 void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
 {
+    // https://decomp.me/scratch/gWp3a
 
+    u8 var_0;
+    u8 var_1;
+    u8 var_2;
+    u8 i;
+    struct SoundChannel* pChannel;
+
+    if (pTrack->unknown_3 + pVariables->unknown_B > UCHAR_MAX)
+        var_0 = UCHAR_MAX;
+    else
+        var_0 = pTrack->unknown_3 + pVariables->unknown_B;
+
+    var_2 = var_0;
+    var_1 = FALSE;
+    pChannel = NULL;
+
+    for (i = 0; i < gMusicInfo.maxSoundChannels; i++)
+    {
+        if (gMusicInfo.soundChannels[i].unknown_0 == 0)
+        {
+            pChannel = &gMusicInfo.soundChannels[i];
+            // break;
+        }
+
+        if ((u8)(gMusicInfo.soundChannels[i].unknown_0 - 5) < 2 || gMusicInfo.soundChannels[i].unknown_0 == 8)
+        {
+            if (!var_1)
+                var_1 = TRUE;
+        }
+
+        if (!var_1)
+        {
+            if (gMusicInfo.soundChannels[i].unknown_2 >= var_2 &&
+                (gMusicInfo.soundChannels[i].unknown_2 > var_2 ||
+                (gMusicInfo.soundChannels[i].pVariables <= pVariables &&
+                gMusicInfo.soundChannels[i].pVariables < pVariables)))
+            {
+                continue;
+            }
+        }
+        else
+        {
+            continue;
+        }
+
+        var_2 = gMusicInfo.soundChannels[i].unknown_2;
+        pVariables = gMusicInfo.soundChannels[i].pVariables;
+        pChannel = &gMusicInfo.soundChannels[i];
+    }
+
+    if (pChannel != NULL)
+    {
+        unk_4f8c(pChannel, pVariables, var_0);
+    }
 }
 
 /**
@@ -216,14 +271,56 @@ void unk_1f3c(struct TrackData* pTrack, struct TrackVariables* pVariables)
     }
 }
 
+/**
+ * @brief 1f90 | 50 | To document
+ * 
+ * @param pTrack Track data pointer
+ * @param pVariables Track variables pointer
+ */
 void unk_1f90(struct TrackData* pTrack, struct TrackVariables* pVariables)
 {
+    u8 var_0;
+    struct PSGSoundData* pSound;
 
+    if (pTrack->unknown_3 + pVariables->unknown_B > UCHAR_MAX)
+        var_0 = UCHAR_MAX;
+    else
+        var_0 = pTrack->unknown_3 + pVariables->unknown_B;
+
+    pSound = &gUnk_300376c[pVariables->channel & 7];
+    if (pSound->unknown_0 == 0 ||
+        (var_0 >= pSound->unknown_16 &&
+        (var_0 != pSound->unknown_16 ||
+        pVariables <= pSound->pVariables)))
+    {
+        unk_2030(pSound, pVariables, var_0);
+    }
 }
 
+/**
+ * @brief 1fe0 | 50 | To document
+ * 
+ * @param pTrack Track data pointer
+ * @param pVariables Track variables pointer
+ */
 void unk_1fe0(struct TrackData* pTrack, struct TrackVariables* pVariables)
 {
+    u8 var_0;
+    struct PSGSoundData* pSound;
 
+    if (pTrack->unknown_3 + pVariables->unknown_B > UCHAR_MAX)
+        var_0 = UCHAR_MAX;
+    else
+        var_0 = pTrack->unknown_3 + pVariables->unknown_B;
+
+    pSound = &gUnk_300376c[pVariables->channel & 7];
+    if (pSound->unknown_0 == 0 ||
+        (var_0 >= pSound->unknown_16 &&
+        (var_0 != pSound->unknown_16 ||
+        pVariables <= pSound->pVariables)))
+    {
+        unk_2030(pSound, pVariables, var_0);
+    }
 }
 
 /**
@@ -291,14 +388,91 @@ u16 GetNoteDelay(struct TrackVariables* pVariables, u8 param_2, u8 param_3)
 
 }
 
+/**
+ * @brief 2140 | 70 | To document
+ * 
+ * @param pTrack Track data pointer
+ * @param pVariables Track variables pointer
+ */
 void unk_2140(struct TrackData* pTrack, struct TrackVariables* pVariables)
 {
+    struct SoundChannel* pChannel;
+    struct SoundChannel* pNext;
 
+    if (pVariables->pSoundPSG != NULL)
+    {
+        ClearRegistersForPsg(pVariables->pSoundPSG, (pVariables->channel & 7) - 1);
+        pVariables->pSoundPSG->unknown_0 = 0;
+        pVariables->pSoundPSG->pVariables = NULL;
+    }
+
+    if (pVariables->pChannel != NULL)
+    {
+        for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pNext)
+        {
+            pChannel->unknown_0 = 10;
+            pChannel->pVariables = NULL;
+            pNext = pChannel->pChannel2;
+            pChannel->pChannel2 = NULL;
+            pChannel->pChannel1 = NULL;
+        }
+    }
+
+    pVariables->pSoundPSG = NULL;
+    pVariables->pChannel = NULL;
+
+    if (++pTrack->unknown_4 == pTrack->amountOfTracks)
+    {
+        unk_2a38(pTrack);
+        pTrack->flags = 0;
+        pTrack->unknown_4 = 0;
+    }
+
+    pVariables->unknown_0 = 0;
 }
 
+/**
+ * @brief 21b0 | 7c | To document
+ * 
+ * @param pTrack Track data pointer
+ * @param pVariables Track variables pointer
+ */
 void unk_21b0(struct TrackData* pTrack, struct TrackVariables* pVariables)
 {
+    struct SoundChannel* pChannel;
+    struct SoundChannel* pNext;
 
+    if (pVariables->pSoundPSG != NULL)
+    {
+        ClearRegistersForPsg(pVariables->pSoundPSG, (pVariables->channel & 7) - 1);
+        pVariables->pSoundPSG->unknown_0 = 0;
+        pVariables->pSoundPSG->pVariables = NULL;
+    }
+
+    if (pVariables->pChannel != NULL)
+    {
+        for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pNext)
+        {
+            pChannel->unknown_0 = 10;
+            pChannel->pVariables = NULL;
+            pNext = pChannel->pChannel2;
+            pChannel->pChannel2 = NULL;
+            pChannel->pChannel1 = NULL;
+        }
+    }
+
+    pVariables->pSoundPSG = NULL;
+    pVariables->pChannel = NULL;
+
+    if (++pTrack->unknown_4 == pTrack->amountOfTracks)
+    {
+        unk_2a38(pTrack);
+        pTrack->flags = 0;
+        pTrack->unknown_4 = 0;
+        pTrack->queueFlags |= 0x2;
+    }
+
+    pVariables->unknown_0 = 0;
 }
 
 /**
@@ -372,9 +546,67 @@ void unk_22b4(struct TrackVariables* pVariables)
     pVariables->pRawData++;
 }
 
+/**
+ * @brief 22cc | c0 | To document
+ * 
+ * @param pTrack Track data pointer
+ * @param pVariables Track variables pointer
+ */
 void unk_22cc(struct TrackData* pTrack, struct TrackVariables* pVariables)
 {
+    struct Voice* pVoice;
+    u32 channel;
 
+    pVoice = &pTrack->pVoice[*pVariables->pRawData];
+    pVariables->channel = pVoice->instrumentType;
+
+    if (pVariables->channel > 0x3F)
+    {
+        if (pVariables->channel == 0x80)
+        {
+            pVariables->unknown_0 |= 0x80;
+            pVariables->pSample2 = pVoice->pSample;
+        }
+        else if (pVariables->channel == 0x40)
+        {
+            pVariables->unknown_0 |= 0x40;
+            pVariables->pSample2 = pVoice->pSample;
+            pVariables->envelope2 = pVoice->envelope;
+        }
+    }
+    else
+    {
+        pVariables->unknown_0 &= 0xF;
+        pVariables->unknown_36 = pVoice->unk_2;
+
+        channel = pVariables->channel & 7;
+
+        if (channel == 0)
+        {
+            pVariables->pSample1 = pVoice->pSample;
+        }
+        else if (channel < 3)
+        {
+            if (!(pVoice->unk_3 & 0x80) && pVoice->unk_3 & 0x70)
+                pVariables->unknown_37 = pVoice->unk_3;
+            else
+                pVariables->unknown_37 = 8;
+
+            pVariables->pSample1 = (u32*)((u32)pVoice->pSample << 0x1E >> 0x18);
+        }
+        else if (channel == 3)
+        {
+            UploadSampleToWaveRAM(pVoice->pSample);
+        }
+        else if (channel == 4)
+        {
+            pVariables->pSample1 = (u32*)((u32)pVoice->pSample << 0x1B >> 0x18);
+        }
+        
+        pVariables->envelope1 = pVoice->envelope;
+    }
+
+    pVariables->pRawData++;
 }
 
 /**
@@ -507,9 +739,46 @@ void unk_2430(struct TrackVariables* pVariables)
     }
 }
 
+/**
+ * @brief 2460 | 5c | To document
+ * 
+ * @param pVariables Track variables pointer
+ */
 void unk_2460(struct TrackVariables* pVariables)
 {
+    struct SoundChannel* pChannel;
+    struct PSGSoundData* pSound;
+    u32 var_0;
 
+    if ((i8)*pVariables->pRawData >= 0)
+    {
+        var_0 = *pVariables->pRawData;
+        pVariables->unknown_1 = var_0;
+        pVariables->pRawData++;
+    }
+    else
+    {
+        var_0 = pVariables->unknown_1;
+    }
+    
+    if (pVariables->pChannel)
+    {
+        for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pChannel->pChannel2)
+        {
+            if ((u8)(pChannel->unknown_0 - 1) < 4 && pChannel->unknown_6 == var_0)
+            {
+                pChannel->unknown_0 = 5;
+                break;
+            }
+        }
+    }
+
+    pSound = pVariables->pSoundPSG;
+    if (pSound != NULL && pSound->unknown_17 == var_0)
+    {
+        pSound->unknown_0 = 5;
+        pVariables->pSoundPSG->unknown_18 = 0;
+    }
 }
 
 /**
@@ -522,13 +791,61 @@ void Music_Empty(struct TrackVariables* pVariables)
     return;
 }
 
+/**
+ * @brief 24c0 | 5c | Clears the registers for a PSG sound
+ * 
+ * @param pSound PSG sound pointer
+ * @param channel Channel
+ */
 void ClearRegistersForPsg(struct PSGSoundData* pSound, u8 channel)
 {
+    switch (channel)
+    {
+        case 0:
+            write8(REG_SOUND1CNT_H + 1, 8);
+            write16(REG_SOUND1CNT_X, 0x8000);
+            break;
 
+        case 1:
+            write8(REG_SOUND2CNT_L + 1, 8);
+            write16(REG_SOUND2CNT_H, 0x8000);
+            break;
+
+        case 2:
+            write8(REG_SOUND3CNT_L, 0);
+            break;
+
+        case 3:
+            write8(REG_SOUND4CNT_L + 1, 8);
+            write16(REG_SOUND4CNT_H, 0x8000);
+            break;
+    }
 }
 
+/**
+ * @brief 251c | 48 | Clears the registers for a PSG sound, unused
+ * 
+ * @param pSound PSG sound pointer
+ * @param channel Channel
+ */
 void ClearRegistersForPsg_Unused(struct PSGSoundData* pSound, u8 channel)
 {
+    switch (channel)
+    {
+        case 0:
+            write8(REG_SOUND1CNT_H + 1, 0);
+            break;
 
+        case 1:
+            write8(REG_SOUND2CNT_L + 1, 0);
+            break;
+
+        case 2:
+            write8(REG_SOUND3CNT_L, 0);
+            break;
+
+        case 3:
+            write8(REG_SOUND4CNT_L + 1, 0);
+            break;
+    }
 }
-
