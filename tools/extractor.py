@@ -28,6 +28,7 @@ subDirs: array = [
     "cutscenes/SamusInBlueShip/",
     "menus/",
     "menus/TitleScreen/",
+    "menus/GameOver/",
     "menus/EraseSram/",
     "menus/PauseScreen/",
     "rooms/",

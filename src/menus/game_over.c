@@ -5,6 +5,7 @@
 #include "temp_globals.h"
 
 #include "data/menus/game_over_data.h"
+#include "data/menus/internal_game_over_data.h"
 #include "data/menus/file_select_data.h"
 #include "data/shortcut_pointers.h"
 #include "data/menus/pause_screen_data.h"
@@ -131,7 +132,7 @@ u32 GameOverSubroutine(void)
             break;
 
         case 8:
-            sub_75c04(0);
+            unk_75c04(0);
             gLanguage = gGameCompletion.language;
             ended = TRUE;
             break;
@@ -272,14 +273,16 @@ void GameOverInit(void)
 
     DMATransfer(3, sGameOverMenuPAL, PALRAM_BASE, sizeof(sGameOverMenuPAL), 0x10);
     write16(PALRAM_BASE, 0);
-    dma_set(3, sFileSelectIconsPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sFileSelectIconsPAL) / 2);
+    dma_set(3, 0x8454938, PALRAM_OBJ, DMA_ENABLE << 16 | 192 / 2);
+    // FIXME dma_set(3, sFileSelectIconsPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sFileSelectIconsPAL) / 2);
 
     LZ77UncompVRAM(sGameOverBackgroundTileTable, VRAM_BASE + 0x1800);
     LZ77UncompVRAM(sGameOverTextTileTable, VRAM_BASE + 0x800);
     LZ77UncompVRAM(sGameOver_454520, VRAM_BASE);
     DMATransfer(3, VRAM_BASE + 0x1800, VRAM_BASE + 0x1000, 0x800, 0x20);
     LZ77UncompVRAM(sGameOverTextAndBackgroundGFX, VRAM_BASE + 0x4000);
-    LZ77UncompVRAM(sFileSelectIconsGFX, VRAM_BASE + 0x10000);
+    LZ77UncompVRAM(0x845c0f4, VRAM_BASE + 0x10000);
+    // FIXME LZ77UncompVRAM(sFileSelectIconsGFX, VRAM_BASE + 0x10000);
     LZ77UncompVRAM(sGameOverTextPromptGfxPointers[gLanguage], VRAM_BASE + 0xA800);
 
     write16(REG_BG0CNT, 0x4);
@@ -405,15 +408,17 @@ void GameOverVBlank_Empty(void)
     vu8 c = 0;
 }
 
+/**
+ * @brief 77ff4 | 180 | Handles the animation of the GAME OVER letters
+ * 
+ */
 void GameOverUpdateLettersPalette(void)
 {
-    // https://decomp.me/scratch/Q2vvy
-
     i32 i;
     i32 j;
+    i32 k;
     i32 row;
     const u16* src;
-    const u16* src_2;
 
     if (GAME_OVER_DATA.dynamicPalette.enableFlags == 0)
         return;
@@ -447,9 +452,9 @@ void GameOverUpdateLettersPalette(void)
 
             row = GAME_OVER_DATA.dynamicPalette.currentPaletteRow;
             i = 0;
-            while (i < ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
+            while (i < (int)ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
             {
-                if (row >= ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
+                if (row >= (int)ARRAY_SIZE(GAME_OVER_DATA.dynamicPalette.palette))
                     row = 0;
 
                 GAME_OVER_DATA.dynamicPalette.palette[i] = src[row];
@@ -473,12 +478,12 @@ void GameOverUpdateLettersPalette(void)
                     GAME_OVER_DATA.dynamicPalette.palette[i++] = *src;
                 }
 
-                src_2 = src;
+                k = 0;
                 while (i < 6)
                 {
-                    GAME_OVER_DATA.dynamicPalette.palette[i] = *src_2;
+                    GAME_OVER_DATA.dynamicPalette.palette[i] = src[k];
                     i++;
-                    src_2++;
+                    k++;
                 }
             }
             else
@@ -491,10 +496,12 @@ void GameOverUpdateLettersPalette(void)
                     i--;
                 }
 
+                k = 4;
                 while (i >= 0)
                 {
-                    GAME_OVER_DATA.dynamicPalette.palette[i] = src[i + 4];
+                    GAME_OVER_DATA.dynamicPalette.palette[i] = src[k];
                     i--;
+                    k--;
                 }
             }
             break;
@@ -511,7 +518,7 @@ void GameOverUpdateLettersPalette(void)
  */
 void GameOverUpdateSamusHead(u8 action)
 {
-    UpdateMenuOamDataID(&GAME_OVER_DATA.oam[0], sGameOverSamusHeadOAMIds[gEquipment.suitType][action]); // undefined
+    UpdateMenuOamDataID(&GAME_OVER_DATA.oam[0], sGameOverSamusHeadOAMIds[gEquipment.suitType][action]);
     GAME_OVER_DATA.oam[0].xPosition = sGameOverSamusHeadXPositions[gLanguage];
     GAME_OVER_DATA.oam[0].yPosition = sGameOverSamusHeadYPositions[GAME_OVER_DATA.optionSelected];
 
@@ -530,6 +537,6 @@ void GameOverUpdateSamusHead(u8 action)
 void GameOverProcessOAM(void)
 {
     gNextOamSlot = 0;
-    process_complex_menu_oam(ARRAY_SIZE(GAME_OVER_DATA.oam), GAME_OVER_DATA.oam, sGameOverOam); // Undefined
+    ProcessComplexMenuOam(ARRAY_SIZE(GAME_OVER_DATA.oam), GAME_OVER_DATA.oam, sGameOverOam);
     ResetFreeOAM();
 }

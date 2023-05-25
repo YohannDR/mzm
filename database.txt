@@ -950,6 +950,16 @@ menus/TitleScreen/SpaceAndGroundBackground.gfx.lz;1920;0x44c47c;4
 menus/TitleScreen/Title.tt;199;0x44e27c;4
 menus/TitleScreen/SpaceBackground.tt;702;0x44e598;4
 
+# Game over
+
+menus/GameOver/Palette.pal;80;0x44f11c;2
+menus/GameOver/TextAndBackground.gfx.lz;2738;0x44f1bc;4
+menus/GameOver/TextPromptEnglish.gfx.lz;333;0x451c84;4
+menus/GameOver/TextPromptHiragna.gfx.lz;1780;0x4521b8;4
+menus/GameOver/Background.tt;370;0x453d88;4
+menus/GameOver/Text.tt;116;0x454350;4
+menus/GameOver/454520.tt;160;0x454520;4
+
 # Erase SRAM
 
 menus/EraseSram/Objects.pal;112;0x411528;2
@@ -2442,11 +2452,11 @@ Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
 Blob_40dd0b_40e0c4.bin;953;0x40dd0b;1
 Blob_415460_446d68.bin;203016;0x415460;1
-Blob_44f11c_45f45c.bin;66368;0x44f11c;1
+Blob_454818_45f45c.bin;44100;0x454818;1
 Blob_479400_4bfee4.bin;289508;0x479400;1
 Blob_549b44_74f8b4.bin;2121072;0x549b44;1
 Blob_754bd0_75e6a8.bin;39640;0x754bd0;1
 Blob_75fae4_75fd78.bin;660;0x75fae4;1
 Blob_7602d4_760420.bin;332;0x7602d4;1
 Blob_760458_760aa0.bin;1608;0x760458;1
-Blob_760aef_7f7734.bin;617541;0x760aef;1
+Blob_760b18_7f7734.bin;617500;0x760b18;1

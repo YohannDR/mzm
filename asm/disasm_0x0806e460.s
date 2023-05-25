@@ -15384,8 +15384,8 @@ lbl_08075bf8:
     .byte 0x81, 0xB0, 0x69, 0x46, 0x00, 0x20, 0x08, 0x70
     .byte 0x01, 0xB0, 0x70, 0x47
 
-    thumb_func_start sub_08075c04
-sub_08075c04: @ 0x08075c04
+    thumb_func_start unk_75c04
+unk_75c04: @ 0x08075c04
     push {r4, lr}
     adds r4, r0, #0
     lsls r4, r4, #0x18

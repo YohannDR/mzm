@@ -3185,8 +3185,8 @@ lbl_08069a04: .4byte 0x000001ff
 lbl_08069a08: .4byte 0xfffffe00
 lbl_08069a0c: .4byte gNextOamSlot
 
-    thumb_func_start sub_08069a10
-sub_08069a10: @ 0x08069a10
+    thumb_func_start ProcessComplexMenuOam
+ProcessComplexMenuOam: @ 0x08069a10
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

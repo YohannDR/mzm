@@ -57,6 +57,3 @@ const u8 sTitleScreenTitlePaletteRows[14] = {
 const u8 sTitleScreenPromptPaletteRows[7] = {
     0, 1, 2, 3, 2, 1, 0
 };
-
-
-static const u8 sTempArray_760aef[0x96c45] = INCBIN_U8("data/Blob_760aef_7f7734.bin");

@@ -6,7 +6,6 @@
 void DMATransfer(u8 channel, void *src, void *dst, u32 len, u8 bitSize);
 void init_sound(void);
 int map_screen_main(void);
-int gameover_main(void);
 int credits_main(void);
 int tourian_escape_main(void);
 int cutscene_main(void);

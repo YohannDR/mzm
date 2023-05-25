@@ -133,7 +133,7 @@ void agbmain(void)
                 break;
 
             case GM_GAMEOVER:
-                if (gameover_main())
+                if (GameOverSubroutine())
                 {
                     gMainGameMode = gGameModeSub2;
                     gGameModeSub1 = 0;

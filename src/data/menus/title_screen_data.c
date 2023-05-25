@@ -222,5 +222,3 @@ const struct OamArray sTitleScreenOam[7] = {
         .preAction = OAM_ARRAY_PRE_ACTION_KILL_AFTER_END
     },
 };
-
-const u8 sTempArray_44f11c[0x10340] = INCBIN_U8("data/Blob_44f11c_45f45c.bin");
