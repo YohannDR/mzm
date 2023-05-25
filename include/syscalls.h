@@ -64,7 +64,7 @@ i32 DivarmDiv(i32 number, i32 denom);
 i32 DivarmMod(i32 denom, i32 number);
 void LZ77UncompVRAM(const void *src, void *dst);
 void LZ77UncompWRAM(const void *src, void *dst);
-u32 Midikey2Freq(struct wavedata *wd, u8 mk, u8 fp);
+u32 Midikey2Freq(u32* wd, u8 mk, u8 fp);
 int Multiboot(void *mbp); /* TODO: proper struct */
 void SoundBias0(void);
 void SoundBias200(void);

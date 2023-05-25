@@ -129,9 +129,7 @@ struct TrackVariables {
     u8 unknown_1F;
     u32 unknown_20;
     u8* pRawData;
-    u16* unknown_28;
-    u32* unknown_2C;
-    u32 unknown_30;
+    u8* unknown_28[3];
     u8 channel;
     u8 unknown_35;
     u8 unknown_36;
