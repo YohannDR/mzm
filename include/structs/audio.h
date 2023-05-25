@@ -121,7 +121,8 @@ struct TrackVariables {
     i8 unknown_17;
     u8 unknown_18;
     i8 unknown_19;
-    u16 unknown_1A;
+    u8 unknown_1A;
+    u8 unknown_1B;
     u8 unknown_1C;
     u8 unknown_1D;
     u8 unknown_1E;
