@@ -15,13 +15,16 @@ void UpdatePsgSounds(void)
 
 }
 
+/**
+ * @brief 1850 | 3a0 | Updates a track data
+ * 
+ * @param pTrack Track data pointer
+ */
 void UpdateTrack(struct TrackData* pTrack)
 {
-    // https://decomp.me/scratch/mVUSm
-
     u8 i;
     struct TrackVariables* pVariables;
-    u32 var_0;
+    u8 var_0;
     u8 var_1;
     i16 var_2;
 
@@ -45,8 +48,7 @@ void UpdateTrack(struct TrackData* pTrack)
             var_1 = unk_4cfc(pTrack);
             while (var_1 != 0)
             {
-                pVariables = pTrack->pVariables;
-                for (i = 0; i < pTrack->amountOfTracks; i++, pVariables++)
+                for (i = 0, pVariables = pTrack->pVariables; i < pTrack->amountOfTracks; i++, pVariables++)
                 {
                     if (pVariables->unknown_0 == 0)
                         continue;
@@ -76,9 +78,9 @@ void UpdateTrack(struct TrackData* pTrack)
                                         if ((i8)(pVariables->unknown_16 - 0x40) < 0)
                                             var_2 = pVariables->unknown_16;
                                         else
-                                            var_2 = 0x80 - pVariables->unknown_16;
+                                            var_2 = 0x80 - (u8)pVariables->unknown_16;
 
-                                        if (var_2 != pVariables->unknown_13)
+                                        if (var_2 != (i8)pVariables->unknown_13)
                                         {
                                             pVariables->unknown_13 = (var_2 * (pVariables->unknown_11 + 1)) >> 7;
                                             unk_1c3c(pVariables);
@@ -87,7 +89,20 @@ void UpdateTrack(struct TrackData* pTrack)
                                 }
                                 else
                                 {
-                                    
+                                    if (pVariables->pSoundPSG != NULL && pVariables->pSoundPSG->unknown_0 != 0)
+                                    {
+                                        pVariables->unknown_16 += pVariables->unknown_10;
+                                        if ((i8)(pVariables->unknown_16 - 0x40) < 0)
+                                            var_2 = pVariables->unknown_16;
+                                        else
+                                            var_2 = 0x80 - (u8)pVariables->unknown_16;
+
+                                        if (var_2 != (i8)pVariables->unknown_13)
+                                        {
+                                            pVariables->unknown_13 = (var_2 * (pVariables->unknown_11 + 1)) >> 7;
+                                            unk_1c3c(pVariables);
+                                        }
+                                    }
                                 }
                             }
                         }
@@ -109,24 +124,26 @@ void UpdateTrack(struct TrackData* pTrack)
                             pVariables->unknown_0 |= 0x2;
                             pVariables->unknown_E = sDelayNoteLengthTable[var_0 - 0xCF];
 
-                            var_1 = *pVariables->pRawData;
+                            var_0 = *pVariables->pRawData;
 
                             if (pVariables->unknown_14 != 0)
                                 pVariables->unknown_15 = pVariables->unknown_14;
 
-                            if ((i8)var_1 >= 0)
+                            if ((i8)var_0 >= 0)
                             {
-                                pVariables->unknown_1 = var_1;
+                                pVariables->unknown_1 = var_0;
                                 pVariables->pRawData++;
 
-                                if ((i8)*pVariables->pRawData >= 0)
+                                var_0 = *pVariables->pRawData;
+                                if ((i8)var_0 >= 0)
                                 {
-                                    pVariables->unknown_F = *pVariables->pRawData;
+                                    pVariables->unknown_F = var_0;
                                     pVariables->pRawData++;
                                 
-                                    if ((i8)*pVariables->pRawData >= 0)
+                                    var_0 = *pVariables->pRawData;
+                                    if ((i8)var_0 >= 0)
                                     {
-                                        pVariables->unknown_E += *pVariables->pRawData;
+                                        pVariables->unknown_E += var_0;
                                         pVariables->pRawData++;
                                     }
                                 }
