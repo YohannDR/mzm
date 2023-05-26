@@ -50,7 +50,7 @@ void InitializeAudio(void)
     zero = 0;
     dma_set(3, &zero, &gMusicInfo, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0xE);
 
-    gMusicInfo.unknown_9 = (u8)gUnk_Audio0x64;
+    gMusicInfo.unk_9 = (u8)gUnk_Audio0x64;
 
     for (i = 0; i < 4; i++)
     {
@@ -68,7 +68,7 @@ void InitializeAudio(void)
     {
         sMusicTrackDataROM[i].pTrack->pVariables = sMusicTrackDataROM[i].pVariables;
         sMusicTrackDataROM[i].pTrack->maxAmountOfTracks = sMusicTrackDataROM[i].maxAmountOfTracks;
-        sMusicTrackDataROM[i].pTrack->unknown_1D = sMusicTrackDataROM[i].unknonw_A;
+        sMusicTrackDataROM[i].pTrack->unk_1D = sMusicTrackDataROM[i].unknonw_A;
     }
 
     UpdateSOUNDCNT_H((u32)gUnk_Audio0x194F700);
@@ -118,19 +118,19 @@ void SetupSoundTransfer(void)
     buffer = 0;
     CpuFastSet(&buffer, gMusicInfo.soundRawData, CPU_SET_SRC_FIXED << 16 | sizeof(gMusicInfo.soundRawData) / sizeof(u32));
 
-    gMusicInfo.maybe_frequency = sNativeSmapleRate[gMusicInfo.unknown_7];
-    gMusicInfo.pitch = sMusicPitchData[gMusicInfo.unknown_7];
+    gMusicInfo.maybe_frequency = sNativeSmapleRate[gMusicInfo.unk_7];
+    gMusicInfo.pitch = sMusicPitchData[gMusicInfo.unk_7];
 
-    unk_0 = sAudio_8ccc8[gMusicInfo.unknown_7];
-    gMusicInfo.unknown_14 = unk_0;
+    unk_0 = sAudio_8ccc8[gMusicInfo.unk_7];
+    gMusicInfo.unk_14 = unk_0;
 
     unk_1 = unk_0 / 16;
-    gMusicInfo.unknown_C = unk_1;
-    unk_2 = 0x60 / gMusicInfo.unknown_C;
-    gMusicInfo.unknown_D = unk_2;
-    gMusicInfo.unknown_E = unk_2 * unk_1;
-    gMusicInfo.sampleRate = gMusicInfo.unknown_E - 1;
-    gMusicInfo.unknown_11 = unk_1 * 2;
+    gMusicInfo.unk_C = unk_1;
+    unk_2 = 0x60 / gMusicInfo.unk_C;
+    gMusicInfo.unk_D = unk_2;
+    gMusicInfo.unk_E = unk_2 * unk_1;
+    gMusicInfo.sampleRate = gMusicInfo.unk_E - 1;
+    gMusicInfo.unk_11 = unk_1 * 2;
 
     write32(REG_DMA1_SRC, (u32)&gMusicInfo.soundRawData[0]);
     write32(REG_DMA2_SRC, (u32)&gMusicInfo.soundRawData[1536]);
@@ -177,7 +177,7 @@ void SoundStop(u16 sound)
  */
 void unk_2a38(struct TrackData* pTrack)
 {
-    if (!(pTrack->unknown_1E & 1) && (pTrack->flags & 2)) {
+    if (!(pTrack->unk_1E & 1) && (pTrack->flags & 2)) {
         pTrack->flags = 1;
     }
 }
@@ -204,7 +204,7 @@ void unk_2a8c(void)
     
     for (i = (u16)gNumMusicPlayers - 1; i >= 0; i--)
     {
-        if (!(sMusicTrackDataROM[i].pTrack->unknown_1E & 1))
+        if (!(sMusicTrackDataROM[i].pTrack->unk_1E & 1))
             stop_music_or_sound(sMusicTrackDataROM[i].pTrack);
     }
 }
@@ -311,7 +311,7 @@ void unk_2c10(struct TrackData* pTrack)
 
             while (i < pTrack->amountOfTracks)
             {
-                pVariables->unknown_5 = 0x40;
+                pVariables->unk_5 = 0x40;
                 i++;
                 pVariables++;
             }
@@ -413,23 +413,23 @@ void unk_2d2c(struct TrackData* pTrack)
         pTrack->maybe_volume -= pTrack->fadingTimer;
         if (pTrack->flags & 0x80)
         {
-            pTrack->unknown_24 += pTrack->unknown_26;
-            if ((u16)(pTrack->unknown_24 >> 0xc) != 0)
+            pTrack->unk_24 += pTrack->unk_26;
+            if ((u16)(pTrack->unk_24 >> 0xc) != 0)
             {
                 pTrack->maxSoundChannels--;
-                pTrack->unknown_24 &= 0xFFF;
+                pTrack->unk_24 &= 0xFFF;
             }
 
-            pTrack->unknown_23 = 0;
+            pTrack->unk_23 = 0;
         }
 
         i = pTrack->amountOfTracks;
         while (i > 0)
         {
-            if (pVariables->unknown_0 != 0)
+            if (pVariables->unk_0 != 0)
             {
-                pVariables->unknown_5 = pTrack->maybe_volume / 1024;
-                pVariables->unknown_0 |= 4;
+                pVariables->unk_5 = pTrack->maybe_volume / 1024;
+                pVariables->unk_0 |= 4;
             }
 
             i--;
@@ -527,21 +527,21 @@ void unk_2e6c(struct TrackData* pTrack)
         pTrack->maybe_volume += pTrack->fadingTimer;
         if (pTrack->flags & 0x40)
         {
-            pTrack->unknown_24 += pTrack->unknown_26;
-            if ((u16)(pTrack->unknown_24 >> 0xc) != 0)
+            pTrack->unk_24 += pTrack->unk_26;
+            if ((u16)(pTrack->unk_24 >> 0xc) != 0)
             {
                 pTrack->maxSoundChannels++;
-                pTrack->unknown_24 &= 0xFFF;
+                pTrack->unk_24 &= 0xFFF;
             }
 
-            pTrack->unknown_23 = 0;
+            pTrack->unk_23 = 0;
         }
 
         i = pTrack->amountOfTracks;
         while (i > 0)
         {
-            pVariables->unknown_5 = pTrack->maybe_volume / 1024;
-            pVariables->unknown_0 |= 4;
+            pVariables->unk_5 = pTrack->maybe_volume / 1024;
+            pVariables->unk_0 |= 4;
 
             i--;
             pVariables++;
@@ -552,8 +552,8 @@ void unk_2e6c(struct TrackData* pTrack)
         i = pTrack->amountOfTracks;
         while (i > 0)
         {
-            pVariables->unknown_5 = 0x40;
-            pVariables->unknown_0 |= 4;
+            pVariables->unk_5 = 0x40;
+            pVariables->unk_0 |= 4;
 
             i--;
             pVariables++;
@@ -598,7 +598,7 @@ void unk_2f00(u16 musicTrack1, u16 musicTrack2, u16 timer)
                     if (pTrack1->flags & 2)
                     {
                         // Priority
-                        if (pTrack1->unknown_3 > pHeader[2])
+                        if (pTrack1->unk_3 > pHeader[2])
                         {
                             //pTrack1->occupied = FALSE;
                             //pTrack2->occupied = FALSE;
@@ -612,16 +612,16 @@ void unk_2f00(u16 musicTrack1, u16 musicTrack2, u16 timer)
                     pTrack2->flags |= 0x80;
                     pTrack2->maybe_volume = USHORT_MAX;
                     pTrack2->fadingTimer = USHORT_MAX / timer;
-                    pTrack2->unknown_26 = (gMusicInfo.maxSoundChannels * 4096) / timer;
-                    pTrack2->unknown_24 = 0;
+                    pTrack2->unk_26 = (gMusicInfo.maxSoundChannels * 4096) / timer;
+                    pTrack2->unk_24 = 0;
                     pTrack2->maxSoundChannels = gMusicInfo.maxSoundChannels;
         
                     init_track(pTrack1, pHeader);
                     pTrack1->flags = 0x40 | 0x2;
                     pTrack1->maybe_volume = 0;
                     pTrack1->fadingTimer = pTrack2->fadingTimer;
-                    pTrack1->unknown_26 = pTrack2->unknown_26;
-                    pTrack1->unknown_24 = 0;
+                    pTrack1->unk_26 = pTrack2->unk_26;
+                    pTrack1->unk_24 = 0;
                     pTrack1->maxSoundChannels = 0;
                 }
             }
@@ -648,8 +648,8 @@ void unk_3028(struct TrackData* pTrack, u16 param_2)
     {
         pTrack->occupied = TRUE;
 
-        unk = param_2 / 256 * pTrack->unknown_A;
-        pTrack->unknown_C = unk * 256 / 150;
+        unk = param_2 / 256 * pTrack->unk_A;
+        pTrack->unk_C = unk * 256 / 150;
 
         pTrack->occupied = FALSE;
     }
@@ -681,8 +681,8 @@ void unk_3058(struct TrackData* pTrack, u16 variablesMask, u16 param_3)
             {
                 if ((variablesMask >> i) & 1)
                 {
-                    pVariables->unknown_5 = param_3;
-                    pVariables->unknown_0 |= 4;
+                    pVariables->unk_5 = param_3;
+                    pVariables->unk_0 |= 4;
                 }
 
                 i--;
@@ -717,9 +717,9 @@ void unk_30b4(struct TrackData* pTrack, u16 variablesMask, u16 param_3)
         {
             if ((variablesMask >> i) & 1)
             {
-                pVariables->unknown_1D = (i16)param_3 >> 8;
-                pVariables->unknown_1F = param_3;
-                pVariables->unknown_0 |= 8;
+                pVariables->unk_1D = (i16)param_3 >> 8;
+                pVariables->unk_1F = param_3;
+                pVariables->unk_0 |= 8;
             }
 
             i--;
@@ -753,8 +753,8 @@ void unk_3110(struct TrackData* pTrack, u16 variablesMask, u8 param_3)
         {
             if ((variablesMask >> i) & 1)
             {
-                pVariables->unknown_7 = (i8)param_3 >> 1;
-                pVariables->unknown_0 |= 4;
+                pVariables->unk_7 = (i8)param_3 >> 1;
+                pVariables->unk_0 |= 4;
             }
 
             i--;
@@ -788,7 +788,7 @@ void unk_315c(struct TrackData* pTrack, u16 variablesMask, u8 param_3)
         while (i > 0)
         {
             if ((variablesMask >> i) & 1)
-                pVariables->unknown_11 = param_3;
+                pVariables->unk_11 = param_3;
 
             i--;
             pVariables++;
@@ -821,7 +821,7 @@ void unk_31a0(struct TrackData* pTrack, u16 variablesMask, u8 param_3)
         while (i > 0)
         {
             if ((variablesMask >> i) & 1)
-                pVariables->unknown_10 = param_3;
+                pVariables->unk_10 = param_3;
 
             i--;
             pVariables++;

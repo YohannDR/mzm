@@ -249,14 +249,14 @@ void TransparencySetRoomEffectsTransparency(void)
         gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = evb;
         gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = 0x10 - gIoRegistersBackup.BLDALPHA_NonGameplay_EVB;
 
-        gDefaultTransparency.unknown_1 = 0;
+        gDefaultTransparency.unk_1 = 0;
     }
     else
     {
         gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = 0x10;
         gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = eva;
 
-        gDefaultTransparency.unknown_1 = 1;
+        gDefaultTransparency.unk_1 = 1;
     }
 
     gDefaultTransparency.evaCoef = gIoRegistersBackup.BLDALPHA_NonGameplay_EVA;
@@ -294,25 +294,25 @@ void TransparencySetRoomEffectsTransparency(void)
     write16(REG_BG2CNT, bgCnt[2]);
 
     gIoRegistersBackup.BG0CNT = bgCnt[0];
-    gIoRegistersBackup.unknown_12 = bgCnt[0];
+    gIoRegistersBackup.unk_12 = bgCnt[0];
     gIoRegistersBackup.BG1CNT = bgCnt[1];
     gIoRegistersBackup.BG2CNT = bgCnt[2];
     gIoRegistersBackup.BG3CNT = bgCnt[3];
 
     if (gCurrentRoomEntry.transparency < 8)
-        gDefaultTransparency.unknown_4 = 0x3f40;
+        gDefaultTransparency.unk_4 = 0x3f40;
     else
-        gDefaultTransparency.unknown_4 = 0x3E41;
+        gDefaultTransparency.unk_4 = 0x3E41;
 
     if (gCurrentRoomEntry.visualEffect == EFFECT_BG3_GRADIENT)
-        gDefaultTransparency.unknown_4 |= 8;
+        gDefaultTransparency.unk_4 |= 8;
     else if (gCurrentRoomEntry.visualEffect == EFFECT_BG2_GRADIENT)
-        gDefaultTransparency.unknown_4 |= 4;
+        gDefaultTransparency.unk_4 |= 4;
 
     if (gCurrentRoomEntry.BG0Prop == 0x12)
-        gDefaultTransparency.unknown_4 &= ~1;
+        gDefaultTransparency.unk_4 &= ~1;
 
-    TransparencyUpdateBLDCNT(0, gDefaultTransparency.unknown_4);
+    TransparencyUpdateBLDCNT(0, gDefaultTransparency.unk_4);
 
     gWrittenToBLDCNT = 0;
 
@@ -459,7 +459,7 @@ void TransparencyUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u8 intensity)
  */
 void TransparencyApplyNewEffects(void)
 {
-    if (gDefaultTransparency.unknown_0 != 0)
+    if (gDefaultTransparency.unk_0 != 0)
     {
         gBLDYData2.activeFlag &= TRUE;
         gBldalphaData2.activeFlag &= TRUE;

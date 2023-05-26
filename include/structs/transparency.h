@@ -32,11 +32,11 @@ struct TransparencyRelated {
 };
 
 struct DefaultTransparency {
-    u8 unknown_0;
-    u8 unknown_1;
+    u8 unk_0;
+    u8 unk_1;
     u8 evbCoef;
     u8 evaCoef;
-    u16 unknown_4;
+    u16 unk_4;
 };
 
 // Globals

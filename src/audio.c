@@ -7,7 +7,10 @@
 
 void UpdateMusic(void)
 {
+    if (gMusicInfo.unk_9 != 0)
+    {
 
+    }
 }
 
 void UpdatePsgSounds(void)
@@ -33,7 +36,7 @@ void UpdateTrack(struct TrackData* pTrack)
 
     pTrack->occupied = TRUE;
 
-    if (!(pTrack->unknown_1E & 1))
+    if (!(pTrack->unk_1E & 1))
     {
         if (pTrack->flags & 0xF8)
         {
@@ -50,7 +53,7 @@ void UpdateTrack(struct TrackData* pTrack)
             {
                 for (i = 0, pVariables = pTrack->pVariables; i < pTrack->amountOfTracks; i++, pVariables++)
                 {
-                    if (pVariables->unknown_0 == 0)
+                    if (pVariables->unk_0 == 0)
                         continue;
 
                     if (pVariables->pChannel != NULL)
@@ -62,44 +65,44 @@ void UpdateTrack(struct TrackData* pTrack)
                     if (pVariables->maybe_delayBeforeStart != 0)
                     {
                         pVariables->maybe_delayBeforeStart--;
-                        if (pVariables->unknown_15 != 0)
+                        if (pVariables->unk_15 != 0)
                         {
-                            pVariables->unknown_15--;
+                            pVariables->unk_15--;
                         }
                         else
                         {
-                            if (pVariables->unknown_10 != 0 && pVariables->unknown_11 != 0)
+                            if (pVariables->unk_10 != 0 && pVariables->unk_11 != 0)
                             {
                                 if (pVariables->pChannel != NULL)
                                 {
-                                    if (pVariables->pChannel->unknown_0 != 0)
+                                    if (pVariables->pChannel->unk_0 != 0)
                                     {
-                                        pVariables->unknown_16 += pVariables->unknown_10;
-                                        if ((i8)(pVariables->unknown_16 - 0x40) < 0)
-                                            var_2 = pVariables->unknown_16;
+                                        pVariables->unk_16 += pVariables->unk_10;
+                                        if ((i8)(pVariables->unk_16 - 0x40) < 0)
+                                            var_2 = pVariables->unk_16;
                                         else
-                                            var_2 = 0x80 - (u8)pVariables->unknown_16;
+                                            var_2 = 0x80 - (u8)pVariables->unk_16;
 
-                                        if (var_2 != (i8)pVariables->unknown_13)
+                                        if (var_2 != (i8)pVariables->unk_13)
                                         {
-                                            pVariables->unknown_13 = (var_2 * (pVariables->unknown_11 + 1)) >> 7;
+                                            pVariables->unk_13 = (var_2 * (pVariables->unk_11 + 1)) >> 7;
                                             unk_1c3c(pVariables);
                                         }
                                     }
                                 }
                                 else
                                 {
-                                    if (pVariables->pSoundPSG != NULL && pVariables->pSoundPSG->unknown_0 != 0)
+                                    if (pVariables->pSoundPSG != NULL && pVariables->pSoundPSG->unk_0 != 0)
                                     {
-                                        pVariables->unknown_16 += pVariables->unknown_10;
-                                        if ((i8)(pVariables->unknown_16 - 0x40) < 0)
-                                            var_2 = pVariables->unknown_16;
+                                        pVariables->unk_16 += pVariables->unk_10;
+                                        if ((i8)(pVariables->unk_16 - 0x40) < 0)
+                                            var_2 = pVariables->unk_16;
                                         else
-                                            var_2 = 0x80 - (u8)pVariables->unknown_16;
+                                            var_2 = 0x80 - (u8)pVariables->unk_16;
 
-                                        if (var_2 != (i8)pVariables->unknown_13)
+                                        if (var_2 != (i8)pVariables->unk_13)
                                         {
-                                            pVariables->unknown_13 = (var_2 * (pVariables->unknown_11 + 1)) >> 7;
+                                            pVariables->unk_13 = (var_2 * (pVariables->unk_11 + 1)) >> 7;
                                             unk_1c3c(pVariables);
                                         }
                                     }
@@ -112,47 +115,47 @@ void UpdateTrack(struct TrackData* pTrack)
                     {
                         var_0 = *pVariables->pRawData;
                         if ((i8)var_0 >= 0)
-                            var_0 = pVariables->unknown_3;
+                            var_0 = pVariables->unk_3;
                         else if (var_0 > 0xBC)
                         {
-                            pVariables->unknown_3 = var_0;
+                            pVariables->unk_3 = var_0;
                             pVariables->pRawData++;
                         }
 
                         if (var_0 > 0xCE)
                         {
-                            pVariables->unknown_0 |= 0x2;
-                            pVariables->unknown_E = sDelayNoteLengthTable[var_0 - 0xCF];
+                            pVariables->unk_0 |= 0x2;
+                            pVariables->unk_E = sDelayNoteLengthTable[var_0 - 0xCF];
 
                             var_0 = *pVariables->pRawData;
 
-                            if (pVariables->unknown_14 != 0)
-                                pVariables->unknown_15 = pVariables->unknown_14;
+                            if (pVariables->unk_14 != 0)
+                                pVariables->unk_15 = pVariables->unk_14;
 
                             if ((i8)var_0 >= 0)
                             {
-                                pVariables->unknown_1 = var_0;
+                                pVariables->unk_1 = var_0;
                                 pVariables->pRawData++;
 
                                 var_0 = *pVariables->pRawData;
                                 if ((i8)var_0 >= 0)
                                 {
-                                    pVariables->unknown_F = var_0;
+                                    pVariables->unk_F = var_0;
                                     pVariables->pRawData++;
                                 
                                     var_0 = *pVariables->pRawData;
                                     if ((i8)var_0 >= 0)
                                     {
-                                        pVariables->unknown_E += var_0;
+                                        pVariables->unk_E += var_0;
                                         pVariables->pRawData++;
                                     }
                                 }
                             }
 
-                            if ((pVariables->unknown_0 & 0xF0) > 0x3F)
+                            if ((pVariables->unk_0 & 0xF0) > 0x3F)
                                 unk_4e10(pVariables);
 
-                            pVariables->unknown_13 = 0;
+                            pVariables->unk_13 = 0;
                             unk_4eb4(pVariables);
                             unk_4f10(pVariables);
 
@@ -205,7 +208,7 @@ void UpdateTrack(struct TrackData* pTrack)
                     }
 
 
-                    if (pVariables->unknown_0 & 4)
+                    if (pVariables->unk_0 & 4)
                     {
                         unk_4f10(pVariables);
                         if (pVariables->pChannel != NULL)
@@ -214,10 +217,10 @@ void UpdateTrack(struct TrackData* pTrack)
                         if (pVariables->pSoundPSG != NULL)
                             unk_1ddc(pVariables);
 
-                        pVariables->unknown_0 &= ~4;
+                        pVariables->unk_0 &= ~4;
                     }
 
-                    if (pVariables->unknown_0 & 8)
+                    if (pVariables->unk_0 & 8)
                     {
                         unk_4eb4(pVariables);
                         if (pVariables->pChannel != NULL)
@@ -226,7 +229,7 @@ void UpdateTrack(struct TrackData* pTrack)
                         if (pVariables->pSoundPSG != NULL)
                             unk_1de8(pVariables);
 
-                        pVariables->unknown_0 &= ~8;
+                        pVariables->unk_0 &= ~8;
                     }
                 }
                 
@@ -276,8 +279,8 @@ void unk_1bf0(struct TrackVariables* pVariables)
 
     for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pChannel->pChannel2)
     {
-        if (pChannel->unknown_E != 0 && pChannel->unknown_E-- == 1)
-            pChannel->unknown_0 = 5;
+        if (pChannel->unk_E != 0 && pChannel->unk_E-- == 1)
+            pChannel->unk_0 = 5;
     }
 }
 
@@ -292,12 +295,12 @@ void unk_1c18(struct TrackVariables* pVariables)
 
     pSound = pVariables->pSoundPSG;
 
-    if (pVariables->unknown_E != 0)
+    if (pVariables->unk_E != 0)
     {
-        if (pVariables->unknown_E-- == 1)
+        if (pVariables->unk_E-- == 1)
         {
-            pSound->unknown_0 = 5;
-            pSound->unknown_18 = 0;
+            pSound->unk_0 = 5;
+            pSound->unk_18 = 0;
         }
     }
 }
@@ -316,24 +319,24 @@ void unk_1c3c(struct TrackVariables* pVariables)
 
     pChannel = pVariables->pChannel;
 
-    switch (pVariables->unknown_12)
+    switch (pVariables->unk_12)
     {
         case 1:
         case 2:
             unk_4f10(pVariables);
             for (; pChannel != NULL; pChannel = pChannel->pChannel2)
-                pChannel->unknown_13 |= 0x10;
+                pChannel->unk_13 |= 0x10;
             break;
         
         case 0:
             unk_4eb4(pVariables);
 
-            if (pChannel->unknown_1 != 0 && pChannel->unknown_1 != 0x20)
+            if (pChannel->unk_1 != 0 && pChannel->unk_1 != 0x20)
                 break;
 
             for (; pChannel != NULL; pChannel = pChannel->pChannel2)
             {
-                midiKey = pVariables->unknown_17 + pChannel->unknown_7;
+                midiKey = pVariables->unk_17 + pChannel->unk_7;
                 tmp = midiKey;
 
                 if (tmp >= 0x80)
@@ -341,15 +344,15 @@ void unk_1c3c(struct TrackVariables* pVariables)
                 else if (tmp < 0)
                     midiKey = 0;
 
-                frequency = Midikey2Freq(pVariables->pSample1, midiKey, pVariables->unknown_18);
-                pChannel->unknown_1C = frequency;
+                frequency = Midikey2Freq(pVariables->pSample1, midiKey, pVariables->unk_18);
+                pChannel->unk_1C = frequency;
 
                 if (frequency == gMusicInfo.maybe_frequency)
                     frequency = 0x4000;
                 else
                     frequency = CallGetNoteFrequency(frequency, gMusicInfo.pitch);
 
-                pChannel->unknown_1C = frequency;
+                pChannel->unk_1C = frequency;
             }
     }
 }
@@ -368,17 +371,17 @@ void unk_1ccc(struct TrackVariables* pVariables, i16 param_2)
 
     pSound = pVariables->pSoundPSG;
 
-    if (pVariables->unknown_12 == 1)
+    if (pVariables->unk_12 == 1)
     {
         unk_4f10(pVariables);
-        pSound->unknown_12 = (pSound->unknown_19 + (i32)pVariables->unknown_13 / sUnk_808cc4d[param_2]) * 16;
-        pSound->unknown_F |= 0x20;
+        pSound->unk_12 = (pSound->unk_19 + (i32)pVariables->unk_13 / sUnk_808cc4d[param_2]) * 16;
+        pSound->unk_F |= 0x20;
     }
-    else if (pVariables->unknown_12 == 0)
+    else if (pVariables->unk_12 == 0)
     {
         unk_4eb4(pVariables);
 
-        var_0 = pVariables->unknown_17 + pVariables->pSoundPSG->unknown_1C;
+        var_0 = pVariables->unk_17 + pVariables->pSoundPSG->unk_1C;
         tmp = var_0;
 
         if (tmp >= 0x80)
@@ -386,13 +389,13 @@ void unk_1ccc(struct TrackVariables* pVariables, i16 param_2)
         else if (tmp < 0)
             var_0 = 0;
 
-        pSound->maybe_noteDelay = GetNoteDelay(pVariables, var_0, pVariables->unknown_18);
-        pSound->unknown_F |= 0x4;
+        pSound->maybe_noteDelay = GetNoteDelay(pVariables, var_0, pVariables->unk_18);
+        pSound->unk_F |= 0x4;
     }
-    else if (pVariables->unknown_12 == 2)
+    else if (pVariables->unk_12 == 2)
     {
         unk_4f10(pVariables);
-        pSound->unknown_F |= 0x10;
+        pSound->unk_F |= 0x10;
     }
 }
 
@@ -406,7 +409,7 @@ void unk_1d5c(struct TrackVariables* pVariables)
     struct SoundChannel* pChannel;
 
     for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pChannel->pChannel2)
-        pChannel->unknown_13 |= 0x10;
+        pChannel->unk_13 |= 0x10;
 }
 
 /**
@@ -423,7 +426,7 @@ void unk_1d78(struct TrackVariables* pVariables)
 
     for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pChannel->pChannel2)
     {
-        midiKey = pVariables->unknown_17 + pChannel->unknown_7;
+        midiKey = pVariables->unk_17 + pChannel->unk_7;
         tmp = midiKey;
 
         if (tmp >= 0x80)
@@ -431,16 +434,16 @@ void unk_1d78(struct TrackVariables* pVariables)
         else if (tmp < 0)
             midiKey = 0;
 
-        frequency = Midikey2Freq(pChannel->pSample, midiKey, pVariables->unknown_18);
-        pChannel->unknown_1C = frequency;
+        frequency = Midikey2Freq(pChannel->pSample, midiKey, pVariables->unk_18);
+        pChannel->unk_1C = frequency;
 
         if (frequency == gMusicInfo.maybe_frequency)
             frequency = 0x4000;
         else
             frequency = CallGetNoteFrequency(frequency, gMusicInfo.pitch);
 
-        pChannel->unknown_1C = frequency;
-        pChannel->unknown_13 |= 4;
+        pChannel->unk_1C = frequency;
+        pChannel->unk_13 |= 4;
     }
 }
 
@@ -451,7 +454,7 @@ void unk_1d78(struct TrackVariables* pVariables)
  */
 void unk_1ddc(struct TrackVariables* pVariables)
 {
-    pVariables->pSoundPSG->unknown_F |= 0x10;
+    pVariables->pSoundPSG->unk_F |= 0x10;
 }
 
 /**
@@ -464,7 +467,7 @@ void unk_1de8(struct TrackVariables* pVariables)
     u16 var_0;
     i16 tmp;
 
-    var_0 = pVariables->unknown_17 + pVariables->pSoundPSG->unknown_1C;
+    var_0 = pVariables->unk_17 + pVariables->pSoundPSG->unk_1C;
     tmp = var_0;
 
     if (tmp >= 0x80)
@@ -472,8 +475,8 @@ void unk_1de8(struct TrackVariables* pVariables)
     else if (tmp < 0)
         var_0 = 0;
 
-    pVariables->pSoundPSG->maybe_noteDelay = GetNoteDelay(pVariables, var_0, pVariables->unknown_18);
-    pVariables->pSoundPSG->unknown_F |= 0x4;
+    pVariables->pSoundPSG->maybe_noteDelay = GetNoteDelay(pVariables, var_0, pVariables->unk_18);
+    pVariables->pSoundPSG->unk_F |= 0x4;
 }
 
 void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
@@ -486,10 +489,10 @@ void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
     u8 i;
     struct SoundChannel* pChannel;
 
-    if (pTrack->unknown_3 + pVariables->unknown_B > UCHAR_MAX)
+    if (pTrack->unk_3 + pVariables->unk_B > UCHAR_MAX)
         var_0 = UCHAR_MAX;
     else
-        var_0 = pTrack->unknown_3 + pVariables->unknown_B;
+        var_0 = pTrack->unk_3 + pVariables->unk_B;
 
     var_2 = var_0;
     var_1 = FALSE;
@@ -497,13 +500,13 @@ void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
 
     for (i = 0; i < gMusicInfo.maxSoundChannels; i++)
     {
-        if (gMusicInfo.soundChannels[i].unknown_0 == 0)
+        if (gMusicInfo.soundChannels[i].unk_0 == 0)
         {
             pChannel = &gMusicInfo.soundChannels[i];
             // break;
         }
 
-        if ((u8)(gMusicInfo.soundChannels[i].unknown_0 - 5) < 2 || gMusicInfo.soundChannels[i].unknown_0 == 8)
+        if ((u8)(gMusicInfo.soundChannels[i].unk_0 - 5) < 2 || gMusicInfo.soundChannels[i].unk_0 == 8)
         {
             if (!var_1)
                 var_1 = TRUE;
@@ -511,8 +514,8 @@ void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
 
         if (!var_1)
         {
-            if (gMusicInfo.soundChannels[i].unknown_2 >= var_2 &&
-                (gMusicInfo.soundChannels[i].unknown_2 > var_2 ||
+            if (gMusicInfo.soundChannels[i].unk_2 >= var_2 &&
+                (gMusicInfo.soundChannels[i].unk_2 > var_2 ||
                 (gMusicInfo.soundChannels[i].pVariables <= pVariables &&
                 gMusicInfo.soundChannels[i].pVariables < pVariables)))
             {
@@ -524,7 +527,7 @@ void unk_1e2c(struct TrackData* pTrack, struct TrackVariables* pVariables)
             continue;
         }
 
-        var_2 = gMusicInfo.soundChannels[i].unknown_2;
+        var_2 = gMusicInfo.soundChannels[i].unk_2;
         pVariables = gMusicInfo.soundChannels[i].pVariables;
         pChannel = &gMusicInfo.soundChannels[i];
     }
@@ -545,12 +548,12 @@ void unk_1f3c(struct TrackData* pTrack, struct TrackVariables* pVariables)
 {
     if (pTrack->flags & 0x80)
     {
-        if (++pTrack->unknown_23 <= pTrack->maxSoundChannels)
+        if (++pTrack->unk_23 <= pTrack->maxSoundChannels)
             unk_1e2c(pTrack, pVariables);
     }
     else if (pTrack->flags & 0x40)
     {
-        if (++pTrack->unknown_23 <= pTrack->maxSoundChannels)
+        if (++pTrack->unk_23 <= pTrack->maxSoundChannels)
             unk_1e2c(pTrack, pVariables);
     }
 }
@@ -566,15 +569,15 @@ void unk_1f90(struct TrackData* pTrack, struct TrackVariables* pVariables)
     u8 var_0;
     struct PSGSoundData* pSound;
 
-    if (pTrack->unknown_3 + pVariables->unknown_B > UCHAR_MAX)
+    if (pTrack->unk_3 + pVariables->unk_B > UCHAR_MAX)
         var_0 = UCHAR_MAX;
     else
-        var_0 = pTrack->unknown_3 + pVariables->unknown_B;
+        var_0 = pTrack->unk_3 + pVariables->unk_B;
 
     pSound = &gUnk_300376c[pVariables->channel & 7];
-    if (pSound->unknown_0 == 0 ||
-        (var_0 >= pSound->unknown_16 &&
-        (var_0 != pSound->unknown_16 ||
+    if (pSound->unk_0 == 0 ||
+        (var_0 >= pSound->unk_16 &&
+        (var_0 != pSound->unk_16 ||
         pVariables <= pSound->pVariables)))
     {
         unk_2030(pSound, pVariables, var_0);
@@ -592,15 +595,15 @@ void unk_1fe0(struct TrackData* pTrack, struct TrackVariables* pVariables)
     u8 var_0;
     struct PSGSoundData* pSound;
 
-    if (pTrack->unknown_3 + pVariables->unknown_B > UCHAR_MAX)
+    if (pTrack->unk_3 + pVariables->unk_B > UCHAR_MAX)
         var_0 = UCHAR_MAX;
     else
-        var_0 = pTrack->unknown_3 + pVariables->unknown_B;
+        var_0 = pTrack->unk_3 + pVariables->unk_B;
 
     pSound = &gUnk_300376c[pVariables->channel & 7];
-    if (pSound->unknown_0 == 0 ||
-        (var_0 >= pSound->unknown_16 &&
-        (var_0 != pSound->unknown_16 ||
+    if (pSound->unk_0 == 0 ||
+        (var_0 >= pSound->unk_16 &&
+        (var_0 != pSound->unk_16 ||
         pVariables <= pSound->pVariables)))
     {
         unk_2030(pSound, pVariables, var_0);
@@ -619,17 +622,17 @@ void unk_2030(struct PSGSoundData* pSound, struct TrackVariables* pVariables, u3
     u16 var_0;
     i16 tmp;
 
-    pSound->unknown_16 = param_3;
-    pSound->unknown_1 = pVariables->channel;
-    pSound->unknown_C = pVariables->unknown_6;
-    pSound->unknown_17 = pVariables->unknown_1;
+    pSound->unk_16 = param_3;
+    pSound->unk_1 = pVariables->channel;
+    pSound->unk_C = pVariables->unk_6;
+    pSound->unk_17 = pVariables->unk_1;
 
-    if ((pVariables->unknown_0 & 0xF0) == 0x80)
-        pSound->unknown_1C = pVariables->unknown_35;
+    if ((pVariables->unk_0 & 0xF0) == 0x80)
+        pSound->unk_1C = pVariables->unk_35;
     else
-        pSound->unknown_1C = pVariables->unknown_1;
+        pSound->unk_1C = pVariables->unk_1;
 
-    var_0 = pVariables->unknown_17 + pSound->unknown_1C;
+    var_0 = pVariables->unk_17 + pSound->unk_1C;
     tmp = var_0;
 
     if (tmp >= 0x80)
@@ -637,11 +640,11 @@ void unk_2030(struct PSGSoundData* pSound, struct TrackVariables* pVariables, u3
     else if (tmp < 0)
         var_0 = 0;
 
-    pSound->maybe_noteDelay = GetNoteDelay(pVariables, var_0, pVariables->unknown_18);
+    pSound->maybe_noteDelay = GetNoteDelay(pVariables, var_0, pVariables->unk_18);
     pSound->pVariables->pSoundPSG = NULL;
     pSound->pVariables = pVariables;
-    pSound->unknown_F |= 2;
-    pSound->unknown_0 = 1;
+    pSound->unk_F |= 2;
+    pSound->unk_0 = 1;
     pVariables->pSoundPSG = pSound;
 }
 
@@ -714,7 +717,7 @@ void unk_2140(struct TrackData* pTrack, struct TrackVariables* pVariables)
     if (pVariables->pSoundPSG != NULL)
     {
         ClearRegistersForPsg(pVariables->pSoundPSG, (pVariables->channel & 7) - 1);
-        pVariables->pSoundPSG->unknown_0 = 0;
+        pVariables->pSoundPSG->unk_0 = 0;
         pVariables->pSoundPSG->pVariables = NULL;
     }
 
@@ -722,7 +725,7 @@ void unk_2140(struct TrackData* pTrack, struct TrackVariables* pVariables)
     {
         for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pNext)
         {
-            pChannel->unknown_0 = 10;
+            pChannel->unk_0 = 10;
             pChannel->pVariables = NULL;
             pNext = pChannel->pChannel2;
             pChannel->pChannel2 = NULL;
@@ -733,14 +736,14 @@ void unk_2140(struct TrackData* pTrack, struct TrackVariables* pVariables)
     pVariables->pSoundPSG = NULL;
     pVariables->pChannel = NULL;
 
-    if (++pTrack->unknown_4 == pTrack->amountOfTracks)
+    if (++pTrack->unk_4 == pTrack->amountOfTracks)
     {
         unk_2a38(pTrack);
         pTrack->flags = 0;
-        pTrack->unknown_4 = 0;
+        pTrack->unk_4 = 0;
     }
 
-    pVariables->unknown_0 = 0;
+    pVariables->unk_0 = 0;
 }
 
 /**
@@ -757,7 +760,7 @@ void unk_21b0(struct TrackData* pTrack, struct TrackVariables* pVariables)
     if (pVariables->pSoundPSG != NULL)
     {
         ClearRegistersForPsg(pVariables->pSoundPSG, (pVariables->channel & 7) - 1);
-        pVariables->pSoundPSG->unknown_0 = 0;
+        pVariables->pSoundPSG->unk_0 = 0;
         pVariables->pSoundPSG->pVariables = NULL;
     }
 
@@ -765,7 +768,7 @@ void unk_21b0(struct TrackData* pTrack, struct TrackVariables* pVariables)
     {
         for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pNext)
         {
-            pChannel->unknown_0 = 10;
+            pChannel->unk_0 = 10;
             pChannel->pVariables = NULL;
             pNext = pChannel->pChannel2;
             pChannel->pChannel2 = NULL;
@@ -776,15 +779,15 @@ void unk_21b0(struct TrackData* pTrack, struct TrackVariables* pVariables)
     pVariables->pSoundPSG = NULL;
     pVariables->pChannel = NULL;
 
-    if (++pTrack->unknown_4 == pTrack->amountOfTracks)
+    if (++pTrack->unk_4 == pTrack->amountOfTracks)
     {
         unk_2a38(pTrack);
         pTrack->flags = 0;
-        pTrack->unknown_4 = 0;
+        pTrack->unk_4 = 0;
         pTrack->queueFlags |= 0x2;
     }
 
-    pVariables->unknown_0 = 0;
+    pVariables->unk_0 = 0;
 }
 
 /**
@@ -798,12 +801,12 @@ void unk_222c(struct TrackVariables* pVariables)
 
     pVariables->pRawData++;
 
-    for (i = ARRAY_SIZE(pVariables->unknown_28) - 1; i >= 0; i--)
+    for (i = ARRAY_SIZE(pVariables->unk_28) - 1; i >= 0; i--)
     {
-        if (pVariables->unknown_28[i])
+        if (pVariables->unk_28[i])
         {
-            pVariables->pRawData = pVariables->unknown_28[i];
-            pVariables->unknown_28[i] = NULL;
+            pVariables->pRawData = pVariables->unk_28[i];
+            pVariables->unk_28[i] = NULL;
             break;
         }
     }
@@ -816,15 +819,15 @@ void unk_222c(struct TrackVariables* pVariables)
  */
 void unk_2264(struct TrackVariables* pVariables)
 {
-    if (pVariables->unknown_A == 0)
+    if (pVariables->unk_A == 0)
     {
         pVariables->pRawData++;
-        pVariables->unknown_A = *pVariables->pRawData;
+        pVariables->unk_A = *pVariables->pRawData;
         unk_5070(pVariables);
         return;
     }
 
-    if (--pVariables->unknown_A == 0)
+    if (--pVariables->unk_A == 0)
     {
         unk_222c(pVariables);
         return;
@@ -842,7 +845,7 @@ void unk_2264(struct TrackVariables* pVariables)
 void unk_22a4(struct TrackVariables* pVariables)
 {
     pVariables->pRawData++;
-    pVariables->unknown_B = *pVariables->pRawData++;
+    pVariables->unk_B = *pVariables->pRawData++;
 }
 
 /**
@@ -853,8 +856,8 @@ void unk_22a4(struct TrackVariables* pVariables)
 void unk_22b4(struct TrackVariables* pVariables)
 {
     pVariables->pRawData++;
-    pVariables->unknown_1C = *pVariables->pRawData;
-    pVariables->unknown_0 |= 0x8;
+    pVariables->unk_1C = *pVariables->pRawData;
+    pVariables->unk_0 |= 0x8;
     pVariables->pRawData++;
 }
 
@@ -876,20 +879,20 @@ void unk_22cc(struct TrackData* pTrack, struct TrackVariables* pVariables)
     {
         if (pVariables->channel == 0x80)
         {
-            pVariables->unknown_0 |= 0x80;
+            pVariables->unk_0 |= 0x80;
             pVariables->pSample2 = pVoice->pSample;
         }
         else if (pVariables->channel == 0x40)
         {
-            pVariables->unknown_0 |= 0x40;
+            pVariables->unk_0 |= 0x40;
             pVariables->pSample2 = pVoice->pSample;
             pVariables->envelope2 = pVoice->envelope;
         }
     }
     else
     {
-        pVariables->unknown_0 &= 0xF;
-        pVariables->unknown_36 = pVoice->unk_2;
+        pVariables->unk_0 &= 0xF;
+        pVariables->unk_36 = pVoice->unk_2;
 
         channel = pVariables->channel & 7;
 
@@ -900,9 +903,9 @@ void unk_22cc(struct TrackData* pTrack, struct TrackVariables* pVariables)
         else if (channel < 3)
         {
             if (!(pVoice->unk_3 & 0x80) && pVoice->unk_3 & 0x70)
-                pVariables->unknown_37 = pVoice->unk_3;
+                pVariables->unk_37 = pVoice->unk_3;
             else
-                pVariables->unknown_37 = 8;
+                pVariables->unk_37 = 8;
 
             pVariables->pSample1 = (u32*)((u32)pVoice->pSample << 0x1E >> 0x18);
         }
@@ -928,8 +931,8 @@ void unk_22cc(struct TrackData* pTrack, struct TrackVariables* pVariables)
  */
 void unk_238c(struct TrackVariables* pVariables)
 {
-    pVariables->unknown_4 = *pVariables->pRawData;
-    pVariables->unknown_0 |= 0x4;
+    pVariables->unk_4 = *pVariables->pRawData;
+    pVariables->unk_0 |= 0x4;
     pVariables->pRawData++;
 }
 
@@ -940,8 +943,8 @@ void unk_238c(struct TrackVariables* pVariables)
  */
 void unk_23a0(struct TrackVariables* pVariables)
 {
-    pVariables->unknown_6 = *pVariables->pRawData;
-    pVariables->unknown_0 |= 0x4;
+    pVariables->unk_6 = *pVariables->pRawData;
+    pVariables->unk_0 |= 0x4;
     pVariables->pRawData++;
 }
 
@@ -952,8 +955,8 @@ void unk_23a0(struct TrackVariables* pVariables)
  */
 void unk_23b4(struct TrackVariables* pVariables)
 {
-    pVariables->unknown_19 = *pVariables->pRawData - 0x40;
-    pVariables->unknown_0 |= 0x8;
+    pVariables->unk_19 = *pVariables->pRawData - 0x40;
+    pVariables->unk_0 |= 0x8;
     pVariables->pRawData++;
 }
 
@@ -964,8 +967,8 @@ void unk_23b4(struct TrackVariables* pVariables)
  */
 void unk_23cc(struct TrackVariables* pVariables)
 {
-    pVariables->unknown_1A = *pVariables->pRawData;
-    pVariables->unknown_0 |= 0x8;
+    pVariables->unk_1A = *pVariables->pRawData;
+    pVariables->unk_0 |= 0x8;
     pVariables->pRawData++;
 }
 
@@ -976,7 +979,7 @@ void unk_23cc(struct TrackVariables* pVariables)
  */
 void unk_23e0(struct TrackVariables* pVariables)
 {
-    pVariables->unknown_10 = (*pVariables->pRawData + 1) / 2;
+    pVariables->unk_10 = (*pVariables->pRawData + 1) / 2;
     pVariables->pRawData++;
 }
 
@@ -990,8 +993,8 @@ void unk_23f0(struct TrackVariables* pVariables)
     u8 temp;
 
     temp = *pVariables->pRawData;
-    pVariables->unknown_14 = temp;
-    pVariables->unknown_15 = temp;
+    pVariables->unk_14 = temp;
+    pVariables->unk_15 = temp;
     pVariables->pRawData++;
 }
 
@@ -1002,7 +1005,7 @@ void unk_23f0(struct TrackVariables* pVariables)
  */
 void unk_2400(struct TrackVariables* pVariables)
 {
-    pVariables->unknown_11 = *pVariables->pRawData;
+    pVariables->unk_11 = *pVariables->pRawData;
     pVariables->pRawData++;
 }
 
@@ -1013,7 +1016,7 @@ void unk_2400(struct TrackVariables* pVariables)
  */
 void unk_240c(struct TrackVariables* pVariables)
 {
-    pVariables->unknown_12 = *pVariables->pRawData;
+    pVariables->unk_12 = *pVariables->pRawData;
     pVariables->pRawData++;
 }
 
@@ -1024,8 +1027,8 @@ void unk_240c(struct TrackVariables* pVariables)
  */
 void unk_2418(struct TrackVariables* pVariables)
 {
-    pVariables->unknown_1E = *pVariables->pRawData - 0x40;
-    pVariables->unknown_0 |= 0x8;
+    pVariables->unk_1E = *pVariables->pRawData - 0x40;
+    pVariables->unk_0 |= 0x8;
     pVariables->pRawData++;
 }
 
@@ -1039,14 +1042,14 @@ void unk_2430(struct TrackVariables* pVariables)
     if (*pVariables->pRawData == 8)
     {
         pVariables->pRawData++;
-        pVariables->unknown_C = *pVariables->pRawData;
+        pVariables->unk_C = *pVariables->pRawData;
         pVariables->pRawData++;
     }
 
     if (*pVariables->pRawData == 9)
     {
         pVariables->pRawData++;
-        pVariables->unknown_D = *pVariables->pRawData;
+        pVariables->unk_D = *pVariables->pRawData;
         pVariables->pRawData++;
     }
 }
@@ -1065,31 +1068,31 @@ void unk_2460(struct TrackVariables* pVariables)
     if ((i8)*pVariables->pRawData >= 0)
     {
         var_0 = *pVariables->pRawData;
-        pVariables->unknown_1 = var_0;
+        pVariables->unk_1 = var_0;
         pVariables->pRawData++;
     }
     else
     {
-        var_0 = pVariables->unknown_1;
+        var_0 = pVariables->unk_1;
     }
     
     if (pVariables->pChannel)
     {
         for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pChannel->pChannel2)
         {
-            if ((u8)(pChannel->unknown_0 - 1) < 4 && pChannel->unknown_6 == var_0)
+            if ((u8)(pChannel->unk_0 - 1) < 4 && pChannel->unk_6 == var_0)
             {
-                pChannel->unknown_0 = 5;
+                pChannel->unk_0 = 5;
                 break;
             }
         }
     }
 
     pSound = pVariables->pSoundPSG;
-    if (pSound != NULL && pSound->unknown_17 == var_0)
+    if (pSound != NULL && pSound->unk_17 == var_0)
     {
-        pSound->unknown_0 = 5;
-        pVariables->pSoundPSG->unknown_18 = 0;
+        pSound->unk_0 = 5;
+        pVariables->pSoundPSG->unk_18 = 0;
     }
 }
 

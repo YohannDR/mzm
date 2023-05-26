@@ -668,8 +668,8 @@ void SramWrite_ToEwram(void)
     struct SaveMusicInfo musicInfo;
 
     musicInfo.musicTrack = gMusicInfo.musicTrack;
-    musicInfo.unk_2 = gMusicInfo.unknown_1E;
-    musicInfo.unk_4 = gMusicInfo.unknown_20;
+    musicInfo.unk_2 = gMusicInfo.unk_1E;
+    musicInfo.unk_4 = gMusicInfo.unk_20;
     musicInfo.priority = gMusicInfo.priority;
 
     pFile = &sSramEwramPointer->files[gMostRecentSaveFile];
@@ -825,8 +825,8 @@ void SramRead_FromEwram(void)
         gInGameCutscenesTriggered[i] = pFile->inGameCutscenesTriggered[i];
 
     gMusicInfo.musicTrack = musicInfo.musicTrack;
-    gMusicInfo.unknown_1E = musicInfo.unk_2;
-    gMusicInfo.unknown_20 = musicInfo.unk_4;
+    gMusicInfo.unk_1E = musicInfo.unk_2;
+    gMusicInfo.unk_20 = musicInfo.unk_4;
     gMusicInfo.priority = musicInfo.priority;
 }
 

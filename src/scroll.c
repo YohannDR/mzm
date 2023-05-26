@@ -490,18 +490,18 @@ void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
 
             if (position < 0)
             {
-                if (gIoRegistersBackup.unknown_12 & 0xC000 && gIoRegistersBackup.BG0CNT & 0xC000)
+                if (gIoRegistersBackup.unk_12 & 0xC000 && gIoRegistersBackup.BG0CNT & 0xC000)
                 {
-                    gIoRegistersBackup.unknown_12 &= ~0xC000;
-                    write16(REG_BG0CNT, gIoRegistersBackup.unknown_12);
+                    gIoRegistersBackup.unk_12 &= ~0xC000;
+                    write16(REG_BG0CNT, gIoRegistersBackup.unk_12);
                 }
             }
             else
             {
-                if (!(gIoRegistersBackup.unknown_12 & 0xC000) && gIoRegistersBackup.BG0CNT & 0xC000)
+                if (!(gIoRegistersBackup.unk_12 & 0xC000) && gIoRegistersBackup.BG0CNT & 0xC000)
                 {
-                    gIoRegistersBackup.unknown_12 |= (gIoRegistersBackup.BG0CNT & 0xC000);
-                    write16(REG_BG0CNT, read16(REG_BG0CNT) | gIoRegistersBackup.unknown_12);
+                    gIoRegistersBackup.unk_12 |= (gIoRegistersBackup.BG0CNT & 0xC000);
+                    write16(REG_BG0CNT, read16(REG_BG0CNT) | gIoRegistersBackup.unk_12);
                 }
             }
 

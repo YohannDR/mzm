@@ -374,7 +374,7 @@ void unk_5c190(void)
 
     DMATransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
 
-    write16(REG_BG0CNT, gIoRegistersBackup.unknown_12);
+    write16(REG_BG0CNT, gIoRegistersBackup.unk_12);
     write16(REG_BG3CNT, gIoRegistersBackup.BG3CNT);
 
     gDisableDrawingSprites = FALSE;
@@ -1203,7 +1203,7 @@ u8 ColorFading_UpdateDoorTransition(void)
 
                 DMATransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
 
-                write16(REG_BG0CNT, gIoRegistersBackup.unknown_12);
+                write16(REG_BG0CNT, gIoRegistersBackup.unk_12);
                 write16(REG_BG3CNT, gIoRegistersBackup.BG3CNT);
 
                 gBackgroundPositions.doorTransition.y = gBackgroundPositions.bg[3].y;

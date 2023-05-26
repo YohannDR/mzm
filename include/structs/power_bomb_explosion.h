@@ -9,7 +9,7 @@ struct PowerBomb {
     u8 animationState;
     u8 stage;
     u8 semiMinorAxis;
-    u8 unknown_3;
+    u8 unk_3;
     u16 xPosition;
     u16 yPosition;
     i16 hitboxLeftOffset;
@@ -18,7 +18,7 @@ struct PowerBomb {
     i16 hitboxBottomOffset;
     u8 powerBombPlaced;
     u8 owner;
-    u8 unknown_12;
+    u8 unk_12;
 };
 
 extern struct PowerBomb gCurrentPowerBomb;

@@ -14,7 +14,7 @@
 void DMA2IntrCode(void)
 {
     gMusicInfo.sampleRate++;
-    if (gMusicInfo.sampleRate == gMusicInfo.unknown_E)
+    if (gMusicInfo.sampleRate == gMusicInfo.unk_E)
     {
         write32(REG_DMA1_CNT, (DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE) << 16 | 4);
         write32(REG_DMA2_CNT, (DMA_DEST_FIXED | DMA_32BIT | DMA_ENABLE) << 16 | 4);
@@ -120,9 +120,9 @@ void unk_34ac(u8 param_1)
 
             pTrack->occupied = TRUE;
 
-            if (!(pTrack->unknown_1E & TRUE) && pTrack->flags & 2)
+            if (!(pTrack->unk_1E & TRUE) && pTrack->flags & 2)
             {
-                pTrack->unknown_1E = TRUE;
+                pTrack->unk_1E = TRUE;
 
                 for (j = 0, pVariables = pTrack->pVariables; j < pTrack->amountOfTracks; j++, pVariables++)
                 {
@@ -142,7 +142,7 @@ void unk_34ac(u8 param_1)
                             gSoundChannelBackup[currChannel].channel = *pChannel;
                             currChannel++;
 
-                            pChannel->unknown_0 = 0;
+                            pChannel->unk_0 = 0;
                             pChannel->pVariables = NULL;
                             pChannelNext = pChannel->pChannel2;
                             pChannel->pChannel2 = NULL;
@@ -188,9 +188,9 @@ void unk_35d0(u8 param_1)
 
             pTrack->occupied = TRUE;
 
-            if (pTrack->unknown_1E & TRUE)
+            if (pTrack->unk_1E & TRUE)
             {
-                pTrack->unknown_1E &= ~TRUE;
+                pTrack->unk_1E &= ~TRUE;
 
                 for (j = 0, pVariables = pTrack->pVariables; j < pTrack->amountOfTracks; j++, pVariables++)
                 {
@@ -342,7 +342,7 @@ void CheckPlayTransitionMusicTrack(void)
         {
             init_track(sMusicTrackDataROM[0].pTrack, sSoundDataEntries[gMusicInfo.musicTrackOnTransition].pHeader);
 
-            gMusicInfo.unknown_20 = 0;
+            gMusicInfo.unk_20 = 0;
             gMusicInfo.musicTrack = gMusicInfo.musicTrackOnTransition;
             gMusicInfo.musicTrackOnTransition = MUSIC_NONE;
         }
@@ -359,7 +359,7 @@ void unk_38d8(void)
     {
         init_track(sMusicTrackDataROM[0].pTrack,
             sSoundDataEntries[DetermineNewMusicTrack(gMusicInfo.musicTrackOnTransition)].pHeader);
-        gMusicInfo.unknown_20 = 0;
+        gMusicInfo.unk_20 = 0;
         gMusicInfo.musicTrack = gMusicInfo.musicTrackOnTransition;
     }
 
@@ -461,7 +461,7 @@ void PlayMusic(u16 musicTrack, u8 priority)
 
         if (pHeader != pTrack->pHeader || !(pTrack->flags & 2))
         {
-            gMusicInfo.unknown_20 = 0;
+            gMusicInfo.unk_20 = 0;
             gMusicInfo.musicTrack = musicTrack;
             gMusicInfo.occupied = FALSE;
             init_track(pTrack, pHeader);
@@ -479,7 +479,7 @@ void unk_3a6c(void)
 {
     struct TrackData* pTrack;
 
-    if (gMusicInfo.unknown_20 == 0)
+    if (gMusicInfo.unk_20 == 0)
         pTrack = sMusicTrackDataROM[0].pTrack;
     else
         pTrack = sMusicTrackDataROM[1].pTrack;
@@ -636,7 +636,7 @@ void CheckPlayFadingMusic(u16 musicTrack, u16 timer, u8 priority)
 
         if ((pTrack->flags & (0x2 | 0x8 | 0x10)) != 0x2 || pHeader != pTrack->pHeader)
         {
-            gMusicInfo.unknown_20 = 0;
+            gMusicInfo.unk_20 = 0;
             gMusicInfo.musicTrack = musicTrack;
             gMusicInfo.occupied = FALSE;
             InitFadingMusic(pTrack, pHeader, timer);
@@ -683,7 +683,7 @@ void InsertMusicAndQueueCurrent(u16 musicTrack, u8 param_2)
                 pTrack->queueFlags |= 0x80;
             }
 
-            gMusicInfo.unknown_20 = 1;
+            gMusicInfo.unk_20 = 1;
             gMusicInfo.occupied = FALSE;
             init_track(pTrack, pHeader);
         }
@@ -713,7 +713,7 @@ void ReplayQueuedMusic(u8 queueFlags)
 
     pTrack = sMusicTrackDataROM[0].pTrack;
 
-    gMusicInfo.unknown_20 = 0;
+    gMusicInfo.unk_20 = 0;
     if ((u16)(gMusicInfo.musicTrack - 0x5A) < 0xA)
         music = DetermineNewMusicTrack(gMusicInfo.musicTrack);
     else
@@ -745,7 +745,7 @@ void unk_3e24(u16 timer)
 {
     struct TrackData* pTrack;
 
-    if (gMusicInfo.unknown_20 == 0)
+    if (gMusicInfo.unk_20 == 0)
         pTrack = sMusicTrackDataROM[0].pTrack;
     else
         pTrack = sMusicTrackDataROM[1].pTrack;
@@ -795,7 +795,7 @@ void PlayCurrentMusicTrack(void)
     gMusicInfo.occupied = TRUE;
 
     pTrack = sMusicTrackDataROM[0].pTrack;
-    gMusicInfo.unknown_20 = 0;
+    gMusicInfo.unk_20 = 0;
 
     currTrack = gMusicInfo.musicTrack;
     musicTrack = currTrack - 0x5A;
@@ -936,9 +936,9 @@ void BackupTrackData2SoundChannels(void)
     if (!pTrack->occupied)
     {
         pTrack->occupied = TRUE;
-        if (!(pTrack->unknown_1E & 1) && pTrack->flags & 2)
+        if (!(pTrack->unk_1E & 1) && pTrack->flags & 2)
         {
-            pTrack->unknown_1E = 1;
+            pTrack->unk_1E = 1;
 
             trackID = 0;
             pVariables  = pTrack->pVariables;
@@ -959,7 +959,7 @@ void BackupTrackData2SoundChannels(void)
                             gSoundChannelTrack2Backup[i].channel = *pChannel;
 
                             i++;
-                            pChannel->unknown_0 = 0;
+                            pChannel->unk_0 = 0;
                             pChannel->pVariables = NULL;
 
                             pChannel2 = pChannel->pChannel2;
@@ -998,9 +998,9 @@ void RetrieveTrackData2SoundChannels(void)
     {
         pTrack->occupied = TRUE;
 
-        if (pTrack->unknown_1E & 1)
+        if (pTrack->unk_1E & 1)
         {
-            pTrack->unknown_1E &= ~1;
+            pTrack->unk_1E &= ~1;
             trackID = 0;
             pVariables = pTrack->pVariables;
 
@@ -1051,7 +1051,7 @@ void DelayMusicStart(struct TrackData* pTrack, u16 delay)
         pVariables = pTrack->pVariables;
         while (trackID < pTrack->amountOfTracks)
         {
-            if (pVariables->unknown_0 != 0)
+            if (pVariables->unk_0 != 0)
                 pVariables->maybe_delayBeforeStart += delay;
 
             trackID++;
@@ -1128,7 +1128,7 @@ void unk_42bc(u16 musicTrack)
 
     init_track(sMusicTrackDataROM[0].pTrack, sSoundDataEntries[musicTrack].pHeader);
     
-    gMusicInfo.unknown_20 = 0;
+    gMusicInfo.unk_20 = 0;
     gMusicInfo.musicTrack = musicTrack;
 
     // Doesn't remove the occupied flag

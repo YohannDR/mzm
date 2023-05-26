@@ -277,7 +277,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             break;
 
         case 1:
-            gDefaultTransparency.unknown_0 = 1;
+            gDefaultTransparency.unk_0 = 1;
             gWrittenToBLDALPHA_H = gIoRegistersBackup.BLDALPHA_NonGameplay_EVB;
             gWrittenToBLDALPHA_L = gIoRegistersBackup.BLDALPHA_NonGameplay_EVA;
             changeStage = TRUE;
@@ -545,7 +545,7 @@ u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             // Give control back to player
             gSamusData.lastWallTouchedMidAir = FALSE;
             gDisablePause = FALSE;
-            gDefaultTransparency.unknown_0 = 0;
+            gDefaultTransparency.unk_0 = 0;
 
             // Since this cutscene never returns 5, this function is still called even after it ended
             // it's on stage 20 so technically nothing happens, but it's a weird oversight
@@ -818,7 +818,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
             TransparencyUpdateBLDCNT(0, gIoRegistersBackup.BLDCNT_NonGameplay);
 
             gIoRegistersBackup.BG0CNT = 8;
-            gIoRegistersBackup.unknown_12 = 8;
+            gIoRegistersBackup.unk_12 = 8;
             gIoRegistersBackup.DISPCNT_NonGameplay |= DCNT_BG0;
 
             ColorFadingStart(COLOR_FADING_NO_TRANSITION_HUD_HIDE);

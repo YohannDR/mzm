@@ -25,7 +25,7 @@ void PowerBombExplosionProcess(void)
     if (gCurrentPowerBomb.animationState > 0x1)
     {
         PowerBombExplosionSet0x12To0();
-        if (gCurrentPowerBomb.unknown_12 == 0x0) // Most likely a cancelled feature
+        if (gCurrentPowerBomb.unk_12 == 0x0) // Most likely a cancelled feature
         {
             if (gCurrentPowerBomb.animationState == 0x2)
                 PowerBombExplosionBegin();
@@ -208,7 +208,7 @@ void PowerBombExplosionStart(u16 xPosition, u16 yPosition, u8 owner)
             gCurrentPowerBomb.xPosition = xPosition;
             gCurrentPowerBomb.yPosition = yPosition;
             gCurrentPowerBomb.owner = owner;
-            if (gCurrentPowerBomb.unknown_12 != 0x0)
+            if (gCurrentPowerBomb.unk_12 != 0x0)
                 gCurrentPowerBomb.animationState = 0x2;
             else
                 PowerBombExplosionBegin();
@@ -222,7 +222,7 @@ void PowerBombExplosionStart(u16 xPosition, u16 yPosition, u8 owner)
  */
 void PowerBombExplosionSet0x12To0(void)
 {
-    gCurrentPowerBomb.unknown_12 = 0x0;
+    gCurrentPowerBomb.unk_12 = 0x0;
 }
 
 /**
@@ -244,8 +244,8 @@ void PowerBombExplosionBegin(void)
         gCurrentPowerBomb.hitboxRightOffset = 0x0;
         gCurrentPowerBomb.hitboxTopOffset = 0x0;
         gCurrentPowerBomb.hitboxBottomOffset = 0x0;
-        gCurrentPowerBomb.unknown_12 = 0x0;
-        gCurrentPowerBomb.unknown_3 = 0x0;
+        gCurrentPowerBomb.unk_12 = 0x0;
+        gCurrentPowerBomb.unk_3 = 0x0;
         ScreenShakeStartHorizontal(0x78, 0x80);
         SoundPlay(0x101); // Power bomb explosion
     }

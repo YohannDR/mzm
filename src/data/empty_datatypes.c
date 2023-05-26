@@ -66,7 +66,7 @@ const struct PowerBomb sPowerBomb_Empty = {
     .animationState = 0,
     .stage = 0,
     .semiMinorAxis = 0,
-    .unknown_3 = 0,
+    .unk_3 = 0,
     .xPosition = 0,
     .yPosition = 0,
     .hitboxLeftOffset = 0,
@@ -75,7 +75,7 @@ const struct PowerBomb sPowerBomb_Empty = {
     .hitboxBottomOffset = 0,
     .powerBombPlaced = FALSE,
     .owner = 0,
-    .unknown_12 = 0
+    .unk_12 = 0
 };
 
 const struct ScreenShake sScreenShake_Empty = {
@@ -145,9 +145,9 @@ const struct BldyData sBldyData_Empty = {
 };
 
 const struct DefaultTransparency sDefaultTransparency_Empty = {
-    .unknown_0 = 0,
-    .unknown_1 = 0,
+    .unk_0 = 0,
+    .unk_1 = 0,
     .evbCoef = 0,
     .evaCoef = 0,
-    .unknown_4 = 0
+    .unk_4 = 0
 };

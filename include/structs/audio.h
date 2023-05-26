@@ -37,26 +37,26 @@ struct SoundQueue {
 };
 
 struct SoundChannel {
-    u8 unknown_0;
-    u8 unknown_1;
-    u8 unknown_2;
-    u8 unknown_3;
-    u8 unknown_4;
-    u8 unknown_5;
-    u8 unknown_6;
-    u8 unknown_7;
+    u8 unk_0;
+    u8 unk_1;
+    u8 unk_2;
+    u8 unk_3;
+    u8 unk_4;
+    u8 unk_5;
+    u8 unk_6;
+    u8 unk_7;
     struct Envelope envelope;
-    u8 unknown_C;
-    u8 unknown_D;
-    u8 unknown_E;
-    u8 unknown_F;
-    u8 unknown_10;
-    u8 unknown_11;
-    u8 unknown_12;
-    u8 unknown_13;
+    u8 unk_C;
+    u8 unk_D;
+    u8 unk_E;
+    u8 unk_F;
+    u8 unk_10;
+    u8 unk_11;
+    u8 unk_12;
+    u8 unk_13;
     u32* pSize;
-    u32 unknown_18;
-    u32 unknown_1C;
+    u32 unk_18;
+    u32 unk_1C;
     u32* pSample; // Type?
     u8* pData;
     struct TrackVariables* pVariables;
@@ -70,76 +70,76 @@ struct SoundChannelBackup {
 };
 
 struct PSGSoundData {
-    u8 unknown_0;
-    u8 unknown_1;
-    u8 unknown_2;
-    u8 unknown_3;
+    u8 unk_0;
+    u8 unk_1;
+    u8 unk_2;
+    u8 unk_3;
     struct Envelope envelope;
     u16 maybe_noteDelay;
-    u8 unknown_A;
-    u8 unknown_B;
-    u8 unknown_C;
-    u8 unknown_D;
-    u8 unknown_E;
-    u8 unknown_F;
-    u8 unknown_10;
-    u8 unknown_11;
-    u8 unknown_12;
+    u8 unk_A;
+    u8 unk_B;
+    u8 unk_C;
+    u8 unk_D;
+    u8 unk_E;
+    u8 unk_F;
+    u8 unk_10;
+    u8 unk_11;
+    u8 unk_12;
     u8 undefined_13;
-    u16 unknown_14;
-    u8 unknown_16;
-    u8 unknown_17;
-    u8 unknown_18;
-    u8 unknown_19;
-    u8 unknown_1A;
-    u8 unknown_1B;
-    u8 unknown_1C;
-    u8 unknown_1D;
-    u8 unknown_1E;
-    u8 unknown_1F;
+    u16 unk_14;
+    u8 unk_16;
+    u8 unk_17;
+    u8 unk_18;
+    u8 unk_19;
+    u8 unk_1A;
+    u8 unk_1B;
+    u8 unk_1C;
+    u8 unk_1D;
+    u8 unk_1E;
+    u8 unk_1F;
     u32* pSample; // Type?
     struct TrackVariables* pVariables;
 };
 
 struct TrackVariables {
-    u8 unknown_0;
-    u8 unknown_1;
+    u8 unk_0;
+    u8 unk_1;
     u8 maybe_delayBeforeStart;
-    u8 unknown_3;
-    u8 unknown_4;
-    u8 unknown_5;
-    u8 unknown_6;
-    u8 unknown_7;
-    u16 unknown_8;
-    u8 unknown_A;
-    u8 unknown_B;
-    u8 unknown_C;
-    u8 unknown_D;
-    u8 unknown_E;
-    u8 unknown_F;
-    u8 unknown_10;
-    u8 unknown_11;
-    u8 unknown_12;
-    i8 unknown_13;
-    u8 unknown_14;
-    u8 unknown_15;
-    i8 unknown_16;
-    i8 unknown_17;
-    u8 unknown_18;
-    i8 unknown_19;
-    u8 unknown_1A;
-    u8 unknown_1B;
-    u8 unknown_1C;
-    u8 unknown_1D;
-    u8 unknown_1E;
-    u8 unknown_1F;
-    u32 unknown_20;
+    u8 unk_3;
+    u8 unk_4;
+    u8 unk_5;
+    u8 unk_6;
+    u8 unk_7;
+    u16 unk_8;
+    u8 unk_A;
+    u8 unk_B;
+    u8 unk_C;
+    u8 unk_D;
+    u8 unk_E;
+    u8 unk_F;
+    u8 unk_10;
+    u8 unk_11;
+    u8 unk_12;
+    i8 unk_13;
+    u8 unk_14;
+    u8 unk_15;
+    i8 unk_16;
+    i8 unk_17;
+    u8 unk_18;
+    i8 unk_19;
+    u8 unk_1A;
+    u8 unk_1B;
+    u8 unk_1C;
+    u8 unk_1D;
+    u8 unk_1E;
+    u8 unk_1F;
+    u32 unk_20;
     u8* pRawData;
-    u8* unknown_28[3];
+    u8* unk_28[3];
     u8 channel;
-    u8 unknown_35;
-    u8 unknown_36;
-    u8 unknown_37;
+    u8 unk_35;
+    u8 unk_36;
+    u8 unk_37;
 
     u32* pSample1; // Type?
     struct Envelope envelope1;
@@ -155,31 +155,31 @@ struct TrackData {
     u8 amountOfTracks;
 
     u8 undefined_2;
-    u8 unknown_3;
-    u8 unknown_4;
+    u8 unk_3;
+    u8 unk_4;
 
     u8 maxAmountOfTracks;
     u16 maybe_volume;
     u16 fadingTimer;
 
-    u16 unknown_A;
-    u16 unknown_C;
-    u16 unknown_E;
+    u16 unk_A;
+    u16 unk_C;
+    u16 unk_E;
 
     const u8* pHeader;
     struct Voice* pVoice;
     struct TrackVariables* pVariables;
 
     u8 occupied;
-    u8 unknown_1D;
-    u8 unknown_1E;
+    u8 unk_1D;
+    u8 unk_1E;
     u8 priority;
     u16 musicTrack;
     u8 maxSoundChannels;
 
-    u8 unknown_23;
-    u16 unknown_24;
-    u16 unknown_26;
+    u8 unk_23;
+    u16 unk_24;
+    u16 unk_26;
 
     u8 queueFlags;
 
@@ -194,9 +194,9 @@ struct TrackData {
     u8 undefined_31;
     u8 undefined_32;
 
-    u8 unknown_33;
-    u8 unknown_34;
-    u8 unknown_35;
+    u8 unk_33;
+    u8 unk_34;
+    u8 unk_35;
 
     u8 undefined_36;
     u8 undefined_37;
@@ -225,30 +225,30 @@ struct SoundEntry {
 
 
 struct MusicInfo {
-    u8 unknown_0;
+    u8 unk_0;
     u8 occupied;
-    u8 unknown_2;
-    u8 unknown_3;
-    u8 unknown_4;
+    u8 unk_2;
+    u8 unk_3;
+    u8 unk_4;
     u8 maxSoundChannels;
     u8 volume;
-    u8 unknown_7;
-    u8 unknown_8;
-    u8 unknown_9;
+    u8 unk_7;
+    u8 unk_8;
+    u8 unk_9;
     u8 currentSoundChannel;
     u8 volumeDownFlag;
-    u8 unknown_C;
-    u8 unknown_D;
-    u8 unknown_E;
-    u8 unknown_F;
+    u8 unk_C;
+    u8 unk_D;
+    u8 unk_E;
+    u8 unk_F;
     u8 sampleRate;
-    u8 unknown_11;
+    u8 unk_11;
     u16 maybe_frequency;
-    u32 unknown_14;
+    u32 unk_14;
     u32 pitch;
     u16 musicTrack;
-    u16 unknown_1E;
-    u8 unknown_20;
+    u16 unk_1E;
+    u8 unk_20;
     u8 priority;
     u16 musicTrackOnTransition;
     u32 musicRawData[768];

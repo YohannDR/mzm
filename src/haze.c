@@ -345,7 +345,7 @@ u32 HazeProcess(void)
         case HAZE_VALUE_POWER_BOMB_RETRACTING:
             if (gHazeProcessCodePointer())
             {
-                gIoRegistersBackup.unknown_12 = gIoRegistersBackup.BG0CNT;
+                gIoRegistersBackup.unk_12 = gIoRegistersBackup.BG0CNT;
                 gCurrentPowerBomb.animationState = 5;
                 gCurrentPowerBomb.stage = 0;
 
