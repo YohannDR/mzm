@@ -7,9 +7,239 @@
 
 void UpdateMusic(void)
 {
-    if (gMusicInfo.unk_9 != 0)
-    {
+    // https://decomp.me/scratch/bxTYQ
 
+    u32 var_0;
+    i16 var_1;
+    i16 var_2;
+    u32 var_3;
+    u16 var_4;
+    u32 var_5;
+    u8 var_6;
+    u8 var_7;
+    u8 var_8;
+    u8* buffer;
+    u8 vcount;
+    u32 sampleRate;
+    u16 i;
+    struct SoundChannel* pChannel;
+    struct TrackVariables* pVariables;
+
+    var_0 = gMusicInfo.unk_9;
+    if (var_0 != 0)
+    {
+        vcount = read8(REG_VCOUNT);
+        if (vcount < 0xA0)
+            vcount += 0xE4;
+
+        var_0 += vcount;
+    }
+
+    var_8 = gMusicInfo.sampleRate;
+    var_4 = gMusicInfo.unk_11 * 16;
+    var_7 = (gMusicInfo.unk_C * 2 + var_8) - 1;
+    if (var_7 >= gMusicInfo.unk_E)
+        var_7 -= gMusicInfo.unk_E;
+
+    var_3 = 0;
+    if (var_8 <= var_7 && var_7 <= gMusicInfo.unk_11)
+    {
+        var_8 = gMusicInfo.unk_C;
+        var_4 = (var_7 - var_8 + 1) * 16;
+        var_6 = var_8;
+        if (var_7 + 1 == gMusicInfo.unk_E)
+            var_7 = 0;
+
+        gMusicInfo.unk_11 = var_7;
+    }
+    else if (gMusicInfo.unk_11 <= var_8 && var_8 <= var_7)
+    {
+        var_8 = gMusicInfo.unk_C;
+        var_4 = (var_7 - var_8 + 1) * 16;
+        var_6 = var_8;
+        if (var_7 + 1 == gMusicInfo.unk_E)
+            var_7 = 0;
+
+        gMusicInfo.unk_C = var_7;
+    }
+    else if (var_7 <= gMusicInfo.unk_11 && gMusicInfo.unk_11 <= var_8)
+    {
+        var_4 = 0;
+        var_6 = var_7 + 1;
+        gMusicInfo.unk_11 = var_6;
+    }
+    else
+    {
+        if (gMusicInfo.unk_11 < var_7)
+        {
+            var_6 = (var_7 - var_6) + 1;
+            if (var_7 + 1 == gMusicInfo.unk_E)
+                var_7 = 0;
+
+            gMusicInfo.unk_11 = var_7;
+        }
+        else if (var_8 > var_7)
+        {
+            var_6 = gMusicInfo.unk_E - var_8;
+            var_7++;
+            var_3 = var_7;
+
+            gMusicInfo.unk_11 = var_7;
+        }
+        else
+        {
+            var_4 = 0;
+            var_6 = var_7 + 1;
+            gMusicInfo.unk_11 = var_6;
+        }
+    }
+
+
+    if (var_6 == 0)
+        return;
+
+    buffer = &gMusicInfo.soundRawData[var_4];
+    buffer = gSoundCodeBPointer((u32*)buffer, (u32*)buffer, gMusicInfo.musicRawData, var_6 * 8);
+    if (var_3 != 0)
+        gSoundCodeBPointer((u32*)gMusicInfo.soundRawData, (u32*)gMusicInfo.soundRawData, (u32*)buffer, var_3 * 8);
+
+    gMusicInfo.currentSoundChannel = 0;
+    for (i = 0; i < gMusicInfo.maxSoundChannels; i++)
+    {
+        if (var_0 != 0)
+        {
+            vcount = read8(REG_VCOUNT);
+            if (vcount < 0xA0)
+                vcount += 0xE4;
+
+            if (var_0 <= vcount)
+                break;
+        }
+
+        pChannel = &gMusicInfo.soundChannels[i];
+        if (pChannel->unk_0 == 0)
+            continue;
+
+        gMusicInfo.currentSoundChannel++;
+        pVariables = pChannel->pVariables;
+
+        while (pChannel->unk_13 != 0)
+        {
+            if (pChannel->unk_13 & 0x2)
+            {
+                if (pChannel->unk_1 == 0x20)
+                    pChannel->unk_18 = pChannel->pSample[3] << 0xE;
+                else
+                    pChannel->unk_18 = 0;
+
+                pChannel->unk_10 = 0;
+                pChannel->unk_13 &= ~0x2;
+                pChannel->unk_13 |= 0x10;
+            }
+            else if (pChannel->unk_13 & 0x4)
+            {
+                pChannel->unk_13 &= ~0x4;
+            }
+            else if (pChannel->unk_13 & 0x10)
+            {
+                if (pVariables->unk_0 & 0x80)
+                {
+                    pVariables->unk_6 = pChannel->unk_3;
+                    unk_4f10(pVariables);
+                }
+
+                pChannel->unk_4 = (pVariables->unk_8 * (pChannel->unk_F + 1)) >> 7;
+                pChannel->unk_5 = (pVariables->unk_9 * (pChannel->unk_F + 1)) >> 7;
+
+                pChannel->unk_13 &= ~0x10;
+            }
+        }
+
+        var_1 = pChannel->unk_10;
+        var_5 = pChannel->unk_0 & 0xF;
+        if (var_5 == 0xA)
+        {
+            pChannel->unk_0 = 0;
+            continue;
+        }
+        
+        if (var_5 == 0x1)
+        {
+            if (pChannel->envelope.attack == UCHAR_MAX)
+            {
+                var_1 = 0;
+                pChannel->unk_0 = var_5 = 2;
+            }
+        }
+
+        switch (var_5)
+        {
+            case 2:
+                var_1 += pChannel->envelope.attack;
+                if (var_1 <= 0xFE)
+                    break;
+
+                if (pChannel->envelope.decay != 0)
+                {
+                    var_1 = UCHAR_MAX;
+                    pChannel->unk_0 = 3;
+                }
+                else
+                {
+                    var_1 = pChannel->envelope.sustain;
+                    pChannel->unk_0 = 4;
+                    break;
+                }
+
+            case 3:
+                var_1 = (var_1 * pChannel->envelope.release) >> 4;
+                if (var_1 > pChannel->envelope.sustain)
+                    break;
+
+                if (pChannel->envelope.sustain != 0)
+                {
+                    var_1 = pChannel->envelope.sustain;
+                    pChannel->unk_0 = 4;
+                    break;
+                }
+
+            case 5:
+                pChannel->unk_0 = 6;
+
+            case 6:
+                var_1 = (var_1 * pChannel->envelope.release) >> 4;
+                if (var_1 > 0)
+                    break;
+
+                pChannel->unk_0 = 0x0;
+                if (pChannel->unk_C != 0 && pChannel->unk_D != 0)
+                    pChannel->unk_0 = 0x8;
+                else
+                    unk_20a4(pChannel);
+                break;
+
+            case 8:
+                pChannel->unk_D--;
+                if (pChannel->unk_D == 0)
+                {
+                    pChannel->unk_0 = 0;
+                    unk_20a4(pChannel);
+                }
+                break;
+        }
+
+        pChannel->unk_10 = var_1;
+        var_2 = (var_1 * (gMusicInfo.volume + 1)) >> 4;
+        pChannel->unk_11 = var_2 * pChannel->unk_4 >> 8;
+        pChannel->unk_12 = var_2 * pChannel->unk_5 >> 8;
+        gSoundCodeAPointer(pChannel, gMusicInfo.musicRawData, 0);
+    }
+
+    buffer = &gMusicInfo.soundRawData[var_4];
+    buffer = gSoundCodeCPointer((u32*)buffer, gMusicInfo.musicRawData, (var_6 + var_3) * 4);
+    if (var_3 != 0)
+    {
+        gSoundCodeCPointer((u32*)gMusicInfo.soundRawData, (u32*)buffer, var_3 * 4);
     }
 }
 

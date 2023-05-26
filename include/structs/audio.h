@@ -110,7 +110,8 @@ struct TrackVariables {
     u8 unk_5;
     u8 unk_6;
     u8 unk_7;
-    u16 unk_8;
+    u8 unk_8;
+    u8 unk_9;
     u8 unk_A;
     u8 unk_B;
     u8 unk_C;
@@ -294,12 +295,15 @@ extern struct TrackVariables gTrack6Variables[3];
 extern struct TrackVariables gTrack7Variables[1];
 extern struct TrackVariables gTrack8Variables[6];
 
-// TODO type
-extern void* gSoundCodeAPointer;
+typedef void (*SoundCodeAFunc_T)(struct SoundChannel*, u32*, u8);
+typedef u8* (*SoundCodeBFunc_T)(u32*, u32*, u32*, u8);
+typedef u8* (*SoundCodeCFunc_T)(u32*, u32*, u8);
+
+extern SoundCodeAFunc_T gSoundCodeAPointer;
 extern u8 gSoundCodeA[1624];
-extern void* gSoundCodeBPointer;
+extern SoundCodeBFunc_T gSoundCodeBPointer;
 extern u8 gSoundCodeB[164];
-extern void* gSoundCodeCPointer;
+extern SoundCodeCFunc_T gSoundCodeCPointer;
 extern u8 gSoundCodeC[176];
 
 extern struct PSGSoundData gUnk_300376c[];

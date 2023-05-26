@@ -38,13 +38,13 @@ void InitializeAudio(void)
     write8(REG_SOUND3CNT_L, 0x0);
     write8(REG_SOUNDCNT_L, 0x77);
 
-    gSoundCodeAPointer = gSoundCodeA + 1;
+    gSoundCodeAPointer = (SoundCodeAFunc_T)(gSoundCodeA + 1);
     dma_set(3, call_soundcode_a, gSoundCodeA, DMA_ENABLE << 16 | sizeof(gSoundCodeA) / 2);
 
-    gSoundCodeBPointer = gSoundCodeB + 1;
+    gSoundCodeBPointer = (SoundCodeBFunc_T)(gSoundCodeB + 1);
     dma_set(3, call_soundcode_b, gSoundCodeB, DMA_ENABLE << 16 | sizeof(gSoundCodeB) / 2);
 
-    gSoundCodeCPointer = gSoundCodeC + 1;
+    gSoundCodeCPointer = (SoundCodeCFunc_T)(gSoundCodeC + 1);
     dma_set(3, call_soundcode_c, gSoundCodeC, DMA_ENABLE << 16 | sizeof(gSoundCodeC) / 2);
 
     zero = 0;
