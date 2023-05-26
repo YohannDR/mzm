@@ -18,7 +18,7 @@ def Func():
 
     for x in range(1, size + 1):
         # result += str(int.from_bytes(file.read(2), "little"))
-        result += hex(int.from_bytes(file.read(1), "little"))
+        result += hex(int.from_bytes(file.read(2), "little"))
 
         if x % 16 == 0 and x != 0:
             result += ",\n"

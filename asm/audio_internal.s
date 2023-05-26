@@ -75,7 +75,7 @@ soundcode_c: @ 0x080043c4
     mov ip, #0x0
     sub ip, ip, #0x1
     lsr ip, ip, #0x17
-    ldr lr, lbl_08004460 @ =0x808cce2
+    ldr lr, lbl_08004460 @ =sArray_808cce2
     b lbl_080043e8
 lbl_080043e0:
     subs r2, r2, #0x1
@@ -113,7 +113,7 @@ lbl_08004450:
     ldmia sp!, {r4, r5, r6, r7}
     bx lr
 lbl_08004460:
-    .4byte 0x808cce2
+    .4byte sArray_808cce2
 
     thumb_func_start call_soundcode_a
 call_soundcode_a: @ 0x08004464
