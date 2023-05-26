@@ -90,7 +90,7 @@ struct PSGSoundData {
     u8 unknown_16;
     u8 unknown_17;
     u8 unknown_18;
-    i8 unknown_19;
+    u8 unknown_19;
     u8 unknown_1A;
     u8 unknown_1B;
     u8 unknown_1C;
@@ -120,7 +120,7 @@ struct TrackVariables {
     u8 unknown_10;
     u8 unknown_11;
     u8 unknown_12;
-    u8 unknown_13;
+    i8 unknown_13;
     i8 unknown_14;
     u8 unknown_15;
     i8 unknown_16;

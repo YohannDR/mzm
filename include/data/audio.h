@@ -3,6 +3,10 @@
 
 #include "structs/audio.h"
 
+extern const u16 sUnk_808cad0[24];
+extern const u8 sUnk_808cc01[60];
+
+extern const u8 sUnk_808cc4d[19];
 extern const u32 sNativeSmapleRate[13];
 extern const u32 sMusicPitchData[13];
 extern const u16 sAudio_8ccc8[13];

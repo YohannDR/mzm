@@ -3,6 +3,8 @@
 #include "gba.h"
 #include "syscalls.h"
 
+#include "data/audio.h"
+
 void UpdateMusic(void)
 {
 
@@ -107,9 +109,46 @@ void unk_1c3c(struct TrackVariables* pVariables)
     }
 }
 
-void unk_1ccc(struct TrackVariables* pVariables, u16 param_2)
+/**
+ * @brief 1ccc | 90 | To document
+ * 
+ * @param pVariables Track variables pointer
+ * @param param_2 To document
+ */
+void unk_1ccc(struct TrackVariables* pVariables, i16 param_2)
 {
+    struct PSGSoundData* pSound;
+    u16 var_0;
+    i16 tmp;
 
+    pSound = pVariables->pSoundPSG;
+
+    if (pVariables->unknown_12 == 1)
+    {
+        unk_4f10(pVariables);
+        pSound->unknown_12 = (pSound->unknown_19 + (i32)pVariables->unknown_13 / sUnk_808cc4d[param_2]) * 16;
+        pSound->unknown_F |= 0x20;
+    }
+    else if (pVariables->unknown_12 == 0)
+    {
+        unk_4eb4(pVariables);
+
+        var_0 = pVariables->unknown_17 + pVariables->pSoundPSG->unknown_1C;
+        tmp = var_0;
+
+        if (tmp >= 0x80)
+            var_0 = 0x7F;
+        else if (tmp < 0)
+            var_0 = 0;
+
+        pSound->maybe_noteDelay = GetNoteDelay(pVariables, var_0, pVariables->unknown_18);
+        pSound->unknown_F |= 0x4;
+    }
+    else if (pVariables->unknown_12 == 2)
+    {
+        unk_4f10(pVariables);
+        pSound->unknown_F |= 0x10;
+    }
 }
 
 /**
@@ -383,9 +422,37 @@ void unk_20a4(struct SoundChannel* pChannel)
     }
 }
 
+/**
+ * @brief 20d4 | 6c | Gets the delay for a note (probably)
+ * 
+ * @param pVariables Track variables pointer
+ * @param param_2 Note?
+ * @param param_3 To document
+ * @return u16 Delay
+ */
 u16 GetNoteDelay(struct TrackVariables* pVariables, u8 param_2, u8 param_3)
 {
+    u16 delay;
+    u16 temp;
 
+    if ((pVariables->channel & 7) < 4)
+    {
+        delay = sUnk_808cad0[param_2];
+        if (param_3 != 0)
+        {
+            if (param_2 + 1 > 0x7F)
+                param_2 = 0x7F;
+
+            temp = (sUnk_808cad0[param_2 + 1] - delay) * (param_3 + 1) >>8;
+            delay += temp;
+        }
+    }
+    else
+    {
+        delay = sUnk_808cc01[param_2 - 0x15] | (u8)(u32)pVariables->pSample1;
+    }
+    
+    return delay;
 }
 
 /**
