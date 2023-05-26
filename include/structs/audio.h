@@ -121,7 +121,7 @@ struct TrackVariables {
     u8 unknown_11;
     u8 unknown_12;
     i8 unknown_13;
-    i8 unknown_14;
+    u8 unknown_14;
     u8 unknown_15;
     i8 unknown_16;
     i8 unknown_17;
@@ -256,6 +256,8 @@ struct MusicInfo {
     struct SoundChannel soundChannels[11];
 };
 
+
+typedef void (*MusicFunc_T)(struct TrackVariables*);
 
 extern u8 gStereoFlag;
 extern struct MusicTrackInfo gMusicTrackInfo;

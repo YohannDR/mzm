@@ -17,7 +17,235 @@ void UpdatePsgSounds(void)
 
 void UpdateTrack(struct TrackData* pTrack)
 {
+    // https://decomp.me/scratch/mVUSm
 
+    u8 i;
+    struct TrackVariables* pVariables;
+    u32 var_0;
+    u8 var_1;
+    i16 var_2;
+
+    if (pTrack->occupied)
+        return;
+
+    pTrack->occupied = TRUE;
+
+    if (!(pTrack->unknown_1E & 1))
+    {
+        if (pTrack->flags & 0xF8)
+        {
+            if (pTrack->flags & 0x98)
+                unk_2d2c(pTrack);
+            else
+                unk_2e6c(pTrack);
+        }
+
+        if (pTrack->flags & 0x2)
+        {
+            var_1 = unk_4cfc(pTrack);
+            while (var_1 != 0)
+            {
+                pVariables = pTrack->pVariables;
+                for (i = 0; i < pTrack->amountOfTracks; i++, pVariables++)
+                {
+                    if (pVariables->unknown_0 == 0)
+                        continue;
+
+                    if (pVariables->pChannel != NULL)
+                        unk_1bf0(pVariables);
+
+                    if (pVariables->pSoundPSG != NULL)
+                        unk_1c18(pVariables);
+
+                    if (pVariables->maybe_delayBeforeStart != 0)
+                    {
+                        pVariables->maybe_delayBeforeStart--;
+                        if (pVariables->unknown_15 != 0)
+                        {
+                            pVariables->unknown_15--;
+                        }
+                        else
+                        {
+                            if (pVariables->unknown_10 != 0 && pVariables->unknown_11 != 0)
+                            {
+                                if (pVariables->pChannel != NULL)
+                                {
+                                    if (pVariables->pChannel->unknown_0 != 0)
+                                    {
+                                        pVariables->unknown_16 += pVariables->unknown_10;
+                                        if ((i8)(pVariables->unknown_16 - 0x40) < 0)
+                                            var_2 = pVariables->unknown_16;
+                                        else
+                                            var_2 = 0x80 - pVariables->unknown_16;
+
+                                        if (var_2 != pVariables->unknown_13)
+                                        {
+                                            pVariables->unknown_13 = (var_2 * (pVariables->unknown_11 + 1)) >> 7;
+                                            unk_1c3c(pVariables);
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    
+                                }
+                            }
+                        }
+                    }
+
+                    while (pVariables->maybe_delayBeforeStart == 0)
+                    {
+                        var_0 = *pVariables->pRawData;
+                        if ((i8)var_0 >= 0)
+                            var_0 = pVariables->unknown_3;
+                        else if (var_0 > 0xBC)
+                        {
+                            pVariables->unknown_3 = var_0;
+                            pVariables->pRawData++;
+                        }
+
+                        if (var_0 > 0xCE)
+                        {
+                            pVariables->unknown_0 |= 0x2;
+                            pVariables->unknown_E = sDelayNoteLengthTable[var_0 - 0xCF];
+
+                            var_1 = *pVariables->pRawData;
+
+                            if (pVariables->unknown_14 != 0)
+                                pVariables->unknown_15 = pVariables->unknown_14;
+
+                            if ((i8)var_1 >= 0)
+                            {
+                                pVariables->unknown_1 = var_1;
+                                pVariables->pRawData++;
+
+                                if ((i8)*pVariables->pRawData >= 0)
+                                {
+                                    pVariables->unknown_F = *pVariables->pRawData;
+                                    pVariables->pRawData++;
+                                
+                                    if ((i8)*pVariables->pRawData >= 0)
+                                    {
+                                        pVariables->unknown_E += *pVariables->pRawData;
+                                        pVariables->pRawData++;
+                                    }
+                                }
+                            }
+
+                            if ((pVariables->unknown_0 & 0xF0) > 0x3F)
+                                unk_4e10(pVariables);
+
+                            pVariables->unknown_13 = 0;
+                            unk_4eb4(pVariables);
+                            unk_4f10(pVariables);
+
+                            if (pTrack->flags & 0xC0)
+                            {
+                                if (pVariables->channel & 7)
+                                    unk_1fe0(pTrack, pVariables);
+                                else
+                                    unk_1f3c(pTrack, pVariables);
+                            }
+                            else
+                            {
+                                if (pVariables->channel & 7)
+                                    unk_1f90(pTrack, pVariables);
+                                else
+                                    unk_1e2c(pTrack, pVariables);
+                            }
+                        }
+                        else if (var_0 > 0xB0)
+                        {
+                            if (var_0 == 0xBB)
+                            {
+                                unk_4d1c(pTrack, pVariables);
+                            }
+                            else if (var_0 == 0xBD)
+                            {
+                                unk_22cc(pTrack, pVariables);
+                            }
+                            else if (var_0 == 0xB1)
+                            {
+                                unk_2140(pTrack, pVariables);
+                                break;
+                            }
+                            else if (var_0 == 0xB6)
+                            {
+                                unk_21b0(pTrack, pVariables);
+                                break;
+                            }
+                            else
+                            {
+                                sMusicCommandFunctionPointers[var_0 - 0xB1](pVariables);
+                            }
+                        }
+                        else
+                        {
+                            pVariables->maybe_delayBeforeStart = sDelayNoteLengthTable[var_0 - 0x80];
+                            pVariables->pRawData++;
+                            break;
+                        }
+                    }
+
+
+                    if (pVariables->unknown_0 & 4)
+                    {
+                        unk_4f10(pVariables);
+                        if (pVariables->pChannel != NULL)
+                            unk_1d5c(pVariables);
+
+                        if (pVariables->pSoundPSG != NULL)
+                            unk_1ddc(pVariables);
+
+                        pVariables->unknown_0 &= ~4;
+                    }
+
+                    if (pVariables->unknown_0 & 8)
+                    {
+                        unk_4eb4(pVariables);
+                        if (pVariables->pChannel != NULL)
+                            unk_1d78(pVariables);
+
+                        if (pVariables->pSoundPSG != NULL)
+                            unk_1de8(pVariables);
+
+                        pVariables->unknown_0 &= ~8;
+                    }
+                }
+                
+                var_1--;
+            }
+        }
+    }
+
+    pTrack->occupied = FALSE;
+    if (pTrack->queueFlags == 0x1)
+    {
+        PlayMusic(pTrack->musicTrack, pTrack->priority);
+        pTrack->occupied = TRUE;
+
+        pTrack->musicTrack = 0;
+        pTrack->priority = 0;
+        pTrack->queueFlags = 0;
+        pTrack->occupied = FALSE;
+    }
+    else if (pTrack->queueFlags & 0x4)
+    {
+        SoundPlay(pTrack->musicTrack & SHORT_MAX);
+        pTrack->occupied = TRUE;
+
+        pTrack->musicTrack = 0;
+        pTrack->priority = 0;
+        pTrack->queueFlags = 0;
+        pTrack->occupied = FALSE;
+    }
+    else if (pTrack->queueFlags & 0x2)
+    {
+        if (pTrack->queueFlags & 0x80)
+            ReplayQueuedMusic(pTrack->queueFlags);
+
+        pTrack->queueFlags = 0;
+    }
 }
 
 /**
