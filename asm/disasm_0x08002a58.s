@@ -54,7 +54,7 @@ StopAllMusicsAndSounds: @ 0x08002a58
     subs r4,r0,#1
     cmp r4,#0
     blt lbl_08002a7e
-    ldr r1, lbl_08002a88 @ =0x0808f254
+    ldr r1, lbl_08002a88 @ =sMusicTrackDataROM
     lsls r0,r4,#1
     adds r0,r0,r4
     lsls r0,r0,#2
@@ -72,7 +72,7 @@ lbl_08002a7e:
     bx r0
     .align 2, 0
 lbl_08002a84: .4byte 0x00000009
-lbl_08002a88: .4byte 0x0808f254
+lbl_08002a88: .4byte sMusicTrackDataROM
 
     thumb_func_start sub_08002a8c
 sub_08002a8c: @ 0x08002a8c
@@ -83,7 +83,7 @@ sub_08002a8c: @ 0x08002a8c
     subs r4, r0, #1
     cmp r4, #0
     blt lbl_08002abe
-    ldr r1, lbl_08002ac8 @ =0x0808f254
+    ldr r1, lbl_08002ac8 @ =sMusicTrackDataROM
     lsls r0, r4, #1
     adds r0, r0, r4
     lsls r0, r0, #2
@@ -108,7 +108,7 @@ lbl_08002abe:
     bx r0
     .align 2, 0
 lbl_08002ac4: .4byte 0x00000009
-lbl_08002ac8: .4byte 0x0808f254
+lbl_08002ac8: .4byte sMusicTrackDataROM
 
     thumb_func_start FadeAllSounds
 FadeAllSounds: @ 0x08002acc
@@ -116,7 +116,7 @@ FadeAllSounds: @ 0x08002acc
     adds r4, r0, #0
     lsls r4, r4, #0x10
     lsrs r4, r4, #0x10
-    ldr r5, lbl_08002b1c @ =0x0808f254
+    ldr r5, lbl_08002b1c @ =sMusicTrackDataROM
     ldr r0, [r5, #0xc]
     adds r1, r4, #0
     bl sub_08002c94
@@ -145,7 +145,7 @@ FadeAllSounds: @ 0x08002acc
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08002b1c: .4byte 0x0808f254
+lbl_08002b1c: .4byte sMusicTrackDataROM
 
     thumb_func_start SoundPlayNotAlreadyPlaying
 SoundPlayNotAlreadyPlaying: @ 0x08002b20
@@ -153,7 +153,7 @@ SoundPlayNotAlreadyPlaying: @ 0x08002b20
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     adds r4, r0, #0
-    ldr r3, lbl_08002b5c @ =0x0808f254
+    ldr r3, lbl_08002b5c @ =sMusicTrackDataROM
     ldr r0, lbl_08002b60 @ =0x0808f2c0
     lsls r2, r4, #3
     adds r2, r2, r0
@@ -181,7 +181,7 @@ lbl_08002b56:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08002b5c: .4byte 0x0808f254
+lbl_08002b5c: .4byte sMusicTrackDataROM
 lbl_08002b60: .4byte 0x0808f2c0
 
     thumb_func_start sub_08002b64
@@ -190,7 +190,7 @@ sub_08002b64: @ 0x08002b64
     lsls r0, r0, #0x10
     lsrs r4, r0, #0x10
     adds r5, r4, #0
-    ldr r2, lbl_08002ba4 @ =0x0808f254
+    ldr r2, lbl_08002ba4 @ =sMusicTrackDataROM
     ldr r1, lbl_08002ba8 @ =0x0808f2c0
     lsls r0, r4, #3
     adds r3, r0, r1
@@ -217,7 +217,7 @@ sub_08002b64: @ 0x08002b64
     bl sub_08002c10
     b lbl_08002bcc
     .align 2, 0
-lbl_08002ba4: .4byte 0x0808f254
+lbl_08002ba4: .4byte sMusicTrackDataROM
 lbl_08002ba8: .4byte 0x0808f2c0
 lbl_08002bac:
     ldr r1, [r3]
@@ -246,7 +246,7 @@ lbl_08002bcc:
 sub_08002bd4: @ 0x08002bd4
     push {lr}
     lsls r0, r0, #0x10
-    ldr r2, lbl_08002c08 @ =0x0808f254
+    ldr r2, lbl_08002c08 @ =sMusicTrackDataROM
     ldr r1, lbl_08002c0c @ =0x0808f2c0
     lsrs r0, r0, #0xd
     adds r3, r0, r1
@@ -271,7 +271,7 @@ lbl_08002c04:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08002c08: .4byte 0x0808f254
+lbl_08002c08: .4byte sMusicTrackDataROM
 lbl_08002c0c: .4byte 0x0808f2c0
 
     thumb_func_start sub_08002c10
@@ -319,7 +319,7 @@ sub_08002c4c: @ 0x08002c4c
     subs r4, r0, #1
     cmp r4, #0
     blt lbl_08002c72
-    ldr r1, lbl_08002c7c @ =0x0808f254
+    ldr r1, lbl_08002c7c @ =sMusicTrackDataROM
     lsls r0, r4, #1
     adds r0, r0, r4
     lsls r0, r0, #2
@@ -337,7 +337,7 @@ lbl_08002c72:
     bx r0
     .align 2, 0
 lbl_08002c78: .4byte 0x00000009
-lbl_08002c7c: .4byte 0x0808f254
+lbl_08002c7c: .4byte sMusicTrackDataROM
 
     thumb_func_start SoundFade
 SoundFade: @ 0x08002c80
@@ -716,7 +716,7 @@ sub_08002f00: @ 0x08002f00
     bne lbl_08003010
     movs r4, #1
     strb r4, [r0, #1]
-    ldr r3, lbl_08002f8c @ =0x0808f254
+    ldr r3, lbl_08002f8c @ =sMusicTrackDataROM
     ldr r2, lbl_08002f90 @ =0x0808f2c0
     lsls r0, r5, #3
     adds r0, r0, r2
@@ -765,7 +765,7 @@ sub_08002f00: @ 0x08002f00
     b lbl_08003000
     .align 2, 0
 lbl_08002f88: .4byte gMusicInfo
-lbl_08002f8c: .4byte 0x0808f254
+lbl_08002f8c: .4byte sMusicTrackDataROM
 lbl_08002f90: .4byte 0x0808f2c0
 lbl_08002f94:
     ldrb r1, [r6]
@@ -1514,7 +1514,7 @@ lbl_080034e2:
     cmp r1, #0
     beq lbl_080035ae
 lbl_080034f4:
-    ldr r0, lbl_08003530 @ =0x0808f254
+    ldr r0, lbl_08003530 @ =sMusicTrackDataROM
     lsls r1, r2, #1
     adds r1, r1, r2
     lsls r1, r1, #2
@@ -1543,7 +1543,7 @@ lbl_080034f4:
     b lbl_080035a4
     .align 2, 0
 lbl_0800352c: .4byte 0x00000009
-lbl_08003530: .4byte 0x0808f254
+lbl_08003530: .4byte sMusicTrackDataROM
 lbl_08003534:
     adds r0, r4, #0
     adds r0, #0x34
@@ -1671,7 +1671,7 @@ lbl_08003608:
     cmp r0, #0
     beq lbl_080036ae
 lbl_0800361a:
-    ldr r0, lbl_08003650 @ =0x0808f254
+    ldr r0, lbl_08003650 @ =sMusicTrackDataROM
     lsls r1, r2, #1
     adds r1, r1, r2
     lsls r1, r1, #2
@@ -1697,7 +1697,7 @@ lbl_0800361a:
     b lbl_080036a4
     .align 2, 0
 lbl_0800364c: .4byte 0x00000009
-lbl_08003650: .4byte 0x0808f254
+lbl_08003650: .4byte sMusicTrackDataROM
 lbl_08003654:
     adds r0, r2, #0
     adds r0, #0x34
@@ -1799,7 +1799,7 @@ lbl_08003700:
     bne lbl_08003776
     movs r0, #1
     strb r0, [r1, #1]
-    ldr r6, lbl_08003780 @ =0x0808f254
+    ldr r6, lbl_08003780 @ =sMusicTrackDataROM
     ldr r0, [r6, #0x48]
     movs r1, #0xa
     bl sub_08002c94
@@ -1856,7 +1856,7 @@ lbl_08003776:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003780: .4byte 0x0808f254
+lbl_08003780: .4byte sMusicTrackDataROM
 lbl_08003784: .4byte gSoundQueue
 lbl_08003788: .4byte 0x0808f2c0
 
@@ -1871,7 +1871,7 @@ sub_0800378c: @ 0x0800378c
     bne lbl_08003866
     movs r0, #1
     strb r0, [r7, #1]
-    ldr r4, lbl_0800380c @ =0x0808f254
+    ldr r4, lbl_0800380c @ =sMusicTrackDataROM
     ldr r0, [r4, #0x48]
     movs r1, #0xa
     bl sub_08002c94
@@ -1926,7 +1926,7 @@ lbl_080037d4:
     b lbl_0800383a
     .align 2, 0
 lbl_08003808: .4byte gMusicInfo
-lbl_0800380c: .4byte 0x0808f254
+lbl_0800380c: .4byte sMusicTrackDataROM
 lbl_08003810: .4byte gSoundQueue
 lbl_08003814:
     adds r0, r5, #0
@@ -1950,7 +1950,7 @@ lbl_08003822:
     strh r5, [r7, #0x22]
     b lbl_08003860
 lbl_0800383a:
-    ldr r0, lbl_0800386c @ =0x0808f254
+    ldr r0, lbl_0800386c @ =sMusicTrackDataROM
     ldr r6, [r0]
     ldr r4, lbl_08003870 @ =0x0808f2c0
     adds r0, r5, #0
@@ -1976,7 +1976,7 @@ lbl_08003866:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0800386c: .4byte 0x0808f254
+lbl_0800386c: .4byte sMusicTrackDataROM
 lbl_08003870: .4byte 0x0808f2c0
 lbl_08003874: .4byte gMusicInfo
 
@@ -2007,7 +2007,7 @@ lbl_0800389c:
     ldrh r0, [r4, #0x22]
     cmp r0, #0
     beq lbl_080038c8
-    ldr r0, lbl_080038d0 @ =0x0808f254
+    ldr r0, lbl_080038d0 @ =sMusicTrackDataROM
     ldr r0, [r0]
     ldr r2, lbl_080038d4 @ =0x0808f2c0
     ldrh r1, [r4, #0x22]
@@ -2026,7 +2026,7 @@ lbl_080038c8:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080038d0: .4byte 0x0808f254
+lbl_080038d0: .4byte sMusicTrackDataROM
 lbl_080038d4: .4byte 0x0808f2c0
 
     thumb_func_start sub_080038d8
@@ -2045,7 +2045,7 @@ sub_080038d8: @ 0x080038d8
     ldrh r0, [r6, #0x22]
     cmp r0, #0
     beq lbl_08003918
-    ldr r0, lbl_08003928 @ =0x0808f254
+    ldr r0, lbl_08003928 @ =sMusicTrackDataROM
     ldr r5, [r0]
     ldr r4, lbl_0800392c @ =0x0808f2c0
     ldrh r0, [r6, #0x22]
@@ -2070,7 +2070,7 @@ lbl_08003918:
     bx r0
     .align 2, 0
 lbl_08003924: .4byte gMusicInfo
-lbl_08003928: .4byte 0x0808f254
+lbl_08003928: .4byte sMusicTrackDataROM
 lbl_0800392c: .4byte 0x0808f2c0
 
     thumb_func_start UpdateMusicAfterAlarmDisable
@@ -2097,13 +2097,13 @@ lbl_08003954:
     lsrs r0, r0, #0x10
     cmp r0, #9
     bhi lbl_08003970
-    ldr r0, lbl_0800396c @ =0x0808f254
+    ldr r0, lbl_0800396c @ =sMusicTrackDataROM
     ldr r0, [r0]
     movs r1, #5
     bl sub_08002c94
     b lbl_0800397a
     .align 2, 0
-lbl_0800396c: .4byte 0x0808f254
+lbl_0800396c: .4byte sMusicTrackDataROM
 lbl_08003970:
     movs r0, #5
     movs r1, #0x49
@@ -2163,7 +2163,7 @@ unk_39c8: @ 0x080039c8
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_080039e6
-    ldr r4, lbl_080039f0 @ =0x0808f254
+    ldr r4, lbl_080039f0 @ =sMusicTrackDataROM
     ldr r0, [r4, #0x48]
     movs r1, #0xa
     bl sub_08002c94
@@ -2176,7 +2176,7 @@ lbl_080039e6:
     bx r0
     .align 2, 0
 lbl_080039ec: .4byte gMusicInfo
-lbl_080039f0: .4byte 0x0808f254
+lbl_080039f0: .4byte sMusicTrackDataROM
 
     thumb_func_start PlayMusic
 PlayMusic: @ 0x080039f4
@@ -2207,7 +2207,7 @@ PlayMusic: @ 0x080039f4
     lsls r0, r6, #3
     adds r0, r0, r1
     ldr r5, [r0]
-    ldr r0, lbl_08003a68 @ =0x0808f254
+    ldr r0, lbl_08003a68 @ =sMusicTrackDataROM
     ldr r2, [r0]
     ldr r0, [r2, #0x10]
     cmp r5, r0
@@ -2238,7 +2238,7 @@ lbl_08003a58:
     .align 2, 0
 lbl_08003a60: .4byte gMusicInfo
 lbl_08003a64: .4byte 0x0808f2c0
-lbl_08003a68: .4byte 0x0808f254
+lbl_08003a68: .4byte sMusicTrackDataROM
 
     thumb_func_start sub_08003a6c
 sub_08003a6c: @ 0x08003a6c
@@ -2248,21 +2248,21 @@ sub_08003a6c: @ 0x08003a6c
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_08003a88
-    ldr r0, lbl_08003a84 @ =0x0808f254
+    ldr r0, lbl_08003a84 @ =sMusicTrackDataROM
     ldr r0, [r0]
     b lbl_08003a8c
     .align 2, 0
 lbl_08003a80: .4byte gMusicInfo
-lbl_08003a84: .4byte 0x0808f254
+lbl_08003a84: .4byte sMusicTrackDataROM
 lbl_08003a88:
-    ldr r0, lbl_08003a94 @ =0x0808f254
+    ldr r0, lbl_08003a94 @ =sMusicTrackDataROM
     ldr r0, [r0, #0xc]
 lbl_08003a8c:
     bl stop_music_or_sound
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003a94: .4byte 0x0808f254
+lbl_08003a94: .4byte sMusicTrackDataROM
 
     thumb_func_start FadeMusic
 FadeMusic: @ 0x08003a98
@@ -2282,7 +2282,7 @@ FadeMusic: @ 0x08003a98
     ands r0, r1
     cmp r0, #0
     bne lbl_08003ad4
-    ldr r0, lbl_08003acc @ =0x0808f254
+    ldr r0, lbl_08003acc @ =sMusicTrackDataROM
     ldr r0, [r0]
     cmp r2, #0
     beq lbl_08003ad0
@@ -2291,7 +2291,7 @@ FadeMusic: @ 0x08003a98
     b lbl_08003ad4
     .align 2, 0
 lbl_08003ac8: .4byte gMusicInfo
-lbl_08003acc: .4byte 0x0808f254
+lbl_08003acc: .4byte sMusicTrackDataROM
 lbl_08003ad0:
     bl stop_music_or_sound
 lbl_08003ad4:
@@ -2322,7 +2322,7 @@ FadeMusicForDemo: @ 0x08003ae4
     ands r0, r1
     cmp r0, #0
     bne lbl_08003b20
-    ldr r0, lbl_08003b18 @ =0x0808f254
+    ldr r0, lbl_08003b18 @ =sMusicTrackDataROM
     ldr r0, [r0]
     cmp r2, #0
     beq lbl_08003b1c
@@ -2331,7 +2331,7 @@ FadeMusicForDemo: @ 0x08003ae4
     b lbl_08003b20
     .align 2, 0
 lbl_08003b14: .4byte gMusicInfo
-lbl_08003b18: .4byte 0x0808f254
+lbl_08003b18: .4byte sMusicTrackDataROM
 lbl_08003b1c:
     bl stop_music_or_sound
 lbl_08003b20:
@@ -2372,7 +2372,7 @@ sub_08003b30: @ 0x08003b30
     .align 2, 0
 lbl_08003b60: .4byte gMusicInfo
 lbl_08003b64:
-    ldr r0, lbl_08003b78 @ =0x0808f254
+    ldr r0, lbl_08003b78 @ =sMusicTrackDataROM
     ldr r0, [r0]
     strh r6, [r0, #0x20]
     strb r5, [r0, #0x1f]
@@ -2383,7 +2383,7 @@ lbl_08003b72:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003b78: .4byte 0x0808f254
+lbl_08003b78: .4byte sMusicTrackDataROM
 
     thumb_func_start FadeCurrentInsertMusicQueueCurrent
 FadeCurrentInsertMusicQueueCurrent: @ 0x08003b7c
@@ -2413,7 +2413,7 @@ FadeCurrentInsertMusicQueueCurrent: @ 0x08003b7c
     .align 2, 0
 lbl_08003bac: .4byte gMusicInfo
 lbl_08003bb0:
-    ldr r0, lbl_08003bcc @ =0x0808f254
+    ldr r0, lbl_08003bcc @ =sMusicTrackDataROM
     ldr r0, [r0]
     movs r2, #0x80
     lsls r2, r2, #8
@@ -2428,7 +2428,7 @@ lbl_08003bc6:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003bcc: .4byte 0x0808f254
+lbl_08003bcc: .4byte sMusicTrackDataROM
 
     thumb_func_start sub_08003bd0
 sub_08003bd0: @ 0x08003bd0
@@ -2444,7 +2444,7 @@ sub_08003bd0: @ 0x08003bd0
     ands r0, r1
     cmp r0, #0
     bne lbl_08003c0c
-    ldr r3, lbl_08003c18 @ =0x0808f254
+    ldr r3, lbl_08003c18 @ =sMusicTrackDataROM
     ldr r0, lbl_08003c1c @ =0x0808f2c0
     lsls r2, r2, #3
     adds r2, r2, r0
@@ -2467,7 +2467,7 @@ lbl_08003c0c:
     bx r0
     .align 2, 0
 lbl_08003c14: .4byte gMusicInfo
-lbl_08003c18: .4byte 0x0808f254
+lbl_08003c18: .4byte sMusicTrackDataROM
 lbl_08003c1c: .4byte 0x0808f2c0
 
     thumb_func_start sub_08003c20
@@ -2502,7 +2502,7 @@ sub_08003c20: @ 0x08003c20
     lsls r0, r6, #3
     adds r0, r0, r1
     ldr r5, [r0]
-    ldr r0, lbl_08003c9c @ =0x0808f254
+    ldr r0, lbl_08003c9c @ =sMusicTrackDataROM
     ldr r2, [r0]
     ldrb r1, [r2]
     movs r0, #0x1a
@@ -2534,7 +2534,7 @@ lbl_08003c8c:
     .align 2, 0
 lbl_08003c94: .4byte gMusicInfo
 lbl_08003c98: .4byte 0x0808f2c0
-lbl_08003c9c: .4byte 0x0808f254
+lbl_08003c9c: .4byte sMusicTrackDataROM
 
     thumb_func_start InsertMusicAndQueueCurrent
 InsertMusicAndQueueCurrent: @ 0x08003ca0
@@ -2562,7 +2562,7 @@ InsertMusicAndQueueCurrent: @ 0x08003ca0
     lsls r0, r2, #3
     adds r0, r0, r1
     ldr r5, [r0]
-    ldr r2, lbl_08003d08 @ =0x0808f254
+    ldr r2, lbl_08003d08 @ =sMusicTrackDataROM
     ldr r4, [r2]
     ldrb r1, [r4]
     movs r0, #0x1a
@@ -2587,7 +2587,7 @@ lbl_08003ce4:
     .align 2, 0
 lbl_08003d00: .4byte gMusicInfo
 lbl_08003d04: .4byte 0x0808f2c0
-lbl_08003d08: .4byte 0x0808f254
+lbl_08003d08: .4byte sMusicTrackDataROM
 lbl_08003d0c:
     cmp r6, #1
     bne lbl_08003d24
@@ -2646,7 +2646,7 @@ sub_08003d4c: @ 0x08003d4c
     movs r0, #1
     bl sub_080035d0
 lbl_08003d76:
-    ldr r0, lbl_08003d9c @ =0x0808f254
+    ldr r0, lbl_08003d9c @ =sMusicTrackDataROM
     ldr r6, [r0]
     adds r0, r4, #0
     adds r0, #0x20
@@ -2664,7 +2664,7 @@ lbl_08003d76:
     b lbl_08003da2
     .align 2, 0
 lbl_08003d98: .4byte gMusicInfo
-lbl_08003d9c: .4byte 0x0808f254
+lbl_08003d9c: .4byte sMusicTrackDataROM
 lbl_08003da0:
     ldrh r0, [r4, #0x1c]
 lbl_08003da2:
@@ -2693,7 +2693,7 @@ lbl_08003dcc:
     ands r0, r1
     cmp r0, #0
     beq lbl_08003dfe
-    ldr r5, lbl_08003e18 @ =0x0808f254
+    ldr r5, lbl_08003e18 @ =sMusicTrackDataROM
     ldr r0, [r5]
     ldr r6, lbl_08003e1c @ =0x0000ffff
     ldr r4, lbl_08003e20 @ =0x00000050
@@ -2723,7 +2723,7 @@ lbl_08003e02:
     .align 2, 0
 lbl_08003e10: .4byte 0x0808f2c0
 lbl_08003e14: .4byte gMusicInfo
-lbl_08003e18: .4byte 0x0808f254
+lbl_08003e18: .4byte sMusicTrackDataROM
 lbl_08003e1c: .4byte 0x0000ffff
 lbl_08003e20: .4byte 0x00000050
 
@@ -2737,14 +2737,14 @@ sub_08003e24: @ 0x08003e24
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_08003e44
-    ldr r0, lbl_08003e40 @ =0x0808f254
+    ldr r0, lbl_08003e40 @ =sMusicTrackDataROM
     ldr r0, [r0]
     b lbl_08003e48
     .align 2, 0
 lbl_08003e3c: .4byte gMusicInfo
-lbl_08003e40: .4byte 0x0808f254
+lbl_08003e40: .4byte sMusicTrackDataROM
 lbl_08003e44:
-    ldr r0, lbl_08003e54 @ =0x0808f254
+    ldr r0, lbl_08003e54 @ =sMusicTrackDataROM
     ldr r0, [r0, #0xc]
 lbl_08003e48:
     cmp r1, #0
@@ -2752,7 +2752,7 @@ lbl_08003e48:
     bl sub_08002c94
     b lbl_08003e5c
     .align 2, 0
-lbl_08003e54: .4byte 0x0808f254
+lbl_08003e54: .4byte sMusicTrackDataROM
 lbl_08003e58:
     bl stop_music_or_sound
 lbl_08003e5c:
@@ -2819,7 +2819,7 @@ PlayCurrentMusicTrack: @ 0x08003eb8
     bne lbl_08003f12
     movs r0, #1
     strb r0, [r1, #1]
-    ldr r0, lbl_08003ef4 @ =0x0808f254
+    ldr r0, lbl_08003ef4 @ =sMusicTrackDataROM
     ldr r6, [r0]
     adds r0, r1, #0
     adds r0, #0x20
@@ -2840,7 +2840,7 @@ PlayCurrentMusicTrack: @ 0x08003eb8
     b lbl_08003f02
     .align 2, 0
 lbl_08003ef0: .4byte gMusicInfo
-lbl_08003ef4: .4byte 0x0808f254
+lbl_08003ef4: .4byte sMusicTrackDataROM
 lbl_08003ef8: .4byte 0x0808f2c0
 lbl_08003efc:
     ldr r1, lbl_08003f18 @ =0x0808f2c0
@@ -2874,7 +2874,7 @@ DecreaseMusicVolume: @ 0x08003f20
     movs r0, #0x80
     orrs r0, r1
     strb r0, [r2, #0xb]
-    ldr r5, lbl_08003f60 @ =0x0808f254
+    ldr r5, lbl_08003f60 @ =sMusicTrackDataROM
     ldr r0, [r5]
     ldr r6, lbl_08003f64 @ =0x0000ffff
     ldr r4, lbl_08003f68 @ =0x00000050
@@ -2892,14 +2892,14 @@ DecreaseMusicVolume: @ 0x08003f20
     bx r0
     .align 2, 0
 lbl_08003f5c: .4byte gMusicInfo
-lbl_08003f60: .4byte 0x0808f254
+lbl_08003f60: .4byte sMusicTrackDataROM
 lbl_08003f64: .4byte 0x0000ffff
 lbl_08003f68: .4byte 0x00000050
 
     thumb_func_start ResetMusicVolume
 ResetMusicVolume: @ 0x08003f6c
     push {r4, r5, r6, lr}
-    ldr r4, lbl_08003fa0 @ =0x0808f254
+    ldr r4, lbl_08003fa0 @ =sMusicTrackDataROM
     ldr r0, [r4]
     ldr r5, lbl_08003fa4 @ =0x0000ffff
     movs r6, #0x80
@@ -2923,7 +2923,7 @@ lbl_08003f9a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08003fa0: .4byte 0x0808f254
+lbl_08003fa0: .4byte sMusicTrackDataROM
 lbl_08003fa4: .4byte 0x0000ffff
 lbl_08003fa8: .4byte gMusicInfo
 
@@ -3015,7 +3015,7 @@ StopOrFadeSound: @ 0x08004014
 lbl_08004048: .4byte 0x0808f2c0
 lbl_0800404c: .4byte gSoundQueue
 lbl_08004050:
-    ldr r0, lbl_08004070 @ =0x0808f254
+    ldr r0, lbl_08004070 @ =sMusicTrackDataROM
     lsls r1, r2, #1
     adds r1, r1, r2
     lsls r1, r1, #2
@@ -3030,7 +3030,7 @@ lbl_08004050:
     bl stop_music_or_sound
     b lbl_0800407c
     .align 2, 0
-lbl_08004070: .4byte 0x0808f254
+lbl_08004070: .4byte sMusicTrackDataROM
 lbl_08004074:
     adds r0, r1, #0
     adds r1, r7, #0
@@ -3051,7 +3051,7 @@ BackupTrackData2SoundChannels: @ 0x0800408c
     push {r6, r7}
     sub sp, #4
     movs r7, #0
-    ldr r0, lbl_080040c4 @ =0x0808f254
+    ldr r0, lbl_080040c4 @ =sMusicTrackDataROM
     ldr r6, [r0, #0x18]
     ldrb r0, [r6, #0x1c]
     cmp r0, #0
@@ -3073,7 +3073,7 @@ BackupTrackData2SoundChannels: @ 0x0800408c
     ldr r4, [r6, #0x18]
     b lbl_08004134
     .align 2, 0
-lbl_080040c4: .4byte 0x0808f254
+lbl_080040c4: .4byte sMusicTrackDataROM
 lbl_080040c8:
     adds r0, r4, #0
     adds r0, #0x34
@@ -3154,7 +3154,7 @@ RetrieveTrackData2SoundChannels: @ 0x08004150
     mov r6, r8
     push {r6, r7}
     movs r6, #0
-    ldr r0, lbl_080041e4 @ =0x0808f254
+    ldr r0, lbl_080041e4 @ =sMusicTrackDataROM
     ldr r5, [r0, #0x18]
     ldrb r0, [r5, #0x1c]
     cmp r0, #0
@@ -3225,7 +3225,7 @@ lbl_080041d2:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080041e4: .4byte 0x0808f254
+lbl_080041e4: .4byte sMusicTrackDataROM
 lbl_080041e8: .4byte gSoundChannelTrack2Backup
 
     thumb_func_start sub_080041ec
@@ -3274,7 +3274,7 @@ sub_08004228: @ 0x08004228
     ldrh r0, [r0, #0x1c]
     cmp r5, r0
     beq lbl_08004250
-    ldr r0, lbl_0800425c @ =0x0808f254
+    ldr r0, lbl_0800425c @ =sMusicTrackDataROM
     ldr r4, [r0]
     adds r0, r4, #0
     bl stop_music_or_sound
@@ -3290,7 +3290,7 @@ lbl_08004250:
     bx r0
     .align 2, 0
 lbl_08004258: .4byte gMusicInfo
-lbl_0800425c: .4byte 0x0808f254
+lbl_0800425c: .4byte sMusicTrackDataROM
 
     thumb_func_start sub_08004260
 sub_08004260: @ 0x08004260
@@ -3298,21 +3298,21 @@ sub_08004260: @ 0x08004260
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
     bl SoundPlay
-    ldr r0, lbl_08004278 @ =0x0808f254
+    ldr r0, lbl_08004278 @ =sMusicTrackDataROM
     ldr r0, [r0]
     movs r1, #0x1e
     bl sub_080041ec
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08004278: .4byte 0x0808f254
+lbl_08004278: .4byte sMusicTrackDataROM
 
     thumb_func_start sub_0800427c
 sub_0800427c: @ 0x0800427c
     push {r4, lr}
     lsls r0, r0, #0x10
     lsrs r4, r0, #0x10
-    ldr r0, lbl_080042a4 @ =0x0808f254
+    ldr r0, lbl_080042a4 @ =sMusicTrackDataROM
     ldr r2, [r0]
     ldr r0, lbl_080042a8 @ =0x0808f2c0
     ldr r3, [r0, #0x48]
@@ -3328,7 +3328,7 @@ sub_0800427c: @ 0x0800427c
     bl UpdateMusicPriority
     b lbl_080042b6
     .align 2, 0
-lbl_080042a4: .4byte 0x0808f254
+lbl_080042a4: .4byte sMusicTrackDataROM
 lbl_080042a8: .4byte 0x0808f2c0
 lbl_080042ac:
     adds r0, r4, #0
@@ -3361,7 +3361,7 @@ sub_080042bc: @ 0x080042bc
     bne lbl_080042e0
     ldr r5, lbl_08004304 @ =0x0000012b
 lbl_080042e0:
-    ldr r0, lbl_08004308 @ =0x0808f254
+    ldr r0, lbl_08004308 @ =sMusicTrackDataROM
     ldr r0, [r0]
     ldr r2, lbl_0800430c @ =0x0808f2c0
     lsls r1, r5, #3
@@ -3379,1143 +3379,7 @@ lbl_080042f8:
     .align 2, 0
 lbl_08004300: .4byte gMusicInfo
 lbl_08004304: .4byte 0x0000012b
-lbl_08004308: .4byte 0x0808f254
+lbl_08004308: .4byte sMusicTrackDataROM
 lbl_0800430c: .4byte 0x0808f2c0
 
-    thumb_func_start call_soundcode_b
-call_soundcode_b: @ 0x08004310
-    push {r4, r5, r6, r7}
-    mov r4, r8
-    mov r5, sb
-    mov r6, sl
-    mov r7, fp
-    push {r4, r5, r6, r7, lr}
-    add r4, pc, #0x0
-    bx r4
-
-    thumb_func_start soundcode_b
-soundcode_b: @ 0x08004320
-    .byte 0x88, 0x40, 0x9F, 0xE5
-lbl_08004324:
-    .byte 0x04, 0xC0, 0xD4, 0xE5, 0x06, 0xEC, 0xA0, 0xE3, 0x01, 0x00, 0x00, 0xEA
-    .byte 0x01, 0x30, 0x53, 0xE2, 0x19, 0x00, 0x00, 0x0A, 0xDE, 0x60, 0x90, 0xE1, 0xDE, 0x70, 0x91, 0xE1
-    .byte 0xD1, 0x40, 0xD0, 0xE0, 0xD1, 0x50, 0xD1, 0xE0, 0xDE, 0xA0, 0x90, 0xE1, 0xDE, 0xB0, 0x91, 0xE1
-    .byte 0xD1, 0x80, 0xD0, 0xE0, 0xD1, 0x90, 0xD1, 0xE0, 0x04, 0x60, 0x86, 0xE0, 0x05, 0x60, 0x86, 0xE0
-    .byte 0x07, 0x60, 0x86, 0xE0, 0x09, 0x80, 0x88, 0xE0, 0x0A, 0x80, 0x88, 0xE0, 0x0B, 0x80, 0x88, 0xE0
-    .byte 0x9C, 0x06, 0x06, 0xE0, 0x9C, 0x08, 0x08, 0xE0, 0xC6, 0x64, 0xB0, 0xE1, 0x01, 0x60, 0x86, 0x42
-    .byte 0xC8, 0x84, 0xB0, 0xE1, 0x01, 0x80, 0x88, 0x42, 0x86, 0x63, 0xA0, 0xE1, 0x88, 0x83, 0xA0, 0xE1
-    .byte 0x06, 0x70, 0xA0, 0xE1, 0x08, 0x90, 0xA0, 0xE1, 0xC0, 0x03, 0xA2, 0xE8, 0xE3, 0xFF, 0xFF, 0xEA
-    .byte 0x02, 0x00, 0xA0, 0xE1, 0x00, 0x4F, 0xBD, 0xE8, 0xF0, 0x00, 0xBD, 0xE8, 0x1E, 0xFF, 0x2F, 0xE1
-    .byte 0x00, 0x1D, 0x00, 0x03
-
-    thumb_func_start call_soundcode_c
-call_soundcode_c: @ 0x080043b4
-    push {r4, r5, r6, r7}
-    mov r4, r8
-    mov r5, sb
-    mov r6, sl
-    mov r7, fp
-    push {r4, r5, r6, r7, lr}
-    add r4, pc, #0x0
-    bx r4
-
-    thumb_func_start soundcode_c
-soundcode_c: @ 0x080043c4
-    subs r4, #6
-    b sub_08004b0a
-lbl_080043c8:
-    .byte 0x03, 0x30, 0x80, 0xE0, 0x00, 0xC0, 0xA0, 0xE3
-    .byte 0x01, 0xC0, 0x4C, 0xE2, 0xAC, 0xCB, 0xA0, 0xE1, 0x80, 0xE0, 0x9F, 0xE5, 0x01, 0x00, 0x00, 0xEA
-    .byte 0x01, 0x20, 0x52, 0xE2, 0x19, 0x00, 0x00, 0x0A, 0xF0, 0x0F, 0xB1, 0xE8, 0xA4, 0x43, 0x0C, 0xE0
-    .byte 0xA5, 0x53, 0x0C, 0xE0, 0xA6, 0x63, 0x0C, 0xE0, 0xA7, 0x73, 0x0C, 0xE0, 0xA8, 0x83, 0x0C, 0xE0
-    .byte 0xA9, 0x93, 0x0C, 0xE0, 0xAA, 0xA3, 0x0C, 0xE0, 0xAB, 0xB3, 0x0C, 0xE0, 0x04, 0x40, 0xDE, 0xE7
-    .byte 0x05, 0x50, 0xDE, 0xE7, 0x06, 0x60, 0xDE, 0xE7, 0x07, 0x70, 0xDE, 0xE7, 0x08, 0x80, 0xDE, 0xE7
-    .byte 0x09, 0x90, 0xDE, 0xE7, 0x0A, 0xA0, 0xDE, 0xE7, 0x0B, 0xB0, 0xDE, 0xE7, 0x06, 0x44, 0x84, 0xE1
-    .byte 0x08, 0x48, 0x84, 0xE1, 0x0A, 0x4C, 0x84, 0xE1, 0x04, 0x40, 0x80, 0xE4, 0x07, 0x54, 0x85, 0xE1
-    .byte 0x09, 0x58, 0x85, 0xE1, 0x0B, 0x5C, 0x85, 0xE1, 0x04, 0x50, 0x83, 0xE4, 0xE3, 0xFF, 0xFF, 0xEA
-    .byte 0x01, 0x00, 0xA0, 0xE1, 0x00, 0x4F, 0xBD, 0xE8, 0xF0, 0x00, 0xBD, 0xE8, 0x1E, 0xFF, 0x2F, 0xE1
-    .byte 0xE2, 0xCC, 0x08, 0x08
-
-    thumb_func_start call_soundcode_a
-call_soundcode_a: @ 0x08004464
-    push {r4, r5, r6, r7}
-    mov r3, r8
-    mov r4, sb
-    mov r5, sl
-    mov r6, fp
-    push {r3, r4, r5, r6, lr}
-    add r4, pc, #0x0
-    bx r4
-
-    thumb_func_start soundcode_a
-soundcode_a: @ 0x08004474
-    stm r0!, {r3, r4}
-    b lbl_08003f9a
-lbl_08004478:
-    .byte 0x11, 0xB0, 0xD0, 0xE5, 0x12, 0xA0, 0xD0, 0xE5
-    .byte 0x24, 0x90, 0x90, 0xE5, 0x20, 0x30, 0x90, 0xE5, 0x0C, 0x80, 0x93, 0xE5, 0x01, 0x40, 0xD0, 0xE5
-    .byte 0x20, 0x00, 0x54, 0xE3, 0x09, 0x01, 0x00, 0x0A, 0x08, 0x00, 0x54, 0xE3, 0xBC, 0x00, 0x00, 0x0A
-    .byte 0x00, 0x70, 0xA0, 0xE3, 0x01, 0x70, 0x47, 0xE2, 0x27, 0x79, 0xA0, 0xE1, 0x1C, 0x60, 0x90, 0xE5
-    .byte 0x01, 0x00, 0x2D, 0xE9, 0xB2, 0x00, 0xD3, 0xE1, 0x08, 0xE0, 0x93, 0xE5, 0x08, 0xE0, 0x4E, 0xE0
-    .byte 0x01, 0x00, 0x00, 0xEA, 0x01, 0x20, 0x52, 0xE2, 0x76, 0x01, 0x00, 0x0A, 0x06, 0x41, 0x8C, 0xE0
-    .byte 0x24, 0x47, 0x58, 0xE0, 0x7D, 0x00, 0x00, 0xCA, 0x2C, 0x57, 0xA0, 0xE1, 0x00, 0x00, 0x10, 0xE0
-    .byte 0x34, 0x00, 0x00, 0x1A, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1, 0x03, 0x40, 0x44, 0xE0
-    .byte 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0, 0x30, 0x00, 0x91, 0xE8
-    .byte 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8, 0x06, 0xC0, 0x8C, 0xE0
-    .byte 0x2C, 0x57, 0xA0, 0xE1, 0x08, 0x00, 0x55, 0xE1, 0x5E, 0x01, 0x00, 0xAA, 0xD9, 0x30, 0xB5, 0xE1
-    .byte 0xD1, 0x40, 0xD5, 0xE1, 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0
-    .byte 0x24, 0x37, 0x83, 0xE0, 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0
-    .byte 0x30, 0x00, 0xA1, 0xE8, 0x06, 0xC0, 0x8C, 0xE0, 0x2C, 0x57, 0xA0, 0xE1, 0x08, 0x00, 0x55, 0xE1
-    .byte 0x50, 0x01, 0x00, 0xAA, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1, 0x03, 0x40, 0x44, 0xE0
-    .byte 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0, 0x30, 0x00, 0x91, 0xE8
-    .byte 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8, 0x06, 0xC0, 0x8C, 0xE0
-    .byte 0x2C, 0x57, 0xA0, 0xE1, 0x08, 0x00, 0x55, 0xE1, 0x42, 0x01, 0x00, 0xAA, 0xD9, 0x30, 0xB5, 0xE1
-    .byte 0xD1, 0x40, 0xD5, 0xE1, 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0
-    .byte 0x24, 0x37, 0x83, 0xE0, 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0
-    .byte 0x30, 0x00, 0xA1, 0xE8, 0x37, 0x01, 0x00, 0xEA, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1
-    .byte 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0
-    .byte 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8
-    .byte 0x06, 0xC0, 0x8C, 0xE0, 0x2C, 0x57, 0xA0, 0xE1, 0x08, 0x00, 0x55, 0xE1, 0x03, 0x00, 0x00, 0xBA
-    .byte 0x07, 0x30, 0x0C, 0xE0, 0x0E, 0x50, 0x85, 0xE0, 0x05, 0xC7, 0x83, 0xE0, 0x3F, 0x00, 0x00, 0xEA
-    .byte 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1, 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0
-    .byte 0x95, 0x04, 0x04, 0xE0
-lbl_08004614:
-    adds r7, #0x24
-    b lbl_08004720
-lbl_08004618:
-    .byte 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0
-    .byte 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8, 0x06, 0xC0, 0x8C, 0xE0, 0x2C, 0x57, 0xA0, 0xE1
-    .byte 0x08, 0x00, 0x55, 0xE1, 0x03, 0x00, 0x00, 0xBA, 0x07, 0x30, 0x0C, 0xE0, 0x0E, 0x50, 0x85, 0xE0
-    .byte 0x05, 0xC7, 0x83, 0xE0, 0x39, 0x00, 0x00, 0xEA, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1
-    .byte 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0
-    .byte 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8
-    .byte 0x06, 0xC0, 0x8C, 0xE0, 0x2C, 0x57, 0xA0, 0xE1, 0x08, 0x00, 0x55, 0xE1, 0x03, 0x00, 0x00, 0xBA
-    .byte 0x07, 0x30, 0x0C, 0xE0, 0x0E, 0x50, 0x85, 0xE0, 0x05, 0xC7, 0x83, 0xE0, 0x33, 0x00, 0x00, 0xEA
-    .byte 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1, 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0
-    .byte 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0, 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0
-    .byte 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8, 0x06, 0xC0, 0x8C, 0xE0, 0x2C, 0x57, 0xA0, 0xE1
-    .byte 0x07, 0x30, 0x0C, 0xE0, 0x0E, 0x50, 0x85, 0xE0, 0x05, 0xC7, 0x83, 0xE0, 0x7C, 0xFF, 0xFF, 0xEA
-    .byte 0x2C, 0x57, 0xA0, 0xE1, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1, 0x03, 0x40, 0x44, 0xE0
-    .byte 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0, 0x30, 0x00, 0x91, 0xE8
-    .byte 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8, 0x06, 0xC0, 0x8C, 0xE0
-    .byte 0x2C, 0x57, 0xA0, 0xE1, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1, 0x03, 0x40, 0x44, 0xE0
-    .byte 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0, 0x30, 0x00, 0x91, 0xE8
-lbl_08004720:
-    ldr r3, lbl_08004970 @ =0xe1b530d9
-    b lbl_0800476e
-lbl_08004724:
-    .byte 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8, 0x06, 0xC0, 0x8C, 0xE0
-    .byte 0x2C, 0x57, 0xA0, 0xE1, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1, 0x03, 0x40, 0x44, 0xE0
-    .byte 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0, 0x30, 0x00, 0x91, 0xE8
-    .byte 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8, 0x06, 0xC0, 0x8C, 0xE0
-    .byte 0x2C, 0x57, 0xA0, 0xE1, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1, 0x03, 0x40
-lbl_0800476e:
-    b lbl_080047fa
-lbl_08004770:
-    .byte 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0, 0x30, 0x00, 0x91, 0xE8
-    .byte 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8, 0x06, 0xC0, 0x8C, 0xE0
-    .byte 0x4B, 0xFF, 0xFF, 0xEA, 0x01, 0x00, 0x2D, 0xE9, 0xB2, 0x70, 0xD3, 0xE1, 0x08, 0x60, 0x93, 0xE5
-    .byte 0x01, 0x00, 0x00, 0xEA, 0x01, 0x20, 0x52, 0xE2, 0xBE, 0x00, 0x00, 0x0A, 0x04, 0x40, 0x8C, 0xE2
-    .byte 0x08, 0x00, 0x54, 0xE1, 0x2C, 0x00, 0x00, 0xBA, 0xDC, 0x30, 0x99, 0xE1, 0x30, 0x00, 0x91, 0xE8
-    .byte 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8, 0x01, 0xC0, 0x8C, 0xE2
-    .byte 0x08, 0x00, 0x5C, 0xE1, 0x02, 0x00, 0x00, 0x1A, 0x07, 0x70, 0x17, 0xE0, 0xAD, 0x00, 0x00, 0x0A
-    .byte 0x06, 0xC0, 0xA0, 0xE1, 0xDC, 0x30, 0x99, 0xE1, 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0
-    .byte 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8, 0x01, 0xC0
-lbl_080047fa:
-    b lbl_08004d16
-lbl_080047fc:
-    .byte 0x08, 0x00, 0x5C, 0xE1
-    .byte 0x02, 0x00, 0x00, 0x1A, 0x07, 0x70, 0x17, 0xE0, 0xA2, 0x00, 0x00, 0x0A, 0x06, 0xC0, 0xA0, 0xE1
-    .byte 0xDC, 0x30, 0x99, 0xE1, 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0
-    .byte 0x30, 0x00, 0xA1, 0xE8, 0x01, 0xC0, 0x8C, 0xE2, 0x08, 0x00, 0x5C, 0xE1, 0x02, 0x00, 0x00, 0x1A
-    .byte 0x07, 0x70, 0x17, 0xE0, 0x97, 0x00, 0x00, 0x0A, 0x06, 0xC0, 0xA0, 0xE1, 0xDC, 0x30, 0x99, 0xE1
-    .byte 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8
-    .byte 0x01, 0xC0, 0x8C, 0xE2, 0x08, 0x00, 0x5C, 0xE1, 0xD1, 0xFF, 0xFF, 0x1A, 0x07, 0x70, 0x17, 0xE0
-    .byte 0x8C, 0x00, 0x00, 0x0A, 0x06, 0xC0, 0xA0, 0xE1, 0xCD, 0xFF, 0xFF, 0xEA, 0x38, 0x40, 0x91, 0xE8
-    .byte 0xDC, 0x00, 0x99, 0xE1, 0x90, 0x3B, 0x23, 0xE0, 0x90, 0x4A, 0x24, 0xE0, 0x01, 0xC0, 0x8C, 0xE2
-    .byte 0xDC, 0x00, 0x99, 0xE1, 0x90, 0x5B, 0x25, 0xE0, 0x90, 0xEA, 0x2E, 0xE0, 0x01, 0xC0, 0x8C, 0xE2
-    .byte 0x38, 0x40, 0xA1, 0xE8, 0x38, 0x40, 0x91, 0xE8, 0xDC, 0x00, 0x99, 0xE1, 0x90, 0x3B, 0x23, 0xE0
-    .byte 0x90, 0x4A, 0x24, 0xE0, 0x01, 0xC0, 0x8C, 0xE2, 0xDC, 0x00, 0x99, 0xE1, 0x90, 0x5B, 0x25, 0xE0
-    .byte 0x90, 0xEA, 0x2E, 0xE0, 0x01, 0xC0, 0x8C, 0xE2, 0x38, 0x40, 0xA1, 0xE8, 0xB8, 0xFF, 0xFF, 0xEA
-    .byte 0x00, 0x70, 0xA0, 0xE3, 0x01, 0x70, 0x47, 0xE2, 0x07, 0x40, 0xA0, 0xE1, 0x27, 0x79, 0xA0, 0xE1
-    .byte 0x1C, 0x60, 0x90, 0xE5, 0x04, 0x60, 0x26, 0xE0, 0x01, 0x60, 0x86, 0xE2, 0x01, 0x00, 0x2D, 0xE9
-    .byte 0xB2, 0x00, 0xD3, 0xE1, 0x01, 0x00, 0x00, 0xEA, 0x01, 0x20, 0x52, 0xE2, 0x6D, 0x00, 0x00, 0x0A
-    .byte 0x06, 0x41, 0x8C, 0xE0, 0x44, 0x47, 0xB0, 0xE1, 0x35, 0x00, 0x00, 0xCA, 0x2C, 0x57, 0xA0, 0xE1
-    .byte 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1, 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0
-    .byte 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0, 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0
-    .byte 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8, 0x06, 0xC0, 0x8C, 0xE0, 0x2C, 0x57, 0xA0, 0xE1
-    .byte 0x00, 0x00, 0x55, 0xE3, 0x57, 0x00, 0x00, 0xDA, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1
-    .byte 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0
-    .byte 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8
-    .byte 0x06, 0xC0, 0x8C, 0xE0, 0x2C, 0x57, 0xA0, 0xE1, 0x00, 0x00, 0x55, 0xE3, 0x49, 0x00, 0x00, 0xDA
-lbl_08004970: .4byte 0xe1b530d9
-lbl_08004974:
-    .byte 0xD1, 0x40, 0xD5, 0xE1, 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0
-    .byte 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0, 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0
-    .byte 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8, 0x06, 0xC0, 0x8C, 0xE0, 0x2C, 0x57, 0xA0, 0xE1
-    .byte 0x00, 0x00, 0x55, 0xE3, 0x3B, 0x00, 0x00, 0xDA, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1
-    .byte 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0
-    .byte 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8
-    .byte 0x30, 0x00, 0x00, 0xEA, 0x2C, 0x57, 0xA0, 0xE1, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1
-    .byte 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0
-    .byte 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8
-    .byte 0x06, 0xC0, 0x8C, 0xE0, 0x2C, 0x57, 0xA0, 0xE1, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1
-    .byte 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0
-    .byte 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8
-    .byte 0x06, 0xC0, 0x8C, 0xE0, 0x2C, 0x57, 0xA0, 0xE1, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1
-    .byte 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0
-    .byte 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8
-    .byte 0x06, 0xC0, 0x8C, 0xE0, 0x2C, 0x57, 0xA0, 0xE1, 0xD9, 0x30, 0xB5, 0xE1, 0xD1, 0x40, 0xD5, 0xE1
-    .byte 0x03, 0x40, 0x44, 0xE0, 0x07, 0x50, 0x0C, 0xE0, 0x95, 0x04, 0x04, 0xE0, 0x24, 0x37, 0x83, 0xE0
-    .byte 0x30, 0x00, 0x91, 0xE8, 0x93, 0x4B, 0x24, 0xE0, 0x93, 0x5A, 0x25, 0xE0, 0x30, 0x00, 0xA1, 0xE8
-    .byte 0x06, 0xC0, 0x8C, 0xE0, 0x93, 0xFF, 0xFF, 0xEA, 0x01, 0x00, 0xBD, 0xE8, 0x00, 0x40, 0xA0, 0xE3
-    .byte 0x00, 0x40, 0xC0, 0xE5, 0x01, 0x00, 0x00, 0xEA, 0x01, 0x00, 0xBD, 0xE8, 0x18, 0xC0, 0x80, 0xE5
-    .byte 0x00, 0x4F, 0xBD, 0xE8, 0xF0, 0x00, 0xBD, 0xE8, 0x1E, 0xFF, 0x2F, 0xE1
-
-    thumb_func_start sub_08004abc
-sub_08004abc: @ 0x08004abc
-    add r2, pc, #0x0 @ =sub_08004ac0
-    bx r2
-
-    arm_func_start sub_08004ac0
-sub_08004ac0: @ 0x08004ac0
-    umull r2, r3, r0, r1
-    lsr r2, r2, #0x12
-    lsl r3, r3, #0xe
-    add r3, r3, r2
-    add r0, r3, #0
-    bx lr
-
-    thumb_func_start sub_08004ad8
-sub_08004ad8: @ 0x08004ad8
-    add r0, pc, #0x0 @ =sub_08004adc
-    bx r0
-
-    arm_func_start sub_08004adc
-sub_08004adc: @ 0x08004adc
-    ldr r0, lbl_08004b44 @ =gMusicInfo
-    ldrb r1, [r0, #0x10]
-    add r1, r1, #1
-    ldrb r3, [r0, #0xe]
-    cmp r1, r3
-    bne sub_08004b3c
-    ldr r3, lbl_08004b48 @ =0x0808ceec
-    ldr r3, [r3]
-    ldr ip, lbl_08004b4c @ =0x0808cef0
-    ldr ip, [ip]
-    str ip, [r3]
-lbl_08004b08:
-    .byte 0x0C, 0xC0
-
-    non_word_aligned_thumb_func_start sub_08004b0a
-sub_08004b0a: @ 0x08004b0a
-    b lbl_08004614
-lbl_08004b0c:
-    .byte 0x00, 0x00, 0xA0, 0xE1
-    .byte 0x50, 0xC0, 0xA0, 0xE3, 0x0C, 0xC2, 0xA0, 0xE1, 0xB2, 0xC0, 0xC3, 0xE1, 0xBE, 0xC0, 0xC3, 0xE1
-    .byte 0xB6, 0xC0, 0xA0, 0xE3, 0x0C, 0xC4, 0xA0, 0xE1, 0xB2, 0xC0, 0xC3, 0xE1, 0xF6, 0xC0, 0xA0, 0xE3
-    .byte 0x0C, 0xC4, 0xA0, 0xE1, 0xBE, 0xC0, 0xC3, 0xE1, 0x00, 0x10, 0xA0, 0xE3
-
-    arm_func_start sub_08004b3c
-sub_08004b3c: @ 0x08004b3c
-    strb r1, [r0, #0x10]
-    bx lr
-    .align 2, 0
-lbl_08004b44: .4byte gMusicInfo
-lbl_08004b48: .4byte 0x0808ceec
-lbl_08004b4c: .4byte 0x0808cef0
-
-    thumb_func_start sub_08004b50
-sub_08004b50: @ 0x08004b50
-    push {r4, r5, r6, r7, lr}
-    sub sp, #4
-    adds r4, r0, #0
-    adds r5, r1, #0
-    ldrb r6, [r4, #0x1c]
-    cmp r6, #0
-    bne lbl_08004c04
-    movs r6, #1
-    strb r6, [r4, #0x1c]
-    ldrb r6, [r4, #0x1e]
-    movs r7, #1
-    ands r6, r7
-    bne lbl_08004c00
-    ldr r6, [r5]
-    lsls r2, r6, #0x18
-    lsrs r2, r2, #0x18
-    bne lbl_08004b7c
-    bl reset_track
-    movs r2, #0
-    strb r2, [r4]
-    b lbl_08004c00
-lbl_08004b7c:
-    ldr r7, [r4]
-    movs r3, #2
-    lsls r2, r7, #0x18
-    lsrs r2, r2, #0x18
-    ands r3, r2
-    beq lbl_08004ba2
-    movs r3, #0x1d
-    ldrb r3, [r4, r3]
-    cmp r3, #0
-    beq lbl_08004b9c
-    lsls r1, r6, #8
-    lsrs r1, r1, #0x18
-    lsrs r2, r7, #0x18
-    cmp r2, r1
-    ble lbl_08004b9c
-    b lbl_08004c0e
-lbl_08004b9c:
-    adds r0, r4, #0
-    bl reset_track
-lbl_08004ba2:
-    movs r3, #2
-    lsls r2, r6, #8
-    orrs r2, r3
-    ldr r0, [r5, #4]
-    str r2, [r4]
-    str r0, [r4, #0x14]
-    str r5, [r4, #0x10]
-    lsls r3, r3, #7
-    strh r3, [r4, #0xc]
-    lsrs r2, r6, #0x1f
-    beq lbl_08004bbe
-    lsrs r0, r6, #0x18
-    bl UpdateSOUNDCNT_H
-lbl_08004bbe:
-    lsls r6, r6, #0x18
-    lsrs r6, r6, #0x18
-    ldr r7, [r4, #0x18]
-    movs r0, #0x10
-    str r0, [sp]
-    movs r0, #3
-    movs r1, #0
-    adds r2, r7, #0
-    movs r3, #0x50
-    muls r3, r6, r3
-    bl BitFill
-    movs r0, #1
-    movs r2, #0x40
-    lsls r1, r2, #0x10
-    lsls r2, r2, #8
-    orrs r1, r2
-    movs r3, #0xc
-    lsls r3, r3, #8
-    movs r2, #2
-    orrs r2, r3
-    adds r5, #8
-    b lbl_08004bf4
-lbl_08004bec:
-    subs r6, #1
-    beq lbl_08004c00
-    adds r7, #0x50
-    adds r5, #4
-lbl_08004bf4:
-    ldr r3, [r5]
-    strb r0, [r7]
-    strh r2, [r7, #0x1a]
-    str r1, [r7, #4]
-    str r3, [r7, #0x24]
-    b lbl_08004bec
-lbl_08004c00:
-    movs r6, #0
-    strb r6, [r4, #0x1c]
-lbl_08004c04:
-    movs r0, #0
-    add sp, #4
-    pop {r4, r5, r6, r7}
-    pop {r1}
-    bx r1
-lbl_08004c0e:
-    movs r6, #0
-    strb r6, [r4, #0x1c]
-    movs r0, #1
-    add sp, #4
-    pop {r4, r5, r6, r7}
-    pop {r1}
-    bx r1
-
-    thumb_func_start stop_music_or_sound
-stop_music_or_sound: @ 0x08004c1c
-    push {r4, r5, r6, r7, lr}
-    adds r7, r0, #0
-    ldrb r6, [r7, #0x1c]
-    cmp r6, #0
-    bne lbl_08004c8c
-    movs r6, #1
-    strb r6, [r7, #0x1c]
-    ldrb r6, [r7, #0x1e]
-    movs r5, #1
-    ands r5, r6
-    bne lbl_08004c88
-    ldrb r4, [r7]
-    movs r5, #2
-    ands r4, r5
-    beq lbl_08004c88
-    movs r4, #1
-    strb r4, [r7]
-    movs r4, #0
-    strb r4, [r7, #4]
-    ldrb r6, [r7, #1]
-    ldr r5, [r7, #0x18]
-    b lbl_08004c4e
-lbl_08004c48:
-    subs r6, #1
-    beq lbl_08004c88
-    adds r5, #0x50
-lbl_08004c4e:
-    ldr r4, [r5, #0x4c]
-    cmp r4, #0
-    beq lbl_08004c6a
-    movs r3, #7
-    movs r2, #0x34
-    ldrb r1, [r5, r2]
-    ands r1, r3
-    subs r1, #1
-    adds r0, r4, #0
-    bl sub_080024c0
-    movs r3, #0
-    strb r3, [r4]
-    str r3, [r4, #0x24]
-lbl_08004c6a:
-    ldr r0, [r5, #0x48]
-    movs r1, #0
-lbl_08004c6e:
-    cmp r0, #0
-    beq lbl_08004c80
-    ldr r2, [r0, #0x30]
-    strb r1, [r0]
-    str r1, [r0, #0x28]
-    str r1, [r0, #0x30]
-    str r1, [r0, #0x2c]
-    adds r0, r2, #0
-    b lbl_08004c6e
-lbl_08004c80:
-    movs r0, #0
-    str r0, [r5, #0x4c]
-    str r0, [r5, #0x48]
-    b lbl_08004c48
-lbl_08004c88:
-    movs r6, #0
-    strb r6, [r7, #0x1c]
-lbl_08004c8c:
-    pop {r4, r5, r6, r7}
-    pop {r0}
-    bx r0
-    .align 2, 0
-
-    thumb_func_start reset_track
-reset_track: @ 0x08004c94
-    push {r4, r5, r6, r7, lr}
-    adds r7, r0, #0
-    ldrb r6, [r7, #0x1e]
-    movs r5, #1
-    ands r5, r6
-    bne lbl_08004cf6
-    ldrb r4, [r7]
-    movs r5, #2
-    ands r4, r5
-    beq lbl_08004cf6
-    movs r4, #1
-    strb r4, [r7]
-    movs r4, #0
-    strb r4, [r7, #4]
-    ldrb r6, [r7, #1]
-    ldr r5, [r7, #0x18]
-    b lbl_08004cbc
-lbl_08004cb6:
-    subs r6, #1
-    beq lbl_08004cf6
-    adds r5, #0x50
-lbl_08004cbc:
-    ldr r4, [r5, #0x4c]
-    cmp r4, #0
-    beq lbl_08004cd8
-    movs r3, #7
-    movs r2, #0x34
-    ldrb r1, [r5, r2]
-    ands r1, r3
-    subs r1, #1
-    adds r0, r4, #0
-    bl sub_080024c0
-    movs r3, #0
-    strb r3, [r4]
-    str r3, [r4, #0x24]
-lbl_08004cd8:
-    ldr r0, [r5, #0x48]
-    movs r1, #0
-lbl_08004cdc:
-    cmp r0, #0
-    beq lbl_08004cee
-    ldr r2, [r0, #0x30]
-    strb r1, [r0]
-    str r1, [r0, #0x28]
-    str r1, [r0, #0x30]
-    str r1, [r0, #0x2c]
-    adds r0, r2, #0
-    b lbl_08004cdc
-lbl_08004cee:
-    movs r0, #0
-    str r0, [r5, #0x4c]
-    str r0, [r5, #0x48]
-    b lbl_08004cb6
-lbl_08004cf6:
-    pop {r4, r5, r6, r7}
-    pop {r0}
-    bx r0
-
-    thumb_func_start sub_08004cfc
-sub_08004cfc: @ 0x08004cfc
-    adds r3, r0, #0
-    ldr r0, [r3, #0xc]
-    lsls r1, r0, #0x10
-    adds r1, r0, r1
-    lsrs r1, r1, #0x10
-    movs r2, #0xff
-    lsls r0, r2, #8
-    ands r0, r1
-    beq lbl_08004d14
-    lsrs r0, r1, #8
-    ands r1, r2
-    b lbl_08004d16
-lbl_08004d14:
-    movs r0, #0
-lbl_08004d16:
-    strh r1, [r3, #0xe]
-    bx lr
-    .align 2, 0
-
-    thumb_func_start sub_08004d1c
-sub_08004d1c: @ 0x08004d1c
-    ldr r2, [r1, #0x24]
-    ldrb r3, [r2, #1]
-    adds r2, #2
-    str r2, [r1, #0x24]
-    lsls r2, r3, #1
-    strh r2, [r0, #0xa]
-    cmp r2, #0x96
-    beq lbl_08004d3c
-    movs r1, #0x1b
-    movs r3, #0x4e
-    lsls r1, r1, #8
-    orrs r1, r3
-    lsls r2, r2, #8
-    muls r1, r2, r1
-    lsrs r1, r1, #0x14
-    b lbl_08004d40
-lbl_08004d3c:
-    movs r1, #1
-    lsls r1, r1, #8
-lbl_08004d40:
-    movs r3, #0
-    strh r1, [r0, #0xc]
-    strh r3, [r0, #0xe]
-    bx lr
-
-    thumb_func_start UpdateAudio
-UpdateAudio: @ 0x08004d48
-    push {r4, r5, r6, lr}
-    ldr r4, lbl_08004df4 @ =0x0808f254
-    ldr r5, lbl_08004df8 @ =0x00000009
-    ldr r6, lbl_08004dfc @ =gSoundQueue
-    b lbl_08004d5c
-lbl_08004d52:
-    subs r5, #1
-    cmp r5, #0
-    beq lbl_08004d72
-    adds r4, #0xc
-    adds r6, #8
-lbl_08004d5c:
-    ldrb r3, [r6]
-    cmp r3, #0
-    beq lbl_08004d52
-    ldr r0, [r4]
-    ldr r1, [r6, #4]
-    bl sub_08004b50
-    movs r0, #0
-    str r0, [r6]
-    str r0, [r6, #4]
-    b lbl_08004d52
-lbl_08004d72:
-    ldr r4, lbl_08004e00 @ =0x0808f254
-    ldr r6, lbl_08004e04 @ =gMusicInfo
-    movs r0, #0x21
-    ldrb r0, [r6, r0]
-    movs r1, #0x80
-    ands r1, r0
-    beq lbl_08004d92
-    movs r1, #0x7f
-    ands r0, r1
-    movs r1, #4
-    cmp r0, r1
-    beq lbl_08004dd8
-    adds r4, #0xc
-    ldr r5, lbl_08004e08 @ =0x00000009
-    subs r5, #1
-    b lbl_08004da8
-lbl_08004d92:
-    movs r0, #0x21
-    ldrb r0, [r6, r0]
-    movs r1, #4
-    cmp r0, r1
-    beq lbl_08004dbc
-    ldr r5, lbl_08004e0c @ =0x00000009
-    b lbl_08004da8
-lbl_08004da0:
-    subs r5, #1
-    cmp r5, #0
-    beq lbl_08004dd8
-    adds r4, #0xc
-lbl_08004da8:
-    ldr r0, [r4]
-    cmp r0, #0
-    beq lbl_08004da0
-    ldrb r3, [r0]
-    movs r1, #2
-    ands r3, r1
-    beq lbl_08004da0
-    bl sub_08001850
-    b lbl_08004da0
-lbl_08004dbc:
-    movs r0, #0x20
-    ldrb r0, [r6, r0]
-    movs r1, #0
-    cmp r0, r1
-    beq lbl_08004dc8
-    movs r1, #0xc
-lbl_08004dc8:
-    adds r4, r4, r1
-    ldr r0, [r4]
-    ldrb r3, [r0]
-    movs r1, #2
-    ands r3, r1
-    beq lbl_08004dd8
-    bl sub_08001850
-lbl_08004dd8:
-    ldrb r5, [r6, #1]
-    cmp r5, #0
-    bne lbl_08004dea
-    movs r5, #1
-    strb r5, [r6, #1]
-    bl sub_08001458
-    bl sub_080010c4
-lbl_08004dea:
-    movs r0, #0
-    strb r0, [r6, #1]
-    pop {r4, r5, r6}
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_08004df4: .4byte 0x0808f254
-lbl_08004df8: .4byte 0x00000009
-lbl_08004dfc: .4byte gSoundQueue
-lbl_08004e00: .4byte 0x0808f254
-lbl_08004e04: .4byte gMusicInfo
-lbl_08004e08: .4byte 0x00000009
-lbl_08004e0c: .4byte 0x00000009
-
-    thumb_func_start sub_08004e10
-sub_08004e10: @ 0x08004e10
-    push {r4, r5, lr}
-    ldr r1, [r0, #0x40]
-    ldrb r2, [r0, #1]
-    ldrb r3, [r0]
-    movs r4, #0xf0
-    ands r3, r4
-    cmp r3, #0x80
-    bne lbl_08004e40
-    movs r3, #0xc
-    muls r2, r3, r2
-    adds r1, r1, r2
-    ldrb r2, [r1, #1]
-    movs r3, #0x35
-    strb r2, [r0, r3]
-    ldrb r2, [r1, #3]
-    cmp r2, #0
-    bne lbl_08004e38
-    movs r2, #0x40
-    strb r2, [r0, #6]
-    b lbl_08004e4c
-lbl_08004e38:
-    subs r2, #0x80
-    bmi lbl_08004e4c
-    strb r2, [r0, #6]
-    b lbl_08004e4c
-lbl_08004e40:
-    ldr r3, [r0, #0x44]
-    adds r3, r3, r2
-    ldrb r3, [r3]
-    movs r4, #0xc
-    muls r3, r4, r3
-    adds r1, r1, r3
-lbl_08004e4c:
-    ldr r2, [r1]
-    lsls r3, r2, #0x18
-    lsrs r3, r3, #0x18
-    movs r4, #0x34
-    strb r3, [r0, r4]
-    lsls r4, r2, #8
-    lsrs r4, r4, #0x18
-    movs r5, #0x36
-    strb r4, [r0, r5]
-    movs r4, #7
-    ands r3, r4
-    bne lbl_08004e6a
-    ldr r3, [r1, #4]
-    str r3, [r0, #0x38]
-    b lbl_08004eaa
-lbl_08004e6a:
-    cmp r3, #2
-    bgt lbl_08004e88
-    lsrs r3, r2, #0x18
-    movs r4, #0x80
-    ands r4, r3
-    bne lbl_08004e7e
-    movs r4, #0x70
-    ands r4, r3
-    beq lbl_08004e7e
-    b lbl_08004e80
-lbl_08004e7e:
-    movs r3, #8
-lbl_08004e80:
-    movs r4, #0x37
-    strb r3, [r0, r4]
-    movs r4, #6
-    b lbl_08004ea2
-lbl_08004e88:
-    cmp r3, #3
-    bne lbl_08004e9c
-    adds r4, r0, #0
-    adds r5, r1, #0
-    ldr r0, [r5, #4]
-    bl sub_080050d0
-    adds r0, r4, #0
-    adds r1, r5, #0
-    b lbl_08004eaa
-lbl_08004e9c:
-    cmp r3, #4
-    bne lbl_08004eaa
-    movs r4, #3
-lbl_08004ea2:
-    ldr r3, [r1, #4]
-    lsls r3, r4
-    movs r4, #0x38
-    strb r3, [r0, r4]
-lbl_08004eaa:
-    ldr r2, [r1, #8]
-    str r2, [r0, #0x3c]
-    pop {r4, r5}
-    pop {r0}
-    bx r0
-
-    thumb_func_start sub_08004eb4
-sub_08004eb4: @ 0x08004eb4
-    movs r1, #0x19
-    ldrsb r1, [r0, r1]
-    cmp r1, #0
-    ble lbl_08004ebe
-    adds r1, #1
-lbl_08004ebe:
-    ldr r2, [r0, #0x1c]
-    ldrb r3, [r0, #0x1a]
-    muls r1, r3, r1
-    lsls r1, r1, #2
-    lsls r3, r2, #0x18
-    asrs r3, r3, #0x18
-    lsls r3, r3, #8
-    adds r1, r1, r3
-    lsls r3, r2, #0x10
-    asrs r3, r3, #0x18
-    lsls r3, r3, #8
-    adds r1, r1, r3
-    lsls r3, r2, #8
-    asrs r3, r3, #0x16
-    lsls r3, r3, #2
-    adds r1, r1, r3
-    lsrs r2, r2, #0x18
-    adds r1, r1, r2
-    movs r3, #0x10
-    ldr r2, [r0, r3]
-    movs r3, #0xff
-    ands r3, r2
-    beq lbl_08004f06
-    movs r3, #0xff
-    lsls r3, r3, #8
-    ands r3, r2
-    beq lbl_08004f06
-    lsls r3, r2, #8
-    lsrs r3, r3, #0x18
-    cmp r3, #0
-    bne lbl_08004f06
-    asrs r2, r2, #0x18
-    lsls r2, r2, #2
-    movs r3, #0xc
-    muls r2, r3, r2
-    adds r1, r1, r2
-lbl_08004f06:
-    asrs r2, r1, #8
-    strb r2, [r0, #0x17]
-    strb r1, [r0, #0x18]
-    bx lr
-    .align 2, 0
-
-    thumb_func_start sub_08004f10
-sub_08004f10: @ 0x08004f10
-    push {r4}
-    ldr r1, [r0, #4]
-    lsls r2, r1, #0x18
-    lsrs r2, r2, #0x18
-    lsls r3, r1, #0x10
-    lsrs r3, r3, #0x18
-    muls r2, r3, r2
-    lsrs r2, r2, #5
-    ldrh r3, [r0, #0x12]
-    lsls r4, r3, #0x18
-    lsrs r4, r4, #0x18
-    cmp r4, #1
-    bne lbl_08004f3a
-    lsls r4, r3, #0x10
-    asrs r4, r4, #0x18
-    adds r4, #0x41
-    muls r2, r4, r2
-    asrs r2, r2, #6
-    cmp r2, #0xff
-    blt lbl_08004f3a
-    movs r2, #0xff
-lbl_08004f3a:
-    lsls r4, r1, #8
-    lsrs r4, r4, #0x18
-    asrs r1, r1, #0x18
-    adds r1, r1, r4
-    subs r1, #0x40
-    cmp r1, #0x3f
-    blt lbl_08004f4c
-    movs r1, #0x3f
-    b lbl_08004f56
-lbl_08004f4c:
-    movs r4, #0x40
-    rsbs r4, r4, #0
-    cmp r1, r4
-    bpl lbl_08004f56
-    rsbs r1, r4, #0
-lbl_08004f56:
-    lsls r4, r3, #0x18
-    lsrs r4, r4, #0x18
-    cmp r4, #2
-    bne lbl_08004f74
-    lsls r4, r3, #0x10
-    asrs r4, r4, #0x18
-    adds r1, r1, r4
-    cmp r1, #0x3f
-    blt lbl_08004f6c
-    movs r1, #0x3f
-    b lbl_08004f74
-lbl_08004f6c:
-    movs r4, #0x40
-    adds r3, r1, r4
-    bpl lbl_08004f74
-    rsbs r1, r4, #0
-lbl_08004f74:
-    movs r4, #0x40
-    adds r3, r1, r4
-    muls r3, r2, r3
-    lsrs r3, r3, #7
-    subs r4, r4, r1
-    muls r4, r2, r4
-    lsrs r4, r4, #7
-    lsls r4, r4, #8
-    orrs r3, r4
-    strh r3, [r0, #8]
-    pop {r4}
-    bx lr
-
-    thumb_func_start sub_08004f8c
-sub_08004f8c: @ 0x08004f8c
-    push {r4, r5, r6, lr}
-    adds r4, r0, #0
-    adds r5, r1, #0
-    adds r6, r2, #0
-    ldrb r1, [r4, #0x13]
-    movs r2, #2
-    orrs r1, r2
-    strb r1, [r4, #0x13]
-    bl sub_080020a4
-    ldr r0, [r5, #0x48]
-    cmp r0, #0
-    beq lbl_08004fa8
-    str r4, [r0, #0x2c]
-lbl_08004fa8:
-    str r0, [r4, #0x30]
-    movs r1, #0
-    str r1, [r4, #0x2c]
-    str r5, [r4, #0x28]
-    str r4, [r5, #0x48]
-    movs r1, #0x34
-    ldrb r0, [r5, r1]
-    ldrb r1, [r5, #6]
-    lsls r0, r0, #8
-    lsls r6, r6, #0x10
-    lsls r1, r1, #0x18
-    movs r2, #1
-    orrs r0, r1
-    orrs r0, r2
-    orrs r0, r6
-    str r0, [r4]
-    ldr r0, [r5, #0x3c]
-    str r0, [r4, #8]
-    ldr r0, [r5, #0xc]
-    str r0, [r4, #0xc]
-    movs r1, #0x10
-    movs r2, #0xc
-    ldr r0, [r5, #0x38]
-    adds r1, r1, r0
-    adds r2, r2, r0
-    str r0, [r4, #0x20]
-    str r1, [r4, #0x24]
-    str r2, [r4, #0x14]
-    ldrh r1, [r5]
-    lsrs r2, r1, #8
-    lsls r1, r1, #0x18
-    lsrs r1, r1, #0x18
-    strb r2, [r4, #6]
-    movs r3, #0xf0
-    ands r1, r3
-    cmp r1, #0x80
-    bne lbl_08004ff6
-    movs r3, #0x35
-    ldrb r2, [r5, r3]
-lbl_08004ff6:
-    strb r2, [r4, #7]
-    movs r3, #0x17
-    ldrsb r1, [r5, r3]
-    adds r1, r1, r2
-    bmi lbl_08005008
-    cmp r1, #0x7f
-    ble lbl_0800500a
-    movs r1, #0x7f
-    b lbl_0800500a
-lbl_08005008:
-    movs r1, #0
-lbl_0800500a:
-    ldrb r2, [r5, #0x18]
-    bl Midikey2Freq
-    ldr r1, lbl_0800502c @ =gMusicInfo
-    ldrh r2, [r1, #0x12]
-    cmp r0, r2
-    bne lbl_0800501e
-    movs r0, #0x40
-    lsls r0, r0, #8
-    b lbl_08005024
-lbl_0800501e:
-    ldr r1, [r1, #0x18]
-    bl sub_08004abc
-lbl_08005024:
-    str r0, [r4, #0x1c]
-    pop {r4, r5, r6}
-    pop {r0}
-    bx r0
-    .align 2, 0
-lbl_0800502c: .4byte gMusicInfo
-
-    thumb_func_start sub_08005030
-sub_08005030: @ 0x08005030
-    ldr r1, [r0, #0x24]
-    adds r1, #1
-    movs r2, #3
-    ands r2, r1
-    bne lbl_0800503e
-    ldr r2, [r1]
-    b lbl_0800506a
-lbl_0800503e:
-    movs r2, #1
-    ands r2, r1
-    bne lbl_08005050
-    ldrh r2, [r1]
-    adds r1, #2
-    ldrh r3, [r1]
-    lsls r3, r3, #0x10
-    orrs r2, r3
-    b lbl_0800506a
-lbl_08005050:
-    ldrb r2, [r1]
-    adds r1, #1
-    ldrb r3, [r1]
-    lsls r3, r3, #8
-    orrs r2, r3
-    adds r1, #1
-    ldrb r3, [r1]
-    lsls r3, r3, #0x10
-    orrs r2, r3
-    adds r1, #1
-    ldrb r3, [r1]
-    lsls r3, r3, #0x18
-    orrs r2, r3
-lbl_0800506a:
-    str r2, [r0, #0x24]
-    bx lr
-    .align 2, 0
-
-    thumb_func_start sub_08005070
-sub_08005070: @ 0x08005070
-    ldr r1, [r0, #0x24]
-    adds r1, #1
-    movs r2, #3
-    ands r2, r1
-    bne lbl_08005080
-    ldr r2, [r1]
-    adds r1, #4
-    b lbl_080050b0
-lbl_08005080:
-    movs r2, #1
-    ands r2, r1
-    bne lbl_08005094
-    ldrh r2, [r1]
-    adds r1, #2
-    ldrh r3, [r1]
-    lsls r3, r3, #0x10
-    orrs r2, r3
-    adds r1, #2
-    b lbl_080050b0
-lbl_08005094:
-    ldrb r2, [r1]
-    adds r1, #1
-    ldrb r3, [r1]
-    lsls r3, r3, #8
-    orrs r2, r3
-    adds r1, #1
-    ldrb r3, [r1]
-    lsls r3, r3, #0x10
-    orrs r2, r3
-    adds r1, #1
-    ldrb r3, [r1]
-    lsls r3, r3, #0x18
-    orrs r2, r3
-    adds r1, #1
-lbl_080050b0:
-    str r2, [r0, #0x24]
-    adds r0, #0x28
-    ldr r2, [r0]
-    cmp r2, #0
-    beq lbl_080050ca
-    adds r0, #4
-    ldr r2, [r0]
-    cmp r2, #0
-    beq lbl_080050ca
-    adds r0, #4
-    ldr r2, [r0]
-    cmp r2, #0
-    bne lbl_080050cc
-lbl_080050ca:
-    str r1, [r0]
-lbl_080050cc:
-    bx lr
-    .align 2, 0
-
-    thumb_func_start sub_080050d0
-sub_080050d0: @ 0x080050d0
-    ldr r3, lbl_080050fc @ =0x04000070
-    movs r2, #0x40
-    strb r2, [r3]
-    ldr r1, lbl_08005100 @ =0x04000090
-    ldr r2, [r0]
-    str r2, [r1]
-    adds r0, #4
-    adds r1, #4
-    ldr r2, [r0]
-    str r2, [r1]
-    adds r0, #4
-    adds r1, #4
-    ldr r2, [r0]
-    str r2, [r1]
-    adds r0, #4
-    adds r1, #4
-    ldr r2, [r0]
-    str r2, [r1]
-    movs r2, #0
-    strb r2, [r3]
-    bx lr
-    .align 2, 0
-lbl_080050fc: .4byte 0x04000070
-lbl_08005100: .4byte 0x04000090
-
-    thumb_func_start sub_08005104
-sub_08005104: @ 0x08005104
-    push {r4, r5}
-    ldr r4, [r0, #0x10]
-    ldrh r5, [r0, #0x14]
-    ldr r1, [r0, #0x24]
-    movs r2, #0x34
-    ldrb r1, [r1, r2]
-    cmp r1, #8
-    ble lbl_0800513e
-    movs r2, #4
-    movs r3, #0x89
-    lsls r2, r2, #0x18
-    orrs r2, r3
-    ldrb r2, [r2]
-    lsrs r2, r2, #6
-    lsls r2, r2, #6
-    movs r3, #0x40
-    cmp r2, r3
-    bge lbl_0800512c
-    adds r5, #2
-    b lbl_08005134
-lbl_0800512c:
-    movs r3, #0x80
-    cmp r2, r3
-    bge lbl_0800513e
-    adds r5, #1
-lbl_08005134:
-    movs r2, #0xc7
-    movs r3, #0xfe
-    lsls r2, r2, #8
-    orrs r2, r3
-    ands r5, r2
-lbl_0800513e:
-    movs r2, #4
-    movs r3, #0x60
-    lsls r2, r2, #0x18
-    orrs r2, r3
-    movs r3, #7
-    ands r1, r3
-    lsls r3, r4, #8
-    lsrs r3, r3, #0x10
-    cmp r1, #1
-    beq lbl_08005160
-    cmp r1, #2
-    beq lbl_08005172
-    cmp r1, #3
-    beq lbl_08005178
-    cmp r1, #4
-    beq lbl_08005180
-    b lbl_08005184
-lbl_08005160:
-    strb r4, [r2]
-    strh r3, [r2, #2]
-    strh r5, [r2, #4]
-    mov r8, r8
-    mov r8, r8
-    mov r8, r8
-    mov r8, r8
-    strh r5, [r2, #4]
-    b lbl_08005184
-lbl_08005172:
-    strh r3, [r2, #8]
-    strh r5, [r2, #0xc]
-    b lbl_08005184
-lbl_08005178:
-    strb r4, [r2, #0x10]
-    strh r3, [r2, #0x12]
-    strh r5, [r2, #0x14]
-    b lbl_08005184
-lbl_08005180:
-    strh r3, [r2, #0x18]
-    strh r5, [r2, #0x1c]
-lbl_08005184:
-    lsls r5, r5, #0x11
-    lsrs r5, r5, #0x11
-    strh r5, [r0, #0x14]
-    pop {r4, r5}
-    bx lr
-    .align 2, 0
     

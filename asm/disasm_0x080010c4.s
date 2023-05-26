@@ -3036,7 +3036,7 @@ lbl_0800262a:
     bhs lbl_08002680
     mov r4, sp
     ldr r1, lbl_080027d4 @ =0x040000d4
-    ldr r7, lbl_080027d8 @ =0x0808f254
+    ldr r7, lbl_080027d8 @ =sMusicTrackDataROM
     adds r2, r0, #0
     movs r6, #0
     ldr r5, lbl_080027dc @ =0x81000016
@@ -3064,7 +3064,7 @@ lbl_08002680:
     lsrs r0, r0, #0x10
     cmp r3, r0
     bhs lbl_080026b6
-    ldr r4, lbl_080027d8 @ =0x0808f254
+    ldr r4, lbl_080027d8 @ =sMusicTrackDataROM
     adds r6, r4, #4
     adds r5, r0, #0
 lbl_08002692:
@@ -3211,7 +3211,7 @@ lbl_080027c8: .4byte 0x0194f700
 lbl_080027cc: .4byte gPsgSounds
 lbl_080027d0: .4byte 0x81000014
 lbl_080027d4: .4byte 0x040000d4
-lbl_080027d8: .4byte 0x0808f254
+lbl_080027d8: .4byte sMusicTrackDataROM
 lbl_080027dc: .4byte 0x81000016
 lbl_080027e0: .4byte 0x00001824
 lbl_080027e4: .4byte 0x8100001a

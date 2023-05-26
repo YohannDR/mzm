@@ -399,6 +399,7 @@ SECTIONS {
         src/sram_misc.o(.text);
         asm/disasm_0x080010c4.o(.text);
         asm/disasm_0x08002a58.o(.text);
+        asm/audio_internal.o(.text);
         asm/syscalls.o(.text);
         asm/disasm_0x080051d4.o(.text);
         asm/disasm_0x08005368.o(.text);
