@@ -10,6 +10,20 @@
 #define check_samus_turning() ((pData->direction ^ (KEY_RIGHT | KEY_LEFT)) & gButtonInput)
 #define ARRAY_SIZE(a) ((int)(sizeof((a)) / sizeof((a)[0])))
 #define OFFSET_OF(type, element) ((int)&(((type*)0)->element))
+#define CLAMP(value, min, max)\
+{                             \
+    if (value > (max))        \
+        value = (max);        \
+    else if (value < (min))   \
+        value = (min);        \
+}
+#define CLAMP2(value, min, max)\
+{                              \
+    if (value < (min))         \
+        value = (min);         \
+    else if (value > (max))    \
+        value = (max);         \
+}
 
 #define STATIC_ASSERT(expr, id) typedef char id[(expr) ? 1 : -1];
 

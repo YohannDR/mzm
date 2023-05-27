@@ -592,7 +592,72 @@ void Haze_Bg3Bg2Bg1(void)
 
 u32 Haze_PowerBombExpanding(void)
 {
+    // https://decomp.me/scratch/j0f0k
 
+    const i16* src;
+    i32 xPosition;
+    i32 yPosition;
+    u16* dst;
+    i32 i;
+    i32 j;
+    i32 screenY;
+    i32 right;
+    i32 left;
+    i32 subSlice;
+    i32 size;
+
+    if (gCurrentPowerBomb.unk_12 != 0)
+        return FALSE;
+
+    src = sHaze_PowerBomb_WindowValuesPointers[gCurrentPowerBomb.semiMinorAxis];
+    size = gCurrentPowerBomb.semiMinorAxis;
+    xPosition = (gCurrentPowerBomb.xPosition - gBG1XPosition) >> 2;
+    yPosition = (gCurrentPowerBomb.yPosition - gBG1YPosition) >> 2;
+
+    for (i = 0; i < 53 * 3; i++)
+        gPreviousHazeValues[i] = 0;
+
+    screenY = yPosition + size + 1;
+    CLAMP(screenY, 0, 53 * 3);
+
+    subSlice = 0;
+    i = yPosition - size;
+    if (i < 0)
+    {
+        subSlice = -i;
+        i = 0;
+    }
+    else if (i > 53 * 3)
+    {
+        i = 53 * 3;
+    }
+  
+    for (j = i; j < screenY; j++)
+    {
+        left = (i16)(xPosition + src[(subSlice + j) * 2 + 1] * 2);
+        right = (i16)(xPosition + src[(subSlice + j) * 2 + 0] * 2);
+
+        CLAMP2(left, 0, 0xF0);
+        CLAMP(right, 0, 0xF0);
+
+        gPreviousHazeValues[j] = right | left << 8;
+    }
+
+
+    if (gCurrentPowerBomb.semiMinorAxis >= 53 * 3)
+    {
+        gCurrentPowerBomb.stage++;
+        if (gCurrentPowerBomb.stage > 4)
+            return TRUE;
+    }
+    else
+    {
+        gCurrentPowerBomb.semiMinorAxis += 3;
+        if (gCurrentPowerBomb.semiMinorAxis > 53 * 3)
+            gCurrentPowerBomb.semiMinorAxis = 53 * 3;
+    }
+
+    return FALSE;
 }
 
 u32 Haze_PowerBombRetracting(void)
