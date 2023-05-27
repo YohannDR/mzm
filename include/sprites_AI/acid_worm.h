@@ -36,7 +36,7 @@
 
 // Acid worm spit
 
-void AcidWormSyncHeadPosition(void);
+void AcidWormHandleRotation(void);
 void AcidWormRandomXMovement(void);
 void AcidWormChangeTwoGroundCCAA(u8 caa, u16 yPosition, u16 xPosition);
 void AcidWormChangeBigBlockDownCCAA(u8 caa);

@@ -22,10 +22,10 @@
 #include "structs/scroll.h"
 
 /**
- * @brief 3d860 | 118 | Synchronises the position of the acid worm body parts with itself
+ * @brief 3d860 | 118 | Handles the rotation on the half-half circle of every part
  * 
  */
-void AcidWormSyncHeadPosition(void)
+void AcidWormHandleRotation(void)
 {
     i32 offset;
     u8 arrayOffset;
@@ -33,65 +33,63 @@ void AcidWormSyncHeadPosition(void)
     i32 positionOffset;
     i32 position;
     i32 sine;
+    i32 sine_;
+    i32 temp;
+    i32 c;
     u8 angle;
-#ifndef NONMATCHING
-    register i32 r0 asm("r0");
-#else
-    i32 r0;
-#endif
     
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-        angle = gCurrentSprite.oamRotation + 0x80;
+        angle = gCurrentSprite.oamRotation + PI;
     else
         angle = gCurrentSprite.oamRotation;
 
-    if (gSubSpriteData1.workVariable3 == 0x1)
-        offset = 0x180;
+    if (gSubSpriteData1.workVariable3 == 1)
+        offset = PI * 3;
     else
-        offset = 0x100;
+        offset = PI * 2;
 
     arrayOffset = gCurrentSprite.arrayOffset;
     sine = sAcidWormSwingingMovement[arrayOffset];
     if (sine == SHORT_MAX)
     {
         sine = sAcidWormSwingingMovement[0];
-        arrayOffset = 0x0;
+        arrayOffset = 0;
     }
-    gCurrentSprite.arrayOffset = arrayOffset + 0x1;
+    gCurrentSprite.arrayOffset = arrayOffset + 1;
 
-    if (gCurrentSprite.health != 0x0)
-        posOffset = (i16)(offset + (sine << 0x2) * ((gCurrentSprite.roomSlot / 0x4) + 0x1));
+    if (gCurrentSprite.health != 0)
+        posOffset = (i16)(offset + (sine << 2) * ((gCurrentSprite.roomSlot / 4) + 1));
     else
-        posOffset = (i16)(offset + (sine << 0x4));
+        posOffset = (i16)(offset + (sine << 4));
 
-    sine = r0 = sin(angle);
-    if (sine < 0x0)
+    temp = sine_ = sin(angle);
+    if (temp < 0)
     {
-        sine = (i16)(-sine * posOffset >> 0x8);
-        gCurrentSprite.yPosition = gSubSpriteData1.yPosition - sine;
+        temp = (i16)(-temp * posOffset >> 8);
+        gCurrentSprite.yPosition = gSubSpriteData1.yPosition - temp;
     }
     else
     {
-        sine = (i16)(r0 * posOffset >> 0x8);
-        gCurrentSprite.yPosition = gSubSpriteData1.yPosition + sine;
+        temp = (i16)(sine_ * posOffset >> 8);
+        gCurrentSprite.yPosition = gSubSpriteData1.yPosition + temp;
     }
 
-    sine = cos(angle);
+    c = cos(angle);
     position = (i16)gSubSpriteData1.xPosition;
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         position = (i16)(position + offset);
     else
         position = (i16)(position - offset);
 
-    if (sine < 0x0)
+    if (c < 0)
     {
-        sine = (i16)(-sine * posOffset >> 0x8);
-        gCurrentSprite.xPosition = position - sine;
+        c = (i16)(-c * posOffset >> 8);
+        gCurrentSprite.xPosition = position - c;
     }
     else
     {
-        sine = (i16)(sine * posOffset >> 0x8);
-        gCurrentSprite.xPosition = position + sine;
+        c = (i16)(c * posOffset >> 8);
+        gCurrentSprite.xPosition = position + c;
     }
 }
 
@@ -532,7 +530,7 @@ void AcidWormIdle(void)
  */
 void AcidWormCheckWarningAnimEnded(void)
 {
-    AcidWormSyncHeadPosition();
+    AcidWormHandleRotation();
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         // Init extending
@@ -628,7 +626,7 @@ void AcidWormExtend(void)
             checks++; // Y Movement done
 
         yPosition = gCurrentSprite.yPosition;
-        AcidWormSyncHeadPosition();
+        AcidWormHandleRotation();
 
         if (SpriteUtilCheckOutOfRoomEffect(yPosition, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_HUGE))
             SoundPlay(0x1BB);
@@ -711,7 +709,7 @@ void AcidWormExtended(void)
     u8 finishedThrowing;
 
     finishedThrowing = FALSE;
-    AcidWormSyncHeadPosition();
+    AcidWormHandleRotation();
 
     if (gSubSpriteData1.workVariable3 == 0x0)
     {
@@ -849,7 +847,7 @@ void AcidWormRetracting(void)
         gEffectYPositionOffset--;
 
     spriteY = gCurrentSprite.yPosition;
-    AcidWormSyncHeadPosition();
+    AcidWormHandleRotation();
     if (SpriteUtilCheckInRoomEffect(spriteY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_HUGE))
         SoundPlay(0x1BB);
 
@@ -957,7 +955,7 @@ void AcidWormDeathFlashingAnim(void)
     u8 isft;
 
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    AcidWormSyncHeadPosition();
+    AcidWormHandleRotation();
 
     if (gCurrentSprite.invincibilityStunFlashTimer & 0x7f)
     {
@@ -1242,7 +1240,7 @@ void AcidWormBodyMainLoop(void)
         if ((gSpriteData[slot].status & SPRITE_STATUS_UNKNOWN2) == 0x0)
         {
             oldY = gCurrentSprite.yPosition;
-            AcidWormSyncHeadPosition();
+            AcidWormHandleRotation();
             pose = gSpriteData[slot].pose;
             if (pose == 0x25)
             {
@@ -1304,7 +1302,7 @@ void AcidWormBodyDeath(void)
 
     ramSlot = gCurrentSprite.primarySpriteRAMSlot;
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1; // Remove collision
-    AcidWormSyncHeadPosition();
+    AcidWormHandleRotation();
 
     if (gSpriteData[ramSlot].invincibilityStunFlashTimer != 0x0)
         gCurrentSprite.paletteRow = gSpriteData[ramSlot].paletteRow; // Flashing effect
