@@ -43,7 +43,7 @@ void AcidWormHandleRotation(void)
     else
         angle = gCurrentSprite.oamRotation;
 
-    if (gSubSpriteData1.workVariable3 == 1)
+    if (gSubSpriteData1.workVariable3 == TRUE)
         offset = PI * 3;
     else
         offset = PI * 2;
@@ -477,51 +477,44 @@ void AcidWormIdle(void)
 {
     // https://decomp.me/scratch/5cYt2
     
-    u16 spritePos;
-    u16 samusY;
-    u32 temp;
-    
+    u32 samusY;
+    u32 spritePos;
+
+    do {
     if (gEffectYPosition > gSubSpriteData1.health)
         gEffectYPositionOffset--;
+    }while(0);
 
     samusY = gSamusData.yPosition;
     spritePos = gCurrentSprite.yPosition;
     
     if (samusY > gEffectYPosition || samusY > spritePos)
     {
-        
-        gCurrentSprite.timer = 0x3C;
+        gCurrentSprite.timer = 60;
         return;
     }
 
     gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
-    {
-        temp = spritePos - samusY - 0x51;
-        if (temp < 0xEF)
-        {
-            if (gSamusData.xPosition > gCurrentSprite.xPositionSpawn - BLOCK_SIZE * 7)
-            {
-                if (gSamusData.xPosition >= gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 7)
-                    gSubSpriteData1.workVariable1 = TRUE;
-                else
-                    gSubSpriteData1.workVariable1 = FALSE;
-            }
-            else
-                gSubSpriteData1.workVariable1 = TRUE;
-        }
-        else
-            gSubSpriteData1.workVariable1 = TRUE;
+    if (gCurrentSprite.timer != 0)
+        return;
 
-        gCurrentSprite.pOam = sAcidWormOAM_Warning;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        
-        gCurrentSprite.pose = ACID_WORM_POSE_CHECK_WARNING_ENDED;
-        SpriteUtilMakeSpriteFaceSamusDirection();
-        gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
-        SoundPlay(0x1B5);
-    }
+    if (spritePos - samusY - (BLOCK_SIZE + QUARTER_BLOCK_SIZE + 1) >= 239)
+        gSubSpriteData1.workVariable3 = TRUE;
+    else if (gSamusData.xPosition <= gCurrentSprite.xPositionSpawn - BLOCK_SIZE * 7)
+        gSubSpriteData1.workVariable3 = TRUE;
+    else if (gSamusData.xPosition < gCurrentSprite.xPositionSpawn + BLOCK_SIZE * 7)
+        gSubSpriteData1.workVariable3 = FALSE;
+    else
+        gSubSpriteData1.workVariable3 = TRUE;
+
+    gCurrentSprite.pOam = sAcidWormOAM_Warning;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    
+    gCurrentSprite.pose = ACID_WORM_POSE_CHECK_WARNING_ENDED;
+    SpriteUtilMakeSpriteFaceSamusDirection();
+    gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
+    SoundPlay(0x1B5);
 }
 
 /**
@@ -565,7 +558,7 @@ void AcidWormExtend(void)
         gCurrentSprite.timer--;
         if (gCurrentSprite.timer == 0x0)
         {
-            if (gSubSpriteData1.workVariable3 == 0x0)
+            if (!gSubSpriteData1.workVariable3)
             {
                 if (gCurrentSprite.health <= spawnHealth >> 0x2)
                     SoundPlay(0x1AF);
@@ -582,7 +575,7 @@ void AcidWormExtend(void)
     {
         gEffectYPositionOffset++;
         // Get speed based on destination or health
-        if (gSubSpriteData1.workVariable3 == 0x0)
+        if (!gSubSpriteData1.workVariable3)
         {
             if (gCurrentSprite.health <= spawnHealth >> 0x2)
                 speed = 0x4;
@@ -635,7 +628,7 @@ void AcidWormExtend(void)
         {
             // Extend done
             gCurrentSprite.pose = ACID_WORM_POSE_EXTENDED;
-            if (gSubSpriteData1.workVariable3 == 0x0) // If not spitting
+            if (!gSubSpriteData1.workVariable3) // If not spitting
             {
                 yPosition = gCurrentSprite.yPosition;
                 xPosition = gCurrentSprite.xPosition;
@@ -711,7 +704,7 @@ void AcidWormExtended(void)
     finishedThrowing = FALSE;
     AcidWormHandleRotation();
 
-    if (gSubSpriteData1.workVariable3 == 0x0)
+    if (!gSubSpriteData1.workVariable3)
     {
         // Hooked to block
         if (!AcidWormCollidingWithSamusWhenExtending())
