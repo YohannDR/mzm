@@ -81,7 +81,7 @@ const struct PowerBomb sPowerBomb_Empty = {
 const struct ScreenShake sScreenShake_Empty = {
     .timer = 0,
     .loopCounter = 0,
-    .unknown = 0,
+    .unk_2 = 0,
     .direction = 0
 };
 

@@ -5,19 +5,21 @@
  * @brief 55344 | 34 | Starts a vertical screen shake
  * 
  * @param duration Duration
- * @param unk Unknown
+ * @param param_2 To document
  * @return u8 Screen shake timer
  */
-u8 ScreenShakeStartVertical(u8 duration, u8 unk)
+u8 ScreenShakeStartVertical(u8 duration, u8 param_2)
 {
-    if (duration != 0x0 && duration > gScreenShakeY.timer)
+    if (duration != 0 && duration > gScreenShakeY.timer)
     {
         gScreenShakeY.timer = duration;
-        gScreenShakeY.loopCounter = 0x0;
-        gScreenShakeY.unknown = unk;
-        gScreenShakeY.direction = 0x0;
-        gScreenShakeYOffset = 0x0;
+        gScreenShakeY.loopCounter = 0;
+        gScreenShakeY.unk_2 = param_2;
+        gScreenShakeY.direction = 0;
+
+        gScreenShakeYOffset = 0;
     }
+
     return gScreenShakeY.timer;
 }
 
@@ -25,19 +27,21 @@ u8 ScreenShakeStartVertical(u8 duration, u8 unk)
  * @brief 55378 | 34 | Starts an horizontal screen shake
  * 
  * @param duration Duration
- * @param unk Unknown
+ * @param param_2 To document
  * @return u8 Screen shake timer
  */
-u8 ScreenShakeStartHorizontal(u8 duration, u8 unk)
+u8 ScreenShakeStartHorizontal(u8 duration, u8 param_2)
 {
-    if (duration != 0x0 && duration > gScreenShakeX.timer)
+    if (duration != 0 && duration > gScreenShakeX.timer)
     {
         gScreenShakeX.timer = duration;
-        gScreenShakeX.loopCounter = 0x0;
-        gScreenShakeX.unknown = unk;
-        gScreenShakeX.direction = 0x0;
-        gScreenShakeXOffset = 0x0;
+        gScreenShakeX.loopCounter = 0;
+        gScreenShakeX.unk_2 = param_2;
+        gScreenShakeX.direction = 0;
+
+        gScreenShakeXOffset = 0;
     }
+
     return gScreenShakeX.timer;
 }
 
@@ -49,14 +53,16 @@ u8 ScreenShakeStartHorizontal(u8 duration, u8 unk)
  */
 u8 ScreenShakeStartHorizontal_Unused(u8 duration)
 {
-    if (duration != 0x0 && duration > gScreenShakeX.timer)
+    if (duration != 0 && duration > gScreenShakeX.timer)
     {
         gScreenShakeX.timer = duration;
-        gScreenShakeX.loopCounter = 0x0;
-        gScreenShakeX.unknown = 0x0;
-        gScreenShakeX.direction = 0x0;
-        gScreenShakeXOffset = 0x0;
+        gScreenShakeX.loopCounter = 0;
+        gScreenShakeX.unk_2 = 0;
+        gScreenShakeX.direction = 0;
+
+        gScreenShakeXOffset = 0;
     }
+
     return gScreenShakeX.timer;
 }
 
@@ -67,41 +73,43 @@ u8 ScreenShakeStartHorizontal_Unused(u8 duration)
  */
 i32 ScreenShakeUpdateVertical(void)
 {
-    i32 offset;
-    i32 unk;
+    // https://decomp.me/scratch/je2b5
 
+    i32 offset;
+    u32 unk;
+    
     offset = 0;
-    gScreenShakeYOffset = offset;
+    gScreenShakeYOffset = 0;
 
     if (gScreenShakeY.timer == 0)
-        return offset;
-    else
+        return 0;
+
+    do {
+    }while(0);
+    gScreenShakeY.timer--;
+    if (gScreenShakeY.loopCounter < 2)
     {
-        gScreenShakeY.timer--;
-        if (gScreenShakeY.loopCounter < 2)
-        {
-            gScreenShakeY.loopCounter++;
-            return offset;
-        }
-
-        gScreenShakeY.loopCounter = 0;
-
-        unk = gScreenShakeY.unknown & 0x7F;
-        offset = -2;
-        if (gScreenShakeY.direction)
-        {
-            if (!unk)
-                offset = 0;
-            else
-                offset = 2;
-        }
-
-        gScreenShakeY.direction ^= TRUE;
-        if (gScreenShakeY.timer < 16)
-            offset >>= 1;
-
-        gScreenShakeYOffset = offset;
+        gScreenShakeY.loopCounter++;
+        return 0;
     }
+
+    gScreenShakeY.loopCounter = 0;
+
+    unk = gScreenShakeY.unk_2 & 0x7F;
+    offset = -2;
+    if (gScreenShakeY.direction)
+    {
+        if (!unk)
+            offset = 0;
+        else
+            offset = 2;
+    }
+
+    gScreenShakeY.direction ^= TRUE;
+    if (gScreenShakeY.timer < 16)
+        offset >>= 1;
+
+    gScreenShakeYOffset = offset;
 
     return offset;
 }
@@ -113,41 +121,43 @@ i32 ScreenShakeUpdateVertical(void)
  */
 i32 ScreenShakeUpdateHorizontal(void)
 {
+    // https://decomp.me/scratch/O4FYJ
+    
     i32 offset;
-    i32 unk;
-
+    u32 unk;
+    
     offset = 0;
-    gScreenShakeXOffset = offset;
+    gScreenShakeXOffset = 0;
 
     if (gScreenShakeX.timer == 0)
-        return offset;
-    else
+        return 0;
+
+    do {
+    }while(0);
+    gScreenShakeX.timer--;
+    if (gScreenShakeX.loopCounter < 2)
     {
-        gScreenShakeX.timer--;
-        if (gScreenShakeX.loopCounter < 2)
-        {
-            gScreenShakeX.loopCounter++;
-            return offset;
-        }
-
-        gScreenShakeX.loopCounter = 0;
-
-        unk = gScreenShakeX.unknown & 0x7F;
-        offset = -2;
-        if (gScreenShakeX.direction)
-        {
-            if (!unk)
-                offset = 0;
-            else
-                offset = 2;
-        }
-
-        gScreenShakeX.direction ^= TRUE;
-        if (gScreenShakeX.timer < 16)
-            offset >>= 1;
-
-        gScreenShakeXOffset = offset;
+        gScreenShakeX.loopCounter++;
+        return 0;
     }
+
+    gScreenShakeX.loopCounter = 0;
+
+    unk = gScreenShakeX.unk_2 & 0x7F;
+    offset = -2;
+    if (gScreenShakeX.direction)
+    {
+        if (!unk)
+            offset = 0;
+        else
+            offset = 2;
+    }
+
+    gScreenShakeX.direction ^= TRUE;
+    if (gScreenShakeX.timer < 16)
+        offset >>= 1;
+
+    gScreenShakeXOffset = offset;
 
     return offset;
 }

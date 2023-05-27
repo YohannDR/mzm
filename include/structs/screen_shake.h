@@ -6,7 +6,7 @@
 struct ScreenShake {
     u8 timer;
     u8 loopCounter;
-    u8 unknown; // intensity ?
+    u8 unk_2; // intensity ?
     u8 direction;
 };
 
