@@ -184,8 +184,6 @@ void ScrollLoad(void)
 
 void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 {
-    // https://decomp.me/scratch/VHsfW
-
     struct Scroll* pScroll;
     u16 xPosition;
     u16 yPosition;
@@ -195,7 +193,9 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
     i32 bound;
     i32 limit;
     u8 direction;
+    i32 i;
 
+    i = 0;
     pScroll = gCurrentScrolls;
     gCurrentScrolls[0].within = FALSE;
     gCurrentScrolls[1].within = FALSE;
@@ -208,13 +208,11 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
     pData = gCurrentRoomScrollDataPointer;
     pData++;
     scrollID = *pData++;
-    
+
     for (; scrollID != 0x0; scrollID--)
     {
-        // Incorrect
-        if (pScroll == gCurrentScrolls)
-            return;
-
+        // cond
+        
         bounds[0] = 0x0;
         bounds[1] = 0x1;
         bounds[2] = 0x2;
@@ -237,31 +235,31 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
             bound = pData[bounds[0]] * BLOCK_SIZE;
             if (bound < limit)
                 bound = limit;
-            pScroll->xStart = bound;
+            pScroll[i].xStart = bound;
 
             limit = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE - (BLOCK_SIZE * 2);
             bound = (pData[bounds[1]] + 1) * BLOCK_SIZE;
 
             if (bound < limit)
                 bound = limit;
-            pScroll->xEnd = bound;
+            pScroll[i].xEnd = bound;
 
             limit = BLOCK_SIZE * 2;
             bound = pData[bounds[2]] * BLOCK_SIZE;
             if (bound < limit)
                 bound = limit;
-            pScroll->yStart = bound;
+            pScroll[i].yStart = bound;
 
             limit = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE - (BLOCK_SIZE * 2);
             bound = (pData[bounds[3]] + 1) * BLOCK_SIZE;
 
             if (bound < limit)
                 bound = limit;
-            pScroll->yEnd = bound;
+            pScroll[i].yEnd = bound;
 
-            pScroll->within = 0x2;
+            pScroll[i].within = 0x2;
             
-            pScroll++;
+            i++;
         }
 
         pData += 0x8;

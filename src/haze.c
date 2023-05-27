@@ -226,69 +226,82 @@ void HazeResetLoops(void)
     gUnk_3005729 = 0;
 }
 
+/**
+ * @brief 5d414 | 1a8 | Calcules the gradiant
+ * 
+ */
 void HazeCalculateGradient(void)
 {
-    // https://decomp.me/scratch/Y11RY
-
     i32 i;
     i32 j;
     u16* dst;
-    u16* sec;
-    u16 value;
-    u8 r1;
-    u8 g1;
-    u8 b1;
-    u16 color1;
-    u8 r2;
-    u8 g2;
-    u8 b2;
-    u16 color2;
-    u32 var_sp_8;
-    u32 var_sp_C;
-    u32 var_sp_10;
-    u32 var_sp_14;
-    u32 var_sp_1C;
-    u32 var_sp_20;
-    u32 var_sp_24;
+    u16* src;
+    u16* src2;
+
+    u8 rBase;
+    u8 gBase;
+    u8 bBase;
+
+    i32 r;
+    i32 g;
+    i32 b;
+    
+    u8 newR;
+    u8 newG;
+    u8 newB;
 
     dst = gPreviousHazeValues;
-    for (i = 0; i < 0xA0; i++)
+    for (i = 0; i < 16 * 10; i++)
     {
-        value = 0;
+        j = 0;
         if (i < 5)
-            value = read16(PALRAM_BASE + 0x1C0);
+        {
+            src = (u16*)(PALRAM_BASE + 16 * 28);
+            j = src[0];
+        }
         else if (i > 0x9A)
-            value = read16(PALRAM_BASE + 0x1D8);
+        {
+            src = (u16*)(PALRAM_BASE + 16 * 28);
+            j = src[15];
+        }
 
-        dst[i] = value;
+        dst[i] = j;
     }
 
     dst += 5;
 
-    for (i = 0; i < 16; i++)
+    for (i = 0; i < 15; i++)
     {
-        color1 = read16(PALRAM_BASE + 0xE0 + i);
-        r1 = RED(color1);
-        g1 = GREEN(color1);
-        b1 = BLUE(color1);
+        src = (u16*)(PALRAM_BASE + 16 * 28);
+        src2 = &src[i];
+        
+        rBase = RED(src2[0]);
+        gBase = GREEN(src2[0]);
+        bBase = BLUE(src2[0]);
 
-        color2 = read16(PALRAM_BASE + 0xE2 + i);
-        r2 = RED(color2) - r1;
-        g2 = GREEN(color2) - g1;
-        b2 = BLUE(color2); b2 -= b1;
+        r = RED(src2[1]);
+        g = GREEN(src2[1]);
+        b = BLUE(src2[1]);
 
-        j = 0;
+        r -= rBase;
+        g -= gBase;
+        b -= bBase;
 
-        var_sp_8 = b2 / 10;
-        var_sp_C = b2 % 10;
-        var_sp_1C = 0;
-        // var_sp_20 = ;
-        var_sp_10 = b2 / 100;
-        var_sp_14 = g2 % 100;
-        var_sp_24 = 0;
-
-        for (; j < 16; j++)
+        for (j = 0; j < 10; j++)
         {
+            newR = j * (r / 10) + rBase;
+            newR += (r % 10 * j) / 10;
+            newR += (r % 100 * j) / 100;
+
+            newG = j * (g / 10) + gBase;
+            newG += (g % 10 * j) / 10;
+            newG += (g % 100 * j) / 100;
+            
+            newB = j * (b / 10) + bBase;
+            newB += (b % 10 * j) / 10;
+            newB += (b % 100 * j) / 100;
+
+            *dst++ = COLOR_GRAD(newR, newG, newB);
         }
     }
 }
@@ -576,7 +589,6 @@ void Haze_Bg3Bg2Bg1(void)
         *dst++ = gBackgroundPositions.bg[3].y;
     }
 }
-
 
 u32 Haze_PowerBombExpanding(void)
 {
