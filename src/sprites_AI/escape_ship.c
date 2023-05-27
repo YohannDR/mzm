@@ -1,8 +1,15 @@
-#include "gba.h"
 #include "sprites_AI/escape_ship.h"
+#include "gba.h"
+
 #include "data/sprites/escape_ship.h"
+
 #include "constants/particle.h"
+#include "constants/samus.h"
+#include "constants/event.h"
+#include "constants/color_fading.h"
 #include "constants/sprite.h"
+
+#include "structs/samus.h"
 #include "structs/sprite.h"
 
 /**
@@ -182,7 +189,9 @@ void EscapeShipCheckCollidingWithLaser(void)
 
 void EscapeShip(void)
 {
-    /*u16 yPosition;
+    // https://decomp.me/scratch/qJSzq
+
+    u16 yPosition;
     u16 xPosition;
     i32 movement;
     u8 offset;
@@ -300,16 +309,22 @@ void EscapeShip(void)
         case ESCAPE_SHIP_POSE_CLOSED:
             if (gCurrentSprite.timer != 0x0)
             {
-                timer = --gCurrentSprite.timer;
-                if (timer < 0xB)
+                gCurrentSprite.timer--;
+                if (gCurrentSprite.timer < 0xB)
+                {
                     gCurrentSprite.xPosition += 0x2;
-                else if (timer == 0xB)
+                    break;
+                }
+                
+                if (gCurrentSprite.timer == 0xB)
                 {
                     SpriteSpawnSecondary(SSPRITE_ESCAPE_SHIP_PART, ESCAPE_SHIP_PART_FLAMES,
                         gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0);
                     SoundPlay(0x250);
+                    break;
                 }
-                else if (timer == 0xC)
+                
+                if (gCurrentSprite.timer == 0xC)
                     StartEffectForCutscene(EFFECT_CUTSCENE_SAMUS_IN_BLUE_SHIP);
             }
             else
@@ -427,7 +442,7 @@ void EscapeShip(void)
         EscapeShipSetPirateDrawOrder();
         if (gCurrentSprite.pose > ESCAPE_SHIP_POSE_HOVERING && gCurrentSprite.workVariable > 0x10)
             EscapeShipPirateCollision();
-    }*/
+    }
 }
 
 /**
@@ -436,6 +451,8 @@ void EscapeShip(void)
  */
 void EscapeShipPart(void)
 {
+    // https://decomp.me/scratch/XdNST
+
     u8 ramSlot;
     u8 delay;
     register u8 temp asm("r5");

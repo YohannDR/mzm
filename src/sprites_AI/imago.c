@@ -1206,11 +1206,10 @@ void ImagoPartSyncPalette(void)
 void Imago(void)
 {
     // https://decomp.me/scratch/H8S1t
-
+    
     u16 xDistance;
     u16 yDistance;
-    u16 health;
-    u8 pose;
+    u32 health;
 
     if (gCurrentSprite.pose < IMAGO_POSE_DYING_INIT && gCurrentSprite.properties & SP_DAMAGED)
     {
@@ -1222,12 +1221,12 @@ void Imago(void)
     if (!(gFrameCounter8Bit & 0xF))
     {
         health = gCurrentSprite.health;
-        pose = gCurrentSprite.pose - 0x8;
-        if (pose < IMAGO_POSE_DESTROY_WALL - 0x8)
+        if ((u8)(gCurrentSprite.pose - 0x8) < IMAGO_POSE_DESTROY_WALL - 0x8)
         {
-            yDistance = gSubSpriteData1.yPosition > gSamusData.yPosition ?
-                    gSubSpriteData1.yPosition - gSamusData.yPosition :
-                    gSamusData.yPosition - gSubSpriteData1.yPosition;
+            if (gSubSpriteData1.yPosition > gSamusData.yPosition)
+                yDistance = gSubSpriteData1.yPosition - gSamusData.yPosition;
+            else
+                yDistance = gSamusData.yPosition - gSubSpriteData1.yPosition;
     
             if (gSubSpriteData1.xPosition > gSamusData.xPosition)
             {
@@ -1238,7 +1237,7 @@ void Imago(void)
                     if (health == 0x0)
                         SoundPlay(0xBB);
                 }
-                else if (xDistance< 0xFA)
+                else if (xDistance < 0xFA)
                 {
                     SoundPlay(0xB9);
                     if (health == 0x0)
