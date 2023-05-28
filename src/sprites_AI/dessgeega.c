@@ -1,4 +1,6 @@
 #include "sprites_AI/dessgeega.h"
+#include "macros.h"
+
 #include "data/sprites/dessgeega.h"
 #include "data/sprite_data.h"
 
@@ -94,7 +96,7 @@ void DessgeegaInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = sPrimarySpriteStats[spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(spriteID);
     SpriteUtilChooseRandomXDirection();
 }
 

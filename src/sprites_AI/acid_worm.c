@@ -1258,9 +1258,9 @@ void AcidWormBodyMainLoop(void)
                 gSpriteData[slot].health -= health2;
                 gCurrentSprite.health = 0x400;
                 
-                if (gSpriteData[slot].health <= (u32)(sPrimarySpriteStats[gSpriteData[slot].spriteID][0] / 0x4))
+                if (gSpriteData[slot].health <= (u32)(GET_PSPRITE_HEALTH(gSpriteData[slot].spriteID) / 0x4))
                     gSpriteData[slot].absolutePaletteRow = 0x2;
-                else if (gSpriteData[slot].health <= sPrimarySpriteStats[gSpriteData[slot].spriteID][0] >> 0x1)
+                else if (gSpriteData[slot].health <= GET_PSPRITE_HEALTH(gSpriteData[slot].spriteID) >> 0x1)
                     gSpriteData[slot].absolutePaletteRow = 0x1;
                 SoundPlay(0x1BC);
             }

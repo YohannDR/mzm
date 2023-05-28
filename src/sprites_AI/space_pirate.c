@@ -1,4 +1,5 @@
 #include "sprites_AI/space_pirate.h"
+#include "macros.h"
 
 #include "data/sprites/space_pirate.h"
 #include "data/sprite_data.h"
@@ -1042,7 +1043,7 @@ void SpacePirateInit(void)
     gCurrentSprite.currentAnimationFrame = gSpriteRNG & 0x7;
     gCurrentSprite.animationDurationCounter = 0x0;
 
-    gCurrentSprite.health = sPrimarySpriteStats[spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(spriteID);
     gCurrentSprite.oamScaling = 0x100;
     gCurrentSprite.workVariable2 = 0x0;
     gCurrentSprite.oamRotation = 0x0;

@@ -1,5 +1,6 @@
-#include "gba.h"
 #include "sprites_AI/kraid.h"
+#include "gba.h"
+#include "macros.h"
 
 #include "data/frame_data_pointers.h"
 #include "data/sprites/kraid.h"
@@ -372,17 +373,17 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
                 if (pSprite->health > damage)
                 {
                     pSprite->health -= damage;
-                    if (pSprite->health < sPrimarySpriteStats[PSPRITE_KRAID][0] / 4)
+                    if (pSprite->health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 4)
                     {
                         pSprite->absolutePaletteRow = 0x3;
                         dma_set(3, sKraidPAL + 0xE0, PALRAM_BASE + 0x140, (DMA_ENABLE << 0x10) | 0x10);
                     }
-                    else if (pSprite->health < sPrimarySpriteStats[PSPRITE_KRAID][0] / 3)
+                    else if (pSprite->health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3)
                     {
                         pSprite->absolutePaletteRow = 0x2;
                         dma_set(3, sKraidPAL + 0xC0, PALRAM_BASE + 0x140, (DMA_ENABLE << 0x10) | 0x10);
                     }
-                    else if (pSprite->health < sPrimarySpriteStats[PSPRITE_KRAID][0] / 4 * 3)
+                    else if (pSprite->health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 4 * 3)
                     {
                         pSprite->absolutePaletteRow = 0x1;
                         dma_set(3, sKraidPAL + 0xA0, PALRAM_BASE + 0x140, (DMA_ENABLE << 0x10) | 0x10);
@@ -1086,7 +1087,7 @@ void KraidInit(void)
     gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
     gCurrentSprite.status |= SPRITE_STATUS_MOSAIC;
 
-    gCurrentSprite.health = sPrimarySpriteStats[PSPRITE_KRAID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(PSPRITE_KRAID);
     gSubSpriteData1.health = gCurrentSprite.health;
 
     gSubSpriteData1.workVariable3 = 0x0;
@@ -1198,7 +1199,7 @@ u8 KraidMoveFeet(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (gSubSpriteData1.health >= sPrimarySpriteStats[PSPRITE_KRAID][0] / 3)
+        if (gSubSpriteData1.health >= GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3)
             offset = BLOCK_SIZE;
         else if (gDifficulty == DIFF_EASY)
             offset = BLOCK_SIZE;
@@ -1242,7 +1243,7 @@ u8 KraidMoveFeet(void)
     }
     else
     {
-        if (gSubSpriteData1.health < sPrimarySpriteStats[PSPRITE_KRAID][0] / 3)
+        if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3)
             offset = BLOCK_SIZE;
         else
             offset = 0x0;
@@ -1304,14 +1305,14 @@ void KraidFirstStep(void)
         }
         else
         {
-            if (gSubSpriteData1.health < sPrimarySpriteStats[PSPRITE_KRAID][0] / 4)
+            if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 4)
                 gCurrentSprite.pose = KRAID_POSE_SECOND_STEP_INIT;
             else
                 gCurrentSprite.pose = KRAID_POSE_STANDING_BETWEEN_STEPS_INIT;
             
             if (feetStatus != 0x0)
             {
-                if (gSubSpriteData1.health < sPrimarySpriteStats[PSPRITE_KRAID][0] / 3 && feetStatus == 0x2)
+                if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3 && feetStatus == 0x2)
                     gCurrentSprite.pose = KRAID_POSE_STANDING_BETWEEN_STEPS_INIT;
                 else
                     gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
@@ -1365,14 +1366,14 @@ void KraidSecondStep(void)
         }
         else
         {
-            if (gSubSpriteData1.health < sPrimarySpriteStats[PSPRITE_KRAID][0] / 4)
+            if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 4)
                 gCurrentSprite.pose = KRAID_POSE_FIRST_STEP_INIT;
             else
                 gCurrentSprite.pose = KRAID_POSE_STANDING_INIT;
             
             if (feetStatus != 0x0)
             {
-                if (gSubSpriteData1.health < sPrimarySpriteStats[PSPRITE_KRAID][0] / 3 && feetStatus == 0x2)
+                if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3 && feetStatus == 0x2)
                     gCurrentSprite.pose = KRAID_POSE_STANDING_INIT;
                 else
                     gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
@@ -1934,7 +1935,7 @@ void KraidPartCheckAttack(void)
         }
 
         // Check can attack
-        if (gSubSpriteData1.health < sPrimarySpriteStats[PSPRITE_KRAID][0] / 4 * 3 && nslr == NSLR_RIGHT)
+        if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 4 * 3 && nslr == NSLR_RIGHT)
             attack++;
 
         if (attack)
@@ -1974,14 +1975,14 @@ void KraidPartCheckShouldSpawnSpikes(void)
     {
         KraidCheckProjectilesCollidingWithBelly();
 
-        if (gSubSpriteData1.health < (sPrimarySpriteStats[PSPRITE_KRAID][0] / 3))
+        if (gSubSpriteData1.health < (GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3))
             lowHealth = TRUE;
         else
             lowHealth = FALSE;
 
         if (roomSlot == KRAID_PART_BOTTOM_HOLE_LEFT)
         {
-            if (gSubSpriteData1.health < (i32)(sPrimarySpriteStats[PSPRITE_KRAID][0] / 4 * 3) || gSamusData.yPosition >= (gCurrentSprite.yPosition - (BLOCK_SIZE * 2)))
+            if (gSubSpriteData1.health < (i32)(GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 4 * 3) || gSamusData.yPosition >= (gCurrentSprite.yPosition - (BLOCK_SIZE * 2)))
             {
                 spriteID = PSPRITE_MISSILE_DROP;
                 for (i = 0x0; i < MAX_AMOUNT_OF_SPRITES; i++)

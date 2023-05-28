@@ -1,4 +1,5 @@
 #include "sprites_AI/imago_larva.h"
+#include "macros.h"
 
 #include "data/frame_data_pointers.h"
 #include "data/sprites/imago_larva.h"
@@ -134,7 +135,7 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
         gCurrentSprite.yPositionSpawn = 0x0;
         gCurrentSprite.samusCollision = SSC_NONE;
 
-        health = sPrimarySpriteStats[spriteID][0];
+        health = GET_PSPRITE_HEALTH(spriteID);
         gCurrentSprite.health = health;
         pSub->health = health;
 
