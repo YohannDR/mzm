@@ -66,7 +66,7 @@ u8 SpriteUtilFindSecondaryWithRoomSlot(u8 spriteID, u8 roomSlot);
 u8 SpriteUtilCheckHasDrops(void);
 u8 SpriteUtilCountDrops(void);
 void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpeed, u8 speedDivisor);
-void SpriteUtilRidleyFireballMove(u16 spriteY, u16 samusX, u8 ySpeed, u8 xSpeed, u8 speedDivisor);
+void SpriteUtilRidleyFireballMove(u16 dstY, u16 samusX, u8 ySpeed, u8 xSpeed, u8 speedDivisor);
 void SpriteUtilUpdateStunTimer(struct SpriteData* pSprite);
 void SpriteUtilRandomSpriteDebris(u8 cloudType, u8 number, u16 yPosition, u16 xPosition);
 u8 SpriteUtilGetAmmoDrop(u8 rng);

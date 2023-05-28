@@ -2349,16 +2349,185 @@ u8 SpriteUtilCountDrops(void)
 
 void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpeed, u8 speedDivisor)
 {
+    u32 flip;
+    u16 speed;
 
+    flip = FALSE;
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+    {
+        if (gCurrentSprite.workVariable == 0)
+        {
+            if (gCurrentSprite.xPosition > samusX - 4)
+            {
+                gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
+            }
+            else
+            {
+                if (gCurrentSprite.workVariable2 < xSpeed)
+                    gCurrentSprite.workVariable2++;
+
+                gCurrentSprite.xPosition += (gCurrentSprite.workVariable2 >> speedDivisor);
+            }
+        }
+        else
+        {
+            gCurrentSprite.workVariable--;
+            if (gCurrentSprite.workVariable != 0)
+            {
+                gCurrentSprite.xPosition += (gCurrentSprite.workVariable >> speedDivisor);
+            }
+            else
+                flip++;
+        }
+    }
+    else
+    {
+        if (gCurrentSprite.workVariable == 0)
+        {
+            if (gCurrentSprite.xPosition < samusX + 4)
+            {
+                gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
+            }
+            else
+            {
+                if (gCurrentSprite.workVariable2 < xSpeed)
+                    gCurrentSprite.workVariable2++;
+
+                speed = gCurrentSprite.workVariable2 >> speedDivisor;
+                if ((gCurrentSprite.xPosition - speed) & 0x8000)
+                {
+                    flip++;
+                    gCurrentSprite.workVariable = 0;
+                }
+                else
+                {
+                    gCurrentSprite.xPosition -= speed;
+                }
+            }
+        }
+        else
+        {
+            gCurrentSprite.workVariable--;
+            if (gCurrentSprite.workVariable != 0)
+            {
+                speed = gCurrentSprite.workVariable >> speedDivisor;
+                if ((gCurrentSprite.xPosition - speed) & 0x8000)
+                {
+                    flip++;
+                    gCurrentSprite.workVariable = 0;
+                }
+                else
+                {
+                    gCurrentSprite.xPosition -= speed;
+                }
+            }
+            else
+                flip++;
+        }
+    }
+
+    if (flip)
+    {
+        gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
+        gCurrentSprite.workVariable2 = 1;
+    }
+
+    flip = FALSE;
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    {
+        if (gCurrentSprite.timer == 0)
+        {
+            if (gCurrentSprite.yPosition > samusY - 4)
+            {
+                gCurrentSprite.timer = gCurrentSprite.arrayOffset;
+            }
+            else
+            {
+                if (gCurrentSprite.arrayOffset < ySpeed)
+                    gCurrentSprite.arrayOffset++;
+
+                gCurrentSprite.yPosition += (gCurrentSprite.arrayOffset >> speedDivisor);
+            }
+        }
+        else
+        {
+            gCurrentSprite.timer--;
+            if (gCurrentSprite.timer != 0)
+            {
+                gCurrentSprite.yPosition += (gCurrentSprite.timer >> speedDivisor);
+            }
+            else
+                flip++;
+        }
+    }
+    else
+    {
+        if (gCurrentSprite.timer == 0)
+        {
+            if (gCurrentSprite.yPosition < samusY + 4)
+            {
+                gCurrentSprite.timer = gCurrentSprite.arrayOffset;
+            }
+            else
+            {
+                if (gCurrentSprite.arrayOffset < ySpeed)
+                    gCurrentSprite.arrayOffset++;
+
+                speed = gCurrentSprite.arrayOffset >> speedDivisor;
+                if ((gCurrentSprite.yPosition - speed) & 0x8000)
+                {
+                    flip++;
+                    gCurrentSprite.timer = 0;
+                }
+                else
+                {
+                    gCurrentSprite.yPosition -= speed;
+                }
+            }
+        }
+        else
+        {
+            gCurrentSprite.timer--;
+            if (gCurrentSprite.timer != 0)
+            {
+                speed = gCurrentSprite.timer >> speedDivisor;
+                if ((gCurrentSprite.yPosition - speed) & 0x8000)
+                {
+                    flip++;
+                    gCurrentSprite.timer = 0;
+                }
+                else
+                {
+                    gCurrentSprite.yPosition -= speed;
+                }
+            }
+            else
+                flip++;
+        }
+    }
+
+    if (flip)
+    {
+        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN2;
+        gCurrentSprite.arrayOffset = 1;
+    }
 }
 
-void SpriteUtilRidleyFireballMove(u16 spriteY, u16 samusX, u8 ySpeed, u8 xSpeed, u8 speedDivisor)
+/**
+ * @brief 10b98 | 158 | Handles a ridley fireball moving (TODO rename to a more general name)
+ * 
+ * @param spriteY Destination Y
+ * @param samusX Destination X (unused)
+ * @param ySpeed Y speed
+ * @param xSpeed X speed
+ * @param speedDivisor Speed divisor
+ */
+void SpriteUtilRidleyFireballMove(u16 dstY, u16 samusX, u8 ySpeed, u8 xSpeed, u8 speedDivisor)
 {
-    // https://decomp.me/scratch/slm8t
-
-    /*u16 xPosition;
-    u32 yPosition;
-    u8 timerDone;
+    u16 xPosition;
+    u16 speed;
+    u8 flip;
+    u8 updatePos;
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
@@ -2375,84 +2544,95 @@ void SpriteUtilRidleyFireballMove(u16 spriteY, u16 samusX, u8 ySpeed, u8 xSpeed,
         gCurrentSprite.xPosition -= gCurrentSprite.workVariable2 >> speedDivisor;
     }
 
-    timerDone = FALSE;
+    flip = FALSE;
     
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
     {
-        if (gCurrentSprite.timer == 0x0)
+        if (gCurrentSprite.timer == 0)
         {
+            updatePos = FALSE;
             if (gCurrentSprite.arrayOffset < ySpeed)
             {
-                if (gCurrentSprite.yPosition <= (i32)(spriteY - 0x4))
+                if (gCurrentSprite.yPosition <= dstY - 4)
+                {
                     gCurrentSprite.arrayOffset++;
+                    updatePos = TRUE;
+                }
                 else
                 {
                     gCurrentSprite.timer = gCurrentSprite.arrayOffset;
-                    if (timerDone)
-                    {
-                        gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN2;
-                        gCurrentSprite.arrayOffset = 0x1;
-                    }
-                    return;
+                    updatePos = FALSE;
                 }
             }
-            /!\ Branching issue?
-            gCurrentSprite.yPosition += (gCurrentSprite.arrayOffset >> speedDivisor);
+            else
+            {
+                updatePos = TRUE;
+            }
+
+            if (updatePos)
+                gCurrentSprite.yPosition += (gCurrentSprite.arrayOffset >> speedDivisor);
         }
         else
         {
             gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0x0)
+            if (gCurrentSprite.timer == 0)
             {
-                gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN2;
-                gCurrentSprite.arrayOffset = 0x1;
+                flip = TRUE;
             }
             else
                 gCurrentSprite.yPosition += (gCurrentSprite.timer >> speedDivisor);
         }
     }
-    else if (gCurrentSprite.timer == 0x0)
-    {
-        if (gCurrentSprite.arrayOffset < ySpeed)
-        {
-            if (gCurrentSprite.yPosition < (i32)(spriteY + 0x4))
-                gCurrentSprite.arrayOffset++;
-            else
-            {
-                gCurrentSprite.timer = gCurrentSprite.arrayOffset;
-                if (timerDone)
-                {
-                    gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN2;
-                    gCurrentSprite.arrayOffset = 0x1;
-                }
-                return;
-            }
-        }
-        gCurrentSprite.yPosition -= (gCurrentSprite.arrayOffset >> speedDivisor);
-    }
     else
     {
-        gCurrentSprite.timer--;
-        if (gCurrentSprite.timer != 0x0)
+         if (gCurrentSprite.timer == 0)
         {
-            yPosition =  (u16)(gCurrentSprite.timer >> speedDivisor) - gCurrentSprite.yPosition;
-            if (yPosition & 0x8000)
+            updatePos = FALSE;
+            if (gCurrentSprite.arrayOffset < ySpeed)
             {
-                timerDone = TRUE;
-                gCurrentSprite.timer = 0x0;
+                if (gCurrentSprite.yPosition >= dstY + 4)
+                {
+                    gCurrentSprite.arrayOffset++;
+                    updatePos = TRUE;
+                }
+                else
+                {
+                    gCurrentSprite.timer = gCurrentSprite.arrayOffset;
+                    updatePos = FALSE;
+                }
             }
             else
-                gCurrentSprite.yPosition = yPosition;
+            {
+                updatePos = TRUE;
+            }
+            
+            if (updatePos)
+                gCurrentSprite.yPosition -= (gCurrentSprite.arrayOffset >> speedDivisor);
         }
         else
-            timerDone = TRUE;
+        {
+            gCurrentSprite.timer--;
+            if (gCurrentSprite.timer != 0)
+            {
+                speed = gCurrentSprite.timer >> speedDivisor;
+                if ((gCurrentSprite.yPosition - speed) & 0x8000)
+                {
+                    flip = TRUE;
+                    gCurrentSprite.timer = 0;
+                }
+                else
+                    gCurrentSprite.yPosition -= speed;
+            }
+            else
+                flip = TRUE;
+        }
     }
 
-    if (timerDone)
+    if (flip)
     {
         gCurrentSprite.status ^= SPRITE_STATUS_UNKNOWN2;
-        gCurrentSprite.arrayOffset = 0x1;
-    }*/
+        gCurrentSprite.arrayOffset = 1;
+    }
 }
 
 /**
