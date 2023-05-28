@@ -109,7 +109,7 @@ void GadoraSamusDetection(void)
     if (gCurrentSprite.timer == 0x0)
     {
         // Check if samus in front
-        if (SpriteUtilCheckSamusNearSpriteFrontBehind(BLOCK_SIZE * 0x2, BLOCK_SIZE * 0x7, 0x0) == NSAB_IN_FRONT)
+        if (SpriteUtilCheckSamusNearSpriteFrontBehind(BLOCK_SIZE * 0x2, BLOCK_SIZE * 0x7, 0x0) == NSFB_IN_FRONT)
         {
             gCurrentSprite.pose = GADORA_POSE_CHECK_WARNING_ENDED;
             gCurrentSprite.pOam = sGadoraOAM_Warning;
