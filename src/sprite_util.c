@@ -1488,13 +1488,29 @@ u8 SpriteUtilCheckEndSubSpriteAnim(struct SubSpriteData* pSub)
  */
 u8 SpriteUtilCheckNearEndSubSpriteAnim(struct SubSpriteData* pSub)
 {
+    u8 adc;
+    u16 caf;
 
+    adc = pSub->animationDurationCounter;
+    caf = pSub->currentAnimationFrame;
+    adc++;
+    adc++;
+
+    if (pSub->pMultiOam[caf].timer < adc && (u8)pSub->pMultiOam[++caf].timer == 0x0)
+        return TRUE;
+    else
+        return FALSE;
 }
 
+/**
+ * @brief fde0 | 68 | Checks if samus is in range of the current sprite horizontally
+ * 
+ * @param yRange Y range
+ * @param xRange X range
+ * @return u8 Result (NSLR enum)
+ */
 u8 SpriteUtilCheckSamusNearSpriteLeftRight(u16 yRange, u16 xRange)
 {
-    // https://decomp.me/scratch/0xhby
-
     u8 result;
     u16 samusY;
     u16 samusX;
@@ -1503,26 +1519,40 @@ u8 SpriteUtilCheckSamusNearSpriteLeftRight(u16 yRange, u16 xRange)
 
     result = NSLR_OUT_OF_RANGE;
 
+    // Get samus middle position visually
     samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset / 2;
     samusX = gSamusData.xPosition;
 
+    // Get sprite position
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
     
-    if ((spriteY > samusY ? spriteY - samusY : samusY - spriteY) >= yRange)
-        return NSLR_OUT_OF_RANGE;
+    // Check Y position
+    if (spriteY > samusY)
+    {
+        // Sprite is below
+        if (spriteY - samusY >= yRange)
+            return NSLR_OUT_OF_RANGE;
+    }
     else
     {
-        if (spriteX > samusX)
-        {
-            if ((spriteX - samusX) < xRange)
-                result = NSLR_LEFT;
-        }
-        else
-        {
-            if ((samusX - spriteX) < xRange)
-                result = NSLR_RIGHT;
-        }
+        // Sprite is above
+        if (samusY - spriteY >= yRange)
+            return NSLR_OUT_OF_RANGE;
+    }
+   
+    // Check X position
+    if (spriteX > samusX)
+    {
+        // Sprite is on left
+        if (spriteX - samusX < xRange)
+            result = NSLR_LEFT;
+    }
+    else
+    {
+        // Sprite is on right
+        if (samusX - spriteX < xRange)
+            result = NSLR_RIGHT;
     }
 
     return result;

@@ -1,7 +1,5 @@
 #include "sprites_AI/atomic.h"
 
-#include "sprites_AI/atomic.h"
-
 #include "data/frame_data_pointers.h"
 #include "data/sprites/atomic.h"
 #include "data/sprite_data.h"
@@ -33,7 +31,7 @@ void AtomicSmoothMovement(void)
     u8 flip;
     u32 limit;
 
-    speedDivisor = 0x2;
+    speedDivisor = 2;
     dstY = gArmCannonY;
     dstX = gArmCannonX;
     hittingSolidX = FALSE;
@@ -44,64 +42,40 @@ void AtomicSmoothMovement(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
-        if (SpriteUtilGetCollisionAtPosition(spriteY, spriteX + (HALF_BLOCK_SIZE)) != COLLISION_AIR)
+        if (SpriteUtilGetCollisionAtPosition(spriteY, spriteX + HALF_BLOCK_SIZE) != COLLISION_AIR)
             hittingSolidX++;
-        else
-        {
-            if (SpriteUtilGetCollisionAtPosition(spriteY + (HALF_BLOCK_SIZE), spriteX + (HALF_BLOCK_SIZE)) != COLLISION_AIR)
-                hittingSolidX++;
-            else
-            {
-                if (SpriteUtilGetCollisionAtPosition(spriteY - (HALF_BLOCK_SIZE), spriteX + (HALF_BLOCK_SIZE)) != COLLISION_AIR)
-                    hittingSolidX++;
-            }
-        }
+        else if (SpriteUtilGetCollisionAtPosition(spriteY + HALF_BLOCK_SIZE, spriteX + HALF_BLOCK_SIZE) != COLLISION_AIR)
+            hittingSolidX++;
+        else if (SpriteUtilGetCollisionAtPosition(spriteY - HALF_BLOCK_SIZE, spriteX + HALF_BLOCK_SIZE) != COLLISION_AIR)
+            hittingSolidX++;
     }
     else
     {
-        if (SpriteUtilGetCollisionAtPosition(spriteY, spriteX - (HALF_BLOCK_SIZE)) != COLLISION_AIR)
+        if (SpriteUtilGetCollisionAtPosition(spriteY, spriteX - HALF_BLOCK_SIZE) != COLLISION_AIR)
             hittingSolidX++;
-        else
-        {
-            if (SpriteUtilGetCollisionAtPosition(spriteY + (HALF_BLOCK_SIZE), spriteX - (HALF_BLOCK_SIZE)) != COLLISION_AIR)
-                hittingSolidX++;
-            else
-            {
-                if (SpriteUtilGetCollisionAtPosition(spriteY - (HALF_BLOCK_SIZE), spriteX - (HALF_BLOCK_SIZE)) != COLLISION_AIR)
-                    hittingSolidX++;
-            }
-        }
+        else if (SpriteUtilGetCollisionAtPosition(spriteY + HALF_BLOCK_SIZE, spriteX - HALF_BLOCK_SIZE) != COLLISION_AIR)
+            hittingSolidX++;
+        else if (SpriteUtilGetCollisionAtPosition(spriteY - HALF_BLOCK_SIZE, spriteX - HALF_BLOCK_SIZE) != COLLISION_AIR)
+            hittingSolidX++;
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
     {
-        if (SpriteUtilGetCollisionAtPosition(spriteY + (HALF_BLOCK_SIZE), spriteX) != COLLISION_AIR)
+        if (SpriteUtilGetCollisionAtPosition(spriteY + HALF_BLOCK_SIZE, spriteX) != COLLISION_AIR)
             hittingSolidY++;
-        else
-        {
-            if (SpriteUtilGetCollisionAtPosition(spriteY + (HALF_BLOCK_SIZE), spriteX + (HALF_BLOCK_SIZE)) != COLLISION_AIR)
-                hittingSolidY++;
-            else
-            {
-                if (SpriteUtilGetCollisionAtPosition(spriteY + (HALF_BLOCK_SIZE), spriteX - (HALF_BLOCK_SIZE)) != COLLISION_AIR)
-                    hittingSolidY++;
-            }
-        }
+        else if (SpriteUtilGetCollisionAtPosition(spriteY + HALF_BLOCK_SIZE, spriteX + HALF_BLOCK_SIZE) != COLLISION_AIR)
+            hittingSolidY++;
+        else if (SpriteUtilGetCollisionAtPosition(spriteY + HALF_BLOCK_SIZE, spriteX - HALF_BLOCK_SIZE) != COLLISION_AIR)
+            hittingSolidY++;
     }
     else
     {
-        if (SpriteUtilGetCollisionAtPosition(spriteY - (HALF_BLOCK_SIZE), spriteX) != COLLISION_AIR)
+        if (SpriteUtilGetCollisionAtPosition(spriteY - HALF_BLOCK_SIZE, spriteX) != COLLISION_AIR)
             hittingSolidY++;
-        else
-        {
-            if (SpriteUtilGetCollisionAtPosition(spriteY - (HALF_BLOCK_SIZE), spriteX + (HALF_BLOCK_SIZE)) != COLLISION_AIR)
-                hittingSolidY++;
-            else
-            {
-                if (SpriteUtilGetCollisionAtPosition(spriteY - (HALF_BLOCK_SIZE), spriteX - (HALF_BLOCK_SIZE)) != COLLISION_AIR)
-                    hittingSolidY++;
-            }
-        }
+        else if (SpriteUtilGetCollisionAtPosition(spriteY - HALF_BLOCK_SIZE, spriteX + HALF_BLOCK_SIZE) != COLLISION_AIR)
+            hittingSolidY++;
+        else if (SpriteUtilGetCollisionAtPosition(spriteY - HALF_BLOCK_SIZE, spriteX - HALF_BLOCK_SIZE) != COLLISION_AIR)
+            hittingSolidY++;
     }
 
     flip = FALSE;
@@ -109,11 +83,11 @@ void AtomicSmoothMovement(void)
     {
         if (!hittingSolidX)
         {
-            if (gCurrentSprite.workVariable == 0x0)
+            if (gCurrentSprite.workVariable == 0)
             {
-                if (gCurrentSprite.xPosition <= (dstX - 0x4))
+                if (gCurrentSprite.xPosition <= (dstX - 4))
                 {
-                    limit = 0x14;
+                    limit = 20;
                     if (gCurrentSprite.workVariable2 < limit)
                         gCurrentSprite.workVariable2++;
 
@@ -125,7 +99,7 @@ void AtomicSmoothMovement(void)
             else
             {
                 gCurrentSprite.workVariable--;
-                if (gCurrentSprite.workVariable != 0x0)
+                if (gCurrentSprite.workVariable != 0)
                     gCurrentSprite.xPosition += (gCurrentSprite.workVariable >> speedDivisor);
                 else
                     flip = TRUE;
@@ -138,13 +112,13 @@ void AtomicSmoothMovement(void)
     {
         if (!hittingSolidX)
         {
-            if (gCurrentSprite.workVariable == 0x0)
+            if (gCurrentSprite.workVariable == 0)
             {
-                if (gCurrentSprite.xPosition < (dstX + 0x4))
+                if (gCurrentSprite.xPosition < (dstX + 4))
                     gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
                 else
                 {
-                    limit = 0x14;
+                    limit = 20;
                     if (gCurrentSprite.workVariable2 < limit)
                         gCurrentSprite.workVariable2++;
 
@@ -154,7 +128,7 @@ void AtomicSmoothMovement(void)
             else
             {
                 gCurrentSprite.workVariable--;
-                if (gCurrentSprite.workVariable != 0x0)
+                if (gCurrentSprite.workVariable != 0)
                     gCurrentSprite.xPosition -= (gCurrentSprite.workVariable >> speedDivisor);
                 else
                     flip = TRUE;
@@ -167,7 +141,7 @@ void AtomicSmoothMovement(void)
     if (flip)
     {
         gCurrentSprite.status ^= SPRITE_STATUS_FACING_RIGHT;
-        gCurrentSprite.workVariable2 = 0x1;
+        gCurrentSprite.workVariable2 = 1;
     }
 
     
@@ -176,11 +150,11 @@ void AtomicSmoothMovement(void)
     {
         if (!hittingSolidY)
         {
-            if (gCurrentSprite.timer == 0x0)
+            if (gCurrentSprite.timer == 0)
             {
-                if (gCurrentSprite.yPosition <= (dstY - 0x4))
+                if (gCurrentSprite.yPosition <= (dstY - 4))
                 {
-                    limit = 0x14;
+                    limit = 20;
                     if (gCurrentSprite.arrayOffset < limit)
                         gCurrentSprite.arrayOffset++;
 
@@ -192,7 +166,7 @@ void AtomicSmoothMovement(void)
             else
             {
                 gCurrentSprite.timer--;
-                if (gCurrentSprite.timer != 0x0)
+                if (gCurrentSprite.timer != 0)
                     gCurrentSprite.yPosition += (gCurrentSprite.timer >> speedDivisor);
                 else
                     flip = TRUE;
@@ -205,13 +179,13 @@ void AtomicSmoothMovement(void)
     {
         if (!hittingSolidY)
         {
-            if (gCurrentSprite.timer == 0x0)
+            if (gCurrentSprite.timer == 0)
             {
-                if (gCurrentSprite.yPosition < (dstY + 0x4))
+                if (gCurrentSprite.yPosition < (dstY + 4))
                     gCurrentSprite.timer = gCurrentSprite.arrayOffset;
                 else
                 {
-                    limit = 0x14;
+                    limit = 20;
                     if (gCurrentSprite.arrayOffset < limit)
                         gCurrentSprite.arrayOffset++;
 
@@ -221,7 +195,7 @@ void AtomicSmoothMovement(void)
             else
             {
                 gCurrentSprite.timer--;
-                if (gCurrentSprite.timer != 0x0)
+                if (gCurrentSprite.timer != 0)
                     gCurrentSprite.yPosition -= (gCurrentSprite.timer >> speedDivisor);
                 else
                     flip = TRUE;
@@ -450,7 +424,7 @@ void AtomicMove(void)
             if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
             {
                 // Move down
-                SpriteUtilCheckCollisionAtPosition(yPosition + (HALF_BLOCK_SIZE), xPosition);
+                SpriteUtilCheckCollisionAtPosition(yPosition + HALF_BLOCK_SIZE, xPosition);
                 if (gPreviousCollisionCheck == COLLISION_AIR)
                     gCurrentSprite.yPosition += movement;
                 else
@@ -459,7 +433,7 @@ void AtomicMove(void)
             else
             {
                 // Move up
-                SpriteUtilCheckCollisionAtPosition(yPosition - (HALF_BLOCK_SIZE), xPosition);
+                SpriteUtilCheckCollisionAtPosition(yPosition - HALF_BLOCK_SIZE, xPosition);
                 if (gPreviousCollisionCheck == COLLISION_AIR)
                     gCurrentSprite.yPosition -= movement;
                 else
@@ -469,7 +443,7 @@ void AtomicMove(void)
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
                 // Move right
-                SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + (HALF_BLOCK_SIZE));
+                SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + HALF_BLOCK_SIZE);
                 if (gPreviousCollisionCheck == COLLISION_AIR)
                     gCurrentSprite.xPosition += movement;
                 else
@@ -478,7 +452,7 @@ void AtomicMove(void)
             else
             {
                 // Move left
-                SpriteUtilCheckCollisionAtPosition(yPosition, xPosition - (HALF_BLOCK_SIZE));
+                SpriteUtilCheckCollisionAtPosition(yPosition, xPosition - HALF_BLOCK_SIZE);
                 if (gPreviousCollisionCheck == COLLISION_AIR)
                     gCurrentSprite.xPosition -= movement;
                 else
@@ -532,26 +506,26 @@ void AtomicMaybeMoveBackToIdle(void)
         movement = 0x2;
         if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
         {
-            SpriteUtilCheckCollisionAtPosition(yPosition + (HALF_BLOCK_SIZE), xPosition);
+            SpriteUtilCheckCollisionAtPosition(yPosition + HALF_BLOCK_SIZE, xPosition);
             if (gPreviousCollisionCheck == COLLISION_AIR)
                 gCurrentSprite.yPosition += 0x2;
         }
         else
         {
-            SpriteUtilCheckCollisionAtPosition(yPosition - (HALF_BLOCK_SIZE), xPosition);
+            SpriteUtilCheckCollisionAtPosition(yPosition - HALF_BLOCK_SIZE, xPosition);
             if (gPreviousCollisionCheck == COLLISION_AIR)
                 gCurrentSprite.yPosition -= 0x2;
         }
 
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
-            SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + (HALF_BLOCK_SIZE));
+            SpriteUtilCheckCollisionAtPosition(yPosition, xPosition + HALF_BLOCK_SIZE);
             if (gPreviousCollisionCheck == COLLISION_AIR)
                 gCurrentSprite.xPosition += movement;
         }
         else
         {
-            SpriteUtilCheckCollisionAtPosition(yPosition, xPosition - (HALF_BLOCK_SIZE));
+            SpriteUtilCheckCollisionAtPosition(yPosition, xPosition - HALF_BLOCK_SIZE);
             if (gPreviousCollisionCheck == COLLISION_AIR)
                 gCurrentSprite.xPosition -= movement;
         }
