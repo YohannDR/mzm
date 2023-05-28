@@ -1,12 +1,16 @@
 #include "sprites_AI/gadora.h"
+#include "macros.h"
+
 #include "data/sprites/gadora.h"
 #include "data/sprites/enemy_drop.h"
 #include "data/sprite_data.h"
+
 #include "constants/clipdata.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 #include "constants/event.h"
+
 #include "structs/display.h"
 #include "structs/sprite.h"
 
@@ -75,7 +79,7 @@ void GadoraInit(void)
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
         gCurrentSprite.drawOrder = 0x5;
         gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
-        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 
         // Change palette if ridley gadora
         if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY)
@@ -364,7 +368,7 @@ void GadoraEye(void)
             {
                 gCurrentSprite.absolutePaletteRow = 0x1;
                 gCurrentSprite.paletteRow = 0x1;
-                gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+                gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
             }
 
             gCurrentSprite.drawDistanceTopOffset = 0x8;

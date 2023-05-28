@@ -1,4 +1,5 @@
 #include "sprites_AI/zebetite_and_cannon.h"
+#include "macros.h"
 
 #include "data/sprites/zebetite_and_cannon.h"
 #include "data/sprite_data.h"
@@ -77,7 +78,7 @@ void Zebetite(void)
         gCurrentSprite.currentAnimationFrame = 0;
 
         gCurrentSprite.drawOrder = 5;
-        spawnHealth = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+        spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
         gCurrentSprite.health = spawnHealth;
         gCurrentSprite.oamScaling = spawnHealth;
 
@@ -89,7 +90,7 @@ void Zebetite(void)
             gCurrentSprite.timer = 0x1E;
     }
 
-    maxHealth = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    maxHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 
     phase = (maxHealth - gCurrentSprite.health) / 20;
 

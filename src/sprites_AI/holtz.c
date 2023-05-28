@@ -1,10 +1,14 @@
 #include "sprites_AI/holtz.h"
+#include "macros.h"
+
 #include "data/sprites/holtz.h"
 #include "data/sprite_data.h"
+
 #include "constants/particle.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/sprite.h"
 #include "structs/samus.h"
 
@@ -127,7 +131,7 @@ void HoltzInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.pose = HOLTZ_POSE_IDLE_INIT;
     gCurrentSprite.arrayOffset = 0x0;

@@ -1,5 +1,6 @@
-#include "gba.h"
 #include "sprites_AI/ridley.h"
+#include "gba.h"
+#include "macros.h"
 
 #include "data/frame_data_pointers.h"
 #include "data/sprites/ridley.h"
@@ -506,7 +507,7 @@ void RidleyInit(void)
             gSubSpriteData1.yPosition = gCurrentSprite.yPosition;
             gSubSpriteData1.xPosition = gCurrentSprite.xPosition;
 
-            health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+            health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
             gCurrentSprite.health = health;
             gSubSpriteData1.health = health;
 
@@ -2500,7 +2501,7 @@ void RidleyFireballInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.oamRotation = 0x0;
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -2749,12 +2750,12 @@ void Ridley(void)
     {
         if (gCurrentSprite.paletteRow != 0xE)
         {
-            if (gCurrentSprite.health < sPrimarySpriteStats[gCurrentSprite.spriteID][0] / 4)
+            if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteID) / 4)
             {
                 gCurrentSprite.paletteRow = 0x5;
                 gCurrentSprite.absolutePaletteRow = gCurrentSprite.paletteRow;
             }
-            else if (gCurrentSprite.health < sPrimarySpriteStats[gCurrentSprite.spriteID][0] / 2)
+            else if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteID) / 2)
             {
                 gCurrentSprite.paletteRow = 0x3;
                 gCurrentSprite.absolutePaletteRow = gCurrentSprite.paletteRow;

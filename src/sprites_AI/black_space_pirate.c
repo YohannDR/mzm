@@ -1,5 +1,6 @@
 #include "sprites_AI/black_space_pirate.h"
 #include "sprites_AI/space_pirate.h"
+#include "macros.h"
 
 #include "data/sprite_data.h"
 #include "data/sprites/space_pirate.h"
@@ -272,7 +273,7 @@ void BlackSpacePirateInit(void)
     gCurrentSprite.hitboxTopOffset = -0xA0;
     gCurrentSprite.hitboxBottomOffset = 0x0;
 
-    health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.health = health;
     gCurrentSprite.yPositionSpawn = health;
 

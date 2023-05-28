@@ -1,4 +1,5 @@
 #include "sprites_AI/mother_brain.h"
+#include "macros.h"
 
 #include "data/frame_data_pointers.h"
 #include "data/sprites/mother_brain.h"
@@ -117,7 +118,7 @@ void MotherBrainInit(void)
         gCurrentSprite.hitboxRightOffset = 0x80;
 
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
         gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
         gCurrentSprite.timer = 0x0;
         gCurrentSprite.workVariable = 0x0;
@@ -486,7 +487,7 @@ void MotherBrainPartInit(void)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 0x6;
             gCurrentSprite.pose = 0xE;
-            health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+            health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
             gCurrentSprite.health = health;
             gBossWork.work3 = health;
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;

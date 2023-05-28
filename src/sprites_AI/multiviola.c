@@ -1,10 +1,14 @@
 #include "sprites_AI/multiviola.h"
+#include "macros.h"
+
 #include "data/sprites/multiviola.h"
-#include "constants/particle.h"
 #include "data/sprite_data.h"
+
+#include "constants/particle.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/sprite.h"
 
 /**
@@ -26,7 +30,7 @@ void MultiviolaInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = gCurrentSprite.primarySpriteRAMSlot * 2;
 
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     SpriteUtilMakeSpriteFaceSamusXFlip();
     gCurrentSprite.pose = MULTIVIOLA_POSE_MOVING;

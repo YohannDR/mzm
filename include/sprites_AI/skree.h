@@ -13,6 +13,9 @@
 #define SKREE_EXPLOSION_PART_GOING_UP 0x0
 #define SKREE_EXPLOSION_PART_GOING_DOWN 0x1
 
+#define SKREE_Y_RANGE (BLOCK_SIZE * 10 + 4)
+#define SKREE_X_RANGE (BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE + 6)
+
 void SkreeInit(void);
 void SkreeIdleInit(void);
 void SkreeDetectSamus(void);

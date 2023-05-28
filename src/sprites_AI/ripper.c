@@ -1,9 +1,13 @@
 #include "sprites_AI/ripper.h"
+#include "macros.h"
+
 #include "data/sprites/ripper.h"
 #include "data/sprite_data.h"
+
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/sprite.h"
 
 /**
@@ -26,7 +30,7 @@ void RipperInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.yPosition -= 0x8;
     SpriteUtilChooseRandomXFlip();
     gCurrentSprite.pose = RIPPER_POSE_MOVING_INIT;

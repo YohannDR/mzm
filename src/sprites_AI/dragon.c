@@ -1,4 +1,5 @@
 #include "sprites_AI/dragon.h"
+#include "macros.h"
 
 #include "data/sprites/dragon.h"
 #include "data/sprite_data.h"
@@ -55,7 +56,7 @@ void DragonInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     SpriteUtilMakeSpriteFaceSamusXFlip();
     gCurrentSprite.pose = DRAGON_POSE_IDLE_INIT;
     gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
@@ -251,7 +252,7 @@ void DragonFireballInit(void)
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
     gCurrentSprite.drawOrder = 0x3;
     gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
-    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
     
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {

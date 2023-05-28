@@ -1,10 +1,14 @@
 #include "sprites_AI/hive.h"
+#include "macros.h"
+
 #include "data/sprites/hive.h"
 #include "data/sprite_data.h"
+
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/event.h"
 #include "constants/sprite_util.h"
+
 #include "structs/bg_clip.h"
 #include "structs/display.h"
 #include "structs/sprite.h"
@@ -22,8 +26,8 @@ void HiveSpawnParticle(void)
     xPosition = gCurrentSprite.xPosition;
     yPosition = gCurrentSprite.yPosition;
 
-    ParticleSet(yPosition - 0x20, xPosition, PE_MEDIUM_DUST);
-    ParticleSet(yPosition + 0x60, xPosition, PE_TWO_MEDIUM_DUST);
+    ParticleSet(yPosition - HALF_BLOCK_SIZE, xPosition, PE_MEDIUM_DUST);
+    ParticleSet(yPosition + BLOCK_SIZE + HALF_BLOCK_SIZE, xPosition, PE_TWO_MEDIUM_DUST);
 }
 
 /**
@@ -38,43 +42,49 @@ void HiveInit(void)
     u16 xPosition;
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_THREE_HIVES_DESTROYED))
-        gCurrentSprite.status = 0x0; // Kill if the 3 hives were destroyed
-    else
     {
-        gCurrentSprite.drawDistanceTopOffset = 0x28;
-        gCurrentSprite.drawDistanceBottomOffset = 0x28;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x14;
-
-        gCurrentSprite.hitboxTopOffset = -0x80;
-        gCurrentSprite.hitboxBottomOffset = 0x80;
-        gCurrentSprite.hitboxLeftOffset = -0x30;
-        gCurrentSprite.hitboxRightOffset = 0x30;
-
-        gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
-        gCurrentSprite.frozenPaletteRowOffset = 0x1;
-
-        gCurrentSprite.pOam = sHiveOAM_Idle;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-
-        gCurrentSprite.drawOrder = 0x5;
-        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
-        gCurrentSprite.pose = 0x9;
-        gCurrentSprite.timer = 0x0;
-        
-        yPosition = gCurrentSprite.yPosition;
-        xPosition = gCurrentSprite.xPosition;
-        gfxSlot = gCurrentSprite.spritesetGFXSlot;
-        roomSlot = gCurrentSprite.roomSlot;
-        
-        // Spawn rooms
-        SpriteSpawnSecondary(SSPRITE_HIVE_ROOTS, roomSlot, gfxSlot, gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0);
-        // Spawn mellows
-        SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot, yPosition + 0x40, xPosition - 0x1F, 0x0);
-        SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot, yPosition + 0x20, xPosition + 0x10, 0x0);
-        SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot, yPosition - 0x48, xPosition - 0x10, 0x0);
-        SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot, yPosition - 0x60, xPosition + 0x1F, 0x0);
+        gCurrentSprite.status = 0x0; // Kill if the 3 hives were destroyed
+        return;
     }
+
+    gCurrentSprite.drawDistanceTopOffset = 0x28;
+    gCurrentSprite.drawDistanceBottomOffset = 0x28;
+    gCurrentSprite.drawDistanceHorizontalOffset = 0x14;
+
+    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 2);
+    gCurrentSprite.hitboxBottomOffset = BLOCK_SIZE * 2;
+    gCurrentSprite.hitboxLeftOffset = -(HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+    gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE + QUARTER_BLOCK_SIZE;
+
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_NO_PASS_THROUGH;
+    gCurrentSprite.frozenPaletteRowOffset = 1;
+
+    gCurrentSprite.pOam = sHiveOAM_Idle;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+
+    gCurrentSprite.drawOrder = 5;
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.pose = 9;
+    gCurrentSprite.timer = 0;
+    
+    yPosition = gCurrentSprite.yPosition;
+    xPosition = gCurrentSprite.xPosition;
+    gfxSlot = gCurrentSprite.spritesetGFXSlot;
+    roomSlot = gCurrentSprite.roomSlot;
+    
+    // Spawn rooms
+    SpriteSpawnSecondary(SSPRITE_HIVE_ROOTS, roomSlot, gfxSlot, gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0);
+
+    // Spawn mellows
+    SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot,
+        yPosition + BLOCK_SIZE, xPosition - (HALF_BLOCK_SIZE - 1), 0);
+    SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot,
+        yPosition + HALF_BLOCK_SIZE, xPosition + QUARTER_BLOCK_SIZE, 0);
+    SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot,
+        yPosition - (BLOCK_SIZE + 8), xPosition - QUARTER_BLOCK_SIZE, 0);
+    SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot,
+        yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), xPosition + (HALF_BLOCK_SIZE - 1), 0);
 }
 
 /**
@@ -114,7 +124,7 @@ void HivePhase1(void)
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
     
-    if (gCurrentSprite.health < sPrimarySpriteStats[gCurrentSprite.spriteID][0] >> 0x1)
+    if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteID) >> 0x1)
     {
         gCurrentSprite.frozenPaletteRowOffset = 0x2;
         gCurrentSprite.pOam = sHiveOAM_Phase2;
@@ -138,7 +148,7 @@ void HivePhase2(void)
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
     
-    if (gCurrentSprite.health < sPrimarySpriteStats[gCurrentSprite.spriteID][0] >> 0x2)
+    if (gCurrentSprite.health < GET_PSPRITE_HEALTH(gCurrentSprite.spriteID) >> 0x2)
     {
         gCurrentSprite.frozenPaletteRowOffset = 0x3;
         gCurrentSprite.pOam = sHiveOAM_Phase3;

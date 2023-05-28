@@ -69,15 +69,15 @@ extern const u16 sDeoremUnkOAM_082d783a[22];
 extern const u16 sDeoremUnkOAM_082d7866[22];
 
 
-extern const struct FrameData sDeoremUnkOAMData_082d7894[5];
+extern const struct FrameData sDeoremOam_082d7894[5];
 
-extern const struct FrameData sDeoremUnkOAMData_082d78bc[5];
+extern const struct FrameData sDeoremOam_082d78bc[5];
 
-extern const struct FrameData sDeoremUnkOAMData_082d78e4[5];
+extern const struct FrameData sDeoremOam_082d78e4[5];
 
 extern const struct FrameData sDeoremThornOAM_Base[2];
 
-extern const struct FrameData sDeoremUnkOAMData_082d791C[2];
+extern const struct FrameData sDeoremOam_082d791C[2];
 
 extern const struct FrameData sDeoremEyeOAM_Base[6];
 
@@ -87,14 +87,14 @@ extern const struct FrameData sDeoremPliersOAM_Opening[5];
 
 extern const struct FrameData sDeoremPliersOAM_Closing[5];
 
-extern const struct FrameData sDeoremUnkOAMData_082d79fc[9];
+extern const struct FrameData sDeoremOam_082d79fc[9];
 
-extern const struct FrameData sDeoremUnkOAMData_082d7a44[3];
+extern const struct FrameData sDeoremOam_082d7a44[3];
 
 extern const struct FrameData sDeoremPliersOAM_Opened[5];
 
 extern const struct FrameData sDeoremPliersOAM_Closed[5];
 
-extern const struct FrameData sDeoremUnkOAMData_082d7aac[5];
+extern const struct FrameData sDeoremOam_082d7aac[5];
 
 #endif

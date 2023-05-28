@@ -1,14 +1,18 @@
 #include "sprites_AI/rinka.h"
 #include "sprites_AI/zebetite_and_cannon.h"
 #include "syscalls.h"
+#include "macros.h"
+
 #include "data/sprites/rinka.h"
 #include "data/sprites/zebetite_and_cannon.h"
 #include "data/sprite_data.h"
+
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 #include "constants/event.h"
 #include "constants/samus.h"
+
 #include "structs/display.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"
@@ -28,7 +32,7 @@ void RinkaInit(void)
     gCurrentSprite.drawDistanceBottomOffset = 0x8;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
 
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.yPosition -= (HALF_BLOCK_SIZE);
 
     // Get spawn tile position
@@ -74,7 +78,7 @@ void RinkaRespawn(void)
     gCurrentSprite.xPosition = (gCurrentSprite.workVariable2 * BLOCK_SIZE) + (HALF_BLOCK_SIZE);
 
     RinkaSpawningInit();
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     gCurrentSprite.paletteRow = 0x0;
     gCurrentSprite.frozenPaletteRowOffset = 0x0;
@@ -383,7 +387,7 @@ void RinkaMotherBrainRespawn(void)
     gCurrentSprite.yPosition = spriteY;
     gCurrentSprite.xPosition = spriteX;
     RinkaMotherBrainSpawningInit();
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     gCurrentSprite.paletteRow = 0x0;
     gCurrentSprite.frozenPaletteRowOffset = 0x1;

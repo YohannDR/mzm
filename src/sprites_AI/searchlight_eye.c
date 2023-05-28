@@ -1,11 +1,15 @@
 #include "sprites_AI/searchlight_eye.h"
+#include "macros.h"
+
 #include "data/sprites/searchlight_eye.h"
 #include "data/sprite_data.h"
+
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/display.h"
 #include "structs/clipdata.h"
 #include "structs/sprite.h"
@@ -41,7 +45,7 @@ void SearchlightEyeInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
 
     gCurrentSprite.samusCollision = SSC_NONE;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 
     // Set direction
     if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + BLOCK_SIZE) != COLLISION_AIR)

@@ -1,10 +1,14 @@
 #include "sprites_AI/skree.h"
+#include "macros.h"
+
 #include "data/sprites/skree.h"
-#include "constants/particle.h"
 #include "data/sprite_data.h"
+
+#include "constants/particle.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/display.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"
@@ -25,7 +29,7 @@ void SkreeInit(void)
     gCurrentSprite.hitboxLeftOffset = -0x18;
     gCurrentSprite.hitboxRightOffset = 0x18;
 
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.yPosition -= BLOCK_SIZE;
 }
 
@@ -48,10 +52,10 @@ void SkreeIdleInit(void)
 void SkreeDetectSamus(void)
 {
     if (gSamusData.yPosition > gCurrentSprite.yPosition &&
-        gSamusData.yPosition - gCurrentSprite.yPosition < 0x284 &&
+        gSamusData.yPosition - gCurrentSprite.yPosition < SKREE_Y_RANGE &&
         gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
-        gSamusData.xPosition > gCurrentSprite.xPosition - 0x96 &&
-        gSamusData.xPosition < gCurrentSprite.xPosition + 0x96)
+        gSamusData.xPosition > gCurrentSprite.xPosition - SKREE_X_RANGE &&
+        gSamusData.xPosition < gCurrentSprite.xPosition + SKREE_X_RANGE)
     {
         // Set spinning
         gCurrentSprite.pose = SKREE_POSE_SPINNING_INIT;

@@ -1,9 +1,13 @@
 #include "sprites_AI/polyp.h"
+#include "macros.h"
+
 #include "data/sprites/polyp.h"
 #include "data/sprite_data.h"
+
 #include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/display.h"
 #include "structs/sprite.h"
 
@@ -23,7 +27,7 @@ void PolypInit(void)
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
     gCurrentSprite.samusCollision = SSC_KNOCKS_BACK_SAMUS;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 }
 
 /**
@@ -161,7 +165,7 @@ void PolypProjectileInit(void)
     gCurrentSprite.pose = 0x8;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.drawOrder = 0x5;
-    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
 
     // Try set same direction samus
     nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 5, BLOCK_SIZE * 8 + 0x26);

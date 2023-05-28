@@ -1,9 +1,13 @@
 #include "sprites_AI/zebbo.h"
+#include "macros.h"
+
 #include "data/sprites/zebbo.h"
-#include "constants/particle.h"
 #include "data/sprite_data.h"
+
+#include "constants/particle.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/sprite.h"
 #include "structs/samus.h"
 
@@ -23,7 +27,7 @@ void ZebboInit(void)
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
     gCurrentSprite.workVariable = 0x1;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 
     gCurrentSprite.yPosition -= 0x20;
     gCurrentSprite.xPosition += 0x20;
@@ -185,7 +189,7 @@ void ZebboRespawn(void)
         ZebboIdleInit();
 
         gCurrentSprite.workVariable = 0x3C;
-        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 
         gCurrentSprite.invincibilityStunFlashTimer = 0x0;
         gCurrentSprite.paletteRow = 0x0;

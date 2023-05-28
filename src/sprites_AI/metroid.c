@@ -1,8 +1,11 @@
-#include "gba.h"
 #include "sprites_AI/metroid.h"
+#include "gba.h"
+#include "macros.h"
+
 #include "data/sprites/metroid.h"
 #include "data/sprites/enemy_drop.h"
 #include "data/sprite_data.h"
+
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/game_state.h"
@@ -11,6 +14,7 @@
 #include "constants/projectile.h"
 #include "constants/samus.h"
 #include "constants/sprite_util.h"
+
 #include "structs/connection.h"
 #include "structs/game_state.h"
 #include "structs/sprite.h"
@@ -529,7 +533,7 @@ void MetroidInit(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
 
-        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
         gCurrentSprite.yPositionSpawn = gCurrentSprite.health;
         gCurrentSprite.samusCollision = SSC_NONE;
         SpriteUtilMakeSpriteFaceSamusDirection();

@@ -324,7 +324,7 @@ void AtomicInit(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
 
-        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
         gCurrentSprite.pose = ATOMIC_POSE_IDLE_INIT;
 

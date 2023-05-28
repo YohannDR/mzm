@@ -1,4 +1,5 @@
 #include "sprites_AI/sova.h"
+#include "macros.h"
 
 #include "data/sprites/sova.h"
 #include "data/sprite_data.h"
@@ -208,7 +209,7 @@ void SovaInit(void)
     SovaSetCrawlingOAM();
     SovaUpdateHitbox();
 
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.drawDistanceTopOffset = 0x10;
     gCurrentSprite.drawDistanceBottomOffset = 0x10;
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;

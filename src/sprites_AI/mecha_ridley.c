@@ -1,6 +1,7 @@
 #include "sprites_AI/mecha_ridley.h"
 #include "transparency.h"
 #include "gba.h"
+#include "macros.h"
 
 #include "data/sprites/mecha_ridley.h"
 #include "data/sprite_data.h"
@@ -411,7 +412,7 @@ void MechaRidleyInit(void)
         gCurrentSprite.drawOrder = 10;
         gCurrentSprite.samusCollision = SSC_NONE;
 
-        gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 
         // Triple health if 100% items
         if (gBossWork.work11 == 100)
@@ -1388,7 +1389,7 @@ void MechaRidleyPartInit(void)
             gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE - QUARTER_BLOCK_SIZE);
             gCurrentSprite.hitboxRightOffset = BLOCK_SIZE;
 
-            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
 
             // Triple health if 100% items
             if (gBossWork.work11 == 100)
@@ -2808,7 +2809,7 @@ void MechaRidleyMissile(void)
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
-            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
             gCurrentSprite.oamRotation = 0xA0;
             gCurrentSprite.oamScaling = 0x100;
             
@@ -2914,7 +2915,7 @@ void MechaRidleyFireball(void)
             gCurrentSprite.animationDurationCounter = 0;
             gCurrentSprite.currentAnimationFrame = 0;
 
-            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
             gCurrentSprite.timer = 30;
             gCurrentSprite.pose = 9;
 

@@ -1,4 +1,5 @@
 #include "sprites_AI/imago.h"
+#include "macros.h"
 
 #include "data/frame_data_pointers.h"
 #include "data/sprites/imago.h"
@@ -236,7 +237,7 @@ void ImagoInit(void)
 
         gCurrentSprite.samusCollision = SSC_IMAGO_STINGER;
         gCurrentSprite.timer = 0x50;
-        health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+        health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
         gCurrentSprite.health = health;
         gSubSpriteData1.health = health;
 
@@ -1494,7 +1495,7 @@ void ImagoNeedle(void)
             gCurrentSprite.hitboxLeftOffset = -0xC;
             gCurrentSprite.hitboxRightOffset = 0xC;
 
-            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
             gCurrentSprite.pOam = sImagoNeedleOAM;
             gCurrentSprite.animationDurationCounter = 0x0;
             gCurrentSprite.currentAnimationFrame = 0x0;

@@ -1,10 +1,14 @@
 #include "sprites_AI/skultera.h"
+#include "macros.h"
+
 #include "data/sprites/skultera.h"
-#include "constants/particle.h"
 #include "data/sprite_data.h"
+
+#include "constants/particle.h"
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
+
 #include "structs/clipdata.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"
@@ -84,7 +88,7 @@ void SkulteraInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 }
 
 /**

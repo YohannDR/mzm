@@ -1,4 +1,5 @@
 #include "sprites_AI/reo.h"
+#include "macros.h"
 
 #include "data/sprites/reo.h"
 #include "data/sprite_data.h"
@@ -30,7 +31,7 @@ void ReoInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
     SpriteUtilChooseRandomXDirection();

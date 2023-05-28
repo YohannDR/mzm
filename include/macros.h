@@ -42,6 +42,9 @@
 #define sin(a) (sSineTable[(a)])
 #define cos(a) (sSineTable[(a) + PI / 2])
 
+#define GET_PSPRITE_HEALTH(id) sPrimarySpriteStats[(id)][0]
+#define GET_SSPRITE_HEALTH(id) sSecondarySpriteStats[(id)][0]
+
 #define INCBIN(...) {0}
 #define INCBIN_U8   INCBIN
 #define INCBIN_U16  INCBIN

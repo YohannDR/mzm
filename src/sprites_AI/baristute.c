@@ -1,4 +1,5 @@
 #include "sprites_AI/baristute.h"
+#include "macros.h"
 
 #include "data/sprites/baristute.h"
 #include "data/sprite_data.h"
@@ -64,7 +65,7 @@ void BaristuteInit(void)
     gCurrentSprite.hitboxRightOffset = 0x54;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     SpriteUtilMakeSpriteFaceSamusDirection();
 }
 
@@ -536,7 +537,7 @@ void Baristute(void)
     if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
     {
         // Damaged
-        spawnHealth = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+        spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
         health = gCurrentSprite.health;
 
         if (health <= spawnHealth / 4)

@@ -1,4 +1,5 @@
 #include "sprites_AI/crocomire.h"
+#include "macros.h"
 
 #include "data/frame_data_pointers.h"
 #include "data/sprites/crocomire.h"
@@ -60,7 +61,7 @@ void CrocomireInit(void)
     gCurrentSprite.hitboxRightOffset = 0x80;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 
     gSubSpriteData1.pMultiOam = sCrocomireMultiSpriteData_Screaming;
     gSubSpriteData1.animationDurationCounter = 0x0;

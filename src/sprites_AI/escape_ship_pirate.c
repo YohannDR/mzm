@@ -1,5 +1,6 @@
 #include "sprites_AI/escape_ship_pirate.h"
 #include "sprites_AI/space_pirate.h"
+#include "macros.h"
 
 #include "data/sprite_data.h"
 #include "data/sprites/space_pirate.h"
@@ -49,7 +50,7 @@ void EscapeShipSpacePirateSpawn(void)
     gCurrentSprite.pose = ESCAPE_SHIP_SPACE_PIRATE_DELAY_BEFORE_JUMPING;
 
     gCurrentSprite.samusCollision = SSC_SPACE_PIRATE;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 
     gCurrentSprite.drawOrder = 0xC;
 }

@@ -1,4 +1,5 @@
 #include "sprites_AI/sidehopper.h"
+#include "macros.h"
 
 #include "data/sprites/sidehopper.h"
 #include "data/sprite_data.h"
@@ -71,7 +72,7 @@ void SidehopperInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     SpriteUtilChooseRandomXDirection();
 }
 

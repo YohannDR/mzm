@@ -262,7 +262,7 @@ const u16 sDeoremUnkOAM_082d7866[22] = {
 };
 
 
-const struct FrameData sDeoremUnkOAMData_082d7894[5] = {
+const struct FrameData sDeoremOam_082d7894[5] = {
     { sDeoremUnkOAM_082d7558, 0xC },
     { sDeoremUnkOAM_082d7560, 0xC },
     { sDeoremUnkOAM_082d7568, 0xC },
@@ -270,7 +270,7 @@ const struct FrameData sDeoremUnkOAMData_082d7894[5] = {
     { NULL, 0x0 }
 };
 
-const struct FrameData sDeoremUnkOAMData_082d78bc[5] = {
+const struct FrameData sDeoremOam_082d78bc[5] = {
     { sDeoremUnkOAM_082d7570, 0xC },
     { sDeoremUnkOAM_082d757e, 0xC },
     { sDeoremUnkOAM_082d758c, 0xC },
@@ -278,7 +278,7 @@ const struct FrameData sDeoremUnkOAMData_082d78bc[5] = {
     { NULL, 0x0 }
 };
 
-const struct FrameData sDeoremUnkOAMData_082d78e4[5] = {
+const struct FrameData sDeoremOam_082d78e4[5] = {
     { sDeoremUnkOAM_082d759a, 0xC },
     { sDeoremUnkOAM_082d75b4, 0xC },
     { sDeoremUnkOAM_082d75ce, 0xC },
@@ -291,7 +291,7 @@ const struct FrameData sDeoremThornOAM_Base[2] = {
     { NULL, 0x0 }
 };
 
-const struct FrameData sDeoremUnkOAMData_082d791C[2] = {
+const struct FrameData sDeoremOam_082d791C[2] = {
     { sDeoremUnkOAM_082d75f0, 0xFF},
     { NULL, 0x0 }
 };
@@ -329,7 +329,7 @@ const struct FrameData sDeoremPliersOAM_Closing[5] = {
     { NULL, 0x0 }
 };
 
-const struct FrameData sDeoremUnkOAMData_082d79fc[9] = {
+const struct FrameData sDeoremOam_082d79fc[9] = {
     { sDeoremUnkOAM_082d7866, 0x3 },
     { sDeoremUnkOAM_082d783a, 0x3 },
     { sDeoremUnkOAM_082d780e, 0x3 },
@@ -341,7 +341,7 @@ const struct FrameData sDeoremUnkOAMData_082d79fc[9] = {
     { NULL, 0x0 }
 };
 
-const struct FrameData sDeoremUnkOAMData_082d7a44[3] = {
+const struct FrameData sDeoremOam_082d7a44[3] = {
     { sDeoremUnkOAM_082d783a, 0x3 },
     { sDeoremUnkOAM_082d7866, 0x3 },
     { NULL, 0x0 }
@@ -363,7 +363,7 @@ const struct FrameData sDeoremPliersOAM_Closed[5] = {
     { NULL, 0x0 }
 };
 
-const struct FrameData sDeoremUnkOAMData_082d7aac[5] = {
+const struct FrameData sDeoremOam_082d7aac[5] = {
     { sDeoremPliersOAM_Opening_Frame0, 0x3 },
     { sDeoremPliersOAM_Opening_Frame1, 0x3 },
     { sDeoremPliersOAM_Opening_Frame2, 0x3 },

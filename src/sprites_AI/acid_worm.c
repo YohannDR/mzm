@@ -270,7 +270,7 @@ void AcidWormInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     
     gCurrentSprite.samusCollision = SSC_ACID_WORM_MOUTH;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
 
     gCurrentSprite.pose = ACID_WORM_POSE_CHECK_SAMUS_ON_ZIPLINE;
@@ -551,7 +551,7 @@ void AcidWormExtend(void)
     u8 speed;
     u8 checks;
 
-    spawnHealth = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    spawnHealth = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     if (gCurrentSprite.timer != 0x0)
     {
         // Delay before moving
@@ -848,7 +848,7 @@ void AcidWormRetracting(void)
     spriteY = gCurrentSprite.yPosition;
     if (checks == 0x3) // Check everything done
     {
-        if (gCurrentSprite.health <= sPrimarySpriteStats[gCurrentSprite.spriteID][0] >> 0x1 && gDifficulty != DIFF_EASY)
+        if (gCurrentSprite.health <= GET_PSPRITE_HEALTH(gCurrentSprite.spriteID) >> 0x1 && gDifficulty != DIFF_EASY)
         {
             gCurrentSprite.status ^= SPRITE_STATUS_MOSAIC;
 
@@ -1352,7 +1352,7 @@ void AcidWormSpitInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     gCurrentSprite.drawOrder = 0x3;
-    gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
 
     gCurrentSprite.arrayOffset = 0x0;
     gCurrentSprite.pose = 0x9;

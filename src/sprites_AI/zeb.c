@@ -1,10 +1,14 @@
 #include "sprites_AI/zeb.h"
+#include "macros.h"
+
 #include "data/sprites/zeb.h"
-#include "constants/particle.h"
 #include "data/sprite_data.h"
+
+#include "constants/particle.h"
 #include "constants/sprite.h"
-#include "structs/sprite.h"
 #include "constants/sprite_util.h"
+
+#include "structs/sprite.h"
 #include "structs/samus.h"
 
 /**
@@ -23,7 +27,7 @@ void ZebInit(void)
     gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
     gCurrentSprite.workVariable = 0x1;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 
     gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
     gCurrentSprite.xPosition += HALF_BLOCK_SIZE;
@@ -145,7 +149,7 @@ void ZebRespawn(void)
     ZebIdleInit();
 
     gCurrentSprite.workVariable = 0x3C;
-    gCurrentSprite.health = sPrimarySpriteStats[gCurrentSprite.spriteID][0];
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.invincibilityStunFlashTimer = 0x0;
     gCurrentSprite.paletteRow = 0x0;
     gCurrentSprite.frozenPaletteRowOffset = 0x0;

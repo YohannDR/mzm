@@ -2608,7 +2608,7 @@ void KraidSpike(void)
     {
         case 0x0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
             gCurrentSprite.pose = KRAID_SPIKE_POSE_DELAY_BEFORE_MOVING;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
@@ -2805,7 +2805,7 @@ void KraidNail(void)
     {
         case 0x0:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.health = sSecondarySpriteStats[gCurrentSprite.spriteID][0];
+            gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
             gCurrentSprite.pose = 0x9;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
