@@ -1,5 +1,4 @@
 #include "data/io_transfer_data.h"
-#include "macros.h"
 
 const struct IoTransferInfo sIoTransferInfo_Empty = {
     .pFunction = NULL,
@@ -29,5 +28,3 @@ const u8 sErrorString_SendOverflow[20] = " SEND OVER FLOW ";
 const u8 sErrorString_ReceiveOverflow[20] = " RECV OVER FLOW ";
 const u8 sErrorString_SioInternal[20] = "SIO INTERVAL ERROR";
 const u8 sErrorString_SioStop[20] = "  SIO STOP ERROR  ";
-
-static const u8 sTempArray_5d914c[0x1766b8] = INCBIN_U8("data/Blob_5d91fc_74f8b4.bin");

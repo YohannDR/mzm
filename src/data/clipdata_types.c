@@ -3,7 +3,7 @@
 #include "constants/clipdata.h"
 #include "macros.h"
 
-const u16 sClipdataCollisionTypes[176] = {
+const u8 sClipdataCollisionTypes[176] = {
     [CLIPDATA_AIR] = CLIPDATA_TYPE_AIR,
     [CLIPDATA_PASS_THROUGH_BOTTOM] = CLIPDATA_TYPE_PASS_THROUGH_BOTTOM,
     [CLIPDATA_NON_POWER_GRIP] = CLIPDATA_TYPE_SOLID,
@@ -99,6 +99,7 @@ const u16 sClipdataCollisionTypes[176] = {
     [CLIPDATA_BG0_TRIGGER_DEFAULT_TRANSPARENCY] = CLIPDATA_TYPE_AIR,
     [CLIPDATA_WEAK_LAVA] = CLIPDATA_TYPE_AIR,
     [CLIPDATA_STRONG_LAVA] = CLIPDATA_TYPE_AIR,
+    [CLIPDATA_ACID] = CLIPDATA_TYPE_AIR
 };
 
 const u16 sClipdataBehaviorTypes[176] = {
@@ -197,7 +198,10 @@ const u16 sClipdataBehaviorTypes[176] = {
     [CLIPDATA_BG0_TRIGGER_DEFAULT_TRANSPARENCY] = CLIP_BEHAVIOR_BG0_TRIGGER_DEFAULT_TRANSPARENCY,
     [CLIPDATA_WEAK_LAVA] = CLIP_BEHAVIOR_WEAK_LAVA,
     [CLIPDATA_STRONG_LAVA] = CLIP_BEHAVIOR_STRONG_LAVA,
+    [CLIPDATA_ACID] = CLIP_BEHAVIOR_ACID
 };
 
 const u8 sCommonTilesGfx[4096] = INCBIN_U8("data/common/CommonTiles.gfx");
 const u8 sCommonTilesMothershipGfx[4096] = INCBIN_U8("data/common/CommonTilesMotherShip.gfx");
+
+static const u8 sTempArray_5db40c[0x1744a8] = INCBIN_U8("data/Blob_5db40c_74f8b4.bin");

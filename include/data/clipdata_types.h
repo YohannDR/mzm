@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-extern const u16 sClipdataCollisionTypes[176];
+extern const u8 sClipdataCollisionTypes[176];
 extern const u16 sClipdataBehaviorTypes[176];
 
 extern const u8 sCommonTilesGfx[4096];
