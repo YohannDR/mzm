@@ -1322,22 +1322,23 @@ void EndingImageInit(void)
     GalleryVBlank();
 }
 
+/**
+ * @brief 86a50 | 23c | Display the text on an ending image
+ * 
+ */
 void EndingImageDisplayText(void)
 {
-    // https://decomp.me/scratch/ZtTF7
-
     u16* dst;
     const u16* src;
     i32 i;
     i32 nextSlot;
     i32 currSlot;
-    u32 partCount;
     u16 part;
-    u8 palette;
+    i32 palette;
 
     dst = (u16*)gOamData;
-    currSlot = 0;
     nextSlot = 0;
+    currSlot = 0;
 
     for (i = 0; i < ENDING_DATA.oamLength; i++)
     {
@@ -1364,23 +1365,23 @@ void EndingImageDisplayText(void)
         }
 
         src = ENDING_DATA.oamFramePointers[i];
-        partCount = *src++;
-        currSlot += partCount & 0xFF;
+        part = *src++;
+        nextSlot += part & 0xFF;
 
-        for (; nextSlot < currSlot; nextSlot++)
+        for (; currSlot < nextSlot; currSlot++)
         {
             part = *src++;
             *dst++ = part;
 
-            gOamData[nextSlot].split.y = part + ENDING_DATA.oamYPositions[i];
+            gOamData[currSlot].split.y = part + ENDING_DATA.oamYPositions[i];
 
             part = *src++;
             *dst++ = part;
 
-            gOamData[nextSlot].split.x = (part + ENDING_DATA.oamXPositions[i]) & 0x1FF;
+            gOamData[currSlot].split.x = (part + ENDING_DATA.oamXPositions[i]) & 0x1FF;
 
             *dst++ = *src++;
-            gOamData[nextSlot].split.paletteNum = palette;
+            gOamData[currSlot].split.paletteNum = palette;
 
             dst++;
         }
@@ -1390,33 +1391,33 @@ void EndingImageDisplayText(void)
     {
         if (ENDING_DATA.newRecordPaletteTimer++ > 70)
             ENDING_DATA.newRecordPaletteTimer = 0;
-
+            
         palette = sEndingImageNewRecordPalettes[ENDING_DATA.newRecordPaletteTimer / 6];
 
         src = sEndingImageOam_NewRecord;
-        partCount = *src++;
-        currSlot += partCount & 0xFF;
+        part = *src++;
+        nextSlot += part & 0xFF;
 
-        for (; nextSlot < currSlot; nextSlot++)
+        for (; currSlot < nextSlot; currSlot++)
         {
             part = *src++;
             *dst++ = part;
 
-            gOamData[nextSlot].split.y = part + 59;
+            gOamData[currSlot].split.y = part + 59;
 
             part = *src++;
             *dst++ = part;
 
-            gOamData[nextSlot].split.x = (part + 48) & 0x1FF;
+            gOamData[currSlot].split.x = (part + 48) & 0x1FF;
 
             *dst++ = *src++;
-            gOamData[nextSlot].split.paletteNum = palette;
+            gOamData[currSlot].split.paletteNum = palette;
 
             dst++;
         }
     }
 
-    gNextOamSlot = nextSlot;
+    gNextOamSlot = currSlot;
 }
 
 /**
