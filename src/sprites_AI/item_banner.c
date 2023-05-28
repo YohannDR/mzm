@@ -70,7 +70,7 @@ void ItemBannerInit(void)
         if (gSpritesetSpritesID[count] == PSPRITE_ITEM_BANNER)
         {
             // Found area banner, load the gfx slot
-            gfxSlot = gSpritesetGFXSlots[count];
+            gfxSlot = gSpritesetGfxSlots[count];
             break;
         }
     }
@@ -79,31 +79,31 @@ void ItemBannerInit(void)
     {
         // Found in the spriteset, skip gfx init
         gCurrentSprite.pose = ITEM_BANNER_POSE_POP_UP;
-        gCurrentSprite.spritesetGFXSlot = gfxSlot;
+        gCurrentSprite.spritesetGfxSlot = gfxSlot;
     }
     else
-        gCurrentSprite.pose = ITEM_BANNER_POSE_GFX_INIT;
+        gCurrentSprite.pose = ITEM_BANNER_POSE_Gfx_INIT;
 
     // Middle of the screen
     gCurrentSprite.yPosition = 0x36;
     gCurrentSprite.xPosition = 0x78;
 
-    start_message(message, gCurrentSprite.spritesetGFXSlot); // Undefined
+    start_message(message, gCurrentSprite.spritesetGfxSlot); // Undefined
 }
 
 /**
- * @brief 1b7c8 | 5c | Initializes the GFX for an item banner
+ * @brief 1b7c8 | 5c | Initializes the Gfx for an item banner
  * 
  */
-void ItemBannerGFXInit(void)
+void ItemBannerGfxInit(void)
 {
     gPreventMovementTimer = 0x3E8;
 
     gCurrentSprite.yPositionSpawn--; // Timer (started at 0x9)
     if (gCurrentSprite.yPositionSpawn == 0x7)
-        SpriteLoadGFX(PSPRITE_ITEM_BANNER, gCurrentSprite.spritesetGFXSlot); // Load GFX
+        SpriteLoadGfx(PSPRITE_ITEM_BANNER, gCurrentSprite.spritesetGfxSlot); // Load Gfx
     else if (gCurrentSprite.yPositionSpawn == 0x8)
-        SpriteLoadPAL(PSPRITE_ITEM_BANNER, gCurrentSprite.spritesetGFXSlot, 0x1); // Load PAL
+        SpriteLoadPAL(PSPRITE_ITEM_BANNER, gCurrentSprite.spritesetGfxSlot, 0x1); // Load PAL
     
     if (gCurrentSprite.yPositionSpawn == 0x0)
     {
@@ -202,8 +202,8 @@ void ItemBannerPopUp(void)
                 gCurrentSprite.yPositionSpawn = 0x64;
                 if (message == MESSAGE_SAVE_PROMPT)
                 {
-                    SpriteSpawnSecondary(SSPRITE_SAVE_YES_NO_CURSOR, 0x0, gCurrentSprite.spritesetGFXSlot,
-                        gCurrentSprite.primarySpriteRAMSlot, 0x3F, 0x96, 0x0); // Spawn cursor
+                    SpriteSpawnSecondary(SSPRITE_SAVE_YES_NO_CURSOR, 0x0, gCurrentSprite.spritesetGfxSlot,
+                        gCurrentSprite.primarySpriteRamSlot, 0x3F, 0x96, 0x0); // Spawn cursor
                 }
                 else if (0x1 >= (u8)(message - 0x21)) // Escape message
                     EscapeStart();
@@ -271,7 +271,7 @@ void ItemBannerRemovalAnimation(void)
             // Start suit animation
             gSubSpriteData1.workVariable3 = RUINS_TEST_FIGHT_STAGE_STARTING_SUIT_ANIM;
             // Spawn chozo pillar
-            SpriteLoadGFX(PSPRITE_FALLING_CHOZO_PILLAR, 0x7);
+            SpriteLoadGfx(PSPRITE_FALLING_CHOZO_PILLAR, 0x7);
             SpriteLoadPAL(PSPRITE_FALLING_CHOZO_PILLAR, 0x7, 0x1);
             SpriteSpawnPrimary(PSPRITE_FALLING_CHOZO_PILLAR, 0x0, 0x7, gBossWork.work1 - 0x100, gBossWork.work2 + 0x300, 0x0);
         }
@@ -298,8 +298,8 @@ void ItemBanner(void)
             ItemBannerInit();
             break;
         
-        case ITEM_BANNER_POSE_GFX_INIT:
-            ItemBannerGFXInit();
+        case ITEM_BANNER_POSE_Gfx_INIT:
+            ItemBannerGfxInit();
             break;
 
         case ITEM_BANNER_POSE_POP_UP:
@@ -329,7 +329,7 @@ void SaveYesNoCursor(void)
     u8 ramSlot;
 
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     switch (gCurrentSprite.pose)
     {

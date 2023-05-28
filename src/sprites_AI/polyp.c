@@ -108,7 +108,7 @@ void PolypSpawnProjectile(void)
     {
         // Spawn projectile
         SpriteSpawnSecondary(SSPRITE_POLYP_PROJECTILE, gCurrentSprite.roomSlot,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
             gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition, 0x0);
     }
 }

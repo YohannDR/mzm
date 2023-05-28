@@ -71,66 +71,66 @@ u32 InGameCutsceneSamusCloseUp(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
             break;
 
         case 4:
-            DMATransfer(3, &sSamusCloseUpEyesGFX_1[0], VRAM_BASE + 0xB940, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_1[0], VRAM_BASE + 0xB940, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B000, VRAM_BASE + 0x294, 0x14, 16);
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_1[256], VRAM_BASE + 0xBD40, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_1[256], VRAM_BASE + 0xBD40, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B040, VRAM_BASE + 0x2D4, 0x14, 16);
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_1[512], VRAM_BASE + 0xC140, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_1[512], VRAM_BASE + 0xC140, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B080, VRAM_BASE + 0x314, 0x14, 16);
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_1[768], VRAM_BASE + 0xC540, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_1[768], VRAM_BASE + 0xC540, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B0C0, VRAM_BASE + 0x354, 0x14, 16);
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_1[1024], VRAM_BASE + 0xC940, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_1[1024], VRAM_BASE + 0xC940, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B100, VRAM_BASE + 0x394, 0x14, 16);
 
           
-            DMATransfer(3, &sSamusCloseUpEyesGFX_1[1280], VRAM_BASE + 0xCD40, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_1[1280], VRAM_BASE + 0xCD40, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B140, VRAM_BASE + 0x3D4, 0x14, 16);
             result = 1;
             break;
 
         case 6:
-            DMATransfer(3, &sSamusCloseUpEyesGFX_2[0], VRAM_BASE + 0xB940, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_2[0], VRAM_BASE + 0xB940, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B014, VRAM_BASE + 0x294, 0x14, 16);
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_2[256], VRAM_BASE + 0xBD40, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_2[256], VRAM_BASE + 0xBD40, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B014, VRAM_BASE + 0x294, 0x14, 16);
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_2[512], VRAM_BASE + 0xC140, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_2[512], VRAM_BASE + 0xC140, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B094, VRAM_BASE + 0x314, 0x14, 16);
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_2[768], VRAM_BASE + 0xC540, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_2[768], VRAM_BASE + 0xC540, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B0D4, VRAM_BASE + 0x354, 0x14, 16);
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_2[1024], VRAM_BASE + 0xC940, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_2[1024], VRAM_BASE + 0xC940, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B114, VRAM_BASE + 0x394, 0x14, 16);
 
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_2[1280], VRAM_BASE + 0xCD40, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_2[1280], VRAM_BASE + 0xCD40, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B154, VRAM_BASE + 0x3D4, 0x14, 16);
             result = 1;
             break;
 
         case 8:
-            DMATransfer(3, &sSamusCloseUpEyesGFX_3[0], VRAM_BASE + 0xB940, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_3[0], VRAM_BASE + 0xB940, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B028, VRAM_BASE + 0x294, 0x14, 16);
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_3[256], VRAM_BASE + 0xBD40, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_3[256], VRAM_BASE + 0xBD40, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B068, VRAM_BASE + 0x2D4, 0x14, 16);
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_3[512], VRAM_BASE + 0xC140, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_3[512], VRAM_BASE + 0xC140, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B0A8, VRAM_BASE + 0x314, 0x14, 16);
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_3[768], VRAM_BASE + 0xC540, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_3[768], VRAM_BASE + 0xC540, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B0E8, VRAM_BASE + 0x354, 0x14, 16);
 
-            DMATransfer(3, &sSamusCloseUpEyesGFX_3[1024], VRAM_BASE + 0xC940, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_3[1024], VRAM_BASE + 0xC940, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B128, VRAM_BASE + 0x394, 0x14, 16);
             
-            DMATransfer(3, &sSamusCloseUpEyesGFX_3[1280], VRAM_BASE + 0xCD40, 0x140, 16);
+            DMATransfer(3, &sSamusCloseUpEyesGfx_3[1280], VRAM_BASE + 0xCD40, 0x140, 16);
             DMATransfer(3, EWRAM_BASE + 0x2B168, VRAM_BASE + 0x3D4, 0x14, 16);
             result = 1;
             break;
@@ -791,7 +791,7 @@ void InGameCutsceneCheckPlayOnTransition(void)
             DMATransfer(3, VRAM_BASE + 0x9000, EWRAM_BASE + 0x1E000, 0x2000, 16);
             
             // Load graphics, tile table and palette
-            CallLZ77UncompVRAM(sSamusCloseUpGFX, VRAM_BASE + 0x9000);
+            CallLZ77UncompVRAM(sSamusCloseUpGfx, VRAM_BASE + 0x9000);
             CallLZ77UncompWRAM(sSamusCloseUpBackgroundMap, gDecompBG0Map);
             CallLZ77UncompWRAM(sSamusCloseUpEyesTiletable, EWRAM_BASE + 0x2B000);
             dma_set(3, sSamusCloseUpPAL, PALRAM_BASE + 0xE0, DMA_ENABLE << 16 | 0x60);

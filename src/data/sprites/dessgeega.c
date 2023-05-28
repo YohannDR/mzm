@@ -10,7 +10,7 @@ const i16 sDessgeegaLowJumpYVelocity[10] = {
     -4, -8, -4, -2, 0, 4, 8, 16, 16, 16 
 };
 
-const u32 sDessgeegaGFX[270] = INCBIN_U32("data/sprites/Dessgeega.gfx.lz");
+const u32 sDessgeegaGfx[270] = INCBIN_U32("data/sprites/Dessgeega.gfx.lz");
 const u16 sDessgeegaPAL[16] = INCBIN_U16("data/sprites/Dessgeega.pal");
 
 const u16 sDessgeegaOAM_Idle_Frame0[31] = {

@@ -55,7 +55,7 @@ void GadoraInit(void)
     else
         xPosition -= 0x10;
 
-    ramSlot = SpriteSpawnSecondary(SSPRITE_GADORA_EYE, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot,
+    ramSlot = SpriteSpawnSecondary(SSPRITE_GADORA_EYE, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
     if (ramSlot == 0xFF)
         gCurrentSprite.status = 0x0;
@@ -163,7 +163,7 @@ void GadoraCheckOpeningEyeAnimEnded(void)
             // Spawn beam
             xPosition = gCurrentSprite.xPosition + 0x10;
             status = SPRITE_STATUS_XFLIP;
-            SpriteSpawnSecondary(SSPRITE_GADORA_BEAM, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+            SpriteSpawnSecondary(SSPRITE_GADORA_BEAM, 0x0, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, xPosition, status);
         }
     }
@@ -221,7 +221,7 @@ void GadoraCheckClosingEyeAnimNearEnded(void)
  * @brief 4a19c | 30 | Initializes a gadara to be dying
  * 
  */
-void GadoraDeathGFXInit(void)
+void GadoraDeathGfxInit(void)
 {
     gCurrentSprite.pose = GADORA_POSE_DEATH;
     gCurrentSprite.pOam = sGadoraOAM_Death;
@@ -249,7 +249,7 @@ void GadoraDeath(void)
     {
         if (timer & 0x4)
             // Set stun (white) palette
-            gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+            gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
         else
         {
             // Set normal palette
@@ -330,7 +330,7 @@ void Gadora(void)
             break;
 
         default:
-            GadoraDeathGFXInit();
+            GadoraDeathGfxInit();
     }
 }
 

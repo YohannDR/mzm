@@ -4680,8 +4680,8 @@ lbl_080078c2:
 lbl_080078d8: .4byte 0x08239464
 lbl_080078dc: .4byte 0x0823a554
 
-    thumb_func_start SamusCallGFXFunctions
-SamusCallGFXFunctions: @ 0x080078e0
+    thumb_func_start SamusCallGfxFunctions
+SamusCallGfxFunctions: @ 0x080078e0
     push {r4, lr}
     ldr r4, lbl_08007914 @ =gSamusData
     ldr r0, lbl_08007918 @ =gGameModeSub1
@@ -6217,8 +6217,8 @@ lbl_080085aa:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusRunningGFX
-SamusRunningGFX: @ 0x080085b0
+    thumb_func_start SamusRunningGfx
+SamusRunningGfx: @ 0x080085b0
     push {r4, r5, lr}
     adds r2, r0, #0
     ldr r5, lbl_080085c8 @ =gScrewSpeedAnimation
@@ -6538,8 +6538,8 @@ lbl_08008816:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusStandingGFX
-SamusStandingGFX: @ 0x0800881c
+    thumb_func_start SamusStandingGfx
+SamusStandingGfx: @ 0x0800881c
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -6652,8 +6652,8 @@ lbl_080088f2:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusTurningAroundGFX
-SamusTurningAroundGFX: @ 0x080088f8
+    thumb_func_start SamusTurningAroundGfx
+SamusTurningAroundGfx: @ 0x080088f8
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -6693,8 +6693,8 @@ lbl_0800893a:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusShootingGFX
-SamusShootingGFX: @ 0x08008940
+    thumb_func_start SamusShootingGfx
+SamusShootingGfx: @ 0x08008940
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -7084,8 +7084,8 @@ lbl_08008c1e:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusTurningAroundAndCrouchingGFX
-SamusTurningAroundAndCrouchingGFX: @ 0x08008c24
+    thumb_func_start SamusTurningAroundAndCrouchingGfx
+SamusTurningAroundAndCrouchingGfx: @ 0x08008c24
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -7111,8 +7111,8 @@ lbl_08008c4a:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusShootingAndCrouchingGFX
-SamusShootingAndCrouchingGFX: @ 0x08008c50
+    thumb_func_start SamusShootingAndCrouchingGfx
+SamusShootingAndCrouchingGfx: @ 0x08008c50
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -7342,8 +7342,8 @@ lbl_08008dec:
     .align 2, 0
 lbl_08008df4: .4byte gButtonInput
 
-    thumb_func_start SamusMidAirGFX
-SamusMidAirGFX: @ 0x08008df8
+    thumb_func_start SamusMidAirGfx
+SamusMidAirGfx: @ 0x08008df8
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0x18
@@ -7448,8 +7448,8 @@ lbl_08008eb0:
     .align 2, 0
 lbl_08008eb4: .4byte gButtonInput
 
-    thumb_func_start SamusTurningAroundMidAirGFX
-SamusTurningAroundMidAirGFX: @ 0x08008eb8
+    thumb_func_start SamusTurningAroundMidAirGfx
+SamusTurningAroundMidAirGfx: @ 0x08008eb8
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -7468,8 +7468,8 @@ lbl_08008ed2:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusStartingSpinJumpGFX
-SamusStartingSpinJumpGFX: @ 0x08008ed8
+    thumb_func_start SamusStartingSpinJumpGfx
+SamusStartingSpinJumpGfx: @ 0x08008ed8
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -7657,8 +7657,8 @@ lbl_08009030:
 lbl_08009038: .4byte gSamusPhysics
 lbl_0800903c: .4byte gButtonInput
 
-    thumb_func_start SamusSpinningGFX
-SamusSpinningGFX: @ 0x08009040
+    thumb_func_start SamusSpinningGfx
+SamusSpinningGfx: @ 0x08009040
     push {r4, r5, lr}
     adds r4, r0, #0
     ldr r0, lbl_08009074 @ =gSamusPhysics
@@ -7743,8 +7743,8 @@ lbl_080090da:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusStartingWallJumpGFX
-SamusStartingWallJumpGFX: @ 0x080090e0
+    thumb_func_start SamusStartingWallJumpGfx
+SamusStartingWallJumpGfx: @ 0x080090e0
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -7765,8 +7765,8 @@ lbl_080090fc:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusSpaceJumpingGFX
-SamusSpaceJumpingGFX: @ 0x08009104
+    thumb_func_start SamusSpaceJumpingGfx
+SamusSpaceJumpingGfx: @ 0x08009104
     push {r4, lr}
     adds r4, r0, #0
     ldrh r0, [r4, #0x1c]
@@ -7805,8 +7805,8 @@ lbl_08009142:
     .align 2, 0
 lbl_0800914c: .4byte gSamusPhysics
 
-    thumb_func_start SamusScrewAttackingGFX
-SamusScrewAttackingGFX: @ 0x08009150
+    thumb_func_start SamusScrewAttackingGfx
+SamusScrewAttackingGfx: @ 0x08009150
     push {r4, r5, lr}
     adds r4, r0, #0
     ldr r0, lbl_08009174 @ =gEquipment
@@ -7921,8 +7921,8 @@ lbl_08009224:
     .align 2, 0
 lbl_0800922c: .4byte gChangedInput
 
-    thumb_func_start SamusMorphingGFX
-SamusMorphingGFX: @ 0x08009230
+    thumb_func_start SamusMorphingGfx
+SamusMorphingGfx: @ 0x08009230
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -8227,8 +8227,8 @@ lbl_08009482:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusRollingGFX
-SamusRollingGFX: @ 0x08009488
+    thumb_func_start SamusRollingGfx
+SamusRollingGfx: @ 0x08009488
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -8299,8 +8299,8 @@ lbl_08009502:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusUnmorphingGFX
-SamusUnmorphingGFX: @ 0x08009508
+    thumb_func_start SamusUnmorphingGfx
+SamusUnmorphingGfx: @ 0x08009508
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -8632,8 +8632,8 @@ lbl_0800976a:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusHangingOnLedgeGFX
-SamusHangingOnLedgeGFX: @ 0x08009770
+    thumb_func_start SamusHangingOnLedgeGfx
+SamusHangingOnLedgeGfx: @ 0x08009770
     push {r4, lr}
     adds r4, r0, #0
     ldr r0, lbl_08009794 @ =gSamusPhysics
@@ -8762,8 +8762,8 @@ lbl_0800985a:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusTurningToAimWhileHangingGFX
-SamusTurningToAimWhileHangingGFX: @ 0x08009860
+    thumb_func_start SamusTurningToAimWhileHangingGfx
+SamusTurningToAimWhileHangingGfx: @ 0x08009860
     push {lr}
     ldr r1, lbl_08009878 @ =gSamusPhysics
     adds r1, #0x5b
@@ -8784,8 +8784,8 @@ lbl_0800987e:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusHidingArmCannonWhileHangingGFX
-SamusHidingArmCannonWhileHangingGFX: @ 0x08009884
+    thumb_func_start SamusHidingArmCannonWhileHangingGfx
+SamusHidingArmCannonWhileHangingGfx: @ 0x08009884
     push {r4, lr}
     adds r4, r0, #0
     ldr r0, lbl_080098a0 @ =gSamusPhysics
@@ -9045,8 +9045,8 @@ lbl_08009a56:
     .align 2, 0
 lbl_08009a64: .4byte 0x0823a5b4
 
-    thumb_func_start SamusPullingSelfUpGFX
-SamusPullingSelfUpGFX: @ 0x08009a68
+    thumb_func_start SamusPullingSelfUpGfx
+SamusPullingSelfUpGfx: @ 0x08009a68
     push {r4, lr}
     adds r4, r0, #0
     ldrb r1, [r4, #0xa]
@@ -9092,8 +9092,8 @@ lbl_08009aac:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusPullingSelfForwardGFX
-SamusPullingSelfForwardGFX: @ 0x08009ab4
+    thumb_func_start SamusPullingSelfForwardGfx
+SamusPullingSelfForwardGfx: @ 0x08009ab4
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -9119,8 +9119,8 @@ lbl_08009ada:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusPullingSelfIntoMorphballTunnelGFX
-SamusPullingSelfIntoMorphballTunnelGFX: @ 0x08009ae0
+    thumb_func_start SamusPullingSelfIntoMorphballTunnelGfx
+SamusPullingSelfIntoMorphballTunnelGfx: @ 0x08009ae0
     push {r4, lr}
     adds r4, r0, #0
     ldrb r1, [r4, #0xa]
@@ -9232,8 +9232,8 @@ lbl_08009ba6:
     .align 2, 0
 lbl_08009bb0: .4byte 0x0000ffc0
 
-    thumb_func_start SamusUsingAnElevatorGFX
-SamusUsingAnElevatorGFX: @ 0x08009bb4
+    thumb_func_start SamusUsingAnElevatorGfx
+SamusUsingAnElevatorGfx: @ 0x08009bb4
     push {r4, lr}
     adds r2, r0, #0
     ldrh r1, [r2, #0x10]
@@ -9305,8 +9305,8 @@ lbl_08009c26:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusTurningFromFacningForegroundGFX
-SamusTurningFromFacningForegroundGFX: @ 0x08009c2c
+    thumb_func_start SamusTurningFromFacningForegroundGfx
+SamusTurningFromFacningForegroundGfx: @ 0x08009c2c
     push {lr}
     adds r1, r0, #0
     ldrb r0, [r1, #0x1c]
@@ -9342,8 +9342,8 @@ lbl_08009c62:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusDelayBeforeShinesparkingGFX
-SamusDelayBeforeShinesparkingGFX: @ 0x08009c68
+    thumb_func_start SamusDelayBeforeShinesparkingGfx
+SamusDelayBeforeShinesparkingGfx: @ 0x08009c68
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -9472,8 +9472,8 @@ lbl_08009d48:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusShinesparkingGFX
-SamusShinesparkingGFX: @ 0x08009d50
+    thumb_func_start SamusShinesparkingGfx
+SamusShinesparkingGfx: @ 0x08009d50
     push {r4, lr}
     adds r1, r0, #0
     ldrb r0, [r1, #4]
@@ -9546,8 +9546,8 @@ lbl_08009dd0: .4byte 0x08238f64
 lbl_08009dd4: .4byte gScrewSpeedAnimation
 lbl_08009dd8: .4byte 0x08288f94
 
-    thumb_func_start SamusShinesparkCollisionGFX
-SamusShinesparkCollisionGFX: @ 0x08009ddc
+    thumb_func_start SamusShinesparkCollisionGfx
+SamusShinesparkCollisionGfx: @ 0x08009ddc
     push {lr}
     ldrb r0, [r0, #0x1c]
     cmp r0, #0x10
@@ -9561,8 +9561,8 @@ lbl_08009dea:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusDelayAfterShinesparkingGFX
-SamusDelayAfterShinesparkingGFX: @ 0x08009df0
+    thumb_func_start SamusDelayAfterShinesparkingGfx
+SamusDelayAfterShinesparkingGfx: @ 0x08009df0
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -9602,8 +9602,8 @@ lbl_08009e26:
     .align 2, 0
 lbl_08009e30: .4byte gButtonInput
 
-    thumb_func_start SamusDelayBeforeBallsparkingGFX
-SamusDelayBeforeBallsparkingGFX: @ 0x08009e34
+    thumb_func_start SamusDelayBeforeBallsparkingGfx
+SamusDelayBeforeBallsparkingGfx: @ 0x08009e34
     push {r4, r5, lr}
     adds r4, r0, #0
     ldrb r0, [r4, #0xa]
@@ -9675,8 +9675,8 @@ lbl_08009eac:
 lbl_08009eb4: .4byte gScrewSpeedAnimation
 lbl_08009eb8: .4byte 0x08288f28
 
-    thumb_func_start SamusBallsparkingGFX
-SamusBallsparkingGFX: @ 0x08009ebc
+    thumb_func_start SamusBallsparkingGfx
+SamusBallsparkingGfx: @ 0x08009ebc
     push {r4, lr}
     adds r2, r0, #0
     ldr r1, lbl_08009f2c @ =0x08238b74
@@ -9740,8 +9740,8 @@ lbl_08009f2c: .4byte 0x08238b74
 lbl_08009f30: .4byte gScrewSpeedAnimation
 lbl_08009f34: .4byte 0x08288f94
 
-    thumb_func_start SamusBallsparkCollisionGFX
-SamusBallsparkCollisionGFX: @ 0x08009f38
+    thumb_func_start SamusBallsparkCollisionGfx
+SamusBallsparkCollisionGfx: @ 0x08009f38
     push {lr}
     ldrb r0, [r0, #0x1c]
     cmp r0, #0x10
@@ -9804,8 +9804,8 @@ lbl_08009fa0:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusShootingOnZiplineGFX
-SamusShootingOnZiplineGFX: @ 0x08009fa4
+    thumb_func_start SamusShootingOnZiplineGfx
+SamusShootingOnZiplineGfx: @ 0x08009fa4
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -9868,8 +9868,8 @@ lbl_0800a000:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusTurningAroundToDownloadMapDataGFX
-SamusTurningAroundToDownloadMapDataGFX: @ 0x0800a008
+    thumb_func_start SamusTurningAroundToDownloadMapDataGfx
+SamusTurningAroundToDownloadMapDataGfx: @ 0x0800a008
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -9945,8 +9945,8 @@ lbl_0800a086:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusGettingHurtGFX
-SamusGettingHurtGFX: @ 0x0800a08c
+    thumb_func_start SamusGettingHurtGfx
+SamusGettingHurtGfx: @ 0x0800a08c
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -10144,8 +10144,8 @@ lbl_0800a1d8:
 lbl_0800a1e0: .4byte gMainGameMode
 lbl_0800a1e4: .4byte gGameModeSub1
 
-    thumb_func_start SamusCrouchingToCrawlGFX
-SamusCrouchingToCrawlGFX: @ 0x0800a1e8
+    thumb_func_start SamusCrouchingToCrawlGfx
+SamusCrouchingToCrawlGfx: @ 0x0800a1e8
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -10232,8 +10232,8 @@ lbl_0800a27c:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusStartingToCrawlGFX
-SamusStartingToCrawlGFX: @ 0x0800a284
+    thumb_func_start SamusStartingToCrawlGfx
+SamusStartingToCrawlGfx: @ 0x0800a284
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -10312,8 +10312,8 @@ lbl_0800a30e:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusDyingGFX
-SamusDyingGFX: @ 0x0800a314
+    thumb_func_start SamusDyingGfx
+SamusDyingGfx: @ 0x0800a314
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -10369,8 +10369,8 @@ lbl_0800a36e:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusCrawlingGFX
-SamusCrawlingGFX: @ 0x0800a374
+    thumb_func_start SamusCrawlingGfx
+SamusCrawlingGfx: @ 0x0800a374
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -10387,8 +10387,8 @@ lbl_0800a38a:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusGrabbingALedgeSuitlessGFX
-SamusGrabbingALedgeSuitlessGFX: @ 0x0800a390
+    thumb_func_start SamusGrabbingALedgeSuitlessGfx
+SamusGrabbingALedgeSuitlessGfx: @ 0x0800a390
     push {lr}
     movs r1, #0
     bl sub_0800847c
@@ -10430,8 +10430,8 @@ lbl_0800a3ce:
     bx r1
     .align 2, 0
 
-    thumb_func_start SamusTurningFromFacingTheBackgroundGFX
-SamusTurningFromFacingTheBackgroundGFX: @ 0x0800a3d4
+    thumb_func_start SamusTurningFromFacingTheBackgroundGfx
+SamusTurningFromFacingTheBackgroundGfx: @ 0x0800a3d4
     push {r4, lr}
     adds r4, r0, #0
     movs r1, #0
@@ -10477,8 +10477,8 @@ lbl_0800a422:
     pop {r1}
     bx r1
 
-    thumb_func_start SamusTurningToEnterEscapeShipGFX
-SamusTurningToEnterEscapeShipGFX: @ 0x0800a428
+    thumb_func_start SamusTurningToEnterEscapeShipGfx
+SamusTurningToEnterEscapeShipGfx: @ 0x0800a428
     push {lr}
     movs r1, #0
     bl sub_0800847c

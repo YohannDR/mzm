@@ -24,9 +24,9 @@ u8 RidleySpawnRidleyFlyingIn(void)
     {
         case 0:
             DMATransfer(3, sRidleySpawnRidleyScreamingPAL, PALRAM_OBJ, sizeof(sRidleySpawnRidleyScreamingPAL), 0x10);
-            CallLZ77UncompVRAM(sRidleySpawnScreamingGFX, VRAM_BASE + 0x10000);
+            CallLZ77UncompVRAM(sRidleySpawnScreamingGfx, VRAM_BASE + 0x10000);
             
-            CallLZ77UncompVRAM(sRidleySpawnBackgroundGFX, VRAM_BASE + sRidleySpawnPageData[3].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sRidleySpawnBackgroundGfx, VRAM_BASE + sRidleySpawnPageData[3].graphicsPage * 0x4000);
             CallLZ77UncompVRAM(sRidleySpawnBackgroundTileTable, VRAM_BASE + sRidleySpawnPageData[3].tiletablePage * 0x800);
             DMATransfer(3, sRidleySpawnBackgroundPAL, PALRAM_BASE, sizeof(sRidleySpawnBackgroundPAL), 0x10);
             write16(PALRAM_BASE, 0);
@@ -241,12 +241,12 @@ u8 RidleySpawnInit(void)
     DMATransfer(3, sRidleySpawnBackgroundPAL, PALRAM_BASE, sizeof(sRidleySpawnBackgroundPAL), 0x10);
     write16(PALRAM_BASE, 0);
 
-    CallLZ77UncompVRAM(sRidleySpawnSamusAndRidleyGFX, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sRidleySpawnSamusAndRidleyGfx, VRAM_BASE + 0x10000);
 
-    CallLZ77UncompVRAM(sRidleySpawnBackgroundGFX, VRAM_BASE + sRidleySpawnPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sRidleySpawnBackgroundGfx, VRAM_BASE + sRidleySpawnPageData[0].graphicsPage * 0x4000);
     CallLZ77UncompVRAM(sRidleySpawnBackgroundTileTable, VRAM_BASE + sRidleySpawnPageData[0].tiletablePage * 0x800);
 
-    CallLZ77UncompVRAM(sRidleySpawnSamusHelmetFaceGFX, VRAM_BASE + sRidleySpawnPageData[1].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sRidleySpawnSamusHelmetFaceGfx, VRAM_BASE + sRidleySpawnPageData[1].graphicsPage * 0x4000);
     CallLZ77UncompVRAM(sRidleySpawnSamusHelmetTileTable, VRAM_BASE + sRidleySpawnPageData[1].tiletablePage * 0x800);
     CallLZ77UncompVRAM(sRidleySpawnSamusFaceTileTable, VRAM_BASE + sRidleySpawnPageData[2].tiletablePage * 0x800);
 

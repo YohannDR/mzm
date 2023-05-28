@@ -367,7 +367,7 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
     pose = METROID_POSE_MOVING;
 
     if (gCurrentSprite.pose == pose && gCurrentSprite.freezeTimer == 0x0)
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot + 1;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot + 1;
     else
         ramSlot = 0x0;
 
@@ -543,7 +543,7 @@ void MetroidInit(void)
         gCurrentSprite.arrayOffset = 0x0;
         gCurrentSprite.drawOrder = 0xC;
 
-        slot = SpriteSpawnSecondary(SSPRITE_METROID_SHELL, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        slot = SpriteSpawnSecondary(SSPRITE_METROID_SHELL, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         if (slot == 0xFF)
             gCurrentSprite.status = 0x0;
         gCurrentSprite.paletteRow = 0x3;

@@ -7,7 +7,7 @@
 
 extern const i16 sHoltzIdleYVelocity[65];
 
-extern const u32 sHoltzGFX[200];
+extern const u32 sHoltzGfx[200];
 extern const u16 sHoltzPAL[16];
 
 extern const u16 sHoltzOAM_Idle_Frame0[13];

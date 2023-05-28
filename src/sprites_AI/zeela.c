@@ -22,21 +22,21 @@ void ZeelaSpawnEyes(void)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
-            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x0, gCurrentSprite.spritesetGFXSlot,
+            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x0, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x18,
                 gCurrentSprite.xPosition - 0x30, 0x0);
 
-            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x1, gCurrentSprite.spritesetGFXSlot,
+            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x1, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition + 0x18,
                 gCurrentSprite.xPosition - 0x30, 0x0);
         }
         else
         {
-            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x0, gCurrentSprite.spritesetGFXSlot,
+            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x0, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x18,
                 gCurrentSprite.xPosition + 0x30, SPRITE_STATUS_XFLIP);
 
-            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x1, gCurrentSprite.spritesetGFXSlot,
+            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x1, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition + 0x18,
                 gCurrentSprite.xPosition + 0x30, SPRITE_STATUS_XFLIP);
         }
@@ -45,21 +45,21 @@ void ZeelaSpawnEyes(void)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
         {
-            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x1, gCurrentSprite.spritesetGFXSlot,
+            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x1, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition + 0x30,
                 gCurrentSprite.xPosition - 0x18, 0x0);
 
-            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x1, gCurrentSprite.spritesetGFXSlot,
+            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x1, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition + 0x30,
                 gCurrentSprite.xPosition + 0x18, SPRITE_STATUS_XFLIP);
         }
         else
         {
-            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x2, gCurrentSprite.spritesetGFXSlot,
+            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x2, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x30,
                 gCurrentSprite.xPosition - 0x18, 0x0);
 
-            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x2, gCurrentSprite.spritesetGFXSlot,
+            SpriteSpawnSecondary(SSPRITE_ZEELA_EYES, 0x2, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x30,
                 gCurrentSprite.xPosition + 0x18, SPRITE_STATUS_XFLIP);
         }

@@ -7,7 +7,7 @@
 
 // Not sure where to put/name those functions, might move them later
 
-void HUDGenericLoadCommonSpriteGFX(void);
+void HUDGenericLoadCommonSpriteGfx(void);
 void HUDGenericResetRefillAnimations(void);
 void HUDGenericResetHUDData(void);
 

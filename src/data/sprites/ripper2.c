@@ -1,7 +1,7 @@
 #include "data/sprites/ripper.h"
 #include "macros.h"
 
-const u32 sRipper2GFX[212] = INCBIN_U32("data/sprites/Ripper2.gfx.lz");
+const u32 sRipper2Gfx[212] = INCBIN_U32("data/sprites/Ripper2.gfx.lz");
 const u16 sRipper2PAL[16] = INCBIN_U16("data/sprites/Ripper2.pal");
 
 const u16 sRipper2OAM_Moving_Frame0[7] = {

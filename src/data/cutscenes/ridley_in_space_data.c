@@ -190,13 +190,13 @@ const struct OamArray sRidleyInSpaceCutsceneOAM[11] = {
     },
 };
 
-const u32 sRidleyInSpaceShipsGFX[1565] = INCBIN_U32("data/cutscenes/RidleyInSpace/Ship.gfx.lz");
-const u32 sRidleyInSpaceRidleySittingGFX[3848] = INCBIN_U32("data/cutscenes/RidleyInSpace/RidleySitting.gfx.lz");
-const u32 sRidleyInSpaceShipInteriorGFX[4391] = INCBIN_U32("data/cutscenes/RidleyInSpace/ShipInterior.gfx.lz");
-const u32 sRidleyInSpaceRidleySuspiciousGFX[1961] = INCBIN_U32("data/cutscenes/RidleyInSpace/RidleySuspicious.gfx.lz");
-const u32 sRidleyInSpaceShipInterior2GFX[4235] = INCBIN_U32("data/cutscenes/RidleyInSpace/ShipInterior2.gfx.lz");
-const u32 sRidleyInSpaceMotherShipLeavingGFX[1497] = INCBIN_U32("data/cutscenes/RidleyInSpace/MotherShipLeaving.gfx.lz");
-const u32 sRidleyInSpaceSpaceBackgroundGFX[5470] = INCBIN_U32("data/cutscenes/RidleyInSpace/SpaceBackground.gfx.lz");
+const u32 sRidleyInSpaceShipsGfx[1565] = INCBIN_U32("data/cutscenes/RidleyInSpace/Ship.gfx.lz");
+const u32 sRidleyInSpaceRidleySittingGfx[3848] = INCBIN_U32("data/cutscenes/RidleyInSpace/RidleySitting.gfx.lz");
+const u32 sRidleyInSpaceShipInteriorGfx[4391] = INCBIN_U32("data/cutscenes/RidleyInSpace/ShipInterior.gfx.lz");
+const u32 sRidleyInSpaceRidleySuspiciousGfx[1961] = INCBIN_U32("data/cutscenes/RidleyInSpace/RidleySuspicious.gfx.lz");
+const u32 sRidleyInSpaceShipInterior2Gfx[4235] = INCBIN_U32("data/cutscenes/RidleyInSpace/ShipInterior2.gfx.lz");
+const u32 sRidleyInSpaceMotherShipLeavingGfx[1497] = INCBIN_U32("data/cutscenes/RidleyInSpace/MotherShipLeaving.gfx.lz");
+const u32 sRidleyInSpaceSpaceBackgroundGfx[5470] = INCBIN_U32("data/cutscenes/RidleyInSpace/SpaceBackground.gfx.lz");
 
 
 const u16 sRidleyInSpaceOAM_LeftBlueShip_Frame0[4] = {

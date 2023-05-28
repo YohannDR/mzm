@@ -32,7 +32,7 @@ extern const i16 sImagoCocoon_ArrayUnused1[36];
 
 extern const i16 sImagoCocoon_ArrayUnused2[48];
 
-extern const u32 sImagoCocoonGFX[1758];
+extern const u32 sImagoCocoonGfx[1758];
 extern const u16 sImagoCocoonPAL[96];
 
 extern const u16 sImagoCocoonOAM_Idle_Frame0[4];

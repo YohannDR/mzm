@@ -1,7 +1,7 @@
 #include "data/sprites/gekitai_machine.h"
 #include "macros.h"
 
-const u32 sGekitaiMachineGFX[364] = INCBIN_U32("data/sprites/GekitaiMachine.gfx.lz");
+const u32 sGekitaiMachineGfx[364] = INCBIN_U32("data/sprites/GekitaiMachine.gfx.lz");
 const u16 sGekitaiMachinePAL[80] = INCBIN_U16("data/sprites/GekitaiMachine.pal");
 
 const i16 sGekitaiMachine_array_2f1c7c[96] = {

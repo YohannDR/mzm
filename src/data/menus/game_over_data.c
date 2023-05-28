@@ -4,9 +4,9 @@
 #include "macros.h"
 
 const u16 sGameOverMenuPAL[16 * 5] = INCBIN_U16("data/menus/GameOver/Palette.pal");
-const u32 sGameOverTextAndBackgroundGFX[2738] = INCBIN_U32("data/menus/GameOver/TextAndBackground.gfx.lz");
-const u32 sGameOverTextPromptEnglishGFX[333] = INCBIN_U32("data/menus/GameOver/TextPromptEnglish.gfx.lz");
-const u32 sGameOverTextPromptHiragnaGFX[1780] = INCBIN_U32("data/menus/GameOver/TextPromptHiragna.gfx.lz");
+const u32 sGameOverTextAndBackgroundGfx[2738] = INCBIN_U32("data/menus/GameOver/TextAndBackground.gfx.lz");
+const u32 sGameOverTextPromptEnglishGfx[333] = INCBIN_U32("data/menus/GameOver/TextPromptEnglish.gfx.lz");
+const u32 sGameOverTextPromptHiragnaGfx[1780] = INCBIN_U32("data/menus/GameOver/TextPromptHiragna.gfx.lz");
 const u32 sGameOverBackgroundTileTable[370] = INCBIN_U32("data/menus/GameOver/Background.tt");
 const u32 sGameOverTextTileTable[116] = INCBIN_U32("data/menus/GameOver/Text.tt");
 const u32 sGameOver_454520[160] = INCBIN_U32("data/menus/GameOver/454520.tt");

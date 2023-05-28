@@ -2,7 +2,7 @@
 
 #include "macros.h"
 
-const u32 sBossStatuesGFX[2388] = INCBIN_U32("data/sprites/BossStatues.gfx.lz");
+const u32 sBossStatuesGfx[2388] = INCBIN_U32("data/sprites/BossStatues.gfx.lz");
 const u16 sBossStatuesPAL[128] = INCBIN_U16("data/sprites/BossStatues.pal");
 
 const u16 sKraidStatueOAM_Idle_Frame0[16] = {

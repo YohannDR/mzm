@@ -280,9 +280,9 @@ void GameOverInit(void)
     LZ77UncompVRAM(sGameOverTextTileTable, VRAM_BASE + 0x800);
     LZ77UncompVRAM(sGameOver_454520, VRAM_BASE);
     DMATransfer(3, VRAM_BASE + 0x1800, VRAM_BASE + 0x1000, 0x800, 0x20);
-    LZ77UncompVRAM(sGameOverTextAndBackgroundGFX, VRAM_BASE + 0x4000);
+    LZ77UncompVRAM(sGameOverTextAndBackgroundGfx, VRAM_BASE + 0x4000);
     LZ77UncompVRAM(0x845c0f4, VRAM_BASE + 0x10000);
-    // FIXME LZ77UncompVRAM(sFileSelectIconsGFX, VRAM_BASE + 0x10000);
+    // FIXME LZ77UncompVRAM(sFileSelectIconsGfx, VRAM_BASE + 0x10000);
     LZ77UncompVRAM(sGameOverTextPromptGfxPointers[gLanguage], VRAM_BASE + 0xA800);
 
     write16(REG_BG0CNT, 0x4);

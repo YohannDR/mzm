@@ -8,7 +8,7 @@ extern const i16 sDragonFireballYMovement[40];
 
 extern const i16 sDragonFireballOAMRotation[40];
 
-extern const u32 sDragonGFX[512];
+extern const u32 sDragonGfx[512];
 extern const u16 sDragonPAL[32];
 
 extern const u16 sDragonOAM_Spitting_Frame0[7];

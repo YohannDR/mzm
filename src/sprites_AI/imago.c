@@ -89,13 +89,13 @@ void ImagoShootNeedles(void)
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
                 SpriteSpawnSecondary(SSPRITE_IMAGO_NEEDLE, gCurrentSprite.roomSlot,
-                    gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                    gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                     gCurrentSprite.yPosition + 0x6C, gCurrentSprite.xPosition + 0x1C, SPRITE_STATUS_XFLIP);
             }
             else
             {
                 SpriteSpawnSecondary(SSPRITE_IMAGO_NEEDLE, gCurrentSprite.roomSlot,
-                    gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                    gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                     gCurrentSprite.yPosition + 0x6C, gCurrentSprite.xPosition - 0x20, SPRITE_STATUS_NONE);
             }
         }
@@ -252,7 +252,7 @@ void ImagoInit(void)
         gCurrentSprite.drawOrder = 0x5;
         gCurrentSprite.roomSlot = IMAGO_PART_IMAGO;
 
-        gfxSlot = gCurrentSprite.spritesetGFXSlot;
+        gfxSlot = gCurrentSprite.spritesetGfxSlot;
         ramSlot = gCurrentSprite.primarySpriteRamSlot;
         status = gCurrentSprite.status & SPRITE_STATUS_XFLIP;
 
@@ -733,13 +733,13 @@ void ImagoDyingInit(void)
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
         SpriteSpawnSecondary(SSPRITE_IMAGO_DAMAGED_STINGER, gCurrentSprite.roomSlot,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
             gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition + 0x1C, SPRITE_STATUS_XFLIP);
     }
     else
     {
         SpriteSpawnSecondary(SSPRITE_IMAGO_DAMAGED_STINGER, gCurrentSprite.roomSlot,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
             gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x20, SPRITE_STATUS_NONE);
     }
 
@@ -1357,7 +1357,7 @@ void Imago(void)
                 if (gCurrentSprite.pose <= IMAGO_POSE_CHECK_SAMUS_AT_SUPER_MISSILE)
                 {
                     if (gFrameCounter8Bit & 0x4)
-                        gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+                        gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
                     else
                         gCurrentSprite.paletteRow = 0x0;
                 }
@@ -1607,7 +1607,7 @@ void ImagoDamagedStinger(void)
             {
                 // Make blink
                 if (gCurrentSprite.timer & 0x4)
-                    gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+                    gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
                 else
                     gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
             }

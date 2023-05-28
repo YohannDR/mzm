@@ -1214,12 +1214,12 @@ u8 TourianEscapeSamusFlyingIn(void)
             CallbackSetVBlank(TourianEscapeVBLankZebesExploding);
             write16(REG_IME, TRUE);
 
-            LZ77UncompVRAM(sIntroTextAndShipFlyingInGFX, VRAM_BASE + 0x10000);
+            LZ77UncompVRAM(sIntroTextAndShipFlyingInGfx, VRAM_BASE + 0x10000);
             SoundPlay(0x235);
             break;
 
         case 1:
-            LZ77UncompVRAM(sIntroSpaceBackgroundGFX, VRAM_BASE);
+            LZ77UncompVRAM(sIntroSpaceBackgroundGfx, VRAM_BASE);
             break;
 
         case 2:

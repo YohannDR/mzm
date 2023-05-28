@@ -121,7 +121,7 @@ const u8 sImagoDynamicPaletteData[9][2] = {
     { 128, 128 }
 };
 
-const u32 sImagoGFX[1503] = INCBIN_U32("data/sprites/Imago.gfx.lz");
+const u32 sImagoGfx[1503] = INCBIN_U32("data/sprites/Imago.gfx.lz");
 const u16 sImagoPAL[96] = INCBIN_U16("data/sprites/Imago.pal");
 
 const u16 sImagoPartOAM_BodyIdle_Frame0[55] = {

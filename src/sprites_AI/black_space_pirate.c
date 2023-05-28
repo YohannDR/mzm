@@ -505,7 +505,7 @@ void BlackSpacePirateHitByLaser(void)
     {
         if (timer & 0x4)
         {
-            gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+            gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
         }
         else
         {

@@ -54,8 +54,8 @@ void ChargeBeamSpawnGlow(void)
     if (SpriteUtilCheckNearEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = 0xB;
-        gCurrentSprite.workVariable = SpriteSpawnSecondary(SSPRITE_CHARGE_BEAM_GLOW, 0x0, gCurrentSprite.spritesetGFXSlot,
-            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        gCurrentSprite.workVariable = SpriteSpawnSecondary(SSPRITE_CHARGE_BEAM_GLOW, 0x0, gCurrentSprite.spritesetGfxSlot,
+            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
 
@@ -171,7 +171,7 @@ void ChargeBeamGlowMovement(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition;
 }
 

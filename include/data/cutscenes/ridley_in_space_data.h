@@ -14,13 +14,13 @@ extern const u8 sRidleyInSpaceRedAlertPaletteRows[10];
 
 extern const struct OamArray sRidleyInSpaceCutsceneOAM[11];
 
-extern const u32 sRidleyInSpaceShipsGFX[1565];
-extern const u32 sRidleyInSpaceRidleySittingGFX[3848];
-extern const u32 sRidleyInSpaceShipInteriorGFX[4391];
-extern const u32 sRidleyInSpaceRidleySuspiciousGFX[1961];
-extern const u32 sRidleyInSpaceShipInterior2GFX[4235];
-extern const u32 sRidleyInSpaceMotherShipLeavingGFX[1497];
-extern const u32 sRidleyInSpaceSpaceBackgroundGFX[5470];
+extern const u32 sRidleyInSpaceShipsGfx[1565];
+extern const u32 sRidleyInSpaceRidleySittingGfx[3848];
+extern const u32 sRidleyInSpaceShipInteriorGfx[4391];
+extern const u32 sRidleyInSpaceRidleySuspiciousGfx[1961];
+extern const u32 sRidleyInSpaceShipInterior2Gfx[4235];
+extern const u32 sRidleyInSpaceMotherShipLeavingGfx[1497];
+extern const u32 sRidleyInSpaceSpaceBackgroundGfx[5470];
 
 extern const u16 sRidleyInSpaceShipsPAL[3 * 16];
 extern const u16 sRidleyInSpace_39d910_PAL[6 * 16];

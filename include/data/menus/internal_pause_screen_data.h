@@ -26,7 +26,7 @@ extern const u8* const sStatusScreenMiscFlagsOrderPointer;
 extern const u32* const sMinimapDataPointers[11];
 
 extern const u32 sExploredMinimapBitFlags[32];
-extern const MinimapFunc_T sMinimapTilesCopyGFXFunctionPointers[4];
+extern const MinimapFunc_T sMinimapTilesCopyGfxFunctionPointers[4];
 
 extern u32* sPauseScreen_7602a8;
 

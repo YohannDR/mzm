@@ -95,7 +95,7 @@ void ParasiteInit(struct SpriteData* pSprite)
         else
         {
             // Main parasite
-            gfxSlot = pSprite->spritesetGFXSlot;
+            gfxSlot = pSprite->spritesetGfxSlot;
             roomSlot = pSprite->roomSlot;
             yPosition = pSprite->yPosition;
             xPosition = pSprite->xPosition;
@@ -232,12 +232,12 @@ void ParasiteSamusGrabbed(struct SpriteData* pSprite)
             // Update X offset
             if (pSprite->status & SPRITE_STATUS_XFLIP)
             {
-                if (gSpriteRNG != pSprite->primarySpriteRAMSlot)
+                if (gSpriteRNG != pSprite->primarySpriteRamSlot)
                     pSprite->xPositionSpawn++;
             }
             else
             {
-                if (gSpriteRNG != pSprite->primarySpriteRAMSlot)
+                if (gSpriteRNG != pSprite->primarySpriteRamSlot)
                     pSprite->xPositionSpawn--;
             }
         }
@@ -806,7 +806,7 @@ void ParasiteMultipleIdle(struct SpriteData* pSprite)
         pSprite->pose = PARASITE_POSE_SAMUS_GRABBED_INIT;
     else
     {
-        if (pSprite->primarySpriteRAMSlot & 0x1)
+        if (pSprite->primarySpriteRamSlot & 0x1)
         {
             if (gFrameCounter8Bit & 0x1)
             {
@@ -1091,7 +1091,7 @@ void ParasiteMultipleDying(struct SpriteData* pSprite)
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         pSprite->status = 0x0;
-        gSpriteData[pSprite->primarySpriteRAMSlot].status = 0x0;
+        gSpriteData[pSprite->primarySpriteRamSlot].status = 0x0;
 
         if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_BUGS_KILLED) && SpriteUtilCountPrimarySprites(PSPRITE_PARASITE_MULTIPLE) == 0x0)
         {
@@ -1231,12 +1231,12 @@ void ParasiteGeronGrabbed(struct SpriteData* pSprite)
             // Update X offset
             if (pSprite->status & SPRITE_STATUS_XFLIP)
             {
-                if (gSpriteRNG != pSprite->primarySpriteRAMSlot)
+                if (gSpriteRNG != pSprite->primarySpriteRamSlot)
                     pSprite->xPositionSpawn++;
             }
             else
             {
-                if (gSpriteRNG != pSprite->primarySpriteRAMSlot)
+                if (gSpriteRNG != pSprite->primarySpriteRamSlot)
                     pSprite->xPositionSpawn--;
             }
         }

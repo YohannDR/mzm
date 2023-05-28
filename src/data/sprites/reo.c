@@ -18,9 +18,9 @@ const i16 sReoIdleXMovement[81] = {
     0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
-const u32 sReoGreenWingsGFX[277] = INCBIN_U32("data/sprites/ReoGreenWings.gfx.lz");
+const u32 sReoGreenWingsGfx[277] = INCBIN_U32("data/sprites/ReoGreenWings.gfx.lz");
 const u16 sReoGreenWingsPAL[16] = INCBIN_U16("data/sprites/ReoGreenWings.pal");
-const u32 sReoPurpleWingsGFX[277] = INCBIN_U32("data/sprites/ReoPurpleWings.gfx.lz");
+const u32 sReoPurpleWingsGfx[277] = INCBIN_U32("data/sprites/ReoPurpleWings.gfx.lz");
 const u16 sReoPurpleWingsPAL[16] = INCBIN_U16("data/sprites/ReoPurpleWings.pal");
 
 const u16 sReoOAM_Idle_Frame0[10] = {

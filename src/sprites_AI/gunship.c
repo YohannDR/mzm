@@ -183,10 +183,10 @@ void GunshipInit(void)
     gSubSpriteData1.workVariable3 = FALSE;
 
     // Spawn entrance
-    SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_FRONT, gCurrentSprite.spritesetGFXSlot,
-        gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
-    SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_BACK, gCurrentSprite.spritesetGFXSlot,
-        gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+    SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_FRONT, gCurrentSprite.spritesetGfxSlot,
+        gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+    SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_ENTRANCE_BACK, gCurrentSprite.spritesetGfxSlot,
+        gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
     if (gSamusData.pose == SPOSE_SAVING_LOADING_GAME)
     {
@@ -200,8 +200,8 @@ void GunshipInit(void)
         gCurrentSprite.yPositionSpawn = 0x154;
         gSubSpriteData1.workVariable3 = TRUE;
 
-        SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_PLATFORM, gCurrentSprite.spritesetGFXSlot,
-            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_PLATFORM, gCurrentSprite.spritesetGfxSlot,
+            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
     else if (introCutscene)
     {
@@ -214,8 +214,8 @@ void GunshipInit(void)
         gSamusData.timer = 0x1;
         gSamusData.lastWallTouchedMidAir = 0x1;
 
-        SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_FLAMES_VERTICAL, gCurrentSprite.spritesetGFXSlot,
-            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_FLAMES_VERTICAL, gCurrentSprite.spritesetGfxSlot,
+            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
         UpdateMusicPriority(0x0);
         gHideHud = TRUE;
@@ -223,8 +223,8 @@ void GunshipInit(void)
     else
     {
         // Idle
-        SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_PLATFORM, gCurrentSprite.spritesetGFXSlot,
-            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - BLOCK_SIZE * 3 + HALF_BLOCK_SIZE, gCurrentSprite.xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_PLATFORM, gCurrentSprite.spritesetGfxSlot,
+            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - BLOCK_SIZE * 3 + HALF_BLOCK_SIZE, gCurrentSprite.xPosition, 0x0);
         
         gCurrentSprite.yPositionSpawn = 0x0;
         gCurrentSprite.samusCollision = SSC_ESCAPE_SHIP;
@@ -652,8 +652,8 @@ void GunshipStartEscaping(void)
         gCurrentSprite.oamScaling = 0x0;
 
         // Spawn flames
-        SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_FLAMES_HORIZONTAL, gCurrentSprite.spritesetGFXSlot,
-            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_GUNSHIP_PART, GUNSHIP_PART_FLAMES_HORIZONTAL, gCurrentSprite.spritesetGfxSlot,
+            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
     else if (gCurrentSprite.timer == 0x4)
     {
@@ -837,7 +837,7 @@ void GunshipPartCheckSetVerticalFlames(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gSpriteData[ramSlot].pose == GUNSHIP_POSE_FLYING)
     {
@@ -897,7 +897,7 @@ void GunshipPartCheckSetHorizontalFlamesBeforeLanding(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (gCurrentSprite.timer != 0x0)
     {
         gCurrentSprite.timer--;
@@ -1135,7 +1135,7 @@ void GunshipPartPlatformGoUp(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (gCurrentSprite.timer != 0x0)
         gCurrentSprite.timer--;
     else
@@ -1158,7 +1158,7 @@ void GunshipPartCheckPlatformGoDown(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (!gSubSpriteData1.workVariable3)
     {
         gCurrentSprite.pose = GUNSHIP_PART_POSE_PLATFORM_GO_DOWN;
@@ -1180,7 +1180,7 @@ void GunshipPartPlatformGoDown(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (gCurrentSprite.timer != 0x0)
         gCurrentSprite.timer--;
     else
@@ -1308,7 +1308,7 @@ void GunshipPart(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (gCurrentSprite.roomSlot == GUNSHIP_PART_ENTRANCE_FRONT)
     {
         if (gSpriteData[ramSlot].drawOrder == 0x4)

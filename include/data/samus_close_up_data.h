@@ -4,11 +4,11 @@
 #include "types.h"
 
 extern const u16 sSamusCloseUpPAL[6 * 16];
-extern const u32 sSamusCloseUpGFX[2319];
+extern const u32 sSamusCloseUpGfx[2319];
 
-extern const u32 sSamusCloseUpEyesGFX_1[80];
-extern const u32 sSamusCloseUpEyesGFX_2[80];
-extern const u32 sSamusCloseUpEyesGFX_3[1376];
+extern const u32 sSamusCloseUpEyesGfx_1[80];
+extern const u32 sSamusCloseUpEyesGfx_2[80];
+extern const u32 sSamusCloseUpEyesGfx_3[1376];
 
 extern const u32 sSamusCloseUpBackgroundMap[385];
 extern const u32 sSamusCloseUpEyesTiletable[98];

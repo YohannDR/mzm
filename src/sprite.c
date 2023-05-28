@@ -394,8 +394,8 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
     alphaBlending = pSprite->status & SPRITE_STATUS_ALPHA_BLENDING;
     facingDown = pSprite->status & SPRITE_STATUS_FACING_DOWN;
 
-    paletteRow = pSprite->spritesetGFXSlot + pSprite->paletteRow;
-    gfxOffset = pSprite->spritesetGFXSlot * 0x40;
+    paletteRow = pSprite->spritesetGfxSlot + pSprite->paletteRow;
+    gfxOffset = pSprite->spritesetGfxSlot * 0x40;
     bgPriority = pSprite->bgPriority;
 
     if (gSamusOnTopOfBackgrounds && bgPriority)
@@ -720,7 +720,7 @@ void SpriteLoadSpriteset(void)
     for (i = 0; i < 15; i++)
     {
         gSpritesetSpritesID[i] = PSPRITE_UNUSED16;
-        gSpritesetGFXSlots[i] = 0;
+        gSpritesetGfxSlots[i] = 0;
     }
 
     prevGfxSlot = UCHAR_MAX;
@@ -745,7 +745,7 @@ void SpriteLoadSpriteset(void)
             break;
 
         gSpritesetSpritesID[i] = spriteID;
-        gSpritesetGFXSlots[i] = gfxSlot & 7;
+        gSpritesetGfxSlots[i] = gfxSlot & 7;
 
         if (gfxSlot != prevGfxSlot)
         {
@@ -772,7 +772,7 @@ void SpriteLoadSpriteset(void)
  * @param spriteID Sprite ID
  * @param gfx_row Spriteset Graphics Row
  */
-void SpriteLoadGFX(u8 spriteID, u8 gfx_row)
+void SpriteLoadGfx(u8 spriteID, u8 gfx_row)
 {
     spriteID -= 0x10;
     LZ77UncompVRAM(sSpritesGraphicsPointers[spriteID], VRAM_BASE + 0x14000 + (gfx_row * 0x800));
@@ -870,12 +870,12 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
                 spritesetSlot--;
                 spritesetSlot &= 0xF;
 
-                pSprite->spritesetGFXSlot = gSpritesetGFXSlots[spritesetSlot];
+                pSprite->spritesetGfxSlot = gSpritesetGfxSlots[spritesetSlot];
                 pSprite->spriteID = gSpritesetSpritesID[spritesetSlot];
             }
             else
             {
-                pSprite->spritesetGFXSlot = 0x0;
+                pSprite->spritesetGfxSlot = 0x0;
                 pSprite->spriteID = spritesetSlot - 0x1;
             }
 
@@ -892,7 +892,7 @@ void SpriteInitPrimary(u8 spritesetSlot, u16 yPosition, u16 xPosition, u8 roomSl
             pSprite->frozenPaletteRowOffset = 0x0;
             pSprite->absolutePaletteRow = 0x0;
             pSprite->ignoreSamusCollisionTimer = 0x1;
-            pSprite->primarySpriteRAMSlot = ramSlot;
+            pSprite->primarySpriteRamSlot = ramSlot;
             pSprite->freezeTimer = 0x0;
             pSprite->standingOnSprite = FALSE;
             return;
@@ -930,7 +930,7 @@ u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yP
         {
             pSprite->status = statusToAdd | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
             pSprite->properties = SP_SECONDARY_SPRITE;
-            pSprite->spritesetGFXSlot = gfxSlot;
+            pSprite->spritesetGfxSlot = gfxSlot;
             pSprite->spriteID = spriteID;
             pSprite->yPosition = yPosition;
             pSprite->xPosition = xPosition;
@@ -944,7 +944,7 @@ u8 SpriteSpawnSecondary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u16 yP
             pSprite->frozenPaletteRowOffset = 0x0;
             pSprite->absolutePaletteRow = 0x0;
             pSprite->ignoreSamusCollisionTimer = 0x1;
-            pSprite->primarySpriteRAMSlot = ramSlot;
+            pSprite->primarySpriteRamSlot = ramSlot;
             pSprite->freezeTimer = 0x0;
             pSprite->standingOnSprite = FALSE;
 
@@ -984,7 +984,7 @@ u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 x
         {
             pSprite->status = statusToAdd | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
             pSprite->properties = 0x0;
-            pSprite->spritesetGFXSlot = gfxSlot;
+            pSprite->spritesetGfxSlot = gfxSlot;
             pSprite->spriteID = spriteID;
             pSprite->yPosition = yPosition;
             pSprite->xPosition = xPosition;
@@ -998,7 +998,7 @@ u8 SpriteSpawnPrimary(u8 spriteID, u8 roomSlot, u8 gfxSlot, u16 yPosition, u16 x
             pSprite->frozenPaletteRowOffset = 0x0;
             pSprite->absolutePaletteRow = 0x0;
             pSprite->ignoreSamusCollisionTimer = 0x1;
-            pSprite->primarySpriteRAMSlot = newSlot;
+            pSprite->primarySpriteRamSlot = newSlot;
             pSprite->freezeTimer = 0x0;
             pSprite->standingOnSprite = FALSE;
 
@@ -1039,7 +1039,7 @@ u8 SpriteSpawnDropFollowers(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u1
         {
             pSprite->status = statusToAdd | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
             pSprite->properties = 0x0;
-            pSprite->spritesetGFXSlot = gfxSlot;
+            pSprite->spritesetGfxSlot = gfxSlot;
             pSprite->spriteID = spriteID;
             pSprite->yPosition = yPosition;
             pSprite->xPosition = xPosition;
@@ -1053,7 +1053,7 @@ u8 SpriteSpawnDropFollowers(u8 spriteID, u8 roomSlot, u8 gfxSlot, u8 ramSlot, u1
             pSprite->frozenPaletteRowOffset = 0x0;
             pSprite->absolutePaletteRow = 0x0;
             pSprite->ignoreSamusCollisionTimer = 0x1;
-            pSprite->primarySpriteRAMSlot = ramSlot;
+            pSprite->primarySpriteRamSlot = ramSlot;
             pSprite->freezeTimer = 0x0;
             pSprite->standingOnSprite = FALSE;
 

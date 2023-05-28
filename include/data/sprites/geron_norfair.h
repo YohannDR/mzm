@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sGeronNorfairGFX[270];
+extern const u32 sGeronNorfairGfx[270];
 extern const u16 sGeronNorfairPAL[16];
 
 extern const u16 sGeronNorfairOAM_Idle_Frame0[43];

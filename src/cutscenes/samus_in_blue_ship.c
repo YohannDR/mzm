@@ -159,9 +159,9 @@ u8 SamusInBlueShipInit(void)
     DMATransfer(3, sSamusInBlueShipPAL, PALRAM_BASE, sizeof(sSamusInBlueShipPAL), 0x10);
     write16(PALRAM_BASE, 0);
 
-    CallLZ77UncompVRAM(sSamusInBlueShipSamusGFX, VRAM_BASE + sSamusInBlueShipPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sSamusInBlueShipSamusGfx, VRAM_BASE + sSamusInBlueShipPageData[0].graphicsPage * 0x4000);
     CallLZ77UncompVRAM(sSamusInBlueShipSamusTileTable, VRAM_BASE + sSamusInBlueShipPageData[0].tiletablePage * 0x800);
-    CallLZ77UncompVRAM(sSamusInBlueShipControlsGFX, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sSamusInBlueShipControlsGfx, VRAM_BASE + 0x10000);
 
     CutsceneSetBGCNTPageData(sSamusInBlueShipPageData[0]);
     CutsceneReset();

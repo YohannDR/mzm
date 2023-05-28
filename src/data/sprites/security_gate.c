@@ -1,7 +1,7 @@
 #include "data/sprites/security_gate.h"
 #include "macros.h"
 
-const u32 sSecurityGateGFX[122] = INCBIN_U32("data/sprites/SecurityGate.gfx.lz");
+const u32 sSecurityGateGfx[122] = INCBIN_U32("data/sprites/SecurityGate.gfx.lz");
 const u16 sSecurityGatePAL[16] = INCBIN_U16("data/sprites/SecurityGate.pal");
 
 const u16 sSecurityGateOAM_Opened_Frame0[4] = {

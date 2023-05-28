@@ -56,7 +56,7 @@ const u8 sMotherBrainDynamicPaletteData[19][2] = {
     { SCHAR_MAX + 1, SCHAR_MAX + 1 }
 };
 
-const u32 sMotherBrainGFX[1871] = INCBIN_U32("data/sprites/MotherBrain.gfx.lz");
+const u32 sMotherBrainGfx[1871] = INCBIN_U32("data/sprites/MotherBrain.gfx.lz");
 const u16 sMotherBrainPAL[96] = INCBIN_U16("data/sprites/MotherBrain.pal");
 
 const u16 sMotherBrainOAM_Idle_Frame0[58] = {

@@ -1,7 +1,7 @@
 #include "data/sprites/elevator_pad.h"
 #include "macros.h"
 
-const u32 sElevatorPadGFX[136] = INCBIN_U32("data/sprites/ElevatorPad.gfx.lz");
+const u32 sElevatorPadGfx[136] = INCBIN_U32("data/sprites/ElevatorPad.gfx.lz");
 const u16 sElevatorPadPAL[16] = INCBIN_U16("data/sprites/ElevatorPad.pal");
 
 const u16 sElevatorPadOAM_Moving_Frame0[4] = {

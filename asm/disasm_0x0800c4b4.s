@@ -2073,7 +2073,7 @@ load_spriteset: @ 0x0800df84
     ldr r4, lbl_0800e064 @ =gSpritesetSpritesID
     movs r3, #0
     movs r2, #0x10
-    ldr r1, lbl_0800e068 @ =gSpritesetGFXSlots
+    ldr r1, lbl_0800e068 @ =gSpritesetGfxSlots
 lbl_0800df9c:
     adds r0, r7, r4
     strb r2, [r0]
@@ -2109,7 +2109,7 @@ lbl_0800dfd6:
     ldr r0, lbl_0800e064 @ =gSpritesetSpritesID
     adds r0, r7, r0
     strb r5, [r0]
-    ldr r1, lbl_0800e068 @ =gSpritesetGFXSlots
+    ldr r1, lbl_0800e068 @ =gSpritesetGfxSlots
     adds r1, r7, r1
     movs r2, #7
     adds r0, r6, #0
@@ -2178,7 +2178,7 @@ lbl_0800e04e:
 lbl_0800e05c: .4byte gSpriteset
 lbl_0800e060: .4byte 0x0875f31c
 lbl_0800e064: .4byte gSpritesetSpritesID
-lbl_0800e068: .4byte gSpritesetGFXSlots
+lbl_0800e068: .4byte gSpritesetGfxSlots
 lbl_0800e06c: .4byte gCurrentArea
 lbl_0800e070: .4byte 0x0875ebf8
 lbl_0800e074: .4byte 0x06014000
@@ -2186,8 +2186,8 @@ lbl_0800e078: .4byte 0x040000d4
 lbl_0800e07c: .4byte 0x0875eef0
 lbl_0800e080: .4byte 0x05000300
 
-    thumb_func_start SpriteLoadGFX
-SpriteLoadGFX: @ 0x0800e084
+    thumb_func_start SpriteLoadGfx
+SpriteLoadGfx: @ 0x0800e084
     push {lr}
     lsls r0, r0, #0x18
     lsls r1, r1, #0x18
@@ -2371,7 +2371,7 @@ lbl_0800e1be:
     lsls r0, r0, #0x14
     ands r0, r1
     lsrs r4, r0, #0x18
-    ldr r1, lbl_0800e1f8 @ =gSpritesetGFXSlots
+    ldr r1, lbl_0800e1f8 @ =gSpritesetGfxSlots
     adds r0, r4, r1
     ldrb r0, [r0]
     mov r1, ip
@@ -2382,7 +2382,7 @@ lbl_0800e1be:
     b lbl_0800e206
     .align 2, 0
 lbl_0800e1f4: .4byte gSpriteData
-lbl_0800e1f8: .4byte gSpritesetGFXSlots
+lbl_0800e1f8: .4byte gSpritesetGfxSlots
 lbl_0800e1fc: .4byte gSpritesetSpritesID
 lbl_0800e200:
     mov r0, ip
@@ -2743,7 +2743,7 @@ lbl_0800e494: .4byte gSpritesetSpritesID
     thumb_func_start SpriteUtilInitLocationText
 SpriteUtilInitLocationText: @ 0x0800e498
     push {r4, lr}
-    bl LocationTextGetGFXSlot
+    bl LocationTextGetGfxSlot
     lsls r0, r0, #0x18
     lsrs r4, r0, #0x18
     cmp r4, #7

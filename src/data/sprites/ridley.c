@@ -879,7 +879,7 @@ const i16 sRidleyIdleYOffsets[65] = {
     0, 0, 0, SHORT_MAX
 };
 
-const u32 sRidleyGFX[2211] = INCBIN_U32("data/sprites/Ridley.gfx.lz");
+const u32 sRidleyGfx[2211] = INCBIN_U32("data/sprites/Ridley.gfx.lz");
 const u16 sRidleyPAL[128] = INCBIN_U16("data/sprites/Ridley.pal");
 
 const u16 sRidleyOAM_Idle_Frame0[49] = {

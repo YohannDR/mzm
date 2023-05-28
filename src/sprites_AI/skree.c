@@ -194,7 +194,7 @@ void SkreeCrashGround(void)
             break;
 
         case 0x3C:
-            gfxSlot = gCurrentSprite.spritesetGFXSlot;
+            gfxSlot = gCurrentSprite.spritesetGfxSlot;
             ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
             if (gCurrentSprite.spriteID == PSPRITE_SKREE_BLUE)

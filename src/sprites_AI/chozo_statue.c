@@ -369,14 +369,14 @@ void ChozoStatueInit(void)
             // Spawn chozo ball
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
-                SpriteSpawnSecondary(SSPRITE_CHOZO_BALL, 0x0, gCurrentSprite.spritesetGFXSlot,
-                    gCurrentSprite.primarySpriteRAMSlot, gSubSpriteData1.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
+                SpriteSpawnSecondary(SSPRITE_CHOZO_BALL, 0x0, gCurrentSprite.spritesetGfxSlot,
+                    gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
                     gSubSpriteData1.xPosition + 0x38, 0x0);
             }
             else
             {
-                SpriteSpawnSecondary(SSPRITE_CHOZO_BALL, 0x0, gCurrentSprite.spritesetGFXSlot,
-                    gCurrentSprite.primarySpriteRAMSlot, gSubSpriteData1.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
+                SpriteSpawnSecondary(SSPRITE_CHOZO_BALL, 0x0, gCurrentSprite.spritesetGfxSlot,
+                    gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
                     gSubSpriteData1.xPosition - 0x38, 0x0);
             }
         }
@@ -388,8 +388,8 @@ void ChozoStatueInit(void)
 
     yPosition = gSubSpriteData1.yPosition;
     xPosition = gSubSpriteData1.xPosition;
-    gfxSlot = gCurrentSprite.spritesetGFXSlot;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    gfxSlot = gCurrentSprite.spritesetGfxSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     // Spawn eye
     gCurrentSprite.workVariable = SpriteSpawnSecondary(SSPRITE_CHOZO_STATUE_PART, CHOZO_STATUE_PART_EYE,
@@ -586,8 +586,8 @@ void ChozoStatueRefillInit(void)
     gCurrentSprite.workVariable2 = 0x4;
     gCurrentSprite.arrayOffset = 0x0;
 
-    SpriteSpawnSecondary(SSPRITE_CHOZO_STATUE_REFILL, 0x0, gCurrentSprite.spritesetGFXSlot,
-        gCurrentSprite.primarySpriteRAMSlot, gSamusData.yPosition - 0x18, gSamusData.xPosition, 0x0);
+    SpriteSpawnSecondary(SSPRITE_CHOZO_STATUE_REFILL, 0x0, gCurrentSprite.spritesetGfxSlot,
+        gCurrentSprite.primarySpriteRamSlot, gSamusData.yPosition - 0x18, gSamusData.xPosition, 0x0);
 }
 
 /**
@@ -656,7 +656,7 @@ void ChozoStatuePartInit(void)
     u8 ramSlot;
     u8 behavior;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
@@ -771,7 +771,7 @@ void ChozoStatuePartArmCheckGrabSamusHint(void)
     u8 ramSlot;
     u16 xPosition;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     xPosition = gCurrentSprite.xPosition;
 
     // Get X offset
@@ -825,7 +825,7 @@ void ChozoStatuePartArmSitting(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     // Check set seated
     if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_DELAY_AFTER_SITTING)
@@ -846,7 +846,7 @@ void ChozoStatuePartArmSeated(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     ChozoStatuePartSyncSamusPosition();
 
@@ -867,7 +867,7 @@ void ChozoStatuePartArmCheckGrabSamusRefill(void)
     u8 isGrabbed;
     u16 xPosition;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     // Update OAM
     if (gCurrentSprite.pOam == sChozoStatuePartOAM_ArmIdle && gPreventMovementTimer == 0x0 &&
@@ -921,7 +921,7 @@ void ChozoStatuePartArmRefill(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_REFILL)
     {
@@ -1015,7 +1015,7 @@ void ChozoStatuePartSleepingInit(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_SLEEPING)
         gCurrentSprite.pose = CHOZO_STATUE_PART_POSE_ARM_SLEEPING;
@@ -1107,7 +1107,7 @@ void ChozoStatuePartLegIdle(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gSpriteData[ramSlot].pose == CHOZO_STATUE_POSE_SITTING)
     {
@@ -1194,7 +1194,7 @@ void ChozoStatuePart(void)
     u8 ramSlot;
 
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     switch (gCurrentSprite.pose)
     {
@@ -1275,7 +1275,7 @@ void ChozoStatueRefill(void)
     u8 ramSlot;
 
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gCurrentSprite.pose == 0x0)
     {

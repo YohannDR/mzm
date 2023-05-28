@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sSearchlightGFX[172];
+extern const u32 sSearchlightGfx[172];
 extern const u16 sSearchlightPAL[16];
 
 extern const u16 sSearchlightOAM_Moving_Frame0[25];

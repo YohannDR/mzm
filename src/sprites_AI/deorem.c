@@ -282,9 +282,9 @@ void DeoremSpawnChargeBeam(u16 yPosition, u16 xPosition)
 {
     u8 gfxSlot;
 
-    gfxSlot = gCurrentSprite.spritesetGFXSlot;
+    gfxSlot = gCurrentSprite.spritesetGfxSlot;
     SpriteSpawnPrimary(PSPRITE_CHARGE_BEAM, 0x0, gfxSlot, yPosition, xPosition, 0x0);
-    SpriteLoadGFX(PSPRITE_CHARGE_BEAM, gfxSlot);
+    SpriteLoadGfx(PSPRITE_CHARGE_BEAM, gfxSlot);
     SpriteLoadPAL(PSPRITE_CHARGE_BEAM, gfxSlot, 0x1);
 }
 
@@ -444,7 +444,7 @@ void DeoremSpawnGoingDown(void)
         gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
         gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
 
-        gfxRow = gCurrentSprite.spritesetGFXSlot;
+        gfxRow = gCurrentSprite.spritesetGfxSlot;
         ramSlot = gCurrentSprite.primarySpriteRamSlot;
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
@@ -542,7 +542,7 @@ void DeoremSpawnGoingUp(void)
         gCurrentSprite.pose = 0x23;
         gCurrentSprite.timer = 0x32;
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn + 0x31C;
-        gfxSlot = gCurrentSprite.spritesetGFXSlot;
+        gfxSlot = gCurrentSprite.spritesetGfxSlot;
         ramSlot = gCurrentSprite.primarySpriteRamSlot;
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
@@ -638,7 +638,7 @@ void DeoremSpawnHeadBody(void)
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.timer = 0xB;
         
-        gfxSlot = gCurrentSprite.spritesetGFXSlot;
+        gfxSlot = gCurrentSprite.spritesetGfxSlot;
         ramSlot = gCurrentSprite.primarySpriteRamSlot;
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
@@ -1122,7 +1122,7 @@ void DeoremLeaving(void)
             gCurrentSprite.xPosition = gBossWork.work2 + BLOCK_SIZE * 6 + HALF_BLOCK_SIZE;
             gCurrentSprite.pose = DEOREM_POSE_LEAVING_ANIM;
 
-            gfxSlot = gCurrentSprite.spritesetGFXSlot;
+            gfxSlot = gCurrentSprite.spritesetGfxSlot;
             ramSlot = gCurrentSprite.primarySpriteRamSlot;
             yPosition = gCurrentSprite.yPosition;
             xPosition = gCurrentSprite.xPosition;
@@ -1390,7 +1390,7 @@ void DeoremSegmentSpawnGoingDownAfter(void)
         if (gCurrentSprite.roomSlot == 5)
         {
             SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x12,
-                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition - 100, gCurrentSprite.xPosition, 0);
         }
     }
@@ -1458,7 +1458,7 @@ void DeoremSegmentSpawnGoingUpAfter(void)
         if (gCurrentSprite.roomSlot == 11)
         {
             SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x13,
-                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition + 100, gCurrentSprite.xPosition, 0);
             
         }
@@ -1478,11 +1478,11 @@ void DeoremSegmentRightIdleAnim(void)
     {
         if (gSpriteData[ramSlot].pose == DEOREM_POSE_THORNS_1)
         {
-            u16 spritesetGFXSlot, primarySpriteRAMSlot, yPosition, xPosition, statusToAdd;
+            u16 spritesetGfxSlot, primarySpriteRamSlot, yPosition, xPosition, statusToAdd;
             
             gCurrentSprite.animationDurationCounter += 4;
-            spritesetGFXSlot = gCurrentSprite.spritesetGFXSlot;
-            primarySpriteRAMSlot = gCurrentSprite.primarySpriteRamSlot;
+            spritesetGfxSlot = gCurrentSprite.spritesetGfxSlot;
+            primarySpriteRamSlot = gCurrentSprite.primarySpriteRamSlot;
             yPosition = gCurrentSprite.yPosition + 24;
             
             if (gBossWork.work3 != 0)
@@ -1499,25 +1499,25 @@ void DeoremSegmentRightIdleAnim(void)
             if (gCurrentSprite.roomSlot == 1 && deoremTimer == 241)
             {
                 SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 0,
-                    spritesetGFXSlot, primarySpriteRAMSlot,
+                    spritesetGfxSlot, primarySpriteRamSlot,
                     yPosition, xPosition, statusToAdd);
             }
             else if (gCurrentSprite.roomSlot == 2 && deoremTimer == 181)
             {
                 SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 1,
-                    spritesetGFXSlot, primarySpriteRAMSlot,
+                    spritesetGfxSlot, primarySpriteRamSlot,
                     yPosition, xPosition, statusToAdd);
             }
             else if (gCurrentSprite.roomSlot == 3 && deoremTimer == 101)
             {
                 SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 2,
-                    spritesetGFXSlot, primarySpriteRAMSlot,
+                    spritesetGfxSlot, primarySpriteRamSlot,
                     yPosition, xPosition, statusToAdd);
             }
             else if (gCurrentSprite.roomSlot == 4 && deoremTimer == 21)
             {
                 SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 3,
-                    spritesetGFXSlot, primarySpriteRAMSlot,
+                    spritesetGfxSlot, primarySpriteRamSlot,
                     yPosition, xPosition, statusToAdd);
             }
         }
@@ -1570,11 +1570,11 @@ void DeoremSegmentLeftIdleAnim(void)
     {
         if (gSpriteData[ramSlot].pose == DEOREM_POSE_THORNS_2)
         {
-            u16 spritesetGFXSlot, primarySpriteRAMSlot, xPosition, statusToAdd;
+            u16 spritesetGfxSlot, primarySpriteRamSlot, xPosition, statusToAdd;
             
             gCurrentSprite.animationDurationCounter += 4;
-            spritesetGFXSlot = gCurrentSprite.spritesetGFXSlot;
-            primarySpriteRAMSlot = gCurrentSprite.primarySpriteRamSlot;
+            spritesetGfxSlot = gCurrentSprite.spritesetGfxSlot;
+            primarySpriteRamSlot = gCurrentSprite.primarySpriteRamSlot;
             yPosition = gCurrentSprite.yPosition;
             
             if (gBossWork.work3 != 0)
@@ -1591,25 +1591,25 @@ void DeoremSegmentLeftIdleAnim(void)
             if (gCurrentSprite.roomSlot == 10 && deoremTimer == 241)
             {
                 SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 0,
-                    spritesetGFXSlot, primarySpriteRAMSlot,
+                    spritesetGfxSlot, primarySpriteRamSlot,
                     yPosition, xPosition, statusToAdd);
             }
             else if (gCurrentSprite.roomSlot == 9 && deoremTimer == 181)
             {
                 SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 1,
-                    spritesetGFXSlot, primarySpriteRAMSlot,
+                    spritesetGfxSlot, primarySpriteRamSlot,
                     yPosition, xPosition, statusToAdd);
             }
             else if (gCurrentSprite.roomSlot == 8 && deoremTimer == 101)
             {
                 SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 2,
-                    spritesetGFXSlot, primarySpriteRAMSlot,
+                    spritesetGfxSlot, primarySpriteRamSlot,
                     yPosition, xPosition, statusToAdd);
             }
             else if (gCurrentSprite.roomSlot == 7 && deoremTimer == 21)
             {
                 SpriteSpawnSecondary(SSPRITE_DEOREM_THORN, 3,
-                    spritesetGFXSlot, primarySpriteRAMSlot,
+                    spritesetGfxSlot, primarySpriteRamSlot,
                     yPosition, xPosition, statusToAdd);
             }
         }
@@ -2254,10 +2254,10 @@ void DeoremEyeMainLoop(void)
 }
 
 /**
- * @brief 23170 | 38 | Initialize the GFX for the eye dying (also sets Deorem pose to 62)
+ * @brief 23170 | 38 | Initialize the Gfx for the eye dying (also sets Deorem pose to 62)
  * 
  */
-void DeoremEyeDyingGFXInit(void)
+void DeoremEyeDyingGfxInit(void)
 {
     u8 ramSlot = gCurrentSprite.primarySpriteRamSlot;
     
@@ -2316,7 +2316,7 @@ void DeoremEyeDyingMovingAnim(void)
     {
         if ((timer & 4) != 0)
         {
-            gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+            gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
         }
         else
         {
@@ -2580,10 +2580,10 @@ void DeoremSegment(void)
         gCurrentSprite.absolutePaletteRow = deoremAbsolutePaletteRow;
 
     if (gSpriteData[ramSlot].paletteRow ==
-        (0xE - (gSpriteData[ramSlot].spritesetGFXSlot + gSpriteData[ramSlot].frozenPaletteRowOffset)))
+        (0xE - (gSpriteData[ramSlot].spritesetGfxSlot + gSpriteData[ramSlot].frozenPaletteRowOffset)))
     {
         gCurrentSprite.paletteRow =
-            (0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset));
+            (0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset));
         gCurrentSprite.animationDurationCounter++;
     }
     else if (gSpriteData[ramSlot].paletteRow == gSpriteData[ramSlot].absolutePaletteRow)
@@ -2710,7 +2710,7 @@ void DeoremEye(void)
             break;
 
         case 0x62:
-            DeoremEyeDyingGFXInit();
+            DeoremEyeDyingGfxInit();
 
         case 0x67:
             DeoremEyeDyingSpinningAnim();

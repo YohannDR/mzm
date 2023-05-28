@@ -40,8 +40,8 @@ void MorphBallInit(void)
         gCurrentSprite.drawOrder = 0x3;
 
         // Spawn outside
-        SpriteSpawnSecondary(SSPRITE_MORPH_BALL_OUTSIDE, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot,
-            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_MORPH_BALL_OUTSIDE, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
+            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
 
@@ -108,7 +108,7 @@ void MorphBallOutsideFlashAnim(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     gCurrentSprite.status = gSpriteData[ramSlot].status;
     if (gSpriteData[ramSlot].properties & SP_ALWAYS_ACTIVE)

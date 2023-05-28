@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sRisingChozoPillarGFX[671];
+extern const u32 sRisingChozoPillarGfx[671];
 extern const u16 sRisingChozoPillarPAL[64];
 
 extern const u16 sRisingChozoPillarPlatformOAM_Slot0Spawning_Frame0[7];

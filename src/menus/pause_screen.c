@@ -3232,7 +3232,7 @@ i32 PauseScreenEasySleepInit(void)
             break;
 
         case 3:
-            // Make a backup of some GFX
+            // Make a backup of some Gfx
             DMATransfer(3, VRAM_BASE + 0x6000, PAUSE_SCREEN_EWRAM.equipmentNamesGfxBackup,
                 sizeof(PAUSE_SCREEN_EWRAM.equipmentNamesGfxBackup), 16);
             DMATransfer(3, VRAM_BASE + 0x6800, PAUSE_SCREEN_EWRAM.unk_b000,

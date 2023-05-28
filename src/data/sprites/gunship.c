@@ -20,7 +20,7 @@ const i16 sGunshipFlyingYVelocity[22] = {
     -7, -7, -8, -12, -16, -20, -24, -28, -32, SHORT_MAX
 };
 
-const u32 sGunshipGFX[1027] = INCBIN_U32("data/sprites/Gunship.gfx.lz");
+const u32 sGunshipGfx[1027] = INCBIN_U32("data/sprites/Gunship.gfx.lz");
 const u16 sGunshipPAL[48] = INCBIN_U16("data/sprites/Gunship.pal");
 const u16 sGunshipFlashingPAL[8 * 16] = INCBIN_U16("data/sprites/GunshipFlashingPal.pal");
 

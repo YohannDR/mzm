@@ -14,7 +14,7 @@
 
 extern const SamusFunc_T sSamusPoseFunctionPointers[MAX_AMOUNT_OF_SAMUS_POSES];
 
-extern const SamusFunc_T sSamusPoseGFXFunctionPointers[MAX_AMOUNT_OF_SAMUS_POSES];
+extern const SamusFunc_T sSamusPoseGfxFunctionPointers[MAX_AMOUNT_OF_SAMUS_POSES];
 
 extern const Func_T sPrimarySpritesAIPointers[206];
 

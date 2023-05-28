@@ -33,7 +33,7 @@ u8 LocationTextGetNorfair(void);
 u8 LocationTextGetRidley(void);
 u8 LocationTextGetChozodia(void);
 u8 LocationTextGetTourian(void);
-u8 LocationTextLoadAreaBannerGFX(void);
-u8 LocationTextGetGFXSlot(void);
+u8 LocationTextLoadAreaBannerGfx(void);
+u8 LocationTextGetGfxSlot(void);
 
 #endif /* LOCATION_TEXT_H */

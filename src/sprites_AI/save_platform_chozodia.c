@@ -50,7 +50,7 @@ void SavePlatformChozodiaInit(void)
     else if (gIsLoadingFile)
     {
         SpriteSpawnSecondary(SSPRITE_CHOZODIA_SAVE_PLATFORM_PART, SAVE_PLATFORM_CHOZODIA_PART_TUBE,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
         gCurrentSprite.pOam = sSavePlatformChozodiaOAM_IdleOff;
@@ -64,7 +64,7 @@ void SavePlatformChozodiaInit(void)
     }
 
     gCurrentSprite.arrayOffset = SpriteSpawnSecondary(SSPRITE_CHOZODIA_SAVE_PLATFORM_PART, SAVE_PLATFORM_CHOZODIA_PART_TOP,
-        gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+        gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
         gCurrentSprite.yPosition - BLOCK_SIZE * 8, gCurrentSprite.xPosition, 0x0);
 
     if (gCurrentSprite.pose == SAVE_PLATFORM_CHOZODIA_POSE_OFF)
@@ -238,7 +238,7 @@ void SavePlatformChozodiaCheckRefill(void)
             gCurrentSprite.timer = 0x5;
 
             SpriteSpawnSecondary(SSPRITE_CHOZODIA_SAVE_PLATFORM_PART, SAVE_PLATFORM_CHOZODIA_PART_REFILL_LIGHT,
-                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
             TransparencySpriteUpdateBLDALPHA(0x7, 0x10, 0x0, 0x10);
@@ -395,7 +395,7 @@ void SavePlatformChozodiaSavePrompt(void)
                 gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_POSE_SAVING;
 
                 SpriteSpawnSecondary(SSPRITE_CHOZODIA_SAVE_PLATFORM_PART, SAVE_PLATFORM_CHOZODIA_PART_TUBE,
-                    gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition,
+                    gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition,
                     gCurrentSprite.xPosition, 0x0);
 
                 gSpriteData[gCurrentSprite.arrayOffset].pose = SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_EXTENDING_INIT;
@@ -499,7 +499,7 @@ void SavePlatformChozodiaPartInit(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
@@ -594,7 +594,7 @@ void SavePlatformChozodiaPartRefillLightIdle(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (gSpriteData[ramSlot].pose == SAVE_PLATFORM_CHOZODIA_POSE_AFTER_REFILL)
         gCurrentSprite.status = 0x0;
 }
@@ -684,7 +684,7 @@ void SavePlatformChozodiaPartTubeSpawning(void)
         gCurrentSprite.currentAnimationFrame = 0x0;
 
         gCurrentSprite.workVariable = SpriteSpawnSecondary(SSPRITE_CHOZODIA_SAVE_PLATFORM_PART, SAVE_PLATFORM_CHOZODIA_PART_TUBE_SHADOW,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
 
@@ -703,7 +703,7 @@ void SavePlatformChozodiaPartSpawnRay(void)
         gCurrentSprite.pose = SAVE_PLATFORM_CHOZODIA_PART_POSE_TUBE_IDLE;
         gCurrentSprite.yPositionSpawn = 0x78;
         SpriteSpawnSecondary(SSPRITE_CHOZODIA_SAVE_PLATFORM_PART, SAVE_PLATFORM_CHOZODIA_PART_RAY,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
 
@@ -732,7 +732,7 @@ void SavePlatformChozodiaPartTubeDespawning(void)
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.status = 0x0;
-        gSpriteData[gSpriteData[gCurrentSprite.primarySpriteRAMSlot].arrayOffset].pose = SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_RETRACTING_INIT;
+        gSpriteData[gSpriteData[gCurrentSprite.primarySpriteRamSlot].arrayOffset].pose = SAVE_PLATFORM_CHOZODIA_PART_POSE_TOP_RETRACTING_INIT;
     }
 }
 
@@ -757,7 +757,7 @@ void SavePlatformChozodiaPartRayIdle(void)
 
     if (gCurrentSprite.timer == 0x0)
     {
-        gSpriteData[gCurrentSprite.primarySpriteRAMSlot].pose = SAVE_PLATFORM_CHOZODIA_POSE_OPENED_OFF_INIT;
+        gSpriteData[gCurrentSprite.primarySpriteRamSlot].pose = SAVE_PLATFORM_CHOZODIA_POSE_OPENED_OFF_INIT;
         gCurrentSprite.status = 0x0;
     }
 }

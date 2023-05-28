@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sPistonGFX[179];
+extern const u32 sPistonGfx[179];
 extern const u16 sPistonPAL[16];
 
 extern const u16 sPistonOAM_Idle_Frame0[34];

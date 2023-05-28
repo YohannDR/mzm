@@ -8,7 +8,7 @@ extern const i16 sEscapeShipHoveringYMovement[65];
 
 extern const i16 sEscapeShipHoveringXMovement[57];
 
-extern const u32 sEscapeShipGFX[919];
+extern const u32 sEscapeShipGfx[919];
 extern const u16 sEscapeShipPAL[64];
 extern const u16 sEscapeShipFlashingPAL[3 * 16];
 

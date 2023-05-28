@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sGeegaGFX[153];
+extern const u32 sGeegaGfx[153];
 extern const u16 sGeegaPAL[16];
-extern const u32 sGeegaWhiteGFX[153];
+extern const u32 sGeegaWhiteGfx[153];
 extern const u16 sGeegaWhitePAL[16];
 
 extern const u16 sGeegaOAM_Idle_Frame0[4];

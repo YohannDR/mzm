@@ -8705,8 +8705,8 @@ lbl_0806c6a8: .4byte 0x000003ff
 lbl_0806c6ac: .4byte gLanguage
 lbl_0806c6b0: .4byte 0x08760298
 
-    thumb_func_start MinimapCopyTileGFX
-MinimapCopyTileGFX: @ 0x0806c6b4
+    thumb_func_start MinimapCopyTileGfx
+MinimapCopyTileGfx: @ 0x0806c6b4
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -8814,8 +8814,8 @@ lbl_0806c780: .4byte 0x0840e0c4
 lbl_0806c784: .4byte 0x0840d74c
 lbl_0806c788: .4byte 0x0840d6fc
 
-    thumb_func_start MinimapCopyTileXFlippedGFX
-MinimapCopyTileXFlippedGFX: @ 0x0806c78c
+    thumb_func_start MinimapCopyTileXFlippedGfx
+MinimapCopyTileXFlippedGfx: @ 0x0806c78c
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -8934,8 +8934,8 @@ lbl_0806c86c: .4byte 0x0840e0c4
 lbl_0806c870: .4byte 0x0840d74c
 lbl_0806c874: .4byte 0x0840d6fc
 
-    thumb_func_start MinimapCopyTileYFlippedGFX
-MinimapCopyTileYFlippedGFX: @ 0x0806c878
+    thumb_func_start MinimapCopyTileYFlippedGfx
+MinimapCopyTileYFlippedGfx: @ 0x0806c878
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -9045,8 +9045,8 @@ lbl_0806c948: .4byte 0x0840e0c4
 lbl_0806c94c: .4byte 0x0840d74c
 lbl_0806c950: .4byte 0x0840d6fc
 
-    thumb_func_start MinimapCopyTileXYFlippedGFX
-MinimapCopyTileXYFlippedGFX: @ 0x0806c954
+    thumb_func_start MinimapCopyTileXYFlippedGfx
+MinimapCopyTileXYFlippedGfx: @ 0x0806c954
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

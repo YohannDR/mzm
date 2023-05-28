@@ -1,9 +1,9 @@
 #include "data/sprites/zebbo.h"
 #include "macros.h"
 
-const u32 sZebboGreenGFX[124] = INCBIN_U32("data/sprites/ZebboGreen.gfx.lz");
+const u32 sZebboGreenGfx[124] = INCBIN_U32("data/sprites/ZebboGreen.gfx.lz");
 const u16 sZebboGreenPAL[16] = INCBIN_U16("data/sprites/ZebboGreen.pal");
-const u32 sZebboYellowGFX[124] = INCBIN_U32("data/sprites/ZebboYellow.gfx.lz");
+const u32 sZebboYellowGfx[124] = INCBIN_U32("data/sprites/ZebboYellow.gfx.lz");
 const u16 sZebboYellowPAL[16] = INCBIN_U16("data/sprites/ZebboYellow.pal");
 
 const u16 sZebboOAM_Idle_Frame0[4] = {

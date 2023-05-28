@@ -1,7 +1,7 @@
 #include "data/sprites/skultera.h"
 #include "macros.h"
 
-const u32 sSkulteraGFX[285] = INCBIN_U32("data/sprites/Skultera.gfx.lz");
+const u32 sSkulteraGfx[285] = INCBIN_U32("data/sprites/Skultera.gfx.lz");
 const u16 sSkulteraPAL[16] = INCBIN_U16("data/sprites/Skultera.pal");
 
 const u16 sSkulteraOAM_Idle_Frame0[19] = {

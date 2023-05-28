@@ -1105,7 +1105,7 @@ void KraidInit(void)
     gCurrentSprite.pose = KRAID_POSE_GO_UP;
     gCurrentSprite.roomSlot = KRAID_PART_KRAID;
 
-    gfxSlot = gCurrentSprite.spritesetGFXSlot;
+    gfxSlot = gCurrentSprite.spritesetGfxSlot;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     SpriteSpawnSecondary(SSPRITE_KRAID_PART, KRAID_PART_BELLY, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
@@ -1875,13 +1875,13 @@ void KraidPartThrowNails(void)
             // Throw
             if (gCurrentSprite.currentAnimationFrame == 0x7 && gCurrentSprite.animationDurationCounter == 0x4)
             {
-                SpriteSpawnSecondary(SSPRITE_KRAID_NAIL, 0x0, gCurrentSprite.spritesetGFXSlot,
+                SpriteSpawnSecondary(SSPRITE_KRAID_NAIL, 0x0, gCurrentSprite.spritesetGfxSlot,
                     gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - (BLOCK_SIZE * 3 + (HALF_BLOCK_SIZE)),
                     gCurrentSprite.xPosition + (BLOCK_SIZE * 2), 0x0);
             }
             else if (gCurrentSprite.currentAnimationFrame == 0x8 && gCurrentSprite.animationDurationCounter == 0x1)
             {
-                SpriteSpawnSecondary(SSPRITE_KRAID_NAIL, 0x1, gCurrentSprite.spritesetGFXSlot,
+                SpriteSpawnSecondary(SSPRITE_KRAID_NAIL, 0x1, gCurrentSprite.spritesetGfxSlot,
                     gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - (BLOCK_SIZE * 3),
                     gCurrentSprite.xPosition + (BLOCK_SIZE * 3 + (HALF_BLOCK_SIZE)), 0x0);
             }
@@ -2044,7 +2044,7 @@ void KraidPartSpawnSpike(void)
 
         // Spawn spike
         spikeSlot = SpriteSpawnSecondary(SSPRITE_KRAID_SPIKE, roomSlot,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.workVariable,
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.workVariable,
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
         if (spikeSlot < MAX_AMOUNT_OF_SPRITES)
@@ -2773,7 +2773,7 @@ void KraidSpike(void)
             if (timer <= 0x3C && !(timer & 0x3))
             {
                 if (timer & 0x4)
-                    gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+                    gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
                 else
                 {
                     gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;

@@ -204,7 +204,7 @@ void ChozoBallInit(void)
     gCurrentSprite.health = 0x1;
     gCurrentSprite.pose = CHOZO_BALL_POSE_DO_NOTHING;
 
-    ChozoBallSetClosedOAM(gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID);
+    ChozoBallSetClosedOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteID);
 }
 
 /**
@@ -233,7 +233,7 @@ void ChozoBallRevealingInit(void)
     gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
     gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
 
-    ChozoBallSetRevealingOAM(gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID);
+    ChozoBallSetRevealingOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteID);
     SoundPlay(0x11D);
 }
 
@@ -248,7 +248,7 @@ void ChozoBallCheckRevealingAnimEnded(void)
         gCurrentSprite.pose = CHOZO_BALL_POSE_IDLE;
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
-        ChozoBallSetRevealedOAM(gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID);
+        ChozoBallSetRevealedOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteID);
     }
 }
 
@@ -268,7 +268,7 @@ void ChozoBallRegisterItem(void)
         gCurrentSprite.pose = CHOZO_BALL_POSE_GETTING;
         gCurrentSprite.timer = 0x0;
 
-        spriteID = gSpriteData[gCurrentSprite.primarySpriteRAMSlot].spriteID;
+        spriteID = gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteID;
         ChozoStatueRegisterItem(spriteID);
         ChozoBallSpawnItemBanner(spriteID);
     }

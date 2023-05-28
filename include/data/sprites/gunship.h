@@ -8,7 +8,7 @@ extern const i16 sGunshipTakingOffYVelocity[153];
 
 extern const i16 sGunshipFlyingYVelocity[22];
 
-extern const u32 sGunshipGFX[1027];
+extern const u32 sGunshipGfx[1027];
 extern const u16 sGunshipPAL[48];
 extern const u16 sGunshipFlashingPAL[8 * 16];
 

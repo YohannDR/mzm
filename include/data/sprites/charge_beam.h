@@ -6,7 +6,7 @@
 
 extern const i16 sChargeBeamIdleYMovement[66];
 
-extern const u32 sChargeBeamGFX[243];
+extern const u32 sChargeBeamGfx[243];
 extern const u16 sChargeBeamPAL[16];
 
 extern const u16 sChargeBeamOAM_Visible_Frame0[4];

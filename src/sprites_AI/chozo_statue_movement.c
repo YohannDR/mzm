@@ -34,7 +34,7 @@ void SpawnChozoStatueMovement(u8 stage)
                 gSpriteData[ramSlot].drawOrder = gCurrentSprite.drawOrder + 0x1;
 
             gSpriteData[ramSlot].properties = (SP_ALWAYS_ACTIVE | SP_SECONDARY_SPRITE);
-            gSpriteData[ramSlot].spritesetGFXSlot = gCurrentSprite.spritesetGFXSlot;
+            gSpriteData[ramSlot].spritesetGfxSlot = gCurrentSprite.spritesetGfxSlot;
             gSpriteData[ramSlot].spriteID = SSPRITE_CHOZO_STATUE_MOVEMENT;
             gSpriteData[ramSlot].yPosition = gCurrentSprite.yPosition;
             gSpriteData[ramSlot].xPosition = gCurrentSprite.xPosition;
@@ -47,7 +47,7 @@ void SpawnChozoStatueMovement(u8 stage)
             gSpriteData[ramSlot].frozenPaletteRowOffset = gCurrentSprite.frozenPaletteRowOffset;
             gSpriteData[ramSlot].absolutePaletteRow = gCurrentSprite.absolutePaletteRow;
             gSpriteData[ramSlot].ignoreSamusCollisionTimer = 0x1;
-            gSpriteData[ramSlot].primarySpriteRAMSlot = ramSlot;
+            gSpriteData[ramSlot].primarySpriteRamSlot = ramSlot;
             gSpriteData[ramSlot].freezeTimer = 0x0;
             gSpriteData[ramSlot].timer = 0x20;
             gSpriteData[ramSlot].samusCollision = SSC_NONE;

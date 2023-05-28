@@ -79,10 +79,10 @@ const struct FrameData sEnterTourianOAM_Empty[1] = {
 
 const u16 sEnterTourianBackgroundPAL[10 * 16] = INCBIN_U16("data/cutscenes/EnterTourian/Background.pal");
 const u16 sEnterTourianMetroidPAL[6 * 16] = INCBIN_U16("data/cutscenes/EnterTourian/Metroid.pal");
-const u32 sEnterTourianBackgroundGFX[3110] = INCBIN_U32("data/cutscenes/EnterTourian/Background.gfx.lz");
-const u32 sEnterTourianForegroundGFX[2483] = INCBIN_U32("data/cutscenes/EnterTourian/Foreground.gfx.lz");
-const u32 sEnterTourianDeadSpacePirateGFX_1[55] = INCBIN_U32("data/cutscenes/EnterTourian/DeadSpacePirate_1.gfx.lz");
-const u32 sEnterTourianDeadSpacePirateGFX_2[77] = INCBIN_U32("data/cutscenes/EnterTourian/DeadSpacePirate_2.gfx.lz");
-const u32 sEnterTourianDeadSpacePirateGFX_3[32] = INCBIN_U32("data/cutscenes/EnterTourian/DeadSpacePirate_3.gfx.lz");
+const u32 sEnterTourianBackgroundGfx[3110] = INCBIN_U32("data/cutscenes/EnterTourian/Background.gfx.lz");
+const u32 sEnterTourianForegroundGfx[2483] = INCBIN_U32("data/cutscenes/EnterTourian/Foreground.gfx.lz");
+const u32 sEnterTourianDeadSpacePirateGfx_1[55] = INCBIN_U32("data/cutscenes/EnterTourian/DeadSpacePirate_1.gfx.lz");
+const u32 sEnterTourianDeadSpacePirateGfx_2[77] = INCBIN_U32("data/cutscenes/EnterTourian/DeadSpacePirate_2.gfx.lz");
+const u32 sEnterTourianDeadSpacePirateGfx_3[32] = INCBIN_U32("data/cutscenes/EnterTourian/DeadSpacePirate_3.gfx.lz");
 const u32 sEnterTourianBackgroundTileTable[385] = INCBIN_U32("data/cutscenes/EnterTourian/Background.tt");
 const u32 sEnterTourianForegroundTileTable[385] = INCBIN_U32("data/cutscenes/EnterTourian/Foreground.tt");

@@ -49,7 +49,7 @@ void EscapeShipPartUpdatePalette(u8 delay)
 
         offset = gCurrentSprite.workVariable & 0x7F;
         dma_set(3, (sEscapeShipFlashingPAL + offset * 16),
-            (PALRAM_BASE + 0x320 + (gCurrentSprite.spritesetGFXSlot * 0x20)), (DMA_ENABLE << 0x10) | 0x10);
+            (PALRAM_BASE + 0x320 + (gCurrentSprite.spritesetGfxSlot * 0x20)), (DMA_ENABLE << 0x10) | 0x10);
     }
 }
 
@@ -221,10 +221,10 @@ void EscapeShip(void)
             gCurrentSprite.pose = ESCAPE_SHIP_POSE_CHECK_OPEN;
             gSubSpriteData1.workVariable1 = 0x0;
 
-            SpriteSpawnSecondary(SSPRITE_ESCAPE_SHIP_PART, ESCAPE_SHIP_PART_TOP, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0);
-            SpriteSpawnSecondary(SSPRITE_ESCAPE_SHIP_PART, ESCAPE_SHIP_PART_TAIL, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_ESCAPE_SHIP_PART, ESCAPE_SHIP_PART_TOP, gCurrentSprite.spritesetGfxSlot,
+                gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_ESCAPE_SHIP_PART, ESCAPE_SHIP_PART_TAIL, gCurrentSprite.spritesetGfxSlot,
+                gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
             break;
 
         case ESCAPE_SHIP_POSE_CHECK_OPEN:
@@ -319,7 +319,7 @@ void EscapeShip(void)
                 if (gCurrentSprite.timer == 0xB)
                 {
                     SpriteSpawnSecondary(SSPRITE_ESCAPE_SHIP_PART, ESCAPE_SHIP_PART_FLAMES,
-                        gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0);
+                        gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
                     SoundPlay(0x250);
                     break;
                 }
@@ -457,7 +457,7 @@ void EscapeShipPart(void)
     u8 delay;
     register u8 temp asm("r5");
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition;
     gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition;
 

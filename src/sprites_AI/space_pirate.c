@@ -445,7 +445,7 @@ void SpacePirateFireLaserGround(void)
     u16 yPosition;
     u16 xPosition;
 
-    gfxSlot = gCurrentSprite.spritesetGFXSlot;
+    gfxSlot = gCurrentSprite.spritesetGfxSlot;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
@@ -511,7 +511,7 @@ void SpacePirateFireLaserWall(void)
     u16 yPosition;
     u16 xPosition;
 
-    gfxSlot = gCurrentSprite.spritesetGFXSlot;
+    gfxSlot = gCurrentSprite.spritesetGfxSlot;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
@@ -2292,13 +2292,13 @@ void SpacePirateWaitingAtDoor(void)
                 {
                     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                     {
-                        SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, 0x80, gCurrentSprite.spritesetGFXSlot,
+                        SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, 0x80, gCurrentSprite.spritesetGfxSlot,
                             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x50,
                             gCurrentSprite.xPosition, SPRITE_STATUS_XFLIP);
                     }
                     else
                     {
-                        SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, 0x80, gCurrentSprite.spritesetGFXSlot,
+                        SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, 0x80, gCurrentSprite.spritesetGfxSlot,
                             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x50,
                             gCurrentSprite.xPosition, 0x0);
                     }
@@ -3314,7 +3314,7 @@ void SpacePirateHitByLaser(void)
     if (!(timer & 0x3))
     {
         if (timer & 0x4)
-            gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+            gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
         else
         {
             gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;

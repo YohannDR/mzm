@@ -25,8 +25,8 @@ u8 BeforeCharlieSamusCloseUp(void)
             DMATransfer(3, sBeforeCharlieSamusCloseUpPAL, PALRAM_BASE, sizeof(sBeforeCharlieSamusCloseUpPAL), 0x10);
             write16(PALRAM_BASE, 0);
 
-            CallLZ77UncompVRAM(sBeforeCharlieYoungSamusCloseUpGFX, VRAM_BASE + sBeforeCharliePageData[5].graphicsPage * 0x4000);
-            CallLZ77UncompVRAM(sBeforeCharlieSamusCloseUpGFX, VRAM_BASE + sBeforeCharliePageData[6].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sBeforeCharlieYoungSamusCloseUpGfx, VRAM_BASE + sBeforeCharliePageData[5].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sBeforeCharlieSamusCloseUpGfx, VRAM_BASE + sBeforeCharliePageData[6].graphicsPage * 0x4000);
             
             CallLZ77UncompVRAM(sBeforeCharlieYoungSamusCloseUpTileTable, VRAM_BASE + sBeforeCharliePageData[5].tiletablePage * 0x800);
             CallLZ77UncompVRAM(sBeforeCharlieSamusCloseUpEyesClosedTileTable, VRAM_BASE + sBeforeCharliePageData[8].tiletablePage * 0x800);
@@ -152,7 +152,7 @@ u8 BeforeCharlieWallAndGreyVoice(void)
             ApplyMonochromeToPalette(sBeforeCharlieChozoWallPAL, (void*)sEwramPointer + 0x3800, 0);
             DMATransfer(3, sBeforeCharlieChozoWallPAL, (void*)sEwramPointer, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
 
-            CallLZ77UncompVRAM(sBeforeCharlieChozoWallBackgroundGFX, VRAM_BASE + sBeforeCharliePageData[2].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sBeforeCharlieChozoWallBackgroundGfx, VRAM_BASE + sBeforeCharliePageData[2].graphicsPage * 0x4000);
             BitFill(3, 0, VRAM_BASE + sBeforeCharliePageData[2].tiletablePage * 0x800, 0x800, 0x20);
             BitFill(3, 0, VRAM_BASE + sBeforeCharliePageData[3].tiletablePage * 0x800, 0x800, 0x20);
 
@@ -165,7 +165,7 @@ u8 BeforeCharlieWallAndGreyVoice(void)
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sBeforeCharliePageData[2].bg, 0x800);
             CutsceneSetBackgroundPosition(CUTSCENE_BG_EDIT_HOFS | CUTSCENE_BG_EDIT_VOFS, sBeforeCharliePageData[3].bg, 0x800);
 
-            CallLZ77UncompVRAM(sBeforeCharlieYoungSamusAndGreyVoiceCloseUpGFX, VRAM_BASE + sBeforeCharliePageData[4].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sBeforeCharlieYoungSamusAndGreyVoiceCloseUpGfx, VRAM_BASE + sBeforeCharliePageData[4].graphicsPage * 0x4000);
             CallLZ77UncompVRAM(sBeforeCharlieYoungSamusAndGreyVoiceCloseuUpTileTable, VRAM_BASE + sBeforeCharliePageData[4].tiletablePage * 0x800);
 
             CutsceneSetBGCNTPageData(sBeforeCharliePageData[4]);
@@ -231,7 +231,7 @@ u8 BeforeCharlieWallAndGreyVoice(void)
             break;
     }
 
-    BeforeCharlieWallAndGreyVoiceScrollAndLoadYoungSamusGFX(&CUTSCENE_DATA.graphicsData[0]);
+    BeforeCharlieWallAndGreyVoiceScrollAndLoadYoungSamusGfx(&CUTSCENE_DATA.graphicsData[0]);
     BeforeCharlieWallAndGreyVoiceApplyMonochrome(&CUTSCENE_DATA.graphicsData[1]);
     BeforeCharlieWallAndGreyScrollCloseUp(&CUTSCENE_DATA.graphicsData[2]);
 
@@ -245,7 +245,7 @@ u8 BeforeCharlieWallAndGreyVoice(void)
  * 
  * @param pGraphics Cutscene graphics data pointer
  */
-void BeforeCharlieWallAndGreyVoiceScrollAndLoadYoungSamusGFX(struct CutsceneGraphicsData* pGraphics)
+void BeforeCharlieWallAndGreyVoiceScrollAndLoadYoungSamusGfx(struct CutsceneGraphicsData* pGraphics)
 {
     u16* pPosition;
 
@@ -263,7 +263,7 @@ void BeforeCharlieWallAndGreyVoiceScrollAndLoadYoungSamusGFX(struct CutsceneGrap
 
     if (!(CUTSCENE_DATA.dispcnt & sBeforeCharliePageData[3].bg) && *pPosition == BLOCK_SIZE * 38)
     {
-        CallLZ77UncompVRAM(sBeforeCharlieYoungSamusAndGreyVoiceGFX, VRAM_BASE + sBeforeCharliePageData[3].graphicsPage * 0x4000);
+        CallLZ77UncompVRAM(sBeforeCharlieYoungSamusAndGreyVoiceGfx, VRAM_BASE + sBeforeCharliePageData[3].graphicsPage * 0x4000);
         CUTSCENE_DATA.dispcnt |= sBeforeCharliePageData[3].bg;
     }
 }
@@ -369,8 +369,8 @@ u8 BeforeCharlieInit(void)
     BitFill(3, 0, PALRAM_OBJ, 0x200, 0x20);
     write16(PALRAM_BASE, 0);
 
-    CallLZ77UncompVRAM(sBeforeCharlieLeftSideOfChozoWallGFX, VRAM_BASE + sBeforeCharliePageData[0].graphicsPage * 0x4000);
-    CallLZ77UncompVRAM(sBeforeCharlieRightSideOfChozoWallGFX, VRAM_BASE + sBeforeCharliePageData[1].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sBeforeCharlieLeftSideOfChozoWallGfx, VRAM_BASE + sBeforeCharliePageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sBeforeCharlieRightSideOfChozoWallGfx, VRAM_BASE + sBeforeCharliePageData[1].graphicsPage * 0x4000);
 
     BitFill(3, 0, VRAM_BASE + 0x800 + sBeforeCharliePageData[0].tiletablePage * 0x800, 0x800, 0x20);
     BitFill(3, 0, VRAM_BASE + sBeforeCharliePageData[1].tiletablePage * 0x800, 0x800, 0x20);

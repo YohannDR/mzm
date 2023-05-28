@@ -131,11 +131,11 @@ const u32 sExploredMinimapBitFlags[32] = {
     1 << 30, 1 << 31
 };
 
-const MinimapFunc_T sMinimapTilesCopyGFXFunctionPointers[4] = {
-    MinimapCopyTileGFX,
-    MinimapCopyTileXFlippedGFX,
-    MinimapCopyTileYFlippedGFX,
-    MinimapCopyTileXYFlippedGFX,
+const MinimapFunc_T sMinimapTilesCopyGfxFunctionPointers[4] = {
+    MinimapCopyTileGfx,
+    MinimapCopyTileXFlippedGfx,
+    MinimapCopyTileYFlippedGfx,
+    MinimapCopyTileXYFlippedGfx,
 };
 
 FORCE_RODATA

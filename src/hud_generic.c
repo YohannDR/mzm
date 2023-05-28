@@ -19,9 +19,9 @@
  * @brief 53c68 | 24 | Loads the common sprites graphics
  * 
  */
-void HUDGenericLoadCommonSpriteGFX(void)
+void HUDGenericLoadCommonSpriteGfx(void)
 {
-    dma_set(3, sCommonSpritesGFX, VRAM_BASE + 0x10800, DMA_ENABLE << 16 | 0x1C00);
+    dma_set(3, sCommonSpritesGfx, VRAM_BASE + 0x10800, DMA_ENABLE << 16 | 0x1C00);
 }
 
 /**

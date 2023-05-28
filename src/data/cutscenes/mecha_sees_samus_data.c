@@ -263,7 +263,7 @@ const struct FrameData sMechaSeesSamusOAM_OpeningEye[4] = {
     0
 };
 
-const u32 sMechaSeesSamusMetalGFX[2382] = INCBIN_U32("data/cutscenes/MechaSeesSamus/Metal.gfx.lz");
-const u32 sMechaSeesSamusCoverEyeGFX[2671] = INCBIN_U32("data/cutscenes/MechaSeesSamus/EyeCover.gfx.lz");
+const u32 sMechaSeesSamusMetalGfx[2382] = INCBIN_U32("data/cutscenes/MechaSeesSamus/Metal.gfx.lz");
+const u32 sMechaSeesSamusCoverEyeGfx[2671] = INCBIN_U32("data/cutscenes/MechaSeesSamus/EyeCover.gfx.lz");
 const u16 sMechaSeesSamusPAL[10 * 16] = INCBIN_U16("data/cutscenes/MechaSeesSamus/Palette.pal");
 const u32 sMechaSeesSamusCoverMetalTileTable[368] = INCBIN_U32("data/cutscenes/MechaSeesSamus/Metal.tt");

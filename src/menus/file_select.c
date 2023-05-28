@@ -2363,12 +2363,12 @@ void OptionsSoundTestUpdateIdGfx(void)
     u32 number;
 
     number = FILE_SELECT_DATA.soundTestId / 10 * 32 + 0xA00;
-    DMATransfer(3, &((u8*)sCharactersGFX)[number], VRAM_BASE + 0x103C0, 32, 16);
-    DMATransfer(3, &((u8*)sCharactersGFX)[number + 0x400], VRAM_BASE + 0x107C0, 32, 16);
+    DMATransfer(3, &((u8*)sCharactersGfx)[number], VRAM_BASE + 0x103C0, 32, 16);
+    DMATransfer(3, &((u8*)sCharactersGfx)[number + 0x400], VRAM_BASE + 0x107C0, 32, 16);
 
     number = FILE_SELECT_DATA.soundTestId % 10 * 32;
-    DMATransfer(3, &((u8*)sCharactersGFX)[number + 0xA00], VRAM_BASE + 0x103E0, 32, 16);
-    DMATransfer(3, &((u8*)sCharactersGFX)[number + 0x400], VRAM_BASE + 0x107E0, 32, 16);
+    DMATransfer(3, &((u8*)sCharactersGfx)[number + 0xA00], VRAM_BASE + 0x103E0, 32, 16);
+    DMATransfer(3, &((u8*)sCharactersGfx)[number + 0x400], VRAM_BASE + 0x107E0, 32, 16);
 }
 
 /**
@@ -3293,9 +3293,9 @@ void FileSelectInit(void)
     DMATransfer(3, sFileSelectIconsPAL, PALRAM_OBJ, sizeof(sFileSelectIconsPAL), 16);
     write16(PALRAM_BASE, 0);
 
-    CallLZ77UncompVRAM(sFileSelectCharactersGFX, VRAM_BASE + 0x400);
-    CallLZ77UncompVRAM(sFileSelectChozoBackgroundGFX, VRAM_BASE + 0x8000);
-    CallLZ77UncompVRAM(sFileSelectIconsGFX, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sFileSelectCharactersGfx, VRAM_BASE + 0x400);
+    CallLZ77UncompVRAM(sFileSelectChozoBackgroundGfx, VRAM_BASE + 0x8000);
+    CallLZ77UncompVRAM(sFileSelectIconsGfx, VRAM_BASE + 0x10000);
 
     BitFill(3, 0, VRAM_BASE + 0x400, 0x800, 16);
     CallLZ77UncompVRAM(sFileSelectTextGfxPointers[gLanguage - 2], VRAM_BASE + 0xC00);

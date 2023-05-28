@@ -128,10 +128,10 @@ extern const struct FrameData sParticleSuperMissileTrailOAM[9];
 
 extern const u16 sBeamPAL[96];
 
-extern const u8 sNormalBeamGFX_Top[512];
-extern const u8 sNormalBeamGFX_Bottom[512];
-extern const u8 sNormalBeamGFX_Charged_Top[512];
-extern const u8 sNormalBeamGFX_Charged_Bottom[512];
+extern const u8 sNormalBeamGfx_Top[512];
+extern const u8 sNormalBeamGfx_Bottom[512];
+extern const u8 sNormalBeamGfx_Charged_Top[512];
+extern const u8 sNormalBeamGfx_Charged_Bottom[512];
 
 extern const u16 sNormalBeamOAM_Horizontal_Frame0[4];
 
@@ -197,10 +197,10 @@ extern const struct FrameData sChargedNormalBeamOAM_Vertical[3];
 
 extern const struct FrameData sChargedNormalBeamOAM_Horizontal_Unused[5];
 
-extern const u8 sLongBeamGFX_Top[512];
-extern const u8 sLongBeamGFX_Bottom[512];
-extern const u8 sLongBeamGFX_Charged_Top[512];
-extern const u8 sLongBeamGFX_Charged_Bottom[512];
+extern const u8 sLongBeamGfx_Top[512];
+extern const u8 sLongBeamGfx_Bottom[512];
+extern const u8 sLongBeamGfx_Charged_Top[512];
+extern const u8 sLongBeamGfx_Charged_Bottom[512];
 
 extern const u16 sLongBeamOAM_Horizontal_Frame0[4];
 
@@ -248,10 +248,10 @@ extern const struct FrameData sChargedLongBeamOAM_Vertical[3];
 
 extern const struct FrameData sParticleChargedLongBeamTrailOAM[5];
 
-extern const u8 sIceBeamGFX_Top[512];
-extern const u8 sIceBeamGFX_Bottom[512];
-extern const u8 sIceBeamGFX_Charged_Top[512];
-extern const u8 sIceBeamGFX_Charged_Bottom[512];
+extern const u8 sIceBeamGfx_Top[512];
+extern const u8 sIceBeamGfx_Bottom[512];
+extern const u8 sIceBeamGfx_Charged_Top[512];
+extern const u8 sIceBeamGfx_Charged_Bottom[512];
 
 extern const u16 sIceBeamOAM_Horizontal_Frame0[4];
 
@@ -319,10 +319,10 @@ extern const struct FrameData sChargedIceBeamOAM_Vertical[3];
 
 extern const struct FrameData sParticleChargedIceBeamTrailOAM[6];
 
-extern const u8 sWaveBeamGFX_Top[512];
-extern const u8 sWaveBeamGFX_Bottom[512];
-extern const u8 sWaveBeamGFX_Charged_Top[512];
-extern const u8 sWaveBeamGFX_Charged_Bottom[512];
+extern const u8 sWaveBeamGfx_Top[512];
+extern const u8 sWaveBeamGfx_Bottom[512];
+extern const u8 sWaveBeamGfx_Charged_Top[512];
+extern const u8 sWaveBeamGfx_Charged_Bottom[512];
 
 extern const u16 sWaveBeamOAM_Horizontal_Frame0[4];
 
@@ -416,10 +416,10 @@ extern const struct FrameData sChargedWaveBeamOAM_Vertical[8];
 
 extern const struct FrameData sParticleChargedWaveBeamTrailOAM[5];
 
-extern const u8 sPlasmaBeamGFX_Top[512];
-extern const u8 sPlasmaBeamGFX_Bottom[512];
-extern const u8 sPlasmaBeamGFX_Charged_Top[512];
-extern const u8 sPlasmaBeamGFX_Charged_Bottom[512];
+extern const u8 sPlasmaBeamGfx_Top[512];
+extern const u8 sPlasmaBeamGfx_Bottom[512];
+extern const u8 sPlasmaBeamGfx_Charged_Top[512];
+extern const u8 sPlasmaBeamGfx_Charged_Bottom[512];
 
 extern const u16 sPlasmaBeamOAM_Horizontal_NoWave_Frame0[4];
 
@@ -567,10 +567,10 @@ extern const struct FrameData sParticleChargedPlasmaBeamTrailOAM[5];
 
 extern const struct FrameData sParticleChargedFullBeamTrailOAM[9];
 
-extern const u8 sPistolBeamGFX_Top[512];
-extern const u8 sPistolBeamGFX_Bottom[512];
-extern const u8 sPistolBeamGFX_Charged_Top[512];
-extern const u8 sPistolBeamGFX_Charged_Bottom[512];
+extern const u8 sPistolBeamGfx_Top[512];
+extern const u8 sPistolBeamGfx_Bottom[512];
+extern const u8 sPistolBeamGfx_Charged_Top[512];
+extern const u8 sPistolBeamGfx_Charged_Bottom[512];
 
 extern const u16 sPistolOAM_Horizontal_Frame0[4];
 

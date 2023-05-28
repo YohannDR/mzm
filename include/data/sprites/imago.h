@@ -32,7 +32,7 @@ extern const i16 sImagoAttackingXVelocity[49];
 
 extern const u8 sImagoDynamicPaletteData[9][2];
 
-extern const u32 sImagoGFX[1503];
+extern const u32 sImagoGfx[1503];
 extern const u16 sImagoPAL[96];
 
 extern const u16 sImagoPartOAM_BodyIdle_Frame0[55];

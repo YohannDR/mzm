@@ -9,7 +9,7 @@ const i16 sZeelaEyesFallingFromBottomSpeed[12] = {
     0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 12, SHORT_MAX
 };
 
-const u32 sZeelaGFX[578] = INCBIN_U32("data/sprites/Zeela.gfx.lz");
+const u32 sZeelaGfx[578] = INCBIN_U32("data/sprites/Zeela.gfx.lz");
 const u16 sZeelaPAL[32] = INCBIN_U16("data/sprites/Zeela.pal");
 
 const u16 sZeelaOAM_OnGround_Frame0[7] = {

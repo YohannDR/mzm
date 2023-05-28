@@ -351,7 +351,7 @@ void MinimapDraw(void)
             tile += 0x20;
 
         tile <<= 0x5;
-        sMinimapTilesCopyGFXFunctionPointers[flip](dst, &tile, palette);
+        sMinimapTilesCopyGfxFunctionPointers[flip](dst, &tile, palette);
 
         xOffset++;
         dst += 0x8;
@@ -365,7 +365,7 @@ void MinimapDraw(void)
  * @param pTile Tile pointer
  * @param palette Palette
  */
-void MinimapCopyTileGFX(u32* dst, u16* pTile, u8 palette)
+void MinimapCopyTileGfx(u32* dst, u16* pTile, u8 palette)
 {
     i32 i;
     u32 value;
@@ -404,7 +404,7 @@ void MinimapCopyTileGFX(u32* dst, u16* pTile, u8 palette)
  * @param pTile Tile pointer
  * @param palette Palette
  */
-void MinimapCopyTileXFlippedGFX(u32* dst, u16* pTile, u8 palette)
+void MinimapCopyTileXFlippedGfx(u32* dst, u16* pTile, u8 palette)
 {
     i32 i;
     u32 value;
@@ -446,7 +446,7 @@ void MinimapCopyTileXFlippedGFX(u32* dst, u16* pTile, u8 palette)
  * @param pTile Tile pointer
  * @param palette Palette
  */
-void MinimapCopyTileYFlippedGFX(u32* dst, u16* pTile, u8 palette)
+void MinimapCopyTileYFlippedGfx(u32* dst, u16* pTile, u8 palette)
 {
     i32 i;
     u32 value;
@@ -487,7 +487,7 @@ void MinimapCopyTileYFlippedGFX(u32* dst, u16* pTile, u8 palette)
  * @param pTile Tile pointer
  * @param palette Palette
  */
-void MinimapCopyTileXYFlippedGFX(u32* dst, u16* pTile, u8 palette)
+void MinimapCopyTileXYFlippedGfx(u32* dst, u16* pTile, u8 palette)
 {
     i32 i;
     u32 value;

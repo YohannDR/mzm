@@ -162,7 +162,7 @@ void KraidElevatorStatueFalling(void)
             {
                 // Spawn kraid debris
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_KRAID,
-                    gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                    gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
             }
             break;
@@ -182,7 +182,7 @@ void KraidElevatorStatueFalling(void)
                 // Start screen shake and spawn dust debris
                 ScreenShakeStartVertical(0x14, 0x81);
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_DUST,
-                    0x0, gCurrentSprite.primarySpriteRAMSlot,
+                    0x0, gCurrentSprite.primarySpriteRamSlot,
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
             }
     }
@@ -326,7 +326,7 @@ void RidleyElevatorStatueFalling(void)
             {
                 // Spawn ridley debris
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_RIDLEY,
-                    gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                    gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
             }
             break;
@@ -351,7 +351,7 @@ void RidleyElevatorStatueFalling(void)
                 // Start screen shake and spawn dust debris
                 ScreenShakeStartVertical(0x14, 0x81);
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_DUST,
-                    0x0, gCurrentSprite.primarySpriteRAMSlot,
+                    0x0, gCurrentSprite.primarySpriteRamSlot,
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
             }
     }

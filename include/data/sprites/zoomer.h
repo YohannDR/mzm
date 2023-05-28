@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sZoomerGFX[379];
+extern const u32 sZoomerGfx[379];
 extern const u16 sZoomerPAL[32];
 
 extern const u16 sZoomerOAM_Falling_Frame0[13];

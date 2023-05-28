@@ -1128,14 +1128,14 @@ void TitleScreenInit(void)
 
     unk_777d8(2);
 
-    CallLZ77UncompVRAM(sTitleScreenTitleGFX, VRAM_BASE + 0xC000);
-    CallLZ77UncompVRAM(sTitleScreenSpaceBackgroundGFX, VRAM_BASE + 0x4000);
-    CallLZ77UncompVRAM(sTitleScreenSpaceBackgroundDecorationGFX, VRAM_BASE + 0xA400);
-    CallLZ77UncompWRAM(sTitleScreenSpaceAndGroundBackgroundGFX, (void*)sEwramPointer + 0x4000);
+    CallLZ77UncompVRAM(sTitleScreenTitleGfx, VRAM_BASE + 0xC000);
+    CallLZ77UncompVRAM(sTitleScreenSpaceBackgroundGfx, VRAM_BASE + 0x4000);
+    CallLZ77UncompVRAM(sTitleScreenSpaceBackgroundDecorationGfx, VRAM_BASE + 0xA400);
+    CallLZ77UncompWRAM(sTitleScreenSpaceAndGroundBackgroundGfx, (void*)sEwramPointer + 0x4000);
 
     DMATransfer(3, VRAM_BASE + 0x4000, (void*)sEwramPointer, 0x4000, 0x10);
 
-    CallLZ77UncompVRAM(sTitleScreenSparklesGFX, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sTitleScreenSparklesGfx, VRAM_BASE + 0x10000);
 
     // Undefined
     TitleScreenSetBGCNTPageData(&sTitleScreenPageData[0]);

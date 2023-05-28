@@ -70,7 +70,7 @@ void HiveInit(void)
     
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
-    gfxSlot = gCurrentSprite.spritesetGFXSlot;
+    gfxSlot = gCurrentSprite.spritesetGfxSlot;
     roomSlot = gCurrentSprite.roomSlot;
     
     // Spawn rooms
@@ -120,7 +120,7 @@ void HivePhase1(void)
 {
     if (HiveCountMellows() < 0x4)
     {
-        SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot,
+        SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
     
@@ -144,7 +144,7 @@ void HivePhase2(void)
 {
     if (HiveCountMellows() < 0x4)
     {
-        SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot,
+        SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
     
@@ -168,7 +168,7 @@ void HivePhase3(void)
 {
     if (HiveCountMellows() < 0x4)
     {
-        SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot,
+        SpriteSpawnPrimary(PSPRITE_MELLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     }
 }
@@ -467,7 +467,7 @@ void MellowMove(struct SpriteData* pSprite)
     spriteLeft = pSprite->xPosition - 0x18;
     spriteRight = pSprite->xPosition + 0x18;
 
-    for (pMellow = gSpriteData + (u8)(pSprite->primarySpriteRAMSlot + 1); pMellow < gSpriteData + MAX_AMOUNT_OF_SPRITES; pMellow++)
+    for (pMellow = gSpriteData + (u8)(pSprite->primarySpriteRamSlot + 1); pMellow < gSpriteData + MAX_AMOUNT_OF_SPRITES; pMellow++)
     {
         if (pMellow->status & SPRITE_STATUS_EXISTS && pMellow->samusCollision == SSC_MELLOW)
         {
@@ -923,7 +923,7 @@ void MellowSwarm(void)
             if (x_pos & 0x8000)
                 x_pos = 0x0;
             y_pos = (u16)(gBG1YPosition - ((gSpriteRNG * 0x2) + 0x10));
-            SpriteSpawnPrimary(PSPRITE_MELLOW, 0x88, gCurrentSprite.spritesetGFXSlot, y_pos, x_pos, 0x0);
+            SpriteSpawnPrimary(PSPRITE_MELLOW, 0x88, gCurrentSprite.spritesetGfxSlot, y_pos, x_pos, 0x0);
         }
     }
 }

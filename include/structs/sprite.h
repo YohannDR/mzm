@@ -38,7 +38,7 @@ struct SpriteData {
     u8 animationDurationCounter;
     u8 spriteID;
     u8 roomSlot;
-    u8 spritesetGFXSlot;
+    u8 spritesetGfxSlot;
     u8 paletteRow;
     u8 bgPriority;
     u8 drawOrder;
@@ -96,7 +96,7 @@ struct BossWork {
 extern u16 gAlarmTimer;
 extern struct SpriteData gSpriteData[MAX_AMOUNT_OF_SPRITES];
 extern u8 gSpritesetSpritesID[15];
-extern u8 gSpritesetGFXSlots[15];
+extern u8 gSpritesetGfxSlots[15];
 extern struct SubSpriteData gSubSpriteData1;
 extern struct SubSpriteData gSubSpriteData2;
 extern u8 gParasiteRelated;

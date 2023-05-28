@@ -51,7 +51,7 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
         else
             dstGfx = gCurrentCharacterGfx;
 
-        srcGfx = (const u32*)&sCharactersGFX[charID * 0x20 + pass * 0x400];
+        srcGfx = (const u32*)&sCharactersGfx[charID * 0x20 + pass * 0x400];
         
         if (width > 8)
             size = 16;

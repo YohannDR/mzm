@@ -426,9 +426,9 @@ extern const struct FrameData sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh[
 
 extern const u8 sMechaRidleyGreenGlowPaletteData[7][2];
 
-extern const u32 sMechaRidleyGFX[2525];
-extern const u32 sMechaRidleyWeaponsGFX[1024];
-extern const u32 sMechaRidleyDestroyedGFX[336];
+extern const u32 sMechaRidleyGfx[2525];
+extern const u32 sMechaRidleyWeaponsGfx[1024];
+extern const u32 sMechaRidleyDestroyedGfx[336];
 
 extern const u16 sMechaRidleyPAL[129];
 

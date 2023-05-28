@@ -70,7 +70,7 @@ void DeoremEyeInit(void);
 void DeoremEyeSetPose9(void);
 void DeoremEyeMove(void);
 void DeoremEyeMainLoop(void);
-void DeoremEyeDyingGFXInit(void);
+void DeoremEyeDyingGfxInit(void);
 void DeoremEyeDyingSpinningAnim(void);
 void DeoremEyeDyingMovingAnim(void);
 void DeoremThornInit(void);

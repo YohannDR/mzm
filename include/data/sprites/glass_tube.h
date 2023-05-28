@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sGlassTubeGFX[514];
+extern const u32 sGlassTubeGfx[514];
 extern const u16 sGlassTubePAL[80];
 
 extern const u16 sGlassTubeOAM_Intact_Frame0[37];

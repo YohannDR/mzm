@@ -108,7 +108,7 @@ void ZebboIdle(void)
                     {
                         // First follower
                         ramSlot = SpriteSpawnDropFollowers(PSPRITE_ZEBBO_GREEN_FOLLOWER, gCurrentSprite.roomSlot,
-                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition + (BLOCK_SIZE + HALF_BLOCK_SIZE),
                             gCurrentSprite.xPosition - HALF_BLOCK_SIZE, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
     
@@ -119,7 +119,7 @@ void ZebboIdle(void)
     
                             // Second follower
                             ramSlot = SpriteSpawnDropFollowers(PSPRITE_ZEBBO_GREEN_FOLLOWER, gCurrentSprite.roomSlot,
-                                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                                gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                                 gCurrentSprite.yPosition + (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE),
                                 gCurrentSprite.xPosition - HALF_BLOCK_SIZE, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
     

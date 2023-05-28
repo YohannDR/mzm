@@ -5,15 +5,15 @@
 #include "macros.h"
 #include "oam.h"
 
-extern const u32 sRuinsTestGFX[1951];
-extern const u32 sRuinsTestGFX_SamusReflectionTurningRightTop[96];
-extern const u32 sRuinsTestGFX_SamusReflectionTurningRightBottom[64];
-extern const u32 sRuinsTestGFX_SamusReflectionTurningLeftTop[96];
-extern const u32 sRuinsTestGFX_SamusReflectionTurningLeftBottom[64];
-extern const u32 sRuinsTestGFX_SamusReflectionFullSuitTop[96];
-extern const u32 sRuinsTestGFX_SamusReflectionFullSuitBottom[64];
-extern const u32 sRuinsTestGFX_SamusReflectionSuitlessTop[96];
-extern const u32 sRuinsTestGFX_SamusReflectionSuitlessBottom[64];
+extern const u32 sRuinsTestGfx[1951];
+extern const u32 sRuinsTestGfx_SamusReflectionTurningRightTop[96];
+extern const u32 sRuinsTestGfx_SamusReflectionTurningRightBottom[64];
+extern const u32 sRuinsTestGfx_SamusReflectionTurningLeftTop[96];
+extern const u32 sRuinsTestGfx_SamusReflectionTurningLeftBottom[64];
+extern const u32 sRuinsTestGfx_SamusReflectionFullSuitTop[96];
+extern const u32 sRuinsTestGfx_SamusReflectionFullSuitBottom[64];
+extern const u32 sRuinsTestGfx_SamusReflectionSuitlessTop[96];
+extern const u32 sRuinsTestGfx_SamusReflectionSuitlessBottom[64];
 extern const u16 sRuinsTestPAL[128];
 extern const u16 sRuinsTestPAL_SymbolShot_Frame1[8];
 extern const u16 sRuinsTestPAL_SymbolShot_Frame2[8];

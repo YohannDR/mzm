@@ -13,7 +13,7 @@ void PistonChangeOneUpperCCAA(u8 caa);
 u8 PistonSamusCollision(void);
 u8 PistonCheckSamusIn(void);
 void PistonInit(void);
-void PistonGFXInit(void);
+void PistonGfxInit(void);
 void PistonCheckProjectile(void);
 void PistonOpen(void);
 void PistonOpened(void);

@@ -107,7 +107,7 @@ void GametIdle(void)
                     {
                         // First follower
                         ramSlot = SpriteSpawnDropFollowers(PSPRITE_GAMET_BLUE_FOLLOWER, gCurrentSprite.roomSlot,
-                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition + (BLOCK_SIZE + HALF_BLOCK_SIZE),
                             gCurrentSprite.xPosition - HALF_BLOCK_SIZE, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
     
@@ -118,7 +118,7 @@ void GametIdle(void)
     
                             // Second follower
                             ramSlot = SpriteSpawnDropFollowers(PSPRITE_GAMET_BLUE_FOLLOWER, gCurrentSprite.roomSlot,
-                                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                                gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                                 gCurrentSprite.yPosition + (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE),
                                 gCurrentSprite.xPosition - HALF_BLOCK_SIZE, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
     

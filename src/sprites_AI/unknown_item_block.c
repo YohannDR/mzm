@@ -121,8 +121,8 @@ void UnknownItemBlock(void)
                 else if (gCurrentSprite.currentAnimationFrame == 0x7 && gCurrentSprite.animationDurationCounter == 0x2)
                 {
                     // Spawn light
-                    activated = SpriteSpawnSecondary(SSPRITE_UNKNOWN_ITEM_BLOCK_LIGHT, 0x0, gCurrentSprite.spritesetGFXSlot,
-                        gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                    activated = SpriteSpawnSecondary(SSPRITE_UNKNOWN_ITEM_BLOCK_LIGHT, 0x0, gCurrentSprite.spritesetGfxSlot,
+                        gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
                     if (activated < 0x18)
                     {

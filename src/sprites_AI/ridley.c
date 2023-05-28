@@ -442,7 +442,7 @@ void RidleySpawnAscendingFireball(u16 timer)
     }
 
     yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE);
-    SpriteSpawnSecondary(SSPRITE_RIDLEY_FIREBALL, timer / 16 & 0xF, gCurrentSprite.spritesetGFXSlot,
+    SpriteSpawnSecondary(SSPRITE_RIDLEY_FIREBALL, timer / 16 & 0xF, gCurrentSprite.spritesetGfxSlot,
         gCurrentSprite.primarySpriteRamSlot, yPosition,
         xPosition, status);
 }
@@ -525,7 +525,7 @@ void RidleyInit(void)
 
             yPosition = gSubSpriteData1.yPosition;
             xPosition = gSubSpriteData1.xPosition;
-            gfxSlot = gCurrentSprite.spritesetGFXSlot;
+            gfxSlot = gCurrentSprite.spritesetGfxSlot;
             ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
             // Spawn left wing
@@ -1061,14 +1061,14 @@ void RidleyIdle(void)
                 if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
                 {
                     SpriteSpawnSecondary(SSPRITE_RIDLEY_FIREBALL, RIDLEY_FIREBALL_PART_SAMUS_GRABBED,
-                        gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                        gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                         gCurrentSprite.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
                         gCurrentSprite.xPosition + (BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE), SPRITE_STATUS_FACING_RIGHT);
                 }
                 else
                 {
                     SpriteSpawnSecondary(SSPRITE_RIDLEY_FIREBALL, RIDLEY_FIREBALL_PART_SAMUS_GRABBED,
-                        gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                        gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                         gCurrentSprite.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
                         gCurrentSprite.xPosition - (BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE), SPRITE_STATUS_NONE);
                 }
@@ -1715,15 +1715,15 @@ void RidleyBigFireballsAttack(void)
 
         // Spawn fireballs, floating pattern
         SpriteSpawnSecondary(SSPRITE_RIDLEY_BIG_FIREBALL, RIDLEY_FIREBALL_PART_FLOATING_PATTERN | RIDLEY_FIREBALL_PART_TOP,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, status);
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, status);
         SpriteSpawnSecondary(SSPRITE_RIDLEY_BIG_FIREBALL, RIDLEY_FIREBALL_PART_FLOATING_PATTERN | RIDLEY_FIREBALL_PART_MIDDLE_TOP,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, status);
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, status);
         SpriteSpawnSecondary(SSPRITE_RIDLEY_BIG_FIREBALL, RIDLEY_FIREBALL_PART_FLOATING_PATTERN | RIDLEY_FIREBALL_PART_MIDDLE,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, status);
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, status);
         SpriteSpawnSecondary(SSPRITE_RIDLEY_BIG_FIREBALL, RIDLEY_FIREBALL_PART_FLOATING_PATTERN | RIDLEY_FIREBALL_PART_MIDDLE_BOTTOM,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, status);
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, status);
         SpriteSpawnSecondary(SSPRITE_RIDLEY_BIG_FIREBALL, RIDLEY_FIREBALL_PART_FLOATING_PATTERN | RIDLEY_FIREBALL_PART_BOTTOM,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, status);
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, status);
 
         SoundPlay(0x1E9);
     }

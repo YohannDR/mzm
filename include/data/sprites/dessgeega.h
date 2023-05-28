@@ -8,7 +8,7 @@ extern const i16 sDessgeegaHighJumpYVelocity[10];
 
 extern const i16 sDessgeegaLowJumpYVelocity[10];
 
-extern const u32 sDessgeegaGFX[270];
+extern const u32 sDessgeegaGfx[270];
 extern const u16 sDessgeegaPAL[16];
 
 extern const u16 sDessgeegaOAM_Idle_Frame0[31];

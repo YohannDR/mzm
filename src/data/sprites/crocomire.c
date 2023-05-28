@@ -142,7 +142,7 @@ const struct FrameData sCrocomireMultiSpriteData_Angry[2] = {
     0x0
 };
 
-const u32 sCrocomireGFX[1954] = INCBIN_U32("data/sprites/Crocomire.gfx.lz");
+const u32 sCrocomireGfx[1954] = INCBIN_U32("data/sprites/Crocomire.gfx.lz");
 const u16 sCrocomirePAL[128] = INCBIN_U16("data/sprites/Crocomire.pal");
 
 const u16 sCrocomireOAM_Screaming_Frame1[22] = {

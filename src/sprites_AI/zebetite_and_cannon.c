@@ -220,7 +220,7 @@ void CannonFireBullet(void)
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && gCurrentSprite.currentAnimationFrame == 1
         && gCurrentSprite.animationDurationCounter == 1)
     {
-        SpriteSpawnSecondary(SSPRITE_CANNON_BULLET, gCurrentSprite.workVariable, gCurrentSprite.spritesetGFXSlot,
+        SpriteSpawnSecondary(SSPRITE_CANNON_BULLET, gCurrentSprite.workVariable, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
     }
 }

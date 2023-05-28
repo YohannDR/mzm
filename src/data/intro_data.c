@@ -421,17 +421,17 @@ const u8 sIntroDefeatTheActions[50] = {
 };
 
 
-const u32 sIntroTextAndShipFlyingInGFX[1310] = INCBIN_U32("data/intro/TextAndShip.gfx.lz");
-const u32 sIntroSpaceBackgroundGFX[3181] = INCBIN_U32("data/intro/SpaceBackground.gfx.lz");
+const u32 sIntroTextAndShipFlyingInGfx[1310] = INCBIN_U32("data/intro/TextAndShip.gfx.lz");
+const u32 sIntroSpaceBackgroundGfx[3181] = INCBIN_U32("data/intro/SpaceBackground.gfx.lz");
 const u32 sIntroSpaceBackgroundTileTable[577] = INCBIN_U32("data/intro/SpaceBackground.tt");
-const u32 sIntroSamusInHerShipGFX[4800] = INCBIN_U32("data/intro/SamusInHerShip.gfx.lz");
+const u32 sIntroSamusInHerShipGfx[4800] = INCBIN_U32("data/intro/SamusInHerShip.gfx.lz");
 const u32 sIntroSamusInHerShipTileTable[418] = INCBIN_U32("data/intro/SamusInHerShip.tt");
-const u32 sIntroSamusShipViewOfZebesGFX[1224] = INCBIN_U32("data/intro/SamusShipViewOfZebes.gfx.lz");
-const u32 sIntroViewOfZebesGFX[2986] = INCBIN_U32("data/intro/ViewOfZebes.gfx.lz");
+const u32 sIntroSamusShipViewOfZebesGfx[1224] = INCBIN_U32("data/intro/SamusShipViewOfZebes.gfx.lz");
+const u32 sIntroViewOfZebesGfx[2986] = INCBIN_U32("data/intro/ViewOfZebes.gfx.lz");
 const u32 sIntroViewOfZebesTileTable[577] = INCBIN_U32("data/intro/ViewOfZebes.tt");
-const u32 sIntroMotherBrainGFX[5004] = INCBIN_U32("data/intro/MotherBrain.gfx.lz");
+const u32 sIntroMotherBrainGfx[5004] = INCBIN_U32("data/intro/MotherBrain.gfx.lz");
 const u32 sIntroMotherBrainTileTable[577] = INCBIN_U32("data/intro/MotherBrain.tt");
-const u32 sIntroFuzzGFX[5224] = INCBIN_U32("data/intro/Fuzz.gfx.lz");
+const u32 sIntroFuzzGfx[5224] = INCBIN_U32("data/intro/Fuzz.gfx.lz");
 const u32 sIntro_47920c[125] = INCBIN_U32("data/intro/47920c.tt");
 
 

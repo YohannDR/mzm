@@ -141,10 +141,10 @@ void PistonInit(void)
 }
 
 /**
- * @brief 31890 | 2c | Initializes the GFX for a piston
+ * @brief 31890 | 2c | Initializes the Gfx for a piston
  * 
  */
-void PistonGFXInit(void)
+void PistonGfxInit(void)
 {
     gCurrentSprite.pOam = sPistonOAM_Idle;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -238,7 +238,7 @@ void Piston(void)
             PistonInit();
 
         case 0x8:
-            PistonGFXInit();
+            PistonGfxInit();
         
         case PISTON_POSE_CHECK_FOR_PROJECTILES:
             PistonCheckProjectile();

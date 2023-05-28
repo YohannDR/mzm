@@ -291,7 +291,7 @@ void AnimatedGraphicsTanksAnimationUpdate(void)
             gTankAnimations[i].frame = 0;
 
         // Transfer graphics
-        dma_set(3, &sAnimatedTankGFX[i * 512 + gTankAnimations[i].frame * 0x80],
+        dma_set(3, &sAnimatedTankGfx[i * 512 + gTankAnimations[i].frame * 0x80],
             VRAM_BASE + 0x4820 + i * 0x80, DMA_ENABLE << 16 | 0x40);
     }
 }

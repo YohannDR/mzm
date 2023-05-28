@@ -2133,8 +2133,8 @@ lbl_0803e930: .4byte gEffectYPosition
 lbl_0803e934: .4byte gCurrentSprite
 lbl_0803e938: .4byte gSubSpriteData1
 
-    thumb_func_start AcidWormDeathGFXInit
-AcidWormDeathGFXInit: @ 0x0803e93c
+    thumb_func_start AcidWormDeathGfxInit
+AcidWormDeathGfxInit: @ 0x0803e93c
     ldr r0, lbl_0803e958 @ =gCurrentSprite
     ldr r1, lbl_0803e95c @ =0x082fc138
     str r1, [r0, #0x18]
@@ -3313,8 +3313,8 @@ lbl_0803f278:
     .align 2, 0
 lbl_0803f280: .4byte gPreviousCollisionCheck
 
-    thumb_func_start AcidWormSpitExplodingGFXInit
-AcidWormSpitExplodingGFXInit: @ 0x0803f284
+    thumb_func_start AcidWormSpitExplodingGfxInit
+AcidWormSpitExplodingGfxInit: @ 0x0803f284
     push {lr}
     ldr r2, lbl_0803f2c0 @ =gCurrentSprite
     ldr r0, lbl_0803f2c4 @ =0x082fc2e8
@@ -3559,7 +3559,7 @@ lbl_0803f52c:
     bl AcidWormAcidGoDown
     b lbl_0803f542
 lbl_0803f532:
-    bl AcidWormDeathGFXInit
+    bl AcidWormDeathGfxInit
     b lbl_0803f542
 lbl_0803f538:
     bl AcidWormDeathFlashingAnim
@@ -3718,7 +3718,7 @@ lbl_0803f658:
     bl AcidWormSpitMove
     b lbl_0803f67e
 lbl_0803f65e:
-    bl AcidWormSpitExplodingGFXInit
+    bl AcidWormSpitExplodingGfxInit
 lbl_0803f662:
     bl acid_worm_check_exploding_anim_ended
     b lbl_0803f67e

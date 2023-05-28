@@ -5,7 +5,7 @@
 #include "macros.h"
 #include "oam.h"
 
-extern const u32 sRinkaZebetiteAndCannonGFX[476];
+extern const u32 sRinkaZebetiteAndCannonGfx[476];
 extern const u16 sRinkaZebetiteAndCannonPAL[32];
 
 extern const u16 sRinkaMotherBrainOAM_Moving_Frame0[7];

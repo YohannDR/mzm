@@ -28,7 +28,7 @@ const u16 sMellaMovingXMovement[7] = {
     0, 1, 2, 3, 4, 5, 6 
 };
 
-const u32 sMellaGFX[162] = INCBIN_U32("data/sprites/Mella.gfx.lz");
+const u32 sMellaGfx[162] = INCBIN_U32("data/sprites/Mella.gfx.lz");
 const u16 sMellaPAL[16] = INCBIN_U16("data/sprites/Mella.pal");
 
 const u16 sMellaOAM_Idle_Frame0[4] = {

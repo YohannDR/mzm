@@ -28,8 +28,8 @@ u8 RidleyLandingRidleyFlying(void)
 			
             write16(PALRAM_BASE, 0);
 			
-            CallLZ77UncompVRAM(sRidleyLandingRidleyFlyingBackgroundGFX, VRAM_BASE + sRidleyLandingPageData[4].graphicsPage * 0x4000);
-			CallLZ77UncompVRAM(sRidleyLandingRidleyAndRockShadowGFX, VRAM_BASE + 4 * 0x4000);
+            CallLZ77UncompVRAM(sRidleyLandingRidleyFlyingBackgroundGfx, VRAM_BASE + sRidleyLandingPageData[4].graphicsPage * 0x4000);
+			CallLZ77UncompVRAM(sRidleyLandingRidleyAndRockShadowGfx, VRAM_BASE + 4 * 0x4000);
 			CallLZ77UncompVRAM(sRidleyLandingRidleyFlyingBackgroundTileTable, VRAM_BASE + sRidleyLandingPageData[4].tiletablePage * 0x800);
 			
             CutsceneSetBGCNTPageData(sRidleyLandingPageData[4]);
@@ -123,12 +123,12 @@ u8 RidleyLandingShipLanding(void)
 
             write16(PALRAM_BASE, 0);
 
-            CallLZ77UncompVRAM(sCutsceneZebesMotherShipBackgroundGFX, VRAM_BASE + sRidleyLandingPageData[1].graphicsPage * 0x4000);
-            CallLZ77UncompVRAM(sCutsceneZebesGroundGFX, VRAM_BASE + sRidleyLandingPageData[3].graphicsPage * 0x4000);
-            CallLZ77UncompVRAM(sCutsceneZebesRockyBackgroundGFX, VRAM_BASE + 0x4C00 + sRidleyLandingPageData[2].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sCutsceneZebesMotherShipBackgroundGfx, VRAM_BASE + sRidleyLandingPageData[1].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sCutsceneZebesGroundGfx, VRAM_BASE + sRidleyLandingPageData[3].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sCutsceneZebesRockyBackgroundGfx, VRAM_BASE + 0x4C00 + sRidleyLandingPageData[2].graphicsPage * 0x4000);
 
             BitFill(3, 0, VRAM_BASE + 0x10000, 0x800, 0x20);
-            CallLZ77UncompVRAM(sCutsceneMotherShipEscapeShipParticlesGFX, VRAM_BASE + 0x10000);
+            CallLZ77UncompVRAM(sCutsceneMotherShipEscapeShipParticlesGfx, VRAM_BASE + 0x10000);
 
             CallLZ77UncompVRAM(sCutsceneZebesMotherShipBackgroundTileTable, VRAM_BASE + sRidleyLandingPageData[1].tiletablePage * 0x800);
             CallLZ77UncompVRAM(sCutscene_3b5168_TileTable, VRAM_BASE + sRidleyLandingPageData[2].tiletablePage * 0x800);
@@ -404,18 +404,18 @@ u8 RidleyLandingInit(void)
     DMATransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
     write16(PALRAM_BASE, 0);
 
-    CallLZ77UncompVRAM(sRidleyLandingZebesBackgroundGFX, VRAM_BASE + sRidleyLandingPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sRidleyLandingZebesBackgroundGfx, VRAM_BASE + sRidleyLandingPageData[0].graphicsPage * 0x4000);
     CallLZ77UncompVRAM(sRidleyLandingZebesBackgroundTileTable, VRAM_BASE + sRidleyLandingPageData[0].tiletablePage * 0x800);
 
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGFX_1, VRAM_BASE + 0x10000);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGFX_2, VRAM_BASE + 0x10400);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGFX_3, VRAM_BASE + 0x10800);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGFX_4, VRAM_BASE + 0x10C00);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGFX_5, VRAM_BASE + 0x11000);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGFX_6, VRAM_BASE + 0x11400);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGFX_7, VRAM_BASE + 0x11800);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGFX_8, VRAM_BASE + 0x11C00);
-    CallLZ77UncompVRAM(sRidleyLandingMotherShipGFX_9, VRAM_BASE + 0x12000);
+    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_1, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_2, VRAM_BASE + 0x10400);
+    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_3, VRAM_BASE + 0x10800);
+    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_4, VRAM_BASE + 0x10C00);
+    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_5, VRAM_BASE + 0x11000);
+    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_6, VRAM_BASE + 0x11400);
+    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_7, VRAM_BASE + 0x11800);
+    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_8, VRAM_BASE + 0x11C00);
+    CallLZ77UncompVRAM(sRidleyLandingMotherShipGfx_9, VRAM_BASE + 0x12000);
 
     CutsceneSetBGCNTPageData(sRidleyLandingPageData[0]);
     CutsceneReset();

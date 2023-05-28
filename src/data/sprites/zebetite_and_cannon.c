@@ -1,7 +1,7 @@
 #include "data/sprites/zebetite_and_cannon.h"
 #include "macros.h"
 
-const u32 sRinkaZebetiteAndCannonGFX[476] = INCBIN_U32("data/sprites/ZebetiteRinkaCannon.gfx.lz");
+const u32 sRinkaZebetiteAndCannonGfx[476] = INCBIN_U32("data/sprites/ZebetiteRinkaCannon.gfx.lz");
 const u16 sRinkaZebetiteAndCannonPAL[32] = INCBIN_U16("data/sprites/ZebetiteRinkaCannon.pal");
 
 const u16 sRinkaMotherBrainOAM_Moving_Frame0[7] = {

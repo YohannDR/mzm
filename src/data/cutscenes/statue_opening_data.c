@@ -73,6 +73,6 @@ const struct OamArray sStatueOpeningOam[9] = {
 };
 
 const u16 sStatueOpeningPAL[8 * 16] = INCBIN_U16("data/cutscenes/StatueOpening/Palette.pal");
-const u32 sStatueOpeningRoomGFX[2357] = INCBIN_U32("data/cutscenes/StatueOpening/Room.gfx.lz");
+const u32 sStatueOpeningRoomGfx[2357] = INCBIN_U32("data/cutscenes/StatueOpening/Room.gfx.lz");
 const u32 sStatueOpeningRoomTileTable[318] = INCBIN_U32("data/cutscenes/StatueOpening/Room.tt");
 const u32 sStatueOpening_3effc8[242] = INCBIN_U32("data/cutscenes/StatueOpening/3effc8.tt");

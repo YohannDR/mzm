@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sSearchlightEyeGFX[177];
+extern const u32 sSearchlightEyeGfx[177];
 extern const u16 sSearchlightEyePAL[16];
 
 extern const u16 sSearchlightEyeOAM_Idle_Frame0[10];

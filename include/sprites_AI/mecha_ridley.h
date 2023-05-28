@@ -88,8 +88,8 @@
 
 void MechaRidleySyncSubSprites(void);
 void MechaRidleyPartGreenGlow(void);
-void MechaRidleyLoadFireballsGFX(void);
-void MechaRidleyLoadMissilesGFX(void);
+void MechaRidleyLoadFireballsGfx(void);
+void MechaRidleyLoadMissilesGfx(void);
 u8 MechaRidleyUpdateHeight(void);
 void MechaRidleyCrawlingBackwardsInit(u8 leftArmSlot);
 void MechaRidleyClawAttackInit(u8 leftArmSlot);

@@ -2423,7 +2423,7 @@ void SamusUpdateHitboxMovingDirection(void)
  * 78e0 | 3c | Calls functions related to updating samus' graphics
  * 
  */
-void SamusCallGFXFunctions(void)
+void SamusCallGfxFunctions(void)
 {
     struct SamusData* pData;
     u8 direction;
@@ -3305,12 +3305,12 @@ u8 SamusRunning(struct SamusData* pData)
 }
 
 /**
- * @brief 85b0 | 124 | Running GFX subroutine
+ * @brief 85b0 | 124 | Running Gfx subroutine
  * 
  * @param pData Samus data pointer
  * @return u8 New pose
  */
-u8 SamusRunningGFX(struct SamusData* pData)
+u8 SamusRunningGfx(struct SamusData* pData)
 {
     const struct SamusAnimationData* pAnim;
     struct ScrewSpeedAnimation* pScrew;
@@ -3462,7 +3462,7 @@ u8 SamusStanding(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusStandingGFX(struct SamusData* pData)
+u8 SamusStandingGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
         pData->currentAnimationFrame = 0;
@@ -3502,7 +3502,7 @@ u8 SamusTurningAround(struct SamusData* pData)
     }
 }
 
-u8 SamusTurningAroundGFX(struct SamusData* pData)
+u8 SamusTurningAroundGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
     {
@@ -3517,7 +3517,7 @@ u8 SamusTurningAroundGFX(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusShootingGFX(struct SamusData* pData)
+u8 SamusShootingGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_STANDING;
@@ -3656,7 +3656,7 @@ u8 SamusTurningAroundAndCrouching(struct SamusData* pData)
     }
 }
 
-u8 SamusTurningAroundAndCrouchingGFX(struct SamusData* pData)
+u8 SamusTurningAroundAndCrouchingGfx(struct SamusData* pData)
 {
     u8 animState;
 
@@ -3672,7 +3672,7 @@ u8 SamusTurningAroundAndCrouchingGFX(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 SamusShootingAndCrouchingGFX(struct SamusData* pData)
+u8 SamusShootingAndCrouchingGfx(struct SamusData* pData)
 {
     u8 animState;
 
@@ -3789,7 +3789,7 @@ u8 SamusMidAir(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusMidAirGFX(struct SamusData* pData)
+u8 SamusMidAirGfx(struct SamusData* pData)
 {
     if (pData->yVelocity >= 0)
     {
@@ -3839,7 +3839,7 @@ u8 SamusTurningAroundMidAir(struct SamusData* pData)
     }
 }
 
-u8 SamusTurningAroundMidAirGFX(struct SamusData* pData)
+u8 SamusTurningAroundMidAirGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
     {
@@ -3850,7 +3850,7 @@ u8 SamusTurningAroundMidAirGFX(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 SamusStartingSpinJumpGFX(struct SamusData* pData)
+u8 SamusStartingSpinJumpGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
     {
@@ -3941,7 +3941,7 @@ u8 SamusSpinning(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusSpinningGFX(struct SamusData* pData)
+u8 SamusSpinningGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, gSamusPhysics.slowedByLiquid) == SAMUS_ANIM_STATE_ENDED)
         pData->currentAnimationFrame = 0;
@@ -3978,7 +3978,7 @@ u8 SamusStartingWallJump(struct SamusData* pData)
     }
 }
 
-u8 SamusStartingWallJumpGFX(struct SamusData* pData)
+u8 SamusStartingWallJumpGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == 0x2)
     {
@@ -3989,7 +3989,7 @@ u8 SamusStartingWallJumpGFX(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 SamusSpaceJumpingGFX(struct SamusData* pData)
+u8 SamusSpaceJumpingGfx(struct SamusData* pData)
 {
     if (pData->animationDurationCounter == 0x1 && pData->currentAnimationFrame == 0)
     {
@@ -4006,12 +4006,12 @@ u8 SamusSpaceJumpingGFX(struct SamusData* pData)
 }
 
 /**
- * @brief 9150 | c0 | Screw attacking GFX subroutine
+ * @brief 9150 | c0 | Screw attacking Gfx subroutine
  * 
  * @param pData Samus data pointer
  * @return u8 New pose
  */
-u8 SamusScrewAttackingGFX(struct SamusData* pData)
+u8 SamusScrewAttackingGfx(struct SamusData* pData)
 {
     const struct SamusAnimationData* pAnim;
     u8 timer;
@@ -4074,7 +4074,7 @@ u8 SamusMorphing(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusMorphingGFX(struct SamusData* pData)
+u8 SamusMorphingGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
         return SPOSE_MORPH_BALL;
@@ -4223,7 +4223,7 @@ u8 SamusRolling(struct SamusData* pData)
     return SPOSE_MORPH_BALL;
 }
 
-u8 SamusRollingGFX(struct SamusData* pData)
+u8 SamusRollingGfx(struct SamusData* pData)
 {
     u8 animState;
 
@@ -4253,7 +4253,7 @@ u8 SamusUnmorphing(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusUnmorphingGFX(struct SamusData* pData)
+u8 SamusUnmorphingGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
     {
@@ -4395,7 +4395,7 @@ u8 SamusHangingOnLedge(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusHangingOnLedgeGFX(struct SamusData* pData)
+u8 SamusHangingOnLedgeGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, gSamusPhysics.slowedByLiquid) == SAMUS_ANIM_STATE_ENDED)
         pData->currentAnimationFrame = 0;
@@ -4458,7 +4458,7 @@ u8 SamusTurningToAimWhileHanging(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusTurningToAimWhileHangingGFX(struct SamusData* pData)
+u8 SamusTurningToAimWhileHangingGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, gSamusPhysics.slowedByLiquid) == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_AIMING_WHILE_HANGING;
@@ -4466,7 +4466,7 @@ u8 SamusTurningToAimWhileHangingGFX(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 SamusHidingArmCannonWhileHangingGFX(struct SamusData* pData)
+u8 SamusHidingArmCannonWhileHangingGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, gSamusPhysics.slowedByLiquid) == SAMUS_ANIM_STATE_ENDED)
     {
@@ -4590,7 +4590,7 @@ u8 SamusPullingSelfUp(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusPullingSelfUpGFX(struct SamusData* pData)
+u8 SamusPullingSelfUpGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, pData->timer) == SAMUS_ANIM_STATE_ENDED)
     {
@@ -4611,7 +4611,7 @@ u8 SamusPullingSelfForward(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusPullingSelfForwardGFX(struct SamusData* pData)
+u8 SamusPullingSelfForwardGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
     {
@@ -4624,7 +4624,7 @@ u8 SamusPullingSelfForwardGFX(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 SamusPullingSelfIntoMorphballTunnelGFX(struct SamusData* pData)
+u8 SamusPullingSelfIntoMorphballTunnelGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, pData->timer) == SAMUS_ANIM_STATE_SUB_ENDED)
     {
@@ -4695,12 +4695,12 @@ u8 SamusUsingAnElevator(struct SamusData* pData)
 }
 
 /**
- * @brief 9bb4 | 50 | Using an elevator GFX subroutine
+ * @brief 9bb4 | 50 | Using an elevator Gfx subroutine
  * 
  * @param pData Samus data pointer
  * @return u8 New pose
  */
-u8 SamusUsingAnElevatorGFX(struct SamusData* pData)
+u8 SamusUsingAnElevatorGfx(struct SamusData* pData)
 {
     const struct SamusAnimationData* pAnim;
 
@@ -4746,7 +4746,7 @@ u8 SamusFacingTheForeground(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 SamusTurningFromFacningForegroundGFX(struct SamusData* pData)
+u8 SamusTurningFromFacningForegroundGfx(struct SamusData* pData)
 {
     if (pData->animationDurationCounter >= 0x2)
     {
@@ -4763,7 +4763,7 @@ u8 SamusTurningFromFacningForegroundGFX(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 SamusDelayBeforeShinesparkingGFX(struct SamusData* pData)
+u8 SamusDelayBeforeShinesparkingGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
     {
@@ -4844,12 +4844,12 @@ u8 SamusShinesparking(struct SamusData* pData)
 }
 
 /**
- * @brief 9d50 | 8c | Samus shinesparking GFX subroutine
+ * @brief 9d50 | 8c | Samus shinesparking Gfx subroutine
  * 
  * @param pData Samus data pointer
  * @return u8 New pose
  */
-u8 SamusShinesparkingGFX(struct SamusData* pData)
+u8 SamusShinesparkingGfx(struct SamusData* pData)
 {
     const struct SamusAnimationData* pAnim;
     u8 loopFrame;
@@ -4893,7 +4893,7 @@ u8 SamusShinesparkingGFX(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusShinesparkCollisionGFX(struct SamusData* pData)
+u8 SamusShinesparkCollisionGfx(struct SamusData* pData)
 {
     if (pData->animationDurationCounter >= 0x11)
         return SPOSE_DELAY_AFTER_SHINESPARKING;
@@ -4901,7 +4901,7 @@ u8 SamusShinesparkCollisionGFX(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 SamusDelayAfterShinesparkingGFX(struct SamusData* pData)
+u8 SamusDelayAfterShinesparkingGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -4924,12 +4924,12 @@ u8 SamusDelayBeforeBallsparking(struct SamusData* pData)
 }
 
 /**
- * @brief 9e34 | 88 | Delay before ballsparking GFX subroutine
+ * @brief 9e34 | 88 | Delay before ballsparking Gfx subroutine
  * 
  * @param pData Samus Data Pointer
  * @return u8 New pose
  */
-u8 SamusDelayBeforeBallsparkingGFX(struct SamusData* pData)
+u8 SamusDelayBeforeBallsparkingGfx(struct SamusData* pData)
 {
     u8 animState;
 
@@ -4968,12 +4968,12 @@ u8 SamusDelayBeforeBallsparkingGFX(struct SamusData* pData)
 }
 
 /**
- * @brief 9ebc | 7c | Ballsparking GFX subroutine
+ * @brief 9ebc | 7c | Ballsparking Gfx subroutine
  * 
  * @param pData Samus Data Pointer
  * @return u8 New pose
  */
-u8 SamusBallsparkingGFX(struct SamusData* pData)
+u8 SamusBallsparkingGfx(struct SamusData* pData)
 {
     const struct SamusAnimationData* pAnim;
 
@@ -5005,7 +5005,7 @@ u8 SamusBallsparkingGFX(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusBallsparkCollisionGFX(struct SamusData* pData)
+u8 SamusBallsparkCollisionGfx(struct SamusData* pData)
 {
     if (pData->animationDurationCounter >= 0x11)
         return SPOSE_UPDATE_JUMP_VELOCITY_REQUEST;
@@ -5034,7 +5034,7 @@ u8 SamusOnZipline(struct SamusData* pData)
     }
 }
 
-u8 SamusShootingOnZiplineGFX(struct SamusData* pData)
+u8 SamusShootingOnZiplineGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
         return SPOSE_ON_ZIPLINE;
@@ -5105,7 +5105,7 @@ u8 SamusGettingHurt(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusGettingHurtGFX(struct SamusData* pData)
+u8 SamusGettingHurtGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
         pData->currentAnimationFrame--; // Alternate between last frames
@@ -5209,7 +5209,7 @@ u8 SamusDying(struct SamusData* pData)
     return SPOSE_NONE;
 }
 
-u8 SamusCrouchingToCrawlGFX(struct SamusData* pData)
+u8 SamusCrouchingToCrawlGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
     {
@@ -5239,7 +5239,7 @@ u8 SamusCrawlingStopped(struct SamusData* pData)
         return SPOSE_TURNING_AROUND_WHILE_CRAWLING;
 }
 
-u8 SamusStartingToCrawlGFX(struct SamusData* pData)
+u8 SamusStartingToCrawlGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_SUB_ENDED)
         return SPOSE_CRAWLING_STOPPED;
@@ -5273,7 +5273,7 @@ u8 SamusCrawling(struct SamusData* pData)
     }
 }
 
-u8 SamusDyingGFX(struct SamusData* pData)
+u8 SamusDyingGfx(struct SamusData* pData)
 {
     u8 animState;
 
@@ -5297,7 +5297,7 @@ u8 SamusTurningAroundWhileCrawling(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 SamusCrawlingGFX(struct SamusData* pData)
+u8 SamusCrawlingGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_STARTING_TO_CRAWL;
@@ -5305,7 +5305,7 @@ u8 SamusCrawlingGFX(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 SamusGrabbingALedgeSuitlessGFX(struct SamusData* pData)
+u8 SamusGrabbingALedgeSuitlessGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == 0x2)
         return SPOSE_HANGING_ON_LEDGE;
@@ -5327,7 +5327,7 @@ u8 SamusFacingTheBackground(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 SamusTurningFromFacingTheBackgroundGFX(struct SamusData* pData)
+u8 SamusTurningFromFacingTheBackgroundGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
     {
@@ -5344,7 +5344,7 @@ u8 SamusTurningFromFacingTheBackgroundGFX(struct SamusData* pData)
         return SPOSE_NONE;
 }
 
-u8 SamusTurningToEnterEscapeShipGFX(struct SamusData* pData)
+u8 SamusTurningToEnterEscapeShipGfx(struct SamusData* pData)
 {
     if (SamusUpdateAnimation(pData, FALSE) == SAMUS_ANIM_STATE_ENDED)
         return SPOSE_IN_ESCAPE_SHIP;
@@ -5385,7 +5385,7 @@ u8 SamusExecutePoseSubroutine(struct SamusData* pData)
         samus_spawn_newProjectile(pData, pWeapon, pEquipment);
         pose = sSamusPoseFunctionPointers[pData->pose](pData);
         if (pose == SPOSE_NONE)
-            sSamusPoseGFXFunctionPointers[pData->pose](pData);
+            sSamusPoseGfxFunctionPointers[pData->pose](pData);
         SamusCheckShinesparking(pData);
     }
 

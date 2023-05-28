@@ -92,9 +92,9 @@ u8 MechaRidleySeesSamusInit(void)
 
     write16(PALRAM_BASE, 0);
 
-    CallLZ77UncompVRAM(sMechaSeesSamusMetalGFX, VRAM_BASE + sMechaRidleySeesSamusPagesData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sMechaSeesSamusMetalGfx, VRAM_BASE + sMechaRidleySeesSamusPagesData[0].graphicsPage * 0x4000);
     CallLZ77UncompVRAM(sMechaSeesSamusCoverMetalTileTable, VRAM_BASE + sMechaRidleySeesSamusPagesData[0].tiletablePage * 0x800);
-    CallLZ77UncompVRAM(sMechaSeesSamusCoverEyeGFX, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sMechaSeesSamusCoverEyeGfx, VRAM_BASE + 0x10000);
 
     CutsceneSetBGCNTPageData(sMechaRidleySeesSamusPagesData[0]);
 

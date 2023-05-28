@@ -272,7 +272,7 @@ void AtomicCheckShootElectricity(void)
             gCurrentSprite.workVariable = 0x0;
             gCurrentSprite.oamRotation = 0x1;
 
-            SpriteSpawnSecondary(SSPRITE_ATOMIC_ELECTRICITY, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot,
+            SpriteSpawnSecondary(SSPRITE_ATOMIC_ELECTRICITY, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         }
     }

@@ -2,7 +2,7 @@
 
 #include "macros.h"
 
-const u32 sAreaBannerGFX[65] = INCBIN_U32("data/sprites/AreaBanner.gfx.lz");
+const u32 sAreaBannerGfx[65] = INCBIN_U32("data/sprites/AreaBanner.gfx.lz");
 const u16 sAreaBannerPAL[16] = INCBIN_U16("data/sprites/AreaBanner.pal");
 const u16 sAreaBannerLocationTextPAL[16] = INCBIN_U16("data/sprites/AreaBannerLocationText.pal");
 

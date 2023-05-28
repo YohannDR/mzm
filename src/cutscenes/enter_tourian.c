@@ -502,13 +502,13 @@ u8 EnterTourianInit(void)
     DMATransfer(3, sEnterTourianMetroidPAL, PALRAM_OBJ, sizeof(sEnterTourianMetroidPAL), 0x10);
     DMATransfer(3, sMetroidPAL, PALRAM_BASE + 0x300, sizeof(sMetroidPAL), 0x10);
 
-    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGFX_1, VRAM_BASE + 0x10000);
-    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGFX_2, VRAM_BASE + 0x10400);
-    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGFX_3, VRAM_BASE + 0x10800);
-    CallLZ77UncompVRAM(sMetroidGFX, VRAM_BASE + 0x14000);
+    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGfx_1, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGfx_2, VRAM_BASE + 0x10400);
+    CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGfx_3, VRAM_BASE + 0x10800);
+    CallLZ77UncompVRAM(sMetroidGfx, VRAM_BASE + 0x14000);
     
-    CallLZ77UncompVRAM(sEnterTourianBackgroundGFX, VRAM_BASE + sEnterTourianPageData[0].graphicsPage * 0x4000);
-    CallLZ77UncompVRAM(sEnterTourianForegroundGFX, VRAM_BASE + sEnterTourianPageData[1].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sEnterTourianBackgroundGfx, VRAM_BASE + sEnterTourianPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sEnterTourianForegroundGfx, VRAM_BASE + sEnterTourianPageData[1].graphicsPage * 0x4000);
 
     CallLZ77UncompVRAM(sEnterTourianBackgroundTileTable, VRAM_BASE + sEnterTourianPageData[0].tiletablePage * 0x800);
     CallLZ77UncompVRAM(sEnterTourianForegroundTileTable, VRAM_BASE + sEnterTourianPageData[1].tiletablePage * 0x800);

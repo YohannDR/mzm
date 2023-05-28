@@ -14,7 +14,7 @@ const i16 sDragonFireballOAMRotation[40] = {
     52, 56, 60, 64, 64, 64, 64, 64, SHORT_MAX
 };
 
-const u32 sDragonGFX[512] = INCBIN_U32("data/sprites/Dragon.gfx.lz");
+const u32 sDragonGfx[512] = INCBIN_U32("data/sprites/Dragon.gfx.lz");
 const u16 sDragonPAL[32] = INCBIN_U16("data/sprites/Dragon.pal");
 
 const u16 sDragonOAM_Spitting_Frame0[7] = {

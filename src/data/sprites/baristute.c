@@ -10,7 +10,7 @@ const i16 sBaristuteJumpingYVelocity[10] = {
     -12, -16, -16, -8, -4, 0, 12, 18, 24, 32
 };
 
-const u32 sBaristuteGFX[596] = INCBIN_U32("data/sprites/Baristute.gfx.lz");
+const u32 sBaristuteGfx[596] = INCBIN_U32("data/sprites/Baristute.gfx.lz");
 const u16 sBaristutePAL[80] = INCBIN_U16("data/sprites/Baristute.pal");
 
 const u16 sBaristuteOAM_Idle_Frame0[49] = {

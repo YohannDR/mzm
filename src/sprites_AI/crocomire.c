@@ -74,7 +74,7 @@ void CrocomireInit(void)
     gCurrentSprite.frozenPaletteRowOffset = 0x2;
     gCurrentSprite.roomSlot = CROCOMIRE_PART_HEAD;
 
-    gfxSlot = gCurrentSprite.spritesetGFXSlot;
+    gfxSlot = gCurrentSprite.spritesetGfxSlot;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_RIGHT_ARM, gfxSlot, ramSlot, yPosition, xPosition, 0x0);

@@ -12,7 +12,7 @@ void RoomReset(void);
 void RoomSetBackgroundScrolling(void);
 void RoomSetInitialTilemap(u8 bgNumber);
 u32 RoomRLEDecompress(u8 isBG, const u8* src, u8* dst);
-void RoomUpdateGFXInfo(void);
+void RoomUpdateGfxInfo(void);
 void RoomUpdateAnimatedGraphicsAndPalettes(void);
 void RoomUpdateHatchFlashingAnimation(void);
 void RoomUpdate(void);

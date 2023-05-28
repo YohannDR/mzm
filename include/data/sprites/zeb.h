@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sZebPinkGFX[162];
+extern const u32 sZebPinkGfx[162];
 extern const u16 sZebPinkPAL[16];
-extern const u32 sZebBlueGFX[162];
+extern const u32 sZebBlueGfx[162];
 extern const u16 sZebBluePAL[16];
 
 extern const u16 sZebOAM_Idle_Frame0[7];

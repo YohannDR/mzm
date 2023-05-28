@@ -225,7 +225,7 @@ void DragonSpit(void)
         else
             xPosition = gCurrentSprite.xPosition - 0x28;
         // Spawn projectile
-        SpriteSpawnSecondary(SSPRITE_DRAGON_FIREBALL, 0x0, gCurrentSprite.spritesetGFXSlot,
+        SpriteSpawnSecondary(SSPRITE_DRAGON_FIREBALL, 0x0, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, gCurrentSprite.status & SPRITE_STATUS_XFLIP);
     }
 }

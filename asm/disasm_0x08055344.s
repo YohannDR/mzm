@@ -3303,8 +3303,8 @@ lbl_08056e1a:
     pop {r1}
     bx r1
 
-    thumb_func_start RoomUpdateGFXInfo
-RoomUpdateGFXInfo: @ 0x08056e28
+    thumb_func_start RoomUpdateGfxInfo
+RoomUpdateGfxInfo: @ 0x08056e28
     push {lr}
     ldr r0, lbl_08056e40 @ =gSamusData
     ldrb r0, [r0]

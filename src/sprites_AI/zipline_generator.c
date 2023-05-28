@@ -63,7 +63,7 @@ void ZiplineGeneratorInit(void)
 
     // Spawn conductor
     ramSlot = SpriteSpawnSecondary(SSPRITE_ZIPLINE_GENERATOR_PART, ZIPLINE_GENERATOR_PART_CONDUCTOR,
-        gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+        gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
         gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
     if (ramSlot < MAX_AMOUNT_OF_SPRITES)
@@ -136,7 +136,7 @@ void ZiplineGeneratorDetectSamus(void)
 
         // Spawn morph symbol
         newRamSlot = SpriteSpawnSecondary(SSPRITE_ZIPLINE_GENERATOR_PART, ZIPLINE_GENERATOR_PART_MORPH_SYMBOL,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
             gSamusData.yPosition - 0x18, gSamusData.xPosition, 0x0);
 
         if (newRamSlot < MAX_AMOUNT_OF_SPRITES)
@@ -184,7 +184,7 @@ void ZiplineGeneratorActivating(void)
     {
         // Spawn electricity
         ramSlot = SpriteSpawnSecondary(SSPRITE_ZIPLINE_GENERATOR_PART, ZIPLINE_GENERATOR_PART_ELECTRICITY,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
             gCurrentSprite.yPosition - BLOCK_SIZE * 6, gCurrentSprite.xPosition, 0x0);
 
         if (ramSlot < MAX_AMOUNT_OF_SPRITES)

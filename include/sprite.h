@@ -14,7 +14,7 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot);
 void SpriteCheckOnScreen(struct SpriteData* pSprite);
 void SpriteLoadAllData(void);
 void SpriteLoadSpriteset(void);
-void SpriteLoadGFX(u8 spriteID, u8 gfx_row);
+void SpriteLoadGfx(u8 spriteID, u8 gfx_row);
 void SpriteLoadPAL(u8 spriteID, u8 row, u8 len);
 void SpriteClearData(void);
 void SpriteLoadRoomSprites(void);

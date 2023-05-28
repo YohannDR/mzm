@@ -331,10 +331,10 @@ void EraseSramInit(void)
     dma_set(3, sEraseSramMenuObjectsPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sEraseSramMenuObjectsPAL) / 2);
     write16(PALRAM_BASE, 0);
 
-    LZ77UncompVRAM(sEraseSramMenuFirstBoxGFX, VRAM_BASE + 0x1000);
-    LZ77UncompVRAM(sEraseSramMenuObjectsGFX, VRAM_BASE + 0x12000);
-    LZ77UncompVRAM(sTitleScreenSpaceBackgroundDecorationGFX, VRAM_BASE + 0x1800);
-    LZ77UncompVRAM(sTitleScreenSpaceAndGroundBackgroundGFX, VRAM_BASE + 0x3400);
+    LZ77UncompVRAM(sEraseSramMenuFirstBoxGfx, VRAM_BASE + 0x1000);
+    LZ77UncompVRAM(sEraseSramMenuObjectsGfx, VRAM_BASE + 0x12000);
+    LZ77UncompVRAM(sTitleScreenSpaceBackgroundDecorationGfx, VRAM_BASE + 0x1800);
+    LZ77UncompVRAM(sTitleScreenSpaceAndGroundBackgroundGfx, VRAM_BASE + 0x3400);
 
     LZ77UncompVRAM(sEraseSramTextGfxPointers[ERASE_SRAM_DATA.language][0], VRAM_BASE);
     LZ77UncompVRAM(sEraseSramTextGfxPointers[ERASE_SRAM_DATA.language][1], VRAM_BASE + 0x11000);

@@ -311,7 +311,7 @@ void AcidWormInit(void)
             gSubSpriteData1.health = gCurrentSprite.yPositionSpawn - 0x80; // Acid base position
             gCurrentSprite.roomSlot = 0x0;
 
-            gfxSlot = gCurrentSprite.spritesetGFXSlot;
+            gfxSlot = gCurrentSprite.spritesetGfxSlot;
             ramSlot = gCurrentSprite.primarySpriteRamSlot;
             
             // Spawn body
@@ -737,30 +737,30 @@ void AcidWormExtended(void)
         {
             // First spit
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x0, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition + 0x30, SPRITE_STATUS_XFLIP);
             else
-                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x0, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0x30, 0x0);
         }
         else if (gCurrentSprite.currentAnimationFrame == 0x7 && gCurrentSprite.animationDurationCounter == 0x1)
         {
             // Second spit
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x1, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x1, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition + 0x30, SPRITE_STATUS_XFLIP);
             else
-                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x1, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x1, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0x30, 0x0);
         }
         else if (gCurrentSprite.currentAnimationFrame == 0x9 && gCurrentSprite.animationDurationCounter == 0x1)
         {
             // Third spit
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x2, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x2, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition + 0x30, SPRITE_STATUS_XFLIP);
             else
-                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x2, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x2, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0x30, 0x0);
         }
 
@@ -930,7 +930,7 @@ void AcidWormAcidGoDown(void)
  * @brief 3e93c | 24 | Initializes the acid worm to be dying
  * 
  */
-void AcidWormDeathGFXInit(void)
+void AcidWormDeathGfxInit(void)
 {
     gCurrentSprite.pOam = sAcidWormOAM_Moving;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -957,7 +957,7 @@ void AcidWormDeathFlashingAnim(void)
         if (!(isft & 0x3))
         {
             if (isft & 0x4)
-                gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+                gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
             else
             {
                 gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
@@ -1443,7 +1443,7 @@ void AcidWormSpitMove(void)
  * @brief 3f284 | 48 | Initializes an acid worm spit sprite to be exploding
  * 
  */
-void AcidWormSpitExplodingGFXInit(void)
+void AcidWormSpitExplodingGfxInit(void)
 {
     gCurrentSprite.pOam = sAcidWormSpitOAM_Exploding;
     gCurrentSprite.animationDurationCounter = 0x0;
@@ -1542,7 +1542,7 @@ void AcidWorm(void)
             break;
 
         case ACID_WORM_POSE_DYING_INIT:
-            AcidWormDeathGFXInit();
+            AcidWormDeathGfxInit();
             break;
 
         case ACID_WORM_POSE_DYING_ANIM:
@@ -1577,9 +1577,9 @@ void AcidWormBody(void)
 
     // Sync palette
     gCurrentSprite.absolutePaletteRow = gSpriteData[ramSlot].absolutePaletteRow;
-    if (gSpriteData[ramSlot].paletteRow == 0xE - (gSpriteData[ramSlot].spritesetGFXSlot + gSpriteData[ramSlot].frozenPaletteRowOffset))
+    if (gSpriteData[ramSlot].paletteRow == 0xE - (gSpriteData[ramSlot].spritesetGfxSlot + gSpriteData[ramSlot].frozenPaletteRowOffset))
     {
-        gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+        gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
         gCurrentSprite.animationDurationCounter++;
     }
     else if (gSpriteData[ramSlot].paletteRow == gSpriteData[ramSlot].absolutePaletteRow)
@@ -1621,7 +1621,7 @@ void AcidWormSpit(void)
             break;
 
         case 0x42:
-            AcidWormSpitExplodingGFXInit();
+            AcidWormSpitExplodingGfxInit();
 
         case 0x43:
             AcidWormSpitCheckExplodingAnimEnded();

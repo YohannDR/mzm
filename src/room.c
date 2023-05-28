@@ -198,12 +198,12 @@ void RoomLoadTileset(void)
 
     if (gUseMotherShipDoors == TRUE)
     {
-        DMATransfer(3, sCommonTilesMothershipGFX, VRAM_BASE + 0x4800, sizeof(sCommonTilesMothershipGFX), 0x10);
+        DMATransfer(3, sCommonTilesMothershipGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesMothershipGfx), 0x10);
         DMATransfer(3, sCommonTilesMotherShipPAL, PALRAM_BASE + 2, 0x5E, 0x10);
     }
     else
     {
-        DMATransfer(3, sCommonTilesGFX, VRAM_BASE + 0x4800, sizeof(sCommonTilesGFX), 0x10);
+        DMATransfer(3, sCommonTilesGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesGfx), 0x10);
         DMATransfer(3, sCommonTilesPAL, PALRAM_BASE + 2, 0x5E, 0x10);
     }
 
@@ -715,7 +715,7 @@ u32 RoomRLEDecompress(u8 isBG, const u8* src, u8* dst)
  * @brief 56e28 | 4c | Updates the graphics information about a room
  * 
  */
-void RoomUpdateGFXInfo(void)
+void RoomUpdateGfxInfo(void)
 {
     if (gSamusData.pose != SPOSE_USING_AN_ELEVATOR)
         gDisableDoorAndTanks &= 0x7F;

@@ -12,7 +12,7 @@ extern const struct FrameData sUnusedSpritesOAM_Idle[3];
 
 extern const struct FrameData sUnusedSpritesOAM_Unused[2];
 
-extern const u32 sUnusedSpritesGFX[6];
+extern const u32 sUnusedSpritesGfx[6];
 extern const u16 sUnusedSpritesPAL[16];
 
 #endif

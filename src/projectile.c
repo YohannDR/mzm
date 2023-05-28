@@ -680,10 +680,10 @@ void ProjectileLoadGraphics(void)
     
     if (gEquipment.suitType == SUIT_SUITLESS)
     {
-        dma_set(3, sPistolBeamGFX_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x80);
-        dma_set(3, sPistolBeamGFX_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-        dma_set(3, sPistolBeamGFX_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-        dma_set(3, sPistolBeamGFX_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+        dma_set(3, sPistolBeamGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x80);
+        dma_set(3, sPistolBeamGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+        dma_set(3, sPistolBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+        dma_set(3, sPistolBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
 
         HUDDrawSuitless();
         palOffset = 0x50;
@@ -693,10 +693,10 @@ void ProjectileLoadGraphics(void)
         bba = gEquipment.beamBombsActivation;
         if (bba & BBF_PLASMA_BEAM)
         {
-            dma_set(3, sPlasmaBeamGFX_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sPlasmaBeamGFX_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sPlasmaBeamGFX_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sPlasmaBeamGFX_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sPlasmaBeamGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sPlasmaBeamGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sPlasmaBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sPlasmaBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
 
             if (bba & BBF_ICE_BEAM)
                 palOffset = 0x20;
@@ -705,10 +705,10 @@ void ProjectileLoadGraphics(void)
         }
         else if (bba & BBF_WAVE_BEAM)
         {
-            dma_set(3, sWaveBeamGFX_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sWaveBeamGFX_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sWaveBeamGFX_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sWaveBeamGFX_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sWaveBeamGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sWaveBeamGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sWaveBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sWaveBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
 
             if (bba & BBF_ICE_BEAM)
                 palOffset = 0x20;
@@ -717,28 +717,28 @@ void ProjectileLoadGraphics(void)
         }
         else if (bba & BBF_ICE_BEAM)
         {
-            dma_set(3, sIceBeamGFX_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sIceBeamGFX_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sIceBeamGFX_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sIceBeamGFX_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sIceBeamGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sIceBeamGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sIceBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sIceBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
 
             palOffset = 0x20;
         }
         else if (bba & BBF_LONG_BEAM)
         {
-            dma_set(3, sLongBeamGFX_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sLongBeamGFX_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sLongBeamGFX_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sLongBeamGFX_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sLongBeamGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sLongBeamGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sLongBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sLongBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
 
             palOffset = 0x10;
         }
         else
         {
-            dma_set(3, sNormalBeamGFX_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sNormalBeamGFX_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sNormalBeamGFX_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
-            dma_set(3, sNormalBeamGFX_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sNormalBeamGfx_Top, VRAM_BASE + 0x11000, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sNormalBeamGfx_Bottom, VRAM_BASE + 0x11400, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sNormalBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
+            dma_set(3, sNormalBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
 
             palOffset = 0x0;
         }
@@ -1745,7 +1745,7 @@ void ProjectileNonIceChargedHitSprite(struct SpriteData* pSprite, u16 yPosition,
 void ProjectileFreezeSprite(struct SpriteData* pSprite, u8 freezeTimer)
 {
     pSprite->freezeTimer = freezeTimer;
-    pSprite->paletteRow = 0xF - (pSprite->spritesetGFXSlot + pSprite->frozenPaletteRowOffset);
+    pSprite->paletteRow = 0xF - (pSprite->spritesetGfxSlot + pSprite->frozenPaletteRowOffset);
     SoundPlayNotAlreadyPlaying(0x140);
 }
 

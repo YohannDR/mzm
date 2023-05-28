@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sAreaBannerGFX[65];
+extern const u32 sAreaBannerGfx[65];
 extern const u16 sAreaBannerPAL[16];
 extern const u16 sAreaBannerLocationTextPAL[16];
 

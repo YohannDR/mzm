@@ -6,7 +6,7 @@
 extern const u16 sClipdataCollisionTypes[176];
 extern const u16 sClipdataBehaviorTypes[176];
 
-extern const u8 sCommonTilesGFX[4096];
-extern const u8 sCommonTilesMothershipGFX[4096];
+extern const u8 sCommonTilesGfx[4096];
+extern const u8 sCommonTilesMothershipGfx[4096];
 
 #endif /* CLIPDATA_TYPES_H */

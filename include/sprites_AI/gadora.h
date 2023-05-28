@@ -22,7 +22,7 @@ void GadoraCheckWarningAnimEnded(void);
 void GadoraCheckOpeningEyeAnimEnded(void);
 void GadoraEyeOpened(void);
 void GadoraCheckClosingEyeAnimNearEnded(void);
-void GadoraDeathGFXInit(void);
+void GadoraDeathGfxInit(void);
 void GadoraDeath(void);
 void Gadora(void);
 void GadoraEye(void);

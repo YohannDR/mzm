@@ -9,11 +9,11 @@
 extern const u16 sTitleScreenPAL[15 * 16];
 extern const u16 sTitleScreenPromptPAL[5 * 16];
 
-extern const u32 sTitleScreenTitleGFX[1095];
-extern const u32 sTitleScreenSparklesGFX[256];
-extern const u32 sTitleScreenSpaceBackgroundGFX[3203];
-extern const u32 sTitleScreenSpaceBackgroundDecorationGFX[797];
-extern const u32 sTitleScreenSpaceAndGroundBackgroundGFX[1920];
+extern const u32 sTitleScreenTitleGfx[1095];
+extern const u32 sTitleScreenSparklesGfx[256];
+extern const u32 sTitleScreenSpaceBackgroundGfx[3203];
+extern const u32 sTitleScreenSpaceBackgroundDecorationGfx[797];
+extern const u32 sTitleScreenSpaceAndGroundBackgroundGfx[1920];
 extern const u32 sTitleScreenTitleTileTable[199];
 extern const u32 sTitleScreenSpaceBackgroundTileTable[702];
 

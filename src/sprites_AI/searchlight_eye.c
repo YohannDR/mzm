@@ -72,7 +72,7 @@ void SearchlightEyeInit(void)
 
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
-        gfxSlot = gCurrentSprite.spritesetGFXSlot;
+        gfxSlot = gCurrentSprite.spritesetGfxSlot;
         ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
         // Spawn beam
@@ -196,7 +196,7 @@ void SearchlightEyeShoot(void)
             
             // Spawn beam
             SpriteSpawnSecondary(SSPRITE_SEARCHLIGHT_EYE_PROJECTILE, 0x0,
-                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition,
                 status);
         }

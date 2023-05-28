@@ -16,7 +16,7 @@ extern const struct FrameData sMotherBrainMultiSpriteData[7];
 
 extern const u8 sMotherBrainDynamicPaletteData[19][2];
 
-extern const u32 sMotherBrainGFX[1871];
+extern const u32 sMotherBrainGfx[1871];
 extern const u16 sMotherBrainPAL[96];
 
 extern const u16 sMotherBrainOAM_Idle_Frame0[58];

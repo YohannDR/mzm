@@ -19,7 +19,7 @@ const i16 sAtomicIdleXMovement[81] = {
     0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
-const u32 sAtomicGFX[752] = INCBIN_U32("data/sprites/Atomic.gfx.lz");
+const u32 sAtomicGfx[752] = INCBIN_U32("data/sprites/Atomic.gfx.lz");
 const u16 sAtomicPAL[64] = INCBIN_U16("data/sprites/Atomic.pal");
 
 const u16 sAtomicOAM_Idle_Frame0[13] = {

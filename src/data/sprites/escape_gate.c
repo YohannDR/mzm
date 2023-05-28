@@ -2,7 +2,7 @@
 
 #include "macros.h"
 
-const u8 sEscapeGateAndTimerGFX[2048] = INCBIN_U8("data/sprites/EscapeGateAndTimer.gfx");
+const u8 sEscapeGateAndTimerGfx[2048] = INCBIN_U8("data/sprites/EscapeGateAndTimer.gfx");
 const u16 sEscapeGateAndTimerPAL[16] = INCBIN_U16("data/sprites/EscapeGateAndTimer.pal");
 const u16 sEscapeGateFlashingPAL[96] = INCBIN_U16("data/sprites/EscapeGateFlashing.pal");
 

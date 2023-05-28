@@ -30,18 +30,18 @@ extern const struct FrameData* const sChozodiaEscape_5ca0c4[5];
 
 // ...
 
-extern const u32 sChozodiaEscapeCraterBackgroundGFX[5227];
+extern const u32 sChozodiaEscapeCraterBackgroundGfx[5227];
 extern const u32 sChozodiaEscapeCraterBackgroundTileTable[418];
 
-extern const u32 sChozodiaEscapeBlueShipVeryCloseGFX[1079];
+extern const u32 sChozodiaEscapeBlueShipVeryCloseGfx[1079];
 
 extern const u32 sChozodiaEscapeZebesBackgroundTileTable[176];
-extern const u32 sChozodiaEscapeZebesAndSkyGFX[4574];
+extern const u32 sChozodiaEscapeZebesAndSkyGfx[4574];
 extern const u32 sChozodiaEscapeZebesSkyTileTable[418];
 
-extern const u32 sChozodiaEscapeSamusInBlueShipGFX[2699];
+extern const u32 sChozodiaEscapeSamusInBlueShipGfx[2699];
 extern const u32 sChozodiaEscapeSamusInBlueShipTileTable[368];
 
-extern const u32 sChozodiaEscapeMissionAccomplishedLettersGFX[414];
+extern const u32 sChozodiaEscapeMissionAccomplishedLettersGfx[414];
 
 #endif /* CHOZODIA_ESCAPE_DATA_H */

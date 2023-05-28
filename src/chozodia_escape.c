@@ -405,10 +405,10 @@ void ChozodiaEscapeInit(void)
 
     ClearGfxRam();
 
-    LZ77UncompVRAM(sCutsceneMotherShipEscapeShipParticlesGFX, VRAM_BASE + 0x10000);
-    LZ77UncompVRAM(sCutsceneZebesMotherShipBackgroundGFX, VRAM_BASE);
-    LZ77UncompVRAM(sCutsceneZebesGroundGFX, VRAM_BASE + 0x8000);
-    LZ77UncompVRAM(sCutsceneZebesRockyBackgroundGFX, VRAM_BASE + 0xC800);
+    LZ77UncompVRAM(sCutsceneMotherShipEscapeShipParticlesGfx, VRAM_BASE + 0x10000);
+    LZ77UncompVRAM(sCutsceneZebesMotherShipBackgroundGfx, VRAM_BASE);
+    LZ77UncompVRAM(sCutsceneZebesGroundGfx, VRAM_BASE + 0x8000);
+    LZ77UncompVRAM(sCutsceneZebesRockyBackgroundGfx, VRAM_BASE + 0xC800);
     LZ77UncompVRAM(sCutsceneZebesGroundTileTable, VRAM_BASE + 0xA000);
     LZ77UncompVRAM(sCutscene_3b5168_TileTable, VRAM_BASE + 0xA800);
     LZ77UncompVRAM(sCutsceneZebesMotherShipBackgroundTileTable, VRAM_BASE + 0xB000);
@@ -754,16 +754,16 @@ u8 ChozodiaEscapeShipLeavingPlanet(void)
     switch (CHOZODIA_ESCAPE_DATA.timer++)
     {
         case 0:
-            LZ77UncompVRAM(sChozodiaEscapeZebesAndSkyGFX, VRAM_BASE);
+            LZ77UncompVRAM(sChozodiaEscapeZebesAndSkyGfx, VRAM_BASE);
             PlayMusic(MUSIC_ESCAPE_SUCCESFUL, 0);
             break;
 
         case 1:
-            LZ77UncompVRAM(sChozodiaEscapeSamusInBlueShipGFX, VRAM_BASE + 0x8000);
+            LZ77UncompVRAM(sChozodiaEscapeSamusInBlueShipGfx, VRAM_BASE + 0x8000);
             break;
 
         case 2:
-            LZ77UncompVRAM(sChozodiaEscapeBlueShipVeryCloseGFX, VRAM_BASE + 0x10000);
+            LZ77UncompVRAM(sChozodiaEscapeBlueShipVeryCloseGfx, VRAM_BASE + 0x10000);
             break;
 
         case 3:
@@ -909,7 +909,7 @@ u8 ChozodiaEscapeMissionAccomplished(void)
     {
         case 0:
             // Load graphics
-            LZ77UncompVRAM(sChozodiaEscapeMissionAccomplishedLettersGFX, VRAM_BASE + 0x10000);
+            LZ77UncompVRAM(sChozodiaEscapeMissionAccomplishedLettersGfx, VRAM_BASE + 0x10000);
 
             // Load the "correct" palette for samus in blue ship, makes her visible
             dma_set(3, sChozodiaEscapeSamusInBlueShipPAL, PALRAM_OBJ,

@@ -39,17 +39,17 @@ extern const u8 sIntroEmergencyOrderActions[16];
 extern const u8 sIntroExterminateAllActions[52];
 extern const u8 sIntroDefeatTheActions[50];
 
-extern const u32 sIntroTextAndShipFlyingInGFX[1310];
-extern const u32 sIntroSpaceBackgroundGFX[3181];
+extern const u32 sIntroTextAndShipFlyingInGfx[1310];
+extern const u32 sIntroSpaceBackgroundGfx[3181];
 extern const u32 sIntroSpaceBackgroundTileTable[577];
-extern const u32 sIntroSamusInHerShipGFX[4800];
+extern const u32 sIntroSamusInHerShipGfx[4800];
 extern const u32 sIntroSamusInHerShipTileTable[418];
-extern const u32 sIntroSamusShipViewOfZebesGFX[1224];
-extern const u32 sIntroViewOfZebesGFX[2986];
+extern const u32 sIntroSamusShipViewOfZebesGfx[1224];
+extern const u32 sIntroViewOfZebesGfx[2986];
 extern const u32 sIntroViewOfZebesTileTable[577];
-extern const u32 sIntroMotherBrainGFX[5004];
+extern const u32 sIntroMotherBrainGfx[5004];
 extern const u32 sIntroMotherBrainTileTable[577];
-extern const u32 sIntroFuzzGFX[5224];
+extern const u32 sIntroFuzzGfx[5224];
 extern const u32 sIntro_47920c[125];
 
 // TODO move to another file

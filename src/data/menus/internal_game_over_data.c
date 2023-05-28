@@ -3,13 +3,13 @@
 #include "macros.h"
 
 const u32* const sGameOverTextPromptGfxPointers[MAX_AMOUNT_OF_LANGUAGES] = {
-    [LANGUAGE_JAPANESE] = sGameOverTextPromptEnglishGFX,
-    [LANGUAGE_HIRAGANA] = sGameOverTextPromptHiragnaGFX,
-    [LANGUAGE_ENGLISH] = sGameOverTextPromptEnglishGFX,
-    [LANGUAGE_GERMAN] = sGameOverTextPromptEnglishGFX,
-    [LANGUAGE_FRENCH] = sGameOverTextPromptEnglishGFX,
-    [LANGUAGE_ITALIAN] = sGameOverTextPromptEnglishGFX,
-    [LANGUAGE_SPANISH] = sGameOverTextPromptEnglishGFX
+    [LANGUAGE_JAPANESE] = sGameOverTextPromptEnglishGfx,
+    [LANGUAGE_HIRAGANA] = sGameOverTextPromptHiragnaGfx,
+    [LANGUAGE_ENGLISH] = sGameOverTextPromptEnglishGfx,
+    [LANGUAGE_GERMAN] = sGameOverTextPromptEnglishGfx,
+    [LANGUAGE_FRENCH] = sGameOverTextPromptEnglishGfx,
+    [LANGUAGE_ITALIAN] = sGameOverTextPromptEnglishGfx,
+    [LANGUAGE_SPANISH] = sGameOverTextPromptEnglishGfx
 };
 
 const u8 sGameOverTextPaletteMaxTimers[3] = {

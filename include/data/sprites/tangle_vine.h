@@ -14,7 +14,7 @@ extern const i16 sTangleVineGerutaMultiSpriteData_Idle_Frame3[9];
 
 extern const struct FrameData sTangleVineGerutaMultiSpriteData_Idle[5];
 
-extern const u32 sTangleVineGFX[1298];
+extern const u32 sTangleVineGfx[1298];
 extern const u16 sTangleVinePAL[80];
 
 extern const u16 sTangleVineTallOAM_OnGround_Frame3[13];

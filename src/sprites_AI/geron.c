@@ -133,7 +133,7 @@ void Geron(void)
                     if (spriteBottom > yPosition && spriteTop < yPosition && spriteRight > xPosition && spriteLeft < xPosition)
                     {
                         // Assign geron
-                        pSprite->workVariable = gCurrentSprite.primarySpriteRAMSlot;
+                        pSprite->workVariable = gCurrentSprite.primarySpriteRamSlot;
 
                         // Set grabbed behavior
                         pSprite->pose = PARASITE_POSE_GERON_GRABBED_INIT;

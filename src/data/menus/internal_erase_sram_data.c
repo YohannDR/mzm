@@ -5,32 +5,32 @@
 
 const u32* const sEraseSramTextGfxPointers[7][2] = {
     [LANGUAGE_JAPANESE] = {
-        sEraseSramMenuQuestionJapaneseGFX,
-        sEraseSramMenuConfirmJapanseGFX
+        sEraseSramMenuQuestionJapaneseGfx,
+        sEraseSramMenuConfirmJapanseGfx
     },
     [LANGUAGE_HIRAGANA] = {
-        sEraseSramMenuQuestionJapaneseGFX,
-        sEraseSramMenuConfirmJapanseGFX
+        sEraseSramMenuQuestionJapaneseGfx,
+        sEraseSramMenuConfirmJapanseGfx
     },
     [LANGUAGE_ENGLISH] = {
-        sEraseSramMenuQuestionEnglishGFX,
-        sEraseSramMenuConfirmEnglishGFX
+        sEraseSramMenuQuestionEnglishGfx,
+        sEraseSramMenuConfirmEnglishGfx
     },
     [LANGUAGE_GERMAN] = {
-        sEraseSramMenuQuestionEnglishGFX,
-        sEraseSramMenuConfirmEnglishGFX
+        sEraseSramMenuQuestionEnglishGfx,
+        sEraseSramMenuConfirmEnglishGfx
     },
     [LANGUAGE_FRENCH] = {
-        sEraseSramMenuQuestionEnglishGFX,
-        sEraseSramMenuConfirmEnglishGFX
+        sEraseSramMenuQuestionEnglishGfx,
+        sEraseSramMenuConfirmEnglishGfx
     },
     [LANGUAGE_ITALIAN] = {
-        sEraseSramMenuQuestionEnglishGFX,
-        sEraseSramMenuConfirmEnglishGFX
+        sEraseSramMenuQuestionEnglishGfx,
+        sEraseSramMenuConfirmEnglishGfx
     },
     [LANGUAGE_SPANISH] = {
-        sEraseSramMenuQuestionEnglishGFX,
-        sEraseSramMenuConfirmEnglishGFX
+        sEraseSramMenuQuestionEnglishGfx,
+        sEraseSramMenuConfirmEnglishGfx
     },
 };
 

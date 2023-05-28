@@ -5,7 +5,7 @@
 
 // Item banner
 
-#define ITEM_BANNER_POSE_GFX_INIT 0x8
+#define ITEM_BANNER_POSE_Gfx_INIT 0x8
 #define ITEM_BANNER_POSE_POP_UP 0x9
 #define ITEM_BANNER_POSE_STATIC 0x23
 #define ITEM_BANNER_POSE_REMOVAL_INIT 0x24
@@ -20,7 +20,7 @@
 #define SAVE_YES_NO_CURSOR_RIGHT_POSITION 0x96
 
 void ItemBannerInit(void);
-void ItemBannerGFXInit(void);
+void ItemBannerGfxInit(void);
 void ItemBannerPopUp(void);
 void ItemBannerStatic(void);
 void ItemBannerRemovalInit(void);

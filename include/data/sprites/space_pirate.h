@@ -14,7 +14,7 @@ extern const i16 sSpacePirate_2e105a[11];
 
 extern const i16 sSpacePirate_2e1070[12];
 
-extern const u32 sSpacePirateGFX[810];
+extern const u32 sSpacePirateGfx[810];
 extern const u16 sSpacePiratePAL[48];
 
 extern const u16 sSpacePirateOAM_Crouched_Frame0[43];

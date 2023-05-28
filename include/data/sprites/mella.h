@@ -14,7 +14,7 @@ extern const u16 sMellaGoingUpYMovement[7];
 
 extern const u16 sMellaMovingXMovement[7];
 
-extern const u32 sMellaGFX[162];
+extern const u32 sMellaGfx[162];
 extern const u16 sMellaPAL[16];
 
 extern const u16 sMellaOAM_Idle_Frame0[4];

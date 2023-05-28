@@ -26,7 +26,7 @@ SECTIONS {
         . = 0x00037400; gVisitedMinimapTiles = .;
         . = 0x00037c00; gHatchesOpened = .;
         . = 0x00037e00; gEventsTriggered = .;
-        . = 0x00037e20; gMinimapTilesGFX = .;
+        . = 0x00037e20; gMinimapTilesGfx = .;
         . = 0x00038000; gSram = .;
 
         . = 0x0003f080; gSramDemoInputData = .;
@@ -122,7 +122,7 @@ SECTIONS {
         . = 0x000001A8; gAlarmTimer = .;
         . = 0x000001AC; gSpriteData = .;
         . = 0x000006EC; gSpritesetSpritesID = .;
-        . = 0x000006FB; gSpritesetGFXSlots = .;
+        . = 0x000006FB; gSpritesetGfxSlots = .;
         . = 0x0000070C; gSubSpriteData1 = .;
         . = 0x00000720; gSubSpriteData2 = .;
         . = 0x00000734; gParasiteRelated = .;
@@ -145,7 +145,7 @@ SECTIONS {
         . = 0x00000910; gPowerBombDigits = .;
         . = 0x00000914; gSuperMissileDigits = .;
         . = 0x00000918; gCurrentParticleEffectOAMFramePointer = .;
-        . = 0x0000091C; gAmmoDigitsGFX = .;
+        . = 0x0000091C; gAmmoDigitsGfx = .;
         . = 0x0000095C; gCurrentEscapeStatus = .;
         . = 0x0000095D; gEscapeTimerCounter = .;
         . = 0x0000095E; gEscapeTimerDigits = .;

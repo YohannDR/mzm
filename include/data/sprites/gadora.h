@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sGadoraGFX[585];
+extern const u32 sGadoraGfx[585];
 extern const u16 sGadoraPAL[32];
 
 extern const u16 sGadoraOAM_EyeClosed_Frame2[22];

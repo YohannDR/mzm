@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u8 sEscapeGateAndTimerGFX[2048];
+extern const u8 sEscapeGateAndTimerGfx[2048];
 extern const u16 sEscapeGateAndTimerPAL[16];
 extern const u16 sEscapeGateFlashingPAL[96];
 

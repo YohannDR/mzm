@@ -183,7 +183,7 @@ void ConnectionHatchFlashingAnimation(u8 hatch)
     if (gHatchData[hatch].facingRight)
         value++;
 
-    // Update GFX
+    // Update Gfx
     BgClipSetBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
     BgClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
     BgClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);

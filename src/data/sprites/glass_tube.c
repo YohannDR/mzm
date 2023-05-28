@@ -1,7 +1,7 @@
 #include "data/sprites/glass_tube.h"
 #include "macros.h"
 
-const u32 sGlassTubeGFX[514] = INCBIN_U32("data/sprites/GlassTube.gfx.lz");
+const u32 sGlassTubeGfx[514] = INCBIN_U32("data/sprites/GlassTube.gfx.lz");
 const u16 sGlassTubePAL[80] = INCBIN_U16("data/sprites/GlassTube.pal");
 
 const u16 sGlassTubeOAM_Intact_Frame0[37] = {

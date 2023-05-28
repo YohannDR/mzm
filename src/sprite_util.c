@@ -26,12 +26,12 @@ void SpriteUtilInitLocationText(void)
 {
     u8 gfxSlot;
 
-    gfxSlot = LocationTextGetGFXSlot();
+    gfxSlot = LocationTextGetGfxSlot();
     if (gfxSlot < 0x8)
     {
         gSpriteData[0].status = SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_UNKNOWN | SPRITE_STATUS_IGNORE_PROJECTILES;
         gSpriteData[0].properties = SP_ABSOLUTE_POSITION;
-        gSpriteData[0].spritesetGFXSlot = gfxSlot;
+        gSpriteData[0].spritesetGfxSlot = gfxSlot;
         gSpriteData[0].spriteID = PSPRITE_AREA_BANNER;
         gSpriteData[0].yPosition = gSamusData.yPosition;
         gSpriteData[0].xPosition = gSamusData.xPosition;
@@ -1756,7 +1756,7 @@ void SpriteUtilUpdateFreezeTimer(void)
     if (timer < 0x2E)
     {
         if (timer & 0x1)
-            gCurrentSprite.paletteRow = 0xF - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+            gCurrentSprite.paletteRow = 0xF - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
         else
             gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
     }
@@ -1774,7 +1774,7 @@ void SpriteUtilUnfreezeAnimEasy(void)
     if (freezeTimer < 0x5B && !(freezeTimer & 1))
     {
         if (freezeTimer & 2)
-            gCurrentSprite.paletteRow = 15 - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+            gCurrentSprite.paletteRow = 15 - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
         else
             gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
     }
@@ -1792,7 +1792,7 @@ void SpriteUtilMetroidUnfreezeAnim(void)
     if (freezeTimer < 121 && !(freezeTimer & 2))
     {
         if (freezeTimer & 4)
-            gCurrentSprite.paletteRow = 15 - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+            gCurrentSprite.paletteRow = 15 - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
         else
             gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
     }
@@ -1815,7 +1815,7 @@ void SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(u8 spriteID, u8 ramSlot
                 && (gSpriteData[count].properties & SP_DESTROYED) == 0x0)
             {
                 gSpriteData[count].freezeTimer = gCurrentSprite.freezeTimer;
-                gSpriteData[count].paletteRow = 0xF - (gSpriteData[count].spritesetGFXSlot + gSpriteData[count].frozenPaletteRowOffset);
+                gSpriteData[count].paletteRow = 0xF - (gSpriteData[count].spritesetGfxSlot + gSpriteData[count].frozenPaletteRowOffset);
             }
             count++;
         }
@@ -1829,7 +1829,7 @@ void SpriteUtillUpdatePrimarySpriteFreezeTimerOfCurrent(void)
         if (gSpriteData[count].freezeTimer < gCurrentSprite.freezeTimer && (gSpriteData[count].properties & SP_DESTROYED) == 0)
         {
             gSpriteData[count].freezeTimer = gCurrentSprite.freezeTimer;
-            gSpriteData[count].paletteRow = 0xf - (gSpriteData[count].spritesetGFXSlot + gSpriteData[count].frozenPaletteRowOffset);
+            gSpriteData[count].paletteRow = 0xf - (gSpriteData[count].spritesetGfxSlot + gSpriteData[count].frozenPaletteRowOffset);
         } 
     }
 }
@@ -2687,14 +2687,14 @@ void SpriteUtilUpdateStunTimer(struct SpriteData* pSprite)
             if (isft & 0x4)
             {
                 if (pSprite->health != 0x0)
-                    pSprite->paletteRow = 0xE - (pSprite->spritesetGFXSlot + pSprite->frozenPaletteRowOffset);
+                    pSprite->paletteRow = 0xE - (pSprite->spritesetGfxSlot + pSprite->frozenPaletteRowOffset);
             }
             else
             {
                 if (pSprite->health != 0x0)
                 {
                     if (pSprite->freezeTimer != 0x0)
-                        pSprite->paletteRow = 0xF - (pSprite->spritesetGFXSlot + pSprite->frozenPaletteRowOffset);
+                        pSprite->paletteRow = 0xF - (pSprite->spritesetGfxSlot + pSprite->frozenPaletteRowOffset);
                     else
                         pSprite->paletteRow = pSprite->absolutePaletteRow;
                 }
@@ -3002,7 +3002,7 @@ void SpriteUtilSpriteDeath(u8 deathType, u16 yPosition, u16 xPosition, u8 playSo
             // Init data for drop
             gCurrentSprite.status = (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN);
             gCurrentSprite.properties = 0x0;
-            gCurrentSprite.spritesetGFXSlot = 0x0;
+            gCurrentSprite.spritesetGfxSlot = 0x0;
             gCurrentSprite.spriteID = drop;
             gCurrentSprite.yPosition = yPosition;
             gCurrentSprite.xPosition = xPosition;

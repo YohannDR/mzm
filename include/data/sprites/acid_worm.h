@@ -14,7 +14,7 @@ extern const i16 sAcidWormSwingingMovement[33];
 
 extern const i16 sAcidWormHeadRandomXVelocity[45];
 
-extern const u32 sAcidWormGFX[1000];
+extern const u32 sAcidWormGfx[1000];
 extern const u16 sAcidWormPAL[64];
 
 extern const u16 sAcidWormBodyOAM_Unused2_Frame0[52];

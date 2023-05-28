@@ -9,12 +9,12 @@ extern const u16 sEraseSramMenuBackgroundPAL[15 * 16 - 1];
 
 // ...
 
-extern const u32 sEraseSramMenuObjectsGFX[477];
-extern const u32 sEraseSramMenuFirstBoxGFX[118];
-extern const u32 sEraseSramMenuConfirmJapanseGFX[245];
-extern const u32 sEraseSramMenuConfirmEnglishGFX[1027];
-extern const u32 sEraseSramMenuQuestionJapaneseGFX[245];
-extern const u32 sEraseSramMenuQuestionEnglishGFX[1006];
+extern const u32 sEraseSramMenuObjectsGfx[477];
+extern const u32 sEraseSramMenuFirstBoxGfx[118];
+extern const u32 sEraseSramMenuConfirmJapanseGfx[245];
+extern const u32 sEraseSramMenuConfirmEnglishGfx[1027];
+extern const u32 sEraseSramMenuQuestionJapaneseGfx[245];
+extern const u32 sEraseSramMenuQuestionEnglishGfx[1006];
 extern const u32 sEraseSramMenuBoxTileTable[137];
 extern const u32 sEraseSramMenuBackgroundTileTable[368];
 

@@ -86,7 +86,7 @@ u32 InGameMainLoop(void)
                 InGameTimerUpdate();
             }
 
-            RoomUpdateGFXInfo();
+            RoomUpdateGfxInfo();
             break;
 
         case SUB_GAME_MODE_LOADING_ROOM:
@@ -102,18 +102,18 @@ u32 InGameMainLoop(void)
         case 5:
             IoWriteRegisters();
             SamusUpdate();
-            RoomUpdateGFXInfo();
+            RoomUpdateGfxInfo();
             break;
 
         case SUB_GAME_MODE_FREE_MOVEMENT:
             UpdateFreeMovement_Debug();
-            RoomUpdateGFXInfo();
+            RoomUpdateGfxInfo();
             break;
     }
 
     if (gGameModeSub1 == 5)
     {
-        SamusCallGFXFunctions();
+        SamusCallGfxFunctions();
         SamusDraw();
         ResetFreeOAM();
         RoomUpdate();
@@ -126,7 +126,7 @@ u32 InGameMainLoop(void)
         if (!gDisableDrawingSamusAndScrolling)
         {
             ScrollProcessGeneral();
-            SamusCallGFXFunctions();
+            SamusCallGfxFunctions();
         }
         else if (gDisableScrolling == 2)
             ScrollProcessGeneral();
@@ -372,7 +372,7 @@ void InitAndLoadGenerics(void)
     if (gGameModeSub3 == 0 || gTourianEscapeCutsceneStage != 0)
     {
         ClearGfxRam();
-        HUDGenericLoadCommonSpriteGFX();
+        HUDGenericLoadCommonSpriteGfx();
     }
 
     gWrittenToBLDY_NonGameplay = 0x10;
@@ -400,7 +400,7 @@ void InitAndLoadGenerics(void)
         SamusUpdateHitboxMovingDirection();
     }
 
-    SamusCallGFXFunctions();
+    SamusCallGfxFunctions();
     dma_set(3, gSamusPalette, PALRAM_OBJ, DMA_ENABLE << 16 | gSamusPaletteSize / 2);
 
     unk_c9ec();

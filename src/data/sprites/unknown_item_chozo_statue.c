@@ -132,7 +132,7 @@ const u8 sUnknownItemChozoStatueFlashingPaletteRows[4] = {
     1, 2, 3, 2
 };
 
-const u32 sChozoStatueSpaceJumpGFX[1353] = INCBIN_U32("data/sprites/ChozoStatueSpaceJump.gfx.lz");
+const u32 sChozoStatueSpaceJumpGfx[1353] = INCBIN_U32("data/sprites/ChozoStatueSpaceJump.gfx.lz");
 const u16 sChozoStatueSpaceJumpPAL[80] = INCBIN_U16("data/sprites/ChozoStatueSpaceJump.pal");
 
 const u16 sUnknownItemChozoStatuePartOAM_LegStanding_Frame0[16] = {
@@ -924,8 +924,8 @@ const struct FrameData sUnknownItemChozoStatuePartOAM_GlowIdle[41] = {
     0x0
 };
 
-const u32 sChozoStatueGravitySuitGFX[1357] = INCBIN_U32("data/sprites/ChozoStatueGravitySuit.gfx.lz");
+const u32 sChozoStatueGravitySuitGfx[1357] = INCBIN_U32("data/sprites/ChozoStatueGravitySuit.gfx.lz");
 const u16 sChozoStatueGravitySuitPAL[80] = INCBIN_U16("data/sprites/ChozoStatueGravitySuit.pal");
 
-const u32 sChozoStatuePlasmaBeamGFX[1356] = INCBIN_U32("data/sprites/ChozoStatuePlasmaBeam.gfx.lz");
+const u32 sChozoStatuePlasmaBeamGfx[1356] = INCBIN_U32("data/sprites/ChozoStatuePlasmaBeam.gfx.lz");
 const u16 sChozoStatuePlasmaBeamPAL[80] = INCBIN_U16("data/sprites/ChozoStatuePlasmaBeam.pal");

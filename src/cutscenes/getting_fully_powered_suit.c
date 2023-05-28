@@ -232,7 +232,7 @@ void GettingFullyPoweredSuitUpdateSparkleGoingUp(struct CutsceneOamData* pOam, u
             return;
 
         pOam->actions = 0;
-        pOam->timer = sGettingFullyPoweredSuitBackgroundGFX[gFrameCounter8Bit + sparkleId] & 0x3F;
+        pOam->timer = sGettingFullyPoweredSuitBackgroundGfx[gFrameCounter8Bit + sparkleId] & 0x3F;
     }
     else
     {
@@ -264,13 +264,13 @@ u8 GettingFullyPoweredSuitInit(void)
     DMATransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
     write16(PALRAM_BASE, 0);
 
-    CallLZ77UncompVRAM(sGettingFullyPoweredSuitSamusGFX, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sGettingFullyPoweredSuitSamusGfx, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].graphicsPage * 0x4000);
     CallLZ77UncompVRAM(sGettingFullyPoweredSuitSamusTileTable, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].tiletablePage * 0x800);
 
-    CallLZ77UncompVRAM(sGettingFullyPoweredSuitBackgroundGFX, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sGettingFullyPoweredSuitBackgroundGfx, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].graphicsPage * 0x4000);
     CallLZ77UncompVRAM(sGettingFullyPoweredSuitBackgroundTileTable, VRAM_BASE + sGettingFullyPoweredSuitPageData[1].tiletablePage * 0x800);
 
-    CallLZ77UncompVRAM(sGettingFullyPoweredSuitRingSparklesGFX, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sGettingFullyPoweredSuitRingSparklesGfx, VRAM_BASE + 0x10000);
 
     CutsceneSetBGCNTPageData(sGettingFullyPoweredSuitPageData[0]);
     CutsceneSetBGCNTPageData(sGettingFullyPoweredSuitPageData[1]);
@@ -319,7 +319,7 @@ u8 GettingFullyPoweredSuitInit(void)
         CUTSCENE_DATA.oam[i] = CUTSCENE_DATA.oam[7];
 
         CUTSCENE_DATA.oam[i].xPosition = sGettingFullyPoweredSuit_3c642c[i - 7];
-        CUTSCENE_DATA.oam[i].timer = sGettingFullyPoweredSuitBackgroundGFX[gFrameCounter8Bit + i] & 0x3F;
+        CUTSCENE_DATA.oam[i].timer = sGettingFullyPoweredSuitBackgroundGfx[gFrameCounter8Bit + i] & 0x3F;
     }
 
     CUTSCENE_DATA.paletteData[0] = sGettingFullyPoweredSuitPaletteData;

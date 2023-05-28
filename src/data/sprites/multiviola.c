@@ -1,7 +1,7 @@
 #include "data/sprites/multiviola.h"
 #include "macros.h"
 
-const u32 sMultiviolaGFX[221] = INCBIN_U32("data/sprites/Multiviola.gfx.lz");
+const u32 sMultiviolaGfx[221] = INCBIN_U32("data/sprites/Multiviola.gfx.lz");
 const u16 sMultiviolaPAL[16] = INCBIN_U16("data/sprites/Multiviola.pal");
 
 const u16 sMultiviolaOAM_Moving_Frame0[22] = {

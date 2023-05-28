@@ -20,7 +20,7 @@ void HUDDrawPowerBombDigits(u16 tens, u16 ones, u16 highlightStatus);
 void HUDDrawMissiles(u8 updateHighlight);
 void HUDDrawPowerBomb(u8 updateHighlight);
 void HUDDrawSuperMissiles(u8 updateHighlight);
-void HUDUpdateGFX(void);
+void HUDUpdateGfx(void);
 void HUDDrawSuitless(void);
 void HUDDraw(void);
 

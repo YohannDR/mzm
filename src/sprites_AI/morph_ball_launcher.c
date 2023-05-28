@@ -68,8 +68,8 @@ void MorphBallLauncherInit(void)
     gCurrentSprite.drawOrder = 0x2;
 
     // Spawn back
-    SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_PART, MORPH_BALL_LAUNCHER_PART_BACK, gCurrentSprite.spritesetGFXSlot,
-        gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+    SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_PART, MORPH_BALL_LAUNCHER_PART_BACK, gCurrentSprite.spritesetGfxSlot,
+        gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
 
     // Set hitbox
     MorphBallLauncherChangeCCAA(CAA_MAKE_NON_POWER_GRIP);
@@ -144,8 +144,8 @@ void MorphBallLauncherLaunchSamus(void)
 {
     if (gCurrentSprite.workVariable == 0x0 && gSamusData.pose == SPOSE_DELAY_BEFORE_BALLSPARKING)
     {
-        SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_PART, MORPH_BALL_LAUNCHER_PART_ENERGY, gCurrentSprite.spritesetGFXSlot,
-            gCurrentSprite.primarySpriteRAMSlot, gSamusData.yPosition - 0x10, gSamusData.xPosition, 0x0);
+        SpriteSpawnSecondary(SSPRITE_MORPH_BALL_LAUNCHER_PART, MORPH_BALL_LAUNCHER_PART_ENERGY, gCurrentSprite.spritesetGfxSlot,
+            gCurrentSprite.primarySpriteRamSlot, gSamusData.yPosition - 0x10, gSamusData.xPosition, 0x0);
         gCurrentSprite.workVariable = 0x1;
     }
 

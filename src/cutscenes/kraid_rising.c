@@ -33,7 +33,7 @@ u8 KraidRisingRising(void)
             dma_set(3, sKraidRisingRisingPAL, PALRAM_BASE, DMA_ENABLE << 16 | 0x70);
             write16(PALRAM_BASE, 0);
 
-            CallLZ77UncompVRAM(sKraidRisingKraidRisingGFX, VRAM_BASE + sKraidRisingPagesData[2].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sKraidRisingKraidRisingGfx, VRAM_BASE + sKraidRisingPagesData[2].graphicsPage * 0x4000);
             DMATransfer(3, (void*)sEwramPointer + 0x2800, VRAM_BASE + sKraidRisingPagesData[2].tiletablePage * 0x800, 0x800, 0x10);
 
             CutsceneSetBGCNTPageData(sKraidRisingPagesData[2]);
@@ -58,7 +58,7 @@ u8 KraidRisingRising(void)
             break;
 
         case 1:
-            CallLZ77UncompVRAM(sKraidRisingCaveBackroundGFX, VRAM_BASE + sKraidRisingPagesData[3].graphicsPage * 0x4000);
+            CallLZ77UncompVRAM(sKraidRisingCaveBackroundGfx, VRAM_BASE + sKraidRisingPagesData[3].graphicsPage * 0x4000);
             DMATransfer(3, (void*)sEwramPointer + 0x3000, VRAM_BASE + sKraidRisingPagesData[3].tiletablePage * 0x800, 0x800, 0x10);
 
             CutsceneSetBGCNTPageData(sKraidRisingPagesData[3]);
@@ -267,7 +267,7 @@ u8 KraidRisingInit(void)
     unk_61f0c();
     DMATransfer(3, sKraidRisingCloseUpPAL, PALRAM_BASE, 0xA0, 0x10);
     write16(PALRAM_BASE, 0);
-    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpGFX, VRAM_BASE + sKraidRisingPagesData[0].graphicsPage * 0x4000);
+    CallLZ77UncompVRAM(sKraidRisingKraidCloseUpGfx, VRAM_BASE + sKraidRisingPagesData[0].graphicsPage * 0x4000);
 
     if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
         DMATransfer(3, sKraidRisingSamusVariaPAL, PALRAM_OBJ, 0x20, 0x10);
@@ -276,7 +276,7 @@ u8 KraidRisingInit(void)
 
     DMATransfer(3, sKraidRisingParticlesPAL, PALRAM_BASE + 0x220, 0x20, 0x10);
 
-    CallLZ77UncompVRAM(sKraidRisingOAMGFX, VRAM_BASE + 0x10000);
+    CallLZ77UncompVRAM(sKraidRisingOAMGfx, VRAM_BASE + 0x10000);
     
     CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesBarelyOpenedTileTable, (void*)sEwramPointer + 0x1000);
     CallLZ77UncompVRAM(sKraidRisingKraidCloseUpEyesALittleOpenedTileTable, (void*)sEwramPointer + 0x1800);

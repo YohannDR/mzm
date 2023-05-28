@@ -30,6 +30,6 @@ extern u8 gMissileRefillAnimation;
 extern u8 gSuperMissileRefillAnimation;
 extern u8 gPowerBombRefillAnimation;
 
-extern u8 gAmmoDigitsGFX[64];
+extern u8 gAmmoDigitsGfx[64];
 
 #endif

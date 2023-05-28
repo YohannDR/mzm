@@ -34,7 +34,7 @@ extern const struct FrameData sUnknownItemChozoStatueMultiSpriteData_Seated[2];
 
 extern const u8 sUnknownItemChozoStatueFlashingPaletteRows[4];
 
-extern const u32 sChozoStatueSpaceJumpGFX[1353];
+extern const u32 sChozoStatueSpaceJumpGfx[1353];
 extern const u16 sChozoStatueSpaceJumpPAL[80];
 
 extern const u16 sUnknownItemChozoStatuePartOAM_LegStanding_Frame0[16];
@@ -169,10 +169,10 @@ extern const struct FrameData sUnknownItemChozoStatueRefillOAM[41];
 
 extern const struct FrameData sUnknownItemChozoStatuePartOAM_GlowIdle[41];
 
-extern const u32 sChozoStatueGravitySuitGFX[1357];
+extern const u32 sChozoStatueGravitySuitGfx[1357];
 extern const u16 sChozoStatueGravitySuitPAL[80];
 
-extern const u32 sChozoStatuePlasmaBeamGFX[1356];
+extern const u32 sChozoStatuePlasmaBeamGfx[1356];
 extern const u16 sChozoStatuePlasmaBeamPAL[80];
 
 #endif

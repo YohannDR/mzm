@@ -177,7 +177,7 @@ void ImagoCocoonInit(void)
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_IMAGO_COCOON_KILLED))
     {
-        SpriteSpawnSecondary(SSPRITE_IMAGO_CEILING_VINE, 0x0, gCurrentSprite.spritesetGFXSlot,
+        SpriteSpawnSecondary(SSPRITE_IMAGO_CEILING_VINE, 0x0, gCurrentSprite.spritesetGfxSlot,
             gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
 
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ENTER_RIDLEY_DEMO_PLAYED))
@@ -253,7 +253,7 @@ void ImagoCocoonInit(void)
         gCurrentSprite.pose = IMAGO_COCOON_POSE_IDLE;
         gCurrentSprite.roomSlot = IMAGO_COCOON_PART_IMAGO_COCOON;
 
-        gfxSlot = gCurrentSprite.spritesetGFXSlot;
+        gfxSlot = gCurrentSprite.spritesetGfxSlot;
         ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
         // Spawn vines
@@ -407,7 +407,7 @@ void ImagoCocoonFallingBeforeBlocks(void)
     {
         if (gSubSpriteData1.currentAnimationFrame == 0x7 && gSubSpriteData1.animationDurationCounter == 0x6)
         {
-            SpriteSpawnSecondary(SSPRITE_IMAGO_CEILING_VINE, 0x0, gCurrentSprite.spritesetGFXSlot,
+            SpriteSpawnSecondary(SSPRITE_IMAGO_CEILING_VINE, 0x0, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
         }
 
@@ -817,7 +817,7 @@ void ImagoCocoonVineSpawnSpore(void)
             }
 
             // Spawn spores
-            gfxSlot = gCurrentSprite.spritesetGFXSlot;
+            gfxSlot = gCurrentSprite.spritesetGfxSlot;
             ramSlot = gCurrentSprite.workVariable;
             SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_SPORE, IMAGO_COCOON_SPORE_PART_DOWN, gfxSlot,
                 ramSlot, yPosition, xPosition, status);

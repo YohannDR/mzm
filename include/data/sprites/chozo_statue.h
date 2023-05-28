@@ -34,7 +34,7 @@ extern const struct FrameData sChozoStatueMultiSpriteData_Seated[2];
 
 extern const u8 sChozoStatueFlashingPaletteRows[4];
 
-extern const u32 sChozoStatueLongBeamGFX[1335];
+extern const u32 sChozoStatueLongBeamGfx[1335];
 extern const u16 sChozoStatueLongBeamPAL[80];
 
 extern const u16 sChozoStatuePartOAM_LegStanding_Frame0[16];
@@ -169,25 +169,25 @@ extern const struct FrameData sChozoStatueRefillOAM[41];
 
 extern const struct FrameData sChozoStatuePartOAM_GlowIdle[41];
 
-extern const u32 sChozoStatueIceBeamGFX[1335];
+extern const u32 sChozoStatueIceBeamGfx[1335];
 extern const u16 sChozoStatueIceBeamPAL[80];
 
-extern const u32 sChozoStatueWaveBeamGFX[1335];
+extern const u32 sChozoStatueWaveBeamGfx[1335];
 extern const u16 sChozoStatueWaveBeamPAL[80];
 
-extern const u32 sChozoStatueBombsGFX[1339];
+extern const u32 sChozoStatueBombsGfx[1339];
 extern const u16 sChozoStatueBombsPAL[80];
 
-extern const u32 sChozoStatueSpeedboosterGFX[1342];
+extern const u32 sChozoStatueSpeedboosterGfx[1342];
 extern const u16 sChozoStatueSpeedboosterPAL[80];
 
-extern const u32 sChozoStatueHighJumpGFX[1372];
+extern const u32 sChozoStatueHighJumpGfx[1372];
 extern const u16 sChozoStatueHighJumpPAL[80];
 
-extern const u32 sChozoStatueScrewAttackGFX[1378];
+extern const u32 sChozoStatueScrewAttackGfx[1378];
 extern const u16 sChozoStatueScrewAttackPAL[80];
 
-extern const u32 sChozoStatueVariaGFX[1348];
+extern const u32 sChozoStatueVariaGfx[1348];
 extern const u16 sChozoStatueVariaPAL[80];
 
 #endif

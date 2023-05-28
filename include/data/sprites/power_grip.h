@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sPowerGripGFX[279];
+extern const u32 sPowerGripGfx[279];
 extern const u16 sPowerGripPAL[32];
 
 extern const u16 sPowerGripOAM_Idle_Frame0[4];

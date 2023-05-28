@@ -40,8 +40,8 @@ void PowerGrip(void)
                 gCurrentSprite.health = 0x1;
                 gCurrentSprite.yPosition -= 0x40;
                 gCurrentSprite.pose = POWER_GRIP_POSE_IDLE;
-                SpriteSpawnSecondary(SSPRITE_POWER_GRIP_GLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot,
-                    gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                SpriteSpawnSecondary(SSPRITE_POWER_GRIP_GLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
+                    gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
             }
             break;
 
@@ -98,7 +98,7 @@ void PowerGripGlow(void)
             break;
 
         case 0x9:
-            if (0x22 < gSpriteData[gCurrentSprite.primarySpriteRAMSlot].pose)
+            if (0x22 < gSpriteData[gCurrentSprite.primarySpriteRamSlot].pose)
                 gCurrentSprite.status = 0x0;
     }
 }

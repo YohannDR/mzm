@@ -12,10 +12,10 @@ extern const u16 sFileSelectIconsPAL[6 * 16];
 
 // ...
 
-extern const u32 sFileSelectChozoBackgroundGFX[2985];
-extern const u32 sFileSelectCharactersGFX[1531];
-extern const u32 sFileSelectTextGFX[1725];
-extern const u32 sFileSelectIconsGFX[1722];
+extern const u32 sFileSelectChozoBackgroundGfx[2985];
+extern const u32 sFileSelectCharactersGfx[1531];
+extern const u32 sFileSelectTextGfx[1725];
+extern const u32 sFileSelectIconsGfx[1722];
 extern const u32 sFileSelectChozoBackgroundTileTable[368];
 extern const u32 sFileSelectMenuTileTable[148];
 extern const u32 sFileSelectOptionsTileTable[188];

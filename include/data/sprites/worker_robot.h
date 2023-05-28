@@ -5,7 +5,7 @@
 #include "macros.h"
 #include "oam.h"
 
-extern const u32 sWorkerRobotGFX[376];
+extern const u32 sWorkerRobotGfx[376];
 extern const u16 sWorkerRobotPAL[32];
 
 extern const u16 sWorkerRobotOAM_Walking_Frame2[19];

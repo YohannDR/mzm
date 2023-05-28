@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sViolaBlueGFX[302];
+extern const u32 sViolaBlueGfx[302];
 extern const u16 sViolaBluePAL[16];
-extern const u32 sViolaOrangeGFX[305];
+extern const u32 sViolaOrangeGfx[305];
 extern const u16 sViolaOrangePAL[16];
 
 extern const u16 sViolaOAM_Moving_Frame0[4];

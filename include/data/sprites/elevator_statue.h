@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sElevatorStatuesGFX[1122];
+extern const u32 sElevatorStatuesGfx[1122];
 extern const u16 sElevatorStatuesPAL[64];
 
 extern const u16 sKraidElevatorStatueOAM_Idle_Frame0[64];

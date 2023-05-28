@@ -6,7 +6,7 @@
 
 u8 BeforeCharlieSamusCloseUp(void);
 u8 BeforeCharlieWallAndGreyVoice(void);
-void BeforeCharlieWallAndGreyVoiceScrollAndLoadYoungSamusGFX(struct CutsceneGraphicsData* pGraphics);
+void BeforeCharlieWallAndGreyVoiceScrollAndLoadYoungSamusGfx(struct CutsceneGraphicsData* pGraphics);
 void BeforeCharlieWallAndGreyVoiceApplyMonochrome(struct CutsceneGraphicsData* pGraphics);
 void BeforeCharlieWallAndGreyScrollCloseUp(struct CutsceneGraphicsData* pGraphics);
 u8 BeforeCharlieChozoWallSides(void);

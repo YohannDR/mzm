@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sSavePlatformChozodiaGFX[552];
+extern const u32 sSavePlatformChozodiaGfx[552];
 extern const u16 sSavePlatformChozodiaPAL[64];
 
 extern const u16 sSavePlatformChozodiaOAM_Idle_Frame0[61];

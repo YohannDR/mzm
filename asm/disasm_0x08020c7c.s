@@ -548,7 +548,7 @@ DeoremSpawnChargeBeam: @ 0x08021094
     bl SpriteSpawnPrimary
     movs r0, #0x44
     adds r1, r4, #0
-    bl SpriteLoadGFX
+    bl SpriteLoadGfx
     movs r0, #0x44
     adds r1, r4, #0
     movs r2, #1
@@ -4805,8 +4805,8 @@ lbl_08023164:
     .align 2, 0
 lbl_0802316c: .4byte gCurrentSprite
 
-    thumb_func_start DeoremEyeDyingGFXInit
-DeoremEyeDyingGFXInit: @ 0x08023170
+    thumb_func_start DeoremEyeDyingGfxInit
+DeoremEyeDyingGfxInit: @ 0x08023170
     ldr r3, lbl_0802319c @ =gCurrentSprite
     adds r0, r3, #0
     adds r0, #0x23
@@ -5854,7 +5854,7 @@ lbl_08023ae4:
     bl sub_080230d4
     b lbl_08023af8
 lbl_08023aea:
-    bl DeoremEyeDyingGFXInit
+    bl DeoremEyeDyingGfxInit
 lbl_08023aee:
     bl DeoremEyeDyingSpinningAnim
     b lbl_08023af8

@@ -133,7 +133,7 @@ const u8 sChozoStatueFlashingPaletteRows[4] = {
     1, 2, 3, 2
 };
 
-const u32 sChozoStatueLongBeamGFX[1335] = INCBIN_U32("data/sprites/ChozoStatueLongBeam.gfx.lz");
+const u32 sChozoStatueLongBeamGfx[1335] = INCBIN_U32("data/sprites/ChozoStatueLongBeam.gfx.lz");
 const u16 sChozoStatueLongBeamPAL[80] = INCBIN_U16("data/sprites/ChozoStatueLongBeam.pal");
 
 
@@ -891,23 +891,23 @@ const struct FrameData sChozoStatuePartOAM_GlowIdle[41] = {
     0x0
 };
 
-const u32 sChozoStatueIceBeamGFX[1335] = INCBIN_U32("data/sprites/ChozoStatueIceBeam.gfx.lz");
+const u32 sChozoStatueIceBeamGfx[1335] = INCBIN_U32("data/sprites/ChozoStatueIceBeam.gfx.lz");
 const u16 sChozoStatueIceBeamPAL[80] = INCBIN_U16("data/sprites/ChozoStatueIceBeam.pal");
 
-const u32 sChozoStatueWaveBeamGFX[1335] = INCBIN_U32("data/sprites/ChozoStatueWaveBeam.gfx.lz");
+const u32 sChozoStatueWaveBeamGfx[1335] = INCBIN_U32("data/sprites/ChozoStatueWaveBeam.gfx.lz");
 const u16 sChozoStatueWaveBeamPAL[80] = INCBIN_U16("data/sprites/ChozoStatueWaveBeam.pal");
 
-const u32 sChozoStatueBombsGFX[1339] = INCBIN_U32("data/sprites/ChozoStatueBomb.gfx.lz");
+const u32 sChozoStatueBombsGfx[1339] = INCBIN_U32("data/sprites/ChozoStatueBomb.gfx.lz");
 const u16 sChozoStatueBombsPAL[80] = INCBIN_U16("data/sprites/ChozoStatueBomb.pal");
 
-const u32 sChozoStatueSpeedboosterGFX[1342] = INCBIN_U32("data/sprites/ChozoStatueSpeedbooster.gfx.lz");
+const u32 sChozoStatueSpeedboosterGfx[1342] = INCBIN_U32("data/sprites/ChozoStatueSpeedbooster.gfx.lz");
 const u16 sChozoStatueSpeedboosterPAL[80] = INCBIN_U16("data/sprites/ChozoStatueSpeedbooster.pal");
 
-const u32 sChozoStatueHighJumpGFX[1372] = INCBIN_U32("data/sprites/ChozoStatueHighJump.gfx.lz");
+const u32 sChozoStatueHighJumpGfx[1372] = INCBIN_U32("data/sprites/ChozoStatueHighJump.gfx.lz");
 const u16 sChozoStatueHighJumpPAL[80] = INCBIN_U16("data/sprites/ChozoStatueHighJump.pal");
 
-const u32 sChozoStatueScrewAttackGFX[1378] = INCBIN_U32("data/sprites/ChozoStatueScrewAttack.gfx.lz");
+const u32 sChozoStatueScrewAttackGfx[1378] = INCBIN_U32("data/sprites/ChozoStatueScrewAttack.gfx.lz");
 const u16 sChozoStatueScrewAttackPAL[80] = INCBIN_U16("data/sprites/ChozoStatueScrewAttack.pal");
 
-const u32 sChozoStatueVariaGFX[1348] = INCBIN_U32("data/sprites/ChozoStatueVariaSuit.gfx.lz");
+const u32 sChozoStatueVariaGfx[1348] = INCBIN_U32("data/sprites/ChozoStatueVariaSuit.gfx.lz");
 const u16 sChozoStatueVariaPAL[80] = INCBIN_U16("data/sprites/ChozoStatueVariaSuit.pal");

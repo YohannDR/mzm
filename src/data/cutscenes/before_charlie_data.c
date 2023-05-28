@@ -72,13 +72,13 @@ const u16 sBeforeCharlieChozoWallSidesPAL[10 * 16] = INCBIN_U16("data/cutscenes/
 const u16 sBeforeCharlieChozoWallPAL[8 * 16] = INCBIN_U16("data/cutscenes/BeforeCharlie/ChozoWall.pal");
 const u16 sBeforeCharlieSamusCloseUpPAL[16 * 16] = INCBIN_U16("data/cutscenes/BeforeCharlie/SamusCloseUp.pal");
 
-const u32 sBeforeCharlieLeftSideOfChozoWallGFX[4049] = INCBIN_U32("data/cutscenes/BeforeCharlie/LeftSideChozoWall.gfx.lz");
-const u32 sBeforeCharlieRightSideOfChozoWallGFX[3987] = INCBIN_U32("data/cutscenes/BeforeCharlie/RightSideChozoWall.gfx.lz");
-const u32 sBeforeCharlieChozoWallBackgroundGFX[6446] = INCBIN_U32("data/cutscenes/BeforeCharlie/ChozoWallBackground.gfx.lz");
-const u32 sBeforeCharlieYoungSamusAndGreyVoiceGFX[1792] = INCBIN_U32("data/cutscenes/BeforeCharlie/YoungSamusAndGreyVoice.gfx.lz");
-const u32 sBeforeCharlieYoungSamusAndGreyVoiceCloseUpGFX[3818] = INCBIN_U32("data/cutscenes/BeforeCharlie/YoungSamusAndGreyVoiceCloseUp.gfx.lz");
-const u32 sBeforeCharlieYoungSamusCloseUpGFX[2979] = INCBIN_U32("data/cutscenes/BeforeCharlie/YoungSamusCloseUp.gfx.lz");
-const u32 sBeforeCharlieSamusCloseUpGFX[5285] = INCBIN_U32("data/cutscenes/BeforeCharlie/SamusCloseUp.gfx.lz");
+const u32 sBeforeCharlieLeftSideOfChozoWallGfx[4049] = INCBIN_U32("data/cutscenes/BeforeCharlie/LeftSideChozoWall.gfx.lz");
+const u32 sBeforeCharlieRightSideOfChozoWallGfx[3987] = INCBIN_U32("data/cutscenes/BeforeCharlie/RightSideChozoWall.gfx.lz");
+const u32 sBeforeCharlieChozoWallBackgroundGfx[6446] = INCBIN_U32("data/cutscenes/BeforeCharlie/ChozoWallBackground.gfx.lz");
+const u32 sBeforeCharlieYoungSamusAndGreyVoiceGfx[1792] = INCBIN_U32("data/cutscenes/BeforeCharlie/YoungSamusAndGreyVoice.gfx.lz");
+const u32 sBeforeCharlieYoungSamusAndGreyVoiceCloseUpGfx[3818] = INCBIN_U32("data/cutscenes/BeforeCharlie/YoungSamusAndGreyVoiceCloseUp.gfx.lz");
+const u32 sBeforeCharlieYoungSamusCloseUpGfx[2979] = INCBIN_U32("data/cutscenes/BeforeCharlie/YoungSamusCloseUp.gfx.lz");
+const u32 sBeforeCharlieSamusCloseUpGfx[5285] = INCBIN_U32("data/cutscenes/BeforeCharlie/SamusCloseUp.gfx.lz");
 
 const u32 sBeforeCharlieLeftSideOfChozoWallTileTable[368] = INCBIN_U32("data/cutscenes/BeforeCharlie/LeftSideChozoWall.tt");
 const u32 sBeforeCharlieRightSideOfChozoWallTileTable[369] = INCBIN_U32("data/cutscenes/BeforeCharlie/RightSideChozoWall.tt");

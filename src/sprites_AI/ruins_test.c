@@ -327,8 +327,8 @@ u8 RuinsTestUpdateSymbol(void)
         {
             gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
 
-            ramSlot = SpriteSpawnSecondary(SSPRITE_RUINS_TEST_SHOOTABLE_SYMBOL, 0x0, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
+            ramSlot = SpriteSpawnSecondary(SSPRITE_RUINS_TEST_SHOOTABLE_SYMBOL, 0x0, gCurrentSprite.spritesetGfxSlot,
+                gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
 
             if (ramSlot < MAX_AMOUNT_OF_SPRITES)
                 gSpriteData[ramSlot].health = gSubSpriteData1.health;
@@ -472,8 +472,8 @@ void RuinsTestInit(void)
     gSubSpriteData1.workVariable1 = 0x0;
 
     RuinsTestCalculateDelay(0x78);
-    SpriteSpawnSecondary(SSPRITE_RUINS_TEST_SYMBOL, 0x0, gCurrentSprite.spritesetGFXSlot,
-        gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+    SpriteSpawnSecondary(SSPRITE_RUINS_TEST_SYMBOL, 0x0, gCurrentSprite.spritesetGfxSlot,
+        gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
     SamusSetPose(SPOSE_FACING_THE_BACKGROUND_SUITLESS);
 
     gSamusData.yPosition = yPosition + BLOCK_SIZE * 5 - 0x11;
@@ -517,13 +517,13 @@ void RuinsTestTurningIntoReflection(void)
     {
         if (gCurrentSprite.animationDurationCounter == 0x1)
         {
-            SpriteSpawnSecondary(SSPRITE_RUINS_TEST_REFLECTION_COVER, 0x0, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_RUINS_TEST_REFLECTION_COVER, 0x0, gCurrentSprite.spritesetGfxSlot,
+                gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         }
         else if (gCurrentSprite.animationDurationCounter == 0x4)
         {
-            SpriteSpawnSecondary(SSPRITE_RUINS_TEST_SAMUS_REFLECTION_START, 0x0, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition + 0x5C, gCurrentSprite.xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_RUINS_TEST_SAMUS_REFLECTION_START, 0x0, gCurrentSprite.spritesetGfxSlot,
+                gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition + 0x5C, gCurrentSprite.xPosition, 0x0);
         }
     }
 
@@ -598,13 +598,13 @@ void RuinsTestSpawnGhost(void)
         gCurrentSprite.timer--;
         if (gCurrentSprite.timer == 0x54)
         {
-            SpriteSpawnSecondary(SSPRITE_RUINS_TEST_GHOST_OUTLINE, RUINS_TEST_GHOST_OUTLINE_PART_OUTLINE, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_RUINS_TEST_GHOST_OUTLINE, RUINS_TEST_GHOST_OUTLINE_PART_OUTLINE, gCurrentSprite.spritesetGfxSlot,
+                gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         }
         else if (gCurrentSprite.timer == 0x40)
         {
-            SpriteSpawnSecondary(SSPRITE_RUINS_TEST_GHOST, RUINS_TEST_GHOST_PART_GHOST, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_RUINS_TEST_GHOST, RUINS_TEST_GHOST_PART_GHOST, gCurrentSprite.spritesetGfxSlot,
+                gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         }
         else if (gCurrentSprite.timer == 0x0)
         {
@@ -970,8 +970,8 @@ void RuinsTestDespawn(void)
         if (gCurrentSprite.workVariable == 0x0)
         {
             // Spawn reflection end
-            SpriteSpawnSecondary(SSPRITE_RUINS_TEST_SAMUS_REFLECTION_END, 0x0, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition + 0x5C, gCurrentSprite.xPosition, 0x0);
+            SpriteSpawnSecondary(SSPRITE_RUINS_TEST_SAMUS_REFLECTION_END, 0x0, gCurrentSprite.spritesetGfxSlot,
+                gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition + 0x5C, gCurrentSprite.xPosition, 0x0);
         }
     }
     else if (gSubSpriteData1.workVariable3 == RUINS_TEST_FIGHT_STAGE_STARTING_CUTSCENE_FADE)
@@ -1118,7 +1118,7 @@ void RuinsTestGhostIdle(void)
     }
     else
     {
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
         gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition;
         gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition;
         gCurrentSprite.invincibilityStunFlashTimer = gSpriteData[ramSlot].invincibilityStunFlashTimer;
@@ -1482,7 +1482,7 @@ void RuinsTest(void)
                 gBossWork.work4 = TRUE;
                 // Spawn lightning
                 SpriteSpawnSecondary(SSPRITE_RUINS_TEST_GHOST_OUTLINE, RUINS_TEST_GHOST_OUTLINE_PART_SHOOTING_GROUND_LIGHTNING,
-                    gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, gBossWork.work1, gBossWork.work2, 0x0);
+                    gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, gBossWork.work1, gBossWork.work2, 0x0);
             }
 
             // Check shoot standing lightning
@@ -1494,7 +1494,7 @@ void RuinsTest(void)
                 gBossWork.work4 = TRUE;
                 // Spawn lightning
                 SpriteSpawnSecondary(SSPRITE_RUINS_TEST_GHOST_OUTLINE, RUINS_TEST_GHOST_OUTLINE_PART_SHOOTING_LIGHTNING,
-                    gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, gBossWork.work1, gBossWork.work2, 0x0);
+                    gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, gBossWork.work1, gBossWork.work2, 0x0);
             }
         }
 
@@ -1521,7 +1521,7 @@ void RuinsTestSymbol(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     switch (gCurrentSprite.pose)
     {
@@ -1688,7 +1688,7 @@ void RuinsTestSamusReflectionStart(void)
             gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.animationDurationCounter = 0x0;
 
-            gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_START_POSE_UPDATE_GFX_PAL;
+            gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_START_POSE_UPDATE_Gfx_PAL;
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 0x3;
 
@@ -1696,7 +1696,7 @@ void RuinsTestSamusReflectionStart(void)
             gCurrentSprite.timer = 0x1;
             break;
 
-        case RUINS_TEST_SAMUS_REFLECTION_START_POSE_UPDATE_GFX_PAL:
+        case RUINS_TEST_SAMUS_REFLECTION_START_POSE_UPDATE_Gfx_PAL:
             if (gCurrentSprite.timer < 0x10)
             {
                 // Update palette
@@ -1721,13 +1721,13 @@ void RuinsTestSamusReflectionStart(void)
                 // Transfer turning graphics
                 if (gSamusData.direction & KEY_RIGHT)
                 {
-                    dma_set(3, sRuinsTestGFX_SamusReflectionTurningRightTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
-                    dma_set(3, sRuinsTestGFX_SamusReflectionTurningRightBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
+                    dma_set(3, sRuinsTestGfx_SamusReflectionTurningRightTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
+                    dma_set(3, sRuinsTestGfx_SamusReflectionTurningRightBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
                 }
                 else
                 {
-                    dma_set(3, sRuinsTestGFX_SamusReflectionTurningLeftTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
-                    dma_set(3, sRuinsTestGFX_SamusReflectionTurningLeftBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
+                    dma_set(3, sRuinsTestGfx_SamusReflectionTurningLeftTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
+                    dma_set(3, sRuinsTestGfx_SamusReflectionTurningLeftBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
                 }
             }
             break;
@@ -1751,7 +1751,7 @@ void RuinsTestReflectionCover(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     switch (gCurrentSprite.pose)
     {
@@ -1851,13 +1851,13 @@ void RuinsTestGhostOutline(void)
                 if (gCurrentSprite.roomSlot == RUINS_TEST_GHOST_OUTLINE_PART_SHOOTING_GROUND_LIGHTNING)
                 {
                     SpriteSpawnSecondary(SSPRITE_RUINS_TEST_LIGHTNING, RUINS_TEST_LIGHTNING_PART_GROUND,
-                        gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                        gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                         gBossWork.work1, gBossWork.work2, 0x0);
                 }
                 else if (gCurrentSprite.roomSlot == RUINS_TEST_GHOST_OUTLINE_PART_SHOOTING_LIGHTNING)
                 {
                     SpriteSpawnSecondary(SSPRITE_RUINS_TEST_LIGHTNING, RUINS_TEST_LIGHTNING_PART_STATIC,
-                        gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                        gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                         gBossWork.work1, gSamusData.xPosition, 0x0);
                 }
             }
@@ -1968,8 +1968,8 @@ void RuinsTestShootableSymbol(void)
                 gSubSpriteData1.workVariable1 = 0x0;
                 gCurrentSprite.status = 0x0;
                 // Spawn symbol shot ghost
-                SpriteSpawnSecondary(SSPRITE_RUINS_TEST_GHOST, gSubSpriteData1.health, gCurrentSprite.spritesetGFXSlot,
-                    gCurrentSprite.primarySpriteRAMSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
+                SpriteSpawnSecondary(SSPRITE_RUINS_TEST_GHOST, gSubSpriteData1.health, gCurrentSprite.spritesetGfxSlot,
+                    gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
             }
     }
 }
@@ -2039,7 +2039,7 @@ void RuinsTestSamusReflectionEnd(void)
 
             case RUINS_TEST_FIGHT_STAGE_STARTING_CUTSCENE:
                 gCurrentSprite.status = 0x0;
-                gSpriteData[gCurrentSprite.primarySpriteRAMSlot].status = 0x0;
+                gSpriteData[gCurrentSprite.primarySpriteRamSlot].status = 0x0;
                 SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_FULLY_POWERED_SUIT, 0x6,
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         }
@@ -2069,8 +2069,8 @@ void RuinsTestSamusReflectionEnd(void)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 0xB;
 
-            dma_set(3, sRuinsTestGFX_SamusReflectionSuitlessTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
-            dma_set(3, sRuinsTestGFX_SamusReflectionSuitlessBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
+            dma_set(3, sRuinsTestGfx_SamusReflectionSuitlessTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
+            dma_set(3, sRuinsTestGfx_SamusReflectionSuitlessBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
             dma_set(3, sRuinsTestPAL_SamusReflection, (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
 
             gCurrentSprite.timer = 0x0;
@@ -2129,10 +2129,10 @@ void RuinsTestSamusReflectionEnd(void)
             }
             else if (gCurrentSprite.timer == 0x1E)
             {
-                // Transfer fullsuit GFX
+                // Transfer fullsuit Gfx
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
-                dma_set(3, sRuinsTestGFX_SamusReflectionFullSuitTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
-                dma_set(3, sRuinsTestGFX_SamusReflectionFullSuitBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
+                dma_set(3, sRuinsTestGfx_SamusReflectionFullSuitTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
+                dma_set(3, sRuinsTestGfx_SamusReflectionFullSuitBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
             }
             break;
 
@@ -2272,7 +2272,7 @@ void RuinsTestLightning(void)
                     RuinsTestLightningOnGroundInit();
                     // Spawn right lightning
                     SpriteSpawnSecondary(SSPRITE_RUINS_TEST_LIGHTNING, RUINS_TEST_LIGHTNING_PART_GROUND_RIGHT,
-                        gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                        gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                         gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPRITE_STATUS_XFLIP);
                 }
                 break;

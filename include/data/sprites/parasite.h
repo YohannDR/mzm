@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sParasiteGFX[309];
+extern const u32 sParasiteGfx[309];
 extern const u16 sParasitePAL[16];
 
 extern const u16 sParasiteOAM_Idle_Frame0[4];

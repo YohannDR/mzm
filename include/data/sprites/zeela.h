@@ -8,7 +8,7 @@ extern const i16 sZeelaEyesFallingFromUpSpeed[16];
 
 extern const i16 sZeelaEyesFallingFromBottomSpeed[12];
 
-extern const u32 sZeelaGFX[578];
+extern const u32 sZeelaGfx[578];
 extern const u16 sZeelaPAL[32];
 
 extern const u16 sZeelaOAM_OnGround_Frame0[7];

@@ -1,7 +1,7 @@
 #include "data/sprites/searchlight_eye.h"
 #include "macros.h"
 
-const u32 sSearchlightEyeGFX[177] = INCBIN_U32("data/sprites/SearchlightEye.gfx.lz");
+const u32 sSearchlightEyeGfx[177] = INCBIN_U32("data/sprites/SearchlightEye.gfx.lz");
 const u16 sSearchlightEyePAL[16] = INCBIN_U16("data/sprites/SearchlightEye.pal");
 
 const u16 sSearchlightEyeOAM_Idle_Frame0[10] = {

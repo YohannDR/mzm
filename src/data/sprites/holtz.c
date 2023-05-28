@@ -9,7 +9,7 @@ const i16 sHoltzIdleYVelocity[65] = {
     0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
-const u32 sHoltzGFX[200] = INCBIN_U32("data/sprites/Holtz.gfx.lz");
+const u32 sHoltzGfx[200] = INCBIN_U32("data/sprites/Holtz.gfx.lz");
 const u16 sHoltzPAL[16] = INCBIN_U16("data/sprites/Holtz.pal");
 
 const u16 sHoltzOAM_Idle_Frame0[13] = {

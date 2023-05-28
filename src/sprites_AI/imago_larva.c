@@ -152,7 +152,7 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
         gCurrentSprite.frozenPaletteRowOffset = 0x2;
         gCurrentSprite.roomSlot = IMAGO_LARVA_PART_LARVA;
 
-        gfxSlot = gCurrentSprite.spritesetGFXSlot;
+        gfxSlot = gCurrentSprite.spritesetGfxSlot;
         ramSlot = gCurrentSprite.primarySpriteRamSlot;
         status = gCurrentSprite.status & SPRITE_STATUS_XFLIP;
 

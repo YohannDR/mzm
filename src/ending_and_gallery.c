@@ -211,29 +211,29 @@ void EndingImageLoadIGTAndPercentageGraphics(void)
     if (hoursTens != 0)
     {
         offset = hoursTens * 64;
-        dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x10000, DMA_ENABLE << 16 | 32);
-        dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x10400, DMA_ENABLE << 16 | 32);
+        dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10000, DMA_ENABLE << 16 | 32);
+        dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10400, DMA_ENABLE << 16 | 32);
     }
 
     offset = hoursOnes * 64;
-    dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x10040, DMA_ENABLE << 16 | 32);
-    dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x10440, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10040, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10440, DMA_ENABLE << 16 | 32);
 
     offset = minutesTens * 64;
-    dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x100A0, DMA_ENABLE << 16 | 32);
-    dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x104A0, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x100A0, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x104A0, DMA_ENABLE << 16 | 32);
 
     offset = minutesOnes * 64;
-    dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x100E0, DMA_ENABLE << 16 | 32);
-    dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x104E0, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x100E0, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x104E0, DMA_ENABLE << 16 | 32);
 
     offset = secondsTens * 64;
-    dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x10140, DMA_ENABLE << 16 | 32);
-    dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x10540, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10140, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10540, DMA_ENABLE << 16 | 32);
 
     offset = secondsOnes * 64;
-    dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x10180, DMA_ENABLE << 16 | 32);
-    dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x10580, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10180, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10580, DMA_ENABLE << 16 | 32);
 
     percentageHundreds = 0;
     percentageTens = 0;
@@ -254,19 +254,19 @@ void EndingImageLoadIGTAndPercentageGraphics(void)
     if (percentageHundreds != 0)
     {
         offset = percentageHundreds * 64;
-        dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x101C0, DMA_ENABLE << 16 | 32);
-        dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x105C0, DMA_ENABLE << 16 | 32);
+        dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x101C0, DMA_ENABLE << 16 | 32);
+        dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x105C0, DMA_ENABLE << 16 | 32);
     }
     if (percentageTens != 0)
     {
         offset = percentageTens * 64;
-        dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x10200, DMA_ENABLE << 16 | 32);
-        dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x10600, DMA_ENABLE << 16 | 32);
+        dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10200, DMA_ENABLE << 16 | 32);
+        dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10600, DMA_ENABLE << 16 | 32);
     }
 
     offset = percentageOnes * 64;
-    dma_set(3, &sEndingImageNumbersGFX_Upper[offset], VRAM_BASE + 0x10240, DMA_ENABLE << 16 | 32);
-    dma_set(3, &sEndingImageNumbersGFX_Lower[offset], VRAM_BASE + 0x10640, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10240, DMA_ENABLE << 16 | 32);
+    dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10640, DMA_ENABLE << 16 | 32);
 }
 
 /**
@@ -383,10 +383,10 @@ void CreditsInit(void)
 
     ClearGfxRam();
 
-    LZ77UncompVRAM(sCreditsChozoWallBackgroundGFX, VRAM_BASE);
+    LZ77UncompVRAM(sCreditsChozoWallBackgroundGfx, VRAM_BASE);
     LZ77UncompVRAM(sCreditsChozoWallBackgroundTileTable, VRAM_BASE + 0xE000);
     LZ77UncompVRAM(sCreditsChozoWallBottomTileTable, VRAM_BASE + 0xD800);
-    LZ77UncompVRAM(sCreditsCharactersGFX, VRAM_BASE + 0x8000);
+    LZ77UncompVRAM(sCreditsCharactersGfx, VRAM_BASE + 0x8000);
 
     dma_set(3, sCreditsChozoWallPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sCreditsChozoWallPAL) / 2);
     dma_set(3, sCreditsCharactersPAL, PALRAM_BASE + 0x1A0, DMA_ENABLE << 16 | sizeof(sCreditsCharactersPAL) / 2);
@@ -713,7 +713,7 @@ u8 CreditsChozoWallMovement(void)
     {
         case 0:
             // Load bottom graphics
-            LZ77UncompVRAM(sCreditsChozoWallBottomGFX, VRAM_BASE + 0x8000);
+            LZ77UncompVRAM(sCreditsChozoWallBottomGfx, VRAM_BASE + 0x8000);
             break;
 
         case 1:
@@ -754,7 +754,7 @@ u8 CreditsChozoWallZoom(void)
     switch (ENDING_DATA.timer++)
     {
         case 0:
-            LZ77UncompVRAM(sCreditsChozoWallBottomZoomedGFX, VRAM_BASE);
+            LZ77UncompVRAM(sCreditsChozoWallBottomZoomedGfx, VRAM_BASE);
             dma_set(3, sCreditsChozoWallPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sCreditsChozoWallPAL));
             gBG0YPosition = 0;
             gWrittenToBLDALPHA_L = 0;
@@ -781,7 +781,7 @@ u8 CreditsChozoWallZoom(void)
             break;
 
         case 193:
-            LZ77UncompVRAM(sCreditsChozoDrawingGFX, VRAM_BASE + 0x8000);
+            LZ77UncompVRAM(sCreditsChozoDrawingGfx, VRAM_BASE + 0x8000);
             break;
 
         case 194:
@@ -860,10 +860,10 @@ void EndScreenInit(void)
     CallbackSetVBlank(EndScreenVBlank);
     write16(REG_IME, TRUE);
 
-    LZ77UncompVRAM(sEndingSamusPosingSpaceBackgroundGFX, VRAM_BASE + 0x3000);
-    LZ77UncompVRAM(sEndingLightGFX, VRAM_BASE + 0xB000);
-    LZ77UncompVRAM(sEndingSamusPosingGFX_1, VRAM_BASE);
-    LZ77UncompVRAM(sEndingSamusPosingGFX_2, VRAM_BASE + 0x8000);
+    LZ77UncompVRAM(sEndingSamusPosingSpaceBackgroundGfx, VRAM_BASE + 0x3000);
+    LZ77UncompVRAM(sEndingLightGfx, VRAM_BASE + 0xB000);
+    LZ77UncompVRAM(sEndingSamusPosingGfx_1, VRAM_BASE);
+    LZ77UncompVRAM(sEndingSamusPosingGfx_2, VRAM_BASE + 0x8000);
 
     LZ77UncompVRAM(sEndingSamusPosingSpaceBackgroundTileTable, VRAM_BASE + 0xF800);
     LZ77UncompVRAM(sEndingLightTileTable, VRAM_BASE + 0xF000);
@@ -1099,7 +1099,7 @@ u8 EndScreenSamusPosing(void)
             write16(REG_BG1CNT, 0x5A02);
             write16(REG_BG2CNT, 0x5C09);
 
-            LZ77UncompVRAM(sEndingSamusPosingGFX_3, VRAM_BASE);
+            LZ77UncompVRAM(sEndingSamusPosingGfx_3, VRAM_BASE);
             LZ77UncompVRAM(sEndingSamusPosingTileTable_3, VRAM_BASE + 0xD000);
 
             ENDING_DATA.bldcnt = 0;
@@ -1113,7 +1113,7 @@ u8 EndScreenSamusPosing(void)
             write16(REG_BG1CNT, 0x5A01);
             write16(REG_BG2CNT, 0x5C0A);
 
-            LZ77UncompVRAM(sEndingSamusPosingGFX_4, VRAM_BASE + 0x8000);
+            LZ77UncompVRAM(sEndingSamusPosingGfx_4, VRAM_BASE + 0x8000);
             LZ77UncompVRAM(sEndingSamusPosingTileTable_4, VRAM_BASE + 0xE000);
 
             ENDING_DATA.bldcnt = 0;
@@ -1127,7 +1127,7 @@ u8 EndScreenSamusPosing(void)
             write16(REG_BG1CNT, 0x5A02);
             write16(REG_BG2CNT, 0x5C09);
 
-            LZ77UncompVRAM(sEndingSamusPosingGFX_5, VRAM_BASE);
+            LZ77UncompVRAM(sEndingSamusPosingGfx_5, VRAM_BASE);
             LZ77UncompVRAM(sEndingSamusPosingTileTable_5, VRAM_BASE + 0xD000);
 
             ENDING_DATA.bldcnt = 0;
@@ -1143,17 +1143,17 @@ u8 EndScreenSamusPosing(void)
 
             if (ENDING_DATA.endingNumber == 0)
             {
-                LZ77UncompVRAM(sEndingSamusPosingFullSuitGFX, VRAM_BASE + 0x8000);
+                LZ77UncompVRAM(sEndingSamusPosingFullSuitGfx, VRAM_BASE + 0x8000);
                 LZ77UncompVRAM(sEndingSamusPosingFullSuitTileTable, VRAM_BASE + 0xE000);
             }
             else if (ENDING_DATA.endingNumber == 1)
             {
-                LZ77UncompVRAM(sEndingSamusPosingHelmetOffGFX, VRAM_BASE + 0x8000);
+                LZ77UncompVRAM(sEndingSamusPosingHelmetOffGfx, VRAM_BASE + 0x8000);
                 LZ77UncompVRAM(sEndingSamusPosingHelmetOffTileTable, VRAM_BASE + 0xE000);
             }
             else
             {
-                LZ77UncompVRAM(sEndingSamusPosingSuitlessGFX, VRAM_BASE + 0x8000);
+                LZ77UncompVRAM(sEndingSamusPosingSuitlessGfx, VRAM_BASE + 0x8000);
                 LZ77UncompVRAM(sEndingSamusPosingSuitlessTileTable, VRAM_BASE + 0xE000);
             }
 
@@ -1272,16 +1272,16 @@ void EndingImageInit(void)
 
     ENDING_DATA.completionPercentage = part1 + part2 + part3 + part4 + part5;
 
-    LZ77UncompVRAM(sEndingImageNumbersMiscGFX, VRAM_BASE + 0x10000);
+    LZ77UncompVRAM(sEndingImageNumbersMiscGfx, VRAM_BASE + 0x10000);
 
     ENDING_DATA.language = gLanguage;
     if (gLanguage > LANGUAGE_ENGLISH)
         ENDING_DATA.language = LANGUAGE_ENGLISH;
 
     if (ENDING_DATA.language == LANGUAGE_HIRAGANA)
-        LZ77UncompVRAM(sEndingImageTextJapGFX, VRAM_BASE + 0x11000);
+        LZ77UncompVRAM(sEndingImageTextJapGfx, VRAM_BASE + 0x11000);
     else
-        LZ77UncompVRAM(sEndingImageTextGFX, VRAM_BASE + 0x11000);
+        LZ77UncompVRAM(sEndingImageTextGfx, VRAM_BASE + 0x11000);
 
     dma_set(3, sEndingImageTextPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sEndingImageTextPAL) / 2);
 

@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const u32 sImagoLarvaRightSideGFX[592];
+extern const u32 sImagoLarvaRightSideGfx[592];
 extern const u16 sImagoLarvaRightSidePAL[32];
 
 extern const u16 sImagoLarvaRightSideOAM_Frame0[37];

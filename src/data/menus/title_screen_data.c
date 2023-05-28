@@ -118,11 +118,11 @@ static const struct FrameData sTitleScreenOAM_SparkleDisappearing[6] = {
     0
 };
 
-const u32 sTitleScreenTitleGFX[1095] = INCBIN_U32("data/menus/TitleScreen/Title.gfx.lz");
-const u32 sTitleScreenSparklesGFX[256] = INCBIN_U32("data/menus/TitleScreen/Sparkles.gfx.lz");
-const u32 sTitleScreenSpaceBackgroundGFX[3203] = INCBIN_U32("data/menus/TitleScreen/SpaceBackground.gfx.lz");
-const u32 sTitleScreenSpaceBackgroundDecorationGFX[797] = INCBIN_U32("data/menus/TitleScreen/SpaceBackgroundDecoration.gfx.lz");
-const u32 sTitleScreenSpaceAndGroundBackgroundGFX[1920] = INCBIN_U32("data/menus/TitleScreen/SpaceAndGroundBackground.gfx.lz");
+const u32 sTitleScreenTitleGfx[1095] = INCBIN_U32("data/menus/TitleScreen/Title.gfx.lz");
+const u32 sTitleScreenSparklesGfx[256] = INCBIN_U32("data/menus/TitleScreen/Sparkles.gfx.lz");
+const u32 sTitleScreenSpaceBackgroundGfx[3203] = INCBIN_U32("data/menus/TitleScreen/SpaceBackground.gfx.lz");
+const u32 sTitleScreenSpaceBackgroundDecorationGfx[797] = INCBIN_U32("data/menus/TitleScreen/SpaceBackgroundDecoration.gfx.lz");
+const u32 sTitleScreenSpaceAndGroundBackgroundGfx[1920] = INCBIN_U32("data/menus/TitleScreen/SpaceAndGroundBackground.gfx.lz");
 const u32 sTitleScreenTitleTileTable[199] = INCBIN_U32("data/menus/TitleScreen/Title.tt");
 const u32 sTitleScreenSpaceBackgroundTileTable[702] = INCBIN_U32("data/menus/TitleScreen/SpaceBackground.tt");
 

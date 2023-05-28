@@ -121,7 +121,7 @@ void MechaRidleyPartGreenGlow(void)
  * @brief 4bb88 | a4 | Loads the fireball graphics
  * 
  */
-void MechaRidleyLoadFireballsGFX(void)
+void MechaRidleyLoadFireballsGfx(void)
 {
     u8 stage;
 
@@ -137,10 +137,10 @@ void MechaRidleyLoadFireballsGFX(void)
         stage = gCurrentSprite.arrayOffset;
 
         // Load graphics
-        dma_set(3, &sMechaRidleyWeaponsGFX[3 * 32 +stage * 32], VRAM_BASE + 0x14280, (DMA_ENABLE << 16) | 64);
-        dma_set(3, &sMechaRidleyWeaponsGFX[11 * 32 + stage * 32], VRAM_BASE + 0x14680, (DMA_ENABLE << 16) | 64);
-        dma_set(3, &sMechaRidleyWeaponsGFX[19 * 32 + stage * 32], VRAM_BASE + 0x14A80, (DMA_ENABLE << 16) | 64);
-        dma_set(3, &sMechaRidleyWeaponsGFX[27 * 32 + stage * 32], VRAM_BASE + 0x14E80, (DMA_ENABLE << 16) | 64);
+        dma_set(3, &sMechaRidleyWeaponsGfx[3 * 32 +stage * 32], VRAM_BASE + 0x14280, (DMA_ENABLE << 16) | 64);
+        dma_set(3, &sMechaRidleyWeaponsGfx[11 * 32 + stage * 32], VRAM_BASE + 0x14680, (DMA_ENABLE << 16) | 64);
+        dma_set(3, &sMechaRidleyWeaponsGfx[19 * 32 + stage * 32], VRAM_BASE + 0x14A80, (DMA_ENABLE << 16) | 64);
+        dma_set(3, &sMechaRidleyWeaponsGfx[27 * 32 + stage * 32], VRAM_BASE + 0x14E80, (DMA_ENABLE << 16) | 64);
     }
 }
 
@@ -148,7 +148,7 @@ void MechaRidleyLoadFireballsGFX(void)
  * @brief 4bc2c | a4 | Loads the missile graphics
  * 
  */
-void MechaRidleyLoadMissilesGFX(void)
+void MechaRidleyLoadMissilesGfx(void)
 {
     u8 stage;
 
@@ -164,10 +164,10 @@ void MechaRidleyLoadMissilesGFX(void)
         stage = gCurrentSprite.arrayOffset;
 
         // Load graphics
-        dma_set(3, &sMechaRidleyWeaponsGFX[stage * 32], VRAM_BASE + 0x14280, (DMA_ENABLE << 16) | 64);
-        dma_set(3, &sMechaRidleyWeaponsGFX[8 * 32 + stage * 32], VRAM_BASE + 0x14680, (DMA_ENABLE << 16) | 64);
-        dma_set(3, &sMechaRidleyWeaponsGFX[16 * 32 + stage * 32], VRAM_BASE + 0x14A80, (DMA_ENABLE << 16) | 64);
-        dma_set(3, &sMechaRidleyWeaponsGFX[24 * 32 + stage * 32], VRAM_BASE + 0x14E80, (DMA_ENABLE << 16) | 64);
+        dma_set(3, &sMechaRidleyWeaponsGfx[stage * 32], VRAM_BASE + 0x14280, (DMA_ENABLE << 16) | 64);
+        dma_set(3, &sMechaRidleyWeaponsGfx[8 * 32 + stage * 32], VRAM_BASE + 0x14680, (DMA_ENABLE << 16) | 64);
+        dma_set(3, &sMechaRidleyWeaponsGfx[16 * 32 + stage * 32], VRAM_BASE + 0x14A80, (DMA_ENABLE << 16) | 64);
+        dma_set(3, &sMechaRidleyWeaponsGfx[24 * 32 + stage * 32], VRAM_BASE + 0x14E80, (DMA_ENABLE << 16) | 64);
     }
 }
 
@@ -438,7 +438,7 @@ void MechaRidleyInit(void)
         gCurrentSprite.pose = MECHA_RIDLEY_POSE_CRAWLING_INIT;
         gCurrentSprite.roomSlot = MECHA_RIDLEY_PART_CORE;
 
-        gfxSlot = gCurrentSprite.spritesetGFXSlot;
+        gfxSlot = gCurrentSprite.spritesetGfxSlot;
         ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
         // Spawn every part
@@ -769,7 +769,7 @@ void MechaRidleyCurledUp(void)
         if (gBossWork.work7 > gSubSpriteData1.health)
             MechaRidleyCrawlingBackwardsInit(leftArmSlot); // Retreat if took damage
         else if (MechaRidleyCheckStartFireballAttack(leftArmSlot)) // Check attacks
-            return; // Don't check for missile attack if fireball attack started (GFX conflict)
+            return; // Don't check for missile attack if fireball attack started (Gfx conflict)
     }
 
     // Check missile attack timer
@@ -923,13 +923,13 @@ void MechaRidleyFireballsAttack(void)
         // Alternate between low and high fireball
         if (gCurrentSprite.timer & 16)
         {
-            SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_FIREBALL, FIREBALL_LOW, gCurrentSprite.spritesetGFXSlot,
+            SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_FIREBALL, FIREBALL_LOW, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition - BLOCK_SIZE * 4,
                 gSubSpriteData1.xPosition - BLOCK_SIZE, 0);
         }
         else
         {
-            SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_FIREBALL, FIREBALL_HIGH, gCurrentSprite.spritesetGFXSlot,
+            SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_FIREBALL, FIREBALL_HIGH, gCurrentSprite.spritesetGfxSlot,
                 gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition - BLOCK_SIZE * 4,
                 gSubSpriteData1.xPosition - BLOCK_SIZE, 0);
         }
@@ -1067,31 +1067,31 @@ void MechaRidleyGlowFading(void)
     switch (gCurrentSprite.timer++)
     {
         case 0:
-            dma_set(3, sMechaRidleyDestroyedGFX, VRAM_BASE + 0x15580, (DMA_ENABLE << 16) | 0x40);
+            dma_set(3, sMechaRidleyDestroyedGfx, VRAM_BASE + 0x15580, (DMA_ENABLE << 16) | 0x40);
             break;
 
         case 1:
-            dma_set(3, &sMechaRidleyDestroyedGFX[0x30], VRAM_BASE + 0x15980, (DMA_ENABLE << 16) | 0x60);
+            dma_set(3, &sMechaRidleyDestroyedGfx[0x30], VRAM_BASE + 0x15980, (DMA_ENABLE << 16) | 0x60);
             break;
 
         case 2:
-            dma_set(3, &sMechaRidleyDestroyedGFX[0x60], VRAM_BASE + 0x15D80, (DMA_ENABLE << 16) | 0x60);
+            dma_set(3, &sMechaRidleyDestroyedGfx[0x60], VRAM_BASE + 0x15D80, (DMA_ENABLE << 16) | 0x60);
             break;
 
         case 3:
-            dma_set(3, &sMechaRidleyDestroyedGFX[0x90], VRAM_BASE + 0x16180, (DMA_ENABLE << 16) | 0x60);
+            dma_set(3, &sMechaRidleyDestroyedGfx[0x90], VRAM_BASE + 0x16180, (DMA_ENABLE << 16) | 0x60);
             break;
 
         case 4:
-            dma_set(3, &sMechaRidleyDestroyedGFX[0xC0], VRAM_BASE + 0x16580, (DMA_ENABLE << 16) | 0x60);
+            dma_set(3, &sMechaRidleyDestroyedGfx[0xC0], VRAM_BASE + 0x16580, (DMA_ENABLE << 16) | 0x60);
             break;
 
         case 5:
-            dma_set(3, &sMechaRidleyDestroyedGFX[0x100], VRAM_BASE + 0x169C0, (DMA_ENABLE << 16) | 0x40);
+            dma_set(3, &sMechaRidleyDestroyedGfx[0x100], VRAM_BASE + 0x169C0, (DMA_ENABLE << 16) | 0x40);
             break;
 
         case 6:
-            dma_set(3, &sMechaRidleyDestroyedGFX[0x130], VRAM_BASE + 0x16DC0, (DMA_ENABLE << 16) | 0x40);
+            dma_set(3, &sMechaRidleyDestroyedGfx[0x130], VRAM_BASE + 0x16DC0, (DMA_ENABLE << 16) | 0x40);
             break;
 
         case 8:
@@ -1477,7 +1477,7 @@ void MechaRidleyPartInit(void)
  */
 void MechaRidleyPartHeadIdle(void)
 {
-    MechaRidleyLoadFireballsGFX();
+    MechaRidleyLoadFireballsGfx();
     MechaRidleyPartGreenGlow();
 }
 
@@ -1533,7 +1533,7 @@ void MechaRidleyPartCoreCoverExplosion(void)
  */
 void MechaRidleyPartMissileLauncherIdle(void)
 {
-    MechaRidleyLoadMissilesGFX();
+    MechaRidleyLoadMissilesGfx();
 
     switch (gBossWork.work5)
     {
@@ -1587,19 +1587,19 @@ void MechaRidleyPartMissileLauncherIdle(void)
                 {
                     if (gCurrentSprite.timer == 1)
                     {
-                        SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_MISSILE, 0, gCurrentSprite.spritesetGFXSlot,
+                        SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_MISSILE, 0, gCurrentSprite.spritesetGfxSlot,
                             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - BLOCK_SIZE,
                             gCurrentSprite.xPosition - (BLOCK_SIZE - QUARTER_BLOCK_SIZE), 0);
                     }
                     else if (gCurrentSprite.timer == 2)
                     {
-                        SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_MISSILE, 1, gCurrentSprite.spritesetGFXSlot,
+                        SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_MISSILE, 1, gCurrentSprite.spritesetGfxSlot,
                             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x34,
                             gCurrentSprite.xPosition - 0x3C, 0);
                     }
                     else
                     {
-                        SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_MISSILE, 2, gCurrentSprite.spritesetGFXSlot,
+                        SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_MISSILE, 2, gCurrentSprite.spritesetGfxSlot,
                             gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x34,
                             gCurrentSprite.xPosition - 0x24, 0);
 
@@ -1705,33 +1705,33 @@ void MechaRidleyPartEyeIdle(void)
                 {
                     case LASER_DIRECTION_SLIGHTLY_DOWN:
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_LASER, LASER_DIRECTION_SLIGHTLY_DOWN,
-                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition - 0x6C, 0);
                         break;
 
                     case LASER_DIRECTION_DOWN:
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_LASER, LASER_DIRECTION_DOWN,
-                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition + (BLOCK_SIZE + HALF_BLOCK_SIZE),
                             gCurrentSprite.xPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), 0);
                         break;
 
                     case LASER_DIRECTION_SLIGHTLY_UP:
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_LASER, LASER_DIRECTION_SLIGHTLY_UP,
-                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition - BLOCK_SIZE, gCurrentSprite.xPosition - 0x6C, 0);
                         break;
 
                     case LASER_DIRECTION_UP:
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_LASER, LASER_DIRECTION_UP,
-                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
                             gCurrentSprite.xPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), 0);
                         break;
 
                     default:
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_LASER, direction,
-                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
+                            gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition, gCurrentSprite.xPosition - BLOCK_SIZE * 2, 0);
                         break;
                 }

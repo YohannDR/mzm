@@ -179,7 +179,7 @@ const i16 sImagoCocoon_ArrayUnused2[48] = {
     0, 0, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2
 };
 
-const u32 sImagoCocoonGFX[1758] = INCBIN_U32("data/sprites/ImagoCocoon.gfx.lz");
+const u32 sImagoCocoonGfx[1758] = INCBIN_U32("data/sprites/ImagoCocoon.gfx.lz");
 const u16 sImagoCocoonPAL[96] = INCBIN_U16("data/sprites/ImagoCocoon.pal");
 
 const u16 sImagoCocoonOAM_Idle_Frame0[4] = {
