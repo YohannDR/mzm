@@ -6,6 +6,7 @@
 #include "data/block_data.h"
 #include "data/haze_data.h"
 #include "data/shortcut_pointers.h"
+#include "data/tourian_escape_data.h"
 #include "data/chozodia_escape_data.h"
 #include "data/internal_chozodia_escape_data.h"
 #include "data/cutscenes/ridley_landing_data.h"
@@ -734,9 +735,184 @@ u8 ChozodiaEscapeShipHeatingUp(void)
     return ended;
 }
 
+/**
+ * @brief 88508 | 3ec | Handles the ship blowing up part of the cutscene
+ * 
+ * @return u8 bool, ended
+ */
 u8 ChozodiaEscapeShipBlowingUp(void)
 {
+    u8 ended;
+    u8 i;
+    u16 interval;
+    const struct FrameData* pOam;
+    const struct FrameData* pOamBase;
 
+    ended = FALSE;
+    switch (CHOZODIA_ESCAPE_DATA.timer++)
+    {
+        case 0:
+            LZ77UncompVRAM(sChozodiaEscapeCraterBackgroundGfx, VRAM_BASE);
+            break;
+
+        case 1:
+            LZ77UncompVRAM(sMotherShipExplodingFlashGfx, VRAM_BASE + 0x8000);
+            break;
+
+        case 2:
+            LZ77UncompVRAM(sMotherShipBlowingUpExplosionsGfx, VRAM_BASE + 0x10000);
+            break;
+
+        case 3:
+            LZ77UncompVRAM(sChozodiaEscapeCraterBackgroundTileTable, VRAM_BASE + 0xE800);
+            LZ77UncompVRAM(sMotherShipExplodingFlashTileTable, VRAM_BASE + 0xF000);
+
+            dma_set(3, sChozodiaEscapeShipExplodingPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sChozodiaEscapeShipExplodingPAL) - 16 * 2);
+            dma_set(3, sMotherShipBlowingUpExplosionsPal, PALRAM_OBJ, DMA_ENABLE << 16 | ARRAY_SIZE(sMotherShipBlowingUpExplosionsPal));
+
+            write16(REG_BG0CNT, 0x1E08);
+            write16(REG_BG1CNT, 0x1D01);
+
+            CHOZODIA_ESCAPE_DATA.dispcnt = DCNT_BG0 | DCNT_BG1 | DCNT_OBJ;
+            CHOZODIA_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG1_SECOND_TARGET_PIXEL;
+            gWrittenToBLDY_NonGameplay = 0;
+
+            CHOZODIA_ESCAPE_DATA.oamTypes[0]++;
+            CHOZODIA_ESCAPE_DATA.oamXPositions[0] = BLOCK_SIZE * 2 - 8;
+            CHOZODIA_ESCAPE_DATA.oamYPositions[0] = BLOCK_SIZE + QUARTER_BLOCK_SIZE;
+
+            CHOZODIA_ESCAPE_DATA.oamTypes[3]++;
+            CHOZODIA_ESCAPE_DATA.oamXPositions[3] = BLOCK_SIZE * 2 - 8;
+            CHOZODIA_ESCAPE_DATA.oamYPositions[3] = BLOCK_SIZE + QUARTER_BLOCK_SIZE;
+            SoundPlay(0x28C);
+            break;
+
+        case 32:
+            CHOZODIA_ESCAPE_DATA.unk_1++,
+            FadeMusic(0xF0);
+            break;
+
+        case 64:
+            CHOZODIA_ESCAPE_DATA.oamTypes[1]++;
+            CHOZODIA_ESCAPE_DATA.oamXPositions[1] = sChozodiaEscape_5ca0d8[0][0];
+            CHOZODIA_ESCAPE_DATA.oamYPositions[1] = sChozodiaEscape_5ca0d8[0][1];
+            break;
+
+        case 76:
+            CHOZODIA_ESCAPE_DATA.oamTypes[2]++;
+            CHOZODIA_ESCAPE_DATA.oamXPositions[2] = sChozodiaEscape_5ca0f8[0][0];
+            CHOZODIA_ESCAPE_DATA.oamYPositions[2] = sChozodiaEscape_5ca0f8[0][1];
+            break;
+
+        case 176:
+            CHOZODIA_ESCAPE_DATA.dispcnt = DCNT_BG1 | DCNT_OBJ;
+            CHOZODIA_ESCAPE_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
+                BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
+                BLDCNT_BACKDROP_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BRIGHTNESS_INCREASE_EFFECT;
+
+            CHOZODIA_ESCAPE_DATA.unk_1++;
+            gWrittenToBLDALPHA_L = 16;
+            gWrittenToBLDALPHA_H = 0;
+            gWrittenToBLDY_NonGameplay = 0;
+            break;
+
+        case 288:
+            CHOZODIA_ESCAPE_DATA.dispcnt = 0;
+            break;
+
+        case 304:
+            ended = TRUE;
+    }
+
+    if (CHOZODIA_ESCAPE_DATA.unk_1 == 1 && CHOZODIA_ESCAPE_DATA.unk_2++ > 2)
+    {
+        if (gWrittenToBLDALPHA_L != 0)
+            gWrittenToBLDALPHA_L--;
+
+        gWrittenToBLDALPHA_H = 16 - gWrittenToBLDALPHA_L;
+        CHOZODIA_ESCAPE_DATA.unk_2 = 0;
+    }
+
+    if (CHOZODIA_ESCAPE_DATA.unk_1 == 2 && CHOZODIA_ESCAPE_DATA.unk_2++ > 5)
+    {
+        if (gWrittenToBLDY_NonGameplay < 16)
+            gWrittenToBLDY_NonGameplay++;
+
+        CHOZODIA_ESCAPE_DATA.unk_2 = 0;
+    }
+
+    interval = CHOZODIA_ESCAPE_DATA.timer & 3;
+    if (interval == 0)
+    {
+        gBG1YPosition--;
+        CHOZODIA_ESCAPE_DATA.oamYPositions[3]++;
+    }
+
+    if (interval == 2)
+    {
+        gBG1YPosition++;
+        CHOZODIA_ESCAPE_DATA.oamYPositions[3]--;
+    }
+
+    for (i = 0; i < CHOZODIA_ESCAPE_MAX_OBJECTS - 1; i++)
+    {
+        if (CHOZODIA_ESCAPE_DATA.oamTypes[i] == 0)
+            continue;
+
+        if (i == 0 && CHOZODIA_ESCAPE_DATA.oamTypes[i] > 1)
+        {
+            pOamBase = sChozodiaEscape_5ca0c4[4];
+        }
+        else
+        {
+            pOamBase = sChozodiaEscape_5ca0c4[i];
+        }
+
+        pOam = &pOamBase[CHOZODIA_ESCAPE_DATA.oamFrames[i]];
+
+        if (CHOZODIA_ESCAPE_DATA.oamTimers[i]++ >= pOam->timer)
+        {
+            CHOZODIA_ESCAPE_DATA.oamFrames[i]++;
+            CHOZODIA_ESCAPE_DATA.oamTimers[i] = 0;
+            pOam++;
+
+            if (pOam->timer == 0)
+            {
+                if (i == 0)
+                {
+                    CHOZODIA_ESCAPE_DATA.oamTypes[i] = 2;
+                    CHOZODIA_ESCAPE_DATA.oamFrames[i] = 0;
+                }
+                else if (i == 3)
+                {
+                    CHOZODIA_ESCAPE_DATA.oamFrames[i]--;
+                }
+                else
+                {
+                    CHOZODIA_ESCAPE_DATA.oamFrames[i] = 0;
+                    CHOZODIA_ESCAPE_DATA.unk_3E[i] = (CHOZODIA_ESCAPE_DATA.unk_3E[i] + 1) & 7;
+
+                    if (i == 2)
+                    {
+                        CHOZODIA_ESCAPE_DATA.oamXPositions[i] = sChozodiaEscape_5ca0f8[CHOZODIA_ESCAPE_DATA.unk_3E[i]][0];
+                        CHOZODIA_ESCAPE_DATA.oamYPositions[i] = sChozodiaEscape_5ca0f8[CHOZODIA_ESCAPE_DATA.unk_3E[i]][1];
+                    }
+                    else
+                    {
+                        CHOZODIA_ESCAPE_DATA.oamXPositions[i] = sChozodiaEscape_5ca0d8[CHOZODIA_ESCAPE_DATA.unk_3E[i]][0];
+                        CHOZODIA_ESCAPE_DATA.oamYPositions[i] = sChozodiaEscape_5ca0d8[CHOZODIA_ESCAPE_DATA.unk_3E[i]][1];
+                    }
+                }
+                pOam = pOamBase;
+            }
+        }
+
+        CHOZODIA_ESCAPE_DATA.oamPointers[i] = pOam->pFrame;
+    }
+
+    ChozodiaEscapeProcessOam_1();
+
+    return ended;
 }
 
 /**

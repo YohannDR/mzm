@@ -2,6 +2,7 @@
 
 const u16 sChozodiaEscapeShipHeatingUpPAL[8 * 16] = INCBIN_U16("data/chozodia_escape/ShipHeatingUp.pal");
 const u16 sChozodiaEscapeGroundHeatingUpPAL[8 * 16] = INCBIN_U16("data/chozodia_escape/GroundHeatingUp.pal");
+
 const u16 sChozodiaEscapeShipExplodingPAL[9 * 16] = INCBIN_U16("data/chozodia_escape/ShipExploding.pal");
 const u16 sChozodiaEscapeMissionAccomplishedPAL[16 * 16] = INCBIN_U16("data/chozodia_escape/MissionAccomplished.pal");
 const u16 sChozodiaEscapeSamusInBlueShipPAL[1 * 16] = INCBIN_U16("data/chozodia_escape/SamusInBlueShip.pal");
