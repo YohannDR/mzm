@@ -1614,9 +1614,87 @@ u8 SpriteUtilCheckSamusNearSpriteAboveBelow(u16 yRange, u16 xRange)
     return result;
 }
 
+/**
+ * @brief feb0 | b0 | Checks if samus is in front or behind the current sprite 
+ * 
+ * @param yRange Y range
+ * @param xRangeFront X range (in front)
+ * @param xRangeBehind X range (behind)
+ * @return u32 Result (NSFB enum)
+ */
 u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 xRangeBehind)
 {
+    u8 result;
+    u16 samusY;
+    u16 samusX;
+    u16 spriteY;
+    u16 spriteX;
+    u8 xFlip;
 
+    result = NSFB_OUT_OF_RANGE;
+    xFlip = FALSE;
+
+    // Get samus middle position visually
+    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset / 2;
+    samusX = gSamusData.xPosition;
+
+    // Get sprite position
+    spriteY = gCurrentSprite.yPosition;
+    spriteX = gCurrentSprite.xPosition;
+    
+    // Check Y position
+    if (spriteY > samusY)
+    {
+        // Sprite is below
+        if (spriteY - samusY >= yRange)
+            return NSFB_OUT_OF_RANGE;
+    }
+    else
+    {
+        // Sprite is above
+        if (samusY - spriteY >= yRange)
+            return NSFB_OUT_OF_RANGE;
+    }
+
+    // Get is flipped, this assume that when flipped the sprite faced right
+    if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+        xFlip = TRUE;
+    
+    // Check X position
+    if (spriteX > samusX)
+    {
+        // Sprite is on right
+        if (xFlip)
+        {
+            // Sprite is facing right
+            if (spriteX - samusX < xRangeBehind)
+                result =  NSFB_BEHIND;
+        }
+        else
+        {
+            // Sprite is facing left
+            if (spriteX - samusX < xRangeFront)
+                result =  NSFB_IN_FRONT;
+        }
+    }
+    else
+    {
+        // Sprite is on left
+        if (xFlip)
+        {
+            // Sprite is facing right
+            if (samusX - spriteX < xRangeFront)
+                result =  NSFB_IN_FRONT;
+        }
+        else
+        {
+            // Sprite is facing left
+            if (samusX - spriteX < xRangeBehind)
+                result =  NSFB_BEHIND;
+        }
+    }
+
+    return result;
 }
 
 /**
