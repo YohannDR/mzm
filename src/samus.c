@@ -3248,10 +3248,14 @@ u8 SamusUpdateAnimation(struct SamusData* pData, u8 slowed)
         return SAMUS_ANIM_STATE_NONE;
 }
 
+/**
+ * @brief 84dc | d4 | Samus running subroutine
+ * 
+ * @param pData Samus data pointer
+ * @return u8 New pose
+ */
 u8 SamusRunning(struct SamusData* pData)
 {
-    // https://decomp.me/scratch/g7GvE
-
     i32 xVelocity;
     u16 currVelocity;
 
@@ -3270,16 +3274,18 @@ u8 SamusRunning(struct SamusData* pData)
             xVelocity = 0x8C;
         
         currVelocity = pData->xVelocity + 0x5F;
-        if (currVelocity > 0xBE)
+        if (currVelocity <= 0xBE)
+        {
+            pData->timer = 0;
+        }
+        else
         {
             if (pData->timer < 0xA0)
                 pData->timer++;
         }
-        else
-            pData->timer = 0;
     }
     else
-        pData->timer = 0;
+        pData->timer = 0x0;
 
     if (gButtonInput & pData->direction)
     {
@@ -3287,17 +3293,15 @@ u8 SamusRunning(struct SamusData* pData)
         SamusAimCannon(pData);
         return SPOSE_NONE;
     }
+    
+    if (pData->speedboostingShinesparking)
+        return SPOSE_SKIDDING;
+    else if (gSamusPhysics.hasNewProjectile)
+        return SPOSE_SHOOTING;
+    else if (!check_samus_turning())
+        return SPOSE_STANDING;
     else
-    {
-        if (pData->speedboostingShinesparking)
-            return SPOSE_SKIDDING;
-        else if (gSamusPhysics.hasNewProjectile)
-            return SPOSE_SHOOTING;
-        else if (!check_samus_turning())
-            return SPOSE_STANDING;
-        else
-            return SPOSE_TURNING_AROUND;
-    }
+        return SPOSE_TURNING_AROUND;
 }
 
 /**
