@@ -3,13 +3,13 @@
 
 #include "types.h"
 
-extern const u16 sCommonTilesPAL[15];
-extern const u16 sDoorTransitionPAL[241];
+extern const u16 sCommonTilesPal[1 * 16 - 1];
+extern const u16 sDoorTransitionPal[15 * 16 + 1];
 
-extern const u16 sCommonTilesMotherShipPAL[15];
-extern const u16 sDoorTransitionMotherShipPAL[240];
+extern const u16 sCommonTilesMotherShipPal[1 * 16 - 1];
+extern const u16 sDoorTransitionMotherShipPal[15 * 16];
 
-extern const u16 sHatchFlashingMotherShipPAL[256];
-extern const u16 sHatchFlashingPAL[256];
+extern const u16 sHatchFlashingMotherShipPal[16 * 16];
+extern const u16 sHatchFlashingPal[16 * 16];
 
 #endif /* DATA_COMMON_PALS_H */

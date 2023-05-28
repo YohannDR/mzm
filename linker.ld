@@ -693,7 +693,9 @@ SECTIONS {
         src/data/chozodia_escape_data.o(.rodata);
         src/data/io_transfer_data.o(.rodata);
         src/data/clipdata_types.o(.rodata);
-        /* 5db40c-74f8b4 */
+        src/data/tilesets/tilesets_set0.o(.rodata);
+        src/data/common_pals.o(.rodata);
+        /* 5e0620-74f8b4 */
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         /* 754bd0-75e6a8 */

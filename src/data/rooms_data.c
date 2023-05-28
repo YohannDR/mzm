@@ -1,6 +1,7 @@
 #include "data/rooms_data.h"
-
 #include "macros.h"
+
+#include "data/tilesets/tilesets_set0.h"
 
 #include "constants/connection.h"
 
@@ -10,634 +11,634 @@ const u8 sEnemyRoomData_Empty[3] = {
 };
 
 const struct TilesetEntry sTilesetEntries[79] = {
-	{
-		.pTileGraphics = (const u8*)0x8365e00,
+	[0] = {
+		.pTileGraphics = (const u32*)0x8365e00,
 		.pPalette = (const u16*)0x8366a76,
-		.pBackgroundGraphics = (const u8*)0x8363cf8,
+		.pBackgroundGraphics = (const u32*)0x8363cf8,
 		.pTilemap = (const u8*)0x83664f4,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x863b950,
+	[1] = {
+		.pTileGraphics = (const u32*)0x863b950,
 		.pPalette = (const u16*)0x865fdc4,
-		.pBackgroundGraphics = (const u8*)0x8653f10,
+		.pBackgroundGraphics = (const u32*)0x8653f10,
 		.pTilemap = (const u8*)0x8661cc8,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86c2954,
+	[2] = {
+		.pTileGraphics = (const u32*)0x86c2954,
 		.pPalette = (const u16*)0x86d6140,
-		.pBackgroundGraphics = (const u8*)0x86d099c,
+		.pBackgroundGraphics = (const u32*)0x86d099c,
 		.pTilemap = (const u8*)0x86d7c44,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86c7d3c,
+	[3] = {
+		.pTileGraphics = (const u32*)0x86c7d3c,
 		.pPalette = (const u16*)0x86d6680,
-		.pBackgroundGraphics = (const u8*)0x86d099c,
+		.pBackgroundGraphics = (const u32*)0x86d099c,
 		.pTilemap = (const u8*)0x86d97cc,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x85ef268,
+	[4] = {
+		.pTileGraphics = (const u32*)0x85ef268,
 		.pPalette = (const u16*)0x8603304,
-		.pBackgroundGraphics = (const u8*)0x8363cf8,
+		.pBackgroundGraphics = (const u32*)0x8363cf8,
 		.pTilemap = (const u8*)0x8609ea0,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86239a4,
+	[5] = {
+		.pTileGraphics = (const u32*)0x86239a4,
 		.pPalette = (const u16*)0x862c238,
-		.pBackgroundGraphics = (const u8*)0x8363cf8,
+		.pBackgroundGraphics = (const u32*)0x8363cf8,
 		.pTilemap = (const u8*)0x862f208,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x8642498,
+	[6] = {
+		.pTileGraphics = (const u32*)0x8642498,
 		.pPalette = (const u16*)0x8660144,
-		.pBackgroundGraphics = (const u8*)0x8653f10,
+		.pBackgroundGraphics = (const u32*)0x8653f10,
 		.pTilemap = (const u8*)0x8664250,
 		.animatedTileset = 1,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86399e8,
+	[7] = {
+		.pTileGraphics = (const u32*)0x86399e8,
 		.pPalette = (const u16*)0x865fc04,
-		.pBackgroundGraphics = (const u8*)0x865238c,
+		.pBackgroundGraphics = (const u32*)0x865238c,
 		.pTilemap = (const u8*)0x8660f44,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x85e2974,
+	[8] = {
+		.pTileGraphics = (const u32*)0x85e2974,
 		.pPalette = (const u16*)0x86026c4,
-		.pBackgroundGraphics = (const u8*)0x85f4200,
+		.pBackgroundGraphics = (const u32*)0x85f4200,
 		.pTilemap = (const u8*)0x8603a04,
 		.animatedTileset = 3,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x861b64c,
+	[9] = {
+		.pTileGraphics = (const u32*)0x861b64c,
 		.pPalette = (const u16*)0x862b6f8,
-		.pBackgroundGraphics = (const u8*)0x86250a4,
+		.pBackgroundGraphics = (const u32*)0x86250a4,
 		.pTilemap = (const u8*)0x862c3f8,
 		.animatedTileset = 3,
 		.animatedPalette = 2
 	},
-	{
-		.pTileGraphics = (const u8*)0x86e63f8,
+	[10] = {
+		.pTileGraphics = (const u32*)0x86e63f8,
 		.pPalette = (const u16*)0x872a178,
-		.pBackgroundGraphics = (const u8*)0x8363cf8,
+		.pBackgroundGraphics = (const u32*)0x8363cf8,
 		.pTilemap = (const u8*)0x87187bc,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86c0fd4,
+	[11] = {
+		.pTileGraphics = (const u32*)0x86c0fd4,
 		.pPalette = (const u16*)0x86d5c00,
-		.pBackgroundGraphics = (const u8*)0x86cfcfc,
+		.pBackgroundGraphics = (const u32*)0x86cfcfc,
 		.pTilemap = (const u8*)0x86d6bc0,
 		.animatedTileset = 4,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x8648fd8,
+	[12] = {
+		.pTileGraphics = (const u32*)0x8648fd8,
 		.pPalette = (const u16*)0x8660684,
-		.pBackgroundGraphics = (const u8*)0x8600808,
+		.pBackgroundGraphics = (const u32*)0x8600808,
 		.pTilemap = (const u8*)0x866705c,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x864a66c,
+	[13] = {
+		.pTileGraphics = (const u32*)0x864a66c,
 		.pPalette = (const u16*)0x8660844,
-		.pBackgroundGraphics = (const u8*)0x865e15c,
+		.pBackgroundGraphics = (const u32*)0x865e15c,
 		.pTilemap = (const u8*)0x8667be0,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x864ca84,
+	[14] = {
+		.pTileGraphics = (const u32*)0x864ca84,
 		.pPalette = (const u16*)0x8660a04,
-		.pBackgroundGraphics = (const u8*)0x8659630,
+		.pBackgroundGraphics = (const u32*)0x8659630,
 		.pTilemap = (const u8*)0x8668c64,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x8647084,
+	[15] = {
+		.pTileGraphics = (const u32*)0x8647084,
 		.pPalette = (const u16*)0x86604c4,
-		.pBackgroundGraphics = (const u8*)0x8658380,
+		.pBackgroundGraphics = (const u32*)0x8658380,
 		.pTilemap = (const u8*)0x86662d8,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x864e80c,
+	[16] = {
+		.pTileGraphics = (const u32*)0x864e80c,
 		.pPalette = (const u16*)0x8660bc4,
-		.pBackgroundGraphics = (const u8*)0x865aa70,
+		.pBackgroundGraphics = (const u32*)0x865aa70,
 		.pTilemap = (const u8*)0x86699e8,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x85e5474,
+	[17] = {
+		.pTileGraphics = (const u32*)0x85e5474,
 		.pPalette = (const u16*)0x8602884,
-		.pBackgroundGraphics = (const u8*)0x85f5610,
+		.pBackgroundGraphics = (const u32*)0x85f5610,
 		.pTilemap = (const u8*)0x8604a88,
 		.animatedTileset = 3,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x85f2504,
+	[18] = {
+		.pTileGraphics = (const u32*)0x85f2504,
 		.pPalette = (const u16*)0x8603684,
-		.pBackgroundGraphics = (const u8*)0x8363cf8,
+		.pBackgroundGraphics = (const u32*)0x8363cf8,
 		.pTilemap = (const u8*)0x860b328,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86509ec,
+	[19] = {
+		.pTileGraphics = (const u32*)0x86509ec,
 		.pPalette = (const u16*)0x8660d84,
-		.pBackgroundGraphics = (const u8*)0x865c758,
+		.pBackgroundGraphics = (const u32*)0x865c758,
 		.pTilemap = (const u8*)0x866aeec,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x85f32cc,
+	[20] = {
+		.pTileGraphics = (const u32*)0x85f32cc,
 		.pPalette = (const u16*)0x8603844,
-		.pBackgroundGraphics = (const u8*)0x8600808,
+		.pBackgroundGraphics = (const u32*)0x8600808,
 		.pTilemap = (const u8*)0x860bcac,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86c0fd4,
+	[21] = {
+		.pTileGraphics = (const u32*)0x86c0fd4,
 		.pPalette = (const u16*)0x86d5dc0,
-		.pBackgroundGraphics = (const u8*)0x86cfcfc,
+		.pBackgroundGraphics = (const u32*)0x86cfcfc,
 		.pTilemap = (const u8*)0x86d6bc0,
 		.animatedTileset = 1,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x861e3b0,
+	[22] = {
+		.pTileGraphics = (const u32*)0x861e3b0,
 		.pPalette = (const u16*)0x862ba38,
-		.pBackgroundGraphics = (const u8*)0x8626764,
+		.pBackgroundGraphics = (const u32*)0x8626764,
 		.pTilemap = (const u8*)0x862ce7c,
 		.animatedTileset = 3,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x8681744,
+	[23] = {
+		.pTileGraphics = (const u32*)0x8681744,
 		.pPalette = (const u16*)0x869a5d8,
-		.pBackgroundGraphics = (const u8*)0x868e0cc,
+		.pBackgroundGraphics = (const u32*)0x868e0cc,
 		.pTilemap = (const u8*)0x8694f40,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x8683f9c,
+	[24] = {
+		.pTileGraphics = (const u32*)0x8683f9c,
 		.pPalette = (const u16*)0x869a798,
-		.pBackgroundGraphics = (const u8*)0x868fe34,
+		.pBackgroundGraphics = (const u32*)0x868fe34,
 		.pTilemap = (const u8*)0x8695ec4,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x8685b44,
+	[25] = {
+		.pTileGraphics = (const u32*)0x8685b44,
 		.pPalette = (const u16*)0x869a958,
-		.pBackgroundGraphics = (const u8*)0x8691814,
+		.pBackgroundGraphics = (const u32*)0x8691814,
 		.pTilemap = (const u8*)0x8696dc8,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86a58b4,
+	[26] = {
+		.pTileGraphics = (const u32*)0x86a58b4,
 		.pPalette = (const u16*)0x86ba0d4,
-		.pBackgroundGraphics = (const u8*)0x86b22ac,
+		.pBackgroundGraphics = (const u32*)0x86b22ac,
 		.pTilemap = (const u8*)0x86b5fc4,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x85dcb0c,
-		.pPalette = (const u16*)0x85dfbe0,
-		.pBackgroundGraphics = (const u8*)0x85de0e4,
+	[27] = {
+		.pTileGraphics = sTileset_27_Gfx,
+		.pPalette = sTileset_27_Pal,
+		.pBackgroundGraphics = sTileset_27_Bg_Gfx,
 		.pTilemap = (const u8*)0x85e1428,
 		.animatedTileset = 0,
 		.animatedPalette = 5
 	},
-	{
-		.pTileGraphics = (const u8*)0x870777c,
+	[28] = {
+		.pTileGraphics = (const u32*)0x870777c,
 		.pPalette = (const u16*)0x872d0f8,
-		.pBackgroundGraphics = (const u8*)0x8363cf8,
+		.pBackgroundGraphics = (const u32*)0x8363cf8,
 		.pTilemap = (const u8*)0x8728ff4,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86205d4,
+	[29] = {
+		.pTileGraphics = (const u32*)0x86205d4,
 		.pPalette = (const u16*)0x862bbf8,
-		.pBackgroundGraphics = (const u8*)0x86280ac,
+		.pBackgroundGraphics = (const u32*)0x86280ac,
 		.pTilemap = (const u8*)0x862da80,
 		.animatedTileset = 3,
 		.animatedPalette = 3
 	},
-	{
-		.pTileGraphics = (const u8*)0x863e408,
+	[30] = {
+		.pTileGraphics = (const u32*)0x863e408,
 		.pPalette = (const u16*)0x865ff84,
-		.pBackgroundGraphics = (const u8*)0x8656148,
+		.pBackgroundGraphics = (const u32*)0x8656148,
 		.pTilemap = (const u8*)0x8662a4c,
 		.animatedTileset = 1,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86c2954,
+	[31] = {
+		.pTileGraphics = (const u32*)0x86c2954,
 		.pPalette = (const u16*)0x86d5f80,
-		.pBackgroundGraphics = (const u8*)0x86d099c,
+		.pBackgroundGraphics = (const u32*)0x86d099c,
 		.pTilemap = (const u8*)0x86d7c44,
 		.animatedTileset = 7,
 		.animatedPalette = 13
 	},
-	{
-		.pTileGraphics = (const u8*)0x86c2954,
+	[32] = {
+		.pTileGraphics = (const u32*)0x86c2954,
 		.pPalette = (const u16*)0x86d5f80,
-		.pBackgroundGraphics = (const u8*)0x86d2068,
+		.pBackgroundGraphics = (const u32*)0x86d2068,
 		.pTilemap = (const u8*)0x86d7c44,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x85edf54,
+	[33] = {
+		.pTileGraphics = (const u32*)0x85edf54,
 		.pPalette = (const u16*)0x8603144,
-		.pBackgroundGraphics = (const u8*)0x85fcff0,
+		.pBackgroundGraphics = (const u32*)0x85fcff0,
 		.pTilemap = (const u8*)0x860959c,
 		.animatedTileset = 3,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x85e7434,
+	[34] = {
+		.pTileGraphics = (const u32*)0x85e7434,
 		.pPalette = (const u16*)0x8602a44,
-		.pBackgroundGraphics = (const u8*)0x85f6f84,
+		.pBackgroundGraphics = (const u32*)0x85f6f84,
 		.pTilemap = (const u8*)0x8605b0c,
 		.animatedTileset = 3,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86ace94,
+	[35] = {
+		.pTileGraphics = (const u32*)0x86ace94,
 		.pPalette = (const u16*)0x86ba714,
-		.pBackgroundGraphics = (const u8*)0x86b4650,
+		.pBackgroundGraphics = (const u32*)0x86b4650,
 		.pTilemap = (const u8*)0x86b8f50,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86c50c0,
+	[36] = {
+		.pTileGraphics = (const u32*)0x86c50c0,
 		.pPalette = (const u16*)0x86d6300,
-		.pBackgroundGraphics = (const u8*)0x86cfcfc,
+		.pBackgroundGraphics = (const u32*)0x86cfcfc,
 		.pTilemap = (const u8*)0x86d89c8,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x85e8cb8,
+	[37] = {
+		.pTileGraphics = (const u32*)0x85e8cb8,
 		.pPalette = (const u16*)0x8602c04,
-		.pBackgroundGraphics = (const u8*)0x85f8230,
+		.pBackgroundGraphics = (const u32*)0x85f8230,
 		.pTilemap = (const u8*)0x8606b90,
 		.animatedTileset = 3,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86f7368,
+	[38] = {
+		.pTileGraphics = (const u32*)0x86f7368,
 		.pPalette = (const u16*)0x872bf38,
-		.pBackgroundGraphics = (const u8*)0x87133a8,
+		.pBackgroundGraphics = (const u32*)0x87133a8,
 		.pTilemap = (const u8*)0x8720ddc,
 		.animatedTileset = 1,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x862224c,
+	[39] = {
+		.pTileGraphics = (const u32*)0x862224c,
 		.pPalette = (const u16*)0x862c078,
-		.pBackgroundGraphics = (const u8*)0x8629b70,
+		.pBackgroundGraphics = (const u32*)0x8629b70,
 		.pTilemap = (const u8*)0x862e484,
 		.animatedTileset = 3,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86ab63c,
+	[40] = {
+		.pTileGraphics = (const u32*)0x86ab63c,
 		.pPalette = (const u16*)0x86ba454,
-		.pBackgroundGraphics = (const u8*)0x86b54b0,
+		.pBackgroundGraphics = (const u32*)0x86b54b0,
 		.pTilemap = (const u8*)0x86b7fcc,
 		.animatedTileset = 7,
 		.animatedPalette = 13
 	},
-	{
-		.pTileGraphics = (const u8*)0x86ab63c,
+	[41] = {
+		.pTileGraphics = (const u32*)0x86ab63c,
 		.pPalette = (const u16*)0x86ba454,
-		.pBackgroundGraphics = (const u8*)0x86b54b0,
+		.pBackgroundGraphics = (const u32*)0x86b54b0,
 		.pTilemap = (const u8*)0x86b7fcc,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x85db40c,
-		.pPalette = (const u16*)0x85df820,
-		.pBackgroundGraphics = (const u8*)0x85dd7a8,
+	[42] = {
+		.pTileGraphics = sTileset_42_Gfx,
+		.pPalette = sTileset_42_Pal,
+		.pBackgroundGraphics = sTileset_42_Bg_Gfx,
 		.pTilemap = (const u8*)0x85e0620,
 		.animatedTileset = 0,
 		.animatedPalette = 7
 	},
-	{
-		.pTileGraphics = (const u8*)0x870777c,
+	[43] = {
+		.pTileGraphics = (const u32*)0x870777c,
 		.pPalette = (const u16*)0x872d2b8,
-		.pBackgroundGraphics = (const u8*)0x8363cf8,
+		.pBackgroundGraphics = (const u32*)0x8363cf8,
 		.pTilemap = (const u8*)0x8728ff4,
 		.animatedTileset = 5,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86f164c,
+	[44] = {
+		.pTileGraphics = (const u32*)0x86f164c,
 		.pPalette = (const u16*)0x872b538,
-		.pBackgroundGraphics = (const u8*)0x8710b64,
+		.pBackgroundGraphics = (const u32*)0x8710b64,
 		.pTilemap = (const u8*)0x871e050,
 		.animatedTileset = 5,
 		.animatedPalette = 10
 	},
-	{
-		.pTileGraphics = (const u8*)0x86f164c,
+	[45] = {
+		.pTileGraphics = (const u32*)0x86f164c,
 		.pPalette = (const u16*)0x872b6f8,
-		.pBackgroundGraphics = (const u8*)0x8710b64,
+		.pBackgroundGraphics = (const u32*)0x8710b64,
 		.pTilemap = (const u8*)0x871e050,
 		.animatedTileset = 5,
 		.animatedPalette = 10
 	},
-	{
-		.pTileGraphics = (const u8*)0x86f41e8,
+	[46] = {
+		.pTileGraphics = (const u32*)0x86f41e8,
 		.pPalette = (const u16*)0x872b9b8,
-		.pBackgroundGraphics = (const u8*)0x87111b8,
+		.pBackgroundGraphics = (const u32*)0x87111b8,
 		.pTilemap = (const u8*)0x871f6d4,
 		.animatedTileset = 0,
 		.animatedPalette = 11
 	},
-	{
-		.pTileGraphics = (const u8*)0x87010e8,
+	[47] = {
+		.pTileGraphics = (const u32*)0x87010e8,
 		.pPalette = (const u16*)0x872c478,
-		.pBackgroundGraphics = (const u8*)0x8715fd0,
+		.pBackgroundGraphics = (const u32*)0x8715fd0,
 		.pTilemap = (const u8*)0x8724de8,
 		.animatedTileset = 1,
 		.animatedPalette = 4
 	},
-	{
-		.pTileGraphics = (const u8*)0x86fa424,
+	[48] = {
+		.pTileGraphics = (const u32*)0x86fa424,
 		.pPalette = (const u16*)0x872c0f8,
-		.pBackgroundGraphics = (const u8*)0x87133a8,
+		.pBackgroundGraphics = (const u32*)0x87133a8,
 		.pTilemap = (const u8*)0x8722460,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x8702c0c,
+	[49] = {
+		.pTileGraphics = (const u32*)0x8702c0c,
 		.pPalette = (const u16*)0x872c8f8,
-		.pBackgroundGraphics = (const u8*)0x8715fd0,
+		.pBackgroundGraphics = (const u32*)0x8715fd0,
 		.pTilemap = (const u8*)0x8725b6c,
 		.animatedTileset = 4,
 		.animatedPalette = 14
 	},
-	{
-		.pTileGraphics = (const u8*)0x87052a0,
+	[50] = {
+		.pTileGraphics = (const u32*)0x87052a0,
 		.pPalette = (const u16*)0x872ccf8,
-		.pBackgroundGraphics = (const u8*)0x8715fd0,
+		.pBackgroundGraphics = (const u32*)0x8715fd0,
 		.pTilemap = (const u8*)0x87271f0,
 		.animatedTileset = 4,
 		.animatedPalette = 15
 	},
-	{
-		.pTileGraphics = (const u8*)0x86205d4,
+	[51] = {
+		.pTileGraphics = (const u32*)0x86205d4,
 		.pPalette = (const u16*)0x862beb8,
-		.pBackgroundGraphics = (const u8*)0x86280ac,
+		.pBackgroundGraphics = (const u32*)0x86280ac,
 		.pTilemap = (const u8*)0x862da80,
 		.animatedTileset = 1,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86e9d34,
+	[52] = {
+		.pTileGraphics = (const u32*)0x86e9d34,
 		.pPalette = (const u16*)0x872a338,
-		.pBackgroundGraphics = (const u8*)0x870bdf4,
+		.pBackgroundGraphics = (const u32*)0x870bdf4,
 		.pTilemap = (const u8*)0x8719f40,
 		.animatedTileset = 2,
 		.animatedPalette = 8
 	},
-	{
-		.pTileGraphics = (const u8*)0x85eac60,
+	[53] = {
+		.pTileGraphics = (const u32*)0x85eac60,
 		.pPalette = (const u16*)0x8602dc4,
-		.pBackgroundGraphics = (const u8*)0x85fb46c,
+		.pBackgroundGraphics = (const u32*)0x85fb46c,
 		.pTilemap = (const u8*)0x8607c14,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86cde28,
+	[54] = {
+		.pTileGraphics = (const u32*)0x86cde28,
 		.pPalette = (const u16*)0x86d6a00,
-		.pBackgroundGraphics = (const u8*)0x86d4838,
+		.pBackgroundGraphics = (const u32*)0x86d4838,
 		.pTilemap = (const u8*)0x86db5d4,
 		.animatedTileset = 1,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86ca4dc,
+	[55] = {
+		.pTileGraphics = (const u32*)0x86ca4dc,
 		.pPalette = (const u16*)0x86d6840,
-		.pBackgroundGraphics = (const u8*)0x86d34dc,
+		.pBackgroundGraphics = (const u32*)0x86d34dc,
 		.pTilemap = (const u8*)0x86da550,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86fcc78,
+	[56] = {
+		.pTileGraphics = (const u32*)0x86fcc78,
 		.pPalette = (const u16*)0x872c2b8,
-		.pBackgroundGraphics = (const u8*)0x8715478,
+		.pBackgroundGraphics = (const u32*)0x8715478,
 		.pTilemap = (const u8*)0x8723ae4,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86e9d34,
+	[57] = {
+		.pTileGraphics = (const u32*)0x86e9d34,
 		.pPalette = (const u16*)0x872a4f8,
-		.pBackgroundGraphics = (const u8*)0x870bdf4,
+		.pBackgroundGraphics = (const u32*)0x870bdf4,
 		.pTilemap = (const u8*)0x8719f40,
 		.animatedTileset = 0,
 		.animatedPalette = 8
 	},
-	{
-		.pTileGraphics = (const u8*)0x86e9d34,
+	[58] = {
+		.pTileGraphics = (const u32*)0x86e9d34,
 		.pPalette = (const u16*)0x872a6b8,
-		.pBackgroundGraphics = (const u8*)0x870bdf4,
+		.pBackgroundGraphics = (const u32*)0x870bdf4,
 		.pTilemap = (const u8*)0x8719f40,
 		.animatedTileset = 0,
 		.animatedPalette = 8
 	},
-	{
-		.pTileGraphics = (const u8*)0x86e9d34,
+	[59] = {
+		.pTileGraphics = (const u32*)0x86e9d34,
 		.pPalette = (const u16*)0x872a878,
-		.pBackgroundGraphics = (const u8*)0x870bdf4,
+		.pBackgroundGraphics = (const u32*)0x870bdf4,
 		.pTilemap = (const u8*)0x8719f40,
 		.animatedTileset = 0,
 		.animatedPalette = 8
 	},
-	{
-		.pTileGraphics = (const u8*)0x86e9d34,
+	[60] = {
+		.pTileGraphics = (const u32*)0x86e9d34,
 		.pPalette = (const u16*)0x872aa38,
-		.pBackgroundGraphics = (const u8*)0x870bdf4,
+		.pBackgroundGraphics = (const u32*)0x870bdf4,
 		.pTilemap = (const u8*)0x8719f40,
 		.animatedTileset = 1,
 		.animatedPalette = 8
 	},
-	{
-		.pTileGraphics = (const u8*)0x86880a8,
+	[61] = {
+		.pTileGraphics = (const u32*)0x86880a8,
 		.pPalette = (const u16*)0x869acd8,
-		.pBackgroundGraphics = (const u8*)0x8653f10,
+		.pBackgroundGraphics = (const u32*)0x8653f10,
 		.pTilemap = (const u8*)0x8698150,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x87010e8,
+	[62] = {
+		.pTileGraphics = (const u32*)0x87010e8,
 		.pPalette = (const u16*)0x872c638,
-		.pBackgroundGraphics = (const u8*)0x8716c70,
+		.pBackgroundGraphics = (const u32*)0x8716c70,
 		.pTilemap = (const u8*)0x8724de8,
 		.animatedTileset = 0,
 		.animatedPalette = 4
 	},
-	{
-		.pTileGraphics = (const u8*)0x87010e8,
+	[63] = {
+		.pTileGraphics = (const u32*)0x87010e8,
 		.pPalette = (const u16*)0x872c478,
-		.pBackgroundGraphics = (const u8*)0x871876c,
+		.pBackgroundGraphics = (const u32*)0x871876c,
 		.pTilemap = (const u8*)0x8724de8,
 		.animatedTileset = 0,
 		.animatedPalette = 4
 	},
-	{
-		.pTileGraphics = (const u8*)0x868b2a8,
+	[64] = {
+		.pTileGraphics = (const u32*)0x868b2a8,
 		.pPalette = (const u16*)0x869ae98,
-		.pBackgroundGraphics = (const u8*)0x8653f10,
+		.pBackgroundGraphics = (const u32*)0x8653f10,
 		.pTilemap = (const u8*)0x86993d4,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x85f082c,
+	[65] = {
+		.pTileGraphics = (const u32*)0x85f082c,
 		.pPalette = (const u16*)0x86034c4,
-		.pBackgroundGraphics = (const u8*)0x85fe4c8,
+		.pBackgroundGraphics = (const u32*)0x85fe4c8,
 		.pTilemap = (const u8*)0x860a824,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86efca0,
+	[66] = {
+		.pTileGraphics = (const u32*)0x86efca0,
 		.pPalette = (const u16*)0x872afb8,
-		.pBackgroundGraphics = (const u8*)0x870a144,
+		.pBackgroundGraphics = (const u32*)0x870a144,
 		.pTilemap = (const u8*)0x871ce48,
 		.animatedTileset = 6,
 		.animatedPalette = 6
 	},
-	{
-		.pTileGraphics = (const u8*)0x86c0fd4,
+	[67] = {
+		.pTileGraphics = (const u32*)0x86c0fd4,
 		.pPalette = (const u16*)0x86d5c00,
-		.pBackgroundGraphics = (const u8*)0x86cfcfc,
+		.pBackgroundGraphics = (const u32*)0x86cfcfc,
 		.pTilemap = (const u8*)0x86d6bc0,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x8645768,
+	[68] = {
+		.pTileGraphics = (const u32*)0x8645768,
 		.pPalette = (const u16*)0x8660304,
-		.pBackgroundGraphics = (const u8*)0x8656148,
+		.pBackgroundGraphics = (const u32*)0x8656148,
 		.pTilemap = (const u8*)0x86654d4,
 		.animatedTileset = 1,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86a8520,
+	[69] = {
+		.pTileGraphics = (const u32*)0x86a8520,
 		.pPalette = (const u16*)0x86ba294,
-		.pBackgroundGraphics = (const u8*)0x86afef0,
+		.pBackgroundGraphics = (const u32*)0x86afef0,
 		.pTilemap = (const u8*)0x86b72c8,
 		.animatedTileset = 5,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x8702c0c,
+	[70] = {
+		.pTileGraphics = (const u32*)0x8702c0c,
 		.pPalette = (const u16*)0x872cab8,
-		.pBackgroundGraphics = (const u8*)0x8715fd0,
+		.pBackgroundGraphics = (const u32*)0x8715fd0,
 		.pTilemap = (const u8*)0x8725b6c,
 		.animatedTileset = 0,
 		.animatedPalette = 14
 	},
-	{
-		.pTileGraphics = (const u8*)0x87052a0,
+	[71] = {
+		.pTileGraphics = (const u32*)0x87052a0,
 		.pPalette = (const u16*)0x872ceb8,
-		.pBackgroundGraphics = (const u8*)0x8715fd0,
+		.pBackgroundGraphics = (const u32*)0x8715fd0,
 		.pTilemap = (const u8*)0x87271f0,
 		.animatedTileset = 0,
 		.animatedPalette = 15
 	},
-	{
-		.pTileGraphics = (const u8*)0x85ec798,
+	[72] = {
+		.pTileGraphics = (const u32*)0x85ec798,
 		.pPalette = (const u16*)0x8602f84,
-		.pBackgroundGraphics = (const u8*)0x85f9d10,
+		.pBackgroundGraphics = (const u32*)0x85f9d10,
 		.pTilemap = (const u8*)0x8608c98,
 		.animatedTileset = 0,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86c7d3c,
+	[73] = {
+		.pTileGraphics = (const u32*)0x86c7d3c,
 		.pPalette = (const u16*)0x86d64c0,
-		.pBackgroundGraphics = (const u8*)0x86d099c,
+		.pBackgroundGraphics = (const u32*)0x86d099c,
 		.pTilemap = (const u8*)0x86d97cc,
 		.animatedTileset = 7,
 		.animatedPalette = 13
 	},
-	{
-		.pTileGraphics = (const u8*)0x86ecd38,
+	[74] = {
+		.pTileGraphics = (const u32*)0x86ecd38,
 		.pPalette = (const u16*)0x872abf8,
-		.pBackgroundGraphics = (const u8*)0x8707ff0,
+		.pBackgroundGraphics = (const u32*)0x8707ff0,
 		.pTilemap = (const u8*)0x871b6c4,
 		.animatedTileset = 0,
 		.animatedPalette = 9
 	},
-	{
-		.pTileGraphics = (const u8*)0x86f62e0,
+	[75] = {
+		.pTileGraphics = (const u32*)0x86f62e0,
 		.pPalette = (const u16*)0x872bc78,
-		.pBackgroundGraphics = (const u8*)0x8712090,
+		.pBackgroundGraphics = (const u32*)0x8712090,
 		.pTilemap = (const u8*)0x8720458,
 		.animatedTileset = 6,
 		.animatedPalette = 12
 	},
-	{
-		.pTileGraphics = (const u8*)0x8687684,
+	[76] = {
+		.pTileGraphics = (const u32*)0x8687684,
 		.pPalette = (const u16*)0x869ab18,
-		.pBackgroundGraphics = (const u8*)0x86935a8,
+		.pBackgroundGraphics = (const u32*)0x86935a8,
 		.pTilemap = (const u8*)0x8697acc,
 		.animatedTileset = 2,
 		.animatedPalette = 0
 	},
-	{
-		.pTileGraphics = (const u8*)0x86f0c68,
+	[77] = {
+		.pTileGraphics = (const u32*)0x86f0c68,
 		.pPalette = (const u16*)0x872b278,
-		.pBackgroundGraphics = (const u8*)0x870ef74,
+		.pBackgroundGraphics = (const u32*)0x870ef74,
 		.pTilemap = (const u8*)0x871d7cc,
 		.animatedTileset = 0,
 		.animatedPalette = 17
 	},
-	{
-		.pTileGraphics = (const u8*)0x85dbf8c,
-		.pPalette = (const u16*)0x85df820,
-		.pBackgroundGraphics = (const u8*)0x85dd7a8,
+	[78] = {
+		.pTileGraphics = sTileset_78_Gfx,
+		.pPalette = sTileset_42_Pal,
+		.pBackgroundGraphics = sTileset_42_Bg_Gfx,
 		.pTilemap = (const u8*)0x85e0d24,
 		.animatedTileset = 0,
 		.animatedPalette = 16

@@ -1,7 +1,11 @@
 #include "data/animated_graphics_data.h"
-#include "data/animated_tiles_data.h"
-#include "constants/animated_graphics.h"
 #include "macros.h"
+
+#include "data/animated_tiles_data.h"
+#include "data/tilesets/tilesets_set0.h"
+
+#include "constants/animated_graphics.h"
+
 
 const struct AnimatedGraphicsData sAnimatedGraphicsEntries[38] = {
     [0] = {
@@ -295,14 +299,14 @@ const struct AnimatedPaletteData sAnimatedPaletteEntries[18] = {
     [0] = {
         .type = ANIMATED_PALETTE_TYPE_NONE,
         .framesPerState = 0,
-        .numbersOfStates = 4,
-        .pPalette = (const u16* const)0x85dfb60
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_0) / 16,
+        .pPalette = sAnimatedPal_0
     },
     [1] = {
         .type = ANIMATED_PALETTE_TYPE_NORMAL,
         .framesPerState = 7,
-        .numbersOfStates = 4,
-        .pPalette = (const u16* const)0x85dfb60
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_0) / 16,
+        .pPalette = sAnimatedPal_0
     },
     [2] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
@@ -325,8 +329,8 @@ const struct AnimatedPaletteData sAnimatedPaletteEntries[18] = {
     [5] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 10,
-        .numbersOfStates = 4,
-        .pPalette = (const u16* const)0x85dfda0
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_5) / 16,
+        .pPalette = sAnimatedPal_5
     },
     [6] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
@@ -337,8 +341,8 @@ const struct AnimatedPaletteData sAnimatedPaletteEntries[18] = {
     [7] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 10,
-        .numbersOfStates = 4,
-        .pPalette = (const u16* const)0x85df9e0
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_7) / 16,
+        .pPalette = sAnimatedPal_7
     },
     [8] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
@@ -391,8 +395,8 @@ const struct AnimatedPaletteData sAnimatedPaletteEntries[18] = {
     [16] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 3,
-        .numbersOfStates = 8,
-        .pPalette = (const u16* const)0x85dfa60
+        .numbersOfStates = ARRAY_SIZE(sAnimatedPal_16) / 16,
+        .pPalette = sAnimatedPal_16
     },
     [17] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,

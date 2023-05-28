@@ -16,6 +16,8 @@
 #include "constants/game_state.h"
 #include "constants/samus.h"
 #include "constants/room.h"
+#include "constants/in_game_cutscene.h"
+#include "constants/menus/pause_screen.h"
 
 #include "structs/audio.h"
 #include "structs/haze.h"
@@ -55,18 +57,17 @@ void RoomLoad(void)
     // Getting an item, init cutscene
     else if (gPauseScreenFlag == PAUSE_SCREEN_ITEM_ACQUISITION)
     {
-        // Varia
-        if (gCurrentItemBeingAcquired == 0xE)
+        if (gCurrentItemBeingAcquired == ITEM_ACQUISITION_VARIA)
         {
             gEquipment.suitMiscActivation &= ~SMF_VARIA_SUIT;
             SamusSetPose(SPOSE_FACING_THE_FOREGROUND);
 
-            gSamusData.xPosition = 0x278;
-            gSamusData.yPosition = 0x1FF;
+            gSamusData.xPosition = BLOCK_SIZE * 10 - 8;
+            gSamusData.yPosition = BLOCK_SIZE * 8 - 1;
 
             gInGameCutscene.stage = 0;
-            gInGameCutscene.queriedCutscene = 0x9;
-            start_in_game_cutscene(9); // Undefined
+            gInGameCutscene.queriedCutscene = IGC_GETTING_VARIA;
+            InGameCutsceneStart(IGC_GETTING_VARIA);
 
             gDisablePause = TRUE;
             gSamusWeaponInfo.chargeCounter = 0;
@@ -78,16 +79,16 @@ void RoomLoad(void)
         gEquipment.suitMiscActivation &= ~SMF_GRAVITY_SUIT;
         SamusSetPose(SPOSE_FACING_THE_FOREGROUND);
 
-        gSamusData.xPosition = 0x620;
-        gSamusData.yPosition = 0x7BF;
+        gSamusData.xPosition = BLOCK_SIZE * 24 + HALF_BLOCK_SIZE;
+        gSamusData.yPosition = BLOCK_SIZE * 31 - 1;
 
         gInGameCutscene.stage = 0;
-        gInGameCutscene.queriedCutscene = 0xA;
-        start_in_game_cutscene(10); // Undefined
+        gInGameCutscene.queriedCutscene = IGC_GETTING_FULLY_POWERED;
+        InGameCutsceneStart(IGC_GETTING_FULLY_POWERED);
 
         gDisablePause = TRUE;
         gSamusData.lastWallTouchedMidAir = TRUE;
-        gCurrentItemBeingAcquired = 0xF; // Gravity
+        gCurrentItemBeingAcquired = ITEM_ACQUISITION_GRAVITY;
         gSamusWeaponInfo.chargeCounter = 0;
     }
     else if (gPauseScreenFlag == PAUSE_SCREEN_SUITLESS_ITEMS)
@@ -112,17 +113,17 @@ void RoomLoad(void)
     }
 
     // Load states, entities
-    AnimatedGraphicsCheckPlayLightningEffect(); // Undefined
+    AnimatedGraphicsCheckPlayLightningEffect();
     RoomUpdateBackgroundsPosition();
     ConnectionLoadDoors();
     ConnectionCheckHatchLockEvents();
     RoomSetInitialTilemap(0x0);
     RoomSetInitialTilemap(0x1);
     RoomSetInitialTilemap(0x2);
-    AnimatedGraphicsLoad(); // Undefined
-    reset_tanks_animation(); // Undefined
-    set_bg_haze_effect(); // Undefined
-    process_haze(); // Undefined
+    AnimatedGraphicsLoad();
+    AnimatedGraphicsTanksAnimationReset();
+    SetBGHazeEffect();
+    HazeProcess();
     MinimapCheckOnTransition();
 
     // Check using elevator
@@ -135,7 +136,7 @@ void RoomLoad(void)
         gPreviousYPosition = gSamusData.yPosition;
     }
 
-    InGameCutsceneCheckStartQueried(); // Undefined
+    InGameCutsceneCheckStartQueried();
 
     // Update rain sound effect
     if (gRainSoundEffect != RAIN_SOUND_NONE)
@@ -199,12 +200,12 @@ void RoomLoadTileset(void)
     if (gUseMotherShipDoors == TRUE)
     {
         DMATransfer(3, sCommonTilesMothershipGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesMothershipGfx), 0x10);
-        DMATransfer(3, sCommonTilesMotherShipPAL, PALRAM_BASE + 2, 0x5E, 0x10);
+        DMATransfer(3, sCommonTilesMotherShipPal, PALRAM_BASE + 2, 0x5E, 0x10);
     }
     else
     {
         DMATransfer(3, sCommonTilesGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesGfx), 0x10);
-        DMATransfer(3, sCommonTilesPAL, PALRAM_BASE + 2, 0x5E, 0x10);
+        DMATransfer(3, sCommonTilesPal, PALRAM_BASE + 2, 0x5E, 0x10);
     }
 
     gTilesetTransparentColor.transparentColor = *entry.pPalette;
@@ -762,13 +763,13 @@ void RoomUpdateAnimatedGraphicsAndPalettes(void)
     }
 
     if (!dontUpdateBgEffect && gBackgroundEffect.type != 0 && gCurrentPowerBomb.animationState == 0)
-        BackgroundEffectUpdate(); // Undefined
+        BackgroundEffectUpdate();
 
     if (!dontUpdateGraphics)
     {
-        AnimatedGraphicsUpdate(); // Undefined
-        AnimatedGraphicsTanksAnimationUpdate(); // Undefined
-        AnimatedPaletteUpdate(); // Undefined
+        AnimatedGraphicsUpdate();
+        AnimatedGraphicsTanksAnimationUpdate();
+        AnimatedPaletteUpdate();
         RoomUpdateHatchFlashingAnimation();
     }
 }
@@ -786,9 +787,9 @@ void RoomUpdateHatchFlashingAnimation(void)
 
     // Get palette pointer
     if (gUseMotherShipDoors)
-        pPalette = sHatchFlashingMotherShipPAL;
+        pPalette = sHatchFlashingMotherShipPal;
     else
-        pPalette = sHatchFlashingPAL;
+        pPalette = sHatchFlashingPal;
 
     // Update hatches that unlocked
     if (gHatchesState.unlocking)
@@ -859,7 +860,7 @@ void RoomUpdate(void)
         {
             BlockUpdateBrokenBlocks();
             BlockProcessBombChains();
-            process_in_game_cutscene(); // Undefined
+            InGameCutsceneProcess();
             ConnectionCheckUnlockDoors();
             ConnectionUpdateHatches();
         }

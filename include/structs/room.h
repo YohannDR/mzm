@@ -73,9 +73,9 @@ struct RoomEntryROM {
 };
 
 struct TilesetEntry {
-    const u8* pTileGraphics;
+    const u32* pTileGraphics;
     const u16* pPalette;
-    const u8* pBackgroundGraphics;
+    const u32* pBackgroundGraphics;
     const u8* pTilemap;
     u8 animatedTileset;
     u8 animatedPalette;

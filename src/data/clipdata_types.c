@@ -203,5 +203,3 @@ const u16 sClipdataBehaviorTypes[176] = {
 
 const u8 sCommonTilesGfx[4096] = INCBIN_U8("data/common/CommonTiles.gfx");
 const u8 sCommonTilesMothershipGfx[4096] = INCBIN_U8("data/common/CommonTilesMotherShip.gfx");
-
-static const u8 sTempArray_5db40c[0x1744a8] = INCBIN_U8("data/Blob_5db40c_74f8b4.bin");

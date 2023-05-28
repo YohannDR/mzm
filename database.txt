@@ -1201,7 +1201,29 @@ rooms/debug/Debug4_Clipdata.rle;314;0x36763e;1
 rooms/debug/Debug4_Bg2.rle;14;0x367778;1
 rooms/debug/Debug4_Bg1.rle;330;0x367786;1
 
+# Tilesets
+
+## Set 0
+
+tilesets/42.gfx.lz;736;0x5db40c;4
+tilesets/78.gfx.lz;736;0x5dbf8c;4
+tilesets/27.gfx.lz;807;0x5dcb0c;4
+
+tilesets/42_Bg.gfx.lz;591;0x5dd7a8;4
+tilesets/27_Bg.gfx.lz;1487;0x5de0e4;4
+
+tilesets/42.pal;224;0x5df820;2
+tilesets/27.pal;224;0x5dfbe0;2
+
 ## Samus
+
+# Animated palettes
+
+tilesets/animated_palettes/7.pal;64;0x5df9e0;2
+tilesets/animated_palettes/16.pal;128;0x5dfa60;2
+tilesets/animated_palettes/0.pal;64;0x5dfb60;2
+
+tilesets/animated_palettes/5.pal;65;0x5dfda0;2
 
 # Palettes
 
@@ -2583,7 +2605,7 @@ Blob_40dd0b_40e0c4.bin;953;0x40dd0b;1
 Blob_415460_446d68.bin;203016;0x415460;1
 Blob_454818_45f45c.bin;44100;0x454818;1
 Blob_479400_4bfee4.bin;289508;0x479400;1
-Blob_5db40c_74f8b4.bin;1524904;0x5db40c;1
+Blob_5e0620_74f8b4.bin;1503892;0x5e0620;1
 Blob_754bd0_75e6a8.bin;39640;0x754bd0;1
 Blob_75fae4_75fd78.bin;660;0x75fae4;1
 Blob_7602d4_760420.bin;332;0x7602d4;1
