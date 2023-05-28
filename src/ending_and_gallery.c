@@ -62,18 +62,18 @@ void EndingImageLoadTextOAM(u32 set)
         }
         else
         {
-            ENDING_DATA.oamLength = ARRAY_SIZE(sEndingImageOam_YourRate_Hiragana) + 6;
+            ENDING_DATA.oamLength = ARRAY_SIZE(sEndingImageOam_Collecting_Hiragana) + 6;
 
-            for (i = 0; i < ARRAY_SIZE(sEndingImageOam_YourRate_Hiragana); i++)
+            for (i = 0; i < ARRAY_SIZE(sEndingImageOam_Collecting_Hiragana); i++)
             {
-                ENDING_DATA.unk_124[i + 6] = sEndingImageOam_YourRate_Hiragana[i].unk_0;
-                ENDING_DATA.endingLettersSpawnDelay[i + 6] = sEndingImageOam_YourRate_Hiragana[i].spawnDelay;
-                ENDING_DATA.unk_160[i + 6] = sEndingImageOam_YourRate_Hiragana[i].unk_2;
+                ENDING_DATA.unk_124[i + 6] = sEndingImageOam_Collecting_Hiragana[i].unk_0;
+                ENDING_DATA.endingLettersSpawnDelay[i + 6] = sEndingImageOam_Collecting_Hiragana[i].spawnDelay;
+                ENDING_DATA.unk_160[i + 6] = sEndingImageOam_Collecting_Hiragana[i].unk_2;
 
-                ENDING_DATA.oamXPositions[i + 6] = sEndingImageOam_YourRate_Hiragana[i].xPosition;
-                ENDING_DATA.oamYPositions[i + 6] = sEndingImageOam_YourRate_Hiragana[i].yPosition;
+                ENDING_DATA.oamXPositions[i + 6] = sEndingImageOam_Collecting_Hiragana[i].xPosition;
+                ENDING_DATA.oamYPositions[i + 6] = sEndingImageOam_Collecting_Hiragana[i].yPosition;
 
-                ENDING_DATA.oamFramePointers[i + 6] = sEndingImageOam_YourRate_Hiragana[i].pFrame;
+                ENDING_DATA.oamFramePointers[i + 6] = sEndingImageOam_Collecting_Hiragana[i].pFrame;
             }
         }
     }
@@ -141,21 +141,21 @@ void EndingImageDisplayLinePermanently(u32 line)
 
     if (ENDING_DATA.language == LANGUAGE_HIRAGANA)
     {
-        ENDING_DATA.unk_124[line] = sEndingImageOam_54bf58[line].unk_0;
-        ENDING_DATA.endingLettersSpawnDelay[line] = sEndingImageOam_54bf58[line].spawnDelay;
-        ENDING_DATA.unk_160[line] = sEndingImageOam_54bf58[line].unk_2;
-        ENDING_DATA.oamXPositions[line] = sEndingImageOam_54bf58[line].xPosition;
-        ENDING_DATA.oamYPositions[line] = sEndingImageOam_54bf58[line].yPosition;
-        ENDING_DATA.oamFramePointers[line] = sEndingImageOam_54bf58[line].pFrame;
+        ENDING_DATA.unk_124[line] = sEndingImageOam_FullLines_Hiragana[line].unk_0;
+        ENDING_DATA.endingLettersSpawnDelay[line] = sEndingImageOam_FullLines_Hiragana[line].spawnDelay;
+        ENDING_DATA.unk_160[line] = sEndingImageOam_FullLines_Hiragana[line].unk_2;
+        ENDING_DATA.oamXPositions[line] = sEndingImageOam_FullLines_Hiragana[line].xPosition;
+        ENDING_DATA.oamYPositions[line] = sEndingImageOam_FullLines_Hiragana[line].yPosition;
+        ENDING_DATA.oamFramePointers[line] = sEndingImageOam_FullLines_Hiragana[line].pFrame;
     }
     else
     {
-        ENDING_DATA.unk_124[line] = sEndingImageOam_54bd54[line].unk_0;
-        ENDING_DATA.endingLettersSpawnDelay[line] = sEndingImageOam_54bd54[line].spawnDelay;
-        ENDING_DATA.unk_160[line] = sEndingImageOam_54bd54[line].unk_2;
-        ENDING_DATA.oamXPositions[line] = sEndingImageOam_54bd54[line].xPosition;
-        ENDING_DATA.oamYPositions[line] = sEndingImageOam_54bd54[line].yPosition;
-        ENDING_DATA.oamFramePointers[line] = sEndingImageOam_54bd54[line].pFrame;
+        ENDING_DATA.unk_124[line] = sEndingImageOam_FullLines_English[line].unk_0;
+        ENDING_DATA.endingLettersSpawnDelay[line] = sEndingImageOam_FullLines_English[line].spawnDelay;
+        ENDING_DATA.unk_160[line] = sEndingImageOam_FullLines_English[line].unk_2;
+        ENDING_DATA.oamXPositions[line] = sEndingImageOam_FullLines_English[line].xPosition;
+        ENDING_DATA.oamYPositions[line] = sEndingImageOam_FullLines_English[line].yPosition;
+        ENDING_DATA.oamFramePointers[line] = sEndingImageOam_FullLines_English[line].pFrame;
     }
 
     for (i  = 0; i < ENDING_DATA.oamLength - 6; i++)
@@ -523,7 +523,7 @@ u8 CreditsDisplayLine(u32 line)
             ret_0 = 1;
             break;
 
-        case 5:
+        case CREDIT_LINE_TYPE_UNK_5:
             ret_0 = 1;
             break;
 
@@ -1263,10 +1263,10 @@ void EndingImageInit(void)
 
     endingNumber = pen & 0xF;
         
-    LZ77UncompVRAM(sEndingImagesTopHalfGfxPointers[endingNumber], VRAM_BASE);
-    LZ77UncompVRAM(sEndingImagesLowerHalfGfxPointers[endingNumber], VRAM_BASE + 0x8000);
-    LZ77UncompVRAM(sEndingImagesTopHalfTileTablePointers[endingNumber], VRAM_BASE + 0xE000);
-    LZ77UncompVRAM(sEndingImagesLowerHalfTileTablePointers[endingNumber], VRAM_BASE + 0xF800);
+    LZ77UncompVRAM(sEndingImagesTopGfxPointers[endingNumber], VRAM_BASE);
+    LZ77UncompVRAM(sEndingImagesBottomGfxPointers[endingNumber], VRAM_BASE + 0x8000);
+    LZ77UncompVRAM(sEndingImagesTopTileTablePointers[endingNumber], VRAM_BASE + 0xE000);
+    LZ77UncompVRAM(sEndingImagesHalfTileTablePointers[endingNumber], VRAM_BASE + 0xF800);
     BitFill(3, 0x4FF04FF, VRAM_BASE + 0xE800, 0x800, 0x20);
     dma_set(3, sEndingImagesPalPointers[endingNumber], PALRAM_BASE, DMA_ENABLE << 16 | 0x100);
 
@@ -1386,14 +1386,14 @@ void EndingImageDisplayText(void)
         }
     }
 
-    if (ENDING_DATA.unk_141)
+    if (ENDING_DATA.hasNewRecord)
     {
-        if (ENDING_DATA.unk_17D++ > 70)
-            ENDING_DATA.unk_17D = 0;
+        if (ENDING_DATA.newRecordPaletteTimer++ > 70)
+            ENDING_DATA.newRecordPaletteTimer = 0;
 
-        palette = sEndingImage_54e2e4[ENDING_DATA.unk_17D / 6];
+        palette = sEndingImageNewRecordPalettes[ENDING_DATA.newRecordPaletteTimer / 6];
 
-        src = sEndingImage_549eec;
+        src = sEndingImageOam_NewRecord;
         partCount = *src++;
         currSlot += partCount & 0xFF;
 
@@ -1443,13 +1443,13 @@ u8 EndingImageDisplay(void)
             break;
 
         case 110:
-            EndingImageDisplayLinePermanently(0);
+            EndingImageDisplayLinePermanently(ENDING_IMAGE_LINE_CLEAR_TIME);
             break;
 
         case 180:
-            EndingImageDisplayLinePermanently(1);
+            EndingImageDisplayLinePermanently(ENDING_IMAGE_LINE_TIMER);
             if (gEndingFlags & ENDING_FLAG_NEW_TIME_ATTACK_RECORD)
-                ENDING_DATA.unk_141++;
+                ENDING_DATA.hasNewRecord++;
             break;
 
         case 330:
@@ -1459,7 +1459,7 @@ u8 EndingImageDisplay(void)
         case 375:
             if (ENDING_DATA.language == LANGUAGE_JAPANESE || ENDING_DATA.language == LANGUAGE_ENGLISH ||
                 ENDING_DATA.language == LANGUAGE_ITALIAN)
-                EndingImageDisplayLinePermanently(2);
+                EndingImageDisplayLinePermanently(ENDING_IMAGE_LINE_YOUR_RATE);
             break;
 
         case 380:
@@ -1469,16 +1469,16 @@ u8 EndingImageDisplay(void)
             break;
 
         case 460:
-            EndingImageDisplayLinePermanently(3);
+            EndingImageDisplayLinePermanently(ENDING_IMAGE_LINE_COLLECTING);
             break;
 
         case 530:
-            EndingImageDisplayLinePermanently(4);
+            EndingImageDisplayLinePermanently(ENDING_IMAGE_LINE_PERCENTAGE);
             break;
 
         case 780:
             if (ENDING_DATA.language != LANGUAGE_HIRAGANA)
-                EndingImageDisplayLinePermanently(5);
+                EndingImageDisplayLinePermanently(ENDING_IMAGE_LINE_NEXT_MISSION);
             break;
 
         case 1376:
@@ -1871,10 +1871,10 @@ void GalleryInit(void)
 
     ENDING_DATA.endingNumber = endingNbr;
 
-    LZ77UncompVRAM(sEndingImagesTopHalfGfxPointers[endingNbr], VRAM_BASE);
-    LZ77UncompVRAM(sEndingImagesLowerHalfGfxPointers[endingNbr], VRAM_BASE + 0x8000);
-    LZ77UncompVRAM(sEndingImagesTopHalfTileTablePointers[endingNbr], VRAM_BASE + 0xE000);
-    LZ77UncompVRAM(sEndingImagesLowerHalfTileTablePointers[endingNbr], VRAM_BASE + 0xF800);
+    LZ77UncompVRAM(sEndingImagesTopGfxPointers[endingNbr], VRAM_BASE);
+    LZ77UncompVRAM(sEndingImagesBottomGfxPointers[endingNbr], VRAM_BASE + 0x8000);
+    LZ77UncompVRAM(sEndingImagesTopTileTablePointers[endingNbr], VRAM_BASE + 0xE000);
+    LZ77UncompVRAM(sEndingImagesHalfTileTablePointers[endingNbr], VRAM_BASE + 0xF800);
 
     BitFill(3, 0x4FF04FF, VRAM_BASE + 0xE800, 0x800, 32);
 

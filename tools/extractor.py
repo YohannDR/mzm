@@ -13,6 +13,7 @@ subDirs: array = [
     "animated_tiles/",
     "close_up/",
     "fusion_gallery/",
+    "ending/",
     "cutscenes/",
     "cutscenes/KraidRising/",
     "cutscenes/StoryText/",

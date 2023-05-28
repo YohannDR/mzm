@@ -2,8 +2,7 @@
 #include "constants/event.h"
 
 /**
- * 608bc | 6c | 
- * Function used to manipulate the events
+ * 608bc | 6c | Function used to manipulate the events
  * 
  * @param action Action to do with the event
  * @param event Event concerned
@@ -18,43 +17,41 @@ u32 EventFunction(u8 action, u8 event)
     
     if ((u8)(event - 1) > EVENT_BOMBATE)
         return FALSE;
-    else
+
+    // Get event chunk
+    pEvent = gEventsTriggered;
+    pEvent += (event / 32);
+
+    // Get correct bit for the requested event
+    newEvent = 1 << (event & 31);
+    // Get previous event
+    previous = *pEvent;
+
+    // Check is set
+    isSet = previous & newEvent;
+    if (isSet)
+        isSet = TRUE; // Not 0, then set
+
+    // Apply action
+    switch (action)
     {
-        // Get event chunk
-        pEvent = gEventsTriggered;
-        pEvent += (event / 32);
+        case EVENT_ACTION_CLEARING:
+            // Remove
+            *pEvent = previous & ~newEvent;
+            break;
 
-        // Get correct bit for the requested event
-        newEvent = 1 << (event & 31);
-        // Get previous event
-        previous = *pEvent;
+        case EVENT_ACTION_SETTING:
+            // Add
+            *pEvent = previous | newEvent;
+            isSet ^= TRUE;
+            break;
 
-        // Check is set
-        isSet = previous & newEvent;
-        if (isSet)
-            isSet = TRUE; // Not 0, then set
-
-        // Apply action
-        switch (action)
-        {
-            case EVENT_ACTION_CLEARING:
-                // Remove
-                *pEvent = previous & ~newEvent;
-                break;
-
-            case EVENT_ACTION_SETTING:
-                // Add
-                *pEvent = previous | newEvent;
-                isSet ^= TRUE;
-                break;
-
-            case EVENT_ACTION_TOGGLING:
-                // Toggle
-                *pEvent = previous ^ newEvent;
-                isSet ^= TRUE;
-                break;
-        }
-
-        return isSet;
+        case EVENT_ACTION_TOGGLING:
+            // Toggle
+            *pEvent = previous ^ newEvent;
+            isSet ^= TRUE;
+            break;
     }
+
+    return isSet;
 }

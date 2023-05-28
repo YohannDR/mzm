@@ -187,82 +187,80 @@ const struct FusionGalleryImageEntry sFusionGalleryData[NUMBER_OF_FUSION_GALLERY
     },
 };
 
-/*static*/ const u32 sFusionGallery_TopGfx_0[5628] = INCBIN_U32("data/fusion_gallery/image0_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_0[3191] = INCBIN_U32("data/fusion_gallery/image0_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_0[5628] = INCBIN_U32("data/fusion_gallery/image0_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_0[3191] = INCBIN_U32("data/fusion_gallery/image0_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopGfx_1[5900] = INCBIN_U32("data/fusion_gallery/image1_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_1[2986] = INCBIN_U32("data/fusion_gallery/image1_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_1[5900] = INCBIN_U32("data/fusion_gallery/image1_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_1[2986] = INCBIN_U32("data/fusion_gallery/image1_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopGfx_2[5731] = INCBIN_U32("data/fusion_gallery/image2_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_2[3293] = INCBIN_U32("data/fusion_gallery/image2_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_2[5731] = INCBIN_U32("data/fusion_gallery/image2_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_2[3293] = INCBIN_U32("data/fusion_gallery/image2_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopGfx_3[6364] = INCBIN_U32("data/fusion_gallery/image3_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_3[3818] = INCBIN_U32("data/fusion_gallery/image3_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_3[6364] = INCBIN_U32("data/fusion_gallery/image3_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_3[3818] = INCBIN_U32("data/fusion_gallery/image3_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopGfx_4[6851] = INCBIN_U32("data/fusion_gallery/image4_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_4[3504] = INCBIN_U32("data/fusion_gallery/image4_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_4[6851] = INCBIN_U32("data/fusion_gallery/image4_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_4[3504] = INCBIN_U32("data/fusion_gallery/image4_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_0[551] = INCBIN_U32("data/fusion_gallery/image0_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_0[368] = INCBIN_U32("data/fusion_gallery/image0_bottom.tt");
+static const u32 sFusionGallery_TopTileTable_0[551] = INCBIN_U32("data/fusion_gallery/image0_top.tt");
+static const u32 sFusionGallery_BottomTileTable_0[368] = INCBIN_U32("data/fusion_gallery/image0_bottom.tt");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_1[551] = INCBIN_U32("data/fusion_gallery/image1_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_1[368] = INCBIN_U32("data/fusion_gallery/image1_bottom.tt");
+static const u32 sFusionGallery_TopTileTable_1[551] = INCBIN_U32("data/fusion_gallery/image1_top.tt");
+static const u32 sFusionGallery_BottomTileTable_1[368] = INCBIN_U32("data/fusion_gallery/image1_bottom.tt");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_2[551] = INCBIN_U32("data/fusion_gallery/image2_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_2[368] = INCBIN_U32("data/fusion_gallery/image2_bottom.tt");
+static const u32 sFusionGallery_TopTileTable_2[551] = INCBIN_U32("data/fusion_gallery/image2_top.tt");
+static const u32 sFusionGallery_BottomTileTable_2[368] = INCBIN_U32("data/fusion_gallery/image2_bottom.tt");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_3[551] = INCBIN_U32("data/fusion_gallery/image3_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_3[369] = INCBIN_U32("data/fusion_gallery/image3_bottom.tt");
+static const u32 sFusionGallery_TopTileTable_3[551] = INCBIN_U32("data/fusion_gallery/image3_top.tt");
+static const u32 sFusionGallery_BottomTileTable_3[369] = INCBIN_U32("data/fusion_gallery/image3_bottom.tt");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_4[551] = INCBIN_U32("data/fusion_gallery/image4_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_4[369] = INCBIN_U32("data/fusion_gallery/image4_bottom.tt");
+static const u32 sFusionGallery_TopTileTable_4[551] = INCBIN_U32("data/fusion_gallery/image4_top.tt");
+static const u32 sFusionGallery_BottomTileTable_4[369] = INCBIN_U32("data/fusion_gallery/image4_bottom.tt");
 
-/*static*/ const u32 sFusionGallery_TopGfx_11[5936] = INCBIN_U32("data/fusion_gallery/image11_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_11[3930] = INCBIN_U32("data/fusion_gallery/image11_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_11[5936] = INCBIN_U32("data/fusion_gallery/image11_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_11[3930] = INCBIN_U32("data/fusion_gallery/image11_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopGfx_12[5604] = INCBIN_U32("data/fusion_gallery/image12_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_12[3582] = INCBIN_U32("data/fusion_gallery/image12_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_12[5604] = INCBIN_U32("data/fusion_gallery/image12_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_12[3582] = INCBIN_U32("data/fusion_gallery/image12_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopGfx_5[6633] = INCBIN_U32("data/fusion_gallery/image5_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_5[3277] = INCBIN_U32("data/fusion_gallery/image5_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_5[6633] = INCBIN_U32("data/fusion_gallery/image5_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_5[3277] = INCBIN_U32("data/fusion_gallery/image5_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopGfx_6[6754] = INCBIN_U32("data/fusion_gallery/image6_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_6[3419] = INCBIN_U32("data/fusion_gallery/image6_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_6[6754] = INCBIN_U32("data/fusion_gallery/image6_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_6[3419] = INCBIN_U32("data/fusion_gallery/image6_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopGfx_7[6977] = INCBIN_U32("data/fusion_gallery/image7_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_7[4372] = INCBIN_U32("data/fusion_gallery/image7_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_7[6977] = INCBIN_U32("data/fusion_gallery/image7_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_7[4372] = INCBIN_U32("data/fusion_gallery/image7_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopGfx_8[6417] = INCBIN_U32("data/fusion_gallery/image8_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_8[3919] = INCBIN_U32("data/fusion_gallery/image8_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_8[6417] = INCBIN_U32("data/fusion_gallery/image8_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_8[3919] = INCBIN_U32("data/fusion_gallery/image8_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopGfx_9[6918] = INCBIN_U32("data/fusion_gallery/image9_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_9[4360] = INCBIN_U32("data/fusion_gallery/image9_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_9[6918] = INCBIN_U32("data/fusion_gallery/image9_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_9[4360] = INCBIN_U32("data/fusion_gallery/image9_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopGfx_10[5764] = INCBIN_U32("data/fusion_gallery/image10_top.gfx.lz");
-/*static*/ const u32 sFusionGallery_BottomGfx_10[2273] = INCBIN_U32("data/fusion_gallery/image10_bottom.gfx.lz");
+static const u32 sFusionGallery_TopGfx_10[5764] = INCBIN_U32("data/fusion_gallery/image10_top.gfx.lz");
+static const u32 sFusionGallery_BottomGfx_10[2273] = INCBIN_U32("data/fusion_gallery/image10_bottom.gfx.lz");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_11[551] = INCBIN_U32("data/fusion_gallery/image11_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_11[368] = INCBIN_U32("data/fusion_gallery/image11_bottom.tt");
+static const u32 sFusionGallery_TopTileTable_11[551] = INCBIN_U32("data/fusion_gallery/image11_top.tt");
+static const u32 sFusionGallery_BottomTileTable_11[368] = INCBIN_U32("data/fusion_gallery/image11_bottom.tt");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_12[550] = INCBIN_U32("data/fusion_gallery/image12_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_12[368] = INCBIN_U32("data/fusion_gallery/image12_bottom.tt");
+static const u32 sFusionGallery_TopTileTable_12[550] = INCBIN_U32("data/fusion_gallery/image12_top.tt");
+static const u32 sFusionGallery_BottomTileTable_12[368] = INCBIN_U32("data/fusion_gallery/image12_bottom.tt");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_5[551] = INCBIN_U32("data/fusion_gallery/image5_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_5[369] = INCBIN_U32("data/fusion_gallery/image5_bottom.tt");
+static const u32 sFusionGallery_TopTileTable_5[551] = INCBIN_U32("data/fusion_gallery/image5_top.tt");
+static const u32 sFusionGallery_BottomTileTable_5[369] = INCBIN_U32("data/fusion_gallery/image5_bottom.tt");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_6[551] = INCBIN_U32("data/fusion_gallery/image6_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_6[368] = INCBIN_U32("data/fusion_gallery/image6_bottom.tt");
+static const u32 sFusionGallery_TopTileTable_6[551] = INCBIN_U32("data/fusion_gallery/image6_top.tt");
+static const u32 sFusionGallery_BottomTileTable_6[368] = INCBIN_U32("data/fusion_gallery/image6_bottom.tt");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_7[551] = INCBIN_U32("data/fusion_gallery/image7_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_7[369] = INCBIN_U32("data/fusion_gallery/image7_bottom.tt");
+static const u32 sFusionGallery_TopTileTable_7[551] = INCBIN_U32("data/fusion_gallery/image7_top.tt");
+static const u32 sFusionGallery_BottomTileTable_7[369] = INCBIN_U32("data/fusion_gallery/image7_bottom.tt");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_8[551] = INCBIN_U32("data/fusion_gallery/image8_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_8[369] = INCBIN_U32("data/fusion_gallery/image8_bottom.tt");
+static const u32 sFusionGallery_TopTileTable_8[551] = INCBIN_U32("data/fusion_gallery/image8_top.tt");
+static const u32 sFusionGallery_BottomTileTable_8[369] = INCBIN_U32("data/fusion_gallery/image8_bottom.tt");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_9[550] = INCBIN_U32("data/fusion_gallery/image9_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_9[368] = INCBIN_U32("data/fusion_gallery/image9_bottom.tt");
+static const u32 sFusionGallery_TopTileTable_9[550] = INCBIN_U32("data/fusion_gallery/image9_top.tt");
+static const u32 sFusionGallery_BottomTileTable_9[368] = INCBIN_U32("data/fusion_gallery/image9_bottom.tt");
 
-/*static*/ const u32 sFusionGallery_TopTileTable_10[551] = INCBIN_U32("data/fusion_gallery/image10_top.tt");
-/*static*/ const u32 sFusionGallery_BottomTileTable_10[368] = INCBIN_U32("data/fusion_gallery/image10_bottom.tt");
-
-/*static*/ const u8 sTempArray_549b44[0x205d70] = INCBIN_U8("data/Blob_549b44_74f8b4.bin");
+static const u32 sFusionGallery_TopTileTable_10[551] = INCBIN_U32("data/fusion_gallery/image10_top.tt");
+static const u32 sFusionGallery_BottomTileTable_10[368] = INCBIN_U32("data/fusion_gallery/image10_bottom.tt");

@@ -41,7 +41,7 @@ struct EndingData {
     u8 unk_124[6];
     u8 unk_12A[17];
     u8 padding_13B[6];
-    u8 unk_141;
+    u8 hasNewRecord;
     u8 endingLettersSpawnDelay[6];
     u8 unk_148[17];
     u8 padding_159[7];
@@ -51,7 +51,7 @@ struct EndingData {
     u8 unk_178;
     u8 unk_179;
     u8 padding_17A[3];
-    u8 unk_17D;
+    u8 newRecordPaletteTimer;
     u16 oamXPositions[30];
     u16 oamYPositions[30];
     const u16* oamFramePointers[30];
