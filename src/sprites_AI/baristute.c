@@ -505,14 +505,14 @@ void BaristuteDeath(void)
         else
             spriteID = PSPRITE_MISSILE_DROP;
 
-        SpriteSpawnDropFollowers(spriteID, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRAMSlot, yPosition - 0x18 + rng, xPosition + 0x4C - rng, 0x0);
+        SpriteSpawnDropFollowers(spriteID, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRamSlot, yPosition - 0x18 + rng, xPosition + 0x4C - rng, 0x0);
         
         if (sRandomNumberTable[gSpriteRNG] & 0x1)
             spriteID = PSPRITE_LARGE_ENERGY_DROP;
         else
             spriteID = PSPRITE_MISSILE_DROP;
 
-        SpriteSpawnDropFollowers(spriteID, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRAMSlot, yPosition + 0x14 - rng, xPosition - 0x48 + rng, 0x0);
+        SpriteSpawnDropFollowers(spriteID, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRamSlot, yPosition + 0x14 - rng, xPosition - 0x48 + rng, 0x0);
     }
 }
 

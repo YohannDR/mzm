@@ -28,7 +28,7 @@ void MultiviolaInit(void)
 
     gCurrentSprite.pOam = sMultiviolaOAM_Moving;
     gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = gCurrentSprite.primarySpriteRAMSlot * 2;
+    gCurrentSprite.currentAnimationFrame = gCurrentSprite.primarySpriteRamSlot * 2;
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
@@ -141,7 +141,7 @@ void Multiviola(void)
     if (gCurrentSprite.freezeTimer != 0x0)
     {
         SpriteUtilUpdateFreezeTimer();
-        SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(SSPRITE_MULTIVIOLA_UNUSED, gCurrentSprite.primarySpriteRAMSlot);
+        SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(SSPRITE_MULTIVIOLA_UNUSED, gCurrentSprite.primarySpriteRamSlot);
     }
     else
     {

@@ -42,7 +42,7 @@ struct SpriteData {
     u8 paletteRow;
     u8 bgPriority;
     u8 drawOrder;
-    u8 primarySpriteRAMSlot;
+    u8 primarySpriteRamSlot;
     u8 pose;
     u8 samusCollision;
     u8 ignoreSamusCollisionTimer;

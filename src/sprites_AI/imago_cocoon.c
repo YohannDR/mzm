@@ -178,7 +178,7 @@ void ImagoCocoonInit(void)
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_IMAGO_COCOON_KILLED))
     {
         SpriteSpawnSecondary(SSPRITE_IMAGO_CEILING_VINE, 0x0, gCurrentSprite.spritesetGFXSlot,
-            gCurrentSprite.primarySpriteRAMSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
+            gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
 
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_ENTER_RIDLEY_DEMO_PLAYED))
             gCurrentSprite.status = 0x0;
@@ -254,7 +254,7 @@ void ImagoCocoonInit(void)
         gCurrentSprite.roomSlot = IMAGO_COCOON_PART_IMAGO_COCOON;
 
         gfxSlot = gCurrentSprite.spritesetGFXSlot;
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
         // Spawn vines
         SpriteSpawnSecondary(SSPRITE_IMAGO_COCOON_VINE, IMAGO_COCOON_PART_VINE_LEFT_MIDDLE, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
@@ -408,7 +408,7 @@ void ImagoCocoonFallingBeforeBlocks(void)
         if (gSubSpriteData1.currentAnimationFrame == 0x7 && gSubSpriteData1.animationDurationCounter == 0x6)
         {
             SpriteSpawnSecondary(SSPRITE_IMAGO_CEILING_VINE, 0x0, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
+                gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
         }
 
         yPosition = gBG1YPosition - BLOCK_SIZE;
@@ -783,7 +783,7 @@ void ImagoCocoonVineSpawnSpore(void)
     u16 yPosition;
     u16 xPosition;
 
-    slot = gCurrentSprite.primarySpriteRAMSlot;
+    slot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gSpriteData[slot].pose == IMAGO_COCOON_POSE_UNLOCK_PASSAGE)
     {
@@ -863,7 +863,7 @@ void ImagoCocoonCeilingVineDeath(void)
     u8 ramSlot;
 
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gSpriteData[ramSlot].pose == IMAGO_COCOON_POSE_UNLOCK_PASSAGE)
     {
@@ -880,7 +880,7 @@ void ImagoCocoonSporeSyncPosition(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
         gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - IMAGO_COCOON_SPORE_RIGHT_Y_OFFSET;
@@ -1090,7 +1090,7 @@ u8 WingedRipperImagoCollision(void)
     u16 imagoRight;
 
     colliding = FALSE;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (gSpriteData[ramSlot].pose == IMAGO_COCOON_POSE_FALLING_BEFORE_BLOCKS && gSpriteData[ramSlot].arrayOffset > 0x10)
     {
         spriteY = gCurrentSprite.yPosition;

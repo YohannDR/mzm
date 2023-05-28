@@ -273,7 +273,7 @@ void AtomicCheckShootElectricity(void)
             gCurrentSprite.oamRotation = 0x1;
 
             SpriteSpawnSecondary(SSPRITE_ATOMIC_ELECTRICITY, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         }
     }
     else
@@ -595,7 +595,7 @@ void AtomicElectriciytInit(void)
 {
     u8 checks;
 
-    checks = AtomicElectricityCheckAtomicDead(gCurrentSprite.primarySpriteRAMSlot);
+    checks = AtomicElectricityCheckAtomicDead(gCurrentSprite.primarySpriteRamSlot);
     if (checks)
         gCurrentSprite.status = 0x0; // Kill if atomic is dead
     else
@@ -635,7 +635,7 @@ void AtomicElectricitySpawn(void)
     u16 samusY;
     u16 samusX;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     check = AtomicElectricityCheckAtomicDead(ramSlot);
     if (check)
     {

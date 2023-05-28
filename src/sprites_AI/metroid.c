@@ -543,7 +543,7 @@ void MetroidInit(void)
         gCurrentSprite.arrayOffset = 0x0;
         gCurrentSprite.drawOrder = 0xC;
 
-        slot = SpriteSpawnSecondary(SSPRITE_METROID_SHELL, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+        slot = SpriteSpawnSecondary(SSPRITE_METROID_SHELL, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
         if (slot == 0xFF)
             gCurrentSprite.status = 0x0;
         gCurrentSprite.paletteRow = 0x3;
@@ -938,7 +938,7 @@ void MetroidShell(void)
     u16 yPosition;
     u16 xPosition;
 
-    slot = gCurrentSprite.primarySpriteRAMSlot;
+    slot = gCurrentSprite.primarySpriteRamSlot;
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     gCurrentSprite.paletteRow = gSpriteData[slot].paletteRow;
     if (gSpriteData[slot].health == 0x0)

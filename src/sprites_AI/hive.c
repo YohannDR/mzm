@@ -74,7 +74,7 @@ void HiveInit(void)
     roomSlot = gCurrentSprite.roomSlot;
     
     // Spawn rooms
-    SpriteSpawnSecondary(SSPRITE_HIVE_ROOTS, roomSlot, gfxSlot, gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0);
+    SpriteSpawnSecondary(SSPRITE_HIVE_ROOTS, roomSlot, gfxSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0);
 
     // Spawn mellows
     SpriteSpawnPrimary(PSPRITE_MELLOW, roomSlot, gfxSlot,
@@ -270,7 +270,7 @@ void HiveRootsMove(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition;
     gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition;
@@ -707,7 +707,7 @@ void Hive(void)
     if (gCurrentSprite.freezeTimer != 0x0)
     {
         SpriteUtilUpdateFreezeTimer();
-        SpriteUtilUnfreezeSecondarySprites(SSPRITE_HIVE_ROOTS, gCurrentSprite.primarySpriteRAMSlot);
+        SpriteUtilUnfreezeSecondarySprites(SSPRITE_HIVE_ROOTS, gCurrentSprite.primarySpriteRamSlot);
         gCurrentSprite.timer = gCurrentSprite.freezeTimer;
     }
     else
@@ -746,7 +746,7 @@ void HiveRoots(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     if (gSpriteData[ramSlot].spriteID == PSPRITE_HIVE)
     {

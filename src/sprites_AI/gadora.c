@@ -56,7 +56,7 @@ void GadoraInit(void)
         xPosition -= 0x10;
 
     ramSlot = SpriteSpawnSecondary(SSPRITE_GADORA_EYE, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGFXSlot,
-            gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0);
+            gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
     if (ramSlot == 0xFF)
         gCurrentSprite.status = 0x0;
     else
@@ -163,7 +163,7 @@ void GadoraCheckOpeningEyeAnimEnded(void)
             // Spawn beam
             xPosition = gCurrentSprite.xPosition + 0x10;
             status = SPRITE_STATUS_XFLIP;
-            SpriteSpawnSecondary(SSPRITE_GADORA_BEAM, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+            SpriteSpawnSecondary(SSPRITE_GADORA_BEAM, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, xPosition, status);
         }
     }
@@ -283,7 +283,7 @@ void GadoraDeath(void)
                     else
                         drop = PSPRITE_MISSILE_DROP;
 
-                    SpriteSpawnDropFollowers(drop, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0);
+                    SpriteSpawnDropFollowers(drop, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
                 }
             }
         }
@@ -352,7 +352,7 @@ void GadoraEye(void)
             SoundPlay(0x25E);
     }
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gCurrentSprite.health != 0x0)
         gSpriteData[ramSlot].paletteRow = gCurrentSprite.paletteRow;

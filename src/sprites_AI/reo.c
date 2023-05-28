@@ -143,7 +143,7 @@ void ReoMove(void)
     offset = 0x28;
     spriteID = gCurrentSprite.spriteID;
 
-    for (ramSlot = gCurrentSprite.primarySpriteRAMSlot + 1; ramSlot < MAX_AMOUNT_OF_SPRITES; ramSlot++)
+    for (ramSlot = gCurrentSprite.primarySpriteRamSlot + 1; ramSlot < MAX_AMOUNT_OF_SPRITES; ramSlot++)
     {
         if (gSpriteData[ramSlot].status & SPRITE_STATUS_EXISTS && !(gSpriteData[ramSlot].properties & SP_SECONDARY_SPRITE) && gSpriteData[ramSlot].spriteID == spriteID)
         {

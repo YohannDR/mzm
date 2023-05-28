@@ -195,7 +195,7 @@ void SkreeCrashGround(void)
 
         case 0x3C:
             gfxSlot = gCurrentSprite.spritesetGFXSlot;
-            ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+            ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
             if (gCurrentSprite.spriteID == PSPRITE_SKREE_BLUE)
                 spriteID = SSPRITE_BLUE_SKREE_EXPLOSION;

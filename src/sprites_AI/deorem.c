@@ -445,7 +445,7 @@ void DeoremSpawnGoingDown(void)
         gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
 
         gfxRow = gCurrentSprite.spritesetGFXSlot;
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
         
@@ -543,7 +543,7 @@ void DeoremSpawnGoingUp(void)
         gCurrentSprite.timer = 0x32;
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn + 0x31C;
         gfxSlot = gCurrentSprite.spritesetGFXSlot;
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
         SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0xB, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
@@ -639,7 +639,7 @@ void DeoremSpawnHeadBody(void)
         gCurrentSprite.timer = 0xB;
         
         gfxSlot = gCurrentSprite.spritesetGFXSlot;
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
 
@@ -1123,7 +1123,7 @@ void DeoremLeaving(void)
             gCurrentSprite.pose = DEOREM_POSE_LEAVING_ANIM;
 
             gfxSlot = gCurrentSprite.spritesetGFXSlot;
-            ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+            ramSlot = gCurrentSprite.primarySpriteRamSlot;
             yPosition = gCurrentSprite.yPosition;
             xPosition = gCurrentSprite.xPosition;
 
@@ -1333,7 +1333,7 @@ void DeoremSegmentSpawnGoingDown(void)
 {
     // https://decomp.me/scratch/bFhC3
 
-    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gCurrentSprite.roomSlot == 0)
     {
@@ -1366,7 +1366,7 @@ void DeoremSegmentSpawnGoingDown(void)
  */
 void DeoremSegmentSpawnGoingDownAfter(void)
 {
-    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     u16 movement = 16;
     if (gSpriteData[ramSlot].pose == DEOREM_POSE_AFTER_SPAWN)
@@ -1390,7 +1390,7 @@ void DeoremSegmentSpawnGoingDownAfter(void)
         if (gCurrentSprite.roomSlot == 5)
         {
             SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x12,
-                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition - 100, gCurrentSprite.xPosition, 0);
         }
     }
@@ -1402,7 +1402,7 @@ void DeoremSegmentSpawnGoingDownAfter(void)
  */
 void DeoremSegmentSpawnGoingUp(void)
 {
-    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
     
     if (gCurrentSprite.roomSlot == 6)
         gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition + 0xA8;
@@ -1432,7 +1432,7 @@ void DeoremSegmentSpawnGoingUp(void)
  */
 void DeoremSegmentSpawnGoingUpAfter(void)
 {
-    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
     
     i32 movement = 16;
     if (gSpriteData[ramSlot].pose == DEOREM_POSE_AFTER_SPAWN)
@@ -1458,7 +1458,7 @@ void DeoremSegmentSpawnGoingUpAfter(void)
         if (gCurrentSprite.roomSlot == 11)
         {
             SpriteSpawnSecondary(SSPRITE_DEOREM_SEGMENT, 0x13,
-                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition + 100, gCurrentSprite.xPosition, 0);
             
         }
@@ -1471,7 +1471,7 @@ void DeoremSegmentSpawnGoingUpAfter(void)
  */
 void DeoremSegmentRightIdleAnim(void)
 {
-    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
     u8 deoremTimer = gSpriteData[ramSlot].timer;
     
     if (deoremTimer != 0)
@@ -1482,7 +1482,7 @@ void DeoremSegmentRightIdleAnim(void)
             
             gCurrentSprite.animationDurationCounter += 4;
             spritesetGFXSlot = gCurrentSprite.spritesetGFXSlot;
-            primarySpriteRAMSlot = gCurrentSprite.primarySpriteRAMSlot;
+            primarySpriteRAMSlot = gCurrentSprite.primarySpriteRamSlot;
             yPosition = gCurrentSprite.yPosition + 24;
             
             if (gBossWork.work3 != 0)
@@ -1563,7 +1563,7 @@ void DeoremSegmentRightIdleAnim(void)
 void DeoremSegmentLeftIdleAnim(void)
 {
     u16 yPosition; // Unlike the previous function, this variable needs to be declared here for the function to match (reg swap)
-    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
     u8 deoremTimer = gSpriteData[ramSlot].timer;
     
     if (deoremTimer != 0)
@@ -1574,7 +1574,7 @@ void DeoremSegmentLeftIdleAnim(void)
             
             gCurrentSprite.animationDurationCounter += 4;
             spritesetGFXSlot = gCurrentSprite.spritesetGFXSlot;
-            primarySpriteRAMSlot = gCurrentSprite.primarySpriteRAMSlot;
+            primarySpriteRAMSlot = gCurrentSprite.primarySpriteRamSlot;
             yPosition = gCurrentSprite.yPosition;
             
             if (gBossWork.work3 != 0)
@@ -1656,7 +1656,7 @@ void DeoremSegmentLeftIdleAnim(void)
 void DeoremSegmentGoingDown(void)
 {
     u32 xMovement, workVariable2;
-    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gCurrentSprite.timer != 0)
     {
@@ -1690,7 +1690,7 @@ void DeoremSegmentGoingDown(void)
 void DeoremSegmentGoingUp(void)
 {
     u32 xMovement, workVariable2;
-    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gCurrentSprite.timer != 0)
     {
@@ -1724,7 +1724,7 @@ void DeoremSegmentGoingUp(void)
 void DeoremSegmentAboveHeadMovement(void)
 {
     u16 deoremXPos, xPosition, posOffset, movement;
-    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gCurrentSprite.roomSlot == 12)
     {
@@ -1834,7 +1834,7 @@ void DeoremSegmentMiddleLeavingEnd(void)
  */
 void DeoremSegmentMiddleLeaving(void)
 {
-    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gCurrentSprite.roomSlot == 0xC)
     {
@@ -2102,7 +2102,7 @@ void DeoremEyeMove(void)
     i32 temp;
 
     deltaRotation = 2;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     rotation = gCurrentSprite.timer;
     samusY = (i16)(gSamusData.yPosition - (BLOCK_SIZE + 8));
     samusX = (i16)gSamusData.xPosition;
@@ -2259,7 +2259,7 @@ void DeoremEyeMainLoop(void)
  */
 void DeoremEyeDyingGFXInit(void)
 {
-    u8 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u8 ramSlot = gCurrentSprite.primarySpriteRamSlot;
     
     gSpriteData[ramSlot].pose = DEOREM_POSE_DYING;
     gCurrentSprite.pose = 0x67; // TODO: Pose names
@@ -2274,7 +2274,7 @@ void DeoremEyeDyingGFXInit(void)
  */
 void DeoremEyeDyingSpinningAnim(void)
 {
-    u8 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u8 ramSlot = gCurrentSprite.primarySpriteRamSlot;
     
     gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - 24;
     gCurrentSprite.xPosition = gSpriteData[ramSlot].xPosition - 4;
@@ -2565,7 +2565,7 @@ void Deorem(void)
  */
 void DeoremSegment(void)
 {
-    u32 ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
     u8 deoremAbsolutePaletteRow;
 
     if (gSpriteData[ramSlot].pose > 0x61) // TODO: Pose names
@@ -2676,7 +2676,7 @@ void DeoremEye(void)
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
     if (gCurrentSprite.pose < 0x68)
     {
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
         isft = gCurrentSprite.invincibilityStunFlashTimer & 0x7F;
         if (isft && gSpriteData[ramSlot].pose < 0x62)
         {

@@ -44,7 +44,7 @@ void SpriteUtilInitLocationText(void)
         gSpriteData[0].frozenPaletteRowOffset = 0x0;
         gSpriteData[0].absolutePaletteRow = 0x0;
         gSpriteData[0].ignoreSamusCollisionTimer = 0x1;
-        gSpriteData[0].primarySpriteRAMSlot = 0x0;
+        gSpriteData[0].primarySpriteRamSlot = 0x0;
         gSpriteData[0].freezeTimer = 0x0;
         gSpriteData[0].standingOnSprite = FALSE;
     }
@@ -1810,7 +1810,7 @@ void SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(u8 spriteID, u8 ramSlot
             if ((gSpriteData[count].status & SPRITE_STATUS_EXISTS) != 0x0
                 && (gSpriteData[count].properties & SP_SECONDARY_SPRITE) != 0x0
                 && gSpriteData[count].spriteID == spriteID
-                && gSpriteData[count].primarySpriteRAMSlot == ramSlot
+                && gSpriteData[count].primarySpriteRamSlot == ramSlot
                 && gSpriteData[count].freezeTimer < gCurrentSprite.freezeTimer
                 && (gSpriteData[count].properties & SP_DESTROYED) == 0x0)
             {
@@ -1825,7 +1825,7 @@ void SpriteUtilUpdateSecondarySpriteFreezeTimerOfCurrent(u8 spriteID, u8 ramSlot
 void SpriteUtillUpdatePrimarySpriteFreezeTimerOfCurrent(void)
 {
     if (gCurrentSprite.freezeTimer != 0) {
-        u8 count = gCurrentSprite.primarySpriteRAMSlot;
+        u8 count = gCurrentSprite.primarySpriteRamSlot;
         if (gSpriteData[count].freezeTimer < gCurrentSprite.freezeTimer && (gSpriteData[count].properties & SP_DESTROYED) == 0)
         {
             gSpriteData[count].freezeTimer = gCurrentSprite.freezeTimer;
@@ -1842,7 +1842,7 @@ void SpriteUtilUnfreezeSecondarySprites(u8 spriteID, u8 ramSlot)
         if ((gSpriteData[count].status & SPRITE_STATUS_EXISTS) != 0x0
             && (gSpriteData[count].properties & SP_SECONDARY_SPRITE) != 0x0
             && gSpriteData[count].spriteID == spriteID
-            && gSpriteData[count].primarySpriteRAMSlot == ramSlot
+            && gSpriteData[count].primarySpriteRamSlot == ramSlot
             && gSpriteData[count].freezeTimer != 0x0)
         {
             gSpriteData[count].freezeTimer = 0x0;
@@ -2213,135 +2213,167 @@ u32 SpriteUtilCheckOnZipline(void)
     return FALSE;
 }
 
+/**
+ * @brief 106e8 | 50 | Counts the number of primary sprites
+ * 
+ * @param spriteID Sprite ID
+ * @return u8 Count
+ */
 u8 SpriteUtilCountPrimarySprites(u8 spriteID)
 {
     u8 count;
     struct SpriteData* pSprite;
 
-    count = 0x0;
-    pSprite = gSpriteData;
+    count = 0;
 
-    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
         if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE) && pSprite->spriteID == spriteID)
             count++;
-        pSprite++;
     }
 
     return count;
 }
 
+/**
+ * @brief 10738 | 60 | Counts the number of secondary sprites the current sprite ram slot
+ * 
+ * @param spriteID Sprite ID
+ * @return u8 Count
+ */
 u8 SpriteUtilCountSecondarySpritesWithCurrentSpriteRAMSlot(u8 spriteID)
 {
     u8 count;
     u8 ramSlot;
     struct SpriteData* pSprite;
 
-    count = 0x0;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
-    pSprite = gSpriteData;
+    count = 0;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
-    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
-        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->properties & SP_SECONDARY_SPRITE && pSprite->spriteID == spriteID && pSprite->primarySpriteRAMSlot == ramSlot)
+        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->properties & SP_SECONDARY_SPRITE &&
+            pSprite->spriteID == spriteID && pSprite->primarySpriteRamSlot == ramSlot)
             count++;
-        pSprite++;
     }
 
     return count;
 }
 
+/**
+ * @brief 10798 | 60 | Counts the number of primary sprites the current sprite ram slot
+ * 
+ * @param spriteID Sprite ID
+ * @return u8 Count
+ */
 u8 SpriteUtilCountPrimarySpritesWithCurrentSpriteRAMSlot(u8 spriteID)
 {
     u8 count;
     u8 ramSlot;
     struct SpriteData* pSprite;
 
-    count = 0x0;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
-    pSprite = gSpriteData;
+    count = 0;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
-    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
-        if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE) && pSprite->spriteID == spriteID && pSprite->primarySpriteRAMSlot == ramSlot)
+        if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE) &&
+            pSprite->spriteID == spriteID && pSprite->primarySpriteRamSlot == ramSlot)
             count++;
-        pSprite++;
     }
 
     return count;
 }
 
+/**
+ * @brief 107f8 | 58 | Finds the ram slot of a primary sprite
+ * 
+ * @param spriteID Sprite ID
+ * @return u8 Ram slot
+ */
 u8 SpriteUtilFindPrimary(u8 spriteID)
 {
     u8 ramSlot;
     struct SpriteData* pSprite;
 
-    ramSlot = 0x0;
-    pSprite = gSpriteData;
+    ramSlot = 0;
 
-    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
-        if ((pSprite->status & SPRITE_STATUS_EXISTS) != 0x0 && (pSprite->properties & SP_SECONDARY_SPRITE) == 0x0 && pSprite->spriteID == spriteID)
+        if (pSprite->status & SPRITE_STATUS_EXISTS && !(pSprite->properties & SP_SECONDARY_SPRITE) && pSprite->spriteID == spriteID)
             return ramSlot;
+
         ramSlot++;
-        pSprite++;
     }
 
-    return 0xFF;
+    return UCHAR_MAX;
 }
 
+/**
+ * @brief 10850 | 60 | Finds the ram slot of a secondary sprite
+ * 
+ * @param spriteID Sprite ID
+ * @param roomSlot Room slot/part number
+ * @return u8 Ram slot
+ */
 u8 SpriteUtilFindSecondaryWithRoomSlot(u8 spriteID, u8 roomSlot)
 {
     u8 ramSlot;
     struct SpriteData* pSprite;
 
-    ramSlot = 0x0;
-    pSprite = gSpriteData;
+    ramSlot = 0;
 
-    while (pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
-        if ((pSprite->status & SPRITE_STATUS_EXISTS) != 0x0 && (pSprite->properties & SP_SECONDARY_SPRITE) != 0x0 && pSprite->spriteID == spriteID && pSprite->roomSlot == roomSlot)
+        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->properties & SP_SECONDARY_SPRITE &&
+            pSprite->spriteID == spriteID && pSprite->roomSlot == roomSlot)
             return ramSlot;
+
         ramSlot++;
-        pSprite++;
     }
 
-    return 0xFF;
+    return UCHAR_MAX;
 }
 
+/**
+ * @brief 108b0 | 50 | Checks if the current sprite has a drop
+ * 
+ * @return u8 bool, has drop
+ */
 u8 SpriteUtilCheckHasDrops(void)
 {
     u8 ramSlot;
-    struct SpriteData* pSprite;
     u8 collision;
+    struct SpriteData* pSprite;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     collision = SSC_ABILITY_LASER_SEARCHLIGHT;
-    pSprite = gSpriteData;
 
-    while (pSprite< gSpriteData + MAX_AMOUNT_OF_SPRITES)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
-        if ((pSprite->status & SPRITE_STATUS_EXISTS) != 0x0 && pSprite->primarySpriteRAMSlot == ramSlot && pSprite->samusCollision >= collision)
+        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->primarySpriteRamSlot == ramSlot && pSprite->samusCollision >= collision)
             return TRUE;
-        pSprite++;
     }
 
     return FALSE;
 }
 
+/**
+ * @brief 10900 | 44 | Counts the number of drops currently existing
+ * 
+ * @return u8 Number of drops
+ */
 u8 SpriteUtilCountDrops(void)
 {
     u8 count;
     struct SpriteData* pSprite;
 
-    count = 0x0;
-    pSprite = gSpriteData;
+    count = 0;
 
-    while (pSprite< gSpriteData + MAX_AMOUNT_OF_SPRITES)
+    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
-        if ((pSprite->status & SPRITE_STATUS_EXISTS) != 0x0 && pSprite->samusCollision >= SSC_ABILITY_LASER_SEARCHLIGHT)
+        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision >= SSC_ABILITY_LASER_SEARCHLIGHT)
             count++;
-        pSprite++;
     }
 
     return count;
@@ -2349,6 +2381,8 @@ u8 SpriteUtilCountDrops(void)
 
 void SpriteUtilMoveSpriteTowardsSamus(u16 samusY, u16 samusX, u8 ySpeed, u8 xSpeed, u8 speedDivisor)
 {
+    // https://decomp.me/scratch/6NT7r
+
     u32 flip;
     u16 speed;
 
@@ -2961,7 +2995,7 @@ void SpriteUtilSpriteDeath(u8 deathType, u16 yPosition, u16 xPosition, u8 playSo
         if (deathType != DEATH_NORMAL)
         {
             if (deathType != DEATH_NO_DEATH_OR_RESPAWNING_ALREADY_HAS_DROP)
-                SpriteSpawnDropFollowers(drop, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRAMSlot, yPosition, xPosition, 0x0);
+                SpriteSpawnDropFollowers(drop, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
         }
         else
         {

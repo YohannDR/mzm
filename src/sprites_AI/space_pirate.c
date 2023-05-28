@@ -446,7 +446,7 @@ void SpacePirateFireLaserGround(void)
     u16 xPosition;
 
     gfxSlot = gCurrentSprite.spritesetGFXSlot;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
@@ -512,7 +512,7 @@ void SpacePirateFireLaserWall(void)
     u16 xPosition;
 
     gfxSlot = gCurrentSprite.spritesetGFXSlot;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
@@ -593,7 +593,7 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
 
             if (pirateX == otherX)
             {
-                if (gCurrentSprite.primarySpriteRAMSlot < ramSlot &&
+                if (gCurrentSprite.primarySpriteRamSlot < ramSlot &&
                     SpriteUtilCheckObjectsTouching(pirateTop, pirateBottom, pirateLeft, pirateRight,
                     otherTop, otherBottom, otherLeft, otherRight))
                 {
@@ -1429,7 +1429,7 @@ void SpacePirateIdle(void)
                         gCurrentSprite.timer--;
                     else
                     {
-                        if (gSpriteRNG == gCurrentSprite.primarySpriteRAMSlot / 2)
+                        if (gSpriteRNG == gCurrentSprite.primarySpriteRamSlot / 2)
                             turn++;
                     }
                 }
@@ -2293,13 +2293,13 @@ void SpacePirateWaitingAtDoor(void)
                     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                     {
                         SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, 0x80, gCurrentSprite.spritesetGFXSlot,
-                            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - 0x50,
+                            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x50,
                             gCurrentSprite.xPosition, SPRITE_STATUS_XFLIP);
                     }
                     else
                     {
                         SpriteSpawnSecondary(SSPRITE_SPACE_PIRATE_LASER, 0x80, gCurrentSprite.spritesetGFXSlot,
-                            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - 0x50,
+                            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x50,
                             gCurrentSprite.xPosition, 0x0);
                     }
                 }
@@ -2471,7 +2471,7 @@ void SpacePirateClimbingUp(void)
     {
         if (gCurrentSprite.timer == 0x0)
         {
-            if (!(gSpriteRNG & 0x1) && gFrameCounter8Bit < gCurrentSprite.primarySpriteRAMSlot * 8)
+            if (!(gSpriteRNG & 0x1) && gFrameCounter8Bit < gCurrentSprite.primarySpriteRamSlot * 8)
             {
                 gCurrentSprite.pose = 0x18;
                 return;
@@ -2572,7 +2572,7 @@ void SpacePirateClimbingDown(void)
     {
         if (gCurrentSprite.timer == 0x0)
         {
-            if (gSpriteRNG & 0x1 && gFrameCounter8Bit > gCurrentSprite.primarySpriteRAMSlot * 8)
+            if (gSpriteRNG & 0x1 && gFrameCounter8Bit > gCurrentSprite.primarySpriteRamSlot * 8)
             {
                 gCurrentSprite.pose = 0x18;
                 return;

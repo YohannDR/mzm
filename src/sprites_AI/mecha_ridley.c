@@ -439,7 +439,7 @@ void MechaRidleyInit(void)
         gCurrentSprite.roomSlot = MECHA_RIDLEY_PART_CORE;
 
         gfxSlot = gCurrentSprite.spritesetGFXSlot;
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
         // Spawn every part
         gSubSpriteData1.workVariable4 = SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_PART, MECHA_RIDLEY_PART_RIGHT_ARM,
@@ -924,13 +924,13 @@ void MechaRidleyFireballsAttack(void)
         if (gCurrentSprite.timer & 16)
         {
             SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_FIREBALL, FIREBALL_LOW, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, gSubSpriteData1.yPosition - BLOCK_SIZE * 4,
+                gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition - BLOCK_SIZE * 4,
                 gSubSpriteData1.xPosition - BLOCK_SIZE, 0);
         }
         else
         {
             SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_FIREBALL, FIREBALL_HIGH, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, gSubSpriteData1.yPosition - BLOCK_SIZE * 4,
+                gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition - BLOCK_SIZE * 4,
                 gSubSpriteData1.xPosition - BLOCK_SIZE, 0);
         }
 
@@ -1151,27 +1151,27 @@ void MechaRidleySpawnDrops(void)
             break;
 
         case 30:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRAMSlot,
+            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition + rngParam1, xPosition - rngParam2, 0);
             break;
 
         case 31:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRAMSlot,
+            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition - rngParam1, xPosition + rngParam2, 0);
             break;
 
         case 33:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRAMSlot,
+            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition - rngParam1 + rngParam2 * 2, xPosition + rngParam2 + rngParam1, 0);
             break;
 
         case 35:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRAMSlot,
+            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition - rngParam1 + rngParam2 * 2, xPosition + rngParam2 + rngParam1, 0);
             break;
 
         case 37:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRAMSlot,
+            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition - rngParam1 + rngParam2 * 2, xPosition + rngParam2 + rngParam1, 0);
             break;
 
@@ -1179,12 +1179,12 @@ void MechaRidleySpawnDrops(void)
         case 34:
         case 36:
         case 38:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRAMSlot,
+            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition + rngParam1 - rngParam2 * 2, xPosition - rngParam2 - rngParam1, 0);
             break;
 
         case 39:
-            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRAMSlot,
+            SpriteSpawnDropFollowers(spriteID, partNumber, 0, gCurrentSprite.primarySpriteRamSlot,
                 yPosition - rngParam1 + rngParam2 * 2, xPosition + rngParam2 + rngParam1, 0);
             break;
     }
@@ -1508,7 +1508,7 @@ void MechaRidleyPartCoreCoverExplosion(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     // Enable core hitbox
     gSpriteData[ramSlot].status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -1588,19 +1588,19 @@ void MechaRidleyPartMissileLauncherIdle(void)
                     if (gCurrentSprite.timer == 1)
                     {
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_MISSILE, 0, gCurrentSprite.spritesetGFXSlot,
-                            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - BLOCK_SIZE,
+                            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - BLOCK_SIZE,
                             gCurrentSprite.xPosition - (BLOCK_SIZE - QUARTER_BLOCK_SIZE), 0);
                     }
                     else if (gCurrentSprite.timer == 2)
                     {
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_MISSILE, 1, gCurrentSprite.spritesetGFXSlot,
-                            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - 0x34,
+                            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x34,
                             gCurrentSprite.xPosition - 0x3C, 0);
                     }
                     else
                     {
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_MISSILE, 2, gCurrentSprite.spritesetGFXSlot,
-                            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - 0x34,
+                            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - 0x34,
                             gCurrentSprite.xPosition - 0x24, 0);
 
                         SoundPlay(0x2A7);
@@ -1705,33 +1705,33 @@ void MechaRidleyPartEyeIdle(void)
                 {
                     case LASER_DIRECTION_SLIGHTLY_DOWN:
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_LASER, LASER_DIRECTION_SLIGHTLY_DOWN,
-                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition + BLOCK_SIZE, gCurrentSprite.xPosition - 0x6C, 0);
                         break;
 
                     case LASER_DIRECTION_DOWN:
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_LASER, LASER_DIRECTION_DOWN,
-                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition + (BLOCK_SIZE + HALF_BLOCK_SIZE),
                             gCurrentSprite.xPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), 0);
                         break;
 
                     case LASER_DIRECTION_SLIGHTLY_UP:
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_LASER, LASER_DIRECTION_SLIGHTLY_UP,
-                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition - BLOCK_SIZE, gCurrentSprite.xPosition - 0x6C, 0);
                         break;
 
                     case LASER_DIRECTION_UP:
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_LASER, LASER_DIRECTION_UP,
-                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE),
                             gCurrentSprite.xPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), 0);
                         break;
 
                     default:
                         SpriteSpawnSecondary(SSPRITE_MECHA_RIDLEY_LASER, direction,
-                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                             gCurrentSprite.yPosition, gCurrentSprite.xPosition - BLOCK_SIZE * 2, 0);
                         break;
                 }
@@ -1760,7 +1760,7 @@ void MechaRidleyPartRightArmIdle(void)
 
     u16 rHitbox;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     topHitbox = 0;
     bottomHitbox = 0;
@@ -2512,7 +2512,7 @@ void MechaRidleyPart(void)
     u8 ramSlot;
     u8 partNumber;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     partNumber = gCurrentSprite.roomSlot;
 
     if (gSpriteData[ramSlot].pose > 0x61)

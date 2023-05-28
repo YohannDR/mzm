@@ -1106,7 +1106,7 @@ void KraidInit(void)
     gCurrentSprite.roomSlot = KRAID_PART_KRAID;
 
     gfxSlot = gCurrentSprite.spritesetGFXSlot;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     SpriteSpawnSecondary(SSPRITE_KRAID_PART, KRAID_PART_BELLY, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
     SpriteSpawnSecondary(SSPRITE_KRAID_PART, KRAID_PART_LEFT_ARM, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
@@ -1844,7 +1844,7 @@ void KraidPartThrowNails(void)
     u8 threshold;
     u8 nbrDrops;
     
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     // Check can throw the nails
     if (gSpriteData[ramSlot].pose > 0x7)
@@ -1876,13 +1876,13 @@ void KraidPartThrowNails(void)
             if (gCurrentSprite.currentAnimationFrame == 0x7 && gCurrentSprite.animationDurationCounter == 0x4)
             {
                 SpriteSpawnSecondary(SSPRITE_KRAID_NAIL, 0x0, gCurrentSprite.spritesetGFXSlot,
-                    gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - (BLOCK_SIZE * 3 + (HALF_BLOCK_SIZE)),
+                    gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - (BLOCK_SIZE * 3 + (HALF_BLOCK_SIZE)),
                     gCurrentSprite.xPosition + (BLOCK_SIZE * 2), 0x0);
             }
             else if (gCurrentSprite.currentAnimationFrame == 0x8 && gCurrentSprite.animationDurationCounter == 0x1)
             {
                 SpriteSpawnSecondary(SSPRITE_KRAID_NAIL, 0x1, gCurrentSprite.spritesetGFXSlot,
-                    gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition - (BLOCK_SIZE * 3),
+                    gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition - (BLOCK_SIZE * 3),
                     gCurrentSprite.xPosition + (BLOCK_SIZE * 3 + (HALF_BLOCK_SIZE)), 0x0);
             }
 
@@ -1907,7 +1907,7 @@ void KraidPartCheckAttack(void)
     u8 ramSlot;
     u8 attack;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     nslr = NSLR_OUT_OF_RANGE;
     attack = FALSE;
 
@@ -1968,7 +1968,7 @@ void KraidPartCheckShouldSpawnSpikes(void)
     u8 i;
     i32 spriteID;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     roomSlot = gCurrentSprite.roomSlot;
 
     if (gSpriteData[ramSlot].pose > 0x7)
@@ -2036,7 +2036,7 @@ void KraidPartSpawnSpike(void)
     gCurrentSprite.yPositionSpawn--;
     if (gCurrentSprite.yPositionSpawn == 0x0)
     {
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
         roomSlot = gCurrentSprite.roomSlot;
 
         if (roomSlot == KRAID_PART_BOTTOM_HOLE_LEFT)
@@ -2154,7 +2154,7 @@ void KraidPartDyingStationary(void)
     if (gCurrentSprite.roomSlot == KRAID_PART_RIGHT_ARM || gCurrentSprite.roomSlot == KRAID_PART_LEFT_ARM)
         gCurrentSprite.animationDurationCounter += 0x2;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (gSpriteData[ramSlot].spriteID == PSPRITE_KRAID)
         return;
 
@@ -2481,7 +2481,7 @@ void KraidPart(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     gCurrentSprite.absolutePaletteRow = gSpriteData[ramSlot].absolutePaletteRow;
     gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
@@ -2594,7 +2594,7 @@ void KraidSpike(void)
     if (gSubSpriteData1.health == 0x0)
         gCurrentSprite.pose = 0x62;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     pPalette = &gCurrentSprite.absolutePaletteRow;
     palette = gSpriteData[ramSlot].absolutePaletteRow;

@@ -153,7 +153,7 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
         gCurrentSprite.roomSlot = IMAGO_LARVA_PART_LARVA;
 
         gfxSlot = gCurrentSprite.spritesetGFXSlot;
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
         status = gCurrentSprite.status & SPRITE_STATUS_XFLIP;
 
         // Spawn secondaries
@@ -578,7 +578,7 @@ void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub)
     u8 speed;
     u16 health;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (gSpriteData[ramSlot].pose == IMAGO_LARVA_POSE_IDLE ||
         gSpriteData[ramSlot].pose == IMAGO_LARVA_POSE_STUNNED ||
         gSpriteData[ramSlot].pose == IMAGO_LARVA_POSE_DETECT_SAMUS)
@@ -659,7 +659,7 @@ void ImagoLarvaPartDotIdle(struct SubSpriteData* pSub)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (gSpriteData[ramSlot].pose == IMAGO_LARVA_POSE_WARNING)
     {
         // Set disappearing
@@ -710,7 +710,7 @@ void ImagoLarvaPartDotCheckShouldReappear(struct SubSpriteData* pSub)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gSpriteData[ramSlot].pose == IMAGO_LARVA_POSE_IDLE)
     {
@@ -765,7 +765,7 @@ void ImagoLarvaPartDead(struct SubSpriteData* pSub)
     u16 yPosition;
     u16 xPosition;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gSpriteData[ramSlot].pose == IMAGO_LARVA_POSE_DEAD)
     {
@@ -927,7 +927,7 @@ void ImagoLarvaPart(void)
     struct SubSpriteData* pSub;
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     // Get sub sprite data pointer
     if (gSpriteData[ramSlot].spriteID == PSPRITE_IMAGO_LARVA_LEFT)

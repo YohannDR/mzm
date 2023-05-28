@@ -221,7 +221,7 @@ void CannonFireBullet(void)
         && gCurrentSprite.animationDurationCounter == 1)
     {
         SpriteSpawnSecondary(SSPRITE_CANNON_BULLET, gCurrentSprite.workVariable, gCurrentSprite.spritesetGFXSlot,
-            gCurrentSprite.primarySpriteRAMSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
+            gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
     }
 }
 

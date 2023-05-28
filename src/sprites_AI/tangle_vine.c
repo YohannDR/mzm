@@ -94,7 +94,7 @@ void TangleVineGeruta(void)
         yPosition = gSubSpriteData1.yPosition;
         xPosition = gSubSpriteData1.xPosition;
         gfxSlot = gCurrentSprite.spritesetGFXSlot;
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
         newRamSlot = SpriteSpawnSecondary(SSPRITE_TANGLE_VINE_GERUTA_PART, TANGLE_VINE_GERUTA_PART_GRIP, gfxSlot,
             ramSlot, yPosition, xPosition, 0x0);
@@ -145,7 +145,7 @@ void TangleVineGerutaPart(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gCurrentSprite.pose == 0x0)
     {

@@ -89,13 +89,13 @@ void ImagoShootNeedles(void)
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
                 SpriteSpawnSecondary(SSPRITE_IMAGO_NEEDLE, gCurrentSprite.roomSlot,
-                    gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                    gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                     gCurrentSprite.yPosition + 0x6C, gCurrentSprite.xPosition + 0x1C, SPRITE_STATUS_XFLIP);
             }
             else
             {
                 SpriteSpawnSecondary(SSPRITE_IMAGO_NEEDLE, gCurrentSprite.roomSlot,
-                    gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                    gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                     gCurrentSprite.yPosition + 0x6C, gCurrentSprite.xPosition - 0x20, SPRITE_STATUS_NONE);
             }
         }
@@ -253,7 +253,7 @@ void ImagoInit(void)
         gCurrentSprite.roomSlot = IMAGO_PART_IMAGO;
 
         gfxSlot = gCurrentSprite.spritesetGFXSlot;
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
         status = gCurrentSprite.status & SPRITE_STATUS_XFLIP;
 
         // Spawn parts
@@ -733,13 +733,13 @@ void ImagoDyingInit(void)
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
         SpriteSpawnSecondary(SSPRITE_IMAGO_DAMAGED_STINGER, gCurrentSprite.roomSlot,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
             gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition + 0x1C, SPRITE_STATUS_XFLIP);
     }
     else
     {
         SpriteSpawnSecondary(SSPRITE_IMAGO_DAMAGED_STINGER, gCurrentSprite.roomSlot,
-            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+            gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
             gCurrentSprite.yPosition + HALF_BLOCK_SIZE, gCurrentSprite.xPosition - 0x20, SPRITE_STATUS_NONE);
     }
 
@@ -1152,7 +1152,7 @@ void ImagoPartBodySpawn(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (gSpriteData[ramSlot].pose >= IMAGO_POSE_COMING_DOWN_INIT)
     {
         // Fight started, set vulnerable
@@ -1169,7 +1169,7 @@ void ImagoPartUpdateBodyPalette(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gSpriteData[ramSlot].health < gSubSpriteData1.health / 3)
     {
@@ -1195,7 +1195,7 @@ void ImagoPartSyncPalette(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     gCurrentSprite.paletteRow = gSpriteData[ramSlot].paletteRow;
     gCurrentSprite.absolutePaletteRow = gSpriteData[ramSlot].absolutePaletteRow;
 }
@@ -1381,7 +1381,7 @@ void ImagoPart(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gSpriteData[ramSlot].status & SPRITE_STATUS_XFLIP)
         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;

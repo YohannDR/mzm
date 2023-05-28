@@ -73,7 +73,7 @@ void SearchlightEyeInit(void)
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
         gfxSlot = gCurrentSprite.spritesetGFXSlot;
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
         // Spawn beam
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
@@ -196,7 +196,7 @@ void SearchlightEyeShoot(void)
             
             // Spawn beam
             SpriteSpawnSecondary(SSPRITE_SEARCHLIGHT_EYE_PROJECTILE, 0x0,
-                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition,
                 status);
         }
@@ -247,7 +247,7 @@ void SearchlightEyeBeamDetectSamus(void)
     struct SpriteData* pSprite;
 
     // Sync Y
-    gCurrentSprite.yPosition = gSpriteData[gCurrentSprite.primarySpriteRAMSlot].yPosition;
+    gCurrentSprite.yPosition = gSpriteData[gCurrentSprite.primarySpriteRamSlot].yPosition;
 
     if (gAlarmTimer != 0x0)
     {
@@ -386,7 +386,7 @@ void SearchlightEyeBeam(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_EXISTS))
         gCurrentSprite.status = 0x0;
     else

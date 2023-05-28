@@ -75,7 +75,7 @@ void CrocomireInit(void)
     gCurrentSprite.roomSlot = CROCOMIRE_PART_HEAD;
 
     gfxSlot = gCurrentSprite.spritesetGFXSlot;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_RIGHT_ARM, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
     SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_LEGS, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
@@ -218,7 +218,7 @@ void CrocomirePart(void)
     u8 ramSlot;
 
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gSpriteData[ramSlot].pose > 0x61 && gCurrentSprite.pose < 0x62)
     {

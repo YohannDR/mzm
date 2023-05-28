@@ -312,7 +312,7 @@ void AcidWormInit(void)
             gCurrentSprite.roomSlot = 0x0;
 
             gfxSlot = gCurrentSprite.spritesetGFXSlot;
-            ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+            ramSlot = gCurrentSprite.primarySpriteRamSlot;
             
             // Spawn body
             SpriteSpawnSecondary(SSPRITE_ACID_WORM_BODY, ACID_WORM_BODY_PART_AROUND_MOUTH, gfxSlot, ramSlot, yPosition + 0x40, xPosition, 0x0);
@@ -737,30 +737,30 @@ void AcidWormExtended(void)
         {
             // First spit
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition + 0x30, SPRITE_STATUS_XFLIP);
             else
-                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x0, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0x30, 0x0);
         }
         else if (gCurrentSprite.currentAnimationFrame == 0x7 && gCurrentSprite.animationDurationCounter == 0x1)
         {
             // Second spit
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x1, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x1, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition + 0x30, SPRITE_STATUS_XFLIP);
             else
-                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x1, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x1, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0x30, 0x0);
         }
         else if (gCurrentSprite.currentAnimationFrame == 0x9 && gCurrentSprite.animationDurationCounter == 0x1)
         {
             // Third spit
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x2, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x2, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition + 0x30, SPRITE_STATUS_XFLIP);
             else
-                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x2, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRAMSlot,
+                SpriteSpawnSecondary(SSPRITE_ACID_WORM_SPIT, 0x2, gCurrentSprite.spritesetGFXSlot, gCurrentSprite.primarySpriteRamSlot,
                 gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0x30, 0x0);
         }
 
@@ -1155,7 +1155,7 @@ void AcidWormBodyMove(void) {
     u16 y;
     u16 health;
     
-    slot = gCurrentSprite.primarySpriteRAMSlot;
+    slot = gCurrentSprite.primarySpriteRamSlot;
     if (gSpriteData[slot].pose == 0x43) 
     {
         y = gCurrentSprite.yPosition;
@@ -1208,7 +1208,7 @@ void AcidWormBodyMainLoop(void)
     u8 timer;
     u16 health, health2;
 
-    slot = gCurrentSprite.primarySpriteRAMSlot;
+    slot = gCurrentSprite.primarySpriteRamSlot;
     timer = gCurrentSprite.timer;
     health = gSpriteData[slot].health;
     if (health == 0x0)
@@ -1293,7 +1293,7 @@ void AcidWormBodyDeath(void)
     u8 roomSlot;
     u8 effect;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1; // Remove collision
     AcidWormHandleRotation();
 
@@ -1573,7 +1573,7 @@ void AcidWormBody(void)
 {
     u8 ramSlot;
 
-    ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     // Sync palette
     gCurrentSprite.absolutePaletteRow = gSpriteData[ramSlot].absolutePaletteRow;

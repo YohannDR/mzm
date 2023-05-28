@@ -135,7 +135,7 @@ void MotherBrainInit(void)
         gCurrentSprite.roomSlot = 0x1;
 
         gfxSlot = gCurrentSprite.spritesetGFXSlot;
-        ramSlot = gCurrentSprite.primarySpriteRAMSlot;
+        ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
         gSubSpriteData1.workVariable4 = SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_PART, MOTHER_BRAIN_PART_BEAM_SHOOTER,
             gfxSlot, ramSlot, yPosition, xPosition, 0x0);
@@ -338,7 +338,7 @@ void MotherBrainMainLoop(void)
         {
             // Spawn beam
             SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_BEAM, 0x0, gCurrentSprite.spritesetGFXSlot,
-                gCurrentSprite.primarySpriteRAMSlot, gSpriteData[beamShooterRamSlot].yPosition,
+                gCurrentSprite.primarySpriteRamSlot, gSpriteData[beamShooterRamSlot].yPosition,
                 gSpriteData[beamShooterRamSlot].xPosition + 0xCC, 0x0);
 
             // Hide beam shooter
@@ -567,7 +567,7 @@ void MotherBrainSpawnBlock(void)
 
     if (gSamusData.xPosition < (xPosition - 0x3C))
     {
-        SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_BLOCK, 0x0, 0x6, gCurrentSprite.primarySpriteRAMSlot,
+        SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_BLOCK, 0x0, 0x6, gCurrentSprite.primarySpriteRamSlot,
             yPosition, xPosition, 0x0);
         gCurrentSprite.pose = MOTHER_BRAIN_PART_POSE_GLASS_STAGE_1;
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -645,7 +645,7 @@ void MotherBrainPartSpawnGlassBreaking(void)
     gSubSpriteData1.workVariable3 = 0x1;
     // Spawn glass
     SpriteSpawnSecondary(SSPRITE_MOTHER_BRAIN_GLASS_BREAKING, 0x0, gCurrentSprite.spritesetGFXSlot,
-        gCurrentSprite.primarySpriteRAMSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
+        gCurrentSprite.primarySpriteRamSlot, gSubSpriteData1.yPosition, gSubSpriteData1.xPosition, 0x0);
     // Remove in BG
     BgClipCallMotherBrainUpdateGlass(0x4);
     SoundPlay(0x2B8);
