@@ -1668,13 +1668,13 @@ u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 x
         {
             // Sprite is facing right
             if (spriteX - samusX < xRangeBehind)
-                result =  NSFB_BEHIND;
+                result = NSFB_BEHIND;
         }
         else
         {
             // Sprite is facing left
             if (spriteX - samusX < xRangeFront)
-                result =  NSFB_IN_FRONT;
+                result = NSFB_IN_FRONT;
         }
     }
     else
@@ -1684,13 +1684,13 @@ u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 x
         {
             // Sprite is facing right
             if (samusX - spriteX < xRangeFront)
-                result =  NSFB_IN_FRONT;
+                result = NSFB_IN_FRONT;
         }
         else
         {
             // Sprite is facing left
             if (samusX - spriteX < xRangeBehind)
-                result =  NSFB_BEHIND;
+                result = NSFB_BEHIND;
         }
     }
 
@@ -1698,10 +1698,9 @@ u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 x
 }
 
 /**
- * ff60 | 88 | 
- * Handles samus standing on a sprite
+ * ff60 | 88 | Handles samus standing on a sprite
  * 
- * @param pSprite Sprite Data Pointer to the concerned sprite
+ * @param pSprite Sprite Data Pointer
  */
 void SpriteUtilSamusStandingOnSprite(struct SpriteData* pSprite)
 {
@@ -1713,8 +1712,10 @@ void SpriteUtilSamusStandingOnSprite(struct SpriteData* pSprite)
         {
             if (gSamusData.standingStatus == STANDING_MIDAIR)
                 SamusSetPose(SPOSE_LANDING_REQUEST);
+
             gSamusData.standingStatus = STANDING_ENEMY;
         }
+
         pSprite->status &= ~SPRITE_STATUS_SAMUS_ON_TOP;
         return;
     }
@@ -1726,7 +1727,7 @@ void SpriteUtilSamusStandingOnSprite(struct SpriteData* pSprite)
         {
             pSprite->standingOnSprite = TRUE;
             if (gSamusDataCopy.yPosition <= gSamusData.yPosition)
-                gSamusData.yPosition = pSprite->yPosition + pSprite->hitboxTopOffset + 0x1;
+                gSamusData.yPosition = pSprite->yPosition + pSprite->hitboxTopOffset + 1;
         }
     }
     else
@@ -1763,17 +1764,17 @@ void SpriteUtilUpdateFreezeTimer(void)
 
 void SpriteUtilUnfreezeAnimEasy(void)
 {
-    u8 freeze_timer;
+    u8 freezeTimer;
 
     gCurrentSprite.freezeTimer--;
 
-    freeze_timer = gCurrentSprite.freezeTimer;
-    if (freeze_timer == 0x0)
+    freezeTimer = gCurrentSprite.freezeTimer;
+    if (freezeTimer == 0)
         gCurrentSprite.animationDurationCounter--;
-    if (freeze_timer < 0x5B && (freeze_timer & 0x1) == 0x0)
+    if (freezeTimer < 0x5B && !(freezeTimer & 1))
     {
-        if ((freeze_timer & 0x2) != 0x0)
-            gCurrentSprite.paletteRow = 0xF - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+        if (freezeTimer & 2)
+            gCurrentSprite.paletteRow = 15 - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
         else
             gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
     }
@@ -1781,17 +1782,17 @@ void SpriteUtilUnfreezeAnimEasy(void)
 
 void SpriteUtilMetroidUnfreezeAnim(void)
 {
-    u8 freeze_timer;
+    u8 freezeTimer;
 
-    gCurrentSprite.freezeTimer -= 0x2;
+    gCurrentSprite.freezeTimer -= 2;
 
-    freeze_timer = gCurrentSprite.freezeTimer;
-    if (freeze_timer == 0x0)
+    freezeTimer = gCurrentSprite.freezeTimer;
+    if (freezeTimer == 0)
         gCurrentSprite.animationDurationCounter--;
-    if (freeze_timer < 0x79 && (freeze_timer & 0x2) == 0x0)
+    if (freezeTimer < 121 && !(freezeTimer & 2))
     {
-        if ((freeze_timer & 0x4) != 0x0)
-            gCurrentSprite.paletteRow = 0xF - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
+        if (freezeTimer & 4)
+            gCurrentSprite.paletteRow = 15 - (gCurrentSprite.spritesetGFXSlot + gCurrentSprite.frozenPaletteRowOffset);
         else
             gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
     }
@@ -2458,7 +2459,7 @@ void SpriteUtilRidleyFireballMove(u16 spriteY, u16 samusX, u8 ySpeed, u8 xSpeed,
  * 10cf0 | 78 | 
  * Updates the stun timer of the sprite
  * 
- * @param pSprite Sprite Data Pointer to the concerned sprite
+ * @param pSprite Sprite Data Pointer
  */
 void SpriteUtilUpdateStunTimer(struct SpriteData* pSprite)
 {
