@@ -1558,9 +1558,60 @@ u8 SpriteUtilCheckSamusNearSpriteLeftRight(u16 yRange, u16 xRange)
     return result;
 }
 
+/**
+ * @brief fe48 | 68 | Checks if samus is in range of the current sprite vertically
+ * 
+ * @param yRange Y range
+ * @param xRange X range
+ * @return u8 Result (NSLR enum)
+ */
 u8 SpriteUtilCheckSamusNearSpriteAboveBelow(u16 yRange, u16 xRange)
 {
+    u8 result;
+    u16 samusY;
+    u16 samusX;
+    u16 spriteY;
+    u16 spriteX;
 
+    result = NSAB_OUT_OF_RANGE;
+
+    // Get samus middle position visually
+    samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset / 2;
+    samusX = gSamusData.xPosition;
+
+    // Get sprite position
+    spriteY = gCurrentSprite.yPosition;
+    spriteX = gCurrentSprite.xPosition;
+    
+    // Check X position
+    if (spriteX > samusX)
+    {
+        // Sprite is on left
+        if (spriteX - samusX >= xRange)
+            return NSAB_OUT_OF_RANGE;
+    }
+    else
+    {
+        // Sprite is on right
+        if (samusX - spriteX >= xRange)
+            return NSAB_OUT_OF_RANGE;
+    }
+   
+    // Check Y position
+    if (spriteY > samusY)
+    {
+        // Sprite is below
+        if (spriteY - samusY < yRange)
+            result = NSAB_ABOVE;
+    }
+    else
+    {
+        // Sprite is above
+        if (samusY - spriteY < yRange)
+            result = NSAB_BELOW;
+    }
+
+    return result;
 }
 
 u32 SpriteUtilCheckSamusNearSpriteFrontBehind(u16 yRange, u16 xRangeFront, u16 xRangeBehind)

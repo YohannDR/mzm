@@ -7,8 +7,8 @@
 #define NSAB_BELOW 0x2
 
 #define NSFB_OUT_OF_RANGE 0x0
-#define NSAB_IN_FRONT 0x3
-#define NSAB_BEHIND 0xC
+#define NSFB_IN_FRONT 0x3
+#define NSFB_BEHIND 0xC
 
 #define DCT_NONE 0x0
 #define DCT_SHINESPARK 0x1
