@@ -361,5 +361,3 @@ const u32 sChozodiaEscapeSamusInBlueShipGfx[2699] = INCBIN_U32("data/chozodia_es
 const u32 sChozodiaEscapeSamusInBlueShipTileTable[368] = INCBIN_U32("data/chozodia_escape/SamusInBlueShip.tt");
 
 const u32 sChozodiaEscapeMissionAccomplishedLettersGfx[414] = INCBIN_U32("data/chozodia_escape/MissionAccomplishedLetters.gfx.lz");
-
-static const u8 sTempArray_5d914c[0x176768] = INCBIN_U8("data/Blob_5d914c_74f8b4.bin");

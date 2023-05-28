@@ -6,6 +6,7 @@
 
 #include "data/shortcut_pointers.h"
 #include "data/text_data.h"
+#include "data/io_transfer_data.h"
 #include "data/menus/file_select_data.h"
 #include "data/menus/internal_file_select_data.h"
 
@@ -1953,8 +1954,7 @@ void FileSelectResetIOTransferInfo(void)
     {
         case 5:
         case 6:
-            gIoTransferInfo = *(struct IoTransferInfo*)0x85d914c;
-            // FIXME gIoTransferInfo = sIoTransferInfo_Empty;
+            gIoTransferInfo = sIoTransferInfo_Empty;
             gIoTransferInfo.pFunction = FileSelectProcessOAM;
     }
 }
