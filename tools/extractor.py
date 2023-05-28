@@ -14,6 +14,7 @@ subDirs: array = [
     "close_up/",
     "fusion_gallery/",
     "ending/",
+    "chozodia_escape/",
     "cutscenes/",
     "cutscenes/KraidRising/",
     "cutscenes/StoryText/",

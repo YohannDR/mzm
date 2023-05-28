@@ -690,7 +690,8 @@ SECTIONS {
         /* 479400-4bfee4 */
         src/data/fusion_gallery_data.o(.rodata);
         src/data/ending_and_gallery_data.o(.rodata);
-        /* 5c9638-74f8b4 */
+        src/data/chozodia_escape_data.o(.rodata);
+        /* 5d914c-74f8b4 */
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         /* 754bd0-75e6a8 */

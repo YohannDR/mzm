@@ -840,6 +840,28 @@ ending/CreditsChozoDrawing.tt;368;0x5c8e7c;4
 
 ending/UnlockedOptions.tt;127;0x5c943c;4
 
+# Chozodia escape
+
+chozodia_escape/ShipHeatingUp.pal;128;0x5c9638;2
+chozodia_escape/GroundHeatingUp.pal;128;0x5c9738;2
+chozodia_escape/ShipExploding.pal;144;0x5c9838;2
+chozodia_escape/MissionAccomplished.pal;256;0x5c9958;2
+chozodia_escape/SamusInBlueShip.pal;16;0x5c9b58;2
+
+chozodia_escape/CraterBackground.gfx.lz;5227;0x5ca118;4
+chozodia_escape/CraterBackground.tt;418;0x5cf2c4;4
+
+chozodia_escape/BlueShipVeryClose.gfx.lz;1079;0x5cf94c;4
+
+chozodia_escape/ZebesBackground.tt;176;0x5d0a28;4
+chozodia_escape/ZebesAndSky.gfx.lz;4574;0x5d0ce8;4
+chozodia_escape/ZebesSky.tt;418;0x5d5460;4
+
+chozodia_escape/SamusInBlueShip.gfx.lz;2699;0x5d5ae8;4
+chozodia_escape/SamusInBlueShip.tt;368;0x5d8514;4
+
+chozodia_escape/MissionAccomplishedLetters.gfx.lz;414;0x5d8ad4;4
+
 # Animated tiles
 
 animated_tiles/Tiles.gfx;12800;0x74f8b4;1
@@ -2561,7 +2583,7 @@ Blob_40dd0b_40e0c4.bin;953;0x40dd0b;1
 Blob_415460_446d68.bin;203016;0x415460;1
 Blob_454818_45f45c.bin;44100;0x454818;1
 Blob_479400_4bfee4.bin;289508;0x479400;1
-Blob_5c9638_74f8b4.bin;1598076;0x5c9638;1
+Blob_5d914c_74f8b4.bin;1533800;0x5d914c;1
 Blob_754bd0_75e6a8.bin;39640;0x754bd0;1
 Blob_75fae4_75fd78.bin;660;0x75fae4;1
 Blob_7602d4_760420.bin;332;0x7602d4;1

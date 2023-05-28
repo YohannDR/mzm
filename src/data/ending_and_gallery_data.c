@@ -2158,5 +2158,3 @@ const u32 sCreditsChozoDrawingGfx[4770] = INCBIN_U32("data/ending/CreditsChozoDr
 const u32 sCreditsChozoDrawingTileTable[368] = INCBIN_U32("data/ending/CreditsChozoDrawing.tt");
 
 const u32 sUnlockedOptionsTileTable[127] = INCBIN_U32("data/ending/UnlockedOptions.tt");
-
-static const u8 sTempArray_549b44[0x18627c] = INCBIN_U8("data/Blob_5c9638_74f8b4.bin");
