@@ -274,60 +274,82 @@ void ApplyMonochromeToPalette(const u16* src, u16* dst, i8 additionalValue)
     }
 }
 
+/**
+ * @brief 5b68c | d8 | Applies a smooth transition of a palette to its monochrome variant (created with ApplyMonochromeToPalette)
+ * 
+ * @param srcBase Base palette pointer
+ * @param srcMonochrome Monochrome palette pointer
+ * @param dst Destination address
+ * @param stage Stage
+ */
 void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, u8 stage)
 {
-    // https://decomp.me/scratch/0RCjq
-
     i32 i;
 
+    i32 color;
+    
     i32 colorMono;
     u16 monoR;
     u16 monoG;
     u16 monoB;
 
     i32 colorBase;
-    u16 baseR;
-    u16 baseG;
-    u16 baseB;
+    u8 baseR;
+    u8 baseG;
+    u8 baseB;
 
     u8 newR;
     u8 newG;
     u8 newB;
 
     if (stage == 0)
-        DMATransfer(3, srcBase, dst, 0x200, 0x10);
-    else if (stage >= 0x1F)
-        DMATransfer(3, srcMonochrome, dst, 0x200, 0x10);
-    else
     {
-        i = 0;
-        while (i <= UCHAR_MAX)
-        {
-            colorMono = *srcMonochrome;
-            monoR = RED(colorMono);
-            colorMono >>= 5;
-            monoG = colorMono & COLOR_MASK;
-            colorMono >>= 5;
-            monoB = colorMono & COLOR_MASK;
+        // Optimization, no calculations needed
+        DMATransfer(3, srcBase, dst, 0x200, 0x10);
+        return;
+    }
     
-            colorBase = *srcBase;
-            baseR = RED(colorBase);
-            colorBase >>= 5;
-            baseG = colorBase & COLOR_MASK;
-            colorBase >>= 5;
-            baseB = colorBase & COLOR_MASK;
+    if (stage >= 0x1F)
+    {
+        // Transition is done, simply use the monochrome
+        DMATransfer(3, srcMonochrome, dst, 0x200, 0x10);
+        return;
+    }
+    
+    i = 0;
+    while (i <= UCHAR_MAX)
+    {
+        // Get monochrome components
+        color = *srcMonochrome;
+        monoR = RED(color);
+        color >>= 5;
+        monoG = RED(color);
+        color >>= 5;
+        monoB = RED(color);
 
-            newR = (stage * (monoR - baseR) / 32);
-            newG = (stage * (monoG - baseG) / 32);
-            newB = (stage * (monoB - baseB) / 32);
+        // Get normal components
+        color = *srcBase;
+        baseR = RED(color);
+        color >>= 5;
+        baseG = RED(color);
+        color >>= 5;
+        baseB = RED(color);
 
-            *dst = COLOR(newR, newG, newB);
+        // Lerp the difference with the stage, clamp to max color value
+        color = (monoR - baseR) * stage / (COLOR_MASK + 1);
+        baseR += color;
+        color = (monoG - baseG) * stage / (COLOR_MASK + 1);
+        baseG += color;
+        color = (monoB - baseB) * stage / (COLOR_MASK + 1);
+        baseB += color;
 
-            i++;
-            srcBase++;
-            dst++;
-            srcMonochrome++;
-        }
+        // Create color
+        *dst = COLOR(baseR, baseG, baseB);
+
+        i++;
+        srcBase++;
+        dst++;
+        srcMonochrome++;
     }
 }
 
