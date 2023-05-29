@@ -465,9 +465,11 @@ u8 CreditsDisplayLine(u32 line)
         case CREDIT_LINE_TYPE_BLUE:
         case CREDIT_LINE_TYPE_RED:
         case CREDIT_LINE_TYPE_WHITE_SMALL:
-            tilemapOffset = 0;
-            while (tilemapOffset < ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1) - 2 && pCredits->text[tilemapOffset])
-                tilemapOffset++;
+            for (tilemapOffset = 0; tilemapOffset < ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1) - 2; tilemapOffset++)
+            {
+                if (pCredits->text[tilemapOffset] == 0)
+                    break;
+            }
 
             if (tilemapOffset & 1)
             {
@@ -481,11 +483,11 @@ u8 CreditsDisplayLine(u32 line)
             {
                 if ((u8)(pCredits->text[i] - 0x41) < 0x1A)
                 {
-                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = tile - 0x40 + pCredits->text[i];
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = pCredits->text[i] + (tile - 0x40);
                 }
                 else if ((u8)(pCredits->text[i] - 0x61) < 0x1A)
                 {
-                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = tile - 0x41 + pCredits->text[i];
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = pCredits->text[i] + (tile - 0x41);
                 }
                 else if (pCredits->text[i] == '.')
                 {
@@ -512,37 +514,39 @@ u8 CreditsDisplayLine(u32 line)
 
         case CREDIT_LINE_TYPE_ALL_RIGHTS:
             for (i = 0; i < 20; i++)
-                ENDING_DATA.creditLineTilemap_1[i + 5] = i + tile + 0xC0;
+                ENDING_DATA.creditLineTilemap_1[i + 5] = 0xC0 + i + tile;
             ret_0 = 1;
             ret_1 = 0x10;
             break;
 
         case CREDIT_LINE_TYPE_THE_COPYRIGHT:
             for (i = 0; i < 20; i++)
-                ENDING_DATA.creditLineTilemap_1[i + 5] = i + tile + 0xE0;
+                ENDING_DATA.creditLineTilemap_1[i + 5] = 0xE0 + i + tile;
             ret_0 = 1;
             break;
 
-        case CREDIT_LINE_TYPE_UNK_5:
+        case 5:
             ret_0 = 1;
             break;
 
         case CREDIT_LINE_TYPE_SCENARIO:
             for (i = 0; i < 20; i++)
-                ENDING_DATA.creditLineTilemap_1[i + 5] = i + tile + 0x100;
+                ENDING_DATA.creditLineTilemap_1[i + 5] = 0x100 + i + tile;
             ret_0 = 1;
             break;
 
         case CREDIT_LINE_TYPE_RESERVED:
             for (i = 0; i < 20; i++)
-                ENDING_DATA.creditLineTilemap_1[i + 5] = i + tile + 0x120;
+                ENDING_DATA.creditLineTilemap_1[i + 5] = 0x120 + i + tile;
             ret_0 = 1;
             break;
 
         case CREDIT_LINE_TYPE_WHITE_BIG:
-            tilemapOffset = 0;
-            while (tilemapOffset < 0x1E && pCredits->text[tilemapOffset])
-                tilemapOffset++;
+            for (tilemapOffset = 0; tilemapOffset < 0x1E; tilemapOffset++)
+            {
+                if (pCredits->text[tilemapOffset] == 0)
+                    break;
+            }
 
             if (tilemapOffset & 1)
             {
