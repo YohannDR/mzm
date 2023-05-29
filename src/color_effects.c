@@ -355,13 +355,15 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
 
 void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage)
 {
+    // https://decomp.me/scratch/oUVxI
+
     i32 i;
-    i32 rEnd;
-    i32 gEnd;
-    i32 bEnd;
-    u8 r;
-    u8 g;
-    u8 b;
+    i32 endR;
+    i32 endG;
+    i32 endB;
+    u8 startR;
+    u8 startG;
+    u8 startB;
     i32 color;
 
     if (stage == 0)
@@ -379,24 +381,27 @@ void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage
     for (i = 0; i <= 0x1F; )
     {
         color = *srcEnd;
-        rEnd = RED(color);
+        endR = RED(color);
         color >>= 5;
-        gEnd = color & COLOR_MASK;
+        endG = RED(color);
         color >>= 5;
-        bEnd = color & COLOR_MASK;
+        endB = RED(color);
 
         color = *srcStart;
-        r = RED(color);
+        startR = RED(color);
         color >>= 5;
-        g = color & COLOR_MASK;
+        startG = RED(color);
         color >>= 5;
-        b = color & COLOR_MASK;
+        startB = RED(color);
 
-        r += (rEnd - r) * stage / 32;
-        g += (gEnd - g) * stage / 32;
-        b += (bEnd - b) * stage / 32;
+        color = (endR - startR) * stage / (COLOR_MASK + 1);
+        startR += color;
+        color = (endG - startG) * stage / (COLOR_MASK + 1);
+        startG += color;
+        color = (endB - startB) * stage / (COLOR_MASK + 1);
+        startB += color;
 
-        *dst = COLOR(r, g, b);
+        *dst = COLOR(startR, startG, startB);
 
         i++;
         srcStart++;
@@ -407,7 +412,58 @@ void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage
 
 void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage)
 {
+    // https://decomp.me/scratch/PWhDo
 
+    i32 i;
+    i32 j;
+
+    i32 colorD;
+    u8 r;
+    u8 g;
+    u8 b;
+
+    u8 baseR;
+    u8 baseG;
+    u8 baseB;
+
+    u16* pal;
+
+    if (stage == 0)
+    {
+        DMATransfer(3, EWRAM_BASE + 0x35800, PALRAM_BASE, 0x1E0, 16);
+        DMATransfer(3, EWRAM_BASE + 0x35800, EWRAM_BASE + 0x35400, 0x1E0, 16);
+        return;
+    }
+
+    DMATransfer(3, EWRAM_BASE + 0x35800, EWRAM_BASE + 0x35000, 0x1E0, 16);
+
+    baseR = RED(color);
+    baseG = GREEN(color);
+    baseB = BLUE(color);
+
+    for (i = 0; i < 16; i++)
+    {
+        if (!((mask >> i) & 1))
+            continue;
+
+        for (j = i * 16; j < i * 16 + 16; j++)
+        {
+            pal = &((u16*)(EWRAM_BASE + 0x35000))[j];
+            
+            colorD = *pal;
+            r = RED(colorD);
+            g = GREEN(colorD);
+            b = BLUE(colorD);
+
+            r += (baseR - r) * stage / 16;
+            g += (baseG - g) * stage / 16;
+            b += (baseB - b) * stage / 16;
+
+            *pal = COLOR(r, g, b);
+        }
+    }
+
+    gColorFading.status |= COLOR_FADING_STATUS_ON_BG;
 }
 
 void ApplySpecialBackgroundEffectColorOnOBJ(u16 mask, u16 color, u8 stage)
