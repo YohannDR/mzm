@@ -435,22 +435,119 @@ void TransparencySpriteUpdateBLDY(u8 value, u32 delay, u32 intensity)
     gBLDYData2.delay = above;
     gBLDYData2.activeFlag = TRUE;
 
-    TransprencyApplyNewEffects();
+    TransparencyApplyNewEffects();
 }
 
-void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u8 intensity)
+/**
+ * @brief 55b24 | 78 | Queries a bldalpha update (for sprites)
+ * 
+ * @param eva Eva coefficient
+ * @param evb Evb coefficient
+ * @param delay Delay
+ * @param intensity Intensity
+ */
+void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, i32 delay, u32 intensity)
 {
+    u32 invalid;
+    i32 _delay;
+    u32 _intensity;
 
+    _delay = (i8)delay;
+    _intensity = (u8)intensity;
+
+    if (eva > 16)
+        invalid = TRUE;
+    else
+        invalid = FALSE;
+
+    if (evb > 16)
+        invalid++;
+
+    if (invalid)
+    {
+        gDefaultTransparency.unk_1 = (gBldalphaData1.evaCoef + gBldalphaData1.evbCoef != 16);
+        return;
+    }
+
+    gBldalphaData2.delayMax = _delay;
+    gBldalphaData2.intensity = _intensity;
+    gBldalphaData2.evaCoef = eva;
+    gBldalphaData2.evbCoef = evb;
+    gBldalphaData2.delay = 0;
+
+    gDefaultTransparency.unk_1 = (eva + evb != 16);
+    gBldalphaData2.activeFlag = TRUE;
+
+    TransparencyApplyNewEffects();
 }
 
-void TransparencyUpdateBLDY(u8 value, i8 delay, u8 intensity)
+/**
+ * @brief 55b9c | 34 | Queries a bldy update
+ * 
+ * @param value Destination value
+ * @param delay Delay
+ * @param intensity Intensity
+ */
+void TransparencyUpdateBLDY(u8 value, i32 delay, u32 intensity)
 {
+    u8 invalid;
+    i32 _delay;
+    u32 _intensity;
 
+    _delay = (i8)delay;
+    _intensity = (u8)intensity;
+
+    if (value > 16)
+        invalid = TRUE;
+    else
+        invalid = FALSE;
+
+    if (invalid)
+        return;
+
+    gBLDYData1.delayMax = _delay;
+    gBLDYData1.intensity = _intensity;
+    gBLDYData1.value = value;
+    gBLDYData1.delay = 0;
+    gBLDYData1.activeFlag = TRUE;
 }
 
-void TransparencyUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u8 intensity)
+/**
+ * @brief 55bd0 | 54 | Queries a bldalpha update
+ * 
+ * @param eva Eva coefficient
+ * @param evb Evb coefficient
+ * @param delay Delay
+ * @param intensity Intensity
+ */
+void TransparencyUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u32 intensity)
 {
+    u32 invalid;
+    i32 _delay;
+    u32 _intensity;
 
+    _delay = (i8)delay;
+    _intensity = (u8)intensity;
+
+    if (eva > 16)
+        invalid = TRUE;
+    else
+        invalid = FALSE;
+
+    if (evb > 16)
+        invalid++;
+
+    if (invalid)
+        return;
+
+    gBldalphaData1.delayMax = _delay;
+    gBldalphaData1.intensity = _intensity;
+    gBldalphaData1.evaCoef = eva;
+    gBldalphaData1.evbCoef = evb;
+    gBldalphaData1.delay = 0;
+
+    gDefaultTransparency.unk_1 = (eva + evb != 16);
+    gBldalphaData1.activeFlag = TRUE;
 }
 
 /**
