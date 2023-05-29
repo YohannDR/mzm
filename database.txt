@@ -1164,9 +1164,9 @@ menus/PauseScreen/MapScreenAreaNamesGfx;167;0x4110c4;4
 
 menus/PauseScreen/MinimapTiles.pal;80;0x411360;2
 
-## Rooms
+# Rooms
 
-# Default background data
+## Default background data
 
 rooms/Tileset0_Background.gfx.lz;3796;0x363cf8;1
 rooms/Debug_Bg3.gfx.lz;896;0x364bcc;1
@@ -1175,7 +1175,12 @@ rooms/DoorTransition.tm;184;0x364f80;1
 rooms/Bg3_Empty.gfx.lz;256;0x365038;1
 rooms/Debug_Bg0_0.gfx.lz;504;0x365138;1
 
-# Debug rooms
+## Misc
+
+rooms/Water_Bg0.rle;548;0x5e22e4;1
+rooms/SaveRoom_Bg3.rle;1132;0x5e2508;1
+
+## Debug rooms
 
 rooms/debug/Tileset0_Tiles.gfx.lz;1780;0x365e00;1
 rooms/debug/Tileset0.tm;1410;0x3664f4;1
@@ -1201,6 +1206,24 @@ rooms/debug/Debug4_Clipdata.rle;314;0x36763e;1
 rooms/debug/Debug4_Bg2.rle;14;0x367778;1
 rooms/debug/Debug4_Bg1.rle;330;0x367786;1
 
+## Brinstar rooms
+
+rooms/brinstar/6_Bg3.rle;988;0x5e1b2c;1
+
+## Kraid rooms
+
+## Norfair rooms
+
+## Ridley rooms
+
+## Tourian rooms
+
+## Crateria rooms
+
+## Chozodia rooms
+
+rooms/chozodia/5_Bg3.rle;988;0x5e1f08;1
+
 # Tilesets
 
 ## Set 0
@@ -1214,6 +1237,58 @@ tilesets/27_Bg.gfx.lz;1487;0x5de0e4;4
 
 tilesets/42.pal;224;0x5df820;2
 tilesets/27.pal;224;0x5dfbe0;2
+
+## Set 1
+
+tilesets/42.tm;1796;0x5e0620;1
+tilesets/78.tm;1796;0x5e0d24;1
+tilesets/27.tm;1796;0x5e1428;1
+
+tilesets/8.gfx.lz;2752;0x5e2974;4
+tilesets/17.gfx.lz;2032;0x5e5474;4
+tilesets/34.gfx.lz;1569;0x5e7434;4
+tilesets/37.gfx.lz;2026;0x5e8cb8;4
+tilesets/53.gfx.lz;1742;0x5eac60;4
+tilesets/72.gfx.lz;1519;0x5ec798;4
+tilesets/33.gfx.lz;1221;0x5edf54;4
+tilesets/4.gfx.lz;1393;0x5ef268;4
+tilesets/65.gfx.lz;1846;0x5f082c;4
+tilesets/18.gfx.lz;882;0x5f2504;4
+tilesets/20.gfx.lz;973;0x5f32cc;4
+
+tilesets/8_Bg.gfx.lz;1284;0x5f4200;4
+tilesets/17_Bg.gfx.lz;1629;0x5f5610;4
+tilesets/34_Bg.gfx.lz;1195;0x5f6f84;4
+tilesets/72_Bg.gfx.lz;1495;0x5f9d10;4
+tilesets/37_Bg.gfx.lz;1720;0x5f8230;4
+tilesets/53_Bg.gfx.lz;1761;0x5fb46c;4
+tilesets/33_Bg.gfx.lz;1334;0x5fcff0;4
+tilesets/65_Bg.gfx.lz;2256;0x5fe4c8;4
+tilesets/12_Bg.gfx.lz;1967;0x600808;4
+
+tilesets/8.pal;224;0x6026c4;2
+tilesets/17.pal;224;0x602884;2
+tilesets/34.pal;224;0x602a44;2
+tilesets/37.pal;224;0x602c04;2
+tilesets/53.pal;224;0x602dc4;2
+tilesets/72.pal;224;0x602f84;2
+tilesets/33.pal;224;0x603144;2
+tilesets/4.pal;224;0x603304;2
+tilesets/65.pal;224;0x6034c4;2
+tilesets/18.pal;224;0x603684;2
+tilesets/20.pal;224;0x603844;2
+
+tilesets/8.tm;4228;0x603a04;1
+tilesets/17.tm;4228;0x604a88;1
+tilesets/34.tm;4228;0x605b0c;1
+tilesets/37.tm;4228;0x606b90;1
+tilesets/53.tm;4228;0x607c14;1
+tilesets/72.tm;2308;0x608c98;1
+tilesets/33.tm;2308;0x60959c;1
+tilesets/4.tm;2436;0x609ea0;1
+tilesets/65.tm;2820;0x60a824;1
+tilesets/18.tm;2436;0x60b328;1
+tilesets/20.tm;2436;0x60bcac;1
 
 ## Samus
 
@@ -2605,7 +2680,7 @@ Blob_40dd0b_40e0c4.bin;953;0x40dd0b;1
 Blob_415460_446d68.bin;203016;0x415460;1
 Blob_454818_45f45c.bin;44100;0x454818;1
 Blob_479400_4bfee4.bin;289508;0x479400;1
-Blob_5e0620_74f8b4.bin;1503892;0x5e0620;1
+Blob_60c630_74f8b4.bin;1323652;0x60c630;1
 Blob_754bd0_75e6a8.bin;39640;0x754bd0;1
 Blob_75fae4_75fd78.bin;660;0x75fae4;1
 Blob_7602d4_760420.bin;332;0x7602d4;1

@@ -695,7 +695,8 @@ SECTIONS {
         src/data/clipdata_types.o(.rodata);
         src/data/tilesets/tilesets_set0.o(.rodata);
         src/data/common_pals.o(.rodata);
-        /* 5e0620-74f8b4 */
+        src/data/tilesets/tilesets_set1.o(.rodata);
+        /* 60c630-74f8b4 */
         src/data/animated_tiles_data.o(.rodata);
         src/data/shortcut_pointers.o(.rodata);
         /* 754bd0-75e6a8 */
