@@ -380,16 +380,21 @@ u8 RuinsTestUpdateSymbol(void)
     return FALSE;
 }
 
+/**
+ * @brief 38f44 | 9c | Handles the ghost using the sine/cos values
+ * 
+ * @param dAngle Delta angle
+ */
 void RuinsTestGhostMove(u8 dAngle)
 {
-    // https://decomp.me/scratch/clUGQ
-
     i32 radius;
-    i16 s;
-    i16 c;
+    i32 s;
+    i32 c;
     i32 sine;
     i32 cosine;
     u8 angle;
+    i32 temp;
+    i32 temp2;
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         gCurrentSprite.workVariable += dAngle;
@@ -399,28 +404,28 @@ void RuinsTestGhostMove(u8 dAngle)
     radius = (i16)gCurrentSprite.oamScaling;
     angle = gCurrentSprite.workVariable;
 
-    s = sin(angle);
-    if (s < 0)
+    temp = s = sin(angle);
+    if (temp < 0)
     {
-        sine = (i16)((-s * radius) >> 0x8);
-        gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn - sine;
+        temp = (i16)((-temp * radius) >> 0x8);
+        gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn - temp;
     }
     else
     {
-        sine = (i16)((s * radius) >> 0x8);
-        gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn + sine;
+        temp = (i16)((s * radius) >> 0x8);
+        gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn + temp;
     }
 
-    c = cos(angle);
+    temp2 = c = cos(angle);
     if (c < 0)
     {
-        cosine = (i16)((-c * radius) >> 0x8);
-        gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - cosine;
+        temp2 = (i16)((-temp2 * radius) >> 0x8);
+        gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - temp2;
     }
     else
     {
-        cosine = (i16)((c * radius) >> 0x8);
-        gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + cosine;
+        temp2 = (i16)((c * radius) >> 0x8);
+        gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + temp2;
     }
 }
 
@@ -1134,7 +1139,7 @@ void RuinsTestGhostIdle(void)
             gCurrentSprite.workVariable = 0x9;
             gCurrentSprite.timer = 0xA;
 
-            gCurrentSprite.pOam = sRuinsTestGhostOAM_Moving;
+            gCurrentSprite.pOam = sRuinsTestGhostOAM_NotMoving;
             gCurrentSprite.currentAnimationFrame = 0x0;
             gCurrentSprite.animationDurationCounter = 0x0;
 
@@ -1386,7 +1391,7 @@ void RuinsTestGhostSymbolWaitForEndOfFight(void)
 {
     if (gSubSpriteData1.workVariable3 == RUINS_TEST_FIGHT_STAGE_GHOST_STARTING_TO_DISAPPEAR)
     {
-        gCurrentSprite.timer = 0x80;
+        gCurrentSprite.timer = 80;
         gCurrentSprite.pose = RUINS_TEST_GHOST_POSE_SYMBOL_DELAY_BEFORE_PLACING_END_OF_FIGHT;
     }
 }
@@ -1707,7 +1712,7 @@ void RuinsTestSamusReflectionStart(void)
                 }
                 else
                 {
-                    dma_set(3, sRuinsTestPAL_SamusReflection[timer], (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
+                    dma_set(3, &sRuinsTestPAL_SamusReflection[timer * 16], (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
                 }
 
             }
@@ -2228,7 +2233,7 @@ void RuinsTestLightning(void)
                 break;
 
             case RUINS_TEST_LIGHTNING_POSE_GOING_DOWN:
-                topEdge = SpriteUtilCheckVerticalCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+                topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
                 if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
                 {
                     // Ground touched

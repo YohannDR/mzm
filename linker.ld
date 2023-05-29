@@ -460,7 +460,7 @@ SECTIONS {
         src/sprites_AI/security_laser.o(.text);
         src/sprites_AI/holtz.o(.text);
         src/sprites_AI/gekitai_machine.o(.text);
-        asm/disasm_0x08038988.o(.text);
+        src/sprites_AI/ruins_test.o(.text);
         src/sprites_AI/mella.o(.text);
         asm/disasm_0x0803b944.o(.text);
         src/sprites_AI/area_banner.o(.text);
