@@ -9,7 +9,7 @@ u8 SamusCheckCollisionAtPosition(u16 xPosition, u16 yPosition, u16* pXPosition, 
 u8 unk_5604(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 xPosition, u16* pPosition);
 u8 SamusCheckTopSideCollisionMidAir(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 xPosition, u16* pPosition);
 u8 SamusCheckWalkingOnSlope(struct SamusData* pData, u16 xPosition);
-u8 SamusCheckCollisionAbove(struct SamusData* pData, i16 hitbox);
+u8 SamusCheckCollisionAbove(struct SamusData* pData, i32 hitbox);
 u8 SamusCheckWalkingSidesCollision(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 unk_5AD8(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 SamusCheckStandingOnGroundCollision(struct SamusData* pData, struct SamusPhysics* pPhysics);

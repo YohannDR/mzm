@@ -361,20 +361,26 @@ u8 SamusCheckWalkingOnSlope(struct SamusData* pData, u16 xPosition)
     return result;
 }
 
-u8 SamusCheckCollisionAbove(struct SamusData* pData, i16 hitbox)
+/**
+ * @brief 57ec | b4 | Checks for the collision on the 4 blocks above samus
+ * 
+ * @param pData Samus data pointer
+ * @param hitbox Hitbox
+ * @return u8 Collision result
+ */
+u8 SamusCheckCollisionAbove(struct SamusData* pData, i32 hitbox)
 {
-    // https://decomp.me/scratch/ZW8uX
-
     u8 result;
     u16 yPosition;
     i32 clipdata;
     struct SamusPhysics* pPhysics;
 
+    hitbox = (i16)hitbox;
     pPhysics = &gSamusPhysics;
 
     result = SAMUS_COLLISION_DETECTION_NONE;
 
-    yPosition = pData->yPosition + (i16)hitbox; // ?
+    yPosition = pData->yPosition + hitbox;
     clipdata = ClipdataProcessForSamus(yPosition, pData->xPosition + pPhysics->hitboxLeftOffset);
     
     if (clipdata & CLIPDATA_TYPE_SOLID_FLAG)
