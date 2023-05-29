@@ -41,7 +41,7 @@ u32 GameOverSubroutine(void)
                 gCurrentDemo.number++;
                 gCurrentDemo.active = FALSE;
 
-                UpdateSOUNDCNT_H(0x194F780);
+                DoSoundAction(0x194F780);
                 FadeAllSounds(10);
                 FadeMusic(10);
                 gDemoState = DEMO_STATE_NONE;
@@ -268,7 +268,7 @@ void GameOverInit(void)
 
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
 
-    UpdateSOUNDCNT_H(0x80);
+    DoSoundAction(0x80);
     StopAllMusicsAndSounds();
 
     DMATransfer(3, sGameOverMenuPAL, PALRAM_BASE, sizeof(sGameOverMenuPAL), 0x10);
@@ -338,7 +338,7 @@ void GameOverInit_Unused(void)
 
     gOamXOffset_NonGameplay = gOamYOffset_NonGameplay = 0;
 
-    UpdateSOUNDCNT_H(0x194F780);
+    DoSoundAction(0x194F780);
     StopAllMusicsAndSounds();
 
     write16(PALRAM_BASE, COLOR_WHITE);

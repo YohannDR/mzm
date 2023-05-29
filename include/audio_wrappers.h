@@ -4,7 +4,7 @@
 #include "structs/audio.h"
 
 void InitializeAudio(void);
-void UpdateSOUNDCNT_H(u32 action);
+void DoSoundAction(u32 action);
 void SetupSoundTransfer(void);
 void SoundPlay(u16 sound);
 void SoundStop(u16 sound);

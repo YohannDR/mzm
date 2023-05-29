@@ -664,7 +664,7 @@ lbl_08004ba2:
     lsrs r2, r6, #0x1f
     beq lbl_08004bbe
     lsrs r0, r6, #0x18
-    bl UpdateSOUNDCNT_H
+    bl DoSoundAction
 lbl_08004bbe:
     lsls r6, r6, #0x18
     lsrs r6, r6, #0x18

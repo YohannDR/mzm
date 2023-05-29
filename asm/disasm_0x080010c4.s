@@ -3088,7 +3088,7 @@ lbl_08002692:
     blo lbl_08002692
 lbl_080026b6:
     mov r0, r8
-    bl UpdateSOUNDCNT_H
+    bl DoSoundAction
     movs r3, #0
     ldr r2, lbl_0800276c @ =gMusicInfo
     ldrb r0, [r2, #5]
@@ -3220,8 +3220,8 @@ lbl_080027ec: .4byte 0x8100001c
 lbl_080027f0: .4byte gSoundQueue
 lbl_080027f4: .4byte 0x81000004
 
-    thumb_func_start UpdateSOUNDCNT_H
-UpdateSOUNDCNT_H: @ 0x080027f8
+    thumb_func_start DoSoundAction
+DoSoundAction: @ 0x080027f8
     push {r4, r5, r6, r7, lr}
     adds r4, r0, #0
     ldr r0, lbl_080028a8 @ =gMusicInfo

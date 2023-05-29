@@ -71,7 +71,7 @@ void InitializeAudio(void)
         sMusicTrackDataROM[i].pTrack->unk_1D = sMusicTrackDataROM[i].unknonw_A;
     }
 
-    UpdateSOUNDCNT_H((u32)gUnk_Audio0x194F700);
+    DoSoundAction((u32)gUnk_Audio0x194F700);
 
     for (i = 0; i < gMusicInfo.maxSoundChannels; i++)
     {
@@ -94,9 +94,64 @@ void InitializeAudio(void)
     gMusicInfo.occupied = FALSE;
 }
 
-void UpdateSOUNDCNT_H(u32 action)
+/**
+ * @brief 27f8 | fc | Performs a sound action
+ * 
+ * @param action Action
+ */
+void DoSoundAction(u32 action)
 {
+    i8 i;
+    u32 control;
 
+    if (gMusicInfo.occupied)
+        return;
+
+    gMusicInfo.occupied = TRUE;
+
+    if (action & 0x80)
+        gMusicInfo.unk_4 = action + 0x80;
+
+    if (action & 0xF00)
+    {
+        gMusicInfo.maxSoundChannels = (action & 0xF00) >> 8;
+        for (i = ARRAY_SIZE(gMusicInfo.soundChannels); i >= 0 ; i--)
+        {
+            gMusicInfo.soundChannels[i].unk_0 = 0;
+        }
+    }
+
+    if (action & 0xF000)
+        gMusicInfo.volume = (action & 0xF000) >> 0xC;
+
+    if (action & 0xF0000)
+    {
+        gMusicInfo.unk_7 = (action & 0xF0000) >> 0x10;
+        if (gMusicInfo.unk_7 != 0)
+            SetupSoundTransfer();
+    }
+
+    if (action & 0xF00000)
+    {
+        write8(REG_SOUNDBIAS + 1, (read8(REG_SOUNDBIAS + 1) & 0x3F) | (action & 0xF00000) >> 0xE);
+    }
+
+    control = action & 0xF000000;
+    if (control)
+    {
+        if (control == 0x2000000)
+        {
+            write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) & 0xE10D);
+            write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) | 0x1);
+        }
+        else if (control == 0x1000000)
+        {
+            write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) & ~0x1);
+            write16(REG_SOUNDCNT_H, read16(REG_SOUNDCNT_H) | 0x3302);
+        }
+    }
+
+    gMusicInfo.occupied = FALSE;
 }
 
 /**

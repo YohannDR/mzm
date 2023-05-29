@@ -16,7 +16,7 @@ sub_08078228: @ 0x08078228
     movs r0, #0x80
     lsls r0, r0, #0x12
 lbl_0807823e:
-    bl UpdateSOUNDCNT_H
+    bl DoSoundAction
 lbl_08078242:
     pop {r0}
     bx r0

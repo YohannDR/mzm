@@ -36,7 +36,7 @@ void FileSelectApplyStereo(void)
     else
         request = 0x1000000; // Disable flag
 
-    UpdateSOUNDCNT_H(request);
+    DoSoundAction(request);
 }
 
 /**
