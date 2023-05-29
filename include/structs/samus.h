@@ -5,6 +5,11 @@
 
 #define MAX_AMOUNT_OF_SAMUS_POSES 67
 
+#define SAMUS_CARRY_ACD()\
+do {\
+    pData->elevatorDirection = pCopy->elevatorDirection;\
+}while(0);
+
 // Structs
 
 struct Equipment {

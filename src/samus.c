@@ -1903,8 +1903,6 @@ void SamusChangeToKnockbackPose(struct SamusData* pData, struct SamusData* pCopy
  */
 void SamusCheckCarryFromCopy(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
-    // https://decomp.me/scratch/1VwJS
-
     switch (pData->pose)
     {
         case SPOSE_RUNNING:
@@ -1917,8 +1915,10 @@ void SamusCheckCarryFromCopy(struct SamusData* pData, struct SamusData* pCopy, s
         case SPOSE_STANDING:
             pData->armCannonDirection = pCopy->armCannonDirection;
             if (pCopy->pose == SPOSE_CROUCHING || pCopy->pose == SPOSE_SHOOTING_AND_CROUCHING)
+            {
                 // Timer to ignore input for arm cannon direction, prevents immediatly aiming up after uncrouching
                 pData->timer = 6;
+            }
             break;
 
         case SPOSE_CROUCHING:
@@ -1941,7 +1941,8 @@ void SamusCheckCarryFromCopy(struct SamusData* pData, struct SamusData* pCopy, s
             
         case SPOSE_MORPH_BALL:
             if (pCopy->speedboostingShinesparking)
-                pData->timer = 0x6;
+                pData->timer = 6;
+
             pWeapon->diagonalAim = DIAG_AIM_NONE;
             break;
 
@@ -1961,7 +1962,9 @@ void SamusCheckCarryFromCopy(struct SamusData* pData, struct SamusData* pCopy, s
         case SPOSE_SHINESPARKING:
         case SPOSE_BALLSPARKING:
             if (pCopy->forcedMovement == FORCED_MOVEMENT_LAUNCHED_BY_CANNON)
+            {
                 pData->yVelocity = SAMUS_SIDEWARD_SHINESPARK_X_VELOCITY;
+            }
             else
             {
                 if (gButtonInput & gButtonAssignments.diagonalAim)
@@ -2047,13 +2050,8 @@ void SamusCheckCarryFromCopy(struct SamusData* pData, struct SamusData* pCopy, s
             break;
 
         case SPOSE_TURNING_FROM_FACING_THE_FOREGROUND:
-            pData->elevatorDirection = pCopy->elevatorDirection;
-            
-            #ifndef NONMATCHING
+            SAMUS_CARRY_ACD();
             pWeapon->diagonalAim = DIAG_AIM_NONE;
-            #else
-            goto DiagNone;
-            #endif
             break;
 
         case SPOSE_ON_ZIPLINE:
@@ -2079,7 +2077,6 @@ void SamusCheckCarryFromCopy(struct SamusData* pData, struct SamusData* pCopy, s
         case SPOSE_MORPH_BALL_MIDAIR:
         case SPOSE_FACING_THE_FOREGROUND:
         case SPOSE_CROUCHING_TO_CRAWL:
-            DiagNone:
             pWeapon->diagonalAim = DIAG_AIM_NONE;
             break;
 
