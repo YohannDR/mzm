@@ -1083,40 +1083,51 @@ void SramLoadFile_Unused(void)
     SramRead_Arrays();
 }
 
-
+/**
+ * @brief 747bc | 100 | Save the arrays to sram
+ * 
+ */
 void SramWrite_Arrays(void)
 {
-    // https://decomp.me/scratch/2UPuJ
-
-    struct SaveFile* pFile;
     i32 i;
-    u32 offset;
-    u32 size;
+    i32 offset;
+    i32 size;
+    struct SaveFile* pFile;
+    u8* src;
+    u8* dst;
 
     pFile = &sSramEwramPointer->files[gMostRecentSaveFile];
+
+    // Probably a sub struct?
+    dst = (u8*)&pFile->visitedMinimapTiles;
+    
     DMATransfer(3, gVisitedMinimapTiles, pFile->visitedMinimapTiles, sizeof(pFile->visitedMinimapTiles), 0x10);
     DMATransfer(3, gHatchesOpened, pFile->hatchesOpened, sizeof(pFile->hatchesOpened), 0x10);
     DMATransfer(3, gEventsTriggered, pFile->eventsTriggered, sizeof(pFile->eventsTriggered), 0x10);
 
     offset = 0;
-    for (i = 0; i < 8; i++)
+    src = (u8*)gNeverReformBlocks;
+    for (i = 0; i < MAX_AMOUNT_OF_AREAS; i++)
     {
         if (gNumberOfNeverReformBlocks[i] == 0)
             continue;
 
         size = gNumberOfNeverReformBlocks[i] * 2;
-        DMATransfer(3, gNeverReformBlocks[i], pFile->neverReformBlocksBroken[offset], size, 0x10);
+        DMATransfer(3, &src[i * MINIMAP_SIZE * 16],
+            &dst[sizeof(gVisitedMinimapTiles) + offset], size, 0x10);
         offset += size;
     }
 
     offset = 0;
-    for (i = 0; i < 8; i++)
+    src = (u8*)gItemsCollected;
+    for (i = 0; i < MAX_AMOUNT_OF_AREAS; i++)
     {
-        if (gNumberOfItemsCollected[i] == 0)
+        size = gNumberOfItemsCollected[i] * sizeof(struct ItemInfo);
+        if (size == 0)
             continue;
 
-        size = gNumberOfItemsCollected[i] * sizeof(struct ItemInfo);
-        DMATransfer(3, gItemsCollected[i], pFile->itemsCollected[offset], size, 0x10);
+        DMATransfer(3, &src[i * MAX_AMOUNT_OF_ITEMS_PER_AREA * sizeof(struct ItemInfo)],
+            &dst[sizeof(gVisitedMinimapTiles) + 2048 + offset], size, 0x10);
         offset += size;
     }
 }
@@ -1158,7 +1169,7 @@ void SramRead_Arrays(void)
         if (gNumberOfNeverReformBlocks[i] != 0)
         {
             size = gNumberOfNeverReformBlocks[i] * 2;
-            DMATransfer(3, &src[sizeof(gVisitedMinimapTiles)  + offset],
+            DMATransfer(3, &src[sizeof(gVisitedMinimapTiles) + offset],
                 &dst[i * MINIMAP_SIZE * 16], size, 16);
 
             offset += size;
