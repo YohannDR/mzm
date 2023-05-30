@@ -284,8 +284,8 @@ u32 SramProcessIntroSave(void)
             gSaveFilesInfo[gMostRecentSaveFile].introPlayed = TRUE;
             gGameCompletion.completedGame = gSaveFilesInfo[gMostRecentSaveFile].completedGame;
 
-            // Reset non array part of the struct 
-            BitFill(3, 0, &sSramEwramPointer->files[gMostRecentSaveFile], OFFSET_OF(struct SaveFile, visitedMinimapTiles), 0x10);
+            // Reset non world data part of the struct 
+            BitFill(3, 0, &sSramEwramPointer->files[gMostRecentSaveFile], OFFSET_OF(struct SaveFile, worldData), 0x10);
             gSramOperationStage++;
             break;
 
@@ -1094,16 +1094,15 @@ void SramWrite_Arrays(void)
     i32 size;
     struct SaveFile* pFile;
     u8* src;
-    u8* dst;
+    struct SaveWorldData* dst;
 
     pFile = &sSramEwramPointer->files[gMostRecentSaveFile];
 
-    // Probably a sub struct?
-    dst = (u8*)&pFile->visitedMinimapTiles;
+    dst = &pFile->worldData;
     
-    DMATransfer(3, gVisitedMinimapTiles, pFile->visitedMinimapTiles, sizeof(pFile->visitedMinimapTiles), 0x10);
-    DMATransfer(3, gHatchesOpened, pFile->hatchesOpened, sizeof(pFile->hatchesOpened), 0x10);
-    DMATransfer(3, gEventsTriggered, pFile->eventsTriggered, sizeof(pFile->eventsTriggered), 0x10);
+    DMATransfer(3, gVisitedMinimapTiles, dst->visitedMinimapTiles, sizeof(dst->visitedMinimapTiles), 0x10);
+    DMATransfer(3, gHatchesOpened, dst->hatchesOpened, sizeof(dst->hatchesOpened), 0x10);
+    DMATransfer(3, gEventsTriggered, dst->eventsTriggered, sizeof(dst->eventsTriggered), 0x10);
 
     offset = 0;
     src = (u8*)gNeverReformBlocks;
@@ -1114,7 +1113,7 @@ void SramWrite_Arrays(void)
 
         size = gNumberOfNeverReformBlocks[i] * 2;
         DMATransfer(3, &src[i * MINIMAP_SIZE * 16],
-            &dst[sizeof(gVisitedMinimapTiles) + offset], size, 0x10);
+            &dst->neverReformBlocksBroken[offset], size, 0x10);
         offset += size;
     }
 
@@ -1127,7 +1126,7 @@ void SramWrite_Arrays(void)
             continue;
 
         DMATransfer(3, &src[i * MAX_AMOUNT_OF_ITEMS_PER_AREA * sizeof(struct ItemInfo)],
-            &dst[sizeof(gVisitedMinimapTiles) + 2048 + offset], size, 0x10);
+            &dst->itemsCollected[offset], size, 0x10);
         offset += size;
     }
 }
@@ -1142,21 +1141,19 @@ void SramRead_Arrays(void)
     i32 offset;
     i32 size;
     struct SaveFile* pFile;
-    u8* src;
+    struct SaveWorldData* src;
     u8* dst;
 
     pFile = &sSramEwramPointer->files[gMostRecentSaveFile];
+    src = &pFile->worldData;
 
-    // Probably a sub struct?
-    src = (u8*)&pFile->visitedMinimapTiles;
-
-    DMATransfer(3, pFile->visitedMinimapTiles,
+    DMATransfer(3, src->visitedMinimapTiles,
         gVisitedMinimapTiles, sizeof(gVisitedMinimapTiles), 16);
 
-    DMATransfer(3, pFile->hatchesOpened,
+    DMATransfer(3, src->hatchesOpened,
         gHatchesOpened, sizeof(gHatchesOpened) / 2, 16);
 
-    DMATransfer(3, pFile->eventsTriggered,
+    DMATransfer(3, src->eventsTriggered,
         gEventsTriggered, sizeof(gEventsTriggered), 16);
 
     BitFill(3, USHORT_MAX, gNeverReformBlocks, sizeof(gNeverReformBlocks), 16);
@@ -1169,7 +1166,7 @@ void SramRead_Arrays(void)
         if (gNumberOfNeverReformBlocks[i] != 0)
         {
             size = gNumberOfNeverReformBlocks[i] * 2;
-            DMATransfer(3, &src[sizeof(gVisitedMinimapTiles) + offset],
+            DMATransfer(3, &src->neverReformBlocksBroken[offset],
                 &dst[i * MINIMAP_SIZE * 16], size, 16);
 
             offset += size;
@@ -1183,7 +1180,7 @@ void SramRead_Arrays(void)
         size = gNumberOfItemsCollected[i] * 4;
         if (size != 0)
         {
-            DMATransfer(3, &src[sizeof(gVisitedMinimapTiles) + 2048 + offset],
+            DMATransfer(3, &src->itemsCollected[offset],
                 &dst[i * MAX_AMOUNT_OF_ITEMS_PER_AREA * sizeof(struct ItemInfo)], size, 16);
 
             offset += size;
@@ -2073,7 +2070,7 @@ void Sram_CheckLoadSaveFile(void)
         // No save file, create one and setup data
         Sram_InitSaveFile();
 
-        gColorFading.type = COLOR_FADING_LANDING_SHIP; // TODO enum
+        gColorFading.type = COLOR_FADING_LANDING_SHIP;
 
         gEquipment.downloadedMapStatus = 0;
         gCurrentArea = gStartingInfo.startingArea;
