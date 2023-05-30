@@ -2684,9 +2684,44 @@ void OptionTimeAttackLoadRecord(u8 id)
     dst[7 + 32] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][5] + FILE_SELECT_TILE_NUMBER_LOW);
 }
 
+/**
+ * @brief 7b854 | d8 | To document
+ * 
+ */
 void unk_7b854(void)
 {
+    const u8* password;
+    i32 i;
+    u8 character;
+    u32 high;
+    u32 low;
+    u8* dstHigh;
+    u8* dstLow;
+    u32 bitSize;
 
+    password = &FILE_SELECT_DATA.unk_48;
+    if (!(gFileScreenOptionsUnlocked.timeAttack & 1))
+        password = sFileSelect_760c44;
+
+    i = 0;
+    bitSize = 16;
+    dstHigh = VRAM_BASE + 0x6100;
+    dstLow = dstHigh + 0x400;
+    for (; i < 8; i++)
+    {
+        character = password[i];
+        if (character == '1')
+            character = '>';
+
+        high = (character / 32) * 0x800;
+        low = (character % 32) * 0x20;
+
+        DMATransfer(3, &sCharactersGfx[high + low], &dstHigh[i * 32], 32, bitSize);
+        DMATransfer(3, &sCharactersGfx[high + low + 0x200], &dstLow[i * 32], 32, bitSize);
+    }
+
+    DMATransfer(3, dstHigh, dstHigh + 0x1000, 0x100, 16);
+    DMATransfer(3, dstHigh + 0x400, dstHigh + 0x1400, 0x100, 16);
 }
 
 void OptionTimeAttackLoadPasswrod(u8 part)
