@@ -5,6 +5,7 @@
 #include "structs/menu.h"
 
 #define FILE_SELECT_DATA sNonGameplayRamPointer->fileSelect
+#define FILE_SELECT_EWRAM sEwramPointer->fileSelect
 
 typedef u32 (*OptionsFunc_T)(void);
 
@@ -49,6 +50,11 @@ struct FileSelectEwram {
     u16 medium1_panelTT[640];
     u16 medium2_panelTT[640];
     u16 medium3_panelTT[640];
+};
+
+struct FileSelectEwramData {
+    u16 unk_0000[1024];
+    u16 menuTilemap[1024];
 };
 
 struct FileSelectData {

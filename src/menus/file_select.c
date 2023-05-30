@@ -3525,7 +3525,7 @@ void FileSelectDisplaySaveFileTimer(u8 file)
     u16* dst;
     u8 number;
 
-    dst = (void*)sEwramPointer + 0x800;
+    dst = FILE_SELECT_EWRAM.menuTilemap;;
 
     if (file == 0)
         number = 1;
@@ -3613,7 +3613,75 @@ void FileSelectDisplaySaveFileTimer(u8 file)
 
 void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
 {
+    // https://decomp.me/scratch/mFmb0
 
+    u16 baseTile;
+    u32 offset;
+    u16* dst;
+    u16* tmp;
+    u16 tile;
+    i32 i;
+
+    if (file == 2)
+        offset = 2 * 96;
+    else if (file == 1)
+        offset = 1 * 96;
+    else if (file == 0)
+        offset = 0 * 96;
+    else
+        return;
+
+    i = pFile->timeAttack;
+    baseTile = i ? 6 << 12 : 5 << 12;
+
+    tmp = (u16*)sEwramPointer;
+    tmp = &tmp[offset];
+    dst = &tmp[(0x800 + 0xCC) / 2];
+
+    if ((pFile->exists || pFile->introPlayed) && pFile->corruptionFlag == 0)
+    {
+        if (i)
+            tile = 0x1AF;
+        else
+            tile = 0x1A0 + pFile->difficulty * 5;
+
+        for (i = 0; i < 5; i++)
+        {
+            *dst++ = baseTile | tile++;
+        }
+    }
+    else
+    {
+        for (i = 0; i < 5; i++)
+        {
+            *dst++ = 0;
+        }
+    }
+
+    tmp = (u16*)sEwramPointer;
+    tmp = &tmp[offset];
+    dst = &tmp[(0x800 + 0x12C) / 2];
+
+    if (pFile->currentArea >= ARRAY_SIZE(sSaveFileAreasId))
+        i = -1;
+    else
+        i = sSaveFileAreasId[pFile->currentArea];
+
+    if ((pFile->exists || pFile->introPlayed) && i >= 0 && pFile->corruptionFlag == 0)
+    {
+        tile = i * 6 + 0x176;
+        for (i = 0; i < 6; i++)
+        {
+            *dst++ = baseTile | tile++;
+        }
+    }
+    else
+    {
+        for (i = 0; i < 6; i++)
+        {
+            *dst++ = 0;
+        }
+    }
 }
 
 /**

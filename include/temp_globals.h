@@ -34,6 +34,7 @@ union NonGameplayRAM {
 
 union EwramData {
     struct PauseScreenEwramData pauseScreen;
+    struct FileSelectEwramData fileSelect;
 };
 
 extern u16 unk_02035400;
