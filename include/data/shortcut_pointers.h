@@ -7,7 +7,7 @@
 
 extern union EwramData* sEwramPointer;
 extern u16* sBgPalramPointer;
-extern void* sObjPalramPointer;
+extern u16* sObjPalramPointer;
 extern u32* sVisitedMinimapTilesPointer;
 extern union NonGameplayRAM* sNonGameplayRamPointer;
 extern struct Sram* sSramEwramPointer;

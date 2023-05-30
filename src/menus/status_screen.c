@@ -839,9 +839,97 @@ u32 StatusScreenFindUnknownItemSlot(u8 param_1)
     }
 }
 
+/**
+ * @brief 71290 | 19c | Updates the unknown items animated palette
+ * 
+ * @param param_1 To document
+ * @return u32 bool, ended
+ */
 u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
 {
+    u32 ended;
+    i32 offset;
 
+    ended = FALSE;
+    PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer++;
+
+    switch (param_1)
+    {
+        case 0:
+            PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
+            PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow = 0;
+            PAUSE_SCREEN_DATA.unknownItemDynamicPalette.flashingNumber = 0;
+            break;
+
+        case 1:
+            offset = 0;
+            if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.flashingNumber < 2)
+            {
+                if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer > 3)
+                {
+                    PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
+                    PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow++;
+
+                    if ((u8)PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow >= ARRAY_SIZE(sStatusScreen_40df64))
+                    {
+                        PAUSE_SCREEN_DATA.unknownItemDynamicPalette.flashingNumber++;
+                        PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow = 0;
+                    }
+
+                    offset = sStatusScreen_40df64[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16;
+                }
+            }
+            else if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer > 2)
+            {
+                PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
+                PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow++;
+                    
+                if ((u8)PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow >= ARRAY_SIZE(sStatusScreen_40df6c))
+                {
+                    PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow = ARRAY_SIZE(sStatusScreen_40df6c) - 1;
+                    PAUSE_SCREEN_DATA.unknownItemDynamicPalette.flashingNumber++;
+                    ended = TRUE;
+                }
+
+                offset = sStatusScreen_40df6c[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16;
+            }
+
+            if (offset == 0)
+                break;
+
+            DMATransfer(3, &sStatusScreen_40dd10[offset], &sObjPalramPointer[12 * 16], 32, 32);
+            break;
+
+        case 2:
+            if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer < 2)
+                break;
+
+            PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
+            PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow--;
+            if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow == 0)
+            {
+                PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow = 0;
+                ended = TRUE;
+            }
+
+            offset = sStatusScreen_40df6c[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16;
+            DMATransfer(3, &sStatusScreen_40dd10[offset], &sObjPalramPointer[12 * 16], 32, 32);
+            break;
+
+        case 3:
+            if (PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer < 4)
+                break;
+
+            PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer = 0;
+            PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow++;
+            if ((u8)PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow > 3)
+                PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow = 0;
+
+            DMATransfer(3, &sStatusScreen_40ddd0[sStatusScreen_40df72[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16], &sObjPalramPointer[12 * 16], 32, 32);
+            break;
+    }
+
+    return ended;
 }
 
 /**

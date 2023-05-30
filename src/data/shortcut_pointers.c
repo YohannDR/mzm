@@ -44,7 +44,7 @@ union EwramData* sEwramPointer = (union EwramData*)EWRAM_BASE;
 FORCE_RODATA
 u16* sBgPalramPointer = PALRAM_BASE;
 FORCE_RODATA
-void* sObjPalramPointer = PALRAM_OBJ;
+u16* sObjPalramPointer = PALRAM_OBJ;
 FORCE_RODATA
 u32* sVisitedMinimapTilesPointer = gVisitedMinimapTiles;
 FORCE_RODATA
