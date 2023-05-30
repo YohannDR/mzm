@@ -500,6 +500,8 @@ SECTIONS {
         src/hud_generic.o(.text);
         src/particle.o(.text);
         asm/disasm_0x08055344.o(.text);
+        src/transparency.o(.text);
+        asm/disasm_0x08055f7c.o(.text);
         src/power_bomb_explosion.o(.text);
         src/gadora_hatch.o(.text);
         src/in_game_timer.o(.text);

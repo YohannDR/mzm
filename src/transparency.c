@@ -72,6 +72,8 @@ void TransparencySetRoomEffectsTransparency(void)
     bgCnt[1] = 0x4000 | 0x200 | 4;
     bgCnt[2] = 0x4000 | 0x400 | 4;
 
+    bgCnt[3] = 0x200 | 0x400 | 0x2 | 0x1;
+
     switch (gCurrentRoomEntry.BG3Prop)
     {
         case 0: // The value of this case doesn't matter
@@ -115,6 +117,7 @@ void TransparencySetRoomEffectsTransparency(void)
         case 0x15:
         case 0x19:
         case 0x1D:
+        case 0x21:
         case 0x25:
         case 0x29:
         case 0x2D:
