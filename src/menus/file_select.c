@@ -2363,12 +2363,12 @@ void OptionsSoundTestUpdateIdGfx(void)
     u32 number;
 
     number = FILE_SELECT_DATA.soundTestId / 10 * 32 + 0xA00;
-    DMATransfer(3, &((u8*)sCharactersGfx)[number], VRAM_BASE + 0x103C0, 32, 16);
-    DMATransfer(3, &((u8*)sCharactersGfx)[number + 0x400], VRAM_BASE + 0x107C0, 32, 16);
+    DMATransfer(3, &sCharactersGfx[number], VRAM_BASE + 0x103C0, 32, 16);
+    DMATransfer(3, &sCharactersGfx[number + 0x400], VRAM_BASE + 0x107C0, 32, 16);
 
     number = FILE_SELECT_DATA.soundTestId % 10 * 32;
-    DMATransfer(3, &((u8*)sCharactersGfx)[number + 0xA00], VRAM_BASE + 0x103E0, 32, 16);
-    DMATransfer(3, &((u8*)sCharactersGfx)[number + 0x400], VRAM_BASE + 0x107E0, 32, 16);
+    DMATransfer(3, &sCharactersGfx[number + 0xA00], VRAM_BASE + 0x103E0, 32, 16);
+    DMATransfer(3, &sCharactersGfx[number + 0x400], VRAM_BASE + 0x107E0, 32, 16);
 }
 
 /**
@@ -2724,9 +2724,50 @@ void unk_7b854(void)
     DMATransfer(3, dstHigh + 0x400, dstHigh + 0x1400, 0x100, 16);
 }
 
+/**
+ * @brief 7b92c | bc | Loads a part of the time attack password to VRAM
+ * 
+ * @param part 2 bits : XY, where X is id and Y which half
+ */
 void OptionTimeAttackLoadPasswrod(u8 part)
 {
+    const u8* password;
+    i32 i;
+    u8 character;
+    u32 high;
+    u32 low;
+    u8* dst;
 
+    if (part >= 2)
+    {
+        i = 0x78C0;
+        password = gTimeAttackRecord.password100;
+    }
+    else
+    {
+        i = 0x68C0;
+        password = gTimeAttackRecord.password;
+    }
+
+    if (part & 1)
+    {
+        password += 10;
+        i += 0x200;
+    }
+    
+    dst = VRAM_BASE + i;
+    for (i = 0; i < 10; i++)
+    {
+        character = password[i];
+        if (character == '1')
+            character = '>';
+
+        high = (character / 32) * 0x800;
+        low = (character % 32) * 0x20;
+
+        DMATransfer(3, &sCharactersGfx[high + low], &dst[i * 32], 32, 16);
+        DMATransfer(3, &sCharactersGfx[high + low + 0x400], &dst[0x400 + i * 32], 32, 16);
+    }
 }
 
 /**
