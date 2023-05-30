@@ -108,8 +108,7 @@ struct FileSelectData {
 
     u8 padding_49[7];
 
-    u8 timeAttackBestTime[6];
-    u8 timeAttackBestTime100[6];
+    u8 timeAttackBestTimes[2][6];
 
     u8 optionsUnlocked[7];
     u8 soundTestId;

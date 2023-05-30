@@ -1491,43 +1491,43 @@ void FileSelectCopyTimeAttackTime(void)
         value = gTimeAttackRecord.igt.hours;
     else
         value = 99;
-    FILE_SELECT_DATA.timeAttackBestTime[0] = value / 10;
-    FILE_SELECT_DATA.timeAttackBestTime[1] = value % 10;
+    FILE_SELECT_DATA.timeAttackBestTimes[0][0] = value / 10;
+    FILE_SELECT_DATA.timeAttackBestTimes[0][1] = value % 10;
 
     if (gTimeAttackRecord.igt.minutes < 59)
         value = gTimeAttackRecord.igt.minutes;
     else
         value = 59;
-    FILE_SELECT_DATA.timeAttackBestTime[2] = value / 10;
-    FILE_SELECT_DATA.timeAttackBestTime[3] = value % 10;
+    FILE_SELECT_DATA.timeAttackBestTimes[0][2] = value / 10;
+    FILE_SELECT_DATA.timeAttackBestTimes[0][3] = value % 10;
 
     if (gTimeAttackRecord.igt.seconds < 59)
         value = gTimeAttackRecord.igt.seconds;
     else
         value = 59;
-    FILE_SELECT_DATA.timeAttackBestTime[4] = value / 10;
-    FILE_SELECT_DATA.timeAttackBestTime[5] = value % 10;
+    FILE_SELECT_DATA.timeAttackBestTimes[0][4] = value / 10;
+    FILE_SELECT_DATA.timeAttackBestTimes[0][5] = value % 10;
 
     if (gTimeAttackRecord.igt100.hours < 99)
         value = gTimeAttackRecord.igt100.hours;
     else
         value = 99;
-    FILE_SELECT_DATA.timeAttackBestTime100[0] = value / 10;
-    FILE_SELECT_DATA.timeAttackBestTime100[1] = value % 10;
+    FILE_SELECT_DATA.timeAttackBestTimes[1][0] = value / 10;
+    FILE_SELECT_DATA.timeAttackBestTimes[1][1] = value % 10;
 
     if (gTimeAttackRecord.igt100.minutes < 59)
         value = gTimeAttackRecord.igt100.minutes;
     else
         value = 59;
-    FILE_SELECT_DATA.timeAttackBestTime100[2] = value / 10;
-    FILE_SELECT_DATA.timeAttackBestTime100[3] = value % 10;
+    FILE_SELECT_DATA.timeAttackBestTimes[1][2] = value / 10;
+    FILE_SELECT_DATA.timeAttackBestTimes[1][3] = value % 10;
 
     if (gTimeAttackRecord.igt100.seconds < 59)
         value = gTimeAttackRecord.igt100.seconds;
     else
         value = 59;
-    FILE_SELECT_DATA.timeAttackBestTime100[4] = value / 10;
-    FILE_SELECT_DATA.timeAttackBestTime100[5] = value % 10;
+    FILE_SELECT_DATA.timeAttackBestTimes[1][4] = value / 10;
+    FILE_SELECT_DATA.timeAttackBestTimes[1][5] = value % 10;
 }
 
 /**
@@ -2634,10 +2634,54 @@ void unk_7b71c(void)
         unk_790cc(0, 0x1D);
 }
 
-
+/**
+ * @brief 7b744 | 110 | Loads a time attack record into VRAM
+ * 
+ * @param id Id to load : 0 = Any%, 1 = 100%
+ */
 void OptionTimeAttackLoadRecord(u8 id)
 {
+    u16* dst;
+    u16 baseTile;
 
+    // Draw time attack time in this format :
+    // HH:MM:SS
+
+    dst = VRAM_BASE + 0xE108;
+    // Palette 5
+    baseTile = 5 << 12;
+
+    // Hours tenths
+    dst[0] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][0] + FILE_SELECT_TILE_NUMBER_HIGH);
+    dst[0 + 32] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][0] + FILE_SELECT_TILE_NUMBER_LOW);
+
+    // Hours seconds
+    dst[1] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][1] + FILE_SELECT_TILE_NUMBER_HIGH);
+    dst[1 + 32] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][1] + FILE_SELECT_TILE_NUMBER_LOW);
+
+    // :
+    dst[2] = baseTile | FILE_SELECT_TILE_TWO_DOTS_HIGH;
+    dst[2 + 32] = baseTile | FILE_SELECT_TILE_TWO_DOTS_LOW;
+
+    // Minutes tenths
+    dst[3] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][2] + FILE_SELECT_TILE_NUMBER_HIGH);
+    dst[3 + 32] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][2] + FILE_SELECT_TILE_NUMBER_LOW);
+
+    // Minutes seconds
+    dst[4] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][3] + FILE_SELECT_TILE_NUMBER_HIGH);
+    dst[4 + 32] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][3] + FILE_SELECT_TILE_NUMBER_LOW);
+
+    // :
+    dst[5] = baseTile | FILE_SELECT_TILE_TWO_DOTS_HIGH;
+    dst[5 + 32] = baseTile | FILE_SELECT_TILE_TWO_DOTS_LOW;
+
+    // Seconds tenths
+    dst[6] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][4] + FILE_SELECT_TILE_NUMBER_HIGH);
+    dst[6 + 32] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][4] + FILE_SELECT_TILE_NUMBER_LOW);
+
+    // Seconds seconds
+    dst[7] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][5] + FILE_SELECT_TILE_NUMBER_HIGH);
+    dst[7 + 32] = baseTile | (FILE_SELECT_DATA.timeAttackBestTimes[id][5] + FILE_SELECT_TILE_NUMBER_LOW);
 }
 
 void unk_7b854(void)
