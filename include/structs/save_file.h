@@ -111,7 +111,7 @@ struct SaveFile {
     u8 freespace[160];
 
     u32 visitedMinimapTiles[MAX_AMOUNT_OF_AREAS][32];
-    u8 neverReformBLocksBroken[2048];
+    u8 neverReformBlocksBroken[2048];
     u8 itemsCollected[512];
     u32 hatchesOpened[MAX_AMOUNT_OF_AREAS][8];
     u32 eventsTriggered[8];

@@ -1105,7 +1105,7 @@ void SramWrite_Arrays(void)
             continue;
 
         size = gNumberOfNeverReformBlocks[i] * 2;
-        DMATransfer(3, gNeverReformBlocks[i], pFile->neverReformBLocksBroken[offset], size, 0x10);
+        DMATransfer(3, gNeverReformBlocks[i], pFile->neverReformBlocksBroken[offset], size, 0x10);
         offset += size;
     }
 
@@ -1121,9 +1121,65 @@ void SramWrite_Arrays(void)
     }
 }
 
+/**
+ * @brief 748bc | 128 | Loads the sram arrays to ram
+ * 
+ */
 void SramRead_Arrays(void)
 {
+    i32 i;
+    i32 offset;
+    i32 size;
+    struct SaveFile* pFile;
+    u8* src;
+    u8* dst;
 
+    pFile = &sSramEwramPointer->files[gMostRecentSaveFile];
+
+    // Probably a sub struct?
+    src = (u8*)&pFile->visitedMinimapTiles;
+
+    DMATransfer(3, pFile->visitedMinimapTiles,
+        gVisitedMinimapTiles, sizeof(gVisitedMinimapTiles), 16);
+
+    DMATransfer(3, pFile->hatchesOpened,
+        gHatchesOpened, sizeof(gHatchesOpened) / 2, 16);
+
+    DMATransfer(3, pFile->eventsTriggered,
+        gEventsTriggered, sizeof(gEventsTriggered), 16);
+
+    BitFill(3, USHORT_MAX, gNeverReformBlocks, sizeof(gNeverReformBlocks), 16);
+    BitFill(3, USHORT_MAX, gItemsCollected, sizeof(gItemsCollected), 16);
+
+    offset = 0;
+    dst = (u8*)gNeverReformBlocks;
+    for (i = 0; i < MAX_AMOUNT_OF_AREAS; i++)
+    {
+        if (gNumberOfNeverReformBlocks[i] != 0)
+        {
+            size = gNumberOfNeverReformBlocks[i] * 2;
+            DMATransfer(3, &src[sizeof(gVisitedMinimapTiles)  + offset],
+                &dst[i * MINIMAP_SIZE * 16], size, 16);
+
+            offset += size;
+        }
+    }
+
+    offset = 0;
+    dst = (u8*)gItemsCollected;
+    for (i = 0; i < MAX_AMOUNT_OF_AREAS; i++)
+    {
+        size = gNumberOfItemsCollected[i] * 4;
+        if (size != 0)
+        {
+            DMATransfer(3, &src[sizeof(gVisitedMinimapTiles) + 2048 + offset],
+                &dst[i * MAX_AMOUNT_OF_ITEMS_PER_AREA * sizeof(struct ItemInfo)], size, 16);
+
+            offset += size;
+        }
+    }
+
+    MinimapLoadTilesWithObtainedItems();
 }
 
 /**
