@@ -3514,9 +3514,101 @@ void FileSelectDisplaySaveFileHealth(u8 file)
     }
 }
 
+/**
+ * @brief 7cdc4 | 1d4 | Displays the timer on a save file
+ * 
+ * @param file File number
+ */
 void FileSelectDisplaySaveFileTimer(u8 file)
 {
+    u16 baseTile;
+    u16* dst;
+    u8 number;
 
+    dst = (void*)sEwramPointer + 0x800;
+
+    if (file == 0)
+        number = 1;
+    else if (file == 1)
+        number = 2;
+    else
+        number = 3;
+
+    // Get destination
+    dst = &dst[(number - 1) * 96 + 0x6E];
+
+    // Get palette, 6 if time attack, 5 if not
+    baseTile = gSaveFilesInfo[file].timeAttack ? 6 << 12 : 5 << 12;
+
+    if (gSaveFilesInfo[file].exists && gSaveFilesInfo[file].corruptionFlag == 0)
+    {
+        // File exists, draw HH:MM:SS
+
+        // Draw hours
+        number = gSaveFilesInfo[file].igtHours / 10; // Tenths
+        dst[0] = baseTile | (number + FILE_SELECT_TILE_NUMBER_HIGH);
+        dst[0 + 32] = baseTile | (number + FILE_SELECT_TILE_NUMBER_LOW);
+        
+        number = gSaveFilesInfo[file].igtHours % 10; // Seconds
+        dst[1] = baseTile | (number + FILE_SELECT_TILE_NUMBER_HIGH);
+        dst[1 + 32] = baseTile | (number + FILE_SELECT_TILE_NUMBER_LOW);
+
+        // :
+        dst[2] = baseTile | FILE_SELECT_TILE_TWO_DOTS_HIGH;
+        dst[2 + 32] = baseTile | FILE_SELECT_TILE_TWO_DOTS_LOW;
+
+        // Draw minutes
+        number = gSaveFilesInfo[file].igtMinutes / 10; // Tenths
+        dst[3] = baseTile | (number + FILE_SELECT_TILE_NUMBER_HIGH);
+        dst[3 + 32] = baseTile | (number + FILE_SELECT_TILE_NUMBER_LOW);
+        
+        number = gSaveFilesInfo[file].igtMinutes % 10; // Seconds
+        dst[4] = baseTile | (number + FILE_SELECT_TILE_NUMBER_HIGH);
+        dst[4 + 32] = baseTile | (number + FILE_SELECT_TILE_NUMBER_LOW);
+
+        // :
+        dst[5] = baseTile | FILE_SELECT_TILE_TWO_DOTS_HIGH;
+        dst[5 + 32] = baseTile | FILE_SELECT_TILE_TWO_DOTS_LOW;
+
+        // Draw seconds
+        number = gSaveFilesInfo[file].igtSconds / 10; // Tenths
+        dst[6] = baseTile | (number + FILE_SELECT_TILE_NUMBER_HIGH);
+        dst[6 + 32] = baseTile | (number + FILE_SELECT_TILE_NUMBER_LOW);
+        
+        number = gSaveFilesInfo[file].igtSconds % 10; // Seconds
+        dst[7] = baseTile | (number + FILE_SELECT_TILE_NUMBER_HIGH);
+        dst[7 + 32] = baseTile | (number + FILE_SELECT_TILE_NUMBER_LOW);
+    }
+    else
+    {
+        // File doesn't exists, draw --:--:--
+
+        // --
+        dst[0] = baseTile | FILE_SELECT_TILE_MINUS_HIGH;
+        dst[0 + 32] = baseTile | FILE_SELECT_TILE_MINUS_LOW;
+        dst[1] = baseTile | FILE_SELECT_TILE_MINUS_HIGH;
+        dst[1 + 32] = baseTile | FILE_SELECT_TILE_MINUS_LOW;
+
+        // :
+        dst[2] = baseTile | FILE_SELECT_TILE_TWO_DOTS_HIGH;
+        dst[2 + 32] = baseTile | FILE_SELECT_TILE_TWO_DOTS_LOW;
+
+        // --
+        dst[3] = baseTile | FILE_SELECT_TILE_MINUS_HIGH;
+        dst[3 + 32] = baseTile | FILE_SELECT_TILE_MINUS_LOW;
+        dst[4] = baseTile | FILE_SELECT_TILE_MINUS_HIGH;
+        dst[4 + 32] = baseTile | FILE_SELECT_TILE_MINUS_LOW;
+
+        // :
+        dst[5] = baseTile | FILE_SELECT_TILE_TWO_DOTS_HIGH;
+        dst[5 + 32] = baseTile | FILE_SELECT_TILE_TWO_DOTS_LOW;
+
+        // --
+        dst[6] = baseTile | FILE_SELECT_TILE_MINUS_HIGH;
+        dst[6 + 32] = baseTile | FILE_SELECT_TILE_MINUS_LOW;
+        dst[7] = baseTile | FILE_SELECT_TILE_MINUS_HIGH;
+        dst[7 + 32] = baseTile | FILE_SELECT_TILE_MINUS_LOW;
+    }
 }
 
 void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
