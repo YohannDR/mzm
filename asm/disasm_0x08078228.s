@@ -7419,7 +7419,7 @@ lbl_0807bd44: @ jump table
     .4byte lbl_0807bd70 @ case 3
     .4byte lbl_0807bd7a @ case 4
 lbl_0807bd58:
-    bl sub_08073300
+    bl SramWrite_FileScreenOptionsUnlocked
     ldr r2, lbl_0807bd6c @ =sNonGameplayRamPointer
     ldr r0, [r2]
     adds r0, #0x40

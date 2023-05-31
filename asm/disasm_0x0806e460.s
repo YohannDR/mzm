@@ -10346,8 +10346,8 @@ lbl_080732f4:
     .align 2, 0
 lbl_080732fc: .4byte gLanguage
 
-    thumb_func_start sub_08073300
-sub_08073300: @ 0x08073300
+    thumb_func_start SramWrite_FileScreenOptionsUnlocked
+SramWrite_FileScreenOptionsUnlocked: @ 0x08073300
     push {r4, r5, r6, lr}
     ldr r2, lbl_08073388 @ =0x08754bc8
     ldr r4, [r2]
@@ -10561,7 +10561,7 @@ lbl_080734b8:
     movs r0, #3
     movs r3, #0xc
     bl DMATransfer
-    bl sub_08073300
+    bl SramWrite_FileScreenOptionsUnlocked
 lbl_080734d0:
     add sp, #8
     pop {r3, r4}

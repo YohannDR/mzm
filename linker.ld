@@ -545,6 +545,8 @@ SECTIONS {
         asm/disasm_0x0808117c.o(.text);
         src/fusion_gallery.o(.text);
         asm/disasm_0x08084c34.o(.text);
+        src/chozodia_escape.o(.text);
+        asm/disasm_0x08088ea0.o(.text);
 
         asm/libgcc.o(.text);
         asm/disasm_0x0808af18.o(.text);
@@ -724,6 +726,8 @@ SECTIONS {
         /* 760458-760aa0 */
         src/data/menus/internal_title_screen_data.o(.rodata)
         src/data/menus/internal_game_over_data.o(.rodata)
-        /* 760b18-7f7734 */
+        /* 760b18-760d14 */
+        src/data/internal_chozodia_escape_data.o(.rodata)
+        /* 760d28-7f7734 */
     } >rom
 }

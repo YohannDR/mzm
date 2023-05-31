@@ -294,7 +294,7 @@ void CheckUnlockTimeAttack(void)
     if (gFileScreenOptionsUnlocked.timeAttack & 1 || !TimeAttackCheckSaveFileValidity())
         return;
 
-    pen = ChozodiaEscapeGetPercentAndEndingNumber();
+    pen = ChozodiaEscapeGetItemCountAndEndingNumber();
 
     mask = 0xFF;
     // TODO figure out how PEN is structured
@@ -753,7 +753,7 @@ u8 TimeAttackCheckSetNewRecord(void)
     converted100RecordIgt = (gTimeAttackRecord.igt100.hours << 24) + (gTimeAttackRecord.igt100.minutes << 16) +
         (gTimeAttackRecord.igt100.seconds << 8);
 
-    pen = ChozodiaEscapeGetPercentAndEndingNumber();
+    pen = ChozodiaEscapeGetItemCountAndEndingNumber();
 
     mask = 0xFF;
     // TODO figure out how PEN is structured

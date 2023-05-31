@@ -9588,7 +9588,7 @@ lbl_08011756:
     thumb_func_start SpriteUtilGetFinalCompletionPercentage
 SpriteUtilGetFinalCompletionPercentage: @ 0x0801175c
     push {r4, r5, lr}
-    bl ChozodiaEscapeGetPercentAndEndingNumber
+    bl ChozodiaEscapeGetItemCountAndEndingNumber
     lsrs r1, r0, #0x18
     lsrs r4, r0, #0x10
     lsls r4, r4, #0x18

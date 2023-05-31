@@ -3361,7 +3361,7 @@ u32 SpriteUtilGetFinalCompletionPercentage(void)
     u32 part4;
     u32 part5;
 
-    u32 pen = ChozodiaEscapeGetPercentAndEndingNumber();
+    u32 pen = ChozodiaEscapeGetItemCountAndEndingNumber();
 
     // TODO figure out how PEN is structured
     part1 = pen >> 0x18;

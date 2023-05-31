@@ -405,8 +405,8 @@ lbl_0807f3f2:
     bx r1
     .align 2, 0
 
-    thumb_func_start sub_0807f3fc
-sub_0807f3fc: @ 0x0807f3fc
+    thumb_func_start CheckUnlockTimeAttack
+CheckUnlockTimeAttack: @ 0x0807f3fc
     push {r4, r5, r6, r7, lr}
     mov r7, sb
     mov r6, r8
@@ -426,7 +426,7 @@ lbl_0807f414:
     bne lbl_0807f420
     b lbl_0807f5f4
 lbl_0807f420:
-    bl ChozodiaEscapeGetPercentAndEndingNumber
+    bl ChozodiaEscapeGetItemCountAndEndingNumber
     adds r3, r0, #0
     movs r0, #0xff
     lsrs r1, r3, #0x18
@@ -1334,8 +1334,8 @@ lbl_0807fae4:
     .align 2, 0
 lbl_0807fb44: .4byte 0x08760c68
 
-    thumb_func_start check_set_new_time_attack_record
-check_set_new_time_attack_record: @ 0x0807fb48
+    thumb_func_start TimeAttackCheckSetNewRecord
+TimeAttackCheckSetNewRecord: @ 0x0807fb48
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -1374,7 +1374,7 @@ check_set_new_time_attack_record: @ 0x0807fb48
     ldrb r0, [r0]
     lsls r0, r0, #8
     adds r5, r1, r0
-    bl ChozodiaEscapeGetPercentAndEndingNumber
+    bl ChozodiaEscapeGetItemCountAndEndingNumber
     movs r1, #0xff
     lsrs r2, r0, #0x18
     mov sl, r2
