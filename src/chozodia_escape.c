@@ -101,10 +101,12 @@ void ChozodiaEscapeSetupHBlankRegisters(void)
     write16(REG_IME, TRUE);
 }
 
+/**
+ * @brief 87a0c | e0 | Updates the explosion haze values
+ * 
+ */
 void ChozodiaEscapeUpdateExplosionHaze(void)
 {
-    // https://decomp.me/scratch/RBYls
-
     u32 slice, r5;
     u32 subSlice;
     i32 left;
@@ -137,8 +139,7 @@ void ChozodiaEscapeUpdateExplosionHaze(void)
     else
     {
         var_0 = 0;
-        size = 0xA0;
-        ++slice; --slice;
+        slice = size = 0xA0;
         slice = (i16)(var_1 - 80);
     }
 
