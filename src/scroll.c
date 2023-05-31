@@ -109,6 +109,13 @@ void ScrollScreen(u16 screenX, u16 screenY)
         gCamera.xVelocity = 0;
 }
 
+/**
+ * @brief 583e4 | 40 | Processes the X scrolling
+ * 
+ * @param pScroll Scroll pointer
+ * @param pCoords Coordinates pointer
+ * @return i32 Screen X
+ */
 i32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
     i32 xPosition;
@@ -125,6 +132,13 @@ i32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
         return pScroll->xEnd - 0x3C0;
 }
 
+/**
+ * @brief 58424 | 54 | Processes the Y scrolling
+ * 
+ * @param pScroll Scroll pointer
+ * @param pCoords Coordinates pointer
+ * @return i32 Screen Y
+ */
 i32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
     i32 yPosition;
@@ -375,15 +389,81 @@ void ScrollProcessGeneral(void)
     }
 }
 
+/**
+ * @brief 58834 | 14 | Handles the automatic scrolling in a room with no scrolls
+ * 
+ * @param pCoords Coordinates pointer
+ */
 void ScrollWithNoScrolls(struct RawCoordsX* pCoords)
 {
     ScrollWithNoScrollsX(pCoords);
     ScrollWithNoScrollsY(pCoords);
 }
 
+/**
+ * @brief 58848 | 100 | Handles the automatic Y scrolling in a room with no scrolls
+ * 
+ * @param pCoords Coordinates pointer
+ */
 void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
 {
+    i32 yOffset;
+    i32 clipPosition;
+    i32 offsetY;
+    i32 yPosition;
+    i32 yMovement;
 
+    if (!gLockScreen.lock)
+        yMovement = gSamusData.yPosition - gPreviousYPosition;
+    else
+        yMovement = 0;
+
+    if (gSamusData.pose == SPOSE_MORPH_BALL || gSamusData.pose == SPOSE_ROLLING || gSamusData.pose == SPOSE_PULLING_YOURSELF_INTO_A_MORPH_BALL_TUNNEL)
+    {
+        if (gScreenYOffset + 4 < HALF_BLOCK_SIZE)
+            gScreenYOffset += 2;
+        else
+            gScreenYOffset = HALF_BLOCK_SIZE;
+    }
+    else if (yMovement < 0)
+    {
+        if (gScreenYOffset + yMovement > 0)
+            gScreenYOffset += yMovement / 2;
+        else
+            gScreenYOffset = 0;
+    }
+
+    yPosition = pCoords->y;
+    offsetY = gScreenYOffset;
+    if (yPosition < BLOCK_SIZE * 8 - offsetY)
+        yOffset = BLOCK_SIZE * 2;
+    else
+    {
+        clipPosition = (gBGPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE) - BLOCK_SIZE * 6;
+        clipPosition -= offsetY;
+        if (yPosition > clipPosition)
+            clipPosition = clipPosition - BLOCK_SIZE * 6;
+        else
+            clipPosition = yPosition - BLOCK_SIZE * 6;
+        yOffset = clipPosition + offsetY;
+    }
+
+    gCamera.yPosition = yOffset;
+
+    yOffset -= gBG1YPosition;
+    if (yOffset > 0)
+    {
+        if (gUnk_3005714.unk6 < yOffset)
+            yOffset = gUnk_3005714.unk6;
+    }
+    else
+    {
+        if (yOffset < gUnk_3005714.unk4)
+            yOffset = gUnk_3005714.unk4;
+    }
+
+    gCamera.yVelocity = yOffset;
+    gBG1YPosition += yOffset;
 }
 
 /**
@@ -614,6 +694,11 @@ void ScrollAutoBG0(void)
     gBG0Movement.yOffset++;
 }
 
+/**
+ * @brief 58d20 | 80 | Gets the BG3 scrolling type
+ * 
+ * @return u32 Types (y << 16 | x)
+ */
 u32 ScrollGetBG3Scroll(void)
 {
     u32 xScroll;
@@ -735,6 +820,10 @@ void ScrollBG3(void)
     }
 }
 
+/**
+ * @brief 58ec4 | 50 | To document
+ * 
+ */
 void ScrollBG3Related(void)
 {
     u32 xScroll;
