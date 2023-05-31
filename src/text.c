@@ -493,15 +493,18 @@ void TextStartStory(u8 textID)
     gCurrentMessage.messageID = textID;
 }
 
+/**
+ * @brief 6f424 | 180 | Processes a story text
+ * 
+ * @return u8 Current line
+ */
 u8 TextProcessStory(void)
 {
-    // https://decomp.me/scratch/fxWFY
-
     i32 i;
     u32* dst;
     i32 flag;
     i32 maxLine;
-    register i32 state asm("r1");
+    i32 state;
 
     switch (gCurrentMessage.stage)
     {
@@ -536,24 +539,23 @@ u8 TextProcessStory(void)
             }
             else
             {
-                if (gCurrentMessage.line < 2 && !gCurrentMessage.messageEnded)
-                    dst = VRAM_BASE + 0x7000 + gCurrentMessage.line * 0x800;
+                if (gCurrentMessage.line >= 2 || gCurrentMessage.messageEnded)
+                    i = 0;
                 else
-                    goto lbl;
+                    dst = VRAM_BASE + 0x7000 + gCurrentMessage.line * 0x800;
             }
 
             if (i == 0)
             {
-                lbl:
                 gCurrentMessage.stage = 3;
                 break;
             }
             
             while (i != 0)
             {
-                state = TextProcessCurrentMessage(&gCurrentMessage, sStoryTextPointers[gLanguage][gCurrentMessage.messageID], dst);
+                maxLine = TextProcessCurrentMessage(&gCurrentMessage, sStoryTextPointers[gLanguage][gCurrentMessage.messageID], dst);
                 
-                switch (state)
+                switch (maxLine)
                 {
                     case 2:
                         gCurrentMessage.stage++;

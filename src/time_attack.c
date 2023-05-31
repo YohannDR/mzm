@@ -294,10 +294,9 @@ void CheckUnlockTimeAttack(void)
     if (gFileScreenOptionsUnlocked.timeAttack & 1 || !TimeAttackCheckSaveFileValidity())
         return;
 
-    pen = ChozodiaEscapeGetItemCountAndEndingNumber();
+    pen = GetPercentAndEndingNumber();
 
     mask = 0xFF;
-    // TODO figure out how PEN is structured
     part1 = pen >> 0x18;
     part2 = (pen >> 0x10) & mask;
 
@@ -353,8 +352,6 @@ void CheckUnlockTimeAttack(void)
     flags[29] = 1 & 1;
     flags[30] = 2 & 1;
     flags[31] = 1;
-
-    gFileScreenOptionsUnlocked.timeAttack = FALSE;
 
     i = 0;
     result = 0;
