@@ -184,6 +184,8 @@ void ScrollLoad(void)
 
 void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 {
+    // https://decomp.me/scratch/VHsfW
+
     struct Scroll* pScroll;
     u16 xPosition;
     u16 yPosition;
@@ -753,13 +755,19 @@ void ScrollAutoBG3(void)
     gBG3Movement.counter++;
 }
 
+/**
+ * @brief 58f40 | c8 | Scrolls the BG2
+ * 
+ * @param pCoords Coordinates pointer
+ */
 void ScrollBG2(struct RawCoordsX* pCoords)
 {
-    // https://decomp.me/scratch/zdm9e
-
     i32 size;
     i32 position;
+    u32 temp;
+    u8 temp2;
 
+    gCurrentRoomEntry.BG2Prop = gCurrentRoomEntry.BG2Prop;
     if (gCurrentRoomEntry.BG2Prop & BG_PROP_RLE_COMPRESSED)
     {
         if (gCurrentRoomEntry.BG2Prop & 0x20)
