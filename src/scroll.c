@@ -200,94 +200,92 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 {
     // https://decomp.me/scratch/VHsfW
 
-    struct Scroll* pScroll;
     u16 xPosition;
     u16 yPosition;
-    u32 scrollID;
-    u8* pData;
+    const u8* src;
+    const u8* data;
+    i32 nbrScrolls;
+    i32 i;
     i32 bounds[4];
     i32 bound;
     i32 limit;
-    u8 direction;
-    i32 i;
-
-    i = 0;
-    pScroll = gCurrentScrolls;
+    i32 value;
+    
     gCurrentScrolls[0].within = FALSE;
     gCurrentScrolls[1].within = FALSE;
 
-    xPosition = pCoords->x;
-    xPosition /= BLOCK_SIZE;
-    yPosition = pCoords->y - 1;
-    yPosition /= BLOCK_SIZE;
+    xPosition = pCoords->x / BLOCK_SIZE;
+    yPosition = (u32)(pCoords->y - 1) / BLOCK_SIZE;
 
-    pData = gCurrentRoomScrollDataPointer;
-    pData++;
-    scrollID = *pData++;
-
-    for (; scrollID != 0x0; scrollID--)
+    src = gCurrentRoomScrollDataPointer;
+    src++;
+    nbrScrolls = *src;
+    data = src + 1;
+    
+    for (i = 0; nbrScrolls != 0; nbrScrolls--)
     {
-        // cond
+        if (i == ARRAY_SIZE(gCurrentScrolls))
+            return;
         
-        bounds[0] = 0x0;
-        bounds[1] = 0x1;
-        bounds[2] = 0x2;
-        bounds[3] = 0x3;
+        bounds[0] = 0;
+        bounds[1] = 1;
+        bounds[2] = 2;
+        bounds[3] = 3;
 
-        if (pData[4] != 0xFF && pData[7] != 0xFF)
+        if (data[4] != UCHAR_MAX && data[7] != UCHAR_MAX)
         {
-            if (gBGPointersAndDimensions.pClipDecomp[pData[5] * gBGPointersAndDimensions.clipdataWidth + pData[4]] == 0x0 && pData[6] != 0xFF)
-                bounds[pData[6]] = 0x7;
+            limit = data[5] * gBGPointersAndDimensions.clipdataWidth + data[4];
+            if (gBGPointersAndDimensions.pClipDecomp[limit] == 0 && data[6] != UCHAR_MAX)
+                bounds[data[6]] = 7;
         }
         else
         {
-            if (gSamusData.pose == SPOSE_USING_AN_ELEVATOR && pData[7] != 0xFF && (u8)(pData[6] - 0x2) < 0x2)
-                bounds[pData[6]] = 0x7;
+            if (gSamusData.pose == SPOSE_USING_AN_ELEVATOR && data[7] != UCHAR_MAX && (data[6] == 2 || data[6] == 3))
+                bounds[data[6]] = 7;
         }
 
-        if (pData[bounds[0]] <= xPosition && xPosition <= pData[bounds[1]] && pData[bounds[2]] <= yPosition && yPosition <= pData[bounds[3]] && !pScroll->within)
+        if (data[bounds[0]] <= xPosition && xPosition <= data[bounds[1]] && data[bounds[2]] <= yPosition && yPosition <= data[bounds[3]] && !gCurrentScrolls[i].within)
         {
             limit = BLOCK_SIZE * 2;
-            bound = pData[bounds[0]] * BLOCK_SIZE;
-            if (bound < limit)
-                bound = limit;
-            pScroll[i].xStart = bound;
+            value = data[bounds[0]] * BLOCK_SIZE;
+            if (value < limit)
+                value = limit;
 
-            limit = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE - (BLOCK_SIZE * 2);
-            bound = (pData[bounds[1]] + 1) * BLOCK_SIZE;
+            gCurrentScrolls[i].xStart = value;
 
-            if (bound < limit)
-                bound = limit;
-            pScroll[i].xEnd = bound;
+            limit = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE - BLOCK_SIZE * 2;
+            value = bound < limit ? limit : (data[bounds[1]] + 1) * BLOCK_SIZE;
+
+            gCurrentScrolls[i].xEnd = value;
 
             limit = BLOCK_SIZE * 2;
-            bound = pData[bounds[2]] * BLOCK_SIZE;
+            value = data[bounds[2]] * BLOCK_SIZE;
+            if (value < limit)
+                value = limit;
+
+            gCurrentScrolls[i].yStart = value;
+
+            limit = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE - BLOCK_SIZE * 2;
+            bound = (data[bounds[3]] + 1) * BLOCK_SIZE;
             if (bound < limit)
                 bound = limit;
-            pScroll[i].yStart = bound;
 
-            limit = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE - (BLOCK_SIZE * 2);
-            bound = (pData[bounds[3]] + 1) * BLOCK_SIZE;
-
-            if (bound < limit)
-                bound = limit;
-            pScroll[i].yEnd = bound;
-
-            pScroll[i].within = 0x2;
+            gCurrentScrolls[i].yEnd = bound;
             
+            gCurrentScrolls[i].within = 2;
             i++;
         }
 
-        pData += 0x8;
+        data += SCROLL_SUB_DATA_SIZE;
     }
 
     if (!gCurrentScrolls[0].within && !gCurrentScrolls[1].within)
     {
         gCurrentScrolls[0].within = FALSE;
-        gCurrentScrolls[0].xEnd = 0x0;
-        gCurrentScrolls[0].xStart = 0x0;
-        gCurrentScrolls[0].yStart = 0x0;
-        gCurrentScrolls[0].yEnd = 0x0;
+        gCurrentScrolls[0].xEnd = 0;
+        gCurrentScrolls[0].xStart = 0;
+        gCurrentScrolls[0].yStart = 0;
+        gCurrentScrolls[0].yEnd = 0;
     }
 }
 
