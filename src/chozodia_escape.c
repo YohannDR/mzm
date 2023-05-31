@@ -608,13 +608,17 @@ u8 ChozodiaEscapeShipLeaving(void)
     return ended;
 }
 
+/**
+ * @brief 882dc | 22c | Handles the ship heating up part of the cutscene
+ * 
+ * @return u8 bool, ended
+ */
 u8 ChozodiaEscapeShipHeatingUp(void)
 {
-    // https://decomp.me/scratch/vi0Uw
-
     u8 ended;
     u32 timer;
-    u16 offset;
+    u32 offset;
+    u32 tmp;
     const u16* src1;
     const u16* src2;
 
@@ -671,25 +675,24 @@ u8 ChozodiaEscapeShipHeatingUp(void)
     timer = CHOZODIA_ESCAPE_DATA.timer;
     if ((u16)timer < 127)
     {
-        asm("":::"r2");
-        offset = (u16)timer / 16;
-        offset = sChozodiaEscapeHeatingUpPalOffsets[offset];
+        tmp = (u16)timer / 16;
+        offset = sChozodiaEscapeHeatingUpPalOffsets[tmp];
         src1 = &sChozodiaEscapeShipHeatingUpPAL[offset];
         src2 = &sChozodiaEscapeGroundHeatingUpPAL[offset];
-        dma_set(3, src1, PALRAM_OBJ, DMA_ENABLE << 16 | 16);
+        dma_set(3, src1, PALRAM_BASE + 0x200, DMA_ENABLE << 16 | 16);
         dma_set(3, src2, PALRAM_BASE + 0x280, DMA_ENABLE << 16 | 16);
     }
 
     if (CHOZODIA_ESCAPE_DATA.timer > 128)
     {
-        offset = CHOZODIA_ESCAPE_DATA.timer & 3;
-        if (offset == 1)
+        tmp = CHOZODIA_ESCAPE_DATA.timer & 3;
+        if (tmp == 1)
         {
             CHOZODIA_ESCAPE_DATA.oamYPositions[CHOZODIA_ESCAPE_OAM_MOTHER_SHIP_DOOR]--;
             CHOZODIA_ESCAPE_DATA.oamYPositions[CHOZODIA_ESCAPE_OAM_SHIP_EXTERIOR]--;
         }
 
-        if (offset == 3)
+        if (tmp == 3)
         {
             CHOZODIA_ESCAPE_DATA.oamYPositions[CHOZODIA_ESCAPE_OAM_MOTHER_SHIP_DOOR]++;
             CHOZODIA_ESCAPE_DATA.oamYPositions[CHOZODIA_ESCAPE_OAM_SHIP_EXTERIOR]++;
