@@ -63,7 +63,7 @@ void FileSelectDisplaySaveFileTimer(u8 file);
 void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file);
 
 void FileScreenSetEnabledMenuFlags(void);
-u8 unk_7d19c(u8 param_1, u8* pFileNumber);
+u8 FileSelectApplyMenuSelectInput(u8 set, u8* pFileNumber);
 void FileSelectFindFirstNonEmptyFile(u8* pFileNumber);
 u8 FileSelectUpdateSubMenu(void);
 u32 FileSelectCheckInputtingTimeAttackCode(void);

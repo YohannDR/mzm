@@ -719,7 +719,7 @@ u32 FileSelectCopyFileSubroutine(void)
 
             if (gChangedInput)
             {
-                if (unk_7d19c(1, &FILE_SELECT_DATA.copySourceFile))
+                if (FileSelectApplyMenuSelectInput(FILE_SELECT_SELECTION_SET_ONLY_FILES, &FILE_SELECT_DATA.copySourceFile))
                 {
                     action = 1;
                 }
@@ -767,7 +767,7 @@ u32 FileSelectCopyFileSubroutine(void)
             action = 0;
             if (gChangedInput)
             {
-                if (unk_7d19c(2, &FILE_SELECT_DATA.currentFile))
+                if (FileSelectApplyMenuSelectInput(FILE_SELECT_SELECTION_SET_ALL_FILES_NO_COPY, &FILE_SELECT_DATA.currentFile))
                 {
                     action = 1;
                 }
@@ -999,7 +999,7 @@ u32 FileSelectEraseFileSubroutine(void)
 
             if (gChangedInput)
             {
-                if (unk_7d19c(1, &FILE_SELECT_DATA.eraseFile))
+                if (FileSelectApplyMenuSelectInput(FILE_SELECT_SELECTION_SET_ONLY_FILES, &FILE_SELECT_DATA.eraseFile))
                 {
                     action = 1;
                 }
@@ -3859,14 +3859,20 @@ void FileScreenSetEnabledMenuFlags(void)
     FILE_SELECT_DATA.enabledMenus |= MENU_FLAG_OPTIONS;
 }
 
-u8 unk_7d19c(u8 param_1, u8* pFileNumber)
+/**
+ * @brief 7d19c | 94 | Applies the up/down movement
+ * 
+ * @param set Set allowed
+ * @param pFileNumber File number pointer
+ * @return u8 Could move
+ */
+u8 FileSelectApplyMenuSelectInput(u8 set, u8* pFileNumber)
 {
-    // https://decomp.me/scratch/vL4yf
-
     i32 direction;
     u8 position;
     u8 flags;
 
+    // Get direction
     if (gChangedInput & KEY_UP)
         direction = -1;
     else if (gChangedInput & KEY_DOWN)
@@ -3874,33 +3880,59 @@ u8 unk_7d19c(u8 param_1, u8* pFileNumber)
     else
         return 0;
 
+    // Get current position
     position = *pFileNumber;
+
+    // Use enabled menus
     flags = FILE_SELECT_DATA.enabledMenus;
 
-    if (param_1 == 0)
-        flags |= (MENU_FLAG_FILE_A | MENU_FLAG_FILE_B | MENU_FLAG_FILE_C);
-    else if (param_1 == 1)
-        flags &= (MENU_FLAG_FILE_A | MENU_FLAG_FILE_B | MENU_FLAG_FILE_C);
-    else if (param_1 == 2)
-        flags = (MENU_FLAG_FILE_A | MENU_FLAG_FILE_B | MENU_FLAG_FILE_C) & ~(1 << FILE_SELECT_DATA.copySourceFile);
-
-    if (direction != 0)
+    if (set == FILE_SELECT_SELECTION_SET_ALL_FILES)
     {
-        do
+        // Add all files
+        flags |= (MENU_FLAG_FILE_A | MENU_FLAG_FILE_B | MENU_FLAG_FILE_C);
+    }
+    else if (set == FILE_SELECT_SELECTION_SET_ONLY_FILES)
+    {
+        // Keep only all files
+        flags &= (MENU_FLAG_FILE_A | MENU_FLAG_FILE_B | MENU_FLAG_FILE_C);
+    }
+    else if (set == FILE_SELECT_SELECTION_SET_ALL_FILES_NO_COPY)
+    {
+        // Add all files except the copy source
+        flags = (MENU_FLAG_FILE_A | MENU_FLAG_FILE_B | MENU_FLAG_FILE_C) & ~(1 << FILE_SELECT_DATA.copySourceFile);
+    }
+
+    while (TRUE)
+    {
+        if (direction != 0)
         {
-            if (position + direction > 5)
+            // Check for limit
+            if ((u32)(position + direction) > FILE_SELECT_CURSOR_POSITION_OPTIONS)
             {
+                // Couldn't move, abort
                 direction = FALSE;
                 break;
             }
+
+            // Move the cursor
             position += direction;
         }
-        while (!((flags >> position) & 1));
-    
-        *pFileNumber = position;
-        direction = TRUE;
+        else
+        {
+            // No direction, break
+            break;
+        }
+
+        if ((flags >> position) & 1)
+        {
+            // Write position
+            *pFileNumber = position;
+
+            // Could move, exit
+            direction = TRUE;
+            break;
+        }
     }
-    
 
     return direction;
 }
@@ -3949,8 +3981,11 @@ u8 FileSelectUpdateSubMenu(void)
 
             if (gChangedInput)
             {
-                if (unk_7d19c(0, &FILE_SELECT_DATA.fileSelectCursorPosition))
+                if (FileSelectApplyMenuSelectInput(FILE_SELECT_SELECTION_SET_ALL_FILES,
+                    &FILE_SELECT_DATA.fileSelectCursorPosition))
+                {
                     result = 1;
+                }
                 else
                 {
                     if (gChangedInput & KEY_B)
