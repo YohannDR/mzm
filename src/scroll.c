@@ -386,15 +386,19 @@ void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
 
 }
 
+/**
+ * @brief 58948 | d0 | Handles the automatic X scrolling in a room with no scrolls
+ * 
+ * @param pCoords Coordinates pointer
+ */
 void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
 {
-    // https://decomp.me/scratch/yaHOg
-
     i32 xOffset;
-    u16 xPosition;
     i32 clipPosition;
+    i32 offsetX;
+    i32 xPosition;
 
-    xOffset = 0x0;
+    xOffset = 0;
     if (!gLockScreen.lock && gSamusPhysics.standingStatus == STANDING_NOT_IN_CONTROL)
     {
         if (gSamusData.direction & KEY_RIGHT)
@@ -404,23 +408,28 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
     }
 
     gScreenXOffset = xOffset;
-
+        
     xPosition = pCoords->x;
-    if (xPosition < 0x260 - gScreenXOffset)
+    offsetX = gScreenXOffset;
+    if (xPosition < (BLOCK_SIZE * 9 + HALF_BLOCK_SIZE) - offsetX)
         xOffset = BLOCK_SIZE * 2;
     else
     {
-        clipPosition = (0x260 + gBGPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE) - gScreenXOffset;
-        if (xPosition > clipPosition)        
-            xOffset = gScreenXOffset + (clipPosition - 0x1E0);
+        do {
+            clipPosition = (gBGPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE) - (BLOCK_SIZE * 9 + HALF_BLOCK_SIZE);
+            clipPosition -= offsetX;
+        }while(0);
+        if (xPosition > clipPosition)
+            clipPosition = clipPosition - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE);
         else
-            xOffset = gScreenXOffset + (clipPosition - 0x1E0);
+            clipPosition = xPosition - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE);
+        xOffset = clipPosition + offsetX;
     }
 
     gCamera.xPosition = xOffset;
 
     xOffset -= gBG1XPosition;
-    if (xOffset > 0x0)
+    if (xOffset > 0)
     {
         if (gUnk_3005714.unk2 < xOffset)
             xOffset = gUnk_3005714.unk2;
