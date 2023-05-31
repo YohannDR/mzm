@@ -378,24 +378,32 @@ void CheckUnlockTimeAttack(void)
     gFileScreenOptionsUnlocked.timeAttack = result;
 }
 
+/**
+ * @brief 7f60c | 88 | To document
+ * 
+ * @param param_1 To document
+ * @return u8 To document
+ */
 u8 unk_7f60c(u8* param_1)
 {
-    // https://decomp.me/scratch/JPI7a
-
     u8 i;
     u32 sum;
     u8 mask;
     u32 unk_0;
     u32 j;
+    u32 flags;
 
+    do {
     if (!(gFileScreenOptionsUnlocked.timeAttack & 1))
         return FALSE;
+    flags = gFileScreenOptionsUnlocked.timeAttack;
+    }while(0);
 
     sum = 0;
     mask = 31;
     for (i = 0; i < 32; i++)
     {
-        sum += (gFileScreenOptionsUnlocked.timeAttack >> i & 1) << mask;
+        sum += (flags >> i & 1) << mask;
         mask--;
     }
 
@@ -594,6 +602,8 @@ void TimeAttackRandomizeSeed(u8* pSeed, u32 rng)
 
 u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
 {
+    // https://decomp.me/scratch/D8huk
+
     u8 seed[16];
     i32 i;
     i32 j;
