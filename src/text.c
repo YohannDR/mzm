@@ -477,9 +477,88 @@ void TextStartMessage(u8 textID, u8 gfxSlot)
     gCurrentMessage.gfxSlot = gfxSlot;
 }
 
-void TextProcessItemBanner(void)
+/**
+ * @brief 6f28c | 178 | Processes an item banner text
+ * 
+ * @return u8 Current line
+ */
+u8 TextProcessItemBanner(void)
 {
+    i32 i;
+    u32 flag;
 
+    switch (gCurrentMessage.stage)
+    {
+        case 0:
+            BitFill(3, -1, VRAM_BASE + 0x14000 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
+            BitFill(3, -1, VRAM_BASE + 0x14400 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
+
+            gCurrentMessage.stage++;
+            break;
+
+        case 1:
+            BitFill(3, -1, VRAM_BASE + 0x14800 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
+            BitFill(3, -1, VRAM_BASE + 0x14C00 + gCurrentMessage.gfxSlot * 0x800, 0x380, 32);
+            
+            gCurrentMessage.stage++;
+            break;
+
+        case 2:
+            i = 8;
+            if (gCurrentMessage.line > 1 || gCurrentMessage.messageEnded)
+            {
+                gCurrentMessage.stage++;
+                i = 0;
+            }
+
+            if (i == 0)
+                break;
+
+            while (i != 0)
+            {
+                switch (TextProcessCurrentMessage(&gCurrentMessage,
+                    sMessageTextpointers[gLanguage][gCurrentMessage.messageID],
+                    VRAM_BASE + 0x14000 + gCurrentMessage.gfxSlot * 0x800 + gCurrentMessage.line * 0x800))
+                {
+                    case 2:
+                        gCurrentMessage.stage++;
+
+                    case 1:
+                    case 4:
+                        gCurrentMessage.indent = 0;
+                        flag = TRUE;
+                        break;
+
+                    default:
+                        flag = FALSE;
+                }
+
+                if (flag)
+                    break;
+
+                if (gCurrentMessage.line > 1)
+                    break;
+
+                i--;
+            }
+            break;
+
+        case 3:
+            gCurrentMessage.line++;
+            if (gCurrentMessage.messageID <= MESSAGE_POWER_GRIP)
+            {
+                gCurrentItemBeingAcquired = gCurrentMessage.messageID;
+                if (gCurrentMessage.messageID >= MESSAGE_LONG_BEAM)
+                    BgClipFinishCollectingAbility();
+            }
+            gCurrentMessage.stage++;
+
+        case 4:
+        default:
+            return gCurrentMessage.line;
+    }
+
+    return 0;
 }
 
 /**
@@ -498,64 +577,26 @@ void TextStartStory(u8 textID)
  * 
  * @return u8 Current line
  */
-u8 TextProcessStory(void)
+u8 TextProcessFileScreenPopUp(void)
 {
     i32 i;
     u32* dst;
     i32 flag;
-    i32 maxLine;
-    i32 state;
 
     switch (gCurrentMessage.stage)
     {
         case 0:
-            if (gCurrentMessage.messageID == STORY_TEXT_THE_TIMING)
+            i = 8;
+            if (gCurrentMessage.line > 3 || gCurrentMessage.messageEnded)
             {
-                gCurrentMessage.stage = 2;
-                gCurrentMessage.gfxSlot = 1;
-            }
-            else
-            {
-                BitFill(3, 0, VRAM_BASE + 0x7000, 0x380, 0x20);
-                BitFill(3, 0, VRAM_BASE + 0x7400, 0x380, 0x20);
                 gCurrentMessage.stage = 1;
-            }
-            break;
-
-        case 1:
-            BitFill(3, 0, VRAM_BASE + 0x7800, 0x380, 0x20);
-            BitFill(3, 0, VRAM_BASE + 0x7C00, 0x380, 0x20);
-            gCurrentMessage.stage++;
-            break;
-
-        case 2:
-            i = 6;
-            if (gCurrentMessage.gfxSlot != 0)
-            {
-                if (gCurrentMessage.line < 10 && !gCurrentMessage.messageEnded)
-                    dst = VRAM_BASE + 0x13000 + gCurrentMessage.line * 0x800;
-                else
-                    i = 0;
-            }
-            else
-            {
-                if (gCurrentMessage.line >= 2 || gCurrentMessage.messageEnded)
-                    i = 0;
-                else
-                    dst = VRAM_BASE + 0x7000 + gCurrentMessage.line * 0x800;
-            }
-
-            if (i == 0)
-            {
-                gCurrentMessage.stage = 3;
                 break;
             }
-            
-            while (i != 0)
+
+            dst = VRAM_BASE + gCurrentMessage.line * 0x800;
+            for (; i != 0; i--)
             {
-                maxLine = TextProcessCurrentMessage(&gCurrentMessage, sStoryTextPointers[gLanguage][gCurrentMessage.messageID], dst);
-                
-                switch (maxLine)
+                switch (TextProcessCurrentMessage(&gCurrentMessage, sFileScreenTextPointers[gLanguage][gCurrentMessage.messageID], dst))
                 {
                     case 2:
                         gCurrentMessage.stage++;
@@ -570,27 +611,18 @@ u8 TextProcessStory(void)
                         flag = FALSE;
                 }
 
-                if (flag)
+                if (flag || gCurrentMessage.line > 3)
                     break;
-
-                if (gCurrentMessage.gfxSlot)
-                    maxLine = 10;
-                else
-                    maxLine = 2;
-
-                if (gCurrentMessage.line >= maxLine)
-                    break;
-
-                i--;
             }
-
             break;
 
-        case 3:
+        case 1:
             gCurrentMessage.line++;
             gCurrentMessage.stage++;
 
-        case 4:
+        case 2:
+            return gCurrentMessage.line;
+        
         default:
             return gCurrentMessage.line;
     }
