@@ -233,7 +233,67 @@ void BgClipCheckWalkingOnCrumbleBlock(void)
 
 void BgClipCheckTouchingTransitionOnElevator(void)
 {
+    // https://decomp.me/scratch/tH2oX
 
+    u32 goingDown;
+    i32 position;
+    i32 xPosition;
+    i32 yPosition;
+    u32 _xPosition;
+    i32 onTransition;
+    u16 behavior;
+
+    goingDown = (gSamusData.elevatorDirection ^ KEY_UP) != 0;
+
+    position = gSamusData.xPosition;
+    if (position > gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE)
+        position = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
+
+    xPosition = (u16)(position >> 6);
+
+    if (!goingDown)
+    {
+        position = gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset + BLOCK_SIZE * 2;
+    }
+    else
+    {
+        position = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset - BLOCK_SIZE * 2;
+    }
+
+    behavior = (u16)position;
+    if (position < 0)
+        behavior = 0;
+    else
+    {
+        if (behavior > gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE)
+            behavior = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
+    }
+
+    yPosition = behavior / BLOCK_SIZE;
+
+    onTransition = gBGPointersAndDimensions.pClipDecomp[
+        yPosition * gBGPointersAndDimensions.clipdataWidth + xPosition];
+    behavior = gTilemapAndClipPointers.pClipBehaviors[onTransition];
+
+    onTransition = FALSE;
+    if (!goingDown)
+    {
+        if (behavior == CLIP_BEHAVIOR_VERTICAL_UP_TRANSITION)
+            onTransition = TRUE;
+    }
+    else
+    {
+        if (behavior == CLIP_BEHAVIOR_VERTICAL_DOWN_TRANSITION)
+            onTransition = TRUE;
+    }
+
+    if (!onTransition)
+        return;
+
+    if (!ConnectionCheckAreaConnection(yPosition, xPosition))
+    {
+        ConnectionCheckEnterDoor(yPosition, xPosition);
+    }
 }
 
 void BgClipCheckTouchingTransitionOrTank(void)
