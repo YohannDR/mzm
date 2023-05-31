@@ -5439,7 +5439,41 @@ u32 FileSelectUpdateTilemap(u8 request)
 
 void unk_7eedc(u16* pTilemap)
 {
+    // https://decomp.me/scratch/M4UO4
 
+    i32 i;
+    i32 j;
+    u16 baseTile;
+    u16 completion;
+    u32 offset;
+    u32 mask;
+
+    u16* base;
+    u16* high;
+    u16* low;
+    
+    completion = gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].completedGame & 0x7;
+    completion |= ((u16)gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].completedGame >> 3) & 0x7;
+
+    offset = 32 * 8;
+    for (i = 0; i < 3; i++)
+    {
+        baseTile = (completion >> i) & 1 ? 14 << 12 : 15 << 12;
+
+        mask = 0x3FF;
+
+        low = &pTilemap[i * 128 + offset + 4];
+        high = &pTilemap[i * 128 + offset + 0x22];
+
+        for (j = 0; j < 16; j++)
+        {
+            high[j] &= mask;
+            high[j] |= baseTile;
+
+            low[j] &= mask;
+            low[j] |= baseTile;
+        }
+    }
 }
 
 /**
