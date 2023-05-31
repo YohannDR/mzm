@@ -2356,19 +2356,25 @@ u32 OptionsSoundTestCheckNotAlreadyPlaying(void)
     return notCurrentlyPlaying;
 }
 
+/**
+ * @brief 7b094 | b0 | Updates the number graphics of the sound test id
+ * 
+ */
 void OptionsSoundTestUpdateIdGfx(void)
 {
-    // https://decomp.me/scratch/z7OZ0
-
     u32 number;
+    u32 offset;
 
-    number = FILE_SELECT_DATA.soundTestId / 10 * 32 + 0xA00;
-    DMATransfer(3, &sCharactersGfx[number], VRAM_BASE + 0x103C0, 32, 16);
-    DMATransfer(3, &sCharactersGfx[number + 0x400], VRAM_BASE + 0x107C0, 32, 16);
+    number = FILE_SELECT_DATA.soundTestId / 10 * 32;
+    offset = 0xA00;
+    DMATransfer(3, &sCharactersGfx[number + offset], VRAM_BASE + 0x103C0, 32, 16);
+    DMATransfer(3, &sCharactersGfx[number + offset + 0x400], VRAM_BASE + 0x107C0, 32, 16);
 
+    offset = 0;
     number = FILE_SELECT_DATA.soundTestId % 10 * 32;
-    DMATransfer(3, &sCharactersGfx[number + 0xA00], VRAM_BASE + 0x103E0, 32, 16);
-    DMATransfer(3, &sCharactersGfx[number + 0x400], VRAM_BASE + 0x107E0, 32, 16);
+    offset = 0xA00;
+    DMATransfer(3, &sCharactersGfx[number + offset], VRAM_BASE + 0x103E0, 32, 16);
+    DMATransfer(3, &sCharactersGfx[number + offset + 0x400], VRAM_BASE + 0x107E0, 32, 16);
 }
 
 /**
