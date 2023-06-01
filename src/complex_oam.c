@@ -43,8 +43,8 @@ u8 ProcessComplexOam(u32 oamSlot, i16 xPosition, i16 yPosition, u16 rotation, i1
     x = x + unk_x;
     y = y + unk_y;
 
-    gOamData[oamSlot].split.y = x * cos(rotation) - y * sin(rotation);
-    gOamData[oamSlot].split.y = y * sin(rotation) + y * cos(rotation);
+    gOamData[oamSlot].split.x = x * cos(rotation) - y * sin(rotation);
+    gOamData[oamSlot].split.y = x * sin(rotation) + y * cos(rotation);
 
     if (!doubleSize)
     {

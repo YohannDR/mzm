@@ -1263,6 +1263,8 @@ void unk_f9e7(i16 movement)
 
 u8 SpriteUtilMakeSpriteFaceSamusRotation(i16 oamRotation, i16 samusY, i16 samusX, i16 spriteY, i16 spriteX)
 {
+    // https://decomp.me/scratch/QMDVm
+
     i16 var_0;
     u16 var_1;
     u16 intensity;

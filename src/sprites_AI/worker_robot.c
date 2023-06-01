@@ -266,9 +266,149 @@ void WorkerRobotWalkingInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
 }
 
+/**
+ * @brief 2f968 | 25c | Handles the worker robot walking 
+ * 
+ */
 void WorkerRobotWalking(void)
 {
+    u16 movement;
+    u32 collision;
 
+    unk_f594();
+
+    if (gPreviousVerticalCollisionCheck == COLLISION_AIR)
+    {
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + HALF_BLOCK_SIZE) == COLLISION_AIR)
+        {
+            collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - HALF_BLOCK_SIZE);   
+
+            if (collision == COLLISION_AIR)
+            {
+                gCurrentSprite.pose = WORKER_ROBOT_POSE_FALLING_INIT;
+
+                if (gCurrentSprite.workVariable == 0)
+                    return;
+
+                gCurrentSprite.workVariable = collision;
+                if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                {
+                    if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
+                        gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                }
+                else
+                {
+                    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                        gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                }
+                
+                return;
+            }
+        }
+    }
+
+    movement = 1;
+    WorkerRobotWalkingDetectProjectile();
+
+    if (gCurrentSprite.workVariable != 0)
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && (gCurrentSprite.currentAnimationFrame & 3) == 3 &&
+            gCurrentSprite.animationDurationCounter == 6)
+        {
+            SoundPlayNotAlreadyPlaying(0x26E);
+        }
+
+        gCurrentSprite.animationDurationCounter += 4;
+        movement = gCurrentSprite.workVariable / 4;
+        if (movement > 8u)
+            movement = 8;
+        else if (movement == 0)
+            movement = 1;
+
+        gCurrentSprite.workVariable--;
+
+        if (gCurrentSprite.workVariable == 0)
+        {
+            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+            {
+                if (!(gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
+                    gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                
+                gCurrentSprite.pose = WORKER_ROBOT_POSE_STANDING_INIT;
+            }
+            else
+            {
+                if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                
+                gCurrentSprite.pose = WORKER_ROBOT_POSE_STANDING_INIT;
+            }
+            return;
+        }
+    }
+    else
+    {
+        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN && (gCurrentSprite.currentAnimationFrame & 3) == 3 &&
+            gCurrentSprite.animationDurationCounter == 8)
+        {
+            SoundPlayNotAlreadyPlaying(0x26E);
+        }
+
+        if (WorkerRobotCheckSamusInFront())
+        {
+            gCurrentSprite.pose = WORKER_ROBOT_POSE_BACK_TO_SLEEP_INIT;
+            return;
+        }
+    }
+
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+    {
+        if (gPreviousVerticalCollisionCheck & 0xF0)
+        {
+            if (gCurrentSprite.workVariable == 0 &&
+                SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition + HALF_BLOCK_SIZE) == COLLISION_AIR)
+            {
+                gCurrentSprite.pose = WORKER_ROBOT_POSE_BACK_TO_SLEEP_INIT;
+                return;
+            }
+            
+            if ((u8)SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + 8),
+                gCurrentSprite.xPosition + HALF_BLOCK_SIZE + 8) == COLLISION_SOLID)
+            {
+                if (gCurrentSprite.workVariable == 0)
+                    gCurrentSprite.pose = WORKER_ROBOT_POSE_BACK_TO_SLEEP_INIT;
+                return;
+            }
+        }
+
+        gCurrentSprite.xPosition += movement;
+        if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_ON_TOP)
+            gSamusData.xPosition += movement;
+    }
+    else
+    {
+        if (gPreviousVerticalCollisionCheck & 0xF0)
+        {
+            if (gCurrentSprite.workVariable == 0 &&
+                SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition - HALF_BLOCK_SIZE) == COLLISION_AIR)
+            {
+                gCurrentSprite.pose = WORKER_ROBOT_POSE_BACK_TO_SLEEP_INIT;
+                return;
+            }
+            
+            if ((u8)SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + 8),
+                gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + 8)) == COLLISION_SOLID)
+            {
+                if (gCurrentSprite.workVariable == 0)
+                    gCurrentSprite.pose = WORKER_ROBOT_POSE_BACK_TO_SLEEP_INIT;
+                return;
+            }
+        }
+
+        gCurrentSprite.xPosition -= movement;
+        if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_ON_TOP)
+            gSamusData.xPosition -= movement;
+    }
 }
 
 void WorkerRobotBackToSleepInit(void)
