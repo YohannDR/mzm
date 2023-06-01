@@ -15,17 +15,21 @@
 #include "structs/samus.h"
 #include "structs/projectile.h"
 
+/**
+ * @brief 2f534 | c4 | Checks if samus is in front of the worker robot
+ * 
+ * @return u8 bool, in front
+ */
 u8 WorkerRobotCheckSamusInFront(void)
 {
-    // https://decomp.me/scratch/bljwu
-
     u16 spriteY;
-    u16 spriteX;
+    u32 spriteX;
     u16 spriteTop;
+    u16 spriteBottom;
     u16 spriteLeft;
     u16 spriteRight;
     u16 samusY;
-    u16 samusX;
+    u32 samusX;
     u16 samusTop;
     u16 samusBottom;
     u16 samusLeft;
@@ -36,17 +40,18 @@ u8 WorkerRobotCheckSamusInFront(void)
         spriteY = gCurrentSprite.yPosition;
         spriteX = gCurrentSprite.xPosition;
         spriteTop = spriteY - 0xA4;
-        spriteLeft = spriteY - 0x48;
-        spriteRight = spriteY + 0x48;
+        spriteBottom = spriteY + 0x0;
+        spriteLeft = spriteX - 0x48;
+        spriteRight = spriteX + 0x48;
 
         samusY = gSamusData.yPosition;
         samusX = gSamusData.xPosition;
-        samusTop = samusY + gSamusPhysics.drawDistanceTopOffset;
-        samusBottom = samusY + gSamusPhysics.drawDistanceBottomOffset;
-        samusLeft = samusX + gSamusPhysics.drawDistanceLeftOffset;
-        samusRight = samusX + gSamusPhysics.drawDistanceRightOffset;
+        samusTop = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset;
+        samusBottom = gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset;
+        samusLeft = gSamusData.xPosition + gSamusPhysics.drawDistanceLeftOffset;
+        samusRight = gSamusData.xPosition + gSamusPhysics.drawDistanceRightOffset;
 
-        if (SpriteUtilCheckObjectsTouching(spriteTop, spriteY, spriteLeft, spriteRight,
+        if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight,
             samusTop, samusBottom, samusLeft, samusRight))
         {
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
