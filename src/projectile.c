@@ -517,10 +517,13 @@ void ProjectileDrawAllStatusTrue(void)
     }
 }
 
+/**
+ * @brief 4f3c4 | 1b4 | Draws a projectile
+ * 
+ * @param pProj Projectile data pointer
+ */
 void ProjectileDraw(struct ProjectileData* pProj)
 {
-    // https://decomp.me/scratch/hDI0c
-
     const u16* src;
     u16* dst;
     u32 bgPriority;
@@ -536,6 +539,7 @@ void ProjectileDraw(struct ProjectileData* pProj)
     u32 shape;
     u32 size;
     i32 partCount;
+    u32 offset;
     
     prevSlot = gNextOamSlot;
     src = pProj->pOam[pProj->currentAnimationFrame].pFrame;
@@ -546,8 +550,8 @@ void ProjectileDraw(struct ProjectileData* pProj)
     {
         dst = (u16*)(gOamData + prevSlot);
 
-        yPosition = (pProj->yPosition / 4) - gBG1YPosition / 4;
-        xPosition = (pProj->xPosition / 4) - gBG1XPosition / 4;
+        yPosition = (pProj->yPosition >> 2) - gBG1YPosition / 4;
+        xPosition = (pProj->xPosition >> 2) - gBG1XPosition / 4;
 
         xFlip = pProj->status & PROJ_STATUS_XFLIP;
         yFlip = pProj->status & PROJ_STATUS_YFLIP;
@@ -574,17 +578,23 @@ void ProjectileDraw(struct ProjectileData* pProj)
             if (xFlip)
             {
                 gOamData[prevSlot + i].split.xFlip ^= TRUE;
+                
                 shape = gOamData[prevSlot + i].split.shape;
                 size = gOamData[prevSlot + i].split.size;
-                gOamData[prevSlot + i].split.x = xPosition - (part2 + sOamXFlipOffsets[shape][size] * 8);
+                offset = sOamXFlipOffsets[shape][size];
+                
+                gOamData[prevSlot + i].split.x = xPosition - (part2 + offset * 8);
             }
 
             if (yFlip)
             {
                 gOamData[prevSlot + i].split.yFlip ^= TRUE;
+                
                 shape = gOamData[prevSlot + i].split.shape;
                 size = gOamData[prevSlot + i].split.size;
-                gOamData[prevSlot + i].split.y = yPosition - (part1 + sOamYFlipOffsets[shape][size] * 8);
+                offset = sOamYFlipOffsets[shape][size];
+                
+                gOamData[prevSlot + i].split.y = yPosition - (part1 + offset * 8);
             }
             
             dst++;
