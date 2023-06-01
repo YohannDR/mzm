@@ -135,10 +135,11 @@ void WorkerRobotChecWakingUpAnimEnded(void)
 void WorkerRobotWalkingDetectProjectile(void)
 {
     // https://decomp.me/scratch/P1vZU
-
+    
     struct ProjectileData* pProj;
     u8 type;
     u8 onSide;
+    u8 status;
     
     u16 projY;
     u16 projX;
@@ -161,79 +162,84 @@ void WorkerRobotWalkingDetectProjectile(void)
     spriteBottom = spriteY + gCurrentSprite.hitboxBottomOffset;
     spriteLeft = spriteX + gCurrentSprite.hitboxLeftOffset;
     spriteRight = spriteX + gCurrentSprite.hitboxRightOffset;
-    pProj = gProjectileData;
 
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
-        if ((pProj->status & (PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT)) == (PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT))
+        status = pProj->status;
+        if ((status & (PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT)) != (PROJ_STATUS_EXISTS | PROJ_STATUS_CAN_AFFECT_ENVIRONMENT))
+            continue;
+
+        type = pProj->type;
+        if (type != PROJ_TYPE_MISSILE && type != PROJ_TYPE_SUPER_MISSILE)
+            continue;
+
+        projY = pProj->yPosition;
+        projX = pProj->xPosition;
+        projTop = projY + pProj->hitboxTopOffset;
+        projBottom = projY + pProj->hitboxBottomOffset;
+        projLeft = projX + pProj->hitboxLeftOffset;
+        projRight = projX + pProj->hitboxRightOffset;
+            
+        if (!SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, projTop, projBottom, projLeft, projRight))
+            continue;
+
+        if (pProj->direction == ACD_FORWARD ||
+            ((pProj->direction == ACD_DIAGONALLY_UP || pProj->direction == ACD_DIAGONALLY_DOWN) &&
+            projY > spriteTop && projY < spriteBottom))
         {
-            type = pProj->type;
-            if ((u8)(type - 0xC) < 0x2)
+            onSide++;
+        }
+        
+        if (onSide)
+        {
+            if (pProj->status & PROJ_STATUS_XFLIP)
             {
-                projY = pProj->yPosition;
-                projX = pProj->xPosition;
-                projTop = projY + pProj->hitboxTopOffset;
-                projBottom = projY + pProj->hitboxBottomOffset;
-                projLeft = projX + pProj->hitboxLeftOffset;
-                projRight = projX + pProj->hitboxRightOffset;
-
-                if (SpriteUtilCheckObjectsTouching(spriteTop, spriteBottom, spriteLeft, spriteRight, projTop, projBottom, projLeft, projRight))
+                projX = spriteLeft;
+                gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
+                if (!(gCurrentSprite.status & SPRITE_STATUS_XFLIP))
                 {
-                    if (pProj->direction == ACD_FORWARD || ((u8)(pProj->direction - 0x1) < 0x2 && projY > spriteTop && projY < spriteBottom))
-                        onSide++;
-                    
-                    if (onSide)
-                    {
-                        if (pProj->status & PROJ_STATUS_XFLIP)
-                        {
-                            projX = spriteLeft;
-                            gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
-                            if (!(gCurrentSprite.status & SPRITE_STATUS_XFLIP))
-                            {
-                                if (gCurrentSprite.pOam != sWorkerRobotOAM_WalkingBackwards)
-                                    gCurrentSprite.pOam = sWorkerRobotOAM_WalkingBackwards;
-                            }
-                            else
-                            {
-                                if (gCurrentSprite.pOam != sWorkerRobotOAM_Walking)
-                                    gCurrentSprite.pOam = sWorkerRobotOAM_Walking;
-                            }
-                        }
-                        else
-                        {
-                            projX = spriteRight;
-                            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
-                            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-                            {
-                                if (gCurrentSprite.pOam != sWorkerRobotOAM_WalkingBackwards)
-                                    gCurrentSprite.pOam = sWorkerRobotOAM_WalkingBackwards;
-                            }
-                            else
-                            {
-                                if (gCurrentSprite.pOam != sWorkerRobotOAM_Walking)
-                                    gCurrentSprite.pOam = sWorkerRobotOAM_Walking;
-                            }
-                        }
-                        gCurrentSprite.animationDurationCounter = 0x0;
-                    }
-
-                    if (type == PROJ_TYPE_SUPER_MISSILE)
-                    {
-                        ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
-                        if (onSide)
-                            gCurrentSprite.workVariable = 0x3C;
-                    }
-                    else
-                    {
-                        ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_MISSILE);
-                        if (onSide)
-                            gCurrentSprite.workVariable = 0x1E;
-                    }
-                    pProj->status = 0x0;
-                    break;
+                    if (gCurrentSprite.pOam != sWorkerRobotOAM_WalkingBackwards)
+                        gCurrentSprite.pOam = sWorkerRobotOAM_WalkingBackwards;
+                }
+                else
+                {
+                    if (gCurrentSprite.pOam != sWorkerRobotOAM_Walking)
+                        gCurrentSprite.pOam = sWorkerRobotOAM_Walking;
                 }
             }
+            else
+            {
+                projX = spriteRight;
+                gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
+                if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                {
+                    if (gCurrentSprite.pOam != sWorkerRobotOAM_WalkingBackwards)
+                        gCurrentSprite.pOam = sWorkerRobotOAM_WalkingBackwards;
+                }
+                else
+                {
+                    if (gCurrentSprite.pOam != sWorkerRobotOAM_Walking)
+                        gCurrentSprite.pOam = sWorkerRobotOAM_Walking;
+                }
+            }
+            gCurrentSprite.animationDurationCounter = 0;
         }
+
+        if (type == PROJ_TYPE_SUPER_MISSILE)
+        {
+            ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_SUPER_MISSILE);
+            if (onSide)
+                gCurrentSprite.workVariable = 60;
+        }
+        else
+        {
+            ParticleSet(projY, projX, PE_HITTING_SOMETHING_WITH_MISSILE);
+            if (onSide)
+                gCurrentSprite.workVariable = 30;
+        }
+
+        pProj->status = 0;
+        break;
     }
 }
 
