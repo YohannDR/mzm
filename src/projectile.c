@@ -984,8 +984,7 @@ u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
 }
 
 /**
- * 4fc38 | a8 | 
- * Sets a trail for the projectile using the effect in parameter 
+ * 4fc38 | a8 | Sets a trail for the projectile using the effect in parameter 
  * 
  * @param pProj Projectile Data Pointer
  * @param effect Particle effect
@@ -998,12 +997,13 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
     u16 xPosition;
     u16 yPosition;
     u16 movement;
-    u16 tmp;
+    u16 diagMovement;
 
     if (gFrameCounter8Bit & delay)
         return;
 
-    movement = 0x20;
+    movement = HALF_BLOCK_SIZE;
+    diagMovement = QUARTER_BLOCK_SIZE + 8;
 
     yPosition = pProj->yPosition;
     xPosition = pProj->xPosition;
@@ -1011,27 +1011,29 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
     switch (pProj->direction)
     {
         case ACD_UP:
-            yPosition += 0x20;
+            yPosition += movement;
             break;
 
         case ACD_DOWN:
-            yPosition -= 0x20;
+            yPosition -= movement;
             break;
 
         case ACD_DIAGONALLY_UP:
-            yPosition += 0x18;
+            yPosition += diagMovement;
+
             if (pProj->status & PROJ_STATUS_XFLIP)
-                xPosition -= 0x18;
+                xPosition -= diagMovement;
             else
-                xPosition += 0x18;
+                xPosition += diagMovement;
             break;
 
         case ACD_DIAGONALLY_DOWN:
-            yPosition -= 0x18;
+            yPosition -= diagMovement;
+            
             if (pProj->status & PROJ_STATUS_XFLIP)
-                xPosition -= 0x18;
+                xPosition -= diagMovement;
             else
-                xPosition += 0x18;
+                xPosition += diagMovement;
             break;
 
         default:
