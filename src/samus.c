@@ -3729,12 +3729,18 @@ u8 SamusSkidding(struct SamusData* pData)
     }
 }
 
+/**
+ * @brief 8cf8 | 100 | Samus mid air subroutine
+ * 
+ * @param pData Samus data pointer
+ * @return u8 New pose
+ */
 u8 SamusMidAir(struct SamusData* pData)
 {
-    // https://decomp.me/scratch/ZUxPm
-
     u8 turning;
     i32 xAcceleration;
+    u16 currVelocity;
+    u32 newVelocity;
 
     if (gChangedInput & KEY_DOWN && pData->armCannonDirection == ACD_DOWN && gEquipment.suitMiscActivation & SMF_MORPH_BALL)
     {
@@ -3766,6 +3772,7 @@ u8 SamusMidAir(struct SamusData* pData)
             turning++;
         else
         {
+            currVelocity = pData->xVelocity;
             if (pData->xVelocity > 0)
             {
                 pData->xVelocity -= xAcceleration;
@@ -3774,7 +3781,8 @@ u8 SamusMidAir(struct SamusData* pData)
             }
             else if (pData->xVelocity < 0)
             {
-                pData->xVelocity += xAcceleration;
+                newVelocity = xAcceleration + currVelocity;
+                pData->xVelocity = newVelocity;
                 if (pData->xVelocity > 0)
                     pData->xVelocity = 0;
             }
