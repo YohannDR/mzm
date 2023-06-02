@@ -1081,10 +1081,12 @@ u8 SpacePirateClimbingCheckWallJumpOrFire(void)
     return TRUE;
 }
 
+/**
+ * @brief 29ef0 | 484 | To document
+ * 
+ */
 void unk_29ef0(void)
 {
-    // https://decomp.me/scratch/BcObB
-
     u8 previousPose;
     u8 flags;
     u16 yPosition;
@@ -1093,6 +1095,7 @@ void unk_29ef0(void)
     u8 collision;
 
     flags = 0;
+    collision = COLLISION_AIR;
     previousPose = gCurrentSprite.pose;
     
     gCurrentSprite.workVariable = 0;
@@ -1100,7 +1103,7 @@ void unk_29ef0(void)
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
 
-    blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition  - 4, xPosition);
+    blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition - 4, xPosition);
     if ((gPreviousVerticalCollisionCheck & 0xF) < 2)
     {
         blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition, xPosition);
@@ -1136,8 +1139,11 @@ void unk_29ef0(void)
                 return;
             }
 
-            if (gPreviousVerticalCollisionCheck != COLLISION_LEFT_STEEP_FLOOR_SLOPE && gPreviousVerticalCollisionCheck != COLLISION_RIGHT_STEEP_FLOOR_SLOPE)
-                return;
+            if (gPreviousVerticalCollisionCheck == COLLISION_LEFT_STEEP_FLOOR_SLOPE || gPreviousVerticalCollisionCheck == COLLISION_LEFT_SLIGHT_FLOOR_SLOPE)
+            {
+                blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition + BLOCK_SIZE, xPosition);
+                gCurrentSprite.yPosition = blockTop;
+            }
         }
         else
         {
@@ -1148,11 +1154,12 @@ void unk_29ef0(void)
                 return;
             }
 
-            if (gPreviousVerticalCollisionCheck != COLLISION_LEFT_STEEP_FLOOR_SLOPE && gPreviousVerticalCollisionCheck != COLLISION_RIGHT_STEEP_FLOOR_SLOPE)
-                return;
+            if (gPreviousVerticalCollisionCheck == COLLISION_RIGHT_STEEP_FLOOR_SLOPE || gPreviousVerticalCollisionCheck == COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE)
+            {
+                blockTop = SpriteUtilCheckVerticalCollisionAtPosition(yPosition + BLOCK_SIZE, xPosition);
+                gCurrentSprite.yPosition = blockTop;
+            }
         }
-
-        gCurrentSprite.yPosition = SpriteUtilCheckVerticalCollisionAtPosition(yPosition + BLOCK_SIZE, xPosition);
         return;
     }
 
@@ -1160,7 +1167,8 @@ void unk_29ef0(void)
     {
         if (gPreviousVerticalCollisionCheck & 0xF0)
         {
-            if ((u8)SpriteUtilGetCollisionAtPosition(yPosition, xPosition + HALF_BLOCK_SIZE + 8) == COLLISION_AIR)
+            collision = SpriteUtilGetCollisionAtPosition(yPosition, xPosition + HALF_BLOCK_SIZE + 8);
+            if (collision == COLLISION_AIR)
             {
                 if (previousPose == SPACE_PIRATE_POSE_WALKING && gCurrentSprite.oamScaling > 20)
                 {
@@ -1175,7 +1183,8 @@ void unk_29ef0(void)
                 return;
             }
 
-            if ((u8)SpriteUtilGetCollisionAtPosition(yPosition - HALF_BLOCK_SIZE, xPosition + BLOCK_SIZE + QUARTER_BLOCK_SIZE) == COLLISION_SOLID)
+            collision = SpriteUtilGetCollisionAtPosition(yPosition - HALF_BLOCK_SIZE, xPosition + BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+            if (collision == COLLISION_SOLID)
             {
                 if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_SPACE_PIRATE_ZONELINE)
                 {
@@ -1195,14 +1204,31 @@ void unk_29ef0(void)
                         return;
                     }
                 }
+                
+                collision = SpriteUtilGetCollisionAtPosition(yPosition - HALF_BLOCK_SIZE, xPosition + (HALF_BLOCK_SIZE + 8));
+                if (collision == COLLISION_AIR || collision & 0xF0)
+                    flags |= 1;
             }
+
+            collision = SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), xPosition + (BLOCK_SIZE + QUARTER_BLOCK_SIZE));
+            if (collision == COLLISION_SOLID)
+                flags |= 2;
+
+            collision = SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE), xPosition + (BLOCK_SIZE + QUARTER_BLOCK_SIZE));
+            if (collision == COLLISION_SOLID)
+                flags |= 4;
+
+            collision = SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE), xPosition + (BLOCK_SIZE + QUARTER_BLOCK_SIZE));
+            if (collision == COLLISION_SOLID)
+                flags |= 8;
         }
     }
     else
     {
         if (gPreviousVerticalCollisionCheck & 0xF0)
         {
-            if ((u8)SpriteUtilGetCollisionAtPosition(yPosition, xPosition + BLOCK_SIZE + 8) == COLLISION_AIR)
+            collision = SpriteUtilGetCollisionAtPosition(yPosition, xPosition - (HALF_BLOCK_SIZE + 8));
+            if (collision == COLLISION_AIR)
             {
                 if (previousPose == SPACE_PIRATE_POSE_WALKING && gCurrentSprite.oamScaling > 20)
                 {
@@ -1217,17 +1243,43 @@ void unk_29ef0(void)
                 return;
             }
 
-            collision = SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), xPosition);
-            if (collision == COLLISION_AIR || collision & 0xF0)
-                flags |= 1;
+            collision = SpriteUtilGetCollisionAtPosition(yPosition - HALF_BLOCK_SIZE, xPosition - (BLOCK_SIZE + QUARTER_BLOCK_SIZE));
+            if (collision == COLLISION_SOLID)
+            {
+                if (gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_SPACE_PIRATE_ZONELINE)
+                {
+                    if (gCurrentSprite.spriteID == PSPRITE_SPACE_PIRATE_WAITING2)
+                    {
+                        gCurrentSprite.status = 0;
 
-            if ((u8)SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), xPosition) == COLLISION_SOLID)
+                        if (gAlarmTimer != 0)
+                            DisableChozodiaAlarm();
+
+                        return;
+                    }
+
+                    if (gAlarmTimer == 0 && gCurrentSprite.status & SPRITE_STATUS_MOSAIC)
+                    {
+                        gCurrentSprite.status = 0;
+                        return;
+                    }
+                }
+                
+                collision = SpriteUtilGetCollisionAtPosition(yPosition - HALF_BLOCK_SIZE, xPosition - (HALF_BLOCK_SIZE + 8));
+                if (collision == COLLISION_AIR || collision & 0xF0)
+                    flags |= 1;
+            }
+
+            collision = SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), xPosition - (BLOCK_SIZE + QUARTER_BLOCK_SIZE));
+            if (collision == COLLISION_SOLID)
                 flags |= 2;
 
-            if ((u8)SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE), xPosition) == COLLISION_SOLID)
+            collision = SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE), xPosition - (BLOCK_SIZE + QUARTER_BLOCK_SIZE));
+            if (collision == COLLISION_SOLID)
                 flags |= 4;
 
-            if ((u8)SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE), xPosition) == COLLISION_SOLID)
+            collision = SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE), xPosition - (BLOCK_SIZE + QUARTER_BLOCK_SIZE));
+            if (collision == COLLISION_SOLID)
                 flags |= 8;
         }
     }
@@ -1258,8 +1310,8 @@ void unk_29ef0(void)
             if (gSamusData.yPosition >= yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE))
             {
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_STARTING_TO_CRAWL_INIT;
+                break;
             }
-            break;
 
         case 1 | 2:
             gCurrentSprite.workVariable = 2;
@@ -1272,14 +1324,19 @@ void unk_29ef0(void)
             {
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_STARTING_TO_CRAWL_INIT;
             }
+            else
+            {
+                gCurrentSprite.workVariable = 3;
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_JUMPING_INIT;  
+            }
             break;
 
         case 2 | 4 | 8:
             if (gSamusData.yPosition >= yPosition - (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE))
             {
                 gCurrentSprite.pose = SPACE_PIRATE_POSE_STARTING_TO_CRAWL_INIT;
+                break;
             }
-            break;
 
         case 1 | 4:
         case 1 | 2 | 4:
@@ -1304,8 +1361,9 @@ void unk_29ef0(void)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         {
-            if ((u8)SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE),
-                xPosition + (BLOCK_SIZE - QUARTER_BLOCK_SIZE)) != COLLISION_AIR)
+            collision = SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE),
+                xPosition + (BLOCK_SIZE - QUARTER_BLOCK_SIZE));
+            if (collision != COLLISION_AIR)
             {
             }
             else if ((u8)SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 4 + HALF_BLOCK_SIZE),
@@ -1317,8 +1375,9 @@ void unk_29ef0(void)
         }
         else
         {
-            if ((u8)SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE),
-                xPosition - (BLOCK_SIZE - QUARTER_BLOCK_SIZE)) != COLLISION_AIR)
+            collision = SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE),
+                xPosition - (BLOCK_SIZE - QUARTER_BLOCK_SIZE));
+            if (collision != COLLISION_AIR)
             {
             }
             else if ((u8)SpriteUtilGetCollisionAtPosition(yPosition - (BLOCK_SIZE * 4 + HALF_BLOCK_SIZE),
