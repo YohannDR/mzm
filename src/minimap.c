@@ -3,6 +3,7 @@
 #include "macros.h"
 
 #include "data/shortcut_pointers.h"
+#include "data/engine_pointers.h"
 #include "data/menus/pause_screen_data.h"
 #include "data/menus/pause_screen_map_data.h"
 #include "data/menus/internal_pause_screen_data.h"
@@ -677,9 +678,45 @@ u32 MinimapCheckIsTileExplored(u8 xPosition, u8 yPosition)
     }
 }
 
+/**
+ * @brief 6cccc | b8 | Sets the minimap tiles with obtained items when loading a save file
+ * 
+ */
 void MinimapLoadTilesWithObtainedItems(void)
 {
+    u8 i;
+    i32 j;
+    i32 yPosition;
+    i32 xPosition;
+    struct ItemInfo* pItem;
+    u32* pTiles;
+    u32 xOffset;
+    u32 yOffset;
 
+    BitFill(3, 0, 0x2033800, sizeof(gMinimapTilesWithObtainedItems), 16);
+    // BitFill(3, 0, gMinimapTilesWithObtainedItems, sizeof(gMinimapTilesWithObtainedItems), 16);
+
+    for (i = 0; i < MAX_AMOUNT_OF_AREAS; i++)
+    {
+        // pItem = gItemsCollected[i];
+        pItem = ((struct ItemInfo*)0x2036c00 + i * MAX_AMOUNT_OF_ITEMS_PER_AREA);
+        // pTiles = &gMinimapTilesWithObtainedItems[i * MINIMAP_SIZE];
+        pTiles = ((u32*)0x2033800 + i * MINIMAP_SIZE);
+
+        for (j = 0; j < MINIMAP_SIZE * 2; j++, pItem++)
+        {
+            if (pItem->room == UCHAR_MAX)
+                break;
+
+            xPosition = (pItem->xPosition - 2) / 15;
+            yPosition = (pItem->yPosition - 2) / 10;
+
+            xOffset = xPosition + sAreaRoomEntryPointers[i][pItem->room].mapX;
+            yOffset = yPosition + sAreaRoomEntryPointers[i][pItem->room].mapY;
+
+            pTiles[yOffset] |= sExploredMinimapBitFlags[xOffset];
+        }
+    }
 }
 
 /**
