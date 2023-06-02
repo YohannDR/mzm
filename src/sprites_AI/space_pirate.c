@@ -871,9 +871,75 @@ u8 SpacePirateCheckSamusInShootingRange(void)
     return FALSE;
 }
 
+/**
+ * @brief 29b68 | 12c | To document
+ * 
+ * @return u8 bool, pose changed
+ */
 u8 unk_29b68(void)
 {
+    u8 previousPose;
 
+    previousPose = gCurrentSprite.pose;
+
+    if (gAlarmTimer >= 480 - 1)
+        gCurrentSprite.invincibilityStunFlashTimer++;
+
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+    {
+        if (gSpriteDrawOrder[2] == TRUE)
+        {
+            if (gSpriteDrawOrder[1] == TRUE)
+            {
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
+            }
+            else if (gBossWork.work2 < 0x300)
+            {
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
+            }
+        }
+
+        if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
+        {
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            if (gSpriteDrawOrder[4] == FALSE)
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
+            else
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
+        }
+    }
+    else
+    {
+        if (gSpriteDrawOrder[2] == TRUE)
+        {
+            if (gSpriteDrawOrder[1] == FALSE)
+            {
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
+            }
+            else if (gBossWork.work2 < 0x300)
+            {
+                gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
+            }
+        }
+
+        if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
+        {
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
+            if (gSpriteDrawOrder[4] == TRUE)
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
+            else
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
+        }
+    }
+    
+    if (previousPose == gCurrentSprite.pose)
+        return FALSE;
+    else
+        return TRUE;
 }
 
 /**
@@ -1206,8 +1272,8 @@ void SpacePirateFalling(void)
 
     u32 blockTop;
     u8 offset;
-    register u8* pOffset asm("r5");
     i32 movement;
+    i32 newMovement;
 
     if (gCurrentSprite.status & SPRITE_STATUS_DOUBLE_SIZE)
     {
@@ -1215,7 +1281,7 @@ void SpacePirateFalling(void)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
             {
-                gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
+                gCurrentSprite.pose = 0x22;
 
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
@@ -1249,8 +1315,7 @@ void SpacePirateFalling(void)
         }
         else
         {
-            pOffset = &gCurrentSprite.arrayOffset;
-            offset = *pOffset;
+            offset = gCurrentSprite.arrayOffset;
             movement = sSpritesFallingSpeed[offset];
 
             if (movement == SHORT_MAX)
@@ -1260,7 +1325,7 @@ void SpacePirateFalling(void)
             }
             else
             {
-                *pOffset = offset + 0x1;
+                gCurrentSprite.arrayOffset++;
                 gCurrentSprite.yPosition += movement;
             }
         }
