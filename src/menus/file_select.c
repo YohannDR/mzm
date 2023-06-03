@@ -2,6 +2,7 @@
 #include "oam_id.h"
 #include "macros.h"
 #include "callbacks.h"
+#include "text.h"
 #include "save_file.h"
 
 #include "data/shortcut_pointers.h"
@@ -579,10 +580,142 @@ void OptionsUpdateStereoOam(u16 flags)
     }
 }
 
-
+/**
+ * @brief 78da0 | 32c | Processes the current file screen text
+ * 
+ */
 void FileScreenProcessText(void)
 {
+    u8 array[2];
+    u32* dst;
+    vu16 buffer;
+    i32 var_0;
+    u8 result;
+    u32 dstType;
+    u32 flag;
 
+    switch (FILE_SELECT_DATA.unk_34)
+    {
+        case 0:
+            break;
+
+        case 1:
+            gCurrentMessage = sFileScreenMessage_Empty;
+
+            if (gCurrentMessage.isMessage)
+                var_0 = -1;
+            else
+                var_0 = 0;
+
+            dstType = sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1];
+
+            if (dstType == 3 || dstType == 1)
+            {
+                buffer = var_0;
+                dma_set(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]],
+                    (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x800);
+            }
+            else if (dstType == 2)
+            {
+                buffer = var_0;
+                dma_set(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]],
+                    (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x100);
+
+                buffer = var_0;
+                dma_set(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]] + 0x400,
+                    (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x100);
+
+                buffer = var_0;
+                dma_set(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]] + 0x600,
+                    (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x400);
+            }
+            else
+            {
+                buffer = var_0;
+                dma_set(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]],
+                    (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x400);
+
+                if (sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][2] == 3)
+                {
+                    buffer = var_0;
+                    dma_set(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]] + 0x800,
+                        (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x100);
+
+                    buffer = var_0;
+                    dma_set(3, &buffer, sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]] + 0xC00,
+                        (DMA_ENABLE | DMA_SRC_FIXED) << 16 | 0x100);
+                }
+            }
+
+            FILE_SELECT_DATA.unk_34++;
+            break;
+
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+            dst = sFileSelect_760bdc[sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1]];
+
+            var_0 = FILE_SELECT_DATA.unk_34 - 2;
+            if (var_0 & 2)
+                dst += 0x200;
+
+            if (var_0 & 1)
+            {
+                dst += 0x80;
+            
+                if (sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][1] == 2)
+                    dst += 0x100;
+            }
+
+            gCurrentMessage.indent = 0;
+
+            while (TRUE)
+            {
+                var_0 = TextProcessCurrentMessage(&gCurrentMessage, sFileScreenTextPointers[gLanguage][sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][0]], dst);
+
+                if (var_0 == 2)
+                {
+                    FILE_SELECT_DATA.unk_34 = 6;
+                    break;
+                }
+                
+                if (var_0 == 1)
+                {
+                    FILE_SELECT_DATA.unk_34++;
+                    break;
+                }
+            }
+            break;
+            
+            FILE_SELECT_DATA.unk_34++;
+            break;
+
+        case 6:
+            FILE_SELECT_DATA.unk_35 = UCHAR_MAX;
+            var_0 = 0;
+
+            array[0] = -1;
+            array[1] = -1;
+
+            if (FILE_SELECT_DATA.unk_36 != UCHAR_MAX)
+            {
+                array[0] = FILE_SELECT_DATA.unk_36;
+                FILE_SELECT_DATA.unk_36 |= -1;
+                var_0 = TRUE;
+            }
+
+            if (FILE_SELECT_DATA.unk_37 != UCHAR_MAX)
+            {
+                array[var_0] = FILE_SELECT_DATA.unk_37;
+                FILE_SELECT_DATA.unk_37 |= -1;
+            }
+
+            FILE_SELECT_DATA.unk_35 = array[0];
+            FILE_SELECT_DATA.unk_36 = array[1];
+
+            FILE_SELECT_DATA.unk_34 = FILE_SELECT_DATA.unk_35 != UCHAR_MAX;
+    }
 }
 
 /**

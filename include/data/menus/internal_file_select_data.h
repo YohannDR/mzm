@@ -16,7 +16,7 @@ extern const u16 sStereoOamData[2][4];
 
 extern const u16 sSoundTestSoundIds[24];
 
-extern const u32* const sFileSelect_760bdc[4];
+extern u32* const sFileSelect_760bdc[4];
 extern const u16 sOptionsOptionsTilemapOffsets[8];
 extern const struct OptionsSubroutineInfo sOptionsSubroutineInfo[9];
 
