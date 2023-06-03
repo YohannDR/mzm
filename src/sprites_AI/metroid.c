@@ -349,47 +349,62 @@ u8 MetroidBombDetection(void)
     return FALSE;
 }
 
+/**
+ * @brief 357a4 | 1b8 | Checks if the current metroid should bounce off of other metroids
+ * 
+ * @param movement Movement to apply
+ */
 void MetroidCheckBouncingOnMetroid(u16 movement)
 {
-    // https://decomp.me/scratch/aTKQM
-
-    /*u16 yPosition;
+    u16 yPosition;
     u16 xPosition;
     u16 otherY;
     u16 otherX;
     u8 ramSlot;
-    u8 size;
+    u8 xSize;
     u8 pose;
+    u16 ySize;
+    u16 status;
+    u16 exists;
+
+    exists = SPRITE_STATUS_EXISTS;
+    ySize = QUARTER_BLOCK_SIZE;
     
-    yPosition = gCurrentSprite.yPosition - 0x10;
+    yPosition = gCurrentSprite.yPosition - ySize;
     xPosition = gCurrentSprite.xPosition;
-    size = HALF_BLOCK_SIZE;
+    
+    xSize = HALF_BLOCK_SIZE;
     pose = METROID_POSE_MOVING;
 
-    if (gCurrentSprite.pose == pose && gCurrentSprite.freezeTimer == 0x0)
+    if (gCurrentSprite.pose == pose && gCurrentSprite.freezeTimer == 0)
         ramSlot = gCurrentSprite.primarySpriteRamSlot + 1;
     else
-        ramSlot = 0x0;
+        ramSlot = 0;
 
-    if (ramSlot >= 0x18)
+    if (ramSlot >= MAX_AMOUNT_OF_SPRITES)
         return;
 
-    for (;ramSlot < 0x18; ramSlot++)
+    for (; ramSlot < MAX_AMOUNT_OF_SPRITES; ramSlot++)
     {
-        if (gSpriteData[ramSlot].status & SPRITE_STATUS_EXISTS && gSpriteData[ramSlot].samusCollision == SSC_METROID
-            && gSpriteData[ramSlot].freezeTimer == 0x0 && gSpriteData[ramSlot].pose == pose)
+        status = gSpriteData[ramSlot].status;
+        
+        if (!(status & exists))
+            continue;
+
+        if (gSpriteData[ramSlot].samusCollision == SSC_METROID
+            && gSpriteData[ramSlot].freezeTimer == 0 && gSpriteData[ramSlot].pose == pose)
         {
-            otherY = gSpriteData[ramSlot].yPosition + 0x10;
+            otherY = gSpriteData[ramSlot].yPosition - ySize;
             otherX = gSpriteData[ramSlot].xPosition;
 
-            if ((yPosition + size) > (otherY - size) &&
-                (yPosition - size) < (otherY + size) &&
-                (xPosition + size) > (otherX - size) &&
-                (xPosition - size) < (otherX + size))
+            if ((yPosition + xSize) > (otherY - xSize) &&
+                (yPosition - xSize) < (otherY + xSize) &&
+                (xPosition + xSize) > (otherX - xSize) &&
+                (xPosition - xSize) < (otherX + xSize))
             {
                 if (yPosition > otherY)
                 {
-                    if (SpriteUtilGetCollisionAtPosition(gSpriteData[ramSlot].yPosition - size, gSpriteData[ramSlot].xPosition) == COLLISION_AIR)
+                    if (SpriteUtilGetCollisionAtPosition(gSpriteData[ramSlot].yPosition - xSize, gSpriteData[ramSlot].xPosition) == COLLISION_AIR)
                     {
                         gSpriteData[ramSlot].yPosition -= movement;
                         gSpriteData[ramSlot].status &= ~SPRITE_STATUS_UNKNOWN2;
@@ -399,7 +414,7 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
                 }
                 else
                 {
-                    if (SpriteUtilGetCollisionAtPosition(gSpriteData[ramSlot].yPosition + size, gSpriteData[ramSlot].xPosition) == COLLISION_AIR)
+                    if (SpriteUtilGetCollisionAtPosition(gSpriteData[ramSlot].yPosition + xSize, gSpriteData[ramSlot].xPosition) == COLLISION_AIR)
                     {
                         gSpriteData[ramSlot].yPosition += movement;
                         gSpriteData[ramSlot].status |= SPRITE_STATUS_UNKNOWN2;
@@ -410,7 +425,7 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
 
                 if (xPosition > otherX)
                 {
-                    if (SpriteUtilGetCollisionAtPosition(gSpriteData[ramSlot].yPosition, gSpriteData[ramSlot].xPosition - size) == COLLISION_AIR)
+                    if (SpriteUtilGetCollisionAtPosition(gSpriteData[ramSlot].yPosition, gSpriteData[ramSlot].xPosition - xSize) == COLLISION_AIR)
                     {
                         gSpriteData[ramSlot].xPosition -= movement;
                         gSpriteData[ramSlot].status &= ~SPRITE_STATUS_FACING_RIGHT;
@@ -420,7 +435,7 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
                 }
                 else
                 {
-                    if (SpriteUtilGetCollisionAtPosition(gSpriteData[ramSlot].yPosition, gSpriteData[ramSlot].xPosition + size) == COLLISION_AIR)
+                    if (SpriteUtilGetCollisionAtPosition(gSpriteData[ramSlot].yPosition, gSpriteData[ramSlot].xPosition + xSize) == COLLISION_AIR)
                     {
                         gSpriteData[ramSlot].xPosition += movement;
                         gSpriteData[ramSlot].status |= SPRITE_STATUS_FACING_RIGHT;
@@ -431,7 +446,7 @@ void MetroidCheckBouncingOnMetroid(u16 movement)
                 break;
             }
         }
-    }*/
+    }
 }
 
 /**
