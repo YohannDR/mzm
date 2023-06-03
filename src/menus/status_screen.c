@@ -588,7 +588,7 @@ void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 param_4)
     baseTile = isActivated ? 11 << 12 : 12 << 12;
     
     // Weird pointer/array access? this is just PAUSE_SCREEN_EWRAM.statusScreenTilemap[position + 1];
-    pEwram = &PAUSE_SCREEN_EWRAM;
+    pEwram = (u16*)&PAUSE_SCREEN_EWRAM;
     pTilemap = &pEwram[position + 1];
     pTilemap = (u16*)((void*)sEwramPointer + 0x7000) + position + 1;
 
