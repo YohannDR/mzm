@@ -14,7 +14,7 @@ void BlackSpacePirateChargingLaser(void);
 void BlackSpacePirateShootingInit(void);
 void BlackSpacePirateShooting(void);
 void BlackSpacePirateJumping(void);
-void BlackSpacePirateMove(void);
+void BlackSpacePirateWalkingAlerted(void);
 void BlackSpacePirateDeath(u8 playSound);
 void BlackSpacePirateHitByLaserInit(void);
 void BlackSpacePirateHitByLaser(void);
