@@ -471,6 +471,8 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
 
     i32 i;
     i32 j;
+    i32 row;
+    i32 nextRow;
     i32 var_0;
     u16* src;
     u16* dst;
@@ -483,50 +485,43 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
     for (i = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_BEAMS]; i++)
         pVisibility[i] = 0;
 
-    for (i = 0, j = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_BEAMS]; i++)
+    for (i = 0, row = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_BEAMS]; i++)
     {
         var_0 = i;
-        srcPosition = 0;
+        dstPosition = 0;
 
         if (sStatusScreenBeamFlagsOrderPointer[i] == BBF_PLASMA_BEAM &&
             (gEquipment.suitType != SUIT_FULLY_POWERED || gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS))
         {
             var_0 = 9;
-            srcPosition = 10;
+            dstPosition = 10;
         }
 
-        srcPosition += (sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][0] + var_0) * HALF_BLOCK_SIZE +
+        dstPosition += (sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][0] + var_0) * HALF_BLOCK_SIZE +
             sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][2];
 
-        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + j) * HALF_BLOCK_SIZE +
+        srcPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + row + 1) * HALF_BLOCK_SIZE +
             sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
 
         if (gEquipment.beamBombs & sStatusScreenBeamFlagsOrderPointer[i])
         {
-            pVisibility[j] = sStatusScreenBeamFlagsOrderPointer[i];
+            pVisibility[row] = sStatusScreenBeamFlagsOrderPointer[i];
 
-            var_0 = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - var_0;
-            j++;
-            if (var_0 >= 0)
+            var_0 = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
+            nextRow = row + 1;
+
+            for (j = 0; j <= var_0; j++)
             {
-                src = &pTilemap[srcPosition];
-                dst = &pTilemap[dstPosition];
-                var_0++;
-                
-                for (; var_0 != 0; var_0--)
-                {
-                    *dst = *src;
-                    src++;
-                    dst++;
-                }
+                pTilemap[srcPosition + j] = pTilemap[dstPosition + j];
             }
 
-            StatusScreenUpdateRow(ABILITY_GROUP_BEAMS, j,
-                gEquipment.beamBombsActivation & pVisibility[j], FALSE);
+            StatusScreenUpdateRow(ABILITY_GROUP_BEAMS, nextRow,
+                gEquipment.beamBombsActivation & pVisibility[row], FALSE);
+            row = nextRow;
         }
     }
 
-    if (j != 0)
+    if (row != 0)
     {
         if (PAUSE_SCREEN_DATA.statusScreenData.unk_0 == 0)
             PAUSE_SCREEN_DATA.statusScreenData.unk_0 = 0x80;
@@ -534,25 +529,18 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
         if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
             PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
 
-        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + j) * HALF_BLOCK_SIZE +
+        row++;
+        srcPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + row) * HALF_BLOCK_SIZE +
             sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
 
-        srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][1] * HALF_BLOCK_SIZE +
+        dstPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][1] * HALF_BLOCK_SIZE +
             sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][2];
 
-        var_0 = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - var_0;
-        if (var_0 >= 0)
+        var_0 = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
+        
+        for (j = 0; j <= var_0; j++)
         {
-            src = &pTilemap[srcPosition];
-            dst = &pTilemap[dstPosition];
-            i++;
-            
-            for (; var_0 != 0; var_0--)
-            {
-                *dst = *src;
-                src++;
-                dst++;
-            }
+            pTilemap[srcPosition + j] = pTilemap[dstPosition + j];
         }
     }
 }
