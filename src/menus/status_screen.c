@@ -608,15 +608,18 @@ void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 param_4)
     }
 }
 
+/**
+ * @brief 70ec0 | 98 | Enables the tilemap for an unknown item
+ * 
+ * @param group Group
+ * @param row Row
+ */
 void StatusScreenEnableUnknownItem(u8 group, u8 row)
 {
-    // https://decomp.me/scratch/gaqHa
-
     u32 position;
     i32 size;
-    u32 dstPosition;
-    u16* dst;
     i32 i;
+    u16* dst;
 
     switch (group)
     {
@@ -633,15 +636,16 @@ void StatusScreenEnableUnknownItem(u8 group, u8 row)
     if (position == 0)
         return;
 
-    dstPosition = (sStatusScreenGroupsData[group][0] + row) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[group][2];
+    i = (sStatusScreenGroupsData[group][0] + row) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[group][2];
     size = sStatusScreenGroupsData[group][3] - sStatusScreenGroupsData[group][2];
-    dst = (u16*)(VRAM_BASE + 0xC002) + dstPosition;
+    
+    dst = (u16*)(VRAM_BASE + 0xC002) + i;
 
     position++;
 
-    for (i = 1; i < size; )
+    for (i = 1; i < size; i++, dst++, position++)
     {
-        dst[i++] = PAUSE_SCREEN_EWRAM.statusScreenTilemap[position++];
+        *dst = PAUSE_SCREEN_EWRAM.statusScreenTilemap[position];
     }
 }
 
