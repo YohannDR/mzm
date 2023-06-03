@@ -22,8 +22,12 @@
 #include "structs/projectile.h"
 
 /**
- * 35360 | 7c | Checks if colliding with air, used when samus is gabbed for the movement
-*/
+ * @brief 35360 | 7c | Checks if colliding with air, used when samus is gabbed for the movement
+ * 
+ * @param yPosition Y position
+ * @param xPosition X position
+ * @return u8 bool, colliding
+ */
 u8 MetroidCheckAirCollision(u16 yPosition, u16 xPosition)
 {
     u8 colliding;

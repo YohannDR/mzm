@@ -453,7 +453,7 @@ SECTIONS {
         asm/disasm_0x0802f534.o(.text);
         src/sprites_AI/piston.o(.text);
         src/sprites_AI/ridley.o(.text);
-        asm/disasm_0x08035360.o(.text);
+        src/sprites_AI/metroid.o(.text);
         src/sprites_AI/rinka.o(.text);
         src/sprites_AI/polyp.o(.text);
         src/sprites_AI/viola.o(.text);
