@@ -565,17 +565,55 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
 
 }
 
+/**
+ * @brief 70e1c | a4 | Updates the tilemap of a status screen row
+ * 
+ * @param group Group
+ * @param row Row
+ * @param isActivated Is the row activated
+ * @param param_4 To document
+ */
 void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 param_4)
 {
+    i32 position;
+    i32 size;
+    i32 i;
+    u16 baseTile;
+    u16* pTilemap;
+    u16* pEwram;
 
+    position = (row + sStatusScreenGroupsData[group][0]) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[group][2];
+    size = sStatusScreenGroupsData[group][3] - sStatusScreenGroupsData[group][2];
+
+    baseTile = isActivated ? 11 << 12 : 12 << 12;
+    
+    // Weird pointer/array access? this is just PAUSE_SCREEN_EWRAM.statusScreenTilemap[position + 1];
+    pEwram = &PAUSE_SCREEN_EWRAM;
+    pTilemap = &pEwram[position + 1];
+    pTilemap = (u16*)((void*)sEwramPointer + 0x7000) + position + 1;
+
+    for (i = 1; i < size; i++, pTilemap++)
+    {
+        *pTilemap = (*pTilemap & 0xFFF) | baseTile;
+    }
+
+    if (param_4)
+    {
+        pTilemap = (u16*)(VRAM_BASE + 0xC002) + position;
+
+        for (i = 1; i < size; i++, pTilemap++)
+        {
+            *pTilemap = (*pTilemap & 0xFFF) | baseTile;
+        }
+    }
 }
 
 void StatusScreenEnableUnknownItem(u8 group, u8 row)
 {
     // https://decomp.me/scratch/gaqHa
 
-    u32 tilemapPosition;
-    i32 groupX;
+    u32 position;
+    i32 size;
     u32 dstPosition;
     u16* dst;
     i32 i;
@@ -585,25 +623,25 @@ void StatusScreenEnableUnknownItem(u8 group, u8 row)
         case ABILITY_GROUP_BEAMS:
         case ABILITY_GROUP_SUITS:
         case ABILITY_GROUP_MISC:
-            tilemapPosition = (sStatusScreenUnknownItemsData[group][1] - 1) * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[group][2];
+            position = (sStatusScreenUnknownItemsData[group][1] - 1) * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[group][2];
             break;
 
         default:
-            tilemapPosition = FALSE;
+            position = FALSE;
     }
 
-    if (!tilemapPosition)
+    if (position == 0)
         return;
 
     dstPosition = (sStatusScreenGroupsData[group][0] + row) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[group][2];
-    groupX = sStatusScreenGroupsData[group][3] - sStatusScreenGroupsData[group][2];
+    size = sStatusScreenGroupsData[group][3] - sStatusScreenGroupsData[group][2];
     dst = (u16*)(VRAM_BASE + 0xC002) + dstPosition;
 
-    tilemapPosition++;
+    position++;
 
-    for (i = 0; i < groupX - 1; )
+    for (i = 1; i < size; )
     {
-        dst[i++] = PAUSE_SCREEN_EWRAM.statusScreenTilemap[tilemapPosition++];
+        dst[i++] = PAUSE_SCREEN_EWRAM.statusScreenTilemap[position++];
     }
 }
 
