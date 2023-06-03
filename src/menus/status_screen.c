@@ -335,10 +335,13 @@ void StatusScreenDraw(void)
         PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot = previousSlots[2];
 }
 
+/**
+ * @brief 70324 | f0 | Sets the status screen pistol visibility
+ * 
+ * @param pTilemap Status screen tilemap pointer
+ */
 void StatusScreenSetPistolVisibility(u16* pTilemap)
 {
-    // https://decomp.me/scratch/8tP1q
-
     u32 positionStart;
     u32 positionEnd;
     i32 size;
@@ -346,22 +349,24 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
     u32 row;
     u32 notGettingSuitless;
     u32 nextRow;
+    i32 i;
 
     row = 0;
 
     pActivation = PAUSE_SCREEN_DATA.statusScreenData.beamActivation;
 
     positionStart = (sStatusScreenGroupsData[0][0] + 1) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[0][2];
-    positionEnd = positionStart + sStatusScreenUnknownItemsData[0][0] * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[0][2];
+    positionEnd = sStatusScreenUnknownItemsData[0][0] * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[0][2];
 
     pActivation[0] = sStatusScreenBeamFlagsOrderPointer[0];
 
-    size = sStatusScreenGroupsData[0][3] - positionEnd;
-    while (size != 0)
+    size = sStatusScreenGroupsData[0][3] - sStatusScreenGroupsData[0][2];
+
+    for (i = 0; i <= size; i++)
     {
-        pTilemap[positionStart++] = pTilemap[positionEnd++];
-        size--;
+        pTilemap[positionStart + i] = pTilemap[positionEnd + i];
     }
+
 
     notGettingSuitless = (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_SUITLESS) == 0;
     nextRow = row + 1;
@@ -374,14 +379,14 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
     if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
         PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
 
-    positionStart = (sStatusScreenGroupsData[0][0] + row + 1) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[0][2];
-    positionEnd = positionStart + (sStatusScreenUnknownItemsData[0][0] + 1) * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[0][2];
+    row++;
+    positionStart = (sStatusScreenGroupsData[0][0] + row) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[0][2];
+    positionEnd = (sStatusScreenUnknownItemsData[0][0] + 1) * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[0][2];
 
-    size = sStatusScreenGroupsData[0][3] - positionEnd;
-    while (size != 0)
+    size = sStatusScreenGroupsData[0][3] - sStatusScreenGroupsData[0][2];
+    for (i = 0; i <= size; i++)
     {
-        pTilemap[positionStart++] = pTilemap[positionEnd++];
-        size--;
+        pTilemap[positionStart + i] = pTilemap[positionEnd + i];
     }
 }
 
