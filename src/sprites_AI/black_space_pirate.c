@@ -447,9 +447,289 @@ void BlackSpacePirateShooting(void)
     }
 }
 
+/**
+ * @brief 2d180 | 45c | Handles a black space pirate jumping
+ * 
+ */
 void BlackSpacePirateJumping(void)
 {
+    i32 speed;
+    u8 collisions;
+    u8 timer;
+    u8 collision;
+    u32 blockTop;
 
+    collisions = 0;
+
+    if (gCurrentSprite.status & SPRITE_STATUS_DOUBLE_SIZE)
+    {
+        if (!SpriteUtilCheckNearEndCurrentSpriteAnim())
+            return;
+
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        {
+            if (SpacePirateCheckSamusInShootingRange())
+                return;
+
+            unk_29ef0();
+
+            if (gCurrentSprite.pose == SPACE_PIRATE_POSE_JUMPING || gCurrentSprite.pose == SPACE_PIRATE_POSE_WALL_JUMPING)
+            {
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
+            }
+            else if (gCurrentSprite.pose == SPACE_PIRATE_POSE_JUMPING_INIT)
+            {
+                if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                {
+                    if (gSpriteDrawOrder[4] == FALSE)
+                        gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
+                }
+                else
+                {
+                    if (gSpriteDrawOrder[4] == TRUE)
+                        gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
+                }
+            }
+            else if (gCurrentSprite.pose == SPACE_PIRATE_POSE_STARTING_TO_CRAWL_INIT)
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
+        }
+        else
+        {
+            if (unk_29b68())
+                return;
+
+            unk_29ef0();
+
+            if (gCurrentSprite.pose == SPACE_PIRATE_POSE_JUMPING || gCurrentSprite.pose == SPACE_PIRATE_POSE_WALL_JUMPING)
+            {
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_INIT;
+            }
+        }
+
+        return;
+    }
+
+    if (gCurrentSprite.pose == SPACE_PIRATE_POSE_JUMPING)
+    {
+        if (gCurrentSprite.currentAnimationFrame < 4)
+        {
+            if (gCurrentSprite.currentAnimationFrame != 3)
+                return;
+
+            if (gCurrentSprite.pOam[gCurrentSprite.currentAnimationFrame].timer >= gCurrentSprite.animationDurationCounter + 1)
+                return;
+
+            gCurrentSprite.yPosition -= HALF_BLOCK_SIZE;
+
+            if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE + 4),
+                gCurrentSprite.xPosition) == COLLISION_AIR)
+                return;
+
+            gCurrentSprite.yPosition = ((gCurrentSprite.yPosition - (BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE + 4)) & BLOCK_POSITION_FLAG) +
+                (BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE + 4);
+
+            return;
+        }
+
+        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+        {
+            speed = gCurrentSprite.workVariable2 / 4;
+            if (speed <= 5)
+                speed = 5;
+            else if (speed >= 12)
+                speed = 12;
+        }
+        else
+            speed = 4;
+    }
+    else
+        speed = 12;
+
+    if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+    {
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE),
+            gCurrentSprite.xPosition + HALF_BLOCK_SIZE))
+            collisions++;
+
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + QUARTER_BLOCK_SIZE + 10),
+            gCurrentSprite.xPosition + HALF_BLOCK_SIZE))
+            collisions++;
+
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
+            gCurrentSprite.xPosition + HALF_BLOCK_SIZE))
+            collisions++;
+
+        if (collisions == 0)
+            gCurrentSprite.xPosition += speed;
+    }
+    else
+    {
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE),
+            gCurrentSprite.xPosition - HALF_BLOCK_SIZE))
+            collisions++;
+
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + QUARTER_BLOCK_SIZE + 10),
+            gCurrentSprite.xPosition - HALF_BLOCK_SIZE))
+            collisions++;
+
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
+            gCurrentSprite.xPosition - HALF_BLOCK_SIZE))
+            collisions++;
+
+        if (collisions == 0)
+            gCurrentSprite.xPosition -= speed;
+    }
+
+    if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+    {
+        if (collisions != 0)
+        {
+            if (gCurrentSprite.yPosition < gSamusData.yPosition)
+            {
+                if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                {
+                    if (gCurrentSprite.xPosition > gSamusData.xPosition)
+                        collisions = 0;
+                }
+                else
+                {
+                    if (gCurrentSprite.xPosition < gSamusData.xPosition)
+                        collisions = 0;
+                }
+            }
+        }
+    }
+    
+    if (collisions != 0)
+    {
+        if (collisions > 2)
+            timer = 2;
+        else if (collisions > 1)
+            timer = 15;
+        else
+            timer = 30;
+
+        gCurrentSprite.timer++;
+
+        if (gCurrentSprite.timer > timer)
+        {
+            if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+            {
+                collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + 8),
+                    gCurrentSprite.xPosition + (BLOCK_SIZE - QUARTER_BLOCK_SIZE));
+            }
+            else
+            {
+                collision = SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + 8),
+                    gCurrentSprite.xPosition - (BLOCK_SIZE - QUARTER_BLOCK_SIZE));
+            }
+
+            if (collision == COLLISION_AIR)
+            {
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_CLIMBING_UP_INIT;
+            }
+            else
+            {
+                if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+                {
+                    if (gSpriteDrawOrder[3] == TRUE)
+                    {
+                        if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
+                        {
+                            if (gCurrentSprite.xPosition > gSamusData.xPosition)
+                                gCurrentSprite.pose = SPACE_PIRATE_POSE_CLIMBING_DOWN_INIT;
+                            else
+                                gCurrentSprite.pose = SPACE_PIRATE_POSE_CLIMBING_UP_INIT;
+                        }
+                        else
+                        {
+                            if (gCurrentSprite.xPosition <= gSamusData.xPosition)
+                                gCurrentSprite.pose = SPACE_PIRATE_POSE_CLIMBING_DOWN_INIT;
+                            else
+                                gCurrentSprite.pose = SPACE_PIRATE_POSE_CLIMBING_UP_INIT;
+                        }
+                    }
+                    else
+                    {
+                        gCurrentSprite.pose = SPACE_PIRATE_POSE_CLIMBING_UP_INIT;
+                    }
+                }
+                else
+                {
+                    if (gSpriteRNG & 1)
+                        gCurrentSprite.pose = SPACE_PIRATE_POSE_CLIMBING_DOWN_INIT;
+                    else
+                        gCurrentSprite.pose = SPACE_PIRATE_POSE_CLIMBING_UP_INIT;
+                }
+            }
+
+            gCurrentSprite.xPosition = (gCurrentSprite.xPosition & BLOCK_POSITION_FLAG) + HALF_BLOCK_SIZE;
+            return;
+        }
+    }
+
+    if (gCurrentSprite.arrayOffset == 0 && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+        SoundPlayNotAlreadyPlaying(0x166);
+
+    if (gCurrentSprite.workVariable == 1)
+    {
+        speed = sSpacePirate_2e1030[gCurrentSprite.arrayOffset >> 2];
+        if (gCurrentSprite.arrayOffset < ARRAY_SIZE(sSpacePirate_2e1030) * 4 - 1)
+            gCurrentSprite.arrayOffset++;
+    }
+    else if (gCurrentSprite.workVariable == 2)
+    {
+        speed = sSpacePirateJumpingVelocity[gCurrentSprite.arrayOffset >> 2];
+        if (gCurrentSprite.arrayOffset < ARRAY_SIZE(sSpacePirateJumpingVelocity) * 4 - 1)
+            gCurrentSprite.arrayOffset++;
+    }
+    else if (gCurrentSprite.workVariable == 3)
+    {
+        speed = sSpacePirate_2e105a[gCurrentSprite.arrayOffset >> 2];
+        if (gCurrentSprite.arrayOffset < ARRAY_SIZE(sSpacePirate_2e105a) * 4 - 1)
+            gCurrentSprite.arrayOffset++;
+    }
+    else if (gCurrentSprite.workVariable == 4)
+    {
+        speed = sSpacePirate_2e1070[gCurrentSprite.arrayOffset >> 2];
+        if (gCurrentSprite.arrayOffset < ARRAY_SIZE(sSpacePirate_2e1070) * 4 - 1)
+            gCurrentSprite.arrayOffset++;
+    }
+    else
+    {
+        speed = sSpacePirateWallJumpingVelocity[gCurrentSprite.arrayOffset >> 2];
+        if (gCurrentSprite.arrayOffset < ARRAY_SIZE(sSpacePirateWallJumpingVelocity) * 4 - 1)
+            gCurrentSprite.arrayOffset++;
+    }
+
+    gCurrentSprite.yPosition += speed;
+
+    if (speed > 0)
+    {
+        blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+        if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
+        {
+            gCurrentSprite.yPosition = blockTop;
+
+            gCurrentSprite.status |= SPRITE_STATUS_DOUBLE_SIZE;
+
+            gCurrentSprite.pOam = sSpacePirateOAM_Landing;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
+
+            if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+                SoundPlayNotAlreadyPlaying(0x167);
+        }
+    }
+    else
+    {
+        if (SpriteUtilGetCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE + 4),
+            gCurrentSprite.xPosition) != COLLISION_AIR)
+        {
+            gCurrentSprite.yPosition = ((gCurrentSprite.yPosition - (BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE + 4)) & BLOCK_POSITION_FLAG) +
+                (BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE + 4);
+        }
+    }
 }
 
 /**
