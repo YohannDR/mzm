@@ -2454,7 +2454,7 @@ lbl_08050004:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #4
-    bl ice_beam_hitting_sprite
+    bl ProjectileIceBeamHittingSprite
     b lbl_080502fe
 lbl_08050022:
     movs r0, #0x2c
@@ -2463,7 +2463,7 @@ lbl_08050022:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #3
-    bl ice_beam_hitting_sprite
+    bl ProjectileIceBeamHittingSprite
     b lbl_080502fe
 lbl_08050034:
     mov r2, sb
@@ -2482,7 +2482,7 @@ lbl_08050034:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #5
-    bl ice_beam_hitting_sprite
+    bl ProjectileIceBeamHittingSprite
     b lbl_0805020e
 lbl_0805005a:
     movs r0, #0x2d
@@ -2504,7 +2504,7 @@ lbl_0805006c:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #4
-    bl ice_beam_hitting_sprite
+    bl ProjectileIceBeamHittingSprite
     b lbl_0805020e
 lbl_08050086:
     movs r0, #0x2d
@@ -2536,7 +2536,7 @@ lbl_08050098:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #6
-    bl ice_beam_hitting_sprite
+    bl ProjectileIceBeamHittingSprite
     b lbl_0805032c
 lbl_080500c6:
     movs r0, #4
@@ -2567,7 +2567,7 @@ lbl_080500f0:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #5
-    bl ice_beam_hitting_sprite
+    bl ProjectileIceBeamHittingSprite
     b lbl_0805032c
 lbl_08050102:
     movs r0, #0x33
@@ -2576,7 +2576,7 @@ lbl_08050102:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #4
-    bl ice_beam_hitting_sprite
+    bl ProjectileIceBeamHittingSprite
     b lbl_0805032c
 lbl_08050114:
     movs r0, #4
@@ -2616,7 +2616,7 @@ lbl_08050152:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #8
-    bl non_ice_charged_beam_hitting_sprite
+    bl ProjectileNonIceChargedHitSprite
 lbl_08050162:
     movs r0, #0
     mov r2, r8
@@ -2629,7 +2629,7 @@ lbl_0805016a:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0xc
-    bl non_ice_charged_beam_hitting_sprite
+    bl ProjectileNonIceChargedHitSprite
     b lbl_0805020e
 lbl_0805017c:
     mov r0, sb
@@ -2644,7 +2644,7 @@ lbl_0805017c:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0x10
-    bl charged_ice_beam_hitting_sprite
+    bl ProjectileChargedIceBeamHittingSprite
     b lbl_080502fe
 lbl_0805019a:
     movs r0, #0x2c
@@ -2653,7 +2653,7 @@ lbl_0805019a:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0xc
-    bl charged_ice_beam_hitting_sprite
+    bl ProjectileChargedIceBeamHittingSprite
     b lbl_080502fe
 lbl_080501ac:
     mov r2, sb
@@ -2672,7 +2672,7 @@ lbl_080501ac:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0x14
-    bl charged_ice_beam_hitting_sprite
+    bl ProjectileChargedIceBeamHittingSprite
     b lbl_0805020e
 lbl_080501d2:
     movs r0, #0x2d
@@ -2681,7 +2681,7 @@ lbl_080501d2:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0x10
-    bl non_ice_charged_beam_hitting_sprite
+    bl ProjectileNonIceChargedHitSprite
     b lbl_0805020e
 lbl_080501e4:
     movs r0, #2
@@ -2694,7 +2694,7 @@ lbl_080501e4:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0x10
-    bl charged_ice_beam_hitting_sprite
+    bl ProjectileChargedIceBeamHittingSprite
     b lbl_0805020e
 lbl_080501fe:
     movs r0, #0x2d
@@ -2703,7 +2703,7 @@ lbl_080501fe:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0xc
-    bl non_ice_charged_beam_hitting_sprite
+    bl ProjectileNonIceChargedHitSprite
 lbl_0805020e:
     movs r0, #0
     mov r3, r8
@@ -2730,7 +2730,7 @@ lbl_08050216:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0x18
-    bl charged_ice_beam_hitting_sprite
+    bl ProjectileChargedIceBeamHittingSprite
     b lbl_0805032c
 lbl_08050244:
     movs r0, #4
@@ -2743,7 +2743,7 @@ lbl_08050244:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0x14
-    bl non_ice_charged_beam_hitting_sprite
+    bl ProjectileNonIceChargedHitSprite
     b lbl_0805032c
 lbl_0805025e:
     movs r0, #2
@@ -2761,7 +2761,7 @@ lbl_0805026e:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0x14
-    bl charged_ice_beam_hitting_sprite
+    bl ProjectileChargedIceBeamHittingSprite
     b lbl_0805032c
 lbl_08050280:
     movs r0, #0x33
@@ -2770,7 +2770,7 @@ lbl_08050280:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0x10
-    bl charged_ice_beam_hitting_sprite
+    bl ProjectileChargedIceBeamHittingSprite
     b lbl_0805032c
 lbl_08050292:
     movs r0, #4
@@ -2784,7 +2784,7 @@ lbl_0805029a:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0x10
-    bl non_ice_charged_beam_hitting_sprite
+    bl ProjectileNonIceChargedHitSprite
     b lbl_0805032c
 lbl_080502ac:
     movs r0, #0x2e
@@ -2793,7 +2793,7 @@ lbl_080502ac:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0xc
-    bl non_ice_charged_beam_hitting_sprite
+    bl ProjectileNonIceChargedHitSprite
     b lbl_0805032c
 lbl_080502be:
     adds r0, r6, #0
@@ -2826,7 +2826,7 @@ lbl_080502ee:
     adds r1, r4, #0
     adds r2, r5, #0
     movs r3, #0xc
-    bl non_ice_charged_beam_hitting_sprite
+    bl ProjectileNonIceChargedHitSprite
 lbl_080502fe:
     movs r0, #0
     mov r1, r8
@@ -2837,14 +2837,14 @@ lbl_08050306:
     mov r1, r8
     adds r2, r4, #0
     adds r3, r5, #0
-    bl missile_hit_sprite
+    bl ProjectileMissileHitSprite
     b lbl_0805032c
 lbl_08050314:
     adds r0, r6, #0
     mov r1, r8
     adds r2, r4, #0
     adds r3, r5, #0
-    bl super_missile_hit_sprite
+    bl ProjectileSuperMissileHitSprite
     b lbl_0805032c
 lbl_08050322:
     adds r0, r6, #0
@@ -3289,8 +3289,8 @@ lbl_08050644:
     pop {r0}
     bx r0
 
-    thumb_func_start non_ice_charged_beam_hitting_sprite
-non_ice_charged_beam_hitting_sprite: @ 0x08050654
+    thumb_func_start ProjectileNonIceChargedHitSprite
+ProjectileNonIceChargedHitSprite: @ 0x08050654
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -3393,8 +3393,8 @@ freeze_sprite: @ 0x080506fc
     bx r0
     .align 2, 0
 
-    thumb_func_start ice_beam_hitting_sprite
-ice_beam_hitting_sprite: @ 0x08050724
+    thumb_func_start ProjectileIceBeamHittingSprite
+ProjectileIceBeamHittingSprite: @ 0x08050724
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -3522,8 +3522,8 @@ lbl_08050818:
     pop {r0}
     bx r0
 
-    thumb_func_start charged_ice_beam_hitting_sprite
-charged_ice_beam_hitting_sprite: @ 0x08050828
+    thumb_func_start ProjectileChargedIceBeamHittingSprite
+ProjectileChargedIceBeamHittingSprite: @ 0x08050828
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -3748,8 +3748,8 @@ lbl_080509d2:
     .align 2, 0
 lbl_080509d8: .4byte 0x08326fd0
 
-    thumb_func_start missile_hit_sprite
-missile_hit_sprite: @ 0x080509dc
+    thumb_func_start ProjectileMissileHitSprite
+ProjectileMissileHitSprite: @ 0x080509dc
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -3830,8 +3830,8 @@ lbl_08050a6e:
     pop {r0}
     bx r0
 
-    thumb_func_start super_missile_hit_sprite
-super_missile_hit_sprite: @ 0x08050a7c
+    thumb_func_start ProjectileSuperMissileHitSprite
+ProjectileSuperMissileHitSprite: @ 0x08050a7c
     push {r4, r5, r6, r7, lr}
     mov r7, sb
     mov r6, r8

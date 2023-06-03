@@ -5445,8 +5445,8 @@ lbl_0800f96e:
     .align 2, 0
 lbl_0800f974: .4byte 0x0000fdff
 
-    thumb_func_start sub_0800f978
-sub_0800f978: @ 0x0800f978
+    thumb_func_start unk_f978
+unk_f978: @ 0x0800f978
     push {r4, r5, lr}
     lsls r0, r0, #0x10
     asrs r5, r0, #0x10
