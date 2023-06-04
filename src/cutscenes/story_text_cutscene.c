@@ -72,10 +72,9 @@ u8 StoryTextCutsceneInit(void)
  */
 u8 StoryTextCutsceneProcessText(void)
 {
-    // https://decomp.me/scratch/VsuXh
-
-    void* dst;
+    u32* dst;
     i32 line;
+    i32 result;
 
     dst = VRAM_BASE + 0x3000 + sStoryTextCutscenePagesData[0].graphicsPage * 0x4000;
 
@@ -94,16 +93,17 @@ u8 StoryTextCutsceneProcessText(void)
             if (gCurrentMessage.line > 9)
                 gCurrentMessage.line = 0;
 
-            BitFill(3, 0, dst + gCurrentMessage.line * 0x800, 0x800, 0x10);
+            BitFill(3, 0, dst + gCurrentMessage.line * 0x200, 0x800, 0x10);
             CUTSCENE_DATA.timeInfo.subStage++;
             break;
 
         case 2:
             for (line = 8; line != 0; line--)
-            {                
-
-                switch (TextProcessCurrentMessage(&gCurrentMessage, sStoryTextPointers[gLanguage][gCurrentMessage.messageID],
-                    dst + gCurrentMessage.line * 0x800))
+            {
+                result = TextProcessCurrentMessage(&gCurrentMessage, sStoryTextPointers[gLanguage][gCurrentMessage.messageID],
+                    dst + gCurrentMessage.line * 0x200);
+                
+                switch (result)
                 {
                     case 2:
                     case 4:
@@ -119,7 +119,7 @@ u8 StoryTextCutsceneProcessText(void)
                         CUTSCENE_DATA.timeInfo.subStage--;
                         return FALSE;
                 }
-                
+
                 if (gCurrentMessage.line > 9)
                 {
                     CUTSCENE_DATA.timeInfo.timer = 0;

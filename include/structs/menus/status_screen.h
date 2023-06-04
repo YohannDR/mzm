@@ -7,6 +7,7 @@ struct StatusScreenItemData {
     u8 group;
     u8 abilityOffset;
     u8 row;
+    u8 unk_3;
 };
 
 struct StatusScreenItemAcquisitionData {

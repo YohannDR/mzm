@@ -3682,9 +3682,8 @@ const u8 sPauseScreen_40dcf4[16] = {
     2, 2, 2, 2
 };
 
-const u8 sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS - 1] = {
+const u8 sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS + 1] = {
     0x9E, 0x9D, 0x9C, 0x9B,
-    0x9A, 0x9F, 0x99
+    0x9A, 0x9F, 0x99, 0x98,
+    0x97
 };
-
-const u8 sTempArray_40dd0b[0x3b9] = INCBIN_U8("data/Blob_40dd0b_40e0c4.bin");

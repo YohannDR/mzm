@@ -1106,6 +1106,9 @@ menus/EraseSram/Background.tt;368;0x414e40;4
 
 # Pause screen
 
+menus/PauseScreen/40dd10.pal;96;0x40dd10;2
+menus/PauseScreen/40ddd0.pal;64;0x40ddd0;2
+
 menus/PauseScreen/3fcef0.pal;176;0x3fcef0;2
 menus/PauseScreen/TankIcons.pal;256;0x3fd050;2
 menus/PauseScreen/3fd252.pal;79;0x3fd252;2
@@ -2676,7 +2679,6 @@ Blob_2320ec_2376a8.bin;21948;0x2320ec;1
 Blob_238b68_23a5bc.bin;6740;0x238b68;1
 Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
-Blob_40dd0b_40e0c4.bin;953;0x40dd0b;1
 Blob_415460_446d68.bin;203016;0x415460;1
 Blob_454818_45f45c.bin;44100;0x454818;1
 Blob_479400_4bfee4.bin;289508;0x479400;1

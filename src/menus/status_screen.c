@@ -3,7 +3,7 @@
 #include "oam_id.h"
 
 #include "data/shortcut_pointers.h"
-#include "data/menus/status_screen.h"
+#include "data/menus/status_screen_data.h"
 #include "data/menus/pause_screen_data.h"
 #include "data/menus/internal_pause_screen_data.h"
 

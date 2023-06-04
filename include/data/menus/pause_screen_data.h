@@ -129,7 +129,7 @@ extern const u16 sPauseScreen_40dcd0[1 * 16];
 extern const u8 sPauseScreen_40dcf0[4];
 extern const u8 sPauseScreen_40dcf4[16];
 
-extern const u8 sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS - 1];
+extern const u8 sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS + 1];
 
 // ...?
 
