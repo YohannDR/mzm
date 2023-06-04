@@ -11,7 +11,7 @@ extern const u16** const sMessageTextpointers[7];
 extern const u16** const sFileScreenTextPointers[7];
 extern const u16** const sDescriptionTextPointers[7];
 
-extern const u8 sCharactersGfx[1];
+extern const u8 sCharactersGfx[180224];
 extern const u32 sArray_760338[24];
 extern const u32 sArray_760398[8];
 

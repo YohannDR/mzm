@@ -649,38 +649,31 @@ u8 SamusCheckStandingOnGroundCollision(struct SamusData* pData, struct SamusPhys
 u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
     // https://decomp.me/scratch/zWpei
+    
+    u16 hHitbox;
+    u16 blockY;
+    u16 prevBlockY;
 
     u16 resultXLeft;
     u16 resultYLeft;
     u16 resultSlopeLeft;
-
     u16 resultXRight;
     u16 resultYRight;
     u16 resultSlopeRight;
 
-    u16 horizontalHitbox;
-    u8 collisionLeft;
     u8 collisionRight;
-
-    u16 currentSubpixelY;
-    u16 previousSubpixelY;
-
-    i16* pLeftHitbox;
-    i16* pRightHitbox;
-    i16* tempPtr;
+    u8 collisionLeft;
 
     if (pPhysics->horizontalMovingDirection == HDMOVING_LEFT)
     {
-        horizontalHitbox = pPhysics->hitboxLeftOffset;
-        pLeftHitbox = &pPhysics->hitboxLeftOffset;
+        hHitbox = pPhysics->hitboxLeftOffset;
     }
     else
     {
-        horizontalHitbox = pPhysics->hitboxRightOffset;
-        pLeftHitbox = &pPhysics->hitboxLeftOffset;
+        hHitbox = pPhysics->hitboxRightOffset;
     }
 
-    if (unk_5604(pData, pPhysics, pData->xPosition + horizontalHitbox, &resultXLeft) != SAMUS_COLLISION_DETECTION_NONE)
+    if (unk_5604(pData, pPhysics, pData->xPosition + hHitbox, &resultXLeft) != SAMUS_COLLISION_DETECTION_NONE)
     {
         pData->xPosition = resultXLeft;
         pPhysics->touchingSideBlock++;
@@ -689,62 +682,70 @@ u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhy
     if (pData->standingStatus == STANDING_ENEMY)
         return SPOSE_NONE;
 
-    currentSubpixelY = pData->yPosition & BLOCK_POSITION_FLAG;
-    previousSubpixelY = gPreviousYPosition;
-    previousSubpixelY &= BLOCK_POSITION_FLAG;
+    blockY = pData->yPosition & BLOCK_POSITION_FLAG;
+    prevBlockY = gPreviousYPosition & BLOCK_POSITION_FLAG;
 
-    tempPtr = pLeftHitbox;
-    collisionLeft = SamusCheckCollisionAtPosition(pData->xPosition + *pLeftHitbox, pData->yPosition, &resultXLeft, &resultYLeft, &resultSlopeLeft);
-    
-    pRightHitbox = &pPhysics->hitboxRightOffset;
-    collisionRight = SamusCheckCollisionAtPosition(pData->xPosition + *pRightHitbox, pData->yPosition, &resultXRight, &resultYRight, &resultSlopeRight);
+    collisionLeft = SamusCheckCollisionAtPosition(pData->xPosition + pPhysics->hitboxLeftOffset, pData->yPosition,
+        &resultXLeft, &resultYLeft, &resultSlopeLeft);
 
-    if (currentSubpixelY > previousSubpixelY)
+    collisionRight = SamusCheckCollisionAtPosition(pData->xPosition + pPhysics->hitboxRightOffset, pData->yPosition,
+        &resultXRight, &resultYRight, &resultSlopeRight);
+
+    if (blockY > prevBlockY)
     {
         if (collisionLeft != CLIPDATA_TYPE_AIR)
         {
             if (resultSlopeLeft != SLOPE_NONE)
             {
                 if (collisionRight != CLIPDATA_TYPE_AIR)
+                {
                     pData->yPosition = resultYRight - 1;
+                }
                 else
                 {
                     pData->currentSlope = resultSlopeLeft;
                     pData->yPosition = resultYLeft;
                 }
-
-                return SPOSE_LANDING_REQUEST;
             }
+            else
+            {
+                SamusCheckCollisionAtPosition(pData->xPosition + pPhysics->hitboxLeftOffset, pData->yPosition - BLOCK_SIZE,
+                    &resultXLeft, &resultYLeft, &resultSlopeLeft);
 
-            SamusCheckCollisionAtPosition(pData->xPosition + *tempPtr, pData->yPosition - BLOCK_SIZE,
-                &resultXLeft, &resultYLeft, &resultSlopeLeft);
+                pData->yPosition = resultYLeft;
+                if (resultSlopeLeft == SLOPE_NONE)
+                    pData->yPosition = resultYLeft + SUB_PIXEL_POSITION_FLAG;
 
-            pData->yPosition = resultYLeft;
-            if (resultSlopeLeft == SLOPE_NONE)
-                pData->yPosition += SUB_PIXEL_POSITION_FLAG;
-
-            pData->currentSlope = resultSlopeLeft;
-            return SPOSE_LANDING_REQUEST;
+                // Temp
+                pData->currentAnimationFrame = resultSlopeLeft;
+                // pData->currentSlope = resultSlopeLeft;
+            }
         }
-
-        if (collisionRight == CLIPDATA_TYPE_AIR)
-            return SPOSE_NONE;
-
-        if (resultSlopeRight == SLOPE_NONE)
+        else if (collisionRight != CLIPDATA_TYPE_AIR)
         {
-            SamusCheckCollisionAtPosition(pData->xPosition + *pRightHitbox, pData->yPosition - BLOCK_SIZE,
-                &resultXLeft, &resultYLeft, &resultSlopeLeft);
+            if (resultSlopeRight != SLOPE_NONE)
+            {
+                pData->currentSlope = resultSlopeRight;
+                pData->yPosition = resultYRight;
+            }
+            else
+            {
+                SamusCheckCollisionAtPosition(pData->xPosition + pPhysics->hitboxRightOffset, pData->yPosition - BLOCK_SIZE,
+                    &resultXLeft, &resultYLeft, &resultSlopeLeft);
 
-            pData->yPosition = resultYLeft;
-            if (resultSlopeLeft == SLOPE_NONE)
-                pData->yPosition += SUB_PIXEL_POSITION_FLAG;
+                pData->yPosition = resultYLeft;
 
-            pData->currentSlope = resultSlopeLeft;
-            return SPOSE_LANDING_REQUEST;
+                if (resultSlopeLeft == SLOPE_NONE)
+                    pData->yPosition = resultYLeft + SUB_PIXEL_POSITION_FLAG;
+
+                pData->currentSlope = resultSlopeLeft;
+            }
         }
-    
-        pData->currentSlope = resultSlopeRight;
-        pData->yPosition = resultYRight;
+        else
+        {
+            return SPOSE_NONE;
+        }
+
         return SPOSE_LANDING_REQUEST;
     }
 
@@ -757,24 +758,23 @@ u8 SamusCheckLandingCollision(struct SamusData* pData, struct SamusPhysics* pPhy
             return SPOSE_LANDING_REQUEST;
         }
 
-        pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - *pLeftHitbox;
+        pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - pPhysics->hitboxLeftOffset;
         pPhysics->touchingSideBlock++;
-        return SPOSE_NONE;
     }
-
-    if (collisionRight == CLIPDATA_TYPE_AIR)
-        return SPOSE_NONE;
-
-    if (resultSlopeLeft == SLOPE_NONE)
+    else if (collisionRight != CLIPDATA_TYPE_AIR)
     {
-        pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - *pRightHitbox + SUB_PIXEL_POSITION_FLAG;
+        if (resultSlopeRight != SLOPE_NONE)
+        {
+            pData->currentSlope = resultSlopeRight;
+            pData->yPosition = resultYRight;
+            return SPOSE_LANDING_REQUEST;
+        }
+
+        pData->xPosition = (pData->xPosition & BLOCK_POSITION_FLAG) - pPhysics->hitboxRightOffset + SUB_PIXEL_POSITION_FLAG;
         pPhysics->touchingSideBlock++;
-        return SPOSE_NONE;
     }
-    
-    pData->currentSlope = resultSlopeLeft;
-    pData->yPosition = resultYRight;
-    return SPOSE_LANDING_REQUEST;
+
+    return SPOSE_NONE;
 }
 
 /**
