@@ -17,8 +17,8 @@ void RoomUpdateAnimatedGraphicsAndPalettes(void);
 void RoomUpdateHatchFlashingAnimation(void);
 void RoomUpdate(void);
 void RoomUpdateBackgroundsPosition(void);
-void RoomUpdateVerticalTilemap(i8 offset);
-void RoomUpdateHorizontalTilemap(i8 offset);
+void RoomUpdateVerticalTilemap(i32 offset);
+void RoomUpdateHorizontalTilemap(i32 offset);
 void RoomCheckDMA3Ended(void);
 
 #endif /* ROOM_H */
