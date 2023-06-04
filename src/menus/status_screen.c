@@ -560,9 +560,100 @@ void StatusScreenSetBombsVisibility(u16* pTilemap)
 
 }
 
+/**
+ * @brief 70c2c | 1f0 | Sets the status screen missiles visibility
+ * 
+ * @param pTilemap Status screen tilemap pointer
+ */
 void StatusScreenSetMissilesVisibility(u16* pTilemap)
 {
+    i32 nbrToProcess;
+    i32 i;
+    i32 j;
+    u32 dstPosition;
+    u32 srcPosition;
 
+    nbrToProcess = 0;
+    if (gEquipment.maxMissiles != 0)
+    {
+        nbrToProcess = 3;
+        PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[0] |= 1;
+    }
+
+    if (gEquipment.maxSuperMissiles != 0)
+    {
+        nbrToProcess = 5;
+        PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[1] |= 1;
+        PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[0] |= 1;
+    }
+
+    if (nbrToProcess == 0)
+        return;
+
+    for (i = 0; i < nbrToProcess; i++)
+    {
+        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][0] + i) * HALF_BLOCK_SIZE +
+            sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][2];
+        
+        srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_MISSILES][0] + i) * HALF_BLOCK_SIZE +
+            sStatusScreenUnknownItemsData[ABILITY_GROUP_MISSILES][2];
+
+        for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][3] - sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][2]; j++)
+        {
+            pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
+        }
+
+        j = 0;
+        if (i == 1)
+        {
+            if (PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[0] & 1 && gEquipment.currentMissiles != 0)
+            {
+                PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[0] |= 2;
+            }
+
+            j = PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[0];
+        }
+        else if (i == 3)
+        {
+            if (PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[1] & 1 && gEquipment.currentSuperMissiles != 0)
+            {
+                PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[1] |= 2;
+            }
+
+            j = PAUSE_SCREEN_DATA.statusScreenData.missilesActivation[1];
+        }
+
+        if (j == 0)
+            continue;
+
+        j = j == 3;
+
+        if (gPauseScreenFlag == PAUSE_SCREEN_ITEM_ACQUISITION)
+        {
+            if (i == 1 && gCurrentItemBeingAcquired == ITEM_ACQUISITION_MISSILES)
+                j = FALSE;
+            else if (i == 3 && gCurrentItemBeingAcquired == ITEM_ACQUISITION_SUPER_MISSILES)
+                j = FALSE;
+        }
+        else if (gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS)
+            j = FALSE;
+
+        StatusScreenUpdateRow(ABILITY_GROUP_MISSILES, i, j, FALSE);        
+    }
+
+    dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][0] + nbrToProcess) * HALF_BLOCK_SIZE +
+        sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][2];
+    
+    srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_MISSILES][1] * HALF_BLOCK_SIZE +
+        sStatusScreenUnknownItemsData[ABILITY_GROUP_MISSILES][2];
+
+    for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][3] - sStatusScreenGroupsData[ABILITY_GROUP_MISSILES][2]; j++)
+    {
+        pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
+    }
+
+    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
+        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 6;
 }
 
 /**
