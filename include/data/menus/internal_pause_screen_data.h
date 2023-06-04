@@ -18,10 +18,7 @@ extern const u32* const sMapScreenMenuNamesGfxPointers[MAX_AMOUNT_OF_LANGUAGES];
 
 extern u16 sPauseScreenCompletionInfoOamData[6][5];
 
-extern const u8* const sStatusScreenBeamFlagsOrderPointer;
-extern const u8* const sStatusScreenBombFlagsOrderPointer;
-extern const u8* const sStatusScreenSuitFlagsOrderPointer;
-extern const u8* const sStatusScreenMiscFlagsOrderPointer;
+extern const u8* const sStatusScreenFlagsOrderPointers[4];
 
 extern const u32* const sMinimapDataPointers[11];
 
@@ -33,5 +30,6 @@ extern u32* sPauseScreen_7602a8;
 extern u8 sMapDownloadLineTrailOamOffsets[4];
 
 extern const u32 sPauseScreen_7602b0[9];
+extern const u8 sPauseScreen_7603ea[6];
 
 #endif /* INTERNAL_PAUSE_SCREEN_DATA_H */

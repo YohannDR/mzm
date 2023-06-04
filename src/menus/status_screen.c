@@ -358,7 +358,7 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
     positionStart = (sStatusScreenGroupsData[0][0] + 1) * HALF_BLOCK_SIZE + sStatusScreenGroupsData[0][2];
     positionEnd = sStatusScreenUnknownItemsData[0][0] * HALF_BLOCK_SIZE + sStatusScreenUnknownItemsData[0][2];
 
-    pActivation[0] = sStatusScreenBeamFlagsOrderPointer[0];
+    pActivation[0] = sStatusScreenFlagsOrderPointers[0][0];
 
     size = sStatusScreenGroupsData[0][3] - sStatusScreenGroupsData[0][2];
 
@@ -490,7 +490,7 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
         var_0 = i;
         dstPosition = 0;
 
-        if (sStatusScreenBeamFlagsOrderPointer[i] == BBF_PLASMA_BEAM &&
+        if (sStatusScreenFlagsOrderPointers[0][i] == BBF_PLASMA_BEAM &&
             (gEquipment.suitType != SUIT_FULLY_POWERED || gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS))
         {
             var_0 = 9;
@@ -503,9 +503,9 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
         srcPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + row + 1) * HALF_BLOCK_SIZE +
             sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
 
-        if (gEquipment.beamBombs & sStatusScreenBeamFlagsOrderPointer[i])
+        if (gEquipment.beamBombs & sStatusScreenFlagsOrderPointers[0][i])
         {
-            pVisibility[row] = sStatusScreenBeamFlagsOrderPointer[i];
+            pVisibility[row] = sStatusScreenFlagsOrderPointers[0][i];
 
             var_0 = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
             nextRow = row + 1;
@@ -530,17 +530,17 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
             PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 1;
 
         row++;
-        srcPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + row) * HALF_BLOCK_SIZE +
+        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + row) * HALF_BLOCK_SIZE +
             sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
 
-        dstPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][1] * HALF_BLOCK_SIZE +
+        srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][1] * HALF_BLOCK_SIZE +
             sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][2];
 
         var_0 = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
         
         for (j = 0; j <= var_0; j++)
         {
-            pTilemap[srcPosition + j] = pTilemap[dstPosition + j];
+            pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
         }
     }
 }
@@ -555,9 +555,116 @@ void StatusScreenSetMiscsVisibility(u16* pTilemap)
 
 }
 
+/**
+ * @brief 709c0 | 26c | Sets the status screen bombs visibility
+ * 
+ * @param pTilemap Status screen tilemap pointer
+ */
 void StatusScreenSetBombsVisibility(u16* pTilemap)
 {
+    i32 nbrToProcess;
+    i32 i;
+    i32 j;
+    u32 srcPosition;
+    u32 dstPosition;
+    i32 size;
+    u16* dup;
 
+    dup = pTilemap;
+
+    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] = 0;
+    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] = 0;
+
+    nbrToProcess = 0;
+
+    if (gEquipment.beamBombs & sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BOMBS][0])
+    {
+        nbrToProcess = 2;
+        PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] |= 1;
+    }
+
+    if (nbrToProcess == 0)
+        return;
+
+    if (gEquipment.maxPowerBombs != 0)
+    {
+        nbrToProcess = 3;
+        PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] |= 1;
+    }
+
+    for (i = 0; i < nbrToProcess; i++)
+    {
+        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][0] + i) * HALF_BLOCK_SIZE +
+            sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][2];
+        
+        srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_BOMBS][0] + sPauseScreen_7603ea[i]) * HALF_BLOCK_SIZE;
+        srcPosition += sStatusScreenUnknownItemsData[ABILITY_GROUP_BOMBS][2];
+
+        for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][2]; j++)
+        {
+            pTilemap[dstPosition + j] = dup[srcPosition + j];
+        }
+
+        j = 0;
+        if (i == 1)
+        {
+            if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] & 1)
+            {
+                if (gEquipment.beamBombsActivation & sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BOMBS][0])
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] |= 2;
+
+                PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] |= 4;
+
+                if (gEquipment.suitMiscActivation & SMF_MORPH_BALL)
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] |= 8;
+            }
+
+            j = PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0];
+        }
+        else if (i == 2)
+        {
+            if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] & 1)
+            {
+                if (gEquipment.beamBombsActivation & sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BOMBS][0])
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] |= 2;
+
+                if (gEquipment.currentPowerBombs != 0)
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] |= 4;
+
+                if (gEquipment.suitMiscActivation & SMF_MORPH_BALL)
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] |= 8;
+            }
+
+            j = PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1];
+        }
+
+        if (j == 0)
+            continue;
+
+        j = j == (1 | 2 | 4 | 8);
+
+        if (gPauseScreenFlag == PAUSE_SCREEN_ITEM_ACQUISITION && gCurrentItemBeingAcquired == ITEM_ACQUISITION_POWER_BOMB && i == 2)
+            j = FALSE;
+
+        StatusScreenUpdateRow(ABILITY_GROUP_BOMBS, i, j, FALSE);
+    }
+
+    dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][0] + nbrToProcess) * HALF_BLOCK_SIZE +
+        sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][2];
+    
+    if (nbrToProcess != 2)
+        nbrToProcess++;
+
+    srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_BOMBS][0] + nbrToProcess) * HALF_BLOCK_SIZE +
+        sStatusScreenUnknownItemsData[ABILITY_GROUP_BOMBS][2];
+
+    for (j = 0; j <= sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BOMBS][2]; j++)
+    {
+        pTilemap[dstPosition + j] = dup[srcPosition + j];
+    }
+
+    if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
+        PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 8;
 }
 
 /**
