@@ -2,7 +2,7 @@
 
 This is a work in progress decompilation of Metroid - Zero Mission.
 
-2619/2721 functions decompiled (96.25%, 102 left)
+2620/2721 functions decompiled (96.29%, 101 left)
 
 0x350b3c/0x76b014 bytes of data not in blobs (44.69%, 0x41a4d8 left)
 

@@ -1004,9 +1004,88 @@ void RoomUpdateVerticalTilemap(i32 offset)
     }
 }
 
+/**
+ * @brief 572f8 | 144 | Updates the horizontal tilemap of the room
+ * 
+ * @param offset Movement offset
+ */
 void RoomUpdateHorizontalTilemap(i32 offset)
 {
+    i32 properties;
+    u16 yPosition;
+    u16 xPosition;
+    i32 i;
+    u16* pTilemap;
+    u32 unk;
+    u32* dst;
+    u32 tilemapOffset;
+    i32 size;
 
+    i32 offset_ = (i8)offset;
+
+    for (i = 0; i < 3; i++)
+    {
+        if (i == 0)
+        {
+            properties = gCurrentRoomEntry.BG0Prop;
+            yPosition = gBG0YPosition / BLOCK_SIZE;
+            xPosition = gBG0XPosition / BLOCK_SIZE;
+        }
+        else if (i == 1)
+        {
+            properties = gCurrentRoomEntry.BG1Prop;
+            yPosition = gBG1YPosition / BLOCK_SIZE;
+            xPosition = gBG1XPosition / BLOCK_SIZE;
+        }
+        else
+        {
+            properties = gCurrentRoomEntry.BG2Prop;
+            yPosition = gBG2YPosition / BLOCK_SIZE;
+            xPosition = gBG2XPosition / BLOCK_SIZE;
+        }
+
+        if (!(properties & BG_PROP_RLE_COMPRESSED))
+            continue;
+
+        properties = xPosition + offset_;
+        if (properties < 0)
+            continue;
+
+        if (properties > gBGPointersAndDimensions.backgrounds[i].width)
+            continue;
+            
+        xPosition = properties;
+
+        properties = yPosition - 2;
+        if (properties < 0)
+            properties = 0;
+
+        yPosition = properties;
+
+        size = 0xE;
+        if (gBGPointersAndDimensions.backgrounds[i].height < size)
+            size = gBGPointersAndDimensions.backgrounds[i].height;
+
+        tilemapOffset = gBGPointersAndDimensions.backgrounds[i].width * yPosition + xPosition;
+        
+        dst = VRAM_BASE + i * 4096;
+        if (xPosition & 0x10)
+            dst = VRAM_BASE + 0x800 + i * 4096;
+        dst += (xPosition & 0xF);
+
+        for (properties = 0; properties < size; properties++)
+        {
+            pTilemap = &gTilemapAndClipPointers.pTilemap[gBGPointersAndDimensions.backgrounds[i].pDecomp[tilemapOffset] * 4];
+
+            unk = (yPosition & 0xF) * 32;
+
+            dst[unk] = pTilemap[0] | pTilemap[1] << 0x10;
+            dst[unk + 0x10] = pTilemap[2] | pTilemap[3] << 0x10;
+
+            tilemapOffset += gBGPointersAndDimensions.backgrounds[i].width;
+            yPosition++;
+        }
+    }
 }
 
 /**
