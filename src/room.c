@@ -374,14 +374,14 @@ void RoomRemoveNeverReformBlocksAndCollectedTanks(void)
 void RoomReset(void)
 {
     // https://decomp.me/scratch/TZ1cZ
-    
+
     const struct Door* pDoor;
     i32 i;
     i32 yOffset;
     i32 xOffset;
     u16 count;
     u16* ptr;
-    u16 temp;
+    i32 temp;
     
     gColorFading.unk_3 = 0;
     gColorFading.timer = 0;
@@ -412,16 +412,16 @@ void RoomReset(void)
         gRainSoundEffect = RAIN_SOUND_NONE;
 
         if (!gIsLoadingFile && gCurrentDemo.loading)
-            unk_60cbc(FALSE);
+            init_demo_related(FALSE);
     
         gDoorPositionStart.x = 0;
         gDoorPositionStart.y = 0;
         gCurrentItemBeingAcquired = 0;
 
-        SramWrite_MostRecentSaveFile();
+        save_most_recent_file_to_sram(); // Undefined
     }
 
-    unk_5c158();
+    unk_5c158(); // Undefined
 
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
         return;
@@ -504,10 +504,10 @@ void RoomReset(void)
     xOffset = pDoor->xStart;
     yOffset = pDoor->yEnd + 1;
     gSamusData.xPosition = xOffset * BLOCK_SIZE + (pDoor->xExit + 8) * 4;
-    gSamusData.yPosition = (yOffset) * BLOCK_SIZE + pDoor->yExit * 4 - 1;
+    gSamusData.yPosition = yOffset * BLOCK_SIZE + pDoor->yExit * 4 - 1;
 
     if (gCurrentDemo.loading)
-        unk_60cbc(TRUE);
+        init_demo_related(TRUE);
 
     gWaitingSpacePiratesPosition.x = gSamusData.xPosition;
     gWaitingSpacePiratesPosition.y = gSamusData.yPosition;
@@ -523,10 +523,11 @@ void RoomReset(void)
             gSamusDoorPositionOffset = 0;
         else
         {
-            yOffset = -gSamusPhysics.drawDistanceTopOffset;
+            temp = gSamusPhysics.drawDistanceTopOffset;
+            yOffset = (u16)-temp;
             temp = (u16)yOffset;
             if (temp + gSamusDoorPositionOffset > UCHAR_MAX)
-                gSamusDoorPositionOffset = UCHAR_MAX - temp;
+                gSamusDoorPositionOffset = UCHAR_MAX - yOffset;
         }
 
         gSamusData.yPosition -= gSamusDoorPositionOffset;
@@ -570,7 +571,125 @@ void RoomSetBackgroundScrolling(void)
 
 void RoomSetInitialTilemap(u8 bgNumber)
 {
+    // https://decomp.me/scratch/mY7sw
+    
+    i32 properties;
+    i32 yPosition;
+    u16 xPosition;
+    i32 i;
+    i32 j;
 
+    u16 yPos;
+    u16 xPos;
+    
+    u16 ySize;
+    u16 xSize;
+
+    i32 offset;
+    u16 iWidth;
+
+    u16 tmpY;
+    u16 tmpX;
+
+    u16* dst;
+    u16* pTilemap;
+    u16* pDecomp;
+
+    if (bgNumber == 0)
+    {
+        properties = gCurrentRoomEntry.BG0Prop;
+        yPosition = gBG0YPosition / BLOCK_SIZE;
+        xPosition = gBG0XPosition / BLOCK_SIZE;
+    }
+    else if (bgNumber == 1)
+    {
+        properties = gCurrentRoomEntry.BG1Prop;
+        yPosition = gBG1YPosition / BLOCK_SIZE;
+        xPosition = gBG1XPosition / BLOCK_SIZE;
+    }
+    else
+    {
+        properties = gCurrentRoomEntry.BG2Prop;
+        yPosition = gBG2YPosition / BLOCK_SIZE;
+        xPosition = gBG2XPosition / BLOCK_SIZE;
+    }
+
+    if (properties & BG_PROP_RLE_COMPRESSED)
+    {
+        xSize = 0x15;
+
+        offset = xPosition - 3;
+        if (offset < 0)
+            offset = 0;
+
+        if (xSize > gBGPointersAndDimensions.backgrounds[bgNumber].width - offset)
+            xSize = gBGPointersAndDimensions.backgrounds[bgNumber].width - offset;
+
+        xPos = offset;
+        
+        ySize = 0x10;
+
+        offset = yPosition - 3;
+        if (offset < 0)
+            offset = 0;
+
+        if (ySize > gBGPointersAndDimensions.backgrounds[bgNumber].height - offset)
+            ySize = gBGPointersAndDimensions.backgrounds[bgNumber].height - offset;
+
+
+        pDecomp = &gBGPointersAndDimensions.backgrounds[bgNumber].pDecomp[gBGPointersAndDimensions.backgrounds[bgNumber].width * (u16)offset + xPos];
+        yPos = offset;
+
+        for (i = 0; i < ySize; )
+        {
+            iWidth = i * gBGPointersAndDimensions.backgrounds[bgNumber].width;
+
+            tmpX = xPos;
+            for (yPosition = 0; yPosition < xSize; )
+            {
+                dst = VRAM_BASE + bgNumber * 0x1000;
+
+                if (tmpX & 0x10)
+                    dst = VRAM_BASE + 0x800 + bgNumber * 0x1000;
+
+                dst = &dst[(tmpX & 0xF) * 2 + (yPos & 0xF) * 64];
+
+                pTilemap = &gTilemapAndClipPointers.pTilemap[pDecomp[iWidth] * 4];
+
+                dst[0] = *pTilemap++;
+                dst[1] = *pTilemap++;
+                dst[32] = *pTilemap++;
+                dst[32 + 1] = *pTilemap++;
+
+                iWidth++;
+                yPosition++;
+                tmpX++;
+            }
+
+            i++;
+            yPos++;
+        }
+    }
+    else
+    {
+        if (properties == 0)
+        {
+            BitFill(3, 0x40, VRAM_BASE + bgNumber * 0x1000, 0x1000, 16);
+            return;
+        }
+
+        if (properties & BG_PROP_LZ77_COMPRESSED && bgNumber == 0)
+        {
+            offset = 0x800;
+            if (gCurrentRoomEntry.BG0Size & 1)
+                offset *= 2;
+
+            if (gCurrentRoomEntry.BG0Size & 2)
+                offset *= 2;
+
+            DMATransfer(3, gDecompBG0Map, VRAM_BASE, offset, 16);
+        }
+    }
 }
 
 /**
@@ -866,9 +985,9 @@ void RoomUpdate(void)
         }
     }
 
-    if (process_haze())
+    if (HazeProcess())
     {
-        process_haze();
+        HazeProcess();
         if (gHazeInfo.enabled)
             gHazeInfo.active = TRUE;
     }
