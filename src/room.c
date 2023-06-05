@@ -371,14 +371,16 @@ void RoomRemoveNeverReformBlocksAndCollectedTanks(void)
 	BgClipRemoveCollectedTanks();
 }
 
+/**
+ * @brief 566d4 | 3f4 | Resets all the room related info during a transition
+ * 
+ */
 void RoomReset(void)
 {
-    // https://decomp.me/scratch/TZ1cZ
-
     const struct Door* pDoor;
     i32 i;
     i32 yOffset;
-    i32 xOffset;
+    u16 xOffset;
     u16 count;
     u16* ptr;
     i32 temp;
@@ -480,12 +482,10 @@ void RoomReset(void)
     gActiveBombChainTypes = 0;
     gDisableAnimatedGraphicsTimer = 0;
 
-    count = 64;
-    while (count != 0)
+    ptr = EWRAM_BASE + 0x27780;
+    for (xOffset = 64; xOffset != 0; xOffset--)
     {
-        ptr = &gMakeSolidBlocks[count];
-        *--ptr = 0;
-        count--;
+        ptr[xOffset - 1] = 0;
     }
 
     gScreenShakeY = sScreenShake_Empty;
