@@ -282,18 +282,19 @@ void TextDrawMessageCharacter(u16 charID, u32* dst, u16 indent, u8 color)
 
 }
 
+/**
+ * @brief 6ef2c | ec | Draws the location text characters
+ * 
+ * @param param_1 To document
+ * @param ppText Pointer to text pointer
+ */
 void TextDrawLocationTextCharacters(u8 param_1, const u16** ppText)
 {
-    // https://decomp.me/scratch/sOmhX
-
     u32* dst;
-    const u16* pText;
     u32 indent;
     u32 color;
-    u32 charID;
     u32 drawFlag;
     u32 width;
-    u16 charFlags;
 
     if (param_1 == 1)
         dst = EWRAM_BASE;
@@ -301,14 +302,12 @@ void TextDrawLocationTextCharacters(u8 param_1, const u16** ppText)
     {
         dst = EWRAM_BASE + 0x800;
 
-        pText = *ppText;
-        while (*pText != CHAR_NEW_LINE)
+        while (**ppText != CHAR_NEW_LINE)
         {
-            *ppText = pText;
-            pText++;
+            *ppText = *ppText + 1;
         }
 
-        (*ppText)++;
+        *ppText = *ppText + 1;
     }
     else
         return;
@@ -316,40 +315,35 @@ void TextDrawLocationTextCharacters(u8 param_1, const u16** ppText)
     indent = 0;
     color = 0;
 
-    pText = *ppText;
-
-    while (*pText != CHAR_TERMINATOR && *pText != CHAR_NEW_LINE)
+    while (**ppText != CHAR_TERMINATOR && **ppText != CHAR_NEW_LINE)
     {
         drawFlag = TRUE;
 
-        charID = *pText;
-        charFlags = charID & 0xFF00;
-
-        if (charFlags == CHAR_WIDTH_MASK)
+        if ((**ppText & CHAR_MASK) == CHAR_WIDTH_MASK)
         {
-            width = charID & 0xFF;
+            width = **ppText & 0xFF;
             drawFlag = FALSE;
         }
-        else if (charFlags == CHAR_INDENT_MASK)
+        else if ((**ppText & CHAR_MASK) == CHAR_INDENT_MASK)
         {
             width = 0;
-            indent = charID & 0xFF;
+            indent = **ppText & 0xFF;
             drawFlag = FALSE;
         }
-        else if (charFlags == CHAR_COLOR_MASK)
+        else if ((**ppText & CHAR_MASK) == CHAR_COLOR_MASK)
         {
             width = 0;
-            color = charID & 0xFF;
+            color = **ppText & 0xFF;
             drawFlag = FALSE;
         }
 
         if (drawFlag)
         {
-            width = TextGetCharacterWidth(*pText);
+            width = TextGetCharacterWidth(**ppText);
             TextDrawMessageCharacter(**ppText, dst, indent, color);
         }
 
-        pText = ++(*ppText);
+        *ppText = *ppText + 1;
         indent += width;
     }
 }
