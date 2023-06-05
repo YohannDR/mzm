@@ -856,10 +856,13 @@ void BlockUpdateBrokenBlocks(void)
     }
 }
 
+/**
+ * @brief 59c74 | 134 | Updates the animation of a breaking block
+ * 
+ * @param pBlock Broken block pointer
+ */
 void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
 {
-    // https://decomp.me/scratch/hH7ax
-
     u16 value;
     u16* dst;
     u16* src;
@@ -867,6 +870,7 @@ void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
 
     value = CLIPDATA_TILEMAP_AIR;
 
+    // Get clipdata tilemap value
     switch (pBlock->stage)
     {
         case 2:
@@ -903,22 +907,30 @@ void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
         case 13:
     }
 
+    // No tile, abort
     if (value == CLIPDATA_TILEMAP_AIR)
         return;
 
-    gBGPointersAndDimensions.backgrounds[1].pDecomp[pBlock->yPosition * gBGPointersAndDimensions.backgrounds[1].width + pBlock->xPosition] = value;
+    // Write value to BG1 map
+    gBGPointersAndDimensions.backgrounds[1].pDecomp[pBlock->yPosition * gBGPointersAndDimensions.backgrounds[1].width +
+        pBlock->xPosition] = value;
 
-    if ((gBG1YPosition / BLOCK_SIZE) - 4 > pBlock->yPosition || pBlock->yPosition > (gBG1YPosition / BLOCK_SIZE) + 13)
+    // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
+    offset = gBG1YPosition / BLOCK_SIZE;
+    if ((i32)(offset - 4) > pBlock->yPosition || pBlock->yPosition > (i32)(offset + 13))
         return;
 
-    if ((gBG1XPosition / BLOCK_SIZE) - 4 > pBlock->xPosition || pBlock->xPosition > (gBG1XPosition / BLOCK_SIZE) + 18)
+    offset = gBG1XPosition / BLOCK_SIZE;
+    if ((i32)(offset - 4) > pBlock->xPosition || pBlock->xPosition > (i32)(offset + 18))
         return;
 
+    // Apply to, tilemap
     dst = VRAM_BASE + 0x1000;
     if (pBlock->xPosition & 0x10)
         dst = VRAM_BASE + 0x1800;
 
-    dst += (pBlock->xPosition & 0xF) * 2 + (pBlock->yPosition & 0xF) * 64;
+    offset = (pBlock->xPosition & 0xF) * 2;
+    dst += (pBlock->yPosition & 0xF) * 64 + offset;
 
     offset = value * 4;
     src = gTilemapAndClipPointers.pTilemap;
@@ -1346,20 +1358,18 @@ void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition)
 
     gCurrentClipdataAffectingAction = CAA_BOMB_CHAIN;
     clipdata = gBGPointersAndDimensions.pClipDecomp[yPosition * gBGPointersAndDimensions.clipdataWidth + xPosition];
-    if (clipdata != 0x0)
+    if (clipdata != 0)
         BlockApplyCCAA(yPosition, xPosition, clipdata);
 
-    i = 0x0;
-    for (; i < 0x2; ++i)
+    for (i = 0; i < 2; i++)
     {
         yOffset = yPosition + sSubBombChainPositionOffset[type][i*2+1];
         offset = yOffset * gBGPointersAndDimensions.clipdataWidth;
         xOffset = xPosition + sSubBombChainPositionOffset[type][i*2];
         offset += xOffset;
         clipdata = gBGPointersAndDimensions.pClipDecomp[offset];
-        if (clipdata != 0x0)
+        if (clipdata != 0)
             BlockApplyCCAA(yOffset, xOffset, clipdata);
-
     }
 
     gCurrentClipdataAffectingAction = CAA_NONE;
