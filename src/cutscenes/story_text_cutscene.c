@@ -75,6 +75,7 @@ u8 StoryTextCutsceneProcessText(void)
     u32* dst;
     i32 line;
     i32 result;
+    u32 flag;
 
     dst = VRAM_BASE + 0x3000 + sStoryTextCutscenePagesData[0].graphicsPage * 0x4000;
 
@@ -110,15 +111,23 @@ u8 StoryTextCutsceneProcessText(void)
                         CUTSCENE_DATA.timeInfo.timer = 0;
                         CUTSCENE_DATA.timeInfo.subStage = 0;
                         CUTSCENE_DATA.timeInfo.stage++;
-                        goto lbl;
+                        flag = FALSE;
+                        break;
 
                     case 3:
                         gCurrentMessage.gfxSlot = 1;
 
                     case 1:
                         CUTSCENE_DATA.timeInfo.subStage--;
-                        return FALSE;
+                        flag = FALSE;
+                        break;
+
+                    default:
+                        flag = TRUE;
                 }
+
+                if (!flag)
+                    break;
 
                 if (gCurrentMessage.line > 9)
                 {
@@ -131,7 +140,6 @@ u8 StoryTextCutsceneProcessText(void)
             break;
     }
 
-lbl:
     return FALSE;
 }
 
