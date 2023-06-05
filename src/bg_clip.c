@@ -25,39 +25,49 @@ void BgClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition
 
 }
 
-void BgClipSetBG1BlockValue(u32 value, u16 yPosition, u16 xPosition)
+/**
+ * @brief 5a55c | cc | Sets the value for a BG1 block
+ * 
+ * @param value Value
+ * @param yPosition Y position
+ * @param xPosition X position
+ */
+void BgClipSetBG1BlockValue(u16 value, u16 yPosition, u16 xPosition)
 {
-    // https://decomp.me/scratch/1BdqX
+    u16* dst;
+    u16 offset;
 
-    /*u16* pDst;
-    u16 topOffset;
-    u16 bottomOffset;
-
+    // Write value
     gBGPointersAndDimensions.backgrounds[1].pDecomp[yPosition * gBGPointersAndDimensions.backgrounds[1].width + xPosition] = value;
 
-    if ((gBG1YPosition >> 0x6) - 0x4 <= yPosition &&
-        yPosition <= (gBG1YPosition >> 0x6) + 0xD &&
-        (gBG1XPosition >> 0x6) - 0x4 <= xPosition &&
-        xPosition <= (gBG1XPosition >> 0x6) + 0x12)
-    {
-        pDst = (u16*)(VRAM_BASE + 0x1000);
-        if (xPosition & 0x10)
-            pDst = (u16*)(VRAM_BASE + 0x1800);
+    // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
+    offset = gBG1YPosition / BLOCK_SIZE;
+    if ((i32)(offset - 4) > yPosition)
+        return;
+    
+    if (yPosition > (offset + 13))
+        return;
 
-        pDst += (yPosition & 0xF) * 0x40 + (xPosition & 0xF) * 0x2;
-        topOffset = value * 0x4;
+    offset = gBG1XPosition / BLOCK_SIZE;
+    if ((i32)(offset - 4) > xPosition)
+        return;
 
-        bottomOffset = topOffset | 1;
-        pDst[0] = gTilemapAndClipPointers.pTilemap[topOffset];
+    if (xPosition > (i32)(offset + 18))
+        return;
 
-        topOffset = bottomOffset + 1;
-        pDst[1] = gTilemapAndClipPointers.pTilemap[bottomOffset];
+    // Update tilemap
+    dst = (u16*)(VRAM_BASE + 0x1000);
+    if (xPosition & 0x10)
+        dst = (u16*)(VRAM_BASE + 0x1800);
 
-        pDst[32] = gTilemapAndClipPointers.pTilemap[topOffset];
+    dst += (yPosition & 0xF) * 64 + (xPosition & 0xF) * 2;
+    
+    offset = value * 4;
         
-        bottomOffset = topOffset + 1;
-        pDst[33] = gTilemapAndClipPointers.pTilemap[bottomOffset];
-    }*/
+    dst[0] = gTilemapAndClipPointers.pTilemap[offset++];
+    dst[1] = gTilemapAndClipPointers.pTilemap[offset++];
+    dst[32] = gTilemapAndClipPointers.pTilemap[offset++];
+    dst[33] = gTilemapAndClipPointers.pTilemap[offset];
 }
 
 /**

@@ -1,6 +1,6 @@
 #include "gba.h"
 #include "connection.h"
-#include "bg_clip.h" // Required
+// #include "bg_clip.h" // Required
 
 #include "data/engine_pointers.h"
 #include "data/empty_datatypes.h"
@@ -23,6 +23,11 @@
 #include "structs/game_state.h"
 #include "structs/room.h"
 #include "structs/samus.h"
+
+// FIXME, find a better solution
+void BgClipSetBG1BlockValue(u32, u16, u16);
+void BgClipSetRawBG1BlockValue(u32, u16, u16);
+void BgClipSetClipdataBlockValue(u32, u16, u16);
 
 /**
  * @brief 5e760 | 198 | Updates the hatches

@@ -924,7 +924,7 @@ void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
     if ((i32)(offset - 4) > pBlock->xPosition || pBlock->xPosition > (i32)(offset + 18))
         return;
 
-    // Apply to, tilemap
+    // Apply to tilemap
     dst = VRAM_BASE + 0x1000;
     if (pBlock->xPosition & 0x10)
         dst = VRAM_BASE + 0x1800;
