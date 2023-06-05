@@ -1931,10 +1931,10 @@ void SramWrite_FileInfo(void)
             gSaveFilesInfo[i].language = gSram.files[i].gameCompletion.language;
             gSaveFilesInfo[i].timeAttack = gSram.files[i].timeAttack;
 
-            if (gSram.files[i].difficulty < MAX_AMOUNT_OF_DIFFICULTIES)
-                gSaveFilesInfo[i].difficulty = gSram.files[i].difficulty;
-            else
+            if (gSram.files[i].difficulty >= MAX_AMOUNT_OF_DIFFICULTIES)
                 gSaveFilesInfo[i].difficulty = DIFF_NORMAL;
+            else
+                gSaveFilesInfo[i].difficulty = gSram.files[i].difficulty;
         }
 
         if (!gSaveFilesInfo[i].exists || !gSaveFilesInfo[i].hasSaved)
@@ -1961,7 +1961,6 @@ void SramWrite_FileInfo(void)
                 if (gSram.files[i].difficulty > DIFF_HARD)
                     gSaveFilesInfo[i].difficulty = DIFF_NORMAL;
                 
-                gSaveFilesInfo[i].difficulty = gSram.files[i].difficulty;
                 gSaveFilesInfo[i].language = gSram.files[i].gameCompletion.language;
                 gSaveFilesInfo[i].timeAttack = gSram.files[i].timeAttack;
             }

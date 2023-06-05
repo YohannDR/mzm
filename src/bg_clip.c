@@ -155,11 +155,11 @@ void BgClipCheckTouchingSpecialClipdata(void)
     }
 }
 
-void BgClipApplyClipdataChangingTransparency(void)
+void BGClipApplyClipdataChangingTransparency(void)
 {
     // https://decomp.me/scratch/qCOUj
 
-    u16 clipdata;
+    u32 clipdata;
     u32 xPosition;
     u32 yPosition;
     i32 position;
@@ -225,11 +225,11 @@ u16 BgClipGetNewBldalphaValue(u16 clip)
     return bldalpha;
 }
 
-void BgClipCheckWalkingOnCrumbleBlock(void)
+void BGClipCheckWalkingOnCrumbleBlock(void)
 {
     // https://decomp.me/scratch/agN3y
 
-    /*u32 ignoreBlock;
+    u32 ignoreBlock;
     i32 xOffsetLeft;
     u16 xOffsetRight;
     u16 xPosition;
@@ -237,13 +237,14 @@ void BgClipCheckWalkingOnCrumbleBlock(void)
     i32 behavior;
     u32 stopSamus;
 
-    behavior = gSamusData.yVelocity >> 0x1F;
+    behavior = (u32)gSamusData.yVelocity >> 0x1F;
     if (gSamusPhysics.standingStatus == STANDING_NOT_IN_CONTROL)
         behavior++;
 
     if (!behavior)
     {
-        xOffsetRight = (gSamusData.xPosition + gSamusPhysics.drawDistanceRightOffset) >> 0x6;
+        behavior = gSamusData.xPosition + gSamusPhysics.drawDistanceRightOffset;
+        xOffsetRight = (behavior) >> 0x6;
         if (xOffsetRight > gBGPointersAndDimensions.clipdataWidth)
             xOffsetRight = gBGPointersAndDimensions.clipdataWidth;
 
@@ -252,7 +253,8 @@ void BgClipCheckWalkingOnCrumbleBlock(void)
             behavior = 0x0;
 
         xPosition = behavior >> 0x6;
-        yPosition = (gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset + 0x2) >> 0x6;
+        behavior = gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset;
+        yPosition = (behavior + 0x2) >> 0x6;
 
         if (yPosition > gBGPointersAndDimensions.clipdataHeight)
             yPosition = gBGPointersAndDimensions.clipdataHeight;
@@ -274,12 +276,12 @@ void BgClipCheckWalkingOnCrumbleBlock(void)
             {
                 if (BlockStoreBrokenReformBlock(BLOCK_TYPE_SLOW_CRUMBLE, xPosition, yPosition, TRUE))
                 {
-                    BgClipSetBG1BlockValue(0x401, yPosition, xPosition);
-                    BgClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID, yPosition, xPosition);
+                    BGClipSetBG1BlockValue(0x401, yPosition, xPosition);
+                    BGClipSetClipdataBlockValue(0x401, yPosition, xPosition);
                 }
             }
         }
-    }*/
+    }
 }
 
 void BgClipCheckTouchingTransitionOnElevator(void)
