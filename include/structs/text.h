@@ -6,19 +6,18 @@
 struct Message {
     u16 textIndex;
     u16 indent;
-    u16 delay;
+    u16 timer;
     u8 color;
     u8 line;
 
-    u8 unk_8;
-    u8 unk_9;
+    u8 continuousDelay;
+    u8 delay;
 
     u8 messageID;
     u8 gfxSlot;
     u8 stage;
     u8 isMessage;
     u8 messageEnded;
-    u8 unk_F;
 };
 
 extern struct Message gCurrentMessage;

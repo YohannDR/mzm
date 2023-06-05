@@ -330,7 +330,7 @@ void TextDrawLocationTextCharacters(u8 param_1, const u16** ppText)
             width = charID & 0xFF;
             drawFlag = FALSE;
         }
-        else if (charFlags == CHAR_ABSOLUTE_WIDTH_MASK)
+        else if (charFlags == CHAR_INDENT_MASK)
         {
             width = 0;
             indent = charID & 0xFF;
@@ -427,11 +427,11 @@ u8 unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
                 switch (TextProcessCurrentMessage(&gCurrentMessage, sMessageTextpointers[gLanguage][gCurrentMessage.messageID],
                     VRAM_BASE + 0x14000 + gCurrentMessage.gfxSlot * 0x800 + gCurrentMessage.line * 0x800))
                 {
-                    case 2:
+                    case TEXT_STATE_ENDED:
                         gCurrentMessage.stage++;
 
-                    case 1:
-                    case 4:
+                    case TEXT_STATE_NEW_LINE:
+                    case TEXT_STATE_NEW_PAGE:
                         gCurrentMessage.indent = 0;
                         flag = TRUE;
                         break;
@@ -520,11 +520,11 @@ u8 TextProcessItemBanner(void)
                     sMessageTextpointers[gLanguage][gCurrentMessage.messageID],
                     VRAM_BASE + 0x14000 + gCurrentMessage.gfxSlot * 0x800 + gCurrentMessage.line * 0x800))
                 {
-                    case 2:
+                    case TEXT_STATE_ENDED:
                         gCurrentMessage.stage++;
 
-                    case 1:
-                    case 4:
+                    case TEXT_STATE_NEW_LINE:
+                    case TEXT_STATE_NEW_PAGE:
                         gCurrentMessage.indent = 0;
                         flag = TRUE;
                         break;
@@ -636,11 +636,11 @@ u8 TextProcessStory(void)
                 
                 switch (maxLine)
                 {
-                    case 2:
+                    case TEXT_STATE_ENDED:
                         gCurrentMessage.stage++;
 
-                    case 1:
-                    case 4:
+                    case TEXT_STATE_NEW_LINE:
+                    case TEXT_STATE_NEW_PAGE:
                         gCurrentMessage.indent = 0;
                         flag = TRUE;
                         break;
@@ -711,11 +711,11 @@ u8 TextProcessFileScreenPopUp(void)
             {
                 switch (TextProcessCurrentMessage(&gCurrentMessage, sFileScreenTextPointers[gLanguage][gCurrentMessage.messageID], dst))
                 {
-                    case 2:
+                    case TEXT_STATE_ENDED:
                         gCurrentMessage.stage++;
 
-                    case 1:
-                    case 4:
+                    case TEXT_STATE_NEW_LINE:
+                    case TEXT_STATE_NEW_PAGE:
                         gCurrentMessage.indent = 0;
                         flag = TRUE;
                         break;
@@ -775,12 +775,12 @@ void TextProcessDescription(void)
 
         case 1:
             // Initial delay
-            gCurrentMessage.delay++;
-            if (gCurrentMessage.delay > gCurrentMessage.unk_9 || gChangedInput & KEY_A)
+            gCurrentMessage.timer++;
+            if (gCurrentMessage.timer > gCurrentMessage.delay || gChangedInput & KEY_A)
             {
-                gCurrentMessage.unk_9 = 0;
-                PAUSE_SCREEN_DATA.unk_56++;
                 gCurrentMessage.delay = 0;
+                PAUSE_SCREEN_DATA.unk_56++;
+                gCurrentMessage.timer = 0;
             }
             break;
 
@@ -789,7 +789,7 @@ void TextProcessDescription(void)
             result = TextProcessCurrentMessage(&gCurrentMessage,
                 sDescriptionTextPointers[gLanguage][PAUSE_SCREEN_DATA.currentEquipment], VRAM_BASE + 0x7800);
 
-            if (result == 2)
+            if (result == TEXT_STATE_ENDED)
             {
                 // Message ended
                 if (gCurrentMessage.line != 0)
@@ -805,11 +805,11 @@ void TextProcessDescription(void)
                     PAUSE_SCREEN_DATA.unk_56 = 6;
                 }
             }
-            else if (result == 1)
+            else if (result == TEXT_STATE_NEW_LINE)
             {
                 // New line
                 result = MISC_OAM_ID_TEXT_MARKER_DOWN;
-                gCurrentMessage.delay = 0;
+                gCurrentMessage.timer = 0;
 
                 if (gDemoState != 0)
                     PAUSE_SCREEN_DATA.unk_56 = 5;
@@ -853,9 +853,9 @@ void TextProcessDescription(void)
                 // Set process message behavior
                 PAUSE_SCREEN_DATA.unk_56 = 1;
 
-                gCurrentMessage.delay = 0;
+                gCurrentMessage.timer = 0;
                 gCurrentMessage.indent = 0;
-                gCurrentMessage.unk_9 = 10;
+                gCurrentMessage.delay = 10;
                 PAUSE_SCREEN_DATA.miscOam[1].exists = FALSE;
             }
             break;
@@ -878,8 +878,8 @@ void TextProcessDescription(void)
 
         case 5:
             // During a demo, wait to change line
-            gCurrentMessage.delay++;
-            if (gCurrentMessage.delay > 30)
+            gCurrentMessage.timer++;
+            if (gCurrentMessage.timer > 30)
             {
                 // Clear graphics buffer
                 BitFill(3, 0, VRAM_BASE + 0x7800, 0x800, 16);
@@ -887,9 +887,9 @@ void TextProcessDescription(void)
                 // Set process message behavior
                 PAUSE_SCREEN_DATA.unk_56 = 1;
 
-                gCurrentMessage.delay = 0;
+                gCurrentMessage.timer = 0;
                 gCurrentMessage.indent = 0;
-                gCurrentMessage.unk_9 = 10;
+                gCurrentMessage.delay = 10;
                 PAUSE_SCREEN_DATA.miscOam[1].exists = FALSE;
             }
             break;
@@ -898,95 +898,127 @@ void TextProcessDescription(void)
     }
 }
 
+/**
+ * @brief 6f98c | 140 | Processes the current message
+ * 
+ * @param pMessage Message data pointer
+ * @param pText Text pointer
+ * @param dst Destination address
+ * @return u8 State
+ */
 u8 TextProcessCurrentMessage(struct Message* pMessage, const u16* pText, u32* dst)
 {
-    // https://decomp.me/scratch/PL6wn
-
     i32 state;
     i32 width;
-    i32 charID;
 
-    state = -1;
-    pMessage->delay++;
+    state = TEXT_STATE_NONE;
+    pMessage->timer++;
 
+    // Check for message delay
     if (!(gButtonInput & KEY_A))
     {
-        if (pMessage->unk_9 > pMessage->delay)
-            state = 0;
-        if (pMessage->unk_8 > pMessage->delay)
-            state = 0;
+        // One time delay
+        if (pMessage->delay > pMessage->timer)
+            state = TEXT_STATE_NOTHING;
+
+        // Continuons delay
+        if (pMessage->continuousDelay > pMessage->timer)
+            state = TEXT_STATE_NOTHING;
     }
 
-    if (state < 0)
+    if (state < TEXT_STATE_NOTHING)
     {
-        pMessage->unk_9 = 0;
+        // Clear delay (not the continuous one) and timer
         pMessage->delay = 0;
+        pMessage->timer = 0;
+
+        // Get the current character
         pText += pMessage->textIndex;
 
-        while (state < 0)
+        // Loop until something was drawn or a special action happended (new line, end, new page)
+        while (state < TEXT_STATE_NOTHING)
         {
             width = 0;
-            charID = *pText;
 
-            switch (charID & 0xFF00)
+            // Check apply special characters
+            switch (*pText & CHAR_MASK)
             {
                 case CHAR_WIDTH_MASK:
-                    width = charID & UCHAR_MAX;
+                    // Special width character, directly sets the width
+                    width = *pText & UCHAR_MAX;
                     break;
 
-                case CHAR_ABSOLUTE_WIDTH_MASK:
-                    pMessage->indent = charID & UCHAR_MAX;
+                case CHAR_INDENT_MASK:
+                    // Special indent character, changes the indent
+                    pMessage->indent = *pText & UCHAR_MAX;
                     break;
 
                 case CHAR_COLOR_MASK:
-                    pMessage->color = charID;
+                    // Special color character, changes the color
+                    pMessage->color = *pText;
                     break;
                 
-                case 0xE100:
-                    pMessage->unk_9 = charID;
+                case CHAR_DELAY_MASK:
+                    // Special delay character, changes the delay
+                    pMessage->delay = *pText;
                     break;
 
-                case 0xFE00:
-                    state = 1;
+                case CHAR_NEW_LINE:
+                    // New line character
+                    state = TEXT_STATE_NEW_LINE;
                     break;
 
-                case 0xFD00:
-                    state = 4;
+                case CHAR_NEW_PAGE:
+                    // New page character
+                    state = TEXT_STATE_NEW_PAGE;
                     break;
 
                 case 0xFC00:
-                    state = 3;
+                    state = TEXT_STATE_UNK_3;
                     break;
 
                 case CHAR_TERMINATOR:
+                    // Terminator
                     pMessage->messageEnded = TRUE;
-                    state = 2;
+                    state = TEXT_STATE_ENDED;
                     break;
 
                 default:
-                    width = TextGetCharacterWidth(charID);
-                    state = 0;
+                    // Normal character, get its width
+                    width = TextGetCharacterWidth(*pText);
+                    state = TEXT_STATE_NOTHING;
                     break;
             }
 
+            // Check for line overflow
             if (pMessage->indent + width > 0xE0)
             {
-                state = 1;
+                // Force new line
+                // the character that should have been drawn will be drawn on the next line since the text index isn't updated
+                state = TEXT_STATE_NEW_LINE;
                 break;
             }
             
-            if (state < 0)
-                pText++;
-            else if (state == 0)
+            if (state < TEXT_STATE_NOTHING)
             {
+                // Indent, color or delay character
+                pText++;
+            }
+            else if (state == TEXT_STATE_NOTHING)
+            {
+                // Call correct draw character function
                 if (pMessage->isMessage)
                     TextDrawMessageCharacter(*pText, dst, pMessage->indent, pMessage->color);
                 else
                     TextDrawCharacter(*pText, dst, pMessage->indent, pMessage->color);
             }
-            else if (state != 2)
+            else if (state != TEXT_STATE_ENDED)
+            {
+                // New line
                 pMessage->line++;
+            }
 
+            // Update indent and current character
             pMessage->indent += width;
             pMessage->textIndex++;
         }

@@ -90,7 +90,7 @@ u8 StoryTextCutsceneProcessText(void)
 
         case 1:
             gCurrentMessage.indent = 0;
-            gCurrentMessage.delay = 0;
+            gCurrentMessage.timer = 0;
             if (gCurrentMessage.line > 9)
                 gCurrentMessage.line = 0;
 
@@ -106,18 +106,18 @@ u8 StoryTextCutsceneProcessText(void)
                 
                 switch (result)
                 {
-                    case 2:
-                    case 4:
+                    case TEXT_STATE_ENDED:
+                    case TEXT_STATE_NEW_PAGE:
                         CUTSCENE_DATA.timeInfo.timer = 0;
                         CUTSCENE_DATA.timeInfo.subStage = 0;
                         CUTSCENE_DATA.timeInfo.stage++;
                         flag = FALSE;
                         break;
 
-                    case 3:
+                    case TEXT_STATE_UNK_3:
                         gCurrentMessage.gfxSlot = 1;
 
-                    case 1:
+                    case TEXT_STATE_NEW_LINE:
                         CUTSCENE_DATA.timeInfo.subStage--;
                         flag = FALSE;
                         break;

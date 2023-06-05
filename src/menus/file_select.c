@@ -12,6 +12,7 @@
 #include "data/menus/internal_file_select_data.h"
 
 #include "constants/audio.h"
+#include "constants/text.h"
 #include "constants/game_state.h"
 #include "constants/menus/file_select.h"
 
@@ -674,13 +675,13 @@ void FileScreenProcessText(void)
             {
                 var_0 = TextProcessCurrentMessage(&gCurrentMessage, sFileScreenTextPointers[gLanguage][sFileScreenMessagesInfo[FILE_SELECT_DATA.unk_35][0]], dst);
 
-                if (var_0 == 2)
+                if (var_0 == TEXT_STATE_ENDED)
                 {
                     FILE_SELECT_DATA.unk_34 = 6;
                     break;
                 }
                 
-                if (var_0 == 1)
+                if (var_0 == TEXT_STATE_NEW_LINE)
                 {
                     FILE_SELECT_DATA.unk_34++;
                     break;
