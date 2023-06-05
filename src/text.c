@@ -689,6 +689,7 @@ u8 TextProcessFileScreenPopUp(void)
     i32 i;
     u32* dst;
     i32 flag;
+    i32 result;
 
     switch (gCurrentMessage.stage)
     {
@@ -703,7 +704,9 @@ u8 TextProcessFileScreenPopUp(void)
             dst = VRAM_BASE + gCurrentMessage.line * 0x800;
             for (; i != 0; i--)
             {
-                switch (TextProcessCurrentMessage(&gCurrentMessage, sFileScreenTextPointers[gLanguage][gCurrentMessage.messageID], dst))
+                result = TextProcessCurrentMessage(&gCurrentMessage, sFileScreenTextPointers[gLanguage][gCurrentMessage.messageID], dst);
+                
+                switch (result)
                 {
                     case TEXT_STATE_ENDED:
                         gCurrentMessage.stage++;
@@ -718,7 +721,10 @@ u8 TextProcessFileScreenPopUp(void)
                         flag = FALSE;
                 }
 
-                if (flag || gCurrentMessage.line > 3)
+                if (flag)
+                    break;
+                    
+                if (gCurrentMessage.line > 3)
                     break;
             }
             break;
@@ -728,6 +734,8 @@ u8 TextProcessFileScreenPopUp(void)
             gCurrentMessage.stage++;
 
         case 2:
+            return gCurrentMessage.line;
+        
         default:
             return gCurrentMessage.line;
     }
