@@ -5,7 +5,7 @@
 
 // Functions
 
-void BgClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition);
+void BgClipSetBgBlockValue(u8 bg, u16 value, u16 yPosition, u16 xPosition);
 void BgClipSetBG1BlockValue(u16 value, u16 yPosition, u16 xPosition);
 void BgClipSetRawBG1BlockValue(u32 value, u16 yPosition, u16 xPosition);
 void BgClipSetClipdataBlockValue(u16 value, u16 yPosition, u16 xPosition);

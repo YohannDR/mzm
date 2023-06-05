@@ -20,9 +20,50 @@
 #include "structs/game_state.h"
 #include "structs/samus.h"
 
-void BgClipMotherBrainUpdateGlass(u8 bg, u16 value, u16 yPosition, u16 xPosition)
+/**
+ * @brief 5a484 | d8 | Sets the value for a BG block
+ * 
+ * @param bg Background
+ * @param value Value
+ * @param yPosition Y position
+ * @param xPosition X position
+ */
+void BgClipSetBgBlockValue(u8 bg, u16 value, u16 yPosition, u16 xPosition)
 {
+    u16* dst;
+    u16 offset;
 
+    // Write value
+    gBGPointersAndDimensions.backgrounds[bg].pDecomp[yPosition * gBGPointersAndDimensions.backgrounds[bg].width + xPosition] = value;
+
+    // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
+    offset = gBG1YPosition / BLOCK_SIZE;
+    if ((i32)(offset - 4) > yPosition)
+        return;
+    
+    if (yPosition > (offset + 13))
+        return;
+
+    offset = gBG1XPosition / BLOCK_SIZE;
+    if ((i32)(offset - 4) > xPosition)
+        return;
+
+    if (xPosition > (i32)(offset + 18))
+        return;
+
+    // Update tilemap
+    dst = (u16*)(VRAM_BASE + bg * 0x1000);
+    if (xPosition & 0x10)
+        dst = (u16*)(VRAM_BASE + 0x800 + bg * 0x1000);
+
+    dst += (yPosition & 0xF) * 64 + (xPosition & 0xF) * 2;
+    
+    offset = value * 4;
+        
+    dst[0] = gTilemapAndClipPointers.pTilemap[offset++];
+    dst[1] = gTilemapAndClipPointers.pTilemap[offset++];
+    dst[32] = gTilemapAndClipPointers.pTilemap[offset++];
+    dst[33] = gTilemapAndClipPointers.pTilemap[offset];
 }
 
 /**
@@ -784,7 +825,7 @@ void BgClipRemoveCollectedTanks(void)
 }
 
 /**
- * @brief 5b1d8 | 74 | Calls the BgClipMotherBrainUpdateGlass on every block of the glass
+ * @brief 5b1d8 | 74 | Calls the BgClipSetBgBlockValue on every block of the glass
  * 
  * @param stage Breaking stage
  */
@@ -806,7 +847,7 @@ void BgClipCallMotherBrainUpdateGlass(u8 stage)
         for (j = 0; j < 7; j++) // X
         {
             // Fetch the correct tile value, and the correct positions
-            BgClipMotherBrainUpdateGlass(0, sMotherBrainGlassBreakingBaseTilemapValues[stage] + i * 16 + j, i + 13, j + 4);
+            BgClipSetBgBlockValue(0, sMotherBrainGlassBreakingBaseTilemapValues[stage] + i * 16 + j, i + 13, j + 4);
         }
     }
 }
