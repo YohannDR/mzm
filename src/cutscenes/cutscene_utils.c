@@ -302,7 +302,7 @@ void CutsceneInit(void)
     }
 
     if (gCutsceneToSkip != gCurrentCutscene)
-        gCurrentCutscene = CUTSCENE_NONE;
+        gCutsceneToSkip = CUTSCENE_NONE;
 
     ClearGfxRam();
 
