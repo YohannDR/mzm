@@ -353,10 +353,16 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
     }
 }
 
+/**
+ * @brief 5b764 | cc | Applies a smooth transition between 2 palettes
+ * 
+ * @param srcStart Start palette pointer
+ * @param srcEnd End palette pointer
+ * @param dst Destination address
+ * @param stage Stage
+ */
 void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage)
 {
-    // https://decomp.me/scratch/oUVxI
-
     i32 i;
     i32 endR;
     i32 endG;
@@ -374,7 +380,9 @@ void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage
 
     if (stage >= 0x1F)
     {
+    do {
         DMATransfer(3, srcEnd, dst, 16 * 2, 16);
+    }while(0);
         return;
     }
 
@@ -387,7 +395,9 @@ void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage
         color >>= 5;
         endB = RED(color);
 
+        do {
         color = *srcStart;
+        }while(0);
         startR = RED(color);
         color >>= 5;
         startG = RED(color);
