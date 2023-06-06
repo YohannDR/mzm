@@ -286,9 +286,273 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
     }
 }
 
+/**
+ * @brief 6e93c | 5f0 | Draws a character in mask mode
+ * 
+ * @param charID Character
+ * @param dst Destination address
+ * @param indent Indent
+ * @param color Color
+ */
 void TextDrawMessageCharacter(u16 charID, u32* dst, u16 indent, u8 color)
 {
+    i32 palette;
+    u32* dstGfx;
+    const u32* srcGfx;
+    i32 pass;
+    i32 size;
+    u32 pixelSrc;
+    u32 pixelDst;
+    u8 width;
+    u32 value;
+    i32 i;
 
+    BitFill(3, 0, 0x2027700, sizeof(gCurrentCharacterGfx), 16);
+    width = TextGetCharacterWidth(charID);
+
+    for (pass = 0; pass < 2; pass++)
+    {
+        if (pass != 0)
+            dstGfx = ((u32*)0x2027700) + 16;
+        else
+            dstGfx = ((u32*)0x2027700);
+
+        pixelDst = charID * 0x20 + pass * 0x400;
+        srcGfx = (const u32*)&sCharactersGfx[pixelDst];
+        
+        if (width > 8)
+            size = 16;
+        else
+            size = 8;
+
+        for (i = 0; i < size; i++, srcGfx++)
+        {
+            pixelSrc = *srcGfx;
+            
+            pixelDst = 0;
+            if (color != 0)
+                palette = color;
+            else
+                palette = 4;
+
+            value = pixelSrc & sArray_760338[0];
+            if (value)
+            {
+                if (value & sArray_760398[0])
+                    pixelDst |= palette;
+                else
+                    pixelDst |= value;
+            }
+            else
+                pixelDst |= sArray_7603b8[0];
+            palette <<= 4;
+
+            value = pixelSrc & sArray_760338[1];
+            if (value)
+            {
+                if (value & sArray_760398[1])
+                    pixelDst |= palette;
+                else
+                    pixelDst |= value;
+            }
+            else
+                pixelDst |= sArray_7603b8[1];
+            palette <<= 4;
+
+            value = pixelSrc & sArray_760338[2];
+            if (value)
+            {
+                if (value & sArray_760398[2])
+                    pixelDst |= palette;
+                else
+                    pixelDst |= value;
+            }
+            else
+                pixelDst |= sArray_7603b8[2];
+            palette <<= 4;
+
+            value = pixelSrc & sArray_760338[3];
+            if (value)
+            {
+                if (value & sArray_760398[3])
+                    pixelDst |= palette;
+                else
+                    pixelDst |= value;
+            }
+            else
+                pixelDst |= sArray_7603b8[3];
+            palette <<= 4;
+
+            value = pixelSrc & sArray_760338[4];
+            if (value)
+            {
+                if (value & sArray_760398[4])
+                    pixelDst |= palette;
+                else
+                    pixelDst |= value;
+            }
+            else
+                pixelDst |= sArray_7603b8[4];
+            palette <<= 4;
+
+            value = pixelSrc & sArray_760338[5];
+            if (value)
+            {
+                if (value & sArray_760398[5])
+                    pixelDst |= palette;
+                else
+                    pixelDst |= value;
+            }
+            else
+                pixelDst |= sArray_7603b8[5];
+            palette <<= 4;
+
+            value = pixelSrc & sArray_760338[6];
+            if (value)
+            {
+                if (value & sArray_760398[6])
+                    pixelDst |= palette;
+                else
+                    pixelDst |= value;
+            }
+            else
+                pixelDst |= sArray_7603b8[6];
+            palette <<= 4;
+
+            value = pixelSrc & sArray_760338[7];
+            if (value)
+            {
+                if (value & sArray_760398[7])
+                    pixelDst |= palette;
+                else
+                    pixelDst |= value;
+            }
+            else
+                pixelDst |= sArray_7603b8[7];
+
+            *dstGfx++ = pixelDst;
+        }
+
+        dstGfx = dst + ((indent & 0xFF) / 8) * 8 + pass * 0x100;
+        dstGfx += (indent / 256) * 0x200;
+        if (pass != 0)
+            srcGfx = gCurrentCharacterGfx + 16;
+        else
+            srcGfx = gCurrentCharacterGfx;
+
+        palette = indent & 7;
+
+        if (palette != 0)
+        {
+            pixelDst = palette * 4;
+            i = 8 - palette;
+            size = 32 - pixelDst;
+
+            if (palette + width > 8)
+            {
+                value = srcGfx[0];
+                dstGfx[0] &= (value << pixelDst) | sArray_7602f0[palette];
+                dstGfx[8] &= (value >> size) | sArray_760314[i];
+                value = srcGfx[1];
+                dstGfx[1] &= (value << pixelDst) | sArray_7602f0[palette];
+                dstGfx[9] &= (value >> size) | sArray_760314[i];
+                value = srcGfx[2];
+                dstGfx[2] &= (value << pixelDst) | sArray_7602f0[palette];
+                dstGfx[10] &= (value >> size) | sArray_760314[i];
+                value = srcGfx[3];
+                dstGfx[3] &= (value << pixelDst) | sArray_7602f0[palette];
+                dstGfx[11] &= (value >> size) | sArray_760314[i];
+                value = srcGfx[4];
+                dstGfx[4] &= (value << pixelDst) | sArray_7602f0[palette];
+                dstGfx[12] &= (value >> size) | sArray_760314[i];
+                value = srcGfx[5];
+                dstGfx[5] &= (value << pixelDst) | sArray_7602f0[palette];
+                dstGfx[13] &= (value >> size) | sArray_760314[i];
+                value = srcGfx[6];
+                dstGfx[6] &= (value << pixelDst) | sArray_7602f0[palette];
+                dstGfx[14] &= (value >> size) | sArray_760314[i];
+                value = srcGfx[7];
+                dstGfx[7] &= (value << pixelDst) | sArray_7602f0[palette];
+                dstGfx[15] &= (value >> size) | sArray_760314[i];
+
+                if (width > 8)
+                {
+                    if (palette + width > 16)
+                    {
+                        value = srcGfx[8];
+                        dstGfx[8] &= (value << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[16] &= (value >> size) | sArray_760314[i];
+                        value = srcGfx[9];
+                        dstGfx[9] &= (value << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[17] &= (value >> size) | sArray_760314[i];
+                        value = srcGfx[10];
+                        dstGfx[10] &= (value << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[18] &= (value >> size) | sArray_760314[i];
+                        value = srcGfx[11];
+                        dstGfx[11] &= (value << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[19] &= (value >> size) | sArray_760314[i];
+                        value = srcGfx[12];
+                        dstGfx[12] &= (value << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[20] &= (value >> size) | sArray_760314[i];
+                        value = srcGfx[13];
+                        dstGfx[13] &= (value << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[21] &= (value >> size) | sArray_760314[i];
+                        value = srcGfx[14];
+                        dstGfx[14] &= (value << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[22] &= (value >> size) | sArray_760314[i];
+                        value = srcGfx[15];
+                        dstGfx[15] &= (value << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[23] &= (value >> size) | sArray_760314[i];
+                    }
+                    else
+                    {
+                        dstGfx[8] &= (srcGfx[8] << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[9] &= (srcGfx[9] << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[10] &= (srcGfx[10] << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[11] &= (srcGfx[11] << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[12] &= (srcGfx[12] << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[13] &= (srcGfx[13] << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[14] &= (srcGfx[14] << pixelDst) | sArray_7602f0[palette];
+                        dstGfx[15] &= (srcGfx[15] << pixelDst) | sArray_7602f0[palette];
+                    }
+                }
+            }
+            else
+            {
+                dstGfx[0] &= (srcGfx[0] << pixelDst) | sArray_7602f0[palette];
+                dstGfx[1] &= (srcGfx[1] << pixelDst) | sArray_7602f0[palette];
+                dstGfx[2] &= (srcGfx[2] << pixelDst) | sArray_7602f0[palette];
+                dstGfx[3] &= (srcGfx[3] << pixelDst) | sArray_7602f0[palette];
+                dstGfx[4] &= (srcGfx[4] << pixelDst) | sArray_7602f0[palette];
+                dstGfx[5] &= (srcGfx[5] << pixelDst) | sArray_7602f0[palette];
+                dstGfx[6] &= (srcGfx[6] << pixelDst) | sArray_7602f0[palette];
+                dstGfx[7] &= (srcGfx[7] << pixelDst) | sArray_7602f0[palette];
+            }
+        }
+        else
+        {
+            dstGfx[0] &= srcGfx[0];
+            dstGfx[1] &= srcGfx[1];
+            dstGfx[2] &= srcGfx[2];
+            dstGfx[3] &= srcGfx[3];
+            dstGfx[4] &= srcGfx[4];
+            dstGfx[5] &= srcGfx[5];
+            dstGfx[6] &= srcGfx[6];
+            dstGfx[7] &= srcGfx[7];
+
+            if (width > 8)
+            {
+                dstGfx[8] &= srcGfx[8];
+                dstGfx[9] &= srcGfx[9];
+                dstGfx[10] &= srcGfx[10];
+                dstGfx[11] &= srcGfx[11];
+                dstGfx[12] &= srcGfx[12];
+                dstGfx[13] &= srcGfx[13];
+                dstGfx[14] &= srcGfx[14];
+                dstGfx[15] &= srcGfx[15];
+            }
+        }
+    }
 }
 
 /**
