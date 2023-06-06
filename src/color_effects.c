@@ -492,38 +492,38 @@ u16 ApplyFadeOnColor(u8 type, u16 color, u8 currentColor)
 
     i32 red;
     i32 green;
-    i32 b;
+    i32 blue;
 
     red = RED(color);
     green = GREEN(color);
-    b = BLUE(color);
+    blue = BLUE(color);
 
     switch (type)
     {
         case FADING_TYPE_IN:
-            red = (currentColor * red) >> 5 & COLOR_MASK;
-            green = (currentColor * green) >> 5 & COLOR_MASK;
-            b = (currentColor * b) >> 5 & COLOR_MASK;
+            red = (red * currentColor) >> 5 & COLOR_MASK;
+            green = (green * currentColor) >> 5 & COLOR_MASK;
+            blue = (blue * currentColor) >> 5 & COLOR_MASK;
             break;
 
         case FADING_TYPE_FLASH:
-            red = (COLOR_MASK - ((currentColor * (COLOR_MASK - red)) >> 5)) & COLOR_MASK;
-            green = (COLOR_MASK - ((currentColor * (COLOR_MASK - green)) >> 5)) & COLOR_MASK;
-            b = (COLOR_MASK - ((currentColor * (COLOR_MASK - b)) >> 5)) & COLOR_MASK;
+            red = (COLOR_MASK - (((COLOR_MASK - red) * currentColor) >> 5)) & COLOR_MASK;
+            green = (COLOR_MASK - (((COLOR_MASK - green) * currentColor) >> 5)) & COLOR_MASK;
+            blue = (COLOR_MASK - (((COLOR_MASK - blue) * currentColor) >> 5)) & COLOR_MASK;
             break;
 
         case FADING_TYPE_OUT:
-            red = (red - ((currentColor * red) >> 5)) & COLOR_MASK;
-            green = (green - ((currentColor * green) >> 5)) & COLOR_MASK;
-            b = (b - ((currentColor * b) >> 5)) & COLOR_MASK;
+            red = (red - ((red * currentColor) >> 5)) & COLOR_MASK;
+            green = (green - ((green * currentColor) >> 5)) & COLOR_MASK;
+            blue = (blue - ((blue * currentColor) >> 5)) & COLOR_MASK;
             break;
 
         case FADING_TYPE_UNK:
             red = (red + ((currentColor * (COLOR_MASK - red)) >> 5)) & COLOR_MASK;
             green = (green + ((currentColor * (COLOR_MASK - green)) >> 5)) & COLOR_MASK;
-            b = (b + ((currentColor * (COLOR_MASK - b)) >> 5)) & COLOR_MASK;
+            blue = (blue + ((currentColor * (COLOR_MASK - blue)) >> 5)) & COLOR_MASK;
             break;
     }
 
-    return COLOR(red, green, b);
+    return COLOR_GRAD(red, green, blue);
 }
