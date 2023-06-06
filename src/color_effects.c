@@ -481,9 +481,68 @@ void ApplySpecialBackgroundEffectColorOnOBJ(u16 mask, u16 color, u8 stage)
 
 }
 
+/**
+ * @brief 5baac | 13a | Applies the color change of a background fading
+ * 
+ * @param type Fading type
+ * @param color Color
+ * @param ppSrc Source address pointer
+ * @param ppDst Destination address pointer
+ * @param mask Palette rows mask
+ */
 void ApplySpecialBackgroundFadingColor(u8 type, u8 color, u16** ppSrc, u16** ppDst, u16 mask)
 {
+    i32 i;
+    i32 j;
+    i32 red;
+    i32 green;
+    i32 blue;
 
+    for (i = 0; i < 16; i++)
+    {
+        if (!((mask >> i) & 1))
+        {
+            *ppSrc = *ppSrc + 16;
+            *ppDst = *ppDst + 16;
+            continue;
+        }
+
+        for (j = 0; j < 16; j++, *ppSrc = *ppSrc + 1, *ppDst = *ppDst + 1)
+        {
+            red = RED(**ppSrc);
+            green = GREEN(**ppSrc);
+            blue = BLUE(**ppSrc);
+
+            switch (type)
+            {
+                case FADING_TYPE_IN:
+                    red = (red * color) >> 5 & COLOR_MASK;
+                    green = (green * color) >> 5 & COLOR_MASK;
+                    blue = (blue * color) >> 5 & COLOR_MASK;
+                    break;
+
+                case FADING_TYPE_FLASH:
+                    red = (COLOR_MASK - (((COLOR_MASK - red) * color) >> 5)) & COLOR_MASK;
+                    green = (COLOR_MASK - (((COLOR_MASK - green) * color) >> 5)) & COLOR_MASK;
+                    blue = (COLOR_MASK - (((COLOR_MASK - blue) * color) >> 5)) & COLOR_MASK;
+                    break;
+
+                case FADING_TYPE_OUT:
+                    red = (red - ((red * color) >> 5)) & COLOR_MASK;
+                    green = (green - ((green * color) >> 5)) & COLOR_MASK;
+                    blue = (blue - ((blue * color) >> 5)) & COLOR_MASK;
+                    break;
+
+                case FADING_TYPE_UNK:
+                    red = (red + ((color * (COLOR_MASK - red)) >> 5)) & COLOR_MASK;
+                    green = (green + ((color * (COLOR_MASK - green)) >> 5)) & COLOR_MASK;
+                    blue = (blue + ((color * (COLOR_MASK - blue)) >> 5)) & COLOR_MASK;
+                    break;
+            }
+
+            **ppDst = COLOR_GRAD(red, green, blue);
+        }
+    }
 }
 
 u16 ApplyFadeOnColor(u8 type, u16 color, u8 currentColor)
