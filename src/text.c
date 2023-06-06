@@ -26,20 +26,26 @@ u32 TextGetCharacterWidth(u16 charID)
         return sCharacterWidths[charID];
 }
 
+/**
+ * @brief 6e484 | 4b8 | Draws a character in append mode
+ * 
+ * @param charID Character
+ * @param dst Destination address
+ * @param indent Indent
+ * @param color Color
+ */
 void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
 {
-    // https://decomp.me/scratch/SAqIc
-
-    u32 palette;
+    i32 palette;
     u32* dstGfx;
     const u32* srcGfx;
     i32 size;
     u32 pixelSrc;
     u32 pixelDst;
-    i32 unk_0;
     u8 width;
     i32 pass;
     u32 value;
+    i32 i;
 
     BitFill(3, 0, gCurrentCharacterGfx, sizeof(gCurrentCharacterGfx), 0x10);
     width = TextGetCharacterWidth(charID);
@@ -51,7 +57,8 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
         else
             dstGfx = gCurrentCharacterGfx;
 
-        srcGfx = (const u32*)&sCharactersGfx[charID * 0x20 + pass * 0x400];
+        pixelSrc = charID * 32 + pass * 0x400;
+        srcGfx = (const u32*)&sCharactersGfx[pixelSrc];
         
         if (width > 8)
             size = 16;
@@ -60,102 +67,103 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
 
         if (color != 0)
         {
-            if (size > 0)
+            for (i = 0; i < size; i++, dstGfx++, srcGfx++)
             {
-                while (size != 0)
+                pixelSrc = *srcGfx;
+                
+                if (pixelSrc == 0)
+                    continue;
+                    
+                pixelDst = 0;
+                if (color != 0)
+                    palette = color;
+                else
+                    palette = 4;
+
+                value = pixelSrc & sArray_760338[0];
+                if (value)
                 {
-                    pixelSrc = *srcGfx;
-                    
-                    if (pixelSrc != 0)
-                    {
-                        pixelDst = 0;
-                        if (color != 0)
-                            palette = color;
-                        else
-                            palette = 4;
-    
-                        if (pixelSrc & sArray_760338[0])
-                        {
-                            if (pixelSrc & sArray_760338[0] & sArray_760398[0])
-                                pixelDst |= palette;
-                            else
-                                pixelDst |= pixelSrc & sArray_760338[0];
-                        }
-                        palette <<= 4;
-    
-                        if (pixelSrc & sArray_760338[1])
-                        {
-                            if (pixelSrc & sArray_760338[1] & sArray_760398[1])
-                                pixelDst |= palette;
-                            else
-                                pixelDst |= pixelSrc & sArray_760338[1];
-                        }
-                        palette <<= 4;
-    
-                        if (pixelSrc & sArray_760338[2])
-                        {
-                            if (pixelSrc & sArray_760338[2] & sArray_760398[2])
-                                pixelDst |= palette;
-                            else
-                                pixelDst |= pixelSrc & sArray_760338[2];
-                        }
-                        palette <<= 4;
-    
-                        if (pixelSrc & sArray_760338[3])
-                        {
-                            if (pixelSrc & sArray_760338[3] & sArray_760398[3])
-                                pixelDst |= palette;
-                            else
-                                pixelDst |= pixelSrc & sArray_760338[3];
-                        }
-                        palette <<= 4;
-    
-                        if (pixelSrc & sArray_760338[4])
-                        {
-                            if (pixelSrc & sArray_760338[4] & sArray_760398[4])
-                                pixelDst |= palette;
-                            else
-                                pixelDst |= pixelSrc & sArray_760338[4];
-                        }
-                        palette <<= 4;
-    
-                        if (pixelSrc & sArray_760338[5])
-                        {
-                            if (pixelSrc & sArray_760338[5] & sArray_760398[5])
-                                pixelDst |= palette;
-                            else
-                                pixelDst |= pixelSrc & sArray_760338[5];
-                        }
-                        palette <<= 4;
-    
-                        if (pixelSrc & sArray_760338[6])
-                        {
-                            if (pixelSrc & sArray_760338[6] & sArray_760398[6])
-                                pixelDst |= palette;
-                            else
-                                pixelDst |= pixelSrc & sArray_760338[6];
-                        }
-                        palette <<= 4;
-    
-                        if (pixelSrc & sArray_760338[7])
-                        {
-                            if (pixelSrc & sArray_760338[7] & sArray_760398[7])
-                                pixelDst |= palette;
-                            else
-                                pixelDst |= pixelSrc & sArray_760338[7];
-                        }
-    
-                        *dstGfx = pixelDst;
-                    }
-                    
-                    size--;
-                    srcGfx++;
-                    dstGfx++;
+                    if (value & sArray_760398[0])
+                        pixelDst |= palette;
+                    else
+                        pixelDst |= value;
                 }
+                palette <<= 4;
+
+                value = pixelSrc & sArray_760338[1];
+                if (value)
+                {
+                    if (value & sArray_760398[1])
+                        pixelDst |= palette;
+                    else
+                        pixelDst |= value;
+                }
+                palette <<= 4;
+
+                value = pixelSrc & sArray_760338[2];
+                if (value)
+                {
+                    if (value & sArray_760398[2])
+                        pixelDst |= palette;
+                    else
+                        pixelDst |= value;
+                }
+                palette <<= 4;
+
+                value = pixelSrc & sArray_760338[3];
+                if (value)
+                {
+                    if (value & sArray_760398[3])
+                        pixelDst |= palette;
+                    else
+                        pixelDst |= value;
+                }
+                palette <<= 4;
+
+                value = pixelSrc & sArray_760338[4];
+                if (value)
+                {
+                    if (value & sArray_760398[4])
+                        pixelDst |= palette;
+                    else
+                        pixelDst |= value;
+                }
+                palette <<= 4;
+
+                value = pixelSrc & sArray_760338[5];
+                if (value)
+                {
+                    if (value & sArray_760398[5])
+                        pixelDst |= palette;
+                    else
+                        pixelDst |= value;
+                }
+                palette <<= 4;
+
+                value = pixelSrc & sArray_760338[6];
+                if (value)
+                {
+                    if (value & sArray_760398[6])
+                        pixelDst |= palette;
+                    else
+                        pixelDst |= value;
+                }
+                palette <<= 4;
+
+                value = pixelSrc & sArray_760338[7];
+                if (value)
+                {
+                    if (value & sArray_760398[7])
+                        pixelDst |= palette;
+                    else
+                        pixelDst |= value;
+                }
+
+                *dstGfx = pixelDst;
             }
         }
         else
-            DMATransfer(3, srcGfx, dstGfx, size * 4, 0x10);
+            DMATransfer(3, srcGfx, dstGfx, size * 4, 16);
 
         dstGfx = dst + ((indent & 0xFF) / 8) * 8 + pass * 0x100;
         dstGfx += (indent / 256) * 0x200;
@@ -164,14 +172,14 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
         else
             srcGfx = gCurrentCharacterGfx;
 
-        unk_0 = indent & 7;
+        palette = indent & 7;
 
-        if (unk_0 != 0)
+        if (palette != 0)
         {
-            pixelSrc = unk_0 * 4;
+            pixelSrc = palette * 4;
             size = 32 - pixelSrc;
 
-            if (unk_0 + width > 8)
+            if (palette + width > 8)
             {
                 value = srcGfx[0];
                 dstGfx[0] |= value << pixelSrc;
@@ -200,7 +208,7 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
 
                 if (width > 8)
                 {
-                    if (unk_0 + width > 16)
+                    if (palette + width > 16)
                     {
                         value = srcGfx[8];
                         dstGfx[8] |= value << pixelSrc;
@@ -262,6 +270,7 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
             dstGfx[5] |= srcGfx[5];
             dstGfx[6] |= srcGfx[6];
             dstGfx[7] |= srcGfx[7];
+
             if (width > 8)
             {
                 dstGfx[8] |= srcGfx[8];
