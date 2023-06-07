@@ -403,7 +403,8 @@ void Haze_Bg3(void)
     const i8* src;
     i32 i;
     i32 position;
-    u16* _dst;
+    u8* ptr;
+    i32 offset;
 
     dst = gPreviousHazeValues;
     i = 0;
@@ -426,30 +427,20 @@ void Haze_Bg3(void)
 
     position = (gEffectYPosition / 4) - (gBG1YPosition / 4) - 1;
 
-    if (position > 0xA0)
-        position = 0xA0;
-    else if (position < 0)
-        position = 0;
+    CLAMP(position, 0, 0xA0);
 
-    i = 0;
-    if (i < position)
+    for (i = 0; i < position; i++)
     {
-        _dst = dst;
-
-        i = position;
-        do
-        {
-            *_dst++ = gBackgroundPositions.bg[3].x;
-            i--;
-        }
-        while (i);
-
-        i = position;
+        dst[i] = gBackgroundPositions.bg[3].x;
     }
 
     while (i < 0xA0)
     {
-        dst[i] = src[(gBackgroundPositions.bg[3].y + i + gUnk_3005728) & mask] + gBackgroundPositions.bg[3].x;
+        do{
+        ptr = &gUnk_3005728;
+        position = (gBackgroundPositions.bg[3].y + i + *ptr) & mask;
+        }while(0);
+        dst[i] = src[position] + gBackgroundPositions.bg[3].x;
         i++;
     }
 }
