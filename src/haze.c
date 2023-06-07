@@ -590,13 +590,12 @@ void Haze_Bg3Bg2StrongWeakMedium(void)
 
 void Haze_Bg3Bg2Bg1(void)
 {
-    // https://decomp.me/scratch/nT6YG
-
     i32 i;
     i32 mask;
     const i8* src;
     u16* dst;
     i32 temp;
+    u8* ptr;
 
     i = 0;
     gHazeLoops[2].timer++;
@@ -636,11 +635,12 @@ void Haze_Bg3Bg2Bg1(void)
 
     for (i = 0; i < 0xA0; i++)
     {
-        temp = *dst++ = src[(gBackgroundPositions.bg[1].y + i + gUnk_3005728) & mask] + gBackgroundPositions.bg[1].x;
+        ptr = &gUnk_3005728;
+        temp = *dst++ = src[(gBackgroundPositions.bg[1].y + i + *ptr) & mask] + gBackgroundPositions.bg[1].x;
         *dst++ = gBackgroundPositions.bg[1].y;
         *dst++ = temp;
         *dst++ = gBackgroundPositions.bg[2].y;
-        *dst++ = src[(gBackgroundPositions.bg[3].y + i + gUnk_3005728) & mask] + gBackgroundPositions.bg[3].x;
+        *dst++ = src[(gBackgroundPositions.bg[3].y + i + *ptr) & mask] + gBackgroundPositions.bg[3].x;
         *dst++ = gBackgroundPositions.bg[3].y;
     }
 }
