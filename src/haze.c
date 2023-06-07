@@ -454,9 +454,73 @@ void Haze_Bg3(void)
     }
 }
 
+/**
+ * @brief 5d828 | 118 | Updates the haze effect (BG3, strong in effect, weak outside)
+ * 
+ */
 void Haze_Bg3StrongWeak(void)
 {
+    i32 i;
+    const i8* src1;
+    i32 mask1;
+    const i8* src2;
+    i32 mask2;
+    i32 position;
+    u16* dst;
+    i32 offset;
+    u8* ptr1;
+    u8* ptr2;
 
+    dst = gPreviousHazeValues;
+
+    i = 0;
+    gHazeLoops[2].unk_3 = FALSE;
+
+    src1 = sHaze_Bg3_StrongEffect;
+    mask1 = 0xF;
+
+    gHazeLoops[0].unk_3 = FALSE;
+    gHazeLoops[0].timer++;
+
+    if (gHazeLoops[0].timer > 5)
+    {
+        gHazeLoops[0].unk_3 = TRUE;
+        gHazeLoops[0].timer = 0;
+    }
+
+    src2 = sHaze_Bg3_WeakOutside;
+    mask2 = 0xF;
+
+    gHazeLoops[1].unk_3 = FALSE;
+    gHazeLoops[1].timer++;
+
+    if (gHazeLoops[1].timer > 11)
+    {
+        gHazeLoops[1].unk_3 = TRUE;
+        gHazeLoops[1].timer = 0;
+    }
+
+    gUnk_3005728 += gHazeLoops[0].unk_3;
+    gUnk_3005729 += gHazeLoops[1].unk_3;
+
+    position = (gEffectYPosition / 4) - (gBG1YPosition / 4) - 1;
+
+    CLAMP(position, 0, 0xA0);
+
+    for (i = 0; i < position; i++)
+    {
+        ptr1 = &gUnk_3005729;
+        offset = (gBackgroundPositions.bg[3].y + i + *ptr1) & mask2;
+        dst[i] = src2[offset] + gBackgroundPositions.bg[3].x;
+    }
+
+    while (i < 0xA0)
+    {
+        ptr2 = &gUnk_3005728;
+        offset = (gBackgroundPositions.bg[3].y + i + *ptr2) & mask1;
+        dst[i] = src1[offset] + gBackgroundPositions.bg[3].x;
+        i++;
+    }
 }
 
 /**
