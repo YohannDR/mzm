@@ -11,7 +11,7 @@ void BgClipSetRawBG1BlockValue(u32 value, u16 yPosition, u16 xPosition);
 void BgClipSetClipdataBlockValue(u16 value, u16 yPosition, u16 xPosition);
 void BgClipCheckTouchingSpecialClipdata(void);
 void BgClipApplyClipdataChangingTransparency(void);
-u16 BgClipGetNewBldalphaValue(u16 clip);
+u16 BgClipGetNewBldalphaValue(u16 clip, u16);
 void BgClipCheckWalkingOnCrumbleBlock(void);
 void BgClipCheckTouchingTransitionOnElevator(void);
 void BgClipCheckTouchingTransitionOrTank(void);

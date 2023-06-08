@@ -185,7 +185,7 @@ void BGClipApplyClipdataChangingTransparency(void)
     if (clipdata == CLIP_BEHAVIOR_NONE)
         return;
 
-    clipdata = BgClipGetNewBldalphaValue(clipdata);
+    clipdata = BgClipGetNewBldalphaValue(clipdata, clipdata);
     if (clipdata == 0)
         return;
     
@@ -199,9 +199,10 @@ void BGClipApplyClipdataChangingTransparency(void)
  * @brief 5a770 | 30 | Tries to get a bldalpha value based on a clipdata behavior
  * 
  * @param clip Clipdata behavior
+ * @param unused Unused parameter
  * @return u16 Bldalpha value (eva on first 8 bits, then evb on next 8 bits)
  */
-u16 BgClipGetNewBldalphaValue(u16 clip)
+u16 BgClipGetNewBldalphaValue(u16 clip, u16 unused)
 {
     u16 bldalpha;
 

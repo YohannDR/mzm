@@ -596,8 +596,6 @@ void ConnectionLockHatches(u8 isEvent)
 
 void ConnectionLoadDoors(void)
 {
-    // https://decomp.me/scratch/wlekD
-
     i32 i;
     i32 hatchCount;
     u32 currHatchId;
@@ -613,47 +611,46 @@ void ConnectionLoadDoors(void)
     u32 behavior;
     u16 behaviorCheck;
     i32 hatchType;
-    u32 temp;
     
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
         return;
 
-    i = MAX_AMOUNT_OF_HATCHES - 1;
-    pHatch = gHatchData + MAX_AMOUNT_OF_HATCHES-1;
-    do
-    {
-        gHatchData[i--] = sHatchData_Empty;
-    } while (i >= 0);
+    for (i = 0; i < MAX_AMOUNT_OF_HATCHES; i++)
+        gHatchData[i] = sHatchData_Empty;
 
-    currHatchId = 0xFF;
-    gNumberOfValidHatchesInRoom = 0x0;
+    currHatchId = UCHAR_MAX;
+    gNumberOfValidHatchesInRoom = 0;
     pDoor = sAreaDoorsPointers[gCurrentArea];
 
-    hatchCount = 0x0;
-    currDoor = 0x0;
-    for (doorType = pDoor->type; doorType != DOOR_TYPE_NONE; doorType = pDoor->type)
+    hatchCount = 0;
+    currDoor = 0;
+    while (TRUE)
     {
+        doorType = pDoor->type;
+        if (pDoor->type == DOOR_TYPE_NONE)
+            break;
+
         if (gCurrentRoom == pDoor->sourceRoom)
         {
-            doorType = (doorType & DOOR_TYPE_NO_FLAGS) - 0x3;
-            if (doorType < 0x2)
+            if ((doorType & DOOR_TYPE_NO_FLAGS) == DOOR_TYPE_OPEN_HATCH || (doorType & DOOR_TYPE_NO_FLAGS) == DOOR_TYPE_CLOSED_HATCH)
             {
                 position = gBGPointersAndDimensions.clipdataWidth * pDoor->yStart + pDoor->xStart;
 
                 clipdata = gBGPointersAndDimensions.pClipDecomp[position + 1];
                 
-                direction = 0x1;
                 if (gTilemapAndClipPointers.pClipCollisions[clipdata] != CLIPDATA_TYPE_DOOR)
-                {
-                    direction = 0x0;
-                    clipdata = gBGPointersAndDimensions.pClipDecomp[position - 1];
-                }
+                    direction = 0;
+                else
+                    direction = 1;
 
-                temp = gTilemapAndClipPointers.pClipBehaviors[clipdata];
-                behaviorCheck = BEHAVIOR_TO_DOOR(temp) - 0x1;
-                hatchType = 0x0;
+                if (direction == 0)
+                    clipdata = gBGPointersAndDimensions.pClipDecomp[position - 1];
+
+                behavior = gTilemapAndClipPointers.pClipBehaviors[clipdata];
+                behaviorCheck = BEHAVIOR_TO_DOOR(behavior) - 1;
+                hatchType = 0;
                 if (behaviorCheck < BEHAVIOR_TO_DOOR(CLIP_BEHAVIOR_POWER_BOMB_DOOR))
-                    hatchType = BEHAVIOR_TO_DOOR(temp);
+                    hatchType = BEHAVIOR_TO_DOOR(behavior);
 
                 hatchType = sHatchTypeTable[hatchType];
                 i = gNumberOfValidHatchesInRoom;
@@ -681,7 +678,8 @@ void ConnectionLoadDoors(void)
 
                             gHatchData[i].exists = TRUE;
                             gHatchData[i].sourceDoor = currDoor;
-                            gNumberOfValidHatchesInRoom = i + 0x1;
+                                
+                            gNumberOfValidHatchesInRoom = i + 1;
 
                             if (hatchType == HATCH_LOCKED)
                                 gHatchesState.hatchesLockedWithTimer |= (1 << i);
@@ -695,7 +693,7 @@ void ConnectionLoadDoors(void)
                             gHatchData[i].exists = TRUE;
                             gHatchData[i].sourceDoor = currDoor;
 
-                            if (pDoor->xExit > 0x0)
+                            if (pDoor->xExit > 0)
                             {
                                 gHatchData[i].xPosition++;
                                 gHatchData[i].facingRight = TRUE;
@@ -711,7 +709,7 @@ void ConnectionLoadDoors(void)
                     }
                 }
 
-                if (currHatchId == 0xFF && currDoor == gLastDoorUsed)
+                if (currHatchId == UCHAR_MAX && currDoor == gLastDoorUsed)
                     currHatchId = i;
             }
             else
@@ -730,7 +728,6 @@ void ConnectionLoadDoors(void)
                 break;
         }
 
-
         pDoor++;
         currDoor++;
     }
@@ -741,7 +738,7 @@ void ConnectionLoadDoors(void)
             ConnectionOverrideOpenedHatch(i, HATCH_NORMAL);
     }
 
-    if (currHatchId != 0xFF && gGameModeSub3 != 0x0)
+    if (currHatchId != UCHAR_MAX && gGameModeSub3 != 0)
     {
         if (gHatchData[currHatchId].exists && gHatchData[currHatchId].type != HATCH_NONE)
             ConnectionHatchStartLockAnimation(FALSE, currHatchId, 3);
@@ -756,13 +753,13 @@ void ConnectionLoadDoors(void)
 
         bldalpha = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[i *
             gBGPointersAndDimensions.clipdataWidth + currDoor]];
-        bldalpha = BgClipGetNewBldalphaValue(bldalpha);
+        bldalpha = BgClipGetNewBldalphaValue(bldalpha, bldalpha);
         if (bldalpha)
         {
-            TransparencyUpdateBLDALPHA(bldalpha & 0xFF, bldalpha, 1, 1);
+            TransprencyUpdateBLDALPHA(bldalpha & 0xFF, (bldalpha & 0xFF00) >> 8, 1, 1);
             gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = gBldalphaData1.evbCoef;
             gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = gBldalphaData1.evaCoef;
-            write16((REG_BASE + 0x52), gIoRegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIoRegistersBackup.BLDALPHA_NonGameplay_EVA);;
+            write16(REG_BLDALPHA, gIoRegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIoRegistersBackup.BLDALPHA_NonGameplay_EVA);
         }
     }
 }
