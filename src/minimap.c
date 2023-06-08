@@ -306,7 +306,6 @@ void MinimapDraw(void)
     u32 flip;
     u16* src;
     u32 offset;
-    u32 mask;
 
     if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_NONE)
         return;
@@ -315,29 +314,29 @@ void MinimapDraw(void)
     dst = (u32*)0x2037e20 + (gUpdateMinimapFlag - 1) * 24;
 
     if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_LOWER_LINE)
-        yOffset = 0x1;
+        yOffset = 1;
     else if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_MIDDLE_LINE)
-        yOffset = 0x0;
+        yOffset = 0;
     else if (gUpdateMinimapFlag == MINIMAP_UPDATE_FLAG_UPPER_LINE)
-        yOffset = -0x1;
+        yOffset = -1;
     else
     {
         gUpdateMinimapFlag = MINIMAP_UPDATE_FLAG_NONE;
         return;
     }
 
-    for (xOffset = -0x1; xOffset < 0x2;)
+    for (xOffset = -1; xOffset < 2; )
     {
-        limit = 0x1F;
+        limit = MINIMAP_SIZE - 1;
         xPosition = gMinimapX + xOffset;
         if (xPosition > limit)
-            xPosition = -0x1;
+            xPosition = -1;
 
         yPosition = gMinimapY + yOffset;
         if (yPosition > limit)
-            yPosition = -0x1;
+            yPosition = -1;
 
-        if (yPosition < 0x0 || xPosition < 0x0)
+        if (yPosition < 0 || xPosition < 0)
         {
             xPosition = limit;
             yPosition = limit;

@@ -778,44 +778,54 @@ void ConnectionLockHatchesWithTimer(void)
     gDoorUnlockTimer = 0x2;
 }
 
+/**
+ * @brief 5f5d8 | 16c | Checks for a hatch lock event in the current room
+ * 
+ */
 void ConnectionCheckHatchLockEvents(void)
 {
-    // https://decomp.me/scratch/m98IS
-
     i32 i;
     u16 hatchesToLock;
     u32 eventCheck;
-    u16 total;
+    i32 total;
     const struct HatchLockEvent* pLock;
     
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
         return;
 
-    gHatchesState.hatchesLockedWithEvent = 0x0;
-    gHatchesState.unk2 = 0x0;
+    // Reset locked doors
+    gHatchesState.hatchesLockedWithEvent = 0;
+    gHatchesState.unk2 = 0;
 
+    // Bounds check
     if (gCurrentArea >= MAX_AMOUNT_OF_AREAS - 1)
         return;
 
-    i = sNumberOfHatchLockEventsPerArea[gCurrentArea];
+    // Get lock info
+    total = sNumberOfHatchLockEventsPerArea[gCurrentArea];
     pLock = sHatchLockEventsPointers[gCurrentArea];
     
-    while (i != 0)
+    for (i = 0; i < total; i++, pLock++)
     {
-        hatchesToLock = 0x0;
+        hatchesToLock = 0;
         if (pLock->room == gCurrentRoom)
         {
+            // Check event
             eventCheck = EventFunction(EVENT_ACTION_CHECKING, pLock->event);
             if (pLock->isBefore == TRUE)
+            {
+                // Invert event if before
                 eventCheck ^= pLock->isBefore;
+            }
             else
             {
-                if (pLock->isBefore == 0x3)
+                if (pLock->isBefore == 3)
                     eventCheck ^= TRUE;
             }
 
             if (eventCheck)
             {
+                // Seriously
                 hatchesToLock |= pLock->hatchesToLock1;
                 hatchesToLock |= pLock->hatchesToLock2 << 1;
                 hatchesToLock |= pLock->hatchesToLock3 << 2;
@@ -836,20 +846,19 @@ void ConnectionCheckHatchLockEvents(void)
             }
         }
 
+        // Apply lock
         if (pLock->isBefore == FALSE)
             gHatchesState.hatchesLockedWithEvent |= hatchesToLock;
         else if (pLock->isBefore == TRUE)
             gHatchesState.hatchesLockedWithEvent |= hatchesToLock;
-        else if (pLock->isBefore == 0x2)
+        else if (pLock->isBefore == 2)
             gHatchesState.unk2 |= hatchesToLock;
-        else if (pLock->isBefore == 0x3)
+        else if (pLock->isBefore == 3)
             gHatchesState.unk2 |= hatchesToLock;
-
-        i--;
-        pLock++;
     }
 
-    if (gHatchesState.hatchesLockedWithEvent != 0x0 || gHatchesState.unk2 != 0x0)
+    // Check actually lock doors
+    if (gHatchesState.hatchesLockedWithEvent != 0 || gHatchesState.unk2 != 0)
         ConnectionLockHatches(TRUE);
 }
 
