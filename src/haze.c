@@ -393,11 +393,12 @@ u32 HazeProcess(void)
     return ended;
 }
 
-
+/**
+ * @brief 5d768 | c0 | Updates the haze effect (BG3, strong everywhere)
+ * 
+ */
 void Haze_Bg3(void)
 {
-    // https://decomp.me/scratch/X4zm8
-
     i32 mask;
     u16* dst;
     const i8* src;
@@ -406,7 +407,9 @@ void Haze_Bg3(void)
     u8* ptr;
     i32 offset;
 
+    do {
     dst = gPreviousHazeValues;
+    }while(0);
     i = 0;
 
     gHazeLoops[2].unk_3 = FALSE;
