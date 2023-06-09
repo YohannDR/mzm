@@ -446,18 +446,18 @@ u8 ConnectionFindEventBasedDoor(u8 sourceDoor)
 u32 ConnectionSetHatchAsOpened(u8 action, u8 hatch)
 {
     // https://decomp.me/scratch/3q3rr
-
+    
     u32* pHatch;
     u32 closed;
     u32 doorBit;
     u32 chunk;
-    u32 mask;
     struct Door currDoor;
 
     pHatch = gHatchesOpened[gCurrentArea];
     closed = FALSE;
+
     chunk = hatch / 32;
-    doorBit = hatch & 31;
+    doorBit = hatch % 32;
 
     if (action != HATCH_ACTION_CHECKING_OPENED)
     {
@@ -466,7 +466,7 @@ u32 ConnectionSetHatchAsOpened(u8 action, u8 hatch)
         {
             currDoor = sAreaDoorsPointers[gCurrentArea][hatch];
             chunk = currDoor.destinationDoor / 32;
-            doorBit = currDoor.destinationDoor & 31;
+            doorBit = currDoor.destinationDoor % 32;
             pHatch[chunk] &= ~(1 << doorBit);
         }
     }

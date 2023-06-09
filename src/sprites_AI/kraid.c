@@ -1967,6 +1967,7 @@ void KraidPartCheckShouldSpawnSpikes(void)
     u8 lowHealth;
     u8 i;
     i32 spriteID;
+    u32 health;
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
     roomSlot = gCurrentSprite.roomSlot;
@@ -1975,24 +1976,24 @@ void KraidPartCheckShouldSpawnSpikes(void)
     {
         KraidCheckProjectilesCollidingWithBelly();
 
-        if (gSubSpriteData1.health < (GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3))
+        if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3)
             lowHealth = TRUE;
         else
             lowHealth = FALSE;
 
         if (roomSlot == KRAID_PART_BOTTOM_HOLE_LEFT)
         {
-            if (gSubSpriteData1.health < (i32)(GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 4 * 3) || gSamusData.yPosition >= (gCurrentSprite.yPosition - (BLOCK_SIZE * 2)))
+            if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 4 * 3 || gSamusData.yPosition >= (gCurrentSprite.yPosition - (BLOCK_SIZE * 2)))
             {
                 spriteID = PSPRITE_MISSILE_DROP;
-                for (i = 0x0; i < MAX_AMOUNT_OF_SPRITES; i++)
+                for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
                 {
                     if (gSpriteData[i].status & SPRITE_STATUS_EXISTS && gSpriteData[i].properties & SP_SECONDARY_SPRITE && gSpriteData[i].spriteID == spriteID)
                         return;
                 }
 
                 gSpriteData[ramSlot].status &= ~SPRITE_STATUS_MOSAIC;
-                gCurrentSprite.yPositionSpawn = 0x1;
+                gCurrentSprite.yPositionSpawn = 1;
             }
             else
                 return;
@@ -2001,7 +2002,7 @@ void KraidPartCheckShouldSpawnSpikes(void)
         {
             if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_MOSAIC))
             {
-                gCurrentSprite.yPositionSpawn = 0x3C;
+                gCurrentSprite.yPositionSpawn = 60;
             }
             else
                 return;
@@ -2010,7 +2011,7 @@ void KraidPartCheckShouldSpawnSpikes(void)
         {
             if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_MOSAIC) && lowHealth)
             {
-                gCurrentSprite.yPositionSpawn = 0x78;
+                gCurrentSprite.yPositionSpawn = 60 * 2;
             }
             else
                 return;
