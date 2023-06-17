@@ -6168,8 +6168,6 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
 
 void SamusUpdatePalette(struct SamusData* pData)
 {
-    // https://decomp.me/scratch/LhP1o
-
     const u16* pDefaultPal;
     const u16* pReleasePal;
     const u16* pFlashingPal;
@@ -6196,7 +6194,7 @@ void SamusUpdatePalette(struct SamusData* pData)
     if (pWeapon->beamReleasePaletteTimer != 0)
         pWeapon->beamReleasePaletteTimer--;
 
-    if (pData->unmorphPaletteTimer)
+    if (pData->unmorphPaletteTimer != 0)
         pData->unmorphPaletteTimer--;
 
     if (pEquipment->suitType == SUIT_FULLY_POWERED)
@@ -6311,7 +6309,7 @@ void SamusUpdatePalette(struct SamusData* pData)
         return;
     }
     
-    if (gSamusHazardDamage.paletteTimer != 0 && (gSamusHazardDamage.paletteTimer & 0xF) > 7)
+    if (gSamusHazardDamage.paletteTimer != 0 && (gSamusHazardDamage.paletteTimer & 15) > 7)
     {
         pBufferPal = pFlashingPal + 16;
         SamusCopyPalette(pBufferPal, 0, 16);
@@ -6320,18 +6318,18 @@ void SamusUpdatePalette(struct SamusData* pData)
         return;
     }
     
-    if (pData->speedboostingShinesparking || pData->shinesparkTimer)
+    if (pData->speedboostingShinesparking != 0 || pData->shinesparkTimer != 0)
     {
         rng = gFrameCounter8Bit % 6;
 
         if (rng >= 0)
         {
-            pBufferPal = pSpeedboostPal;
-            if (rng > 1)
-                pBufferPal = pSpeedboostPal + 16;
-
-            if (rng > 3)
+            if (rng <= 1)
+                pBufferPal = pSpeedboostPal;
+            else if (rng > 3)
                 pBufferPal = pSpeedboostPal + 16 * 2;
+            else
+                pBufferPal = pSpeedboostPal + 16;
         }
         else
             pBufferPal = pSpeedboostPal + 16 * 2;
@@ -6415,7 +6413,7 @@ void SamusUpdatePalette(struct SamusData* pData)
         limit = 64;
         if (chargeCounter >= limit)
         {
-            offset = (chargeCounter - 64) >> 2;
+            offset = (chargeCounter - limit) >> 2;
     
             if (offset != 3)
             {

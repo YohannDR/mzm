@@ -27,7 +27,7 @@ void LoadRoomCutscene(u8 area, u8 room, u16 bgX, u16 bgY)
     RoomRemoveNeverReformBlocksAndCollectedTanks();
     TransparencySetRoomEffectsTransparency();
     ScrollBG3();
-    AnimatedGraphicsCheckPlayLightningEffect(); // Undefined
+    AnimatedGraphicsCheckPlayLightningEffect();
     RoomUpdateBackgroundsPosition();
     ConnectionLoadDoors();
     ConnectionCheckHatchLockEvents();
@@ -36,9 +36,9 @@ void LoadRoomCutscene(u8 area, u8 room, u16 bgX, u16 bgY)
     RoomSetInitialTilemap(1);
     RoomSetInitialTilemap(2);
 
-    AnimatedGraphicsLoad(); // Undefined
+    AnimatedGraphicsLoad();
 
-    DMATransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 0x10);
+    DMATransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
 
     write16(REG_BG0CNT, gIoRegistersBackup.BG0CNT);
     write16(REG_BG3CNT, gIoRegistersBackup.BG3CNT);
