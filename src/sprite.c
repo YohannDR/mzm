@@ -307,44 +307,16 @@ void SpriteDrawAll_Upper(void)
 void SpriteDraw(struct SpriteData* pSprite, i32 slot)
 {
     // https://decomp.me/scratch/7FvMo
-
-    /*
-        Stack order :
-
-        0 ramSlot
-        4 i
-        8 part count
-        c Y offset
-        10 X offset
-        14 xflip
-        18 double
-        1c alpha
-        20 mosaic
-        24 facing down
-        28 bgPriority
-        2c palette
-        30 gfxRow
-        34 xPos
-        38 yPos
-        3c rotation
-        40 scaling
-        44 bgPriority (shifter, optimisation)
-        48 partCount + prevSlot
-    */
     
     const u16* src;
     u16* dst;
     u8 prevSlot;
     u16 part1;
     u16 part2;
-    u8 part3;
-    
-
 
     u32 shape;
     u32 size;
     
-
     u16 dy;
     u16 dmy;
 
@@ -352,18 +324,22 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
     i16 actualX;
     i16 yScaling;
     i16 xScaling;
-    u32 m11;
-    u32 m12;
-    u32 m21;
-    u32 m22;
-    u32 y;
-    u32 x;
+    i32 y;
+    i32 x;
+    i32 unk_2;
+    i32 unk_3;
+    i32 tmpX;
+    i32 tmpY;
+    i32 scaledX;
+    i32 scaledY;
 
     u16 yFlip;
     i32 i;
     u16 partCount;
-    u32 yOffset;
-    u32 xOffset;
+    
+    u32 unk_0;
+    u32 unk_1;
+    
     u16 xFlip;
     u16 doubleSize;
     u16 alphaBlending;
@@ -377,6 +353,8 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
     u16 rotation;
     u16 scaling;
 
+    u8 offset;
+
     prevSlot = gNextOamSlot;
     src = pSprite->pOam[pSprite->currentAnimationFrame].pFrame;
     partCount = *src++;
@@ -385,8 +363,8 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
         return;
 
     dst = (u16*)(gOamData + prevSlot);
-    yPosition = pSprite->yPosition / 4 - gBG1YPosition / 4;
-    xPosition = pSprite->xPosition / 4 - gBG1XPosition / 4;
+    yPosition = (pSprite->yPosition >> 2) - (gBG1YPosition >> 2);
+    xPosition = (pSprite->xPosition >> 2) - (gBG1XPosition >> 2);
 
     xFlip = pSprite->status & SPRITE_STATUS_XFLIP;
     yFlip = pSprite->status & SPRITE_STATUS_YFLIP;
@@ -398,7 +376,7 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
     gfxOffset = pSprite->spritesetGfxSlot * 0x40;
     bgPriority = pSprite->bgPriority;
 
-    if (gSamusOnTopOfBackgrounds && bgPriority)
+    if (gSamusOnTopOfBackgrounds && bgPriority != 0)
         bgPriority--;
 
     if (pSprite->properties & SP_ABSOLUTE_POSITION)
@@ -415,7 +393,7 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             *dst++ = part1;
             part2 = *src++;
             *dst++ = part2;
-            *dst++ = *src++; // Copy source and save part 1 and 2
+            *dst++ = *src++;
 
             gOamData[prevSlot + i].split.y = part1 + yPosition;
             gOamData[prevSlot + i].split.x = part2 + xPosition;
@@ -428,7 +406,8 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
                 gOamData[prevSlot + i].split.xFlip ^= TRUE;
                 shape = gOamData[prevSlot + i].split.shape;
                 size = gOamData[prevSlot + i].split.size;
-                gOamData[prevSlot + i].split.x = xPosition - (part1 + sOamXFlipOffsets[shape][size] * 8);
+                offset = sOamXFlipOffsets[shape][size];
+                gOamData[prevSlot + i].split.x = xPosition - (part1 + offset * 8);
             }
 
             if (facingDown)
@@ -436,7 +415,8 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
                 gOamData[prevSlot + i].split.yFlip ^= TRUE;
                 shape = gOamData[prevSlot + i].split.shape;
                 size = gOamData[prevSlot + i].split.size;
-                gOamData[prevSlot + i].split.y = yPosition - (part2 + sOamYFlipOffsets[shape][size] * 8);
+                offset = sOamYFlipOffsets[shape][size];
+                gOamData[prevSlot + i].split.y = yPosition - (part2 + offset * 8);
             }
 
             if (yFlip)
@@ -495,7 +475,7 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             *dst++ = part1;
             part2 = *src++;
             *dst++ = part2;
-            part3 = *dst++ = *src++; // Copy source and save part 1, 2 and 3
+            *dst++ = *src++;
 
             gOamData[prevSlot + i].split.priority = bgPriority;
             gOamData[prevSlot + i].split.paletteNum += paletteRow;
@@ -504,43 +484,42 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
 
             shape = gOamData[prevSlot + i].split.shape;
             size = gOamData[prevSlot + i].split.size;
-
-            yOffset = sOamYFlipOffsets[shape][size] * 4;
-            xOffset = sOamXFlipOffsets[shape][size] * 4;
-
-            actualY = (part1 + yPosition) & 0xFF;
-            actualX = (part2 + xPosition) & 0x1FF;
-
-            part1 = actualY - yPosition + yOffset;
-            part2 = actualX - xPosition + xOffset;
-
-            yScaling = part1 * scaling / 256 - part1;
-            xScaling = part2 * scaling / 256 - part2;
-            
-            actualY = actualY + yScaling - yOffset;
-            actualX = actualX + xScaling - xOffset;
-
-            m11 = actualX * cos(rotation);
-            m12 = actualY * sin(rotation);
-            m21 = actualX * sin(rotation);
-            m22 = actualY * cos(rotation);
-
-            y = (m21 + m22) / 8;
-            x = (m11 - m12) / 8;
-
+        
+            unk_0 = sOamYFlipOffsets[shape][size];
+            unk_0 *= 4;
+            unk_1 = sOamXFlipOffsets[shape][size];
+            unk_1 *= 4;
+        
+            y = (i16)(part1 + yPosition) & 0xFF;
+            x = (i16)(part2 + xPosition) & 0x1FF;
+        
+            tmpY = (i16)(y - yPosition + unk_0);
+            tmpX = (i16)(x - xPosition + unk_1);
+            tmpX = (i16)((tmpX * scaling / 256) - tmpX);
+            tmpY = (i16)((tmpY * scaling / 256) - tmpY);
+        
+            x = (i16)(x + tmpX);
+            y = (i16)(y + tmpY);
+        
+            unk_2 = (i16)(x - xPosition + unk_1);
+            unk_3 = (i16)(y - yPosition + unk_0);
+        
+            x = (i16)((unk_2 * cos(rotation) - unk_3 * sin(rotation)) >> 8);
+            y = (i16)((unk_2 * sin(rotation) + unk_3 * cos(rotation)) >> 8);
+        
             if (doubleSize)
             {
-                x -= xOffset * 2;
-                y -= yOffset * 2;
+                x = (i16)(x - unk_1 * 2);
+                y = (i16)(y - unk_0 * 2);
             }
             else
             {
-                x -= xOffset;
-                y -= yOffset;
+                x = (i16)(x - unk_1);
+                y = (i16)(y - unk_0);
             }
-
-            gOamData[prevSlot + i].split.y = y + yPosition - BLOCK_SIZE;
-            gOamData[prevSlot + i].split.x = x + xPosition - BLOCK_SIZE;
+        
+            gOamData[prevSlot + i].split.y = (y + yPosition - BLOCK_SIZE) & 0xFF;
+            gOamData[prevSlot + i].split.x = (x + xPosition - BLOCK_SIZE) & 0x1FF;
 
             if (doubleSize)
                 gOamData[prevSlot + i].split.affineMode = 3;
@@ -593,27 +572,27 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
 
         if (mosaic)
         {
-            gOamData[112].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(scaling));
-            gOamData[113].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(scaling));
-            gOamData[114].all.affineParam = dy;
-            gOamData[115].all.affineParam = dmy;
+            gOamData[28 * 4 + 0].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(scaling));
+            gOamData[28 * 4 + 1].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(scaling));
+            gOamData[28 * 4 + 2].all.affineParam = dy;
+            gOamData[28 * 4 + 3].all.affineParam = dmy;
 
-            gOamData[116].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(-scaling));
-            gOamData[117].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(-scaling));
-            gOamData[118].all.affineParam = dy;
-            gOamData[119].all.affineParam = dmy;
+            gOamData[29 * 4 + 0].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(-scaling));
+            gOamData[29 * 4 + 1].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(-scaling));
+            gOamData[29 * 4 + 2].all.affineParam = dy;
+            gOamData[29 * 4 + 3].all.affineParam = dmy;
         }
         else
         {
-            gOamData[120].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(scaling));
-            gOamData[121].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(scaling));
-            gOamData[122].all.affineParam = dy;
-            gOamData[123].all.affineParam = dmy;
+            gOamData[30 * 4 + 0].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(scaling));
+            gOamData[30 * 4 + 1].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(scaling));
+            gOamData[30 * 4 + 2].all.affineParam = dy;
+            gOamData[30 * 4 + 3].all.affineParam = dmy;
 
-            gOamData[124].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(-scaling));
-            gOamData[125].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(-scaling));
-            gOamData[126].all.affineParam = dy;
-            gOamData[127].all.affineParam = dmy;
+            gOamData[31 * 4 + 0].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(-scaling));
+            gOamData[31 * 4 + 1].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(-scaling));
+            gOamData[31 * 4 + 2].all.affineParam = dy;
+            gOamData[31 * 4 + 3].all.affineParam = dmy;
         }
     }
 }
