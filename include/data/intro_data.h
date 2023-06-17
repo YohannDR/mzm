@@ -31,8 +31,8 @@ extern const u8 sTimeAttackPasswordCharacters[32];
 
 extern const u32 sTimeAttackAntiCheatTimes[4];
 
-extern const u8 sArray_45fd24[12];
-extern const u8 sArray_45fd30[4];
+extern const u8 sArray_45fd24[3][4];
+extern const u8 sArray_45fd30[1][4]; // FIXME : should be [3][4] like above, sIntroFuzzRandomValues_3 is part of that array
 extern const u8 sIntroFuzzRandomValues_3[8];
 
 extern const u8 sIntroEmergencyOrderActions[16];

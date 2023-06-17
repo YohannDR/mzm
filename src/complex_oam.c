@@ -6,74 +6,96 @@
 #include "data/generic_data.h"
 #include "data/intro_data.h"
 
-u8 ProcessComplexOam(u32 oamSlot, i16 xPosition, i16 yPosition, u16 rotation, i16 scaling, u8 doubleSize, u8 flipSize)
+u8 ProcessComplexOam(u32 oamSlot, i16 xPosition, i16 yPosition, u16 rotation, i16 scaling, u8 doubleSize, u8 matrixNum)
 {
     // https://decomp.me/scratch/rFihS
 
-    i16 xOffset;
-    i16 yOffset;
+    i32 y;    
     i32 x;
-    i32 y;
-    u32 shape;
-    u32 size;
+    i32 xOffset;
+    i32 yOffset;
+    u8 shape;
+    u8 size;
     u8 unk_0;
     u8 unk_1;
+    i32 unk_2;
+    i32 unk_3;
+    i32 tmpX;
+    i32 tmpY;
+    i32 scaledX;
+    i32 scaledY;
 
-    i16 unk_x;
-    i16 unk_y;
-
-    xOffset = xPosition + BLOCK_SIZE;
-    yOffset = yPosition + BLOCK_SIZE;
+    xOffset = (i16)((u16)xPosition + BLOCK_SIZE);
+    yOffset = (i16)((u16)yPosition + BLOCK_SIZE);
 
     shape = gOamData[oamSlot].split.shape;
     size = gOamData[oamSlot].split.size;
 
-    unk_0 = sArray_45fd24[shape + size * 4];
-    unk_1 = sArray_45fd30[shape + size * 4];
+    unk_0 = sArray_45fd24[shape][size];
+    unk_1 = sArray_45fd30[shape][size];
 
-    x = (gOamData[oamSlot].split.x + xOffset) & 0x1FF;
-    y = (gOamData[oamSlot].split.y + yOffset) & 0xFF;
+    x = (i16)(gOamData[oamSlot].split.x + xOffset) & 0x1FF;
+    y = (i16)(gOamData[oamSlot].split.y + yOffset) & 0xFF;
 
-    unk_x = x - xOffset;
-    unk_y = y - yOffset;
+    tmpX = (i16)(x - xOffset + unk_0);
+    tmpY = (i16)(y - yOffset + unk_1);
+    scaledX = (i16)((tmpX * scaling >> 8) - tmpX);
+    scaledY = (i16)((tmpY * scaling >> 8) - tmpY);
 
-    unk_x = scaling * unk_x / 256 - unk_x;
-    unk_y = scaling * unk_y / 256 - unk_y;
+    x = (i16)(x + scaledX);
+    y = (i16)(y + scaledY);
 
-    x = x + unk_x;
-    y = y + unk_y;
+    unk_2 = (i16)(x - xOffset + unk_0);
+    unk_3 = (i16)(y - yOffset + unk_1);
 
-    gOamData[oamSlot].split.x = x * cos(rotation) - y * sin(rotation);
-    gOamData[oamSlot].split.y = x * sin(rotation) + y * cos(rotation);
+    x = (i16)((unk_2 * cos(rotation) - unk_3 * sin(rotation)) >> 8);
+    y = (i16)((unk_2 * sin(rotation) + unk_3 * cos(rotation)) >> 8);
 
     if (!doubleSize)
     {
         gOamData[oamSlot].split.affineMode = 1;
+
+        x = (i16)(x - unk_0);
+        y = (i16)(y - unk_1);
     }
     else
     {
         gOamData[oamSlot].split.affineMode = 3;
+
+        x = (i16)(x - unk_0 * 2);
+        y = (i16)(y - unk_1 * 2);
     }
 
+    gOamData[oamSlot].split.x = (x + xOffset - BLOCK_SIZE) & 0x1FF;
+    gOamData[oamSlot].split.y = (y + yOffset - BLOCK_SIZE) & 0xFF;
 
 
-    if (gOamData[oamSlot].split.shape & 2)
+    if (gOamData[oamSlot].split.xFlip)
     {
-        if (gOamData[oamSlot].split.shape & 1)
-            gOamData[oamSlot].split.matrixNum = flipSize + 3;
+        if (gOamData[oamSlot].split.yFlip)
+        {
+            gOamData[oamSlot].split.matrixNum = matrixNum + 3;
+        }
         else
-            gOamData[oamSlot].split.matrixNum = flipSize + 1;
+        {
+            gOamData[oamSlot].split.matrixNum = matrixNum + 1;
+        }
     }
     else
     {
-        if (gOamData[oamSlot].split.shape & 1)
-            gOamData[oamSlot].split.matrixNum = flipSize + 2;
+        if (gOamData[oamSlot].split.yFlip)
+        {
+            gOamData[oamSlot].split.matrixNum = matrixNum + 2;
+        }
         else
-            gOamData[oamSlot].split.matrixNum = flipSize;
+        {
+            gOamData[oamSlot].split.matrixNum = matrixNum;
+        }
     }
 
     gOamData[oamSlot].split.xFlip = FALSE;
     gOamData[oamSlot].split.yFlip = FALSE;
+    
     return FALSE;
 }
 
