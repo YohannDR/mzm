@@ -55,13 +55,13 @@ struct wavedata {
     u32 freq;
     u32 loop;
     u32 size;
-    /* i8 data[size+1]; */
+    /* s8 data[size+1]; */
 };
 
 void CpuFastSet(void *src, void *dst, u16 size);
 void CpuSet(void *src, void *dst, u32 size);
-i32 DivarmDiv(i32 number, i32 denom);
-i32 DivarmMod(i32 denom, i32 number);
+s32 DivarmDiv(s32 number, s32 denom);
+s32 DivarmMod(s32 denom, s32 number);
 void LZ77UncompVRAM(const void *src, void *dst);
 void LZ77UncompWRAM(const void *src, void *dst);
 u32 Midikey2Freq(u32* wd, u8 mk, u8 fp);

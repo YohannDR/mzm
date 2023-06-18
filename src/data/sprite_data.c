@@ -22,27 +22,27 @@ const u8 sSpriteRandomNumberTable[56] = {
     6, 0, 3, 0, 10, 0, 8, 0, 1, 0, 10, 0, 9, 0, 8, 0
 };
 
-const i16 sSpritesFallingCeilingSpeed[16] = {
+const s16 sSpritesFallingCeilingSpeed[16] = {
     -4, -4, -4, -4, -4, -4, -8, -8, -8, -12,
     -12, -12, -12, -12, -16, SHORT_MAX
 };
 
-const i16 sSpritesFallingSpeed[16] = {
+const s16 sSpritesFallingSpeed[16] = {
     4, 4, 4, 4, 8, 8, 8, 8, 12, 12, 12,
     16, 16, 16, 20, SHORT_MAX
 };
 
-const i16 sSpritesFallingSpeed_Unused[8] = {
+const s16 sSpritesFallingSpeed_Unused[8] = {
     4, 6, 8, 10, 12,
     14, 16, SHORT_MAX,
 };
 
-const i16 sSpritesFallingSpeed_Unused2[16] = {
+const s16 sSpritesFallingSpeed_Unused2[16] = {
     1, 1, 2, 2, 3, 3, 4, 4, 5, 5,
     6, 6, 7, 7, 8, SHORT_MAX
 };
 
-const i16 sWorkerRobotSleepingFallingSpeed[10] = {
+const s16 sWorkerRobotSleepingFallingSpeed[10] = {
     4, 8, 8, 12, 12, 16, 16, 20, 24, SHORT_MAX
 };
 

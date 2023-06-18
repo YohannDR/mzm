@@ -2,7 +2,7 @@
 
 #include "macros.h"
 
-const i16 sChargeBeamIdleYMovement[66] = {
+const s16 sChargeBeamIdleYMovement[66] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1,
     1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0,
     0, 0, -1, 0, -1, 0, -1, 0, -1, 0, -1, -1, -1, -1,

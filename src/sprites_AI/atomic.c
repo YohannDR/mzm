@@ -222,7 +222,7 @@ void AtomicUpdateDirectionToFleeSamus(void)
     u16 spriteX;
     u16 samusY;
     u16 samusX;
-    i32 range;
+    s32 range;
 
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
@@ -355,7 +355,7 @@ void AtomicIdleInit(void)
 void AtomicIdle(void)
 {
     u8 offset;
-    i32 movement;
+    s32 movement;
 
     if (gSamusWeaponInfo.chargeCounter >= 0x40)
     {

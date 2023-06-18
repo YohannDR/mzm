@@ -689,7 +689,7 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
 u8 SpacePirateCheckCollidingWithPirateWhenClimbing(u8 direction)
 {
     u32 pirateTopOffset;
-    i32 pirateBottomSize;
+    s32 pirateBottomSize;
     u16 pirateY;
     u16 pirateX;
     u16 pirateTop;
@@ -1091,7 +1091,7 @@ void unk_29ef0(void)
     u8 flags;
     u16 yPosition;
     u16 xPosition;
-    i32 blockTop;
+    s32 blockTop;
     u8 collision;
 
     flags = 0;
@@ -1581,8 +1581,8 @@ void SpacePirateFalling(void)
 
     u32 blockTop;
     u8 offset;
-    i32 movement;
-    i32 newMovement;
+    s32 movement;
+    s32 newMovement;
 
     if (gCurrentSprite.status & SPRITE_STATUS_DOUBLE_SIZE)
     {
@@ -2218,7 +2218,7 @@ void SpacePirateJumpingInit(void)
  */
 void SpacePirateJumping(void)
 {
-    i32 movement;
+    s32 movement;
     u8 colliding;
     u8 delay;
     u8 collision;

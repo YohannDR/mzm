@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sSidehopperHighJumpVelocity[10];
+extern const s16 sSidehopperHighJumpVelocity[10];
 
-extern const i16 sSidehopperLowJumpVelocity[10];
+extern const s16 sSidehopperLowJumpVelocity[10];
 
 extern const u32 sSidehopperGfx[303];
 extern const u16 sSidehopperPAL[16];

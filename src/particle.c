@@ -69,18 +69,18 @@ void ParticleCheckOnScreen(struct ParticleEffect* pParticle)
  */
 void ParticleDraw(struct ParticleEffect* pParticle)
 {
-    i32 prevSlot;
-    i32 partCount;
+    s32 prevSlot;
+    s32 partCount;
     const u16* src;
     u16* dst;
     u8 flipped;
-    i32 newSlot;
+    s32 newSlot;
     u16 yPosition;
     u16 xPosition;
     u16 bgPriority;
     u16 part;
-    i32 currSlot;
-    i32 i;
+    s32 currSlot;
+    s32 i;
     u32 shape;
     u32 size;
     union OamData* oam;

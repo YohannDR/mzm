@@ -9,8 +9,8 @@
 
 void ScrollProcess(struct RawCoordsX* pCoords);
 void ScrollScreen(u16 screenX, u16 screenY);
-i32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords);
-i32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords);
+s32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords);
+s32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords);
 void ScrollLoad(void);
 void ScrollUpdateCurrent(struct RawCoordsX* pCoords);
 void ScrollProcessGeneral(void);

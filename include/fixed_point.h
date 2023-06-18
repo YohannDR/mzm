@@ -5,8 +5,8 @@
 
 /* All of these use a 1.7.8 fixed point representation */
 
-i16 FixedMultiplication(i16 a, i16 b);
-i16 FixedDivision(i16 a, i16 b);
-i16 FixedInverse(i16 a);
+s16 FixedMultiplication(s16 a, s16 b);
+s16 FixedDivision(s16 a, s16 b);
+s16 FixedInverse(s16 a);
 
 #endif /* FIXED_POINT_H */

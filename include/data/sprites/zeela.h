@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sZeelaEyesFallingFromUpSpeed[16];
+extern const s16 sZeelaEyesFallingFromUpSpeed[16];
 
-extern const i16 sZeelaEyesFallingFromBottomSpeed[12];
+extern const s16 sZeelaEyesFallingFromBottomSpeed[12];
 
 extern const u32 sZeelaGfx[578];
 extern const u16 sZeelaPAL[32];

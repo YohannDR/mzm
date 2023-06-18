@@ -1753,10 +1753,10 @@ void MechaRidleyPartEyeIdle(void)
 void MechaRidleyPartRightArmIdle(void)
 {
     u8 ramSlot;
-    i32 topHitbox;
-    i32 bottomHitbox;
-    i32 leftHitbox;
-    i32 rightHitbox;
+    s32 topHitbox;
+    s32 bottomHitbox;
+    s32 leftHitbox;
+    s32 rightHitbox;
 
     u16 rHitbox;
 
@@ -1926,10 +1926,10 @@ void MechaRidleyPartRightArmIdle(void)
  */
 void MechaRidleyPartLeftArmIdle(void)
 {
-    i32 topHitbox;
-    i32 bottomHitbox;
-    i32 leftHitbox;
-    i32 rightHitbox;
+    s32 topHitbox;
+    s32 bottomHitbox;
+    s32 leftHitbox;
+    s32 rightHitbox;
 
     topHitbox = 0;
     bottomHitbox = 0;
@@ -2131,10 +2131,10 @@ void MechaRidleyPartLeftArmIdle(void)
  */
 void MechaRidleyPartNeckIdle(void)
 {
-    i32 topHitbox;
-    i32 bottomHitbox;
-    i32 leftHitbox;
-    i32 rightHitbox;
+    s32 topHitbox;
+    s32 bottomHitbox;
+    s32 leftHitbox;
+    s32 rightHitbox;
 
     u16 rHitbox;
 

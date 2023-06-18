@@ -1,7 +1,7 @@
 #include "data/sprites/imago.h"
 #include "macros.h"
 
-const i16 sImagoMultiSpriteData_Idle_Frame0[21] = {
+const s16 sImagoMultiSpriteData_Idle_Frame0[21] = {
     3, 0, 0,
     3, -16, 36,
     0, 8, 0,
@@ -11,7 +11,7 @@ const i16 sImagoMultiSpriteData_Idle_Frame0[21] = {
     10, 0, 0
 };
 
-const i16 sImagoMultiSpriteData_Growling_Unused_Frame0[21] = {
+const s16 sImagoMultiSpriteData_Growling_Unused_Frame0[21] = {
     3, 0, 0,
     3, -16, 36,
     1, 0, 0,
@@ -21,7 +21,7 @@ const i16 sImagoMultiSpriteData_Growling_Unused_Frame0[21] = {
     10, 0, 0
 };
 
-const i16 sImagoMultiSpriteData_ShootingNeedles_Frame0[21] = {
+const s16 sImagoMultiSpriteData_ShootingNeedles_Frame0[21] = {
     3, 0, 0,
     3, -16, 36,
     0, 8, 0,
@@ -31,7 +31,7 @@ const i16 sImagoMultiSpriteData_ShootingNeedles_Frame0[21] = {
     11, 0, 0
 };
 
-const i16 sImagoMultiSpriteData_ShootingNeedles_Frame1[21] = {
+const s16 sImagoMultiSpriteData_ShootingNeedles_Frame1[21] = {
     4, 0, 0,
     4, -16, 36,
     0, 8, 0,
@@ -41,7 +41,7 @@ const i16 sImagoMultiSpriteData_ShootingNeedles_Frame1[21] = {
     11, 0, 0
 };
 
-const i16 sImagoMultiSpriteData_RechargingNeedles_Frame0[21] = {
+const s16 sImagoMultiSpriteData_RechargingNeedles_Frame0[21] = {
     3, 0, 0,
     3, -16, 36,
     0, 8, 0,
@@ -51,7 +51,7 @@ const i16 sImagoMultiSpriteData_RechargingNeedles_Frame0[21] = {
     12, 0, 0
 };
 
-const i16 sImagoMultiSpriteData_Dying_Frame0[21] = {
+const s16 sImagoMultiSpriteData_Dying_Frame0[21] = {
     5, 0, 0,
     4, -24, 36,
     0, 0, 0,
@@ -98,11 +98,11 @@ const struct FrameData sImagoMultiSpriteData_Dying[2] = {
     0x0
 };
 
-const i16 sImagoDamagedStingerFallingYVelocity[10] = {
+const s16 sImagoDamagedStingerFallingYVelocity[10] = {
     0, 1, 2, 4, 8, 12, 16, 20, 24, SHORT_MAX
 };
 
-const i16 sImagoAttackingXVelocity[49] = {
+const s16 sImagoAttackingXVelocity[49] = {
     -1, -1, -1, -1, -2, -2, -2, -2, -3, -3, -4, -5,
     -6, -5, -4, -3, -2, -2, -2, -2, -1, -1, -1, -1,
     1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 4, 5, 6, 5, 4, 3,

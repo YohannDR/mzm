@@ -30,10 +30,10 @@ struct SpriteData {
     u16 xPosition;
     u16 yPositionSpawn;
     u16 xPositionSpawn;
-    i16 hitboxTopOffset;
-    i16 hitboxBottomOffset;
-    i16 hitboxLeftOffset;
-    i16 hitboxRightOffset;
+    s16 hitboxTopOffset;
+    s16 hitboxBottomOffset;
+    s16 hitboxLeftOffset;
+    s16 hitboxRightOffset;
     u16 oamScaling;
     u16 health;
     u16 currentAnimationFrame;

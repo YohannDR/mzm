@@ -64,7 +64,7 @@ void GeegaIdle(void)
     u16 spriteY;
     u16 spriteX;
     u8 ramSlot;
-    i32 distance;
+    s32 distance;
 
     if (gCurrentSprite.spriteID == PSPRITE_GEEGA_FOLLOWER)
     {

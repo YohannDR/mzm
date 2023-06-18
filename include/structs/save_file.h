@@ -41,9 +41,9 @@ struct SaveFileInfo {
     u8 igtMinutes;
     u8 igtSconds;
     u8 hasSaved;
-    i8 completedGame;
-    i8 introPlayed;
-    i8 language;
+    s8 completedGame;
+    s8 introPlayed;
+    s8 language;
     u8 difficulty;
     u8 timeAttack;
 };
@@ -65,8 +65,8 @@ struct SaveWorldData {
 
 struct SaveFile {
     u8 ZERO_MISSION_010_Text[SRAM_TEXT_SIZE];
-    i32 checksum;
-    i32 notChecksum;
+    s32 checksum;
+    s32 notChecksum;
 
     struct GameCompletion gameCompletion;
     u8 hasSaved;

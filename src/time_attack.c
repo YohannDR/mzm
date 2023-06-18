@@ -16,9 +16,9 @@
  * @param length Length of seed
  * @param value Value to eor with
  */
-void TimeAttackEORSeed(u8* pSeed, i32 length, u8 value)
+void TimeAttackEORSeed(u8* pSeed, s32 length, u8 value)
 {
-    i32 i;
+    s32 i;
 
     for (i = 0; i < length; i++)
         pSeed[i] ^= value;
@@ -31,10 +31,10 @@ void TimeAttackEORSeed(u8* pSeed, i32 length, u8 value)
  * @param value Reference value
  * @return u8 Seed value
  */
-u8 TimeAttackGetGarbledSeedValue(u8* pSeed, i32 value)
+u8 TimeAttackGetGarbledSeedValue(u8* pSeed, s32 value)
 {
     u32 shift;
-    i32 local = value / 8;
+    s32 local = value / 8;
 
     shift = (value - (local << 3));
 
@@ -48,9 +48,9 @@ u8 TimeAttackGetGarbledSeedValue(u8* pSeed, i32 value)
  * @param value1 Random value
  * @param value2 Reference value
  */
-void TimeAttackGarbleSeedValue(u8* pSeed, i32 value1, i32 value2)
+void TimeAttackGarbleSeedValue(u8* pSeed, s32 value1, s32 value2)
 {
-    i32 local;
+    s32 local;
     u8 bicFlag;
     u32 orrFlag;
     u32 shift;
@@ -74,7 +74,7 @@ void TimeAttackGarbleSeedValue(u8* pSeed, i32 value1, i32 value2)
  * @param value1 Reference value 1
  * @param value2 Reference value 2
  */
-void TimeAttackGarbleRandomSeedValues(u8* pSeed, i32 value1, i32 value2)
+void TimeAttackGarbleRandomSeedValues(u8* pSeed, s32 value1, s32 value2)
 {
     u32 ref1;
     u32 ref2;
@@ -91,10 +91,10 @@ void TimeAttackGarbleRandomSeedValues(u8* pSeed, i32 value1, i32 value2)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedRandomFunc1(u8* pSeed, i32 length)
+void TimeAttackSeedRandomFunc1(u8* pSeed, s32 length)
 {
-    i32 i;
-    i32 limit;
+    s32 i;
+    s32 limit;
 
     limit = length * 4;
     for (i = 0; i < limit; i += 2)
@@ -107,11 +107,11 @@ void TimeAttackSeedRandomFunc1(u8* pSeed, i32 length)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedRandomFunc2(u8* pSeed, i32 length)
+void TimeAttackSeedRandomFunc2(u8* pSeed, s32 length)
 {
-    i32 i;
-    i32 limit;
-    i32 value;
+    s32 i;
+    s32 limit;
+    s32 value;
 
     limit = length * 4;
     value = length * 8 - 1;
@@ -129,11 +129,11 @@ void TimeAttackSeedRandomFunc2(u8* pSeed, i32 length)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedRandomFunc3(u8* pSeed, i32 length)
+void TimeAttackSeedRandomFunc3(u8* pSeed, s32 length)
 {
-    i32 i;
-    i32 limit;
-    i32 value;
+    s32 i;
+    s32 limit;
+    s32 value;
 
     limit = length * 8 / 9;
     value = limit;
@@ -151,10 +151,10 @@ void TimeAttackSeedRandomFunc3(u8* pSeed, i32 length)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedRandomFunc4(u8* pSeed, i32 length)
+void TimeAttackSeedRandomFunc4(u8* pSeed, s32 length)
 {
-    i32 i;
-    i32 value;
+    s32 i;
+    s32 value;
 
     value = length;
     for (i = 0; i < length; )
@@ -171,11 +171,11 @@ void TimeAttackSeedRandomFunc4(u8* pSeed, i32 length)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedRandomFunc5(u8* pSeed, i32 length)
+void TimeAttackSeedRandomFunc5(u8* pSeed, s32 length)
 {
-    i32 i;
-    i32 limit;
-    i32 value;
+    s32 i;
+    s32 limit;
+    s32 value;
 
     limit = length * 8 / 6;
     value = limit;
@@ -194,7 +194,7 @@ void TimeAttackSeedRandomFunc5(u8* pSeed, i32 length)
  * @param pPassword Password pointer (destination)
  * @param length Password length
  */
-void TimeAttackGeneratePassword(u8* pSeed, u8* pPassword, i32 length)
+void TimeAttackGeneratePassword(u8* pSeed, u8* pPassword, s32 length)
 {
     u32 input1;
     u32 input2;
@@ -206,7 +206,7 @@ void TimeAttackGeneratePassword(u8* pSeed, u8* pPassword, i32 length)
     u32 value3;
     u32 value4;
     u32 value5;
-    i32 i;
+    s32 i;
 
     if (length > 0)
     {
@@ -431,7 +431,7 @@ u8 unk_7f60c(u8* param_1)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedShuffleFunc1(u8* pSeed, i32 length)
+void TimeAttackSeedShuffleFunc1(u8* pSeed, s32 length)
 {
     TimeAttackEORSeed(pSeed, length, 70);
     TimeAttackSeedRandomFunc1(pSeed, length);
@@ -448,7 +448,7 @@ void TimeAttackSeedShuffleFunc1(u8* pSeed, i32 length)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedShuffleFunc2(u8* pSeed, i32 length)
+void TimeAttackSeedShuffleFunc2(u8* pSeed, s32 length)
 {
     TimeAttackEORSeed(pSeed, length, 144);
     TimeAttackSeedRandomFunc2(pSeed, length);
@@ -465,7 +465,7 @@ void TimeAttackSeedShuffleFunc2(u8* pSeed, i32 length)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedShuffleFunc3(u8* pSeed, i32 length)
+void TimeAttackSeedShuffleFunc3(u8* pSeed, s32 length)
 {
     TimeAttackEORSeed(pSeed, length, 145);
     TimeAttackSeedRandomFunc2(pSeed, length);
@@ -482,7 +482,7 @@ void TimeAttackSeedShuffleFunc3(u8* pSeed, i32 length)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedShuffleFunc4(u8* pSeed, i32 length)
+void TimeAttackSeedShuffleFunc4(u8* pSeed, s32 length)
 {
     TimeAttackEORSeed(pSeed, length, 89);
     TimeAttackSeedRandomFunc5(pSeed, length);
@@ -500,7 +500,7 @@ void TimeAttackSeedShuffleFunc4(u8* pSeed, i32 length)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedShuffleFunc5(u8* pSeed, i32 length)
+void TimeAttackSeedShuffleFunc5(u8* pSeed, s32 length)
 {
     TimeAttackEORSeed(pSeed, length, 149);
     TimeAttackSeedRandomFunc1(pSeed, length);
@@ -517,7 +517,7 @@ void TimeAttackSeedShuffleFunc5(u8* pSeed, i32 length)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedShuffleFunc6(u8* pSeed, i32 length)
+void TimeAttackSeedShuffleFunc6(u8* pSeed, s32 length)
 {
     TimeAttackEORSeed(pSeed, length, 77);
     TimeAttackSeedRandomFunc2(pSeed, length);
@@ -535,7 +535,7 @@ void TimeAttackSeedShuffleFunc6(u8* pSeed, i32 length)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedShuffleFunc7(u8* pSeed, i32 length)
+void TimeAttackSeedShuffleFunc7(u8* pSeed, s32 length)
 {
     TimeAttackEORSeed(pSeed, length, 65);
     TimeAttackSeedRandomFunc2(pSeed, length);
@@ -554,7 +554,7 @@ void TimeAttackSeedShuffleFunc7(u8* pSeed, i32 length)
  * @param pSeed Seed pointer
  * @param length Seed length
  */
-void TimeAttackSeedShuffleFunc8(u8* pSeed, i32 length)
+void TimeAttackSeedShuffleFunc8(u8* pSeed, s32 length)
 {
     TimeAttackEORSeed(pSeed, length, 84);
     TimeAttackSeedRandomFunc3(pSeed, length);
@@ -602,9 +602,9 @@ u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
     // https://decomp.me/scratch/D8huk
 
     u8 seed[16];
-    i32 i;
-    i32 j;
-    i32 seedOffset;
+    s32 i;
+    s32 j;
+    s32 seedOffset;
     u32 mask;
     u8 value;
     u32 sum;

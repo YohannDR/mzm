@@ -2,7 +2,7 @@
 
 #include "macros.h"
 
-const i16 sCrocomireMultiSpriteData_Idle_Frame0[18] = {
+const s16 sCrocomireMultiSpriteData_Idle_Frame0[18] = {
     5, -196, 0,
     2, -292, -92,
     14, 8, 0,
@@ -11,7 +11,7 @@ const i16 sCrocomireMultiSpriteData_Idle_Frame0[18] = {
     6, -196, -32
 };
 
-const i16 sCrocomireMultiSpriteData_Idle_Frame1[18] = {
+const s16 sCrocomireMultiSpriteData_Idle_Frame1[18] = {
     5, -200, 0,
     2, -292, -92,
     14, 4, 0,
@@ -20,7 +20,7 @@ const i16 sCrocomireMultiSpriteData_Idle_Frame1[18] = {
     6, -200, -32
 };
 
-const i16 sCrocomireMultiSpriteData_Screaming_Frame0[18] = {
+const s16 sCrocomireMultiSpriteData_Screaming_Frame0[18] = {
     7, -200, 0,
     3, -276, -92,
     14, 8, 0,
@@ -29,7 +29,7 @@ const i16 sCrocomireMultiSpriteData_Screaming_Frame0[18] = {
     7, -208, -148
 };
 
-const i16 sCrocomireMultiSpriteData_Screaming_Frame1[18] = {
+const s16 sCrocomireMultiSpriteData_Screaming_Frame1[18] = {
     7, -200, 0,
     3, -276, -92,
     14, 8, 0,
@@ -38,7 +38,7 @@ const i16 sCrocomireMultiSpriteData_Screaming_Frame1[18] = {
     7, -208, -148
 };
 
-const i16 sCrocomireMultiSpriteData_WalkingForward_Frame0[18] = {
+const s16 sCrocomireMultiSpriteData_WalkingForward_Frame0[18] = {
     8, -200, -4,
     2, -292, -92,
     15, 4, 0,
@@ -47,7 +47,7 @@ const i16 sCrocomireMultiSpriteData_WalkingForward_Frame0[18] = {
     9, -196, -4
 };
 
-const i16 sCrocomireMultiSpriteData_WalkingForward_Frame1[18] = {
+const s16 sCrocomireMultiSpriteData_WalkingForward_Frame1[18] = {
     8, -204, -4,
     2, -292, -92,
     15, 8, 0,
@@ -56,7 +56,7 @@ const i16 sCrocomireMultiSpriteData_WalkingForward_Frame1[18] = {
     9, -200, -4
 };
 
-const i16 sCrocomireMultiSpriteData_WalkingBackwards_Frame0[18] = {
+const s16 sCrocomireMultiSpriteData_WalkingBackwards_Frame0[18] = {
     10, -196, -4,
     2, -292, -92,
     16, 0, 0,
@@ -65,7 +65,7 @@ const i16 sCrocomireMultiSpriteData_WalkingBackwards_Frame0[18] = {
     11, -200, -52
 };
 
-const i16 sCrocomireMultiSpriteData_WalkingBackwards_Frame1[18] = {
+const s16 sCrocomireMultiSpriteData_WalkingBackwards_Frame1[18] = {
     10, -192, -4,
     2, -292, -92,
     16, 4, 0,
@@ -74,7 +74,7 @@ const i16 sCrocomireMultiSpriteData_WalkingBackwards_Frame1[18] = {
     11, -196, -52
 };
 
-const i16 sCrocomireMultiSpriteData_Dying_Frame0[18] = {
+const s16 sCrocomireMultiSpriteData_Dying_Frame0[18] = {
     12, -200, -4,
     4, -292, -100,
     17, 12, -4,
@@ -83,7 +83,7 @@ const i16 sCrocomireMultiSpriteData_Dying_Frame0[18] = {
     13, -240, 4
 };
 
-const i16 sCrocomireMultiSpriteData_Angry_Frame0[18] = {
+const s16 sCrocomireMultiSpriteData_Angry_Frame0[18] = {
     8, -204, -4,
     2, -296, -92,
     17, 8, 0,

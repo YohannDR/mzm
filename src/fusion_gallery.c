@@ -111,7 +111,7 @@ u32 FusionGalleryDisplay(void)
 {
     u8 imageId;
     u32 ended;
-    i32 velocity;
+    s32 velocity;
     u32 change;
     u8 complPercent;
     u8 bit;

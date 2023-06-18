@@ -40,7 +40,7 @@ const u16 sEnterTourian_760090[9][2] = {
     }
 };
 
-const i16 sEnterTourian_7600b4[4][2] = {
+const s16 sEnterTourian_7600b4[4][2] = {
     [0] = {
         BLOCK_SIZE * 38 + 12,
         BLOCK_SIZE * 34 + HALF_BLOCK_SIZE

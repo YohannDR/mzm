@@ -306,7 +306,7 @@ u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 dontC
     // Check for movement clipdata
     if (behavior != CLIP_BEHAVIOR_NONE)
     {
-        if ((i32)behavior < ARRAY_SIZE(sMovementClipdataValues))
+        if ((s32)behavior < ARRAY_SIZE(sMovementClipdataValues))
             specialClip = sMovementClipdataValues[behavior];
         else
             specialClip = CLIPDATA_MOVEMENT_NONE;
@@ -367,8 +367,8 @@ u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 dontC
  */
 u32 ClipdataCheckCantUseElevator(u32 movementClip)
 {
-    i32 direction;
-    i32 i;
+    s32 direction;
+    s32 i;
 
     gLastElevatorUsed.route = ELEVATOR_ROUTE_NONE;
     gLastElevatorUsed.unused = 0;
@@ -415,12 +415,12 @@ u32 ClipdataCheckCantUseElevator(u32 movementClip)
  * 
  * @param yPosition Y Position (subpixels)
  * @param xPosition X Position (subpixels)
- * @return i32 Ground Effect Clipdata
+ * @return s32 Ground Effect Clipdata
  */
 u32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
 {
-    i32 tileY;
-    i32 tileX;
+    s32 tileY;
+    s32 tileX;
     u32 clipdata;
 
     tileY = yPosition / BLOCK_SIZE;

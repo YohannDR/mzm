@@ -23,8 +23,8 @@
  */
 u8 EnterTourianAnimation(void)
 {
-    i32 i;
-    i32 movement;
+    s32 i;
+    s32 movement;
     u32 flag;
 
     switch (CUTSCENE_DATA.timeInfo.subStage)
@@ -200,11 +200,11 @@ void EnterTourianUpdateMetroid(struct CutsceneOamData* pOam, u8 metroidId)
 {
     u32 position;
     u32 notDrawn;
-    i32 var_0;
+    s32 var_0;
     struct CutsceneOamData* pShell;
-    i32 var_1;
-    i32 var_2;
-    i32 var_3;
+    s32 var_1;
+    s32 var_2;
+    s32 var_3;
 
     pShell = pOam - 1;
 
@@ -493,7 +493,7 @@ void EnterTourianUpdatePirate(struct CutsceneOamData* pOam)
  */
 u8 EnterTourianInit(void)
 {
-    i32 i;
+    s32 i;
 
     unk_61f0c();
     DMATransfer(3, sEnterTourianBackgroundPAL, PALRAM_BASE, sizeof(sEnterTourianBackgroundPAL), 0x10);

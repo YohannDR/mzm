@@ -36,16 +36,16 @@ u32 TextGetCharacterWidth(u16 charID)
  */
 void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
 {
-    i32 palette;
+    s32 palette;
     u32* dstGfx;
     const u32* srcGfx;
-    i32 size;
+    s32 size;
     u32 pixelSrc;
     u32 pixelDst;
     u8 width;
-    i32 pass;
+    s32 pass;
     u32 value;
-    i32 i;
+    s32 i;
 
     BitFill(3, 0, gCurrentCharacterGfx, sizeof(gCurrentCharacterGfx), 0x10);
     width = TextGetCharacterWidth(charID);
@@ -296,16 +296,16 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
  */
 void TextDrawMessageCharacter(u16 charID, u32* dst, u16 indent, u8 color)
 {
-    i32 palette;
+    s32 palette;
     u32* dstGfx;
     const u32* srcGfx;
-    i32 pass;
-    i32 size;
+    s32 pass;
+    s32 size;
     u32 pixelSrc;
     u32 pixelDst;
     u8 width;
     u32 value;
-    i32 i;
+    s32 i;
 
     BitFill(3, 0, 0x2027700, sizeof(gCurrentCharacterGfx), 16);
     width = TextGetCharacterWidth(charID);
@@ -650,8 +650,8 @@ void TextDrawlocation(u8 locationText, u8 gfxSlot)
  */
 u8 unk_6f0a8(u8 textID, u8 gfxSlot, u8 param_3)
 {
-    i32 i;
-    i32 flag;
+    s32 i;
+    s32 flag;
 
     if (param_3 == 0xF)
     {
@@ -751,7 +751,7 @@ void TextStartMessage(u8 textID, u8 gfxSlot)
  */
 u8 TextProcessItemBanner(void)
 {
-    i32 i;
+    s32 i;
     u32 flag;
 
     switch (gCurrentMessage.stage)
@@ -846,11 +846,11 @@ void TextStartStory(u8 textID)
  */
 u8 TextProcessStory(void)
 {
-    i32 i;
+    s32 i;
     u32* dst;
-    i32 flag;
-    i32 maxLine;
-    i32 state;
+    s32 flag;
+    s32 maxLine;
+    s32 state;
 
     switch (gCurrentMessage.stage)
     {
@@ -959,10 +959,10 @@ u8 TextProcessFileScreenPopUp(void)
 {
     // https://decomp.me/scratch/vcoZi
 
-    i32 i;
+    s32 i;
     u32* dst;
-    i32 flag;
-    i32 result;
+    s32 flag;
+    s32 result;
 
     switch (gCurrentMessage.stage)
     {
@@ -1183,8 +1183,8 @@ void TextProcessDescription(void)
  */
 u8 TextProcessCurrentMessage(struct Message* pMessage, const u16* pText, u32* dst)
 {
-    i32 state;
-    i32 width;
+    s32 state;
+    s32 width;
 
     state = TEXT_STATE_NONE;
     pMessage->timer++;
@@ -1362,7 +1362,7 @@ void TextDrawYesNoEasySleep(void)
  */
 void TextDrawEasySleep(void)
 {
-    i32 i;
+    s32 i;
 
     switch ((u8)PAUSE_SCREEN_DATA.easySleepTextState)
     {

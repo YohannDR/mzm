@@ -1,7 +1,7 @@
 #include "data/sprites/skree.h"
 #include "macros.h"
 
-const i16 sSkreeFallingSpeed[8] = {
+const s16 sSkreeFallingSpeed[8] = {
     2, 4, 6, 8, 12, 14, 16, SHORT_MAX
 };
 

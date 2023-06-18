@@ -84,7 +84,7 @@ void ChargeBeamVisibleInit(void)
 void ChargeBeamIdle(void)
 {
     u8 offset;
-    i32 velocity;
+    s32 velocity;
 
     // Y floating movement
     offset = gCurrentSprite.arrayOffset;

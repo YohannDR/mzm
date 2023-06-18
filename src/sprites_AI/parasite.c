@@ -363,8 +363,8 @@ void ParasiteExpulsedDown(struct SpriteData* pSprite)
     u16 oldY;
     u16 yPosition;
     u16 xPosition;
-    i32 blockTop;
-    i16 velocity;
+    s32 blockTop;
+    s16 velocity;
 
     oldY = pSprite->yPosition;
 
@@ -421,9 +421,9 @@ void ParasiteExpulsedDown(struct SpriteData* pSprite)
  */
 void ParasiteMultipleExpulsedDown(struct SpriteData* pSprite)
 {
-    i16 velocity;
+    s16 velocity;
     u32 yPosition;
-    i32 xPosition;
+    s32 xPosition;
 
     velocity = pSprite->arrayOffset;
     if (velocity < 20)
@@ -571,7 +571,7 @@ void ParasiteJumpingDown(struct SpriteData* pSprite)
     u16 yPosition;
     u16 xPosition;
     u32 topEdge;
-    i32 velocity;
+    s32 velocity;
 
     oldY = pSprite->yPosition;
 
@@ -626,10 +626,10 @@ void ParasiteJumpingDown(struct SpriteData* pSprite)
  */
 void ParasiteMultipleJumpingDown(struct SpriteData* pSprite)
 {
-    i32 yPosition;
+    s32 yPosition;
     u16 xPosition;
     u32 topEdge;
-    i32 velocity;
+    s32 velocity;
 
     if (pSprite->status & SPRITE_STATUS_SAMUS_COLLIDING)
         pSprite->pose = PARASITE_POSE_SAMUS_GRABBED_INIT;
@@ -1018,11 +1018,11 @@ void ParasiteFallingInit(struct SpriteData* pSprite)
  */
 void ParasiteFalling(struct SpriteData* pSprite)
 {
-    i32 offset;
-    i32 movement;
+    s32 offset;
+    s32 movement;
     u16 oldY;
     u32 topEdge;
-    i32 newMovement;
+    s32 newMovement;
 
     oldY = pSprite->yPosition;
     offset = pSprite->arrayOffset;

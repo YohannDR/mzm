@@ -62,7 +62,7 @@ void ReoIdleInit(void)
  */
 void ReoIdle(void)
 {
-    i32 movement;
+    s32 movement;
     u8 offset;
 
     // Y movement

@@ -6,7 +6,7 @@
 u8 ScreenShakeStartVertical(u8 duration, u8 unk);
 u8 ScreenShakeStartHorizontal(u8 duration, u8 unk);
 u8 ScreenShakeStartHorizontal_Unused(u8 duration);
-i32 ScreenShakeUpdateVertical(void);
-i32 ScreenShakeUpdateHorizontal(void);
+s32 ScreenShakeUpdateVertical(void);
+s32 ScreenShakeUpdateHorizontal(void);
 
 #endif /* SCREEN_SHAKE_H */

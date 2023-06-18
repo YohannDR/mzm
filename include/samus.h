@@ -9,7 +9,7 @@ u8 SamusCheckCollisionAtPosition(u16 xPosition, u16 yPosition, u16* pXPosition, 
 u8 unk_5604(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 xPosition, u16* pPosition);
 u8 SamusCheckTopSideCollisionMidAir(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 xPosition, u16* pPosition);
 u8 SamusCheckWalkingOnSlope(struct SamusData* pData, u16 xPosition);
-u8 SamusCheckCollisionAbove(struct SamusData* pData, i32 hitbox);
+u8 SamusCheckCollisionAbove(struct SamusData* pData, s32 hitbox);
 u8 SamusCheckWalkingSidesCollision(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 unk_5AD8(struct SamusData* pData, struct SamusPhysics* pPhysics);
 u8 SamusCheckStandingOnGroundCollision(struct SamusData* pData, struct SamusPhysics* pPhysics);
@@ -26,8 +26,8 @@ void SamusCheckCarryFromCopy(struct SamusData* pData, struct SamusData* pCopy, s
 void SamusSetPose(u8 pose);
 void SamusCopyData(struct SamusData* pData);
 void SamusUpdatePhysics(struct SamusData* pData);
-i16 SamusChangeVelocityOnSlope(struct SamusData* pData);
-void SamusCopyPalette(const u16* src, i32 offset, i32 nbrColors);
+s16 SamusChangeVelocityOnSlope(struct SamusData* pData);
+void SamusCopyPalette(const u16* src, s32 offset, s32 nbrColors);
 void SamusUpdate(void);
 void SamusUpdateHitboxMovingDirection(void);
 void SamusCallGfxFunctions(void);
@@ -41,7 +41,7 @@ void SamusCheckNewProjectile(struct SamusData* pData, struct WeaponInfo* pWeapon
 u8 SamusCheckAButtonPressed(struct SamusData* pData);
 void SamusSetHighlightedWeapon(struct SamusData* pData, struct WeaponInfo* pWeapon, struct Equipment* pEquipment);
 void SamusSetSpinningPose(struct SamusData* pData, struct Equipment* pEquipment);
-void SamusApplyXAcceleration(i32 acceleration, i32 velocity, struct SamusData* pData);
+void SamusApplyXAcceleration(s32 acceleration, s32 velocity, struct SamusData* pData);
 u8 SamusTakeHazardDamage(struct SamusData* pData, struct Equipment* pEquipment, struct HazardDamage* pHazard);
 void SamusCheckShinesparking(struct SamusData* pData);
 u8 SamusInactivity(struct SamusData* pData);

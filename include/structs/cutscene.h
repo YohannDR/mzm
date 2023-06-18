@@ -46,9 +46,9 @@ struct CutsceneScreenShakeInfo {
 
 struct CutsceneScrollingInfo {
     u8 direction;
-    i16 length;
-    i8 speed;
-    i8 maxDelay;
+    s16 length;
+    s8 speed;
+    s8 maxDelay;
 };
 
 struct CutsceneInfo {
@@ -71,18 +71,18 @@ struct CutsceneSubroutineData {
 
 struct CutsceneScreenShake {
     u16 bg;
-    i8 delay;
-    i8 maxDelay;
+    s8 delay;
+    s8 maxDelay;
     u8 set;
     u8 currentSubSet;
 };
 
 struct CutsceneScrolling {
     u16* pPosition;
-    i16 lengthLeft;
-    i8 delay;
-    i8 speed;
-    i8 maxDelay;
+    s16 lengthLeft;
+    s8 delay;
+    s8 speed;
+    s8 maxDelay;
 };
 
 struct CutscenePaletteData {
@@ -94,7 +94,7 @@ struct CutscenePaletteData {
 
 struct CutsceneGraphicsData {
     u8 active;
-    i8 paletteStage;
+    s8 paletteStage;
     u8 maxTimer;
     u8 maxPaletteStage;
     u16 timer;
@@ -109,16 +109,16 @@ struct CutsceneSpecialEffect {
     u16 s_BLDCNT;
     u8 s_Intensity;
     u8 s_Interval;
-    i8 s_Timer;
+    s8 s_Timer;
     u16 bg_WrittenToBLDCNT;
     u8 bg_Intensity;
     u8 bg_Interval;
-    i8 bg_Timer;
+    s8 bg_Timer;
 };
 
 struct CutsceneOamData {
-    i16 yPosition;
-    i16 xPosition;
+    s16 yPosition;
+    s16 xPosition;
     u8 unk_2;
     u8 padding_5[3];
     u8 animationDurationCounter;
@@ -132,9 +132,9 @@ struct CutsceneOamData {
     u8 boundBackground:4;
     u8 rotationScaling:1;
     u8 actions;
-    i16 unk_E;
-    i16 unk_10;
-    i16 unk_12;
+    s16 unk_E;
+    s16 unk_10;
+    s16 unk_12;
     u16 timer;
     u16 unk_16;
     u16 unk_18;
@@ -173,7 +173,7 @@ struct CutsceneData {
     struct CutsceneScreenShake horizontalScreenShake;
     struct CutsceneScreenShake verticalScreenShake;
     struct CutsceneSpecialEffect specialEffect;
-    i16 unk_B8;
+    s16 unk_B8;
     u8 fadingStage;
     u8 fadingColor;
     u8 unk_BC;
@@ -185,9 +185,9 @@ struct CutsceneData {
 };
 
 extern u8 gCutsceneToSkip;
-extern i8 gCurrentCutscene;
+extern s8 gCurrentCutscene;
 
-extern i8 gOamXOffset_NonGameplay;
-extern i8 gOamYOffset_NonGameplay;
+extern s8 gOamXOffset_NonGameplay;
+extern s8 gOamYOffset_NonGameplay;
 
 #endif

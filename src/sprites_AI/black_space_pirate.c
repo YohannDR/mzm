@@ -453,7 +453,7 @@ void BlackSpacePirateShooting(void)
  */
 void BlackSpacePirateJumping(void)
 {
-    i32 speed;
+    s32 speed;
     u8 collisions;
     u8 timer;
     u8 collision;

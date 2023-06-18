@@ -148,7 +148,7 @@ void HoltzIdleInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
 
     // Set OAM based on samus position
-    if ((i32)(gSamusData.yPosition - 0x48) < gCurrentSprite.yPosition)
+    if ((s32)(gSamusData.yPosition - 0x48) < gCurrentSprite.yPosition)
         gCurrentSprite.pOam = sHoltzOAM_IdleAware;
     else
         gCurrentSprite.pOam = sHoltzOAM_Idle;
@@ -160,7 +160,7 @@ void HoltzIdleInit(void)
  */
 void HoltzIdle(void)
 {
-    i32 movement;
+    s32 movement;
     u8 offset;
     u8 nslr;
 
@@ -202,8 +202,8 @@ void HoltzWarningInit(void)
  */
 void HoltzCheckWarningAnimEnded(void)
 {
-    i16 offset;
-    i32 movement;
+    s16 offset;
+    s32 movement;
 
     // Y idle movement
     offset = gCurrentSprite.arrayOffset;
@@ -314,7 +314,7 @@ void HoltzGoingUpMove(void)
  */
 void HoltzBackToCeiling(void)
 {
-    i32 movement;
+    s32 movement;
     u8 offset;
 
     // Y idle movement

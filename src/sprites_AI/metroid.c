@@ -143,7 +143,7 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
             // Not hitting anything, move to right
             if (gCurrentSprite.workVariable == 0x0)
             {
-                if (gCurrentSprite.xPosition <= (i32)(dstX - 0x4))
+                if (gCurrentSprite.xPosition <= (s32)(dstX - 0x4))
                 {
                     // Increase speed if below cap
                     if (gCurrentSprite.workVariable2 < xSpeedCap)
@@ -176,7 +176,7 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
             // Not hitting anything, move to left
             if (gCurrentSprite.workVariable == 0x0)
             {
-                if (gCurrentSprite.xPosition < (i32)(dstX + 0x4))
+                if (gCurrentSprite.xPosition < (s32)(dstX + 0x4))
                     gCurrentSprite.workVariable = gCurrentSprite.workVariable2;
                 else
                 {
@@ -225,7 +225,7 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
             // Not hitting anything, move down
             if (gCurrentSprite.timer == 0x0)
             {
-                if (gCurrentSprite.yPosition <= (i32)(dstY - 0x4))
+                if (gCurrentSprite.yPosition <= (s32)(dstY - 0x4))
                 {
                     // Increase speed if below cap
                     if (gCurrentSprite.arrayOffset < ySpeedCap)
@@ -258,7 +258,7 @@ void MetroidMove(u16 dstY, u16 dstX, u8 ySpeedCap, u8 xSpeedCap, u8 speedDivisor
             // Not hitting anything, move left
             if (gCurrentSprite.timer == 0x0)
             {
-                if (gCurrentSprite.yPosition < (i32)(dstY + 0x4))
+                if (gCurrentSprite.yPosition < (s32)(dstY + 0x4))
                     gCurrentSprite.timer = gCurrentSprite.arrayOffset;
                 else
                 {
@@ -592,7 +592,7 @@ void MetroidCheckSpawn(void)
  */
 void MetroidSpawning(void)
 {
-    i32 movement;
+    s32 movement;
     u8 offset;
 
     // Y movement

@@ -4,8 +4,8 @@
 #include "types.h"
 
 struct MenuOamData {
-    i16 yPosition;
-    i16 xPosition;
+    s16 yPosition;
+    s16 xPosition;
 
     u8 unk_4;
     u8 unk_5;
@@ -24,7 +24,7 @@ struct MenuOamData {
     // C
     u8 boundBackground:4;
     u8 rotationScaling:1;
-    i16 unk_E;
+    s16 unk_E;
 };
 
 #define MAINTAINED_INPUT_KEYS (KEY_RIGHT | KEY_LEFT | KEY_UP | KEY_DOWN)

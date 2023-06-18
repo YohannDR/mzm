@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sMellaIdleYMovement[65];
+extern const s16 sMellaIdleYMovement[65];
 
-extern const i16 sMellaIdleXMovement[49];
+extern const s16 sMellaIdleXMovement[49];
 
 extern const u16 sMellaGoingDownYMovement[6];
 

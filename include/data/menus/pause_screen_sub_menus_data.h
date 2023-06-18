@@ -10,6 +10,6 @@ extern const u8 sChozoStatueTargetConditions[16][2];
 extern const u8 sChozoStatueHintEvents[16];
 
 // Temp
-extern const i8* const sChozoStatueTargetPathPointers[6];
+extern const s8* const sChozoStatueTargetPathPointers[6];
 
 #endif /* PAUSE_SCREEN_SUB_MENUS_DATA_H */

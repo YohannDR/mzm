@@ -3627,7 +3627,7 @@ const struct SamusEffectAnimationData* const sSamusEffectAnimPointers_Ballsparki
 };
 
 
-const i16 sSamusDrawDistanceOffsets[4][4] = {
+const s16 sSamusDrawDistanceOffsets[4][4] = {
     [SAMUS_HITBOX_TYPE_STANDING] = {
         -28, -124, 24, 0
     },
@@ -3642,7 +3642,7 @@ const i16 sSamusDrawDistanceOffsets[4][4] = {
     }
 };
 
-const i16 sSamusHitboxData[4][3] = {
+const s16 sSamusHitboxData[4][3] = {
     [SAMUS_HITBOX_TYPE_STANDING] = {
         -28, 28, -124
     },

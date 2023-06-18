@@ -64,7 +64,7 @@ void ZebboIdle(void)
     u16 spriteY;
     u16 spriteX;
     u8 ramSlot;
-    i32 distance;
+    s32 distance;
 
     if (gCurrentSprite.spriteID == PSPRITE_ZEBBO_GREEN_FOLLOWER)
     {
@@ -153,7 +153,7 @@ void ZebboGoingUp(void)
     }
     else
     {
-        if (gCurrentSprite.oamScaling < gSamusData.yPosition && gSamusData.yPosition > (i32)(gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 2))
+        if (gCurrentSprite.oamScaling < gSamusData.yPosition && gSamusData.yPosition > (s32)(gCurrentSprite.yPositionSpawn - BLOCK_SIZE * 2))
             positionRange = gCurrentSprite.oamScaling;
         else
             positionRange = gSamusData.yPosition;

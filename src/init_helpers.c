@@ -20,7 +20,7 @@ void LoadInterruptCode(void)
 
 void ResetFreeOAM(void)
 {
-    i32 i;
+    s32 i;
     u16 *oam = (u16*)gOamData;
     oam += gNextOamSlot * 4;
     for (i = gNextOamSlot; i < 0x80; ++oam, ++i) {

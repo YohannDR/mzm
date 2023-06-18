@@ -485,7 +485,7 @@ void WorkerRobotFallingInit(void)
 void WorkerRobotFalling(void)
 {
     u32 blockTop;
-    i32 movement;
+    s32 movement;
     u8 offset;
 
     gCurrentSprite.animationDurationCounter += 2;
@@ -529,7 +529,7 @@ void WorkerRobotFallingSleepInit(void)
 void WorkerRobotFallingSleep(void)
 {
     u32 blockTop;
-    i32 movement;
+    s32 movement;
     u8 offset;
 
     blockTop = SpriteutilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);

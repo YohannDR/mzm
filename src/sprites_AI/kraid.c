@@ -1966,7 +1966,7 @@ void KraidPartCheckShouldSpawnSpikes(void)
     u8 roomSlot;
     u8 lowHealth;
     u8 i;
-    i32 spriteID;
+    s32 spriteID;
     u32 health;
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
@@ -2235,7 +2235,7 @@ void KraidNailMovement(void)
     u16 distanceYUp;
     u16 distanceXLeft;
     u16 distanceXRight;
-    i32 totalDistance;
+    s32 totalDistance;
     u16 samusY;
     u16 spriteY;
     u8 acceleration;
@@ -2272,8 +2272,8 @@ void KraidNailMovement(void)
             totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = spawnY + ((velocity * ((i32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = spawnX + ((velocity * ((i32)(distanceXRight << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = spawnY + ((velocity * ((s32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = spawnX + ((velocity * ((s32)(distanceXRight << 0xA) / totalDistance) >> 0xA));
             }
         }
         else
@@ -2281,8 +2281,8 @@ void KraidNailMovement(void)
             totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYDown * distanceYDown);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = spawnY - ((velocity * ((i32)(distanceYDown << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = spawnX + ((velocity * ((i32)(distanceXRight << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = spawnY - ((velocity * ((s32)(distanceYDown << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = spawnX + ((velocity * ((s32)(distanceXRight << 0xA) / totalDistance) >> 0xA));
             }
         }
     }
@@ -2293,8 +2293,8 @@ void KraidNailMovement(void)
             totalDistance = (u16)Sqrt(distanceXLeft * distanceXLeft + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = spawnY + ((velocity * ((i32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = spawnX - ((velocity * ((i32)(distanceXLeft << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = spawnY + ((velocity * ((s32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = spawnX - ((velocity * ((s32)(distanceXLeft << 0xA) / totalDistance) >> 0xA));
             }
         }
         else
@@ -2302,8 +2302,8 @@ void KraidNailMovement(void)
             totalDistance = (u16)Sqrt(distanceXLeft * distanceXLeft + distanceYDown * distanceYDown);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = spawnY - ((velocity * ((i32)(distanceYDown << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = spawnX - ((velocity * ((i32)(distanceXLeft << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = spawnY - ((velocity * ((s32)(distanceYDown << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = spawnX - ((velocity * ((s32)(distanceXLeft << 0xA) / totalDistance) >> 0xA));
             }
         }
     }

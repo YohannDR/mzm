@@ -38,17 +38,17 @@ void BgClipSetBgBlockValue(u8 bg, u16 value, u16 yPosition, u16 xPosition)
 
     // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
     offset = gBG1YPosition / BLOCK_SIZE;
-    if ((i32)(offset - 4) > yPosition)
+    if ((s32)(offset - 4) > yPosition)
         return;
     
     if (yPosition > (offset + 13))
         return;
 
     offset = gBG1XPosition / BLOCK_SIZE;
-    if ((i32)(offset - 4) > xPosition)
+    if ((s32)(offset - 4) > xPosition)
         return;
 
-    if (xPosition > (i32)(offset + 18))
+    if (xPosition > (s32)(offset + 18))
         return;
 
     // Update tilemap
@@ -83,17 +83,17 @@ void BgClipSetBG1BlockValue(u16 value, u16 yPosition, u16 xPosition)
 
     // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
     offset = gBG1YPosition / BLOCK_SIZE;
-    if ((i32)(offset - 4) > yPosition)
+    if ((s32)(offset - 4) > yPosition)
         return;
     
     if (yPosition > (offset + 13))
         return;
 
     offset = gBG1XPosition / BLOCK_SIZE;
-    if ((i32)(offset - 4) > xPosition)
+    if ((s32)(offset - 4) > xPosition)
         return;
 
-    if (xPosition > (i32)(offset + 18))
+    if (xPosition > (s32)(offset + 18))
         return;
 
     // Update tilemap
@@ -162,7 +162,7 @@ void BGClipApplyClipdataChangingTransparency(void)
     u32 clipdata;
     u32 xPosition;
     u32 yPosition;
-    i32 position;
+    s32 position;
 
     position = gSamusData.xPosition;
     if (position > gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE)
@@ -231,11 +231,11 @@ void BGClipCheckWalkingOnCrumbleBlock(void)
     // https://decomp.me/scratch/agN3y
 
     u32 ignoreBlock;
-    i32 xOffsetLeft;
+    s32 xOffsetLeft;
     u16 xOffsetRight;
     u16 xPosition;
     u16 yPosition;
-    i32 behavior;
+    s32 behavior;
     u32 stopSamus;
 
     behavior = (u32)gSamusData.yVelocity >> 0x1F;
@@ -290,11 +290,11 @@ void BgClipCheckTouchingTransitionOnElevator(void)
     // https://decomp.me/scratch/tH2oX
 
     u32 goingDown;
-    i32 position;
-    i32 xPosition;
-    i32 yPosition;
+    s32 position;
+    s32 xPosition;
+    s32 yPosition;
     u32 _xPosition;
-    i32 onTransition;
+    s32 onTransition;
     u16 behavior;
 
     goingDown = (gSamusData.elevatorDirection ^ KEY_UP) != 0;
@@ -354,20 +354,20 @@ void BgClipCheckTouchingTransitionOrTank(void)
 {
     // https://decomp.me/scratch/68qvD
 
-    i32 position;
-    i32 collectingFirstTank;
-    i32 limit;
+    s32 position;
+    s32 collectingFirstTank;
+    s32 limit;
     struct TankCollectionData collectionData;
     u16* pBehavior;
-    i32 i;
-    i32 offset;
+    s32 i;
+    s32 offset;
     u16* pPosition;
-    i32 unk;
+    s32 unk;
     u8 tankType;
-    i32 newMax;
-    i8 messageID;
-    i32 max;
-    i32 increment;
+    s32 newMax;
+    s8 messageID;
+    s32 max;
+    s32 increment;
 
     position = (gSamusPhysics.drawDistanceRightOffset >> 0x1) + gSamusData.xPosition;
     if (position < 0x0)
@@ -600,8 +600,8 @@ void BgClipFinishCollectingAbility(void)
 void BgClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
 {
     u8 setPose;
-    i32 yOffset;
-    i32 xOffset;
+    s32 yOffset;
+    s32 xOffset;
     u16 yPosition;
     u16 xPosition;
     u16 behavior;
@@ -666,7 +666,7 @@ void BgClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
  */
 u8 BgClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
 {
-    i32 i;
+    s32 i;
     u8 action;
 
     for (i = 0; i < MAX_AMOUNT_OF_HATCHES; i++)
@@ -747,9 +747,9 @@ u8 BgClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
 void BgClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
 {
     u8 overLimit;
-    i32 i;
+    s32 i;
     u8* pItem;
-    i32 limit;
+    s32 limit;
 
     if (gCurrentArea > MAX_AMOUNT_OF_AREAS)
         return;
@@ -786,9 +786,9 @@ void BgClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
 void BgClipRemoveCollectedTanks(void)
 {
     struct ItemInfo* pItem;
-    i32 i;
-    i32 limit;
-    i32 position;
+    s32 i;
+    s32 limit;
+    s32 position;
     u32 behavior;
     u32 temp;
 

@@ -101,7 +101,7 @@ void InitializeAudio(void)
  */
 void DoSoundAction(u32 action)
 {
-    i8 i;
+    s8 i;
     u32 control;
 
     if (gMusicInfo.occupied)
@@ -243,7 +243,7 @@ void unk_2a38(struct TrackData* pTrack)
  */
 void StopAllMusicsAndSounds(void)
 {
-    i32 i;
+    s32 i;
     
     for (i = (u16)gNumMusicPlayers - 1; i >= 0; i--)
         stop_music_or_sound(sMusicTrackDataROM[i].pTrack);
@@ -255,7 +255,7 @@ void StopAllMusicsAndSounds(void)
  */
 void unk_2a8c(void)
 {
-    i32 i;
+    s32 i;
     
     for (i = (u16)gNumMusicPlayers - 1; i >= 0; i--)
     {
@@ -350,7 +350,7 @@ void unk_2bd4(u16 sound)
  */
 void unk_2c10(struct TrackData* pTrack)
 {
-    i32 i;
+    s32 i;
     struct TrackVariables* pVariables;
 
     if (!pTrack->occupied)
@@ -382,7 +382,7 @@ void unk_2c10(struct TrackData* pTrack)
  */
 void unk_2c4c(void)
 {
-    i32 i;
+    s32 i;
     
     for (i = (u16)gNumMusicPlayers - 1; i >= 0; i--)
         unk_2c10(sMusicTrackDataROM[i].pTrack);
@@ -401,7 +401,7 @@ void SoundFade(u16 sound, u16 timer)
 
 void ApplyMusicSoundFading(struct TrackData* pTrack, u16 timer)
 {
-    i32 volume;
+    s32 volume;
 
     if (timer == 0)
         stop_music_or_sound(pTrack); // Undefined
@@ -429,7 +429,7 @@ void ApplyMusicSoundFading(struct TrackData* pTrack, u16 timer)
 
 void ApplyRawMusicSoundFading(struct TrackData* pTrack, u16 timer)
 {
-    i32 volume;
+    s32 volume;
 
     if (!pTrack->occupied)
     {
@@ -458,7 +458,7 @@ void ApplyRawMusicSoundFading(struct TrackData* pTrack, u16 timer)
  */
 void unk_2d2c(struct TrackData* pTrack)
 {
-    i32 i;
+    s32 i;
     struct TrackVariables* pVariables;
 
     pVariables = pTrack->pVariables;
@@ -572,7 +572,7 @@ void unk_2e34(struct TrackData* pTrack, u16 timer)
  */
 void unk_2e6c(struct TrackData* pTrack)
 {
-    i32 i;
+    s32 i;
     struct TrackVariables* pVariables;
 
     pVariables = pTrack->pVariables;
@@ -720,7 +720,7 @@ void unk_3028(struct TrackData* pTrack, u16 param_2)
 void unk_3058(struct TrackData* pTrack, u16 variablesMask, u16 param_3)
 {
     struct TrackVariables* pVariables;
-    i32 i;
+    s32 i;
 
     if (!pTrack->occupied)
     {
@@ -759,7 +759,7 @@ void unk_3058(struct TrackData* pTrack, u16 variablesMask, u16 param_3)
 void unk_30b4(struct TrackData* pTrack, u16 variablesMask, u16 param_3)
 {
     struct TrackVariables* pVariables;
-    i32 i;
+    s32 i;
 
     if (!pTrack->occupied)
     {
@@ -772,7 +772,7 @@ void unk_30b4(struct TrackData* pTrack, u16 variablesMask, u16 param_3)
         {
             if ((variablesMask >> i) & 1)
             {
-                pVariables->unk_1D = (i16)param_3 >> 8;
+                pVariables->unk_1D = (s16)param_3 >> 8;
                 pVariables->unk_1F = param_3;
                 pVariables->unk_0 |= 8;
             }
@@ -795,7 +795,7 @@ void unk_30b4(struct TrackData* pTrack, u16 variablesMask, u16 param_3)
 void unk_3110(struct TrackData* pTrack, u16 variablesMask, u8 param_3)
 {
     struct TrackVariables* pVariables;
-    i32 i;
+    s32 i;
 
     if (!pTrack->occupied)
     {
@@ -808,7 +808,7 @@ void unk_3110(struct TrackData* pTrack, u16 variablesMask, u8 param_3)
         {
             if ((variablesMask >> i) & 1)
             {
-                pVariables->unk_7 = (i8)param_3 >> 1;
+                pVariables->unk_7 = (s8)param_3 >> 1;
                 pVariables->unk_0 |= 4;
             }
 
@@ -830,7 +830,7 @@ void unk_3110(struct TrackData* pTrack, u16 variablesMask, u8 param_3)
 void unk_315c(struct TrackData* pTrack, u16 variablesMask, u8 param_3)
 {
     struct TrackVariables* pVariables;
-    i32 i;
+    s32 i;
 
     if (!pTrack->occupied)
     {
@@ -863,7 +863,7 @@ void unk_315c(struct TrackData* pTrack, u16 variablesMask, u8 param_3)
 void unk_31a0(struct TrackData* pTrack, u16 variablesMask, u8 param_3)
 {
     struct TrackVariables* pVariables;
-    i32 i;
+    s32 i;
 
     if (!pTrack->occupied)
     {

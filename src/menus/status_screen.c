@@ -27,8 +27,8 @@
  */
 void UpdateMinimapAnimatedPalette(void)
 {
-    i32 value;
-    i32 temp;
+    s32 value;
+    s32 temp;
     
     if (!PAUSE_SCREEN_DATA.onWorldMap)
     {
@@ -89,7 +89,7 @@ void UpdateMinimapAnimatedPalette(void)
  */
 void LoadPauseScreenBgPalette(void)
 {
-    i32 i;
+    s32 i;
 
     BitFill(3, sPauseScreen_3fcef0[79], &PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS]],
         16 + 2, 16);
@@ -151,8 +151,8 @@ u32 StatusScreenDrawItems(u8 row)
 {
     // https://decomp.me/scratch/qX1cv
 
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
     u32 position;
     u16* dst;
     u32 temp;
@@ -203,7 +203,7 @@ u8 StatusScreenGetSlotForNewItem(u8 param_1, u8 item)
     u8* pStatusActivation;
     u8 slot;
     u8 flag;
-    i32 i;
+    s32 i;
 
     if (item >= ARRAY_SIZE(sStatusScreenItemsAcquisitionData))
         return 0;
@@ -344,12 +344,12 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
 {
     u32 positionStart;
     u32 positionEnd;
-    i32 size;
+    s32 size;
     u8* pActivation;
     u32 row;
     u32 notGettingSuitless;
     u32 nextRow;
-    i32 i;
+    s32 i;
 
     row = 0;
 
@@ -403,11 +403,11 @@ void StatusScreenDrawSingleTankAmount(u8 group, u16 amout, u8 palette, u8 isMax)
     u16 baseTile;
     u16* pTilemap;
     u32 position;
-    i32 size;
-    i32 value;
-    i32 i;
+    s32 size;
+    s32 value;
+    s32 i;
     u32 var_0;
-    i32 var_1;
+    s32 var_1;
 
     if (group == ABILITY_GROUP_CURRENT_ENERGY || group == ABILITY_GROUP_MAX_ENERGY)
         baseTile = 0xB2E0;
@@ -469,11 +469,11 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
 {
     // https://decomp.me/scratch/TvDyb
 
-    i32 i;
-    i32 j;
-    i32 row;
-    i32 nextRow;
-    i32 var_0;
+    s32 i;
+    s32 j;
+    s32 row;
+    s32 nextRow;
+    s32 var_0;
     u16* src;
     u16* dst;
     u32 dstPosition;
@@ -554,13 +554,13 @@ void StatusScreenSetMiscsVisibility(u16* pTilemap)
 {
     // https://decomp.me/scratch/jfzgf
 
-    i32 i;
-    i32 j;
-    i32 k;
+    s32 i;
+    s32 j;
+    s32 k;
     u32 srcPosition;
     u32 dstPosition;
     u32 nextRow;
-    i32 size;
+    s32 size;
     u32 size_;
 
     for (i = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_MISC]; i++)
@@ -641,12 +641,12 @@ void StatusScreenSetMiscsVisibility(u16* pTilemap)
  */
 void StatusScreenSetBombsVisibility(u16* pTilemap)
 {
-    i32 nbrToProcess;
-    i32 i;
-    i32 j;
+    s32 nbrToProcess;
+    s32 i;
+    s32 j;
     u32 srcPosition;
     u32 dstPosition;
-    i32 size;
+    s32 size;
     u16* dup;
 
     dup = pTilemap;
@@ -753,9 +753,9 @@ void StatusScreenSetBombsVisibility(u16* pTilemap)
  */
 void StatusScreenSetMissilesVisibility(u16* pTilemap)
 {
-    i32 nbrToProcess;
-    i32 i;
-    i32 j;
+    s32 nbrToProcess;
+    s32 i;
+    s32 j;
     u32 dstPosition;
     u32 srcPosition;
 
@@ -852,9 +852,9 @@ void StatusScreenSetMissilesVisibility(u16* pTilemap)
  */
 void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 param_4)
 {
-    i32 position;
-    i32 size;
-    i32 i;
+    s32 position;
+    s32 size;
+    s32 i;
     u16 baseTile;
     u16* pTilemap;
     u16* pEwram;
@@ -894,8 +894,8 @@ void StatusScreenUpdateRow(u8 group, u8 row, u8 isActivated, u8 param_4)
 void StatusScreenEnableUnknownItem(u8 group, u8 row)
 {
     u32 position;
-    i32 size;
-    i32 i;
+    s32 size;
+    s32 i;
     u16* dst;
 
     switch (group)
@@ -962,7 +962,7 @@ void StatusScreenInitCursorAndItems(void)
 u32 StatusScreenSuitlessItems(void)
 {
     u32 ended;
-    i32 togglingResult;
+    s32 togglingResult;
 
     ended = FALSE;
 
@@ -1160,7 +1160,7 @@ u32 StatusScreenFindUnknownItemSlot(u8 param_1)
 u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
 {
     u32 ended;
-    i32 offset;
+    s32 offset;
 
     ended = FALSE;
     PAUSE_SCREEN_DATA.unknownItemDynamicPalette.timer++;
@@ -1942,7 +1942,7 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
 void StatusScreenMoveCursor(void)
 {
     u32 statusSlot;
-    i32 offset;
+    s32 offset;
     u8 prevSlot;
     
     // Check isn't doing the "focusing" animation
@@ -1995,15 +1995,15 @@ void StatusScreenMoveCursor(void)
     }
 }
 
-u32 StatusScreenGetDestinationSlot(i8 offset, u8 previousSlot)
+u32 StatusScreenGetDestinationSlot(s8 offset, u8 previousSlot)
 {
     // https://decomp.me/scratch/JSj7i
 
-    i32 newSlot;
-    i32 var_0;
-    i32 var_1;
-    i32 var_2;
-    i32 off;
+    s32 newSlot;
+    s32 var_0;
+    s32 var_1;
+    s32 var_2;
+    s32 off;
 
     off = offset;
     newSlot = previousSlot;

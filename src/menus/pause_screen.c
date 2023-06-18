@@ -36,7 +36,7 @@ u32 unk_68168(u16 param_1, u8 param_2, u32 param_3)
 {
     // https://decomp.me/scratch/7coJ2
 
-    i32 _param_3 = (i8)param_3;
+    s32 _param_3 = (s8)param_3;
     
     if (!PAUSE_SCREEN_DATA.unk_7C && param_2 != 0)
     {
@@ -282,7 +282,7 @@ void PauseScreenCopyBackgroundPalette_Unused(void)
  */
 void PauseScreenUpdateMapArrows(void)
 {
-    i32 var_0;
+    s32 var_0;
 
     if (gPauseScreenFlag != PAUSE_SCREEN_PAUSE_OR_CUTSCENE)
         return;
@@ -501,11 +501,11 @@ u8 unk_68a58(u8 param_1)
  */
 u8 PauseScreenUpdateStatusScreenOam(u8 param_1)
 {
-    i32 i;
+    s32 i;
     struct MenuOamData* pOam;
     u8 result;
-    i32 size;
-    i16 xPosition;
+    s32 size;
+    s16 xPosition;
 
     result = FALSE;
     pOam = &PAUSE_SCREEN_DATA.miscOam[2];
@@ -758,7 +758,7 @@ void PauseScreenUpdateWorldMapHighlight(u8 area)
 void PauseScreenUpdateWorldMap(u8 onWorldMap)
 {
     struct MenuOamData* pOam;
-    i32 i;
+    s32 i;
     u32 status;
 
     if (onWorldMap == FALSE)
@@ -833,7 +833,7 @@ void PauseScreenLoadAreaNamesAndIcons(void)
 {
     // https://decomp.me/scratch/w2KOM
 
-    i32 i;
+    s32 i;
     struct MenuOamData* pOam;
     const u16* ptr;
 
@@ -1000,12 +1000,12 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
     u16* dst;
     const u16* src;
     u32 part;
-    i32 currSlot;
-    i32 nextSlot;
-    i32 i;
+    s32 currSlot;
+    s32 nextSlot;
+    s32 i;
     const struct FrameData* pFrame;
-    i32 yPosition;
-    i32 xPosition;
+    s32 yPosition;
+    s32 xPosition;
 
     dst = (u16*)gOamData;
     nextSlot = gNextOamSlot;
@@ -1201,23 +1201,23 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
         // Fetch background positions based on the bound background
         if (pOam->boundBackground == 0)
         {
-            xPosition = (i16)gBG0HOFS_NonGameplay;
-            yPosition = (i16)gBG0VOFS_NonGameplay;
+            xPosition = (s16)gBG0HOFS_NonGameplay;
+            yPosition = (s16)gBG0VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 1)
         {
-            xPosition = (i16)gBG1HOFS_NonGameplay;
-            yPosition = (i16)gBG1VOFS_NonGameplay;
+            xPosition = (s16)gBG1HOFS_NonGameplay;
+            yPosition = (s16)gBG1VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 2)
         {
-            xPosition = (i16)gBG2HOFS_NonGameplay;
-            yPosition = (i16)gBG2VOFS_NonGameplay;
+            xPosition = (s16)gBG2HOFS_NonGameplay;
+            yPosition = (s16)gBG2VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 3)
         {
-            xPosition = (i16)gBG3HOFS_NonGameplay;
-            yPosition = (i16)gBG3VOFS_NonGameplay;
+            xPosition = (s16)gBG3HOFS_NonGameplay;
+            yPosition = (s16)gBG3VOFS_NonGameplay;
         }
         else
         {
@@ -1227,8 +1227,8 @@ void ProcessMenuOam(u8 length, struct MenuOamData* pOam, const struct OamArray* 
         }
 
         // Offset position by background and global offset
-        yPosition = (i16)((pOam->yPosition >> 2) - (yPosition >> 2) + gOamYOffset_NonGameplay);
-        xPosition = (i16)((pOam->xPosition >> 2) - (xPosition >> 2) + gOamXOffset_NonGameplay);
+        yPosition = (s16)((pOam->yPosition >> 2) - (yPosition >> 2) + gOamYOffset_NonGameplay);
+        xPosition = (s16)((pOam->xPosition >> 2) - (xPosition >> 2) + gOamXOffset_NonGameplay);
 
         // Offset by current frame
         pFrame = &pFrame[pOam->currentAnimationFrame];
@@ -1281,12 +1281,12 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
     u16* dst;
     const u16* src;
     u32 part;
-    i32 currSlot;
-    i32 nextSlot;
-    i32 i;
+    s32 currSlot;
+    s32 nextSlot;
+    s32 i;
     const struct FrameData* pFrame;
-    i32 yPosition;
-    i32 xPosition;
+    s32 yPosition;
+    s32 xPosition;
 
     dst = (u16*)gOamData;
     nextSlot = gNextOamSlot;
@@ -1482,23 +1482,23 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
         // Fetch background positions based on the bound background
         if (pOam->boundBackground == 0)
         {
-            xPosition = (i16)gBG0HOFS_NonGameplay;
-            yPosition = (i16)gBG0VOFS_NonGameplay;
+            xPosition = (s16)gBG0HOFS_NonGameplay;
+            yPosition = (s16)gBG0VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 1)
         {
-            xPosition = (i16)gBG1HOFS_NonGameplay;
-            yPosition = (i16)gBG1VOFS_NonGameplay;
+            xPosition = (s16)gBG1HOFS_NonGameplay;
+            yPosition = (s16)gBG1VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 2)
         {
-            xPosition = (i16)gBG2HOFS_NonGameplay;
-            yPosition = (i16)gBG2VOFS_NonGameplay;
+            xPosition = (s16)gBG2HOFS_NonGameplay;
+            yPosition = (s16)gBG2VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 3)
         {
-            xPosition = (i16)gBG3HOFS_NonGameplay;
-            yPosition = (i16)gBG3VOFS_NonGameplay;
+            xPosition = (s16)gBG3HOFS_NonGameplay;
+            yPosition = (s16)gBG3VOFS_NonGameplay;
         }
         else
         {
@@ -1508,8 +1508,8 @@ void ProcessComplexMenuOam(u8 length, struct MenuOamData* pOam, const struct Oam
         }
 
         // Offset position by background and global offset
-        yPosition = (i16)((pOam->yPosition >> 2) - (yPosition >> 2) + gOamYOffset_NonGameplay);
-        xPosition = (i16)((pOam->xPosition >> 2) - (xPosition >> 2) + gOamXOffset_NonGameplay);
+        yPosition = (s16)((pOam->yPosition >> 2) - (yPosition >> 2) + gOamYOffset_NonGameplay);
+        xPosition = (s16)((pOam->xPosition >> 2) - (xPosition >> 2) + gOamXOffset_NonGameplay);
 
         // Offset by current frame
         pFrame = &pFrame[pOam->currentAnimationFrame];
@@ -1579,12 +1579,12 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
     u16* dst;
     const u16* src;
     u32 part;
-    i32 currSlot;
-    i32 nextSlot;
-    i32 i;
+    s32 currSlot;
+    s32 nextSlot;
+    s32 i;
     const struct FrameData* pFrame;
-    i32 yPosition;
-    i32 xPosition;
+    s32 yPosition;
+    s32 xPosition;
 
     dst = (u16*)gOamData;
     nextSlot = gNextOamSlot;
@@ -1780,23 +1780,23 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
         // Fetch background positions based on the bound background
         if (pOam->boundBackground == 0)
         {
-            xPosition = (i16)gBG0HOFS_NonGameplay;
-            yPosition = (i16)gBG0VOFS_NonGameplay;
+            xPosition = (s16)gBG0HOFS_NonGameplay;
+            yPosition = (s16)gBG0VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 1)
         {
-            xPosition = (i16)gBG1HOFS_NonGameplay;
-            yPosition = (i16)gBG1VOFS_NonGameplay;
+            xPosition = (s16)gBG1HOFS_NonGameplay;
+            yPosition = (s16)gBG1VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 2)
         {
-            xPosition = (i16)gBG2HOFS_NonGameplay;
-            yPosition = (i16)gBG2VOFS_NonGameplay;
+            xPosition = (s16)gBG2HOFS_NonGameplay;
+            yPosition = (s16)gBG2VOFS_NonGameplay;
         }
         else if (pOam->boundBackground == 3)
         {
-            xPosition = (i16)gBG3HOFS_NonGameplay;
-            yPosition = (i16)gBG3VOFS_NonGameplay;
+            xPosition = (s16)gBG3HOFS_NonGameplay;
+            yPosition = (s16)gBG3VOFS_NonGameplay;
         }
         else
         {
@@ -1806,8 +1806,8 @@ void ProcessCutsceneOam(u8 length, struct CutsceneOamData* pOam, const struct Oa
         }
 
         // Offset position by background and global offset
-        yPosition = (i16)((pOam->yPosition >> 2) - (yPosition >> 2) + gOamYOffset_NonGameplay);
-        xPosition = (i16)((pOam->xPosition >> 2) - (xPosition >> 2) + gOamXOffset_NonGameplay);
+        yPosition = (s16)((pOam->yPosition >> 2) - (yPosition >> 2) + gOamYOffset_NonGameplay);
+        xPosition = (s16)((pOam->xPosition >> 2) - (xPosition >> 2) + gOamXOffset_NonGameplay);
 
         // Offset by current frame
         pFrame = &pFrame[pOam->currentAnimationFrame];
@@ -2370,7 +2370,7 @@ void PauseScreenInit(void)
  */
 void PauseScreenDetermineMapsViewable(void)
 {
-    i32 i;
+    s32 i;
 
     PAUSE_SCREEN_DATA.areasViewables = gEquipment.downloadedMapStatus;
     PAUSE_SCREEN_DATA.areasViewables |= PAUSE_SCREEN_DATA.areasWithVisitedTiles;
@@ -2404,11 +2404,11 @@ void PauseScreenUpdateBottomVisorOverlay(u8 param_1, u8 param_2)
 {
     // https://decomp.me/scratch/kHRx8
 
-    i32 var_0;
-    i32 var_1;
+    s32 var_0;
+    s32 var_1;
     u16* dst;
     u16* src;
-    i16 temp;
+    s16 temp;
     
     dst = VRAM_BASE + 0xCC40;
     src = &PAUSE_SCREEN_EWRAM.visorOverlayTilemap[0x380];
@@ -2462,7 +2462,7 @@ void PauseScreenUpdateBottomVisorOverlay(u8 param_1, u8 param_2)
 void PauseScreenGetMinimapData(u8 area, u16* dst)
 {
     u32 position;
-    i32 i;
+    s32 i;
 
     // Decompress base minimap
     CallLZ77UncompWRAM(sMinimapDataPointers[area], dst);
@@ -2819,8 +2819,8 @@ void PauseScreenMoveDebugCursor(u8 allowOverflow)
 u32 unk_6b66c(u16* param_1, u16 param_2)
 {
     u32 result;
-    i32 var_0;
-    i32 var_1;
+    s32 var_0;
+    s32 var_1;
 
     result = FALSE;
 
@@ -2844,7 +2844,7 @@ u32 unk_6b66c(u16* param_1, u16 param_2)
     }
     else
     {
-        var_1 = (i16)*param_1;
+        var_1 = (s16)*param_1;
         if (var_1 <= param_2)
         {
             *param_1 += (param_2 - var_1);
@@ -2865,8 +2865,8 @@ u32 unk_6b66c(u16* param_1, u16 param_2)
 u32 unk_6b6c4(u16* param_1, u16 param_2)
 {
     u32 result;
-    i32 var_0;
-    i32 var_1;
+    s32 var_0;
+    s32 var_1;
 
     result = FALSE;
 
@@ -2889,7 +2889,7 @@ u32 unk_6b6c4(u16* param_1, u16 param_2)
     }
     else
     {
-        var_1 = (i16)*param_1;
+        var_1 = (s16)*param_1;
         if (var_1 <= param_2)
         {
             result = TRUE;
@@ -2909,7 +2909,7 @@ u32 unk_6b6c4(u16* param_1, u16 param_2)
  */
 void PauseScreenUpdateTopVisorOverlay(u8 oamId)
 {
-    i32 offset;
+    s32 offset;
 
     if (oamId != UCHAR_MAX)
     {
@@ -2931,11 +2931,11 @@ void PauseScreenUpdateTopVisorOverlay(u8 oamId)
 /**
  * @brief 6b778 | c0 | Initializes the status screen for a suit change (suitless or fully powered)
  * 
- * @return i32 bool, ended (-1 and 0)
+ * @return s32 bool, ended (-1 and 0)
  */
-i32 PauseScreenSuitChangingStart(void)
+s32 PauseScreenSuitChangingStart(void)
 {
-    i32 stage;
+    s32 stage;
 
     stage = 0;
 
@@ -2993,11 +2993,11 @@ i32 PauseScreenSuitChangingStart(void)
 /**
  * @brief 6b838 | 1fc | Initializes the status screen
  * 
- * @return i32 bool, ended (-1 and 0)
+ * @return s32 bool, ended (-1 and 0)
  */
-i32 PauseScreenStatusScreenInit(void)
+s32 PauseScreenStatusScreenInit(void)
 {
-    i32 stage;
+    s32 stage;
     
     stage = 0;
     switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
@@ -3111,11 +3111,11 @@ i32 PauseScreenStatusScreenInit(void)
 /**
  * @brief 6ba34 | 200 | Un-initializes the status screen
  * 
- * @return i32 bool, ended (-1 and 0)
+ * @return s32 bool, ended (-1 and 0)
  */
-i32 PauseScreenQuitStatusScreen(void)
+s32 PauseScreenQuitStatusScreen(void)
 {
-    i32 stage;
+    s32 stage;
     
     stage = 0;
     switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
@@ -3205,9 +3205,9 @@ i32 PauseScreenQuitStatusScreen(void)
 /**
  * @brief 6bc34 | 2d4 | Initializes the easy sleep screen
  * 
- * @return i32 bool, ended
+ * @return s32 bool, ended
  */
-i32 PauseScreenEasySleepInit(void)
+s32 PauseScreenEasySleepInit(void)
 {
     // Update text processing
     if (PAUSE_SCREEN_DATA.easySleepTextState >= 0)
@@ -3321,9 +3321,9 @@ i32 PauseScreenEasySleepInit(void)
 /**
  * @brief 6bf08 | 1d8 | Un-initializes the status screen
  * 
- * @return i32 bool, ended
+ * @return s32 bool, ended
  */
-i32 PauseScreenQuitEasySleep(void)
+s32 PauseScreenQuitEasySleep(void)
 {
     switch (PAUSE_SCREEN_DATA.subroutineInfo.stage)
     {

@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sBaristuteFallingYVelocity[8];
+extern const s16 sBaristuteFallingYVelocity[8];
 
-extern const i16 sBaristuteJumpingYVelocity[10];
+extern const s16 sBaristuteJumpingYVelocity[10];
 
 extern const u32 sBaristuteGfx[596];
 extern const u16 sBaristutePAL[80];

@@ -51,14 +51,14 @@ struct MinimapAreaName {
     u8 area1;
     u8 mapX1;
     u8 mapY1;
-    i8 xOffset1;
-    i8 yOffset1;
+    s8 xOffset1;
+    s8 yOffset1;
 
     u8 area2;
     u8 mapX2;
     u8 mapY2;
-    i8 xOffset2;
-    i8 yOffset2;
+    s8 xOffset2;
+    s8 yOffset2;
 };
 
 struct PauseScreenSubroutineData {
@@ -72,7 +72,7 @@ struct PauseScreenSubroutineData {
 
 struct UnknownItemPalette {
     u16 timer;
-    i8 paletteRow;
+    s8 paletteRow;
     u8 flashingNumber;
 };
 
@@ -81,10 +81,10 @@ struct ChozoHintRelated {
     u16 unk_2;
     u16 unk_4;
     u16 unk_6;
-    i16 unk_8;
-    i16 unk_A;
-    i8 unk_C;
-    i8 unk_D;
+    s16 unk_8;
+    s16 unk_A;
+    s8 unk_C;
+    s8 unk_D;
     u16 unk_E;
     u16 unk_10;
     u16 unk_12;
@@ -118,7 +118,7 @@ struct BossFlameData {
     u8 moving;
     u8 oamOffset;
     u8 unk_4;
-    i8 movementDirection;
+    s8 movementDirection;
     u8 unk_6;
     u8 unk_7;
     u16 xPosition;
@@ -162,18 +162,18 @@ struct PauseScreenData {
     u8 hintTargetY;
 
     u16 unk_18;
-    i8 unk_1A;
+    s8 unk_1A;
     u16 unk_1C;
     u8 unk_1E;
 
     struct UnknownItemPalette unknownItemDynamicPalette;
     
-    i8 mapViewX;
-    i8 mapViewY;
-    i8 mapRightBorder;
-    i8 mapLeftBorder;
-    i8 mapTopBorder;
-    i8 mapBottomBorder;
+    s8 mapViewX;
+    s8 mapViewY;
+    s8 mapRightBorder;
+    s8 mapLeftBorder;
+    s8 mapTopBorder;
+    s8 mapBottomBorder;
     u8 absoluteMapRightBorder;
     u8 absoluteMapLeftBorder;
     u8 absoluteMapTopBorder;
@@ -199,9 +199,9 @@ struct PauseScreenData {
 
     u8 padding_3E[2];
 
-    i8 unk_40;
+    s8 unk_40;
     u8 unk_41;
-    i8 unk_42;
+    s8 unk_42;
     u16 activatedTargets;
     u8 unk_46;
     u8 unk_47;
@@ -245,7 +245,7 @@ struct PauseScreenData {
     u8 unk_7C;
     u8 unk_7D;
     u8 unk_7E;
-    i8 unk_7F;
+    s8 unk_7F;
     u8 unk_80;
     u8 unk_81;
 
@@ -268,7 +268,7 @@ struct PauseScreenData {
 
     u8 padding_D9[16];
 
-    i8 easySleepTextState;
+    s8 easySleepTextState;
     u8 unk_EA;
 
     struct BossFlameData bossFlameData[2];

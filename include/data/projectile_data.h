@@ -6,7 +6,7 @@
 
 // 326ca8
 
-extern const i16 sTumblingMissileSpeed[16];
+extern const s16 sTumblingMissileSpeed[16];
 
 extern const u8 sProjectile_Array326cc8_Unused[64];
 

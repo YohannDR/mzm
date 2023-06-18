@@ -1,7 +1,7 @@
 #include "data/sprites/imago_cocoon.h"
 #include "macros.h"
 
-const i16 sImagoCocoonMultiSpriteData_Idle_Frame0[30] = {
+const s16 sImagoCocoonMultiSpriteData_Idle_Frame0[30] = {
     3, 320, 0,
     5, 104, -68,
     6, 56, 68,
@@ -14,7 +14,7 @@ const i16 sImagoCocoonMultiSpriteData_Idle_Frame0[30] = {
     7, 76, -40
 };
 
-const i16 sImagoCocoonMultiSpriteData_Idle_Frame1[30] = {
+const s16 sImagoCocoonMultiSpriteData_Idle_Frame1[30] = {
     3, 316, 0,
     5, 104, -68,
     6, 56, 68,
@@ -27,7 +27,7 @@ const i16 sImagoCocoonMultiSpriteData_Idle_Frame1[30] = {
     7, 76, -40
 };
 
-const i16 sImagoCocoonMultiSpriteData_Dying_Frame0[30] = {
+const s16 sImagoCocoonMultiSpriteData_Dying_Frame0[30] = {
     3, 312, 0,
     5, 104, -68,
     6, 56, 68,
@@ -40,7 +40,7 @@ const i16 sImagoCocoonMultiSpriteData_Dying_Frame0[30] = {
     7, 76, -40
 };
 
-const i16 sImagoCocoonMultiSpriteData_Dying_Frame1[30] = {
+const s16 sImagoCocoonMultiSpriteData_Dying_Frame1[30] = {
     3, 316, 0,
     5, 104, -68,
     6, 56, 68,
@@ -53,7 +53,7 @@ const i16 sImagoCocoonMultiSpriteData_Dying_Frame1[30] = {
     7, 76, -40
 };
 
-const i16 sImagoCocoonMultiSpriteData_Dying_Frame3[30] = {
+const s16 sImagoCocoonMultiSpriteData_Dying_Frame3[30] = {
     3, 324, 0,
     5, 104, -68,
     6, 56, 68,
@@ -66,7 +66,7 @@ const i16 sImagoCocoonMultiSpriteData_Dying_Frame3[30] = {
     7, 76, -40
 };
 
-const i16 sImagoCocoonMultiSpriteData_Dying_Frame4[30] = {
+const s16 sImagoCocoonMultiSpriteData_Dying_Frame4[30] = {
     3, 328, 0,
     5, 104, -68,
     6, 56, 68,
@@ -79,7 +79,7 @@ const i16 sImagoCocoonMultiSpriteData_Dying_Frame4[30] = {
     7, 76, -40
 };
 
-const i16 sImagoCocoonMultiSpriteData_Dying_Frame5[30] = {
+const s16 sImagoCocoonMultiSpriteData_Dying_Frame5[30] = {
     3, 332, 0,
     5, 104, -68,
     6, 56, 68,
@@ -92,7 +92,7 @@ const i16 sImagoCocoonMultiSpriteData_Dying_Frame5[30] = {
     7, 76, -40
 };
 
-const i16 sImagoCocoonMultiSpriteData_Dying_Frame6[30] = {
+const s16 sImagoCocoonMultiSpriteData_Dying_Frame6[30] = {
     3, 340, 0,
     5, 104, -68,
     6, 56, 68,
@@ -105,7 +105,7 @@ const i16 sImagoCocoonMultiSpriteData_Dying_Frame6[30] = {
     7, 76, -40
 };
 
-const i16 sImagoCocoonMultiSpriteData_Dying_Frame7[30] = {
+const s16 sImagoCocoonMultiSpriteData_Dying_Frame7[30] = {
     3, 368, 0,
     5, 104, -68,
     6, 56, 68,
@@ -118,7 +118,7 @@ const i16 sImagoCocoonMultiSpriteData_Dying_Frame7[30] = {
     7, 76, -40
 };
 
-const i16 sImagoCocoonMultiSpriteData_Dying_Frame8[30] = {
+const s16 sImagoCocoonMultiSpriteData_Dying_Frame8[30] = {
     3, 388, 0,
     5, 104, -68,
     6, 56, 68,
@@ -167,13 +167,13 @@ const struct FrameData sImagoCocoonMultiSpriteData_Dying[10] = {
     0x0
 };
 
-const i16 sImagoCocoon_ArrayUnused1[36] = {
+const s16 sImagoCocoon_ArrayUnused1[36] = {
     -8, -8, -6, -6, -5, -5, -4, -4, -3, -3, -2, -2, -1,
     -1, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     11, 12, 14, 16, 18, SHORT_MAX
 };
 
-const i16 sImagoCocoon_ArrayUnused2[48] = {
+const s16 sImagoCocoon_ArrayUnused2[48] = {
     0, 0, 1, 1, 1, 1, 2, 2, 2, 2, 4, 4, 4, 4, 2, 2, 2, 2,
     1, 1, 1, 1, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0,
     0, 0, -2, -2, -2, -2, -2, -2, -2, -2, -2, -2

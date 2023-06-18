@@ -35,7 +35,7 @@ void BgClipSetClipdataBlockValue(u32, u16, u16);
  */
 void ConnectionUpdateHatches(void)
 {
-    i32 i;
+    s32 i;
 
     for (i = 0; i < MAX_AMOUNT_OF_HATCHES; i++)
     {
@@ -114,8 +114,8 @@ void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr)
     // https://decomp.me/scratch/q1BYt
 
     u32 value;
-    i8 direction;
-    i32 caf;
+    s8 direction;
+    s32 caf;
     u32 tilemapValue;
 
     value = gHatchData[hatchNbr].facingRight ? 0x416 : 0x411;
@@ -246,7 +246,7 @@ u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
 {
     const struct Door* pDoor;
     struct HatchData* pHatch;
-    i32 i;
+    s32 i;
     u8 state;
 
     if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
@@ -316,8 +316,8 @@ u8 ConnectionCheckAreaConnection(u16 yPosition, u16 xPosition)
 {
     const struct Door* pDoor;
     struct HatchData* pHatch;
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
     u8 state;
 
     if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
@@ -430,7 +430,7 @@ void ConnectionProcessDoorType(u8 type)
  */
 u8 ConnectionFindEventBasedDoor(u8 sourceDoor)
 {
-    i32 i;
+    s32 i;
     
     for (i = MAX_AMOUNT_OF_EVENT_BASED_CONNECTIONS - 1; i >= 0; i--)
     {
@@ -521,9 +521,9 @@ void ConnectionHatchStartLockAnimation(u8 dontSetRaw, u8 hatch, u8 status)
  */
 void ConnectionLockHatches(u8 isEvent)
 {
-    i32 i;
+    s32 i;
     u16 lockedHatches;
-    i32 hatch;
+    s32 hatch;
     
     i = 0x0;
     lockedHatches = 0x0;
@@ -596,21 +596,21 @@ void ConnectionLockHatches(u8 isEvent)
 
 void ConnectionLoadDoors(void)
 {
-    i32 i;
-    i32 hatchCount;
+    s32 i;
+    s32 hatchCount;
     u32 currHatchId;
     const struct Door* pDoor;
     struct HatchData* pHatch;
-    i32 currDoor;
+    s32 currDoor;
     u32 doorType;
     u16 bldalpha;
-    i32 yPosition;
+    s32 yPosition;
     u8 direction;
     u16 clipdata;
     u32 position;
     u32 behavior;
     u16 behaviorCheck;
-    i32 hatchType;
+    s32 hatchType;
     
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
         return;
@@ -781,10 +781,10 @@ void ConnectionLockHatchesWithTimer(void)
  */
 void ConnectionCheckHatchLockEvents(void)
 {
-    i32 i;
+    s32 i;
     u16 hatchesToLock;
     u32 eventCheck;
-    i32 total;
+    s32 total;
     const struct HatchLockEvent* pLock;
     
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)

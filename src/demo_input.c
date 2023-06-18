@@ -109,7 +109,7 @@ void CopyDemoInput(void)
  */
 void DemoResetInputAndDuration(void)
 {
-    i32 i;
+    s32 i;
     if (gDemoState == DEMO_STATE_IN_CONTROL_DEBUG)
     {
         // Clear both input and duration to leave space to record 

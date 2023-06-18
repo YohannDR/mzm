@@ -13,8 +13,8 @@ struct Door {
     u8 yStart;
     u8 yEnd;
     u8 destinationDoor;
-    i8 xExit;
-    i8 yExit;
+    s8 xExit;
+    s8 yExit;
 };
 
 struct EventBasedConnection {
@@ -70,12 +70,12 @@ struct HatchData {
 struct LastElevatorUsed {
     u16 unused;
     u8 route;
-    i8 direction;
+    s8 direction;
 };
 
 struct HatchesState {
-    i8 unlocking;
-    i8 unk;
+    s8 unlocking;
+    s8 unk;
     u16 hatchesLockedWithTimer;
     u16 hatchesLockedWithEvent;
     u16 unk2;
@@ -83,11 +83,11 @@ struct HatchesState {
 
 struct HatchFlashingAnimation {
     u8 unlocking_delay;
-    i8 unlocking_paletteRow;
+    s8 unlocking_paletteRow;
 
     // Assumed to be left over from fusion (navigation doors)
     u8 navigation_delay;
-    i8 navigation_paletteRow;
+    s8 navigation_paletteRow;
 };
 
 #define MAX_AMOUNT_OF_HATCHES 16
@@ -106,7 +106,7 @@ extern u8 gCurrentRoom;
 extern u8 gLastDoorUsed;
 extern u8 gLastDoorProperties;
 extern u8 gDisplayLocationText;
-extern i8 gDoorUnlockTimer;
+extern s8 gDoorUnlockTimer;
 extern struct HatchesState gHatchesState;
 extern struct HatchData gHatchData[MAX_AMOUNT_OF_HATCHES];
 extern struct LastElevatorUsed gLastElevatorUsed;

@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sMetroidSpawningYMovement[65];
+extern const s16 sMetroidSpawningYMovement[65];
 
-extern const i16 sMetroidSpawningXMovement[81];
+extern const s16 sMetroidSpawningXMovement[81];
 
 extern const u32 sMetroidGfx[793];
 extern const u16 sMetroidPAL[80];

@@ -4,13 +4,13 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sTangleVineGerutaMultiSpriteData_Idle_Frame0[9];
+extern const s16 sTangleVineGerutaMultiSpriteData_Idle_Frame0[9];
 
-extern const i16 sTangleVineGerutaMultiSpriteData_Idle_Frame1[9];
+extern const s16 sTangleVineGerutaMultiSpriteData_Idle_Frame1[9];
 
-extern const i16 sTangleVineGerutaMultiSpriteData_Idle_Frame2[9];
+extern const s16 sTangleVineGerutaMultiSpriteData_Idle_Frame2[9];
 
-extern const i16 sTangleVineGerutaMultiSpriteData_Idle_Frame3[9];
+extern const s16 sTangleVineGerutaMultiSpriteData_Idle_Frame3[9];
 
 extern const struct FrameData sTangleVineGerutaMultiSpriteData_Idle[5];
 

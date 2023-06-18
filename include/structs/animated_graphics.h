@@ -27,7 +27,7 @@ struct AnimatedTiming {
 
 struct AnimatedPaletteTiming {
     u8 timer;
-    i8 row;
+    s8 row;
 };
 
 struct AnimatedGraphicsInfo {
@@ -35,7 +35,7 @@ struct AnimatedGraphicsInfo {
     u8 framesPerState;
     u8 animationDurationCounter;
     u8 numberOfStates;
-    i8 currentAnimationFrame;
+    s8 currentAnimationFrame;
     u8 graphicsEntry;
     const u8* pGraphics;
 };
@@ -59,7 +59,7 @@ extern struct AnimatedTiming gTankAnimations[4];
 extern struct AnimatedGraphicsInfo gAnimatedGraphicsData[16];
 extern struct AnimatedPaletteTiming gAnimatedPaletteTiming;
 
-extern i8 gDisableAnimatedPalette;
+extern s8 gDisableAnimatedPalette;
 extern u8 gDisableAnimatedGraphicsTimer;
 extern u16 gAnimatedGraphicsToUpdate;
 

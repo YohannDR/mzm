@@ -763,9 +763,9 @@ void ZoomerFalling(void)
 {
     u16 yPosition;
     u8 offset;
-    i32 movement;
+    s32 movement;
     u32 blockTop;
-    i32 newMovement;
+    s32 newMovement;
 
     yPosition = gCurrentSprite.yPosition;
 

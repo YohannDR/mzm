@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sAtomicIdleYMovement[65];
+extern const s16 sAtomicIdleYMovement[65];
 
-extern const i16 sAtomicIdleXMovement[81];
+extern const s16 sAtomicIdleXMovement[81];
 
 extern const u32 sAtomicGfx[752];
 extern const u16 sAtomicPAL[64];

@@ -118,7 +118,7 @@ void DeoremMoveDiagonally(u8 velocity, u16 dstPosition)
 
                 if (gCurrentSprite.xPosition < gBossWork.work2 + BLOCK_SIZE * 10)
                 {
-                    i32 speed = gCurrentSprite.workVariable2;
+                    s32 speed = gCurrentSprite.workVariable2;
                     gCurrentSprite.xPosition += (speed / 2);
                 }
             }
@@ -130,7 +130,7 @@ void DeoremMoveDiagonally(u8 velocity, u16 dstPosition)
 
             if (gCurrentSprite.xPosition < gBossWork.work2 + BLOCK_SIZE * 10)
             {
-                i32 speed = gCurrentSprite.workVariable;
+                s32 speed = gCurrentSprite.workVariable;
                 gCurrentSprite.xPosition += (speed / 2);
             }
         }
@@ -150,7 +150,7 @@ void DeoremMoveDiagonally(u8 velocity, u16 dstPosition)
 
                 if (gCurrentSprite.xPosition > gBossWork.work2 + BLOCK_SIZE * 3)
                 {
-                    i32 speed = gCurrentSprite.workVariable2;
+                    s32 speed = gCurrentSprite.workVariable2;
                     gCurrentSprite.xPosition -= (speed / 2);
                 }
             }
@@ -162,7 +162,7 @@ void DeoremMoveDiagonally(u8 velocity, u16 dstPosition)
 
             if (gCurrentSprite.xPosition > gBossWork.work2 + BLOCK_SIZE * 3)
             {
-                i32 speed = gCurrentSprite.workVariable;
+                s32 speed = gCurrentSprite.workVariable;
                 gCurrentSprite.xPosition -= (speed / 2);
             }
         }
@@ -1408,7 +1408,7 @@ void DeoremSegmentSpawnGoingUp(void)
         gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition + 0xA8;
     else
     {
-        i32 yPosition = gSpriteData[ramSlot].yPosition + 0xA8;
+        s32 yPosition = gSpriteData[ramSlot].yPosition + 0xA8;
         gCurrentSprite.yPosition = yPosition + (gCurrentSprite.roomSlot - 6) * 100;
     }
 
@@ -1434,7 +1434,7 @@ void DeoremSegmentSpawnGoingUpAfter(void)
 {
     u32 ramSlot = gCurrentSprite.primarySpriteRamSlot;
     
-    i32 movement = 16;
+    s32 movement = 16;
     if (gSpriteData[ramSlot].pose == DEOREM_POSE_AFTER_SPAWN)
     {
         movement = 8;
@@ -1733,7 +1733,7 @@ void DeoremSegmentAboveHeadMovement(void)
     }
     else
     {
-        i32 yPosition = gSpriteData[ramSlot].yPosition - 0xA8;
+        s32 yPosition = gSpriteData[ramSlot].yPosition - 0xA8;
         gCurrentSprite.yPosition = yPosition - (gCurrentSprite.roomSlot - 12) * 100;
         deoremXPos = gSpriteData[gCurrentSprite.timer].xPosition;
     }
@@ -1842,7 +1842,7 @@ void DeoremSegmentMiddleLeaving(void)
     }
     else
     {
-        i32 yPosition = gSpriteData[ramSlot].yPosition - 0xA8;
+        s32 yPosition = gSpriteData[ramSlot].yPosition - 0xA8;
         gCurrentSprite.yPosition = yPosition - (gCurrentSprite.roomSlot - 12) * 100;
     }
 
@@ -1997,7 +1997,7 @@ void DeoremSegmentSetTimerDying(void)
 void DeoremSegmentDying(void)
 {
     u16 xPosition;
-    i32 newXPos;
+    s32 newXPos;
     u16 roomSlot;
     u8 rng;
     u8 randomMovement;
@@ -2092,22 +2092,22 @@ void DeoremEyeSetPose9(void)
 void DeoremEyeMove(void)
 {
     u8 ramSlot;
-    i32 samusY;
-    i32 samusX;
-    i32 spriteY;
-    i32 spriteX;
-    i32 result;
-    i32 rotation;
+    s32 samusY;
+    s32 samusX;
+    s32 spriteY;
+    s32 spriteX;
+    s32 result;
+    s32 rotation;
     u32 deltaRotation;
-    i32 temp;
+    s32 temp;
 
     deltaRotation = 2;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
     rotation = gCurrentSprite.timer;
-    samusY = (i16)(gSamusData.yPosition - (BLOCK_SIZE + 8));
-    samusX = (i16)gSamusData.xPosition;
-    spriteY = (i16)gSpriteData[ramSlot].yPosition;
-    spriteX = (i16)gSpriteData[ramSlot].xPosition;
+    samusY = (s16)(gSamusData.yPosition - (BLOCK_SIZE + 8));
+    samusX = (s16)gSamusData.xPosition;
+    spriteY = (s16)gSpriteData[ramSlot].yPosition;
+    spriteX = (s16)gSpriteData[ramSlot].xPosition;
 
     if (samusY < spriteY)
     {
@@ -2157,58 +2157,58 @@ void DeoremEyeMove(void)
     if (result == 0)
     {
         if ((u16)(rotation - 1) < 0x7F)
-            rotation = (i16)(rotation - deltaRotation);
+            rotation = (s16)(rotation - deltaRotation);
         else if (rotation > 0x7F)
-            rotation = (i16)(rotation + deltaRotation);
+            rotation = (s16)(rotation + deltaRotation);
     }
     else if (result == 0x20)
     {
         if ((u16)(rotation - 0x21) < 0x7F)
-            rotation = (i16)(rotation - deltaRotation);
+            rotation = (s16)(rotation - deltaRotation);
         else if ((u16)(rotation - 0x20) > 0x7F)
-            rotation = (i16)(rotation + deltaRotation);
+            rotation = (s16)(rotation + deltaRotation);
     }
     else if (result == 0x40)
     {
         if ((u16)(rotation - 0x41) < 0x7F)
-            rotation = (i16)(rotation - deltaRotation);
+            rotation = (s16)(rotation - deltaRotation);
         else if ((u16)(rotation - 0x40) > 0x7F)
-            rotation = (i16)(rotation + deltaRotation);
+            rotation = (s16)(rotation + deltaRotation);
     }
     else if (result == 0x60)
     {
         if ((u16)(rotation - 0x61) < 0x7F)
-            rotation = (i16)(rotation - deltaRotation);
+            rotation = (s16)(rotation - deltaRotation);
         else if ((u16)(rotation - 0x60) > 0x7F)
-            rotation = (i16)(rotation + deltaRotation);
+            rotation = (s16)(rotation + deltaRotation);
     }
     else if (result == 0x80)
     {
         if ((u16)(rotation - 0x1) < 0x7F)
-            rotation = (i16)(rotation + deltaRotation);
+            rotation = (s16)(rotation + deltaRotation);
         else if (rotation > 0x80)
-            rotation = (i16)(rotation - deltaRotation);
+            rotation = (s16)(rotation - deltaRotation);
     }
     else if (result == 0xA0)
     {
         if ((u16)(rotation - 0x21) < 0x7F)
-            rotation = (i16)(rotation + deltaRotation);
+            rotation = (s16)(rotation + deltaRotation);
         else if ((u16)(rotation - 0x21) > 0x7F)
-            rotation = (i16)(rotation - deltaRotation);
+            rotation = (s16)(rotation - deltaRotation);
     }
     else if (result == 0xC0)
     {
         if ((u16)(rotation - 0x41) < 0x7F)
-            rotation = (i16)(rotation + deltaRotation);
+            rotation = (s16)(rotation + deltaRotation);
         else if ((u16)(rotation - 0x41) > 0x7F)
-            rotation = (i16)(rotation - deltaRotation);
+            rotation = (s16)(rotation - deltaRotation);
     }
     else if (result == 0xE0)
     {
         if ((u16)(rotation - 0x61) < 0x7F)
-            rotation = (i16)(rotation + deltaRotation);
+            rotation = (s16)(rotation + deltaRotation);
         else if ((u16)(rotation - 0x61) > 0x7F)
-            rotation = (i16)(rotation - deltaRotation);
+            rotation = (s16)(rotation - deltaRotation);
     }
 
     gCurrentSprite.yPosition = gSpriteData[ramSlot].yPosition - 28;
@@ -2413,8 +2413,8 @@ void DeoremThornSpawning(void)
 void DeoremThornMovement(void)
 {
     u8 arrayOffset = gCurrentSprite.arrayOffset;
-    i32 movement = sDeoremThornYVelocity[arrayOffset];
-    i32 newYPos, xMovement;
+    s32 movement = sDeoremThornYVelocity[arrayOffset];
+    s32 newYPos, xMovement;
     
     if (movement == SHORT_MAX)
     {
@@ -2431,7 +2431,7 @@ void DeoremThornMovement(void)
     xMovement = 4;
     if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT) != 0)
     {
-        i32 newXPos;
+        s32 newXPos;
         
         if (arrayOffset >= 0x24)
             gCurrentSprite.oamRotation = 0xB8;

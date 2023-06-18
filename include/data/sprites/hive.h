@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sMellowIdleYVelocity[65];
+extern const s16 sMellowIdleYVelocity[65];
 
-extern const i16 sMellowIdleXVelocity[81];
+extern const s16 sMellowIdleXVelocity[81];
 
 extern const u32 sHiveGfx[1799];
 extern const u16 sHivePAL[96];

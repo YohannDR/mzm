@@ -1,25 +1,25 @@
 #include "data/sprites/tangle_vine.h"
 #include "macros.h"
 
-const i16 sTangleVineGerutaMultiSpriteData_Idle_Frame0[9] = {
+const s16 sTangleVineGerutaMultiSpriteData_Idle_Frame0[9] = {
     8, 0, -8,
     12, -200, 32,
     9, 0, 0
 };
 
-const i16 sTangleVineGerutaMultiSpriteData_Idle_Frame1[9] = {
+const s16 sTangleVineGerutaMultiSpriteData_Idle_Frame1[9] = {
     8, 0, 0,
     12, -196, 28,
     9, 0, 0
 };
 
-const i16 sTangleVineGerutaMultiSpriteData_Idle_Frame2[9] = {
+const s16 sTangleVineGerutaMultiSpriteData_Idle_Frame2[9] = {
     8, 0, 0,
     12, -192, 28,
     9, 0, 0
 };
 
-const i16 sTangleVineGerutaMultiSpriteData_Idle_Frame3[9] = {
+const s16 sTangleVineGerutaMultiSpriteData_Idle_Frame3[9] = {
     8, 0, 8,
     12, -188, 40,
     9, 0, 0

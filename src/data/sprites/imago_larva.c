@@ -1,7 +1,7 @@
 #include "data/sprites/imago_larva.h"
 #include "macros.h"
 
-const i16 sImagoLarvaMultiSpriteData_Attacking_Frame0[18] = {
+const s16 sImagoLarvaMultiSpriteData_Attacking_Frame0[18] = {
     4, 0, 0,
     13, -140, -72,
     12, -116, -108,
@@ -10,7 +10,7 @@ const i16 sImagoLarvaMultiSpriteData_Attacking_Frame0[18] = {
     18, 0, -4
 };
 
-const i16 sImagoLarvaMultiSpriteData_Attacking_Frame1[18] = {
+const s16 sImagoLarvaMultiSpriteData_Attacking_Frame1[18] = {
     4, -4, 0,
     13, -144, -72,
     12, -120, -108,
@@ -19,7 +19,7 @@ const i16 sImagoLarvaMultiSpriteData_Attacking_Frame1[18] = {
     18, 0, -4
 };
 
-const i16 sImagoLarvaMultiSpriteData_Attacking_Frame2[18] = {
+const s16 sImagoLarvaMultiSpriteData_Attacking_Frame2[18] = {
     4, 4, -4,
     13, -140, -72,
     12, -116, -108,
@@ -28,7 +28,7 @@ const i16 sImagoLarvaMultiSpriteData_Attacking_Frame2[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Attacking_Frame3[18] = {
+const s16 sImagoLarvaMultiSpriteData_Attacking_Frame3[18] = {
     4, 0, -4,
     13, -140, -72,
     12, -116, -108,
@@ -37,7 +37,7 @@ const i16 sImagoLarvaMultiSpriteData_Attacking_Frame3[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Attacking_Frame4[18] = {
+const s16 sImagoLarvaMultiSpriteData_Attacking_Frame4[18] = {
     4, 0, -8,
     13, -140, -72,
     12, -116, -108,
@@ -46,7 +46,7 @@ const i16 sImagoLarvaMultiSpriteData_Attacking_Frame4[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Attacking_Frame5[18] = {
+const s16 sImagoLarvaMultiSpriteData_Attacking_Frame5[18] = {
     4, 0, -4,
     13, -140, -72,
     12, -116, -112,
@@ -55,7 +55,7 @@ const i16 sImagoLarvaMultiSpriteData_Attacking_Frame5[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Attacking_Frame6[18] = {
+const s16 sImagoLarvaMultiSpriteData_Attacking_Frame6[18] = {
     4, 0, 0,
     13, -136, -76,
     12, -108, -112,
@@ -64,7 +64,7 @@ const i16 sImagoLarvaMultiSpriteData_Attacking_Frame6[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Attacking_Frame7[18] = {
+const s16 sImagoLarvaMultiSpriteData_Attacking_Frame7[18] = {
     4, 4, -4,
     13, -136, -80,
     12, -108, -116,
@@ -73,7 +73,7 @@ const i16 sImagoLarvaMultiSpriteData_Attacking_Frame7[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Attacking_Frame8[18] = {
+const s16 sImagoLarvaMultiSpriteData_Attacking_Frame8[18] = {
     4, -4, 0,
     13, -140, -80,
     12, -112, -116,
@@ -82,7 +82,7 @@ const i16 sImagoLarvaMultiSpriteData_Attacking_Frame8[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Attacking_Frame9[18] = {
+const s16 sImagoLarvaMultiSpriteData_Attacking_Frame9[18] = {
     4, -4, 0,
     13, -140, -76,
     12, -112, -112,
@@ -91,7 +91,7 @@ const i16 sImagoLarvaMultiSpriteData_Attacking_Frame9[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Attacking_Frame10[18] = {
+const s16 sImagoLarvaMultiSpriteData_Attacking_Frame10[18] = {
     4, 0, 4,
     13, -140, -76,
     12, -112, -108,
@@ -100,7 +100,7 @@ const i16 sImagoLarvaMultiSpriteData_Attacking_Frame10[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Idle_Frame0[18] = {
+const s16 sImagoLarvaMultiSpriteData_Idle_Frame0[18] = {
     5, 0, 0,
     13, -140, -72,
     12, -116, -108,
@@ -109,7 +109,7 @@ const i16 sImagoLarvaMultiSpriteData_Idle_Frame0[18] = {
     18, 0, -4
 };
 
-const i16 sImagoLarvaMultiSpriteData_Idle_Frame1[18] = {
+const s16 sImagoLarvaMultiSpriteData_Idle_Frame1[18] = {
     5, 0, -8,
     13, -136, -72,
     12, -116, -108,
@@ -118,7 +118,7 @@ const i16 sImagoLarvaMultiSpriteData_Idle_Frame1[18] = {
     18, 0, -12
 };
 
-const i16 sImagoLarvaMultiSpriteData_Idle_Frame2[18] = {
+const s16 sImagoLarvaMultiSpriteData_Idle_Frame2[18] = {
     5, 0, -16,
     13, -136, -72,
     12, -116, -108,
@@ -127,7 +127,7 @@ const i16 sImagoLarvaMultiSpriteData_Idle_Frame2[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Retreating_Frame0[18] = {
+const s16 sImagoLarvaMultiSpriteData_Retreating_Frame0[18] = {
     6, 0, 4,
     13, -140, -76,
     12, -112, -108,
@@ -136,7 +136,7 @@ const i16 sImagoLarvaMultiSpriteData_Retreating_Frame0[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Retreating_Frame1[18] = {
+const s16 sImagoLarvaMultiSpriteData_Retreating_Frame1[18] = {
     6, -4, 0,
     13, -140, -76,
     12, -112, -112,
@@ -145,7 +145,7 @@ const i16 sImagoLarvaMultiSpriteData_Retreating_Frame1[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Retreating_Frame2[18] = {
+const s16 sImagoLarvaMultiSpriteData_Retreating_Frame2[18] = {
     6, -4, 0,
     13, -140, -80,
     12, -112, -116,
@@ -154,7 +154,7 @@ const i16 sImagoLarvaMultiSpriteData_Retreating_Frame2[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Retreating_Frame3[18] = {
+const s16 sImagoLarvaMultiSpriteData_Retreating_Frame3[18] = {
     6, 4, -4,
     13, -136, -80,
     12, -112, -116,
@@ -163,7 +163,7 @@ const i16 sImagoLarvaMultiSpriteData_Retreating_Frame3[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Retreating_Frame4[18] = {
+const s16 sImagoLarvaMultiSpriteData_Retreating_Frame4[18] = {
     6, 0, 0,
     13, -136, -76,
     12, -108, -112,
@@ -172,7 +172,7 @@ const i16 sImagoLarvaMultiSpriteData_Retreating_Frame4[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Retreating_Frame5[18] = {
+const s16 sImagoLarvaMultiSpriteData_Retreating_Frame5[18] = {
     6, 0, -4,
     13, -140, -72,
     12, -116, -112,
@@ -181,7 +181,7 @@ const i16 sImagoLarvaMultiSpriteData_Retreating_Frame5[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Retreating_Frame6[18] = {
+const s16 sImagoLarvaMultiSpriteData_Retreating_Frame6[18] = {
     6, 0, -8,
     13, -140, -72,
     12, -116, -108,
@@ -190,7 +190,7 @@ const i16 sImagoLarvaMultiSpriteData_Retreating_Frame6[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Retreating_Frame7[18] = {
+const s16 sImagoLarvaMultiSpriteData_Retreating_Frame7[18] = {
     6, 0, -4,
     13, -140, -72,
     12, -116, -108,
@@ -199,7 +199,7 @@ const i16 sImagoLarvaMultiSpriteData_Retreating_Frame7[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Retreating_Frame8[18] = {
+const s16 sImagoLarvaMultiSpriteData_Retreating_Frame8[18] = {
     6, 4, -4,
     13, -140, -72,
     12, -116, -108,
@@ -208,7 +208,7 @@ const i16 sImagoLarvaMultiSpriteData_Retreating_Frame8[18] = {
     18, 0, -16
 };
 
-const i16 sImagoLarvaMultiSpriteData_Retreating_Frame9[18] = {
+const s16 sImagoLarvaMultiSpriteData_Retreating_Frame9[18] = {
     6, -4, 0,
     13, -144, -72,
     12, -120, -108,
@@ -217,7 +217,7 @@ const i16 sImagoLarvaMultiSpriteData_Retreating_Frame9[18] = {
     18, 0, -4
 };
 
-const i16 sImagoLarvaMultiSpriteData_Retreating_Frame10[18] = {
+const s16 sImagoLarvaMultiSpriteData_Retreating_Frame10[18] = {
     6, 0, 0,
     13, -140, -72,
     12, -116, -108,
@@ -226,7 +226,7 @@ const i16 sImagoLarvaMultiSpriteData_Retreating_Frame10[18] = {
     18, 0, -4
 };
 
-const i16 sImagoLarvaMultiSpriteData_Dying_Frame0[18] = {
+const s16 sImagoLarvaMultiSpriteData_Dying_Frame0[18] = {
     7, 0, 0,
     13, -140, -72,
     12, -116, -108,
@@ -235,7 +235,7 @@ const i16 sImagoLarvaMultiSpriteData_Dying_Frame0[18] = {
     18, 0, -4
 };
 
-const i16 sImagoLarvaMultiSpriteData_Dying_Frame1[18] = {
+const s16 sImagoLarvaMultiSpriteData_Dying_Frame1[18] = {
     7, -4, 0,
     13, -144, -72,
     12, -120, -112,
@@ -244,7 +244,7 @@ const i16 sImagoLarvaMultiSpriteData_Dying_Frame1[18] = {
     18, 0, -4
 };
 
-const i16 sImagoLarvaMultiSpriteData_Dying_Frame2[18] = {
+const s16 sImagoLarvaMultiSpriteData_Dying_Frame2[18] = {
     7, -8, -4,
     13, -148, -72,
     12, -124, -112,
@@ -253,7 +253,7 @@ const i16 sImagoLarvaMultiSpriteData_Dying_Frame2[18] = {
     18, -4, -4
 };
 
-const i16 sImagoLarvaMultiSpriteData_Dying_Frame5[18] = {
+const s16 sImagoLarvaMultiSpriteData_Dying_Frame5[18] = {
     7, 4, 0,
     13, -140, -68,
     12, -112, -108,
@@ -262,7 +262,7 @@ const i16 sImagoLarvaMultiSpriteData_Dying_Frame5[18] = {
     18, 0, -4
 };
 
-const i16 sImagoLarvaMultiSpriteData_Dying_Frame6[18] = {
+const s16 sImagoLarvaMultiSpriteData_Dying_Frame6[18] = {
     7, 8, 4,
     13, -136, -68,
     12, -108, -104,
@@ -271,7 +271,7 @@ const i16 sImagoLarvaMultiSpriteData_Dying_Frame6[18] = {
     18, 0, -4
 };
 
-const i16 sImagoLarvaMultiSpriteData_Warning_Frame0[18] = {
+const s16 sImagoLarvaMultiSpriteData_Warning_Frame0[18] = {
     19, -16, 0,
     13, -148, -64,
     12, -124, -100,
@@ -280,7 +280,7 @@ const i16 sImagoLarvaMultiSpriteData_Warning_Frame0[18] = {
     21, 0, -20
 };
 
-const i16 sImagoLarvaMultiSpriteData_Warning_Frame1[18] = {
+const s16 sImagoLarvaMultiSpriteData_Warning_Frame1[18] = {
     19, -20, 4,
     13, -156, -64,
     12, -132, -100,
@@ -289,7 +289,7 @@ const i16 sImagoLarvaMultiSpriteData_Warning_Frame1[18] = {
     21, 0, -20
 };
 
-const i16 sImagoLarvaMultiSpriteData_Warning_Frame2[18] = {
+const s16 sImagoLarvaMultiSpriteData_Warning_Frame2[18] = {
     20, -24, 4,
     13, -160, -60,
     12, -136, -96,
@@ -298,7 +298,7 @@ const i16 sImagoLarvaMultiSpriteData_Warning_Frame2[18] = {
     21, 0, -20
 };
 
-const i16 sImagoLarvaMultiSpriteData_Warning_Frame3[18] = {
+const s16 sImagoLarvaMultiSpriteData_Warning_Frame3[18] = {
     20, -24, 0,
     13, -164, -60,
     12, -140, -96,
@@ -307,7 +307,7 @@ const i16 sImagoLarvaMultiSpriteData_Warning_Frame3[18] = {
     21, 0, -20
 };
 
-const i16 sImagoLarvaMultiSpriteData_TakingDamage_Frame0[18] = {
+const s16 sImagoLarvaMultiSpriteData_TakingDamage_Frame0[18] = {
     7, -4, 0,
     13, -140, -68,
     12, -116, -104,
@@ -316,7 +316,7 @@ const i16 sImagoLarvaMultiSpriteData_TakingDamage_Frame0[18] = {
     18, 0, -4
 };
 
-const i16 sImagoLarvaMultiSpriteData_TakingDamage_Frame1[18] = {
+const s16 sImagoLarvaMultiSpriteData_TakingDamage_Frame1[18] = {
     7, 0, 0,
     13, -140, -68,
     12, -112, -104,
@@ -325,7 +325,7 @@ const i16 sImagoLarvaMultiSpriteData_TakingDamage_Frame1[18] = {
     18, 0, -4
 };
 
-const i16 sImagoLarvaMultiSpriteData_TakingDamage_Frame2[18] = {
+const s16 sImagoLarvaMultiSpriteData_TakingDamage_Frame2[18] = {
     7, 4, 0,
     13, -136, -68,
     12, -108, -104,

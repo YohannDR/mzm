@@ -18,8 +18,8 @@ struct BackgroundPointersAndDimensions {
 };
 
 struct BG2Movement {
-    i16 xOffset;
-    i16 yOffset;
+    s16 xOffset;
+    s16 yOffset;
 };
 
 struct LastTank {
@@ -30,7 +30,7 @@ struct LastTank {
 
 struct ItemInfo {
     u8 room;
-    i8 type;
+    s8 type;
     u8 xPosition;
     u8 yPosition;
 };
@@ -65,7 +65,7 @@ extern u16 gBG2YPosition;
 extern u16 gBG3XPosition;
 extern u16 gBG3YPosition;
 
-extern i8 gCollectingTank;
+extern s8 gCollectingTank;
 extern u8 gDisableDoorAndTanks;
 extern u8 gDisableClipdataChangingTransparency;
 

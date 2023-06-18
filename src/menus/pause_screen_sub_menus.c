@@ -140,8 +140,8 @@ u32 PauseScreenEasySleepSubroutine(void)
  */
 u32 unk_72144(struct ChozoHintRelated* param_1)
 {
-    i32 yPosition;
-    i32 xPosition;
+    s32 yPosition;
+    s32 xPosition;
 
     if (param_1->unk_D)
     {
@@ -202,8 +202,8 @@ void ChozoStatueHintMovement(void)
 {
     // https://decomp.me/scratch/S0x90
 
-    i32 norm;
-    i32 var_2;
+    s32 norm;
+    s32 var_2;
 
     switch (PAUSE_SCREEN_DATA.unk_47)
     {
@@ -395,8 +395,8 @@ void ChozoStatueHintMovement(void)
  */
 void ChozoStatueHintScrolling(void)
 {
-    i32 var_0;
-    i32 var_1;
+    s32 var_0;
+    s32 var_1;
 
     switch (PAUSE_SCREEN_DATA.unk_49)
     {
@@ -624,7 +624,7 @@ u32 ChozoStatueHintSubroutine(void)
  * @param pOam Menu Oam data pointer
  * @param param_3 To document
  */
-void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamData* pOam, const i8* param_3)
+void ChozoStatueHintChangeArea(u8* pXPosition, u8* pYPosition, struct MenuOamData* pOam, const s8* param_3)
 {
     if (sElevatorRoomPairs[param_3[0]].area1 == PAUSE_SCREEN_DATA.currentArea)
     {
@@ -668,8 +668,8 @@ void ChozoHintDeterminePath(u8 param_1)
     struct MenuOamData oam;
     struct MenuOamData* pOam;
     const struct ChozoStatueTarget* pStatueTarget;
-    i32 i;
-    const i8* pTarget;
+    s32 i;
+    const s8* pTarget;
     const u8* ptr;
 
     DMATransfer(3, sMenuOamDataChozoHint_Empty, &oam, sizeof(oam), 16);
@@ -893,11 +893,11 @@ void ChozoHintDeterminePath(u8 param_1)
  * @brief 73050 | 7c | Checks if a target is enabled
  * 
  * @param target Target
- * @return i32 -1 = not activated, 0 = activated, 1 = de-activated
+ * @return s32 -1 = not activated, 0 = activated, 1 = de-activated
  */
-i32 ChozoStatueHintCheckTargetIsActivated(u8 target)
+s32 ChozoStatueHintCheckTargetIsActivated(u8 target)
 {
-    i32 result;
+    s32 result;
 
     result = -1;
 
@@ -923,7 +923,7 @@ i32 ChozoStatueHintCheckTargetIsActivated(u8 target)
         else if (sChozoStatueTargetConditions[target][0] == CHOZO_STATUE_HINT_CONDITION_TYPE_EVENT)
         {
             // Check event is set
-            result = (i8)EventFunction(EVENT_ACTION_CHECKING, sChozoStatueTargetConditions[target][1]);
+            result = (s8)EventFunction(EVENT_ACTION_CHECKING, sChozoStatueTargetConditions[target][1]);
         }
 
         // Condition needs to be false (doesn't have item or item not set) for the target to be active, so we flip the result
@@ -940,7 +940,7 @@ i32 ChozoStatueHintCheckTargetIsActivated(u8 target)
  */
 void PauseScreenCheckActivatedTargets(void)
 {
-    i32 i;
+    s32 i;
 
     // Clear
     PAUSE_SCREEN_DATA.activatedTargets = 0;
@@ -948,7 +948,7 @@ void PauseScreenCheckActivatedTargets(void)
     for (i = 0; i < 16; i++)
     {
         // Check
-        if ((i8)ChozoStatueHintCheckTargetIsActivated(i) > 0)
+        if ((s8)ChozoStatueHintCheckTargetIsActivated(i) > 0)
         {
             // Add to list
             PAUSE_SCREEN_DATA.activatedTargets |= 1 << i;
@@ -962,7 +962,7 @@ void PauseScreenCheckActivatedTargets(void)
  */
 void PauseScreenCheckAreasWithTargets(void)
 {
-    i32 i;
+    s32 i;
 
     // Clear
     PAUSE_SCREEN_DATA.areasWithHints = 0;
@@ -970,7 +970,7 @@ void PauseScreenCheckAreasWithTargets(void)
     for (i = 0; i < 16; i++)
     {
         // Check
-        if ((i8)ChozoStatueHintCheckTargetIsActivated(i) > 0)
+        if ((s8)ChozoStatueHintCheckTargetIsActivated(i) > 0)
         {
             // Add target area to list
             PAUSE_SCREEN_DATA.areasWithHints |= 1 << sChozoStatueTargets[i].targetArea;
@@ -984,7 +984,7 @@ void PauseScreenCheckAreasWithTargets(void)
  */
 void PauseScreenDrawBossFlames(void)
 {
-    i32 i;
+    s32 i;
 
     // Clear boss flame data
     BitFill(3, 0, &PAUSE_SCREEN_DATA.bossFlameData, sizeof(PAUSE_SCREEN_DATA.bossFlameData), 32);

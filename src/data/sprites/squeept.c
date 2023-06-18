@@ -1,7 +1,7 @@
 #include "data/sprites/squeept.h"
 #include "macros.h"
 
-const i16 sSqueeptRisingMovement[65] = {
+const s16 sSqueeptRisingMovement[65] = {
     -18, -18, -18, -18, -16, -16, -16, -16, -14,
     -14, -14, -14, -12, -12, -12, -12, -12, -12,
     -12, -12, -11, -11, -11, -11, -10, -10, -10,
@@ -11,7 +11,7 @@ const i16 sSqueeptRisingMovement[65] = {
     -2, -2, -2, -2, SHORT_MAX
 };
 
-const i16 sSqueeptFallingMovement[16] = {
+const s16 sSqueeptFallingMovement[16] = {
     4, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14,
     14, 16, 16, SHORT_MAX
 };

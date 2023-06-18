@@ -416,10 +416,10 @@ void TransparencyUpdateBLDCNT(u8 action, u16 value)
 void TransparencySpriteUpdateBLDY(u8 value, u32 delay, u32 intensity)
 {
     u8 above;
-    i32 _delay;
-    i32 _intensity;
+    s32 _delay;
+    s32 _intensity;
 
-    _delay = (i8)delay;
+    _delay = (s8)delay;
     _intensity = (u8)intensity;
     above = FALSE;
     
@@ -449,13 +449,13 @@ void TransparencySpriteUpdateBLDY(u8 value, u32 delay, u32 intensity)
  * @param delay Delay
  * @param intensity Intensity
  */
-void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, i32 delay, u32 intensity)
+void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, s32 delay, u32 intensity)
 {
     u32 invalid;
-    i32 _delay;
+    s32 _delay;
     u32 _intensity;
 
-    _delay = (i8)delay;
+    _delay = (s8)delay;
     _intensity = (u8)intensity;
 
     if (eva > 16)
@@ -491,13 +491,13 @@ void TransparencySpriteUpdateBLDALPHA(u8 eva, u8 evb, i32 delay, u32 intensity)
  * @param delay Delay
  * @param intensity Intensity
  */
-void TransparencyUpdateBLDY(u8 value, i32 delay, u32 intensity)
+void TransparencyUpdateBLDY(u8 value, s32 delay, u32 intensity)
 {
     u8 invalid;
-    i32 _delay;
+    s32 _delay;
     u32 _intensity;
 
-    _delay = (i8)delay;
+    _delay = (s8)delay;
     _intensity = (u8)intensity;
 
     if (value > 16)
@@ -523,13 +523,13 @@ void TransparencyUpdateBLDY(u8 value, i32 delay, u32 intensity)
  * @param delay Delay
  * @param intensity Intensity
  */
-void TransparencyUpdateBLDALPHA(u8 eva, u8 evb, i8 delay, u32 intensity)
+void TransparencyUpdateBLDALPHA(u8 eva, u8 evb, s8 delay, u32 intensity)
 {
     u32 invalid;
-    i32 _delay;
+    s32 _delay;
     u32 _intensity;
 
-    _delay = (i8)delay;
+    _delay = (s8)delay;
     _intensity = (u8)intensity;
 
     if (eva > 16)
@@ -589,7 +589,7 @@ void TransparencyApplyNewEffects(void)
  */
 void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
 {
-    i32 newValue;
+    s32 newValue;
 
     newValue = FALSE;
     if (gWrittenToBLDALPHA != 0)
@@ -672,7 +672,7 @@ void TransparencyApplyNewBLDALPHA(struct BldalphaData* pBldalpha)
  */
 void TransparencyApplyNewBLDY(struct BldyData* pBldy)
 {
-    i32 newValue;
+    s32 newValue;
 
     newValue = FALSE;
     if (gWrittenToBLDY >= 0)
@@ -734,9 +734,9 @@ void TransparencyApplyNewBLDY(struct BldyData* pBldy)
  */
 void unk_55e60(void)
 {
-    i32 coef;
-    i32 eva;
-    i32 evb;
+    s32 coef;
+    s32 eva;
+    s32 evb;
 
     switch (gCurrentPowerBomb.animationState)
     {

@@ -377,7 +377,7 @@ void EraseSramInit(void)
  */
 void EraseSramResetOAM(void)
 {
-    i32 i;
+    s32 i;
     
     gOamXOffset_NonGameplay = 0;
     gOamYOffset_NonGameplay = 0;

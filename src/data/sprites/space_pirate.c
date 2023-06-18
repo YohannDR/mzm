@@ -1,23 +1,23 @@
 #include "data/sprites/space_pirate.h"
 #include "macros.h"
 
-const i16 sSpacePirateWallJumpingVelocity[8] = {
+const s16 sSpacePirateWallJumpingVelocity[8] = {
     -2, -1, 0, 4, 8, 12, 16, 20
 };
 
-const i16 sSpacePirate_2e1030[11] = {
+const s16 sSpacePirate_2e1030[11] = {
     -8, -4, 0, 4, 8, 12, 16, 20, 20, 20, 20
 };
 
-const i16 sSpacePirateJumpingVelocity[10] = {
+const s16 sSpacePirateJumpingVelocity[10] = {
     -12, -8, -4, 0, 4, 8, 12, 16, 20, 20
 };
 
-const i16 sSpacePirate_2e105a[11] = {
+const s16 sSpacePirate_2e105a[11] = {
     -16, -12, -8, -4, -2, 0, 4, 8, 12, 16, 20
 };
 
-const i16 sSpacePirate_2e1070[12] = {
+const s16 sSpacePirate_2e1070[12] = {
     -32, -28, -24, -20, -16, -8, -4, 8, 16, 24, 28, 32
 };
 

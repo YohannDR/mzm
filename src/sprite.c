@@ -180,8 +180,8 @@ void SpriteUpdateAnimation(struct SpriteData* pSprite)
 void SpriteDrawAll_2(void)
 {
     struct SpriteData* pSprite;
-    i32 i;
-    i32 drawOrder;
+    s32 i;
+    s32 drawOrder;
     u32 drawStatus;
     u32 checkStatus;
     u32 modeCheck;
@@ -234,8 +234,8 @@ void SpriteDrawAll_2(void)
 void SpriteDrawAll(void)
 {
     struct SpriteData* pSprite;
-    i32 i;
-    i32 drawOrder;
+    s32 i;
+    s32 drawOrder;
     u32 drawStatus;
     u32 checkStatus;
 
@@ -274,8 +274,8 @@ void SpriteDrawAll(void)
 void SpriteDrawAll_Upper(void)
 {
     struct SpriteData* pSprite;
-    i32 i;
-    i32 drawOrder;
+    s32 i;
+    s32 drawOrder;
     u32 drawStatus;
     u32 checkStatus;
 
@@ -310,7 +310,7 @@ void SpriteDrawAll_Upper(void)
  * @param pSprite Sprite data pointer
  * @param slot Ram slot
  */
-void SpriteDraw(struct SpriteData* pSprite, i32 slot)
+void SpriteDraw(struct SpriteData* pSprite, s32 slot)
 {
     const u16* src;
     u16* dst;
@@ -324,21 +324,21 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
     u16 dy;
     u16 dmy;
 
-    i16 actualY;
-    i16 actualX;
-    i16 yScaling;
-    i16 xScaling;
-    i32 y;
-    i32 x;
-    i32 unk_2;
-    i32 unk_3;
-    i32 tmpX;
-    i32 tmpY;
-    i32 scaledX;
-    i32 scaledY;
+    s16 actualY;
+    s16 actualX;
+    s16 yScaling;
+    s16 xScaling;
+    s32 y;
+    s32 x;
+    s32 unk_2;
+    s32 unk_3;
+    s32 tmpX;
+    s32 tmpY;
+    s32 scaledX;
+    s32 scaledY;
 
     u16 status_unk3;
-    i32 i;
+    s32 i;
     u16 partCount;
     
     u32 unk_0;
@@ -531,34 +531,34 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             unk_1 *= 4;
         
             // Get current positions
-            y = (i16)(part1 + yPosition) & 0xFF;
-            x = (i16)(part2 + xPosition) & 0x1FF;
+            y = (s16)(part1 + yPosition) & 0xFF;
+            x = (s16)(part2 + xPosition) & 0x1FF;
         
-            tmpY = (i16)(y - yPosition + unk_0);
-            tmpX = (i16)(x - xPosition + unk_1);
-            tmpX = (i16)((tmpX * scaling / 256) - tmpX);
-            tmpY = (i16)((tmpY * scaling / 256) - tmpY);
+            tmpY = (s16)(y - yPosition + unk_0);
+            tmpX = (s16)(x - xPosition + unk_1);
+            tmpX = (s16)((tmpX * scaling / 256) - tmpX);
+            tmpY = (s16)((tmpY * scaling / 256) - tmpY);
         
-            x = (i16)(x + tmpX);
-            y = (i16)(y + tmpY);
+            x = (s16)(x + tmpX);
+            y = (s16)(y + tmpY);
         
             // Offset to 0;0 temporarly to apply the rotation
-            unk_2 = (i16)(x - xPosition + unk_1);
-            unk_3 = (i16)(y - yPosition + unk_0);
+            unk_2 = (s16)(x - xPosition + unk_1);
+            unk_3 = (s16)(y - yPosition + unk_0);
         
             // Rotation matrix
-            x = (i16)((unk_2 * cos(rotation) - unk_3 * sin(rotation)) >> 8);
-            y = (i16)((unk_2 * sin(rotation) + unk_3 * cos(rotation)) >> 8);
+            x = (s16)((unk_2 * cos(rotation) - unk_3 * sin(rotation)) >> 8);
+            y = (s16)((unk_2 * sin(rotation) + unk_3 * cos(rotation)) >> 8);
         
             if (doubleSize)
             {
-                x = (i16)(x - unk_1 * 2);
-                y = (i16)(y - unk_0 * 2);
+                x = (s16)(x - unk_1 * 2);
+                y = (s16)(y - unk_0 * 2);
             }
             else
             {
-                x = (i16)(x - unk_1);
-                y = (i16)(y - unk_0);
+                x = (s16)(x - unk_1);
+                y = (s16)(y - unk_0);
             }
         
             // Rotated position + position
@@ -747,16 +747,16 @@ void SpriteLoadSpriteset(void)
 {
     // https://decomp.me/scratch/59czd
 
-    i32 i;
-    i32 j;
-    i32 spriteset;
+    s32 i;
+    s32 j;
+    s32 spriteset;
     u32 spriteID;
     u32 gfxSlot;
     u32 prevGfxSlot;
     u16 nbrRows;
 
-    i32 ctrl_1;
-    i32 ctrl_2;
+    s32 ctrl_1;
+    s32 ctrl_2;
 
     for (i = 0; i < 15; i++)
     {
@@ -839,7 +839,7 @@ void SpriteLoadPAL(u8 spriteID, u8 row, u8 len)
  */
 void SpriteClearData(void)
 {
-    i32 i;
+    s32 i;
 
     // Clear sprites
     for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)

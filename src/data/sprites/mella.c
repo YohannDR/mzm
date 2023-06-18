@@ -1,7 +1,7 @@
 #include "data/sprites/mella.h"
 #include "macros.h"
 
-const i16 sMellaIdleYMovement[65] = {
+const s16 sMellaIdleYMovement[65] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1,
     2, 2, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0,
     0, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1, 0, -1, 0,
@@ -9,7 +9,7 @@ const i16 sMellaIdleYMovement[65] = {
     0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
-const i16 sMellaIdleXMovement[49] = {
+const s16 sMellaIdleXMovement[49] = {
     1, 0, 1, 0, 1, 1, 1, 2, 2, 1, 1, 1, 0, 1, 0,
     1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1, 0,
     -1, 0, -1, 0, -1, 0, -1, -1, -1, -2, -2, -1,

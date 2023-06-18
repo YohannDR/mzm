@@ -852,8 +852,8 @@ void SovaFalling(void)
 {
     u16 oldY;
     u8 offset;
-    i32 yMovement;
-    i32 newMovement;
+    s32 yMovement;
+    s32 newMovement;
     u32 blockTop;
 
     oldY = gCurrentSprite.yPosition;

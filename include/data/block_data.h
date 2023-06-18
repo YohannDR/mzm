@@ -33,7 +33,7 @@ extern const u16 sHatchBehaviors[MAX_AMOUNT_OF_HATCH_TYPES][2];
 
 extern const u16 sBldalphaValuesForClipdata[11];
 
-extern const i8 sSubBombChainPositionOffset[4][4];
+extern const s8 sSubBombChainPositionOffset[4][4];
 
 extern const u8 sHatchRelated_345cee[4][2];
 

@@ -4,25 +4,25 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sCrocomireMultiSpriteData_Idle_Frame0[18];
+extern const s16 sCrocomireMultiSpriteData_Idle_Frame0[18];
 
-extern const i16 sCrocomireMultiSpriteData_Idle_Frame1[18];
+extern const s16 sCrocomireMultiSpriteData_Idle_Frame1[18];
 
-extern const i16 sCrocomireMultiSpriteData_Screaming_Frame0[18];
+extern const s16 sCrocomireMultiSpriteData_Screaming_Frame0[18];
 
-extern const i16 sCrocomireMultiSpriteData_Screaming_Frame1[18];
+extern const s16 sCrocomireMultiSpriteData_Screaming_Frame1[18];
 
-extern const i16 sCrocomireMultiSpriteData_WalkingForward_Frame0[18];
+extern const s16 sCrocomireMultiSpriteData_WalkingForward_Frame0[18];
 
-extern const i16 sCrocomireMultiSpriteData_WalkingForward_Frame1[18];
+extern const s16 sCrocomireMultiSpriteData_WalkingForward_Frame1[18];
 
-extern const i16 sCrocomireMultiSpriteData_WalkingBackwards_Frame0[18];
+extern const s16 sCrocomireMultiSpriteData_WalkingBackwards_Frame0[18];
 
-extern const i16 sCrocomireMultiSpriteData_WalkingBackwards_Frame1[18];
+extern const s16 sCrocomireMultiSpriteData_WalkingBackwards_Frame1[18];
 
-extern const i16 sCrocomireMultiSpriteData_Dying_Frame0[18];
+extern const s16 sCrocomireMultiSpriteData_Dying_Frame0[18];
 
-extern const i16 sCrocomireMultiSpriteData_Angry_Frame0[18];
+extern const s16 sCrocomireMultiSpriteData_Angry_Frame0[18];
 
 extern const struct FrameData sCrocomireMultiSpriteData_Idle[3];
 

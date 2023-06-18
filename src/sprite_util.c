@@ -277,13 +277,13 @@ void SpriteUtilSamusAndSpriteCollision(void)
 
                     collisionFlags = SPRITE_COLLISION_FLAG_NONE;
 
-                    if ((i32)(verticalCollisionOffset - 0x4) > samusBottom)
+                    if ((s32)(verticalCollisionOffset - 0x4) > samusBottom)
                     {
                         if (pData->yVelocity <= 0x18)
                             collisionFlags = SPRITE_COLLISION_FLAG_ON_TOP;
                     }
 
-                    if ((i32)(verticalCollisionOffset + 0x4) < samusTop)
+                    if ((s32)(verticalCollisionOffset + 0x4) < samusTop)
                         collisionFlags |= SPRITE_COLLISION_FLAG_ON_BOTTOM;
 
                     if (horizontalCollisionOffset >= previousX)
@@ -343,7 +343,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                             case SSC_SOLID:
                                 if (!SpriteUtilCheckPullingSelfUp() && SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
                                 {
-                                    if ((i32)(samusY - 0x18) < spriteTop)
+                                    if ((s32)(samusY - 0x18) < spriteTop)
                                     {
                                         SpriteUtilCheckCollisionAtPosition(spriteTop + 0x1 + gSamusPhysics.drawDistanceTopOffset, samusX);
                                         if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity <= 0x0)
@@ -430,7 +430,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                                     pSprite->ignoreSamusCollisionTimer = 0xF;
                                     gIgnoreSamusAndSpriteCollision = TRUE;
                                 }
-                                else if ((i32)(samusY - 0x18) < spriteTop && !SpriteUtilCheckPullingSeftUp() && pData->invincibilityTimer < 0x26)
+                                else if ((s32)(samusY - 0x18) < spriteTop && !SpriteUtilCheckPullingSeftUp() && pData->invincibilityTimer < 0x26)
                                 {
                                     SpriteUtilCheckCollisionAtPosition(spriteTop + 0x1 + gSamusPhysics.drawDistanceTopOffset, samusX);
                                     if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 0x1)
@@ -822,17 +822,17 @@ u32 SpriteUtilCheckVerticalCollisionAtPosition(u16 yPosition, u16 xPosition)
     switch (clipdata & 0xFF)
     {
         case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
-            blockY = (i16)((yPosition & BLOCK_POSITION_FLAG) - ((xPosition & SUB_PIXEL_POSITION_FLAG) - 0x3f));
+            blockY = (s16)((yPosition & BLOCK_POSITION_FLAG) - ((xPosition & SUB_PIXEL_POSITION_FLAG) - 0x3f));
             gPreviousVerticalCollisionCheck = COLLISION_RIGHT_STEEP_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
-            blockY = (i16)((yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 0x1) - 0x3F));
+            blockY = (s16)((yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 0x1) - 0x3F));
             gPreviousVerticalCollisionCheck = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
-            blockY = (i16)((yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 0x1) - 0x1F));
+            blockY = (s16)((yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 0x1) - 0x1F));
             gPreviousVerticalCollisionCheck = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
             break;
 
@@ -885,17 +885,17 @@ u32 SpriteUtilCheckVerticalCollisionAtPositionSlopes(u16 yPosition, u16 xPositio
     switch (clipdata & 0xFF)
     {
         case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
-            blockY = (i16)((yPosition & 0xffc0) - ((xPosition & 0x3f) - 0x3f));
+            blockY = (s16)((yPosition & 0xffc0) - ((xPosition & 0x3f) - 0x3f));
             collision = COLLISION_RIGHT_STEEP_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
-            blockY = (i16)((yPosition & 0xFFC0) - (((xPosition & 0x3f) >> 0x1) - 0x3F));
+            blockY = (s16)((yPosition & 0xFFC0) - (((xPosition & 0x3f) >> 0x1) - 0x3F));
             collision = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
-            blockY = (i16)((yPosition & 0xFFC0) - (((xPosition & 0x3f) >> 0x1) - 0x1F));
+            blockY = (s16)((yPosition & 0xFFC0) - (((xPosition & 0x3f) >> 0x1) - 0x1F));
             collision = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
             break;
 
@@ -1085,7 +1085,7 @@ u32 SpriteUtilGetCollisionAtPosition(u32 yPosition, u32 xPosition)
 void SpriteUtilCurrentSpriteFall(void)
 {
     u32 blockTopEdge;
-    i32 movement;
+    s32 movement;
     u32 offset;
 
     blockTopEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
@@ -1201,9 +1201,9 @@ void SpriteUtilMakeSpriteFaceAwawFromSamusDirection(void)
  * 
  * @param movement Movement
  */
-void unk_f978(i16 movement)
+void unk_f978(s16 movement)
 {
-    i32 velocity;
+    s32 velocity;
 
     velocity = movement;
     SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
@@ -1211,12 +1211,12 @@ void unk_f978(i16 movement)
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
     {
         if (gPreviousCollisionCheck == COLLISION_RIGHT_STEEP_FLOOR_SLOPE)
-            velocity = (i16)(velocity * 2 / 3);
+            velocity = (s16)(velocity * 2 / 3);
     }
     else
     {
         if (gPreviousCollisionCheck == COLLISION_LEFT_STEEP_FLOOR_SLOPE)
-            velocity = (i16)(velocity * 2 / 3);
+            velocity = (s16)(velocity * 2 / 3);
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -1230,9 +1230,9 @@ void unk_f978(i16 movement)
  * 
  * @param movement Movement
  */
-void unk_f9e7(i16 movement)
+void unk_f9e7(s16 movement)
 {
-    i32 velocity;
+    s32 velocity;
 
     velocity = movement;
     SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
@@ -1240,16 +1240,16 @@ void unk_f9e7(i16 movement)
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
         if (gPreviousCollisionCheck == COLLISION_RIGHT_STEEP_FLOOR_SLOPE)
-            velocity = (i16)(velocity * 2 / 3);
+            velocity = (s16)(velocity * 2 / 3);
         else if (gPreviousCollisionCheck == COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE)
-            velocity = (i16)(velocity * 3 / 4);
+            velocity = (s16)(velocity * 3 / 4);
     }
     else
     {
         if (gPreviousCollisionCheck == COLLISION_LEFT_STEEP_FLOOR_SLOPE)
-            velocity = (i16)(velocity * 2 / 3);
+            velocity = (s16)(velocity * 2 / 3);
         else if (gPreviousCollisionCheck == COLLISION_LEFT_SLIGHT_FLOOR_SLOPE)
-            velocity = (i16)(velocity * 3 / 4);
+            velocity = (s16)(velocity * 3 / 4);
     }
 
     if (velocity == 0)
@@ -1261,11 +1261,11 @@ void unk_f9e7(i16 movement)
         gCurrentSprite.xPosition -= velocity;
 }
 
-u8 SpriteUtilMakeSpriteFaceSamusRotation(i16 oamRotation, i16 samusY, i16 samusX, i16 spriteY, i16 spriteX)
+u8 SpriteUtilMakeSpriteFaceSamusRotation(s16 oamRotation, s16 samusY, s16 samusX, s16 spriteY, s16 spriteX)
 {
     // https://decomp.me/scratch/QMDVm
 
-    i16 var_0;
+    s16 var_0;
     u16 var_1;
     u16 intensity;
 

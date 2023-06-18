@@ -126,7 +126,7 @@ void RidleySpawnUpdateRidley(struct CutsceneOamData* pOam)
  */
 u8 RidleySpawnHelmetReflection(void)
 {    
-    i32 velocity;
+    s32 velocity;
 
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {

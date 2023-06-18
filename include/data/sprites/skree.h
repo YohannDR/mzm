@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sSkreeFallingSpeed[8];
+extern const s16 sSkreeFallingSpeed[8];
 
 extern const u32 sSkreeGreenGfx[264];
 extern const u16 sSkreeGreenPAL[16];

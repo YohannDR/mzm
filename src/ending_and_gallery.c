@@ -40,7 +40,7 @@ void EndingImageUpdateLettersSpawnDelay(u32 offset)
  */
 void EndingImageLoadTextOAM(u32 set)
 {
-    i32 i;
+    s32 i;
 
     if (ENDING_DATA.language == LANGUAGE_HIRAGANA)
     {
@@ -137,7 +137,7 @@ void EndingImageLoadTextOAM(u32 set)
  */
 void EndingImageDisplayLinePermanently(u32 line)
 {
-    i32 i;
+    s32 i;
 
     if (ENDING_DATA.language == LANGUAGE_HIRAGANA)
     {
@@ -168,18 +168,18 @@ void EndingImageLoadIGTAndPercentageGraphics(void)
 {
     // https://decomp.me/scratch/vLTLr
 
-    i32 hoursTens;
-    i32 hoursOnes;
-    i32 minutesTens;
-    i32 minutesOnes;
-    i32 secondsTens;
-    i32 secondsOnes;
+    s32 hoursTens;
+    s32 hoursOnes;
+    s32 minutesTens;
+    s32 minutesOnes;
+    s32 secondsTens;
+    s32 secondsOnes;
 
-    i32 percentageHundreds;
-    i32 percentageTens;
-    i32 percentageOnes;
+    s32 percentageHundreds;
+    s32 percentageTens;
+    s32 percentageOnes;
 
-    i32 offset;
+    s32 offset;
 
     hoursTens = 0;
     hoursOnes = gInGameTimer.hours;
@@ -604,7 +604,7 @@ u8 CreditsDisplayLine(u32 line)
 u8 CreditsDisplay(void)
 {
     u8 ended;
-    i32 temp;
+    s32 temp;
     u8 result;
 
     u8 unk_0;
@@ -1334,11 +1334,11 @@ void EndingImageDisplayText(void)
 {
     u16* dst;
     const u16* src;
-    i32 i;
-    i32 nextSlot;
-    i32 currSlot;
+    s32 i;
+    s32 nextSlot;
+    s32 currSlot;
     u16 part;
-    i32 palette;
+    s32 palette;
 
     dst = (u16*)gOamData;
     nextSlot = 0;
@@ -1928,7 +1928,7 @@ u32 GalleryDisplay(void)
 {
     u8 endingNbr;
     u32 ended;
-    i32 velocity;
+    s32 velocity;
     u32 change;
     u8 complPercent;
     u8 bit;

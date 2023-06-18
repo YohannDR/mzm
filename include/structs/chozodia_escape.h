@@ -29,9 +29,9 @@ struct ChozodiaEscapeData {
     u16 oamYPositions[CHOZODIA_ESCAPE_MAX_OBJECTS];
     u8 unk_3E[CHOZODIA_ESCAPE_MAX_OBJECTS];
 
-    i16 oamXOffset;
+    s16 oamXOffset;
     u8 padding_46[8];
-    i16 oamYOffset;
+    s16 oamYOffset;
 
     u8 padding_51[18];
     u16 oamScaling;

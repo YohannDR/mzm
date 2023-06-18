@@ -4,7 +4,7 @@
 
 // 326ca8
 
-const i16 sTumblingMissileSpeed[16] = {
+const s16 sTumblingMissileSpeed[16] = {
     -12, -10, -8, -6, -4, -2, 0, 0, 1, 2, 4, 8, 12, 16, 20, SHORT_MAX
 };
 

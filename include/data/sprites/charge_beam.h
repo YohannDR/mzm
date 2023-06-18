@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sChargeBeamIdleYMovement[66];
+extern const s16 sChargeBeamIdleYMovement[66];
 
 extern const u32 sChargeBeamGfx[243];
 extern const u16 sChargeBeamPAL[16];

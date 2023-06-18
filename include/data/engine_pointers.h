@@ -23,7 +23,7 @@ extern const struct RoomEntryROM* const sAreaRoomEntryPointers[MAX_AMOUNT_OF_ARE
 
 // 75fd88
 
-extern const i8 sWaterLoopCounterArray[8][2];
+extern const s8 sWaterLoopCounterArray[8][2];
 
 extern const BlockFunc_T sNonReformDestroyFunctionPointers[5];
 
@@ -50,7 +50,7 @@ typedef u8 (*TourianEscapeFunc_T)(void);
 
 extern const TourianEscapeFunc_T sTourianEscapeFunctionPointers[2];
 
-extern const i8* const sCutsceneScreenShakeOffsetSetPointers[4];
+extern const s8* const sCutsceneScreenShakeOffsetSetPointers[4];
 
 extern const u8 sCutsceneScreenShakeOffsetSetSizes[4];
 

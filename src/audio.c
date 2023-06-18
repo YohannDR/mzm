@@ -10,8 +10,8 @@ void UpdateMusic(void)
     // https://decomp.me/scratch/bxTYQ
 
     u32 var_0;
-    i16 var_1;
-    i16 var_2;
+    s16 var_1;
+    s16 var_2;
     u32 var_3;
     u16 var_4;
     u32 var_5;
@@ -259,7 +259,7 @@ void UpdateTrack(struct TrackData* pTrack)
     struct TrackVariables* pVariables;
     u8 var_0;
     u8 var_1;
-    i16 var_2;
+    s16 var_2;
 
     if (pTrack->occupied)
         return;
@@ -308,12 +308,12 @@ void UpdateTrack(struct TrackData* pTrack)
                                     if (pVariables->pChannel->unk_0 != 0)
                                     {
                                         pVariables->unk_16 += pVariables->unk_10;
-                                        if ((i8)(pVariables->unk_16 - 0x40) < 0)
+                                        if ((s8)(pVariables->unk_16 - 0x40) < 0)
                                             var_2 = pVariables->unk_16;
                                         else
                                             var_2 = 0x80 - (u8)pVariables->unk_16;
 
-                                        if (var_2 != (i8)pVariables->unk_13)
+                                        if (var_2 != (s8)pVariables->unk_13)
                                         {
                                             pVariables->unk_13 = (var_2 * (pVariables->unk_11 + 1)) >> 7;
                                             unk_1c3c(pVariables);
@@ -325,12 +325,12 @@ void UpdateTrack(struct TrackData* pTrack)
                                     if (pVariables->pSoundPSG != NULL && pVariables->pSoundPSG->unk_0 != 0)
                                     {
                                         pVariables->unk_16 += pVariables->unk_10;
-                                        if ((i8)(pVariables->unk_16 - 0x40) < 0)
+                                        if ((s8)(pVariables->unk_16 - 0x40) < 0)
                                             var_2 = pVariables->unk_16;
                                         else
                                             var_2 = 0x80 - (u8)pVariables->unk_16;
 
-                                        if (var_2 != (i8)pVariables->unk_13)
+                                        if (var_2 != (s8)pVariables->unk_13)
                                         {
                                             pVariables->unk_13 = (var_2 * (pVariables->unk_11 + 1)) >> 7;
                                             unk_1c3c(pVariables);
@@ -344,7 +344,7 @@ void UpdateTrack(struct TrackData* pTrack)
                     while (pVariables->maybe_delayBeforeStart == 0)
                     {
                         var_0 = *pVariables->pRawData;
-                        if ((i8)var_0 >= 0)
+                        if ((s8)var_0 >= 0)
                             var_0 = pVariables->unk_3;
                         else if (var_0 > 0xBC)
                         {
@@ -362,19 +362,19 @@ void UpdateTrack(struct TrackData* pTrack)
                             if (pVariables->unk_14 != 0)
                                 pVariables->unk_15 = pVariables->unk_14;
 
-                            if ((i8)var_0 >= 0)
+                            if ((s8)var_0 >= 0)
                             {
                                 pVariables->unk_1 = var_0;
                                 pVariables->pRawData++;
 
                                 var_0 = *pVariables->pRawData;
-                                if ((i8)var_0 >= 0)
+                                if ((s8)var_0 >= 0)
                                 {
                                     pVariables->unk_F = var_0;
                                     pVariables->pRawData++;
                                 
                                     var_0 = *pVariables->pRawData;
-                                    if ((i8)var_0 >= 0)
+                                    if ((s8)var_0 >= 0)
                                     {
                                         pVariables->unk_E += var_0;
                                         pVariables->pRawData++;
@@ -543,9 +543,9 @@ void unk_1c18(struct TrackVariables* pVariables)
 void unk_1c3c(struct TrackVariables* pVariables)
 {
     struct SoundChannel* pChannel;
-    i32 frequency;
+    s32 frequency;
     u16 midiKey;
-    i16 tmp;
+    s16 tmp;
 
     pChannel = pVariables->pChannel;
 
@@ -593,18 +593,18 @@ void unk_1c3c(struct TrackVariables* pVariables)
  * @param pVariables Track variables pointer
  * @param param_2 To document
  */
-void unk_1ccc(struct TrackVariables* pVariables, i16 param_2)
+void unk_1ccc(struct TrackVariables* pVariables, s16 param_2)
 {
     struct PSGSoundData* pSound;
     u16 var_0;
-    i16 tmp;
+    s16 tmp;
 
     pSound = pVariables->pSoundPSG;
 
     if (pVariables->unk_12 == 1)
     {
         unk_4f10(pVariables);
-        pSound->unk_12 = (pSound->unk_19 + (i32)pVariables->unk_13 / sUnk_808cc4d[param_2]) * 16;
+        pSound->unk_12 = (pSound->unk_19 + (s32)pVariables->unk_13 / sUnk_808cc4d[param_2]) * 16;
         pSound->unk_F |= 0x20;
     }
     else if (pVariables->unk_12 == 0)
@@ -650,9 +650,9 @@ void unk_1d5c(struct TrackVariables* pVariables)
 void unk_1d78(struct TrackVariables* pVariables)
 {
     struct SoundChannel* pChannel;
-    i32 frequency;
+    s32 frequency;
     u16 midiKey;
-    i16 tmp;
+    s16 tmp;
 
     for (pChannel = pVariables->pChannel; pChannel != NULL; pChannel = pChannel->pChannel2)
     {
@@ -695,7 +695,7 @@ void unk_1ddc(struct TrackVariables* pVariables)
 void unk_1de8(struct TrackVariables* pVariables)
 {
     u16 var_0;
-    i16 tmp;
+    s16 tmp;
 
     var_0 = pVariables->unk_17 + pVariables->pSoundPSG->unk_1C;
     tmp = var_0;
@@ -850,7 +850,7 @@ void unk_1fe0(struct TrackData* pTrack, struct TrackVariables* pVariables)
 void unk_2030(struct PSGSoundData* pSound, struct TrackVariables* pVariables, u32 param_3)
 {
     u16 var_0;
-    i16 tmp;
+    s16 tmp;
 
     pSound->unk_16 = param_3;
     pSound->unk_1 = pVariables->channel;
@@ -1027,7 +1027,7 @@ void unk_21b0(struct TrackData* pTrack, struct TrackVariables* pVariables)
  */
 void unk_222c(struct TrackVariables* pVariables)
 {
-    i8 i;
+    s8 i;
 
     pVariables->pRawData++;
 
@@ -1295,7 +1295,7 @@ void unk_2460(struct TrackVariables* pVariables)
     struct PSGSoundData* pSound;
     u32 var_0;
 
-    if ((i8)*pVariables->pRawData >= 0)
+    if ((s8)*pVariables->pRawData >= 0)
     {
         var_0 = *pVariables->pRawData;
         pVariables->unk_1 = var_0;

@@ -220,7 +220,7 @@ void SidehopperJumpingGround(void)
 {
     u8 colliding;
     u8 offset;
-    i32 movement;
+    s32 movement;
     u32 blockTop;
 
     colliding = FALSE;
@@ -337,7 +337,7 @@ void SidehopperJumpingCeiling(void)
 {
     u8 colliding;
     u8 offset;
-    i32 movement;
+    s32 movement;
     u32 blockTop;
 
     colliding = FALSE;
@@ -465,7 +465,7 @@ void SidehopperFallingGround(void)
     u8 colliding;
     u32 blockTop;
     u8 offset;
-    i32 movement;
+    s32 movement;
 
     colliding = FALSE;
 
@@ -519,7 +519,7 @@ void SidehopperFallingCeiling(void)
     u8 colliding;
     u32 blockTop;
     u8 offset;
-    i32 movement;
+    s32 movement;
 
     colliding = FALSE;
 

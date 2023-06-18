@@ -30,7 +30,7 @@ void WaterDrop(void)
 {
     u16 offset;
     u32 block;
-    i32 movement;
+    s32 movement;
 
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
 
@@ -142,9 +142,9 @@ void WaterDrop(void)
                 gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn;
 
                 if (gSpriteRNG & 0x1)
-                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + ((i32)(gSpriteRNG + 0x1) >> 1);
+                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + ((s32)(gSpriteRNG + 0x1) >> 1);
                 else
-                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - ((i32)(gSpriteRNG + 0x1) >> 1);
+                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - ((s32)(gSpriteRNG + 0x1) >> 1);
             }
     }
 }

@@ -193,7 +193,7 @@ void EscapeShip(void)
 
     u16 yPosition;
     u16 xPosition;
-    i32 movement;
+    s32 movement;
     u8 offset;
 
     yPosition = gCurrentSprite.yPosition;

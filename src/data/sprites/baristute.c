@@ -2,11 +2,11 @@
 
 #include "macros.h"
 
-const i16 sBaristuteFallingYVelocity[8] = {
+const s16 sBaristuteFallingYVelocity[8] = {
     4, 8, 12, 16, 20, 24, 28, SHORT_MAX
 };
 
-const i16 sBaristuteJumpingYVelocity[10] = {
+const s16 sBaristuteJumpingYVelocity[10] = {
     -12, -16, -16, -8, -4, 0, 12, 18, 24, 32
 };
 

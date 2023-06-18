@@ -1,7 +1,7 @@
 #include "data/sprites/gunship.h"
 #include "macros.h"
 
-const i16 sGunshipTakingOffYVelocity[153] = {
+const s16 sGunshipTakingOffYVelocity[153] = {
 0, 0, -1, 0, 0, -1, 0, 0, 0, -1, 0, -1, 0, -1, 0,
 -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -2, -1,
 -2, -1, -2, -1, -2, -2, -2, -2, -2, -2, -2, -2,
@@ -15,7 +15,7 @@ const i16 sGunshipTakingOffYVelocity[153] = {
 -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, 0, 0, 0, 0, SHORT_MAX
 };
 
-const i16 sGunshipFlyingYVelocity[22] = {
+const s16 sGunshipFlyingYVelocity[22] = {
     -3, -3, -3, -3, -4, -4, -4, -4, -5, -5, -6, -6,
     -7, -7, -8, -12, -16, -20, -24, -28, -32, SHORT_MAX
 };

@@ -1,7 +1,7 @@
 #include "data/sprites/reo.h"
 #include "macros.h"
 
-const i16 sReoIdleYMovement[65] = {
+const s16 sReoIdleYMovement[65] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1,
     2, 2, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0,
     0, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1, 0, -1, 0,
@@ -9,7 +9,7 @@ const i16 sReoIdleYMovement[65] = {
     0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
-const i16 sReoIdleXMovement[81] = {
+const s16 sReoIdleXMovement[81] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1,
     1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 0, 1,
     0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, -1,

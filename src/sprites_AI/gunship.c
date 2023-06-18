@@ -671,7 +671,7 @@ void GunshipStartEscaping(void)
 void GunshipTakingOff(void)
 {
     u8 offset;
-    i32 movement;
+    s32 movement;
 
     GunshipFlickerFlames();
 
@@ -705,7 +705,7 @@ void GunshipTakingOff(void)
 void GunshipFlying(void)
 {
     u8 offset;
-    i32 movement;
+    s32 movement;
 
     if (--gCurrentSprite.timer == 0x0)
         gCurrentSprite.pose = GUNSHIP_POSE_DO_NOTHING_ESCAPE;

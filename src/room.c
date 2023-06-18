@@ -378,12 +378,12 @@ void RoomRemoveNeverReformBlocksAndCollectedTanks(void)
 void RoomReset(void)
 {
     const struct Door* pDoor;
-    i32 i;
-    i32 yOffset;
+    s32 i;
+    s32 yOffset;
     u16 xOffset;
     u16 count;
     u16* ptr;
-    i32 temp;
+    s32 temp;
     
     gColorFading.unk_3 = 0;
     gColorFading.timer = 0;
@@ -573,11 +573,11 @@ void RoomSetInitialTilemap(u8 bgNumber)
 {
     // https://decomp.me/scratch/mY7sw
     
-    i32 properties;
-    i32 yPosition;
+    s32 properties;
+    s32 yPosition;
     u16 xPosition;
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
 
     u16 yPos;
     u16 xPos;
@@ -585,7 +585,7 @@ void RoomSetInitialTilemap(u8 bgNumber)
     u16 ySize;
     u16 xSize;
 
-    i32 offset;
+    s32 offset;
     u16 iWidth;
 
     u16 tmpY;
@@ -703,7 +703,7 @@ void RoomSetInitialTilemap(u8 bgNumber)
 u32 RoomRLEDecompress(u8 isBG, const u8* src, u8* dst)
 {
     u32 size;
-    i32 length;
+    s32 length;
     u8* dest;
     u8 numBytes;
     u32 value;
@@ -997,8 +997,8 @@ void RoomUpdate(void)
 
 void RoomUpdateBackgroundsPosition(void)
 {
-    i32 yOffset;
-    i32 xOffset;
+    s32 yOffset;
+    s32 xOffset;
     u16 xPosition;
     u16 yPosition;
     u16 bg3X;
@@ -1047,19 +1047,19 @@ void RoomUpdateBackgroundsPosition(void)
  * 
  * @param offset Movement offset
  */
-void RoomUpdateVerticalTilemap(i32 offset)
+void RoomUpdateVerticalTilemap(s32 offset)
 {
-    i32 properties;
+    s32 properties;
     u16 yPosition;
     u16 xPosition;
-    i32 i;
+    s32 i;
     u16* pTilemap;
     u32 unk;
     u32* dst;
     u32 tilemapOffset;
-    i32 size;
+    s32 size;
 
-    i32 offset_ = (i8)offset;
+    s32 offset_ = (s8)offset;
 
     for (i = 0; i < 3; i++)
     {
@@ -1128,19 +1128,19 @@ void RoomUpdateVerticalTilemap(i32 offset)
  * 
  * @param offset Movement offset
  */
-void RoomUpdateHorizontalTilemap(i32 offset)
+void RoomUpdateHorizontalTilemap(s32 offset)
 {
-    i32 properties;
+    s32 properties;
     u16 yPosition;
     u16 xPosition;
-    i32 i;
+    s32 i;
     u16* pTilemap;
     u32 unk;
     u32* dst;
     u32 tilemapOffset;
-    i32 size;
+    s32 size;
 
-    i32 offset_ = (i8)offset;
+    s32 offset_ = (s8)offset;
 
     for (i = 0; i < 3; i++)
     {

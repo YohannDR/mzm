@@ -14,11 +14,11 @@
  */
 u32 GadoraHatchUpdate(u16 xPosition, u16 yPosition, u8 action)
 {
-    i32 i;
+    s32 i;
     u32 exists;
     u8 found;
-    i32 xOffset;
-    i32 yOffset;
+    s32 xOffset;
+    s32 yOffset;
 
     // Get should the hatch exists or not
     if (action)

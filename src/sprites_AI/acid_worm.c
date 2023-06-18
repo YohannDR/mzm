@@ -27,15 +27,15 @@
  */
 void AcidWormHandleRotation(void)
 {
-    i32 offset;
+    s32 offset;
     u8 arrayOffset;
-    i32 posOffset;
-    i32 positionOffset;
-    i32 position;
-    i32 sine;
-    i32 sine_;
-    i32 temp;
-    i32 c;
+    s32 posOffset;
+    s32 positionOffset;
+    s32 position;
+    s32 sine;
+    s32 sine_;
+    s32 temp;
+    s32 c;
     u8 angle;
     
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
@@ -58,37 +58,37 @@ void AcidWormHandleRotation(void)
     gCurrentSprite.arrayOffset = arrayOffset + 1;
 
     if (gCurrentSprite.health != 0)
-        posOffset = (i16)(offset + (sine << 2) * ((gCurrentSprite.roomSlot / 4) + 1));
+        posOffset = (s16)(offset + (sine << 2) * ((gCurrentSprite.roomSlot / 4) + 1));
     else
-        posOffset = (i16)(offset + (sine << 4));
+        posOffset = (s16)(offset + (sine << 4));
 
     temp = sine_ = sin(angle);
     if (temp < 0)
     {
-        temp = (i16)(-temp * posOffset >> 8);
+        temp = (s16)(-temp * posOffset >> 8);
         gCurrentSprite.yPosition = gSubSpriteData1.yPosition - temp;
     }
     else
     {
-        temp = (i16)(sine_ * posOffset >> 8);
+        temp = (s16)(sine_ * posOffset >> 8);
         gCurrentSprite.yPosition = gSubSpriteData1.yPosition + temp;
     }
 
     c = cos(angle);
-    position = (i16)gSubSpriteData1.xPosition;
+    position = (s16)gSubSpriteData1.xPosition;
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-        position = (i16)(position + offset);
+        position = (s16)(position + offset);
     else
-        position = (i16)(position - offset);
+        position = (s16)(position - offset);
 
     if (c < 0)
     {
-        c = (i16)(-c * posOffset >> 8);
+        c = (s16)(-c * posOffset >> 8);
         gCurrentSprite.xPosition = position - c;
     }
     else
     {
-        c = (i16)(c * posOffset >> 8);
+        c = (s16)(c * posOffset >> 8);
         gCurrentSprite.xPosition = position + c;
     }
 }
@@ -99,7 +99,7 @@ void AcidWormHandleRotation(void)
  */
 void AcidWormRandomXMovement(void)
 {
-    i32 movement;
+    s32 movement;
     u8 offset;
 
     offset = gCurrentSprite.workVariable2;
@@ -348,7 +348,7 @@ void AcidWormCheckSamusOnZipline(void)
 void AcidWormSpawnStart(void)
 {
     // On zipline, a little more than 2 blocks on each side, y position doesn't matter
-    if (SpriteUtilCheckOnZipline() && gSamusData.xPosition > (i32)(gCurrentSprite.xPositionSpawn - (BLOCK_SIZE * 0x2 + 0xC))
+    if (SpriteUtilCheckOnZipline() && gSamusData.xPosition > (s32)(gCurrentSprite.xPositionSpawn - (BLOCK_SIZE * 0x2 + 0xC))
         && gSamusData.xPosition < gCurrentSprite.xPositionSpawn + (BLOCK_SIZE * 0x2 + 0xC))
     {
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -595,7 +595,7 @@ void AcidWormExtend(void)
             else
                 gCurrentSprite.oamRotation += speed;
 
-            if (gSubSpriteData1.xPosition < (i32)(gCurrentSprite.xPositionSpawn + 0x40))
+            if (gSubSpriteData1.xPosition < (s32)(gCurrentSprite.xPositionSpawn + 0x40))
                 gSubSpriteData1.xPosition += speed;
             else
                 checks++; // X Movement done
@@ -607,13 +607,13 @@ void AcidWormExtend(void)
             else
                 gCurrentSprite.oamRotation -= speed;
 
-            if (gSubSpriteData1.xPosition > (i32)(gCurrentSprite.xPositionSpawn - 0x40))
+            if (gSubSpriteData1.xPosition > (s32)(gCurrentSprite.xPositionSpawn - 0x40))
                 gSubSpriteData1.xPosition -= speed;
             else
                 checks++; // X Movement done
         }
         
-        if (gSubSpriteData1.yPosition > (i32)(gCurrentSprite.yPositionSpawn - 0x30))
+        if (gSubSpriteData1.yPosition > (s32)(gCurrentSprite.yPositionSpawn - 0x30))
             gSubSpriteData1.yPosition -= speed;
         else
             checks++; // Y Movement done
@@ -724,7 +724,7 @@ void AcidWormExtended(void)
     else
     {
         // Not hooked
-        if (gSamusData.xPosition > (i32)(gCurrentSprite.xPositionSpawn - 0x1C0) && gSamusData.xPosition < (i32)(gCurrentSprite.xPositionSpawn + 0x1C0))
+        if (gSamusData.xPosition > (s32)(gCurrentSprite.xPositionSpawn - 0x1C0) && gSamusData.xPosition < (s32)(gCurrentSprite.xPositionSpawn + 0x1C0))
             finishedThrowing = TRUE;
         else if (SpriteUtilCheckEndCurrentSpriteAnim())
             finishedThrowing++;
@@ -853,7 +853,7 @@ void AcidWormRetracting(void)
             gCurrentSprite.status ^= SPRITE_STATUS_MOSAIC;
 
             // Check should raise acid
-            if (gCurrentSprite.status & SPRITE_STATUS_MOSAIC && (u32)(spriteY - samusY - 0x51) < 0xEF && gSamusData.xPosition > (i32)(gCurrentSprite.xPositionSpawn - 0x1C0) && gSamusData.xPosition < (i32)(gCurrentSprite.xPositionSpawn + 0x1C0))
+            if (gCurrentSprite.status & SPRITE_STATUS_MOSAIC && (u32)(spriteY - samusY - 0x51) < 0xEF && gSamusData.xPosition > (s32)(gCurrentSprite.xPositionSpawn - 0x1C0) && gSamusData.xPosition < (s32)(gCurrentSprite.xPositionSpawn + 0x1C0))
             {
                 gCurrentSprite.pose = ACID_WORM_POSE_RAISING_ACID;
                 gCurrentSprite.pOam = sAcidWormOAM_Moving;
@@ -894,7 +894,7 @@ void AcidWormRaiseAcid(void)
         // Offset up
         gEffectYPositionOffset--;
         // Check reached max
-        if ((i32)(gCurrentSprite.yPositionSpawn - 0x140) > gEffectYPosition)
+        if ((s32)(gCurrentSprite.yPositionSpawn - 0x140) > gEffectYPosition)
         {
             gCurrentSprite.pose = ACID_WORM_POSE_BRINGING_DOWN_ACID;
             SoundPlay(0x1BA);
@@ -980,7 +980,7 @@ void AcidWormDeathFlashingAnim(void)
 void AcidWormDying(void)
 {
     // Check acid reached bottom 
-    if (gEffectYPosition > (i32)(gCurrentSprite.yPositionSpawn + 0x1E0))
+    if (gEffectYPosition > (s32)(gCurrentSprite.yPositionSpawn + 0x1E0))
     {
         if (gSubSpriteData1.workVariable2 == 0x0)
         {
@@ -1366,7 +1366,7 @@ void AcidWormSpitInit(void)
 void AcidWormSpitMove(void)
 {
     u32 offset;
-    i32 yMovement;
+    s32 yMovement;
     u16 xMovement;
 
     if (gCurrentSprite.roomSlot == 0x2)

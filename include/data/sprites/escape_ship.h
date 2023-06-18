@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sEscapeShipHoveringYMovement[65];
+extern const s16 sEscapeShipHoveringYMovement[65];
 
-extern const i16 sEscapeShipHoveringXMovement[57];
+extern const s16 sEscapeShipHoveringXMovement[57];
 
 extern const u32 sEscapeShipGfx[919];
 extern const u16 sEscapeShipPAL[64];

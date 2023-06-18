@@ -28,7 +28,7 @@ extern u16 gWrittenTo0x05000000;
 extern u16 gWrittenToBLDALPHA;
 extern u16 gWrittenToBLDALPHA_H;
 extern u16 gWrittenToBLDALPHA_L;
-extern i8 gWrittenToBLDY;
+extern s8 gWrittenToBLDY;
 extern u16 gWrittenToBLDY_NonGameplay;
 
 extern u16 gWrittenToMOSAIC_H;

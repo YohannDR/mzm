@@ -835,38 +835,38 @@ const u8 sSpriteset112[2] = {
 	SPRITESET_EMPTY
 };
 
-const i16 sDebrisBouncingVelocity[9] = {
+const s16 sDebrisBouncingVelocity[9] = {
     -4, -8, -4, 0, 4, 8, 12, 16, 20
 };
 
-const i16 sDebris11YVelocity[9] = {
+const s16 sDebris11YVelocity[9] = {
     -4, -8, -6, -4, 0, 4, 8, 8, 12
 };
 
-const i16 sDebris12YVelocity[9] = {
+const s16 sDebris12YVelocity[9] = {
     -4, -8, -4, -2, 0, 4, 8, 12, 12
 };
 
-const i16 sDebris13YVelocity[9] = {
+const s16 sDebris13YVelocity[9] = {
     -6, -8, -10, -6, 0, 4, 8, 12, 16
 };
 
-const i16 sDebris4YVelocity[9] = {
+const s16 sDebris4YVelocity[9] = {
     -5, -13, -7, -3, 0, 6, 10, 16, 20
 };
 
-const i16 sDebris5YVelocity[9] = {
+const s16 sDebris5YVelocity[9] = {
     4, 8, 12, 16, 20, 24, 28, 28, 28
 };
 
-const i16 sDebris6YVelocity[9] = {
+const s16 sDebris6YVelocity[9] = {
     8, 10, 12, 14, 16, 18, 20, 22, 22
 };
 
-const i16 sDebris7YVelocity[9] = {
+const s16 sDebris7YVelocity[9] = {
     2, 4, 6, 8, 10, 12, 14, 16, 16, 
 };
 
-const i16 sDebris8YVelocity[9] = {
+const s16 sDebris8YVelocity[9] = {
     8, 16, 20, 24, 28, 32, 36, 36, 36
 };

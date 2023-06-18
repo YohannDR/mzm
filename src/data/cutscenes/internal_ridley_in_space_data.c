@@ -23,7 +23,7 @@ const struct RawCoordsX sRidleyInSpaceShipsStartPosition[3] = {
     }
 };
 
-const i8 sRidleyInSpaceShipsYMovementOffsets[8] = {
+const s8 sRidleyInSpaceShipsYMovementOffsets[8] = {
     4, 4, -4, -4, -4, -4, 4, 4
 };
 

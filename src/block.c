@@ -296,7 +296,7 @@ u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
 {
     u32 overLimit;
     u8* pBlock;
-    i32 i;
+    s32 i;
 
     if (gCurrentArea >= MAX_AMOUNT_OF_AREAS)
         return FALSE;
@@ -332,10 +332,10 @@ u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
  */
 void BlockRemoveNeverReformBlocks(void)
 {
-    i32 i;
-    i32 var_0;
+    s32 i;
+    s32 var_0;
     u8* pBlock;
-    i32 limit;
+    s32 limit;
 
     if (gPauseScreenFlag)
         i = TRUE;
@@ -411,9 +411,9 @@ void BlockShiftNeverReformBlocks(void)
 {
     u8* src;
     u8* dst;
-    i32 amount;
-    i32 var_0;
-    i32 i;
+    s32 amount;
+    s32 var_0;
+    s32 i;
 
     src = (u8*)0x2035c00 + gAreaBeforeTransition * 512;
     if (src[gNumberOfNeverReformBlocks[gAreaBeforeTransition] * 2] == UCHAR_MAX)
@@ -483,7 +483,7 @@ void BlockShiftNeverReformBlocks(void)
  */
 u32 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock)
 {
-    i32 blockType;
+    s32 blockType;
 
     // Get block type
     blockType = sBlockBehaviors[pClipBlock->blockBehavior].type;
@@ -661,7 +661,7 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
 u32 BlockUpdateMakeSolidBlocks(u8 makeSolid, u16 xPosition, u16 yPosition)
 {
     u32 result;
-    i32 i;
+    s32 i;
     u16* pBlocks;
 
     result = FALSE;
@@ -777,7 +777,7 @@ u32 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosi
 void BlockUpdateBrokenBlocks(void)
 {
     struct BrokenBlock* pBlock;
-    i32 i;
+    s32 i;
     u32 updateStage;
 
     pBlock = gBrokenBlocks;
@@ -917,11 +917,11 @@ void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
 
     // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
     offset = gBG1YPosition / BLOCK_SIZE;
-    if ((i32)(offset - 4) > pBlock->yPosition || pBlock->yPosition > (i32)(offset + 13))
+    if ((s32)(offset - 4) > pBlock->yPosition || pBlock->yPosition > (s32)(offset + 13))
         return;
 
     offset = gBG1XPosition / BLOCK_SIZE;
-    if ((i32)(offset - 4) > pBlock->xPosition || pBlock->xPosition > (i32)(offset + 18))
+    if ((s32)(offset - 4) > pBlock->xPosition || pBlock->xPosition > (s32)(offset + 18))
         return;
 
     // Apply to tilemap
@@ -952,7 +952,7 @@ void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
 u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 advanceStage)
 {
     u32 result;
-    i32 i;
+    s32 i;
     struct BrokenBlock* pBlock;
 
     result = FALSE;
@@ -1024,8 +1024,8 @@ u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 advanc
 void BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type)
 {
     struct BrokenBlock* pBlock;
-    i32 i;
-    i32 stage;
+    s32 i;
+    s32 stage;
 
     pBlock = gBrokenBlocks;
     i = 0;
@@ -1092,8 +1092,8 @@ void BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type)
 u32 BlockCheckRevealBombChainBlock(u8 type, u16 xPosition, u16 yPosition)
 {
     struct BrokenBlock* pBlock;
-    i32 i;
-    i32 couldSpawn;
+    s32 i;
+    s32 couldSpawn;
 
     couldSpawn = FALSE;
     pBlock = gBrokenBlocks;
@@ -1173,7 +1173,7 @@ u32 BlockCheckSamusInReformingBlock(u8 xPosition, u8 yPosition)
 u32 BlockStartBombChain(u8 type, u16 xPosition, u16 yPosition)
 {
     u32 couldSpawn;
-    i32 i;
+    s32 i;
     
     couldSpawn = FALSE;
     i = MAX_AMOUNT_OF_BOMB_CHAINS - 1;
@@ -1351,10 +1351,10 @@ void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition)
     // https://decomp.me/scratch/QBMJ2
 
     u16 clipdata;
-    i32 i;
-    i32 yOffset;
-    i32 xOffset;
-    i32 offset;
+    s32 i;
+    s32 yOffset;
+    s32 xOffset;
+    s32 offset;
 
     gCurrentClipdataAffectingAction = CAA_BOMB_CHAIN;
     clipdata = gBGPointersAndDimensions.pClipDecomp[yPosition * gBGPointersAndDimensions.clipdataWidth + xPosition];

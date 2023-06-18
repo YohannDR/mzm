@@ -23,7 +23,7 @@
  */
 void PauseScreenCountTanksInArea(void)
 {
-    i32 i;
+    s32 i;
     struct ItemInfo* pItem;
     u32 type;
 
@@ -96,8 +96,8 @@ void PauseScreenCountTanksInArea(void)
  */
 void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
 {
-    i32 value;
-    i32 i;
+    s32 value;
+    s32 i;
 
     if (!drawTanks)
     {
@@ -256,7 +256,7 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
  */
 void PauseScreenInitMapDownload(void)
 {
-    i32 i;
+    s32 i;
     u16* ptr_1;
     u16* ptr_2;
 
@@ -330,9 +330,9 @@ u32 PauseScreenMapDownloadSubroutine(void)
  */
 u32 PauseScreenMapDownloadInstant_Unused(void)
 {
-    i32 i;
-    i32 j;
-    i32 offset;
+    s32 i;
+    s32 j;
+    s32 offset;
     const u32* ptr;
 
     if (PAUSE_SCREEN_DATA.unk_4F >= 16)
@@ -458,7 +458,7 @@ u32 PauseScreenMapDownloadInstantWithLine_Unused(void)
 u32 PauseScreenMapDownload(void)
 {
     u32 ended;
-    i32 i;
+    s32 i;
 
     ended = FALSE;
     PAUSE_SCREEN_DATA.downloadTimer++;
@@ -635,8 +635,8 @@ void unk_6db58(u8 param_1)
 {
     u32 mapX;
     u32 mapY;
-    i32 temp_1;
-    i32 temp_2;
+    s32 temp_1;
+    s32 temp_2;
 
     PAUSE_SCREEN_DATA.canScrollRight = FALSE;
     PAUSE_SCREEN_DATA.canScrollLeft = FALSE;
@@ -745,8 +745,8 @@ void unk_6db58(u8 param_1)
  */
 void PauseScreenMapGetAbsoluteMapBordersPositions(void)
 {
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
     u8 found;
     u16* pMap;
 
@@ -829,7 +829,7 @@ void PauseScreenMapGetAbsoluteMapBordersPositions(void)
 void PauseScreenMapUpdateMapBordersForTargets(void)
 {
     struct MenuOamData* pOam;
-    i32 i;
+    s32 i;
     u16 xPosition;
     u16 yPosition;
 
@@ -877,8 +877,8 @@ void PauseScreenMapUpdateMapBordersForTargets(void)
  */
 void PauseScreenGetAllMinimapData(u8 start)
 {
-    i32 size;
-    i32 i;
+    s32 size;
+    s32 i;
     u8 area;
 
     if (start >= MAX_AMOUNT_OF_AREAS)
@@ -915,7 +915,7 @@ void PauseScreenGetAllMinimapData(u8 start)
 void PauseScreenMapCheckExploredAreas(void)
 {
     u32 i;
-    i32 j;
+    s32 j;
 
     // Clear
     PAUSE_SCREEN_DATA.areasWithVisitedTiles = 0;
@@ -1104,7 +1104,7 @@ void MapScreenTogglehWorldMap(u8 forceOff)
 void MapScreenChangeMap(void)
 {
     u32 i;
-    i32 j;
+    s32 j;
     u8 area;
     u8 viewables;
     struct MenuOamData* pOam;

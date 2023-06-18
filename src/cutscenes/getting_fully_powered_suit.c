@@ -21,7 +21,7 @@
  */
 u8 GettingFullyPoweredSuitAnimation(void)
 {
-    i32 i;
+    s32 i;
     u16* bgPosition;
 
     switch (CUTSCENE_DATA.timeInfo.subStage)
@@ -257,7 +257,7 @@ void GettingFullyPoweredSuitUpdateSparkleGoingUp(struct CutsceneOamData* pOam, u
  */
 u8 GettingFullyPoweredSuitInit(void)
 {
-    i32 i;
+    s32 i;
 
     unk_61f0c();
     DMATransfer(3, sGettingFullyPoweredSuitPAL, PALRAM_BASE, 352, 0x10);

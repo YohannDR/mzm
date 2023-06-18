@@ -276,7 +276,7 @@ void CutsceneLoadingVBlank(void)
  */
 void CutsceneInit(void)
 {
-    i32 unk;
+    s32 unk;
 
     CallbackSetVBlank(CutsceneLoadingVBlank);
     BitFill(3, 0, &gNonGameplayRAM, sizeof(union NonGameplayRAM), 0x20);
@@ -452,9 +452,9 @@ u16* CutsceneGetBGVOFSPointer(u16 bg)
  */
 u32 CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData, u16 bg)
 {
-    i32 nbrBackgrounds;
-    i32 slot;
-    i32 var_0;
+    s32 nbrBackgrounds;
+    s32 slot;
+    s32 var_0;
 
     nbrBackgrounds = 0;
 
@@ -585,7 +585,7 @@ u32 CutsceneStartBackgroundScrolling(struct CutsceneScrollingInfo scrollingData,
  */
 void CutsceneUpdateBackgroundScrolling(struct CutsceneScrolling* pScrolling)
 {
-    i32 offset;
+    s32 offset;
 
     if (pScrolling->lengthLeft != 0)
     {
@@ -644,7 +644,7 @@ void CutsceneUpdateBackgroundScrolling(struct CutsceneScrolling* pScrolling)
  */
 u8 CutsceneCheckBackgroundScrollingActive(u16 bg)
 {
-    i32 offset;    
+    s32 offset;    
     u8 status;
 
     status = 0;
@@ -663,7 +663,7 @@ u8 CutsceneCheckBackgroundScrollingActive(u16 bg)
         if (CUTSCENE_DATA.bgScrolling[offset].pPosition)
             status |= CUTSCENE_BG_EDIT_HOFS;
 
-        offset = (i8)(offset + 1);
+        offset = (s8)(offset + 1);
         if (CUTSCENE_DATA.bgScrolling[offset].pPosition)
             status |= CUTSCENE_BG_EDIT_VOFS;
     }
@@ -678,7 +678,7 @@ u8 CutsceneCheckBackgroundScrollingActive(u16 bg)
  */
 void CutsceneUpdateBackgroundsPosition(u8 updateScrolling)
 {
-    i32 i;
+    s32 i;
 
     if (updateScrolling & TRUE)
     {
@@ -713,8 +713,8 @@ void CutsceneUpdateBackgroundsPosition(u8 updateScrolling)
  */
 void CutsceneUpdateScreenShake(u8 affectVertical, struct CutsceneScreenShake* pShake)
 {
-    i32 offset;
-    i32 size;
+    s32 offset;
+    s32 size;
 
     // Update delay
     if (pShake->delay > 1)
@@ -958,7 +958,7 @@ void CutsceneStartBackgroundEffect(u16 bldcnt, u8 bldalphaL, u8 bldalphaH, u8 in
  */
 void CutsceneReset(void)
 {
-    i32 i;
+    s32 i;
 
     gWrittenToBLDY_NonGameplay = 0;
     gWrittenToBLDALPHA_L = 16;

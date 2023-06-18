@@ -228,11 +228,11 @@ const TourianEscapeFunc_T sTourianEscapeFunctionPointers[2] = {
     (TourianEscapeFunc_T)0x8084715,
 };
 
-const i8 sCutsceneScreenShakeOffsets_Set0[2] = {
+const s8 sCutsceneScreenShakeOffsets_Set0[2] = {
     -1, 1
 };
 
-const i8* const sCutsceneScreenShakeOffsetSetPointers[4] = {
+const s8* const sCutsceneScreenShakeOffsetSetPointers[4] = {
     sCutsceneScreenShakeOffsets_Set0,
     sCutsceneScreenShakeOffsets_Set0,
     sCutsceneScreenShakeOffsets_Set0,

@@ -163,12 +163,12 @@ u8* DoSramOperation(u8 operation)
 u32 unk_fbc(u8 param_1)
 {
     u32 size;
-    i32 var_0;
-    i32 var_1;
+    s32 var_0;
+    s32 var_1;
 
     size = 0x200;
     var_0 = gUnk_3000c20 * size;
-    if (var_0 > (i32)sizeof(struct SaveFile))
+    if (var_0 > (s32)sizeof(struct SaveFile))
         size = var_0 - sizeof(struct SaveFile);
 
     if (!gSramCorruptFlag)
@@ -193,7 +193,7 @@ u32 unk_fbc(u8 param_1)
     }
 
     var_1 = FALSE;
-    if ((i32)(var_0 + size) < (i32)sizeof(struct SaveFile))
+    if ((s32)(var_0 + size) < (s32)sizeof(struct SaveFile))
         var_1 = TRUE;
 
     gUnk_3000c20 = (gUnk_3000c20 + var_1) * var_1;

@@ -1,7 +1,7 @@
 #include "data/sprites/escape_ship.h"
 #include "macros.h"
 
-const i16 sEscapeShipHoveringYMovement[65] = {
+const s16 sEscapeShipHoveringYMovement[65] = {
     0, -1, 0, -1, 0, -1, 0, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1,
@@ -9,7 +9,7 @@ const i16 sEscapeShipHoveringYMovement[65] = {
     0, SHORT_MAX
 };
 
-const i16 sEscapeShipHoveringXMovement[57] = {
+const s16 sEscapeShipHoveringXMovement[57] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1,
     1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, -1, 0, -1, 0, -1,
     0, -1, 0, -1, -1, -1, -1, -1, -1, -1, -1, 0, -1, 0,

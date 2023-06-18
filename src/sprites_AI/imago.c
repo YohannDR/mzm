@@ -313,7 +313,7 @@ void ImagoSpawn(void)
  */
 void ImagoComingDownInit(void)
 {
-    i32 health;
+    s32 health;
 
     if (gCurrentSprite.health == 0x0)
     {
@@ -616,7 +616,7 @@ void ImagoAttackingInit(void)
 void ImagoAttackingGoingDown(void)
 {
     u8 offset;
-    i32 movement;
+    s32 movement;
     u8 checkGround;
     u32 blockTop;
 
@@ -667,7 +667,7 @@ void ImagoAttackingGoingDown(void)
  */
 void ImagoAttackingGoingUp(void)
 {
-    i32 movement;
+    s32 movement;
     u8 offset;
     u32 blockTop;
 
@@ -1534,7 +1534,7 @@ void ImagoNeedle(void)
  */
 void ImagoDamagedStinger(void)
 {
-    i32 movement;
+    s32 movement;
     u8 offset;
 
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;

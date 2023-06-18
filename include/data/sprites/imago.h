@@ -4,17 +4,17 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sImagoMultiSpriteData_Idle_Frame0[21];
+extern const s16 sImagoMultiSpriteData_Idle_Frame0[21];
 
-extern const i16 sImagoMultiSpriteData_Growling_Unused_Frame0[21];
+extern const s16 sImagoMultiSpriteData_Growling_Unused_Frame0[21];
 
-extern const i16 sImagoMultiSpriteData_ShootingNeedles_Frame0[21];
+extern const s16 sImagoMultiSpriteData_ShootingNeedles_Frame0[21];
 
-extern const i16 sImagoMultiSpriteData_ShootingNeedles_Frame1[21];
+extern const s16 sImagoMultiSpriteData_ShootingNeedles_Frame1[21];
 
-extern const i16 sImagoMultiSpriteData_RechargingNeedles_Frame0[21];
+extern const s16 sImagoMultiSpriteData_RechargingNeedles_Frame0[21];
 
-extern const i16 sImagoMultiSpriteData_Dying_Frame0[21];
+extern const s16 sImagoMultiSpriteData_Dying_Frame0[21];
 
 extern const struct FrameData sImagoMultiSpriteData_Idle[2];
 
@@ -26,9 +26,9 @@ extern const struct FrameData sImagoMultiSpriteData_RechargingNeedles[2];
 
 extern const struct FrameData sImagoMultiSpriteData_Dying[2];
 
-extern const i16 sImagoDamagedStingerFallingYVelocity[10];
+extern const s16 sImagoDamagedStingerFallingYVelocity[10];
 
-extern const i16 sImagoAttackingXVelocity[49];
+extern const s16 sImagoAttackingXVelocity[49];
 
 extern const u8 sImagoDynamicPaletteData[9][2];
 

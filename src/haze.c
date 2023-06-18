@@ -232,8 +232,8 @@ void HazeResetLoops(void)
  */
 void HazeCalculateGradient(void)
 {
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
     u16* dst;
     u16* src;
     u16* src2;
@@ -242,9 +242,9 @@ void HazeCalculateGradient(void)
     u8 gBase;
     u8 bBase;
 
-    i32 r;
-    i32 g;
-    i32 b;
+    s32 r;
+    s32 g;
+    s32 b;
     
     u8 newR;
     u8 newG;
@@ -399,13 +399,13 @@ u32 HazeProcess(void)
  */
 void Haze_Bg3(void)
 {
-    i32 mask;
+    s32 mask;
     u16* dst;
-    const i8* src;
-    i32 i;
-    i32 position;
+    const s8* src;
+    s32 i;
+    s32 position;
     u8* ptr;
-    i32 offset;
+    s32 offset;
 
     do {
     dst = gPreviousHazeValues;
@@ -454,14 +454,14 @@ void Haze_Bg3(void)
  */
 void Haze_Bg3StrongWeak(void)
 {
-    i32 i;
-    const i8* src1;
-    i32 mask1;
-    const i8* src2;
-    i32 mask2;
-    i32 position;
+    s32 i;
+    const s8* src1;
+    s32 mask1;
+    const s8* src2;
+    s32 mask2;
+    s32 position;
     u16* dst;
-    i32 offset;
+    s32 offset;
     u8* ptr1;
     u8* ptr2;
 
@@ -523,9 +523,9 @@ void Haze_Bg3StrongWeak(void)
  */
 void Haze_Bg3NoneWeak(void)
 {
-    i32 i;
-    i32 mask;
-    const i8* src;
+    s32 i;
+    s32 mask;
+    const s8* src;
     u8* ptr;
 
     i = 0;
@@ -559,9 +559,9 @@ void Haze_Bg3NoneWeak(void)
  */
 void Haze_Bg3Bg2StrongWeakMedium(void)
 {
-    i32 i;
-    i32 mask;
-    const i8* src;
+    s32 i;
+    s32 mask;
+    const s8* src;
     u16* dst;
 
     i = 0;
@@ -593,11 +593,11 @@ void Haze_Bg3Bg2StrongWeakMedium(void)
 
 void Haze_Bg3Bg2Bg1(void)
 {
-    i32 i;
-    i32 mask;
-    const i8* src;
+    s32 i;
+    s32 mask;
+    const s8* src;
     u16* dst;
-    i32 temp;
+    s32 temp;
     u8* ptr;
 
     i = 0;
@@ -652,17 +652,17 @@ u32 Haze_PowerBombExpanding(void)
 {
     // https://decomp.me/scratch/j0f0k
 
-    const i16* src;
-    i32 xPosition;
-    i32 yPosition;
+    const s16* src;
+    s32 xPosition;
+    s32 yPosition;
     u16* dst;
-    i32 i;
-    i32 j;
-    i32 screenY;
-    i32 right;
-    i32 left;
-    i32 subSlice;
-    i32 size;
+    s32 i;
+    s32 j;
+    s32 screenY;
+    s32 right;
+    s32 left;
+    s32 subSlice;
+    s32 size;
 
     if (gCurrentPowerBomb.unk_12 != 0)
         return FALSE;
@@ -692,8 +692,8 @@ u32 Haze_PowerBombExpanding(void)
   
     for (j = i; j < screenY; j++)
     {
-        left = (i16)(xPosition + src[(subSlice + j) * 2 + 1] * 2);
-        right = (i16)(xPosition + src[(subSlice + j) * 2 + 0] * 2);
+        left = (s16)(xPosition + src[(subSlice + j) * 2 + 1] * 2);
+        right = (s16)(xPosition + src[(subSlice + j) * 2 + 0] * 2);
 
         CLAMP2(left, 0, 0xF0);
         CLAMP(right, 0, 0xF0);

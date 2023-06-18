@@ -109,11 +109,11 @@ void ChozodiaEscapeUpdateExplosionHaze(void)
 {
     u32 slice, r5;
     u32 subSlice;
-    i32 left;
-    i32 right;
-    i32 offset;
-    i32 size;
-    const i16* src;
+    s32 left;
+    s32 right;
+    s32 offset;
+    s32 size;
+    const s16* src;
     u32 res;
     u32 var_0;
     u32 var_1;
@@ -131,8 +131,8 @@ void ChozodiaEscapeUpdateExplosionHaze(void)
     }
     else if (slice <= 80)
     {
-        var_0 = (i16)(80 - slice);
-        size = (i16)(slice + 80);
+        var_0 = (s16)(80 - slice);
+        size = (s16)(slice + 80);
 
         slice = 0;
     }
@@ -140,7 +140,7 @@ void ChozodiaEscapeUpdateExplosionHaze(void)
     {
         var_0 = 0;
         slice = size = 0xA0;
-        slice = (i16)(var_1 - 80);
+        slice = (s16)(var_1 - 80);
     }
 
     CHOZODIA_ESCAPE_DATA.unk_36e = (CHOZODIA_ESCAPE_DATA.unk_36e + 1) & 1;
@@ -150,8 +150,8 @@ void ChozodiaEscapeUpdateExplosionHaze(void)
     while (offset < size)
     {
         res = (src[subSlice * 2] * 12) / 10;
-        left = (i16)(120 - res);
-        right = (i16)(res + 120);
+        left = (s16)(120 - res);
+        right = (s16)(res + 120);
 
         if (left < 0)
             left = 0;
@@ -161,7 +161,7 @@ void ChozodiaEscapeUpdateExplosionHaze(void)
 
         CHOZODIA_ESCAPE_DATA.explosionHazeValues[CHOZODIA_ESCAPE_DATA.unk_36e][offset] = right | left << 8;
 
-        offset = (i16)(offset + 1);
+        offset = (s16)(offset + 1);
         subSlice++;
     }
 }
@@ -270,7 +270,7 @@ void ChozodiaEscapeProcessOam_1(void)
     u16 part;
     u16 yPosition;
     u16 xPosition;
-    i32 previousSlot;
+    s32 previousSlot;
 
     dst = (u16*)gOamData;
     nextSlot = 0;
@@ -520,7 +520,7 @@ void ChozodiaEscapeInit(void)
 u8 ChozodiaEscapeShipLeaving(void)
 {
     u8 ended;
-    i32 velocity;
+    s32 velocity;
 
     ended = FALSE;
     switch (CHOZODIA_ESCAPE_DATA.timer++)

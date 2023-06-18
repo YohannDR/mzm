@@ -466,7 +466,7 @@ void ViolaFallingInit(void)
 void ViolaFalling(void)
 {
     u8 offset;
-    i32 movement;
+    s32 movement;
     u32 topEdge;
 
     topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition + 0x18, gCurrentSprite.xPosition);

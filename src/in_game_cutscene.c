@@ -182,8 +182,8 @@ u32 InGameCutsceneSamusCloseUp(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
  */
 void unk_5fd58(void)
 {
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
     u16* src;
     u16* dst;
 
@@ -214,24 +214,24 @@ void unk_5fd58(void)
  */
 u32 InGameCutsceneUpgradingSuit(u8 cutsceneNumber, u8 cutsceneNumberNoFlag)
 {
-    i32 changeStage;
+    s32 changeStage;
     u8 ended;
 
-    i32 left;
-    i32 right;
-    i32 top;
-    i32 bottom;
+    s32 left;
+    s32 right;
+    s32 top;
+    s32 bottom;
 
     u16 newValue;
 
-    i32 temp;
+    s32 temp;
     u32 result;
     u32 flag;
     
     u32 res_1;
     u32 res_2;
 
-    i32 increment;
+    s32 increment;
 
     ended = FALSE;
     changeStage = FALSE;
@@ -748,7 +748,7 @@ void InGameCutsceneInit(void)
  */
 void InGameCutsceneCheckPlayOnTransition(void)
 {
-    i32 i;
+    s32 i;
 
     // Try to trigger an in game cutscene if none
     if (gInGameCutscene.queriedCutscene == 0)

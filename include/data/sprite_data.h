@@ -11,15 +11,15 @@ extern const u8 sOamYFlipOffsets[3][4];
 
 extern const u8 sSpriteRandomNumberTable[56];
 
-extern const i16 sSpritesFallingCeilingSpeed[16];
+extern const s16 sSpritesFallingCeilingSpeed[16];
 
-extern const i16 sSpritesFallingSpeed[16];
+extern const s16 sSpritesFallingSpeed[16];
 
-extern const i16 sSpritesFallingSpeed_Unused[8];
+extern const s16 sSpritesFallingSpeed_Unused[8];
 
-extern const i16 sSpritesFallingSpeed_Unused2[16];
+extern const s16 sSpritesFallingSpeed_Unused2[16];
 
-extern const i16 sWorkerRobotSleepingFallingSpeed[10];
+extern const s16 sWorkerRobotSleepingFallingSpeed[10];
 
 /**
  * @brief Stats of the primary sprites

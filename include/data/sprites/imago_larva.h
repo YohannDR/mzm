@@ -4,79 +4,79 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sImagoLarvaMultiSpriteData_Attacking_Frame0[18];
+extern const s16 sImagoLarvaMultiSpriteData_Attacking_Frame0[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Attacking_Frame1[18];
+extern const s16 sImagoLarvaMultiSpriteData_Attacking_Frame1[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Attacking_Frame2[18];
+extern const s16 sImagoLarvaMultiSpriteData_Attacking_Frame2[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Attacking_Frame3[18];
+extern const s16 sImagoLarvaMultiSpriteData_Attacking_Frame3[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Attacking_Frame4[18];
+extern const s16 sImagoLarvaMultiSpriteData_Attacking_Frame4[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Attacking_Frame5[18];
+extern const s16 sImagoLarvaMultiSpriteData_Attacking_Frame5[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Attacking_Frame6[18];
+extern const s16 sImagoLarvaMultiSpriteData_Attacking_Frame6[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Attacking_Frame7[18];
+extern const s16 sImagoLarvaMultiSpriteData_Attacking_Frame7[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Attacking_Frame8[18];
+extern const s16 sImagoLarvaMultiSpriteData_Attacking_Frame8[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Attacking_Frame9[18];
+extern const s16 sImagoLarvaMultiSpriteData_Attacking_Frame9[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Attacking_Frame10[18];
+extern const s16 sImagoLarvaMultiSpriteData_Attacking_Frame10[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Idle_Frame0[18];
+extern const s16 sImagoLarvaMultiSpriteData_Idle_Frame0[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Idle_Frame1[18];
+extern const s16 sImagoLarvaMultiSpriteData_Idle_Frame1[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Idle_Frame2[18];
+extern const s16 sImagoLarvaMultiSpriteData_Idle_Frame2[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Retreating_Frame0[18];
+extern const s16 sImagoLarvaMultiSpriteData_Retreating_Frame0[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Retreating_Frame1[18];
+extern const s16 sImagoLarvaMultiSpriteData_Retreating_Frame1[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Retreating_Frame2[18];
+extern const s16 sImagoLarvaMultiSpriteData_Retreating_Frame2[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Retreating_Frame3[18];
+extern const s16 sImagoLarvaMultiSpriteData_Retreating_Frame3[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Retreating_Frame4[18];
+extern const s16 sImagoLarvaMultiSpriteData_Retreating_Frame4[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Retreating_Frame5[18];
+extern const s16 sImagoLarvaMultiSpriteData_Retreating_Frame5[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Retreating_Frame6[18];
+extern const s16 sImagoLarvaMultiSpriteData_Retreating_Frame6[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Retreating_Frame7[18];
+extern const s16 sImagoLarvaMultiSpriteData_Retreating_Frame7[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Retreating_Frame8[18];
+extern const s16 sImagoLarvaMultiSpriteData_Retreating_Frame8[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Retreating_Frame9[18];
+extern const s16 sImagoLarvaMultiSpriteData_Retreating_Frame9[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Retreating_Frame10[18];
+extern const s16 sImagoLarvaMultiSpriteData_Retreating_Frame10[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Dying_Frame0[18];
+extern const s16 sImagoLarvaMultiSpriteData_Dying_Frame0[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Dying_Frame1[18];
+extern const s16 sImagoLarvaMultiSpriteData_Dying_Frame1[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Dying_Frame2[18];
+extern const s16 sImagoLarvaMultiSpriteData_Dying_Frame2[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Dying_Frame5[18];
+extern const s16 sImagoLarvaMultiSpriteData_Dying_Frame5[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Dying_Frame6[18];
+extern const s16 sImagoLarvaMultiSpriteData_Dying_Frame6[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Warning_Frame0[18];
+extern const s16 sImagoLarvaMultiSpriteData_Warning_Frame0[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Warning_Frame1[18];
+extern const s16 sImagoLarvaMultiSpriteData_Warning_Frame1[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Warning_Frame2[18];
+extern const s16 sImagoLarvaMultiSpriteData_Warning_Frame2[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_Warning_Frame3[18];
+extern const s16 sImagoLarvaMultiSpriteData_Warning_Frame3[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_TakingDamage_Frame0[18];
+extern const s16 sImagoLarvaMultiSpriteData_TakingDamage_Frame0[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_TakingDamage_Frame1[18];
+extern const s16 sImagoLarvaMultiSpriteData_TakingDamage_Frame1[18];
 
-extern const i16 sImagoLarvaMultiSpriteData_TakingDamage_Frame2[18];
+extern const s16 sImagoLarvaMultiSpriteData_TakingDamage_Frame2[18];
 
 extern const struct FrameData sImagoLarvaMultiSpriteData_Attacking[12];
 

@@ -4,7 +4,7 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sPolypProjectileYVelocity[44];
+extern const s16 sPolypProjectileYVelocity[44];
 
 extern const u32 sPolypGfx[241];
 extern const u16 sPolypPAL[16];

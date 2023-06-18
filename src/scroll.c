@@ -42,9 +42,9 @@ void ScrollProcess(struct RawCoordsX* pCoords)
     if (pScroll->within)
     {
         newPosition = ScrollProcessX(pScroll, pCoords);
-        screenX = (i32)(screenX + newPosition) >> 0x1;
+        screenX = (s32)(screenX + newPosition) >> 0x1;
         newPosition = ScrollProcessY(pScroll, pCoords);
-        screenY = (i32)(screenY + newPosition) >> 0x1;
+        screenY = (s32)(screenY + newPosition) >> 0x1;
     }
 
     ScrollScreen(screenX, screenY);
@@ -58,7 +58,7 @@ void ScrollProcess(struct RawCoordsX* pCoords)
  */
 void ScrollScreen(u16 screenX, u16 screenY)
 {
-    i32 velocity;
+    s32 velocity;
 
     gCamera.xPosition = screenX;
     gCamera.yPosition = screenY;
@@ -114,12 +114,12 @@ void ScrollScreen(u16 screenX, u16 screenY)
  * 
  * @param pScroll Scroll pointer
  * @param pCoords Coordinates pointer
- * @return i32 Screen X
+ * @return s32 Screen X
  */
-i32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
+s32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
-    i32 xPosition;
-    i32 xStart;
+    s32 xPosition;
+    s32 xStart;
 
     xPosition = pCoords->x;
     xStart = pScroll->xStart;
@@ -137,12 +137,12 @@ i32 ScrollProcessX(struct Scroll* pScroll, struct RawCoordsX* pCoords)
  * 
  * @param pScroll Scroll pointer
  * @param pCoords Coordinates pointer
- * @return i32 Screen Y
+ * @return s32 Screen Y
  */
-i32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords)
+s32 ScrollProcessY(struct Scroll* pScroll, struct RawCoordsX* pCoords)
 {
-    i32 yPosition;
-    i32 yStart;
+    s32 yPosition;
+    s32 yStart;
 
     if (pScroll->within == 0x2)
     {
@@ -204,12 +204,12 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
     u16 yPosition;
     const u8* src;
     const u8* data;
-    i32 nbrScrolls;
-    i32 i;
-    i32 bounds[4];
-    i32 bound;
-    i32 limit;
-    i32 value;
+    s32 nbrScrolls;
+    s32 i;
+    s32 bounds[4];
+    s32 bound;
+    s32 limit;
+    s32 value;
     
     gCurrentScrolls[0].within = FALSE;
     gCurrentScrolls[1].within = FALSE;
@@ -296,7 +296,7 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 void ScrollProcessGeneral(void)
 {
     struct RawCoordsX coords;
-    i32 distance;
+    s32 distance;
 
     u32 x;
     u32 y;
@@ -405,11 +405,11 @@ void ScrollWithNoScrolls(struct RawCoordsX* pCoords)
  */
 void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
 {
-    i32 yOffset;
-    i32 clipPosition;
-    i32 offsetY;
-    i32 yPosition;
-    i32 yMovement;
+    s32 yOffset;
+    s32 clipPosition;
+    s32 offsetY;
+    s32 yPosition;
+    s32 yMovement;
 
     if (!gLockScreen.lock)
         yMovement = gSamusData.yPosition - gPreviousYPosition;
@@ -471,10 +471,10 @@ void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
  */
 void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
 {
-    i32 xOffset;
-    i32 clipPosition;
-    i32 offsetX;
-    i32 xPosition;
+    s32 xOffset;
+    s32 clipPosition;
+    s32 offsetX;
+    s32 xPosition;
 
     xOffset = 0;
     if (!gLockScreen.lock && gSamusPhysics.standingStatus == STANDING_NOT_IN_CONTROL)
@@ -530,8 +530,8 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
 void ScrollUpdateEffectAndHazePosition(struct RawCoordsX* pCoords)
 {
     u32 var_0;
-    i32 position;
-    i32 waterOffset;
+    s32 position;
+    s32 waterOffset;
     u16 temp;
     
     var_0 = FALSE;
@@ -761,9 +761,9 @@ u32 ScrollGetBG3Scroll(void)
 void ScrollBG3(void)
 {
     u32 xScrolling;
-    i32 yScrolling;
-    i32 offset;
-    i32 size;
+    s32 yScrolling;
+    s32 offset;
+    s32 size;
 
     yScrolling = ScrollGetBG3Scroll();
     xScrolling = yScrolling & 0xFF;
@@ -858,8 +858,8 @@ void ScrollAutoBG3(void)
  */
 void ScrollBG2(struct RawCoordsX* pCoords)
 {
-    i32 size;
-    i32 position;
+    s32 size;
+    s32 position;
     u32 temp;
     u8 temp2;
 

@@ -69,13 +69,13 @@ u8 ScreenShakeStartHorizontal_Unused(u8 duration)
 /**
  * @brief 553dc | 68 | Updates the vertical screen shake
  * 
- * @return i32 Screen offset
+ * @return s32 Screen offset
  */
-i32 ScreenShakeUpdateVertical(void)
+s32 ScreenShakeUpdateVertical(void)
 {
     // https://decomp.me/scratch/je2b5
 
-    i32 offset;
+    s32 offset;
     u32 unk;
     
     offset = 0;
@@ -117,13 +117,13 @@ i32 ScreenShakeUpdateVertical(void)
 /**
  * @brief 55444 | 68 | Updates the horizontal screen shake
  * 
- * @return i32 Screen offset
+ * @return s32 Screen offset
  */
-i32 ScreenShakeUpdateHorizontal(void)
+s32 ScreenShakeUpdateHorizontal(void)
 {
     // https://decomp.me/scratch/O4FYJ
     
-    i32 offset;
+    s32 offset;
     u32 unk;
     
     offset = 0;

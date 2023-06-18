@@ -143,7 +143,7 @@ void MellaIdleInit(void)
  */
 void MellaIdle(void)
 {
-    i32 movement;
+    s32 movement;
     u8 offset;
     u8 nslr;
 

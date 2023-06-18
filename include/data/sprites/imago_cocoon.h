@@ -4,33 +4,33 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sImagoCocoonMultiSpriteData_Idle_Frame0[30];
+extern const s16 sImagoCocoonMultiSpriteData_Idle_Frame0[30];
 
-extern const i16 sImagoCocoonMultiSpriteData_Idle_Frame1[30];
+extern const s16 sImagoCocoonMultiSpriteData_Idle_Frame1[30];
 
-extern const i16 sImagoCocoonMultiSpriteData_Dying_Frame0[30];
+extern const s16 sImagoCocoonMultiSpriteData_Dying_Frame0[30];
 
-extern const i16 sImagoCocoonMultiSpriteData_Dying_Frame1[30];
+extern const s16 sImagoCocoonMultiSpriteData_Dying_Frame1[30];
 
-extern const i16 sImagoCocoonMultiSpriteData_Dying_Frame3[30];
+extern const s16 sImagoCocoonMultiSpriteData_Dying_Frame3[30];
 
-extern const i16 sImagoCocoonMultiSpriteData_Dying_Frame4[30];
+extern const s16 sImagoCocoonMultiSpriteData_Dying_Frame4[30];
 
-extern const i16 sImagoCocoonMultiSpriteData_Dying_Frame5[30];
+extern const s16 sImagoCocoonMultiSpriteData_Dying_Frame5[30];
 
-extern const i16 sImagoCocoonMultiSpriteData_Dying_Frame6[30];
+extern const s16 sImagoCocoonMultiSpriteData_Dying_Frame6[30];
 
-extern const i16 sImagoCocoonMultiSpriteData_Dying_Frame7[30];
+extern const s16 sImagoCocoonMultiSpriteData_Dying_Frame7[30];
 
-extern const i16 sImagoCocoonMultiSpriteData_Dying_Frame8[30];
+extern const s16 sImagoCocoonMultiSpriteData_Dying_Frame8[30];
 
 extern const struct FrameData sImagoCocoonMultiSpriteData_Idle[5];
 
 extern const struct FrameData sImagoCocoonMultiSpriteData_Dying[10];
 
-extern const i16 sImagoCocoon_ArrayUnused1[36];
+extern const s16 sImagoCocoon_ArrayUnused1[36];
 
-extern const i16 sImagoCocoon_ArrayUnused2[48];
+extern const s16 sImagoCocoon_ArrayUnused2[48];
 
 extern const u32 sImagoCocoonGfx[1758];
 extern const u16 sImagoCocoonPAL[96];

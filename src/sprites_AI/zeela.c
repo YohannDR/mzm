@@ -845,8 +845,8 @@ void ZeelaFalling(void)
 {
     u16 oldY;
     u8 offset;
-    i32 movement;
-    i32 newMovement;
+    s32 movement;
+    s32 newMovement;
     u32 topEdge;
 
     gCurrentSprite.animationDurationCounter++;
@@ -960,7 +960,7 @@ void ZeelaEyesMove(void)
 {
     u16 xMovement;
     u32 offset;
-    i32 yMovement;
+    s32 yMovement;
 
     SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
 

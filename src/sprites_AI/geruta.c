@@ -52,7 +52,7 @@ u8 GerutaYMovement(u16 movement)
  */
 u8 GerutaXMovement(u16 movement)
 {
-    i16 negMovement;
+    s16 negMovement;
 
     negMovement = movement;
 

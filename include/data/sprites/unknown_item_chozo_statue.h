@@ -4,27 +4,27 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sUnknownItemChozoStatueMultiSpriteData_Standing_Frame0[15];
+extern const s16 sUnknownItemChozoStatueMultiSpriteData_Standing_Frame0[15];
 
-extern const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame0[15];
+extern const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame0[15];
 
-extern const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame1[15];
+extern const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame1[15];
 
-extern const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame2[15];
+extern const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame2[15];
 
-extern const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame3[15];
+extern const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame3[15];
 
-extern const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame5[15];
+extern const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame5[15];
 
-extern const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame6[15];
+extern const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame6[15];
 
-extern const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame7[15];
+extern const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame7[15];
 
-extern const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame8[15];
+extern const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame8[15];
 
-extern const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame9[15];
+extern const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame9[15];
 
-extern const i16 sUnknownItemChozoStatueMultiSpriteData_Seated_Frame0[15];
+extern const s16 sUnknownItemChozoStatueMultiSpriteData_Seated_Frame0[15];
 
 extern const struct FrameData sUnknownItemChozoStatueMultiSpriteData_Standing[2];
 

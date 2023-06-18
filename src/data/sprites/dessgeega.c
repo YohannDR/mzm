@@ -2,11 +2,11 @@
 
 #include "macros.h"
 
-const i16 sDessgeegaHighJumpYVelocity[10] = {
+const s16 sDessgeegaHighJumpYVelocity[10] = {
     -8, -16, -16, -8, -4, 0, 4, 8, 16, 16
 };
 
-const i16 sDessgeegaLowJumpYVelocity[10] = {
+const s16 sDessgeegaLowJumpYVelocity[10] = {
     -4, -8, -4, -2, 0, 4, 8, 16, 16, 16 
 };
 

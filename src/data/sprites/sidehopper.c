@@ -2,11 +2,11 @@
 #include "macros.h"
 #include "oam.h"
 
-const i16 sSidehopperHighJumpVelocity[10] = {
+const s16 sSidehopperHighJumpVelocity[10] = {
     -8, -16, -16, -8, -4, 0, 4, 8, 16, 16
 };
 
-const i16 sSidehopperLowJumpVelocity[10] = {
+const s16 sSidehopperLowJumpVelocity[10] = {
     -4, -8, -4, -2, 0, 4, 8, 16, 16, 16
 };
 

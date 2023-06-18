@@ -189,7 +189,7 @@ void RinkaMove(void)
     u16 distanceYUp;
     u16 distanceXLeft;
     u16 distanceXRight;
-    i32 totalDistance;
+    s32 totalDistance;
     u16 samusY;
     u16 spriteY;
     u16 acceleration;
@@ -223,8 +223,8 @@ void RinkaMove(void)
             totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = spawnY + ((velocity * ((i32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = spawnX + ((velocity * ((i32)(distanceXRight << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = spawnY + ((velocity * ((s32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = spawnX + ((velocity * ((s32)(distanceXRight << 0xA) / totalDistance) >> 0xA));
             }
         }
         else
@@ -232,8 +232,8 @@ void RinkaMove(void)
             totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYDown * distanceYDown);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = spawnY - ((velocity * ((i32)(distanceYDown << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = spawnX + ((velocity * ((i32)(distanceXRight << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = spawnY - ((velocity * ((s32)(distanceYDown << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = spawnX + ((velocity * ((s32)(distanceXRight << 0xA) / totalDistance) >> 0xA));
             }
         }
     }
@@ -244,8 +244,8 @@ void RinkaMove(void)
             totalDistance = (u16)Sqrt(distanceXLeft * distanceXLeft + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = spawnY + ((velocity * ((i32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = spawnX - ((velocity * ((i32)(distanceXLeft << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = spawnY + ((velocity * ((s32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = spawnX - ((velocity * ((s32)(distanceXLeft << 0xA) / totalDistance) >> 0xA));
             }
         }
         else
@@ -253,8 +253,8 @@ void RinkaMove(void)
             totalDistance = (u16)Sqrt(distanceXLeft * distanceXLeft + distanceYDown * distanceYDown);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = spawnY - ((velocity * ((i32)(distanceYDown << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = spawnX - ((velocity * ((i32)(distanceXLeft << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = spawnY - ((velocity * ((s32)(distanceYDown << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = spawnX - ((velocity * ((s32)(distanceXLeft << 0xA) / totalDistance) >> 0xA));
             }
         }
     }
@@ -316,7 +316,7 @@ void RinkaMotherBrainRespawn(void)
     u16 spriteY;
     u16 spriteX;
     u16 samusX;
-    i32 offset;
+    s32 offset;
     u8* pSprite;
 
     spriteY = gCurrentSprite.arrayOffset * BLOCK_SIZE + (HALF_BLOCK_SIZE);
@@ -328,7 +328,7 @@ void RinkaMotherBrainRespawn(void)
     {
         case PSPRITE_RINKA_MOTHER_BRAIN2:
             offset = 0x28;
-            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
+            if (samusX < spriteX && (s32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
             {
                 gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
                 spriteY += BLOCK_SIZE;
@@ -340,7 +340,7 @@ void RinkaMotherBrainRespawn(void)
 
         case PSPRITE_RINKA_MOTHER_BRAIN3:
             offset = 0x22;
-            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
+            if (samusX < spriteX && (s32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
             {
                 gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
                 spriteY -= BLOCK_SIZE;
@@ -352,7 +352,7 @@ void RinkaMotherBrainRespawn(void)
 
         case PSPRITE_RINKA_MOTHER_BRAIN4:
             offset = 0x18;
-            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
+            if (samusX < spriteX && (s32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
             {
                 gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
                 spriteX -= (BLOCK_SIZE * 24);
@@ -363,7 +363,7 @@ void RinkaMotherBrainRespawn(void)
 
         case PSPRITE_RINKA_MOTHER_BRAIN5:
             offset = 0x1E;
-            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
+            if (samusX < spriteX && (s32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
             {
                 gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
                 spriteX -= (BLOCK_SIZE * 30);
@@ -374,7 +374,7 @@ void RinkaMotherBrainRespawn(void)
 
         case PSPRITE_RINKA_MOTHER_BRAIN6:
             offset = 0x14;
-            if (samusX < spriteX && (i32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
+            if (samusX < spriteX && (s32)(spriteX - samusX) > (offset * (HALF_BLOCK_SIZE)))
             {
                 gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
                 spriteX -= (BLOCK_SIZE * 20);
@@ -491,7 +491,7 @@ void RinkaMotherBrainMove(void)
     u16 distanceXLeft;
     u16 distanceXRight;
     u8 respawn;
-    i32 totalDistance;
+    s32 totalDistance;
     u16 samusY;
     u16 spriteY;
     u16 acceleration;
@@ -559,8 +559,8 @@ void RinkaMotherBrainMove(void)
             totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = spawnY + ((velocity * ((i32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = spawnX + ((velocity * ((i32)(distanceXRight << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = spawnY + ((velocity * ((s32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = spawnX + ((velocity * ((s32)(distanceXRight << 0xA) / totalDistance) >> 0xA));
             }
         }
         else
@@ -568,8 +568,8 @@ void RinkaMotherBrainMove(void)
             totalDistance = (u16)Sqrt(distanceXRight * distanceXRight + distanceYDown * distanceYDown);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = spawnY - ((velocity * ((i32)(distanceYDown << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = spawnX + ((velocity * ((i32)(distanceXRight << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = spawnY - ((velocity * ((s32)(distanceYDown << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = spawnX + ((velocity * ((s32)(distanceXRight << 0xA) / totalDistance) >> 0xA));
             }
         }
     }
@@ -580,8 +580,8 @@ void RinkaMotherBrainMove(void)
             totalDistance = (u16)Sqrt(distanceXLeft * distanceXLeft + distanceYUp * distanceYUp);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = spawnY + ((velocity * ((i32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = spawnX - ((velocity * ((i32)(distanceXLeft << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = spawnY + ((velocity * ((s32)(distanceYUp << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = spawnX - ((velocity * ((s32)(distanceXLeft << 0xA) / totalDistance) >> 0xA));
             }
         }
         else
@@ -589,8 +589,8 @@ void RinkaMotherBrainMove(void)
             totalDistance = (u16)Sqrt(distanceXLeft * distanceXLeft + distanceYDown * distanceYDown);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = spawnY - ((velocity * ((i32)(distanceYDown << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = spawnX - ((velocity * ((i32)(distanceXLeft << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = spawnY - ((velocity * ((s32)(distanceYDown << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = spawnX - ((velocity * ((s32)(distanceXLeft << 0xA) / totalDistance) >> 0xA));
             }
         }
     }

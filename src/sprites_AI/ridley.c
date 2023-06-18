@@ -91,7 +91,7 @@ void RidleyTailSyncSubSprites(void)
 void RidleyIdleYFloatingMovement(void)
 {
     u8 offset;
-    i32 movement;
+    s32 movement;
 
     offset = gCurrentSprite.arrayOffset;
     movement = sRidleyIdleYOffsets[offset];
@@ -112,7 +112,7 @@ void RidleyIdleYFloatingMovement(void)
 void RidleySpawnSpittingFireballsYFloatingMovement(void)
 {
     u8 offset;
-    i32 movement;
+    s32 movement;
 
     if (gCurrentSprite.status & SPRITE_STATUS_MOSAIC)
     {
@@ -574,8 +574,8 @@ void RidleyInit(void)
  */
 void RidleyCheckPlayCutscene(void)
 {
-    i32 spriteX;
-    i32 samusX;
+    s32 spriteX;
+    s32 samusX;
     u8 inRange;
 
     inRange = FALSE;

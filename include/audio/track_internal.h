@@ -12,7 +12,7 @@ void UpdateAudio(void);
 void unk_4e10(struct TrackVariables* pVariables);
 void unk_4eb4(struct TrackVariables* pVariables);
 void unk_4f10(struct TrackVariables* pVariables);
-void unk_4f8c(struct SoundChannel* pChannel, struct TrackVariables* pVariables, i32 param_3);
+void unk_4f8c(struct SoundChannel* pChannel, struct TrackVariables* pVariables, s32 param_3);
 void unk_5030(struct TrackVariables* pVariables);
 void unk_5070(struct TrackVariables* pVariables);
 void UploadSampleToWaveRAM(const u32* pSample);

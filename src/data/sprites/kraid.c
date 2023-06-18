@@ -1,7 +1,7 @@
 #include "data/sprites/kraid.h"
 #include "macros.h"
 
-const i16 sKraidMultiSpriteData_Rising_Frame0[36] = {
+const s16 sKraidMultiSpriteData_Rising_Frame0[36] = {
     36, 0, 0,
     6, 8, 0,
     28, -28, 208,
@@ -16,7 +16,7 @@ const i16 sKraidMultiSpriteData_Rising_Frame0[36] = {
     21, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_Standing_Frame0[36] = {
+const s16 sKraidMultiSpriteData_Standing_Frame0[36] = {
     36, 0, 0,
     7, 8, 0,
     28, -28, 208,
@@ -31,7 +31,7 @@ const i16 sKraidMultiSpriteData_Standing_Frame0[36] = {
     22, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_Standing_Frame1[36] = {
+const s16 sKraidMultiSpriteData_Standing_Frame1[36] = {
     36, 0, 0,
     7, 12, 0,
     28, -24, 208,
@@ -46,7 +46,7 @@ const i16 sKraidMultiSpriteData_Standing_Frame1[36] = {
     22, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_StandingBetweenSteps_Frame0[36] = {
+const s16 sKraidMultiSpriteData_StandingBetweenSteps_Frame0[36] = {
     36, 0, 0,
     7, 8, 12,
     28, -28, 220,
@@ -61,7 +61,7 @@ const i16 sKraidMultiSpriteData_StandingBetweenSteps_Frame0[36] = {
     24, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_StandingBetweenSteps_Frame1[36] = {
+const s16 sKraidMultiSpriteData_StandingBetweenSteps_Frame1[36] = {
     36, 0, 0,
     7, 12, 12,
     28, -24, 220,
@@ -76,7 +76,7 @@ const i16 sKraidMultiSpriteData_StandingBetweenSteps_Frame1[36] = {
     24, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame0[36] = {
+const s16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame0[36] = {
     36, 0, 0,
     7, 8, 0,
     28, -28, 208,
@@ -91,7 +91,7 @@ const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame0[36] = {
     23, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame1[36] = {
+const s16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame1[36] = {
     36, 0, 0,
     7, 8, 4,
     28, -28, 212,
@@ -106,7 +106,7 @@ const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame1[36] = {
     23, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame2[36] = {
+const s16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame2[36] = {
     36, 0, 0,
     7, 8, 8,
     28, -28, 216,
@@ -121,7 +121,7 @@ const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame2[36] = {
     23, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame3[36] = {
+const s16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame3[36] = {
     36, 0, 0,
     7, 8, 12,
     28, -28, 220,
@@ -136,7 +136,7 @@ const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame3[36] = {
     23, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame4[36] = {
+const s16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame4[36] = {
     36, 0, 0,
     7, 12, 12,
     28, -24, 220,
@@ -151,7 +151,7 @@ const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame4[36] = {
     23, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame0[36] = {
+const s16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame0[36] = {
     36, 0, 0,
     7, 8, 12,
     28, -28, 220,
@@ -166,7 +166,7 @@ const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame0[36] = {
     25, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame1[36] = {
+const s16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame1[36] = {
     36, 0, 0,
     7, 8, 8,
     28, -28, 216,
@@ -181,7 +181,7 @@ const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame1[36] = {
     25, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame2[36] = {
+const s16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame2[36] = {
     36, 0, 0,
     7, 8, 4,
     28, -28, 212,
@@ -196,7 +196,7 @@ const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame2[36] = {
     25, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame3[36] = {
+const s16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame3[36] = {
     36, 0, 0,
     7, 8, 0,
     28, -28, 208,
@@ -211,7 +211,7 @@ const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame3[36] = {
     25, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame4[36] = {
+const s16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame4[36] = {
     36, 0, 0,
     7, 12, 0,
     28, -24, 208,
@@ -226,7 +226,7 @@ const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame4[36] = {
     25, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame0[36] = {
+const s16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame0[36] = {
     36, 0, 0,
     7, 8, 12,
     28, -28, 220,
@@ -241,7 +241,7 @@ const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame0[36] = {
     26, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame1[36] = {
+const s16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame1[36] = {
     36, 0, 0,
     7, 8, 8,
     28, -28, 216,
@@ -256,7 +256,7 @@ const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame1[36] = {
     26, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame2[36] = {
+const s16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame2[36] = {
     36, 0, 0,
     7, 8, 4,
     28, -28, 212,
@@ -271,7 +271,7 @@ const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame2[36] = {
     26, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame3[36] = {
+const s16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame3[36] = {
     36, 0, 0,
     7, 8, 0,
     28, -28, 208,
@@ -286,7 +286,7 @@ const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame3[36] = {
     26, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame4[36] = {
+const s16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame4[36] = {
     36, 0, 0,
     7, 12, 0,
     28, -24, 208,
@@ -301,7 +301,7 @@ const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame4[36] = {
     26, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame0[36] = {
+const s16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame0[36] = {
     36, 0, 0,
     7, 8, 4,
     28, -28, 212,
@@ -316,7 +316,7 @@ const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame0[36] = {
     27, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame1[36] = {
+const s16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame1[36] = {
     36, 0, 0,
     7, 8, 8,
     28, -28, 216,
@@ -331,7 +331,7 @@ const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame1[36] = {
     27, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame2[36] = {
+const s16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame2[36] = {
     36, 0, 0,
     7, 8, 12,
     28, -28, 220,
@@ -346,7 +346,7 @@ const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame2[36] = {
     27, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame3[36] = {
+const s16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame3[36] = {
     36, 0, 0,
     7, 8, 16,
     28, -28, 224,
@@ -361,7 +361,7 @@ const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame3[36] = {
     27, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame4[36] = {
+const s16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame4[36] = {
     36, 0, 0,
     7, 12, 16,
     28, -24, 224,
@@ -376,7 +376,7 @@ const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame4[36] = {
     27, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_Dying1_Frame0[36] = {
+const s16 sKraidMultiSpriteData_Dying1_Frame0[36] = {
     36, 0, 0,
     8, 8, 0,
     28, -28, 208,
@@ -391,7 +391,7 @@ const i16 sKraidMultiSpriteData_Dying1_Frame0[36] = {
     21, 328, 0
 };
 
-const i16 sKraidMultiSpriteData_Dying2_Frame0[36] = {
+const s16 sKraidMultiSpriteData_Dying2_Frame0[36] = {
     36, 0, 0,
     8, 8, 12,
     28, -28, 220,

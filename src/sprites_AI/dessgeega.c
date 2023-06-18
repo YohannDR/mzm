@@ -235,7 +235,7 @@ void DessgeegaJumpWarningCeiling(void)
 void DessgeegaJumpingGround(void)
 {
     u8 collision;
-    i32 yVelocity;
+    s32 yVelocity;
     u32 topEdge;
 
     collision = 0x0;
@@ -359,7 +359,7 @@ void DessgeegaJumpingGround(void)
 void DessgeegaJumpingCeiling(void)
 {
     u8 collision;
-    i32 yVelocity;
+    s32 yVelocity;
     u32 topEdge;
 
     collision = 0x0;
@@ -495,7 +495,7 @@ void DessgeegaFallingGround(void)
     u8 colliding;
     u32 topEdge;
     u8 offset;
-    i32 movement;
+    s32 movement;
 
     colliding = FALSE;
 
@@ -550,7 +550,7 @@ void DessgeegaFallingCeiling(void)
     u8 colliding;
     u32 topEdge;
     u8 offset;
-    i32 movement;
+    s32 movement;
 
     colliding = FALSE;
 

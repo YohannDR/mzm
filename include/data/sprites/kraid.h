@@ -4,59 +4,59 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sKraidMultiSpriteData_Rising_Frame0[36];
+extern const s16 sKraidMultiSpriteData_Rising_Frame0[36];
 
-extern const i16 sKraidMultiSpriteData_Standing_Frame0[36];
+extern const s16 sKraidMultiSpriteData_Standing_Frame0[36];
 
-extern const i16 sKraidMultiSpriteData_Standing_Frame1[36];
+extern const s16 sKraidMultiSpriteData_Standing_Frame1[36];
 
-extern const i16 sKraidMultiSpriteData_StandingBetweenSteps_Frame0[36];
+extern const s16 sKraidMultiSpriteData_StandingBetweenSteps_Frame0[36];
 
-extern const i16 sKraidMultiSpriteData_StandingBetweenSteps_Frame1[36];
+extern const s16 sKraidMultiSpriteData_StandingBetweenSteps_Frame1[36];
 
-extern const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame0[36];
+extern const s16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame0[36];
 
-extern const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame1[36];
+extern const s16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame1[36];
 
-extern const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame2[36];
+extern const s16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame2[36];
 
-extern const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame3[36];
+extern const s16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame3[36];
 
-extern const i16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame4[36];
+extern const s16 sKraidMultiSpriteData_MovingLeftFeetToRight_Frame4[36];
 
-extern const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame0[36];
+extern const s16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame0[36];
 
-extern const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame1[36];
+extern const s16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame1[36];
 
-extern const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame2[36];
+extern const s16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame2[36];
 
-extern const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame3[36];
+extern const s16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame3[36];
 
-extern const i16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame4[36];
+extern const s16 sKraidMultiSpriteData_MovingRightFeetToRight_Frame4[36];
 
-extern const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame0[36];
+extern const s16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame0[36];
 
-extern const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame1[36];
+extern const s16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame1[36];
 
-extern const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame2[36];
+extern const s16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame2[36];
 
-extern const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame3[36];
+extern const s16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame3[36];
 
-extern const i16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame4[36];
+extern const s16 sKraidMultiSpriteData_MovingLeftFeetToLeft_Frame4[36];
 
-extern const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame0[36];
+extern const s16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame0[36];
 
-extern const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame1[36];
+extern const s16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame1[36];
 
-extern const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame2[36];
+extern const s16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame2[36];
 
-extern const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame3[36];
+extern const s16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame3[36];
 
-extern const i16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame4[36];
+extern const s16 sKraidMultiSpriteData_MovingRightFeetToLeft_Frame4[36];
 
-extern const i16 sKraidMultiSpriteData_Dying1_Frame0[36];
+extern const s16 sKraidMultiSpriteData_Dying1_Frame0[36];
 
-extern const i16 sKraidMultiSpriteData_Dying2_Frame0[36];
+extern const s16 sKraidMultiSpriteData_Dying2_Frame0[36];
 
 extern const struct FrameData sKraidMultiSpriteData_Rising[2];
 

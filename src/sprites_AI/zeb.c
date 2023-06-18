@@ -63,7 +63,7 @@ void ZebIdle(void)
     u16 samusY;
     u16 spriteX;
     u16 spriteY;
-    i32 offset;
+    s32 offset;
 
     if (!SpriteUtilCheckHasDrops())
     {

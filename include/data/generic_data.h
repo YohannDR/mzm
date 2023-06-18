@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-extern const i16 sSineTable[320];
+extern const s16 sSineTable[320];
 
 extern const u8 sRandomNumberTable[256];
 

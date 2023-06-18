@@ -36,8 +36,8 @@ struct IoTransferInfo {
     u8 result;
     u8 errorFlag;
     u16 unk_E;
-    i8 fusionGalleryImages;
-    i8 language;
+    s8 fusionGalleryImages;
+    s8 language;
     u16 musicTrack;
     u16 musicPriority;
 };

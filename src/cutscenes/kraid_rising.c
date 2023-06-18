@@ -125,7 +125,7 @@ u8 KraidRisingRising(void)
 struct CutsceneOamData* KraidRisingUpdatePuff(struct CutsceneOamData* pOam, u8 puffID)
 {
     u8* data;
-    i32 offset;
+    s32 offset;
 
     if (!pOam->exists)
     {

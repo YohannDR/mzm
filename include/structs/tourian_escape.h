@@ -32,11 +32,11 @@ struct TourianEscapeData {
 
     u8 padding_86[16];
 
-    i16 unk_96[TOURIAN_ESCAPE_MAX_OBJECTS];
+    s16 unk_96[TOURIAN_ESCAPE_MAX_OBJECTS];
 
     u8 padding_AA[4];
 
-    i16 unk_AE;
+    s16 unk_AE;
     u16 unk_B0;
 
     u8 padding_B2[12];
@@ -46,19 +46,19 @@ struct TourianEscapeData {
 
     u16 dispcnt;
     u16 bldcnt;
-    i16 win0h_H;
-    i16 win0h_L;
-    i16 win0v_H;
-    i16 win0v_L;
+    s16 win0h_H;
+    s16 win0h_L;
+    s16 win0v_H;
+    s16 win0v_L;
 };
 
 
 extern u16 gBg2Rotation;
 extern u16 gBg2Scaling;
-extern i16 gWrittenToBG2PA;
-extern i16 gWrittenToBG2PB;
-extern i16 gWrittenToBG2PC;
-extern i16 gWrittenToBG2PD;
+extern s16 gWrittenToBG2PA;
+extern s16 gWrittenToBG2PB;
+extern s16 gWrittenToBG2PC;
+extern s16 gWrittenToBG2PD;
 extern u16 gWrittenToBG2X;
 extern u16 gWrittenToBG2Y;
 extern u16 gUnk_30013a2;

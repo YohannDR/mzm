@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sDragonFireballYMovement[40];
+extern const s16 sDragonFireballYMovement[40];
 
-extern const i16 sDragonFireballOAMRotation[40];
+extern const s16 sDragonFireballOAMRotation[40];
 
 extern const u32 sDragonGfx[512];
 extern const u16 sDragonPAL[32];

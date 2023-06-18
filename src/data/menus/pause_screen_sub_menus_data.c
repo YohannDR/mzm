@@ -286,7 +286,7 @@ const u8 sChozoStatueHintEvents[16] = {
     [15] = UCHAR_MAX
 };
 
-const i8 sChozoStatueTargetPathBrinstar[9][2] = {
+const s8 sChozoStatueTargetPathBrinstar[9][2] = {
     [0] = {
         0, 0x40
     },
@@ -316,7 +316,7 @@ const i8 sChozoStatueTargetPathBrinstar[9][2] = {
     },
 };
 
-const i8 sChozoStatueTargetPathKraid[9][2] = {
+const s8 sChozoStatueTargetPathKraid[9][2] = {
     [0] = {
         3, -0x40
     },
@@ -346,7 +346,7 @@ const i8 sChozoStatueTargetPathKraid[9][2] = {
     },
 };
 
-const i8 sChozoStatueTargetPathNorfair[9][2] = {
+const s8 sChozoStatueTargetPathNorfair[9][2] = {
     [0] = {
         2, -0x40
     },
@@ -376,7 +376,7 @@ const i8 sChozoStatueTargetPathNorfair[9][2] = {
     },
 };
 
-const i8 sChozoStatueTargetPathRidley[9][2] = {
+const s8 sChozoStatueTargetPathRidley[9][2] = {
     [0] = {
         4, -0x40
     },
@@ -406,7 +406,7 @@ const i8 sChozoStatueTargetPathRidley[9][2] = {
     },
 };
 
-const i8 sChozoStatueTargetPathCrateria[9][2] = {
+const s8 sChozoStatueTargetPathCrateria[9][2] = {
     [0] = {
         7, 0x40
     },

@@ -1,7 +1,7 @@
 #include "data/sprites/holtz.h"
 #include "macros.h"
 
-const i16 sHoltzIdleYVelocity[65] = {
+const s16 sHoltzIdleYVelocity[65] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1,
     1, 2, 2, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
     0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1,

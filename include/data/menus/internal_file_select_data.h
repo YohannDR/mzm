@@ -4,7 +4,7 @@
 #include "types.h"
 #include "structs/menus/file_select.h"
 
-extern const i8 sSaveFileAreasId[12];
+extern const s8 sSaveFileAreasId[12];
 extern const u32* const sFileSelectTextGfxPointers[5];
 extern const struct FileSelectionData sFileSelectionData_Empty;
 extern const struct FileSelectCursorOamData sFileSelectCursorOamData[6];

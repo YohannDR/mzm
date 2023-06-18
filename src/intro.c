@@ -224,11 +224,11 @@ u8 IntroProcessText(u8 action, u16 indent)
     u8 flag_unk2;
     u8 newLine;
     u8 flag_unk3;
-    i32 previousY;
-    i32 newY;
+    s32 previousY;
+    s32 newY;
 
     // TODO macro
-    do{newY = (i16)indent;}while(0);
+    do{newY = (s16)indent;}while(0);
 
     dontProcess = FALSE;
     flag_unk2 = FALSE;
@@ -909,7 +909,7 @@ u8 IntroFuzz(void)
             break;
 
         case 6:
-            dma_set(3, sIntroFuzzRandomValues_3, INTRO_DATA.fuzzPalette, DMA_ENABLE << 16 | ARRAY_SIZE(INTRO_DATA.fuzzPalette));
+            dma_set(3, sArray_45fd30[1], INTRO_DATA.fuzzPalette, DMA_ENABLE << 16 | ARRAY_SIZE(INTRO_DATA.fuzzPalette));
             break;
     }
 

@@ -4,15 +4,15 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sAcidWormSpitTwoYVelocity[16];
+extern const s16 sAcidWormSpitTwoYVelocity[16];
 
-extern const i16 sAcidWormSpitOneYVelocity[26];
+extern const s16 sAcidWormSpitOneYVelocity[26];
 
-extern const i16 sAcidWormSpitThreeYVelocity[20];
+extern const s16 sAcidWormSpitThreeYVelocity[20];
 
-extern const i16 sAcidWormSwingingMovement[33];
+extern const s16 sAcidWormSwingingMovement[33];
 
-extern const i16 sAcidWormHeadRandomXVelocity[45];
+extern const s16 sAcidWormHeadRandomXVelocity[45];
 
 extern const u32 sAcidWormGfx[1000];
 extern const u16 sAcidWormPAL[64];

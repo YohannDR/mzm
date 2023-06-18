@@ -22,10 +22,10 @@ struct CurrentAffectingClip {
 };
 
 struct CollisionData {
-    i32 clipdataType;
-    i32 subPixelX;
-    i32 subPixelY;
-    i32 actorType;
+    s32 clipdataType;
+    s32 subPixelX;
+    s32 subPixelY;
+    s32 actorType;
     u16 tileX;
     u16 tileY;
 };
@@ -49,6 +49,6 @@ extern struct CurrentAffectingClip gCurrentAffectingClipdata;
 extern struct TilemapAndClipPointers gTilemapAndClipPointers;
 
 extern u16 gEffectYPosition;
-extern i16 gEffectYPositionOffset;
+extern s16 gEffectYPositionOffset;
 
 #endif

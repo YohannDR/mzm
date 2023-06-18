@@ -10,7 +10,7 @@ void UpdateTrack(struct TrackData* pTrack);
 void unk_1bf0(struct TrackVariables* pVariables);
 void unk_1c18(struct TrackVariables* pVariables);
 void unk_1c3c(struct TrackVariables* pVariables);
-void unk_1ccc(struct TrackVariables* pVariables, i16 param_2);
+void unk_1ccc(struct TrackVariables* pVariables, s16 param_2);
 void unk_1d5c(struct TrackVariables* pVariables);
 void unk_1d78(struct TrackVariables* pVariables);
 void unk_1ddc(struct TrackVariables* pVariables);

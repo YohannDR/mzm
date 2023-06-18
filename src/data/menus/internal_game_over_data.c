@@ -16,7 +16,7 @@ const u8 sGameOverTextPaletteMaxTimers[3] = {
     20, 20, 20
 };
 
-const i8 sGameOver_760b0f[9] = {
+const s8 sGameOver_760b0f[9] = {
     0, 1, 2, 3, 2, 1, 0, 0, 0
 };
 

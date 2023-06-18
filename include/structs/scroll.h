@@ -17,8 +17,8 @@ struct Scroll {
 struct Camera {
     u16 xPosition;
     u16 yPosition;
-    i8 xVelocity;
-    i8 yVelocity;
+    s8 xVelocity;
+    s8 yVelocity;
 };
 
 struct LockScreen {
@@ -28,10 +28,10 @@ struct LockScreen {
 };
 
 struct Unk_3005714 {
-    i16 unk0;
-    i16 unk2;
-    i16 unk4;
-    i16 unk6;
+    s16 unk0;
+    s16 unk2;
+    s16 unk4;
+    s16 unk6;
 };
 
 
@@ -41,8 +41,8 @@ extern u8 gSkipDoorTransition;
 extern struct Scroll gCurrentScrolls[2];
 extern struct Camera gCamera;
 extern struct LockScreen gLockScreen;
-extern i8 gScreenYOffset;
-extern i16 gScreenXOffset;
+extern s8 gScreenYOffset;
+extern s16 gScreenXOffset;
 
 extern u8 gUnk_300007f;
 extern struct Unk_3005714 gUnk_3005714;

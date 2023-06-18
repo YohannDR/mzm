@@ -73,8 +73,8 @@ u8 StoryTextCutsceneInit(void)
 u8 StoryTextCutsceneProcessText(void)
 {
     u32* dst;
-    i32 line;
-    i32 result;
+    s32 line;
+    s32 result;
     u32 flag;
 
     dst = VRAM_BASE + 0x3000 + sStoryTextCutscenePagesData[0].graphicsPage * 0x4000;

@@ -208,7 +208,7 @@ void PolypProjectileSpawn(void)
 void PolypProjectileMove(void)
 {
     u16 xMovement;
-    i32 yMovement;
+    s32 yMovement;
     u8 offset;
 
     xMovement = 0x4;

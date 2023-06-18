@@ -443,8 +443,8 @@ void InitAndLoadGenerics(void)
 
 void UpdateFreeMovement_Debug(void)
 {
-    i32 xVelocity;
-    i32 yVelocity;
+    s32 xVelocity;
+    s32 yVelocity;
     u32 bgSize;
 
     xVelocity = 0;
@@ -476,8 +476,8 @@ void UpdateFreeMovement_Debug(void)
 
     if (gButtonInput & (KEY_R | KEY_L))
     {
-        xVelocity = (i16)(xVelocity * 2);
-        yVelocity = (i16)(yVelocity * 2);
+        xVelocity = (s16)(xVelocity * 2);
+        yVelocity = (s16)(yVelocity * 2);
     }
 
     if (gSamusData.xPosition & 0x8000)
@@ -496,7 +496,7 @@ void UpdateFreeMovement_Debug(void)
     }
     else
     {
-        if (gSamusData.xPosition > (i32)(bgSize - xVelocity))
+        if (gSamusData.xPosition > (s32)(bgSize - xVelocity))
             gSamusData.xPosition = bgSize;
         else
             gSamusData.xPosition += xVelocity;
@@ -512,7 +512,7 @@ void UpdateFreeMovement_Debug(void)
     }
     else
     {
-        if (gSamusData.yPosition > (i32)(bgSize - yVelocity))
+        if (gSamusData.yPosition > (s32)(bgSize - yVelocity))
             gSamusData.yPosition = bgSize;
         else
             gSamusData.yPosition += yVelocity;

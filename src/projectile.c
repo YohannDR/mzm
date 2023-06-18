@@ -157,7 +157,7 @@ u8 ProjectileInit(u8 type, u16 yPosition, u16 xPosition)
  */
 void ProjectileUpdate(void)
 {
-    i32 count;
+    s32 count;
     u8 checks;
     u8 projType;
     u16 beamSound;
@@ -531,14 +531,14 @@ void ProjectileDraw(struct ProjectileData* pProj)
     u16 xPosition;
     u16 part1;
     u16 part2;
-    i32 currSlot;
-    i32 prevSlot;
+    s32 currSlot;
+    s32 prevSlot;
     u8 xFlip;
     u8 yFlip;
-    i32 i;
+    s32 i;
     u32 shape;
     u32 size;
-    i32 partCount;
+    s32 partCount;
     u32 offset;
     
     prevSlot = gNextOamSlot;
@@ -782,9 +782,9 @@ void ProjectileCallLoadGraphicsAndClearProjectiles(void)
  */
 void ProjectileMove(struct ProjectileData* pProj, u8 distance)
 {
-    i16 samusVelocity;
-    i32 leftVelocity;
-    i32 rightVelocity;
+    s16 samusVelocity;
+    s32 leftVelocity;
+    s32 rightVelocity;
 
     switch (pProj->direction)
     {
@@ -887,19 +887,19 @@ u32 ProjectileCheckVerticalCollisionAtPosition(struct ProjectileData* pProj)
     switch (clipdata & 0xFF)
     {
         case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
-            collisionY = (i16)((yPosition & BLOCK_POSITION_FLAG) - ((xPosition & SUB_PIXEL_POSITION_FLAG) - 0x3F));
-            collisionX = (i16)((xPosition & BLOCK_POSITION_FLAG) - ((yPosition & SUB_PIXEL_POSITION_FLAG) - SUB_PIXEL_POSITION_FLAG));
+            collisionY = (s16)((yPosition & BLOCK_POSITION_FLAG) - ((xPosition & SUB_PIXEL_POSITION_FLAG) - 0x3F));
+            collisionX = (s16)((xPosition & BLOCK_POSITION_FLAG) - ((yPosition & SUB_PIXEL_POSITION_FLAG) - SUB_PIXEL_POSITION_FLAG));
             result = COLLISION_RIGHT_STEEP_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
-            collisionY = (i16)((yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) - 0x3F));
+            collisionY = (s16)((yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) - 0x3F));
             collisionX = (xPosition & BLOCK_POSITION_FLAG) - (((yPosition & SUB_PIXEL_POSITION_FLAG) << 1) - 0x7E);
             result = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
             break;
 
         case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
-            collisionY = (i16)((yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) - 0x1F));
+            collisionY = (s16)((yPosition & BLOCK_POSITION_FLAG) - (((xPosition & SUB_PIXEL_POSITION_FLAG) >> 1) - 0x1F));
             collisionX = (xPosition & BLOCK_POSITION_FLAG) - (((yPosition & SUB_PIXEL_POSITION_FLAG) << 1) - 0x3E);
             result = COLLISION_RIGHT_SLIGHT_FLOOR_SLOPE;
             break;
@@ -1055,7 +1055,7 @@ void ProjectileSetTrail(struct ProjectileData* pProj, u8 effect, u8 delay)
 void ProjectileMoveTumbling(struct ProjectileData* pProj)
 {
     u8 timer;
-    i16 movement;
+    s16 movement;
     u32 newPosition;
 
     if (!(pProj->status & PROJ_STATUS_ON_SCREEN))

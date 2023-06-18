@@ -277,10 +277,10 @@ void DragonFireballMove(void)
 {
     u16 oldY;
     u8 offset;
-    i32 yMovement;
-    i32 xMovement;
-    i32 rotation;
-    i32 newVel;
+    s32 yMovement;
+    s32 xMovement;
+    s32 rotation;
+    s32 newVel;
 
     xMovement = 0xC;
     oldY = gCurrentSprite.yPosition;

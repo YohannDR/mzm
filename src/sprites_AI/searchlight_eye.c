@@ -178,7 +178,7 @@ void SearchlightEyeCheckShouldShot(void)
  */
 void SearchlightEyeShoot(void)
 {
-    i32 status;
+    s32 status;
     
     SearchlightEyeMove();
     if (gCurrentSprite.timer == 0x0)

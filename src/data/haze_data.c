@@ -12,50 +12,50 @@ const u8 sHaze_345ff8[132] = {
     231, 237, 244, 250
 };
 
-const i8 sHaze_Bg3_StrongEffect[48] = {
+const s8 sHaze_Bg3_StrongEffect[48] = {
     0, 1, 1, 2, 2, 2, 1, 1, 0, -1, -1, -2, -2, -2, -1, -1,
     0, 1, 2, 2, 3, 3, 4, 4, 4, 4, 4, 3, 3, 2, 2, 1,
     0, -1, -2, -2, -3, -3, -4, -4, -4, -4, -4, -3, -3, -2, -2, -1
 };
 
-static const i16 sHaze_PowerBomb_Values0[18 + 0 * 4] = {
+static const s16 sHaze_PowerBomb_Values0[18 + 0 * 4] = {
     0, 0, 2, -2, 4, -4, 4, -4, 4, -4,
     4, -4, 4, -4, 2, -2, 0, 0
 };
 
-static const i16 sHaze_PowerBomb_Values5[18 + 1 * 4] = {
+static const s16 sHaze_PowerBomb_Values5[18 + 1 * 4] = {
     1, -1, 3, -3, 4, -4, 5, -5, 5, -5,
     5, -5, 5, -5, 5, -5, 4, -4, 3, -3,
     1, -1
 };
 
-static const i16 sHaze_PowerBomb_Values6[18 + 2 * 4] = {
+static const s16 sHaze_PowerBomb_Values6[18 + 2 * 4] = {
     0, 0, 3, -3, 4, -4, 5, -5, 6, -6,
     6, -6, 6, -6, 6, -6, 6, -6, 5, -5,
     4, -4, 3, -3, 0, 0
 };
 
-static const i16 sHaze_PowerBomb_Values7[18 + 3 * 4] = {
+static const s16 sHaze_PowerBomb_Values7[18 + 3 * 4] = {
     1, -1, 3, -3, 5, -5, 6, -6, 6, -6,
     7, -7, 7, -7, 7, -7, 7, -7, 7, -7,
     6, -6, 6, -6, 5, -5, 3, -3, 1, -1
 };
 
-static const i16 sHaze_PowerBomb_Values8[18 + 4 * 4] = {
+static const s16 sHaze_PowerBomb_Values8[18 + 4 * 4] = {
     1, -1, 3, -3, 5, -5, 6, -6, 7, -7,
     7, -7, 8, -8, 8, -8, 8, -8, 8, -8,
     8, -8, 7, -7, 7, -7, 6, -6, 5, -5,
     3, -3, 1, -1
 };
 
-static const i16 sHaze_PowerBomb_Values9[18 + 5 * 4] = {
+static const s16 sHaze_PowerBomb_Values9[18 + 5 * 4] = {
     0, 0, 3, -3, 6, -6, 6, -6, 8, -8,
     8, -8, 9, -9, 9, -9, 9, -9, 9, -9,
     9, -9, 9, -9, 9, -9, 8, -8, 8, -8,
     6, -6, 6, -6, 3, -3, 0, 0
 };
 
-static const i16 sHaze_PowerBomb_Values10[18 + 6 * 4] = {
+static const s16 sHaze_PowerBomb_Values10[18 + 6 * 4] = {
 	1, -1, 4, -4, 5, -5, 7, -7, 8, -8, 9,
 	-9, 9, -9, 10, -10, 10, -10, 10, -10, 10,
 	-10, 10, -10, 10, -10, 10, -10, 9, -9, 9,
@@ -63,7 +63,7 @@ static const i16 sHaze_PowerBomb_Values10[18 + 6 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values11[18 + 7 * 4] = {
+static const s16 sHaze_PowerBomb_Values11[18 + 7 * 4] = {
 	0, 0, 4, -4, 6, -6, 8, -8, 8, -8, 9,
 	-9, 10, -10, 10, -10, 11, -11, 11, -11, 11,
 	-11, 11, -11, 11, -11, 11, -11, 11, -11, 10,
@@ -71,7 +71,7 @@ static const i16 sHaze_PowerBomb_Values11[18 + 7 * 4] = {
 	-6, 4, -4, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values12[18 + 8 * 4] = {
+static const s16 sHaze_PowerBomb_Values12[18 + 8 * 4] = {
 	1, -1, 4, -4, 6, -6, 8, -8, 9, -9, 9,
 	-9, 11, -11, 11, -11, 11, -11, 12, -12, 12,
 	-12, 12, -12, 12, -12, 12, -12, 12, -12, 12,
@@ -79,7 +79,7 @@ static const i16 sHaze_PowerBomb_Values12[18 + 8 * 4] = {
 	-9, 8, -8, 6, -6, 4, -4, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values13[18 + 9 * 4] = {
+static const s16 sHaze_PowerBomb_Values13[18 + 9 * 4] = {
 	0, 0, 4, -4, 6, -6, 8, -8, 9, -9, 10,
 	-10, 11, -11, 12, -12, 12, -12, 12, -12, 13,
 	-13, 13, -13, 13, -13, 13, -13, 13, -13, 13,
@@ -88,7 +88,7 @@ static const i16 sHaze_PowerBomb_Values13[18 + 9 * 4] = {
 	-4, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values14[18 + 10 * 4] = {
+static const s16 sHaze_PowerBomb_Values14[18 + 10 * 4] = {
 	1, -1, 4, -4, 7, -7, 8, -8, 10, -10, 11,
 	-11, 11, -11, 12, -12, 13, -13, 13, -13, 13,
 	-13, 14, -14, 14, -14, 14, -14, 14, -14, 14,
@@ -97,7 +97,7 @@ static const i16 sHaze_PowerBomb_Values14[18 + 10 * 4] = {
 	-8, 7, -7, 4, -4, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values15[18 + 11 * 4] = {
+static const s16 sHaze_PowerBomb_Values15[18 + 11 * 4] = {
 	1, -1, 4, -4, 7, -7, 9, -9, 10, -10, 11,
 	-11, 12, -12, 12, -12, 13, -13, 14, -14, 14,
 	-14, 14, -14, 15, -15, 15, -15, 15, -15, 15,
@@ -107,7 +107,7 @@ static const i16 sHaze_PowerBomb_Values15[18 + 11 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values16[18 + 12 * 4] = {
+static const s16 sHaze_PowerBomb_Values16[18 + 12 * 4] = {
 	0, 0, 4, -4, 7, -7, 9, -9, 10, -10, 12,
 	-12, 12, -12, 13, -13, 14, -14, 14, -14, 15,
 	-15, 15, -15, 16, -16, 16, -16, 16, -16, 16,
@@ -117,7 +117,7 @@ static const i16 sHaze_PowerBomb_Values16[18 + 12 * 4] = {
 	-7, 4, -4, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values17[18 + 13 * 4] = {
+static const s16 sHaze_PowerBomb_Values17[18 + 13 * 4] = {
 	1, -1, 5, -5, 7, -7, 9, -9, 11, -11, 12,
 	-12, 13, -13, 14, -14, 14, -14, 15, -15, 16,
 	-16, 16, -16, 16, -16, 17, -17, 17, -17, 17,
@@ -127,7 +127,7 @@ static const i16 sHaze_PowerBomb_Values17[18 + 13 * 4] = {
 	-11, 9, -9, 7, -7, 5, -5, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values18[18 + 14 * 4] = {
+static const s16 sHaze_PowerBomb_Values18[18 + 14 * 4] = {
 	0, 0, 4, -4, 8, -8, 10, -10, 11, -11, 12,
 	-12, 14, -14, 14, -14, 15, -15, 15, -15, 16,
 	-16, 17, -17, 17, -17, 17, -17, 18, -18, 18,
@@ -138,7 +138,7 @@ static const i16 sHaze_PowerBomb_Values18[18 + 14 * 4] = {
 	-4, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values19[18 + 15 * 4] = {
+static const s16 sHaze_PowerBomb_Values19[18 + 15 * 4] = {
 	1, -1, 5, -5, 8, -8, 10, -10, 11, -11, 13,
 	-13, 13, -13, 15, -15, 15, -15, 16, -16, 17,
 	-17, 17, -17, 18, -18, 18, -18, 18, -18, 19,
@@ -149,7 +149,7 @@ static const i16 sHaze_PowerBomb_Values19[18 + 15 * 4] = {
 	-10, 8, -8, 5, -5, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values20[18 + 16 * 4] = {
+static const s16 sHaze_PowerBomb_Values20[18 + 16 * 4] = {
 	0, 0, 5, -5, 8, -8, 10, -10, 12, -12, 13,
 	-13, 14, -14, 15, -15, 16, -16, 17, -17, 17,
 	-17, 18, -18, 18, -18, 19, -19, 19, -19, 19,
@@ -161,7 +161,7 @@ static const i16 sHaze_PowerBomb_Values20[18 + 16 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values21[18 + 17 * 4] = {
+static const s16 sHaze_PowerBomb_Values21[18 + 17 * 4] = {
 	1, -1, 5, -5, 9, -9, 10, -10, 12, -12, 14,
 	-14, 14, -14, 16, -16, 17, -17, 17, -17, 18,
 	-18, 19, -19, 19, -19, 19, -19, 20, -20, 20,
@@ -173,7 +173,7 @@ static const i16 sHaze_PowerBomb_Values21[18 + 17 * 4] = {
 	-9, 5, -5, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values22[18 + 18 * 4] = {
+static const s16 sHaze_PowerBomb_Values22[18 + 18 * 4] = {
 	1, -1, 5, -5, 8, -8, 11, -11, 13, -13, 14,
 	-14, 15, -15, 16, -16, 17, -17, 18, -18, 18,
 	-18, 19, -19, 20, -20, 20, -20, 21, -21, 21,
@@ -185,7 +185,7 @@ static const i16 sHaze_PowerBomb_Values22[18 + 18 * 4] = {
 	-13, 11, -11, 8, -8, 5, -5, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values23[18 + 19 * 4] = {
+static const s16 sHaze_PowerBomb_Values23[18 + 19 * 4] = {
 	0, 0, 5, -5, 9, -9, 11, -11, 12, -12, 14,
 	-14, 16, -16, 16, -16, 17, -17, 18, -18, 19,
 	-19, 19, -19, 20, -20, 21, -21, 21, -21, 22,
@@ -198,7 +198,7 @@ static const i16 sHaze_PowerBomb_Values23[18 + 19 * 4] = {
 	-5, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values24[18 + 20 * 4] = {
+static const s16 sHaze_PowerBomb_Values24[18 + 20 * 4] = {
 	1, -1, 6, -6, 9, -9, 11, -11, 13, -13, 15,
 	-15, 15, -15, 17, -17, 18, -18, 19, -19, 19,
 	-19, 20, -20, 21, -21, 22, -22, 22, -22, 22,
@@ -211,7 +211,7 @@ static const i16 sHaze_PowerBomb_Values24[18 + 20 * 4] = {
 	-11, 9, -9, 6, -6, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values25[18 + 21 * 4] = {
+static const s16 sHaze_PowerBomb_Values25[18 + 21 * 4] = {
 	0, 0, 5, -5, 9, -9, 12, -12, 14, -14, 14,
 	-14, 16, -16, 17, -17, 18, -18, 19, -19, 20,
 	-20, 21, -21, 21, -21, 22, -22, 23, -23, 23,
@@ -225,7 +225,7 @@ static const i16 sHaze_PowerBomb_Values25[18 + 21 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values26[18 + 22 * 4] = {
+static const s16 sHaze_PowerBomb_Values26[18 + 22 * 4] = {
 	1, -1, 6, -6, 10, -10, 11, -11, 13, -13, 15,
 	-15, 16, -16, 17, -17, 19, -19, 19, -19, 21,
 	-21, 21, -21, 22, -22, 22, -22, 23, -23, 24,
@@ -239,7 +239,7 @@ static const i16 sHaze_PowerBomb_Values26[18 + 22 * 4] = {
 	-10, 6, -6, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values27[18 + 23 * 4] = {
+static const s16 sHaze_PowerBomb_Values27[18 + 23 * 4] = {
 	0, 0, 5, -5, 9, -9, 12, -12, 14, -14, 15,
 	-15, 17, -17, 18, -18, 19, -19, 20, -20, 21,
 	-21, 22, -22, 22, -22, 23, -23, 23, -23, 24,
@@ -253,7 +253,7 @@ static const i16 sHaze_PowerBomb_Values27[18 + 23 * 4] = {
 	-14, 12, -12, 9, -9, 5, -5, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values28[18 + 24 * 4] = {
+static const s16 sHaze_PowerBomb_Values28[18 + 24 * 4] = {
 	1, -1, 6, -6, 10, -10, 12, -12, 14, -14, 16,
 	-16, 17, -17, 18, -18, 20, -20, 20, -20, 21,
 	-21, 22, -22, 23, -23, 24, -24, 24, -24, 25,
@@ -268,7 +268,7 @@ static const i16 sHaze_PowerBomb_Values28[18 + 24 * 4] = {
 	-6, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values29[18 + 25 * 4] = {
+static const s16 sHaze_PowerBomb_Values29[18 + 25 * 4] = {
 	1, -1, 6, -6, 9, -9, 12, -12, 14, -14, 16,
 	-16, 17, -17, 19, -19, 20, -20, 21, -21, 22,
 	-22, 22, -22, 24, -24, 24, -24, 25, -25, 25,
@@ -283,7 +283,7 @@ static const i16 sHaze_PowerBomb_Values29[18 + 25 * 4] = {
 	-12, 9, -9, 6, -6, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values30[18 + 26 * 4] = {
+static const s16 sHaze_PowerBomb_Values30[18 + 26 * 4] = {
 	0, 0, 6, -6, 10, -10, 13, -13, 14, -14, 16,
 	-16, 18, -18, 19, -19, 20, -20, 22, -22, 22,
 	-22, 23, -23, 24, -24, 25, -25, 25, -25, 26,
@@ -299,7 +299,7 @@ static const i16 sHaze_PowerBomb_Values30[18 + 26 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values31[18 + 27 * 4] = {
+static const s16 sHaze_PowerBomb_Values31[18 + 27 * 4] = {
 	1, -1, 6, -6, 10, -10, 12, -12, 15, -15, 17,
 	-17, 18, -18, 19, -19, 21, -21, 21, -21, 23,
 	-23, 24, -24, 24, -24, 25, -25, 26, -26, 26,
@@ -315,7 +315,7 @@ static const i16 sHaze_PowerBomb_Values31[18 + 27 * 4] = {
 	-10, 6, -6, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values32[18 + 28 * 4] = {
+static const s16 sHaze_PowerBomb_Values32[18 + 28 * 4] = {
 	0, 0, 6, -6, 10, -10, 13, -13, 15, -15, 16,
 	-16, 18, -18, 20, -20, 21, -21, 22, -22, 23,
 	-23, 24, -24, 25, -25, 26, -26, 27, -27, 27,
@@ -331,7 +331,7 @@ static const i16 sHaze_PowerBomb_Values32[18 + 28 * 4] = {
 	-15, 13, -13, 10, -10, 6, -6, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values33[18 + 29 * 4] = {
+static const s16 sHaze_PowerBomb_Values33[18 + 29 * 4] = {
 	1, -1, 6, -6, 11, -11, 13, -13, 15, -15, 17,
 	-17, 19, -19, 20, -20, 21, -21, 23, -23, 23,
 	-23, 25, -25, 25, -25, 26, -26, 27, -27, 28,
@@ -348,7 +348,7 @@ static const i16 sHaze_PowerBomb_Values33[18 + 29 * 4] = {
 	-6, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values34[18 + 30 * 4] = {
+static const s16 sHaze_PowerBomb_Values34[18 + 30 * 4] = {
 	0, 0, 6, -6, 10, -10, 13, -13, 16, -16, 18,
 	-18, 19, -19, 20, -20, 22, -22, 23, -23, 24,
 	-24, 25, -25, 26, -26, 27, -27, 27, -27, 28,
@@ -365,7 +365,7 @@ static const i16 sHaze_PowerBomb_Values34[18 + 30 * 4] = {
 	-13, 10, -10, 6, -6, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values35[18 + 31 * 4] = {
+static const s16 sHaze_PowerBomb_Values35[18 + 31 * 4] = {
 	1, -1, 6, -6, 11, -11, 14, -14, 15, -15, 17,
 	-17, 19, -19, 21, -21, 22, -22, 23, -23, 24,
 	-24, 25, -25, 26, -26, 27, -27, 28, -28, 29,
@@ -383,7 +383,7 @@ static const i16 sHaze_PowerBomb_Values35[18 + 31 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values36[18 + 32 * 4] = {
+static const s16 sHaze_PowerBomb_Values36[18 + 32 * 4] = {
 	1, -1, 7, -7, 10, -10, 13, -13, 16, -16, 18,
 	-18, 19, -19, 21, -21, 23, -23, 23, -23, 25,
 	-25, 26, -26, 27, -27, 28, -28, 28, -28, 29,
@@ -401,7 +401,7 @@ static const i16 sHaze_PowerBomb_Values36[18 + 32 * 4] = {
 	-10, 7, -7, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values37[18 + 33 * 4] = {
+static const s16 sHaze_PowerBomb_Values37[18 + 33 * 4] = {
 	0, 0, 6, -6, 11, -11, 14, -14, 17, -17, 18,
 	-18, 20, -20, 22, -22, 22, -22, 24, -24, 25,
 	-25, 26, -26, 27, -27, 28, -28, 29, -29, 29,
@@ -419,7 +419,7 @@ static const i16 sHaze_PowerBomb_Values37[18 + 33 * 4] = {
 	-17, 14, -14, 11, -11, 6, -6, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values38[18 + 34 * 4] = {
+static const s16 sHaze_PowerBomb_Values38[18 + 34 * 4] = {
 	1, -1, 7, -7, 12, -12, 14, -14, 16, -16, 18,
 	-18, 21, -21, 21, -21, 23, -23, 25, -25, 25,
 	-25, 27, -27, 27, -27, 29, -29, 29, -29, 30,
@@ -438,7 +438,7 @@ static const i16 sHaze_PowerBomb_Values38[18 + 34 * 4] = {
 	-7, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values39[18 + 35 * 4] = {
+static const s16 sHaze_PowerBomb_Values39[18 + 35 * 4] = {
 	0, 0, 6, -6, 11, -11, 14, -14, 17, -17, 18,
 	-18, 20, -20, 22, -22, 24, -24, 24, -24, 26,
 	-26, 27, -27, 28, -28, 29, -29, 30, -30, 31,
@@ -457,7 +457,7 @@ static const i16 sHaze_PowerBomb_Values39[18 + 35 * 4] = {
 	-14, 11, -11, 6, -6, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values40[18 + 36 * 4] = {
+static const s16 sHaze_PowerBomb_Values40[18 + 36 * 4] = {
 	1, -1, 7, -7, 12, -12, 14, -14, 17, -17, 19,
 	-19, 21, -21, 22, -22, 24, -24, 25, -25, 26,
 	-26, 27, -27, 29, -29, 29, -29, 31, -31, 31,
@@ -477,7 +477,7 @@ static const i16 sHaze_PowerBomb_Values40[18 + 36 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values41[18 + 37 * 4] = {
+static const s16 sHaze_PowerBomb_Values41[18 + 37 * 4] = {
 	0, 0, 7, -7, 11, -11, 14, -14, 17, -17, 19,
 	-19, 21, -21, 23, -23, 24, -24, 25, -25, 27,
 	-27, 28, -28, 29, -29, 30, -30, 31, -31, 32,
@@ -497,7 +497,7 @@ static const i16 sHaze_PowerBomb_Values41[18 + 37 * 4] = {
 	-11, 7, -7, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values42[18 + 38 * 4] = {
+static const s16 sHaze_PowerBomb_Values42[18 + 38 * 4] = {
 	1, -1, 7, -7, 12, -12, 15, -15, 17, -17, 19,
 	-19, 21, -21, 23, -23, 24, -24, 26, -26, 27,
 	-27, 28, -28, 29, -29, 30, -30, 31, -31, 32,
@@ -517,7 +517,7 @@ static const i16 sHaze_PowerBomb_Values42[18 + 38 * 4] = {
 	-17, 15, -15, 12, -12, 7, -7, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values43[18 + 39 * 4] = {
+static const s16 sHaze_PowerBomb_Values43[18 + 39 * 4] = {
 	1, -1, 8, -8, 11, -11, 15, -15, 17, -17, 20,
 	-20, 22, -22, 23, -23, 25, -25, 26, -26, 27,
 	-27, 29, -29, 30, -30, 31, -31, 32, -32, 32,
@@ -538,7 +538,7 @@ static const i16 sHaze_PowerBomb_Values43[18 + 39 * 4] = {
 	-8, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values44[18 + 40 * 4] = {
+static const s16 sHaze_PowerBomb_Values44[18 + 40 * 4] = {
 	0, 0, 7, -7, 12, -12, 15, -15, 18, -18, 19,
 	-19, 22, -22, 24, -24, 25, -25, 26, -26, 28,
 	-28, 29, -29, 30, -30, 31, -31, 32, -32, 33,
@@ -559,7 +559,7 @@ static const i16 sHaze_PowerBomb_Values44[18 + 40 * 4] = {
 	-15, 12, -12, 7, -7, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values45[18 + 41 * 4] = {
+static const s16 sHaze_PowerBomb_Values45[18 + 41 * 4] = {
 	1, -1, 8, -8, 12, -12, 15, -15, 18, -18, 20,
 	-20, 22, -22, 23, -23, 25, -25, 27, -27, 28,
 	-28, 29, -29, 31, -31, 31, -31, 33, -33, 33,
@@ -581,7 +581,7 @@ static const i16 sHaze_PowerBomb_Values45[18 + 41 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values46[18 + 42 * 4] = {
+static const s16 sHaze_PowerBomb_Values46[18 + 42 * 4] = {
 	0, 0, 7, -7, 12, -12, 15, -15, 18, -18, 21,
 	-21, 22, -22, 24, -24, 26, -26, 27, -27, 28,
 	-28, 30, -30, 30, -30, 32, -32, 33, -33, 34,
@@ -603,7 +603,7 @@ static const i16 sHaze_PowerBomb_Values46[18 + 42 * 4] = {
 	-12, 7, -7, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values47[18 + 43 * 4] = {
+static const s16 sHaze_PowerBomb_Values47[18 + 43 * 4] = {
 	1, -1, 8, -8, 13, -13, 16, -16, 18, -18, 20,
 	-20, 23, -23, 25, -25, 26, -26, 27, -27, 29,
 	-29, 30, -30, 31, -31, 32, -32, 33, -33, 35,
@@ -625,7 +625,7 @@ static const i16 sHaze_PowerBomb_Values47[18 + 43 * 4] = {
 	-18, 16, -16, 13, -13, 8, -8, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values48[18 + 44 * 4] = {
+static const s16 sHaze_PowerBomb_Values48[18 + 44 * 4] = {
 	0, 0, 7, -7, 12, -12, 16, -16, 19, -19, 21,
 	-21, 22, -22, 24, -24, 26, -26, 28, -28, 29,
 	-29, 30, -30, 32, -32, 33, -33, 34, -34, 34,
@@ -648,7 +648,7 @@ static const i16 sHaze_PowerBomb_Values48[18 + 44 * 4] = {
 	-7, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values49[18 + 45 * 4] = {
+static const s16 sHaze_PowerBomb_Values49[18 + 45 * 4] = {
 	1, -1, 8, -8, 13, -13, 16, -16, 18, -18, 21,
 	-21, 23, -23, 25, -25, 26, -26, 28, -28, 30,
 	-30, 31, -31, 32, -32, 33, -33, 34, -34, 35,
@@ -671,7 +671,7 @@ static const i16 sHaze_PowerBomb_Values49[18 + 45 * 4] = {
 	-16, 13, -13, 8, -8, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values50[18 + 46 * 4] = {
+static const s16 sHaze_PowerBomb_Values50[18 + 46 * 4] = {
 	1, -1, 8, -8, 12, -12, 16, -16, 19, -19, 21,
 	-21, 24, -24, 25, -25, 27, -27, 29, -29, 29,
 	-29, 31, -31, 33, -33, 33, -33, 35, -35, 36,
@@ -695,7 +695,7 @@ static const i16 sHaze_PowerBomb_Values50[18 + 46 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values51[18 + 47 * 4] = {
+static const s16 sHaze_PowerBomb_Values51[18 + 47 * 4] = {
 	0, 0, 8, -8, 13, -13, 16, -16, 19, -19, 21,
 	-21, 23, -23, 25, -25, 27, -27, 28, -28, 30,
 	-30, 32, -32, 32, -32, 34, -34, 35, -35, 36,
@@ -719,7 +719,7 @@ static const i16 sHaze_PowerBomb_Values51[18 + 47 * 4] = {
 	-13, 8, -8, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values52[18 + 48 * 4] = {
+static const s16 sHaze_PowerBomb_Values52[18 + 48 * 4] = {
 	1, -1, 8, -8, 13, -13, 16, -16, 19, -19, 22,
 	-22, 24, -24, 26, -26, 27, -27, 29, -29, 31,
 	-31, 31, -31, 33, -33, 34, -34, 35, -35, 37,
@@ -743,7 +743,7 @@ static const i16 sHaze_PowerBomb_Values52[18 + 48 * 4] = {
 	-19, 16, -16, 13, -13, 8, -8, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values53[18 + 49 * 4] = {
+static const s16 sHaze_PowerBomb_Values53[18 + 49 * 4] = {
 	0, 0, 8, -8, 13, -13, 17, -17, 20, -20, 22,
 	-22, 24, -24, 26, -26, 28, -28, 29, -29, 30,
 	-30, 32, -32, 33, -33, 34, -34, 36, -36, 36,
@@ -768,7 +768,7 @@ static const i16 sHaze_PowerBomb_Values53[18 + 49 * 4] = {
 	-8, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values54[18 + 50 * 4] = {
+static const s16 sHaze_PowerBomb_Values54[18 + 50 * 4] = {
 	1, -1, 8, -8, 13, -13, 17, -17, 19, -19, 22,
 	-22, 24, -24, 26, -26, 27, -27, 29, -29, 31,
 	-31, 32, -32, 34, -34, 35, -35, 36, -36, 37,
@@ -793,7 +793,7 @@ static const i16 sHaze_PowerBomb_Values54[18 + 50 * 4] = {
 	-17, 13, -13, 8, -8, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values55[18 + 51 * 4] = {
+static const s16 sHaze_PowerBomb_Values55[18 + 51 * 4] = {
 	0, 0, 8, -8, 13, -13, 17, -17, 20, -20, 23,
 	-23, 24, -24, 26, -26, 28, -28, 30, -30, 31,
 	-31, 33, -33, 34, -34, 35, -35, 36, -36, 38,
@@ -819,7 +819,7 @@ static const i16 sHaze_PowerBomb_Values55[18 + 51 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values56[18 + 52 * 4] = {
+static const s16 sHaze_PowerBomb_Values56[18 + 52 * 4] = {
 	1, -1, 8, -8, 14, -14, 17, -17, 20, -20, 22,
 	-22, 25, -25, 27, -27, 29, -29, 30, -30, 32,
 	-32, 33, -33, 34, -34, 36, -36, 37, -37, 38,
@@ -845,7 +845,7 @@ static const i16 sHaze_PowerBomb_Values56[18 + 52 * 4] = {
 	-14, 8, -8, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values57[18 + 53 * 4] = {
+static const s16 sHaze_PowerBomb_Values57[18 + 53 * 4] = {
 	1, -1, 8, -8, 13, -13, 17, -17, 20, -20, 23,
 	-23, 25, -25, 26, -26, 29, -29, 30, -30, 32,
 	-32, 33, -33, 35, -35, 36, -36, 37, -37, 39,
@@ -871,7 +871,7 @@ static const i16 sHaze_PowerBomb_Values57[18 + 53 * 4] = {
 	-20, 17, -17, 13, -13, 8, -8, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values58[18 + 54 * 4] = {
+static const s16 sHaze_PowerBomb_Values58[18 + 54 * 4] = {
 	0, 0, 8, -8, 14, -14, 17, -17, 21, -21, 22,
 	-22, 25, -25, 27, -27, 29, -29, 30, -30, 32,
 	-32, 34, -34, 35, -35, 36, -36, 38, -38, 39,
@@ -898,7 +898,7 @@ static const i16 sHaze_PowerBomb_Values58[18 + 54 * 4] = {
 	-8, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values59[18 + 55 * 4] = {
+static const s16 sHaze_PowerBomb_Values59[18 + 55 * 4] = {
 	1, -1, 9, -9, 14, -14, 17, -17, 20, -20, 23,
 	-23, 26, -26, 28, -28, 29, -29, 31, -31, 33,
 	-33, 34, -34, 35, -35, 37, -37, 38, -38, 39,
@@ -925,7 +925,7 @@ static const i16 sHaze_PowerBomb_Values59[18 + 55 * 4] = {
 	-17, 14, -14, 9, -9, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values60[18 + 56 * 4] = {
+static const s16 sHaze_PowerBomb_Values60[18 + 56 * 4] = {
 	0, 0, 8, -8, 14, -14, 18, -18, 21, -21, 24,
 	-24, 25, -25, 27, -27, 30, -30, 32, -32, 32,
 	-32, 34, -34, 36, -36, 37, -37, 38, -38, 40,
@@ -953,7 +953,7 @@ static const i16 sHaze_PowerBomb_Values60[18 + 56 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values61[18 + 57 * 4] = {
+static const s16 sHaze_PowerBomb_Values61[18 + 57 * 4] = {
 	1, -1, 9, -9, 14, -14, 18, -18, 20, -20, 23,
 	-23, 26, -26, 28, -28, 30, -30, 31, -31, 33,
 	-33, 35, -35, 36, -36, 37, -37, 39, -39, 40,
@@ -981,7 +981,7 @@ static const i16 sHaze_PowerBomb_Values61[18 + 57 * 4] = {
 	-14, 9, -9, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values62[18 + 58 * 4] = {
+static const s16 sHaze_PowerBomb_Values62[18 + 58 * 4] = {
 	0, 0, 8, -8, 14, -14, 18, -18, 21, -21, 24,
 	-24, 26, -26, 28, -28, 30, -30, 32, -32, 33,
 	-33, 35, -35, 36, -36, 38, -38, 39, -39, 40,
@@ -1009,7 +1009,7 @@ static const i16 sHaze_PowerBomb_Values62[18 + 58 * 4] = {
 	-21, 18, -18, 14, -14, 8, -8, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values63[18 + 59 * 4] = {
+static const s16 sHaze_PowerBomb_Values63[18 + 59 * 4] = {
 	1, -1, 8, -8, 14, -14, 18, -18, 22, -22, 23,
 	-23, 26, -26, 28, -28, 31, -31, 32, -32, 34,
 	-34, 35, -35, 37, -37, 38, -38, 40, -40, 40,
@@ -1038,7 +1038,7 @@ static const i16 sHaze_PowerBomb_Values63[18 + 59 * 4] = {
 	-8, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values64[18 + 60 * 4] = {
+static const s16 sHaze_PowerBomb_Values64[18 + 60 * 4] = {
 	1, -1, 9, -9, 14, -14, 18, -18, 21, -21, 24,
 	-24, 27, -27, 28, -28, 30, -30, 32, -32, 34,
 	-34, 35, -35, 37, -37, 39, -39, 39, -39, 41,
@@ -1067,7 +1067,7 @@ static const i16 sHaze_PowerBomb_Values64[18 + 60 * 4] = {
 	-18, 14, -14, 9, -9, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values65[18 + 61 * 4] = {
+static const s16 sHaze_PowerBomb_Values65[18 + 61 * 4] = {
 	0, 0, 8, -8, 14, -14, 18, -18, 22, -22, 24,
 	-24, 26, -26, 29, -29, 31, -31, 33, -33, 34,
 	-34, 36, -36, 38, -38, 38, -38, 40, -40, 42,
@@ -1097,7 +1097,7 @@ static const i16 sHaze_PowerBomb_Values65[18 + 61 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values66[18 + 62 * 4] = {
+static const s16 sHaze_PowerBomb_Values66[18 + 62 * 4] = {
 	1, -1, 9, -9, 15, -15, 18, -18, 21, -21, 24,
 	-24, 27, -27, 29, -29, 31, -31, 33, -33, 35,
 	-35, 36, -36, 37, -37, 39, -39, 41, -41, 41,
@@ -1127,7 +1127,7 @@ static const i16 sHaze_PowerBomb_Values66[18 + 62 * 4] = {
 	-15, 9, -9, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values67[18 + 63 * 4] = {
+static const s16 sHaze_PowerBomb_Values67[18 + 63 * 4] = {
 	0, 0, 8, -8, 14, -14, 19, -19, 22, -22, 25,
 	-25, 27, -27, 29, -29, 31, -31, 33, -33, 34,
 	-34, 36, -36, 38, -38, 39, -39, 41, -41, 42,
@@ -1157,7 +1157,7 @@ static const i16 sHaze_PowerBomb_Values67[18 + 63 * 4] = {
 	-22, 19, -19, 14, -14, 8, -8, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values68[18 + 64 * 4] = {
+static const s16 sHaze_PowerBomb_Values68[18 + 64 * 4] = {
 	1, -1, 9, -9, 15, -15, 19, -19, 22, -22, 25,
 	-25, 27, -27, 30, -30, 32, -32, 33, -33, 35,
 	-35, 37, -37, 38, -38, 40, -40, 41, -41, 42,
@@ -1188,7 +1188,7 @@ static const i16 sHaze_PowerBomb_Values68[18 + 64 * 4] = {
 	-9, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values69[18 + 65 * 4] = {
+static const s16 sHaze_PowerBomb_Values69[18 + 65 * 4] = {
 	0, 0, 8, -8, 15, -15, 19, -19, 22, -22, 25,
 	-25, 28, -28, 29, -29, 32, -32, 34, -34, 36,
 	-36, 37, -37, 39, -39, 40, -40, 41, -41, 43,
@@ -1219,7 +1219,7 @@ static const i16 sHaze_PowerBomb_Values69[18 + 65 * 4] = {
 	-19, 15, -15, 8, -8, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values70[18 + 66 * 4] = {
+static const s16 sHaze_PowerBomb_Values70[18 + 66 * 4] = {
 	1, -1, 9, -9, 15, -15, 19, -19, 23, -23, 25,
 	-25, 27, -27, 30, -30, 32, -32, 34, -34, 35,
 	-35, 37, -37, 39, -39, 40, -40, 42, -42, 43,
@@ -1251,7 +1251,7 @@ static const i16 sHaze_PowerBomb_Values70[18 + 66 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values71[18 + 67 * 4] = {
+static const s16 sHaze_PowerBomb_Values71[18 + 67 * 4] = {
 	1, -1, 9, -9, 15, -15, 19, -19, 22, -22, 25,
 	-25, 28, -28, 30, -30, 32, -32, 34, -34, 36,
 	-36, 38, -38, 39, -39, 41, -41, 42, -42, 43,
@@ -1283,7 +1283,7 @@ static const i16 sHaze_PowerBomb_Values71[18 + 67 * 4] = {
 	-15, 9, -9, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values72[18 + 68 * 4] = {
+static const s16 sHaze_PowerBomb_Values72[18 + 68 * 4] = {
 	0, 0, 9, -9, 15, -15, 19, -19, 23, -23, 26,
 	-26, 28, -28, 30, -30, 33, -33, 35, -35, 36,
 	-36, 38, -38, 40, -40, 41, -41, 42, -42, 44,
@@ -1315,7 +1315,7 @@ static const i16 sHaze_PowerBomb_Values72[18 + 68 * 4] = {
 	-23, 19, -19, 15, -15, 9, -9, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values73[18 + 69 * 4] = {
+static const s16 sHaze_PowerBomb_Values73[18 + 69 * 4] = {
 	1, -1, 9, -9, 16, -16, 19, -19, 23, -23, 26,
 	-26, 28, -28, 31, -31, 32, -32, 34, -34, 36,
 	-36, 38, -38, 39, -39, 41, -41, 43, -43, 44,
@@ -1348,7 +1348,7 @@ static const i16 sHaze_PowerBomb_Values73[18 + 69 * 4] = {
 	-9, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values74[18 + 70 * 4] = {
+static const s16 sHaze_PowerBomb_Values74[18 + 70 * 4] = {
 	0, 0, 9, -9, 15, -15, 20, -20, 23, -23, 26,
 	-26, 28, -28, 31, -31, 33, -33, 35, -35, 37,
 	-37, 38, -38, 40, -40, 42, -42, 43, -43, 44,
@@ -1381,7 +1381,7 @@ static const i16 sHaze_PowerBomb_Values74[18 + 70 * 4] = {
 	-20, 15, -15, 9, -9, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values75[18 + 71 * 4] = {
+static const s16 sHaze_PowerBomb_Values75[18 + 71 * 4] = {
 	1, -1, 9, -9, 16, -16, 20, -20, 23, -23, 26,
 	-26, 29, -29, 31, -31, 34, -34, 35, -35, 37,
 	-37, 39, -39, 41, -41, 42, -42, 43, -43, 45,
@@ -1415,7 +1415,7 @@ static const i16 sHaze_PowerBomb_Values75[18 + 71 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values76[18 + 72 * 4] = {
+static const s16 sHaze_PowerBomb_Values76[18 + 72 * 4] = {
 	0, 0, 9, -9, 15, -15, 20, -20, 23, -23, 26,
 	-26, 29, -29, 31, -31, 33, -33, 35, -35, 38,
 	-38, 39, -39, 40, -40, 42, -42, 44, -44, 45,
@@ -1449,7 +1449,7 @@ static const i16 sHaze_PowerBomb_Values76[18 + 72 * 4] = {
 	-15, 9, -9, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values77[18 + 73 * 4] = {
+static const s16 sHaze_PowerBomb_Values77[18 + 73 * 4] = {
 	1, -1, 9, -9, 16, -16, 20, -20, 24, -24, 26,
 	-26, 29, -29, 31, -31, 34, -34, 36, -36, 37,
 	-37, 39, -39, 41, -41, 42, -42, 44, -44, 46,
@@ -1483,7 +1483,7 @@ static const i16 sHaze_PowerBomb_Values77[18 + 73 * 4] = {
 	-24, 20, -20, 16, -16, 9, -9, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values78[18 + 74 * 4] = {
+static const s16 sHaze_PowerBomb_Values78[18 + 74 * 4] = {
 	1, -1, 9, -9, 15, -15, 20, -20, 23, -23, 27,
 	-27, 29, -29, 32, -32, 33, -33, 36, -36, 38,
 	-38, 40, -40, 41, -41, 43, -43, 45, -45, 45,
@@ -1518,7 +1518,7 @@ static const i16 sHaze_PowerBomb_Values78[18 + 74 * 4] = {
 	-9, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values79[18 + 75 * 4] = {
+static const s16 sHaze_PowerBomb_Values79[18 + 75 * 4] = {
 	0, 0, 9, -9, 16, -16, 20, -20, 24, -24, 27,
 	-27, 29, -29, 32, -32, 34, -34, 36, -36, 38,
 	-38, 40, -40, 42, -42, 43, -43, 44, -44, 46,
@@ -1553,7 +1553,7 @@ static const i16 sHaze_PowerBomb_Values79[18 + 75 * 4] = {
 	-20, 16, -16, 9, -9, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values80[18 + 76 * 4] = {
+static const s16 sHaze_PowerBomb_Values80[18 + 76 * 4] = {
 	1, -1, 10, -10, 16, -16, 20, -20, 24, -24, 27,
 	-27, 30, -30, 32, -32, 34, -34, 36, -36, 38,
 	-38, 40, -40, 42, -42, 43, -43, 45, -45, 47,
@@ -1589,7 +1589,7 @@ static const i16 sHaze_PowerBomb_Values80[18 + 76 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values81[18 + 77 * 4] = {
+static const s16 sHaze_PowerBomb_Values81[18 + 77 * 4] = {
 	0, 0, 9, -9, 16, -16, 20, -20, 24, -24, 27,
 	-27, 30, -30, 32, -32, 34, -34, 37, -37, 39,
 	-39, 40, -40, 42, -42, 44, -44, 45, -45, 46,
@@ -1625,7 +1625,7 @@ static const i16 sHaze_PowerBomb_Values81[18 + 77 * 4] = {
 	-16, 9, -9, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values82[18 + 78 * 4] = {
+static const s16 sHaze_PowerBomb_Values82[18 + 78 * 4] = {
 	1, -1, 10, -10, 16, -16, 21, -21, 24, -24, 27,
 	-27, 30, -30, 33, -33, 35, -35, 36, -36, 39,
 	-39, 41, -41, 43, -43, 44, -44, 45, -45, 47,
@@ -1661,7 +1661,7 @@ static const i16 sHaze_PowerBomb_Values82[18 + 78 * 4] = {
 	-24, 21, -21, 16, -16, 10, -10, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values83[18 + 79 * 4] = {
+static const s16 sHaze_PowerBomb_Values83[18 + 79 * 4] = {
 	0, 0, 9, -9, 16, -16, 21, -21, 24, -24, 28,
 	-28, 31, -31, 32, -32, 35, -35, 37, -37, 39,
 	-39, 41, -41, 42, -42, 44, -44, 46, -46, 47,
@@ -1698,7 +1698,7 @@ static const i16 sHaze_PowerBomb_Values83[18 + 79 * 4] = {
 	-9, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values84[18 + 80 * 4] = {
+static const s16 sHaze_PowerBomb_Values84[18 + 80 * 4] = {
 	1, -1, 10, -10, 16, -16, 21, -21, 25, -25, 27,
 	-27, 30, -30, 33, -33, 35, -35, 38, -38, 39,
 	-39, 41, -41, 43, -43, 45, -45, 46, -46, 48,
@@ -1735,7 +1735,7 @@ static const i16 sHaze_PowerBomb_Values84[18 + 80 * 4] = {
 	-21, 16, -16, 10, -10, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values85[18 + 81 * 4] = {
+static const s16 sHaze_PowerBomb_Values85[18 + 81 * 4] = {
 	1, -1, 9, -9, 16, -16, 21, -21, 24, -24, 28,
 	-28, 31, -31, 33, -33, 35, -35, 37, -37, 40,
 	-40, 42, -42, 43, -43, 45, -45, 47, -47, 48,
@@ -1773,7 +1773,7 @@ static const i16 sHaze_PowerBomb_Values85[18 + 81 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values86[18 + 82 * 4] = {
+static const s16 sHaze_PowerBomb_Values86[18 + 82 * 4] = {
 	0, 0, 10, -10, 17, -17, 21, -21, 25, -25, 28,
 	-28, 30, -30, 33, -33, 36, -36, 38, -38, 40,
 	-40, 41, -41, 43, -43, 45, -45, 46, -46, 48,
@@ -1811,7 +1811,7 @@ static const i16 sHaze_PowerBomb_Values86[18 + 82 * 4] = {
 	-17, 10, -10, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values87[18 + 83 * 4] = {
+static const s16 sHaze_PowerBomb_Values87[18 + 83 * 4] = {
 	1, -1, 10, -10, 17, -17, 21, -21, 25, -25, 28,
 	-28, 31, -31, 34, -34, 36, -36, 38, -38, 40,
 	-40, 42, -42, 44, -44, 45, -45, 47, -47, 49,
@@ -1849,7 +1849,7 @@ static const i16 sHaze_PowerBomb_Values87[18 + 83 * 4] = {
 	-25, 21, -21, 17, -17, 10, -10, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values88[18 + 84 * 4] = {
+static const s16 sHaze_PowerBomb_Values88[18 + 84 * 4] = {
 	0, 0, 10, -10, 17, -17, 21, -21, 25, -25, 29,
 	-29, 32, -32, 33, -33, 36, -36, 38, -38, 41,
 	-41, 42, -42, 44, -44, 46, -46, 48, -48, 49,
@@ -1888,7 +1888,7 @@ static const i16 sHaze_PowerBomb_Values88[18 + 84 * 4] = {
 	-10, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values89[18 + 85 * 4] = {
+static const s16 sHaze_PowerBomb_Values89[18 + 85 * 4] = {
 	1, -1, 10, -10, 17, -17, 22, -22, 25, -25, 28,
 	-28, 31, -31, 34, -34, 37, -37, 38, -38, 40,
 	-40, 42, -42, 44, -44, 46, -46, 47, -47, 49,
@@ -1927,7 +1927,7 @@ static const i16 sHaze_PowerBomb_Values89[18 + 85 * 4] = {
 	-22, 17, -17, 10, -10, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values90[18 + 86 * 4] = {
+static const s16 sHaze_PowerBomb_Values90[18 + 86 * 4] = {
 	0, 0, 10, -10, 17, -17, 21, -21, 25, -25, 29,
 	-29, 32, -32, 34, -34, 36, -36, 39, -39, 41,
 	-41, 43, -43, 44, -44, 46, -46, 48, -48, 49,
@@ -1967,7 +1967,7 @@ static const i16 sHaze_PowerBomb_Values90[18 + 86 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values91[18 + 87 * 4] = {
+static const s16 sHaze_PowerBomb_Values91[18 + 87 * 4] = {
 	1, -1, 10, -10, 17, -17, 22, -22, 26, -26, 28,
 	-28, 31, -31, 34, -34, 37, -37, 39, -39, 41,
 	-41, 43, -43, 45, -45, 47, -47, 48, -48, 50,
@@ -2007,7 +2007,7 @@ static const i16 sHaze_PowerBomb_Values91[18 + 87 * 4] = {
 	-17, 10, -10, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values92[18 + 88 * 4] = {
+static const s16 sHaze_PowerBomb_Values92[18 + 88 * 4] = {
 	1, -1, 10, -10, 17, -17, 21, -21, 25, -25, 29,
 	-29, 32, -32, 35, -35, 36, -36, 39, -39, 41,
 	-41, 43, -43, 45, -45, 47, -47, 48, -48, 50,
@@ -2047,7 +2047,7 @@ static const i16 sHaze_PowerBomb_Values92[18 + 88 * 4] = {
 	-25, 21, -21, 17, -17, 10, -10, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values93[18 + 89 * 4] = {
+static const s16 sHaze_PowerBomb_Values93[18 + 89 * 4] = {
 	0, 0, 10, -10, 17, -17, 22, -22, 26, -26, 29,
 	-29, 32, -32, 34, -34, 37, -37, 39, -39, 42,
 	-42, 43, -43, 45, -45, 47, -47, 49, -49, 50,
@@ -2088,7 +2088,7 @@ static const i16 sHaze_PowerBomb_Values93[18 + 89 * 4] = {
 	-10, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values94[18 + 90 * 4] = {
+static const s16 sHaze_PowerBomb_Values94[18 + 90 * 4] = {
 	1, -1, 11, -11, 18, -18, 22, -22, 26, -26, 29,
 	-29, 32, -32, 35, -35, 38, -38, 39, -39, 41,
 	-41, 44, -44, 46, -46, 47, -47, 49, -49, 51,
@@ -2129,7 +2129,7 @@ static const i16 sHaze_PowerBomb_Values94[18 + 90 * 4] = {
 	-22, 18, -18, 11, -11, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values95[18 + 91 * 4] = {
+static const s16 sHaze_PowerBomb_Values95[18 + 91 * 4] = {
 	0, 0, 10, -10, 17, -17, 22, -22, 26, -26, 30,
 	-30, 33, -33, 35, -35, 37, -37, 40, -40, 42,
 	-42, 44, -44, 46, -46, 48, -48, 50, -50, 50,
@@ -2171,7 +2171,7 @@ static const i16 sHaze_PowerBomb_Values95[18 + 91 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values96[18 + 92 * 4] = {
+static const s16 sHaze_PowerBomb_Values96[18 + 92 * 4] = {
 	1, -1, 11, -11, 18, -18, 23, -23, 26, -26, 29,
 	-29, 32, -32, 35, -35, 38, -38, 40, -40, 42,
 	-42, 44, -44, 46, -46, 48, -48, 49, -49, 51,
@@ -2213,7 +2213,7 @@ static const i16 sHaze_PowerBomb_Values96[18 + 92 * 4] = {
 	-18, 11, -11, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values97[18 + 93 * 4] = {
+static const s16 sHaze_PowerBomb_Values97[18 + 93 * 4] = {
 	0, 0, 10, -10, 17, -17, 22, -22, 26, -26, 30,
 	-30, 33, -33, 36, -36, 38, -38, 40, -40, 42,
 	-42, 45, -45, 46, -46, 48, -48, 50, -50, 52,
@@ -2255,7 +2255,7 @@ static const i16 sHaze_PowerBomb_Values97[18 + 93 * 4] = {
 	-26, 22, -22, 17, -17, 10, -10, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values98[18 + 94 * 4] = {
+static const s16 sHaze_PowerBomb_Values98[18 + 94 * 4] = {
 	1, -1, 10, -10, 18, -18, 23, -23, 27, -27, 29,
 	-29, 33, -33, 35, -35, 38, -38, 41, -41, 42,
 	-42, 44, -44, 47, -47, 49, -49, 50, -50, 52,
@@ -2298,7 +2298,7 @@ static const i16 sHaze_PowerBomb_Values98[18 + 94 * 4] = {
 	-10, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values99[18 + 95 * 4] = {
+static const s16 sHaze_PowerBomb_Values99[18 + 95 * 4] = {
 	1, -1, 10, -10, 17, -17, 22, -22, 26, -26, 30,
 	-30, 33, -33, 36, -36, 38, -38, 40, -40, 43,
 	-43, 45, -45, 47, -47, 48, -48, 50, -50, 52,
@@ -2341,7 +2341,7 @@ static const i16 sHaze_PowerBomb_Values99[18 + 95 * 4] = {
 	-22, 17, -17, 10, -10, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values100[18 + 96 * 4] = {
+static const s16 sHaze_PowerBomb_Values100[18 + 96 * 4] = {
 	0, 0, 10, -10, 18, -18, 23, -23, 27, -27, 31,
 	-31, 33, -33, 36, -36, 38, -38, 41, -41, 43,
 	-43, 45, -45, 47, -47, 49, -49, 51, -51, 52,
@@ -2385,7 +2385,7 @@ static const i16 sHaze_PowerBomb_Values100[18 + 96 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values101[18 + 97 * 4] = {
+static const s16 sHaze_PowerBomb_Values101[18 + 97 * 4] = {
 	1, -1, 11, -11, 18, -18, 22, -22, 27, -27, 30,
 	-30, 33, -33, 36, -36, 39, -39, 41, -41, 43,
 	-43, 45, -45, 48, -48, 49, -49, 51, -51, 53,
@@ -2429,7 +2429,7 @@ static const i16 sHaze_PowerBomb_Values101[18 + 97 * 4] = {
 	-18, 11, -11, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values102[18 + 98 * 4] = {
+static const s16 sHaze_PowerBomb_Values102[18 + 98 * 4] = {
 	0, 0, 10, -10, 18, -18, 23, -23, 27, -27, 31,
 	-31, 34, -34, 36, -36, 39, -39, 41, -41, 44,
 	-44, 46, -46, 47, -47, 49, -49, 51, -51, 53,
@@ -2473,7 +2473,7 @@ static const i16 sHaze_PowerBomb_Values102[18 + 98 * 4] = {
 	-27, 23, -23, 18, -18, 10, -10, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values103[18 + 99 * 4] = {
+static const s16 sHaze_PowerBomb_Values103[18 + 99 * 4] = {
 	1, -1, 11, -11, 18, -18, 23, -23, 27, -27, 30,
 	-30, 34, -34, 36, -36, 39, -39, 42, -42, 43,
 	-43, 46, -46, 48, -48, 50, -50, 51, -51, 53,
@@ -2518,7 +2518,7 @@ static const i16 sHaze_PowerBomb_Values103[18 + 99 * 4] = {
 	-11, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values104[18 + 100 * 4] = {
+static const s16 sHaze_PowerBomb_Values104[18 + 100 * 4] = {
 	0, 0, 10, -10, 18, -18, 23, -23, 27, -27, 31,
 	-31, 34, -34, 37, -37, 39, -39, 41, -41, 44,
 	-44, 46, -46, 48, -48, 50, -50, 52, -52, 54,
@@ -2563,7 +2563,7 @@ static const i16 sHaze_PowerBomb_Values104[18 + 100 * 4] = {
 	-23, 18, -18, 10, -10, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values105[18 + 101 * 4] = {
+static const s16 sHaze_PowerBomb_Values105[18 + 101 * 4] = {
 	1, -1, 11, -11, 18, -18, 24, -24, 28, -28, 30,
 	-30, 34, -34, 37, -37, 39, -39, 42, -42, 44,
 	-44, 46, -46, 48, -48, 50, -50, 52, -52, 53,
@@ -2609,7 +2609,7 @@ static const i16 sHaze_PowerBomb_Values105[18 + 101 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values106[18 + 102 * 4] = {
+static const s16 sHaze_PowerBomb_Values106[18 + 102 * 4] = {
 	1, -1, 10, -10, 18, -18, 23, -23, 27, -27, 31,
 	-31, 34, -34, 37, -37, 40, -40, 42, -42, 44,
 	-44, 47, -47, 49, -49, 50, -50, 52, -52, 54,
@@ -2655,7 +2655,7 @@ static const i16 sHaze_PowerBomb_Values106[18 + 102 * 4] = {
 	-18, 10, -10, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values107[18 + 103 * 4] = {
+static const s16 sHaze_PowerBomb_Values107[18 + 103 * 4] = {
 	0, 0, 11, -11, 18, -18, 24, -24, 28, -28, 32,
 	-32, 34, -34, 37, -37, 40, -40, 42, -42, 45,
 	-45, 46, -46, 48, -48, 51, -51, 53, -53, 54,
@@ -2701,7 +2701,7 @@ static const i16 sHaze_PowerBomb_Values107[18 + 103 * 4] = {
 	-28, 24, -24, 18, -18, 11, -11, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values108[18 + 104 * 4] = {
+static const s16 sHaze_PowerBomb_Values108[18 + 104 * 4] = {
 	1, -1, 11, -11, 19, -19, 23, -23, 27, -27, 31,
 	-31, 34, -34, 38, -38, 40, -40, 42, -42, 44,
 	-44, 47, -47, 49, -49, 51, -51, 52, -52, 54,
@@ -2748,7 +2748,7 @@ static const i16 sHaze_PowerBomb_Values108[18 + 104 * 4] = {
 	-11, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values109[18 + 105 * 4] = {
+static const s16 sHaze_PowerBomb_Values109[18 + 105 * 4] = {
 	0, 0, 11, -11, 18, -18, 24, -24, 28, -28, 32,
 	-32, 35, -35, 37, -37, 40, -40, 43, -43, 45,
 	-45, 48, -48, 49, -49, 51, -51, 53, -53, 55,
@@ -2795,7 +2795,7 @@ static const i16 sHaze_PowerBomb_Values109[18 + 105 * 4] = {
 	-24, 18, -18, 11, -11, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values110[18 + 106 * 4] = {
+static const s16 sHaze_PowerBomb_Values110[18 + 106 * 4] = {
 	1, -1, 11, -11, 19, -19, 24, -24, 28, -28, 31,
 	-31, 35, -35, 38, -38, 41, -41, 43, -43, 45,
 	-45, 47, -47, 49, -49, 52, -52, 53, -53, 55,
@@ -2843,7 +2843,7 @@ static const i16 sHaze_PowerBomb_Values110[18 + 106 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values111[18 + 107 * 4] = {
+static const s16 sHaze_PowerBomb_Values111[18 + 107 * 4] = {
 	0, 0, 11, -11, 18, -18, 24, -24, 28, -28, 32,
 	-32, 35, -35, 38, -38, 40, -40, 43, -43, 45,
 	-45, 48, -48, 50, -50, 51, -51, 53, -53, 56,
@@ -2891,7 +2891,7 @@ static const i16 sHaze_PowerBomb_Values111[18 + 107 * 4] = {
 	-18, 11, -11, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values112[18 + 108 * 4] = {
+static const s16 sHaze_PowerBomb_Values112[18 + 108 * 4] = {
 	1, -1, 11, -11, 19, -19, 24, -24, 29, -29, 31,
 	-31, 35, -35, 38, -38, 41, -41, 43, -43, 46,
 	-46, 47, -47, 50, -50, 52, -52, 54, -54, 55,
@@ -2939,7 +2939,7 @@ static const i16 sHaze_PowerBomb_Values112[18 + 108 * 4] = {
 	-29, 24, -24, 19, -19, 11, -11, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values113[18 + 109 * 4] = {
+static const s16 sHaze_PowerBomb_Values113[18 + 109 * 4] = {
 	0, 0, 11, -11, 18, -18, 24, -24, 28, -28, 32,
 	-32, 35, -35, 39, -39, 41, -41, 43, -43, 46,
 	-46, 48, -48, 50, -50, 52, -52, 54, -54, 56,
@@ -2988,7 +2988,7 @@ static const i16 sHaze_PowerBomb_Values113[18 + 109 * 4] = {
 	-11, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values114[18 + 110 * 4] = {
+static const s16 sHaze_PowerBomb_Values114[18 + 110 * 4] = {
 	0, 0, 11, -11, 19, -19, 24, -24, 29, -29, 33,
 	-33, 35, -35, 38, -38, 41, -41, 44, -44, 46,
 	-46, 48, -48, 50, -50, 52, -52, 54, -54, 56,
@@ -3037,7 +3037,7 @@ static const i16 sHaze_PowerBomb_Values114[18 + 110 * 4] = {
 	-24, 19, -19, 11, -11, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values115[18 + 111 * 4] = {
+static const s16 sHaze_PowerBomb_Values115[18 + 111 * 4] = {
 	1, -1, 12, -12, 19, -19, 24, -24, 28, -28, 32,
 	-32, 36, -36, 39, -39, 42, -42, 44, -44, 46,
 	-46, 48, -48, 51, -51, 53, -53, 54, -54, 56,
@@ -3087,7 +3087,7 @@ static const i16 sHaze_PowerBomb_Values115[18 + 111 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values116[18 + 112 * 4] = {
+static const s16 sHaze_PowerBomb_Values116[18 + 112 * 4] = {
 	0, 0, 11, -11, 19, -19, 24, -24, 29, -29, 33,
 	-33, 36, -36, 38, -38, 41, -41, 44, -44, 47,
 	-47, 49, -49, 50, -50, 53, -53, 55, -55, 57,
@@ -3137,7 +3137,7 @@ static const i16 sHaze_PowerBomb_Values116[18 + 112 * 4] = {
 	-19, 11, -11, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values117[18 + 113 * 4] = {
+static const s16 sHaze_PowerBomb_Values117[18 + 113 * 4] = {
 	1, -1, 12, -12, 19, -19, 25, -25, 28, -28, 32,
 	-32, 36, -36, 39, -39, 42, -42, 45, -45, 46,
 	-46, 49, -49, 51, -51, 53, -53, 55, -55, 57,
@@ -3187,7 +3187,7 @@ static const i16 sHaze_PowerBomb_Values117[18 + 113 * 4] = {
 	-28, 25, -25, 19, -19, 12, -12, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values118[18 + 114 * 4] = {
+static const s16 sHaze_PowerBomb_Values118[18 + 114 * 4] = {
 	0, 0, 11, -11, 19, -19, 24, -24, 29, -29, 33,
 	-33, 36, -36, 39, -39, 41, -41, 44, -44, 47,
 	-47, 49, -49, 52, -52, 53, -53, 55, -55, 57,
@@ -3238,7 +3238,7 @@ static const i16 sHaze_PowerBomb_Values118[18 + 114 * 4] = {
 	-11, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values119[18 + 115 * 4] = {
+static const s16 sHaze_PowerBomb_Values119[18 + 115 * 4] = {
 	1, -1, 11, -11, 19, -19, 25, -25, 30, -30, 33,
 	-33, 36, -36, 39, -39, 42, -42, 45, -45, 47,
 	-47, 49, -49, 51, -51, 54, -54, 56, -56, 57,
@@ -3289,7 +3289,7 @@ static const i16 sHaze_PowerBomb_Values119[18 + 115 * 4] = {
 	-25, 19, -19, 11, -11, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values120[18 + 116 * 4] = {
+static const s16 sHaze_PowerBomb_Values120[18 + 116 * 4] = {
 	0, 0, 11, -11, 19, -19, 25, -25, 29, -29, 33,
 	-33, 36, -36, 40, -40, 43, -43, 44, -44, 47,
 	-47, 50, -50, 52, -52, 54, -54, 55, -55, 58,
@@ -3341,7 +3341,7 @@ static const i16 sHaze_PowerBomb_Values120[18 + 116 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values121[18 + 117 * 4] = {
+static const s16 sHaze_PowerBomb_Values121[18 + 117 * 4] = {
 	0, 0, 11, -11, 20, -20, 25, -25, 30, -30, 34,
 	-34, 36, -36, 39, -39, 42, -42, 45, -45, 48,
 	-48, 50, -50, 52, -52, 54, -54, 56, -56, 58,
@@ -3393,7 +3393,7 @@ static const i16 sHaze_PowerBomb_Values121[18 + 117 * 4] = {
 	-20, 11, -11, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values122[18 + 118 * 4] = {
+static const s16 sHaze_PowerBomb_Values122[18 + 118 * 4] = {
 	1, -1, 12, -12, 20, -20, 25, -25, 29, -29, 33,
 	-33, 37, -37, 40, -40, 43, -43, 46, -46, 47,
 	-47, 50, -50, 52, -52, 55, -55, 56, -56, 58,
@@ -3445,7 +3445,7 @@ static const i16 sHaze_PowerBomb_Values122[18 + 118 * 4] = {
 	-29, 25, -25, 20, -20, 12, -12, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values123[18 + 119 * 4] = {
+static const s16 sHaze_PowerBomb_Values123[18 + 119 * 4] = {
 	0, 0, 11, -11, 20, -20, 25, -25, 30, -30, 34,
 	-34, 37, -37, 39, -39, 42, -42, 45, -45, 48,
 	-48, 50, -50, 52, -52, 54, -54, 56, -56, 59,
@@ -3498,7 +3498,7 @@ static const i16 sHaze_PowerBomb_Values123[18 + 119 * 4] = {
 	-11, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values124[18 + 120 * 4] = {
+static const s16 sHaze_PowerBomb_Values124[18 + 120 * 4] = {
 	1, -1, 12, -12, 20, -20, 26, -26, 29, -29, 33,
 	-33, 37, -37, 40, -40, 43, -43, 46, -46, 48,
 	-48, 50, -50, 53, -53, 55, -55, 57, -57, 58,
@@ -3551,7 +3551,7 @@ static const i16 sHaze_PowerBomb_Values124[18 + 120 * 4] = {
 	-26, 20, -20, 12, -12, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values125[18 + 121 * 4] = {
+static const s16 sHaze_PowerBomb_Values125[18 + 121 * 4] = {
 	0, 0, 11, -11, 20, -20, 25, -25, 30, -30, 34,
 	-34, 37, -37, 41, -41, 43, -43, 46, -46, 48,
 	-48, 51, -51, 53, -53, 55, -55, 57, -57, 59,
@@ -3605,7 +3605,7 @@ static const i16 sHaze_PowerBomb_Values125[18 + 121 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values126[18 + 122 * 4] = {
+static const s16 sHaze_PowerBomb_Values126[18 + 122 * 4] = {
 	1, -1, 12, -12, 20, -20, 26, -26, 30, -30, 34,
 	-34, 37, -37, 40, -40, 43, -43, 46, -46, 49,
 	-49, 50, -50, 53, -53, 55, -55, 57, -57, 59,
@@ -3659,7 +3659,7 @@ static const i16 sHaze_PowerBomb_Values126[18 + 122 * 4] = {
 	-20, 12, -12, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values127[18 + 123 * 4] = {
+static const s16 sHaze_PowerBomb_Values127[18 + 123 * 4] = {
 	0, 0, 11, -11, 20, -20, 25, -25, 30, -30, 34,
 	-34, 38, -38, 41, -41, 44, -44, 46, -46, 48,
 	-48, 51, -51, 53, -53, 56, -56, 57, -57, 59,
@@ -3713,7 +3713,7 @@ static const i16 sHaze_PowerBomb_Values127[18 + 123 * 4] = {
 	-30, 25, -25, 20, -20, 11, -11, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values128[18 + 124 * 4] = {
+static const s16 sHaze_PowerBomb_Values128[18 + 124 * 4] = {
 	0, 0, 12, -12, 20, -20, 26, -26, 30, -30, 34,
 	-34, 38, -38, 40, -40, 43, -43, 46, -46, 49,
 	-49, 52, -52, 53, -53, 55, -55, 58, -58, 60,
@@ -3768,7 +3768,7 @@ static const i16 sHaze_PowerBomb_Values128[18 + 124 * 4] = {
 	-12, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values129[18 + 125 * 4] = {
+static const s16 sHaze_PowerBomb_Values129[18 + 125 * 4] = {
 	1, -1, 12, -12, 21, -21, 25, -25, 30, -30, 34,
 	-34, 38, -38, 41, -41, 44, -44, 47, -47, 49,
 	-49, 51, -51, 54, -54, 56, -56, 58, -58, 60,
@@ -3823,7 +3823,7 @@ static const i16 sHaze_PowerBomb_Values129[18 + 125 * 4] = {
 	-25, 21, -21, 12, -12, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values130[18 + 126 * 4] = {
+static const s16 sHaze_PowerBomb_Values130[18 + 126 * 4] = {
 	0, 0, 12, -12, 20, -20, 26, -26, 31, -31, 35,
 	-35, 38, -38, 41, -41, 44, -44, 47, -47, 49,
 	-49, 52, -52, 54, -54, 56, -56, 58, -58, 60,
@@ -3879,7 +3879,7 @@ static const i16 sHaze_PowerBomb_Values130[18 + 126 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values131[18 + 127 * 4] = {
+static const s16 sHaze_PowerBomb_Values131[18 + 127 * 4] = {
 	1, -1, 12, -12, 21, -21, 26, -26, 30, -30, 34,
 	-34, 38, -38, 41, -41, 44, -44, 47, -47, 50,
 	-50, 52, -52, 54, -54, 56, -56, 59, -59, 60,
@@ -3935,7 +3935,7 @@ static const i16 sHaze_PowerBomb_Values131[18 + 127 * 4] = {
 	-21, 12, -12, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values132[18 + 128 * 4] = {
+static const s16 sHaze_PowerBomb_Values132[18 + 128 * 4] = {
 	0, 0, 12, -12, 20, -20, 26, -26, 31, -31, 35,
 	-35, 38, -38, 42, -42, 44, -44, 47, -47, 50,
 	-50, 52, -52, 55, -55, 56, -56, 58, -58, 61,
@@ -3991,7 +3991,7 @@ static const i16 sHaze_PowerBomb_Values132[18 + 128 * 4] = {
 	-31, 26, -26, 20, -20, 12, -12, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values133[18 + 129 * 4] = {
+static const s16 sHaze_PowerBomb_Values133[18 + 129 * 4] = {
 	1, -1, 12, -12, 21, -21, 26, -26, 31, -31, 35,
 	-35, 38, -38, 41, -41, 44, -44, 47, -47, 50,
 	-50, 52, -52, 54, -54, 57, -57, 59, -59, 61,
@@ -4048,7 +4048,7 @@ static const i16 sHaze_PowerBomb_Values133[18 + 129 * 4] = {
 	-12, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values134[18 + 130 * 4] = {
+static const s16 sHaze_PowerBomb_Values134[18 + 130 * 4] = {
 	0, 0, 12, -12, 20, -20, 26, -26, 31, -31, 35,
 	-35, 39, -39, 42, -42, 45, -45, 47, -47, 50,
 	-50, 52, -52, 55, -55, 57, -57, 59, -59, 61,
@@ -4105,7 +4105,7 @@ static const i16 sHaze_PowerBomb_Values134[18 + 130 * 4] = {
 	-26, 20, -20, 12, -12, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values135[18 + 131 * 4] = {
+static const s16 sHaze_PowerBomb_Values135[18 + 131 * 4] = {
 	0, 0, 12, -12, 21, -21, 26, -26, 31, -31, 35,
 	-35, 39, -39, 42, -42, 45, -45, 48, -48, 50,
 	-50, 53, -53, 55, -55, 57, -57, 59, -59, 62,
@@ -4163,7 +4163,7 @@ static const i16 sHaze_PowerBomb_Values135[18 + 131 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values136[18 + 132 * 4] = {
+static const s16 sHaze_PowerBomb_Values136[18 + 132 * 4] = {
 	1, -1, 13, -13, 21, -21, 26, -26, 31, -31, 35,
 	-35, 39, -39, 42, -42, 45, -45, 48, -48, 50,
 	-50, 53, -53, 55, -55, 58, -58, 60, -60, 61,
@@ -4221,7 +4221,7 @@ static const i16 sHaze_PowerBomb_Values136[18 + 132 * 4] = {
 	-21, 13, -13, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values137[18 + 133 * 4] = {
+static const s16 sHaze_PowerBomb_Values137[18 + 133 * 4] = {
 	0, 0, 12, -12, 21, -21, 27, -27, 31, -31, 36,
 	-36, 39, -39, 42, -42, 45, -45, 48, -48, 51,
 	-51, 53, -53, 56, -56, 57, -57, 60, -60, 62,
@@ -4279,7 +4279,7 @@ static const i16 sHaze_PowerBomb_Values137[18 + 133 * 4] = {
 	-31, 27, -27, 21, -21, 12, -12, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values138[18 + 134 * 4] = {
+static const s16 sHaze_PowerBomb_Values138[18 + 134 * 4] = {
 	1, -1, 12, -12, 21, -21, 27, -27, 31, -31, 35,
 	-35, 39, -39, 42, -42, 45, -45, 48, -48, 51,
 	-51, 53, -53, 55, -55, 58, -58, 60, -60, 62,
@@ -4338,7 +4338,7 @@ static const i16 sHaze_PowerBomb_Values138[18 + 134 * 4] = {
 	-12, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values139[18 + 135 * 4] = {
+static const s16 sHaze_PowerBomb_Values139[18 + 135 * 4] = {
 	0, 0, 12, -12, 21, -21, 27, -27, 31, -31, 36,
 	-36, 39, -39, 43, -43, 45, -45, 48, -48, 51,
 	-51, 54, -54, 56, -56, 58, -58, 60, -60, 62,
@@ -4397,7 +4397,7 @@ static const i16 sHaze_PowerBomb_Values139[18 + 135 * 4] = {
 	-27, 21, -21, 12, -12, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values140[18 + 136 * 4] = {
+static const s16 sHaze_PowerBomb_Values140[18 + 136 * 4] = {
 	1, -1, 12, -12, 21, -21, 27, -27, 32, -32, 36,
 	-36, 39, -39, 42, -42, 46, -46, 49, -49, 51,
 	-51, 54, -54, 56, -56, 58, -58, 61, -61, 63,
@@ -4457,7 +4457,7 @@ static const i16 sHaze_PowerBomb_Values140[18 + 136 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values141[18 + 137 * 4] = {
+static const s16 sHaze_PowerBomb_Values141[18 + 137 * 4] = {
 	0, 0, 12, -12, 21, -21, 27, -27, 32, -32, 36,
 	-36, 40, -40, 43, -43, 46, -46, 48, -48, 51,
 	-51, 54, -54, 56, -56, 59, -59, 60, -60, 63,
@@ -4517,7 +4517,7 @@ static const i16 sHaze_PowerBomb_Values141[18 + 137 * 4] = {
 	-21, 12, -12, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values142[18 + 138 * 4] = {
+static const s16 sHaze_PowerBomb_Values142[18 + 138 * 4] = {
 	0, 0, 12, -12, 21, -21, 27, -27, 32, -32, 36,
 	-36, 40, -40, 43, -43, 46, -46, 49, -49, 52,
 	-52, 54, -54, 56, -56, 58, -58, 61, -61, 63,
@@ -4577,7 +4577,7 @@ static const i16 sHaze_PowerBomb_Values142[18 + 138 * 4] = {
 	-32, 27, -27, 21, -21, 12, -12, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values143[18 + 139 * 4] = {
+static const s16 sHaze_PowerBomb_Values143[18 + 139 * 4] = {
 	1, -1, 13, -13, 22, -22, 27, -27, 32, -32, 36,
 	-36, 40, -40, 43, -43, 46, -46, 49, -49, 51,
 	-51, 54, -54, 57, -57, 59, -59, 62, -62, 63,
@@ -4638,7 +4638,7 @@ static const i16 sHaze_PowerBomb_Values143[18 + 139 * 4] = {
 	-13, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values144[18 + 140 * 4] = {
+static const s16 sHaze_PowerBomb_Values144[18 + 140 * 4] = {
 	0, 0, 12, -12, 21, -21, 27, -27, 32, -32, 36,
 	-36, 40, -40, 44, -44, 46, -46, 49, -49, 52,
 	-52, 55, -55, 57, -57, 59, -59, 61, -61, 63,
@@ -4699,7 +4699,7 @@ static const i16 sHaze_PowerBomb_Values144[18 + 140 * 4] = {
 	-27, 21, -21, 12, -12, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values145[18 + 141 * 4] = {
+static const s16 sHaze_PowerBomb_Values145[18 + 141 * 4] = {
 	1, -1, 13, -13, 22, -22, 28, -28, 32, -32, 36,
 	-36, 40, -40, 43, -43, 47, -47, 50, -50, 53,
 	-53, 54, -54, 57, -57, 59, -59, 62, -62, 64,
@@ -4761,7 +4761,7 @@ static const i16 sHaze_PowerBomb_Values145[18 + 141 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values146[18 + 142 * 4] = {
+static const s16 sHaze_PowerBomb_Values146[18 + 142 * 4] = {
 	0, 0, 12, -12, 21, -21, 27, -27, 32, -32, 37,
 	-37, 40, -40, 44, -44, 47, -47, 49, -49, 52,
 	-52, 55, -55, 58, -58, 60, -60, 61, -61, 64,
@@ -4823,7 +4823,7 @@ static const i16 sHaze_PowerBomb_Values146[18 + 142 * 4] = {
 	-21, 12, -12, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values147[18 + 143 * 4] = {
+static const s16 sHaze_PowerBomb_Values147[18 + 143 * 4] = {
 	1, -1, 13, -13, 22, -22, 28, -28, 33, -33, 37,
 	-37, 40, -40, 43, -43, 47, -47, 50, -50, 53,
 	-53, 55, -55, 57, -57, 60, -60, 62, -62, 64,
@@ -4885,7 +4885,7 @@ static const i16 sHaze_PowerBomb_Values147[18 + 143 * 4] = {
 	-33, 28, -28, 22, -22, 13, -13, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values148[18 + 144 * 4] = {
+static const s16 sHaze_PowerBomb_Values148[18 + 144 * 4] = {
 	0, 0, 12, -12, 21, -21, 27, -27, 32, -32, 37,
 	-37, 40, -40, 44, -44, 47, -47, 50, -50, 52,
 	-52, 55, -55, 58, -58, 60, -60, 62, -62, 64,
@@ -4948,7 +4948,7 @@ static const i16 sHaze_PowerBomb_Values148[18 + 144 * 4] = {
 	-12, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values149[18 + 145 * 4] = {
+static const s16 sHaze_PowerBomb_Values149[18 + 145 * 4] = {
 	0, 0, 13, -13, 22, -22, 28, -28, 33, -33, 37,
 	-37, 41, -41, 44, -44, 47, -47, 50, -50, 53,
 	-53, 56, -56, 58, -58, 60, -60, 62, -62, 65,
@@ -5011,7 +5011,7 @@ static const i16 sHaze_PowerBomb_Values149[18 + 145 * 4] = {
 	-28, 22, -22, 13, -13, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values150[18 + 146 * 4] = {
+static const s16 sHaze_PowerBomb_Values150[18 + 146 * 4] = {
 	1, -1, 13, -13, 22, -22, 27, -27, 32, -32, 37,
 	-37, 41, -41, 44, -44, 48, -48, 51, -51, 53,
 	-53, 55, -55, 58, -58, 61, -61, 63, -63, 64,
@@ -5075,7 +5075,7 @@ static const i16 sHaze_PowerBomb_Values150[18 + 146 * 4] = {
 	-1, 
 };
 
-static const i16 sHaze_PowerBomb_Values151[18 + 147 * 4] = {
+static const s16 sHaze_PowerBomb_Values151[18 + 147 * 4] = {
 	0, 0, 13, -13, 22, -22, 28, -28, 33, -33, 37,
 	-37, 41, -41, 45, -45, 47, -47, 50, -50, 53,
 	-53, 56, -56, 59, -59, 60, -60, 63, -63, 65,
@@ -5139,7 +5139,7 @@ static const i16 sHaze_PowerBomb_Values151[18 + 147 * 4] = {
 	-22, 13, -13, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values152[18 + 148 * 4] = {
+static const s16 sHaze_PowerBomb_Values152[18 + 148 * 4] = {
 	1, -1, 13, -13, 22, -22, 28, -28, 33, -33, 37,
 	-37, 41, -41, 44, -44, 48, -48, 51, -51, 54,
 	-54, 56, -56, 58, -58, 61, -61, 63, -63, 66,
@@ -5203,7 +5203,7 @@ static const i16 sHaze_PowerBomb_Values152[18 + 148 * 4] = {
 	-33, 28, -28, 22, -22, 13, -13, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values153[18 + 149 * 4] = {
+static const s16 sHaze_PowerBomb_Values153[18 + 149 * 4] = {
 	0, 0, 13, -13, 22, -22, 28, -28, 33, -33, 37,
 	-37, 41, -41, 45, -45, 48, -48, 50, -50, 53,
 	-53, 56, -56, 59, -59, 61, -61, 63, -63, 65,
@@ -5268,7 +5268,7 @@ static const i16 sHaze_PowerBomb_Values153[18 + 149 * 4] = {
 	-13, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values154[18 + 150 * 4] = {
+static const s16 sHaze_PowerBomb_Values154[18 + 150 * 4] = {
 	1, -1, 13, -13, 22, -22, 28, -28, 33, -33, 38,
 	-38, 41, -41, 45, -45, 48, -48, 51, -51, 54,
 	-54, 57, -57, 58, -58, 61, -61, 64, -64, 66,
@@ -5333,7 +5333,7 @@ static const i16 sHaze_PowerBomb_Values154[18 + 150 * 4] = {
 	-28, 22, -22, 13, -13, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values155[18 + 151 * 4] = {
+static const s16 sHaze_PowerBomb_Values155[18 + 151 * 4] = {
 	0, 0, 12, -12, 22, -22, 28, -28, 33, -33, 37,
 	-37, 41, -41, 45, -45, 48, -48, 51, -51, 54,
 	-54, 56, -56, 59, -59, 62, -62, 64, -64, 66,
@@ -5399,7 +5399,7 @@ static const i16 sHaze_PowerBomb_Values155[18 + 151 * 4] = {
 	0, 
 };
 
-static const i16 sHaze_PowerBomb_Values156[18 + 152 * 4] = {
+static const s16 sHaze_PowerBomb_Values156[18 + 152 * 4] = {
 	0, 0, 13, -13, 22, -22, 28, -28, 34, -34, 38,
 	-38, 42, -42, 45, -45, 48, -48, 51, -51, 54,
 	-54, 57, -57, 59, -59, 61, -61, 64, -64, 66,
@@ -5465,7 +5465,7 @@ static const i16 sHaze_PowerBomb_Values156[18 + 152 * 4] = {
 	-22, 13, -13, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values157[18 + 153 * 4] = {
+static const s16 sHaze_PowerBomb_Values157[18 + 153 * 4] = {
 	1, -1, 13, -13, 23, -23, 28, -28, 33, -33, 38,
 	-38, 42, -42, 45, -45, 49, -49, 52, -52, 54,
 	-54, 57, -57, 59, -59, 62, -62, 64, -64, 66,
@@ -5531,7 +5531,7 @@ static const i16 sHaze_PowerBomb_Values157[18 + 153 * 4] = {
 	-33, 28, -28, 23, -23, 13, -13, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values158[18 + 154 * 4] = {
+static const s16 sHaze_PowerBomb_Values158[18 + 154 * 4] = {
 	0, 0, 13, -13, 22, -22, 28, -28, 34, -34, 38,
 	-38, 42, -42, 46, -46, 48, -48, 51, -51, 54,
 	-54, 57, -57, 60, -60, 62, -62, 64, -64, 67,
@@ -5598,7 +5598,7 @@ static const i16 sHaze_PowerBomb_Values158[18 + 154 * 4] = {
 	-13, 0, 0, 
 };
 
-static const i16 sHaze_PowerBomb_Values159[18 + 155 * 4] = {
+static const s16 sHaze_PowerBomb_Values159[18 + 155 * 4] = {
 	1, -1, 13, -13, 23, -23, 29, -29, 34, -34, 38,
 	-38, 42, -42, 45, -45, 49, -49, 52, -52, 55,
 	-55, 57, -57, 60, -60, 62, -62, 65, -65, 67,
@@ -5665,7 +5665,7 @@ static const i16 sHaze_PowerBomb_Values159[18 + 155 * 4] = {
 	-29, 23, -23, 13, -13, 1, -1, 
 };
 
-static const i16 sHaze_PowerBomb_Values160[18 + 156 * 4] = {
+static const s16 sHaze_PowerBomb_Values160[18 + 156 * 4] = {
 	0, 0, 13, -13, 22, -22, 28, -28, 34, -34, 38,
 	-38, 42, -42, 46, -46, 49, -49, 52, -52, 55,
 	-55, 57, -57, 60, -60, 63, -63, 64, -64, 67,
@@ -5733,7 +5733,7 @@ static const i16 sHaze_PowerBomb_Values160[18 + 156 * 4] = {
 	0, 
 };
 
-const i16* const sHaze_PowerBomb_WindowValuesPointers[161] = {
+const s16* const sHaze_PowerBomb_WindowValuesPointers[161] = {
 	sHaze_PowerBomb_Values0,
 	sHaze_PowerBomb_Values0,
 	sHaze_PowerBomb_Values0,
@@ -5897,7 +5897,7 @@ const i16* const sHaze_PowerBomb_WindowValuesPointers[161] = {
 	sHaze_PowerBomb_Values160,
 };
 
-const i8 sHaze_Bg3Bg2Bg1[9][32] = {
+const s8 sHaze_Bg3Bg2Bg1[9][32] = {
     [0] = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
@@ -5936,11 +5936,11 @@ const i8 sHaze_Bg3Bg2Bg1[9][32] = {
     }
 };
 
-const i8 sHaze_Bg3_WeakOutside[16] = {
+const s8 sHaze_Bg3_WeakOutside[16] = {
     0, 0, 1, 1, 1, 1, 1, 0, 0, 0, -1, -1, -1, -1, -1, 0
 };
 
-const i8 sHaze_Bg_WeakOutside[32] = {
+const s8 sHaze_Bg_WeakOutside[32] = {
     0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0,
     0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 0, 0
 };

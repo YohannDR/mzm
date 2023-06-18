@@ -5,7 +5,7 @@
 #include "input.h"
 
 struct GameCompletion {
-    i8 completedGame;
+    s8 completedGame;
     u8 introPlayed;
     u8 language;
 };
@@ -24,37 +24,37 @@ struct FileScreenOptionsUnlocked {
 
 extern struct FileScreenOptionsUnlocked gFileScreenOptionsUnlocked;
 extern struct ButtonAssignments gButtonAssignments;
-extern i8 gTourianEscapeCutsceneStage;
+extern s8 gTourianEscapeCutsceneStage;
 extern vu16 gVBlankRequestFlag;
 extern u8 gDisableSoftreset;
 extern u8 gDebugFlag;
 extern u8 gSramErrorFlag;
-extern i8 gDisablePause;
+extern s8 gDisablePause;
 extern u8 gDisableScrolling;
 extern u8 gShipLandingFlag;
 extern u8 gTimeAttackFlag;
 extern u16 gButtonInput;
 extern u16 gPreviousButtonInput;
 extern u16 gChangedInput;
-extern i8 gIsLoadingFile;
-extern i8 gPauseScreenFlag;
-extern i8 gVblankActive;
+extern s8 gIsLoadingFile;
+extern s8 gPauseScreenFlag;
+extern s8 gVblankActive;
 extern u8 gFrameCounter8Bit;
 extern u16 gFrameCounter16Bit;
 extern u8 gDifficulty;
-extern i8 gLanguage;
+extern s8 gLanguage;
 extern u8 gResetGame;
 extern u8 gNotPressingUp;
 extern u8 gEndingFlags;
 
-extern i16 gMainGameMode;
-extern i16 gGameModeSub1;
-extern i8 gGameModeSub2;
-extern i8 gGameModeSub3;
+extern s16 gMainGameMode;
+extern s16 gGameModeSub1;
+extern s8 gGameModeSub2;
+extern s8 gGameModeSub3;
 extern u8 gSubGameModeStage;
 
 extern u8 gHasSaved;
-extern i8 gMostRecentSaveFile;
+extern s8 gMostRecentSaveFile;
 extern u8 gCompletedGameFlagCopy;
 
 #endif

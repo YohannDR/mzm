@@ -158,7 +158,7 @@ void MotherBrainCloseUpUpdateElevatorReflection(struct CutsceneOamData* pOam)
  */
 u8 MotherBrainCloseUpEyeOpening(void)
 {
-    i32 i;
+    s32 i;
 
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
@@ -433,8 +433,8 @@ void MotherBrainCloseUpUpdateEye(u8 lookingAtSamus)
  */
 void MotherBrainCloseUpUpdateBubble(struct CutsceneOamData* pOam)
 {
-    i32 yPosition;
-    i32 temp;
+    s32 yPosition;
+    s32 temp;
 
     pOam->yPosition -= 4;
     yPosition = (pOam->yPosition);
@@ -466,7 +466,7 @@ void MotherBrainCloseUpUpdateBubble(struct CutsceneOamData* pOam)
  */
 u8 MotherBrainCloseUpInitBubbles(u8 packId)
 {
-    i32 i;
+    s32 i;
 
     for (i = 0; i < 6; i++)
     {

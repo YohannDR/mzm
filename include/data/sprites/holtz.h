@@ -5,7 +5,7 @@
 #include "macros.h"
 #include "oam.h"
 
-extern const i16 sHoltzIdleYVelocity[65];
+extern const s16 sHoltzIdleYVelocity[65];
 
 extern const u32 sHoltzGfx[200];
 extern const u16 sHoltzPAL[16];

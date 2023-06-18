@@ -209,7 +209,7 @@ void GameOverUpdateTextGfx(void)
     u32 palVal;
     u16* dst;
     u32 mask;
-    i32 i;
+    s32 i;
 
     dst = VRAM_BASE + 0x340;
     if (GAME_OVER_DATA.optionSelected == 0)
@@ -414,10 +414,10 @@ void GameOverVBlank_Empty(void)
  */
 void GameOverUpdateLettersPalette(void)
 {
-    i32 i;
-    i32 j;
-    i32 k;
-    i32 row;
+    s32 i;
+    s32 j;
+    s32 k;
+    s32 row;
     const u16* src;
 
     if (GAME_OVER_DATA.dynamicPalette.enableFlags == 0)

@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sReoIdleYMovement[65];
+extern const s16 sReoIdleYMovement[65];
 
-extern const i16 sReoIdleXMovement[81];
+extern const s16 sReoIdleXMovement[81];
 
 extern const u32 sReoGreenWingsGfx[277];
 extern const u16 sReoGreenWingsPAL[16];

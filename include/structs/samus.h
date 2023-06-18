@@ -59,8 +59,8 @@ struct SamusData {
     u16 elevatorDirection;
     u16 xPosition;
     u16 yPosition;
-    i16 xVelocity;
-    i16 yVelocity;
+    s16 xVelocity;
+    s16 yVelocity;
     u16 currentSlope;
     u8 animationDurationCounter;
     u8 currentAnimationFrame;
@@ -92,9 +92,9 @@ struct SamusPhysics {
     u16 armCannonYPositionOffset;
     u8 horizontalMovingDirection;
     u8 verticalMovingDirection;
-    i16 hitboxLeftOffset;
-    i16 hitboxRightOffset;
-    i16 hitboxTopOffset;
+    s16 hitboxLeftOffset;
+    s16 hitboxRightOffset;
+    s16 hitboxTopOffset;
     u8 standingStatus;
     u8 hitboxType;
     u8 touchingSideBlock;
@@ -102,18 +102,18 @@ struct SamusPhysics {
     u8 unknown;
     u8 slowedByLiquid;
     u8 hasNewProjectile;
-    i16 xAcceleration;
-    i16 xVelocityCap;
-    i16 yAcceleration;
-    i16 positiveYVelocityCap;
-    i16 negativeYVelocityCap;
-    i16 midairXAcceleration;
-    i16 midairXVelocityCap;
-    i16 midairMorphedXVelocityCap;
-    i16 drawDistanceLeftOffset;
-    i16 drawDistanceTopOffset;
-    i16 drawDistanceRightOffset;
-    i16 drawDistanceBottomOffset;
+    s16 xAcceleration;
+    s16 xVelocityCap;
+    s16 yAcceleration;
+    s16 positiveYVelocityCap;
+    s16 negativeYVelocityCap;
+    s16 midairXAcceleration;
+    s16 midairXVelocityCap;
+    s16 midairMorphedXVelocityCap;
+    s16 drawDistanceLeftOffset;
+    s16 drawDistanceTopOffset;
+    s16 drawDistanceRightOffset;
+    s16 drawDistanceBottomOffset;
 };
 
 struct ScrewSpeedAnimation {
@@ -147,13 +147,13 @@ struct SamusEcho {
     u32 padding_4;
     u16 previous64XPositions[64];
     u16 previous64YPositions[64];
-    i16 previousPositionCounter;
-    i8 unknown;
+    s16 previousPositionCounter;
+    s8 unknown;
 };
 
 struct ArmCannonOffset {
-    i16 y;
-    i16 x;
+    s16 y;
+    s16 x;
 };
 
 struct SamusAnimationData {
@@ -197,6 +197,6 @@ extern u8 gDisableDrawingSamusAndScrolling;
 
 extern u16 gSamusPalette[16 * 2];
 extern u16 gSamusPaletteSize;
-extern i16 gSamusDoorPositionOffset;
+extern s16 gSamusDoorPositionOffset;
 
 #endif /* SAMUS_STRUCT_H */

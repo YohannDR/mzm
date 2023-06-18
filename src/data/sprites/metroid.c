@@ -1,14 +1,14 @@
 #include "data/sprites/metroid.h"
 #include "macros.h"
 
-const i16 sMetroidSpawningYMovement[65] = {
+const s16 sMetroidSpawningYMovement[65] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 2, 2, 1,
     1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
     -1, 0, -1, 0, -1, 0, -1, 0, -1, -1, -1, -2, -2, -1,
     -1, -1, 0, -1, 0, -1, 0, -1, 0, -1, 0, 0, 0, 0, SHORT_MAX
 };
 
-const i16 sMetroidSpawningXMovement[81] = {
+const s16 sMetroidSpawningXMovement[81] = {
     0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1, 1, 1,
     2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1,
     0, 0, 0, 0, 0, 0, 0, 0, -1, 0, -1, 0, -1, 0, -1, 0,

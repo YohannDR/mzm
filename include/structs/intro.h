@@ -11,7 +11,7 @@ struct IntroData {
     u8 characterPalette; // 2
     u8 nextCharacter; // 3
     
-    i16 charDrawerX; // 4
+    s16 charDrawerX; // 4
     u16 charDrawerY; // 6
     u8 charDrawerPalette; // 8
 

@@ -52,7 +52,7 @@ void MinimapCheckSetAreaNameAsExplored(u8 afterTransition)
     // https://decomp.me/scratch/lc52R
 
     u32 set;
-    i32 i;
+    s32 i;
     u32 area;
     u32 xPosition;
     u32 yPosition;
@@ -294,10 +294,10 @@ void MinimapDraw(void)
 {
     // https://decomp.me/scratch/DE4B1
 
-    i32 yOffset;
-    i32 xOffset;
-    i32 xPosition;
-    i32 yPosition;
+    s32 yOffset;
+    s32 xOffset;
+    s32 xPosition;
+    s32 yPosition;
     u32 limit;
     u32* dst;
     u16 rawTile;
@@ -367,7 +367,7 @@ void MinimapDraw(void)
  */
 void MinimapCopyTileGfx(u32* dst, u16* pTile, u8 palette)
 {
-    i32 i;
+    s32 i;
     u32 value;
     u32 tile;
 
@@ -406,7 +406,7 @@ void MinimapCopyTileGfx(u32* dst, u16* pTile, u8 palette)
  */
 void MinimapCopyTileXFlippedGfx(u32* dst, u16* pTile, u8 palette)
 {
-    i32 i;
+    s32 i;
     u32 value;
     u32 tile;
 
@@ -448,7 +448,7 @@ void MinimapCopyTileXFlippedGfx(u32* dst, u16* pTile, u8 palette)
  */
 void MinimapCopyTileYFlippedGfx(u32* dst, u16* pTile, u8 palette)
 {
-    i32 i;
+    s32 i;
     u32 value;
     u32 tile;
     
@@ -489,7 +489,7 @@ void MinimapCopyTileYFlippedGfx(u32* dst, u16* pTile, u8 palette)
  */
 void MinimapCopyTileXYFlippedGfx(u32* dst, u16* pTile, u8 palette)
 {
-    i32 i;
+    s32 i;
     u32 value;
     u32 tile;
 
@@ -535,8 +535,8 @@ void MinimapSetTilesWithObtainedItems(u8 area, u16* dst)
 {
     u32* src;
     u32 tile;
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
 
     if (area >= MAX_AMOUNT_OF_AREAS)
         return;
@@ -566,8 +566,8 @@ void MinimapSetDownloadedTiles(u8 area, u16* dst)
     // https://decomp.me/scratch/oSyZP
 
     u32* pVisited;
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
 
     pVisited = &sVisitedMinimapTilesPointer[area * MINIMAP_SIZE];
 
@@ -684,9 +684,9 @@ u32 MinimapCheckIsTileExplored(u8 xPosition, u8 yPosition)
 void MinimapLoadTilesWithObtainedItems(void)
 {
     u8 i;
-    i32 j;
-    i32 yPosition;
-    i32 xPosition;
+    s32 j;
+    s32 yPosition;
+    s32 xPosition;
     struct ItemInfo* pItem;
     u32* pTiles;
     u32 xOffset;
@@ -725,7 +725,7 @@ void MinimapLoadTilesWithObtainedItems(void)
  */
 void MinimapUpdateChunk(u8 event)
 {
-    i32 i;
+    s32 i;
     u16* pMinimap;
     u16* pVisited;
     u16* pMinimapLower;

@@ -103,7 +103,7 @@ void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTarget, u
 {
     u16 distanceY;
     u16 distanceX;
-    i32 totalDistance;
+    s32 totalDistance;
     u16 samusY;
     u16 spriteY;
     u16 acceleration;
@@ -139,8 +139,8 @@ void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTarget, u
             totalDistance = (u16)Sqrt(distanceX * distanceX + distanceY * distanceY);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = yStart + ((speed * ((i32)(distanceY << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = xStart + ((speed * ((i32)(distanceX << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = yStart + ((speed * ((s32)(distanceY << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = xStart + ((speed * ((s32)(distanceX << 0xA) / totalDistance) >> 0xA));
             }
         }
         else
@@ -148,8 +148,8 @@ void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTarget, u
             totalDistance = (u16)Sqrt(distanceX * distanceX + distanceY * distanceY);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = yStart - ((speed * ((i32)(distanceY << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = xStart + ((speed * ((i32)(distanceX << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = yStart - ((speed * ((s32)(distanceY << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = xStart + ((speed * ((s32)(distanceX << 0xA) / totalDistance) >> 0xA));
             }
         }
     }
@@ -160,8 +160,8 @@ void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTarget, u
             totalDistance = (u16)Sqrt(distanceX * distanceX + distanceY * distanceY);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = yStart + ((speed * ((i32)(distanceY << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = xStart - ((speed * ((i32)(distanceX << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = yStart + ((speed * ((s32)(distanceY << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = xStart - ((speed * ((s32)(distanceX << 0xA) / totalDistance) >> 0xA));
             }
         }
         else
@@ -169,8 +169,8 @@ void RuinsTestMoveToPosition(u16 yStart, u16 xStart, u16 yTarget, u16 xTarget, u
             totalDistance = (u16)Sqrt(distanceX * distanceX + distanceY * distanceY);
             if (totalDistance != 0x0)
             {
-                gCurrentSprite.yPosition = yStart - ((speed * ((i32)(distanceY << 0xA) / totalDistance) >> 0xA));
-                gCurrentSprite.xPosition = xStart - ((speed * ((i32)(distanceX << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.yPosition = yStart - ((speed * ((s32)(distanceY << 0xA) / totalDistance) >> 0xA));
+                gCurrentSprite.xPosition = xStart - ((speed * ((s32)(distanceX << 0xA) / totalDistance) >> 0xA));
             }
         }
     }
@@ -387,44 +387,44 @@ u8 RuinsTestUpdateSymbol(void)
  */
 void RuinsTestGhostMove(u8 dAngle)
 {
-    i32 radius;
-    i32 s;
-    i32 c;
-    i32 sine;
-    i32 cosine;
+    s32 radius;
+    s32 s;
+    s32 c;
+    s32 sine;
+    s32 cosine;
     u8 angle;
-    i32 temp;
-    i32 temp2;
+    s32 temp;
+    s32 temp2;
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
         gCurrentSprite.workVariable += dAngle;
     else
         gCurrentSprite.workVariable -= dAngle;
 
-    radius = (i16)gCurrentSprite.oamScaling;
+    radius = (s16)gCurrentSprite.oamScaling;
     angle = gCurrentSprite.workVariable;
 
     temp = s = sin(angle);
     if (temp < 0)
     {
-        temp = (i16)((-temp * radius) >> 0x8);
+        temp = (s16)((-temp * radius) >> 0x8);
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn - temp;
     }
     else
     {
-        temp = (i16)((s * radius) >> 0x8);
+        temp = (s16)((s * radius) >> 0x8);
         gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn + temp;
     }
 
     temp2 = c = cos(angle);
     if (c < 0)
     {
-        temp2 = (i16)((-temp2 * radius) >> 0x8);
+        temp2 = (s16)((-temp2 * radius) >> 0x8);
         gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - temp2;
     }
     else
     {
-        temp2 = (i16)((c * radius) >> 0x8);
+        temp2 = (s16)((c * radius) >> 0x8);
         gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + temp2;
     }
 }
@@ -1673,7 +1673,7 @@ void RuinsTestSymbol(void)
  */
 void RuinsTestSamusReflectionStart(void)
 {
-    i32 timer;
+    s32 timer;
     
     switch (gCurrentSprite.pose)
     {
@@ -2032,7 +2032,7 @@ void RuinsTestGhost(void)
  */
 void RuinsTestSamusReflectionEnd(void)
 {
-    i32 offset;
+    s32 offset;
     u8 stage;
     
     if (gSubSpriteData1.workVariable3 > RUINS_TEST_FIGHT_STAGE_GHOST_STARTING_TO_DISAPPEAR)

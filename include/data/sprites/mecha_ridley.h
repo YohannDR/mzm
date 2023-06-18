@@ -4,333 +4,333 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardLow_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardMiddle_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingForwardHigh_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Crawling_Unused1_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_Crawling_Unused1_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Crawling_Unused2_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_Crawling_Unused2_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Crawling_Unused3_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_Crawling_Unused3_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame5[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingLow_Frame5[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame5[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingMiddle_Frame5[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame5[33];
+extern const s16 sMechaRidleyMultiSpriteData_DyingStandingHigh_Frame5[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_RaisingArmsLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_RaisingArmsLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_RaisingArmsLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_RaisingArmsLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_RaisingArmsLow_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_RaisingArmsLow_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_RaisingArmsMiddle_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_RaisingArmsHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_RaisingArmsHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_RaisingArmsHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_RaisingArmsHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_RaisingArmsHigh_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_RaisingArmsHigh_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingLow_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingLow_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingLow_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingLow_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingLow_Frame5[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingLow_Frame5[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame5[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingMiddle_Frame5[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingHigh_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingHigh_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingHigh_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingHigh_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_StandingHigh_Frame5[33];
+extern const s16 sMechaRidleyMultiSpriteData_StandingHigh_Frame5[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeLow_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeMiddle_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_SmallSwipeHigh_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame8[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadLow_Frame8[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame8[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadMiddle_Frame8[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame8[33];
+extern const s16 sMechaRidleyMultiSpriteData_ShakingHeadHigh_Frame8[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_LowToMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_LowToMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_LowToMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_LowToMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_MiddleToHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_MiddleToHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_MiddleToHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_MiddleToHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_HighToMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_HighToMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_HighToMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_HighToMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_MiddleToLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_MiddleToLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_MiddleToLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_MiddleToLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_LowToHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_LowToHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_LowToHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_LowToHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_LowToHigh_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_LowToHigh_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_LowToHigh_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_LowToHigh_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_HighToLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_HighToLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_HighToLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_HighToLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_HighToLow_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_HighToLow_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_HighToLow_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_HighToLow_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_OpeningMouthLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_OpeningMouthLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_OpeningMouthLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_OpeningMouthLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SpittingFireballsLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_SpittingFireballsLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SpittingFireballsLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_SpittingFireballsLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SpittingFireballsLow_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_SpittingFireballsLow_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ClosingMouthLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_ClosingMouthLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ClosingMouthLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_ClosingMouthLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_OpeningMouthMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_OpeningMouthMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_OpeningMouthMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_OpeningMouthMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_SpittingFireballsMiddle_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ClosingMouthMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_ClosingMouthMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ClosingMouthMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_ClosingMouthMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_OpeningMouthHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_OpeningMouthHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_OpeningMouthHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_OpeningMouthHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SpittingFireballsHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_SpittingFireballsHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SpittingFireballsHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_SpittingFireballsHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_SpittingFireballsHigh_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_SpittingFireballsHigh_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ClosingMouthHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_ClosingMouthHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_ClosingMouthHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_ClosingMouthHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_FiringMissileArmsUpHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_FiringMissilesLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_FiringMissilesLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_FiringMissilesLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_FiringMissilesLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_FiringMissilesMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_FiringMissilesMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_FiringMissilesMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_FiringMissilesMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_FiringMissilesHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_FiringMissilesHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_FiringMissilesHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_FiringMissilesHigh_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Dying_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_Dying_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Dying_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_Dying_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Dying_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_Dying_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Dying_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_Dying_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Dying_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_Dying_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Dying_Frame5[33];
+extern const s16 sMechaRidleyMultiSpriteData_Dying_Frame5[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Dying_Frame6[33];
+extern const s16 sMechaRidleyMultiSpriteData_Dying_Frame6[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Dying_Frame7[33];
+extern const s16 sMechaRidleyMultiSpriteData_Dying_Frame7[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Dying_Frame8[33];
+extern const s16 sMechaRidleyMultiSpriteData_Dying_Frame8[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_Dying_Frame9[33];
+extern const s16 sMechaRidleyMultiSpriteData_Dying_Frame9[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsLow_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsMiddle_Frame1[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame0[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame0[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame4[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame4[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame3[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame3[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame2[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame2[33];
 
-extern const i16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame1[33];
+extern const s16 sMechaRidleyMultiSpriteData_CrawlingBackwardsHigh_Frame1[33];
 
 extern const struct FrameData sMechaRidleyMultiSpriteData_CrawlingForwardLow[7];
 

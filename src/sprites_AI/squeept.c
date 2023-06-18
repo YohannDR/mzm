@@ -117,8 +117,8 @@ void SqueeptIdle(void)
 void SqueeptGoUp(void)
 {
     u16 oldY;
-    i32 movement;
-    i32 newMovement;
+    s32 movement;
+    s32 newMovement;
     u8 offset;
 
     oldY = gCurrentSprite.yPosition;
@@ -185,8 +185,8 @@ void SqueeptTurningAround(void)
 void SqueeptGoDown(void)
 {
     u16 oldY;
-    i32 movement;
-    i32 newMovement;
+    s32 movement;
+    s32 newMovement;
     u8 offset;
 
     oldY = gCurrentSprite.yPosition;

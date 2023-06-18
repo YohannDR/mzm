@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sSqueeptRisingMovement[65];
+extern const s16 sSqueeptRisingMovement[65];
 
-extern const i16 sSqueeptFallingMovement[16];
+extern const s16 sSqueeptFallingMovement[16];
 
 extern const u32 sSqueeptGfx[263];
 extern const u16 sSqueeptPAL[16];

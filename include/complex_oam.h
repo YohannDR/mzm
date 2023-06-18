@@ -3,7 +3,7 @@
 
 #include "types.h"
 
-u8 ProcessComplexOam(u32 oamSlot, i16 xPosition, i16 yPosition, u16 rotation, i16 scaling, u8 doubleSize, u8 flipSize);
-void CalculateOamPart4(u16 rotation, i16 scaling, u8 oamSlot);
+u8 ProcessComplexOam(u32 oamSlot, s16 xPosition, s16 yPosition, u16 rotation, s16 scaling, u8 doubleSize, u8 flipSize);
+void CalculateOamPart4(u16 rotation, s16 scaling, u8 oamSlot);
 
 #endif /* COMPLEX_OAM_H */

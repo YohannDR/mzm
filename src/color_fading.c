@@ -38,8 +38,8 @@
 u8 ColorFadingUpdate(void)
 {
     u8 colorType;
-    i32 stage;
-    i32 color;
+    s32 stage;
+    s32 color;
 
     if (gColorFading.unk_5)
         colorType = sColorFadingData[gColorFading.type].unk_10;
@@ -207,8 +207,8 @@ u8 ColorFadingSubroutine_Empty(u8 param_1, u8 color)
 void ColorFadingTransferPaletteOnTransition(void)
 {
     u32 value;
-    i32 i;
-    i32 color;
+    s32 i;
+    s32 color;
 
     gColorFading.timer = 0;
     unk_5b24c();
@@ -542,8 +542,8 @@ u32 ColorFadingProcess(void)
  */
 u8 ColorFading_DoorTransition(void)
 {
-    i32 bldalphaH;
-    i32 bldalphaL;
+    s32 bldalphaH;
+    s32 bldalphaL;
     u8 bgProp;
 
     switch (gColorFading.stage)

@@ -113,7 +113,7 @@ void RidleyLandingUpdateRidley(struct CutsceneOamData* pOam)
  */
 u8 RidleyLandingShipLanding(void)
 {
-    i32 movement;
+    s32 movement;
 
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
@@ -301,7 +301,7 @@ u8 RidleyLandingShipLanding(void)
  */
 struct CutsceneOamData* RidleyLandingUpdateShipLanding(struct CutsceneOamData* pOam)
 {
-    i32 yPosition;
+    s32 yPosition;
 
     if (pOam->actions != 0)
     {

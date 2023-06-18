@@ -210,7 +210,7 @@ void TourianEscapeCalculateBg2(void)
  */
 void unk_81788(u8 param_1)
 {
-    i32 i;
+    s32 i;
     u32 var_0;
     u32 offset;
 
@@ -531,7 +531,7 @@ void TourianEscapeInit(void)
 u8 TourianEscapeZebesExploding(void)
 {
     u8 ended;
-    i32 var_0;
+    s32 var_0;
     u16 i;
     u8 offset;
 
@@ -1487,7 +1487,7 @@ u8 TourianEscapeSamusChasedByPirates(void)
 u8 TourianEscapeSamusChasedByPiratesFiring(void)
 {
     u8 ended;
-    i32 velocity;
+    s32 velocity;
     u32 var_0;
     u32 var_1;
 
@@ -1716,7 +1716,7 @@ u8 TourianEscapeSamusChasedByPiratesFiring(void)
 u8 TourianEscapeSamusGettingShot(void)
 {
     u8 ended;
-    i32 velocity;
+    s32 velocity;
     u16 position;
 
     ended = FALSE;
@@ -2403,7 +2403,7 @@ u8 TourianEscapeCallSubroutines(void)
 {
     u8 ended;
     u8 result;
-    i32 i;
+    s32 i;
 
     ended = FALSE;
     gNextOamSlot = 0;

@@ -4,15 +4,15 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sSpacePirateWallJumpingVelocity[8];
+extern const s16 sSpacePirateWallJumpingVelocity[8];
 
-extern const i16 sSpacePirate_2e1030[11];
+extern const s16 sSpacePirate_2e1030[11];
 
-extern const i16 sSpacePirateJumpingVelocity[10];
+extern const s16 sSpacePirateJumpingVelocity[10];
 
-extern const i16 sSpacePirate_2e105a[11];
+extern const s16 sSpacePirate_2e105a[11];
 
-extern const i16 sSpacePirate_2e1070[12];
+extern const s16 sSpacePirate_2e1070[12];
 
 extern const u32 sSpacePirateGfx[810];
 extern const u16 sSpacePiratePAL[48];

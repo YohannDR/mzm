@@ -646,7 +646,7 @@ const u16 sBldalphaValuesForClipdata[11] = {
     [BEHAVIOR_TO_BLDALPHA(CLIP_BEHAVIOR_BG0_TRIGGER_BRIGHTER_LEVEL4)] = 0x1010,
 };
 
-const i8 sSubBombChainPositionOffset[4][4] = {
+const s8 sSubBombChainPositionOffset[4][4] = {
     {
         1, 1, -1, 1
     },

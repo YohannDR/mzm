@@ -210,8 +210,8 @@ u32 unk_891a0(struct MultiBootData* pMultiBoot)
     // https://decomp.me/scratch/fqhAa
 
     u32 control;
-    i32 mask;
-    i32 i;
+    s32 mask;
+    s32 i;
 
     if (unk_896b8(pMultiBoot))
         return 0;
@@ -336,15 +336,15 @@ void unk_895dc(struct MultiBootData* pMultiBoot)
  * @param param_4 To document
  * @param param_5 To document
  */
-void unk_89600(struct MultiBootData* pMultiBoot, const u8* src, i32 length, u8 param_4, u8 param_5)
+void unk_89600(struct MultiBootData* pMultiBoot, const u8* src, s32 length, u8 param_4, u8 param_5)
 {
-    i32 size;
-    i32 paletteData;
+    s32 size;
+    s32 paletteData;
     u32 var_0;
-    i8 var_1;
-    i32 var_2;
+    s8 var_1;
+    s32 var_2;
 
-    var_2 = (i8)param_5;
+    var_2 = (s8)param_5;
     
     if (pMultiBoot->probeCount != 0 || pMultiBoot->clientBit == 0 || pMultiBoot->checkWait)
     {
@@ -410,7 +410,7 @@ u32 unk_896cc(struct MultiBootData* pMultiBoot)
 {
     // https://decomp.me/scratch/6M5KZ
 
-    i32 i;
+    s32 i;
     u32 value;
     u16 var_0;
 
@@ -486,7 +486,7 @@ u32 unk_896cc(struct MultiBootData* pMultiBoot)
  * @param param_1 To document
  */
 NAKED_FUNCTION
-void CableLinkCheckCurrentMemoryRegion(i32 param_1)
+void CableLinkCheckCurrentMemoryRegion(s32 param_1)
 {
     // Assumed to be hand written due to the use of PC and no cmp before the bgt
     asm("                 \n\
@@ -512,7 +512,7 @@ void CableLinkCheckCurrentMemoryRegion(i32 param_1)
  */
 void unk_897d0(void)
 {
-    i32 i;
+    s32 i;
 
     i = 0;
     if (read16(REG_SIO) & SIO_START_BIT_ACTIVE)
@@ -534,7 +534,7 @@ u32 unk_8980c(u32 data, const u32* pData)
 {
     u32 result;
     u32 buffer;
-    i32 i;
+    s32 i;
 
     CableLinkBackupIoRegs();
 

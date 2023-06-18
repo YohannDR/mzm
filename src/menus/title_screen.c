@@ -88,7 +88,7 @@ void TitleScreenCallProcessOAM(void)
  */
 void TitleScreenResetOAM(void)
 {
-    i32 i;
+    s32 i;
     struct MenuOamData* pOam;
 
     pOam = TITLE_SCREEN_DATA.oam;
@@ -469,7 +469,7 @@ u32 unk_76a98(void)
 u32 TitleScreenCometsView(void)
 {
     u32 ended;
-    i32 screenOffset;
+    s32 screenOffset;
 
     screenOffset = 0;
     ended = FALSE;
@@ -569,8 +569,8 @@ u32 TitleScreenCometsView(void)
  */
 void TitleScreenTransferGroundGraphics(void)
 {
-    i32 var_0;
-    i32 var_1;
+    s32 var_0;
+    s32 var_1;
     u8* src;
 
     var_0 = -1;
@@ -697,8 +697,8 @@ void TitleScreenProcessComets(struct TitleScrenOamTiming* pTiming, struct MenuOa
             pOam->yPosition += movement;
 
             // Check out of bounds
-            yLimit = pOam->yPosition - (i16)gBG3VOFS_NonGameplay;
-            xLimit = pOam->xPosition - (i16)gBG3HOFS_NonGameplay;
+            yLimit = pOam->yPosition - (s16)gBG3VOFS_NonGameplay;
+            xLimit = pOam->xPosition - (s16)gBG3HOFS_NonGameplay;
 
             pOam->notDrawn = FALSE;
 
@@ -862,9 +862,9 @@ u32 TitleScreenProcessBottomSparkle(struct TitleScrenOamTiming* pTiming, struct 
 /**
  * @brief 770f8 | a8 | Checks if a demo should play
  * 
- * @return i8 0 = Nothing, 1 = Input, 2 = Demo start
+ * @return s8 0 = Nothing, 1 = Input, 2 = Demo start
  */
-i8 TitleScreenCheckPlayDemo(void)
+s8 TitleScreenCheckPlayDemo(void)
 {
     TITLE_SCREEN_DATA.demoTimer++;
     if (TITLE_SCREEN_DATA.demoTimer > 60 * 17)
@@ -1236,7 +1236,7 @@ void TitleScreenVBlank_Empty(void)
  */
 void unk_777d8(u8 param_1)
 {
-    i32 i;
+    s32 i;
     u32 value;
     u32 bgOffset;
     u16* dst;

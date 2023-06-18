@@ -32,7 +32,7 @@
  */
 void SramRead_All(void)
 {
-    i32 i;
+    s32 i;
     u32 corrupt;
 
     i = 3;
@@ -70,7 +70,7 @@ void SramRead_All(void)
  */
 void SramWrite_FileScreenOptionsUnlocked(void)
 {
-    i32 i;
+    s32 i;
     u32* ptr;
     u32 checksum;
     struct SaveFileScreenOptions* pOptions;
@@ -203,7 +203,7 @@ u32 SramCheck_FileScreenOptionsUnlocked(u8 fileNumber)
 {
     // https://decomp.me/scratch/AgVh2
 
-    i32 i;
+    s32 i;
     struct SaveFileScreenOptions* pOptions;
     u32 flags;
     u32* ptr;
@@ -326,7 +326,7 @@ u32 SramProcessIntroSave(void)
  */
 void SramWrite_HeaderAndGameInfo(void)
 {
-    i32 i;
+    s32 i;
     u32* ptr;
     u32 checksum;
     struct SaveFile* pFile;
@@ -448,8 +448,8 @@ void SramCheckSetNewBestCompletionTime(void)
 {
     u32 flags;
     u32 startValue;
-    i32 convertedBestTime;
-    i32 convertedIgt;
+    s32 convertedBestTime;
+    s32 convertedIgt;
 
     if (sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].energy != (gEquipment.maxEnergy / sTankIncreaseAmount[gDifficulty].energy))
         flags = 1;
@@ -490,7 +490,7 @@ void SramCheckSetNewBestCompletionTime(void)
  */
 void SramCopy_GameCompletion(void)
 {
-    i32 i;
+    s32 i;
     u32* ptr;
     u32 checksum;
     struct SaveFile* pFile;
@@ -661,7 +661,7 @@ u32 SramSaveFile(void)
  */
 void SramWrite_ToEwram(void)
 {
-    i32 i;
+    s32 i;
     u32* ptr;
     u32 checksum;
     struct SaveFile* pFile;
@@ -763,7 +763,7 @@ void SramWrite_ToEwram(void)
  */
 void SramRead_FromEwram(void)
 {
-    i32 i;
+    s32 i;
     struct SaveFile* pFile;
     struct SaveMusicInfo musicInfo;
 
@@ -839,7 +839,7 @@ void SramRead_FromEwram(void)
  */
 void StringCopy(u8* dst, const u8* const src, u8 length)
 {
-    i32 i;
+    s32 i;
 
     for (i = 0; i < length; i++)
         dst[i] = src[i];
@@ -852,7 +852,7 @@ void StringCopy(u8* dst, const u8* const src, u8 length)
 void SramTestFlash(void)
 {
     u32 flags;
-    i32 i;
+    s32 i;
     u8 text[SRAM_TEXT_SIZE];
     
     flags = 0;
@@ -897,7 +897,7 @@ void SramTestFlash(void)
  */
 void unk_743a4(void)
 {
-    i32 i;
+    s32 i;
     u32 flag;
 
     for (i = 0; i < ARRAY_SIZE(gSaveFilesInfo); i++)
@@ -990,8 +990,8 @@ u32 unk_74624(u8 useCopy)
     struct SaveFile* pFile;
     u32* ptr;
     u32 checksum;
-    i32 result;
-    i32 i;
+    s32 result;
+    s32 i;
 
     if (useCopy == FALSE)
         pFile = &sSramEwramPointer->files[gMostRecentSaveFile];
@@ -1089,9 +1089,9 @@ void SramLoadFile_Unused(void)
  */
 void SramWrite_Arrays(void)
 {
-    i32 i;
-    i32 offset;
-    i32 size;
+    s32 i;
+    s32 offset;
+    s32 size;
     struct SaveFile* pFile;
     u8* src;
     struct SaveWorldData* dst;
@@ -1137,9 +1137,9 @@ void SramWrite_Arrays(void)
  */
 void SramRead_Arrays(void)
 {
-    i32 i;
-    i32 offset;
-    i32 size;
+    s32 i;
+    s32 offset;
+    s32 size;
     struct SaveFile* pFile;
     struct SaveWorldData* src;
     u8* dst;
@@ -1197,7 +1197,7 @@ void SramRead_Arrays(void)
 void SramWrite_MostRecentSaveFile(void)
 {
     struct SaveValue* pSave;
-    i32 i;
+    s32 i;
     u16 checksum;
     u16* ptr;
 
@@ -1241,7 +1241,7 @@ void SramRead_MostRecentSaveFile(void)
 {
     u16 buffer;
     u32 error;
-    i32 i;
+    s32 i;
     u16 checksum;
     u16 actualChecksum;
     u16* ptr;
@@ -1310,7 +1310,7 @@ void SramRead_MostRecentSaveFile(void)
 void SramWrite_SoundMode(void)
 {
     struct SaveValue* pSave;
-    i32 i;
+    s32 i;
     u16 checksum;
     u16* ptr;
 
@@ -1354,7 +1354,7 @@ void SramRead_SoundMode(void)
 {
     u16 buffer;
     u32 error;
-    i32 i;
+    s32 i;
     u16 checksum;
     u16 actualChecksum;
     u16* ptr;
@@ -1422,7 +1422,7 @@ void SramRead_SoundMode(void)
 void SramWrite_Language(void)
 {
     struct SaveValue* pSave;
-    i32 i;
+    s32 i;
     u16 checksum;
     u16* ptr;
     u32 value;
@@ -1474,8 +1474,8 @@ u32 SramRead_Language(void)
     u16 buffer;
     struct SaveValue* pSave;
     u32 error;
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
     u16 checksum;
     u16 actualChecksum;
     u16* ptr;
@@ -1576,7 +1576,7 @@ void SramWrite_TimeAttack(void)
     struct SaveTimeAttack* pSave;
     u16 checksum;
     u16* ptr;
-    i32 i;
+    s32 i;
 
     pSave = &sSramEwramPointer->timeAttackSaves[0];
     ptr = (u16*)pSave;
@@ -1619,8 +1619,8 @@ void SramRead_TimeAttack(void)
 {
     struct SaveTimeAttack* pSave;
     u32 error;
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
     u16 checksum;
     u16 actualChecksum;
     u16* ptr;
@@ -1910,7 +1910,7 @@ void SramWrite_FileInfo(void)
 {
     // https://decomp.me/scratch/c9e6c
 
-    i32 i;
+    s32 i;
 
     for (i = 0; i < 3; i++)
     {
@@ -1975,7 +1975,7 @@ void SramWrite_FileInfo(void)
  */
 void unk_757c8(u8 file)
 {
-    i32 previousFile;
+    s32 previousFile;
 
     previousFile = gMostRecentSaveFile;
     gMostRecentSaveFile = file;
@@ -2103,8 +2103,8 @@ void Sram_InitSaveFile(void)
 {
     // https://decomp.me/scratch/uEm2z
 
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
     u32 flags;
     u32 flag;
     

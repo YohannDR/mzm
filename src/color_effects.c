@@ -182,8 +182,8 @@ void CallApplySpecialBackgroundFadingColor(u8 color)
  */
 void PowerBombYellowTint(u8 paletteRow)
 {
-    i32 length;
-    i32 i;
+    s32 length;
+    s32 i;
     u16* pPalette;
     u8 r;
     u8 g;
@@ -242,11 +242,11 @@ void PowerBombYellowTint(u8 paletteRow)
  * @param dst Destination address
  * @param additionalValue Additional color
  */
-void ApplyMonochromeToPalette(const u16* src, u16* dst, i8 additionalValue)
+void ApplyMonochromeToPalette(const u16* src, u16* dst, s8 additionalValue)
 {
-    i32 i;
+    s32 i;
     u16 color;
-    i32 result;
+    s32 result;
     u16 r;
     u16 g;
     u16 b;
@@ -284,16 +284,16 @@ void ApplyMonochromeToPalette(const u16* src, u16* dst, i8 additionalValue)
  */
 void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, u8 stage)
 {
-    i32 i;
+    s32 i;
 
-    i32 color;
+    s32 color;
     
-    i32 colorMono;
+    s32 colorMono;
     u16 monoR;
     u16 monoG;
     u16 monoB;
 
-    i32 colorBase;
+    s32 colorBase;
     u8 baseR;
     u8 baseG;
     u8 baseB;
@@ -363,14 +363,14 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
  */
 void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage)
 {
-    i32 i;
-    i32 endR;
-    i32 endG;
-    i32 endB;
+    s32 i;
+    s32 endR;
+    s32 endG;
+    s32 endB;
     u8 startR;
     u8 startG;
     u8 startB;
-    i32 color;
+    s32 color;
 
     if (stage == 0)
     {
@@ -424,10 +424,10 @@ void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage)
 {
     // https://decomp.me/scratch/PWhDo
 
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
 
-    i32 colorD;
+    s32 colorD;
     u8 r;
     u8 g;
     u8 b;
@@ -492,11 +492,11 @@ void ApplySpecialBackgroundEffectColorOnOBJ(u16 mask, u16 color, u8 stage)
  */
 void ApplySpecialBackgroundFadingColor(u8 type, u8 color, u16** ppSrc, u16** ppDst, u16 mask)
 {
-    i32 i;
-    i32 j;
-    i32 red;
-    i32 green;
-    i32 blue;
+    s32 i;
+    s32 j;
+    s32 red;
+    s32 green;
+    s32 blue;
 
     for (i = 0; i < 16; i++)
     {
@@ -549,9 +549,9 @@ u16 ApplyFadeOnColor(u8 type, u16 color, u8 currentColor)
 {
     // https://decomp.me/scratch/RdwBt
 
-    i32 red;
-    i32 green;
-    i32 blue;
+    s32 red;
+    s32 green;
+    s32 blue;
 
     red = RED(color);
     green = GREEN(color);

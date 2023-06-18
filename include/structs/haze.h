@@ -14,7 +14,7 @@ struct Haze {
 };
 
 struct HazeLoop {
-    i16 timer;
+    s16 timer;
     u8 unk_2;
     u8 unk_3;
 };

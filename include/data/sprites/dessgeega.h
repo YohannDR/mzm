@@ -4,9 +4,9 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sDessgeegaHighJumpYVelocity[10];
+extern const s16 sDessgeegaHighJumpYVelocity[10];
 
-extern const i16 sDessgeegaLowJumpYVelocity[10];
+extern const s16 sDessgeegaLowJumpYVelocity[10];
 
 extern const u32 sDessgeegaGfx[270];
 extern const u16 sDessgeegaPAL[16];

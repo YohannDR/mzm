@@ -4,103 +4,103 @@
 #include "types.h"
 #include "oam.h"
 
-extern const i16 sRidleyMultiSpriteData_Idle_Frame0[18];
+extern const s16 sRidleyMultiSpriteData_Idle_Frame0[18];
 
-extern const i16 sRidleyMultiSpriteData_Idle_Frame1[18];
+extern const s16 sRidleyMultiSpriteData_Idle_Frame1[18];
 
-extern const i16 sRidleyMultiSpriteData_Idle_Frame2[18];
+extern const s16 sRidleyMultiSpriteData_Idle_Frame2[18];
 
-extern const i16 sRidleyMultiSpriteData_SpittingFireballs_Frame0[18];
+extern const s16 sRidleyMultiSpriteData_SpittingFireballs_Frame0[18];
 
-extern const i16 sRidleyMultiSpriteData_SpittingFireballs_Frame1[18];
+extern const s16 sRidleyMultiSpriteData_SpittingFireballs_Frame1[18];
 
-extern const i16 sRidleyMultiSpriteData_TurningAroundFirstPart_Frame0[18];
+extern const s16 sRidleyMultiSpriteData_TurningAroundFirstPart_Frame0[18];
 
-extern const i16 sRidleyMultiSpriteData_TurningAroundFirstPart_Frame1[18];
+extern const s16 sRidleyMultiSpriteData_TurningAroundFirstPart_Frame1[18];
 
-extern const i16 sRidleyMultiSpriteData_TurningAroundSecondPart_Frame0[18];
+extern const s16 sRidleyMultiSpriteData_TurningAroundSecondPart_Frame0[18];
 
-extern const i16 sRidleyMultiSpriteData_TurningAroundSecondPart_Frame1[18];
+extern const s16 sRidleyMultiSpriteData_TurningAroundSecondPart_Frame1[18];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame0[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame0[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame1[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame1[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame2[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame2[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame3[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame3[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame4[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame4[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame5[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame5[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame6[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame6[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame7[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame7[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame8[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame8[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame9[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame9[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame10[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame10[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame11[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame11[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame12[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame12[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame13[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame13[24];
 
-extern const i16 sRidleyTailMultiSpriteData_Idle_Frame14[24];
+extern const s16 sRidleyTailMultiSpriteData_Idle_Frame14[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame0[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame0[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame1[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame1[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame2[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame2[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame3[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame3[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame4[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame4[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame5[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame5[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame6[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame6[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame7[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame7[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame8[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame8[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame9[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame9[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame10[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame10[24];
 
-extern const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame3[24];
+extern const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame3[24];
 
-extern const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame4[24];
+extern const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame4[24];
 
-extern const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame5[24];
+extern const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame5[24];
 
-extern const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame6[24];
+extern const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame6[24];
 
-extern const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame7[24];
+extern const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame7[24];
 
-extern const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame11[24];
+extern const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame11[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame3[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame3[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame4[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame4[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame5[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame5[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame6[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame6[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame8[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame8[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame9[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame9[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame10[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame10[24];
 
-extern const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame11[24];
+extern const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame11[24];
 
 extern const struct FrameData sRidleyMultiSpriteData_Idle[6];
 
@@ -130,9 +130,9 @@ extern const struct FrameData sRidleyTailMultiSpriteData_LastVerticalAttack[17];
 
 extern const struct FrameData sRidleyTailMultiSpriteData_BackToIdle[4];
 
-extern const i16 sRidleySpawningSpittingFireballsYOffsets[81];
+extern const s16 sRidleySpawningSpittingFireballsYOffsets[81];
 
-extern const i16 sRidleyIdleYOffsets[65];
+extern const s16 sRidleyIdleYOffsets[65];
 
 extern const u32 sRidleyGfx[2211];
 extern const u16 sRidleyPAL[128];

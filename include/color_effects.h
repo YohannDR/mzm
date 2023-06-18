@@ -20,7 +20,7 @@ void CheckTransferFadedPalette_Unused(void);
 void CheckTransferFadedPalette(void);
 void CallApplySpecialBackgroundFadingColor(u8 color);
 void PowerBombYellowTint(u8 paletteRow);
-void ApplyMonochromeToPalette(const u16* src, u16* dst, i8 additionalValue);
+void ApplyMonochromeToPalette(const u16* src, u16* dst, s8 additionalValue);
 void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, u8 stage);
 void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage);
 void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage);

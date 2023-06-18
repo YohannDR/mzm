@@ -346,7 +346,7 @@ void MellowInit(struct SpriteData* pSprite)
  */
 void MellowIdle(struct SpriteData* pSprite)
 {
-    i32 movement;
+    s32 movement;
     u8 offset;
 
     // Idle Y
@@ -404,7 +404,7 @@ void MellowIdle(struct SpriteData* pSprite)
 void MellowFleeing(struct SpriteData* pSprite)
 {
     u8 rng;
-    i16 movement;
+    s16 movement;
 
     rng = gSpriteRNG / 4;
     movement = rng + 0x8;
@@ -473,8 +473,8 @@ void MellowMove(struct SpriteData* pSprite)
         {
             spriteY = pMellow->yPosition;
             spriteX = pMellow->xPosition;
-            if (spriteBottom > (i32)(spriteY - offset) && spriteTop < (i32)(spriteY + offset)
-                && spriteRight > (i32)(spriteX - offset) && spriteLeft < (i32)(spriteX + offset))
+            if (spriteBottom > (s32)(spriteY - offset) && spriteTop < (s32)(spriteY + offset)
+                && spriteRight > (s32)(spriteX - offset) && spriteLeft < (s32)(spriteX + offset))
             {
                 if (pMellow->freezeTimer == 0x0)
                 {
@@ -550,7 +550,7 @@ void MellowMove(struct SpriteData* pSprite)
     {
         if (pSprite->workVariable == 0x0)
         {
-            if (pSprite->xPosition <= (i32)(spriteX - 4))
+            if (pSprite->xPosition <= (s32)(spriteX - 4))
             {
                 if (pSprite->workVariable2 < offset)
                     pSprite->workVariable2++;
@@ -573,7 +573,7 @@ void MellowMove(struct SpriteData* pSprite)
     {
         if (pSprite->workVariable == 0x0)
         {
-            if (pSprite->xPosition < (i32)(spriteX + 4))
+            if (pSprite->xPosition < (s32)(spriteX + 4))
                 pSprite->workVariable = pSprite->workVariable2;
             else
             {
@@ -626,7 +626,7 @@ void MellowMove(struct SpriteData* pSprite)
     {
         if (pSprite->timer == 0x0)
         {
-            if (pSprite->yPosition > (i32)(spriteY - 4))
+            if (pSprite->yPosition > (s32)(spriteY - 4))
                 pSprite->timer = pSprite->arrayOffset;
             else
             {
@@ -649,7 +649,7 @@ void MellowMove(struct SpriteData* pSprite)
     {
         if (pSprite->timer == 0x0)
         {
-            if (pSprite->yPosition < (i32)(spriteY + 4))
+            if (pSprite->yPosition < (s32)(spriteY + 4))
                 pSprite->timer = pSprite->arrayOffset;
             else
             {

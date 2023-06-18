@@ -1,7 +1,7 @@
 #include "data/sprites/ridley.h"
 #include "macros.h"
 
-const i16 sRidleyMultiSpriteData_Idle_Frame0[18] = {
+const s16 sRidleyMultiSpriteData_Idle_Frame0[18] = {
     17, -76, 16,
     4, -84, -116,
     0, 0, 0,
@@ -10,7 +10,7 @@ const i16 sRidleyMultiSpriteData_Idle_Frame0[18] = {
     18, -76, -16
 };
 
-const i16 sRidleyMultiSpriteData_Idle_Frame1[18] = {
+const s16 sRidleyMultiSpriteData_Idle_Frame1[18] = {
     17, -72, 16,
     4, -80, -116,
     0, 0, 0,
@@ -19,7 +19,7 @@ const i16 sRidleyMultiSpriteData_Idle_Frame1[18] = {
     18, -72, -16
 };
 
-const i16 sRidleyMultiSpriteData_Idle_Frame2[18] = {
+const s16 sRidleyMultiSpriteData_Idle_Frame2[18] = {
     17, -68, 16,
     4, -76, -116,
     0, 0, 0,
@@ -28,7 +28,7 @@ const i16 sRidleyMultiSpriteData_Idle_Frame2[18] = {
     18, -68, -16
 };
 
-const i16 sRidleyMultiSpriteData_SpittingFireballs_Frame0[18] = {
+const s16 sRidleyMultiSpriteData_SpittingFireballs_Frame0[18] = {
     21, -68, 16,
     6, -88, -116,
     1, 0, 0,
@@ -37,7 +37,7 @@ const i16 sRidleyMultiSpriteData_SpittingFireballs_Frame0[18] = {
     22, -68, -16
 };
 
-const i16 sRidleyMultiSpriteData_SpittingFireballs_Frame1[18] = {
+const s16 sRidleyMultiSpriteData_SpittingFireballs_Frame1[18] = {
     21, -64, 16,
     6, -88, -116,
     1, 0, 0,
@@ -46,7 +46,7 @@ const i16 sRidleyMultiSpriteData_SpittingFireballs_Frame1[18] = {
     22, -64, -16
 };
 
-const i16 sRidleyMultiSpriteData_TurningAroundFirstPart_Frame0[18] = {
+const s16 sRidleyMultiSpriteData_TurningAroundFirstPart_Frame0[18] = {
     17, -76, 0,
     8, -84, -88,
     2, 0, 0,
@@ -55,7 +55,7 @@ const i16 sRidleyMultiSpriteData_TurningAroundFirstPart_Frame0[18] = {
     18, -76, -24
 };
 
-const i16 sRidleyMultiSpriteData_TurningAroundFirstPart_Frame1[18] = {
+const s16 sRidleyMultiSpriteData_TurningAroundFirstPart_Frame1[18] = {
     17, -76, -8,
     8, -84, -52,
     2, 0, 0,
@@ -64,7 +64,7 @@ const i16 sRidleyMultiSpriteData_TurningAroundFirstPart_Frame1[18] = {
     18, -76, -28
 };
 
-const i16 sRidleyMultiSpriteData_TurningAroundSecondPart_Frame0[18] = {
+const s16 sRidleyMultiSpriteData_TurningAroundSecondPart_Frame0[18] = {
     17, -76, -8,
     8, -84, -52,
     3, 0, 0,
@@ -73,7 +73,7 @@ const i16 sRidleyMultiSpriteData_TurningAroundSecondPart_Frame0[18] = {
     18, -76, -28
 };
 
-const i16 sRidleyMultiSpriteData_TurningAroundSecondPart_Frame1[18] = {
+const s16 sRidleyMultiSpriteData_TurningAroundSecondPart_Frame1[18] = {
     17, -76, 0,
     8, -84, -88,
     3, 0, 0,
@@ -82,7 +82,7 @@ const i16 sRidleyMultiSpriteData_TurningAroundSecondPart_Frame1[18] = {
     18, -76, -24
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame0[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame0[24] = {
     23, 0, 0,
     23, -4, 36,
     23, 12, 68,
@@ -93,7 +93,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame0[24] = {
     24, 208, 96
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame1[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame1[24] = {
     23, -4, 0,
     23, -12, 36,
     23, -8, 72,
@@ -104,7 +104,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame1[24] = {
     24, 180, 128
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame2[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame2[24] = {
     23, -8, 0,
     23, -24, 28,
     23, -36, 64,
@@ -115,7 +115,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame2[24] = {
     24, 144, 132
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame3[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame3[24] = {
     23, -12, 0,
     23, -20, 32,
     23, -44, 64,
@@ -126,7 +126,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame3[24] = {
     24, 100, 164
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame4[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame4[24] = {
     23, -8, 0,
     23, -4, 36,
     23, -16, 68,
@@ -137,7 +137,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame4[24] = {
     24, 52, 156
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame5[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame5[24] = {
     23, 0, 0,
     23, 8, 36,
     23, 4, 72,
@@ -148,7 +148,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame5[24] = {
     26, 8, 192
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame6[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame6[24] = {
     23, 4, 0,
     23, 20, 32,
     23, 40, 64,
@@ -159,7 +159,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame6[24] = {
     27, -128, 188
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame7[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame7[24] = {
     23, 8, 0,
     23, 44, 28,
     23, 72, 56,
@@ -170,7 +170,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame7[24] = {
     27, -140, 160
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame8[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame8[24] = {
     23, 16, 0,
     23, 52, 24,
     23, 88, 40,
@@ -181,7 +181,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame8[24] = {
     25, -144, 100
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame9[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame9[24] = {
     23, 24, 0,
     23, 56, 20,
     23, 88, 32,
@@ -192,7 +192,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame9[24] = {
     29, -96, 116
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame10[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame10[24] = {
     23, 20, 0,
     23, 40, 24,
     23, 72, 44,
@@ -203,7 +203,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame10[24] = {
     29, -40, 136
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame11[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame11[24] = {
     23, 16, 0,
     23, 32, 28,
     23, 64, 52,
@@ -214,7 +214,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame11[24] = {
     27, 0, 196
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame12[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame12[24] = {
     23, 12, 0,
     23, 24, 32,
     23, 48, 60,
@@ -225,7 +225,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame12[24] = {
     26, 124, 196
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame13[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame13[24] = {
     23, 8, 0,
     23, 12, 36,
     23, 24, 72,
@@ -236,7 +236,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame13[24] = {
     26, 184, 168
 };
 
-const i16 sRidleyTailMultiSpriteData_Idle_Frame14[24] = {
+const s16 sRidleyTailMultiSpriteData_Idle_Frame14[24] = {
     23, 4, 0,
     23, 4, 40,
     23, 16, 80,
@@ -247,7 +247,7 @@ const i16 sRidleyTailMultiSpriteData_Idle_Frame14[24] = {
     28, 220, 48
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame0[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame0[24] = {
     23, 16, 0,
     23, 44, 20,
     23, 80, 40,
@@ -258,7 +258,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame0[24] = {
     25, -28, 160
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame1[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame1[24] = {
     23, 20, 0,
     23, 48, 12,
     23, 80, 32,
@@ -269,7 +269,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame1[24] = {
     27, 80, 188
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame2[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame2[24] = {
     23, 20, -4,
     23, 48, 8,
     23, 80, 20,
@@ -280,7 +280,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame2[24] = {
     26, 220, 60
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame3[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame3[24] = {
     23, 20, -8,
     23, 52, 4,
     23, 84, 8,
@@ -291,7 +291,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame3[24] = {
     28, 200, -124
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame4[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame4[24] = {
     23, 20, -8,
     23, 56, 0,
     23, 96, 4,
@@ -302,7 +302,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame4[24] = {
     28, 144, -156
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame5[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame5[24] = {
     23, 16, -4,
     23, 60, -4,
     23, 104, -12,
@@ -313,7 +313,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame5[24] = {
     29, -28, -152
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame6[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame6[24] = {
     23, 12, -4,
     23, 44, -24,
     23, 84, -44,
@@ -324,7 +324,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame6[24] = {
     25, -112, -32
     };
 
-const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame7[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame7[24] = {
     23, 8, -4,
     23, 20, -36,
     23, -16, -76,
@@ -335,7 +335,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame7[24] = {
     27, -144, 84
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame8[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame8[24] = {
     23, 4, 0,
     23, -12, -24,
     23, -44, -12,
@@ -346,7 +346,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame8[24] = {
     27, -128, 144
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame9[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame9[24] = {
     23, 4, 0,
     23, -4, 20,
     23, -16, 40,
@@ -357,7 +357,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame9[24] = {
     27, -104, 172
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame10[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame10[24] = {
     23, 8, 0,
     23, 28, 20,
     23, 40, 52,
@@ -368,7 +368,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingDiagonalTailAttack_Frame10[24] = {
     27, -72, 188
 };
 
-const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame3[24] = {
+const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame3[24] = {
     23, 24, -8,
     23, 56, -4,
     23, 96, 0,
@@ -379,7 +379,7 @@ const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame3[24] = {
     28, 272, -108
 };
 
-const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame4[24] = {
+const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame4[24] = {
     23, 28, -8,
     23, 68, -20,
     23, 112, -28,
@@ -390,7 +390,7 @@ const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame4[24] = {
     28, 316, -192
 };
 
-const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame5[24] = {
+const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame5[24] = {
     23, 28, -12,
     23, 56, -40,
     23, 92, -72,
@@ -401,7 +401,7 @@ const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame5[24] = {
     28, 332, -296
 };
 
-const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame6[24] = {
+const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame6[24] = {
     23, 24, -12,
     23, 56, -48,
     23, 92, -88,
@@ -412,7 +412,7 @@ const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame6[24] = {
     28, 320, -316
 };
 
-const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame7[24] = {
+const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame7[24] = {
     23, 24, -16,
     23, 52, -56,
     23, 88, -100,
@@ -423,7 +423,7 @@ const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame7[24] = {
     28, 316, -352
 };
 
-const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame11[24] = {
+const s16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame11[24] = {
     23, 24, -8,
     23, 60, 4,
     23, 96, -4,
@@ -434,7 +434,7 @@ const i16 sRidleyTailMultiSpriteData_DiagonalTailAttack_Frame11[24] = {
     28, 260, -140
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame3[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame3[24] = {
     23, 20, -4,
     23, 56, 0,
     23, 88, 16,
@@ -445,7 +445,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame3[24] = {
     24, 280, 24
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame4[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame4[24] = {
     23, 20, -4,
     23, 64, 0,
     23, 116, 12,
@@ -456,7 +456,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame4[24] = {
     24, 340, 4
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame5[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame5[24] = {
     23, 24, -4,
     23, 72, -4,
     23, 120, -4,
@@ -467,7 +467,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame5[24] = {
     24, 376, -4
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame6[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame6[24] = {
     23, 28, -4,
     23, 76, -4,
     23, 128, -4,
@@ -478,7 +478,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame6[24] = {
     24, 392, -4
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame8[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame8[24] = {
     23, 24, -4,
     23, 64, -4,
     23, 112, 0,
@@ -489,7 +489,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame8[24] = {
     24, 312, -4
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame9[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame9[24] = {
     23, 20, -4,
     23, 52, -4,
     23, 84, 8,
@@ -500,7 +500,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame9[24] = {
     24, 248, -4
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame10[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame10[24] = {
     23, 16, -4,
     23, 36, 0,
     23, 48, 8,
@@ -511,7 +511,7 @@ const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame10[24] = {
     24, 180, -4
 };
 
-const i16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame11[24] = {
+const s16 sRidleyTailMultiSpriteData_ChargingVerticalTailAttack_Frame11[24] = {
     23, 12, -4,
     23, 24, 0,
     23, 32, 8,
@@ -862,7 +862,7 @@ const struct FrameData sRidleyTailMultiSpriteData_BackToIdle[4] = {
     0x0
 };
 
-const i16 sRidleySpawningSpittingFireballsYOffsets[81] = {
+const s16 sRidleySpawningSpittingFireballsYOffsets[81] = {
     0, 0, 0, 0, -1, -1, -1, -1, -2, -2, -2, -2, -3, -3,
     -3, -4, -4, -4, -4, -4, -4, -4, -4, -4, -4, -3, -3,
     -3, -2, -2, -2, -2, -1, -1, -1, -1, 0, 0, 0, 0, 0,
@@ -871,7 +871,7 @@ const i16 sRidleySpawningSpittingFireballsYOffsets[81] = {
     1, 0, 0, 0, 0, SHORT_MAX
 };
 
-const i16 sRidleyIdleYOffsets[65] = {
+const s16 sRidleyIdleYOffsets[65] = {
     0, 0, 0, 0, -1, -1, -1, -1, -2, -2, -2, -2, -3, -3,
     -3, -3, -3, -3, -3, -3, -2, -2, -2, -2, -1, -1, -1,
     -1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 2, 2, 2,

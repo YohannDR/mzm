@@ -39,7 +39,7 @@ void SkulteraSetSidesHitbox(void)
  */
 u8 SkulteraXMovement(u16 movement)
 {
-    i16 negMovement;
+    s16 negMovement;
 
     negMovement = movement;
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
@@ -189,7 +189,7 @@ void SkulteraChasingSamus(void)
     spriteY = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
 
     // Check move vertically
-    if ((i32)(spriteY - BLOCK_SIZE) > samusY)
+    if ((s32)(spriteY - BLOCK_SIZE) > samusY)
     {
         // Check move up
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), gCurrentSprite.xPosition);
@@ -197,7 +197,7 @@ void SkulteraChasingSamus(void)
         if (gPreviousCollisionCheck == COLLISION_AIR && gCurrentAffectingClipdata.hazard == HAZARD_TYPE_WATER)
             gCurrentSprite.yPosition -= 0x2;
     }
-    else if ((i32)(spriteY + BLOCK_SIZE) < samusY)
+    else if ((s32)(spriteY + BLOCK_SIZE) < samusY)
     {
         // Check move down
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);

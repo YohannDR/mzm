@@ -126,7 +126,7 @@ void BaristuteCheckBeforeJumpingAnimEnded(void)
  */
 void BaristuteJumping(void)
 {
-    i32 movement;
+    s32 movement;
     u32 topEdge;
 
     movement = sBaristuteJumpingYVelocity[gCurrentSprite.arrayOffset / 4];
@@ -418,7 +418,7 @@ void BaristuteFallingInit(void)
 void BaristuteFalling(void)
 {
     u32 topEdge;
-    i32 velocity;
+    s32 velocity;
     u8 offset;
 
     topEdge = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);

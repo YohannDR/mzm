@@ -79,7 +79,7 @@ void FileSelectProcessOAM(void)
  */
 void FileSelectResetOAM(void)
 {
-    i32 i;
+    s32 i;
     struct MenuOamData* pOam;
 
     // Reset file screen OAM
@@ -590,7 +590,7 @@ void FileScreenProcessText(void)
     u8 array[2];
     u32* dst;
     vu16 buffer;
-    i32 var_0;
+    s32 var_0;
     u8 result;
     u32 dstType;
     u32 flag;
@@ -781,7 +781,7 @@ u32 unk_790cc(u8 param_1, u8 param_2)
  */
 void FileSelectFileCopyChooseBaseDestinationFile(void)
 {
-    i32 file;
+    s32 file;
 
     file = -1;
 
@@ -816,7 +816,7 @@ u32 FileSelectCopyFileSubroutine(void)
     // https://decomp.me/scratch/iYyvZ
 
     u32 ended;
-    i32 action;
+    s32 action;
     
     ended = FALSE;
 
@@ -1499,7 +1499,7 @@ void unk_79ecc(void)
 void OptionsSetupTiletable(void)
 {
     u8 i;
-    i32 j;
+    s32 j;
     u8* pOptions;
     u16* dst;
 
@@ -1614,7 +1614,7 @@ void OptionsSetupTiletable(void)
  */
 void FileSelectCopyTimeAttackTime(void)
 {
-    i32 value;
+    s32 value;
 
     if (FILE_SELECT_DATA.timeAttackRecordFlags == 0)
         return;
@@ -2301,7 +2301,7 @@ u8 OptionsStereoSubroutine(void)
  */
 u8 OptionsSoundTestSubroutine(void)
 {
-    i32 action;
+    s32 action;
 
     FILE_SELECT_DATA.subroutineTimer++;
 
@@ -2831,7 +2831,7 @@ void OptionTimeAttackLoadRecord(u8 id)
 void unk_7b854(void)
 {
     const u8* password;
-    i32 i;
+    s32 i;
     u8 character;
     u32 high;
     u32 low;
@@ -2872,7 +2872,7 @@ void unk_7b854(void)
 void OptionTimeAttackLoadPasswrod(u8 part)
 {
     const u8* password;
-    i32 i;
+    s32 i;
     u8 character;
     u32 high;
     u32 low;
@@ -3494,7 +3494,7 @@ void unk_7c568(void)
  */
 void unk_7c5a4(void)
 {
-    i32 i;
+    s32 i;
     u32 saveLanguage;
 
     saveLanguage = FALSE;
@@ -3880,7 +3880,7 @@ void FileSelectDisplaySaveFileMiscInfo(struct SaveFileInfo* pFile, u8 file)
     u16* dst;
     u16* tmp;
     u16 tile;
-    i32 i;
+    s32 i;
 
     if (file == 2)
         offset = 2 * 96;
@@ -4002,7 +4002,7 @@ void FileScreenSetEnabledMenuFlags(void)
  */
 u8 FileSelectApplyMenuSelectInput(u8 set, u8* pFileNumber)
 {
-    i32 direction;
+    s32 direction;
     u8 position;
     u8 flags;
 
@@ -4105,7 +4105,7 @@ u8 FileSelectUpdateSubMenu(void)
 {
     u8 result;
     u8 cursorPose;
-    i32 temp;
+    s32 temp;
 
     switch (FILE_SELECT_DATA.currentSubMenu)
     {
@@ -4332,7 +4332,7 @@ u8 FileSelectProcessFileSelection(void)
 
     u32 leaving;
     u32 offset;
-    i32 action;
+    s32 action;
 
     leaving = FALSE;
     FILE_SELECT_DATA.subroutineTimer++;
@@ -5575,8 +5575,8 @@ void unk_7eedc(u16* pTilemap)
 {
     // https://decomp.me/scratch/M4UO4
 
-    i32 i;
-    i32 j;
+    s32 i;
+    s32 j;
     u16 baseTile;
     u16 completion;
     u32 offset;

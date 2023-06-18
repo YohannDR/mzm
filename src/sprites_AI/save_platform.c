@@ -21,10 +21,10 @@
 u8 SavePlatformDetectSamus(void)
 {
     u8 colliding;
-    i32 samusY;
-    i32 samusX;
-    i32 spriteY;
-    i32 spriteX;
+    s32 samusY;
+    s32 samusX;
+    s32 spriteY;
+    s32 spriteX;
 
     colliding = FALSE;
     samusY = gSamusData.yPosition;

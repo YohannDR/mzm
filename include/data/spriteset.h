@@ -231,22 +231,22 @@ extern const u8 sSpriteset111[2];
 
 extern const u8 sSpriteset112[2];
 
-extern const i16 sDebrisBouncingVelocity[9];
+extern const s16 sDebrisBouncingVelocity[9];
 
-extern const i16 sDebris11YVelocity[9];
+extern const s16 sDebris11YVelocity[9];
 
-extern const i16 sDebris12YVelocity[9];
+extern const s16 sDebris12YVelocity[9];
 
-extern const i16 sDebris13YVelocity[9];
+extern const s16 sDebris13YVelocity[9];
 
-extern const i16 sDebris4YVelocity[9];
+extern const s16 sDebris4YVelocity[9];
 
-extern const i16 sDebris5YVelocity[9];
+extern const s16 sDebris5YVelocity[9];
 
-extern const i16 sDebris6YVelocity[9];
+extern const s16 sDebris6YVelocity[9];
 
-extern const i16 sDebris7YVelocity[9];
+extern const s16 sDebris7YVelocity[9];
 
-extern const i16 sDebris8YVelocity[9];
+extern const s16 sDebris8YVelocity[9];
 
 #endif /* SPRITESET_DATA_H */

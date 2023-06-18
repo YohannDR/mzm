@@ -23,7 +23,7 @@ void TitleScreenProcessOAM(void);
 void TitleScreenProcessComets(struct TitleScrenOamTiming* pTiming, struct MenuOamData* pOam, u8 cometNumber);
 void TitleScreenProcessTopSparkle(struct TitleScrenOamTiming* pTiming, struct MenuOamData* pOam);
 u32 TitleScreenProcessBottomSparkle(struct TitleScrenOamTiming* pTiming, struct MenuOamData* pOam);
-i8 TitleScreenCheckPlayDemo(void);
+s8 TitleScreenCheckPlayDemo(void);
 u32 TitleScreenSubroutine(void);
 u32 TitleScreenIdle(void);
 void TitleScreenSetIdleStage(u8 stage);

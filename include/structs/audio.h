@@ -7,9 +7,9 @@
 
 struct MusicTrackInfo {
     u16 currentRoomTrack;
-    i8 pauseScreenFlag;
-    i8 takingNormalTransition;
-    i8 unk;
+    s8 pauseScreenFlag;
+    s8 takingNormalTransition;
+    s8 unk;
 };
 
 struct Envelope {
@@ -121,13 +121,13 @@ struct TrackVariables {
     u8 unk_10;
     u8 unk_11;
     u8 unk_12;
-    i8 unk_13;
+    s8 unk_13;
     u8 unk_14;
     u8 unk_15;
-    i8 unk_16;
-    i8 unk_17;
+    s8 unk_16;
+    s8 unk_17;
     u8 unk_18;
-    i8 unk_19;
+    s8 unk_19;
     u8 unk_1A;
     u8 unk_1B;
     u8 unk_1C;

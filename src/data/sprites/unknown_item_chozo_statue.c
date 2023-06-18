@@ -1,7 +1,7 @@
 #include "data/sprites/unknown_item_chozo_statue.h"
 #include "macros.h"
 
-const i16 sUnknownItemChozoStatueMultiSpriteData_Standing_Frame0[15] = {
+const s16 sUnknownItemChozoStatueMultiSpriteData_Standing_Frame0[15] = {
     8, -176, -104,
     15, -192, -160,
     4, -296, -96,
@@ -9,7 +9,7 @@ const i16 sUnknownItemChozoStatueMultiSpriteData_Standing_Frame0[15] = {
     3, -256, -44
 };
 
-const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame0[15] = {
+const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame0[15] = {
     8, -168, -100,
     15, -184, -156,
     4, -288, -92,
@@ -17,7 +17,7 @@ const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame0[15] = {
     3, -248, -40
 };
 
-const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame1[15] = {
+const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame1[15] = {
     8, -152, -96,
     15, -168, -152,
     4, -272, -88,
@@ -25,7 +25,7 @@ const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame1[15] = {
     3, -232, -36
 };
 
-const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame2[15] = {
+const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame2[15] = {
     8, -124, -88,
     15, -140, -144,
     4, -244, -80,
@@ -33,7 +33,7 @@ const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame2[15] = {
     3, -204, -28
 };
 
-const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame3[15] = {
+const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame3[15] = {
     8, -120, -88,
     15, -136, -144,
     4, -240, -80,
@@ -41,7 +41,7 @@ const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame3[15] = {
     3, -200, -28
 };
 
-const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame5[15] = {
+const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame5[15] = {
     8, -116, -52,
     15, -132, -108,
     4, -236, -44,
@@ -49,7 +49,7 @@ const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame5[15] = {
     3, -196, 8
 };
 
-const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame6[15] = {
+const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame6[15] = {
     8, -92, -12,
     15, -108, -68,
     4, -212, -4,
@@ -57,7 +57,7 @@ const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame6[15] = {
     3, -172, 48
 };
 
-const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame7[15] = {
+const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame7[15] = {
     8, -64, -4,
     15, -80, -60,
     4, -184, 4,
@@ -65,7 +65,7 @@ const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame7[15] = {
     3, -144, 56
 };
 
-const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame8[15] = {
+const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame8[15] = {
     8, -40, -4,
     15, -56, -60,
     4, -160, 4,
@@ -73,7 +73,7 @@ const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame8[15] = {
     3, -120, 56
 };
 
-const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame9[15] = {
+const s16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame9[15] = {
     8, -44, 0,
     15, -60, -56,
     4, -164, 8,
@@ -81,7 +81,7 @@ const i16 sUnknownItemChozoStatueMultiSpriteData_Sitting_Frame9[15] = {
     3, -124, 60
 };
 
-const i16 sUnknownItemChozoStatueMultiSpriteData_Seated_Frame0[15] = {
+const s16 sUnknownItemChozoStatueMultiSpriteData_Seated_Frame0[15] = {
     8, -48, 0,
     15, -64, -56,
     4, -168, 8,

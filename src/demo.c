@@ -52,7 +52,7 @@ void DemoStart(void)
  */
 void DemoInit(void)
 {
-    i32 demoNbr;
+    s32 demoNbr;
 
     CallbackSetVBlank(DemoVBlank);
 

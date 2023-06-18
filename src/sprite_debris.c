@@ -38,7 +38,7 @@ void SpriteDebrisProcess(struct SpriteDebris* pDebris)
     u32 offset;
     u16 oldY;
     u32 block_top;
-    i32 movement;
+    s32 movement;
 
     pDebris->frameCounter++;
 

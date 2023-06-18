@@ -177,7 +177,7 @@ u8 unk_5604(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 xPositio
 {
     u8 result;
     u16 yPosition;
-    i32 clipdata;
+    s32 clipdata;
 
     result = SAMUS_COLLISION_DETECTION_NONE;
 
@@ -240,7 +240,7 @@ u8 unk_5604(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 xPositio
 u8 SamusCheckTopSideCollisionMidAir(struct SamusData* pData, struct SamusPhysics* pPhysics, u16 xPosition, u16* pPosition)
 {
     u8 result;
-    i32 clip;
+    s32 clip;
     u16 y_pos;
 
     result = SAMUS_COLLISION_DETECTION_NONE;
@@ -319,7 +319,7 @@ u8 SamusCheckTopSideCollisionMidAir(struct SamusData* pData, struct SamusPhysics
 u8 SamusCheckWalkingOnSlope(struct SamusData* pData, u16 xPosition)
 {
     u8 result;
-    i32 clip;
+    s32 clip;
 
     result = SAMUS_COLLISION_DETECTION_NONE;
     clip = ClipdataProcessForSamus(pData->yPosition, xPosition);
@@ -368,14 +368,14 @@ u8 SamusCheckWalkingOnSlope(struct SamusData* pData, u16 xPosition)
  * @param hitbox Hitbox
  * @return u8 Collision result
  */
-u8 SamusCheckCollisionAbove(struct SamusData* pData, i32 hitbox)
+u8 SamusCheckCollisionAbove(struct SamusData* pData, s32 hitbox)
 {
     u8 result;
     u16 yPosition;
-    i32 clipdata;
+    s32 clipdata;
     struct SamusPhysics* pPhysics;
 
-    hitbox = (i16)hitbox;
+    hitbox = (s16)hitbox;
     pPhysics = &gSamusPhysics;
 
     result = SAMUS_COLLISION_DETECTION_NONE;
@@ -853,11 +853,11 @@ u8 SamusCheckTopCollision(struct SamusData* pData, struct SamusPhysics* pPhysics
 void SamusCheckCollisions(struct SamusData* pData, struct SamusPhysics* pPhysics)
 {
     u8 newPose;
-    i32 xOffset;
+    s32 xOffset;
     u32 blockPrevent;
     u32 blockGrabbing;
     u32 blockAbove;
-    i32 movementBlock;
+    s32 movementBlock;
 
     if (pPhysics->standingStatus > STANDING_NOT_IN_CONTROL)
         return;
@@ -1778,8 +1778,8 @@ void SamusSetLandingPose(struct SamusData* pData, struct SamusData* pCopy, struc
 
 void SamusChangeToHurtPose(struct SamusData* pData, struct SamusData* pCopy, struct WeaponInfo* pWeapon)
 {
-    i16 new_x_velo; 
-    i16 new_y_velo; 
+    s16 new_x_velo; 
+    s16 new_y_velo; 
     u8 y_pos_related;
 
     if (gEquipment.currentEnergy != 0)
@@ -2231,7 +2231,7 @@ void SamusUpdatePhysics(struct SamusData* pData)
     struct SamusPhysics* pPhysics;
     u16 yPosition;
     u32 slowed;
-    i32 affecting;
+    s32 affecting;
     
     pData = &gSamusData;
     pEquipment = &gEquipment;
@@ -2321,11 +2321,11 @@ void SamusUpdatePhysics(struct SamusData* pData)
  * @brief 772c | 44 | Changes the velocity of samus based on the slope status
  * 
  * @param pData Samus data pointer
- * @return i16 New velocity
+ * @return s16 New velocity
  */
-i16 SamusChangeVelocityOnSlope(struct SamusData* pData)
+s16 SamusChangeVelocityOnSlope(struct SamusData* pData)
 {
-    i32 velocity, decreasedVelocity;
+    s32 velocity, decreasedVelocity;
 
     velocity = pData->xVelocity;
     
@@ -2336,7 +2336,7 @@ i16 SamusChangeVelocityOnSlope(struct SamusData* pData)
         else
             decreasedVelocity = velocity * 4 / 5;
 
-        velocity = (i16)decreasedVelocity;
+        velocity = (s16)decreasedVelocity;
     }
     else
     {
@@ -2356,9 +2356,9 @@ i16 SamusChangeVelocityOnSlope(struct SamusData* pData)
  * @param offset Destination offset
  * @param nbrColors Number of colors to copy
  */
-void SamusCopyPalette(const u16* src, i32 offset, i32 nbrColors)
+void SamusCopyPalette(const u16* src, s32 offset, s32 nbrColors)
 {
-    i32 i;
+    s32 i;
 
     for (i = offset; i < offset + nbrColors; i++)
         gSamusPalette[i] = *src++;
@@ -2984,20 +2984,20 @@ void SamusSetSpinningPose(struct SamusData* pData, struct Equipment* pEquipment)
  * @param velocity Max velocity
  * @param pData Samus data pointer
  */
-void SamusApplyXAcceleration(i32 acceleration, i32 velocity, struct SamusData* pData)
+void SamusApplyXAcceleration(s32 acceleration, s32 velocity, struct SamusData* pData)
 {
-    i32 xVelocity;
-    i32 xAcceleration;
-    i32 temp;
+    s32 xVelocity;
+    s32 xAcceleration;
+    s32 temp;
 
-    xAcceleration = (i16)acceleration;
-    xVelocity = (i16)velocity;
+    xAcceleration = (s16)acceleration;
+    xVelocity = (s16)velocity;
 
     if (pData->direction & KEY_RIGHT)
     {
         temp = xAcceleration + (u16)pData->xVelocity;
         pData->xVelocity = temp;
-        if ((i16)temp > xVelocity)
+        if ((s16)temp > xVelocity)
             pData->xVelocity = xVelocity;
     }
     else
@@ -3259,7 +3259,7 @@ u8 SamusUpdateAnimation(struct SamusData* pData, u8 slowed)
  */
 u8 SamusRunning(struct SamusData* pData)
 {
-    i32 xVelocity;
+    s32 xVelocity;
     u16 currVelocity;
 
     if (gChangedInput & KEY_A)
@@ -3617,7 +3617,7 @@ u8 SamusTurningAroundAndCrouching(struct SamusData* pData)
     u8 unk;
     u16 xPosition;
 
-    if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A && pData->shinesparkTimer != 0 && SamusCheckCollisionAbove(pData, (i16)((u16)sSamusHitboxData[0][2] - 0x20))  == 0)
+    if (!(gButtonInput & (KEY_RIGHT | KEY_LEFT)) && gChangedInput & KEY_A && pData->shinesparkTimer != 0 && SamusCheckCollisionAbove(pData, (s16)((u16)sSamusHitboxData[0][2] - 0x20))  == 0)
     {
         pData->yPosition -= 0x20;
         return SPOSE_DELAY_BEFORE_SHINESPARKING;
@@ -3688,7 +3688,7 @@ u8 SamusShootingAndCrouchingGfx(struct SamusData* pData)
 
 u8 SamusSkidding(struct SamusData* pData)
 {
-    i32 velocity;
+    s32 velocity;
 
     if (gChangedInput & KEY_A)
     {
@@ -3738,7 +3738,7 @@ u8 SamusSkidding(struct SamusData* pData)
 u8 SamusMidAir(struct SamusData* pData)
 {
     u8 turning;
-    i32 xAcceleration;
+    s32 xAcceleration;
     u16 currVelocity;
     u32 newVelocity;
 
@@ -3880,8 +3880,8 @@ u8 SamusStartingSpinJumpGfx(struct SamusData* pData)
  */
 u8 SamusSpinning(struct SamusData* pData)
 {
-    i32 xAcceleration;
-    i32 xOffset;
+    s32 xAcceleration;
+    s32 xOffset;
 
     if (gSamusPhysics.hasNewProjectile)
     {
@@ -4197,7 +4197,7 @@ u8 SamusMorphball(struct SamusData* pData)
  */
 u8 SamusRolling(struct SamusData* pData)
 {
-    i32 xVelocity;
+    s32 xVelocity;
 
     if (gChangedInput & KEY_A && gEquipment.suitMiscActivation & SMF_HIGH_JUMP)
     {
@@ -4663,7 +4663,7 @@ u8 SamusUsingAnElevator(struct SamusData* pData)
     u8 stop;
     u32 currentBlock;
     u32 previousBlock;
-    i16 newPosition;
+    s16 newPosition;
 
     if (!pData->currentAnimationFrame)
     {
@@ -4798,7 +4798,7 @@ u8 SamusShinesparking(struct SamusData* pData)
     u16 nextX;
     u16 nextY;
     u16 nextSlope;
-    i32 xOffset;
+    s32 xOffset;
     u8 stop;
 
     hittingSideBlock = FALSE;
@@ -5410,8 +5410,8 @@ u8 SamusExecutePoseSubroutine(struct SamusData* pData)
  */
 void SamusUpdateVelocityPosition(struct SamusData* pData)
 {
-    i32 velocity;
-    i32 yVelocity;
+    s32 velocity;
+    s32 yVelocity;
 
     gSamusPhysics.hitboxType = sSamusVisualData[pData->pose][1];
 
@@ -6182,7 +6182,7 @@ void SamusUpdatePalette(struct SamusData* pData)
     struct WeaponInfo* pWeapon;
     u16 caf;
     u32 offset;
-    i32 rng;
+    s32 rng;
     u8 chargeCounter;
     u8 limit;
 
@@ -6478,7 +6478,7 @@ void SamusUpdateArmCannonPositionOffset(u8 direction)
     u32 pose;
     const struct ArmCannonAnimationData* pAnim;
     const struct ArmCannonOffset* pOffset;
-    i32 offset;
+    s32 offset;
 
     pData = &gSamusData;
     pEquipment = &gEquipment;
@@ -6769,18 +6769,18 @@ void SamusInit(void)
 void SamusDraw(void)
 {
     u8 priority;
-    i32 i;
+    s32 i;
     u16* dst;
     const u16* src;
     u16 nextSlot;
     u16 currSlot;
-    i32 j;
+    s32 j;
     u32 xPosition;
     u32 yPosition;
     u16 part1;
     u16 part2;
-    i32 ppc;
-    i32 futureSlot;
+    s32 ppc;
+    s32 futureSlot;
 
     priority = 2;
 
@@ -6802,7 +6802,7 @@ void SamusDraw(void)
     nextSlot = gNextOamSlot;
     currSlot = gNextOamSlot;
 
-    for (j = 0; j < ARRAY_SIZE(gSamusEnvironmentalEffects); j = (i16)(j + 1))
+    for (j = 0; j < ARRAY_SIZE(gSamusEnvironmentalEffects); j = (s16)(j + 1))
     {
         if (gSamusEnvironmentalEffects[j].type == 0)
             continue;
@@ -6811,8 +6811,8 @@ void SamusDraw(void)
         part1 = *src++;
         nextSlot += part1 & 0xFF;
 
-        xPosition = (i16)(gSamusEnvironmentalEffects[j].xPosition / 4 - gBG1XPosition / 4);
-        yPosition = (i16)(gSamusEnvironmentalEffects[j].yPosition / 4 - gBG1YPosition / 4 + 2);
+        xPosition = (s16)(gSamusEnvironmentalEffects[j].xPosition / 4 - gBG1XPosition / 4);
+        yPosition = (s16)(gSamusEnvironmentalEffects[j].yPosition / 4 - gBG1YPosition / 4 + 2);
 
         for (; currSlot < nextSlot; currSlot++)
         {
@@ -6834,8 +6834,8 @@ void SamusDraw(void)
         }
     }
 
-    xPosition = (i16)(gSamusData.xPosition / 4 - gBG1XPosition / 4);
-    yPosition = (i16)(gSamusData.yPosition / 4 - gBG1YPosition / 4 + 2);
+    xPosition = (s16)(gSamusData.xPosition / 4 - gBG1XPosition / 4);
+    yPosition = (s16)(gSamusData.yPosition / 4 - gBG1YPosition / 4 + 2);
 
     if (gSamusPhysics.unk_36 & 0x20)
     {
@@ -6971,7 +6971,7 @@ void SamusDraw(void)
 
     if (gSamusEcho.active)
     {
-        ppc = (i16)(gSamusEcho.previousPositionCounter - (gSamusEcho.distance * gSamusEcho.position) - 3);
+        ppc = (s16)(gSamusEcho.previousPositionCounter - (gSamusEcho.distance * gSamusEcho.position) - 3);
 
         if (gSamusEcho.unknown == 0 && ppc < 0)
         {
@@ -6992,8 +6992,8 @@ void SamusDraw(void)
 
         ppc &= ARRAY_SIZE(gSamusEcho.previous64XPositions) - 1;
         
-        xPosition = (i16)(gSamusEcho.previous64XPositions[ppc] / 4 - gBG1XPosition / 4);
-        yPosition = (i16)(gSamusEcho.previous64YPositions[ppc] / 4 - gBG1YPosition / 4 + 2);
+        xPosition = (s16)(gSamusEcho.previous64XPositions[ppc] / 4 - gBG1XPosition / 4);
+        yPosition = (s16)(gSamusEcho.previous64YPositions[ppc] / 4 - gBG1YPosition / 4 + 2);
 
         for (; currSlot < nextSlot; currSlot++)
         {

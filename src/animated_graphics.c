@@ -99,9 +99,9 @@ void AnimatedGraphicsTransfer(void)
 void AnimatedGraphicsUpdate(void)
 {
     u32 update;
-    i32 i;
+    s32 i;
     struct AnimatedGraphicsInfo* pGraphics;
-    i32 frame;
+    s32 frame;
     const u8* src;
 
     pGraphics = gAnimatedGraphicsData;
@@ -186,7 +186,7 @@ void AnimatedGraphicsUpdate(void)
         {
             frame = pGraphics->currentAnimationFrame;
             if (pGraphics->currentAnimationFrame < 0)
-                frame = (i8)(~frame + 1);
+                frame = (s8)(~frame + 1);
 
             src = &pGraphics->pGraphics[frame * 128];
             dma_set(3, src, EWRAM_BASE + 0x1B000 + i * 128, DMA_ENABLE << 16 | 0x40);
@@ -205,7 +205,7 @@ void AnimatedGraphicsUpdate(void)
  */
 void AnimatedGraphicsLoad(void)
 {
-    i32 i;
+    s32 i;
     u8 entry;
     const u8* src;
     const u8* dst;
@@ -272,7 +272,7 @@ void AnimatedGraphicsTanksAnimationReset(void)
  */
 void AnimatedGraphicsTanksAnimationUpdate(void)
 {
-    i32 i;
+    s32 i;
     
     for (i = ARRAY_SIZE(gTankAnimations) - 1; i >= 0; i--)
     {
@@ -303,8 +303,8 @@ void AnimatedGraphicsTanksAnimationUpdate(void)
 void AnimatedPaletteUpdate(void)
 {
     u32 update;
-    i32 row;
-    i32 newRow;
+    s32 row;
+    s32 newRow;
 
     if (gAnimatedGraphicsEntry.palette == 0)
         return;

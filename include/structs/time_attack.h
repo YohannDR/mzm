@@ -4,7 +4,7 @@
 #include "types.h"
 #include "structs/in_game_timer.h"
 
-typedef void (*TimeAttackFunc_T)(u8*, i32);
+typedef void (*TimeAttackFunc_T)(u8*, s32);
 
 struct TimeAttackData {
     u32 timeAttack;

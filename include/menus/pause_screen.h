@@ -36,11 +36,11 @@ void PauseScreenMoveDebugCursor(u8 allowOverflow);
 u32 unk_6b66c(u16* param_1, u16 param_2);
 u32 unk_6b6c4(u16* param_1, u16 param_2);
 void PauseScreenUpdateTopVisorOverlay(u8 oamId);
-i32 PauseScreenSuitChangingStart(void);
-i32 PauseScreenStatusScreenInit(void);
-i32 PauseScreenQuitStatusScreen(void);
-i32 PauseScreenEasySleepInit(void);
-i32 PauseScreenQuitEasySleep(void);
+s32 PauseScreenSuitChangingStart(void);
+s32 PauseScreenStatusScreenInit(void);
+s32 PauseScreenQuitStatusScreen(void);
+s32 PauseScreenEasySleepInit(void);
+s32 PauseScreenQuitEasySleep(void);
 void CheckForMaintainedInput(void);
 
 #endif /* PAUSE_SCREEN_MENU_H */

@@ -5,13 +5,13 @@
  * 
  * @param a A
  * @param b B
- * @return i16 Result
+ * @return s16 Result
  */
-i16 FixedMultiplication(i16 a, i16 b)
+s16 FixedMultiplication(s16 a, s16 b)
 {
-    i32 x = a;
-    i32 y = b;
-    i32 res = x;
+    s32 x = a;
+    s32 y = b;
+    s32 res = x;
     res *= y;
     res /= 0x100;
     return res;
@@ -22,12 +22,12 @@ i16 FixedMultiplication(i16 a, i16 b)
  * 
  * @param a A
  * @param b B
- * @return i16 Result
+ * @return s16 Result
  */
-i16 FixedDivision(i16 a, i16 b)
+s16 FixedDivision(s16 a, s16 b)
 {
-    i32 x = a;
-    i32 y = b;
+    s32 x = a;
+    s32 y = b;
 
     return (x << 8) / y;
 }
@@ -36,9 +36,9 @@ i16 FixedDivision(i16 a, i16 b)
  * @brief a80 | 18 | Fixed point inversion
  * 
  * @param a A
- * @return i16 Result
+ * @return s16 Result
  */
-i16 FixedInverse(i16 a)
+s16 FixedInverse(s16 a)
 {
     return 0x10000 / a;
 }

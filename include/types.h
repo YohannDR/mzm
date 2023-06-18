@@ -6,17 +6,17 @@
 #define NULL ((void *)0)
 
 typedef unsigned char u8;
-typedef signed char i8;
+typedef signed char s8;
 typedef unsigned short u16;
-typedef signed short i16;
+typedef signed short s16;
 typedef unsigned int u32;
-typedef signed int i32;
+typedef signed int s32;
 typedef volatile unsigned char vu8;
-typedef volatile signed char vi8;
+typedef volatile signed char vs8;
 typedef volatile unsigned short vu16;
-typedef volatile signed short vi16;
+typedef volatile signed short vs16;
 typedef volatile unsigned int vu32;
-typedef volatile signed int vi32;
+typedef volatile signed int vs32;
 
 #define SCHAR_MIN (-128)
 #define SCHAR_MAX (127)
