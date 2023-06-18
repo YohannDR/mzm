@@ -8,6 +8,7 @@
 #include "data/clipdata_data.h"
 #include "data/menus/pause_screen_data.h"
 #include "data/menus/pause_screen_sub_menus_data.h"
+#include "data/menus/internal_pause_screen_sub_menus_data.h"
 
 #include "constants/connection.h"
 #include "constants/event.h"
@@ -674,7 +675,7 @@ void ChozoHintDeterminePath(u8 param_1)
     const s8* pTarget;
     const u8* ptr;
 
-    DMATransfer(3, sMenuOamDataChozoHint_Empty, &oam, sizeof(oam), 16);
+    DMATransfer(3, &sMenuOamDataChozoHint_Empty, &oam, sizeof(oam), 16);
 
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_ON_MAP_SCREEN)
         oam.priority = 0;

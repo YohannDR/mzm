@@ -536,6 +536,8 @@ SECTIONS {
         asm/disasm_0x08068168.o(.text);
         src/menus/pause_screen_map.o(.text);
         asm/disasm_0x0806e460.o(.text);
+        src/menus/pause_screen_sub_menus.o(.text);
+        asm/disasm_0x0807329c.o(.text);
         src/menus/erase_sram.o(.text);
         src/menus/title_screen.o(.text);
         src/menus/game_over.o(.text);
@@ -723,7 +725,9 @@ SECTIONS {
         src/data/cutscenes/internal_enter_tourian_data.o(.rodata);
         src/data/cutscenes/internal_samus_in_blue_ship_data.o(.rodata);
         src/data/menus/internal_pause_screen_data.o(.rodata);
-        /* 7602d4-760420 */
+        /* 7602d4-7603f0 */
+        src/data/menus/internal_pause_screen_sub_menus_data.o(.rodata);
+        src/data/internal_save_file_data.o(.rodata);
         src/data/menus/internal_erase_sram_data.o(.rodata)
         /* 760458-760aa0 */
         src/data/menus/internal_title_screen_data.o(.rodata)

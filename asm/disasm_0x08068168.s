@@ -5130,7 +5130,7 @@ lbl_0806aa38: .4byte gCurrentItemBeingAcquired
 lbl_0806aa3c: .4byte sNonGameplayRamPointer
 lbl_0806aa40:
     bl PauseScreenMapCheckExploredAreas
-    bl check_non_explored_area_has_hint
+    bl PauseScreenCheckAreasWithTargets
     bl determine_maps_viewable
     bl LoadPauseScreenBgPalette
     ldr r0, lbl_0806aac8 @ =sEwramPointer
@@ -6286,7 +6286,7 @@ lbl_0806b3a4:
     .align 2, 0
 lbl_0806b3a8: .4byte sNonGameplayRamPointer
 lbl_0806b3ac:
-    bl chozo_statue_hint_subroutine
+    bl ChozoStatueHintSubroutine
     cmp r0, #0
     bne lbl_0806b3b6
     b lbl_0806b4f6
@@ -6312,7 +6312,7 @@ lbl_0806b3ce:
     .align 2, 0
 lbl_0806b3d8: .4byte sNonGameplayRamPointer
 lbl_0806b3dc:
-    bl easy_sleep_menu_subroutine
+    bl PauseScreenEasySleepSubroutine
     cmp r0, #0
     bne lbl_0806b3e6
     b lbl_0806b4f6

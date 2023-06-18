@@ -159,4 +159,4 @@ const u32 sPauseScreen_7602b0[9] = {
     0xFFFFFFFF ^ 0xFFFFFFFF,
 };
 
-const u8 sTempArray_7602d4[0x14c] = INCBIN_U8("data/Blob_7602d4_760420.bin");
+const u8 sTempArray_7602d4[0x11c] = INCBIN_U8("data/Blob_7602d4_7603f0.bin");
