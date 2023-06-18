@@ -667,7 +667,7 @@ void AtomicElectricitySpawn(void)
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
 
         if (spriteY > samusY)
-            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
         else
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
 

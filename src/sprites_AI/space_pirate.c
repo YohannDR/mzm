@@ -3739,7 +3739,7 @@ u8 roomSlot;
     else if (roomSlot == SPACE_PIRATE_LASER_PART_DIAGONALLY_DOWN)
     {
         gCurrentSprite.pOam = sSpacePirateLaserOAM_Diagonal;
-        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+        gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
     }
     else
     {

@@ -263,7 +263,7 @@ void DragonFireballInit(void)
     else
         gCurrentSprite.oamRotation = 0x0;
 
-    gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
     gCurrentSprite.oamScaling = 0x100;
     gCurrentSprite.arrayOffset = 0x0;
     SoundPlay(0x14C);
@@ -333,7 +333,7 @@ void DragonFireballExplodingInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pose = 0x43;
-    gCurrentSprite.status = (gCurrentSprite.status & ~SPRITE_STATUS_YFLIP);
+    gCurrentSprite.status = (gCurrentSprite.status & ~SPRITE_STATUS_UNKNOWN3);
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 }
 

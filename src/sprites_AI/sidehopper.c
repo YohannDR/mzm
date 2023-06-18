@@ -41,14 +41,14 @@ void SidehopperInit(void)
 
     if (gPreviousCollisionCheck & 0xF0)
     {
-        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+        gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
         gCurrentSprite.yPosition -= BLOCK_SIZE;
     }
 
     gCurrentSprite.timer = 0x0;
     gCurrentSprite.pose = SIDEHOPPER_POSE_IDLE;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+    if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
     {
         gCurrentSprite.drawDistanceTopOffset = 0x8;
         gCurrentSprite.drawDistanceBottomOffset = 0x28;
@@ -107,7 +107,7 @@ void SidehopperJumpingInit(void)
     else
         gCurrentSprite.workVariable2 = FALSE;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+    if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
         gCurrentSprite.hitboxBottomOffset = 0x70;
     else
         gCurrentSprite.hitboxTopOffset = -0x70;
@@ -128,7 +128,7 @@ void SidehopperLandingInit(void)
     gCurrentSprite.currentAnimationFrame = 0x0;
     gCurrentSprite.pOam = sSidehopperOAM_Landing;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+    if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
         gCurrentSprite.hitboxBottomOffset = 0x5C;
     else
         gCurrentSprite.hitboxTopOffset = -0x5C;
@@ -629,7 +629,7 @@ void SidehopperDeath(void)
 {
     u16 yPosition;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+    if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
         yPosition = gCurrentSprite.yPosition + 0x34;
     else
         yPosition = gCurrentSprite.yPosition - 0x34;
@@ -667,14 +667,14 @@ void Sidehopper(void)
                 SidehopperJumpWarningInit();
 
             case SIDEHOPPER_POSE_JUMP_WARNING:
-                if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+                if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
                     SidehopperJumpWarningCeiling();
                 else
                     SidehopperJumpWarningGround();
                 break;
 
             case SIDEHOPPER_POSE_JUMPING:
-                if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+                if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
                     SidehopperJumpingCeiling();
                 else
                     SidehopperJumpingGround();
@@ -685,14 +685,14 @@ void Sidehopper(void)
                 break;
 
             case SIDEHOPPER_POSE_IDLE:
-                if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+                if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
                     SidehopperIdleCeiling();
                 else
                     SidehopperIdleGround();
                 break;
 
             case SIDEHOPPER_POSE_FALLING:
-                if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+                if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
                     SidehopperFallingCeiling();
                 else
                     SidehopperFallingGround();

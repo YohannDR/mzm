@@ -2826,7 +2826,7 @@ void KraidNail(void)
 
             gCurrentSprite.drawOrder = 0x3;
             gCurrentSprite.bgPriority = 0x1;
-            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+            gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
             gCurrentSprite.oamScaling = 0x100;
             gCurrentSprite.workVariable = 0x0;
 

@@ -63,7 +63,7 @@ void DessgeegaInit(void)
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + 4), gCurrentSprite.xPosition);
         if (gPreviousCollisionCheck & (COLLISION_PASS_THROUGH_BOTTOM | 0x20 | 0x40 | 0x80))
         {
-            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
             gCurrentSprite.yPosition -= BLOCK_SIZE;
         }
         // Should be idle init instead of idle, this skips the initialization of some variables
@@ -72,7 +72,7 @@ void DessgeegaInit(void)
 
     // Set hitbox and draw distances based on direction
     gCurrentSprite.timer = 0x0;
-    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+    if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
     {
         gCurrentSprite.drawDistanceTopOffset = 0x8;
         gCurrentSprite.drawDistanceBottomOffset = 0x28;
@@ -658,7 +658,7 @@ void DessgeegaDeath(void)
 {
     u16 yPosition;
 
-    if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+    if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
         yPosition = gCurrentSprite.yPosition + 0x30;
     else
     {
@@ -806,14 +806,14 @@ void Dessgeega(void)
                 DessgeegaJumpWarningInit();
 
             case DESSGEEGA_POSE_JUMP_WARNING:
-                if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+                if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
                     DessgeegaJumpWarningCeiling();
                 else
                     DessgeegaJumpWarningGround();
                 break;
 
             case DESSGEEGA_POSE_JUMPING:
-                if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+                if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
                     DessgeegaJumpingCeiling();
                 else
                     DessgeegaJumpingGround();
@@ -824,14 +824,14 @@ void Dessgeega(void)
                 break;
 
             case DESSGEEGA_POSE_IDLE:
-                if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+                if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
                     DessgeegaIdleCeiling();
                 else
                     DessgeegaIdleGround();
                 break;
 
             case DESSGEEGA_POSE_FALLING:
-                if (gCurrentSprite.status & SPRITE_STATUS_FACING_DOWN)
+                if (gCurrentSprite.status & SPRITE_STATUS_YFLIP)
                     DessgeegaFallingCeiling();
                 else
                     DessgeegaFallingGround();

@@ -304,10 +304,14 @@ void SpriteDrawAll_Upper(void)
     }
 }
 
+/**
+ * @brief d544 | 890 | Draws a sprite
+ * 
+ * @param pSprite Sprite data pointer
+ * @param slot Ram slot
+ */
 void SpriteDraw(struct SpriteData* pSprite, i32 slot)
 {
-    // https://decomp.me/scratch/7FvMo
-    
     const u16* src;
     u16* dst;
     u8 prevSlot;
@@ -333,7 +337,7 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
     i32 scaledX;
     i32 scaledY;
 
-    u16 yFlip;
+    u16 status_unk3;
     i32 i;
     u16 partCount;
     
@@ -344,7 +348,7 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
     u16 doubleSize;
     u16 alphaBlending;
     u16 mosaic;
-    u16 facingDown;
+    u16 yFlip;
     u32 bgPriority;
     u32 paletteRow;
     u32 gfxOffset;
@@ -363,17 +367,21 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
         return;
 
     dst = (u16*)(gOamData + prevSlot);
-    yPosition = (pSprite->yPosition >> 2) - (gBG1YPosition >> 2);
-    xPosition = (pSprite->xPosition >> 2) - (gBG1XPosition >> 2);
+    yPosition = (pSprite->yPosition >> 2) - (gBG1YPosition / 4);
+    xPosition = (pSprite->xPosition >> 2) - (gBG1XPosition / 4);
 
+    // Shortcuts for status
     xFlip = pSprite->status & SPRITE_STATUS_XFLIP;
-    yFlip = pSprite->status & SPRITE_STATUS_YFLIP;
+    status_unk3 = pSprite->status & SPRITE_STATUS_UNKNOWN3;
     doubleSize = pSprite->status & SPRITE_STATUS_DOUBLE_SIZE;
     alphaBlending = pSprite->status & SPRITE_STATUS_ALPHA_BLENDING;
-    facingDown = pSprite->status & SPRITE_STATUS_FACING_DOWN;
+    yFlip = pSprite->status & SPRITE_STATUS_YFLIP;
 
+    // Get graphical data
+    // Palette offset by spriteset slot
     paletteRow = pSprite->spritesetGfxSlot + pSprite->paletteRow;
-    gfxOffset = pSprite->spritesetGfxSlot * 0x40;
+    // Gfx slot, scale to 2 rows of 8x8 tiles in VRAM
+    gfxOffset = pSprite->spritesetGfxSlot * 64;
     bgPriority = pSprite->bgPriority;
 
     if (gSamusOnTopOfBackgrounds && bgPriority != 0)
@@ -386,72 +394,101 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
     }
 
     if (!(pSprite->status & SPRITE_STATUS_ROTATION_SCALING))
-    {     
+    {
         for (i = 0; i < partCount; i++)
         {
+            // Raw copy
             part1 = *src++;
             *dst++ = part1;
             part2 = *src++;
             *dst++ = part2;
             *dst++ = *src++;
 
+            // Apply position
             gOamData[prevSlot + i].split.y = part1 + yPosition;
             gOamData[prevSlot + i].split.x = part2 + xPosition;
+
+            // Apply graphics
             gOamData[prevSlot + i].split.priority = bgPriority;
+            // Add palette row and gfx offset
             gOamData[prevSlot + i].split.paletteNum += paletteRow;
             gOamData[prevSlot + i].split.tileNum += gfxOffset;
 
             if (xFlip)
             {
+                // Enable X flip
                 gOamData[prevSlot + i].split.xFlip ^= TRUE;
+
                 shape = gOamData[prevSlot + i].split.shape;
                 size = gOamData[prevSlot + i].split.size;
                 offset = sOamXFlipOffsets[shape][size];
-                gOamData[prevSlot + i].split.x = xPosition - (part1 + offset * 8);
-            }
 
-            if (facingDown)
-            {
-                gOamData[prevSlot + i].split.yFlip ^= TRUE;
-                shape = gOamData[prevSlot + i].split.shape;
-                size = gOamData[prevSlot + i].split.size;
-                offset = sOamYFlipOffsets[shape][size];
-                gOamData[prevSlot + i].split.y = yPosition - (part2 + offset * 8);
+                // Properly offset x position
+                gOamData[prevSlot + i].split.x = xPosition - (part2 + offset * 8);
             }
 
             if (yFlip)
             {
-                if (doubleSize)
-                    gOamData[prevSlot + i].split.affineMode = 3;
-                else
-                    gOamData[prevSlot + i].split.affineMode = 1;
+                // Enable Y flip
+                gOamData[prevSlot + i].split.yFlip ^= TRUE;
+                shape = gOamData[prevSlot + i].split.shape;
+                size = gOamData[prevSlot + i].split.size;
+                offset = sOamYFlipOffsets[shape][size];
 
+                // Properly offset x position
+                gOamData[prevSlot + i].split.y = yPosition - (part1 + offset * 8);
+            }
+
+            if (status_unk3)
+            {
+                if (doubleSize)
+                {
+                    // Rotation scaling and double size
+                    gOamData[prevSlot + i].split.affineMode = 3;
+                }
+                else
+                {
+                    // Rotation scaling
+                    gOamData[prevSlot + i].split.affineMode = 1;
+                }
+
+                // In this affine mode, X/Y flip are part of the matrix num, so this is just doing matrixNum = slot
                 gOamData[prevSlot + i].split.yFlip = slot >> 4;
                 gOamData[prevSlot + i].split.xFlip = slot >> 3;
                 gOamData[prevSlot + i].split.matrixNum = slot;
             }
 
             if (alphaBlending)
-                gOamData[prevSlot + i].split.objMode = 1; // Semi transparent
+            {
+                // Semi transparent
+                gOamData[prevSlot + i].split.objMode = 1;
+            }
 
             dst++;
         }
 
+        // Update next oam slot
         gNextOamSlot = partCount + prevSlot;
 
-        if (yFlip)
+        if (status_unk3)
         {
             rotation = pSprite->oamRotation;
             scaling = pSprite->oamScaling;
 
+            // Rotation matrix (column major mode) :
+            // [ cos / scaling, -sin / scaling ]
+            // [ sin / scaling,  cos / scaling ]
+
+            // If x flipped, then negate scaling on the first column to manually flip the sprite since flipping
+            // isn't supported by hardware when affine transformation is enabled
             if (xFlip)
             {
-                gOamData[slot * 4].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(-scaling));
+                gOamData[slot * 4 + 0].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(-scaling));
                 gOamData[slot * 4 + 1].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(-scaling));
             }
             else
             {
-                gOamData[slot * 4].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(scaling));
+                gOamData[slot * 4 + 0].all.affineParam = FixedMultiplication(cos(rotation), FixedInverse(scaling));
                 gOamData[slot * 4 + 1].all.affineParam = FixedMultiplication(sin(rotation), FixedInverse(scaling));
             }
             
@@ -471,17 +508,20 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
 
         for (i = 0; i < partCount; i++)
         {
+            // Raw copy
             part1 = *src++;
             *dst++ = part1;
             part2 = *src++;
             *dst++ = part2;
             *dst++ = *src++;
 
+            // Apply graphics
             gOamData[prevSlot + i].split.priority = bgPriority;
+            // Add palette row and gfx offset
             gOamData[prevSlot + i].split.paletteNum += paletteRow;
-
             gOamData[prevSlot + i].split.tileNum += gfxOffset;
 
+            // Don't really know what maths are used here, but it seems to be directly applying rotation and scaling to the position
             shape = gOamData[prevSlot + i].split.shape;
             size = gOamData[prevSlot + i].split.size;
         
@@ -490,6 +530,7 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             unk_1 = sOamXFlipOffsets[shape][size];
             unk_1 *= 4;
         
+            // Get current positions
             y = (i16)(part1 + yPosition) & 0xFF;
             x = (i16)(part2 + xPosition) & 0x1FF;
         
@@ -501,9 +542,11 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             x = (i16)(x + tmpX);
             y = (i16)(y + tmpY);
         
+            // Offset to 0;0 temporarly to apply the rotation
             unk_2 = (i16)(x - xPosition + unk_1);
             unk_3 = (i16)(y - yPosition + unk_0);
         
+            // Rotation matrix
             x = (i16)((unk_2 * cos(rotation) - unk_3 * sin(rotation)) >> 8);
             y = (i16)((unk_2 * sin(rotation) + unk_3 * cos(rotation)) >> 8);
         
@@ -518,14 +561,22 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
                 y = (i16)(y - unk_0);
             }
         
+            // Rotated position + position
             gOamData[prevSlot + i].split.y = (y + yPosition - BLOCK_SIZE) & 0xFF;
             gOamData[prevSlot + i].split.x = (x + xPosition - BLOCK_SIZE) & 0x1FF;
 
             if (doubleSize)
+            {
+                // Rotation scaling and double size
                 gOamData[prevSlot + i].split.affineMode = 3;
+            }
             else
+            {
+                // Rotation scaling
                 gOamData[prevSlot + i].split.affineMode = 1;
+            }
 
+            // Select proper matrix depending on mosaic and flipping?
             if (mosaic)
             {
                 if (gOamData[prevSlot + i].split.xFlip)
@@ -560,13 +611,24 @@ void SpriteDraw(struct SpriteData* pSprite, i32 slot)
             }
 
             if (alphaBlending)
-                gOamData[prevSlot + i].split.objMode = 1; // Semi transparent
+            {
+                // Semi transparent
+                gOamData[prevSlot + i].split.objMode = 1;
+            }
 
             dst++;
         }
         
+        // Update next oam slot
         gNextOamSlot = partCount + prevSlot;
 
+        // Setup matrices for normal and x flip
+        
+        // [ cos / scaling, -sin / scaling ]
+        // [ sin / scaling,  cos / scaling ]
+        // and
+        // [ cos / -scaling, -sin / scaling ]
+        // [ sin / -scaling,  cos / scaling ]
         dy = FixedMultiplication(-sin(rotation), FixedInverse(scaling));
         dmy = FixedMultiplication(cos(rotation), FixedInverse(scaling));
 

@@ -52,7 +52,7 @@ void Steam(void)
             {
                 // Steam on ceiling
                 gCurrentSprite.status &= ~SPRITE_STATUS_UNKNOWN2;
-                gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+                gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
                 gCurrentSprite.yPosition -= BLOCK_SIZE;
 
                 if (isLarge)
@@ -190,7 +190,7 @@ void SteamDiagonal(void)
         else if (gCurrentSprite.spriteID == PSPRITE_STEAM_LARGE_DIAGONAL_DOWN)
         {
             gCurrentSprite.workVariable = TRUE; // Is large flag
-            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
             gCurrentSprite.drawDistanceTopOffset = 0x8;
             gCurrentSprite.drawDistanceBottomOffset = 0x40;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x50;
@@ -198,7 +198,7 @@ void SteamDiagonal(void)
         }
         else if (gCurrentSprite.spriteID == PSPRITE_STEAM_SMALL_DIAGONAL_DOWN)
         {
-            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
             gCurrentSprite.drawDistanceTopOffset = 0x4;
             gCurrentSprite.drawDistanceBottomOffset = 0x28;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x30;

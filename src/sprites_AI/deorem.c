@@ -509,7 +509,7 @@ void DeoremSpawnGoingDownAnim(void)
     {
         gCurrentSprite.pose = 0x22;
         gCurrentSprite.timer = 0xA;
-        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+        gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
 
         if (gBossWork.work3)
         {
@@ -594,7 +594,7 @@ void DeoremSpawnGoingUpAnim(void)
     --gCurrentSprite.timer;
     if (gCurrentSprite.timer == 0)
     {
-        gCurrentSprite.status = (gCurrentSprite.status & ~SPRITE_STATUS_FACING_DOWN) | SPRITE_STATUS_NOT_DRAWN;
+        gCurrentSprite.status = (gCurrentSprite.status & ~SPRITE_STATUS_YFLIP) | SPRITE_STATUS_NOT_DRAWN;
         gCurrentSprite.pose = 0x24;
         gCurrentSprite.timer = 0x3C;
 
@@ -1288,7 +1288,7 @@ void DeoremSegmentInit(void)
     else if ((u8)(roomSlot - 6) < 6)
     {
         gCurrentSprite.pose = 0x22;
-        gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+        gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
     }
     else if ((u8)(roomSlot - 12) < 3)
     {
@@ -1316,7 +1316,7 @@ void DeoremSegmentInit(void)
             {
                 gCurrentSprite.pose = 0x11;
                 gCurrentSprite.drawOrder = 3;
-                gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+                gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
                 gCurrentSprite.workVariable2 = 0x1C;
             }
             else
@@ -2337,7 +2337,7 @@ void DeoremEyeDyingMovingAnim(void)
  */
 void DeoremThornInit(void)
 {
-    gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
     
     gCurrentSprite.oamScaling = 0x100;
     gCurrentSprite.oamRotation = 0;

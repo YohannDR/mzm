@@ -2463,7 +2463,7 @@ void RidleyFireballCheckSlideOnWall(void)
 void RidleyFireballInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+    gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
     gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
     gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;

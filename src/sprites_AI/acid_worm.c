@@ -1176,7 +1176,7 @@ void AcidWormBodyMove(void) {
     else if (gSpriteData[slot].pose == 0x8)
     {
         gCurrentSprite.pose = 0x9;
-        gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
+        gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN3;
         gCurrentSprite.oamScaling = 0x100;
         gCurrentSprite.oamRotation = 0x0;
     }

@@ -146,9 +146,9 @@ void ParasiteGrabSamus(struct SpriteData* pSprite)
 
     // Set vertical direction
     if (pSprite->yPosition > gSamusData.yPosition - BLOCK_SIZE)
-        pSprite->status &= ~SPRITE_STATUS_FACING_DOWN;
+        pSprite->status &= ~SPRITE_STATUS_YFLIP;
     else
-        pSprite->status |= SPRITE_STATUS_FACING_DOWN;
+        pSprite->status |= SPRITE_STATUS_YFLIP;
 }
 
 /**
@@ -179,11 +179,11 @@ void ParasiteSamusGrabbed(struct SpriteData* pSprite)
             gParasiteRelated = 0x5A;
 
         // Check update vertical direction
-        if (pSprite->status & SPRITE_STATUS_FACING_DOWN)
+        if (pSprite->status & SPRITE_STATUS_YFLIP)
         {
             if (gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset < pSprite->yPosition + 0x8)
             {
-                pSprite->status &= ~SPRITE_STATUS_FACING_DOWN;
+                pSprite->status &= ~SPRITE_STATUS_YFLIP;
                 pSprite->timer = gSpriteRNG;
             }
         }
@@ -191,7 +191,7 @@ void ParasiteSamusGrabbed(struct SpriteData* pSprite)
         {
             if (gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset > pSprite->yPosition - 0x8)
             {
-                pSprite->status |= SPRITE_STATUS_FACING_DOWN;
+                pSprite->status |= SPRITE_STATUS_YFLIP;
                 pSprite->timer = gSpriteRNG;
             }
         }
@@ -218,7 +218,7 @@ void ParasiteSamusGrabbed(struct SpriteData* pSprite)
         if (pSprite->timer == 0x0)
         {
             // Update Y offset
-            if (pSprite->status & SPRITE_STATUS_FACING_DOWN)
+            if (pSprite->status & SPRITE_STATUS_YFLIP)
             {
                 if (gSpriteRNG != 0x0)
                     pSprite->yPositionSpawn++;
@@ -268,7 +268,7 @@ void ParasiteExpulsedInit(struct SpriteData* pSprite)
     pSprite->animationDurationCounter = 0x0;
 
     pSprite->arrayOffset = 0x8;
-    pSprite->status &= ~SPRITE_STATUS_FACING_DOWN;
+    pSprite->status &= ~SPRITE_STATUS_YFLIP;
 }
 
 /**
@@ -1056,7 +1056,7 @@ void ParasiteFalling(struct SpriteData* pSprite)
  */
 void ParasiteDyingInit(struct SpriteData* pSprite)
 {
-    pSprite->status &= ~(SPRITE_STATUS_YFLIP | SPRITE_STATUS_FACING_DOWN);
+    pSprite->status &= ~(SPRITE_STATUS_UNKNOWN3 | SPRITE_STATUS_YFLIP);
     pSprite->pose = PARASITE_POSE_DYING;
 
     pSprite->pOam = sParasiteOAM_Dying;
@@ -1140,9 +1140,9 @@ void ParasiteGrabGeron(struct SpriteData* pSprite)
 
     // Set vertical direction
     if (pSprite->yPosition > gSpriteData[ramSlot].yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE))
-        pSprite->status &= ~SPRITE_STATUS_FACING_DOWN;
+        pSprite->status &= ~SPRITE_STATUS_YFLIP;
     else
-        pSprite->status |= SPRITE_STATUS_FACING_DOWN;
+        pSprite->status |= SPRITE_STATUS_YFLIP;
 }
 
 /**
@@ -1178,11 +1178,11 @@ void ParasiteGeronGrabbed(struct SpriteData* pSprite)
             gParasiteRelated = 0x5A;
 
         // Check update vertical direction
-        if (pSprite->status & SPRITE_STATUS_FACING_DOWN)
+        if (pSprite->status & SPRITE_STATUS_YFLIP)
         {
             if (gSpriteData[ramSlot].yPosition < pSprite->yPosition + 0x8)
             {
-                pSprite->status &= ~SPRITE_STATUS_FACING_DOWN;
+                pSprite->status &= ~SPRITE_STATUS_YFLIP;
                 pSprite->timer = gSpriteRNG;
             }
         }
@@ -1190,7 +1190,7 @@ void ParasiteGeronGrabbed(struct SpriteData* pSprite)
         {
             if (gSpriteData[ramSlot].yPosition + gSpriteData[ramSlot].hitboxTopOffset > pSprite->yPosition - 0x8)
             {
-                pSprite->status |= SPRITE_STATUS_FACING_DOWN;
+                pSprite->status |= SPRITE_STATUS_YFLIP;
                 pSprite->timer = gSpriteRNG;
             }
         }
@@ -1217,7 +1217,7 @@ void ParasiteGeronGrabbed(struct SpriteData* pSprite)
         if (pSprite->timer == 0x0)
         {
             // Update Y offset
-            if (pSprite->status & SPRITE_STATUS_FACING_DOWN)
+            if (pSprite->status & SPRITE_STATUS_YFLIP)
             {
                 if (gSpriteRNG != 0x0)
                     pSprite->yPositionSpawn++;

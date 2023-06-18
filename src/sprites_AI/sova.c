@@ -572,7 +572,7 @@ void SovaTurningAroundInit(void)
                 gCurrentSprite.pOam = sSovaOam_TurningEdgeLeft;
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
             break;
 
         case SOVA_TURNING_DIRECTION_TOP_RIGHT_EDGE:
@@ -582,7 +582,7 @@ void SovaTurningAroundInit(void)
                 gCurrentSprite.pOam = sSovaOam_TurningEdgeLeft;
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
             break;
 
         case SOVA_TURNING_DIRECTION_BOTTOM_RIGHT_EDGE:
@@ -592,7 +592,7 @@ void SovaTurningAroundInit(void)
                 gCurrentSprite.pOam = sSovaOam_TurningCornerRight;
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
             break;
 
         case SOVA_TURNING_DIRECTION_TOP_RIGHT_CORNER:
@@ -602,7 +602,7 @@ void SovaTurningAroundInit(void)
                 gCurrentSprite.pOam = sSovaOam_TurningCornerRight;
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
             break;
         
         case SOVA_TURNING_DIRECTION_TOP_LEFT_EDGE:
@@ -612,7 +612,7 @@ void SovaTurningAroundInit(void)
                 gCurrentSprite.pOam = sSovaOam_TurningEdgeRight;
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
             break;
 
         case SOVA_TURNING_DIRECTION_BOTTOM_RIGHT_CORNER:
@@ -622,7 +622,7 @@ void SovaTurningAroundInit(void)
                 gCurrentSprite.pOam = sSovaOam_TurningCornerLeft;
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
             break;
 
         case SOVA_TURNING_DIRECTION_TOP_LEFT_CORNER:
@@ -632,7 +632,7 @@ void SovaTurningAroundInit(void)
                 gCurrentSprite.pOam = sSovaOam_TurningEdgeRight;
 
             gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
             break;
 
         case SOVA_TURNING_DIRECTION_BOTTOM_LEFT_EDGE:
@@ -642,7 +642,7 @@ void SovaTurningAroundInit(void)
                 gCurrentSprite.pOam = sSovaOam_TurningCornerLeft;
 
             gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.status |= SPRITE_STATUS_FACING_DOWN;
+            gCurrentSprite.status |= SPRITE_STATUS_YFLIP;
             break;
 
         default:
@@ -660,7 +660,7 @@ void SovaTurningAround(void)
         return;
 
     gCurrentSprite.pose = SOVA_POSE_IDLE;
-    gCurrentSprite.status &= ~SPRITE_STATUS_FACING_DOWN;
+    gCurrentSprite.status &= ~SPRITE_STATUS_YFLIP;
     gCurrentSprite.workVariable2 = FALSE;
 
     switch (gCurrentSprite.workVariable)
@@ -835,7 +835,7 @@ void SovaFallingInit(void)
     gCurrentSprite.pose = SOVA_POSE_FALLING;
     gCurrentSprite.arrayOffset = 0;
     gCurrentSprite.workVariable2 = 0;
-    gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_DOWN | SPRITE_STATUS_UNKNOWN2);
+    gCurrentSprite.status &= ~(SPRITE_STATUS_XFLIP | SPRITE_STATUS_YFLIP | SPRITE_STATUS_UNKNOWN2);
 
     SovaUpdateHitbox();
 
