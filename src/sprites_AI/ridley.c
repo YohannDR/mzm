@@ -1121,14 +1121,14 @@ void RidleyIdle(void)
         {
             // Check start new attack
             gCurrentSprite.timer--;
-            if (SpriteUtilCheckCrouchingOrMorphed() && gSpriteRNG > 0x7 && gCurrentSprite.timer == 0x0)
+            if (SpriteUtilCheckCrouchingOrMorphed() && gSpriteRng > 0x7 && gCurrentSprite.timer == 0x0)
             {
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
                     if (gSubSpriteData1.xPosition < gSamusData.xPosition)
                     {
                         // Samus in front
-                        if (gSpriteRNG > 0xD)
+                        if (gSpriteRng > 0xD)
                         {
                             gCurrentSprite.pose = RIDLEY_POSE_TAIL_ATTACKS_INIT;
                             return;
@@ -1145,7 +1145,7 @@ void RidleyIdle(void)
                     if (gSubSpriteData1.xPosition > gSamusData.xPosition)
                     {
                         // Samus in front
-                        if (gSpriteRNG > 0xD)
+                        if (gSpriteRng > 0xD)
                         {
                             gCurrentSprite.pose = RIDLEY_POSE_TAIL_ATTACKS_INIT;
                             return;
@@ -1160,7 +1160,7 @@ void RidleyIdle(void)
             }
             
             // Check start big fireballs attack
-            if (!(gFrameCounter8Bit & 0xF) && gSpriteRNG > 0x8 && gCurrentSprite.timer < 0xA)
+            if (!(gFrameCounter8Bit & 0xF) && gSpriteRng > 0x8 && gCurrentSprite.timer < 0xA)
             {
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
@@ -1760,7 +1760,7 @@ void RidleyDying(void)
     if (gSubSpriteData1.yPosition < (RIDLEY_GROUND_POSITION - BLOCK_SIZE * 3))
         gSubSpriteData1.yPosition++;
 
-    rngParam1 = gSpriteRNG;
+    rngParam1 = gSpriteRng;
     rngParam2 = gFrameCounter8Bit;
 
     // Play effects
@@ -1992,7 +1992,7 @@ void RidleyTailDead(void)
 {
     u8 rng;
 
-    rng = gSpriteRNG;
+    rng = gSpriteRng;
     switch (gCurrentSprite.roomSlot)
     {
         case RIDLEY_TAIL_PART_BODY_ATTACHMENT:
@@ -2151,7 +2151,7 @@ void RidleyTailSettingUpAttack(void)
         if (gDifficulty == DIFF_EASY)
             gCurrentSprite.timer = 0x2;
         else
-            gCurrentSprite.timer = gSpriteRNG / 2 + 0x2;
+            gCurrentSprite.timer = gSpriteRng / 2 + 0x2;
     }
 
     if (gSubSpriteData1.yPosition > (RIDLEY_GROUND_POSITION - BLOCK_SIZE * 8))

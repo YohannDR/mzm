@@ -36,7 +36,7 @@ void ReoInit(void)
 
     SpriteUtilChooseRandomXDirection();
 
-    if (0x8 < gSpriteRNG)
+    if (0x8 < gSpriteRng)
         gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN2;
 
     gCurrentSprite.pose = REO_POSE_IDLE_INIT;
@@ -51,7 +51,7 @@ void ReoIdleInit(void)
     u8 offset;
     
     gCurrentSprite.pose = REO_POSE_IDLE;
-    offset = gSpriteRNG * 4;
+    offset = gSpriteRng * 4;
     gCurrentSprite.workVariable2 = offset;
     gCurrentSprite.arrayOffset = gCurrentSprite.workVariable2;
 }
@@ -103,7 +103,7 @@ void ReoMovingInit(void)
     gCurrentSprite.timer = 0x0;
     gCurrentSprite.arrayOffset = 0x1;
 
-    gCurrentSprite.xPositionSpawn = gSpriteRNG & 0x3;
+    gCurrentSprite.xPositionSpawn = gSpriteRng & 0x3;
     gCurrentSprite.pose = REO_POSE_MOVING;
     gCurrentSprite.oamScaling = 0x20;
 

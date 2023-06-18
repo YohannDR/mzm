@@ -330,7 +330,7 @@ void AtomicInit(void)
 
         gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
         gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
-        gCurrentSprite.oamScaling = gSpriteRNG * 16;
+        gCurrentSprite.oamScaling = gSpriteRng * 16;
     }
 }
 

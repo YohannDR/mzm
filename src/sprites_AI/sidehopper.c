@@ -102,7 +102,7 @@ void SidehopperJumpingInit(void)
     gCurrentSprite.arrayOffset = 0x0;
     gCurrentSprite.pOam = sSidehopperOAM_Jumping;
 
-    if (gSpriteRNG & 0x1)
+    if (gSpriteRng & 0x1)
         gCurrentSprite.workVariable2 = TRUE;
     else
         gCurrentSprite.workVariable2 = FALSE;
@@ -152,9 +152,9 @@ void SidehopperIdleInit(void)
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.timer = 0x0;
 
-        gCurrentSprite.workVariable = gSpriteRNG & 0x3;
+        gCurrentSprite.workVariable = gSpriteRng & 0x3;
 
-        if (gSpriteRNG > 0x7)
+        if (gSpriteRng > 0x7)
             gCurrentSprite.pOam = sSidehopperOAM_Idle;
         else
         {

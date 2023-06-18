@@ -582,7 +582,7 @@ void MetroidCheckSpawn(void)
         gCurrentSprite.drawDistanceTopOffset = 0x18;
         gCurrentSprite.drawDistanceBottomOffset = 0x18;
         gCurrentSprite.drawDistanceHorizontalOffset = 0x14;
-        gCurrentSprite.timer = (gSpriteRNG * 0x4) + 0x1;
+        gCurrentSprite.timer = (gSpriteRng * 0x4) + 0x1;
     }
 }
 
@@ -741,7 +741,7 @@ void MetroidSamusGrabbed(void)
     if (MetroidBombDetection())
     {
         // Random ejection speed
-        if (gSpriteRNG & 0x1)
+        if (gSpriteRng & 0x1)
             velocity = 0x1C;
         else
             velocity = 0x10;
@@ -801,7 +801,7 @@ void MetroidDeath(void)
     u8 secondary;
     u8 pose;
 
-    rng = gSpriteRNG;
+    rng = gSpriteRng;
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
@@ -962,7 +962,7 @@ void MetroidShell(void)
     gCurrentSprite.paletteRow = gSpriteData[slot].paletteRow;
     if (gSpriteData[slot].health == 0x0)
     {
-        rng = gSpriteRNG;
+        rng = gSpriteRng;
         yPosition = gCurrentSprite.yPosition;
         xPosition = gCurrentSprite.xPosition;
         if (gSpriteData[slot].status & SPRITE_STATUS_XFLIP)

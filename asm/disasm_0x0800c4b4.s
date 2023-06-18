@@ -33,7 +33,7 @@ lbl_0800cf28:
     movs r7, #0
     ldr r5, lbl_0800cfb8 @ =gSpriteData
     ldr r4, lbl_0800cfbc @ =0x040000d4
-    ldr r0, lbl_0800cfc0 @ =gSpriteRNG
+    ldr r0, lbl_0800cfc0 @ =gSpriteRng
     mov sl, r0
     ldr r1, lbl_0800cfc4 @ =0x082b0cac
     mov sb, r1
@@ -91,7 +91,7 @@ lbl_0800cfb0: .4byte gFrameCounter16Bit
 lbl_0800cfb4: .4byte gGameModeSub1
 lbl_0800cfb8: .4byte gSpriteData
 lbl_0800cfbc: .4byte 0x040000d4
-lbl_0800cfc0: .4byte gSpriteRNG
+lbl_0800cfc0: .4byte gSpriteRng
 lbl_0800cfc4: .4byte 0x082b0cac
 lbl_0800cfc8: .4byte 0x8000001c
 lbl_0800cfcc: .4byte 0x0875f1e8
@@ -186,7 +186,7 @@ lbl_0800d060:
     ands r0, r1
     adds r0, r0, r2
     ldrb r0, [r0]
-    ldr r1, lbl_0800d0c0 @ =gSpriteRNG
+    ldr r1, lbl_0800d0c0 @ =gSpriteRng
     strb r0, [r1]
     adds r0, r6, #0
     bl SpriteUtilUpdateStunTimer
@@ -209,7 +209,7 @@ lbl_0800d0b0: .4byte 0x040000d4
 lbl_0800d0b4: .4byte 0x8000001c
 lbl_0800d0b8: .4byte gSpriteData
 lbl_0800d0bc: .4byte 0x082b0cac
-lbl_0800d0c0: .4byte gSpriteRNG
+lbl_0800d0c0: .4byte gSpriteRng
 lbl_0800d0c4: .4byte 0x0875f1e8
 lbl_0800d0c8:
     ldr r0, lbl_0800d104 @ =0x0875e8c0
@@ -276,7 +276,7 @@ lbl_0800d13e:
     movs r7, #0
     ldr r5, lbl_0800d1ac @ =gSpriteData
     ldr r4, lbl_0800d1b0 @ =0x040000d4
-    ldr r1, lbl_0800d1b4 @ =gSpriteRNG
+    ldr r1, lbl_0800d1b4 @ =gSpriteRng
     mov sl, r1
     ldr r0, lbl_0800d1b8 @ =0x082b0cac
     mov sb, r0
@@ -330,7 +330,7 @@ lbl_0800d14c:
     .align 2, 0
 lbl_0800d1ac: .4byte gSpriteData
 lbl_0800d1b0: .4byte 0x040000d4
-lbl_0800d1b4: .4byte gSpriteRNG
+lbl_0800d1b4: .4byte gSpriteRng
 lbl_0800d1b8: .4byte 0x082b0cac
 lbl_0800d1bc: .4byte gCurrentSprite
 lbl_0800d1c0: .4byte 0x8000001c
@@ -392,7 +392,7 @@ lbl_0800d23c:
     movs r7, #0
     ldr r5, lbl_0800d2b0 @ =gSpriteData
     ldr r4, lbl_0800d2b4 @ =0x040000d4
-    ldr r0, lbl_0800d2b8 @ =gSpriteRNG
+    ldr r0, lbl_0800d2b8 @ =gSpriteRng
     mov sl, r0
     ldr r1, lbl_0800d2bc @ =0x082b0cac
     mov sb, r1
@@ -449,7 +449,7 @@ lbl_0800d24a:
     .align 2, 0
 lbl_0800d2b0: .4byte gSpriteData
 lbl_0800d2b4: .4byte 0x040000d4
-lbl_0800d2b8: .4byte gSpriteRNG
+lbl_0800d2b8: .4byte gSpriteRng
 lbl_0800d2bc: .4byte 0x082b0cac
 lbl_0800d2c0: .4byte gCurrentSprite
 lbl_0800d2c4: .4byte 0x8000001c
@@ -5249,7 +5249,7 @@ lbl_0800f804:
     thumb_func_start SpriteUtilChooseRandomXFlip
 SpriteUtilChooseRandomXFlip: @ 0x0800f80c
     push {lr}
-    ldr r0, lbl_0800f824 @ =gSpriteRNG
+    ldr r0, lbl_0800f824 @ =gSpriteRng
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -5261,7 +5261,7 @@ SpriteUtilChooseRandomXFlip: @ 0x0800f80c
     ands r0, r1
     b lbl_0800f838
     .align 2, 0
-lbl_0800f824: .4byte gSpriteRNG
+lbl_0800f824: .4byte gSpriteRng
 lbl_0800f828: .4byte gCurrentSprite
 lbl_0800f82c: .4byte 0x0000ffbf
 lbl_0800f830:
@@ -5279,7 +5279,7 @@ lbl_0800f840: .4byte gCurrentSprite
     thumb_func_start SpriteUtilChooseRandomXDirection
 SpriteUtilChooseRandomXDirection: @ 0x0800f844
     push {lr}
-    ldr r0, lbl_0800f85c @ =gSpriteRNG
+    ldr r0, lbl_0800f85c @ =gSpriteRng
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -5291,7 +5291,7 @@ SpriteUtilChooseRandomXDirection: @ 0x0800f844
     ands r0, r1
     b lbl_0800f874
     .align 2, 0
-lbl_0800f85c: .4byte gSpriteRNG
+lbl_0800f85c: .4byte gSpriteRng
 lbl_0800f860: .4byte gCurrentSprite
 lbl_0800f864: .4byte 0x0000fdff
 lbl_0800f868:
@@ -8468,7 +8468,7 @@ SpriteUtilDetermineEnemyDrop: @ 0x08010eec
     movs r0, #1
     mov sb, r0
 lbl_08010f0a:
-    ldr r0, lbl_08010f40 @ =gSpriteRNG
+    ldr r0, lbl_08010f40 @ =gSpriteRng
     ldrb r4, [r0]
     lsls r4, r4, #8
     ldr r1, lbl_08010f44 @ =gFrameCounter8Bit
@@ -8495,7 +8495,7 @@ lbl_08010f26:
     b lbl_08010f56
     .align 2, 0
 lbl_08010f3c: .4byte gEquipment
-lbl_08010f40: .4byte gSpriteRNG
+lbl_08010f40: .4byte gSpriteRng
 lbl_08010f44: .4byte gFrameCounter8Bit
 lbl_08010f48: .4byte gFrameCounter16Bit
 lbl_08010f4c: .4byte gCurrentSprite

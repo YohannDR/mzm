@@ -424,7 +424,7 @@ void MechaRidleyInit(void)
 
         // Set delay before crawling
         gCurrentSprite.yPositionSpawn = 60 * 5;
-        gCurrentSprite.arrayOffset = gSpriteRNG;
+        gCurrentSprite.arrayOffset = gSpriteRng;
         gCurrentSprite.oamRotation = 0;
 
         // Set crawling
@@ -609,7 +609,7 @@ u8 MechaRidleyCheckStartFireballAttack(u8 ramSlot)
 {
     if (!(gCurrentSprite.arrayOffset & 0x3F))
     {
-        if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2) && gSpriteRNG < 8)
+        if (!(gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2) && gSpriteRng < 8)
             MechaRidleyClawAttackInit(ramSlot); // Start claw attack
         else
         {
@@ -1020,7 +1020,7 @@ void MechaRidleyDying(void)
     u32 offset;
     u32 yPosition;
     
-    rng = gSpriteRNG * 2;
+    rng = gSpriteRng * 2;
 
     if (gCurrentSprite.invincibilityStunFlashTimer != 0)
     {
@@ -1128,8 +1128,8 @@ void MechaRidleySpawnDrops(void)
     yPosition = gCurrentSprite.yPosition - (BLOCK_SIZE + 0x24);
     xPosition = gCurrentSprite.xPosition - BLOCK_SIZE * 6;
 
-    partNumber = gSpriteRNG;
-    rngParam1 = gSpriteRNG * 8;
+    partNumber = gSpriteRng;
+    rngParam1 = gSpriteRng * 8;
     partNumber &= 3;
     rngParam2 = (gCurrentSprite.timer & 15) * 8;
     spriteID = PSPRITE_MULTIPLE_LARGE_ENERGY;
@@ -1632,7 +1632,7 @@ void MechaRidleyPartEyeIdle(void)
     u8 rng;
     u8 direction;
 
-    rng = gSpriteRNG;
+    rng = gSpriteRng;
 
     switch (gBossWork.work4)
     {

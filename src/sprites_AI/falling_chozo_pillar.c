@@ -74,7 +74,7 @@ void FallingChozoPillar(void)
                     else
                         effect = PE_SECOND_TWO_MEDIUM_DUST;
 
-                    ParticleSet(gCurrentSprite.yPosition - 0x100, gCurrentSprite.xPosition - 0x38 + gSpriteRNG * 0x8, effect);
+                    ParticleSet(gCurrentSprite.yPosition - 0x100, gCurrentSprite.xPosition - 0x38 + gSpriteRng * 0x8, effect);
                 }
 
                 gCurrentSprite.yPositionSpawn--; // Timer

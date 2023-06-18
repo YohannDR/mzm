@@ -87,7 +87,7 @@ void KraidCheckProjectilesCollidingWithBelly(void)
             projX = pProj->xPosition;
 
             // Set effects
-            if (gSpriteRNG & 0x1)
+            if (gSpriteRng & 0x1)
             {
                 SpriteDebrisInit(0x0, 0x12, projY + 0x10, projX - 0x8);
                 SpriteDebrisInit(0x0, 0x13, projY - 0x2A, projX + 0x14);
@@ -171,7 +171,7 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
             pSprite->currentAnimationFrame = 0x0;
             SoundPlay(0x1CE);
         }
-        else if (SpriteUtilCheckEndCurrentSpriteAnim() && gSpriteRNG < 0x5)
+        else if (SpriteUtilCheckEndCurrentSpriteAnim() && gSpriteRng < 0x5)
         {
             pSprite->pOam = sKraidOAM_MouthClosedBlink;
             pSprite->animationDurationCounter = 0x0;
@@ -226,7 +226,7 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
             }
             else if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
-                if (gSpriteRNG & 0x1)
+                if (gSpriteRng & 0x1)
                     pSprite->pOam = sKraidOAM_MouthClosed;
                 else
                     pSprite->pOam = sKraidOAM_MouthClosedBlink;
@@ -446,7 +446,7 @@ void KraidRandomSpriteDebrisOnCeiling(u8 timer)
         xPosition = gSubSpriteData1.xPosition + BLOCK_SIZE * 3;
     }
 
-    rng = gSpriteRNG;
+    rng = gSpriteRng;
     rng2 = gFrameCounter8Bit & 0x7;
 
     if (gFrameCounter8Bit & 0x1)
@@ -1539,14 +1539,14 @@ void KraidDying(void)
         if (!(gCurrentSprite.workVariable & 0xF))
         {
             ScreenShakeStartVertical(0x14, 0x81);
-            temp = gSpriteRNG * 0x10 - 0x64;
+            temp = gSpriteRng * 0x10 - 0x64;
             ParticleSet(gCurrentSprite.yPosition + temp,
                 gCurrentSprite.xPosition - 0xC8 + gCurrentSprite.workVariable, PE_SPRITE_EXPLOSION_HUGE);
         }
 
         if (!((gCurrentSprite.workVariable - 0x8) & 0xF))
         {
-            ParticleSet(gCurrentSprite.yPosition + 0x8C - gSpriteRNG * 0x10,
+            ParticleSet(gCurrentSprite.yPosition + 0x8C - gSpriteRng * 0x10,
                 gCurrentSprite.xPosition + 0xF0 - gCurrentSprite.workVariable, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
         }
 
@@ -1579,7 +1579,7 @@ void KraidBeforeDeath(void)
 
     gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
 
-    rng = gSpriteRNG;
+    rng = gSpriteRng;
     gCurrentSprite.workVariable++;
 
     timer = gCurrentSprite.workVariable;
@@ -2689,10 +2689,10 @@ void KraidSpike(void)
                     gCurrentClipdataAffectingAction = CAA_REMOVE_SOLID;
                     ClipdataProcess(yPosition, xPosition);
                     ParticleSet(yPosition, xPosition, PE_SPRITE_EXPLOSION_MEDIUM);
-                    SpriteDebrisInit(0x0, 0x11, yPosition - 0x1A - gSpriteRNG, xPosition);
-                    SpriteDebrisInit(0x0, 0x12, yPosition - 0x10, xPosition + 0x8 + gSpriteRNG);
-                    SpriteDebrisInit(0x0, 0x13, yPosition - 0x40 - gSpriteRNG, xPosition + 0x10);
-                    SpriteDebrisInit(0x0, 0x4, yPosition - 0x26, xPosition - 0x1C - gSpriteRNG);
+                    SpriteDebrisInit(0x0, 0x11, yPosition - 0x1A - gSpriteRng, xPosition);
+                    SpriteDebrisInit(0x0, 0x12, yPosition - 0x10, xPosition + 0x8 + gSpriteRng);
+                    SpriteDebrisInit(0x0, 0x13, yPosition - 0x40 - gSpriteRng, xPosition + 0x10);
+                    SpriteDebrisInit(0x0, 0x4, yPosition - 0x26, xPosition - 0x1C - gSpriteRng);
 
                     if (gCurrentSprite.roomSlot == KRAID_PART_TOP_HOLE_LEFT)
                     {
@@ -2757,10 +2757,10 @@ void KraidSpike(void)
                         }
                     }
 
-                    SpriteDebrisInit(0x0, 0x11, yPosition - gSpriteRNG, xPosition + 0x10);
-                    SpriteDebrisInit(0x0, 0x12, yPosition + 0x10, xPosition + gSpriteRNG * 0x2);
-                    SpriteDebrisInit(0x0, 0x13, yPosition + gSpriteRNG, xPosition - 0x10);
-                    SpriteDebrisInit(0x0, 0x4, yPosition - 0x10, xPosition - gSpriteRNG * 0x2);
+                    SpriteDebrisInit(0x0, 0x11, yPosition - gSpriteRng, xPosition + 0x10);
+                    SpriteDebrisInit(0x0, 0x12, yPosition + 0x10, xPosition + gSpriteRng * 0x2);
+                    SpriteDebrisInit(0x0, 0x13, yPosition + gSpriteRng, xPosition - 0x10);
+                    SpriteDebrisInit(0x0, 0x4, yPosition - 0x10, xPosition - gSpriteRng * 0x2);
                     gCurrentSprite.yPositionSpawn = 0x168;
                     gCurrentSprite.pose = KRAID_SPIKE_POSE_IN_WALL;
                     gCurrentSprite.drawOrder = 0x4;

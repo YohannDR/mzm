@@ -3623,7 +3623,7 @@ SpacePirateInit: @ 0x0802a374
     strh r1, [r4, #0xc]
     ldr r0, lbl_0802a420 @ =0x082e4320
     str r0, [r4, #0x18]
-    ldr r0, lbl_0802a424 @ =gSpriteRNG
+    ldr r0, lbl_0802a424 @ =gSpriteRng
     mov r8, r0
     ldrb r1, [r0]
     movs r0, #7
@@ -3679,7 +3679,7 @@ lbl_0802a3ec:
 lbl_0802a418: .4byte gCurrentSprite
 lbl_0802a41c: .4byte 0x0000ff60
 lbl_0802a420: .4byte 0x082e4320
-lbl_0802a424: .4byte gSpriteRNG
+lbl_0802a424: .4byte gSpriteRng
 lbl_0802a428: .4byte 0x082b0d68
 lbl_0802a42c:
     ldrh r0, [r4, #4]
@@ -4379,7 +4379,7 @@ lbl_0802a98c:
     strb r0, [r1]
     b lbl_0802a9ae
 lbl_0802a99c:
-    ldr r1, lbl_0802a9c4 @ =gSpriteRNG
+    ldr r1, lbl_0802a9c4 @ =gSpriteRng
     adds r0, r4, #0
     adds r0, #0x23
     ldrb r0, [r0]
@@ -4402,7 +4402,7 @@ lbl_0802a9b2:
     movs r0, #1
     b lbl_0802aa1e
     .align 2, 0
-lbl_0802a9c4: .4byte gSpriteRNG
+lbl_0802a9c4: .4byte gSpriteRng
 lbl_0802a9c8: .4byte gCurrentSprite
 lbl_0802a9cc: .4byte 0x082e43c8
 lbl_0802a9d0:
@@ -4434,7 +4434,7 @@ lbl_0802a9fc:
     str r0, [r4, #0x18]
     strb r5, [r4, #0x1c]
     strh r5, [r4, #0x16]
-    ldr r0, lbl_0802aa2c @ =gSpriteRNG
+    ldr r0, lbl_0802aa2c @ =gSpriteRng
     ldrb r1, [r0]
     lsls r0, r1, #2
     adds r0, r0, r1
@@ -4450,7 +4450,7 @@ lbl_0802aa20:
     bx r0
     .align 2, 0
 lbl_0802aa28: .4byte 0x082e4890
-lbl_0802aa2c: .4byte gSpriteRNG
+lbl_0802aa2c: .4byte gSpriteRng
 
     thumb_func_start SpacePirateIdleAtDoor
 SpacePirateIdleAtDoor: @ 0x0802aa30
@@ -5435,7 +5435,7 @@ lbl_0802b180:
     .align 2, 0
 lbl_0802b194: .4byte gSamusData
 lbl_0802b198:
-    ldr r0, lbl_0802b1ac @ =gSpriteRNG
+    ldr r0, lbl_0802b1ac @ =gSpriteRng
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -5446,7 +5446,7 @@ lbl_0802b198:
     movs r0, #0x5e
     b lbl_0802b1b6
     .align 2, 0
-lbl_0802b1ac: .4byte gSpriteRNG
+lbl_0802b1ac: .4byte gSpriteRng
 lbl_0802b1b0:
     adds r1, r5, #0
     adds r1, #0x24
@@ -6373,7 +6373,7 @@ lbl_0802b890:
     ldrb r0, [r1]
     cmp r0, #0
     bne lbl_0802b8c8
-    ldr r0, lbl_0802b8c0 @ =gSpriteRNG
+    ldr r0, lbl_0802b8c0 @ =gSpriteRng
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -6393,7 +6393,7 @@ lbl_0802b890:
     strb r0, [r1]
     b lbl_0802b8f6
     .align 2, 0
-lbl_0802b8c0: .4byte gSpriteRNG
+lbl_0802b8c0: .4byte gSpriteRng
 lbl_0802b8c4: .4byte gFrameCounter8Bit
 lbl_0802b8c8:
     adds r0, #1
@@ -6574,7 +6574,7 @@ lbl_0802ba10:
     ldrb r0, [r1]
     cmp r0, #0
     bne lbl_0802ba48
-    ldr r0, lbl_0802ba40 @ =gSpriteRNG
+    ldr r0, lbl_0802ba40 @ =gSpriteRng
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -6594,7 +6594,7 @@ lbl_0802ba10:
     strb r0, [r1]
     b lbl_0802ba76
     .align 2, 0
-lbl_0802ba40: .4byte gSpriteRNG
+lbl_0802ba40: .4byte gSpriteRng
 lbl_0802ba44: .4byte gFrameCounter8Bit
 lbl_0802ba48:
     adds r0, #1
@@ -6786,7 +6786,7 @@ lbl_0802bb88:
     .align 2, 0
 lbl_0802bba4: .4byte gSpriteDrawOrder
 lbl_0802bba8:
-    ldr r0, lbl_0802bbec @ =gSpriteRNG
+    ldr r0, lbl_0802bbec @ =gSpriteRng
     ldrb r1, [r0]
     movs r0, #1
     ands r0, r1
@@ -6822,7 +6822,7 @@ lbl_0802bbc2:
     strb r1, [r0]
     b lbl_0802bbfe
     .align 2, 0
-lbl_0802bbec: .4byte gSpriteRNG
+lbl_0802bbec: .4byte gSpriteRng
 lbl_0802bbf0: .4byte gCurrentSprite
 lbl_0802bbf4: .4byte 0x082e4830
 lbl_0802bbf8:

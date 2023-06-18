@@ -125,7 +125,7 @@ void DessgeegaJumpingInit(void)
     gCurrentSprite.pOam = sDessgeegaOAM_Jumping;
 
     // Set high or low jump depending on RNG
-    if (gSpriteRNG & 0x1)
+    if (gSpriteRng & 0x1)
         gCurrentSprite.workVariable2 = TRUE; // Low
     else
         gCurrentSprite.workVariable2 = FALSE; // High
@@ -164,10 +164,10 @@ void DessgeegaIdleInit(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         gCurrentSprite.currentAnimationFrame = 0x0;
         gCurrentSprite.timer = 0x0;
-        gCurrentSprite.workVariable = gSpriteRNG & 0x3;
+        gCurrentSprite.workVariable = gSpriteRng & 0x3;
 
         // Set screaming or idle
-        if (gSpriteRNG >= 0x8)
+        if (gSpriteRng >= 0x8)
             gCurrentSprite.pOam = sDessgeegaOAM_Idle;
         else
         {

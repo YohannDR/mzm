@@ -267,7 +267,7 @@ DeoremRandomSpriteDebris: @ 0x08020e64
     adds r0, r0, r1
     lsls r0, r0, #0x10
     lsrs r6, r0, #0x10
-    ldr r0, lbl_08020eb4 @ =gSpriteRNG
+    ldr r0, lbl_08020eb4 @ =gSpriteRng
     ldrb r5, [r0]
     ldr r0, lbl_08020eb8 @ =gFrameCounter8Bit
     ldrb r4, [r0]
@@ -287,7 +287,7 @@ DeoremRandomSpriteDebris: @ 0x08020e64
     b lbl_08020ed0
     .align 2, 0
 lbl_08020eb0: .4byte gBossWork
-lbl_08020eb4: .4byte gSpriteRNG
+lbl_08020eb4: .4byte gSpriteRng
 lbl_08020eb8: .4byte gFrameCounter8Bit
 lbl_08020ebc:
     adds r2, r5, #0
@@ -833,7 +833,7 @@ lbl_080212e0:
     blt lbl_080212ec
     b lbl_0802140c
 lbl_080212ec:
-    ldr r0, lbl_0802131c @ =gSpriteRNG
+    ldr r0, lbl_0802131c @ =gSpriteRng
     ldrb r0, [r0]
     cmp r0, #0
     bne lbl_080212fc
@@ -856,7 +856,7 @@ lbl_08021308:
     b lbl_0802140c
     .align 2, 0
 lbl_08021318: .4byte 0xfffffc00
-lbl_0802131c: .4byte gSpriteRNG
+lbl_0802131c: .4byte gSpriteRng
 lbl_08021320:
     ldr r1, lbl_0802134c @ =gLockScreen
     movs r4, #1
@@ -1944,7 +1944,7 @@ lbl_08021bac:
     bne lbl_08021c68
     cmp r5, #0x3c
     beq lbl_08021be6
-    ldr r0, lbl_08021c0c @ =gSpriteRNG
+    ldr r0, lbl_08021c0c @ =gSpriteRng
     ldrb r0, [r0]
     cmp r0, #0xa
     bhi lbl_08021be6
@@ -1969,7 +1969,7 @@ lbl_08021be6:
     b lbl_08021c4a
     .align 2, 0
 lbl_08021c08: .4byte 0x0000ffa0
-lbl_08021c0c: .4byte gSpriteRNG
+lbl_08021c0c: .4byte gSpriteRng
 lbl_08021c10: .4byte gBossWork
 lbl_08021c14: .4byte gCurrentSprite
 lbl_08021c18: .4byte 0xfffffe60
@@ -4316,7 +4316,7 @@ DeoremSegmentDying: @ 0x08022db4
     ldrh r5, [r1, #4]
     ldrb r3, [r1, #0x1e]
     adds r4, r3, #0
-    ldr r0, lbl_08022df0 @ =gSpriteRNG
+    ldr r0, lbl_08022df0 @ =gSpriteRng
     ldrb r0, [r0]
     lsls r0, r0, #0x19
     lsrs r2, r0, #0x18
@@ -4337,7 +4337,7 @@ lbl_08022dde:
     b lbl_08022df8
     .align 2, 0
 lbl_08022dec: .4byte gCurrentSprite
-lbl_08022df0: .4byte gSpriteRNG
+lbl_08022df0: .4byte gSpriteRng
 lbl_08022df4:
     adds r0, r2, r4
     subs r0, r5, r0
@@ -4739,7 +4739,7 @@ sub_080230d4: @ 0x080230d4
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_08023134
-    ldr r0, lbl_08023110 @ =gSpriteRNG
+    ldr r0, lbl_08023110 @ =gSpriteRng
     ldrb r1, [r0]
     cmp r1, #9
     bhi lbl_08023134
@@ -4758,7 +4758,7 @@ sub_080230d4: @ 0x080230d4
     .align 2, 0
 lbl_08023108: .4byte gCurrentSprite
 lbl_0802310c: .4byte 0x082d792c
-lbl_08023110: .4byte gSpriteRNG
+lbl_08023110: .4byte gSpriteRng
 lbl_08023114: .4byte 0x082d791c
 lbl_08023118:
     adds r1, r4, #0

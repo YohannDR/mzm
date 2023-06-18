@@ -131,7 +131,7 @@ void Steam(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         // Animation starts at a random frame
         // desyncs the steams and allows them to be already blowing on room load
-        gCurrentSprite.currentAnimationFrame = gSpriteRNG & 0x7;
+        gCurrentSprite.currentAnimationFrame = gSpriteRng & 0x7;
         
         gCurrentSprite.hitboxTopOffset = 0x0;
         gCurrentSprite.hitboxBottomOffset = 0x0;
@@ -213,7 +213,7 @@ void SteamDiagonal(void)
         gCurrentSprite.animationDurationCounter = 0x0;
         // Animation starts at the random frame
         // desyncs the steams and allows them to be already blowing on room load
-        gCurrentSprite.currentAnimationFrame = gSpriteRNG & 0x7;
+        gCurrentSprite.currentAnimationFrame = gSpriteRng & 0x7;
 
         gCurrentSprite.hitboxTopOffset = 0x0;
         gCurrentSprite.hitboxBottomOffset = 0x0;

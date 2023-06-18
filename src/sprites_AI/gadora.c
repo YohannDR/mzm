@@ -100,7 +100,7 @@ void GadoraIdleInit(void)
     gCurrentSprite.pOam = sGadoraOAM_EyeClosed;
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.timer = gSpriteRNG * 0x4 + 0x3D;
+    gCurrentSprite.timer = gSpriteRng * 0x4 + 0x3D;
 }
 
 /**
@@ -121,7 +121,7 @@ void GadoraSamusDetection(void)
             gCurrentSprite.currentAnimationFrame = 0x0;
         }
         else
-            gCurrentSprite.timer = gSpriteRNG * 0x4 + 0x3D; // Reset timer
+            gCurrentSprite.timer = gSpriteRng * 0x4 + 0x3D; // Reset timer
     }
 }
 
@@ -268,7 +268,7 @@ void GadoraDeath(void)
                 else if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY)
                     EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_GADORA_KILLED);
 
-                rng = gSpriteRNG;
+                rng = gSpriteRng;
                 xPosition += 0x10;
                 yOffset = rng - 0x48;
 
@@ -401,7 +401,7 @@ void GadoraEye(void)
             gCurrentSprite.timer--;
             if (gCurrentSprite.timer == 0x0)
             {
-                rng = gSpriteRNG;
+                rng = gSpriteRng;
                 yOffset = rng - 0x44;
                 rng += 0x10;
                 

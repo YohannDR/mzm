@@ -139,7 +139,7 @@ lbl_080184c8:
     strb r0, [r6]
     ldrh r4, [r6, #8]
     ldrh r5, [r6, #0xa]
-    ldr r0, lbl_08018508 @ =gSpriteRNG
+    ldr r0, lbl_08018508 @ =gSpriteRng
     ldrb r1, [r0]
     adds r0, r2, #0
     ands r0, r1
@@ -163,7 +163,7 @@ lbl_080184c8:
     .align 2, 0
 lbl_08018500: .4byte gCurrentSprite
 lbl_08018504: .4byte gProjectileData
-lbl_08018508: .4byte gSpriteRNG
+lbl_08018508: .4byte gSpriteRng
 lbl_0801850c:
     adds r3, r5, #0
     adds r3, #0xc
@@ -302,7 +302,7 @@ lbl_08018630:
     bne lbl_0801863a
     b lbl_0801872c
 lbl_0801863a:
-    ldr r0, lbl_08018648 @ =gSpriteRNG
+    ldr r0, lbl_08018648 @ =gSpriteRng
     ldrb r0, [r0]
     cmp r0, #4
     bhi lbl_0801872c
@@ -310,7 +310,7 @@ lbl_0801863a:
     str r0, [r5, #0x18]
     b lbl_0801867a
     .align 2, 0
-lbl_08018648: .4byte gSpriteRNG
+lbl_08018648: .4byte gSpriteRng
 lbl_0801864c: .4byte 0x082cab44
 lbl_08018650:
     ldr r7, lbl_08018668 @ =0x082cab44
@@ -393,7 +393,7 @@ lbl_080186ec:
     bl SpriteUtilCheckEndCurrentSpriteAnim
     cmp r0, #0
     beq lbl_0801872c
-    ldr r0, lbl_08018704 @ =gSpriteRNG
+    ldr r0, lbl_08018704 @ =gSpriteRng
     ldrb r1, [r0]
     ldr r0, [sp]
     ands r0, r1
@@ -402,7 +402,7 @@ lbl_080186ec:
     str r6, [r5, #0x18]
     b lbl_0801870a
     .align 2, 0
-lbl_08018704: .4byte gSpriteRNG
+lbl_08018704: .4byte gSpriteRng
 lbl_08018708:
     str r7, [r5, #0x18]
 lbl_0801870a:
@@ -893,7 +893,7 @@ lbl_08018a90:
     lsls r0, r0, #0x10
     lsrs r4, r0, #0x10
 lbl_08018aa2:
-    ldr r0, lbl_08018aec @ =gSpriteRNG
+    ldr r0, lbl_08018aec @ =gSpriteRng
     ldrb r7, [r0]
     ldr r0, lbl_08018af0 @ =gFrameCounter8Bit
     ldrb r1, [r0]
@@ -928,7 +928,7 @@ lbl_08018aa2:
     b lbl_08018b22
     .align 2, 0
 lbl_08018ae8: .4byte gBG1YPosition
-lbl_08018aec: .4byte gSpriteRNG
+lbl_08018aec: .4byte gSpriteRng
 lbl_08018af0: .4byte gFrameCounter8Bit
 lbl_08018af4: .4byte 0xfffffed4
 lbl_08018af8: .4byte 0xfffffd44
@@ -3189,7 +3189,7 @@ lbl_08019c9e:
     movs r0, #0x14
     movs r1, #0x81
     bl ScreenShakeStartVertical
-    ldr r0, lbl_08019d20 @ =gSpriteRNG
+    ldr r0, lbl_08019d20 @ =gSpriteRng
     ldrb r0, [r0]
     lsls r0, r0, #4
     subs r0, #0x64
@@ -3209,7 +3209,7 @@ lbl_08019cd2:
     cmp r0, #0
     bne lbl_08019cf6
     ldrh r0, [r5, #2]
-    ldr r1, lbl_08019d20 @ =gSpriteRNG
+    ldr r1, lbl_08019d20 @ =gSpriteRng
     ldrb r1, [r1]
     lsls r1, r1, #4
     subs r1, #0x8c
@@ -3238,7 +3238,7 @@ lbl_08019cf6:
     b lbl_08019d3a
     .align 2, 0
 lbl_08019d1c: .4byte gCurrentSprite
-lbl_08019d20: .4byte gSpriteRNG
+lbl_08019d20: .4byte gSpriteRng
 lbl_08019d24: .4byte gSubSpriteData1
 lbl_08019d28: .4byte 0x000001d1
 lbl_08019d2c:
@@ -3272,7 +3272,7 @@ KraidBeforeDeath: @ 0x08019d44
     adds r1, #0x26
     movs r0, #1
     strb r0, [r1]
-    ldr r0, lbl_08019dbc @ =gSpriteRNG
+    ldr r0, lbl_08019dbc @ =gSpriteRng
     ldrb r4, [r0]
     mov r8, r4
     ldrb r0, [r5]
@@ -3313,7 +3313,7 @@ KraidBeforeDeath: @ 0x08019d44
     b lbl_08019dee
     .align 2, 0
 lbl_08019db8: .4byte gCurrentSprite
-lbl_08019dbc: .4byte gSpriteRNG
+lbl_08019dbc: .4byte gSpriteRng
 lbl_08019dc0:
     mov r1, r8
     lsls r0, r1, #4
@@ -5842,7 +5842,7 @@ lbl_0801b234:
     adds r1, r7, #0
     movs r2, #0x20
     bl ParticleSet
-    ldr r4, lbl_0801b2c8 @ =gSpriteRNG
+    ldr r4, lbl_0801b2c8 @ =gSpriteRng
     ldrb r2, [r4]
     adds r2, #0x1a
     subs r2, r6, r2
@@ -5895,7 +5895,7 @@ lbl_0801b2ac:
 lbl_0801b2bc: .4byte gCurrentSprite
 lbl_0801b2c0: .4byte gSamusData
 lbl_0801b2c4: .4byte gCurrentClipdataAffectingAction
-lbl_0801b2c8: .4byte gSpriteRNG
+lbl_0801b2c8: .4byte gSpriteRng
 lbl_0801b2cc: .4byte gSubSpriteData1
 lbl_0801b2d0: .4byte 0x000001c9
 lbl_0801b2d4:
@@ -6038,7 +6038,7 @@ lbl_0801b3d0:
     movs r2, #0x20
     bl ParticleSet
 lbl_0801b3f8:
-    ldr r4, lbl_0801b460 @ =gSpriteRNG
+    ldr r4, lbl_0801b460 @ =gSpriteRng
     ldrb r2, [r4]
     subs r2, r6, r2
     adds r3, r7, #0
@@ -6085,7 +6085,7 @@ lbl_0801b3f8:
     b lbl_0801b4e2
     .align 2, 0
 lbl_0801b45c: .4byte gCurrentClipdataAffectingAction
-lbl_0801b460: .4byte gSpriteRNG
+lbl_0801b460: .4byte gSpriteRng
 lbl_0801b464: .4byte gCurrentSprite
 lbl_0801b468: .4byte 0x000001cb
 lbl_0801b46c:

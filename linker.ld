@@ -133,7 +133,7 @@ SECTIONS {
         . = 0x000007F2; gIgnoreSamusAndSpriteCollision = .;
         . = 0x000007F3; gSpriteDrawOrder = .;
         . = 0x0000080C; gBossWork = .;
-        . = 0x0000083C; gSpriteRNG = .;
+        . = 0x0000083C; gSpriteRng = .;
         . = 0x00000840; gParticleEffects = .;
         . = 0x00000900; gMissileHighlightStatus = .;
         . = 0x00000901; gPowerBombHighlightStatus = .;

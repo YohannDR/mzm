@@ -132,7 +132,7 @@ void MellaIdleInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    rng = gSpriteRNG;
+    rng = gSpriteRng;
     gCurrentSprite.arrayOffset = rng * 4;
     gCurrentSprite.workVariable2 = rng * 2;
 }

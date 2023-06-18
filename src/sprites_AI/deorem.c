@@ -178,7 +178,7 @@ void DeoremRandomSpriteDebris(u8 rng)
 {
     u16 yPosOffset = gBossWork.work1 + HALF_BLOCK_SIZE;
     u16 xPosOffset = gBossWork.work2 + 6 * BLOCK_SIZE + HALF_BLOCK_SIZE;
-    u8 rng1 = gSpriteRNG;
+    u8 rng1 = gSpriteRng;
     u8 rng2 = gFrameCounter8Bit;
 
     if ((rng1 & 1) == 1)
@@ -399,7 +399,7 @@ void DeoremSpawnGoingDown(void)
     {
         if (samusX > xPosition - (BLOCK_SIZE * 16) && samusX < xPosition + (BLOCK_SIZE * 16))
         {
-            if (gSpriteRNG == 0)
+            if (gSpriteRng == 0)
             {
                 ScreenShakeStartVertical(10, 0x81);
             }
@@ -414,7 +414,7 @@ void DeoremSpawnGoingDown(void)
     {
         if (samusX > xPosition - (BLOCK_SIZE * 16) && samusX < xPosition + (BLOCK_SIZE * 16))
         {
-            if (gSpriteRNG == 0)
+            if (gSpriteRng == 0)
             {
                 ScreenShakeStartVertical(10, 0x81);
             }
@@ -893,7 +893,7 @@ void DeoremRetracting(void)
         
             if (!DeoremCheckLeaving(spriteOffset))
             {
-                if ((health == 0x3C) || (gSpriteRNG >= 0xB) || (0x15 > health))
+                if ((health == 0x3C) || (gSpriteRng >= 0xB) || (0x15 > health))
                 {
                     if (gBossWork.work3 != 0)
                     {
@@ -2005,7 +2005,7 @@ void DeoremSegmentDying(void)
     gCurrentSprite.ignoreSamusCollisionTimer = 1;
     xPosition = gCurrentSprite.xPosition;
     roomSlot = gCurrentSprite.roomSlot;
-    rng = gSpriteRNG;
+    rng = gSpriteRng;
     randomMovement = rng * 2;
 
     if (roomSlot > 11)
@@ -2227,7 +2227,7 @@ void DeoremEyeMainLoop(void)
     {
         u8 rand;
         
-        if (SpriteUtilCheckEndCurrentSpriteAnim() && (rand = gSpriteRNG) < 10)
+        if (SpriteUtilCheckEndCurrentSpriteAnim() && (rand = gSpriteRng) < 10)
         {
             gCurrentSprite.pOam = sDeoremOam_082d791C;
             gCurrentSprite.animationDurationCounter = 0;

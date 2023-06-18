@@ -1118,7 +1118,7 @@ void SpriteUtilCurrentSpriteFall(void)
  */
 void SpriteUtilChooseRandomXFlip(void)
 {
-    if (gSpriteRNG & 0x1)
+    if (gSpriteRng & 0x1)
         gCurrentSprite.status &= ~SPRITE_STATUS_XFLIP;
     else
         gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
@@ -1130,7 +1130,7 @@ void SpriteUtilChooseRandomXFlip(void)
  */
 void SpriteUtilChooseRandomXDirection(void)
 {
-    if (gSpriteRNG & 0x1)
+    if (gSpriteRng & 0x1)
         gCurrentSprite.status &= ~SPRITE_STATUS_FACING_RIGHT;
     else
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
@@ -2766,40 +2766,44 @@ u8 SpriteUtilGetAmmoDrop(u8 rng)
     return PSPRITE_UNUSED0;
 }
 
+/**
+ * @brief 10eec | 198 | Determines the enemy drop for the current sprite
+ * 
+ * @return u8 Drop sprite ID
+ */
 u8 SpriteUtilDetermineEnemyDrop(void)
 {
-    // https://decomp.me/scratch/94Ohs
-
-    /*u8 fullLife;
-    u32 rng;
+    u8 drop;
+    u8 fullLife;
+    u16 rng;
     u8 spriteID;
-    u16 energyProb;
+
+    u16 smallEnergyProb;
     u16 largeEnergyProb;
     u16 missileProb;
     u16 superProb;
     u16 powerProb;
-    u16 nonProb;
-    u16 currentProb;
-    u8 drop;
-    u32 limit;
 
     drop = PSPRITE_UNUSED0;
 
     fullLife = FALSE;
     if (gEquipment.currentEnergy == gEquipment.maxEnergy)
         fullLife = TRUE;
-    
-    rng = gSpriteRNG;
-    rng *= 0x100;
-    rng = (u16)(rng + (gFrameCounter8Bit + gFrameCounter16Bit) << 0x6) >> 0x6;
-    
-    if (rng == 0x0)
-        rng = 0x1;
+
+    rng = gSpriteRng;
+    rng *= 256;
+    rng = (gFrameCounter8Bit + gFrameCounter16Bit + rng);
+    rng = rng * 64;
+    rng = rng / 64;
+
+    if (rng == 0)
+        rng = 1;
 
     spriteID = gCurrentSprite.spriteID;
+
     if (gCurrentSprite.properties & SP_SECONDARY_SPRITE)
     {
-        energyProb = sSecondarySpriteStats[spriteID][4];
+        smallEnergyProb = sSecondarySpriteStats[spriteID][4];
         largeEnergyProb = sSecondarySpriteStats[spriteID][5];
         missileProb = sSecondarySpriteStats[spriteID][6];
         superProb = sSecondarySpriteStats[spriteID][7];
@@ -2807,23 +2811,28 @@ u8 SpriteUtilDetermineEnemyDrop(void)
     }
     else
     {
-        energyProb = sPrimarySpriteStats[spriteID][4];
+        smallEnergyProb = sPrimarySpriteStats[spriteID][4];
         largeEnergyProb = sPrimarySpriteStats[spriteID][5];
         missileProb = sPrimarySpriteStats[spriteID][6];
         superProb = sPrimarySpriteStats[spriteID][7];
         powerProb = sPrimarySpriteStats[spriteID][8];
     }
 
-    if (powerProb != 0x0)
+    if (powerProb != 0)
     {
-        nonProb = 0x400 - powerProb;
+        powerProb = 0x400 - powerProb;
+
         if (rng <= 0x400 && rng > powerProb)
         {
-            if (gEquipment.maxPowerBombs <= gEquipment.currentPowerBombs)
+            if (gEquipment.maxPowerBombs > gEquipment.currentPowerBombs)
+            {
+                drop = PSPRITE_POWER_BOMB_DROP;
+            }
+            else
             {
                 if (fullLife)
                 {
-                    if (gEquipment.maxPowerBombs != 0x0)
+                    if (gEquipment.maxPowerBombs != 0)
                         drop = PSPRITE_POWER_BOMB_DROP;
                     else
                         drop = PSPRITE_SMALL_ENERGY_DROP;
@@ -2831,25 +2840,30 @@ u8 SpriteUtilDetermineEnemyDrop(void)
                 else
                     drop = PSPRITE_LARGE_ENERGY_DROP;
             }
-            else
-                drop = PSPRITE_POWER_BOMB_DROP;
 
             return drop;
         }
     }
     else
-        nonProb = 0x400;
-
-    if (superProb != 0x0)
     {
-        currentProb = nonProb - superProb;
-        if (nonProb >= rng && rng > currentProb)
+        powerProb = 0x400;
+    }
+
+    if (superProb != 0)
+    {
+        superProb = powerProb - superProb;
+
+        if (powerProb >= rng && rng > superProb)
         {
-            if (gEquipment.maxSuperMissiles <= gEquipment.currentSuperMissiles)
+            if (gEquipment.maxSuperMissiles > gEquipment.currentSuperMissiles)
+            {
+                drop = PSPRITE_SUPER_MISSILE_DROP;
+            }
+            else
             {
                 if (fullLife)
                 {
-                    if (gEquipment.maxSuperMissiles != 0x0)
+                    if (gEquipment.maxSuperMissiles != 0)
                         drop = PSPRITE_SUPER_MISSILE_DROP;
                     else
                         drop = PSPRITE_SMALL_ENERGY_DROP;
@@ -2857,24 +2871,30 @@ u8 SpriteUtilDetermineEnemyDrop(void)
                 else
                     drop = PSPRITE_LARGE_ENERGY_DROP;
             }
-            else
-                drop = PSPRITE_SUPER_MISSILE_DROP;
 
             return drop;
         }
-        nonProb = currentProb;
+    }
+    else
+    {
+        superProb = powerProb;
     }
 
-    if (missileProb != 0x0)
+    if (missileProb != 0)
     {
-        currentProb = nonProb - missileProb;
-        if (nonProb >= rng && rng > currentProb)
+        missileProb = superProb - missileProb;
+
+        if (superProb >= rng && rng > missileProb)
         {
-            if (gEquipment.maxMissiles <= gEquipment.currentMissiles)
+            if (gEquipment.maxMissiles > gEquipment.currentMissiles)
+            {
+                drop = PSPRITE_MISSILE_DROP;
+            }
+            else
             {
                 if (fullLife)
                 {
-                    if (gEquipment.maxMissiles != 0x0)
+                    if (gEquipment.maxMissiles != 0)
                         drop = PSPRITE_MISSILE_DROP;
                     else
                         drop = PSPRITE_SMALL_ENERGY_DROP;
@@ -2882,48 +2902,48 @@ u8 SpriteUtilDetermineEnemyDrop(void)
                 else
                     drop = PSPRITE_LARGE_ENERGY_DROP;
             }
-            else
+
+            return drop;
+        }
+    }
+    else
+    {
+        missileProb = superProb;
+    }
+
+    if (largeEnergyProb != 0)
+    {
+        largeEnergyProb = missileProb - largeEnergyProb;
+
+        if (missileProb >= rng  && rng > largeEnergyProb)
+        {
+            drop = PSPRITE_LARGE_ENERGY_DROP;
+            if (fullLife && gEquipment.maxMissiles > gEquipment.currentMissiles)
                 drop = PSPRITE_MISSILE_DROP;
 
             return drop;
         }
-        nonProb = currentProb;
+    }
+    else
+    {
+        largeEnergyProb = missileProb;
     }
 
-    if (largeEnergyProb != 0x0)
+    if (smallEnergyProb != 0)
     {
-        currentProb = nonProb - largeEnergyProb;
-        if (nonProb >= rng && rng > currentProb)
-        {
-            drop = PSPRITE_LARGE_ENERGY_DROP;
-            if (fullLife)
-            {
-                if (gEquipment.maxMissiles > gEquipment.currentMissiles)
-                    drop = PSPRITE_MISSILE_DROP;
-            }
+        smallEnergyProb = largeEnergyProb - smallEnergyProb;
 
-            return drop;
-        }
-        nonProb = currentProb;
-    }
-
-    if (energyProb != 0x0)
-    {
-        currentProb = nonProb - energyProb;
-        if (nonProb >= rng && rng > currentProb)
+        if (largeEnergyProb >= rng  && rng > smallEnergyProb)
         {
             drop = PSPRITE_SMALL_ENERGY_DROP;
-            if (fullLife)
-            {
-                if (gEquipment.maxMissiles > gEquipment.currentMissiles)
-                    drop = PSPRITE_MISSILE_DROP;
-            }
+            if (fullLife && gEquipment.maxMissiles > gEquipment.currentMissiles)
+                drop = PSPRITE_MISSILE_DROP;
 
             return drop;
         }
     }
 
-    return drop;*/
+    return drop;
 }
 
 /**

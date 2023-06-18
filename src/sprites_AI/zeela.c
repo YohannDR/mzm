@@ -940,7 +940,7 @@ void ZeelaEyesInit(void)
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
     gCurrentSprite.drawOrder = 0x3;
 
-    if (gSpriteRNG & 0x1)
+    if (gSpriteRng & 0x1)
     {
         gCurrentSprite.workVariable = TRUE;
         gCurrentSprite.oamRotation = 0x80;

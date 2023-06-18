@@ -54,7 +54,7 @@ void ExplosionZebesEscape(void)
     yPosition = gCurrentSprite.yPositionSpawn;
     xPosition = gBG1XPosition + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE;
 
-    rngParam1 = gSpriteRNG;
+    rngParam1 = gSpriteRng;
     rngParam2 = rngParam1 & 3;
 
     particleTimer = gCurrentSprite.arrayOffset++;

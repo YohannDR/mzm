@@ -1380,7 +1380,7 @@ lbl_0802ffb8:
     lsrs r5, r0, #0x10
     cmp r5, #0
     beq lbl_0802fff8
-    ldr r0, lbl_0802fff0 @ =gSpriteRNG
+    ldr r0, lbl_0802fff0 @ =gSpriteRng
     ldrb r7, [r0]
     ldr r0, lbl_0802fff4 @ =0x0000fffb
     ands r0, r1
@@ -1397,7 +1397,7 @@ lbl_0802ffe0: .4byte 0x082e8318
 lbl_0802ffe4: .4byte gSubSpriteData1
 lbl_0802ffe8: .4byte gEquipment
 lbl_0802ffec: .4byte gDoorUnlockTimer
-lbl_0802fff0: .4byte gSpriteRNG
+lbl_0802fff0: .4byte gSpriteRng
 lbl_0802fff4: .4byte 0x0000fffb
 lbl_0802fff8:
     ldrb r7, [r6, #0x1f]
@@ -1548,7 +1548,7 @@ ParasiteSamusGrabbed: @ 0x08030100
     adds r0, #0x24
     movs r1, #0x44
     strb r1, [r0]
-    ldr r0, lbl_0803012c @ =gSpriteRNG
+    ldr r0, lbl_0803012c @ =gSpriteRng
     ldrb r2, [r0]
     cmp r2, #5
     bhi lbl_08030120
@@ -1560,7 +1560,7 @@ lbl_08030120:
     b lbl_08030288
     .align 2, 0
 lbl_08030128: .4byte gSamusData
-lbl_0803012c: .4byte gSpriteRNG
+lbl_0803012c: .4byte gSpriteRng
 lbl_08030130:
     ldr r1, lbl_0803016c @ =gParasiteRelated
     ldrb r0, [r1]
@@ -1616,7 +1616,7 @@ lbl_08030178:
     orrs r0, r4
 lbl_08030198:
     strh r0, [r3]
-    ldr r0, lbl_080301c8 @ =gSpriteRNG
+    ldr r0, lbl_080301c8 @ =gSpriteRng
     ldrb r0, [r0]
     strb r0, [r2]
 lbl_080301a0:
@@ -1640,7 +1640,7 @@ lbl_080301a0:
     b lbl_080301e8
     .align 2, 0
 lbl_080301c4: .4byte gSamusPhysics
-lbl_080301c8: .4byte gSpriteRNG
+lbl_080301c8: .4byte gSpriteRng
 lbl_080301cc: .4byte 0x0000ffbf
 lbl_080301d0:
     mov r0, ip
@@ -1657,7 +1657,7 @@ lbl_080301d0:
     orrs r0, r4
 lbl_080301e8:
     strh r0, [r3]
-    ldr r0, lbl_08030214 @ =gSpriteRNG
+    ldr r0, lbl_08030214 @ =gSpriteRng
     ldrb r0, [r0]
     strb r0, [r2]
 lbl_080301f0:
@@ -1671,7 +1671,7 @@ lbl_080301f0:
     adds r4, r1, #0
     cmp r0, #0
     beq lbl_08030218
-    ldr r0, lbl_08030214 @ =gSpriteRNG
+    ldr r0, lbl_08030214 @ =gSpriteRng
     ldrb r1, [r0]
     adds r2, r0, #0
     cmp r1, #0
@@ -1680,9 +1680,9 @@ lbl_080301f0:
     adds r0, #1
     b lbl_08030226
     .align 2, 0
-lbl_08030214: .4byte gSpriteRNG
+lbl_08030214: .4byte gSpriteRng
 lbl_08030218:
-    ldr r0, lbl_08030244 @ =gSpriteRNG
+    ldr r0, lbl_08030244 @ =gSpriteRng
     ldrb r1, [r0]
     adds r2, r0, #0
     cmp r1, #0
@@ -1707,7 +1707,7 @@ lbl_08030228:
     strh r0, [r3, #8]
     b lbl_08030260
     .align 2, 0
-lbl_08030244: .4byte gSpriteRNG
+lbl_08030244: .4byte gSpriteRng
 lbl_08030248:
     adds r1, r3, #0
     adds r1, #0x23
@@ -1983,7 +1983,7 @@ lbl_08030426:
     ldrb r0, [r0]
     cmp r0, #0
     beq lbl_08030490
-    ldr r1, lbl_08030460 @ =gSpriteRNG
+    ldr r1, lbl_08030460 @ =gSpriteRng
     ldrb r0, [r1]
     cmp r0, #8
     bls lbl_08030468
@@ -1995,7 +1995,7 @@ lbl_08030426:
     b lbl_0803047e
     .align 2, 0
 lbl_0803045c: .4byte gPreviousVerticalCollisionCheck
-lbl_08030460: .4byte gSpriteRNG
+lbl_08030460: .4byte gSpriteRng
 lbl_08030464: .4byte 0x082e8378
 lbl_08030468:
     ldr r0, lbl_0803048c @ =0x082e8398
@@ -2109,7 +2109,7 @@ lbl_08030508:
     adds r0, #0x24
     movs r1, #0xf
     strb r1, [r0]
-    ldr r1, lbl_08030554 @ =gSpriteRNG
+    ldr r1, lbl_08030554 @ =gSpriteRng
     ldrb r0, [r1]
     cmp r0, #8
     bls lbl_0803055c
@@ -2121,7 +2121,7 @@ lbl_08030508:
     b lbl_080305c2
     .align 2, 0
 lbl_08030550: .4byte 0x0000ffc0
-lbl_08030554: .4byte gSpriteRNG
+lbl_08030554: .4byte gSpriteRng
 lbl_08030558: .4byte 0x082e8378
 lbl_0803055c:
     ldr r0, lbl_08030574 @ =0x082e8398
@@ -2602,7 +2602,7 @@ ParasiteIdleInit: @ 0x080308cc
     movs r0, #0
     strh r2, [r3, #0x16]
     strb r0, [r3, #0x1c]
-    ldr r4, lbl_08030918 @ =gSpriteRNG
+    ldr r4, lbl_08030918 @ =gSpriteRng
     ldrb r0, [r4]
     lsrs r0, r0, #1
     cmp r0, #5
@@ -2628,7 +2628,7 @@ lbl_080308f0:
     bx r0
     .align 2, 0
 lbl_08030914: .4byte 0x082e8318
-lbl_08030918: .4byte gSpriteRNG
+lbl_08030918: .4byte gSpriteRng
 
     thumb_func_start sub_0803091c
 sub_0803091c: @ 0x0803091c
@@ -2686,7 +2686,7 @@ lbl_0803096c:
     movs r0, #0
     strh r6, [r5, #0x16]
     strb r0, [r5, #0x1c]
-    ldr r0, lbl_080309a4 @ =gSpriteRNG
+    ldr r0, lbl_080309a4 @ =gSpriteRng
     ldrb r1, [r0]
     lsls r0, r1, #1
     adds r0, r0, r1
@@ -2699,7 +2699,7 @@ lbl_0803096c:
     .align 2, 0
 lbl_0803099c: .4byte gFrameCounter8Bit
 lbl_080309a0: .4byte 0x082e8350
-lbl_080309a4: .4byte gSpriteRNG
+lbl_080309a4: .4byte gSpriteRng
 lbl_080309a8:
     adds r0, r4, #1
     cmp r1, r0
@@ -2717,7 +2717,7 @@ lbl_080309b4:
     movs r0, #0
     strh r6, [r5, #0x16]
     strb r0, [r5, #0x1c]
-    ldr r0, lbl_080309e0 @ =gSpriteRNG
+    ldr r0, lbl_080309e0 @ =gSpriteRng
     ldrb r1, [r0]
     cmp r1, #3
     bhi lbl_080309e4
@@ -2729,7 +2729,7 @@ lbl_080309b4:
     b lbl_080309ec
     .align 2, 0
 lbl_080309dc: .4byte 0x082e8480
-lbl_080309e0: .4byte gSpriteRNG
+lbl_080309e0: .4byte gSpriteRng
 lbl_080309e4:
     adds r0, r5, #0
     adds r0, #0x2f
@@ -2914,7 +2914,7 @@ lbl_08030b20:
     movs r0, #0
     strh r0, [r4, #0x16]
     strb r1, [r4, #0x1c]
-    ldr r0, lbl_08030b5c @ =gSpriteRNG
+    ldr r0, lbl_08030b5c @ =gSpriteRng
     ldrb r1, [r0]
     lsls r0, r1, #1
     adds r0, r0, r1
@@ -2927,7 +2927,7 @@ lbl_08030b20:
     .align 2, 0
 lbl_08030b54: .4byte gFrameCounter8Bit
 lbl_08030b58: .4byte 0x082e8350
-lbl_08030b5c: .4byte gSpriteRNG
+lbl_08030b5c: .4byte gSpriteRng
 lbl_08030b60:
     adds r0, r5, #1
     cmp r1, r0
@@ -2946,7 +2946,7 @@ lbl_08030b6c:
     movs r0, #0
     strh r2, [r4, #0x16]
     strb r0, [r4, #0x1c]
-    ldr r0, lbl_08030b98 @ =gSpriteRNG
+    ldr r0, lbl_08030b98 @ =gSpriteRng
     ldrb r1, [r0]
     cmp r1, #3
     bhi lbl_08030b9c
@@ -2958,7 +2958,7 @@ lbl_08030b6c:
     b lbl_08030ba4
     .align 2, 0
 lbl_08030b94: .4byte 0x082e8480
-lbl_08030b98: .4byte gSpriteRNG
+lbl_08030b98: .4byte gSpriteRng
 lbl_08030b9c:
     adds r0, r4, #0
     adds r0, #0x2f
@@ -3197,7 +3197,7 @@ lbl_08030d4a:
     cmp r5, #0
     beq lbl_08030d6c
 lbl_08030d4e:
-    ldr r0, lbl_08030d60 @ =gSpriteRNG
+    ldr r0, lbl_08030d60 @ =gSpriteRng
     ldrb r0, [r0]
     cmp r0, #6
     bls lbl_08030d64
@@ -3206,7 +3206,7 @@ lbl_08030d4e:
     movs r0, #8
     b lbl_08030d6a
     .align 2, 0
-lbl_08030d60: .4byte gSpriteRNG
+lbl_08030d60: .4byte gSpriteRng
 lbl_08030d64:
     adds r1, r4, #0
     adds r1, #0x24
@@ -3492,7 +3492,7 @@ sub_08030f4c: @ 0x08030f4c
     adds r0, #0x24
     movs r1, #0x44
     strb r1, [r0]
-    ldr r0, lbl_08030f98 @ =gSpriteRNG
+    ldr r0, lbl_08030f98 @ =gSpriteRng
     ldrb r0, [r0]
     cmp r0, #5
     bhi lbl_08030f7c
@@ -3511,7 +3511,7 @@ lbl_08030f7c:
     b lbl_080310e2
     .align 2, 0
 lbl_08030f94: .4byte gSpriteData
-lbl_08030f98: .4byte gSpriteRNG
+lbl_08030f98: .4byte gSpriteRng
 lbl_08030f9c: .4byte 0x00007fff
 lbl_08030fa0:
     ldr r1, lbl_08030fd0 @ =gParasiteRelated
@@ -3556,7 +3556,7 @@ lbl_08030fd8:
     orrs r0, r5
 lbl_08030ff0:
     strh r0, [r3]
-    ldr r0, lbl_08031020 @ =gSpriteRNG
+    ldr r0, lbl_08031020 @ =gSpriteRng
     ldrb r0, [r0]
     strb r0, [r4]
 lbl_08030ff8:
@@ -3581,7 +3581,7 @@ lbl_08030ff8:
     ands r0, r5
     b lbl_08031044
     .align 2, 0
-lbl_08031020: .4byte gSpriteRNG
+lbl_08031020: .4byte gSpriteRng
 lbl_08031024: .4byte 0x0000ffbf
 lbl_08031028:
     lsls r2, r6, #3
@@ -3600,7 +3600,7 @@ lbl_08031028:
     orrs r0, r5
 lbl_08031044:
     strh r0, [r3]
-    ldr r0, lbl_08031070 @ =gSpriteRNG
+    ldr r0, lbl_08031070 @ =gSpriteRng
     ldrb r0, [r0]
     strb r0, [r4]
 lbl_0803104c:
@@ -3614,7 +3614,7 @@ lbl_0803104c:
     adds r5, r1, #0
     cmp r0, #0
     beq lbl_08031074
-    ldr r0, lbl_08031070 @ =gSpriteRNG
+    ldr r0, lbl_08031070 @ =gSpriteRng
     ldrb r1, [r0]
     adds r4, r0, #0
     cmp r1, #0
@@ -3623,9 +3623,9 @@ lbl_0803104c:
     adds r0, #1
     b lbl_08031082
     .align 2, 0
-lbl_08031070: .4byte gSpriteRNG
+lbl_08031070: .4byte gSpriteRng
 lbl_08031074:
-    ldr r0, lbl_080310a0 @ =gSpriteRNG
+    ldr r0, lbl_080310a0 @ =gSpriteRng
     ldrb r1, [r0]
     adds r4, r0, #0
     cmp r1, #0
@@ -3650,7 +3650,7 @@ lbl_08031084:
     strh r0, [r3, #8]
     b lbl_080310bc
     .align 2, 0
-lbl_080310a0: .4byte gSpriteRNG
+lbl_080310a0: .4byte gSpriteRng
 lbl_080310a4:
     adds r1, r3, #0
     adds r1, #0x23
@@ -3813,7 +3813,7 @@ lbl_080311c4:
     movs r0, #0x44
     mov r1, sl
     strb r0, [r1]
-    ldr r0, lbl_080311fc @ =gSpriteRNG
+    ldr r0, lbl_080311fc @ =gSpriteRng
     ldrb r0, [r0]
     lsrs r7, r0, #1
     cmp r7, #8
@@ -3834,7 +3834,7 @@ lbl_080311ea:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080311fc: .4byte gSpriteRNG
+lbl_080311fc: .4byte gSpriteRng
 
     thumb_func_start ParasiteMultiple
 ParasiteMultiple: @ 0x08031200

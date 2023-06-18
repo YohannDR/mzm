@@ -1993,7 +1993,7 @@ lbl_0803e81c:
     adds r1, #0x24
     movs r0, #8
     strb r0, [r1]
-    ldr r0, lbl_0803e838 @ =gSpriteRNG
+    ldr r0, lbl_0803e838 @ =gSpriteRng
     ldrb r1, [r0]
     movs r0, #7
     ands r0, r1
@@ -2002,14 +2002,14 @@ lbl_0803e81c:
     b lbl_0803e852
     .align 2, 0
 lbl_0803e834: .4byte gCurrentSprite
-lbl_0803e838: .4byte gSpriteRNG
+lbl_0803e838: .4byte gSpriteRng
 lbl_0803e83c:
     ldr r2, lbl_0803e85c @ =gCurrentSprite
     adds r1, r2, #0
     adds r1, #0x24
     movs r0, #8
     strb r0, [r1]
-    ldr r0, lbl_0803e860 @ =gSpriteRNG
+    ldr r0, lbl_0803e860 @ =gSpriteRng
     ldrb r1, [r0]
     movs r0, #7
     ands r0, r1
@@ -2024,7 +2024,7 @@ lbl_0803e856:
     bx r0
     .align 2, 0
 lbl_0803e85c: .4byte gCurrentSprite
-lbl_0803e860: .4byte gSpriteRNG
+lbl_0803e860: .4byte gSpriteRng
 
     thumb_func_start AcidWormRaiseAcid
 AcidWormRaiseAcid: @ 0x0803e864
@@ -2261,7 +2261,7 @@ lbl_0803ea1c:
     ands r0, r1
     cmp r0, #0
     bne lbl_0803ea5c
-    ldr r0, lbl_0803ea50 @ =gSpriteRNG
+    ldr r0, lbl_0803ea50 @ =gSpriteRng
     ldrb r0, [r0]
     lsls r0, r0, #3
     adds r0, #0x48
@@ -2273,7 +2273,7 @@ lbl_0803ea1c:
     .align 2, 0
 lbl_0803ea48: .4byte gSubSpriteData1
 lbl_0803ea4c: .4byte gFrameCounter8Bit
-lbl_0803ea50: .4byte gSpriteRNG
+lbl_0803ea50: .4byte gSpriteRng
 lbl_0803ea54:
     ldr r1, lbl_0803ea7c @ =gEffectYPositionOffset
     ldrh r0, [r1]

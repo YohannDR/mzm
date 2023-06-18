@@ -307,8 +307,8 @@ void MellowInit(struct SpriteData* pSprite)
         {
             pSprite->pOam = sMellowOAM_Idle;
             pSprite->pose = 0x9;
-            pSprite->arrayOffset = gSpriteRNG << 0x2;
-            if (gSpriteRNG & 0x1)
+            pSprite->arrayOffset = gSpriteRng << 0x2;
+            if (gSpriteRng & 0x1)
                 pSprite->workVariable2 = 0x14;
             else
                 pSprite->workVariable2 = 0x3C;
@@ -327,7 +327,7 @@ void MellowInit(struct SpriteData* pSprite)
             pSprite->workVariable2 = 0x1;
             pSprite->timer = 0x0;
             pSprite->arrayOffset = 0x1;
-            pSprite->xPositionSpawn = gSpriteRNG & 0x3;
+            pSprite->xPositionSpawn = gSpriteRng & 0x3;
             pSprite->pose = 0x23;
             pSprite->oamScaling = 0x20;
             SpriteUtilMakeSpriteFaceSamusDirection();
@@ -406,7 +406,7 @@ void MellowFleeing(struct SpriteData* pSprite)
     u8 rng;
     s16 movement;
 
-    rng = gSpriteRNG / 4;
+    rng = gSpriteRng / 4;
     movement = rng + 0x8;
     if (pSprite->workVariable2 < 0x28)
         pSprite->xPosition += movement;
@@ -496,8 +496,8 @@ void MellowMove(struct SpriteData* pSprite)
     if (pSprite->roomSlot == 0x88)
     {
         limit = 0x14;
-        offset = gSpriteRNG + 0x1E;
-        spriteY = gSamusData.yPosition - (gSpriteRNG * 4 + 0xDC);
+        offset = gSpriteRng + 0x1E;
+        spriteY = gSamusData.yPosition - (gSpriteRng * 4 + 0xDC);
         spriteX = gSamusData.xPosition;
 
         switch (pSprite->xPositionSpawn)
@@ -917,12 +917,12 @@ void MellowSwarm(void)
             }
 
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-                x_pos = gSamusData.xPosition + (gSpriteRNG * 0x20);
+                x_pos = gSamusData.xPosition + (gSpriteRng * 0x20);
             else
-                x_pos = gSamusData.xPosition + (gSpriteRNG * -0x20);
+                x_pos = gSamusData.xPosition + (gSpriteRng * -0x20);
             if (x_pos & 0x8000)
                 x_pos = 0x0;
-            y_pos = (u16)(gBG1YPosition - ((gSpriteRNG * 0x2) + 0x10));
+            y_pos = (u16)(gBG1YPosition - ((gSpriteRng * 0x2) + 0x10));
             SpriteSpawnPrimary(PSPRITE_MELLOW, 0x88, gCurrentSprite.spritesetGfxSlot, y_pos, x_pos, 0x0);
         }
     }

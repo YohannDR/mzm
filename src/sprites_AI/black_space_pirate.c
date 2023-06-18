@@ -289,7 +289,7 @@ void BlackSpacePirateInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
     gCurrentSprite.animationDurationCounter = 0;
 
-    gCurrentSprite.timer = gSpriteRNG * 10 + 60;
+    gCurrentSprite.timer = gSpriteRng * 10 + 60;
     gCurrentSprite.workVariable = SPACE_PIRATE_AIM_FORWARD;
 
     gCurrentSprite.pose = BLACK_SPACE_PIRATE_POSE_INACTIVE;
@@ -656,7 +656,7 @@ void BlackSpacePirateJumping(void)
                 }
                 else
                 {
-                    if (gSpriteRNG & 1)
+                    if (gSpriteRng & 1)
                         gCurrentSprite.pose = SPACE_PIRATE_POSE_CLIMBING_DOWN_INIT;
                     else
                         gCurrentSprite.pose = SPACE_PIRATE_POSE_CLIMBING_UP_INIT;

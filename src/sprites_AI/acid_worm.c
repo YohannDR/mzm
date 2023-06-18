@@ -865,13 +865,13 @@ void AcidWormRetracting(void)
             else
             {
                 gCurrentSprite.pose = ACID_WORM_POSE_IDLE_INIT;
-                gCurrentSprite.timer = (gSpriteRNG & 0x7) * 0x8 + 0x3C;
+                gCurrentSprite.timer = (gSpriteRng & 0x7) * 0x8 + 0x3C;
             }
         }
         else
         {
             gCurrentSprite.pose = ACID_WORM_POSE_IDLE_INIT;
-            gCurrentSprite.timer = (gSpriteRNG & 0x7) * 0x8 + 0x50;
+            gCurrentSprite.timer = (gSpriteRng & 0x7) * 0x8 + 0x50;
         }
     }
 }
@@ -995,7 +995,7 @@ void AcidWormDying(void)
             if (gEffectYPosition < gCurrentSprite.yPositionSpawn)
             {
                 if (!(gFrameCounter8Bit & 0x1F))
-                    ParticleSet(gCurrentSprite.yPositionSpawn + 0x48 + gSpriteRNG * 0x8, gCurrentSprite.xPositionSpawn, PE_SECOND_TWO_MEDIUM_DUST);
+                    ParticleSet(gCurrentSprite.yPositionSpawn + 0x48 + gSpriteRng * 0x8, gCurrentSprite.xPositionSpawn, PE_SECOND_TWO_MEDIUM_DUST);
             }
             else
                 gEffectYPositionOffset++;

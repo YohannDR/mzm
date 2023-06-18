@@ -229,7 +229,7 @@ void CannonCheckSurroundings(void)
 {
     u8 rng;
 
-    rng = gSpriteRNG;
+    rng = gSpriteRng;
 
     gCurrentSprite.timer = rng * 8 + 10;
     gCurrentSprite.animationDurationCounter = 0;
@@ -294,7 +294,7 @@ void Cannon(void)
         return;
     }
 
-    rng = gSpriteRNG;
+    rng = gSpriteRng;
 
     if (gCurrentSprite.pose == 0)
     {

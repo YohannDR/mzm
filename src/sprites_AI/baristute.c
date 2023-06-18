@@ -225,7 +225,7 @@ void BaristuteIdleInit(void)
     gCurrentSprite.animationDurationCounter = 0x0;
     gCurrentSprite.currentAnimationFrame = 0x0;
 
-    gCurrentSprite.workVariable = gSpriteRNG & 0x3;
+    gCurrentSprite.workVariable = gSpriteRng & 0x3;
 }
 
 /**
@@ -493,21 +493,21 @@ void BaristuteDeath(void)
 
     yPosition = gCurrentSprite.yPosition - 0x60;
     xPosition = gCurrentSprite.xPosition;
-    rng = (u8)(gSpriteRNG * 2);
+    rng = (u8)(gSpriteRng * 2);
 
     // Kill sprite
     SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, xPosition, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
     if (gCurrentSprite.status)
     {
         // Has drop, spawn 2 other drops
-        if (gSpriteRNG & 0x1)
+        if (gSpriteRng & 0x1)
             spriteID = PSPRITE_LARGE_ENERGY_DROP;
         else
             spriteID = PSPRITE_MISSILE_DROP;
 
         SpriteSpawnDropFollowers(spriteID, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRamSlot, yPosition - 0x18 + rng, xPosition + 0x4C - rng, 0x0);
         
-        if (sRandomNumberTable[gSpriteRNG] & 0x1)
+        if (sRandomNumberTable[gSpriteRng] & 0x1)
             spriteID = PSPRITE_LARGE_ENERGY_DROP;
         else
             spriteID = PSPRITE_MISSILE_DROP;

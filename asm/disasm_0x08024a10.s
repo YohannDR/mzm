@@ -628,7 +628,7 @@ lbl_08024e8e:
     adds r1, #0x24
     movs r0, #9
     strb r0, [r1]
-    ldr r0, lbl_08024f14 @ =gSpriteRNG
+    ldr r0, lbl_08024f14 @ =gSpriteRng
     ldrb r1, [r0]
     lsls r0, r1, #2
     adds r2, r4, #0
@@ -647,7 +647,7 @@ lbl_08024f04: .4byte 0x0000fffb
 lbl_08024f08: .4byte 0x0000fff4
 lbl_08024f0c: .4byte 0x082b0d68
 lbl_08024f10: .4byte 0x082da88c
-lbl_08024f14: .4byte gSpriteRNG
+lbl_08024f14: .4byte gSpriteRng
 lbl_08024f18:
     adds r1, r4, #0
     adds r1, #0x2e
@@ -693,7 +693,7 @@ lbl_08024f3e:
     strb r5, [r0]
     adds r0, #3
     strb r2, [r0]
-    ldr r0, lbl_08024fa4 @ =gSpriteRNG
+    ldr r0, lbl_08024fa4 @ =gSpriteRng
     ldrb r0, [r0]
     ands r1, r0
     strh r1, [r4, #8]
@@ -720,7 +720,7 @@ lbl_08024f3e:
     .align 2, 0
 lbl_08024f9c: .4byte 0x082da8bc
 lbl_08024fa0: .4byte gIoRegistersBackup
-lbl_08024fa4: .4byte gSpriteRNG
+lbl_08024fa4: .4byte gSpriteRng
 lbl_08024fa8: .4byte gSamusData
 lbl_08024fac: .4byte gSamusPhysics
 lbl_08024fb0: .4byte 0x0000fbff
@@ -842,7 +842,7 @@ lbl_08025084: .4byte gIoRegistersBackup
 MellowFleeing: @ 0x08025088
     push {lr}
     adds r1, r0, #0
-    ldr r0, lbl_080250a8 @ =gSpriteRNG
+    ldr r0, lbl_080250a8 @ =gSpriteRng
     ldrb r0, [r0]
     lsrs r3, r0, #2
     adds r2, r3, #0
@@ -856,7 +856,7 @@ MellowFleeing: @ 0x08025088
     adds r0, r0, r2
     b lbl_080250b0
     .align 2, 0
-lbl_080250a8: .4byte gSpriteRNG
+lbl_080250a8: .4byte gSpriteRng
 lbl_080250ac:
     ldrh r0, [r1, #4]
     subs r0, r0, r2
@@ -1045,7 +1045,7 @@ lbl_08025202:
     cmp r0, #0x88
     bne lbl_08025298
     movs r7, #0x14
-    ldr r1, lbl_0802523c @ =gSpriteRNG
+    ldr r1, lbl_0802523c @ =gSpriteRng
     ldrb r0, [r1]
     adds r0, #0x1e
     lsls r0, r0, #0x18
@@ -1068,7 +1068,7 @@ lbl_08025202:
     b lbl_08025304
     .align 2, 0
 lbl_08025238: .4byte gSpritesetSpritesID
-lbl_0802523c: .4byte gSpriteRNG
+lbl_0802523c: .4byte gSpriteRng
 lbl_08025240:
     ldrh r0, [r2, #4]
     subs r0, #4
@@ -1980,7 +1980,7 @@ lbl_0802592c:
     cmp r0, #0
     beq lbl_08025950
     ldr r0, lbl_08025948 @ =gSamusData
-    ldr r2, lbl_0802594c @ =gSpriteRNG
+    ldr r2, lbl_0802594c @ =gSpriteRng
     ldrb r1, [r2]
     lsls r1, r1, #5
     ldrh r0, [r0, #0x12]
@@ -1990,10 +1990,10 @@ lbl_0802592c:
     b lbl_08025960
     .align 2, 0
 lbl_08025948: .4byte gSamusData
-lbl_0802594c: .4byte gSpriteRNG
+lbl_0802594c: .4byte gSpriteRng
 lbl_08025950:
     ldr r0, lbl_08025994 @ =gSamusData
-    ldr r2, lbl_08025998 @ =gSpriteRNG
+    ldr r2, lbl_08025998 @ =gSpriteRng
     ldrb r1, [r2]
     lsls r1, r1, #5
     ldrh r0, [r0, #0x12]
@@ -2030,5 +2030,5 @@ lbl_0802598c:
     bx r0
     .align 2, 0
 lbl_08025994: .4byte gSamusData
-lbl_08025998: .4byte gSpriteRNG
+lbl_08025998: .4byte gSpriteRng
 lbl_0802599c: .4byte gBG1YPosition

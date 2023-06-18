@@ -413,7 +413,7 @@ void ImagoCocoonFallingBeforeBlocks(void)
 
         yPosition = gBG1YPosition - BLOCK_SIZE;
         xPosition = gSubSpriteData1.xPosition;
-        rng = gSpriteRNG;
+        rng = gSpriteRng;
         
         timer = ++gCurrentSprite.timer;
         if (!(timer & 0x1F))

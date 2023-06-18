@@ -52,7 +52,7 @@ void WaterDrop(void)
 
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.pose = WATER_DROP_POSE_SPAWNING;
-            gCurrentSprite.timer = gSpriteRNG << 0x3;
+            gCurrentSprite.timer = gSpriteRng << 0x3;
             break;
 
         case WATER_DROP_POSE_CHECK_SPAWNING_ENDED:
@@ -123,7 +123,7 @@ void WaterDrop(void)
             {
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.pose = WATER_DROP_POSE_SPAWNING;
-                gCurrentSprite.timer = (gSpriteRNG << 0x3) + 0x64;
+                gCurrentSprite.timer = (gSpriteRng << 0x3) + 0x64;
             }
             break;
 
@@ -141,10 +141,10 @@ void WaterDrop(void)
                 gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn;
                 gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn;
 
-                if (gSpriteRNG & 0x1)
-                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + ((s32)(gSpriteRNG + 0x1) >> 1);
+                if (gSpriteRng & 0x1)
+                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + ((s32)(gSpriteRng + 0x1) >> 1);
                 else
-                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - ((s32)(gSpriteRNG + 0x1) >> 1);
+                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - ((s32)(gSpriteRng + 0x1) >> 1);
             }
     }
 }

@@ -560,7 +560,7 @@ lbl_0803bd04:
     strh r0, [r4, #6]
     ldrh r0, [r4, #4]
     strh r0, [r4, #8]
-    ldr r0, lbl_0803bd78 @ =gSpriteRNG
+    ldr r0, lbl_0803bd78 @ =gSpriteRng
     ldrb r0, [r0]
     lsls r0, r0, #4
     strh r0, [r4, #0x12]
@@ -573,7 +573,7 @@ lbl_0803bd68: .4byte gCurrentSprite
 lbl_0803bd6c: .4byte 0x0000ffe0
 lbl_0803bd70: .4byte 0x082f7998
 lbl_0803bd74: .4byte 0x082b0d68
-lbl_0803bd78: .4byte gSpriteRNG
+lbl_0803bd78: .4byte gSpriteRng
 
     thumb_func_start AtomicIdleInit
 AtomicIdleInit: @ 0x0803bd7c

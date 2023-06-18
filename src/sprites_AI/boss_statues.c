@@ -232,7 +232,7 @@ void KraidStatueOpening(void)
         yPosition = gBG1YPosition - BLOCK_SIZE;
         xPosition = gBG1XPosition + (BLOCK_SIZE * 9 - QUARTER_BLOCK_SIZE);
 
-        rngParam3 = gSpriteRNG;
+        rngParam3 = gSpriteRng;
 
         if (!(rngParam2 & 0x1F))
         {
@@ -451,7 +451,7 @@ void RidleyStatueOpening(void)
             yPosition = gBG1YPosition - BLOCK_SIZE;
             xPosition = gBG1XPosition + 0x190;
 
-            rngParam3 = gSpriteRNG;
+            rngParam3 = gSpriteRng;
 
             if (!(rngParam2 & 0x1F))
             {
