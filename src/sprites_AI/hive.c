@@ -499,8 +499,8 @@ void MellowMove(struct SpriteData* pSprite)
     if (pSprite->roomSlot == 0x88)
     {
         limit = 0x14;
-        offset = gSpriteRNG + 0x1E;
-        spriteY = gSamusData.yPosition - (gSpriteRNG * 4 + 0xDC);
+        offset = gSpriteRng + 0x1E;
+        spriteY = gSamusData.yPosition - (gSpriteRng * 4 + 0xDC);
         spriteX = gSamusData.xPosition;
 
         switch (pSprite->xPositionSpawn)
