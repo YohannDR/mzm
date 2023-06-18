@@ -198,10 +198,12 @@ u32 unk_72144(struct ChozoHintRelated* param_1)
     return yPosition << 16 | xPosition;
 }
 
+/**
+ * @brief 72204 | 46c | Handles the movement of the target on a chozo statue hint
+ * 
+ */
 void ChozoStatueHintMovement(void)
 {
-    // https://decomp.me/scratch/S0x90
-
     s32 norm;
     s32 var_2;
 
@@ -310,9 +312,9 @@ void ChozoStatueHintMovement(void)
             else
                 PAUSE_SCREEN_DATA.unk_8C[0].unk_12 += 5;
 
-            if (PAUSE_SCREEN_DATA.unk_48 % 8 == 0)
+            if ((PAUSE_SCREEN_DATA.unk_48 & 7) == 0)
             {
-                norm = (PAUSE_SCREEN_DATA.unk_48 / 8) % 4;
+                norm = (PAUSE_SCREEN_DATA.unk_48 >> 3) & 3;
                 norm++;
                 PAUSE_SCREEN_DATA.chozoHintOam[norm] = PAUSE_SCREEN_DATA.chozoHintOam[0];
 
@@ -328,7 +330,7 @@ void ChozoStatueHintMovement(void)
                     else
                         var_2 = 0xF;
                     PAUSE_SCREEN_DATA.chozoHintOam[norm].oamID = var_2;
-                    PAUSE_SCREEN_DATA.chozoHintOam[norm].animationDurationCounter = 4;
+                    PAUSE_SCREEN_DATA.chozoHintOam[norm].animationDurationCounter = 3;
                     PAUSE_SCREEN_DATA.chozoHintOam[norm].currentAnimationFrame = 5;
                     PAUSE_SCREEN_DATA.chozoHintOam[norm].exists = TRUE;
                 }
