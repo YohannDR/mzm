@@ -774,10 +774,9 @@ void SpriteLoadSpriteset(void)
             spriteset = 0;
     }
 
-    j = 0;
-    for (i = 0; i < 15; i++)
+    for (j = 0, i = 0; i < 15; i++)
     {
-        spriteID = sSpritesetPointers[spriteset][j * 2];
+        spriteID = sSpritesetPointers[spriteset][j * 2 + 0];
         gfxSlot = sSpritesetPointers[spriteset][j * 2 + 1];
 
         j++;
@@ -788,21 +787,21 @@ void SpriteLoadSpriteset(void)
         gSpritesetSpritesID[i] = spriteID;
         gSpritesetGfxSlots[i] = gfxSlot & 7;
 
-        if (gfxSlot != prevGfxSlot)
-        {
-            prevGfxSlot = gfxSlot;
-            if (gfxSlot != 8)
-            {
-                spriteID -= 0x10;
+        if (gfxSlot == prevGfxSlot)
+            continue;
 
-                LZ77UncompVRAM(sSpritesGraphicsPointers[spriteID], VRAM_BASE + 0x14000 + (gfxSlot * 2048));
+        prevGfxSlot = gfxSlot;
+        if (gfxSlot == 8)
+            continue;
 
-                ctrl_1 = ((u8*)sSpritesGraphicsPointers[spriteID])[1];
-                ctrl_2 = ((u8*)sSpritesGraphicsPointers[spriteID])[2] << 8;
-                dma_set(3, sSpritesPalettePointers[spriteID], PALRAM_BASE + 0x300 + gfxSlot * 32,
-                    (DMA_ENABLE << 16) | (ctrl_1 | ctrl_2) / 2048 << 4);
-            }
-        }
+        spriteID -= 0x10;
+
+        LZ77UncompVRAM(sSpritesGraphicsPointers[spriteID], VRAM_BASE + 0x14000 + (gfxSlot * 2048));
+
+        ctrl_1 = ((u8*)sSpritesGraphicsPointers[spriteID])[1];
+        ctrl_2 = ((u8*)sSpritesGraphicsPointers[spriteID])[2] << 8;
+        dma_set(3, sSpritesPalettePointers[spriteID], PALRAM_BASE + 0x300 + gfxSlot * 32,
+            (DMA_ENABLE << 16) | (ctrl_1 | ctrl_2) / 2048 << 4);
     }
 }
 
@@ -873,7 +872,7 @@ void SpriteLoadRoomSprites(void)
             1 | X position
             2 | Spriteset slot
         */
-        y = gCurrentRoomEntry.pEnemyRoomData[i * ENEMY_ROOM_DATA_SIZE];
+        y = gCurrentRoomEntry.pEnemyRoomData[i * ENEMY_ROOM_DATA_SIZE + 0];
 
         // Terminator
         if (y == UCHAR_MAX)
