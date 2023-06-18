@@ -27,7 +27,7 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
 
     u32 result;
     u32 bombChainType;
-    register u32 destroy asm("r4");
+    u32 destroy;
     u16 behavior;
     u16 clipdata;
 
@@ -166,7 +166,7 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
             break;
 
         case BLOCK_LIFE_TYPE_TANK:
-            // Check shoulr reveal
+            // Check should reveal
             if (sClipdataAffectingActionDamageTypes[gCurrentClipdataAffectingAction] & 
                 (CAA_DAMAGE_TYPE_BEAM | CAA_DAMAGE_TYPE_BOMB_PISTOL | CAA_DAMAGE_TYPE_MISSILE |
                 CAA_DAMAGE_TYPE_SUPER_MISSILE | CAA_DAMAGE_TYPE_POWER_BOMB))
