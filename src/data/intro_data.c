@@ -277,15 +277,14 @@ const u32 sTimeAttackAntiCheatTimes[4] = {
     0 | 0 << 8 | 22 << 16 | 0 << 24
 };
 
-const u8 sArray_45fd24[12] = {
-    4, 8, 16,
-    32, 8, 16,
-    16, 32, 4,
-    4, 8, 16,
+const u8 sArray_45fd24[3][4] = {
+    { 4, 8, 16, 32 },
+    { 8, 16, 16, 32 },
+    { 4, 4, 8, 16 }
 };
 
-const u8 sArray_45fd30[4] = {
-    4, 8, 16, 32
+const u8 sArray_45fd30[1][4] = {
+    { 4, 8, 16, 32 }
 };
 
 const u8 sIntroFuzzRandomValues_3[8] = {
