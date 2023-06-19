@@ -276,13 +276,13 @@ void SpriteUtilSamusAndSpriteCollision(void)
 
         collisionFlags = SPRITE_COLLISION_FLAG_NONE;
 
-        if ((i32)(verticalCollisionOffset - 0x4) > samusBottom)
+        if (verticalCollisionOffset - 0x4 > samusBottom)
         {
             if (pData->yVelocity <= 0x18)
                 collisionFlags = SPRITE_COLLISION_FLAG_ON_TOP;
         }
 
-        if ((i32)(verticalCollisionOffset + 0x4) < samusTop)
+        if (verticalCollisionOffset + 0x4 < samusTop)
             collisionFlags |= SPRITE_COLLISION_FLAG_ON_BOTTOM;
 
         if (horizontalCollisionOffset >= previousX)
@@ -342,7 +342,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 case SSC_SOLID:
                     if (!SpriteUtilCheckPullingSelfUp() && SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
                     {
-                        if ((i32)(samusY - 0x18) < spriteTop)
+                        if (samusY - 0x18 < spriteTop)
                         {
                             SpriteUtilCheckCollisionAtPosition(spriteTop + 0x1 + gSamusPhysics.drawDistanceTopOffset, samusX);
                             if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity <= 0x0)
@@ -429,7 +429,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                         pSprite->ignoreSamusCollisionTimer = 0xF;
                         gIgnoreSamusAndSpriteCollision = TRUE;
                     }
-                    else if ((i32)(samusY - 0x18) < spriteTop && !SpriteUtilCheckPullingSeftUp() && pData->invincibilityTimer < 0x26)
+                    else if (samusY - 0x18 < spriteTop && !SpriteUtilCheckPullingSeftUp() && pData->invincibilityTimer < 0x26)
                     {
                         SpriteUtilCheckCollisionAtPosition(spriteTop + 0x1 + gSamusPhysics.drawDistanceTopOffset, samusX);
                         if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 0x1)
