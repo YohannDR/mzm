@@ -27,7 +27,7 @@ void SpriteUtilMakeSpriteFaceAwawFromSamusXFlip(void);
 void SpriteUtilMakeSpriteFaceAwawFromSamusDirection(void);
 void unk_f978(s16 movement);
 void unk_f9e7(s16 movement);
-u8 SpriteUtilMakeSpriteFaceSamusRotation(s16 oamRotation, s16 samusY, s16 samusX, s16 spriteY, s16 spriteX);
+u8 SpriteUtilMakeSpriteFaceSamusRotation(s32 oamRotation, s32 targetY, s32 targetX, s32 spriteY, s32 spriteX);
 u32 SpriteUtilCheckEndCurrentSpriteAnim(void);
 u32 SpriteUtilCheckNearEndCurrentSpriteAnim(void);
 u8 SpriteUtilCheckEndSpriteAnim(u8 ramSlot);

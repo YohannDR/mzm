@@ -1261,81 +1261,139 @@ void unk_f9e7(s16 movement)
         gCurrentSprite.xPosition -= velocity;
 }
 
-u8 SpriteUtilMakeSpriteFaceSamusRotation(s16 oamRotation, s16 samusY, s16 samusX, s16 spriteY, s16 spriteX)
+/**
+ * @brief fa78 | 150 | Calcultes the new oam rotation to rotate a sprite towards a target
+ * 
+ * @param oamRotation Current rotation
+ * @param targetY Target Y
+ * @param targetX Target X
+ * @param spriteY Current Y
+ * @param spriteX Current X
+ * @return u8 New rotation
+ */
+u8 SpriteUtilMakeSpriteFaceSamusRotation(s32 oamRotation, s32 targetY, s32 targetX, s32 spriteY, s32 spriteX)
 {
-    // https://decomp.me/scratch/QMDVm
-
-    s16 var_0;
+    s32 var_0;
     u16 var_1;
-    u16 intensity;
+    s32 intensity;
+
+    s32 rotation;
+    s32 dstY;
+    s32 dstX;
+    s32 y;
+    s32 x;
+    
+    rotation = (s16)oamRotation;
+    dstY = (s16)targetY;
+    dstX = (s16)targetX;
+    y = (s16)spriteY;
+    x = (s16)spriteX;
 
     intensity = 2;
 
-    if (samusY < spriteY)
+    if (dstY < y)
     {
-        if (spriteX - BLOCK_SIZE < samusX && spriteX + BLOCK_SIZE > samusX)
+        if (x - BLOCK_SIZE < dstX && x + BLOCK_SIZE > dstX)
+        {
             var_0 = BLOCK_SIZE * 3;
+        }
+        else if (dstX > x)
+        {
+            if (y - dstY < BLOCK_SIZE)
+                var_0 = 0;
+            else
+                var_0 = BLOCK_SIZE * 3 + HALF_BLOCK_SIZE;
+        }
+        else if (y - dstY < BLOCK_SIZE)
+        {
+            var_0 = BLOCK_SIZE * 2;
+        }
         else
         {
-
+            var_0 = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
         }
     }
     else
     {
-
+        if (x - BLOCK_SIZE < dstX && x + BLOCK_SIZE > dstX)
+        {
+            var_0 = BLOCK_SIZE;
+        }
+        else if (dstX > x)
+        {
+            if (dstY - y < BLOCK_SIZE)
+                var_0 = 0;
+            else
+                var_0 = HALF_BLOCK_SIZE;
+        }
+        else if (dstY - y < BLOCK_SIZE)
+        {
+            var_0 = BLOCK_SIZE * 2;
+        }
+        else
+        {
+            var_0 = BLOCK_SIZE * 1 + HALF_BLOCK_SIZE;
+        }
     }
 
-    if (var_0 == HALF_BLOCK_SIZE)
+    if (var_0 == 0)
     {
-        if ((u16)(oamRotation - HALF_BLOCK_SIZE - 1) < 0x7F)
-            oamRotation -= intensity;
-        else if ((u16)(oamRotation - HALF_BLOCK_SIZE) < 0x7F)
-            oamRotation += intensity;
+        if ((u16)(rotation - 1) < BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation - intensity);
+        else if (rotation >+ BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation + intensity);
+    }
+    else if (var_0 == HALF_BLOCK_SIZE)
+    {
+        if ((u16)(rotation - HALF_BLOCK_SIZE - 1) < BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation - intensity);
+        else if ((u16)(rotation - HALF_BLOCK_SIZE) > BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation + intensity);
     }
     else if (var_0 == BLOCK_SIZE)
     {
-        if ((u16)(oamRotation - BLOCK_SIZE - 1) < 0x7F)
-            oamRotation -= intensity;
-        else if ((u16)(oamRotation - BLOCK_SIZE) < 0x7F)
-            oamRotation += intensity;
+        if ((u16)(rotation - BLOCK_SIZE - 1) < BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation - intensity);
+        else if ((u16)(rotation - BLOCK_SIZE) > BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation + intensity);
     }
     else if (var_0 == BLOCK_SIZE + HALF_BLOCK_SIZE)
     {
-        if ((u16)(oamRotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) < 0x7F)
-            oamRotation -= intensity;
-        else if ((u16)(oamRotation - (BLOCK_SIZE + HALF_BLOCK_SIZE)) < 0x7F)
-            oamRotation += intensity;
+        if ((u16)(rotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) < BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation - intensity);
+        else if ((u16)(rotation - (BLOCK_SIZE + HALF_BLOCK_SIZE)) > BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation + intensity);
     }
     else if (var_0 == BLOCK_SIZE * 2)
     {
-        if ((u16)(oamRotation - 1) < 0x7F)
-            oamRotation += intensity;
-        else if ((u16)(oamRotation) < 0x7F)
-            oamRotation -= intensity;
+        if ((u16)(rotation - 1) < BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation + intensity);
+        else if (rotation > BLOCK_SIZE * 2)
+            rotation = (s16)(rotation - intensity);
     }
     else if (var_0 == BLOCK_SIZE * 2 + HALF_BLOCK_SIZE)
     {
-        if ((u16)(oamRotation - HALF_BLOCK_SIZE - 1) < 0x7F)
-            oamRotation += intensity;
-        else if ((u16)(oamRotation) < 0x7F)
-            oamRotation -= intensity;
+        if ((u16)(rotation - HALF_BLOCK_SIZE - 1) < BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation + intensity);
+        else if ((u16)(rotation - HALF_BLOCK_SIZE - 1) > BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation - intensity);
     }
     else if (var_0 == BLOCK_SIZE * 3)
     {
-        if ((u16)(oamRotation - BLOCK_SIZE - 1) < 0x7F)
-            oamRotation += intensity;
-        else if ((u16)(oamRotation) < 0x7F)
-            oamRotation -= intensity;
+        if ((u16)(rotation - BLOCK_SIZE - 1) < BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation + intensity);
+        else if ((u16)(rotation - BLOCK_SIZE - 1) > BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation - intensity);
     }
     else if (var_0 == BLOCK_SIZE * 3 + HALF_BLOCK_SIZE)
     {
-        if ((u16)(oamRotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) < 0x7F)
-            oamRotation += intensity;
-        else if ((u16)(oamRotation) < 0x7F)
-            oamRotation -= intensity;
+        if ((u16)(rotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) < BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation + intensity);
+        else if ((u16)(rotation - (BLOCK_SIZE + HALF_BLOCK_SIZE) - 1) > BLOCK_SIZE * 2 - 1)
+            rotation = (s16)(rotation - intensity);
     }
 
-    return oamRotation;
+    return rotation;
 }
 
 u32 SpriteUtilCheckEndCurrentSpriteAnim(void)
