@@ -137,8 +137,6 @@ void KraidCheckProjectilesCollidingWithBelly(void)
 
 void KraidOpenCloseRoutineAndProjectileCollision(void)
 {
-    // https://decomp.me/scratch/TOZNZ
-
     struct SpriteData* pSprite;
     struct ProjectileData* pProj;
     const struct FrameData* pOam;
@@ -158,80 +156,104 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
     u8 damaged;
 
     pSprite = &gCurrentSprite;
-    if (gSubSpriteData1.workVariable2 != 0x0)
+
+    // Update opening mouth timer
+    if (gSubSpriteData1.workVariable2 != 0)
         gSubSpriteData1.workVariable2--;
+
+    // Update animations and check whether or not the mouth is open
 
     if (pSprite->pOam == sKraidOAM_MouthClosed)
     {
+        // Closed
         closed = TRUE;
-        if (gSubSpriteData1.workVariable2 != 0x0)
+        if (gSubSpriteData1.workVariable2 != 0)
         {
+            // Opening mouth timer active, set opening
             pSprite->pOam = sKraidOAM_OpeningMouth;
-            pSprite->animationDurationCounter = 0x0;
-            pSprite->currentAnimationFrame = 0x0;
+            pSprite->animationDurationCounter = 0;
+            pSprite->currentAnimationFrame = 0;
+
             SoundPlay(0x1CE);
         }
-        else if (SpriteUtilCheckEndCurrentSpriteAnim() && gSpriteRng < 0x5)
+        else if (SpriteUtilCheckEndCurrentSpriteAnim() && gSpriteRng < 5)
         {
+            // Random blinking animation
             pSprite->pOam = sKraidOAM_MouthClosedBlink;
-            pSprite->animationDurationCounter = 0x0;
-            pSprite->currentAnimationFrame = 0x0;
+            pSprite->animationDurationCounter = 0;
+            pSprite->currentAnimationFrame = 0;
         }
     }
     else if (pSprite->pOam == sKraidOAM_MouthClosedBlink)
     {
         closed = TRUE;
-        if (gSubSpriteData1.workVariable2 != 0x0)
+        if (gSubSpriteData1.workVariable2 != 0)
         {
+            // Opening mouth timer active, set opening
             pSprite->pOam = sKraidOAM_OpeningMouth;
-            pSprite->animationDurationCounter = 0x0;
-            pSprite->currentAnimationFrame = 0x0;
+            pSprite->animationDurationCounter = 0;
+            pSprite->currentAnimationFrame = 0;
+
             SoundPlay(0x1CE);
         }
         else if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
+            // Back to normal animation
             pSprite->pOam = sKraidOAM_MouthClosed;
-            pSprite->animationDurationCounter = 0x0;
-            pSprite->currentAnimationFrame = 0x0;
+            pSprite->animationDurationCounter = 0;
+            pSprite->currentAnimationFrame = 0;
         }
     }
     else if (pSprite->pOam == sKraidOAM_OpeningMouth)
     {
-        if (pSprite->currentAnimationFrame > 0x5)
+        if (pSprite->currentAnimationFrame > 5)
         {
+            // Enable projectile collision
             closed = FALSE;
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
+                // Set opened
                 pSprite->pOam = sKraidOAM_MouthOpened;
-                pSprite->animationDurationCounter = 0x0;
-                pSprite->currentAnimationFrame = 0x0;
+                pSprite->animationDurationCounter = 0;
+                pSprite->currentAnimationFrame = 0;
             }
         }
         else
+        {
+            // Not yet opened
             closed = TRUE;
+        }
     }
     else if (pSprite->pOam == sKraidOAM_ClosingMouth)
     {
-        if (pSprite->currentAnimationFrame <= 0x1)
+        if (pSprite->currentAnimationFrame <= 1)
+        {
+            // Not yet closed
             closed = FALSE;
+        }
         else
         {
+            // Closed
             closed = TRUE;
-            if (gSubSpriteData1.workVariable2 != 0x0)
+            if (gSubSpriteData1.workVariable2 != 0)
             {
+                // Opening mouth timer active, set opening
                 pSprite->pOam = sKraidOAM_OpeningMouth;
-                pSprite->animationDurationCounter = 0x0;
-                pSprite->currentAnimationFrame = 0x0;
+                pSprite->animationDurationCounter = 0;
+                pSprite->currentAnimationFrame = 0;
+
                 SoundPlay(0x1CE);
             }
             else if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
-                if (gSpriteRng & 0x1)
+                // Random animation
+                if (gSpriteRng & 1)
                     pSprite->pOam = sKraidOAM_MouthClosed;
                 else
                     pSprite->pOam = sKraidOAM_MouthClosedBlink;
-                pSprite->animationDurationCounter = 0x0;
-                pSprite->currentAnimationFrame = 0x0;
+
+                pSprite->animationDurationCounter = 0;
+                pSprite->currentAnimationFrame = 0;
             }
         }
     }
@@ -239,23 +261,24 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
     {
         pOam = sKraidOAM_Rising;
         closed = FALSE;
-        if (pSprite->pOam != pOam && gSubSpriteData1.workVariable2 == 0x0)
+        if (pSprite->pOam != pOam && gSubSpriteData1.workVariable2 == 0)
         {
             pSprite->pOam = sKraidOAM_ClosingMouth;
-            pSprite->animationDurationCounter = 0x0;
-            pSprite->currentAnimationFrame = 0x0;
+            pSprite->animationDurationCounter = 0;
+            pSprite->currentAnimationFrame = 0;
         }
     }
-    
+
+    // Get Y size of mouth
     if (!closed)
     {
-        yTopOffset = 0x4C;
-        yBottomOffset = 0x10;
+        yTopOffset = BLOCK_SIZE + 12;
+        yBottomOffset = QUARTER_BLOCK_SIZE;
     }
     else
     {
-        yTopOffset = 0x44;
-        yBottomOffset = 0x14;
+        yTopOffset = BLOCK_SIZE + 4;
+        yBottomOffset = QUARTER_BLOCK_SIZE + 4;
     }
 
     spriteY = pSprite->yPosition;
@@ -265,50 +288,59 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
     spriteLeft = spriteX + pSprite->hitboxLeftOffset;
     spriteRight = spriteX + pSprite->hitboxRightOffset;
 
+    // Loop through every projectile for custom collision
     for (pProj = gProjectileData; pProj < gProjectileData + MAX_AMOUNT_OF_PROJECTILES; pProj++)
     {
+        // Check :
+        // - Exists and has collision
+        // - Has been initialized
+        // - Is colliding with the head
         if (pProj->status & PROJ_STATUS_EXISTS && pProj->status & PROJ_STATUS_CAN_AFFECT_ENVIRONMENT &&
-            pProj->movementStage > 0x1 && pProj->xPosition > spriteLeft && pProj->xPosition < spriteRight &&
+            pProj->movementStage > 1 && pProj->xPosition > spriteLeft && pProj->xPosition < spriteRight &&
             pProj->yPosition > spriteTop && pProj->yPosition < spriteBottom)
         {
             projY = pProj->yPosition;
             projX = pProj->xPosition;
-            damaged = 0x0;
+            damaged = FALSE;
 
+            // Check collide with mouth interior
             if (projY > (spriteY - yTopOffset) && projY < (spriteY + yBottomOffset) &&
                 pProj->direction == ACD_FORWARD && !(pProj->status & PROJ_STATUS_XFLIP))
             {
+                // Get damage and particle effect
+                // Plasma beam isn't taken into account and is treated the same as doing nothing
                 if (pProj->type == PROJ_TYPE_MISSILE)
                 {
                     damaged = TRUE;
-                    damage = 0x14;
+                    damage = MISSILE_DAMAGE;
                     effect = PE_HITTING_SOMETHING_WITH_MISSILE;
                 }
                 else if (pProj->type == PROJ_TYPE_SUPER_MISSILE)
                 {
                     damaged = TRUE;
-                    damage = 0x64;
+                    damage = SUPER_MISSILE_DAMAGE;
                     effect = PE_HITTING_SOMETHING_WITH_SUPER_MISSILE;
                 }
                 else if (pProj->type == PROJ_TYPE_CHARGED_BEAM)
                 {
                     damaged = TRUE;
-                    damage = 0x8;
+                    damage = CHARGED_NORMAL_BEAM_DAMAGE;
                     effect = PE_HITTING_SOMETHING_WITH_NORMAL_BEAM;
                 }
                 else if (pProj->type == PROJ_TYPE_CHARGED_LONG_BEAM)
                 {
                     damaged = TRUE;
-                    damage = 0xC;
+                    damage = CHARGED_LONG_BEAM_DAMAGE;
                     effect = PE_HITTING_SOMETHING_WITH_LONG_BEAM;
                 }
                 else if (pProj->type == PROJ_TYPE_CHARGED_ICE_BEAM)
                 {
                     damaged = TRUE;
                     if (gEquipment.beamBombsActivation & BBF_LONG_BEAM)
-                        damage = 0x10;
+                        damage = CHARGED_ICE_LONG_BEAM_DAMAGE;
                     else
-                        damage = 0xC;
+                        damage = CHARGED_ICE_BEAM_DAMAGE;
+
                     effect = PE_HITTING_SOMETHING_WITH_ICE_BEAM;
                 }
                 else if (pProj->type == PROJ_TYPE_CHARGED_WAVE_BEAM)
@@ -318,12 +350,12 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
                     {
                         if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
                         {
-                            damage = 0x14;
+                            damage = CHARGED_WAVE_ICE_LONG_BEAM_DAMAGE;
                             effect = PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA;
                         }
                         else
                         {
-                            damage = 0x10;
+                            damage = CHARGED_WAVE_LONG_BEAM_DAMAGE;
                             effect = PE_HITTING_SOMETHING_WITH_WAVE_BEAM;
                         }
                     }
@@ -331,19 +363,19 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
                     {
                         if (gEquipment.beamBombsActivation & BBF_ICE_BEAM)
                         {
-                            damage = 0x10;
+                            damage = CHARGED_WAVE_ICE_BEAM_DAMAGE;
                             effect = PE_HITTING_SOMETHING_WITH_FULL_BEAM_NO_PLASMA;
                         }
                         else
                         {
-                            damage = 0xC;
+                            damage = CHARGED_WAVE_BEAM_DAMAGE;
                             effect = PE_HITTING_SOMETHING_WITH_WAVE_BEAM;
                         }
                     }
                 }
                 else
                 {
-                    pProj->status = 0x0;
+                    pProj->status = 0;
                     if ((pSprite->invincibilityStunFlashTimer & 0x7F) <= 0x2)
                     {
                         pSprite->invincibilityStunFlashTimer &= 0x80;
@@ -366,51 +398,61 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
                 {
                     pSprite->invincibilityStunFlashTimer &= 0x80;
                     pSprite->invincibilityStunFlashTimer |= 0x2;
-                    gSubSpriteData1.workVariable2 = 0xB4;
-                    damage = 0x0;
+
+                    // Set opening mouth timer to 3 seconds
+                    gSubSpriteData1.workVariable2 = 60 * 3;
+                    damage = 0;
                 }
 
                 if (pSprite->health > damage)
                 {
+                    // Damage kraid
                     pSprite->health -= damage;
-                    if (pSprite->health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 4)
+
+                    // Check update palette (both sprite and BG2)
+                    if (pSprite->health < sPrimarySpriteStats[PSPRITE_KRAID][0] >> 2)
                     {
-                        pSprite->absolutePaletteRow = 0x3;
-                        dma_set(3, sKraidPAL + 0xE0, PALRAM_BASE + 0x140, (DMA_ENABLE << 0x10) | 0x10);
+                        pSprite->absolutePaletteRow = 3;
+
+                        dma_set(3, sKraidPAL + 0xE0, PALRAM_BASE + 0x140, (DMA_ENABLE << 16) | 16);
                     }
-                    else if (pSprite->health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3)
+                    else if (pSprite->health < sPrimarySpriteStats[PSPRITE_KRAID][0] / 3)
                     {
-                        pSprite->absolutePaletteRow = 0x2;
-                        dma_set(3, sKraidPAL + 0xC0, PALRAM_BASE + 0x140, (DMA_ENABLE << 0x10) | 0x10);
+                        pSprite->absolutePaletteRow = 2;
+
+                        dma_set(3, sKraidPAL + 0xC0, PALRAM_BASE + 0x140, (DMA_ENABLE << 16) | 16);
                     }
-                    else if (pSprite->health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 4 * 3)
+                    else if (pSprite->health < (sPrimarySpriteStats[PSPRITE_KRAID][0] >> 2) * 3)
                     {
-                        pSprite->absolutePaletteRow = 0x1;
-                        dma_set(3, sKraidPAL + 0xA0, PALRAM_BASE + 0x140, (DMA_ENABLE << 0x10) | 0x10);
+                        pSprite->absolutePaletteRow = 1;
+
+                        dma_set(3, sKraidPAL + 0xA0, PALRAM_BASE + 0x140, (DMA_ENABLE << 16) | 16);
                     }
                 }
                 else
                 {
-                    pSprite->health = 0x0;
+                    // Kill kraid
+                    pSprite->health = 0;
                     pSprite->properties |= SP_DESTROYED;
-                    pSprite->freezeTimer = 0x0;
+                    pSprite->freezeTimer = 0;
                     pSprite->pose = KRAID_POSE_DYING_INIT;
-                    pSprite->ignoreSamusCollisionTimer = 0x1;
+                    pSprite->ignoreSamusCollisionTimer = 1;
                 }
 
                 pSprite->properties |= SP_DAMAGED;
                 gSubSpriteData1.health = pSprite->health;
-                pProj->status = 0x0;
+                pProj->status = 0;
                 ParticleSet(projY, projX, effect);
                 break;
             }
 
+            // Projectile didn't collide directly with head, make missiles tumble otherwise destroy
             if (pProj->type == PROJ_TYPE_MISSILE)
                 ProjectileStartTumblingMissileCurrentSprite(pProj, PROJ_TYPE_MISSILE);
             else if (pProj->type == PROJ_TYPE_SUPER_MISSILE)
                 ProjectileStartTumblingMissileCurrentSprite(pProj, PROJ_TYPE_SUPER_MISSILE);
             else
-                pProj->status = 0x0;
+                pProj->status = 0;
 
             if ((pSprite->invincibilityStunFlashTimer & 0x7F) <= 0x2)
             {
