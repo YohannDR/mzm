@@ -2000,10 +2000,12 @@ void KraidPartCallKraidCheckProjectilesCollidingWithBelly(void)
     KraidCheckProjectilesCollidingWithBelly();
 }
 
+/**
+ * @brief 1a3f0 | 11c | Checks if the spikes should spawn
+ * 
+ */
 void KraidPartCheckShouldSpawnSpikes(void)
 {
-    // https://decomp.me/scratch/ILhhT
-
     u8 ramSlot;
     u8 roomSlot;
     u8 lowHealth;
@@ -2014,53 +2016,60 @@ void KraidPartCheckShouldSpawnSpikes(void)
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
     roomSlot = gCurrentSprite.roomSlot;
 
-    if (gSpriteData[ramSlot].pose > 0x7)
+    // Don't try to spawn if not fully up
+    if (gSpriteData[ramSlot].pose < KRAID_POSE_FIRST_STEP_INIT)
+        return;
+
+    // Handle belly collision
+    KraidCheckProjectilesCollidingWithBelly();
+
+    // Check is low health
+    if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3)
+        lowHealth = TRUE;
+    else
+        lowHealth = FALSE;
+
+    if (roomSlot == KRAID_PART_BOTTOM_HOLE_LEFT)
     {
-        KraidCheckProjectilesCollidingWithBelly();
+        if (gSubSpriteData1.health >= (GET_PSPRITE_HEALTH(PSPRITE_KRAID) >> 2) * 3 &&
+            gSamusData.yPosition < gCurrentSprite.yPosition - BLOCK_SIZE * 2)
+            return;
 
-        if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3)
-            lowHealth = TRUE;
-        else
-            lowHealth = FALSE;
-
-        if (roomSlot == KRAID_PART_BOTTOM_HOLE_LEFT)
+        // Don't start to spawn spikes if there's already one
+        spriteID = SSPRITE_KRAID_SPIKE;
+        for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
         {
-            if (gSubSpriteData1.health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 4 * 3 || gSamusData.yPosition >= (gCurrentSprite.yPosition - (BLOCK_SIZE * 2)))
-            {
-                spriteID = PSPRITE_MISSILE_DROP;
-                for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
-                {
-                    if (gSpriteData[i].status & SPRITE_STATUS_EXISTS && gSpriteData[i].properties & SP_SECONDARY_SPRITE && gSpriteData[i].spriteID == spriteID)
-                        return;
-                }
-
-                gSpriteData[ramSlot].status &= ~SPRITE_STATUS_MOSAIC;
-                gCurrentSprite.yPositionSpawn = 1;
-            }
-            else
-                return;
-        }
-        else if (roomSlot == KRAID_PART_MIDDLE_HOLE_LEFT)
-        {
-            if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_MOSAIC))
-            {
-                gCurrentSprite.yPositionSpawn = 60;
-            }
-            else
-                return;
-        }
-        else
-        {
-            if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_MOSAIC) && lowHealth)
-            {
-                gCurrentSprite.yPositionSpawn = 60 * 2;
-            }
-            else
+            if (gSpriteData[i].status & SPRITE_STATUS_EXISTS && gSpriteData[i].properties & SP_SECONDARY_SPRITE &&
+                gSpriteData[i].spriteID == spriteID)
                 return;
         }
 
-        gCurrentSprite.pose = KRAID_PART_POSE_SPAWN_SPIKES;
+        // Set bottom hole shooting spikes flag
+        gSpriteData[ramSlot].status &= ~SPRITE_STATUS_MOSAIC;
+
+        // 1 frame delay
+        gCurrentSprite.yPositionSpawn = 1;
     }
+    else if (roomSlot == KRAID_PART_MIDDLE_HOLE_LEFT)
+    {
+        // Check bottom hole is shooting spikes
+        if (gSpriteData[ramSlot].status & SPRITE_STATUS_MOSAIC)
+            return;
+
+        // 1 second delay
+        gCurrentSprite.yPositionSpawn = 60;
+    }
+    else
+    {
+        // Check bottom hole is shooting spikes and low health
+        if (gSpriteData[ramSlot].status & SPRITE_STATUS_MOSAIC || !lowHealth)
+            return;
+
+        // 2 second delay
+        gCurrentSprite.yPositionSpawn = 60 * 2;
+    }
+
+    gCurrentSprite.pose = KRAID_PART_POSE_SPAWN_SPIKES;
 }
 
 /**
@@ -2360,14 +2369,13 @@ void Kraid(void)
     // https://decomp.me/scratch/AWjiU
 
     struct SubSpriteData* pSub;
-    register struct SpriteData* pSprite asm("r5");
 
-    if (gCurrentSprite.pose != 0x0 && gSubSpriteData1.health != 0x0)
+    if (gCurrentSprite.pose != 0 && gSubSpriteData1.health != 0)
         KraidOpenCloseRoutineAndProjectileCollision();
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case 0:
             KraidInit();
             break;
 
@@ -2418,87 +2426,95 @@ void Kraid(void)
             KraidBeforeDeath();
     }
 
-    pSprite = &gCurrentSprite;
-    if (pSprite->spriteID == PSPRITE_KRAID)
+    if (gCurrentSprite.spriteID == PSPRITE_KRAID)
     {
         SpriteUtilUpdateSubSprite1Anim();
         SpriteUtilSyncCurrentSpritePositionWithSubSprite1Position();
 
         pSub = &gSubSpriteData1;
-        if (pSub->animationDurationCounter == 0x1)
+        if (pSub->animationDurationCounter == 1)
         {
             if (pSub->pMultiOam == sKraidMultiSpriteData_Rising ||
                 pSub->pMultiOam == sKraidMultiSpriteData_Standing ||
                 pSub->pMultiOam == sKraidMultiSpriteData_StandingBetweenSteps)
             {
-                if (pSub->currentAnimationFrame == 0x1)
-                    gBG2Movement.yOffset -= 0x4;
-                else if (pSub->currentAnimationFrame == 0x2)
-                    gBG2Movement.yOffset += 0x4;
+                if (pSub->currentAnimationFrame == 1)
+                    gBG2Movement.yOffset -= 4;
+                else if (pSub->currentAnimationFrame == 2)
+                    gBG2Movement.yOffset += 4;
             }
             else if (pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToRight ||
                 pSub->pMultiOam == sKraidMultiSpriteData_MovingRightFeetToLeft)
             {
-                if (pSub->currentAnimationFrame == 0x1)
-                    gBG2Movement.xOffset -= 0x4;
-                else if (pSub->currentAnimationFrame == 0x2)
-                    gBG2Movement.xOffset -= 0x4;
-                else if (pSub->currentAnimationFrame == 0x3)
-                    gBG2Movement.xOffset -= 0x4;
-                else if (pSub->currentAnimationFrame == 0x4)
-                    gBG2Movement.yOffset -= 0x4;
-                else if (pSub->currentAnimationFrame == 0x5)
+                if (pSub->currentAnimationFrame == 1)
+                    gBG2Movement.xOffset -= 4;
+                else if (pSub->currentAnimationFrame == 2)
+                    gBG2Movement.xOffset -= 4;
+                else if (pSub->currentAnimationFrame == 3)
+                    gBG2Movement.xOffset -= 4;
+                else if (pSub->currentAnimationFrame == 4)
+                    gBG2Movement.yOffset -= 4;
+                else if (pSub->currentAnimationFrame == 5)
                 {
-                    gBG2Movement.yOffset += 0x4;
-                    ScreenShakeStartVertical(0xA, 0x81);
+                    gBG2Movement.yOffset += 4;
+                    ScreenShakeStartVertical(10, 0x80 | 1);
                     SoundPlay(0x1CC);
                     if (pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToRight)
                     {
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition - 0x2C, PE_SECOND_MEDIUM_DUST);
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition - 0x90, PE_SECOND_MEDIUM_DUST);
+                        ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
+                            pSub->xPosition - (HALF_BLOCK_SIZE + 12), PE_SECOND_MEDIUM_DUST);
+
+                        ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
+                            pSub->xPosition - (BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE), PE_SECOND_MEDIUM_DUST);
                     }
                     else
                     {
-                        pSprite = &gCurrentSprite;
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition + 0xEC, PE_SECOND_MEDIUM_DUST);
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition + 0x150, PE_SECOND_MEDIUM_DUST);
+                        ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
+                            pSub->xPosition + (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE + 12), PE_SECOND_MEDIUM_DUST);
+
+                        ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
+                            pSub->xPosition + (BLOCK_SIZE * 5 + QUARTER_BLOCK_SIZE), PE_SECOND_MEDIUM_DUST);
                     }
                 }
             }
             else if (pSub->pMultiOam == sKraidMultiSpriteData_MovingRightFeetToRight ||
                 pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToLeft)
             {
-                if (pSub->currentAnimationFrame == 0x1)
-                    gBG2Movement.xOffset += 0x4;
-                else if (pSub->currentAnimationFrame == 0x2)
-                    gBG2Movement.xOffset += 0x4;
-                else if (pSub->currentAnimationFrame == 0x3)
-                    gBG2Movement.xOffset += 0x4;
-                else if (pSub->currentAnimationFrame == 0x4)
-                    gBG2Movement.yOffset -= 0x4;
-                else if (pSub->currentAnimationFrame == 0x5)
+                if (pSub->currentAnimationFrame == 1)
+                    gBG2Movement.xOffset += 4;
+                else if (pSub->currentAnimationFrame == 2)
+                    gBG2Movement.xOffset += 4;
+                else if (pSub->currentAnimationFrame == 3)
+                    gBG2Movement.xOffset += 4;
+                else if (pSub->currentAnimationFrame == 4)
+                    gBG2Movement.yOffset -= 4;
+                else if (pSub->currentAnimationFrame == 5)
                 {
-                    gBG2Movement.yOffset += 0x4;
-                    ScreenShakeStartVertical(0xA, 0x81);
+                    gBG2Movement.yOffset += 4;
+                    ScreenShakeStartVertical(10, 0x80 | 1);
                     SoundPlay(0x1CC);
                     if (pSub->pMultiOam == sKraidMultiSpriteData_MovingLeftFeetToLeft)
                     {
-                        pSprite = &gCurrentSprite;
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition - 0x64, PE_SECOND_MEDIUM_DUST);
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition - 0xC8, PE_SECOND_MEDIUM_DUST);
+                        ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
+                            pSub->xPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE + 4), PE_SECOND_MEDIUM_DUST);
+
+                        ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
+                            pSub->xPosition - (BLOCK_SIZE * 3 + 8), PE_SECOND_MEDIUM_DUST);
                     }
                     else
                     {
-                        pSprite = &gCurrentSprite;
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition + 0x10A, PE_SECOND_MEDIUM_DUST);
-                        ParticleSet(pSprite->yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE, pSub->xPosition + 0x16E, PE_SECOND_MEDIUM_DUST);
+                        ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
+                            pSub->xPosition + (BLOCK_SIZE * 4 + 10), PE_SECOND_MEDIUM_DUST);
+
+                        ParticleSet(gCurrentSprite.yPositionSpawn + BLOCK_SIZE * 7 + HALF_BLOCK_SIZE,
+                            pSub->xPosition + (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE + 14), PE_SECOND_MEDIUM_DUST);
                     }
                 }
             }
         }
 
-        if (gSubSpriteData1.workVariable1 != 0x0)
-            gSubSpriteData1.animationDurationCounter += 0x4;
+        if (gSubSpriteData1.workVariable1 != 0)
+            gSubSpriteData1.animationDurationCounter += 4;
 
         gLockScreen.lock = TRUE;
         gLockScreen.yPositionCenter = gSamusData.yPosition;
