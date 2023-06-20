@@ -410,19 +410,19 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
                     pSprite->health -= damage;
 
                     // Check update palette (both sprite and BG2)
-                    if (pSprite->health < sPrimarySpriteStats[PSPRITE_KRAID][0] >> 2)
+                    if (pSprite->health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) >> 2)
                     {
                         pSprite->absolutePaletteRow = 3;
 
                         dma_set(3, sKraidPAL + 0xE0, PALRAM_BASE + 0x140, (DMA_ENABLE << 16) | 16);
                     }
-                    else if (pSprite->health < sPrimarySpriteStats[PSPRITE_KRAID][0] / 3)
+                    else if (pSprite->health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3)
                     {
                         pSprite->absolutePaletteRow = 2;
 
                         dma_set(3, sKraidPAL + 0xC0, PALRAM_BASE + 0x140, (DMA_ENABLE << 16) | 16);
                     }
-                    else if (pSprite->health < (sPrimarySpriteStats[PSPRITE_KRAID][0] >> 2) * 3)
+                    else if (pSprite->health < (GET_PSPRITE_HEALTH(PSPRITE_KRAID) >> 2) * 3)
                     {
                         pSprite->absolutePaletteRow = 1;
 
