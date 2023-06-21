@@ -490,7 +490,7 @@ SECTIONS {
         src/sprites_AI/gadora.o(.text);
         src/sprites_AI/steam.o(.text);
         src/sprites_AI/unknown_item_block.o(.text);
-        asm/disasm_0x0804ac00.o(.text);
+        src/sprites_AI/escape_ship.o(.text);
         src/sprites_AI/space_pirate_carrying_power_bomb.o(.text);
         src/sprites_AI/falling_chozo_pillar.o(.text);
         src/sprites_AI/mecha_ridley.o(.text);
