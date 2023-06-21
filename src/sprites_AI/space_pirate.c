@@ -165,29 +165,36 @@ void SpacePirateFlip(void)
     }
 }
 
+/**
+ * @brief 289f0 | a18 | Handles a pirate detecting samus
+ * 
+ */
 void SpacePirateSamusDetection(void)
 {
-    // https://decomp.me/scratch/AM9Ba
-
     u16 samusY;
     u16 samusX;
-    u16 samusBlockX;
-    u8 small;
-    u16 samusBottom;
-    u16 samusTop;
-
     u16 spriteY;
     u16 spriteX;
-    u16 spriteBlockX;
-
     u16 yDistance;
     u16 xDistance;
+
+    u16 samusBottom;
+    u16 samusTileY;
+    u16 samusTileX;
+    u16 spriteTileY;
+    u16 spriteTileX;
+
+    u8 small;
     u8 lowXRange;
     u8 highXRange;
 
+    u16 currPos;
+    u8 i;
+    u16 blockSize;
+
     u8 foundSolid;
 
-    samusY = gSamusData.yPosition + 0x4;
+    samusY = gSamusData.yPosition + 4;
     samusX = gSamusData.xPosition;
 
     spriteY = gCurrentSprite.yPosition;
@@ -220,13 +227,16 @@ void SpacePirateSamusDetection(void)
     if (xDistance > BLOCK_SIZE * 10)
     {
         gSpriteDrawOrder[2] = FALSE;
-        if (gCurrentSprite.oamRotation != 0x0)
+
+        if (gCurrentSprite.oamRotation != 0)
             gCurrentSprite.oamRotation--;
         else
-            gCurrentSprite.oamRotation = 0x3C;
+            gCurrentSprite.oamRotation = 60;
+
         return;
     }
-    else if (yDistance > BLOCK_SIZE * 10)
+
+    if (yDistance > BLOCK_SIZE * 10)
     {
         gSpriteDrawOrder[2] = FALSE;
         return;
@@ -234,19 +244,24 @@ void SpacePirateSamusDetection(void)
 
     gSpriteDrawOrder[2] = TRUE;
 
-    if (gCurrentSprite.oamRotation != 0x0)
+    if (gCurrentSprite.oamRotation != 0)
         gCurrentSprite.oamRotation--;
 
-    samusBlockX = samusX & BLOCK_POSITION_FLAG;
-    spriteBlockX = spriteX & BLOCK_POSITION_FLAG;
 
-    samusTop = samusY;
-    samusBottom = samusY - BLOCK_SIZE;
+    samusTileY = samusY & BLOCK_POSITION_FLAG;
+    samusTileX = samusX & BLOCK_POSITION_FLAG;
+    spriteTileY = spriteY & BLOCK_POSITION_FLAG;
+    spriteTileX = spriteX & BLOCK_POSITION_FLAG;
 
-    small = SpriteUtilCheckCrouchingOrMorphed();
+    samusTileY = samusTileY - BLOCK_SIZE;
+    samusBottom = samusTileY - BLOCK_SIZE;
 
-    lowXRange = 0x8;
-    highXRange = 0x8;
+    foundSolid = FALSE;
+    blockSize = BLOCK_SIZE;
+
+    small = SpriteUtilCheckMorphed();
+    lowXRange = 8;
+    highXRange = 8;
 
     switch (gCurrentSprite.pose)
     {
@@ -254,49 +269,81 @@ void SpacePirateSamusDetection(void)
         case SPACE_PIRATE_POSE_TURNING_AROUND_WHILE_CRAWLING_INIT:
         case SPACE_PIRATE_POSE_TURNING_AROUND_WHILE_CRAWLING_FIRST_PART:
         case SPACE_PIRATE_POSE_TURNING_AROUND_WHILE_CRAWLING_SECOND_PART:
-            yDistance = spriteY - BLOCK_SIZE;
-            if (gSpriteDrawOrder[4])
-            {
-                for (highXRange = 0; highXRange < lowXRange; highXRange++)
-                {
-                    SpriteUtilCheckCollisionAtPosition(spriteY, spriteBlockX);
-                    if (gPreviousCollisionCheck & 0xF0)
-                        foundSolid++;
+            yDistance = spriteTileY - blockSize;
 
-                    if (spriteBlockX == samusX)
-                        spriteBlockX += BLOCK_SIZE;
-                    else if (spriteY == samusY)
-                    {
-                        if (small)
-                            spriteBlockX += BLOCK_SIZE;
-                        else if (spriteY == samusBottom)
-                        {
-                            foundSolid++;
-                            break;
-                        }
-                    }
-                    else
+            if (gSpriteDrawOrder[4] == TRUE)
+            {
+                currPos = spriteTileX + blockSize;
+
+                for (i = 0; i < highXRange; currPos += blockSize, i++)
+                {
+                    SpriteUtilCheckCollisionAtPosition(yDistance, currPos);
+
+                    if (gPreviousCollisionCheck & 0xF0)
+                        break;
+
+                    if (currPos != samusTileX)
+                        continue;
+
+                    if (yDistance == samusTileY)
                     {
                         foundSolid++;
                         break;
                     }
-
+                    else if (!small && yDistance == samusBottom)
+                    {
+                        foundSolid++;
+                        break;
+                    }
                 }
+
                 if (foundSolid)
                 {
-                    gSpriteDrawOrder[0] = SPACE_PIRATE_AIM_FORWARD;
-                    gSpriteDrawOrder[1] = FALSE;
+                    gSpriteDrawOrder[0] = FALSE;
+                    gSpriteDrawOrder[1] = TRUE;
+                    return;
                 }
-                else
-                    gSpriteDrawOrder[2] = FALSE;
+            }
+            else
+            {
+                currPos = spriteTileX - blockSize;
+
+                for (i = 0; i < highXRange; currPos -= blockSize, i++)
+                {
+                    SpriteUtilCheckCollisionAtPosition(yDistance, currPos);
+
+                    if (gPreviousCollisionCheck & 0xF0)
+                        break;
+
+                    if (currPos != samusTileX)
+                        continue;
+
+                    if (yDistance == samusTileY)
+                    {
+                        foundSolid++;
+                        break;
+                    }
+                    else if (!small && yDistance == samusBottom)
+                    {
+                        foundSolid++;
+                        break;
+                    }
+                }
+
+                if (foundSolid)
+                {
+                    gSpriteDrawOrder[0] = FALSE;
+                    gSpriteDrawOrder[1] = FALSE;
+                    return;
+                }
             }
             break;
 
         case SPACE_PIRATE_POSE_TURNING_AROUND_TO_WALL_JUMP_INIT:
         case SPACE_PIRATE_POSE_TURNING_AROUND_TO_WALL_JUMP:
         case SPACE_PIRATE_POSE_DELAY_BEFORE_LAUNCHING_FROM_WALL:
-        case 0x18:
-        case 0x19:
+        case SPACE_PIRATE_POSE_0x18:
+        case SPACE_PIRATE_POSE_0x19:
         case SPACE_PIRATE_POSE_CLIMBING_CHARGING_LASER_INIT:
         case SPACE_PIRATE_POSE_CLIMBING_CHARGING_LASER:
         case SPACE_PIRATE_POSE_CLIMBING_SHOOTING_LASER_INIT:
@@ -309,74 +356,452 @@ void SpacePirateSamusDetection(void)
         case SPACE_PIRATE_POSE_CLIMBING_DOWN:
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
-                if (gSpriteDrawOrder[4])
+                if (gSpriteDrawOrder[4] == TRUE)
                 {
                     gSpriteDrawOrder[2] = FALSE;
-                    break;
+                    return;
                 }
-
             }
             else
             {
-                if (!gSpriteDrawOrder[4])
+                if (gSpriteDrawOrder[4] == FALSE)
                 {
                     gSpriteDrawOrder[2] = FALSE;
-                    break;
+                    return;
                 }
             }
 
         default:
             if (yDistance < BLOCK_SIZE * 3)
             {
-                yDistance = spriteY - BLOCK_SIZE * 3;
-                if (gSpriteDrawOrder[4])
-                {
-                    for (highXRange = 0; highXRange < lowXRange; highXRange++)
-                    {
-                        SpriteUtilCheckCollisionAtPosition(spriteY, spriteBlockX);
-                        if (gPreviousCollisionCheck & 0xF0)
-                            foundSolid++;
+                yDistance = spriteTileY - blockSize * 3;
 
-                        if (spriteBlockX == samusX)
-                            spriteBlockX += BLOCK_SIZE;
-                        else if (spriteY == samusY)
+                if (gSpriteDrawOrder[4] == TRUE)
+                {
+                    currPos = spriteTileX + blockSize;
+                    
+                    for (i = 0; i < highXRange; currPos += blockSize, i++)
+                    {
+                        SpriteUtilCheckCollisionAtPosition(yDistance, currPos);
+
+                        if (gPreviousCollisionCheck & 0xF0)
                         {
-                            if (small)
-                                spriteBlockX += BLOCK_SIZE;
-                            else if (spriteY == samusBottom)
+                            lowXRange = i;
+                            break;
+                        }
+
+                        if (currPos != samusTileX)
+                            continue;
+
+                        if (yDistance == samusTileY)
+                        {
+                            foundSolid++;
+                            break;
+                        }
+                        else if (!small && yDistance == samusBottom)
+                        {
+                            foundSolid++;
+                            break;
+                        }
+                    }
+
+                    if (!foundSolid)
+                    {
+                        if (lowXRange < 8)
+                            highXRange = lowXRange + 1;
+
+                        currPos = spriteTileX + blockSize;
+
+                        for (i = 0; i < highXRange; currPos += blockSize, i++)
+                        {
+                            SpriteUtilCheckCollisionAtPosition(yDistance + blockSize, currPos);
+
+                            if (gPreviousCollisionCheck & 0xF0)
+                                break;
+
+                            if (currPos != samusTileX)
+                                continue;
+
+                            if (yDistance + blockSize == samusTileY)
+                            {
+                                foundSolid++;
+                                break;
+                            }
+                            else if (!small && yDistance + blockSize == samusBottom)
                             {
                                 foundSolid++;
                                 break;
                             }
                         }
-                        else
+
+                        if (!foundSolid)
+                        {
+                            currPos = spriteTileX + blockSize;
+
+                            for (i = 0; i < highXRange; currPos += blockSize, i++)
+                            {
+                                SpriteUtilCheckCollisionAtPosition(yDistance + blockSize * 2, currPos);
+
+                                if (gPreviousCollisionCheck & 0xF0)
+                                    break;
+
+                                if (currPos != samusTileX)
+                                    continue;
+
+                                if (yDistance + blockSize * 2 == samusTileY)
+                                {
+                                    foundSolid++;
+                                    break;
+                                }
+                                
+                                if (!small && yDistance + blockSize * 2 == samusBottom)
+                                {
+                                    foundSolid++;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (foundSolid)
+                    {
+                        gSpriteDrawOrder[0] = FALSE;
+                        gSpriteDrawOrder[1] = TRUE;
+                        return;
+                    }
+                }
+                else
+                {
+                    currPos = spriteTileX - blockSize;
+                    
+                    for (i = 0; i < highXRange; currPos -= blockSize, i++)
+                    {
+                        SpriteUtilCheckCollisionAtPosition(yDistance, currPos);
+
+                        if (gPreviousCollisionCheck & 0xF0)
+                        {
+                            lowXRange = i;
+                            break;
+                        }
+
+                        if (currPos != samusTileX)
+                            continue;
+
+                        if (yDistance == samusTileY)
                         {
                             foundSolid++;
                             break;
                         }
-
+                        
+                        if (!small && yDistance == samusBottom)
+                        {
+                            foundSolid++;
+                            break;
+                        }
                     }
+
+                    if (!foundSolid)
+                    {
+                        if (lowXRange < 8)
+                            highXRange = lowXRange + 1;
+
+                        currPos = spriteTileX - blockSize;
+
+                        for (i = 0; i < highXRange; currPos -= blockSize, i++)
+                        {
+                            SpriteUtilCheckCollisionAtPosition(yDistance + blockSize, currPos);
+
+                            if (gPreviousCollisionCheck & 0xF0)
+                                break;
+
+                            if (currPos != samusTileX)
+                                continue;
+
+                            if (yDistance + blockSize == samusTileY)
+                            {
+                                foundSolid++;
+                                break;
+                            }
+                            
+                            if (!small && yDistance + blockSize == samusBottom)
+                            {
+                                foundSolid++;
+                                break;
+                            }
+                        }
+
+                        if (!foundSolid)
+                        {
+                            currPos = spriteTileX - blockSize;
+
+                            for (i = 0; i < highXRange; currPos -= blockSize, i++)
+                            {
+                                SpriteUtilCheckCollisionAtPosition(yDistance + blockSize * 2, currPos);
+
+                                if (gPreviousCollisionCheck & 0xF0)
+                                    break;
+
+                                if (currPos != samusTileX)
+                                    continue;
+
+                                if (yDistance + blockSize * 2 == samusTileY)
+                                {
+                                    foundSolid++;
+                                    break;
+                                }
+                                
+                                if (!small && yDistance + blockSize * 2 == samusBottom)
+                                {
+                                    foundSolid++;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
                     if (foundSolid)
                     {
-                        gSpriteDrawOrder[0] = SPACE_PIRATE_AIM_FORWARD;
+                        gSpriteDrawOrder[0] = FALSE;
                         gSpriteDrawOrder[1] = FALSE;
                         return;
                     }
+                }
+            }
 
-                    gSpriteDrawOrder[2] = FALSE;
+            if (gSpriteDrawOrder[3] == FALSE)
+            {
+                yDistance = spriteTileY - blockSize * 3;
+
+                if (gSpriteDrawOrder[4] == TRUE)
+                {
+                    SpriteUtilCheckCollisionAtPosition(spriteY - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE), spriteTileX + BLOCK_SIZE);
+
+                    if (!(gPreviousCollisionCheck & 0xF0))
+                    {
+                        currPos = spriteTileX + blockSize * 2;
+    
+                        for (i = 0; i < 5; currPos += blockSize, yDistance -= blockSize, i++)
+                        {
+                            SpriteUtilCheckCollisionAtPosition(yDistance, currPos);
+    
+                            if (gPreviousCollisionCheck & 0xF0)
+                            {
+                                if (small && currPos == samusTileX && yDistance - blockSize == samusTileY)
+                                {
+                                    SpriteUtilCheckCollisionAtPosition(samusTileY, currPos);
+    
+                                    if (!(gPreviousCollisionCheck & 0xF0))
+                                        foundSolid++;
+                                }
+    
+                                break;
+                            }
+    
+                            SpriteUtilCheckCollisionAtPosition(yDistance - blockSize, currPos);
+    
+                            if (gPreviousCollisionCheck & 0xF0)
+                            {
+                                if (small && currPos == samusTileX && yDistance == samusTileY)
+                                    foundSolid++;
+    
+                                break;
+                            }
+                            else
+                            {
+                                if (currPos != samusTileX)
+                                    continue;
+    
+                                if (yDistance == samusTileY || yDistance - blockSize == samusTileY ||
+                                    (!small && (yDistance == samusBottom || yDistance - blockSize == samusBottom)))
+                                {
+                                    foundSolid++;
+                                    break;
+                                }
+                            }
+                        }
+    
+                        if (foundSolid)
+                        {
+                            gSpriteDrawOrder[0] = TRUE;
+                            gSpriteDrawOrder[1] = TRUE;
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    SpriteUtilCheckCollisionAtPosition(spriteY - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE), spriteTileX - blockSize);
+
+                    if (!(gPreviousCollisionCheck & 0xF0))
+                    {
+                        currPos = spriteTileX - blockSize * 2;
+    
+                        for (i = 0; i < 5; currPos -= blockSize, yDistance -= blockSize, i++)
+                        {
+                            SpriteUtilCheckCollisionAtPosition(yDistance, currPos);
+    
+                            if (gPreviousCollisionCheck & 0xF0)
+                            {
+                                if (small && currPos == samusTileX && yDistance - blockSize == samusTileY)
+                                {
+                                    SpriteUtilCheckCollisionAtPosition(samusTileY, currPos);
+    
+                                    if (!(gPreviousCollisionCheck & 0xF0))
+                                        foundSolid++;
+                                }
+    
+                                break;
+                            }
+    
+                            SpriteUtilCheckCollisionAtPosition(yDistance - blockSize, currPos);
+    
+                            if (gPreviousCollisionCheck & 0xF0)
+                            {
+                                if (small && currPos == samusTileX && yDistance == samusTileY)
+                                    foundSolid++;
+    
+                                break;
+                            }
+                            else
+                            {
+        
+                            if (currPos != samusTileX)
+                                continue;
+    
+                                if (yDistance == samusTileY || yDistance - blockSize == samusTileY ||
+                                    (!small && (yDistance == samusBottom || yDistance - blockSize == samusBottom)))
+                                {
+                                    foundSolid++;
+                                    break;
+                                }
+                            }
+                        }
+    
+                        if (foundSolid)
+                        {
+                            gSpriteDrawOrder[0] = TRUE;
+                            gSpriteDrawOrder[1] = FALSE;
+                            return;
+                        }
+                    }
                 }
             }
             else
             {
+                yDistance = spriteTileY - blockSize;
 
+                if (gSpriteDrawOrder[4] == TRUE)
+                {
+                    SpriteUtilCheckCollisionAtPosition(spriteY, spriteX + (BLOCK_SIZE - 4));
+                    if (!(gPreviousCollisionCheck & 0xF0))
+                    {
+                        currPos = spriteTileX + blockSize;
+    
+                        for (i = 0; i < 5; currPos += blockSize, yDistance += blockSize, i++)
+                        {
+                            SpriteUtilCheckCollisionAtPosition(yDistance, currPos);
+    
+                            if (gPreviousCollisionCheck & 0xF0)
+                            {
+                                if (small && currPos == samusTileX && yDistance - blockSize == samusTileY)
+                                {
+                                    SpriteUtilCheckCollisionAtPosition(samusTileY, currPos);
+                                    if (!(gPreviousCollisionCheck & 0xF0))
+                                        foundSolid++;
+                                }
+    
+                                break;
+                            }
+    
+                            SpriteUtilCheckCollisionAtPosition(yDistance - blockSize, currPos);
+    
+                            if (gPreviousCollisionCheck & 0xF0)
+                            {
+                                if (small && currPos == samusTileX && yDistance == samusTileY)
+                                    foundSolid++;
+    
+                                break;
+                            }
+        
+                            if (currPos != samusTileX)
+                                continue;
+    
+                            if (yDistance == samusTileY || yDistance - blockSize == samusTileY ||
+                                (!small && (yDistance == samusBottom || yDistance - blockSize == samusBottom)))
+                            {
+                                foundSolid++;
+                                break;
+                            }
+                        }
+    
+                        if (foundSolid)
+                        {
+                            gSpriteDrawOrder[0] = 2;
+                            gSpriteDrawOrder[1] = TRUE;
+                            return;
+                        }
+                    }
+                }
+                else
+                {
+                    SpriteUtilCheckCollisionAtPosition(spriteY, spriteX - (BLOCK_SIZE - 4));
+                    if (!(gPreviousCollisionCheck & 0xF0))
+                    {
+                        currPos = spriteTileX - blockSize;
+    
+                        for (i = 0; i < 5; currPos -= blockSize, yDistance += blockSize, i++)
+                        {
+                            SpriteUtilCheckCollisionAtPosition(yDistance, currPos);
+    
+                            if (gPreviousCollisionCheck & 0xF0)
+                            {
+                                if (small && currPos == samusTileX && yDistance - blockSize == samusTileY)
+                                {
+                                    SpriteUtilCheckCollisionAtPosition(samusTileY, currPos);
+                                    if (!(gPreviousCollisionCheck & 0xF0))
+                                        foundSolid++;
+                                }
+    
+                                break;
+                            }
+    
+                            SpriteUtilCheckCollisionAtPosition(yDistance - blockSize, currPos);
+    
+                            if (gPreviousCollisionCheck & 0xF0)
+                            {
+                                if (small && currPos == samusTileX && yDistance == samusTileY)
+                                    foundSolid++;
+    
+                                break;
+                            }
+    
+                            if (currPos != samusTileX)
+                                continue;
+    
+                            if (yDistance == samusTileY || yDistance - blockSize == samusTileY ||
+                                (!small && (yDistance == samusBottom || yDistance - blockSize == samusBottom)))
+                            {
+                                foundSolid++;
+                                break;
+                            }
+                        }
+    
+                        if (foundSolid)
+                        {
+                            gSpriteDrawOrder[0] = 2;
+                            gSpriteDrawOrder[1] = FALSE;
+                            return;
+                        }
+                    }
+                }
             }
-            break;
 
         case SPACE_PIRATE_POSE_JUMPING_INIT:
         case SPACE_PIRATE_POSE_JUMPING:
         case SPACE_PIRATE_POSE_WALL_JUMPING:
-            gSpriteDrawOrder[2] = FALSE;
     }
+    
+    gSpriteDrawOrder[2] = FALSE;
 }
 
 /**
@@ -1076,7 +1501,7 @@ u8 SpacePirateClimbingCheckWallJumpOrFire(void)
         gCurrentSprite.timer = TRUE;
     }
     else
-        gCurrentSprite.pose = 0x18;
+        gCurrentSprite.pose = SPACE_PIRATE_POSE_0x18;
 
     return TRUE;
 }
@@ -2847,7 +3272,7 @@ void SpacePirateClimbingUp(void)
         {
             if (!(gSpriteRng & 0x1) && gFrameCounter8Bit < gCurrentSprite.primarySpriteRamSlot * 8)
             {
-                gCurrentSprite.pose = 0x18;
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_0x18;
                 return;
             }
         }
@@ -2948,7 +3373,7 @@ void SpacePirateClimbingDown(void)
         {
             if (gSpriteRng & 0x1 && gFrameCounter8Bit > gCurrentSprite.primarySpriteRamSlot * 8)
             {
-                gCurrentSprite.pose = 0x18;
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_0x18;
                 return;
             }
         }
@@ -4101,7 +4526,7 @@ void SpacePirate(void)
             unk_2b930();
             break;
 
-        case 0x18:
+        case SPACE_PIRATE_POSE_0x18:
             unk_2ba7c();
 
         case 0x19:
