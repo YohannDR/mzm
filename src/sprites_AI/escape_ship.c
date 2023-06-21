@@ -189,8 +189,6 @@ void EscapeShipCheckCollidingWithLaser(void)
 
 void EscapeShip(void)
 {
-    // https://decomp.me/scratch/qJSzq
-
     u16 yPosition;
     u16 xPosition;
     s32 movement;
@@ -201,52 +199,52 @@ void EscapeShip(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case 0:
             gCurrentSprite.drawDistanceTopOffset = 0x30;
             gCurrentSprite.drawDistanceBottomOffset = 0x0;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x58;
 
             gCurrentSprite.hitboxTopOffset = -0x2C;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
+            gCurrentSprite.hitboxBottomOffset = 0;
             gCurrentSprite.hitboxLeftOffset = 0x38;
             gCurrentSprite.hitboxRightOffset = 0x68;
 
             gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.drawOrder = 0xB;
+            gCurrentSprite.drawOrder = 11;
 
             gCurrentSprite.pOam = sEscapeShipOAM_Idle;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.animationDurationCounter = 0x0;
+            gCurrentSprite.currentAnimationFrame = 0;
+            gCurrentSprite.animationDurationCounter = 0;
 
             gCurrentSprite.pose = ESCAPE_SHIP_POSE_CHECK_OPEN;
-            gSubSpriteData1.workVariable1 = 0x0;
+            gSubSpriteData1.workVariable1 = 0;
 
             SpriteSpawnSecondary(SSPRITE_ESCAPE_SHIP_PART, ESCAPE_SHIP_PART_TOP, gCurrentSprite.spritesetGfxSlot,
-                gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
+                gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0);
             SpriteSpawnSecondary(SSPRITE_ESCAPE_SHIP_PART, ESCAPE_SHIP_PART_TAIL, gCurrentSprite.spritesetGfxSlot,
-                gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
+                gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0);
             break;
 
         case ESCAPE_SHIP_POSE_CHECK_OPEN:
             if (EventFunction(EVENT_ACTION_CHECKING, EVENT_MECHA_RIDLEY_KILLED) &&
                 gSamusData.yPosition <= yPosition &&
-                (yPosition - gSamusData.yPosition) < 0x301 &&
+                (yPosition - gSamusData.yPosition) <= BLOCK_SIZE * 12 &&
                 gSamusData.xPosition < xPosition &&
-                (xPosition - gSamusData.xPosition) < 0x100)
+                (xPosition - gSamusData.xPosition) < BLOCK_SIZE * 4)
             {
                 gCurrentSprite.pose = ESCAPE_SHIP_POSE_OPENING;
                 gCurrentSprite.pOam = sEscapeShipOAM_Opening;
-                gCurrentSprite.currentAnimationFrame = 0x0;
-                gCurrentSprite.animationDurationCounter = 0x0;
+                gCurrentSprite.currentAnimationFrame = 0;
+                gCurrentSprite.animationDurationCounter = 0;
 
                 SpriteSpawnPrimary(PSPRITE_ESCAPE_SHIP_SPACE_PIRATE, gCurrentSprite.roomSlot,
-                    0x0, gCurrentSprite.yPosition - 0x4, gCurrentSprite.xPosition + 0x70, 0x0);
+                    0x0, gCurrentSprite.yPosition - 4, gCurrentSprite.xPosition + (BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE), 0);
                 SoundPlay(0x24E);
             }
             break;
 
         case ESCAPE_SHIP_POSE_OPENING:
-            if (gCurrentSprite.currentAnimationFrame > 0x6)
+            if (gCurrentSprite.currentAnimationFrame > 6)
             {
                 gCurrentSprite.pose = ESCAPE_SHIP_POSE_OPENED;
                 gCurrentSprite.samusCollision = SSC_ESCAPE_SHIP;
@@ -258,13 +256,13 @@ void EscapeShip(void)
             {
                 gCurrentSprite.standingOnSprite = FALSE;
                 gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_ON_TOP;
-                gCurrentSprite.drawOrder = 0x4;
+                gCurrentSprite.drawOrder = 4;
                 gCurrentSprite.pose = ESCAPE_SHIP_POSE_DELAY_BEFORE_CLOSING;
-                gCurrentSprite.timer = 0x14;
+                gCurrentSprite.timer = 60 / 3;
                 gCurrentSprite.samusCollision = SSC_NONE;
 
-                if (gSamusData.invincibilityTimer != 0x0)
-                    gSamusData.invincibilityTimer = 0x0;
+                if (gSamusData.invincibilityTimer != 0)
+                    gSamusData.invincibilityTimer = 0;
 
                 if (gSamusData.direction & KEY_RIGHT)
                     SamusSetPose(SPOSE_IN_ESCAPE_SHIP);
@@ -272,21 +270,22 @@ void EscapeShip(void)
                     SamusSetPose(SPOSE_TURNING_TO_ENTER_ESCAPE_SHIP);
 
                 EventFunction(EVENT_ACTION_SETTING, EVENT_ESCAPED_CHOZODIA);
-                gCurrentSprite.hitboxTopOffset = -0xA0;
-                gCurrentSprite.hitboxBottomOffset = 0x0;
-                gCurrentSprite.hitboxLeftOffset = 0x0;
-                gCurrentSprite.hitboxRightOffset = 0x140;
+
+                gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+                gCurrentSprite.hitboxBottomOffset = 0;
+                gCurrentSprite.hitboxLeftOffset = 0;
+                gCurrentSprite.hitboxRightOffset = BLOCK_SIZE * 5;
             }
             break;
 
         case ESCAPE_SHIP_POSE_DELAY_BEFORE_CLOSING:
             gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0x0)
+            if (gCurrentSprite.timer == 0)
             {
                 gCurrentSprite.pose = ESCAPE_SHIP_POSE_CLOSING;
                 gCurrentSprite.pOam = sEscapeShipOAM_Closing;
-                gCurrentSprite.currentAnimationFrame = 0x0;
-                gCurrentSprite.animationDurationCounter = 0x0;
+                gCurrentSprite.currentAnimationFrame = 0;
+                gCurrentSprite.animationDurationCounter = 0;
                 SoundPlay(0x24F);
             }
             break;
@@ -295,28 +294,31 @@ void EscapeShip(void)
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
                 gCurrentSprite.pOam = sEscapeShipOAM_Idle;
-                gCurrentSprite.currentAnimationFrame = 0x0;
-                gCurrentSprite.animationDurationCounter = 0x0;
+                gCurrentSprite.currentAnimationFrame = 0;
+                gCurrentSprite.animationDurationCounter = 0;
+
                 gCurrentSprite.pose = ESCAPE_SHIP_POSE_CLOSED;
-                gCurrentSprite.timer = 0x1E;
-                gCurrentSprite.workVariable = 0x5A;
-                gCurrentSprite.workVariable2 = 0x0;
-                gCurrentSprite.arrayOffset = 0x0;
-                gSubSpriteData1.workVariable1 = 0x1;
+
+                gCurrentSprite.timer = 60 / 2;
+                gCurrentSprite.workVariable = 60 + 60 / 2;
+                gCurrentSprite.workVariable2 = 0;
+                gCurrentSprite.arrayOffset = 0;
+
+                gSubSpriteData1.workVariable1 = 1;
             }
             break;
 
         case ESCAPE_SHIP_POSE_CLOSED:
-            if (gCurrentSprite.timer != 0x0)
+            if (gCurrentSprite.timer != 0)
             {
-                gCurrentSprite.timer--;
-                if (gCurrentSprite.timer < 0xB)
+                movement = --gCurrentSprite.timer;
+                if (movement < 11u)
                 {
-                    gCurrentSprite.xPosition += 0x2;
+                    gCurrentSprite.xPosition += 2;
                     break;
                 }
                 
-                if (gCurrentSprite.timer == 0xB)
+                if (movement == 11)
                 {
                     SpriteSpawnSecondary(SSPRITE_ESCAPE_SHIP_PART, ESCAPE_SHIP_PART_FLAMES,
                         gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
@@ -324,43 +326,47 @@ void EscapeShip(void)
                     break;
                 }
                 
-                if (gCurrentSprite.timer == 0xC)
+                if (movement == 12)
                     StartEffectForCutscene(EFFECT_CUTSCENE_SAMUS_IN_BLUE_SHIP);
             }
             else
             {
                 gCurrentSprite.workVariable--;
-                if (gCurrentSprite.workVariable < 0x3C)
+                if (gCurrentSprite.workVariable < 60)
                 {
                     gCurrentSprite.yPosition--;
-                    if (gCurrentSprite.workVariable == 0x0)
+                    if (gCurrentSprite.workVariable == 0)
                     {
                         gCurrentSprite.pose = ESCAPE_SHIP_POSE_HOVERING;
-                        gCurrentSprite.timer = 0xC8;
-                        gCurrentSprite.workVariable = 0x64;
+                        gCurrentSprite.timer = 60 * 3 + 60 / 3;
+                        gCurrentSprite.workVariable = 60 + 60 / 3 * 2;
                     }
                 }
-                else if (gCurrentSprite.workVariable < 0x43)
+                else if (gCurrentSprite.workVariable < 60 + 7)
                     gCurrentSprite.xPosition++;
 
                 offset = gCurrentSprite.arrayOffset;
                 movement = sEscapeShipHoveringYMovement[offset];
+
                 if (movement == SHORT_MAX)
                 {
                     movement = sEscapeShipHoveringYMovement[0]; // 0
-                    offset = 0x0;
+                    offset = 0;
                 }
-                gCurrentSprite.arrayOffset = offset + 0x1;
+
+                gCurrentSprite.arrayOffset = offset + 1;
                 gCurrentSprite.yPosition += movement;
 
                 offset = gCurrentSprite.workVariable2;
                 movement = sEscapeShipHoveringXMovement[offset];
+
                 if (movement == SHORT_MAX)
                 {
                     movement = sEscapeShipHoveringXMovement[0]; // 0
-                    offset = 0x0;
+                    offset = 0;
                 }
-                gCurrentSprite.workVariable2 = offset + 0x1;
+
+                gCurrentSprite.workVariable2 = offset + 1;
                 gCurrentSprite.xPosition += movement;
 
                 yPosition = gCurrentSprite.yPosition;
@@ -369,28 +375,28 @@ void EscapeShip(void)
             break;
         
         case ESCAPE_SHIP_POSE_HOVERING:
-            if (gCurrentSprite.timer != 0x0)
+            if (gCurrentSprite.timer != 0)
             {
-                if (gCurrentSprite.timer-- == 0x1)
+                if (gCurrentSprite.timer-- == 1)
                 {
                     gCurrentSprite.pOam = sEscapeShipOAM_Flying;
-                    gCurrentSprite.currentAnimationFrame = 0x0;
-                    gCurrentSprite.animationDurationCounter = 0x0;
+                    gCurrentSprite.currentAnimationFrame = 0;
+                    gCurrentSprite.animationDurationCounter = 0;
                     SoundPlay(0x251);
                 }
-                else if (gCurrentSprite.timer == 0x64)
-                    gSubSpriteData1.workVariable1 = 0x2;
+                else if (gCurrentSprite.timer == 60 + 60 / 3 * 2)
+                    gSubSpriteData1.workVariable1 = 2;
 
-                gCurrentSprite.yPosition -= 0x2;
+                gCurrentSprite.yPosition -= 2;
             }
             else
             {
                 gCurrentSprite.workVariable--;
-                if (gCurrentSprite.workVariable == 0x0)
+                if (gCurrentSprite.workVariable == 0)
                 {
                     gCurrentSprite.pose = ESCAPE_SHIP_POSE_ESCAPING;
-                    gCurrentSprite.yPositionSpawn = 0xC8;
-                    gCurrentSprite.workVariable = 0x4;
+                    gCurrentSprite.yPositionSpawn = 60 * 3 + 60 / 3;
+                    gCurrentSprite.workVariable = 4;
                     SoundPlay(0x252);
                 }
             }
@@ -400,9 +406,9 @@ void EscapeShip(void)
             if (movement == SHORT_MAX)
             {
                 movement = sEscapeShipHoveringYMovement[0]; // 0
-                offset = 0x0;
+                offset = 0;
             }
-            gCurrentSprite.arrayOffset = offset + 0x1;
+            gCurrentSprite.arrayOffset = offset + 1;
             gCurrentSprite.yPosition += movement;
 
             offset = gCurrentSprite.workVariable2;
@@ -410,7 +416,7 @@ void EscapeShip(void)
             if (movement == SHORT_MAX)
             {
                 movement = sEscapeShipHoveringXMovement[0]; // 0
-                offset = 0x0;
+                offset = 0;
             }
             gCurrentSprite.workVariable2 = offset + 0x1;
             gCurrentSprite.xPosition += movement;
@@ -420,12 +426,12 @@ void EscapeShip(void)
             break;
 
         case ESCAPE_SHIP_POSE_ESCAPING:
-            if (gCurrentSprite.workVariable < 0x40)
+            if (gCurrentSprite.workVariable < 60 + 4)
                 gCurrentSprite.workVariable++;
 
             gCurrentSprite.xPosition += (gCurrentSprite.workVariable / 2);
             gCurrentSprite.yPositionSpawn--;
-            if (gCurrentSprite.yPositionSpawn == 0x0)
+            if (gCurrentSprite.yPositionSpawn == 0)
             {
                 gCurrentSprite.pose = ESCAPE_SHIP_POSE_ESCAPED;
                 StartEffectForCutscene(EFFECT_CUTSCENE_ESCAPING_CHOZODIA);
@@ -433,14 +439,17 @@ void EscapeShip(void)
             break;
 
     }
+
     if (gCurrentSprite.pose > ESCAPE_SHIP_POSE_OPENED)
     {
-        gSamusData.yPosition = yPosition - 0x2B;
-        gSamusData.xPosition = xPosition + 0x50;
+        gSamusData.yPosition = yPosition - (HALF_BLOCK_SIZE + 11);
+        gSamusData.xPosition = xPosition + (BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+
         EscapeShipSetIgnoreSamus();
         EscapeShipCheckCollidingWithLaser();
         EscapeShipSetPirateDrawOrder();
-        if (gCurrentSprite.pose > ESCAPE_SHIP_POSE_HOVERING && gCurrentSprite.workVariable > 0x10)
+
+        if (gCurrentSprite.pose > ESCAPE_SHIP_POSE_HOVERING && gCurrentSprite.workVariable > 16)
             EscapeShipPirateCollision();
     }
 }
