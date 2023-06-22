@@ -221,43 +221,46 @@ void CheckSetNewMusicTrack(u16 musicTrack)
     struct TrackData* pTrack;
     u32 newTrack;
 
-    if (!(gMusicInfo.priority & 4))
+    if (gMusicInfo.priority & 4)
+        return;
+
+    if (gMusicInfo.priority & 0x70)
     {
-        if (gMusicInfo.priority & 0x70)
-        {
-            unk_378c(musicTrack);
-            return;
-        }
-        
-        if (gMusicInfo.priority == 0 && !gMusicInfo.occupied)
-        {
-            gMusicInfo.occupied = TRUE;
-
-            ApplyMusicSoundFading(sMusicTrackDataROM[6].pTrack, 10);
-            ApplyMusicSoundFading(sMusicTrackDataROM[8].pTrack, 10);
-
-            if (gSoundQueue[6].exists & 3)
-                gSoundQueue[6].exists = 0;
-
-            if (gSoundQueue[8].exists & 3)
-                gSoundQueue[8].exists = 0;
-
-            pTrack = sMusicTrackDataROM[0].pTrack;
-
-            if (musicTrack == 0)
-                musicTrack = 0xA9;
-
-            newTrack = DetermineNewMusicTrack(musicTrack);
-
-            if (sSoundDataEntries[newTrack].pHeader != pTrack->pHeader)
-            {
-                ApplyMusicSoundFading(pTrack, 30);
-                gMusicInfo.musicTrackOnTransition = newTrack;
-            }
-            
-            gMusicInfo.occupied = FALSE;
-        }
+        unk_378c(musicTrack);
+        return;
     }
+    
+    if (gMusicInfo.priority != 0)
+        return;
+
+    if (gMusicInfo.occupied)
+        return;
+
+    gMusicInfo.occupied = TRUE;
+
+    ApplyMusicSoundFading(sMusicTrackDataROM[6].pTrack, 10);
+    ApplyMusicSoundFading(sMusicTrackDataROM[8].pTrack, 10);
+
+    if (gSoundQueue[6].exists & 3)
+        gSoundQueue[6].exists = 0;
+
+    if (gSoundQueue[8].exists & 3)
+        gSoundQueue[8].exists = 0;
+
+    pTrack = sMusicTrackDataROM[0].pTrack;
+
+    if (musicTrack == 0)
+        musicTrack = 0xA9;
+
+    newTrack = DetermineNewMusicTrack(musicTrack);
+
+    if (sSoundDataEntries[newTrack].pHeader != pTrack->pHeader)
+    {
+        ApplyMusicSoundFading(pTrack, 30);
+        gMusicInfo.musicTrackOnTransition = newTrack;
+    }
+    
+    gMusicInfo.occupied = FALSE;
 }
 
 void unk_378c(u16 musicTrack)
