@@ -104,6 +104,7 @@ extern u16 gRegRcnt_Backup;
 extern u32 gUnk_3005874;
 extern u8 gUnk_3005884;
 extern u32 gUnk_3005880;
+extern u16 gUnk_3005888[4];
 
 extern u8 gUnk_30058aa;
 extern u16 gUnk_30058ac;

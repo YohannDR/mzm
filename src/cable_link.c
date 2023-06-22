@@ -209,80 +209,261 @@ u32 unk_891a0(struct MultiBootData* pMultiBoot)
 {
     // https://decomp.me/scratch/fqhAa
 
-    u32 control;
     s32 mask;
     s32 i;
+    s32 value;
 
     if (unk_896b8(pMultiBoot))
         return 0;
 
-    if (pMultiBoot->checkWait > 16)
+    if (pMultiBoot->checkWait > 15)
     {
         pMultiBoot->checkWait--;
         return 0;
     }
 
-    if (pMultiBoot->sendFlag)
+    while (TRUE)
     {
-        pMultiBoot->sendFlag = FALSE;
-        control = read16(REG_SIO) & (u8)~(SIO_SHIFT_INTERNAL_CLOCK_FLAG | SIO_SHIFT_INTERNAL_CLOCK_2MHZ);
-
-        if (control != SIO_HIGH_DURING_INACTIVITY)
+        if (pMultiBoot->sendFlag)
         {
-            CableLinkResetTransfer(pMultiBoot);
-            return control ^ SIO_HIGH_DURING_INACTIVITY;
-        }
-    }
+            pMultiBoot->sendFlag = FALSE;
+            i = read16(REG_SIO) & (u8)~(SIO_SHIFT_INTERNAL_CLOCK_FLAG | SIO_SHIFT_INTERNAL_CLOCK_2MHZ);
 
-    if (pMultiBoot->probeCount > 224)
-    {
-        control = unk_896cc(pMultiBoot);
-        if (control)
-            return control;
-
-        if (pMultiBoot->serverType != 1 || pMultiBoot->probeCount < 226 || unk_896b8(pMultiBoot))
-        {
-            if (unk_896b8(pMultiBoot))
-                return 0;
-
-            if (pMultiBoot->handshakeTimeout != 0)
+            if (i != SIO_HIGH_DURING_INACTIVITY)
             {
+                CableLinkResetTransfer(pMultiBoot);
+                return i ^ SIO_HIGH_DURING_INACTIVITY;
+            }
+        }
+
+        if (pMultiBoot->probeCount > 223)
+        {
+            i = unk_896cc(pMultiBoot);
+            if (i)
+                return i;
+
+            if (pMultiBoot->serverType != 1 || pMultiBoot->probeCount < 226 || unk_896b8(pMultiBoot))
+            {
+                if (unk_896b8(pMultiBoot))
+                    return 0;
+
+                if (pMultiBoot->handshakeTimeout == 0)
+                {
+                    CableLinkResetTransfer(pMultiBoot);
+                    return (0x10 | 0x20 | 0x40 | SIO_SHIFT_INTERNAL_CLOCK_FLAG);
+                }
+
                 pMultiBoot->handshakeTimeout--;
                 return 0;
             }
-
-            CableLinkResetTransfer(pMultiBoot);
-            return (0x10 | 0x20 | 0x40 | SIO_SHIFT_INTERNAL_CLOCK_FLAG);
+            else
+                unk_897d0();
         }
-    }
-    else
-    {
-        switch (pMultiBoot->probeCount)
+        else
         {
-            case 0:
-                mask = 0xE;
+            switch (pMultiBoot->probeCount)
+            {
+                case 0:
+                    mask = 0xE;
 
-                for (i = 0; i < 3; i++)
-                {
-                    mask >>= 1;
-                    if (read16(REG_SIO_MULTI + 3 + i) == USHORT_MAX)
-                        break;
-                }
+                    for (i = 3; i != 0; i--)
+                    {
+                        value = READ_SIO_MULTI(i);
+                        if (value != USHORT_MAX)
+                            break;
+                        
+                        mask >>= 1;
+                    }
 
-                pMultiBoot->responseBit = mask & 0xE;
-                break;
+                    mask &= 0xE;
+                    pMultiBoot->responseBit = mask;
 
-            case 1:
-                break;
+                    for (i = 3; i != 0; i--)
+                    {
+                        value = READ_SIO_MULTI(i);
+                        if ((pMultiBoot->clientBit >> i) & 1)
+                        {
+                            if (value != (0x7200 | (1 << i)))
+                            {
+                                mask = 0;
+                                break;
+                            }
+                        }
+                    }
 
-            case 2:
-                break;
+                    pMultiBoot->clientBit &= mask;
 
-            case 208:
-                break;
+                    if (mask == 0)
+                    {
+                        pMultiBoot->checkWait = 15;
+                    }
 
-            case 209:
-                break;
+                    if (pMultiBoot->checkWait == 0)
+                    {
+                        if (pMultiBoot->responseBit != pMultiBoot->clientBit)
+                        {
+                            return CableLinkStartTransfer(pMultiBoot, pMultiBoot->clientBit | 0x6200);
+                        }
+                        
+                        unk_895dc(pMultiBoot);
+                    }
+                    else
+                    {
+                        pMultiBoot->checkWait--;
+                        return CableLinkStartTransfer(pMultiBoot, pMultiBoot->clientBit | 0x6200);
+                    }
+
+                case 1:
+                    pMultiBoot->probeTargetBit = 0;
+
+                    for (i = 3; i != 0; i--)
+                    {
+                        value = READ_SIO_MULTI(i);
+                        if ((value >> 8) == 0x72)
+                        {
+                            gUnk_3005888[i - 1] = value;
+
+                            value &= 0xFF;
+
+                            if (value == 1 << i)
+                            {
+                                pMultiBoot->probeTargetBit |= value;
+                            }
+                        }
+                    }
+
+                    if (pMultiBoot->responseBit != pMultiBoot->probeTargetBit)
+                    {
+                        pMultiBoot->probeCount = 2;
+                        return CableLinkStartTransfer(pMultiBoot, pMultiBoot->probeTargetBit | 0x6100);
+                    }
+
+                    return CableLinkStartTransfer(pMultiBoot, pMultiBoot->clientBit | 0x6200);
+
+                case 2:
+                    for (i = 3; i != 0; i--)
+                    {
+                        if ((pMultiBoot->probeTargetBit >> i) & 1)
+                        {
+                            value = READ_SIO_MULTI(i);
+                            if (value != gUnk_3005888[i - 1])
+                            {
+                                pMultiBoot->probeTargetBit ^= 1 << i;
+                            }
+                        }
+                    }
+                    break;
+
+                case 208:
+                    mask = 1;
+                    for (i = 3; i != 0; i--)
+                    {
+                        value = READ_SIO_MULTI(i);
+                        pMultiBoot->clientData[i - 1] = value;
+
+                        if ((pMultiBoot->probeTargetBit >> i) & 1)
+                        {
+                            if ((u32)((value >> 8) - 0x72) > 1)
+                            {
+                                CableLinkResetTransfer(pMultiBoot);
+                                return 0x60;
+                            }
+
+                            if (value == gUnk_3005888[i - 1])
+                                mask = 0;
+                        }
+                    }
+
+                    if (mask == 0)
+                    {
+                        return CableLinkStartTransfer(pMultiBoot, pMultiBoot->paletteData | 0x6300);
+                    }
+
+                    pMultiBoot->probeCount = 209;
+                    mask = 0x11;
+
+                    for (i = 3; i != 0; i--)
+                        mask += pMultiBoot->clientData[i - 1];
+
+                    pMultiBoot->handshakeData = mask;
+
+                    return CableLinkStartTransfer(pMultiBoot, (mask & 0xFF) | 0x6400);
+
+                case 209:
+                    for (i = 3; i != 0; i--)
+                    {
+                        value = READ_SIO_MULTI(i);
+
+                        if ((pMultiBoot->probeTargetBit >> i) & 1)
+                        {
+                            if (value >> 8 != 0x73)
+                            {
+                                CableLinkResetTransfer(pMultiBoot);
+                                return 0x60;
+                            }
+                        }
+                    }
+
+                    i = MultiBoot(pMultiBoot);
+
+                    if (i == FALSE)
+                    {
+                        pMultiBoot->probeCount = 224;
+                        pMultiBoot->handshakeTimeout = 400;
+                        return 0;
+                    }
+
+                    CableLinkResetTransfer(pMultiBoot);
+                    pMultiBoot->checkWait = 30;
+                    return 0x70;
+
+                default:
+                    for (i = 3; i != 0; i--)
+                    {
+                        if ((pMultiBoot->probeTargetBit >> i) & 1)
+                        {
+                            value = READ_SIO_MULTI(i);
+
+                            if (value >> 8 == 0x62 - (pMultiBoot->probeCount >> 1))
+                            {
+                                if ((value & 0xFF) == (1 << i))
+                                    continue;
+                            }
+
+                            pMultiBoot->probeTargetBit ^= 1 << i;
+                        }
+                    }
+
+                    if (pMultiBoot->probeCount == 196)
+                    {
+                        pMultiBoot->clientBit = pMultiBoot->probeTargetBit & 0xE;
+                        pMultiBoot->probeCount = 0;
+                        return CableLinkStartTransfer(pMultiBoot, pMultiBoot->clientBit | 0x6200);
+                    }
+            }
+            
+            if (pMultiBoot->probeTargetBit == 0)
+            {
+                CableLinkResetTransfer(pMultiBoot);
+                return 0x50;
+            }
+
+            pMultiBoot->probeCount += 2;
+            if (pMultiBoot->probeCount == 196)
+            {
+                return CableLinkStartTransfer(pMultiBoot, pMultiBoot->clientBit | 0x6200);
+            }
+
+            i = CableLinkStartTransfer(pMultiBoot, pMultiBoot->dataSentPointer[pMultiBoot->probeCount - 3] << 8 |
+                pMultiBoot->dataSentPointer[pMultiBoot->probeCount - 4]);
+
+            if (i != 0)
+                return i;
+
+            if (pMultiBoot->serverType == 1)
+                unk_897d0();
+            else
+                return 0;
         }
     }
 }
