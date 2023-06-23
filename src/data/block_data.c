@@ -110,97 +110,113 @@ const struct BlockBehavior sBlockBehaviors[MAX_AMOUNT_OF_BLOCKS] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_NO_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_TOP_LEFT_SHOT_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NEVER_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_TOP_RIGHT_SHOT_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NEVER_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_LEFT_SHOT_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NEVER_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_RIGHT_SHOT_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NEVER_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SHOT_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_TOP_LEFT_SHOT_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NO_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_TOP_RIGHT_SHOT_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NO_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_LEFT_SHOT_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NO_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOTTOM_RIGHT_SHOT_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_SQUARE_NO_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SHOT_BLOCK_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_SHOT_BLOCK_REFORM,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOMB_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_NO_REFORM,
         .type = BLOCK_TYPE_BOMB_BLOCK_NEVER_REFORM,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_BOMB_BLOCK_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_BOMB_BLOCK_REFORM,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_MISSILE_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_NO_REFORM,
         .type = BLOCK_TYPE_MISSILE_NEVER_REFORM,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_MISSILE_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_MISSILE_NO_REFORM,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SUPER_MISSILE_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_NO_REFORM,
         .type = BLOCK_TYPE_SUPER_MISSILE_NEVER_REFORM,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SUPER_MISSILE_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
@@ -211,164 +227,190 @@ const struct BlockBehavior sBlockBehaviors[MAX_AMOUNT_OF_BLOCKS] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_SPEEDBOOSTER_BLOCK_NO_REFORM,
-        .unk = 1
+        .unk_3_0 = TRUE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SPEEDBOOST_BLOCK_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_SPEEDBOOSTER_BLOCK_REFORM,
-        .unk = 1
+        .unk_3_0 = TRUE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_CRUMBLE_BLOCK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_CRUMBLE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_POWER_BOMB_BLOCK_NEVER_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_NO_REFORM,
         .type = BLOCK_TYPE_POWER_BOMB_NEVER_REFORM,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SCREW_ATTACK_BLOCK_NO_REFORM)] = {
         .lifeType = BLOCK_LIFE_TYPE_NO_NEVER_REFORM,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_SCREW_NO_REFORM,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN1)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_VERTICAL_BOMB_CHAIN1,
-        .unk = 0x10
+        .unk_3_0 = FALSE,
+        .unk_3_4 = TRUE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN2)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_VERTICAL_BOMB_CHAIN2,
-        .unk = 0x10
+        .unk_3_0 = FALSE,
+        .unk_3_4 = TRUE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN3)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_VERTICAL_BOMB_CHAIN3,
-        .unk = 0x10
+        .unk_3_0 = FALSE,
+        .unk_3_4 = TRUE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_VERTICAL_BOMB_CHAIN4)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_VERTICAL_BOMB_CHAIN4,
-        .unk = 0x10
+        .unk_3_0 = FALSE,
+        .unk_3_4 = TRUE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN1)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN1,
-        .unk = 0x10
+        .unk_3_0 = FALSE,
+        .unk_3_4 = TRUE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN2)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN2,
-        .unk = 0x10
+        .unk_3_0 = FALSE,
+        .unk_3_4 = TRUE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN3)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN3,
-        .unk = 0x10
+        .unk_3_0 = FALSE,
+        .unk_3_4 = TRUE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HORIZONTAL_BOMB_CHAIN4)] = {
         .lifeType = BLOCK_LIFE_TYPE_BOMB_CHAIN,
         .subType = BLOCK_SUB_TYPE_BOMB_CHAIN,
         .type = BLOCK_TYPE_HORIZONTAL_BOMB_CHAIN4,
-        .unk = 0x10
+        .unk_3_0 = FALSE,
+        .unk_3_4 = TRUE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SLOW_CRUMBLE_BLOCK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_SLOW_CRUMBLE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     // Empty space, 31-35 (5 blocks)
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HIDDEN_ENERGY_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_TANK,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HIDDEN_MISSILE_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_TANK,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HIDDEN_SUPER_MISSILE_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_TANK,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_TANK,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_ENERGY_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_MISSILE_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_SUPER_MISSILE_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_POWER_BOMB_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_UNDERWATER_MISSILE_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_UNDERWATER_SUPER_MISSILE_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
     [BEHAVIOR_TO_BLOCK(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK)] = {
         .lifeType = BLOCK_LIFE_TYPE_NONE,
         .subType = BLOCK_SUB_TYPE_REFORM,
         .type = BLOCK_TYPE_NONE,
-        .unk = 0
+        .unk_3_0 = FALSE,
+        .unk_3_4 = FALSE
     },
 };
 
 const u16 sBlockWeaknesses[MAX_AMOUNT_OF_BLOCKS_TYPES] = {
     [BLOCK_TYPE_NONE] = CAA_DAMAGE_TYPE_NONE,
-    [BLOCK_TYPE_SHOT_BLOCK_REFORM] = 0xFFFF,
+    [BLOCK_TYPE_SHOT_BLOCK_REFORM] = USHORT_MAX,
     [BLOCK_TYPE_BOMB_BLOCK_REFORM] = CAA_DAMAGE_TYPE_BOMB_PISTOL | CAA_DAMAGE_TYPE_POWER_BOMB | CAA_DAMAGE_TYPE_SPEEDBOOST | CAA_DAMAGE_TYPE_SCREW_ATTACK,
     [BLOCK_TYPE_SPEEDBOOSTER_BLOCK_REFORM] = CAA_DAMAGE_TYPE_SPEEDBOOST,
     [BLOCK_TYPE_CRUMBLE] = CAA_DAMAGE_TYPE_SPEEDBOOST,

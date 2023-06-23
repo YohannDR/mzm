@@ -29,7 +29,6 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
     u32 bombChainType;
     u32 destroy;
     u16 behavior;
-    u16 clipdata;
 
     result = FALSE;
 
@@ -42,14 +41,14 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
 
         if (gCurrentClipdataAffectingAction == CAA_SPEEDBOOSTER_ON_GROUND)
         {
-            if (sBlockBehaviors[pClipBlock->blockBehavior].unk << 0x1C == 0x0)
+            if (sBlockBehaviors[pClipBlock->blockBehavior].unk_3_0 == 0)
                 return result;
             
             gCurrentClipdataAffectingAction = CAA_SPEEDBOOSTER;
         }
         else if (gCurrentClipdataAffectingAction == CAA_BOMB_CHAIN)
         {
-            if (sBlockBehaviors[pClipBlock->blockBehavior].unk >> 4 == 0x0)
+            if (sBlockBehaviors[pClipBlock->blockBehavior].unk_3_4 == 0)
                 return result;
         }
 
@@ -171,11 +170,11 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
                 (CAA_DAMAGE_TYPE_BEAM | CAA_DAMAGE_TYPE_BOMB_PISTOL | CAA_DAMAGE_TYPE_MISSILE |
                 CAA_DAMAGE_TYPE_SUPER_MISSILE | CAA_DAMAGE_TYPE_POWER_BOMB))
             {
-                clipdata = sTankBehaviors[BEHAVIOR_TO_TANK(pClipBlock->behavior)].revealedClipdata;
-                if (clipdata != 0x0)
+                destroy = sTankBehaviors[BEHAVIOR_TO_TANK(pClipBlock->behavior)].revealedClipdata;
+                if (destroy != 0)
                 {
-                    BgClipSetBG1BlockValue(clipdata, pClipBlock->yPosition, pClipBlock->xPosition);
-                    BgClipSetClipdataBlockValue(clipdata, pClipBlock->yPosition, pClipBlock->xPosition);
+                    BgClipSetBG1BlockValue(destroy, pClipBlock->yPosition, pClipBlock->xPosition);
+                    BgClipSetClipdataBlockValue(destroy, pClipBlock->yPosition, pClipBlock->xPosition);
                     result = TRUE;
                 }
             }
