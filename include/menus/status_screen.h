@@ -30,6 +30,6 @@ u32 StatusScreenUpdateCursorPosition(u8 statusSlot);
 u32 StatusScreenIsStatusSlotEnabled(u8 statusSlot);
 u32 StatusScreenToggleItem(u8 statusSlot, u8 action);
 void StatusScreenMoveCursor(void);
-u32 StatusScreenGetDestinationSlot(s8 offset, u8 previousSlot);
+u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot);
 
 #endif /* STATUS_SCREEN_MENU_H */

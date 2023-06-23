@@ -1995,30 +1995,32 @@ void StatusScreenMoveCursor(void)
     }
 }
 
-u32 StatusScreenGetDestinationSlot(s8 offset, u8 previousSlot)
+u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
 {
     // https://decomp.me/scratch/JSj7i
-
+    
     s32 newSlot;
+    u8 prevSlot;
     s32 var_0;
     s32 var_1;
     s32 var_2;
     s32 off;
 
-    off = offset;
-    newSlot = previousSlot;
+    off = (s8)offset;
+    newSlot = (u8)previousSlot;
+    prevSlot = previousSlot;
 
-    if (offset == 0)
+    if (off == 0)
         return newSlot;
 
-    if (offset >= 2)
+    if (off >= 2)
     {
-        if (previousSlot > 7)
-            PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot = previousSlot;
+        if (prevSlot > 7)
+            PAUSE_SCREEN_DATA.statusScreenData.previousRightStatusSlot = prevSlot;
         else
-            PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot = previousSlot;
+            PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot = prevSlot;
 
-        if (previousSlot > 7)
+        if (prevSlot > 7)
         {
             newSlot = PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot;
             if (newSlot != 0)
@@ -2027,7 +2029,7 @@ u32 StatusScreenGetDestinationSlot(s8 offset, u8 previousSlot)
             var_0 = 7;
             var_1 = 1;
 
-            if (previousSlot >= 12)
+            if (prevSlot >= 12)
             {
                 newSlot = 6;
                 off = -1;
@@ -2047,7 +2049,7 @@ u32 StatusScreenGetDestinationSlot(s8 offset, u8 previousSlot)
             var_0 = 17;
             var_1 = 8;
 
-            if (previousSlot > 5)
+            if (prevSlot > 5)
             {
                 newSlot = 12;
                 off = -1;
@@ -2075,7 +2077,7 @@ u32 StatusScreenGetDestinationSlot(s8 offset, u8 previousSlot)
             
             if (newSlot == var_2)
             {
-                newSlot = previousSlot;
+                newSlot = prevSlot;
                 break;
             }
         }
@@ -2083,7 +2085,7 @@ u32 StatusScreenGetDestinationSlot(s8 offset, u8 previousSlot)
     }
     else
     {
-        if (previousSlot > 7)
+        if (prevSlot > 7)
         {
             var_0 = 17;
             var_1 = 8;
@@ -2095,7 +2097,7 @@ u32 StatusScreenGetDestinationSlot(s8 offset, u8 previousSlot)
         }
 
         if (off != 1)
-            off = -1; // ?
+            off = -1;
 
         var_2 = newSlot;
 
@@ -2110,7 +2112,7 @@ u32 StatusScreenGetDestinationSlot(s8 offset, u8 previousSlot)
             
             if (newSlot == var_2)
             {
-                newSlot = previousSlot;
+                newSlot = prevSlot;
                 break;
             }
         }
