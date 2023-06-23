@@ -1770,15 +1770,12 @@ u32 StatusScreenIsStatusSlotEnabled(u8 statusSlot)
  */
 u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
 {
-    // https://decomp.me/scratch/8lKgJ
-
     u32 flag;
     u8* pActivation;
     u8 oamId;
     u8 i;
     u8 isActivated;
-    u8 temp;
-    register u32 temp2 asm("r0");
+    u8 subActivated;
     
     flag = 0;
     switch (sStatusScreenItemsData[statusSlot].group)
@@ -1799,7 +1796,7 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
             {
                 if (!(gEquipment.beamBombsActivation & BBF_BOMBS))
                 {
-                    flag = 0x80;
+                    flag = BBF_BOMBS;
                     pActivation = &gEquipment.beamBombsActivation;
                 }
             }
@@ -1873,11 +1870,11 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
                         PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] &= 7;
                         PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] |= isActivated << 3;
 
-                        temp = FALSE;
+                        subActivated = FALSE;
                         if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[i] == 0xF)
-                            temp = TRUE;
+                            subActivated = TRUE;
                         
-                        StatusScreenUpdateRow(ABILITY_GROUP_BOMBS, i + 1, temp, TRUE);
+                        StatusScreenUpdateRow(ABILITY_GROUP_BOMBS, i + 1, subActivated, TRUE);
                     }
                     break;
 
@@ -1887,22 +1884,19 @@ u32 StatusScreenToggleItem(u8 statusSlot, u8 action)
 
                 case ABILITY_GROUP_BOMBS:
                     PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] &= 0xD;
-                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] |= isActivated << 1;
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[0] |= isActivated * 2;
 
                     if (!(PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] & 1))
                         break;
 
                     PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] &= 0xD;
-                    temp = PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1];
-                    temp2 = (isActivated << 1);
-                    temp2 |= temp;
-                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] = temp2;
+                    PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] |= isActivated * 2;
 
-                    temp = FALSE;
+                    subActivated = FALSE;
                     if (PAUSE_SCREEN_DATA.statusScreenData.bombActivation[1] == 0xF)
-                        temp = TRUE;
+                        subActivated = TRUE;
                     
-                    StatusScreenUpdateRow(ABILITY_GROUP_BOMBS, 2, temp, TRUE);
+                    StatusScreenUpdateRow(ABILITY_GROUP_BOMBS, 2, subActivated, TRUE);
                     break;
             }
         }
