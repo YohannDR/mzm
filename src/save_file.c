@@ -1909,12 +1909,17 @@ u32 SramCopyFile(u8 src, u8 dst)
 void SramWrite_FileInfo(void)
 {
     // https://decomp.me/scratch/c9e6c
-
+    
     s32 i;
+    u8* pCompletion;
+    u8* pDiff;
 
     for (i = 0; i < 3; i++)
     {
-        gSaveFilesInfo[i].currentArea = gSram.files[i].currentArea;
+        pDiff = &gSram.files[i].difficulty;
+        pCompletion = (u8*)&gSram.files[i].gameCompletion;
+
+        gSaveFilesInfo[i].currentArea = pCompletion[5];
         if (gSaveFilesInfo[i].exists == TRUE)
         {
             gSaveFilesInfo[i].currentEnergy = gSram.files[i].equipment.currentEnergy;
@@ -1925,16 +1930,16 @@ void SramWrite_FileInfo(void)
             gSaveFilesInfo[i].igtHours = gSram.files[i].inGameTimer.hours;
             gSaveFilesInfo[i].igtMinutes = gSram.files[i].inGameTimer.minutes;
             gSaveFilesInfo[i].igtSconds = gSram.files[i].inGameTimer.seconds;
-            gSaveFilesInfo[i].hasSaved = gSram.files[i].hasSaved;
-            gSaveFilesInfo[i].completedGame = gSram.files[i].gameCompletion.completedGame;
-            gSaveFilesInfo[i].introPlayed = gSram.files[i].gameCompletion.introPlayed;
-            gSaveFilesInfo[i].language = gSram.files[i].gameCompletion.language;
-            gSaveFilesInfo[i].timeAttack = gSram.files[i].timeAttack;
+            gSaveFilesInfo[i].hasSaved = pCompletion[4];
+            gSaveFilesInfo[i].completedGame = pCompletion[0];
+            gSaveFilesInfo[i].introPlayed = pCompletion[1];
+            gSaveFilesInfo[i].language = pCompletion[2];
+            gSaveFilesInfo[i].timeAttack = pDiff[2];
 
-            if (gSram.files[i].difficulty >= MAX_AMOUNT_OF_DIFFICULTIES)
+            if (pDiff[0] >= MAX_AMOUNT_OF_DIFFICULTIES)
                 gSaveFilesInfo[i].difficulty = DIFF_NORMAL;
             else
-                gSaveFilesInfo[i].difficulty = gSram.files[i].difficulty;
+                gSaveFilesInfo[i].difficulty = pDiff[0];
         }
 
         if (!gSaveFilesInfo[i].exists || !gSaveFilesInfo[i].hasSaved)
@@ -1958,11 +1963,11 @@ void SramWrite_FileInfo(void)
                 gSaveFilesInfo[i].maxEnergy = 99;
                 gSaveFilesInfo[i].difficulty = DIFF_EASY;
 
-                if (gSram.files[i].difficulty > DIFF_HARD)
+                if (pDiff[0] > DIFF_HARD)
                     gSaveFilesInfo[i].difficulty = DIFF_NORMAL;
                 
-                gSaveFilesInfo[i].language = gSram.files[i].gameCompletion.language;
-                gSaveFilesInfo[i].timeAttack = gSram.files[i].timeAttack;
+                gSaveFilesInfo[i].language = pCompletion[2];
+                gSaveFilesInfo[i].timeAttack = pDiff[2];
             }
         }
     }
