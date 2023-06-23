@@ -47,8 +47,8 @@ struct BlockBehavior {
     u8 lifeType;
     u8 subType;
     u8 type;
-    u8 unk_3_0:4;
-    u8 unk_3_4:4;
+    u8 isSpeedboost:4;
+    u8 isBombChain:4;
 };
 
 struct BombChainReverseData {

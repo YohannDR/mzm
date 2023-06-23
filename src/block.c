@@ -41,14 +41,14 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
 
         if (gCurrentClipdataAffectingAction == CAA_SPEEDBOOSTER_ON_GROUND)
         {
-            if (sBlockBehaviors[pClipBlock->blockBehavior].unk_3_0 == 0)
+            if (!sBlockBehaviors[pClipBlock->blockBehavior].isSpeedboost)
                 return result;
             
             gCurrentClipdataAffectingAction = CAA_SPEEDBOOSTER;
         }
         else if (gCurrentClipdataAffectingAction == CAA_BOMB_CHAIN)
         {
-            if (sBlockBehaviors[pClipBlock->blockBehavior].unk_3_4 == 0)
+            if (!sBlockBehaviors[pClipBlock->blockBehavior].isBombChain)
                 return result;
         }
 
