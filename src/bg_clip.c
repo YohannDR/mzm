@@ -1,6 +1,7 @@
 #include "gba.h"
 #include "bg_clip.h"
 #include "transparency.h"
+#include "block.h"
 #include "macros.h"
 
 #include "data/block_data.h"
@@ -226,60 +227,78 @@ u16 BgClipGetNewBldalphaValue(u16 clip, u16 unused)
     return bldalpha;
 }
 
-void BGClipCheckWalkingOnCrumbleBlock(void)
+/**
+ * @brief 5a7a0 | 108 | Checks if samus is walking on a crumble block
+ * 
+ */
+void BgClipCheckWalkingOnCrumbleBlock(void)
 {
-    // https://decomp.me/scratch/agN3y
-
     u32 ignoreBlock;
     s32 xOffsetLeft;
-    u16 xOffsetRight;
+    u16 checkPos;
     u16 xPosition;
     u16 yPosition;
     s32 behavior;
     u32 stopSamus;
+    u16 i;
 
-    behavior = (u32)gSamusData.yVelocity >> 0x1F;
+    // Check falling
+    if (gSamusData.yVelocity < 0)
+        behavior = TRUE;
+    else
+        behavior = FALSE;
+    
     if (gSamusPhysics.standingStatus == STANDING_NOT_IN_CONTROL)
         behavior++;
 
-    if (!behavior)
+    if (behavior)
+        return;
+
+    // Get max position to check for crumble blocks
+    behavior = gSamusData.xPosition + gSamusPhysics.drawDistanceRightOffset;
+
+    checkPos = (u32)behavior / BLOCK_SIZE;
+    if (checkPos > gBGPointersAndDimensions.clipdataWidth)
+        checkPos = gBGPointersAndDimensions.clipdataWidth;
+
+    // Get positions
+    behavior = gSamusData.xPosition + gSamusPhysics.drawDistanceLeftOffset;
+    if (behavior < 0)
+        behavior = 0;
+
+    xPosition = (u32)behavior / BLOCK_SIZE;
+
+    behavior = gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset;
+    yPosition = (u32)(behavior + 2) / BLOCK_SIZE;
+
+    if (yPosition > gBGPointersAndDimensions.clipdataHeight)
+        yPosition = gBGPointersAndDimensions.clipdataHeight;
+
+    // Loop from current position to the check position
+    for (i = xPosition; i <= checkPos; i++)
     {
-        behavior = gSamusData.xPosition + gSamusPhysics.drawDistanceRightOffset;
-        xOffsetRight = (behavior) >> 0x6;
-        if (xOffsetRight > gBGPointersAndDimensions.clipdataWidth)
-            xOffsetRight = gBGPointersAndDimensions.clipdataWidth;
+        // Get clipdata behavior
+        behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.
+            pClipDecomp[yPosition * gBGPointersAndDimensions.clipdataWidth + i]];
 
-        behavior = gSamusData.xPosition + gSamusPhysics.drawDistanceLeftOffset;
-        if (behavior < 0x0)
-            behavior = 0x0;
-
-        xPosition = behavior >> 0x6;
-        behavior = gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset;
-        yPosition = (behavior + 0x2) >> 0x6;
-
-        if (yPosition > gBGPointersAndDimensions.clipdataHeight)
-            yPosition = gBGPointersAndDimensions.clipdataHeight;
-
-        for (; xPosition <= xOffsetRight; xPosition++)
+        if (behavior == CLIP_BEHAVIOR_CRUMBLE_BLOCK)
         {
-            behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.
-                pClipDecomp[yPosition * gBGPointersAndDimensions.clipdataWidth + xPosition]];
+            // Check if speedboosting to not directly destroy the floor under samus, allows to run over crumble blocks
+            behavior = FALSE;
+            if ((gSamusData.pose == SPOSE_RUNNING || gSamusData.pose == SPOSE_ROLLING) && gSamusData.speedboostingShinesparking)
+                behavior = TRUE;
 
-            if (behavior == CLIP_BEHAVIOR_CRUMBLE_BLOCK)
+            // Store block
+            BlockStoreBrokenReformBlock(BLOCK_TYPE_CRUMBLE, i, yPosition, behavior);
+        }
+        else if (behavior == CLIP_BEHAVIOR_SLOW_CRUMBLE_BLOCK)
+        {
+            // Store block
+            if (BlockStoreBrokenReformBlock(BLOCK_TYPE_SLOW_CRUMBLE, i, yPosition, TRUE))
             {
-                behavior = FALSE;
-                if ((gSamusData.pose == SPOSE_RUNNING || gSamusData.pose == SPOSE_ROLLING) && gSamusData.speedboostingShinesparking)
-                    behavior = TRUE;
-
-                BlockStoreBrokenReformBlock(BLOCK_TYPE_CRUMBLE, xPosition, yPosition, (u8)behavior);
-            }
-            else if (behavior == CLIP_BEHAVIOR_SLOW_CRUMBLE_BLOCK)
-            {
-                if (BlockStoreBrokenReformBlock(BLOCK_TYPE_SLOW_CRUMBLE, xPosition, yPosition, TRUE))
-                {
-                    BGClipSetBG1BlockValue(0x401, yPosition, xPosition);
-                    BGClipSetClipdataBlockValue(0x401, yPosition, xPosition);
-                }
+                // Set "crumbling" graphics for the block
+                BgClipSetBG1BlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID, yPosition, i);
+                BgClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID, yPosition, i);
             }
         }
     }

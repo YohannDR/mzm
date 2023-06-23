@@ -1137,15 +1137,20 @@ u32 FileSelectEraseFileSubroutine(void)
                 {
                     action = 1;
                 }
-                else if (gChangedInput & KEY_B)
+                else
                 {
-                    goto lbl;
-                    //FILE_SELECT_DATA.subroutineStage = 10;
-                    //break;
-                }
-                else if (gChangedInput & KEY_A)
-                {
-                    action = (FILE_SELECT_DATA.enabledMenus >> FILE_SELECT_DATA.eraseFile) & 1 ? 2 : 0;
+                    if (!(gChangedInput & KEY_B))
+                    {
+                        if (gChangedInput & KEY_A)
+                        {
+                            action = (FILE_SELECT_DATA.enabledMenus >> FILE_SELECT_DATA.eraseFile) & 1 ? 2 : 0;
+                        }
+                    }
+                    else 
+                    {
+                        FILE_SELECT_DATA.subroutineStage = 10;
+                        action = 0;
+                    }
                 }
             }
 
@@ -1251,7 +1256,6 @@ u32 FileSelectEraseFileSubroutine(void)
         case 9:
             if (FileSelectUpdateTilemap(TILEMAP_REQUEST_ERASE_YES_NO_DESPAWN))
             {
-                lbl:
                 FILE_SELECT_DATA.subroutineStage = 10;
             }
             break;
