@@ -84,17 +84,17 @@ void BgClipSetBG1BlockValue(u16 value, u16 yPosition, u16 xPosition)
 
     // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
     offset = gBG1YPosition / BLOCK_SIZE;
-    if ((s32)(offset - 4) > yPosition)
+    if (offset - 4 > yPosition)
         return;
     
     if (yPosition > (offset + 13))
         return;
 
     offset = gBG1XPosition / BLOCK_SIZE;
-    if ((s32)(offset - 4) > xPosition)
+    if (offset - 4 > xPosition)
         return;
 
-    if (xPosition > (s32)(offset + 18))
+    if (xPosition > offset + 18)
         return;
 
     // Update tilemap
@@ -307,12 +307,11 @@ void BgClipCheckWalkingOnCrumbleBlock(void)
 void BgClipCheckTouchingTransitionOnElevator(void)
 {
     // https://decomp.me/scratch/tH2oX
-
+    
     u32 goingDown;
     s32 position;
-    s32 xPosition;
-    s32 yPosition;
-    u32 _xPosition;
+    u16 xPosition;
+    u16 yPosition;
     s32 onTransition;
     u16 behavior;
 
@@ -322,7 +321,7 @@ void BgClipCheckTouchingTransitionOnElevator(void)
     if (position > gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE)
         position = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
 
-    xPosition = (u16)(position >> 6);
+    xPosition = (u32)position / BLOCK_SIZE;
 
     if (!goingDown)
     {
@@ -333,7 +332,7 @@ void BgClipCheckTouchingTransitionOnElevator(void)
         position = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset - BLOCK_SIZE * 2;
     }
 
-    behavior = (u16)position;
+    behavior = position;
     if (position < 0)
         behavior = 0;
     else
