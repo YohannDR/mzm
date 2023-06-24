@@ -5586,9 +5586,12 @@ void unk_7eedc(u16* pTilemap)
     s32 j;
     u16 baseTile;
     u16 completion;
+    u16 flags;
 
-    completion = gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].completedGame & 0x7;
-    completion |= ((u16)gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].completedGame >> 3) & 0x7;
+    completion = gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].completedGame & 7;
+
+    flags = gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].completedGame;
+    completion |= (flags >> 3) & 7;
 
     pTilemap = &pTilemap[128];
     for (i = 0; i < 3; i++)
