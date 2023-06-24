@@ -511,6 +511,8 @@ SECTIONS {
         src/room_cutscene.o(.text);
         src/clipdata.o(.text);
         asm/disasm_0x080582c4.o(.text);
+        src/bg_clip.o(.text);
+        asm/disasm_0x0805b24c.o(.text);
         src/color_fading.o(.text);
         asm/disasm_0x0805cfe0.o(.text);
         src/animated_graphics.o(.text);

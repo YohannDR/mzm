@@ -1842,7 +1842,7 @@ lbl_0806f218:
     strb r2, [r0]
     cmp r1, #7
     bls lbl_0806f234
-    bl finish_collecting_ability
+    bl BgClipFinishCollectingAbility
 lbl_0806f234:
     ldr r1, lbl_0806f244 @ =gCurrentMessage
     ldrb r0, [r1, #0xc]
@@ -2057,7 +2057,7 @@ lbl_0806f3c4:
     strb r2, [r0]
     cmp r1, #7
     bls lbl_0806f3e0
-    bl finish_collecting_ability
+    bl BgClipFinishCollectingAbility
 lbl_0806f3e0:
     ldr r1, lbl_0806f3f0 @ =gCurrentMessage
     ldrb r0, [r1, #0xc]

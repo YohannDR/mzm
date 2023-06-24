@@ -9387,8 +9387,8 @@ lbl_0806cbc8:
     pop {r0}
     bx r0
 
-    thumb_func_start update_minimap_square_for_collected_item
-update_minimap_square_for_collected_item: @ 0x0806cbd8
+    thumb_func_start MinimapUpdateForCollectedItem
+MinimapUpdateForCollectedItem: @ 0x0806cbd8
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x18
     lsrs r2, r0, #0x18
@@ -9453,8 +9453,8 @@ lbl_0806cc5c: .4byte 0x02034000
 lbl_0806cc60: .4byte 0x02034800
 lbl_0806cc64: .4byte gUpdateMinimapFlag
 
-    thumb_func_start sub_0806cc68
-sub_0806cc68: @ 0x0806cc68
+    thumb_func_start MinimapCheckIsTileExplored
+MinimapCheckIsTileExplored: @ 0x0806cc68
     push {r4, r5, r6, r7, lr}
     lsls r0, r0, #0x18
     lsrs r2, r0, #0x18

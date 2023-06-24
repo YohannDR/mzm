@@ -17,7 +17,7 @@ void BgClipCheckTouchingTransitionOnElevator(void);
 void BgClipCheckTouchingTransitionOrTank(void);
 void BgClipFinishCollectingTank(void);
 void BgClipFinishCollectingAbility(void);
-void BgClipCheckGrabbingCrumnbleBlock(u8 dontDestroy);
+void BgClipCheckGrabbingCrumbleBlock(u8 dontDestroy);
 u8 BgClipCheckOpeningHatch(u16 xPosition, u16 yPosition);
 void BgClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type);
 void BgClipRemoveCollectedTanks(void);

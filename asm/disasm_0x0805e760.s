@@ -284,14 +284,14 @@ lbl_0805e96e:
     ldrb r1, [r4, #6]
     ldrb r2, [r4, #5]
     adds r0, r7, #0
-    bl set_bg1_block_value
+    bl BgClipSetBG1BlockValue
     movs r0, #0x10
     adds r0, r0, r7
     mov r8, r0
     ldrb r1, [r4, #6]
     adds r1, #1
     ldrb r2, [r4, #5]
-    bl set_bg1_block_value
+    bl BgClipSetBG1BlockValue
     adds r1, r7, #0
     adds r1, #0x20
     str r1, [sp]
@@ -299,14 +299,14 @@ lbl_0805e96e:
     adds r1, #2
     ldrb r2, [r4, #5]
     ldr r0, [sp]
-    bl set_bg1_block_value
+    bl BgClipSetBG1BlockValue
     adds r5, r7, #0
     adds r5, #0x30
     ldrb r1, [r4, #6]
     adds r1, #3
     ldrb r2, [r4, #5]
     adds r0, r5, #0
-    bl set_bg1_block_value
+    bl BgClipSetBG1BlockValue
     mov r6, r8
     ldr r3, [sp]
     mov r8, r3
@@ -319,14 +319,14 @@ lbl_0805e9c0:
     ldrb r1, [r4, #6]
     ldrb r2, [r4, #5]
     adds r0, r7, #0
-    bl set_raw_bg1_block_value
+    bl BgClipSetRawBG1BlockValue
     movs r0, #0x10
     adds r0, r0, r7
     mov r8, r0
     ldrb r1, [r4, #6]
     adds r1, #1
     ldrb r2, [r4, #5]
-    bl set_raw_bg1_block_value
+    bl BgClipSetRawBG1BlockValue
     movs r1, #0x20
     adds r1, r1, r7
     mov sb, r1
@@ -334,14 +334,14 @@ lbl_0805e9c0:
     adds r1, #2
     ldrb r2, [r4, #5]
     mov r0, sb
-    bl set_raw_bg1_block_value
+    bl BgClipSetRawBG1BlockValue
     adds r5, r7, #0
     adds r5, #0x30
     ldrb r1, [r4, #6]
     adds r1, #3
     ldrb r2, [r4, #5]
     adds r0, r5, #0
-    bl set_raw_bg1_block_value
+    bl BgClipSetRawBG1BlockValue
     mov r6, r8
     mov r8, sb
 lbl_0805ea04:
@@ -351,26 +351,26 @@ lbl_0805ea04:
     add r4, sl
     ldrb r1, [r4, #6]
     ldrb r2, [r4, #5]
-    bl set_clipdata_block_value
+    bl BgClipSetClipdataBlockValue
     lsls r0, r6, #0x10
     lsrs r0, r0, #0x10
     ldrb r1, [r4, #6]
     adds r1, #1
     ldrb r2, [r4, #5]
-    bl set_clipdata_block_value
+    bl BgClipSetClipdataBlockValue
     mov r3, r8
     lsls r0, r3, #0x10
     lsrs r0, r0, #0x10
     ldrb r1, [r4, #6]
     adds r1, #2
     ldrb r2, [r4, #5]
-    bl set_clipdata_block_value
+    bl BgClipSetClipdataBlockValue
     lsls r0, r5, #0x10
     lsrs r0, r0, #0x10
     ldrb r1, [r4, #6]
     adds r1, #3
     ldrb r2, [r4, #5]
-    bl set_clipdata_block_value
+    bl BgClipSetClipdataBlockValue
     add sp, #4
     pop {r3, r4, r5}
     mov r8, r3
@@ -441,25 +441,25 @@ lbl_0805eabc:
     ldrb r1, [r4, #6]
     ldrb r2, [r4, #5]
     adds r0, r5, #0
-    bl set_bg1_block_value
+    bl BgClipSetBG1BlockValue
     adds r0, r5, #0
     adds r0, #0x10
     ldrb r1, [r4, #6]
     adds r1, #1
     ldrb r2, [r4, #5]
-    bl set_bg1_block_value
+    bl BgClipSetBG1BlockValue
     adds r0, r5, #0
     adds r0, #0x20
     ldrb r1, [r4, #6]
     adds r1, #2
     ldrb r2, [r4, #5]
-    bl set_bg1_block_value
+    bl BgClipSetBG1BlockValue
     adds r0, r5, #0
     adds r0, #0x30
     ldrb r1, [r4, #6]
     adds r1, #3
     ldrb r2, [r4, #5]
-    bl set_bg1_block_value
+    bl BgClipSetBG1BlockValue
     ldrb r2, [r4, #1]
     lsls r1, r2, #0x18
     lsrs r0, r1, #0x1c
@@ -513,39 +513,39 @@ sub_0805eb18: @ 0x0805eb18
     ldrb r1, [r5, #6]
     ldrb r2, [r5, #5]
     adds r0, r4, #0
-    bl set_bg1_block_value
+    bl BgClipSetBG1BlockValue
     adds r6, r4, #0
     adds r6, #0x10
     ldrb r1, [r5, #6]
     adds r1, #1
     ldrb r2, [r5, #5]
     adds r0, r6, #0
-    bl set_bg1_block_value
+    bl BgClipSetBG1BlockValue
     movs r0, #0x20
     adds r0, r0, r4
     mov r8, r0
     ldrb r1, [r5, #6]
     adds r1, #2
     ldrb r2, [r5, #5]
-    bl set_bg1_block_value
+    bl BgClipSetBG1BlockValue
     movs r0, #0x30
     adds r0, r0, r4
     mov sb, r0
     ldrb r1, [r5, #6]
     adds r1, #3
     ldrb r2, [r5, #5]
-    bl set_bg1_block_value
+    bl BgClipSetBG1BlockValue
     ldrb r1, [r5, #6]
     ldrb r2, [r5, #5]
     adds r0, r4, #0
-    bl set_clipdata_block_value
+    bl BgClipSetClipdataBlockValue
     lsls r6, r6, #0x10
     lsrs r6, r6, #0x10
     ldrb r1, [r5, #6]
     adds r1, #1
     ldrb r2, [r5, #5]
     adds r0, r6, #0
-    bl set_clipdata_block_value
+    bl BgClipSetClipdataBlockValue
     mov r0, r8
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
@@ -553,7 +553,7 @@ sub_0805eb18: @ 0x0805eb18
     ldrb r1, [r5, #6]
     adds r1, #2
     ldrb r2, [r5, #5]
-    bl set_clipdata_block_value
+    bl BgClipSetClipdataBlockValue
     mov r0, sb
     lsls r0, r0, #0x10
     lsrs r0, r0, #0x10
@@ -561,7 +561,7 @@ sub_0805eb18: @ 0x0805eb18
     ldrb r1, [r5, #6]
     adds r1, #3
     ldrb r2, [r5, #5]
-    bl set_clipdata_block_value
+    bl BgClipSetClipdataBlockValue
     ldrb r1, [r5, #1]
     movs r0, #4
     rsbs r0, r0, #0
@@ -585,8 +585,8 @@ sub_0805eb18: @ 0x0805eb18
 lbl_0805ebe8: .4byte gHatchData
 lbl_0805ebec: .4byte 0x083602c8
 
-    thumb_func_start check_enter_door
-check_enter_door: @ 0x0805ebf0
+    thumb_func_start ConnectionCheckEnterDoor
+ConnectionCheckEnterDoor: @ 0x0805ebf0
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -798,8 +798,8 @@ lbl_0805ed84:
     bx r1
     .align 2, 0
 
-    thumb_func_start check_area_connection
-check_area_connection: @ 0x0805ed94
+    thumb_func_start ConnectionCheckAreaConnection
+ConnectionCheckAreaConnection: @ 0x0805ed94
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb
@@ -1119,8 +1119,8 @@ lbl_0805effa:
     pop {r1}
     bx r1
 
-    thumb_func_start set_hatch_as_opened
-set_hatch_as_opened: @ 0x0805f004
+    thumb_func_start ConnectionSetHatchAsOpened
+ConnectionSetHatchAsOpened: @ 0x0805f004
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
@@ -1758,7 +1758,7 @@ lbl_0805f4b0:
     bls lbl_0805f4da
     ldrb r1, [r1, #7]
     movs r0, #0
-    bl set_hatch_as_opened
+    bl ConnectionSetHatchAsOpened
     cmp r0, #0
     bne lbl_0805f4da
     lsls r0, r4, #0x18
@@ -1832,7 +1832,7 @@ lbl_0805f53e:
     adds r0, r0, r1
     ldrh r1, [r0]
     adds r0, r1, #0
-    bl check_clipdata_behavior_change_bldalpha
+    bl BgClipGetNewBldalphaValue
     lsls r0, r0, #0x10
     lsrs r1, r0, #0x10
     cmp r1, #0

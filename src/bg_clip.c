@@ -1,6 +1,5 @@
 #include "gba.h"
 #include "bg_clip.h"
-#include "transparency.h"
 #include "block.h"
 #include "minimap.h"
 #include "connection.h"
@@ -144,12 +143,17 @@ void BgClipSetClipdataBlockValue(u16 value, u16 yPosition, u16 xPosition)
  */
 void BgClipCheckTouchingSpecialClipdata(void)
 {
-    BgClipCheckGrabbingCrumnbleBlock(FALSE);
+    BgClipCheckGrabbingCrumbleBlock(FALSE);
+
     if (gSamusData.pose == SPOSE_USING_AN_ELEVATOR)
-        BgClipCheckTouchingTransitionOnElevator();
-    else if (!gDisableDoorAndTanks)
     {
-        if (gFrameCounter8Bit & 0x1)
+        BgClipCheckTouchingTransitionOnElevator();
+        return;
+    }
+
+    if (!gDisableDoorAndTanks)
+    {
+        if (gFrameCounter8Bit & 1)
             BgClipCheckTouchingTransitionOrTank();
         else if (!gDisableClipdataChangingTransparency)
             BgClipApplyClipdataChangingTransparency();
@@ -573,7 +577,7 @@ void BgClipFinishCollectingTank(void)
             clipdata = 0;
 
         BgClipSetBG1BlockValue(0, gLastTankCollected.yPosition, gLastTankCollected.xPosition);
-        BgClipSetBG1BlockValue(clipdata, gLastTankCollected.yPosition, gLastTankCollected.xPosition);
+        BgClipSetClipdataBlockValue(clipdata, gLastTankCollected.yPosition, gLastTankCollected.xPosition);
         BgClipSetItemAsCollected(gLastTankCollected.xPosition, gLastTankCollected.yPosition, sTankBehaviors[tank].itemType);
         MinimapUpdateForCollectedItem(gLastTankCollected.xPosition, gLastTankCollected.yPosition);
     }
@@ -590,7 +594,7 @@ void BgClipFinishCollectingAbility(void)
  * 
  * @param dontDestroy 
  */
-void BgClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
+void BgClipCheckGrabbingCrumbleBlock(u8 dontDestroy)
 {
     u8 setPose;
     s32 yOffset;
@@ -634,7 +638,7 @@ void BgClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
             // Destroy block
             if (BlockStoreBrokenReformBlock(BLOCK_TYPE_SLOW_CRUMBLE, xPosition, yPosition, TRUE))
             {
-                BgClipSetBG1BlockValue(0x401, yPosition, xPosition);
+                BgClipSetBG1BlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID, yPosition, xPosition);
                 BgClipSetClipdataBlockValue(CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_SOLID, yPosition, xPosition);
                 setPose = FALSE;
             }
@@ -706,7 +710,7 @@ u8 BgClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
                     if (gHatchData[i].hits >= sHatchBehaviors[gHatchData[i].type][1])
                     {
                         // Unlock
-                        gHatchData[i].locked = FALSE;
+                        gHatchData[i].flashingTimer = FALSE;
                         gHatchData[i].opening = TRUE;
 
                         // Set hatch as opened
@@ -716,12 +720,12 @@ u8 BgClipCheckOpeningHatch(u16 xPosition, u16 yPosition)
                             ConnectionSetHatchAsOpened(HATCH_ACTION_SETTING_SOURCE, gHatchData[i].sourceDoor);
                     }
                     else
-                        gHatchData[i].flashingTimer = 0x1; // Set flashing
+                        gHatchData[i].flashingTimer = 1; // Set flashing
                 }
                 else
-                    gHatchData[i].hits = 0x0; // Locked, reset
+                    gHatchData[i].hits = 0; // Locked, reset
 
-                gHatchData[i].hitTimer = 0x0;
+                gHatchData[i].hitTimer = 0;
                 break;
             }
         }
@@ -744,7 +748,7 @@ void BgClipSetItemAsCollected(u16 xPosition, u16 yPosition, u8 type)
     u8* pItem;
     s32 limit;
 
-    if (gCurrentArea > MAX_AMOUNT_OF_AREAS)
+    if (gCurrentArea >= MAX_AMOUNT_OF_AREAS)
         return;
 
     i = gCurrentArea;
@@ -788,7 +792,7 @@ void BgClipRemoveCollectedTanks(void)
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
         return;
 
-    if (gCurrentArea > MAX_AMOUNT_OF_AREAS)
+    if (gCurrentArea >= MAX_AMOUNT_OF_AREAS)
         return;
     
     i = gCurrentArea;

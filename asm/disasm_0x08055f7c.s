@@ -832,7 +832,7 @@ lbl_080566c0: .4byte 0x02030800
 RoomRemoveNeverReformBlocksAndCollectedTanks: @ 0x080566c4
     push {lr}
     bl remove_never_reform_blocks
-    bl remove_collected_tanks
+    bl BgClipRemoveCollectedTanks
     pop {r0}
     bx r0
     .align 2, 0
@@ -2029,7 +2029,7 @@ lbl_08057042:
     ldrsh r0, [r4, r1]
     cmp r0, #2
     bne lbl_0805706c
-    bl check_special_clipdata
+    bl BgClipCheckTouchingSpecialClipdata
     movs r1, #0
     ldrsh r0, [r4, r1]
     cmp r0, #2

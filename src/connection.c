@@ -312,7 +312,7 @@ u32 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
  * @param xPosition X Position
  * @return u8 Could enter
  */
-u8 ConnectionCheckAreaConnection(u16 yPosition, u16 xPosition)
+u32 ConnectionCheckAreaConnection(u16 yPosition, u16 xPosition)
 {
     const struct Door* pDoor;
     struct HatchData* pHatch;
