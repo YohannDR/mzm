@@ -35,12 +35,6 @@ struct ItemInfo {
     u8 yPosition;
 };
 
-struct TankCollectionData {
-    u16 behaviors[4];
-    u16 yPositions[3];
-    u16 xPositions[3];
-};
-
 // Globals
 
 #define MAX_AMOUNT_OF_ITEMS_PER_AREA 64

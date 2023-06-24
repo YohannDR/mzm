@@ -2,6 +2,8 @@
 #include "bg_clip.h"
 #include "transparency.h"
 #include "block.h"
+#include "minimap.h"
+#include "connection.h"
 #include "macros.h"
 
 #include "data/block_data.h"
@@ -368,212 +370,183 @@ void BgClipCheckTouchingTransitionOnElevator(void)
     }
 }
 
+/**
+ * @brief 5a96c | 420 | Checks if samus is touching a transition or a tank
+ * 
+ */
 void BgClipCheckTouchingTransitionOrTank(void)
 {
-    // https://decomp.me/scratch/68qvD
-
-    s32 position;
-    s32 collectingFirstTank;
-    s32 limit;
-    struct TankCollectionData collectionData;
-    u16* pBehavior;
+    s32 behaviors[4];
+    s32 yPositions[3];
+    s32 xPositions[3];
     s32 i;
-    s32 offset;
-    u16* pPosition;
-    s32 unk;
-    u8 tankType;
-    s32 newMax;
-    s8 messageID;
-    s32 max;
-    s32 increment;
+    s32 j;
+    s32 isFirstTank;
 
-    position = (gSamusPhysics.drawDistanceRightOffset >> 0x1) + gSamusData.xPosition;
-    if (position < 0x0)
-        position = 0x0;
-    else
+    // Get X positions
+    // On the right
+    j = (gSamusPhysics.drawDistanceRightOffset >> 1) + gSamusData.xPosition;
+    CLAMP2(j, 0, gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE);
+    xPositions[0] = j >> 6;
+
+    // On the left
+    j = (gSamusPhysics.drawDistanceLeftOffset >> 1) + gSamusData.xPosition;
+    CLAMP2(j, 0, gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE);
+    xPositions[1] = j >> 6;
+
+    // Center
+    j = gSamusData.xPosition;
+    CLAMP2(j, 0, gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE);
+    xPositions[2] = j >> 6;
+
+    // Get Y positions
+    // Center
+    j = (gSamusPhysics.drawDistanceTopOffset >> 1) + gSamusData.yPosition;
+    CLAMP2(j, 0, gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE);
+    yPositions[0] = j >> 6;
+
+    // Bottom
+    j = (gSamusPhysics.drawDistanceTopOffset >> 2) + gSamusData.yPosition;
+    CLAMP2(j, 0, gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE);
+    yPositions[1] = j >> 6;
+
+    // Top
+    j = (gSamusPhysics.drawDistanceTopOffset >> 2) + (gSamusPhysics.drawDistanceTopOffset >> 1) + gSamusData.yPosition;
+    CLAMP2(j, 0, gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE);
+    yPositions[2] = j >> 6;
+
+    // Get clipdata behaviors on the X axis
+    for (i = 0; i < ARRAY_SIZE(xPositions) - 1; i++)
     {
-        if (position > gBgPointersAndDimensions.clipdataWidth << 0x6)
-            position = gBgPointersAndDimensions.clipdataWidth << 0x6;
+        j = gBgPointersAndDimensions.pClipDecomp[gBgPointersAndDimensions.clipdataWidth * yPositions[0] + xPositions[i]];
+        behaviors[i] = gTilemapAndClipPointers.pClipBehaviors[j];
     }
 
-    collectionData.xPositions[0] = position >> 0x6;
-
-    position = gSamusData.xPosition + (gSamusPhysics.drawDistanceLeftOffset >> 0x1);
-    if (position < 0x0)
-        position = 0x0;
-    else
+    // Get clipdata behaviors on the y axis
+    for (i = 0; i < ARRAY_SIZE(yPositions) - 1; i++)
     {
-        if (position > gBgPointersAndDimensions.clipdataWidth << 0x6)
-            position = gBgPointersAndDimensions.clipdataWidth << 0x6;
+        j = gBgPointersAndDimensions.pClipDecomp[yPositions[i + 1] * gBgPointersAndDimensions.clipdataWidth + xPositions[2]];
+        behaviors[i + 2] = gTilemapAndClipPointers.pClipBehaviors[j];
     }
 
-    collectionData.xPositions[1] = position >> 0x6;
+    // Check if at least one behavior was found
+    if ((behaviors[0] | behaviors[1] | behaviors[2] | behaviors[3]) == CLIP_BEHAVIOR_NONE)
+        return;
 
-    position = gSamusData.xPosition;
-    if (position > gBgPointersAndDimensions.clipdataWidth << 0x6)
-        position = gBgPointersAndDimensions.clipdataWidth << 0x6;
+    // Check for transition clipdata
+    j = -1;
+    if (behaviors[0] == CLIP_BEHAVIOR_DOOR_TRANSITION)
+        j = 0;
+    else if (behaviors[1] == CLIP_BEHAVIOR_DOOR_TRANSITION)
+        j = 1;
+    else if (behaviors[2] == CLIP_BEHAVIOR_VERTICAL_UP_TRANSITION)
+        j = 2;
+    else if (behaviors[3] == CLIP_BEHAVIOR_VERTICAL_DOWN_TRANSITION)
+        j = 3;
 
-    collectionData.xPositions[2] = position >> 0x6;
-
-    position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 0x1);
-    if (position < 0x0)
-        position = 0x0;
-    else
+    if (j + 1 != 0)
     {
-        if (position > gBgPointersAndDimensions.clipdataHeight << 0x6)
-            position = gBgPointersAndDimensions.clipdataHeight << 0x6;
-    }
-
-    collectionData.yPositions[0] = position;
-
-    position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 0x2);
-    if (position < 0x0)
-        position = 0x0;
-    else
-    {
-        if (position > gBgPointersAndDimensions.clipdataHeight << 0x6)
-            position = gBgPointersAndDimensions.clipdataHeight << 0x6;
-    }
-
-    collectionData.yPositions[1] = position;
-
-    position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 0x1) + (gSamusPhysics.drawDistanceTopOffset >> 0x2);
-    if (position < 0x0)
-        position = 0x0;
-    else
-    {
-        if (position > gBgPointersAndDimensions.clipdataHeight << 0x6)
-            position = gBgPointersAndDimensions.clipdataHeight << 0x6;
-    }
-
-    collectionData.yPositions[2] = position;
-
-    pPosition = collectionData.xPositions;
-    pBehavior = collectionData.behaviors;
-    for (i = 1; i > 0; i--)
-    {
-        position = *pPosition++;
-        offset = gBgPointersAndDimensions.pClipDecomp[collectionData.yPositions[0] * gBgPointersAndDimensions.clipdataWidth + position];
-        *pBehavior++ = gTilemapAndClipPointers.pClipBehaviors[offset];
-    }
-
-    pPosition = collectionData.yPositions;
-    pBehavior = collectionData.behaviors + 2;
-    for (i = 1; i > 0; i--)
-    {
-        position = *pPosition++;
-        offset = gBgPointersAndDimensions.pClipDecomp[position * gBgPointersAndDimensions.clipdataWidth + collectionData.xPositions[0]];
-        *pBehavior++ = gTilemapAndClipPointers.pClipBehaviors[offset];
-    }
-
-    if (collectionData.behaviors[0] | collectionData.behaviors[1] |
-        collectionData.behaviors[2] | collectionData.behaviors[3])
-    {
-        unk = -1;
-        if (collectionData.behaviors[0] == CLIP_BEHAVIOR_DOOR_TRANSITION)
-            unk = 0x0;
-        else if (collectionData.behaviors[1] == CLIP_BEHAVIOR_DOOR_TRANSITION)
-            unk = 0x1;
-        else if (collectionData.behaviors[2] == CLIP_BEHAVIOR_VERTICAL_UP_TRANSITION)
-            unk = 0x2;
-        else if (collectionData.behaviors[3] == CLIP_BEHAVIOR_VERTICAL_DOWN_TRANSITION)
-            unk = 0x3;
-
-        if ((unk + 1) != 0)
+        // Check for door
+        if (!ConnectionCheckEnterDoor(yPositions[sHatchRelated_345cee[j][0]], xPositions[sHatchRelated_345cee[j][1]]))
         {
-            if (!ConnectionCheckEnterDoor(collectionData.yPositions[sHatchRelated_345cee[i][1]], collectionData.xPositions[sHatchRelated_345cee[i][0]]))
-                ConnectionCheckAreaConnection(collectionData.yPositions[sHatchRelated_345cee[i][1]], collectionData.xPositions[sHatchRelated_345cee[i][0]]);
+            ConnectionCheckAreaConnection(yPositions[sHatchRelated_345cee[j][0]], xPositions[sHatchRelated_345cee[j][1]]);
         }
-        else
+        return;
+    }
+
+    // Abort if already collecting a tank
+    if (gCollectingTank)
+        return;
+
+    isFirstTank = FALSE;
+
+    for (j = 3; j >= 0; j--)
+    {
+        // No behavior, continue
+        if (behaviors[j] == 0)
+            continue;
+
+        // Not a tank behavior, continue
+        if (BEHAVIOR_TO_TANK(behaviors[j]) > (u32)BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK))
+            continue;
+
+        // Get item type
+        i = sTankBehaviors[BEHAVIOR_TO_TANK(behaviors[j])].itemType;
+
+        // Check is an item (hidden tanks not broken aren't tanks yet)
+        if (i != ITEM_TYPE_NONE)
         {
-            collectingFirstTank = FALSE;
-
-            for (position = 3; position >= 0; position--)
+            // Check the tile is explored
+            if (MinimapCheckIsTileExplored(xPositions[sHatchRelated_345cee[j][1]], yPositions[sHatchRelated_345cee[j][0]]))
             {
-                if (collectionData.behaviors[i] != CLIP_BEHAVIOR_NONE &&
-                    BEHAVIOR_TO_TANK(collectionData.behaviors[i]) <
-                    BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK))
+                // Set flag and stop samus
+                gCollectingTank = TRUE;
+                gPreventMovementTimer = 0x3E8;
+
+                // Set last tankk collected data
+                gLastTankCollected.behavior = behaviors[j];
+                gLastTankCollected.xPosition = xPositions[sHatchRelated_345cee[j][1]];
+                gLastTankCollected.yPosition = yPositions[sHatchRelated_345cee[j][0]];
+
+                // Apply tank :
+                // Check not above max (max number of tanks * increase amount + starting) >= current max + increase
+                // Check if it's not first tank of that type (except for energy)
+                // Apply increment to max and current
+
+                if (i == ITEM_TYPE_MISSILE)
                 {
-                    tankType = sTankBehaviors[BEHAVIOR_TO_TANK(collectionData.behaviors[i])].itemType;
-
-                    if (tankType != ITEM_TYPE_NONE)
+                    if (sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].missile * sTankIncreaseAmount[gDifficulty].missile + sStartingHealthAmmo.missile >= gEquipment.maxMissiles + sTankIncreaseAmount[gDifficulty].missile)
                     {
-                        if (check_tile_is_explored(collectionData.yPositions[sHatchRelated_345cee[i][1]], collectionData.xPositions[sHatchRelated_345cee[i][0]]))
-                        {
-                            gCollectingTank = TRUE;
-                            gPreventMovementTimer = 0x3E8;
-                            gLastTankCollected.behavior = collectionData.behaviors[i];
-                            gLastTankCollected.xPosition = collectionData.xPositions[i];
-                            gLastTankCollected.yPosition = collectionData.yPositions[i];
+                        if (gEquipment.maxMissiles == 0)
+                            isFirstTank = TRUE;
 
-                            if (tankType == ITEM_TYPE_MISSILE)
-                            {
-                                max = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS].missile;
-                                increment = sTankIncreaseAmount[gDifficulty].missile;
-                                newMax = gEquipment.maxMissiles + increment;
-                                if ((increment * max) + sStartingHealthAmmo.missile >= newMax)
-                                {
-                                    if (gEquipment.maxMissiles == 0x0)
-                                        collectingFirstTank = TRUE;
+                        gEquipment.maxMissiles += sTankIncreaseAmount[gDifficulty].missile;
+                        gEquipment.currentMissiles += sTankIncreaseAmount[gDifficulty].missile;
+                    }
+                }
+                else if (i == ITEM_TYPE_ENERGY)
+                {
+                    if (sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].energy * sTankIncreaseAmount[gDifficulty].energy + sStartingHealthAmmo.energy >= gEquipment.maxEnergy + sTankIncreaseAmount[gDifficulty].energy)
+                    {
+                        gEquipment.maxEnergy += sTankIncreaseAmount[gDifficulty].energy;
+                        gEquipment.currentEnergy = gEquipment.maxEnergy;
+                    }
+                }
+                else if (i == ITEM_TYPE_SUPER_MISSILE)
+                {
+                    if (sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].superMissile * sTankIncreaseAmount[gDifficulty].superMissile + sStartingHealthAmmo.superMissile >= gEquipment.maxSuperMissiles + sTankIncreaseAmount[gDifficulty].superMissile)
+                    {
+                        if (gEquipment.maxSuperMissiles == 0)
+                            isFirstTank = TRUE;
 
-                                    gEquipment.maxMissiles = newMax;
-                                    gEquipment.currentMissiles += increment;
-                                }
-                            }
-                            else if (tankType == ITEM_TYPE_ENERGY)
-                            {
-                                max = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS].energy;
-                                increment = sTankIncreaseAmount[gDifficulty].energy;
-                                newMax = gEquipment.maxEnergy + increment;
-                                if ((increment * max) + sStartingHealthAmmo.energy >= newMax)
-                                {
-                                    gEquipment.maxEnergy = newMax;
-                                    gEquipment.currentEnergy += increment;
-                                }
-                            }
-                            else if (tankType == ITEM_TYPE_SUPER_MISSILE)
-                            {                                
-                                max = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS].superMissile;
-                                increment = sTankIncreaseAmount[gDifficulty].superMissile;
-                                newMax = gEquipment.maxSuperMissiles + increment;
-                                if ((increment * max) + sStartingHealthAmmo.superMissile >= newMax)
-                                {
-                                    if (gEquipment.maxSuperMissiles == 0x0)
-                                        collectingFirstTank = TRUE;
+                        gEquipment.maxSuperMissiles += sTankIncreaseAmount[gDifficulty].superMissile;
+                        gEquipment.currentSuperMissiles += sTankIncreaseAmount[gDifficulty].superMissile;
+                    }
+                }
+                else if (i == ITEM_TYPE_POWER_BOMB)
+                {
+                    if (sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS - 1].powerBomb * sTankIncreaseAmount[gDifficulty].powerBomb + sStartingHealthAmmo.powerBomb >= gEquipment.maxPowerBombs + sTankIncreaseAmount[gDifficulty].powerBomb)
+                    {
+                        if (gEquipment.maxPowerBombs == 0)
+                            isFirstTank = TRUE;
 
-                                    gEquipment.maxSuperMissiles = newMax;
-                                    gEquipment.currentSuperMissiles += increment;
-                                }
-                            }
-                            else if (tankType == ITEM_TYPE_POWER_BOMB)
-                            {
-                                max = sNumberOfTanksPerArea[MAX_AMOUNT_OF_AREAS].powerBomb;
-                                increment = sTankIncreaseAmount[gDifficulty].powerBomb;
-                                newMax = gEquipment.maxPowerBombs + increment;
-                                if ((increment * max) + sStartingHealthAmmo.powerBomb >= newMax)
-                                {
-                                    if (gEquipment.maxPowerBombs == 0x0)
-                                        collectingFirstTank = TRUE;
-
-                                    gEquipment.maxPowerBombs = newMax;
-                                    gEquipment.currentPowerBombs += increment;
-                                }
-                            }
-
-                            messageID = sTankBehaviors[BEHAVIOR_TO_TANK(collectionData.behaviors[i])].messageID + collectingFirstTank;
-                            if (messageID != MESSAGE_NONE)
-                            {
-                                SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, messageID, 0x6,
-                                    gSamusData.yPosition, gSamusData.xPosition, 0x0);
-                            }
-                        }
+                        gEquipment.maxPowerBombs += sTankIncreaseAmount[gDifficulty].powerBomb;
+                        gEquipment.currentPowerBombs += sTankIncreaseAmount[gDifficulty].powerBomb;
                     }
                 }
 
-                if (gCollectingTank)
-                    break;
+                // Spawn the item banner
+                i = sTankBehaviors[BEHAVIOR_TO_TANK(behaviors[j])].messageID + isFirstTank;
+                if (i != MESSAGE_NONE)
+                {
+                    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, i, 6, gSamusData.yPosition, gSamusData.xPosition, 0);
+                }
             }
         }
+
+        // Collecting a tank, abort
+        if (gCollectingTank)
+            break;
     }
 }
 
@@ -593,11 +566,11 @@ void BgClipFinishCollectingTank(void)
     {
         // Get clip
         if (sTankBehaviors[tank].underwater)
-            clipdata = 0x43C;
+            clipdata = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_WATER;
         else
-            clipdata = 0x0;
+            clipdata = 0;
 
-        BgClipSetBG1BlockValue(0x0, gLastTankCollected.yPosition, gLastTankCollected.xPosition);
+        BgClipSetBG1BlockValue(0, gLastTankCollected.yPosition, gLastTankCollected.xPosition);
         BgClipSetBG1BlockValue(clipdata, gLastTankCollected.yPosition, gLastTankCollected.xPosition);
         BgClipSetItemAsCollected(gLastTankCollected.xPosition, gLastTankCollected.yPosition, sTankBehaviors[tank].itemType);
         MinimapUpdateForCollectedItem(gLastTankCollected.xPosition, gLastTankCollected.yPosition);

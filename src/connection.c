@@ -242,7 +242,7 @@ void ConnectionOverrideOpenedHatch(u8 hatch, u32 type)
  * @param xPosition X Position
  * @return u8 Could enter
  */
-u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
+u32 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
 {
     const struct Door* pDoor;
     struct HatchData* pHatch;
@@ -252,7 +252,7 @@ u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
     if (gGameModeSub1 != SUB_GAME_MODE_PLAYING)
         return FALSE;
 
-    state = 0x0;
+    state = FALSE;
     pHatch = gHatchData;
 
     for (i = 0; i < MAX_AMOUNT_OF_HATCHES; i++)
@@ -264,8 +264,8 @@ u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
             if ((pDoor->type & DOOR_TYPE_NO_FLAGS) > DOOR_TYPE_AREA_CONNECTION && pDoor->xStart <= xPosition &&
                 xPosition <= pDoor->xEnd && pDoor->yStart <= yPosition && yPosition <= pDoor->yEnd)
             {
-                gDoorPositionStart.x = 0x0;
-                gDoorPositionStart.y = 0x0;
+                gDoorPositionStart.x = 0;
+                gDoorPositionStart.y = 0;
 
                 if (pDoor->type & DOOR_TYPE_LOAD_EVENT_BASED_ROOM)
                 {
@@ -280,20 +280,20 @@ u8 ConnectionCheckEnterDoor(u16 yPosition, u16 xPosition)
 
                 if ((pDoor->type & DOOR_TYPE_NO_FLAGS) > DOOR_TYPE_NO_HATCH)
                 {
-                    if (pDoor->xStart > (gBG1XPosition >> 0x6) + 0x8)
-                        gDoorPositionStart.x = 0x1;
+                    if (pDoor->xStart > (gBG1XPosition >> 0x6) + 8)
+                        gDoorPositionStart.x = 1;
                     gDoorPositionStart.y = pDoor->yStart;
                 }
 
-                gSamusDoorPositionOffset = (pDoor->yEnd + 0x1) * BLOCK_SIZE - gSamusData.yPosition - 0x1;
+                gSamusDoorPositionOffset = (pDoor->yEnd + 1) * BLOCK_SIZE - gSamusData.yPosition - 1;
                 ConnectionProcessDoorType(pDoor->type);
                 gGameModeSub1 = SUB_GAME_MODE_LOADING_ROOM;
 
                 if (gHatchData[i].exists && gHatchData[i].opening == TRUE)
-                    gHatchData[i].currentAnimationFrame = 0x7;
+                    gHatchData[i].currentAnimationFrame = 7;
 
                 pDoor = sAreaDoorsPointers[gCurrentArea] + gLastDoorUsed;
-                ConnectionCheckPlayCutsceneDuringTransition(gCurrentArea, pDoor->sourceRoom + 0x1);
+                ConnectionCheckPlayCutsceneDuringTransition(gCurrentArea, pDoor->sourceRoom + 1);
                 CheckPlayRoomMusicTrack(gCurrentArea, pDoor->sourceRoom);
 
                 state = TRUE;

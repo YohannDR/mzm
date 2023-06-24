@@ -591,49 +591,49 @@ const struct TankBehavior sTankBehaviors[MAX_AMOUNT_OF_TANK_TYPES] = {
         .itemType = ITEM_TYPE_ENERGY,
         .underwater = FALSE,
         .messageID = MESSAGE_ENERGY_TANK_ACQUIRED,
-        .revealedClipdata = 0
+        .revealedClipdata = CLIPDATA_TILEMAP_AIR
     },
     [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_MISSILE_TANK)] = {
         .itemType = ITEM_TYPE_MISSILE,
         .underwater = FALSE,
         .messageID = MESSAGE_MISSILE_TANK_ACQUIRED,
-        .revealedClipdata = 0
+        .revealedClipdata = CLIPDATA_TILEMAP_AIR
     },
     [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_SUPER_MISSILE_TANK)] = {
         .itemType = ITEM_TYPE_SUPER_MISSILE,
         .underwater = FALSE,
         .messageID = MESSAGE_SUPER_MISSILE_TANK_ACQUIRED,
-        .revealedClipdata = 0
+        .revealedClipdata = CLIPDATA_TILEMAP_AIR
     },
     [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_POWER_BOMB_TANK)] = {
         .itemType = ITEM_TYPE_POWER_BOMB,
         .underwater = FALSE,
         .messageID = MESSAGE_POWER_BOMB_TANK_ACQUIRED,
-        .revealedClipdata = 0
+        .revealedClipdata = CLIPDATA_TILEMAP_AIR
     },
     [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK)] = {
         .itemType = ITEM_TYPE_ENERGY,
         .underwater = TRUE,
         .messageID = MESSAGE_ENERGY_TANK_ACQUIRED,
-        .revealedClipdata = 0
+        .revealedClipdata = CLIPDATA_TILEMAP_AIR
     },
     [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_UNDERWATER_MISSILE_TANK)] = {
         .itemType = ITEM_TYPE_MISSILE,
         .underwater = TRUE,
         .messageID = MESSAGE_MISSILE_TANK_ACQUIRED,
-        .revealedClipdata = 0
+        .revealedClipdata = CLIPDATA_TILEMAP_AIR
     },
     [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_UNDERWATER_SUPER_MISSILE_TANK)] = {
         .itemType = ITEM_TYPE_SUPER_MISSILE,
         .underwater = TRUE,
         .messageID = MESSAGE_SUPER_MISSILE_TANK_ACQUIRED,
-        .revealedClipdata = 0
+        .revealedClipdata = CLIPDATA_TILEMAP_AIR
     },
     [BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_UNDERWATER_POWER_BOMB_TANK)] = {
         .itemType = ITEM_TYPE_POWER_BOMB,
         .underwater = TRUE,
         .messageID = MESSAGE_POWER_BOMB_TANK_ACQUIRED,
-        .revealedClipdata = 0
+        .revealedClipdata = CLIPDATA_TILEMAP_AIR
     },
 };
 

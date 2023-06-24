@@ -59,7 +59,7 @@ struct BombChainReverseData {
 struct TankBehavior {
     u8 itemType;
     u8 underwater;
-    s8 messageID;
+    u8 messageID;
     u16 revealedClipdata;
 };
 
