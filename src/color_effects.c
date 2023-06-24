@@ -263,11 +263,7 @@ void ApplyMonochromeToPalette(const u16* src, u16* dst, s8 additionalValue)
 
         // Get average
         result = (r + g + b) / 3 + additionalValue;
-
-        if (result < 0)
-            result = 0;
-        else if (result > COLOR_MASK)
-            result = COLOR_MASK;
+        CLAMP2(result, 0, COLOR_MASK);
         
         // Create grey color
         *dst = COLOR(result, result, result);
@@ -380,9 +376,9 @@ void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage
 
     if (stage >= 0x1F)
     {
-    do {
+        do {
         DMATransfer(3, srcEnd, dst, 16 * 2, 16);
-    }while(0);
+        }while(0);
         return;
     }
 

@@ -1211,6 +1211,7 @@ void Imago(void)
     u16 xDistance;
     u16 yDistance;
     u32 health;
+    u8 pose;
 
     if (gCurrentSprite.pose < IMAGO_POSE_DYING_INIT && gCurrentSprite.properties & SP_DAMAGED)
     {
@@ -1219,10 +1220,12 @@ void Imago(void)
             SoundPlayNotAlreadyPlaying(0xC3);
     }
 
-    if (!(gFrameCounter8Bit & 0xF))
+    if (!(gFrameCounter8Bit & 15))
     {
         health = gCurrentSprite.health;
-        if ((u8)(gCurrentSprite.pose - 0x8) < IMAGO_POSE_DESTROY_WALL - 0x8)
+        pose = gCurrentSprite.pose - 8;
+
+        if (pose < IMAGO_POSE_DESTROY_WALL - 8)
         {
             if (gSubSpriteData1.yPosition > gSamusData.yPosition)
                 yDistance = gSubSpriteData1.yPosition - gSamusData.yPosition;
@@ -1232,44 +1235,44 @@ void Imago(void)
             if (gSubSpriteData1.xPosition > gSamusData.xPosition)
             {
                 xDistance = gSubSpriteData1.xPosition - gSamusData.xPosition;
-                if (!(gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) || yDistance > 0x1F4)
+                if (!(gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) || yDistance > BLOCK_SIZE * 8 - QUARTER_BLOCK_SIZE + 4)
                 {
                     SoundPlay(0xB5);
-                    if (health == 0x0)
+                    if (health == 0)
                         SoundPlay(0xBB);
                 }
-                else if (xDistance < 0xFA)
+                else if (xDistance < BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE + 10)
                 {
                     SoundPlay(0xB9);
-                    if (health == 0x0)
+                    if (health == 0)
                         SoundPlay(0xBF);
                 }
                 else
                 {
                     SoundPlay(0xB7);
-                    if (health == 0x0)
+                    if (health == 0)
                         SoundPlay(0xBD);
                 }
             }
             else
             {
                 xDistance = gSamusData.xPosition - gSubSpriteData1.xPosition;
-                if (!(gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) || yDistance > 0x1F4)
+                if (!(gCurrentSprite.status & SPRITE_STATUS_ONSCREEN) || yDistance > BLOCK_SIZE * 8 - QUARTER_BLOCK_SIZE + 4)
                 {
                     SoundPlay(0xB4);
-                    if (health == 0x0)
+                    if (health == 0)
                         SoundPlay(0xBA);
                 }
-                else if (xDistance < 0xFA)
+                else if (xDistance < BLOCK_SIZE * 4 - QUARTER_BLOCK_SIZE + 10)
                 {
                     SoundPlay(0xB8);
-                    if (health == 0x0)
+                    if (health == 0)
                         SoundPlay(0xBE);
                 }
                 else
                 {
                     SoundPlay(0xB6);
-                    if (health == 0x0)
+                    if (health == 0)
                         SoundPlay(0xBC);
                 }
             }
@@ -1278,7 +1281,7 @@ void Imago(void)
     asm("":::"r6", "r4");
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case 0:
             ImagoInit();
             break;
 
@@ -1345,9 +1348,9 @@ void Imago(void)
     if (gCurrentSprite.pose <= IMAGO_POSE_DYING && gCurrentSprite.status)
     {
         gSubSpriteData1.workVariable2 = gCurrentSprite.pose;
-        if (gCurrentSprite.health == 0x0 && gCurrentSprite.pose <= IMAGO_POSE_CHARGING_THROUGH_WALL)
+        if (gCurrentSprite.health == 0 && gCurrentSprite.pose <= IMAGO_POSE_CHARGING_THROUGH_WALL)
         {
-            if (!(gFrameCounter8Bit & 0x3))
+            if (!(gFrameCounter8Bit & 3))
             {
                 if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
                     ParticleSet(gSubSpriteData1.yPosition, gSubSpriteData1.xPosition - BLOCK_SIZE, PE_SPRITE_EXPLOSION_MEDIUM);
@@ -1356,13 +1359,13 @@ void Imago(void)
 
                 if (gCurrentSprite.pose <= IMAGO_POSE_CHECK_SAMUS_AT_SUPER_MISSILE)
                 {
-                    if (gFrameCounter8Bit & 0x4)
+                    if (gFrameCounter8Bit & 4)
                         gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
                     else
-                        gCurrentSprite.paletteRow = 0x0;
+                        gCurrentSprite.paletteRow = 0;
                 }
                 else
-                    gCurrentSprite.paletteRow = 0x0;
+                    gCurrentSprite.paletteRow = 0;
             }
         }
         else

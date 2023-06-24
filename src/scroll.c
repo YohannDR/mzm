@@ -187,7 +187,8 @@ void ScrollLoad(void)
             gCurrentRoomEntry.scrollsFlag = ROOM_SCROLLS_FLAG_HAS_SCROLLS;
             break;
         }
-        else if (**ppSrc == UCHAR_MAX)
+        
+        if (**ppSrc == UCHAR_MAX)
         {
             // Reached terminator
             gCurrentRoomScrollDataPointer = *ppSrc;
@@ -208,8 +209,10 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
     s32 i;
     s32 bounds[4];
     s32 bound;
+    s32 bound2;
     s32 limit;
     s32 value;
+    s32 position;
     
     gCurrentScrolls[0].within = FALSE;
     gCurrentScrolls[1].within = FALSE;
@@ -254,23 +257,37 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
             gCurrentScrolls[i].xStart = value;
 
             limit = gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE - BLOCK_SIZE * 2;
-            value = bound < limit ? limit : (data[bounds[1]] + 1) * BLOCK_SIZE;
+            value = (data[bounds[1]] + 1) * BLOCK_SIZE;
+            if (value < 0)
+                value = 0;
 
-            gCurrentScrolls[i].xEnd = value;
-
+            if (value < limit)
+                bound = value;
+            else
+                bound = limit;
+            
+            gCurrentScrolls[i].xEnd = bound;
+            
             limit = BLOCK_SIZE * 2;
             value = data[bounds[2]] * BLOCK_SIZE;
-            if (value < limit)
+            if (value < 0)
+                value = 0;
+            else if (value < limit)
                 value = limit;
 
             gCurrentScrolls[i].yStart = value;
 
             limit = gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE - BLOCK_SIZE * 2;
-            bound = (data[bounds[3]] + 1) * BLOCK_SIZE;
-            if (bound < limit)
-                bound = limit;
+            value = (data[bounds[3]] + 1) * BLOCK_SIZE;
+            if (value < 0)
+                value = 0;
 
-            gCurrentScrolls[i].yEnd = bound;
+            if (value < limit)
+                bound2 = value;
+            else
+                bound2 = limit;
+            
+            gCurrentScrolls[i].yEnd = bound2;
             
             gCurrentScrolls[i].within = 2;
             i++;
