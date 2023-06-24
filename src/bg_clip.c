@@ -158,40 +158,38 @@ void BgClipCheckTouchingSpecialClipdata(void)
     }
 }
 
-void BGClipApplyClipdataChangingTransparency(void)
+/**
+ * @brief 5a6c8 | a8 | Applies clipdata that changes transparency
+ * 
+ */
+void BgClipApplyClipdataChangingTransparency(void)
 {
-    // https://decomp.me/scratch/qCOUj
-
     u32 clipdata;
     u32 xPosition;
     u32 yPosition;
     s32 position;
 
+    // Get X position
     position = gSamusData.xPosition;
-    if (position > gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE)
-        position = gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
-
+    CLAMP2(position, 0, gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE);
     xPosition = position >> 6;
 
+    // Get Y position
     position = gSamusData.yPosition + (gSamusPhysics.drawDistanceTopOffset >> 1);
-    if (position < 0)
-        position = 0;
-    else
-    {
-        if (position > gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE)
-            position = gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
-    }
-
+    CLAMP2(position, 0, gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE);
     yPosition = position >> 6;
 
+    // Get clipdata
     clipdata = gTilemapAndClipPointers.pClipBehaviors[gBgPointersAndDimensions.pClipDecomp[yPosition * gBgPointersAndDimensions.clipdataWidth + xPosition]];
     if (clipdata == CLIP_BEHAVIOR_NONE)
         return;
 
+    // Get bldalpha
     clipdata = BgClipGetNewBldalphaValue(clipdata, clipdata);
     if (clipdata == 0)
         return;
     
+    // Apply bldalpha
     if (clipdata == USHORT_MAX)
         TransparencyUpdateBLDALPHA(gDefaultTransparency.evaCoef, gDefaultTransparency.evbCoef, 1, 1);
     else
@@ -306,10 +304,12 @@ void BgClipCheckWalkingOnCrumbleBlock(void)
     }
 }
 
+/**
+ * @brief 5a8a8 | c4 | Checks if samus is touching a transition during an elevator
+ * 
+ */
 void BgClipCheckTouchingTransitionOnElevator(void)
 {
-    // https://decomp.me/scratch/tH2oX
-    
     u32 goingDown;
     s32 position;
     u16 xPosition;
@@ -317,11 +317,13 @@ void BgClipCheckTouchingTransitionOnElevator(void)
     s32 onTransition;
     u16 behavior;
 
-    goingDown = (gSamusData.elevatorDirection ^ KEY_UP) != 0;
+    if (gSamusData.elevatorDirection ^ KEY_UP)
+        goingDown = TRUE;
+    else
+        goingDown = FALSE;
 
     position = gSamusData.xPosition;
-    if (position > gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE)
-        position = gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
+    CLAMP2(position, 0, gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE);
 
     xPosition = (u32)position / BLOCK_SIZE;
 
@@ -345,23 +347,23 @@ void BgClipCheckTouchingTransitionOnElevator(void)
 
     yPosition = behavior / BLOCK_SIZE;
 
-    onTransition = gBgPointersAndDimensions.pClipDecomp[
+    position = gBgPointersAndDimensions.pClipDecomp[
         yPosition * gBgPointersAndDimensions.clipdataWidth + xPosition];
-    behavior = gTilemapAndClipPointers.pClipBehaviors[onTransition];
+    behavior = gTilemapAndClipPointers.pClipBehaviors[position];
 
-    onTransition = FALSE;
+    position = FALSE;
     if (!goingDown)
     {
         if (behavior == CLIP_BEHAVIOR_VERTICAL_UP_TRANSITION)
-            onTransition = TRUE;
+            position = TRUE;
     }
     else
     {
         if (behavior == CLIP_BEHAVIOR_VERTICAL_DOWN_TRANSITION)
-            onTransition = TRUE;
+            position = TRUE;
     }
 
-    if (!onTransition)
+    if (!position)
         return;
 
     if (!ConnectionCheckAreaConnection(yPosition, xPosition))
