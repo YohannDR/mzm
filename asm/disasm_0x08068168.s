@@ -8350,7 +8350,7 @@ check_for_unexplored_minimap_tile: @ 0x0806c39c
 lbl_0806c3cc: .4byte gUpdateMinimapFlag
 lbl_0806c3d0: .4byte gSamusData
 lbl_0806c3d4:
-    ldr r0, lbl_0806c3fc @ =gBGPointersAndDimensions
+    ldr r0, lbl_0806c3fc @ =gBgPointersAndDimensions
     ldrh r0, [r0, #0x1c]
     lsls r0, r0, #0x16
     movs r2, #0xff
@@ -8371,9 +8371,9 @@ lbl_0806c3ec:
     movs r5, #0
     b lbl_0806c41a
     .align 2, 0
-lbl_0806c3fc: .4byte gBGPointersAndDimensions
+lbl_0806c3fc: .4byte gBgPointersAndDimensions
 lbl_0806c400:
-    ldr r0, lbl_0806c464 @ =gBGPointersAndDimensions
+    ldr r0, lbl_0806c464 @ =gBgPointersAndDimensions
     ldrh r0, [r0, #0x1e]
     lsls r0, r0, #0x16
     movs r2, #0xff
@@ -8424,7 +8424,7 @@ lbl_0806c45c:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0806c464: .4byte gBGPointersAndDimensions
+lbl_0806c464: .4byte gBgPointersAndDimensions
 lbl_0806c468: .4byte gMinimapX
 lbl_0806c46c: .4byte gCurrentRoomEntry
 lbl_0806c470: .4byte gMinimapY

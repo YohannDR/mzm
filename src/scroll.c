@@ -234,8 +234,8 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 
         if (data[4] != UCHAR_MAX && data[7] != UCHAR_MAX)
         {
-            limit = data[5] * gBGPointersAndDimensions.clipdataWidth + data[4];
-            if (gBGPointersAndDimensions.pClipDecomp[limit] == 0 && data[6] != UCHAR_MAX)
+            limit = data[5] * gBgPointersAndDimensions.clipdataWidth + data[4];
+            if (gBgPointersAndDimensions.pClipDecomp[limit] == 0 && data[6] != UCHAR_MAX)
                 bounds[data[6]] = 7;
         }
         else
@@ -253,7 +253,7 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 
             gCurrentScrolls[i].xStart = value;
 
-            limit = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE - BLOCK_SIZE * 2;
+            limit = gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE - BLOCK_SIZE * 2;
             value = bound < limit ? limit : (data[bounds[1]] + 1) * BLOCK_SIZE;
 
             gCurrentScrolls[i].xEnd = value;
@@ -265,7 +265,7 @@ void ScrollUpdateCurrent(struct RawCoordsX* pCoords)
 
             gCurrentScrolls[i].yStart = value;
 
-            limit = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE - BLOCK_SIZE * 2;
+            limit = gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE - BLOCK_SIZE * 2;
             bound = (data[bounds[3]] + 1) * BLOCK_SIZE;
             if (bound < limit)
                 bound = limit;
@@ -437,7 +437,7 @@ void ScrollWithNoScrollsY(struct RawCoordsX* pCoords)
         yOffset = BLOCK_SIZE * 2;
     else
     {
-        clipPosition = (gBGPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE) - BLOCK_SIZE * 6;
+        clipPosition = (gBgPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE) - BLOCK_SIZE * 6;
         clipPosition -= offsetY;
         if (yPosition > clipPosition)
             clipPosition = clipPosition - BLOCK_SIZE * 6;
@@ -494,7 +494,7 @@ void ScrollWithNoScrollsX(struct RawCoordsX* pCoords)
     else
     {
         do {
-            clipPosition = (gBGPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE) - (BLOCK_SIZE * 9 + HALF_BLOCK_SIZE);
+            clipPosition = (gBgPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE) - (BLOCK_SIZE * 9 + HALF_BLOCK_SIZE);
             clipPosition -= offsetX;
         }while(0);
         if (xPosition > clipPosition)
@@ -781,7 +781,7 @@ void ScrollBG3(void)
 
     if (gCurrentRoomEntry.BG3FromBottomFlag)
     {
-        size = (gBGPointersAndDimensions.clipdataHeight - 0xC) * BLOCK_SIZE;
+        size = (gBgPointersAndDimensions.clipdataHeight - 0xC) * BLOCK_SIZE;
 
         if (gCurrentRoomEntry.BG3Size & 2)
             offset = 0x800;
@@ -875,7 +875,7 @@ void ScrollBG2(struct RawCoordsX* pCoords)
                     position = 0;
                 else
                 {
-                    size = (gBGPointersAndDimensions.backgrounds[2].width - 0xF) * BLOCK_SIZE;
+                    size = (gBgPointersAndDimensions.backgrounds[2].width - 0xF) * BLOCK_SIZE;
                     if (size < position)
                         position = size;
                 }
@@ -887,7 +887,7 @@ void ScrollBG2(struct RawCoordsX* pCoords)
                     position = 0;
                 else
                 {
-                    size = (gBGPointersAndDimensions.backgrounds[2].height - 0xA) * BLOCK_SIZE;
+                    size = (gBgPointersAndDimensions.backgrounds[2].height - 0xA) * BLOCK_SIZE;
                     if (size < position)
                         position = size;
                 }
@@ -918,9 +918,9 @@ void ScrollMaybeScrollBG1Related(struct RawCoordsX* pCoords)
     {
         gBG1XPosition = 0;
     }
-    else if (pCoords->x > gBGPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE))
+    else if (pCoords->x > gBgPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE - (BLOCK_SIZE * 7 + HALF_BLOCK_SIZE))
     {
-        gBG1XPosition = gBGPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE - ((BLOCK_SIZE * 7 + HALF_BLOCK_SIZE) * 2);
+        gBG1XPosition = gBgPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE - ((BLOCK_SIZE * 7 + HALF_BLOCK_SIZE) * 2);
     }
     else
     {
@@ -931,9 +931,9 @@ void ScrollMaybeScrollBG1Related(struct RawCoordsX* pCoords)
     {
         gBG1YPosition = 0;
     }
-    else if (pCoords->y > gBGPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE - (BLOCK_SIZE * 3))
+    else if (pCoords->y > gBgPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE - (BLOCK_SIZE * 3))
     {
-        gBG1YPosition = gBGPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE - (BLOCK_SIZE * 9);
+        gBG1YPosition = gBgPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE - (BLOCK_SIZE * 9);
     }
     else
     {

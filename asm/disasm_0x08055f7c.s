@@ -734,7 +734,7 @@ lbl_080565d8:
     cmp r0, #0
     beq lbl_08056630
     ldr r3, [sp, #0xc]
-    ldr r1, lbl_08056628 @ =gBGPointersAndDimensions
+    ldr r1, lbl_08056628 @ =gBgPointersAndDimensions
     ldr r2, lbl_0805662c @ =0x0202a800
     str r2, [r1]
     ldrb r0, [r3]
@@ -757,7 +757,7 @@ lbl_08056618: .4byte gPauseScreenFlag
 lbl_0805661c: .4byte gGameModeSub3
 lbl_08056620: .4byte gTourianEscapeCutsceneStage
 lbl_08056624: .4byte 0x06003000
-lbl_08056628: .4byte gBGPointersAndDimensions
+lbl_08056628: .4byte gBgPointersAndDimensions
 lbl_0805662c: .4byte 0x0202a800
 lbl_08056630:
     movs r0, #0x40
@@ -773,7 +773,7 @@ lbl_08056630:
     bl CallLZ77UncompWRAM
 lbl_08056648:
     ldr r3, [sp, #0x18]
-    ldr r4, lbl_080566b0 @ =gBGPointersAndDimensions
+    ldr r4, lbl_080566b0 @ =gBgPointersAndDimensions
     ldr r2, lbl_080566b4 @ =0x02027800
     str r2, [r4, #0x18]
     ldrb r0, [r3]
@@ -822,7 +822,7 @@ lbl_080566a4:
     bx r0
     .align 2, 0
 lbl_080566ac: .4byte 0x0202a800
-lbl_080566b0: .4byte gBGPointersAndDimensions
+lbl_080566b0: .4byte gBgPointersAndDimensions
 lbl_080566b4: .4byte 0x02027800
 lbl_080566b8: .4byte 0x0202d800
 lbl_080566bc: .4byte gCurrentRoomEntry
@@ -1403,7 +1403,7 @@ lbl_08056b94:
     bge lbl_08056ba0
     movs r4, #0
 lbl_08056ba0:
-    ldr r1, lbl_08056ca0 @ =gBGPointersAndDimensions
+    ldr r1, lbl_08056ca0 @ =gBgPointersAndDimensions
     mov r2, sb
     lsls r0, r2, #3
     adds r5, r0, r1
@@ -1536,7 +1536,7 @@ lbl_08056c82:
 lbl_08056c94: .4byte gCurrentRoomEntry
 lbl_08056c98: .4byte gBG2YPosition
 lbl_08056c9c: .4byte gBG2XPosition
-lbl_08056ca0: .4byte gBGPointersAndDimensions
+lbl_08056ca0: .4byte gBgPointersAndDimensions
 lbl_08056ca4: .4byte 0x06000800
 lbl_08056ca8: .4byte gTilemapAndClipPointers
 lbl_08056cac:
@@ -2262,7 +2262,7 @@ lbl_08057230:
     cmp r4, #0
     blt lbl_080572d4
     lsls r0, r7, #3
-    ldr r2, lbl_080572f0 @ =gBGPointersAndDimensions
+    ldr r2, lbl_080572f0 @ =gBgPointersAndDimensions
     adds r1, r0, r2
     ldrh r0, [r1, #6]
     cmp r4, r0
@@ -2349,7 +2349,7 @@ lbl_080572d4:
     .align 2, 0
 lbl_080572e8: .4byte gBG2YPosition
 lbl_080572ec: .4byte gBG2XPosition
-lbl_080572f0: .4byte gBGPointersAndDimensions
+lbl_080572f0: .4byte gBgPointersAndDimensions
 lbl_080572f4: .4byte gTilemapAndClipPointers
 
     thumb_func_start sub_080572f8
@@ -2414,7 +2414,7 @@ lbl_08057358:
     cmp r4, #0
     blt lbl_0805740a
     lsls r0, r6, #3
-    ldr r1, lbl_08057430 @ =gBGPointersAndDimensions
+    ldr r1, lbl_08057430 @ =gBgPointersAndDimensions
     adds r3, r0, r1
     ldrh r2, [r3, #4]
     cmp r4, r2
@@ -2511,7 +2511,7 @@ lbl_08057412:
 lbl_08057424: .4byte gCurrentRoomEntry
 lbl_08057428: .4byte gBG2YPosition
 lbl_0805742c: .4byte gBG2XPosition
-lbl_08057430: .4byte gBGPointersAndDimensions
+lbl_08057430: .4byte gBgPointersAndDimensions
 lbl_08057434: .4byte 0x06000800
 lbl_08057438: .4byte gTilemapAndClipPointers
 

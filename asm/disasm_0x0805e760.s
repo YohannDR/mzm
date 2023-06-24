@@ -1523,7 +1523,7 @@ lbl_0805f2f8:
     bls lbl_0805f304
     b lbl_0805f47e
 lbl_0805f304:
-    ldr r2, lbl_0805f3d8 @ =gBGPointersAndDimensions
+    ldr r2, lbl_0805f3d8 @ =gBgPointersAndDimensions
     ldrh r1, [r2, #0x1c]
     ldrb r0, [r6, #4]
     muls r0, r1, r0
@@ -1627,7 +1627,7 @@ lbl_0805f3c8: .4byte 0x08345868
 lbl_0805f3cc: .4byte gNumberOfValidHatchesInRoom
 lbl_0805f3d0: .4byte gHatchesState
 lbl_0805f3d4: .4byte gCurrentRoom
-lbl_0805f3d8: .4byte gBGPointersAndDimensions
+lbl_0805f3d8: .4byte gBgPointersAndDimensions
 lbl_0805f3dc: .4byte gTilemapAndClipPointers
 lbl_0805f3e0: .4byte 0x08360130
 lbl_0805f3e4:
@@ -1819,7 +1819,7 @@ lbl_0805f53e:
     adds r0, r4, r1
     ldrb r4, [r0, #6]
     ldr r2, lbl_0805f5a0 @ =gTilemapAndClipPointers
-    ldr r1, lbl_0805f5a4 @ =gBGPointersAndDimensions
+    ldr r1, lbl_0805f5a4 @ =gBgPointersAndDimensions
     ldrh r0, [r1, #0x1c]
     muls r0, r4, r0
     add r0, r8
@@ -1866,7 +1866,7 @@ lbl_0805f590:
     bx r0
     .align 2, 0
 lbl_0805f5a0: .4byte gTilemapAndClipPointers
-lbl_0805f5a4: .4byte gBGPointersAndDimensions
+lbl_0805f5a4: .4byte gBgPointersAndDimensions
 lbl_0805f5a8: .4byte gIoRegistersBackup
 lbl_0805f5ac: .4byte gBldalphaData1
 lbl_0805f5b0: .4byte 0x04000052

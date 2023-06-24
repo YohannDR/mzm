@@ -168,7 +168,7 @@ void MinimapCheckForUnexploredTile(void)
         samusX = 0x0;
     else
     {
-        clipPosition = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
+        clipPosition = gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
         clipPosition -= BLOCK_SIZE * 4;
 
         if (gSamusData.xPosition >= clipPosition)
@@ -179,7 +179,7 @@ void MinimapCheckForUnexploredTile(void)
         samusY = 0x0;
     else
     {
-        clipPosition = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
+        clipPosition = gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
         clipPosition -= BLOCK_SIZE * 4;
 
         if (gSamusData.yPosition >= clipPosition)

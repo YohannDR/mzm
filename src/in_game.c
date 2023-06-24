@@ -486,7 +486,7 @@ void UpdateFreeMovement_Debug(void)
     if (gSamusData.yPosition & 0x8000)
         gSamusData.yPosition = 0;
 
-    bgSize = gBGPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE;
+    bgSize = gBgPointersAndDimensions.backgrounds[1].width * BLOCK_SIZE;
     if (xVelocity < 0)
     {
         if (gSamusData.xPosition < -xVelocity)
@@ -502,7 +502,7 @@ void UpdateFreeMovement_Debug(void)
             gSamusData.xPosition += xVelocity;
     }
 
-    bgSize = gBGPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE;
+    bgSize = gBgPointersAndDimensions.backgrounds[1].height * BLOCK_SIZE;
     if (yVelocity < 0)
     {
         if (gSamusData.yPosition < -yVelocity)

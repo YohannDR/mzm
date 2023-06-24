@@ -50,7 +50,7 @@ extern u8 gNeverReformBlocks[MAX_AMOUNT_OF_AREAS][512];
 extern u8 gNumberOfNeverReformBlocks[MAX_AMOUNT_OF_AREAS];
 extern u8 gNumberOfItemsCollected[MAX_AMOUNT_OF_AREAS];
 extern struct LastTank gLastTankCollected;
-extern struct BackgroundPointersAndDimensions gBGPointersAndDimensions;
+extern struct BackgroundPointersAndDimensions gBgPointersAndDimensions;
 
 extern struct BG2Movement gBG2Movement;
 extern struct BG3Movement gBG3Movement;

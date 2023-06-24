@@ -35,7 +35,7 @@ void BgClipSetBgBlockValue(u8 bg, u16 value, u16 yPosition, u16 xPosition)
     u16 offset;
 
     // Write value
-    gBGPointersAndDimensions.backgrounds[bg].pDecomp[yPosition * gBGPointersAndDimensions.backgrounds[bg].width + xPosition] = value;
+    gBgPointersAndDimensions.backgrounds[bg].pDecomp[yPosition * gBgPointersAndDimensions.backgrounds[bg].width + xPosition] = value;
 
     // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
     offset = gBG1YPosition / BLOCK_SIZE;
@@ -80,7 +80,7 @@ void BgClipSetBG1BlockValue(u16 value, u16 yPosition, u16 xPosition)
     u16 offset;
 
     // Write value
-    gBGPointersAndDimensions.backgrounds[1].pDecomp[yPosition * gBGPointersAndDimensions.backgrounds[1].width + xPosition] = value;
+    gBgPointersAndDimensions.backgrounds[1].pDecomp[yPosition * gBgPointersAndDimensions.backgrounds[1].width + xPosition] = value;
 
     // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
     offset = gBG1YPosition / BLOCK_SIZE;
@@ -121,7 +121,7 @@ void BgClipSetBG1BlockValue(u16 value, u16 yPosition, u16 xPosition)
  */
 void BgClipSetRawBG1BlockValue(u32 value, u16 yPosition, u16 xPosition)
 {
-    gBGPointersAndDimensions.backgrounds[1].pDecomp[gBGPointersAndDimensions.backgrounds[1].width * yPosition + xPosition] = value;
+    gBgPointersAndDimensions.backgrounds[1].pDecomp[gBgPointersAndDimensions.backgrounds[1].width * yPosition + xPosition] = value;
 }
 
 /**
@@ -133,7 +133,7 @@ void BgClipSetRawBG1BlockValue(u32 value, u16 yPosition, u16 xPosition)
  */
 void BgClipSetClipdataBlockValue(u16 value, u16 yPosition, u16 xPosition)
 {
-    gBGPointersAndDimensions.pClipDecomp[gBGPointersAndDimensions.clipdataWidth * yPosition + xPosition] = value;
+    gBgPointersAndDimensions.pClipDecomp[gBgPointersAndDimensions.clipdataWidth * yPosition + xPosition] = value;
 }
 
 /**
@@ -166,8 +166,8 @@ void BGClipApplyClipdataChangingTransparency(void)
     s32 position;
 
     position = gSamusData.xPosition;
-    if (position > gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE)
-        position = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
+    if (position > gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE)
+        position = gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
 
     xPosition = position >> 6;
 
@@ -176,13 +176,13 @@ void BGClipApplyClipdataChangingTransparency(void)
         position = 0;
     else
     {
-        if (position > gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE)
-            position = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
+        if (position > gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE)
+            position = gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
     }
 
     yPosition = position >> 6;
 
-    clipdata = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[yPosition * gBGPointersAndDimensions.clipdataWidth + xPosition]];
+    clipdata = gTilemapAndClipPointers.pClipBehaviors[gBgPointersAndDimensions.pClipDecomp[yPosition * gBgPointersAndDimensions.clipdataWidth + xPosition]];
     if (clipdata == CLIP_BEHAVIOR_NONE)
         return;
 
@@ -258,8 +258,8 @@ void BgClipCheckWalkingOnCrumbleBlock(void)
     behavior = gSamusData.xPosition + gSamusPhysics.drawDistanceRightOffset;
 
     checkPos = (u32)behavior / BLOCK_SIZE;
-    if (checkPos > gBGPointersAndDimensions.clipdataWidth)
-        checkPos = gBGPointersAndDimensions.clipdataWidth;
+    if (checkPos > gBgPointersAndDimensions.clipdataWidth)
+        checkPos = gBgPointersAndDimensions.clipdataWidth;
 
     // Get positions
     behavior = gSamusData.xPosition + gSamusPhysics.drawDistanceLeftOffset;
@@ -271,15 +271,15 @@ void BgClipCheckWalkingOnCrumbleBlock(void)
     behavior = gSamusData.yPosition + gSamusPhysics.drawDistanceBottomOffset;
     yPosition = (u32)(behavior + 2) / BLOCK_SIZE;
 
-    if (yPosition > gBGPointersAndDimensions.clipdataHeight)
-        yPosition = gBGPointersAndDimensions.clipdataHeight;
+    if (yPosition > gBgPointersAndDimensions.clipdataHeight)
+        yPosition = gBgPointersAndDimensions.clipdataHeight;
 
     // Loop from current position to the check position
     for (i = xPosition; i <= checkPos; i++)
     {
         // Get clipdata behavior
-        behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.
-            pClipDecomp[yPosition * gBGPointersAndDimensions.clipdataWidth + i]];
+        behavior = gTilemapAndClipPointers.pClipBehaviors[gBgPointersAndDimensions.
+            pClipDecomp[yPosition * gBgPointersAndDimensions.clipdataWidth + i]];
 
         if (behavior == CLIP_BEHAVIOR_CRUMBLE_BLOCK)
         {
@@ -318,8 +318,8 @@ void BgClipCheckTouchingTransitionOnElevator(void)
     goingDown = (gSamusData.elevatorDirection ^ KEY_UP) != 0;
 
     position = gSamusData.xPosition;
-    if (position > gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE)
-        position = gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
+    if (position > gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE)
+        position = gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE;
 
     xPosition = (u32)position / BLOCK_SIZE;
 
@@ -337,14 +337,14 @@ void BgClipCheckTouchingTransitionOnElevator(void)
         behavior = 0;
     else
     {
-        if (behavior > gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE)
-            behavior = gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
+        if (behavior > gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE)
+            behavior = gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE;
     }
 
     yPosition = behavior / BLOCK_SIZE;
 
-    onTransition = gBGPointersAndDimensions.pClipDecomp[
-        yPosition * gBGPointersAndDimensions.clipdataWidth + xPosition];
+    onTransition = gBgPointersAndDimensions.pClipDecomp[
+        yPosition * gBgPointersAndDimensions.clipdataWidth + xPosition];
     behavior = gTilemapAndClipPointers.pClipBehaviors[onTransition];
 
     onTransition = FALSE;
@@ -392,8 +392,8 @@ void BgClipCheckTouchingTransitionOrTank(void)
         position = 0x0;
     else
     {
-        if (position > gBGPointersAndDimensions.clipdataWidth << 0x6)
-            position = gBGPointersAndDimensions.clipdataWidth << 0x6;
+        if (position > gBgPointersAndDimensions.clipdataWidth << 0x6)
+            position = gBgPointersAndDimensions.clipdataWidth << 0x6;
     }
 
     collectionData.xPositions[0] = position >> 0x6;
@@ -403,15 +403,15 @@ void BgClipCheckTouchingTransitionOrTank(void)
         position = 0x0;
     else
     {
-        if (position > gBGPointersAndDimensions.clipdataWidth << 0x6)
-            position = gBGPointersAndDimensions.clipdataWidth << 0x6;
+        if (position > gBgPointersAndDimensions.clipdataWidth << 0x6)
+            position = gBgPointersAndDimensions.clipdataWidth << 0x6;
     }
 
     collectionData.xPositions[1] = position >> 0x6;
 
     position = gSamusData.xPosition;
-    if (position > gBGPointersAndDimensions.clipdataWidth << 0x6)
-        position = gBGPointersAndDimensions.clipdataWidth << 0x6;
+    if (position > gBgPointersAndDimensions.clipdataWidth << 0x6)
+        position = gBgPointersAndDimensions.clipdataWidth << 0x6;
 
     collectionData.xPositions[2] = position >> 0x6;
 
@@ -420,8 +420,8 @@ void BgClipCheckTouchingTransitionOrTank(void)
         position = 0x0;
     else
     {
-        if (position > gBGPointersAndDimensions.clipdataHeight << 0x6)
-            position = gBGPointersAndDimensions.clipdataHeight << 0x6;
+        if (position > gBgPointersAndDimensions.clipdataHeight << 0x6)
+            position = gBgPointersAndDimensions.clipdataHeight << 0x6;
     }
 
     collectionData.yPositions[0] = position;
@@ -431,8 +431,8 @@ void BgClipCheckTouchingTransitionOrTank(void)
         position = 0x0;
     else
     {
-        if (position > gBGPointersAndDimensions.clipdataHeight << 0x6)
-            position = gBGPointersAndDimensions.clipdataHeight << 0x6;
+        if (position > gBgPointersAndDimensions.clipdataHeight << 0x6)
+            position = gBgPointersAndDimensions.clipdataHeight << 0x6;
     }
 
     collectionData.yPositions[1] = position;
@@ -442,8 +442,8 @@ void BgClipCheckTouchingTransitionOrTank(void)
         position = 0x0;
     else
     {
-        if (position > gBGPointersAndDimensions.clipdataHeight << 0x6)
-            position = gBGPointersAndDimensions.clipdataHeight << 0x6;
+        if (position > gBgPointersAndDimensions.clipdataHeight << 0x6)
+            position = gBgPointersAndDimensions.clipdataHeight << 0x6;
     }
 
     collectionData.yPositions[2] = position;
@@ -453,7 +453,7 @@ void BgClipCheckTouchingTransitionOrTank(void)
     for (i = 1; i > 0; i--)
     {
         position = *pPosition++;
-        offset = gBGPointersAndDimensions.pClipDecomp[collectionData.yPositions[0] * gBGPointersAndDimensions.clipdataWidth + position];
+        offset = gBgPointersAndDimensions.pClipDecomp[collectionData.yPositions[0] * gBgPointersAndDimensions.clipdataWidth + position];
         *pBehavior++ = gTilemapAndClipPointers.pClipBehaviors[offset];
     }
 
@@ -462,7 +462,7 @@ void BgClipCheckTouchingTransitionOrTank(void)
     for (i = 1; i > 0; i--)
     {
         position = *pPosition++;
-        offset = gBGPointersAndDimensions.pClipDecomp[position * gBGPointersAndDimensions.clipdataWidth + collectionData.xPositions[0]];
+        offset = gBgPointersAndDimensions.pClipDecomp[position * gBgPointersAndDimensions.clipdataWidth + collectionData.xPositions[0]];
         *pBehavior++ = gTilemapAndClipPointers.pClipBehaviors[offset];
     }
 
@@ -644,8 +644,8 @@ void BgClipCheckGrabbingCrumnbleBlock(u8 dontDestroy)
         yPosition = (gSamusData.yPosition + yOffset) >> 0x6;
 
         // Get behavior
-        behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.
-            pClipDecomp[yPosition * gBGPointersAndDimensions.clipdataWidth + xPosition]];
+        behavior = gTilemapAndClipPointers.pClipBehaviors[gBgPointersAndDimensions.
+            pClipDecomp[yPosition * gBgPointersAndDimensions.clipdataWidth + xPosition]];
 
         // Check is crumble
         if (behavior == CLIP_BEHAVIOR_CRUMBLE_BLOCK)
@@ -827,19 +827,19 @@ void BgClipRemoveCollectedTanks(void)
         
         if (pItem->room == gCurrentRoom && pItem->type >= 0)
         {
-            position = gBGPointersAndDimensions.clipdataWidth * pItem->yPosition + pItem->xPosition;
+            position = gBgPointersAndDimensions.clipdataWidth * pItem->yPosition + pItem->xPosition;
 
-            behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[position]] -
+            behavior = gTilemapAndClipPointers.pClipBehaviors[gBgPointersAndDimensions.pClipDecomp[position]] -
                 CLIP_BEHAVIOR_UNDERWATER_ENERGY_TANK;
             if (behavior <= BEHAVIOR_TO_TANK(CLIP_BEHAVIOR_HIDDEN_POWER_BOMB_TANK))
             {
-                gBGPointersAndDimensions.pClipDecomp[position] = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_WATER;
-                gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
+                gBgPointersAndDimensions.pClipDecomp[position] = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_WATER;
+                gBgPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
             }
             else
             {
-                gBGPointersAndDimensions.pClipDecomp[position] = 0;
-                gBGPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
+                gBgPointersAndDimensions.pClipDecomp[position] = 0;
+                gBgPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
             }
         }
     }

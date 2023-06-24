@@ -309,7 +309,7 @@ update_gCurrentScrolls: @ 0x080584d8
     bne lbl_0805850c
     b lbl_08058616
 lbl_0805850c:
-    ldr r6, lbl_0805855c @ =gBGPointersAndDimensions
+    ldr r6, lbl_0805855c @ =gBgPointersAndDimensions
     mov sb, r7
 lbl_08058510:
     mov r0, sb
@@ -350,7 +350,7 @@ lbl_0805851a:
     .align 2, 0
 lbl_08058554: .4byte gCurrentScrolls
 lbl_08058558: .4byte gCurrentRoomScrollDataPointer
-lbl_0805855c: .4byte gBGPointersAndDimensions
+lbl_0805855c: .4byte gBgPointersAndDimensions
 lbl_08058560:
     ldr r0, lbl_0805863c @ =gSamusData
     ldrb r0, [r0]
@@ -812,7 +812,7 @@ lbl_080588c8:
     movs r3, #0x80
     b lbl_080588fe
 lbl_080588dc:
-    ldr r0, lbl_080588f0 @ =gBGPointersAndDimensions
+    ldr r0, lbl_080588f0 @ =gBgPointersAndDimensions
     ldrh r0, [r0, #0xe]
     lsls r0, r0, #6
     ldr r3, lbl_080588f4 @ =0xfffffe80
@@ -823,7 +823,7 @@ lbl_080588dc:
     adds r0, r0, r3
     b lbl_080588fc
     .align 2, 0
-lbl_080588f0: .4byte gBGPointersAndDimensions
+lbl_080588f0: .4byte gBgPointersAndDimensions
 lbl_080588f4: .4byte 0xfffffe80
 lbl_080588f8:
     ldr r4, lbl_08058918 @ =0xfffffe80
@@ -917,7 +917,7 @@ lbl_08058988:
     .align 2, 0
 lbl_080589a0: .4byte gScreenXOffset
 lbl_080589a4:
-    ldr r0, lbl_080589bc @ =gBGPointersAndDimensions
+    ldr r0, lbl_080589bc @ =gBgPointersAndDimensions
     ldrh r0, [r0, #0xc]
     lsls r0, r0, #6
     ldr r4, lbl_080589c0 @ =0xfffffda0
@@ -929,7 +929,7 @@ lbl_080589a4:
     adds r0, r0, r2
     b lbl_080589cc
     .align 2, 0
-lbl_080589bc: .4byte gBGPointersAndDimensions
+lbl_080589bc: .4byte gBgPointersAndDimensions
 lbl_080589c0: .4byte 0xfffffda0
 lbl_080589c4: .4byte 0xfffffe20
 lbl_080589c8:
@@ -1480,7 +1480,7 @@ lbl_08058df0:
     ldrb r0, [r1, #0x1a]
     cmp r0, #0
     beq lbl_08058e6c
-    ldr r0, lbl_08058e2c @ =gBGPointersAndDimensions
+    ldr r0, lbl_08058e2c @ =gBgPointersAndDimensions
     ldrh r0, [r0, #0x1e]
     subs r0, #0xc
     lsls r2, r0, #6
@@ -1505,7 +1505,7 @@ lbl_08058e12:
 lbl_08058e20: .4byte gBG3XPosition
 lbl_08058e24: .4byte gBG1XPosition
 lbl_08058e28: .4byte gCurrentRoomEntry
-lbl_08058e2c: .4byte gBGPointersAndDimensions
+lbl_08058e2c: .4byte gBgPointersAndDimensions
 lbl_08058e30: .4byte 0xfffffd80
 lbl_08058e34:
     cmp r3, #1
@@ -1686,7 +1686,7 @@ lbl_08058f78: .4byte gCurrentRoomEntry
 lbl_08058f7c: .4byte gBG1XPosition
 lbl_08058f80: .4byte gBG2Movement
 lbl_08058f84:
-    ldr r0, lbl_08058fa8 @ =gBGPointersAndDimensions
+    ldr r0, lbl_08058fa8 @ =gBgPointersAndDimensions
     ldrh r0, [r0, #0x14]
     subs r0, #0xf
     lsls r0, r0, #6
@@ -1706,11 +1706,11 @@ lbl_08058f92:
     movs r2, #0
     b lbl_08058fc2
     .align 2, 0
-lbl_08058fa8: .4byte gBGPointersAndDimensions
+lbl_08058fa8: .4byte gBgPointersAndDimensions
 lbl_08058fac: .4byte gBG2XPosition
 lbl_08058fb0: .4byte gBG1YPosition
 lbl_08058fb4:
-    ldr r0, lbl_08058fc8 @ =gBGPointersAndDimensions
+    ldr r0, lbl_08058fc8 @ =gBgPointersAndDimensions
     ldrh r0, [r0, #0x16]
     subs r0, #0xa
     lsls r0, r0, #6
@@ -1722,7 +1722,7 @@ lbl_08058fc2:
     strh r2, [r0]
     b lbl_08058ffc
     .align 2, 0
-lbl_08058fc8: .4byte gBGPointersAndDimensions
+lbl_08058fc8: .4byte gBgPointersAndDimensions
 lbl_08058fcc: .4byte gBG2YPosition
 lbl_08058fd0:
     ldr r1, lbl_08058fe4 @ =gBG2XPosition
@@ -1767,7 +1767,7 @@ lbl_0805901c: .4byte 0x000001df
 lbl_08059020: .4byte gBG1XPosition
 lbl_08059024:
     ldrh r3, [r4]
-    ldr r0, lbl_0805903c @ =gBGPointersAndDimensions
+    ldr r0, lbl_0805903c @ =gBgPointersAndDimensions
     ldrh r0, [r0, #0xc]
     lsls r2, r0, #6
     ldr r1, lbl_08059040 @ =0xfffffe20
@@ -1779,7 +1779,7 @@ lbl_08059024:
     adds r0, r2, r3
     b lbl_08059052
     .align 2, 0
-lbl_0805903c: .4byte gBGPointersAndDimensions
+lbl_0805903c: .4byte gBgPointersAndDimensions
 lbl_08059040: .4byte 0xfffffe20
 lbl_08059044: .4byte gBG1XPosition
 lbl_08059048: .4byte 0xfffffc40
@@ -1803,7 +1803,7 @@ lbl_0805906c: .4byte 0x0000017f
 lbl_08059070: .4byte gBG1YPosition
 lbl_08059074:
     ldrh r3, [r4, #2]
-    ldr r0, lbl_0805908c @ =gBGPointersAndDimensions
+    ldr r0, lbl_0805908c @ =gBgPointersAndDimensions
     ldrh r0, [r0, #0xe]
     lsls r2, r0, #6
     adds r0, r2, #0
@@ -1815,7 +1815,7 @@ lbl_08059074:
     adds r0, r2, r3
     b lbl_0805909e
     .align 2, 0
-lbl_0805908c: .4byte gBGPointersAndDimensions
+lbl_0805908c: .4byte gBgPointersAndDimensions
 lbl_08059090: .4byte gBG1YPosition
 lbl_08059094: .4byte 0xfffffdc0
 lbl_08059098:
@@ -2150,7 +2150,7 @@ sub_08059330: @ 0x08059330
     adds r2, r2, r3
     ldrb r2, [r2, #2]
     bl store_broken_non_reform_block
-    ldr r2, lbl_08059368 @ =gBGPointersAndDimensions
+    ldr r2, lbl_08059368 @ =gBgPointersAndDimensions
     ldrh r1, [r4, #2]
     ldrh r0, [r2, #0x1c]
     muls r0, r1, r0
@@ -2167,7 +2167,7 @@ sub_08059330: @ 0x08059330
     bx r1
     .align 2, 0
 lbl_08059364: .4byte 0x083459f0
-lbl_08059368: .4byte gBGPointersAndDimensions
+lbl_08059368: .4byte gBgPointersAndDimensions
 
     thumb_func_start destroy_single_breakable_block
 destroy_single_breakable_block: @ 0x0805936c
@@ -2181,7 +2181,7 @@ destroy_single_breakable_block: @ 0x0805936c
     adds r2, r2, r3
     ldrb r2, [r2, #2]
     bl store_broken_non_reform_block
-    ldr r2, lbl_080593a4 @ =gBGPointersAndDimensions
+    ldr r2, lbl_080593a4 @ =gBgPointersAndDimensions
     ldrh r1, [r4, #2]
     ldrh r0, [r2, #0x1c]
     muls r0, r1, r0
@@ -2198,7 +2198,7 @@ destroy_single_breakable_block: @ 0x0805936c
     bx r1
     .align 2, 0
 lbl_080593a0: .4byte 0x083459f0
-lbl_080593a4: .4byte gBGPointersAndDimensions
+lbl_080593a4: .4byte gBgPointersAndDimensions
 
     thumb_func_start destroy_square_block
 destroy_square_block: @ 0x080593a8
@@ -2215,7 +2215,7 @@ destroy_square_block: @ 0x080593a8
     ldrh r1, [r4, #2]
     adds r2, r6, #0
     bl store_broken_non_reform_block
-    ldr r5, lbl_08059474 @ =gBGPointersAndDimensions
+    ldr r5, lbl_08059474 @ =gBgPointersAndDimensions
     ldrh r1, [r4, #2]
     ldrh r0, [r5, #0x1c]
     muls r0, r1, r0
@@ -2300,7 +2300,7 @@ lbl_08059464:
     bx r1
     .align 2, 0
 lbl_08059470: .4byte 0x083459f0
-lbl_08059474: .4byte gBGPointersAndDimensions
+lbl_08059474: .4byte gBgPointersAndDimensions
 lbl_08059478: .4byte gCurrentClipdataAffectingAction
 lbl_0805947c: .4byte 0x00000137
 
@@ -2450,7 +2450,7 @@ remove_never_reform_block_in_clipdata_bg: @ 0x08059580
     lsrs r0, r0, #0x18
     lsls r1, r1, #0x18
     lsrs r1, r1, #0x18
-    ldr r2, lbl_080595dc @ =gBGPointersAndDimensions
+    ldr r2, lbl_080595dc @ =gBgPointersAndDimensions
     mov ip, r2
     ldrh r2, [r2, #0x1c]
     muls r1, r2, r1
@@ -2493,7 +2493,7 @@ lbl_080595d6:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_080595dc: .4byte gBGPointersAndDimensions
+lbl_080595dc: .4byte gBgPointersAndDimensions
 lbl_080595e0: .4byte gTilemapAndClipPointers
 
     thumb_func_start BlockShiftNeverReformBlocks
@@ -3075,7 +3075,7 @@ lbl_08059a66:
     movs r6, #0
     cmp r3, #0xff
     beq lbl_08059a8a
-    ldr r1, lbl_08059a98 @ =gBGPointersAndDimensions
+    ldr r1, lbl_08059a98 @ =gBgPointersAndDimensions
     ldrh r0, [r1, #0x1c]
     muls r0, r5, r0
     adds r0, r0, r7
@@ -3099,7 +3099,7 @@ lbl_08059a8a:
     pop {r1}
     bx r1
     .align 2, 0
-lbl_08059a98: .4byte gBGPointersAndDimensions
+lbl_08059a98: .4byte gBgPointersAndDimensions
 
     thumb_func_start samus_apply_screw_speedbooster_damage_to_environment
 samus_apply_screw_speedbooster_damage_to_environment: @ 0x08059a9c
@@ -3112,7 +3112,7 @@ samus_apply_screw_speedbooster_damage_to_environment: @ 0x08059a9c
     lsrs r5, r2, #0x10
     lsrs r7, r0, #0x16
     lsrs r6, r1, #0x16
-    ldr r0, lbl_08059ac8 @ =gBGPointersAndDimensions
+    ldr r0, lbl_08059ac8 @ =gBgPointersAndDimensions
     adds r2, r0, #0
     ldrh r0, [r2, #0x1c]
     cmp r7, r0
@@ -3126,7 +3126,7 @@ samus_apply_screw_speedbooster_damage_to_environment: @ 0x08059a9c
     movs r0, #0xc
     b lbl_08059afc
     .align 2, 0
-lbl_08059ac8: .4byte gBGPointersAndDimensions
+lbl_08059ac8: .4byte gBgPointersAndDimensions
 lbl_08059acc: .4byte gCurrentClipdataAffectingAction
 lbl_08059ad0:
     cmp r5, #2
@@ -3412,7 +3412,7 @@ lbl_08059cfc:
     cmp r5, #0
     beq lbl_08059d8a
 lbl_08059d00:
-    ldr r2, lbl_08059d90 @ =gBGPointersAndDimensions
+    ldr r2, lbl_08059d90 @ =gBgPointersAndDimensions
     ldrb r1, [r4, #4]
     ldrh r0, [r2, #0xc]
     muls r0, r1, r0
@@ -3487,7 +3487,7 @@ lbl_08059d8a:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_08059d90: .4byte gBGPointersAndDimensions
+lbl_08059d90: .4byte gBgPointersAndDimensions
 lbl_08059d94: .4byte gBG1YPosition
 lbl_08059d98: .4byte gBG1XPosition
 lbl_08059d9c: .4byte 0x06001000
@@ -3964,7 +3964,7 @@ lbl_0805a0f0:
     lsrs r0, r2, #0x10
     cmp r0, #1
     bls lbl_0805a144
-    ldr r3, lbl_0805a168 @ =gBGPointersAndDimensions
+    ldr r3, lbl_0805a168 @ =gBgPointersAndDimensions
     lsrs r2, r2, #0x10
     ldrh r0, [r3, #0x1c]
     mov r1, sp
@@ -4001,7 +4001,7 @@ lbl_0805a158: .4byte 0x08345c28
 lbl_0805a15c: .4byte 0xffff0000
 lbl_0805a160: .4byte 0xff00ffff
 lbl_0805a164: .4byte 0x0000ffff
-lbl_0805a168: .4byte gBGPointersAndDimensions
+lbl_0805a168: .4byte gBgPointersAndDimensions
 lbl_0805a16c: .4byte gTilemapAndClipPointers
 lbl_0805a170:
     ldrb r1, [r4, #3]
@@ -4030,7 +4030,7 @@ lbl_0805a196:
     mov r5, sp
     strh r0, [r5, #2]
     ldrh r2, [r5, #2]
-    ldr r3, lbl_0805a1ec @ =gBGPointersAndDimensions
+    ldr r3, lbl_0805a1ec @ =gBgPointersAndDimensions
     ldrh r0, [r3, #0x1e]
     subs r0, #2
     cmp r2, r0
@@ -4067,7 +4067,7 @@ lbl_0805a1ae:
     bl sub_0805a330
     b lbl_0805a2e8
     .align 2, 0
-lbl_0805a1ec: .4byte gBGPointersAndDimensions
+lbl_0805a1ec: .4byte gBgPointersAndDimensions
 lbl_0805a1f0: .4byte gTilemapAndClipPointers
 lbl_0805a1f4:
     ldrb r0, [r4, #2]
@@ -4086,7 +4086,7 @@ lbl_0805a1f4:
     lsrs r0, r0, #0x10
     cmp r0, #1
     bls lbl_0805a244
-    ldr r3, lbl_0805a250 @ =gBGPointersAndDimensions
+    ldr r3, lbl_0805a250 @ =gBgPointersAndDimensions
     ldrh r2, [r5, #2]
     ldrh r0, [r3, #0x1c]
     mov r1, sp
@@ -4117,7 +4117,7 @@ lbl_0805a244:
     strb r0, [r4, #3]
     b lbl_0805a272
     .align 2, 0
-lbl_0805a250: .4byte gBGPointersAndDimensions
+lbl_0805a250: .4byte gBgPointersAndDimensions
 lbl_0805a254: .4byte gTilemapAndClipPointers
 lbl_0805a258:
     ldrb r1, [r4, #3]
@@ -4145,7 +4145,7 @@ lbl_0805a272:
     strh r0, [r1]
     mov r0, sp
     ldrh r2, [r0]
-    ldr r5, lbl_0805a2c8 @ =gBGPointersAndDimensions
+    ldr r5, lbl_0805a2c8 @ =gBgPointersAndDimensions
     ldrh r1, [r5, #0x1c]
     subs r0, r1, #2
     cmp r2, r0
@@ -4178,7 +4178,7 @@ lbl_0805a2be:
     strb r0, [r4, #3]
     b lbl_0805a2e8
     .align 2, 0
-lbl_0805a2c8: .4byte gBGPointersAndDimensions
+lbl_0805a2c8: .4byte gBgPointersAndDimensions
 lbl_0805a2cc: .4byte gTilemapAndClipPointers
 lbl_0805a2d0:
     ldrb r1, [r4, #3]
@@ -4248,7 +4248,7 @@ sub_0805a330: @ 0x0805a330
     ldr r1, lbl_0805a3d4 @ =gCurrentClipdataAffectingAction
     movs r0, #0xf
     strb r0, [r1]
-    ldr r4, lbl_0805a3d8 @ =gBGPointersAndDimensions
+    ldr r4, lbl_0805a3d8 @ =gBgPointersAndDimensions
     ldrh r0, [r4, #0x1c]
     mov r1, r8
     muls r1, r0, r1
@@ -4317,7 +4317,7 @@ lbl_0805a3b8:
     bx r0
     .align 2, 0
 lbl_0805a3d4: .4byte gCurrentClipdataAffectingAction
-lbl_0805a3d8: .4byte gBGPointersAndDimensions
+lbl_0805a3d8: .4byte gBgPointersAndDimensions
 lbl_0805a3dc: .4byte 0x08345cde
 
     thumb_func_start sub_0805a3e0
@@ -4329,7 +4329,7 @@ sub_0805a3e0: @ 0x0805a3e0
     lsls r1, r1, #0x10
     lsrs r5, r1, #0x10
     adds r7, r5, #0
-    ldr r2, lbl_0805a46c @ =gBGPointersAndDimensions
+    ldr r2, lbl_0805a46c @ =gBgPointersAndDimensions
     ldrh r0, [r2, #0x1c]
     adds r1, r4, #0
     muls r1, r0, r1
@@ -4395,7 +4395,7 @@ lbl_0805a466:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805a46c: .4byte gBGPointersAndDimensions
+lbl_0805a46c: .4byte gBgPointersAndDimensions
 lbl_0805a470: .4byte gBG1YPosition
 lbl_0805a474: .4byte gBG1XPosition
 lbl_0805a478: .4byte 0x06001000
@@ -4416,7 +4416,7 @@ mother_brain_update_glass: @ 0x0805a484
     lsls r3, r3, #0x10
     lsrs r3, r3, #0x10
     adds r7, r3, #0
-    ldr r0, lbl_0805a548 @ =gBGPointersAndDimensions
+    ldr r0, lbl_0805a548 @ =gBgPointersAndDimensions
     lsls r1, r5, #3
     adds r1, r1, r0
     ldrh r0, [r1, #4]
@@ -4504,7 +4504,7 @@ lbl_0805a540:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805a548: .4byte gBGPointersAndDimensions
+lbl_0805a548: .4byte gBgPointersAndDimensions
 lbl_0805a54c: .4byte gBG1YPosition
 lbl_0805a550: .4byte gBG1XPosition
 lbl_0805a554: .4byte 0x06000800
@@ -4522,7 +4522,7 @@ set_bg1_block_value: @ 0x0805a55c
     lsls r2, r2, #0x10
     lsrs r2, r2, #0x10
     adds r7, r2, #0
-    ldr r1, lbl_0805a610 @ =gBGPointersAndDimensions
+    ldr r1, lbl_0805a610 @ =gBgPointersAndDimensions
     ldrh r0, [r1, #0xc]
     muls r0, r3, r0
     adds r0, r0, r2
@@ -4604,7 +4604,7 @@ lbl_0805a608:
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805a610: .4byte gBGPointersAndDimensions
+lbl_0805a610: .4byte gBgPointersAndDimensions
 lbl_0805a614: .4byte gBG1YPosition
 lbl_0805a618: .4byte gBG1XPosition
 lbl_0805a61c: .4byte 0x06001000
@@ -4618,7 +4618,7 @@ set_raw_bg1_block_value: @ 0x0805a628
     lsrs r1, r1, #0x10
     lsls r2, r2, #0x10
     lsrs r2, r2, #0x10
-    ldr r4, lbl_0805a648 @ =gBGPointersAndDimensions
+    ldr r4, lbl_0805a648 @ =gBgPointersAndDimensions
     ldrh r3, [r4, #0xc]
     muls r1, r3, r1
     adds r1, r1, r2
@@ -4630,7 +4630,7 @@ set_raw_bg1_block_value: @ 0x0805a628
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805a648: .4byte gBGPointersAndDimensions
+lbl_0805a648: .4byte gBgPointersAndDimensions
 
     thumb_func_start set_clipdata_block_value
 set_clipdata_block_value: @ 0x0805a64c
@@ -4639,7 +4639,7 @@ set_clipdata_block_value: @ 0x0805a64c
     lsrs r1, r1, #0x10
     lsls r2, r2, #0x10
     lsrs r2, r2, #0x10
-    ldr r4, lbl_0805a66c @ =gBGPointersAndDimensions
+    ldr r4, lbl_0805a66c @ =gBgPointersAndDimensions
     ldrh r3, [r4, #0x1c]
     muls r1, r3, r1
     adds r1, r1, r2
@@ -4651,7 +4651,7 @@ set_clipdata_block_value: @ 0x0805a64c
     pop {r0}
     bx r0
     .align 2, 0
-lbl_0805a66c: .4byte gBGPointersAndDimensions
+lbl_0805a66c: .4byte gBgPointersAndDimensions
 
     thumb_func_start check_special_clipdata
 check_special_clipdata: @ 0x0805a670
@@ -4702,7 +4702,7 @@ apply_clipdata_changing_transparency: @ 0x0805a6c8
     ldr r0, lbl_0805a6f8 @ =gSamusData
     ldrh r2, [r0, #0x12]
     adds r5, r0, #0
-    ldr r1, lbl_0805a6fc @ =gBGPointersAndDimensions
+    ldr r1, lbl_0805a6fc @ =gBgPointersAndDimensions
     ldrh r0, [r1, #0x1c]
     lsls r0, r0, #6
     adds r4, r1, #0
@@ -4724,7 +4724,7 @@ lbl_0805a6de:
     b lbl_0805a70e
     .align 2, 0
 lbl_0805a6f8: .4byte gSamusData
-lbl_0805a6fc: .4byte gBGPointersAndDimensions
+lbl_0805a6fc: .4byte gBgPointersAndDimensions
 lbl_0805a700: .4byte gSamusPhysics
 lbl_0805a704:
     ldrh r0, [r4, #0x1e]
@@ -4836,7 +4836,7 @@ lbl_0805a7bc:
     adds r3, r1, r0
     lsls r0, r3, #0xa
     lsrs r6, r0, #0x10
-    ldr r2, lbl_0805a860 @ =gBGPointersAndDimensions
+    ldr r2, lbl_0805a860 @ =gBgPointersAndDimensions
     ldrh r3, [r2, #0x1c]
     cmp r6, r3
     bls lbl_0805a7da
@@ -4874,7 +4874,7 @@ lbl_0805a808:
     mov r8, r1
     ldr r7, lbl_0805a868 @ =0x00000401
 lbl_0805a814:
-    ldr r1, lbl_0805a860 @ =gBGPointersAndDimensions
+    ldr r1, lbl_0805a860 @ =gBgPointersAndDimensions
     ldrh r0, [r1, #0x1c]
     muls r0, r5, r0
     adds r0, r0, r4
@@ -4912,7 +4912,7 @@ lbl_0805a848:
     .align 2, 0
 lbl_0805a858: .4byte gSamusData
 lbl_0805a85c: .4byte gSamusPhysics
-lbl_0805a860: .4byte gBGPointersAndDimensions
+lbl_0805a860: .4byte gBgPointersAndDimensions
 lbl_0805a864: .4byte gTilemapAndClipPointers
 lbl_0805a868: .4byte 0x00000401
 lbl_0805a86c:
@@ -4957,7 +4957,7 @@ check_touching_transition_on_elevator: @ 0x0805a8a8
     orrs r0, r1
     lsrs r7, r0, #0x1f
     ldrh r3, [r2, #0x12]
-    ldr r1, lbl_0805a8e8 @ =gBGPointersAndDimensions
+    ldr r1, lbl_0805a8e8 @ =gBgPointersAndDimensions
     ldrh r0, [r1, #0x1c]
     lsls r0, r0, #6
     adds r6, r1, #0
@@ -4980,7 +4980,7 @@ lbl_0805a8c8:
     b lbl_0805a900
     .align 2, 0
 lbl_0805a8e4: .4byte gSamusData
-lbl_0805a8e8: .4byte gBGPointersAndDimensions
+lbl_0805a8e8: .4byte gBgPointersAndDimensions
 lbl_0805a8ec: .4byte gSamusPhysics
 lbl_0805a8f0:
     ldr r0, lbl_0805a90c @ =gSamusPhysics
@@ -5072,14 +5072,14 @@ check_touching_transition_or_tank: @ 0x0805a96c
     cmp r4, #0
     bge lbl_0805a9a4
     movs r4, #0
-    ldr r6, lbl_0805a9a0 @ =gBGPointersAndDimensions
+    ldr r6, lbl_0805a9a0 @ =gBgPointersAndDimensions
     b lbl_0805a9b2
     .align 2, 0
 lbl_0805a998: .4byte gSamusPhysics
 lbl_0805a99c: .4byte gSamusData
-lbl_0805a9a0: .4byte gBGPointersAndDimensions
+lbl_0805a9a0: .4byte gBgPointersAndDimensions
 lbl_0805a9a4:
-    ldr r1, lbl_0805a9cc @ =gBGPointersAndDimensions
+    ldr r1, lbl_0805a9cc @ =gBgPointersAndDimensions
     ldrh r0, [r1, #0x1c]
     lsls r0, r0, #6
     adds r6, r1, #0
@@ -5101,7 +5101,7 @@ lbl_0805a9b2:
     movs r4, #0
     b lbl_0805a9da
     .align 2, 0
-lbl_0805a9cc: .4byte gBGPointersAndDimensions
+lbl_0805a9cc: .4byte gBgPointersAndDimensions
 lbl_0805a9d0:
     ldrh r0, [r6, #0x1c]
     lsls r0, r0, #6
@@ -5184,7 +5184,7 @@ lbl_0805aa54:
 lbl_0805aa5e:
     asrs r0, r4, #6
     str r0, [sp, #0x20]
-    ldr r0, lbl_0805aaec @ =gBGPointersAndDimensions
+    ldr r0, lbl_0805aaec @ =gBgPointersAndDimensions
     ldrh r2, [r0, #0x1c]
     mov r8, r2
     ldr r7, [r0, #0x18]
@@ -5211,7 +5211,7 @@ lbl_0805aa74:
     cmp r5, #0
     bge lbl_0805aa74
     movs r5, #0
-    ldr r0, lbl_0805aaec @ =gBGPointersAndDimensions
+    ldr r0, lbl_0805aaec @ =gBgPointersAndDimensions
     ldrh r2, [r0, #0x1c]
     mov ip, r2
     ldr r0, [r0, #0x18]
@@ -5257,7 +5257,7 @@ lbl_0805aae0:
     movs r4, #0
     b lbl_0805ab0a
     .align 2, 0
-lbl_0805aaec: .4byte gBGPointersAndDimensions
+lbl_0805aaec: .4byte gBgPointersAndDimensions
 lbl_0805aaf0: .4byte gTilemapAndClipPointers
 lbl_0805aaf4:
     cmp r2, #3
@@ -5704,7 +5704,7 @@ lbl_0805ae58:
     lsrs r3, r0, #0x10
     adds r5, r3, #0
     ldr r2, lbl_0805aea8 @ =gTilemapAndClipPointers
-    ldr r1, lbl_0805aeac @ =gBGPointersAndDimensions
+    ldr r1, lbl_0805aeac @ =gBgPointersAndDimensions
     ldrh r0, [r1, #0x1c]
     muls r0, r3, r0
     adds r0, r0, r4
@@ -5730,7 +5730,7 @@ lbl_0805ae58:
 lbl_0805aea0: .4byte gSamusPhysics
 lbl_0805aea4: .4byte gSamusData
 lbl_0805aea8: .4byte gTilemapAndClipPointers
-lbl_0805aeac: .4byte gBGPointersAndDimensions
+lbl_0805aeac: .4byte gBgPointersAndDimensions
 lbl_0805aeb0:
     cmp r0, #0x2e
     bne lbl_0805aede
@@ -6078,7 +6078,7 @@ remove_collected_tanks: @ 0x0805b114
     mov sb, r2
     ldr r7, lbl_0805b1a8 @ =gCurrentRoom
     mov r8, r7
-    ldr r0, lbl_0805b1ac @ =gBGPointersAndDimensions
+    ldr r0, lbl_0805b1ac @ =gBgPointersAndDimensions
     mov ip, r0
 lbl_0805b14c:
     ldrb r0, [r4]
@@ -6124,7 +6124,7 @@ lbl_0805b19c: .4byte gCurrentArea
 lbl_0805b1a0: .4byte 0x02036c00
 lbl_0805b1a4: .4byte gTilemapAndClipPointers
 lbl_0805b1a8: .4byte gCurrentRoom
-lbl_0805b1ac: .4byte gBGPointersAndDimensions
+lbl_0805b1ac: .4byte gBgPointersAndDimensions
 lbl_0805b1b0: .4byte 0x0000043c
 lbl_0805b1b4:
     movs r7, #0

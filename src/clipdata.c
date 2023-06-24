@@ -43,15 +43,15 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
     collision.tileY = yPosition / BLOCK_SIZE;
     collision.tileX = xPosition / BLOCK_SIZE;
 
-    if (collision.tileX >= gBGPointersAndDimensions.clipdataWidth)
+    if (collision.tileX >= gBgPointersAndDimensions.clipdataWidth)
         result = CLIPDATA_TYPE_SOLID_FLAG | CLIPDATA_TYPE_SOLID;
     else
     {        
-        if (collision.tileY < gBGPointersAndDimensions.clipdataHeight)
+        if (collision.tileY < gBgPointersAndDimensions.clipdataHeight)
         {
             // Get clip type at position
-            collision.clipdataType = gTilemapAndClipPointers.pClipCollisions[gBGPointersAndDimensions.pClipDecomp[
-                gBGPointersAndDimensions.clipdataWidth * collision.tileY + collision.tileX]];
+            collision.clipdataType = gTilemapAndClipPointers.pClipCollisions[gBgPointersAndDimensions.pClipDecomp[
+                gBgPointersAndDimensions.clipdataWidth * collision.tileY + collision.tileX]];
 
             // Get sub pixel
             collision.subPixelY = yPosition & SUB_PIXEL_POSITION_FLAG;
@@ -82,7 +82,7 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
     collision.tileX = xPosition >> 6;
 
     // Check in bounds
-    if (collision.tileX >= gBGPointersAndDimensions.clipdataWidth || collision.tileY >= gBGPointersAndDimensions.clipdataHeight)
+    if (collision.tileX >= gBgPointersAndDimensions.clipdataWidth || collision.tileY >= gBgPointersAndDimensions.clipdataHeight)
     {
         // Clear if out of bounds
         gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
@@ -111,7 +111,7 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
             collision.actorType = CLIPDATA_ACTOR_SPRITE;
 
         // Get clip at position
-        clipdata = gBGPointersAndDimensions.pClipDecomp[collision.tileY * gBGPointersAndDimensions.clipdataWidth + collision.tileX];
+        clipdata = gBgPointersAndDimensions.pClipDecomp[collision.tileY * gBgPointersAndDimensions.clipdataWidth + collision.tileX];
         if (gCurrentClipdataAffectingAction != CAA_NONE)
         {
             // Apply CCAA if not none
@@ -279,7 +279,7 @@ u32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition)
     tileY = yPosition / BLOCK_SIZE;
     tileX = xPosition / BLOCK_SIZE;
 
-    if (tileY >= gBGPointersAndDimensions.clipdataHeight || tileX >= gBGPointersAndDimensions.clipdataWidth)
+    if (tileY >= gBgPointersAndDimensions.clipdataHeight || tileX >= gBgPointersAndDimensions.clipdataWidth)
         return 0;
     else
         return ClipdataUpdateCurrentAffecting(yPosition, tileY, tileX, FALSE);
@@ -300,8 +300,8 @@ u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 dontC
     u32 specialClip;
 
     // Get clipdata behavior of the current tile
-    behavior = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[
-        tileY * gBGPointersAndDimensions.clipdataWidth + tileX]];
+    behavior = gTilemapAndClipPointers.pClipBehaviors[gBgPointersAndDimensions.pClipDecomp[
+        tileY * gBgPointersAndDimensions.clipdataWidth + tileX]];
 
     // Check for movement clipdata
     if (behavior != CLIP_BEHAVIOR_NONE)
@@ -426,11 +426,11 @@ u32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
     tileY = yPosition / BLOCK_SIZE;
     tileX = xPosition / BLOCK_SIZE;
 
-    if (tileY >= gBGPointersAndDimensions.clipdataHeight || tileX >= gBGPointersAndDimensions.clipdataWidth)
+    if (tileY >= gBgPointersAndDimensions.clipdataHeight || tileX >= gBgPointersAndDimensions.clipdataWidth)
         return GROUND_EFFECT_NONE;
     else
     {
-        clipdata = gBGPointersAndDimensions.pClipDecomp[tileY * gBGPointersAndDimensions.clipdataWidth + tileX];
+        clipdata = gBgPointersAndDimensions.pClipDecomp[tileY * gBgPointersAndDimensions.clipdataWidth + tileX];
         if (clipdata & 0x400)
             clipdata = 0x0;
         else

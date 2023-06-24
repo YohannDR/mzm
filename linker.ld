@@ -100,7 +100,7 @@ SECTIONS {
         . = 0x0000007f; gUnk_300007f = .;
         . = 0x00000080; gHazeInfo = .;
         . = 0x00000088; gIoRegistersBackup = .;
-        . = 0x0000009C; gBGPointersAndDimensions = .;
+        . = 0x0000009C; gBgPointersAndDimensions = .;
         . = 0x000000BC; gCurrentRoomEntry = .;
         . = 0x000000DC; gCurrentAffectingClipdata = .;
         . = 0x000000E4; gBackgroundPositions = .;

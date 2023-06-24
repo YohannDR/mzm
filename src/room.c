@@ -324,9 +324,9 @@ void RoomLoadBackgrounds(void)
         if (gCurrentRoomEntry.BG0Prop & BG_PROP_RLE_COMPRESSED)
         {
             src = entry.pBG0Data;
-            gBGPointersAndDimensions.backgrounds[0].pDecomp = gDecompBG0Map;
-            gBGPointersAndDimensions.backgrounds[0].width = *src++;
-            gBGPointersAndDimensions.backgrounds[0].height = *src++;
+            gBgPointersAndDimensions.backgrounds[0].pDecomp = gDecompBG0Map;
+            gBgPointersAndDimensions.backgrounds[0].width = *src++;
+            gBgPointersAndDimensions.backgrounds[0].height = *src++;
             RoomRLEDecompress(TRUE, src, (u8*)gDecompBG0Map);
         }
         else if (gCurrentRoomEntry.BG0Prop & BG_PROP_LZ77_COMPRESSED)
@@ -340,25 +340,25 @@ void RoomLoadBackgrounds(void)
         
         // Load clipdata, assume RLE
         src = entry.pClipData;
-        gBGPointersAndDimensions.pClipDecomp = gDecompClipdataMap;
-        gBGPointersAndDimensions.clipdataWidth = *src++;
-        gBGPointersAndDimensions.clipdataHeight = *src++;
+        gBgPointersAndDimensions.pClipDecomp = gDecompClipdataMap;
+        gBgPointersAndDimensions.clipdataWidth = *src++;
+        gBgPointersAndDimensions.clipdataHeight = *src++;
         RoomRLEDecompress(TRUE, src, (u8*)gDecompClipdataMap);
 
         // Load BG1, assume RLE
         src = entry.pBG1Data;
-        gBGPointersAndDimensions.backgrounds[1].pDecomp = gDecompBG1Map;
-        gBGPointersAndDimensions.backgrounds[1].width = *src++;
-        gBGPointersAndDimensions.backgrounds[1].height = *src++;
+        gBgPointersAndDimensions.backgrounds[1].pDecomp = gDecompBG1Map;
+        gBgPointersAndDimensions.backgrounds[1].width = *src++;
+        gBgPointersAndDimensions.backgrounds[1].height = *src++;
         RoomRLEDecompress(TRUE, src, (u8*)gDecompBG1Map);
 
         // Load BG2, force RLE
         if (gCurrentRoomEntry.BG2Prop & BG_PROP_RLE_COMPRESSED)
         {
             src = entry.pBG2Data;
-            gBGPointersAndDimensions.backgrounds[2].pDecomp = gDecompBG2Map;
-            gBGPointersAndDimensions.backgrounds[2].width = *src++;
-            gBGPointersAndDimensions.backgrounds[2].height = *src++;
+            gBgPointersAndDimensions.backgrounds[2].pDecomp = gDecompBG2Map;
+            gBgPointersAndDimensions.backgrounds[2].width = *src++;
+            gBgPointersAndDimensions.backgrounds[2].height = *src++;
 
             RoomRLEDecompress(TRUE, src, (u8*)gDecompBG2Map);
         }
@@ -622,8 +622,8 @@ void RoomSetInitialTilemap(u8 bgNumber)
         if (offset < 0)
             offset = 0;
 
-        if (xSize > gBGPointersAndDimensions.backgrounds[bgNumber].width - offset)
-            xSize = gBGPointersAndDimensions.backgrounds[bgNumber].width - offset;
+        if (xSize > gBgPointersAndDimensions.backgrounds[bgNumber].width - offset)
+            xSize = gBgPointersAndDimensions.backgrounds[bgNumber].width - offset;
 
         xPos = offset;
         
@@ -633,16 +633,16 @@ void RoomSetInitialTilemap(u8 bgNumber)
         if (offset < 0)
             offset = 0;
 
-        if (ySize > gBGPointersAndDimensions.backgrounds[bgNumber].height - offset)
-            ySize = gBGPointersAndDimensions.backgrounds[bgNumber].height - offset;
+        if (ySize > gBgPointersAndDimensions.backgrounds[bgNumber].height - offset)
+            ySize = gBgPointersAndDimensions.backgrounds[bgNumber].height - offset;
 
 
-        pDecomp = &gBGPointersAndDimensions.backgrounds[bgNumber].pDecomp[gBGPointersAndDimensions.backgrounds[bgNumber].width * (u16)offset + xPos];
+        pDecomp = &gBgPointersAndDimensions.backgrounds[bgNumber].pDecomp[gBgPointersAndDimensions.backgrounds[bgNumber].width * (u16)offset + xPos];
         yPos = offset;
 
         for (i = 0; i < ySize; )
         {
-            iWidth = i * gBGPointersAndDimensions.backgrounds[bgNumber].width;
+            iWidth = i * gBgPointersAndDimensions.backgrounds[bgNumber].width;
 
             tmpX = xPos;
             for (yPosition = 0; yPosition < xSize; )
@@ -1089,7 +1089,7 @@ void RoomUpdateVerticalTilemap(s32 offset)
         if (properties < 0)
             continue;
 
-        if (properties > gBGPointersAndDimensions.backgrounds[i].height)
+        if (properties > gBgPointersAndDimensions.backgrounds[i].height)
             continue;
             
         yPosition = properties;
@@ -1101,17 +1101,17 @@ void RoomUpdateVerticalTilemap(s32 offset)
         xPosition = properties;
 
         size = 0x13;
-        if (gBGPointersAndDimensions.backgrounds[i].width < size)
-            size = gBGPointersAndDimensions.backgrounds[i].width;
+        if (gBgPointersAndDimensions.backgrounds[i].width < size)
+            size = gBgPointersAndDimensions.backgrounds[i].width;
 
-        tilemapOffset = yPosition * gBGPointersAndDimensions.backgrounds[i].width + xPosition;
+        tilemapOffset = yPosition * gBgPointersAndDimensions.backgrounds[i].width + xPosition;
         
         dst = VRAM_BASE + i * 4096;
         dst += (yPosition & 0xF) * 32;
 
         for (properties = 0; properties < size; properties++, xPosition++, tilemapOffset++)
         {
-            pTilemap = &gTilemapAndClipPointers.pTilemap[gBGPointersAndDimensions.backgrounds[i].pDecomp[tilemapOffset] * 4];
+            pTilemap = &gTilemapAndClipPointers.pTilemap[gBgPointersAndDimensions.backgrounds[i].pDecomp[tilemapOffset] * 4];
 
             unk = xPosition & 0xF;
             if (xPosition & 0x10)
@@ -1170,7 +1170,7 @@ void RoomUpdateHorizontalTilemap(s32 offset)
         if (properties < 0)
             continue;
 
-        if (properties > gBGPointersAndDimensions.backgrounds[i].width)
+        if (properties > gBgPointersAndDimensions.backgrounds[i].width)
             continue;
             
         xPosition = properties;
@@ -1182,10 +1182,10 @@ void RoomUpdateHorizontalTilemap(s32 offset)
         yPosition = properties;
 
         size = 0xE;
-        if (gBGPointersAndDimensions.backgrounds[i].height < size)
-            size = gBGPointersAndDimensions.backgrounds[i].height;
+        if (gBgPointersAndDimensions.backgrounds[i].height < size)
+            size = gBgPointersAndDimensions.backgrounds[i].height;
 
-        tilemapOffset = gBGPointersAndDimensions.backgrounds[i].width * yPosition + xPosition;
+        tilemapOffset = gBgPointersAndDimensions.backgrounds[i].width * yPosition + xPosition;
         
         dst = VRAM_BASE + i * 4096;
         if (xPosition & 0x10)
@@ -1194,14 +1194,14 @@ void RoomUpdateHorizontalTilemap(s32 offset)
 
         for (properties = 0; properties < size; properties++)
         {
-            pTilemap = &gTilemapAndClipPointers.pTilemap[gBGPointersAndDimensions.backgrounds[i].pDecomp[tilemapOffset] * 4];
+            pTilemap = &gTilemapAndClipPointers.pTilemap[gBgPointersAndDimensions.backgrounds[i].pDecomp[tilemapOffset] * 4];
 
             unk = (yPosition & 0xF) * 32;
 
             dst[unk] = pTilemap[0] | pTilemap[1] << 0x10;
             dst[unk + 0x10] = pTilemap[2] | pTilemap[3] << 0x10;
 
-            tilemapOffset += gBGPointersAndDimensions.backgrounds[i].width;
+            tilemapOffset += gBgPointersAndDimensions.backgrounds[i].width;
             yPosition++;
         }
     }

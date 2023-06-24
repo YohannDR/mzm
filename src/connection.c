@@ -634,9 +634,9 @@ void ConnectionLoadDoors(void)
         {
             if ((doorType & DOOR_TYPE_NO_FLAGS) == DOOR_TYPE_OPEN_HATCH || (doorType & DOOR_TYPE_NO_FLAGS) == DOOR_TYPE_CLOSED_HATCH)
             {
-                position = gBGPointersAndDimensions.clipdataWidth * pDoor->yStart + pDoor->xStart;
+                position = gBgPointersAndDimensions.clipdataWidth * pDoor->yStart + pDoor->xStart;
 
-                clipdata = gBGPointersAndDimensions.pClipDecomp[position + 1];
+                clipdata = gBgPointersAndDimensions.pClipDecomp[position + 1];
                 
                 if (gTilemapAndClipPointers.pClipCollisions[clipdata] != CLIPDATA_TYPE_DOOR)
                     direction = 0;
@@ -644,7 +644,7 @@ void ConnectionLoadDoors(void)
                     direction = 1;
 
                 if (direction == 0)
-                    clipdata = gBGPointersAndDimensions.pClipDecomp[position - 1];
+                    clipdata = gBgPointersAndDimensions.pClipDecomp[position - 1];
 
                 behavior = gTilemapAndClipPointers.pClipBehaviors[clipdata];
                 behaviorCheck = BEHAVIOR_TO_DOOR(behavior) - 1;
@@ -751,8 +751,8 @@ void ConnectionLoadDoors(void)
 
         i = gHatchData[currHatchId].yPosition;
 
-        bldalpha = gTilemapAndClipPointers.pClipBehaviors[gBGPointersAndDimensions.pClipDecomp[i *
-            gBGPointersAndDimensions.clipdataWidth + currDoor]];
+        bldalpha = gTilemapAndClipPointers.pClipBehaviors[gBgPointersAndDimensions.pClipDecomp[i *
+            gBgPointersAndDimensions.clipdataWidth + currDoor]];
         bldalpha = BgClipGetNewBldalphaValue(bldalpha, bldalpha);
         if (bldalpha)
         {

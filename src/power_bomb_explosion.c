@@ -77,12 +77,12 @@ void PowerBombExplosion(void)
         hitboxTop = (s16)-gCurrentPowerBomb.yPosition;
 
     horizontalAxis = hitboxRight;
-    if ((s32)(gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE) < (gCurrentPowerBomb.xPosition + horizontalAxis))
-        hitboxRight = (s16)((gBGPointersAndDimensions.clipdataWidth * BLOCK_SIZE) - gCurrentPowerBomb.xPosition);
+    if ((s32)(gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE) < (gCurrentPowerBomb.xPosition + horizontalAxis))
+        hitboxRight = (s16)((gBgPointersAndDimensions.clipdataWidth * BLOCK_SIZE) - gCurrentPowerBomb.xPosition);
 
     verticalAxis = hitboxBottom;
-    if ((s32)(gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE) < (gCurrentPowerBomb.yPosition + verticalAxis))
-        hitboxBottom = (s16)((gBGPointersAndDimensions.clipdataHeight * BLOCK_SIZE) - gCurrentPowerBomb.yPosition);
+    if ((s32)(gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE) < (gCurrentPowerBomb.yPosition + verticalAxis))
+        hitboxBottom = (s16)((gBgPointersAndDimensions.clipdataHeight * BLOCK_SIZE) - gCurrentPowerBomb.yPosition);
 
     gCurrentPowerBomb.hitboxLeftOffset = hitboxLeft;
     gCurrentPowerBomb.hitboxRightOffset = hitboxRight;
@@ -117,7 +117,7 @@ void PowerBombExplosion(void)
                     yLoop = 0x0;
                     if ((s32)yPositionTop >= hitboxTop)
                     {
-                        clipdata = gBGPointersAndDimensions.pClipDecomp[yPositionTop * gBGPointersAndDimensions.clipdataWidth + horizontalAxis];
+                        clipdata = gBgPointersAndDimensions.pClipDecomp[yPositionTop * gBgPointersAndDimensions.clipdataWidth + horizontalAxis];
                         if (clipdata != 0x0)
                             BlockApplyCCAA(yPositionTop, horizontalAxis, clipdata);
 
@@ -128,7 +128,7 @@ void PowerBombExplosion(void)
                     
                     if ((s32)yPositionBottom <= hitboxBottom)
                     {
-                        clipdata = gBGPointersAndDimensions.pClipDecomp[yPositionBottom * gBGPointersAndDimensions.clipdataWidth + horizontalAxis];
+                        clipdata = gBgPointersAndDimensions.pClipDecomp[yPositionBottom * gBgPointersAndDimensions.clipdataWidth + horizontalAxis];
                         if (clipdata != 0x0)
                             BlockApplyCCAA(yPositionBottom, horizontalAxis, clipdata);
 
@@ -163,7 +163,7 @@ void PowerBombExplosion(void)
                     yLoop = 0x0;
                     if ((s32)xPositionLeft >= hitboxLeft)
                     {
-                        clipdata = gBGPointersAndDimensions.pClipDecomp[verticalAxis * gBGPointersAndDimensions.clipdataWidth + xPositionLeft];
+                        clipdata = gBgPointersAndDimensions.pClipDecomp[verticalAxis * gBgPointersAndDimensions.clipdataWidth + xPositionLeft];
                         if (clipdata != 0x0)
                             BlockApplyCCAA(verticalAxis, xPositionLeft, clipdata);
                         
@@ -174,7 +174,7 @@ void PowerBombExplosion(void)
                     
                     if ((s32)xPositionRight <= hitboxRight)
                     {
-                        clipdata = gBGPointersAndDimensions.pClipDecomp[verticalAxis * gBGPointersAndDimensions.clipdataWidth + xPositionRight];
+                        clipdata = gBgPointersAndDimensions.pClipDecomp[verticalAxis * gBgPointersAndDimensions.clipdataWidth + xPositionRight];
                         if (clipdata != 0x0)
                             BlockApplyCCAA(verticalAxis, xPositionRight, clipdata);
 
