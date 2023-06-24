@@ -5575,10 +5575,13 @@ u32 FileSelectUpdateTilemap(u8 request)
     return ended;
 }
 
+/**
+ * @brief 7eedc | a0 | To document
+ * 
+ * @param pTilemap Tilemap pointer
+ */
 void unk_7eedc(u16* pTilemap)
 {
-    // https://decomp.me/scratch/M4UO4
-
     s32 i;
     s32 j;
     u16 baseTile;
@@ -5587,17 +5590,18 @@ void unk_7eedc(u16* pTilemap)
     completion = gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].completedGame & 0x7;
     completion |= ((u16)gSaveFilesInfo[FILE_SELECT_DATA.fileSelectCursorPosition].completedGame >> 3) & 0x7;
 
+    pTilemap = &pTilemap[128];
     for (i = 0; i < 3; i++)
     {
         baseTile = (completion >> i) & 1 ? 14 << 12 : 15 << 12;
 
-        for (j = 0; j < 16; j++)
+        for (j = 2; j < 2 + 16; j++)
         {
-            pTilemap[i * 64 + 2 + j] &= 0x3FF;
-            pTilemap[i * 64 + 2 + j] |= baseTile;
+            pTilemap[i * 64 + j] &= 0x3FF;
+            pTilemap[i * 64 + j] |= baseTile;
 
-            pTilemap[i * 64 + 34 + j] &= 0x3FF;
-            pTilemap[i * 64 + 34 + j] |= baseTile;
+            pTilemap[i * 64 + 32 + j] &= 0x3FF;
+            pTilemap[i * 64 + 32 + j] |= baseTile;
         }
     }
 }

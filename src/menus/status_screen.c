@@ -1995,8 +1995,8 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
     
     s32 newSlot;
     u8 prevSlot;
-    s32 var_0;
-    s32 var_1;
+    s32 upperLimit;
+    s32 lowerLimit;
     s32 var_2;
     s32 off;
 
@@ -2020,8 +2020,8 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
             if (newSlot != 0)
                 return newSlot;
 
-            var_0 = 7;
-            var_1 = 1;
+            upperLimit = 7;
+            lowerLimit = 1;
 
             if (prevSlot >= 12)
             {
@@ -2040,8 +2040,8 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
             if (newSlot != 0)
                 return newSlot;
 
-            var_0 = 17;
-            var_1 = 8;
+            upperLimit = 17;
+            lowerLimit = 8;
 
             if (prevSlot > 5)
             {
@@ -2064,10 +2064,10 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
             
             newSlot += off;
 
-            if (newSlot < var_1)
-                newSlot = var_0;
-            else if (newSlot > var_0)
-                newSlot = var_1;
+            if (newSlot < lowerLimit)
+                newSlot = upperLimit;
+            else if (newSlot > upperLimit)
+                newSlot = lowerLimit;
             
             if (newSlot == var_2)
             {
@@ -2081,13 +2081,13 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
     {
         if (prevSlot > 7)
         {
-            var_0 = 17;
-            var_1 = 8;
+            upperLimit = 17;
+            lowerLimit = 8;
         }
         else
         {
-            var_0 = 7;
-            var_1 = 1;
+            upperLimit = 7;
+            lowerLimit = 1;
         }
 
         if (off != 1)
@@ -2099,10 +2099,10 @@ u32 StatusScreenGetDestinationSlot(s32 offset, u32 previousSlot)
         {
             newSlot += off;
 
-            if (newSlot < var_1)
-                newSlot = var_0;
-            else if (newSlot > var_0)
-                newSlot = var_1;
+            if (newSlot < lowerLimit)
+                newSlot = upperLimit;
+            else if (newSlot > upperLimit)
+                newSlot = lowerLimit;
             
             if (newSlot == var_2)
             {
