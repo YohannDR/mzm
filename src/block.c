@@ -1217,9 +1217,9 @@ void BlockProcessBombChains(void)
 
     // Update each bomb chain every 4 frames
     pChain = gBombChains;
-    pChain += (gFrameCounter8Bit & 0x3);
+    pChain += (gFrameCounter8Bit & 3);
     
-    if (pChain->currentOffset == 0x0)
+    if (pChain->currentOffset == 0)
         return;
 
     horizontal = FALSE;
@@ -1229,8 +1229,8 @@ void BlockProcessBombChains(void)
     // Create clipdata block data structure
     clipBlock.behavior = sBombChainReverseData[pChain->type].behavior;
     clipBlock.blockBehavior = BEHAVIOR_TO_BLOCK(clipBlock.behavior);
-    clipBlock.yPosition = 0x0;
-    clipBlock.xPosition = 0x0;
+    clipBlock.yPosition = 0;
+    clipBlock.xPosition = 0;
 
     if (!horizontal)
     {
@@ -1240,7 +1240,7 @@ void BlockProcessBombChains(void)
         {
             // Going up
             clipBlock.yPosition = pChain->srcYPosition - pChain->currentOffset;
-            if (clipBlock.yPosition <= 0x1)
+            if (clipBlock.yPosition <= 1)
                 pChain->flipped = FALSE;
             else
             {
@@ -1262,7 +1262,7 @@ void BlockProcessBombChains(void)
         {
             // Going down
             clipBlock.yPosition = pChain->srcYPosition + pChain->currentOffset;
-            if (clipBlock.yPosition >= gBgPointersAndDimensions.clipdataHeight - 0x2)
+            if (clipBlock.yPosition >= gBgPointersAndDimensions.clipdataHeight - 2)
                 pChain->unk = FALSE;
             else
             {
@@ -1287,7 +1287,7 @@ void BlockProcessBombChains(void)
         {
             // Going left
             clipBlock.xPosition = pChain->srcXPosition - pChain->currentOffset;
-            if (clipBlock.xPosition <= 0x1)
+            if (clipBlock.xPosition <= 1)
                 pChain->flipped = FALSE;
             else
             {
@@ -1309,7 +1309,7 @@ void BlockProcessBombChains(void)
         {
             // Going right
             clipBlock.xPosition = pChain->srcXPosition + pChain->currentOffset;
-            if (clipBlock.xPosition >= gBgPointersAndDimensions.clipdataWidth - 0x2)
+            if (clipBlock.xPosition >= gBgPointersAndDimensions.clipdataWidth - 2)
                 pChain->unk = FALSE;
             else
             {
@@ -1334,43 +1334,62 @@ void BlockProcessBombChains(void)
     else
     {
         // Bomb chain ended
-        pChain->currentOffset = 0x0;
+        pChain->currentOffset = 0;
 
         // Remove type
         gActiveBombChainTypes &= ~sBombChainReverseData[pChain->type].typeFlag;
 
         // Fade sound if no bomb chains active
         if (gActiveBombChainTypes == 0)
-            SoundFade(0x136, 0xA);
+            SoundFade(0x136, 10);
     }
 }
 
+/**
+ * @brief 5a330 | b0 | Checks if a new sub bomb chain should start
+ * 
+ * @param type Sub bomb chain type
+ * @param xPosition X position
+ * @param yPosition Y position
+ */
 void BlockCheckStartNewSubBombChain(u8 type, u8 xPosition, u8 yPosition)
 {
-    // https://decomp.me/scratch/QBMJ2
-
     u16 clipdata;
     s32 i;
     s32 yOffset;
     s32 xOffset;
     s32 offset;
+    s32 width;
 
+    // Set bomb chain CAA
     gCurrentClipdataAffectingAction = CAA_BOMB_CHAIN;
+
+    // Check the current position
     clipdata = gBgPointersAndDimensions.pClipDecomp[yPosition * gBgPointersAndDimensions.clipdataWidth + xPosition];
     if (clipdata != 0)
         BlockApplyCCAA(yPosition, xPosition, clipdata);
 
     for (i = 0; i < 2; i++)
     {
-        yOffset = yPosition + sSubBombChainPositionOffset[type][i*2+1];
+        width = gBgPointersAndDimensions.clipdataWidth;
+
+        // Get Y offset
+        yOffset = yPosition + sSubBombChainPositionOffset[type][i * 2 + 1];
         offset = yOffset * gBgPointersAndDimensions.clipdataWidth;
-        xOffset = xPosition + sSubBombChainPositionOffset[type][i*2];
+        
+        // Get X offset
+        xOffset = xPosition + sSubBombChainPositionOffset[type][i * 2 + 0];
         offset += xOffset;
+
+        // Get clipdata
         clipdata = gBgPointersAndDimensions.pClipDecomp[offset];
+
+        // Apply to block
         if (clipdata != 0)
             BlockApplyCCAA(yOffset, xOffset, clipdata);
     }
 
+    // Clear CAA
     gCurrentClipdataAffectingAction = CAA_NONE;
 }
 
