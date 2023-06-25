@@ -297,7 +297,7 @@ SECTIONS {
         . = 0x00005520; gColorFading = .;
         . = 0x00005528; gBrokenBlocks = .;
         . = 0x000056a8; gLastTankCollected = .;
-        . = 0x000056ac; gBombchains = .;
+        . = 0x000056ac; gBombChains = .;
         . = 0x000056bc; gActiveBombChainTypes = .;
         . = 0x000056c0; gTransparencyRelated = .;
         . = 0x000056c4; gDefaultTransparency = .;

@@ -3822,7 +3822,7 @@ start_bomb_chain: @ 0x08059fe0
     movs r0, #0
     mov r8, r0
     movs r2, #3
-    ldr r0, lbl_0805a04c @ =gBombchains
+    ldr r0, lbl_0805a04c @ =gBombChains
     movs r4, #7
     ands r4, r5
     movs r1, #8
@@ -3861,7 +3861,7 @@ lbl_0805a018:
     mov r8, r0
     b lbl_0805a066
     .align 2, 0
-lbl_0805a04c: .4byte gBombchains
+lbl_0805a04c: .4byte gBombChains
 lbl_0805a050: .4byte gActiveBombChainTypes
 lbl_0805a054: .4byte 0x08345c28
 lbl_0805a058:
@@ -3901,7 +3901,7 @@ lbl_0805a094: .4byte 0x08345c28
 process_bomb_chains: @ 0x0805a098
     push {r4, r5, lr}
     sub sp, #8
-    ldr r4, lbl_0805a150 @ =gBombchains
+    ldr r4, lbl_0805a150 @ =gBombChains
     ldr r0, lbl_0805a154 @ =gFrameCounter8Bit
     ldrb r1, [r0]
     movs r0, #3
@@ -3995,7 +3995,7 @@ lbl_0805a144:
     strb r0, [r4, #3]
     b lbl_0805a18a
     .align 2, 0
-lbl_0805a150: .4byte gBombchains
+lbl_0805a150: .4byte gBombChains
 lbl_0805a154: .4byte gFrameCounter8Bit
 lbl_0805a158: .4byte 0x08345c28
 lbl_0805a15c: .4byte 0xffff0000

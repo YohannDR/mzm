@@ -1051,7 +1051,7 @@ lbl_0805686e:
     subs r1, #8
     cmp r1, r4
     bge lbl_0805686e
-    ldr r2, lbl_08056a1c @ =gBombchains
+    ldr r2, lbl_08056a1c @ =gBombChains
     ldr r0, lbl_08056a20 @ =0x0834588c
     ldr r0, [r0]
     adds r1, r2, #0
@@ -1204,7 +1204,7 @@ lbl_08056a0c: .4byte gScreenShakeXOffset
 lbl_08056a10: .4byte gScreenShakeYOffset
 lbl_08056a14: .4byte gBrokenBlocks
 lbl_08056a18: .4byte 0x08345884
-lbl_08056a1c: .4byte gBombchains
+lbl_08056a1c: .4byte gBombChains
 lbl_08056a20: .4byte 0x0834588c
 lbl_08056a24: .4byte 0x02027780
 lbl_08056a28: .4byte gCamera
