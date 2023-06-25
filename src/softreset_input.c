@@ -27,7 +27,7 @@ void SoftresetCheck(void)
 
 void Softreset(void)
 {
-    sub_0805d034();
+    HazeTransferAndDeactivate();
     unk_33dc();
 
     write16(REG_IME, FALSE);

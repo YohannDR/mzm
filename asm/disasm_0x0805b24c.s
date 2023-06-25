@@ -399,8 +399,8 @@ lbl_0805b578: .4byte 0x02035400
 lbl_0805b57c: .4byte 0x02035200
 lbl_0805b580: .4byte 0x02035600
 
-    thumb_func_start power_bomb_yellow_tint
-power_bomb_yellow_tint: @ 0x0805b584
+    thumb_func_start PowerBombYellowTint
+PowerBombYellowTint: @ 0x0805b584
     push {r4, r5, r6, r7, lr}
     sub sp, #4
     lsls r0, r0, #0x18

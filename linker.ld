@@ -514,7 +514,7 @@ SECTIONS {
         src/bg_clip.o(.text);
         asm/disasm_0x0805b24c.o(.text);
         src/color_fading.o(.text);
-        asm/disasm_0x0805cfe0.o(.text);
+        src/haze.o(.text);
         src/animated_graphics.o(.text);
         asm/disasm_0x0805e760.o(.text);
         src/in_game_cutscene.o(.text);

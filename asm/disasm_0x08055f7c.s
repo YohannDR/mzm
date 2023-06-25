@@ -157,8 +157,8 @@ lbl_080560c8:
     bl RoomSetInitialTilemap
     bl AnimatedGraphicsLoad
     bl AnimatedGraphicsTanksAnimationReset
-    bl SetBGHazeEffect
-    bl ProcessHaze
+    bl HazeSetBackgroundEffect
+    bl HazeProcess
     bl MinimapCheckOnTransition
     ldr r0, lbl_08056148 @ =gIsLoadingFile
     ldrb r0, [r0]
@@ -2040,10 +2040,10 @@ lbl_08057042:
     bl check_unlock_doors
     bl ConnectionUpdateHatches
 lbl_0805706c:
-    bl ProcessHaze
+    bl HazeProcess
     cmp r0, #0
     beq lbl_0805708a
-    bl ProcessHaze
+    bl HazeProcess
     ldr r2, lbl_080570a8 @ =gHazeInfo
     ldrb r1, [r2, #7]
     movs r0, #0x7f

@@ -14,6 +14,5 @@ void unk_33dc(void);
 void QueueSound(u16 id, u32 unk); /* TODO: unk type */
 void StopOrFadeSound(u16 id, u32 unk); /* TODO: unk type */
 void UpdateAudio();
-void sub_0805d034(void);
 
 #endif /* FUNCS_H */

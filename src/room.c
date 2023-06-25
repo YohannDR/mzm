@@ -122,7 +122,7 @@ void RoomLoad(void)
     RoomSetInitialTilemap(0x2);
     AnimatedGraphicsLoad();
     AnimatedGraphicsTanksAnimationReset();
-    SetBGHazeEffect();
+    HazeSetBackgroundEffect();
     HazeProcess();
     MinimapCheckOnTransition();
 
