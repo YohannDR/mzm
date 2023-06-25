@@ -648,20 +648,21 @@ void Haze_Bg3Bg2Bg1(void)
     }
 }
 
+/**
+ * @brief 5db2c | 118 | Updates the haze effect (power bomb expanding)
+ * 
+ * @return u32 bool, ended
+ */
 u32 Haze_PowerBombExpanding(void)
 {
-    // https://decomp.me/scratch/j0f0k
-
     const s16* src;
     s32 xPosition;
     s32 yPosition;
     u16* dst;
     s32 i;
-    s32 j;
     s32 screenY;
-    s32 right;
-    s32 left;
     s32 subSlice;
+    s32 right;
     s32 size;
 
     if (gCurrentPowerBomb.unk_12 != 0)
@@ -672,13 +673,16 @@ u32 Haze_PowerBombExpanding(void)
     xPosition = (gCurrentPowerBomb.xPosition - gBG1XPosition) >> 2;
     yPosition = (gCurrentPowerBomb.yPosition - gBG1YPosition) >> 2;
 
-    for (i = 0; i < 53 * 3; i++)
-        gPreviousHazeValues[i] = 0;
+    dst = (u16*)0x2026d00;
+    for (i = 0; i <= 53 * 3; i++, dst++)
+        *dst = 0;
 
     screenY = yPosition + size + 1;
     CLAMP(screenY, 0, 53 * 3);
 
+    do {
     subSlice = 0;
+    }while(0);
     i = yPosition - size;
     if (i < 0)
     {
@@ -689,16 +693,17 @@ u32 Haze_PowerBombExpanding(void)
     {
         i = 53 * 3;
     }
-  
-    for (j = i; j < screenY; j++)
-    {
-        left = (s16)(xPosition + src[(subSlice + j) * 2 + 1] * 2);
-        right = (s16)(xPosition + src[(subSlice + j) * 2 + 0] * 2);
 
-        CLAMP2(left, 0, 0xF0);
+    dst = (u16*)0x2026d00 + i;
+    for (; i < screenY; i++, subSlice++, dst++)
+    {
+        yPosition = (s16)(xPosition + src[subSlice * 2 + 1] * 2);
+        right = (s16)(xPosition + src[subSlice * 2 + 0] * 2);
+
+        CLAMP2(yPosition, 0, 0xF0);
         CLAMP(right, 0, 0xF0);
 
-        gPreviousHazeValues[j] = right | left << 8;
+        *dst = right | yPosition << 8;
     }
 
 
@@ -718,7 +723,78 @@ u32 Haze_PowerBombExpanding(void)
     return FALSE;
 }
 
+/**
+ * @brief 5dc44 | 118 | Updates the haze effect (power bomb retracting)
+ * 
+ * @return u32 bool, ended
+ */
 u32 Haze_PowerBombRetracting(void)
 {
+    const s16* src;
+    s32 xPosition;
+    s32 yPosition;
+    u16* dst;
+    s32 i;
+    s32 screenY;
+    s32 subSlice;
+    s32 right;
+    s32 size;
 
+    if (gCurrentPowerBomb.unk_12 != 0)
+        return FALSE;
+
+    src = sHaze_PowerBomb_WindowValuesPointers[gCurrentPowerBomb.semiMinorAxis];
+    size = gCurrentPowerBomb.semiMinorAxis;
+    xPosition = (gCurrentPowerBomb.xPosition - gBG1XPosition) >> 2;
+    yPosition = (gCurrentPowerBomb.yPosition - gBG1YPosition) >> 2;
+
+    dst = (u16*)0x2026d00;
+    for (i = 0; i <= 53 * 3; i++, dst++)
+        *dst = 0;
+
+    screenY = yPosition + size + 1;
+    CLAMP(screenY, 0, 53 * 3);
+
+    do {
+    subSlice = 0;
+    }while(0);
+        
+    i = yPosition - size;
+    if (i < 0)
+    {
+        subSlice = -i;
+        i = 0;
+    }
+    else if (i > 53 * 3)
+    {
+        i = 53 * 3;
+    }
+
+    dst = (u16*)0x2026d00 + i;
+    for (; i < screenY; i++, subSlice++, dst++)
+    {
+        yPosition = (s16)(xPosition + src[subSlice * 2 + 1] * 2);
+        right = (s16)(xPosition + src[subSlice * 2 + 0] * 2);
+
+        CLAMP2(yPosition, 0, 0xF0);
+        CLAMP(right, 0, 0xF0);
+
+        *dst = right | yPosition << 8;
+    }
+
+
+    if (gCurrentPowerBomb.semiMinorAxis <= 4)
+    {
+        gCurrentPowerBomb.stage++;
+        if (gCurrentPowerBomb.stage > 4)
+            return TRUE;
+    }
+    else
+    {
+        gCurrentPowerBomb.semiMinorAxis -= 3;
+        if (gCurrentPowerBomb.semiMinorAxis < 4)
+            gCurrentPowerBomb.semiMinorAxis = 4;
+    }
+
+    return FALSE;
 }

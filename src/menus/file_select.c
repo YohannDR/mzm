@@ -3789,7 +3789,7 @@ void FileSelectDisplaySaveFileTimer(u8 file)
     u16* dst;
     u8 number;
 
-    dst = FILE_SELECT_EWRAM.menuTilemap;;
+    dst = FILE_SELECT_EWRAM.menuTilemap;
 
     if (file == 0)
         number = 1;
@@ -5244,8 +5244,7 @@ u32 FileSelectUpdateTilemap(u8 request)
 {
     // https://decomp.me/scratch/ZaBhq
 
-    register u32 ended asm("r6");
-    u32 temp;
+    u32 ended;
 
     ended = TRUE;
 
@@ -5565,10 +5564,10 @@ u32 FileSelectUpdateTilemap(u8 request)
         case 0x20:
         case 0x24:
         case 0x29:
-            temp = FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].oamID;
-            ended = TRUE;
-            if (temp != 0)
+            if (FILE_SELECT_DATA.fileScreenOam[FILE_SELECT_OAM_MEDIUM_PANEL].oamID != 0)
                 ended = FALSE;
+            else
+                ended = TRUE;
             break;
     }
 
