@@ -257,7 +257,8 @@ void EndingImageLoadIGTAndPercentageGraphics(void)
         dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x101C0, DMA_ENABLE << 16 | 32);
         dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x105C0, DMA_ENABLE << 16 | 32);
     }
-    if (percentageTens != 0)
+    
+    if (percentageHundreds != 0 || percentageTens != 0)
     {
         offset = percentageTens * 64;
         dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10200, DMA_ENABLE << 16 | 32);
