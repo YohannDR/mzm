@@ -423,7 +423,6 @@ void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage)
     s32 i;
     s32 j;
 
-    s32 colorD;
     u8 r;
     u8 g;
     u8 b;
@@ -454,12 +453,11 @@ void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage)
 
         for (j = i * 16; j < i * 16 + 16; j++)
         {
-            pal = &((u16*)(EWRAM_BASE + 0x35000))[j];
+            pal = (u16*)(EWRAM_BASE + 0x35000) + j;
             
-            colorD = *pal;
-            r = RED(colorD);
-            g = GREEN(colorD);
-            b = BLUE(colorD);
+            r = RED(*pal);
+            g = GREEN(*pal);
+            b = BLUE(*pal);
 
             r += (baseR - r) * stage / 16;
             g += (baseG - g) * stage / 16;

@@ -29,7 +29,7 @@
 
 #define RED(c) ((c) & COLOR_MASK)
 #define GREEN(c) (((c) & (COLOR_MASK << 5)) >> 5)
-#define BLUE(c) (((c) & 0x7C00) >> 10)
+#define BLUE(c) (((c) & (COLOR_MASK << 10)) >> 10)
 #define COLOR(r, g, b) (((b) << 10) | ((g) << 5) | (r))
 #define COLOR_GRAD(r, g, b) ((r) | ((g) << 5) | ((b) << 10))
 #define COLOR_WHITE COLOR(0x1F, 0x1F, 0x1F)
