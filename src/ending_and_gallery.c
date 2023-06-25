@@ -430,12 +430,16 @@ void CreditsInit(void)
     PlayMusic(MUSIC_CREDITS, 0);
 }
 
+/**
+ * @brief 8565c | 398 | Displays a credit line
+ * 
+ * @param line Line
+ * @return u8 To document
+ */
 u8 CreditsDisplayLine(u32 line)
 {
-    // https://decomp.me/scratch/tfc6g
-
     u8 i;
-    u16 tile;
+    s32 tile;
     u32 ret_0;
     u32 ret_1;
     u8 tilemapOffset;
@@ -480,8 +484,11 @@ u8 CreditsDisplayLine(u32 line)
 
             tilemapOffset = (0x1E - tilemapOffset) >> 1;
 
-            while (pCredits->text[i])
+            while (TRUE)
             {
+                if (pCredits->text[i] == 0)
+                    break;
+                
                 if ((u8)(pCredits->text[i] - 0x41) < 0x1A)
                 {
                     ENDING_DATA.creditLineTilemap_1[tilemapOffset] = pCredits->text[i] + (tile - 0x40);
@@ -557,11 +564,14 @@ u8 CreditsDisplayLine(u32 line)
 
             tilemapOffset = (0x1E - tilemapOffset) >> 1;
 
-            while (pCredits->text[i])
+            while (TRUE)
             {
+                if (pCredits->text[i] == 0)
+                    break;
+                
                 if ((u8)(pCredits->text[i] - 0x41) < 0x1A)
                 {
-                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = pCredits->text[i] + (tile - 0x1);
+                    ENDING_DATA.creditLineTilemap_1[tilemapOffset] = pCredits->text[i] + (tile - 1);
                     ENDING_DATA.creditLineTilemap_2[tilemapOffset] = pCredits->text[i] + (tile + 0x1F);
                 }
                 else if ((u8)(pCredits->text[i] - 0x61) < 0x1A)
