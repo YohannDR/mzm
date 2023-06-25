@@ -591,14 +591,18 @@ void Haze_Bg3Bg2StrongWeakMedium(void)
     }
 }
 
+/**
+ * @brief 5da40 | ec | Updates the haze effect (BG3, BG2 and BG1, strong everywhere)
+ * 
+ */
 void Haze_Bg3Bg2Bg1(void)
 {
     s32 i;
     s32 mask;
     const s8* src;
     u16* dst;
-    s32 temp;
     u8* ptr;
+    s32 tmp;
 
     i = 0;
     gHazeLoops[2].timer++;
@@ -639,11 +643,17 @@ void Haze_Bg3Bg2Bg1(void)
     for (i = 0; i < 0xA0; i++)
     {
         ptr = &gUnk_3005728;
-        temp = *dst++ = src[(gBackgroundPositions.bg[1].y + i + *ptr) & mask] + gBackgroundPositions.bg[1].x;
+
+        tmp = gBackgroundPositions.bg[1].y + i + *ptr;
+        tmp = src[tmp & mask] + gBackgroundPositions.bg[1].x;
+        *dst++ = tmp;
         *dst++ = gBackgroundPositions.bg[1].y;
-        *dst++ = temp;
+
+        *dst++ = tmp;
         *dst++ = gBackgroundPositions.bg[2].y;
-        *dst++ = src[(gBackgroundPositions.bg[3].y + i + *ptr) & mask] + gBackgroundPositions.bg[3].x;
+
+        tmp = gBackgroundPositions.bg[3].y + i + *ptr;
+        *dst++ = src[tmp & mask] + gBackgroundPositions.bg[3].x;
         *dst++ = gBackgroundPositions.bg[3].y;
     }
 }
