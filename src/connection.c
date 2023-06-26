@@ -525,8 +525,8 @@ void ConnectionLockHatches(u8 isEvent)
     u16 lockedHatches;
     s32 hatch;
     
-    i = 0x0;
-    lockedHatches = 0x0;
+    i = 0;
+    lockedHatches = 0;
     
     for (; i < MAX_AMOUNT_OF_HATCHES; i++)
     {
@@ -550,7 +550,7 @@ void ConnectionLockHatches(u8 isEvent)
         hatch = 0;
         for (; i < MAX_AMOUNT_OF_HATCHES; i++)
         {
-            if ((lockedHatches >> i) & 0x1)
+            if ((lockedHatches >> i) & 1)
             {
                 gHatchData[i].locked = TRUE;
                 gHatchData[i].type = HATCH_LOCKED;
@@ -558,7 +558,7 @@ void ConnectionLockHatches(u8 isEvent)
                 if (gHatchData[i].sourceDoor != gLastDoorUsed)
                     ConnectionHatchStartLockAnimation(TRUE, hatch, FALSE);
                 else
-                    ConnectionHatchStartLockAnimation(TRUE, hatch, 0x3);
+                    ConnectionHatchStartLockAnimation(TRUE, hatch, 3);
             }
             hatch++;
         }
@@ -571,23 +571,23 @@ void ConnectionLockHatches(u8 isEvent)
         hatch = 0;
         for (; i < MAX_AMOUNT_OF_HATCHES; i++)
         {
-            if ((lockedHatches >> i) & 0x1)
+            if ((lockedHatches >> i) & 1)
             {
-                if ((gHatchesState.unk2 >> i) & 0x1)
+                if ((gHatchesState.unk2 >> i) & 1)
                 {
                     gHatchData[hatch].locked = TRUE;
                     gHatchData[hatch].type = HATCH_LOCKED;
                 }
                 else
                 {
-                    gHatchData[hatch].locked = 0x32;
+                    gHatchData[hatch].locked = 2;
                     gHatchData[hatch].type = HATCH_LOCKED_AND_LOCK_DESTINATION;
                 }
 
                 if (gHatchData[hatch].sourceDoor != gLastDoorUsed)
                     ConnectionHatchStartLockAnimation(TRUE, hatch, FALSE);
                 else
-                    ConnectionHatchStartLockAnimation(TRUE, hatch, 0x3);
+                    ConnectionHatchStartLockAnimation(TRUE, hatch, 3);
             }
             hatch++;
         }

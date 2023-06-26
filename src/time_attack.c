@@ -272,10 +272,12 @@ u8 TimeAttackCheckSaveFileValidity(void)
     return TRUE;
 }
 
+/**
+ * @brief 7f3fc | 210 | Checks if the time attack should unlock
+ * 
+ */
 void CheckUnlockTimeAttack(void)
 {
-    // https://decomp.me/scratch/bFzS6
-
     u32 igt[4];
     u8 flags[32];
     u8 i;
@@ -284,32 +286,41 @@ void CheckUnlockTimeAttack(void)
     u32 result;
     u8 shift;
     u8 mask;
-    u32 part1;
-    u32 part2;
-    u32 part3;
-    u32 part4;
-    u32 part5;
-    u32 pen;
+    u32 energyNbr;
+    u32 missilesNbr;
+    u32 superMissilesNbr;
+    u32 powerBombNbr;
+    u32 abilityCount;
+    u8 tmp1;
 
+    // Already unlocked or save file invalid
     if (gFileScreenOptionsUnlocked.timeAttack & 1 || !TimeAttackCheckSaveFileValidity())
         return;
 
-    pen = GetPercentAndEndingNumber();
+    tmp1 = 2;
 
-    mask = 0xFF;
-    part1 = pen >> 0x18;
-    part2 = (pen >> 0x10) & mask;
+    // Get each item count
+    value = ChozodiaEscapeGetItemCountAndEndingNumber();
 
-    part3 = (pen >> 0xC) & 0xF;
-    part4 = (pen >> 0x8) & 0xF;
-    part5 = (pen >> 0x4) & 0xF;
+    energyNbr = (value >> 0x18) & 0xFF;
+    missilesNbr = (value >> 0x10) & 0xFF;
 
-    if (part1 > 12 || part2 > 50 || part3 > 15 || part4 > 9 || part5 > 14 || part5 < 8 || part2 == 0)
+    superMissilesNbr = (value >> 0xC) & 0xF;
+    powerBombNbr = (value >> 0x8) & 0xF;
+    abilityCount = (value >> 0x4) & 0xF;
+
+    // Sanity checks to see if the player has an abnormal amount of tanks/abilites
+    // - More than the max (12 e-tanks, 50 missile tanks, 15 super missile tanks, 9 power bomb tanks, 14 abilities)
+    // - Less than the minimum (8 abilities, 0 missiles)
+    if (energyNbr > 12 || missilesNbr > 50 || superMissilesNbr > 15 || powerBombNbr > 9 ||
+        abilityCount > 14 || abilityCount < 8 || missilesNbr == 0)
         return;
 
+    // Zero out array
     for (i = 0; i < ARRAY_SIZE(igt); i++)
         igt[i] = 0;
 
+    // Fill array
     for (i = 0; i < ARRAY_SIZE(igt); i++)
     {
         igt[0] += gInGameTimerAtBosses[i].hours;
@@ -318,7 +329,8 @@ void CheckUnlockTimeAttack(void)
         igt[3] += gInGameTimerAtBosses[i].frames;
     }
 
-    igt[0] &= 31;
+    // What
+    igt[0] %= 32;
 
     flags[0]  = (igt[3] >> 7) & 1;
     flags[1]  = (igt[1] >> 0) & 1;
@@ -349,14 +361,14 @@ void CheckUnlockTimeAttack(void)
     flags[26] = (igt[1] >> 6) & 1;
     flags[27] = (igt[0] >> 4) & 1;
     flags[28] = (igt[1] >> 5) & 1;
-    flags[29] = 1 & 1;
-    flags[30] = 2 & 1;
+    flags[29] = (tmp1 >> 1) & 1;
+    flags[30] = (tmp1 >> 0) & 1;
     flags[31] = 1;
 
-    i = 0;
+    // Weird maths
     result = 0;
     mask = 24;
-    while (i < 4)
+    for (i = 0; i < 4; i++)
     {
         value = 0;
         shift = 7;
@@ -367,8 +379,6 @@ void CheckUnlockTimeAttack(void)
         }
 
         result += (value << mask);
-
-        i++;
         mask -= 8;
     }
 
