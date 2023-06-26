@@ -607,107 +607,110 @@ void TimeAttackRandomizeSeed(u8* pSeed, u32 rng)
     pSeed[10] = value10 | (addedValue & 0x10);
 }
 
+/**
+ * @brief 7f980 | 1c8 | Generates the time attack seed and password
+ * 
+ * @param pTimeAttack Time attack data pointer
+ * @return u8 bool, failed
+ */
 u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
 {
-    // https://decomp.me/scratch/D8huk
-
     u8 seed[16];
     s32 i;
     s32 j;
-    s32 seedOffset;
     u32 mask;
     u8 value;
     u32 sum;
     u8* ptr;
 
-    seedOffset = 0;
+    j = 0;
     mask = 1;
 
     for (i = 0; i < 32; i++)
     {
-        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->timeAttack & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->timeAttack & mask) != 0;
         mask <<= 1;
-        seedOffset++;
+        j++;
     }
     
     mask = 1;
     for (i = 0; i < 7; i++)
     {
-        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->igtHours & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->igtHours & mask) != 0;
         mask <<= 1;
-        seedOffset++;
+        j++;
     }
     
     mask = 1;
     for (i = 0; i < 6; i++)
     {
-        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->igtMinutes & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->igtMinutes & mask) != 0;
         mask <<= 1;
-        seedOffset++;
+        j++;
     }
     
     mask = 1;
     for (i = 0; i < 6; i++)
     {
-        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->igtSeconds & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->igtSeconds & mask) != 0;
         mask <<= 1;
-        seedOffset++;
+        j++;
     }
     
     mask = 1;
     for (i = 0; i < 6; i++)
     {
-        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->unk_7 & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->unk_7 & mask) != 0;
         mask <<= 1;
-        seedOffset++;
+        j++;
     }
 
     mask = 1;
     for (i = 0; i < 5; i++)
     {
-        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->unk_8 & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->unk_8 & mask) != 0;
         mask <<= 1;
-        seedOffset++;
+        j++;
     }
 
     mask = 1;
     for (i = 0; i < 4; i++)
     {
-        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->unk_9 & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->unk_9 & mask) != 0;
         mask <<= 1;
-        seedOffset++;
+        j++;
     }
 
     mask = 1;
     for (i = 0; i < 4; i++)
     {
-        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->unk_A & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->unk_A & mask) != 0;
         mask <<= 1;
-        seedOffset++;
+        j++;
     }
 
     mask = 1;
-    pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->unk_B & mask) != 0;
-    seedOffset++;
+    pTimeAttack->passwordSeed[j] = (pTimeAttack->unk_B & mask) != 0;
+    j++;
 
     mask = 1;
-    pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->unk_C & mask) != 0;
-    seedOffset++;
+    pTimeAttack->passwordSeed[j] = (pTimeAttack->unk_C & mask) != 0;
+    j++;
 
     mask = 1;
     for (i = 0; i < 8; i++)
     {
-        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->igtAtBosses1 & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->igtAtBosses1 & mask) != 0;
         mask <<= 1;
-        seedOffset++;
+        j++;
     }
 
     mask = 1;
     for (i = 0; i < 8; i++)
     {
-        pTimeAttack->passwordSeed[seedOffset] = (pTimeAttack->igtAtBosses2 & mask) != 0;
+        pTimeAttack->passwordSeed[j] = (pTimeAttack->igtAtBosses2 & mask) != 0;
         mask <<= 1;
-        seedOffset++;
+        j++;
     }
 
     sum = 0;
@@ -717,12 +720,10 @@ u8 TimeAttackGenerateSeed(struct TimeAttackData* pTimeAttack)
         mask = 0;
         value = 0;
 
-        ptr = &pTimeAttack->passwordSeed[j * 8];
         for (i = 0; i < 8; i++)
         {
-            value += *ptr << mask;
+            value += pTimeAttack->passwordSeed[j * 8 + i] << mask;
             mask++;
-            ptr++;
         }
 
         seed[j] = value;
