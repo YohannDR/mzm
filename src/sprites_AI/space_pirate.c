@@ -957,17 +957,22 @@ void SpacePirateFireLaserWall(void)
     }
 }
 
+/**
+ * @brief 29708 | 238 | Checks if a pirate is colliding with another pirate when walking
+ * 
+ * @return u8 bool, colliding
+ */
 u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
 {
-    // https://decomp.me/scratch/I9zmu
-
     u8 ramSlot;
     u8 pose;
+    u16 facingRight;
+    u16 alerted;
     struct SpriteData* pSprite;
     u16 bottomOffset;
 
     u16 pirateY;
-    u16 pirateX;
+    u32 pirateX;
     u16 pirateTop;
     u16 pirateBottom;
     u16 pirateLeft;
@@ -980,7 +985,7 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
     u16 otherLeft;
     u16 otherRight;
 
-    bottomOffset = 0x0;
+    bottomOffset = 0;
 
     if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
     {
@@ -998,23 +1003,30 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
     pirateY = gCurrentSprite.yPosition;
     pirateX = gCurrentSprite.xPosition;
 
-    pirateTop = pirateY - 0xA0;
+    pirateTop = pirateY - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
     pirateBottom = pirateY;
-    pirateLeft = pirateY - 0x2C;
-    pirateRight = pirateX + 0x2C;
+    pirateLeft = pirateX - (HALF_BLOCK_SIZE + 12);
+    pirateRight = pirateX + (HALF_BLOCK_SIZE + 12);
 
-    ramSlot = 0x0;
+    facingRight = gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT;
+    alerted = gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2;
 
-    for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
+    for (ramSlot = 0, pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; ramSlot++, pSprite++)
     {
-        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->samusCollision == SSC_SPACE_PIRATE && (pSprite->pose != 0x9 || pose != 0x23))
+        if (!(pSprite->status & SPRITE_STATUS_EXISTS))
+            continue;
+
+        if (pSprite->samusCollision != SSC_SPACE_PIRATE)
+            continue;
+
+        if (pSprite->pose != SPACE_PIRATE_POSE_WALKING || pose != SPACE_PIRATE_POSE_WALKING_ALERTED)
         {
             otherY = pSprite->yPosition;
             otherX = pSprite->xPosition;
-            otherTop = otherY - 0xA0;
+            otherTop = otherY - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
             otherBottom = otherY + bottomOffset;
-            otherLeft = otherX - 0x2C;
-            otherRight = otherX + 0x2C;
+            otherLeft = otherX - (HALF_BLOCK_SIZE + 12);
+            otherRight = otherX + (HALF_BLOCK_SIZE + 12);
 
             if (pirateX == otherX)
             {
@@ -1024,16 +1036,16 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
                 {
                     if (pSprite->status & SPRITE_STATUS_MOSAIC)
                     {
-                        if ((pSprite->status & SPRITE_STATUS_FACING_RIGHT) == (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
+                        if ((pSprite->status & SPRITE_STATUS_FACING_RIGHT) == facingRight)
                             return TRUE;
                     }
                     else
                     {
                         pSprite->status |= SPRITE_STATUS_MOSAIC;
-                        if ((pSprite->status & SPRITE_STATUS_FACING_RIGHT) == (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
+                        if ((pSprite->status & SPRITE_STATUS_FACING_RIGHT) == facingRight)
                             return TRUE;
 
-                        if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
+                        if (alerted)
                         {
                             pSprite->status |= SPRITE_STATUS_UNKNOWN2;
                             pSprite->pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
@@ -1043,7 +1055,7 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
                     }
                 }
             }
-            else if ((gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
+            else if (facingRight)
             {
                 if (pirateX < otherX &&
                     SpriteUtilCheckObjectsTouching(pirateTop, pirateBottom, pirateLeft, pirateRight,
@@ -1051,22 +1063,22 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
                 {
                     if (pSprite->status & SPRITE_STATUS_MOSAIC)
                     {
-                        if ((pSprite->status & SPRITE_STATUS_FACING_RIGHT) == (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
+                        if ((pSprite->status & SPRITE_STATUS_FACING_RIGHT) == facingRight)
                             return TRUE;
                     }
                     else
                     {
                         pSprite->status |= SPRITE_STATUS_MOSAIC;
-                        if ((pSprite->status & SPRITE_STATUS_FACING_RIGHT) == (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT))
+                        if ((pSprite->status & SPRITE_STATUS_FACING_RIGHT) == facingRight)
                             return TRUE;
 
-                        if ((gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2))
+                        if (alerted)
                         {
                             pSprite->status |= SPRITE_STATUS_UNKNOWN2;
                             pSprite->pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
                         }
                         else
-                            pSprite->pose = 0xA;
+                            pSprite->pose = SPACE_PIRATE_POSE_TURNING_AROUND_INIT;
                     }
                 }
             }
@@ -1078,28 +1090,27 @@ u8 SpacePirateCheckCollidingWithPirateWhenWalking(void)
                 {
                     if (pSprite->status & SPRITE_STATUS_MOSAIC)
                     {
-                        if ((pSprite->status & SPRITE_STATUS_FACING_RIGHT) == 0x0)
+                        if (!(pSprite->status & SPRITE_STATUS_FACING_RIGHT))
                             return TRUE;
                     }
                     else
                     {
                         pSprite->status |= SPRITE_STATUS_MOSAIC;
-                        if ((pSprite->status & SPRITE_STATUS_FACING_RIGHT) == 0x0)
+
+                        if (!(pSprite->status & SPRITE_STATUS_FACING_RIGHT))
                             return TRUE;
 
-                        if ((gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2))
+                        if (alerted)
                         {
                             pSprite->status |= SPRITE_STATUS_UNKNOWN2;
                             pSprite->pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
                         }
                         else
-                            pSprite->pose = 0xA;
+                            pSprite->pose = SPACE_PIRATE_POSE_TURNING_AROUND_INIT;
                     }
                 }
             }
         }
-
-        ramSlot++;
     }
 
     return FALSE;
