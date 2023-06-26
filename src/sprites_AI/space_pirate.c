@@ -2013,8 +2013,6 @@ void SpacePirateFallingInit(void)
  */
 void SpacePirateFalling(void)
 {
-    // https://decomp.me/scratch/nqd7z
-
     s32 blockTop;
     u8 offset;
     s32 movement;
@@ -2072,7 +2070,8 @@ void SpacePirateFalling(void)
     }
     else
     {
-        gCurrentSprite.arrayOffset++;
+        offset++;
+        gCurrentSprite.arrayOffset = offset;
         gCurrentSprite.yPosition += movement;
     }
 }
