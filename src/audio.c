@@ -245,7 +245,361 @@ void UpdateMusic(void)
 
 void UpdatePsgSounds(void)
 {
+    // https://decomp.me/scratch/1qI1m
 
+    u32 var_0;
+    u8 control;
+    u8 i;
+    u8* ptr;
+    struct PSGSoundData* pSound;
+    struct TrackVariables* pVariables;
+
+    var_0 = FALSE;
+
+    for (i = 0; i < ARRAY_SIZE(gPsgSounds); i++)
+    {
+        pSound = &gPsgSounds[i];
+
+        if (pSound->unk_0 == 0)
+            continue;
+
+        while (pSound->unk_F)
+        {
+            if (pSound->unk_F & 0x2)
+            {
+                pVariables = pSound->pVariables;
+
+                pSound->unk_A = pVariables->unk_F;
+                pSound->unk_B = pVariables->unk_4;
+                pSound->unk_D = pVariables->unk_C;
+                pSound->unk_E = pVariables->unk_D;
+                pSound->unk_1D = pVariables->unk_36;
+                pSound->unk_1E = pVariables->unk_37;
+                
+                pSound->pSample = pVariables->pSample1;
+                pSound->envelope.attack = pVariables->envelope1.attack;
+                pSound->envelope.decay = pVariables->envelope1.decay;
+                pSound->envelope.sustain = pVariables->envelope1.sustain;
+                pSound->envelope.release = pVariables->envelope1.release;
+
+                pSound->unk_1F = pVariables->unk_12;
+
+                pSound->unk_F &= ~0x2;
+                pSound->unk_F |= 0x10;
+                continue;
+            }
+
+            if (pSound->unk_F & 0x4)
+            {
+                pSound->unk_14 = pSound->maybe_noteDelay;
+
+                unk_5104(pSound);
+
+                pSound->unk_F &= ~0x4;
+                continue;
+            }
+
+            if (pSound->unk_F & 0x10)
+            {
+                if (pSound->pVariables->unk_6 != pSound->unk_C)
+                {
+                    pSound->pVariables->unk_6 = pSound->unk_C;
+                    unk_4f10(pSound->pVariables);
+                }
+
+                pSound->unk_2 = (pSound->pVariables->unk_8 * (pSound->unk_A + 1)) >> 7;
+                pSound->unk_3 = (pSound->pVariables->unk_9 * (pSound->unk_A + 1)) >> 7;
+
+                pSound->unk_1A = (pSound->unk_2 + pSound->unk_3) >> 4;
+                pSound->unk_1B = (pSound->unk_1A * pSound->envelope.sustain + 0xF) >> 4;
+
+                ptr = (u8*)(REG_SOUNDCNT_L + 1);
+                control = read8(ptr) & ~(0x11 << i);
+
+                if (pSound->unk_2 >= pSound->unk_3)
+                {
+                    if ((pSound->unk_2 >> 1) > pSound->unk_3)
+                    {
+                        *ptr = control | (1 << i);
+                    }
+                    else
+                    {
+                        *ptr = control | (17 << i);
+                    }
+                }
+                else
+                {
+                    if ((pSound->unk_3 >> 1) > pSound->unk_2)
+                    {
+                        *ptr = control | (16 << i);
+                    }
+                    else
+                    {
+                        *ptr = control | (17 << i);
+                    }
+                }
+
+                pSound->unk_12 = 0;
+                pSound->unk_14 |= 0x8000;
+
+                var_0 = TRUE;
+
+                pSound->unk_F &= ~0x10;
+                continue;
+            }
+
+            if (pSound->unk_F & 0x20)
+            {
+                pSound->unk_14 = pSound->maybe_noteDelay | 0x8000;
+
+                unk_5104(pSound);
+
+                pSound->unk_F &= ~0x20;
+            }
+        }
+
+        control = pSound->unk_0 & 0xF;
+
+        if (control == 0xA)
+        {
+            ClearRegistersForPsg(pSound, i);
+            continue;
+        }
+
+        if (control == 0x1)
+        {
+            if (i == 0)
+            {
+                pSound->unk_10 = pSound->unk_1E;
+            }
+            else if (i == 2)
+            {
+                pSound->unk_10 = 0x80;
+            }
+
+            if (i < 2)
+                pSound->unk_11 = (u8)(u32)pSound->pSample;
+            else
+                pSound->unk_11 = 0;
+
+            pSound->unk_14 = pSound->maybe_noteDelay | 0x8000;
+
+            if (pSound->unk_1D != 0)
+            {
+                goto lbl_pre_case_9;
+            }
+
+            if (pSound->envelope.attack != 0)
+            {
+                goto lbl_pre_case_2;
+            }
+            else
+            {
+                goto lbl_3;
+            }
+        }
+
+        if (pSound->unk_18 == 0)
+        {
+            switch (pSound->unk_0 & 0xF)
+            {
+                case 2:
+                    goto lbl_case_2;
+
+                    lbl_pre_case_2:
+                    pSound->unk_19 = 0;
+                    if (i == 2)
+                        pSound->unk_12 = 0;
+                    else
+                        pSound->unk_12 = pSound->envelope.attack + 8;
+
+                    pSound->unk_0 = 2;
+                    unk_5104(pSound);
+
+                    lbl_case_2:
+                    if (++pSound->unk_19 >= pSound->unk_1A)
+                    {
+                        lbl_3:
+                        if (pSound->envelope.decay == 0)
+                        {
+                            goto lbl_1;
+                        }
+                        else
+                        {
+                            goto lbl_2;
+                        }
+                    }
+                    else
+                    {
+                        if (i == 2)
+                        {
+                            pSound->unk_12 = 0;
+                            var_0 = TRUE;
+                        }
+    
+                        pSound->unk_18 = pSound->envelope.attack;
+                        break;
+                    }
+                    
+
+                case 3:
+                    goto lbl_case_3;
+                    
+                    lbl_2:
+                    pSound->unk_19 = pSound->unk_1A;
+                    if (i == 2)
+                    {
+                        pSound->unk_12 = 0;
+                    }
+                    else
+                    {
+                        pSound->unk_12 = pSound->envelope.decay;
+                        pSound->unk_14 = pSound->maybe_noteDelay | 0x8000;
+                    }
+
+                    pSound->unk_0 = 3;
+                    var_0 = TRUE;
+
+                    lbl_case_3:
+                    if (--pSound->unk_19 > pSound->unk_1B)
+                    {
+                        if (i == 2)
+                        {
+                            pSound->unk_12 = 0;
+                            var_0 = TRUE;
+                        }
+
+                        pSound->unk_18 = pSound->envelope.decay;
+                        break;
+                    }
+
+                    lbl_1:
+                    pSound->unk_19 = pSound->unk_1B;
+
+                    if (i == 2)
+                    {
+                        pSound->unk_12 = 0;
+                    }
+                    else
+                    {
+                        pSound->unk_12 = 0;
+                        pSound->unk_14 = pSound->maybe_noteDelay | 0x8000;
+                    }
+                    
+                    pSound->unk_0 = 4;
+                    var_0 = TRUE;
+
+                case 4:
+                    pSound->unk_19 = pSound->unk_1B;
+                    
+                    if ((pSound->unk_0 & 0xF) == 4)
+                        pSound->unk_18 = 1;
+                    break;
+
+                case 5:
+                    if (pSound->envelope.release != 0 && pSound->unk_1D == 0)
+                    {
+                        if (i != 2)
+                        {
+                            pSound->unk_12 = pSound->envelope.release;
+                            pSound->unk_14 = pSound->maybe_noteDelay | 0x8000;
+                        }
+
+                        pSound->unk_0 = 6;
+                        var_0 = TRUE;
+                    }
+                    else
+                    {
+                        goto lbl_0;
+                    }
+
+                case 6:
+                    pSound->unk_19--;
+                    if (pSound->unk_19 > 0)
+                    {
+                        if (i == 2)
+                        {
+                            pSound->unk_12 = 0;
+                            var_0 = TRUE;
+                        }
+
+                        pSound->unk_18 = pSound->envelope.release;
+                        break;
+                    }
+
+                    lbl_0:
+                    pSound->unk_0 = 0;
+
+                    if (pSound->unk_D != 0 && pSound->unk_E != 0)
+                    {
+                        pSound->unk_19 = (pSound->unk_1A * pSound->unk_D + 0xFF) >> 8;
+                        pSound->unk_18 = pSound->unk_E;
+
+                        if (i == 2)
+                        {
+                            pSound->unk_12 = sUnk_808cc3d[pSound->unk_19];
+                        }
+                        else
+                        {
+                            pSound->unk_12 = 0;
+                            pSound->unk_14 = pSound->maybe_noteDelay | 0x8000;
+                        }
+
+                        pSound->unk_0 = 8;
+                        var_0 = TRUE;
+                    }
+                    else
+                    {
+                        ClearRegistersForPsg(pSound, i);
+                        continue;
+                    }
+                    break;
+
+                case 8:
+                    if (pSound->unk_18 == 0)
+                    {
+                        ClearRegistersForPsg(pSound, i);
+                        pSound->unk_0 = 0;
+                    }
+                    continue;
+
+                case 9:
+                    goto lbl_case_9;
+
+                    lbl_pre_case_9:
+                    pSound->unk_11 |= pSound->unk_1D;
+                    pSound->unk_12 = 0;
+                    pSound->unk_19 = pSound->unk_1B;
+                    pSound->unk_14 |= 0x4000;
+                    pSound->unk_0 = 9;
+
+                    var_0 = TRUE;
+
+                    lbl_case_9:
+                    pSound->unk_18 = UCHAR_MAX;
+                    if (var_0)
+                    {
+                        pSound->unk_14 |= 0x4000;
+                    }
+                    break;
+            }
+        }
+
+        if (var_0)
+        {
+            var_0 = FALSE;
+            control = (u8)pSound->unk_19;
+
+            if (i == 2)
+                pSound->unk_12 = sUnk_808cc3d[control];
+            else
+                pSound->unk_12 |= control << 4;
+
+            unk_5104(pSound);
+        }
+
+        pSound->unk_18--;
+    }
 }
 
 /**

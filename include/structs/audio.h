@@ -90,7 +90,7 @@ struct PSGSoundData {
     u8 unk_16;
     u8 unk_17;
     u8 unk_18;
-    u8 unk_19;
+    s8 unk_19;
     u8 unk_1A;
     u8 unk_1B;
     u8 unk_1C;
