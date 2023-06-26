@@ -4,6 +4,7 @@
 #include "constants/particle.h"
 #include "sprites_AI/parasite.h"
 #include "sprites_AI/ridley.h"
+#include "sprites_AI/acid_worm.h"
 #include "data/sprite_data.h"
 
 #include "constants/clipdata.h"
@@ -208,7 +209,8 @@ void SpriteUtilSamusAndSpriteCollision(void)
     u8 collisionFlags;
 
     pData = &gSamusData;
-    dmgMultiplier = 0x0;
+    dmgMultiplier = 0;
+
     samusY = pData->yPosition;
     samusX = pData->xPosition;
     previousX = gPreviousXPosition;
@@ -223,13 +225,13 @@ void SpriteUtilSamusAndSpriteCollision(void)
         switch (pData->forcedMovement)
         {
             case FORCED_MOVEMENT_SIDEWARDS_SHINESPARK:
-                samusTop -= 0x20;
-                samusBottom += 0x20;
+                samusTop -= HALF_BLOCK_SIZE;
+                samusBottom += HALF_BLOCK_SIZE;
                 break;
             
             case FORCED_MOVEMENT_UPWARDS_SHINESPARK:
-                samusLeft -= 0x20;
-                samusRight += 0x20;
+                samusLeft -= HALF_BLOCK_SIZE;
+                samusRight += HALF_BLOCK_SIZE;
                 break;
 
             default:
@@ -244,8 +246,8 @@ void SpriteUtilSamusAndSpriteCollision(void)
         switch (pData->forcedMovement)
         {
             case FORCED_MOVEMENT_UPWARDS_SHINESPARK:
-                samusLeft -= 0x20;
-                samusRight += 0x20;
+                samusLeft -= HALF_BLOCK_SIZE;
+                samusRight += HALF_BLOCK_SIZE;
         }
     }
 
@@ -276,13 +278,13 @@ void SpriteUtilSamusAndSpriteCollision(void)
 
         collisionFlags = SPRITE_COLLISION_FLAG_NONE;
 
-        if (verticalCollisionOffset - 0x4 > samusBottom)
+        if (verticalCollisionOffset - 4 > samusBottom)
         {
-            if (pData->yVelocity <= 0x18)
+            if (pData->yVelocity <= 24)
                 collisionFlags = SPRITE_COLLISION_FLAG_ON_TOP;
         }
 
-        if (verticalCollisionOffset + 0x4 < samusTop)
+        if (verticalCollisionOffset + 4 < samusTop)
             collisionFlags |= SPRITE_COLLISION_FLAG_ON_BOTTOM;
 
         if (horizontalCollisionOffset >= previousX)
@@ -290,7 +292,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
         else
             collisionFlags |= SPRITE_COLLISION_FLAG_ON_RIGHT;
 
-        if (pSprite->freezeTimer != 0x0)
+        if (pSprite->freezeTimer != 0)
         {
             if (!SpriteUtilCheckPullingSeftUp() && SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
             {
@@ -300,22 +302,22 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 {
                     if ((samusY - 0x18) < spriteTop)
                     {
-                        SpriteUtilCheckCollisionAtPosition(spriteTop + 0x1 + gSamusPhysics.drawDistanceTopOffset, samusX);
-                        if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 0x1)
+                        SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
+                        if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 1)
                         {
-                            pData->yPosition = spriteTop + 0x1;
+                            pData->yPosition = spriteTop + 1;
                             pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
                             pSprite->standingOnSprite = 0x2;
                         }
                     }
-                    else if ((samusTop + 0x10) > spriteBottom)
+                    else if (samusTop + QUARTER_BLOCK_SIZE > spriteBottom)
                     {
                         SpriteUtilCheckCollisionAtPosition(spriteBottom - gSamusPhysics.drawDistanceTopOffset, samusX);
                         if (gPreviousCollisionCheck == COLLISION_AIR)
                         {
                             pData->yPosition = spriteBottom - gSamusPhysics.drawDistanceTopOffset;
-                            if (pData->yVelocity > 0x0 && gEquipment.currentEnergy != 0x0)
-                                pData->yVelocity = 0x0;
+                            if (pData->yVelocity > 0 && gEquipment.currentEnergy != 0)
+                                pData->yVelocity = 0;
                         }
                     }
                     else if (samusX < spriteLeft || samusX > spriteRight)
@@ -344,12 +346,12 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     {
                         if (samusY - 0x18 < spriteTop)
                         {
-                            SpriteUtilCheckCollisionAtPosition(spriteTop + 0x1 + gSamusPhysics.drawDistanceTopOffset, samusX);
-                            if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity <= 0x0)
+                            SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
+                            if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity <= 0)
                             {
-                                pData->yPosition = spriteTop + 0x1;
+                                pData->yPosition = spriteTop + 1;
                                 pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
-                                pSprite->standingOnSprite = 0x2;
+                                pSprite->standingOnSprite = 2;
                             }
                         }
                         else if (samusTop + 0x10 > spriteBottom)
@@ -358,8 +360,8 @@ void SpriteUtilSamusAndSpriteCollision(void)
                             if (gPreviousCollisionCheck == COLLISION_AIR)
                             {
                                 pData->yPosition = spriteBottom - gSamusPhysics.drawDistanceTopOffset;
-                                if (pData->yVelocity > 0x0 && gEquipment.currentEnergy != 0x0)
-                                    pData->yVelocity = 0x0;
+                                if (pData->yVelocity > 0 && gEquipment.currentEnergy != 0)
+                                    pData->yVelocity = 0;
                             }
                         }
                         else if (samusX < spriteLeft || samusX > spriteRight)
@@ -375,12 +377,12 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 case SSC_ESCAPE_SHIP:
                     if (!SpriteUtilCheckPullingSeftUp() && SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE && samusY - 0x18 < spriteTop)
                     {
-                        SpriteUtilCheckCollisionAtPosition(spriteTop + 0x1 + gSamusPhysics.drawDistanceTopOffset, samusX);
-                        if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity <= 0x0)
+                        SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
+                        if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity <= 0)
                         {
-                            pData->yPosition = spriteTop + 0x1;
+                            pData->yPosition = spriteTop + 1;
                             pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
-                            pSprite->standingOnSprite = 0x2;
+                            pSprite->standingOnSprite = 2;
                         }
                     }
                     break;
@@ -390,27 +392,28 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     {
                         if (samusY - 0x18 < spriteTop)
                         {
-                            if (!SpriteUtilCheckPullingSeftUp() && pData->invincibilityTimer < 0x28)
+                            if (!SpriteUtilCheckPullingSeftUp() && pData->invincibilityTimer < 40)
                             {
-                                SpriteUtilCheckCollisionAtPosition(spriteTop + 0x1 + gSamusPhysics.drawDistanceTopOffset, samusX);
-                                if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 0x1)
+                                SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
+                                if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 1)
                                 {
-                                    pData->yPosition = spriteTop + 0x1;
+                                    pData->yPosition = spriteTop + 1;
                                     pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
-                                    pSprite->standingOnSprite = 0x2;
+                                    pSprite->standingOnSprite = 2;
                                 }
                             }
                         }
                         else
                         {
-                            if (pData->invincibilityTimer == 0x0 && SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x1))
+                            if (pData->invincibilityTimer == 0 && SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1))
                             {
                                 if (collisionFlags & SPRITE_COLLISION_FLAG_ON_LEFT)
-                                    pData->xVelocity = -0x40;
+                                    pData->xVelocity = -BLOCK_SIZE;
                                 else
-                                    pData->xVelocity = 0x40;
+                                    pData->xVelocity = BLOCK_SIZE;
                             }
-                            pSprite->ignoreSamusCollisionTimer = 0xF;
+
+                            pSprite->ignoreSamusCollisionTimer = 15;
                             gIgnoreSamusAndSpriteCollision = TRUE;
                         }
                     }
@@ -419,24 +422,24 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 case SSC_KRAID_SPIKE:
                     if (samusX > spriteRight)
                     {
-                        if (pData->invincibilityTimer == 0 && SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x1))
+                        if (pData->invincibilityTimer == 0 && SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1))
                         {
                             if (collisionFlags & SPRITE_COLLISION_FLAG_ON_LEFT)
-                                pData->xVelocity = -0x40;
+                                pData->xVelocity = -BLOCK_SIZE;
                             else
-                                pData->xVelocity = 0x40;
+                                pData->xVelocity = BLOCK_SIZE;
                         }
                         pSprite->ignoreSamusCollisionTimer = 0xF;
                         gIgnoreSamusAndSpriteCollision = TRUE;
                     }
-                    else if (samusY - 0x18 < spriteTop && !SpriteUtilCheckPullingSeftUp() && pData->invincibilityTimer < 0x26)
+                    else if (samusY - 0x18 < spriteTop && !SpriteUtilCheckPullingSeftUp() && pData->invincibilityTimer < 38)
                     {
-                        SpriteUtilCheckCollisionAtPosition(spriteTop + 0x1 + gSamusPhysics.drawDistanceTopOffset, samusX);
-                        if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 0x1)
+                        SpriteUtilCheckCollisionAtPosition(spriteTop + 1 + gSamusPhysics.drawDistanceTopOffset, samusX);
+                        if (gPreviousCollisionCheck == COLLISION_AIR && pData->yVelocity < 1)
                         {
-                            pData->yPosition = spriteTop + 0x1;
+                            pData->yPosition = spriteTop + 1;
                             pSprite->status |= SPRITE_STATUS_SAMUS_ON_TOP;
-                            pSprite->standingOnSprite = 0x2;
+                            pSprite->standingOnSprite = 2;
 
                         }
                     }
@@ -454,16 +457,17 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     break;
 
                 case SSC_ACID_WORM_MOUTH:
-                    if (pSprite->pose == 0xF || pSprite->pose == 0x25)
+                    if (pSprite->pose == ACID_WORM_POSE_EXTENDED || pSprite->pose == ACID_WORM_POSE_EXTENDING)
                     {
                         if (pSprite->status & SPRITE_STATUS_FACING_RIGHT)
                         {
                             if ((u8)(pSprite->oamRotation - 0x21) <= 0x1E)
                             {
                                 pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
-                                if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x1))
-                                    pData->xVelocity = -0x60;
-                                pSprite->ignoreSamusCollisionTimer = 0xF;
+                                if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1))
+                                    pData->xVelocity = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+
+                                pSprite->ignoreSamusCollisionTimer = 15;
                                 gIgnoreSamusAndSpriteCollision = TRUE;
                                 break;
                             }
@@ -473,9 +477,10 @@ void SpriteUtilSamusAndSpriteCollision(void)
                             if ((u8)(pSprite->oamRotation + 0x3F) <= 0x1E)
                             {
                                 pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
-                                if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x1))
-                                    pData->xVelocity = 0x60;
-                                pSprite->ignoreSamusCollisionTimer = 0xF;
+                                if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1))
+                                    pData->xVelocity = BLOCK_SIZE + HALF_BLOCK_SIZE;
+
+                                pSprite->ignoreSamusCollisionTimer = 15;
                                 gIgnoreSamusAndSpriteCollision = TRUE;
                                 break;
                             }
@@ -483,14 +488,15 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     }
                         
                 case SSC_ACID_WORM:
-                    if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x1))
+                    if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1))
                     {
                         if (collisionFlags & SPRITE_COLLISION_FLAG_ON_LEFT)
-                            pData->xVelocity = -0x40;
+                            pData->xVelocity = -BLOCK_SIZE;
                         else
-                            pData->xVelocity = 0x40;
+                            pData->xVelocity = BLOCK_SIZE;
                     }
-                    pSprite->ignoreSamusCollisionTimer = 0xF;
+
+                    pSprite->ignoreSamusCollisionTimer = 15;
                     gIgnoreSamusAndSpriteCollision = TRUE;
                     break;
 
@@ -502,14 +508,15 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 case SSC_MELLOW:
                     if (SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
                     {
-                        if (pData->invincibilityTimer == 0x0 && SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x1))
+                        if (pData->invincibilityTimer == 0 && SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1))
                         {
                             if (collisionFlags & SPRITE_COLLISION_FLAG_ON_LEFT)
-                                pData->xVelocity = -0x40;
+                                pData->xVelocity = -BLOCK_SIZE;
                             else
-                                pData->xVelocity = 0x40;
+                                pData->xVelocity = BLOCK_SIZE;
                         }
-                        pSprite->ignoreSamusCollisionTimer = 0xF;
+
+                        pSprite->ignoreSamusCollisionTimer = 15;
                         gIgnoreSamusAndSpriteCollision = TRUE;
                     }
                     break;
@@ -517,14 +524,15 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 case 0xF:
                     if (SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
                     {
-                        if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x1))
+                        if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1))
                         {
                             if (collisionFlags & SPRITE_COLLISION_FLAG_ON_LEFT)
-                                pData->xVelocity = -0x40;
+                                pData->xVelocity = -BLOCK_SIZE;
                             else
-                                pData->xVelocity = 0x40;
+                                pData->xVelocity = BLOCK_SIZE;
                         }
-                        pSprite->ignoreSamusCollisionTimer = 0xF;
+
+                        pSprite->ignoreSamusCollisionTimer = 15;
                         gIgnoreSamusAndSpriteCollision = TRUE;
                     }
                     break;
@@ -535,14 +543,15 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 case SSC_IMAGO_STINGER:
                     if (SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
                     {
-                        if (pData->invincibilityTimer == 0x0 && SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x1))
+                        if (pData->invincibilityTimer == 0 && SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1))
                         {
                             if (collisionFlags & SPRITE_COLLISION_FLAG_ON_LEFT)
-                                pData->xVelocity = -0x80;
+                                pData->xVelocity = -(BLOCK_SIZE * 2);
                             else
-                                pData->xVelocity = 0x80;
+                                pData->xVelocity = (BLOCK_SIZE * 2);
                         }
-                        pSprite->ignoreSamusCollisionTimer = 0xF;
+
+                        pSprite->ignoreSamusCollisionTimer = 15;
                         gIgnoreSamusAndSpriteCollision = TRUE;
                     }
                     break;
@@ -550,14 +559,14 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 case SSC_ATOMIC_DISCHARGE:
                     if (SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
                     {
-                        if (pData->invincibilityTimer == 0x0 && SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x5))
+                        if (pData->invincibilityTimer == 0 && SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 5))
                         {
                             if (collisionFlags & SPRITE_COLLISION_FLAG_ON_LEFT)
                                 pData->xVelocity = -0x48;
                             else
                                 pData->xVelocity = 0x48;
                         }
-                        pSprite->ignoreSamusCollisionTimer = 0xF;
+                        pSprite->ignoreSamusCollisionTimer = 15;
                         gIgnoreSamusAndSpriteCollision = TRUE;
                     }
                     break;
@@ -565,27 +574,28 @@ void SpriteUtilSamusAndSpriteCollision(void)
                 case SSC_SPACE_PIRATE:
                     if (SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
                     {
-                        if (pData->invincibilityTimer == 0x0 && SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x1))
+                        if (pData->invincibilityTimer == 0 && SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1))
                         {
                             if (collisionFlags & SPRITE_COLLISION_FLAG_ON_LEFT)
-                                pData->xVelocity = -0x40;
+                                pData->xVelocity = -BLOCK_SIZE;
                             else
-                                pData->xVelocity = 0x40;
+                                pData->xVelocity = BLOCK_SIZE;
                         }
-                        pSprite->ignoreSamusCollisionTimer = 0xF;
+
+                        pSprite->ignoreSamusCollisionTimer = 15;
                         gIgnoreSamusAndSpriteCollision = TRUE;
                     }
                     break;
 
                 case SSC_HURTS_SAMUS_NO_KNOCKBACK:
                     pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
-                    if (pData->invincibilityTimer < 0x8)
+                    if (pData->invincibilityTimer < 8)
                     {
-                        SpriteUtilTakeDamageFromSprite(FALSE, pSprite, 0x1);
-                        if (gEquipment.currentEnergy != 0x0)
-                            pData->invincibilityTimer = 0x8;
+                        SpriteUtilTakeDamageFromSprite(FALSE, pSprite, 1);
+                        if (gEquipment.currentEnergy != 0)
+                            pData->invincibilityTimer = 8;
                     }
-                    pSprite->ignoreSamusCollisionTimer = 0xF;
+                    pSprite->ignoreSamusCollisionTimer = 15;
                     gIgnoreSamusAndSpriteCollision = TRUE;
                     break;
 
@@ -593,10 +603,12 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     pSprite->pose = 0x42;
 
                 case SSC_HURTS_SAMUS_NO_KNOCKBACK_NO_CONTACT_DAMAGE:
-                    SpriteUtilTakeDamageFromSprite(FALSE, pSprite, 0x1);
-                    pSprite->ignoreSamusCollisionTimer = 0xF;
-                    if (pData->invincibilityTimer == 0x0)
-                        pData->invincibilityTimer = 0x8;
+                    SpriteUtilTakeDamageFromSprite(FALSE, pSprite, 1);
+                    pSprite->ignoreSamusCollisionTimer = 15;
+
+                    if (pData->invincibilityTimer == 0)
+                        pData->invincibilityTimer = 8;
+
                     gIgnoreSamusAndSpriteCollision = TRUE;
                     break;
 
@@ -609,8 +621,10 @@ void SpriteUtilSamusAndSpriteCollision(void)
                             case SPOSE_MIDAIR:
                                 pData->yPosition = pSprite->yPosition + 0xA8;
                                 pData->xPosition = pSprite->xPosition;
+
                                 gPreviousYPosition = pData->yPosition;
                                 gPreviousXPosition = pData->xPosition;
+
                                 SamusSetPose(SPOSE_ON_ZIPLINE);
                                 pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
                                 break;
@@ -620,14 +634,16 @@ void SpriteUtilSamusAndSpriteCollision(void)
                             case SPOSE_MORPH_BALL_MIDAIR:
                                 pData->yPosition = pSprite->yPosition + 0x3C;
                                 pData->xPosition = pSprite->xPosition;
+
                                 gPreviousYPosition = pData->yPosition;
                                 gPreviousXPosition = pData->xPosition;
+
                                 SamusSetPose(SPOSE_MORPH_BALL_ON_ZIPLINE);
                                 pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
                                 break;
                         }
                     }
-                    pSprite->ignoreSamusCollisionTimer = 0xF;
+                    pSprite->ignoreSamusCollisionTimer = 15;
                     gIgnoreSamusAndSpriteCollision = TRUE;
                     break;
 
@@ -649,14 +665,14 @@ void SpriteUtilSamusAndSpriteCollision(void)
                         else
                             SpriteUtilCheckStopSamusAgainstSolidSpriteRight(samusY, spriteRight);
 
-                        if (pData->invincibilityTimer == 0x0)
+                        if (pData->invincibilityTimer == 0)
                         {
-                            if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x1) && gPreviousCollisionCheck == COLLISION_AIR)
+                            if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1) && gPreviousCollisionCheck == COLLISION_AIR)
                             {
                                 if (collisionFlags & SPRITE_COLLISION_FLAG_ON_LEFT)
-                                    pData->xVelocity = -0x40;
+                                    pData->xVelocity = -BLOCK_SIZE;
                                 else
-                                    pData->xVelocity = 0x40;
+                                    pData->xVelocity = BLOCK_SIZE;
                             }
 
                             gIgnoreSamusAndSpriteCollision = TRUE;
@@ -672,14 +688,14 @@ void SpriteUtilSamusAndSpriteCollision(void)
                         else
                             SpriteUtilCheckStopSamusAgainstSolidSpriteRight(samusY, spriteRight);
 
-                        if (pData->invincibilityTimer == 0x0)
+                        if (pData->invincibilityTimer == 0)
                         {
-                            if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x1) && gPreviousCollisionCheck == COLLISION_AIR)
+                            if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1) && gPreviousCollisionCheck == COLLISION_AIR)
                             {
                                 if (collisionFlags & SPRITE_COLLISION_FLAG_ON_LEFT)
-                                    pData->xVelocity = -0x40;
+                                    pData->xVelocity = -BLOCK_SIZE;
                                 else
-                                    pData->xVelocity = 0x40;
+                                    pData->xVelocity = BLOCK_SIZE;
                             }
                         }
                         else if (gPreviousCollisionCheck == COLLISION_AIR)
@@ -689,9 +705,9 @@ void SpriteUtilSamusAndSpriteCollision(void)
                             {
                                 SamusSetPose(SPOSE_KNOCKBACK_REQUEST);
                                 if (collisionFlags & SPRITE_COLLISION_FLAG_ON_LEFT)
-                                    pData->xVelocity = -0x40;
+                                    pData->xVelocity = -BLOCK_SIZE;
                                 else
-                                    pData->xVelocity = 0x40;
+                                    pData->xVelocity = BLOCK_SIZE;
                             }
                         }
                         gIgnoreSamusAndSpriteCollision = TRUE;
@@ -703,9 +719,9 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     {
                         SamusSetPose(SPOSE_KNOCKBACK_REQUEST);
                         if (collisionFlags & SPRITE_COLLISION_FLAG_ON_LEFT)
-                            pData->xVelocity = -0x20;
+                            pData->xVelocity = -(HALF_BLOCK_SIZE);
                         else
-                            pData->xVelocity = 0x20;
+                            pData->xVelocity = (HALF_BLOCK_SIZE);
 
                         gIgnoreSamusAndSpriteCollision = TRUE;
                     }
@@ -713,35 +729,40 @@ void SpriteUtilSamusAndSpriteCollision(void)
 
                 case SSC_BUG:
                     pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
-                    if (pData->invincibilityTimer == 0x0 && !(gEquipment.suitMiscActivation & (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT)))
+
+                    if (pData->invincibilityTimer == 0 && !(gEquipment.suitMiscActivation & (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT)))
                     {
                         if (!ParasiteCount())
                             break;
-                        if (SpriteUtilTakeDamageFromSprite(FALSE, pSprite, dmgMultiplier >> 0x2))
+
+                        if (SpriteUtilTakeDamageFromSprite(FALSE, pSprite, dmgMultiplier / 4))
                         {
-                            pData->invincibilityTimer = 0x10;
+                            pData->invincibilityTimer = 16;
+
                             SoundPlayNotAlreadyPlaying(0x80); // Bug leeching
                             gSubSpriteData1.workVariable2++;
-                            if (!(gSubSpriteData1.workVariable2 & 0x3))
+
+                            if (!(gSubSpriteData1.workVariable2 & 3))
                                 SoundPlay(0x7C); // Hurt
                         }
                     }
-                    pSprite->ignoreSamusCollisionTimer = 0xF;
+
+                    pSprite->ignoreSamusCollisionTimer = 15;
                     break;
 
                 case SSC_METROID:
-                    if (samusY > (spriteY + 0x20))
+                    if (samusY > spriteY + HALF_BLOCK_SIZE)
                         pSprite->status |= SPRITE_STATUS_SAMUS_COLLIDING;
 
-                    if (pData->invincibilityTimer == 0x0 && SpriteUtilTakeDamageFromSprite(FALSE, pSprite, 0x1))
+                    if (pData->invincibilityTimer == 0 && SpriteUtilTakeDamageFromSprite(FALSE, pSprite, 1))
                     {
                         dmgMultiplier = gEquipment.suitMiscActivation & (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT);
                         if (!dmgMultiplier)
-                            pData->invincibilityTimer = 0x1;
+                            pData->invincibilityTimer = 1;
                         else if (dmgMultiplier == (SMF_VARIA_SUIT | SMF_GRAVITY_SUIT))
-                            pData->invincibilityTimer = 0x8;
+                            pData->invincibilityTimer = 8;
                         else
-                            pData->invincibilityTimer = 0x4;
+                            pData->invincibilityTimer = 4;
                     }
                     break;
 
@@ -756,28 +777,29 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     }
                     else
                     {
-                        if (pData->invincibilityTimer == 0x0 && SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
-                            SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 0x1);
-                        pSprite->ignoreSamusCollisionTimer = 0xF;
+                        if (pData->invincibilityTimer == 0 && SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
+                            SpriteUtilTakeDamageFromSprite(TRUE, pSprite, 1);
+
+                        pSprite->ignoreSamusCollisionTimer = 15;
                         gIgnoreSamusAndSpriteCollision = TRUE;
                     }
                     break;
 
                 case SSC_MECHA_RIDLEY:
-                    if (SpriteUtilGetFinalCompletionPercentage() == 0x64)
-                        dmgMultiplier = 0x2;
+                    if (SpriteUtilGetFinalCompletionPercentage() == 100)
+                        dmgMultiplier = 2;
                     else
-                        dmgMultiplier = 0x1;
+                        dmgMultiplier = 1;
 
                     if (SpriteUtilTakeDamageFromSprite(TRUE, pSprite, dmgMultiplier))
-                        pData->xVelocity = -0x80;
+                        pData->xVelocity = -(BLOCK_SIZE * 2);
 
-                    pSprite->ignoreSamusCollisionTimer = 0xF;
+                    pSprite->ignoreSamusCollisionTimer = 15;
                     gIgnoreSamusAndSpriteCollision = TRUE;
                     break;
 
                 default:
-                    pSprite->ignoreSamusCollisionTimer = 0xF;
+                    pSprite->ignoreSamusCollisionTimer = 15;
                     gIgnoreSamusAndSpriteCollision = TRUE;
                     
             }
@@ -789,7 +811,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
 
     for (pSprite = gSpriteData; pSprite < gSpriteData + MAX_AMOUNT_OF_SPRITES; pSprite++)
     {
-        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->ignoreSamusCollisionTimer != 0x0)
+        if (pSprite->status & SPRITE_STATUS_EXISTS && pSprite->ignoreSamusCollisionTimer != 0)
             pSprite->ignoreSamusCollisionTimer--;
     }
 }
