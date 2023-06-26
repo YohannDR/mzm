@@ -2015,7 +2015,7 @@ void SpacePirateFalling(void)
 {
     // https://decomp.me/scratch/nqd7z
 
-    u32 blockTop;
+    s32 blockTop;
     u8 offset;
     s32 movement;
     s32 newMovement;
@@ -2026,54 +2026,54 @@ void SpacePirateFalling(void)
         {
             if (gCurrentSprite.status & SPRITE_STATUS_UNKNOWN2)
             {
-                gCurrentSprite.pose = 0x22;
+                gCurrentSprite.pose = SPACE_PIRATE_POSE_WALKING_ALERTED_INIT;
 
                 if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
                 {
-                    if (gSpriteDrawOrder[4] == 0x0)
+                    if (gSpriteDrawOrder[4] == FALSE)
                         gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
                 }
                 else
                 {
-                    if (gSpriteDrawOrder[4] == 0x1)
+                    if (gSpriteDrawOrder[4] == TRUE)
                         gCurrentSprite.pose = SPACE_PIRATE_POSE_TURNING_AROUND_ALERTED_INIT;
                 }
             }
             else
                 gCurrentSprite.pose = 0xE;
         }
+
+        return;
+    }
+
+    blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+    if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
+    {
+        gCurrentSprite.yPosition = blockTop;
+        gCurrentSprite.status |= SPRITE_STATUS_DOUBLE_SIZE;
+
+        gCurrentSprite.pOam = sSpacePirateOAM_Landing;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
+        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+            SoundPlayNotAlreadyPlaying(0x167);
+
+        return;
+    }
+
+    offset = gCurrentSprite.arrayOffset;
+    movement = sSpritesFallingSpeed[offset];
+
+    if (movement == SHORT_MAX)
+    {
+        movement = sSpritesFallingSpeed[offset - 1];
+        gCurrentSprite.yPosition += movement;
     }
     else
     {
-        blockTop = SpriteUtilCheckVerticalCollisionAtPositionSlopes(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
-        if (gPreviousVerticalCollisionCheck != COLLISION_AIR)
-        {
-            gCurrentSprite.yPosition = blockTop;
-            gCurrentSprite.status |= SPRITE_STATUS_DOUBLE_SIZE;
-
-            gCurrentSprite.pOam = sSpacePirateOAM_Landing;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-
-            if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlayNotAlreadyPlaying(0x167);
-        }
-        else
-        {
-            offset = gCurrentSprite.arrayOffset;
-            movement = sSpritesFallingSpeed[offset];
-
-            if (movement == SHORT_MAX)
-            {
-                movement = sSpritesFallingSpeed[offset - 1];
-                gCurrentSprite.yPosition += movement;
-            }
-            else
-            {
-                gCurrentSprite.arrayOffset++;
-                gCurrentSprite.yPosition += movement;
-            }
-        }
+        gCurrentSprite.arrayOffset++;
+        gCurrentSprite.yPosition += movement;
     }
 }
 

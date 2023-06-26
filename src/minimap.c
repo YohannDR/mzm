@@ -50,16 +50,18 @@ void MinimapSetTileAsExplored(void)
 void MinimapCheckSetAreaNameAsExplored(u8 afterTransition)
 {
     // https://decomp.me/scratch/lc52R
-
+    
     u32 set;
     s32 i;
+    s32 j;
     u32 area;
     u32 xPosition;
     u32 yPosition;
     u16* pMap;
     u32 actualX;
     u32 actualY;
-    u32* ptr;
+    u32 tile;
+    u32 offset;
 
     if (gShipLandingFlag)
         return;
@@ -131,13 +133,17 @@ void MinimapCheckSetAreaNameAsExplored(u8 afterTransition)
     yPosition--;
     gLastAreaNameVisited.mapY = yPosition;
 
-    pMap = (u16*)0x2034800 + (area * MINIMAP_SIZE + actualX + actualY);
+    pMap = &gDecompressedMinimapData[actualX + actualY * MINIMAP_SIZE];
 
-    for (i = 0; i < MINIMAP_SIZE; i++)
+    offset = area * MINIMAP_SIZE + actualY;
+
+    for (j = 0, i = 0; i < MINIMAP_SIZE; i++, pMap++)
     {
-        if ((pMap[i] & 0x3FF) - 0x141 <= 0x1D)
+        tile = (*pMap & 0x3FF) - 0x141;
+        if (tile <= 0x1D)
         {
-            sVisitedMinimapTilesPointer[area * MINIMAP_SIZE + yPosition] |= sExploredMinimapBitFlags[actualX + i];
+            sVisitedMinimapTilesPointer[offset] |= sExploredMinimapBitFlags[actualX + j];
+            j++;
         }
     }
 

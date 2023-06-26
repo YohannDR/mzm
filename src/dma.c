@@ -17,6 +17,8 @@ struct DMA {
 
 void DMATransfer(u8 channel, void *src, void *dst, u32 len, u8 bitSize)
 {
+    // https://decomp.me/scratch/j8Gur
+
     volatile struct DMA* pDma;
     u32 sizeControl;
     u32 lengthControl;

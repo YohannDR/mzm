@@ -6168,6 +6168,8 @@ void SamusUpdateGraphicsOAM(struct SamusData* pData, u8 direction)
 
 void SamusUpdatePalette(struct SamusData* pData)
 {
+    // https://decomp.me/scratch/LhP1o
+
     const u16* pDefaultPal;
     const u16* pReleasePal;
     const u16* pFlashingPal;

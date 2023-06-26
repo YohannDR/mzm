@@ -596,6 +596,8 @@ void ConnectionLockHatches(u8 isEvent)
 
 void ConnectionLoadDoors(void)
 {
+    // https://decomp.me/scratch/wlekD
+
     s32 i;
     s32 hatchCount;
     u32 currHatchId;
