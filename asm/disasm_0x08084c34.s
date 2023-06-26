@@ -1713,8 +1713,8 @@ lbl_080859de:
     bx r1
     .align 2, 0
 
-    thumb_func_start display_credits
-display_credits: @ 0x080859f4
+    thumb_func_start CreditsDisplay
+CreditsDisplay: @ 0x080859f4
     push {r4, r5, r6, r7, lr}
     ldr r0, lbl_08085a24 @ =sNonGameplayRamPointer
     ldr r2, [r0]
@@ -1921,8 +1921,8 @@ lbl_08085b72:
 lbl_08085b78: .4byte 0x000007ff
 lbl_08085b7c: .4byte gBG0YPosition
 
-    thumb_func_start credits_chozo_wall_movement
-credits_chozo_wall_movement: @ 0x08085b80
+    thumb_func_start CreditsChozoWallMovement
+CreditsChozoWallMovement: @ 0x08085b80
     push {r4, lr}
     movs r4, #0
     ldr r0, lbl_08085ba0 @ =sNonGameplayRamPointer
@@ -1996,8 +1996,8 @@ lbl_08085c04: .4byte sNonGameplayRamPointer
 lbl_08085c08: .4byte gBG2YPosition
 lbl_08085c0c: .4byte gBG3YPosition
 
-    thumb_func_start credits_chozo_wall_zoom
-credits_chozo_wall_zoom: @ 0x08085c10
+    thumb_func_start CreditsChozoWallZoom
+CreditsChozoWallZoom: @ 0x08085c10
     push {r4, r5, lr}
     movs r5, #0
     ldr r4, lbl_08085c3c @ =sNonGameplayRamPointer
@@ -2478,8 +2478,8 @@ lbl_08086044: .4byte gWrittenToBLDALPHA_L
 lbl_08086048: .4byte gWrittenToBLDALPHA_H
 lbl_0808604c: .4byte gWrittenToBLDY_NonGameplay
 
-    thumb_func_start end_screen_samus_posing
-end_screen_samus_posing: @ 0x08086050
+    thumb_func_start EndScreenSamusPosing
+EndScreenSamusPosing: @ 0x08086050
     push {r4, r5, r6, lr}
     movs r6, #0
     ldr r1, lbl_08086074 @ =sNonGameplayRamPointer
@@ -3898,8 +3898,8 @@ lbl_08086c80: .4byte 0x0854e2e4
 lbl_08086c84: .4byte 0x08549eec
 lbl_08086c88: .4byte gNextOamSlot
 
-    thumb_func_start ending_image_display
-ending_image_display: @ 0x08086c8c
+    thumb_func_start EndingImageDisplay
+EndingImageDisplay: @ 0x08086c8c
     push {r4, r5, r6, lr}
     movs r6, #0
     ldr r4, lbl_08086cbc @ =sNonGameplayRamPointer
@@ -4292,8 +4292,8 @@ lbl_08086fc4: .4byte gWrittenToBLDALPHA_L
 lbl_08086fc8: .4byte gWrittenToBLDALPHA_H
 lbl_08086fcc: .4byte gWrittenToBLDY_NonGameplay
 
-    thumb_func_start unlocked_options_pop_up
-unlocked_options_pop_up: @ 0x08086fd0
+    thumb_func_start UnlockedOptionsPopUp
+UnlockedOptionsPopUp: @ 0x08086fd0
     push {r4, r5, lr}
     sub sp, #4
     movs r5, #0

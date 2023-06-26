@@ -5,6 +5,7 @@
 
 #include "data/shortcut_pointers.h"
 #include "data/intro_data.h"
+#include "data/internal_intro_data.h"
 
 #include "constants/game_state.h"
 #include "constants/intro.h"
@@ -923,7 +924,7 @@ u8 IntroFuzz(void)
  * 
  * @return u32 bool, ended
  */
-/*u32 IntroSubroutine(void)
+u32 IntroSubroutine(void)
 {
     u32 ended;
 
@@ -970,4 +971,4 @@ u8 IntroFuzz(void)
     }
 
     return ended;
-}*/
+}

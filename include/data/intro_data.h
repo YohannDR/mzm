@@ -51,7 +51,4 @@ extern const u32 sIntroMotherBrainTileTable[577];
 extern const u32 sIntroFuzzGfx[5224];
 extern const u32 sIntro_47920c[125];
 
-// TODO move to another file
-extern const IntroFunc_T sIntroSubroutinesFunctionsPointer[8];
-
 #endif /* INTRO_DATA_H */

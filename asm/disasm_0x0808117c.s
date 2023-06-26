@@ -2,110 +2,6 @@
 
     .syntax unified
 
-    thumb_func_start IntroSubroutine
-IntroSubroutine: @ 0x0808117c
-    push {r4, r5, lr}
-    movs r5, #0
-    ldr r0, lbl_08081198 @ =gNextOamSlot
-    strb r5, [r0]
-    ldr r4, lbl_0808119c @ =gGameModeSub1
-    movs r1, #0
-    ldrsh r0, [r4, r1]
-    cmp r0, #1
-    beq lbl_080811b0
-    cmp r0, #1
-    bgt lbl_080811a0
-    cmp r0, #0
-    beq lbl_080811aa
-    b lbl_0808123e
-    .align 2, 0
-lbl_08081198: .4byte gNextOamSlot
-lbl_0808119c: .4byte gGameModeSub1
-lbl_080811a0:
-    cmp r0, #2
-    beq lbl_080811d8
-    cmp r0, #3
-    beq lbl_0808123c
-    b lbl_0808123e
-lbl_080811aa:
-    bl IntroInit
-    b lbl_080811cc
-lbl_080811b0:
-    ldr r1, lbl_080811c0 @ =gWrittenToBLDY_NonGameplay
-    ldrh r0, [r1]
-    cmp r0, #0
-    beq lbl_080811c4
-    subs r0, #1
-    strh r0, [r1]
-    b lbl_0808123e
-    .align 2, 0
-lbl_080811c0: .4byte gWrittenToBLDY_NonGameplay
-lbl_080811c4:
-    ldr r0, lbl_080811d4 @ =sNonGameplayRamPointer
-    ldr r0, [r0]
-    adds r0, #0x46
-    strh r5, [r0]
-lbl_080811cc:
-    ldrh r0, [r4]
-    adds r0, #1
-    strh r0, [r4]
-    b lbl_0808123e
-    .align 2, 0
-lbl_080811d4: .4byte sNonGameplayRamPointer
-lbl_080811d8:
-    ldr r0, lbl_08081200 @ =gChangedInput
-    ldrh r1, [r0]
-    movs r0, #0xb
-    ands r0, r1
-    cmp r0, #0
-    beq lbl_08081208
-    ldrh r0, [r4]
-    adds r0, #1
-    strh r0, [r4]
-    ldr r1, lbl_08081204 @ =gGameModeSub2
-    movs r0, #1
-    strb r0, [r1]
-    movs r0, #0xa
-    bl FadeAllSounds
-    movs r0, #0xa
-    bl FadeMusic
-    b lbl_0808122a
-    .align 2, 0
-lbl_08081200: .4byte gChangedInput
-lbl_08081204: .4byte gGameModeSub2
-lbl_08081208:
-    ldr r1, lbl_08081230 @ =0x08760ca8
-    ldr r0, lbl_08081234 @ =sNonGameplayRamPointer
-    ldr r0, [r0]
-    ldrb r0, [r0]
-    lsls r0, r0, #2
-    adds r0, r0, r1
-    ldr r0, [r0]
-    bl _call_via_r0
-    lsls r0, r0, #0x18
-    cmp r0, #0
-    beq lbl_0808122a
-    ldrh r0, [r4]
-    adds r0, #1
-    strh r0, [r4]
-    ldr r0, lbl_08081238 @ =gGameModeSub2
-    strb r5, [r0]
-lbl_0808122a:
-    bl ResetFreeOAM
-    b lbl_0808123e
-    .align 2, 0
-lbl_08081230: .4byte 0x08760ca8
-lbl_08081234: .4byte sNonGameplayRamPointer
-lbl_08081238: .4byte gGameModeSub2
-lbl_0808123c:
-    movs r5, #1
-lbl_0808123e:
-    adds r0, r5, #0
-    pop {r4, r5}
-    pop {r1}
-    bx r1
-    .align 2, 0
-
     thumb_func_start vblank_code_during_intro
 vblank_code_during_intro: @ 0x08081248
     push {lr}
@@ -603,8 +499,8 @@ lbl_08081678: .4byte 0xfffffe00
 lbl_0808167c: .4byte 0x000001ff
 lbl_08081680: .4byte gNextOamSlot
 
-    thumb_func_start tourian_escape_samus_surrounded_calculate_bg2_pos
-tourian_escape_samus_surrounded_calculate_bg2_pos: @ 0x08081684
+    thumb_func_start TourianEscapeSamusSurrounded_calculate_bg2_pos
+TourianEscapeSamusSurrounded_calculate_bg2_pos: @ 0x08081684
     push {r4, r5, r6, lr}
     mov r6, sb
     mov r5, r8
@@ -1559,8 +1455,8 @@ lbl_08081e24: .4byte vblank_code_during_intro
 lbl_08081e28: .4byte gNextOamSlot
 lbl_08081e2c: .4byte sNonGameplayRamPointer
 
-    thumb_func_start tourian_escape_zebes_exploding
-tourian_escape_zebes_exploding: @ 0x08081e30
+    thumb_func_start TourianEscapeZebesExploding
+TourianEscapeZebesExploding: @ 0x08081e30
     push {r4, r5, r6, r7, lr}
     mov r7, sb
     mov r6, r8
@@ -2602,8 +2498,8 @@ lbl_08082658: .4byte gBG2YPosition
 lbl_0808265c: .4byte gBG3XPosition
 lbl_08082660: .4byte gBG3YPosition
 
-    thumb_func_start tourian_escape_samus_in_her_ship
-tourian_escape_samus_in_her_ship: @ 0x08082664
+    thumb_func_start TourianEscapeSamusInHerShip
+TourianEscapeSamusInHerShip: @ 0x08082664
     push {r4, r5, lr}
     movs r5, #0
     ldr r0, lbl_08082694 @ =sNonGameplayRamPointer
@@ -3034,8 +2930,8 @@ lbl_080829be:
 lbl_080829c8: .4byte gWrittenToBLDALPHA_L
 lbl_080829cc: .4byte gWrittenToBLDALPHA_H
 
-    thumb_func_start tourian_escape_samus_looking_around
-tourian_escape_samus_looking_around: @ 0x080829d0
+    thumb_func_start TourianEscapeSamusLookingAround
+TourianEscapeSamusLookingAround: @ 0x080829d0
     push {r4, r5, lr}
     movs r5, #0
     ldr r0, lbl_080829f4 @ =sNonGameplayRamPointer
@@ -3288,8 +3184,8 @@ lbl_08082c4c: .4byte gBg2Rotation
 lbl_08082c50: .4byte gBg2Scaling
 lbl_08082c54: .4byte gUnk_30013a2
 
-    thumb_func_start tourian_escape_samus_surrounded
-tourian_escape_samus_surrounded: @ 0x08082c58
+    thumb_func_start TourianEscapeSamusSurrounded
+TourianEscapeSamusSurrounded: @ 0x08082c58
     push {r4, r5, lr}
     movs r5, #0
     ldr r0, lbl_08082c80 @ =sNonGameplayRamPointer
@@ -3455,7 +3351,7 @@ lbl_08082db8:
     ldr r0, lbl_08082dcc @ =gUnk_30013a2
     strh r1, [r0]
 lbl_08082dbe:
-    bl tourian_escape_samus_surrounded_calculate_bg2_pos
+    bl TourianEscapeSamusSurrounded_calculate_bg2_pos
     adds r0, r5, #0
     pop {r4, r5}
     pop {r1}
@@ -3463,8 +3359,8 @@ lbl_08082dbe:
     .align 2, 0
 lbl_08082dcc: .4byte gUnk_30013a2
 
-    thumb_func_start tourian_escape_samus_flying_in
-tourian_escape_samus_flying_in: @ 0x08082dd0
+    thumb_func_start TourianEscapeSamusFlyingIn
+TourianEscapeSamusFlyingIn: @ 0x08082dd0
     push {r4, r5, lr}
     movs r5, #0
     ldr r4, lbl_08082df0 @ =sNonGameplayRamPointer
@@ -3696,8 +3592,8 @@ lbl_08082f8e:
     .align 2, 0
 lbl_08082f9c: .4byte 0x0845f77e
 
-    thumb_func_start tourian_escape_samus_chased_by_pirates
-tourian_escape_samus_chased_by_pirates: @ 0x08082fa0
+    thumb_func_start TourianEscapeSamusChasedByPirates
+TourianEscapeSamusChasedByPirates: @ 0x08082fa0
     push {r4, r5, r6, r7, lr}
     mov r7, r8
     push {r7}
@@ -4244,8 +4140,8 @@ lbl_080833ac:
 lbl_080833bc: .4byte 0x0847a5ae
 lbl_080833c0: .4byte sNonGameplayRamPointer
 
-    thumb_func_start tourian_escape_samus_chased_pirates_firing
-tourian_escape_samus_chased_pirates_firing: @ 0x080833c4
+    thumb_func_start TourianEscapeSamusChasedByPiratesFiring
+TourianEscapeSamusChasedByPiratesFiring: @ 0x080833c4
     push {r4, r5, r6, lr}
     movs r6, #0
     ldr r4, lbl_080833f0 @ =sNonGameplayRamPointer
@@ -4863,8 +4759,8 @@ lbl_08083852:
     bx r1
     .align 2, 0
 
-    thumb_func_start tourian_escape_samus_getting_shot
-tourian_escape_samus_getting_shot: @ 0x08083860
+    thumb_func_start TourianEscapeSamusGettingShot
+TourianEscapeSamusGettingShot: @ 0x08083860
     push {r4, r5, r6, r7, lr}
     movs r6, #0
     ldr r4, lbl_0808388c @ =sNonGameplayRamPointer
@@ -5472,8 +5368,8 @@ lbl_08083d04:
     pop {r1}
     bx r1
 
-    thumb_func_start tourian_escape_samus_going_to_crash
-tourian_escape_samus_going_to_crash: @ 0x08083d10
+    thumb_func_start TourianEscapeSamusGoingToCrash
+TourianEscapeSamusGoingToCrash: @ 0x08083d10
     push {r4, r5, lr}
     movs r5, #0
     ldr r4, lbl_08083d38 @ =sNonGameplayRamPointer
@@ -5672,8 +5568,8 @@ lbl_08083e94:
 lbl_08083ea0: .4byte sNonGameplayRamPointer
 lbl_08083ea4: .4byte gBG0XPosition
 
-    thumb_func_start tourian_escape_samus_crashing
-tourian_escape_samus_crashing: @ 0x08083ea8
+    thumb_func_start TourianEscapeSamusCrashing
+TourianEscapeSamusCrashing: @ 0x08083ea8
     push {r4, r5, lr}
     movs r5, #0
     ldr r4, lbl_08083ed0 @ =sNonGameplayRamPointer
@@ -5964,8 +5860,8 @@ lbl_080840f8: .4byte sNonGameplayRamPointer
 lbl_080840fc: .4byte gWrittenToBLDY_NonGameplay
 lbl_08084100: .4byte 0x0847cfe4
 
-    thumb_func_start tourian_escape_samus_looking_at_sky
-tourian_escape_samus_looking_at_sky: @ 0x08084104
+    thumb_func_start TourianEscapeSamusLookingAtSky
+TourianEscapeSamusLookingAtSky: @ 0x08084104
     push {r4, r5, r6, lr}
     movs r5, #0
     ldr r3, lbl_08084134 @ =sNonGameplayRamPointer
@@ -6278,8 +6174,8 @@ lbl_08084380: .4byte gBG1YPosition
 lbl_08084384: .4byte gBG2YPosition
 lbl_08084388: .4byte sNonGameplayRamPointer
 
-    thumb_func_start tourian_escape_samus_looking_at_mother_ship
-tourian_escape_samus_looking_at_mother_ship: @ 0x0808438c
+    thumb_func_start TourianEscapeSamusLookingAtMotherShip
+TourianEscapeSamusLookingAtMotherShip: @ 0x0808438c
     push {r4, r5, r6, r7, lr}
     sub sp, #4
     movs r7, #0

@@ -20,4 +20,4 @@ const s8 sGameOver_760b0f[9] = {
     0, 1, 2, 3, 2, 1, 0, 0, 0
 };
 
-static const u8 sTempArray_760b18[0x1fc] = INCBIN_U8("data/Blob_760b18_760d14.bin");
+static const u8 sTempArray_760b18[0x150] = INCBIN_U8("data/Blob_760b18_760c68.bin");

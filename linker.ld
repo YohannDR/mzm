@@ -545,7 +545,8 @@ SECTIONS {
         src/menus/game_over.o(.text);
         asm/disasm_0x08078228.o(.text);
         src/softreset.o(.text);
-        asm/disasm_0x0807f12.o(.text);
+        src/time_attack.o(.text);
+        asm/disasm_0x0807fd64.o(.text);
         src/intro.o(.text);
         asm/disasm_0x0808117c.o(.text);
         src/fusion_gallery.o(.text);
@@ -734,8 +735,12 @@ SECTIONS {
         /* 760458-760aa0 */
         src/data/menus/internal_title_screen_data.o(.rodata)
         src/data/menus/internal_game_over_data.o(.rodata)
-        /* 760b18-760d14 */
-        src/data/internal_chozodia_escape_data.o(.rodata)
+        /* 760b18-760c68 */
+        src/data/time_attack_data.o(.rodata);
+        src/data/internal_intro_data.o(.rodata);
+        src/data/internal_tourian_escape_data.o(.rodata);
+        src/data/internal_ending_and_gallery_data.o(.rodata);
+        src/data/internal_chozodia_escape_data.o(.rodata);
         /* 760d28-7f7734 */
     } >rom
 }

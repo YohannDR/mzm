@@ -3560,8 +3560,8 @@ lbl_08074f44:
     .align 2, 0
 lbl_08074f54: .4byte gLanguage
 
-    thumb_func_start backup_time_attack_for_sram
-backup_time_attack_for_sram: @ 0x08074f58
+    thumb_func_start SramWrite_TimeAttack
+SramWrite_TimeAttack: @ 0x08074f58
     push {r4, r5, r6, r7, lr}
     ldr r0, lbl_08074ff4 @ =0x08754bc8
     ldr r2, [r0]

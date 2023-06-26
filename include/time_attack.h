@@ -5,7 +5,7 @@
 #include "structs/time_attack.h"
 
 void TimeAttackEORSeed(u8* pSeed, s32 length, u8 value);
-u8 TimeAttackGetGarbledSeedValue(u8* pSeed, s32 value);
+u32 TimeAttackGetGarbledSeedValue(u8* pSeed, s32 value);
 void TimeAttackGarbleSeedValue(u8* pSeed, s32 value1, s32 value2);
 void TimeAttackGarbleRandomSeedValues(u8* pSeed, s32 value1, s32 value2);
 void TimeAttackSeedRandomFunc1(u8* pSeed, s32 length);

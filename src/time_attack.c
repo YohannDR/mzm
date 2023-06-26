@@ -31,7 +31,7 @@ void TimeAttackEORSeed(u8* pSeed, s32 length, u8 value)
  * @param value Reference value
  * @return u8 Seed value
  */
-u8 TimeAttackGetGarbledSeedValue(u8* pSeed, s32 value)
+u32 TimeAttackGetGarbledSeedValue(u8* pSeed, s32 value)
 {
     u32 shift;
     s32 local = value / 8;
@@ -862,7 +862,7 @@ u8 TimeAttackCheckSetNewRecord(void)
     if (records)
     {
         // Save new times
-        save_time_attack_to_sram();
+        SramWrite_TimeAttack();
         // New time attack record flag
         gEndingFlags |= ENDING_FLAG_NEW_TIME_ATTACK_RECORD;
     }

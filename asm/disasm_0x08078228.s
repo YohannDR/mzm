@@ -3979,7 +3979,7 @@ copy_time_attack_time: @ 0x0807a1a4
     beq lbl_0807a2ae
     adds r0, r1, #0
     adds r0, #0x48
-    bl sub_0807f60c
+    bl unk_7f60c
     ldr r6, lbl_0807a2b8 @ =gTimeAttackRecord
     ldrb r0, [r6, #0x14]
     movs r5, #0x63
