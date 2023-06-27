@@ -446,7 +446,7 @@ u8 ConnectionFindEventBasedDoor(u8 sourceDoor)
 }
 
 /**
- * @brief 5f004 | a0 | Sets or chec
+ * @brief 5f004 | a0 | Sets or checks if a hatch was opened
  * 
  * @param action Action
  * @param hatch Hatch number
