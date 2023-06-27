@@ -112,54 +112,63 @@ void ConnectionUpdateHatches(void)
 void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr)
 {
     // https://decomp.me/scratch/q1BYt
-
-    u32 value;
-    s8 direction;
+    
     s32 caf;
     u32 tilemapValue;
+    u32 tmp1;
+    u32 tmp2;
+    u32 tmp3;
+    u32 tmp4;
+    u32 tmp5;
 
-    value = gHatchData[hatchNbr].facingRight ? 0x416 : 0x411;
+    tilemapValue = gHatchData[hatchNbr].facingRight ? 0x416 : 0x411;
 
-    caf = gHatchData[hatchNbr].currentAnimationFrame - 0x1;
+    caf = gHatchData[hatchNbr].currentAnimationFrame - 1;
 
-    if (gHatchData[hatchNbr].opening == 0x3)
+    if (gHatchData[hatchNbr].opening == 3)
     {
-        caf = 0x2 - caf;
-        if (caf < 0x0)
+        caf = 2 - caf;
+        if (caf < 0)
         {
-            caf = 0x0;
-            value = gHatchData[hatchNbr].facingRight + sHatchesTilemapValues[gHatchData[hatchNbr].type];
+            caf = 0;
+            tilemapValue = gHatchData[hatchNbr].facingRight + sHatchesTilemapValues[gHatchData[hatchNbr].type];
         }
         else
         {
-            if (gHatchData[hatchNbr].type != 0x0)
+            if (gHatchData[hatchNbr].type != 0)
                 caf += 0x40;
         }
     }
     
-    if (gHatchData[hatchNbr].type == 0x0)
+    if (gHatchData[hatchNbr].type == 0)
         caf += 0x80;
 
-    tilemapValue = value + caf;
+    tilemapValue += caf;
     if (dontSetRaw)
     {
         BgClipSetBG1BlockValue(tilemapValue, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
-        BgClipSetBG1BlockValue(tilemapValue + 0x10, gHatchData[hatchNbr].yPosition + 0x1, gHatchData[hatchNbr].xPosition);
-        BgClipSetBG1BlockValue(tilemapValue + 0x20, gHatchData[hatchNbr].yPosition + 0x2, gHatchData[hatchNbr].xPosition);
-        BgClipSetBG1BlockValue(tilemapValue + 0x30, gHatchData[hatchNbr].yPosition + 0x3, gHatchData[hatchNbr].xPosition);
+        tmp1 = tilemapValue + 0x10;
+        BgClipSetBG1BlockValue(tmp1, gHatchData[hatchNbr].yPosition + 1, gHatchData[hatchNbr].xPosition);
+        tmp2 = tilemapValue + 0x20;
+        BgClipSetBG1BlockValue(tmp2, gHatchData[hatchNbr].yPosition + 2, gHatchData[hatchNbr].xPosition);
+        tmp3 = tilemapValue + 0x30;
+        BgClipSetBG1BlockValue(tmp3, gHatchData[hatchNbr].yPosition + 3, gHatchData[hatchNbr].xPosition);
     }
     else
     {
         BgClipSetRawBG1BlockValue(tilemapValue, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
-        BgClipSetRawBG1BlockValue(tilemapValue + 0x10, gHatchData[hatchNbr].yPosition + 0x1, gHatchData[hatchNbr].xPosition);
-        BgClipSetRawBG1BlockValue(tilemapValue + 0x20, gHatchData[hatchNbr].yPosition + 0x2, gHatchData[hatchNbr].xPosition);
-        BgClipSetRawBG1BlockValue(tilemapValue + 0x30, gHatchData[hatchNbr].yPosition + 0x3, gHatchData[hatchNbr].xPosition);
+        tmp1 = tilemapValue + 0x10;
+        BgClipSetRawBG1BlockValue(tmp1, gHatchData[hatchNbr].yPosition + 1, gHatchData[hatchNbr].xPosition);
+        tmp2 = tilemapValue + 0x20;
+        BgClipSetRawBG1BlockValue(tmp2, gHatchData[hatchNbr].yPosition + 2, gHatchData[hatchNbr].xPosition);
+        tmp3 = tilemapValue + 0x30;
+        BgClipSetRawBG1BlockValue(tmp3, gHatchData[hatchNbr].yPosition + 3, gHatchData[hatchNbr].xPosition);
     }
 
     BgClipSetClipdataBlockValue(tilemapValue, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
-    BgClipSetClipdataBlockValue(tilemapValue + 0x10, gHatchData[hatchNbr].yPosition + 0x1, gHatchData[hatchNbr].xPosition);
-    BgClipSetClipdataBlockValue(tilemapValue + 0x20, gHatchData[hatchNbr].yPosition + 0x2, gHatchData[hatchNbr].xPosition);
-    BgClipSetClipdataBlockValue(tilemapValue + 0x30, gHatchData[hatchNbr].yPosition + 0x3, gHatchData[hatchNbr].xPosition);
+    BgClipSetClipdataBlockValue(tmp1, gHatchData[hatchNbr].yPosition + 1, gHatchData[hatchNbr].xPosition);
+    BgClipSetClipdataBlockValue(tmp2, gHatchData[hatchNbr].yPosition + 2, gHatchData[hatchNbr].xPosition);
+    BgClipSetClipdataBlockValue(tmp3, gHatchData[hatchNbr].yPosition + 3, gHatchData[hatchNbr].xPosition);
 }
 
 /**
@@ -172,16 +181,16 @@ void ConnectionHatchFlashingAnimation(u8 hatch)
     u32 value;
 
     // Update hit timer
-    if (gHatchData[hatch].hitTimer == 0x0)
-        gHatchData[hatch].hitTimer = 0x4;
+    if (gHatchData[hatch].hitTimer == 0)
+        gHatchData[hatch].hitTimer = 4;
     else
     {
         gHatchData[hatch].hitTimer--;
         return;
     }
     
-    if (gHatchData[hatch].flashingTimer & 0x1)
-        value = 0x49A; // Flashing door cap
+    if (gHatchData[hatch].flashingTimer & 1)
+        value = CLIPDATA_TILEMAP_FLAG | CLIPDATA_TILEMAP_NO_HATCH_DOOR_TOP_LEFT; // Flashing door cap
     else
         value = sHatchesTilemapValues[gHatchData[hatch].type];
 
@@ -190,13 +199,13 @@ void ConnectionHatchFlashingAnimation(u8 hatch)
 
     // Update Gfx
     BgClipSetBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
-    BgClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
-    BgClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
-    BgClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
+    BgClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 1, gHatchData[hatch].xPosition);
+    BgClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 2, gHatchData[hatch].xPosition);
+    BgClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 3, gHatchData[hatch].xPosition);
 
     // Update timer
-    if (gHatchData[hatch].flashingTimer >= 0x4)
-        gHatchData[hatch].flashingTimer = 0x0;
+    if (gHatchData[hatch].flashingTimer >= 4)
+        gHatchData[hatch].flashingTimer = 0;
     else
         gHatchData[hatch].flashingTimer++;
 }
