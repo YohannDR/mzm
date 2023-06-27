@@ -48,17 +48,17 @@ struct HatchLockEvent {
 
 struct HatchData {
     /* 0 */
-    u8 exists:1;
-    u8 currentAnimationFrame:3;
-    u8 facingRight:1;
-    u8 padding:3;
+    u16 exists:1;
+    u16 currentAnimationFrame:3;
+    u16 facingRight:1;
+    u16 padding:3;
     /* 1 */
-    u8 opening:2;
-    u8 locked:2;
-    u8 flashingTimer:4;
+    u16 opening:2;
+    u16 locked:2;
+    u16 flashingTimer:4;
     /* 2 */
-    u8 hitTimer:4;
-    u8 hits:4;
+    u16 hitTimer:4;
+    u16 hits:4;
     /* 3 */
     u8 type;
     u8 animationDurationCounter;

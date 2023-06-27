@@ -576,9 +576,7 @@ void ConnectionLockHatches(u8 isEvent)
     {
         lockedHatches = gHatchesState.hatchesLockedWithEvent | gHatchesState.unk2;
         
-        i = 0;
-        hatch = 0;
-        for (; i < MAX_AMOUNT_OF_HATCHES; i++)
+        for (i = 0, hatch = 0; i < MAX_AMOUNT_OF_HATCHES; i++, hatch++)
         {
             if ((lockedHatches >> i) & 1)
             {
@@ -598,15 +596,16 @@ void ConnectionLockHatches(u8 isEvent)
                 else
                     ConnectionHatchStartLockAnimation(TRUE, hatch, 3);
             }
-            hatch++;
         }
     }
 }
 
+/**
+ * @brief 5f294 | 320 | Loads the doors for the current room
+ * 
+ */
 void ConnectionLoadDoors(void)
 {
-    // https://decomp.me/scratch/wlekD
-
     s32 i;
     s32 hatchCount;
     u32 currHatchId;
@@ -616,160 +615,203 @@ void ConnectionLoadDoors(void)
     u32 doorType;
     u16 bldalpha;
     s32 yPosition;
-    u8 direction;
+    u8 facingRight;
     u16 clipdata;
     u32 position;
     u32 behavior;
     u16 behaviorCheck;
     s32 hatchType;
+    s32 collision;
     
+    // Check has no pause screen, this prevents the re-loading of doors if the current room is reloaded (pause menu, cutscene...)
     if (gPauseScreenFlag != PAUSE_SCREEN_NONE)
         return;
 
+    // Clear hatches
     for (i = 0; i < MAX_AMOUNT_OF_HATCHES; i++)
         gHatchData[i] = sHatchData_Empty;
 
+    // Current hatch that samus is using
     currHatchId = UCHAR_MAX;
+
+    // Resest hatches count
     gNumberOfValidHatchesInRoom = 0;
+
+    // Get current doors
     pDoor = sAreaDoorsPointers[gCurrentArea];
 
-    hatchCount = 0;
-    currDoor = 0;
-    while (TRUE)
+    for (hatchCount = 0, currDoor = 0; pDoor->type != DOOR_TYPE_NONE; pDoor++, currDoor++)
     {
-        doorType = pDoor->type;
-        if (pDoor->type == DOOR_TYPE_NONE)
-            break;
+        if (gCurrentRoom != pDoor->sourceRoom)
+            continue;
 
-        if (gCurrentRoom == pDoor->sourceRoom)
+        // Get door type
+        doorType = (pDoor->type & DOOR_TYPE_NO_FLAGS);
+
+        // Doors with hatches are handled differently than doors without
+        if (doorType == DOOR_TYPE_OPEN_HATCH || doorType == DOOR_TYPE_CLOSED_HATCH)
         {
-            if ((doorType & DOOR_TYPE_NO_FLAGS) == DOOR_TYPE_OPEN_HATCH || (doorType & DOOR_TYPE_NO_FLAGS) == DOOR_TYPE_CLOSED_HATCH)
+            // Get position of the door
+            position = gBgPointersAndDimensions.clipdataWidth * pDoor->yStart + pDoor->xStart;
+
+            // Get raw clipdata, offset position by one to the right
+            clipdata = gBgPointersAndDimensions.pClipDecomp[position + 1];
+
+            // Get collision type
+            collision = gTilemapAndClipPointers.pClipCollisions[clipdata];
+            facingRight = TRUE;
+            if (collision != CLIPDATA_TYPE_DOOR)
             {
-                position = gBgPointersAndDimensions.clipdataWidth * pDoor->yStart + pDoor->xStart;
+                // No door on the right, get on the left
+                facingRight = FALSE;
+                clipdata = gBgPointersAndDimensions.pClipDecomp[position - 1];
+            }
 
-                clipdata = gBgPointersAndDimensions.pClipDecomp[position + 1];
-                
-                if (gTilemapAndClipPointers.pClipCollisions[clipdata] != CLIPDATA_TYPE_DOOR)
-                    direction = 0;
-                else
-                    direction = 1;
+            // Get clipdata behavior
+            behavior = gTilemapAndClipPointers.pClipBehaviors[clipdata];
 
-                if (direction == 0)
-                    clipdata = gBgPointersAndDimensions.pClipDecomp[position - 1];
-
-                behavior = gTilemapAndClipPointers.pClipBehaviors[clipdata];
-                behaviorCheck = BEHAVIOR_TO_DOOR(behavior) - 1;
+            // Check is valid behavior
+            behaviorCheck = BEHAVIOR_TO_DOOR(behavior) - 1;
+            if (behaviorCheck < BEHAVIOR_TO_DOOR(CLIP_BEHAVIOR_POWER_BOMB_DOOR))
+                hatchType = BEHAVIOR_TO_DOOR(behavior);
+            else
                 hatchType = 0;
-                if (behaviorCheck < BEHAVIOR_TO_DOOR(CLIP_BEHAVIOR_POWER_BOMB_DOOR))
-                    hatchType = BEHAVIOR_TO_DOOR(behavior);
 
-                hatchType = sHatchTypeTable[hatchType];
-                i = gNumberOfValidHatchesInRoom;
+            // Get hatch type
+            hatchType = sHatchTypeTable[hatchType];
+
+            // Start iteration from the first un-initialized hatch
+            i = gNumberOfValidHatchesInRoom;
+            if (i < MAX_AMOUNT_OF_HATCHES)
+            {
+                // Actually the the first hatch doesn't exist
+                for (; i < MAX_AMOUNT_OF_HATCHES; i++)
+                {
+                    if (!gHatchData[i].exists)
+                        break;
+                }
+                
+                // Check again, just in case
                 if (i < MAX_AMOUNT_OF_HATCHES)
                 {
-                    for (; i < MAX_AMOUNT_OF_HATCHES; i++)
+                    // Set type
+                    gHatchData[i].type = hatchType;
+                    if (hatchType >= HATCH_NORMAL)
                     {
-                        if (!gHatchData[i].exists)
-                            break;
+                        // Set data and position
+                        gHatchData[i].facingRight = facingRight;
+                        gHatchData[i].yPosition = pDoor->yStart;
+                        gHatchData[i].xPosition = pDoor->xStart;
+                        
+                        // Offset position
+                        if (facingRight)
+                            gHatchData[i].xPosition++;
+                        else
+                            gHatchData[i].xPosition--;
+
+                        // Set exists
+                        gHatchData[i].exists = TRUE;
+                        gHatchData[i].sourceDoor = currDoor;
+
+                        // Increment number of hatches
+                        gNumberOfValidHatchesInRoom = i + 1;
+
+                        // Set hatch lock flag
+                        if (hatchType == HATCH_LOCKED)
+                            gHatchesState.hatchesLockedWithTimer |= (1 << i);
+                        else if (hatchType == HATCH_LOCKED_AND_LOCK_DESTINATION)
+                            gHatchesState.hatchesLockedWithEvent |= (1 << i);
                     }
-                    
-                    if (i < MAX_AMOUNT_OF_HATCHES)
+                    else
                     {
-                        gHatchData[i].type = hatchType;
-                        if (hatchType >= HATCH_NORMAL)
+                        // Set data
+                        gHatchData[i].yPosition = pDoor->yStart;
+                        gHatchData[i].xPosition = pDoor->xStart;
+                        gHatchData[i].exists = TRUE;
+                        gHatchData[i].sourceDoor = currDoor;
+
+                        // Set position based on the x exit direction
+                        if (pDoor->xExit > 0)
                         {
-                            gHatchData[i].facingRight = direction;
-                            gHatchData[i].yPosition = pDoor->yStart;
-                            gHatchData[i].xPosition = pDoor->xStart;
-                            
-                            if (direction)
-                                gHatchData[i].xPosition++;
-                            else
-                                gHatchData[i].xPosition--;
-
-                            gHatchData[i].exists = TRUE;
-                            gHatchData[i].sourceDoor = currDoor;
-                                
-                            gNumberOfValidHatchesInRoom = i + 1;
-
-                            if (hatchType == HATCH_LOCKED)
-                                gHatchesState.hatchesLockedWithTimer |= (1 << i);
-                            else if (hatchType == HATCH_LOCKED_AND_LOCK_DESTINATION)
-                                gHatchesState.hatchesLockedWithEvent |= (1 << i);
+                            gHatchData[i].xPosition++;
+                            gHatchData[i].facingRight = TRUE;
                         }
                         else
                         {
-                            gHatchData[i].yPosition = pDoor->yStart;
-                            gHatchData[i].xPosition = pDoor->xStart;
-                            gHatchData[i].exists = TRUE;
-                            gHatchData[i].sourceDoor = currDoor;
-
-                            if (pDoor->xExit > 0)
-                            {
-                                gHatchData[i].xPosition++;
-                                gHatchData[i].facingRight = TRUE;
-                            }
-                            else
-                            {
-                                gHatchData[i].xPosition--;
-                                gHatchData[i].facingRight = FALSE;
-                            }
+                            gHatchData[i].xPosition--;
+                            gHatchData[i].facingRight = FALSE;
                         }
-
-                        hatchCount++;
                     }
-                }
 
-                if (currHatchId == UCHAR_MAX && currDoor == gLastDoorUsed)
-                    currHatchId = i;
-            }
-            else
-            {
-                for (i = MAX_AMOUNT_OF_HATCHES - 1; i > -1; i--)
-                {
-                    if (gHatchData[i].sourceDoor == sHatchData_Empty.sourceDoor)
-                    {
-                        gHatchData[i].sourceDoor = currDoor;
-                        break;
-                    }
+                    // Increase actual hatch count
+                    hatchCount++;
                 }
             }
-            
-            if (hatchCount >= MAX_AMOUNT_OF_HATCHES)
-                break;
+
+            // Check set current hatch
+            if (currHatchId == UCHAR_MAX && currDoor == gLastDoorUsed)
+                currHatchId = i;
         }
-
-        pDoor++;
-        currDoor++;
+        else
+        {
+            // Load a door without a hatch, iterate from the end
+            for (i = MAX_AMOUNT_OF_HATCHES - 1; i > -1; i--)
+            {
+                if (gHatchData[i].sourceDoor == sHatchData_Empty.sourceDoor)
+                {
+                    // Register door
+                    gHatchData[i].sourceDoor = currDoor;
+                    break;
+                }
+            }
+        }
+        
+        // Check for overflow
+        if (hatchCount >= MAX_AMOUNT_OF_HATCHES)
+            break;
     }
 
+    // Try to override the hatches
     for (i = 0; i < MAX_AMOUNT_OF_HATCHES; i++)
     {
-        if (gHatchData[i].exists && gHatchData[i].type > HATCH_UNUSED && !ConnectionSetHatchAsOpened(HATCH_ACTION_CHECKING_OPENED, gHatchData[i].sourceDoor))
+        if (!gHatchData[i].exists)
+            continue;
+
+        // Is a hatch, and has been opened
+        if (gHatchData[i].type > HATCH_UNUSED && !ConnectionSetHatchAsOpened(HATCH_ACTION_CHECKING_OPENED, gHatchData[i].sourceDoor))
             ConnectionOverrideOpenedHatch(i, HATCH_NORMAL);
     }
 
     if (currHatchId != UCHAR_MAX && gGameModeSub3 != 0)
     {
+        // Check start lock animation
         if (gHatchData[currHatchId].exists && gHatchData[currHatchId].type != HATCH_NONE)
             ConnectionHatchStartLockAnimation(FALSE, currHatchId, 3);
 
+        // Get X position
         currDoor = gHatchData[currHatchId].xPosition;
         if (gHatchData[currHatchId].facingRight)
             currDoor++;
         else
             currDoor--;
 
+        // Get Y position
         i = gHatchData[currHatchId].yPosition;
 
+        // Get behavior
         bldalpha = gTilemapAndClipPointers.pClipBehaviors[gBgPointersAndDimensions.pClipDecomp[i *
             gBgPointersAndDimensions.clipdataWidth + currDoor]];
+
+        // Check for transparency
         bldalpha = BgClipGetNewBldalphaValue(bldalpha, bldalpha);
-        if (bldalpha)
+        if (bldalpha != 0)
         {
-            TransprencyUpdateBLDALPHA(bldalpha & 0xFF, (bldalpha & 0xFF00) >> 8, 1, 1);
+            // Update bldalpha
+            TransprencyUpdateBLDALPHA(bldalpha & UCHAR_MAX, (bldalpha & UCHAR_MAX << 8) >> 8, 1, 1);
+
             gIoRegistersBackup.BLDALPHA_NonGameplay_EVB = gBldalphaData1.evbCoef;
             gIoRegistersBackup.BLDALPHA_NonGameplay_EVA = gBldalphaData1.evaCoef;
+
             write16(REG_BLDALPHA, gIoRegistersBackup.BLDALPHA_NonGameplay_EVB << 8 | gIoRegistersBackup.BLDALPHA_NonGameplay_EVA);
         }
     }
