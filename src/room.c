@@ -579,11 +579,12 @@ void RoomSetInitialTilemap(u8 bgNumber)
     s32 i;
     s32 j;
 
+    u16* pDecomp;
     u16 yPos;
     u16 xPos;
     
-    u16 ySize;
     u16 xSize;
+    u16 ySize;
 
     s32 offset;
     u16 iWidth;
@@ -593,7 +594,6 @@ void RoomSetInitialTilemap(u8 bgNumber)
 
     u16* dst;
     u16* pTilemap;
-    u16* pDecomp;
 
     if (bgNumber == 0)
     {
@@ -636,16 +636,15 @@ void RoomSetInitialTilemap(u8 bgNumber)
         if (ySize > gBgPointersAndDimensions.backgrounds[bgNumber].height - offset)
             ySize = gBgPointersAndDimensions.backgrounds[bgNumber].height - offset;
 
-
-        pDecomp = &gBgPointersAndDimensions.backgrounds[bgNumber].pDecomp[gBgPointersAndDimensions.backgrounds[bgNumber].width * (u16)offset + xPos];
+        pDecomp = &gBgPointersAndDimensions.backgrounds[bgNumber].pDecomp[xPos + gBgPointersAndDimensions.backgrounds[bgNumber].width * (u16)offset];
         yPos = offset;
 
-        for (i = 0; i < ySize; )
+        for (i = 0; i < ySize; i++, yPos++)
         {
             iWidth = i * gBgPointersAndDimensions.backgrounds[bgNumber].width;
 
             tmpX = xPos;
-            for (yPosition = 0; yPosition < xSize; )
+            for (yPosition = 0; yPosition < xSize; iWidth++, yPosition++, tmpX++) 
             {
                 dst = VRAM_BASE + bgNumber * 0x1000;
 
@@ -654,20 +653,14 @@ void RoomSetInitialTilemap(u8 bgNumber)
 
                 dst = &dst[(tmpX & 0xF) * 2 + (yPos & 0xF) * 64];
 
-                pTilemap = &gTilemapAndClipPointers.pTilemap[pDecomp[iWidth] * 4];
+                offset = pDecomp[iWidth] * 4;
+                pTilemap = &gTilemapAndClipPointers.pTilemap[offset];
 
                 dst[0] = *pTilemap++;
                 dst[1] = *pTilemap++;
                 dst[32] = *pTilemap++;
                 dst[32 + 1] = *pTilemap++;
-
-                iWidth++;
-                yPosition++;
-                tmpX++;
             }
-
-            i++;
-            yPos++;
         }
     }
     else
