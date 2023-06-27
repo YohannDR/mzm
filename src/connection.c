@@ -115,11 +115,6 @@ void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr)
     
     s32 caf;
     u32 tilemapValue;
-    u32 tmp1;
-    u32 tmp2;
-    u32 tmp3;
-    u32 tmp4;
-    u32 tmp5;
 
     tilemapValue = gHatchData[hatchNbr].facingRight ? 0x416 : 0x411;
 
@@ -147,28 +142,22 @@ void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr)
     if (dontSetRaw)
     {
         BgClipSetBG1BlockValue(tilemapValue, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
-        tmp1 = tilemapValue + 0x10;
-        BgClipSetBG1BlockValue(tmp1, gHatchData[hatchNbr].yPosition + 1, gHatchData[hatchNbr].xPosition);
-        tmp2 = tilemapValue + 0x20;
-        BgClipSetBG1BlockValue(tmp2, gHatchData[hatchNbr].yPosition + 2, gHatchData[hatchNbr].xPosition);
-        tmp3 = tilemapValue + 0x30;
-        BgClipSetBG1BlockValue(tmp3, gHatchData[hatchNbr].yPosition + 3, gHatchData[hatchNbr].xPosition);
+        BgClipSetBG1BlockValue(tilemapValue + 0x10, gHatchData[hatchNbr].yPosition + 1, gHatchData[hatchNbr].xPosition);
+        BgClipSetBG1BlockValue(tilemapValue + 0x20, gHatchData[hatchNbr].yPosition + 2, gHatchData[hatchNbr].xPosition);
+        BgClipSetBG1BlockValue(tilemapValue + 0x30, gHatchData[hatchNbr].yPosition + 3, gHatchData[hatchNbr].xPosition);
     }
     else
     {
         BgClipSetRawBG1BlockValue(tilemapValue, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
-        tmp1 = tilemapValue + 0x10;
-        BgClipSetRawBG1BlockValue(tmp1, gHatchData[hatchNbr].yPosition + 1, gHatchData[hatchNbr].xPosition);
-        tmp2 = tilemapValue + 0x20;
-        BgClipSetRawBG1BlockValue(tmp2, gHatchData[hatchNbr].yPosition + 2, gHatchData[hatchNbr].xPosition);
-        tmp3 = tilemapValue + 0x30;
-        BgClipSetRawBG1BlockValue(tmp3, gHatchData[hatchNbr].yPosition + 3, gHatchData[hatchNbr].xPosition);
+        BgClipSetRawBG1BlockValue(tilemapValue + 0x10, gHatchData[hatchNbr].yPosition + 1, gHatchData[hatchNbr].xPosition);
+        BgClipSetRawBG1BlockValue(tilemapValue + 0x20, gHatchData[hatchNbr].yPosition + 2, gHatchData[hatchNbr].xPosition);
+        BgClipSetRawBG1BlockValue(tilemapValue + 0x30, gHatchData[hatchNbr].yPosition + 3, gHatchData[hatchNbr].xPosition);
     }
 
     BgClipSetClipdataBlockValue(tilemapValue, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
-    BgClipSetClipdataBlockValue(tmp1, gHatchData[hatchNbr].yPosition + 1, gHatchData[hatchNbr].xPosition);
-    BgClipSetClipdataBlockValue(tmp2, gHatchData[hatchNbr].yPosition + 2, gHatchData[hatchNbr].xPosition);
-    BgClipSetClipdataBlockValue(tmp3, gHatchData[hatchNbr].yPosition + 3, gHatchData[hatchNbr].xPosition);
+    BgClipSetClipdataBlockValue(tilemapValue + 0x10, gHatchData[hatchNbr].yPosition + 1, gHatchData[hatchNbr].xPosition);
+    BgClipSetClipdataBlockValue(tilemapValue + 0x20, gHatchData[hatchNbr].yPosition + 2, gHatchData[hatchNbr].xPosition);
+    BgClipSetClipdataBlockValue(tilemapValue + 0x30, gHatchData[hatchNbr].yPosition + 3, gHatchData[hatchNbr].xPosition);
 }
 
 /**
@@ -443,45 +432,67 @@ u8 ConnectionFindEventBasedDoor(u8 sourceDoor)
     
     for (i = MAX_AMOUNT_OF_EVENT_BASED_CONNECTIONS - 1; i >= 0; i--)
     {
-        if (gCurrentArea == sEventBasedConnections[i].sourceArea &&
-            sourceDoor == sEventBasedConnections[i].sourceDoor &&
-            EventFunction(EVENT_ACTION_CHECKING, sEventBasedConnections[i].event))
+        if (gCurrentArea != sEventBasedConnections[i].sourceArea)
+            continue;
+        
+        if (sourceDoor != sEventBasedConnections[i].sourceDoor)
+            continue;
+
+        if (EventFunction(EVENT_ACTION_CHECKING, sEventBasedConnections[i].event))
             return sEventBasedConnections[i].destinationDoor;
     }
 
-    return 0xFF;
+    return UCHAR_MAX;
 }
 
+/**
+ * @brief 5f004 | a0 | Sets or chec
+ * 
+ * @param action Action
+ * @param hatch Hatch number
+ * @return u32 bool, closed
+ */
 u32 ConnectionSetHatchAsOpened(u8 action, u8 hatch)
 {
-    // https://decomp.me/scratch/3q3rr
-    
     u32* pHatch;
     u32 closed;
     u32 doorBit;
     u32 chunk;
     struct Door currDoor;
 
-    pHatch = gHatchesOpened[gCurrentArea];
+    // 0x2037c00 = gHatchesOpened
+    pHatch = (u32*)(0x2037c00 + gCurrentArea * 32);
     closed = FALSE;
 
+    // Get chunk and bit
     chunk = hatch / 32;
     doorBit = hatch % 32;
 
+    // Apply action
     if (action != HATCH_ACTION_CHECKING_OPENED)
     {
+        // Mark as opened
         pHatch[chunk] &= ~(1 << doorBit);
+
+        // Check set destination
         if (action == HATCH_ACTION_SETTING_SOURCE_AND_DESTINATION)
         {
+            // Get door info
             currDoor = sAreaDoorsPointers[gCurrentArea][hatch];
+
+            // Get chunk and bit for the destination
             chunk = currDoor.destinationDoor / 32;
             doorBit = currDoor.destinationDoor % 32;
+
+            // Mark as opened
             pHatch[chunk] &= ~(1 << doorBit);
         }
     }
     else
     {
+        // Check bit
         closed = pHatch[chunk] & (1 << doorBit);
+        // Not zero, so closed
         if (closed)
             closed = TRUE;
     }
