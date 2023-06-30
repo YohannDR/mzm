@@ -541,7 +541,76 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
 
 void StatusScreenSetSuitsVisibility(u16* pTilemap)
 {
+    // https://decomp.me/scratch/Z22vi
 
+    s32 i;
+    s32 j;
+    s32 row;
+    u16* src;
+    u16* dst;
+    u32 srcPosition;
+    u32 dstPosition;
+    s32 tmp;
+    u8* pVisibility;
+
+    pVisibility = PAUSE_SCREEN_DATA.statusScreenData.suitActivation;
+
+    for (i = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_SUITS]; i++)
+        pVisibility[i] = 0;
+
+    for (i = 0, row = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_SUITS]; i++)
+    {
+        j = i;
+
+        if (sStatusScreenFlagsOrderPointers[ABILITY_GROUP_SUITS][i] == SMF_GRAVITY_SUIT &&
+            (gEquipment.suitType != SUIT_FULLY_POWERED || gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS))
+        {
+            j = 3;
+        }
+
+        srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][0] + j) * HALF_BLOCK_SIZE +
+            sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][2];
+
+        tmp = sStatusScreenGroupsData[ABILITY_GROUP_SUITS][0] + 1;
+        dstPosition = (tmp + row) * HALF_BLOCK_SIZE +
+            sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2];
+
+        if (gEquipment.suitMisc & sStatusScreenFlagsOrderPointers[ABILITY_GROUP_SUITS][i])
+        {
+            pVisibility[row] = sStatusScreenFlagsOrderPointers[ABILITY_GROUP_SUITS][i];
+
+            for (j = 0; j <= sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2]; j++)
+            {
+                pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
+            }
+
+            StatusScreenUpdateRow(ABILITY_GROUP_SUITS, row + 1,
+                *(u8*)0x300153f & pVisibility[row], FALSE);
+                //gEquipment.suitMiscActivation & pVisibility[row], FALSE);
+            row++;
+        }
+    }
+
+    if (row != 0)
+    {
+        if (PAUSE_SCREEN_DATA.statusScreenData.unk_0 == 0)
+            PAUSE_SCREEN_DATA.statusScreenData.unk_0 = 0x80 | 0x2;
+
+        if (PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot == 0)
+            PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot = 10;
+
+        row++;
+        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_SUITS][0] + row) * HALF_BLOCK_SIZE +
+            sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2];
+
+        srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][1] * HALF_BLOCK_SIZE +
+            sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][2];
+        
+        for (j = 0; j <= sStatusScreenUnknownItemsData[ABILITY_GROUP_SUITS][3] - sStatusScreenGroupsData[ABILITY_GROUP_SUITS][2]; j++)
+        {
+            pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
+        }
+    }
 }
 
 /**
