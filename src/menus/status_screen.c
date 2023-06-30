@@ -348,7 +348,6 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
     u8* pActivation;
     u32 row;
     u32 notGettingSuitless;
-    u32 nextRow;
     s32 i;
 
     row = 0;
@@ -369,9 +368,8 @@ void StatusScreenSetPistolVisibility(u16* pTilemap)
 
 
     notGettingSuitless = (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_GETTING_SUITLESS) == 0;
-    nextRow = row + 1;
-    StatusScreenUpdateRow(ABILITY_GROUP_BEAMS, nextRow, notGettingSuitless, FALSE);
-    row = nextRow;
+    StatusScreenUpdateRow(ABILITY_GROUP_BEAMS, row + 1, notGettingSuitless, FALSE);
+    row++;
 
     if (PAUSE_SCREEN_DATA.statusScreenData.unk_0 == 0)
         PAUSE_SCREEN_DATA.statusScreenData.unk_0 = 0x80;
@@ -472,12 +470,11 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
     s32 i;
     s32 j;
     s32 row;
-    s32 nextRow;
-    s32 var_0;
     u16* src;
     u16* dst;
-    u32 dstPosition;
     u32 srcPosition;
+    u32 dstPosition;
+    s32 tmp;
     u8* pVisibility;
 
     pVisibility = PAUSE_SCREEN_DATA.statusScreenData.beamActivation;
@@ -487,37 +484,36 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
 
     for (i = 0, row = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_BEAMS]; i++)
     {
-        var_0 = i;
-        dstPosition = 0;
+        j = i;
+        srcPosition = 0;
 
-        if (sStatusScreenFlagsOrderPointers[0][i] == BBF_PLASMA_BEAM &&
+        if (sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BEAMS][i] == BBF_PLASMA_BEAM &&
             (gEquipment.suitType != SUIT_FULLY_POWERED || gPauseScreenFlag == PAUSE_SCREEN_FULLY_POWERED_SUIT_ITEMS))
         {
-            var_0 = 9;
-            dstPosition = 10;
+            j = 9;
+            srcPosition = 10;
         }
 
-        dstPosition += (sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][0] + var_0) * HALF_BLOCK_SIZE +
+        srcPosition += (sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][0] + j) * HALF_BLOCK_SIZE +
             sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][2];
 
-        srcPosition = (sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + row + 1) * HALF_BLOCK_SIZE +
+        tmp = sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][0] + 1;
+        dstPosition = (tmp + row) * HALF_BLOCK_SIZE +
             sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
 
-        if (gEquipment.beamBombs & sStatusScreenFlagsOrderPointers[0][i])
+        if (gEquipment.beamBombs & sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BEAMS][i])
         {
-            pVisibility[row] = sStatusScreenFlagsOrderPointers[0][i];
+            pVisibility[row] = sStatusScreenFlagsOrderPointers[ABILITY_GROUP_BEAMS][i];
 
-            var_0 = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
-            nextRow = row + 1;
-
-            for (j = 0; j <= var_0; j++)
+            for (j = 0; j <= sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2]; j++)
             {
-                pTilemap[srcPosition + j] = pTilemap[dstPosition + j];
+                pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
             }
 
-            StatusScreenUpdateRow(ABILITY_GROUP_BEAMS, nextRow,
-                gEquipment.beamBombsActivation & pVisibility[row], FALSE);
-            row = nextRow;
+            StatusScreenUpdateRow(ABILITY_GROUP_BEAMS, row + 1,
+                *(u8*)0x300153d & pVisibility[row], FALSE);
+                //gEquipment.beamBombsActivation & pVisibility[row], FALSE);
+            row++;
         }
     }
 
@@ -535,10 +531,8 @@ void StatusScreenSetBeamsVisibility(u16* pTilemap)
 
         srcPosition = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][1] * HALF_BLOCK_SIZE +
             sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][2];
-
-        var_0 = sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2];
         
-        for (j = 0; j <= var_0; j++)
+        for (j = 0; j <= sStatusScreenUnknownItemsData[ABILITY_GROUP_BEAMS][3] - sStatusScreenGroupsData[ABILITY_GROUP_BEAMS][2]; j++)
         {
             pTilemap[dstPosition + j] = pTilemap[srcPosition + j];
         }
@@ -550,18 +544,19 @@ void StatusScreenSetSuitsVisibility(u16* pTilemap)
 
 }
 
+/**
+ * @brief 70810 | 1b0 | Sets the status screen misc. visibility
+ * 
+ * @param pTilemap Status screen tilemap pointer
+ */
 void StatusScreenSetMiscsVisibility(u16* pTilemap)
 {
-    // https://decomp.me/scratch/jfzgf
-
     s32 i;
     s32 j;
     s32 k;
     u32 srcPosition;
     u32 dstPosition;
-    u32 nextRow;
-    s32 size;
-    u32 size_;
+    s32 tmp;
 
     for (i = 0; i < sPauseScreen_40d0fe[ABILITY_GROUP_MISC]; i++)
         PAUSE_SCREEN_DATA.statusScreenData.miscActivation[i] = 0;
@@ -581,22 +576,22 @@ void StatusScreenSetMiscsVisibility(u16* pTilemap)
         srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_MISC][0] + k) * HALF_BLOCK_SIZE +
             sStatusScreenUnknownItemsData[ABILITY_GROUP_MISC][2];
 
-        dstPosition = (sStatusScreenGroupsData[ABILITY_GROUP_MISC][0] + j + 1) * HALF_BLOCK_SIZE +
+        tmp = sStatusScreenGroupsData[ABILITY_GROUP_MISC][0] + 1;
+        dstPosition = (tmp + j) * HALF_BLOCK_SIZE +
             sStatusScreenGroupsData[ABILITY_GROUP_MISC][2];
 
         if (gEquipment.suitMisc & sStatusScreenFlagsOrderPointers[ABILITY_GROUP_MISC][i])
         {
             PAUSE_SCREEN_DATA.statusScreenData.miscActivation[j] = sStatusScreenFlagsOrderPointers[ABILITY_GROUP_MISC][i];
 
-            size = sStatusScreenGroupsData[ABILITY_GROUP_MISC][3] - sStatusScreenGroupsData[ABILITY_GROUP_MISC][2];
-            nextRow = j + 1;
-            for (k = 0; k <= size; k++)
+            for (k = 0; k <= sStatusScreenGroupsData[ABILITY_GROUP_MISC][3] - sStatusScreenGroupsData[ABILITY_GROUP_MISC][2]; k++)
             {
                 pTilemap[dstPosition + k] = pTilemap[srcPosition + k];
             }
 
-            StatusScreenUpdateRow(ABILITY_GROUP_MISC, nextRow, gEquipment.suitMiscActivation & PAUSE_SCREEN_DATA.statusScreenData.miscActivation[j], FALSE);
-            j = nextRow;
+            StatusScreenUpdateRow(ABILITY_GROUP_MISC, j + 1,
+                gEquipment.suitMiscActivation & PAUSE_SCREEN_DATA.statusScreenData.miscActivation[j], FALSE);
+            j++;
         }
     }
 
@@ -615,8 +610,7 @@ void StatusScreenSetMiscsVisibility(u16* pTilemap)
     srcPosition = (sStatusScreenUnknownItemsData[ABILITY_GROUP_MISC][0]) * HALF_BLOCK_SIZE +
         sStatusScreenUnknownItemsData[ABILITY_GROUP_MISC][2];
 
-    size = sStatusScreenGroupsData[ABILITY_GROUP_MISC][3] - sStatusScreenGroupsData[ABILITY_GROUP_MISC][2];
-    for (k = 0; k <= size; k++)
+    for (k = 0; k <= sStatusScreenGroupsData[ABILITY_GROUP_MISC][3] - sStatusScreenGroupsData[ABILITY_GROUP_MISC][2]; k++)
     {
         pTilemap[dstPosition + k] = pTilemap[srcPosition + k];
     }

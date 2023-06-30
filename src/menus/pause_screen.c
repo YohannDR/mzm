@@ -2403,17 +2403,17 @@ void PauseScreenDetermineMapsViewable(void)
 void PauseScreenUpdateBottomVisorOverlay(u8 param_1, u8 param_2)
 {
     // https://decomp.me/scratch/kHRx8
-
+    
     s32 var_0;
-    s32 var_1;
+    s16 var_1;
     u16* dst;
     u16* src;
-    s16 temp;
-    
+    s32 tmp;
+
     dst = VRAM_BASE + 0xCC40;
     src = &PAUSE_SCREEN_EWRAM.visorOverlayTilemap[0x380];
-    var_0 = -1;
     var_1 = -1;
+    var_0 = -1;
 
     if (param_1)
     {
@@ -2443,13 +2443,12 @@ void PauseScreenUpdateBottomVisorOverlay(u8 param_1, u8 param_2)
         dst[0x17 + 32] = src[var_0 + 1 + 32];
     }
 
-    if (var_1 >= 0)
+    if (tmp >= 0)
     {
-        temp = var_1;
-        dst[0x2D] = src[temp++];
-        dst[0x2E] = src[temp++];
-        dst[0x2F] = src[temp++];
-        dst[0x30] = src[temp++];
+        dst[0x2D] = src[var_1++];
+        dst[0x2E] = src[var_1++];
+        dst[0x2F] = src[var_1++];
+        dst[0x30] = src[var_1++];
     }
 }
 
