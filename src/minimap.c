@@ -567,13 +567,19 @@ void MinimapSetTilesWithObtainedItems(u8 area, u16* dst)
     }
 }
 
+/**
+ * @brief 6cab0 | 128 | Updates the tiles of a minimap with the downloaded tiles
+ * 
+ * @param area Area
+ * @param dst Destination pointer
+ */
 void MinimapSetDownloadedTiles(u8 area, u16* dst)
 {
-    // https://decomp.me/scratch/oSyZP
-
     u32* pVisited;
     s32 i;
     s32 j;
+    u32 tmp;
+    u32 tmp2;
 
     pVisited = &sVisitedMinimapTilesPointer[area * MINIMAP_SIZE];
 
@@ -583,7 +589,8 @@ void MinimapSetDownloadedTiles(u8 area, u16* dst)
         {
             for (j = 0; j < MINIMAP_SIZE; j++, dst++)
             {
-                if (sExploredMinimapBitFlags[j] & *pVisited)
+                tmp2 = *pVisited;
+                if (sExploredMinimapBitFlags[j] & tmp2)
                 {
                     if (!(*dst & 0xF000))
                         *dst |= 0x1000;
@@ -605,7 +612,8 @@ void MinimapSetDownloadedTiles(u8 area, u16* dst)
         {
             for (j = 0; j < MINIMAP_SIZE; j++, dst++)
             {
-                if (sExploredMinimapBitFlags[j] & *pVisited)
+                tmp = *pVisited;
+                if (sExploredMinimapBitFlags[j] & tmp)
                 {
                     if (!(*dst & 0xF000))
                         *dst |= 0x1000;
