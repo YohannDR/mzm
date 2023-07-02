@@ -290,15 +290,15 @@ void MinimapUpdateForExploredTiles(void)
         {
             gLastAreaNameVisited.flags = TRUE;
             gLastAreaNameVisited.area = gCurrentArea;
-            gLastAreaNameVisited.mapX = gMinimapX + 0x1;
-            gLastAreaNameVisited.mapY = gMinimapY + 0x1;
+            gLastAreaNameVisited.mapX = gMinimapX + 1;
+            gLastAreaNameVisited.mapY = gMinimapY + 1;
         }
     }
 }
 
 void MinimapDraw(void)
 {
-    // https://decomp.me/scratch/DE4B1
+    // https://decomp.me/scratch/qI74Z
 
     s32 yOffset;
     s32 xOffset;
@@ -331,9 +331,10 @@ void MinimapDraw(void)
         return;
     }
 
-    for (xOffset = -1; xOffset < 2; )
+    for (xOffset = -1; xOffset < 2; xOffset++, dst += 8)
     {
         limit = MINIMAP_SIZE - 1;
+
         xPosition = gMinimapX + xOffset;
         if (xPosition > limit)
             xPosition = -1;
@@ -353,14 +354,11 @@ void MinimapDraw(void)
         palette = src[offset] >> 0xC;
         tile = src[offset] & 0x3ff;
         
-        if (gLanguage == LANGUAGE_HIRAGANA && tile > 0x140)
+        if (gLanguage == LANGUAGE_HIRAGANA && tile > MINIMAP_TILE_BACKGROUND)
             tile += 0x20;
 
         tile <<= 0x5;
         sMinimapTilesCopyGfxFunctionPointers[flip](dst, &tile, palette);
-
-        xOffset++;
-        dst += 0x8;
     }
 }
 
