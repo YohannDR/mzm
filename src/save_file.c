@@ -1911,65 +1911,64 @@ void SramWrite_FileInfo(void)
     // https://decomp.me/scratch/c9e6c
     
     s32 i;
-    u8* pCompletion;
-    u8* pDiff;
+    s32 j;
 
-    for (i = 0; i < 3; i++)
+    for (i = 0, j = 0; j < ARRAY_SIZE(gSaveFilesInfo); i++, j++)
     {
-        pDiff = &gSram.files[i].difficulty;
-        pCompletion = (u8*)&gSram.files[i].gameCompletion;
+        gSaveFilesInfo[i].currentArea = gSram.files[j].currentArea;
 
-        gSaveFilesInfo[i].currentArea = pCompletion[5];
         if (gSaveFilesInfo[i].exists == TRUE)
         {
-            gSaveFilesInfo[i].currentEnergy = gSram.files[i].equipment.currentEnergy;
-            gSaveFilesInfo[i].maxEnergy = gSram.files[i].equipment.maxEnergy;
-            gSaveFilesInfo[i].currentMissiles = gSram.files[i].equipment.currentMissiles;
-            gSaveFilesInfo[i].maxMissiles = gSram.files[i].equipment.maxMissiles;
-            gSaveFilesInfo[i].suitType = gSram.files[i].equipment.suitType;
-            gSaveFilesInfo[i].igtHours = gSram.files[i].inGameTimer.hours;
-            gSaveFilesInfo[i].igtMinutes = gSram.files[i].inGameTimer.minutes;
-            gSaveFilesInfo[i].igtSconds = gSram.files[i].inGameTimer.seconds;
-            gSaveFilesInfo[i].hasSaved = pCompletion[4];
-            gSaveFilesInfo[i].completedGame = pCompletion[0];
-            gSaveFilesInfo[i].introPlayed = pCompletion[1];
-            gSaveFilesInfo[i].language = pCompletion[2];
-            gSaveFilesInfo[i].timeAttack = pDiff[2];
+            gSaveFilesInfo[i].currentEnergy = gSram.files[j].equipment.currentEnergy;
+            gSaveFilesInfo[i].maxEnergy = gSram.files[j].equipment.maxEnergy;
+            gSaveFilesInfo[i].currentMissiles = gSram.files[j].equipment.currentMissiles;
+            gSaveFilesInfo[i].maxMissiles = gSram.files[j].equipment.maxMissiles;
+            gSaveFilesInfo[i].suitType = gSram.files[j].equipment.suitType;
+            gSaveFilesInfo[i].igtHours = gSram.files[j].inGameTimer.hours;
+            gSaveFilesInfo[i].igtMinutes = gSram.files[j].inGameTimer.minutes;
+            gSaveFilesInfo[i].igtSconds = gSram.files[j].inGameTimer.seconds;
+            gSaveFilesInfo[i].hasSaved = gSram.files[j].hasSaved;
+            gSaveFilesInfo[i].completedGame = gSram.files[j].gameCompletion.completedGame;
+            gSaveFilesInfo[i].introPlayed = gSram.files[j].gameCompletion.introPlayed;
+            gSaveFilesInfo[i].language = gSram.files[j].gameCompletion.language;
+            gSaveFilesInfo[i].timeAttack = gSram.files[j].timeAttack;
 
-            if (pDiff[0] >= MAX_AMOUNT_OF_DIFFICULTIES)
+            if (gSram.files[j].difficulty >= MAX_AMOUNT_OF_DIFFICULTIES)
                 gSaveFilesInfo[i].difficulty = DIFF_NORMAL;
             else
-                gSaveFilesInfo[i].difficulty = pDiff[0];
+                gSaveFilesInfo[i].difficulty = gSram.files[j].difficulty;
         }
 
-        if (!gSaveFilesInfo[i].exists || !gSaveFilesInfo[i].hasSaved)
-        {
-            gSaveFilesInfo[i].exists = FALSE;
-            gSaveFilesInfo[i].currentArea = AREA_BRINSTAR;
-            gSaveFilesInfo[i].currentEnergy = 0;
-            gSaveFilesInfo[i].maxEnergy = 0;
-            gSaveFilesInfo[i].currentMissiles = 0;
-            gSaveFilesInfo[i].maxMissiles = 0;
-            gSaveFilesInfo[i].suitType = SUIT_NORMAL;
-            gSaveFilesInfo[i].igtHours = 0;
-            gSaveFilesInfo[i].igtMinutes = 0;
-            gSaveFilesInfo[i].igtSconds = 0;
-            gSaveFilesInfo[i].language = gLanguage;
+        if (gSaveFilesInfo[i].exists && gSaveFilesInfo[i].hasSaved)
+            continue;
 
-            if (gSaveFilesInfo[i].introPlayed)
-            {
-                gSaveFilesInfo[i].currentArea = AREA_CRATERIA;
-                gSaveFilesInfo[i].currentEnergy = 99;
-                gSaveFilesInfo[i].maxEnergy = 99;
-                gSaveFilesInfo[i].difficulty = DIFF_EASY;
+        gSaveFilesInfo[i].exists = FALSE;
+        gSaveFilesInfo[i].currentArea = AREA_BRINSTAR;
+        gSaveFilesInfo[i].currentEnergy = 0;
+        gSaveFilesInfo[i].maxEnergy = 0;
+        gSaveFilesInfo[i].currentMissiles = 0;
+        gSaveFilesInfo[i].maxMissiles = 0;
+        gSaveFilesInfo[i].suitType = SUIT_NORMAL;
+        gSaveFilesInfo[i].igtHours = 0;
+        gSaveFilesInfo[i].igtMinutes = 0;
+        gSaveFilesInfo[i].igtSconds = 0;
+        gSaveFilesInfo[i].language = gLanguage;
 
-                if (pDiff[0] > DIFF_HARD)
-                    gSaveFilesInfo[i].difficulty = DIFF_NORMAL;
-                
-                gSaveFilesInfo[i].language = pCompletion[2];
-                gSaveFilesInfo[i].timeAttack = pDiff[2];
-            }
-        }
+        if (!gSaveFilesInfo[i].introPlayed)
+            continue;
+
+        gSaveFilesInfo[i].currentArea = AREA_CRATERIA;
+        gSaveFilesInfo[i].currentEnergy = 99;
+        gSaveFilesInfo[i].maxEnergy = 99;
+        gSaveFilesInfo[i].difficulty = DIFF_EASY;
+
+        if (gSram.files[j].difficulty > DIFF_HARD)
+            gSaveFilesInfo[i].difficulty = DIFF_NORMAL;
+        else
+            gSaveFilesInfo[i].difficulty = gSram.files[j].difficulty;
+        
+        gSaveFilesInfo[i].language = gSram.files[j].gameCompletion.language;
+        gSaveFilesInfo[i].timeAttack = gSram.files[j].timeAttack;
     }
 }
 
