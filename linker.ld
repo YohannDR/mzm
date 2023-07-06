@@ -735,7 +735,7 @@ SECTIONS {
         /* 760458-760aa0 */
         src/data/menus/internal_title_screen_data.o(.rodata)
         src/data/menus/internal_game_over_data.o(.rodata)
-        /* 760b18-760c68 */
+        src/data/menus/internal_file_select_data.o(.rodata);
         src/data/time_attack_data.o(.rodata);
         src/data/internal_intro_data.o(.rodata);
         src/data/internal_tourian_escape_data.o(.rodata);

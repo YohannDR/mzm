@@ -5065,8 +5065,8 @@ lbl_0807aa68: .4byte gIoTransferInfo
 lbl_0807aa6c: .4byte 0x085d914c
 lbl_0807aa70: .4byte file_select_menu_process_oam
 
-    thumb_func_start nes_metroid_subroutine
-nes_metroid_subroutine: @ 0x0807aa74
+    thumb_func_start OptionsNesMetroidSubroutine
+OptionsNesMetroidSubroutine: @ 0x0807aa74
     push {r4, r5, lr}
     ldr r2, lbl_0807aa9c @ =sNonGameplayRamPointer
     ldr r1, [r2]
@@ -5235,8 +5235,8 @@ lbl_0807abb8: .4byte 0x04000208
 lbl_0807abbc: .4byte 0x0000ffff
 lbl_0807abc0: .4byte 0x087d8000
 
-    thumb_func_start sub_0807abc4
-sub_0807abc4: @ 0x0807abc4
+    thumb_func_start OptionsSubMenu_Empty
+OptionsSubMenu_Empty: @ 0x080OptionsSubMenu_Empty
     push {lr}
     ldr r0, lbl_0807abe8 @ =sNonGameplayRamPointer
     ldr r1, [r0]
@@ -5264,8 +5264,8 @@ lbl_0807abf2:
     bx r1
     .align 2, 0
 
-    thumb_func_start sub_0807abf8
-sub_0807abf8: @ 0x0807abf8
+    thumb_func_start unk_7abf8
+unk_7abf8: @ 0x0807abf8
     push {r4, r5, r6, lr}
     ldr r0, lbl_0807ac28 @ =sNonGameplayRamPointer
     ldr r3, [r0]
@@ -5316,8 +5316,8 @@ lbl_0807ac4e:
     pop {r1}
     bx r1
 
-    thumb_func_start stereo_selection_subroutine
-stereo_selection_subroutine: @ 0x0807ac54
+    thumb_func_start OptionsStereoSubroutine
+OptionsStereoSubroutine: @ 0x0807ac54
     push {r4, r5, lr}
     ldr r4, lbl_0807ac70 @ =sNonGameplayRamPointer
     ldr r0, [r4]
@@ -5416,8 +5416,8 @@ lbl_0807ad0a:
     pop {r1}
     bx r1
 
-    thumb_func_start sound_test_subroutine
-sound_test_subroutine: @ 0x0807ad10
+    thumb_func_start OptionsSoundTestSubroutine
+OptionsSoundTestSubroutine: @ 0x0807ad10
     push {r4, r5, lr}
     ldr r2, lbl_0807ad38 @ =sNonGameplayRamPointer
     ldr r1, [r2]
@@ -5938,8 +5938,8 @@ lbl_0807b138: .4byte 0x060107c0
 lbl_0807b13c: .4byte 0x060103e0
 lbl_0807b140: .4byte 0x060107e0
 
-    thumb_func_start time_attack_records_subroutine
-time_attack_records_subroutine: @ 0x0807b144
+    thumb_func_start OptionsTimeAttackRecordsSubroutine
+OptionsTimeAttackRecordsSubroutine: @ 0x0807b144
     push {r4, r5, r6, r7, lr}
     mov r7, sb
     mov r6, r8
@@ -7016,8 +7016,8 @@ lbl_0807b9dc: .4byte gTimeAttackRecord
 lbl_0807b9e0: .4byte 0x08415460
 lbl_0807b9e4: .4byte 0x08415860
 
-    thumb_func_start metroid_fusion_link_subroutine
-metroid_fusion_link_subroutine: @ 0x0807b9e8
+    thumb_func_start OptionsMetroidFusionLinkSubroutine
+OptionsMetroidFusionLinkSubroutine: @ 0x0807b9e8
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

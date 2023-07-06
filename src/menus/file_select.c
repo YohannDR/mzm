@@ -1068,7 +1068,7 @@ u32 FileSelectCopyFileSubroutine(void)
                 FileSelectDisplaySaveFileTimer(FILE_SELECT_DATA.currentFile);
                 FileSelectDisplaySaveFileMiscInfo(&gSaveFilesInfo[FILE_SELECT_DATA.currentFile], FILE_SELECT_DATA.currentFile);
 
-                FILE_SELECT_DATA.fileScreenOam[sFileSelect_760b79[FILE_SELECT_DATA.currentFile][1]].exists =
+                FILE_SELECT_DATA.fileScreenOam[sFileSelectFileOamOffsets[FILE_SELECT_DATA.currentFile][1]].exists =
                     gSaveFilesInfo[FILE_SELECT_DATA.currentFile].completedGame ? 2 : 0;
             
                 FileScreenSetEnabledMenuFlags();
@@ -1268,7 +1268,7 @@ u32 FileSelectEraseFileSubroutine(void)
                 FileSelectDisplaySaveFileMiscInfo(&gSaveFilesInfo[FILE_SELECT_DATA.eraseFile], FILE_SELECT_DATA.eraseFile);
 
                 if (!gSaveFilesInfo[FILE_SELECT_DATA.eraseFile].completedGame)
-                    FILE_SELECT_DATA.fileScreenOam[sFileSelect_760b79[FILE_SELECT_DATA.eraseFile][1]].exists = FALSE;
+                    FILE_SELECT_DATA.fileScreenOam[sFileSelectFileOamOffsets[FILE_SELECT_DATA.eraseFile][1]].exists = FALSE;
             
                 FileScreenSetEnabledMenuFlags();
                 DMATransfer(3, (void*)sEwramPointer + 0x800, VRAM_BASE + 0xD800, 0x800, 16);
@@ -1599,16 +1599,13 @@ void OptionsSetupTiletable(void)
     }
 
     // Setup tiletable for the whole screen
-    i = 0;
-    while (FILE_SELECT_DATA.optionsUnlocked[i] != OPTION_NONE)
+    for (i = 0; FILE_SELECT_DATA.optionsUnlocked[i] != OPTION_NONE; i++)
     {
         if (sOptionsOptionsTilemapOffsets[FILE_SELECT_DATA.optionsUnlocked[i]] != 0)
         {
             DMATransfer(3, (u16*)((void*)sEwramPointer + 0x5100) + sOptionsOptionsTilemapOffsets[FILE_SELECT_DATA.optionsUnlocked[i]],
                 (void*)sEwramPointer + 0x5200 + i * 0x80, 0x80, 16);
         }
-
-        i++;
     }
 }
 
@@ -2090,8 +2087,8 @@ void FileSelectResetIOTransferInfo(void)
 {
     switch (FILE_SELECT_DATA.optionsUnlocked[gOptionsOptionSelected])
     {
-        case 5:
-        case 6:
+        case OPTION_FUSION_GALLERY:
+        case OPTION_FUSION_LINK:
             gIoTransferInfo = sIoTransferInfo_Empty;
             gIoTransferInfo.pFunction = FileSelectProcessOAM;
     }
@@ -2186,7 +2183,7 @@ u8 OptionsNesMetroidSubroutine(void)
 /**
  * @brief 7abc4 | 34 | Subroutine for 
  * 
- * @return u32 bool, leaving
+ * @return u8 bool, leaving
  */
 u8 OptionsSubMenu_Empty(void)
 {
@@ -2845,7 +2842,7 @@ void unk_7b854(void)
 
     password = &FILE_SELECT_DATA.unk_48;
     if (!(gFileScreenOptionsUnlocked.timeAttack & 1))
-        password = sFileSelect_760c44;
+        password = sFileSelectDefaultPassword;
 
     i = 0;
     bitSize = 16;

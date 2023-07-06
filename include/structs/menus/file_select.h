@@ -7,7 +7,7 @@
 #define FILE_SELECT_DATA sNonGameplayRamPointer->fileSelect
 #define FILE_SELECT_EWRAM sEwramPointer->fileSelect
 
-typedef u32 (*OptionsFunc_T)(void);
+typedef u8 (*OptionsFunc_T)(void);
 
 struct FileSelectionData {
     u8 unk_0;
@@ -20,8 +20,8 @@ struct FileSelectionData {
 };
 
 struct FileSelectCursorOamData {
-    u16 yPosition;
     u16 xPosition;
+    u16 yPosition;
     u8 unk_4;
     u8 oamIds[3];
 };
