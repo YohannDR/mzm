@@ -93,5 +93,3 @@ const struct OamArray sGameOverOam[9] = {
         .preAction = OAM_ARRAY_PRE_ACTION_LOOP_ON_LAST_FRAME
     },
 };
-
-const u8 sTempArray_454818[0xac44] = INCBIN_U8("data/Blob_454818_45f45c.bin");

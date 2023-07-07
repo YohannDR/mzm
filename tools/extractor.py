@@ -35,6 +35,7 @@ subDirs: array = [
     "menus/GameOver/",
     "menus/EraseSram/",
     "menus/PauseScreen/",
+    "menus/FileSelect/",
     "rooms/",
     "rooms/debug/",
     "rooms/brinstar/",

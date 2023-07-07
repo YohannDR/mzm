@@ -3549,9 +3549,9 @@ void FileSelectInit(void)
     FILE_SELECT_DATA.eraseFile = gMostRecentSaveFile;
     FILE_SELECT_DATA.fileSelectCursorPosition = gMostRecentSaveFile;
 
-    DMATransfer(3, sFileSelectPAL, PALRAM_BASE, sizeof(sFileSelectPAL), 16);
+    DMATransfer(3, sFileSelectPal, PALRAM_BASE, sizeof(sFileSelectPal), 16);
     DMATransfer(3, sFileSelect_4548f8, PALRAM_BASE + 0x1C0, sizeof(sFileSelect_4548f8), 16);
-    DMATransfer(3, sFileSelectIconsPAL, PALRAM_OBJ, sizeof(sFileSelectIconsPAL), 16);
+    DMATransfer(3, sFileSelectIconsPal, PALRAM_OBJ, sizeof(sFileSelectIconsPal), 16);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sFileSelectCharactersGfx, VRAM_BASE + 0x400);

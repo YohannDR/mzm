@@ -696,7 +696,7 @@ SECTIONS {
         /* 415460-446d68 */
         src/data/menus/title_screen_data.o(.rodata);
         src/data/menus/game_over_data.o(.rodata);
-        /* 454818-45f45c */
+        src/data/menus/file_select_data.o(.rodata);
         src/data/intro_data.o(.rodata);
         /* 479400-4bfee4 */
         src/data/fusion_gallery_data.o(.rodata);

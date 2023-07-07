@@ -6,9 +6,9 @@
 #include "structs/cutscene.h"
 #include "structs/text.h"
 
-extern const u16 sFileSelectPAL[7 * 16];
+extern const u16 sFileSelectPal[7 * 16];
 extern const u16 sFileSelect_4548f8[2 * 16];
-extern const u16 sFileSelectIconsPAL[6 * 16];
+extern const u16 sFileSelectIconsPal[6 * 16];
 
 // ...
 
@@ -26,7 +26,7 @@ extern const u32 sFileSelect2Big1SmallPanelsTileTable[230];
 extern const struct MenuOamData sFileSelectOamData_Empty[2];
 
 extern const struct OamArray sFileSelectOam[40];
-extern const struct OamArray sOptionsOam[40];
+extern const struct OamArray sOptionsOam[22];
 
 extern const u8 sFileScreenMessagesInfo[33][3];
 extern const struct Message sFileScreenMessage_Empty;

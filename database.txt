@@ -1089,6 +1089,24 @@ menus/GameOver/Background.tt;370;0x453d88;4
 menus/GameOver/Text.tt;116;0x454350;4
 menus/GameOver/454520.tt;160;0x454520;4
 
+# File select
+
+menus/FileSelect/Palette.pal;112;0x454818;2
+menus/FileSelect/4548f8.pal;32;0x4548f8;2
+menus/FileSelect/Icons.pal;96;0x454938;2
+
+menus/FileSelect/ChozoBackground.gfx.lz;2985;0x455f70;4
+menus/FileSelect/Characters.gfx.lz;1531;0x458e14;4
+menus/FileSelect/Text.gfx.lz;1725;0x45a600;4
+menus/FileSelect/Icons.gfx.lz;1722;0x45c0f4;4
+
+menus/FileSelect/ChozoBackground.tt;368;0x45dbdc;4
+menus/FileSelect/Menu.tt;148;0x45e19c;4
+menus/FileSelect/Options.tt;188;0x45e3ec;4
+menus/FileSelect/3BigPanels.tt;233;0x45e6dc;4
+menus/FileSelect/1Small2BigPanels.tt;233;0x45ea80;4
+menus/FileSelect/2Big1SmallPanels.tt;230;0x45ee24;4
+
 # Erase SRAM
 
 menus/EraseSram/Objects.pal;112;0x411528;2
@@ -2680,7 +2698,6 @@ Blob_238b68_23a5bc.bin;6740;0x238b68;1
 Blob_2d5ba0_2d7ae7.bin;7988;0x2d5ba0;1
 Blob_34099c_345868.bin;20172;0x34099c;1
 Blob_415460_446d68.bin;203016;0x415460;1
-Blob_454818_45f45c.bin;44100;0x454818;1
 Blob_479400_4bfee4.bin;289508;0x479400;1
 Blob_60c630_74f8b4.bin;1323652;0x60c630;1
 Blob_754bd0_75e6a8.bin;39640;0x754bd0;1
