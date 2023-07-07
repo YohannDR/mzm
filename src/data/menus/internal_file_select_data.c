@@ -24,12 +24,12 @@ const s8 sSaveFileAreasId[12] = {
     [11] = AREA_BRINSTAR,
 };
 
-const u32* const sFileSelectTextGfxPointers[5] = { // FIXME
-    [LANGUAGE_ENGLISH - 2] = (const u32*)0x845a600,// sFileSelectTextGfx,
-    [LANGUAGE_GERMAN - 2] = (const u32*)0x845a600,// sFileSelectTextGfx,
-    [LANGUAGE_FRENCH - 2] = (const u32*)0x845a600,// sFileSelectTextGfx,
-    [LANGUAGE_ITALIAN - 2] = (const u32*)0x845a600,// sFileSelectTextGfx,
-    [LANGUAGE_SPANISH - 2] = (const u32*)0x845a600// sFileSelectTextGfx
+const u32* const sFileSelectTextGfxPointers[5] = {
+    [LANGUAGE_ENGLISH - 2] = sFileSelectTextGfx,
+    [LANGUAGE_GERMAN - 2] = sFileSelectTextGfx,
+    [LANGUAGE_FRENCH - 2] = sFileSelectTextGfx,
+    [LANGUAGE_ITALIAN - 2] = sFileSelectTextGfx,
+    [LANGUAGE_SPANISH - 2] = sFileSelectTextGfx
 };
 
 const struct FileSelectionData sFileSelectionData_Empty = {
