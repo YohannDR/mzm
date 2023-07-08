@@ -261,23 +261,28 @@ u8 BlockDestroySquareBlock(struct ClipdataBlockData* pClipBlock)
 
     blockType = sBlockBehaviors[pClipBlock->blockBehavior].type;
 
+    // Destroy top left
     BlockStoreBrokenNonReformBlock(pClipBlock->xPosition, pClipBlock->yPosition, blockType);
-    gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0x0;
+    gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0;
 
+    // Destroy bottom right
     pClipBlock->xPosition++;
     pClipBlock->yPosition++;
     BlockStoreBrokenNonReformBlock(pClipBlock->xPosition, pClipBlock->yPosition, blockType);
-    gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0x0;
+    gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0;
     
+    // Destroy top right
     pClipBlock->yPosition--;
     BlockStoreBrokenNonReformBlock(pClipBlock->xPosition, pClipBlock->yPosition, blockType);
-    gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0x0;
+    gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0;
     
+    // Destroy bottom left
     pClipBlock->xPosition--;
     pClipBlock->yPosition++;
     BlockStoreBrokenNonReformBlock(pClipBlock->xPosition, pClipBlock->yPosition, blockType);
-    gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0x0;
+    gBgPointersAndDimensions.pClipDecomp[pClipBlock->yPosition * gBgPointersAndDimensions.clipdataWidth + pClipBlock->xPosition] = 0;
 
+    // Play sound
     if (gCurrentClipdataAffectingAction != CAA_SPEEDBOOSTER)
         SoundPlayNotAlreadyPlaying(0x137);
 
@@ -299,7 +304,7 @@ u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
 
     if (gCurrentArea >= MAX_AMOUNT_OF_AREAS)
         return FALSE;
-    else if (xPosition * yPosition == 0x0)
+    else if (xPosition * yPosition == 0)
         return FALSE;
 
     overLimit = TRUE;
@@ -307,6 +312,7 @@ u32 BlockStoreSingleNeverReformBlock(u16 xPosition, u16 yPosition)
     pBlock = (u8*)(0x2035c00 + gCurrentArea * 512);
     i = gNumberOfNeverReformBlocks[gCurrentArea] * 2;
 
+    // Find empty slot
     for (; i < 0x1FC; i += 2)
     {
         if (pBlock[i] == UCHAR_MAX)
@@ -380,15 +386,19 @@ void BlockRemoveNeverReformSingleBlock(u8 xPosition, u8 yPosition)
     u16 behavior;
     u32 position;
 
+    // Get position
     position = gBgPointersAndDimensions.clipdataWidth * yPosition + xPosition;
 
+    // Get previous behavior
     behavior = gTilemapAndClipPointers.pClipBehaviors[gBgPointersAndDimensions.pClipDecomp[position]];
-    gBgPointersAndDimensions.pClipDecomp[position] = 0;
 
+    // Clear clipdataand bg1
+    gBgPointersAndDimensions.pClipDecomp[position] = 0;
     gBgPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
 
     if (behavior == CLIP_BEHAVIOR_TOP_LEFT_SHOT_BLOCK_NEVER_REFORM)
     {
+        // Clear the rest of the 2x2 block
         gBgPointersAndDimensions.pClipDecomp[position + 1] = 0;
         gBgPointersAndDimensions.backgrounds[1].pDecomp[position + 1] = 0;
 
@@ -587,7 +597,7 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
         case CAA_POWER_BOMB:
             // Check on hatch
             if (gTilemapAndClipPointers.pClipCollisions[trueClip] == CLIPDATA_TYPE_DOOR &&
-                BgClipCheckOpeningHatch(clipBlock.xPosition, clipBlock.yPosition) != 0x0)
+                BgClipCheckOpeningHatch(clipBlock.xPosition, clipBlock.yPosition) != 0)
                 result = TRUE;
             else
             {
@@ -622,9 +632,9 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
 
         case CAA_REMOVE_SOLID:
             if (!BlockUpdateMakeSolidBlocks(FALSE, xPosition, yPosition))
-                BgClipSetBg1BlockValue(0x0, yPosition, xPosition);
+                BgClipSetBg1BlockValue(0, yPosition, xPosition);
 
-            BgClipSetClipdataBlockValue(0x0, yPosition, xPosition);
+            BgClipSetClipdataBlockValue(0, yPosition, xPosition);
             break;
 
         case CAA_MAKE_SOLID_GRIPPABLE:
@@ -669,7 +679,7 @@ u32 BlockUpdateMakeSolidBlocks(u8 makeSolid, u16 xPosition, u16 yPosition)
     {
         // Remove solid
         pBlocks = gMakeSolidBlocks;
-        for (i = MAX_AMOUNT_OF_MAKE_SOLID_BLOCKS; i > 0x0; i--)
+        for (i = MAX_AMOUNT_OF_MAKE_SOLID_BLOCKS; i > 0; i--)
         {
             if (pBlocks[--i] == (xPosition << 8 | yPosition))
             {
@@ -684,22 +694,22 @@ u32 BlockUpdateMakeSolidBlocks(u8 makeSolid, u16 xPosition, u16 yPosition)
     {
         // Make solid
         pBlocks = gMakeSolidBlocks;
-        for (i = MAX_AMOUNT_OF_MAKE_SOLID_BLOCKS; i > 0x0; i--)
+        for (i = MAX_AMOUNT_OF_MAKE_SOLID_BLOCKS; i > 0; i--)
         {
             if (pBlocks[--i] == (xPosition << 8 | yPosition))
             {
                 // Already in the array
-                i = 0xFF;
+                i = UCHAR_MAX;
                 break;
             }
-            else if (pBlocks[i] == 0x0)
+            else if (pBlocks[i] == 0)
                 break; // Found empty space
         }
 
         result = FALSE;
         if (i != 0xFF)
         {
-            if (gBgPointersAndDimensions.pClipDecomp[gBgPointersAndDimensions.clipdataWidth * yPosition + xPosition] == 0x0)
+            if (gBgPointersAndDimensions.pClipDecomp[gBgPointersAndDimensions.clipdataWidth * yPosition + xPosition] == 0)
             {
                 // Store if no block
                 pBlocks[i] = (xPosition << 8 | yPosition);
@@ -727,8 +737,8 @@ u32 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosi
     u16 result;
     u16 position;
 
-    blockX = xPosition >> 6;
-    blockY = yPosition >> 6;
+    blockX = xPosition / BLOCK_SIZE;
+    blockY = yPosition / BLOCK_SIZE;
 
     if (blockX < gBgPointersAndDimensions.clipdataWidth && blockY < gBgPointersAndDimensions.clipdataHeight)
     {
@@ -747,7 +757,8 @@ u32 BlockSamusApplyScrewSpeedboosterDamageToEnvironment(u16 xPosition, u16 yPosi
         // Get clipdata block
         position = gBgPointersAndDimensions.clipdataWidth * blockY + blockX;
         clipdata = gBgPointersAndDimensions.pClipDecomp[position];
-        if (clipdata != 0x0)
+
+        if (clipdata != 0)
         {
             // Apply first
             result = BlockApplyCCAA(blockY, blockX, clipdata);
@@ -780,78 +791,76 @@ void BlockUpdateBrokenBlocks(void)
     u32 updateStage;
 
     pBlock = gBrokenBlocks;
-    i = MAX_AMOUNT_OF_BROKEN_BLOCKS - 1;
-    while (i >= 0)
+
+    for (i = MAX_AMOUNT_OF_BROKEN_BLOCKS - 1; i >= 0; i--, pBlock++)
     {
-        if (pBlock->stage != 0x0)
+        // Check exists
+        if (pBlock->stage == 0)
+            continue;
+
+        // Update timer
+        pBlock->timer++;
+
+        if (pBlock->broken)
         {
-            pBlock->timer++;
-            if (pBlock->broken)
+            if (pBlock->timer < sBrokenBlocksTimers[pBlock->type][pBlock->stage])
+                continue;
+
+            updateStage = FALSE;
+            pBlock->timer = 0;
+
+            if (pBlock->stage >= ARRAY_SIZE(sBrokenBlocksTimers[0]))
             {
-                if (pBlock->timer >= sBrokenBlocksTimers[pBlock->type][pBlock->stage])
+                if (BlockCheckSamusInReformingBlock(pBlock->xPosition, pBlock->yPosition))
                 {
-                    updateStage = FALSE;
-                    pBlock->timer = 0x0;
-    
-                    if (pBlock->stage > 0xC)
-                    {
-                        if (BlockCheckSamusInReformingBlock(pBlock->xPosition, pBlock->yPosition))
-                            pBlock->stage = 0x2;
-                        else
-                        {
-                            BgClipSetClipdataBlockValue(sReformingBlocksTilemapValue[pBlock->type], pBlock->yPosition, pBlock->xPosition);
-                            pBlock->broken = FALSE;
-                            pBlock->stage = 0x0;
-                            pBlock->type = BLOCK_TYPE_NONE;
-                            pBlock->xPosition = 0x0;
-                            pBlock->yPosition = 0x0;
-                        }
-                    }
-                    else if (pBlock->stage == 0x7)
-                    {
-                        if (BlockCheckSamusInReformingBlock(pBlock->xPosition, pBlock->yPosition))
-                            pBlock->timer = sBrokenBlocksTimers[pBlock->type][pBlock->stage] / 2;
-                        else
-                            updateStage = TRUE;
-                    }
-                    else
-                    {
-                        if (pBlock->stage == 0x1)
-                            BlockBrokenBlockRemoveCollision(pBlock->yPosition, pBlock->xPosition);
-                        updateStage = TRUE;
-                    }
-    
-                    if (updateStage)
-                    {
-                        pBlock->stage++;
-                        BlockUpdateBrokenBlockAnimation(pBlock);
-                    }
+                    pBlock->stage = 2;
                 }
+                else
+                {
+                    BgClipSetClipdataBlockValue(sReformingBlocksTilemapValue[pBlock->type], pBlock->yPosition, pBlock->xPosition);
+                    pBlock->broken = FALSE;
+                    pBlock->stage = 0;
+                    pBlock->type = BLOCK_TYPE_NONE;
+                    pBlock->xPosition = 0;
+                    pBlock->yPosition = 0;
+                }
+            }
+            else if (pBlock->stage == 7)
+            {
+                if (BlockCheckSamusInReformingBlock(pBlock->xPosition, pBlock->yPosition))
+                    pBlock->timer = sBrokenBlocksTimers[pBlock->type][pBlock->stage] / 2;
+                else
+                    updateStage = TRUE;
             }
             else
             {
-                if (pBlock->timer >= sBrokenBlocksTimers[pBlock->type][pBlock->stage])
-                {
-                    pBlock->timer = 0x0;
-                    pBlock->stage++;
-    
-                    BlockUpdateBrokenBlockAnimation(pBlock);
-    
-                    if (pBlock->stage > 0x6)
-                    {
-                        pBlock->broken = FALSE;
-                        pBlock->stage = 0x0;
-                        pBlock->type = BLOCK_TYPE_NONE;
-                        pBlock->xPosition = 0x0;
-                        pBlock->yPosition = 0x0;
-                    }
-                }
+                if (pBlock->stage == 1)
+                    BlockBrokenBlockRemoveCollision(pBlock->yPosition, pBlock->xPosition);
+                updateStage = TRUE;
+            }
+
+            if (updateStage)
+            {
+                pBlock->stage++;
+                BlockUpdateBrokenBlockAnimation(pBlock);
             }
         }
+        else if (pBlock->timer >= sBrokenBlocksTimers[pBlock->type][pBlock->stage])
+        {
+            pBlock->timer = 0;
+            pBlock->stage++;
 
+            BlockUpdateBrokenBlockAnimation(pBlock);
 
-        i--;
-        pBlock++;
+            if (pBlock->stage > 6)
+            {
+                pBlock->broken = FALSE;
+                pBlock->stage = 0;
+                pBlock->type = BLOCK_TYPE_NONE;
+                pBlock->xPosition = 0;
+                pBlock->yPosition = 0;
+            }
+        }
     }
 }
 
@@ -904,6 +913,7 @@ void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
         case 0:
         case 1:
         case 13:
+            break;
     }
 
     // No tile, abort
@@ -916,11 +926,11 @@ void BlockUpdateBrokenBlockAnimation(struct BrokenBlock* pBlock)
 
     // Check is on screen, no need to update the tilemap if off screen, that can be delegated to the room tilemap update functions
     offset = gBG1YPosition / BLOCK_SIZE;
-    if ((s32)(offset - 4) > pBlock->yPosition || pBlock->yPosition > (s32)(offset + 13))
+    if (offset - 4 > pBlock->yPosition || pBlock->yPosition > offset + 13)
         return;
 
     offset = gBG1XPosition / BLOCK_SIZE;
-    if ((s32)(offset - 4) > pBlock->xPosition || pBlock->xPosition > (s32)(offset + 18))
+    if (offset - 4 > pBlock->xPosition || pBlock->xPosition > offset + 18)
         return;
 
     // Apply to tilemap
@@ -961,7 +971,7 @@ u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 advanc
         if (pBlock->xPosition == xPosition && pBlock->yPosition == yPosition)
         {
             // Already in array
-            if (pBlock->stage == 0x0)
+            if (pBlock->stage == 0)
                 result = TRUE;
             else
                 result = FALSE;
@@ -970,7 +980,7 @@ u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 advanc
         else
         {
             // Check save empty offset
-            if (!(result & 0x80) && pBlock->stage == 0x0)
+            if (!(result & 0x80) && pBlock->stage == 0)
                 result = i | 0x80; // Store empty offset
         }
 
@@ -990,7 +1000,7 @@ u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 advanc
         // Store block
         pBlock->broken = TRUE;
         pBlock->type = type;
-        pBlock->timer = 0x0;
+        pBlock->timer = 0;
 
         if (result & 0x80)
         {
@@ -1000,12 +1010,12 @@ u32 BlockStoreBrokenReformBlock(u8 type, u16 xPosition, u16 yPosition, u8 advanc
 
         if (!advanceStage)
         {
-            pBlock->stage = 0x2;
+            pBlock->stage = 2;
             BlockBrokenBlockRemoveCollision(yPosition, xPosition);
             BlockUpdateBrokenBlockAnimation(pBlock);
         }
         else
-            pBlock->stage = 0x1;
+            pBlock->stage = 1;
 
         result = TRUE;
     }
@@ -1026,57 +1036,49 @@ void BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type)
     s32 i;
     s32 stage;
 
-    pBlock = gBrokenBlocks;
-    i = 0;
-
-    while (i < MAX_AMOUNT_OF_BROKEN_BLOCKS)
+    for (pBlock = gBrokenBlocks, i = 0; i < MAX_AMOUNT_OF_BROKEN_BLOCKS; i++, pBlock++)
     {
-        if (pBlock->stage == 0x0)
+        if (pBlock->stage == 0)
         {
+            // Found slot
             pBlock->broken = FALSE;
-            pBlock->stage = 0x2;
+            pBlock->stage = 2;
             pBlock->type = type;
-            pBlock->timer = 0x0;
+            pBlock->timer = 0;
             pBlock->xPosition = xPosition;
             pBlock->yPosition = yPosition;
 
             BlockUpdateBrokenBlockAnimation(pBlock);
             return;
         }
-
-        i++;
-        pBlock++;
     }
 
-    stage = 0x4;
-
-    while (stage != 0x0)
+    for (stage = 4; stage != 0; stage >>= 1)
     {
-        pBlock = gBrokenBlocks;
-        i = 0;
-
-        while (i < MAX_AMOUNT_OF_BROKEN_BLOCKS)
+        for (pBlock = gBrokenBlocks, i = 0; i < MAX_AMOUNT_OF_BROKEN_BLOCKS; i++, pBlock++)
         {
-            if (!pBlock->broken && pBlock->stage >= stage)
-            {
-                BgClipSetBg1BlockValue(0x0, pBlock->yPosition, pBlock->xPosition);
+            // Already broken
+            if (pBlock->broken)
+                continue;
 
-                pBlock->broken = FALSE;
-                pBlock->stage = 0x2;
-                pBlock->type = type;
-                pBlock->timer = 0x0;
-                pBlock->xPosition = xPosition;
-                pBlock->yPosition = yPosition;
+            // Not far enough
+            if (pBlock->stage < stage)
+                continue;
 
-                BlockUpdateBrokenBlockAnimation(gBrokenBlocks + i);
-                return;
-            }
+            // Remove bg1
+            BgClipSetBg1BlockValue(0, pBlock->yPosition, pBlock->xPosition);
 
-            i++;
-            pBlock++;
+            // Register
+            pBlock->broken = FALSE;
+            pBlock->stage = 2;
+            pBlock->type = type;
+            pBlock->timer = 0;
+            pBlock->xPosition = xPosition;
+            pBlock->yPosition = yPosition;
+
+            BlockUpdateBrokenBlockAnimation(&gBrokenBlocks[i]);
+            return;
         }
-
-        stage >>= 1;
     }
 }
 
@@ -1095,22 +1097,17 @@ u32 BlockCheckRevealBombChainBlock(u8 type, u16 xPosition, u16 yPosition)
     s32 couldSpawn;
 
     couldSpawn = FALSE;
-    pBlock = gBrokenBlocks;
-    i = 0;
 
-    while (i < MAX_AMOUNT_OF_BROKEN_BLOCKS)
+    for (pBlock = gBrokenBlocks, i = 0; i < MAX_AMOUNT_OF_BROKEN_BLOCKS; i++, pBlock++)
     {
         if (pBlock->xPosition == xPosition && pBlock->yPosition == yPosition)
         {
-            couldSpawn = 0x0;
+            couldSpawn = 0;
             break;
         }
 
-        if (!(couldSpawn & 0x80) && pBlock->stage == 0x0)
+        if (!(couldSpawn & 0x80) && pBlock->stage == 0)
             couldSpawn = i | 0x80;
-
-        i++;
-        pBlock++;
     }
 
     if (couldSpawn)
@@ -1118,9 +1115,9 @@ u32 BlockCheckRevealBombChainBlock(u8 type, u16 xPosition, u16 yPosition)
         pBlock = gBrokenBlocks + (couldSpawn & 0x7F);
 
         pBlock->broken = FALSE;
-        pBlock->stage = 0x0;
+        pBlock->stage = 0;
         pBlock->type = type;
-        pBlock->timer = 0x0;
+        pBlock->timer = 0;
         pBlock->xPosition = xPosition;
         pBlock->yPosition = yPosition;
         couldSpawn = TRUE;
@@ -1175,14 +1172,13 @@ u32 BlockStartBombChain(u8 type, u16 xPosition, u16 yPosition)
     s32 i;
     
     couldSpawn = FALSE;
-    i = MAX_AMOUNT_OF_BOMB_CHAINS - 1;
     
-    for (; i >= 0; i--)
+    for (i = MAX_AMOUNT_OF_BOMB_CHAINS - 1 ; i >= 0; i--)
     {
-        if (gBombChains[i].currentOffset == 0x0)
+        if (gBombChains[i].currentOffset == 0)
         {
             // Found empty slot
-            gBombChains[i].currentOffset = 0x1;
+            gBombChains[i].currentOffset = 1;
             gBombChains[i].srcXPosition = xPosition;
             gBombChains[i].srcYPosition = yPosition;
 
@@ -1408,18 +1404,26 @@ void BlockBrokenBlockRemoveCollision(u16 yPosition, u16 xPosition)
     gBgPointersAndDimensions.pClipDecomp[position] = 0;
     gBgPointersAndDimensions.backgrounds[1].pDecomp[position] = 0;
 
-    if (gBG1YPosition / BLOCK_SIZE - 4 <= yPosition && yPosition <= gBG1YPosition / BLOCK_SIZE + 13 &&
-        gBG1XPosition / BLOCK_SIZE - 4 <= xPosition && xPosition <= gBG1XPosition / BLOCK_SIZE + 18)
-    {
-        dst = VRAM_BASE + 0x1000;
-        if (xPosition & 0x10)
-            dst = VRAM_BASE + 0x1800;
+    if (gBG1YPosition / BLOCK_SIZE - 4 > yPosition)
+        return;
+    
+    if (yPosition > gBG1YPosition / BLOCK_SIZE + 13)
+        return;
 
-        dst += (yPosition & 0xF) * BLOCK_SIZE + (xPosition & 0xF) * 2;
+    if (gBG1XPosition / BLOCK_SIZE - 4 > xPosition)
+        return;
+        
+    if (xPosition > gBG1XPosition / BLOCK_SIZE + 18)
+        return;
 
-        dst[0] = gTilemapAndClipPointers.pTilemap[0];
-        dst[1] = gTilemapAndClipPointers.pTilemap[1];
-        dst[32] = gTilemapAndClipPointers.pTilemap[2];
-        dst[33] = gTilemapAndClipPointers.pTilemap[3];
-    }
+    dst = VRAM_BASE + 0x1000;
+    if (xPosition & 0x10)
+        dst = VRAM_BASE + 0x1800;
+
+    dst += (yPosition & 0xF) * BLOCK_SIZE + (xPosition & 0xF) * 2;
+
+    dst[0] = gTilemapAndClipPointers.pTilemap[0];
+    dst[1] = gTilemapAndClipPointers.pTilemap[1];
+    dst[32] = gTilemapAndClipPointers.pTilemap[2];
+    dst[33] = gTilemapAndClipPointers.pTilemap[3];
 }

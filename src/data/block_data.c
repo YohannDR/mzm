@@ -463,10 +463,10 @@ const u8 sBrokenBlocksTimers[MAX_AMOUNT_OF_BLOCKS_TYPES][13] = {
         0, 0, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0
     },
     [BLOCK_TYPE_SHOT_BLOCK_REFORM] = {
-        0, 0, 4, 4, 4, 4, 4, 255, 4, 4, 4, 4, 4
+        0, 0, 4, 4, 4, 4, 4, UCHAR_MAX, 4, 4, 4, 4, 4
     },
     [BLOCK_TYPE_BOMB_BLOCK_REFORM] = {
-        0, 0, 4, 4, 4, 4, 4, 255, 4, 4, 4, 4, 4
+        0, 0, 4, 4, 4, 4, 4, UCHAR_MAX, 4, 4, 4, 4, 4
     },
     [BLOCK_TYPE_SPEEDBOOSTER_BLOCK_REFORM] = {
         0, 0, 4, 4, 4, 4, 4, 20, 4, 4, 4, 4, 4
