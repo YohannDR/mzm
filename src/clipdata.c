@@ -23,6 +23,7 @@ void ClipdataSetupCode(void)
 {
     // Copy code to RAM
     DMA_SET(3, ClipdataConvertToCollision + 1, gNonGameplayRAM.inGame, (DMA_ENABLE << 0x10) | 0x140);
+
     // Set pointer
     gClipdataCodePointer = (ClipFunc_T)(gNonGameplayRAM.inGame + 1);
 }
@@ -54,9 +55,11 @@ u32 ClipdataProcessForSamus(u16 yPosition, u16 xPosition)
                 gBgPointersAndDimensions.clipdataWidth * collision.tileY + collision.tileX]];
 
             // Get sub pixel
-            collision.subPixelY = yPosition & SUB_PIXEL_POSITION_FLAG;
-            collision.subPixelX = xPosition & SUB_PIXEL_POSITION_FLAG;
+            collision.subPixelY = yPosition % BLOCK_SIZE;
+            collision.subPixelX = xPosition % BLOCK_SIZE;
             collision.actorType = CLIPDATA_ACTOR_SAMUS;
+
+            // Call convert function
             result = gClipdataCodePointer(&collision);
         }
         else
@@ -78,8 +81,8 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
     struct CollisionData collision;
     u32 clipdata;
 
-    collision.tileY = yPosition >> 6;
-    collision.tileX = xPosition >> 6;
+    collision.tileY = yPosition / BLOCK_SIZE;
+    collision.tileX = xPosition / BLOCK_SIZE;
 
     // Check in bounds
     if (collision.tileX >= gBgPointersAndDimensions.clipdataWidth || collision.tileY >= gBgPointersAndDimensions.clipdataHeight)
@@ -121,8 +124,8 @@ u32 ClipdataProcess(u16 yPosition, u16 xPosition)
 
         // Get type and sub pixel, then call clipdata code
         collision.clipdataType = gTilemapAndClipPointers.pClipCollisions[clipdata];
-        collision.subPixelY = yPosition & SUB_PIXEL_POSITION_FLAG;
-        collision.subPixelX = xPosition & SUB_PIXEL_POSITION_FLAG;
+        collision.subPixelY = yPosition % BLOCK_SIZE;
+        collision.subPixelX = xPosition % BLOCK_SIZE;
         return clipdata = gClipdataCodePointer(&collision);
     }
 }
@@ -160,7 +163,7 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
         case CLIPDATA_TYPE_RIGHT_STEEP_FLOOR_SLOPE:
             // Checking if in the solid or air part of the slope
             // Same logic, however since the slope is "flipped" in regards to the coordinates, we substract the X to 3F
-            if (pCollision->subPixelY >= 0x3F - pCollision->subPixelX)
+            if (pCollision->subPixelY >= SUB_PIXEL_POSITION_FLAG - pCollision->subPixelX)
                 result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             else
                 result = pCollision->clipdataType;
@@ -179,7 +182,7 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
         case CLIPDATA_TYPE_LEFT_LOWER_SLIGHT_FLOOR_SLOPE:
             // Checking if in the solid or air part of the slope
             // Same logic, we add 0x3F because it's the lower part of the slope
-            if (pCollision->subPixelY >= (pCollision->subPixelX + 0x3F) >> 1)
+            if (pCollision->subPixelY >= (pCollision->subPixelX + SUB_PIXEL_POSITION_FLAG) >> 1)
                 result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             else
                 result = pCollision->clipdataType;
@@ -188,7 +191,7 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
         case CLIPDATA_TYPE_RIGHT_LOWER_SLIGHT_FLOOR_SLOPE:
             // Checking if in the solid or air part of the slope
             // Same logic
-            if (pCollision->subPixelY >= 0x3F - (pCollision->subPixelX >> 1))
+            if (pCollision->subPixelY >= SUB_PIXEL_POSITION_FLAG - (pCollision->subPixelX >> 1))
                 result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             else
                 result = pCollision->clipdataType;
@@ -197,7 +200,7 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
         case CLIPDATA_TYPE_RIGHT_UPPER_SLIGHT_FLOOR_SLOPE:
             // Checking if in the solid or air part of the slope
             // Same logic
-            if (pCollision->subPixelY >= (0x3F - pCollision->subPixelX) >> 1)
+            if (pCollision->subPixelY >= (SUB_PIXEL_POSITION_FLAG - pCollision->subPixelX) >> 1)
                 result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             else
                 result = pCollision->clipdataType;
@@ -247,11 +250,13 @@ u32 ClipdataConvertToCollision(struct CollisionData* pCollision)
         case CLIPDATA_TYPE_TANK:
             if (pCollision->actorType == CLIPDATA_ACTOR_SAMUS)
             {
+                // For samus
                 pCollision->clipdataType = CLIPDATA_TYPE_AIR;
                 result = CLIPDATA_TYPE_AIR;
             }
             else
             {
+                // For non samus
                 pCollision->clipdataType = CLIPDATA_TYPE_SOLID;
                 result = pCollision->clipdataType | CLIPDATA_TYPE_SOLID_FLAG;
             }
@@ -273,16 +278,18 @@ u32 ClipdataCheckCurrentAffectingAtPosition(u16 yPosition, u16 xPosition)
     u16 tileY;
     u16 tileX;
 
+    // Reset
     gCurrentAffectingClipdata.movement = CLIPDATA_MOVEMENT_NONE;
     gCurrentAffectingClipdata.hazard = HAZARD_TYPE_NONE;
 
+    // Get tile position
     tileY = yPosition / BLOCK_SIZE;
     tileX = xPosition / BLOCK_SIZE;
 
     if (tileY >= gBgPointersAndDimensions.clipdataHeight || tileX >= gBgPointersAndDimensions.clipdataWidth)
         return 0;
-    else
-        return ClipdataUpdateCurrentAffecting(yPosition, tileY, tileX, FALSE);
+
+    return ClipdataUpdateCurrentAffecting(yPosition, tileY, tileX, FALSE);
 }
 
 /**
@@ -356,7 +363,7 @@ u32 ClipdataUpdateCurrentAffecting(u16 yPosition, u16 tileY, u16 tileX, u8 dontC
     gCurrentAffectingClipdata.hazard = specialClip;
 
     // Return formatted clipdata
-    return gCurrentAffectingClipdata.movement << 16 | gCurrentAffectingClipdata.hazard;
+    return CONSTRUCT_UINT_2_USHORTS(gCurrentAffectingClipdata.movement,gCurrentAffectingClipdata.hazard);
 }
 
 /**
@@ -431,8 +438,8 @@ u32 ClipdataCheckGroundEffect(u16 yPosition, u16 xPosition)
     else
     {
         clipdata = gBgPointersAndDimensions.pClipDecomp[tileY * gBgPointersAndDimensions.clipdataWidth + tileX];
-        if (clipdata & 0x400)
-            clipdata = 0x0;
+        if (clipdata & CLIPDATA_TILEMAP_FLAG)
+            clipdata = 0;
         else
             clipdata = gTilemapAndClipPointers.pClipBehaviors[clipdata];
 
