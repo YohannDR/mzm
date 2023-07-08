@@ -379,7 +379,7 @@ SECTIONS {
 
         . = 0x00007e60; sp_sys = .;
         . = 0x00007fa0; sp_irq = .;
-        . = 0x00007ff8; unk_03007ff8 = .;
+        . = 0x00007ff8; gInterruptCheckFlag = .;
         . = 0x00007ffc; intr_code_ptr = .;
         . = 0x00007ffc; intr_vector = .;
     } >iwram
