@@ -2066,7 +2066,7 @@ lbl_08059274:
     ldrh r1, [r5, #2]
     ldrh r2, [r5]
     adds r0, r4, #0
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     ldrh r1, [r5, #2]
     ldrh r2, [r5]
     adds r0, r4, #0
@@ -2751,7 +2751,7 @@ lbl_080597be:
     ldrh r1, [r5, #2]
     ldrh r2, [r5]
     adds r0, r4, #0
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     ldrh r1, [r5, #2]
     ldrh r2, [r5]
     adds r0, r4, #0
@@ -2820,7 +2820,7 @@ lbl_08059856:
     ldrh r1, [r4, #2]
     ldrh r2, [r4]
     adds r0, r5, #0
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     ldrh r1, [r4, #2]
     ldrh r2, [r4]
     adds r0, r5, #0
@@ -2945,7 +2945,7 @@ lbl_08059964:
     movs r0, #0
     adds r1, r5, #0
     adds r2, r4, #0
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
 lbl_0805997c:
     movs r0, #0
     b lbl_080599aa
@@ -3643,7 +3643,7 @@ lbl_08059ea2:
     ldrb r2, [r4, #3]
     movs r0, #0
     str r3, [sp]
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     strb r5, [r4]
     movs r0, #2
     strb r0, [r4, #1]

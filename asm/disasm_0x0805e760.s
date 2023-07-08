@@ -284,14 +284,14 @@ lbl_0805e96e:
     ldrb r1, [r4, #6]
     ldrb r2, [r4, #5]
     adds r0, r7, #0
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     movs r0, #0x10
     adds r0, r0, r7
     mov r8, r0
     ldrb r1, [r4, #6]
     adds r1, #1
     ldrb r2, [r4, #5]
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     adds r1, r7, #0
     adds r1, #0x20
     str r1, [sp]
@@ -299,14 +299,14 @@ lbl_0805e96e:
     adds r1, #2
     ldrb r2, [r4, #5]
     ldr r0, [sp]
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     adds r5, r7, #0
     adds r5, #0x30
     ldrb r1, [r4, #6]
     adds r1, #3
     ldrb r2, [r4, #5]
     adds r0, r5, #0
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     mov r6, r8
     ldr r3, [sp]
     mov r8, r3
@@ -441,25 +441,25 @@ lbl_0805eabc:
     ldrb r1, [r4, #6]
     ldrb r2, [r4, #5]
     adds r0, r5, #0
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     adds r0, r5, #0
     adds r0, #0x10
     ldrb r1, [r4, #6]
     adds r1, #1
     ldrb r2, [r4, #5]
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     adds r0, r5, #0
     adds r0, #0x20
     ldrb r1, [r4, #6]
     adds r1, #2
     ldrb r2, [r4, #5]
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     adds r0, r5, #0
     adds r0, #0x30
     ldrb r1, [r4, #6]
     adds r1, #3
     ldrb r2, [r4, #5]
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     ldrb r2, [r4, #1]
     lsls r1, r2, #0x18
     lsrs r0, r1, #0x1c
@@ -513,28 +513,28 @@ sub_0805eb18: @ 0x0805eb18
     ldrb r1, [r5, #6]
     ldrb r2, [r5, #5]
     adds r0, r4, #0
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     adds r6, r4, #0
     adds r6, #0x10
     ldrb r1, [r5, #6]
     adds r1, #1
     ldrb r2, [r5, #5]
     adds r0, r6, #0
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     movs r0, #0x20
     adds r0, r0, r4
     mov r8, r0
     ldrb r1, [r5, #6]
     adds r1, #2
     ldrb r2, [r5, #5]
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     movs r0, #0x30
     adds r0, r0, r4
     mov sb, r0
     ldrb r1, [r5, #6]
     adds r1, #3
     ldrb r2, [r5, #5]
-    bl BgClipSetBG1BlockValue
+    bl BgClipSetBg1BlockValue
     ldrb r1, [r5, #6]
     ldrb r2, [r5, #5]
     adds r0, r4, #0

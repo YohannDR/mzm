@@ -25,7 +25,7 @@
 #include "structs/samus.h"
 
 // FIXME, find a better solution
-void BgClipSetBG1BlockValue(u32, u16, u16);
+void BgClipSetBg1BlockValue(u32, u16, u16);
 void BgClipSetRawBG1BlockValue(u32, u16, u16);
 void BgClipSetClipdataBlockValue(u32, u16, u16);
 
@@ -141,10 +141,10 @@ void ConnectionUpdateHatchAnimation(u8 dontSetRaw, u32 hatchNbr)
     tilemapValue += caf;
     if (dontSetRaw)
     {
-        BgClipSetBG1BlockValue(tilemapValue, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
-        BgClipSetBG1BlockValue(tilemapValue + 0x10, gHatchData[hatchNbr].yPosition + 1, gHatchData[hatchNbr].xPosition);
-        BgClipSetBG1BlockValue(tilemapValue + 0x20, gHatchData[hatchNbr].yPosition + 2, gHatchData[hatchNbr].xPosition);
-        BgClipSetBG1BlockValue(tilemapValue + 0x30, gHatchData[hatchNbr].yPosition + 3, gHatchData[hatchNbr].xPosition);
+        BgClipSetBg1BlockValue(tilemapValue, gHatchData[hatchNbr].yPosition, gHatchData[hatchNbr].xPosition);
+        BgClipSetBg1BlockValue(tilemapValue + 0x10, gHatchData[hatchNbr].yPosition + 1, gHatchData[hatchNbr].xPosition);
+        BgClipSetBg1BlockValue(tilemapValue + 0x20, gHatchData[hatchNbr].yPosition + 2, gHatchData[hatchNbr].xPosition);
+        BgClipSetBg1BlockValue(tilemapValue + 0x30, gHatchData[hatchNbr].yPosition + 3, gHatchData[hatchNbr].xPosition);
     }
     else
     {
@@ -187,10 +187,10 @@ void ConnectionHatchFlashingAnimation(u8 hatch)
         value++;
 
     // Update Gfx
-    BgClipSetBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
-    BgClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 1, gHatchData[hatch].xPosition);
-    BgClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 2, gHatchData[hatch].xPosition);
-    BgClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 3, gHatchData[hatch].xPosition);
+    BgClipSetBg1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
+    BgClipSetBg1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 1, gHatchData[hatch].xPosition);
+    BgClipSetBg1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 2, gHatchData[hatch].xPosition);
+    BgClipSetBg1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 3, gHatchData[hatch].xPosition);
 
     // Update timer
     if (gHatchData[hatch].flashingTimer >= 4)
@@ -218,10 +218,10 @@ void ConnectionOverrideOpenedHatch(u8 hatch, u32 type)
     // Change hatch behavior
     value = sHatchesTilemapValues[gHatchData[hatch].type] + gHatchData[hatch].facingRight;
 
-    BgClipSetBG1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
-    BgClipSetBG1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
-    BgClipSetBG1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
-    BgClipSetBG1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
+    BgClipSetBg1BlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
+    BgClipSetBg1BlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);
+    BgClipSetBg1BlockValue(value + 0x20, gHatchData[hatch].yPosition + 0x2, gHatchData[hatch].xPosition);
+    BgClipSetBg1BlockValue(value + 0x30, gHatchData[hatch].yPosition + 0x3, gHatchData[hatch].xPosition);
 
     BgClipSetClipdataBlockValue(value, gHatchData[hatch].yPosition, gHatchData[hatch].xPosition);
     BgClipSetClipdataBlockValue(value + 0x10, gHatchData[hatch].yPosition + 0x1, gHatchData[hatch].xPosition);

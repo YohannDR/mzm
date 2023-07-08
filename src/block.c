@@ -173,7 +173,7 @@ u32 BlockCheckCCAA(struct ClipdataBlockData* pClipBlock)
                 destroy = sTankBehaviors[BEHAVIOR_TO_TANK(pClipBlock->behavior)].revealedClipdata;
                 if (destroy != 0)
                 {
-                    BgClipSetBG1BlockValue(destroy, pClipBlock->yPosition, pClipBlock->xPosition);
+                    BgClipSetBg1BlockValue(destroy, pClipBlock->yPosition, pClipBlock->xPosition);
                     BgClipSetClipdataBlockValue(destroy, pClipBlock->yPosition, pClipBlock->xPosition);
                     result = TRUE;
                 }
@@ -503,7 +503,7 @@ u32 BlockCheckRevealOrDestroyNonBombBlock(struct ClipdataBlockData* pClipBlock)
     if (pClipBlock->behavior != sReformingBlocksTilemapValue[blockType])
     {
         // Reveal
-        BgClipSetBG1BlockValue(sReformingBlocksTilemapValue[blockType], pClipBlock->yPosition, pClipBlock->xPosition);
+        BgClipSetBg1BlockValue(sReformingBlocksTilemapValue[blockType], pClipBlock->yPosition, pClipBlock->xPosition);
         BgClipSetClipdataBlockValue(sReformingBlocksTilemapValue[blockType], pClipBlock->yPosition, pClipBlock->xPosition);
     }
 
@@ -550,7 +550,7 @@ u32 BlockCheckRevealOrDestroyBombBlock(struct ClipdataBlockData* pClipBlock)
             return FALSE;
 
         // Reveal block
-        BgClipSetBG1BlockValue(value, pClipBlock->yPosition, pClipBlock->xPosition);
+        BgClipSetBg1BlockValue(value, pClipBlock->yPosition, pClipBlock->xPosition);
         BgClipSetClipdataBlockValue(value, pClipBlock->yPosition, pClipBlock->xPosition);
     }
 
@@ -622,7 +622,7 @@ u32 BlockApplyCCAA(u16 yPosition, u16 xPosition, u16 trueClip)
 
         case CAA_REMOVE_SOLID:
             if (!BlockUpdateMakeSolidBlocks(FALSE, xPosition, yPosition))
-                BgClipSetBG1BlockValue(0x0, yPosition, xPosition);
+                BgClipSetBg1BlockValue(0x0, yPosition, xPosition);
 
             BgClipSetClipdataBlockValue(0x0, yPosition, xPosition);
             break;
@@ -1059,7 +1059,7 @@ void BlockStoreBrokenNonReformBlock(u16 xPosition, u16 yPosition, u8 type)
         {
             if (!pBlock->broken && pBlock->stage >= stage)
             {
-                BgClipSetBG1BlockValue(0x0, pBlock->yPosition, pBlock->xPosition);
+                BgClipSetBg1BlockValue(0x0, pBlock->yPosition, pBlock->xPosition);
 
                 pBlock->broken = FALSE;
                 pBlock->stage = 0x2;

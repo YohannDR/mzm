@@ -7,6 +7,9 @@
 
 #define bomb_chain_type_to_flag(type) (1 << type)
 
+#define LOW_BYTE(value) ((value) & UCHAR_MAX)
+#define HIGH_BYTE(value) (((value) & UCHAR_MAX << 8) >> 8)
+
 #define check_samus_turning() ((pData->direction ^ (KEY_RIGHT | KEY_LEFT)) & gButtonInput)
 #define ARRAY_SIZE(a) ((int)(sizeof((a)) / sizeof((a)[0])))
 #define OFFSET_OF(type, element) ((int)&(((type*)0)->element))
