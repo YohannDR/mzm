@@ -41,29 +41,32 @@ u8 ColorFadingUpdate(void)
     s32 stage;
     s32 color;
 
-    if (gColorFading.unk_5)
-        colorType = sColorFadingData[gColorFading.type].unk_10;
+    // Get color set
+    if (gColorFading.useSecondColorSet)
+        colorType = sColorFadingData[gColorFading.type].secondColorSet;
     else
-        colorType = sColorFadingData[gColorFading.type].unk_8;
+        colorType = sColorFadingData[gColorFading.type].firstColorSet;
 
+    // Get color array size
     color = sColorFadingColorInfo[colorType].size;
+
+    // Get color stage
     if (gColorFading.timer == 0)
-        stage = 0;
-    else 
-    {
-        if (gColorFading.timer == color)
-            stage = 2;
-        else if (gColorFading.timer > color)
-            stage = 3;
-        else
-            stage = 1;
-    }
-    
-    if (stage < 2)
+        stage = COLOR_FADING_STAGE_STARTED;
+    else if (gColorFading.timer == color)
+        stage = COLOR_FADING_STAGE_FINISHED;
+    else if (gColorFading.timer > color)
+        stage = COLOR_FADING_STAGE_AFTER_FINISHED;
+    else
+        stage = COLOR_FADING_STAGE_IN_PROGRESS;
+
+    // Get color
+    if (stage <= COLOR_FADING_STAGE_IN_PROGRESS)
         color = sColorFadingColorInfo[colorType].colorArray[gColorFading.timer];
     else
         color = 0;
 
+    // Process color
     colorType = sColorFadingData[gColorFading.type].unk_16;
     if (sColorFadingSubroutinePointers[colorType](stage, color))
     {
@@ -77,32 +80,32 @@ u8 ColorFadingUpdate(void)
 /**
  * @brief 5bd58 | 70 | To document
  * 
- * @param param_1 To document
+ * @param stage Stage
  * @param color Color
  * @return u8 bool, ended
  */
-u8 unk_5bd58(u8 param_1, u8 color)
+u8 unk_5bd58(u8 stage, u8 color)
 {
-    switch (param_1)
+    switch (stage)
     {
-        case 0:
-            if (!gColorFading.unk_5)
+        case COLOR_FADING_STAGE_STARTED:
+            if (!gColorFading.useSecondColorSet)
                 gWrittenToBLDY_NonGameplay = 0;
 
-        case 1:
+        case COLOR_FADING_STAGE_IN_PROGRESS:
             CallApplySpecialBackgroundFadingColor(color);
             gColorFading.timer++;
             break;
 
-        case 2:
-            if (!gColorFading.unk_5)
+        case COLOR_FADING_STAGE_FINISHED:
+            if (!gColorFading.useSecondColorSet)
             {
                 unk_5b2c4();
-                gColorFading.status = (0x1 | 0x2);
+                gColorFading.status = COLOR_FADING_STATUS_ON_BG | COLOR_FADING_STATUS_ON_OBJ;
             }
             gColorFading.timer++;
 
-        case 3:
+        case COLOR_FADING_STAGE_AFTER_FINISHED:
             return TRUE;
     }
 
@@ -112,25 +115,25 @@ u8 unk_5bd58(u8 param_1, u8 color)
 /**
  * @brief 5bdc8 | b4 | To document
  * 
- * @param param_1 To document
+ * @param stage Stage
  * @param color Color
  * @return u8 bool, ended
  */
-u8 unk_5bdc8(u8 param_1, u8 color)
+u8 unk_5bdc8(u8 stage, u8 color)
 {
-    switch (param_1)
+    switch (stage)
     {
-        case 0:
-            if (!gColorFading.unk_5)
+        case COLOR_FADING_STAGE_STARTED:
+            if (!gColorFading.useSecondColorSet)
                 gWrittenToBLDY_NonGameplay = 0;
 
-        case 1:
+        case COLOR_FADING_STAGE_IN_PROGRESS:
             CallApplySpecialBackgroundFadingColor(color);
             gColorFading.timer++;
             break;
 
-        case 2:
-            if (gColorFading.unk_5)
+        case COLOR_FADING_STAGE_FINISHED:
+            if (gColorFading.useSecondColorSet)
             {
                 if (sColorFadingData[gColorFading.type].isWhite)
                 {
@@ -150,11 +153,11 @@ u8 unk_5bdc8(u8 param_1, u8 color)
             else
             {
                 unk_5b2c4();
-                gColorFading.status = (0x1 | 0x2);
+                gColorFading.status = COLOR_FADING_STATUS_ON_BG | COLOR_FADING_STATUS_ON_OBJ;
             }
             gColorFading.timer++;
 
-        case 3:
+        case COLOR_FADING_STAGE_AFTER_FINISHED:
             return TRUE;
     }
 
@@ -164,24 +167,24 @@ u8 unk_5bdc8(u8 param_1, u8 color)
 /**
  * @brief 5be7c | 4c | To document
  * 
- * @param param_1 To document
+ * @param stage Stage
  * @param color Color
  * @return u8 bool, ended
  */
-u8 unk_5be7c(u8 param_1, u8 color)
+u8 unk_5be7c(u8 stage, u8 color)
 {
-    switch (param_1)
+    switch (stage)
     {
-        case 0:
-        case 1:
+        case COLOR_FADING_STAGE_STARTED:
+        case COLOR_FADING_STAGE_IN_PROGRESS:
             CallApplySpecialBackgroundFadingColor(color);
             gColorFading.timer++;
             break;
 
-        case 2:
+        case COLOR_FADING_STAGE_FINISHED:
             gColorFading.timer++;
 
-        case 3:
+        case COLOR_FADING_STAGE_AFTER_FINISHED:
             return TRUE;
     }
 
@@ -306,7 +309,7 @@ void ColorFadingStart(u8 type)
     gColorFading.timer = 0;
     gColorFading.unk_3 = 0;
     gColorFading.status = 0;
-    gColorFading.unk_5 = FALSE;
+    gColorFading.useSecondColorSet = FALSE;
     gColorFading.unk_6 = 0;
 }
 
@@ -462,24 +465,22 @@ void unk_5c2ec(void)
 
     if (gUseMotherShipDoors == TRUE)
     {
-        // FIXME DmaTransfer(3, sDoorTransitionMotherShipPAL, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
-        DmaTransfer(3, 0x85e0040, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+        DmaTransfer(3, sDoorTransitionMotherShipPal, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
     }
     else
     {
-        // FIXME DmaTransfer(3, sDoorTransitionPAL, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
-        DmaTransfer(3, 0x85dfe40, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+        DmaTransfer(3, sDoorTransitionPal, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
     }
 }
 
 /**
- * @brief 5c3ac | b4 `
+ * @brief 5c3ac | b4 | To document
  * 
- * @return u32 
+ * @return u32 To document
  */
 u32 unk_5c3ac(void)
 {
-    gColorFading.unk_5 = FALSE;
+    gColorFading.useSecondColorSet = FALSE;
 
     if (sColorFadingData[gColorFading.type].unk_4 && sColorFadingData[gColorFading.type].unk_4())
     {
@@ -518,7 +519,7 @@ u32 unk_5c3ac(void)
  */
 u32 ColorFadingProcess(void)
 {
-    gColorFading.unk_5 = TRUE;
+    gColorFading.useSecondColorSet = TRUE;
 
     if (gColorFading.unk_3 != UCHAR_MAX)
         gColorFading.unk_3++;
@@ -527,7 +528,7 @@ u32 ColorFadingProcess(void)
         return FALSE;
 
     gNextOamSlot = 0;
-    HUDDraw();
+    HudDraw();
     ParticleProcessAll();
     ResetFreeOAM();
 
@@ -568,13 +569,11 @@ u8 ColorFading_DoorTransition(void)
 
             if (gUseMotherShipDoors == TRUE)
             {
-                // FIXME DmaTransfer(3, sDoorTransitionMotherShipPAL, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
-                DmaTransfer(3, 0x85e0040, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+                DmaTransfer(3, sDoorTransitionMotherShipPal, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
             }
             else
             {
-                // FIXME DmaTransfer(3, sDoorTransitionPAL, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
-                DmaTransfer(3, 0x85dfe40, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+                DmaTransfer(3, sDoorTransitionPal, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
             }
 
             write16(REG_DISPCNT, read16(REG_DISPCNT) & ~(DCNT_BG2 | DCNT_BG3 | DCNT_WIN1));
@@ -1252,7 +1251,7 @@ void ColorFadingApplyMonochrome(void)
     if (gMonochromeBgFading == 0 || gMonochromeBgFading == UCHAR_MAX)
         return;
 
-    gColorFading.unk_5 = TRUE;
+    gColorFading.useSecondColorSet = TRUE;
 
     if (gMonochromeBgFading & 0x80)
     {

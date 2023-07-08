@@ -229,7 +229,7 @@ void HUDUpdateEnergyTanks(u8* pDst, const u8* pSrcNormal, const u8* pSrcRefill, 
  * 
  * @param fileNumber File number
  */
-void HUDDrawEnergy(u8 fileNumber)
+void HudDrawEnergy(u8 fileNumber)
 {
     u8* dst;
     u16 maxEnergy;
@@ -480,7 +480,7 @@ void HUDDrawEnergy(u8 fileNumber)
  * @param ones Ones
  * @param highlightStatus Highlight status
  */
-void HUDDrawMissileDigits(u16 hundreds, u16 tens, u16 ones, u16 highlightStatus)
+void HudDrawMissileDigits(u16 hundreds, u16 tens, u16 ones, u16 highlightStatus)
 {
     u8 row;
     u8 i;
@@ -527,7 +527,7 @@ void HUDDrawMissileDigits(u16 hundreds, u16 tens, u16 ones, u16 highlightStatus)
  * @param ones Ones
  * @param highlightStatus Highlight status
  */
-void HUDDrawSuperMissileDigits(u16 tens, u16 ones, u16 highlightStatus)
+void HudDrawSuperMissileDigits(u16 tens, u16 ones, u16 highlightStatus)
 {
     u8 row;
     u8 i;
@@ -572,7 +572,7 @@ void HUDDrawSuperMissileDigits(u16 tens, u16 ones, u16 highlightStatus)
  * @param ones Ones
  * @param highlightStatus Highlight status
  */
-void HUDDrawPowerBombDigits(u16 tens, u16 ones, u16 highlightStatus)
+void HudDrawPowerBombDigits(u16 tens, u16 ones, u16 highlightStatus)
 {
     u8 row;
     u8 i;
@@ -615,7 +615,7 @@ void HUDDrawPowerBombDigits(u16 tens, u16 ones, u16 highlightStatus)
  * 
  * @param updateHighlight Update highlight flag
  */
-void HUDDrawMissiles(u8 updateHighlight)
+void HudDrawMissiles(u8 updateHighlight)
 {
     u16 refillStage;
     u8 digit;
@@ -687,7 +687,7 @@ void HUDDrawMissiles(u8 updateHighlight)
         refillStage = missiles + 352;
         
         // Update Gfx
-        HUDDrawMissileDigits(hundreds, tens, ones, refillStage);
+        HudDrawMissileDigits(hundreds, tens, ones, refillStage);
         DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10E40, DMA_ENABLE << 16 | 32);
     }
 
@@ -739,7 +739,7 @@ void HUDDrawMissiles(u8 updateHighlight)
         tens += missiles;
         ones += missiles;
         refillStage += missiles;
-        HUDDrawMissileDigits(hundreds, tens, ones, refillStage);
+        HudDrawMissileDigits(hundreds, tens, ones, refillStage);
 
         DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10E40, DMA_ENABLE << 16 | 32);
     }
@@ -750,7 +750,7 @@ void HUDDrawMissiles(u8 updateHighlight)
  * 
  * @param updateHighlight Update highlight flag
  */
-void HUDDrawPowerBomb(u8 updateHighlight)
+void HudDrawPowerBomb(u8 updateHighlight)
 {
     u16 refillStage;
     u8 digit;
@@ -820,7 +820,7 @@ void HUDDrawPowerBomb(u8 updateHighlight)
         refillStage = powerBombs + 352;
         
         // Update Gfx
-        HUDDrawPowerBombDigits(tens, ones, refillStage);
+        HudDrawPowerBombDigits(tens, ones, refillStage);
         DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10B40, DMA_ENABLE << 16 | 32);
     }
 
@@ -870,7 +870,7 @@ void HUDDrawPowerBomb(u8 updateHighlight)
         tens += powerBombs;
         ones += powerBombs;
         refillStage += powerBombs;
-        HUDDrawPowerBombDigits(tens, ones, refillStage);
+        HudDrawPowerBombDigits(tens, ones, refillStage);
 
         DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10B40, DMA_ENABLE << 16 | 32);
     }
@@ -881,7 +881,7 @@ void HUDDrawPowerBomb(u8 updateHighlight)
  * 
  * @param updateHighlight Update highlight flag
  */
-void HUDDrawSuperMissiles(u8 updateHighlight)
+void HudDrawSuperMissiles(u8 updateHighlight)
 {
     u16 refillStage;
     u8 digit;
@@ -951,7 +951,7 @@ void HUDDrawSuperMissiles(u8 updateHighlight)
         refillStage = superMissiles + 352;
         
         // Update Gfx
-        HUDDrawSuperMissileDigits(tens, ones, refillStage);
+        HudDrawSuperMissileDigits(tens, ones, refillStage);
         DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10EC0, DMA_ENABLE << 16 | 32);
     }
 
@@ -1001,7 +1001,7 @@ void HUDDrawSuperMissiles(u8 updateHighlight)
         tens += superMissiles;
         ones += superMissiles;
         refillStage += superMissiles;
-        HUDDrawSuperMissileDigits(tens, ones, refillStage);
+        HudDrawSuperMissileDigits(tens, ones, refillStage);
 
         DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10EC0, DMA_ENABLE << 16 | 32);
     }
@@ -1029,7 +1029,7 @@ void HUDUpdateGfx(void)
                 gMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
             }
 
-            HUDDrawMissiles(TRUE);
+            HudDrawMissiles(TRUE);
         }
     }
     else if (gMissileHighlightStatus == HIGHLIGHT_STATUS_SELECTED)
@@ -1041,7 +1041,7 @@ void HUDUpdateGfx(void)
                 DMA_SET(3, sMissileHUDGfx_Inactive, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
                 gMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
 
-                HUDDrawMissiles(TRUE);
+                HudDrawMissiles(TRUE);
             }
         }
         else
@@ -1049,7 +1049,7 @@ void HUDUpdateGfx(void)
             DMA_SET(3, sMissileHUDGfx_Active, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
             gMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
             
-            HUDDrawMissiles(TRUE);
+            HudDrawMissiles(TRUE);
         }
     }
     else if (gMissileHighlightStatus == HIGHLIGHT_STATUS_NOT_HIGHLIGHTED)
@@ -1059,7 +1059,7 @@ void HUDUpdateGfx(void)
             DMA_SET(3, sMissileHUDGfx_Active, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
             gMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
                 
-            HUDDrawMissiles(TRUE);
+            HudDrawMissiles(TRUE);
         }
         else
         {
@@ -1068,7 +1068,7 @@ void HUDUpdateGfx(void)
                 DMA_SET(3, sMissileHUDGfx_Selected, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
                 gMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
                 
-                HUDDrawMissiles(TRUE);
+                HudDrawMissiles(TRUE);
             }
         }
     }
@@ -1089,7 +1089,7 @@ void HUDUpdateGfx(void)
                 gPowerBombHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
             }
 
-            HUDDrawPowerBomb(TRUE);
+            HudDrawPowerBomb(TRUE);
         }
     }
     
@@ -1102,7 +1102,7 @@ void HUDUpdateGfx(void)
                 DMA_SET(3, sPowerBombHUDGfx_Inactive, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
                 gPowerBombHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
                 
-                HUDDrawPowerBomb(TRUE);
+                HudDrawPowerBomb(TRUE);
             }
         }
         else
@@ -1110,7 +1110,7 @@ void HUDUpdateGfx(void)
             DMA_SET(3, sPowerBombHUDGfx_Active, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
             gPowerBombHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
             
-            HUDDrawPowerBomb(TRUE);
+            HudDrawPowerBomb(TRUE);
         }
     }
     else if (gPowerBombHighlightStatus == HIGHLIGHT_STATUS_NOT_HIGHLIGHTED)
@@ -1120,7 +1120,7 @@ void HUDUpdateGfx(void)
             DMA_SET(3, sPowerBombHUDGfx_Active, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
             gPowerBombHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
                 
-            HUDDrawPowerBomb(TRUE);
+            HudDrawPowerBomb(TRUE);
         }
         else
         {
@@ -1129,7 +1129,7 @@ void HUDUpdateGfx(void)
                 DMA_SET(3, sPowerBombHUDGfx_Selected, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
                 gPowerBombHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
                 
-                HUDDrawPowerBomb(TRUE);
+                HudDrawPowerBomb(TRUE);
             }
         }
     }
@@ -1150,7 +1150,7 @@ void HUDUpdateGfx(void)
                 gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
             }
 
-            HUDDrawSuperMissiles(TRUE);
+            HudDrawSuperMissiles(TRUE);
         }
     }
     else if (gSuperMissileHighlightStatus == HIGHLIGHT_STATUS_SELECTED)
@@ -1162,7 +1162,7 @@ void HUDUpdateGfx(void)
                 DMA_SET(3, sSuperMissileHUDGfx_Inactive, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
                 gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
                 
-                HUDDrawSuperMissiles(TRUE);
+                HudDrawSuperMissiles(TRUE);
             }
         }
         else
@@ -1170,7 +1170,7 @@ void HUDUpdateGfx(void)
             DMA_SET(3, sSuperMissileHUDGfx_Active, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
             gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
         
-            HUDDrawSuperMissiles(TRUE);
+            HudDrawSuperMissiles(TRUE);
         }
     }
     else if (gSuperMissileHighlightStatus == HIGHLIGHT_STATUS_NOT_HIGHLIGHTED)
@@ -1180,7 +1180,7 @@ void HUDUpdateGfx(void)
             DMA_SET(3, sSuperMissileHUDGfx_Active, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
             gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
                 
-            HUDDrawSuperMissiles(TRUE);
+            HudDrawSuperMissiles(TRUE);
         }
         else
         {
@@ -1189,7 +1189,7 @@ void HUDUpdateGfx(void)
                 DMA_SET(3, sSuperMissileHUDGfx_Selected, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
                 gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
                 
-                HUDDrawSuperMissiles(TRUE);
+                HudDrawSuperMissiles(TRUE);
             }
         }
     }
@@ -1206,7 +1206,7 @@ void HUDUpdateGfx(void)
  * @brief 538e8 | 48 | Draws the HUD (for suitless)
  * 
  */
-void HUDDrawSuitless(void)
+void HudDrawSuitless(void)
 {
     u32 chargeCounter;
 
@@ -1226,14 +1226,14 @@ void HUDDrawSuitless(void)
  * 53930 | 38 | Main function that draws the HUD
  * 
  */
-void HUDDraw(void)
+void HudDraw(void)
 {
-    HUDDrawEnergy(0x0);
-    HUDDrawMissiles(FALSE);
-    HUDDrawPowerBomb(FALSE);
-    HUDDrawSuperMissiles(FALSE);
+    HudDrawEnergy(0x0);
+    HudDrawMissiles(FALSE);
+    HudDrawPowerBomb(FALSE);
+    HudDrawSuperMissiles(FALSE);
     HUDUpdateGfx();
     if (gEquipment.suitType == SUIT_SUITLESS)
-        HUDDrawSuitless();
+        HudDrawSuitless();
     HUDUpdateOAM();
 }

@@ -13,15 +13,15 @@
 
 void HUDUpdateOAM(void);
 void HUDUpdateEnergyTanks(u8* pDst, const u8* pSrcNormal, const u8* pSrcRefill, u8 nbrTanks, u8 refillStage);
-void HUDDrawEnergy(u8 fileNumber);
-void HUDDrawMissileDigits(u16 hundreds, u16 tens, u16 ones, u16 highlightStatus);
-void HUDDrawSuperMissileDigits(u16 tens, u16 ones, u16 highlightStatus);
-void HUDDrawPowerBombDigits(u16 tens, u16 ones, u16 highlightStatus);
-void HUDDrawMissiles(u8 updateHighlight);
-void HUDDrawPowerBomb(u8 updateHighlight);
-void HUDDrawSuperMissiles(u8 updateHighlight);
+void HudDrawEnergy(u8 fileNumber);
+void HudDrawMissileDigits(u16 hundreds, u16 tens, u16 ones, u16 highlightStatus);
+void HudDrawSuperMissileDigits(u16 tens, u16 ones, u16 highlightStatus);
+void HudDrawPowerBombDigits(u16 tens, u16 ones, u16 highlightStatus);
+void HudDrawMissiles(u8 updateHighlight);
+void HudDrawPowerBomb(u8 updateHighlight);
+void HudDrawSuperMissiles(u8 updateHighlight);
 void HUDUpdateGfx(void);
-void HUDDrawSuitless(void);
-void HUDDraw(void);
+void HudDrawSuitless(void);
+void HudDraw(void);
 
 #endif /* HUD_H */

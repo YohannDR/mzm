@@ -695,7 +695,7 @@ void ProjectileLoadGraphics(void)
         DMA_SET(3, sPistolBeamGfx_Charged_Top, VRAM_BASE + 0x11800, DMA_ENABLE << 16 | 0x100);
         DMA_SET(3, sPistolBeamGfx_Charged_Bottom, VRAM_BASE + 0x11C00, DMA_ENABLE << 16 | 0x100);
 
-        HUDDrawSuitless();
+        HudDrawSuitless();
         palOffset = 0x50;
     }
     else

@@ -3766,7 +3766,7 @@ void FileSelectDisplaySaveFileHealth(u8 file)
         gEquipment.maxEnergy = gSaveFilesInfo[file].maxEnergy;
         
         // Draw energy
-        HUDDrawEnergy(offset);
+        HudDrawEnergy(offset);
     }
     else
     {

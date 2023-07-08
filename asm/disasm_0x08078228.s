@@ -9381,7 +9381,7 @@ lbl_0807cd7e:
     ldrh r1, [r2, #6]
     strh r1, [r0]
     adds r0, r3, #0
-    bl HUDDrawEnergy
+    bl HudDrawEnergy
     b lbl_0807cdba
     .align 2, 0
 lbl_0807cd98: .4byte gSaveFilesInfo

@@ -132,7 +132,7 @@ u32 InGameMainLoop(void)
             ScrollProcessGeneral();
     
         ProjectileUpdate();
-        HUDDraw();
+        HudDraw();
     
         SpriteDrawAll_2();
         ParticleProcessAll();

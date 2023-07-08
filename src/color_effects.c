@@ -149,14 +149,14 @@ void CallApplySpecialBackgroundFadingColor(u8 color)
 
     if (sColorFadingData[gColorFading.type].isWhite)
     {
-        if (!gColorFading.unk_5)
+        if (!gColorFading.useSecondColorSet)
             type = FADING_TYPE_FLASH;
         else
             type = FADING_TYPE_UNK;
     }
     else
     {
-        if (!gColorFading.unk_5)
+        if (!gColorFading.useSecondColorSet)
             type = FADING_TYPE_IN;
         else
             type = FADING_TYPE_OUT;
@@ -301,14 +301,14 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
     if (stage == 0)
     {
         // Optimization, no calculations needed
-        DmaTransfer(3, srcBase, dst, 0x200, 0x10);
+        DmaTransfer(3, srcBase, dst, PALRAM_SIZE / 2, 0x10);
         return;
     }
     
     if (stage >= 0x1F)
     {
         // Transition is done, simply use the monochrome
-        DmaTransfer(3, srcMonochrome, dst, 0x200, 0x10);
+        DmaTransfer(3, srcMonochrome, dst, PALRAM_SIZE / 2, 0x10);
         return;
     }
     

@@ -1255,7 +1255,7 @@ load_beam_graphics: @ 0x0804f670
     str r1, [r0, #4]
     str r2, [r0, #8]
     ldr r0, [r0, #8]
-    bl HUDDrawSuitless
+    bl HudDrawSuitless
     movs r0, #0x50
     b lbl_0804f8d2
     .align 2, 0

@@ -16,16 +16,16 @@ struct ColorFading {
     u8 timer;
     u8 unk_3;
     u8 status;
-    u8 unk_5;
+    u8 useSecondColorSet;
     u16 unk_6;
 };
 
 struct ColorFadingData {
     u8 isWhite;
     ColorFadingUnkFunc_T unk_4;
-    u8 unk_8;
+    u8 firstColorSet;
     ColorFadingUnkFunc_T unk_C;
-    u8 unk_10;
+    u8 secondColorSet;
     u16 bgColorMask;
     u16 objColorMask;
     u8 unk_16;
