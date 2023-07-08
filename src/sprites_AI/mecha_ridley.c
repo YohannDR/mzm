@@ -111,7 +111,7 @@ void MechaRidleyPartGreenGlow(void)
 
         gCurrentSprite.timer = sMechaRidleyGreenGlowPaletteData[stage][1];
 
-        dma_set(3, &sMechaRidleyGreenGlowPAL[palRow * 16],
+        DMA_SET(3, &sMechaRidleyGreenGlowPAL[palRow * 16],
             PALRAM_BASE + 0x31A + gCurrentSprite.absolutePaletteRow * 32,
             (DMA_ENABLE << 16) | 3);
     }
@@ -137,10 +137,10 @@ void MechaRidleyLoadFireballsGfx(void)
         stage = gCurrentSprite.arrayOffset;
 
         // Load graphics
-        dma_set(3, &sMechaRidleyWeaponsGfx[3 * 32 +stage * 32], VRAM_BASE + 0x14280, (DMA_ENABLE << 16) | 64);
-        dma_set(3, &sMechaRidleyWeaponsGfx[11 * 32 + stage * 32], VRAM_BASE + 0x14680, (DMA_ENABLE << 16) | 64);
-        dma_set(3, &sMechaRidleyWeaponsGfx[19 * 32 + stage * 32], VRAM_BASE + 0x14A80, (DMA_ENABLE << 16) | 64);
-        dma_set(3, &sMechaRidleyWeaponsGfx[27 * 32 + stage * 32], VRAM_BASE + 0x14E80, (DMA_ENABLE << 16) | 64);
+        DMA_SET(3, &sMechaRidleyWeaponsGfx[3 * 32 +stage * 32], VRAM_BASE + 0x14280, (DMA_ENABLE << 16) | 64);
+        DMA_SET(3, &sMechaRidleyWeaponsGfx[11 * 32 + stage * 32], VRAM_BASE + 0x14680, (DMA_ENABLE << 16) | 64);
+        DMA_SET(3, &sMechaRidleyWeaponsGfx[19 * 32 + stage * 32], VRAM_BASE + 0x14A80, (DMA_ENABLE << 16) | 64);
+        DMA_SET(3, &sMechaRidleyWeaponsGfx[27 * 32 + stage * 32], VRAM_BASE + 0x14E80, (DMA_ENABLE << 16) | 64);
     }
 }
 
@@ -164,10 +164,10 @@ void MechaRidleyLoadMissilesGfx(void)
         stage = gCurrentSprite.arrayOffset;
 
         // Load graphics
-        dma_set(3, &sMechaRidleyWeaponsGfx[stage * 32], VRAM_BASE + 0x14280, (DMA_ENABLE << 16) | 64);
-        dma_set(3, &sMechaRidleyWeaponsGfx[8 * 32 + stage * 32], VRAM_BASE + 0x14680, (DMA_ENABLE << 16) | 64);
-        dma_set(3, &sMechaRidleyWeaponsGfx[16 * 32 + stage * 32], VRAM_BASE + 0x14A80, (DMA_ENABLE << 16) | 64);
-        dma_set(3, &sMechaRidleyWeaponsGfx[24 * 32 + stage * 32], VRAM_BASE + 0x14E80, (DMA_ENABLE << 16) | 64);
+        DMA_SET(3, &sMechaRidleyWeaponsGfx[stage * 32], VRAM_BASE + 0x14280, (DMA_ENABLE << 16) | 64);
+        DMA_SET(3, &sMechaRidleyWeaponsGfx[8 * 32 + stage * 32], VRAM_BASE + 0x14680, (DMA_ENABLE << 16) | 64);
+        DMA_SET(3, &sMechaRidleyWeaponsGfx[16 * 32 + stage * 32], VRAM_BASE + 0x14A80, (DMA_ENABLE << 16) | 64);
+        DMA_SET(3, &sMechaRidleyWeaponsGfx[24 * 32 + stage * 32], VRAM_BASE + 0x14E80, (DMA_ENABLE << 16) | 64);
     }
 }
 
@@ -484,7 +484,7 @@ void MechaRidleyStartWalking(void)
     gCurrentSprite.pose = MECHA_RIDLEY_POSE_DELAY_BEFORE_CRAWLING;
     SoundPlay(0x2B3);
 
-    dma_set(3, sMechaRidleyFadingPAL, PALRAM_BASE + 0x300, (DMA_ENABLE << 16) | 13);
+    DMA_SET(3, sMechaRidleyFadingPAL, PALRAM_BASE + 0x300, (DMA_ENABLE << 16) | 13);
 
     TransparencyUpdateBLDCNT(1,
         BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL |
@@ -591,7 +591,7 @@ void MechaRidleyStartBattle(void)
                 SoundPlay(0x2AD);
 
             // Palette fading
-            dma_set(3, &sMechaRidleyFadingPAL[palRow * 16],
+            DMA_SET(3, &sMechaRidleyFadingPAL[palRow * 16],
                 PALRAM_BASE + 0x300, (DMA_ENABLE << 16) | 13);
 
             TransparencySpriteUpdateBLDALPHA(palRow + 10, 0, 0, 16);
@@ -1067,39 +1067,39 @@ void MechaRidleyGlowFading(void)
     switch (gCurrentSprite.timer++)
     {
         case 0:
-            dma_set(3, sMechaRidleyDestroyedGfx, VRAM_BASE + 0x15580, (DMA_ENABLE << 16) | 0x40);
+            DMA_SET(3, sMechaRidleyDestroyedGfx, VRAM_BASE + 0x15580, (DMA_ENABLE << 16) | 0x40);
             break;
 
         case 1:
-            dma_set(3, &sMechaRidleyDestroyedGfx[0x30], VRAM_BASE + 0x15980, (DMA_ENABLE << 16) | 0x60);
+            DMA_SET(3, &sMechaRidleyDestroyedGfx[0x30], VRAM_BASE + 0x15980, (DMA_ENABLE << 16) | 0x60);
             break;
 
         case 2:
-            dma_set(3, &sMechaRidleyDestroyedGfx[0x60], VRAM_BASE + 0x15D80, (DMA_ENABLE << 16) | 0x60);
+            DMA_SET(3, &sMechaRidleyDestroyedGfx[0x60], VRAM_BASE + 0x15D80, (DMA_ENABLE << 16) | 0x60);
             break;
 
         case 3:
-            dma_set(3, &sMechaRidleyDestroyedGfx[0x90], VRAM_BASE + 0x16180, (DMA_ENABLE << 16) | 0x60);
+            DMA_SET(3, &sMechaRidleyDestroyedGfx[0x90], VRAM_BASE + 0x16180, (DMA_ENABLE << 16) | 0x60);
             break;
 
         case 4:
-            dma_set(3, &sMechaRidleyDestroyedGfx[0xC0], VRAM_BASE + 0x16580, (DMA_ENABLE << 16) | 0x60);
+            DMA_SET(3, &sMechaRidleyDestroyedGfx[0xC0], VRAM_BASE + 0x16580, (DMA_ENABLE << 16) | 0x60);
             break;
 
         case 5:
-            dma_set(3, &sMechaRidleyDestroyedGfx[0x100], VRAM_BASE + 0x169C0, (DMA_ENABLE << 16) | 0x40);
+            DMA_SET(3, &sMechaRidleyDestroyedGfx[0x100], VRAM_BASE + 0x169C0, (DMA_ENABLE << 16) | 0x40);
             break;
 
         case 6:
-            dma_set(3, &sMechaRidleyDestroyedGfx[0x130], VRAM_BASE + 0x16DC0, (DMA_ENABLE << 16) | 0x40);
+            DMA_SET(3, &sMechaRidleyDestroyedGfx[0x130], VRAM_BASE + 0x16DC0, (DMA_ENABLE << 16) | 0x40);
             break;
 
         case 8:
-            dma_set(3, sMechaRidley_8323b42_PAL, PALRAM_BASE + 0x39A, (DMA_ENABLE << 16) | 3);
+            DMA_SET(3, sMechaRidley_8323b42_PAL, PALRAM_BASE + 0x39A, (DMA_ENABLE << 16) | 3);
             break;
 
         case 16:
-            dma_set(3, sMechaRidley_8323b62_PAL, PALRAM_BASE + 0x39A, (DMA_ENABLE << 16) | 3);
+            DMA_SET(3, sMechaRidley_8323b62_PAL, PALRAM_BASE + 0x39A, (DMA_ENABLE << 16) | 3);
             break;
     }
 
@@ -1139,15 +1139,15 @@ void MechaRidleySpawnDrops(void)
     switch (gCurrentSprite.yPositionSpawn++)
     {
         case 1:
-            dma_set(3, sMechaRidley_8323aaa_PAL, PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, sMechaRidley_8323aaa_PAL, PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
             break;
 
         case 6:
-            dma_set(3, &sMechaRidleyGreenGlowPAL[4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, &sMechaRidleyGreenGlowPAL[4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
             break;
 
         case 12:
-            dma_set(3, &sMechaRidleyGreenGlowPAL[20], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, &sMechaRidleyGreenGlowPAL[20], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
             break;
 
         case 30:
@@ -1213,12 +1213,12 @@ void MechaRidleyFirstEyeGlow(void)
         if (gCurrentSprite.workVariable != 0)
         {
             gCurrentSprite.workVariable = 0;
-            dma_set(3, &sMechaRidleyGreenGlowPAL[2 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, &sMechaRidleyGreenGlowPAL[2 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
         }
         else
         {
             gCurrentSprite.workVariable = 1;
-            dma_set(3, &sMechaRidleyGreenGlowPAL[3 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, &sMechaRidleyGreenGlowPAL[3 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
         }
     }
 
@@ -1248,12 +1248,12 @@ void MechaRidleySecondEyeGlow(void)
         if (gCurrentSprite.workVariable != 0)
         {
             gCurrentSprite.workVariable = 0;
-            dma_set(3, &sMechaRidleyGreenGlowPAL[3 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, &sMechaRidleyGreenGlowPAL[3 * 16 + 4], PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
         }
         else
         {
             gCurrentSprite.workVariable = 1;
-            dma_set(3, sMechaRidley_8323b4a_PAL, PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
+            DMA_SET(3, sMechaRidley_8323b4a_PAL, PALRAM_BASE + 0x322, (DMA_ENABLE << 16) | 6);
         }
     }
 

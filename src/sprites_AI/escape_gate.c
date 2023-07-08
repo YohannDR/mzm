@@ -95,8 +95,8 @@ void EscapeGate(void)
             if (spriteID == PSPRITE_ESCAPE_GATE1)
             {
                 // Load graphics and spawn the black pirates
-                dma_set(3, sEscapeGateAndTimerGfx, VRAM_BASE + 0x17800, (DMA_ENABLE << 0x10) | 0x400);
-                dma_set(3, sEscapeGateAndTimerPAL, PALRAM_BASE + 0x3E0, (DMA_ENABLE << 0x10) | 0x10);
+                DMA_SET(3, sEscapeGateAndTimerGfx, VRAM_BASE + 0x17800, (DMA_ENABLE << 0x10) | 0x400);
+                DMA_SET(3, sEscapeGateAndTimerPAL, PALRAM_BASE + 0x3E0, (DMA_ENABLE << 0x10) | 0x10);
                 SpriteSpawnPrimary(PSPRITE_BLACK_SPACE_PIRATE, 0x80, gCurrentSprite.spritesetGfxSlot,
                     gCurrentSprite.yPosition, gCurrentSprite.xPosition - 0x80, 0x0);
                 SpriteSpawnPrimary(PSPRITE_BLACK_SPACE_PIRATE, 0x80, gCurrentSprite.spritesetGfxSlot,
@@ -191,7 +191,7 @@ void EscapeGate(void)
             }
 
             offset = gCurrentSprite.workVariable & 0x7F;
-            dma_set(3, (sEscapeGateFlashingPAL + offset * 16), PALRAM_BASE + 0x3E0, (DMA_ENABLE << 0x10) | 0x10);
+            DMA_SET(3, (sEscapeGateFlashingPAL + offset * 16), PALRAM_BASE + 0x3E0, (DMA_ENABLE << 0x10) | 0x10);
         }
     }
 }

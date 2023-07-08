@@ -419,7 +419,7 @@ void BlockShiftNeverReformBlocks(void)
         return;
 
     dst = EWRAM_BASE;
-    DMATransfer(3, src, dst, 512, 16);
+    DmaTransfer(3, src, dst, 512, 16);
     BitFill(3, USHORT_MAX, src, 512, 16);
 
     var_0 = 0;

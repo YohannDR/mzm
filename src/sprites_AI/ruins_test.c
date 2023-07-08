@@ -1184,50 +1184,50 @@ void RuinsTestGhostMoveSymbolToPlace(void)
         switch (gCurrentSprite.workVariable++)
         {
             case 0x0:
-                dma_set(3, (sRuinsTestPAL + 0x60), PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, (sRuinsTestPAL + 0x60), PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x2:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x3:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame3, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame3, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x4:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x5:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame5, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame5, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x6:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame6, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame6, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x7:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame5, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame5, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x8:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x9:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame3, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame3, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0xA:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0xB:
                 gCurrentSprite.workVariable = 0x0;
 
             case 0x1:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame1, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame1, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
         }
     }
@@ -1301,52 +1301,52 @@ void RuinsTestGhostSymbolPlacing(void)
         switch (gCurrentSprite.currentAnimationFrame)
         {
             case 0x1:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame1, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame1, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x2:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x3:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame3, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame3, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x4:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x5:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame5, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame5, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x6:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame6, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame6, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x7:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame5, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame5, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x8:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0x9:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame3, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame3, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0xA:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
 
             case 0xB:
-                dma_set(3, sRuinsTestPAL_SymbolShot_Frame1, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame1, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
             
             case 0x0:
             case 0xC:
-                dma_set(3, (sRuinsTestPAL + 0x60), PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                DMA_SET(3, (sRuinsTestPAL + 0x60), PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 break;
         }
     }
@@ -1572,36 +1572,36 @@ void RuinsTestSymbol(void)
                 switch (gCurrentSprite.currentAnimationFrame)
                 {
                     case 0x2:
-                        dma_set(3, sRuinsTestPAL_SymbolShot_Frame1, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame1, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
 
                     case 0x3:
-                        dma_set(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
 
                     case 0x4:
-                        dma_set(3, sRuinsTestPAL_SymbolShot_Frame3, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame3, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
 
                     case 0x6:
-                        dma_set(3, sRuinsTestPAL_SymbolShot_Frame5, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame5, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
 
                     case 0x7:
-                        dma_set(3, sRuinsTestPAL_SymbolShot_Frame6, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame6, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
 
                     case 0x8:
-                        dma_set(3, sRuinsTestPAL_SymbolShot_Frame5, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame5, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
 
                     case 0x5:
                     case 0x9:
-                        dma_set(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
 
                     case 0xA:
-                        dma_set(3, sRuinsTestPAL_SymbolShot_Frame3, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame3, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         SoundPlay(0x1D4);
                         break;
                 }
@@ -1622,11 +1622,11 @@ void RuinsTestSymbol(void)
             {
                 if (gCurrentSprite.currentAnimationFrame == 0x0)
                 {
-                    dma_set(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                    DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 }
                 else
                 {
-                    dma_set(3, sRuinsTestPAL_SymbolShot_Frame6, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                    DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame6, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                 }
             }
 
@@ -1649,15 +1649,15 @@ void RuinsTestSymbol(void)
                 switch (gCurrentSprite.currentAnimationFrame)
                 {
                     case 0x0:
-                        dma_set(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame4, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
 
                     case 0x1:
-                        dma_set(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
 
                     case 0x2:
-                        dma_set(3, (sRuinsTestPAL + 0x60), PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, (sRuinsTestPAL + 0x60), PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
                 }
             }
@@ -1697,7 +1697,7 @@ void RuinsTestSamusReflectionStart(void)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 0x3;
 
-            dma_set(3, sRuinsTestPAL_SamusReflection, (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
+            DMA_SET(3, sRuinsTestPAL_SamusReflection, (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
             gCurrentSprite.timer = 0x1;
             break;
 
@@ -1708,11 +1708,11 @@ void RuinsTestSamusReflectionStart(void)
                 timer = gCurrentSprite.timer++;
                 if (timer > 0xE)
                 {
-                    dma_set(3, (sRuinsTestPAL + 0x70), (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
+                    DMA_SET(3, (sRuinsTestPAL + 0x70), (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
                 }
                 else
                 {
-                    dma_set(3, &sRuinsTestPAL_SamusReflection[timer * 16], (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
+                    DMA_SET(3, &sRuinsTestPAL_SamusReflection[timer * 16], (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
                 }
 
             }
@@ -1726,13 +1726,13 @@ void RuinsTestSamusReflectionStart(void)
                 // Transfer turning graphics
                 if (gSamusData.direction & KEY_RIGHT)
                 {
-                    dma_set(3, sRuinsTestGfx_SamusReflectionTurningRightTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
-                    dma_set(3, sRuinsTestGfx_SamusReflectionTurningRightBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
+                    DMA_SET(3, sRuinsTestGfx_SamusReflectionTurningRightTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
+                    DMA_SET(3, sRuinsTestGfx_SamusReflectionTurningRightBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
                 }
                 else
                 {
-                    dma_set(3, sRuinsTestGfx_SamusReflectionTurningLeftTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
-                    dma_set(3, sRuinsTestGfx_SamusReflectionTurningLeftBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
+                    DMA_SET(3, sRuinsTestGfx_SamusReflectionTurningLeftTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
+                    DMA_SET(3, sRuinsTestGfx_SamusReflectionTurningLeftBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
                 }
             }
             break;
@@ -1954,15 +1954,15 @@ void RuinsTestShootableSymbol(void)
                 switch (gCurrentSprite.currentAnimationFrame)
                 {
                     case 0x5:
-                        dma_set(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame2, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
 
                     case 0x6:
-                        dma_set(3, sRuinsTestPAL_SymbolShot_Frame1, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, sRuinsTestPAL_SymbolShot_Frame1, PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
 
                     case 0x7:
-                        dma_set(3, (sRuinsTestPAL + 0x60), PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
+                        DMA_SET(3, (sRuinsTestPAL + 0x60), PALRAM_BASE + 0x3C0, (DMA_ENABLE << 16) | 8);
                         break;
                 }
             }
@@ -2074,9 +2074,9 @@ void RuinsTestSamusReflectionEnd(void)
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.drawOrder = 0xB;
 
-            dma_set(3, sRuinsTestGfx_SamusReflectionSuitlessTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
-            dma_set(3, sRuinsTestGfx_SamusReflectionSuitlessBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
-            dma_set(3, sRuinsTestPAL_SamusReflection, (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
+            DMA_SET(3, sRuinsTestGfx_SamusReflectionSuitlessTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
+            DMA_SET(3, sRuinsTestGfx_SamusReflectionSuitlessBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
+            DMA_SET(3, sRuinsTestPAL_SamusReflection, (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
 
             gCurrentSprite.timer = 0x0;
             gCurrentSprite.workVariable = 0x0;
@@ -2105,7 +2105,7 @@ void RuinsTestSamusReflectionEnd(void)
                 }
 
                 offset = gCurrentSprite.timer;
-                dma_set(3, (sRuinsTestPAL_SamusReflection + offset * 16), (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
+                DMA_SET(3, (sRuinsTestPAL_SamusReflection + offset * 16), (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
             }
 
             if (gCurrentSprite.pose == RUINS_TEST_SAMUS_REFLECTION_END_POSE_FULLSUIT)
@@ -2126,7 +2126,7 @@ void RuinsTestSamusReflectionEnd(void)
             if (--gCurrentSprite.timer == 0x0)
             {
                 gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-                dma_set(3, sRuinsTestPAL_SamusReflectionFullSuit, (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
+                DMA_SET(3, sRuinsTestPAL_SamusReflectionFullSuit, (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
                 gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_END_POSE_UPDATE_PALETTE;
                 gCurrentSprite.timer = 0x1;
                 gCurrentSprite.workVariable = 0xC;
@@ -2136,8 +2136,8 @@ void RuinsTestSamusReflectionEnd(void)
             {
                 // Transfer fullsuit Gfx
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
-                dma_set(3, sRuinsTestGfx_SamusReflectionFullSuitTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
-                dma_set(3, sRuinsTestGfx_SamusReflectionFullSuitBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
+                DMA_SET(3, sRuinsTestGfx_SamusReflectionFullSuitTop, (VRAM_BASE + 0x14280), (DMA_ENABLE << 16) | 192);
+                DMA_SET(3, sRuinsTestGfx_SamusReflectionFullSuitBottom, (VRAM_BASE + 0x14680), (DMA_ENABLE << 16) | 128);
             }
             break;
 
@@ -2148,7 +2148,7 @@ void RuinsTestSamusReflectionEnd(void)
             {
                 gCurrentSprite.workVariable = 0xC;
                 offset = gCurrentSprite.timer++;
-                dma_set(3, (sRuinsTestPAL_SamusReflectionFullSuit + offset * 16), (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
+                DMA_SET(3, (sRuinsTestPAL_SamusReflectionFullSuit + offset * 16), (PALRAM_BASE + 0x3E0), (DMA_ENABLE << 16) | 16);
                 if (offset > 0x8)
                 {
                     gCurrentSprite.pose = RUINS_TEST_SAMUS_REFLECTION_END_POSE_SET_FADING_STARTED;

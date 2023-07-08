@@ -44,7 +44,7 @@ void SpriteUpdate(void)
             {
                 if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
                 {
-                    dma_set(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2)); // Transfer sprite to current
+                    DMA_SET(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2)); // Transfer sprite to current
                     gSpriteRng = sSpriteRandomNumberTable[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) % 31];
                     SpriteUtilUpdateStunTimer(pCurrent);
                     if (pCurrent->properties & SP_SECONDARY_SPRITE) // Call AI
@@ -57,7 +57,7 @@ void SpriteUpdate(void)
                         SpriteUpdateAnimation(pCurrent);
                         SpriteCheckOnScreen(pCurrent);
                     }
-                    dma_set(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2)); // Transfer current back to array
+                    DMA_SET(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2)); // Transfer current back to array
                 }
             }
             DecrementChozodiaAlarm();
@@ -72,7 +72,7 @@ void SpriteUpdate(void)
                 {
                     if (gSpriteData[count].pose == 0x0 || gSpriteData[count].properties & SP_ALWAYS_ACTIVE)
                     {
-                        dma_set(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
+                        DMA_SET(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
                         gSpriteRng = sSpriteRandomNumberTable[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) % 31];
                         SpriteUtilUpdateStunTimer(pCurrent);
                         if (pCurrent->properties & SP_SECONDARY_SPRITE) // Call AI
@@ -86,13 +86,13 @@ void SpriteUpdate(void)
                             SpriteUpdateAnimation(pCurrent);
                             SpriteCheckOnScreen(pCurrent);
                         }
-                        dma_set(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
+                        DMA_SET(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
                     }
                     else
                     {
-                        dma_set(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
+                        DMA_SET(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
                         SpriteCheckOnScreen(pCurrent);
-                        dma_set(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
+                        DMA_SET(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
                     }
                 }
             }
@@ -105,7 +105,7 @@ void SpriteUpdate(void)
         {
             if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
             {
-                dma_set(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
+                DMA_SET(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
                 gSpriteRng = sSpriteRandomNumberTable[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) % 31];
                 SpriteUtilUpdateStunTimer(pCurrent);
                 if (pCurrent->properties & SP_SECONDARY_SPRITE)
@@ -119,7 +119,7 @@ void SpriteUpdate(void)
                     SpriteUpdateAnimation(pCurrent);
                     SpriteCheckOnScreen(pCurrent);
                 }
-                dma_set(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
+                DMA_SET(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
             }
         }
         DecrementChozodiaAlarm();
@@ -132,7 +132,7 @@ void SpriteUpdate(void)
         {
             if (gSpriteData[count].status & SPRITE_STATUS_EXISTS)
             {
-                dma_set(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
+                DMA_SET(3, &gSpriteData[count], &gCurrentSprite, DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
                 gSpriteRng = sSpriteRandomNumberTable[(rngParam1 + count + rngParam2 + pCurrent->xPosition + pCurrent->yPosition) % 31];
                 
                 if (pCurrent->pose == 0x0)
@@ -144,7 +144,7 @@ void SpriteUpdate(void)
                 }
                 if (pCurrent->status & SPRITE_STATUS_EXISTS)
                     SpriteCheckOnScreen(pCurrent);
-                dma_set(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
+                DMA_SET(3, &gCurrentSprite, &gSpriteData[count], DMA_ENABLE << 16 | (sizeof(struct SpriteData) * 2));
             }
         }
     }
@@ -800,7 +800,7 @@ void SpriteLoadSpriteset(void)
 
         ctrl_1 = ((u8*)sSpritesGraphicsPointers[spriteID])[1];
         ctrl_2 = ((u8*)sSpritesGraphicsPointers[spriteID])[2] << 8;
-        dma_set(3, sSpritesPalettePointers[spriteID], PALRAM_BASE + 0x300 + gfxSlot * 32,
+        DMA_SET(3, sSpritesPalettePointers[spriteID], PALRAM_BASE + 0x300 + gfxSlot * 32,
             (DMA_ENABLE << 16) | (ctrl_1 | ctrl_2) / 2048 << 4);
     }
 }
@@ -830,7 +830,7 @@ void SpriteLoadPAL(u8 spriteID, u8 row, u8 len)
 {
     spriteID -= 0x10;
 
-    dma_set(3, sSpritesPalettePointers[spriteID], PALRAM_BASE + 0x300 + (row * 0x20), DMA_ENABLE | len << 0x4);
+    DMA_SET(3, sSpritesPalettePointers[spriteID], PALRAM_BASE + 0x300 + (row * 0x20), DMA_ENABLE | len << 0x4);
 }
 
 /**

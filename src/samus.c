@@ -6729,19 +6729,19 @@ void SamusInit(void)
         {
             // Zero out most of samus's data
             buffer = 0;
-            dma_set(3, &buffer, &gSamusData,
+            DMA_SET(3, &buffer, &gSamusData,
                 (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gSamusData) / sizeof(u32));
             
             buffer = 0;
-            dma_set(3, &buffer, &gEquipment,
+            DMA_SET(3, &buffer, &gEquipment,
                 (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gEquipment) / sizeof(u32));
             
             buffer = 0;
-            dma_set(3, &buffer, &gSamusWeaponInfo,
+            DMA_SET(3, &buffer, &gSamusWeaponInfo,
                 (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gSamusWeaponInfo) / sizeof(u32));
             
             buffer = 0;
-            dma_set(3, &buffer, &gScrewSpeedAnimation,
+            DMA_SET(3, &buffer, &gScrewSpeedAnimation,
                 (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gScrewSpeedAnimation) / sizeof(u32));
 
             // Clear env effects
@@ -6759,7 +6759,7 @@ void SamusInit(void)
         {
             // Clear physics
             buffer = 0;
-            dma_set(3, &buffer, &gSamusPhysics, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gSamusPhysics) / sizeof(u32));
+            DMA_SET(3, &buffer, &gSamusPhysics, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gSamusPhysics) / sizeof(u32));
         }
     }
 }

@@ -16,7 +16,7 @@
 #define REG_DMA2_DST (REG_DMA2 + 4)
 #define REG_DMA2_CNT (REG_DMA2 + 8)
 
-#define dma_set(channel, src, dst, cnt)                                        \
+#define DMA_SET(channel, src, dst, cnt)                                        \
     {                                                                          \
         vu32 *dma_ = (vu32 *)REG_DMA##channel;                                 \
         dma_[0]    = (vu32)src;                                                \
@@ -28,7 +28,7 @@
 #define dma_fill(channel, val, dst, size, bit)                                 \
     {                                                                          \
         vu##bit dma_tmp_ = (vu##bit)val;                                       \
-        dma_set(                                                               \
+        DMA_SET(                                                               \
             channel,                                                           \
             &dma_tmp_,                                                         \
             dst,                                                               \

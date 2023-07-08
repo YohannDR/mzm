@@ -396,14 +396,14 @@ void EnterTourianSwitchMetroidPalette(struct CutscenePaletteData* pPalette, u8 g
         if (pPalette->paletteRow >= ARRAY_SIZE(sMetroidPAL_SamusGrabbed) / 16)
             pPalette->paletteRow = 0;
 
-        DMATransfer(3, &sMetroidPAL_SamusGrabbed[pPalette->paletteRow * 16], PALRAM_BASE + 0x380, 32, 0x10);
+        DmaTransfer(3, &sMetroidPAL_SamusGrabbed[pPalette->paletteRow * 16], PALRAM_BASE + 0x380, 32, 0x10);
         return;
     }
 
     if (pPalette->active)
     {
         pPalette->active = FALSE;
-        DMATransfer(3, &sMetroidOAM_Moving_Frame10[8], PALRAM_BASE + 0x380, 32, 0x10);
+        DmaTransfer(3, &sMetroidOAM_Moving_Frame10[8], PALRAM_BASE + 0x380, 32, 0x10);
     }
 }
 
@@ -496,11 +496,11 @@ u8 EnterTourianInit(void)
     s32 i;
 
     unk_61f0c();
-    DMATransfer(3, sEnterTourianBackgroundPAL, PALRAM_BASE, sizeof(sEnterTourianBackgroundPAL), 0x10);
+    DmaTransfer(3, sEnterTourianBackgroundPAL, PALRAM_BASE, sizeof(sEnterTourianBackgroundPAL), 0x10);
     write16(PALRAM_BASE, 0);
 
-    DMATransfer(3, sEnterTourianMetroidPAL, PALRAM_OBJ, sizeof(sEnterTourianMetroidPAL), 0x10);
-    DMATransfer(3, sMetroidPAL, PALRAM_BASE + 0x300, sizeof(sMetroidPAL), 0x10);
+    DmaTransfer(3, sEnterTourianMetroidPAL, PALRAM_OBJ, sizeof(sEnterTourianMetroidPAL), 0x10);
+    DmaTransfer(3, sMetroidPAL, PALRAM_BASE + 0x300, sizeof(sMetroidPAL), 0x10);
 
     CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGfx_1, VRAM_BASE + 0x10000);
     CallLZ77UncompVRAM(sEnterTourianDeadSpacePirateGfx_2, VRAM_BASE + 0x10400);
@@ -571,7 +571,7 @@ u8 EnterTourianInit(void)
     CUTSCENE_DATA.unk_A = TRUE;
 
     PlayMusic(MUSIC_ENTERING_TOURIAN_CUTSCENE, 0);
-    DMATransfer(3, PALRAM_OBJ, (void*)sEwramPointer + 0x3A00, 0x200, 0x10);
+    DmaTransfer(3, PALRAM_OBJ, (void*)sEwramPointer + 0x3A00, 0x200, 0x10);
     CutsceneStartBackgroundFading(3);
 
     CUTSCENE_DATA.dispcnt = DCNT_OBJ | sEnterTourianPageData[0].bg | sEnterTourianPageData[1].bg;

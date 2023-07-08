@@ -16,7 +16,7 @@ struct BackgroundEffectColorData {
     u16 colorMask;
     u16 color_1;
     u16 color_2;
-    u8 applyToOBJ;
+    u8 applyToObj;
 };
 
 struct AnimatedTiming {

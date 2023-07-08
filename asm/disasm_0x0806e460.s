@@ -253,7 +253,7 @@ lbl_0806e614:
     movs r0, #3
     adds r1, r6, #0
     adds r2, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, [sp, #0xc]
     lsrs r1, r1, #8
     mov ip, r1
@@ -3485,7 +3485,7 @@ lbl_0806fe92:
     str r0, [sp]
     movs r0, #3
     movs r3, #0x12
-    bl DMATransfer
+    bl DmaTransfer
     add sp, #4
     pop {r4, r5, r6, r7}
     pop {r0}
@@ -3874,7 +3874,7 @@ draw_status_screen_tanks_amounts: @ 0x08070180
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r0, lbl_080701e8 @ =sNonGameplayRamPointer
     ldr r2, [r0]
     adds r2, #0xc0
@@ -3916,7 +3916,7 @@ lbl_080701ec:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     add r1, sp, #4
     ldr r7, lbl_08070320 @ =sNonGameplayRamPointer
     ldr r2, [r7]
@@ -6249,7 +6249,7 @@ lbl_0807139e:
     str r0, [sp]
     movs r0, #3
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_08071414
     .align 2, 0
 lbl_080713bc: .4byte 0x0840df6c
@@ -6293,7 +6293,7 @@ lbl_080713e8:
     str r0, [sp]
     movs r0, #3
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
 lbl_08071414:
     adds r0, r6, #0
     add sp, #4

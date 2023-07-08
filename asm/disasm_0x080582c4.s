@@ -2532,7 +2532,7 @@ lbl_08059612:
     mov r1, r8
     adds r2, r6, #0
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_08059674 @ =0x0000ffff
     str r4, [sp]
     movs r0, #3

@@ -108,7 +108,7 @@ void LoadPauseScreenBgPalette(void)
     PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[AREA_DEBUG]] = 0;
     PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS]] = 0;
 
-    DMATransfer(3, &PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS]],
+    DmaTransfer(3, &PAUSE_SCREEN_EWRAM.backgroundPalette[sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS]],
         PALRAM_BASE + sMinimapAnimatedPaletteOffsets[MAX_AMOUNT_OF_AREAS] * sizeof(u16), 16 + 2, 16);
 }
 
@@ -282,7 +282,7 @@ void StatusScreenDraw(void)
 
     if (gEquipment.suitType == SUIT_SUITLESS)
     {
-        DMATransfer(3, (void*)sEwramPointer + 0x8000, PAUSE_SCREEN_EWRAM.statusScreenTilemap, 0x800, 0x10);
+        DmaTransfer(3, (void*)sEwramPointer + 0x8000, PAUSE_SCREEN_EWRAM.statusScreenTilemap, 0x800, 0x10);
         BiFill(3, 0, &PAUSE_SCREEN_DATA.statusScreenData, sizeof(PAUSE_SCREEN_DATA.statusScreenData), 0x20);
         StatusScreenSetPistolVisibility(PAUSE_SCREEN_EWRAM.statusScreenTilemap);
         StatusScreenDrawSingleTankAmount(ABILITY_GROUP_CURRENT_ENERGY, gEquipment.currentEnergy, 11, FALSE);
@@ -290,7 +290,7 @@ void StatusScreenDraw(void)
         return;
     }
 
-    DMATransfer(3, (void*)sEwramPointer + 0x7800, PAUSE_SCREEN_EWRAM.statusScreenTilemap, 0x800, 0x10);
+    DmaTransfer(3, (void*)sEwramPointer + 0x7800, PAUSE_SCREEN_EWRAM.statusScreenTilemap, 0x800, 0x10);
 
     previousSlots[0] = PAUSE_SCREEN_DATA.statusScreenData.currentStatusSlot;
     previousSlots[1] = PAUSE_SCREEN_DATA.statusScreenData.previousLeftStatusSlot;
@@ -1272,7 +1272,7 @@ u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
             if (offset == 0)
                 break;
 
-            DMATransfer(3, &sStatusScreen_40dd10[offset], &sObjPalramPointer[12 * 16], 32, 32);
+            DmaTransfer(3, &sStatusScreen_40dd10[offset], &sObjPalramPointer[12 * 16], 32, 32);
             break;
 
         case 2:
@@ -1288,7 +1288,7 @@ u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
             }
 
             offset = sStatusScreen_40df6c[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16;
-            DMATransfer(3, &sStatusScreen_40dd10[offset], &sObjPalramPointer[12 * 16], 32, 32);
+            DmaTransfer(3, &sStatusScreen_40dd10[offset], &sObjPalramPointer[12 * 16], 32, 32);
             break;
 
         case 3:
@@ -1300,7 +1300,7 @@ u32 StatusScreenUpdateUnknownItemPalette(u8 param_1)
             if ((u8)PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow > 3)
                 PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow = 0;
 
-            DMATransfer(3, &sStatusScreen_40ddd0[sStatusScreen_40df72[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16], &sObjPalramPointer[12 * 16], 32, 32);
+            DmaTransfer(3, &sStatusScreen_40ddd0[sStatusScreen_40df72[PAUSE_SCREEN_DATA.unknownItemDynamicPalette.paletteRow] * 16], &sObjPalramPointer[12 * 16], 32, 32);
             break;
     }
 

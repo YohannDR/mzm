@@ -15,7 +15,7 @@ struct DMA {
     do {} while ((_pDma[2] & (DMA_ENABLE << 16)) != 0);  \
 }
 
-void DMATransfer(u8 channel, void *src, void *dst, u32 len, u8 bitSize)
+void DmaTransfer(u8 channel, void *src, void *dst, u32 len, u8 bitSize)
 {
     // https://decomp.me/scratch/j8Gur
 

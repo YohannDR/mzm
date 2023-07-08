@@ -7,8 +7,8 @@ return_one: @ 0x08060e28
     movs r0, #1
     bx lr
 
-    thumb_func_start tourian_escape_main
-tourian_escape_main: @ 0x08060e2c
+    thumb_func_start TourianEscapeSubroutine
+TourianEscapeSubroutine: @ 0x08060e2c
     push {r4, r5, lr}
     movs r4, #0
     ldr r1, lbl_08060e94 @ =0x0875fe3c
@@ -255,8 +255,8 @@ lbl_08061038: .4byte 0x0836bdac
 lbl_0806103c: .4byte gCurrentCutscene
 lbl_08061040: .4byte gMusicTrackInfo
 
-    thumb_func_start cutscene_main
-cutscene_main: @ 0x08061044
+    thumb_func_start CutsceneSubroutine
+CutsceneSubroutine: @ 0x08061044
     push {r4, lr}
     sub sp, #4
     ldr r0, lbl_0806105c @ =gSubGameModeStage
@@ -635,7 +635,7 @@ lbl_0806134a:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
 lbl_0806135e:
     ldr r2, lbl_080613f8 @ =gCutsceneToSkip
     ldrb r1, [r2]
@@ -2274,7 +2274,7 @@ sub_08061f60: @ 0x08061f60
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r0, [r4]
     adds r0, #0xbc
     movs r1, #0
@@ -2315,7 +2315,7 @@ CutsceneStartBackgroundFading: @ 0x08061fa0
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     subs r0, r4, #1
     cmp r0, #9
     bls lbl_08061fde
@@ -2360,7 +2360,7 @@ lbl_0806201c:
     movs r0, #3
     adds r1, r6, #0
     adds r3, r4, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, lbl_08062064 @ =sNonGameplayRamPointer
     ldr r0, [r2]
     adds r0, #0xba
@@ -2396,7 +2396,7 @@ lbl_08062068:
     movs r0, #3
     adds r1, r6, #0
     adds r3, r4, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, lbl_080620b4 @ =sNonGameplayRamPointer
     ldr r0, [r2]
     adds r0, #0xba
@@ -2433,7 +2433,7 @@ lbl_080620b8:
     movs r0, #3
     adds r1, r6, #0
     adds r3, r4, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, lbl_08062104 @ =sNonGameplayRamPointer
     ldr r0, [r2]
     adds r0, #0xba
@@ -2684,7 +2684,7 @@ lbl_080622b0:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r0, [r7]
     adds r0, #0xbc
     movs r1, #1

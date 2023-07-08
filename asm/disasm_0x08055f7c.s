@@ -297,7 +297,7 @@ RoomLoadTileset: @ 0x080561e8
     movs r4, #0x10
     str r4, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r0, lbl_08056268 @ =gCurrentArea
     ldrb r0, [r0]
     cmp r0, #7
@@ -308,14 +308,14 @@ RoomLoadTileset: @ 0x080561e8
     str r4, [sp]
     movs r0, #3
     adds r2, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_08056270 @ =0x08365cc0
     movs r3, #0x80
     lsls r3, r3, #4
     str r4, [sp]
     movs r0, #3
     adds r2, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_08056294
     .align 2, 0
 lbl_08056250: .4byte 0x0833dfdc
@@ -334,14 +334,14 @@ lbl_08056274:
     str r4, [sp]
     movs r0, #3
     adds r2, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_08056314 @ =0x085d92ac
     movs r3, #0x80
     lsls r3, r3, #4
     str r4, [sp]
     movs r0, #3
     adds r2, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
 lbl_08056294:
     ldr r1, lbl_08056318 @ =0x083655a0
     ldr r2, lbl_0805631c @ =0x02006000
@@ -351,21 +351,21 @@ lbl_08056294:
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_08056320 @ =0x083654d0
     ldr r2, lbl_08056324 @ =0x02002400
     movs r3, #0x80
     lsls r3, r3, #2
     str r4, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_08056328 @ =0x08365330
     ldr r2, lbl_0805632c @ =0x02003800
     movs r3, #0x80
     lsls r3, r3, #3
     str r4, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r0, [sp, #4]
     ldr r1, lbl_08056330 @ =0x06005800
     bl CallLZ77UncompVRAM
@@ -376,7 +376,7 @@ lbl_08056294:
     lsls r3, r3, #1
     str r4, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     movs r1, #0xa0
     lsls r1, r1, #0x13
     movs r0, #0
@@ -390,13 +390,13 @@ lbl_08056294:
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_08056344 @ =0x085e0022
     ldr r2, lbl_08056348 @ =0x05000002
     str r4, [sp]
     movs r0, #3
     movs r3, #0x5e
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_08056368
     .align 2, 0
 lbl_08056310: .4byte 0x085d91fc
@@ -420,13 +420,13 @@ lbl_0805634c:
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_080563e0 @ =0x085dfe22
     ldr r2, lbl_080563e4 @ =0x05000002
     str r4, [sp]
     movs r0, #3
     movs r3, #0x5e
-    bl DMATransfer
+    bl DmaTransfer
 lbl_08056368:
     ldr r2, lbl_080563e8 @ =gTilesetTransparentColor
     ldr r0, [sp, #8]
@@ -1583,7 +1583,7 @@ lbl_08056cf2:
     str r7, [sp]
     movs r0, #3
     adds r3, r4, #0
-    bl DMATransfer
+    bl DmaTransfer
 lbl_08056d02:
     add sp, #0x1c
     pop {r3, r4, r5}
@@ -1910,7 +1910,7 @@ lbl_08056f3e:
     str r0, [sp]
     movs r0, #3
     movs r3, #4
-    bl DMATransfer
+    bl DmaTransfer
 lbl_08056f58:
     ldr r0, lbl_08056fb8 @ =gHatchesState
     ldrb r0, [r0, #1]

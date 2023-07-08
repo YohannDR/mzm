@@ -21,7 +21,7 @@
  */
 void HUDGenericLoadCommonSpriteGfx(void)
 {
-    dma_set(3, sCommonSpritesGfx, VRAM_BASE + 0x10800, DMA_ENABLE << 16 | 0x1C00);
+    DMA_SET(3, sCommonSpritesGfx, VRAM_BASE + 0x10800, DMA_ENABLE << 16 | 0x1C00);
 }
 
 /**

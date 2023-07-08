@@ -25,14 +25,14 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DMATransfer(3, sMotherBrainCloseUpBackgroundPAL, PALRAM_BASE, sizeof(sMotherBrainCloseUpBackgroundPAL), 0x10);
+            DmaTransfer(3, sMotherBrainCloseUpBackgroundPAL, PALRAM_BASE, sizeof(sMotherBrainCloseUpBackgroundPAL), 0x10);
             write16(PALRAM_BASE, 0);
 
             // Load samus palette (varia or power suit)
             if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
-                DMATransfer(3, sMotherBrainCloseUpSamusVariaPAL, PALRAM_BASE + 0xA0, sizeof(sMotherBrainCloseUpSamusVariaPAL), 0x10);
+                DmaTransfer(3, sMotherBrainCloseUpSamusVariaPAL, PALRAM_BASE + 0xA0, sizeof(sMotherBrainCloseUpSamusVariaPAL), 0x10);
             else
-                DMATransfer(3, sMotherBrainCloseUpSamusPAL, PALRAM_BASE + 0xA0, sizeof(sMotherBrainCloseUpSamusPAL), 0x10);
+                DmaTransfer(3, sMotherBrainCloseUpSamusPAL, PALRAM_BASE + 0xA0, sizeof(sMotherBrainCloseUpSamusPAL), 0x10);
 
             // Load samus graphics
             CallLZ77UncompVRAM(sMotherBrainCloseUpSamusGfx, VRAM_BASE + sMotherBrainCloseUpPageData[4].graphicsPage * 0x4000);
@@ -40,7 +40,7 @@ u8 MotherBrainCloseUpLookingAtSamus(void)
             CallLZ77UncompVRAM(sMotherBrainCloseUpSamusTileTable, VRAM_BASE + sMotherBrainCloseUpPageData[4].tiletablePage * 0x800);
 
             // Load big eye graphics
-            DMATransfer(3, sMotherBrainCloseUpBigEyePAL, PALRAM_OBJ, sizeof(sMotherBrainCloseUpBigEyePAL), 0x10);
+            DmaTransfer(3, sMotherBrainCloseUpBigEyePAL, PALRAM_OBJ, sizeof(sMotherBrainCloseUpBigEyePAL), 0x10);
             CallLZ77UncompVRAM(sMotherBrainCloseUpBigEyeGfx, VRAM_BASE + 0x10000);
 
             CutsceneSetBGCNTPageData(sMotherBrainCloseUpPageData[4]);
@@ -163,7 +163,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DMATransfer(3, sMotherBrainCloseUpPAL, PALRAM_BASE, sizeof(sMotherBrainCloseUpPAL), 0x10);
+            DmaTransfer(3, sMotherBrainCloseUpPAL, PALRAM_BASE, sizeof(sMotherBrainCloseUpPAL), 0x10);
             write16(PALRAM_BASE, 0);
 
             // Load mother brain close up graphics
@@ -174,7 +174,7 @@ u8 MotherBrainCloseUpEyeOpening(void)
             CallLZ77UncompVRAM(sMotherBrainCloseUpGlassTileTable, VRAM_BASE + sMotherBrainCloseUpPageData[1].tiletablePage * 0x800);
 
             // Load eye graphics
-            DMATransfer(3, sMotherBrainCloseUpEyePAL, PALRAM_OBJ, sizeof(sMotherBrainCloseUpEyePAL), 0x10);
+            DmaTransfer(3, sMotherBrainCloseUpEyePAL, PALRAM_OBJ, sizeof(sMotherBrainCloseUpEyePAL), 0x10);
             CallLZ77UncompVRAM(sMotherBrainCloseUpEyeGfx, VRAM_BASE + 0x10000);
 
             CutsceneSetBGCNTPageData(sMotherBrainCloseUpPageData[2]);
@@ -331,7 +331,7 @@ u8 MotherBrainCloseUpTankView(void)
 u8 MotherBrainCloseUpInit(void)
 {
     unk_61f0c();
-    DMATransfer(3, sMotherBrainCloseUpTankViewPAL, PALRAM_BASE, sizeof(sMotherBrainCloseUpTankViewPAL), 0x10);
+    DmaTransfer(3, sMotherBrainCloseUpTankViewPAL, PALRAM_BASE, sizeof(sMotherBrainCloseUpTankViewPAL), 0x10);
     write16(PALRAM_BASE, 0);
 
     // Load tank view graphics

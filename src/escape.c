@@ -84,7 +84,7 @@ void EscapeCheckReloadGraphics(void)
 {
     if (EscapeDetermineTimer() != ESCAPE_NONE)
     {
-        dma_set(3, sEscapeTimerDigitsGfx, VRAM_BASE + 0x17800, DMA_ENABLE << 16 | sizeof(sEscapeTimerDigitsGfx) / 2);
+        DMA_SET(3, sEscapeTimerDigitsGfx, VRAM_BASE + 0x17800, DMA_ENABLE << 16 | sizeof(sEscapeTimerDigitsGfx) / 2);
     }
 }
 
@@ -94,9 +94,9 @@ void EscapeCheckReloadGraphics(void)
  */
 void EscapeStart(void)
 {
-    dma_set(3, sEscapeTimerDigitsGfx, VRAM_BASE + 0x17800, DMA_ENABLE << 16 | 0xB0);
-    dma_set(3, sEscapeTimerDigitsGfx + 1024, VRAM_BASE + 0x17c00, DMA_ENABLE << 16 | 0xB0);
-    dma_set(3, sParticleEscapeOAM, gParticleEscapeOAMFrames, DMA_ENABLE << 16 | sizeof(gParticleEscapeOAMFrames) / 2);
+    DMA_SET(3, sEscapeTimerDigitsGfx, VRAM_BASE + 0x17800, DMA_ENABLE << 16 | 0xB0);
+    DMA_SET(3, sEscapeTimerDigitsGfx + 1024, VRAM_BASE + 0x17c00, DMA_ENABLE << 16 | 0xB0);
+    DMA_SET(3, sParticleEscapeOAM, gParticleEscapeOAMFrames, DMA_ENABLE << 16 | sizeof(gParticleEscapeOAMFrames) / 2);
     ParticleSet(2, 141, PE_ESCAPE);
 }
 

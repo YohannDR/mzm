@@ -2664,7 +2664,7 @@ lbl_080796bc:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
 lbl_08079746:
     ldr r0, [r6]
     adds r0, #0x26
@@ -3112,7 +3112,7 @@ lbl_08079ae2:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
 lbl_08079afc:
     ldr r4, lbl_08079b1c @ =sNonGameplayRamPointer
     ldr r0, [r4]
@@ -3501,7 +3501,7 @@ lbl_08079df2:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r3, lbl_08079e30 @ =sNonGameplayRamPointer
     ldr r1, [r3]
     adds r0, r1, #0
@@ -3619,7 +3619,7 @@ sub_08079ecc: @ 0x08079ecc
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r4, lbl_08079fa4 @ =sNonGameplayRamPointer
     ldr r1, [r4]
     ldrh r0, [r1, #0x20]
@@ -3946,7 +3946,7 @@ lbl_0807a148:
     str r0, [sp]
     movs r0, #3
     movs r3, #0x80
-    bl DMATransfer
+    bl DmaTransfer
 lbl_0807a17e:
     adds r0, r5, #1
     lsls r0, r0, #0x18
@@ -4254,7 +4254,7 @@ lbl_0807a354:
     movs r0, #3
     adds r2, r5, #0
     movs r3, #0xc0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r7]
     ldrh r0, [r2, #0x1e]
     strh r0, [r2, #4]
@@ -4467,7 +4467,7 @@ lbl_0807a584:
     movs r0, #3
     adds r2, r6, #0
     movs r3, #0xc0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0807a5ec @ =gBG0HOFS_NonGameplay
     ldr r0, lbl_0807a5f0 @ =gBG0VOFS_NonGameplay
     strh r4, [r0]
@@ -5885,7 +5885,7 @@ sub_0807b094: @ 0x0807b094
     str r6, [sp]
     movs r0, #3
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     movs r0, #0x80
     lsls r0, r0, #3
     adds r0, r0, r5
@@ -5896,7 +5896,7 @@ sub_0807b094: @ 0x0807b094
     movs r0, #3
     adds r1, r4, #0
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     mov r1, sb
     ldr r0, [r1]
     adds r0, #0x63
@@ -5915,14 +5915,14 @@ sub_0807b094: @ 0x0807b094
     movs r0, #3
     adds r1, r5, #0
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     add r4, r8
     ldr r2, lbl_0807b140 @ =0x060107e0
     str r6, [sp]
     movs r0, #3
     adds r1, r4, #0
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     add sp, #4
     pop {r3, r4}
     mov r8, r3
@@ -6099,7 +6099,7 @@ lbl_0807b1e4:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, [r6]
     ldrh r0, [r1, #0x1e]
     strh r0, [r1, #4]
@@ -6358,7 +6358,7 @@ lbl_0807b478:
     lsls r3, r3, #2
     str r4, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0807b508
     .align 2, 0
 lbl_0807b4cc: .4byte 0x000001ef
@@ -6382,7 +6382,7 @@ lbl_0807b4dc:
     lsls r3, r3, #2
     str r4, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
 lbl_0807b502:
     cmp r5, #0
     bne lbl_0807b508
@@ -6867,7 +6867,7 @@ lbl_0807b892:
     movs r0, #3
     adds r2, r7, #0
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0807b928 @ =0x08415860
     adds r4, r4, r1
     mov r0, sl
@@ -6876,7 +6876,7 @@ lbl_0807b892:
     adds r1, r4, #0
     mov r2, r8
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     movs r1, #0x20
     add r8, r1
     adds r7, #0x20
@@ -6893,7 +6893,7 @@ lbl_0807b892:
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     movs r1, #0x80
     lsls r1, r1, #3
     adds r1, r6, r1
@@ -6903,7 +6903,7 @@ lbl_0807b892:
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     add sp, #4
     pop {r3, r4, r5}
     mov r8, r3
@@ -6987,7 +6987,7 @@ lbl_0807b98c:
     movs r0, #3
     adds r2, r5, #0
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0807b9e4 @ =0x08415860
     adds r4, r4, r1
     mov r0, r8
@@ -6996,7 +6996,7 @@ lbl_0807b98c:
     adds r1, r4, #0
     adds r2, r6, #0
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     adds r6, #0x20
     adds r5, #0x20
     adds r7, #1
@@ -7328,7 +7328,7 @@ lbl_0807bc58:
     str r6, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r0, [r4]
     ldrh r1, [r0, #0x1c]
     strh r1, [r0, #6]
@@ -7380,7 +7380,7 @@ lbl_0807bce4:
     lsls r3, r3, #2
     str r4, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, [r5]
     ldrh r0, [r1, #0x1e]
     strh r0, [r1, #4]
@@ -7694,7 +7694,7 @@ lbl_0807bf4a:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r0, [r4]
     adds r0, #0x40
     movs r1, #0x17
@@ -8250,7 +8250,7 @@ lbl_0807c3bc:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0807c47a
     .align 2, 0
 lbl_0807c3d4: .4byte sEwramPointer
@@ -8399,7 +8399,7 @@ sub_0807c4b0: @ 0x0807c4b0
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     str r4, [sp]
     movs r0, #3
     movs r1, #0
@@ -8413,7 +8413,7 @@ sub_0807c4b0: @ 0x0807c4b0
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r0, [r7]
     mov r3, sb
     strb r3, [r0, #0xc]
@@ -8436,7 +8436,7 @@ lbl_0807c52c:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, [r7]
     movs r0, #2
     strb r0, [r1, #0xc]
@@ -8476,7 +8476,7 @@ sub_0807c568: @ 0x0807c568
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, [r4]
     movs r0, #0
     strb r0, [r1, #0xe]
@@ -8619,19 +8619,19 @@ file_select_menu_init: @ 0x0807c5e0
     movs r0, #3
     adds r2, r4, #0
     movs r3, #0xe0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0807c7d0 @ =0x084548f8
     ldr r2, lbl_0807c7d4 @ =0x050001c0
     str r5, [sp]
     movs r0, #3
     movs r3, #0x40
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0807c7d8 @ =0x08454938
     ldr r2, lbl_0807c7dc @ =0x05000200
     str r5, [sp]
     movs r0, #3
     movs r3, #0xc0
-    bl DMATransfer
+    bl DmaTransfer
     mov r1, r8
     strh r1, [r4]
     ldr r0, lbl_0807c7e0 @ =0x08458e14
@@ -8695,7 +8695,7 @@ file_select_menu_init: @ 0x0807c5e0
     str r5, [sp]
     movs r0, #3
     mov r3, sb
-    bl DMATransfer
+    bl DmaTransfer
     bl sub_08074c08
     bl sub_08078228
     ldr r3, lbl_0807c820 @ =gGameModeSub1
@@ -9174,7 +9174,7 @@ display_save_file_info: @ 0x0807cb2c
     movs r0, #3
     movs r3, #0x80
     lsls r3, r3, #2
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r5]
     movs r0, #0xd0
     lsls r0, r0, #5
@@ -9185,7 +9185,7 @@ display_save_file_info: @ 0x0807cb2c
     str r4, [sp]
     movs r0, #3
     mov r3, r8
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r5]
     movs r0, #0xe8
     lsls r0, r0, #5
@@ -9196,7 +9196,7 @@ display_save_file_info: @ 0x0807cb2c
     str r4, [sp]
     movs r0, #3
     mov r3, r8
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r5]
     movs r6, #0xe4
     lsls r6, r6, #6
@@ -9226,7 +9226,7 @@ display_save_file_info: @ 0x0807cb2c
     str r4, [sp]
     movs r0, #3
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r5]
     movs r0, #0x8a
     lsls r0, r0, #6
@@ -9235,7 +9235,7 @@ display_save_file_info: @ 0x0807cb2c
     str r4, [sp]
     movs r0, #3
     mov r3, r8
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r5]
     movs r0, #0xfc
     lsls r0, r0, #6
@@ -9273,7 +9273,7 @@ display_save_file_info: @ 0x0807cb2c
     str r4, [sp]
     movs r0, #3
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r5]
     movs r0, #0xaa
     lsls r0, r0, #6
@@ -9282,7 +9282,7 @@ display_save_file_info: @ 0x0807cb2c
     str r4, [sp]
     movs r0, #3
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r5]
     movs r0, #0xb4
     lsls r0, r0, #6
@@ -9291,7 +9291,7 @@ display_save_file_info: @ 0x0807cb2c
     str r4, [sp]
     movs r0, #3
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r5]
     movs r6, #0x90
     lsls r6, r6, #7
@@ -9310,7 +9310,7 @@ display_save_file_info: @ 0x0807cb2c
     movs r0, #3
     movs r3, #0x80
     lsls r3, r3, #2
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r5]
     movs r0, #0xcc
     lsls r0, r0, #6
@@ -9321,7 +9321,7 @@ display_save_file_info: @ 0x0807cb2c
     str r4, [sp]
     movs r0, #3
     mov r3, r8
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r5]
     movs r0, #0xd8
     lsls r0, r0, #6
@@ -9332,7 +9332,7 @@ display_save_file_info: @ 0x0807cb2c
     str r4, [sp]
     movs r0, #3
     mov r3, r8
-    bl DMATransfer
+    bl DmaTransfer
     add sp, #4
     pop {r3, r4, r5}
     mov r8, r3
@@ -10635,7 +10635,7 @@ lbl_0807d720:
     str r3, [sp]
     movs r0, #3
     movs r3, #0xc0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, [r5]
     adds r1, r1, r6
     ldr r2, lbl_0807d82c @ =0x0600f000
@@ -10643,7 +10643,7 @@ lbl_0807d720:
     str r5, [sp]
     movs r0, #3
     mov r3, sb
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r7]
     ldrh r1, [r2]
     movs r3, #0x80
@@ -10860,7 +10860,7 @@ lbl_0807d922:
     str r0, [sp]
     movs r0, #3
     movs r3, #0xc0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r7]
     ldrh r1, [r2]
     ldr r0, lbl_0807d974 @ =0x0000dfff
@@ -12899,7 +12899,7 @@ lbl_0807e93a:
     lsls r3, r3, #2
     str r7, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     mov r2, r8
     ldr r1, [r2]
     b lbl_0807ed1c
@@ -12959,7 +12959,7 @@ lbl_0807e988:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r4]
     ldrh r0, [r2, #0x1c]
     strh r0, [r2, #6]
@@ -13104,7 +13104,7 @@ lbl_0807eabc:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, [r4]
     ldrh r0, [r2, #0x1c]
     strh r0, [r2, #6]
@@ -13515,7 +13515,7 @@ lbl_0807ee54:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0807eec8
     .align 2, 0
 lbl_0807ee64: .4byte sEwramPointer

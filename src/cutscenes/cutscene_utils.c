@@ -238,7 +238,7 @@ u8 CutsceneEndFunction(void)
  */
 void CutsceneVBlank(void)
 {
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | 0x100);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | 0x100);
 
     write16(REG_BG0HOFS, CUTSCENE_DATA.bg0hofs);
     write16(REG_BG0VOFS, CUTSCENE_DATA.bg0vofs);
@@ -298,7 +298,7 @@ void CutsceneInit(void)
             gPauseScreenFlag = PAUSE_SCREEN_PAUSE_OR_CUTSCENE;
 
         if (unk < 3)
-            DMATransfer(3, VRAM_BASE + 0x10000, EWRAM_BASE + 0x1E000, unk * 0x4000, 0x10);
+            DmaTransfer(3, VRAM_BASE + 0x10000, EWRAM_BASE + 0x1E000, unk * 0x4000, 0x10);
     }
 
     if (gCutsceneToSkip != gCurrentCutscene)
@@ -1031,7 +1031,7 @@ void unk_61f60(void)
 {
     if (CUTSCENE_DATA.unk_BC)
     {
-        DMATransfer(3, (void*)sEwramPointer + 0x400, PALRAM_BASE, 0x400, 0x10);
+        DmaTransfer(3, (void*)sEwramPointer + 0x400, PALRAM_BASE, 0x400, 0x10);
         CUTSCENE_DATA.unk_BC = FALSE;
     }
 }
@@ -1052,13 +1052,13 @@ u8 CutsceneStartBackgroundFading(u8 type)
     CUTSCENE_DATA.unk_BC = FALSE;
     CUTSCENE_DATA.unk_B8 = 0;
 
-    DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer, PALRAM_SIZE, 16);
+    DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer, PALRAM_SIZE, 16);
 
     switch (type)
     {
         case 1:
             BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
-            DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+            DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
 
             CUTSCENE_DATA.fadingStage = 0;
             CUTSCENE_DATA.fadingIntensity = 2;
@@ -1068,7 +1068,7 @@ u8 CutsceneStartBackgroundFading(u8 type)
 
         case 2:
             BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
-            DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+            DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
 
             CUTSCENE_DATA.fadingStage = 0;
             CUTSCENE_DATA.fadingIntensity = 1;
@@ -1078,7 +1078,7 @@ u8 CutsceneStartBackgroundFading(u8 type)
 
         case 3:
             BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
-            DMATransfer(3, PALRAM_BASE, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+            DmaTransfer(3, PALRAM_BASE, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
 
             CUTSCENE_DATA.fadingStage = 0;
             CUTSCENE_DATA.fadingIntensity = 1;
@@ -1179,7 +1179,7 @@ u8 CutsceneUpdateFading(void)
             }
             else
             {
-                DMATransfer(3, (void*)sEwramPointer, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
+                DmaTransfer(3, (void*)sEwramPointer, (void*)sEwramPointer + PALRAM_SIZE, PALRAM_SIZE, 16);
                 CUTSCENE_DATA.unk_BC = TRUE;
                 CUTSCENE_DATA.fadingStage++;
             }

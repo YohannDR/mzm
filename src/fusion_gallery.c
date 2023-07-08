@@ -25,7 +25,7 @@ gBG1YPosition = 0;            \
  */
 void FusionGalleryVBlank(void)
 {
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
     write16(REG_DISPCNT, FUSION_GALLERY_DATA.dispcnt);
     write16(REG_BLDCNT, FUSION_GALLERY_DATA.bldcnt);
@@ -57,7 +57,7 @@ void FusionGalleryInit(void)
     {
         ClearGfxRam();
         zero = 0;
-        dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+        DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
     }
 
     image = FUSION_GALLERY_DATA.currentImage;
@@ -67,7 +67,7 @@ void FusionGalleryInit(void)
     LZ77UncompVRAM(sFusionGalleryData[image].pBottomTileTable, VRAM_BASE + 0xF800);
 
     BitFill(3, 0x4FF04FF, VRAM_BASE + 0xE800, 0x800, 32);
-    dma_set(3, sFusionGalleryData[image].pPalette, PALRAM_BASE, DMA_ENABLE << 16 | PALRAM_SIZE / 4);
+    DMA_SET(3, sFusionGalleryData[image].pPalette, PALRAM_BASE, DMA_ENABLE << 16 | PALRAM_SIZE / 4);
 
     write16(REG_BG0CNT, 0x9C00);
     write16(REG_BG1CNT, 0x9E09);

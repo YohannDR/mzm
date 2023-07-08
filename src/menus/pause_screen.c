@@ -148,9 +148,9 @@ u32 PauseScreenUpdateOrStartFading(u8 stage)
             break;
 
         case PAUSE_SCREEN_FADING_IN_INIT:
-            DMATransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
+            DmaTransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
             BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
-            DMATransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_SIZE, 16);
+            DmaTransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_SIZE, 16);
 
             PAUSE_SCREEN_DATA.mapScreenFading.colorToApply = 0;
             PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = FALSE;
@@ -185,14 +185,14 @@ u32 PauseScreenUpdateOrStartFading(u8 stage)
             }
             else
             {
-                DMATransfer(3, PAUSE_SCREEN_EWRAM.unk_6800, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_SIZE, 16);
+                DmaTransfer(3, PAUSE_SCREEN_EWRAM.unk_6800, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_SIZE, 16);
                 PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = TRUE;
                 PAUSE_SCREEN_DATA.mapScreenFading.stage = 1;
             }
             break;
 
         case PAUSE_SCREEN_FADING_OUT_INIT:
-            DMATransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
+            DmaTransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
 
             PAUSE_SCREEN_DATA.mapScreenFading.colorToApply = 0;
             PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = FALSE;
@@ -235,7 +235,7 @@ u32 PauseScreenUpdateOrStartFading(u8 stage)
 
     if (PAUSE_SCREEN_DATA.mapScreenFading.unk_2)
     {
-        DMATransfer(3, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_BASE, PALRAM_SIZE, 16);
+        DmaTransfer(3, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_BASE, PALRAM_SIZE, 16);
         PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = FALSE;
     }
 
@@ -251,13 +251,13 @@ void PauseScreenCopyPalramToEwram_Unused(u8 param_1)
 {
     if (!param_1)
     {
-        DMATransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
+        DmaTransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
         BitFill(3, 0, PALRAM_BASE, PALRAM_SIZE, 16);
-        DMATransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
+        DmaTransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
     }
     else
     {
-        DMATransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
+        DmaTransfer(3, PALRAM_BASE, PAUSE_SCREEN_EWRAM.unk_6800, PALRAM_SIZE, 16);
     }
 
     PAUSE_SCREEN_DATA.mapScreenFading.stage = 0;
@@ -271,7 +271,7 @@ void PauseScreenCopyBackgroundPalette_Unused(void)
 {
     if (PAUSE_SCREEN_DATA.mapScreenFading.unk_2)
     {
-        DMATransfer(3, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_BASE, PALRAM_SIZE, 16);
+        DmaTransfer(3, PAUSE_SCREEN_EWRAM.backgroundPalette, PALRAM_BASE, PALRAM_SIZE, 16);
         PAUSE_SCREEN_DATA.mapScreenFading.unk_2 = FALSE;
     }
 }
@@ -656,7 +656,7 @@ void PauseScreenUpdateWireframeSamus(u8 param_1)
     else if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
         oamId = 1;
 
-    DMATransfer(3, &sSamusWireframePal[oamId * 16], sObjPalramPointer + 0x80, 16 * 2, 16);
+    DmaTransfer(3, &sSamusWireframePal[oamId * 16], sObjPalramPointer + 0x80, 16 * 2, 16);
 }
 
 /**
@@ -1966,7 +1966,7 @@ u32 PauseScreenSubroutine(void)
  */
 void PauseScreenVBlank(void)
 {
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
     write16(REG_DISPCNT, PAUSE_SCREEN_DATA.dispcnt);
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
@@ -2018,7 +2018,7 @@ void PauseScreenInit(void)
     BitFill(3, 0, &gNonGameplayRAM, sizeof(union NonGameplayRAM), 32);
     ResetFreeOam();
     
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
     PAUSE_SCREEN_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
         BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
@@ -2027,7 +2027,7 @@ void PauseScreenInit(void)
 
     if (gCurrentCutscene == 0)
     {
-        DMATransfer(3, VRAM_BASE + 0x10000, EWRAM_BASE + 0x1E000, 0x8000, 16);
+        DmaTransfer(3, VRAM_BASE + 0x10000, EWRAM_BASE + 0x1E000, 0x8000, 16);
     }
 
     PAUSE_SCREEN_DATA.currentArea = gCurrentArea;
@@ -2071,13 +2071,13 @@ void PauseScreenInit(void)
             break;
     }
 
-    DMATransfer(3, sTankIconsPal, PALRAM_OBJ, sizeof(sTankIconsPal), 16);
-    DMATransfer(3, sMinimapTilesPal, PALRAM_BASE, sizeof(sMinimapTilesPal), 16);
-    DMATransfer(3, sPauseScreen_3fcef0, PALRAM_BASE + 0xA0, sizeof(sPauseScreen_3fcef0), 16);
+    DmaTransfer(3, sTankIconsPal, PALRAM_OBJ, sizeof(sTankIconsPal), 16);
+    DmaTransfer(3, sMinimapTilesPal, PALRAM_BASE, sizeof(sMinimapTilesPal), 16);
+    DmaTransfer(3, sPauseScreen_3fcef0, PALRAM_BASE + 0xA0, sizeof(sPauseScreen_3fcef0), 16);
     sBgPalramPointer[0] = 0;
 
-    DMATransfer(3, sMinimapTilesGfx, VRAM_BASE + 0x8000, 0x3000, 16);
-    DMATransfer(3, VRAM_BASE + 0xA820, VRAM_BASE + 0xAC20, 0x3E0, 32);
+    DmaTransfer(3, sMinimapTilesGfx, VRAM_BASE + 0x8000, 0x3000, 16);
+    DmaTransfer(3, VRAM_BASE + 0xA820, VRAM_BASE + 0xAC20, 0x3E0, 32);
 
     CallLZ77UncompVRAM(sTankIconsGfx, VRAM_BASE + 0x13000);
     CallLZ77UncompVRAM(sMapScreenAreaNamesGfxPointers[gLanguage], VRAM_BASE + 0x10800);
@@ -2096,12 +2096,12 @@ void PauseScreenInit(void)
         CallLZ77UncompVRAM(sMinimapLettersGfx, VRAM_BASE + 0x7400);
         CallLZ77UncompVRAM(sMapScreenEquipmentNamesGfxPointers[gLanguage], VRAM_BASE + 0x6000);
         CallLZ77UncompVRAM(sMapScreenMenuNamesGfxPointers[gLanguage], VRAM_BASE + 0xC00);
-        DMATransfer(3, VRAM_BASE + 0x6000, VRAM_BASE + 0x10000, 0x800, 32);
+        DmaTransfer(3, VRAM_BASE + 0x6000, VRAM_BASE + 0x10000, 0x800, 32);
     }
 
     BitFill(3, 0x1140, VRAM_BASE + 0xE800, 0x1800, 16);
     // 0x2034000 = gDecompressedMinimapVisitedTiles
-    DMATransfer(3, 0x2034000, VRAM_BASE + 0xE000, sizeof(gDecompressedMinimapVisitedTiles), 16);
+    DmaTransfer(3, 0x2034000, VRAM_BASE + 0xE000, sizeof(gDecompressedMinimapVisitedTiles), 16);
 
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_CHOZO_STATUE_HINT)
     {
@@ -2111,7 +2111,7 @@ void PauseScreenInit(void)
     else
     {
         CallLZ77UncompWRAM(sMapScreenVisorOverlayTilemap, PAUSE_SCREEN_EWRAM.visorOverlayTilemap);
-        DMATransfer(3, PAUSE_SCREEN_EWRAM.visorOverlayTilemap, VRAM_BASE + 0xC800,
+        DmaTransfer(3, PAUSE_SCREEN_EWRAM.visorOverlayTilemap, VRAM_BASE + 0xC800,
             sizeof(PAUSE_SCREEN_EWRAM.visorOverlayTilemap), 16);
         PauseScreenUpdateBottomVisorOverlay(2, 2);
 
@@ -2132,11 +2132,11 @@ void PauseScreenInit(void)
             
             if (gEquipment.suitType == SUIT_SUITLESS)
             {
-                DMATransfer(3, PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap, VRAM_BASE + 0xC000, 0x500, 16);
+                DmaTransfer(3, PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap, VRAM_BASE + 0xC000, 0x500, 16);
             }
             else
             {
-                DMATransfer(3, PAUSE_SCREEN_EWRAM.unk_7800, VRAM_BASE + 0xC000, 0x500, 16);
+                DmaTransfer(3, PAUSE_SCREEN_EWRAM.unk_7800, VRAM_BASE + 0xC000, 0x500, 16);
             }
 
             CallLZ77UncompWRAM(sMapScreenOverlayTilemap, PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap);
@@ -2205,7 +2205,7 @@ void PauseScreenInit(void)
         PauseScreenCheckAreasWithTargets();
         PauseScreenDetermineMapsViewable();
         LoadPauseScreenBgPalette();
-        DMATransfer(3, PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap, VRAM_BASE + 0xD000,
+        DmaTransfer(3, PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap, VRAM_BASE + 0xD000,
             sizeof(PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap), 16);
     }
 
@@ -2356,7 +2356,7 @@ void PauseScreenInit(void)
     }
 
     PauseScreenProcessOam();
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
     PauseScreenUpdateOrStartFading(PAUSE_SCREEN_FADING_IN_INIT);
     
@@ -2924,7 +2924,7 @@ void PauseScreenUpdateTopVisorOverlay(u8 oamId)
     else
         offset = 3;
 
-    DMATransfer(3, &PAUSE_SCREEN_EWRAM.visorOverlayTilemap[0x280 + offset * 0x40], VRAM_BASE + 0xC800, 0x80, 16);
+    DmaTransfer(3, &PAUSE_SCREEN_EWRAM.visorOverlayTilemap[0x280 + offset * 0x40], VRAM_BASE + 0xC800, 0x80, 16);
 }
 
 /**
@@ -3005,11 +3005,11 @@ s32 PauseScreenStatusScreenInit(void)
             // Background tilemap?
             if (gEquipment.suitType == SUIT_SUITLESS)
             {
-                DMATransfer(3, PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap, VRAM_BASE + 0xC000, 0x500, 32);
+                DmaTransfer(3, PAUSE_SCREEN_EWRAM.statusScreenBackgroundTilemap, VRAM_BASE + 0xC000, 0x500, 32);
             }
             else
             {
-                DMATransfer(3, PAUSE_SCREEN_EWRAM.unk_7800, VRAM_BASE + 0xC000, 0x500, 32);
+                DmaTransfer(3, PAUSE_SCREEN_EWRAM.unk_7800, VRAM_BASE + 0xC000, 0x500, 32);
             }
             
             // Set stage 1
@@ -3227,41 +3227,41 @@ s32 PauseScreenEasySleepInit(void)
 
         case 2:
             // Transfer tilemap
-            DMATransfer(3, PAUSE_SCREEN_EWRAM.easySleepTilemap, VRAM_BASE + 0xD000, sizeof(PAUSE_SCREEN_EWRAM.easySleepTilemap), 16);
+            DmaTransfer(3, PAUSE_SCREEN_EWRAM.easySleepTilemap, VRAM_BASE + 0xD000, sizeof(PAUSE_SCREEN_EWRAM.easySleepTilemap), 16);
             break;
 
         case 3:
             // Make a backup of some Gfx
-            DMATransfer(3, VRAM_BASE + 0x6000, PAUSE_SCREEN_EWRAM.equipmentNamesGfxBackup,
+            DmaTransfer(3, VRAM_BASE + 0x6000, PAUSE_SCREEN_EWRAM.equipmentNamesGfxBackup,
                 sizeof(PAUSE_SCREEN_EWRAM.equipmentNamesGfxBackup), 16);
-            DMATransfer(3, VRAM_BASE + 0x6800, PAUSE_SCREEN_EWRAM.unk_b000,
+            DmaTransfer(3, VRAM_BASE + 0x6800, PAUSE_SCREEN_EWRAM.unk_b000,
                 sizeof(PAUSE_SCREEN_EWRAM.unk_b000), 16);
             break;
 
         case 4:
             // More backups
-            DMATransfer(3, VRAM_BASE + 0x7000, PAUSE_SCREEN_EWRAM.unk_b800,
+            DmaTransfer(3, VRAM_BASE + 0x7000, PAUSE_SCREEN_EWRAM.unk_b800,
                 sizeof(PAUSE_SCREEN_EWRAM.unk_b800), 16);
-            DMATransfer(3, VRAM_BASE + 0x7800, PAUSE_SCREEN_EWRAM.unk_c000,
+            DmaTransfer(3, VRAM_BASE + 0x7800, PAUSE_SCREEN_EWRAM.unk_c000,
                 sizeof(PAUSE_SCREEN_EWRAM.unk_c000), 16);
             break;
 
         case 6:
             // Format easy sleep tilemap
-            dma_set(3, &PAUSE_SCREEN_EWRAM.unk_6000[0], &PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1[0x1C0], DMA_ENABLE << 16 | 0x40);
-            dma_set(3, &PAUSE_SCREEN_EWRAM.unk_6000[0x200], &PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1[0x3C0], DMA_ENABLE << 16 | 0x40);
-            dma_set(3, &PAUSE_SCREEN_EWRAM.unk_6000[0xE0], &PAUSE_SCREEN_EWRAM.easySleepTextFormatted_2[0x1C0], DMA_ENABLE << 16 | 0x40);
-            dma_set(3, &PAUSE_SCREEN_EWRAM.unk_6000[0x2E0], &PAUSE_SCREEN_EWRAM.easySleepTextFormatted_2[0x3C0], DMA_ENABLE << 16 | 0x40);
+            DMA_SET(3, &PAUSE_SCREEN_EWRAM.unk_6000[0], &PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1[0x1C0], DMA_ENABLE << 16 | 0x40);
+            DMA_SET(3, &PAUSE_SCREEN_EWRAM.unk_6000[0x200], &PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1[0x3C0], DMA_ENABLE << 16 | 0x40);
+            DMA_SET(3, &PAUSE_SCREEN_EWRAM.unk_6000[0xE0], &PAUSE_SCREEN_EWRAM.easySleepTextFormatted_2[0x1C0], DMA_ENABLE << 16 | 0x40);
+            DMA_SET(3, &PAUSE_SCREEN_EWRAM.unk_6000[0x2E0], &PAUSE_SCREEN_EWRAM.easySleepTextFormatted_2[0x3C0], DMA_ENABLE << 16 | 0x40);
             break;
 
         case 7:
             // Transfer message text
             if ((u8)PAUSE_SCREEN_DATA.easySleepTextState > 1)
             {
-                DMATransfer(3, PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1, VRAM_BASE + 0x6000,
+                DmaTransfer(3, PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1, VRAM_BASE + 0x6000,
                     sizeof(PAUSE_SCREEN_EWRAM.easySleepTextFormatted_1), 16);
 
-                DMATransfer(3, PAUSE_SCREEN_EWRAM.easySleepTextFormatted_2, VRAM_BASE + 0x6800,
+                DmaTransfer(3, PAUSE_SCREEN_EWRAM.easySleepTextFormatted_2, VRAM_BASE + 0x6800,
                     sizeof(PAUSE_SCREEN_EWRAM.easySleepTextFormatted_2), 16);
             }
             else
@@ -3274,10 +3274,10 @@ s32 PauseScreenEasySleepInit(void)
             // Transfer prompt text
             if (PAUSE_SCREEN_DATA.easySleepTextState < 0)
             {
-                DMATransfer(3, PAUSE_SCREEN_EWRAM.unk_5000, VRAM_BASE + 0x7000,
+                DmaTransfer(3, PAUSE_SCREEN_EWRAM.unk_5000, VRAM_BASE + 0x7000,
                     sizeof(PAUSE_SCREEN_EWRAM.unk_5000), 16);
 
-                DMATransfer(3, PAUSE_SCREEN_EWRAM.unk_5800, VRAM_BASE + 0x7800,
+                DmaTransfer(3, PAUSE_SCREEN_EWRAM.unk_5800, VRAM_BASE + 0x7800,
                     sizeof(PAUSE_SCREEN_EWRAM.unk_5800), 16);
             }
             else
@@ -3343,21 +3343,21 @@ s32 PauseScreenQuitEasySleep(void)
             break;
 
         case 3:
-            dma_set(3, PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap, VRAM_BASE + 0xD000,
+            DMA_SET(3, PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap, VRAM_BASE + 0xD000,
                 DMA_ENABLE << 16 | ARRAY_SIZE(PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap));
             break;
 
         case 4:
-            DMATransfer(3, PAUSE_SCREEN_EWRAM.equipmentNamesGfxBackup, VRAM_BASE + 0x6000,
+            DmaTransfer(3, PAUSE_SCREEN_EWRAM.equipmentNamesGfxBackup, VRAM_BASE + 0x6000,
                 sizeof(PAUSE_SCREEN_EWRAM.equipmentNamesGfxBackup), 16);
-            DMATransfer(3, PAUSE_SCREEN_EWRAM.unk_b000, VRAM_BASE + 0x6800,
+            DmaTransfer(3, PAUSE_SCREEN_EWRAM.unk_b000, VRAM_BASE + 0x6800,
                 sizeof(PAUSE_SCREEN_EWRAM.unk_b000), 16);
             break;
 
         case 5:
-            DMATransfer(3, PAUSE_SCREEN_EWRAM.unk_b800, VRAM_BASE + 0x7000,
+            DmaTransfer(3, PAUSE_SCREEN_EWRAM.unk_b800, VRAM_BASE + 0x7000,
                 sizeof(PAUSE_SCREEN_EWRAM.unk_b800), 16);
-            DMATransfer(3, PAUSE_SCREEN_EWRAM.unk_c000, VRAM_BASE + 0x7800,
+            DmaTransfer(3, PAUSE_SCREEN_EWRAM.unk_c000, VRAM_BASE + 0x7800,
                 sizeof(PAUSE_SCREEN_EWRAM.unk_c000), 16);
             break;
 

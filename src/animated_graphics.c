@@ -13,6 +13,7 @@
 #include "constants/color_fading.h"
 #include "constants/connection.h"
 #include "constants/event.h"
+#include "constants/game_state.h"
 #include "constants/room.h"
 
 #include "structs/animated_graphics.h"
@@ -29,64 +30,64 @@ void AnimatedGraphicsTransfer(void)
     if (gAnimatedGraphicsToUpdate == 0)
         return;
 
-    if (gAnimatedGraphicsToUpdate & 0x1)
-        dma_set(3, EWRAM_BASE + 0x1B000, VRAM_BASE + 0x4000, DMA_ENABLE << 16 | 0x40);
+    if (gAnimatedGraphicsToUpdate & 1 << 0)
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(0), ANIMATED_GFX_VRAM_POS(0), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
 
-    if (gAnimatedGraphicsToUpdate & 0x2)
-        dma_set(3, EWRAM_BASE + 0x1B080, VRAM_BASE + 0x4080, DMA_ENABLE << 16 | 0x40);
+    if (gAnimatedGraphicsToUpdate & 1 << 1)
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(1), ANIMATED_GFX_VRAM_POS(1), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
 
-    if (gAnimatedGraphicsToUpdate & 0x4)
-        dma_set(3, EWRAM_BASE + 0x1B100, VRAM_BASE + 0x4100, DMA_ENABLE << 16 | 0x40);
+    if (gAnimatedGraphicsToUpdate & 1 << 2)
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(2), ANIMATED_GFX_VRAM_POS(2), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
 
-    if (gAnimatedGraphicsToUpdate & 0x8)
-        dma_set(3, EWRAM_BASE + 0x1B180, VRAM_BASE + 0x4180, DMA_ENABLE << 16 | 0x40);
+    if (gAnimatedGraphicsToUpdate & 1 << 3)
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(3), ANIMATED_GFX_VRAM_POS(3), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
 
-    if (gAnimatedGraphicsToUpdate & 0x10)
-        dma_set(3, EWRAM_BASE + 0x1B200, VRAM_BASE + 0x4200, DMA_ENABLE << 16 | 0x40);
+    if (gAnimatedGraphicsToUpdate & 1 << 4)
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(4), ANIMATED_GFX_VRAM_POS(4), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
 
-    if (gAnimatedGraphicsToUpdate & 0x20)
-        dma_set(3, EWRAM_BASE + 0x1B280, VRAM_BASE + 0x4280, DMA_ENABLE << 16 | 0x40);
+    if (gAnimatedGraphicsToUpdate & 1 << 5)
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(5), ANIMATED_GFX_VRAM_POS(5), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
 
-    if (gAnimatedGraphicsToUpdate & 0x40)
-        dma_set(3, EWRAM_BASE + 0x1B300, VRAM_BASE + 0x4300, DMA_ENABLE << 16 | 0x40);
+    if (gAnimatedGraphicsToUpdate & 1 << 6)
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(6), ANIMATED_GFX_VRAM_POS(6), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
 
-    if (gAnimatedGraphicsToUpdate & 0x80)
-        dma_set(3, EWRAM_BASE + 0x1B380, VRAM_BASE + 0x4380, DMA_ENABLE << 16 | 0x40);
+    if (gAnimatedGraphicsToUpdate & 1 << 7)
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(7), ANIMATED_GFX_VRAM_POS(7), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
 
-    if (gAnimatedGraphicsToUpdate & 0x100)
-        dma_set(3, EWRAM_BASE + 0x1B400, VRAM_BASE + 0x4400, DMA_ENABLE << 16 | 0x40);
+    if (gAnimatedGraphicsToUpdate & 1 << 8)
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(8), ANIMATED_GFX_VRAM_POS(8), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
 
-    if (gAnimatedGraphicsToUpdate & 0x200)
-        dma_set(3, EWRAM_BASE + 0x1B480, VRAM_BASE + 0x4480, DMA_ENABLE << 16 | 0x40);
+    if (gAnimatedGraphicsToUpdate & 1 << 9)
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(9), ANIMATED_GFX_VRAM_POS(9), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
 
-    if (gAnimatedGraphicsToUpdate & 0x400)
-        dma_set(3, EWRAM_BASE + 0x1B500, VRAM_BASE + 0x4500, DMA_ENABLE << 16 | 0x40);
+    if (gAnimatedGraphicsToUpdate & 1 << 10)
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(10), ANIMATED_GFX_VRAM_POS(10), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
 
-    if (gAnimatedGraphicsToUpdate & 0x800)
-        dma_set(3, EWRAM_BASE + 0x1B580, VRAM_BASE + 0x4580, DMA_ENABLE << 16 | 0x40);
+    if (gAnimatedGraphicsToUpdate & 1 << 11)
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(11), ANIMATED_GFX_VRAM_POS(11), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
 
-    if (gAnimatedGraphicsToUpdate & 0x1000)
+    if (gAnimatedGraphicsToUpdate & 1 << 12)
     {
-        dma_set(3, EWRAM_BASE + 0x1B600, VRAM_BASE + 0x4600, DMA_ENABLE << 16 | 0x40);
-        dma_set(3, EWRAM_BASE + 0x1B600, VRAM_BASE + 0xFDE0, DMA_ENABLE << 16 | 0x40);
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(12), ANIMATED_GFX_VRAM_POS(12), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(12), ANIMATED_GFX_VRAM_END_POS(3), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
     }
 
-    if (gAnimatedGraphicsToUpdate & 0x2000)
+    if (gAnimatedGraphicsToUpdate & 1 << 13)
     {
-        dma_set(3, EWRAM_BASE + 0x1B680, VRAM_BASE + 0x4680, DMA_ENABLE << 16 | 0x40);
-        dma_set(3, EWRAM_BASE + 0x1B680, VRAM_BASE + 0xFE60, DMA_ENABLE << 16 | 0x40);
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(13), ANIMATED_GFX_VRAM_POS(13), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(13), ANIMATED_GFX_VRAM_END_POS(2), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
     }
 
-    if (gAnimatedGraphicsToUpdate & 0x4000)
+    if (gAnimatedGraphicsToUpdate & 1 << 14)
     {
-        dma_set(3, EWRAM_BASE + 0x1B700, VRAM_BASE + 0x4700, DMA_ENABLE << 16 | 0x40);
-        dma_set(3, EWRAM_BASE + 0x1B700, VRAM_BASE + 0xFEE0, DMA_ENABLE << 16 | 0x40);
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(14), ANIMATED_GFX_VRAM_POS(14), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(14), ANIMATED_GFX_VRAM_END_POS(1), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
     }
 
-    if (gAnimatedGraphicsToUpdate & 0x8000)
+    if (gAnimatedGraphicsToUpdate & 1 << 15)
     {
-        dma_set(3, EWRAM_BASE + 0x1B780, VRAM_BASE + 0x4780, DMA_ENABLE << 16 | 0x40);
-        dma_set(3, EWRAM_BASE + 0x1B780, VRAM_BASE + 0xFF60, DMA_ENABLE << 16 | 0x40);
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(15), ANIMATED_GFX_VRAM_POS(15), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
+        DMA_SET(3, ANIMATED_GFX_EWRAM_POS(15), ANIMATED_GFX_VRAM_END_POS(0), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
     }
 
     gAnimatedGraphicsToUpdate = 0;
@@ -104,80 +105,96 @@ void AnimatedGraphicsUpdate(void)
     s32 frame;
     const u8* src;
 
-    pGraphics = gAnimatedGraphicsData;
-    for (i = 0; i < ARRAY_SIZE(gAnimatedGraphicsData); )
+    // Loop through every current animated graphics
+    for (pGraphics = gAnimatedGraphicsData, i = 0; i < ARRAY_SIZE(gAnimatedGraphicsData); i++, pGraphics++)
     {
         update = FALSE;
 
+        // Apply animation type
         switch (pGraphics->type)
         {
-            case ANIMATED_GRAPHICS_TYPE_NONE:
+            case ANIMATED_GFX_TYPE_NONE:
+                // No type, so no graphics
                 break;
 
-            case ANIMATED_GRAPHICS_TYPE_NORMAL:
+            case ANIMATED_GFX_TYPE_NORMAL:
+                // Standard animation progression
                 pGraphics->animationDurationCounter++;
                 if (pGraphics->animationDurationCounter == pGraphics->framesPerState)
                 {
                     update = TRUE;
+
                     pGraphics->animationDurationCounter = 0;
                     pGraphics->currentAnimationFrame++;
+
                     if (pGraphics->currentAnimationFrame == pGraphics->numberOfStates)
                         pGraphics->currentAnimationFrame = 0;
                 }
                 break;
 
-            case 2:
-                break;
-
-            case 3:
+            case ANIMATED_GFX_TYPE_NORMAL_ONCE:
+                // Play the animation normally, but only once (no looping)
                 if (pGraphics->currentAnimationFrame != pGraphics->numberOfStates - 1)
                 {
                     pGraphics->animationDurationCounter++;
                     if (pGraphics->animationDurationCounter == pGraphics->framesPerState)
                     {
                         update = TRUE;
+
                         pGraphics->animationDurationCounter = 0;
                         pGraphics->currentAnimationFrame++;
                     }
                 }
                 break;
 
-            case ANIMATED_GRAPHICS_TYPE_ALTERNATE:
+            case ANIMATED_GFX_TYPE_ALTERNATE:
                 pGraphics->animationDurationCounter++;
+
                 if (pGraphics->animationDurationCounter == pGraphics->framesPerState)
                 {
                     update = TRUE;
+
                     pGraphics->animationDurationCounter = 0;
                     pGraphics->currentAnimationFrame++;
+
                     frame = pGraphics->currentAnimationFrame;
                     if (pGraphics->currentAnimationFrame == pGraphics->numberOfStates)
                         pGraphics->currentAnimationFrame = 2 - frame;
                 }
                 break;
 
-            case 5:
+            case ANIMATED_GFX_TYPE_REVERSE_ONCE:
+                // Standard animation progression, just played backwards and played once (no looping)
                 if (pGraphics->currentAnimationFrame != 0)
                 {
                     pGraphics->animationDurationCounter++;
+
                     if (pGraphics->animationDurationCounter == pGraphics->framesPerState)
                     {
                         update = TRUE;
+
                         pGraphics->animationDurationCounter = 0;
                         pGraphics->currentAnimationFrame--;
                     }
                 }
                 break;
 
-            case 6:
+            case ANIMATED_GFX_TYPE_REVERSE:
+                // Standard animation progression, just played backwards
                 pGraphics->animationDurationCounter++;
+
                 if (pGraphics->animationDurationCounter == pGraphics->framesPerState)
                 {
                     update = TRUE;
+
                     pGraphics->animationDurationCounter = 0;
                     pGraphics->currentAnimationFrame--;
 
                     if (pGraphics->currentAnimationFrame < 0)
+                    {
+                        // Reached "start", set last frame
                         pGraphics->currentAnimationFrame = pGraphics->numberOfStates - 1;
+                    }
                 }
                 break;
         }
@@ -186,16 +203,20 @@ void AnimatedGraphicsUpdate(void)
         {
             frame = pGraphics->currentAnimationFrame;
             if (pGraphics->currentAnimationFrame < 0)
+            {
+                // Fancy negation
                 frame = (s8)(~frame + 1);
+            }
 
-            src = &pGraphics->pGraphics[frame * 128];
-            dma_set(3, src, EWRAM_BASE + 0x1B000 + i * 128, DMA_ENABLE << 16 | 0x40);
+            // Get graphics
+            src = &pGraphics->pGraphics[frame * ANIMATED_GFX_SIZE];
 
+            // Transfer graphics to EWRAM
+            DMA_SET(3, src, ANIMATED_GFX_EWRAM_POS(i), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
+
+            // Mark for transfer to VRAM
             gAnimatedGraphicsToUpdate |= 1 << i;
         }
-
-        i++;
-        pGraphics++;
     }
 }
 
@@ -214,40 +235,46 @@ void AnimatedGraphicsLoad(void)
 
     gAnimatedGraphicsToUpdate = 0;
 
-    pGraphics = gAnimatedGraphicsData;
-    for (i = 0; i < ARRAY_SIZE(gAnimatedGraphicsData); )
+    for (pGraphics = gAnimatedGraphicsData, i = 0; i < ARRAY_SIZE(gAnimatedGraphicsData); i++, pGraphics++)
     {
+        // Get animated graphics entry
         pGraphics->graphicsEntry = sAnimatedTilesetEntries[gAnimatedGraphicsEntry.tileset][i * 3];
 
+        // Get concerned entry
         entry = pGraphics->graphicsEntry;
         pData = &sAnimatedGraphicsEntries[entry];
+
+        // Fetch data
         pGraphics->type = pData->type;
         pGraphics->framesPerState = pData->framesPerState;
         pGraphics->numberOfStates = pData->numberOfStates;
 
+        // Setup animation
         pGraphics->animationDurationCounter = 0;
         pGraphics->currentAnimationFrame = 0;
         pGraphics->pGraphics = pData->pGraphics;
 
         switch (pGraphics->type)
         {
-            case 3:
-            case 6:
+            case ANIMATED_GFX_TYPE_NORMAL_ONCE: // This might be an error? should probably be ANIMATED_GFX_TYPE_REVERSE_ONCE
+            case ANIMATED_GFX_TYPE_REVERSE:
+                // Set start on last frame
                 pGraphics->currentAnimationFrame = pGraphics->numberOfStates - 1;
         }
 
-        src = &pGraphics->pGraphics[pGraphics->currentAnimationFrame * 128];
-        dst = VRAM_BASE + 0x4000 + i * 0x80;
-        dma_set(3, src, dst, DMA_ENABLE << 16 | 0x40);
+        // Direct transfer to VRAM
+        src = &pGraphics->pGraphics[pGraphics->currentAnimationFrame * ANIMATED_GFX_SIZE];
+        dst = ANIMATED_GFX_VRAM_POS(i);
 
-        if (gPauseScreenFlag == 0 && pGraphics->graphicsEntry == 13)
+        DMA_SET(3, src, dst, DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
+
+        // Check enable rain sound
+        if (gPauseScreenFlag == 0 && pGraphics->graphicsEntry == ANIMATED_GFX_ID_RAIN)
             gRainSoundEffect |= RAIN_SOUND_ENABLED;
-
-        i++;
-        pGraphics++;
     }
 
-    dma_set(3, VRAM_BASE + 0x4600, VRAM_BASE + 0xFDE0, DMA_ENABLE << 16 | 0x100);
+    // Some backup?
+    DMA_SET(3, ANIMATED_GFX_VRAM_POS(12), ANIMATED_GFX_VRAM_END_POS(4 - 1), DMA_ENABLE << 16 | (ANIMATED_GFX_SIZE * 4 / 2));
 }
 
 /**
@@ -258,10 +285,13 @@ void AnimatedGraphicsTanksAnimationReset(void)
 {
     gTankAnimations[0].timer = 1;
     gTankAnimations[0].frame = 0;
+
     gTankAnimations[1].timer = 2;
     gTankAnimations[1].frame = 0;
+
     gTankAnimations[2].timer = 3;
     gTankAnimations[2].frame = 0;
+
     gTankAnimations[3].timer = 4;
     gTankAnimations[3].frame = 0;
 }
@@ -273,26 +303,26 @@ void AnimatedGraphicsTanksAnimationReset(void)
 void AnimatedGraphicsTanksAnimationUpdate(void)
 {
     s32 i;
-    
+
     for (i = ARRAY_SIZE(gTankAnimations) - 1; i >= 0; i--)
     {
         // Update timer
         gTankAnimations[i].timer++;
 
         // Swap animation frame every 5 frames
-        if (gTankAnimations[i].timer < 5)
+        if (gTankAnimations[i].timer < ANIMATED_GFX_TANK_FRAME_DELAY)
             continue;
 
         gTankAnimations[i].timer = 0;
 
         // Update current frame
         gTankAnimations[i].frame++;
-        if (gTankAnimations[i].frame > 3)
+        if (gTankAnimations[i].frame >= ANIMATED_GFX_TANK_NBR)
             gTankAnimations[i].frame = 0;
 
         // Transfer graphics
-        dma_set(3, &sAnimatedTankGfx[i * 512 + gTankAnimations[i].frame * 0x80],
-            VRAM_BASE + 0x4820 + i * 0x80, DMA_ENABLE << 16 | 0x40);
+        DMA_SET(3, &sAnimatedTankGfx[ANIMATED_GFX_TANK_POS(i, gTankAnimations[i].frame)],
+            ANIMATED_GFX_TANK_VRAM_POS(i), DMA_ENABLE << 16 | ANIMATED_GFX_SIZE_16_BITS);
     }
 }
 
@@ -306,28 +336,36 @@ void AnimatedPaletteUpdate(void)
     s32 row;
     s32 newRow;
 
+    // Check has animated palette
     if (gAnimatedGraphicsEntry.palette == 0)
         return;
 
+    // Don't update if a power bomb explosion is occuring
     if (gCurrentPowerBomb.animationState != 0)
         return;
 
+    // Don't update if disabled
     if (gDisableAnimatedPalette > FALSE)
         return;
 
     update = FALSE;
+
+    // Update timer
     gAnimatedPaletteTiming.timer++;
 
     switch (sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].type)
     {
         case ANIMATED_PALETTE_TYPE_NONE:
+            // No type, so no palette
             break;
 
         case ANIMATED_PALETTE_TYPE_NORMAL:
+            // Standard animation progression
             if (sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].framesPerState <= gAnimatedPaletteTiming.timer)
             {
                 gAnimatedPaletteTiming.timer = 0;
                 gAnimatedPaletteTiming.row++;
+
                 if (sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].numbersOfStates <= gAnimatedPaletteTiming.row)
                 {
                     gAnimatedPaletteTiming.row = 0;
@@ -352,15 +390,18 @@ void AnimatedPaletteUpdate(void)
             
                 if (gDisableAnimatedPalette < 0 && gAnimatedPaletteTiming.row == 0)
                     gDisableAnimatedPalette = TRUE;
+
                 update++;
             }
             break;
 
-        case 3:
+        case ANIMATED_PALETTE_TYPE_REVERSE:
+            // Standard animation progression, just played backwards
             if (sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].framesPerState <= gAnimatedPaletteTiming.timer)
             {
                 gAnimatedPaletteTiming.timer = 0;
                 gAnimatedPaletteTiming.row--;
+
                 if (0 > gAnimatedPaletteTiming.row)
                     gAnimatedPaletteTiming.row = sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].numbersOfStates - 1;
                 
@@ -372,19 +413,23 @@ void AnimatedPaletteUpdate(void)
     if (!update)
         return;
 
+    // Get row
     row = gAnimatedPaletteTiming.row;
     if (row < 0)
         row = -row;
 
-    if (gGameModeSub1 == 2)
+    // Transfer palette
+    if (gGameModeSub1 == SUB_GAME_MODE_PLAYING)
     {
-        dma_set(3, &sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette[row * 16],
-            PALRAM_BASE + 0x1E0, DMA_ENABLE << 16 | 0x10);
+        // Directly to palram if in game
+        DMA_SET(3, &sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette[row * 16],
+            ANIMATED_PALETTE_PALRAM, DMA_ENABLE << 16 | 0x10);
     }
     else
     {
-        dma_set(3, &sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette[row * 16],
-            EWRAM_BASE + 0x355E0, DMA_ENABLE << 16 | 0x10);    
+        // To backup if not in game
+        DMA_SET(3, &sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette[row * 16],
+            ANIMATED_PALETTE_EWRAM, DMA_ENABLE << 16 | 0x10);    
     }
 }
 
@@ -405,12 +450,12 @@ void AnimatedPaletteCheckDisableOnTransition(void)
         return;
 
     // Transfer palette
-    dma_set(3, sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette, PALRAM_BASE + 0x1E0, DMA_ENABLE << 16 | 0x10);
+    DMA_SET(3, sAnimatedPaletteEntries[gAnimatedGraphicsEntry.palette].pPalette, ANIMATED_PALETTE_PALRAM, DMA_ENABLE << 16 | 16);
 
     // Check disable
     switch (gAnimatedGraphicsEntry.palette)
     {
-        case 3:
+        case ANIMATED_PALETTE_ID_ZIPLINE:
             if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_ZIPLINES_ACTIVATED))
                 gDisableAnimatedPalette = TRUE; // No ziplines
             break;
@@ -437,7 +482,7 @@ void AnimatedGraphicsCheckPlayLightningEffect(void)
 {
     u8 effect;
 
-    effect = 0;
+    effect = BACKGROUND_EFFECT_NONE;
 
     // Check no effect currently active
     if (gPauseScreenFlag != 0 || gBackgroundEffect.type != 0)
@@ -448,7 +493,7 @@ void AnimatedGraphicsCheckPlayLightningEffect(void)
         effect = BACKGROUND_EFFECT_LIGHTNING;
 
     // Do effect
-    if (effect)
+    if (effect != BACKGROUND_EFFECT_NONE)
         BackgroundEffectStart(effect);
 }
 
@@ -459,27 +504,31 @@ void AnimatedGraphicsCheckPlayLightningEffect(void)
 void BackgroundEffectUpdate(void)
 {
     u16 color;
-    u16 selColor;
     
     gBackgroundEffect.timer++;
 
+    // Process
     color = BackgroundEffectProcess();
 
+    // Check has a color to update
     if (color == 0)
         return;
 
-    if (color == 2)
-        selColor = sBackgroundEffectColorData[gBackgroundEffect.type].color_2;
-    else
-        selColor = sBackgroundEffectColorData[gBackgroundEffect.type].color_1;
-    color = selColor;
+    // Get color
+    color = color == 2
+        ? sBackgroundEffectColorData[gBackgroundEffect.type].color_2
+        : sBackgroundEffectColorData[gBackgroundEffect.type].color_1;
 
-    if ((color & 0x8000) == 0)
-    {
-        ApplySpecialBackgroundEffectColorOnBG(sBackgroundEffectColorData[gBackgroundEffect.type].colorMask, color, gBackgroundEffect.colorStage);
-        if (sBackgroundEffectColorData[gBackgroundEffect.type].applyToOBJ)
-            ApplySpecialBackgroundEffectColorOnOBJ(0xFFFC, color, gBackgroundEffect.colorStage);
-    }
+    if (color & 0x8000)
+        return;
+
+    // Apply on background
+    ApplySpecialBackgroundEffectColorOnBG(sBackgroundEffectColorData[gBackgroundEffect.type].colorMask,
+        color, gBackgroundEffect.colorStage);
+
+    // Check apply on obj
+    if (sBackgroundEffectColorData[gBackgroundEffect.type].applyToObj)
+        ApplySpecialBackgroundEffectColorOnOBJ(0xFFFC, color, gBackgroundEffect.colorStage);
 }
 
 /**
@@ -501,6 +550,7 @@ u16 BackgroundEffectProcess(void)
     switch (pBehavior[0])
     {
         case BACKGROUND_EFFECT_COMMAND_WAIT_FOR_TIMER_RANDOM:
+            // Wait for a set + random amount of time
             if (gBackgroundEffect.timer > pBehavior[1] + gFrameCounter8Bit + gFrameCounter16Bit / 16)
             {
                 gBackgroundEffect.stage++;
@@ -509,6 +559,7 @@ u16 BackgroundEffectProcess(void)
             break;
 
         case BACKGROUND_EFFECT_COMMAND_WAIT_FOR_TIMER:
+            // Wait for a set amount of time
             if (gBackgroundEffect.timer > pBehavior[1])
             {
                 gBackgroundEffect.stage++;
@@ -517,6 +568,7 @@ u16 BackgroundEffectProcess(void)
             break;
 
         case BACKGROUND_EFFECT_COMMAND_WAIT_FOR_TIMER_BEFORE:
+            // Wait for just before a set amount of time
             if (gBackgroundEffect.timer >= pBehavior[1] - 1)
             {
                 gBackgroundEffect.stage++;
@@ -527,9 +579,12 @@ u16 BackgroundEffectProcess(void)
         case BACKGROUND_EFFECT_COMMAND_CHECK_APPLY_FIRST_COLOR:
             if (gColorFading.status == 0)
             {
+                // Set color stage
                 gBackgroundEffect.colorStage = pBehavior[2];
                 gBackgroundEffect.stage++;
                 gBackgroundEffect.timer = 0;
+
+                // Request first color
                 colorId = 1;
             }
             break;
@@ -537,15 +592,19 @@ u16 BackgroundEffectProcess(void)
         case BACKGROUND_EFFECT_COMMAND_CHECK_APPLY_SECOND_COLOR:
             if (gColorFading.status == 0)
             {
+                // Set color stage
                 gBackgroundEffect.colorStage = pBehavior[2];
                 gBackgroundEffect.stage++;
                 gBackgroundEffect.timer = 0;
+
+                // Request second color
                 colorId = 2;
             }
             break;
 
         case BACKGROUND_EFFECT_COMMAND_PLAY_SOUND:
-            if (pBehavior[2])
+            // Play sound
+            if (pBehavior[2] != 0)
                 SoundPlay(pBehavior[2]);
 
             gBackgroundEffect.stage++;
@@ -553,25 +612,33 @@ u16 BackgroundEffectProcess(void)
             break;
 
         case BACKGROUND_EFFECT_COMMAND_END_AND_KILL:
+            // Kill
             gBackgroundEffect.type = 0;
 
         case BACKGROUND_EFFECT_COMMAND_END:
+            // End
             gBackgroundEffect.stage = 0;
             gBackgroundEffect.timer = 0;
             break;
 
         case BACKGROUND_EFFECT_COMMAND_END_EXIT_ZEBES:
+            // End
             gBackgroundEffect.type = 0;
             gBackgroundEffect.stage = 0;
             gBackgroundEffect.timer = 0;
+
+            // Start appropriate color fading
             ColorFadingStart(COLOR_FADING_TOURIAN_ESCAPE);
             gGameModeSub1 = 3;
             break;
 
         case BACKGROUND_EFFECT_COMMAND_END_BEFORE_INTRO_TEXT:
+            // End
             gBackgroundEffect.type = 0;
             gBackgroundEffect.stage = 0;
             gBackgroundEffect.timer = 0;
+
+            // Start appropriate color fading
             ColorFadingStart(COLOR_FADING_INTRO_TEXT);
             gGameModeSub1 = 3;
             break;
@@ -596,8 +663,8 @@ u32 BackgroundEffectStart(u8 effect)
         gBackgroundEffect.timer = 0;
         gBackgroundEffect.unk_7 = 0;
 
-        DMATransfer(3, EWRAM_BASE + 0x35400, EWRAM_BASE + 0x35800, 0x200, 16);
-        DMATransfer(3, EWRAM_BASE + 0x35600, EWRAM_BASE + 0x35A00, 0x200, 16);
+        DmaTransfer(3, EWRAM_BASE + 0x35400, EWRAM_BASE + 0x35800, 0x200, 16);
+        DmaTransfer(3, EWRAM_BASE + 0x35600, EWRAM_BASE + 0x35A00, 0x200, 16);
         return TRUE;
     }
 

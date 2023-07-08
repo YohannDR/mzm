@@ -1161,10 +1161,10 @@ u8 unk_89e30(void)
         case 0:
             ptr = &buffer;
             buffer = 0;
-            dma_set(3, ptr, gUnk_30058c0, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(gUnk_30058c0));
+            DMA_SET(3, ptr, gUnk_30058c0, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(gUnk_30058c0));
 
             buffer = 0;
-            dma_set(3, ptr, gUnk_30058c4, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | (ARRAY_SIZE(gUnk_30058c4) * ARRAY_SIZE(gUnk_30058c4[0])));
+            DMA_SET(3, ptr, gUnk_30058c4, (DMA_ENABLE | DMA_SRC_FIXED) << 16 | (ARRAY_SIZE(gUnk_30058c4) * ARRAY_SIZE(gUnk_30058c4[0])));
 
             gErrorFlag = 0;
             gUnk_30058cc = 0;

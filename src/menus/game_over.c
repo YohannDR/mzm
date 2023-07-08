@@ -253,7 +253,7 @@ void GameOverInit(void)
 
     CallbackSetVBlank(GameOverVBlank_Empty);
     zero = 0;
-    dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
 
     write16(REG_BLDCNT, GAME_OVER_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
         BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
@@ -271,14 +271,14 @@ void GameOverInit(void)
     DoSoundAction(0x80);
     StopAllMusicsAndSounds();
 
-    DMATransfer(3, sGameOverMenuPAL, PALRAM_BASE, sizeof(sGameOverMenuPAL), 0x10);
+    DmaTransfer(3, sGameOverMenuPAL, PALRAM_BASE, sizeof(sGameOverMenuPAL), 0x10);
     write16(PALRAM_BASE, 0);
-    dma_set(3, sFileSelectIconsPal, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sFileSelectIconsPal) / 2);
+    DMA_SET(3, sFileSelectIconsPal, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sFileSelectIconsPal) / 2);
 
     LZ77UncompVRAM(sGameOverBackgroundTileTable, VRAM_BASE + 0x1800);
     LZ77UncompVRAM(sGameOverTextTileTable, VRAM_BASE + 0x800);
     LZ77UncompVRAM(sGameOver_454520, VRAM_BASE);
-    DMATransfer(3, VRAM_BASE + 0x1800, VRAM_BASE + 0x1000, 0x800, 0x20);
+    DmaTransfer(3, VRAM_BASE + 0x1800, VRAM_BASE + 0x1000, 0x800, 0x20);
     LZ77UncompVRAM(sGameOverTextAndBackgroundGfx, VRAM_BASE + 0x4000);
     LZ77UncompVRAM(sFileSelectIconsGfx, VRAM_BASE + 0x10000);
     LZ77UncompVRAM(sGameOverTextPromptGfxPointers[gLanguage], VRAM_BASE + 0xA800);
@@ -321,7 +321,7 @@ void GameOverInit_Unused(void)
 
     CallbackSetVBlank(GameOverVBlank_Empty);
     zero = 0;
-    dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
 
     write16(REG_BLDCNT, GAME_OVER_DATA.bldcnt = BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_BG1_FIRST_TARGET_PIXEL |
         BLDCNT_BG2_FIRST_TARGET_PIXEL | BLDCNT_BG3_FIRST_TARGET_PIXEL | BLDCNT_OBJ_FIRST_TARGET_PIXEL |
@@ -373,7 +373,7 @@ void GameOverInit_Unused(void)
  */
 void GameOverVBlank(void)
 {
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32))
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / sizeof(u32))
 
     write16(REG_BG0HOFS, gBG0HOFS_NonGameplay / 4);
     write16(REG_BG0VOFS, gBG0VOFS_NonGameplay / 4);
@@ -506,7 +506,7 @@ void GameOverUpdateLettersPalette(void)
     }
 
     GAME_OVER_DATA.dynamicPalette.timer = 0;
-    DMATransfer(3, GAME_OVER_DATA.dynamicPalette.palette, PALRAM_BASE + 8,sizeof(GAME_OVER_DATA.dynamicPalette.palette), 0x10);
+    DmaTransfer(3, GAME_OVER_DATA.dynamicPalette.palette, PALRAM_BASE + 8,sizeof(GAME_OVER_DATA.dynamicPalette.palette), 0x10);
 }
 
 /**

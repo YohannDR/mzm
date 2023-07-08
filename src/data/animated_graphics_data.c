@@ -8,285 +8,317 @@
 
 
 const struct AnimatedGraphicsData sAnimatedGraphicsEntries[38] = {
-    [0] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NONE,
+    [ANIMATED_GFX_ID_CRYSTAL] = {
+        .type = ANIMATED_GFX_TYPE_NONE,
         .framesPerState = 0,
         .numberOfStates = 0,
-        .pGraphics = &sAnimatedTilesGfx[0 * 128],
+        .pGraphics = &sAnimatedTilesGfx[0 * ANIMATED_GFX_SIZE],
     },
-    [1] = {
-        .type = ANIMATED_GRAPHICS_TYPE_ALTERNATE,
+    [ANIMATED_GFX_ID_WATER_SURFACE] = {
+        .type = ANIMATED_GFX_TYPE_ALTERNATE,
         .framesPerState = 12,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedTilesGfx[36 * 128],
+        .pGraphics = &sAnimatedTilesGfx[36 * ANIMATED_GFX_SIZE],
     },
-    [2] = {
-        .type = ANIMATED_GRAPHICS_TYPE_ALTERNATE,
+    [ANIMATED_GFX_ID_WATER_DEPTH_1] = {
+        .type = ANIMATED_GFX_TYPE_ALTERNATE,
         .framesPerState = 12,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedTilesGfx[40 * 128],
+        .pGraphics = &sAnimatedTilesGfx[40 * ANIMATED_GFX_SIZE],
     },
-    [3] = {
-        .type = ANIMATED_GRAPHICS_TYPE_ALTERNATE,
+    [ANIMATED_GFX_ID_WATER_DEPTH_2] = {
+        .type = ANIMATED_GFX_TYPE_ALTERNATE,
         .framesPerState = 12,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedTilesGfx[44 * 128],
+        .pGraphics = &sAnimatedTilesGfx[44 * ANIMATED_GFX_SIZE],
     },
-    [4] = {
-        .type = ANIMATED_GRAPHICS_TYPE_ALTERNATE,
+    [ANIMATED_GFX_ID_WATER_DEPTH_3] = {
+        .type = ANIMATED_GFX_TYPE_ALTERNATE,
         .framesPerState = 12,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedTilesGfx[48 * 128],
+        .pGraphics = &sAnimatedTilesGfx[48 * ANIMATED_GFX_SIZE],
     },
-    [5] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_LAVA_BUBBLES_FAST] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[0 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[0 * ANIMATED_GFX_TANK_SIZE],
     },
-    [6] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_LAVA_SURFACE_FAST] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[1 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[1 * ANIMATED_GFX_TANK_SIZE],
     },
-    [7] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_LAVA_SHALLOW_FAST] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[2 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[2 * ANIMATED_GFX_TANK_SIZE],
     },
-    [8] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_LAVA_DEPTH_FAST] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[3 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[3 * ANIMATED_GFX_TANK_SIZE],
     },
-    [9] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_ACID_SURFACE_FAST] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[6 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[6 * ANIMATED_GFX_TANK_SIZE],
     },
-    [10] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_ACID_DEPTH_FAST] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[7 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[7 * ANIMATED_GFX_TANK_SIZE],
     },
-    [11] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_LAVA_DEPTH_BUBBLES] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[4 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[4 * ANIMATED_GFX_TANK_SIZE],
     },
     [12] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 12,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[5 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[5 * ANIMATED_GFX_TANK_SIZE],
     },
-    [13] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_RAIN] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 2,
         .numberOfStates = 8,
-        .pGraphics = &sAnimatedTilesGfx[4 * 128],
+        .pGraphics = &sAnimatedTilesGfx[4 * ANIMATED_GFX_SIZE],
     },
-    [14] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_RAIN_SPLASH] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 2,
         .numberOfStates = 8,
-        .pGraphics = &sAnimatedTilesGfx[12 * 128],
+        .pGraphics = &sAnimatedTilesGfx[12 * ANIMATED_GFX_SIZE],
     },
     [15] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 11,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[6 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[6 * ANIMATED_GFX_TANK_SIZE],
     },
     [16] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 11,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[7 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[7 * ANIMATED_GFX_TANK_SIZE],
     },
     [17] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[8 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[8 * ANIMATED_GFX_TANK_SIZE],
     },
     [18] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedTilesGfx[60 * 128],
+        .pGraphics = &sAnimatedTilesGfx[60 * ANIMATED_GFX_SIZE],
     },
     [19] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedTilesGfx[64 * 128],
+        .pGraphics = &sAnimatedTilesGfx[64 * ANIMATED_GFX_SIZE],
     },
     [20] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 11,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedTilesGfx[68 * 128],
+        .pGraphics = &sAnimatedTilesGfx[68 * ANIMATED_GFX_SIZE],
     },
     [21] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 11,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedTilesGfx[72 * 128],
+        .pGraphics = &sAnimatedTilesGfx[72 * ANIMATED_GFX_SIZE],
     },
     [22] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedTilesGfx[68 * 128],
+        .pGraphics = &sAnimatedTilesGfx[68 * ANIMATED_GFX_SIZE],
     },
     [23] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 11,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[0 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[0 * ANIMATED_GFX_TANK_SIZE],
     },
     [24] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 11,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[1 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[1 * ANIMATED_GFX_TANK_SIZE],
     },
     [25] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 11,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[2 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[2 * ANIMATED_GFX_TANK_SIZE],
     },
     [26] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 11,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[3 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[3 * ANIMATED_GFX_TANK_SIZE],
     },
     [27] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedTilesGfx[52 * 128],
+        .pGraphics = &sAnimatedTilesGfx[52 * ANIMATED_GFX_SIZE],
     },
     [28] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 10,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedTilesGfx[56 * 128],
+        .pGraphics = &sAnimatedTilesGfx[56 * ANIMATED_GFX_SIZE],
     },
     [29] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 11,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedTilesGfx[52 * 128],
+        .pGraphics = &sAnimatedTilesGfx[52 * ANIMATED_GFX_SIZE],
     },
-    [30] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_ACID_FALL_LEFT] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 8,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[9 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[9 * ANIMATED_GFX_TANK_SIZE],
     },
-    [31] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_ACID_FALL_MIDDLE] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 8,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[10 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[10 * ANIMATED_GFX_TANK_SIZE],
     },
-    [32] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_ACID_FALL_RIGHT] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 8,
         .numberOfStates = 4,
-        .pGraphics = &sAnimatedLiquidsGfx[11 * 512],
+        .pGraphics = &sAnimatedLiquidsGfx[11 * ANIMATED_GFX_TANK_SIZE],
     },
-    [33] = {
-        .type = ANIMATED_GRAPHICS_TYPE_ALTERNATE,
+    [ANIMATED_GFX_ID_ALARM_SLOW] = {
+        .type = ANIMATED_GFX_TYPE_ALTERNATE,
         .framesPerState = 1,
         .numberOfStates = 8,
-        .pGraphics = &sAnimatedTilesGfx[76 * 128],
+        .pGraphics = &sAnimatedTilesGfx[76 * ANIMATED_GFX_SIZE],
     },
-    [34] = {
-        .type = ANIMATED_GRAPHICS_TYPE_ALTERNATE,
+    [ANIMATED_GFX_ID_ALARM_FAST] = {
+        .type = ANIMATED_GFX_TYPE_ALTERNATE,
         .framesPerState = 1,
         .numberOfStates = 8,
-        .pGraphics = &sAnimatedTilesGfx[84 * 128],
+        .pGraphics = &sAnimatedTilesGfx[84 * ANIMATED_GFX_SIZE],
     },
-    [35] = {
-        .type = ANIMATED_GRAPHICS_TYPE_ALTERNATE,
+    [ANIMATED_GFX_ID_ALARM_HEAVY] = {
+        .type = ANIMATED_GFX_TYPE_ALTERNATE,
         .framesPerState = 1,
         .numberOfStates = 8,
-        .pGraphics = &sAnimatedTilesGfx[92 * 128],
+        .pGraphics = &sAnimatedTilesGfx[92 * ANIMATED_GFX_SIZE],
     },
-    [36] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_WIND] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 1,
         .numberOfStates = 8,
-        .pGraphics = &sAnimatedTilesGfx[20 * 128],
+        .pGraphics = &sAnimatedTilesGfx[20 * ANIMATED_GFX_SIZE],
     },
-    [37] = {
-        .type = ANIMATED_GRAPHICS_TYPE_NORMAL,
+    [ANIMATED_GFX_ID_WIND_FAST] = {
+        .type = ANIMATED_GFX_TYPE_NORMAL,
         .framesPerState = 2,
         .numberOfStates = 8,
-        .pGraphics = &sAnimatedTilesGfx[28 * 128],
+        .pGraphics = &sAnimatedTilesGfx[28 * ANIMATED_GFX_SIZE],
     },
 };
 
 #define GFX_ANIM_TO_3BYTES(n) n, 0, 0
 const u8 sAnimatedTilesetEntries[8][48] = {
     [0] = {
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0)
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL)
     },
     [1] = {
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(1), GFX_ANIM_TO_3BYTES(2), GFX_ANIM_TO_3BYTES(3), GFX_ANIM_TO_3BYTES(4)
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_WATER_SURFACE), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_WATER_DEPTH_1),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_WATER_DEPTH_2), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_WATER_DEPTH_3)
     },
     [2] = {
-        GFX_ANIM_TO_3BYTES(5), GFX_ANIM_TO_3BYTES(6), GFX_ANIM_TO_3BYTES(7), GFX_ANIM_TO_3BYTES(8),
-        GFX_ANIM_TO_3BYTES(23), GFX_ANIM_TO_3BYTES(24), GFX_ANIM_TO_3BYTES(25), GFX_ANIM_TO_3BYTES(26),
-        GFX_ANIM_TO_3BYTES(11), GFX_ANIM_TO_3BYTES(27), GFX_ANIM_TO_3BYTES(29), GFX_ANIM_TO_3BYTES(28),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0)
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_LAVA_BUBBLES_FAST), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_LAVA_SURFACE_FAST),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_LAVA_SHALLOW_FAST), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_LAVA_DEPTH_FAST),
+        GFX_ANIM_TO_3BYTES(23), GFX_ANIM_TO_3BYTES(24),
+        GFX_ANIM_TO_3BYTES(25), GFX_ANIM_TO_3BYTES(26),
+        GFX_ANIM_TO_3BYTES(11), GFX_ANIM_TO_3BYTES(27),
+        GFX_ANIM_TO_3BYTES(29), GFX_ANIM_TO_3BYTES(28),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL)
     },
     [3] = {
-        GFX_ANIM_TO_3BYTES(9), GFX_ANIM_TO_3BYTES(10), GFX_ANIM_TO_3BYTES(15), GFX_ANIM_TO_3BYTES(16),
-        GFX_ANIM_TO_3BYTES(17), GFX_ANIM_TO_3BYTES(30), GFX_ANIM_TO_3BYTES(31), GFX_ANIM_TO_3BYTES(32),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(9), GFX_ANIM_TO_3BYTES(10), GFX_ANIM_TO_3BYTES(15), GFX_ANIM_TO_3BYTES(16)
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ACID_SURFACE_FAST), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ACID_DEPTH_FAST),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ACID_SURFACE_SLOW), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ACID_DEPTH_SLOW),
+        GFX_ANIM_TO_3BYTES(17), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ACID_FALL_LEFT),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ACID_FALL_MIDDLE), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ACID_FALL_RIGHT),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ACID_SURFACE_FAST), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ACID_DEPTH_FAST),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ACID_SURFACE_SLOW), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ACID_DEPTH_SLOW)
     },
     [4] = {
-        GFX_ANIM_TO_3BYTES(13), GFX_ANIM_TO_3BYTES(14), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0)
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_RAIN), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_RAIN_SPLASH),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL)
     },
     [5] = {
-        GFX_ANIM_TO_3BYTES(18), GFX_ANIM_TO_3BYTES(19), GFX_ANIM_TO_3BYTES(20), GFX_ANIM_TO_3BYTES(21),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0)
+        GFX_ANIM_TO_3BYTES(18), GFX_ANIM_TO_3BYTES(19),
+        GFX_ANIM_TO_3BYTES(20), GFX_ANIM_TO_3BYTES(21),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL)
     },
     [6] = {
-        GFX_ANIM_TO_3BYTES(33), GFX_ANIM_TO_3BYTES(34), GFX_ANIM_TO_3BYTES(35), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0)
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ALARM_SLOW), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ALARM_FAST),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_ALARM_HEAVY), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL)
     },
     [7] = {
-        GFX_ANIM_TO_3BYTES(5), GFX_ANIM_TO_3BYTES(6), GFX_ANIM_TO_3BYTES(7), GFX_ANIM_TO_3BYTES(8),
-        GFX_ANIM_TO_3BYTES(23), GFX_ANIM_TO_3BYTES(24), GFX_ANIM_TO_3BYTES(25), GFX_ANIM_TO_3BYTES(26),
-        GFX_ANIM_TO_3BYTES(11), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0),
-        GFX_ANIM_TO_3BYTES(36), GFX_ANIM_TO_3BYTES(37), GFX_ANIM_TO_3BYTES(0), GFX_ANIM_TO_3BYTES(0)
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_LAVA_BUBBLES_FAST), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_LAVA_SURFACE_FAST),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_LAVA_SHALLOW_FAST), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_LAVA_DEPTH_FAST),
+        GFX_ANIM_TO_3BYTES(23), GFX_ANIM_TO_3BYTES(24),
+        GFX_ANIM_TO_3BYTES(25), GFX_ANIM_TO_3BYTES(26),
+        GFX_ANIM_TO_3BYTES(11), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_WIND), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_WIND_FAST),
+        GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL), GFX_ANIM_TO_3BYTES(ANIMATED_GFX_ID_CRYSTAL)
     }
 };
 
@@ -314,7 +346,7 @@ const struct AnimatedPaletteData sAnimatedPaletteEntries[18] = {
         .numbersOfStates = 12,
         .pPalette = (const u16* const)0x862b8b8
     },
-    [3] = {
+    [ANIMATED_PALETTE_ID_ZIPLINE] = {
         .type = ANIMATED_PALETTE_TYPE_ALTERNATE,
         .framesPerState = 10,
         .numbersOfStates = 8,
@@ -412,55 +444,55 @@ const struct BackgroundEffectColorData sBackgroundEffectColorData[9] = {
         .colorMask = COLOR_WHITE,
         .color_1 = COLOR_WHITE + 1,
         .color_2 = COLOR_WHITE + 1,
-        .applyToOBJ = FALSE
+        .applyToObj = FALSE
     },
     [BACKGROUND_EFFECT_LIGHTNING] = {
         .colorMask = COLOR_WHITE,
         .color_1 = COLOR_WHITE,
         .color_2 = COLOR_WHITE + 1,
-        .applyToOBJ = FALSE
+        .applyToObj = FALSE
     },
     [BACKGROUND_EFFECT_SLIGHT_YELLOW] = {
         .colorMask = COLOR_WHITE,
         .color_1 = COLOR(0x16, 0x16, 0x0),
         .color_2 = COLOR_WHITE + 1,
-        .applyToOBJ = FALSE
+        .applyToObj = FALSE
     },
     [BACKGROUND_EFFECT_HEAVY_YELLOW] = {
         .colorMask = COLOR_WHITE,
         .color_1 = COLOR(0x16, 0x16, 0x0),
         .color_2 = COLOR_WHITE + 1,
-        .applyToOBJ = FALSE
+        .applyToObj = FALSE
     },
     [BACKGROUND_EFFECT_EXIT_ZEBES_FADE] = {
         .colorMask = COLOR_WHITE,
         .color_1 = COLOR_WHITE,
         .color_2 = COLOR_WHITE + 1,
-        .applyToOBJ = TRUE
+        .applyToObj = TRUE
     },
     [BACKGROUND_EFFECT_INTRO_TEXT_FADE] = {
         .colorMask = COLOR_WHITE,
         .color_1 = COLOR_BLACK,
         .color_2 = COLOR_WHITE + 1,
-        .applyToOBJ = TRUE
+        .applyToObj = TRUE
     },
     [BACKGROUND_EFFECT_QUICK_FLASH] = {
         .colorMask = COLOR_WHITE,
         .color_1 = COLOR_WHITE,
         .color_2 = COLOR(0x0, 0x0, 0x1F),
-        .applyToOBJ = FALSE
+        .applyToObj = FALSE
     },
     [BACKGROUND_EFFECT_ALL_BLACK] = {
         .colorMask = COLOR_WHITE,
         .color_1 = COLOR_BLACK,
         .color_2 = COLOR_WHITE + 1,
-        .applyToOBJ = TRUE
+        .applyToObj = TRUE
     },
     [BACKGROUND_EFFECT_ALL_WHITE] = {
         .colorMask = COLOR_WHITE,
         .color_1 = COLOR_WHITE,
         .color_2 = COLOR_WHITE + 1,
-        .applyToOBJ = TRUE
+        .applyToObj = TRUE
     },
 };
 

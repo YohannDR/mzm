@@ -38,7 +38,7 @@ void LoadRoomCutscene(u8 area, u8 room, u16 bgX, u16 bgY)
 
     AnimatedGraphicsLoad();
 
-    DMATransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
+    DmaTransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
 
     write16(REG_BG0CNT, gIoRegistersBackup.BG0CNT);
     write16(REG_BG3CNT, gIoRegistersBackup.BG3CNT);

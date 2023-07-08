@@ -22,7 +22,7 @@ u8 BeforeCharlieSamusCloseUp(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DMATransfer(3, sBeforeCharlieSamusCloseUpPAL, PALRAM_BASE, sizeof(sBeforeCharlieSamusCloseUpPAL), 0x10);
+            DmaTransfer(3, sBeforeCharlieSamusCloseUpPAL, PALRAM_BASE, sizeof(sBeforeCharlieSamusCloseUpPAL), 0x10);
             write16(PALRAM_BASE, 0);
 
             CallLZ77UncompVRAM(sBeforeCharlieYoungSamusCloseUpGfx, VRAM_BASE + sBeforeCharliePageData[5].graphicsPage * 0x4000);
@@ -146,11 +146,11 @@ u8 BeforeCharlieWallAndGreyVoice(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            DMATransfer(3, sBeforeCharlieChozoWallPAL, PALRAM_BASE, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
+            DmaTransfer(3, sBeforeCharlieChozoWallPAL, PALRAM_BASE, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
             write16(PALRAM_BASE, 0);
 
             ApplyMonochromeToPalette(sBeforeCharlieChozoWallPAL, (void*)sEwramPointer + 0x3800, 0);
-            DMATransfer(3, sBeforeCharlieChozoWallPAL, (void*)sEwramPointer, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
+            DmaTransfer(3, sBeforeCharlieChozoWallPAL, (void*)sEwramPointer, sizeof(sBeforeCharlieChozoWallPAL), 0x10);
 
             CallLZ77UncompVRAM(sBeforeCharlieChozoWallBackgroundGfx, VRAM_BASE + sBeforeCharliePageData[2].graphicsPage * 0x4000);
             BitFill(3, 0, VRAM_BASE + sBeforeCharliePageData[2].tiletablePage * 0x800, 0x800, 0x20);
@@ -177,7 +177,7 @@ u8 BeforeCharlieWallAndGreyVoice(void)
             gWrittenToBLDALPHA_H = 16;
 
             CUTSCENE_DATA.bldcnt = BLDCNT_BG1_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT | BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL;
-            DMATransfer(3, &sBeforeCharlieCutsceneGraphicsData, &CUTSCENE_DATA.graphicsData[1], sizeof(CUTSCENE_DATA.graphicsData[1]), 0x10);
+            DmaTransfer(3, &sBeforeCharlieCutsceneGraphicsData, &CUTSCENE_DATA.graphicsData[1], sizeof(CUTSCENE_DATA.graphicsData[1]), 0x10);
 
             CUTSCENE_DATA.dispcnt = sBeforeCharliePageData[2].bg | sBeforeCharliePageData[4].bg;
             CUTSCENE_DATA.timeInfo.timer = 0;
@@ -288,7 +288,7 @@ void BeforeCharlieWallAndGreyVoiceApplyMonochrome(struct CutsceneGraphicsData* p
     pGraphics->paletteStage++;
 
     ApplySmoothMonochromeToPalette((void*)sEwramPointer, (void*)sEwramPointer + 0x3800, (void*)sEwramPointer + 0x400, pGraphics->paletteStage);
-    DMATransfer(3, (void*)sEwramPointer + 0x400, PALRAM_BASE, 0x200, 0x10);
+    DmaTransfer(3, (void*)sEwramPointer + 0x400, PALRAM_BASE, 0x200, 0x10);
 
     if (pGraphics->paletteStage == 32)
         pGraphics->active = FALSE;
@@ -365,7 +365,7 @@ u8 BeforeCharlieInit(void)
 {
     unk_61f0c();
 
-    DMATransfer(3, sBeforeCharlieChozoWallSidesPAL, PALRAM_BASE, sizeof(sBeforeCharlieChozoWallSidesPAL), 0x10);
+    DmaTransfer(3, sBeforeCharlieChozoWallSidesPAL, PALRAM_BASE, sizeof(sBeforeCharlieChozoWallSidesPAL), 0x10);
     BitFill(3, 0, PALRAM_OBJ, 0x200, 0x20);
     write16(PALRAM_BASE, 0);
 

@@ -155,8 +155,8 @@ u8 SamusInBlueShipInit(void)
 {
     unk_61f0c();
 
-    DMATransfer(3, sSamusInBlueShipPAL, PALRAM_OBJ, sizeof(sSamusInBlueShipPAL), 0x10);
-    DMATransfer(3, sSamusInBlueShipPAL, PALRAM_BASE, sizeof(sSamusInBlueShipPAL), 0x10);
+    DmaTransfer(3, sSamusInBlueShipPAL, PALRAM_OBJ, sizeof(sSamusInBlueShipPAL), 0x10);
+    DmaTransfer(3, sSamusInBlueShipPAL, PALRAM_BASE, sizeof(sSamusInBlueShipPAL), 0x10);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sSamusInBlueShipSamusGfx, VRAM_BASE + sSamusInBlueShipPageData[0].graphicsPage * 0x4000);

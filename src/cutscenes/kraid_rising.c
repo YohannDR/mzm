@@ -30,11 +30,11 @@ u8 KraidRisingRising(void)
     switch (CUTSCENE_DATA.timeInfo.subStage)
     {
         case 0:
-            dma_set(3, sKraidRisingRisingPAL, PALRAM_BASE, DMA_ENABLE << 16 | 0x70);
+            DMA_SET(3, sKraidRisingRisingPAL, PALRAM_BASE, DMA_ENABLE << 16 | 0x70);
             write16(PALRAM_BASE, 0);
 
             CallLZ77UncompVRAM(sKraidRisingKraidRisingGfx, VRAM_BASE + sKraidRisingPagesData[2].graphicsPage * 0x4000);
-            DMATransfer(3, (void*)sEwramPointer + 0x2800, VRAM_BASE + sKraidRisingPagesData[2].tiletablePage * 0x800, 0x800, 0x10);
+            DmaTransfer(3, (void*)sEwramPointer + 0x2800, VRAM_BASE + sKraidRisingPagesData[2].tiletablePage * 0x800, 0x800, 0x10);
 
             CutsceneSetBGCNTPageData(sKraidRisingPagesData[2]);
             CutsceneReset();
@@ -59,7 +59,7 @@ u8 KraidRisingRising(void)
 
         case 1:
             CallLZ77UncompVRAM(sKraidRisingCaveBackroundGfx, VRAM_BASE + sKraidRisingPagesData[3].graphicsPage * 0x4000);
-            DMATransfer(3, (void*)sEwramPointer + 0x3000, VRAM_BASE + sKraidRisingPagesData[3].tiletablePage * 0x800, 0x800, 0x10);
+            DmaTransfer(3, (void*)sEwramPointer + 0x3000, VRAM_BASE + sKraidRisingPagesData[3].tiletablePage * 0x800, 0x800, 0x10);
 
             CutsceneSetBGCNTPageData(sKraidRisingPagesData[3]);
             CutsceneStartScreenShake(sKraidRisingScreenShakeData, sKraidRisingPagesData[2].bg | sKraidRisingPagesData[3].bg);
@@ -213,7 +213,7 @@ u8 KraidRisingOpeningEyes(void)
             {
                 SoundPlay(0x22C);
 
-                DMATransfer(3, (void*)sEwramPointer + 0x1000, VRAM_BASE + sKraidRisingPagesData[1].tiletablePage * 0x800, 0x800, 0x10);
+                DmaTransfer(3, (void*)sEwramPointer + 0x1000, VRAM_BASE + sKraidRisingPagesData[1].tiletablePage * 0x800, 0x800, 0x10);
                 CutsceneSetBGCNTPageData(sKraidRisingPagesData[1]);
 
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -224,7 +224,7 @@ u8 KraidRisingOpeningEyes(void)
         case 2:
             if (CUTSCENE_DATA.timeInfo.timer > 6)
             {
-                DMATransfer(3, (void*)sEwramPointer + 0x1800, VRAM_BASE + sKraidRisingPagesData[0].tiletablePage * 0x800, 0x800, 0x10);
+                DmaTransfer(3, (void*)sEwramPointer + 0x1800, VRAM_BASE + sKraidRisingPagesData[0].tiletablePage * 0x800, 0x800, 0x10);
                 CutsceneSetBGCNTPageData(sKraidRisingPagesData[0]);
 
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -237,7 +237,7 @@ u8 KraidRisingOpeningEyes(void)
             {
                 PlayMusic(MUSIC_KRAID_BATTLE_WITH_INTRO, 0);
 
-                DMATransfer(3, (void*)sEwramPointer + 0x2000, VRAM_BASE + sKraidRisingPagesData[1].tiletablePage * 0x800, 0x800, 0x10);
+                DmaTransfer(3, (void*)sEwramPointer + 0x2000, VRAM_BASE + sKraidRisingPagesData[1].tiletablePage * 0x800, 0x800, 0x10);
                 CutsceneSetBGCNTPageData(sKraidRisingPagesData[1]);
 
                 CUTSCENE_DATA.timeInfo.subStage++;
@@ -265,16 +265,16 @@ u8 KraidRisingInit(void)
     u16 bg;
 
     unk_61f0c();
-    DMATransfer(3, sKraidRisingCloseUpPAL, PALRAM_BASE, 0xA0, 0x10);
+    DmaTransfer(3, sKraidRisingCloseUpPAL, PALRAM_BASE, 0xA0, 0x10);
     write16(PALRAM_BASE, 0);
     CallLZ77UncompVRAM(sKraidRisingKraidCloseUpGfx, VRAM_BASE + sKraidRisingPagesData[0].graphicsPage * 0x4000);
 
     if (gEquipment.suitMiscActivation & SMF_VARIA_SUIT)
-        DMATransfer(3, sKraidRisingSamusVariaPAL, PALRAM_OBJ, 0x20, 0x10);
+        DmaTransfer(3, sKraidRisingSamusVariaPAL, PALRAM_OBJ, 0x20, 0x10);
     else
-        DMATransfer(3, sKraidRisingSamusPAL, PALRAM_OBJ, 0x20, 0x10);
+        DmaTransfer(3, sKraidRisingSamusPAL, PALRAM_OBJ, 0x20, 0x10);
 
-    DMATransfer(3, sKraidRisingParticlesPAL, PALRAM_BASE + 0x220, 0x20, 0x10);
+    DmaTransfer(3, sKraidRisingParticlesPAL, PALRAM_BASE + 0x220, 0x20, 0x10);
 
     CallLZ77UncompVRAM(sKraidRisingOAMGfx, VRAM_BASE + 0x10000);
     

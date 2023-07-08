@@ -138,7 +138,7 @@ void GettingFullyPoweredSuitUpdateRingPalette(struct CutscenePaletteData* pPalet
     if (pPalette->paletteRow >= ARRAY_SIZE(sGettingFullyPoweredSuitRingPaletteRows))
         pPalette->paletteRow = 0;
 
-    DMATransfer(3, &sGettingFullyPoweredSuitRingPAL[sGettingFullyPoweredSuitRingPaletteRows[pPalette->paletteRow] * 16],
+    DmaTransfer(3, &sGettingFullyPoweredSuitRingPAL[sGettingFullyPoweredSuitRingPaletteRows[pPalette->paletteRow] * 16],
         PALRAM_BASE + 0x340, 32, 0x10);
 }
 
@@ -260,8 +260,8 @@ u8 GettingFullyPoweredSuitInit(void)
     s32 i;
 
     unk_61f0c();
-    DMATransfer(3, sGettingFullyPoweredSuitPAL, PALRAM_BASE, 352, 0x10);
-    DMATransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
+    DmaTransfer(3, sGettingFullyPoweredSuitPAL, PALRAM_BASE, 352, 0x10);
+    DmaTransfer(3, PALRAM_BASE, PALRAM_OBJ, 0x200, 0x20);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sGettingFullyPoweredSuitSamusGfx, VRAM_BASE + sGettingFullyPoweredSuitPageData[0].graphicsPage * 0x4000);

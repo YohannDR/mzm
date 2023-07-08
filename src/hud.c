@@ -208,19 +208,19 @@ void HUDUpdateEnergyTanks(u8* pDst, const u8* pSrcNormal, const u8* pSrcRefill, 
 {
     if (refillStage == 0x0)
     {
-        dma_set(3, pSrcRefill, pDst + 0x40, (DMA_ENABLE << 16) | 0x50);
+        DMA_SET(3, pSrcRefill, pDst + 0x40, (DMA_ENABLE << 16) | 0x50);
     }
     else if (refillStage == 0x1)
     {
-        dma_set(3, pSrcRefill + 0xA0 * refillStage, pDst + 0x40, (DMA_ENABLE << 16) | 0x50);
+        DMA_SET(3, pSrcRefill + 0xA0 * refillStage, pDst + 0x40, (DMA_ENABLE << 16) | 0x50);
     }
     else if (refillStage == 0x2)
     {
-        dma_set(3, pSrcRefill + 0xA0 * refillStage, pDst + 0x40, (DMA_ENABLE << 16) | 0x50);
+        DMA_SET(3, pSrcRefill + 0xA0 * refillStage, pDst + 0x40, (DMA_ENABLE << 16) | 0x50);
     }
     else if (refillStage == 0x3)
     {
-        dma_set(3, pSrcNormal + 0xA0 * nbrTanks, pDst + 0x40, (DMA_ENABLE << 16) | 0x50);
+        DMA_SET(3, pSrcNormal + 0xA0 * nbrTanks, pDst + 0x40, (DMA_ENABLE << 16) | 0x50);
     } 
 }
 
@@ -316,7 +316,7 @@ void HUDDrawEnergy(u8 fileNumber)
         gEnergyDigits.tens = digit;
         needUpdate++;
 
-        dma_set(3, &sEnergyDigitsTensGfx[digit * 32], dst, DMA_ENABLE << 16 | 16);
+        DMA_SET(3, &sEnergyDigitsTensGfx[digit * 32], dst, DMA_ENABLE << 16 | 16);
     }
 
     digit = energy % 10;
@@ -325,7 +325,7 @@ void HUDDrawEnergy(u8 fileNumber)
         gEnergyDigits.ones = digit;
         needUpdate++;
 
-        dma_set(3, &sEnergyDigitsOnesGfx[digit * 32], dst + 32, DMA_ENABLE << 16 | 16);
+        DMA_SET(3, &sEnergyDigitsOnesGfx[digit * 32], dst + 32, DMA_ENABLE << 16 | 16);
     }
 
     if (needUpdate)
@@ -338,55 +338,55 @@ void HUDDrawEnergy(u8 fileNumber)
         switch (nbrTanks)
         {
             case 0:
-                dma_set(3, sEnergyTanksGfx_Zero, dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, sEnergyTanksGfx_Zero, dst + 64, DMA_ENABLE << 16 | 80);
                 break;
 
             case 1:
-                dma_set(3, (sEnergyTanksGfx_One + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, (sEnergyTanksGfx_One + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
                 break;
                 
             case 2:
-                dma_set(3, (sEnergyTanksGfx_Two + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, (sEnergyTanksGfx_Two + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
                 break;
                 
             case 3:
-                dma_set(3, (sEnergyTanksGfx_Three + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, (sEnergyTanksGfx_Three + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
                 break;
                 
             case 4:
-                dma_set(3, (sEnergyTanksGfx_Four + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, (sEnergyTanksGfx_Four + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
                 break;
                 
             case 5:
-                dma_set(3, (sEnergyTanksGfx_Five + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, (sEnergyTanksGfx_Five + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
                 break;
                 
             case 6:
-                dma_set(3, (sEnergyTanksGfx_Six + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, (sEnergyTanksGfx_Six + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
                 break;
                 
             case 7:
-                dma_set(3, (sEnergyTanksGfx_Seven + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, (sEnergyTanksGfx_Seven + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
                 break;
                 
             case 8:
-                dma_set(3, (sEnergyTanksGfx_Eight + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, (sEnergyTanksGfx_Eight + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
                 break;
                 
             case 9:
-                dma_set(3, (sEnergyTanksGfx_Nine + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, (sEnergyTanksGfx_Nine + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
                 break;
                 
             case 10:
-                dma_set(3, (sEnergyTanksGfx_Ten + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, (sEnergyTanksGfx_Ten + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
                 break;
                 
             case 11:
-                dma_set(3, (sEnergyTanksGfx_Eleven + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, (sEnergyTanksGfx_Eleven + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
                 break;
                 
             case 12:
-                dma_set(3, (sEnergyTanksGfx_Twelve + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
+                DMA_SET(3, (sEnergyTanksGfx_Twelve + (maxEnergy * 160)), dst + 64, DMA_ENABLE << 16 | 80);
                 break;
         }
     }
@@ -395,26 +395,26 @@ void HUDDrawEnergy(u8 fileNumber)
     {
         if (gEnergyRefillAnimation == 0xD)
         {
-            dma_set(3, &sEnergyDigitsRefill1Gfx[gEnergyDigits.tens * 32], dst, DMA_ENABLE << 16 | 16);
-            dma_set(3, &sEnergyDigitsRefill1Gfx[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, DMA_ENABLE << 16 | 16);
+            DMA_SET(3, &sEnergyDigitsRefill1Gfx[gEnergyDigits.tens * 32], dst, DMA_ENABLE << 16 | 16);
+            DMA_SET(3, &sEnergyDigitsRefill1Gfx[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, DMA_ENABLE << 16 | 16);
             needUpdate = 0;
         }
         else if (gEnergyRefillAnimation == 0xA)
         {
-            dma_set(3, &sEnergyDigitsRefill2Gfx[gEnergyDigits.tens * 32], dst, DMA_ENABLE << 16 | 16);
-            dma_set(3, &sEnergyDigitsRefill2Gfx[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, DMA_ENABLE << 16 | 16);
+            DMA_SET(3, &sEnergyDigitsRefill2Gfx[gEnergyDigits.tens * 32], dst, DMA_ENABLE << 16 | 16);
+            DMA_SET(3, &sEnergyDigitsRefill2Gfx[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, DMA_ENABLE << 16 | 16);
             needUpdate = 1;
         }
         else if (gEnergyRefillAnimation == 0x4)
         {
-            dma_set(3, &sEnergyDigitsRefill3Gfx[gEnergyDigits.tens * 32], dst, DMA_ENABLE << 16 | 16);
-            dma_set(3, &sEnergyDigitsRefill3Gfx[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, DMA_ENABLE << 16 | 16);
+            DMA_SET(3, &sEnergyDigitsRefill3Gfx[gEnergyDigits.tens * 32], dst, DMA_ENABLE << 16 | 16);
+            DMA_SET(3, &sEnergyDigitsRefill3Gfx[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, DMA_ENABLE << 16 | 16);
             needUpdate = 2;
         }
         else if (gEnergyRefillAnimation == 0x1)
         {
-            dma_set(3, &sEnergyDigitsTensGfx[gEnergyDigits.tens * 32], dst, DMA_ENABLE << 16 | 16);
-            dma_set(3, &sEnergyDigitsTensGfx[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, DMA_ENABLE << 16 | 16);
+            DMA_SET(3, &sEnergyDigitsTensGfx[gEnergyDigits.tens * 32], dst, DMA_ENABLE << 16 | 16);
+            DMA_SET(3, &sEnergyDigitsTensGfx[gEnergyDigits.ones * 32 + 10 * 32], dst + 32, DMA_ENABLE << 16 | 16);
             needUpdate = 3;
         }
         else
@@ -688,7 +688,7 @@ void HUDDrawMissiles(u8 updateHighlight)
         
         // Update Gfx
         HUDDrawMissileDigits(hundreds, tens, ones, refillStage);
-        dma_set(3, gAmmoDigitsGfx, VRAM_BASE + 0x10E40, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10E40, DMA_ENABLE << 16 | 32);
     }
 
     if (gMissileRefillAnimation != 0x0 && !updateHighlight)
@@ -714,23 +714,23 @@ void HUDDrawMissiles(u8 updateHighlight)
         if (gMissileRefillAnimation == 0xD)
         {
             missiles = 0x480;
-            dma_set(3, sMissileHUDGfx_Refill1, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sMissileHUDGfx_Refill1, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
         }
         else if (gMissileRefillAnimation == 0xA)
         {
             missiles = 0x600;
-            dma_set(3, sMissileHUDGfx_Refill2, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sMissileHUDGfx_Refill2, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
         }
         else if (gMissileRefillAnimation == 0x4)
         {
             missiles = 0x780;
-            dma_set(3, sMissileHUDGfx_Refill3, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sMissileHUDGfx_Refill3, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
         }
         else if (gMissileRefillAnimation == 0x1)
         {
             needUpdate = gMissileHighlightStatus;
             missiles = needUpdate * 384;
-            dma_set(3, sMissileHUDGfx_Inactive + (gMissileHighlightStatus * 64), VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sMissileHUDGfx_Inactive + (gMissileHighlightStatus * 64), VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
         }
         else
             return;
@@ -741,7 +741,7 @@ void HUDDrawMissiles(u8 updateHighlight)
         refillStage += missiles;
         HUDDrawMissileDigits(hundreds, tens, ones, refillStage);
 
-        dma_set(3, gAmmoDigitsGfx, VRAM_BASE + 0x10E40, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10E40, DMA_ENABLE << 16 | 32);
     }
 }
 
@@ -821,7 +821,7 @@ void HUDDrawPowerBomb(u8 updateHighlight)
         
         // Update Gfx
         HUDDrawPowerBombDigits(tens, ones, refillStage);
-        dma_set(3, gAmmoDigitsGfx, VRAM_BASE + 0x10B40, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10B40, DMA_ENABLE << 16 | 32);
     }
 
     if (gPowerBombRefillAnimation != 0x0 && !updateHighlight)
@@ -846,23 +846,23 @@ void HUDDrawPowerBomb(u8 updateHighlight)
         if (gPowerBombRefillAnimation == 0xD)
         {
             powerBombs = 0x480;
-            dma_set(3, sPowerBombHUDGfx_Refill1, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sPowerBombHUDGfx_Refill1, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
         }
         else if (gPowerBombRefillAnimation == 0xA)
         {
             powerBombs = 0x600;
-            dma_set(3, sPowerBombHUDGfx_Refill2, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sPowerBombHUDGfx_Refill2, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
         }
         else if (gPowerBombRefillAnimation == 0x4)
         {
             powerBombs = 0x780;
-            dma_set(3, sPowerBombHUDGfx_Refill3, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sPowerBombHUDGfx_Refill3, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
         }
         else if (gPowerBombRefillAnimation == 0x1)
         {
             needUpdate = gPowerBombHighlightStatus;
             powerBombs = needUpdate * 384;
-            dma_set(3, sPowerBombHUDGfx_Inactive + (gPowerBombHighlightStatus * 64), VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sPowerBombHUDGfx_Inactive + (gPowerBombHighlightStatus * 64), VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
         }
         else
             return;
@@ -872,7 +872,7 @@ void HUDDrawPowerBomb(u8 updateHighlight)
         refillStage += powerBombs;
         HUDDrawPowerBombDigits(tens, ones, refillStage);
 
-        dma_set(3, gAmmoDigitsGfx, VRAM_BASE + 0x10B40, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10B40, DMA_ENABLE << 16 | 32);
     }
 }
 
@@ -952,7 +952,7 @@ void HUDDrawSuperMissiles(u8 updateHighlight)
         
         // Update Gfx
         HUDDrawSuperMissileDigits(tens, ones, refillStage);
-        dma_set(3, gAmmoDigitsGfx, VRAM_BASE + 0x10EC0, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10EC0, DMA_ENABLE << 16 | 32);
     }
 
     if (gSuperMissileRefillAnimation != 0x0 && !updateHighlight)
@@ -977,23 +977,23 @@ void HUDDrawSuperMissiles(u8 updateHighlight)
         if (gSuperMissileRefillAnimation == 0xD)
         {
             superMissiles = 0x480;
-            dma_set(3, sSuperMissileHUDGfx_Refill1, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sSuperMissileHUDGfx_Refill1, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
         }
         else if (gSuperMissileRefillAnimation == 0xA)
         {
             superMissiles = 0x600;
-            dma_set(3, sSuperMissileHUDGfx_Refill2, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sSuperMissileHUDGfx_Refill2, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
         }
         else if (gSuperMissileRefillAnimation == 0x4)
         {
             superMissiles = 0x780;
-            dma_set(3, sSuperMissileHUDGfx_Refill3, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sSuperMissileHUDGfx_Refill3, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
         }
         else if (gSuperMissileRefillAnimation == 0x1)
         {
             needUpdate = gSuperMissileHighlightStatus;
             superMissiles = needUpdate * 384;
-            dma_set(3, sSuperMissileHUDGfx_Inactive + (gSuperMissileHighlightStatus * 64), VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sSuperMissileHUDGfx_Inactive + (gSuperMissileHighlightStatus * 64), VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
         }
         else
             return;
@@ -1003,7 +1003,7 @@ void HUDDrawSuperMissiles(u8 updateHighlight)
         refillStage += superMissiles;
         HUDDrawSuperMissileDigits(tens, ones, refillStage);
 
-        dma_set(3, gAmmoDigitsGfx, VRAM_BASE + 0x10EC0, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, gAmmoDigitsGfx, VRAM_BASE + 0x10EC0, DMA_ENABLE << 16 | 32);
     }
 }
 
@@ -1020,12 +1020,12 @@ void HUDUpdateGfx(void)
         {
             if (gSamusWeaponInfo.missilesSelected || gEquipment.currentMissiles == 0x0)
             {
-                dma_set(3, sMissileHUDGfx_Inactive, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+                DMA_SET(3, sMissileHUDGfx_Inactive, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
                 gMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
             }
             else
             {
-                dma_set(3, sMissileHUDGfx_Selected, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+                DMA_SET(3, sMissileHUDGfx_Selected, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
                 gMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
             }
 
@@ -1038,7 +1038,7 @@ void HUDUpdateGfx(void)
         {
             if (gSamusWeaponInfo.missilesSelected || gEquipment.currentMissiles == 0x0)
             {
-                dma_set(3, sMissileHUDGfx_Inactive, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+                DMA_SET(3, sMissileHUDGfx_Inactive, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
                 gMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
 
                 HUDDrawMissiles(TRUE);
@@ -1046,7 +1046,7 @@ void HUDUpdateGfx(void)
         }
         else
         {
-            dma_set(3, sMissileHUDGfx_Active, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sMissileHUDGfx_Active, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
             gMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
             
             HUDDrawMissiles(TRUE);
@@ -1056,7 +1056,7 @@ void HUDUpdateGfx(void)
     {
         if (gSamusWeaponInfo.weaponHighlighted & WH_MISSILE)
         {
-            dma_set(3, sMissileHUDGfx_Active, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sMissileHUDGfx_Active, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
             gMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
                 
             HUDDrawMissiles(TRUE);
@@ -1065,7 +1065,7 @@ void HUDUpdateGfx(void)
         {
             if (!gSamusWeaponInfo.missilesSelected && gEquipment.currentMissiles != 0x0)
             {
-                dma_set(3, sMissileHUDGfx_Selected, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
+                DMA_SET(3, sMissileHUDGfx_Selected, VRAM_BASE + 0x10E00, DMA_ENABLE << 16 | 32);
                 gMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
                 
                 HUDDrawMissiles(TRUE);
@@ -1080,12 +1080,12 @@ void HUDUpdateGfx(void)
         {
             if (gEquipment.currentPowerBombs != 0x0)
             {
-                dma_set(3, sPowerBombHUDGfx_Selected, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+                DMA_SET(3, sPowerBombHUDGfx_Selected, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
                 gPowerBombHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
             }
             else
             {
-                dma_set(3, sPowerBombHUDGfx_Inactive, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+                DMA_SET(3, sPowerBombHUDGfx_Inactive, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
                 gPowerBombHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
             }
 
@@ -1099,7 +1099,7 @@ void HUDUpdateGfx(void)
         {
             if (gEquipment.currentPowerBombs == 0x0)
             {
-                dma_set(3, sPowerBombHUDGfx_Inactive, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+                DMA_SET(3, sPowerBombHUDGfx_Inactive, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
                 gPowerBombHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
                 
                 HUDDrawPowerBomb(TRUE);
@@ -1107,7 +1107,7 @@ void HUDUpdateGfx(void)
         }
         else
         {
-            dma_set(3, sPowerBombHUDGfx_Active, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sPowerBombHUDGfx_Active, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
             gPowerBombHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
             
             HUDDrawPowerBomb(TRUE);
@@ -1117,7 +1117,7 @@ void HUDUpdateGfx(void)
     {
         if (gSamusWeaponInfo.weaponHighlighted & WH_POWER_BOMB)
         {
-            dma_set(3, sPowerBombHUDGfx_Active, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sPowerBombHUDGfx_Active, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
             gPowerBombHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
                 
             HUDDrawPowerBomb(TRUE);
@@ -1126,7 +1126,7 @@ void HUDUpdateGfx(void)
         {
             if (gEquipment.currentPowerBombs != 0x0)
             {
-                dma_set(3, sPowerBombHUDGfx_Selected, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
+                DMA_SET(3, sPowerBombHUDGfx_Selected, VRAM_BASE + 0x10B00, DMA_ENABLE << 16 | 32);
                 gPowerBombHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
                 
                 HUDDrawPowerBomb(TRUE);
@@ -1141,12 +1141,12 @@ void HUDUpdateGfx(void)
         {
             if (!gSamusWeaponInfo.missilesSelected)
             {
-                dma_set(3, sSuperMissileHUDGfx_Inactive, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+                DMA_SET(3, sSuperMissileHUDGfx_Inactive, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
                 gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
             }
             else
             {
-                dma_set(3, sSuperMissileHUDGfx_Selected, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+                DMA_SET(3, sSuperMissileHUDGfx_Selected, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
                 gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
             }
 
@@ -1159,7 +1159,7 @@ void HUDUpdateGfx(void)
         {
             if (!gSamusWeaponInfo.missilesSelected)
             {
-                dma_set(3, sSuperMissileHUDGfx_Inactive, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+                DMA_SET(3, sSuperMissileHUDGfx_Inactive, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
                 gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_NOT_HIGHLIGHTED;
                 
                 HUDDrawSuperMissiles(TRUE);
@@ -1167,7 +1167,7 @@ void HUDUpdateGfx(void)
         }
         else
         {
-            dma_set(3, sSuperMissileHUDGfx_Active, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sSuperMissileHUDGfx_Active, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
             gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
         
             HUDDrawSuperMissiles(TRUE);
@@ -1177,7 +1177,7 @@ void HUDUpdateGfx(void)
     {
         if (gSamusWeaponInfo.weaponHighlighted & WH_SUPER_MISSILE)
         {
-            dma_set(3, sSuperMissileHUDGfx_Active, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+            DMA_SET(3, sSuperMissileHUDGfx_Active, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
             gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_HIGHLIGHTED;
                 
             HUDDrawSuperMissiles(TRUE);
@@ -1186,7 +1186,7 @@ void HUDUpdateGfx(void)
         {
             if (gSamusWeaponInfo.missilesSelected)
             {
-                dma_set(3, sSuperMissileHUDGfx_Selected, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
+                DMA_SET(3, sSuperMissileHUDGfx_Selected, VRAM_BASE + 0x10E80, DMA_ENABLE << 16 | 32);
                 gSuperMissileHighlightStatus = HIGHLIGHT_STATUS_SELECTED;
                 
                 HUDDrawSuperMissiles(TRUE);
@@ -1198,7 +1198,7 @@ void HUDUpdateGfx(void)
     if (gUpdateMinimapFlag != MINIMAP_UPDATE_FLAG_NONE)
     {
         gUpdateMinimapFlag--;
-        dma_set(3, (gMinimapTilesGfx + gUpdateMinimapFlag * 24), (VRAM_BASE + 0x11F80) + (gUpdateMinimapFlag * 1024), DMA_ENABLE << 16 | 48);
+        DMA_SET(3, (gMinimapTilesGfx + gUpdateMinimapFlag * 24), (VRAM_BASE + 0x11F80) + (gUpdateMinimapFlag * 1024), DMA_ENABLE << 16 | 48);
     }
 }
 
@@ -1218,7 +1218,7 @@ void HUDDrawSuitless(void)
 
     if (chargeCounter < 0x38)
     {
-        dma_set(3, sSuitlessHUDChargeBarGfx + chargeCounter * 256, VRAM_BASE + 0x11100, (DMA_ENABLE << 16) | 0x80);
+        DMA_SET(3, sSuitlessHUDChargeBarGfx + chargeCounter * 256, VRAM_BASE + 0x11100, (DMA_ENABLE << 16) | 0x80);
     }
 }
 

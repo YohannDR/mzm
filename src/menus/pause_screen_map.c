@@ -120,32 +120,32 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
 
         // Hours tens
         value = gInGameTimer.hours / 10 % 10;
-        DMATransfer(3, VRAM_BASE + 0x17EA0 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17EA0 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[4] + HALF_BLOCK_SIZE * 0, HALF_BLOCK_SIZE, 32);
         value = gInGameTimer.hours % 10;
 
         // Hours seconds
-        DMATransfer(3, VRAM_BASE + 0x17EA0 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17EA0 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[4] + HALF_BLOCK_SIZE * 1, HALF_BLOCK_SIZE, 32);
 
         // Minutes tens
         value = gInGameTimer.minutes / 10 % 10;
-        DMATransfer(3, VRAM_BASE + 0x17EA0 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17EA0 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[4] + HALF_BLOCK_SIZE * 3, HALF_BLOCK_SIZE, 32);
 
         // Minutes seconds
         value = gInGameTimer.minutes % 10;
-        DMATransfer(3, VRAM_BASE + 0x17EA0 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17EA0 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[4] + HALF_BLOCK_SIZE * 4, HALF_BLOCK_SIZE, 32);
 
         // Seconds tens
         value = gInGameTimer.seconds / 10 % 10;
-        DMATransfer(3, VRAM_BASE + 0x17EA0 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17EA0 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[4] + HALF_BLOCK_SIZE * 6, HALF_BLOCK_SIZE, 32);
 
         // Seconds seconds
         value = gInGameTimer.seconds % 10;
-        DMATransfer(3, VRAM_BASE + 0x17EA0 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17EA0 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[4] + HALF_BLOCK_SIZE * 7, HALF_BLOCK_SIZE, 32);
 
         // Current energy tanks
@@ -155,7 +155,7 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
         else
             value = i;
 
-        DMATransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[0] + HALF_BLOCK_SIZE * 0, HALF_BLOCK_SIZE, 32);
 
         // Total energy tanks
@@ -165,7 +165,7 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
         else
             value = i;
 
-        DMATransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[0] + HALF_BLOCK_SIZE * 2, HALF_BLOCK_SIZE, 32);
     }
     else
@@ -180,7 +180,7 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
         else
             value = i;
 
-        DMATransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[1] + HALF_BLOCK_SIZE * 0, HALF_BLOCK_SIZE, 32);
 
         // Total missile tanks tanks
@@ -190,7 +190,7 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
         else
             value = i;
 
-        DMATransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[1] + HALF_BLOCK_SIZE * 2, HALF_BLOCK_SIZE, 32);
 
         // Current super missile tanks tanks
@@ -200,7 +200,7 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
         else
             value = i;
 
-        DMATransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[2] + HALF_BLOCK_SIZE * 0, HALF_BLOCK_SIZE, 32);
 
         // Total super missile tanks tanks
@@ -210,7 +210,7 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
         else
             value = i;
 
-        DMATransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[2] + HALF_BLOCK_SIZE * 2, HALF_BLOCK_SIZE, 32);
 
         // Current power bomb tanks tanks
@@ -220,7 +220,7 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
         else
             value = i;
 
-        DMATransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[3] + HALF_BLOCK_SIZE * 0, HALF_BLOCK_SIZE, 32);
 
         // Total power bomb tanks tanks
@@ -230,7 +230,7 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
         else
             value = i;
 
-        DMATransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
+        DmaTransfer(3, VRAM_BASE + 0x17C00 + value * HALF_BLOCK_SIZE,
             sPauseScreen_40d79c[3] + HALF_BLOCK_SIZE * 2, HALF_BLOCK_SIZE, 32);
 
         // Draw checkmarks when you have all of the tanks
@@ -239,7 +239,7 @@ void PauseScreenDrawIgtAndTanks(u8 param_1, u8 drawTanks)
             if ((PAUSE_SCREEN_DATA.tankStatus >> i) & 1)
             {
                 // Checkmark
-                DMATransfer(3, VRAM_BASE + 0x17E00, sPauseScreen_40d79c[i] - HALF_BLOCK_SIZE * 3, HALF_BLOCK_SIZE, 32);
+                DmaTransfer(3, VRAM_BASE + 0x17E00, sPauseScreen_40d79c[i] - HALF_BLOCK_SIZE * 3, HALF_BLOCK_SIZE, 32);
             }
             else
             {
@@ -266,7 +266,7 @@ void PauseScreenInitMapDownload(void)
     if (PAUSE_SCREEN_DATA.mapDownloadType == 1)
     {
         BitFill(3, 0x1E0, VRAM_BASE + 0xD800, 0x800, 16);
-        DMATransfer(3, sPauseScreen_40f4c4, sPauseScreen_7602a8, MINIMAP_SIZE, 16);
+        DmaTransfer(3, sPauseScreen_40f4c4, sPauseScreen_7602a8, MINIMAP_SIZE, 16);
     }
     else if (PAUSE_SCREEN_DATA.mapDownloadType == 2)
     {
@@ -277,7 +277,7 @@ void PauseScreenInitMapDownload(void)
 
         for (i = 0; i < MINIMAP_SIZE; i++)
         {
-            DMATransfer(3, sPauseScreen_40f4c4, &sPauseScreen_7602a8[i * 8], MINIMAP_SIZE, 16);
+            DmaTransfer(3, sPauseScreen_40f4c4, &sPauseScreen_7602a8[i * 8], MINIMAP_SIZE, 16);
         }
     }
 
@@ -297,7 +297,7 @@ void PauseScreenInitMapDownload(void)
         }
     
         // 0x2034000 is gDecompressedMinimapVisitedTiles, direct address is required to match
-        dma_set(3, 0x2034000, VRAM_BASE + 0xE000,
+        DMA_SET(3, 0x2034000, VRAM_BASE + 0xE000,
             DMA_ENABLE << 16 | ARRAY_SIZE(gDecompressedMinimapVisitedTiles));
     }
 }
@@ -526,7 +526,7 @@ u32 PauseScreenMapDownload(void)
                     if (PAUSE_SCREEN_DATA.currentDownloadedLine < MINIMAP_SIZE)
                     {
                         // "Draw" current line
-                        dma_set(3, &gDecompressedMinimapVisitedTiles[PAUSE_SCREEN_DATA.currentDownloadedLine * MINIMAP_SIZE],
+                        DMA_SET(3, &gDecompressedMinimapVisitedTiles[PAUSE_SCREEN_DATA.currentDownloadedLine * MINIMAP_SIZE],
                             VRAM_BASE + 0xE000 + PAUSE_SCREEN_DATA.currentDownloadedLine * MINIMAP_SIZE * 2, DMA_ENABLE << 16 | MINIMAP_SIZE);   
                     }
 
@@ -574,7 +574,7 @@ u32 PauseScreenMapDownload(void)
 
         case 3:
             // Fully transfer everything
-            dma_set(3, gDecompressedMinimapVisitedTiles, VRAM_BASE + 0xE000,
+            DMA_SET(3, gDecompressedMinimapVisitedTiles, VRAM_BASE + 0xE000,
                 DMA_ENABLE << 16 | ARRAY_SIZE(gDecompressedMinimapVisitedTiles));
 
             PAUSE_SCREEN_DATA.downloadStage++;
@@ -1073,10 +1073,10 @@ void MapScreenTogglehWorldMap(u8 forceOff)
     if (PAUSE_SCREEN_DATA.onWorldMap)
     {
         // Apply world map overlay tilemap
-        DMATransfer(3, PAUSE_SCREEN_EWRAM.worldMapOverlayTilemap, VRAM_BASE + 0xD000,
+        DmaTransfer(3, PAUSE_SCREEN_EWRAM.worldMapOverlayTilemap, VRAM_BASE + 0xD000,
             sizeof(PAUSE_SCREEN_EWRAM.worldMapOverlayTilemap), 16);
 
-        DMATransfer(3, sPauseScreen_3fd252, PALRAM_BASE + 2, sizeof(sPauseScreen_3fd252), 16);
+        DmaTransfer(3, sPauseScreen_3fd252, PALRAM_BASE + 2, sizeof(sPauseScreen_3fd252), 16);
 
         // Setup oam
         PauseScreenUpdateWorldMap(TRUE);
@@ -1085,10 +1085,10 @@ void MapScreenTogglehWorldMap(u8 forceOff)
     else
     {
         // Apply map screen tilemap
-        DMATransfer(3, PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap, VRAM_BASE + 0xD000,
+        DmaTransfer(3, PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap, VRAM_BASE + 0xD000,
             sizeof(PAUSE_SCREEN_EWRAM.mapScreenOverlayTilemap), 16);
 
-        DMATransfer(3, &sMinimapTilesPal[1], PALRAM_BASE + 2, sizeof(sMinimapTilesPal) - 2, 16);
+        DmaTransfer(3, &sMinimapTilesPal[1], PALRAM_BASE + 2, sizeof(sMinimapTilesPal) - 2, 16);
 
         if (!forceOff)
             SoundPlay(0x203);
@@ -1158,7 +1158,7 @@ void MapScreenChangeMap(void)
 
         case 2:
             // Transfer minimap data
-            DMATransfer(3, PAUSE_SCREEN_DATA.mapsDataPointer[PAUSE_SCREEN_DATA.currentArea],
+            DmaTransfer(3, PAUSE_SCREEN_DATA.mapsDataPointer[PAUSE_SCREEN_DATA.currentArea],
                 VRAM_BASE + 0xE000, sizeof(*PAUSE_SCREEN_DATA.mapsDataPointer), 16);
 
             // Update chozo hints

@@ -4563,8 +4563,8 @@ lbl_080871d2:
     pop {r1}
     bx r1
 
-    thumb_func_start credits_main
-credits_main: @ 0x080871dc
+    thumb_func_start CreditsSubroutine
+CreditsSubroutine: @ 0x080871dc
     push {r4, r5, lr}
     movs r5, #0
     ldr r1, lbl_08087204 @ =sNonGameplayRamPointer

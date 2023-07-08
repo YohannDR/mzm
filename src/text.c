@@ -163,7 +163,7 @@ void TextDrawCharacter(u16 charID, u32* dst, u16 indent, u8 color)
             }
         }
         else
-            DMATransfer(3, srcGfx, dstGfx, size * 4, 16);
+            DmaTransfer(3, srcGfx, dstGfx, size * 4, 16);
 
         dstGfx = dst + ((indent & 0xFF) / 8) * 8 + pass * 0x100;
         dstGfx += (indent / 256) * 0x200;
@@ -636,8 +636,8 @@ void TextDrawlocation(u8 locationText, u8 gfxSlot)
     pText = sLocationTextpointers[gLanguage][locationText];
     TextDrawLocationTextCharacters(1, &pText);
 
-    dma_set(3, EWRAM_BASE, VRAM_BASE + 0x14000 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
-    dma_set(3, EWRAM_BASE + 0x400, VRAM_BASE + 0x14400 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
+    DMA_SET(3, EWRAM_BASE, VRAM_BASE + 0x14000 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
+    DMA_SET(3, EWRAM_BASE + 0x400, VRAM_BASE + 0x14400 + gfxSlot * 0x800, (DMA_ENABLE | DMA_32BIT) << 16 | 0xE0);
 }
 
 /**

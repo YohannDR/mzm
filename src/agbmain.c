@@ -9,6 +9,8 @@
 
 void agbmain(void)
 {
+    u8 psf;
+
     InitializeGame();
 
     while (TRUE)
@@ -47,14 +49,19 @@ void agbmain(void)
                 if (TitleScreenSubroutine())
                 {
                     if (gGameModeSub2 == 1)
+                    {
                         gMainGameMode = GM_FILESELECT;
+                    }
                     else if (gGameModeSub2 == 2)
                     {
                         DemoStart();
                         gMainGameMode = GM_DEMO;
                     }
                     else
+                    {
                         gMainGameMode = GM_INTRO;
+                    }
+
                     gGameModeSub1 = 0;
                     gPauseScreenFlag = 0;
                     gGameModeSub2 = 0;
@@ -74,6 +81,7 @@ void agbmain(void)
                         gMainGameMode = GM_GALLERY;
                     else
                         gMainGameMode = GM_INTRO;
+
                     gGameModeSub1 = 0;
                     gGameModeSub3 = 0;
                     gGameModeSub2 = 0;
@@ -86,9 +94,13 @@ void agbmain(void)
                     if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
                     {
                         if (gCurrentCutscene != 0)
+                        {
                             gMainGameMode = GM_CUTSCENE;
+                        }
                         else if (gTourianEscapeCutsceneStage != 0)
+                        {
                             gMainGameMode = GM_TOURIAN_ESCAPE;
+                        }
                         else
                         {
                             gMainGameMode = GM_TITLE;
@@ -96,12 +108,14 @@ void agbmain(void)
                         }
                     }
                     else
+                    {
                         gMainGameMode = GM_MAP_SCREEN;
+                    }
                 }
                 break;
 
             case GM_MAP_SCREEN:
-                if (map_screen_main())
+                if (PauseScreenSubroutine())
                 {
                     gMainGameMode = gGameModeSub2;
                     gGameModeSub2 = 0;
@@ -150,7 +164,7 @@ void agbmain(void)
                 break;
 
             case GM_CREDITS:
-                if (credits_main())
+                if (CreditsSubroutine())
                 {
                     gGameModeSub1 = 0;
                     gMainGameMode = GM_INTRO;
@@ -158,7 +172,7 @@ void agbmain(void)
                 break;
 
             case GM_TOURIAN_ESCAPE:
-                if (tourian_escape_main())
+                if (TourianEscapeSubroutine())
                 {
                     gGameModeSub1 = 0;
                     gMainGameMode = gGameModeSub2;
@@ -166,9 +180,8 @@ void agbmain(void)
                 break;
 
             case GM_CUTSCENE:
-                if (cutscene_main())
+                if (CutsceneSubroutine())
                 {
-                    u8 psf;
                     gGameModeSub1 = 0;
                     psf = gPauseScreenFlag - 7;
                     if (psf <= 1)

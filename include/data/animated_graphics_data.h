@@ -1,5 +1,5 @@
-#ifndef ANIMATED_GRAPHICS_DATA_H
-#define ANIMATED_GRAPHICS_DATA_H
+#ifndef ANIMATED_GFX_DATA_H
+#define ANIMATED_GFX_DATA_H
 
 #include "structs/animated_graphics.h"
 
@@ -18,4 +18,4 @@ extern const u16 sBackgroundEffectBehavior_ExitZebes[30][3];
 extern const u16 sBackgroundEffectBehavior_IntroText[30][3];
 extern const u16 sBackgroundEffectBehavior_AllBlackWhite[39][3];
 
-#endif /* ANIMATED_GRAPHICS_DATA_H */
+#endif /* ANIMATED_GFX_DATA_H */

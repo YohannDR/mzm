@@ -571,7 +571,7 @@ u32 ChozoStatueHintSubroutine(void)
             PAUSE_SCREEN_DATA.unk_41++;
             PAUSE_SCREEN_DATA.currentArea = PAUSE_SCREEN_DATA.unk_42;
 
-            DMATransfer(3, PAUSE_SCREEN_DATA.mapsDataPointer[PAUSE_SCREEN_DATA.currentArea], VRAM_BASE + 0xE000,
+            DmaTransfer(3, PAUSE_SCREEN_DATA.mapsDataPointer[PAUSE_SCREEN_DATA.currentArea], VRAM_BASE + 0xE000,
                 sizeof(*PAUSE_SCREEN_DATA.mapsDataPointer), 16);
 
             ChozoHintDeterminePath(TRUE);
@@ -675,7 +675,7 @@ void ChozoHintDeterminePath(u8 param_1)
     const s8* pTarget;
     const u8* ptr;
 
-    DMATransfer(3, &sMenuOamDataChozoHint_Empty, &oam, sizeof(oam), 16);
+    DmaTransfer(3, &sMenuOamDataChozoHint_Empty, &oam, sizeof(oam), 16);
 
     if (PAUSE_SCREEN_DATA.typeFlags & PAUSE_SCREEN_TYPE_ON_MAP_SCREEN)
         oam.priority = 0;
@@ -687,13 +687,13 @@ void ChozoHintDeterminePath(u8 param_1)
         pOam = PAUSE_SCREEN_DATA.targetsOam;
         for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.targetsOam); i++, pOam++)
         {
-            DMATransfer(3, &oam, pOam, sizeof(oam), 32);
+            DmaTransfer(3, &oam, pOam, sizeof(oam), 32);
         }
 
         pOam = PAUSE_SCREEN_DATA.chozoHintOam;
         for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.chozoHintOam); i++, pOam++)
         {
-            DMATransfer(3, &oam, pOam, sizeof(oam), 32);
+            DmaTransfer(3, &oam, pOam, sizeof(oam), 32);
         }
 
         PAUSE_SCREEN_DATA.unk_41 = 0;
@@ -706,13 +706,13 @@ void ChozoHintDeterminePath(u8 param_1)
         pOam = PAUSE_SCREEN_DATA.targetsOam;
         for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.targetsOam); i++, pOam++)
         {
-            DMATransfer(3, &oam, pOam, sizeof(oam), 32);
+            DmaTransfer(3, &oam, pOam, sizeof(oam), 32);
         }
 
         pOam = PAUSE_SCREEN_DATA.chozoHintOam;
         for (i = 0; i < ARRAY_SIZE(PAUSE_SCREEN_DATA.chozoHintOam); i++, pOam++)
         {
-            DMATransfer(3, &oam, pOam, sizeof(oam), 32);
+            DmaTransfer(3, &oam, pOam, sizeof(oam), 32);
         }
     }
 

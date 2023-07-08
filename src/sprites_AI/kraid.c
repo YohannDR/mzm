@@ -414,19 +414,19 @@ void KraidOpenCloseRoutineAndProjectileCollision(void)
                     {
                         pSprite->absolutePaletteRow = 3;
 
-                        dma_set(3, sKraidPAL + 0xE0, PALRAM_BASE + 0x140, (DMA_ENABLE << 16) | 16);
+                        DMA_SET(3, sKraidPAL + 0xE0, PALRAM_BASE + 0x140, (DMA_ENABLE << 16) | 16);
                     }
                     else if (pSprite->health < GET_PSPRITE_HEALTH(PSPRITE_KRAID) / 3)
                     {
                         pSprite->absolutePaletteRow = 2;
 
-                        dma_set(3, sKraidPAL + 0xC0, PALRAM_BASE + 0x140, (DMA_ENABLE << 16) | 16);
+                        DMA_SET(3, sKraidPAL + 0xC0, PALRAM_BASE + 0x140, (DMA_ENABLE << 16) | 16);
                     }
                     else if (pSprite->health < (GET_PSPRITE_HEALTH(PSPRITE_KRAID) >> 2) * 3)
                     {
                         pSprite->absolutePaletteRow = 1;
 
-                        dma_set(3, sKraidPAL + 0xA0, PALRAM_BASE + 0x140, (DMA_ENABLE << 16) | 16);
+                        DMA_SET(3, sKraidPAL + 0xA0, PALRAM_BASE + 0x140, (DMA_ENABLE << 16) | 16);
                     }
                 }
                 else

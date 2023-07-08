@@ -22,7 +22,7 @@
 void ClipdataSetupCode(void)
 {
     // Copy code to RAM
-    dma_set(3, ClipdataConvertToCollision + 1, gNonGameplayRAM.inGame, (DMA_ENABLE << 0x10) | 0x140);
+    DMA_SET(3, ClipdataConvertToCollision + 1, gNonGameplayRAM.inGame, (DMA_ENABLE << 0x10) | 0x140);
     // Set pointer
     gClipdataCodePointer = (ClipFunc_T)(gNonGameplayRAM.inGame + 1);
 }

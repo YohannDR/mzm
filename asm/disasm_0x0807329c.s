@@ -193,7 +193,7 @@ lbl_08073418:
     str r0, [sp]
     movs r0, #3
     movs r3, #0x40
-    bl DMATransfer
+    bl DmaTransfer
     movs r6, #0
     movs r0, #0
     bl DoSramOperation
@@ -205,7 +205,7 @@ lbl_08073432:
     str r4, [sp]
     movs r0, #3
     movs r3, #0x40
-    bl DMATransfer
+    bl DmaTransfer
     movs r6, #0
     movs r0, #0
     bl DoSramOperation
@@ -219,7 +219,7 @@ lbl_08073432:
     str r4, [sp]
     movs r0, #3
     movs r3, #0x40
-    bl DMATransfer
+    bl DmaTransfer
     movs r0, #1
     bl DoSramOperation
     b lbl_080734a4
@@ -234,7 +234,7 @@ lbl_08073470:
     str r5, [sp]
     movs r0, #3
     movs r3, #0x40
-    bl DMATransfer
+    bl DmaTransfer
     movs r0, #1
     bl DoSramOperation
     cmp r7, #0
@@ -245,7 +245,7 @@ lbl_08073470:
     str r5, [sp]
     movs r0, #3
     movs r3, #0x40
-    bl DMATransfer
+    bl DmaTransfer
     movs r0, #2
     bl DoSramOperation
 lbl_080734a4:
@@ -264,7 +264,7 @@ lbl_080734b8:
     str r0, [sp]
     movs r0, #3
     movs r3, #0xc
-    bl DMATransfer
+    bl DmaTransfer
     bl SramWrite_FileScreenOptionsUnlocked
 lbl_080734d0:
     add sp, #8
@@ -501,7 +501,7 @@ lbl_08073674:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
 lbl_080736a2:
     ldr r1, lbl_080736b8 @ =gSramOperationStage
     ldrb r0, [r1]
@@ -759,7 +759,7 @@ lbl_08073898:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
 lbl_080738c6:
     ldr r1, lbl_080738dc @ =gSramOperationStage
     ldrb r0, [r1]
@@ -1096,7 +1096,7 @@ lbl_08073b4c:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
 lbl_08073b7a:
     ldr r1, lbl_08073b90 @ =gSramOperationStage
     ldrb r0, [r1]
@@ -1239,7 +1239,7 @@ lbl_08073c84:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_08073cc8 @ =gSramOperationStage
     ldrb r0, [r1]
     adds r0, #1
@@ -2138,7 +2138,7 @@ lbl_080743f0:
     movs r0, #3
     movs r3, #0x91
     lsls r3, r3, #5
-    bl DMATransfer
+    bl DmaTransfer
     movs r0, #4
     bl DoSramOperation
     movs r0, #1
@@ -2171,7 +2171,7 @@ lbl_0807445c:
     movs r0, #3
     movs r3, #0x91
     lsls r3, r3, #5
-    bl DMATransfer
+    bl DmaTransfer
     ldr r3, [sp, #4]
     strb r4, [r3]
     b lbl_0807454a
@@ -2627,7 +2627,7 @@ write_sram_arrays: @ 0x080747bc
     str r5, [sp]
     movs r0, #3
     mov r2, r8
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_080748a4 @ =0x02037c00
     movs r0, #0x88
     lsls r0, r0, #5
@@ -2636,7 +2636,7 @@ write_sram_arrays: @ 0x080747bc
     lsls r3, r3, #1
     str r5, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_080748a8 @ =0x02037e00
     movs r0, #0x90
     lsls r0, r0, #5
@@ -2645,7 +2645,7 @@ write_sram_arrays: @ 0x080747bc
     movs r0, #3
     adds r2, r4, #0
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     movs r6, #0
     movs r5, #0
     ldr r7, lbl_080748ac @ =0x02035c00
@@ -2665,7 +2665,7 @@ lbl_08074824:
     movs r0, #3
     adds r1, r7, #0
     adds r3, r4, #0
-    bl DMATransfer
+    bl DmaTransfer
     adds r6, r6, r4
 lbl_08074848:
     movs r0, #0x80
@@ -2693,7 +2693,7 @@ lbl_0807485a:
     movs r0, #3
     adds r1, r7, #0
     adds r3, r4, #0
-    bl DMATransfer
+    bl DmaTransfer
     adds r6, r6, r4
 lbl_0807487e:
     movs r0, #0x80
@@ -2748,7 +2748,7 @@ load_sram_arrays: @ 0x080748bc
     str r5, [sp]
     movs r0, #3
     mov r1, r8
-    bl DMATransfer
+    bl DmaTransfer
     movs r0, #0x88
     lsls r0, r0, #5
     adds r1, r4, r0
@@ -2757,7 +2757,7 @@ load_sram_arrays: @ 0x080748bc
     lsls r3, r3, #1
     str r5, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     movs r0, #0x90
     lsls r0, r0, #5
     adds r4, r4, r0
@@ -2766,7 +2766,7 @@ load_sram_arrays: @ 0x080748bc
     movs r0, #3
     adds r1, r4, #0
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     ldr r4, lbl_080749d0 @ =0x0000ffff
     ldr r6, lbl_080749d4 @ =0x02035c00
     movs r3, #0x80
@@ -2801,7 +2801,7 @@ lbl_08074946:
     movs r0, #3
     adds r2, r6, #0
     adds r3, r4, #0
-    bl DMATransfer
+    bl DmaTransfer
     adds r7, r7, r4
 lbl_0807496a:
     movs r0, #0x80
@@ -2829,7 +2829,7 @@ lbl_0807497c:
     movs r0, #3
     adds r2, r6, #0
     adds r3, r4, #0
-    bl DMATransfer
+    bl DmaTransfer
     adds r7, r7, r4
 lbl_080749a0:
     movs r0, #0x80
@@ -3975,7 +3975,7 @@ sub_080751d8: @ 0x080751d8
     str r6, [sp]
     movs r0, #3
     movs r3, #0x80
-    bl DMATransfer
+    bl DmaTransfer
     ldrb r1, [r5]
     lsls r1, r1, #5
     ldr r7, lbl_08075344 @ =0x02037c00
@@ -3986,7 +3986,7 @@ sub_080751d8: @ 0x080751d8
     str r6, [sp]
     movs r0, #3
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     movs r0, #0x8e
     lsls r0, r0, #2
     adds r0, r4, r0
@@ -4090,7 +4090,7 @@ SramLoad_DemoRamValues: @ 0x08075364
     str r5, [sp]
     movs r0, #3
     movs r3, #0x80
-    bl DMATransfer
+    bl DmaTransfer
     movs r2, #0x86
     lsls r2, r2, #2
     adds r1, r6, r2
@@ -4101,7 +4101,7 @@ SramLoad_DemoRamValues: @ 0x08075364
     str r5, [sp]
     movs r0, #3
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_08075470
     .align 2, 0
 lbl_080753c8: .4byte 0x0875fdfc
@@ -4423,7 +4423,7 @@ lbl_0807565c:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0807567c @ =gSramOperationStage
     ldrb r0, [r1]
     adds r0, #1

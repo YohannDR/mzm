@@ -277,7 +277,7 @@ lbl_08068358:
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     str r4, [sp]
     movs r0, #3
     movs r1, #0
@@ -293,7 +293,7 @@ lbl_08068358:
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_080683bc @ =sNonGameplayRamPointer
     ldr r0, [r1]
     adds r0, #0xbd
@@ -394,7 +394,7 @@ lbl_08068450:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_08068562
     .align 2, 0
 lbl_08068470: .4byte sEwramPointer
@@ -411,7 +411,7 @@ lbl_08068474:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_080684ac @ =sNonGameplayRamPointer
     ldr r0, [r1]
     adds r0, #0xbd
@@ -546,7 +546,7 @@ lbl_0806857c:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r0, lbl_080685b4 @ =sNonGameplayRamPointer
     ldr r0, [r0]
     adds r0, #0xbe
@@ -589,7 +589,7 @@ sub_080685b8: @ 0x080685b8
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     str r4, [sp]
     movs r0, #3
     movs r1, #0
@@ -605,7 +605,7 @@ sub_080685b8: @ 0x080685b8
     movs r0, #3
     adds r1, r6, #0
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_08068630
     .align 2, 0
 lbl_08068610: .4byte sEwramPointer
@@ -622,7 +622,7 @@ lbl_08068614:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
 lbl_08068630:
     ldr r0, lbl_0806864c @ =sNonGameplayRamPointer
     ldr r0, [r0]
@@ -661,7 +661,7 @@ sub_08068650: @ 0x08068650
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r0, [r4]
     adds r0, #0xbe
     movs r1, #0
@@ -1734,7 +1734,7 @@ lbl_08068e98:
     str r0, [sp]
     movs r0, #3
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
 lbl_08068eb0:
     add sp, #4
     pop {r4, r5, r6, r7}
@@ -4161,8 +4161,8 @@ lbl_0806a174: .4byte 0x000001ff
 lbl_0806a178: .4byte 0xfffffe00
 lbl_0806a17c: .4byte gNextOamSlot
 
-    thumb_func_start map_screen_main
-map_screen_main: @ 0x0806a180
+    thumb_func_start PauseScreenSubroutine
+PauseScreenSubroutine: @ 0x0806a180
     push {r4, lr}
     movs r4, #0
     ldr r0, lbl_0806a19c @ =gSubGameModeStage
@@ -4541,7 +4541,7 @@ map_screen_init: @ 0x0806a434
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
 lbl_0806a4ba:
     ldr r1, [r4]
     ldr r0, lbl_0806a524 @ =gCurrentArea
@@ -4675,21 +4675,21 @@ lbl_0806a5dc:
     movs r4, #0x10
     str r4, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0806a6a4 @ =0x08411360
     movs r2, #0xa0
     lsls r2, r2, #0x13
     str r4, [sp]
     movs r0, #3
     movs r3, #0xa0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0806a6a8 @ =0x083fcef0
     ldr r2, lbl_0806a6ac @ =0x050000a0
     movs r3, #0xb0
     lsls r3, r3, #1
     str r4, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r0, lbl_0806a6b0 @ =0x08754bb8
     ldr r1, [r0]
     movs r0, #0
@@ -4700,7 +4700,7 @@ lbl_0806a5dc:
     lsls r3, r3, #6
     str r4, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0806a6bc @ =0x0600a820
     ldr r2, lbl_0806a6c0 @ =0x0600ac20
     movs r3, #0xf8
@@ -4708,7 +4708,7 @@ lbl_0806a5dc:
     movs r6, #0x20
     str r6, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldr r0, lbl_0806a6c4 @ =0x08400e08
     ldr r1, lbl_0806a6c8 @ =0x06013000
     bl CallLZ77UncompVRAM
@@ -4809,7 +4809,7 @@ lbl_0806a6f4:
     str r6, [sp]
     movs r0, #3
     adds r1, r4, #0
-    bl DMATransfer
+    bl DmaTransfer
 lbl_0806a744:
     movs r1, #0x8a
     lsls r1, r1, #5
@@ -4827,7 +4827,7 @@ lbl_0806a744:
     str r6, [sp]
     movs r0, #3
     adds r3, r7, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r5, lbl_0806a7c8 @ =sNonGameplayRamPointer
     mov r8, r5
     ldr r0, [r5]
@@ -4879,7 +4879,7 @@ lbl_0806a7dc:
     str r6, [sp]
     movs r0, #3
     adds r3, r7, #0
-    bl DMATransfer
+    bl DmaTransfer
     movs r0, #2
     movs r1, #2
     bl PauseScreenUpdateBottomVisorOverlay
@@ -4941,7 +4941,7 @@ lbl_0806a84e:
     lsls r3, r3, #3
     str r6, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0806a8ba
     .align 2, 0
 lbl_0806a88c: .4byte 0x084078ec
@@ -4960,7 +4960,7 @@ lbl_0806a8a4:
     lsls r3, r3, #3
     str r6, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
 lbl_0806a8ba:
     ldr r0, lbl_0806a94c @ =0x08407d90
     ldr r4, lbl_0806a950 @ =sEwramPointer
@@ -5144,7 +5144,7 @@ lbl_0806aa40:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
 lbl_0806aa6a:
     ldr r2, lbl_0806aad0 @ =sNonGameplayRamPointer
     ldr r0, [r2]
@@ -6807,7 +6807,7 @@ lbl_0806b748:
     str r0, [sp]
     movs r0, #3
     movs r3, #0x80
-    bl DMATransfer
+    bl DmaTransfer
     add sp, #4
     pop {r4}
     pop {r0}
@@ -6966,7 +6966,7 @@ lbl_0806b888:
     movs r0, #0x20
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0806b8d2
     .align 2, 0
 lbl_0806b8ac: .4byte gEquipment
@@ -6984,7 +6984,7 @@ lbl_0806b8b8:
     movs r0, #0x20
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
 lbl_0806b8d2:
     movs r4, #1
     b lbl_0806b9da
@@ -7477,7 +7477,7 @@ lbl_0806bcc4:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0806bef0
     .align 2, 0
 lbl_0806bce0: .4byte sEwramPointer
@@ -7495,7 +7495,7 @@ lbl_0806bce8:
     str r4, [sp]
     movs r0, #3
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0806bd18 @ =0x06006800
     ldr r2, [r5]
     movs r0, #0xb0
@@ -7519,7 +7519,7 @@ lbl_0806bd1c:
     str r4, [sp]
     movs r0, #3
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0806bd4c @ =0x06007800
     ldr r2, [r5]
     movs r0, #0xc0
@@ -7600,7 +7600,7 @@ lbl_0806bdbc:
     str r4, [sp]
     movs r0, #3
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, [r5]
     movs r0, #0x90
     lsls r0, r0, #7
@@ -7634,7 +7634,7 @@ lbl_0806be04:
     str r4, [sp]
     movs r0, #3
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, [r5]
     movs r0, #0xb0
     lsls r0, r0, #7
@@ -7644,7 +7644,7 @@ lbl_0806be3c:
     str r4, [sp]
     movs r0, #3
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0806bef0
     .align 2, 0
 lbl_0806be48: .4byte sNonGameplayRamPointer
@@ -7859,7 +7859,7 @@ lbl_0806bff0:
     str r4, [sp]
     movs r0, #3
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, [r5]
     movs r0, #0xb0
     lsls r0, r0, #8
@@ -7883,7 +7883,7 @@ lbl_0806c024:
     str r4, [sp]
     movs r0, #3
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, [r5]
     movs r0, #0xc0
     lsls r0, r0, #8
@@ -7893,7 +7893,7 @@ lbl_0806c04a:
     str r4, [sp]
     movs r0, #3
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0806c0c8
     .align 2, 0
 lbl_0806c058: .4byte sEwramPointer

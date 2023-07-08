@@ -113,8 +113,8 @@ u8 StatueOpeningInit(void)
     u8* ptr;
     
     unk_61f0c();
-    DMATransfer(3, sBossStatuesPAL, PALRAM_BASE + 0x300, sizeof(sBossStatuesPAL), 0x10);
-    DMATransfer(3, sStatueOpeningPAL, PALRAM_BASE, sizeof(sStatueOpeningPAL), 0x10);
+    DmaTransfer(3, sBossStatuesPAL, PALRAM_BASE + 0x300, sizeof(sBossStatuesPAL), 0x10);
+    DmaTransfer(3, sStatueOpeningPAL, PALRAM_BASE, sizeof(sStatueOpeningPAL), 0x10);
     write16(PALRAM_BASE, 0);
 
     CallLZ77UncompVRAM(sStatueOpeningRoomGfx, VRAM_BASE + 0x1800 + sStatueOpeningPageData[0].graphicsPage * 0x4000);

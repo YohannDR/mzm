@@ -315,7 +315,7 @@ void EraseSramInit(void)
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay = 16);
 
     zero = 0;
-    dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
 
     ClearGfxRam();
     gNextOamSlot = 0;
@@ -327,8 +327,8 @@ void EraseSramInit(void)
 
     while ((u16)(read16(REG_VCOUNT) - 0x15) < 0x8C);
 
-    dma_set(3, sEraseSramMenuBackgroundPAL, PALRAM_BASE, DMA_ENABLE << 16 | 0xD0);
-    dma_set(3, sEraseSramMenuObjectsPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sEraseSramMenuObjectsPAL) / 2);
+    DMA_SET(3, sEraseSramMenuBackgroundPAL, PALRAM_BASE, DMA_ENABLE << 16 | 0xD0);
+    DMA_SET(3, sEraseSramMenuObjectsPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sEraseSramMenuObjectsPAL) / 2);
     write16(PALRAM_BASE, 0);
 
     LZ77UncompVRAM(sEraseSramMenuFirstBoxGfx, VRAM_BASE + 0x1000);
@@ -419,7 +419,7 @@ void EraseSramUpdateCursorPosition(void)
  */
 void EraseSramVBlank(void)
 {
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
     write16(REG_BLDY, gWrittenToBLDY_NonGameplay);
 

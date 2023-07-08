@@ -233,8 +233,8 @@ void ColorFadingTransferPaletteOnTransition(void)
         }
     }
 
-    DMATransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
-    DMATransfer(3, PALRAM_BASE + PALRAM_SIZE / 2, EWRAM_BASE + 0x35200, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_BASE + PALRAM_SIZE / 2, EWRAM_BASE + 0x35200, PALRAM_SIZE / 2, 16);
 }
 
 /**
@@ -372,7 +372,7 @@ void unk_5c190(void)
     gBackgroundPositions.doorTransition.y = gBackgroundPositions.bg[3].y;
     gBackgroundPositions.doorTransition.x = gBackgroundPositions.bg[3].x;
 
-    DMATransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
+    DmaTransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
 
     write16(REG_BG0CNT, gIoRegistersBackup.unk_12);
     write16(REG_BG3CNT, gIoRegistersBackup.BG3CNT);
@@ -451,7 +451,7 @@ void unk_5c2ec(void)
     
     // FIXME RoomRLEDecompress(FALSE, sDoorTransitionTilemap, EWRAM_BASE + 0x7000);
     RoomRLEDecompress(FALSE, 0x8364f80, EWRAM_BASE + 0x7000);
-    DMATransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
+    DmaTransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
     write16(REG_BG3CNT, 0x4604);
 
     gBackgroundPositions.bg[3].y = BLOCK_SIZE;
@@ -462,13 +462,13 @@ void unk_5c2ec(void)
 
     if (gUseMotherShipDoors == TRUE)
     {
-        // FIXME DMATransfer(3, sDoorTransitionMotherShipPAL, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
-        DMATransfer(3, 0x85e0040, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+        // FIXME DmaTransfer(3, sDoorTransitionMotherShipPAL, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+        DmaTransfer(3, 0x85e0040, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
     }
     else
     {
-        // FIXME DMATransfer(3, sDoorTransitionPAL, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
-        DMATransfer(3, 0x85dfe40, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+        // FIXME DmaTransfer(3, sDoorTransitionPAL, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+        DmaTransfer(3, 0x85dfe40, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
     }
 }
 
@@ -568,13 +568,13 @@ u8 ColorFading_DoorTransition(void)
 
             if (gUseMotherShipDoors == TRUE)
             {
-                // FIXME DMATransfer(3, sDoorTransitionMotherShipPAL, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
-                DMATransfer(3, 0x85e0040, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+                // FIXME DmaTransfer(3, sDoorTransitionMotherShipPAL, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+                DmaTransfer(3, 0x85e0040, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
             }
             else
             {
-                // FIXME DMATransfer(3, sDoorTransitionPAL, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
-                DMATransfer(3, 0x85dfe40, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+                // FIXME DmaTransfer(3, sDoorTransitionPAL, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
+                DmaTransfer(3, 0x85dfe40, PALRAM_BASE + 0x20, 16 * 2 * sizeof(u16), 16);
             }
 
             write16(REG_DISPCNT, read16(REG_DISPCNT) & ~(DCNT_BG2 | DCNT_BG3 | DCNT_WIN1));
@@ -585,7 +585,7 @@ u8 ColorFading_DoorTransition(void)
         case 3:
             // FIXME RoomRLEDecompress(FALSE, sDoorTransitionTilemap, EWRAM_BASE + 0x7000);
             RoomRLEDecompress(FALSE, 0x8364f80, EWRAM_BASE + 0x7000);
-            DMATransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
+            DmaTransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
             
             if (gDoorPositionStart.x != 0)
                 gBackgroundPositions.doorTransition.x = BLOCK_SIZE * 5 - QUARTER_BLOCK_SIZE;
@@ -1201,7 +1201,7 @@ u8 ColorFading_UpdateDoorTransition(void)
                 write16(REG_BLDCNT, read16(REG_BLDCNT) & ~BLDCNT_BG1_FIRST_TARGET_PIXEL);
                 write16(REG_DISPCNT, read16(REG_DISPCNT) & ~DCNT_BG3);
 
-                DMATransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
+                DmaTransfer(3, EWRAM_BASE + 0x7000, VRAM_BASE + 0x3000, 0x1000, 16);
 
                 write16(REG_BG0CNT, gIoRegistersBackup.unk_12);
                 write16(REG_BG3CNT, gIoRegistersBackup.BG3CNT);

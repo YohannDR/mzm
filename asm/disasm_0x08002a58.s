@@ -1101,8 +1101,8 @@ lbl_080031dc:
     bx r0
     .align 2, 0
 
-    thumb_func_start DMATransfer
-DMATransfer: @ 0x080031e4
+    thumb_func_start DmaTransfer
+DmaTransfer: @ 0x080031e4
     push {r4, r5, r6, r7, lr}
     mov r7, sl
     mov r6, sb

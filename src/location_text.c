@@ -334,7 +334,7 @@ u8 LocationTextGetGfxSlot(void)
                 draw_location_text(lt, gfxSlot);
                 // Load different palette for some reason
                 if (lt < LT_SAVE_ROOM)
-                    dma_set(3, sAreaBannerLocationTextPAL, (PALRAM_BASE + 0x300) + (gfxSlot * 0x20), DMA_ENABLE << 16 | 0x10);
+                    DMA_SET(3, sAreaBannerLocationTextPAL, (PALRAM_BASE + 0x300) + (gfxSlot * 0x20), DMA_ENABLE << 16 | 0x10);
             }
         }
     }

@@ -15,13 +15,13 @@ unk_5b24c: @ 0x0805b24c
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0805b280 @ =0x05000200
     ldr r2, lbl_0805b284 @ =0x02035600
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     add sp, #4
     pop {r4, r5}
     pop {r0}
@@ -44,13 +44,13 @@ sub_0805b288: @ 0x0805b288
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0805b2bc @ =0x05000200
     ldr r2, lbl_0805b2c0 @ =0x02035200
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     add sp, #4
     pop {r4, r5}
     pop {r0}
@@ -72,13 +72,13 @@ unk_5b2c4: @ 0x0805b2c4
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0805b2fc @ =0x02035600
     ldr r2, lbl_0805b300 @ =0x02035200
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     add sp, #4
     pop {r4, r5}
     pop {r0}
@@ -102,13 +102,13 @@ unk_5b304: @ 0x0805b304
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0805b338 @ =0x05000200
     ldr r2, lbl_0805b33c @ =0x02035a00
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     add sp, #4
     pop {r4, r5}
     pop {r0}
@@ -139,13 +139,13 @@ sub_0805b350: @ 0x0805b350
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r1, lbl_0805b388 @ =0x02035600
     ldr r2, lbl_0805b38c @ =0x02035a00
     str r4, [sp]
     movs r0, #3
     adds r3, r5, #0
-    bl DMATransfer
+    bl DmaTransfer
     add sp, #4
     pop {r4, r5}
     pop {r0}
@@ -176,7 +176,7 @@ sub_0805b390: @ 0x0805b390
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldrb r1, [r4, #4]
     movs r0, #0xfe
     ands r0, r1
@@ -194,7 +194,7 @@ lbl_0805b3c0:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldrb r1, [r4, #4]
     movs r0, #0xfd
     ands r0, r1
@@ -235,7 +235,7 @@ CheckTransferFadedPalette: @ 0x0805b3fc
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldrb r0, [r5, #4]
     movs r1, #1
     eors r0, r1
@@ -252,7 +252,7 @@ lbl_0805b436:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldrb r0, [r5, #4]
     movs r1, #2
     eors r0, r1
@@ -281,7 +281,7 @@ lbl_0805b470:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldrb r1, [r4, #4]
     movs r0, #0xfe
     ands r0, r1
@@ -299,7 +299,7 @@ lbl_0805b49c:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     ldrb r1, [r4, #4]
     movs r0, #0xfd
     ands r0, r1
@@ -421,7 +421,7 @@ lbl_0805b598:
     str r0, [sp]
     movs r0, #3
     adds r2, r4, #0
-    bl DMATransfer
+    bl DmaTransfer
     lsls r0, r6, #5
     adds r5, r0, r4
     lsls r4, r6, #4
@@ -562,7 +562,7 @@ ApplySmoothMonochromeToPalette: @ 0x0805b68c
     str r0, [sp]
     movs r0, #3
     mov r1, sl
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0805b752
 lbl_0805b6b8:
     cmp r7, #0x1e
@@ -574,7 +574,7 @@ lbl_0805b6b8:
     movs r0, #3
     mov r1, r8
     mov r2, ip
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0805b752
 lbl_0805b6d0:
     movs r0, #0x1f
@@ -687,7 +687,7 @@ lbl_0805b788:
     mov r2, ip
 lbl_0805b796:
     movs r3, #0x20
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0805b820
 lbl_0805b79e:
     movs r0, #0x1f
@@ -796,13 +796,13 @@ ApplySpecialBackgroundEffectColorOnBG: @ 0x0805b830
     movs r0, #3
     adds r1, r5, #0
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, lbl_0805b87c @ =0x02035400
     str r4, [sp]
     movs r0, #3
     adds r1, r5, #0
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0805b94e
     .align 2, 0
 lbl_0805b878: .4byte 0x02035800
@@ -816,7 +816,7 @@ lbl_0805b880:
     str r0, [sp]
     movs r0, #3
     adds r2, r4, #0
-    bl DMATransfer
+    bl DmaTransfer
     movs r0, #0x1f
     ands r0, r5
     str r0, [sp, #8]
@@ -956,13 +956,13 @@ ApplySpecialBackgroundEffectColorOnOBJ: @ 0x0805b96c
     movs r0, #3
     adds r1, r5, #0
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     ldr r2, lbl_0805b9b8 @ =0x02035640
     str r4, [sp]
     movs r0, #3
     adds r1, r5, #0
     adds r3, r6, #0
-    bl DMATransfer
+    bl DmaTransfer
     b lbl_0805ba8a
     .align 2, 0
 lbl_0805b9b0: .4byte 0x02035a40
@@ -976,7 +976,7 @@ lbl_0805b9bc:
     movs r0, #0x10
     str r0, [sp]
     movs r0, #3
-    bl DMATransfer
+    bl DmaTransfer
     movs r0, #0x1f
     ands r0, r4
     str r0, [sp, #8]

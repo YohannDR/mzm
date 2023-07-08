@@ -29,7 +29,7 @@ u8 StoryTextCutsceneInit(void)
     unk_61f0c();
 
     // Load palette
-    DMATransfer(3, sStoryTextCutscenePAL, PALRAM_BASE + 0x1E0, sizeof(sStoryTextCutscenePAL), 0x10);
+    DmaTransfer(3, sStoryTextCutscenePAL, PALRAM_BASE + 0x1E0, sizeof(sStoryTextCutscenePAL), 0x10);
     write16(PALRAM_BASE, 0);
 
     // Load tiletable and clear graphics

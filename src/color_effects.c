@@ -17,8 +17,8 @@
  */
 void unk_5b24c(void)
 {
-    DMATransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35400, PALRAM_SIZE / 2, 16);
-    DMATransfer(3, PALRAM_OBJ, EWRAM_BASE + 0x35600, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35400, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_OBJ, EWRAM_BASE + 0x35600, PALRAM_SIZE / 2, 16);
 }
 
 /**
@@ -27,8 +27,8 @@ void unk_5b24c(void)
  */
 void unk_5b288(void)
 {
-    DMATransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
-    DMATransfer(3, PALRAM_OBJ, EWRAM_BASE + 0x35200, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_OBJ, EWRAM_BASE + 0x35200, PALRAM_SIZE / 2, 16);
 }
 
 /**
@@ -37,8 +37,8 @@ void unk_5b288(void)
  */
 void unk_5b2c4(void)
 {
-    DMATransfer(3, EWRAM_BASE + 0x35400, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
-    DMATransfer(3, EWRAM_BASE + 0x35600, EWRAM_BASE + 0x35200, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, EWRAM_BASE + 0x35400, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, EWRAM_BASE + 0x35600, EWRAM_BASE + 0x35200, PALRAM_SIZE / 2, 16);
 }
 
 /**
@@ -47,8 +47,8 @@ void unk_5b2c4(void)
  */
 void unk_5b304(void)
 {
-    DMATransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35800, PALRAM_SIZE / 2, 16);
-    DMATransfer(3, PALRAM_OBJ, EWRAM_BASE + 0x35A00, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35800, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_OBJ, EWRAM_BASE + 0x35A00, PALRAM_SIZE / 2, 16);
 }
 
 /**
@@ -67,8 +67,8 @@ void unk_5b340(void)
  */
 void unk_5b350(void)
 {
-    DMATransfer(3, EWRAM_BASE + 0x35400, EWRAM_BASE + 0x35800, PALRAM_SIZE / 2, 16);
-    DMATransfer(3, EWRAM_BASE + 0x35600, EWRAM_BASE + 0x35A00, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, EWRAM_BASE + 0x35400, EWRAM_BASE + 0x35800, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, EWRAM_BASE + 0x35600, EWRAM_BASE + 0x35A00, PALRAM_SIZE / 2, 16);
 }
 
 /**
@@ -82,13 +82,13 @@ void CheckTransferFadedPalette_Unused(void)
 
     if (gColorFading.status & COLOR_FADING_STATUS_ON_BG)
     {
-        DMATransfer(3, EWRAM_BASE + 0x35000, PALRAM_BASE, PALRAM_SIZE / 2, 16);
+        DmaTransfer(3, EWRAM_BASE + 0x35000, PALRAM_BASE, PALRAM_SIZE / 2, 16);
         gColorFading.status &= ~COLOR_FADING_STATUS_ON_BG;
     }
 
     if (gColorFading.status & COLOR_FADING_STATUS_ON_OBJ)
     {
-        DMATransfer(3, EWRAM_BASE + 0x35200, PALRAM_OBJ, PALRAM_SIZE / 2, 16);
+        DmaTransfer(3, EWRAM_BASE + 0x35200, PALRAM_OBJ, PALRAM_SIZE / 2, 16);
         gColorFading.status &= ~COLOR_FADING_STATUS_ON_OBJ;
     }
 }
@@ -106,13 +106,13 @@ void CheckTransferFadedPalette(void)
 
         if (gColorFading.status & COLOR_FADING_STATUS_ON_BG)
         {
-            DMATransfer(3, EWRAM_BASE + 0x35000, PALRAM_BASE, PALRAM_SIZE / 2, 16);
+            DmaTransfer(3, EWRAM_BASE + 0x35000, PALRAM_BASE, PALRAM_SIZE / 2, 16);
             gColorFading.status ^= COLOR_FADING_STATUS_ON_BG;
         }
 
         if (gColorFading.status & COLOR_FADING_STATUS_ON_OBJ)
         {
-            DMATransfer(3, EWRAM_BASE + 0x35200 + 16 * 4, PALRAM_OBJ + 16 * 4, PALRAM_SIZE / 2 - 16 * 4, 16);
+            DmaTransfer(3, EWRAM_BASE + 0x35200 + 16 * 4, PALRAM_OBJ + 16 * 4, PALRAM_SIZE / 2 - 16 * 4, 16);
             gColorFading.status ^= COLOR_FADING_STATUS_ON_OBJ;
         }
     }
@@ -123,13 +123,13 @@ void CheckTransferFadedPalette(void)
 
         if (gColorFading.status & COLOR_FADING_STATUS_ON_BG)
         {
-            DMATransfer(3, EWRAM_BASE + 0x35000, PALRAM_BASE, PALRAM_SIZE / 2, 16);
+            DmaTransfer(3, EWRAM_BASE + 0x35000, PALRAM_BASE, PALRAM_SIZE / 2, 16);
             gColorFading.status &= ~COLOR_FADING_STATUS_ON_BG;
         }
 
         if (gColorFading.status & COLOR_FADING_STATUS_ON_OBJ)
         {
-            DMATransfer(3, EWRAM_BASE + 0x35200, PALRAM_OBJ, PALRAM_SIZE / 2, 16);
+            DmaTransfer(3, EWRAM_BASE + 0x35200, PALRAM_OBJ, PALRAM_SIZE / 2, 16);
             gColorFading.status &= ~COLOR_FADING_STATUS_ON_OBJ;
         }
     }
@@ -201,7 +201,7 @@ void PowerBombYellowTint(u8 paletteRow)
     }
 
     // Get palram
-    DMATransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
+    DmaTransfer(3, PALRAM_BASE, EWRAM_BASE + 0x35000, PALRAM_SIZE / 2, 16);
 
     // Get starting position
     pPalette = (u16*)(EWRAM_BASE + 0x35000) + paletteRow * 16;
@@ -301,14 +301,14 @@ void ApplySmoothMonochromeToPalette(u16* srcBase, u16* srcMonochrome, u16* dst, 
     if (stage == 0)
     {
         // Optimization, no calculations needed
-        DMATransfer(3, srcBase, dst, 0x200, 0x10);
+        DmaTransfer(3, srcBase, dst, 0x200, 0x10);
         return;
     }
     
     if (stage >= 0x1F)
     {
         // Transition is done, simply use the monochrome
-        DMATransfer(3, srcMonochrome, dst, 0x200, 0x10);
+        DmaTransfer(3, srcMonochrome, dst, 0x200, 0x10);
         return;
     }
     
@@ -370,14 +370,14 @@ void ApplySmoothPaletteTransition(u16* srcStart, u16* srcEnd, u16* dst, u8 stage
 
     if (stage == 0)
     {
-        DMATransfer(3, srcStart, dst, 16 * 2, 16);
+        DmaTransfer(3, srcStart, dst, 16 * 2, 16);
         return;
     }
 
     if (stage >= 0x1F)
     {
         do {
-        DMATransfer(3, srcEnd, dst, 16 * 2, 16);
+        DmaTransfer(3, srcEnd, dst, 16 * 2, 16);
         }while(0);
         return;
     }
@@ -435,12 +435,12 @@ void ApplySpecialBackgroundEffectColorOnBG(u16 mask, u16 color, u8 stage)
 
     if (stage == 0)
     {
-        DMATransfer(3, EWRAM_BASE + 0x35800, PALRAM_BASE, 0x1E0, 16);
-        DMATransfer(3, EWRAM_BASE + 0x35800, EWRAM_BASE + 0x35400, 0x1E0, 16);
+        DmaTransfer(3, EWRAM_BASE + 0x35800, PALRAM_BASE, 0x1E0, 16);
+        DmaTransfer(3, EWRAM_BASE + 0x35800, EWRAM_BASE + 0x35400, 0x1E0, 16);
         return;
     }
 
-    DMATransfer(3, EWRAM_BASE + 0x35800, EWRAM_BASE + 0x35000, 0x1E0, 16);
+    DmaTransfer(3, EWRAM_BASE + 0x35800, EWRAM_BASE + 0x35000, 0x1E0, 16);
 
     baseR = RED(color);
     baseG = GREEN(color);

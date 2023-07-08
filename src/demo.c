@@ -74,8 +74,8 @@ void DemoInit(void)
     if (gDemoState == DEMO_STATE_STARTING)
     {
         // Transfer input and duration data from ROM to RAM
-        DMATransfer(3, sDemoEntries[demoNbr].pInputs, gDemoInputData, sDemoEntries[demoNbr].inputsSize, 16);
-        DMATransfer(3, sDemoEntries[demoNbr].pDuration, gDemoInputDuration, sDemoEntries[demoNbr].durationSize, 16);
+        DmaTransfer(3, sDemoEntries[demoNbr].pInputs, gDemoInputData, sDemoEntries[demoNbr].inputsSize, 16);
+        DmaTransfer(3, sDemoEntries[demoNbr].pDuration, gDemoInputDuration, sDemoEntries[demoNbr].durationSize, 16);
 
         gDemoState = DEMO_STATE_PLAYING;
     }
@@ -162,8 +162,8 @@ void DemoEnd(void)
     if (gDemoState == DEMO_STATE_IN_CONTROL_DEBUG)
     {
         // Debug, forward demo input and duration to SRAM, and save it flash
-        dma_set(3, gDemoInputData, gSramDemoInputData, DMA_ENABLE << 16 | DEMO_MAX_DURATION);
-        dma_set(3, gDemoInputDuration, gSramDemoInputDuration, DMA_ENABLE << 16 | DEMO_MAX_DURATION);
+        DMA_SET(3, gDemoInputData, gSramDemoInputData, DMA_ENABLE << 16 | DEMO_MAX_DURATION);
+        DMA_SET(3, gDemoInputDuration, gSramDemoInputDuration, DMA_ENABLE << 16 | DEMO_MAX_DURATION);
     
         DoSramOperation(SRAM_OPERATION_SAVE_RECORDED_DEMO);
 

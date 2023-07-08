@@ -22,7 +22,7 @@
  */
 void IntroVBlank(void)
 {
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
     write16(REG_DISPCNT, INTRO_DATA.dispcnt);
     write16(REG_BLDCNT, INTRO_DATA.bldcnt);
@@ -39,12 +39,12 @@ void IntroVBlank(void)
  */
 void IntroFuzzVBlank(void)
 {
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
     write16(REG_DISPCNT, INTRO_DATA.dispcnt);
     write16(REG_BLDCNT, INTRO_DATA.bldcnt);
 
-    dma_set(3, INTRO_DATA.fuzzPalette, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(INTRO_DATA.fuzzPalette) / 2);
+    DMA_SET(3, INTRO_DATA.fuzzPalette, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(INTRO_DATA.fuzzPalette) / 2);
 }
 
 /**
@@ -69,7 +69,7 @@ void IntroInit(void)
     write16(REG_IME, TRUE);
 
     zero = 0;
-    dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_SRC_FIXED | DMA_32BIT) << 16 | sizeof(gNonGameplayRAM) / 4);
+    DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_SRC_FIXED | DMA_32BIT) << 16 | sizeof(gNonGameplayRAM) / 4);
 
     INTRO_DATA.scaling = 0x20;
     INTRO_DATA.charDrawerX = 0x38;
@@ -82,9 +82,9 @@ void IntroInit(void)
     LZ77UncompVRAM(sIntroSpaceBackgroundTileTable, VRAM_BASE + 0x8000);
     LZ77UncompVRAM(sIntro_47920c, VRAM_BASE + 0x9000);
 
-    dma_set(3, sIntroTextAndShipPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPAL) / 2);
-    dma_set(3, sIntroTextAndShipPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPAL) / 2);
-    dma_set(3, sIntroPAL_45f9d4, PALRAM_BASE + 0x1E0, DMA_ENABLE << 16 | sizeof(sIntroPAL_45f9d4) / 2);
+    DMA_SET(3, sIntroTextAndShipPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPAL) / 2);
+    DMA_SET(3, sIntroTextAndShipPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroTextAndShipPAL) / 2);
+    DMA_SET(3, sIntroPAL_45f9d4, PALRAM_BASE + 0x1E0, DMA_ENABLE << 16 | sizeof(sIntroPAL_45f9d4) / 2);
 
     write16(REG_BG0CNT, 0x1000);
     write16(REG_BG1CNT, 0x1201);
@@ -499,7 +499,7 @@ u8 IntroSamusInHerShip(void)
             break;
 
         case 2:
-            dma_set(3, sIntroSamusInHerShipPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroSamusInHerShipPAL) / 2);
+            DMA_SET(3, sIntroSamusInHerShipPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroSamusInHerShipPAL) / 2);
             break;
 
         case 3:
@@ -687,8 +687,8 @@ u8 IntroViewOfZebes(void)
 
         case 2:
             LZ77UncompVRAM(sIntroViewOfZebesTileTable, VRAM_BASE + 0x8000);
-            dma_set(3, sIntroViewOfZebesPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroViewOfZebesPAL) / 2);
-            dma_set(3, sIntroViewOfZebesPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sIntroViewOfZebesPAL) / 2);
+            DMA_SET(3, sIntroViewOfZebesPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroViewOfZebesPAL) / 2);
+            DMA_SET(3, sIntroViewOfZebesPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sIntroViewOfZebesPAL) / 2);
             gBG0XPosition = 0x10;
             break;
 
@@ -807,7 +807,7 @@ u8 IntroMotherBrain(void)
             break;
 
         case 3:
-            dma_set(3, sIntroMotherBrainPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroMotherBrainPAL) / 2);
+            DMA_SET(3, sIntroMotherBrainPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sIntroMotherBrainPAL) / 2);
             INTRO_DATA.dispcnt = DCNT_BG0;
             SoundPlay(0x22A);
             SoundPlay(0x39);
@@ -898,19 +898,19 @@ u8 IntroFuzz(void)
     switch (INTRO_DATA.unk_A & 7)
     {
         case 0:
-            dma_set(3, sIntroFuzzRandomValues_1, INTRO_DATA.fuzzPalette, DMA_ENABLE << 16 | ARRAY_SIZE(INTRO_DATA.fuzzPalette));
+            DMA_SET(3, sIntroFuzzRandomValues_1, INTRO_DATA.fuzzPalette, DMA_ENABLE << 16 | ARRAY_SIZE(INTRO_DATA.fuzzPalette));
             break;
 
         case 2:
-            dma_set(3, sIntroFuzzRandomValues_2, INTRO_DATA.fuzzPalette, DMA_ENABLE << 16 | ARRAY_SIZE(INTRO_DATA.fuzzPalette));
+            DMA_SET(3, sIntroFuzzRandomValues_2, INTRO_DATA.fuzzPalette, DMA_ENABLE << 16 | ARRAY_SIZE(INTRO_DATA.fuzzPalette));
             break;
 
         case 4:
-            dma_set(3, sTimeAttackPasswordCharacters, INTRO_DATA.fuzzPalette, DMA_ENABLE << 16 | ARRAY_SIZE(INTRO_DATA.fuzzPalette));
+            DMA_SET(3, sTimeAttackPasswordCharacters, INTRO_DATA.fuzzPalette, DMA_ENABLE << 16 | ARRAY_SIZE(INTRO_DATA.fuzzPalette));
             break;
 
         case 6:
-            dma_set(3, sArray_45fd30[1], INTRO_DATA.fuzzPalette, DMA_ENABLE << 16 | ARRAY_SIZE(INTRO_DATA.fuzzPalette));
+            DMA_SET(3, sArray_45fd30[1], INTRO_DATA.fuzzPalette, DMA_ENABLE << 16 | ARRAY_SIZE(INTRO_DATA.fuzzPalette));
             break;
     }
 

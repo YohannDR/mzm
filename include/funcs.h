@@ -3,12 +3,7 @@
 
 #include "types.h"
 
-void DMATransfer(u8 channel, void *src, void *dst, u32 len, u8 bitSize);
 void init_sound(void);
-int map_screen_main(void);
-int credits_main(void);
-int tourian_escape_main(void);
-int cutscene_main(void);
 
 void unk_33dc(void);
 void QueueSound(u16 id, u32 unk); /* TODO: unk type */

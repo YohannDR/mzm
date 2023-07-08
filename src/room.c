@@ -176,36 +176,36 @@ void RoomLoadTileset(void)
     gTilemapAndClipPointers.pClipCollisions = gClipdataCollisionTypes;
     gTilemapAndClipPointers.pClipBehaviors = gClipdataBehaviorTypes;
 
-    DMATransfer(3, entry.pTilemap + 2, gTilemap, sizeof(gTilemap) * 4, 0x10);
+    DmaTransfer(3, entry.pTilemap + 2, gTilemap, sizeof(gTilemap) * 4, 0x10);
 
     if (gCurrentArea > AREA_DEBUG)
     {
-        DMATransfer(3, sClipdataCollisionTypes_Debug, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 0x10);
-        DMATransfer(3, sClipdataBehaviorTypes_Debug, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 0x10);
+        DmaTransfer(3, sClipdataCollisionTypes_Debug, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 0x10);
+        DmaTransfer(3, sClipdataBehaviorTypes_Debug, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 0x10);
     }
     else
     {
-        DMATransfer(3, sClipdataCollisionTypes, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 0x10);
-        DMATransfer(3, sClipdataBehaviorTypes, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 0x10);
+        DmaTransfer(3, sClipdataCollisionTypes, gClipdataCollisionTypes, sizeof(gClipdataCollisionTypes), 0x10);
+        DmaTransfer(3, sClipdataBehaviorTypes, gClipdataBehaviorTypes, sizeof(gClipdataBehaviorTypes), 0x10);
     }
 
-    DMATransfer(3, sCommonTilemap, gCommonTilemap, sizeof(gCommonTilemap) * 2, 0x10);
-    DMATransfer(3, sClipdataCollisionTypes_Tilemap, gClipdataCollisionTypes_Tilemap, sizeof(gClipdataCollisionTypes_Tilemap), 0x10);
-    DMATransfer(3, sClipdataBehaviorTypes_Tilemap, gClipdataBehaviorTypes_Tilemap, sizeof(gClipdataBehaviorTypes_Tilemap), 0x10);
+    DmaTransfer(3, sCommonTilemap, gCommonTilemap, sizeof(gCommonTilemap) * 2, 0x10);
+    DmaTransfer(3, sClipdataCollisionTypes_Tilemap, gClipdataCollisionTypes_Tilemap, sizeof(gClipdataCollisionTypes_Tilemap), 0x10);
+    DmaTransfer(3, sClipdataBehaviorTypes_Tilemap, gClipdataBehaviorTypes_Tilemap, sizeof(gClipdataBehaviorTypes_Tilemap), 0x10);
 
     CallLZ77UncompVRAM(entry.pTileGraphics, VRAM_BASE + 0x5800);
-    DMATransfer(3, entry.pPalette + 0x10, PALRAM_BASE + 0x60, 0x1A0, 0x10);
+    DmaTransfer(3, entry.pPalette + 0x10, PALRAM_BASE + 0x60, 0x1A0, 0x10);
     write16(PALRAM_BASE, 0);
 
     if (gUseMotherShipDoors == TRUE)
     {
-        DMATransfer(3, sCommonTilesMothershipGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesMothershipGfx), 0x10);
-        DMATransfer(3, sCommonTilesMotherShipPal, PALRAM_BASE + 2, 0x5E, 0x10);
+        DmaTransfer(3, sCommonTilesMothershipGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesMothershipGfx), 0x10);
+        DmaTransfer(3, sCommonTilesMotherShipPal, PALRAM_BASE + 2, 0x5E, 0x10);
     }
     else
     {
-        DMATransfer(3, sCommonTilesGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesGfx), 0x10);
-        DMATransfer(3, sCommonTilesPal, PALRAM_BASE + 2, 0x5E, 0x10);
+        DmaTransfer(3, sCommonTilesGfx, VRAM_BASE + 0x4800, sizeof(sCommonTilesGfx), 0x10);
+        DmaTransfer(3, sCommonTilesPal, PALRAM_BASE + 2, 0x5E, 0x10);
     }
 
     gTilesetTransparentColor.transparentColor = *entry.pPalette;
@@ -680,7 +680,7 @@ void RoomSetInitialTilemap(u8 bgNumber)
             if (gCurrentRoomEntry.BG0Size & 2)
                 offset *= 2;
 
-            DMATransfer(3, gDecompBG0Map, VRAM_BASE, offset, 16);
+            DmaTransfer(3, gDecompBG0Map, VRAM_BASE, offset, 16);
         }
     }
 }
@@ -915,7 +915,7 @@ void RoomUpdateHatchFlashingAnimation(void)
             if (gHatchFlashingAnimation.unlocking_paletteRow > 5)
                 gHatchFlashingAnimation.unlocking_paletteRow = 0;
 
-            DMATransfer(3, &pPalette[gHatchFlashingAnimation.unlocking_paletteRow * 16 + 6], PALRAM_BASE + 0x2C, 4, 0x10);
+            DmaTransfer(3, &pPalette[gHatchFlashingAnimation.unlocking_paletteRow * 16 + 6], PALRAM_BASE + 0x2C, 4, 0x10);
         }
     }
 
@@ -931,7 +931,7 @@ void RoomUpdateHatchFlashingAnimation(void)
             if (gHatchFlashingAnimation.navigation_paletteRow > 5)
                 gHatchFlashingAnimation.navigation_paletteRow = 0;
 
-            dma_set(3, &pPalette[gHatchFlashingAnimation.navigation_paletteRow * 16 + 6], PALRAM_BASE + 0x4C, DMA_ENABLE << 16 | 2);
+            DMA_SET(3, &pPalette[gHatchFlashingAnimation.navigation_paletteRow * 16 + 6], PALRAM_BASE + 0x4C, DMA_ENABLE << 16 | 2);
         }
     }
 }

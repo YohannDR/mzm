@@ -211,29 +211,29 @@ void EndingImageLoadIGTAndPercentageGraphics(void)
     if (hoursTens != 0)
     {
         offset = hoursTens * 64;
-        dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10000, DMA_ENABLE << 16 | 32);
-        dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10400, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10000, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10400, DMA_ENABLE << 16 | 32);
     }
 
     offset = hoursOnes * 64;
-    dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10040, DMA_ENABLE << 16 | 32);
-    dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10440, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10040, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10440, DMA_ENABLE << 16 | 32);
 
     offset = minutesTens * 64;
-    dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x100A0, DMA_ENABLE << 16 | 32);
-    dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x104A0, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x100A0, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x104A0, DMA_ENABLE << 16 | 32);
 
     offset = minutesOnes * 64;
-    dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x100E0, DMA_ENABLE << 16 | 32);
-    dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x104E0, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x100E0, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x104E0, DMA_ENABLE << 16 | 32);
 
     offset = secondsTens * 64;
-    dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10140, DMA_ENABLE << 16 | 32);
-    dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10540, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10140, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10540, DMA_ENABLE << 16 | 32);
 
     offset = secondsOnes * 64;
-    dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10180, DMA_ENABLE << 16 | 32);
-    dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10580, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10180, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10580, DMA_ENABLE << 16 | 32);
 
     percentageHundreds = 0;
     percentageTens = 0;
@@ -254,20 +254,20 @@ void EndingImageLoadIGTAndPercentageGraphics(void)
     if (percentageHundreds != 0)
     {
         offset = percentageHundreds * 64;
-        dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x101C0, DMA_ENABLE << 16 | 32);
-        dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x105C0, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x101C0, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x105C0, DMA_ENABLE << 16 | 32);
     }
     
     if (percentageHundreds != 0 || percentageTens != 0)
     {
         offset = percentageTens * 64;
-        dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10200, DMA_ENABLE << 16 | 32);
-        dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10600, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10200, DMA_ENABLE << 16 | 32);
+        DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10600, DMA_ENABLE << 16 | 32);
     }
 
     offset = percentageOnes * 64;
-    dma_set(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10240, DMA_ENABLE << 16 | 32);
-    dma_set(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10640, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Upper[offset], VRAM_BASE + 0x10240, DMA_ENABLE << 16 | 32);
+    DMA_SET(3, &sEndingImageNumbersGfx_Lower[offset], VRAM_BASE + 0x10640, DMA_ENABLE << 16 | 32);
 }
 
 /**
@@ -279,34 +279,34 @@ void GalleryVBlank(void)
     u32 buffer;
     u32 bgPos;
 
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
     if (ENDING_DATA.unk_6 == 1)
     {
-        dma_set(3, ENDING_DATA.creditLineTilemap_1, VRAM_BASE + ENDING_DATA.creditLineOffset_1,
+        DMA_SET(3, ENDING_DATA.creditLineTilemap_1, VRAM_BASE + ENDING_DATA.creditLineOffset_1,
             DMA_ENABLE << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1));
-        dma_set(3, ENDING_DATA.creditLineTilemap_2, VRAM_BASE + ENDING_DATA.creditLineOffset_2,
+        DMA_SET(3, ENDING_DATA.creditLineTilemap_2, VRAM_BASE + ENDING_DATA.creditLineOffset_2,
             DMA_ENABLE << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_2));
 
         buffer = 0;
-        dma_set(3, &buffer, VRAM_BASE + 0x800 + ENDING_DATA.creditLineOffset_1,
+        DMA_SET(3, &buffer, VRAM_BASE + 0x800 + ENDING_DATA.creditLineOffset_1,
             (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1) / 2);
         buffer = 0;
-        dma_set(3, &buffer, VRAM_BASE + 0x800 + ENDING_DATA.creditLineOffset_2,
+        DMA_SET(3, &buffer, VRAM_BASE + 0x800 + ENDING_DATA.creditLineOffset_2,
             (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_2) / 2);
     }
     else if (ENDING_DATA.unk_6 != 0)
     {
-        dma_set(3, ENDING_DATA.creditLineTilemap_1, VRAM_BASE + 0x800 + ENDING_DATA.creditLineOffset_1,
+        DMA_SET(3, ENDING_DATA.creditLineTilemap_1, VRAM_BASE + 0x800 + ENDING_DATA.creditLineOffset_1,
             DMA_ENABLE << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1));
-        dma_set(3, ENDING_DATA.creditLineTilemap_2, VRAM_BASE + 0x800 + ENDING_DATA.creditLineOffset_2,
+        DMA_SET(3, ENDING_DATA.creditLineTilemap_2, VRAM_BASE + 0x800 + ENDING_DATA.creditLineOffset_2,
             DMA_ENABLE << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_2));
 
         buffer = 0;
-        dma_set(3, &buffer, VRAM_BASE + ENDING_DATA.creditLineOffset_1,
+        DMA_SET(3, &buffer, VRAM_BASE + ENDING_DATA.creditLineOffset_1,
             (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_1) / 2);
         buffer = 0;
-        dma_set(3, &buffer, VRAM_BASE + ENDING_DATA.creditLineOffset_2,
+        DMA_SET(3, &buffer, VRAM_BASE + ENDING_DATA.creditLineOffset_2,
             (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | ARRAY_SIZE(ENDING_DATA.creditLineTilemap_2) / 2);
     }
 
@@ -328,7 +328,7 @@ void GalleryVBlank(void)
  */
 void EndScreenVBlank(void)
 {
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
     write16(REG_DISPCNT, ENDING_DATA.dispcnt);
     write16(REG_BLDCNT, ENDING_DATA.bldcnt);
@@ -347,7 +347,7 @@ void EndScreenVBlank(void)
  */
 void UnlockedOptionsVBlank(void)
 {
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
     write16(REG_DISPCNT, ENDING_DATA.dispcnt);
     write16(REG_BLDCNT, ENDING_DATA.bldcnt);
@@ -380,7 +380,7 @@ void CreditsInit(void)
     write16(REG_IME, TRUE);
 
     zero = 0;
-    dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
 
     ClearGfxRam();
 
@@ -389,8 +389,8 @@ void CreditsInit(void)
     LZ77UncompVRAM(sCreditsChozoWallBottomTileTable, VRAM_BASE + 0xD800);
     LZ77UncompVRAM(sCreditsCharactersGfx, VRAM_BASE + 0x8000);
 
-    dma_set(3, sCreditsChozoWallPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sCreditsChozoWallPAL) / 2);
-    dma_set(3, sCreditsCharactersPAL, PALRAM_BASE + 0x1A0, DMA_ENABLE << 16 | sizeof(sCreditsCharactersPAL) / 2);
+    DMA_SET(3, sCreditsChozoWallPAL, PALRAM_BASE, DMA_ENABLE << 16 | sizeof(sCreditsChozoWallPAL) / 2);
+    DMA_SET(3, sCreditsCharactersPAL, PALRAM_BASE + 0x1A0, DMA_ENABLE << 16 | sizeof(sCreditsCharactersPAL) / 2);
 
     write16(REG_BG0CNT, 0x1E08);
     write16(REG_BG1CNT, 0x1F09);
@@ -770,7 +770,7 @@ u8 CreditsChozoWallZoom(void)
     {
         case 0:
             LZ77UncompVRAM(sCreditsChozoWallBottomZoomedGfx, VRAM_BASE);
-            dma_set(3, sCreditsChozoWallPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sCreditsChozoWallPAL));
+            DMA_SET(3, sCreditsChozoWallPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sCreditsChozoWallPAL));
             gBG0YPosition = 0;
             gWrittenToBLDALPHA_L = 0;
             gWrittenToBLDALPHA_H = 16;
@@ -888,7 +888,7 @@ void EndScreenInit(void)
     BitFill(3, 0, VRAM_BASE + 0xD800, 0x800, 32);
     BitFill(3, 0, VRAM_BASE + 0xE800, 0x800, 32);
 
-    dma_set(3, sEndingPosingPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sEndingPosingPAL));
+    DMA_SET(3, sEndingPosingPAL, PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sEndingPosingPAL));
 
     write16(REG_BG0CNT, 0x1E08);
     write16(REG_BG1CNT, 0x5A01);
@@ -897,7 +897,7 @@ void EndScreenInit(void)
     
     gNextOamSlot = 0;
     ResetFreeOAM();
-    dma_set(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
+    DMA_SET(3, gOamData, OAM_BASE, (DMA_ENABLE | DMA_32BIT) << 16 | OAM_SIZE / 4);
 
     gBG0XPosition = 0;
     gBG0YPosition = 0;
@@ -918,7 +918,7 @@ void EndScreenInit(void)
     write16(REG_BG3VOFS, 0);
 
     zero = 0;
-    dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
 
     ENDING_DATA.endingNumber = ChozodiaEscapeGetItemCountAndEndingNumber() & 7;
     ENDING_DATA.dispcnt = DCNT_BG1 | DCNT_BG2 | DCNT_BG3 | DCNT_OBJ;
@@ -1080,7 +1080,7 @@ u8 EndScreenSamusPosing(void)
                 ENDING_DATA.unk_124[1] = 16;
                 break;
             }
-            dma_set(3, sEndingWhitePalPointers[(u8)temp / 4],
+            DMA_SET(3, sEndingWhitePalPointers[(u8)temp / 4],
                 PALRAM_BASE, DMA_ENABLE << 16 | ARRAY_SIZE(sEndingPosingPAL_White1));
             break;
 
@@ -1213,7 +1213,7 @@ u8 EndScreenSamusPosing(void)
             break;
 
         case 19:
-            dma_set(3, sEndingPosingPAL, PALRAM_BASE, DMA_ENABLE << 16 | 0x50);
+            DMA_SET(3, sEndingPosingPAL, PALRAM_BASE, DMA_ENABLE << 16 | 0x50);
             ENDING_DATA.unk_124[1]++;
             break;
 
@@ -1263,7 +1263,7 @@ void EndingImageInit(void)
     write16(REG_IME, TRUE);
 
     zero = 0;
-    dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
 
     pen = ChozodiaEscapeGetItemCountAndEndingNumber();
 
@@ -1283,7 +1283,7 @@ void EndingImageInit(void)
     LZ77UncompVRAM(sEndingImagesTopTileTablePointers[endingNumber], VRAM_BASE + 0xE000);
     LZ77UncompVRAM(sEndingImagesHalfTileTablePointers[endingNumber], VRAM_BASE + 0xF800);
     BitFill(3, 0x4FF04FF, VRAM_BASE + 0xE800, 0x800, 0x20);
-    dma_set(3, sEndingImagesPalPointers[endingNumber], PALRAM_BASE, DMA_ENABLE << 16 | 0x100);
+    DMA_SET(3, sEndingImagesPalPointers[endingNumber], PALRAM_BASE, DMA_ENABLE << 16 | 0x100);
 
     ENDING_DATA.completionPercentage = part1 + part2 + part3 + part4 + part5;
 
@@ -1298,7 +1298,7 @@ void EndingImageInit(void)
     else
         LZ77UncompVRAM(sEndingImageTextGfx, VRAM_BASE + 0x11000);
 
-    dma_set(3, sEndingImageTextPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sEndingImageTextPAL) / 2);
+    DMA_SET(3, sEndingImageTextPAL, PALRAM_OBJ, DMA_ENABLE << 16 | sizeof(sEndingImageTextPAL) / 2);
 
     EndingImageLoadIGTAndPercentageGraphics();
     write16(REG_BG0CNT, 0x9C00);
@@ -1561,14 +1561,14 @@ void UnlockedOptionsInit(void)
     write16(REG_IME, TRUE);
 
     zero = 0;
-    dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+    DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
     ClearGfxRam();
 
     LZ77UncompVRAM(sUnlockedOptionsTileTable, VRAM_BASE + 0x8000);
     BitFill(3, -1, VRAM_BASE + 0x7FE0, 0x20, 32);
     BitFill(3, 0xF3FFF3FF, VRAM_BASE + 0x8800, 0x800, 32);
 
-    dma_set(3, sUnlockedOptionsPAL, PALRAM_BASE + 0x1E0, DMA_ENABLE << 16 | ARRAY_SIZE(sUnlockedOptionsPAL));
+    DMA_SET(3, sUnlockedOptionsPAL, PALRAM_BASE + 0x1E0, DMA_ENABLE << 16 | ARRAY_SIZE(sUnlockedOptionsPAL));
 
     write16(REG_BG0CNT, 0x1000);
     write16(REG_BG1CNT, 0x1101);
@@ -1858,7 +1858,7 @@ void GalleryInit(void)
         ClearGfxRam();
 
         zero = 0;
-        dma_set(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
+        DMA_SET(3, &zero, &gNonGameplayRAM, (DMA_ENABLE | DMA_32BIT | DMA_SRC_FIXED) << 16 | sizeof(gNonGameplayRAM) / 4);
     }
 
     endingNbr = ENDING_DATA.endingNumber;
@@ -1894,7 +1894,7 @@ void GalleryInit(void)
 
     BitFill(3, 0x4FF04FF, VRAM_BASE + 0xE800, 0x800, 32);
 
-    dma_set(3, sEndingImagesPalPointers[endingNbr], PALRAM_BASE, DMA_ENABLE << 16 | PALRAM_SIZE / 4);
+    DMA_SET(3, sEndingImagesPalPointers[endingNbr], PALRAM_BASE, DMA_ENABLE << 16 | PALRAM_SIZE / 4);
 
     write16(REG_BG0CNT, 0x9C00);
     write16(REG_BG1CNT, 0x9E09);

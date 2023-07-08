@@ -235,7 +235,7 @@ void PowerBombExplosionBegin(void)
     {
         gCurrentPowerBomb.animationState = 0x3;
         gCurrentPowerBomb.powerBombPlaced = FALSE;
-        dma_set(3, PALRAM_BASE, EWRAM_BASE + (0x9000), DMA_ENABLE << 0x10 | 0x100);
+        DMA_SET(3, PALRAM_BASE, EWRAM_BASE + (0x9000), DMA_ENABLE << 0x10 | 0x100);
         unk_02035400 = 0x0;
         HazeSetupCode(HAZE_VALUE_POWER_BOMB_EXPANDING);
         gCurrentPowerBomb.stage = 0x0;
