@@ -10,6 +10,13 @@
 #define POLYP_POSE_AFTER_SPITTING 0x27
 #define POLYP_POSE_RETRACTING 0x29
 
+#define POLYP_PROJECTILE_POSE_SPAWN 0x8
+#define POLYP_PROJECTILE_POSE_MOVING 0x9
+#define POLYP_PROJECTILE_POSE_EXPLODING 0x43
+
+#define POLYP_SHOOT_DELAY (60 * 2)
+#define POLYP_SPIT_DURATION (60 / 3)
+
 void PolypInit(void);
 void PolypIdleInit(void);
 void PolypCheckSpawnProjectile(void);

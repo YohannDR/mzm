@@ -3,6 +3,7 @@
 
 #include "types.h"
 
+#define PISTON_POSE_IDLE_INIT 0x8
 #define PISTON_POSE_CHECK_FOR_PROJECTILES 0x9
 #define PISTON_POSE_OPENING 0x23
 #define PISTON_POSE_OPENED 0x25

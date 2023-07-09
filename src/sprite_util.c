@@ -502,7 +502,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
 
                 case SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT:
                 case SSC_SPACE_PIRATE_LASER:
-                    pSprite->pose = 0x42;
+                    pSprite->pose = SPRITE_POSE_STOPPED;
 
                 case SSC_HURTS_SAMUS:
                 case SSC_MELLOW:
@@ -538,7 +538,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     break;
 
                 case SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT_BIG_KNOCKBACK:
-                    pSprite->pose = 0x42;
+                    pSprite->pose = SPRITE_POSE_STOPPED;
 
                 case SSC_IMAGO_STINGER:
                     if (SpriteUtilSpriteTakeDamageFromSamusContact(pSprite, pData) == DCT_NONE)
@@ -600,7 +600,7 @@ void SpriteUtilSamusAndSpriteCollision(void)
                     break;
 
                 case SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT_NO_KNOCKBACK:
-                    pSprite->pose = 0x42;
+                    pSprite->pose = SPRITE_POSE_STOPPED;
 
                 case SSC_HURTS_SAMUS_NO_KNOCKBACK_NO_CONTACT_DAMAGE:
                     SpriteUtilTakeDamageFromSprite(FALSE, pSprite, 1);
@@ -2220,7 +2220,7 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
             isDead = ProjectileDealDamage(pSprite, damage);
             if (isDead)
             {
-                pSprite->pose = 0x66;
+                pSprite->pose = SPRITE_POSE_SUDO_SCREW_DESTROYED;
                 return dct;
             }
             pSprite->ignoreSamusCollisionTimer = 0x0;
@@ -2242,11 +2242,11 @@ u32 SpriteUtilSpriteTakeDamageFromSamusContact(struct SpriteData* pSprite, struc
             }
 
             if (dct == DCT_SHINESPARK)
-                pSprite->pose = 0x63;
+                pSprite->pose = SPRITE_POSE_SHINESPARK_DESTROYED;
             else if (dct == DCT_SPEEDBOOSTER)
-                pSprite->pose = 0x64;
+                pSprite->pose = SPRITE_POSE_SPEEDBOOSTER_DESTROYED;
             else
-                pSprite->pose = 0x65;
+                pSprite->pose = SPRITE_POSE_SCREW_ATTACK_DESTROYED;
 
             pSprite->ignoreSamusCollisionTimer = 0x1;
             pSprite->invincibilityStunFlashTimer = pSprite->invincibilityStunFlashTimer & 0x80 | 0x11;
@@ -3042,26 +3042,30 @@ void SpriteUtilSpriteDeath(u8 deathType, u16 yPosition, u16 xPosition, u8 playSo
 
     switch (gCurrentSprite.pose)
     {
-        case 0x63: // Check for damage contact
+        case SPRITE_POSE_SHINESPARK_DESTROYED: // Check for damage contact
             ParticleSet(yPosition, xPosition, PE_SHINESPARK_DESTROYED);
-            SpriteUtilRandomSpriteDebris(0x0, 0x3, yPosition, xPosition);
+            SpriteUtilRandomSpriteDebris(0, 3, yPosition, xPosition);
             SoundPlay(0x131);
             break;
-        case 0x64:
+
+        case SPRITE_POSE_SPEEDBOOSTER_DESTROYED:
             ParticleSet(yPosition, xPosition, PE_SPEEDBOOSTER_DESTROYED);
-            SpriteUtilRandomSpriteDebris(0x0, 0x3, yPosition, xPosition);
+            SpriteUtilRandomSpriteDebris(0, 3, yPosition, xPosition);
             SoundPlay(0x133);
             break;
-        case 0x65:
+
+        case SPRITE_POSE_SCREW_ATTACK_DESTROYED:
             ParticleSet(yPosition, xPosition, PE_SCREW_ATTACK_DESTROYED);
-            SpriteUtilRandomSpriteDebris(0x0, 0x3, yPosition, xPosition);
+            SpriteUtilRandomSpriteDebris(0, 3, yPosition, xPosition);
             SoundPlay(0x130);
             break;
-        case 0x66:
+
+        case SPRITE_POSE_SUDO_SCREW_DESTROYED:
             ParticleSet(yPosition, xPosition, PE_SUDO_SCREW_DESTROYED);
-            SpriteUtilRandomSpriteDebris(0x0, 0x3, yPosition, xPosition);
+            SpriteUtilRandomSpriteDebris(0, 3, yPosition, xPosition);
             SoundPlay(0x132);
             break;
+
         default: // Check play sprite explosion effects
             if (effect == PE_SPRITE_EXPLOSION_SMALL)
             {
@@ -3110,7 +3114,7 @@ void SpriteUtilSpriteDeath(u8 deathType, u16 yPosition, u16 xPosition, u8 playSo
             gCurrentSprite.xPosition = xPosition;
             gCurrentSprite.bgPriority = 0x2;
             gCurrentSprite.drawOrder = 0x4;
-            gCurrentSprite.pose = 0x0;
+            gCurrentSprite.pose = SPRITE_POSE_UNINITIALIZED;
             gCurrentSprite.health = 0x0;
             gCurrentSprite.invincibilityStunFlashTimer = 0x0;
             gCurrentSprite.paletteRow = 0x0;

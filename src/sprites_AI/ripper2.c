@@ -5,6 +5,7 @@
 #include "data/sprite_data.h"
 
 #include "constants/particle.h"
+#include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/sprite_util.h"
 
@@ -16,22 +17,23 @@
  */
 void Ripper2Init(void)
 {
-    gCurrentSprite.hitboxTopOffset = -0x24;
-    gCurrentSprite.hitboxBottomOffset = 0x8;
-    gCurrentSprite.hitboxLeftOffset = -0x28;
-    gCurrentSprite.hitboxRightOffset = 0x28;
+    gCurrentSprite.hitboxTopOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE);
+    gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE * 2;
+    gCurrentSprite.hitboxLeftOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxRightOffset = (HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
 
-    gCurrentSprite.drawDistanceTopOffset = 0x10;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
+    gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
 
     gCurrentSprite.pOam = sRipper2OAM_Moving;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
     
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
-    gCurrentSprite.yPosition -= 0x8;
+    gCurrentSprite.yPosition -= PIXEL_SIZE * 2;
+
     SpriteUtilChooseRandomXFlip();
     gCurrentSprite.pose = RIPPER2_POSE_MOVING_INIT;
 }
@@ -43,9 +45,10 @@ void Ripper2Init(void)
 void Ripper2MovingInit(void)
 {
     gCurrentSprite.pose = RIPPER2_POSE_MOVING;
+
     gCurrentSprite.pOam = sRipper2OAM_Moving;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
 }
 
 /**
@@ -56,19 +59,23 @@ void Ripper2Move(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition + 0x2C);
-        if (gPreviousCollisionCheck != 0x11)
-            gCurrentSprite.xPosition += 0x8;
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
+            gCurrentSprite.xPosition + (HALF_BLOCK_SIZE + PIXEL_SIZE * 3));
+
+        if (gPreviousCollisionCheck != COLLISION_SOLID)
+            gCurrentSprite.xPosition += PIXEL_SIZE * 2;
         else
             gCurrentSprite.pose = RIPPER2_POSE_TURNING_AROUND_INIT;
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition - 0x2C);
-        if (gPreviousCollisionCheck == 0x11)
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
+            gCurrentSprite.xPosition - (HALF_BLOCK_SIZE + PIXEL_SIZE * 3));
+
+        if (gPreviousCollisionCheck == COLLISION_SOLID)
             gCurrentSprite.pose = RIPPER2_POSE_TURNING_AROUND_INIT;
         else
-            gCurrentSprite.xPosition -= 0x8;
+            gCurrentSprite.xPosition -= PIXEL_SIZE * 2;
     }
 }
 
@@ -79,9 +86,11 @@ void Ripper2Move(void)
 void Ripper2TurnAroundInit(void)
 {
     gCurrentSprite.pose = RIPPER2_POSE_TURNING_AROUND_FIRST_PART;
+
     gCurrentSprite.pOam = sRipper2OAM_TurningAround;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
+
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         SoundPlayNotAlreadyPlaying(0x267);
 }
@@ -96,9 +105,10 @@ void Ripper2TurnAroundPart1(void)
     {
         gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
         gCurrentSprite.pose = RIPPER2_POSE_TURNING_AROUND_SECOND_PART;
+
         gCurrentSprite.pOam = sRipper2OAM_TurningAroundPart2;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
     }
 }
 
@@ -125,33 +135,41 @@ void Ripper2(void)
             SoundPlayNotAlreadyPlaying(0x268);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
-        SpriteUtilUpdateFreezeTimer();
-    else
+    if (gCurrentSprite.freezeTimer != 0)
     {
-        if (!SpriteUtilIsSpriteStunned())
-        {
-            switch (gCurrentSprite.pose)
-            {
-                case 0x0:
-                    Ripper2Init();
-                    break;
-                case RIPPER2_POSE_MOVING_INIT:
-                    Ripper2MovingInit();
-                case RIPPER2_POSE_MOVING:
-                    Ripper2Move();
-                    break;
-                case RIPPER2_POSE_TURNING_AROUND_INIT:
-                    Ripper2TurnAroundInit();
-                case RIPPER2_POSE_TURNING_AROUND_FIRST_PART:
-                    Ripper2TurnAroundPart1();
-                    break;
-                case RIPPER2_POSE_TURNING_AROUND_SECOND_PART:
-                    Ripper2TurnAroundPart2();
-                    break;
-                default:
-                    SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - 0x18, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
-            }
-        }
+        SpriteUtilUpdateFreezeTimer();
+        return;
+    }
+
+    if (SpriteUtilIsSpriteStunned())
+        return;
+
+    switch (gCurrentSprite.pose)
+    {
+        case SPRITE_POSE_UNINITIALIZED:
+            Ripper2Init();
+            break;
+
+        case RIPPER2_POSE_MOVING_INIT:
+            Ripper2MovingInit();
+
+        case RIPPER2_POSE_MOVING:
+            Ripper2Move();
+            break;
+
+        case RIPPER2_POSE_TURNING_AROUND_INIT:
+            Ripper2TurnAroundInit();
+
+        case RIPPER2_POSE_TURNING_AROUND_FIRST_PART:
+            Ripper2TurnAroundPart1();
+            break;
+
+        case RIPPER2_POSE_TURNING_AROUND_SECOND_PART:
+            Ripper2TurnAroundPart2();
+            break;
+
+        default:
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2),
+                gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
     }
 }

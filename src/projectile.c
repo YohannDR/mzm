@@ -1534,7 +1534,7 @@ u8 ProjectileIceBeamDealDamage(struct SpriteData* pSprite, u16 damage)
             gSamusData.standingStatus = STANDING_MIDAIR;
             pSprite->standingOnSprite = FALSE;
         }
-        pSprite->pose = 0x62;
+        pSprite->pose = SPRITE_POSE_DESTROYED;
         pSprite->ignoreSamusCollisionTimer = 0x1;
     }
 
@@ -1569,7 +1569,7 @@ u8 ProjectileDealDamage(struct SpriteData* pSprite, u16 damage)
             gSamusData.standingStatus = STANDING_MIDAIR;
             pSprite->standingOnSprite = FALSE;
         }
-        pSprite->pose = 0x62;
+        pSprite->pose = SPRITE_POSE_DESTROYED;
         pSprite->ignoreSamusCollisionTimer = 0x1;
         isDead++;
     }
@@ -1648,7 +1648,7 @@ void ProjectilePowerBombDealDamage(struct SpriteData* pSprite)
                         gSamusData.standingStatus = STANDING_MIDAIR;
                         pSprite->standingOnSprite = FALSE;
                     }
-                    pSprite->pose = 0x62;
+                    pSprite->pose = SPRITE_POSE_DESTROYED;
                     pSprite->ignoreSamusCollisionTimer = 0x1;
                 }
                 isft = 0x11;

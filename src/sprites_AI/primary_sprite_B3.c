@@ -1,4 +1,6 @@
 #include "sprites_AI/primary_sprite_B3.h"
+#include "gba.h"
+#include "macros.h"
 
 #include "data/sprites/enemy_drop.h"
 
@@ -12,42 +14,49 @@
  */
 void PrimarySpriteB3(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
         gCurrentSprite.samusCollision = SSC_NONE;
-        gCurrentSprite.drawDistanceTopOffset = 0x1;
-        gCurrentSprite.drawDistanceBottomOffset = 0x1;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x1;
-        gCurrentSprite.hitboxTopOffset = 0x0;
-        gCurrentSprite.hitboxBottomOffset = 0x0;
-        gCurrentSprite.hitboxLeftOffset = 0x0;
-        gCurrentSprite.hitboxRightOffset = 0x0;
+
+        gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(PIXEL_SIZE);
+        gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(PIXEL_SIZE);
+        gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(PIXEL_SIZE);
+
+        gCurrentSprite.hitboxTopOffset = 0;
+        gCurrentSprite.hitboxBottomOffset = 0;
+        gCurrentSprite.hitboxLeftOffset = 0;
+        gCurrentSprite.hitboxRightOffset = 0;
+
         gCurrentSprite.pOam = sEnemyDropOAM_LargeEnergy;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.pose = 0x9;
-        TransparencyUpdateBLDCNT(0x1, 0xC41); // TODO BLDCNT values
-        if (gAlarmTimer != 0x0)
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
+        gCurrentSprite.pose = 9;
+
+        TransparencyUpdateBLDCNT(1, BLDCNT_BG0_FIRST_TARGET_PIXEL | BLDCNT_ALPHA_BLENDING_EFFECT |
+            BLDCNT_BG2_SECOND_TARGET_PIXEL | BLDCNT_BG3_SECOND_TARGET_PIXEL);
+
+        if (gAlarmTimer != 0)
         {
             gCurrentSprite.workVariable2 = FALSE;
-            gCurrentSprite.arrayOffset = 0x10;
+            gCurrentSprite.arrayOffset = 16;
         }
         else
         {
             gCurrentSprite.workVariable2 = TRUE;
-            gCurrentSprite.arrayOffset = 0x8;
+            gCurrentSprite.arrayOffset = 8;
         }
     }
 
-    if (gAlarmTimer != 0x0)
+    if (gAlarmTimer != 0)
     {
         if (gCurrentSprite.workVariable2)
         {
             gCurrentSprite.workVariable2--;
-            if (!gCurrentSprite.workVariable2 && gCurrentSprite.arrayOffset < 0x10)
+            if (!gCurrentSprite.workVariable2 && gCurrentSprite.arrayOffset < 16)
             {
                 gCurrentSprite.arrayOffset++;
                 gCurrentSprite.workVariable2 = TRUE;
@@ -57,11 +66,12 @@ void PrimarySpriteB3(void)
 
     else
     {
-        if (gCurrentSprite.arrayOffset != 0x8)
+        if (gCurrentSprite.arrayOffset != 8)
         {
-            gCurrentSprite.arrayOffset = 0x8;
+            gCurrentSprite.arrayOffset = 8;
             gCurrentSprite.workVariable2 = TRUE;
         }
     }
-    TransparencySpriteUpdateBLDALPHA(0x0, gCurrentSprite.arrayOffset, 0x0, 0x10);
+
+    TransparencySpriteUpdateBLDALPHA(0, gCurrentSprite.arrayOffset, 0, 16);
 }

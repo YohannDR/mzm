@@ -17,14 +17,14 @@
  */
 void PolypInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -0x18;
-    gCurrentSprite.hitboxBottomOffset = 0x0;
-    gCurrentSprite.hitboxLeftOffset = -0x38;
-    gCurrentSprite.hitboxRightOffset = 0x38;
+    gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxBottomOffset = 0;
+    gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE - PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxRightOffset = (BLOCK_SIZE - PIXEL_SIZE * 2);
 
-    gCurrentSprite.drawDistanceTopOffset = 0x8;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
 
     gCurrentSprite.samusCollision = SSC_KNOCKS_BACK_SAMUS;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
@@ -37,10 +37,13 @@ void PolypInit(void)
 void PolypIdleInit(void)
 {
     gCurrentSprite.pose = POLYP_POSE_IDLE;
-    gCurrentSprite.pOam = sPolypOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.timer = 0x78; // Delay before spitting
+
+    gCurrentSprite.pOam = sPolypOam_Idle;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+
+    // Delay before spitting
+    gCurrentSprite.timer = POLYP_SHOOT_DELAY;
 }
 
 /**
@@ -50,26 +53,28 @@ void PolypIdleInit(void)
 void PolypCheckSpawnProjectile(void)
 {
     gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer != 0)
+        return;
+
+    // Shoot if on screen, not already shooted and projectile doesn't have an active drop
+    if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
+        SpriteUtilCountSecondarySpritesWithCurrentSpriteRAMSlot(SSPRITE_POLYP_PROJECTILE) == 0 &&
+        !SpriteUtilCheckHasDrops())
     {
-        // Shoot if on screen, not already shooted and projectile doesn't have an active drop
-        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN &&
-            SpriteUtilCountSecondarySpritesWithCurrentSpriteRAMSlot(SSPRITE_POLYP_PROJECTILE) == 0x0 &&
-            !SpriteUtilCheckHasDrops())
-        {
-            // Set warning behavior
-            gCurrentSprite.pose = POLYP_POSE_WARNING;
-            gCurrentSprite.pOam = sPolypOAM_Warning;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-            if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                SoundPlay(0x17C);
-        }
-        else
-        {
-            // Can't shoot, reset timer
-            gCurrentSprite.timer = 0x78;
-        }
+        // Set warning behavior
+        gCurrentSprite.pose = POLYP_POSE_WARNING;
+
+        gCurrentSprite.pOam = sPolypOam_Warning;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
+        if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+            SoundPlay(0x17C);
+    }
+    else
+    {
+        // Can't shoot, reset timer
+        gCurrentSprite.timer = POLYP_SHOOT_DELAY;
     }
 }
 
@@ -83,10 +88,12 @@ void PolypCheckWarningEnded(void)
     {
         // Set spitting behavior
         gCurrentSprite.pose = POLYP_POSE_SPITTING;
-        gCurrentSprite.pOam = sPolypOAM_Spitting;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.timer = 0x14;
+
+        gCurrentSprite.pOam = sPolypOam_Spitting;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
+        gCurrentSprite.timer = POLYP_SPIT_DURATION;
     }
 }
 
@@ -96,20 +103,21 @@ void PolypCheckWarningEnded(void)
  */
 void PolypSpawnProjectile(void)
 {
-    if (--gCurrentSprite.timer == 0x0)
+    if (--gCurrentSprite.timer == 0)
     {
         // Set after spitting behavior
         gCurrentSprite.pose = POLYP_POSE_AFTER_SPITTING;
-        gCurrentSprite.pOam = sPolypOAM_AfterSpitting;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+
+        gCurrentSprite.pOam = sPolypOam_AfterSpitting;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
     }
-    else if (gCurrentSprite.timer == 0x4)
+    else if (gCurrentSprite.timer == POLYP_SPIT_DURATION / 5)
     {
         // Spawn projectile
         SpriteSpawnSecondary(SSPRITE_POLYP_PROJECTILE, gCurrentSprite.roomSlot,
             gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
-            gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition, 0x0);
+            gCurrentSprite.yPosition - HALF_BLOCK_SIZE, gCurrentSprite.xPosition, 0);
     }
 }
 
@@ -123,9 +131,10 @@ void PolypCheckAfterSpittingAnimEnded(void)
     {
         // Set retracting behavior
         gCurrentSprite.pose = POLYP_POSE_RETRACTING;
-        gCurrentSprite.pOam = sPolypOAM_Retracting;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+
+        gCurrentSprite.pOam = sPolypOam_Retracting;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
     }
 }
 
@@ -151,36 +160,37 @@ void PolypProjectileInit(void)
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x8;
-    gCurrentSprite.drawDistanceBottomOffset = 0x8;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+    gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -0x10;
-    gCurrentSprite.hitboxBottomOffset = 0x10;
-    gCurrentSprite.hitboxLeftOffset = -0x10;
-    gCurrentSprite.hitboxRightOffset = 0x10;
+    gCurrentSprite.hitboxTopOffset = -QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxBottomOffset = QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeftOffset = -QUARTER_BLOCK_SIZE;
+    gCurrentSprite.hitboxRightOffset = QUARTER_BLOCK_SIZE;
 
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.pose = 0x8;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+
+    gCurrentSprite.pose = POLYP_PROJECTILE_POSE_SPAWN;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-    gCurrentSprite.drawOrder = 0x5;
+    gCurrentSprite.drawOrder = 5;
     gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
 
     // Try set same direction samus
-    nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 5, BLOCK_SIZE * 8 + 0x26);
+    nslr = SpriteUtilCheckSamusNearSpriteLeftRight(BLOCK_SIZE * 5, BLOCK_SIZE * 8 + HALF_BLOCK_SIZE + PIXEL_SIZE + PIXEL_SIZE / 2);
     if (nslr == NSLR_RIGHT)
         gCurrentSprite.status |= SPRITE_STATUS_FACING_RIGHT;
     else if (nslr != NSLR_LEFT)
         SpriteUtilChooseRandomXDirection(); // Random if can't find samus
 
     if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
-        gCurrentSprite.pOam = sPolypProjectileOAM_Right;
+        gCurrentSprite.pOam = sPolypProjectileOam_Right;
     else
-        gCurrentSprite.pOam = sPolypProjectileOAM_Left;
+        gCurrentSprite.pOam = sPolypProjectileOam_Left;
 
-    gCurrentSprite.timer = 0x4;
-    gCurrentSprite.arrayOffset = 0x0;
+    gCurrentSprite.timer = 4;
+    gCurrentSprite.arrayOffset = 0;
 }
 
 /**
@@ -190,9 +200,9 @@ void PolypProjectileInit(void)
 void PolypProjectileSpawn(void)
 {
     gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer == 0)
     {
-        gCurrentSprite.pose = 0x9;
+        gCurrentSprite.pose = POLYP_PROJECTILE_POSE_MOVING;
         gCurrentSprite.samusCollision = SSC_HURTS_SAMUS_STOP_DIES_WHEN_HIT;
         gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
         
@@ -211,7 +221,7 @@ void PolypProjectileMove(void)
     s32 yMovement;
     u8 offset;
 
-    xMovement = 0x4;
+    xMovement = 4;
 
     // Y movement
     offset = gCurrentSprite.arrayOffset;
@@ -223,7 +233,7 @@ void PolypProjectileMove(void)
     }
     else
     {
-        gCurrentSprite.arrayOffset = offset + 1;
+        gCurrentSprite.arrayOffset++;
         gCurrentSprite.yPosition += yMovement;
     }
 
@@ -236,7 +246,7 @@ void PolypProjectileMove(void)
     // Check colliding with solid
     SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
     if (gPreviousCollisionCheck & 0xF0)
-        gCurrentSprite.pose = 0x42;
+        gCurrentSprite.pose = SPRITE_POSE_STOPPED;
 }
 
 /**
@@ -245,12 +255,12 @@ void PolypProjectileMove(void)
  */
 void PolypProjectileExplodingInit(void)
 {
-    gCurrentSprite.pOam = sPolypProjectileOAM_Exploding;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.pOam = sPolypProjectileOam_Exploding;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
-    gCurrentSprite.pose = 0x43;
-    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.pose = POLYP_PROJECTILE_POSE_EXPLODING;
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 3;
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
@@ -263,9 +273,10 @@ void PolypProjectileExplodingInit(void)
  */
 void PolypProjectileCheckExplodingAnimEnded(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+
     if (SpriteUtilCheckEndCurrentSpriteAnim())
-        gCurrentSprite.status = 0x0; // Kill sprite
+        gCurrentSprite.status = 0; // Kill sprite
 }
 
 /**
@@ -274,41 +285,43 @@ void PolypProjectileCheckExplodingAnimEnded(void)
  */
 void Polyp(void)
 {
-    if (gCurrentSprite.freezeTimer != 0x0)
-        SpriteUtilUpdateFreezeTimer();
-    else
+    if (gCurrentSprite.freezeTimer != 0)
     {
-        switch (gCurrentSprite.pose)
-        {
-            case 0x0:
-                PolypInit();
+        SpriteUtilUpdateFreezeTimer();
+        return;
+    }
 
-            case POLYP_POSE_IDLE_INIT:
-                PolypIdleInit();
+    switch (gCurrentSprite.pose)
+    {
+        case SPRITE_POSE_UNINITIALIZED:
+            PolypInit();
 
-            case POLYP_POSE_IDLE:
-                PolypCheckSpawnProjectile();
-                break;
+        case POLYP_POSE_IDLE_INIT:
+            PolypIdleInit();
 
-            case POLYP_POSE_WARNING:
-                PolypCheckWarningEnded();
-                break;
+        case POLYP_POSE_IDLE:
+            PolypCheckSpawnProjectile();
+            break;
 
-            case POLYP_POSE_SPITTING:
-                PolypSpawnProjectile();
-                break;
+        case POLYP_POSE_WARNING:
+            PolypCheckWarningEnded();
+            break;
 
-            case POLYP_POSE_AFTER_SPITTING:
-                PolypCheckAfterSpittingAnimEnded();
-                break;
+        case POLYP_POSE_SPITTING:
+            PolypSpawnProjectile();
+            break;
 
-            case POLYP_POSE_RETRACTING:
-                PolypCheckRetractingAnimEnded();
-                break;
+        case POLYP_POSE_AFTER_SPITTING:
+            PolypCheckAfterSpittingAnimEnded();
+            break;
 
-            default:
-                SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - 0x10, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_BIG);
-        }
+        case POLYP_POSE_RETRACTING:
+            PolypCheckRetractingAnimEnded();
+            break;
+
+        default:
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - QUARTER_BLOCK_SIZE,
+                gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_BIG);
     }
 }
 
@@ -318,33 +331,34 @@ void Polyp(void)
  */
 void PolypProjectile(void)
 {
-    if (gCurrentSprite.freezeTimer != 0x0)
-        SpriteUtilUpdateFreezeTimer();
-    else
+    if (gCurrentSprite.freezeTimer != 0)
     {
-        switch (gCurrentSprite.pose)
-        {
-            case 0x0:
-                PolypProjectileInit();
-                break;
+        SpriteUtilUpdateFreezeTimer();
+        return;
+    }
 
-            case 0x8:
-                PolypProjectileSpawn();
-                break;
+    switch (gCurrentSprite.pose)
+    {
+        case SPRITE_POSE_UNINITIALIZED:
+            PolypProjectileInit();
+            break;
 
-            case 0x9:
-                PolypProjectileMove();
-                break;
+        case POLYP_PROJECTILE_POSE_SPAWN:
+            PolypProjectileSpawn();
+            break;
 
-            case 0x42:
-                PolypProjectileExplodingInit();
+        case POLYP_PROJECTILE_POSE_MOVING:
+            PolypProjectileMove();
+            break;
 
-            case 0x43:
-                PolypProjectileCheckExplodingAnimEnded();
-                break;
+        case SPRITE_POSE_STOPPED:
+            PolypProjectileExplodingInit();
 
-            default:
-                SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SMALL);
-        }
+        case POLYP_PROJECTILE_POSE_EXPLODING:
+            PolypProjectileCheckExplodingAnimEnded();
+            break;
+
+        default:
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SMALL);
     }
 }

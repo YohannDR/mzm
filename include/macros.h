@@ -47,6 +47,8 @@
 #define sin(a) (sSineTable[(a)])
 #define cos(a) (sSineTable[(a) + PI / 2])
 
+#define MOD_AND(value, mod) ((value) & ((mod) - 1))
+
 #define GET_PSPRITE_HEALTH(id) sPrimarySpriteStats[(id)][0]
 #define GET_SSPRITE_HEALTH(id) sSecondarySpriteStats[(id)][0]
 #define BLOCK_TO_DRAW_DISTANCE(block) ((block) / 4)
@@ -58,6 +60,9 @@
     SPRITE_CLEAR_ISFT(sprite);                  \
     SPRITE_SET_ISFT(sprite, value);             \
 }
+
+
+#define HAS_AREA_MAP(area) ((gEquipment.downloadedMapStatus >> (area)) & 1)
 
 #define INCBIN(...) {0}
 #define INCBIN_U8   INCBIN

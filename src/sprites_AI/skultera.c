@@ -21,13 +21,13 @@ void SkulteraSetSidesHitbox(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        gCurrentSprite.hitboxLeftOffset = -0x18;
-        gCurrentSprite.hitboxRightOffset = 0x28;
+        gCurrentSprite.hitboxLeftOffset = -SKULTERA_TAIL_HITBOX;
+        gCurrentSprite.hitboxRightOffset = SKULTERA_HEAD_HITBOX;
     }
     else
     {
-        gCurrentSprite.hitboxLeftOffset = -0x28;
-        gCurrentSprite.hitboxRightOffset = 0x18;
+        gCurrentSprite.hitboxLeftOffset = -SKULTERA_HEAD_HITBOX;
+        gCurrentSprite.hitboxRightOffset = SKULTERA_TAIL_HITBOX;
     }
 }
 
@@ -35,7 +35,7 @@ void SkulteraSetSidesHitbox(void)
  * @brief 48cac | 64 | Handles the horizontal movement of the skultera
  * 
  * @param movement X velocity
- * @return u8 1 if colliding with solid, 0 otherwise
+ * @return u8 bool, colliding with solid
  */
 u8 SkulteraXMovement(u16 movement)
 {
@@ -44,25 +44,29 @@ u8 SkulteraXMovement(u16 movement)
     negMovement = movement;
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition + 0x38);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
+            gCurrentSprite.xPosition + (QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE * 2));
+
         if (gPreviousCollisionCheck != COLLISION_SOLID)
         {
             gCurrentSprite.xPosition += movement;
             return FALSE;
         }
-        else
-            return TRUE;
+
+        return TRUE;
     }
     else
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition - 0x38);
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
+            gCurrentSprite.xPosition - (QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE * 2));
+
         if (gPreviousCollisionCheck != COLLISION_SOLID)
         {
             gCurrentSprite.xPosition -= negMovement;
             return FALSE;
         }
-        else
-            return TRUE;
+
+        return TRUE;
     }
 }
 
@@ -72,21 +76,24 @@ u8 SkulteraXMovement(u16 movement)
  */
 void SkulteraInit(void)
 {
-    SpriteUtilChooseRandomXFlip(); // Random direction
-    gCurrentSprite.drawDistanceTopOffset = 0x20;
-    gCurrentSprite.drawDistanceBottomOffset = 0x0;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+    // Random direction
+    SpriteUtilChooseRandomXFlip();
 
-    gCurrentSprite.hitboxTopOffset = -0x60;
-    gCurrentSprite.hitboxBottomOffset = 0x0;
+    gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 2);
+    gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(0);
+    gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE + HALF_BLOCK_SIZE);
+
+    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.hitboxBottomOffset = 0;
+
     SkulteraSetSidesHitbox();
 
     gCurrentSprite.pose = SKULTERA_POSE_IDLE_INIT;
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
 
-    gCurrentSprite.pOam = sSkulteraOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.pOam = sSkulteraOam_Idle;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 }
@@ -99,12 +106,15 @@ void SkulteraIdleInit(void)
 {
     // Save spawn X to allow loop back
     gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
+
     gCurrentSprite.pose = SKULTERA_POSE_IDLE;
 
-    gCurrentSprite.pOam = sSkulteraOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.timer = 0x3; // Timer before movement
+    gCurrentSprite.pOam = sSkulteraOam_Idle;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+
+    // Timer before movement
+    gCurrentSprite.timer = 3;
 }
 
 /**
@@ -116,24 +126,29 @@ void SkulteraMoving(void)
     u32 nslr;
 
     gCurrentSprite.timer--; // Timer before movement
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer == 0)
     {
-        if (SkulteraXMovement(0x4)) // Move and check hit solid
-            gCurrentSprite.pose = SKULTERA_POSE_TURNING_AROUND; // Hit solid, set turning around
+        if (SkulteraXMovement(SKULTERA_X_MOVEMENT_SPEED)) // Move and check hit solid
+        {
+            // Hit solid, set turning around
+            gCurrentSprite.pose = SKULTERA_POSE_TURNING_AROUND;
+        }
         else
         {
             // Check out of movement territory, if out set turning around
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
-                if ((gCurrentSprite.xPositionSpawn + (BLOCK_SIZE * 8)) < gCurrentSprite.xPosition)
+                if (gCurrentSprite.xPositionSpawn + SKULTERA_TERRITORY_RANGE < gCurrentSprite.xPosition)
                     gCurrentSprite.pose = SKULTERA_POSE_TURNING_AROUND;
             }
             else
             {
-                if ((gCurrentSprite.xPositionSpawn - (BLOCK_SIZE * 8)) > gCurrentSprite.xPosition)
+                if (gCurrentSprite.xPositionSpawn - SKULTERA_TERRITORY_RANGE > gCurrentSprite.xPosition)
                     gCurrentSprite.pose = SKULTERA_POSE_TURNING_AROUND;
             }
-            gCurrentSprite.timer = 0x3; // Reset timer
+
+            // Reset timer
+            gCurrentSprite.timer = 3;
         }
     }
 
@@ -149,7 +164,7 @@ void SkulteraMoving(void)
     {
         // Check on right
         if (nslr == NSLR_RIGHT)
-            gCurrentSprite.pose = SKULTERA_POSE_CHASING_SAMUS_INIT;
+            gCurrentSprite.pose = SKULTERA_POSE_CHASING_SAMUS_INIT; // Samus in range, chase
         else if (nslr == NSLR_LEFT)
             gCurrentSprite.pose = SKULTERA_POSE_TURNING_AROUND; // Turn around to face samus
     }
@@ -157,7 +172,7 @@ void SkulteraMoving(void)
     {
         // Check on left
         if (nslr == NSLR_LEFT)
-            gCurrentSprite.pose = SKULTERA_POSE_CHASING_SAMUS_INIT;
+            gCurrentSprite.pose = SKULTERA_POSE_CHASING_SAMUS_INIT; // Samus in range, chase
         else if (nslr == NSLR_RIGHT)
             gCurrentSprite.pose = SKULTERA_POSE_TURNING_AROUND; // Turn around to face samus
     }
@@ -170,9 +185,10 @@ void SkulteraMoving(void)
 void SkulteraChasingSamusInit(void)
 {
     gCurrentSprite.pose = SKULTERA_POSE_CHASING_SAMUS;
-    gCurrentSprite.pOam = sSkulteraOAM_ChasingSamus;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+
+    gCurrentSprite.pOam = sSkulteraOam_ChasingSamus;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 }
 
 /**
@@ -186,33 +202,35 @@ void SkulteraChasingSamus(void)
     u32 nslr;
 
     samusY = gSamusData.yPosition + gSamusPhysics.drawDistanceTopOffset / 2;
-    spriteY = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
+    spriteY = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
 
     // Check move vertically
-    if ((s32)(spriteY - BLOCK_SIZE) > samusY)
+    if (spriteY - BLOCK_SIZE > samusY)
     {
         // Check move up
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), gCurrentSprite.xPosition);
+
         // If no solid block and still in water
         if (gPreviousCollisionCheck == COLLISION_AIR && gCurrentAffectingClipdata.hazard == HAZARD_TYPE_WATER)
-            gCurrentSprite.yPosition -= 0x2;
+            gCurrentSprite.yPosition -= SKULTERA_Y_MOVEMENT_SPEED;
     }
-    else if ((s32)(spriteY + BLOCK_SIZE) < samusY)
+    else if (spriteY + BLOCK_SIZE < samusY)
     {
         // Check move down
         SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
+
         // If no solid block
         if (gPreviousCollisionCheck == COLLISION_AIR)
-            gCurrentSprite.yPosition += 0x2;
+            gCurrentSprite.yPosition += SKULTERA_Y_MOVEMENT_SPEED;
     }
 
     gCurrentSprite.timer--; // Timer before movement
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer == 0)
     {
-        if (SkulteraXMovement(0x4))
+        if (SkulteraXMovement(SKULTERA_X_MOVEMENT_SPEED))
             gCurrentSprite.pose = SKULTERA_POSE_TURNING_AROUND;
         else
-            gCurrentSprite.timer = 0x2; // Reset timer, 1 frame faster than idle for faster movement
+            gCurrentSprite.timer = 2; // Reset timer, 1 frame faster than idle for faster movement
     }
 
     // Check samus still in range
@@ -252,9 +270,10 @@ void SkulteraChasingSamus(void)
 void SkulteraTurningAroundInit(void)
 {
     gCurrentSprite.pose = SKULTERA_POSE_CHECK_TURNING_AROUND_ENDED;
-    gCurrentSprite.pOam = sSkulteraOAM_TurningAround;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+
+    gCurrentSprite.pOam = sSkulteraOam_TurningAround;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         SoundPlayNotAlreadyPlaying(0x269);
@@ -270,8 +289,10 @@ void SkulteraCheckTurningAroundAnimEnded(void)
     {
         // Set idle behavior
         SkulteraIdleInit();
+
         // Flip and set hitbox
         gCurrentSprite.status ^= SPRITE_STATUS_XFLIP;
+
         SkulteraSetSidesHitbox();
     }
 }
@@ -289,43 +310,45 @@ void Skultera(void)
             SoundPlayNotAlreadyPlaying(0x26A);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
-        SpriteUtilUpdateFreezeTimer();
-    else
+    if (gCurrentSprite.freezeTimer != 0)
     {
-        if (SpriteUtilIsSpriteStunned())
-            return;
+        SpriteUtilUpdateFreezeTimer();
+        return;
+    }
 
-        switch (gCurrentSprite.pose)
-        {
-            case 0x0:
-                SkulteraInit();
-                break;
+    if (SpriteUtilIsSpriteStunned())
+        return;
 
-            case SKULTERA_POSE_IDLE_INIT:
-                SkulteraIdleInit();
-                break;
+    switch (gCurrentSprite.pose)
+    {
+        case SPRITE_POSE_UNINITIALIZED:
+            SkulteraInit();
+            break;
 
-            case SKULTERA_POSE_IDLE:
-                SkulteraMoving();
-                break;
+        case SKULTERA_POSE_IDLE_INIT:
+            SkulteraIdleInit();
+            break;
 
-            case SKULTERA_POSE_TURNING_AROUND:
-                SkulteraTurningAroundInit();
+        case SKULTERA_POSE_IDLE:
+            SkulteraMoving();
+            break;
 
-            case SKULTERA_POSE_CHECK_TURNING_AROUND_ENDED:
-                SkulteraCheckTurningAroundAnimEnded();
-                break;
+        case SKULTERA_POSE_TURNING_AROUND:
+            SkulteraTurningAroundInit();
 
-            case SKULTERA_POSE_CHASING_SAMUS_INIT:
-                SkulteraChasingSamusInit();
-            
-            case SKULTERA_POSE_CHASING_SAMUS:
-                SkulteraChasingSamus();
-                break;
+        case SKULTERA_POSE_CHECK_TURNING_AROUND_ENDED:
+            SkulteraCheckTurningAroundAnimEnded();
+            break;
 
-            default:
-                SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - (HALF_BLOCK_SIZE), gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_BIG);
-        }
+        case SKULTERA_POSE_CHASING_SAMUS_INIT:
+            SkulteraChasingSamusInit();
+        
+        case SKULTERA_POSE_CHASING_SAMUS:
+            SkulteraChasingSamus();
+            break;
+
+        default:
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition - HALF_BLOCK_SIZE,
+                gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_BIG);
     }
 }

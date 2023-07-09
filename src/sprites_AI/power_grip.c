@@ -1,4 +1,5 @@
 #include "sprites_AI/power_grip.h"
+#include "macros.h"
 
 #include "data/sprites/power_grip.h"
 
@@ -18,54 +19,63 @@ void PowerGrip(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             if (gEquipment.suitMisc & SMF_POWER_GRIP)
-                gCurrentSprite.status = 0x0;
-            else
             {
-                gCurrentSprite.drawDistanceTopOffset = 0x8;
-                gCurrentSprite.drawDistanceBottomOffset = 0x8;
-                gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
-
-                gCurrentSprite.hitboxTopOffset = -0x1C;
-                gCurrentSprite.hitboxBottomOffset = 0x1C;
-                gCurrentSprite.hitboxLeftOffset = -0x1C;
-                gCurrentSprite.hitboxRightOffset = 0x1C;
-
-                gCurrentSprite.pOam = sPowerGripOAM_Idle;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
-
-                gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
-                gCurrentSprite.health = 0x1;
-                gCurrentSprite.yPosition -= 0x40;
-                gCurrentSprite.pose = POWER_GRIP_POSE_IDLE;
-                SpriteSpawnSecondary(SSPRITE_POWER_GRIP_GLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
-                    gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                // Already has power grip, kill
+                gCurrentSprite.status = 0;
+                break;
             }
+
+            gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
+
+            gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
+            gCurrentSprite.hitboxBottomOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
+            gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
+            gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
+
+            gCurrentSprite.pOam = sPowerGripOAM_Idle;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
+
+            gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
+            gCurrentSprite.health = 1;
+            gCurrentSprite.yPosition -= BLOCK_SIZE;
+            gCurrentSprite.pose = POWER_GRIP_POSE_IDLE;
+
+            // Spawn glow
+            SpriteSpawnSecondary(SSPRITE_POWER_GRIP_GLOW, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
+                gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
             break;
 
         case POWER_GRIP_POSE_IDLE:
             if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
             {
-                gPreventMovementTimer = 0x3E8;
+                gPreventMovementTimer = SAMUS_ITEM_PMT;
                 gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
-                gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+                gCurrentSprite.ignoreSamusCollisionTimer = 1;
                 gCurrentSprite.pose = POWER_GRIP_POSE_BEING_ACQUIRED;
-                gCurrentSprite.timer = 0x0;
+                gCurrentSprite.timer = 0;
                 gEquipment.suitMisc |= SMF_POWER_GRIP;
                 EventFunction(EVENT_ACTION_SETTING, EVENT_POWER_GRIP_OBTAINED);
-                SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_POWER_GRIP, 0x6,
-                    gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+
+                SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, MESSAGE_POWER_GRIP, 6,
+                    gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
             }
             break;
 
         case POWER_GRIP_POSE_BEING_ACQUIRED:
-            gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-            if (!(gCurrentSprite.timer & 0x1))
+            gCurrentSprite.ignoreSamusCollisionTimer = 1;
+
+            // Flicker
+            if (!(gCurrentSprite.timer & 1))
                 gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
-            if (gPreventMovementTimer < 0x3E7)
-                gCurrentSprite.status = 0x0;
+
+            // Check message banner disappeared
+            if (gPreventMovementTimer < SAMUS_ITEM_PMT - 1)
+                gCurrentSprite.status = 0;
     }
 }
 
@@ -77,28 +87,29 @@ void PowerGripGlow(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
 
-            gCurrentSprite.hitboxTopOffset = 0x0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = 0x0;
-            gCurrentSprite.hitboxRightOffset = 0x0;
+            gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+
+            gCurrentSprite.hitboxTopOffset = 0;
+            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxLeftOffset = 0;
+            gCurrentSprite.hitboxRightOffset = 0;
 
             gCurrentSprite.pOam = sPowerGripGlowOAM_Idle;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.pose = 0x9;
-            gCurrentSprite.drawOrder = 0x5;
+            gCurrentSprite.pose = 9;
+            gCurrentSprite.drawOrder = 5;
             break;
 
         case 0x9:
-            if (0x22 < gSpriteData[gCurrentSprite.primarySpriteRamSlot].pose)
-                gCurrentSprite.status = 0x0;
+            if (gSpriteData[gCurrentSprite.primarySpriteRamSlot].pose >= POWER_GRIP_POSE_BEING_ACQUIRED)
+                gCurrentSprite.status = 0;
     }
 }

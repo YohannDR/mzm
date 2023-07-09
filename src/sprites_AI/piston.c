@@ -1,7 +1,11 @@
 #include "sprites_AI/piston.h"
+#include "macros.h"
+
 #include "data/sprites/piston.h"
+
 #include "constants/sprite.h"
 #include "constants/clipdata.h"
+
 #include "structs/display.h"
 #include "structs/sprite.h"
 #include "structs/samus.h"
@@ -10,7 +14,7 @@
 /**
  * @brief 31708 | 54 | Updates the clipdata of the 4 piston blocks
  * 
- * @param caa 
+ * @param caa Clipdata affecting action
  */
 void PistonChangeFourCCAA(u8 caa)
 {
@@ -22,18 +26,21 @@ void PistonChangeFourCCAA(u8 caa)
 
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition - (BLOCK_SIZE + HALF_BLOCK_SIZE), xPosition);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - ((BLOCK_SIZE * 0x2) + (HALF_BLOCK_SIZE)), xPosition);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE), xPosition);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - ((BLOCK_SIZE * 0x3) + (HALF_BLOCK_SIZE)), xPosition);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 3 + HALF_BLOCK_SIZE), xPosition);
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - ((BLOCK_SIZE * 0x4) + (HALF_BLOCK_SIZE)), xPosition);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 4 + HALF_BLOCK_SIZE), xPosition);
 }
 
 /**
  * @brief 3175c | 20 | Updates the clipdata of the bottom block of the piston
  * 
- * @param caa 
+ * @param caa Clipdata affecting action
  */
 void PistonChangeOneBelowCCAA(u8 caa)
 {
@@ -44,13 +51,13 @@ void PistonChangeOneBelowCCAA(u8 caa)
     xPosition = gCurrentSprite.xPosition;
 
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - (HALF_BLOCK_SIZE), xPosition);
+    ClipdataProcess(yPosition - HALF_BLOCK_SIZE, xPosition);
 }
 
 /**
  * @brief 3177c | 28 | Updates the clipdata of the top block of the piston
  * 
- * @param caa 
+ * @param caa Clipdata affecting action
  */
 void PistonChangeOneUpperCCAA(u8 caa)
 {
@@ -61,13 +68,13 @@ void PistonChangeOneUpperCCAA(u8 caa)
     xPosition = gCurrentSprite.xPosition;
 
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - ((BLOCK_SIZE * 0x5) + (HALF_BLOCK_SIZE)), xPosition);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 5 + HALF_BLOCK_SIZE), xPosition);
 }
 
 /**
  * @brief 317a4 | 40 | Checks if samus is colliding with the piston
  * 
- * @return u8 1 if colliding, 0 otherwise
+ * @return u8 bool, colliding
  */
 u8 PistonSamusCollision(void)
 {
@@ -86,8 +93,8 @@ u8 PistonSamusCollision(void)
     spriteY = gCurrentSprite.yPosition;
     spriteX = gCurrentSprite.xPosition;
 
-    if (spriteY - (BLOCK_SIZE - 0x10) < samusY && spriteY + (BLOCK_SIZE - 0x10) > samusY
-        && spriteX - (BLOCK_SIZE - 0x10) < samusX && spriteX + (BLOCK_SIZE - 0x10) > samusX)
+    if (spriteY - (BLOCK_SIZE - QUARTER_BLOCK_SIZE) < samusY && spriteY + (BLOCK_SIZE - QUARTER_BLOCK_SIZE) > samusY
+        && spriteX - (BLOCK_SIZE - QUARTER_BLOCK_SIZE) < samusX && spriteX + (BLOCK_SIZE - QUARTER_BLOCK_SIZE) > samusX)
         result = TRUE;
 
     return result;
@@ -96,7 +103,7 @@ u8 PistonSamusCollision(void)
 /**
  * @brief 317e4 | 4c | Checks if samus is colliding with the piston upper part when it goes up
  * 
- * @return u8 
+ * @return u8 bool, samus in
  */
 u8 PistonCheckSamusIn(void)
 {
@@ -109,11 +116,11 @@ u8 PistonCheckSamusIn(void)
     result = FALSE;
     samusY = gSamusData.yPosition;
     samusX = gSamusData.xPosition;
-    spriteY = gCurrentSprite.yPosition - (BLOCK_SIZE * 0x5); // Offset to the top of the piston
+    spriteY = gCurrentSprite.yPosition - BLOCK_SIZE * 5; // Offset to the top of the piston
     spriteX = gCurrentSprite.xPosition;
 
-    if (spriteY - (BLOCK_SIZE - 0x10) < samusY && spriteY + (BLOCK_SIZE - 0x10) > samusY
-        && spriteX - (BLOCK_SIZE - 0x10) < samusX && spriteX + (BLOCK_SIZE - 0x10) > samusX)
+    if (spriteY - (BLOCK_SIZE - QUARTER_BLOCK_SIZE) < samusY && spriteY + (BLOCK_SIZE - QUARTER_BLOCK_SIZE) > samusY
+        && spriteX - (BLOCK_SIZE - QUARTER_BLOCK_SIZE) < samusX && spriteX + (BLOCK_SIZE - QUARTER_BLOCK_SIZE) > samusX)
         result = TRUE;
 
     return result;
@@ -125,19 +132,20 @@ u8 PistonCheckSamusIn(void)
  */
 void PistonInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = 0x64;
-    gCurrentSprite.drawDistanceBottomOffset = 0x0;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+    gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 6 + QUARTER_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(0);
+    gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxLeftOffset = -0x18;
-    gCurrentSprite.hitboxRightOffset = 0x18;
+    gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
+    gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2);
 
     gCurrentSprite.samusCollision = SSC_NONE;
-    gCurrentSprite.health = 0x100;
+    gCurrentSprite.health = 256;
     gCurrentSprite.status &= ~SPRITE_STATUS_SAMUS_COLLIDING;
-    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
+    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 3;
 
-    PistonChangeFourCCAA(CAA_MAKE_NON_POWER_GRIP); // Set hitbox
+    // Set hitbox
+    PistonChangeFourCCAA(CAA_MAKE_NON_POWER_GRIP);
 }
 
 /**
@@ -146,14 +154,14 @@ void PistonInit(void)
  */
 void PistonGfxInit(void)
 {
-    gCurrentSprite.pOam = sPistonOAM_Idle;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.pOam = sPistonOam_Idle;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.pose = PISTON_POSE_CHECK_FOR_PROJECTILES;
 
-    gCurrentSprite.hitboxTopOffset = -0x74;
-    gCurrentSprite.hitboxBottomOffset = -0x6C;
+    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE + QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE);
+    gCurrentSprite.hitboxBottomOffset = -(BLOCK_SIZE + HALF_BLOCK_SIZE + PIXEL_SIZE * 3);
 }
 
 /**
@@ -164,15 +172,15 @@ void PistonCheckProjectile(void)
 {
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
-        if ((gCurrentSprite.invincibilityStunFlashTimer & 0x7F) == 0x10)
+        if (SPRITE_HAS_ISFT(gCurrentSprite) == 0x10)
         {
             // Projectile detected
-            gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
-            gCurrentSprite.health = 0x100;
+            SPRITE_CLEAR_ISFT(gCurrentSprite);
+            gCurrentSprite.health = 256;
 
-            gCurrentSprite.pOam = sPistonOAM_Opening;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.pOam = sPistonOam_Opening;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.pose = PISTON_POSE_OPENING;
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -193,7 +201,7 @@ void PistonCheckProjectile(void)
  */
 void PistonOpen(void)
 {
-    if (gCurrentSprite.currentAnimationFrame == 0x2 && gCurrentSprite.animationDurationCounter == 0x1)
+    if (gCurrentSprite.currentAnimationFrame == 2 && gCurrentSprite.animationDurationCounter == 1)
     {
         // Remove collision of the bottom part
         PistonChangeOneBelowCCAA(CAA_REMOVE_SOLID);
@@ -203,12 +211,13 @@ void PistonOpen(void)
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         // Opening animation done, set opened behavior
-        gCurrentSprite.pOam = sPistonOAM_Opened;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.pOam = sPistonOam_Opened;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
         gCurrentSprite.pose = PISTON_POSE_OPENED;
-        gCurrentSprite.hitboxTopOffset = -0xB4;
-        gCurrentSprite.hitboxBottomOffset = -0xAC;
+        gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE);
+        gCurrentSprite.hitboxBottomOffset = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + PIXEL_SIZE * 3);
     }
 }
 
@@ -221,8 +230,11 @@ void PistonOpened(void)
     // Check should set the top solid (not already solid and samus not in the block)
     if (!(gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING) && !PistonCheckSamusIn())
     {
-        PistonChangeOneUpperCCAA(CAA_MAKE_NON_POWER_GRIP); // Set collision of top part
-        gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING; // Set flag to know collision has been set
+        // Set collision of top part
+        PistonChangeOneUpperCCAA(CAA_MAKE_NON_POWER_GRIP);
+
+        // Set flag to know collision has been set
+        gCurrentSprite.status |= SPRITE_STATUS_SAMUS_COLLIDING;
     }
 }
 
@@ -234,10 +246,10 @@ void Piston(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             PistonInit();
 
-        case 0x8:
+        case PISTON_POSE_IDLE_INIT:
             PistonGfxInit();
         
         case PISTON_POSE_CHECK_FOR_PROJECTILES:

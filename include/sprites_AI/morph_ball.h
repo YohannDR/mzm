@@ -6,6 +6,8 @@
 #define MORPH_BALL_POSE_IDLE 0x9
 #define MORPH_BALL_POSE_BEING_ACQUIRED 0x23
 
+#define MORPH_BALL_OUTSIDE_POSE_IDLE 0x9
+
 void MorphBallInit(void);
 void MorphBallGet(void);
 void MorphBallFlashAnim(void);

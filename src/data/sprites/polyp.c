@@ -10,7 +10,7 @@ const s16 sPolypProjectileYVelocity[44] = {
 const u32 sPolypGfx[241] = INCBIN_U32("data/sprites/Polyp.gfx.lz");
 const u16 sPolypPAL[16] = INCBIN_U16("data/sprites/Polyp.pal");
 
-const u16 sPolypOAM_Idle_Frame0[13] = {
+const u16 sPolypOam_Idle_Frame0[13] = {
     0x4,
     OBJ_SHAPE_HORIZONTAL | 0xf7, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_HORIZONTAL | 0xf7, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x204,
@@ -18,7 +18,7 @@ const u16 sPolypOAM_Idle_Frame0[13] = {
     OBJ_SHAPE_HORIZONTAL | 0xff, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x220
 };
 
-const u16 sPolypOAM_Idle_Frame1[13] = {
+const u16 sPolypOam_Idle_Frame1[13] = {
     0x4,
     OBJ_SHAPE_HORIZONTAL | 0xf7, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_HORIZONTAL | 0xf7, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x204,
@@ -26,7 +26,7 @@ const u16 sPolypOAM_Idle_Frame1[13] = {
     OBJ_SHAPE_HORIZONTAL | 0xff, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x220
 };
 
-const u16 sPolypOAM_Idle_Frame2[13] = {
+const u16 sPolypOam_Idle_Frame2[13] = {
     0x4,
     OBJ_SHAPE_HORIZONTAL | 0xf7, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_HORIZONTAL | 0xff, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x220,
@@ -34,7 +34,7 @@ const u16 sPolypOAM_Idle_Frame2[13] = {
     OBJ_SHAPE_HORIZONTAL | 0xf5, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x224
 };
 
-const u16 sPolypOAM_Warning_Frame3[13] = {
+const u16 sPolypOam_Warning_Frame3[13] = {
     0x4,
     OBJ_SHAPE_HORIZONTAL | 0xf9, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_HORIZONTAL | 0x1, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x220,
@@ -42,7 +42,7 @@ const u16 sPolypOAM_Warning_Frame3[13] = {
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x224
 }; 
 
-const u16 sPolypOAM_Warning_Frame2[13] = {
+const u16 sPolypOam_Warning_Frame2[13] = {
     0x4,
     OBJ_SHAPE_HORIZONTAL | 0xf9, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_HORIZONTAL | 0x1, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x220,
@@ -50,7 +50,7 @@ const u16 sPolypOAM_Warning_Frame2[13] = {
     OBJ_SHAPE_HORIZONTAL | 0xf7, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x224
 };
 
-const u16 sPolypOAM_Warning_Frame1[13] = {
+const u16 sPolypOam_Warning_Frame1[13] = {
     0x4,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_HORIZONTAL | 0x0, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x220,
@@ -58,7 +58,7 @@ const u16 sPolypOAM_Warning_Frame1[13] = {
     OBJ_SHAPE_HORIZONTAL | 0xf5, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x224
 };
 
-const u16 sPolypOAM_Warning_Frame0[13] = {
+const u16 sPolypOam_Warning_Frame0[13] = {
     0x4,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_HORIZONTAL | 0x0, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x220,
@@ -66,7 +66,7 @@ const u16 sPolypOAM_Warning_Frame0[13] = {
     OBJ_SHAPE_HORIZONTAL | 0xf4, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x224
 };
 
-const u16 sPolypOAM_AfterSpitting_Frame2[16] = {
+const u16 sPolypOam_AfterSpitting_Frame2[16] = {
     0x5,
     OBJ_SHAPE_HORIZONTAL | 0xf8, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_HORIZONTAL | 0x0, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x220,
@@ -75,153 +75,153 @@ const u16 sPolypOAM_AfterSpitting_Frame2[16] = {
     OBJ_SHAPE_HORIZONTAL | 0xf2, OBJ_SIZE_32x8 | 0x1f0, OBJ_SPRITE_OAM | 0x224
 };
 
-const u16 sPolypProjectileOAM_Right_Frame0[4] = {
+const u16 sPolypProjectileOam_Right_Frame0[4] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x210
 };
 
-const u16 sPolypProjectileOAM_Right_Frame1[4] = {
+const u16 sPolypProjectileOam_Right_Frame1[4] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x212
 };
 
-const u16 sPolypProjectileOAM_Right_Frame2[4] = {
+const u16 sPolypProjectileOam_Right_Frame2[4] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x214
 };
 
-const u16 sPolypProjectileOAM_Right_Frame3[4] = {
+const u16 sPolypProjectileOam_Right_Frame3[4] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x216
 };
 
-const u16 sPolypProjectileOAM_Left_Frame0[4] = {
+const u16 sPolypProjectileOam_Left_Frame0[4] = {
     0x1,
     0xf8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x210
 };
 
-const u16 sPolypProjectileOAM_Left_Frame1[4] = {
+const u16 sPolypProjectileOam_Left_Frame1[4] = {
     0x1,
     0xf8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x212
 };
 
-const u16 sPolypProjectileOAM_Left_Frame2[4] = {
+const u16 sPolypProjectileOam_Left_Frame2[4] = {
     0x1,
     0xf8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x214
 };
 
-const u16 sPolypProjectileOAM_Left_Frame3[4] = {
+const u16 sPolypProjectileOam_Left_Frame3[4] = {
     0x1,
     0xf8, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x216
 };
 
-const u16 sPolypProjectileOAM_Exploding_Frame0[4] = {
+const u16 sPolypProjectileOam_Exploding_Frame0[4] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x218
 };
 
-const u16 sPolypProjectileOAM_Exploding_Frame1[4] = {
+const u16 sPolypProjectileOam_Exploding_Frame1[4] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21a
 };
 
-const u16 sPolypProjectileOAM_Exploding_Frame2[4] = {
+const u16 sPolypProjectileOam_Exploding_Frame2[4] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21c
 };
 
-const u16 sPolypProjectileOAM_Exploding_Frame3[4] = {
+const u16 sPolypProjectileOam_Exploding_Frame3[4] = {
     0x1,
     0xf8, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x21e
 };
 
-const struct FrameData sPolypOAM_Idle[5] = {
-    sPolypOAM_Idle_Frame0,
+const struct FrameData sPolypOam_Idle[5] = {
+    sPolypOam_Idle_Frame0,
     0x10,
-    sPolypOAM_Idle_Frame1,
+    sPolypOam_Idle_Frame1,
     0x10,
-    sPolypOAM_Idle_Frame2,
+    sPolypOam_Idle_Frame2,
     0x10,
-    sPolypOAM_Idle_Frame1,
+    sPolypOam_Idle_Frame1,
     0x10,
     NULL,
     0x0
 };
 
-const struct FrameData sPolypOAM_Warning[5] = {
-    sPolypOAM_Warning_Frame0,
+const struct FrameData sPolypOam_Warning[5] = {
+    sPolypOam_Warning_Frame0,
     0x2,
-    sPolypOAM_Warning_Frame1,
+    sPolypOam_Warning_Frame1,
     0x2,
-    sPolypOAM_Warning_Frame2,
+    sPolypOam_Warning_Frame2,
     0x2,
-    sPolypOAM_Warning_Frame3,
+    sPolypOam_Warning_Frame3,
     0x2,
     NULL,
     0x0
 };
 
-const struct FrameData sPolypOAM_Spitting[2] = {
-    sPolypOAM_Warning_Frame2,
+const struct FrameData sPolypOam_Spitting[2] = {
+    sPolypOam_Warning_Frame2,
     0xFF,
     NULL,
     0x0
 };
 
-const struct FrameData sPolypOAM_AfterSpitting[4] = {
-    sPolypOAM_Warning_Frame1,
+const struct FrameData sPolypOam_AfterSpitting[4] = {
+    sPolypOam_Warning_Frame1,
     0x2,
-    sPolypOAM_Warning_Frame0,
+    sPolypOam_Warning_Frame0,
     0x2,
-    sPolypOAM_AfterSpitting_Frame2,
-    0x2,
-    NULL,
-    0x0
-};
-
-const struct FrameData sPolypOAM_Retracting[3] = {
-    sPolypOAM_Warning_Frame0,
-    0x2,
-    sPolypOAM_Warning_Frame1,
+    sPolypOam_AfterSpitting_Frame2,
     0x2,
     NULL,
     0x0
 };
 
-const struct FrameData sPolypProjectileOAM_Right[5] = {
-    sPolypProjectileOAM_Right_Frame0,
+const struct FrameData sPolypOam_Retracting[3] = {
+    sPolypOam_Warning_Frame0,
+    0x2,
+    sPolypOam_Warning_Frame1,
+    0x2,
+    NULL,
+    0x0
+};
+
+const struct FrameData sPolypProjectileOam_Right[5] = {
+    sPolypProjectileOam_Right_Frame0,
     0x6,
-    sPolypProjectileOAM_Right_Frame1,
+    sPolypProjectileOam_Right_Frame1,
     0x6,
-    sPolypProjectileOAM_Right_Frame2,
+    sPolypProjectileOam_Right_Frame2,
     0x6,
-    sPolypProjectileOAM_Right_Frame3,
+    sPolypProjectileOam_Right_Frame3,
     0x6,
     NULL,
     0x0
 };
 
-const struct FrameData sPolypProjectileOAM_Left[5] = {
-    sPolypProjectileOAM_Left_Frame0,
+const struct FrameData sPolypProjectileOam_Left[5] = {
+    sPolypProjectileOam_Left_Frame0,
     0x6,
-    sPolypProjectileOAM_Left_Frame1,
+    sPolypProjectileOam_Left_Frame1,
     0x6,
-    sPolypProjectileOAM_Left_Frame2,
+    sPolypProjectileOam_Left_Frame2,
     0x6,
-    sPolypProjectileOAM_Left_Frame3,
+    sPolypProjectileOam_Left_Frame3,
     0x6,
     NULL,
     0x0
 };
 
-const struct FrameData sPolypProjectileOAM_Exploding[5] = {
-    sPolypProjectileOAM_Exploding_Frame0,
+const struct FrameData sPolypProjectileOam_Exploding[5] = {
+    sPolypProjectileOam_Exploding_Frame0,
     0x4,
-    sPolypProjectileOAM_Exploding_Frame1,
+    sPolypProjectileOam_Exploding_Frame1,
     0x4,
-    sPolypProjectileOAM_Exploding_Frame2,
+    sPolypProjectileOam_Exploding_Frame2,
     0x4,
-    sPolypProjectileOAM_Exploding_Frame3,
+    sPolypProjectileOam_Exploding_Frame3,
     0x4,
     NULL,
     0x0
