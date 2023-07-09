@@ -82,7 +82,7 @@ void SpriteUtilUpdateSubSprite2Anim(void);
 void SpriteUtilSyncCurrentSpritePositionWithSubSpriteData2PositionAndOAM(void);
 void SpriteUtilUpdateSubSpriteAnim(struct SubSpriteData* pSub);
 void SpriteUtilSyncCurrentSpritePositionWithSubSpritePosition(struct SubSpriteData* pSub);
-void SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOAM(struct SubSpriteData* pSub);
+void SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOam(struct SubSpriteData* pSub);
 u8 SpriteCheckCollidingWithSamusDrawing(void);
 void SpriteUtilSetSplashEffect(u16 yPosition, u16 xPosition, u8 size);
 u32 SpriteUtilCheckOutOfRoomEffect(u16 oldY, u16 yPosition, u16 xPosition, u8 size);

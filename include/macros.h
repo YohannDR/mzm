@@ -49,6 +49,15 @@
 
 #define GET_PSPRITE_HEALTH(id) sPrimarySpriteStats[(id)][0]
 #define GET_SSPRITE_HEALTH(id) sSecondarySpriteStats[(id)][0]
+#define BLOCK_TO_DRAW_DISTANCE(block) ((block) / 4)
+#define SPRITE_HAS_ISFT(sprite) ((sprite).invincibilityStunFlashTimer & 0x7F)
+#define SPRITE_CLEAR_ISFT(sprite) ((sprite).invincibilityStunFlashTimer &= 0x80)
+#define SPRITE_SET_ISFT(sprite, value) ((sprite).invincibilityStunFlashTimer |= (value))
+#define SPRITE_CLEAR_AND_SET_ISFT(sprite, value)\
+{                                               \
+    SPRITE_CLEAR_ISFT(sprite);                  \
+    SPRITE_SET_ISFT(sprite, value);             \
+}
 
 #define INCBIN(...) {0}
 #define INCBIN_U8   INCBIN

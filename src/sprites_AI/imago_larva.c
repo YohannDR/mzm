@@ -18,7 +18,7 @@
 /**
  * @brief 259a0 | 84 | Synchronize the sub sprites of an Imago larva
  * 
- * @param pSub 
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaSyncSubSprites(struct SubSpriteData* pSub)
 {
@@ -31,8 +31,8 @@ void ImagoLarvaSyncSubSprites(struct SubSpriteData* pSub)
     if (gCurrentSprite.pOam != sImagoLarvaFrameDataPointers[offset])
     {
         gCurrentSprite.pOam = sImagoLarvaFrameDataPointers[offset];
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
     }
 
     gCurrentSprite.yPosition = pSub->yPosition + pData[gCurrentSprite.roomSlot][1];
@@ -52,28 +52,30 @@ void ImagoLarvaUpdatePalette(void)
     u8 timer;
     u8 timerLimit;
     
-    if (!(gCurrentSprite.invincibilityStunFlashTimer & 0x7F))
-    {
-        gCurrentSprite.workVariable2++;
-        timer = gCurrentSprite.workVariable2;
-        timerLimit = 0xA;
-        if (timer >= timerLimit)
-        {
-            gCurrentSprite.workVariable2 = 0x0;
-            gCurrentSprite.arrayOffset++;
-            if (gCurrentSprite.arrayOffset > 0x3)
-                gCurrentSprite.arrayOffset = 0x0;
-        }
+    if (SPRITE_HAS_ISFT(gCurrentSprite))
+        return;
 
-        gCurrentSprite.absolutePaletteRow = sImagoLarvaPaletteRows[gCurrentSprite.arrayOffset];
-        gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
+    gCurrentSprite.workVariable2++;
+    timer = gCurrentSprite.workVariable2;
+    timerLimit = 10;
+
+    if (timer >= timerLimit)
+    {
+        gCurrentSprite.workVariable2 = 0;
+        gCurrentSprite.arrayOffset++;
+
+        if (gCurrentSprite.arrayOffset >= ARRAY_SIZE(sImagoLarvaPaletteRows))
+            gCurrentSprite.arrayOffset = 0;
     }
+
+    gCurrentSprite.absolutePaletteRow = sImagoLarvaPaletteRows[gCurrentSprite.arrayOffset];
+    gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
 }
 
 /**
  * @brief 25a80 | 194 | Initializes an Imago larva sprite
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaInit(struct SubSpriteData* pSub)
 {
@@ -87,93 +89,103 @@ void ImagoLarvaInit(struct SubSpriteData* pSub)
     u16 offset;
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_CATERPILLAR_KILLED))
-        gCurrentSprite.status = 0x0;
+    {
+        // Already killed
+        gCurrentSprite.status = 0;
+        return;
+    }
+
+    gCurrentSprite.yPosition += PIXEL_SIZE * 2;
+
+    pSub->yPosition = gCurrentSprite.yPosition;
+    pSub->xPosition = gCurrentSprite.xPosition;
+
+    yPosition = pSub->yPosition;
+    xPosition = pSub->xPosition;
+    gCurrentSprite.xPositionSpawn = xPosition;
+
+    spriteID = gCurrentSprite.spriteID;
+    if (spriteID == PSPRITE_IMAGO_LARVA_LEFT)
+    {
+        // Left larva
+        gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
+        gCurrentSprite.hitboxLeftOffset = -IMAGO_LARVA_TAIL_HITBOX;
+        gCurrentSprite.hitboxRightOffset = IMAGO_LARVA_HEAD_HITBOX;
+        gCurrentSprite.pose = IMAGO_LARVA_POSE_IDLE;
+
+        // Lock doors
+        gDoorUnlockTimer = 1;
+
+        // Play fight music
+        PlayMusic(MUSIC_CATTERPILLARS_BATTLE_2, 0);
+    }
     else
     {
-        gCurrentSprite.yPosition += 0x8;
-        pSub->yPosition = gCurrentSprite.yPosition;
-        pSub->xPosition = gCurrentSprite.xPosition;
+        // Right larva
+        gCurrentSprite.hitboxLeftOffset = -IMAGO_LARVA_HEAD_HITBOX;
+        gCurrentSprite.hitboxRightOffset = IMAGO_LARVA_TAIL_HITBOX;
 
-        yPosition = pSub->yPosition;
-        xPosition = pSub->xPosition;
-
-        gCurrentSprite.xPositionSpawn = xPosition;
-        spriteID = gCurrentSprite.spriteID;
-        if (spriteID == PSPRITE_IMAGO_LARVA_LEFT)
-        {
-            // Left larva
-            gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-            gCurrentSprite.hitboxLeftOffset = -0x78;
-            gCurrentSprite.hitboxRightOffset = 0x58;
-            gCurrentSprite.pose = IMAGO_LARVA_POSE_IDLE;
-            gDoorUnlockTimer = 0x1;
-            PlayMusic(MUSIC_CATTERPILLARS_BATTLE_2, 0x0);
-        }
-        else
-        {
-            // Right larva
-            gCurrentSprite.hitboxLeftOffset = -0x58;
-            gCurrentSprite.hitboxRightOffset = 0x78;
-
-            // Move to cocoon
-            pSub->xPosition += BLOCK_SIZE * 11;
-            xPosition += BLOCK_SIZE * 11;
-            gCurrentSprite.pose = IMAGO_LARVA_POSE_DETECT_SAMUS;
-        }
-
-        gCurrentSprite.drawDistanceTopOffset = 0x28;
-        gCurrentSprite.drawDistanceBottomOffset = 0x28;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
-
-        gCurrentSprite.hitboxTopOffset = -0x30;
-        gCurrentSprite.hitboxBottomOffset = 0x0;
-
-        gCurrentSprite.workVariable2 = 0x0;
-        gCurrentSprite.arrayOffset = 0x0;
-        gCurrentSprite.timer = 0x0;
-        gCurrentSprite.workVariable = 0x0;
-        gCurrentSprite.yPositionSpawn = 0x0;
-        gCurrentSprite.samusCollision = SSC_NONE;
-
-        health = GET_PSPRITE_HEALTH(spriteID);
-        gCurrentSprite.health = health;
-        pSub->health = health;
-
-        pSub->pMultiOam = sImagoLarvaMultiSpriteData_Idle;
-        pSub->animationDurationCounter = 0x0;
-        pSub->currentAnimationFrame = 0x0;
-
-        // Immune to retreating flag
-        pSub->workVariable2 = FALSE;
-        // Retreating counter
-        pSub->workVariable1 = 0x0;
-
-        gCurrentSprite.drawOrder = 0x6;
-        gCurrentSprite.frozenPaletteRowOffset = 0x2;
-        gCurrentSprite.roomSlot = IMAGO_LARVA_PART_LARVA;
-
-        gfxSlot = gCurrentSprite.spritesetGfxSlot;
-        ramSlot = gCurrentSprite.primarySpriteRamSlot;
-        status = gCurrentSprite.status & SPRITE_STATUS_XFLIP;
-
-        // Spawn secondaries
-        SpriteSpawnSecondary(SSPRITE_IMAGO_LARVA_PART, IMAGO_LARVA_PART_CLAWS, gfxSlot, ramSlot, yPosition, xPosition, status);
-        SpriteSpawnSecondary(SSPRITE_IMAGO_LARVA_PART, IMAGO_LARVA_PART_RIGHT_DOT, gfxSlot, ramSlot, yPosition, xPosition, status);
-        SpriteSpawnSecondary(SSPRITE_IMAGO_LARVA_PART, IMAGO_LARVA_PART_MIDDLE_DOT, gfxSlot, ramSlot, yPosition, xPosition, status);
-        SpriteSpawnSecondary(SSPRITE_IMAGO_LARVA_PART, IMAGO_LARVA_PART_LEFT_DOT, gfxSlot, ramSlot, yPosition, xPosition, status);
-        SpriteSpawnSecondary(SSPRITE_IMAGO_LARVA_PART, IMAGO_LARVA_PART_SHELL, gfxSlot, ramSlot, yPosition, xPosition, status);
+        // Move to cocoon
+        pSub->xPosition += BLOCK_SIZE * 11;
+        xPosition += BLOCK_SIZE * 11;
+        gCurrentSprite.pose = IMAGO_LARVA_POSE_DETECT_SAMUS;
     }
+
+    gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE + HALF_BLOCK_SIZE);
+
+    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE - QUARTER_BLOCK_SIZE);
+    gCurrentSprite.hitboxBottomOffset = 0;
+
+    gCurrentSprite.workVariable2 = 0;
+    gCurrentSprite.arrayOffset = 0;
+    gCurrentSprite.timer = 0;
+    gCurrentSprite.workVariable = 0;
+    gCurrentSprite.yPositionSpawn = 0;
+    gCurrentSprite.samusCollision = SSC_NONE;
+
+    // Set spawn health
+    health = GET_PSPRITE_HEALTH(spriteID);
+    gCurrentSprite.health = health;
+    pSub->health = health;
+
+    pSub->pMultiOam = sImagoLarvaMultiSpriteData_Idle;
+    pSub->animationDurationCounter = 0;
+    pSub->currentAnimationFrame = 0;
+
+    // Immune to retreating flag
+    pSub->workVariable2 = FALSE;
+
+    // Retreating counter
+    pSub->workVariable1 = 0;
+
+    gCurrentSprite.drawOrder = 6;
+    gCurrentSprite.frozenPaletteRowOffset = 2;
+    gCurrentSprite.roomSlot = IMAGO_LARVA_PART_LARVA;
+
+    gfxSlot = gCurrentSprite.spritesetGfxSlot;
+    ramSlot = gCurrentSprite.primarySpriteRamSlot;
+    status = gCurrentSprite.status & SPRITE_STATUS_XFLIP;
+
+    // Spawn secondaries
+    SpriteSpawnSecondary(SSPRITE_IMAGO_LARVA_PART, IMAGO_LARVA_PART_CLAWS, gfxSlot, ramSlot, yPosition, xPosition, status);
+    SpriteSpawnSecondary(SSPRITE_IMAGO_LARVA_PART, IMAGO_LARVA_PART_RIGHT_DOT, gfxSlot, ramSlot, yPosition, xPosition, status);
+    SpriteSpawnSecondary(SSPRITE_IMAGO_LARVA_PART, IMAGO_LARVA_PART_MIDDLE_DOT, gfxSlot, ramSlot, yPosition, xPosition, status);
+    SpriteSpawnSecondary(SSPRITE_IMAGO_LARVA_PART, IMAGO_LARVA_PART_LEFT_DOT, gfxSlot, ramSlot, yPosition, xPosition, status);
+    SpriteSpawnSecondary(SSPRITE_IMAGO_LARVA_PART, IMAGO_LARVA_PART_SHELL, gfxSlot, ramSlot, yPosition, xPosition, status);
 }
 
 /**
  * @brief 25c14 | 38 | Checks if samus is in range for an Imago larva to attack
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaDetectSamus(struct SubSpriteData* pSub)
 {
     ImagoLarvaUpdatePalette();
 
+    // On the left, with a 5 blocks, distance
     if (pSub->xPosition > gSamusData.xPosition && pSub->xPosition - gSamusData.xPosition < BLOCK_SIZE * 5)
         gCurrentSprite.pose = IMAGO_LARVA_POSE_WARNING_INIT;
 }
@@ -181,13 +193,13 @@ void ImagoLarvaDetectSamus(struct SubSpriteData* pSub)
 /**
  * @brief 25c4c | 1c | Initializes an Imago larva to be idle
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaIdleInit(struct SubSpriteData* pSub)
 {
     pSub->pMultiOam = sImagoLarvaMultiSpriteData_Idle;
-    pSub->animationDurationCounter = 0x0;
-    pSub->currentAnimationFrame = 0x0;
+    pSub->animationDurationCounter = 0;
+    pSub->currentAnimationFrame = 0;
 
     gCurrentSprite.pose = IMAGO_LARVA_POSE_IDLE;
 }
@@ -195,7 +207,7 @@ void ImagoLarvaIdleInit(struct SubSpriteData* pSub)
 /**
  * @brief 25c68 | c | Handles an Imago larva being idle
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaIdle(struct SubSpriteData* pSub)
 {
@@ -205,15 +217,15 @@ void ImagoLarvaIdle(struct SubSpriteData* pSub)
 /**
  * @brief 25c74 | 28 | Initializes an Imago larva to be retreating
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaRetreatingInit(struct SubSpriteData* pSub)
 {
     if (pSub->pMultiOam != sImagoLarvaMultiSpriteData_Retreating)
     {
         pSub->pMultiOam = sImagoLarvaMultiSpriteData_Retreating;
-        pSub->animationDurationCounter = 0x0;
-        pSub->currentAnimationFrame = 0x0;
+        pSub->animationDurationCounter = 0;
+        pSub->currentAnimationFrame = 0;
     }
 
     gCurrentSprite.pose = IMAGO_LARVA_POSE_RETREATING;
@@ -222,13 +234,13 @@ void ImagoLarvaRetreatingInit(struct SubSpriteData* pSub)
 /**
  * @brief 25c9c | 68 | Handles an Imago larva retreating
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaRetreating(struct SubSpriteData* pSub)
 {
     ImagoLarvaUpdatePalette();
 
-    if (gCurrentSprite.timer-- != 0x0)
+    if (gCurrentSprite.timer-- != 0)
     {
         if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
         {
@@ -244,19 +256,21 @@ void ImagoLarvaRetreating(struct SubSpriteData* pSub)
         }
     }
     else
+    {
         gCurrentSprite.pose = IMAGO_LARVA_POSE_STUNNED_INIT;
+    }
 }
 
 /**
  * @brief 25d04 | 1c | Initializes an Imago larva sprite to be stunned
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaStunnedInit(struct SubSpriteData* pSub)
 {
     pSub->pMultiOam = sImagoLarvaMultiSpriteData_Idle;
-    pSub->animationDurationCounter = 0x0;
-    pSub->currentAnimationFrame = 0x0;
+    pSub->animationDurationCounter = 0;
+    pSub->currentAnimationFrame = 0;
 
     gCurrentSprite.pose = IMAGO_LARVA_POSE_STUNNED;
 }
@@ -264,30 +278,30 @@ void ImagoLarvaStunnedInit(struct SubSpriteData* pSub)
 /**
  * @brief 25d20 | 28 | Handles an Imago larva being stunned
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaStunned(struct SubSpriteData* pSub)
 {
     ImagoLarvaUpdatePalette();
 
-    if (gCurrentSprite.workVariable-- == 0x0)
+    if (gCurrentSprite.workVariable-- == 0)
         gCurrentSprite.pose = IMAGO_LARVA_POSE_WARNING_INIT;
 }
 
 /**
  * @brief 25d48 | 34 | Initializes an Imago larva to do the warning
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaWarningInit(struct SubSpriteData* pSub)
 {
     pSub->pMultiOam = sImagoLarvaMultiSpriteData_Warning;
-    pSub->animationDurationCounter = 0x0;
-    pSub->currentAnimationFrame = 0x0;
+    pSub->animationDurationCounter = 0;
+    pSub->currentAnimationFrame = 0;
 
     gCurrentSprite.pose = IMAGO_LARVA_POSE_WARNING;
-    gCurrentSprite.timer = 0x3C;
-    pSub->workVariable1 = 0x0;
+    gCurrentSprite.timer = 60;
+    pSub->workVariable1 = 0;
 
     SoundPlay(0xAD);
 }
@@ -295,7 +309,7 @@ void ImagoLarvaWarningInit(struct SubSpriteData* pSub)
 /**
  * @brief 25d7c | 24 | Checks if the warning animation has ended
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaCheckWarningAnimEnded(struct SubSpriteData* pSub)
 {
@@ -308,13 +322,13 @@ void ImagoLarvaCheckWarningAnimEnded(struct SubSpriteData* pSub)
 /**
  * @brief 25da0 | 28 | Initializes an Imago larva to be attacking
  * 
- * @param pSub 
+ * @param pSub Sub sprite data pointer 
  */
 void ImagoLarvaAttackingInit(struct SubSpriteData* pSub)
 {
     pSub->pMultiOam = sImagoLarvaMultiSpriteData_Attacking;
-    pSub->animationDurationCounter = 0x0;
-    pSub->currentAnimationFrame = 0x0;
+    pSub->animationDurationCounter = 0;
+    pSub->currentAnimationFrame = 0;
 
     gCurrentSprite.pose = IMAGO_LARVA_POSE_ATTACKING;
     SoundPlay(0xAE);
@@ -323,7 +337,7 @@ void ImagoLarvaAttackingInit(struct SubSpriteData* pSub)
 /**
  * @brief 25dc8 | 34 | Handles an Imago larva attacking
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaAttacking(struct SubSpriteData* pSub)
 {
@@ -331,24 +345,24 @@ void ImagoLarvaAttacking(struct SubSpriteData* pSub)
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
     {
-        pSub->xPosition += 0x8;
+        pSub->xPosition += PIXEL_SIZE * 2;
         if (pSub->xPosition >= gCurrentSprite.xPositionSpawn)
         {
             // Reached spawn position, set idle
             pSub->xPosition = gCurrentSprite.xPositionSpawn;
             gCurrentSprite.pose = IMAGO_LARVA_POSE_IDLE_INIT;
-            SoundFade(0xAE, 0xA);
+            SoundFade(0xAE, 10);
         }
     }
     else
     {
-        pSub->xPosition -= 0x8;
+        pSub->xPosition -= PIXEL_SIZE * 2;
         if (pSub->xPosition <= gCurrentSprite.xPositionSpawn)
         {
             // Reached spawn position, set idle
             pSub->xPosition = gCurrentSprite.xPositionSpawn;
             gCurrentSprite.pose = IMAGO_LARVA_POSE_IDLE_INIT;
-            SoundFade(0xAE, 0xA);
+            SoundFade(0xAE, 10);
         }
     }
 }
@@ -356,77 +370,83 @@ void ImagoLarvaAttacking(struct SubSpriteData* pSub)
 /**
  * @brief 25e2c | 38 | Initializes an Imago larva to be taking damage
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaTakingDamageInit(struct SubSpriteData* pSub)
 {
     pSub->pMultiOam = sImagoLarvaMultiSpriteData_TakingDamage;
-    pSub->animationDurationCounter = 0x0;
-    pSub->currentAnimationFrame = 0x0;
+    pSub->animationDurationCounter = 0;
+    pSub->currentAnimationFrame = 0;
 
     gCurrentSprite.pose = IMAGO_LARVA_POSE_TAKING_DAMAGE;
-    gCurrentSprite.timer = 0x2F;
-    pSub->workVariable1 = 0x0;
 
-    SoundFade(0xAE, 0xA);
+    // Delay before it automatically attacks
+    gCurrentSprite.timer = 47;
+    pSub->workVariable1 = 0;
+
+    SoundFade(0xAE, 10);
 }
 
 /**
  * @brief 25e64 | 24 | Handles an Imago larva taking damage 
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaTakingDamage(struct SubSpriteData* pSub)
 {
     gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer == 0)
         gCurrentSprite.pose = IMAGO_LARVA_POSE_ATTACKING_INIT;
 }
 
 /**
  * @brief 25e88 | 64 | Initializes an Imago larva to be dying
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaDyingInit(struct SubSpriteData* pSub)
 {
     pSub->pMultiOam = sImagoLarvaMultiSpriteData_Dying;
-    pSub->animationDurationCounter = 0x0;
-    pSub->currentAnimationFrame = 0x0;
+    pSub->animationDurationCounter = 0;
+    pSub->currentAnimationFrame = 0;
 
     gCurrentSprite.pose = IMAGO_LARVA_POSE_DYING;
-    gCurrentSprite.timer = 0x64;
-    gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
-    gCurrentSprite.invincibilityStunFlashTimer |= gCurrentSprite.timer;
-    gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-    gCurrentSprite.health = 0x1;
 
-    SoundFade(0xAE, 0xA);
+    // Death animation lasts for 100 frames
+    gCurrentSprite.timer = 100;
+    SPRITE_CLEAR_AND_SET_ISFT(gCurrentSprite, gCurrentSprite.timer);
+
+    gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
+    gCurrentSprite.health = 1;
+
+    SoundFade(0xAE, 10);
     SoundPlay(0xB0);
 
     if (gCurrentSprite.spriteID == PSPRITE_IMAGO_LARVA_RIGHT)
-        FadeMusic(0xA);
+        FadeMusic(10);
 }
 
 /**
  * @brief 25eec | 28 | Handles an Imago larva dying
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaDying(struct SubSpriteData* pSub)
 {
     gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer == 0)
     {
         gCurrentSprite.pose = IMAGO_LARVA_POSE_DEAD;
-        gCurrentSprite.timer = 0x2;
+
+        // Delay before actual death
+        gCurrentSprite.timer = 2;
     }
 }
 
 /**
  * @brief 25f14 | 5c | Kills the Imago larva
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaDeath(struct SubSpriteData* pSub)
 {
@@ -434,47 +454,52 @@ void ImagoLarvaDeath(struct SubSpriteData* pSub)
     
     gCurrentSprite.timer--;
 
-    if (gCurrentSprite.timer == 0x0)
-    {
-        if (gCurrentSprite.spriteID == PSPRITE_IMAGO_LARVA_RIGHT)
-        {
-            EventFunction(EVENT_ACTION_SETTING, EVENT_CATERPILLAR_KILLED);
-            gDoorUnlockTimer = -0x3C;
-            PlayMusic(0xB, 0x0); // Boss killed
-        }
+    if (gCurrentSprite.timer != 0)
+        return;
 
-        yPosition = gCurrentSprite.yPosition - 0x24;
-        SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, gCurrentSprite.xPosition, FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+    if (gCurrentSprite.spriteID == PSPRITE_IMAGO_LARVA_RIGHT)
+    {
+        // Set event
+        EventFunction(EVENT_ACTION_SETTING, EVENT_CATERPILLAR_KILLED);
+
+        // Unlock doors
+        gDoorUnlockTimer = -60;
+
+        PlayMusic(MUSIC_BOSS_KILLED, 0);
     }
+
+    // Kill sprite
+    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE + 4);
+    SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, gCurrentSprite.xPosition, FALSE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
 }
 
 /**
  * @brief 25f70 | 1cc | Initializes an Imago larva part sprite
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaPartInit(struct SubSpriteData* pSub)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.health = 0x1;
+    gCurrentSprite.health = 1;
 
     switch (gCurrentSprite.roomSlot)
     {
         case IMAGO_LARVA_PART_RIGHT_DOT:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
+            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
             gCurrentSprite.pOam = sImagoLarvaPartOAM_RightDotVisible;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_DOT_IDLE;
@@ -483,18 +508,18 @@ void ImagoLarvaPartInit(struct SubSpriteData* pSub)
         case IMAGO_LARVA_PART_MIDDLE_DOT:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
+            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
             gCurrentSprite.pOam = sImagoLarvaPartOAM_MiddleDotVisible;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_DOT_IDLE;
@@ -503,74 +528,74 @@ void ImagoLarvaPartInit(struct SubSpriteData* pSub)
         case IMAGO_LARVA_PART_LEFT_DOT:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
+            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
             gCurrentSprite.pOam = sImagoLarvaPartOAM_LeftDotVisible;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_DOT_IDLE;
             break;
 
         case IMAGO_LARVA_PART_SHELL:
-            gCurrentSprite.drawDistanceTopOffset = 0x30;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x38;
+            gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 3);
+            gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(0);
+            gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -0xB0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
+            gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 3 - QUARTER_BLOCK_SIZE);
+            gCurrentSprite.hitboxBottomOffset = 0;
 
             if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
             {
-                gCurrentSprite.hitboxLeftOffset = -0xA8;
-                gCurrentSprite.hitboxRightOffset = 0x98;
+                gCurrentSprite.hitboxLeftOffset = -IMAGO_LARVA_SHELL_TAIL_HITBOX;
+                gCurrentSprite.hitboxRightOffset = IMAGO_LARVA_SHELL_HEAD_HITBOX;
             }
             else
             {
-                gCurrentSprite.hitboxLeftOffset = -0x98;
-                gCurrentSprite.hitboxRightOffset=  0xA8;
+                gCurrentSprite.hitboxLeftOffset = -IMAGO_LARVA_SHELL_HEAD_HITBOX;
+                gCurrentSprite.hitboxRightOffset = IMAGO_LARVA_SHELL_TAIL_HITBOX;
             }
 
             gCurrentSprite.samusCollision = SSC_KRAID;
-            gCurrentSprite.drawOrder = 0x5;
+            gCurrentSprite.drawOrder = 5;
             gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_SHELL_IDLE;
-            gCurrentSprite.health = 0xFF;
+            gCurrentSprite.health = UCHAR_MAX;
             break;
 
         case IMAGO_LARVA_PART_CLAWS:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x18;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x28;
+            gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(0);
+            gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
+            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
             gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.drawOrder = 0x3;
+            gCurrentSprite.drawOrder = 3;
             gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_CLAWS_IDLE;
             break;
 
         default:
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
     }
 }
 
 /**
  * @brief 2613c | 180 | Handles an Imago larva shell being idle
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub)
 {
@@ -579,81 +604,89 @@ void ImagoLarvaPartShellIdle(struct SubSpriteData* pSub)
     u16 health;
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
+
+    // Check play idle sound
     if (gSpriteData[ramSlot].pose == IMAGO_LARVA_POSE_IDLE ||
         gSpriteData[ramSlot].pose == IMAGO_LARVA_POSE_STUNNED ||
         gSpriteData[ramSlot].pose == IMAGO_LARVA_POSE_DETECT_SAMUS)
     {
-        if (gCurrentSprite.currentAnimationFrame & 0x1 && gCurrentSprite.animationDurationCounter == 0x1 &&
-            gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-            SoundPlay(0xAA);
+        if (gCurrentSprite.currentAnimationFrame & 1 && gCurrentSprite.animationDurationCounter == 1)
+        {
+            if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+                SoundPlay(0xAA);
+        }
     }
 
     if (gSpriteData[ramSlot].spriteID == PSPRITE_IMAGO_LARVA_LEFT)
     {
+        // If samus is below the left larva, slightly extend its hitbox downwards
+        // This allows for the larva to be hit with precise missile shots
         if (pSub->xPosition - (BLOCK_SIZE * 3 + QUARTER_BLOCK_SIZE) < gSamusData.xPosition &&
             pSub->xPosition + (BLOCK_SIZE + HALF_BLOCK_SIZE) > gSamusData.xPosition)
-            gCurrentSprite.hitboxBottomOffset = -0x20;
+            gCurrentSprite.hitboxBottomOffset = -HALF_BLOCK_SIZE;
         else
-            gCurrentSprite.hitboxBottomOffset = 0x0;
+            gCurrentSprite.hitboxBottomOffset = 0;
 
-        if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
+        if (SPRITE_HAS_ISFT(gCurrentSprite))
         {
             gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
-            gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
-            gCurrentSprite.health = 0xFF;
+            SPRITE_CLEAR_ISFT(gCurrentSprite);
+            gCurrentSprite.health = UCHAR_MAX;
         }
     }
     else if (pSub->xPosition < gSamusData.xPosition)
     {
-        if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
+        if (SPRITE_HAS_ISFT(gCurrentSprite))
         {
             gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
-            gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
-            gCurrentSprite.health = 0xFF;
+            SPRITE_CLEAR_ISFT(gCurrentSprite);
+            gCurrentSprite.health = UCHAR_MAX;
         }
     }
-    else if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
+    else if (SPRITE_HAS_ISFT(gCurrentSprite))
     {
         // Hit by something, check should retreat
         if (!pSub->workVariable2)
         {
             // Get speed
-            health = 0xFF - gCurrentSprite.health;
-            if (health >= 0x64)
-                speed = 0x8;
-            else if (health >= 0x14)
-                speed = 0x4;
+            health = UCHAR_MAX - gCurrentSprite.health;
+            if (health >= 100)
+                speed = 8;
+            else if (health >= 20)
+                speed = 4;
             else
-                speed = 0x1;
+                speed = 1;
 
-            if (speed > 0x1)
+            if (speed > 1)
                 SoundPlay(0xAC);
             else
                 SoundPlay(0xAB);
 
             // Update retreating counter
-            if (pSub->workVariable1 < 0x8)
+            if (pSub->workVariable1 < 8)
                 pSub->workVariable1++;
 
             // Set retracting
-            gSpriteData[ramSlot].timer = 0x10;
+            gSpriteData[ramSlot].timer = 16;
+
             // Set stunned delay
             gSpriteData[ramSlot].workVariable = pSub->workVariable1 * 8;
+
             // Set moving speed
             gSpriteData[ramSlot].yPositionSpawn = speed;
             gSpriteData[ramSlot].pose = IMAGO_LARVA_POSE_RETREATING_INIT;
         }
 
         gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
-        gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
-        gCurrentSprite.health = 0xFF;
+        SPRITE_CLEAR_ISFT(gCurrentSprite);
+        gCurrentSprite.health = UCHAR_MAX;
     }
 }
 
 /**
  * @brief 262bc | 60 | Handles an Imago larva dot being idle
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaPartDotIdle(struct SubSpriteData* pSub)
 {
@@ -670,9 +703,11 @@ void ImagoLarvaPartDotIdle(struct SubSpriteData* pSub)
         else
             gCurrentSprite.pOam = sImagoLarvaPartOAM_LeftDotDisappearing;
 
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
         gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_DOT_REMOVING;
+
         // Set immune to retreat flag
         pSub->workVariable2 = TRUE;
     }
@@ -681,12 +716,13 @@ void ImagoLarvaPartDotIdle(struct SubSpriteData* pSub)
 /**
  * @brief 2631c | 50 | Checks if the disappearing animation ended
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaPartDotCheckDisappearingAnimEnded(struct SubSpriteData* pSub)
 {
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
+        // Set visible, but won't be drawn
         if (gCurrentSprite.roomSlot == IMAGO_LARVA_PART_RIGHT_DOT)
             gCurrentSprite.pOam = sImagoLarvaPartOAM_RightDotVisible;
         else if (gCurrentSprite.roomSlot == IMAGO_LARVA_PART_MIDDLE_DOT)
@@ -694,9 +730,11 @@ void ImagoLarvaPartDotCheckDisappearingAnimEnded(struct SubSpriteData* pSub)
         else
             gCurrentSprite.pOam = sImagoLarvaPartOAM_LeftDotVisible;
 
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
         gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_DOT_CHECK_REAPPEAR;
+
         gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
     }
 }
@@ -704,7 +742,7 @@ void ImagoLarvaPartDotCheckDisappearingAnimEnded(struct SubSpriteData* pSub)
 /**
  * @brief 2636c | 68 | Checks if an Imago larva dot should re-appear
  * 
- * @param pSub 
+ * @param pSub Sub sprite data pointer 
  */
 void ImagoLarvaPartDotCheckShouldReappear(struct SubSpriteData* pSub)
 {
@@ -723,8 +761,10 @@ void ImagoLarvaPartDotCheckShouldReappear(struct SubSpriteData* pSub)
             gCurrentSprite.pOam = sImagoLarvaPartOAM_LeftDotAppearing;
 
         gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
         gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_DOT_REAPPEARING;
     }
 }
@@ -732,7 +772,7 @@ void ImagoLarvaPartDotCheckShouldReappear(struct SubSpriteData* pSub)
 /**
  * @brief 263d4 | 50 | Checks if the appearing animation ended
  * 
- * @param pSub 
+ * @param pSub Sub sprite data pointer 
  */
 void ImagoLarvaPartDotCheckAppearingAnimEnded(struct SubSpriteData* pSub)
 {
@@ -746,9 +786,11 @@ void ImagoLarvaPartDotCheckAppearingAnimEnded(struct SubSpriteData* pSub)
         else
             gCurrentSprite.pOam = sImagoLarvaPartOAM_LeftDotVisible;
 
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
         gCurrentSprite.pose = IMAGO_LARVA_PART_POSE_DOT_IDLE;
+
         // Remove immune to retreat flag
         pSub->workVariable2 = FALSE;
     }
@@ -757,7 +799,7 @@ void ImagoLarvaPartDotCheckAppearingAnimEnded(struct SubSpriteData* pSub)
 /**
  * @brief 26424 | d0 | Handles an Imago larva part dying
  * 
- * @param pSub Sub Sprite Data Pointer
+ * @param pSub Sub sprite data pointer
  */
 void ImagoLarvaPartDead(struct SubSpriteData* pSub)
 {
@@ -767,49 +809,52 @@ void ImagoLarvaPartDead(struct SubSpriteData* pSub)
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
-    if (gSpriteData[ramSlot].pose == IMAGO_LARVA_POSE_DEAD)
+    if (gSpriteData[ramSlot].pose != IMAGO_LARVA_POSE_DEAD)
+        return;
+
+    yPosition = gCurrentSprite.yPosition;
+    xPosition = gCurrentSprite.xPosition;
+
+    // Move accordingly X and Y position for the drop spawns
+    switch (gCurrentSprite.roomSlot)
     {
-        yPosition = gCurrentSprite.yPosition;
-        xPosition = gCurrentSprite.xPosition;
+        case IMAGO_LARVA_PART_RIGHT_DOT:
+            yPosition += QUARTER_BLOCK_SIZE;
 
-        switch (gCurrentSprite.roomSlot)
-        {
-            case IMAGO_LARVA_PART_RIGHT_DOT:
-                yPosition += QUARTER_BLOCK_SIZE;
-                if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-                    xPosition -= 0x48;
-                else
-                    xPosition += 0x48;
-                break;
+            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                xPosition -= BLOCK_SIZE + PIXEL_SIZE * 2;
+            else
+                xPosition += BLOCK_SIZE + PIXEL_SIZE * 2;
+            break;
 
-            case IMAGO_LARVA_PART_MIDDLE_DOT:
-                yPosition -= QUARTER_BLOCK_SIZE;
-                if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-                    xPosition -= HALF_BLOCK_SIZE;
-                else
-                    xPosition += HALF_BLOCK_SIZE;
-                break;
+        case IMAGO_LARVA_PART_MIDDLE_DOT:
+            yPosition -= QUARTER_BLOCK_SIZE;
+            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                xPosition -= HALF_BLOCK_SIZE;
+            else
+                xPosition += HALF_BLOCK_SIZE;
+            break;
 
-            case IMAGO_LARVA_PART_SHELL:
-                yPosition -= BLOCK_SIZE;
-                if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-                    xPosition -= 0x78;
-                else
-                    xPosition += 0x78;
-                break;
+        case IMAGO_LARVA_PART_SHELL:
+            yPosition -= BLOCK_SIZE;
 
-            case IMAGO_LARVA_PART_CLAWS:
-                gCurrentSprite.status = 0x0;
-                return;
+            if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                xPosition -= BLOCK_SIZE * 2 - PIXEL_SIZE * 2;
+            else
+                xPosition += BLOCK_SIZE * 2 - PIXEL_SIZE * 2;
+            break;
 
-            default:
-            case IMAGO_LARVA_PART_LEFT_DOT:
-                break;
-        }
+        case IMAGO_LARVA_PART_CLAWS:
+            gCurrentSprite.status = 0;
+            return;
 
-        // Kill sprite
-        SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, xPosition, FALSE, PE_SPRITE_EXPLOSION_BIG);
+        default:
+        case IMAGO_LARVA_PART_LEFT_DOT:
+            break;
     }
+
+    // Kill sprite
+    SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition, xPosition, FALSE, PE_SPRITE_EXPLOSION_BIG);
 }
 
 /**
@@ -826,9 +871,9 @@ void ImagoLarva(void)
     else
         pSub = &gSubSpriteData1;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
-    if ((u8)(gCurrentSprite.pose - 0x1) < IMAGO_LARVA_POSE_DYING_INIT - 1)
+    if ((u8)(gCurrentSprite.pose - 1) < IMAGO_LARVA_POSE_DYING_INIT - 1)
     {
         // Not dying
         // Check play damaged sound
@@ -849,7 +894,7 @@ void ImagoLarva(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case 0:
             ImagoLarvaInit(pSub);
             break;
 
@@ -910,7 +955,7 @@ void ImagoLarva(void)
             ImagoLarvaDeath(pSub);
     }
 
-    if (gCurrentSprite.health != 0x0)
+    if (gCurrentSprite.health != 0)
     {
         // Update sub sprites
         SpriteUtilUpdateSubSpriteAnim(pSub);
@@ -935,7 +980,7 @@ void ImagoLarvaPart(void)
     else
         pSub = &gSubSpriteData1;
 
-    if (gSpriteData[ramSlot].pose >= IMAGO_LARVA_POSE_DYING_INIT && gCurrentSprite.pose <= 0x61)
+    if (gSpriteData[ramSlot].pose >= IMAGO_LARVA_POSE_DYING_INIT && gCurrentSprite.pose <= IMAGO_LARVA_PART_POSE_CLAWS_IDLE + 1)
     {
         // Set dead
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
@@ -945,7 +990,7 @@ void ImagoLarvaPart(void)
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case 0:
             ImagoLarvaPartInit(pSub);
             break;
 
@@ -974,20 +1019,21 @@ void ImagoLarvaPart(void)
             break;
     }
 
-    if (gCurrentSprite.health != 0x0)
+    if (gCurrentSprite.health == 0)
+        return;
+
+    // Update sub sprites
+    if (gCurrentSprite.roomSlot == IMAGO_LARVA_PART_SHELL || gCurrentSprite.roomSlot == IMAGO_LARVA_PART_CLAWS)
     {
-        // Update sub sprites
-        if (gCurrentSprite.roomSlot == IMAGO_LARVA_PART_SHELL || gCurrentSprite.roomSlot == IMAGO_LARVA_PART_CLAWS)
-            ImagoLarvaSyncSubSprites(pSub);
-        else
-        {
-            if (gCurrentSprite.pose == IMAGO_LARVA_PART_POSE_DEAD)
-            {
-                gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-                ImagoLarvaSyncSubSprites(pSub);                
-            }
-            else
-                SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOAM(pSub);
-        }
+        ImagoLarvaSyncSubSprites(pSub);
+        return;
     }
+
+    if (gCurrentSprite.pose == IMAGO_LARVA_PART_POSE_DEAD)
+    {
+        gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
+        ImagoLarvaSyncSubSprites(pSub);                
+    }
+    else
+        SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOam(pSub);
 }

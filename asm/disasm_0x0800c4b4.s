@@ -9281,8 +9281,8 @@ SpriteUtilSyncCurrentSpritePositionWithSubSpritePosition: @ 0x080114e4
     .align 2, 0
 lbl_0801151c: .4byte gCurrentSprite
 
-    thumb_func_start SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOAM
-SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOAM: @ 0x08011520
+    thumb_func_start SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOam
+SpriteUtilSyncCurrentSpritePositionWithSubSpritePositionAndOam: @ 0x08011520
     push {r4, lr}
     adds r2, r0, #0
     ldrh r0, [r2, #4]
