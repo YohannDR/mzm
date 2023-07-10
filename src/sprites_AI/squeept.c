@@ -17,12 +17,12 @@
  */
 void SqueeptGoingUpInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -0x2C;
-    gCurrentSprite.hitboxBottomOffset = 0x20;
+    gCurrentSprite.hitboxTopOffset = -(HALF_BLOCK_SIZE + PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
 
-    gCurrentSprite.pOam = sSqueeptOAM_GoingUp;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.pOam = sSqueeptOam_GoingUp;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 }
 
 /**
@@ -32,11 +32,11 @@ void SqueeptGoingUpInit(void)
 void SqueeptTurningAroundInit(void)
 {
     gCurrentSprite.hitboxTopOffset = -QUARTER_BLOCK_SIZE;
-    gCurrentSprite.hitboxBottomOffset = 0x20;
+    gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
 
-    gCurrentSprite.pOam = sSqueeptOAM_TurningAround;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.pOam = sSqueeptOam_TurningAround;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 }
 
 /**
@@ -45,12 +45,12 @@ void SqueeptTurningAroundInit(void)
  */
 void SqueeptGoingDownInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = 0x0;
-    gCurrentSprite.hitboxBottomOffset = 0x28;
+    gCurrentSprite.hitboxTopOffset = 0;
+    gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE + PIXEL_SIZE * 2;
 
-    gCurrentSprite.pOam = sSqueeptOAM_GoingDown;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.pOam = sSqueeptOam_GoingDown;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 }
 
 /**
@@ -59,16 +59,16 @@ void SqueeptGoingDownInit(void)
  */
 void SqueeptInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = 0x14;
-    gCurrentSprite.drawDistanceBottomOffset = 0x14;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-    gCurrentSprite.hitboxLeftOffset = -0x20;
-    gCurrentSprite.hitboxRightOffset = 0x20;
+    gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxRightOffset = HALF_BLOCK_SIZE;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
-    gCurrentSprite.yPosition += 0x4;
+    gCurrentSprite.yPosition += PIXEL_SIZE;
 
     // Save spawn Y
     gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
@@ -83,7 +83,9 @@ void SqueeptIdleInit(void)
     gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.pose = SQUEEPT_POSE_IDLE;
     SqueeptGoingUpInit();
-    gCurrentSprite.timer = 0x1E;
+
+    // Timer before it checks for samus
+    gCurrentSprite.timer = 30;
 }
 
 /**
@@ -94,19 +96,20 @@ void SqueeptIdle(void)
 {
     u8 nsab;
 
-    if (gCurrentSprite.timer != 0x0)
-        gCurrentSprite.timer--;
-    else
+    if (gCurrentSprite.timer != 0)
     {
-        // Detect samus
-        nsab = SpriteUtilCheckSamusNearSpriteAboveBelow(BLOCK_SIZE * 8, BLOCK_SIZE * 6);
-        if (nsab == NSAB_ABOVE)
-        {
-            // Set going up
-            gCurrentSprite.pose = SQUEEPT_POSE_GOING_UP;
-            gCurrentSprite.arrayOffset = 0x0;
-            gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-        }
+        gCurrentSprite.timer--;
+        return;
+    }
+
+    // Detect samus
+    nsab = SpriteUtilCheckSamusNearSpriteAboveBelow(BLOCK_SIZE * 8, BLOCK_SIZE * 6);
+    if (nsab == NSAB_ABOVE)
+    {
+        // Set going up
+        gCurrentSprite.pose = SQUEEPT_POSE_GOING_UP;
+        gCurrentSprite.arrayOffset = 0;
+        gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
     }
 }
 
@@ -125,22 +128,26 @@ void SqueeptGoUp(void)
 
     if (gCurrentSprite.yPositionSpawn - (BLOCK_SIZE * 2 + HALF_BLOCK_SIZE) > oldY)
     {
-        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE - QUARTER_BLOCK_SIZE), gCurrentSprite.xPosition - HALF_BLOCK_SIZE);
+        // Check top left
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE - QUARTER_BLOCK_SIZE),
+            gCurrentSprite.xPosition - HALF_BLOCK_SIZE);
+
         if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
             SqueeptTurningAroundInit();
             gCurrentSprite.pose = SQUEEPT_POSE_TURNING_AROUND;
             return;
         }
-        else
+
+        // Check top right
+        SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE - QUARTER_BLOCK_SIZE),
+            gCurrentSprite.xPosition + HALF_BLOCK_SIZE);
+
+        if (gPreviousCollisionCheck == COLLISION_SOLID)
         {
-            SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - (BLOCK_SIZE - QUARTER_BLOCK_SIZE), gCurrentSprite.xPosition + HALF_BLOCK_SIZE);
-            if (gPreviousCollisionCheck == COLLISION_SOLID)
-            {
-                SqueeptTurningAroundInit();
-                gCurrentSprite.pose = SQUEEPT_POSE_TURNING_AROUND;
-                return;
-            }
+            SqueeptTurningAroundInit();
+            gCurrentSprite.pose = SQUEEPT_POSE_TURNING_AROUND;
+            return;
         }
     }
 
@@ -174,7 +181,7 @@ void SqueeptTurningAround(void)
         // Set going down
         SqueeptGoingDownInit();
         gCurrentSprite.pose = SQUEEPT_POSE_GOING_DOWN;
-        gCurrentSprite.arrayOffset = 0x0;
+        gCurrentSprite.arrayOffset = 0;
     }
 }
 
@@ -195,7 +202,7 @@ void SqueeptGoDown(void)
 
     if (movement == SHORT_MAX)
     {
-        newMovement = sSqueeptFallingMovement[offset - 0x1];
+        newMovement = sSqueeptFallingMovement[offset - 1];
         gCurrentSprite.yPosition += newMovement;
     }
     else
@@ -204,7 +211,8 @@ void SqueeptGoDown(void)
         gCurrentSprite.yPosition += movement;
     }
 
-    if (SpriteUtilCheckInRoomEffect(oldY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_BIG) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+    if (SpriteUtilCheckInRoomEffect(oldY, gCurrentSprite.yPosition, gCurrentSprite.xPosition, SPLASH_BIG) &&
+        gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
         SoundPlay(0x156);
 
     if (gCurrentSprite.yPositionSpawn < gCurrentSprite.yPosition)
@@ -227,39 +235,40 @@ void Squeept(void)
             SoundPlayNotAlreadyPlaying(0x157);
     }
 
-    if (gCurrentSprite.freezeTimer != 0x0)
-        SpriteUtilUpdateFreezeTimer();
-    else
+    if (gCurrentSprite.freezeTimer != 0)
     {
-        if (SpriteUtilIsSpriteStunned())
-            return;
+        SpriteUtilUpdateFreezeTimer();
+        return;
+    }
 
-        switch (gCurrentSprite.pose)
-        {
-            case 0x0:
-                SqueeptInit();
+    if (SpriteUtilIsSpriteStunned())
+        return;
 
-            case SQUEEPT_POSE_IDLE_INIT:
-                SqueeptIdleInit();
+    switch (gCurrentSprite.pose)
+    {
+        case SPRITE_POSE_UNINITIALIZED:
+            SqueeptInit();
 
-            case SQUEEPT_POSE_IDLE:
-                SqueeptIdle();
-                break;
+        case SQUEEPT_POSE_IDLE_INIT:
+            SqueeptIdleInit();
 
-            case SQUEEPT_POSE_GOING_UP:
-                SqueeptGoUp();
-                break;
+        case SQUEEPT_POSE_IDLE:
+            SqueeptIdle();
+            break;
 
-            case SQUEEPT_POSE_TURNING_AROUND:
-                SqueeptTurningAround();
-                break;
+        case SQUEEPT_POSE_GOING_UP:
+            SqueeptGoUp();
+            break;
 
-            case SQUEEPT_POSE_GOING_DOWN:
-                SqueeptGoDown();
-                break;
+        case SQUEEPT_POSE_TURNING_AROUND:
+            SqueeptTurningAround();
+            break;
 
-            default:
-                SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
-        }
+        case SQUEEPT_POSE_GOING_DOWN:
+            SqueeptGoDown();
+            break;
+
+        default:
+            SpriteUtilSpriteDeath(DEATH_NORMAL, gCurrentSprite.yPosition, gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_MEDIUM);
     }
 }

@@ -19,7 +19,7 @@ const s16 sSqueeptFallingMovement[16] = {
 const u32 sSqueeptGfx[263] = INCBIN_U32("data/sprites/Squeept.gfx.lz");
 const u16 sSqueeptPAL[16] = INCBIN_U16("data/sprites/Squeept.pal");
 
-const u16 sSqueeptOAM_GoingUp_Frame0[25] = {
+const u16 sSqueeptOam_GoingUp_Frame0[25] = {
     0x8,
     0x3, 0x1f8, OBJ_SPRITE_OAM | 0x22d,
     0x3, OBJ_X_FLIP | 0x1ff, OBJ_SPRITE_OAM | 0x22d,
@@ -31,7 +31,7 @@ const u16 sSqueeptOAM_GoingUp_Frame0[25] = {
     0xff, OBJ_X_FLIP | 0x1fe, OBJ_SPRITE_OAM | 0x207
 };
 
-const u16 sSqueeptOAM_GoingUp_Frame2[22] = {
+const u16 sSqueeptOam_GoingUp_Frame2[22] = {
     0x7,
     0xf2, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x202,
     0xf2, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x202,
@@ -42,7 +42,7 @@ const u16 sSqueeptOAM_GoingUp_Frame2[22] = {
     OBJ_SHAPE_VERTICAL | 0x2, 0x1fc, OBJ_SPRITE_OAM | 0x20f
 };
 
-const u16 sSqueeptOAM_GoingUp_Frame4[22] = {
+const u16 sSqueeptOam_GoingUp_Frame4[22] = {
     0x7,
     0xf2, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x204,
     0xf2, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x204,
@@ -53,7 +53,7 @@ const u16 sSqueeptOAM_GoingUp_Frame4[22] = {
     OBJ_SHAPE_VERTICAL | 0x2, 0x1fc, OBJ_SPRITE_OAM | 0x20e
 };
 
-const u16 sSqueeptOAM_GoingUp_Frame1[19] = {
+const u16 sSqueeptOam_GoingUp_Frame1[19] = {
     0x6,
     0xf3, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_VERTICAL | 0xff, 0x1f1, OBJ_SPRITE_OAM | 0x206,
@@ -63,7 +63,7 @@ const u16 sSqueeptOAM_GoingUp_Frame1[19] = {
     0xff, OBJ_X_FLIP | 0x1fe, OBJ_SPRITE_OAM | 0x207
 };
 
-const u16 sSqueeptOAM_GoingUp_Frame3[19] = {
+const u16 sSqueeptOam_GoingUp_Frame3[19] = {
     0x6,
     0xf3, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x202,
     0xf3, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x202,
@@ -73,7 +73,7 @@ const u16 sSqueeptOAM_GoingUp_Frame3[19] = {
     0x0, OBJ_X_FLIP | 0x1ff, OBJ_SPRITE_OAM | 0x207
 };
 
-const u16 sSqueeptOAM_GoingUp_Frame5[19] = {
+const u16 sSqueeptOam_GoingUp_Frame5[19] = {
     0x6,
     0xf3, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x204,
     0xf3, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x1ff, OBJ_SPRITE_OAM | 0x204,
@@ -83,7 +83,7 @@ const u16 sSqueeptOAM_GoingUp_Frame5[19] = {
     0x0, OBJ_X_FLIP | 0x1ff, OBJ_SPRITE_OAM | 0x207
 };
 
-const u16 sSqueeptOAM_TurningAround_Frame0[13] = {
+const u16 sSqueeptOam_TurningAround_Frame0[13] = {
     0x4,
     0xf3, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x208,
     0x3, 0x1f0, OBJ_SPRITE_OAM | 0x20d,
@@ -91,19 +91,19 @@ const u16 sSqueeptOAM_TurningAround_Frame0[13] = {
     0x3, OBJ_X_FLIP | 0x7, OBJ_SPRITE_OAM | 0x20d
 };
 
-const u16 sSqueeptOAM_TurningAround_Frame1[7] = {
+const u16 sSqueeptOam_TurningAround_Frame1[7] = {
     0x2,
     0xf4, OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x20a,
     0xf4, OBJ_X_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sSqueeptOAM_TurningAround_Frame2[7] = {
+const u16 sSqueeptOam_TurningAround_Frame2[7] = {
     0x2,
     0xf8, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x20a,
     0xf8, OBJ_X_FLIP | OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x0, OBJ_SPRITE_OAM | 0x20a
 };
 
-const u16 sSqueeptOAM_TurningAround_Frame3[13] = {
+const u16 sSqueeptOam_TurningAround_Frame3[13] = {
     0x4,
     0xf7, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x208,
     0xef, OBJ_Y_FLIP | 0x1f0, OBJ_SPRITE_OAM | 0x20d,
@@ -111,7 +111,7 @@ const u16 sSqueeptOAM_TurningAround_Frame3[13] = {
     0xef, OBJ_X_FLIP | OBJ_Y_FLIP | 0x7, OBJ_SPRITE_OAM | 0x20d
 };
 
-const u16 sSqueeptOAM_TurningAround_Frame4[19] = {
+const u16 sSqueeptOam_TurningAround_Frame4[19] = {
     0x6,
     0xfc, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_VERTICAL | 0xef, OBJ_Y_FLIP | 0x1f0, OBJ_SPRITE_OAM | 0x206,
@@ -121,7 +121,7 @@ const u16 sSqueeptOAM_TurningAround_Frame4[19] = {
     0xf7, OBJ_X_FLIP | OBJ_Y_FLIP | 0x1ff, OBJ_SPRITE_OAM | 0x207
 };
 
-const u16 sSqueeptOAM_GoingDown_Frame0[13] = {
+const u16 sSqueeptOam_GoingDown_Frame0[13] = {
     0x4,
     0xfd, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_VERTICAL | 0xf0, 0x1f8, OBJ_SPRITE_OAM | 0x20c,
@@ -129,7 +129,7 @@ const u16 sSqueeptOAM_GoingDown_Frame0[13] = {
     OBJ_SHAPE_VERTICAL | 0xf0, OBJ_X_FLIP | 0x1ff, OBJ_SPRITE_OAM | 0x20c
 };
 
-const u16 sSqueeptOAM_GoingDown_Frame1[13] = {
+const u16 sSqueeptOam_GoingDown_Frame1[13] = {
     0x4,
     0xfc, OBJ_Y_FLIP | OBJ_SIZE_16x16 | 0x1f0, OBJ_SPRITE_OAM | 0x200,
     OBJ_SHAPE_VERTICAL | 0xef, 0x1f7, OBJ_SPRITE_OAM | 0x20c,
@@ -137,60 +137,60 @@ const u16 sSqueeptOAM_GoingDown_Frame1[13] = {
     OBJ_SHAPE_VERTICAL | 0xef, OBJ_X_FLIP | 0x0, OBJ_SPRITE_OAM | 0x20c
 };
 
-const struct FrameData sSqueeptOAM_TurningAround[6] = {
-    sSqueeptOAM_TurningAround_Frame0,
-    0x5,
-    sSqueeptOAM_TurningAround_Frame1,
-    0x9,
-    sSqueeptOAM_TurningAround_Frame2,
-    0x7,
-    sSqueeptOAM_TurningAround_Frame3,
-    0x3,
-    sSqueeptOAM_TurningAround_Frame4,
-    0xA,
+const struct FrameData sSqueeptOam_TurningAround[6] = {
+    sSqueeptOam_TurningAround_Frame0,
+    5,
+    sSqueeptOam_TurningAround_Frame1,
+    9,
+    sSqueeptOam_TurningAround_Frame2,
+    7,
+    sSqueeptOam_TurningAround_Frame3,
+    3,
+    sSqueeptOam_TurningAround_Frame4,
+    10,
     NULL,
-    0x0
+    0
 };
 
-const struct FrameData sSqueeptOAM_TurningAround_Unused[6] = {
-    sSqueeptOAM_TurningAround_Frame4,
-    0x5,
-    sSqueeptOAM_TurningAround_Frame3,
-    0x4,
-    sSqueeptOAM_TurningAround_Frame2,
-    0x3,
-    sSqueeptOAM_TurningAround_Frame1,
-    0x2,
-    sSqueeptOAM_TurningAround_Frame0,
-    0x1,
+const struct FrameData sSqueeptOam_TurningAround_Unused[6] = {
+    sSqueeptOam_TurningAround_Frame4,
+    5,
+    sSqueeptOam_TurningAround_Frame3,
+    4,
+    sSqueeptOam_TurningAround_Frame2,
+    3,
+    sSqueeptOam_TurningAround_Frame1,
+    2,
+    sSqueeptOam_TurningAround_Frame0,
+    1,
     NULL,
-    0x0
+    0
 };
 
-const struct FrameData sSqueeptOAM_GoingDown[3] = {
-    sSqueeptOAM_GoingDown_Frame0,
-    0x4,
-    sSqueeptOAM_GoingDown_Frame1,
-    0x4,
+const struct FrameData sSqueeptOam_GoingDown[3] = {
+    sSqueeptOam_GoingDown_Frame0,
+    4,
+    sSqueeptOam_GoingDown_Frame1,
+    4,
     NULL,
-    0x0
+    0
 };
 
-const struct FrameData sSqueeptOAM_GoingUp[8] = {
-    sSqueeptOAM_GoingUp_Frame0,
-    0x2,
-    sSqueeptOAM_GoingUp_Frame1,
-    0x1,
-    sSqueeptOAM_GoingUp_Frame2,
-    0x2,
-    sSqueeptOAM_GoingUp_Frame3,
-    0x1,
-    sSqueeptOAM_GoingUp_Frame4,
-    0x2,
-    sSqueeptOAM_GoingUp_Frame5,
-    0x1,
-    sSqueeptOAM_GoingUp_Frame3,
-    0x2,
+const struct FrameData sSqueeptOam_GoingUp[8] = {
+    sSqueeptOam_GoingUp_Frame0,
+    2,
+    sSqueeptOam_GoingUp_Frame1,
+    1,
+    sSqueeptOam_GoingUp_Frame2,
+    2,
+    sSqueeptOam_GoingUp_Frame3,
+    1,
+    sSqueeptOam_GoingUp_Frame4,
+    2,
+    sSqueeptOam_GoingUp_Frame5,
+    1,
+    sSqueeptOam_GoingUp_Frame3,
+    2,
     NULL,
-    0x0
+    0
 };

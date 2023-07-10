@@ -1,8 +1,12 @@
 #include "sprites_AI/unknown_item_block.h"
+#include "macros.h"
+
 #include "data/sprites/unknown_item_block.h"
+
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/sprite.h"
+
 #include "structs/clipdata.h"
 #include "structs/display.h"
 #include "structs/sprite.h"
@@ -10,22 +14,25 @@
 /**
  * @brief 4a930 | 70 | Updates the clipdata of the 4 blocks of the unknown item block
  * 
- * @param caa 
+ * @param caa Clipdata affecting action
  */
 void UnknownItemBlockChangeCCAA(u8 caa)
 {
     u16 yPosition;
     u16 xPosition;
 
-    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
-    xPosition = gCurrentSprite.xPosition - (HALF_BLOCK_SIZE);
+    yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
+    xPosition = gCurrentSprite.xPosition - HALF_BLOCK_SIZE;
 
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition, xPosition); // Top left
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition, xPosition + BLOCK_SIZE); // Top right
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + BLOCK_SIZE, xPosition); // Bottom left
+
     gCurrentClipdataAffectingAction = caa;
     ClipdataProcess(yPosition + BLOCK_SIZE, xPosition + BLOCK_SIZE); // Bottom right
 }
@@ -39,35 +46,36 @@ void UnknownItemBlock(void)
     u32 spriteID;
     u8 activated;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
     activated = FALSE;
     spriteID = gCurrentSprite.spriteID;
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-            gCurrentSprite.drawOrder = 0x1;
+            gCurrentSprite.drawOrder = 1;
 
-            gCurrentSprite.hitboxTopOffset = -0x44;
-            gCurrentSprite.hitboxBottomOffset = 0x44;
-            gCurrentSprite.hitboxLeftOffset = -0x44;
-            gCurrentSprite.hitboxRightOffset = 0x44;
+            gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE + PIXEL_SIZE);
+            gCurrentSprite.hitboxBottomOffset = (BLOCK_SIZE + PIXEL_SIZE);
+            gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE + PIXEL_SIZE);
+            gCurrentSprite.hitboxRightOffset = (BLOCK_SIZE + PIXEL_SIZE);
 
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.pOam = sUnknownItemBlockOAM_Idle;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.pOam = sUnknownItemBlockOam_Idle;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.health = 0x1;
+            gCurrentSprite.health = 1;
             gCurrentSprite.pose = UNKNOWN_ITEM_BLOCK_POSE_CHECK_ACTIVATE;
 
             gCurrentSprite.yPosition -= BLOCK_SIZE;
             gCurrentSprite.xPosition += (HALF_BLOCK_SIZE);
+
             UnknownItemBlockChangeCCAA(CAA_MAKE_SOLID_GRIPPABLE);
 
         case UNKNOWN_ITEM_BLOCK_POSE_CHECK_ACTIVATE:
@@ -91,9 +99,10 @@ void UnknownItemBlock(void)
             if (activated)
             {
                 // Set activated behavior
-                gCurrentSprite.pOam = sUnknownItemBlockOAM_Activated;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
+                gCurrentSprite.pOam = sUnknownItemBlockOam_Activated;
+                gCurrentSprite.animationDurationCounter = 0;
+                gCurrentSprite.currentAnimationFrame = 0;
+
                 gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
                 gCurrentSprite.pose = UNKNOWN_ITEM_BLOCK_POSE_WAIT_FOR_PROJECITLE;
             }
@@ -104,49 +113,50 @@ void UnknownItemBlock(void)
 
         case UNKNOWN_ITEM_BLOCK_POSE_EXPLODING:
             if (SpriteUtilCheckEndCurrentSpriteAnim())
-                gCurrentSprite.status = 0x0;
-            else
             {
-                // Update draw distances
-                if (gCurrentSprite.currentAnimationFrame == 0x1)
+                gCurrentSprite.status = 0;
+                return;
+            }
+
+            // Update draw distances
+            if (gCurrentSprite.currentAnimationFrame == 0x1)
+            {
+                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+            }
+            else if (gCurrentSprite.currentAnimationFrame == 8)
+            {
+                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
+                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
+            }
+            else if (gCurrentSprite.currentAnimationFrame == 7 && gCurrentSprite.animationDurationCounter == 2)
+            {
+                // Spawn light
+                activated = SpriteSpawnSecondary(SSPRITE_UNKNOWN_ITEM_BLOCK_LIGHT, 0, gCurrentSprite.spritesetGfxSlot,
+                    gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
+
+                if (activated < MAX_AMOUNT_OF_SPRITES)
                 {
-                    gCurrentSprite.drawDistanceTopOffset = 0x30;
-                    gCurrentSprite.drawDistanceBottomOffset = 0x30;
-                }
-                else if (gCurrentSprite.currentAnimationFrame == 0x8)
-                {
-                    gCurrentSprite.drawDistanceTopOffset = 0x60;
-                    gCurrentSprite.drawDistanceBottomOffset = 0x0;
-                }
-                else if (gCurrentSprite.currentAnimationFrame == 0x7 && gCurrentSprite.animationDurationCounter == 0x2)
-                {
-                    // Spawn light
-                    activated = SpriteSpawnSecondary(SSPRITE_UNKNOWN_ITEM_BLOCK_LIGHT, 0x0, gCurrentSprite.spritesetGfxSlot,
-                        gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                    // Initialize light
+                    gSpriteData[activated].status &= ~SPRITE_STATUS_NOT_DRAWN;
+                    gSpriteData[activated].bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
+                    gSpriteData[activated].drawOrder = 1;
+                    
+                    gSpriteData[activated].hitboxTopOffset = 0;
+                    gSpriteData[activated].hitboxBottomOffset = 0;
+                    gSpriteData[activated].hitboxLeftOffset = 0;
+                    gSpriteData[activated].hitboxRightOffset = 0;
 
-                    if (activated < 0x18)
-                    {
-                        // Initialize light
-                        gSpriteData[activated].status &= ~SPRITE_STATUS_NOT_DRAWN;
-                        gSpriteData[activated].bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
-                        gSpriteData[activated].drawOrder = 0x1;
-                        
-                        gSpriteData[activated].hitboxTopOffset = 0x0;
-                        gSpriteData[activated].hitboxBottomOffset = 0x0;
-                        gSpriteData[activated].hitboxLeftOffset = 0x0;
-                        gSpriteData[activated].hitboxRightOffset = 0x0;
+                    gSpriteData[activated].drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(0);
+                    gSpriteData[activated].drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
+                    gSpriteData[activated].drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
 
-                        gSpriteData[activated].drawDistanceTopOffset = 0x0;
-                        gSpriteData[activated].drawDistanceBottomOffset = 0x50;
-                        gSpriteData[activated].drawDistanceHorizontalOffset = 0x60;
+                    gSpriteData[activated].pOam = sUnknownItemBlockLightOam_Idle;
+                    gSpriteData[activated].animationDurationCounter = 0;
+                    gSpriteData[activated].currentAnimationFrame = 0;
 
-                        gSpriteData[activated].pOam = sUnknownItemBlockLightOAM_Idle;
-                        gSpriteData[activated].animationDurationCounter = 0x0;
-                        gSpriteData[activated].currentAnimationFrame = 0x0;
-
-                        gSpriteData[activated].samusCollision = SSC_NONE;
-                        gSpriteData[activated].pose = 0x9;
-                    }
+                    gSpriteData[activated].samusCollision = SSC_NONE;
+                    gSpriteData[activated].pose = 9;
                 }
             }
             break;
@@ -154,12 +164,13 @@ void UnknownItemBlock(void)
         default:
             // Hit by something, set exploding behavior
             gCurrentSprite.pose = UNKNOWN_ITEM_BLOCK_POSE_EXPLODING;
-            gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
+            gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
 
-            gCurrentSprite.pOam = sUnknownItemBlockOAM_Exploding;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x60;
+            gCurrentSprite.pOam = sUnknownItemBlockOam_Exploding;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
+
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
 
             UnknownItemBlockChangeCCAA(CAA_REMOVE_SOLID); // Remove collision
 
@@ -180,13 +191,13 @@ void UnknownItemBlock(void)
  */
 void UnknownItemBlockLight(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    if (gCurrentSprite.currentAnimationFrame != 0x0)
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+    if (gCurrentSprite.currentAnimationFrame != 0)
     {
-        gCurrentSprite.drawDistanceTopOffset = 0x0;
-        gCurrentSprite.drawDistanceBottomOffset = 0x60;
+        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(0);
+        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
     }
 
     if (SpriteUtilCheckEndCurrentSpriteAnim())
-        gCurrentSprite.status = 0x0;
+        gCurrentSprite.status = 0;
 }

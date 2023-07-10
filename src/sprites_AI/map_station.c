@@ -24,9 +24,9 @@ void MapStationInit(void)
 {
     gCurrentSprite.yPosition += BLOCK_SIZE * 2;
 
-    gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 8);
-    gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 8);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 - QUARTER_BLOCK_SIZE);
 
     gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 8);
     gCurrentSprite.hitboxLeftOffset = -HALF_BLOCK_SIZE;
@@ -222,7 +222,7 @@ void MapStationWaitForMessage(void)
 void MapStationDelayBeforeRetracting(void)
 {
     gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer == 0)
         gCurrentSprite.pose = MAP_STATION_POSE_RETRACTING;
 }
 
@@ -306,9 +306,9 @@ void MapStationPart(void)
             gCurrentSprite.drawOrder = 3;
             gCurrentSprite.bgPriority = 1;
 
-            gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 2);
-            gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(0);
-            gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
             gCurrentSprite.hitboxTopOffset = 0;
             gCurrentSprite.hitboxBottomOffset = 0;

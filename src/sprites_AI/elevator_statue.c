@@ -1,9 +1,13 @@
 #include "sprites_AI/elevator_statue.h"
+#include "macros.h"
+
 #include "data/sprites/elevator_statue.h"
+
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
 #include "constants/event.h"
 #include "constants/samus.h"
+
 #include "structs/sprite.h"
 #include "structs/samus.h"
 #include "structs/clipdata.h"
@@ -18,7 +22,7 @@ void ElevatorStatueChangeTwoGroundCCAA(u8 caa)
     u16 yPosition;
     u16 xPosition;
 
-    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
+    yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
     xPosition = gCurrentSprite.xPosition - BLOCK_SIZE;
 
     gCurrentClipdataAffectingAction = caa;
@@ -37,7 +41,7 @@ void KraidElevatorStatueChangeCAA(u8 caa)
     u16 yPosition;
     u16 xPosition;
 
-    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
+    yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
     xPosition = gCurrentSprite.xPosition - BLOCK_SIZE;
     
     gCurrentClipdataAffectingAction = caa;
@@ -59,17 +63,17 @@ void KraidElevatorStatueChangeCAA(u8 caa)
  */
 void KraidElevatorStatueFallenInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = 0x20;
-    gCurrentSprite.drawDistanceBottomOffset = 0x18;
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-    gCurrentSprite.hitboxTopOffset = -0x3C; // Hitbox even though there's no samus collision?
-    gCurrentSprite.hitboxBottomOffset = 0x0;
-    gCurrentSprite.hitboxLeftOffset = -0x100;
-    gCurrentSprite.hitboxRightOffset = 0x60;
+    gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE * 3); // Hitbox even though there's no samus collision?
+    gCurrentSprite.hitboxBottomOffset = 0;
+    gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE * 4);
+    gCurrentSprite.hitboxRightOffset = BLOCK_SIZE + HALF_BLOCK_SIZE;
 
     gCurrentSprite.pOam = sKraidElevatorStatueOAM_Fallen;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
 
     gCurrentSprite.pose = ELEVATOR_STATUE_POSE_IDLE;
     ElevatorStatueChangeTwoGroundCCAA(CAA_MAKE_NON_POWER_GRIP);
@@ -81,31 +85,34 @@ void KraidElevatorStatueFallenInit(void)
  */
 void KraidElevatorStatueInit(void)
 {
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x50;
-    gCurrentSprite.bgPriority = 0x1;
-    gCurrentSprite.drawOrder = 0x2;
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
+    gCurrentSprite.bgPriority = 1;
+    gCurrentSprite.drawOrder = 2;
+
     gCurrentSprite.properties |= (SP_ALWAYS_ACTIVE | SP_SOLID_FOR_PROJECTILES);
     gCurrentSprite.samusCollision = SSC_NONE;
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_ELEVATOR_STATUE_DESTROYED))
-        KraidElevatorStatueFallenInit();
-    else
     {
-        gCurrentSprite.drawDistanceTopOffset = 0x60;
-        gCurrentSprite.drawDistanceBottomOffset = 0x0;
-
-        gCurrentSprite.hitboxTopOffset = -0x180; // Hitbox even though there's no samus collision?
-        gCurrentSprite.hitboxBottomOffset = 0x0;
-        gCurrentSprite.hitboxLeftOffset = -0x40;
-        gCurrentSprite.hitboxRightOffset = 0x40;
-
-        gCurrentSprite.pOam = sKraidElevatorStatueOAM_Idle;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDurationCounter = 0x0;
-
-        gCurrentSprite.pose = ELEVATOR_STATUE_POSE_CHECK_FALL;
-        KraidElevatorStatueChangeCAA(CAA_MAKE_NON_POWER_GRIP); // Set collision
+        KraidElevatorStatueFallenInit();
+        return;
     }
+
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
+
+    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 6); // Hitbox even though there's no samus collision?
+    gCurrentSprite.hitboxBottomOffset = 0;
+    gCurrentSprite.hitboxLeftOffset = -BLOCK_SIZE;
+    gCurrentSprite.hitboxRightOffset = BLOCK_SIZE;
+
+    gCurrentSprite.pOam = sKraidElevatorStatueOAM_Idle;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
+
+    gCurrentSprite.pose = ELEVATOR_STATUE_POSE_CHECK_FALL;
+
+    KraidElevatorStatueChangeCAA(CAA_MAKE_NON_POWER_GRIP); // Set collision
 }
 
 /**
@@ -119,7 +126,7 @@ void KraidElevatorStatueCheckShouldFall(void)
     {
         // Set falling behavior
         gCurrentSprite.pose = ELEVATOR_STATUE_POSE_DELAY_BEFORE_FALLING;
-        gCurrentSprite.timer = 0x10; // Delay before falling
+        gCurrentSprite.timer = 16; // Delay before falling
     }
 }
 
@@ -130,21 +137,23 @@ void KraidElevatorStatueCheckShouldFall(void)
 void KraidElevatorStatueDelayBeforeFalling(void)
 {
     gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer == 0)
     {
         // Set falling behavior
         gCurrentSprite.pOam = sKraidElevatorStatueOAM_Falling;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = ELEVATOR_STATUE_POSE_FALLING;
 
         // Set event
         EventFunction(EVENT_ACTION_SETTING, EVENT_KRAID_ELEVATOR_STATUE_DESTROYED);
+
         // Remove collison
         KraidElevatorStatueChangeCAA(CAA_REMOVE_SOLID);
+
         // Play effects
-        ScreenShakeStartHorizontal(0xA, 0x81);
+        ScreenShakeStartHorizontal(10, 0x80 | 1);
         SoundPlay(0x11E);
     }
 }
@@ -157,33 +166,35 @@ void KraidElevatorStatueFalling(void)
 {
     switch (gCurrentSprite.currentAnimationFrame)
     {
-        case 0x1:
-            if (gCurrentSprite.animationDurationCounter == 0x3)
+        case 1:
+            if (gCurrentSprite.animationDurationCounter == 3)
             {
                 // Spawn kraid debris
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_KRAID,
                     gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
-                    gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                    gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
             }
             break;
 
-        case 0x4:
+        case 4:
             // Update draw distance
-            gCurrentSprite.drawDistanceTopOffset = 0x40;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
             break;
 
-        case 0x6:
+        case 6:
             // Update draw distance
-            gCurrentSprite.drawDistanceTopOffset = 0x30;
-            gCurrentSprite.drawDistanceBottomOffset = 0x18;
-            if (gCurrentSprite.animationDurationCounter == 0x2)
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+
+            if (gCurrentSprite.animationDurationCounter == 2)
             {
                 // Start screen shake and spawn dust debris
-                ScreenShakeStartVertical(0x14, 0x81);
+                ScreenShakeStartVertical(20, 0x80 | 1);
+
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_DUST,
-                    0x0, gCurrentSprite.primarySpriteRamSlot,
-                    gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                    0, gCurrentSprite.primarySpriteRamSlot,
+                    gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
             }
     }
 
@@ -202,7 +213,7 @@ void RidleyElevatorStatueChangeCCAA(u8 caa)
     u16 yPosition;
     u16 xPosition;
 
-    yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
+    yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
     xPosition = gCurrentSprite.xPosition - (BLOCK_SIZE * 2);
 
     gCurrentClipdataAffectingAction = caa;
@@ -224,17 +235,17 @@ void RidleyElevatorStatueChangeCCAA(u8 caa)
  */
 void RidleyElevatorStatueFallenInit(void)
 {
-    gCurrentSprite.drawDistanceTopOffset = 0x28;
-    gCurrentSprite.drawDistanceBottomOffset = 0x18;
+    gCurrentSprite.drawDistanceTopOffset = HALF_BLOCK_SIZE + PIXEL_SIZE * 2;
+    gCurrentSprite.drawDistanceBottomOffset = QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2;
 
-    gCurrentSprite.hitboxTopOffset = -0x3C; // Hitbox even though there's no samus collision?
-    gCurrentSprite.hitboxBottomOffset = 0x0;
-    gCurrentSprite.hitboxLeftOffset = -0x100;
-    gCurrentSprite.hitboxRightOffset = 0x60;
+    gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE * 3 + PIXEL_SIZE * 3); // Hitbox even though there's no samus collision?
+    gCurrentSprite.hitboxBottomOffset = 0;
+    gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE * 4);
+    gCurrentSprite.hitboxRightOffset = BLOCK_SIZE + HALF_BLOCK_SIZE;
 
     gCurrentSprite.pOam = sRidleyElevatorStatueOAM_Fallen;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
 
     gCurrentSprite.pose = ELEVATOR_STATUE_POSE_IDLE;
     ElevatorStatueChangeTwoGroundCCAA(CAA_MAKE_NON_POWER_GRIP);
@@ -246,31 +257,34 @@ void RidleyElevatorStatueFallenInit(void)
  */
 void RidleyElevatorStatueInit(void)
 {
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x50;
-    gCurrentSprite.bgPriority = 0x1;
-    gCurrentSprite.drawOrder = 0x2;
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
+
+    gCurrentSprite.bgPriority = 1;
+    gCurrentSprite.drawOrder = 2;
+
     gCurrentSprite.properties |= (SP_ALWAYS_ACTIVE | SP_SOLID_FOR_PROJECTILES);
     gCurrentSprite.samusCollision = SSC_NONE;
 
     if (EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_ELEVATOR_STATUE_DESTROYED))
-        RidleyElevatorStatueFallenInit();
-    else
     {
-        gCurrentSprite.drawDistanceTopOffset = 0x60;
-        gCurrentSprite.drawDistanceBottomOffset = 0x0;
-
-        gCurrentSprite.hitboxTopOffset = -0x180; // Hitbox even though there's no samus collision?
-        gCurrentSprite.hitboxBottomOffset = 0x0;
-        gCurrentSprite.hitboxLeftOffset = -0x40;
-        gCurrentSprite.hitboxRightOffset = 0x40;
-
-        gCurrentSprite.pOam = sRidleyElevatorStatueOAM_Idle;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDurationCounter = 0x0;
-
-        gCurrentSprite.pose = ELEVATOR_STATUE_POSE_CHECK_FALL;
-        RidleyElevatorStatueChangeCCAA(CAA_MAKE_NON_POWER_GRIP); // Set collision
+        RidleyElevatorStatueFallenInit();
+        return;
     }
+
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
+
+    gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 6); // Hitbox even though there's no samus collision?
+    gCurrentSprite.hitboxBottomOffset = 0;
+    gCurrentSprite.hitboxLeftOffset = -BLOCK_SIZE;
+    gCurrentSprite.hitboxRightOffset = BLOCK_SIZE;
+
+    gCurrentSprite.pOam = sRidleyElevatorStatueOAM_Idle;
+    gCurrentSprite.currentAnimationFrame = 0;
+    gCurrentSprite.animationDurationCounter = 0;
+
+    gCurrentSprite.pose = ELEVATOR_STATUE_POSE_CHECK_FALL;
+    RidleyElevatorStatueChangeCCAA(CAA_MAKE_NON_POWER_GRIP); // Set collision
 }
 
 /**
@@ -284,7 +298,7 @@ void RidleyElevatorStatueCheckShouldFall(void)
     {
         // Set falling behavior
         gCurrentSprite.pose = ELEVATOR_STATUE_POSE_DELAY_BEFORE_FALLING;
-        gCurrentSprite.timer = 0x10; // Timer before falling
+        gCurrentSprite.timer = 16; // Timer before falling
     }
 }
 
@@ -295,20 +309,23 @@ void RidleyElevatorStatueCheckShouldFall(void)
 void RidleyElevatorStatueDelayBeforeFalling(void)
 {
     gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer == 0)
     {
         // Set falling behavior
         gCurrentSprite.pOam = sRidleyElevatorStatueOAM_Falling;
-        gCurrentSprite.currentAnimationFrame = 0x0;
-        gCurrentSprite.animationDurationCounter = 0x0;
+        gCurrentSprite.currentAnimationFrame = 0;
+        gCurrentSprite.animationDurationCounter = 0;
 
         gCurrentSprite.pose = ELEVATOR_STATUE_POSE_FALLING;
+
         // Set event
         EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_ELEVATOR_STATUE_DESTROYED);
+
         // Remove collision
         RidleyElevatorStatueChangeCCAA(CAA_REMOVE_SOLID);
+
         // Play effects
-        ScreenShakeStartHorizontal(0xA, 0x81);
+        ScreenShakeStartHorizontal(10, 0x80 | 1);
         SoundPlay(0x11F);
     }
 }
@@ -321,38 +338,40 @@ void RidleyElevatorStatueFalling(void)
 {
     switch (gCurrentSprite.currentAnimationFrame)
     {
-        case 0x1:
-            if (gCurrentSprite.animationDurationCounter == 0x3)
+        case 1:
+            if (gCurrentSprite.animationDurationCounter == 3)
             {
                 // Spawn ridley debris
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_RIDLEY,
                     gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
-                    gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                    gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
             }
             break;
 
-        case 0x4:
+        case 4:
             // Update draw distance
-            gCurrentSprite.drawDistanceTopOffset = 0x58;
-            gCurrentSprite.drawDistanceBottomOffset = 0x8;
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5 + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
             break;
 
-        case 0x5:
-            gCurrentSprite.drawDistanceTopOffset = 0x50;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
+        case 5:
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
             break;
 
         case 0x6:
             // Update draw distance
-            gCurrentSprite.drawDistanceTopOffset = 0x48;
-            gCurrentSprite.drawDistanceBottomOffset = 0x18;
-            if (gCurrentSprite.animationDurationCounter == 0x2)
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 4 + HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+
+            if (gCurrentSprite.animationDurationCounter == 2)
             {
                 // Start screen shake and spawn dust debris
-                ScreenShakeStartVertical(0x14, 0x81);
+                ScreenShakeStartVertical(20, 0x80 | 1);
+
                 SpriteSpawnSecondary(SSPRITE_ELEVATOR_STATUE_DEBRIS, ELEVATOR_STATUE_DEBRIS_PART_DUST,
-                    0x0, gCurrentSprite.primarySpriteRamSlot,
-                    gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+                    0, gCurrentSprite.primarySpriteRamSlot,
+                    gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
             }
     }
 
@@ -367,11 +386,11 @@ void RidleyElevatorStatueFalling(void)
  */
 void KraidElevatorStatue(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             KraidElevatorStatueInit();
             break;
 
@@ -394,11 +413,11 @@ void KraidElevatorStatue(void)
  */
 void RidleyElevatorStatue(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             RidleyElevatorStatueInit();
             break;
 
@@ -421,41 +440,46 @@ void RidleyElevatorStatue(void)
  */
 void ElevatorStatueDebris(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
 
-            gCurrentSprite.hitboxTopOffset = 0x0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = 0x0;
-            gCurrentSprite.hitboxRightOffset = 0x0;
+            gCurrentSprite.hitboxTopOffset = 0;
+            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxLeftOffset = 0;
+            gCurrentSprite.hitboxRightOffset = 0;
 
-            gCurrentSprite.pose = 0x9;
+            gCurrentSprite.pose = ELEVATOR_STATUE_DEBRIS_POSE_IDLE;
             gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.bgPriority = 0x1;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.bgPriority = 1;
+
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             // Set data depending on part
             if (gCurrentSprite.roomSlot == ELEVATOR_STATUE_DEBRIS_PART_DUST)
             {
-                gCurrentSprite.drawOrder = 0x1;
-                gCurrentSprite.drawDistanceTopOffset = 0x38;
-                gCurrentSprite.drawDistanceBottomOffset = 0x10;
-                gCurrentSprite.drawDistanceHorizontalOffset = 0x50;
+                gCurrentSprite.drawOrder = 1;
+
+                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+                gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
+
                 gCurrentSprite.pOam = sElevatorStatueDebrisOAM_Dust;
             }
             else
             {
-                gCurrentSprite.drawOrder = 0x5;
-                gCurrentSprite.drawDistanceTopOffset = 0x60;
-                gCurrentSprite.drawDistanceBottomOffset = 0x8;
-                gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
+                gCurrentSprite.drawOrder = 5;
+
+                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 6);
+                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+
                 if (gCurrentSprite.roomSlot == ELEVATOR_STATUE_DEBRIS_PART_KRAID)
                     gCurrentSprite.pOam = sElevatorStatueDebrisOAM_Kraid;
                 else
@@ -463,9 +487,9 @@ void ElevatorStatueDebris(void)
             }
             break;
 
-        case 0x9:
+        case ELEVATOR_STATUE_DEBRIS_POSE_IDLE:
             // Kill if animation ended
             if (SpriteUtilCheckEndCurrentSpriteAnim())
-                gCurrentSprite.status = 0x0;
+                gCurrentSprite.status = 0;
     }
 }

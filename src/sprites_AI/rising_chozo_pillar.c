@@ -40,7 +40,7 @@ void RisingChozoPillarRandomSpriteDebris(u16 yPosition, u16 xPosition, u8 rng)
             break;
 
         case 12:
-            SpriteDebrisInit(0, 19, yPosition - 0x20, xPosition + 0x1E);
+            SpriteDebrisInit(0, 19, yPosition - HALF_BLOCK_SIZE, xPosition + 0x1E);
             SpriteDebrisInit(0, 4, yPosition - PIXEL_SIZE, xPosition - 0x6E);
     }
 }
@@ -165,10 +165,13 @@ void RisingChozoPillarSpawnTwoPlatforms(u16 yPosition, u16 xPosition, u8 caa)
 void RisingChozoPillarSpawnOnePlatform(u16 yPosition, u16 xPosition, u8 caa)
 {
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - 0x3C0, xPosition + 0x180);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 15), xPosition + (BLOCK_SIZE * 6));
+
     gCurrentClipdataAffectingAction = caa;
-    ClipdataProcess(yPosition - 0x3C0, xPosition + 0x1C0);
-    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot, yPosition - 0x3C0, xPosition + 0x1A0, 0x0);
+    ClipdataProcess(yPosition - (BLOCK_SIZE * 15), xPosition + (BLOCK_SIZE * 7));
+
+    SpriteSpawnSecondary(SSPRITE_CHOZO_PILLAR_PLATFORM, 0x0, gCurrentSprite.spritesetGfxSlot,
+        gCurrentSprite.primarySpriteRamSlot, yPosition - (BLOCK_SIZE * 15), xPosition + (BLOCK_SIZE * 6 + HALF_BLOCK_SIZE), 0);
 }
 
 /**
@@ -203,9 +206,9 @@ void RisingChozoPillar(void)
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES;
             gCurrentSprite.samusCollision = SSC_NONE;
 
-            gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(PIXEL_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(PIXEL_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(PIXEL_SIZE);
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
 
             gCurrentSprite.hitboxTopOffset = 0;
             gCurrentSprite.hitboxBottomOffset = 0;
@@ -289,9 +292,9 @@ void ChozoPillarPlatform(void)
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
             gCurrentSprite.samusCollision = SSC_NONE;
 
-            gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
             gCurrentSprite.hitboxTopOffset = 0;
             gCurrentSprite.hitboxBottomOffset = 0;
@@ -362,9 +365,9 @@ void ChozoPillarPlatformShadow(void)
         gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
         gCurrentSprite.samusCollision = SSC_NONE;
 
-        gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(0);
-        gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
-        gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(0);
+        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
         gCurrentSprite.hitboxTopOffset = 0;
         gCurrentSprite.hitboxBottomOffset = 0;

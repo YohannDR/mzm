@@ -61,9 +61,9 @@ void MorphBallLauncherInit(void)
     gCurrentSprite.hitboxLeftOffset = 0;
     gCurrentSprite.hitboxRightOffset = 0;
 
-    gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 2);
-    gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE * 2);
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
 
     gCurrentSprite.samusCollision = SSC_NONE;
 
@@ -229,18 +229,18 @@ void MorphBallLauncherPart(void)
                 gCurrentSprite.drawDistanceBottomOffset = 0;
                 gCurrentSprite.drawDistanceHorizontalOffset = QUARTER_BLOCK_SIZE;
 
-                gCurrentSprite.bgPriority = ((gIoRegistersBackup.BG1CNT & 3) + 1) & 3;
+                gCurrentSprite.bgPriority = MOD_AND(MOD_AND(gIoRegistersBackup.BG1CNT, 4) + 1, 4);
                 gCurrentSprite.drawOrder = 12;
                 gCurrentSprite.pose = MORPH_BALL_LAUNCHER_PART_POSE_IDLE;
             }
             else if (gCurrentSprite.roomSlot == MORPH_BALL_LAUNCHER_PART_ENERGY)
             {
                 gCurrentSprite.pOam = sMorphBallLauncherPartOam_Energy;
-                gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE + HALF_BLOCK_SIZE);
-                gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE + HALF_BLOCK_SIZE);
-                gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE + HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+                gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-                gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 3;
+                gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
                 gCurrentSprite.drawOrder = 1;
                 gCurrentSprite.pose = MORPH_BALL_LAUNCHER_PART_POSE_ENERGY;
 

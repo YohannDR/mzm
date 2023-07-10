@@ -337,28 +337,28 @@ const u16 sUnknownItemChozoStatuePartOAM_ArmSamusGrabbed_Frame0[28] = {
     0xf6, 0xe, OBJ_SPRITE_OAM | 0x1289
 };
 
-const u16 sChozoBallOAM_UnknownClosed_Frame0[10] = {
+const u16 sChozoBallOam_UnknownClosed_Frame0[10] = {
     0x3,
     0xf7, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x1307,
     OBJ_SHAPE_VERTICAL | 0xf7, 0x7, OBJ_SPRITE_OAM | 0x1309,
     OBJ_SHAPE_HORIZONTAL | 0x7, 0x1f7, OBJ_SPRITE_OAM | 0x1310
 };
 
-const u16 sChozoBallOAM_UnknownClosed_Frame1[10] = {
+const u16 sChozoBallOam_UnknownClosed_Frame1[10] = {
     0x3,
     0xf7, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x130a,
     OBJ_SHAPE_VERTICAL | 0xf7, 0x7, OBJ_SPRITE_OAM | 0x130c,
     OBJ_SHAPE_HORIZONTAL | 0x7, 0x1f7, OBJ_SPRITE_OAM | 0x1330
 };
 
-const u16 sChozoBallOAM_UnknownClosed_Frame3[10] = {
+const u16 sChozoBallOam_UnknownClosed_Frame3[10] = {
     0x3,
     0xf7, OBJ_SIZE_16x16 | 0x1f7, OBJ_SPRITE_OAM | 0x130d,
     OBJ_SHAPE_VERTICAL | 0xf7, 0x7, OBJ_SPRITE_OAM | 0x130f,
     OBJ_SHAPE_HORIZONTAL | 0x7, 0x1f7, OBJ_SPRITE_OAM | 0x1312
 };
 
-const u16 sChozoBallOAM_UnknownRevealing_Frame0[16] = {
+const u16 sChozoBallOam_UnknownRevealing_Frame0[16] = {
     0x5,
     0xf4, OBJ_SIZE_16x16 | 0x1f4, OBJ_SPRITE_OAM | 0x1315,
     OBJ_SHAPE_VERTICAL | 0xf4, 0x4, OBJ_SPRITE_OAM | 0x1317,
@@ -367,7 +367,7 @@ const u16 sChozoBallOAM_UnknownRevealing_Frame0[16] = {
     OBJ_SHAPE_HORIZONTAL | 0xfc, 0x1f8, OBJ_SPRITE_OAM | 0x2a4
 };
 
-const u16 sChozoBallOAM_UnknownRevealing_Frame1[19] = {
+const u16 sChozoBallOam_UnknownRevealing_Frame1[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0xf4, 0x1f4, OBJ_SPRITE_OAM | 0x1319,
     OBJ_SHAPE_VERTICAL | 0xf4, 0x4, OBJ_SPRITE_OAM | 0x131b,
@@ -377,7 +377,7 @@ const u16 sChozoBallOAM_UnknownRevealing_Frame1[19] = {
     OBJ_SHAPE_HORIZONTAL | 0x4, 0x1f8, OBJ_SPRITE_OAM | 0x286
 };
 
-const u16 sChozoBallOAM_UnknownRevealing_Frame2[19] = {
+const u16 sChozoBallOam_UnknownRevealing_Frame2[19] = {
     0x6,
     OBJ_SHAPE_HORIZONTAL | 0xf4, 0x1f4, OBJ_SPRITE_OAM | 0x131d,
     OBJ_SHAPE_VERTICAL | 0xf4, 0x4, OBJ_SPRITE_OAM | 0x131f,
@@ -387,19 +387,19 @@ const u16 sChozoBallOAM_UnknownRevealing_Frame2[19] = {
     OBJ_SHAPE_HORIZONTAL | 0x4, 0x1f8, OBJ_SPRITE_OAM | 0x286
 };
 
-const u16 sChozoBallOAM_UnknownRevealed_Frame0[7] = {
+const u16 sChozoBallOam_UnknownRevealed_Frame0[7] = {
     0x2,
     0xf4, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x284,
     OBJ_SHAPE_HORIZONTAL | 0x4, 0x1f8, OBJ_SPRITE_OAM | 0x286
 };
 
-const u16 sChozoBallOAM_UnknownRevealed_Frame1[7] = {
+const u16 sChozoBallOam_UnknownRevealed_Frame1[7] = {
     0x2,
     0xf4, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x284,
     OBJ_SHAPE_HORIZONTAL | 0x4, 0x1f8, OBJ_SPRITE_OAM | 0x286
 };
 
-const u16 sChozoBallOAM_UnknownRevealed_Frame2[7] = {
+const u16 sChozoBallOam_UnknownRevealed_Frame2[7] = {
     0x2,
     0xf4, OBJ_SIZE_16x16 | 0x1f8, OBJ_SPRITE_OAM | 0x284,
     OBJ_SHAPE_HORIZONTAL | 0x4, 0x1f8, OBJ_SPRITE_OAM | 0x286
@@ -717,38 +717,38 @@ const struct FrameData sUnknownItemChozoStatuePartOAM_ArmSamusGrabbed[2] = {
     0x0
 };
 
-const struct FrameData sChozoBallOAM_UnknownClosed[5] = {
-    sChozoBallOAM_UnknownClosed_Frame0,
+const struct FrameData sChozoBallOam_UnknownClosed[5] = {
+    sChozoBallOam_UnknownClosed_Frame0,
     0xE,
-    sChozoBallOAM_UnknownClosed_Frame1,
+    sChozoBallOam_UnknownClosed_Frame1,
     0xE,
-    sChozoBallOAM_UnknownClosed_Frame0,
+    sChozoBallOam_UnknownClosed_Frame0,
     0xE,
-    sChozoBallOAM_UnknownClosed_Frame3,
+    sChozoBallOam_UnknownClosed_Frame3,
     0xE,
     NULL,
     0x0
 };
 
-const struct FrameData sChozoBallOAM_UnknownRevealing[4] = {
-    sChozoBallOAM_UnknownRevealing_Frame0,
+const struct FrameData sChozoBallOam_UnknownRevealing[4] = {
+    sChozoBallOam_UnknownRevealing_Frame0,
     0x2,
-    sChozoBallOAM_UnknownRevealing_Frame1,
+    sChozoBallOam_UnknownRevealing_Frame1,
     0x2,
-    sChozoBallOAM_UnknownRevealing_Frame2,
+    sChozoBallOam_UnknownRevealing_Frame2,
     0x2,
     NULL,
     0x0
 };
 
-const struct FrameData sChozoBallOAM_UnknownRevealed[5] = {
-    sChozoBallOAM_UnknownRevealed_Frame0,
+const struct FrameData sChozoBallOam_UnknownRevealed[5] = {
+    sChozoBallOam_UnknownRevealed_Frame0,
     0xA,
-    sChozoBallOAM_UnknownRevealed_Frame1,
+    sChozoBallOam_UnknownRevealed_Frame1,
     0xA,
-    sChozoBallOAM_UnknownRevealed_Frame2,
+    sChozoBallOam_UnknownRevealed_Frame2,
     0xA,
-    sChozoBallOAM_UnknownRevealed_Frame1,
+    sChozoBallOam_UnknownRevealed_Frame1,
     0xA,
     NULL,
     0x0

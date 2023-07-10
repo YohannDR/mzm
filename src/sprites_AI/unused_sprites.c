@@ -1,4 +1,5 @@
 #include "sprites_AI/unused_sprites.h"
+#include "macros.h"
 #include "data/sprites/unused_sprites.h"
 #include "constants/sprite.h"
 #include "structs/sprite.h"
@@ -9,24 +10,25 @@
  */
 void UnusedSprites(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
-    if (gCurrentSprite.pose == 0x0)
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+
+    if (gCurrentSprite.pose == 0)
     {
         gCurrentSprite.pose++;
         
-        gCurrentSprite.drawDistanceTopOffset = 0x8;
-        gCurrentSprite.drawDistanceBottomOffset = 0x8;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
         
-        gCurrentSprite.hitboxTopOffset = -0x10;
-        gCurrentSprite.hitboxBottomOffset = 0x10;
-        gCurrentSprite.hitboxLeftOffset = -0x10;
-        gCurrentSprite.hitboxRightOffset = 0x10;
+        gCurrentSprite.hitboxTopOffset = -QUARTER_BLOCK_SIZE;
+        gCurrentSprite.hitboxBottomOffset = QUARTER_BLOCK_SIZE;
+        gCurrentSprite.hitboxLeftOffset = -QUARTER_BLOCK_SIZE;
+        gCurrentSprite.hitboxRightOffset = QUARTER_BLOCK_SIZE;
         
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         gCurrentSprite.pOam = sUnusedSpritesOAM_Idle;
         
-        gCurrentSprite.bgPriority = 0x1;
+        gCurrentSprite.bgPriority = 1;
     }
 }

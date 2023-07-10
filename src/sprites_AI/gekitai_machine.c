@@ -7,5 +7,5 @@
  */
 void GekitaiMachine(void)
 {
-    gCurrentSprite.status = 0x0;
+    gCurrentSprite.status = 0;
 }

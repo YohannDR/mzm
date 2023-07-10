@@ -27,9 +27,9 @@ void PowerGrip(void)
                 break;
             }
 
-            gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
             gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
             gCurrentSprite.hitboxBottomOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
@@ -70,7 +70,7 @@ void PowerGrip(void)
             gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
             // Flicker
-            if (!(gCurrentSprite.timer & 1))
+            if (MOD_AND(gCurrentSprite.timer, 2) == 0)
                 gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
 
             // Check message banner disappeared
@@ -90,9 +90,9 @@ void PowerGripGlow(void)
         case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-            gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
-            gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
             gCurrentSprite.hitboxTopOffset = 0;
             gCurrentSprite.hitboxBottomOffset = 0;
@@ -108,7 +108,7 @@ void PowerGripGlow(void)
             gCurrentSprite.drawOrder = 5;
             break;
 
-        case 0x9:
+        case 9:
             if (gSpriteData[gCurrentSprite.primarySpriteRamSlot].pose >= POWER_GRIP_POSE_BEING_ACQUIRED)
                 gCurrentSprite.status = 0;
     }

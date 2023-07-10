@@ -24,8 +24,8 @@ void CrocomireSyncSubSprites(void)
     if (gCurrentSprite.pOam != sCrocomireFrameDataPointers[offset])
     {
         gCurrentSprite.pOam = sCrocomireFrameDataPointers[offset];
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
     }
 
     gCurrentSprite.yPosition = gSubSpriteData1.yPosition + pData[gCurrentSprite.roomSlot][1];
@@ -51,37 +51,37 @@ void CrocomireInit(void)
 
     gCurrentSprite.xPositionSpawn = xPosition;
 
-    gCurrentSprite.drawDistanceTopOffset = 0x20;
-    gCurrentSprite.drawDistanceBottomOffset = 0x18;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
 
-    gCurrentSprite.hitboxTopOffset = -0x40;
-    gCurrentSprite.hitboxBottomOffset = 0x20;
-    gCurrentSprite.hitboxLeftOffset = -0xA0;
-    gCurrentSprite.hitboxRightOffset = 0x80;
+    gCurrentSprite.hitboxTopOffset = -BLOCK_SIZE;
+    gCurrentSprite.hitboxBottomOffset = HALF_BLOCK_SIZE;
+    gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.hitboxRightOffset = BLOCK_SIZE * 2;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
 
     gSubSpriteData1.pMultiOam = sCrocomireMultiSpriteData_Screaming;
-    gSubSpriteData1.animationDurationCounter = 0x0;
-    gSubSpriteData1.currentAnimationFrame = 0x0;
+    gSubSpriteData1.animationDurationCounter = 0;
+    gSubSpriteData1.currentAnimationFrame = 0;
 
-    gSubSpriteData1.workVariable2 = 0x0;
-    gSubSpriteData1.workVariable1 = 0x0;
+    gSubSpriteData1.workVariable2 = 0;
+    gSubSpriteData1.workVariable1 = 0;
 
     gCurrentSprite.pose = CROCOMIRE_POSE_IDLE;
-    gCurrentSprite.frozenPaletteRowOffset = 0x2;
+    gCurrentSprite.frozenPaletteRowOffset = 2;
     gCurrentSprite.roomSlot = CROCOMIRE_PART_HEAD;
 
     gfxSlot = gCurrentSprite.spritesetGfxSlot;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
-    SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_RIGHT_ARM, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
-    SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_LEGS, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
-    SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_BODY, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
-    SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_TONGUE, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
-    SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_LEFT_ARM, gfxSlot, ramSlot, yPosition, xPosition, 0x0);
+    SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_RIGHT_ARM, gfxSlot, ramSlot, yPosition, xPosition, 0);
+    SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_LEGS, gfxSlot, ramSlot, yPosition, xPosition, 0);
+    SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_BODY, gfxSlot, ramSlot, yPosition, xPosition, 0);
+    SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_TONGUE, gfxSlot, ramSlot, yPosition, xPosition, 0);
+    SpriteSpawnSecondary(SSPRITE_CROCOMIRE_PART, CROCOMIRE_PART_LEFT_ARM, gfxSlot, ramSlot, yPosition, xPosition, 0);
 }
 
 /**
@@ -91,8 +91,8 @@ void CrocomireInit(void)
 void CrocomireIdleInit(void)
 {
     gSubSpriteData1.pMultiOam = sCrocomireMultiSpriteData_Idle;
-    gSubSpriteData1.animationDurationCounter = 0x0;
-    gSubSpriteData1.currentAnimationFrame = 0x0;
+    gSubSpriteData1.animationDurationCounter = 0;
+    gSubSpriteData1.currentAnimationFrame = 0;
 
     gCurrentSprite.pose = CROCOMIRE_POSE_IDLE;
 }
@@ -109,7 +109,7 @@ void Crocomire_Empty(void)
 void CrocomirePartInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
-    gCurrentSprite.health = 0x1;
+    gCurrentSprite.health = 1;
 
     gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
     gCurrentSprite.pose = CROCOMIRE_PART_POSE_IDLE;
@@ -118,83 +118,83 @@ void CrocomirePartInit(void)
     switch (gCurrentSprite.roomSlot)
     {
         case CROCOMIRE_PART_RIGHT_ARM:
-            gCurrentSprite.drawDistanceTopOffset = 0x20;
-            gCurrentSprite.drawDistanceBottomOffset = 0x2C;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x58;
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + QUARTER_BLOCK_SIZE * 3);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5 + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
+            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
-            gCurrentSprite.drawOrder = 0x2;
+            gCurrentSprite.drawOrder = 2;
             break;
 
         case CROCOMIRE_PART_LEGS:
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -0xA0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = -0xC0;
-            gCurrentSprite.hitboxRightOffset = 0x40;
+            gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE * 3);
+            gCurrentSprite.hitboxRightOffset = BLOCK_SIZE;
 
-            gCurrentSprite.drawOrder = 0x3;
+            gCurrentSprite.drawOrder = 3;
             break;
 
         case CROCOMIRE_PART_BODY:
-            gCurrentSprite.drawDistanceTopOffset = 0x50;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x30;
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
 
-            gCurrentSprite.hitboxTopOffset = -0xE0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = -0x80;
-            gCurrentSprite.hitboxRightOffset = 0xA0;
+            gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 3 + HALF_BLOCK_SIZE);
+            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE * 2);
+            gCurrentSprite.hitboxRightOffset = BLOCK_SIZE * 2 + HALF_BLOCK_SIZE;
 
-            gCurrentSprite.drawOrder = 0x5;
+            gCurrentSprite.drawOrder = 5;
             break;
 
         case CROCOMIRE_PART_TONGUE:
-            gCurrentSprite.drawDistanceTopOffset = 0xA;
-            gCurrentSprite.drawDistanceBottomOffset = 0xA;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = 0x0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = 0x0;
-            gCurrentSprite.hitboxRightOffset = 0x0;
+            gCurrentSprite.hitboxTopOffset = 0;
+            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxLeftOffset = 0;
+            gCurrentSprite.hitboxRightOffset = 0;
 
-            gCurrentSprite.drawOrder = 0x6;
+            gCurrentSprite.drawOrder = 6;
             gCurrentSprite.samusCollision = SSC_NONE;
             break;
 
         case CROCOMIRE_PART_LEFT_ARM:
-            gCurrentSprite.drawDistanceTopOffset = 0x20;
-            gCurrentSprite.drawDistanceBottomOffset = 0x2A;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x58;
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE + PIXEL_SIZE * 2);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 5 + HALF_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -0x4;
-            gCurrentSprite.hitboxBottomOffset = 0x4;
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x4;
+            gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
+            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
-            gCurrentSprite.drawOrder = 0x6;
+            gCurrentSprite.drawOrder = 6;
             break;
 
         default:
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
     }
 }
 
 void Crocomire(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             CrocomireInit();
             break;
 
@@ -217,7 +217,7 @@ void CrocomirePart(void)
 {
     u8 ramSlot;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
     if (gSpriteData[ramSlot].pose > 0x61 && gCurrentSprite.pose < 0x62)
@@ -227,7 +227,7 @@ void CrocomirePart(void)
         gCurrentSprite.invincibilityStunFlashTimer = gSpriteData[ramSlot].invincibilityStunFlashTimer;
     }
 
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
         CrocomirePartInit();
 
     CrocomireSyncSubSprites();

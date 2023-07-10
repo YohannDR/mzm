@@ -1,9 +1,11 @@
 #include "sprites_AI/chozo_ball.h"
 #include "sprites_AI/chozo_statue.h"
+#include "macros.h"
 
 #include "data/sprites/chozo_statue.h"
 #include "data/sprites/unknown_item_chozo_statue.h"
 
+#include "constants/samus.h"
 #include "constants/sprite.h"
 #include "constants/text.h"
 
@@ -66,7 +68,7 @@ void ChozoBallSpawnItemBanner(u8 spriteID)
             break;
     }
 
-    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 0x6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0x0);
+    SpriteSpawnPrimary(PSPRITE_ITEM_BANNER, text, 6, gCurrentSprite.yPosition, gCurrentSprite.xPosition, 0);
 }
 
 /**
@@ -79,15 +81,15 @@ void ChozoBallSetClosedOAM(u8 spriteID)
     switch (spriteID)
     {
         case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
-            gCurrentSprite.pOam = sChozoBallOAM_UnknownClosed;
+            gCurrentSprite.pOam = sChozoBallOam_UnknownClosed;
             break;
         
         case PSPRITE_CHOZO_STATUE_SPACE_JUMP:
-            gCurrentSprite.pOam = sChozoBallOAM_UnknownClosed;
+            gCurrentSprite.pOam = sChozoBallOam_UnknownClosed;
             break;
 
         case PSPRITE_CHOZO_STATUE_GRAVITY:
-            gCurrentSprite.pOam = sChozoBallOAM_UnknownClosed;
+            gCurrentSprite.pOam = sChozoBallOam_UnknownClosed;
             break;
         
         case PSPRITE_CHOZO_STATUE_LONG:
@@ -98,11 +100,11 @@ void ChozoBallSetClosedOAM(u8 spriteID)
         case PSPRITE_CHOZO_STATUE_HIGH_JUMP:
         case PSPRITE_CHOZO_STATUE_SCREW:
         case PSPRITE_CHOZO_STATUE_VARIA:
-            gCurrentSprite.pOam = sChozoBallOAM_NormalClosed;
+            gCurrentSprite.pOam = sChozoBallOam_NormalClosed;
             break;
 
         default:
-            gCurrentSprite.pOam = sChozoBallOAM_NormalClosed;
+            gCurrentSprite.pOam = sChozoBallOam_NormalClosed;
     }
 }
 
@@ -116,17 +118,17 @@ void ChozoBallSetRevealingOAM(u8 spriteID)
     switch (spriteID)
     {
         case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
-            gCurrentSprite.pOam = sChozoBallOAM_UnknownRevealing;
+            gCurrentSprite.pOam = sChozoBallOam_UnknownRevealing;
             break;
-        
+
         case PSPRITE_CHOZO_STATUE_SPACE_JUMP:
-            gCurrentSprite.pOam = sChozoBallOAM_UnknownRevealing;
+            gCurrentSprite.pOam = sChozoBallOam_UnknownRevealing;
             break;
 
         case PSPRITE_CHOZO_STATUE_GRAVITY:
-            gCurrentSprite.pOam = sChozoBallOAM_UnknownRevealing;
+            gCurrentSprite.pOam = sChozoBallOam_UnknownRevealing;
             break;
-        
+
         case PSPRITE_CHOZO_STATUE_LONG:
         case PSPRITE_CHOZO_STATUE_ICE:
         case PSPRITE_CHOZO_STATUE_WAVE:
@@ -135,11 +137,11 @@ void ChozoBallSetRevealingOAM(u8 spriteID)
         case PSPRITE_CHOZO_STATUE_HIGH_JUMP:
         case PSPRITE_CHOZO_STATUE_SCREW:
         case PSPRITE_CHOZO_STATUE_VARIA:
-            gCurrentSprite.pOam = sChozoBallOAM_NormalRevealing;
+            gCurrentSprite.pOam = sChozoBallOam_NormalRevealing;
             break;
 
         default:
-            gCurrentSprite.pOam = sChozoBallOAM_NormalRevealing;
+            gCurrentSprite.pOam = sChozoBallOam_NormalRevealing;
     }
 }
 
@@ -153,17 +155,17 @@ void ChozoBallSetRevealedOAM(u8 spriteID)
     switch (spriteID)
     {
         case PSPRITE_CHOZO_STATUE_PLASMA_BEAM:
-            gCurrentSprite.pOam = sChozoBallOAM_UnknownRevealed;
+            gCurrentSprite.pOam = sChozoBallOam_UnknownRevealed;
             break;
-        
+
         case PSPRITE_CHOZO_STATUE_SPACE_JUMP:
-            gCurrentSprite.pOam = sChozoBallOAM_UnknownRevealed;
+            gCurrentSprite.pOam = sChozoBallOam_UnknownRevealed;
             break;
 
         case PSPRITE_CHOZO_STATUE_GRAVITY:
-            gCurrentSprite.pOam = sChozoBallOAM_UnknownRevealed;
+            gCurrentSprite.pOam = sChozoBallOam_UnknownRevealed;
             break;
-        
+
         case PSPRITE_CHOZO_STATUE_LONG:
         case PSPRITE_CHOZO_STATUE_ICE:
         case PSPRITE_CHOZO_STATUE_WAVE:
@@ -172,11 +174,11 @@ void ChozoBallSetRevealedOAM(u8 spriteID)
         case PSPRITE_CHOZO_STATUE_HIGH_JUMP:
         case PSPRITE_CHOZO_STATUE_SCREW:
         case PSPRITE_CHOZO_STATUE_VARIA:
-            gCurrentSprite.pOam = sChozoBallOAM_NormalRevealed;
+            gCurrentSprite.pOam = sChozoBallOam_NormalRevealed;
             break;
 
         default:
-            gCurrentSprite.pOam = sChozoBallOAM_NormalRevealed;
+            gCurrentSprite.pOam = sChozoBallOam_NormalRevealed;
     }
 }
 
@@ -188,20 +190,20 @@ void ChozoBallInit(void)
 {
     gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
 
-    gCurrentSprite.hitboxTopOffset = -0x1C;
-    gCurrentSprite.hitboxBottomOffset = 0x1C;
-    gCurrentSprite.hitboxLeftOffset = -0x1C;
-    gCurrentSprite.hitboxRightOffset = 0x1C;
+    gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxBottomOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
+    gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
 
-    gCurrentSprite.drawDistanceTopOffset = 0xC;
-    gCurrentSprite.drawDistanceBottomOffset = 0xC;
-    gCurrentSprite.drawDistanceHorizontalOffset = 0xC;
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(QUARTER_BLOCK_SIZE * 3);
 
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.samusCollision = SSC_SOLID;
-    gCurrentSprite.health = 0x1;
+    gCurrentSprite.health = 1;
     gCurrentSprite.pose = CHOZO_BALL_POSE_DO_NOTHING;
 
     ChozoBallSetClosedOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteID);
@@ -223,15 +225,15 @@ void ChozoBallEmpty(void)
 void ChozoBallRevealingInit(void)
 {
     gCurrentSprite.properties |= SP_IMMUNE_TO_PROJECTILES;
-    gCurrentSprite.health = 0x1;
+    gCurrentSprite.health = 1;
     gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
     gCurrentSprite.pose = CHOZO_BALL_POSE_REVEALING;
 
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
-    gCurrentSprite.invincibilityStunFlashTimer &= 0x80;
+    SPRITE_CLEAR_ISFT(gCurrentSprite);
 
     ChozoBallSetRevealingOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteID);
     SoundPlay(0x11D);
@@ -246,8 +248,9 @@ void ChozoBallCheckRevealingAnimEnded(void)
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = CHOZO_BALL_POSE_IDLE;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
         ChozoBallSetRevealedOAM(gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteID);
     }
 }
@@ -262,11 +265,12 @@ void ChozoBallRegisterItem(void)
 
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
-        gPreventMovementTimer = 0x3E8;
+        gPreventMovementTimer = SAMUS_ITEM_PMT;
         gCurrentSprite.properties |= SP_ALWAYS_ACTIVE;
-        gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+        gCurrentSprite.ignoreSamusCollisionTimer = 1;
+
         gCurrentSprite.pose = CHOZO_BALL_POSE_GETTING;
-        gCurrentSprite.timer = 0x0;
+        gCurrentSprite.timer = 0;
 
         spriteID = gSpriteData[gCurrentSprite.primarySpriteRamSlot].spriteID;
         ChozoStatueRegisterItem(spriteID);
@@ -280,13 +284,13 @@ void ChozoBallRegisterItem(void)
  */
 void ChozoBallFlashAnimation(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
-    if (!(gCurrentSprite.timer & 0x1))
+    if (MOD_AND(gCurrentSprite.timer, 2) == 0)
         gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
         
-    if (gPreventMovementTimer < 0x3E7)
-        gCurrentSprite.status = 0x0;
+    if (gPreventMovementTimer < SAMUS_ITEM_PMT - 1)
+        gCurrentSprite.status = 0;
 }
 
 /**
@@ -297,7 +301,7 @@ void ChozoBall(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             ChozoBallInit();
             break;
 

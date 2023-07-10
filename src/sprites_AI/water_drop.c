@@ -1,8 +1,12 @@
 #include "sprites_AI/water_drop.h"
+#include "macros.h"
+
 #include "data/particle_data.h"
 #include "data/sprite_data.h"
+
 #include "constants/clipdata.h"
 #include "constants/sprite.h"
+
 #include "structs/clipdata.h"
 #include "structs/sprite.h"
 
@@ -12,14 +16,14 @@
  */
 void WaterDropInit(void)
 {
-    gCurrentSprite.hitboxTopOffset = -0x4;
-    gCurrentSprite.hitboxBottomOffset = 0x4;
-    gCurrentSprite.hitboxLeftOffset = -0x4;
-    gCurrentSprite.hitboxRightOffset = 0x4;
+    gCurrentSprite.hitboxTopOffset = -PIXEL_SIZE;
+    gCurrentSprite.hitboxBottomOffset = PIXEL_SIZE;
+    gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
+    gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
     gCurrentSprite.samusCollision = SSC_NONE;
-    gCurrentSprite.drawOrder = 0x1;
-    gCurrentSprite.animationDurationCounter = 0x0;
+    gCurrentSprite.drawOrder = 1;
+    gCurrentSprite.animationDurationCounter = 0;
 }
 
 /**
@@ -32,38 +36,39 @@ void WaterDrop(void)
     u32 block;
     s32 movement;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             WaterDropInit();
-            gCurrentSprite.yPosition -= 0x40;
+
+            gCurrentSprite.yPosition -= BLOCK_SIZE;
 
             gCurrentSprite.drawDistanceTopOffset = 0x8;
             gCurrentSprite.drawDistanceBottomOffset = 0x8;
             gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
 
-            gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.pOam = sWaterDropOAM_Spawning;
+            gCurrentSprite.currentAnimationFrame = 0;
+            gCurrentSprite.pOam = sWaterDropOam_Spawning;
 
             gCurrentSprite.yPositionSpawn = gCurrentSprite.yPosition;
             gCurrentSprite.xPositionSpawn = gCurrentSprite.xPosition;
 
             gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.pose = WATER_DROP_POSE_SPAWNING;
-            gCurrentSprite.timer = gSpriteRng << 0x3;
+            gCurrentSprite.timer = gSpriteRng * 8;
             break;
 
         case WATER_DROP_POSE_CHECK_SPAWNING_ENDED:
             if (SpriteUtilCheckEndCurrentSpriteAnim())
             {
-                gCurrentSprite.pOam = sWaterDropOAM_Falling;
-                gCurrentSprite.currentAnimationFrame = 0x0;
-                gCurrentSprite.animationDurationCounter = 0x0;
+                gCurrentSprite.pOam = sWaterDropOam_Falling;
+                gCurrentSprite.currentAnimationFrame = 0;
+                gCurrentSprite.animationDurationCounter = 0;
 
                 gCurrentSprite.workVariable = FALSE;
-                gCurrentSprite.arrayOffset = 0x0;
+                gCurrentSprite.arrayOffset = 0;
                 gCurrentSprite.pose = WATER_DROP_POSE_FALLING;
             }
             break;
@@ -73,13 +78,18 @@ void WaterDrop(void)
             if (gCurrentAffectingClipdata.hazard == HAZARD_TYPE_WATER)
             {
                 // Splashing on water
-                if (gEffectYPosition != 0x0)
+                if (gEffectYPosition != 0)
                 {
+                    // Splashing on room effect
                     gCurrentSprite.yPosition = gEffectYPosition;
                     gCurrentSprite.workVariable = TRUE;
                 }
                 else
+                {
+                    // Splashing on water clipdata
                     gCurrentSprite.yPosition = block;
+                }
+
                 gCurrentSprite.pose = WATER_DROP_POSE_SPLASHING_INIT;
             }
             else
@@ -89,30 +99,30 @@ void WaterDrop(void)
                 {
                     gCurrentSprite.yPosition = block;
                     gCurrentSprite.pose = WATER_DROP_POSE_SPLASHING_INIT;
+                    break;
+                }
+
+                // Fall
+                offset = gCurrentSprite.arrayOffset;
+                movement = sSpritesFallingSpeed[offset]; 
+                if (movement == SHORT_MAX)
+                {
+                    movement = sSpritesFallingSpeed[offset - 1];
+                    gCurrentSprite.yPosition += movement;
                 }
                 else
                 {
-                    // Fall
-                    offset = gCurrentSprite.arrayOffset;
-                    movement = sSpritesFallingSpeed[offset]; 
-                    if (movement == SHORT_MAX)
-                    {
-                        movement = sSpritesFallingSpeed[offset - 0x1];
-                        gCurrentSprite.yPosition += movement;
-                    }
-                    else
-                    {
-                        gCurrentSprite.arrayOffset++;
-                        gCurrentSprite.yPosition += movement;
-                    }
+                    gCurrentSprite.arrayOffset++;
+                    gCurrentSprite.yPosition += movement;
                 }
             }
             break;
 
         case WATER_DROP_POSE_SPLASHING_INIT:
-            gCurrentSprite.pOam = sWaterDropOAM_Splashing;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.animationDurationCounter = 0x0;
+            gCurrentSprite.pOam = sWaterDropOam_Splashing;
+            gCurrentSprite.currentAnimationFrame = 0;
+            gCurrentSprite.animationDurationCounter = 0;
+
             gCurrentSprite.pose = WATER_DROP_POSE_SPLASHING;
 
         case WATER_DROP_POSE_SPLASHING:
@@ -123,17 +133,17 @@ void WaterDrop(void)
             {
                 gCurrentSprite.status |= SPRITE_STATUS_NOT_DRAWN;
                 gCurrentSprite.pose = WATER_DROP_POSE_SPAWNING;
-                gCurrentSprite.timer = (gSpriteRng << 0x3) + 0x64;
+                gCurrentSprite.timer = 100 + gSpriteRng * 8;
             }
             break;
 
         case WATER_DROP_POSE_SPAWNING:
             gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0x0)
+            if (gCurrentSprite.timer == 0)
             {
-                gCurrentSprite.pOam = sWaterDropOAM_Spawning;
-                gCurrentSprite.currentAnimationFrame = 0x0;
-                gCurrentSprite.animationDurationCounter = 0x0;
+                gCurrentSprite.pOam = sWaterDropOam_Spawning;
+                gCurrentSprite.currentAnimationFrame = 0;
+                gCurrentSprite.animationDurationCounter = 0;
 
                 gCurrentSprite.pose = WATER_DROP_POSE_CHECK_SPAWNING_ENDED;
                 gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
@@ -141,10 +151,10 @@ void WaterDrop(void)
                 gCurrentSprite.yPosition = gCurrentSprite.yPositionSpawn;
                 gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn;
 
-                if (gSpriteRng & 0x1)
-                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + ((s32)(gSpriteRng + 0x1) >> 1);
+                if (MOD_AND(gSpriteRng, 2))
+                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn + DIV_SHIFT(gSpriteRng + 1, 2);
                 else
-                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - ((s32)(gSpriteRng + 0x1) >> 1);
+                    gCurrentSprite.xPosition = gCurrentSprite.xPositionSpawn - DIV_SHIFT(gSpriteRng + 1, 2);
             }
     }
 }

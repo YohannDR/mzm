@@ -15,6 +15,8 @@
 
 #define GADORA_BEAM_POSE_MOVING 0x9
 
+#define GADORA_COMPUTE_TIMER(addValue) (gSpriteRng * 4 + (addValue))
+
 void GadoraInit(void);
 void GadoraIdleInit(void);
 void GadoraSamusDetection(void);

@@ -28,9 +28,9 @@ void MorphBallInit(void)
     gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
     gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3);
 
-    gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
     gCurrentSprite.pOam = sMorphBallOam_Idle;
     gCurrentSprite.animationDurationCounter = 0;
@@ -79,7 +79,7 @@ void MorphBallFlashAnim(void)
     gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
     // Flicker (timer will always be 0 though)
-    if (!(gCurrentSprite.timer & 1))
+    if (MOD_AND(gCurrentSprite.timer, 2) == 0)
         gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
 
     // Check message banner disappeared
@@ -98,9 +98,9 @@ void MorphBallOutsideInit(void)
     gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
     gCurrentSprite.hitboxRightOffset = PIXEL_SIZE;
 
-    gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
     gCurrentSprite.pOam = sMorphBallOutsideOam_Idle;
     gCurrentSprite.animationDurationCounter = 0;

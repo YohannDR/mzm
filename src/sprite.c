@@ -692,36 +692,38 @@ void SpriteCheckOnScreen(struct SpriteData* pSprite)
 
         bgYRange = bgBaseY + BLOCK_SIZE * 8;
         spriteYRange = spriteY + BLOCK_SIZE * 8;
-        spriteBottom = bgYRange - pSprite->drawDistanceBottomOffset * 4;
-        drawOffset = pSprite->drawDistanceTopOffset * 4 + BLOCK_SIZE * 10;
+        spriteBottom = bgYRange - PIXEL_TO_SUBPIXEL(pSprite->drawDistanceBottomOffset);
+        drawOffset = PIXEL_TO_SUBPIXEL(pSprite->drawDistanceTopOffset) + BLOCK_SIZE * 10;
         spriteTop = bgYRange + drawOffset;
 
         bgXRange = bgBaseX + BLOCK_SIZE * 8;
         spriteXRange = spriteX + BLOCK_SIZE * 8;
-        spriteLeft = bgXRange - pSprite->drawDistanceHorizontalOffset * 4;
-        drawOffset = pSprite->drawDistanceHorizontalOffset * 4 + BLOCK_SIZE * 15;
+        spriteLeft = bgXRange - PIXEL_TO_SUBPIXEL(pSprite->drawDistanceHorizontalOffset);
+        drawOffset = PIXEL_TO_SUBPIXEL(pSprite->drawDistanceHorizontalOffset) + BLOCK_SIZE * 15;
         spriteRight = bgXRange + drawOffset;
 
         if (spriteLeft < spriteXRange && spriteXRange < spriteRight && spriteBottom < spriteYRange && spriteYRange < spriteTop)
-            pSprite->status |= SPRITE_STATUS_ONSCREEN;
-        else
         {
-            pSprite->status &= ~SPRITE_STATUS_ONSCREEN;
-            if (pSprite->properties & SP_KILL_OFF_SCREEN)
-            {
-                bgYRange = bgBaseY + BLOCK_SIZE * 10;
-                spriteYRange = spriteY + BLOCK_SIZE * 10;
-                spriteBottom = bgYRange - BLOCK_SIZE * 9;
-                spriteTop = bgYRange + BLOCK_SIZE * 19;
+            pSprite->status |= SPRITE_STATUS_ONSCREEN;
+            return;
+        }
 
-                bgXRange = bgBaseX + BLOCK_SIZE * 10;
-                spriteXRange = spriteX + BLOCK_SIZE * 10;
-                spriteLeft = bgXRange - BLOCK_SIZE * 9;
-                spriteRight = bgXRange + BLOCK_SIZE * 24;
+        pSprite->status &= ~SPRITE_STATUS_ONSCREEN;
 
-                if (spriteLeft >= spriteXRange || spriteXRange >= spriteRight || spriteBottom >= spriteYRange || spriteYRange >= spriteTop)
-                    pSprite->status = 0;
-            }
+        if (pSprite->properties & SP_KILL_OFF_SCREEN)
+        {
+            bgYRange = bgBaseY + BLOCK_SIZE * 10;
+            spriteYRange = spriteY + BLOCK_SIZE * 10;
+            spriteBottom = bgYRange - BLOCK_SIZE * 9;
+            spriteTop = bgYRange + BLOCK_SIZE * 19;
+
+            bgXRange = bgBaseX + BLOCK_SIZE * 10;
+            spriteXRange = spriteX + BLOCK_SIZE * 10;
+            spriteLeft = bgXRange - BLOCK_SIZE * 9;
+            spriteRight = bgXRange + BLOCK_SIZE * 24;
+
+            if (spriteLeft >= spriteXRange || spriteXRange >= spriteRight || spriteBottom >= spriteYRange || spriteYRange >= spriteTop)
+                pSprite->status = 0;
         }
     }
 }
@@ -730,8 +732,8 @@ void SpriteLoadAllData(void)
 {
     if (gPauseScreenFlag == PAUSE_SCREEN_NONE)
     {
-        if (gGameModeSub3 == 0x0 && !gIsLoadingFile)
-            gAlarmTimer = 0x0;
+        if (gGameModeSub3 == 0 && !gIsLoadingFile)
+            gAlarmTimer = 0;
 
         SpriteClearData();
         SpriteLoadSpriteset();
@@ -739,7 +741,7 @@ void SpriteLoadAllData(void)
         SpriteUtilInitLocationText();
         SpriteLoadRoomSprites();
         SpawnWaitingPirates();
-        gParasiteRelated = 0x0;
+        gParasiteRelated = 0;
     }
 }
 

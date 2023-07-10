@@ -28,21 +28,23 @@ void GadoraInit(void)
     if (gCurrentSprite.spriteID == PSPRITE_GADORA_KRAID)
     {
         if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_KRAID_GADORA_KILLED))
+        {
             gCurrentSprite.status |= SPRITE_STATUS_UNKNOWN;
+        }
         else
         {
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
             return;
         }
     }
     else if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY && EventFunction(EVENT_ACTION_CHECKING, EVENT_RIDLEY_GADORA_KILLED))
     {
-        gCurrentSprite.status = 0x0;
+        gCurrentSprite.status = 0;
         return;
     }
 
     gCurrentSprite.status |= SPRITE_STATUS_XFLIP;
-    gCurrentSprite.xPosition += 0xC;
+    gCurrentSprite.xPosition += PIXEL_SIZE * 3;
 
     yPosition = gCurrentSprite.yPosition;
     xPosition = gCurrentSprite.xPosition;
@@ -51,42 +53,44 @@ void GadoraInit(void)
     GadoraHatchUpdate(xPosition, yPosition, FALSE);
 
     if (gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-        xPosition += 0x10;
+        xPosition += QUARTER_BLOCK_SIZE;
     else
-        xPosition -= 0x10;
+        xPosition -= QUARTER_BLOCK_SIZE;
 
     ramSlot = SpriteSpawnSecondary(SSPRITE_GADORA_EYE, gCurrentSprite.roomSlot, gCurrentSprite.spritesetGfxSlot,
-            gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
-    if (ramSlot == 0xFF)
-        gCurrentSprite.status = 0x0;
-    else
+            gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0);
+
+    if (ramSlot == UCHAR_MAX)
     {
-        gCurrentSprite.pose = GADORA_POSE_IDLE_INIT;
+        gCurrentSprite.status = 0;
+        return;
+    }
 
-        gCurrentSprite.drawDistanceTopOffset = 0x28;
-        gCurrentSprite.drawDistanceBottomOffset = 0x28;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+    gCurrentSprite.pose = GADORA_POSE_IDLE_INIT;
 
-        gCurrentSprite.hitboxTopOffset = -0x78;
-        gCurrentSprite.hitboxBottomOffset = 0x78;
-        gCurrentSprite.hitboxLeftOffset = -0x14;
-        gCurrentSprite.hitboxRightOffset = 0x14;
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2 + HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-        gCurrentSprite.pOam = sGadoraOAM_EyeClosed;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+    gCurrentSprite.hitboxTopOffset = -0x78;
+    gCurrentSprite.hitboxBottomOffset = 0x78;
+    gCurrentSprite.hitboxLeftOffset = -0x14;
+    gCurrentSprite.hitboxRightOffset = 0x14;
 
-        gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-        gCurrentSprite.drawOrder = 0x5;
-        gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
-        gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+    gCurrentSprite.pOam = sGadoraOAM_EyeClosed;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
 
-        // Change palette if ridley gadora
-        if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY)
-        {
-            gCurrentSprite.absolutePaletteRow = 0x1;
-            gCurrentSprite.paletteRow = 0x1;
-        }
+    gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
+    gCurrentSprite.drawOrder = 5;
+    gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
+    gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
+
+    // Change palette if ridley gadora
+    if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY)
+    {
+        gCurrentSprite.absolutePaletteRow = 1;
+        gCurrentSprite.paletteRow = 1;
     }
 }
 
@@ -97,10 +101,12 @@ void GadoraInit(void)
 void GadoraIdleInit(void)
 {
     gCurrentSprite.pose = GADORA_POSE_SAMUS_DETECTION;
+
     gCurrentSprite.pOam = sGadoraOAM_EyeClosed;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.timer = gSpriteRng * 0x4 + 0x3D;
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+
+    gCurrentSprite.timer = GADORA_COMPUTE_TIMER(61);
 }
 
 /**
@@ -110,18 +116,21 @@ void GadoraIdleInit(void)
 void GadoraSamusDetection(void)
 {
     gCurrentSprite.timer--; // Timer before checking for samus
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer == 0)
     {
         // Check if samus in front
-        if (SpriteUtilCheckSamusNearSpriteFrontBehind(BLOCK_SIZE * 0x2, BLOCK_SIZE * 0x7, 0x0) == NSFB_IN_FRONT)
+        if (SpriteUtilCheckSamusNearSpriteFrontBehind(BLOCK_SIZE * 2, BLOCK_SIZE * 7, 0) == NSFB_IN_FRONT)
         {
             gCurrentSprite.pose = GADORA_POSE_CHECK_WARNING_ENDED;
+
             gCurrentSprite.pOam = sGadoraOAM_Warning;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
         }
         else
-            gCurrentSprite.timer = gSpriteRng * 0x4 + 0x3D; // Reset timer
+        {
+            gCurrentSprite.timer = GADORA_COMPUTE_TIMER(61); // Reset timer
+        }
     }
 }
 
@@ -134,9 +143,11 @@ void GadoraCheckWarningAnimEnded(void)
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = GADORA_POSE_CHECK_OPENING_EYE_ENDED;
+
         gCurrentSprite.pOam = sGadoraOAM_OpeningEye;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
         SoundPlay(0x25A);
     }
 }
@@ -153,18 +164,22 @@ void GadoraCheckOpeningEyeAnimEnded(void)
     if (SpriteUtilCheckEndCurrentSpriteAnim())
     {
         gCurrentSprite.pose = GADORA_POSE_EYE_OPENED;
+
         gCurrentSprite.pOam = sGadoraOAM_EyeOpened;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
         gCurrentSprite.timer = 0x3C; // Timer for how long to stay open
         if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY)
         {
             gCurrentSprite.timer = 0x58; // Longer timer because of beam
+
             // Spawn beam
-            xPosition = gCurrentSprite.xPosition + 0x10;
+            xPosition = gCurrentSprite.xPosition + QUARTER_BLOCK_SIZE;
             status = SPRITE_STATUS_XFLIP;
-            SpriteSpawnSecondary(SSPRITE_GADORA_BEAM, 0x0, gCurrentSprite.spritesetGfxSlot, gCurrentSprite.primarySpriteRamSlot,
-                gCurrentSprite.yPosition, xPosition, status);
+
+            SpriteSpawnSecondary(SSPRITE_GADORA_BEAM, 0, gCurrentSprite.spritesetGfxSlot,
+                gCurrentSprite.primarySpriteRamSlot, gCurrentSprite.yPosition, xPosition, status);
         }
     }
 }
@@ -175,35 +190,37 @@ void GadoraCheckOpeningEyeAnimEnded(void)
  */
 void GadoraEyeOpened(void)
 {
-    if (gCurrentSprite.timer == 0x0)
+    if (gCurrentSprite.timer == 0)
     {
         // Timer done, close eye
         gCurrentSprite.pose = GADORA_POSE_CHECK_CLOSING_EYE_ENDED;
+
         gCurrentSprite.pOam = sGadoraOAM_ClosingEye;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
         SoundPlay(0x25B);
+        return;
     }
-    else
+
+    gCurrentSprite.timer--; // Timer fow how long it stays open
+
+    // Check set the eye moving OAM
+    if (gCurrentSprite.pOam == sGadoraOAM_EyeOpened)
     {
-        gCurrentSprite.timer--; // Timer fow how long it stays open
-        // Check set the eye moving OAM
-        if (gCurrentSprite.pOam == sGadoraOAM_EyeOpened)
+        if (SpriteUtilCheckEndCurrentSpriteAnim())
         {
-            if (SpriteUtilCheckEndCurrentSpriteAnim())
-            {
-                gCurrentSprite.pOam = sGadoraOAM_EyeMoving;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
-            }
+            gCurrentSprite.pOam = sGadoraOAM_EyeMoving;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
         }
-        else if (gCurrentSprite.timer == 0x7)
-        {
-            // Eye will soon close, set before closing OAM
-            gCurrentSprite.pOam = sGadoraOAM_BeforeClosing;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-        }
+    }
+    else if (gCurrentSprite.timer == 7)
+    {
+        // Eye will soon close, set before closing OAM
+        gCurrentSprite.pOam = sGadoraOAM_BeforeClosing;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
     }
 }
 
@@ -224,10 +241,12 @@ void GadoraCheckClosingEyeAnimNearEnded(void)
 void GadoraDeathGfxInit(void)
 {
     gCurrentSprite.pose = GADORA_POSE_DEATH;
+
     gCurrentSprite.pOam = sGadoraOAM_Death;
-    gCurrentSprite.animationDurationCounter = 0x0;
-    gCurrentSprite.currentAnimationFrame = 0x0;
-    gCurrentSprite.timer = 0x28; // Death animation timer
+    gCurrentSprite.animationDurationCounter = 0;
+    gCurrentSprite.currentAnimationFrame = 0;
+
+    gCurrentSprite.timer = 40; // Death animation timer
     gCurrentSprite.samusCollision = SSC_NONE;
 }
 
@@ -245,47 +264,49 @@ void GadoraDeath(void)
     u32 yOffset;
     
     timer = --gCurrentSprite.timer;
-    if (!(timer & 0x3))
+    if (MOD_AND(timer, 4))
+        return;
+
+    if (timer & 4)
     {
-        if (timer & 0x4)
-            // Set stun (white) palette
-            gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
-        else
+        // Set stun (white) palette
+        gCurrentSprite.paletteRow = 0xE - (gCurrentSprite.spritesetGfxSlot + gCurrentSprite.frozenPaletteRowOffset);
+        return;
+    }
+
+    // Set normal palette
+    gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
+    if (timer == 0)
+    {
+        yPosition = gCurrentSprite.yPosition;
+        xPosition = gCurrentSprite.xPosition;
+
+        // Re-enable hatch
+        GadoraHatchUpdate(xPosition, yPosition, TRUE);
+
+        // Set event
+        if (gCurrentSprite.spriteID == PSPRITE_GADORA_KRAID)
+            EventFunction(EVENT_ACTION_SETTING, EVENT_KRAID_GADORA_KILLED);
+        else if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY)
+            EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_GADORA_KILLED);
+
+        rng = gSpriteRng;
+        xPosition += QUARTER_BLOCK_SIZE;
+        yOffset = rng - (BLOCK_SIZE + PIXEL_SIZE * 2);
+
+        // Kill sprite
+        SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition - yOffset, xPosition - rng, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
+
+        // Create additional drop if the gadora spawned a drop
+        if (gCurrentSprite.status)
         {
-            // Set normal palette
-            gCurrentSprite.paletteRow = gCurrentSprite.absolutePaletteRow;
-            if (timer == 0x0)
-            {
-                yPosition = gCurrentSprite.yPosition;
-                xPosition = gCurrentSprite.xPosition;
+            if (MOD_AND(rng, 2))
+                drop = PSPRITE_LARGE_ENERGY_DROP;
+            else
+                drop = PSPRITE_MISSILE_DROP;
 
-                // Re-enable hatch
-                GadoraHatchUpdate(xPosition, yPosition, TRUE);
-
-                // Set event
-                if (gCurrentSprite.spriteID == PSPRITE_GADORA_KRAID)
-                    EventFunction(EVENT_ACTION_SETTING, EVENT_KRAID_GADORA_KILLED);
-                else if (gCurrentSprite.spriteID == PSPRITE_GADORA_RIDLEY)
-                    EventFunction(EVENT_ACTION_SETTING, EVENT_RIDLEY_GADORA_KILLED);
-
-                rng = gSpriteRng;
-                xPosition += 0x10;
-                yOffset = rng - 0x48;
-
-                // Kill sprite
-                SpriteUtilSpriteDeath(DEATH_NORMAL, yPosition - yOffset, xPosition - rng, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
-
-                // Create additional drop if the gadora spawned a drop
-                if (gCurrentSprite.status)
-                {
-                    if (rng & 0x1)
-                        drop = PSPRITE_LARGE_ENERGY_DROP;
-                    else
-                        drop = PSPRITE_MISSILE_DROP;
-
-                    SpriteSpawnDropFollowers(drop, gCurrentSprite.roomSlot, 0x0, gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0x0);
-                }
-            }
+            SpriteSpawnDropFollowers(drop, gCurrentSprite.roomSlot, 0,
+                gCurrentSprite.primarySpriteRamSlot, yPosition, xPosition, 0);
         }
     }
 }
@@ -298,7 +319,7 @@ void Gadora(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             GadoraInit();
             break;
 
@@ -344,7 +365,8 @@ void GadoraEye(void)
     u32 rng;
     u32 yOffset;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
+
     if (gCurrentSprite.properties & SP_DAMAGED)
     {
         gCurrentSprite.properties &= ~SP_DAMAGED;
@@ -354,26 +376,28 @@ void GadoraEye(void)
 
     ramSlot = gCurrentSprite.primarySpriteRamSlot;
 
-    if (gCurrentSprite.health != 0x0)
+    if (gCurrentSprite.health != 0)
         gSpriteData[ramSlot].paletteRow = gCurrentSprite.paletteRow;
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
-            gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
+        case SPRITE_POSE_UNINITIALIZED:
+            gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
 
             if (gSpriteData[ramSlot].spriteID == PSPRITE_GADORA_KRAID)
-                gCurrentSprite.health = 0x1;
+            {
+                gCurrentSprite.health = 1;
+            }
             else
             {
-                gCurrentSprite.absolutePaletteRow = 0x1;
-                gCurrentSprite.paletteRow = 0x1;
+                gCurrentSprite.absolutePaletteRow = 1;
+                gCurrentSprite.paletteRow = 1;
                 gCurrentSprite.health = GET_SSPRITE_HEALTH(gCurrentSprite.spriteID);
             }
 
-            gCurrentSprite.drawDistanceTopOffset = 0x8;
-            gCurrentSprite.drawDistanceBottomOffset = 0x8;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
             gCurrentSprite.hitboxTopOffset = -0x28;
             gCurrentSprite.hitboxBottomOffset = 0x28;
@@ -381,29 +405,30 @@ void GadoraEye(void)
             gCurrentSprite.hitboxRightOffset = 0x10;
 
             gCurrentSprite.pOam = sEnemyDropOAM_LargeEnergy; // No graphics
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0.;
+            gCurrentSprite.currentAnimationFrame = 0.;
 
             gCurrentSprite.samusCollision = SSC_NONE;
             gCurrentSprite.pose = 0x9;
             break;
 
-        case 0x62: // Killed
-            gSpriteData[ramSlot].pose = 0x62;
-            gSpriteData[ramSlot].ignoreSamusCollisionTimer = 0x1;
-            gSpriteData[ramSlot].health = 0x0;
+        case SPRITE_POSE_DESTROYED: // Killed
+            gSpriteData[ramSlot].pose = SPRITE_POSE_DESTROYED;
+            gSpriteData[ramSlot].ignoreSamusCollisionTimer = 1;
+            gSpriteData[ramSlot].health = 0;
+
             gCurrentSprite.pose = GADORA_EYE_POSE_DEATH;
             gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
-            gCurrentSprite.timer = 0x28; // Death timer
+            gCurrentSprite.timer = 40; // Death timer
             break;
 
         case GADORA_EYE_POSE_DEATH:
             gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0x0)
+            if (gCurrentSprite.timer == 0)
             {
                 rng = gSpriteRng;
                 yOffset = rng - 0x44;
-                rng += 0x10;
+                rng += QUARTER_BLOCK_SIZE;
                 
                 SpriteUtilSpriteDeath(DEATH_NORMAL, yOffset + gCurrentSprite.yPosition,
                     rng + gCurrentSprite.xPosition, TRUE, PE_SPRITE_EXPLOSION_SINGLE_THEN_BIG);
@@ -415,8 +440,8 @@ void GadoraEye(void)
             {
                 // Make vulnerable
                 gCurrentSprite.status &= ~SPRITE_STATUS_IGNORE_PROJECTILES;
-                if ((gCurrentSprite.invincibilityStunFlashTimer & 0x7F) == 0x10)
-                    gSpriteData[ramSlot].timer = 0x0; // Force close eye if hit
+                if (SPRITE_HAS_ISFT(gCurrentSprite) == 0x10)
+                    gSpriteData[ramSlot].timer = 0; // Force close eye if hit
             }
             else
                 gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES; // Make un-vulnerable
@@ -431,48 +456,53 @@ void GadoraBeam(void)
 {
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             gCurrentSprite.status &= ~SPRITE_STATUS_NOT_DRAWN;
             gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x10;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x10;
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -0x30;
-            gCurrentSprite.hitboxBottomOffset = 0x30;
+            gCurrentSprite.hitboxTopOffset = -(QUARTER_BLOCK_SIZE * 3);
+            gCurrentSprite.hitboxBottomOffset = (QUARTER_BLOCK_SIZE * 3);
 
             gCurrentSprite.pOam = sGadoraBeamOAM_Moving;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
 
             gCurrentSprite.pose = GADORA_BEAM_POSE_MOVING;
             gCurrentSprite.samusCollision = SSC_HURTS_SAMUS;
-            gCurrentSprite.drawOrder = 0x3;
-            gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 0x3;
-            gCurrentSprite.health = 0x1;
-            gCurrentSprite.timer = 0x10; // Delay before it starts actually moving
-            gCurrentSprite.hitboxLeftOffset = -0x4;
-            gCurrentSprite.hitboxRightOffset = 0x18;
+            gCurrentSprite.drawOrder = 3;
+            gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
+            gCurrentSprite.health = 1;
+
+            gCurrentSprite.timer = 16; // Delay before it starts actually moving
+            gCurrentSprite.hitboxLeftOffset = -PIXEL_SIZE;
+            gCurrentSprite.hitboxRightOffset = QUARTER_BLOCK_SIZE + PIXEL_SIZE * 2;
 
         case GADORA_BEAM_POSE_MOVING:
-            if (gCurrentSprite.timer != 0x0)
+            if (gCurrentSprite.timer != 0)
             {
                 gCurrentSprite.timer--;
-                if (gCurrentSprite.timer == 0x0)
+                if (gCurrentSprite.timer == 0)
                     SoundPlay(0x25C);
             }
             else
             {
-                gCurrentSprite.xPosition += 0xC;
+                gCurrentSprite.xPosition += PIXEL_SIZE * 3;
                 SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition, gCurrentSprite.xPosition);
-                if (gPreviousCollisionCheck != COLLISION_AIR)
-                {
-                    ParticleSet(gCurrentSprite.yPosition + 0x1C, gCurrentSprite.xPosition, PE_SPRITE_EXPLOSION_BIG);
-                    if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
-                        SoundPlay(0x25D);
-                    gCurrentSprite.status = 0x0;
-                }
+
+                if (gPreviousCollisionCheck == COLLISION_AIR)
+                    return;
+
+                ParticleSet(gCurrentSprite.yPosition + QUARTER_BLOCK_SIZE + PIXEL_SIZE * 3, gCurrentSprite.xPosition, 
+                    PE_SPRITE_EXPLOSION_BIG);
+
+                if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+                    SoundPlay(0x25D);
+
+                gCurrentSprite.status = 0;
             }
     }
 }

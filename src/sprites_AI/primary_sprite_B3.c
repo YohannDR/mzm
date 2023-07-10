@@ -21,9 +21,9 @@ void PrimarySpriteB3(void)
         gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
         gCurrentSprite.samusCollision = SSC_NONE;
 
-        gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(PIXEL_SIZE);
-        gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(PIXEL_SIZE);
-        gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(PIXEL_SIZE);
+        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
+        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(PIXEL_SIZE);
 
         gCurrentSprite.hitboxTopOffset = 0;
         gCurrentSprite.hitboxBottomOffset = 0;

@@ -1,10 +1,13 @@
 #include "sprites_AI/space_pirate_carrying_power_bomb.h"
+
 #include "data/sprites/space_pirate_carrying_power_bomb.h"
 #include "data/sprites/space_pirate.h"
 #include "data/sprites/enemy_drop.h"
+
 #include "constants/clipdata.h"
 #include "constants/event.h"
 #include "constants/sprite.h"
+
 #include "structs/connection.h"
 #include "structs/clipdata.h"
 #include "structs/sprite.h"
@@ -19,75 +22,79 @@ void SpacePirateCarryingPowerBomb(void)
     u8 eventCheck;
     u16 xPosition;
 
-    room = gCurrentRoom + 0x1;
+    room = gCurrentRoom + 1;
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
-            if (room == 0x21)
+        case SPRITE_POSE_UNINITIALIZED:
+            if (room == 32 + 1)
                 eventCheck = EventFunction(EVENT_ACTION_CHECKING, EVENT_SPACE_PIRATE_WITH_POWER_BOMB_ONE);
-            else if (room == 0x2F)
+            else if (room == 46 + 1)
                 eventCheck = EventFunction(EVENT_ACTION_CHECKING, EVENT_SPACE_PIRATE_WITH_POWER_BOMB_TWO);
             else
                 eventCheck = TRUE;
 
             if (eventCheck)
-                gCurrentSprite.status = 0x0;
-            else
             {
-                gCurrentSprite.drawDistanceTopOffset = 0x30;
-                gCurrentSprite.drawDistanceBottomOffset = 0x0;
-                gCurrentSprite.drawDistanceHorizontalOffset = 0x20;
-
-                gCurrentSprite.hitboxTopOffset = 0x0;
-                gCurrentSprite.hitboxBottomOffset = 0x0;
-                gCurrentSprite.hitboxLeftOffset = 0x0;
-                gCurrentSprite.hitboxRightOffset = 0x0;
-
-                gCurrentSprite.pOam = sSpacePirateCarryingPowerBombOAM;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.currentAnimationFrame = 0x0;
-
-                gCurrentSprite.samusCollision = SSC_NONE;
-                gCurrentSprite.pose = 0x9;
-
-                gCurrentSprite.status |= (SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_RIGHT);
+                gCurrentSprite.status = 0;
+                break;
             }
+
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 2);
+
+            gCurrentSprite.hitboxTopOffset = 0;
+            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxLeftOffset = 0;
+            gCurrentSprite.hitboxRightOffset = 0;
+
+            gCurrentSprite.pOam = sSpacePirateCarryingPowerBombOAM;
+            gCurrentSprite.animationDurationCounter = 0;
+            gCurrentSprite.currentAnimationFrame = 0;
+
+            gCurrentSprite.samusCollision = SSC_NONE;
+            gCurrentSprite.pose = SPACE_PIRATE_CARRYING_POWER_BOMB_POSE_SPAWNING;
+
+            gCurrentSprite.status |= (SPRITE_STATUS_XFLIP | SPRITE_STATUS_FACING_RIGHT);
             break;
 
         case SPACE_PIRATE_CARRYING_POWER_BOMB_POSE_SPAWNING:
             if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
             {
-                if (room == 0x21)
+                if (room == 32 + 1)
                     EventFunction(EVENT_ACTION_SETTING, EVENT_SPACE_PIRATE_WITH_POWER_BOMB_ONE);
-                else if (room == 0x2F)
+                else if (room == 46 + 1)
                     EventFunction(EVENT_ACTION_SETTING, EVENT_SPACE_PIRATE_WITH_POWER_BOMB_TWO);
 
                 gCurrentSprite.pose = SPACE_PIRATE_CARRYING_POWER_BOMB_POSE_MOVING;
 
-                if (gCurrentSprite.animationDurationCounter > 0x5 && !(gCurrentSprite.currentAnimationFrame & 0x3))
+                if (gCurrentSprite.animationDurationCounter > 5 && MOD_AND(gCurrentSprite.currentAnimationFrame, 4) == 0)
                     SoundPlayNotAlreadyPlaying(0x165);
             }
             break;
 
         case SPACE_PIRATE_CARRYING_POWER_BOMB_POSE_MOVING:
-            if (gCurrentSprite.animationDurationCounter > 0x5 && !(gCurrentSprite.currentAnimationFrame & 0x3) && gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+            if (gCurrentSprite.animationDurationCounter > 5 && MOD_AND(gCurrentSprite.currentAnimationFrame, 4) == 0 &&
+                gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)
+            {
                 SoundPlayNotAlreadyPlaying(0x165);
+            }
 
             if (gCurrentSprite.status & SPRITE_STATUS_FACING_RIGHT)
             {
                 xPosition = gCurrentSprite.xPosition + BLOCK_SIZE;
-                gCurrentSprite.xPosition += 0x4;
+                gCurrentSprite.xPosition += PIXEL_SIZE;
             }
             else
             {
                 xPosition = gCurrentSprite.xPosition - BLOCK_SIZE;
-                gCurrentSprite.xPosition -= 0x4;
+                gCurrentSprite.xPosition -= PIXEL_SIZE;
             }
 
             SpriteUtilCheckCollisionAtPosition(gCurrentSprite.yPosition - BLOCK_SIZE, xPosition);
             if (gPreviousCollisionCheck == COLLISION_SOLID && gCurrentAffectingClipdata.movement == CLIPDATA_MOVEMENT_SPACE_PIRATE_ZONELINE)
-                gCurrentSprite.status = 0x0;
+                gCurrentSprite.status = 0;
             break;
     }
 }
@@ -98,30 +105,31 @@ void SpacePirateCarryingPowerBomb(void)
  */
 void FakePowerBomb(void)
 {
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == SPRITE_POSE_UNINITIALIZED)
     {
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_POWER_BOMB_STOLEN))
-            gCurrentSprite.status = 0x0;
-        else
         {
-            gCurrentSprite.drawDistanceTopOffset = 0x10;
-            gCurrentSprite.drawDistanceBottomOffset = 0x8;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x8;
-
-            gCurrentSprite.hitboxTopOffset = 0x0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = 0x0;
-            gCurrentSprite.hitboxRightOffset = 0x0;
-
-            gCurrentSprite.pOam = sFakePowerBombOAM_Idle;
-            gCurrentSprite.animationDurationCounter = 0x0;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-
-            gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.pose = 0x9;
-            gCurrentSprite.drawOrder = 0x5;
-            gCurrentSprite.xPosition += 0x10;
+            gCurrentSprite.status = 0;
+            return;
         }
+
+        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+
+        gCurrentSprite.hitboxTopOffset = 0;
+        gCurrentSprite.hitboxBottomOffset = 0;
+        gCurrentSprite.hitboxLeftOffset = 0;
+        gCurrentSprite.hitboxRightOffset = 0;
+
+        gCurrentSprite.pOam = sFakePowerBombOAM_Idle;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
+
+        gCurrentSprite.samusCollision = SSC_NONE;
+        gCurrentSprite.pose = FAKE_POWER_BOMB_POSE_IDLE;
+        gCurrentSprite.drawOrder = 5;
+        gCurrentSprite.xPosition += QUARTER_BLOCK_SIZE;
     }
 }
 
@@ -131,36 +139,36 @@ void FakePowerBomb(void)
  */
 void FakePowerBombEventTrigger(void)
 {
-    if (gCurrentSprite.pose == 0x0)
+    if (gCurrentSprite.pose == 0)
     {
         if (EventFunction(EVENT_ACTION_CHECKING, EVENT_POWER_BOMB_STOLEN))
         {
-            gCurrentSprite.status = 0x0;
+            gCurrentSprite.status = 0;
             return;
         }
         
         gCurrentSprite.status |= (SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES);
         gCurrentSprite.samusCollision = SSC_ABILITY_LASER_SEARCHLIGHT;
 
-        gCurrentSprite.drawDistanceTopOffset = 0x10;
-        gCurrentSprite.drawDistanceBottomOffset = 0x0;
-        gCurrentSprite.drawDistanceHorizontalOffset = 0x18;
+        gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
+        gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
+        gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-        gCurrentSprite.hitboxTopOffset = -0x40;
-        gCurrentSprite.hitboxBottomOffset = 0x0;
-        gCurrentSprite.hitboxLeftOffset = -0x60;
-        gCurrentSprite.hitboxRightOffset = 0x60;
+        gCurrentSprite.hitboxTopOffset = -BLOCK_SIZE;
+        gCurrentSprite.hitboxBottomOffset = 0;
+        gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE + HALF_BLOCK_SIZE);
+        gCurrentSprite.hitboxRightOffset = (BLOCK_SIZE + HALF_BLOCK_SIZE);
 
-        gCurrentSprite.pose = 0x8;
+        gCurrentSprite.pose = FAKE_POWER_BOMB_EVENT_TRIGGER_POSE_IDLE;
         
         gCurrentSprite.pOam = sEnemyDropOAM_LargeEnergy;
-        gCurrentSprite.animationDurationCounter = 0x0;
-        gCurrentSprite.currentAnimationFrame = 0x0;
+        gCurrentSprite.animationDurationCounter = 0;
+        gCurrentSprite.currentAnimationFrame = 0;
     }
 
     if (gCurrentSprite.status & SPRITE_STATUS_SAMUS_COLLIDING)
     {
-        gCurrentSprite.status = 0x0;
+        gCurrentSprite.status = 0;
         EventFunction(EVENT_ACTION_SETTING, EVENT_POWER_BOMB_STOLEN);
     }
 }

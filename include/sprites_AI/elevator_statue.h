@@ -13,6 +13,8 @@
 #define ELEVATOR_STATUE_DEBRIS_PART_RIDLEY 0x1
 #define ELEVATOR_STATUE_DEBRIS_PART_DUST 0x2
 
+#define ELEVATOR_STATUE_DEBRIS_POSE_IDLE 0x9
+
 void ElevatorStatueChangeTwoGroundCCAA(u8 caa);
 void KraidElevatorStatueChangeCAA(u8 caa);
 void KraidElevatorStatueFallenInit(void);

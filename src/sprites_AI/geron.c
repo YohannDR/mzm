@@ -1,9 +1,13 @@
 #include "sprites_AI/geron.h"
 #include "sprites_AI/parasite.h"
+#include "macros.h"
+
 #include "data/sprites/geron.h"
+
 #include "constants/sprite.h"
 #include "constants/event.h"
 #include "constants/clipdata.h"
+
 #include "structs/sprite.h"
 #include "structs/clipdata.h"
 
@@ -24,11 +28,11 @@ void Geron(void)
     u32 eventCheck;
     struct SpriteData* pSprite;
 
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
 
     switch (gCurrentSprite.pose)
     {
-        case 0x0:
+        case SPRITE_POSE_UNINITIALIZED:
             destroyed = FALSE;
             // Check is destroyed
             if (gCurrentSprite.spriteID == PSPRITE_GERON_BRINSTAR_ROOM_15)
@@ -42,7 +46,7 @@ void Geron(void)
             {
                 if (!EventFunction(EVENT_ACTION_CHECKING, EVENT_HIGH_JUMP_OBTAINED))
                 {
-                    gCurrentSprite.status = 0x0;
+                    gCurrentSprite.status = 0;
                     break;
                 }
 
@@ -66,25 +70,25 @@ void Geron(void)
             }
             else
             {
-                gCurrentSprite.status = 0x0;
+                gCurrentSprite.status = 0;
                 break;
             }
 
-            gCurrentSprite.drawDistanceTopOffset = 0x30;
-            gCurrentSprite.drawDistanceBottomOffset = 0x0;
-            gCurrentSprite.drawDistanceHorizontalOffset = 0x14;
+            gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE * 3);
+            gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(0);
+            gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE + QUARTER_BLOCK_SIZE);
 
-            gCurrentSprite.hitboxTopOffset = -0xC0;
-            gCurrentSprite.hitboxBottomOffset = 0x0;
-            gCurrentSprite.hitboxLeftOffset = -0x30;
-            gCurrentSprite.hitboxRightOffset = 0x30;
+            gCurrentSprite.hitboxTopOffset = -(BLOCK_SIZE * 3);
+            gCurrentSprite.hitboxBottomOffset = 0;
+            gCurrentSprite.hitboxLeftOffset = -(QUARTER_BLOCK_SIZE * 3);
+            gCurrentSprite.hitboxRightOffset = (QUARTER_BLOCK_SIZE * 3);
 
-            gCurrentSprite.drawOrder = 0x5;
-            gCurrentSprite.currentAnimationFrame = 0x0;
-            gCurrentSprite.animationDurationCounter = 0x0;
+            gCurrentSprite.drawOrder = 5;
+            gCurrentSprite.currentAnimationFrame = 0;
+            gCurrentSprite.animationDurationCounter = 0;
 
             gCurrentSprite.samusCollision = SSC_NONE;
-            gCurrentSprite.arrayOffset = 0x0;
+            gCurrentSprite.arrayOffset = 0;
 
             if (destroyed)
             {
@@ -97,7 +101,7 @@ void Geron(void)
             {
                 // Set idle
                 gCurrentSprite.pose = GERON_POSE_IDLE;
-                gCurrentSprite.health = 0x1;
+                gCurrentSprite.health = 1;
                 gCurrentSprite.pOam = sGeronOAM_Idle;
 
                 yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
@@ -105,10 +109,13 @@ void Geron(void)
 
                 // Set collision
                 caa = CAA_MAKE_NON_POWER_GRIP;
+
                 gCurrentClipdataAffectingAction = caa;
                 ClipdataProcess(yPosition, xPosition);
+
                 gCurrentClipdataAffectingAction = caa;
                 ClipdataProcess(yPosition - BLOCK_SIZE, xPosition);
+
                 gCurrentClipdataAffectingAction = caa;
                 ClipdataProcess(yPosition - (BLOCK_SIZE * 2), xPosition);
             }
@@ -116,7 +123,7 @@ void Geron(void)
 
         case GERON_POSE_IDLE:
             spriteTop = gCurrentSprite.yPosition + gCurrentSprite.hitboxTopOffset;
-            spriteBottom = gCurrentSprite.yPosition + 0x8;
+            spriteBottom = gCurrentSprite.yPosition + PIXEL_SIZE * 2;
             spriteLeft = gCurrentSprite.xPosition + gCurrentSprite.hitboxLeftOffset;
             spriteRight = gCurrentSprite.xPosition + gCurrentSprite.hitboxRightOffset;
 
@@ -141,33 +148,36 @@ void Geron(void)
 
                         // Set no collision to prevent being counted twice
                         pSprite->samusCollision = SSC_NONE;
+
                         // Increase amount of parasites
                         gCurrentSprite.arrayOffset++;
                     }
                 }
             }
 
-            if (gCurrentSprite.arrayOffset >= 0x4)
+            if (gCurrentSprite.arrayOffset >= 4)
             {
                 // Set getting destroyed
                 gCurrentSprite.pose = GERON_POSE_GETTING_DESTROYED;
+
                 gCurrentSprite.pOam = sGeronOAM_GettingDestroyed;
-                gCurrentSprite.currentAnimationFrame = 0x0;
-                gCurrentSprite.animationDurationCounter = 0x0;
-                gCurrentSprite.timer = 0xC8;
+                gCurrentSprite.currentAnimationFrame = 0;
+                gCurrentSprite.animationDurationCounter = 0;
+
+                gCurrentSprite.timer = 200;
                 SoundPlayNotAlreadyPlaying(0x26C);
             }
             else
             {
                 // Check should shake 
-                if (gCurrentSprite.invincibilityStunFlashTimer & 0x7F)
+                if (SPRITE_HAS_ISFT(gCurrentSprite))
                 {
-                    if ((gCurrentSprite.invincibilityStunFlashTimer & 0x7F) == 0x2)
+                    if (SPRITE_HAS_ISFT(gCurrentSprite) == 0x2)
                     {
                         // Set shaking
                         gCurrentSprite.pOam = sGeronOAM_Shaking;
-                        gCurrentSprite.currentAnimationFrame = 0x0;
-                        gCurrentSprite.animationDurationCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0;
+                        gCurrentSprite.animationDurationCounter = 0;
                         SoundPlayNotAlreadyPlaying(0x26B);
                     }
                 }
@@ -177,8 +187,8 @@ void Geron(void)
                     {
                         // Set idle
                         gCurrentSprite.pOam = sGeronOAM_Idle;
-                        gCurrentSprite.currentAnimationFrame = 0x0;
-                        gCurrentSprite.animationDurationCounter = 0x0;
+                        gCurrentSprite.currentAnimationFrame = 0;
+                        gCurrentSprite.animationDurationCounter = 0;
                     }
                 }
             }
@@ -186,19 +196,21 @@ void Geron(void)
         
         case GERON_POSE_GETTING_DESTROYED:
             gCurrentSprite.timer--;
-            if (gCurrentSprite.timer == 0x0)
+            if (gCurrentSprite.timer == 0)
             {
                 gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
                 gCurrentSprite.pose = GERON_POSE_DELAY_BEFORE_DESTROYED;
 
-                yPosition = gCurrentSprite.yPosition - (HALF_BLOCK_SIZE);
+                yPosition = gCurrentSprite.yPosition - HALF_BLOCK_SIZE;
                 xPosition = gCurrentSprite.xPosition;
 
                 // Remove collision
                 gCurrentClipdataAffectingAction = CAA_REMOVE_SOLID;
                 ClipdataProcess(yPosition, xPosition);
+
                 gCurrentClipdataAffectingAction = CAA_REMOVE_SOLID;
                 ClipdataProcess(yPosition - BLOCK_SIZE, xPosition);
+
                 gCurrentClipdataAffectingAction = CAA_REMOVE_SOLID;
                 ClipdataProcess(yPosition - (BLOCK_SIZE * 2), xPosition);
 
@@ -222,8 +234,8 @@ void Geron(void)
                 // Set destroyed
                 gCurrentSprite.pose = GERON_POSE_DESTROYED;
                 gCurrentSprite.pOam = sGeronOAM_Destroyed;
-                gCurrentSprite.currentAnimationFrame = 0x0;
-                gCurrentSprite.animationDurationCounter = 0x0;
+                gCurrentSprite.currentAnimationFrame = 0;
+                gCurrentSprite.animationDurationCounter = 0;
             }
             break;
     }

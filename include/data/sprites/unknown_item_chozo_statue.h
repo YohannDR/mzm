@@ -77,23 +77,23 @@ extern const u16 sUnknownItemChozoStatuePartOAM_ArmGlow_Frame4[34];
 
 extern const u16 sUnknownItemChozoStatuePartOAM_ArmSamusGrabbed_Frame0[28];
 
-extern const u16 sChozoBallOAM_UnknownClosed_Frame0[10];
+extern const u16 sChozoBallOam_UnknownClosed_Frame0[10];
 
-extern const u16 sChozoBallOAM_UnknownClosed_Frame1[10];
+extern const u16 sChozoBallOam_UnknownClosed_Frame1[10];
 
-extern const u16 sChozoBallOAM_UnknownClosed_Frame3[10];
+extern const u16 sChozoBallOam_UnknownClosed_Frame3[10];
 
-extern const u16 sChozoBallOAM_UnknownRevealing_Frame0[16];
+extern const u16 sChozoBallOam_UnknownRevealing_Frame0[16];
 
-extern const u16 sChozoBallOAM_UnknownRevealing_Frame1[19];
+extern const u16 sChozoBallOam_UnknownRevealing_Frame1[19];
 
-extern const u16 sChozoBallOAM_UnknownRevealing_Frame2[19];
+extern const u16 sChozoBallOam_UnknownRevealing_Frame2[19];
 
-extern const u16 sChozoBallOAM_UnknownRevealed_Frame0[7];
+extern const u16 sChozoBallOam_UnknownRevealed_Frame0[7];
 
-extern const u16 sChozoBallOAM_UnknownRevealed_Frame1[7];
+extern const u16 sChozoBallOam_UnknownRevealed_Frame1[7];
 
-extern const u16 sChozoBallOAM_UnknownRevealed_Frame2[7];
+extern const u16 sChozoBallOam_UnknownRevealed_Frame2[7];
 
 extern const u16 sUnknownItemChozoStatueRefillOAM_Frame0[13];
 
@@ -159,11 +159,11 @@ extern const struct FrameData sUnknownItemChozoStatuePartOAM_ArmGlow[9];
 
 extern const struct FrameData sUnknownItemChozoStatuePartOAM_ArmSamusGrabbed[2];
 
-extern const struct FrameData sChozoBallOAM_UnknownClosed[5];
+extern const struct FrameData sChozoBallOam_UnknownClosed[5];
 
-extern const struct FrameData sChozoBallOAM_UnknownRevealing[4];
+extern const struct FrameData sChozoBallOam_UnknownRevealing[4];
 
-extern const struct FrameData sChozoBallOAM_UnknownRevealed[5];
+extern const struct FrameData sChozoBallOam_UnknownRevealed[5];
 
 extern const struct FrameData sUnknownItemChozoStatueRefillOAM[41];
 

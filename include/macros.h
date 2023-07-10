@@ -47,11 +47,28 @@
 #define sin(a) (sSineTable[(a)])
 #define cos(a) (sSineTable[(a) + PI / 2])
 
+/**
+ * @brief Performs a modulo (value % mod) operation on a value using the and operation (WARNING only use a value for mod that is divisble by 2)
+ * 
+ * @param value Value
+ * @param mod Modulo
+ */
 #define MOD_AND(value, mod) ((value) & ((mod) - 1))
+
+/**
+ * @brief Performs a division (value / div) operation on a value using the right shift operation (WARNING only use a value for div that is divisble by 2)
+ * 
+ * @param value Value
+ * @param div Divisor
+ */
+#define DIV_SHIFT(value, div) ((value) >> ((div) / 2))
 
 #define GET_PSPRITE_HEALTH(id) sPrimarySpriteStats[(id)][0]
 #define GET_SSPRITE_HEALTH(id) sSecondarySpriteStats[(id)][0]
-#define BLOCK_TO_DRAW_DISTANCE(block) ((block) / 4)
+
+#define SUB_PIXEL_TO_PIXEL(pixel) ((pixel) / SUB_PIXEL_RATIO)
+#define PIXEL_TO_SUBPIXEL(pixel) ((pixel) * SUB_PIXEL_RATIO)
+
 #define SPRITE_HAS_ISFT(sprite) ((sprite).invincibilityStunFlashTimer & 0x7F)
 #define SPRITE_CLEAR_ISFT(sprite) ((sprite).invincibilityStunFlashTimer &= 0x80)
 #define SPRITE_SET_ISFT(sprite, value) ((sprite).invincibilityStunFlashTimer |= (value))

@@ -22,9 +22,9 @@ void PolypInit(void)
     gCurrentSprite.hitboxLeftOffset = -(BLOCK_SIZE - PIXEL_SIZE * 2);
     gCurrentSprite.hitboxRightOffset = (BLOCK_SIZE - PIXEL_SIZE * 2);
 
-    gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(BLOCK_SIZE);
 
     gCurrentSprite.samusCollision = SSC_KNOCKS_BACK_SAMUS;
     gCurrentSprite.health = GET_PSPRITE_HEALTH(gCurrentSprite.spriteID);
@@ -160,9 +160,9 @@ void PolypProjectileInit(void)
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
     gCurrentSprite.properties |= SP_KILL_OFF_SCREEN;
 
-    gCurrentSprite.drawDistanceTopOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceBottomOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
-    gCurrentSprite.drawDistanceHorizontalOffset = BLOCK_TO_DRAW_DISTANCE(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceTopOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceBottomOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
+    gCurrentSprite.drawDistanceHorizontalOffset = SUB_PIXEL_TO_PIXEL(HALF_BLOCK_SIZE);
 
     gCurrentSprite.hitboxTopOffset = -QUARTER_BLOCK_SIZE;
     gCurrentSprite.hitboxBottomOffset = QUARTER_BLOCK_SIZE;
@@ -221,7 +221,7 @@ void PolypProjectileMove(void)
     s32 yMovement;
     u8 offset;
 
-    xMovement = 4;
+    xMovement = PIXEL_SIZE;
 
     // Y movement
     offset = gCurrentSprite.arrayOffset;
@@ -260,7 +260,7 @@ void PolypProjectileExplodingInit(void)
     gCurrentSprite.currentAnimationFrame = 0;
 
     gCurrentSprite.pose = POLYP_PROJECTILE_POSE_EXPLODING;
-    gCurrentSprite.bgPriority = gIoRegistersBackup.BG1CNT & 3;
+    gCurrentSprite.bgPriority = MOD_AND(gIoRegistersBackup.BG1CNT, 4);
     gCurrentSprite.status |= SPRITE_STATUS_IGNORE_PROJECTILES;
 
     if (gCurrentSprite.status & SPRITE_STATUS_ONSCREEN)

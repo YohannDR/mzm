@@ -1,4 +1,5 @@
 #include "sprites_AI/chozo_statue_movement.h"
+#include "macros.h"
 
 #include "structs/sprite.h"
 #include "constants/sprite.h"
@@ -10,55 +11,62 @@
  */
 void SpawnChozoStatueMovement(u8 stage)
 {
-    u8 ramSlot;
+    u8 i;
     u16 status;
 
-    for (ramSlot = 0x0; ramSlot < MAX_AMOUNT_OF_SPRITES; ramSlot++)
+    for (i = 0; i < MAX_AMOUNT_OF_SPRITES; i++)
     {
-        if (!(gSpriteData[ramSlot].status & SPRITE_STATUS_EXISTS))
+        if (gSpriteData[i].status & SPRITE_STATUS_EXISTS)
+            continue;
+
+        if (MOD_AND(stage, 2))
         {
-            if (stage & 0x1)
-            {
-                gSpriteData[ramSlot].status = ((gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-                    | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_IGNORE_PROJECTILES));
-            }
-            else
-            {
-                gSpriteData[ramSlot].status = ((gCurrentSprite.status & SPRITE_STATUS_XFLIP)
-                    | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES));
-            }
-
-            if (gCurrentSprite.drawOrder < 0x8)
-                gSpriteData[ramSlot].drawOrder = gCurrentSprite.drawOrder + 0x9;
-            else
-                gSpriteData[ramSlot].drawOrder = gCurrentSprite.drawOrder + 0x1;
-
-            gSpriteData[ramSlot].properties = (SP_ALWAYS_ACTIVE | SP_SECONDARY_SPRITE);
-            gSpriteData[ramSlot].spritesetGfxSlot = gCurrentSprite.spritesetGfxSlot;
-            gSpriteData[ramSlot].spriteID = SSPRITE_CHOZO_STATUE_MOVEMENT;
-            gSpriteData[ramSlot].yPosition = gCurrentSprite.yPosition;
-            gSpriteData[ramSlot].xPosition = gCurrentSprite.xPosition;
-            gSpriteData[ramSlot].roomSlot = 0x0;
-            gSpriteData[ramSlot].bgPriority = gCurrentSprite.bgPriority;
-            gSpriteData[ramSlot].pose = 0x0;
-            gSpriteData[ramSlot].health = 0x0;
-            gSpriteData[ramSlot].invincibilityStunFlashTimer = 0x0;
-            gSpriteData[ramSlot].paletteRow = gCurrentSprite.paletteRow;
-            gSpriteData[ramSlot].frozenPaletteRowOffset = gCurrentSprite.frozenPaletteRowOffset;
-            gSpriteData[ramSlot].absolutePaletteRow = gCurrentSprite.absolutePaletteRow;
-            gSpriteData[ramSlot].ignoreSamusCollisionTimer = 0x1;
-            gSpriteData[ramSlot].primarySpriteRamSlot = ramSlot;
-            gSpriteData[ramSlot].freezeTimer = 0x0;
-            gSpriteData[ramSlot].timer = 0x20;
-            gSpriteData[ramSlot].samusCollision = SSC_NONE;
-            gSpriteData[ramSlot].pOam = gCurrentSprite.pOam;
-            gSpriteData[ramSlot].animationDurationCounter = 0x0;
-            gSpriteData[ramSlot].currentAnimationFrame = gCurrentSprite.currentAnimationFrame;
-            gSpriteData[ramSlot].drawDistanceTopOffset = gCurrentSprite.drawDistanceTopOffset;
-            gSpriteData[ramSlot].drawDistanceBottomOffset = gCurrentSprite.drawDistanceBottomOffset;
-            gSpriteData[ramSlot].drawDistanceHorizontalOffset = gCurrentSprite.drawDistanceHorizontalOffset;
-            break;
+            gSpriteData[i].status = ((gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_IGNORE_PROJECTILES));
         }
+        else
+        {
+            gSpriteData[i].status = ((gCurrentSprite.status & SPRITE_STATUS_XFLIP)
+                | (SPRITE_STATUS_EXISTS | SPRITE_STATUS_ONSCREEN | SPRITE_STATUS_NOT_DRAWN | SPRITE_STATUS_IGNORE_PROJECTILES));
+        }
+
+        if (gCurrentSprite.drawOrder < 8)
+            gSpriteData[i].drawOrder = gCurrentSprite.drawOrder + 9;
+        else
+            gSpriteData[i].drawOrder = gCurrentSprite.drawOrder + 1;
+
+        gSpriteData[i].properties = SP_ALWAYS_ACTIVE | SP_SECONDARY_SPRITE;
+        gSpriteData[i].spritesetGfxSlot = gCurrentSprite.spritesetGfxSlot;
+        gSpriteData[i].spriteID = SSPRITE_CHOZO_STATUE_MOVEMENT;
+
+        gSpriteData[i].yPosition = gCurrentSprite.yPosition;
+        gSpriteData[i].xPosition = gCurrentSprite.xPosition;
+
+        gSpriteData[i].roomSlot = 0;
+        gSpriteData[i].bgPriority = gCurrentSprite.bgPriority;
+
+        gSpriteData[i].pose = SPRITE_POSE_UNINITIALIZED;
+        gSpriteData[i].health = 0;
+        gSpriteData[i].invincibilityStunFlashTimer = 0;
+
+        gSpriteData[i].paletteRow = gCurrentSprite.paletteRow;
+        gSpriteData[i].frozenPaletteRowOffset = gCurrentSprite.frozenPaletteRowOffset;
+        gSpriteData[i].absolutePaletteRow = gCurrentSprite.absolutePaletteRow;
+
+        gSpriteData[i].ignoreSamusCollisionTimer = 1;
+        gSpriteData[i].primarySpriteRamSlot = i;
+        gSpriteData[i].freezeTimer = 0;
+        gSpriteData[i].timer = 32;
+
+        gSpriteData[i].samusCollision = SSC_NONE;
+        gSpriteData[i].pOam = gCurrentSprite.pOam;
+        gSpriteData[i].animationDurationCounter = 0;
+
+        gSpriteData[i].currentAnimationFrame = gCurrentSprite.currentAnimationFrame;
+        gSpriteData[i].drawDistanceTopOffset = gCurrentSprite.drawDistanceTopOffset;
+        gSpriteData[i].drawDistanceBottomOffset = gCurrentSprite.drawDistanceBottomOffset;
+        gSpriteData[i].drawDistanceHorizontalOffset = gCurrentSprite.drawDistanceHorizontalOffset;
+        break;
     }
 }
 
@@ -68,10 +76,11 @@ void SpawnChozoStatueMovement(u8 stage)
  */
 void ChozoStatueMovement(void)
 {
-    gCurrentSprite.ignoreSamusCollisionTimer = 0x1;
+    gCurrentSprite.ignoreSamusCollisionTimer = 1;
     gCurrentSprite.status ^= SPRITE_STATUS_NOT_DRAWN;
     gCurrentSprite.animationDurationCounter--;
     gCurrentSprite.timer--;
-    if (gCurrentSprite.timer == 0x0)
-        gCurrentSprite.status = 0x0;
+
+    if (gCurrentSprite.timer == 0)
+        gCurrentSprite.status = 0;
 }
